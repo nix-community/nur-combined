@@ -1,0 +1,106 @@
+#!/bin/sh
+
+dev_wifi=wlp3s0
+dev_eth=enp0s31f6
+dev_vpn=tun0
+
+base03=#002b36
+base02=#073642
+base01=#586e75
+base00=#657b83
+base0=#839496
+base1=#93a1a1
+base2=#eee8d5
+base3=#fdf6e3
+yellow=#b58900
+orange=#cb4b16
+red=#dc322f
+magenta=#d33682
+violet=#6c71c4
+blue=#268bd2
+cyan=#2aa198
+green=#859900
+
+# connectivity status
+# states are:
+# none (no connectivity)
+# portal (behind captive portal)
+# limited (connected to network but no internet access)
+# full (full internet connectivity)
+# unknown
+
+std_color=$base2
+wifi_icon=""
+
+connectivity="$(nmcli networking connectivity)"
+
+case $connectivity in
+    none) color=$red; icon=" " ;; # f056 fa-minus-circle 
+    portal) color=$yellow; icon=" " ;; # f05c fa-times-circle-o
+    limited) color=$yellow; icon=" " ;; # f01b fa-arrow-circle-o-up 
+    full) color=$std_color; icon="" ;; # icon="" ;; # f0aa fa-arrow-circle-up 
+    *) color=$red; icon=" " ;; # f29c fa-question-circle-o
+esac
+
+eth="$(ip -o address | grep -i "$dev_eth *inet ")"
+if [ -n "$eth" ]
+then
+    #eth="${eth##*inet }"
+    speed="$(cat /sys/class/net/$dev_eth/speed)"
+    case $speed in
+        10) speed="10Base-T" ;;
+        100) speed="100Base-T" ;;
+        1000) speed="Gigabit" ;;
+        *) speed="UNKNOWN $speed" ;;
+    esac
+    #eth_status=" <fn=1></fn> $speed ${eth%%/*}"
+    eth_status=" <fn=1></fn> $speed"
+fi
+
+ssid="$(iw dev $dev_wifi link | grep -i SSID)"
+if [ -n "$ssid" ]
+then
+    signal="$(iw dev wlp3s0 station dump | egrep '[^ ]signal avg')"
+    signal="${signal#*-}"
+    signal="${signal%% *}"
+    signal="$((2*(100-signal)))"
+        
+#    if   ((signal < 20))
+#    then
+#        sigicon="⠀"
+#    elif ((signal < 40))
+#    then
+#        sigicon="⣀"
+#    elif ((signal < 60))
+#    then
+#        sigicon="⣤"
+#    elif ((signal < 80))
+#    then
+#        sigicon="⣶"
+#    else
+#        sigicon="⣿"
+#    fi
+    signal=$((signal/5*5)) # get rid of some jitter
+    ((signal > 100)) && signal=100
+    #    ▁ ▂ ▃ ▄ ▅ ▆ ▇ █
+    wifi_status=" <fn=1>$wifi_icon</fn> ${signal}% ${ssid##*SSID: }"
+#    if [ -n "$eth" ]
+#    then
+#        wifi_ip="$(ip -o address | grep -i "$dev_wifi *inet ")"
+#        wifi_ip=" ${wifi_ip##*inet }"
+#        wifi_status="$wifi_status${wifi_ip%%/*}"
+#    fi
+fi
+
+vpn="$(ip -o address | grep -i "$dev_vpn *inet ")"
+if [ -n "$vpn" ]
+then
+    #vpn="${vpn##*inet }"
+    #vpn_status="<fn=1></fn> ${vpn%%/*}"
+    vpn_status="<fn=1></fn> "
+    color=$green
+else
+    vpn_status="<fn=1></fn> "
+fi
+
+echo "<fc=$color>${vpn_status}<fn=1>$icon</fn>${connectivity##*full}$wifi_status$eth_status</fc>"

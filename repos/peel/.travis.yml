@@ -1,0 +1,67 @@
+language: nix
+matrix:
+  include:
+    - os: linux
+      
+sudo: yes
+
+env:
+  global:
+    - CACHIX_CACHE=peel
+    - NUR_REPO=peel/nur-packages
+    
+matrix:
+  allow_failures:
+    - os: osx
+      
+os:
+  - osx
+  - linux
+  
+cache:
+  directories:
+    - $HOME/nix.store
+before_cache:
+  - mkdir -p $HOME/nix.store
+  - nix copy --to file://$HOME/nix.store -f default.nix buildInputs
+
+before_install:
+   - travis_retry nix-channel --update
+   - sudo mkdir -p /etc/nix
+   - echo "trusted-users = root $USER" | sudo tee -a /etc/nix/nix.conf
+   - echo 'require-sigs = false' | sudo tee -a /etc/nix/nix.conf > /dev/null
+   - echo "substituters = https://cache.nixos.org/ https://peel.cachix.org https://cachix.cachix.org file://$HOME/nix.store" | sudo tee -a /etc/nix/nix.conf > /dev/null
+   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo launchctl stop org.nixos.nix-daemon; fi 
+   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo launchctl start org.nixos.nix-daemon && sleep 5; fi
+
+    
+install:
+ - if [ -n "${CACHIX_CACHE}" ]; then nix-env -if https://github.com/cachix/cachix/tarball/master --substituters https://cachix.cachix.org --trusted-public-keys cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM=; fi
+ - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
+ - nix-env -iA nixpkgs.emacs
+ - mkdir -p ~/.emacs.d && curl -sSL https://raw.githubusercontent.com/hniksic/emacs-htmlize/master/htmlize.el --output ~/.emacs.d/htmlize.el
+
+script:
+ - outs=$(nix-build non-broken.nix) && echo Produced $outs
+ - nix eval -f default.nix 'lib'
+ - nix eval -f default.nix 'modules'
+ - nix eval -f default.nix 'overlays'
+ - nix eval -f default.nix 'darwin-modules'
+
+after_success:
+  - if [ -n "${CACHIX_CACHE}" ]; then cachix push "${CACHIX_CACHE}" $outs; fi
+  - if [ "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
+      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
+  - git tag "${TRAVIS_BUILD_NUMBER}" -m "🚀️ ship it"
+  - cd docs && emacs -Q index.org --batch --eval "(progn (load \"~/.emacs.d/htmlize.el\")(org-babel-tangle)(org-html-export-to-html))" --kill
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  local-dir: docs
+  target-branch: gh-pages
+  fqdn: nur.codearsonist.com
+  on:
+    branch: master

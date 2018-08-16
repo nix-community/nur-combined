@@ -1,0 +1,37 @@
+#!/bin/sh
+
+base03=#002b36
+base02=#073642
+base01=#586e75
+base00=#657b83
+base0=#839496
+base1=#93a1a1
+base2=#eee8d5
+base3=#fdf6e3
+yellow=#b58900
+orange=#cb4b16
+red=#dc322f
+magenta=#d33682
+violet=#6c71c4
+blue=#268bd2
+cyan=#2aa198
+green=#859900
+
+color=$base2
+volume="$(amixer sget Master | grep 'Front Left')"
+if [ "${volume}" = "${volume%\[off\]*}" ]
+then
+	volume="${volume#*\[}"
+	status="${volume%%\%\]*}"
+	case $((status/50)) in
+		0) icon="" ;; # fa-volume-down f027
+		1) icon="" ;; # fa-volume-up f028
+		*) icon=""; color=$orange ;; # fa-volume-up f028
+	esac
+else
+	status=MUTE
+	color=$red
+	icon="" # fa-volume-off f026
+fi
+echo "<fc=$color><fn=1>$icon</fn> $status</fc>"
+
