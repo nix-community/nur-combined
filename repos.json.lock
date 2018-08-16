@@ -1,0 +1,90 @@
+{
+    "repos": {
+        "dezgeg": {
+            "rev": "2d1018064f60640b6dcc2201efcfc9d0a92a7889",
+            "sha256": "0x9q6zdw56sldffqhyvwdx64bjzw5yb6idag4ggrf6ivisrvyszy",
+            "url": "https://github.com/dezgeg/nur-packages"
+        },
+        "dtz": {
+            "rev": "b5418b2804b298209633832e097892e77c72cdd3",
+            "sha256": "1izx36jxvw6ixn3nba44zxl81vqyd2p46msk3w4iclj0v7f2r2dg",
+            "url": "https://github.com/dtzWill/nur-packages"
+        },
+        "dywedir": {
+            "rev": "81f9e1c53179adf414d39ca8f7dedc1a9c291b02",
+            "sha256": "1pvxin5hnf0z8p1i12fjjvnsy52k1jmjckfgyqn2wlgkh8dhsizv",
+            "url": "https://github.com/dywedir/nur-packages"
+        },
+        "eeva": {
+            "rev": "4cf38e3602f0e5925695140c676d1378b40734e4",
+            "sha256": "1a82fj82d09zasqfc6x53gcys10pnbg0hf7rrsiwi9wkykrlja08",
+            "url": "https://framagit.org/eeva/nur-packages"
+        },
+        "fgaz": {
+            "rev": "34a9b9bb6b366f13368bdb396721ea2033021512",
+            "sha256": "1g9g3jkzxq3ljhn1pipgx61xcbrin93p1jb0pn800b4plidzzb2j",
+            "url": "https://github.com/fgaz/nur-packages"
+        },
+        "izorkin": {
+            "rev": "0bb183676859bae69a6f883449938479420d3e36",
+            "sha256": "02ar49kwism80ynivx8dnzlvxnbl1sl1ayyl4v78l88vg6lz57wk",
+            "url": "https://github.com/Izorkin/nur-packages"
+        },
+        "johnazoidberg": {
+            "rev": "e71f634889da3572c3bd5cd412bf96f719ca306c",
+            "sha256": "14nd5mw7aqqmnv3xkwnd1gsh3zn73vdlry4d295sqnpyc8r01l8i",
+            "url": "https://github.com/JohnAZoidberg/nur-packages"
+        },
+        "kampka": {
+            "rev": "92c2a48b1ab91ed94af7683a22b4206de69e3b51",
+            "sha256": "0isa0vvzfv963hdd4z84dc9s0wh4lwcacqgl6529vp8f9x6qpzdm",
+            "url": "https://github.com/kampka/nix-packages"
+        },
+        "ma27": {
+            "rev": "b13a88463741f8e9d755e932ea6b15764d7225e8",
+            "sha256": "18wy5zygnmrrhyh9v3x3ha33kim61imavrmigfn74cxfs9bhbp5d",
+            "url": "https://gitlab.com/Ma27/nur-packages"
+        },
+        "makefu": {
+            "rev": "0b0d425caed45b053efa631b7260599dbf0eae5d",
+            "sha256": "0q5dd252ck95vp6145prjqz49fqsyncxwh5324cj2h01yb4bppf7",
+            "url": "https://github.com/makefu/nur-packages"
+        },
+        "manveru": {
+            "rev": "fecba576d85e9a0aa44c18bb7b69b05299060deb",
+            "sha256": "16gvpvf12crlkzzl1y9ysnbnh3ai03dpfali20zwpailar9xz53k",
+            "url": "https://github.com/manveru/nur-packages"
+        },
+        "matthewbauer": {
+            "rev": "21b678d31d567730921dd932fef6682694715b65",
+            "sha256": "0h5al1rd3pklk5m76g47l5c34l272grappbaracxi9ryzmsxckc4",
+            "url": "https://github.com/matthewbauer/nur-packages"
+        },
+        "mic92": {
+            "rev": "4ffeb3e8759c2507b828b69f2a490237a8458d92",
+            "sha256": "07h9s453mj8b5agw3anzwiwam9lhrh4cwkm2ivdrydijln8ajnhg",
+            "url": "https://github.com/Mic92/nur-packages"
+        },
+        "mpickering": {
+            "rev": "a9fca192f4960341f49acbcd92de1105616f8f63",
+            "sha256": "095sf4nvl2bmgk3ddw9jd3g9wkfbjm67a10r8ajpiqzdwrimy31r",
+            "submodules": true,
+            "url": "https://github.com/mpickering/nur-packages"
+        },
+        "peel": {
+            "rev": "907b8cec7683c71950e259f40b15d447b2ea85a5",
+            "sha256": "10yx7jpfqwsfx701d7vpav00sj5blgar1myb96hghkgdck2nrczn",
+            "url": "https://github.com/peel/nur-packages"
+        },
+        "tilpner": {
+            "rev": "30cc5ab2260d6bacdc99d466c8677c133d844c4b",
+            "sha256": "1q2w6fzx72q69a5lm2z8c2g5zsgwf1all6qp47kgai66yhc3f355",
+            "url": "https://github.com/tilpner/nur-packages"
+        },
+        "yurrriq": {
+            "rev": "1fe8d2b29bad86b55e998b9ad169eb2fec694a59",
+            "sha256": "1mvd1fcnznp5nhb6hlcsvn0v7m4awz64fska5hzwhxjcbbiv236q",
+            "url": "https://github.com/yurrriq/nur-packages"
+        }
+    }
+}
