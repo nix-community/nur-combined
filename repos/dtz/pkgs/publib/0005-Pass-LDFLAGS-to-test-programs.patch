@@ -1,0 +1,23 @@
+From: Robert Luberda <robert@debian.org>
+Date: Tue, 19 Jan 2016 22:36:00 +0100
+Subject: Pass LDFLAGS to test programs
+
+Hopefully make build log checker happy by passing $(LDFLAGS)
+for linking test programs.
+---
+ Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 721caf7..3acf9fe 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -347,7 +347,7 @@ libpub.a : $(objs)
+ 
+ check : libpub.a
+ 	@set -e; for f in $(tests) ; do\
+-	  $(echoexec) $(CC) -Iincludes $(CPPFLAGS) $(CFLAGS) $$f libpub.a ;\
++	  $(echoexec) $(CC) -Iincludes $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $$f libpub.a ;\
+ 	  echo './a.out </dev/null >/dev/null' ;\
+ 	  ./a.out </dev/null >/dev/null ;\
+ 	  $(echoexec) $(RM) a.out ;\

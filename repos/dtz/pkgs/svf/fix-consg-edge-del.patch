@@ -1,0 +1,51 @@
+From 15d12fe980ba0b27054ddffd1e5fca11f1bf26fd Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Thu, 4 May 2017 16:11:41 -0500
+Subject: [PATCH] ConsG: Delete edge after checking its properties.
+
+As noted in comments, unsure if the check makes sense
+before removing it but it crashes as-is so
+here's hoping the check can be done before.
+---
+ lib/MemoryModel/ConsG.cpp | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/lib/MemoryModel/ConsG.cpp b/lib/MemoryModel/ConsG.cpp
+index a88d675..467c8fd 100644
+--- a/lib/MemoryModel/ConsG.cpp
++++ b/lib/MemoryModel/ConsG.cpp
+@@ -400,12 +400,14 @@ bool ConstraintGraph::moveInEdgesToRepNode(ConstraintNode* node, ConstraintNode*
+         if(isa<CopyCGEdge>(edge))
+             removeDirectEdge(edge);
+         else if (isa<GepCGEdge>(edge)) {
+-            removeDirectEdge(edge);
+             // If the GEP is critical (i.e. may have a non-zero offset),
+             // then it brings impact on field-sensitivity.
+             if (!isZeroOffsettedGepCGEdge(edge)) {
+                 criticalGepInsideSCC = true;
+             }
++            // XXX: Not sure if above check makes sense before removing edge,
++            // however we can't check /after/ deleting it so here's hoping.
++            removeDirectEdge(edge);
+         }
+         else if(isa<LoadCGEdge>(edge) || isa<StoreCGEdge>(edge))
+             reTargetDstOfEdge(edge,rep);
+@@ -451,12 +453,14 @@ bool ConstraintGraph::moveOutEdgesToRepNode(ConstraintNode*node, ConstraintNode*
+         if(isa<CopyCGEdge>(edge))
+             removeDirectEdge(edge);
+         else if (isa<GepCGEdge>(edge)) {
+-            removeDirectEdge(edge);
+             // If the GEP is critical (i.e. may have a non-zero offset),
+             // then it brings impact on field-sensitivity.
+             if (!isZeroOffsettedGepCGEdge(edge)) {
+                 criticalGepInsideSCC = true;
+             }
++            // XXX: Not sure if above check makes sense before removing edge,
++            // however we can't check /after/ deleting it so here's hoping.
++            removeDirectEdge(edge);
+         }
+         else if(isa<LoadCGEdge>(edge) || isa<StoreCGEdge>(edge))
+             reTargetSrcOfEdge(edge,rep);
+-- 
+2.12.2
+

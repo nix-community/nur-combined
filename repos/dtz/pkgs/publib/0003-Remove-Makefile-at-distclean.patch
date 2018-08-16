@@ -1,0 +1,28 @@
+From: Robert Luberda <robert@debian.org>
+Date: Mon, 18 Jan 2016 23:43:11 +0100
+Subject: Remove Makefile at distclean
+
+Make sure distclean target removes generated Makefile
+to be able to perform two builds in a row without causing
+dpkg to fail with:
+
+dpkg-source: info: building publib using existing ./publib_0.40.orig.tar.gz
+dpkg-source: info: local changes detected, the modified files are:
+ publib-0.40/Makefile
+---
+ Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 8ba0382..721caf7 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -300,7 +300,7 @@ clean mostlyclean :
+ 	$(RM) libpub.a */*.o */*.d
+ 
+ distclean maintainer-clean : clean
+-	$(RM) config.log config.status
++	$(RM) config.log config.status Makefile
+ 
+ install : libpub.a
+ 	$(PRE_INSTALL)

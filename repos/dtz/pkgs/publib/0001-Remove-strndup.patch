@@ -1,0 +1,45 @@
+From: Robert Luberda <robert@debian.org>
+Date: Mon, 18 Jan 2016 23:11:34 +0100
+Subject: Remove strndup
+
+Do not compile strndup.o, do not install strndup.3 man page,
+and remove strndup declaration from strutil.h to fix FTBFS
+with current gcc andglibc that defines strndup as a macro
+(closes: #790273)
+---
+ Makefile.in               | 2 --
+ includes/publib/strutil.h | 1 -
+ 2 files changed, 3 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 0981ae3..8ba0382 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -167,7 +167,6 @@ objs =  alloc/memdup.o          \
+ 	strutil/strmaxcpy.o     \
+ 	strutil/strmove.o       \
+ 	strutil/strmtrim.o      \
+-	strutil/strndup.o       \
+ 	strutil/strnins.o       \
+ 	strutil/strnlen.o       \
+ 	strutil/stroverlap.o    \
+@@ -257,7 +256,6 @@ manpages =                          \
+ 	man/strmaxcpy.3             \
+ 	man/strmove.3               \
+ 	man/strmtrim.3              \
+-	man/strndup.3               \
+ 	man/strnins.3               \
+ 	man/stroverlap.3            \
+ 	man/strrev.3                \
+diff --git a/includes/publib/strutil.h b/includes/publib/strutil.h
+index c80e0f2..953f667 100644
+--- a/includes/publib/strutil.h
++++ b/includes/publib/strutil.h
+@@ -64,7 +64,6 @@ size_t strnlen(const char *, size_t);
+ char *strmaxcpy(char *, const char *, size_t);
+ char *strmove(char *, const char *);
+ char *strmtrim(char *);
+-char *strndup(const char *, size_t);
+ int stroverlap(const char *, const char *);
+ char *strrev(char *);
+ char *strright(const char *, size_t);

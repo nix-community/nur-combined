@@ -1,0 +1,8 @@
+copy of upstream's glog, but with optional support to build w/cmake
+
+At some point it was the case that building this with cmake broke
+some in-tree dependencies (they couldn't detect glog, probably)
+but I had some projects that expected to be able to find
+glog using cmake.
+
+It would probably be easy to satisfy both needs :)

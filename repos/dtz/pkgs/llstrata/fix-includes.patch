@@ -1,0 +1,23 @@
+From 8bcd78682cac343edb8cc2fe6133a6405169471d Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Sat, 15 Apr 2017 18:58:05 -0500
+Subject: [PATCH] Add cstddef to provide nullptr, use <> for llvm include
+
+---
+ llvm-mc/cpp/bindgen.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/llvm-mc/cpp/bindgen.h b/llvm-mc/cpp/bindgen.h
+index 835bfe2..2917e2f 100644
+--- a/llvm-mc/cpp/bindgen.h
++++ b/llvm-mc/cpp/bindgen.h
+@@ -1,3 +1,5 @@
++#include <cstddef>
++
+ #include "TargetTriple.h"
+ 
+-#include "llvm/MC/MCInstrInfo.h"
++#include <llvm/MC/MCInstrInfo.h>
+-- 
+2.12.2
+

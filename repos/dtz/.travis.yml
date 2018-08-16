@@ -1,0 +1,32 @@
+language: nix
+
+before_install:
+  - ./ci/configure-nix.sh
+  - ./ci/install-new-nix.sh
+  - ./ci/install-cachix.sh
+  - ./ci/launch-cachix.sh
+
+env:
+  global:
+    - CACHIX_CACHE=allvm
+    - NUR_REPO=dtz
+  matrix:
+    - NIX_PATH=nixpkgs=channel:nixos-unstable
+    - NIX_PATH=nixpkgs=channel:nixos-18.03
+    - NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/master.tar.gz
+
+before_script:
+  - nix run nixpkgs.nix-info -c nix-info -m
+
+script:
+  - nix-build ./ci --arg nixpkgs '<nixpkgs>'
+
+after_script:
+  - ./ci/push.sh ./result*
+
+# Force VM instead of container, so that sandbox works
+sudo: required
+
+# Full clone, so 'fetchGit' works
+git:
+  depth: false

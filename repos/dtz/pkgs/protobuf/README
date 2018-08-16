@@ -1,0 +1,5 @@
+This makes a local copy of upstream's generic-v3.nix,
+and provides a new version needed that upstream doesn't
+currently provide:
+
+3.2

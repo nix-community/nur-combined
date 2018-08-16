@@ -1,0 +1,185 @@
+From: Robert Luberda <robert@debian.org>
+Date: Mon, 18 Jan 2016 23:28:47 +0100
+Subject: Fix spelling errors in manpages
+
+Fix the following spelling errors reported by lintian:
+
+I: publib-dev: spelling-error-in-manpage usr/share/man/man3/*.3pub.gz occurences occurrences
+I: publib-dev: spelling-error-in-manpage usr/share/man/man3/*.3pub.gz occured occurred
+---
+ man/memmem.3  | 2 +-
+ man/memrchr.3 | 4 ++--
+ man/memrmem.3 | 4 ++--
+ man/strdel.3  | 2 +-
+ man/strgsub.3 | 6 +++---
+ man/strrstr.3 | 6 +++---
+ man/strsub.3  | 6 +++---
+ man/strvars.3 | 2 +-
+ 8 files changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/man/memmem.3 b/man/memmem.3
+index 212848d..9e486d6 100644
+--- a/man/memmem.3
++++ b/man/memmem.3
+@@ -42,7 +42,7 @@ void *\fBmemmem\fR(const void *\fIv\fR, size_t \fIsize\fR,
+ in the memory block \fIv\fR (length \fIsize\fR bytes).
+ .SH "RETURN VALUE"
+ \fImemmem\fR returns a pointer to the first byte of the first
+-occurence it finds, or NULL if it doesn't find any occurence.
++occurrence it finds, or NULL if it doesn't find any occurrence.
+ .SH "SEE ALSO"
+ publib(3), memrmem(3), strstr(3), strrstr(3)
+ .SH AUTHOR
+diff --git a/man/memrchr.3 b/man/memrchr.3
+index fb30b1f..733fe99 100644
+--- a/man/memrchr.3
++++ b/man/memrchr.3
+@@ -31,13 +31,13 @@
+ .\"
+ .TH MEMRCHR 3 "C Programmer's Manual" Publib "C Programmer's Manual"
+ .SH NAME
+-memrchr \- find last occurence of a character within another memory block
++memrchr \- find last occurrence of a character within another memory block
+ .SH SYNOPSIS
+ .nf
+ #include <publib.h>
+ void *\fBmemrchr\fR(const void *\fIv\fR, int \fIc\fR, size_t \fIsize\fR);
+ .SH DESCRIPTION
+-\fImemrchr\fR finds the last occurence of character \fIc\fR within memory
++\fImemrchr\fR finds the last occurrence of character \fIc\fR within memory
+ block \fIv\fR, of length \fIsize\fR.
+ .SH "RETURN VALUE"
+ \fImemrchr\fR returns a pointer to the the match, if it finds any,
+diff --git a/man/memrmem.3 b/man/memrmem.3
+index 6f68be5..04191dd 100644
+--- a/man/memrmem.3
++++ b/man/memrmem.3
+@@ -31,14 +31,14 @@
+ .\"
+ .TH MEMRMEM 3 "C Programmer's Manual" Publib "C Programmer's Manual"
+ .SH NAME
+-memrmem \- find last occurence of memory block within another memory block
++memrmem \- find last occurrence of memory block within another memory block
+ .SH SYNOPSIS
+ .nf
+ #include <publib.h>
+ void *\fBmemrmem\fR(const void *\fIv\fR, size_t \fIsize\fR,
+                 const void *\fIpat\fR, size_t \fIpatsize\fR);
+ .SH DESCRIPTION
+-\fImemrmem\fR finds the last occurence of memory block \fIpat\fR within memory
++\fImemrmem\fR finds the last occurrence of memory block \fIpat\fR within memory
+ block \fIv\fR.
+ .SH "RETURN VALUE"
+ \fImemrmem\fR returns a pointer to the first byte of the match, if it finds any,
+diff --git a/man/strdel.3 b/man/strdel.3
+index e4f3d45..55e5717 100644
+--- a/man/strdel.3
++++ b/man/strdel.3
+@@ -43,7 +43,7 @@ in the string (not counting '\\0') are removed but no more.
+ .SH "RETURN VALUE"
+ \fIstrdel\fR returns its first argument.
+ .SH EXAMPLE
+-To change all occurences of "Pascal" in the input to "Yuck!", you might do
++To change all occurrences of "Pascal" in the input to "Yuck!", you might do
+ the following:
+ .sp 1
+ .nf
+diff --git a/man/strgsub.3 b/man/strgsub.3
+index 255fd97..e72ccf7 100644
+--- a/man/strgsub.3
++++ b/man/strgsub.3
+@@ -31,13 +31,13 @@
+ .\"
+ .TH STRGSUB 3 "C Programmer's Manual" Publib "C Programmer's Manual"
+ .SH NAME
+-strgsub \- substitute all occurences of pattern with another string
++strgsub \- substitute all occurrences of pattern with another string
+ .SH SYNOPSIS
+ .nf
+ #include <publib.h>
+ int \fBstrgsub\fR(char *\fIstr\fR, const char *\fIpat\fR, const char *\fIsub\fR, size_t \fImax\fR);
+ .SH DESCRIPTION
+-\fIstrgsub\fR finds all occurences of the pattern \fIpat\fR in the
++\fIstrgsub\fR finds all occurrences of the pattern \fIpat\fR in the
+ string \fIstr\fR (using a method similar to \fIstrstr\fR(3) to find
+ the occurrences, i.e., no regular expressions), and replaces each with
+ \fIsub\fR. If \fIpat\fR does not occur in \fIstr\fR, no substitution is made.
+@@ -45,7 +45,7 @@ The size (including the terminating '\\0') of the string after
+ the substitutions may be at most \fImax\fR chars.  If it would be larger,
+ no substitutions are made.
+ .PP
+-Of course, if \fIsub\fR is an empty string, the occurences of the pattern 
++Of course, if \fIsub\fR is an empty string, the occurrences of the pattern
+ are deleted from the string.
+ .SH "RETURN VALUE"
+ \fIstrgsub\fR returns the number of substitutions made, or -1 if the
+diff --git a/man/strrstr.3 b/man/strrstr.3
+index 56aad68..2ed6402 100644
+--- a/man/strrstr.3
++++ b/man/strrstr.3
+@@ -31,20 +31,20 @@
+ .\"
+ .TH STRRSTR 3 "C Programmer's Manual" Publib "C Programmer's Manual"
+ .SH NAME
+-strrstr \- locate last occurence of substring
++strrstr \- locate last occurrence of substring
+ .SH SYNOPSIS
+ .nf
+ #include <publib.h>
+ char *\fBstrrstr\fR(const char *\fIstr\fR, const char *\fIpat\fR);
+ .SH DESCRIPTION
+-\fIstrrstr\fR finds the last occurence of the string \fIpat\fR in
++\fIstrrstr\fR finds the last occurrence of the string \fIpat\fR in
+ the string \fIstr\fR.  The terminating '\\0' characters are not
+ compared.
+ .SH "RETURN VALUE"
+ \fIstrrstr\fR returns a pointer to the first character of the substring,
+ or \fBNULL\fR if the substring is not found.
+ .SH EXAMPLE
+-To print out everything on each line starting with the last occurence
++To print out everything on each line starting with the last occurrence
+ of "/* " on each line, you might use the following code:
+ .sp 1
+ .nf
+diff --git a/man/strsub.3 b/man/strsub.3
+index adb78db..c9c069f 100644
+--- a/man/strsub.3
++++ b/man/strsub.3
+@@ -31,13 +31,13 @@
+ .\"
+ .TH STRSUB 3 "C Programmer's Manual" Publib "C Programmer's Manual"
+ .SH NAME
+-strsub \- substitute first occurence of pattern with another string
++strsub \- substitute first occurrence of pattern with another string
+ .SH SYNOPSIS
+ .nf
+ #include <publib.h>
+ char *\fBstrsub\fR(char *\fIstr\fR, const char *\fIpat\fR, const char *\fIsub\fR);
+ .SH DESCRIPTION
+-\fIstrsub\fR finds the first occurence of the pattern \fIpat\fR in the
++\fIstrsub\fR finds the first occurrence of the pattern \fIpat\fR in the
+ string \fIstr\fR (using a method similar to \fIstrstr\fR(3), i.e., no
+ regular expressions), and replaces it with \fIsub\fR. 
+ If \fIpat\fR does not occur in \fIstr\fR, no substitution is made.
+@@ -48,7 +48,7 @@ the string.
+ \fIstrsub\fR returns a pointer to the first character after the substitution,
+ or NULL if no substitution was made.
+ .SH EXAMPLE
+-To substitute up to two occurences of "foo" with "bar" in a line,
++To substitute up to two occurrences of "foo" with "bar" in a line,
+ one might do the following.
+ .sp 1
+ .nf
+diff --git a/man/strvars.3 b/man/strvars.3
+index f21cd1e..8101fb3 100644
+--- a/man/strvars.3
++++ b/man/strvars.3
+@@ -50,7 +50,7 @@ It is given the name of the variable as its argument, and must return
+ a pointer to the value, or NULL if that variable doesn't exist.
+ .SH "RETURN VALUE"
+ \fIstrvars\fR will return 0 if successful, or NULL if an
+-error occured (malformed input string, result too big, or unknown variable).
++error occurred (malformed input string, result too big, or unknown variable).
+ .SH EXAMPLE
+ To replace references to environment variables, one would the following.
+ .sp 1

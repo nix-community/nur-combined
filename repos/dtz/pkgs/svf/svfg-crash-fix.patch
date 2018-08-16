@@ -1,0 +1,26 @@
+From c6a453ce023d41df903259f4ba7a69804fb3a595 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Tue, 25 Apr 2017 06:50:52 -0500
+Subject: [PATCH] WPAPass: dump 'simple' since MSSA info no longer available
+
+(its lifetime is scoped to the buildSVFG() function)
+---
+ lib/WPA/WPAPass.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/WPA/WPAPass.cpp b/lib/WPA/WPAPass.cpp
+index 1d56019..0dd13d1 100644
+--- a/lib/WPA/WPAPass.cpp
++++ b/lib/WPA/WPAPass.cpp
+@@ -129,7 +129,7 @@ void WPAPass::runPointerAnalysis(llvm::Module& module, u32_t kind)
+     if (anderSVFG) {
+         SVFGBuilder memSSA(true);
+         SVFG *svfg = memSSA.buildSVFG((BVDataPTAImpl*)_pta);
+-        svfg->dump("ander_svfg");
++        svfg->dump("ander_svfg", true /* simple */);
+     }
+ }
+ 
+-- 
+2.12.2
+

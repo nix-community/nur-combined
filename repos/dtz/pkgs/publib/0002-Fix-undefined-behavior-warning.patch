@@ -1,0 +1,31 @@
+From: Robert Luberda <robert@debian.org>
+Date: Mon, 18 Jan 2016 23:23:09 +0100
+Subject: Fix undefined behavior warning
+
+Fix off-by-one bug leading to the following warning
+given by gcc-5:
+
+base64/base64.c: In function 'base64_decode':
+base64/base64.c:117:27: warning: iteration 256u invokes undefined behavior [-Waggressive-loop-optimizations]
+       base64_to_sixtet[i] = -1;
+                           ^
+base64/base64.c:116:6: note: containing loop
+      for (i = 0; i <= UCHAR_MAX + 1; ++i)
+      ^
+---
+ base64/base64.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/base64/base64.c b/base64/base64.c
+index afd9d4a..3d4a3a7 100644
+--- a/base64/base64.c
++++ b/base64/base64.c
+@@ -113,7 +113,7 @@ size_t base64_decode(char *to, const char *from, size_t len) {
+ 
+     	if (!tab_init) {
+ 	    tab_init = 1;
+-	    for (i = 0; i <= UCHAR_MAX + 1; ++i)
++	    for (i = 0; i < UCHAR_MAX + 1; ++i)
+ 	    	base64_to_sixtet[i] = -1;
+ 	    for (i = 0; sixtet_to_base64[i] != '\0'; ++i)
+ 	    	base64_to_sixtet[sixtet_to_base64[i]] = i;
