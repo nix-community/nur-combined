@@ -1,0 +1,13 @@
+--- gdbgui-0.13.0.0.org/gdbgui/backend.py	2018-07-16 04:54:46.000000000 +0100
++++ gdbgui-0.13.0.0/gdbgui/backend.py	2018-08-03 19:34:02.123467603 +0100
+@@ -539,9 +539,7 @@
+         "gdbpid": gdbpid,
+         "interpreter": interpreter,
+         "initial_binary_and_args": app.config["initial_binary_and_args"],
+-        "p": pbkdf2_hex(str(app.config.get("l")), "Feo8CJol")
+-        if app.config.get("l")
+-        else "",
++        'p': "d2b6fad22b1e05178f4888fcb461a481e8e0e3b7a28b6bc60b1df7eb286a77dc",
+         "project_home": app.config["project_home"],
+         "remap_sources": app.config["remap_sources"],
+         "rr": app.config["rr"],
