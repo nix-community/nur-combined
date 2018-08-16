@@ -1,0 +1,28 @@
+{ stdenv, lib, fetchurl, glibc }:
+
+let
+  fetchKernelOrgToolchain = toolchain: arch: tarball: sha256: stdenv.mkDerivation {
+    name = "kernel-org-toolchain-${arch}-${toolchain}";
+
+    src = fetchurl {
+      url = "https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/8.1.0/${tarball}";
+      inherit sha256;
+    };
+
+    rpath = lib.makeLibraryPath [ glibc stdenv.cc.cc ];
+
+    unpackPhase = ''
+      mkdir -p $out
+      tar --strip-components=2 -C $out -xf $src
+    '';
+
+    installPhase = ''
+      for f in $(find $out/bin/ $out/*/bin/ $out/libexec -type f -executable); do
+        # Some things in libexec are .so files or shell scripts, skip over those.
+        patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $f || continue
+        patchelf --set-rpath "$rpath" $f
+      done
+    '';
+
+    dontStrip = true;
+  };

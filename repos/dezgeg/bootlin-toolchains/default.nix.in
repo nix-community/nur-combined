@@ -1,0 +1,41 @@
+{ stdenv, lib, callPackage, fetchurl, file, glibc, expat, gmp5, libmpc, ncurses6 }:
+
+let
+  mpfr_3 = callPackage ./mpfr-3.nix {};
+
+  fetchBootlinToolchain = arch: name: sha256: stdenv.mkDerivation {
+    name = "bootlin-toolchain-${name}";
+
+    src = fetchurl {
+      url = "https://toolchains.bootlin.com/downloads/releases/toolchains/${arch}/tarballs/${name}.tar.bz2";
+      inherit sha256;
+    };
+
+    nativeBuildInputs = [ file ];
+    rpath = lib.makeLibraryPath [ glibc stdenv.cc.cc expat gmp5 libmpc mpfr_3 ncurses6 ];
+
+    unpackPhase = ''
+      mkdir -p $out
+      tar --strip-components=1 -C $out -xf $src
+    '';
+
+    installPhase = ''
+      $out/relocate-sdk.sh
+
+      # These fail to relocate and are easily provided by Nix anyway.
+      # Only ARC toolchains have them anyway.
+      rm -rf $out/bin/flex $out/bin/flex++ || true
+      rm -rf $out/bin/bison $out/share/bison || true
+
+      # Remove other unnecessary junk.
+      rm -rf $out/etc $out/relocate-sdk.sh $out/README.txt $out/share/doc $out/share/info
+
+      for f in $(find $out/bin/ $out/*/bin/ $out/libexec -type f -executable); do
+        # Some things in libexec are .so files or shell scripts, skip over those.
+        patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $f || continue
+        patchelf --set-rpath "$rpath" $f
+      done
+    '';
+
+    dontStrip = true;
+  };
