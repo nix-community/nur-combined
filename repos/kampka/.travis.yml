@@ -1,0 +1,9 @@
+language: nix
+script:
+    - nix-build -E 'with import <nixpkgs>{}; (callPackage ./default.nix {})'
+
+deploy:
+    - provider: script
+      script: curl -XPOST https://nur-update.herokuapp.com/update?repo=kampka
+      on:
+        branch: master
