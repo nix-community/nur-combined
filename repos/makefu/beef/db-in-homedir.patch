@@ -1,0 +1,39 @@
+--- /beef	2018-08-16 19:03:55.199437566 +0200
++++ /beef	2018-08-16 19:27:34.735985233 +0200
+@@ -110,9 +110,20 @@
+ #
+ # @note Database setup - use DataMapper::Logger.new($stdout, :debug) for development debugging
+ #
++
++#
++# @note Create ~/.beef/
++#
++begin
++  FileUtils.mkdir_p($home_dir) unless File.directory?($home_dir)
++rescue => e
++  print_error "Could not create '#{$home_dir}': #{e.message}"
++end
++
+ case config.get("beef.database.driver")
+   when "sqlite"
+-    DataMapper.setup(:default, "sqlite3://#{$root_dir}/#{config.get("beef.database.db_file")}")
++    print_info "Using Database #{$home_dir}/#{config.get("beef.database.db_file")}"
++    DataMapper.setup(:default, "sqlite3://#{$home_dir}/#{config.get("beef.database.db_file")}")
+   when "mysql", "postgres"
+     DataMapper.setup(:default,
+                      :adapter => config.get("beef.database.driver"),
+@@ -162,14 +173,6 @@
+ BeEF::Core::Console::Banners.print_network_interfaces_count
+ BeEF::Core::Console::Banners.print_network_interfaces_routes
+ 
+-#
+-# @note Create ~/.beef/
+-#
+-begin
+-  FileUtils.mkdir_p($home_dir) unless File.directory?($home_dir)
+-rescue => e
+-  print_error "Could not create '#{$home_dir}': #{e.message}"
+-end
+ 
+ #
+ # @note Check whether we load the Console Shell or not
