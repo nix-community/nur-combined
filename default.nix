@@ -1,7 +1,10 @@
 { nurpkgs ? import <nixpkgs> {} # For nixpkgs dependencies used by NUR itself
+  #
+, extraRepos ? []
   # Dependencies to call NUR repos with
 , pkgs ? null }:
 
+assert builtins.isList extraRepos;
 let
   manifest = (builtins.fromJSON (builtins.readFile ./repos.json)).repos;
   lockedRevisions = (builtins.fromJSON (builtins.readFile ./repos.json.lock)).repos;
