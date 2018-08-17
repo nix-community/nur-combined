@@ -1,7 +1,7 @@
 { lib, stdenv, fetchurl, pkgconfig, libgcrypt, doxygen, file, perl }:
 
 stdenv.mkDerivation rec {
-  name = "tpm-tss-${version}";
+  name = "tpm2-tss-${version}";
   version = "2.0.1";
 
   src = fetchurl {

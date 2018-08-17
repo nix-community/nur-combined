@@ -7,10 +7,10 @@ rec {
   youtube-rss = pkgs.callPackage ./pkgs/youtuberss.nix {};
 
   # TODO update and eventually upstream into nixpkgs
-  tpm2-tools = pkgs.callPackage ./pkgs/tpm2-tools.nix {
-    tpm-tss = tpm2-tss;
+  tpm2-tools = pkgs.callPackage ./pkgs/tpm2/tpm2-tools.nix {
+    inherit tpm2-tss;
   };
-  tpm2-tss = pkgs.callPackage ./pkgs/tpm2-tss.nix {};
+  tpm2-tss = pkgs.callPackage ./pkgs/tpm2/tpm2-tss.nix {};
 
   libdatrie = pkgs.callPackage ./pkgs/libdatrie.nix {};
   libthai = pkgs.callPackage ./pkgs/libthai.nix {
