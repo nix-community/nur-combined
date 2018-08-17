@@ -88,4 +88,4 @@ let toplevel = {
   }
   // (pkgs.callPackages ./pkgs/dg { })
   );
-}; in toplevel // toplevel.pkgs
+}; in toplevel #  // toplevel.pkgs
