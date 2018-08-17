@@ -1,0 +1,4 @@
+{
+  files = ./files.nix;
+}
+
