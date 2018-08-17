@@ -23,6 +23,34 @@ Add `NUR` as [described in the docs](https://github.com/nix-community/nur#how-to
 * `gianas-return` (`pkgs.nur.repos.ma27.gianas-return`): Giana’s Return aims to be a worthy
   UNOFFICIAL sequel of 'The Great Giana Sisters'.
 
+## Overlays
+
+There are several overlays available that can be imported with an expression like this:
+
+```
+{ pkgs, config, ... }:
+
+let
+  nur-no-pkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+    pkgs = import <nixpkgs> {}; # create dummy pkgs to load modules (that require `pkgs.lib` for evaluation)
+  };
+in
+  {
+    nixpkgs.overlays = [
+      nur-no-pkgs.repos.ma27.overlays.<overlay-name>
+    ];
+  }
+```
+
+The following overlays are available:
+
+* `overlays.sudo`: Provides a patched `sudo` with the `--with-insults` flag enabled.
+* `overlays.termite`: Provides a patched `termite` with the patch
+  from `[thestinger/termite#621](https://github.com/thestinger/termite/pull/621)` which allows to
+  use `termite` without the `F11` hotkey enabled. This is e.g. helpful when using `weechat` in `termite`.
+* `overlays.sqldeveloper`: Patched `sqldeveloper` with `oraclejdk` and at version `18.2.0.183.1748`. The
+  original patch is [on-hold at `nixpkgs`](https://github.com/NixOS/nixpkgs/pull/44624).
+
 ## Modules
 
 ### Initial setup

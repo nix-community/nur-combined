@@ -19,6 +19,8 @@ in
       };
 
       termite = import ./pkgs/termite/overlay.nix;
+
+      sql-developer = import ./pkgs/sqldeveloper/overlay.nix;
     };
 
     ### MODULES
