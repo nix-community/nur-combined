@@ -3,11 +3,11 @@
 
 let
 
-  texlive' = if texComponents == []
-    then texlive
-    else
-      let components = lib.unique (texComponents ++ [ "scheme-basic" "scheme-small" ]);
-      in texlive.combine (lib.fold (name: attrs: attrs // { "${name}" = texlive."${name}"; }) {} components);
+  texlive' =
+    let
+      components = lib.unique (texComponents ++ [ "scheme-basic" "scheme-small" ]);
+    in
+      texlive.combine (lib.fold (name: attrs: attrs // { "${name}" = texlive."${name}"; }) {} components);
 
   buildInputs' = [ texlive' ] ++ lib.optional lib.inNixShell [ zathura pdfpc watcher ];
 
