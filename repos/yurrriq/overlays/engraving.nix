@@ -1,6 +1,6 @@
 self: super: {
 
-  lilypond-unstable = super.stdenv.lib.overrideDerivation self.lilypond-unstable (p: rec {
+  lilypond-unstable = self.stdenv.lib.overrideDerivation super.lilypond-unstable (p: rec {
     majorVersion = "2.19";
     minorVersion = "80";
     version = "${majorVersion}.${minorVersion}";
