@@ -1,7 +1,7 @@
 { pkgs }:
 
 with pkgs.lib; {
-  # Note: Your password will be stored in cleartext in your /nix/store
+  # Note: Your password will be stored in cleartext in your /nix/store!
   #       Use this function only if you want to protect a password for
   #       a config that you want to put in a public git reporsitory.
   # generate cipher with
