@@ -46,7 +46,7 @@ The following overlays are available:
 
 * `overlays.sudo`: Provides a patched `sudo` with the `--with-insults` flag enabled.
 * `overlays.termite`: Provides a patched `termite` with the patch
-  from `[thestinger/termite#621](https://github.com/thestinger/termite/pull/621)` which allows to
+  from [`thestinger/termite#621`](https://github.com/thestinger/termite/pull/621) which allows to
   use `termite` without the `F11` hotkey enabled. This is e.g. helpful when using `weechat` in `termite`.
 * `overlays.sqldeveloper`: Patched `sqldeveloper` with `oraclejdk` and at version `18.2.0.183.1748`. The
   original patch is [on-hold at `nixpkgs`](https://github.com/NixOS/nixpkgs/pull/44624).

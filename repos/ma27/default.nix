@@ -30,5 +30,5 @@ in
       listToAttrs (map (path: { name = "${nameFromPath path}"; value = import path; }) module-list);
 
     ### LIBRARY
-    lib = import ./lib;
+    lib = pkgs.callPackage ./lib { };
   }
