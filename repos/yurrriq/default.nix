@@ -1,21 +1,33 @@
 { pkgs ? import <nixpkgs> {} }:
 
-rec {
+{
 
   overlays = import ./overlays;
 
-  browserpass = pkgs.callPackage ./pkgs/tools/security/browserpass {};
+  pkgs = {
 
-  erlang = pkgs.beam.interpreters.erlangR20.override {
-    enableDebugInfo = true;
-    installTargets = "install";
-    wxSupport = false;
+    browserpass = pkgs.callPackage ./pkgs/tools/security/browserpass {};
+
+    erlang = pkgs.beam.interpreters.erlangR20.override {
+      enableDebugInfo = true;
+      installTargets = "install";
+      wxSupport = false;
+    };
+
+    git-crypt = pkgs.callPackage ./pkgs/applications/version-management/git-and-tools/git-crypt {};
+
+    lab = pkgs.callPackage ./pkgs/applications/version-management/git-and-tools/lab {};
+
+    sourcetree = pkgs.callPackage ./pkgs/os-specific/darwin/sourcetree {};
+
+    kops = pkgs.callPackage ./pkgs/applications/networking/cluster/kops {};
+
+    kubectx = pkgs.callPackage ./pkgs/applications/networking/cluster/kubectx {};
+
+    kubernetes = pkgs.callPackage ./pkgs/applications/networking/cluster/kubernetes {};
+
+    kubernetes-helm = pkgs.callPackage ./pkgs/applications/networking/cluster/helm {};
+
   };
-
-  git-crypt = pkgs.callPackage ./pkgs/applications/version-management/git-and-tools/git-crypt {};
-
-  lab = pkgs.callPackage ./pkgs/applications/version-management/git-and-tools/lab {};
-
-  sourcetree = pkgs.callPackage ./pkgs/os-specific/darwin/sourcetree {};
 
 }

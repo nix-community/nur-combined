@@ -14,7 +14,7 @@ install:
  - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
 
 script:
- - outs=$(nix-build non-broken.nix) && echo Produced $outs
+ - travis_wait 30 outs=$(nix-build non-broken.nix) && echo Produced $outs
  - nix eval -f default.nix 'overlays'
 
 after_success:
