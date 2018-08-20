@@ -25,6 +25,8 @@ rec {
     Pry = pkgs.callPackage ./pkgs/pry {};
   };
 
+  python-pry = pkgs.python3.pkgs.callPackage ./pkgs/python-pry {};
+
   modules = import ./modules;
 
   #inherit (callPackages ./node-packages {})
