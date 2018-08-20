@@ -7,7 +7,9 @@ let
     texComponents ++ [ "scheme-basic" "scheme-small" ]
   )));
 
-  buildInputs' = [ texlive' ] ++ lib.optional lib.inNixShell [ zathura pdfpc watcher ];
+  buildInputs' = [ texlive' ]
+    ++ buildInputs
+    ++ lib.optional lib.inNixShell [ zathura pdfpc watcher ];
 
   inherit (stdenv) lib;
 
@@ -15,6 +17,8 @@ let
     src = ./watch-tex.bash;
     bash = "${bash}/bin/bash";
   }));
+
+  build = "find . -type f -regex \".*\.tex$\" | xargs pdflatex -interaction=nonstopmode";
 
 in
 
@@ -35,11 +39,17 @@ stdenv.mkDerivation (lib.recursiveUpdate (builtins.removeAttrs args [ "name" "sr
   phases = [ "unpackPhase" "buildPhase" "installPhase" ];
 
   buildPhase = ''
-    find . -type f -regex ".*\.tex$" | xargs pdflatex -interaction=nonstopmode
+    ${build}
+
+    aux=$(find . -type f -regex ".*\.aux$")
+    if [ ! -z $aux ]; then
+      echo $aux | xargs bibtex
+      ${build} # rebuild once when building bibtex
+    fi
   '';
 
   installPhase = ''
-    mkdir -p $out/slides
-    find . -type f -regex ".*\.pdf$" -exec cp {} $out/slides \;
+    mkdir -p $out/docs
+    find . -type f -regex ".*\.pdf$" -exec cp {} $out/docs \;
   '';
 })

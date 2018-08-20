@@ -27,7 +27,7 @@ Add `NUR` as [described in the docs](https://github.com/nix-community/nur#how-to
 
 There are several overlays available that can be imported with an expression like this:
 
-```
+``` nix
 { pkgs, config, ... }:
 
 let
@@ -243,7 +243,7 @@ mkTexDerivation {
 ```
 
 To build the documents inside it's sufficient to run `nix-build`. After that the rendered PDFs will be
-available at `$out/slides`.
+available at `$out/docs`.
 
 The shell environment using `nix-shell` can be used to develop and build `.tex`
 documents and contains the packages`zathura` and `pdfpc` to view and present documents.
