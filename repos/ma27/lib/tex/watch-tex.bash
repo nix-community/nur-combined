@@ -12,10 +12,9 @@ if [ ! -f "$FILE" ]; then
   exit 1
 fi
 
-if [ ! -z "$BIBTEX_FILE" ]; then
-  if [ ! -f "$FILE" ]; then
-    echo -e "\e[31mLiteratur \`$BIBTEX_FILE' is not a valid file. Aborting...\e[0m"
-  fi
+if [ ! -z "$BIBTEX_FILE" -a ! -f "$BIBTEX_FILE" ]; then
+  echo -e "\e[31mLiteratur \`$BIBTEX_FILE' is not a valid file. Aborting...\e[0m"
+  exit 1
 fi
 
 rebuild_tex() {
@@ -23,10 +22,7 @@ rebuild_tex() {
   success=${2:-}
   chsum_tex=$(md5sum $FILE)
   pdflatex -interaction=nonstopmode $FILE 2>&1 >/dev/null
-  if [ $? -eq 0 ]; then
-    if [ ! -z "$success" ]; then
-      echo -e "\e[2m  $success\e[0m"
-    fi
+  if [ $? -eq 0 -a ! -z "$success" ]; then echo -e "\e[2m  $success\e[0m"
   else
     if [ ! -z "$error" ]; then
       echo -e "\e[31m  $error\e[0m"
@@ -45,7 +41,9 @@ compare_bib=
 while [ true ];
 do
   compare_tex=$(md5sum $FILE)
-  compare_bib=$(md5sum $BIBTEX_FILE)
+  if [ ! -z "$BIBTEX_FILE" ]; then
+    compare_bib=$(md5sum $BIBTEX_FILE)
+  fi
   exit=0
   if [ "$chsum_tex" != "$compare_tex" -o "$compare_bib" != "$chsum_bib" ]; then
     echo -e "* \e[32mChange in \`$FILE' detected at $(date '+%H:%m:%S')\e[0m"

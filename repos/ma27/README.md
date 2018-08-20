@@ -146,13 +146,17 @@ The session can be accessed with `screen -r weechat`.
 
 ## Additional library
 
+### Hetzner
+
 The library contains simple helper functions to provision and deploy [Hetzner Cloud](https://www.hetzner.com/cloud).
 The main function is `mkHetznerVM`:
 
 ``` nix
 let
 
-  nur-no-pkgs = load nur; # see above
+  nur-no-pkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+    pkgs = import <nixpkgs> {}; # create dummy pkgs to load modules (that require `pkgs.lib` for evaluation)
+  };
 
 in
 {
@@ -200,3 +204,55 @@ Additionally `lib/default.nix` provides two more functions, `mkGrub` and `mkInit
 **Note:** please keep in mind that these functions are fairly customized for Hetzner cloud which
 I use for most of my private systems. It requires careful testing especially when using it for
 different systems!
+
+### Tex Environment
+
+The library shipped with this `NUR` package contains a minimalistic API to develop and build
+[LaTeX documents](https://www.latex-project.org//) using [texlive](https://www.tug.org/texlive/).
+
+A simple environment may look like this:
+
+``` nix
+with import <nixpkgs> {};
+
+let
+
+  nur-no-pkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+    pkgs = import <nixpkgs> {}; # create dummy pkgs to load modules (that require `pkgs.lib` for evaluation)
+  };
+
+  inherit (nur-no-pkgs.repos.ma27.lib) mkTexDerivation;
+
+in
+
+mkTexDerivation {
+  name = "name-of-the-document";
+  src = ./.;
+  buildInputs = [ /* (optional) aditional build inputs */ ];
+
+  /*
+    Components shipped inside the `texlive` metapackage.
+
+    By default the components `scheme-basic` and `scheme-small`
+    are provided. If no further components are needed, this property can be omitted.
+  */
+  texComponents = [
+    "beamer"
+  ];
+}
+```
+
+To build the documents inside it's sufficient to run `nix-build`. After that the rendered PDFs will be
+available at `$out/slides`.
+
+The shell environment using `nix-shell` can be used to develop and build `.tex`
+documents and contains the packages`zathura` and `pdfpc` to view and present documents.
+
+The shell script `watch-tex` allows to watch `.tex` and `.bib` files and rebuilds them on every
+file change which is detected by `md5sum`. The script can be used inside `nix-shell` like this:
+
+```
+$ nix-shell
+[nix-shell:~]$ watch-tex book.tex # rebuilds `book.tex' for each change
+[nix-shell:~]$ watch-tex book.tex literature.bib # builds book.tex and literatur.bib on every change
+```
