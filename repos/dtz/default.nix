@@ -87,5 +87,6 @@ let toplevel = {
     toybox = callPackage ./pkgs/toybox { };
   }
   // (pkgs.callPackages ./pkgs/dg { })
+  // { iosevka-term-styles = pkgs.callPackages ./pkgs/iosevka-term { }; }
   );
 }; in toplevel #  // toplevel.pkgs

@@ -19,7 +19,7 @@ before_script:
   - nix run nixpkgs.nix-info -c nix-info -m
 
 script:
-  - nix-build ./ci --arg nixpkgs '<nixpkgs>'
+  - nix-build ./ci --arg nixpkgs '<nixpkgs>' -A pkgs
 
 after_script:
   - ./ci/push.sh ./result*
