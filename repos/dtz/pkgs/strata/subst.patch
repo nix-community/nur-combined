@@ -1,0 +1,39 @@
+From 06a24158261e6b330a8374c9da023e042932a72a Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Wed, 12 Apr 2017 08:42:52 -0500
+Subject: [PATCH] IO: add placeholders for setting paths via substitution
+
+---
+ src/main/scala/strata/util/IO.scala | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/src/main/scala/strata/util/IO.scala b/src/main/scala/strata/util/IO.scala
+index abb0c13..311514c 100644
+--- a/src/main/scala/strata/util/IO.scala
++++ b/src/main/scala/strata/util/IO.scala
+@@ -28,8 +28,7 @@ object IO {
+ 
+   /** Return the current git hash. */
+   def getGitHash: String = {
+-    val hash = "git rev-parse HEAD".!!
+-    hash.stripLineEnd
++    "@githash@"
+   }
+ 
+   /**
+@@ -80,11 +79,7 @@ object IO {
+ 
+   /** Returns the base path of the whole project. */
+   def getProjectBase: File = {
+-    var res = getClass.getResource("").getPath
+-    for (a <- 1 to 6) {
+-      res = res.substring(0, res.lastIndexOf('/'))
+-    }
+-    new File(res)
++    new File("@out@")
+   }
+ 
+   /** Output an error message and exit. */
+-- 
+2.12.2
+

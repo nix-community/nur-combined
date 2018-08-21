@@ -1,0 +1,41 @@
+From 1c2fb9bc6816d7e2abeb33e0f1b8b3edb1e4c23f Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Wed, 12 Apr 2017 08:08:47 -0500
+Subject: [PATCH] Add sbt-native-packager to help build program.
+
+---
+ build.sbt           | 5 ++---
+ project/plugins.sbt | 4 ++++
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+ create mode 100644 project/plugins.sbt
+
+diff --git a/build.sbt b/build.sbt
+index 1716d87..ec2402b 100644
+--- a/build.sbt
++++ b/build.sbt
+@@ -1,3 +1,4 @@
++enablePlugins(JavaServerAppPackaging)
+ 
+ name := "strata"
+ 
+@@ -31,6 +32,4 @@ libraryDependencies += "com.jsuereth" %% "scala-arm" % "1.4"
+ 
+ resolvers += Resolver.sonatypeRepo("public")
+ 
+-
+-
+-scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation", "-feature", "–Xcheck-null", "–Xfatal-warnings")
++// scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation", "-feature", "–Xcheck-null", "–Xfatal-warnings")
+diff --git a/project/plugins.sbt b/project/plugins.sbt
+new file mode 100644
+index 0000000..5ee9cc0
+--- /dev/null
++++ b/project/plugins.sbt
+@@ -0,0 +1,4 @@
++// The Typesafe repository
++resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
++
++addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.1.0")
+-- 
+2.12.2
+

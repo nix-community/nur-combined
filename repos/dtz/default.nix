@@ -41,6 +41,38 @@ let toplevel = {
       inherit (pkgs.llvmPackages_4) llvm clang;
     };
 
+    iml = callPackage ./pkgs/iml { };
+    patchelf-git = callPackage ./pkgs/patchelf { };
+
+    stoke = let
+      # stoke docs say you must use gcc 4.9, so do so:
+     gcc49Stdenv = pkgs.overrideCC pkgs.stdenv (pkgs.wrapCCMulti pkgs.gcc49);
+    in callPackage ./pkgs/stoke {
+      stdenv = gcc49Stdenv;
+
+      boost = (pkgs.boost.override {
+        stdenv = gcc49Stdenv;
+      }).overrideAttrs (o: {
+        nativeBuildInputs = [ pkgs.which gcc49Stdenv.cc ];
+      });
+      cln = pkgs.cln.override {
+        stdenv = gcc49Stdenv;
+      };
+      inherit (pkgs.haskellPackages) ghcWithPackages;
+      patchelf = patchelf-git; # fix big files
+    };
+
+    stoke-sandybridge = stoke.override { stokePlatform = "sandybridge"; };
+    stoke-haswell = stoke.override { stokePlatform = "haswell"; };
+
+    /*
+    sbtixPkgs = callPackage ./pkgs/strata/sbtix.nix { };
+    inherit (sbtixPkgs) sbtix sbtix-tool;
+    strata = callPackage ./pkgs/strata { inherit (sbtixPkgs) sbtix; inherit stoke; };
+    strata-sandybridge = strata.override { stoke = stoke-sandybridge; };
+    strata-haswell = strata.override { stoke = stoke-haswell; };
+    */
+
     llvmslicer = callPackage ./pkgs/llvmslicer {
       inherit (pkgs.llvmPackages_35) llvm;
     };
