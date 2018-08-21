@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     version = "2.10.0";
     description = "A package manager for kubernetes";
-    inherit (src.meta) homepage;
+    homepage = https://helm.sh/;
     license = licenses.asl20;
     maintainers = with maintainers; [ rlupton20 yurrriq ];
     platforms = [ "x86_64-linux" ] ++ platforms.darwin;

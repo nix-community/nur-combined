@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -dm755 "$out/share/bash-completion/completions/"
-    install -dm755 "$out/share/fish/vendor_conf.d/"
+    install -dm755 "$out/share/fish/vendor_completions.d/"
     install -dm755 "$out/share/zsh/site-functions/"
 
     for tool in kubectx kubens
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
                 -m444 "$completion.bash" "$completion.fish" "$completion.zsh"
 
         ln -s "$out/share/$tool/$completion.bash" "$out/share/bash-completion/completions/"
-        ln -s "$out/share/$tool/$completion.fish" "$out/share/fish/vendor_conf.d/"
+        ln -s "$out/share/$tool/$completion.fish" "$out/share/fish/vendor_completions.d/"
         ln -s "$out/share/$tool/$completion.zsh"  "$out/share/zsh/site-functions/"
     done
   '';
