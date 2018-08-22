@@ -80,10 +80,6 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # FIXME
 
-  postInstall = ''
-    install -Dt $out/share/tellico/data-sources/ -m755 ./comicbookdb.py*
-  '';
-
   meta = with stdenv.lib; {
     version = "3.1.2";
     description = "A collection manager for books, movies, music, and anything else";
