@@ -28,6 +28,8 @@
 
     kubernetes-helm = pkgs.callPackage ./pkgs/applications/networking/cluster/helm {};
 
+    tellico = pkgs.libsForQt5.callPackage ./pkgs/applications/misc/tellico {};
+
   };
 
 }
