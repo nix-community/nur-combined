@@ -21,6 +21,16 @@
   variety = pkgs.callPackage ./pkgs/variety { };
   gnubiff = pkgs.callPackage ./pkgs/gnubiff { };
   maya-calendar = pkgs.callPackage ./pkgs/maya-calendar { };
+  sfxr = pkgs.callPackage ./pkgs/sfxr { };
+  sfxr-qt = pkgs.libsForQt5.callPackage ./pkgs/sfxr-qt { };
+  powerline-go = pkgs.powerline-go.overrideDerivation (old: {
+    src = pkgs.fetchFromGitHub {
+      owner = "fgaz";
+      repo = "powerline-go";
+      rev = "ghc-env";
+      sha256 = null;
+    };
+  });
 
   ### GAMES
   _20kly = pkgs.callPackage ./pkgs/20kly { };
