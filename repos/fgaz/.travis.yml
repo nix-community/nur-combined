@@ -7,8 +7,15 @@ env:
     - CACHIX_CACHE=fgaz
     - NUR_REPO=fgaz
 
+matrix:
+  include:
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.03
+
 install:
  - nix --version
+ - nix-channel --add "${NIX_CHANNEL}" nixpkgs
  - travis_retry nix-channel --update
  - if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix; fi
  - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
