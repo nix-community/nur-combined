@@ -17,6 +17,9 @@
   ### DEVELOPMENT
   lmdbxx = pkgs.callPackage ./pkgs/lmdbxx { };
 
+  ### SERVERS
+  pleroma = pkgs.callPackage ./pkgs/pleroma { };
+
   ### APPLICATIONS
   variety = pkgs.callPackage ./pkgs/variety { };
   gnubiff = pkgs.callPackage ./pkgs/gnubiff { };
