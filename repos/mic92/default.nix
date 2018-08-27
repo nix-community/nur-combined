@@ -25,7 +25,8 @@ rec {
     Pry = pkgs.callPackage ./pkgs/pry {};
   };
 
-  python-pry = pkgs.python3.pkgs.callPackage ./pkgs/python-pry {};
+  python2Packages = pkgs.recurseIntoAttrs (pkgs.python2Packages.callPackage ./pkgs/python-pkgs.nix { });
+  python3Packages = pkgs.recurseIntoAttrs (pkgs.python3Packages.callPackage ./pkgs/python-pkgs.nix { });
 
   modules = import ./modules;
 
