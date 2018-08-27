@@ -14,12 +14,12 @@ with stdenv.lib;
 let
   llvm_version = getVersion llvm;
   srcinfo = {
-    version = "2018-08-23";
+    version = "2018-08-25";
     src = fetchFromGitHub {
       owner = "trailofbits";
       repo = "remill";
-      rev = "bf0d50be9068855c0baa89833a14703c4b379096";
-      sha256 = "1vp0fvw54pij00zys9wli231lzfdm864865ddz8ffczj16qljafh";
+      rev = "85dc1282b7b9687ffd79d055f5d68e85edda44a1";
+      sha256 = "1f1xlmk1fdi89rm7idb0is5vi2w5aazwdkychb064bqvqxxfivgp";
     };
   };
   mcsema_srcinfo = import ./mcsema.nix { inherit fetchFromGitHub; };
@@ -79,6 +79,7 @@ let
       substituteInPlace tools/mcsema/CMakeLists.txt \
         --replace 'add_subdirectory(mcsema/OS/Linux)' ""
 
+      substituteInPlace cmake/settings.cmake --replace "/usr/local" "$out"
     '';
 
     preConfigure = ''
