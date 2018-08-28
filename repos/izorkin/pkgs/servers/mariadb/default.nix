@@ -21,14 +21,14 @@ galeraLibs = buildEnv {
 };
 
 common = rec { # attributes common to both builds
-  version = "10.3.8";
+  version = "10.3.9";
 
   src = fetchurl {
     urls = [
       "https://downloads.mariadb.org/f/mariadb-${version}/source/mariadb-${version}.tar.gz"
       "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz"
     ];
-    sha256 = "1f0syfrv0my7sm8cbpic00ldy90psimy8yvm0ld82bfi2isw3gih";
+    sha256 = "1x2ny64n6qf574gqiavd3swqjlv66yqad5nis4ibnkfjpdlnj72n";
     name   = "mariadb-${version}.tar.gz";
   };
 
@@ -95,7 +95,7 @@ common = rec { # attributes common to both builds
 client = stdenv.mkDerivation (common // {
   name = "mariadb-client-${common.version}";
 
-  outputs = [ "dev" "out" "man" ];
+  outputs = [ "out" "dev" "man" ];
 
   propagatedBuildInputs = [ openssl zlib ]; # required from mariadb.pc
 
@@ -108,10 +108,12 @@ client = stdenv.mkDerivation (common // {
 
   postInstall = ''
     rm -r "$out"/share/mysql
-    rm -r "$out"/share/doc/mysql/{policy,systemd}
-    rm "$out"/bin/{galera_new_cluster,galera_recovery,mariadb-service-convert,msql2mysql,my_print_defaults,mysql_convert_table_format,mysqld_safe_helper,mysql_install_db,mysql_plugin,mysql_secure_installation,mysql_setpermission,mysql_upgrade,mytop,perror,replace,resolveip,resolve_stack_dump,wsrep_sst_rsync_wan,mysql_config,mariadb_config}
-    rm "$out"/share/doc/mysql/{binary-configure,magic,mysqld_multi.server,mysql-log-rotate,mysql.server,INSTALL-BINARY,README-wsrep,wsrep_notify}
+    rm -r "$out"/share/doc
+    rm "$out"/bin/{msql2mysql,mysql_plugin,mytop,wsrep_sst_rsync_wan,mysql_config,mariadb_config}
     rm "$out"/lib/plugin/{daemon_example.ini,dialog.so,mysql_clear_password.so,sha256_password.so}
+    rm "$out"/lib/{libmariadb.so,libmysqlclient.so,libmysqlclient_r.so}
+    mv "$out"/lib/libmariadb.so.3 "$out"/lib/libmysqlclient.so
+    ln -sv libmysqlclient.so "$out"/lib/libmysqlclient_r.so
     mkdir -p "$dev"/lib && mv "$out"/lib/{libmariadbclient.a,libmysqlclient.a,libmysqlclient_r.a,libmysqlservices.a} "$dev"/lib
   '';
 
@@ -121,7 +123,7 @@ client = stdenv.mkDerivation (common // {
 everything = stdenv.mkDerivation (common // {
   name = "mariadb-${common.version}";
 
-  outputs = [ "dev" "out" "man" ];
+  outputs = [ "out" "dev" "man" ];
 
   nativeBuildInputs = common.nativeBuildInputs ++ [ bison ];
 
@@ -135,7 +137,7 @@ everything = stdenv.mkDerivation (common // {
     "-DINSTALL_PLUGINDIR=lib/mysql/plugin"
     "-DENABLED_LOCAL_INFILE=OFF"
     "-DWITH_READLINE=ON"
-    "-DWITH_EXTRA_CHARSETS=complex"
+    "-DWITH_EXTRA_CHARSETS=all"
     "-DWITH_EMBEDDED_SERVER=OFF"
     "-DWITH_UNIT_TESTS=OFF"
     "-DWITH_WSREP=ON"
@@ -154,9 +156,12 @@ everything = stdenv.mkDerivation (common // {
   '';
 
   postInstall = ''
+    chmod +x "$out"/bin/wsrep_sst_common
     rm -r "$out"/data # Don't need testing data
-    rm "$out"/bin/{mysql,mysql_find_rows,mysql_waitpid,mysqlaccess,mysqladmin,mysqlbinlog,mysqlcheck,mysqldump,mysqlhotcopy,mysqlimport,mysqlshow,mysqlslap,mysqltest}
+    rm "$out"/bin/{mysql,mysql_find_rows,mysql_waitpid,mysqlaccess,mysqladmin,mysqlbinlog,mysqlcheck}
+    rm "$out"/bin/{mysqldump,mysqlhotcopy,mysqlimport,mysqlshow,mysqlslap,mysqltest}
     rm "$out"/lib/mysql/plugin/{auth_gssapi_client.so,client_ed25519.so,daemon_example.ini}
+    rm "$out"/lib/{libmysqlclient.so,libmysqlclient_r.so}
     mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
     mkdir -p "$dev"/lib && mv "$out"/lib/{libmariadbclient.a,libmysqlclient.a,libmysqlclient_r.a,libmysqlservices.a} "$dev"/lib
   '' + optionalString (! stdenv.isDarwin) ''
@@ -172,7 +177,7 @@ galera = stdenv.mkDerivation rec {
   version = "25.3.23";
 
   src = fetchurl {
-    url = "https://mirrors.nxthost.com/mariadb/mariadb-10.3.8/galera-${version}/src/galera-${version}.tar.gz";
+    url = "https://mirrors.nxthost.com/mariadb/mariadb-10.3.9/galera-${version}/src/galera-${version}.tar.gz";
     sha256 = "11pfc85z29jk0h6g6bmi3hdv4in4yb00xsr2r0qm1b0y7m2wq3ra";
   };
 
