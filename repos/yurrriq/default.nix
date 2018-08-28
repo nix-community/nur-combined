@@ -8,16 +8,6 @@
 
     autojump = pkgs.callPackage ./pkgs/tools/misc/autojump {};
 
-    browserpass = pkgs.callPackage ./pkgs/tools/security/browserpass {};
-
-    clementine = pkgs.callPackage ./pkgs/applications/audio/clementine {};
-
-    copyq = pkgs.callPackage ./pkgs/applications/misc/copyq {};
-
-    diff-pdf = pkgs.callPackage ./pkgs/tools/text/diff-pdf {
-      inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
-    };
-
     erlang = pkgs.beam.interpreters.erlangR20.override {
       enableDebugInfo = true;
       installTargets = "install";
@@ -40,6 +30,16 @@
 
     lab = pkgs.callPackage ./pkgs/applications/version-management/git-and-tools/lab {};
 
+  } // (if pkgs.stdenv.isDarwin then {
+
+    clementine = pkgs.callPackage ./pkgs/applications/audio/clementine {};
+
+    copyq = pkgs.callPackage ./pkgs/applications/misc/copyq {};
+
+    diff-pdf = pkgs.callPackage ./pkgs/tools/text/diff-pdf {
+      inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
+    };
+
     m-cli = pkgs.callPackage ./pkgs/os-specific/darwin/m-cli {};
 
     musescore = pkgs.callPackages ./pkgs/applications/audio/musescore/darwin.nix {};
@@ -52,8 +52,12 @@
 
     spotify = pkgs.callPackage ./pkgs/applications/audio/spotify/darwin.nix {};
 
+  } else {
+
+    browserpass = pkgs.callPackage ./pkgs/tools/security/browserpass {};
+
     tellico = pkgs.libsForQt5.callPackage ./pkgs/applications/misc/tellico {};
 
-  };
+  });
 
 }

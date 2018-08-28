@@ -22,6 +22,5 @@ stdenv.mkDerivation rec {
     # TODO: license
     platforms = platforms.darwin;
     maintainers = with maintainers; [ yurrriq ];
-    broken = ! stdenv.isDarwin;
   };
 }
