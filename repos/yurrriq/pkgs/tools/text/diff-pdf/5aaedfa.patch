@@ -1,0 +1,22 @@
+From 5aaedfa61eebb670dfe36d72f741352f994ca5ef Mon Sep 17 00:00:00 2001
+From: Vaclav Slavik <vslavik@gmail.com>
+Date: Sun, 29 Sep 2013 20:20:13 +0200
+Subject: [PATCH] Fix wxString::Format() assert with wx-3.0.
+
+---
+ diff-pdf.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/diff-pdf.cpp b/diff-pdf.cpp
+index 362a0b4..518c298 100644
+--- a/diff-pdf.cpp
++++ b/diff-pdf.cpp
+@@ -656,7 +656,7 @@ class DiffFrame : public wxFrame
+             (
+                 wxT("Page %d of %d; %d of them %s different, this page %s"),
+                 m_cur_page + 1 /* humans prefer 1-based counting*/,
+-                m_pages.size(),
++                (int)m_pages.size(),
+                 m_diff_count,
+                 m_diff_count == 1 ? wxT("is") : wxT("are"),
+                 m_pages[m_cur_page] ? wxT("differs") : wxT("is unchanged")

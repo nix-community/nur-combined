@@ -6,7 +6,17 @@
 
   pkgs = {
 
+    autojump = pkgs.callPackage ./pkgs/tools/misc/autojump {};
+
     browserpass = pkgs.callPackage ./pkgs/tools/security/browserpass {};
+
+    clementine = pkgs.callPackage ./pkgs/applications/audio/clementine {};
+
+    copyq = pkgs.callPackage ./pkgs/applications/misc/copyq {};
+
+    diff-pdf = pkgs.callPackage ./pkgs/tools/text/diff-pdf {
+      inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
+    };
 
     erlang = pkgs.beam.interpreters.erlangR20.override {
       enableDebugInfo = true;
@@ -14,11 +24,11 @@
       wxSupport = false;
     };
 
+    gap-pygments-lexer = pkgs.callPackage ./pkgs/tools/misc/gap-pygments-lexer {
+      pythonPackages = pkgs.python2Packages;
+    };
+
     git-crypt = pkgs.callPackage ./pkgs/applications/version-management/git-and-tools/git-crypt {};
-
-    lab = pkgs.callPackage ./pkgs/applications/version-management/git-and-tools/lab {};
-
-    sourcetree = pkgs.callPackage ./pkgs/os-specific/darwin/sourcetree {};
 
     kops = pkgs.callPackage ./pkgs/applications/networking/cluster/kops {};
 
@@ -27,6 +37,20 @@
     kubernetes = pkgs.callPackage ./pkgs/applications/networking/cluster/kubernetes {};
 
     kubernetes-helm = pkgs.callPackage ./pkgs/applications/networking/cluster/helm {};
+
+    lab = pkgs.callPackage ./pkgs/applications/version-management/git-and-tools/lab {};
+
+    m-cli = pkgs.callPackage ./pkgs/os-specific/darwin/m-cli {};
+
+    musescore = pkgs.callPackages ./pkgs/applications/audio/musescore/darwin.nix {};
+
+    onyx = pkgs.callPackage ./pkgs/os-specific/darwin/onyx {};
+
+    skim = pkgs.callPackage ./pkgs/applications/misc/skim {};
+
+    sourcetree = pkgs.callPackage ./pkgs/os-specific/darwin/sourcetree {};
+
+    spotify = pkgs.callPackage ./pkgs/applications/audio/spotify/darwin.nix {};
 
     tellico = pkgs.libsForQt5.callPackage ./pkgs/applications/misc/tellico {};
 

@@ -6,6 +6,8 @@
 
   git = import ./git.nix;
 
+  hadolint = import ./hadolint.nix;
+
   node = import ./node.nix;
 
 }
