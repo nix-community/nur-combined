@@ -1,16 +1,6 @@
 { pkgs }:
 
 {
-  bloop = pkgs.bloop.overrideAttrs(oldAttrs: rec {
-    name = "bloop-${version}";
-    version = "1.0.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "scalacenter";
-      repo = "bloop";
-      rev = "v${version}";
-      sha256 =  "1j49dgz69gw64y7fbdkw6z8xr6bgnndb3c6yyc2qaz8a4da8n2xb";
-    };
-  });
   emacsPlus = let
     patchMulticolorFonts = pkgs.fetchurl {
         url = "https://gist.githubusercontent.com/aatxe/260261daf70865fbf1749095de9172c5/raw/214b50c62450be1cbee9f11cecba846dd66c7d06/patch-multicolor-font.diff";
@@ -44,6 +34,16 @@
           ++ pkgs.lib.optional withMulticolorFonts patchMulticolorFonts;
       });
   gopass = pkgs.callPackage ./tools/security/gopass {};
+  hex2nix = pkgs.hex2nix.overrideAttrs(oldAttrs: rec {
+    version = "0.0.6-786de2e";
+    src = pkgs.fetchFromGitHub {
+      owner  = "erlang-nix";
+      repo   = "hex2nix";
+      rev = "786de2e4a0633c4a24dc5c3904e0f9ffa9557a7d";
+      # "date": "2018-07-16T09:23:03-04:00"
+      sha256 = "04knhxjk4jyc2j7a32i6wkz2msfiw14q4l9gc1kq90nfpv0dxfiv";
+    };
+  });
   hoverfly = pkgs.callPackage ./development/tools/hoverfly {};
   ix = pkgs.callPackage ./misc/ix {};
   mill = pkgs.callPackage ./development/tools/mill {};
