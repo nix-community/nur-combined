@@ -1,0 +1,14 @@
+diff --git a/src/sbuffer.h b/src/sbuffer.h
+index 92ac811..a23f66a 100644
+--- a/src/sbuffer.h
++++ b/src/sbuffer.h
+@@ -11,7 +11,9 @@ struct buf_hdr
+     char buf[0];
+ };
+ 
++#ifndef MAX
+ #define MAX(a, b) ((a) > (b) ? (a) : (b))
++#endif
+ #define OFFSETOF(t, f) (size_t)((char *)&(((t *)0)->f) - (char *)0)
+ 
+ #define buf__hdr(b) ((struct buf_hdr *)((char *)(b) - OFFSETOF(struct buf_hdr, buf)))

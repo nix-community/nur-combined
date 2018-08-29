@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   name = "kubectx-${version}";
-  inherit (meta) version;
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "ahmetb";
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    version = "0.5.1";
+    inherit version;
     description = "Fast way to switch between clusters and namespaces in kubectl";
     license = licenses.asl20;
     inherit (src.meta) homepage;

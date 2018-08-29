@@ -46,6 +46,10 @@
 
     onyx = pkgs.callPackage ./pkgs/os-specific/darwin/onyx {};
 
+    skhd = pkgs.callPackage ./pkgs/os-specific/darwin/skhd {
+      inherit (pkgs.darwin.apple_sdk.frameworks) Carbon;
+    };
+
     skim = pkgs.callPackage ./pkgs/applications/misc/skim {};
 
     sourcetree = pkgs.callPackage ./pkgs/os-specific/darwin/sourcetree {};
