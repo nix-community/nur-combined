@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
       Internet sites, including IMDB.com, Amazon.com, and most libraries.
     '';
     homepage = http://tellico-project.org/;
-    license = licenses.gpl20;
+    license = licenses.gpl2;
     maintainers = with maintainers; [ yurrriq ];
     platforms = platforms.linux;
   };
