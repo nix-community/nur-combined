@@ -106,12 +106,12 @@ let toplevel = {
     svf_6 = callPackage ./pkgs/svf { llvm = pkgs.llvm_6; };
     svf = svf_4;
     ptaben-fi_4 = callPackage ./pkgs/svf/ptaben.nix {
-      inherit (pkgs.llvmPackages_4) llvm clang;
+      inherit (pkgs.llvmPackages_4) stdenv llvm clang;
       svf = svf_4;
     };
     ptaben-fs_4 = ptaben-fi_4.override { testFSPTA = true; };
     ptaben-fi_6 = callPackage ./pkgs/svf/ptaben.nix {
-      inherit (pkgs.llvmPackages_6) llvm clang;
+      inherit (pkgs.llvmPackages_6) stdenv llvm clang;
       svf = svf_6;
     };
     ptaben-fs_6 = ptaben-fi_6.override { testFSPTA = true; };

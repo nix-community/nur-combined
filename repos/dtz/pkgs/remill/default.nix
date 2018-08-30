@@ -14,12 +14,12 @@ with stdenv.lib;
 let
   llvm_version = getVersion llvm;
   srcinfo = {
-    version = "2018-08-25";
+    version = "2018-08-28";
     src = fetchFromGitHub {
       owner = "trailofbits";
       repo = "remill";
-      rev = "85dc1282b7b9687ffd79d055f5d68e85edda44a1";
-      sha256 = "1f1xlmk1fdi89rm7idb0is5vi2w5aazwdkychb064bqvqxxfivgp";
+      rev = "a31497fb5df944f83e4221aad53f4792bc759d7f";
+      sha256 = "0klac5j9qkk4wq6571v2fwfc72ziys0pk1gxgfgd6jx706qfwn3f";
     };
   };
   mcsema_srcinfo = import ./mcsema.nix { inherit fetchFromGitHub; };
@@ -48,8 +48,10 @@ let
     '';
 
     postPatch = ''
-      substituteInPlace CMakeLists.txt \
-        --replace "find_package(XED REQUIRED)" ""
+      for x in CMakeLists.txt tools/mcsema/CMakeLists.txt; do
+        substituteInPlace $x \
+          --replace "find_package(XED REQUIRED)" ""
+      done
       for x in tests/{AArch64,X86}/CMakeLists.txt; do
         substituteInPlace $x \
           --replace "find_package(gtest REQUIRED)" \
@@ -64,7 +66,7 @@ let
       # since their invocation doesn't accomodate existing rpath value
       sed -i CMakeLists.txt -e 's|\(.*\)COMMAND ''${CHRPATH_COMMAND}|\1COMMAND chmod u+w ''${output_file_path}\n# \0|'
 
-      sed -i -e '/CODE/,+2d' tools/mcsema/CMakeLists.txt
+      sed -i -e '/CODE/,+5d' tools/mcsema/CMakeLists.txt
 
       # Don't look for "ABI" includes under 'x86_64-linux-gnu', they're not there
       # No "ultrasound" header, not sure what that's about.
