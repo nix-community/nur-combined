@@ -158,7 +158,7 @@ everything = stdenv.mkDerivation (common // {
   postInstall = ''
     chmod +x "$out"/bin/wsrep_sst_common
     rm -r "$out"/data # Don't need testing data
-    rm "$out"/bin/{mysql,mysql_find_rows,mysql_waitpid,mysqlaccess,mysqladmin,mysqlbinlog,mysqlcheck}
+    rm "$out"/bin/{mysql_find_rows,mysql_waitpid,mysqlaccess,mysqladmin,mysqlbinlog,mysqlcheck}
     rm "$out"/bin/{mysqldump,mysqlhotcopy,mysqlimport,mysqlshow,mysqlslap,mysqltest}
     rm "$out"/lib/mysql/plugin/{auth_gssapi_client.so,client_ed25519.so,daemon_example.ini}
     rm "$out"/lib/{libmysqlclient.so,libmysqlclient_r.so}
