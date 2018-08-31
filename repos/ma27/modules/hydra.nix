@@ -27,6 +27,8 @@ in
       description = "VHost for Hydra CI";
     };
 
+    enableNginx = mkEnableOption "Nginx for Hydra" // { default = true; };
+
     enableSSL = mkOption {
       default = true;
       type = types.bool;
@@ -82,7 +84,7 @@ in
       '';
     } // cfg.extraConfig;
 
-    services.nginx.virtualHosts.${cfg.vhost} = {
+    services.nginx.virtualHosts.${cfg.vhost} = mkIf cfg.enableNginx {
       forceSSL = cfg.enableSSL;
       enableACME = cfg.enableSSL;
       locations."/".proxyPass = "http://localhost:3000";
