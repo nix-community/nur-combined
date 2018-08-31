@@ -27,6 +27,12 @@ in
       description = "VHost for Hydra CI";
     };
 
+    enableSSL = mkOption {
+      default = true;
+      type = types.bool;
+      description = "Whether to configure nginx host with SSL or not.";
+    };
+
     email = mkOption {
       example = "admin@example.org";
       type = types.str;
@@ -77,12 +83,12 @@ in
     } // cfg.extraConfig;
 
     services.nginx.virtualHosts.${cfg.vhost} = {
-      forceSSL = true;
-      enableACME = true;
+      forceSSL = cfg.enableSSL;
+      enableACME = cfg.enableSSL;
       locations."/".proxyPass = "http://localhost:3000";
     };
 
-    security.acme.certs.${cfg.vhost} = {
+    security.acme.certs.${cfg.vhost} = mkIf cfg.enableSSL {
       inherit (cfg) email;
     };
 
