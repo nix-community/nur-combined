@@ -1,25 +1,26 @@
 { pkgs ? import <nixpkgs> {} }:
 
 rec {
-  cntr = pkgs.callPackage ./pkgs/cntr {};
 
-  inxi = pkgs.callPackage ./pkgs/inxi {};
+  cntr = pkgs.callPackage ./pkgs/cntr {};
 
   conky-symbols = pkgs.callPackage ./pkgs/conky-symbols {};
 
   clearsans = pkgs.callPackage ./pkgs/clearsans {};
 
-  inconsolata-nerdfonts = pkgs.callPackage ./pkgs/inconsolata-nerdfonts {};
+  eapol_test = pkgs.callPackage ./pkgs/eapol_test {};
+
+  frida-tools = pkgs.callPackage ./pkgs/frida-tools { myPython3Packages = python3Packages; };
 
   gdbgui-donation = pkgs.callPackage ./pkgs/gdbgui {};
 
-  frida-python = pkgs.callPackage ./pkgs/frida-python {};
+  inconsolata-nerdfonts = pkgs.callPackage ./pkgs/inconsolata-nerdfonts {};
 
-  eapol_test = pkgs.callPackage ./pkgs/eapol_test {};
-
-  sourcetrail = pkgs.callPackage ./pkgs/sourcetrail {};
+  inxi = pkgs.callPackage ./pkgs/inxi {};
 
   nix-review-unstable = pkgs.callPackage ./pkgs/nix-review {};
+
+  sourcetrail = pkgs.callPackage ./pkgs/sourcetrail {};
 
   perlPackages = {
     Pry = pkgs.callPackage ./pkgs/pry {};
