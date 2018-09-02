@@ -1,0 +1,276 @@
+;=====================================================
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+[colors]
+;background = ${xrdb:color0:#222}
+background = #222
+background-alt = #444
+;foreground = ${xrdb:color7:#222}
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+[bar/xenon]
+modules-left = memory cpuload cpugraph temperature_desktop
+modules-center = i3
+modules-right = wired volume date
+
+monitor = ${env:MONITOR:DP-1}
+width = 100%
+height = 18
+radius = 2.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 2
+line-color = #F00
+
+border-size = 1
+border-color = #111111
+
+padding-left = 1
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = monospace:size=9;1
+
+[bar/helium]
+modules-left = memory cpuload cpufreq cpugraph temperature
+modules-center = i3
+modules-right = wireless battery battery_usage volume date
+
+monitor = ${env:MONITOR:eDP1}
+width = ${bar/xenon.width}
+height = ${bar/xenon.height}
+
+radius = ${bar/xenon.radius}
+fixed-center = ${bar/xenon.fixed-center}
+
+background = ${bar/xenon.background}
+foreground = ${bar/xenon.foreground}
+
+line-size = ${bar/xenon.line-size}
+line-color = ${bar/xenon.line-color}
+
+border-size = ${bar/xenon.border-size}
+border-color = ${bar/xenon.border-color}
+
+padding-left = ${bar/xenon.padding-left}
+padding-right = ${bar/xenon.padding-right}
+
+module-margin-left = ${bar/xenon.module-margin-left}
+module-margin-right = ${bar/xenon.module-margin-right}
+
+font-0 = ${bar/xenon.font-0}
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline = ${colors.primary}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+[module/cpugraph]
+type = internal/cpu
+interval = 0.5
+format = <ramp-coreload>
+format-prefix =
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #f94444
+label = CPU %percentage-cores%%
+
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
+
+[module/cpuload]
+type = custom/script
+exec = cat /proc/loadavg | cut -d " " -f1
+format-prefix = "CPU "
+format-underline = #f94444
+interval = 1
+
+[module/cpufreq]
+type = custom/script
+exec = echo $(sysnformat `cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq`) GHz
+format-underline = #f94444
+interval = 0.5
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format-prefix =
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #f94444
+label = CPU %percentage%%
+
+[module/memory]
+type = internal/memory
+interval = 0.5
+format-prefix =
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #f97444
+label = RAM %gb_used%
+
+[module/wireless]
+type = internal/network
+interface = wlp2s0
+interval = 1
+label-connected = NET %downspeed% %upspeed%
+format-connected-underline = #f94444
+
+[module/wired]
+type = internal/network
+interface = enp33s0
+interval = 1
+label-connected = NET %downspeed% %upspeed%
+format-connected-underline = #f94444
+
+[module/date]
+type = internal/date
+interval = 10
+
+date = "%A, %B %d"
+
+time = %H:%M
+
+format-prefix =
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #f97444
+
+label = %date% - %time%
+
+[module/volume]
+type = internal/volume
+
+format-volume = <label-volume>
+format-volume-underline = #f94444
+label-volume = VOL %percentage%%
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = 
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = MUTED
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP0
+full-at = 98
+
+format-charging = <label-charging>
+format-charging-underline = #f94444
+label-charging = CHR %percentage%%
+
+format-discharging = <label-discharging>
+format-discharging-underline = ${self.format-charging-underline}
+label-discharging = BAT %percentage%%
+
+format-full-prefix = 
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${self.format-charging-underline}
+
+[module/battery_usage]
+type = custom/script
+exec = echo $(sysnformat `cat /sys/class/power_supply/BAT0/power_now`) W
+format-underline = #f94444
+interval = 1
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format = <label>
+format-underline = #f94444
+format-warn = <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = %temperature%
+label-warn = %temperature%
+label-warn-foreground = ${colors.secondary}
+
+[module/temperature_desktop]
+type = internal/temperature
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input
+thermal-zone = 0
+warn-temperature = 80
+
+format = <label>
+format-underline = #f94444
+format-warn = <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = %temperature%
+label-warn = %temperature%
+label-warn-foreground = ${colors.secondary}
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini

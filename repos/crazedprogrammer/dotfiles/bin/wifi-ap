@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+if [[ $1 == "on" ]]; then
+	echo "Starting Wifi AP"
+	sudo rfkill unblock wlan
+	sleep 1
+	nmcli con down EthernetHost
+	nmcli con up EthernetClient
+	nmcli con up Hotspot
+elif [[ $1 == "off" ]]; then
+	echo "Stopping Wifi AP"
+	nmcli con down Hotspot
+	nmcli con down EthernetClient
+	nmcli con up EthernetHost
+else
+	echo "Expected on/off"
+fi

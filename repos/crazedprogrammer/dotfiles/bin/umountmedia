@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+fusermount -u $HOME/Media
+fusermount -u $HOME/Projects/CC

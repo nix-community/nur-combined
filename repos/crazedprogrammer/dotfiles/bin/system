@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# Program for general startup/lock commands.
+# This is done to avoid duplicates in i3 config.
+
+function kill {
+	pkill -f polybar
+	pkill -f dunst
+}
+
+function boot {
+	echo ide-disk | sudo tee /sys/class/leds/input0::capslock/trigger
+	if [ $(hostname) == "xenon" ]; then
+		sleep 5 && sudo hdparm -y /dev/sdb
+	elif [ $(hostname) == "helium" ]; then
+		echo 10 | sudo tee /sys/module/snd_hda_intel/parameters/power_save
+		echo 3600 | sudo tee /sys/block/bcache0/bcache/writeback_delay
+	fi
+}
+
+function reload {
+	feh --bg-tile $HOME/Pictures/Background.png &
+	polybar $(hostname) &
+	dunst &
+}
+
+function lock {
+	i3lock -c 000000
+}
+
+function tlock {
+	bash -c 'sleep 0.1; xtrlock-pam -b none' &
+}
+
+function suspend {
+	if [[ $(hostname) == "xenon" && 6700000 -gt $(vmstat -s | grep used\ memory | cut -d " " -f7) ]] ; then
+		systemctl hibernate
+		boot
+	else
+		systemctl suspend
+	fi
+}
+
+for var in "$@"
+do
+	"$var"
+done

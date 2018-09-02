@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+VALUE=$(awk "BEGIN { a="$1" / 1000000; print a }")
+
+printf "%.2f" $VALUE

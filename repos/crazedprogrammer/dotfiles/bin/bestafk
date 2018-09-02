@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+function reconnect {
+	xdotool mousemove 1271 625
+	sleep 0.5
+	xdotool click 1
+	sleep 1.5
+	xdotool mousemove 784 449
+	sleep 0.5
+	xdotool click 1
+	sleep 1.5
+	xdotool mousemove 458 236
+	sleep 0.5
+	xdotool click 1
+	sleep 20
+	xdotool type t
+}
+
+function launch {
+	pkill -f java
+	MultiMC 2>&1 & >/dev/null
+	sleep 1
+	xdotool mousemove 149 139 click 1
+	sleep 0.05
+	xdotool click 1
+	sleep 5
+	xdotool search --name "MultiMC" windowkill
+	xdotool mousemove 784 449
+	sleep 60
+	reconnect
+}
+
+launch
+while true; do
+	reconnect
+
+	sleep 600
+done

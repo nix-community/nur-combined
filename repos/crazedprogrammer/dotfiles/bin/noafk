@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+while true; do
+	xdotool mousemove_relative -- -10 0
+	sleep 1
+done

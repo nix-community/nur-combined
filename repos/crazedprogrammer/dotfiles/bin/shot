@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+path=$HOME/Pictures/Screenshots/$(date +"%Y%m%d-%H%M%S").png
+
+case $1 in
+	"s") args="-a" ;;
+	"u") args="-w" ;;
+	"m") args="" ;;
+	*) exit 1 ;;
+esac
+
+gnome-screenshot $args -f $path
+
+upload $path
