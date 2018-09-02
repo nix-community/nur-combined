@@ -1,6 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
 
 rec {
+  bat = pkgs.callPackage ./pkgs/bat {};
 
   cntr = pkgs.callPackage ./pkgs/cntr {};
 
