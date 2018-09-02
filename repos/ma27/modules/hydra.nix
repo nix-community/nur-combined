@@ -50,6 +50,8 @@ in
       type = types.str;
       description = "Key dir for Hydra artifacts";
     };
+
+    disallowRestrictedEval = mkEnableOption "restricted evaluation on Hydra" // { default = true; };
   };
 
   config = mkIf cfg.enable {
@@ -139,6 +141,6 @@ in
       "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
     ];
 
-    nixpkgs.overlays = [ (import ./overlays/hydra.nix) ];
+    nixpkgs.overlays = mkIf cfg.disallowRestrictedEval [ (import ./overlays/hydra.nix) ];
   };
 }
