@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   buildFlags = [
     "install"
-    "-v1"
+    # "-v1"
   ]
     ++ stdenv.lib.optional stdenv.cc.isClang "--compiler=clang"
     ++ stdenv.lib.optional enableShared "--shared";
