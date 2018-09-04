@@ -3,6 +3,8 @@
 rec {
   bat = pkgs.callPackage ./pkgs/bat {};
 
+  gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard {};
+
   cntr = pkgs.callPackage ./pkgs/cntr {};
 
   conky-symbols = pkgs.callPackage ./pkgs/conky-symbols {};
