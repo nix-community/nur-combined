@@ -4,6 +4,8 @@ rec {
   modules = import ./modules;
   overlays = import ./overlays;
 
+  rfc-reader = pkgs.callPackage ./pkgs/rfc-reader {};
+
   youtube-rss = pkgs.callPackage ./pkgs/youtuberss.nix {};
 
   # TODO update and eventually upstream into nixpkgs

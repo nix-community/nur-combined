@@ -28,7 +28,7 @@ TPM 2.0 tools and library by Intel
 - [tpm2-tools](https://github.com/tpm2-software/tpm2-tools)
 - [tpm2-tss](https://github.com/tpm2-software/tpm2-tss)
 
-Library a
+Libraries and tools for Thai language
 - [thpronun](https://github.com/tlwg/thpronun) Thai pronunciation analyzer
 - [libthai](https://github.com/tlwg/libthai) Thai language support library
 - [libdatrie](https://github.com/tlwg/libdatrie) Double-Array Trie Library
@@ -41,3 +41,29 @@ Patched cloc to support the nix language (should be already in nixpkgs master)
 - `okernel-procps-patch` Patched `ps` with okernel column
 - `okernel-htop` Forked `htop` with okernel column
 - `okernel` Okernel userspace [components](https://github.com/linux-okernel/linux-okernel-components) and supporting material
+
+## Available attributes
+```
+.lib.aes-cbc
+.modules.cpupower
+.modules.ip-to-usb
+
+.rfc-reader
+
+.youtube-rss
+
+.tpm2-tools
+.tpm2-tss
+
+.libdatrie
+.libthai
+.thpronun
+
+.cloc
+
+.okernel-procps-src
+.okernel-procps-patch
+.okernel-procps-package
+.okernel-htop
+.okernel
+```

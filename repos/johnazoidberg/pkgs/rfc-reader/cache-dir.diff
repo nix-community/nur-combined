@@ -1,0 +1,12 @@
+--- a/rfc/rfc.py
++++ b/rfc/rfc.py	2018-09-05 00:09:32.707543192 +0200
+@@ -290,6 +290,9 @@
+ 
+     pager = config.pager[0] if config.pager else None
+ 
++    if 'RFC_READER_CACHE' in os.environ:
++        Config.LOCAL_STORAGE_PATH = os.environ['RFC_READER_CACHE']
++
+     app = RFCApp(pager)
+     if config.update:
+         app.update()
