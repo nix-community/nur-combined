@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   name = "onyx-${version}";
-  version = "3.4.7";
+  version = "3.4.8";
 
   src = fetchurl {
     url = "https://www.titanium-software.fr/download/1013/OnyX.dmg";
-    sha256 = "02wkh6ryjhwzw4v27w58l6bj0p75yk2qfw49kh456zg9wx2fgc9g";
+    sha256 = "16068q1mamjly6gzdqwcapgczc3fwnch77ls4ymwm5sj51paifsm";
   };
 
   buildInputs = [ undmg ];
