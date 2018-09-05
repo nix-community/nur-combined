@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ python2Packages.pygments ];
 
-  installPhase = let
-  in ''
+  installPhase = ''
     mkdir -p $out/share/gdb-dashboard
     cp -r .gdbinit $out/share/gdb-dashboard/gdbinit
     makeWrapper ${gdb}/bin/gdb $out/bin/gdb-dashboard \

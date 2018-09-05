@@ -21,7 +21,15 @@ rec {
 
   inxi = pkgs.callPackage ./pkgs/inxi {};
 
+  nix-lsp = pkgs.callPackage ./pkgs/nix-lsp {
+    inherit rustNightlyPlatform;
+  };
+
   nix-review-unstable = pkgs.callPackage ./pkgs/nix-review {};
+
+  rust-nightly = pkgs.callPackage ./pkgs/rust-nightly {};
+
+  rustNightlyPlatform = pkgs.recurseIntoAttrs (pkgs.makeRustPlatform rust-nightly);
 
   sourcetrail = pkgs.callPackage ./pkgs/sourcetrail {};
 
