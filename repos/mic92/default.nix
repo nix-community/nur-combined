@@ -5,6 +5,9 @@ rec {
 
   gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard {};
 
+  # TODO checksum can break ... make a mirror?
+  # binary-ninja = pkgs.callPackage ./pkgs/binary-ninja {};
+
   cntr = pkgs.callPackage ./pkgs/cntr {};
 
   conky-symbols = pkgs.callPackage ./pkgs/conky-symbols {};
@@ -32,6 +35,8 @@ rec {
   rustNightlyPlatform = pkgs.recurseIntoAttrs (pkgs.makeRustPlatform rust-nightly);
 
   sourcetrail = pkgs.callPackage ./pkgs/sourcetrail {};
+
+  # smashing = pkgs.callPackage ./pkgs/smashing {};
 
   perlPackages = {
     Pry = pkgs.callPackage ./pkgs/pry {};
