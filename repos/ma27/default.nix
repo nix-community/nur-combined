@@ -2,9 +2,10 @@
 
 let
 
+  nameFromPath = path: replaceStrings [ ".nix" ] [ "" ] (last (splitString "/" (toString path)));
+
   module-list = [
     ./modules/hydra.nix
-    ./modules/weechat.nix
   ];
 
 in
@@ -14,18 +15,15 @@ in
     gianas-return = pkgs.callPackage ./pkgs/gianas-return { };
 
     overlays = {
-      sudo = self: super: {
-        sudo = super.sudo.override { withInsults = true; };
-      };
+      sudo = import ./pkgs/sudo/overlay.nix;
 
       termite = import ./pkgs/termite/overlay.nix;
+
+      hydra = import ./pkgs/hydra/overlay.nix;
     };
 
     ### MODULES
-    modules = let
-      nameFromPath = path: replaceStrings [ ".nix" ] [ "" ] (last (splitString "/" (toString path)));
-    in
-      listToAttrs (map (path: { name = "${nameFromPath path}"; value = import path; }) module-list);
+    modules = listToAttrs (map (path: { name = "${nameFromPath path}"; value = import path; }) module-list);
 
     ### LIBRARY
     lib = pkgs.callPackage ./lib { };

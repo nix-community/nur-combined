@@ -141,6 +141,6 @@ in
       "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
     ];
 
-    nixpkgs.overlays = mkIf cfg.disallowRestrictedEval [ (import ./overlays/hydra.nix) ];
+    nixpkgs.overlays = mkIf cfg.disallowRestrictedEval [ (import ../pkgs/hydra/overlay.nix) ];
   };
 }

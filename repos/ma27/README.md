@@ -1,8 +1,6 @@
 # nur-packages
 
-[![pipeline status](https://gitlab.com/Ma27/nur-packages/badges/master/pipeline.svg)](https://gitlab.com/Ma27/nur-packages/commits/master)
-
-My own user-contributed packages as proposed in [nix-community/NUR](https://github.com/nix-community/nur).
+My own nix expressions distributed with [nix-community/NUR](https://github.com/nix-community/nur).
 
 ## Setup
 
@@ -48,17 +46,15 @@ The following overlays are available:
 * `overlays.termite`: Provides a patched `termite` with the patch
   from [`thestinger/termite#621`](https://github.com/thestinger/termite/pull/621) which allows to
   use `termite` without the `F11` hotkey enabled. This is e.g. helpful when using `weechat` in `termite`.
+* `overlays.hydra`: `hydra` package with a patch that disables restricted jobset evaluation. This can be
+  helpful in to evaluate jobsets that require e.g. Git checkouts.
 
 ## Modules
 
 ### Initial setup
 
-Unfortunately it's currently impossible to load modules that are defined as list in the `pkgs`
-can't be imported using `imports = []`. This occurrs due to the evaluation order in the module system,
-the config will be merged (including `imports`), after that the evaluation starts.
-
-The package set is imported by default in `nixpkgs.pkgs`. Therefore we have to work around by evaluating `NUR`
-in a second package set:
+Modules can be loaded by importing a second `nur` repo as described
+[in the upstream docs](https://github.com/nix-community/NUR#using-modules-overlays-or-library-functions-in-nixos):
 
 ``` nix
 { pkgs, config, ... }:
@@ -69,9 +65,8 @@ let
   };
 in
 {
-  imports = [
-    nur-no-pkgs.repos.ma27.modules.hydra
-    nur-no-pkgs.repos.ma27.modules.weechat
+  imports = with nur-no-pkgs.repos.ma27.modules; [
+    hydra weechat
   ];
 }
 ```
@@ -80,10 +75,11 @@ in
 
 The [Hydra CI](https://nixos.org/hydra/) is a build system for Nix.
 
-The module provides a patch to [disable restricted eval](https://github.com/NixOS/hydra/issues/531) and some additional configuration
-such as a notifier, a basic VHost with [ACME](https://letsencrypt.org/docs/client-options/) support.
+This `hydra` module enhances `services.hydra` with several features such as an automated
+configuration and a VHost setup. Furthermore it provides (optionally) a patch which creates
+a Hydra instance with disabled eval restrictions using the `overlays.hydra` overlay from this NUR repository.
 
-It can be easily configured like this:
+A basic configuration for a fully automated Hydra instance may look like this:
 
 ``` nix
 {
@@ -103,7 +99,7 @@ It can be easily configured like this:
 
 **Limitations**:
 
-* Only allows local build machines.
+* Only allows local build machines (currently `x86_64-linux` only).
 * Fairly opinionated, lacks several features.
 
 For private repositories a private key has to be generated to allow
@@ -114,94 +110,13 @@ sudo -u hydra -i
 ssh-keygen
 ```
 
-### Weechat
-
-The [Weechat](https://weechat.org/) module allows to configure declaratively a Weechat instance in your user profile (namely `$HOME/.cache`)
-and allows to run it locally or using a `screen` session managed by `systemctl --user`.
-
-It can be easily configured like this:
-
-``` nix
-{
-  ma27.weechat = {
-    enable = true;
-    useInScreen = true;       # add screen service
-    sec = ./sec.conf;         # `types.path` to `sec.conf`
-    irc = ./irc.conf;         # `types.path` to `irc.conf`
-    plugins = ./plugins.conf  # `types.path` to `plugins.conf`
-  };
-}
-```
-
-Additionally it's fairly easy to reload the `screen` session after changing the config:
-
-```
-systemctl --user daemon-reload
-systemctl --user restart weechat-screen.service
-```
-
-The session can be accessed with `screen -r weechat`.
+In order to clone a `git` repository, the previously generated pubkey for Hydra
+needs to be uploaded to the given `git` upstream server.
 
 ## Additional library
 
-### Hetzner
-
-The library contains simple helper functions to provision and deploy [Hetzner Cloud](https://www.hetzner.com/cloud).
-The main function is `mkHetznerVM`:
-
-``` nix
-let
-
-  nur-no-pkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-    pkgs = import <nixpkgs> {}; # create dummy pkgs to load modules (that require `pkgs.lib` for evaluation)
-  };
-
-in
-{
-  machine1 = { pkgs, ... }: with nur-no-pkgs.repos.ma27.lib; mkHetznerVM {
-    name = "name-of-the-vm";
-    hostName = "actual hostname";
-    ipv4 = "0.0.0.0";               # static IPv4 assigned by hetzner cloud
-    ipv6 = "::1";                   # static IPv6 assigned by hetzner cloud
-
-    users.extraUsers.test = {       # add some users
-      # …
-    };
-
-    imports = [
-      # import some modules
-    ];
-
-    boot = {
-      loader.grub = mkGrub "/dev/sda"; # harddrive with the bootloader
-      initrd = mkInitrd {
-        "any-device" = {
-          device = "/dev/path/to/device";
-          allowDiscards = true;
-          # additional hardware config
-        };
-      };
-    };
-
-    rootPart = "/dev/disk/to/root";
-    swapPart = "any-uuid";              # /dev/disk/by-uuid/${swapPart}
-    bootPart = "any-uuid";              # /dev/disk/by-uuid/${bootPart}
-  };
-}
-```
-
-Additionally `lib/default.nix` provides two more functions, `mkGrub` and `mkInitrd`:
-
-* `mkGrub x`: returns the basoc configuration for the `loader.grub` submodule
-  with a given device `x`.
-
-* `mkInitrd x`: creates a wrapper for an [`initrd`](https://wiki.debian.org/Initrd) configuration
-  customized for a simple Hetzner cloud instance. It provides the needed kernel modules and
-  sets the devices `x` accordingly assuming that `luks` will be used.
-
-**Note:** please keep in mind that these functions are fairly customized for Hetzner cloud which
-I use for most of my private systems. It requires careful testing especially when using it for
-different systems!
+This repository ships several simple helper APIs to simplify Nix-based development
+on a daily basis.
 
 ### Tex Environment
 
@@ -215,8 +130,9 @@ with import <nixpkgs> {};
 
 let
 
+  # create dummy pkgs to load modules (that require `pkgs.lib` for evaluation)
   nur-no-pkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-    pkgs = import <nixpkgs> {}; # create dummy pkgs to load modules (that require `pkgs.lib` for evaluation)
+    pkgs = import <nixpkgs> {};
   };
 
   inherit (nur-no-pkgs.repos.ma27.lib) mkTexDerivation;
@@ -240,11 +156,12 @@ mkTexDerivation {
 }
 ```
 
-To build the documents inside it's sufficient to run `nix-build`. After that the rendered PDFs will be
+To build the documents in `$src` it's sufficient to run `nix-build`. After that the rendered PDFs will be
 available at `$out/docs`.
 
 The shell environment using `nix-shell` can be used to develop and build `.tex`
-documents and contains the packages`zathura` and `pdfpc` to view and present documents.
+documents and contains a simple `texlive` environment, the packages`zathura`
+and `pdfpc` to develop, view and present documents.
 
 The shell script `watch-tex` allows to watch `.tex` and `.bib` files and rebuilds them on every
 file change which is detected by `md5sum`. The script can be used inside `nix-shell` like this:
