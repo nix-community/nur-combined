@@ -10,7 +10,7 @@ let
   ];
 in stdenv.mkDerivation rec { 
   name = "inxi-${version}";
-  version = "3.0.21-1";
+  version = "3.0.23-1";
 
   src = fetchFromGitHub {
     owner = "smxi";

@@ -1,8 +1,13 @@
-{ nix-review, fetchFromGitHub }:
+{ nix-review, lib, fetchFromGitHub }:
 
-nix-review.overrideAttrs (old: rec {
+let 
+  version  = "0.5.0-beta2";
+in if lib.versionOlder version nix-review.version then
+  nix-review
+else
+  nix-review.overrideAttrs (old: {
   name = "nix-review-${version}";
-  version = "0.5.0-beta2";
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "Mic92";
