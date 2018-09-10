@@ -4,19 +4,22 @@ let
   src = fetchFromGitHub {
     owner = "monsieurh";
     repo = "rfc_reader";
-    rev = "0z63rn6zvhp4hh4pvyqil0zrczv0ynhr0652m0q5raxgha2karw8";
+    rev = "5679eb901e3ba49ce4a89583914b025e8088a210";
     sha256 = "0w47inhd57h62fylvxlklxp0s52yjmpzky47pg277bwzly42vbcv";
   };
 
   rfcs = fetchurl {
-    url = "https://www.rfc-editor.org/in-notes/tar/RFC-all.tar.gz";
-    #sha256 = "1awln69q48qykvaxssvf8ndbgsxcjdj4r0rbas3yqxhqbx9nyg0j";  #--unpack
-    sha256 = "147v8dfygnn25mhjaszv9i2v30pbhjmych55zkaaq42vgmbjr8vr";
+    # We can't use the upstream URL because they update it every day
+    # url = "https://www.rfc-editor.org/in-notes/tar/RFC-all.tar.gz";
+    url = "https://danielschaefer.me/rfc/2018-09-10/RFC-all.tar.gz";
+    sha256 = "1100h1n9ksmhfb8fnsj9hy7cfhj37m4985bcl3zzx8w0rp16vvq2";
   };
 
   rfc-index = fetchurl {
-    url = "https://www.ietf.org/download/rfc-index.txt";
-    sha256 = "0z63rn6zvhp4hh4pvyqil0zrczv0ynhr0652m0q5raxgha2karw8";
+    # We can't use the upstream URL because they update it every day
+    # url = "https://www.ietf.org/download/rfc-index.txt";
+    url = "https://danielschaefer.me/rfc/2018-09-10/rfc-index.txt";
+    sha256 = "0dsdsjjywvqa8aflm6snf3229q3p3bj3ka0n5pqvashbqz3s9h68";
   };
 in
 pythonPackages.buildPythonApplication rec {
