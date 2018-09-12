@@ -18,8 +18,8 @@ let
     src = fetchFromGitHub {
       owner = "trailofbits";
       repo = "remill";
-      rev = "f0c9f0365821da992b3023002010956bdb139197";
-      sha256 = "1qbnqfq8zwingf61r8fczgjqhqlz68l6c00zspdkgivd6kqs0w28";
+      rev = "40d5d26b9d525cb9370c19262155b49435821b80";
+      sha256 = "0zafgyvvsnb2mg56yfr0fmfizwa8v10dm0dpnp52mqxmqsvzmvjy";
     };
   };
   mcsema_srcinfo = import ./mcsema.nix { inherit fetchFromGitHub; };
