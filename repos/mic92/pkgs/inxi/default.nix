@@ -16,7 +16,7 @@ in stdenv.mkDerivation rec {
     owner = "smxi";
     repo = "inxi";
     rev = version;
-    sha256 = "0vpnkw5f8i1cakxxsqbb88bvnpncs87lx110s0ry0mnz4ajq2wi7";
+    sha256 = "0nhiy752hrwg2pcb5878sknfh7jgs845d941mdz700aww4y047ha";
   };
 
   installPhase = ''
