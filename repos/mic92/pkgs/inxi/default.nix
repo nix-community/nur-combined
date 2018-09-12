@@ -1,22 +1,22 @@
 { stdenv, fetchFromGitHub
 , makeWrapper, perl
-, dmidecode, file, hddtemp, nettools, iproute, lm_sensors, usbutils, kmod, xlibs
+, dmidecode, file, glxinfo, hddtemp, nettools, iproute, lm_sensors, usbutils, kmod, xlibs
 }:
 
 let
   path = [
-    dmidecode file hddtemp nettools iproute lm_sensors usbutils kmod
+    dmidecode file glxinfo hddtemp nettools iproute lm_sensors usbutils kmod
     xlibs.xdpyinfo xlibs.xprop xlibs.xrandr
   ];
 in stdenv.mkDerivation rec { 
   name = "inxi-${version}";
-  version = "3.0.23-1";
+  version = "3.0.24-2";
 
   src = fetchFromGitHub {
     owner = "smxi";
     repo = "inxi";
     rev = version;
-    sha256 = "0nhiy752hrwg2pcb5878sknfh7jgs845d941mdz700aww4y047ha";
+    sha256 = "0qqnx0hkf43d7l53lkxcg1h9s6wqj0dmmm3hlgwz1xh543ra6ql9";
   };
 
   installPhase = ''
