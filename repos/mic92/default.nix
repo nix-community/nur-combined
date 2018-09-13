@@ -1,8 +1,6 @@
 { pkgs ? import <nixpkgs> {} }:
 
 rec {
-  bat = pkgs.callPackage ./pkgs/bat {};
-
   gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard {};
 
   # TODO checksum can break ... make a mirror?
