@@ -1,30 +1,16 @@
-{ pkgs ? import <nixpkgs> {} }: with pkgs.lib;
+{ pkgs ? import <nixpkgs> {} }:
 
 let
 
-  nameFromPath = path: replaceStrings [ ".nix" ] [ "" ] (last (splitString "/" (toString path)));
+  moduleList = import ./module-list.nix;
 
-  module-list = [
-    ./modules/hydra.nix
-  ];
+  callPackage = pkgs.newScope (pkgs // nurSet);
+
+  nurSet = import ./packages.nix {
+    inherit callPackage moduleList;
+    inherit (pkgs) lib;
+  };
 
 in
 
-  {
-    ### PACKAGES
-    gianas-return = pkgs.callPackage ./pkgs/gianas-return { };
-
-    overlays = {
-      sudo = import ./pkgs/sudo/overlay.nix;
-
-      termite = import ./pkgs/termite/overlay.nix;
-
-      hydra = import ./pkgs/hydra/overlay.nix;
-    };
-
-    ### MODULES
-    modules = listToAttrs (map (path: { name = "${nameFromPath path}"; value = import path; }) module-list);
-
-    ### LIBRARY
-    lib = pkgs.callPackage ./lib { };
-  }
+  nurSet

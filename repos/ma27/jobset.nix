@@ -1,21 +1,27 @@
-{ supportedSystems ? [ "x86_64-linux"] }:
+{ nixpkgs ? <nixpkgs>, supportedSystems ? [ "x86_64-linux"] }:
 
 let
 
-  inherit (import ./lib/release) mkJob fetchNur;
+  inherit (import ./. { pkgs = import nixpkgs {}; }) mkJob mkTests;
 
-  myPkgs = pkgs: { mapTestOn, linux, ... }: mapTestOn {
-    nur.repos = {
-      mic92.cntr = linux;
-      ma27.gianas-return = linux;
-    };
+  ### TESTS
+  libraryTests = callPackage: mkTests [
+    (callPackage ./tests/test-checkout-nixpkgs.nix { })
+    (callPackage ./tests/test-mkjob.nix { })
+  ];
 
+  jobset = { mapTestOn, linux, ... }: mapTestOn {
+    gianas-return = linux;
     termite = linux;
     sudo = linux;
     hydra = linux;
+    libraryTests = linux;
   };
 
-  overlays = builtins.attrValues ((fetchNur (import <nixpkgs> {})).repos.ma27.overlays);
+  overlays = [
+    (_: super: import ./. { pkgs = super; })
+    (_: super: { libraryTests = libraryTests super.callPackage; })
+  ];
 
 in
 
@@ -23,14 +29,12 @@ in
 
     nur-personal-stable = mkJob {
       channel = "18.09";
-      func = myPkgs;
-      inherit overlays supportedSystems;
+      inherit overlays supportedSystems jobset;
     };
 
     nur-personal-unstable = mkJob {
       channel = "unstable";
-      func = myPkgs;
-      inherit overlays supportedSystems;
+      inherit overlays supportedSystems jobset;
     };
 
   }

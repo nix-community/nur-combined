@@ -66,7 +66,7 @@ let
 in
 {
   imports = with nur-no-pkgs.repos.ma27.modules; [
-    hydra weechat
+    hydra
   ];
 }
 ```
@@ -171,3 +171,54 @@ $ nix-shell
 [nix-shell:~]$ watch-tex book.tex # rebuilds `book.tex' for each change
 [nix-shell:~]$ watch-tex book.tex literature.bib # builds book.tex and literatur.bib on every change
 ```
+
+### Hydra build library
+
+The package expressions in this repository are tested using Hydra CI. To simplify such builds,
+the `release` library can be used.
+
+It basically consists of two functions:
+
+* `checkoutNixpkgs`: Loads `nixpkgs` from a given channel and allows to modify the package set using overlays.
+  An exemplary usage may look like this:
+
+  ``` nix
+  checkoutNixpkgs {
+    channel = "18.09";
+    overlays = [
+      (self: super: {
+        # …
+      })
+    ];
+  }
+  ```
+
+  It returns an attribute set with the values `packageSet` and `nixpkgsArgs`. Several APIs
+  such as `release-lib.nix` require a split of these two values.
+
+  To simply create a `nixpkgs` checkout from a given channel, the following expression an be used:
+
+  ```
+  (checkoutNixpkgs { channel = "unstable"; }).invoke { /* overrides to the nixos package set */ }
+  ```
+
+* `mkJob`: helper function which acts as shortcut to easily generate jobset attribute sets.
+
+  A job declaration may look like this:
+
+  ```
+
+  mkJob {
+    channel = "18.09";                    # channel to use for the job
+    overlays = [];                        # additional overlays to be used inside the jobset
+    supportedSystem = "x86_64-linux";     # determine which environments are support for the build.
+    jobset = pkgs: { mapTestOn, linux, …  }:
+      mapTestOn {
+        any-pkg = linux;
+        another-pkg = linux;
+      };
+  }
+  ```
+
+  The jobset function alows expressions based on the previous `nixpkgs` and an attribute set for
+  security and observation concerns.

@@ -2,6 +2,11 @@
 
 Document to track fundemental changes to this NUR repository.
 
+## 2018-09-10
+
+* Drop `fetchNur` as it's not needed anymore for the Hydra build.
+* Build `overlays.hydra` with `pkgs.nixUnstable`.
+
 ## 2018-09-07
 
 * Dropped `lib/hetzner`. I don't use `hetzner.cloud` servers anymore, therefore removal (for now).

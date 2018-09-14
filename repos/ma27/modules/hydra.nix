@@ -79,9 +79,7 @@ in
       enable = true;
       hydraURL = cfg.vhost;
       extraConfig = ''
-        store_uri = local///var/lib/hydra/cache?secret-key=/etc/nix/${cfg.keyDir}/secret
-        binary_cache_secret_key_file = /etc/nix/${cfg.keyDir}/secret
-        binary_cache_dir = /var/lib/hydra/cache
+        store_uri = file:///var/lib/hydra/cache?secret_key=/etc/nix/${cfg.keyDir}/secret
         max_output_size = 4294967296
       '';
     } // cfg.extraConfig;
