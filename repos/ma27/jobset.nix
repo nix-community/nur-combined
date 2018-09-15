@@ -37,4 +37,18 @@ in
       inherit overlays supportedSystems jobset;
     };
 
+    nur-personal-laptop = mkJob {
+      channel = "ma27-laptop";
+      trackBranches = true;
+      upstream = "Ma27";
+      inherit overlays supportedSystems jobset;
+    };
+
+    nur-personal-infra = mkJob {
+      channel = "ma27-infra";
+      trackBranches = true;
+      upstream = "Ma27";
+      inherit overlays supportedSystems jobset;
+    };
+
   }

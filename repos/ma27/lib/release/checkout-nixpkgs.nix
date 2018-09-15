@@ -1,9 +1,14 @@
-{ channel, overlays ? [] }:
+{ lib }:
+{ channel, overlays ? [], trackBranches ? false, upstream ? "NixOS" }:
+
+let
+
+  url = "https://github.com/${upstream}/nixpkgs${lib.optionalString (!trackBranches) "-channels"}/archive/${lib.optionalString (!trackBranches) "nixos-"}${channel}.tar.gz";
+
+in
 
 rec {
-  packageSet = import (
-    fetchTarball "https://github.com/nixos/nixpkgs-channels/archive/nixos-${channel}.tar.gz"
-  );
+  packageSet = import (fetchTarball url);
 
   nixpkgsArgs = {
     config.allowUnfree = true;

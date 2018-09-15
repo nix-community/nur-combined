@@ -28,7 +28,7 @@ rec {
   ### LIBRARY
   mkTexDerivation = callPackage ./lib/tex/make-tex-env.nix { };
 
-  checkoutNixpkgs = import ./lib/release/checkout-nixpkgs.nix;
+  checkoutNixpkgs = callPackage ./lib/release/checkout-nixpkgs.nix { };
 
   mkJob = callPackage ./lib/release/mk-job.nix { };
 

@@ -1,9 +1,9 @@
 { checkoutNixpkgs }:
-{ channel, overlays, jobset, supportedSystems }:
+{ channel, overlays, jobset, supportedSystems, trackBranches ? false, upstream ? "NixOS" }:
 
 let
 
-  set = checkoutNixpkgs { inherit channel overlays; };
+  set = checkoutNixpkgs { inherit channel overlays trackBranches upstream; };
 
   pkgs = set.invoke {};
 
