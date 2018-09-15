@@ -4,6 +4,12 @@ rec {
   modules = import ./modules;
   overlays = import ./overlays;
 
+  u-root = pkgs.callPackage ./pkgs/u-root {};
+
+  uefi-driver-wizard = pkgs.callPackage ./pkgs/uefi-driver-wizard.nix {};
+
+  chipsec = pkgs.callPackage ./pkgs/chipsec.nix {};
+
   rfc-reader = pkgs.callPackage ./pkgs/rfc-reader {};
 
   youtube-rss = pkgs.callPackage ./pkgs/youtuberss.nix {};
