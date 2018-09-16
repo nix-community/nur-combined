@@ -1,5 +1,4 @@
 { stdenv, fetchFromGitHub
-, pkgconfig
 , cmake
 }:
 stdenv.mkDerivation rec {
@@ -13,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "1cq6vhrq3n3lc1n454slbc66qdyqam2srxgdhfpyfxbq5c4y06nf";
   };
 
-  nativeBuildInputs = [ cmake pkgconfig ];
+  nativeBuildInputs = [ cmake ];
   installPhase = ''
     mkdir -p $out/{lib,bin}
     find -iname '*.so' -exec mv --target-directory="$out/lib" {} \;

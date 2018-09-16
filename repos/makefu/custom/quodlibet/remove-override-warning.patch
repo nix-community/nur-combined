@@ -1,0 +1,54 @@
+diff --git a/quodlibet/qltk/edittags.py b/quodlibet/quodlibet/qltk/edittags.py
+index 148866ef7..e741b9c3d 100644
+--- a/quodlibet/qltk/edittags.py
++++ b/quodlibet/qltk/edittags.py
+@@ -740,13 +740,6 @@ class EditTags(Gtk.VBox):
+         win.show()
+         all_done = False
+         for song in songs:
+-            if not song.valid():
+-                win.hide()
+-                dialog = OverwriteWarning(self, song)
+-                resp = dialog.run()
+-                win.show()
+-                if resp != OverwriteWarning.RESPONSE_SAVE:
+-                    break
+ 
+             changed = False
+             for key, values in iteritems(updated):
+diff --git a/quodlibet/qltk/tagsfrompath.py b/quodlibet/quodlibet/qltk/tagsfrompath.py
+index fd3f0709c..cb5b44f20 100644
+--- a/quodlibet/qltk/tagsfrompath.py
++++ b/quodlibet/qltk/tagsfrompath.py
+@@ -284,13 +284,6 @@ class TagsFromPath(Gtk.VBox):
+         for entry in ((model and itervalues(model)) or []):
+             song = entry.song
+             changed = False
+-            if not song.valid():
+-                win.hide()
+-                dialog = OverwriteWarning(self, song)
+-                resp = dialog.run()
+-                win.show()
+-                if resp != OverwriteWarning.RESPONSE_SAVE:
+-                    break
+ 
+             for i, h in enumerate(pattern.headers):
+                 text = entry.get_match(h)
+diff --git a/quodlibet/qltk/tracknumbers.py b/quodlibet/quodlibet/qltk/tracknumbers.py
+index 1ab4d0b9a..52f087db4 100644
+--- a/quodlibet/qltk/tracknumbers.py
++++ b/quodlibet/qltk/tracknumbers.py
+@@ -160,13 +160,6 @@ class TrackNumbers(Gtk.VBox):
+             if song.get("tracknumber") == track:
+                 win.step()
+                 continue
+-            if not song.valid():
+-                win.hide()
+-                dialog = OverwriteWarning(self, song)
+-                resp = dialog.run()
+-                win.show()
+-                if resp != OverwriteWarning.RESPONSE_SAVE:
+-                    break
+             song["tracknumber"] = track
+             try:
+                 song.write()

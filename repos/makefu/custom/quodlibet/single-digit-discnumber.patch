@@ -1,0 +1,13 @@
+diff --git a/quodlibet/pattern/_pattern.py b/quodlibet/pattern/_pattern.py
+index fc056d07a..8fb559c6e 100644
+--- a/quodlibet/pattern/_pattern.py
++++ b/quodlibet/pattern/_pattern.py
+@@ -387,7 +387,7 @@ def _number(key, value):
+     elif key == "discnumber":
+         parts = value.split("/")
+         try:
+-            return "%02d" % int(parts[0])
++            return "%d" % int(parts[0])
+         except (TypeError, ValueError):
+             return value
+     else:

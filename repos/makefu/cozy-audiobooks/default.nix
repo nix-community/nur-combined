@@ -85,13 +85,9 @@ stdenv.mkDerivation rec {
     ninja test
   '';
 
-  #preInstall = ''
-  #  export MESON_INSTALL_PREFIX=$out
-  #'';
-
   meta = with stdenv.lib; {
     description = ''
-       Eval nix code from python.
+       A modern audio book player for Linux using GTK+ 3
     '';
     maintainers = [ maintainers.makefu ];
     license = licenses.mit;
