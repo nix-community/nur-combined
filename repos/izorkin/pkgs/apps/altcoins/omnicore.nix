@@ -7,13 +7,13 @@ with stdenv.lib;
 stdenv.mkDerivation rec {
 
   name = "omnicore-${version}";
-  version = "0.3.0";
+  version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "OmniLayer";
     repo = "omnicore";
     rev = "v${version}";
-    sha256 = "07iv0h7g4b514rab2fnwz5ppdd1xvp58c7qqhnw20dihhz6qxypa";
+    sha256 = "0kdn0i59i444k5v5xfh6452s52bvkqfl0qi24nrzdwnivlgs8k4b";
   };
 
   nativeBuildInputs = [ pkgconfig autoreconfHook ];

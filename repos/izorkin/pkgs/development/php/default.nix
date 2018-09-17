@@ -221,17 +221,17 @@ let
 
 in {
   php56 = generic {
-    version = "5.6.37";
-    sha256 = "08wbg1qbbr80wcpv0l24vfyd9w8cxanils928gjs6knr0lyxcsl8";
+    version = "5.6.38";
+    sha256 = "00xw7rcq36dlrzgx9nr96jc64gnnrxjxkkpmkr1y8fynpldj6nyn";
   };
 
   php71 = generic {
-    version = "7.1.20";
-    sha256 = "0i8xd6p4zdg8fl6f0j430raanlshsshr3s3jlm72b0gvi1n4f6rs";
+    version = "7.1.22";
+    sha256 = "0qz74qdlk19cw478f42ckyw5r074y0fg73r2bzlhm0dar0cizsf8";
   };
 
   php72 = generic {
-    version = "7.2.8";
-    sha256 = "1rky321gcvjm0npbfd4bznh36an0y14viqcvn4yzy3x643sni00z";
+    version = "7.2.10";
+    sha256 = "17fsvdi6ihjghjsz9kk2li2rwrknm2ccb6ys0xmn789116d15dh1";
   };
 }
