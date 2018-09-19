@@ -2,7 +2,7 @@
 
 let toplevel = {
   lib = import ./lib;
-  modules = {};
+  modules = import ./modules;
   overlays = {};
 
   pkgs = pkgs.lib.makeScope pkgs.newScope (self: with self; {
@@ -77,6 +77,7 @@ let toplevel = {
       inherit (pkgs.llvmPackages_35) llvm;
     };
 
+    pahole = callPackage ./pkgs/pahole { };
 
     publib = callPackage ./pkgs/publib { };
     slinky = callPackage ./pkgs/slinky { inherit publib; };
