@@ -10,4 +10,6 @@ derivation {
   tarball = bootstrapFiles.tarball;
 
   inherit system;
+
+  preferLocalBuild = true;
 }

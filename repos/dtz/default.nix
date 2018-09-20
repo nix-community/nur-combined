@@ -2,7 +2,7 @@
 
 let toplevel = {
   lib = import ./lib;
-  modules = import ./modules;
+  modules = toplevel.lib.pathDirectory ./modules;
   overlays = {};
 
   pkgs = pkgs.lib.makeScope pkgs.newScope (self: with self; {
@@ -40,6 +40,8 @@ let toplevel = {
     llstrata = callPackage ./pkgs/llstrata {
       inherit (pkgs.llvmPackages_4) llvm clang;
     };
+
+    htop3beta = callPackage ./pkgs/htop/3.nix { inherit (pkgs.darwin) IOKit; };
 
     iml = callPackage ./pkgs/iml { };
     patchelf-git = callPackage ./pkgs/patchelf { };
@@ -123,6 +125,22 @@ let toplevel = {
     vmir-clang4 = callPackage ./pkgs/vmir { inherit (pkgs.llvmPackages_4) stdenv; };
     vmir-clang5 = callPackage ./pkgs/vmir { inherit (pkgs.llvmPackages_5) stdenv; };
     vmir-clang6 = callPackage ./pkgs/vmir { inherit (pkgs.llvmPackages_6) stdenv; };
+
+    # XXX: scoping
+    # These expressions are a bit dated
+    seahornPkgs = lib.recurseIntoAttrs (
+      let 
+        pkgs1609 = import (fetchTarball channel:nixos-16.09) {};
+        inherit (pkgs1609) llvmPackages_36;
+      in rec {
+      z3-spacer = pkgs1609.callPackage ./pkgs/seahorn/z3-spacer.nix { };
+      seahorn = pkgs1609.callPackage ./pkgs/seahorn {
+        llvm = llvmPackages_36.llvm.override { enableSharedLibraries = false; };
+        inherit (llvmPackages_36) clang;
+        inherit z3-spacer;
+      };
+      seahorn-demo = pkgs1609.callPackage ./pkgs/seahorn/demo { inherit seahorn; };
+    });
   }
   // (pkgs.callPackages ./pkgs/dg { })
   // { iosevka-term-styles = pkgs.callPackages ./pkgs/iosevka-term { }; }
