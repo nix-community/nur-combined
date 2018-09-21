@@ -24,7 +24,7 @@ in rec {
     mkdir -p copy/etc/ssl/certs
     cp ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt ./copy/etc/ssl/certs/
 
-    XZ_OPT=-9 ${pkgs.gnutar}/bin/tar cvJf $out --hard-dereference --sort=name --numeric-owner --owner=0 --group=0 --mtime=@1 -C ./copy .
+    XZ_OPT="-9 -e" ${pkgs.gnutar}/bin/tar cvJf $out --hard-dereference --sort=name --numeric-owner --owner=0 --group=0 --mtime=@1 -C ./copy .
   '';
 
   # TODO: better way of grabbing this

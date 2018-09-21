@@ -4,8 +4,8 @@ let
   version = "2.2dtz-mux-c68d83e";
   nix-mux-tarball = lib.from-nar {
     name = "nix-${version}";
-    narurl = "nar/d84d59cf3b2f1a129c562b7942a0c8fcde464009464795f216e6cd8360364b96.nar.xz";
-    narHash = "sha256:04q3bqag3yv620bmxinblb8i79d0nifwp9nrza5h1yrcc6dzp6b6";
+    narurl = "nar/769664c8c0560f9a92ff352f25313445964d3ad0a8179ba74abe6127d884d911.nar.xz";
+    narHash = "sha256:1rb8635wfpiyi6l060ih2wxpvpjkk0cdhh5vdg9jbynhbpfs123d";
   };
 
   bootstrapFiles = {
