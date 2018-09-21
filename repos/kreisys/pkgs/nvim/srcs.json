@@ -1,0 +1,44 @@
+{
+  "https://github.com/mhartington/oceanic-next": {
+    "url": "https://github.com/mhartington/oceanic-next",
+    "rev": "021c281ba959d4ba91bdf7dca4cae47a35789386",
+    "date": "2018-02-07T15:14:23-05:00",
+    "sha256": "1vvjll44596905m9yxp33ac9sx2nq8l3kli2wjxi82hdah3xc3sm",
+    "fetchSubmodules": false
+  },
+  "https://github.com/tiagofumo/vim-nerdtree-syntax-highlight": {
+    "url": "https://github.com/tiagofumo/vim-nerdtree-syntax-highlight",
+    "rev": "c62a66abcacdc29ffaed8da91cc22db3bc66687d",
+    "date": "2018-01-06T15:31:22-03:00",
+    "sha256": "1p9iash5kc2jqkfbl5i9nhsmyfhkvqyxxl7xvpvsl56hvhs6q9vc",
+    "fetchSubmodules": false
+  },
+  "https://github.com/jaxbot/github-issues.vim": {
+    "url": "https://github.com/jaxbot/github-issues.vim",
+    "rev": "6d80bfa6dd9ce6469f0b37920874431432984d5b",
+    "date": "2018-05-29T05:46:49+08:00",
+    "sha256": "0hmzbl0y1zbii9ka3gjijqzrjjr1qbfdpj7rjqifp75xdnzwi7yv",
+    "fetchSubmodules": false
+  },
+  "https://github.com/hashivim/vim-hashicorp-tools": {
+    "url": "https://github.com/hashivim/vim-hashicorp-tools",
+    "rev": "c39c5ccb01d27d1dd9bad5bfe4cb147197aaa38e",
+    "date": "2018-08-15T10:14:45-04:00",
+    "sha256": "1fkaypf92bca2p3a2i9n2xxhw8rv56ybxrv66g8mn3jfvfz5zynz",
+    "fetchSubmodules": false
+  },
+  "https://github.com/dag/vim-fish": {
+    "url": "https://github.com/dag/vim-fish",
+    "rev": "50b95cbbcd09c046121367d49039710e9dc9c15f",
+    "date": "2017-11-22T22:58:10+01:00",
+    "sha256": "1yvjlm90alc4zsdsppkmsja33wsgm2q6kkn9dxn6xqwnq4jw5s7h",
+    "fetchSubmodules": false
+  },
+  "https://github.com/leafgarland/typescript-vim": {
+    "url": "https://github.com/leafgarland/typescript-vim",
+    "rev": "db131b8cd42973ed26928e9e445c1a745a98cff8",
+    "date": "2018-08-15T15:22:03+12:00",
+    "sha256": "1l7wbwv3xirl9nvjb2f693knxsif5qanjknd9lija8m7gnwagzm4",
+    "fetchSubmodules": false
+  }
+}
