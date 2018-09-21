@@ -1,6 +1,11 @@
 # nur-packages
 
-My own nix expressions distributed with [nix-community/NUR](https://github.com/nix-community/nur).
+My own [Nix user repository](https://github.com/nix-community/NUR). It contians personal Nix expressions
+I use on a daily basis, but are far too opinionated for `nixpkgs`.
+
+## Prerequisites
+
+* [Nix](https://nixos.org/nix/)
 
 ## Setup
 
@@ -206,8 +211,7 @@ It basically consists of two functions:
 
   A job declaration may look like this:
 
-  ```
-
+  ``` nix
   mkJob {
     channel = "18.09";                    # channel to use for the job
     overlays = [];                        # additional overlays to be used inside the jobset
