@@ -22,6 +22,8 @@
 
     git-crypt = pkgs.callPackage ./pkgs/applications/version-management/git-and-tools/git-crypt {};
 
+    kompose = pkgs.callPackage ./pkgs/applications/networking/cluster/kompose {};
+
     kops = pkgs.callPackage ./pkgs/applications/networking/cluster/kops {};
 
     kubectx = pkgs.callPackage ./pkgs/applications/networking/cluster/kubectx {};
