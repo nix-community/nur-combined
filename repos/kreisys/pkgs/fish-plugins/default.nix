@@ -13,13 +13,8 @@ let
       src  = fetchgit { inherit url rev sha256; };
     };
 
-    iterm2-integration = callPackage ./iterm2-integration.nix { };
-
     completions = recurseIntoAttrs (callPackage ./completions { });
-    # TODO: split to docker- and docker-compose- completions and fetch from original source
-    #docker-completions = packagePlugin {
-    #  name =  "docker-completions";
-    #  src  = ./docker-completions;
-    #};
+
+    iterm2-integration = callPackage ./iterm2-integration.nix { };
   };
 in self
