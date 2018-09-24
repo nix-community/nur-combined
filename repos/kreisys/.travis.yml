@@ -27,7 +27,7 @@ cache:
 
 before_cache:
   - mkdir -p $HOME/nix.store
-  - nix copy --to file://$HOME/nix.store -f default.nix buildInputs
+  - nix copy --to file://$HOME/nix.store
 
 before_install:
   - travis_retry nix-channel --update
