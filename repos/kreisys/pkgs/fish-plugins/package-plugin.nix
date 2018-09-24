@@ -3,7 +3,9 @@
 , src }:
 
 stdenv.mkDerivation {
-  inherit name src;
+  inherit src;
+  name = "fish-plugin-${name}";
+
   buildInputs = [ fish ];
 
   passAsFile = [ "installPluginScript" ];
@@ -30,6 +32,8 @@ stdenv.mkDerivation {
     export fish_path=$out/share/fish
     export plugin=$src
 
+    # This avoids a warning from fish
+    mkdir -p ~/.local/bin
     fish $installPluginScriptPath
   '';
 }

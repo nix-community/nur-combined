@@ -13,16 +13,12 @@ let
       src  = fetchgit { inherit url rev sha256; };
     };
 
-    # TODO: fetch those two from their actual sources?
-    iterm2-integration = packagePlugin {
-      name =  "iterm2-integration";
-      src  = ./iterm2-integration;
-    };
+    iterm2-integration = callPackage ./iterm2-integration.nix { };
 
+    # TODO: split to docker- and docker-compose- completions and fetch from original source
     docker-completions = packagePlugin {
       name =  "docker-completions";
       src  = ./docker-completions;
     };
-
   };
 in self
