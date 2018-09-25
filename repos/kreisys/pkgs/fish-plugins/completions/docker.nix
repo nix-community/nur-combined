@@ -1,11 +1,11 @@
 { fetchurl, runCommand, packagePlugin }:
 
 let
-  name    = "docker-completion";
+  name    = "docker";
   version = "18.06.1-ce";
   sha256  = "07wrv05wxis5wxjr0716lfpdqisp295k94xf85avhdparqwqa117";
 
-  src = runCommand "fish-plugin-${name}-${version}-src" {
+  src = runCommand "fish-completion-${name}-${version}-src" {
     src = fetchurl {
       url = "https://raw.githubusercontent.com/docker/cli/v${version}/contrib/completion/fish/docker.fish";
       inherit sha256;
@@ -16,5 +16,5 @@ let
   '';
 in packagePlugin {
   inherit src;
-  name = "${name}-${version}";
+  name = "${name}-completion-${version}";
 }
