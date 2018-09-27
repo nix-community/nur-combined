@@ -47,6 +47,7 @@ let toplevel = {
 
     iml = callPackage ./pkgs/iml { };
     patchelf-git = callPackage ./pkgs/patchelf { };
+    patchelf-dtz = callPackage ./pkgs/patchelf/dtz.nix { };
 
     stoke = let
       # stoke docs say you must use gcc 4.9, so do so:
