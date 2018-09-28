@@ -31,7 +31,7 @@
       owner = "fgaz";
       repo = "powerline-go";
       rev = "ghc-env";
-      sha256 = null;
+      sha256 = "0l68v75bfl7nzlc43bh6nyx3akdaj6ac0qnd0r0lagppspm4i6hh";
     };
   });
 
