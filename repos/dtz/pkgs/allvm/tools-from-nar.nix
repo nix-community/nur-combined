@@ -14,6 +14,6 @@ let info = rec {
 };
 in info // lib.from-nar {
   inherit (info) name;
-  narurl = "nar/1968b9e551d296b88917bfe6a3ef1d5abfb3c9d5d2a05d7c54a6e5296aa1c70d.nar.xz";
-  narHash = "sha256:15vihm40gdc1d2bglm4z7xay8cpz9s8h1gmnchxy23qga2bdiz90";
+  narurl = "nar/cce5118f82202a270925d1e4ca0c9b72335435ba1b331cd26089e285914fcb84.nar.xz";
+  narHash = "sha256:0kgax9ix49wx444pf4qjhxk4kln1pnk657hqpxnm8iv9k53729z9";
 }
