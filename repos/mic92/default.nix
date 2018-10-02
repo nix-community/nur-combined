@@ -28,6 +28,8 @@ rec {
 
   nix-review-unstable = pkgs.callPackage ./pkgs/nix-review {};
 
+  oni = pkgs.callPackage ./pkgs/oni {};
+
   rust-nightly = pkgs.callPackage ./pkgs/rust-nightly {};
 
   rustNightlyPlatform = pkgs.recurseIntoAttrs (pkgs.makeRustPlatform rust-nightly);
@@ -39,6 +41,8 @@ rec {
   perlPackages = {
     Pry = pkgs.callPackage ./pkgs/pry {};
   };
+
+  brotab = pkgs.callPackage ./pkgs/brotab { };
 
   python2Packages = pkgs.recurseIntoAttrs (pkgs.python2Packages.callPackage ./pkgs/python-pkgs.nix { });
   python3Packages = pkgs.recurseIntoAttrs (pkgs.python3Packages.callPackage ./pkgs/python-pkgs.nix { });
