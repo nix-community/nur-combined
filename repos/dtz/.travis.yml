@@ -1,5 +1,5 @@
 language: nix
-nix: 2.1.2
+nix: 2.1.3
 
 before_install:
   - ./ci/configure-nix.sh
