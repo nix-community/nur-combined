@@ -33,9 +33,6 @@ Libraries and tools for Thai language
 - [libthai](https://github.com/tlwg/libthai) Thai language support library
 - [libdatrie](https://github.com/tlwg/libdatrie) Double-Array Trie Library
 
-Patched cloc to support the nix language (should be already in nixpkgs master)
-- `cloc`
-
 [Okernel](https://github.com/linux-okernel/linux-okernel)
 - `okernel-procps-src` Forked `ps` with okernel column
 - `okernel-procps-patch` Patched `ps` with okernel column
@@ -48,6 +45,8 @@ Patched cloc to support the nix language (should be already in nixpkgs master)
 .modules.cpupower
 .modules.ip-to-usb
 
+.eprover
+
 .rfc-reader
 
 .youtube-rss
@@ -58,8 +57,6 @@ Patched cloc to support the nix language (should be already in nixpkgs master)
 .libdatrie
 .libthai
 .thpronun
-
-.cloc
 
 .okernel-procps-src
 .okernel-procps-patch
