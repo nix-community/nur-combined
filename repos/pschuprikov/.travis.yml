@@ -8,11 +8,21 @@ env:
     - NUR_REPO=pschuprikov/nur-packages
     # CACHIX_SIGNING_KEY
     - secure: "pGaudn2ORrgZcVMbqJSu+XNX0lPHjQPOkE8ZZ5wYpCh3mnQF762BE3kSNBmA7WsNshfUv7C2Z0LtbTzcFejDvxKDzyWN4CDc+ZmeVURzbpmVIJ+0ktaN2Q+Mg8OJeKOtqP++p+t42aR29DYWQgwctwl9VC+mSv939x0LRjQ+m0TDSv5zxN6a4Vyrut6996ujTrioWJMRNT0t+vWDVNHGICVvXZqw1DxmQVV6iklTwprUQj9VZq88rEJqKuhNi56+MKoTjXFBqeFt8jzt1Om8nSD1riFbWkjKrziersvrwhk9JWUg5Ktz/SNE14Tm0yQB7CqZYDXeHcb6Qkyjt8ZqXCNc2eWa+9Jc5kuc6lddLULfl8L8ut2Me0efhhxdvoY+lry9Qy0F8XwxEfKXkgpSPGmGPU75ZYgqXS7AO10lOrRFFHkA+hWHhUQzWtdxXmldfWywMok1G2TphAJCFHkjJUM07DnfLIQjp68GHz0ulcK9t5RuhPrm1jmkuZcgpXcUs5bATeL0zRyklCjkbbaUEpDCd1C2C3pY/hDjN6R6gRbaK0i2T1N2N3AUThfjrBUFxghhKMfZSCMLJvPaI/DCzsySTElDe7eU04dBH+LNLd33jndN3ijSUHsYfFSAvLJdAG34YENvubNsWIb7fmj34SIFNssdfGwtG5PR7YWsq/o="
+
+matrix:
+  include:
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.03
+  allow_failures:
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.03
+
 install:
  - nix --version
- - travis_retry nix-channel --update
+ - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
  - if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix; fi
  - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
+ - nix-channel --add "${NIX_CHANNEL}" nixpkgs
+ - travis_retry nix-channel --update
 
 script:
  - outs=$(nix-build non-broken.nix) && echo Produced $outs
