@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0s1i753c6794y780lnflclyj8j885j20yvfnikf8drygr6bfqywp";
   };
 
-  buildInputs = [ cmake openssl_1_1_0 tclap pkgconfig ];
+  buildInputs = [ cmake openssl_1_1 tclap pkgconfig ];
 
   meta = with stdenv; {
     homepage = https://github.com/Lignum/KristVanity;
