@@ -6,16 +6,17 @@
 
 let
   version = "0.826";
-  installPath = if stdenv.isDarwin then "Library/Fonts/" else "share/fonts/truetype/";
+  installPath = "share/fonts/truetype/";
 in stdenv.mkDerivation rec {
   name = "pragmatapro-${version}";
   src = requireFile rec {
     name = "PragmataPro-${version}.zip";
     url = "file://path/to/${name}";
-    sha256 = "05r2xkkzgdpcas244yw75g8ifsz3b6ksabsxpa02fx93bz0qf023";
+    sha256 = "19q36l4yqs94ri4an1j89f3v48ccajv4bwqawcfg648zwanwb6wf";
   };
   buildInputs = [ unzip ];
   phases = [ "unpackPhase" "installPhase" ];
+  pathsToLink = [ "/share/fonts/truetype/" ];
   sourceRoot = ".";
   installPhase = ''
     install_path=$out/${installPath}

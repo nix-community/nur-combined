@@ -1,6 +1,7 @@
 { pkgs }:
 
 {
+  codeship-jet = pkgs.callPackage ./tools/misc/codeship-jet {};
   emacsPlus = let
     patchMulticolorFonts = pkgs.fetchurl {
         url = "https://gist.githubusercontent.com/aatxe/260261daf70865fbf1749095de9172c5/raw/214b50c62450be1cbee9f11cecba846dd66c7d06/patch-multicolor-font.diff";
