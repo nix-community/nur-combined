@@ -18,10 +18,6 @@ in
 
   fishPlugins = with pkgs; recurseIntoAttrs (callPackage ./fish-plugins { });
 
-  hub = pkgs.callPackage (pkgs.path + "/pkgs/applications/version-management/git-and-tools/hub") {
-    Security = if pkgs.stdenv.isDarwin then pkgs.darwin.apple_sdk.frameworks.Security else null;
-  };
-
   img2ansi    = pkgs.callPackage ./img2ansi     { };
 
   nodejs-8_x  = let
