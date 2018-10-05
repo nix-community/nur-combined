@@ -22,6 +22,10 @@ rec {
 
   inxi = pkgs.callPackage ./pkgs/inxi {};
 
+  mastodon-hnbot = pkgs.python3Packages.callPackage ./pkgs/mastodon-hnbot {
+    inherit (python3Packages) Mastodon;
+  };
+
   nix-lsp = pkgs.callPackage ./pkgs/nix-lsp {
     inherit rustNightlyPlatform;
   };
