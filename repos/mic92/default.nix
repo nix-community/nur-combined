@@ -6,6 +6,10 @@ rec {
   # TODO checksum can break ... make a mirror?
   # binary-ninja = pkgs.callPackage ./pkgs/binary-ninja {};
 
+  doh-proxy = pkgs.python3Packages.callPackage ./pkgs/doh-proxy {
+    inherit (python3Packages) aioh2 aiohttp-remotes;
+  };
+
   cntr = pkgs.callPackage ./pkgs/cntr {};
 
   conky-symbols = pkgs.callPackage ./pkgs/conky-symbols {};
@@ -48,11 +52,15 @@ rec {
 
   brotab = pkgs.callPackage ./pkgs/brotab { };
 
-  python2Packages = pkgs.recurseIntoAttrs (pkgs.python2Packages.callPackage ./pkgs/python-pkgs.nix { });
-  python3Packages = pkgs.recurseIntoAttrs (pkgs.python3Packages.callPackage ./pkgs/python-pkgs.nix { });
+  python2Packages = pkgs.recurseIntoAttrs (
+    pkgs.python2Packages.callPackage ./pkgs/python-pkgs/default.nix { }
+  );
+  python3Packages = pkgs.recurseIntoAttrs (
+    pkgs.python3Packages.callPackage ./pkgs/python-pkgs/default.nix { }
+  );
 
   modules = import ./modules;
 
-  #inherit (callPackages ./node-packages {})
-  #  typescript-language-server; # write-good
+  #inherit (pkgs.callPackages ./pkgs/node-packages {})
+  #  backport; # write-good typescript-language-server
 }
