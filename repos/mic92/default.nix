@@ -1,14 +1,12 @@
 { pkgs ? import <nixpkgs> {} }:
 
 rec {
-  gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard {};
+  adminer = pkgs.callPackage ./pkgs/adminer {};
+
+  brotab = pkgs.callPackage ./pkgs/brotab { };
 
   # TODO checksum can break ... make a mirror?
   # binary-ninja = pkgs.callPackage ./pkgs/binary-ninja {};
-
-  doh-proxy = pkgs.python3Packages.callPackage ./pkgs/doh-proxy {
-    inherit (python3Packages) aioh2 aiohttp-remotes;
-  };
 
   cntr = pkgs.callPackage ./pkgs/cntr {};
 
@@ -16,15 +14,23 @@ rec {
 
   clearsans = pkgs.callPackage ./pkgs/clearsans {};
 
+  doh-proxy = pkgs.python3Packages.callPackage ./pkgs/doh-proxy {
+    inherit (python3Packages) aioh2 aiohttp-remotes;
+  };
+
   eapol_test = pkgs.callPackage ./pkgs/eapol_test {};
 
   frida-tools = pkgs.callPackage ./pkgs/frida-tools { myPython3Packages = python3Packages; };
 
   gdbgui-donation = pkgs.callPackage ./pkgs/gdbgui {};
 
+  gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard {};
+
   inconsolata-nerdfonts = pkgs.callPackage ./pkgs/inconsolata-nerdfonts {};
 
   inxi = pkgs.callPackage ./pkgs/inxi {};
+
+  lualdap = pkgs.callPackage ./pkgs/lualdap {};
 
   mastodon-hnbot = pkgs.python3Packages.callPackage ./pkgs/mastodon-hnbot {
     inherit (python3Packages) Mastodon;
@@ -38,25 +44,31 @@ rec {
 
   oni = pkgs.callPackage ./pkgs/oni {};
 
+  rainloop = pkgs.callPackage ./pkgs/rainloop {};
+
   rust-nightly = pkgs.callPackage ./pkgs/rust-nightly {};
 
   rustNightlyPlatform = pkgs.recurseIntoAttrs (pkgs.makeRustPlatform rust-nightly);
 
   sourcetrail = pkgs.callPackage ./pkgs/sourcetrail {};
 
+  threema-web = pkgs.callPackage ./pkgs/threema-web {};
+
   # smashing = pkgs.callPackage ./pkgs/smashing {};
+
+  phpldapadmin = pkgs.callPackage ./pkgs/phpldapadmin {};
+
+  purple-skypeweb = pkgs.callPackage ./pkgs/purple-skypeweb {};
 
   perlPackages = {
     Pry = pkgs.callPackage ./pkgs/pry {};
   };
 
-  brotab = pkgs.callPackage ./pkgs/brotab { };
-
   python2Packages = pkgs.recurseIntoAttrs (
-    pkgs.python2Packages.callPackage ./pkgs/python-pkgs/default.nix { }
+    pkgs.python2Packages.callPackage ./pkgs/python-pkgs { }
   );
   python3Packages = pkgs.recurseIntoAttrs (
-    pkgs.python3Packages.callPackage ./pkgs/python-pkgs/default.nix { }
+    pkgs.python3Packages.callPackage ./pkgs/python-pkgs { }
   );
 
   modules = import ./modules;
