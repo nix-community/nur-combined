@@ -29,7 +29,8 @@ python3Packages.buildPythonApplication rec {
     cp etc/lenovo_fix.conf $out/etc
   '';
 
-  checkPhase = "";
+  doCheck = false;
+  doInstallCheck = false;
 
   meta = with stdenv.lib; {
     description = "Warning: WIP, package name might change. Script fixing temperature CPU throttling for some Lenovo and Dell laptops";
