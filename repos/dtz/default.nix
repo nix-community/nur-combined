@@ -3,7 +3,7 @@
 let toplevel = {
   lib = import ./lib;
   modules = toplevel.lib.pathDirectory ./modules;
-  overlays = {};
+  overlays = toplevel.lib.importDirectory ./overlays;
 
   pkgs = pkgs.lib.makeScope pkgs.newScope (self: with self; {
     lib = pkgs.lib // toplevel.lib;
