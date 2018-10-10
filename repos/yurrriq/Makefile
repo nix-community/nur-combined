@@ -5,4 +5,5 @@ update:
 
 
 link:
+	@ mkdir -p ~/.config/nurpkgs
 	@ stow -Rvt ~/.config/nurpkgs .

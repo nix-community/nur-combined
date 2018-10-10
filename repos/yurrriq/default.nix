@@ -2,6 +2,8 @@
 
 {
 
+  lib = import ./lib;
+
   modules = import ./modules;
 
   overlays = import ./overlays;
@@ -49,10 +51,6 @@
     musescore = pkgs.callPackages ./pkgs/applications/audio/musescore/darwin.nix {};
 
     onyx = pkgs.callPackage ./pkgs/os-specific/darwin/onyx {};
-
-    skhd = pkgs.callPackage ./pkgs/os-specific/darwin/skhd {
-      inherit (pkgs.darwin.apple_sdk.frameworks) Carbon;
-    };
 
     skim = pkgs.callPackage ./pkgs/applications/misc/skim {};
 

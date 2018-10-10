@@ -10,6 +10,4 @@
 
   node = import ./node.nix;
 
-  skhd = import ./node.nix;
-
 }
