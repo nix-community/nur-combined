@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, weechat, python }:
 
 stdenv.mkDerivation rec {
-  version = "2.0.0";
+  version = "2.1.1";
   baseName = "wee-slack";
   name = "${baseName}-${version}";
 
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     owner = baseName;
     repo = baseName;
-    sha256 = "0712zzscgylprnnpgy2vr35a5mdqhic8kag5v3skhd84awbvk1n5";
+    sha256 = "05caackz645aw6kljmiihiy7xz9jld8b9blwpmh0cnaihavgj1wc";
   };
 
   buildInputs = [ weechat (python.withPackages(ps: with ps; [websocket_client])) ];
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A rofi emoji picker";
+    description = "A native Weechat Slack plugin";
     platforms = platforms.unix;
     license = licenses.mit;
   };

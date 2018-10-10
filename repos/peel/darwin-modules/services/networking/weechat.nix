@@ -7,7 +7,7 @@ let
   weechatRunCommand = weechat: withMatrix: home: (if withMatrix then ''
       env LUA_CPATH="${pkgs.luaPackages.getLuaCPath pkgs.luaPackages.cjson}" LUA_PATH="${pkgs.luaPackages.getLuaPath pkgs.luaPackages.cjson}" WEECHAT_EXTRA_LIBDIR="${weechat}/share" ''
     else "")
-      + ''${weechat}/bin/weechat --daemon -d "${home}"'';
+      + ''${weechat}/bin/weechat-headless --daemon -d "${home}"'';
   weechat = withSlack : withMatrix: pkgs.weechat.override {
     extraBuildInputs = []
       ++ lib.optionals withMatrix [ pkgs.luaPackages.cjson pkgs.weechat-matrix-bridge ]
@@ -39,12 +39,6 @@ in
           Where weechat configuration is stored.
         '';
       };
-      portsToOpen = mkOption {
-        default = [];
-        description = ''
-          Relay ports to open.
-        '';
-      };
       withSlack = mkOption {
         default = false;
         description = ''
@@ -61,28 +55,20 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = cfg.portsToOpen;
-    systemd.user.services."weechat" = {
-      enable = true;
-      description = "Weechat relay service";
-      wantedBy = [ "default.target" ];
+    launchd.user.agents.weechat = {
+      path = [
+        (weechat cfg.withSlack cfg.withMatrix)
+      ];
+      command = (weechatRunCommand (weechat cfg.withSlack cfg.withMatrix) cfg.withMatrix cfg.home);
       environment = {
         LANG = "en_US.utf8";
         LC_ALL = "en_US.utf8";
-        TERM = "${pkgs.rxvt_unicode.terminfo}";
         WEECHAT_EXTRA_LIBDIR = "${weechat cfg.withSlack cfg.withMatrix}/share";
       };
-      path = [
-        (weechat cfg.withSlack cfg.withMatrix)
-        pkgs.tmux
-        pkgs.rxvt_unicode.terminfo
-      ];
-      restartIfChanged = true;
-      serviceConfig.Type = "oneshot";
-      serviceConfig.RemainAfterExit = "yes";
-      serviceConfig.KillMode = "none";
+      serviceConfig.RunAtLoad = true;
+      serviceConfig.KeepAlive = true;
+      serviceConfig.ProcessType = "Interactive";
       serviceConfig.WorkingDirectory = "${cfg.home}";
-      serviceConfig.ExecStart = (weechatRunCommand (weechat cfg.withSlack cfg.withMatrix) cfg.withMatrix cfg.home);
     };
   };
 }
