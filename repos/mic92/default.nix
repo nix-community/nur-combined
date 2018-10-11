@@ -44,8 +44,6 @@ rec {
 
   oni = pkgs.callPackage ./pkgs/oni {};
 
-  rainloop = pkgs.callPackage ./pkgs/rainloop {};
-
   rust-nightly = pkgs.callPackage ./pkgs/rust-nightly {};
 
   rustNightlyPlatform = pkgs.recurseIntoAttrs (pkgs.makeRustPlatform rust-nightly);
