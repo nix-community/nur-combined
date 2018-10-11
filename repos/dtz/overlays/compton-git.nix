@@ -20,7 +20,9 @@ self: super:
       #];
 
       buildInputs = with self; with xorg; [
-        dbus libX11 libXext xproto
+        dbus libX11 libXext
+        # support old or new unified proto packages
+        (xorg.xproto or xorg.xorgproto)
         libXinerama libdrm pcre libxml2 libxslt libconfig libGL
         # Removed:
         # libXcomposite libXdamage libXrender libXrandr
