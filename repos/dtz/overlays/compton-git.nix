@@ -32,7 +32,7 @@ self: super:
         pixman libev
       ];
 
-      makeFlags = [ "BUILD_TYPE=Release" ];
+      #makeFlags = [ "BUILD_TYPE=Release" ];
 
     });
     compton = self.compton-git;
