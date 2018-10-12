@@ -11,7 +11,7 @@ in
 
 {
 
-  inherit (_nixpkgs) autojump helmfile kubernetes-helm kubetail minikube;
+  inherit (_nixpkgs) autojump helmfile kops kubernetes-helm kubetail minikube;
 
   erlang = pkgs.beam.interpreters.erlangR20.override {
     enableDebugInfo = true;
