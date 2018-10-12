@@ -60,6 +60,13 @@
       else oldAttrs.installPhase;
     meta.platforms = pkgs.lib.platforms.unix;
   });
+  olm = pkgs.olm.overrideAttrs (oldAttrs: rec {
+    makeFlags = [ "CC=clang" ];
+    prePatch = if pkgs.stdenv.isDarwin then ''
+      substituteInPlace Makefile --replace 'soname' 'install_name'
+    '' else "";
+    meta.platforms = pkgs.lib.platforms.unix;
+  });
   pragmatapro = pkgs.callPackage ./data/fonts/pragmatapro {};
   qarma = pkgs.callPackage ./misc/qarma {
     inherit (pkgs) stdenv fetchFromGitHub pkgconfig;

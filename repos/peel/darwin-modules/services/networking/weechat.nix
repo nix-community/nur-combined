@@ -4,11 +4,12 @@ with lib;
 
 let
   cfg = config.services.weechat;
-  weechatRunCommand = weechat: withMatrix: home: (if withMatrix then ''
+  configFormat = extraConfig: replaceChars ["\n"] ["; "] extraConfig;
+  weechatRunCommand = weechat: withMatrix: home: extraConfig: (if withMatrix then ''
       env LUA_CPATH="${pkgs.luaPackages.getLuaCPath pkgs.luaPackages.cjson}" LUA_PATH="${pkgs.luaPackages.getLuaPath pkgs.luaPackages.cjson}" WEECHAT_EXTRA_LIBDIR="${weechat}/share" ''
     else "")
-      + ''${weechat}/bin/weechat-headless --daemon -d "${home}"'';
-  weechat = withSlack : withMatrix: pkgs.weechat.override {
+    + ''${weechat}/bin/weechat-headless --daemon --dir "${home}" --run-command "${configFormat extraConfig}"'';
+    weechat = withSlack : withMatrix: pkgs.weechat.override {
     extraBuildInputs = []
       ++ lib.optionals withMatrix [ pkgs.luaPackages.cjson pkgs.weechat-matrix-bridge ]
       ++ lib.optionals withSlack [ pkgs.wee-slack ];
@@ -51,6 +52,19 @@ in
           Whether to enable weechat matrix plugin.
         '';
       };
+      extraConfig = mkOption {
+        default = "";
+        description = ''
+          Commands to be executed upon startup.
+        '';
+      };
+      scripts = mkOption {
+        default = [];
+        example = literalExample "[ pkgs.weechat.wee-slack ]";
+        description = ''
+          Additional scripts or plugins to be installed.
+        '';
+      };
     };
   };
 
@@ -59,7 +73,7 @@ in
       path = [
         (weechat cfg.withSlack cfg.withMatrix)
       ];
-      command = (weechatRunCommand (weechat cfg.withSlack cfg.withMatrix) cfg.withMatrix cfg.home);
+      command = (weechatRunCommand (weechat cfg.withSlack cfg.withMatrix) cfg.withMatrix cfg.home cfg.extraConfig);
       environment = {
         LANG = "en_US.utf8";
         LC_ALL = "en_US.utf8";
