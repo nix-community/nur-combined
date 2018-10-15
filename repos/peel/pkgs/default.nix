@@ -60,10 +60,25 @@
       else oldAttrs.installPhase;
     meta.platforms = pkgs.lib.platforms.unix;
   });
+  luaPackages = pkgs.luaPackages // {
+    cjson = pkgs.luaPackages.cjson.overrideAttrs(oldAttrs: rec {
+    buildInputs = [ pkgs.lua52Packages.lua ];
+    NIX_LDFLAGS="-L${pkgs.lua52Packages.lua}/lib -bundle -undefined dynamic_lookup";
+    
+    preBuild = ''
+      sed -i "s|/usr/local|$out|" Makefile
+    '';
+    makeFlags = [
+      "LUA_VERSION=5.2"
+      "CC=clang"
+     ];
+  });
+  };
   olm = pkgs.olm.overrideAttrs (oldAttrs: rec {
     makeFlags = [ "CC=clang" ];
     prePatch = if pkgs.stdenv.isDarwin then ''
       substituteInPlace Makefile --replace 'soname' 'install_name'
+      substituteInPlace Makefile --replace '-Wl,--version-script,version_script.ver' ' '
     '' else "";
     meta.platforms = pkgs.lib.platforms.unix;
   });
@@ -77,7 +92,6 @@
     inherit pkgs; inherit (pkgs) stdenv;
   };
   tmux-prompt = pkgs.callPackage ./misc/tmux-prompt {};
-  wee-slack = pkgs.callPackage ./networking/weechat/wee-slack.nix {};
   zenity = pkgs.callPackage ./misc/zenity {};
 } // (if pkgs.stdenv.isDarwin then {
   chunkwm = pkgs.recurseIntoAttrs (pkgs.callPackage ./os-specific/darwin/chunkwm {

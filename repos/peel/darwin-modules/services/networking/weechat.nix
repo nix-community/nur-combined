@@ -10,10 +10,8 @@ let
     else "")
     + ''${weechat}/bin/weechat-headless --daemon --dir "${home}" --run-command "${configFormat extraConfig}"'';
     weechat = withSlack : withMatrix: pkgs.weechat.override {
-    extraBuildInputs = []
-      ++ lib.optionals withMatrix [ pkgs.luaPackages.cjson pkgs.weechat-matrix-bridge ]
-      ++ lib.optionals withSlack [ pkgs.wee-slack ];
     configure = {availablePlugins,...}: {
+      extraBuildInputs = [ pkgs.luaPackages.cjson ];
       plugins =
         with availablePlugins; []
         ++ lib.optionals withSlack [
@@ -21,7 +19,10 @@ let
         ]
         ++ lib.optionals withMatrix [
           lua
-        ] ;
+        ];
+      scripts = []
+        ++ lib.optionals withMatrix [ pkgs.weechatScripts.weechat-matrix-bridge ]
+        ++ lib.optionals withSlack [ pkgs.weechatScripts.wee-slack ];
     };
   };
 in
