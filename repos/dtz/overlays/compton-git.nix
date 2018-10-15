@@ -2,13 +2,13 @@ self: super:
 {
     compton-git = super.compton-git.overrideAttrs (o: rec {
       name = "compton-git-${version}";
-      version = "2018-10-13";
+      version = "2018-10-15";
 
       src = super.fetchFromGitHub {
         owner  = "yshui";
         repo   = "compton";
-        rev    = "aa2098eefdb452593ef98a71fd7301ffdc9ff4d5";
-        sha256 = "1q66z3bwacmn9vaciyqgi64rdazq2x14cb67fzyq23ci8m6ahf1r";
+        rev    = "93dd2d92fd8bc0605119f3862f927b67ae75722e";
+        sha256 = "0a06h4xi8a5753yhd86zx7zgrhxnm0hdmja6rgm80can70ka0v4w";
       };
 
       COMPTON_VERSION = "git-${version}-${src.rev}";
@@ -18,6 +18,8 @@ self: super:
       #  dbus libX11 libXcomposite libXdamage libXrender libXrandr libXext
       #  libXinerama libdrm pcre libxml2 libxslt libconfig libGL
       #];
+
+      nativeBuildInputs = (o.nativeBuildInputs or []) ++ [ self.meson self.ninja ];
 
       buildInputs = with self; with xorg; [
         dbus libX11 libXext
