@@ -32,12 +32,14 @@ in
   webhook     = pkgs.callPackage ./webhook      { };
 } // (pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
   # Linux only packages go here
-  hydra = pkgs.hydra.overrideAttrs (_: {
-    src    = pkgs.fetchFromGitHub {
-      owner  = "kreisys";
-      repo   = "hydra";
-      rev    = "8391bc6d39e3de2b17fded6d84a6e6fa2465f195";
-      sha256 = "0l0zmxydrpb7yqd3bcrdaiqwkq1bdrl5xn2bmm17kihvsrq9664g";
+  hydra = pkgs.hydra.overrideAttrs (_: rec {
+    name    = "hydra-${version}";
+    version = "2018-10-15";
+    src     = pkgs.fetchFromGitHub {
+      owner   = "kreisys";
+      repo    = "hydra";
+      rev     = "8391bc6d39e3de2b17fded6d84a6e6fa2465f195";
+      sha256  = "0l0zmxydrpb7yqd3bcrdaiqwkq1bdrl5xn2bmm17kihvsrq9664g";
     };
   });
 })
