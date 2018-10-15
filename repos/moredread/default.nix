@@ -16,5 +16,6 @@
 
   lenovo-throttling-fix = pkgs.callPackage ./pkgs/lenovo-throttling-fix/default.nix { };
   slic3r-prusa3d-latest = pkgs.callPackage ./pkgs/slic3r/prusa3d.nix { };
+  latte = pkgs.callPackage ./pkgs/latte { };
 }
 
