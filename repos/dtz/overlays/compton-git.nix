@@ -1,17 +1,23 @@
 self: super:
 {
     compton-git = super.compton-git.overrideAttrs (o: rec {
-      name = "compton-git-${version}";
-      version = "2018-10-15";
+      name = "compton-${version}";
+      #name = "compton-git-${version}";
+      version = "3-rc2"; # "2018-10-15";
 
       src = super.fetchFromGitHub {
         owner  = "yshui";
         repo   = "compton";
-        rev    = "93dd2d92fd8bc0605119f3862f927b67ae75722e";
-        sha256 = "0a06h4xi8a5753yhd86zx7zgrhxnm0hdmja6rgm80can70ka0v4w";
+        rev    = "v${version}";
+        sha256 = "0458jbf9xrgl599pc3klfavrcnywgyfyasih677qanl3z78imkxx";
       };
 
-      COMPTON_VERSION = "git-${version}-${src.rev}";
+      postPatch = (o.postPatch or "") + ''
+        substituteInPlace meson.build \
+          --replace "version = run_command('git', 'describe').stdout().strip()" \
+                    "version = 'v${version}'";
+      '';
+      #COMPTON_VERSION = version; # "git-${version}-${src.rev}";
 
       # Default:
       #buildInputs = [
