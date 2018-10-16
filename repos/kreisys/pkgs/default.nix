@@ -38,8 +38,8 @@ in
     src     = pkgs.fetchFromGitHub {
       owner   = "kreisys";
       repo    = "hydra";
-      rev     = "8391bc6d39e3de2b17fded6d84a6e6fa2465f195";
-      sha256  = "0l0zmxydrpb7yqd3bcrdaiqwkq1bdrl5xn2bmm17kihvsrq9664g";
+      rev     = "e0f204f3da6245fbaf5cb9ef59568b775ddcb929";
+      sha256  = "039s5j4dixf9xhrakxa349lwkfwd2l9sdds0j646k9w32659di61";
     };
   });
 })
