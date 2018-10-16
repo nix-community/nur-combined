@@ -35,6 +35,7 @@ in
   hydra = pkgs.hydra.overrideAttrs (_: rec {
     name    = "hydra-${version}";
     version = "2018-10-15";
+    patchs  = [ ./hydra-no-restricteval.diff ];
     src     = pkgs.fetchFromGitHub {
       owner   = "kreisys";
       repo    = "hydra";
