@@ -147,5 +147,6 @@ let toplevel = {
   }
   // (pkgs.callPackages ./pkgs/dg { })
   // { iosevka-term-styles = pkgs.callPackages ./pkgs/iosevka-term { }; }
+  // (pkgs.callPackages ./pkgs/xi { })
   );
 }; in toplevel #  // toplevel.pkgs
