@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PS4="$ "
+set -x
+# Destroys most of the environment to reduce
+# risks of oopsies coming from overlays or system nixpkgs.
+# Enables unfree only as a convenience.
+exec env -i \
+        NIXPKGS_ALLOW_UNFREE=1 \
+        nix-build "$@"

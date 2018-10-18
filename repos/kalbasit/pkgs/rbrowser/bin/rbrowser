@@ -1,0 +1,146 @@
+#! @zsh_bin@
+#
+#  vim:ft=sh:
+#
+#  Copyright (c) 2010-2017 Wael Nasreddine <wael.nasreddine@gmail.com>
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
+#  USA.
+#
+
+set -eo pipefail
+
+function help()
+{
+	echo -e "USAGE: rbrowser [options] <url>"
+	echo -e "\t -h, --help                - this message"
+	echo -e "\t -p, --profile             - the profile to use"
+	echo -e "\t -b, --browser             - the browser to use. Default: chromium"
+}
+
+chromium="@chromium_bin@"
+firefox="@firefox_bin@"
+
+log_depth="0"
+args=""
+browser="chromium"
+
+while [[ $# -ge 1 ]]; do
+	case "${1}" in
+		-h|--help)
+			help
+			exit 0
+			;;
+		-p|--profile)
+			profile="${2}"
+			if [[ -z "${profile}" ]]; then
+				echo -e "ERR: --profile requires an argument"
+				help
+				exit 1
+			fi
+			shift 2
+			;;
+		-b|--browser)
+			browser="${2}"
+			if [[ -z "${browser}" ]]; then
+				echo -e "ERR: --browser requires an argument"
+				help
+				exit 1
+			fi
+			shift 2
+			;;
+		*)
+			args=( ${@} )
+			break
+			;;
+	esac
+done
+
+# the profile paths per browser
+CHROMIUM_PROFILES_PATH="${HOME}/.config/chromium/profiles"
+FIREFOX_PROFILES_PATH="${HOME}/.mozilla/firefox/profiles"
+
+# make sure we have both profile and a browser.
+if [[ -n "${profile}" ]] && [[ -z "${browser}" ]]; then
+	echo -e "ERR: the profile was set to ${profile}, but the browser is empty. The browser is required with --profile, aborting..."
+	exit 1
+fi
+
+if [[ -z "${profile}" ]]; then
+	items=""
+	sep=""
+	if [[ -d "$CHROMIUM_PROFILES_PATH" ]]; then
+		for i in $CHROMIUM_PROFILES_PATH/*; do;
+			if [[ -d "${i}" ]]; then
+				items="${items}${sep}chromium@$(basename "${i}")"
+				sep="\n"
+			fi
+		done
+	fi
+	if [[ -d "$FIREFOX_PROFILES_PATH" ]]; then
+		for i in $FIREFOX_PROFILES_PATH/*; do;
+			if [[ -d "${i}" ]]; then
+				items="${items}${sep}firefox@$(basename "${i}")"
+			fi
+		done
+	fi
+	if [[ -z "${items}" ]]; then
+		echo -e "No profiles found, please run it with the <-b> and <-p> options to create the first profiles"
+		exit 1
+	fi
+	entry="$(@rofi_bin@ -dmenu < <(echo -e "${items}"))"
+	browser="$(echo "${entry}" | cut -d@ -f1)"
+	profile="$(echo "${entry}" | cut -d@ -f2)"
+fi
+
+case "${browser}" in
+	"chromium")
+		PROFILES_PATH="${CHROMIUM_PROFILES_PATH}"
+		;;
+	"firefox")
+		PROFILES_PATH="${FIREFOX_PROFILES_PATH}"
+		;;
+	*)
+		echo -e "ERR: the browser ${browser} is not supported"
+		exit 1
+		;;
+esac
+
+if [[ -z "${profile}" ]]; then
+	echo -e "ERR: no profile was selected, aborting..."
+	exit 1
+fi
+
+if [[ ! -d "${PROFILES_PATH}/${profile}" ]]; then
+	echo -e "WARN: the selected profile does not exists, creating one"
+	mkdir -p "${PROFILES_PATH}/${profile}"
+fi
+
+if [[ -f "${PROFILES_PATH}/${profile}/.cmdline_args" ]]; then
+	args=(${args[@]} $(cat "${PROFILES_PATH}/${profile}/.cmdline_args"))
+fi
+
+case "${browser}" in
+	"chromium")
+		(exec "${chromium}" --user-data-dir="${PROFILES_PATH}/${profile}" "${args[@]}" &>/dev/null)&
+		;;
+	"firefox")
+		(exec "${firefox}" --profile "${PROFILES_PATH}/${profile}" --new-tab "${args[@]}" &>/dev/null)&
+		;;
+	*)
+		echo -e "ERR: the browser ${browser} is not supported"
+		exit 1
+		;;
+esac
