@@ -16,6 +16,7 @@
 
   example-package = pkgs.callPackage ./pkgs/example-package { };
   wekan = pkgs.callPackage ./pkgs/wekan {};
+  prometheus-nginxlog-exporter = pkgs.callPackage ./pkgs/prometheus-nginxlog-exporter {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
