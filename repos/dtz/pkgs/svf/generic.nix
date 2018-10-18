@@ -17,7 +17,7 @@ args: stdenv.mkDerivation (rec {
   '';
 
   patches = [
-    ./fix-consg-edge-del.patch
+    #./fix-consg-edge-del.patch
     ./svfg-crash-fix.patch
   ];
 

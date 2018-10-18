@@ -33,6 +33,13 @@ let
         license = licenses.asl20;
         maintainers = with maintainers; [ dtzWill ];
         platforms = platforms.all;
+        # Not sure what version is required but 1.29 works and 1.27 doesn't
+        broken =
+          let
+            rversion = rustPlatform.rust.rustc.version;
+            oldrust = versionOlder rversion "1.29";
+            maybeWarn = if oldrust then (x: warn "Rust version ${rversion} is too old for xi-editor, needs 1.29. Marking as broken accordingly." x) else id /*entity*/;
+          in maybeWarn oldrust;
       };
     };
     wrapXiFrontendHook = callPackage ./wrapper.nix { };
