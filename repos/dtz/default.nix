@@ -27,6 +27,8 @@ let toplevel = {
     intelxed = callPackage ./pkgs/xed { };
     mbuild = callPackage ./pkgs/xed/mbuild.nix { };
 
+    laptop-mode-tools = callPackage ./pkgs/laptop-mode-tools { };
+
     kittel-koat = callPackage ./pkgs/kittel-koat {
       ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_03;
     };

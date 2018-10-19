@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   name = "xi-term-${version}";
-  version = "2018-10-13";
+  version = "2018-10-19";
 
   src = fetchFromGitHub {
     owner = "xi-frontend";
     repo = "xi-term";
-    rev = "8a57bea757294a12df9d3ec81ae1319bd0e288cd";
-    sha256 = "0sn1jm6hx5dbxmpvgzkwcl6vxl826lk7vnbggxd64zbnhjyijdj8";
+    rev = "5f44e9df154bf76bb65d9c2e8db7cc4caf376a58";
+    sha256 = "0if7n5pnd7n9bp9gh22ai8sx4xii1rm1l2v8f4acfj3kyjc1kg29";
   };
 
   cargoSha256 = "1h49j2r5bh1rjqmss6ccivc2x0ndmamqqzhi6kd02vgrv8jnwxg1";
