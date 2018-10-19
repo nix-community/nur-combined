@@ -6,8 +6,8 @@ let
     src = fetchFromGitHub {
       owner = "SVF-tools";
       repo = "SVF";
-      rev = "e197f2d696e474a9dcf3a8a7d98b6c228c6d1d44";
-      sha256 = "0sw4hvl7bm4amhh3my41s25q1c1pc1b3c3zf6nsxhadd6n7jqb6m";
+      rev = "4be49ef34cb7b6f884b4384ede6c4ef26c06b7a6";
+      sha256 = "1rghfx5j53m5b1xn3y64zng8larm9m4hshy2k8xziadb4x890527";
     };
   };
 in import ./generic.nix { inherit stdenv llvm cmake srcinfo; } {
