@@ -30,9 +30,6 @@ in {
     qcma = super.pkgs.libsForQt5.callPackage ./custom/qcma { };
     inherit (callPackage ./devpi {}) devpi-web ;
     nodemcu-uploader = super.pkgs.callPackage ./nodemcu-uploader {};
-    inkscape = super.pkgs.stdenv.lib.overrideDerivation super.inkscape (old: {
-      patches = [ ./custom/inkscape/dxf_fix.patch ];
-    });
 }
 
 // (mapAttrs (_: flip callPackage {})
