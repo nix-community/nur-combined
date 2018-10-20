@@ -4,6 +4,15 @@ rec {
   modules = import ./modules;
   overlays = import ./overlays;
 
+  isabelle2018 = pkgs.callPackage ./pkgs/isabelle2018.nix {
+    polyml = pkgs.polyml56;
+    java = if pkgs.stdenv.isLinux then pkgs.jre else pkgs.jdk;
+  };
+
+  timg = pkgs.callPackage ./pkgs/timg.nix {};
+
+  tiv = pkgs.callPackage ./pkgs/tiv.nix {};
+
   eprover = pkgs.callPackage ./pkgs/eprover.nix {};
 
   u-root = pkgs.callPackage ./pkgs/u-root {};
