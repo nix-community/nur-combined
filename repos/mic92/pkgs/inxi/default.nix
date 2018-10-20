@@ -10,13 +10,13 @@ let
   ];
 in stdenv.mkDerivation rec { 
   name = "inxi-${version}";
-  version = "3.0.26-1";
+  version = "3.0.27-1";
 
   src = fetchFromGitHub {
     owner = "smxi";
     repo = "inxi";
     rev = version;
-    sha256 = "1bpq6icj970n39xm7z14wg6xvyd0sb90qb6y5pf7cm70yj6y4xvk";
+    sha256 = "015n854p2294kk2payh278hc47zvc8h1bn5w2dgv8m454j581yn4";
   };
 
   installPhase = ''
