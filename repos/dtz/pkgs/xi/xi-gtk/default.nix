@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   name = "xi-gtk-${version}";
-  version = "2018-07-30";
+  version = "2018-10-21";
   
   src = fetchFromGitHub {
     owner = "eyelash";
     repo = "xi-gtk";
-    rev = "50fff217df29e5da82aaaf196d92009757ffb571";
-    sha256 = "13r3i0z7j4jlv3n56nj76bx63zy9wh939j1rgjw1snw4q7v7s9x3";
+    rev = "fd1fc15409038fd30f4e59199192148bdea2bdce";
+    sha256 = "0l2g7yg1xihv09baqgaji8a4j6rix3zsqpcrm044j518vs23jabw";
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
