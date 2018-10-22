@@ -4,4 +4,5 @@
 
   tmux = ./services/tmux ;
 
+  dns-cache = ./services/dns-cache;
 }
