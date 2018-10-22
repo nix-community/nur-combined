@@ -1,18 +1,32 @@
-{ stdenv, fetchFromGitHub, llvm, cmake }:
+{ pkgs, lib, callPackage }:
 
 let
-  srcinfo = {
-    version = "2018-10-19";
-    src = fetchFromGitHub {
-      owner = "SVF-tools";
-      repo = "SVF";
-      rev = "8607025bb1ec0f69f6df8f6d163f43bc9cf502ac";
-      sha256 = "0s0cp5ykkj6p79xz6xxbkj5sibasjih1kh3xfs671asj18g0rj3k";
+  svfs = rec {
+    "4" = {
+      path = ./4.nix;
+      llvmPackages = pkgs.llvmPackages_4;
     };
+    "6" = {
+      path = ./6.nix;
+      llvmPackages = pkgs.llvmPackages_6;
+    };
+    master = {
+      path = ./master.nix;
+      llvmPackages = pkgs.llvmPackages_7;
+    };
+    # also make this available under "svfPkgs_7",
+    # matching what we do for 4 and 6.
+    # (for use when it matters LLVM7 is used, not 8 or w/e)
+    "7" = master;
   };
-in import ./generic.nix { inherit stdenv llvm cmake srcinfo; } {
-  postInstall = ''
-    install -Dm755 {.,$out}/bin/saber
-    install -Dm755 {.,$out}/bin/wpa
-  '';
-}
+  mkPkgs = info: lib.recurseIntoAttrs rec {
+    svf = callPackage info.path { inherit (info.llvmPackages) llvm; };
+    ptaben-fi = callPackage ./ptaben.nix {
+      inherit (info.llvmPackages) stdenv llvm clang;
+      inherit svf;
+    };
+    ptaben-fs = ptaben-fi.override { testFSPTA = true; };
+  };
+
+in
+  lib.mapAttrs' (n: v: lib.nameValuePair "svfPkgs_${n}" (mkPkgs v)) svfs
