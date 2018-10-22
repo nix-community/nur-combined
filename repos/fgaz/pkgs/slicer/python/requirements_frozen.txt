@@ -1,0 +1,7 @@
+appdirs==1.4.3
+CouchDB==1.2
+dicom==0.9.9.post1
+packaging==16.8
+pydicom==1.1.0
+pyparsing==2.2.0
+six==1.10.0
