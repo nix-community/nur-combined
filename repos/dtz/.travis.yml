@@ -13,7 +13,7 @@ env:
     - NUR_REPO=dtz
   matrix:
     - NIX_PATH=nixpkgs=channel:nixos-unstable
-    - NIX_PATH=nixpkgs=channel:nixos-18.09
+    - NIX_PATH=nixpkgs=https://github.com/dtzWill/nixpkgs/archive/nixos-dtz.tar.gz
     - NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/master.tar.gz
 
 before_script:
