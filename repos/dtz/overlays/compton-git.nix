@@ -41,6 +41,9 @@ self: super:
       ];
 
       #makeFlags = [ "BUILD_TYPE=Release" ];
+      mesonFlags = (o.mesonFlags or []) ++ [
+        "-Dvsync_drm=true"
+      ];
 
     });
     compton = self.compton-git;
