@@ -1,23 +1,23 @@
 { stdenv, fetchFromGitHub, python27Packages, nasm, linux, libelf }:
-python27Packages.buildPythonApplication {
-  name = "chipsec";
+python27Packages.buildPythonApplication rec {
+  name = "chipsec-${version}";
+  version = "2018-10-23";
 
   src = fetchFromGitHub {
     owner = "chipsec";
     repo = "chipsec";
-
-    rev = "dc4ee91bb6bac804d412082417045ff3747c0f27";
-    sha256 = "12jfxkb5njbczivgrsgrwrhcia7alilqfsa86cmypzvx7d0l4vf6";
+    rev = "0b8943cdb8bcb19b66cbe1d3c68108c855eb9134";
+    sha256 = "08hnjyvpwn43g5znb0b24hrnqhnw9bwfyhq0cjj12wyicmx67ja0";
   };
 
   buildInputs = [
     nasm libelf
   ];
 
-  KERNEL_SRC_DIR = "${linux.dev}/lib/modules/4.14.59/build";
+  KERNEL_SRC_DIR = "${linux.dev}/lib/modules/${linux.version}/build";
 
   meta = with stdenv.lib; {
-    description = "";
+    description = "Platform Security Assessment Framework";
     license = licenses.gpl2;
     homepage = https://github.com/chipsec/chipsec;
     maintainers = with maintainers; [ johnazoidberg ];

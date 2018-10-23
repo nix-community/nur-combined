@@ -13,7 +13,6 @@ rec {
 
   tiv = pkgs.callPackage ./pkgs/tiv.nix {};
 
-  eprover = pkgs.callPackage ./pkgs/eprover.nix {};
 
   u-root = pkgs.callPackage ./pkgs/u-root {};
 
