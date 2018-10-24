@@ -33,13 +33,12 @@ let
 in
 stdenv.mkDerivation rec {
   name = "slic3r-prusa-edition-${version}";
-  version = "1.41.1-rc";
+  version = "1.41.1";
 
   enableParallelBuilding = true;
 
   nativeBuildInputs = [
     cmake
-    gtest
     makeWrapper
   ];
 
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     WxGLCanvas
     xorg.libXdmcp
     xorg.libpthreadstubs
-  ] ++ (with perlPackages; [
+  ] ++ checkInputs ++ (with perlPackages; [
     boost
     ClassXSAccessor
     EncodeLocale
@@ -79,8 +78,12 @@ stdenv.mkDerivation rec {
     XMLSAX
   ]);
 
-  # The build system uses custom logic for finding the nlopt library, which
-  # doesn't work for paths in the nix store. We need to set it manually.
+  checkInputs = [ gtest ];
+
+  # The build system uses custom logic - defined in
+  # xs/src/libnest2d/cmake_modules/FindNLopt.cmake in the package source -
+  # for finding the nlopt library, which doesn't pick up the package in the nix store.
+  # We need to set the path via the NLOPT environment variable instead.
   NLOPT = "${nlopt}";
 
   prePatch = ''
@@ -89,8 +92,10 @@ stdenv.mkDerivation rec {
     # one in the kernel, we use that one instead.
     sed -i 's|"/usr/include/asm-generic/ioctls.h"|<asm-generic/ioctls.h>|g' xs/src/libslic3r/GCodeSender.cpp
 
-    # PERL_VENDORARCH and PERL_VENDORLIB aren't detected correctly by the build
-    # system, so we have to override them
+    # PERL_VENDORARCH and PERL_VENDORLIB aren't set correctly by the build
+    # system, so we have to override them. Setting them as environment variables
+    # doesn't work though, so substituting the paths directly in CMakeLists.txt
+    # seems to be the easiest way.
     sed -i "s|\''${PERL_VENDORARCH}|$out/lib/slic3r-prusa3d|g" xs/CMakeLists.txt
     sed -i "s|\''${PERL_VENDORLIB}|$out/lib/slic3r-prusa3d|g" xs/CMakeLists.txt
   '';
@@ -109,15 +114,15 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "prusa3d";
     repo = "Slic3r";
-    sha256 = "0zyq0rkdwqr8yh363wzzri4kn74vqja131zy7c2ysm5w8qb2898i";
+    sha256 = "0068wwsjwmnxql7653vy3labcyslzf17kr8xdr4lg2jplm022hvy";
     rev = "version_${version}";
   };
 
   meta = with stdenv.lib; {
-    description = "Latest version of a G-code generator for 3D printer";
+    description = "G-code generator for 3D printer";
     homepage = https://github.com/prusa3d/Slic3r;
     license = licenses.agpl3;
-    platforms = platforms.linux;
     maintainers = with maintainers; [ moredread ];
+    broken = stdenv.hostPlatform.isAarch64;
   };
 }
