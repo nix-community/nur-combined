@@ -1,12 +1,12 @@
 self: super: {
   strace = super.strace.overrideAttrs (o: rec {
     name = "strace-${version}";
-    version = "2018-09-27";
+    version = "2018-10-24";
 
     src = super.fetchgit {
       url = https://github.com/strace/strace;
-      rev = "f5b9ee494540741b59453a61f06e19815bcb11bd";
-      sha256 = "0j2kphnd7m2anfgkrd9kqwagv2jp1if7fcaxywjilnz6ad0lc8m5";
+      rev = "43700247534bee217cdf1ec553558c4dcf158335";
+      sha256 = "13ajfrf8rhs1fqk9pb72rbh76sfplpzpjzy5ny44nj92aa50nh75";
       leaveDotGit = true;
     };
 
