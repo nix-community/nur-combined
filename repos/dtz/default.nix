@@ -15,6 +15,8 @@ let toplevel = {
 
     ccontrol = callPackage ./pkgs/ccontrol { };
 
+    chstk = callPackage ./pkgs/chstk { };
+
     diva = callPackage ./pkgs/diva { };
 
     dwarf-type-reader = callPackage ./pkgs/dwarf-type-reader {
