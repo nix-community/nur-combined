@@ -1,12 +1,12 @@
 { lib, fetchFromGitHub, rustPlatform, newScope }:
 
 let
-  version = "2018-10-18";
+  version = "2018-10-24";
   xi-editor-src = fetchFromGitHub {
     owner = "xi-editor";
     repo = "xi-editor";
-    rev = "58be28a64bb7030832a54db3c7fe2d61395cc286";
-    sha256 = "1wf9hfv6jf8xr7as3hvpy8dbf73xvj8449ixlbbvhj5rnaca3a5b";
+    rev = "54df4e99d7f1a1e89bac556fe6e94dd83c2b025b";
+    sha256 = "00i75gw77k4vxl2nxp38qcdpsvskw9sg5vqrnvssim1ipmlgkfdh";
   };
   callPackage = newScope self;
   self = {
@@ -18,7 +18,7 @@ let
 
       sourceRoot = "source/rust";
 
-      cargoSha256 = "078cwlqdafa8mna2kmg9zbs4sd3g8dl07x9xqnmzswqgq8ds0fkk";
+      cargoSha256 = "0mmzwzibc6rfn7y3jw7fim5xhilrbq5vbs7jkmihiq3n2zxvwaw8";
 
       postInstall = ''
         make -C syntect-plugin install XI_PLUGIN_DIR=$out/share/xi/plugins
