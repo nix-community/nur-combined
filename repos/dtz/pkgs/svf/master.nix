@@ -2,12 +2,12 @@
 
 let
   srcinfo = {
-    version = "2018-10-25";
+    version = "2018-10-26";
     src = fetchFromGitHub {
       owner = "SVF-tools";
       repo = "SVF";
-      rev = "bc54f606835ff8e609e032ee4ea495f8fef8e787";
-      sha256 = "1mgahlhqp62rn2knh0s92mbli23pxdqrz8bpgy193fi1acwxqbcz";
+      rev = "bb0c79b595a549c5a30b0df2bb55b7120d6cdc1f";
+      sha256 = "0zhda6w9nyrhxcig3nyw12yvqh2j7krl13a7p33161w86xwv09mi";
     };
   };
 in import ./generic.nix { inherit stdenv llvm cmake srcinfo; } {

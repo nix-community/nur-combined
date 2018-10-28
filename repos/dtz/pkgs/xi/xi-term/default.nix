@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   name = "xi-term-${version}";
-  version = "2018-10-25";
+  version = "2018-10-27";
 
   src = fetchFromGitHub {
     owner = "xi-frontend";
     repo = "xi-term";
-    rev = "77eb8aadabf48fdc5b35af3025b10519159840b5";
-    sha256 = "0wid9xy9q5g6mjnvp5a25mi3wa3ksxjnlpxkfhbkpfdqwjbysn4g";
+    rev = "3ec107a0b2da3bc8d87f4890a91a8fc18a91588a";
+    sha256 = "1q57gkb5a3qy77b3lhr6z2lk5mz508m5dxv3jwi1aq1bdd64k4vj";
   };
 
-  cargoSha256 = "1h49j2r5bh1rjqmss6ccivc2x0ndmamqqzhi6kd02vgrv8jnwxg1";
+  cargoSha256 = "0q7ikqdrc29nm0nwh9k5z88v57m472nri6xvx76sv71x0fmp12r0";
 
   buildInputs = [ wrapXiFrontendHook ];
 
