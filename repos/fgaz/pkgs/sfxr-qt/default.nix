@@ -1,16 +1,17 @@
 { stdenv, fetchFromGitHub
 , cmake
-, qtbase, qtquickcontrols2, SDL
+, qtbase, qtquickcontrols2
+, SDL
 , python3 }:
 
 stdenv.mkDerivation rec {
   name = "sfxr-qt-${version}";
-  version = "unstable-2018-09-02";
+  version = "1.2.0";
   src = fetchFromGitHub {
     owner = "agateau";
     repo = "sfxr-qt";
-    rev = "b1da2f0a7dbcefa3b52310b1a4b4cb2b638d841b";
-    sha256 = "1bcz63qaklysijls3lq9xqv6887x3d06bqclnpqdbjyl729pwvgg";
+    rev = version;
+    sha256 = "1ndw1dcmzvkrc6gnb0y057zb4lqlhwrv18jlbx26w3s4xrbxqr41";
     fetchSubmodules = true;
   };
   nativeBuildInputs = [ cmake ];
