@@ -20,6 +20,8 @@ rec {
 
   eapol_test = pkgs.callPackage ./pkgs/eapol_test {};
 
+  fira-code-nerdfonts = pkgs.callPackage ./pkgs/fira-code-nerdfonts {};
+
   frida-tools = pkgs.callPackage ./pkgs/frida-tools { myPython3Packages = python3Packages; };
 
   gdbgui-donation = pkgs.callPackage ./pkgs/gdbgui {};
