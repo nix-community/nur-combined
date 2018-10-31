@@ -17,7 +17,7 @@ let
   );
 
   upstreamServers = ''
-    ${concatStringsSep "\n  " (map (server: "  ${(renderServer server)}") cfg.upstreamServers)}
+    ${concatStringsSep "\n" (map (server: "  ${(renderServer server)}") cfg.upstreamServers)}
   '';
 
   dhcpHostOpts = { name, config, ... }: {
@@ -118,10 +118,19 @@ in {
     upstreamServers = mkOption {
       description = "List of upstream dns servers";
       default = [{
-        address = "146.185.167.43"; # Nameserver of SecureDNS.eu
+        # Nameserver run by SecureDNS.eu
+        address = "146.185.167.43";
         tlsAuthName = "dot.securedns.eu";
         tlsPubkeyPinset = {
           value = "h3mufC43MEqRD6uE4lz6gAgULZ5/riqH/E+U+jE3H8g=";
+          digest = "sha256";
+        };
+      } {
+        # Nameserver run by Digitalcourage e.V.
+        address = "46.182.19.48";
+        tlsAuthName = "dns2.digitalcourage.de";
+        tlsPubkeyPinset = {
+          value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
           digest = "sha256";
         };
       }];
@@ -214,6 +223,7 @@ in {
   config = mkIf cfg.enable {
     services.stubby = {
       enable = true;
+      debugLogging = false;
       listenAddresses = [ "127.0.0.1@5353" ];
       upstreamServers = "${upstreamServers}";
     };
