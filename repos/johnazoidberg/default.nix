@@ -4,6 +4,13 @@ rec {
   modules = import ./modules;
   overlays = import ./overlays;
 
+  fbset = pkgs.callPackage ./pkgs/fbset.nix {};
+
+  voctomix = pkgs.callPackage ./pkgs/voctomix.nix {
+    inherit (pkgs.gst_all_1) gstreamer gst-plugins-bad gst-plugins-base gst-plugins-good gst-plugins-ugly;
+    inherit fbset;
+  };
+
   isabelle2018 = pkgs.callPackage ./pkgs/isabelle2018.nix {
     polyml = pkgs.polyml56;
     java = if pkgs.stdenv.isLinux then pkgs.jre else pkgs.jdk;
@@ -18,7 +25,10 @@ rec {
 
   uefi-driver-wizard = pkgs.callPackage ./pkgs/uefi-driver-wizard.nix {};
 
-  chipsec = pkgs.callPackage ./pkgs/chipsec.nix {};
+  chipsec = pkgs.callPackage ./pkgs/chipsec.nix {
+    kernel = pkgs.linuxPackages.kernel;
+    withDriver = true;
+  };
 
   rfc-reader = pkgs.callPackage ./pkgs/rfc-reader {};
 
