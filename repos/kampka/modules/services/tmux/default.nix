@@ -4,7 +4,7 @@ with lib;
 
 let
 
-  cfg = config.services.tmux;
+  cfg = config.kampka.services.tmux;
 
   tmuxConfig = pkgs.writeText "tmux.conf" ''
   ${optionalString (cfg.configurePowerline) ''
@@ -31,7 +31,7 @@ let
   tmuxStarter = "${lib.readFile ./tmux-starter}";
 in {
 
-  options.services.tmux = {
+  options.kampka.services.tmux = {
     enable = mkEnableOption "tmux user service";
 
     configurePowerline = mkOption {

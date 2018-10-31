@@ -4,13 +4,13 @@ with lib;
 
 let
 
-  cfg = config.programs.zsh-history;
+  cfg = config.kampka.programs.zsh-history;
 
   zsh-history = pkgs.callPackage ./../../../pkgs/zsh-history {};
 
 in {
 
-  options.programs.zsh-history = {
+  options.kampka.programs.zsh-history = {
     enable = mkEnableOption "A CLI to provide enhanced history for your shell";
   };
 

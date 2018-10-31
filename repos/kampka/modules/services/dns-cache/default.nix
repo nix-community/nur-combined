@@ -4,7 +4,7 @@ with lib;
 
 let
 
-  cfg = config.services.dns-cache;
+  cfg = config.kampka.services.dns-cache;
 
   renderServer = (server:
     ''
@@ -112,7 +112,7 @@ let
   };
 
 in {
-  options.services.dns-cache = {
+  options.kampka.services.dns-cache = {
     enable = mkEnableOption "dns cache service with dns-over-tls";
 
     upstreamServers = mkOption {

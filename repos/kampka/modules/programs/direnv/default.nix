@@ -4,11 +4,11 @@ with lib;
 
 let
 
-  cfg = config.programs.direnv;
+  cfg = config.kampka.programs.direnv;
 
 in {
 
-  options.programs.direnv = {
+  options.kampka.programs.direnv = {
     enable = mkEnableOption "direnv - environment switcher for the shell";
 
     configureZsh = mkOption {

@@ -56,3 +56,24 @@ or
     ];
 }
 ```
+
+#### Modules
+
+Modules defined in this repository are defined in the `kampka` namespace.
+This helps to avoid namespace conflicts with the `nixpkgs` and other `NUR` repositories.
+
+To enable these modules, you simply define the path accordingly:
+```nix
+{ pkgs, config, lib, ... }:
+let
+  nur-no-pkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {};
+in {
+
+  imports = [
+    nur-no-pkgs.repos.kampka.modules.zsh-history
+  ];
+
+  kampka.programs.zsh-history.enable = true;
+
+}
+```
