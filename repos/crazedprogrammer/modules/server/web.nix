@@ -13,6 +13,7 @@ with import ./vars.nix;
         {
           root /var/www/cc.crzd.me
           browse /maven
+          mime .jar application/java-archive
         }
         https://i.crzd.me {
           proxy / localhost:${toString shittydlPort}

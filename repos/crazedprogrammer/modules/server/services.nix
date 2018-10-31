@@ -82,7 +82,7 @@ with import ./vars.nix;
       description = "Krist miner service";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [ bash ];
+      path = with pkgs; [ bash cpulimit ];
       script = ''
         ./mine.sh
       '';

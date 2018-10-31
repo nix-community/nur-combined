@@ -21,13 +21,6 @@ with import ./vars.nix;
       home = "/home/casper";
       shell = pkgs.fish;
     };
-    lur = {
-      isNormalUser = true;
-      uid = 1001;
-      hashedPassword = builtins.readFile ../../../.lur-passwd;
-      home = "/home/lur";
-      shell = pkgs.zsh;
-    };
     unp = {
       isNormalUser = true;
       uid = 1007;
