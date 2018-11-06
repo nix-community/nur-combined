@@ -16,6 +16,7 @@ let
     sudo = linux;
     hydra = linux;
     libraryTests = linux;
+    python3Packages.dlib = linux;
   };
 
   overlays = [
@@ -33,7 +34,9 @@ in
     };
 
     nur-personal-unstable = mkJob {
-      channel = "unstable";
+      channel = "master";
+      trackBranches = true;
+      upstream = "Ma27";
       inherit overlays supportedSystems jobset;
     };
 
