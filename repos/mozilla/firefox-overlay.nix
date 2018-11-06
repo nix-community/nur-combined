@@ -1,7 +1,7 @@
 # This file provide the latest binary versions of Firefox published by Mozilla.
 self: super:
 
-# firefo.key file is downloaded from:
+# firefox.key file is downloaded from:
 # https://gpg.mozilla.org/pks/lookup?search=Mozilla+Software+Releases+%3Crelease%40mozilla.com%3E&op=get
 
 let
@@ -157,6 +157,11 @@ in
         if builtins.compareVersions self.nodejs.name "nodejs-8.11.3" < 0
         then self.nodejs-8_x else self.nodejs;
 
+      rust-cbindgen =
+        if !(self ? "rust-cbindgen") then self.rust-cbindgen-latest
+        else if builtins.compareVersions self.rust-cbindgen.name "rust-cbindgen-0.6.4" < 0
+        then self.rust-cbindgen-latest else self.rust-cbindgen;
+
       # Due to std::ascii::AsciiExt changes in 1.23, Gecko does not compile, so
       # use the latest Rust version before 1.23.
       # rust = (super.rustChannelOf { channel = "stable"; date = "2017-11-22"; }).rust;
@@ -164,10 +169,12 @@ in
     };
   };
 
-  # Set of packages which are frozen at this given revision of nixpkgs-mozilla.
-  firefox-nightly-bin = super.callPackage ./pkgs/firefox-nightly-bin/default.nix { };
-
-  # Use rust-cbindgen imported from Nixpkgs (August 2018) unless the current
+  # Use rust-cbindgen imported from Nixpkgs (September 2018) unless the current
   # version of Nixpkgs already packages a version of rust-cbindgen.
-  rust-cbindgen = super.rust-cbindgen or (super.callPackage ./pkgs/cbindgen { });
+  rust-cbindgen-latest = super.callPackage ./pkgs/cbindgen {
+    rustPlatform = super.makeRustPlatform {
+      cargo = self.latest.rustChannels.stable.rust;
+      rustc = self.latest.rustChannels.stable.rust;
+    };
+  };
 }

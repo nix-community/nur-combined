@@ -113,8 +113,14 @@ let
     export MOZBUILD_STATE_PATH=$PWD/.mozbuild
     export CC="${stdenv.cc}/bin/cc";
     export CXX="${stdenv.cc}/bin/c++";
+    # To be used when building the JS Shell.
+    export NIX_EXTRA_CONFIGURE_ARGS="--with-libclang-path=${llvmPackages.clang.cc.lib}/lib --with-clang-path=${llvmPackages.clang}/bin/clang"
+    cxxLib=$( echo -n ${gcc}/include/c++/* )
+    archLib=$cxxLib/$( ${gcc}/bin/gcc -dumpmachine )
+    export BINDGEN_CFLAGS="-cxx-isystem $cxxLib -isystem $archLib"
     ${genMozConfig}
     ${builtins.getEnv "NIX_SHELL_HOOK"}
+    unset AS
   '';
 
   # propagatedBuildInput should already have applied the "lib.chooseDevOutputs"
@@ -146,6 +152,7 @@ stdenv.mkDerivation {
   tracePhases = true;
 
   configurePhase = ''
+    unset AS; # Set to CC when configured.
     export MOZBUILD_STATE_PATH=$(pwd)/.mozbuild
     export MOZCONFIG=$(pwd)/.mozconfig
     export builddir=$(pwd)/builddir
