@@ -5,8 +5,8 @@ let
   xi-editor-src = fetchFromGitHub {
     owner = "xi-editor";
     repo = "xi-editor";
-    rev = "70a51ceb81dc021748df1ee87d64cc3c556ed6f2";
-    sha256 = "1bq9kczbw0j2hvbym2qb2n2shy91qydffn6a2j94hd07h6zw871r";
+    rev = "4136c9f19bbfabcc294c8bbf1d9bc499359ac001";
+    sha256 = "0bc6p47pkxlxgz4pbfjmh74giwpb07dcj5axmgjvb3m33q9x5qf3";
   };
   callPackage = newScope self;
   self = {
