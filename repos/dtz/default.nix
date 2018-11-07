@@ -5,7 +5,7 @@ let toplevel = {
   modules = toplevel.lib.pathDirectory ./modules;
   overlays = toplevel.lib.importDirectory ./overlays;
 
-  pkgs = pkgs.lib.makeScope pkgs.newScope (self: with self; {
+  pkgs = toplevel.lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (self: with self; {
     lib = pkgs.lib // toplevel.lib;
 
     alive = callPackage ./pkgs/alive { };
@@ -121,7 +121,7 @@ let toplevel = {
 
     # XXX: scoping
     # These expressions are a bit dated
-    seahornPkgs = lib.recurseIntoAttrs (
+    seahornPkgs = /* lib.recurseIntoAttrs */ (
       let 
         pkgs1609 = import (fetchTarball channel:nixos-16.09) {};
         inherit (pkgs1609) llvmPackages_36;
@@ -139,5 +139,5 @@ let toplevel = {
   // { iosevka-term-styles = pkgs.callPackages ./pkgs/iosevka-term { }; }
   // (pkgs.callPackages ./pkgs/xi { })
   // (pkgs.callPackages ./pkgs/svf { lib = pkgs.lib // toplevel.lib; /* FIXME */ })
-  );
+  ));
 }; in toplevel #  // toplevel.pkgs
