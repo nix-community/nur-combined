@@ -1,25 +1,48 @@
-# nur-packages
+# nixexprs
 
-My own [Nix user repository](https://github.com/nix-community/NUR). It contians personal Nix expressions
-I use on a daily basis, but are far too opinionated for `nixpkgs`.
+This repository contains opinionated Nix expressions and my personal
+Hydra jobsets.
 
-## Prerequisites
+Most of the code isn't suitable for the NixOS upstream as it isn't sufficiently
+stable and mostly subject to change. However feedback and further ideas
+are always welcome.
 
-* [Nix](https://nixos.org/nix/)
+## Obtain the sources
 
-## Setup
+* The repo is part of the [NUR](https://github.com/nix-community/NUR) repository,
+  a collection of user-contributed Nix expressions and can be installed as part of it:
 
-Add `NUR` as [described in the docs](https://github.com/nix-community/nur#how-to-use):
+  ``` nix
+  {
+    nixpkgs.overlays = [
+      (_: super: {
+        nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+          pkgs = super;
+        };
+      })
+    ];
 
-``` nix
-{
-  packageOverrides = pkgs: {
-    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-      inherit pkgs;
-    };
-  };
-}
-```
+    environment.systemPackages = [ pkgs.gianas-return ];
+  }
+  ```
+
+* Additionally it's possible to simply clone the repository and
+  import its components:
+
+  ```
+  git clone git@gitlab.com:Ma27/nixexprs
+  ```
+
+  ``` nix
+  {
+    nixpkgs.overlays = (import ../nixexprs { }).overlays;
+  }
+  ```
+
+* A Hydra jobset for the repository can be
+  fonud at [hydra.mbosch.me/](https://hydra.mbosch.me/jobset/infra/nur), but it's mainly
+  intended to track the status of all components in this repository and less
+  to actually use it as binary cache.
 
 ## Packages
 
