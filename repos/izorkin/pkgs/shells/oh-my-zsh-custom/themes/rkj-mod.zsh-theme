@@ -12,7 +12,7 @@ function theme_precmd() {
   local TERMWIDTH
   (( TERMWIDTH = ${COLUMNS} - 1 ))
 
-  local promptsize=${#${(%):---(%n@%m)---()--}}
+  local promptsize=${#${(%):---(%n@%M)---()--}}
   local pwdsize=${#${(%):-%~}}
   local datesize=23
 
@@ -38,7 +38,7 @@ setprompt() {
   PR_VCS_INFO=$'$(vcs_info)'
 
   PROMPT="${PR_COLOR2}\
-┌─[${PR_COLOR_RST}${PR_COLOR5}%n${PR_COLOR_RST}${PR_COLOR4}@${PR_COLOR_RST}${PR_COLOR3}%m${PR_COLOR_RST}${PR_COLOR2}]───[${PR_COLOR_RST}${PR_COLOR7}%~${PR_COLOR_RST}${PR_COLOR2}]${PR_FILLBAR}[\
+┌─[${PR_COLOR_RST}${PR_COLOR5}%n${PR_COLOR_RST}${PR_COLOR4}@${PR_COLOR_RST}${PR_COLOR3}%M${PR_COLOR_RST}${PR_COLOR2}]───[${PR_COLOR_RST}${PR_COLOR7}%~${PR_COLOR_RST}${PR_COLOR2}]${PR_FILLBAR}[\
 ${PR_COLOR_RST}${PR_COLOR1}%D{"${PR_DATE}"}${PR_COLOR_RST}${PR_COLOR2}]─[${PR_COLOR_RST}${PR_COLOR1}%D{"${PR_TIME}"}${PR_COLOR_RST}${PR_COLOR2}]─┐
 └─[${PR_COLOR_RST}${PR_COLOR6}%?$(retcode)${PR_COLOR_RST}${PR_COLOR2}]${PR_COLOR_RST} ${PR_COLOR5}${PR_VCS_INFO}${PR_COLOR_RST}${PR_COLOR2}${PR_PROMT}${PR_COLOR_RST} "
   RPROMPT="${PR_COLOR2}[${PR_COLOR_RST}${PR_COLOR3}%l${PR_COLOR_RST}${PR_COLOR2}]─┘${PR_COLOR_RST}"
