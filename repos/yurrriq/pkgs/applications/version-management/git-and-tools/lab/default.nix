@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     owner = "yurrriq";
     repo = "lab";
     rev = version;
-    sha256 = "1v8qsqhr5wnf4y05x1l5qjdyswa23p8wkgmf7zv1r8y2j9kpvgq7";
+    sha256 = "1dh1xmfk2px4jyhj7cwhbp9nqkx59s91winq569gfl5zvnc9w7zy";
   };
 
   dontBuild = true;
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Like hub, but for GitLab";
-    version = "0.0.2";
+    version = "0.1.0";
     license = licenses.mit;
     maintainers = with maintainers; [ yurrriq ];
     inherit (src.meta) homepage;
