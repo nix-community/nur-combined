@@ -34,4 +34,6 @@ rec {
 
   mkTests = callPackage ./tests/mk-test.nix { };
 
+  inherit callPackage;
+
 }

@@ -1,5 +1,5 @@
 { checkoutNixpkgs }:
-{ channel, overlays, jobset, supportedSystems, trackBranches ? false, upstream ? "NixOS" }:
+{ channel, overlays ? [], jobset, supportedSystems, trackBranches ? false, upstream ? "NixOS" }:
 
 let
 
