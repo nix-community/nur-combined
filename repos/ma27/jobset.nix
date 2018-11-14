@@ -2,7 +2,7 @@
 
 let
 
-  inherit (import ./. { pkgs = import nixpkgs {}; }) mkJob mkTests;
+  inherit (import ./. { pkgs = import nixpkgs {}; }) mkJob mkTests overlays;
 
   ### TESTS
   libraryTests = callPackage: mkTests [
@@ -16,9 +16,10 @@ let
     sudo = linux;
     hydra = linux;
     libraryTests = linux;
+    php = linux;
   };
 
-  overlays = [
+  newOverlays = (builtins.attrValues overlays) ++ [
     (_: super: import ./. { pkgs = super; })
     (_: super: { libraryTests = libraryTests super.callPackage; })
   ];
@@ -29,26 +30,30 @@ in
 
     nur-personal-stable = mkJob {
       channel = "18.09";
-      inherit overlays supportedSystems jobset;
+      overlays = newOverlays;
+      inherit supportedSystems jobset;
     };
 
     nur-personal-unstable = mkJob {
       channel = "unstable";
-      inherit overlays supportedSystems jobset;
+      overlays = newOverlays;
+      inherit supportedSystems jobset;
     };
 
     nur-personal-laptop = mkJob {
       channel = "ma27-laptop";
       trackBranches = true;
       upstream = "Ma27";
-      inherit overlays supportedSystems jobset;
+      inherit supportedSystems jobset;
+      overlays = newOverlays;
     };
 
     nur-personal-infra = mkJob {
       channel = "ma27-infra";
       trackBranches = true;
       upstream = "Ma27";
-      inherit overlays supportedSystems jobset;
+      inherit supportedSystems jobset;
+      overlays = newOverlays;
     };
 
   }

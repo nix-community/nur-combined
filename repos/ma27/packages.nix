@@ -20,6 +20,8 @@ rec {
     termite = import ./pkgs/termite/overlay.nix;
 
     hydra = import ./pkgs/hydra/overlay.nix;
+
+    php = import ./pkgs/php/overlay.nix;
   };
 
   ### MODULES
@@ -34,6 +36,6 @@ rec {
 
   mkTests = callPackage ./tests/mk-test.nix { };
 
-  inherit callPackage;
+  callNURPackage = callPackage;
 
 }
