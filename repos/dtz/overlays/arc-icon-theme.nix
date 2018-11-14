@@ -1,6 +1,6 @@
 self: super: {
   arc-icon-theme = super.arc-icon-theme.overrideAttrs(o: rec {
-    name = "arc-icon-theme-2017-06-22";
+    version = "2017-06-22";
     src = super.fetchFromGitHub {
       owner = "arc-theme";
       repo = "arc-icon-theme";
