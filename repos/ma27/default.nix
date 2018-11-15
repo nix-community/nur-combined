@@ -1,14 +1,16 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {}, nixpkgs ? null }:
+
+assert nixpkgs == null -> pkgs != null;
 
 let
 
-  moduleList = import ./module-list.nix;
+  lib = if pkgs == null then import "${toString nixpkgs}/lib" else pkgs.lib;
 
-  callPackage = pkgs.newScope (pkgs // nurSet);
+  callPackage = assert pkgs != null;
+    pkgs.newScope (pkgs // nurSet);
 
-  nurSet = import ./packages.nix {
-    inherit callPackage moduleList;
-    inherit (pkgs) lib;
+  nurSet = import ./components.nix {
+    inherit callPackage lib;
   };
 
 in

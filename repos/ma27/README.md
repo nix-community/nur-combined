@@ -22,8 +22,35 @@ are always welcome.
       })
     ];
 
-    environment.systemPackages = [ pkgs.gianas-return ];
+    environment.systemPackages = [ pkgs.nur.repos.ma27.gianas-return ];
   }
+  ```
+
+* It's also possible to add an entry to your `$NIX_PATH` to retrieve components inside your Nix expressions:
+
+  ``` nix
+  { pkgs, ... }:
+  let
+    nixexprs = pkgs.fetchFromGitLab {
+      owner = "Ma27";
+      repo = "nixexprs";
+      rev = "a98e9c8fe53fd4f9f893e04de1c3b76b9e900508";
+      sha256 = "1s6qcr8wa05pxljfbbdd8pl6h36f5hx6k98nzmzyg4n1192y33mb";
+    };
+  in
+    {
+      nix.nixPath = [
+        "nixexprs=${nixexprs}"
+      ];
+    }
+  ```
+
+  Now it can be referred to it like this:
+
+  ``` nix
+  with import <nixexprs> { };
+
+  gianas-return
   ```
 
 * Additionally it's possible to simply clone the repository and
@@ -35,8 +62,21 @@ are always welcome.
 
   ``` nix
   {
-    nixpkgs.overlays = (import ../nixexprs { }).overlays;
+    nixpkgs.overlays = builtins.attrValues (import ../nixexprs { }).overlays;
   }
+  ```
+
+  Please not that internally `<nixpkgs>` is imported and can be overriden by passing `pkgs` to
+  the `nixexprs` import statement.
+
+  However the `pkgs` statement is not needed for modules and overlays where only the `nixpkgs` lib
+  needs to be included. This can be helpful to avoid importing entire `nixpkgs` twice e.g. in system
+  configurations:
+
+  ``` nix
+  with import <nixexprs> { pkgs = null; nixpkgs = <nixpkgs>; /* only used for `nixpkgs/lib` */ };
+
+  overlays
   ```
 
 * A Hydra jobset for the repository can be
@@ -54,52 +94,43 @@ are always welcome.
 There are several overlays available that can be imported with an expression like this:
 
 ``` nix
-{ pkgs, config, ... }:
-
 let
-  nur-no-pkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-    pkgs = import <nixpkgs> {}; # create dummy pkgs to load modules (that require `pkgs.lib` for evaluation)
-  };
+  overlays = (import <nixexprs> { pkgs = null; nixpkgs = <nixpkgs>; }).overlays;
 in
-  {
-    nixpkgs.overlays = [
-      nur-no-pkgs.repos.ma27.overlays.<overlay-name>
-    ];
-  }
+  import <nixpkgs> { overlays = [ overlays.sudo ]; };
 ```
 
 The following overlays are available:
 
 * `overlays.sudo`: Provides a patched `sudo` with the `--with-insults` flag enabled.
+
 * `overlays.termite`: Provides a patched `termite` with the patch
   from [`thestinger/termite#621`](https://github.com/thestinger/termite/pull/621) which allows to
   use `termite` without the `F11` hotkey enabled. This is e.g. helpful when using `weechat` in `termite`.
+
 * `overlays.hydra`: `hydra` package with a patch that disables restricted jobset evaluation. This can be
   helpful in to evaluate jobsets that require e.g. Git checkouts.
 
+* `overlays.php`: Builds a PHP with `xsl` and `apcu` support enabled by default (please not that `xsl`
+  needs a full ebuild of PHP).
+
 ## Modules
 
-### Initial setup
-
-Modules can be loaded by importing a second `nur` repo as described
-[in the upstream docs](https://github.com/nix-community/NUR#using-modules-overlays-or-library-functions-in-nixos):
+It's **not** recommended to import modules when using this repo via NUR, instead this can be done
+like this:
 
 ``` nix
 { pkgs, config, ... }:
 
 let
-  nur-no-pkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-    pkgs = import <nixpkgs> {}; # create dummy pkgs to load modules (that require `pkgs.lib` for evaluation)
-  };
+  modules = (import <nixexprs> { pkgs = null; nixpkgs = <nixpkgs>; }).modules;
 in
-{
-  imports = with nur-no-pkgs.repos.ma27.modules; [
-    hydra
-  ];
-}
+  {
+    imports = [ modules.hydra ];
+  }
 ```
 
-### Hydra setup
+### `ma27.hydra`
 
 The [Hydra CI](https://nixos.org/hydra/) is a build system for Nix.
 
@@ -141,7 +172,7 @@ ssh-keygen
 In order to clone a `git` repository, the previously generated pubkey for Hydra
 needs to be uploaded to the given `git` upstream server.
 
-## Additional library
+## Library
 
 This repository ships several simple helper APIs to simplify Nix-based development
 on a daily basis.
@@ -154,18 +185,8 @@ The library shipped with this `NUR` package contains a minimalistic API to devel
 A simple environment may look like this:
 
 ``` nix
-with import <nixpkgs> {};
-
-let
-
-  # create dummy pkgs to load modules (that require `pkgs.lib` for evaluation)
-  nur-no-pkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-    pkgs = import <nixpkgs> {};
-  };
-
-  inherit (nur-no-pkgs.repos.ma27.lib) mkTexDerivation;
-
-in
+with import <nixpkgs> { };
+with import <nixexprs> { inherit pkgs; };
 
 mkTexDerivation {
   name = "name-of-the-document";
@@ -200,7 +221,7 @@ $ nix-shell
 [nix-shell:~]$ watch-tex book.tex literature.bib # builds book.tex and literatur.bib on every change
 ```
 
-### Hydra build library
+### Helper functions
 
 The package expressions in this repository are tested using Hydra CI. To simplify such builds,
 the `release` library can be used.
@@ -249,3 +270,29 @@ It basically consists of two functions:
 
   The jobset function alows expressions based on the previous `nixpkgs` and an attribute set for
   security and observation concerns.
+
+* `callNURPackage`: Basically `callPackage`, but has all items from `components.nix` in its scope as well:
+
+  ``` nix
+  # default.nix
+  with import <nixexprs> { };
+  callNURPackage ./release.nix { }
+  ```
+
+  ```nix
+  # release.nix
+  { mkTexDerivation, stdenv, fetchFromGitLab }:
+
+  mkTexDerivation {
+    name = "tex-int-test";
+    src = fetchFromGitLab {
+      # …
+    };
+
+    meta = with stdenv.lib; {
+      license = licenses.mit;
+    };
+  }
+  ```
+
+* `mkTests`: To be documented

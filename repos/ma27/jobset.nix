@@ -1,4 +1,4 @@
-{ nixpkgs ? <nixpkgs>, supportedSystems ? [ "x86_64-linux"] }:
+{ nixpkgs ? <nixpkgs>, supportedSystems ? [ "x86_64-linux" ] }:
 
 let
 
@@ -15,13 +15,13 @@ let
     termite = linux;
     sudo = linux;
     hydra = linux;
-    libraryTests = linux;
+    library-tests = linux;
     php = linux;
   };
 
   newOverlays = (builtins.attrValues overlays) ++ [
     (_: super: import ./. { pkgs = super; })
-    (_: super: { libraryTests = libraryTests super.callPackage; })
+    (_: super: { library-tests = libraryTests super.callPackage; })
   ];
 
 in
