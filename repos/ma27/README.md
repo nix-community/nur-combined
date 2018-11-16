@@ -130,6 +130,42 @@ in
   }
 ```
 
+### `ma27.sieve-dsl`
+
+This is a simple module to allow sieve scripting for `dovecot2` instances. [Sieve](http://sieve.info/)
+is a filtering DSL to declaratively specify which mail should land in which inbox.
+
+A simple example may look like this:
+
+``` nix
+{
+  # this is a very basic and incomplete dovecot2 configuration.
+  # for a full-blown setup use something like `simple-nixos-mailserver`, please.
+  services.dovecot2.enable = true;
+
+  ma27.sieve-dsl.enable = true;
+  ma27.sieve-dsl.rules = {
+    "*github.com".fileinto = "Notifications";
+  };
+}
+```
+
+This is configuration would filter all incoming mail from `@github.com` and place it into the
+`Notifications` inbox.
+
+In case of mailing lists where the recipient is the address itself you can specify something like this:
+
+``` nix
+{
+  # ...
+
+  ma27.sieve-dsl.rules."your-mailing-list.example.com" = {
+    fileinto = "Conversations";
+    parts = [ "from" ];
+  };
+}
+```
+
 ### `ma27.hydra`
 
 The [Hydra CI](https://nixos.org/hydra/) is a build system for Nix.
