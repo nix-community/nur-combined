@@ -18,6 +18,7 @@ rec {
 
   modules = mkModules [
     ./modules/hydra.nix
+    ./modules/sieve-dsl.nix
   ];
 
   ### OVERLAYS
