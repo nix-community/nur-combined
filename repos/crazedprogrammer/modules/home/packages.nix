@@ -15,7 +15,7 @@
     git mercurial #darcs
 
     # Utilities
-    xsel xclip gnome3.gnome-screenshot qemu calcurse binutils-unwrapped slop xdotool clang-tools hhpc kristvanity
+    xsel xclip gnome3.gnome-screenshot qemu calcurse binutils-unwrapped slop xdotool clang-tools hhpc stress #kristvanity 
 
     # Nix utilities
     nix-prefetch-git
@@ -57,7 +57,7 @@
     gimp tiled
 
     # Multimedia
-    audacity mpv gnome3.file-roller cli-visualizer-wrapped deadbeef ffmpeg projectm cava-wrapped zathura #glava
+    audacity mpv gnome3.file-roller cli-visualizer-wrapped deadbeef ffmpeg projectm cava-wrapped zathura glmark2 #glava
 
     # Networking
     openvpn openssh update-resolv-conf sshfs mosh

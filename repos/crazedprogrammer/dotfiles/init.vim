@@ -41,6 +41,7 @@ imap <C-q> <ESC>:q<CR>
 imap <C-b> <ESC>diwi
 inoremap <silent><expr><CR> pumvisible() ? deoplete#mappings#close_popup()."\<CR>" : "\<CR>"
 tnoremap <Esc> <C-\><C-n>
+vnoremap p "_dP
 
 for dirkey in ['h', 'j', 'k', 'l']
 	execute 'nnoremap <A-' . dirkey . '> <C-w>' . dirkey
@@ -174,7 +175,7 @@ function Pandoc()
 	endif
 	let outpath = TempPath('pdf')
 	execute 'w' sourcepath
-	execute 'silent :!pandoc -s --number-sections --table-of-contents -V geometry:margin=2cm -f markdown ' sourcepath '-o' outpath
+	execute 'silent :!pandoc -s --number-sections -V geometry:margin=2cm -f markdown ' sourcepath '-o' outpath
 	if !filereadable(outpath)
 		echoerr 'Failed to convert to PDF.'
 		return

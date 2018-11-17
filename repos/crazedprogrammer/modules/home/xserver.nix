@@ -4,8 +4,12 @@
   services.xserver = {
     # Enable the X11 windowing system.
     enable = true;
+
+    # Keyboard options
     layout = "us";
     xkbOptions = "caps:escape,compose:ralt";
+    autoRepeatDelay = 300;
+    autoRepeatInterval = 30;
 
     # Enable the SDDM login manager.
     displayManager.sddm.enable = true;
