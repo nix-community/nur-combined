@@ -43,5 +43,8 @@ rec {
   endgame-singularity = pkgs.callPackage ./pkgs/endgame-singularity { };
   openhexagon = pkgs.callPackage ./pkgs/openhexagon { };
   powermanga = pkgs.libsForQt5.callPackage ./pkgs/powermanga { };
+
+  ### TOOLS
+  dvd-vr = pkgs.callPackage ./pkgs/dvd-vr { };
 }
 
