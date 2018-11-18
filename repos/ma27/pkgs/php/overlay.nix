@@ -25,4 +25,9 @@ in
         wrapProgram $out/bin/php --add-flags "-c ${extraConfig}"
       '';
     };
+
+    phpPackages = self.recurseIntoAttrs
+      (self.callPackage
+        (builtins.toPath "${self.path}/pkgs/top-level/php-packages.nix")
+        ({ php = self.php; }));
   }
