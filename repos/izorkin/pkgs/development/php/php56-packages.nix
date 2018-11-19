@@ -15,7 +15,7 @@ let
 
   couchbase = buildPecl rec {
     name = "couchbase-${version}";
-    version = "2.5.0";
+    version = "2.6.0";
 
     buildInputs = [ pkgs.libcouchbase pkgs.zlib igbinary pcs ];
 
@@ -23,7 +23,7 @@ let
       owner = "couchbase";
       repo = "php-couchbase";
       rev = "v${version}";
-      sha256 = "1ii34i4m1gs0rdxgx6ic4g2frbb6dmljir74zwhkzrnaxxzh4558";
+      sha256 = "0lhcvgd4a0wvxniinxajj48p5krbp44h8932021qq14rv94r4k0b";
     };
 
     configureFlags = [ "--with-couchbase" ];
@@ -55,7 +55,7 @@ let
   };
 
   igbinary = buildPecl {
-    name = "igbinary-2.0.7";
+    name = "igbinary-2.0.8";
 
     configureFlags = [ "--enable-igbinary" ];
 
@@ -63,7 +63,7 @@ let
 
     outputs = [ "out" "dev" ];
 
-    sha256 = "00gq205g2yq4psisla5wg1l0igm5b28gkx88xzgmffhgpn8wxp8c";
+    sha256 = "105nyn703k9p9c7wwy6npq7xd9mczmmlhyn0gn2v2wz0f88spjxs";
   };
 
   imagick = buildPecl {
@@ -198,11 +198,11 @@ let
 
   composer = pkgs.stdenv.mkDerivation rec {
     name = "composer-${version}";
-    version = "1.7.2";
+    version = "1.7.3";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "03km8qw3nshj7qzk5pidziha2ldx1l2yxhh2s7vpg25f9782hd7c";
+      sha256 = "0vkvpqdwigamsw8drg80k45pyh69zgqvahklp1x3rh7vq39bqv5w";
     };
 
     unpackPhase = ":";
@@ -253,11 +253,11 @@ let
 
   php-cs-fixer = pkgs.stdenv.mkDerivation rec {
     name = "php-cs-fixer-${version}";
-    version = "2.12.2";
+    version = "2.13.1";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "19cq04x1wi489259vyad15zy6y0k3qd7dj77pcf74gxqw92hgg5c";
+      sha256 = "0yy9q140jd63h9qz5jvplh7ls3j7y1hf25dkxk0h4mx9cbxdzkq4";
     };
 
     phases = [ "installPhase" ];
@@ -313,11 +313,11 @@ let
 
   phpcs = pkgs.stdenv.mkDerivation rec {
     name = "phpcs-${version}";
-    version = "3.3.1";
+    version = "3.3.2";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
-      sha256 = "0kw1ffr688wbcip2hmr7yi7bpdf4kzwh22yvxw17lyddzq6vrqaw";
+      sha256 = "0np3bsj32mwyrcccw5pgypz7wchd5l89bq951w9a7bxh80gjhak9";
     };
 
     phases = [ "installPhase" ];
@@ -340,11 +340,11 @@ let
 
   phpcbf = pkgs.stdenv.mkDerivation rec {
     name = "phpcbf-${version}";
-    version = "3.3.1";
+    version = "3.3.2";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcbf.phar";
-      sha256 = "0q75h8y4rbysyzh3i5nzqqln2d8592p0sz6y11rr2hz0g9qw4gim";
+      sha256 = "1qxcd7lkqrfjibkrqq1f5szrcjmd6682mwaxha7v93pj9f92wgn4";
     };
 
     phases = [ "installPhase" ];
@@ -367,11 +367,11 @@ let
 
   psysh = pkgs.stdenv.mkDerivation rec {
     name = "psysh-${version}";
-    version = "0.9.6";
+    version = "0.9.8";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "06icmyn7v229mpfplqj76kjnp1gh4ns0nrxa7bsckyqhzi425kc6";
+      sha256 = "0xs9bl0hplkm2hajmm4qca65bm2x7wnx4vbmk0d2jxpvwrgqgnzd";
     };
 
     phases = [ "installPhase" ];
