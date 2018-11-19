@@ -14,10 +14,6 @@ rec {
 
   clearsans = pkgs.callPackage ./pkgs/clearsans {};
 
-  doh-proxy = pkgs.python3Packages.callPackage ./pkgs/doh-proxy {
-    inherit (python3Packages) aioh2 aiohttp-remotes;
-  };
-
   eapol_test = pkgs.callPackage ./pkgs/eapol_test {};
 
   fira-code-nerdfonts = pkgs.callPackage ./pkgs/fira-code-nerdfonts {};
