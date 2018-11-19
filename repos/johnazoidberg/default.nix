@@ -4,6 +4,8 @@ rec {
   modules = import ./modules;
   overlays = import ./overlays;
 
+  rederr = pkgs.callPackage ./pkgs/rederr.nix {};
+
   python-oath = pkgs.callPackage ./pkgs/python-oath.nix {};
 
   python-vipaccess = pkgs.python36Packages.callPackage ./pkgs/python-vipaccess.nix {
