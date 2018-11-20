@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   name = "consulate-${version}";
-  version = "0.0.5";
+  version = "0.0.6";
   rev = "v${version}";
 
   goPackagePath = "github.com/kadaan/consulate";
@@ -11,7 +11,7 @@ buildGoPackage rec {
     inherit rev;
     owner = "kadaan";
     repo  = "consulate";
-    sha256 = "12gw78fm05l72nn8h0brc0w3190c1algsvb3pnahn022m7pklkmx";
+    sha256 = "1vk62fb8ywpkgj0725gy4sbg1zm9jj223zvdpkfs4v78v1ysv3b6";
   };
 
   goDeps = ./deps.nix;
