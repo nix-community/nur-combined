@@ -13,7 +13,10 @@ let
       src  = fetchgit { inherit url rev sha256; };
     };
 
-    completions = lib.callPackagesWith self ./completions { };
+    completions = recurseIntoAttrs {
+      docker         = callPackage ./completions/docker.nix         {};
+      docker-compose = callPackage ./completions/docker-compose.nix {};
+    };
 
     iterm2-integration = callPackage ./iterm2-integration.nix { };
   };

@@ -16,7 +16,7 @@ in
 
   consulate = pkgs.callPackage ./consulate { };
 
-  fishPlugins = pkgs.callPackages ./fish-plugins { };
+  fishPlugins = pkgs.recurseIntoAttrs (pkgs.callPackages ./fish-plugins { });
 
   img2ansi    = pkgs.callPackage ./img2ansi     { };
   nvim        = pkgs.callPackage ./nvim         { };
