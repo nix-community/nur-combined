@@ -1,6 +1,5 @@
-{ stdenv, fish
-, name
-, src }:
+{ stdenv, fish }:
+{ name , src }:
 
 stdenv.mkDerivation {
   inherit src;

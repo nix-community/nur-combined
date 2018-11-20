@@ -4,7 +4,7 @@ let
   callPackage = newScope self;
 
   self = rec {
-    packagePlugin = { name, src }: callPackage ./package-plugin.nix { inherit name src; };
+    packagePlugin = callPackage ./package-plugin.nix { };
 
     bobthefish = let
       inherit (lib.importJSON ./bobthefish.json) url rev sha256;

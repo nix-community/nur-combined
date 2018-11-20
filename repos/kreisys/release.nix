@@ -1,4 +1,4 @@
 { nixpkgs ? <nixpkgs>
 , pkgs ? import nixpkgs {} }:
 
-import ./non-broken.nix { inherit pkgs; }
+pkgs.callPackages ./non-broken.nix {}
