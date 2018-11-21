@@ -1,8 +1,7 @@
 let
-  plugin-overlay-git = builtins.fetchGit
-   { url = https://github.com/mpickering/haskell-nix-plugin.git;}  ;
-  plugin-overlay = import "${plugin-overlay-git}/overlay.nix";
-  nixpkgs = import <nixpkgs> { overlays = [plugin-overlay]; };
+  # Using NUR
+  overlay = (import <nixpkgs> {}).nur.repos.mpickering.overlays.haskell-plugins;
+  nixpkgs = import <nixpkgs> { overlays = [ overlay ]; };
 
 
   hp = nixpkgs.haskellPackages;

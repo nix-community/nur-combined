@@ -54,9 +54,11 @@ for the `dump-core` plugin.
 ```nix
 dump-core = { pluginPackage = hp.dump-core ;
               pluginName = "DumpCore";
-              pluginOpts = (out-path: [out-path]);
+              pluginOpts = ({outpath, pkg}: [outpath]);
               pluginDepends = [];
-              finalPhase = _: ""; } ;
+              initPhase = _: "";
+              finalPhase = _: "";
+              } ;
 ```
 
 `pluginPackage`
@@ -72,9 +74,16 @@ is passed as an argument.
 `pluginDepends`
 : Any additional system dependencies the plugin needs for the finalPhase.
 
+`initPhase`
+: An action to run in the `preBuild` phase, after the plugin has run. The standard
+arguments are passed.
+
 `finalPhase`
-: An action to run in the `postBuild` phase, after the plugin has run. The output
-directory is passed as an argument.
+: An action to run in the `postBuild` phase, after the plugin has run. The standard
+arguments are passed.
+
+The standard arguments are the output path and the current package being
+overriden with attributes `outpath` and `pkg`.
 
 In most cases, `pluginDepends` and `finalPhase` can be omitted (they then take
 these default values) but they are useful for when a plugin emits information
@@ -88,11 +97,11 @@ Here is how we specify the final phase of the plugin:
 ```nix
 graphmod = { pluginPackage = hp.graphmod-plugin;
              pluginName = "GraphMod";
-             pluginOpts = (out-path: ["${out-path}/output"]);
+             pluginOpts = ({outpath,...}: ["${outpath}/output"]);
              pluginDepends = [ nixpkgs.graphviz ];
-             finalPhase = out-path: ''
-                graphmod-plugin --indir ${out-path}/output > ${out-path}/out.dot
-                cat ${out-path}/out.dot | tred | dot -Tpdf > ${out-path}/modules.pdf
+             finalPhase = {outpath,...}: ''
+                graphmod-plugin --indir ${outpath}/output > ${outpath}/out.dot
+                cat ${outpath}/out.dot | tred | dot -Tpdf > ${outpath}/modules.pdf
               ''; } ;
 ```
 
@@ -133,5 +142,14 @@ let
   plugin-overlay = import "${plugin-overlay-git}/overlay.nix";
   nixpkgs = import <nixpkgs> { overlays = [plugin-overlay]; };
 in ...
+```
+
+### Using NUR
+
+The overlay is also distributed using [NUR](https://github.com/nix-community/NUR). Here is an example of how to use it:
+
+```
+overlay = (import <nixpkgs> {}).nur.repos.mpickering.overlays.haskell-plugins;
+nixpkgs = import <nixpkgs> { overlays = [ overlay ]; };
 ```
 
