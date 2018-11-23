@@ -1,12 +1,12 @@
 self: super: {
   pdfpc = super.pdfpc.overrideAttrs(o: rec {
     name = "pdfpc-${version}";
-    version = "2018-11-04";
+    version = "2018-11-12";
     src = super.fetchFromGitHub {
       owner = "pdfpc";
       repo = "pdfpc";
-      rev = "8a2816b7cbdd01b9558b799c212cdc38eb9a7f68";
-      sha256 = "1awm6a7kblscaj61i2qfa4sr68zmzx1016valxljhlhs5bq6slnw";
+      rev = "63dac987d334d5352066408d35e75ed453aed1c6";
+      sha256 = "0wmif4xnp2ld9c3wnpya2ji0zb3nnvpbnz5bd1dc0nv5fx3fn4sz";
     };
   });
 }
