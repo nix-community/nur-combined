@@ -12,6 +12,8 @@ let
       (listToAttrs
         (map (path: { name = "${nameFromPath path}"; value = import path; }) list));
 
+  containerLib = callPackage ./lib/containers { };
+
 in
 
 rec {
@@ -42,5 +44,7 @@ rec {
   mkTests = callPackage ./tests/mk-test.nix { };
 
   callNURPackage = callPackage;
+
+  inherit (containerLib) node2container containers gen-firewall;
 
 }

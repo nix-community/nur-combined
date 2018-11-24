@@ -8,6 +8,7 @@ let
   libraryTests = callPackage: mkTests [
     (callPackage ./tests/test-checkout-nixpkgs.nix { })
     (callPackage ./tests/test-mkjob.nix { })
+    (callPackage ./tests/test-containers.nix { })
   ];
 
   jobset = { mapTestOn, linux, ... }: mapTestOn {
