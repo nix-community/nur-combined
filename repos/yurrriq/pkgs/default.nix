@@ -3,15 +3,15 @@
 let
 
   _nixpkgs = lib.pinnedNixpkgs {
-    rev = "ba98a7aea19cf2b56de4ff39a085b840419f9eee";
-    sha256 = "0ql2zbh1ywcg824cv701ap7xk56z455vzr2zpq75skbic087lx0j";
+    rev = "10e029829c66d34e387836dfd67e25ec67f7b894";
+    sha256 = "183cimyznfdjgl62zp458y92xsk95w3b362sapga6fzvy1cq4k6k";
   };
 
 in
 
 {
 
-  inherit (_nixpkgs) autojump helmfile kops kubernetes-helm minikube;
+  inherit (_nixpkgs) autojump helmfile kops kube-prompt kubernetes-helm minikube;
 
   erlang = pkgs.beam.interpreters.erlangR20.override {
     enableDebugInfo = true;
