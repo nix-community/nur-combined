@@ -7,11 +7,19 @@ env:
     - CACHIX_CACHE=izorkin
     - NUR_REPO=izorkin
 
+matrix:
+  include:
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.09
+
 install:
  - nix --version
- - travis_retry nix-channel --update
+ - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
  - if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix; fi
  - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
+ - nix-channel --add "${NIX_CHANNEL}" nixpkgs
+ - travis_retry nix-channel --update
 
 script:
  - outs=$(nix-build non-broken.nix) && echo Produced $outs
