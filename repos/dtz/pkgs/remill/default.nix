@@ -14,12 +14,12 @@ with stdenv.lib;
 let
   llvm_version = getVersion llvm;
   srcinfo = {
-    version = "2018-10-31";
+    version = "2018-11-20";
     src = fetchFromGitHub {
       owner = "trailofbits";
       repo = "remill";
-      rev = "be5d6c0bf7bd66c28a6a84b193d049e415b8c51a";
-      sha256 = "0p2w5r4i57k5m64g0ac3zl17aqyhrw6ra93swi3hs0c86lc4bl9c";
+      rev = "62284e4833e001a4f14758fa1a61d729d85a750a";
+      sha256 = "0bmdgc4brmyihfannv593jqgb8pc3kgg7lbbs0m3wwljf5rzsxqs";
     };
   };
   mcsema_srcinfo = import ./mcsema.nix { inherit fetchFromGitHub; };
@@ -131,7 +131,7 @@ let
       cd tools
     '';
 
-    propagatedBuildInputs = [ python-protobuf python2Packages.python_magic ];
+    propagatedBuildInputs = [ python-protobuf python2Packages.python_magic python2Packages.six ];
 
     inherit meta;
   };
