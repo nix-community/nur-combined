@@ -123,6 +123,6 @@ stdenv.mkDerivation rec {
     homepage = https://github.com/prusa3d/Slic3r;
     license = licenses.agpl3;
     maintainers = with maintainers; [ moredread ];
-    broken = stdenv.hostPlatform.isAarch64;
+    broken = true;
   };
 }

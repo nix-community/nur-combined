@@ -14,9 +14,10 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  lenovo-throttling-fix = pkgs.callPackage ./pkgs/lenovo-throttling-fix/default.nix { };
-  slic3r-prusa3d-latest = pkgs.callPackage ./pkgs/slic3r/prusa3d.nix { };
-  latte = pkgs.callPackage ./pkgs/latte { };
   croc = pkgs.callPackage ./pkgs/croc { };
+  i3status-rust = pkgs.callPackage ./pkgs/i3status-rust { };
+  latte = pkgs.callPackage ./pkgs/latte { };
+  lenovo-throttling-fix = pkgs.callPackage ./pkgs/lenovo-throttling-fix { };
+  slic3r-prusa3d-latest = pkgs.callPackage ./pkgs/slic3r-prusa3d { };
 }
 
