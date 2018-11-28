@@ -2,20 +2,18 @@
 stdenv.mkDerivation rec {
   name = "kubectx";
   src = fetchFromGitHub {
-    # url = "https://github.com/ahmetb/kubectx";
-    # owner = "ahmetb";
-    # repo = "kubectx";
-    # rev = "3aeb4e76d218590df0554dbbe2b3b7907ccd1f4a";
-    # sha256 =  "0qa2jhfj3spnifbcq6idnxifw6wm9ki6z1vw5f06qw05sfgy00a4";
+    owner = "ahmetb";
+    repo = "kubectx";
+    rev = "3aeb4e76d218590df0554dbbe2b3b7907ccd1f4a";
+    sha256 =  "002p277pw93rrfp7r28xpdgj9i3yaqn3hdks96w2zkx48r7n3pg6";
   };
 
   phases = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out/bin
-    cp {kubens,kubectx} $out/bin
-    cp -r completion $out/
+    cp $src/{kubens,kubectx} $out/bin
+    cp -r $src/completion $out/
   '';
 
   meta.description = ''Convenience bash scripts for working with multiple repos'';
-  meta.broken = true;
 }
