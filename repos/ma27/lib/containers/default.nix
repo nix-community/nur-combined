@@ -39,8 +39,8 @@ rec {
         ip46tables -A FORWARD -i ${wg0} -o ${eth0} -j ACCEPT
         ip46tables -A FORWARD -i ${eth0} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
-        ip46tables -A FORWARD -i ve-+ -o ens3 -j ACCEPT
-        ip46tables -A FORWARD -o ve-+ -i ens3 -j ACCEPT
+        ip46tables -A FORWARD -i ve-+ -o ${eth0} -j ACCEPT
+        ip46tables -A FORWARD -o ve-+ -i ${eth0} -j ACCEPT
 
         ${concatStrings (map mkMachine machines)}
       '';
