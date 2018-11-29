@@ -3,7 +3,7 @@
 
 buildGoPackage rec {
   name = "croc-${version}";
-  version = "4.0.4";
+  version = "4.1.4";
   rev = "v${version}";
 
   goPackagePath = "github.com/schollz/croc";
@@ -11,7 +11,7 @@ buildGoPackage rec {
   src = fetchgit {
     inherit rev;
     url = "https://github.com/schollz/croc";
-    sha256 = "1ddflabz70a6v0dmrzwiyzg2b4n2z7c4wa8lsahjyll9gai00pkb";
+    sha256 = "0cdch8mkydby68dvwmjprvl251a6fknf9gg4qyjdr7ixpajznv1r";
   };
 
   goDeps = ./deps.nix;
