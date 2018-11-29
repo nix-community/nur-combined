@@ -39,6 +39,12 @@ let
     dependencies = [];
   };
 
+  purescript-vim = buildVimPlugin {
+    name = "purescript-vim";
+    src = fetchgit' https://github.com/purescript-contrib/purescript-vim;
+    dependencies = [];
+  };
+
   typescript-vim = buildVimPlugin {
     name = "typescript-vim";
     src = fetchgit' https://github.com/leafgarland/typescript-vim;
@@ -222,6 +228,7 @@ let
     vim-markdown
     vim-nix
     vim-fish
+    purescript-vim
     typescript-vim
   ];
 

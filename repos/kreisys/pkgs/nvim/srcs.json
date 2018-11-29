@@ -34,6 +34,13 @@
     "sha256": "1yvjlm90alc4zsdsppkmsja33wsgm2q6kkn9dxn6xqwnq4jw5s7h",
     "fetchSubmodules": false
   },
+  "https://github.com/purescript-contrib/purescript-vim": {
+    "url": "https://github.com/purescript-contrib/purescript-vim",
+    "rev": "ab8547cef5827f046d43ba57203acb6692b7ef06",
+    "date": "2018-07-05T20:37:00+02:00",
+    "sha256": "1pp7h77qqhgshf2x3hh73gnb4ya8jamqm75spbnn95piznd03k33",
+    "fetchSubmodules": false
+  },
   "https://github.com/leafgarland/typescript-vim": {
     "url": "https://github.com/leafgarland/typescript-vim",
     "rev": "db131b8cd42973ed26928e9e445c1a745a98cff8",
