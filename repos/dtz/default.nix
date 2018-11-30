@@ -113,6 +113,7 @@ let toplevel = {
     slipstream-libipc = callPackage ./pkgs/slipstream/libipc.nix { };
 
     toybox = callPackage ./pkgs/toybox { };
+    txr = callPackage ./pkgs/txr { stdenv = pkgs.clangStdenv; };
 
     vmir = callPackage ./pkgs/vmir { };
     vmir-clang4 = callPackage ./pkgs/vmir { inherit (pkgs.llvmPackages_4) stdenv; };
