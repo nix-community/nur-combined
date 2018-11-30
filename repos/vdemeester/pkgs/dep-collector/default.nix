@@ -2,18 +2,17 @@
 
 buildGoPackage rec {
   name = "dep-collector-unstable-${version}";
-  version = "2018-07-20";
-  rev = "ea0470924d0dd9363ffae8936f88a22d28551685";
+  version = "2018-11-29";
+  rev = "2377fbc40f81501f2bc09a4e1e359a7ec7c3528e";
 
-  goPackagePath = "github.com/mattmoor/dep-collector";
+  goPackagePath = "github.com/knative/test-infra";
+  subPackages = [ "tools/dep-collector" ];
 
   src = fetchgit {
     inherit rev;
-    url = "https://github.com/mattmoor/dep-collector";
-    sha256 = "08q6rpvrwlyfci41hvasq24r2cwbp4cyd3885va3irjcb1xlaz93";
+    url = "https://github.com/knative/test-infra";
+    sha256 = "053iazdfhqdb69knnpd2w5ikbyffp3ygvvdvvg253fwgk9s97jyj";
   };
-
-  goDeps = ./deps.nix;
 
   meta = {
     description = "Gathers the set of licenses for Go imports pulled in via dep.";
