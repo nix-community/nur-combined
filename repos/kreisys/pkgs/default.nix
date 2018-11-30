@@ -3,6 +3,7 @@
 let
   # Here mk stands for mark
   mkB0rked = pkgs.lib.addMetaAttrs { broken = true; };
+  mkBashCli = pkgs.callPackage ./make-bash-cli.nix {};
 in
 {
   consul = pkgs.consul.overrideAttrs (_: {
@@ -19,9 +20,12 @@ in
   fishPlugins = pkgs.recurseIntoAttrs (pkgs.callPackages ./fish-plugins { });
 
   img2ansi    = pkgs.callPackage ./img2ansi     { };
+  krec2       = pkgs.callPackage ./krec2.nix    { inherit mkBashCli; };
   nvim        = pkgs.callPackage ./nvim         { };
   oksh        = pkgs.callPackage ./ok.sh        { };
   webhook     = pkgs.callPackage ./webhook      { };
+
+
 
 } // (pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
   # Linux only packages go here
