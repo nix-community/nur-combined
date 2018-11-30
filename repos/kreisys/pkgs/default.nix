@@ -19,11 +19,12 @@ in
 
   fishPlugins = pkgs.recurseIntoAttrs (pkgs.callPackages ./fish-plugins { });
 
-  img2ansi    = pkgs.callPackage ./img2ansi     { };
-  krec2       = pkgs.callPackage ./krec2.nix    { inherit mkBashCli; };
-  nvim        = pkgs.callPackage ./nvim         { };
-  oksh        = pkgs.callPackage ./ok.sh        { };
-  webhook     = pkgs.callPackage ./webhook      { };
+  img2ansi = pkgs.callPackage ./img2ansi   { };
+  krec2    = pkgs.callPackage ./krec2.nix  { inherit mkBashCli; };
+  kretty   = pkgs.callPackage ./kretty.nix { inherit mkBashCli; };
+  nvim     = pkgs.callPackage ./nvim       { };
+  oksh     = pkgs.callPackage ./ok.sh      { };
+  webhook  = pkgs.callPackage ./webhook    { };
 
 
 
