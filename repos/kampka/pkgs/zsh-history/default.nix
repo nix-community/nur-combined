@@ -12,6 +12,8 @@ buildGoPackage rec {
     sha256 = "1h1sdpm8fg9nh3k0s26xrkzvjlsjpcwx35db60q32z6g6wvr19sx";
   };
 
+  patches = [ ./0001-Allow-search-filtering-for-command-that-returned-wit.patch ./0002-Fix-filter-with-multiple-options.patch ];
+
   goDeps = ./deps.nix;
   goPackagePath = "history";
 

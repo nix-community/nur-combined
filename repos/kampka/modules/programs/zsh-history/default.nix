@@ -20,12 +20,13 @@ in {
 
     programs.zsh.interactiveShellInit = ''
       alias hs="command history"
-      ZSH_HISTORY_KEYBIND_GET=""
-      ZSH_HISTORY_KEYBIND_GET_ALL="^r"
+      ZSH_HISTORY_KEYBIND_GET="^r"
+      ZSH_HISTORY_KEYBIND_GET_ALL="^r^r"
       ZSH_HISTORY_KEYBIND_GET_BY_DIR=""
       ZSH_HISTORY_KEYBIND_ARROW_UP="^p"
       ZSH_HISTORY_KEYBIND_ARROW_DOWN="^n"
       ZSH_HISTORY_AUTO_SYNC=false
+      ZSH_HISTORY_FILTER_OPTIONS="--filter-dir --filter-status"
 
       source ${zsh-history.out}/share/zsh/init.zsh
 
@@ -33,7 +34,7 @@ in {
       # Unsetting options disables columns filters
       # but they are not that useful anyways
       unset ZSH_HISTORY_COLUMNS_GET_ALL
-      unset ZSH_HISTORY_FILTER_OPTIONS
+      #unset ZSH_HISTORY_FILTER_OPTIONS
     '';
   };
 }
