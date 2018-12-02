@@ -15,7 +15,7 @@ let
   kubectl = unstable.kubectl;
 in
 {
-  home.packages = import ./package-list.nix { inherit pkgs; };
+  home.packages = import ./package-list.nix;
 
   home.keyboard = {
     layout = "dvorak";

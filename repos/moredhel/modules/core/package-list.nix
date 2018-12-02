@@ -44,7 +44,6 @@ let
     vlc # user
     quaternion # user
     weechat # user
-    chromium # user
     terminator # user
     breeze-qt5
     breeze-gtk

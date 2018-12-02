@@ -25,9 +25,9 @@ in
   networking.hostName = "turtaw"; # Define your hostname.
   networking.networkmanager = {
     enable = true;
-    # insertNameservers = ["127.0.0.1" "10.100.0.1"];
     insertNameservers = ["10.100.0.1"];
-    dns = "none";
+    # insertNameservers = ["127.0.0.1" "10.100.0.1"];
+    # dns = "none";
   };
 
   networking.wireguard.interfaces = {
