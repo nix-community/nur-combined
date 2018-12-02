@@ -1,33 +1,49 @@
-# nur-packages-template
+# Moredhel's Packages
 
-**A template for [NUR](https://github.com/nix-community/NUR) repositories**
+This contains all configuration for everything.
 
-## Setup
+- HomeManager configuration
+- Custom services
+- custom packages
+- (Soon?) System Configuration/machine...
 
-1. Fork this repo
-2. Add your packages to the [pkgs](./pkgs) directory and to
-   [default.nix](./default.nix)
-   * Remember to mark the broken packages as `broken = true;` in the `meta`
-     attribute, or travis (and consequently caching) will fail!
-   * Library functions, modules and overlays go in the respective directories
-3. Add your NUR repo name and your cachix repo name (optional) to
-   [.travis.yml](./.travis.yml)
-   * If you use cachix you should also add your cache's private key to travis'
-     protected env variables
-4. Enable travis for your repo
-   * You can add a cron job in the repository settings on travis to keep your
-     cachix cache fresh
-5. Change your travis and cachix names on the README template section and delete
-   the rest
-6. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
+## HomeManager Configuration
 
-## README template
+I have included my entire home-manager configuration into this repository.
+This should give me zero regarding keeping it in sync (also as I will be pulling my config remotely).
 
-# nur-packages
+The below snippet is simply dropped into home.nix, and _almost_ everything should _just work_.
 
-**My personal [NUR](https://github.com/nix-community/NUR) repository**
+``` nix
+# home.nix
+{ config ? {}, lib, pkgs, ... }:
 
-[![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
-[![Cachix Cache](https://img.shields.io/badge/cachix-<YOUR_CACHIX_CACHE_NAME>-blue.svg)](https://<YOUR_CACHIX_CACHE_NAME>.cachix.org)
+let
+  # nur-no-pkgs = ((import ./config.nix).packageOverrides {}).nur.repos.moredhel;
+  nur-no-pkgs = (import /data/src/hub/moredhel/nur-packages { inherit pkgs; });
+in
+{
+  imports = lib.attrValues nur-no-pkgs.home-manager.rawModules;
+}
+```
 
+I'm including my ~/.config/nixpkgs/config.nix too so I can easily bootstrap any new computers...
+
+``` nix
+let
+nur = builtins.fetchTarball {
+  url = "https://github.com/nix-community/NUR/archive/fb623226c6c4e51413d7d1478155214a45295332.tar.gz";
+  sha256 = "15jgbh4kv1l30zkxccqz9axg4kgxjabj7gc52qj310a60cl20pjy";
+};
+nur-edge = builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz";
+in
+{
+  allowUnfree = true;
+  packageOverrides = pkgs: {
+    nur = import nur {
+      inherit pkgs;
+    };
+  };
+}
+```
 
