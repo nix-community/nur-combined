@@ -7,6 +7,25 @@ This contains all configuration for everything.
 - custom packages
 - (Soon?) System Configuration/machine...
 
+## System Configuration
+
+This has a very similar setup to the home-manager config.
+The configuration file is very simple:
+
+``` nix
+{ config, pkgs, lib, options, ... }:
+
+let
+  nur-no-pkgs = ((import ./config.nix).packageOverrides {}).nur.repos.moredhel;
+  # nur-no-pkgs = (import /data/src/hub/moredhel/nur-packages { inherit pkgs; });
+in
+{
+  imports = [
+    nur-no-pkgs.modules.machines.turtaw
+  ];
+}
+```
+
 ## HomeManager Configuration
 
 I have included my entire home-manager configuration into this repository.
