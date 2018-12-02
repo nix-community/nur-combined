@@ -14,7 +14,10 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  home-manager.modules = pkgs.lib.attrValues (import ./home-manager/modules);
+  home-manager = rec {
+    modules = pkgs.lib.attrValues rawModules;
+    rawModules = import ./home-manager/modules;
+  };
 
   kubectx = pkgs.callPackage ./pkgs/kubectx { };
   haskellPackages = import ./pkgs/haskellPackages { inherit pkgs; };
