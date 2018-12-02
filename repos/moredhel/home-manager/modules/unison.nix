@@ -5,7 +5,6 @@
 with lib;
 
 let
-  inherit (pkgs) writeText;
   cfg = config.services.unison;
 
   mkUnisonService = name: opts: {

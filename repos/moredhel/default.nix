@@ -22,3 +22,4 @@
   kubectx = pkgs.callPackage ./pkgs/kubectx { };
   haskellPackages = import ./pkgs/haskellPackages { inherit pkgs; };
 }
+
