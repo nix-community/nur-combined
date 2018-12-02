@@ -1,7 +1,7 @@
 { nix-review, lib, fetchFromGitHub }:
 
 let 
-  version  = "0.5.0-beta2";
+  version  = "1.0.0-rc1";
 in if lib.versionOlder version nix-review.version then
   nix-review
 else
@@ -13,6 +13,6 @@ else
       owner = "Mic92";
       repo = "nix-review";
       rev = version;
-      sha256 = "0qg5yc180fmf3prwhw137s8a1018l7i0jf6vg0i12lifbjalv9k0";
+      sha256 = "1f9bdqzwxb6ii674fiajvz2qgcjklfsxzrq06hlm0fc1damg4xbv";
     };
   })
