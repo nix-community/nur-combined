@@ -26,9 +26,6 @@ in
   oksh     = pkgs.callPackage ./ok.sh      { };
   webhook  = pkgs.callPackage ./webhook    { };
 
-
-
-} // (pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
   # Linux only packages go here
   hydra = pkgs.hydra.overrideAttrs (_: rec {
     name    = "hydra-${version}";
@@ -41,4 +38,4 @@ in
       sha256  = "039s5j4dixf9xhrakxa349lwkfwd2l9sdds0j646k9w32659di61";
     };
   });
-})
+}
