@@ -44,7 +44,6 @@ in
     consoleKeyMap = "dvorak";
     defaultLocale = "en_US.UTF-8";
   };
-  time.timeZone = null;
 
   networking.firewall.enable = true;
 
@@ -58,7 +57,7 @@ in
     syncthing = {
       enable = true;
       user = "moredhel";
-      # dataDir = "/etc/nixos/private/syncthing";
+      dataDir = "/home/moredhel/Syncthing";
       openDefaultPorts = true;
     };
   };

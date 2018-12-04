@@ -4,6 +4,7 @@
   # my-module = ./my-module;
   machines = {
     turtaw = import ./machines/turtaw.nix;
+    vps12 = import ./machines/vps12.nix;
   };
 
   core = {

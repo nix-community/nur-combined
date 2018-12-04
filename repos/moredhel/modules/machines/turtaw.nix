@@ -30,6 +30,8 @@ in
     # dns = "none";
   };
 
+  time.timeZone = null;
+
   networking.wireguard.interfaces = {
     wg0 = {
       ips = [ "10.100.0.254/24" ];

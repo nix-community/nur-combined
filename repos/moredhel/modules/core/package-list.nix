@@ -1,5 +1,4 @@
 # Shared PackageList
-# TODO: Strip out all gui tools into another package
 let
   base = {pkgs, ...}: with pkgs; [
     tmux
@@ -15,6 +14,11 @@ let
     lsof
     jq
     google-cloud-sdk # user
+    docker_compose
+    hledger
+    emacs
+    gnupg
+    pass
   ];
 
 
