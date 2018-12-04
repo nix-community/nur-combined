@@ -48,10 +48,15 @@ are always welcome.
   Now it can be referred to it like this:
 
   ``` nix
-  with import <nixexprs> { };
+  with import <nixpkgs> { };
+  with import <nixexprs> { inherit pkgs; };
 
   gianas-return
   ```
+
+  By default this repo only components that don't depend on `nixpkgs`. This is helpful if only
+  overlays and modules are needed to save evaluation time. If library functions (that rely on `nixpkgs/lib`)
+  or packages are used, `pkgs` needs to be specified explicitly.
 
 * Additionally it's possible to simply clone the repository and
   import its components:
@@ -64,19 +69,6 @@ are always welcome.
   {
     nixpkgs.overlays = builtins.attrValues (import ../nixexprs { }).overlays;
   }
-  ```
-
-  Please not that internally `<nixpkgs>` is imported and can be overriden by passing `pkgs` to
-  the `nixexprs` import statement.
-
-  However the `pkgs` statement is not needed for modules and overlays where only the `nixpkgs` lib
-  needs to be included. This can be helpful to avoid importing entire `nixpkgs` twice e.g. in system
-  configurations:
-
-  ``` nix
-  with import <nixexprs> { pkgs = null; nixpkgs = <nixpkgs>; /* only used for `nixpkgs/lib` */ };
-
-  overlays
   ```
 
 * A Hydra jobset for the repository can be
@@ -95,7 +87,7 @@ There are several overlays available that can be imported with an expression lik
 
 ``` nix
 let
-  overlays = (import <nixexprs> { pkgs = null; nixpkgs = <nixpkgs>; }).overlays;
+  overlays = (import <nixexprs> { }).overlays;
 in
   import <nixpkgs> { overlays = [ overlays.sudo ]; };
 ```
@@ -123,7 +115,7 @@ like this:
 { pkgs, config, ... }:
 
 let
-  modules = (import <nixexprs> { pkgs = null; nixpkgs = <nixpkgs>; }).modules;
+  modules = (import <nixexprs> { }).modules;
 in
   {
     imports = [ modules.hydra ];
@@ -311,7 +303,8 @@ It basically consists of two functions:
 
   ``` nix
   # default.nix
-  with import <nixexprs> { };
+  with import <nixpkgs> { };
+  with import <nixexprs> { inherit pkgs; };
   callNURPackage ./release.nix { }
   ```
 

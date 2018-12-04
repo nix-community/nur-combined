@@ -1,27 +1,19 @@
-{ callPackage, lib }:
-
-with lib;
+{ callPackage ? null }:
 
 let
 
-  mkModules = list:
-    let
-      nameFromPath = path:
-        replaceStrings [ ".nix" ] [ "" ] (last (splitString "/" (toString path)));
-    in
-      (listToAttrs
-        (map (path: { name = "${nameFromPath path}"; value = import path; }) list));
+  callPackage' = assert callPackage != null; callPackage;
 
-  containerLib = callPackage ./lib/containers { };
+  containerLib = callPackage' ./lib/containers { };
 
 in
 
 rec {
 
-  modules = mkModules [
-    ./modules/hydra.nix
-    ./modules/sieve-dsl.nix
-  ];
+  modules = {
+    hydra = import ./modules/hydra.nix;
+    sieve-dsl = import ./modules/sieve-dsl.nix;
+  };
 
   ### OVERLAYS
   overlays = {
@@ -32,18 +24,18 @@ rec {
   };
 
   ### PACKAGES
-  gianas-return = callPackage ./pkgs/gianas-return { };
+  gianas-return = callPackage' ./pkgs/gianas-return { };
 
   ### LIBRARY
-  mkTexDerivation = callPackage ./lib/tex/make-tex-env.nix { };
+  mkTexDerivation = callPackage' ./lib/tex/make-tex-env.nix { };
 
-  checkoutNixpkgs = callPackage ./lib/release/checkout-nixpkgs.nix { };
+  checkoutNixpkgs = callPackage' ./lib/release/checkout-nixpkgs.nix { };
 
-  mkJob = callPackage ./lib/release/mk-job.nix { };
+  mkJob = callPackage' ./lib/release/mk-job.nix { };
 
-  mkTests = callPackage ./tests/mk-test.nix { };
+  mkTests = callPackage' ./tests/mk-test.nix { };
 
-  callNURPackage = callPackage;
+  callNURPackage = callPackage';
 
   inherit (containerLib) node2container containers gen-firewall;
 
