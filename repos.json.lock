@@ -96,11 +96,6 @@
             "sha256": "04g8p5m0ivlbyrxvpkysybw7glbrn44qswc09f5m1sj5q53pssmd",
             "url": "https://github.com/Mic92/nur-packages"
         },
-        "moredhel": {
-            "rev": "b56b2ad9034df386f097d6ae1059cedb16dd1b30",
-            "sha256": "1yc0yyw06i9bjwlfpkl295bd7slq9d17mh90mwg9x0fqhz1yjj1a",
-            "url": "https://github.com/moredhel/nur-packages"
-        },
         "moredread": {
             "rev": "0dffc618d2a7eb106d359b36a3d18636a9754ae4",
             "sha256": "1rarpjanbc5wc8qqylzqpmy90xzv9cc7jszjipf387r009zxg8mx",
