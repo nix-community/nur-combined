@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     owner = "kubernetes";
     repo = "kubernetes";
     rev = "v${version}";
-    sha256 = "1vrq2dckrdl46zz6w5cxgi2v3gs4p7gv2z8773m4cjdk5pvdc1d2";
+    sha256 = "07cwbhi9f1gwhi34ysm88jf8zlybjb7fb3pcf10gmdswrjzw7l9f";
   };
 
   # Build using golang v1.9 in accordance with https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#external-dependencies
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    version = "1.10.8";
+    version = "1.10.11";
     description = "Production-Grade Container Scheduling and Management";
     license = licenses.asl20;
     homepage = https://kubernetes.io;

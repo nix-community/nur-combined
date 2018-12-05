@@ -33,6 +33,11 @@ in
 
 } // (if pkgs.stdenv.isDarwin then {
 
+  chunkwm = pkgs.recurseIntoAttrs (pkgs.callPackage ./os-specific/darwin/chunkwm {
+    inherit (pkgs) callPackage stdenv fetchFromGitHub imagemagick;
+    inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa ApplicationServices;
+  });
+
   clementine = pkgs.callPackage ./applications/audio/clementine {};
 
   copyq = pkgs.callPackage ./applications/misc/copyq {};
@@ -55,6 +60,17 @@ in
   inherit (_nixpkgs) musescore;
 
   onyx = pkgs.callPackage ./os-specific/darwin/onyx {};
+
+  skhd = pkgs.skhd.overrideAttrs (_: rec {
+    name = "skhd-${version}";
+    version = "0.3.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "koekeishiya";
+      repo = "skhd";
+      rev = "v${version}";
+      sha256 = "13pqnassmzppy2ipv995rh8lzw9rraxvi0ph6zgy63cbsdfzbhgl";
+    };
+  });
 
   skim = pkgs.callPackage ./applications/misc/skim {};
 
