@@ -26,6 +26,7 @@ let
     # mail
     isync # user
     mu # user
+    pkgs.nur.repos.moredhel.shot
 
     html2text # user
 

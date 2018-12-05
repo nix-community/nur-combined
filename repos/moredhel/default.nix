@@ -18,6 +18,11 @@ rec {
   home-manager = rec {
     modules = pkgs.lib.attrValues rawModules;
     rawModules = import ./home-manager/modules;
+    machines = import ./home-manager/modules/machines.nix;
+
+    base = import ./home-manager/modules/home/base-pkgs.nix { inherit pkgs; };
+    ui = import ./home-manager/modules/home/ui-pkgs.nix { inherit pkgs; };
+
   };
 
   shot = pkgs.callPackage ./pkgs/shot { };

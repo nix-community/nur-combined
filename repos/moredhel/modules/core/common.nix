@@ -96,6 +96,10 @@ in
     docker.package = pkgs.docker-edge;
   };
 
+  # open port for syncthing
+  networking.firewall.allowedTCPPorts = [ 22000 ];
+  networking.firewall.allowedUDPPorts = [ 22000 ];
+
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "18.03";
 

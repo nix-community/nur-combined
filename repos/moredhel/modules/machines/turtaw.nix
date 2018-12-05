@@ -14,7 +14,7 @@ in
       modules.core.pkgs.base
       modules.core.pkgs.ui
 
-      modules.my_udev
+      # modules.my_udev
     ];
 
   boot.zfs.enableUnstable = true;
