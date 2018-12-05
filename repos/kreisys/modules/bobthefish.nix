@@ -77,7 +77,6 @@ in {
   config = mkIf cfg.enable {
     programs = {
       bash = {
-        enable = true;
         interactiveShellInit = ''
           if [[ $SHLVL == 1 ]]; then
             exec fish
