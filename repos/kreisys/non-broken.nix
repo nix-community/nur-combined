@@ -18,9 +18,11 @@ in filterSet
      (n: !(n=="lib"||n=="overlays"||n=="modules")) # filter out non-packages
      (p: (builtins.isAttrs p)
        && !(
-             (builtins.hasAttr "meta" p)
-             && (builtins.hasAttr "broken" p.meta)
-             && (p.meta.broken)
+             (builtins.hasAttr "meta" p) &&
+             (
+               ((builtins.hasAttr "broken" p.meta) && (p.meta.broken)) ||
+               ((builtins.hasAttr "platforms" p.meta) && !(builtins.elem pkgs.stdenv.hostPlatform.parsed p.meta.platforms))
+             )
            )
      )
      (import ./default.nix { inherit pkgs; })
