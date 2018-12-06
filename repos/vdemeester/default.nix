@@ -17,6 +17,7 @@ rec {
   podman = pkgs.callPackage ./pkgs/podman {};
   prm = pkgs.callPackage ./pkgs/prm {};
   protobuild = pkgs.callPackage ./pkgs/protobuild {};
+  ram = pkgs.callPackage ./pkgs/ram {};
   runc = pkgs.callPackage ./pkgs/runc {};
   s2i = pkgs.callPackage ./pkgs/s2i {};
   slirp4netns = pkgs.callPackage ./pkgs/slirp4netns {};
