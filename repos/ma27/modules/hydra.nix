@@ -21,6 +21,7 @@ let
     # creating ${name} if not exists
     result=$(echo "select * from users where username = ${escapeShellArg name};" | psql -U hydra hydra | tac | sed -n '2 p')
 
+    # warning: stateful
     if [ "$result" = "(0 rows)" ]; then
       ${config.services.hydra.package}/bin/hydra-create-user --name ${name} \
         --full-name ${if cfg.fullName != null then cfg.fullName else name} \
@@ -71,6 +72,8 @@ in
           enable = mkEnableOption "Email notifications for Hydra.";
 
           enablePostfix = mkEnableOption "`postfix` by default for emails.";
+
+          force = mkEnableOption "Force email notifications";
 
           sender = mkOption {
             type = with types; nullOr str;
@@ -215,6 +218,9 @@ in
         domain = mkDefault vhostCfg.name; # overridable with `services.postfix.domain = "your-postfix";
       };
 
+      users.users.hydra.extraGroups = mkIf emailCfg.enablePostfix [ "postdrop" ];
+      users.users.hydra-queue-runner.extraGroups = mkIf emailCfg.enablePostfix [ "postdrop" ];
+
       networking.defaultMailServer = mkIf emailCfg.enable {
         hostName = mkDefault vhostCfg.name;
         domain = mkDefault vhostCfg.name;
@@ -294,7 +300,7 @@ in
       nix.buildMachines = [
         {
           hostName = "localhost";
-          systems = [ "builtin" ];
+          systems = [ "builtin" "x86_64-linux" ];
           supportedFeatures = ["kvm" "nixos-test" "big-parallel" "benchmark" "local"];
           speedFactor = 1;
           maxJobs = 2;
@@ -315,6 +321,10 @@ in
       ];
 
       nix.autoOptimiseStore = true;
+
+      services.hydra.extraEnv = mkIf emailCfg.force {
+        HYDRA_FORCE_SEND_MAIL = "1";
+      };
 
     };
 
