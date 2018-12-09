@@ -1,9 +1,9 @@
 # pcre functionality is tested in nixos/tests/php-pcre.nix
-{ lib, stdenv, fetchurl, flex, bison
+{ lib, stdenv, fetchurl, flex, bison, autoconf
 , mysql, libxml2, readline, zlib, curl, postgresql, gettext
-, openssl, pcre, pkgconfig, sqlite, config, libjpeg, libpng, freetype
+, openssl, pcre, pcre2, pkgconfig, sqlite, config, libjpeg, libpng, freetype
 , libxslt, libmcrypt, bzip2, icu, openldap, cyrus_sasl, libmhash, freetds
-, uwimap, pam, gmp, apacheHttpd, libiconv, systemd, libsodium, html-tidy
+, uwimap, pam, gmp, apacheHttpd, libiconv, systemd, libsodium, html-tidy, libargon2, libzip
 }:
 
 with lib;
@@ -13,6 +13,8 @@ let
   generic =
   { version
   , sha256
+  , extraPatches ? []
+  , withSystemd ? config.php.systemd or stdenv.isLinux
   , imapSupport ? config.php.imap or (!stdenv.isDarwin)
   , ldapSupport ? config.php.ldap or true
   , mhashSupport ? config.php.mhash or true
@@ -41,7 +43,7 @@ let
   , intlSupport ? config.php.intl or true
   , exifSupport ? config.php.exif or true
   , xslSupport ? config.php.xsl or false
-  , mcryptSupport ? config.php.mcrypt or true
+  , mcryptSupport ? (config.php.mcrypt or true) && (versionOlder version "7.2")
   , bz2Support ? config.php.bz2 or false
   , zipSupport ? config.php.zip or true
   , ftpSupport ? config.php.ftp or true
@@ -52,6 +54,8 @@ let
   , calendarSupport ? config.php.calendar or true
   , sodiumSupport ? (config.php.sodium or true) && (versionAtLeast version "7.2")
   , tidySupport ? (config.php.tidy or false)
+  , argon2Support ? (config.php.argon2 or true) && (versionAtLeast version "7.2")
+  , libzipSupport ? (config.php.libzip or true) && (versionAtLeast version "7.3")
   }:
 
     let
@@ -65,9 +69,11 @@ let
 
       enableParallelBuilding = true;
 
-      nativeBuildInputs = [ pkgconfig ];
-      buildInputs = [ flex bison pcre ]
-        ++ optional stdenv.isLinux systemd
+      nativeBuildInputs = [ pkgconfig autoconf ];
+      buildInputs = [ flex bison ]
+        ++ optional (versionOlder version "7.3") pcre
+        ++ optional (versionAtLeast version "7.3") pcre2
+        ++ optional withSystemd systemd
         ++ optionals imapSupport [ uwimap openssl pam ]
         ++ optionals curlSupport [ curl openssl ]
         ++ optionals ldapSupport [ openldap openssl ]
@@ -93,17 +99,19 @@ let
         ++ optional bz2Support bzip2
         ++ optional (mssqlSupport && !stdenv.isDarwin) freetds
         ++ optional sodiumSupport libsodium
-        ++ optional tidySupport html-tidy;
+        ++ optional tidySupport html-tidy
+        ++ optional argon2Support libargon2
+        ++ optional libzipSupport libzip;
 
       CXXFLAGS = optional stdenv.cc.isClang "-std=c++11";
 
-
       configureFlags = [
         "--with-config-file-scan-dir=/etc/php.d"
-        "--with-pcre-regex=${pcre.dev} PCRE_LIBDIR=${pcre}"
       ]
+      ++ optional (versionOlder version "7.3") "--with-pcre-regex=${pcre.dev} PCRE_LIBDIR=${pcre}"
+      ++ optional (versionAtLeast version "7.3") "--with-pcre-regex=${pcre2.dev} PCRE_LIBDIR=${pcre2}"
       ++ optional stdenv.isDarwin "--with-iconv=${libiconv}"
-      ++ optional stdenv.isLinux  "--with-fpm-systemd"
+      ++ optional withSystemd "--with-fpm-systemd"
       ++ optionals imapSupport [
         "--with-imap=${uwimap}"
         "--with-imap-ssl"
@@ -132,6 +140,7 @@ let
       ++ optionals mysqliSupport [
         "--with-mysqli=${if mysqlndSupport then "mysqlnd" else "${mysql.connector-c}/bin/mysql_config"}"
       ]
+      ++ optional ( pdo_mysqlSupport || mysqlSupport || mysqliSupport ) "--with-mysql-sock=/run/mysqld/mysqld.sock"
       ++ optional bcmathSupport "--enable-bcmath"
       # FIXME: Our own gd package doesn't work, see https://bugs.php.net/bug.php?id=60108.
       ++ optionals gdSupport [
@@ -158,8 +167,9 @@ let
       ++ optional ztsSupport "--enable-maintainer-zts"
       ++ optional calendarSupport "--enable-calendar"
       ++ optional sodiumSupport "--with-sodium=${libsodium.dev}"
-      ++ optional tidySupport "--with-tidy=${html-tidy}";
-
+      ++ optional tidySupport "--with-tidy=${html-tidy}"
+      ++ optional argon2Support "--with-password-argon2=${libargon2}"
+      ++ optional libzipSupport "--with-libzip=${libzip.dev}";
 
       hardeningDisable = [ "bindnow" ];
 
@@ -179,6 +189,8 @@ let
 
         configureFlags+=(--with-config-file-path=$out/etc \
           --includedir=$dev/include)
+
+        ./buildconf --force
       '';
 
       postInstall = ''
@@ -207,7 +219,7 @@ let
         outputsToInstall = [ "out" "dev" ];
       };
 
-      patches = if !php7 then [ ./fix-paths.patch ] else [ ./fix-paths-php7.patch ];
+      patches = if !php7 then [ ./fix-paths-php5.patch ] else [ ./fix-paths-php7.patch ] ++ extraPatches;
 
       postPatch = optional stdenv.isDarwin ''
         substituteInPlace configure --replace "-lstdc++" "-lc++"
@@ -221,17 +233,22 @@ let
 
 in {
   php56 = generic {
-    version = "5.6.38";
-    sha256 = "00xw7rcq36dlrzgx9nr96jc64gnnrxjxkkpmkr1y8fynpldj6nyn";
+    version = "5.6.39";
+    sha256 = "1m9sb00xl61y2mpi6dai6bmjian5cq7lw6q4zq0hn08cym2j7nxk";
   };
 
   php71 = generic {
-    version = "7.1.24";
-    sha256 = "02qy76krbdhlbkzs9k1sa5mgmj0qnbb8gcf1j3q0cq3z7kkj9pk6";
+    version = "7.1.25";
+    sha256 = "1b5az5vhap593ggjxirs1zdlg20hcv9h94iq5kgaxky71a4dqb00";
   };
 
   php72 = generic {
-    version = "7.2.12";
-    sha256 = "1dpnbsv4bdlc5v40ddddi971f456jp1qrn89w5di1dj70g1c895p";
+    version = "7.2.13";
+    sha256 = "0bg9nfc250p24hxn4bdjz7ngcw75h8rpf4qjxqzcs6s9fvxlcjjv";
+  };
+
+  php73 = generic {
+    version = "7.3.0";
+    sha256 = "0rvwx37dsmxivgrf4wfc1y778iln498c6a40biy9k6lnr6p7s9ks";
   };
 }

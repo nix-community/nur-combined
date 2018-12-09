@@ -1,0 +1,14 @@
+--- a/ext/gettext/config.m4     2018-12-05 12:17:04.000000000 +0300
++++ b/ext/gettext/config.m4     2018-12-08 22:41:09.471598046 +0300
+@@ -6,10 +6,7 @@
+ [  --with-gettext[=DIR]      Include GNU gettext support])
+
+ if test "$PHP_GETTEXT" != "no"; then
+-  for i in $PHP_GETTEXT /usr/local /usr; do
+-    test -r $i/include/libintl.h && GETTEXT_DIR=$i && break
+-  done
+-
++  GETTEXT_DIR=$PHP_GETTEXT
+   if test -z "$GETTEXT_DIR"; then
+     AC_MSG_ERROR(Cannot locate header file libintl.h)
+   fi
