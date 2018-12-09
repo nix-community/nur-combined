@@ -17,6 +17,11 @@
   boot.kernelPackages = import ../home/kernel (pkgs // {
     structuredExtraConfig = {
       MZEN = "y";
+
+      # Don't need Btrfs on this system, saves ~200ms at boot time due to
+      # unnecessary raid6 benchmarks.
+      BTRFS_FS = "n";
+      BTRFS_FS_POSIX_ACL = null;
     };
   });
 

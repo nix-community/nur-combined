@@ -9,6 +9,7 @@ self: super:
   emacs = import ../overrides/emacs.nix super;
   cli-visualizer = import ../overrides/cli-visualizer.nix super;
   multimc = import ../overrides/multimc.nix super;
+  urn = import ../overrides/urn.nix super;
   #sway = import ../overrides/sway.nix self super;
   #wlc = import ../overrides/wlc.nix super;
 }

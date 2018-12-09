@@ -29,7 +29,7 @@
 
     # Languages
     ghc lua5_3 cargo gcc luajit openjdk ruby nodejs-8_x
-    sbcl ((import <nixos-unstable> {}).urn.override { useLuaJit = true; }) haskellPackages.idris
+    sbcl (urn.override { useLuaJit = true; }) haskellPackages.idris
 
     # Games
     multimc technic-launcher minetest gnome3.gnome-mines #dwarf-fortress

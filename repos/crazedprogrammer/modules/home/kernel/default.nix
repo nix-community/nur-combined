@@ -14,9 +14,6 @@ recurseIntoAttrs (linuxPackagesFor (linux.override {
 
       LEDS_TRIGGER_DISK = yes;
 
-      # We need this module early on, so compile it into the kernel image.
-      BTRFS_FS = yes;
-
       # Not using Nvidia cards, so don't compile the (expensive) modules.
       FB_NVIDIA_I2C = no;
       DRM_NOUVEAU = no;

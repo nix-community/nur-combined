@@ -41,6 +41,9 @@
       structuredExtraConfig = {
         MSKYLAKE = "y";
         SND_HDA_POWER_SAVE_DEFAULT = "1";
+
+        # We need this module early on, so compile it into the kernel image.
+        BTRFS_FS = yes;
       };
     });
   };
