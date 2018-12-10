@@ -166,23 +166,58 @@ This `hydra` module enhances `services.hydra` with several features such as an a
 configuration and a VHost setup. Furthermore it provides (optionally) a patch which creates
 a Hydra instance with disabled eval restrictions using the `overlays.hydra` overlay from this NUR repository.
 
-A basic configuration for a fully automated Hydra instance may look like this:
+Also it provides a basic build machine named `localhost`, further machines need to be added
+via [`nix.buildMachines`](https://nixos.org/nixos/options.html#nix.buildmachines).
+
+A basic yet almost fully automated configuration for a Hydra instance may look like this:
 
 ``` nix
 {
   ma27.hydra = {
     enable = true;
-    architectures = [ "x86_64-linux" ];       # which architectures shall be supported
-    vhost = "hydra.example.org";              # VHost to listen on
-    email = "random@email.org";               # admin email (e.g. for ACME cert)
-    initialPassword = "randompwd";            # initial password for the admin account
-    keyDir = "hydra.random.org";              # keydir for the build artifacts (also used for the binary cache name), lives in `/etc/nix/${keyDir}`
-    extraConfig = {                           # basic extra config for `services.hydra` from nixpkgs
-      # …
+
+    # which architectures shall be supported by the local
+    # build machine (including builtin).
+    architectures = [ "x86_64-linux" ];
+
+    # whether or not to disable restricted eval. Helpful e.g.
+    # when using the pinned nixpkgs of an expression in a Hydra job.
+    #
+    # Warning: this causes a rebuild of `pkgs.hydra`
+    # see e.g. https://hydra.mbosch.me/build/191
+    disallowRestrictedEval = false;
+
+    # Which sender for notifications to be used.
+    # Required by `services.hydra` and used for email notifications (see `notification` attr set).
+    notification.sender = "user@example.org";
+
+    # which store to use. `auto` is the default.
+    # This enables a channel for a given project. Other options would be e.g. `s3`.
+    storeUri = "auto";
+
+    # the vhost Hydra should listen on (used for `hydra-server.service`).
+    vhost.name = "hydra.example.org";
+
+    # Directory where Hydra should store the newly generated
+    # signing keys for build products.
+    signing.keyDir = "hydra.example.org";
+
+    # Creates an initial set of users using `hydra-create-user`.
+    # Note: this is fairly impure as it internally relies on a database and thus a given state.
+    #
+    # If any users exist in Hydra's user table, now new users will be added and this section will be
+    # skipped entirely to ensure that no accidental override happens.
+    users.admin = {
+      initialPassword = "…";     # change immediately!
+      email = "user@xample.org"; # the email of the newly created login user
+      roles = [ "admin" ];       # roles of the user to create
     };
   };
 }
 ```
+
+For a full reference please refer to the full option list
+with documentation placed in the module itself.
 
 **Limitations**:
 

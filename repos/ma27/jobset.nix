@@ -11,6 +11,11 @@ let
     (callPackage ./tests/test-containers.nix { })
   ];
 
+  vmTests =  {
+    hydra = (import ./modules/tests/hydra.nix { }).test;
+  };
+
+  ### HYDRA CONFIG
   jobset = { mapTestOn, linux, ... }: mapTestOn {
     gianas-return = linux;
     termite = linux;
@@ -18,11 +23,13 @@ let
     hydra = linux;
     library-tests = linux;
     php = linux;
+    vmTests.hydra = linux;
   };
 
   newOverlays = (builtins.attrValues overlays) ++ [
     (_: super: import ./. { pkgs = super; })
     (_: super: { library-tests = libraryTests super.callPackage; })
+    (_: super: { inherit vmTests; })
   ];
 
 in

@@ -23,7 +23,7 @@ let
 
     # warning: stateful
     if [ "$result" = "(0 rows)" ]; then
-      ${config.services.hydra.package}/bin/hydra-create-user --name ${name} \
+      ${config.services.hydra.package}/bin/hydra-create-user ${name} \
         --full-name ${if cfg.fullName != null then cfg.fullName else name} \
         --email-address ${cfg.email} \
         --password ${cfg.initialPassword} ${concatStringsSep " " (map (r: "--role ${r}") cfg.roles)}
@@ -37,6 +37,18 @@ in
     options.ma27.hydra = {
 
       enable = mkEnableOption "Hydra CI";
+
+      architectures = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = ''
+          Which architectures (+builtin) the default machine (localhost) should support.
+        '';
+
+        example = literalExample ''
+          [ "x86_64-linux" ]
+        '';
+      };
 
       maxOutputSize = mkOption {
         type = types.int;
@@ -54,6 +66,7 @@ in
 
       storeUri = mkOption {
         type = types.str;
+        default = "auto";
         example = "local";
         description = ''
           Where Nix should store its build artifacts.
@@ -76,8 +89,7 @@ in
           force = mkEnableOption "Force email notifications";
 
           sender = mkOption {
-            type = with types; nullOr str;
-            default = null;
+            type = with types; str;
             description = ''
               Notification sender for Hydra which submits emails about
               build errors.
@@ -190,7 +202,7 @@ in
 
       services.hydra.enable = true;
       services.hydra.hydraURL = vhostCfg.name;
-      services.hydra.notificationSender = emailCfg.sender; # TODO fix!
+      services.hydra.notificationSender = emailCfg.sender;
 
       services.hydra.extraConfig = ''
         email_notification = ${yesNo emailCfg.enable}
@@ -300,7 +312,7 @@ in
       nix.buildMachines = [
         {
           hostName = "localhost";
-          systems = [ "builtin" "x86_64-linux" ];
+          systems = [ "builtin" ] ++ cfg.architectures;
           supportedFeatures = ["kvm" "nixos-test" "big-parallel" "benchmark" "local"];
           speedFactor = 1;
           maxJobs = 2;
@@ -309,7 +321,6 @@ in
 
       nix.extraOptions = ''
         trusted-users = hydra hydra-evaluator hydra-queue-runner
-        auto-optimise-store = true
       '';
 
       nix.trustedBinaryCaches = mkIf cfg.nixBinaryCache [
