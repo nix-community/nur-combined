@@ -20,7 +20,7 @@ rec {
 
     By default everything else will be dropped.
    */
-  gen-firewall = wg0: eth0: machines:
+  gen-firewall = wg0: eth0: machines: dropAll:
     let
       mkMachine = m:
         let
@@ -34,7 +34,10 @@ rec {
     in
       ''
         ip46tables -F FORWARD
-        ip46tables -P FORWARD DROP
+
+        ${optionalString dropAll ''
+          ip46tables -P FORWARD DROP
+        ''}
 
         ip46tables -A FORWARD -i ${wg0} -o ${eth0} -j ACCEPT
         ip46tables -A FORWARD -i ${eth0} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT

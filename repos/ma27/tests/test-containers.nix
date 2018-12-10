@@ -17,10 +17,12 @@ lib.runTests {
   };
 
   testGenFirewall = {
-    expr = lib.removeSuffix "\n" (lib.removeSuffix "\n" (gen-firewall "wg0" "eth0" [ "a" "b" "c" ]));
+    expr = lib.removeSuffix "\n" (lib.removeSuffix "\n" (gen-firewall "wg0" "eth0" [ "a" "b" "c" ] true));
     expected = lib.removeSuffix "\n" ''
       ip46tables -F FORWARD
+
       ip46tables -P FORWARD DROP
+
 
       ip46tables -A FORWARD -i wg0 -o eth0 -j ACCEPT
       ip46tables -A FORWARD -i eth0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
