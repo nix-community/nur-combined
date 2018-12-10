@@ -12,10 +12,17 @@
     autoRepeatInterval = 30;
 
     # Enable the SDDM login manager.
-    displayManager.sddm.enable = true;
+    displayManager.sddm = {
+      enable = true;
+      autoLogin = {
+        enable = true;
+        user = "casper";
+      };
+    };
 
     # i3 and sway window manager.
     windowManager = {
+      default = "i3";
       i3 = {
         enable = true;
         configFile = ../../dotfiles/i3-config;
@@ -33,6 +40,7 @@
 
     # Xfce utils
     desktopManager = {
+      default = "none";
       xfce = {
         enable = true;
         noDesktop = true;
