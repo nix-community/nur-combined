@@ -3,7 +3,9 @@
 let
   # Here mk stands for mark
   mkB0rked = pkgs.lib.addMetaAttrs { broken = true; };
-  mkBashCli = pkgs.callPackage ./make-bash-cli.nix {};
+  mkBashCli = pkgs.callPackage ./make-bash-cli.nix {
+    inherit (import ../lib { inherit pkgs; }) grid;
+  };
 in
 {
   consul = pkgs.consul.overrideAttrs (_: {

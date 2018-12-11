@@ -1,4 +1,4 @@
-{ lib, stdenv, bash, writeText }:
+{ lib, grid, stdenv, bash, writeText }:
 
 name: description: env: commandsFn: let
   mkCommand = command: description: code: {
@@ -21,14 +21,7 @@ name: description: env: commandsFn: let
     The available commands for execution are listed below.
 
     Commands:
-    ${lib.concatMapStrings ({ command, description, ... }: with lib; let
-      indentSize    = 4;
-      commandLength = stringLength command;
-      indentation   = fixedWidthString indentSize " " "";
-      spacer        = fixedWidthString (maxCommandLength + indentSize - commandLength) " " "| ";
-    in ''
-      ${indentation}${command}${spacer}${description}
-    '') commands}
+    ${grid.gridToStringLeft (map ({ command, description, ... }: [ "    " command " |" description ]) commands)}
   '';
 
 in stdenv.mkDerivation ({
