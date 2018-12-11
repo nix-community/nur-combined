@@ -114,12 +114,25 @@ in {
     ];
   };
 
-  testGridToString = {
-    expr = gridToString grid;
+  testGridToStringRight = {
+    expr = gridToStringRight grid;
 
     expected = ''
     1  2  3  4
     5  6  7  8
+    9 10 11 12
+    '';
+  };
+
+  testGridToStringLeft = let
+    inherit (import ../. { inherit pkgs; }) strings;
+    gridToStringLeft' = mkGridToString { justifier = strings.fixedWidthStringLeft; filler = "X"; };
+  in {
+    expr = gridToStringLeft' grid;
+
+    expected = ''
+    1 2X 3X 4X
+    5 6X 7X 8X
     9 10 11 12
     '';
   };

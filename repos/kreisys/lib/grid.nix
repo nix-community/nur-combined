@@ -1,4 +1,4 @@
-{ pkgs }: with pkgs.lib;
+{ pkgs, strings }: with pkgs.lib;
 
 rec {
   rowCount      = grid: length grid;
@@ -15,16 +15,23 @@ rec {
   gridMap       = f: grid: gridMapRows (map f) grid;
   gridPmap0     = f: grid: gridImap0Rows (row: val: pkgs.lib.imap0 (f row) val) grid;
 
-  gridToString = grid: let
+  mkGridToString = {
+    justifier ? strings.fixedWidthStringRight
+  , filler ? " " }: grid: let
+
     gridAsStrings = gridMap toString grid;
     gridAsLengths = gridMap stringLength gridAsStrings;
     findColWidth  = col: foldl' max 0 (gridColAt gridAsLengths col);
 
     gridAsPaddedStrings = gridPmap0 (_: col: val: let
       colWidth = findColWidth col;
-    in fixedWidthString colWidth " " val) gridAsStrings;
+    in justifier colWidth filler val) gridAsStrings;
 
   in ''
   ${concatMapStringsSep "\n" (concatStringsSep " ") gridAsPaddedStrings}
   '';
+
+  gridToStringRight = mkGridToString { justifier = strings.fixedWidthStringRight; };
+  gridToStringLeft  = mkGridToString { justifier = strings.fixedWidthStringLeft;  };
+  gridToString      = gridToStringRight;
 }
