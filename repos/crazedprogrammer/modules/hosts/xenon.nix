@@ -35,12 +35,6 @@
       fsType = "vfat";
     };
 
-  fileSystems."/mnt/hdd" =
-    { device = "/dev/disk/by-uuid/243205de-6503-42f7-baa6-12aaf3c2a68e";
-      fsType = "ext4";
-      options = [ "noatime" ];
-    };
-
   swapDevices =
     [ { device = "/dev/disk/by-uuid/4133fbc7-683f-4267-a6fb-126c7e80e29b"; }
     ];
@@ -49,12 +43,12 @@
   nix.buildCores = 12;
 
   environment.systemPackages = with pkgs; [
-    hdparm docker_compose
+    hdparm #docker_compose
   ];
 
-  virtualisation.docker = {
-    enable = true;
-  };
+ #virtualisation.docker = {
+ #  enable = true;
+ #};
 
   # AMD polaris firmware
   hardware.enableRedistributableFirmware = true;

@@ -31,13 +31,15 @@
     package = pkgs.wireshark;
   };
 
-  # Improve boot time by not waiting for the network to come up
+  # Improve boot time by not waiting for the network and time sync to come up.
   systemd.services."network-manager" = {
     wantedBy = lib.mkForce [ ];
   };
+  systemd.services."systemd-timesyncd" = {
+    wantedBy = lib.mkForce [ ];
+  };
   # Yes, this is a hack.
-  services.xserver.displayManager.sddm.setupScript = "${pkgs.systemd}/bin/systemctl start network-manager";
-
+  services.xserver.displayManager.sddm.setupScript = "${pkgs.systemd}/bin/systemctl start network-manager systemd-timesyncd";
 
   hardware = {
     # Enable PulseAudio.
