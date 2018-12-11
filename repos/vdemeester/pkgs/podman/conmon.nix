@@ -1,4 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, pkgconfig, libtool, gcc, glib }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, glib }:
+
+with lib;
 
 stdenv.mkDerivation rec {
   name = "conmon-${version}";
@@ -14,10 +16,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    makeWrapper libtool gcc glib
+    glib
   ];
 
   installPhase = ''
-    install -D -m 755 bin/conmon $out/bin/conmon
+    install -D -m 555 bin/conmon $out/bin/conmon
   '';
+
+  meta = {
+    homepage = https://github.com/containers/conmon;
+    description = "An OCI container runtime monitor";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ vdemeester ];
+    platforms = platforms.linux;
+  };
 }
