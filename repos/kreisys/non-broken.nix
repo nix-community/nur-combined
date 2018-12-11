@@ -21,7 +21,7 @@ in filterSet
              (builtins.hasAttr "meta" p) &&
              (
                ((builtins.hasAttr "broken" p.meta) && (p.meta.broken)) ||
-               ((builtins.hasAttr "platforms" p.meta) && !(builtins.elem pkgs.stdenv.hostPlatform.parsed p.meta.platforms))
+               ((builtins.hasAttr "platforms" p.meta) && !(pkgs.lib.any (pkgs.lib.meta.platformMatch pkgs.stdenv.hostPlatform) p.meta.platforms))
              )
            )
      )
