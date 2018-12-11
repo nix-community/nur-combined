@@ -43,5 +43,6 @@ stdenv.mkDerivation rec {
     ninja
   '';
   installPhase = "ninja install";
+  meta.broken = true;
 }
 
