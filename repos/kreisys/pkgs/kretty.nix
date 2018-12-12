@@ -2,7 +2,7 @@
 
 mkBashCli "kretty" "placeholder for random tty scriptlets" {} (mkCmd:
     [
-      (mkCmd "colortest" "Show available tty colours" ''
+      (mkCmd "colortest" "Show available tty colours" { aliases = [ "colors" ]; } ''
         awk 'BEGIN{
             s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
             for (colnum = 0; colnum<77; colnum++) {

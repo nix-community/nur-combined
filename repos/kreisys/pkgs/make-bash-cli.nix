@@ -1,8 +1,8 @@
 { lib, grid, stdenv, bash, writeText }:
 
 name: description: env: commandsFn: let
-  mkCommand = command: description: code: {
-    inherit command description code;
+  mkCommand = command: description: { aliases ? [] }: code: {
+    inherit command description aliases code;
   };
 
   commands = commandsFn mkCommand;
@@ -16,7 +16,12 @@ name: description: env: commandsFn: let
     The available commands for execution are listed below.
 
     Commands:
-    ${grid.gridToStringLeft (map ({ command, description, ... }: [ "    " command " |" description ]) commands)}
+    ${grid.gridToStringLeft (map ({ command, description, aliases, ... }: [
+      "    "                                               # indentation
+      (lib.concatStringsSep ", " ([ command ] ++ aliases)) # command name and aliases
+      " |"                                                 # separator
+      description                                          # command description
+    ]) commands)}
   '';
 
 in stdenv.mkDerivation ({
@@ -45,8 +50,8 @@ in stdenv.mkDerivation ({
     if [[ -n $cmd ]]; then shift; fi
 
     case $cmd in
-      ${lib.concatMapStrings ({ command, code, ... }: ''
-        ${command})
+      ${lib.concatMapStrings ({ command, code, aliases, ... }: ''
+        ${command}${lib.optionalString (aliases != []) "|${lib.concatStringsSep "|" aliases}"})
           ${code}
           ;;
       '') commands}
