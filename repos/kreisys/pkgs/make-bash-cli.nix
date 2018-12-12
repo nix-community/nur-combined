@@ -7,11 +7,6 @@ name: description: env: commandsFn: let
 
   commands = commandsFn mkCommand;
 
-  maxCommandLength = with lib; let
-    commandLengths = map ({ command, ... }: stringLength command) commands;
-    maxLength = builtins.foldl' max 0 commandLengths;
-  in maxLength;
-
   usage = writeText "${name}-usage.txt" ''
     Usage: ${name} [--version] [--help] <command> [args]
 
