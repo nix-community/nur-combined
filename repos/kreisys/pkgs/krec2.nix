@@ -10,7 +10,8 @@ mkBashCli "krec2" "awscli alias junkbox" {} (mkCmd:
 
       (mkCmd "lsr53" "List Route53 records in a pretty table" {} ''
         PATH=${awscli}/bin:$PATH
-        aws route53 list-hosted-zones-by-name --output text --query 'HostedZones[?Name==`looperation.com.`].Id' | xargs aws route53 list-resource-record-sets --output table --query 'ResourceRecordSets[?Type==`CNAME`].Name' --hosted-zone-id
+        domain=''${1?Must provide a domain to list its records}
+        aws route53 list-hosted-zones-by-name --output text --query "HostedZones[?Name==\`$domain.\`].Id" | xargs aws route53 list-resource-record-sets --output table --query 'ResourceRecordSets[?Type==`CNAME`].Name' --hosted-zone-id
       '')
 
     ]
