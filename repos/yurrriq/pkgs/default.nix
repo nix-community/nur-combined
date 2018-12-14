@@ -82,7 +82,8 @@ in
 
   inherit (_nixpkgs) browserpass;
 
-  noweb = pkgs.callPackage ./development/tools/literate-programming/noweb {};
+  # FIXME
+  # noweb = pkgs.callPackage ./development/tools/literate-programming/noweb {};
 
   tellico = pkgs.libsForQt5.callPackage ./applications/misc/tellico {};
 

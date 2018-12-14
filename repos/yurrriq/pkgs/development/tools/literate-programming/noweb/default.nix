@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, gawk
-, outputsToInstall ? [ "bin" "lib" "man" ]
-}:
+{ stdenv, fetchFromGitHub, fetchurl, gawk }:
 
 let noweb = stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -43,14 +41,15 @@ let noweb = stdenv.mkDerivation rec {
       substituteInPlace "$f" --replace "nawk" "${gawk}/bin/awk"
     done
 
-      ln -s "$bin/bin" "$out/bin"
-      ln -s "$lib/lib" "$out/lib"
+    ln -s "$bin/bin" "$out/bin"
+    ln -s "$lib/lib" "$out/lib"
+    mkdir -p "$out/share"
+    ln -s "$tex" "$out/share/texmf"
   '';
 
   patches = [ ./no-FAQ.patch ];
 
   meta = with stdenv.lib; {
-    outputsToInstall = [ "bin" "lib" "man" ];
     license = licenses.bsd2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ yurrriq ];
