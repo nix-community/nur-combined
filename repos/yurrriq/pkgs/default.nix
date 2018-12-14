@@ -82,6 +82,10 @@ in
 
   inherit (_nixpkgs) browserpass;
 
+  noweb = pkgs.callPackage ./development/tools/literate-programming/noweb {
+    inherit (pkgs.xorg) lndir;
+  };
+
   tellico = pkgs.libsForQt5.callPackage ./applications/misc/tellico {};
 
 })

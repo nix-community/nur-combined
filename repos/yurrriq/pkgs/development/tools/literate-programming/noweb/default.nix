@@ -1,31 +1,52 @@
-{ stdenv, fetchurl, gawk, icon-lang }:
+{ stdenv, fetchFromGitHub, gawk, icon-lang, lndir }:
 
-stdenv.mkDerivation {
-  name = "noweb-2.11b";
-  src = fetchurl {
-    urls = [ "http://ftp.de.debian.org/debian/pool/main/n/noweb/noweb_2.11b.orig.tar.gz"
-             "ftp://www.eecs.harvard.edu/pub/nr/noweb.tgz"
-          ];
-    sha256 = "10hdd6mrk26kyh4bnng4ah5h1pnanhsrhqa7qwqy6dyv3rng44y9";
+let noweb = stdenv.mkDerivation rec {
+  name = "${pname}-${version}";
+  version = "2.12";
+  pname = "noweb";
+  tlType = "run";
+
+  src = fetchFromGitHub {
+    owner = "nrnrnr";
+    repo = "noweb";
+    rev = "v${builtins.replaceStrings ["."] ["_"] version}";
+    sha256 = "1160i2ghgzqvnb44kgwd6s3p4jnk9668rmc15jlcwl7pdf3xqm95";
   };
+
+  outputs = [ "out" "texmf" ];
+
   preBuild = ''
-    mkdir -p $out/lib/noweb
+    mkdir -p "$out/lib/noweb"
     cd src
-    makeFlags="BIN=$out/bin LIB=$out/lib/noweb MAN=$out/share/man TEXINPUTS=$out/share/texmf/tex/latex LIBSRC=icon ICONC=icont"
+    makeFlags="BIN=$out/bin LIB=$out/lib/noweb MAN=$out/share/man TEXINPUTS=$texmf/tex/latex/noweb LIBSRC=icon ICONC=icont"
   '';
-  preInstall=''mkdir -p $out/share/texmf/tex/latex'';
+
+  preInstall = ''
+    mkdir -p "$texmf/tex/latex/noweb"
+    mkdir -p "$out/share/texmf"
+  '';
+
   postInstall= ''
-    substituteInPlace $out/bin/cpif --replace "PATH=/bin:/usr/bin" ""
-    for f in $out/bin/{noweb,nountangle,noroots,noroff,noindex} \
-             $out/lib/noweb/{toroff,btdefn,totex,noidx,unmarkup,toascii,tohtml,emptydefn}; do
-      substituteInPlace $f --replace "nawk" "${gawk}/bin/awk"
+    substituteInPlace "$out/bin/cpif" --replace "PATH=/bin:/usr/bin" ""
+
+    for f in $out/bin/no{index,roff,roots,untangle,web} \
+             $out/lib/noweb/to{ascii,html,roff,tex} \
+             $out/lib/noweb/{bt,empty}defn \
+             $out/lib/noweb/{noidx,unmarkup}; do
+      substituteInPlace "$f" --replace "nawk" "${gawk}/bin/awk"
     done
+
+    lndir -silent "$texmf" "$out/share/texmf"
   '';
+
   patches = [ ./no-FAQ.patch ];
 
+  nativeBuildInputs = [ lndir ];
+
   buildInputs = [ icon-lang ];
-  
-  meta = {
-    platforms = stdenv.lib.platforms.linux;
+
+  meta = with stdenv.lib; {
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ yurrriq ];
   };
-}
+}; in noweb // { pkgs = [ noweb.texmf ]; }
