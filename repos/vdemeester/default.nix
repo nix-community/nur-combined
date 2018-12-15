@@ -2,6 +2,7 @@
 
 rec {
   ape = pkgs.callPackage ./pkgs/ape {};
+  athens = pkgs.callPackage ./pkgs/athens {};
   buildkit = pkgs.callPackage ./pkgs/buildkit {};
   cni = pkgs.callPackage ./pkgs/cni {};
   cni-plugins = pkgs.callPackage ./pkgs/cni/plugins.nix {};
