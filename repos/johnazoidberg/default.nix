@@ -4,6 +4,8 @@ rec {
   modules = import ./modules;
   overlays = import ./overlays;
 
+  prosody-filer = pkgs.callPackage ./pkgs/prosody-filer {};
+
   python3Packages = pkgs.recurseIntoAttrs (
     pkgs.python3Packages.callPackage ./pkgs/python-pkgs { }
   );
