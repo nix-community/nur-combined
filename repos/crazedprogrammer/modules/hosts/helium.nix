@@ -35,6 +35,9 @@
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
 
+    # Boot selection menu timeout of 1 second.
+    loader.timeout = 1;
+
     kernelParams = [ "i915.enable_psr=1" "i915.i915_enable_fbc=1" ];
 
     kernelPackages = import ../home/kernel (pkgs // {
@@ -43,7 +46,7 @@
         SND_HDA_POWER_SAVE_DEFAULT = "1";
 
         # We need this module early on, so compile it into the kernel image.
-        BTRFS_FS = yes;
+        BTRFS_FS = "y";
       };
     });
   };

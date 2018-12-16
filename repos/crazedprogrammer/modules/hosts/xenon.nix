@@ -11,6 +11,9 @@
 
   networking.hostName = "xenon"; # Define your hostname.
 
+  # Skip the boot selection menu. In order to open it again, repeatedly press the space key on boot.
+  boot.loader.timeout = 0;
+
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];

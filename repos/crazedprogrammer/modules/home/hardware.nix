@@ -2,9 +2,6 @@
 
 {
   boot = {
-    # Boot select timeout of 1 second.
-    loader.timeout = 0;
-
     # Quiet console at startup.
     kernelParams = [ "quiet" "vga=current" "libahci.ignore_sss=1" ];
   };
