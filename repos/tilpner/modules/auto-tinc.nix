@@ -31,7 +31,7 @@ in with lib; {
     default = {};
     type = with types; attrsOf (submodule {
       options = {
-        entry = mkOption { type = string; };
+        entry = mkOption { type = listOf string; };
         trusted = mkOption { type = bool; default = false; };
         ipv6Prefix = mkOption { type = string; default = "fd7f:8482:73b2::"; };
         salt = mkOption { type = string; default = ""; };
@@ -73,7 +73,7 @@ in with lib; {
       let forNet = netName: net: {
             ${netName} = {
               inherit (net) package;
-              extraConfig = optionalString (net.entry != null) "ConnectTo = ${net.entry}";
+              extraConfig = concatMapStringsSep "\n" (entry: "ConnectTo = ${entry}") net.entry;
               hosts = mapAttrs (hostName: host: host + (subnets netName net hostName)) net.hosts;
             };
           };
