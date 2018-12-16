@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
 
+# Assumes node names are installation-unique
+
 let
   inherit (builtins) hashString substring match all;
   inherit (lib) take drop length stringToCharacters concatStrings intersperse;
@@ -62,12 +64,22 @@ in with lib; {
       let f = name: net: if net.trusted then [ "tinc.${name}" ] else [];
       in  concatLists (mapAttrsToList f cfg.networks);
 
-    networking.hosts =
+    services.dnsmasq.enable = true;
+    services.dnsmasq.extraConfig =
       let forNet = netName: net:
         let forHost = hostName: host:
-              nameValuePair (ipv6 netName net hostName) "${hostName}.local";
-        in  mapAttrs' forHost net.hosts;
-      in  zipAttrs (mapAttrsToList forNet cfg.networks);
+          ''
+            host-record=${hostName}.tinc,,${ipv6 netName net hostName}
+            cname=*.${hostName}.tinc,${hostName}.tinc
+            cname=${hostName}.local,${hostName}.tinc
+          '';
+        in ''
+          auth-server=tinc,tinc.${netName}
+          auth-zone=tinc,127.0.0.0/24,tinc.${netName}
+
+          ${concatStringsSep "\n" (mapAttrsToList forHost net.hosts)}
+        '';
+      in concatStringsSep "\n\n" (mapAttrsToList forNet cfg.networks);
 
     services.tinc.networks =
       let forNet = netName: net: {
