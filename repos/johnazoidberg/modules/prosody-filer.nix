@@ -15,8 +15,8 @@ in
 
       externalDomain = mkOption {
         type = types.str;
-        description = "IP address and port to listen on";
-        example = "https://jabber.example.com";
+        description = "External domain which clients use to upload/download media";
+        example = "jabber.example.com";
       };
 
       listenAddress = mkOption {
@@ -54,14 +54,73 @@ in
         description = "Group account under which prosody-filer runs";
       };
 
+      vHost = mkOption {
+        description = "Configuration for external facing webserver";
+
+        type = types.submodule {
+          options = {
+            enable = mkOption {
+              type = types.bool;
+              description = ''
+                Set up an nginx server to serve uploads and downloads.
+                If you disable this you have to proxy it yourself to the prosody-filer listening on localhost.
+              '';
+            };
+
+            sslCertificate = mkOption {
+              type = types.nullOr types.path;
+              description = "Path to the TLS/SSl certificate of external domain";
+              default = null;
+            };
+
+            sslCertificateKey = mkOption {
+              type = types.nullOr types.path;
+              description = "Path to the certificate private key of externalDomain";
+              default = null;
+            };
+          };
+        };
+      };
     };
   };
 
 
   ##### implementation
   config = mkIf cfg.enable {
-    # TODO configure nginx
-    #      Is it possible in a generic way?
+    assertions = [
+      {
+        assertion = !cfg.vHost.enable || (cfg.vHost.enable
+                                          && cfg.vHost.sslCertificate != null
+                                          && cfg.vHost.sslCertificateKey != null);
+	message = "If you enable vHost you have to set SSL key and certificate";
+      }
+    ];
+
+    services.nginx = mkIf cfg.vHost.enable {
+      enable = true;
+      virtualHosts = {
+        "${cfg.externalDomain}" = {
+          listen = [{
+            addr = "127.0.0.1";
+            port = 443;
+            ssl = true;
+          }];
+
+          onlySSL = true;
+          sslCertificate = cfg.vHost.sslCertificate;
+          sslCertificateKey = cfg.vHost.sslCertificateKey;
+
+          locations = {
+            "/upload/" = {
+              proxyPass = "http://127.0.0.1:5050/upload/";
+              extraConfig = ''
+                proxy_request_buffering off;
+              '';
+            };
+          };
+        };
+      };
+    };
 
     environment.etc."prosody-filer.toml".text = ''
       listenport      = "${cfg.listenAddress}"
@@ -72,7 +131,7 @@ in
 
     services.prosody = {
       extraConfig = ''
-        http_upload_external_base_url = "${cfg.externalDomain}/${cfg.uploadDir}"
+        http_upload_external_base_url = "https://${cfg.externalDomain}/${cfg.uploadDir}"
         http_upload_external_secret = "${cfg.secret}"
         http_upload_external_file_size_limit = 50000000 -- 50 MB
       '';
