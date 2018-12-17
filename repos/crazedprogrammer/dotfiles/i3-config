@@ -211,4 +211,4 @@ exec --no-startup-id "system boot"
 exec_always --no-startup-id "system kill reload"
 
 # default programs on workspaces
-exec --no-startup-id i3-msg 'workspace 2; exec firefox; workspace 9; exec "kitty"; workspace 1'
+exec --no-startup-id i3-msg 'exec kitty; workspace 2; exec firefox'

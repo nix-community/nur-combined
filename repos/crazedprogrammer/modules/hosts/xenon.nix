@@ -5,30 +5,33 @@
     ../home
   ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      # Use the systemd-boot EFI boot loader.
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+
+      # Skip the boot selection menu. In order to open it again, repeatedly press the space key on boot.
+      timeout = 0;
+    };
+
+    initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+    kernelModules = [ "kvm-amd" ];
+    kernelPackages = import ../home/kernel (pkgs // {
+      structuredExtraConfig = {
+        MZEN = "y";
+
+        # Don't need Btrfs on this system, saves ~200ms at boot time due to
+        # unnecessary raid6 benchmarks.
+        BTRFS_FS = "n";
+        BTRFS_FS_POSIX_ACL = null;
+      };
+    });
+  };
 
   networking.hostName = "xenon"; # Define your hostname.
 
-  # Skip the boot selection menu. In order to open it again, repeatedly press the space key on boot.
-  boot.loader.timeout = 0;
-
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
-  boot.kernelPackages = import ../home/kernel (pkgs // {
-    structuredExtraConfig = {
-      MZEN = "y";
-
-      # Don't need Btrfs on this system, saves ~200ms at boot time due to
-      # unnecessary raid6 benchmarks.
-      BTRFS_FS = "n";
-      BTRFS_FS_POSIX_ACL = null;
-    };
-  });
-
- fileSystems."/" =
+  fileSystems."/" =
     { device = "/dev/disk/by-uuid/8ee00b41-b4a1-4290-a01e-8b8788841c76";
       fsType = "ext4";
     };

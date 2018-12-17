@@ -3,7 +3,9 @@
 {
   boot = {
     # Quiet console at startup.
-    kernelParams = [ "quiet" "vga=current" "libahci.ignore_sss=1" ];
+    kernelParams = [ "quiet" "vga=current" ];
+    # Assume /dev/sda is an SSD, which doesn't need an IO queue scheduler.
+    postBootCommands = "echo none > /sys/block/sda/queue/scheduler";
   };
 
   # /tmp on tmpfs.

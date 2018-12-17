@@ -33,7 +33,6 @@
 
     initrd.availableKernelModules = [ "bcache" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
     kernelModules = [ "kvm-intel" ];
-    extraModulePackages = [ ];
 
     # Boot selection menu timeout of 1 second.
     loader.timeout = 1;
