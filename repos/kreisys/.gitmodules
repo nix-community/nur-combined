@@ -1,0 +1,3 @@
+[submodule "pkgs/xinomorf"]
+	path = pkgs/xinomorf
+	url = https://github.com/kreisys/xinomorf

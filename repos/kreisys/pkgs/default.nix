@@ -8,15 +8,6 @@ let
   };
 in
 {
-  consul = pkgs.consul.overrideAttrs (_: {
-    src    = pkgs.fetchFromGitHub {
-      owner  = "hashicorp";
-      repo   = "consul";
-      rev    = "v1.1.0";
-      sha256 = "0xm3gl8i7pgsbsc2397bwh9hp2dwnk4cmw5y05acqn3zpyp84sbv";
-    };
-  });
-
   consulate = pkgs.callPackage ./consulate { };
 
   fishPlugins = pkgs.recurseIntoAttrs (pkgs.callPackages ./fish-plugins { });
@@ -27,6 +18,7 @@ in
   nvim     = pkgs.callPackage ./nvim       { };
   oksh     = pkgs.callPackage ./ok.sh      { };
   webhook  = pkgs.callPackage ./webhook    { };
+  #xinomorf = mkB0rked (pkgs.callPackage ./xinomorf   { });
 
   # Linux only packages go here
   hydra = pkgs.hydra.overrideAttrs (_: rec {

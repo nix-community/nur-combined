@@ -75,7 +75,8 @@ let
     " Enable hybrid line numbers
     set relativenumber
     set number
-    highlight LineNr guifg=#050505
+    highlight CursorLineNr term=bold ctermfg=Yellow     gui=bold guifg=Yellow
+    highlight LineNr       term=none ctermfg=DarkYellow gui=none guifg=DarkYellow
 
     map <Leader>/ :noh<CR>
 

@@ -1,12 +1,12 @@
 { stdenv, fetchurl, jq }:
 
-let version = "0.2.3"; in
+let version = "0.4.0"; in
 stdenv.mkDerivation {
   name = "ok.sh-${version}";
 
   src = fetchurl {
     url = "https://github.com/whiteinge/ok.sh/archive/${version}.tar.gz";
-    sha256 = "1xhzxxcgw9ylw3rdqjh0ivcgl74fn0z47zghlhvsqnjh4fksk8b7";
+    sha256 = "00pbcxkqgrms215x65bq6rqa38579zk59yjhkq03z0xinyqy3xxg";
   };
 
   buildInputs = [ jq ];
