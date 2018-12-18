@@ -1,3 +1,3 @@
 self: super: {
-  dtz = import ../default.nix { pkgs = self; };
+  dtz = import ../default.nix { pkgs = super; };
 }
