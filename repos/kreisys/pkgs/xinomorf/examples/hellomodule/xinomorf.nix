@@ -1,0 +1,5 @@
+import ../.. {
+  modules = {
+    hello = ./module;
+  };
+}

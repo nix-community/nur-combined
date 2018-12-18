@@ -1,0 +1,1 @@
+(import ./xinomorf.nix).wrapper
