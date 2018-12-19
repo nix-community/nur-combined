@@ -174,19 +174,19 @@ everything = stdenv.mkDerivation (common // {
 
 galera = stdenv.mkDerivation rec {
   name = "mariadb-galera-${version}";
-  version = "25.3.24";
+  version = "25.3.25";
 
   src = fetchFromGitHub {
     owner = "codership";
     repo = "galera";
     rev = "release_${version}";
-    sha256 = "1yx3rqy7r4w2l3hnrri30hvsa296v8xidi18p5fdzcpmnhnlwjbi";
+    sha256 = "09h25jldr8a9wadhw14hfszcp7xpc9kwff49j5a5m33wjn1ljq9d";
     fetchSubmodules = true;
   };
 
   buildInputs = [ asio boost check openssl scons ];
 
-  patchPhase = ''
+  postPatch = ''
     substituteInPlace SConstruct \
       --replace "boost_library_path = '''" "boost_library_path = '${boost}/lib'"
   '';
@@ -196,9 +196,7 @@ galera = stdenv.mkDerivation rec {
     export LIBPATH="${galeraLibs}/lib"
   '';
 
-  buildPhase = ''
-     scons -j$NIX_BUILD_CORES ssl=1 system_asio=1 strict_build_flags=0
-  '';
+  sconsFlags = "ssl=1 system_asio=1 strict_build_flags=0";
 
   installPhase = ''
     # copied with modifications from scripts/packages/freebsd.sh

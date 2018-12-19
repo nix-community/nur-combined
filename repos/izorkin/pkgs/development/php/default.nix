@@ -28,14 +28,13 @@ let
   , bcmathSupport ? config.php.bcmath or true
   , socketsSupport ? config.php.sockets or true
   , curlSupport ? config.php.curl or true
-  , curlWrappersSupport ? (config.php.curlWrappers or true) && (!php7)
   , gettextSupport ? config.php.gettext or true
   , pcntlSupport ? config.php.pcntl or true
   , postgresqlSupport ? config.php.postgresql or true
   , pdo_pgsqlSupport ? config.php.pdo_pgsql or true
   , readlineSupport ? config.php.readline or true
   , sqliteSupport ? config.php.sqlite or true
-  , soapSupport ? config.php.soap or true
+  , soapSupport ? (config.php.soap or true) && (libxml2Support)
   , zlibSupport ? config.php.zlib or true
   , opensslSupport ? config.php.openssl or true
   , mbstringSupport ? config.php.mbstring or true
@@ -56,6 +55,11 @@ let
   , tidySupport ? (config.php.tidy or false)
   , argon2Support ? (config.php.argon2 or true) && (versionAtLeast version "7.2")
   , libzipSupport ? (config.php.libzip or true) && (versionAtLeast version "7.3")
+  , phpdbgSupport ? config.php.phpdbg or true
+  , cgiSupport ? config.php.cgi or true
+  , cliSupport ? config.php.cli or true
+  , pharSupport ? config.php.phar or true
+  , xmlrpcSupport ? (config.php.xmlrpc or false) && (libxml2Support)
   }:
 
     let
@@ -127,9 +131,17 @@ let
       ++ optional embedSupport "--enable-embed"
       ++ optional mhashSupport "--with-mhash"
       ++ optional curlSupport "--with-curl=${curl.dev}"
-      ++ optional curlWrappersSupport "--with-curlwrappers"
       ++ optional zlibSupport "--with-zlib=${zlib.dev}"
       ++ optional libxml2Support "--with-libxml-dir=${libxml2.dev}"
+      ++ optional (!libxml2Support) [
+        "--disable-dom"
+        "--disable-libxml"
+        "--disable-simplexml"
+        "--disable-xml"
+        "--disable-xmlreader"
+        "--disable-xmlwriter"
+        "--without-pear"
+      ]
       ++ optional pcntlSupport "--enable-pcntl"
       ++ optional readlineSupport "--with-readline=${readline.dev}"
       ++ optional sqliteSupport "--with-pdo-sqlite=${sqlite.dev}"
@@ -169,7 +181,13 @@ let
       ++ optional sodiumSupport "--with-sodium=${libsodium.dev}"
       ++ optional tidySupport "--with-tidy=${html-tidy}"
       ++ optional argon2Support "--with-password-argon2=${libargon2}"
-      ++ optional libzipSupport "--with-libzip=${libzip.dev}";
+      ++ optional libzipSupport "--with-libzip=${libzip.dev}"
+      ++ optional phpdbgSupport "--enable-phpdbg"
+      ++ optional (!phpdbgSupport) "--disable-phpdbg"
+      ++ optional (!cgiSupport) "--disable-cgi"
+      ++ optional (!cliSupport) "--disable-cli"
+      ++ optional (!pharSupport) "--disable-phar"
+      ++ optional xmlrpcSupport "--with-xmlrpc";
 
       hardeningDisable = [ "bindnow" ];
 
@@ -194,6 +212,7 @@ let
       '';
 
       postInstall = ''
+        test -d $out/etc || mkdir $out/etc
         cp php.ini-production $out/etc/php.ini
       '';
 
@@ -240,15 +259,28 @@ in {
   php71 = generic {
     version = "7.1.25";
     sha256 = "1b5az5vhap593ggjxirs1zdlg20hcv9h94iq5kgaxky71a4dqb00";
+
+    # https://bugs.php.net/bug.php?id=76826
+    extraPatches = optional stdenv.isDarwin ./php71-darwin-isfinite.patch;
   };
 
   php72 = generic {
     version = "7.2.13";
     sha256 = "0bg9nfc250p24hxn4bdjz7ngcw75h8rpf4qjxqzcs6s9fvxlcjjv";
+
+    # https://bugs.php.net/bug.php?id=71041
+    # https://bugs.php.net/bug.php?id=76826
+    extraPatches = [ ./fix-bug-71041.patch ]
+      ++ optional stdenv.isDarwin ./php72-darwin-isfinite.patch;
   };
 
   php73 = generic {
     version = "7.3.0";
     sha256 = "0rvwx37dsmxivgrf4wfc1y778iln498c6a40biy9k6lnr6p7s9ks";
+
+    # https://bugs.php.net/bug.php?id=71041
+    # https://bugs.php.net/bug.php?id=76826
+    extraPatches = [ ./fix-bug-71041.patch ]
+      ++ optional stdenv.isDarwin ./php73-darwin-isfinite.patch;
   };
 }

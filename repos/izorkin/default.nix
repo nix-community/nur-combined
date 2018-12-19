@@ -14,6 +14,17 @@ rec {
   fail2ban         = pkgs.callPackage ./pkgs/tools/fail2ban { };
 
   inherit           (pkgs.callPackages ./pkgs/development/php { openssl = pkgs.libressl; inherit curl; config.php.ldap = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; }) php56 php71 php72 php73;
-  php56Packages    = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php56-packages.nix { php = php56; });
+  inherit           (pkgs.callPackages ./pkgs/servers/unit { openssl = pkgs.libressl; php56 = php56-unit; php71 = php71-unit; php72 = php72-unit; php73 = php73-unit; withPython = false; withPHP56 = false; withPHP71 = true; withPHP72 = true; withPHP73 = true; withPerl = false; withPerldevel = false; withRuby_2_3 = false; withRuby_2_4 = false; withRuby = false; withSSL = true; withIPv6 = false; withDebug = false; }) unitStable unitUnstable;
 
+  unit                = unitStable.override { withPHP56 = false; };
+
+  php56-unit          = php56.override { config.php.ldap = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
+  php71-unit          = php71.override { config.php.ldap = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
+  php72-unit          = php72.override { config.php.ldap = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
+  php73-unit          = php73.override { config.php.ldap = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
+
+  php56Packages       = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php56-packages.nix { php = php56; });
+  php56Packages-unit  = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php56-packages.nix { php = php56-unit; });
+  php71Packages-unit  = pkgs.php71Packages.override { php = php71-unit; };
+  php72Packages-unit  = pkgs.php72Packages.override { php = php72-unit; };
 }
