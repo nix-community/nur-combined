@@ -1,5 +1,8 @@
 {
     "repos": {
+        "bb010g": {
+            "url": "https://github.com/bb010g/nur-packages"
+        },
         "bhipple": {
             "url": "https://github.com/bhipple/nur-packages"
         },
@@ -78,6 +81,9 @@
         "mpickering": {
             "submodules": true,
             "url": "https://github.com/mpickering/nur-packages"
+        },
+        "nexromancers": {
+            "url": "https://github.com/neXromancers/nixromancers"
         },
         "peel": {
             "url": "https://github.com/peel/nur-packages"
