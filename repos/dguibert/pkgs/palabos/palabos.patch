@@ -1,0 +1,940 @@
+diff --git a/src/atomicBlock/atomicBlock3D.h b/src/atomicBlock/atomicBlock3D.h
+index 1fb0ad1..2604122 100644
+--- a/src/atomicBlock/atomicBlock3D.h
++++ b/src/atomicBlock/atomicBlock3D.h
+@@ -174,6 +174,7 @@ private:
+     StatSubscriber3D statisticsSubscriber;
+     DataProcessorVector explicitInternalProcessors;
+     DataProcessorVector automaticInternalProcessors;
++public:
+     mutable BlockDataTransfer3D* dataTransfer;
+ };
+ 
+diff --git a/src/atomicBlock/blockLattice3D.h b/src/atomicBlock/blockLattice3D.h
+index d672045..359af56 100644
+--- a/src/atomicBlock/blockLattice3D.h
++++ b/src/atomicBlock/blockLattice3D.h
+@@ -43,7 +43,7 @@ namespace plb {
+ 
+ template<typename T, template<typename U> class Descriptor> struct Dynamics;
+ template<typename T, template<typename U> class Descriptor> class BlockLattice3D;
+-
++template<typename T, template<typename U> class Descriptor> struct ImplicitGrid3D;
+ 
+ template<typename T, template<typename U> class Descriptor>
+ class BlockLatticeDataTransfer3D : public BlockDataTransfer3D {
+@@ -131,14 +131,14 @@ public:
+         PLB_PRECONDITION(iX<this->getNx());
+         PLB_PRECONDITION(iY<this->getNy());
+         PLB_PRECONDITION(iZ<this->getNz());
+-        return grid[iX][iY][iZ];
++        return grid(iX,iY,iZ);
+     }
+     /// Read only access to lattice cells
+     virtual Cell<T,Descriptor> const& get(plint iX, plint iY, plint iZ) const {
+         PLB_PRECONDITION(iX<this->getNx());
+         PLB_PRECONDITION(iY<this->getNy());
+         PLB_PRECONDITION(iZ<this->getNz());
+-        return grid[iX][iY][iZ];
++        return grid(iX,iY,iZ);
+     }
+     /// Specify wheter statistics measurements are done on a rect. domain
+     virtual void specifyStatisticsStatus (
+@@ -191,10 +191,10 @@ private:
+     plint allocatedMemory() const;
+ private:
+     void periodicDomain(Box3D domain);
+-private:
+     Dynamics<T,Descriptor>* backgroundDynamics;
+     Cell<T,Descriptor>     *rawData;
+-    Cell<T,Descriptor>   ***grid;
++private:
++    ImplicitGrid3D<T,Descriptor> grid;
+ public:
+     static CachePolicy3D& cachePolicy();
+     template<typename T_, template<typename U_> class Descriptor_>
+@@ -207,6 +207,16 @@ public:
+     friend class WaveAbsorptionExternalRhoJcollideAndStream3D;
+     template<typename T_, template<typename U_> class Descriptor_>
+     friend class OnLinkExternalRhoJcollideAndStream3D;
++    template<typename T_, template<typename U_> class Descriptor_>
++    friend class ImplicitGrid3D;
++};
++
++template<typename T, template<typename U> class Descriptor>
++struct ImplicitGrid3D {
++        BlockLattice3D<T,Descriptor>& parent;
++        ImplicitGrid3D(BlockLattice3D<T,Descriptor>& parent_);
++        const Cell<T,Descriptor> & operator () (int x,int y,int z) const;
++        Cell<T,Descriptor> & operator () (int x,int y,int z);
+ };
+ 
+ template<typename T, template<typename U> class Descriptor>
+diff --git a/src/atomicBlock/blockLattice3D.hh b/src/atomicBlock/blockLattice3D.hh
+index 8d9eb08..b41bbcb 100644
+--- a/src/atomicBlock/blockLattice3D.hh
++++ b/src/atomicBlock/blockLattice3D.hh
+@@ -55,7 +55,7 @@ BlockLattice3D<T,Descriptor>::BlockLattice3D (
+         plint nx_, plint ny_, plint nz_,
+         Dynamics<T,Descriptor>* backgroundDynamics_ )
+    :  AtomicBlock3D(nx_, ny_, nz_, new BlockLatticeDataTransfer3D<T,Descriptor>()),
+-      backgroundDynamics(backgroundDynamics_)
++      backgroundDynamics(backgroundDynamics_), grid(*this)
+ {
+     plint nx = this->getNx();
+     plint ny = this->getNy();
+@@ -65,7 +65,7 @@ BlockLattice3D<T,Descriptor>::BlockLattice3D (
+     for (plint iX=0; iX<nx; ++iX) {
+         for (plint iY=0; iY<ny; ++iY) {
+             for (plint iZ=0; iZ<nz; ++iZ) {
+-                grid[iX][iY][iZ].attributeDynamics(backgroundDynamics);
++                grid(iX,iY,iZ).attributeDynamics(backgroundDynamics);
+             }
+         }
+     }
+@@ -104,7 +104,8 @@ template<typename T, template<typename U> class Descriptor>
+ BlockLattice3D<T,Descriptor>::BlockLattice3D(BlockLattice3D<T,Descriptor> const& rhs)
+     : BlockLatticeBase3D<T,Descriptor>(rhs),
+       AtomicBlock3D(rhs),
+-      backgroundDynamics(rhs.backgroundDynamics->clone())
++      backgroundDynamics(rhs.backgroundDynamics->clone()),
++      grid(*this)
+ {
+     plint nx = this->getNx();
+     plint ny = this->getNy();
+@@ -113,9 +114,9 @@ BlockLattice3D<T,Descriptor>::BlockLattice3D(BlockLattice3D<T,Descriptor> const&
+     for (plint iX=0; iX<nx; ++iX) {
+         for (plint iY=0; iY<ny; ++iY) {
+             for (plint iZ=0; iZ<nz; ++iZ) {
+-                Cell<T,Descriptor>& cell = grid[iX][iY][iZ];
++                Cell<T,Descriptor>& cell = grid(iX,iY,iZ);
+                 // Assign cell from rhs
+-                cell = rhs.grid[iX][iY][iZ];
++                cell = rhs.grid(iX,iY,iZ);
+                 // Get an independent clone of the dynamics,
+                 //   or assign backgroundDynamics
+                 if (&cell.getDynamics()==rhs.backgroundDynamics) {
+@@ -167,7 +168,7 @@ void BlockLattice3D<T,Descriptor>::specifyStatisticsStatus(Box3D domain, bool st
+     for (plint iX=domain.x0; iX<=domain.x1; ++iX) {
+         for (plint iY=domain.y0; iY<=domain.y1; ++iY) {
+             for (plint iZ=domain.z0; iZ<=domain.z1; ++iZ) {
+-                grid[iX][iY][iZ].specifyStatisticsStatus(status);
++                grid(iX,iY,iZ).specifyStatisticsStatus(status);
+             }
+         }
+     }
+@@ -181,8 +182,8 @@ void BlockLattice3D<T,Descriptor>::collide(Box3D domain) {
+     for (plint iX=domain.x0; iX<=domain.x1; ++iX) {
+         for (plint iY=domain.y0; iY<=domain.y1; ++iY) {
+             for (plint iZ=domain.z0; iZ<=domain.z1; ++iZ) {
+-                grid[iX][iY][iZ].collide(this->getInternalStatistics());
+-                grid[iX][iY][iZ].revert();
++                grid(iX,iY,iZ).collide(this->getInternalStatistics());
++                grid(iX,iY,iZ).revert();
+             }
+         }
+     }
+@@ -344,13 +345,6 @@ void BlockLattice3D<T,Descriptor>::allocateAndInitialize() {
+     plint ny = this->getNy();
+     plint nz = this->getNz();
+     rawData = new Cell<T,Descriptor> [nx*ny*nz];
+-    grid    = new Cell<T,Descriptor>** [nx];
+-    for (plint iX=0; iX<nx; ++iX) {
+-        grid[iX] = new Cell<T,Descriptor>* [ny];
+-        for (plint iY=0; iY<ny; ++iY) {
+-            grid[iX][iY] = rawData + nz*(iY+ny*iX);
+-        }
+-    }
+ }
+ 
+ template<typename T, template<typename U> class Descriptor>
+@@ -361,7 +355,7 @@ void BlockLattice3D<T,Descriptor>::releaseMemory() {
+     for (plint iX=0; iX<nx; ++iX) {
+         for (plint iY=0; iY<ny; ++iY) {
+             for (plint iZ=0; iZ<nz; ++iZ) {
+-                Dynamics<T,Descriptor>* dynamics = &grid[iX][iY][iZ].getDynamics();
++                Dynamics<T,Descriptor>* dynamics = &grid(iX,iY,iZ).getDynamics();
+                 if (dynamics != backgroundDynamics) {
+                     delete dynamics;
+                 }
+@@ -370,21 +364,17 @@ void BlockLattice3D<T,Descriptor>::releaseMemory() {
+     }
+     delete backgroundDynamics;
+     delete [] rawData;
+-    for (plint iX=0; iX<nx; ++iX) {
+-        delete [] grid[iX];
+-    }
+-    delete [] grid;
+ }
+ 
+ template<typename T, template<typename U> class Descriptor>
+ void BlockLattice3D<T,Descriptor>::attributeDynamics (
+         plint iX, plint iY, plint iZ, Dynamics<T,Descriptor>* dynamics )
+ {
+-    Dynamics<T,Descriptor>* previousDynamics = &grid[iX][iY][iZ].getDynamics();
++    Dynamics<T,Descriptor>* previousDynamics = &grid(iX,iY,iZ).getDynamics();
+     if (previousDynamics != backgroundDynamics) {
+         delete previousDynamics;
+     }
+-    grid[iX][iY][iZ].attributeDynamics(dynamics);
++    grid(iX,iY,iZ).attributeDynamics(dynamics);
+ }
+ 
+ template<typename T, template<typename U> class Descriptor>
+@@ -435,8 +425,8 @@ void BlockLattice3D<T,Descriptor>::boundaryStream(Box3D bound, Box3D domain) {
+                          nextY>=bound.y0 && nextY<=bound.y1 &&
+                          nextZ>=bound.z0 && nextZ<=bound.z1 )
+                     {
+-                        std::swap(grid[iX][iY][iZ][iPop+Descriptor<T>::q/2],
+-                                  grid[nextX][nextY][nextZ][iPop]);
++                        std::swap(grid(iX,iY,iZ)[iPop+Descriptor<T>::q/2],
++                                  grid(nextX,nextY,nextZ)[iPop]);
+                     }
+                 }
+             }
+@@ -461,8 +451,8 @@ void BlockLattice3D<T,Descriptor>::bulkStream(Box3D domain) {
+                     plint nextX = iX + Descriptor<T>::c[iPop][0];
+                     plint nextY = iY + Descriptor<T>::c[iPop][1];
+                     plint nextZ = iZ + Descriptor<T>::c[iPop][2];
+-                    std::swap(grid[iX][iY][iZ][iPop+Descriptor<T>::q/2],
+-                              grid[nextX][nextY][nextZ][iPop]);
++                    std::swap(grid(iX,iY,iZ)[iPop+Descriptor<T>::q/2],
++                              grid(nextX,nextY,nextZ)[iPop]);
+                 }
+             }
+         }
+@@ -505,7 +495,7 @@ void BlockLattice3D<T,Descriptor>::linearBulkCollideAndStream(Box3D domain) {
+     for (plint iX=domain.x0; iX<=domain.x1; ++iX) {
+         for (plint iY=domain.y0; iY<=domain.y1; ++iY) {
+             for (plint iZ=domain.z0; iZ<=domain.z1; ++iZ) {
+-                grid[iX][iY][iZ].collide(this->getInternalStatistics());
++                grid(iX,iY,iZ).collide(this->getInternalStatistics());
+                 latticeTemplates<T,Descriptor>::swapAndStream3D(grid, iX, iY, iZ);
+             }
+         }
+@@ -555,7 +545,7 @@ void BlockLattice3D<T,Descriptor>::blockwiseBulkCollideAndStream(Box3D domain) {
+                              ++innerZ)
+                         {
+                             // Collide the cell.
+-                            grid[innerX][innerY][innerZ].collide (
++                            grid(innerX,innerY,innerZ).collide (
+                                     this->getInternalStatistics() );
+                             // Swap the populations on the cell, and then with post-collision
+                             //   neighboring cell, to perform the streaming step.
+@@ -638,8 +628,8 @@ void BlockLattice3D<T,Descriptor>::periodicDomain(Box3D domain) {
+                         plint nextY = (iY+ny)%ny;
+                         plint nextZ = (iZ+nz)%nz;
+                         std::swap (
+-                            grid[prevX][prevY][prevZ][indexTemplates::opposite<Descriptor<T> >(iPop)],
+-                            grid[nextX][nextY][nextZ][iPop] );
++                            grid(prevX,prevY,prevZ)[indexTemplates::opposite<Descriptor<T> >(iPop)],
++                            grid(nextX,nextY,nextZ)[iPop] );
+                     }
+                 }
+             }
+@@ -647,6 +637,19 @@ void BlockLattice3D<T,Descriptor>::periodicDomain(Box3D domain) {
+     }
+ }
+ 
++
++template<typename T, template<typename U> class Descriptor>
++ImplicitGrid3D<T,Descriptor>::ImplicitGrid3D(BlockLattice3D<T,Descriptor>& parent_) : parent(parent_) {}
++
++template<typename T, template<typename U> class Descriptor>
++const Cell<T,Descriptor> & ImplicitGrid3D<T,Descriptor>::operator () (int x,int y,int z) const {
++            return parent.rawData[z + parent.getNz()*(y+parent.getNy()*x)];
++}
++template<typename T, template<typename U> class Descriptor>
++Cell<T,Descriptor> &ImplicitGrid3D<T,Descriptor>::operator () (int x,int y,int z) {
++            return parent.rawData[z + parent.getNz()*(y+parent.getNy()*x)];
++}
++
+ ////////////////////// Class BlockLatticeDataTransfer3D /////////////////////////
+ 
+ template<typename T, template<typename U> class Descriptor>
+diff --git a/src/basicDynamics/dynamicsProcessor3D.hh b/src/basicDynamics/dynamicsProcessor3D.hh
+index 8005825..feda2f7 100644
+--- a/src/basicDynamics/dynamicsProcessor3D.hh
++++ b/src/basicDynamics/dynamicsProcessor3D.hh
+@@ -94,8 +94,8 @@ void ExternalRhoJcollideAndStream3D<T,Descriptor>::boundaryStream (
+                     if ( nextX>=bound.x0 && nextX<=bound.x1 && nextY>=bound.y0 && nextY<=bound.y1 &&
+                          nextZ>=bound.z0 && nextZ<=bound.z1 )
+                     {
+-                        std::swap(lattice.grid[iX][iY][iZ][iPop+Descriptor<T>::q/2],
+-                                  lattice.grid[nextX][nextY][nextZ][iPop]);
++                        std::swap(lattice.grid(iX,iY,iZ)[iPop+Descriptor<T>::q/2],
++                                  lattice.grid(nextX,nextY,nextZ)[iPop]);
+                     }
+                 }
+             }
+@@ -274,8 +274,8 @@ void PackedExternalRhoJcollideAndStream3D<T,Descriptor>::boundaryStream (
+                     if ( nextX>=bound.x0 && nextX<=bound.x1 && nextY>=bound.y0 && nextY<=bound.y1 &&
+                          nextZ>=bound.z0 && nextZ<=bound.z1 )
+                     {
+-                        std::swap(lattice.grid[iX][iY][iZ][iPop+Descriptor<T>::q/2],
+-                                  lattice.grid[nextX][nextY][nextZ][iPop]);
++                        std::swap(lattice.grid(iX,iY,iZ)[iPop+Descriptor<T>::q/2],
++                                  lattice.grid(nextX,nextY,nextZ)[iPop]);
+                     }
+                 }
+             }
+@@ -498,8 +498,8 @@ void WaveAbsorptionExternalRhoJcollideAndStream3D<T,Descriptor>::boundaryStream
+                     if ( nextX>=bound.x0 && nextX<=bound.x1 && nextY>=bound.y0 && nextY<=bound.y1 &&
+                          nextZ>=bound.z0 && nextZ<=bound.z1 )
+                     {
+-                        std::swap(lattice.grid[iX][iY][iZ][iPop+Descriptor<T>::q/2],
+-                                  lattice.grid[nextX][nextY][nextZ][iPop]);
++                        std::swap(lattice.grid(iX,iY,iZ)[iPop+Descriptor<T>::q/2],
++                                  lattice.grid(nextX,nextY,nextZ)[iPop]);
+                     }
+                 }
+             }
+@@ -641,7 +641,7 @@ void OnLinkExternalRhoJcollideAndStream3D<T,Descriptor>::collide (
+ }
+ 
+ template<typename T, template<typename U> class Descriptor>
+-void onLinkSwapAndStream3D( Cell<T,Descriptor> ***grid,
++void onLinkSwapAndStream3D( ImplicitGrid3D<T,Descriptor> & grid,
+                             plint iX, plint iY, plint iZ)
+ {
+     static int bbId = BounceBack<T,Descriptor>().getId();
+@@ -650,16 +650,16 @@ void onLinkSwapAndStream3D( Cell<T,Descriptor> ***grid,
+         plint nextX = iX + Descriptor<T>::c[iPop][0];
+         plint nextY = iY + Descriptor<T>::c[iPop][1];
+         plint nextZ = iZ + Descriptor<T>::c[iPop][2];
+-        if (grid[iX][iY][iZ].getDynamics().getId()==bbId ||
+-            grid[nextX][nextY][nextZ].getDynamics().getId()==bbId)
++        if (grid(iX,iY,iZ).getDynamics().getId()==bbId ||
++            grid(nextX,nextY,nextZ).getDynamics().getId()==bbId)
+         {
+-            std::swap(grid[iX][iY][iZ][iPop],grid[iX][iY][iZ][iPop+half]);
++            std::swap(grid(iX,iY,iZ)[iPop],grid(iX,iY,iZ)[iPop+half]);
+         }
+         else {
+-            T fTmp                          = grid[iX][iY][iZ][iPop];
+-            grid[iX][iY][iZ][iPop]          = grid[iX][iY][iZ][iPop+half];
+-            grid[iX][iY][iZ][iPop+half]     = grid[nextX][nextY][nextZ][iPop];
+-            grid[nextX][nextY][nextZ][iPop] = fTmp;
++            T fTmp                          = grid(iX,iY,iZ)[iPop];
++            grid(iX,iY,iZ)[iPop]          = grid(iX,iY,iZ)[iPop+half];
++            grid(iX,iY,iZ)[iPop+half]     = grid(nextX,nextY,nextZ)[iPop];
++            grid(nextX,nextY,nextZ)[iPop] = fTmp;
+         }
+      }
+ }
+@@ -702,11 +702,11 @@ void OnLinkExternalRhoJcollideAndStream3D<T,Descriptor>::boundaryStream (
+                     if ( nextX>=bound.x0 && nextX<=bound.x1 && nextY>=bound.y0 && nextY<=bound.y1 &&
+                          nextZ>=bound.z0 && nextZ<=bound.z1 )
+                     {
+-                        if (lattice.grid[iX][iY][iZ].getDynamics().getId()!=bbId &&
+-                            lattice.grid[nextX][nextY][nextZ].getDynamics().getId()!=bbId)
++                        if (lattice.grid(iX,iY,iZ).getDynamics().getId()!=bbId &&
++                            lattice.grid(nextX,nextY,nextZ).getDynamics().getId()!=bbId)
+                         {
+-                            std::swap(lattice.grid[iX][iY][iZ][iPop+Descriptor<T>::q/2],
+-                                      lattice.grid[nextX][nextY][nextZ][iPop]);
++                            std::swap(lattice.grid(iX,iY,iZ)[iPop+Descriptor<T>::q/2],
++                                      lattice.grid(nextX,nextY,nextZ)[iPop]);
+                         }
+                     }
+                 }
+diff --git a/src/core/cell.h b/src/core/cell.h
+index 8ca5cc2..484c2c8 100644
+--- a/src/core/cell.h
++++ b/src/core/cell.h
+@@ -49,7 +49,7 @@ public:
+         PLB_PRECONDITION( index < ExternalField::numScalars );
+         return data+index;
+     }
+-private:
++public:
+     T data[ExternalField::numScalars];
+ };
+ 
+@@ -371,7 +371,9 @@ private:
+     void iniExternal();
+ private:
+     Array<T,Descriptor<T>::numPop> f;         ///< distribution functions
++public:
+     External                       external;  ///< external scalars
++private:
+     bool                           takesStat; ///< is statistics taken?
+     Dynamics<T,Descriptor>*        dynamics;  ///< local LB dynamics
+ };
+diff --git a/src/core/implicitGrid3D.h b/src/core/implicitGrid3D.h
+new file mode 100644
+index 0000000..2c19702
+--- /dev/null
++++ b/src/core/implicitGrid3D.h
+@@ -0,0 +1,25 @@
++#ifndef IMPLICITGRID3D_H
++#define IMPLICITGRID3D_H
++
++namespace plb {
++  template<typename T, template<typename U> class Descriptor> struct ImplicitGrid3D;
++}
++#include "core/globalDefs.h"
++#include "atomicBlock/blockLattice3D.h"
++
++namespace plb {
++  template<typename T, template<typename U> class Descriptor>
++  struct ImplicitGrid3D {
++          BlockLattice3D<T,Descriptor>& parent;
++          const int nX,nY,nZ;
++          ImplicitGrid3D(BlockLattice3D<T,Descriptor>& parent_) 
++         : parent(parent_), nX(parent.getNx()), nY(parent.getNy()), nZ(parent.getNz()) {}
++          const Cell<T,Descriptor> & operator () (int x,int y,int z) const {
++            return parent.rawData[z + nZ*(y+nY*x)];
++          };
++          Cell<T,Descriptor> & operator () (int x,int y,int z) {
++            return parent.rawData[z + nZ*(y+nY*x)];
++          };
++  };
++}
++#endif
+\ No newline at end of file
+diff --git a/src/gridRefinement/couplingInterfaceGenerator3D.h b/src/gridRefinement/couplingInterfaceGenerator3D.h
+index af5a9c5..790aa71 100644
+--- a/src/gridRefinement/couplingInterfaceGenerator3D.h
++++ b/src/gridRefinement/couplingInterfaceGenerator3D.h
+@@ -142,7 +142,7 @@ public:
+     ~GridLevelContainer3D();
+     
+     MultiContainerBlock3D& getDataProcessors() {
+-        return dataProcessors;
++        return *dataProcessors;
+     }
+     MultiBlockLattice3D<T,Descriptor> &getLattice() const {
+         return *lattice;
+diff --git a/src/latticeBoltzmann/latticeTemplates.h b/src/latticeBoltzmann/latticeTemplates.h
+index 2ab085b..83d726c 100644
+--- a/src/latticeBoltzmann/latticeTemplates.h
++++ b/src/latticeBoltzmann/latticeTemplates.h
+@@ -56,7 +56,7 @@ static void swapAndStream2D(Cell<T,Descriptor> **grid, plint iX, plint iY)
+ }
+ 
+ /// Swap ("bounce-back") values of a cell (3D), and apply streaming step
+-static void swapAndStream3D(Cell<T,Descriptor> ***grid,
++static void swapAndStream3D(ImplicitGrid3D<T, Descriptor> & grid,
+                             plint iX, plint iY, plint iZ)
+ {
+     const plint half = Descriptor<T>::q/2;
+@@ -64,10 +64,10 @@ static void swapAndStream3D(Cell<T,Descriptor> ***grid,
+         plint nextX = iX + Descriptor<T>::c[iPop][0];
+         plint nextY = iY + Descriptor<T>::c[iPop][1];
+         plint nextZ = iZ + Descriptor<T>::c[iPop][2];
+-        T fTmp                          = grid[iX][iY][iZ][iPop];
+-        grid[iX][iY][iZ][iPop]          = grid[iX][iY][iZ][iPop+half];
+-        grid[iX][iY][iZ][iPop+half]     = grid[nextX][nextY][nextZ][iPop];
+-        grid[nextX][nextY][nextZ][iPop] = fTmp;
++        T fTmp                          = grid(iX,iY,iZ)[iPop];
++        grid(iX,iY,iZ)[iPop]          = grid(iX,iY,iZ)[iPop+half];
++        grid(iX,iY,iZ)[iPop+half]     = grid(nextX,nextY,nextZ)[iPop];
++        grid(nextX,nextY,nextZ)[iPop] = fTmp;
+      }
+ }
+ 
+diff --git a/src/latticeBoltzmann/latticeTemplates3D.h b/src/latticeBoltzmann/latticeTemplates3D.h
+index 0e5feb5..dc8c17e 100644
+--- a/src/latticeBoltzmann/latticeTemplates3D.h
++++ b/src/latticeBoltzmann/latticeTemplates3D.h
+@@ -31,6 +31,8 @@
+ 
+ #include "core/globalDefs.h"
+ #include "latticeBoltzmann/nearestNeighborLattices3D.h"
++#include "nearestNeighborLattices3D.h"
++#include "atomicBlock/blockLattice3D.h"
+ 
+ namespace plb {
+ 
+@@ -38,16 +40,16 @@ template<typename T>
+ struct latticeTemplates<T, descriptors::D3Q19Descriptor> {
+ 
+ static void swapAndStreamCell (
+-      Cell<T,descriptors::D3Q19Descriptor> ***grid,
++      ImplicitGrid3D<T, descriptors::D3Q19Descriptor> & grid,
+       plint iX, plint iY, plint iZ, plint nX, plint nY, plint nZ, plint iPop, T& fTmp )
+ {
+-    fTmp                     = grid[iX][iY][iZ][iPop];
+-    grid[iX][iY][iZ][iPop]   = grid[iX][iY][iZ][iPop+9];
+-    grid[iX][iY][iZ][iPop+9] = grid[nX][nY][nZ][iPop];
+-    grid[nX][nY][nZ][iPop]   = fTmp;
++    fTmp                     = grid(iX,iY,iZ)[iPop];
++    grid(iX,iY,iZ)[iPop]   = grid(iX,iY,iZ)[iPop+9];
++    grid(iX,iY,iZ)[iPop+9] = grid(nX,nY,nZ)[iPop];
++    grid(nX,nY,nZ)[iPop]   = fTmp;
+ }
+ 
+-static void swapAndStream3D(Cell<T,descriptors::D3Q19Descriptor> ***grid,
++static void swapAndStream3D(ImplicitGrid3D<T, descriptors::D3Q19Descriptor> & grid,
+                             plint iX, plint iY, plint iZ)
+ {
+     T fTmp;
+@@ -68,16 +70,16 @@ template<typename T>
+ struct latticeTemplates<T, descriptors::ForcedD3Q19Descriptor> {
+ 
+ static void swapAndStreamCell (
+-      Cell<T,descriptors::ForcedD3Q19Descriptor> ***grid,
++      ImplicitGrid3D<T, descriptors::ForcedD3Q19Descriptor> & grid,
+       plint iX, plint iY, plint iZ, plint nX, plint nY, plint nZ, plint iPop, T& fTmp )
+ {
+-    fTmp                     = grid[iX][iY][iZ][iPop];
+-    grid[iX][iY][iZ][iPop]   = grid[iX][iY][iZ][iPop+9];
+-    grid[iX][iY][iZ][iPop+9] = grid[nX][nY][nZ][iPop];
+-    grid[nX][nY][nZ][iPop]   = fTmp;
++    fTmp                     = grid(iX,iY,iZ)[iPop];
++    grid(iX,iY,iZ)[iPop]   = grid(iX,iY,iZ)[iPop+9];
++    grid(iX,iY,iZ)[iPop+9] = grid(nX,nY,nZ)[iPop];
++    grid(nX,nY,nZ)[iPop]   = fTmp;
+ }
+ 
+-static void swapAndStream3D(Cell<T,descriptors::ForcedD3Q19Descriptor> ***grid,
++static void swapAndStream3D(ImplicitGrid3D<T, descriptors::ForcedD3Q19Descriptor> & grid,
+                             plint iX, plint iY, plint iZ)
+ {
+     T fTmp;
+@@ -98,16 +100,16 @@ template<typename T>
+ struct latticeTemplates<T, descriptors::D3Q15Descriptor> {
+ 
+ static void swapAndStreamCell (
+-      Cell<T,descriptors::D3Q15Descriptor> ***grid,
++      ImplicitGrid3D<T, descriptors::D3Q15Descriptor> & grid,
+       plint iX, plint iY, plint iZ, plint nX, plint nY, plint nZ, plint iPop, T& fTmp )
+ {
+-    fTmp                     = grid[iX][iY][iZ][iPop];
+-    grid[iX][iY][iZ][iPop]   = grid[iX][iY][iZ][iPop+7];
+-    grid[iX][iY][iZ][iPop+7] = grid[nX][nY][nZ][iPop];
+-    grid[nX][nY][nZ][iPop]   = fTmp;
++    fTmp                     = grid(iX,iY,iZ)[iPop];
++    grid(iX,iY,iZ)[iPop]   = grid(iX,iY,iZ)[iPop+7];
++    grid(iX,iY,iZ)[iPop+7] = grid(nX,nY,nZ)[iPop];
++    grid(nX,nY,nZ)[iPop]   = fTmp;
+ }
+ 
+-static void swapAndStream3D(Cell<T,descriptors::D3Q15Descriptor> ***grid,
++static void swapAndStream3D(ImplicitGrid3D<T, descriptors::D3Q15Descriptor> & grid,
+                             plint iX, plint iY, plint iZ)
+ {
+     T fTmp;
+@@ -127,16 +129,16 @@ template<typename T>
+ struct latticeTemplates<T, descriptors::ForcedD3Q15Descriptor> {
+ 
+ static void swapAndStreamCell (
+-      Cell<T,descriptors::ForcedD3Q15Descriptor> ***grid,
++      ImplicitGrid3D<T, descriptors::ForcedD3Q15Descriptor> & grid,
+       plint iX, plint iY, plint iZ, plint nX, plint nY, plint nZ, plint iPop, T& fTmp )
+ {
+-    fTmp                     = grid[iX][iY][iZ][iPop];
+-    grid[iX][iY][iZ][iPop]   = grid[iX][iY][iZ][iPop+7];
+-    grid[iX][iY][iZ][iPop+7] = grid[nX][nY][nZ][iPop];
+-    grid[nX][nY][nZ][iPop]   = fTmp;
++    fTmp                     = grid(iX,iY,iZ)[iPop];
++    grid(iX,iY,iZ)[iPop]   = grid(iX,iY,iZ)[iPop+7];
++    grid(iX,iY,iZ)[iPop+7] = grid(nX,nY,nZ)[iPop];
++    grid(nX,nY,nZ)[iPop]   = fTmp;
+ }
+ 
+-static void swapAndStream3D(Cell<T,descriptors::ForcedD3Q15Descriptor> ***grid,
++static void swapAndStream3D(ImplicitGrid3D<T, descriptors::ForcedD3Q15Descriptor> & grid,
+                             plint iX, plint iY, plint iZ)
+ {
+     T fTmp;
+diff --git a/src/libraryInterfaces/TINYXML_xmlIO.cpp b/src/libraryInterfaces/TINYXML_xmlIO.cpp
+index 6149f51..1ae2108 100644
+--- a/src/libraryInterfaces/TINYXML_xmlIO.cpp
++++ b/src/libraryInterfaces/TINYXML_xmlIO.cpp
+@@ -167,13 +167,13 @@ XMLreader::XMLreader() {
+ }
+ 
+ XMLreader::~XMLreader() {
+-    std::map<plint,Data>::iterator it = data_map.begin();
+-    for (; it != data_map.end(); ++it) {
+-        std::vector<XMLreader*>& children = it->second.children;
+-        for (pluint iNode=0; iNode<children.size(); ++iNode) {
+-            delete children[iNode];
+-        }
+-    }
++    //std::map<plint,Data>::iterator it = data_map.begin();
++    //for (; it != data_map.end(); ++it) {
++    //    std::vector<XMLreader*>& children = it->second.children;
++    //    for (pluint iNode=0; iNode<children.size(); ++iNode) {
++    //        delete children[iNode];
++    //    }
++    //}
+ }
+ 
+ void XMLreader::print(int indent) const {
+diff --git a/src/libraryInterfaces/TINYXML_xmlIO.h b/src/libraryInterfaces/TINYXML_xmlIO.h
+index ec64f81..2333dff 100644
+--- a/src/libraryInterfaces/TINYXML_xmlIO.h
++++ b/src/libraryInterfaces/TINYXML_xmlIO.h
+@@ -76,6 +76,7 @@ public:
+     XMLreaderProxy(XMLreader const* reader_);
+     XMLreaderProxy(XMLreader const* reader_, plint id_);
+     template <typename T> void read(T& values) const;
++    template <typename T> T read() const;
+     template <typename T> bool readNoThrow(T& values) const;
+     template <typename T> void read(std::vector<T>& values) const;
+     template <typename T> bool readNoThrow(std::vector<T>& values) const;
+diff --git a/src/libraryInterfaces/TINYXML_xmlIO.hh b/src/libraryInterfaces/TINYXML_xmlIO.hh
+index 8ed6c59..e4b5c06 100644
+--- a/src/libraryInterfaces/TINYXML_xmlIO.hh
++++ b/src/libraryInterfaces/TINYXML_xmlIO.hh
+@@ -52,6 +52,19 @@ void XMLreaderProxy::read(T& value) const {
+     value = tmp;
+ }
+ 
++template <typename T>
++T XMLreaderProxy::read() const {
++    if (!reader) {
++        plbIOError(std::string("XMLreaderProxy has no reader"));
++    }
++    std::stringstream valueStr(reader->getText(id));
++    T tmp = T();
++    if (!(valueStr>>tmp)) {
++        plbIOError(std::string("Cannot read value from XML element ") + reader->getName());
++    }
++    return tmp;
++}
++
+ template <>
+ inline void XMLreaderProxy::read<bool>(bool& value) const {
+     if (!reader) return;
+diff --git a/src/multiBlock/localMultiBlockInfo3D.cpp b/src/multiBlock/localMultiBlockInfo3D.cpp
+index 8cdd896..6116a8c 100644
+--- a/src/multiBlock/localMultiBlockInfo3D.cpp
++++ b/src/multiBlock/localMultiBlockInfo3D.cpp
+@@ -140,8 +140,9 @@ void LocalMultiBlockInfo3D::computeAllPeriodicOverlaps (
+         sparseBlock.getBulk(blockId, bulk);
+         // Speed optimization: execute the test for periodicity
+         //   only for bulk-domains which touch the bounding box.
++        //BUGFIXED to envelopewidth by HEMOCELL TEAM (victor)
+         if (!contained (
+-                    bulk.enlarge(1), sparseBlock.getBoundingBox() ) )
++                    bulk.enlarge(envelopeWidth), sparseBlock.getBoundingBox() ) )
+         {
+             computePeriodicOverlaps(sparseBlock, blockId);
+         }
+diff --git a/src/multiBlock/sparseBlockStructure3D.cpp b/src/multiBlock/sparseBlockStructure3D.cpp
+index a8ae15e..fe3e896 100644
+--- a/src/multiBlock/sparseBlockStructure3D.cpp
++++ b/src/multiBlock/sparseBlockStructure3D.cpp
+@@ -78,6 +78,20 @@ SparseBlockStructure3D::SparseBlockStructure3D (
+                                                / (double)rhs.boundingBox.getNz() );
+     if (gridNz < 1) gridNz = 1;
+ }
++SparseBlockStructure3D * SparseBlockStructure3D::clone() const{
++  SparseBlockStructure3D * newBlock = new SparseBlockStructure3D(1,1,1);
++  newBlock->boundingBox = boundingBox;
++  newBlock->bulks = bulks;
++  newBlock->uniqueBulks = uniqueBulks;
++  newBlock->grid = grid;
++  newBlock->gridLx = gridLx;
++  newBlock->gridLy = gridLy;
++  newBlock->gridLz = gridLz;
++  newBlock->gridNx = gridNx;
++  newBlock->gridNy = gridNy;
++  newBlock->gridNz = gridNz;
++  return newBlock;
++}
+ 
+ void SparseBlockStructure3D::addBlock(Box3D const& bulk, plint blockId) 
+ {
+@@ -109,7 +123,7 @@ void SparseBlockStructure3D::removeBlock(plint blockId) {
+     }
+ }
+ 
+-bool SparseBlockStructure3D::exists(plint blockId) {
++bool SparseBlockStructure3D::exists(plint blockId) const {
+     return bulks.find(blockId) != bulks.end();
+ }
+ 
+@@ -788,7 +802,6 @@ SparseBlockStructure3D alignDistribution3D (
+     return newSparseBlock;
+ }
+ 
+-
+ EuclideanIterator3D::EuclideanIterator3D(SparseBlockStructure3D const& sparseBlock_)
+     : sparseBlock(sparseBlock_)
+ { }
+diff --git a/src/multiBlock/sparseBlockStructure3D.h b/src/multiBlock/sparseBlockStructure3D.h
+index b8d48a7..1fe555a 100644
+--- a/src/multiBlock/sparseBlockStructure3D.h
++++ b/src/multiBlock/sparseBlockStructure3D.h
+@@ -51,6 +51,8 @@ public:
+                            plint gridNx_, plint gridNy_, plint gridNz_);
+     /// Restrict an existing SparseBlockStructure3D to a sub-domain.
+     SparseBlockStructure3D(SparseBlockStructure3D const& rhs, Box3D boundingBox_);
++    ///Clone the goddamned thing
++    SparseBlockStructure3D * clone() const;
+     /// Add a new block to the sparse block-structure.
+     void addBlock(Box3D const& bulk, Box3D const& uniqueBulk, plint blockId);
+     /// Add a new block to the sparse block-structure; uniqueBulk = bulk.
+@@ -58,7 +60,7 @@ public:
+     /// Remove an existing block from the sparse block-structure.
+     void removeBlock(plint blockId);
+     /// Check if a block with the given ID already exists in the block-structure.
+-    bool exists(plint blockId);
++    bool exists(plint blockId) const;
+     /// Return 1 + the maximum block ID currently found in the structure.
+     plint nextIncrementalId() const;
+     /// Return outer bounding box.
+diff --git a/src/offLattice/triangularSurfaceMesh.h b/src/offLattice/triangularSurfaceMesh.h
+index 1455aa9..303d559 100644
+--- a/src/offLattice/triangularSurfaceMesh.h
++++ b/src/offLattice/triangularSurfaceMesh.h
+@@ -146,6 +146,12 @@ public:
+     ///   3.] The third rotation is by an angle psi about the new z-axis.
+     void rotate(T phi, T theta, T psi);
+ 
++    /// Rotate the surface mesh.
++    ///   Alternative method using axial rotations. 
++    ///   The subsequent rotations happen in the following order: around x, around y, around z.
++    ///   Angles are in radians.
++    void rotateXYZ(T alpha, T beta, T gamma);
++
+     /// Smooth the surface mesh.
+     ///   The triangular surface mesh is smoothed by using a spatial
+     ///   averaging algorithm. Interior vertices are treated differently
+diff --git a/src/offLattice/triangularSurfaceMesh.hh b/src/offLattice/triangularSurfaceMesh.hh
+index 622aa7d..624e388 100644
+--- a/src/offLattice/triangularSurfaceMesh.hh
++++ b/src/offLattice/triangularSurfaceMesh.hh
+@@ -290,6 +290,82 @@ void TriangularSurfaceMesh<T>::rotate(T phi, T theta, T psi)
+     }
+ }
+ 
++template<typename T>
++void TriangularSurfaceMesh<T>::rotateXYZ(T alpha, T beta, T gamma)
++{
++    static const T pi = std::acos((T) -1.0);
++
++    PLB_ASSERT((theta > T() || util::fpequal(theta, T(), eps0)) &&
++               (theta < pi  || util::fpequal(theta, pi, eps0)));
++
++    // Rotation matrix around x axis (column-first)
++    T a[3][3];
++    a[0][0] =  (T) 1.0;
++    a[0][1] =  (T) 0.0;
++    a[0][2] =  (T) 0.0;
++    a[1][0] =  (T) 0.0;
++    a[1][1] =  std::cos(alpha);
++    a[1][2] =  std::sin(alpha);
++    a[2][0] =  (T) 0.0;
++    a[2][1] = -std::sin(alpha);
++    a[2][2] =  std::cos(alpha);
++
++    // Rotation matrix around y axis (column-first)
++    T b[3][3];
++    b[0][0] =  std::cos(beta);
++    b[0][1] =  (T) 0.0;
++    b[0][2] =  -std::sin(beta);
++    b[1][0] =  (T) 0.0;
++    b[1][1] =  (T) 1.0;
++    b[1][2] =  (T) 0.0;
++    b[2][0] =  std::sin(beta);
++    b[2][1] =  (T) 0.0;
++    b[2][2] =  std::cos(beta);
++
++    // Ry * Rx
++    T c[3][3];
++    for (int i = 0; i < 3; i++) {
++        for (int j = 0; j < 3; j++) {
++            c[i][j] = (T) 0.0;
++            for (int k = 0; k < 3; k++) {
++                c[i][j] += a[k][j]*b[i][k];
++            }
++        }
++    }
++
++    // Rotation matrix around z axis (column-first)
++    b[0][0] =  std::cos(gamma);
++    b[0][1] =  std::sin(gamma);
++    b[0][2] =  (T) 0.0;
++    b[1][0] = -std::sin(gamma);
++    b[1][1] =  std::cos(gamma);
++    b[1][2] =  (T) 0.0;
++    b[2][0] =  (T) 0.0;
++    b[2][1] =  (T) 0.0;
++    b[2][2] =  (T) 1.0;
++
++
++    // Rz * [Ry*Rx]
++    for (int i = 0; i < 3; i++) {
++        for (int j = 0; j < 3; j++) {
++            a[i][j] = (T) 0.0;
++            for (int k = 0; k < 3; k++) {
++                a[i][j] += c[k][j]*b[i][k];
++            }
++        }
++    }
++
++    for (plint iVertex = 0; iVertex < numVertices; iVertex++) {
++        Array<T,3> x = getVertex(iVertex);
++        for (int i = 0; i < 3; i++) {
++            getVertex(iVertex)[i] = (T) 0.0;
++            for (int j = 0; j < 3; j++) {
++                getVertex(iVertex)[i] += a[i][j]*x[j];
++            }
++        }
++    }
++}
++
+ template<typename T>
+ void TriangularSurfaceMesh<T>::smooth(plint maxiter, T relax, bool isMeasureWeighted)
+ {
+diff --git a/src/particles/particleField3D.h b/src/particles/particleField3D.h
+index 373596f..0709fa9 100644
+--- a/src/particles/particleField3D.h
++++ b/src/particles/particleField3D.h
+@@ -70,6 +70,7 @@ public:
+ public:
+     /// Helper function: returns if a given particle is situated in the indicated (local) domain.
+     bool isContained(Array<T,3> const& particlePos, Box3D box) const;
++    bool isContained(T iX, T iY, T iZ, Box3D box) const;
+     void computeGridPosition (
+             Array<T,3> const& position,
+             plint& iX, plint& iY, plint& iZ ) const;
+diff --git a/src/particles/particleField3D.hh b/src/particles/particleField3D.hh
+index ed03698..2c723bd 100644
+--- a/src/particles/particleField3D.hh
++++ b/src/particles/particleField3D.hh
+@@ -38,6 +38,20 @@ ParticleField3D<T,Descriptor>::ParticleField3D(plint nx, plint ny, plint nz, Blo
+     : AtomicBlock3D(nx,ny,nz, dataTransfer)
+ { }
+ 
++template<typename T, template<typename U> class Descriptor>
++bool ParticleField3D<T,Descriptor>::isContained (
++        T iX, T iY, T iZ, Box3D box ) const
++{
++    Dot3D const& location = this->getLocation();
++    T x = iX-location.x;
++    T y = iY-location.y;
++    T z = iZ-location.z;
++
++    return (x > (T)box.x0-(T)0.5) && (x <= (T)box.x1+(T)0.5) &&
++           (y > (T)box.y0-(T)0.5) && (y <= (T)box.y1+(T)0.5) &&
++           (z > (T)box.z0-(T)0.5) && (z <= (T)box.z1+(T)0.5);
++}
++
+ template<typename T, template<typename U> class Descriptor>
+ bool ParticleField3D<T,Descriptor>::isContained (
+         Array<T,3> const& particlePos, Box3D box ) const
+@@ -711,8 +725,10 @@ void LightParticleField3D<T,Descriptor>::swap(LightParticleField3D<T,Descriptor>
+ template<typename T, template<typename U> class Descriptor>
+ void LightParticleField3D<T,Descriptor>::addParticle(Box3D domain, Particle3D<T,Descriptor>* particle) {
+     Box3D finalDomain;
++    Array<T,3> pos; 
++    pos = particle->getPosition();
+     if( intersect(domain, this->getBoundingBox(), finalDomain) &&
+-        this->isContained(particle->getPosition(), finalDomain) )
++        this->isContained(pos[0],pos[1],pos[2], finalDomain) )
+     {
+         particles.push_back(particle);
+     }
+@@ -725,10 +741,12 @@ template<typename T, template<typename U> class Descriptor>
+ void LightParticleField3D<T,Descriptor>::removeParticles(Box3D domain) {
+     std::vector<Particle3D<T,Descriptor>*> remainingParticles;
+     Box3D finalDomain;
++    Array<T,3> pos; 
+     if( intersect(domain, this->getBoundingBox(), finalDomain) )
+     {
+         for (pluint i=0; i<particles.size(); ++i) {
+-            if (this->isContained(particles[i]->getPosition(),finalDomain)) {
++            pos = particles[i]->getPosition();
++            if (this->isContained(pos[0],pos[1],pos[2],finalDomain)) {
+                 delete particles[i];
+             }
+             else {
+@@ -745,8 +763,10 @@ void LightParticleField3D<T,Descriptor>::removeParticles(Box3D domain, plint tag
+     Box3D finalDomain;
+     if( intersect(domain, this->getBoundingBox(), finalDomain) )
+     {
++        Array<T,3> pos; 
+         for (pluint i=0; i<particles.size(); ++i) {
+-            if (this->isContained(particles[i]->getPosition(),finalDomain) &&
++            pos = particles[i]->getPosition();
++            if (this->isContained(pos[0],pos[1],pos[2],finalDomain) &&
+                 particles[i]->getTag() == tag )
+             {
+                 delete particles[i];
+@@ -765,8 +785,10 @@ void LightParticleField3D<T,Descriptor>::findParticles (
+ {
+     found.clear();
+     PLB_ASSERT( contained(domain, this->getBoundingBox()) );
++    Array<T,3> pos; 
+     for (pluint i=0; i<particles.size(); ++i) {
+-        if (this->isContained(particles[i]->getPosition(),domain)) {
++        pos = particles[i]->getPosition();
++        if (this->isContained(pos[0],pos[1],pos[2],domain)) {
+             found.push_back(particles[i]);
+         }
+     }
+@@ -778,8 +800,11 @@ void LightParticleField3D<T,Descriptor>::findParticles (
+ {
+     found.clear();
+     PLB_ASSERT( contained(domain, this->getBoundingBox()) );
++    Array<T,3> pos; 
++        
+     for (pluint i=0; i<particles.size(); ++i) {
+-        if (this->isContained(particles[i]->getPosition(),domain)) {
++        pos = particles[i]->getPosition();
++        if (this->isContained(pos[0],pos[1],pos[2],domain)) {
+             found.push_back(particles[i]);
+         }
+     }
+@@ -792,8 +817,10 @@ void LightParticleField3D<T,Descriptor>::velocityToParticleCoupling (
+     Box3D finalDomain;
+     if( intersect(domain, this->getBoundingBox(), finalDomain) )
+     {
++      Array<T,3> pos;
+         for (pluint i=0; i<particles.size(); ++i) {
+-            if (this->isContained(particles[i]->getPosition(),finalDomain)) {
++	  pos = particles[i]->getPosition();
++	  if (this->isContained(pos[0],pos[1],pos[2],finalDomain)) {
+                 particles[i]->velocityToParticle(velocityField, scaling);
+             }
+         }
+@@ -822,8 +849,10 @@ void LightParticleField3D<T,Descriptor>::rhoBarJtoParticleCoupling (
+     Box3D finalDomain;
+     if( intersect(domain, this->getBoundingBox(), finalDomain) )
+     {
++      Array<T,3> pos;
+         for (pluint i=0; i<particles.size(); ++i) {
+-            if (this->isContained(particles[i]->getPosition(),finalDomain)) {
++	  pos = particles[i]->getPosition();
++	  if (this->isContained(pos[0],pos[1],pos[2],finalDomain)) {
+                 particles[i]->rhoBarJtoParticle(rhoBarJfield, velIsJ, scaling);
+             }
+         }
+@@ -837,8 +866,10 @@ void LightParticleField3D<T,Descriptor>::fluidToParticleCoupling (
+     Box3D finalDomain;
+     if( intersect(domain, this->getBoundingBox(), finalDomain) )
+     {
++        Array<T,3> pos;
+         for (pluint i=0; i<particles.size(); ++i) {
+-            if (this->isContained(particles[i]->getPosition(),finalDomain)) {
++            pos = particles[i]->getPosition();
++            if (this->isContained(pos[0],pos[1],pos[2],finalDomain)) {
+                 particles[i]->fluidToParticle(lattice, scaling);
+             }
+         }
+@@ -851,13 +882,16 @@ void LightParticleField3D<T,Descriptor>::advanceParticles(Box3D domain, T cutOff
+     Box3D finalDomain;
+     if( intersect(domain, this->getBoundingBox(), finalDomain) )
+     {
++        Array<T,3> pos; 
+         for (pluint i=0; i<particles.size(); ++i) {
+             Particle3D<T,Descriptor>* particle = particles[i];
+-            if (this->isContained(particle->getPosition(),finalDomain)) {
++            pos = particle->getPosition();
++            if (this->isContained(pos[0],pos[1],pos[2],finalDomain)) {
+                 Array<T,3> oldPos( particle->getPosition() );
+                 particle->advance();
++                pos = particle->getPosition();
+                 if ( (cutOffValue>=T() && normSqr(oldPos-particle->getPosition())<cutOffValue) ||
+-                     (!this->isContained(particle->getPosition(),this->getBoundingBox()))  )
++                     (!this->isContained(pos[0],pos[1],pos[2],this->getBoundingBox()))  )
+                 {
+                     delete particle;
+                 }
