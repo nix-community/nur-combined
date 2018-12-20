@@ -4,6 +4,9 @@ rec {
   modules = import ./modules;
   overlays = import ./overlays;
 
+  # FIXME: Doesn't really work on NixOS because it want's to write in /etc
+  pppconfig = pkgs.callPackage ./pkgs/pppconfig.nix {};
+
   prosody-filer = pkgs.callPackage ./pkgs/prosody-filer {};
 
   python3Packages = pkgs.recurseIntoAttrs (
@@ -37,7 +40,6 @@ rec {
   timg = pkgs.callPackage ./pkgs/timg.nix {};
 
   tiv = pkgs.callPackage ./pkgs/tiv.nix {};
-
 
   u-root = pkgs.callPackage ./pkgs/u-root {};
 
