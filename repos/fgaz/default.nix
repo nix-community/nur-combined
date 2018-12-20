@@ -41,6 +41,7 @@ rec {
   endgame-singularity = pkgs.callPackage ./pkgs/endgame-singularity { };
   openhexagon = pkgs.callPackage ./pkgs/openhexagon { };
   powermanga = pkgs.libsForQt5.callPackage ./pkgs/powermanga { };
+  enter-the-gungeon-gog = pkgs.callPackage (import ./pkgs/enter-the-gungeon-gog { stdenv = pkgs.stdenv; make-gog-package = lib.make-gog-package; }) { };
 
   ### TOOLS
   dvd-vr = pkgs.callPackage ./pkgs/dvd-vr { };
