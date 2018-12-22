@@ -13,18 +13,22 @@ rec {
   modules = {
     hydra = import ./modules/hydra.nix;
     sieve-dsl = import ./modules/sieve-dsl.nix;
+    glowing-bear = import ./modules/glowing-bear.nix;
   };
 
   ### OVERLAYS
   overlays = {
-    sudo    = import ./pkgs/sudo/overlay.nix;
+    sudo = import ./pkgs/sudo/overlay.nix;
     termite = import ./pkgs/termite/overlay.nix;
-    hydra   = import ./pkgs/hydra/overlay.nix;
-    php     = import ./pkgs/php/overlay.nix;
+    hydra = import ./pkgs/hydra/overlay.nix;
+    php = import ./pkgs/php/overlay.nix;
+    glowing-bear = import ./pkgs/glowing-bear/overlay.nix;
   };
 
   ### PACKAGES
   gianas-return = callPackage' ./pkgs/gianas-return { };
+
+  glowing-bear = callPackage' ./pkgs/glowing-bear { };
 
   ### LIBRARY
   mkTexDerivation = callPackage' ./lib/tex/make-tex-env.nix { };

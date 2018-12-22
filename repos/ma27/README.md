@@ -81,6 +81,9 @@ are always welcome.
 * `gianas-return` (`pkgs.nur.repos.ma27.gianas-return`): Giana’s Return aims to be a worthy
   UNOFFICIAL sequel of 'The Great Giana Sisters'.
 
+* `glowing-bear` (`pkgs.nur.repos.ma27.glowing-bear`): A [weechat](https://weechat.org/) frontend,
+  patched to get rid of Cloudflare dependencies.
+
 ## Overlays
 
 There are several overlays available that can be imported with an expression like this:
@@ -234,6 +237,25 @@ ssh-keygen
 
 In order to clone a `git` repository, the previously generated pubkey for Hydra
 needs to be uploaded to the given `git` upstream server.
+
+## Glowing-bear
+
+This module is fairly trivial as it simply creates an `nginx` instance and serves
+the `glowing-bear` derivation with all of its built dependencies.
+
+It can be activated like this:
+
+```
+{
+  ma27.glowing-bear = {
+    enable = true;
+    nginx.vhost = "messenger.example.com";
+  };
+}
+```
+
+Please keep in mind that `SSL` support is enabled by default and you need a signed
+cert for WeeChat to use TLS for the relay protocol.
 
 ## Library
 
