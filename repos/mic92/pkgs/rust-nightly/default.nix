@@ -3,7 +3,7 @@
 let
   # Note: the version MUST be one version prior to the version we're
   # building
-  version = "2018-12-21";
+  version = "2018-12-20";
 
   # fetch hashes by running `print-hashes.sh nightly 2018-09-05`
   hashes = {
