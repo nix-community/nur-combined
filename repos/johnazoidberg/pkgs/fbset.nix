@@ -21,4 +21,12 @@ stdenv.mkDerivation rec {
     mkdir -p $out/man
     mkdir -p $out/sbin
   '';
+
+  meta = with stdenv.lib; {
+    description = "Show and modify frame buffer device settings";
+    license = licenses.gpl2;
+    homepage = http://users.telenet.be/geertu/Linux/fbdev/;
+    maintainers = with maintainers; [ johnazoidberg ];
+    platforms = platforms.linux;
+  };
 }

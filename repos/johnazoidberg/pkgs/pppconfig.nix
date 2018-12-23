@@ -10,6 +10,8 @@ stdenv.mkDerivation rec {
   };
 
   buildPhase = "true";
+
+  buildInputs = [ ppp dialog perl ];
   
   installPhase = ''
     install -D -m755 pppconfig $out/bin/pppconfig
@@ -21,7 +23,9 @@ stdenv.mkDerivation rec {
     install -Dm644 COPYING $out/share/licenses/pppconfig/COPYING.txt 
   '';
 
-  buildInputs = [ ppp dialog perl ];
+  patchPhase = ''
+    substituteInPlace "pppconfig" --replace "$etc = \"/etc\";" "$etc = \"/home/zoid/etc\"";
+  '';
 
   meta = with stdenv.lib; {
     description = "Configure pppd to connect to the Internet";

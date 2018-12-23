@@ -4,6 +4,13 @@ rec {
   modules = import ./modules;
   overlays = import ./overlays;
 
+  caas = pkgs.callPackages ./pkgs/caas.nix {
+    jre = pkgs.jdk11;
+    maven = pkgs.maven.overrideAttrs (old: {
+      jdk = pkgs.jdk11;
+    });
+  };
+
   # FIXME: Doesn't really work on NixOS because it want's to write in /etc
   pppconfig = pkgs.callPackage ./pkgs/pppconfig.nix {};
 

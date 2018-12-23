@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, imagemagick }:
 stdenv.mkDerivation rec {
   name = "tiv-${version}";
-  version = "03-08-2018";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "stefanhaustein";
     repo = "TerminalImageViewer";
 
-    rev = "643b56aee1c3836715f6ab2931fa10972d41bfcc";
-    sha256 = "13phcsc8kajpgrh6ibrhwh8w9m69l9cz5yzsbakgkp5vn7w2j4f2";
+    rev = "v${version}";
+    sha256 = "18jwx8r2pn4ihfa46llik3ma1482dhr5lpg37j615qmcarxpvq8j";
   };
 
   sourceRoot = "source/src/main/cpp";

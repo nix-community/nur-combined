@@ -21,7 +21,7 @@ python27Packages.buildPythonApplication {
   meta = with stdenv.lib; {
     description = "UEFI Driver Wizard for EDK2";
     license = licenses.bsd2;
-    homepage = https://github.com/tianocore/edk2-share;
+    homepage = https://github.com/tianocore/tianocore.github.io/wiki/UEFI-Driver-Wizard;
     maintainers = with maintainers; [ johnazoidberg ];
     platforms = platforms.all;
   };
