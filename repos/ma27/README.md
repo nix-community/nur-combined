@@ -243,6 +243,12 @@ needs to be uploaded to the given `git` upstream server.
 This module is fairly trivial as it simply creates an `nginx` instance and serves
 the `glowing-bear` derivation with all of its built dependencies.
 
+The differences to upstream are:
+
+* Due to all dependencies built with Nix no dependency to `cloudflare` is needed.
+* The support for Alt+[0-9] shortcuts to jump between buffers has been disabled. This shortcut
+  is mostly used by browsers and causes confusion when overrided by a web application in one tab.
+
 It can be activated like this:
 
 ```
