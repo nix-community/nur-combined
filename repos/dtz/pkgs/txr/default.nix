@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   name = "txr-${version}";
-  version = "203";
+  version = "204";
 
   src = fetchurl {
     url = "http://www.kylheku.com/cgit/txr/snapshot/${name}.tar.bz2";
-    sha256 = "1lhcgr8h39bjn0bdcl10n7d1q5hygspza8m2xmcmgqjp8542mlx8";
+    sha256 = "0nfkh3vkwxh91qz33pz5b34hjys0s9ssbnghfqy98z335wvnynr3";
   };
 
   patches = [ ./musl-configure.patch ];
