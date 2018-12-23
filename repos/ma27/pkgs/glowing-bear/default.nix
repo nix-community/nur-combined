@@ -56,7 +56,7 @@ stdenv.mkDerivation {
       -c -m --screw-ie8 -o min.js
   '';
 
-  patches = [ ./remove-cloudflare-deps.patch ];
+  patches = [ ./remove-cloudflare-deps.patch ./disable-alt-0-9-keys.patch ];
 
   installPhase = ''
     runHook preInstall
