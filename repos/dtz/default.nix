@@ -146,6 +146,7 @@ let toplevel = {
   // { agave = pkgs.callPackages ./pkgs/agave { }; }
   // { ankacoder = pkgs.callPackages ./pkgs/ankacoder { }; }
   // { ankacoder-condensed = pkgs.callPackages ./pkgs/ankacoder/condensed.nix { }; }
+  // { codeface = pkgs.callPackages ./pkgs/codeface { }; }
   // { iosevka-term-styles = pkgs.callPackages ./pkgs/iosevka-term { }; }
   // { luculent = pkgs.callPackages ./pkgs/luculent { }; }
   // { hack = pkgs.callPackages ./pkgs/hack { }; }

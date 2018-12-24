@@ -4,8 +4,8 @@ self: super: {
     nativeBuildInputs = (o.nativeBuildInputs or []) ++ [ self.autoreconfHook self.git ];
     src = super.fetchgit {
       url = "https://github.com/fenrus75/powertop";
-      rev = "6f5edbcf4d45b8814e2d7b0fc0fe9774aafd44c1";
-      sha256 = "0lsxx161yql930yl9333yxfnamm2dl14bsab2qlfn15sxbkzl0fs";
+      rev = "16b788f3329beba722d579ea5cc82848e07b48e2";
+      sha256 = "1di2x724pkj5sjhhbjpzpvrg2dlfzlsgrz504kfg3ngmhlyb2qqs";
       leaveDotGit = true;
     };
 
