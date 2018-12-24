@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Send email trough systemd
+
+msmtp -C /etc/msmtprc $1 <<ERRMAIL
+To: $1
+From: systemd <maton+$HOSTNAME@sbr.me>
+Subject: $2
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+
+$(systemctl status --full "$2")
+ERRMAIL

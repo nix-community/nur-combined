@@ -16,6 +16,7 @@ rec {
   s2i = pkgs.callPackage ./pkgs/s2i {};
   slirp4netns = pkgs.callPackage ./pkgs/slirp4netns {};
   stellar = pkgs.callPackage ./pkgs/stellar {};
+  systemd-email = pkgs.callPackage ./pkgs/systemd-email {};
   
   # Upstream
   buildkit = pkgs.callPackage ./pkgs/buildkit {};
