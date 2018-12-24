@@ -17,7 +17,7 @@ fetchzip rec {
     description = "luculent font";
     homepage = http://www.eastfarthing.com/luculent/;
     license = licenses.ofl;
-    maintainers = with maintainers; [ henrytill ];
+    maintainers = with maintainers; [ dtzWill ];
     platforms = platforms.all;
   };
 }
