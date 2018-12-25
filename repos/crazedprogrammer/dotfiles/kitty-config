@@ -1,14 +1,13 @@
-font_family DejaVu Sans Mono
-italic_font DejaVu Sans Mono:Oblique
-bold_font DejaVu Sans Mono:Bold
-bold_italic_font DejaVu Sans Mono:Bold Oblique
+font_family Fira Code
+italic_font Fira Code:Oblique
+bold_font Fira Code:Bold
+bold_italic_font Fira Code:Bold Oblique
 
-
-font_size 8
-font_size_delta 1.0
+font_size 9
+map ctrl+shift+equal change_font_size all +1.0
+map ctrl+shift+minus change_font_size all -1.0
 
 adjust_line_height 110%
-
 
 scrollback_lines 10000
 

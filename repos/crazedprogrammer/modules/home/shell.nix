@@ -19,7 +19,7 @@
       lgitf = "git add -A; and git commit; and git pull; and git push";
       cdcc = "cd ~/.local/share/ccemux/computer/0";
       sysa = "sudo nixos-rebuild switch";
-      sysu = "sysa --upgrade";
+      sysu = "sudo nix-channel --update; sysa";
       sysuf = "cd $HOME/Projects/nixpkgs; git pull upstream master; cd -; sysa -I nixpkgs=$HOME/Projects/nixpkgs";
       sysclean = "sudo nix-collect-garbage -d; and sudo nix-store --optimise";
       ovpn = "sudo openvpn --config ~/.ovpn-client";

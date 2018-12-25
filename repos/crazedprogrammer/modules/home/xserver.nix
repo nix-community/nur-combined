@@ -79,7 +79,8 @@
     fonts = with pkgs; [
       corefonts dejavu_fonts
       nerdfonts ubuntu_font_family
-      noto-fonts-cjk
+      noto-fonts-cjk fira-code
+      fantasque-sans-mono
     ];
     fontconfig = {
       #hinting.enable = false;

@@ -50,10 +50,16 @@
   };
 
   # Systemd stop job timeout.
+  # Increase max file descriptors to 1M,
   systemd.extraConfig = ''
+    DefaultLimitNOFILE=1048576
     DefaultTimeoutStartSec=10s
     DefaultTimeoutStopSec=10s
   '';
-
-  # services.udisks2.enable = true;
+  security.pam.loginLimits = [{
+    domain = "*";
+    type = "hard";
+    item = "nofile";
+    value = "1048576";
+  }];
 }

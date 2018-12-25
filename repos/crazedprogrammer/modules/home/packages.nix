@@ -15,7 +15,7 @@
     git mercurial #darcs
 
     # Utilities
-    xsel xclip gnome3.gnome-screenshot qemu calcurse binutils-unwrapped slop xdotool clang-tools hhpc stress #kristvanity 
+    xsel xclip gnome3.gnome-screenshot qemu calcurse binutils-unwrapped slop xdotool clang-tools hhpc stress #kristvanity
 
     # Nix utilities
     nix-prefetch-git
@@ -33,7 +33,7 @@
 
     # Games
     multimc technic-launcher minetest gnome3.gnome-mines #dwarf-fortress
-    love steam steam.run (import <nixos-unstable> {}).ccemux the-powder-toy chip8 riko4
+    love steam steam.run ccemux the-powder-toy chip8 riko4
 
     # Emulators
     dosbox stella snes9x-gtk vice dolphinEmuMaster
@@ -72,6 +72,6 @@
     plantuml arduino astah-community subversion fritzing plantuml
 
     # System utilities
-    pavucontrol polkit_gnome exfat-utils ntfs3g iotop bmon linuxPackages.perf picocom (import <nixos-unstable> {}).gotop htop
+    pavucontrol polkit_gnome exfat-utils ntfs3g iotop bmon linuxPackages.perf picocom gotop htop
   ];
 }

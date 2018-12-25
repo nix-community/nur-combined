@@ -1,5 +1,9 @@
 { config, lib, pkgs, ... }:
 
+let
+  powersave = false;
+in
+
 {
   imports = [
     ../home
@@ -37,7 +41,7 @@
     # Boot selection menu timeout of 1 second.
     loader.timeout = 1;
 
-    kernelParams = [ "i915.enable_psr=1" "i915.i915_enable_fbc=1" ];
+    kernelParams = if powersave then [ "i915.enable_psr=1" "i915.i915_enable_fbc=1" ] else [];
 
     kernelPackages = import ../home/kernel (pkgs // {
       structuredExtraConfig = {
@@ -80,8 +84,8 @@
 
   services.logind.lidSwitch = "ignore";
   powerManagement = {
-    cpuFreqGovernor = "powersave";
-    powertop.enable = true;
+    cpuFreqGovernor = if powersave then "powersave" else "performance";
+    powertop.enable = powersave;
   };
 
   environment.systemPackages = with pkgs; [
