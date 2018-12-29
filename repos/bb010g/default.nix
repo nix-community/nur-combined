@@ -6,6 +6,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   dwdiff = pkgs.callPackage ./pkgs/dwdiff { };
+  ipscan = pkgs.callPackage ./pkgs/ipscan { };
   just = pkgs.callPackage ./pkgs/just {  };
   xcolor = pkgs.callPackage ./pkgs/xcolor { };
 }
