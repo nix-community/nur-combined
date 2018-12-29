@@ -17,6 +17,6 @@ buildGoPackage rec {
   meta = {
     description = "a git mirror *upstream* updater ";
     homepage = "https://github.com/vdemeester/ape";
-    licence = lib.licenses.asl20;
+    license = lib.licenses.asl20;
   };
 }

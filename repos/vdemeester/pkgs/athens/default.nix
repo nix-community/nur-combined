@@ -17,6 +17,6 @@ buildGoPackage rec {
   meta = {
     description = "a Go module datastore and proxy";
     homepage = "https://github.com/godmods/athens";
-    licence = lib.licenses.mit;
+    license = lib.licenses.mit;
   };
 }

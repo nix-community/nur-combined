@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Simplified Container Runtime Cluster";
     homepage = "https://github.com/ehazlett/stellar";
-    licence = lib.licenses.mit;
+    license = lib.licenses.mit;
   };
 }
