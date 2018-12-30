@@ -305,7 +305,18 @@ in
         fi
       '';
 
-      nixpkgs.overlays = mkIf cfg.disallowRestrictedEval [ (import ../pkgs/hydra/overlay.nix) ];
+      nixpkgs.overlays = [
+        (self: super: {
+          hydra = super.hydra.overrideAttrs (old: {
+            patches = old.patches ++ [
+              (super.fetchpatch {
+                url = https://github.com/NixOS/hydra/commit/aa87e7a52e3d37acfc345c22a06420f467d2c80a.patch;
+                sha256 = "1kxajxd661zl4c72459h4lrcqghncplpy0v90nrwj3hyyq2f9d9j";
+              })
+            ];
+          });
+        })
+      ] ++ optionals cfg.disallowRestrictedEval [ (import ../pkgs/hydra/overlay.nix) ];
 
       # sensitive default. Simple Hydra setups may require just a single
       # build machine.
