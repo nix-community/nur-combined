@@ -6,9 +6,6 @@
 # and symlink to it will be created at ./.direnv/default.
 # Dependencies are added to the GC roots, such that the environment remains persistent.
 #
-# Packages can also be specified directly via e.g `use nix -p ocaml`,
-# however those will not be added to the GC roots.
-#
 # The resulting environment is cached for better performance.
 #
 # To trigger switch to a different environment:
@@ -26,30 +23,55 @@
 # To remove only old environments:
 # `find .direnv -name 'env-*' -and -not -name `readlink .direnv/default` -exec rm -rf {} +`
 #
+
+set -euo pipefail
+
 use_nix() {
-	set -e
+	# define all local variables
+	local shell f env_hash dir default wd drv dump path_backup
+	local files_to_watch=()
 
-	local shell="shell.nix"
-	if [[ ! -f "${shell}" ]]; then
-		shell="default.nix"
+	while getopts ":s:w:" opt; do
+		case "${opt}" in
+			s)
+				shell="${OPTARG}"
+				;;
+			w)
+				files_to_watch=("${files_to_watch[@]}" "${OPTARG}")
+				;;
+			:)
+				>&2 echo "Invalid option: $OPTARG requires an argument"
+				;;
+			\?)
+				>&2 echo "Invalid option: $OPTARG"
+				exit 1
+				;;
+		esac
+	done
+	shift $((OPTIND -1))
+
+	if [[ -z "${shell}" ]]; then
+		>&2 echo "ERR: no shell was given"
+		exit 1
 	fi
 
-	local nixpkgs_version=".nixpkgs-version.json"
-	if [[ ! -f "${nixpkgs_version}" ]]; then
-		fail "use nix: .nixpkgs-version.json not found in the folder"
-	fi
+	for f in "${files_to_watch[@]}"; do
+		if ! [[ -f "${f}" ]]; then
+			>&2 echo "cannot watch file ${f} because it does not exist"
+			exit 1
+		fi
+	done
 
-	if [[ ! -f "${shell}" ]]; then
-		fail "use nix: shell.nix or default.nix not found in the folder"
-	fi
+	# compute the hash of all the files that makes up the development environment
+	env_hash="$(hashContents "${files_to_watch[@]}")"
 
-	local dir="$(direnv_layout_dir)"
-	local default="${dir}/default"
+	dir="$(direnv_layout_dir)"
+	default="${dir}/default"
 	if [[ ! -L "${default}" ]] || [[ ! -d $(readlink "${default}") ]]; then
-		local wd="${dir}/env-$(hashFile "${shell}")-$(hashFile "${nixpkgs_version}")"
+		wd="${dir}/env-${env_hash}"
 		mkdir -p "${wd}"
 
-		local drv="${wd}/env.drv"
+		drv="${wd}/env.drv"
 		if [[ ! -f "${drv}" ]]; then
 			log_status "use nix: deriving new environment"
 			IN_NIX_SHELL=1 nix-instantiate --add-root "${drv}" --indirect "${shell}" > /dev/null
@@ -60,22 +82,37 @@ use_nix() {
 		ln -s $(basename "${wd}") "${default}"
 	fi
 
-	local drv=$(readlink "${default}/env.drv")
-	local dump="${dir}/dump-$(hashFile ".envrc")-$(hashFile ${drv})"
+	drv=$(readlink "${default}/env.drv")
+	dump="${dir}/dump-$(hashFile ".envrc")-$(hashFile ${drv})"
 
 	if [[ ! -f "${dump}" ]] || [[ "${XDG_CONFIG_DIR}/direnv/direnvrc" -nt "${dump}" ]]; then
 		log_status "use nix: updating cache"
 
 		old=$(find "${dir}" -name 'dump-*')
-		nix-shell "${drv}" --show-trace "$@" --run "$(join_args "$direnv" dump)" > "${dump}"
+		nix-shell --pure "${drv}" --show-trace --run "$(join_args "$direnv" dump bash)" > "${dump}"
 		rm -f ${old}
 	fi
 
-	direnv_load cat "${dump}"
+	# evaluate the dump created by nix-shell earlier, but have to merge the PATH
+	# with the current PATH
+	# NOTE: we eval the dump here as opposed to direnv_load it because we don't
+	# want to persist environment variables coming from the shell at the time of
+	# the dump. See https://github.com/direnv/direnv/issues/405 for context.
+	path_backup="${PATH}"
+	eval $(cat "${dump}")
+	export PATH="${PATH}:${path_backup}"
 
-	watch_file "${default}"
-	watch_file "${nixpkgs_version}"
-	watch_file "${shell}"
+	for f in "${files_to_watch[@]}"; do
+		watch_file "${f}"
+	done
+}
+
+hashContents() {
+	if has md5sum; then
+		cat "${@}" | md5sum | cut -c -32
+	elif has md5; then
+		cat "${@}" | md5 -q
+	fi
 }
 
 hashFile() {
@@ -91,4 +128,20 @@ fail() {
 	exit 1
 }
 
-use_nix
+validateVersion() {
+	local version="$("${direnv}" version)"
+	local major="$(echo "${version}" | cut -d. -f1)"
+	local minor="$(echo "${version}" | cut -d. -f2)"
+	local patch="$(echo "${version}" | cut -d. -f3)"
+
+	if [[ "${major}" -gt 2 ]]; then return 0; fi
+	if [[ "${major}" -eq 2 ]] && [[ "${minor}" -ge 18 ]] && [[ "${patch}" -ge 2 ]]; then return 0; fi
+	return 1
+}
+
+if ! validateVersion; then
+	echo "This .envrc requires direnv version 2.18.2 or above."
+	exit 1
+fi
+
+use_nix -s shell.nix -w shell.nix -w .nixpkgs-version
