@@ -1,40 +1,40 @@
-From 5ea92c7a417cb81d9103b1af7229495cf14b2cff Mon Sep 17 00:00:00 2001
+From 628c1cf86750522699ce1d82e0634ac2fe5dd50f Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
-Date: Sat, 22 Dec 2018 20:21:50 -0600
-Subject: [PATCH 1/4] Don't look for deps locally that don't generally exist
+Date: Sun, 30 Dec 2018 12:59:32 -0600
+Subject: [PATCH] don't look locally for deps, get from git; be consistent
+ re:notmuch-rs
 
+* webkit2gtk
+* gmime-rs
 ---
- enamel-core/Cargo.toml |  8 ++++----
- enamel-gtk/Cargo.toml  | 12 ++++++------
- enamel-tui/Cargo.toml  |  8 ++++----
- 3 files changed, 14 insertions(+), 14 deletions(-)
+ enamel-core/Cargo.toml | 4 ++--
+ enamel-gtk/Cargo.toml  | 8 ++++----
+ enamel-tui/Cargo.toml  | 8 ++++----
+ 3 files changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/enamel-core/Cargo.toml b/enamel-core/Cargo.toml
-index ab3fb8a..5706d3b 100644
+index f7688d1..b0042e9 100644
 --- a/enamel-core/Cargo.toml
 +++ b/enamel-core/Cargo.toml
-@@ -34,12 +34,12 @@ glib-sys = { git = "https://github.com/gtk-rs/sys"}
- gio-sys = { git = "https://github.com/gtk-rs/sys"}
+@@ -35,11 +35,11 @@ gio-sys = { git = "https://github.com/gtk-rs/sys"}
  gobject-sys = { git = "https://github.com/gtk-rs/sys"}
  
--# notmuch = "*"
+ notmuch = "*"
 -# gmime = { git = "https://github.com/vhdirk/gmime-rs"}
-+notmuch = "*"
 +gmime = { git = "https://github.com/vhdirk/gmime-rs"}
  
  # [patch.crates-io]
--notmuch = { path = "../../notmuch-rs" }
+ #notmuch = { path = "../../notmuch-rs" }
 -gmime = { path = "../../gmime-rs" }
-+#notmuch = { path = "../../notmuch-rs" }
 +#gmime = { path = "../../gmime-rs" }
  
  [features]
- default = ["glib/futures",
+ default = ["glib/subclassing",
 diff --git a/enamel-gtk/Cargo.toml b/enamel-gtk/Cargo.toml
-index 3c8f9c9..e31b176 100644
+index b31c5d6..f551d8d 100644
 --- a/enamel-gtk/Cargo.toml
 +++ b/enamel-gtk/Cargo.toml
-@@ -53,8 +53,8 @@ gtk-sys = { git = "https://github.com/gtk-rs/sys" }
+@@ -54,8 +54,8 @@ gtk-sys = { git = "https://github.com/gtk-rs/sys" }
  gdk-sys = { git = "https://github.com/gtk-rs/sys" }
  gdk-pixbuf-sys = { git = "https://github.com/gtk-rs/sys" }
  cairo-sys-rs = { git = "https://github.com/gtk-rs/cairo" }
@@ -45,20 +45,17 @@ index 3c8f9c9..e31b176 100644
  
  webkit2gtk-webextension = { git = "https://github.com/gtk-rs/webkit2gtk-webextension-rs" }
  
-@@ -75,12 +75,12 @@ relm = { git = "https://github.com/vhdirk/relm" }
- relm-derive = { git = "https://github.com/vhdirk/relm" }
+@@ -73,11 +73,11 @@ relm-derive = { git = "https://github.com/vhdirk/relm" }
  relm-state = { git = "https://github.com/vhdirk/relm" }
  
--# notmuch = "*"
+ notmuch = "*"
 -# gmime = { git = "https://github.com/vhdirk/gmime-rs"}
-+notmuch = "*"
 +gmime = { git = "https://github.com/vhdirk/gmime-rs"}
  
  # [patch.crates-io]
--notmuch = { path = "../../notmuch-rs" }
+ #notmuch = { path = "../../notmuch-rs" }
 -gmime = { path = "../../gmime-rs" }
-+#notmuch = { path = "../../notmuch-rs" }
-+#gmime = { path = "../../gmime-rs" }
++# gmime = { path = "../../gmime-rs" }
  
  
  [features]
@@ -84,5 +81,5 @@ index 76b67c3..60a394a 100644
  [dev-dependencies]
  cargo-expand = "*"
 -- 
-2.20.1
+2.19.2
 
