@@ -25,7 +25,7 @@ let toplevel = {
       inherit (pkgs.llvmPackages_5) llvm;
     };
 
-    enamel = callPackage ./pkgs/enamel { };
+    # enamel = callPackage ./pkgs/enamel { };
 
     fcd4 = callPackage ./pkgs/fcd/4.nix { };
     fcd4-tests = callPackage ./pkgs/fcd/test.nix { fcd = fcd4; };
