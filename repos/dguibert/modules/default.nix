@@ -1,6 +1,5 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  # Add the NixOS modules here
+  qemu-user = ./qemu-user.nix;
 }
 
