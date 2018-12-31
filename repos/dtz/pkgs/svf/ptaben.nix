@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   name = "ptaben-${version}";
-  version = "2018-11-19";
+  version = "2018-12-05";
   src = fetchFromGitHub {
     owner = "SVF-tools";
     repo = "PTABen";
-    rev = "bb72be390d15f33d0a00e1b7fcf52bfec1aa94af";
-    sha256 = "0h6iz29275c199przvz3z6a7m3rckmk487mpbhiy135rpx8wvh14";
+    rev = "8648e3eb511c4ddf970eb5d8fbcdcf1e70a23019";
+    sha256 = "0jxs59w0f9sf37l4qa14ma4ypb5ga5dvknac0yl7xim0ma5z2fk9";
   };
 
   buildInputs = [ svf llvm clang ];
