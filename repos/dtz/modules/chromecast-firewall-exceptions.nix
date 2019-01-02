@@ -8,6 +8,9 @@
 
     # videostream requests these open:
     5556 5558
+
+    # VLC used this
+    8010
   ];
 
   networking.firewall.allowedUDPPorts = [

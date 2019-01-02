@@ -2,7 +2,7 @@
 , fetchFromGitHub
 , llvm
 , python
-, capstone
+, capstone_3
 , cmake
 , rev
 , sha256
@@ -22,11 +22,12 @@ stdenv.mkDerivation rec {
     inherit rev sha256;
   };
 
-  buildInputs = [ llvm python capstone cmake ];
+  nativeBuildInputs = [ cmake ];
+  buildInputs = [ llvm python capstone_3 ];
 
   patchPhase = ''
-    sed -i 's,-isystem ''${LLVM_INCLUDE_DIRS},-isystem ''${LLVM_INCLUDE_DIRS} -isystem ${stdenv.cc.cc}/include,' CMakeLists.txt
-    sed -i 's,PRIVATE ''${LLVM_INCLUDE_DIRS},PRIVATE ''${LLVM_INCLUDE_DIRS} ${stdenv.cc.cc}/include,' CMakeLists.txt
+    sed -i 's,-isystem ''${LLVM_INCLUDE_DIRS},\0 -isystem ${stdenv.cc.cc}/include,' CMakeLists.txt
+    sed -i 's,PRIVATE ''${LLVM_INCLUDE_DIRS},\0 ${stdenv.cc.cc}/include,' CMakeLists.txt
   '';
 
   enableParallelBuilding = true;

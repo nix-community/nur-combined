@@ -27,6 +27,7 @@ let toplevel = {
 
     # enamel = callPackage ./pkgs/enamel { };
 
+    capstone_3 = callPackage ./pkgs/fcd/capstone.nix { };
     fcd4 = callPackage ./pkgs/fcd/4.nix { };
     fcd4-tests = callPackage ./pkgs/fcd/test.nix { fcd = fcd4; };
 
@@ -143,15 +144,16 @@ let toplevel = {
     });
   }
   // (pkgs.callPackages ./pkgs/dg { })
-  // { agave = pkgs.callPackages ./pkgs/agave { }; }
-  // { ankacoder = pkgs.callPackages ./pkgs/ankacoder { }; }
-  // { ankacoder-condensed = pkgs.callPackages ./pkgs/ankacoder/condensed.nix { }; }
-  // { codeface = pkgs.callPackages ./pkgs/codeface { }; }
-  // { cherry = pkgs.callPackages ./pkgs/cherry { }; }
+  // { agave = pkgs.callPackage ./pkgs/agave { }; }
+  // { ankacoder = pkgs.callPackage ./pkgs/ankacoder { }; }
+  // { ankacoder-condensed = pkgs.callPackage ./pkgs/ankacoder/condensed.nix { }; }
+  // { codeface = pkgs.callPackage ./pkgs/codeface { }; }
+  // { cherry = pkgs.callPackage ./pkgs/cherry { }; }
   // { iosevka-term-styles = pkgs.callPackages ./pkgs/iosevka-term { }; }
-  // { luculent = pkgs.callPackages ./pkgs/luculent { }; }
-  // { hack = pkgs.callPackages ./pkgs/hack { }; }
+  // { luculent = pkgs.callPackage ./pkgs/luculent { }; }
+  // { hack = pkgs.callPackage ./pkgs/hack { }; }
   // (pkgs.callPackages ./pkgs/xi { })
   // (pkgs.callPackages ./pkgs/svf { lib = pkgs.lib // toplevel.lib; /* FIXME */ })
+  // { xlayoutdisplay = pkgs.callPackage ./pkgs/xlayoutdisplay { }; }
   ));
 }; in toplevel #  // toplevel.pkgs
