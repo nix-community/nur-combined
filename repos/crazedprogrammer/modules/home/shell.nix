@@ -33,6 +33,9 @@
       fslist = "zfs list -o name,compressratio,used,available";
       aubuild = "nix-shell -p automake autoconf libtool --run \"sh autogen.sh\"; and nix-build .";
       esp-shell = "nix-shell (dotfiles)/esp-idf-shell.nix";
+      build-vm = "sudo nixos-rebuild build-vm -p test -I nixos-config=./modules/hosts/nixos-qemu.nix";
+      # TODO: try to find a way to persist the qcow image without chown errors during VM boot.
+      run-vm = "./result/bin/run-nixos-qemu-vm -m 4096 --enable-kvm --smp (nproc --all); and rm ./nixos-qemu.qcow2";
     };
 
     shellInit = ''
