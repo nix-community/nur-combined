@@ -8,8 +8,8 @@ pythonPackages.buildPythonApplication {
   src = fetchFromGitHub {
     owner  = "fail2ban";
     repo   = "fail2ban";
-    rev    = "d5188686910aa44831bb49403bf1d7c6ca28f11b";
-    sha256 = "0avn6cpxarqzng6y5c93i3x7f254y78n4h9in5100xgcps56371q";
+    rev    = "966fa1be89dc6d161ef1afdfd912db512ac43871";
+    sha256 = "1pxrhbwj6wbpvj33d68rrwm87hdvfsq4mjqiqnx588j4mmxlkpkh";
   };
 
   propagatedBuildInputs = [ gamin ]
