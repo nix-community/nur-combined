@@ -24,7 +24,7 @@
 # `find .direnv -name 'env-*' -and -not -name `readlink .direnv/default` -exec rm -rf {} +`
 #
 
-set -euo pipefail
+set -eo pipefail
 
 use_nix() {
 	# define all local variables
@@ -35,6 +35,7 @@ use_nix() {
 		case "${opt}" in
 			s)
 				shell="${OPTARG}"
+				files_to_watch=("${files_to_watch[@]}" "${shell}")
 				;;
 			w)
 				files_to_watch=("${files_to_watch[@]}" "${OPTARG}")
@@ -135,7 +136,8 @@ validateVersion() {
 	local patch="$(echo "${version}" | cut -d. -f3)"
 
 	if [[ "${major}" -gt 2 ]]; then return 0; fi
-	if [[ "${major}" -eq 2 ]] && [[ "${minor}" -ge 18 ]] && [[ "${patch}" -ge 2 ]]; then return 0; fi
+	if [[ "${major}" -eq 2 ]] && [[ "${minor}" -gt 18 ]]; then return 0; fi
+	if [[ "${major}" -eq 2 ]] && [[ "${minor}" -eq 18 ]] && [[ "${patch}" -ge 2 ]]; then return 0; fi
 	return 1
 }
 
@@ -144,4 +146,4 @@ if ! validateVersion; then
 	exit 1
 fi
 
-use_nix -s shell.nix -w shell.nix -w .nixpkgs-version
+use_nix -s shell.nix -w .nixpkgs-version.json

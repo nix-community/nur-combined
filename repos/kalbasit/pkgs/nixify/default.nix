@@ -2,9 +2,8 @@
 
 stdenv.mkDerivation rec {
   name = "nixify";
-  version = "0.0.1";
+  version = "1.0.1";
   src = ./.;
-  phases = [ "installPhase" ];
 
   installPhase = ''
     install -Dm755 $src/nixify $out/bin/nixify
