@@ -4,6 +4,14 @@ rec {
   modules = import ./modules;
   overlays = import ./overlays;
 
+  dkgpg = pkgs.callPackage ./pkgs/dkgpg.nix {
+    inherit libtmcg;
+    bzip2 = pkgs.bzip2;
+  };
+  libtmcg = pkgs.callPackage ./pkgs/libtmcg.nix {};
+
+  uefitool = pkgs.qt5.callPackage ./pkgs/uefitool.nix {};
+
   caas = pkgs.callPackages ./pkgs/caas.nix {
     jre = pkgs.jdk11;
     maven = pkgs.maven.overrideAttrs (old: {
@@ -52,10 +60,20 @@ rec {
 
   uefi-driver-wizard = pkgs.callPackage ./pkgs/uefi-driver-wizard.nix {};
 
-  chipsec = pkgs.callPackage ./pkgs/chipsec.nix {
-    kernel = pkgs.linuxPackages.kernel;
-    withDriver = true;
-  };
+  # Without kernel driver, should build and work on MacOS as well
+  chipsec = pkgs.callPackage ./pkgs/chipsec.nix { withDriver = false; };
+
+  linuxPackagesFor = kernel: pkgs.lib.makeExtensible (self: with self; {
+    chipsec = pkgs.callPackage ./pkgs/chipsec.nix {
+      inherit kernel;
+      withDriver = true;
+    };
+  });
+  linuxPackages_4_4 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_4);
+  linuxPackages_4_9 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_9);
+  linuxPackages_4_14 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_14);
+  linuxPackages_4_19 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_19);
+  linuxPackages_4_20 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_20);
 
   rfc-reader = pkgs.callPackage ./pkgs/rfc-reader {};
 

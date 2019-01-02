@@ -23,6 +23,7 @@ Optionally the USB drive is required to provide authentication.
 None yet
 
 ### Packages
+- [uefitool](https://github.com/LongSoft/UEFITool) Firmware image viewer and editor
 - [caas](https://github.com/iNPUTmice/caas) Check if an XMPP server is compliant (XEP-0387)
 - `pppconfig` Configure pppd to connect to the Internet
 - [prosody-filer](https://github.com/ThomasLeister/prosody-filer) Golang `mod_http_upload_external` server for Prosody
