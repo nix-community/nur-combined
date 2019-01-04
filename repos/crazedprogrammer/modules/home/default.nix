@@ -14,12 +14,7 @@
   nix = {
     daemonIONiceLevel = 7;
     daemonNiceLevel = 19;
-    useSandbox = "relaxed";
-    nixPath = [
-      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
-      "nixos-config=/etc/nixos/configuration.nix"
-      "/nix/var/nix/profiles/per-user/root/channels"
-    ];
+    useSandbox = true;
   };
 
   # Internationalisation properties.

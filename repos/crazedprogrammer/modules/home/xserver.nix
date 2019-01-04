@@ -20,7 +20,7 @@
       };
     };
 
-    # i3 and sway window manager.
+    # i3 window manager.
     windowManager = {
       default = "i3";
       i3 = {
@@ -29,13 +29,6 @@
         package = pkgs.i3-gaps;
         extraSessionCommands = "xrdb $(dotfiles)/Xresources";
       };
-      session = [{
-        name = "sway";
-        start = ''
-          sway &
-          waitPID=$!
-        '';
-      }];
     };
 
     # Xfce utils
@@ -49,8 +42,6 @@
       xterm.enable = false;
     };
   };
-
-  programs.sway.enable = true;
 
   environment.extraInit = ''
     export XDG_CONFIG_DIRS="/etc/xdg:$XDG_CONFIG_DIRS"
