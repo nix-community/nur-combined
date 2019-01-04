@@ -2,8 +2,8 @@
 
 buildGoPackage rec {
   name = "prm-${version}";
-  version = "2.2.0";
-  rev = "v${version}"; # v2.1.1
+  version = "2.3.0";
+  rev = "v${version}";
 
   goPackagePath = "github.com/ldez/prm";
 
@@ -17,7 +17,7 @@ buildGoPackage rec {
     inherit rev;
     owner = "ldez";
     repo = "prm";
-    sha256 = "0ywnrzdr7k16xnz3vzl4bxnqsywkyhl9pq0yfkd7i728d7fa989d";
+    sha256 = "1kcd249q5bdmxgssvmd6jxx18fy0dg61w1m017l92fj2m02g5j8b";
   };
 
   goDeps = ./deps.nix;
