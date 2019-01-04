@@ -2,13 +2,13 @@
 
 pythonPackages.buildPythonPackage rec {
   name = "mbuild-${version}";
-  version = "2018-05-17";
+  version = "2018-12-20";
 
   src = fetchFromGitHub {
     owner = "intelxed";
     repo = "mbuild";
-    rev = "1651029643b2adf139a8d283db51b42c3c884513";
-    sha256 = "1hdrzdyldszr4czfyw45niza4dyzbc2g14yskrz1c7fjhb6g4f6p";
+    rev = "176544e1fb54b6bfb40f596111368981d287e951";
+    sha256 = "113sl3iy3j6f708syip3j8x9gy877vncwxi7p0wn998yj25mswac";
   };
 
   meta = with stdenv.lib; {

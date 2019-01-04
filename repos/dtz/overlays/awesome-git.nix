@@ -1,13 +1,13 @@
 self: super: {
   awesome = super.awesome.overrideAttrs (o: rec {
     name = "awesome-4.2-git-${version}";
-    version = "2018-12-20";
+    version = "2019-01-03";
     nativeBuildInputs = o.nativeBuildInputs or [] ++ [ self.asciidoctor ];
     src = super.fetchFromGitHub {
       owner = "AwesomeWM";
       repo = "awesome";
-      rev = "7d0976912e1c9fe5fe98ea0e5500c6faecfdf81f";
-      sha256 = "1pqlviw83jpcpq49lfdhd3plbdsanil9kimhlk78mja07s2mvav8";
+      rev = "6d2fc5c12b0980c77879ee5bf9b5f109f9e11365";
+      sha256 = "16vs0fxhlwmkcw7fjcqsmlajxq51fm0n7jw1dxcylahviww03vf7";
     };
   });
 }

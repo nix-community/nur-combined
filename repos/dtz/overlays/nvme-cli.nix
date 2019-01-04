@@ -1,12 +1,12 @@
 self: super: {
   nvme-cli = super.nvme-cli.overrideAttrs(o: rec {
     name = "nvme-cli-${version}";
-    version = "2018-12-28";
+    version = "2019-01-03";
     src = super.fetchFromGitHub {
       owner = "linux-nvme";
       repo = "nvme-cli";
-      rev = "bc7b83eb45f9f915b63786e74619eca054dac948";
-      sha256 = "1y7ap1aa2pba84rvj7ag9khwpa08mknfhqsbyvqxy0dgkfwhz8wf";
+      rev = "f7c5a51e66e85ec905f78045a444db50202e8329";
+      sha256 = "1190g47hxcni6q28zii9hvra9vxwmcsm3mx07r1hdsnrxh6sq7pm";
     };
   });
 }

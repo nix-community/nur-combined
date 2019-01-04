@@ -1,6 +1,3 @@
 { nixpkgs ? <nixpkgs>, args ? {} }:
 
-let
-  pkgs = import nixpkgs args;
-in
-  pkgs.callPackages ./default.nix {}
+import ./default.nix { pkgs = import nixpkgs args; }
