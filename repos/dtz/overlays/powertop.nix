@@ -1,4 +1,5 @@
 self: super: {
+  /*
   powertop = super.powertop.overrideAttrs (o: rec {
     name = "${pname}-${version}";
     pname = "powertop";
@@ -20,4 +21,5 @@ self: super: {
       ./scripts/version
     '';
   });
+  */
 }
