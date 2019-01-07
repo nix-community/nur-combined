@@ -208,7 +208,7 @@ format-connected-underline = #f94444
 
 [module/wired]
 type = internal/network
-interface = enp33s0
+interface = enp25s0
 interval = 1
 label-connected = NET %downspeed% %upspeed%
 format-connected-underline = #f94444
