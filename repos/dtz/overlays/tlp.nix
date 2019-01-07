@@ -1,12 +1,12 @@
 self: super: {
   tlp = super.tlp.overrideAttrs (o: rec {
     name = "tlp-${version}";
-    version = "2019-01-04";
+    version = "2019-01-06";
     src = super.fetchFromGitHub {
       owner = "linrunner";
       repo = "tlp";
-      rev = "f89f39e981ebf94276288f4c4d9e30a0b630af49";
-      sha256 = "0rxavpygqy1g66w4afj0407fay08s9pw54d2dggkh85ja4699gy7";
+      rev = "460fa6cb1aa55705f9801412dd578390fc804560";
+      sha256 = "0lp4jwqy760lvlp8ncpdsqb4g4a4zpb75flic39lysvrsqi6g2xl";
     };
 
     makeFlags = (o.makeFlags or []) ++ [
@@ -14,10 +14,5 @@ self: super: {
       # but follow along for now.
       "TLP_FLIB=${placeholder "out"}/share/tlp-pm/func.d"
     ];
-
-    # Fix typo
-    postPatch = (o.postPatch or "") + ''
-      substituteInPlace tlp-stat.in --replace echofi echo
-    '';
   });
 }
