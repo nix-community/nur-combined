@@ -15,16 +15,34 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0wm89q9i0qb32c21jfvcrp3d58685npdzqpvdi16h92hsnz42pzy";
 
+  outputs = [ "bin" "man" "out" ];
+
   nativeBuildInputs = [ pkgconfig python3 ];
   buildInputs = [ libxcb ];
 
   preFixup = ''
-    mkdir -p "$out/man/man1"
-    cp man/xcolor.1 "$out/man/man1/"
-    mkdir -p "$out/share/"{bash-completion/completions,fish/vendor_completions.d,zsh/site-functions}
-    cp target/release/build/xcolor-*/out/xcolor.bash "$out/share/bash-completion/completions/"
-    cp target/release/build/xcolor-*/out/xcolor.fish "$out/share/fish/vendor_completions.d/"
-    cp target/release/build/xcolor-*/out/_xcolor "$out/share/zsh/site-functions/"
+    # move buildRustCrate outputs to proper split locations
+    shopt -s dotglob
+    if [[ -d "$out/bin" ]]; then
+      mkdir -p "$bin/bin"
+      mv -nt "$bin"/bin "$out"/bin/*
+      rmdir "$out/bin"
+    fi
+    if [[ -d "$out/lib" ]]; then
+      mkdir -p "$lib/lib"
+      mv -nt "$lib"/lib "$out"/lib/*
+      rmdir "$out/lib"
+    fi
+    if [[ -s "$out/env" ]]; then
+      mv -nt "$lib" "$out"/env
+    fi
+
+    mkdir -p "$man/man/man1"
+    cp man/xcolor.1 "$man/man/man1/"
+    mkdir -p "$bin/share/"{bash-completion/completions,fish/vendor_completions.d,zsh/site-functions}
+    cp target/release/build/xcolor-*/out/xcolor.bash "$bin/share/bash-completion/completions/"
+    cp target/release/build/xcolor-*/out/xcolor.fish "$bin/share/fish/vendor_completions.d/"
+    cp target/release/build/xcolor-*/out/_xcolor "$bin/share/zsh/site-functions/"
   '';
 
   meta = with stdenv.lib; {
