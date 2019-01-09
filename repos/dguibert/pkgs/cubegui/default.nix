@@ -12,7 +12,7 @@ stdenv.mkDerivation {
     sha256 = "0yzca23g0850f4rf77anjbxnby9vjs1shcahbwrgh9552sb4gdi9";
   };
   #configureFlags = [
-  #  "${stdenv.lib.optionalString stdenv.cc.isIntelCompilers or false "--with-nocross-compiler-suite=intel"}"
+  #  "${stdenv.lib.optionalString stdenv.cc.isIntel or false "--with-nocross-compiler-suite=intel"}"
   #];
   buildInputs = [ cubelib qt5.qtbase perl which ];
   enableParallelBuilding = true;

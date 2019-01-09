@@ -22,12 +22,12 @@ stdenv.mkDerivation {
   ];
   nativeBuildInputs = [ autoreconfHook libstdcxxHook ];
   configureFlags = [
-    "${stdenv.lib.optionalString stdenv.cc.isIntelCompilers or false "--with-nocross-compiler-suite=intel"}"
+    "${stdenv.lib.optionalString stdenv.cc.isIntel or false "--with-nocross-compiler-suite=intel"}"
     #--with-mpi=(bullxmpi|hp|ibmpoe|intel|intel2|intel3|intelpoe|lam|mpibull2|mpich|mpich2|mpich3|openmpi|platform|scali|sgimpt|sgimptwrapper|sun) 
     "${stdenv.lib.optionalString mpi.isIntel or false "--with-mpi=intel3"}"
   ];
   postConfigure = ''
-    ${stdenv.lib.optionalString stdenv.cc.isIntelCompilers or false ''
+    ${stdenv.lib.optionalString stdenv.cc.isIntel or false ''
     # remove wrong lib path
     for f in $(find -name libtool); do
     echo "PATCHING $f"

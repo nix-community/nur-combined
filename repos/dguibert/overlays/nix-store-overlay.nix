@@ -1,6 +1,7 @@
 nixDir:
 self: super:
 {
+  nix_root = nixDir;
   nix = super.nix.override {
     storeDir = "${nixDir}/store";
     stateDir = "${nixDir}/var";

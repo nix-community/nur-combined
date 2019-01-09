@@ -17,7 +17,7 @@ stdenv.mkDerivation {
   buildInputs = [ mpi ];
 
   configurePhase = ''
-    ${stdenv.lib.optionalString stdenv.cc.isIntelCompilers or false ''
+    ${stdenv.lib.optionalString stdenv.cc.isIntel or false ''
     export MACHINE=-xCORE-AVX2
     make MPICXX="mpiicpc -DUSE_MPI=1" SERCXX="icpc -DUSE_MPI=0" CXXFLAGS="-g -O3 $MACHINE -qopenmp -I. -Wall" LDFLAGS="-g -O3 $MACHINE -qopenmp"
     ''}

@@ -1,10 +1,8 @@
-{ stdenv, requireFile, glibc, gcc, file
+{ stdenv, fetchurl, glibc, gcc, file
 , cpio, rpm
 , patchelf
 , version ? "2019.0.117"
-, srcfile ? "parallel_studio_xe_${version}_professional_edition.tgz"
-, sha256 ? "1qhicj98x60csr4a2hjb3krvw74iz3i3dclcsdc4yp1y6m773fcl"
-, preinstDir
+, preinstDir ? "opt/intel/compilers_and_libraries_${version}/linux"
 , config
 }:
 
@@ -51,36 +49,56 @@ let
     done
   '';
 
+versions = {
+# "2016.0.109"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/7997/parallel_studio_xe_2016.tgz
+# "2016.1.150"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/8365/parallel_studio_xe_2016_update1.tgz
+# "2016.2.181"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/8676/parallel_studio_xe_2016_update2.tgz
+# "2016.3.210" = null;
+# "2016.3.223"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/9061/parallel_studio_xe_2016_update3.tgz
+# "2016.4.258"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/9781/parallel_studio_xe_2016_update4.tgz
+#             
+#             
+# "2017.0.098"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/9651/parallel_studio_xe_2017.tgz
+# "2017.1.132"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/10973/parallel_studio_xe_2017_update1.tgz
+# "2017.2.174"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11298/parallel_studio_xe_2017_update2.tgz
+# http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11460/parallel_studio_xe_2017_update3.tgz
+# "2017.4.196"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11537/parallel_studio_xe_2017_update4.tgz
+# "2017.5.239"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12138/parallel_studio_xe_2017_update5.tgz
+# http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12534/parallel_studio_xe_2017_update6.tgz
+# "2017.7.259"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12856/parallel_studio_xe_2017_update7.tgz
+# http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13709/parallel_studio_xe_2017_update8.tgz
+#             
+#             
+# "2018.0.128"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12062/parallel_studio_xe_2018_professional_edition.tgz
+# "2018.1.163"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12375/parallel_studio_xe_2018_update1_professional_edition.tgz
+# "2018.2.199"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12718/parallel_studio_xe_2018_update2_professional_edition.tgz
+# "2018.3.222"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12999/parallel_studio_xe_2018_update3_professional_edition.tgz
+# "2018.5.274"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13718/parallel_studio_xe_2018_update4_professional_edition.tgz
+
+
+  "2019.0.117" = fetchurl {
+    url = "http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13578/parallel_studio_xe_2019_professional_edition.tgz";
+    sha256 = "1qhicj98x60csr4a2hjb3krvw74iz3i3dclcsdc4yp1y6m773fcl";
+  };
+  "2019.1.144" = fetchurl {
+    url = "http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/14854/parallel_studio_xe_2019_update1_professional_edition.tgz";
+    sha256 = "1rhcfbig0qvkh622cvf8xjk758i3jh2vbr5ajdgms7jnwq99mii8";
+  };
+};
+
+
 self = stdenv.mkDerivation rec {
   inherit version;
   name = "intel-compilers-${version}";
 
-  src = if builtins.pathExists "/${preinstDir}" then
-      "/${preinstDir}"
-    else
-      requireFile {
-        url = "https://software.intel.com/en-us/articles/intel-parallel-studio-xe-release-notes-and-new-features";
-        name = srcfile;
-        inherit sha256;
-	# TODO message
-        # abort ''
-        #   ******************************************************************************************
-        #   Specified preinstDir (${preinstDir}) directory not found.
-        #   To build this package, you have to first get and install locally the Intel Parallel Studio
-        #   distribution with the official installation script provided by Intel.
-        #   Then, set-up preinstDir to point to the directory of the local installation.
-        #   ******************************************************************************************
-        # '';
-      };
+  src = versions."${version}";
 
   nativeBuildInputs= [ file patchelf ];
 
   dontPatchELF = true;
   dontStrip = true;
 
-  installPhase = if builtins.pathExists "/${preinstDir}" then ''
-    cp -a /$sourceRoot $out
-  '' else ''
+  installPhase = ''
     set -xv
     mkdir $out
     cd $out
@@ -147,7 +165,7 @@ self = stdenv.mkDerivation rec {
 
   passthru = {
     lib = self; # compatibility with gcc, so that `stdenv.cc.cc.lib` works on both                                   
-    isIntelCompilers = true;
+    isIntel = true;
     hardeningUnsupportedFlags = [ "stackprotector" ];
     langFortran = true;
   } // stdenv.lib.optionalAttrs stdenv.isLinux {                                                                     

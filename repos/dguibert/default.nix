@@ -14,6 +14,9 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  adapters = import ./pkgs/stdenv/adapters.nix pkgs;
+  inherit (adapters) optimizePackage withOpenMP optimizedStdEnv;
+
   example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
@@ -47,5 +50,11 @@ rec {
   # miniapps
   miniapp-ping-pong = pkgs.callPackage ./pkgs/miniapp-ping-pong { inherit caliper; };
   stream = pkgs.callPackage ./pkgs/stream { };
+
+  # fix
+  gitAndTools = pkgs.gitAndTools // {
+    git-annex = pkgs.haskell.lib.appendConfigureFlag pkgs.gitAndTools.git-annex "--ghc-options=-XNoMonadFailDesugaring";
+  };
+
 }
 

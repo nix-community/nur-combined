@@ -7,7 +7,7 @@ stdenv.mkDerivation {
     sha256 = "0rsby0ikln36jik4199z9k0q0imcgg6smpy75kpfvsrk6md3z7n0";
   };
   configureFlags = [
-    "${stdenv.lib.optionalString stdenv.cc.isIntelCompilers or false "--with-nocross-compiler-suite=intel"}"
+    "${stdenv.lib.optionalString stdenv.cc.isIntel or false "--with-nocross-compiler-suite=intel"}"
   ];
   nativeBuildInputs = [ autoreconfHook ];
 }

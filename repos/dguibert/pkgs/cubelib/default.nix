@@ -8,7 +8,7 @@ stdenv.mkDerivation {
   };
   buildInputs = [ zlib ];
   postConfigure = ''
-    ${stdenv.lib.optionalString stdenv.cc.isIntelCompilers or false ''
+    ${stdenv.lib.optionalString stdenv.cc.isIntel or false ''
     # remove wrong lib path
     echo "PATCHING libtool"
     sed -i.bak -e 's@\(intel-compilers-.*/lib\)\\"@\1@' build-frontend/libtool 
@@ -16,7 +16,7 @@ stdenv.mkDerivation {
   '';
   nativeBuildInputs = [ pkgconfig which autoreconfHook ];
   configureFlags = [
-    "${stdenv.lib.optionalString stdenv.cc.isIntelCompilers or false "--with-nocross-compiler-suite=intel"}"
+    "${stdenv.lib.optionalString stdenv.cc.isIntel or false "--with-nocross-compiler-suite=intel"}"
   ];
   enableParallelBuilding = true;
 }
