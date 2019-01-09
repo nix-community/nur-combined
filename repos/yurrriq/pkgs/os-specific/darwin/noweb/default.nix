@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchurl, gawk }:
+{ stdenv, fetchFromGitHub, fetchurl, gawk, gcc, icon-lang }:
 
 let noweb = stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -15,10 +15,17 @@ let noweb = stdenv.mkDerivation rec {
 
   outputs = [ "out" "bin" "lib" "man" "tex" ];
 
+  nativeBuildInputs = [ gcc icon-lang ];
+
   preBuild = ''
     mkdir -p "$lib/lib/noweb"
     cd src
   '';
+
+  makeFlags = [
+    "LIBSRC=icon"
+    "ICONC=icont"
+  ];
 
   installFlags = [
     "BIN=$(bin)/bin"
@@ -51,7 +58,7 @@ let noweb = stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     license = licenses.bsd2;
-    platforms = platforms.linux;
+    platforms = platforms.darwin;
     maintainers = with maintainers; [ yurrriq ];
   };
 }; in noweb // { pkgs = [ noweb.tex ]; }

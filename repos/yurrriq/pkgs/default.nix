@@ -46,6 +46,10 @@ in
     inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
   };
 
+  icon-lang = pkgs.callPackage ./os-specific/darwin/icon-lang {};
+
+  noweb = pkgs.callPackage ./os-specific/darwin/noweb {};
+
   m-cli = pkgs.m-cli.overrideAttrs (_: rec {
     name = "m-cli-${version}";
     version = "d03d8b9";
@@ -81,9 +85,6 @@ in
 } else {
 
   inherit (_nixpkgs) browserpass;
-
-  # FIXME
-  # noweb = pkgs.callPackage ./development/tools/literate-programming/noweb {};
 
   tellico = pkgs.libsForQt5.callPackage ./applications/misc/tellico {};
 
