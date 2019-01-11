@@ -252,35 +252,31 @@ let
 
 in {
   php56 = generic {
-    version = "5.6.39";
-    sha256 = "1m9sb00xl61y2mpi6dai6bmjian5cq7lw6q4zq0hn08cym2j7nxk";
+    version = "5.6.40";
+    sha256 = "005s7w167dypl41wlrf51niryvwy1hfv53zxyyr3lm938v9jbl7z";
   };
 
   php71 = generic {
-    version = "7.1.25";
-    sha256 = "1b5az5vhap593ggjxirs1zdlg20hcv9h94iq5kgaxky71a4dqb00";
+    version = "7.1.26";
+    sha256 = "1riaaizyl0jv9p6b8sm8xxj8iqz4p4dddwdag03n1r67dfl1qdav";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./php71-darwin-isfinite.patch;
   };
 
   php72 = generic {
-    version = "7.2.13";
-    sha256 = "0bg9nfc250p24hxn4bdjz7ngcw75h8rpf4qjxqzcs6s9fvxlcjjv";
+    version = "7.2.14";
+    sha256 = "15v5gbdxi6jkgdflpj5rqqzzfvwdb55hls4azh71xgy793934qgm";
 
-    # https://bugs.php.net/bug.php?id=71041
     # https://bugs.php.net/bug.php?id=76826
-    extraPatches = [ ./fix-bug-71041.patch ]
-      ++ optional stdenv.isDarwin ./php72-darwin-isfinite.patch;
+    extraPatches = optional stdenv.isDarwin ./php72-darwin-isfinite.patch;
   };
 
   php73 = generic {
-    version = "7.3.0";
-    sha256 = "0rvwx37dsmxivgrf4wfc1y778iln498c6a40biy9k6lnr6p7s9ks";
+    version = "7.3.1";
+    sha256 = "13iqfkz9rmx9vy106lvw1nbk88qgwdkvxam0l5s14r7jsw62pvxg";
 
-    # https://bugs.php.net/bug.php?id=71041
     # https://bugs.php.net/bug.php?id=76826
-    extraPatches = [ ./fix-bug-71041.patch ]
-      ++ optional stdenv.isDarwin ./php73-darwin-isfinite.patch;
+    extraPatches = optional stdenv.isDarwin ./php73-darwin-isfinite.patch;
   };
 }
