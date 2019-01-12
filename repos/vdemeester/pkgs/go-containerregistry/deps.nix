@@ -109,6 +109,15 @@
     };
   }
   {
+    goPackagePath  = "github.com/evanphx/json-patch";
+    fetch = {
+      type = "git";
+      url = "https://github.com/evanphx/json-patch";
+      rev =  "72bf35d0ff611848c1dc9df0f976c81192392fa5";
+      sha256 = "1yqakqyqspdwpq2dzvrd9rb79z24zmrafscj284dnrl421ns3zvh";
+    };
+  }
+  {
     goPackagePath  = "github.com/fsnotify/fsnotify";
     fetch = {
       type = "git";
@@ -217,6 +226,15 @@
     };
   }
   {
+    goPackagePath  = "github.com/imdario/mergo";
+    fetch = {
+      type = "git";
+      url = "https://github.com/imdario/mergo";
+      rev =  "9f23e2d6bd2a77f959b2bf6acdbefd708a83a4a4";
+      sha256 = "1lbzy8p8wv439sqgf0n21q52flf2wbamp6qa1jkyv6an0nc952q7";
+    };
+  }
+  {
     goPackagePath  = "github.com/inconshreveable/mousetrap";
     fetch = {
       type = "git";
@@ -250,6 +268,15 @@
       url = "https://github.com/magiconair/properties";
       rev =  "c2353362d570a7bfa228149c62842019201cfb71";
       sha256 = "1a10362wv8a8qwb818wygn2z48lgzch940hvpv81hv8gc747ajxn";
+    };
+  }
+  {
+    goPackagePath  = "github.com/mattmoor/dep-notify";
+    fetch = {
+      type = "git";
+      url = "https://github.com/mattmoor/dep-notify";
+      rev =  "bee9543ee54bd7d7e5cce945cfc651082bb21f34";
+      sha256 = "1dbhpcyn62jz0g4krl69k77r11x725zhc2gbx8pi8dy8wr1lrf1j";
     };
   }
   {
@@ -554,8 +581,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/kubernetes/kubernetes";
-      rev =  "b1b29978270dc22fecc592ac55d903350454310a";
-      sha256 = "055njjh0nisfkfmdk8i0zwn5jmnbp2g5b6p9sm4rbsb1d368m897";
+      rev =  "bf9a868e8ea3d3a8fa53cbb22f566771b3f8068b";
+      sha256 = "1fnd5bddcr4rmh18lx05aim42fr9rvh6p7255vxc8751672mggcs";
     };
   }
 ]
