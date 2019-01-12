@@ -2,30 +2,30 @@
 
 stdenv.mkDerivation rec {
   name = "st-${version}";
-  version = "1f24bde82b19912c080fbb4a0b153a248cd6c6ea";
+  version = "3be4cf11d79ca87ff1fbbb57801913ec6f822429";
 
   src = fetchgit {
     url = git://git.suckless.org/st;
     rev = version;
-    sha256 = "168vx8ndj9lwaq4i77xc6pi222yac2bwv134dnp9j86bpj6jzpmi";
+    sha256 = "0i3m7wv0bbagl0gm7mif9sw4mpf6m36i2pr3r21cz31vfjqckwsa";
   };
 
   patches = [
     ./st-fix-deletekey.patch
 
     (fetchpatch {
-      url = https://st.suckless.org/patches/scrollback/st-scrollback-20170329-149c0d3.diff;
-      sha256 = "01136cvv7q0b6svwa922k85053659zsy2vh8kxqc8p56zldx34bg";
+      url = https://st.suckless.org/patches/scrollback/st-scrollback-20181224-096b125.diff;
+      sha256 = "01901l9q0naj5plrb68qir54jif9d0a0hag7brjhvg36rpv123lg";
     })
 
     (fetchpatch {
-      url = https://st.suckless.org/patches/scrollback/st-scrollback-mouse-20170427-5a10aca.diff;
-      sha256 = "0z86xv920xlnvzi8a46zvbc9n2s1kbj33jp1rxq6p7dh80h7hjv7";
+      url = https://st.suckless.org/patches/scrollback/st-scrollback-mouse-0.8.diff;
+      sha256 = "19nwskj7nycym8s9m6w0jrxjqgz6azggbq5bmk4h7hgbc7xfgzbc";
     })
 
     (fetchpatch {
-      url = https://st.suckless.org/patches/spoiler/st-spoiler-20170802-e2ee5ee.diff;
-      sha256 = "1n3mdh09ci8qd8wdvw8s6imw5yp006268wy27c7j61dnahr3dv29";
+      url = https://st.suckless.org/patches/spoiler/st-spoiler-20180309-c5ba9c0.diff;
+      sha256 = "0ar1mhkxppmfgv4f9ifik3zgm11kgxa22g5837c6x8kl1s5ykxwp";
     })
   ];
 
