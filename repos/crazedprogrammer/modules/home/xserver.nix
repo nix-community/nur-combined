@@ -68,7 +68,7 @@
 
   fonts = {
     fonts = with pkgs; [
-      corefonts dejavu_fonts
+      dejavu_fonts
       nerdfonts ubuntu_font_family
       noto-fonts-cjk fira-code
       fantasque-sans-mono
