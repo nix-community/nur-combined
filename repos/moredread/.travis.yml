@@ -18,6 +18,8 @@ matrix:
   - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.03
 install:
 - nix --version
+- nix-channel --list
+- nix-channel --add https://nixos.org/channels/nixos-18.09 nixpkgs
 - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
 - if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix; fi
 - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi

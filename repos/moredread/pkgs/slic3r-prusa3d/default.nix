@@ -1,5 +1,5 @@
 { stdenv, lib, fetchFromGitHub, makeWrapper, cmake, pkgconfig
-, boost, curl, expat, glew, libpng, tbb, wxGTK30
+, boost, curl, expat, glew, libpng, tbb, wxGTK31
 , gtest, nlopt, xorg
 }:
 let
@@ -9,7 +9,7 @@ let
 in
 stdenv.mkDerivation rec {
   name = "slic3r-prusa-edition-${version}";
-  version = "1.42.0-alpha1";
+  version = "1.42.0-alpha3";
 
   enableParallelBuilding = true;
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     glew
     libpng
     tbb
-    wxGTK30
+    wxGTK31
     xorg.libX11
   ] ++ checkInputs;
 
@@ -51,18 +51,14 @@ stdenv.mkDerivation rec {
     sed -i 's|nlopt_cxx|nlopt|g' src/libnest2d/cmake_modules/FindNLopt.cmake
   '';
 
-  postInstall = ''
-    mkdir -p $out/bin
-    cp src/slic3r-gui $out/bin
-    cp -r ../resources $out
-  '';
-
   src = fetchFromGitHub {
     owner = "prusa3d";
     repo = "Slic3r";
-    sha256 = "0kcvj3jv2pvq41fawxcf9ppv9xab718826fgghs6qx79mr9vijxd";
+    sha256 = "13hjz84d9w6d9q881qk3s27yc8k7rz0yfgzhg81slm1ysm5r6rcw";
     rev = "version_${version}";
   };
+
+  cmakeFlags = [ "-DSLIC3R_FHS=1" ];
 
   meta = with stdenv.lib; {
     description = "G-code generator for 3D printer";
