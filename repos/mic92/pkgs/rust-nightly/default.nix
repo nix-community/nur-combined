@@ -37,6 +37,5 @@ let
 
 in callPackage (path + "/pkgs/development/compilers/rust/binaryBuild.nix") {
  inherit version src platform;
- buildRustPackage = null;
  versionType = "bootstrap";
 }

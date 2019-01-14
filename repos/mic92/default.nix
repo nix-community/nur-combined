@@ -50,6 +50,8 @@ rec {
 
   sourcetrail = pkgs.callPackage ./pkgs/sourcetrail {};
 
+  source-code-pro-nerdfonts = pkgs.callPackage ./pkgs/source-code-pro-nerdfonts {};
+
   threema-web = pkgs.callPackage ./pkgs/threema-web {};
 
   # smashing = pkgs.callPackage ./pkgs/smashing {};
