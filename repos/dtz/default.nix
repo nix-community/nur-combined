@@ -152,6 +152,7 @@ let toplevel = {
   // { iosevka-term-styles = pkgs.callPackages ./pkgs/iosevka-term { }; }
   // { luculent = pkgs.callPackage ./pkgs/luculent { }; }
   // { hack = pkgs.callPackage ./pkgs/hack { }; }
+  // { source-code-pro-variable = pkgs.callPackage ./pkgs/source-code-pro-variable { }; }
   // (pkgs.callPackages ./pkgs/xi { })
   // (pkgs.callPackages ./pkgs/svf { lib = pkgs.lib // toplevel.lib; /* FIXME */ })
   // { xlayoutdisplay = pkgs.callPackage ./pkgs/xlayoutdisplay { }; }
