@@ -87,7 +87,7 @@ in runCommand name {
       ;;
     terraform)
       case \$1 in
-        fmt|state)
+        fmt|state|import)
           exec terraform "\$@"
           ;;
         *)

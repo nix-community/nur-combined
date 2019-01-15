@@ -250,6 +250,7 @@ let
     tabular
     vim-airline
     vim-indent-guides
+    vim-repeat
   ];
 
   cosmeticPlugins = [
