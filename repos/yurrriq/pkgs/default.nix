@@ -9,7 +9,7 @@ let
 
 in
 
-{
+rec {
 
   inherit (_nixpkgs) autojump helmfile kops kube-prompt kubernetes-helm kubetail minikube;
 
@@ -25,11 +25,20 @@ in
 
   git-crypt = pkgs.callPackage ./applications/version-management/git-and-tools/git-crypt {};
 
+  icon-lang = pkgs.callPackage ./development/interpreters/icon-lang {
+    withGraphics = false;
+  };
+
   kubectx = pkgs.callPackage ./applications/networking/cluster/kubectx {};
 
   kubernetes = pkgs.callPackage ./applications/networking/cluster/kubernetes {};
 
   lab = pkgs.callPackage ./applications/version-management/git-and-tools/lab {};
+
+  noweb = pkgs.callPackage ./development/tools/literate-programming/noweb {
+    inherit icon-lang;
+    useIcon = true;
+  };
 
 } // (if pkgs.stdenv.isDarwin then {
 
@@ -45,10 +54,6 @@ in
   diff-pdf = pkgs.callPackage ./tools/text/diff-pdf {
     inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
   };
-
-  icon-lang = pkgs.callPackage ./os-specific/darwin/icon-lang {};
-
-  noweb = pkgs.callPackage ./os-specific/darwin/noweb {};
 
   m-cli = pkgs.m-cli.overrideAttrs (_: rec {
     name = "m-cli-${version}";

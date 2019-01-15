@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchurl, gawk, gcc, icon-lang }:
+{ stdenv, fetchFromGitHub, gawk, gcc, icon-lang, useIcon ? false }:
 
 let noweb = stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -13,24 +13,25 @@ let noweb = stdenv.mkDerivation rec {
     sha256 = "1160i2ghgzqvnb44kgwd6s3p4jnk9668rmc15jlcwl7pdf3xqm95";
   };
 
-  outputs = [ "out" "bin" "lib" "man" "tex" ];
+  outputs = [ "out" "tex" ];
 
-  nativeBuildInputs = [ gcc icon-lang ];
+  nativeBuildInputs = [ gcc ] ++ stdenv.lib.optionals useIcon [ icon-lang ];
 
   preBuild = ''
-    mkdir -p "$lib/lib/noweb"
+    mkdir -p "$out/lib/noweb"
     cd src
   '';
 
-  makeFlags = [
+  makeFlags = stdenv.lib.optionals useIcon [
     "LIBSRC=icon"
     "ICONC=icont"
   ];
 
   installFlags = [
-    "BIN=$(bin)/bin"
-    "LIB=$(lib)/lib/noweb"
-    "MAN=$(man)/share/man"
+    "BIN=$(out)/bin"
+    "ELISP=$(out)/share/emacs/site-lisp"
+    "LIB=$(out)/lib/noweb"
+    "MAN=$(out)/share/man"
     "TEXINPUTS=$(tex)/tex/latex/noweb"
   ];
 
@@ -38,27 +39,26 @@ let noweb = stdenv.mkDerivation rec {
     mkdir -p "$tex/tex/latex/noweb"
   '';
 
-  postInstall= ''
-    substituteInPlace "$bin/bin/cpif" --replace "PATH=/bin:/usr/bin" ""
+  postInstall = ''
+    substituteInPlace "$out/bin/cpif" --replace "PATH=/bin:/usr/bin" ""
 
-    for f in $bin/bin/no{index,roff,roots,untangle,web} \
-             $lib/lib/noweb/to{ascii,html,roff,tex} \
-             $lib/lib/noweb/{bt,empty}defn \
-             $lib/lib/noweb/{noidx,unmarkup}; do
+    for f in $out/bin/no{index,roff,roots,untangle,web} \
+             $out/lib/noweb/to{ascii,html,roff,tex} \
+             $out/lib/noweb/{bt,empty}defn \
+             $out/lib/noweb/{noidx,unmarkup}; do
       substituteInPlace "$f" --replace "nawk" "${gawk}/bin/awk"
     done
 
-    ln -s "$bin/bin" "$out/bin"
-    ln -s "$lib/lib" "$out/lib"
-    mkdir -p "$out/share"
     ln -s "$tex" "$out/share/texmf"
   '';
 
   patches = [ ./no-FAQ.patch ];
 
   meta = with stdenv.lib; {
+    description = "A simple, extensible literate-programming tool";
+    homepage = https://www.cs.tufts.edu/~nr/noweb;
     license = licenses.bsd2;
-    platforms = platforms.darwin;
     maintainers = with maintainers; [ yurrriq ];
+    platforms = with platforms; linux ++ darwin;
   };
 }; in noweb // { pkgs = [ noweb.tex ]; }
