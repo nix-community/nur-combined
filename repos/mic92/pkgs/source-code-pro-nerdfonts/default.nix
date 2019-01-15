@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
   buildCommand = ''
-    install --target $out/share/fonts/opentype -D $src/*.ttf
-    rm $out/share/fonts/opentype/*Windows\ Compatible.ttf
+    install --target $out/share/fonts/opentype -D $src/*Mono.ttf
   '';
 
   meta = with stdenv.lib; {
