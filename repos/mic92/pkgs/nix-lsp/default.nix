@@ -2,15 +2,15 @@
 
 rustNightlyPlatform.buildRustPackage rec {
   name = "nix-lsp-${version}";
-  version = "2018-08-29";
+  version = "2018-11-18";
 
   cargoSha256 = "0n4a684ybh109pdi5i40zqca532k3ir5scykp4hl89qjbvaf1frh";
 
   src = fetchFromGitLab {
-    sha256 = "0fdmlyjz1j3jvq256ysc7ap2f2szgqb6da9l0fd3z5cv5y8whd0s";
-    rev = "346b3fd67843a5445a54994dac4043d002a38e2e";
-    repo = "nix-lsp";
     owner = "jD91mZM2";
+    repo = "nix-lsp";
+    rev = "24ac35f05320711185366c921a9306e240eda164";
+    sha256 = "0wxg2199x8yv7bkqql2fj4c148kznjbk1mcp6kbh3k419hj1ck6x";
   };
 
   meta = with stdenv.lib; {
