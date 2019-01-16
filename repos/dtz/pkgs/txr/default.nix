@@ -2,14 +2,12 @@
 
 stdenv.mkDerivation rec {
   name = "txr-${version}";
-  version = "204";
+  version = "205";
 
   src = fetchurl {
     url = "http://www.kylheku.com/cgit/txr/snapshot/${name}.tar.bz2";
-    sha256 = "0nfkh3vkwxh91qz33pz5b34hjys0s9ssbnghfqy98z335wvnynr3";
+    sha256 = "1fw3rf3irwfkl0mjww5i6l1lqfdw77iv5h9wrix5cbfcivxqrd6b";
   };
-
-  patches = [ ./musl-configure.patch ];
 
   nativeBuildInputs = [ bison flex ];
   buildInputs = [ libffi ];
