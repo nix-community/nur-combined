@@ -3,15 +3,16 @@
 let
 
   _nixpkgs = lib.pinnedNixpkgs {
-    rev = "6a0f0cce63b65e41ab679cc66a20f9acfc0d61c3";
-    sha256 = "0dnzw8cxkx231mb2da0rfh13p0q66pic2xrgjm18izqdn5vm7qym";
+    rev = "7f06f36ffb00e7d9206692649356f9f8c7acb2a7";
+    sha256 = "1iscfzg0cyv0zm43aqs1agsbm24bg8dmjjqj4mvzk5q7r42rnrms";
   };
 
 in
 
 rec {
 
-  inherit (_nixpkgs) autojump helmfile kops kube-prompt kubernetes-helm kubetail minikube;
+  inherit (_nixpkgs) autojump kubetail;
+  inherit (_nixpkgs.gitAndTools) git-crypt;
 
   erlang = pkgs.beam.interpreters.erlangR20.override {
     enableDebugInfo = true;
@@ -23,15 +24,65 @@ rec {
     pythonPackages = pkgs.python2Packages;
   };
 
-  git-crypt = pkgs.callPackage ./applications/version-management/git-and-tools/git-crypt {};
-
   icon-lang = pkgs.callPackage ./development/interpreters/icon-lang {
     withGraphics = false;
   };
 
-  kubectx = pkgs.callPackage ./applications/networking/cluster/kubectx {};
+  kops = _nixpkgs.kops.overrideAttrs(oldAttrs: rec {
+    name = "kops-${version}";
+    version = "1.11.0";
+    src = _nixpkgs.fetchFromGitHub {
+      owner = "kubernetes";
+      repo = "kops";
+      rev = version;
+      sha256 = "1z67jl66g79q6v5kjy9qxx2xp656ybv5hrc10h3wmzy0b0n30s4n";
+    };
+  });
 
-  kubernetes = pkgs.callPackage ./applications/networking/cluster/kubernetes {};
+  kubectl = (kubernetes.override { components = [ "cmd/kubectl" ]; }).overrideAttrs(oldAttrs: rec {
+    pname = "kubectl";
+    name = "${pname}-${oldAttrs.version}";
+  });
+
+  kubectx = (_nixpkgs.kubectx.override {
+    inherit kubectl;
+  }).overrideAttrs(oldAttrs: rec {
+    version = "0.6.2";
+    src = _nixpkgs.fetchFromGitHub {
+      owner = "ahmetb";
+      repo = oldAttrs.pname;
+      rev = version;
+      sha256 = "0kmzj8nmjzjfl5jgdnlizn3wmgp980xs6m9pvpplafjshx9k159c";
+    };
+  });
+
+  kubernetes = _nixpkgs.kubernetes.overrideAttrs(old: rec {
+    pname = "kubernetes";
+    name = "${pname}-${version}";
+    version = "1.11.6";
+    src = _nixpkgs.fetchFromGitHub {
+      owner = "kubernetes";
+      repo = "kubernetes";
+      rev = "v${version}";
+      sha256 = "0p4kh056m84gyh05zia38aa4fqqad78ark2cycbi3nb60jj1nl9a";
+    };
+  });
+
+  inherit (_nixpkgs) kubernetes-helm;
+
+  # TODO:
+  # kubernetes-helm = _nixpkgs.kubernetes-helm.overrideAttrs(oldAttrs: rec {
+  #   pname = "helm";
+  #   name = "${pname}-${version}";
+  #   version = "2.12.2";
+  #   goDeps = ./applications/networking/cluster/helm/deps.nix;
+  #   src = _nixpkgs.fetchFromGitHub {
+  #     owner = pname;
+  #     repo = pname;
+  #     rev = "v${version}";
+  #     sha256 = "0a8pajj9p080f4fbylf2jixkp8xmidx2vg7k02f0prrw6q26g6gf";
+  #   };
+  # });
 
   lab = pkgs.callPackage ./applications/version-management/git-and-tools/lab {};
 
@@ -57,12 +108,12 @@ rec {
 
   m-cli = pkgs.m-cli.overrideAttrs (_: rec {
     name = "m-cli-${version}";
-    version = "d03d8b9";
+    version = "c658afcb";
     src = pkgs.fetchFromGitHub {
       owner = "rgcr";
       repo = "m-cli";
       rev = version;
-      sha512 = "39wfgp2cq6kqi7rcvxmw1hc61mcbjc1fwrb7d1s01vwrkrggn8arrzrik99qw7ymirg0aql5xc12ww3z5sfxyn7y4s1kb7v1r7kn2nm";
+      sha256 = "1jjf4iqfkbi6jg1imcli3ajxwqpnqh7kiip4h3hc9wfwx639wljx";
     };
   });
 
