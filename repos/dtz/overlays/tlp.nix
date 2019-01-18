@@ -1,12 +1,12 @@
 self: super: {
   tlp = super.tlp.overrideAttrs (o: rec {
     name = "tlp-${version}";
-    version = "2019-01-13";
+    version = "2019-01-17";
     src = super.fetchFromGitHub {
       owner = "linrunner";
       repo = "tlp";
-      rev = "d8b4dda29cce72f979554781826fbab7c45c6e82";
-      sha256 = "082l18qypca069cas1lpfv7nzahvi3dnmgls1pyviw3nzfggg44s";
+      rev = "370e6a9d4a5429939abce51e85eebc69a7a595f3";
+      sha256 = "1vgh55qxa3dhfkclraw8z7mnwmdhdw7n8b9yby81ngzzqvr3bdq0";
     };
 
     makeFlags = (o.makeFlags or []) ++ [
