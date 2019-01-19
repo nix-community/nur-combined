@@ -36,16 +36,23 @@ rec {
   cubelib = pkgs.callPackage ./pkgs/cubelib { };
   cubegui = pkgs.callPackage ./pkgs/cubegui { inherit cubelib; };
 
+  hpcg = pkgs.callPackage ./pkgs/hpcg { };
+  hpl = pkgs.callPackage ./pkgs/hpl { };
+
   lo2s = pkgs.callPackage ./pkgs/lo2s { inherit otf2; };
   lulesh = pkgs.callPackage ./pkgs/lulesh { };
 
   must = pkgs.callPackage ./pkgs/must { inherit dyninst; };
   muster = pkgs.callPackage ./pkgs/muster { };
+  nemo_36 = pkgs.callPackage ./pkgs/nemo/3.6.nix { xios = xios_10; };
+  nemo = pkgs.callPackage ./pkgs/nemo { };
   nix-patchtools = pkgs.callPackage ./pkgs/nix-patchtools { };
   ravel = pkgs.callPackage ./pkgs/ravel {
     inherit otf2;
     inherit muster;
   };
+  xios_10 = pkgs.callPackage ./pkgs/xios/1.0.nix { };
+  xios = pkgs.callPackage ./pkgs/xios { };
 
   # miniapps
   miniapp-ping-pong = pkgs.callPackage ./pkgs/miniapp-ping-pong { inherit caliper; };

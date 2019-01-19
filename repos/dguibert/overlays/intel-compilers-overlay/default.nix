@@ -17,25 +17,37 @@ let
         nativeLibc = super.targetPlatform == super.hostPlatform && super.stdenv.cc.nativeLibc or false;
         nativePrefix = super.stdenv.cc.nativePrefix or "";
         noLibc = !self.nativeLibc && (self.libc == null);
-  
+
         isGNU = cc.isGNU or false;
         isClang = cc.isClang or false;
         isIntel = true;
-  
+
         inherit cc bintools libc;
       } // extraArgs; in self);
 
 
       in rec {
+      redist = self.callPackage ./redist.nix { inherit version; };
       unwrapped = self.callPackage ./compiler.nix { inherit version; };
 
       compilers = wrapCCWith {
         cc = unwrapped;
-        extraPackages = [ super.which super.binutils ];
+        extraPackages = [ redist super.which super.binutils ];
       };
 
       /* Return a modified stdenv that uses Intel compilers */
-      stdenv = super.overrideCC super.stdenv compilers;
+      stdenv = let stdenv_=super.overrideCC super.stdenv compilers; in stdenv_ // {
+        mkDerivation = args: stdenv_.mkDerivation (args // {
+          postFixup = "${args.postFixup or ""}" + ''
+          set -x
+          storeId=$(echo "${compilers}" | sed -n "s|^$NIX_STORE/\\([a-z0-9]\{32\}\\)-.*|\1|p")
+          find $out -not -type d -print0 | xargs -0 sed -i -e  "s|$NIX_STORE/$storeId-|$NIX_STORE/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-|g"
+          storeId=$(echo "${unwrapped}" | sed -n "s|^$NIX_STORE/\\([a-z0-9]\{32\}\\)-.*|\1|p")
+          find $out -not -type d -print0 | xargs -0 sed -i -e  "s|$NIX_STORE/$storeId-|$NIX_STORE/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-|g"
+          set +x
+          '';
+        });
+      };
 
       mpi = super.callPackage ./mpi.nix { inherit version; };
     };

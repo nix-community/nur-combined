@@ -56,8 +56,8 @@ versions = {
 # "2016.3.210" = null;
 # "2016.3.223"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/9061/parallel_studio_xe_2016_update3.tgz
 # "2016.4.258"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/9781/parallel_studio_xe_2016_update4.tgz
-#             
-#             
+#
+#
 # "2017.0.098"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/9651/parallel_studio_xe_2017.tgz
 # "2017.1.132"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/10973/parallel_studio_xe_2017_update1.tgz
 # "2017.2.174"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11298/parallel_studio_xe_2017_update2.tgz
@@ -67,8 +67,8 @@ versions = {
 # http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12534/parallel_studio_xe_2017_update6.tgz
 # "2017.7.259"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12856/parallel_studio_xe_2017_update7.tgz
 # http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13709/parallel_studio_xe_2017_update8.tgz
-#             
-#             
+#
+#
 # "2018.0.128"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12062/parallel_studio_xe_2018_professional_edition.tgz
 # "2018.1.163"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12375/parallel_studio_xe_2018_update1_professional_edition.tgz
 # "2018.2.199"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12718/parallel_studio_xe_2018_update2_professional_edition.tgz
@@ -133,12 +133,12 @@ self = stdenv.mkDerivation rec {
         echo "Patching library: $f"
         patchelf --set-rpath ${glibc}/lib:${gcc.cc}/lib:${gcc.cc.lib}/lib:\$ORIGIN:\$ORIGIN/../lib $f || true
         ;;
-      *) 
-        echo "$f ($type) not patched" 
+      *)
+        echo "$f ($type) not patched"
         ;;
       esac
     done
- 
+
     echo "Fixing path into scripts..."
     for file in `grep -l -r "/${preinstDir}/" $out`
     do
@@ -149,7 +149,7 @@ self = stdenv.mkDerivation rec {
     for comp in icc icpc ifort ; do
       echo "-idirafter $libc/include -dynamic-linker $(echo ${glibc}/lib/ld-linux*.so.2)" >> $out/bin/intel64/$comp.cfg
     done
- 
+
     for comp in icc icpc ifort xild xiar; do
       echo "#!/bin/sh" > $out/bin/$comp
       echo "export PATH=${gcc}/bin:${gcc.cc}/bin:\$PATH" >> $out/bin/$comp
@@ -164,11 +164,11 @@ self = stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru = {
-    lib = self; # compatibility with gcc, so that `stdenv.cc.cc.lib` works on both                                   
+    lib = self; # compatibility with gcc, so that `stdenv.cc.cc.lib` works on both
     isIntel = true;
     hardeningUnsupportedFlags = [ "stackprotector" ];
     langFortran = true;
-  } // stdenv.lib.optionalAttrs stdenv.isLinux {                                                                     
+  } // stdenv.lib.optionalAttrs stdenv.isLinux {
     inherit gcc;
   };
 

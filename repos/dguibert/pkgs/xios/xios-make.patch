@@ -1,0 +1,80 @@
+--- make_xios.orig	2018-09-27 12:00:59.048621000 +0200
++++ make_xios	2018-09-27 12:19:53.226614000 +0200
+@@ -3,6 +3,8 @@
+ install_dir=$PWD
+ compil_full="false"
+ use_oasis="false"
++use_extern_boost="false"
++use_extern_blitz="false"
+ oasis="oasis3_mct"
+ use_memtrack="false"
+ job="1"
+@@ -24,6 +26,8 @@
+ 	    echo "       [--avail] : to know available target architectures "
+ 	    echo "       [--full] : to generate dependencies and recompile from scratch"
+ 	    echo "       [--use_oasis 'oasis3' 'oasis3_mct' : default oasis3_mct] : to use Oasis coupler"
++        echo "       [--use_extern_boost : to use external boost library"
++        echo "       [--use_extern_blitz : to use external blitz library"
+ 	    echo "       [--doc] : to generate Doxygen documentation (not available yet)"
+ 	    echo "       [--job ntasks] : to use parallel compilation with ntasks"
+ 	    echo "       [--netcdf_lib 'netcdf4_par'/'netcdf4_seq'/'netcdf4_internal' : default netcdf4_par] : choice of netcdf library"
+@@ -38,6 +42,8 @@
+          "--avail") ls arch/*.fcm | cut -d"-" -f2 | cut -d"." -f1 ; exit ;; 
+          "--full")  compil_full="true"  ; shift ;;
+          "--use_oasis")  use_oasis="true" oasis=$2 ; shift ; shift  ;;
++         "--use_extern_boost")  use_extern_boost="true" ; shift  ;;
++         "--use_extern_blitz")  use_extern_blitz="true" ; shift  ;;
+          "--doc")   doc="true"          ; shift ;;
+          "--job")   job=$2              ; shift ; shift ;;
+          "--netcdf_lib")   netcdf_lib=$2 ; shift ; shift ;;
+@@ -52,6 +58,10 @@
+ then
+     echo -e "- uncompress archives ..."		
+     for tarname in `ls $install_dir/tools/archive/*.tar.gz` ; do
++        if  ( [[ ${tarname} == "${install_dir}/tools/archive/boost.tar.gz" ]] && [[ "$use_extern_boost" == "true" ]] ) || ( [[ ${tarname} == "${install_dir}/tools/archive/blitz.tar.gz" ]] && [[ "$use_extern_blitz" == "true" ]] )
++        then
++                continue
++        fi
+ 	gunzip -f "$tarname"
+ 	tar -xf ${tarname%.gz}
+     done
+@@ -148,13 +158,38 @@
+     XMLIO_LIB="$OASIS_LIBDIR $OASIS_LIB $XMLIO_LIB"
+ fi 
+ 
++# Setting path for boost
++if [[ "$use_extern_boost" == "true" ]]
++then
++   rm -r $PWD/extern/boost
++   ln -s $PWD/.void_dir $PWD/extern/boost
++else
++   export BOOST_INCDIR="-I${PWD}/extern/boost"
++   export BOOST_LIBDIR=""
++   export BOOST_LIB=""
++fi
++
++# Setting path for blitz
++if [[ "$use_extern_blitz" == "true" ]]
++then
++   rm -r $PWD/extern/blitz
++   ln -s $PWD/.void_dir $PWD/extern/blitz
++else
++   export BLITZ_INCDIR="-I${PWD}/extern/blitz"
++   export BLITZ_LIBDIR=""
++   export BLITZ_LIB=""
++fi
++
++
++
+ if [[ "$use_memtrack" == "true" ]]
+    then
+    XMLIO_LIB="$ADDR2LINE_LIBDIR $ADDR2LINE_LIB $XMLIO_LIB"
+    XMLIO_CPPKEY="$XMLIO_CPPKEY XIOS_MEMTRACK"
+ fi 
+ 
+-XMLIO_CINCDIR="$NETCDF_INCDIR $HDF5_INCDIR $MPI_INCDIR"
++# XMLIO_CINCDIR="$NETCDF_INCDIR $HDF5_INCDIR $MPI_INCDIR"
++XMLIO_CINCDIR="$NETCDF_INCDIR $HDF5_INCDIR $MPI_INCDIR $BOOST_INCDIR $BLITZ_INCDIR"
+ XMLIO_FINCDIR="$XMLIO_FINCDIR $MPI_INCDIR"
+ 
+ XMLIO_LIB="$XMLIO_LIB $NETCDF_LIBDIR $HDF5_LIBDIR $MPI_LIBDIR $NETCDF_LIB $HDF5_LIB $MPI_LIB"

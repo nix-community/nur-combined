@@ -1,0 +1,31 @@
+# generic ifort compiler options for linux
+# NCDF_INC    netcdf include file
+# NCDF_LIB    netcdf library
+# FC          Fortran compiler command
+# FCFLAGS     Fortran compiler flags
+# FFLAGS      Fortran 77 compiler flags
+# LD          linker
+# LDFLAGS     linker flags, e.g. -L<lib dir> if you have libraries in a
+# FPPFLAGS    pre-processing flags
+# AR          assembler
+# ARFLAGS     assembler flags
+# MK          make
+# USER_INC    additional include files for the compiler,  e.g. -I<include dir>
+# USER_LIB    additional libraries to pass to the linker, e.g. -l<library>
+
+
+%CPP	             cpp
+%FC                  @fc@ -c -cpp
+%FCFLAGS             @fflags@
+%FFLAGS              %FCFLAGS
+%LD                  @fc@
+%LDFLAGS             -lstdc++
+%FPPFLAGS            -P -C -traditional -std=c99
+%AR                  ar
+%ARFLAGS             rs
+%MK                  make
+%USER_INC            -I@netcdffortran@/include -I@xios@/include
+%USER_LIB            -lxios -lnetcdff -lnetcdf -lhdf5
+
+%CC                  @cc@
+%CFLAGS              -O3

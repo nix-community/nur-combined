@@ -1,6 +1,7 @@
 { stdenv, fetchurl, glibc, gcc, file
 , cpio, rpm
 , patchelf
+, makeWrapper
 , preinstDir ? "opt/intel/compilers_and_libraries_${version}/linux/mpi"
 , version ? "2019.1.144"
 }:
@@ -64,7 +65,7 @@ self = stdenv.mkDerivation rec {
   name = "intelmpi-${version}";
   src = versions."${version}";
 
-  nativeBuildInputs= [ file patchelf ];
+  nativeBuildInputs= [ file patchelf makeWrapper ];
 
   dontPatchELF = true;
   dontStrip = true;
@@ -99,14 +100,14 @@ self = stdenv.mkDerivation rec {
       case "$type" in
       "application/executable"|"application/x-executable")
         echo "Patching executable: $f"
-        patchelf --set-interpreter $(echo ${glibc}/lib/ld-linux*.so.2) --set-rpath ${glibc}/lib:${gcc.cc}/lib:${gcc.cc.lib}/lib:\$ORIGIN:\$ORIGIN/../lib $f || true
+        patchelf --set-interpreter $(echo ${glibc}/lib/ld-linux*.so.2) --set-rpath ${glibc}/lib:\$ORIGIN:\$ORIGIN/../lib $f || true
         ;;
       "application/x-sharedlib"|"application/x-pie-executable")
         echo "Patching library: $f"
-        patchelf --set-rpath ${glibc}/lib:${gcc.cc}/lib:${gcc.cc.lib}/lib:\$ORIGIN:\$ORIGIN/../lib:\$ORIGIN/../../libfabric/lib $f || true
+        patchelf --set-rpath ${glibc}/lib:\$ORIGIN:\$ORIGIN/../lib:\$ORIGIN/../../libfabric/lib $f || true
         ;;
-      *) 
-        echo "$f ($type) not patched" 
+      *)
+        echo "$f ($type) not patched"
         ;;
       esac
     done
@@ -117,6 +118,8 @@ self = stdenv.mkDerivation rec {
     for file in `grep -l -r "I_MPI_SUBSTITUTE_INSTALLDIR" $out`; do
       sed -e "s,I_MPI_SUBSTITUTE_INSTALLDIR,$out,g" -i $file
     done
+
+    wrapProgram $out/bin/mpiexec.hydra --set FI_PROVIDER_PATH $out/intel64/libfabric/lib/prov
   '';
 
   passthru = {

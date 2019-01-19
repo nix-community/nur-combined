@@ -1,0 +1,22 @@
+%CCOMPILER      @cc@
+%FCOMPILER      @fc@
+%LINKER         @fc@
+
+%BASE_CFLAGS    -w -std=gnu++98
+%PROD_CFLAGS    -O3 -D BOOST_DISABLE_ASSERTS
+%DEV_CFLAGS     -g -traceback
+%DEV_CFLAGS     -g
+%DEBUG_CFLAGS   -DBZ_DEBUG -g -traceback -fno-inline
+
+%BASE_FFLAGS    -D__NONE__ @fflags@
+%PROD_FFLAGS    -O3
+#%DEV_FFLAGS     -g -traceback
+%DEV_FFLAGS     -g
+%DEBUG_FFLAGS   -g -traceback
+
+%BASE_INC       -D__NONE__
+%BASE_LD        -lstdc++
+
+%CPP            $cc@ -EP
+%FPP            cpp -P
+%MAKE           make
