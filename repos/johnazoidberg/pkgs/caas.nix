@@ -25,7 +25,7 @@ let
       installPhase = ''find $out/.m2 -type f -regex '.+\(\.lastUpdated\|resolver-status\.properties\|_remote\.repositories\)' -delete'';
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
-      outputHash = "170l5apva38458vhlis598a715z0nni5f21z2qjwrnw819p1yr7i";
+      outputHash = "1hvpw66167pzslgprb6nz4im1f61g58vfbhvqhgixc3lvmhyxp9h";
 
     };
 
