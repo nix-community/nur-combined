@@ -1,3 +1,6 @@
 [submodule "haskell-plugins/haskell-nix-plugin"]
 	path = haskell-plugins/haskell-nix-plugin
 	url = https://github.com/mpickering/haskell-nix-plugin.git
+[submodule "ghc-artefact-nix"]
+	path = ghc-artefact-nix
+	url = https://github.com/mpickering/ghc-artefact-nix
