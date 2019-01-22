@@ -2,18 +2,14 @@
 
 stdenv.mkDerivation rec {
   name = "chelf-${version}";
-  version = "2018-10-29";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "Gottox";
     repo = "chelf";
-    rev = "c3204f80e9db350f2ba6498b684356f7ea505fa5";
-    sha256 = "1nfryd8r38amnak2fqj6g0kh79l4yzg1zfg6c2ggn0xyx1n4kks8";
+    rev = "v${version}";
+    sha256 = "0rnw34f4xzwpd07axim4f88f9v6abfpm2bkrgd64lwvwkhhnajqc";
   };
-
-  patches = [
-    ./0001-explicitly-initialize-elf-to-NULL-so-not-uninit-on-c.patch
-  ];
 
   installPhase = ''
     mkdir -p $out/bin
