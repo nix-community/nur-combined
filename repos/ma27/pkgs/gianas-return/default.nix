@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, upx, zlib, libGL, libGLU, SDL, SDL_mixer, freeglut, xorg, esdl }:
+{ stdenv, fetchurl, upx, zlib, libGL, libGLU, SDL, SDL_mixer, freeglut, xorg }:
 
 let
 
@@ -11,7 +11,6 @@ let
     SDL_mixer
     freeglut
     xorg.libXcursor
-    esdl
   ];
 
   binary = if stdenv.isi686 then "giana_linux32" else "giana_linux64";

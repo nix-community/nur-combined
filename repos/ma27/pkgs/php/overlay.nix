@@ -2,8 +2,9 @@ self: super:
 
 let
 
-  extraConfig = self.writeText "apcu.ini" ''
+  extraConfig = self.writeText "apcu-and-xdebug.ini" ''
     extension=${self.php71Packages.apcu}/lib/php/extensions/apcu.so
+    zend_extension=${self.php71Packages.xdebug}/lib/php/extensions/xdebug.so
   '';
 
   # `php` doesn't have override capabilities and is expected to be
@@ -17,7 +18,7 @@ in
 
   {
     php = self.symlinkJoin {
-      name = "php-with-apcu";
+      name = "php-with-apcu-and-xdebug";
       paths = [ php' ];
       nativeBuildInputs = [ self.makeWrapper ];
 

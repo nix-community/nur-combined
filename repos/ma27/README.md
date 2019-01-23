@@ -84,6 +84,9 @@ are always welcome.
 * `glowing-bear` (`pkgs.nur.repos.ma27.glowing-bear`): A [weechat](https://weechat.org/) frontend,
   patched to get rid of Cloudflare dependencies.
 
+* `fzf-zsh` (`pkgs.nur.repos.ma27.fzf-zsh`): [`fzf`](https://github.com/junegunn/fzf) wrapper for
+  `oh-my-zsh`.
+
 ## Overlays
 
 There are several overlays available that can be imported with an expression like this:
