@@ -33,5 +33,43 @@ nix run -f https://github.com/mpickering/ghc-artefact-nix/archive/master.tar.gz 
 and then test the compiler locally.
 
 
+## `ghc-head-from` script
+
+The most convenient way to get into the shell is to use the `ghc-head-from` script
+which has two modes of operation.
+
+1. Specifying a MR by its number as the first argument fetches artefacts from that MR.
+2. Omitting the argument means we fetch the artefact from `ghc/master`.
+
+Note that this script is broken on `nix-2.2` due to a [regression](https://github.com/NixOS/nix/issues/2646).
+
+
+This is an example of fetching the artefacts for MR 180.
+
+```
+> ghc-head-from 180
+Fetching from MR: doc: user's guide pragma fixes
+Fetching artefact from brprice/wip/doc-pragma-fixes
+...
+```
+
+or fetching an artefact from HEAD.
+
+```
+> ghc-head-from
+Fetching artefact from ghc/master
+...
+```
+
+If you use [`NUR`](https://github.com/nix-community/NUR) then you can access
+the script via the attribute `nur.repos.mpickering.ghc-head-from`.
+
+```
+nix-shell -p nur.repos.mpickering.ghc-head-from
+```
+
+Nesting shells doesn't work very well in Nix so it's probably better to add
+the attribute to your `configuration.nix` file and install it globally.
+
 
 
