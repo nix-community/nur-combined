@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub
-, pkgconfig, cmake, wrapGAppsHook
+{ stdenv, lib, fetchFromGitHub, makeWrapper
+, pkgconfig, cmake, gsettings-desktop-schemas
 , python3, pcre-cpp, gmp, gnome3, boost, sqlite, libuuid, texlive
 }:
 
@@ -19,16 +19,26 @@ in
 
     buildInputs = [
       pythonEnv pcre-cpp gmp gnome3.gtkmm boost sqlite libuuid texlive.combined.scheme-basic
+      gsettings-desktop-schemas
     ];
 
     nativeBuildInputs = [
-      pkgconfig cmake wrapGAppsHook
+      pkgconfig cmake makeWrapper
     ];
 
+    preFixup = ''
+      sed -i -e "s:share/cadabra2:$out/share/cadabra2:g" $out/bin/cadabra2
+      wrapProgram $out/bin/cadabra2-gtk \
+        --prefix GIO_EXTRA_MODULES : "${lib.getLib gnome3.dconf}/lib/gio/modules" \
+        --prefix XDG_DATA_DIRS : "$out/share" \
+        --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${name}" \
+        --prefix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
+    '';
+
     meta = with stdenv.lib; {
-      description = "Advanced IRC Client";
-      homepage = http://www.kvirc.net/;
-      license = licenses.gpl2;
+      description = "A field-theory motivated approach to computer algebra";
+      homepage = https://cadabra.science/;
+      license = licenses.gpl3;
       maintainers = [ ];
       platforms = platforms.linux;
     };

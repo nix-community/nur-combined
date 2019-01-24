@@ -8,4 +8,5 @@
   carla = pkgs.callPackage ./pkgs/carla { };
   helio-workstation = pkgs.callPackage ./pkgs/helio-workstation { };
   kvirc = pkgs.callPackage ./pkgs/kvirc { };
+  cadabra2 = pkgs.callPackage ./pkgs/cadabra2 { };
 }
