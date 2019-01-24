@@ -68,7 +68,7 @@
     dotfiles-bin
 
     # School
-    plantuml arduino astah-community subversion fritzing plantuml
+    plantuml arduino subversion fritzing plantuml #astah-community
 
     # System utilities
     pavucontrol polkit_gnome exfat-utils ntfs3g iotop bmon linuxPackages.perf picocom gotop htop
