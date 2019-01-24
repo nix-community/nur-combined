@@ -19,6 +19,7 @@ rec {
   goreturns = pkgs.callPackage ./pkgs/goreturns {};
   knctl = pkgs.callPackage ./pkgs/knctl {};
   krew = pkgs.callPackage ./pkgs/krew {};
+  openshift-installer = pkgs.callPackage ./pkgs/openshift-installer {};
   prm = pkgs.callPackage ./pkgs/prm {};
   protobuild = pkgs.callPackage ./pkgs/protobuild {};
   rmapi = pkgs.callPackage ./pkgs/rmapi {};
