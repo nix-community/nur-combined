@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   name = "chelf-${version}";
-  version = "0.2.1";
+  version = "0.2.2";
 
   src = fetchFromGitHub {
     owner = "Gottox";
     repo = "chelf";
     rev = "v${version}";
-    sha256 = "0rnw34f4xzwpd07axim4f88f9v6abfpm2bkrgd64lwvwkhhnajqc";
+    sha256 = "0xwd84aynyqsi2kcndbff176vmhrak3jmn3lfcwya59653pppjr6";
   };
 
   installPhase = ''
