@@ -9,7 +9,7 @@
 , setuptools
 , rust # rust & cargo bundled. (otheriwse use pkgs.rust.{rustc,cargo})
 , buildFHSUserEnv # Build a FHS environment with all Gecko dependencies.
-, llvmPackages, nasm
+, llvm, llvmPackages, nasm
 , ccache
 
 , zlib, xorg
@@ -71,6 +71,7 @@ let
     # the choices of the compilers.
 
     # clang
+    llvm
 
     # mach mochitest
     procps
@@ -94,7 +95,8 @@ let
     nodejs
 
   ] ++ optionals inNixShell [
-    valgrind gdb rr ccache
+    valgrind gdb ccache
+    (if stdenv.isAarch64 then null else rr)
   ];
 
   genMozConfig = ''

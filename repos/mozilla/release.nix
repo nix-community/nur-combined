@@ -1,6 +1,8 @@
 # To pin a specific version of nixpkgs, change the nixpkgsSrc argument.
 { nixpkgsSrc ? <nixpkgs>
-, supportedSystems ? [ "x86_64-linux" "i686-linux" /* "x86_64-darwin" */ ]
+, supportedSystems ? [ "x86_64-linux" "i686-linux" /* "x86_64-darwin" */
+    "aarch64-linux"
+  ]
 }:
 
 let
@@ -54,6 +56,9 @@ let
     "clang36"
     "clang37"
     "clang38"
+    "clang5"
+    "clang6"
+    "clang7"
     "gcc"
     "gcc6"
     "gcc5"
