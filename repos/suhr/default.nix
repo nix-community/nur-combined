@@ -10,4 +10,5 @@
   kvirc = pkgs.callPackage ./pkgs/kvirc { };
   cadabra2 = pkgs.callPackage ./pkgs/cadabra2 { };
   worksnaps-client = pkgs.callPackage ./pkgs/worksnaps-client { };
+  mathics = pkgs.callPackage ./pkgs/mathics { };
 }
