@@ -9,4 +9,5 @@
   helio-workstation = pkgs.callPackage ./pkgs/helio-workstation { };
   kvirc = pkgs.callPackage ./pkgs/kvirc { };
   cadabra2 = pkgs.callPackage ./pkgs/cadabra2 { };
+  worksnaps-client = pkgs.callPackage ./pkgs/worksnaps-client { };
 }
