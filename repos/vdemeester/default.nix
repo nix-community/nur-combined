@@ -3,6 +3,7 @@
 rec {
   # Min
   ape = pkgs.callPackage ./pkgs/ape {};
+  nr = pkgs.callPackage ./pkgs/nr {};
   ram = pkgs.callPackage ./pkgs/ram {};
   sec = pkgs.callPackage ./pkgs/sec {};
   systemd-email = pkgs.callPackage ./pkgs/systemd-email {};
