@@ -2,8 +2,9 @@ self: super:
 
 let
 
-  extraConfig = self.writeText "apcu-and-xdebug.ini" ''
+  extraConfig = self.writeText "custom-extensions.ini" ''
     extension=${self.php71Packages.apcu}/lib/php/extensions/apcu.so
+    extension=${self.php71Packages.imagick}/lib/php/extensions/imagick.so
     zend_extension=${self.php71Packages.xdebug}/lib/php/extensions/xdebug.so
   '';
 
@@ -11,14 +12,17 @@ let
   # modified using nixpkgs config args. This is hacky and makes defining
   # jobsets harder. Thus we simply patch the configure flags.
   php' = super.php71.overrideAttrs (old: {
-    configureFlags = old.configureFlags ++ [ "--with-xsl=${self.libxslt.dev}" ];
+    configureFlags = old.configureFlags ++ [
+      "--with-xsl=${self.libxslt.dev}"
+      "--with-tidy=${self.html-tidy}"
+    ];
   });
 
 in
 
   {
     php = self.symlinkJoin {
-      name = "php-with-apcu-and-xdebug";
+      name = "php-custom";
       paths = [ php' ];
       nativeBuildInputs = [ self.makeWrapper ];
 
