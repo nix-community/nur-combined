@@ -29,6 +29,7 @@ highlight CursorLineNr ctermfg=grey
 highlight ColorColumn ctermbg=black
 highlight FoldColumn ctermbg=none
 highlight Pmenu ctermbg=darkgrey
+highlight MatchParen cterm=bold ctermbg=darkgrey ctermfg=none
 
 
 " Keyboard mappings

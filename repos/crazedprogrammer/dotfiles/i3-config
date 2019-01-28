@@ -116,7 +116,7 @@ bindsym $mod+Shift+t [class=".+"] kill
 # shutdown
 bindsym $mod+Shift+u exec "poweroff"
 # reboot
-bindsym $mod+Shift+i exec "reboot"
+bindsym $mod+Shift+i exec "sudo systemctl kexec"
 # lock screen and suspend
 bindsym $mod+Shift+o exec "system tlock"
 bindsym $mod+Shift+Delete exec "system kill lock reload"
