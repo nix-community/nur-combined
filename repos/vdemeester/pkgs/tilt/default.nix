@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   name = "tilt-${version}";
-  version = "0.4.0";
+  version = "0.5.1";
   rev = "v${version}";
 
   goPackagePath = "github.com/windmilleng/tilt";
@@ -11,7 +11,7 @@ buildGoPackage rec {
     inherit rev;
     owner = "windmilleng";
     repo = "tilt";
-    sha256 = "17zzkl6dym2p5xpws9j83kj2sylgdnw16nxligal2r29qwiw2116";
+    sha256 = "0zdgp7s1s4pas16jzcbc84w31wdjyxzm9cdypqiswh6ib4jhd7rs";
   };
 
   meta = {
