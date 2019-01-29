@@ -11,4 +11,5 @@
   cadabra2 = pkgs.callPackage ./pkgs/cadabra2 { };
   worksnaps-client = pkgs.callPackage ./pkgs/worksnaps-client { };
   mathics = pkgs.callPackage ./pkgs/mathics { };
+  minimal-sddm-theme = pkgs.callPackage ./pkgs/minimal-sddm-theme { };
 }

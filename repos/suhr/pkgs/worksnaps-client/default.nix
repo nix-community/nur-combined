@@ -31,6 +31,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
+    # Oracle JDK licensing is too hostile to NixOS
+    broken = true;
+
     description = "{Time Tracking} for Remote Work";
     homepage = https://www.worksnaps.com/;
     license = licenses.unfree;
