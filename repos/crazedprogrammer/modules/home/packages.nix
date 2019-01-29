@@ -62,7 +62,7 @@
     openvpn openssh update-resolv-conf sshfs mosh
 
     # WM utilities
-    polybar-wrapped rofi-wrapped feh dunst-wrapped libnotify xtrlock-pam
+    polybar-wrapped rofi-wrapped feh dunst-wrapped libnotify xtrlock-pam compton
 
     # Scripts
     dotfiles-bin

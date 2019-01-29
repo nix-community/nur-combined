@@ -19,6 +19,8 @@ selection_foreground #161616
 foreground #ABB2BF
 # background colour
 background #161616
+dynamic_background_opacity yes
+background_opacity 0.92
 
 # black
 color0    #000000

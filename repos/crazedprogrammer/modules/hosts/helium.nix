@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  powersave = false;
+  powersave = true;
 in
 
 {

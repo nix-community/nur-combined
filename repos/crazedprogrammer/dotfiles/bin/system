@@ -6,9 +6,10 @@
 function kill {
 	pkill -f polybar
 	pkill -f dunst
+	pkill -f compton
 }
 
-function boot {
+function launch {
 	tlock
 	if [ $(hostname) == "xenon" ]; then
 		sudo mount -o noatime /dev/disk/by-uuid/243205de-6503-42f7-baa6-12aaf3c2a68e /mnt/hdd
@@ -24,6 +25,7 @@ function reload {
 	feh --bg-tile $HOME/Pictures/Background.png &
 	polybar $(hostname) &
 	dunst &
+	compton
 }
 
 function lock {
@@ -41,6 +43,10 @@ function suspend {
 	else
 		systemctl suspend
 	fi
+}
+
+function reboot {
+	sudo systemctl kexec || sudo systemctl reboot
 }
 
 for var in "$@"
