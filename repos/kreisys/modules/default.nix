@@ -1,4 +1,5 @@
 {
-  cachix = ./cachix.nix;
-  bobthefish   = ./bobthefish.nix;
+  cachix     = ./cachix.nix;
+  consul     = ./consul.nix;
+  bobthefish = ./bobthefish.nix;
 }
