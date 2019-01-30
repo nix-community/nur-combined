@@ -12,4 +12,5 @@
   worksnaps-client = pkgs.callPackage ./pkgs/worksnaps-client { };
   mathics = pkgs.callPackage ./pkgs/mathics { };
   minimal-sddm-theme = pkgs.callPackage ./pkgs/minimal-sddm-theme { };
+  _31key = pkgs.callPackage ./pkgs/31key { };
 }
