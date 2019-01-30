@@ -5,6 +5,9 @@ buildGoPackage rec {
   version = "2019-01-03";
   rev = "7798442553cfe7989a23d2c389c8c63a24013543";
 
+  CGO_ENABLED = 0; 
+  buildFlags = "-a -installsuffix cgo ";
+   
   goPackagePath = "github.com/ory/keto";
 
   src = fetchgit {

@@ -6,6 +6,9 @@ buildGoPackage rec {
   rev = "2d9899a38b927ff367931c024a10bfdc3230e9a3";
 
   goPackagePath = "github.com/ory/oathkeeper";
+  
+  CGO_ENABLED = 0; 
+  buildFlags = "-a -installsuffix cgo ";
 
   src = fetchgit {
     inherit rev;

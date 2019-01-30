@@ -6,6 +6,9 @@ buildGoPackage rec {
   version = "2019-01-03";
   rev = "e2b88d211a27d7b0aeff4b10f7140990133337bd";
 
+
+  CGO_ENABLED = 0;
+  buildFlags = "-a -installsuffix cgo ";
   goPackagePath = "github.com/ory/hydra";
 
   src = fetchgit {
