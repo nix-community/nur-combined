@@ -15,6 +15,8 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   croc = pkgs.callPackage ./pkgs/croc { };
+  dcss = pkgs.callPackage ./pkgs/dcss { };
+  dcss-tiles = pkgs.callPackage ./pkgs/dcss { enableTiles = true; };
   i3status-rust = pkgs.callPackage ./pkgs/i3status-rust { };
   latte = pkgs.callPackage ./pkgs/latte { };
   lenovo-throttling-fix = pkgs.callPackage ./pkgs/lenovo-throttling-fix { };
