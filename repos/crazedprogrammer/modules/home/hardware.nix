@@ -30,6 +30,11 @@
     package = pkgs.wireshark;
   };
 
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = false;
+  };
+
   # Improve boot time by not waiting for the network and time sync to come up.
   systemd.services."network-manager" = {
     wantedBy = lib.mkForce [ ];

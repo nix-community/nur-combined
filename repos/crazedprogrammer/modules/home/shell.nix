@@ -30,12 +30,13 @@
       cargo = "env LIBRARY_PATH=/run/current-system/sw/lib cargo";
       iotop = "sudo iotop";
       bmon = "sudo bmon";
-      fslist = "zfs list -o name,compressratio,used,available";
       aubuild = "nix-shell -p automake autoconf libtool --run \"sh autogen.sh\"; and nix-build .";
       esp-shell = "nix-shell (dotfiles)/esp-idf-shell.nix";
-      build-vm = "sudo nixos-rebuild build-vm -p test -I nixos-config=./modules/hosts/nixos-qemu.nix";
-      # TODO: try to find a way to persist the qcow image without chown errors during VM boot.
-      run-vm = "./result/bin/run-nixos-qemu-vm -m 4096 --enable-kvm --smp (nproc --all); and rm ./nixos-qemu.qcow2";
+      vm-build = "sudo nixos-rebuild build-vm -p test -I nixos-config=./modules/hosts/nixos-qemu.nix";
+      # TODO: try to find a way to persist the disk image without chown errors during VM boot.
+      vm-run = "./result/bin/run-nixos-qemu-vm -m 4096 --enable-kvm --smp (nproc --all); and rm ./nixos-qemu.qcow2";
+      ros = "docker run -v $PWD:/pwd -it ros:melodic-robot-custom";
+      ros-install = "docker build -t ros:melodic-robot-custom (dotfiles)/ros-container";
     };
 
     shellInit = ''
