@@ -1,14 +1,15 @@
-{ stdenv, fetchFromGitHub, rustPlatform, cmake, pkgconfig, freetype, gtk3, wrapGAppsHook, wrapXiFrontendHook }:
+{ stdenv, fetchFromGitHub, rustPlatform, cmake, pkgconfig, freetype, gtk3, wrapGAppsHook, xi-core }:
 
 rustPlatform.buildRustPackage rec {
   name = "gxi-unstable-${version}";
-  version = "2018-08-27";
+  version = "2019-02-01";
   
   src = fetchFromGitHub {
-    owner = "bvinc";
+    owner = "Cogitri";
     repo = "gxi";
-    rev = "a35d2cf6c5f1ac71387caf6fc33f158454a89f25";
-    sha256 = "1yg9mglxssavmcyvi38mjsmzsgrls2ridnphvwrxgzgnw7293wav";
+    rev = "8c4cb673417f391d6ddc2b868ded2c5569ab0cd9";
+    sha256 = "1p9w2hhanqnzh73iim3s9sd0g8f5dvzfjy8wycxiygsfcaajv1ha";
+    fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ cmake pkgconfig freetype ];
@@ -16,12 +17,18 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     gtk3
     wrapGAppsHook
-    wrapXiFrontendHook
   ];
 
-  cargoSha256 = "0v72s58g0v69gpja8n0sxzpc821849p6q53pmyasbrnjhyh51nxw";
+  GXI_PLUGIN_DIR = "${placeholder "out"}/share/xi/plugins";
 
-  postInstall = "wrapXiFrontend $out/bin/*";
+  hardeningDisable = [ "format" ]; # build error in gettext/gnulib??
+
+  cargoSha256 = "1ani8xm55mgrrf5m2va26m5c75qrql9k4l5i05rhrbvn9y37c881";
+
+  postInstall = ''
+    mkdir -p ${GXI_PLUGIN_DIR}
+    ln -s ${xi-core.syntect} ${GXI_PLUGIN_DIR}/synctect
+  '';
 
   meta = with stdenv.lib; {
     description = "GTK frontend for the xi text editor, written in rust";
