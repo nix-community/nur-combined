@@ -8,10 +8,8 @@
 ;=====================================================
 
 [colors]
-;background = ${xrdb:color0:#222}
 background = #222
 background-alt = #444
-;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
 foreground-alt = #555
 primary = #ffb52a
@@ -139,19 +137,6 @@ label-urgent = %index%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-[module/mpd]
-type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
-label-song-maxlen = 25
-label-song-ellipsis = true
-
 [module/cpugraph]
 type = internal/cpu
 interval = 0.5
@@ -182,14 +167,6 @@ type = custom/script
 exec = echo $(sysnformat `cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq`) GHz
 format-underline = #f94444
 interval = 0.5
-
-[module/cpu]
-type = internal/cpu
-interval = 0.5
-format-prefix =
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f94444
-label = CPU %percentage%%
 
 [module/memory]
 type = internal/memory
@@ -292,12 +269,11 @@ label = %temperature%
 label-warn = %temperature%
 label-warn-foreground = ${colors.secondary}
 
+[module/title]
+type = internal/xwindow
+
 [settings]
 screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
 
 [global/wm]
 margin-top = 5
