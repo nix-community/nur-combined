@@ -5,6 +5,7 @@ rec {
   hydra = pkgs.callPackage ./pkgs/hydra { };
   keto = pkgs.callPackage ./pkgs/keto { };
   oathkeeper = pkgs.callPackage ./pkgs/oathkeeper { };
+  packr = pkgs.callPackage ./pkgs/packr { };
 
   modules = import ./modules;
 } 
