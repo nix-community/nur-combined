@@ -104,7 +104,7 @@ let
         ${joinFlags connectionOptions}
           ${store.remote}
 
-        duplicity remove-all-but-n-full 3 \
+        duplicity remove-all-but-n-full ${toString store.numFullToKeep} \
         ${joinFlags connectionOptions}
           ${store.remote}
     '';
@@ -167,6 +167,11 @@ in {
           expiration = mkOption {
             type = string;
             default = "30D";
+          };
+
+          numFullToKeep = mkOption {
+            type = int;
+            default = 3;
           };
 
           logLevel = mkOption {
