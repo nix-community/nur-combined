@@ -1,4 +1,4 @@
-{ stdenv, libpng, gnumake, pkgconfig, fetchFromGitHub, which, fetchgit, perl, git, sqlite, freetype, SDL2, SDL2_image, SDL2_mixer, mesa_noglu, ncurses, zlib, pngcrush, libGLU, enableTiles ? false, enableSound ? enableTiles }:
+{ stdenv, libpng, gnumake, pkgconfig, fetchFromGitHub, which, fetchgit, perl, sqlite, freetype, SDL2, SDL2_image, SDL2_mixer, mesa_noglu, ncurses, zlib, pngcrush, libGLU, enableTiles ? false, enableSound ? enableTiles }:
 
 # TODO: needs some cleaning. Bones file is downloaded during install, so is
 # missing if build in a sandbox. Needs deepClone atm as version string is
@@ -7,29 +7,20 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  name = "env";
+  name = "dcss" + optionalString enableTiles "-tiles";
   version = "0.22.1";
 
-#  src = fetchFromGitHub {
-#    owner = "crawl";
-#    repo = "crawl";
-#    rev = version;
-#    sha256 = "13z3cr87wdx3m43yi31aja441zflyxmvd59hr10x8j9lrr7c8cg6";
-#    fetchSubmodules = true;
-#  };
+  src = fetchFromGitHub {
+    owner = "crawl";
+    repo = "crawl";
+    rev = version;
+    sha256 = "13z3cr87wdx3m43yi31aja441zflyxmvd59hr10x8j9lrr7c8cg6";
+    fetchSubmodules = true;
+  };
 
   # Force compiler, as it doesn't compile otherwise
   FORCE_CXX="g++";
   FORCE_CC="gcc";
-
-  src = fetchgit {
-    url = "git://github.com/crawl/crawl.git";
-    rev = version;
-    sha256 = "1f8qkm3symph6pscsnmgngvfmicw37vj7zmn6r49scfrd546pd05";
-    fetchSubmodules = true;
-    leaveDotGit = true;
-    deepClone = true;
-  };
 
   prePatch = ''
     for i in crawl-ref/source/util/*; do
@@ -47,10 +38,10 @@ stdenv.mkDerivation rec {
 
   preBuild = ''
     cd crawl-ref/source
+    echo "${version}" > util/release_ver
   '';
 
   nativeBuildInputs = [
-    git
     gnumake
     pkgconfig
     which
