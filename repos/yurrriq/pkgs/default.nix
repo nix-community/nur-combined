@@ -3,15 +3,15 @@
 let
 
   _nixpkgs = lib.pinnedNixpkgs {
-    rev = "7f06f36ffb00e7d9206692649356f9f8c7acb2a7";
-    sha256 = "1iscfzg0cyv0zm43aqs1agsbm24bg8dmjjqj4mvzk5q7r42rnrms";
+    rev = "f2977752c4870e881443038a71cfed1cf67f2440";
+    sha256 = "0ym1vr9rll9x8h6pqdhlb5a785bysddbjzhi0syqvngx5wkap61c";
   };
 
 in
 
 rec {
 
-  inherit (_nixpkgs) autojump kubetail;
+  inherit (_nixpkgs) autojump kops kubetail;
   inherit (_nixpkgs.gitAndTools) git-crypt;
 
   erlang = pkgs.beam.interpreters.erlangR20.override {
@@ -28,43 +28,20 @@ rec {
     withGraphics = false;
   };
 
-  kops = _nixpkgs.kops.overrideAttrs(oldAttrs: rec {
-    name = "kops-${version}";
-    version = "1.11.0";
-    src = _nixpkgs.fetchFromGitHub {
-      owner = "kubernetes";
-      repo = "kops";
-      rev = version;
-      sha256 = "1z67jl66g79q6v5kjy9qxx2xp656ybv5hrc10h3wmzy0b0n30s4n";
-    };
-  });
-
   kubectl = (kubernetes.override { components = [ "cmd/kubectl" ]; }).overrideAttrs(oldAttrs: rec {
     pname = "kubectl";
     name = "${pname}-${oldAttrs.version}";
   });
 
-  kubectx = (_nixpkgs.kubectx.override {
-    inherit kubectl;
-  }).overrideAttrs(oldAttrs: rec {
-    version = "0.6.2";
-    src = _nixpkgs.fetchFromGitHub {
-      owner = "ahmetb";
-      repo = oldAttrs.pname;
-      rev = version;
-      sha256 = "0kmzj8nmjzjfl5jgdnlizn3wmgp980xs6m9pvpplafjshx9k159c";
-    };
-  });
-
   kubernetes = _nixpkgs.kubernetes.overrideAttrs(old: rec {
     pname = "kubernetes";
     name = "${pname}-${version}";
-    version = "1.11.6";
+    version = "1.11.7";
     src = _nixpkgs.fetchFromGitHub {
       owner = "kubernetes";
       repo = "kubernetes";
       rev = "v${version}";
-      sha256 = "0p4kh056m84gyh05zia38aa4fqqad78ark2cycbi3nb60jj1nl9a";
+      sha256 = "03dq9p6nwkisd80f0r3sp82vqx2ac4ja6b2s55k1l8k89snfxavf";
     };
   });
 
@@ -74,21 +51,26 @@ rec {
   # kubernetes-helm = _nixpkgs.kubernetes-helm.overrideAttrs(oldAttrs: rec {
   #   pname = "helm";
   #   name = "${pname}-${version}";
-  #   version = "2.12.2";
+  #   version = "2.12.3";
   #   goDeps = ./applications/networking/cluster/helm/deps.nix;
   #   src = _nixpkgs.fetchFromGitHub {
   #     owner = pname;
   #     repo = pname;
   #     rev = "v${version}";
-  #     sha256 = "0a8pajj9p080f4fbylf2jixkp8xmidx2vg7k02f0prrw6q26g6gf";
+  #     sha256 = "05k1w2hqnzijwgz7b7fbq5fki6s2wdcjr5x2rr3jy5gq8iibjsfj
   #   };
+  #   buildFlagsArray = ''
+  #     -ldflags=-X k8s.io/helm/pkg/version.Version=v${version}
+  #     -w
+  #     -s
+  #   '';
   # });
 
   lab = pkgs.callPackage ./applications/version-management/git-and-tools/lab {};
 
   noweb = pkgs.callPackage ./development/tools/literate-programming/noweb {
     inherit icon-lang;
-    useIcon = true;
+    useIcon = false;
   };
 
 } // (if pkgs.stdenv.isDarwin then {
