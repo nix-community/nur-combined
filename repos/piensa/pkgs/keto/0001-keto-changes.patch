@@ -1,0 +1,17 @@
+diff --git a/cmd/server/serve.go b/cmd/server/serve.go
+index 4190b71..f324743 100644
+--- a/cmd/server/serve.go
++++ b/cmd/server/serve.go
+@@ -57,10 +57,10 @@ func RunServe(
+ 	buildVersion, buildHash string, buildTime string,
+ ) func(cmd *cobra.Command, args []string) {
+ 	return func(cmd *cobra.Command, args []string) {
+-		box := packr.NewBox("../../engine/ladon/rego")
++		box := packr.NewBox(viper.GetString("COMPILER_DIR"))
+ 
+ 		compiler, err := engine.NewCompiler(box, logger)
+-		cmdx.Must(err, "Unable to initialize compiler: %s", err)
++		cmdx.Must(err, "Ariel Unable to initialize compiler: %s", err)
+ 
+ 		writer := herodot.NewJSONWriter(logger)
+ 		//writer.ErrorEnhancer = nil
