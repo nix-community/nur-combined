@@ -6,6 +6,7 @@ rec {
   keto = pkgs.callPackage ./pkgs/keto { };
   oathkeeper = pkgs.callPackage ./pkgs/oathkeeper { };
   packr = pkgs.callPackage ./pkgs/packr { };
+  blender = pkgs.callPackage ./pkgs/blender { };
 
   modules = import ./modules;
 } 
