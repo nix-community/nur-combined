@@ -7,7 +7,7 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  name = "dcss" + optionalString enableTiles "-tiles";
+  name = "crawl" + optionalString enableTiles "-tiles";
   version = "0.22.1";
 
   src = fetchFromGitHub {
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
   makeFlags = "prefix=$(out)";
 
   meta = with stdenv.lib; {
-    description = "A game of dungeon exploration, combat and magic, involving characters of diverse skills, worshipping deities of great power and caprice" + optionalString enableTiles " (graphical version)";
+    description = "Dungeon Crawl: Stone Soup, a game of dungeon exploration, combat and magic, involving characters of diverse skills, worshipping deities of great power and caprice" + optionalString enableTiles " (graphical version)";
     homepage = https://crawl.develz.org/;
     license = with licenses; [ gpl2Plus ];
     maintainers = with maintainers; [ moredread ];
