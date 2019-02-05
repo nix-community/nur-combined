@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
 
   # crawl expects SDL2_image and SDL2_mixer in the same directory as SDL2, so we
   # need to specify them manually
-  INCLUDES_L = optionalString enableTiles "-I${SDL2} -I${SDL2_image}" + optionalString enableSound "-I${SDL2_mixer}";
+  INCLUDES_L = optionalString enableTiles "-I${SDL2}/include -I${SDL2_image}/include" + optionalString enableSound " -I${SDL2_mixer}/include";
   SQLITE_INCLUDE_DIR = "${sqlite}/include";
   BUILD_ZLIB = "yes";
 
