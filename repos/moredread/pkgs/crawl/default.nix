@@ -1,11 +1,22 @@
-{ stdenv, libpng, gnumake, pkgconfig, fetchFromGitHub, which, fetchgit, perl, sqlite, freetype, SDL2, SDL2_image, SDL2_mixer, mesa_noglu, ncurses, zlib, pngcrush, libGLU, enableTiles ? false, enableSound ? enableTiles }:
+{ stdenv, gnumake, pkgconfig, fetchFromGitHub, which, perl, sqlite, ncurses, zlib
+, enableTiles ? false, pngcrush ? null, libGLU ? null, libpng ? null, freetype ? null, SDL2 ? null, SDL2_image ? null, mesa_noglu ? null
+, enableSound ? enableTiles, SDL2_mixer ? null }:
 
 # TODO: needs some cleaning. Bones file is downloaded during install, so is
-# missing if build in a sandbox. Needs deepClone atm as version string is
-# generated from git commit (might be generated manually).
+# missing if build in a sandbox.
+
+assert enableSound -> enableTiles == true;
+assert enableSound -> SDL2_mixer != null;
+
+assert enableTiles -> SDL2 != null;
+assert enableTiles -> SDL2_image != null;
+assert enableTiles -> freetype != null;
+assert enableTiles -> libGLU != null;
+assert enableTiles -> libpng != null;
+assert enableTiles -> mesa_noglu != null;
+assert enableTiles -> pngcrush != null;
 
 with stdenv.lib;
-
 stdenv.mkDerivation rec {
   name = "crawl" + optionalString enableTiles "-tiles";
   version = "0.22.1";
@@ -65,11 +76,16 @@ stdenv.mkDerivation rec {
 
   # crawl expects SDL2_image and SDL2_mixer in the same directory as SDL2, so we
   # need to specify them manually
-  INCLUDES_L = optionalString enableTiles "-I${SDL2}/include -I${SDL2_image}/include" + optionalString enableSound " -I${SDL2_mixer}/include";
+  INCLUDES_L = "-I${zlib}/include"
+    + optionalString enableTiles "-I${SDL2}/include -I${SDL2_image}/include"
+    + optionalString enableSound " -I${SDL2_mixer}/include";
   SQLITE_INCLUDE_DIR = "${sqlite}/include";
-  BUILD_ZLIB = "yes";
 
   makeFlags = "prefix=$(out)";
+
+  postInstall = optionalString enableTiles ''
+      mv $out/bin/crawl $out/bin/crawl-tiles
+    '';
 
   meta = with stdenv.lib; {
     description = "Dungeon Crawl: Stone Soup, a game of dungeon exploration, combat and magic, involving characters of diverse skills, worshipping deities of great power and caprice" + optionalString enableTiles " (graphical version)";
