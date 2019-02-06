@@ -14,8 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  crawl = pkgs.callPackage ./pkgs/crawl { };
-  crawl-tiles = pkgs.callPackage ./pkgs/crawl { enableTiles = true; };
   croc = pkgs.callPackage ./pkgs/croc { };
   i3status-rust = pkgs.callPackage ./pkgs/i3status-rust { };
   latte = pkgs.callPackage ./pkgs/latte { };
