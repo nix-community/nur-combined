@@ -20,6 +20,8 @@ pythonPackages.buildPythonApplication rec {
   doCheck = false;
 
   meta = {
+    broken = true;
+
     description = "A free, light-weight alternative to Mathematica";
     homepage = https://mathics.github.io/;
     license = lib.licenses.gpl3;
