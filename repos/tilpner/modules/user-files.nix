@@ -11,17 +11,17 @@ in {
   imports = [ ./files.nix ];
 
   options.users.users = mkOption {
-    options = [ {
-      files = mkOption {
+    type = with types; loaOf (submodule {
+      options.files = mkOption {
         type = types.attrsOf envFilesFiles;
         default = {};
       };
 
-      directories = mkOption {
+      options.directories = mkOption {
         type = types.attrsOf envFilesDirectories;
         default = {};
       };
-    } ];
+    });
   };
 
   config.environment.files = mkMerge (flip mapAttrsToList config.users.users
