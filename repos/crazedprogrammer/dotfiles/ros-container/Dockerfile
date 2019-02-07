@@ -8,6 +8,7 @@ RUN echo "source /opt/bashrc.sh" >> /etc/bash.bashrc
 
 ADD startup.sh /opt/startup.sh
 ADD bashrc.sh /opt/bashrc.sh
+ADD tmux.conf /etc/tmux.conf
 
 ENTRYPOINT [ "/usr/bin/env", "bash", "/opt/startup.sh" ]
 
