@@ -7,6 +7,7 @@ rec {
   oathkeeper = pkgs.callPackage ./pkgs/oathkeeper { };
   packr = pkgs.callPackage ./pkgs/packr { };
   blender = pkgs.callPackage ./pkgs/blender { };
+  kepler = pkgs.callPackage ./pkgs/kepler { };
 
   modules = import ./modules;
 } 
