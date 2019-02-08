@@ -8,6 +8,7 @@ rec {
   packr = pkgs.callPackage ./pkgs/packr { };
   blender = pkgs.callPackage ./pkgs/blender { };
   kepler = pkgs.callPackage ./pkgs/kepler { };
+  colombia = pkgs.callPackage ./pkgs/colombia { };
 
   modules = import ./modules;
 } 
