@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub, pythonPackages, autoconf, automake, gfortran, libtool, hdf5, sundials }:
+{ stdenv, fetchurl, fetchFromGitHub, pythonPackages, autoconf, automake, gfortran, libtool, hdf5, sundials, openblas }:
 
 stdenv.mkDerivation rec {
 
@@ -17,6 +17,7 @@ stdenv.mkDerivation rec {
     pythonPackages.python
     hdf5
     sundials
+    openblas
   ];
 
   propagatedBuildInputs = [
