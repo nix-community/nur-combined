@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-nix-env -f "<nixpkgs>" -qaP -A emacsPackagesNg.elpaPackages | grep $1
-#nix-env -f "<nixpkgs>" -qaP -A emacsPackagesNg.melpaPackages | grep $1
-nix-env -f "<nixpkgs>" -qaP -A emacsPackagesNg.melpaStablePackages | grep $1
-nix-env -f "<nixpkgs>" -qaP -A emacsPackagesNg.orgPackages | grep $1

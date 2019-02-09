@@ -64,6 +64,10 @@
         gtk-icon-theme-name = Paper
       '';
     };
+    "xdg/mimeapps.list" = {
+      mode = "444";
+      text = builtins.readFile ../../dotfiles/mimeapps.list;
+    };
   };
 
   fonts = {

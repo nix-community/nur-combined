@@ -161,27 +161,14 @@ command Upload :call UploadBuffer()
 command Pan :call Pandoc()
 command CF :ClangFormat
 command CH :HeaderguardAdd
+command C :execute 'silent :!compiler' bufname('%') '&'
+command CO :execute 'silent :!compiler' bufname('%') '--open' '&'
 
 function UploadBuffer()
 	let sourcepath = TempPath()
 	execute 'w' fnameescape(sourcepath)
 	execute 'silent :!upload' fnameescape(sourcepath)
 	execute 'silent :!rm' fnameescape(sourcepath)
-endfunction
-
-function Pandoc()
-	let sourcepath = TempPath()
-	if expand('%:p') != ''
-		let sourcepath = bufname('%')
-	endif
-	let outpath = TempPath('pdf')
-	execute 'w' sourcepath
-	execute 'silent :!pandoc -s --number-sections -V geometry:margin=2cm -f markdown ' sourcepath '-o' outpath
-	if !filereadable(outpath)
-		echoerr 'Failed to convert to PDF.'
-		return
-	endif
-	execute 'silent :!open' outpath
 endfunction
 
 

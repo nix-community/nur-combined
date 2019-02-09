@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-sshfs -p 18903 -o idmap=user -o follow_symlinks media@argon:/mnt/media $HOME/Media
-sshfs -p 18903 -o idmap=user -o follow_symlinks ccfuse@argon:cc $HOME/Projects/CC

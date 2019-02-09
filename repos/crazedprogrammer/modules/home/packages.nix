@@ -11,37 +11,36 @@
     wget curl jq bc loc p7zip fdupes pandoc texlive.combined.scheme-medium ls_extended
 
     # Version control
-    git mercurial #darcs
+    git #mercurial darcs
 
     # Utilities
-    xsel xclip gnome3.gnome-screenshot qemu calcurse binutils-unwrapped slop xdotool clang-tools hhpc stress xorg.xhost #kristvanity
+    xsel xclip gnome3.gnome-screenshot qemu binutils-unwrapped slop xdotool clang-tools hhpc stress xorg.xhost #kristvanity
 
     # Nix utilities
     nix-prefetch-git
-    cabal2nix
 
     # Build systems
-    pkgs.gnumake cmake gradle
+    gnumake cmake gradle
 
     # Libraries
     SDL2 SDL2_image
 
     # Languages
-    ghc lua5_3 cargo gcc luajit openjdk ruby nodejs-8_x
-    sbcl (urn.override { useLuaJit = true; }) #haskellPackages.idris
+    lua5_3 cargo gcc luajit openjdk #ghc nodejs-8_x
+    (urn.override { useLuaJit = true; })
 
     # Games
-    multimc technic-launcher minetest gnome3.gnome-mines #dwarf-fortress
-    love steam steam.run ccemux the-powder-toy chip8 riko4
+    multimc gnome3.gnome-mines #technic-launcher
+    steam steam.run ccemux the-powder-toy chip8 riko4
 
     # Emulators
-    dosbox stella snes9x-gtk vice dolphinEmuMaster
+    #dosbox stella snes9x-gtk vice dolphinEmuMaster
 
     # Terminal and editor
-    kitty-wrapped neovim emacs-wrapped
+    kitty-wrapped neovim
 
     # Browsers
-    firefox w3m qutebrowser #luakit
+    firefox w3m #luakit
 
     # Web chat
     teamspeak_client #mumble
@@ -53,13 +52,13 @@
     gnome3.gnome-calculator libreoffice-fresh
 
     # Visual editors
-    gimp tiled
+    gimp #tiled
 
     # Multimedia
-    audacity mpv gnome3.file-roller cli-visualizer-wrapped deadbeef ffmpeg projectm cava-wrapped zathura glmark2 #glava
+    audacity mpv gnome3.file-roller cli-visualizer-wrapped ffmpeg cava-wrapped zathura #projectm glava
 
     # Networking
-    openvpn openssh update-resolv-conf sshfs mosh
+    openssh #openvpn update-resolv-conf sshfs
 
     # WM utilities
     polybar-wrapped rofi-wrapped feh dunst-wrapped libnotify xtrlock-pam compton
@@ -68,7 +67,7 @@
     dotfiles-bin
 
     # School
-    plantuml arduino subversion fritzing plantuml #astah-community
+    plantuml arduino subversion plantuml #fritzing astah-community
 
     # System utilities
     pavucontrol polkit_gnome exfat-utils ntfs3g iotop bmon linuxPackages.perf picocom gotop htop

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" ]; then
+	echo "usage: compiler <input md/plantuml file> [--open]"
+	exit 1
+fi
+
+file=$(readlink -f "$1")
+base="${file%.*}"
+
+case "$file" in
+	*\.md) pandoc -f markdown -s --number-sections -V geometry:margin=2cm "$file" -o "$base".pdf ;;
+	*\.plantuml) plantuml -Smonochrome=true "$file" ;;
+	*) echo "Invalid input file."; exit 1 ;;
+esac
+
+if [ "$2" ]; then
+	case "$file" in
+		*\.md) xdg-open "$base".pdf ;;
+		*\.plantuml) firefox "$base".png ;;
+	esac
+fi
