@@ -4,11 +4,13 @@ stdenv.mkDerivation rec {
 
   name = "astrochem";
 
+  version = "3f8091b748a97e1a420b58ffd6f9e434ea8fae89";
+
   src = fetchFromGitHub {
     owner = "smaret";
     repo = "astrochem";
-    rev = "e2a5f0d34b060983f86a6aa7acbf854970c4cb4f";
-    sha256 = "0fg2rl3ika3qy55g1svcjcrki0ls2sdqaymbsk6pbilsk51qmq0p";
+    rev = version;
+    sha256 = "15185b6va556wynv1jfhgk6giqd26mjxbxj66xszv6gqv4ps7xza";
   };
 
   nativeBuildInputs = [ autoconf automake gfortran libtool ];
