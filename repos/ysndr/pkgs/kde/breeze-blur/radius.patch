@@ -1,0 +1,13 @@
+diff --git a/breeze.h b/breeze.h
+index 24f4bd4..152b4f6 100644
+--- a/breeze.h
++++ b/breeze.h
+@@ -38,7 +38,7 @@ namespace Breeze
+     {
+
+         //* corner radius (pixels)
+-        Frame_FrameRadius = 3,
++        Frame_FrameRadius = 4,
+
+         //* titlebar metrics, in units of small spacing
+         TitleBar_TopMargin = 2,
