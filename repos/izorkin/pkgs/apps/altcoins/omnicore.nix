@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     owner = "OmniLayer";
     repo = "omnicore";
     rev = "v${version}";
-    sha256 = "0kdn0i59i444k5v5xfh6452s52bvkqfl0qi24nrzdwnivlgs8k4b";
+    sha256 = "1gqnhyjym4q9c74j22mc97x1pl027fxnib4r2p75my66hzch54dz";
   };
 
   nativeBuildInputs = [ pkgconfig autoreconfHook ];
