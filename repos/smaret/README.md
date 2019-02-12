@@ -13,7 +13,7 @@ Once Nix has been set up, you can use or install packages from this
 repository with:
 
 ```
-nix-shell -p nur.repos.smaret.astrochem
+% nix-shell -p nur.repos.smaret.astrochem
 [nix-shell:~]$ astrochem
 Usage: astrochem [option...] [file]
 
@@ -30,7 +30,7 @@ Report bugs to <http://github.com/smaret/astrochem/issues>.
 or
 
 ```
-nix-env -iA nur.repos.smaret.astrochem
+% nix-env -iA nur.repos.smaret.astrochem
 ```
 
 [![Build Status](https://travis-ci.com/smaret/nur-packages.svg?branch=master)](https://travis-ci.com/smaret/nur-packages)
