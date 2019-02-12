@@ -37,6 +37,7 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo launchctl stop org.nixos.nix-daemon; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo launchctl start org.nixos.nix-daemon && sleep 5; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo "https://nixos.org/channels/nixpkgs-18.09-darwin nixpkgs" | sudo tee ~root/.nix-channels > /dev/null; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then travis_retry sudo -i nix-channel --update; fi
   - travis_retry nix-channel --update
 
 install:
