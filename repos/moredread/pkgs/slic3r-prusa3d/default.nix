@@ -1,6 +1,6 @@
 { stdenv, lib, fetchFromGitHub, makeWrapper, cmake, pkgconfig
 , boost, curl, expat, glew, libpng, tbb, wxGTK31
-, gtest, nlopt, xorg
+, gtest, nlopt, xorg, makeDesktopItem
 }:
 let
   nloptVersion = if lib.hasAttr "version" nlopt
@@ -59,6 +59,23 @@ stdenv.mkDerivation rec {
   };
 
   cmakeFlags = [ "-DSLIC3R_FHS=1" ];
+
+  postInstall = ''
+    mkdir -p "$out/share/pixmaps/"
+    ln -s "$(out)/share/slic3r-prusa3d/icons/Slic3r.png" "$out/share/pixmaps/slic3r-prusa.png"
+    mkdir -p "$out/share/applications"
+    cp "$desktopItem"/share/applications/* "$out/share/applications/"
+  '';
+
+  desktopItem = makeDesktopItem {
+    name = "slic3r-Prusa-Edition";
+    exec = "slic3r-prusa3d";
+    icon = "slic3r-prusa";
+    comment = "G-code generator for 3D printers";
+    desktopName = "Slic3r Prusa Edition";
+    genericName = "3D printer tool";
+    categories = "Application;Development;";
+  };
 
   meta = with stdenv.lib; {
     description = "G-code generator for 3D printer";
