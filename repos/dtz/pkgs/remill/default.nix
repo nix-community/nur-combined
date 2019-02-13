@@ -14,12 +14,12 @@ with stdenv.lib;
 let
   llvm_version = getVersion llvm;
   srcinfo = {
-    version = "2019-01-21";
+    version = "2019-02-09";
     src = fetchFromGitHub {
       owner = "trailofbits";
       repo = "remill";
-      rev = "e41c0a5a2716c9fbcdf9fc1a4f0c548835809605";
-      sha256 = "0hdvnl2d6wc4cipdpzmci0srvlpk0hgzl2dzqlyh8vgvw87bqw5x";
+      rev = "44479dc1f41f3f309080fb13e104447a97fb5872";
+      sha256 = "01gan3bg64i2brgyxnh9c11ycg9c92274zmhimy1k85hfjjf46fq";
     };
   };
   mcsema_srcinfo = import ./mcsema.nix { inherit fetchFromGitHub; };

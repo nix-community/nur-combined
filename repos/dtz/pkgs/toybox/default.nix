@@ -1,23 +1,25 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchurl, coreutils, gnused, which }:
 
 stdenv.mkDerivation rec {
   name = "toybox-${version}";
-  version = "0.7.8";
+  version = "0.8.0";
 
   src = fetchurl {
     url = "http://landley.net/toybox/downloads/${name}.tar.gz";
-    sha256 = "1mlqv5hsvy8ii6m698hq6rc316klwv44jlr034knwg6bk1lf2qj9";
+    sha256 = "0mirj977zxsxnfaiqndwgsn9calgg312d817fi1hkfbd8kcyrk73";
   };
 
   postPatch = "patchShebangs .";
 
   configurePhase = "make defconfig";
 
+  nativeBuildInputs = [ gnused coreutils which ];
 
-  doCheck = true;
+  makeFlags = [ "VERBOSE=1" "PREFIX=${placeholder "out"}/bin" ];
+
+  doCheck = false;
   checkTarget = "tests";
 
-  installFlags = [ "PREFIX=$(out)/bin" ];
   installTargets = [ "install_flat" ];
 
   meta = with stdenv.lib; {
