@@ -32,42 +32,47 @@ let
     '';
   };
 
-  powerlineSymbolsConf = mkPowerlineSymbolsConf cfg.fonts;
+  fontNames = optionals cfg.enableDefaultFonts [
+    # default family's in 2.7's 10-powerline-symbols.conf
+    "monospace"
+    "Droid Sans Mono"
+    "Droid Sans Mono Slashed"
+    "Droid Sans Mono Dotted"
+    "DejaVu Sans Mono"
+    "DejaVu Sans Mono"
+    "Envy Code R"
+    "Inconsolata"
+    "Lucida Console"
+    "Monaco"
+    "Pragmata"
+    "PragmataPro"
+    "Menlo"
+    "Source Code Pro"
+    "Consolas"
+    "Anonymous pro"
+    "Bitstream Vera Sans Mono"
+    "Liberation Mono"
+    "Ubuntu Mono"
+    "Meslo LG L"
+    "Meslo LG L DZ"
+    "Meslo LG M"
+    "Meslo LG M DZ"
+    "Meslo LG S"
+    "Meslo LG S DZ"
+  ] ++ cfg.fonts;
+  powerlineSymbolsConf = mkPowerlineSymbolsConf fontNames;
 in
   {
     options.fonts.powerline-symbols = {
       enable = lib.mkEnableOption "PowerlineSymbols font and configuration";
+      enableDefaultFonts = mkOption {
+        default = true;
+        type = lib.types.bool;
+        description = "Include upstream's list of fonts by default";
+      };
       fonts = mkOption {
         type = types.listOf types.str;
         default = [
-          # default family's in 2.7's 10-powerline-symbols.conf
-          "monospace"
-          "Droid Sans Mono"
-          "Droid Sans Mono Slashed"
-          "Droid Sans Mono Dotted"
-          "DejaVu Sans Mono"
-          "DejaVu Sans Mono"
-          "Envy Code R"
-          "Inconsolata"
-          "Lucida Console"
-          "Monaco"
-          "Pragmata"
-          "PragmataPro"
-          "Menlo"
-          "Source Code Pro"
-          "Consolas"
-          "Anonymous pro"
-          "Bitstream Vera Sans Mono"
-          "Liberation Mono"
-          "Ubuntu Mono"
-          "Meslo LG L"
-          "Meslo LG L DZ"
-          "Meslo LG M"
-          "Meslo LG M DZ"
-          "Meslo LG S"
-          "Meslo LG S DZ"
-          # What motivated this
-          "Agave"
         ];
         description = ''
           Font family names that will use glyphs from the PowerlineSymbol font before using original as "fallback".
