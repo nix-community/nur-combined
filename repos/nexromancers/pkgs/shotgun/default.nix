@@ -1,6 +1,7 @@
-{ stdenv, fetchFromGitHub, rustPlatform
+{ stdenv, rustPlatform, fetchFromGitHub
 , libX11, libXrandr
-, pkgconfig }:
+, pkgconfig
+}:
 
 rustPlatform.buildRustPackage rec {
   name = "shotgun-${version}";
@@ -21,9 +22,9 @@ rustPlatform.buildRustPackage rec {
   meta = with stdenv.lib; {
     description = "A minimal screenshot utility for X11";
     homepage = https://github.com/neXromancers/shotgun;
-    license = with licenses; [ mpl20 ];
+    license = with licenses; mpl20;
     maintainers = with maintainers; [ bb010g ];
-    platforms = platforms.all;
+    platforms = platforms.unix;
   };
 }
 
