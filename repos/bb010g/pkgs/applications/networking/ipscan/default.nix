@@ -1,6 +1,7 @@
 { stdenv, fetchFromGitHub, makeDesktopItem, makeWrapper, writeText
 , glibcLocales, jre, swt
-, gradle, jdk, perl }:
+, gradle, jdk, perl
+}:
 
 let
   name = "ipscan";
@@ -141,7 +142,7 @@ in stdenv.mkDerivation {
       The program provides an easy to use GUI interface and is very extensible,
       see ${homepage} for more information.
     '';
-    license = with licenses; [ gpl2 ];
+    license = with licenses; gpl2;
     maintainers = with maintainers; [ bb010g ];
     platforms = platforms.all;
   };

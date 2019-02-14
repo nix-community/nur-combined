@@ -1,6 +1,7 @@
 { stdenv, fetchurl
 , gettext
-, icu, pkgconfig }:
+, icu, pkgconfig
+}:
 
 stdenv.mkDerivation rec {
   name = "dwdiff-${version}";
@@ -12,9 +13,11 @@ stdenv.mkDerivation rec {
   };
 
   outputs = [ "bin" "doc" "man" "out" ];
+  # otherwise i18n points to lib (which degrades to out) and out -> bin cycles
+  outputLib = "bin";
 
-  nativeBuildInputs = [ gettext ];
-  buildInputs = [ icu pkgconfig ];
+  nativeBuildInputs = [ gettext pkgconfig ];
+  buildInputs = [ icu ];
 
   doCheck = true;
 
@@ -22,13 +25,10 @@ stdenv.mkDerivation rec {
     echo 'INSTALLDIRS="bindir docdir mandir"' >> config.pkg
   '';
 
-  # otherwise it points to lib (which falls back to out) and out -> bin cycles
-  configureFlags = [ "--localedir=\${bin}/share/locale" ];
-
   meta = with stdenv.lib; {
     description = "A diff program that operates word by word";
     homepage = https://os.ghalkes.nl/dwdiff.html;
-    license = with licenses; [ gpl3 ];
+    license = with licenses; gpl3;
     maintainers = with maintainers; [ bb010g ];
     platforms = platforms.all;
   };
