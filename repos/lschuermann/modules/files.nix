@@ -82,14 +82,14 @@ in
     };
 
     users.users = mkOption {
-      options = [ {
+      type = with types; loaOf (submodule {
 
         files = mkOption {
           type = with types; listOf (submodule userFile);
           default = [];
         };
 
-      } ];
+      });
     };
 
   };
