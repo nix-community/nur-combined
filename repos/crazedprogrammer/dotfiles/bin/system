@@ -23,9 +23,13 @@ function launch {
 
 function reload {
 	feh --bg-tile $HOME/Pictures/Background.png &
-	polybar $(hostname) &
+	sh -c "polybar \$(hostname) || polybar generic" &
 	dunst &
-	compton
+	if [ $(hostname) == "neon" ]; then
+		compton --backend=glx --vsync drm
+	else
+		compton
+	fi
 }
 
 function lock {

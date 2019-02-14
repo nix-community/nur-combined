@@ -29,6 +29,11 @@
         package = pkgs.i3-gaps;
         extraSessionCommands = "xrdb $(dotfiles)/Xresources";
       };
+      bspwm = {
+        enable = true;
+        configFile = ../../dotfiles/bspwmrc;
+        sxhkd.configFile = ../../dotfiles/sxhkdrc;
+      };
     };
 
     # Xfce utils

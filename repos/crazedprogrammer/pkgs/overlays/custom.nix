@@ -11,4 +11,5 @@ self: super:
   kristvanity = super.callPackage ../custom/kristvanity.nix {};
   chip8 = super.callPackage ../custom/chip8.nix {};
   esp32-toolchain = super.callPackage ../custom/esp32-toolchain.nix {};
+  compton-latest = super.callPackage ../custom/compton-latest.nix {};
 }

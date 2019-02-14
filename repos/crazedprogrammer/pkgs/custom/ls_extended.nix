@@ -2,16 +2,14 @@
 
 stdenv.mkDerivation rec {
   name = "ls-extended-${version}";
-  version = "2018-06-12";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "Electrux";
     repo = "ls_extended";
-    rev = "9e479063d0ce16a62c6e67c122eb95deb0380827";
-    sha256 = "14596mpbpd6rzk72xccpfk3qlha8msqf0y1znap5rlkzviqc14pp";
+    rev = "v${version}";
+    sha256 = "1nv7vvy7sqnvy30cbxmrvckd2932v5iixpn48qf5pvlxnwwgi6m2";
   };
-
-  patches = [ ./ls_extended.patch ];
 
   buildPhase = "bash ./build.sh";
   installPhase = ''

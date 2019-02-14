@@ -16,6 +16,7 @@
     };
 
     initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+    kernelParams = [ "amdgpu.dc=1" ];
     kernelModules = [ "kvm-amd" ];
     kernelPackages = import ../home/kernel (pkgs // {
       structuredExtraConfig = {
@@ -55,27 +56,31 @@
   # AMD polaris firmware
   hardware.enableRedistributableFirmware = true;
 
-  services.xserver.config = ''
-    Section "Monitor"
-      Identifier "DP-1"
-      VertRefresh 144.0 - 144.0
-    EndSection
-    Section "Monitor"
-      Identifier "DVI-D-1"
-      Option "LeftOf" "DP-1"
-    EndSection
-    Section "Device"
-      Identifier "AMD"
-      Driver "amdgpu"
-      Option "TearFree" "true"
-    EndSection
-    Section "InputClass"
-      Identifier "Logitech G403 Prodigy Gaming Mouse"
-      MatchIsPointer "yes"
-      Option "AccelerationProfile" "-1"
-      Option "AccelerationScheme" "none"
-      Option "AccelSpeed" "-1"
-      Option "Resolution" "3500"
-    EndSection
-  '';
+  services.xserver = {
+    videoDrivers = [ "amdgpu" "modesetting" "vesa" ];
+    config = ''
+      Section "Monitor"
+        Identifier "DisplayPort-0"
+        VertRefresh 144.0 - 144.0
+      EndSection
+      Section "Monitor"
+        Identifier "DVI-D-0"
+        Option "LeftOf" "DisplayPort-0"
+      EndSection
+      # TODO: fix screen tearing
+      Section "Device"
+        Identifier "AMD"
+        Driver "amdgpu"
+        Option "TearFree" "true"
+      EndSection
+      Section "InputClass"
+        Identifier "Logitech G403 Prodigy Gaming Mouse"
+        MatchIsPointer "yes"
+        Option "AccelerationProfile" "-1"
+        Option "AccelerationScheme" "none"
+        Option "AccelSpeed" "-1"
+        Option "Resolution" "3500"
+      EndSection
+    '';
+  };
 }

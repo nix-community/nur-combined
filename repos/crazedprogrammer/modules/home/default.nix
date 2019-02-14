@@ -15,6 +15,9 @@
     daemonIONiceLevel = 7;
     daemonNiceLevel = 19;
     useSandbox = true;
+    extraOptions = ''
+      fallback = true
+    '';
   };
 
   # Internationalisation properties.

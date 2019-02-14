@@ -64,11 +64,10 @@ set ignorecase smartcase
 
 " File type presets
 
-autocmd FileType lisp,arduino,haskell,cabal :setlocal et ts=2 sw=2
-autocmd FileType cpp :setlocal ts=2 sw=2 et
-autocmd FileType lua :setlocal ts=2 sw=2 et
+autocmd FileType lisp,arduino,haskell,cabal,cpp,lua,typescript :setlocal et ts=2 sw=2
 autocmd FileType cs,php :setlocal ts=4 sw=4 et
 autocmd FileType markdown,text,plaintex :setlocal foldcolumn=4 colorcolumn=73 et ts=2 sw=2
+autocmd FileType nix,plantuml :setlocal indentexpr=
 
 
 " Rainbow parentheses
@@ -161,8 +160,8 @@ command Upload :call UploadBuffer()
 command Pan :call Pandoc()
 command CF :ClangFormat
 command CH :HeaderguardAdd
-command C :execute 'silent :!compiler' bufname('%') '&'
-command CO :execute 'silent :!compiler' bufname('%') '--open' '&'
+command C :w | :execute 'silent :!compiler' bufname('%') '&'
+command CO :w | :execute 'silent :!compiler' bufname('%') '--open' '&'
 
 function UploadBuffer()
 	let sourcepath = TempPath()

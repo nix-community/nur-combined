@@ -1,5 +1,9 @@
 { config, lib, pkgs, ... }:
 
+let
+  powersave = false;
+in
+
 {
   imports = [
     ../home
@@ -17,6 +21,8 @@
 
     initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
     kernelModules = [ "kvm-intel" ];
+    kernelParams = (if powersave then [ "i915.enable_psr=1" "i915.enable_fbc=1" ] else [])
+                     ++ [ "i915.fastboot=1" ];
     kernelPackages = import ../home/kernel (pkgs // {
       structuredExtraConfig = {
         MIVYBRIDGE = "y";
@@ -52,26 +58,16 @@
     xorg.xbacklight
   ];
 
+  powerManagement = {
+    cpuFreqGovernor = if powersave then "powersave" else "performance";
+    powertop.enable = powersave;
+  };
+
   services.xserver = {
-    synaptics = {
+    videoDrivers = [ "intel" "modesetting" "vesa" ];
+    libinput = {
       enable = true;
-      minSpeed = "1";
-      accelFactor = "0.002";
-      maxSpeed = "2";
-      twoFingerScroll = true;
-      scrollDelta = -75;
-      palmDetect = true;
-      additionalOptions = ''
-        Option "PalmMinWidth" "4"
-        Option "PalmMinZ" "50"
-      '';
+      naturalScrolling = true;
     };
-    config = ''
-      Section "Device"
-        Identifier "Intel Graphics"
-        Driver "intel"
-        Option "TearFree" "true"
-      EndSection
-    '';
   };
 }

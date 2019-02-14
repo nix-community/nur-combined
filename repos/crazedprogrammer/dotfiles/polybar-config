@@ -18,10 +18,10 @@ alert = #bd2c40
 
 [bar/xenon]
 modules-left = memory cpuload cpugraph temperature_desktop
-modules-center = i3
+modules-center = i3 bspwm
 modules-right = wired volume date
 
-monitor = ${env:MONITOR:DP-1}
+monitor = ${env:MONITOR:DisplayPort-0}
 width = 100%
 height = 18
 radius = 2.0
@@ -44,39 +44,10 @@ module-margin-right = 1
 
 font-0 = monospace:size=9;1
 
-[bar/helium]
-modules-left = memory cpuload cpufreq cpugraph temperature
-modules-center = i3
-modules-right = wireless battery battery_usage volume date
-
-monitor = ${env:MONITOR:eDP1}
-width = ${bar/xenon.width}
-height = ${bar/xenon.height}
-
-radius = ${bar/xenon.radius}
-fixed-center = ${bar/xenon.fixed-center}
-
-background = ${bar/xenon.background}
-foreground = ${bar/xenon.foreground}
-
-line-size = ${bar/xenon.line-size}
-line-color = ${bar/xenon.line-color}
-
-border-size = ${bar/xenon.border-size}
-border-color = ${bar/xenon.border-color}
-
-padding-left = ${bar/xenon.padding-left}
-padding-right = ${bar/xenon.padding-right}
-
-module-margin-left = ${bar/xenon.module-margin-left}
-module-margin-right = ${bar/xenon.module-margin-right}
-
-font-0 = ${bar/xenon.font-0}
-
 [bar/neon]
 modules-left = memory cpuload cpufreq cpugraph temperature
-modules-center = i3
-modules-right = battery battery_usage volume date #wireless
+modules-center = i3 bspwm
+modules-right = wireless battery battery_usage volume date #wireless
 
 monitor = ${env:MONITOR:LVDS1}
 width = ${bar/xenon.width}
@@ -102,12 +73,13 @@ module-margin-right = ${bar/xenon.module-margin-right}
 
 font-0 = ${bar/xenon.font-0}
 
-[bar/nixos-qemu]
+[bar/generic]
 modules-left = memory cpuload cpugraph
-modules-center = i3
+modules-center = i3 bspwm
 modules-right = volume date
 
 monitor = ${env:MONITOR:Virtual-1}
+monitor-fallback = ${env:MONITOR:eDP1}
 width = ${bar/xenon.width}
 height = ${bar/xenon.height}
 
@@ -166,6 +138,9 @@ label-urgent = %index%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
+[module/bspwm]
+type = internal/bspwm
+
 [module/cpugraph]
 type = internal/cpu
 interval = 0.5
@@ -207,7 +182,7 @@ label = RAM %gb_used%
 
 [module/wireless]
 type = internal/network
-interface = wlp2s0
+interface = wlp3s0
 interval = 1
 label-connected = NET %downspeed% %upspeed%
 format-connected-underline = #f94444
