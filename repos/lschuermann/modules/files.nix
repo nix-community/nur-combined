@@ -83,12 +83,10 @@ in
 
     users.users = mkOption {
       type = with types; loaOf (submodule {
-
-        files = mkOption {
+        options.files = mkOption {
           type = with types; listOf (submodule userFile);
           default = [];
         };
-
       });
     };
 
