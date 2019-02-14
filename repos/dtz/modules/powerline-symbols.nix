@@ -14,23 +14,21 @@ let
   } ];
 
   # Based on upstream's 10-powerline-symbols.conf
-  mkPowerlineSymbolsConf = fonts: pkgs.writeTextFile {
-    name = "powerline-symbols-conf";
-    destination = "/etc/fonts/conf.d/10-powerline-symbols.conf";
-    text = ''
-      <?xml version="1.0"?>
-      <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+  mkPowerlineSymbolsConf = fonts: ''
+      <?xml version='1.0'?>
+      <!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
       <fontconfig>
-      <!-- 'prefer' PowerlineSymbols font, original as fallback for non-powerline symbols -->
+      <!-- prefer PowerlineSymbols font, original as fallback for non-powerline symbols -->
       ${concatStringsSep "\n" (map (font: ''
         <alias>
           <family>${font}</family>
-          <prefer><family>PowerlineSymbols</family></prefer>
+          <prefer>
+            <family>PowerlineSymbols</family>
+          </prefer>
         </alias>
       '') fonts)}
       </fontconfig>
     '';
-  };
 
   fontNames = optionals cfg.enableDefaultFonts [
     # default family's in 2.7's 10-powerline-symbols.conf
@@ -60,20 +58,18 @@ let
     "Meslo LG S"
     "Meslo LG S DZ"
   ] ++ cfg.fonts;
-  powerlineSymbolsConf = mkPowerlineSymbolsConf fontNames;
 in
   {
     options.fonts.powerline-symbols = {
-      enable = lib.mkEnableOption "PowerlineSymbols font and configuration";
+      enable = mkEnableOption "PowerlineSymbols font and configuration";
       enableDefaultFonts = mkOption {
         default = true;
-        type = lib.types.bool;
+        type = types.bool;
         description = "Include upstream's list of fonts by default";
       };
       fonts = mkOption {
         type = types.listOf types.str;
-        default = [
-        ];
+        default = [ ];
         description = ''
           Font family names that will use glyphs from the PowerlineSymbol font before using original as "fallback".
         '';
@@ -82,7 +78,9 @@ in
 
     config = mkIf cfg.enable {
       # TODO: check/ensure fontconfig is being used?
-      fonts.fontconfig.confPackages = [ powerlineSymbolsConf ];
+      # XXX: for now dump into localConf :(
+      #fonts.fontconfig.confPackages = mkAfter [ powerlineSymbolsConf ];
+      fonts.fontconfig.localConf = mkPowerlineSymbolsConf fontNames;
       fonts.fonts = [ powerlineSymbolsFont ];
     };
   }
