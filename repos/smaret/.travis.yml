@@ -5,6 +5,8 @@ sudo: false
 env:
   global:
     - NUR_REPO=https://github.com/smaret/nur-packages
+    - CACHIX_CACHE=smaret
+    - secure: ROjohoqz0UtraOpSm+ocIZ5nh0uBKo93HpGBHakoBJjIDE9e2kZdWpuuXqN8rBtRssdwRar6bfT8WtMlEuZVlt4q+8WfDPHnLiVpGhozn2p9aHeuN9NP+wBvPhmZxi9RGnTfIJvg68bCE6sEnnHVMjIkvQVuAjAUKJiqh/JEl16o69+9h5ReTBingZvaIPI0yRK674JR0Psz2XwidB0UcP7xZYH3E1Icggo8NpVtspZNihIPHfEvf8Cyw6TZa4mScEqKE1+XRO4OTXCDGL+7WO4KbAKh+1XG1DoKCcD9R2ulkHYWHzyb0zFELrgu9VMCv391/FeGTETUMapFj3EW6OS91FA5hqVMseEbCcALj4wpF3EJmN7+lItuPuAkjkfk9idibujZV4JfyOKsbOIF2kuMWZk+he+Zit/CXofRVRV9cfKNNxN8/OvK+w6mUw3rgPKrS63kUeMjTvPcER2dvNW6B4R9QftJlTsqsa15ZocDfI59d0dUs9LslAeEI5J7BkhNZwoawlLS7F4mRWQAlKc0Y+2+6oClkrvK0u2JQQ7XABw2nvicOf1B1LWcAXk7B+c9GmTaWDFkOqDhtAUFUpB6+wJ5aa5JEP+A8AsaQVHK+W+mezg4Njqs8LDffJQpVCITmKEn7RXvFQO0l2VfRkOlb+kr36tEzQd8nRGy0i0=
 
 matrix:
   include:
@@ -17,7 +19,7 @@ matrix:
 install:
  - nix --version
  - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
- - if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix; fi
+ - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
  - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
  - nix-channel --add "${NIX_CHANNEL}" nixpkgs
  - travis_retry nix-channel --update
