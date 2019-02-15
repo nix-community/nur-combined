@@ -5,14 +5,18 @@ self: super: {
     #version = "4.3";
     name = "${pname}-${version}"; # override
     #name = "awesome-4.2-git-${version}";
-    version = "2019-02-11";
+    version = "2019-02-14";
     #nativeBuildInputs = o.nativeBuildInputs or [] ++ [ self.asciidoctor ];
     src = super.fetchFromGitHub {
       owner = "AwesomeWM";
       repo = "awesome";
-      rev = "ec47abb4bcf2139f89b4e4efcc41ccadc2fa2da1";
+      rev = "991d525f7ddb4e5918edc9e18691a71c596d3a1a";
       #rev = "v${version}";
-      sha256 = "1m7aw0xibj0lvhg0vmyg446a39lgszn8vrwnaqfanlbhrpmbgqdp";
+      sha256 = "0cv4l5cx976zwy95p5p67f6mq6si5dnrl6m5py5fhmaq6n7sq07m";
     };
+
+    patches = (o.patches or []) ++ [
+      (super.fetchpatch { url = https://github.com/awesomeWM/awesome/pull/2653.patch; sha256 = "0agr40xn0cvjj5mw2cbkci0m7mpz1gbn21cmcx9s6684rd06rgg9"; })
+    ];
   });
 }
