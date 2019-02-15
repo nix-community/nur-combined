@@ -1,7 +1,7 @@
 { fetchurl, stdenv, p7zip, libX11, libXext, alsaLib, freetype, lv2, libjack2 }:
 
 let 
-  version = "6.3.0";
+  version = "6.4.1";
   urlVersion = builtins.replaceStrings ["."] [""] version;
   url = "https://www.pianoteq.com/try?file=pianoteq_stage_linux_trial_v${urlVersion}.7z";
   re = ".*([A-Za-z0-9]{128}).*";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   
   src = fetchurl {
     url = "https://www.pianoteq.com/try?q=${downstr}";
-    sha256 = "0821ppclk8bpi49lq29r8hc8m8lb57f9kcgniv5skzb906yx90dn";
+    sha256 = "0fvipijnp4xmw3k03n03r1rzasl4jhww0bd427qwyhvdxmw34qbx";
     name = "${name}.7z";
   };
   
