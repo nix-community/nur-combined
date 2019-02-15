@@ -5,7 +5,7 @@ let
   # not ideal, as now the package can't be easily overridden
   # TODO: find a way to specify it that works with NUR and just my own
   # nur-packages repo
-  lenovo-throttling-fix = pkgs.callPackage ../../pkgs/lenovo-throttling-fix {};
+  lenovo-throttling-fix = pkgs.callPackage ../../pkgs/throttled {};
 in {
   meta.maintainers = [ maintainers.moredread ];
 

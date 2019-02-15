@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -17,7 +17,8 @@
   croc = pkgs.callPackage ./pkgs/croc { };
   i3status-rust = pkgs.callPackage ./pkgs/i3status-rust { };
   latte = pkgs.callPackage ./pkgs/latte { };
-  lenovo-throttling-fix = pkgs.callPackage ./pkgs/lenovo-throttling-fix { };
+  throttled = pkgs.callPackage ./pkgs/throttled { };
+  lenovo-throttling-fix = throttled;
   slic3r-prusa3d-latest = pkgs.callPackage ./pkgs/slic3r-prusa3d { };
 }
 
