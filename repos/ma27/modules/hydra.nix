@@ -311,7 +311,15 @@ in
             patches = old.patches ++ [
               (super.fetchpatch {
                 url = https://github.com/NixOS/hydra/commit/aa87e7a52e3d37acfc345c22a06420f467d2c80a.patch;
-                sha256 = "1kxajxd661zl4c72459h4lrcqghncplpy0v90nrwj3hyyq2f9d9j";
+                sha256 = "0j90axd73q5s1aj8r95jv2pizi72c31nc5qpkb53ii88bd2qbl2r";
+              })
+              (super.fetchpatch {
+                url = https://github.com/Ma27/hydra/commit/1cbbc6c52c272efb1721257ae64da35e38efc9f8.patch;
+                sha256 = "1598dw4asznipg04wfzd5mp5fr9f2bz5lxxssi642pi38wlazgqw";
+              })
+              (super.fetchpatch {
+                url = https://github.com/NixOS/hydra/commit/0d2a2d8923a418b0bf9660e65c127925a9c9c420.patch;
+                sha256 = "0q77srb4q0yc12s0jgb0ab226zqi7gvrm9l3jigwb86pcf3wfbid";
               })
             ];
           });
