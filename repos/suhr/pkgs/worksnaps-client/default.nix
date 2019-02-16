@@ -20,15 +20,22 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-  installPhase = ''
-    mkdir -p $out/opt/Worksnaps
-    cp -R bin/* $out/opt/Worksnaps
+  installPhase = let
+    libPath = stdenv.lib.makeLibraryPath [
+      stdenv.cc.cc.lib
+      stdenv.glibc
+    ];
+  in
+    ''
+      mkdir -p $out/opt/Worksnaps
+      cp -R bin/* $out/opt/Worksnaps
 
-    mkdir $out/bin
-    echo "#!/usr/bin/env bash" > $out/bin/wsclient
-    echo "${oraclejdk}/bin/java -Djava.library.path=\"$out/opt/Worksnaps/lib\" -Dshowwidget=\"1\" -jar \"$out/opt/Worksnaps/WSClient.jar\"" >> $out/bin/wsclient
-    chmod +x $out/bin/wsclient
-  '';
+      mkdir $out/bin
+      echo "#!/usr/bin/env bash" > $out/bin/wsclient
+      echo "export LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:${libPath}\"" >> $out/bin/wsclient
+      echo "${oraclejdk}/bin/java -Djava.library.path=\"$out/opt/Worksnaps/lib\" -jar \"$out/opt/Worksnaps/WSClient.jar\"" >> $out/bin/wsclient
+      chmod +x $out/bin/wsclient
+    '';
 
   meta = with stdenv.lib; {
     # Oracle JDK licensing is too hostile to NixOS
