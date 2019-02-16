@@ -14,7 +14,6 @@ python3Packages.buildPythonApplication rec {
   propagatedBuildInputs = with python3Packages; [
     configparser
     dbus-python
-    psutil
     pygobject3
   ];
 
