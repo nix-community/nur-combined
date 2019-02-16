@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Quake 3 Arena content (pak0.pk3)";
-    license = licenses.unfreeRedistributable;
+    license = licenses.unfree;
     platforms = platforms.all;
     maintainers = [ ];
   };
