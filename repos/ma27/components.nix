@@ -24,6 +24,7 @@ rec {
     php = import ./pkgs/php/overlay.nix;
     glowing-bear = import ./pkgs/glowing-bear/overlay.nix;
     fzf-zsh = import ./pkgs/fzf-zsh/overlay.nix;
+    fzf-nix-helpers = import ./pkgs/fzf-helpers/overlay.nix;
   };
 
   ### PACKAGES
@@ -32,6 +33,8 @@ rec {
   glowing-bear = callPackage' ./pkgs/glowing-bear { };
 
   fzf-zsh = callPackage' ./pkgs/fzf-zsh { };
+
+  fzf-nix-helpers = callPackage' ./pkgs/fzf-helpers { };
 
   ### LIBRARY
   mkTexDerivation = callPackage' ./lib/tex/make-tex-env.nix { };

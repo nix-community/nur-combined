@@ -87,6 +87,42 @@ are always welcome.
 * `fzf-zsh` (`pkgs.nur.repos.ma27.fzf-zsh`): [`fzf`](https://github.com/junegunn/fzf) wrapper for
   `oh-my-zsh`.
 
+* `fzf-nix-helpers` (`pkgs.nur.repos.ma27.fzf-nix-helpers`): [`fzf`](https://github.com/junegunn/fzf)
+  wrappers for NixOS options and Nix packages (experimental).
+
+### `fzf-nix-helpers`
+
+In constrast to the other software packaged in this repo, this is just a wrapper around two
+shell scripts that provide `fzf` with information about NixOS options or Nix packages.
+
+[Click for a demo](https://gitlab.com/Ma27/nixexprs/raw/master/demo.gif)
+
+The following two scripts are available:
+
+* `nixos-option-wrapper`: Searches through all NixOS options and passes it to the `nixos-option` script.
+* `nix-package-wrapper`: Searches for all available packages in `<nixpkgs>`. As there are many
+  commands that consume attribute sets for packages, this doesn't pass the command to another one,
+  instead it can be used like this:
+
+  ```
+  $ nix-shell -p $(nix-package-wrapper)
+  ```
+
+  If packages need to be prefixed with a prefix (i.e. for `nix run`) it can be solved like this:
+
+  ```
+  $ nix run $(nix-package-wrapper "nixpkgs")
+  ```
+
+  Please keep in mind that this doesn't support different entries from `NIX_PATH` yet.
+
+For the daily use those commands may be too verbose, thus it's recommended to alias them:
+
+```
+alias nxo='nixos-option-wrapper'
+alias nxp='nix-package-wrapper'
+```
+
 ## Overlays
 
 There are several overlays available that can be imported with an expression like this:
