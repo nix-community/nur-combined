@@ -1,4 +1,4 @@
 {
-  lenovo-throttling-fix = ./lenovo-throttling-fix;
+  throttled = ./throttled;
 }
 

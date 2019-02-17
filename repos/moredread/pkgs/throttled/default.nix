@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonApplication rec {
   name = "lenovo-throttling-fix-${version}";
-  version = "0.5";
+  version = "52d83c41bb67af180cf511e2ad93ceec8e2c9c09";
 
   src = fetchFromGitHub {
     owner = "erpalma";
     repo = "throttled";
-    rev = "v${version}";
-    sha256 = "15jrigsx6n5a2ap2z0yk9niw0hzqlmd5vwb8b3g3vq8g70plfxfc";
+    rev = "${version}";
+    sha256 = "1dp0zi5xxi1h9p1p6p2ki67scj1by4kawy4lvkg7s4gzkb2y7r0c";
   };
 
   propagatedBuildInputs = with python3Packages; [
