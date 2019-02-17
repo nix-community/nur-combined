@@ -15,7 +15,7 @@ in {
     };
   };
 
-  config = mkIf config.services.lenovo-throttling-fix.enable {
+  config = mkIf config.services.throttled.enable {
     systemd.services.throttled = {
       description = "Lenovo throttling fix";
 
