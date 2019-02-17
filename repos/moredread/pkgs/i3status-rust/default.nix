@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   name = "i3status-rust-${version}";
-  version = "0.9.0.2018-02-02";
+  version = "0.9.0.2019-02-15";
 
   src = fetchFromGitHub {
     owner = "greshake";
     repo = "i3status-rust";
-    rev = "550b60039a688d33df1439b7a003499fdd2ee90c";
-    sha256 = "1s52d5r7bag0cqjbw77cyf7y9i3c2ja01jm5hwy4xx9ags6j7mdd";
+    rev = "2dc958995834b529a245c22c510b57d5c928c747";
+    sha256 = "091a2pqgkiwnya2xv5rw5sj730hf6lvkp2kk5midsa3wz2dfbc2j";
   };
 
   cargoSha256 = "06izzv86nkn1izapldysyryz9zvjxvq23c742z284bnxjfq5my6i";
@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ dbus libpulseaudio ];
 
-  # Currently no tests are implemented
+  # Currently no tests are implemented, so we avoid building the package twice
   doCheck = false;
 
   meta = with stdenv.lib; {
