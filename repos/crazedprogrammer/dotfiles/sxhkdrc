@@ -7,23 +7,65 @@ super + Return
 	kitty
 
 # program launcher
-super + @space
-	system reload
+super + p
+	rofi -show combi
 
-# make sxhkd reload its configuration files:
-super + Escape
-	pkill -USR1 -x sxhkd
+# browser
+super + b
+	firefox
+
+# toggle mouse cursor
+super + shift + g
+	sh -c 'if ! pkill hhpc; then hhpc -i 0; fi &'
+
+# power management
+super + shift + u
+	poweroff
+
+super + shift + i
+	system reboot
+
+super + shift + o
+	system tlock
+
+super + shift + Delete
+	system kill lock reload
+
+super + ctrl + Delete
+	system suspend lock
+
+# apply system config
+super + shift + a
+	sudo nixos-rebuild switch --no-build-nix
+
+# volume keys
+{XF86AudioRaiseVolume,XF86AudioLowerVolume}
+	pactl set-sink-volume @DEFAULT_SINK@ {+,-}3%
+XF86AudioMute
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# brightness keys
+{XF86MonBrightnessUp,XF86MonBrightnessDown}
+	xbacklight -{inc,dec} 10
+
+# screen recording keys
+{_,ctrl,shift} + Print
+	shot {m,s,u}
+
+{_,ctrl} + super + Print
+	{record,pkill -f ffmpeg}
+
 
 #
 # bspwm hotkeys
 #
 
-# quit/restart bspwm
-super + alt + {q,r}
-	bspc {quit,wm -r}
+# exit bspwm
+super + shift + y
+	bspc quit
 
 # close and kill
-super + {_,shift + }w
+super + {_,shift + }q
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout

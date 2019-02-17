@@ -12,7 +12,7 @@ FRAMERATE=60
 # list of upload destinations
 
 # region select & record the video
-read -r X Y W H G ID < <(slop -f "%x %y %w %h %g %i")
+read -r X Y W H G ID < <(slop --noopengl -f "%x %y %w %h %g %i")
 W2=$(echo "($W / 2) * 2" | bc)
 H2=$(echo "($H / 2) * 2" | bc)
 ffmpeg -f x11grab -show_region 1 -framerate $FRAMERATE -video_size "${W2}x${H2}" -i "$DISPLAY.0+$X,$Y" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -tune zerolatency $REC_PATH

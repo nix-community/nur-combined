@@ -141,6 +141,20 @@ label-urgent-padding = 2
 [module/bspwm]
 type = internal/bspwm
 
+pin-workspaces = false
+
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+label-occupied-padding = 2
+
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+label-empty-foreground = ${colors.foreground-alt}
+label-empty-padding = 2
+
 [module/cpugraph]
 type = internal/cpu
 interval = 0.5
