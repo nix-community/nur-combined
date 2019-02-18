@@ -8,13 +8,15 @@
 ;=====================================================
 
 [colors]
-background = #222
-background-alt = #444
+background = #aa222222
+background-alt = #aa444444
 foreground = #dfdfdf
 foreground-alt = #555
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+primary = #bbffb52a
+secondary = #bbf94444
+ternary = #bbf97444
+alert = #ccbd2c40
+border = #dd111111
 
 [bar/xenon]
 modules-left = memory cpuload cpugraph temperature_desktop
@@ -30,19 +32,19 @@ fixed-center = true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 2
-line-color = #F00
+overline-size = 1
+overline-color = #F00
 
 border-size = 1
-border-color = #111111
+border-color = ${colors.border}
 
 padding-left = 1
-padding-right = 2
+padding-right = 1
 
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = monospace:size=9;1
+font-0 = FiraCode:size=9;3
 
 [bar/neon]
 modules-left = memory cpuload cpufreq cpugraph temperature
@@ -120,7 +122,7 @@ label-mode-background = ${colors.primary}
 ; focused = Active workspace on focused monitor
 label-focused = %index%
 label-focused-background = ${colors.background-alt}
-label-focused-underline = ${colors.primary}
+label-focused-overline = ${colors.primary}
 label-focused-padding = 2
 
 ; unfocused = Inactive workspace on any monitor
@@ -130,7 +132,7 @@ label-unfocused-padding = 2
 ; visible = Active workspace on unfocused monitor
 label-visible = %index%
 label-visible-background = ${self.label-focused-background}
-label-visible-underline = ${self.label-focused-underline}
+label-visible-overline = ${self.label-focused-overline}
 label-visible-padding = ${self.label-focused-padding}
 
 ; urgent = Workspace with urgency hint set
@@ -144,16 +146,16 @@ type = internal/bspwm
 pin-workspaces = false
 
 label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.primary}
+label-focused-overline= ${colors.primary}
 label-focused-padding = 2
 
-label-occupied-padding = 2
+label-occupied-padding = 1
 
 label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
+label-urgent-padding = 1
 
 label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 2
+label-empty-padding = 1
 
 [module/cpugraph]
 type = internal/cpu
@@ -161,7 +163,7 @@ interval = 0.5
 format = <ramp-coreload>
 format-prefix =
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f94444
+format-overline = ${colors.secondary}
 label = CPU %percentage-cores%%
 
 ramp-coreload-0 = ▁
@@ -177,13 +179,13 @@ ramp-coreload-7 = █
 type = custom/script
 exec = cat /proc/loadavg | cut -d " " -f1
 format-prefix = "CPU "
-format-underline = #f94444
+format-overline = ${colors.secondary}
 interval = 1
 
 [module/cpufreq]
 type = custom/script
 exec = echo $(sysnformat `cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq`) GHz
-format-underline = #f94444
+format-overline = ${colors.secondary}
 interval = 0.5
 
 [module/memory]
@@ -191,7 +193,7 @@ type = internal/memory
 interval = 0.5
 format-prefix =
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f97444
+format-overline = ${colors.ternary}
 label = RAM %gb_used%
 
 [module/wireless]
@@ -199,14 +201,14 @@ type = internal/network
 interface = wlp3s0
 interval = 1
 label-connected = NET %downspeed% %upspeed%
-format-connected-underline = #f94444
+format-connected-overline = ${colors.secondary}
 
 [module/wired]
 type = internal/network
 interface = enp25s0
 interval = 1
 label-connected = NET %downspeed% %upspeed%
-format-connected-underline = #f94444
+format-connected-overline = ${colors.secondary}
 
 [module/date]
 type = internal/date
@@ -218,7 +220,7 @@ time = %H:%M
 
 format-prefix =
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f97444
+format-overline = ${colors.ternary}
 
 label = %date% - %time%
 
@@ -226,7 +228,7 @@ label = %date% - %time%
 type = internal/volume
 
 format-volume = <label-volume>
-format-volume-underline = #f94444
+format-volume-overline = ${colors.secondary}
 label-volume = VOL %percentage%%
 label-volume-foreground = ${root.foreground}
 
@@ -241,21 +243,21 @@ adapter = ADP0
 full-at = 98
 
 format-charging = <label-charging>
-format-charging-underline = #f94444
+format-charging-overline = ${colors.secondary}
 label-charging = CHR %percentage%%
 
 format-discharging = <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
+format-discharging-overline = ${self.format-charging-overline}
 label-discharging = BAT %percentage%%
 
 format-full-prefix = 
 format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
+format-full-overline = ${self.format-charging-overline}
 
 [module/battery_usage]
 type = custom/script
 exec = echo $(sysnformat `cat /sys/class/power_supply/BAT0/power_now`) W
-format-underline = #f94444
+format-overline = ${colors.secondary}
 interval = 1
 
 [module/temperature]
@@ -264,9 +266,9 @@ thermal-zone = 0
 warn-temperature = 80
 
 format = <label>
-format-underline = #f94444
+format-overline = ${colors.secondary}
 format-warn = <label-warn>
-format-warn-underline = ${self.format-underline}
+format-warn-overline = ${self.format-overline}
 
 label = %temperature%
 label-warn = %temperature%
@@ -279,9 +281,9 @@ thermal-zone = 0
 warn-temperature = 80
 
 format = <label>
-format-underline = #f94444
+format-overline = ${colors.secondary}
 format-warn = <label-warn>
-format-warn-underline = ${self.format-underline}
+format-warn-overline = ${self.format-overline}
 
 label = %temperature%
 label-warn = %temperature%
@@ -294,7 +296,7 @@ type = internal/xwindow
 screenchange-reload = true
 
 [global/wm]
-margin-top = 5
-margin-bottom = 5
+margin-top = 0
+margin-bottom = 0
 
 ; vim:ft=dosini
