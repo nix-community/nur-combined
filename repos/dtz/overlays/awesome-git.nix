@@ -7,8 +7,8 @@ self: super: {
     src = super.fetchFromGitHub {
       owner = "AwesomeWM";
       repo = "awesome";
-      rev = "24dbb1de202b2741f837a1ee249f3b0c99b92c40";
-      sha256 = "0y66qdzldky3a2db2fvzvm7n6216kfsm3mskafhxc19h13idwphv";
+      rev = "ddf422dd0d3f9371a02ec95011e57ac69caca003";
+      sha256 = "1dshldkyxxf7vnf11jgi4fzd0d238sg6qhp27j60wxflgbmny1qr";
     };
   });
 }
