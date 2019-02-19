@@ -91,8 +91,8 @@ fixed-center = ${bar/xenon.fixed-center}
 background = ${bar/xenon.background}
 foreground = ${bar/xenon.foreground}
 
-overline-size = ${bar/xenon.line-size}
-overline-color = ${bar/xenon.line-color}
+overline-size = ${bar/xenon.overline-size}
+overline-color = ${bar/xenon.overline-color}
 
 border-size = ${bar/xenon.border-size}
 border-color = ${bar/xenon.border-color}

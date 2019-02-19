@@ -12,7 +12,7 @@
     autoRepeatInterval = 30;
 
     # Enable the SDDM login manager.
-    displayManager.sddm = {
+    displayManager.lightdm = {
       enable = true;
       autoLogin = {
         enable = true;

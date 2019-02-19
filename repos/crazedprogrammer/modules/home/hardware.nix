@@ -4,13 +4,11 @@
   boot = {
     # Quiet console at startup.
     kernelParams = [ "quiet" "vga=current" ];
-    # Make the BFQ scheduler available in initrd.
-    initrd.kernelModules = [ "bfq" ];
+
+    # Assume /dev/sda is an SSD, which benefits from the BFQ queue scheduler.
+    kernelModules = [ "bfq" ];
+    postBootCommands = "echo bfq > /sys/block/sda/queue/scheduler";
   };
-  # Use the BFQ scheduler for all block devices that are not rotational.
-  services.udev.extraRules = ''
-    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="bfq"
-  '';
 
   # /tmp on tmpfs.
   fileSystems."/tmp" = {
@@ -47,7 +45,7 @@
     wantedBy = lib.mkForce [ ];
   };
   # Yes, this is a hack.
-  services.xserver.displayManager.sddm.setupScript = "${pkgs.systemd}/bin/systemctl start network-manager systemd-timesyncd";
+  services.xserver.displayManager.setupCommands = "${pkgs.systemd}/bin/systemctl start network-manager systemd-timesyncd || true";
 
   hardware = {
     # Enable PulseAudio.
