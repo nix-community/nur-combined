@@ -4,9 +4,13 @@
   boot = {
     # Quiet console at startup.
     kernelParams = [ "quiet" "vga=current" ];
-    # Assume /dev/sda is an SSD, which doesn't need an IO queue scheduler.
-    postBootCommands = "echo none > /sys/block/sda/queue/scheduler";
+    # Make the BFQ scheduler available in initrd.
+    initrd.kernelModules = [ "bfq" ];
   };
+  # Use the BFQ scheduler for all block devices that are not rotational.
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="bfq"
+  '';
 
   # /tmp on tmpfs.
   fileSystems."/tmp" = {
