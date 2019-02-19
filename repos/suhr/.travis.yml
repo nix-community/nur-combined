@@ -4,13 +4,16 @@ sudo: false
 
 env:
   global:
-    - CACHIX_CACHE=
+    - CACHIX_CACHE=suhr
     - NUR_REPO=suhr
 
 matrix:
+  fast_finish: true
   include:
     - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.09
+  allow_failures:
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.09
 
 install:
@@ -19,7 +22,7 @@ install:
     echo '{ allowUnfree = true; }' > ~/.config/nixpkgs/config.nix
   - nix --version
   - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
-  - if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix; fi
+  - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
   - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
   - nix-channel --add "${NIX_CHANNEL}" nixpkgs
   - travis_retry nix-channel --update
