@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 xrdb $(dotfiles)/Xresources
+system launch &
 system reload &
 
 bspc monitor -d I II III IV V VI VII VIII IX
@@ -14,5 +15,7 @@ bspc config gapless_monocle            true
 bspc config focus_follows_pointer      true
 bspc config pointer_follows_focus      true
 bspc config pointer_follows_monitor    true
+
+bspc rule -a ".zathura-wrapped_" state=tiled
 
 xsetroot -cursor_name left_ptr

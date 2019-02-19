@@ -22,7 +22,7 @@
 
     # i3 window manager.
     windowManager = {
-      default = "i3";
+      default = "bspwm";
       i3 = {
         enable = true;
         configFile = ../../dotfiles/i3-config;
