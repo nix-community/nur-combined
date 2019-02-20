@@ -10,6 +10,8 @@ in
 
 rec {
 
+  nurPath = ./.;
+
   modules = {
     hydra = import ./modules/hydra.nix;
     sieve-dsl = import ./modules/sieve-dsl.nix;
@@ -44,6 +46,8 @@ rec {
   mkJob = callPackage' ./lib/release/mk-job.nix { };
 
   mkTests = callPackage' ./tests/mk-test.nix { };
+
+  mkJobset = callPackage' ./lib/release/hydra-config.nix { };
 
   callNURPackage = callPackage';
 
