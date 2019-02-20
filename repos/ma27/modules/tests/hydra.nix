@@ -32,7 +32,7 @@ in
 
   machine = { pkgs, ... }: {
     imports = [ ../hydra.nix ];
-    virtualisation.memorySize = 1024;
+    virtualisation.memorySize = 2048;
     #virtualisation.writableStore = true;
 
     nix.binaryCaches = [ ];
@@ -67,7 +67,7 @@ in
   };
 
   testScript = ''
-    $machine->waitForUnit("hydra-server.service");
+    $machine->systemctl("status hydra-server.service");
 
     $machine->waitForOpenPort(3000); # ensure Hydra server is up
     $machine->waitForOpenPort(80);   # ensure nginx is started
