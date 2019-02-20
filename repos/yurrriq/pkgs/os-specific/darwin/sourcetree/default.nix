@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   name = "sourcetree-${version}";
-  version = "3.0.1_205";
+  version = "3.1.1_213";
 
   src = fetchzip {
     url = "https://product-downloads.atlassian.com/software/sourcetree/ga/Sourcetree_${version}.zip";
-    sha256 = "1wx7vimjm9zn5jvqa5m4768pvvl7hqlj7v3mg5zr0z47r1bxz54n";
+    sha256 = "1rasrnvmlcxs00qkrs3wavm3ar2nz1rc8vq3vg84g6j84f6087wz";
   };
 
   installPhase = ''
