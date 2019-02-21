@@ -9,4 +9,6 @@ else
 	read
 fi
 
+export MAKEFLAGS=-j$(nproc)
+
 tmux
