@@ -75,6 +75,9 @@ rec {
     pkgs.python3Packages.callPackage ./pkgs/python-pkgs { }
   );
 
+
+  yubikey-touch-detector = pkgs.callPackages ./pkgs/yubikey-touch-detector { };
+
   modules = import ./modules;
 
   #inherit (pkgs.callPackages ./pkgs/node-packages {})
