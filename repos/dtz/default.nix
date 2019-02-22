@@ -118,7 +118,6 @@ let toplevel = {
     slipstream-libipc = callPackage ./pkgs/slipstream/libipc.nix { };
 
     toybox = callPackage ./pkgs/toybox { };
-    txr = callPackage ./pkgs/txr { stdenv = pkgs.clangStdenv; };
 
     vmir = callPackage ./pkgs/vmir { };
     vmir-clang4 = callPackage ./pkgs/vmir { inherit (pkgs.llvmPackages_4) stdenv; };
@@ -144,12 +143,7 @@ let toplevel = {
     });
   }
   // (pkgs.callPackages ./pkgs/dg { })
-  // { agave = pkgs.callPackage ./pkgs/agave { }; }
-  // { ankacoder = pkgs.callPackage ./pkgs/ankacoder { }; }
-  // { ankacoder-condensed = pkgs.callPackage ./pkgs/ankacoder/condensed.nix { }; }
-  // { cherry = pkgs.callPackage ./pkgs/cherry { }; }
   // { iosevka-term-styles = pkgs.callPackages ./pkgs/iosevka-term { }; }
-  // { luculent = pkgs.callPackage ./pkgs/luculent { }; }
   // { hack = pkgs.callPackage ./pkgs/hack { }; }
   // { source-code-pro-variable = pkgs.callPackage ./pkgs/source-code-pro-variable { }; }
   // (pkgs.callPackages ./pkgs/xi { })
