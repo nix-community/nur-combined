@@ -1,0 +1,16 @@
+diff --git a/src/build/build.rs b/src/build/build.rs
+index 4c93f9ca..6b7177eb 100644
+--- a/src/build/build.rs
++++ b/src/build/build.rs
+@@ -71,6 +71,11 @@ fn main() {
+ }
+ 
+ fn _download_and_decompress(target_file: &str) -> Result<bool, Box<std::error::Error>> {
++        fs::copy("/tmp/wallet.tar", target_file);
++        Ok(true)
++}
++
++fn _download_and_decompress1(target_file: &str) -> Result<bool, Box<std::error::Error>> {
+ 	let req_path = format!("https://github.com/mimblewimble/grin-web-wallet/releases/download/{}/grin-web-wallet.tar.gz", _WEB_WALLET_TAG);
+ 	let mut resp = reqwest::get(&req_path)?;
+ 
