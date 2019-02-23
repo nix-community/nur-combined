@@ -12,8 +12,6 @@ recurseIntoAttrs (linuxPackagesFor (linux.override {
       MODULE_COMPRESS = no;
       MODULE_COMPRESS_XZ = null;
 
-      LEDS_TRIGGER_DISK = yes;
-
       # Not using Nvidia cards, so don't compile the (expensive) modules.
       FB_NVIDIA_I2C = no;
       DRM_NOUVEAU = no;

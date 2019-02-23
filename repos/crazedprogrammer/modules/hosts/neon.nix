@@ -26,6 +26,8 @@ in
     kernelPackages = import ../home/kernel (pkgs // {
       structuredExtraConfig = {
         MIVYBRIDGE = "y";
+        # Enable cpufreq stats for powertop.
+        CPU_FREQ_STAT = "y";
       };
     });
   };

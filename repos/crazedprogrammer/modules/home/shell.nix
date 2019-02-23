@@ -30,6 +30,7 @@
       cargo = "env LIBRARY_PATH=/run/current-system/sw/lib cargo";
       iotop = "sudo iotop";
       bmon = "sudo bmon";
+      nix-shell-unstable = "nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
       aubuild = "nix-shell -p automake autoconf libtool --run \"sh autogen.sh\"; and nix-build .";
       esp-shell = "nix-shell (dotfiles)/esp-idf-shell.nix";
       vm-build = "sudo nixos-rebuild build-vm -p test -I nixos-config=./modules/hosts/nixos-qemu.nix";
