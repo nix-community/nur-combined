@@ -1,11 +1,11 @@
-{ stdenv, fetchurlBoot, openssl, zlib, windows
+{ stdenv, fetchurl, openssl, zlib, windows
 , hostPlatform
 }:
 
 stdenv.mkDerivation rec {
   name = "libssh2-1.8.0";
 
-  src = fetchurlBoot {
+  src = fetchurl {
     url = "${meta.homepage}/download/${name}.tar.gz";
     sha256 = "1m3n8spv79qhjq4yi0wgly5s5rc8783jb1pyra9bkx1md0plxwrr";
   };

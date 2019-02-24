@@ -21,14 +21,14 @@ galeraLibs = buildEnv {
 };
 
 common = rec { # attributes common to both builds
-  version = "10.3.12";
+  version = "10.3.13";
 
   src = fetchurl {
     urls = [
       "https://downloads.mariadb.org/f/mariadb-${version}/source/mariadb-${version}.tar.gz"
       "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz"
     ];
-    sha256 = "1xhz10zrvvfrxr55yk3cy7hry1nj7zldm0vrin95a12yq8s9li7p";
+    sha256 = "16j5f66h5yypw96d983i3hasa32cng3ym8b0xakqakxqymz8bamj";
     name   = "mariadb-${version}.tar.gz";
   };
 
