@@ -26,8 +26,6 @@ in
     kernelPackages = import ../home/kernel (pkgs // {
       structuredExtraConfig = {
         MIVYBRIDGE = "y";
-        # Enable cpufreq stats for powertop.
-        CPU_FREQ_STAT = "y";
       };
     });
   };
@@ -60,9 +58,17 @@ in
     xorg.xbacklight
   ];
 
-  powerManagement = {
-    cpuFreqGovernor = if powersave then "powersave" else "performance";
-    powertop.enable = powersave;
+  powerManagement = if powersave then { } else {
+    cpuFreqGovernor = "performance";
+  };
+  # Using TLP because Powertop doesn't work. The cause of this is that the
+  # kernel module cpufreq_stats does not exist for some reason, even with CONFIG_CPU_FREQ_STATS=y.
+  services.tlp = {
+    enable = powersave;
+    extraConfig = ''
+      CPU_SCALING_GOVERNOR_ON_AC=performance
+      CPU_SCALING_GOVERNOR_ON_BAT=powersave
+    '';
   };
 
   services.xserver = {

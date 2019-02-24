@@ -38,7 +38,7 @@ super + ctrl + Delete
 super + shift + a
 	sudo nixos-rebuild switch --no-build-nix
 
-super + shift + XF86Launch1
+XF86Launch1
 	mpv https://i.crzd.me/install-gentoo.mp4 --fullscreen
 
 # volume keys
