@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+howoldis_url=https://howoldis.herokuapp.com/api/channels
+howoldis_path=/tmp/howoldis.json
+
+curl -s $howoldis_url > $howoldis_path
+
+declare -a channels=("nixos-18.09" "nixos-unstable")
+
+echo "Nixpkgs channels:"
+
+for channel in "${channels[@]}"
+do
+	channel_secs=$(cat $howoldis_path | jq -r "to_entries[] | .value | select(.name == \"${channel}\").time")
+	channel_hours=$(bc <<< "scale=2; $channel_secs/60/60")
+	echo "Channel $channel updated $channel_hours hours ago"
+done
+
+rm $howoldis_path
