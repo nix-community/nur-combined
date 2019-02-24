@@ -4,14 +4,14 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "kvirc-5.0.84fbb94";
-  version = "84fbb9458ddb7c0ecf85df2098fe424005648e27";
+  name = "kvirc-${version}";
+  version = "5.0.0";
 
   src = fetchFromGitHub {
     owner = "kvirc";
     repo = "KVIrc";
-    rev = "84fbb9458ddb7c0ecf85df2098fe424005648e27";
-    sha256 = "1z6csx9vzj6b60vy9lj832xh0ghxwjrqyhrwjssd5nnfjqp7ics2";
+    rev = "${version}";
+    sha256 = "1dq7v6djw0gz56rvghs4r5gfhzx4sfg60rnv6b9zprw0vlvcxbn4";
   };
 
   buildInputs = with qt5; [

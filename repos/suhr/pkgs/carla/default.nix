@@ -8,13 +8,13 @@ let
 in
   stdenv.mkDerivation rec {
     name = "carla-${version}";
-    version = "1.9.12";
+    version = "1.9.13";
 
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
       rev = "v${version}";
-      sha256 = "0hk3g0dhg91cbx19agvcy6idc0w4hfy1rg39yj3k82rxvghr4126";
+      sha256 = "1n4xaibyq5k898rz3swl1l3dc7fjklihrzfp3jn6bf7cczf0kz45";
     };
 
     buildInputs = [

@@ -8,13 +8,13 @@ let
 in
   stdenv.mkDerivation rec {
     name = "cadabra2-${version}";
-    version = "2.2.4";
+    version = "2.2.5";
 
     src = fetchFromGitHub {
       owner = "kpeeters";
       repo = "cadabra2";
-      rev = "d11e42b67ee59fd5e6688ce18d5516e08cfc08f0";
-      sha256 = "0q4bwwrd1ndq7m4a7jja4x5fjyvijf9vnbpx9h8js1jq75p2wp9g";
+      rev = "${version}";
+      sha256 = "16q1n16c7zsy94m2mgaz4j4dxsi3lgrqhg3jkmzggfj7nq7f6yn1";
     };
 
     buildInputs = [
