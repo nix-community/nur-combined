@@ -1,9 +1,5 @@
 { config, lib, pkgs, ... }:
 
-let
-  powersave = false;
-in
-
 {
   imports = [
     ../home
@@ -21,8 +17,7 @@ in
 
     initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
     kernelModules = [ "kvm-intel" ];
-    kernelParams = (if powersave then [ "i915.enable_psr=1" "i915.enable_fbc=1" ] else [])
-                     ++ [ "i915.fastboot=1" ];
+    kernelParams = [ "i915.enable_psr=1" "i915.enable_fbc=1" "i915.fastboot=1" ];
     kernelPackages = import ../home/kernel (pkgs // {
       structuredExtraConfig = {
         MIVYBRIDGE = "y";
@@ -58,17 +53,17 @@ in
     xorg.xbacklight
   ];
 
-  powerManagement = if powersave then { } else {
-    cpuFreqGovernor = "performance";
-  };
   # Using TLP because Powertop doesn't work. The cause of this is that the
   # kernel module cpufreq_stats does not exist for some reason, even with CONFIG_CPU_FREQ_STATS=y.
   services.tlp = {
-    enable = powersave;
+    enable = true;
     extraConfig = ''
       CPU_SCALING_GOVERNOR_ON_AC=performance
       CPU_SCALING_GOVERNOR_ON_BAT=powersave
     '';
+  };
+  systemd.services."tlp" = {
+    wantedBy = lib.mkForce [ ];
   };
 
   services.xserver = {
