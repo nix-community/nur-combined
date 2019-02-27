@@ -1,0 +1,27 @@
+[
+  {
+    "data": "aspmx.l.google.com",
+    "priority": 1,
+    "ttl": 3600
+  },
+  {
+    "data": "aspmx2.googlemail.com",
+    "priority": 10,
+    "ttl": 3600
+  },
+  {
+    "data": "aspmx3.googlemail.com",
+    "priority": 10,
+    "ttl": 3600
+  },
+  {
+    "data": "alt1.aspmx.l.google.com",
+    "priority": 5,
+    "ttl": 3600
+  },
+  {
+    "data": "alt2.aspmx.l.google.com",
+    "priority": 5,
+    "ttl": 3600
+  }
+]

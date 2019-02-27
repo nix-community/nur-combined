@@ -1,0 +1,4 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -p nix-prefetch-github jq -i bash
+nix-prefetch-github adisbladis vgo2nix > pin.json
+nix-instantiate --eval --expr 'with (import <nixpkgs> {}); builtins.readFile ((fetchFromGitHub (lib.importJSON ./pin.json)) + "/deps.nix")' | jq -r > deps.nix
