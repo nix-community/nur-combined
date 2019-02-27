@@ -62,8 +62,20 @@
       CPU_SCALING_GOVERNOR_ON_BAT=powersave
     '';
   };
-  systemd.services."tlp" = {
-    wantedBy = lib.mkForce [ ];
+  systemd.services = {
+    tlp = {
+      wantedBy = lib.mkForce [ ];
+    };
+    systemd-udev-settle.serviceConfig.ExecStart = ["" "${pkgs.coreutils}/bin/true"];
+
+    battery-watchdog = {
+      description = "Battery watchdog";
+      path = with pkgs; [ systemd ];
+      script = ''
+        ${../../dotfiles/bin/battery-watchdog.sh}
+      '';
+      startAt = "*-*-* *:*:00";
+    };
   };
 
   services.xserver = {
