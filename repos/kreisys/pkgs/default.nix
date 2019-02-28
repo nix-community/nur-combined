@@ -19,6 +19,7 @@ in
   krec2    = pkgs.callPackage ./kreiscripts/krec2  { inherit mkBashCli; };
   kretty   = pkgs.callPackage ./kreiscripts/kretty { inherit mkBashCli; };
   kurl     = pkgs.callPackage ./kreiscripts/kurl   { inherit mkBashCli; };
+  kraks    = pkgs.callPackage ./kreiscripts/kraks  { inherit mkBashCli; };
   nvim     = pkgs.callPackage ./nvim       { };
   oksh     = pkgs.callPackage ./ok.sh      { };
   webhook  = pkgs.callPackage ./webhook    { };
