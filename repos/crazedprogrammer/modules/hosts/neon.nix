@@ -66,7 +66,9 @@
     tlp = {
       wantedBy = lib.mkForce [ ];
     };
-    systemd-udev-settle.serviceConfig.ExecStart = ["" "${pkgs.coreutils}/bin/true"];
+    # This option makes Firefox stop working for some strange reason, unfortunately.
+    # I'll have to find another way to improve boot time.
+    # systemd-udev-settle.serviceConfig.ExecStart = ["" "${pkgs.coreutils}/bin/true"];
 
     battery-watchdog = {
       description = "Battery watchdog";
