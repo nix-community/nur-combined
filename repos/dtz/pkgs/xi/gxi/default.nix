@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   name = "gxi-unstable-${version}";
-  version = "2019-02-14";
+  version = "2019-02-27";
   
   src = fetchFromGitHub {
     owner = "Cogitri";
     repo = "gxi";
-    rev = "4d9aff7ea072498c27dab6dc24a92b6dee0ed5f8";
-    sha256 = "10dbkcnbil2rl58aj6z7xn8i4sf55kpw98d7xmb5aq0j2zr03bg1";
+    rev = "733bb71281749ed0c7120fdf05a7a90b9887bccc";
+    sha256 = "1j79visrw8jy0ikkprxnsb31k4mgy18lpd7vlgi0yhcx1h5m3r16";
     fetchSubmodules = true;
   };
 
@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   hardeningDisable = [ "format" ]; # build error in gettext/gnulib??
 
-  cargoSha256 = "02r4v1yzz4i5rdz39r46nfngqkdkja6z4y88g56p0fwvhx1pgd05";
+  cargoSha256 = "0cgwliix76azs2qwqj43z60jhm78l9xy4bk9a945yrnpy8f4wjmx";
 
   postInstall = ''
     mkdir -p ${GXI_PLUGIN_DIR}
