@@ -9,8 +9,8 @@ let
   };
 
   # TODO: clean these up
-  unstable = import <nixos-unstable> {};
-  edge = import /data/src/nix/nixpkgs {};
+  # unstable = import <nixos-unstable> {};
+  unstable = pkgs;
   kubectx = pkgs.nur.repos.moredhel.kubectx;
   kubectl = unstable.kubectl;
 in
@@ -32,13 +32,19 @@ in
     ];
     shellAliases = {
       g = "git";
-      vim = "emacsclient --socket /tmp/emacs1000/server -nw";
+      # vim = "emacsclient --socket /tmp/emacs1000/server -nw"; # TODO: see if it is worth changing...
       emacs = "emacsclient --socket /tmp/emacs1000/server -c -n";
       k = "${kubectl}/bin/kubectl";
       ktx = "${kubectx}/bin/kubectx";
       kns = "${kubectx}/bin/kubens";
     };
     enableAutojump = true;
+    sessionVariables = {
+      PAGER = "less";
+    };
+    profileExtra = ''
+      if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
+    '';
   };
 
   programs.git = {
