@@ -11,6 +11,11 @@ os:
 sudo: yes
 
 env:
+  matrix:
+    - NIX_CHANNEL=nixpkgs-18.09-darwin
+    - NIX_CHANNEL=nixos-18.09
+    - NIX_CHANNEL=nixpkgs-unstable
+    - NIX_CHANNEL=nixos-unstable
   global:
     - CACHIX_CACHE=kreisys
     - NUR_REPO=kreisys/nur-packages
@@ -18,6 +23,13 @@ env:
     - secure: "FS/7BVZa2lJvY8CUf7dsQHPx37EeNCNEaPi6aPDBMAv6O7cuEYO9NHpE2U2yz67XWbLPOXMCeRtZC64o2E7kxuTgC7c2xnuSXUBWmymBwy0r+v4+h5qPy/DDoT2iyi54H32lqMhE2HNBgTpL4elUhIK+80MUYVYv2KPFEYAAhe1dS1DY1BAFSNqp1aaF5YjCbDjgB/xIW77T5iAHd5o5PdpcSliKNWa0BrfnmmQVO6ulPFA9oUC43H2CI0heYSvIdTUSooQhRjLkAE1bYoDGAyi5r0jFplVk5PqPpFc1FMVba2Ch0UOoHD7KA2wILljQ576bw7IynhDy9O8xs6/+r6eDr5o8Wpk+tKGKgkC015MryG/6M8v3VeRs3+KRJlZ8KSldzqdzA14q6PKSw7XTE6Jm+u+ccAP+qe8jS9dw9tTIVziqd41aMfTLEshmghDABk5Lkg+UXF2eIrN1X0wDvtvVRQUCfKfJIRHBcP5x4gpRRF2wPBGw3ZwmYWfx5JxMAX5tZPugYJjqCqo3LUHeVsynXIMYP43g7FLEba9DhIR9pOz9+emzRNA/TEHv1fI670aJbaJ0DiDEvlvWIDBBUKa5r5gEQcr42LzVryT4bWs5jpwBBjevlTwUSLEsbvVo0I2n9XOg+4ezykWD/8V1ZIdHISMAjaQbAnEfq03yfu0="
 
 matrix:
+  exclude:
+    - os: linux
+      env: NIX_CHANNEL=nixpkgs-18.09-darwin
+    - os: osx
+      env: NIX_CHANNEL=nixos-unstable
+    - os: osx
+      env: NIX_CHANNEL=nixos-18.09
   allow_failures:
     - os: osx
 
@@ -36,8 +48,10 @@ before_install:
   - echo "substituters = https://cache.nixos.org/ https://${CACHIX_CACHE}.cachix.org https://cachix.cachix.org file://$HOME/nix.store" | sudo tee -a /etc/nix/nix.conf > /dev/null
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo launchctl stop org.nixos.nix-daemon; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo launchctl start org.nixos.nix-daemon && sleep 5; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo "https://nixos.org/channels/nixpkgs-18.09-darwin nixpkgs" | sudo tee ~root/.nix-channels > /dev/null; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo "https://nixos.org/channels/$NIX_CHANNEL nixpkgs" | sudo tee ~root/.nix-channels > /dev/null; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then travis_retry sudo -i nix-channel --update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then echo "https://nixos.org/channels/$NIX_CHANNEL nixpkgs" | tee ~/.nix-channels > /dev/null; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then travis_retry nix-channel --update; fi
   - travis_retry nix-channel --update
 
 install:
