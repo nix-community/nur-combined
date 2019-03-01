@@ -8,13 +8,16 @@
 
   environment.systemPackages = with pkgs; [
     # Basic tools
-    wget curl jq bc loc p7zip fdupes pandoc texlive.combined.scheme-medium ls_extended file
+    wget curl jq bc loc p7zip fdupes binutils-unwrapped ls_extended file parallel
 
     # Version control
     git #mercurial darcs
 
     # Utilities
-    xsel xclip maim qemu binutils-unwrapped slop xdotool clang-tools hhpc stress xorg.xhost #kristvanity
+    qemu pandoc texlive.combined.scheme-medium clang-tools stress #kristvanity
+
+    # X utilities
+    xsel xclip maim slop xdotool hhpc xorg.xhost
 
     # Nix utilities
     nix-prefetch-git
