@@ -9,6 +9,8 @@ let
 
 in
 {
+  inherit (pkgs) exa;
+
   buildkite-cli = pkgs.callPackage ./buildkite-cli { };
   consulate     = pkgs.callPackage ./consulate     { };
 
