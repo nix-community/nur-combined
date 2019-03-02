@@ -104,9 +104,9 @@ let
   '';
 
   vimrcDeopleteConfig = ''
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#num_processes = 1
-    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    "let g:deoplete#enable_at_startup = 1
+    "let g:deoplete#num_processes = 1
+    "inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
   '';
 
   vimrcTabularConfig = ''
