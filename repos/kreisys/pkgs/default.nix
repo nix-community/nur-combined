@@ -9,7 +9,7 @@ let
 
 in
 {
-  inherit (pkgs) exa;
+  inherit (pkgs) consul exa ipfs;
 
   buildkite-cli = pkgs.callPackage ./buildkite-cli { };
   consulate     = pkgs.callPackage ./consulate     { };
