@@ -9,7 +9,7 @@ let
 
 in
 {
-  inherit (pkgs) buildkite-agent consul dep2nix direnv exa ipfs;
+  inherit (pkgs) buildkite-agent3 consul dep2nix direnv exa ipfs;
   inherit (pkgs.gitAndTools) hub;
 
   buildkite-cli = pkgs.callPackage ./buildkite-cli { };
