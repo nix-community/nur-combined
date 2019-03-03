@@ -74,7 +74,7 @@
       description = "Battery watchdog";
       path = with pkgs; [ systemd ];
       script = ''
-        ${../../dotfiles/bin/battery-watchdog.sh}
+        ${../../dotfiles/bin/battery-watchdog}
       '';
       startAt = "*-*-* *:*:00";
     };

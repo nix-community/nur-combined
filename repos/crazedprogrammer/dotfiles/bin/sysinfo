@@ -1,0 +1,18 @@
+#!/bin/sh
+
+case $1 in
+	battery_usage)
+		if [ -f /sys/class/power_supply/BAT0/power_now ]; then
+			echo $(sysnformat `cat /sys/class/power_supply/BAT0/power_now`) W
+		else
+			echo "- W"
+		fi
+	;;
+	cpufreq)
+		echo $(sysnformat `cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq`) GHz
+	;;
+	*)
+		echo "sysinfo <battery_usage|cpufreq>"
+		exit 1
+	;;
+esac
