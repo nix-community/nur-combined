@@ -31,6 +31,7 @@ in
       runHook postInstall
     '';
 
+    doCheck = false;
     dontPatchELF = true;
 
     cargoSha256 = "1wwak4n6hb021f9s8pcq3qb81lz29r957296fcx3vl2kbn0kl3mc";
