@@ -18,6 +18,7 @@ rec {
   go-containerregistry = pkgs.callPackage ./pkgs/go-containerregistry {};
   gogo-protobuf = pkgs.callPackage ./pkgs/gogo-protobuf {};
   goreturns = pkgs.callPackage ./pkgs/goreturns {};
+  gorun = pkgs.callPackage ./pkgs/gorun {};
   knctl = pkgs.callPackage ./pkgs/knctl {};
   krew = pkgs.callPackage ./pkgs/krew {};
   #openshift-installer = pkgs.callPackage ./pkgs/openshift-installer {};
@@ -37,6 +38,7 @@ rec {
   conmon = pkgs.callPackage ./pkgs/podman/conmon.nix {};
   containerd = pkgs.callPackage ./pkgs/containerd {};
   linuxkit = pkgs.callPackage ./pkgs/linuxkit {};
+  minikube = pkgs.callPackage ./pkgs/minikube {};
   podman = pkgs.callPackage ./pkgs/podman {};
   runc = pkgs.callPackage ./pkgs/runc {};
 }

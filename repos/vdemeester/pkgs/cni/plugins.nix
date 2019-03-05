@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, go }:
+{ stdenv, lib, fetchFromGitHub, go, removeReferencesTo }:
 
 stdenv.mkDerivation rec {
   name = "cni-plugins-${version}";
@@ -11,16 +11,21 @@ stdenv.mkDerivation rec {
     sha256 = "1sywllwnr6lc812sgkqjdd3y10r82shl88dlnwgnbgzs738q2vp2";
   };
 
-  buildInputs = [ go ];
+  buildInputs = [ removeReferencesTo go ];
 
   buildPhase = ''
     patchShebangs build.sh
+    export "GOCACHE=$TMPDIR/go-cache"
     ./build.sh
   '';
 
   installPhase = ''
     mkdir -p $out/bin
     mv bin/* $out/bin
+  '';
+
+  preFixup = ''
+    find $out/bin -type f -exec remove-references-to -t ${go} '{}' +
   '';
 
   meta = with lib; {
