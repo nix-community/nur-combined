@@ -27,7 +27,6 @@ rec {
   rmapi = pkgs.callPackage ./pkgs/rmapi {};
   s2i = pkgs.callPackage ./pkgs/s2i {};
   slirp4netns = pkgs.callPackage ./pkgs/slirp4netns {};
-  stellar = pkgs.callPackage ./pkgs/stellar {};
   tilt = pkgs.callPackage ./pkgs/tilt {};
   yaspell = pkgs.callPackage ./pkgs/yaspell {};
 

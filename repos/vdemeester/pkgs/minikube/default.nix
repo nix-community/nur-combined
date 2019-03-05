@@ -35,7 +35,9 @@ in buildGoPackage rec {
 
     go-bindata -nomemcopy -o pkg/minikube/assets/assets.go -pkg assets deploy/addons/...
 
-    ISO_VERSION=$(grep "^ISO_VERSION" Makefile | sed "s/^.*\s//")
+    VERSION_MAJOR=$(grep "^VERSION_MAJOR" Makefile | sed "s/^.*\s//")
+    VERSION_MINOR=$(grep "^VERSION_MINOR" Makefile | sed "s/^.*\s//")
+    ISO_VERSION=v$VERSION_MAJOR.$VERSION_MINOR.0
     ISO_BUCKET=$(grep "^ISO_BUCKET" Makefile | sed "s/^.*\s//")
     KUBERNETES_VERSION=${kubernetesVersion}
 
