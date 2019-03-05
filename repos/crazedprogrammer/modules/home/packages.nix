@@ -1,10 +1,16 @@
 { config, lib, pkgs, ... }:
 
+let
+  pkgsUnstable = import <nixos-unstable> {
+    config = config.nixpkgs.config;
+  };
+in
+
 {
   # Allow only these unfree packages.
   nixpkgs.config.allowUnfreePredicate = pkg:
     pkgs.lib.elem (builtins.parseDrvName pkg.name).name
-    [ "steam" "steam-original" "steam-runtime" "technic-launcher" "astah-community" "teamspeak-client" ];
+    [ "steam" "steam-original" "steam-runtime" "factorio-alpha" "teamspeak-client" ];
 
   environment.systemPackages = with pkgs; [
     # Basic tools
@@ -74,5 +80,7 @@
 
     # System utilities
     pavucontrol polkit_gnome exfat-utils ntfs3g iotop bmon linuxPackages.perf picocom gotop htop
-  ];
+  ] ++ (if builtins.pathExists /home/casper/.factorio.nix
+    then lib.singleton (pkgsUnstable.factorio.override (import /home/casper/.factorio.nix))
+    else [ ]);
 }

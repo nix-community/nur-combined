@@ -5,7 +5,7 @@ howoldis_path=/tmp/howoldis.json
 
 curl -s $howoldis_url > $howoldis_path
 
-declare -a channels=("nixos-18.09" "nixos-unstable")
+declare -a channels=("nixos-18.09" "nixos-19.03" "nixos-unstable")
 
 echo "Nixpkgs channels:"
 
