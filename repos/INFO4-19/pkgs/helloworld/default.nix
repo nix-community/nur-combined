@@ -1,4 +1,4 @@
-{  stdenv, fetchurl, perl }:
+{ stdenv, fetchurl, perl }:
 
 stdenv.mkDerivation {
   name = "hello-2.1.1"; 
