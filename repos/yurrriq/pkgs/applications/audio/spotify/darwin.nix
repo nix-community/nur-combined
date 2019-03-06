@@ -1,12 +1,12 @@
 { fetchurl, stdenv, lib, undmg }:
 
 stdenv.mkDerivation rec {
-  version = "1.0.96.181.gf6bc1b6b";
+  version = "1.1.1.348.g9064793a";
   name = "spotify-mac";
 
   src = fetchurl {
     url = "https://download.scdn.co/Spotify.dmg";
-    sha256 = "0dpdim6prv0s9xmva8qb4qfif8c8k8pql2j7zfv2mahnssfdyg4y";
+    sha256 = "0flksvijvhhzx8jv58pfzhgq91ixhbxafxpszy3vr0c1133zxkk7";
   };
 
   buildInputs = [ undmg ];
@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = https://www.spotify.com/;
     description = "Play music from the Spotify music service";
-    license = stdenv.lib.licenses.unfree;
-    maintainers = with stdenv.lib.maintainers; [ matthewbauer yurrriq ];
+    license = licenses.unfree;
+    maintainers = with maintainers; [ matthewbauer yurrriq ];
     platforms = platforms.darwin;
   };
 }
