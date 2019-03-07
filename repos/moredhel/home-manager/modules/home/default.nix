@@ -52,7 +52,7 @@ in
     userName = "Hamish Hutchings";
     userEmail = "moredhel@aoeu.me";
     signing = {
-      signByDefault = true;
+      signByDefault = false;
       key = "A1390B0803E1F325433A18EF80784F5CAD59A3F4";
     };
     aliases = {
