@@ -11,7 +11,7 @@ in
 
 rec {
 
-  inherit (_nixpkgs) autojump kops kubetail;
+  inherit (_nixpkgs) autojump kubetail;
   inherit (_nixpkgs.gitAndTools) git-crypt;
 
   erlang = pkgs.beam.interpreters.erlangR20.override {
@@ -43,6 +43,23 @@ rec {
       rev = "v${version}";
       sha256 = "03dq9p6nwkisd80f0r3sp82vqx2ac4ja6b2s55k1l8k89snfxavf";
     };
+  });
+
+  kops = _nixpkgs.kops.overrideAttrs(old: rec {
+    pname = "kops";
+    name = "${pname}-${version}";
+    version = "1.11.1";
+    src = _nixpkgs.fetchFromGitHub {
+      rev = version;
+      owner = "kubernetes";
+      repo = "kops";
+      sha256 = "0jia8dhawh786grnbpn64hvsdm6wz5p7hqir01q5xxpd1psnzygj";
+    };
+    buildFlagsArray = ''
+      -ldflags=
+          -X k8s.io/kops.Version=${version}
+          -X k8s.io/kops.GitVersion=${version}
+    '';
   });
 
   inherit (_nixpkgs) kubernetes-helm;
