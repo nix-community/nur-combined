@@ -58,6 +58,8 @@ let toplevel = {
     patchelf-git = callPackage ./pkgs/patchelf { };
     patchelf-dtz = callPackage ./pkgs/patchelf/dtz.nix { };
 
+    samurai = callPackage ./pkgs/samurai { };
+
     stoke = let
       # stoke docs say you must use gcc 4.9, so do so:
      gcc49Stdenv = pkgs.overrideCC pkgs.stdenv (pkgs.wrapCCMulti pkgs.gcc49);
