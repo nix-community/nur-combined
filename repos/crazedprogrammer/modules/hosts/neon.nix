@@ -19,8 +19,9 @@
     kernelModules = [ "kvm-intel" ];
     kernelParams = [ "i915.enable_psr=1" "i915.enable_fbc=1" "i915.fastboot=1" ];
     kernelPackages = import ../home/kernel (pkgs // {
-      structuredExtraConfig = {
-        MIVYBRIDGE = "y";
+      linuxPackages = pkgs.linuxPackages_latest;
+      structuredExtraConfig = values: with values; {
+        MIVYBRIDGE = yes;
       };
     });
   };
