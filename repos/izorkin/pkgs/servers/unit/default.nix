@@ -42,9 +42,13 @@ stdenv.mkDerivation rec {
     ++ optional withRuby ruby
     ++ optional withSSL openssl;
 
+  patches = [ ./unit-rootless.patch ];
+
   configureFlags = [
     "--control=unix:/run/unit/control.unit.sock"
     "--pid=/run/unit/unit.pid"
+    "--user=unit"
+    "--group=unit"
   ] ++ optional withSSL     [ "--openssl" ]
     ++ optional (!withIPv6) [ "--no-ipv6" ]
     ++ optional withDebug   [ "--debug" ];
