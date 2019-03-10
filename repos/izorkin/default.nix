@@ -15,12 +15,12 @@ rec {
   curl                = pkgs.callPackage  ./pkgs/tools/curl { openssl = pkgs.libressl; inherit libssh2; brotliSupport = true; scpSupport = true; sslSupport = true; zlibSupport = true; };
   fail2ban            = pkgs.callPackage  ./pkgs/tools/fail2ban { };
 
-  inherit              (pkgs.callPackages ./pkgs/development/php { openssl = pkgs.libressl; inherit curl; config.php.ldap = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; }) php56 php71 php72 php73;
+  inherit              (pkgs.callPackages ./pkgs/development/php { openssl = pkgs.libressl; inherit curl; config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; }) php56 php71 php72 php73;
 
-  php56-unit          = php56.override { config.php.ldap = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
-  php71-unit          = php71.override { config.php.ldap = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
-  php72-unit          = php72.override { config.php.ldap = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
-  php73-unit          = php73.override { config.php.ldap = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
+  php56-unit          = php56.override { config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
+  php71-unit          = php71.override { config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
+  php72-unit          = php72.override { config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
+  php73-unit          = php73.override { config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
 
   php56Packages       = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php56-packages.nix { php = php56; });
   php56Packages-unit  = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php56-packages.nix { php = php56-unit; });
