@@ -1,6 +1,6 @@
-# i3 config file (v4)
+# sway config file
 #
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+# Please see http://i3wm.org/docs/userguide.html and man 5 sway for a complete reference!
 
 set $mod Mod4
 
@@ -109,8 +109,8 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+y exec "i3-msg exit"
+# exit sway (logs you out of your session)
+bindsym $mod+Shift+y exec "swaymsg exit"
 # kill all windows
 bindsym $mod+Shift+t [class=".+"] kill
 # shutdown
@@ -162,6 +162,3 @@ bindsym XF86MonBrightnessDown exec "xbacklight -dec 10"
 # startup file
 exec --no-startup-id "system launch"
 exec_always --no-startup-id "system kill reload"
-
-# default programs on workspaces
-exec --no-startup-id i3-msg 'exec kitty; workspace 2; exec firefox'

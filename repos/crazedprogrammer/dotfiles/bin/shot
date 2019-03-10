@@ -2,13 +2,22 @@
 
 path=$HOME/Pictures/Screenshots/$(date +"%Y%m%d-%H%M%S").png
 
-case $1 in
-	"s") args="--noopengl -s" ;;
-	"u") args="-i $(xdotool getactivewindow)" ;;
-	"m") args="" ;;
-	*) exit 1 ;;
-esac
+if is-wayland; then
+	case $1 in
+		"s") grim -g "$(slurp)" $path ;;
+		"u") echo "Window selection unsupported."; exit 1 ;;
+		"m") grim $path ;;
+		*) exit 1 ;;
+	esac
+else
+	case $1 in
+		"s") args="--noopengl -s" ;;
+		"u") args="-i $(xdotool getactivewindow)" ;;
+		"m") args="" ;;
+		*) exit 1 ;;
+	esac
 
-maim $args $path
+	maim $args $path
+fi
 
 upload $path

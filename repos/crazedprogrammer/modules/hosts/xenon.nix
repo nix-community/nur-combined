@@ -19,13 +19,14 @@
     kernelParams = [ "amdgpu.dc=1" ];
     kernelModules = [ "kvm-amd" ];
     kernelPackages = import ../home/kernel (pkgs // {
-      structuredExtraConfig = {
-        MZEN = "y";
+      linuxPackages = pkgs.linuxPackages_latest;
+      structuredExtraConfig = values: with values; {
+        MZEN = yes;
 
         # Don't need Btrfs on this system, saves ~200ms at boot time due to
         # unnecessary raid6 benchmarks.
-        BTRFS_FS = "n";
-        BTRFS_FS_POSIX_ACL = null;
+        BTRFS_FS = no;
+        BTRFS_FS_POSIX_ACL.freeform = null;
       };
     });
   };

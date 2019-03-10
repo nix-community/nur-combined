@@ -46,11 +46,6 @@ in
     cmd = "vis";
     arg = "-c \\$(dotfiles)/vis-config";
   };
-  polybar-wrapped = makeWrapped {
-    name = "polybar";
-    pkg = super.polybar.override { i3Support = true; };
-    arg = "--config=\\$(dotfiles)/polybar-config";
-  };
   dunst-wrapped = makeWrapped {
     name = "dunst";
     arg = "-config \\$(dotfiles)/dunst-config";

@@ -13,5 +13,11 @@ empty and only contains an import of the corresponding entry point.
 
 `pkgs/` contains overlays, custom packages and overrides.
 
+# Building
 
-Works on the nixos-18.09 channel.
+In order to build this configuration, you need to use these channels:
+
+```
+nixos https://nixos.org/channels/nixos-19.03
+nixos-unstable https://nixos.org/channels/nixos-unstable
+```

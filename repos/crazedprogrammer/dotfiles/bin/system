@@ -10,7 +10,13 @@ function kill {
 }
 
 function launch {
-	tlock
+	if is-wayland; then
+		if [ $(hostname) == "xenon" ]; then
+			swaymsg output DP-1 mode 1920x1080@144.001007Hz scale 1
+		fi
+	else
+		tlock
+	fi
 	if [ $(hostname) == "xenon" ]; then
 		sudo mount -o noatime /dev/disk/by-uuid/243205de-6503-42f7-baa6-12aaf3c2a68e /mnt/hdd
 		sleep 5 && sudo hdparm -y /dev/sdb
@@ -22,13 +28,17 @@ function launch {
 }
 
 function reload {
-	feh --bg-tile $HOME/Pictures/Background.png &
-	sh -c "polybar \$(hostname) || polybar generic" &
-	dunst &
-	if [ $(hostname) == "neon" ]; then
-		compton --backend=glx --vsync drm
+	if is-wayland; then
+		true
 	else
-		compton
+		feh --bg-tile $HOME/Pictures/Background.png &
+		sh -c "polybar --config=$(dotfiles)/polybar-config \$(hostname) || polybar --config=$(dotfiles)/polybar-config generic" &
+		dunst &
+		if [ $(hostname) == "neon" ]; then
+			compton --backend=glx --vsync drm
+		else
+			compton
+		fi
 	fi
 }
 

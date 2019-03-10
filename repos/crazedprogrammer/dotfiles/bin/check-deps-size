@@ -1,0 +1,18 @@
+#!/bin/sh
+
+output_path=/tmp/deps.svg
+
+case "$1" in
+	/nix/store/*)
+		store_path="$1"
+		;;
+	*)
+		store_path="$(dirname "$(dirname "$(readlink "$(which "$1")")")")"
+		;;
+esac
+
+echo $store_path
+if [ "$store_path" != "." ]; then
+	nix-du -r "$store_path" | tred | dot -Tsvg > "$output_path"
+	xdg-open "$output_path"
+fi

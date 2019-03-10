@@ -1,11 +1,5 @@
 { config, lib, pkgs, ... }:
 
-let
-  pkgsUnstable = import <nixos-unstable> {
-    config = config.nixpkgs.config;
-  };
-in
-
 {
   # Allow only these unfree packages.
   nixpkgs.config.allowUnfreePredicate = pkg:
@@ -20,13 +14,13 @@ in
     git #mercurial darcs
 
     # Utilities
-    qemu pandoc texlive.combined.scheme-medium clang-tools stress #kristvanity
+    qemu pandoc graphviz texlive.combined.scheme-medium clang-tools stress #kristvanity
 
     # X utilities
-    xsel xclip maim slop xdotool hhpc xorg.xhost
+    xsel xclip maim slop grim slurp xdotool hhpc xorg.xhost
 
     # Nix utilities
-    nix-prefetch-git
+    nix-du
 
     # Build systems
     gnumake cmake gradle
@@ -70,7 +64,7 @@ in
     openssh #openvpn update-resolv-conf sshfs
 
     # WM utilities
-    polybar-wrapped rofi-wrapped feh dunst-wrapped libnotify xtrlock-pam compton-latest
+    polybar rofi-wrapped feh dunst-wrapped libnotify xtrlock-pam compton-latest i3lock
 
     # Scripts
     dotfiles-bin

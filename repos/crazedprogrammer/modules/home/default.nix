@@ -7,6 +7,7 @@
     ./shell.nix
     ./users.nix
     ./xserver.nix
+    ./wayland.nix
   ];
 
   nixpkgs.overlays = import ../../pkgs/overlays;

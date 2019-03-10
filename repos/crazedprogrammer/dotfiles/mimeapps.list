@@ -1,2 +1,3 @@
 [Default Applications]
 application/pdf=org.pwmt.zathura.desktop
+image/svg+xml=firefox.desktop

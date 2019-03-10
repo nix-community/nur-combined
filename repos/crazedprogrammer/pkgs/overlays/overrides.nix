@@ -1,6 +1,9 @@
 self: super:
 
 {
+  # Be able to use unstable packages in NixOS config
+  pkgsUnstable = (import <nixos-unstable> { config = super.config; });
+
   # Package overrides
   the-powder-toy = import ../overrides/the-powder-toy.nix super;
   update-resolv-conf = import ../overrides/update-resolv-conf.nix super;
