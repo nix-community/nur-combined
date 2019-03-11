@@ -21,7 +21,7 @@ mkJobset {
 
   sources = [
     { inherit supportedSystems;
-      channel = "ma27-laptop";
+      channel = "ma27-laptop-19.03";
       trackBranches = true;
       upstream = "Ma27";
     }
