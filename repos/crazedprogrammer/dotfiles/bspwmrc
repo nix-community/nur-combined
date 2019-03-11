@@ -16,6 +16,6 @@ bspc config focus_follows_pointer      true
 bspc config pointer_follows_focus      true
 bspc config pointer_follows_monitor    true
 
-bspc rule -a ".zathura-wrapped_" state=tiled
+bspc rule -a "Zathura" state=tiled
 
 xsetroot -cursor_name left_ptr

@@ -43,7 +43,11 @@ function reload {
 }
 
 function lock {
-	i3lock -n -c 000000
+	if is-wayland; then
+		swaylock -n -c 000000
+	else
+		i3lock -n -c 000000
+	fi
 }
 
 function tlock {
