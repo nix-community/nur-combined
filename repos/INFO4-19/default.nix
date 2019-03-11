@@ -9,8 +9,7 @@
 { pkgs ? import <nixpkgs> {} }:
 
 {
+  PF = pkgs.callPackage ./pkgs/PF { };
   example-package = pkgs.callPackage ./pkgs/example-package { };
   helloworld = pkgs.callPackage ./pkgs/helloworld { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }
