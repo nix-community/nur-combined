@@ -26,7 +26,7 @@ mkJobset {
       upstream = "Ma27";
     }
     { inherit supportedSystems;
-      channel = "ma27-infra";
+      channel = "ma27-infra-19.03";
       trackBranches = true;
       upstream = "Ma27";
     }

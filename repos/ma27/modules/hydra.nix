@@ -319,7 +319,7 @@ in
               })
               (super.fetchpatch {
                 url = https://github.com/NixOS/hydra/commit/0d2a2d8923a418b0bf9660e65c127925a9c9c420.patch;
-                sha256 = "0q77srb4q0yc12s0jgb0ab226zqi7gvrm9l3jigwb86pcf3wfbid";
+                sha256 = "082j39naf8c7s65g7m1g4h9zqx8vky0xzdnc48chmnzslkqfhs8f";
               })
             ];
           });
