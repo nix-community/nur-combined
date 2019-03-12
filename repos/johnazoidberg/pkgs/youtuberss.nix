@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   name = "youtube-rss-${version}";
-  version = "2018-05-28";
+  version = "2019-03-11";
 
   src = fetchFromGitHub {
     owner = "JohnAZoidberg";
     repo = "YoutubeRSS";
-    rev = "0f610ceba8c7507e21ed525f56bdbbe866ed012c";
-    sha256 = "0iq9da9f2pypgilhn94zll4z15ynix3yh349ixqnhkxdm3jkz4ml";
+    rev = "a9c0fc3b83b4a731e055b7829b12aa0e45e00e27";
+    sha256 = "0azapk00q0jv1xc2fz593dp6ya9l5aqykk0y97mic5zzw7mgcfav";
   };
 
   installPhase = ''
