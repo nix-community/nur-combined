@@ -315,7 +315,7 @@ in
               })
               (super.fetchpatch {
                 url = https://github.com/Ma27/hydra/commit/1cbbc6c52c272efb1721257ae64da35e38efc9f8.patch;
-                sha256 = "1598dw4asznipg04wfzd5mp5fr9f2bz5lxxssi642pi38wlazgqw";
+                sha256 = "0k395n8i55x244xwbwgw7ngby7rqi43d7xw6hv9cmcxq5y0p2da9";
               })
               (super.fetchpatch {
                 url = https://github.com/NixOS/hydra/commit/0d2a2d8923a418b0bf9660e65c127925a9c9c420.patch;
