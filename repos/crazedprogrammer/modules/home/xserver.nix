@@ -14,15 +14,15 @@
     # Enable the SDDM login manager.
     displayManager.lightdm = {
       enable = true;
-      autoLogin = {
-        enable = true;
-        user = "casper";
-      };
+      # autoLogin = {
+      #   enable = true;
+      #   user = "casper";
+      # };
     };
 
-    # i3 window manager.
+    # bspwm window manager.
     windowManager = {
-      default = "bspwm";
+      # default = "bspwm";
       bspwm = {
         enable = true;
         configFile = ../../dotfiles/bspwmrc;

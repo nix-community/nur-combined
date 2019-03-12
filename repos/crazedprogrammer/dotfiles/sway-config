@@ -162,3 +162,17 @@ bindsym XF86MonBrightnessDown exec "xbacklight -dec 10"
 # startup file
 exec --no-startup-id "system launch"
 exec_always --no-startup-id "system kill reload"
+
+bar {
+    position top
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
