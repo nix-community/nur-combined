@@ -275,8 +275,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/mattmoor/dep-notify";
-      rev =  "bee9543ee54bd7d7e5cce945cfc651082bb21f34";
-      sha256 = "1dbhpcyn62jz0g4krl69k77r11x725zhc2gbx8pi8dy8wr1lrf1j";
+      rev =  "a45dec370a173f35e57abcf844b43eb1d1f988e7";
+      sha256 = "079dvbcyhxilfxcxbvdyir28mjqmw80fhzzqgp9ggxbnw8f7lf7k";
     };
   }
   {
@@ -527,8 +527,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/kubernetes/api";
-      rev =  "072894a440bdee3a891dea811fe42902311cd2a3";
-      sha256 = "1hlbfwak4adwkj74jdiw8kmapri9rqmmjssncqiq0xnwlkcyn0ig";
+      rev =  "4e7be11eab3ffcfc1876898b8272df53785a9504";
+      sha256 = "0klwmkvsnim66y8mvcmkqql12fbr5cja4qgjzp36197i6i335b62";
     };
   }
   {
@@ -536,8 +536,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/kubernetes/apimachinery";
-      rev =  "103fd098999dc9c0c88536f5c9ad2e5da39373ae";
-      sha256 = "04navnpm59d75dhlz07rmay7m2izrf4m0i9xklxzqg7mlk9g20jc";
+      rev =  "def12e63c512da17043b4f0293f52d1006603d9f";
+      sha256 = "0dghch5avwcy3zx5k005hi71i9bl3603pk927xdjr5jlajzwm9xd";
     };
   }
   {
@@ -545,8 +545,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/kubernetes/client-go";
-      rev =  "7d04d0e2a0a1a4d4a1cd6baa432a2301492e4e65";
-      sha256 = "06rszpgckx9gmqz9gbq8wnl39d1dnl28wdgrygj2fhz5prhj0x4s";
+      rev =  "2cefa64ff137e128daeddbd1775cd775708a05bf";
+      sha256 = "1gghsq4hwrmzjazkannvpwgmlr9j3hvxc1hicibw64064wrg140w";
     };
   }
   {
@@ -554,8 +554,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/kubernetes/code-generator";
-      rev =  "6702109cc68eb6fe6350b83e14407c8d7309fd1a";
-      sha256 = "17v5s49jzlf25ch0dwidkm90hdsih3ksx5fpvrqp4dkas6q65391";
+      rev =  "8c97d6ab64da020f8b151e9d3ed8af3172f5c390";
+      sha256 = "137ih44qiaaidjw5xk7giqngi0x01awvknb0vrnf60ajq2dy9sdh";
     };
   }
   {
