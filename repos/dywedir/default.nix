@@ -11,5 +11,7 @@ with { inherit (pkgs) callPackage; };
 
   pianoteq-stage = callPackage ./pkgs/pianoteq-stage { };
 
+  wf-recorder = callPackage ./pkgs/wf-recorder { };
+
   wl-clipboard-x11 = callPackage ./pkgs/wl-clipboard-x11 { };
 }
