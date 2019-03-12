@@ -65,6 +65,14 @@ function reboot {
 	sudo systemctl kexec || sudo systemctl reboot
 }
 
+function brightness-inc {
+	sudo brightnessctl set +10%
+}
+
+function brightness-dec {
+	sudo brightnessctl set 10%-
+}
+
 for var in "$@"
 do
 	"$var"

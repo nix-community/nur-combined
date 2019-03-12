@@ -156,8 +156,8 @@ bindsym XF86AudioLowerVolume exec "pactl set-sink-volume @DEFAULT_SINK@ -3%"
 bindsym XF86AudioMute exec "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 
 # brightness keys
-bindsym XF86MonBrightnessUp exec "xbacklight -inc 10"
-bindsym XF86MonBrightnessDown exec "xbacklight -dec 10"
+bindsym XF86MonBrightnessUp exec "system brightness-inc"
+bindsym XF86MonBrightnessDown exec "system brightness-dec"
 
 # startup file
 exec --no-startup-id "system launch"

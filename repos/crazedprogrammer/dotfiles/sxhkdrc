@@ -53,7 +53,7 @@ XF86AudioMute
 
 # brightness keys
 {XF86MonBrightnessUp,XF86MonBrightnessDown}
-	xbacklight -{inc,dec} 10
+	system brightness-{inc,dec} 10
 
 # screen recording keys
 {_,ctrl,shift} + Print

@@ -51,7 +51,7 @@
   services.logind.lidSwitch = "ignore";
 
   environment.systemPackages = with pkgs; [
-    xorg.xbacklight
+    brightnessctl
   ];
 
   # Using TLP because Powertop doesn't work. The cause of this is that the
