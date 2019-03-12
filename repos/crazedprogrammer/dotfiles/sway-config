@@ -118,7 +118,8 @@ bindsym $mod+Shift+u exec "poweroff"
 # reboot
 bindsym $mod+Shift+i exec "system reboot"
 # lock screen and suspend
-bindsym $mod+Shift+o exec "system tlock"
+# bindsym $mod+Shift+o exec "system tlock"
+bindsym $mod+Shift+o exec "sudo systemctl restart display-manager"
 bindsym $mod+Shift+Delete exec "system kill lock reload"
 bindsym $mod+Ctrl+Delete exec "system suspend lock"
 # apply system config
@@ -168,11 +169,11 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+    status_command i3status-rs $(dotfiles)/i3status-rs.toml
 
     colors {
         statusline #ffffff
-        background #323232
+        background #32323288
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }
