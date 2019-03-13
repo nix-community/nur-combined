@@ -15,37 +15,15 @@ rec {
     (filterAttrs (_: v: v.deployment.targetEnv == "container") machines);
 
   /*
-    Generates a firewall configuration in an environment with a wireguard interface (wg0),
-    a physical interface and containers with their own interfaces.
+    Generate config for all containers to get automatically autostarted.
 
-    By default everything else will be dropped.
+    Example:
+      cs = [ "db0" "db1" ];
+      autostartContainers cs
+      => { containers.db0.autoStart = true; containers.db1.autoStart = true; }
    */
-  gen-firewall = wg0: eth0: machines: dropAll:
-    let
-      mkMachine = m:
-        let
-          m' = node2container m;
-        in
-          ''
-            ip46tables -A FORWARD -i ${wg0} -o ve-${m'} -j ACCEPT
-            ip46tables -A FORWARD -o ve-${m'} -i ${wg0} -j ACCEPT
-            ip46tables -A FORWARD -i ve-${m'} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-          '';
-    in
-      ''
-        ip46tables -F FORWARD
-
-        ${optionalString dropAll ''
-          ip46tables -P FORWARD DROP
-        ''}
-
-        ip46tables -A FORWARD -i ${wg0} -o ${eth0} -j ACCEPT
-        ip46tables -A FORWARD -i ${eth0} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-        ip46tables -t nat -A POSTROUTING -o ${eth0} -j MASQUERADE
-
-        ip46tables -A FORWARD -i ve-+ -o ${eth0} -j ACCEPT
-        ip46tables -A FORWARD -o ve-+ -i ${eth0} -j ACCEPT
-
-        ${concatStrings (map mkMachine machines)}
-      '';
+  autostartContainers = containers: {
+    containers = listToAttrs
+      (map (n: nameValuePair (node2container n) { autoStart = true; }) containers);
+  };
 }

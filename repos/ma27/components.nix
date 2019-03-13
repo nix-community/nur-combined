@@ -4,8 +4,6 @@ let
 
   callPackage' = assert callPackage != null; callPackage;
 
-  containerLib = callPackage' ./lib/containers { };
-
 in
 
 rec {
@@ -51,6 +49,6 @@ rec {
 
   callNURPackage = callPackage';
 
-  inherit (containerLib) node2container containers gen-firewall;
+  inherit (callPackage' ./lib/containers { }) node2container containers autostartContainers;
 
 }
