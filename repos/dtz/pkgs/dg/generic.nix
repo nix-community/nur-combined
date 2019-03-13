@@ -11,13 +11,13 @@ let
   llvm_version = if (llvm ? release_version) then llvm.release_version else (builtins.parseDrvName llvm.name).version;
 in
 stdenv.mkDerivation rec {
-  version = "2019-02-28"; # Date of commit used
+  version = "2019-03-11"; # Date of commit used
   name = "dg_llvm${llvm_version}-${version}";
   src = fetchFromGitHub {
     owner = "mchalupa";
     repo = "dg";
-    rev = "66c506c534ff9b91c0661a55278202ddcbef11e0";
-    sha256 = "0fdi3dssvahd899fhznwns5x81qdjr214v8fin6kjvzsmaqrcy18";
+    rev = "40c504db270165618d1c78a4b70b8b6f7402758b";
+    sha256 = "0i5mji6n5nnpp12g2qhahbb1dm1g533rzrf53kys4ljski140npw";
   };
 
   enableParallelBuilding = true;
