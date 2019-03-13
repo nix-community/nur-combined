@@ -228,6 +228,7 @@ let
     vim-ledger
     vim-markdown
     vim-nix
+    vim-orgmode
     vim-fish
     purescript-vim
     typescript-vim
