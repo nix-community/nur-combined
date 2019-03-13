@@ -27,10 +27,12 @@ let
       })
   ];
 
+  escapeChannel = builtins.replaceStrings [ "." ] [ "-" ];
+
 in
 
 lib.listToAttrs
   (lib.flip map sources
-    (src: lib.nameValuePair ("${jobsetPrefix}-${src.channel}")
+    (src: lib.nameValuePair ("${jobsetPrefix}-${escapeChannel src.channel}")
       (mkJob
         (src // { overlays = allOverlays; inherit jobset; }))))
