@@ -11,8 +11,11 @@ rec {
     Searches for available containers in the deployment configuration (`resources.machines`)
     and returns all nodes that appear to be container deployments.
    */
-  containers = machines: attrNames
-    (filterAttrs (_: v: v.deployment.targetEnv == "container") machines);
+  containers = machines: hostName: attrNames
+    (filterAttrs
+      (_: v: v.deployment.targetEnv == "container"
+        && (v.deployment.container.host.networking.hostName or null) == hostName
+      ) machines);
 
   /*
     Generate config for all containers to get automatically autostarted.

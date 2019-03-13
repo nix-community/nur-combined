@@ -9,9 +9,22 @@ lib.runTests {
 
   testContainers = {
     expr =
-      let deployment = { a.deployment.targetEnv = "container"; b.deployment.targetEnv = "none"; };
+      let
+        deployment = {
+          a.deployment = {
+            targetEnv = "container";
+            container.host.networking.hostName = "foo";
+          };
+          b.deployment = {
+            targetEnv = "none";
+          };
+          c.deployment = {
+            targetEnv = "container";
+            container.host.networking.hostName = "bar";
+          };
+        };
       in
-        containers deployment;
+        containers deployment "foo";
 
     expected = [ "a" ];
   };
