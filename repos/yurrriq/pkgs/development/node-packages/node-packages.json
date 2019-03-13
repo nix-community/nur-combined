@@ -1,4 +1,5 @@
 [
   "aws-azure-login",
-  "diff-so-fancy"
+  "diff-so-fancy",
+  "mermaid.cli"
 ]
