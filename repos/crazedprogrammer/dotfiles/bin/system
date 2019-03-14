@@ -66,11 +66,11 @@ function reboot {
 }
 
 function brightness-inc {
-	sudo brightnessctl set +10%
+	sudo light -A 10
 }
 
 function brightness-dec {
-	sudo brightnessctl set 10%-
+	sudo light -U 10
 }
 
 for var in "$@"

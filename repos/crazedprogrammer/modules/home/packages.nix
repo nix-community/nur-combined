@@ -17,7 +17,7 @@
     qemu pandoc graphviz texlive.combined.scheme-medium clang-tools stress #kristvanity
 
     # X utilities
-    xsel xclip maim slop grim slurp xdotool hhpc xorg.xhost
+    xsel xclip maim slop grim slurp wf-recorder xdotool hhpc xorg.xhost
 
     # Nix utilities
     nix-du

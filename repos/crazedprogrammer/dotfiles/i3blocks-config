@@ -42,29 +42,10 @@ interval=1
 signal=10
 # STEP=5
 
-# Memory usage
-#
-# The type defaults to "mem" if the instance is not specified.
-# [memory]
-# label=MEM
-# separator=false
-# interval=30
-
-# [memory]
-# label=SWAP
-# instance=swap
-# separator=false
-# interval=30
-
-# Disk usage
-#
-# The directory defaults to $HOME if the instance is not specified.
-# The script may be called with a optional argument to set the alert
-# (defaults to 10 for 10%).
-[disk]
-label=DFREE
-#DIR=/mnt/data
-interval=30
+[backlight]
+label=BAC
+command=printf "%.0f%%" $(light -G)
+interval=1
 
 # Network interface monitoring
 #
@@ -76,14 +57,14 @@ color=#00FF00
 interval=10
 separator=false
 
+# Wifi signal strength
 [wifi]
-#INTERFACE=wlp3s0
-label=wifi:
+instance=wlp3s0
+label=SIGN
 interval=10
 separator=false
 
 [bandwidth]
-#INTERFACE=eth0
 interval=1
 
 # CPU usage
@@ -108,15 +89,6 @@ label=BAT
 #label=⚡
 interval=30
 
-# Generic media player support
-#
-# This displays "ARTIST - SONG" if a music is playing.
-# Supported players are: spotify, vlc, audacious, xmms2, mplayer, and others.
-#[mediaplayer]
-#instance=spotify
-#interval=5
-#signal=10
-
 # OpenVPN support
 #
 # Support multiple VPN, with colors.
@@ -131,24 +103,6 @@ interval=30
 [temperature]
 label=TEMP
 interval=1
-
-# Key indicators
-#
-# Add the following bindings to i3 config file:
-#
-# bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
-# bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
-#[keyindicator]
-#KEY=CAPS
-#markup=pango
-#interval=once
-#signal=11
-
-#[keyindicator]
-#KEY=NUM
-#markup=pango
-#interval=once
-#signal=11
 
 # Date Time
 #
