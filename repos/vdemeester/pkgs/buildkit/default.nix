@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   name = "buildkit${version}";
-  version = "0.3.3";
+  version = "0.4.0";
   rev = "v${version}";
 
   goPackagePath = "github.com/moby/buildkit";
@@ -12,7 +12,7 @@ buildGoPackage rec {
     inherit rev;
     owner = "moby";
     repo = "buildkit";
-    sha256 = "06d79k6s19fsv80fp9wprxxr1yrgzwyfhb7ccwgk4dbs5iaghd68";
+    sha256 = "0gkwcjqbcskn63y79jwa26hxkps452z4bgz8lrryaskzbdpvhh3d";
   };
 
   meta = {
