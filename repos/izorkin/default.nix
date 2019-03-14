@@ -27,4 +27,6 @@ rec {
   php71Packages-unit  = pkgs.php71Packages.override { php = php71-unit; };
   php72Packages-unit  = pkgs.php72Packages.override { php = php72-unit; };
   php73Packages-unit  = pkgs.php73Packages.override { php = php73-unit; };
+
+  php-info            = pkgs.callPackage  ./pkgs/web/php-info { };
 }
