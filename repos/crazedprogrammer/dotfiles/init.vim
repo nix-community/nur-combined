@@ -8,6 +8,9 @@ if $NEOVIM == 'true'
 endif
 let $NEOVIM = 'true'
 
+" Filetype extension registery
+
+au BufNewFile,BufRead *.inc setlocal ft=cpp
 
 " Lazy plugins
 
@@ -18,7 +21,7 @@ autocmd FileType markdown :packadd vim-pandoc-syntax
 
 " Autocomplete
 
-"let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 
 " GUI and colors
 
