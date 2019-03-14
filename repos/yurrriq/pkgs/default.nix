@@ -3,8 +3,8 @@
 let
 
   _nixpkgs = lib.pinnedNixpkgs {
-    rev = "f2977752c4870e881443038a71cfed1cf67f2440";
-    sha256 = "0ym1vr9rll9x8h6pqdhlb5a785bysddbjzhi0syqvngx5wkap61c";
+    rev = "e20ee8a710f3a8ea378bb664c2dbfa32dcf399a7";
+    sha256 = "0h063hhywrb4vj9g1lg9dp0r9h5i8b5n923iminnckkxxbr3iap1";
   };
 
 in
@@ -32,6 +32,8 @@ rec {
     pname = "kubectl";
     name = "${pname}-${oldAttrs.version}";
   });
+
+  kubectx = (_nixpkgs.kubectx.override { inherit kubectl; });
 
   kubernetes = _nixpkgs.kubernetes.overrideAttrs(old: rec {
     pname = "kubernetes";
