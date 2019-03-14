@@ -29,4 +29,5 @@ rec {
   php73Packages-unit  = pkgs.php73Packages.override { php = php73-unit; };
 
   php-info            = pkgs.callPackage  ./pkgs/web/php-info { };
+  php-bench           = pkgs.callPackage  ./pkgs/web/php-bench { };
 }
