@@ -30,4 +30,5 @@ rec {
 
   php-info            = pkgs.callPackage  ./pkgs/web/php-info { };
   php-bench           = pkgs.callPackage  ./pkgs/web/php-bench { };
+  php-prober          = pkgs.callPackage  ./pkgs/web/php-prober { };
 }
