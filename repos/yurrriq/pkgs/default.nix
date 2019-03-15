@@ -14,6 +14,14 @@ rec {
   inherit (_nixpkgs) autojump kubetail;
   inherit (_nixpkgs.gitAndTools) git-crypt;
 
+  cedille = _nixpkgs.cedille.override {
+    inherit (pkgs.haskellPackages) alex happy Agda ghcWithPackages;
+  };
+
+  emacsPackages.cedille = _nixpkgs.emacsPackages.cedille.override {
+    inherit cedille;
+  };
+
   erlang = pkgs.beam.interpreters.erlangR20.override {
     enableDebugInfo = true;
     installTargets = "install";

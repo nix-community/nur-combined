@@ -1,7 +1,7 @@
 {
 
-  tomb = ./tomb.nix;
+  tomb = ./tomb;
 
-  yubikey-gpg = ./yubikey-gpg.nix;
+  yubikey-gpg = ./yubikey-gpg;
 
 }
