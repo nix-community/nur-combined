@@ -1,7 +1,7 @@
 # niXromancers [![Build Status][build-status-shield]][build-status] [![Cachix Cache][cachix-cache-shield]][cachix-cache]
 
-[build-status]: https://travis-ci.org/neXromancers/nixromancers
-[build-status-shield]: https://travis-ci.org/neXromancers/nixromancers.svg?branch=master
+[build-status]: https://travis-ci.com/neXromancers/nixromancers
+[build-status-shield]: https://travis-ci.com/neXromancers/nixromancers.svg?branch=master
 [cachix-cache]: https://nexromancers.cachix.org
 [cachix-cache-shield]: https://img.shields.io/badge/cachix-nexromancers-blue.svg
 

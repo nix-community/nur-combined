@@ -5,16 +5,16 @@
 
 rustPlatform.buildRustPackage rec {
   name = "shotgun-${version}";
-  version = "2.0.1";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "neXromancers";
     repo = "shotgun";
     rev = "v${version}";
-    sha256 = "0ycj6y8ym2y6y91s3qi9v8w3p8nz795cd0q79lrfrjxz7s2jvdlv";
+    sha256 = "1jljwcpzsqixhacv8zhflmf67a6z6sffbwcf0px3gpcvpkvfvw19";
   };
 
-  cargoSha256 = "0f8gwfg7p38zwkpi6k6dn0gq5f4f2khmw7jrj8as6ihdhqwb7q0c";
+  cargoSha256 = "19l4v530s6v8qk1h83k6gs70gi0rzls1ahj2z87bl780m329q0bz";
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ libX11 libXrandr ];
