@@ -18,12 +18,13 @@ stdenv.mkDerivation rec {
 
   preferLocalBuild = true;
 
-  configureFlags = [ "--disable-unity" "--with-gnome=${gnome3.gnome-desktop.version}" ];
+  gtkVersion = stdenv.lib.versions.majorMinor gnome3.gnome-desktop.version;
+
+  configureFlags = [ "--disable-unity" "--with-gnome=${gtkVersion}" ];
 
   preConfigure = ''
-    VERSION=$(sed 's/\.[[:digit:]]*$//' <<<'${gnome3.gnome-desktop.version}')
-    ln -vs 3.20 common/gtk-3.0/$VERSION
-    ln -vs 3.20 common/gnome-shell/$VERSION
+    ln -vs 3.20 common/gtk-3.0/${gtkVersion}
+    ln -vs 3.20 common/gnome-shell/${gtkVersion}
   '';
 
   postInstall = ''
