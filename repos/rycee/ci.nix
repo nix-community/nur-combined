@@ -50,7 +50,6 @@ let
 in
 
 rec {
-  inherit nurPkgs;
   buildPkgs = filterDrvsRec isBuildable nurPkgs;
   cachePkgs = filterDrvsRec isCacheable buildPkgs;
 }
