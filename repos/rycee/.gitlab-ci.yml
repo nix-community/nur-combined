@@ -1,0 +1,49 @@
+image: nixos/nix:latest
+
+variables:
+  NIX_PATH: "nixpkgs=https://nixos.org/channels/nixos-18.09/nixexprs.tar.xz"
+
+Build NUR:
+  stage: build
+  before_script:
+    - nix-env -f https://cachix.org/api/v1/install -iA cachix
+    - cachix use rycee
+    - nix-env -f '<nixpkgs>' -iA curl
+  script:
+    - nix-build ci.nix -A buildPkgs
+    - nix eval -f default.nix lib
+    - nix eval -f default.nix modules
+    - nix eval -f default.nix overlays
+    - >-
+      [ "$CI_COMMIT_REF_NAME" = "master" ]
+      && nix-build ci.nix -A cachePkgs | cachix push rycee
+      || echo Not master
+    - >-
+      [ "$CI_COMMIT_REF_NAME" = "master" ]
+      && curl -XPOST https://nur-update.herokuapp.com/update?repo=rycee
+      || echo Not master
+  except:
+    - schedules
+
+Update Firefox addons:
+  stage: build
+  variables:
+    ADDONS_INPUT: pkgs/firefox-addons/addons.json
+    ADDONS_OUTPUT: pkgs/firefox-addons/generated-firefox-addons.nix
+  before_script:
+    - nix-env -f https://cachix.org/api/v1/install -iA cachix
+    - cachix use rycee
+    - nix-env -f . -iA firefox-addons-generator
+    - nix-env -f '<nixpkgs>' -iA git
+    - git remote set-url origin https://rybot:$RYBOT_TOKEN@gitlab.com/$CI_PROJECT_PATH.git
+    - git config --global user.email 'rybot@rycee.net'
+    - git config --global user.name 'rybot'
+  script:
+    - nix-firefox-addons $ADDONS_INPUT $ADDONS_OUTPUT
+    - >-
+      [ "$(git status --porcelain --untracked-files=no)" ]
+      && git commit -m "Automatic update of Firefox addons" $ADDONS_OUTPUT
+      && git push origin HEAD:$CI_COMMIT_REF_NAME
+      || echo No changes to push
+  only:
+    - schedules
