@@ -35,7 +35,7 @@ Update Firefox addons:
     - cachix use rycee
     - nix-env -f . -iA firefox-addons-generator
     - nix-env -f '<nixpkgs>' -iA git
-    - git remote set-url origin https://rybot:$RYBOT_TOKEN@gitlab.com/$CI_PROJECT_PATH.git
+    - git remote set-url origin https://nur-updates:$RYBOT_TOKEN@gitlab.com/$CI_PROJECT_PATH.git
     - git config --global user.email 'rybot@rycee.net'
     - git config --global user.name 'rybot'
   script:
