@@ -1,5 +1,6 @@
-# Tutoriel nur
+# Tutorial nur
 
-# Créer un repos 
-# ajouter un packet au repos nur
-#accéder à ce packet depuis le nur
+# Create a repo 
+# Add a package to the repo
+# Add the repo on the NUR
+# Acces to the packages on the NUR
