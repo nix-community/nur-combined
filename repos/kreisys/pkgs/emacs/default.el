@@ -1,0 +1,11 @@
+(require 'package)
+(package-initialize)
+(load-theme 'oceanic t)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(setq global-linum-mode t)
+(global-display-line-numbers-mode)
+(global-hl-line-mode 1)
+
+(evil-mode 1)
+(powerline-default-theme)

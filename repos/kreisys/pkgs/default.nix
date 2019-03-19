@@ -14,6 +14,7 @@ in
 
   buildkite-cli = pkgs.callPackage ./buildkite-cli { };
   consulate     = pkgs.callPackage ./consulate     { };
+  emacs         = pkgs.callPackage ./emacs         { };
 
   fishPlugins = pkgs.recurseIntoAttrs (pkgs.callPackages ./fish-plugins { });
 
