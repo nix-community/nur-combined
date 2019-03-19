@@ -1,0 +1,16 @@
+#!/bin/sh
+
+all_usage=$(mpstat -P ALL 1 1 | awk '/Average:/ && $2 ~ /[0-9]/ {print 100 - $12}' | sort -n)
+
+max_usage=$(echo -n $all_usage | tr " " "\n" | tail -n 1)
+
+sum_usage=0
+
+for usage in $all_usage; do
+	sum_usage=$(echo $sum_usage + $usage | bc -l)
+done
+
+avg_usage=$(echo "$sum_usage / $(nproc)" | bc -l)
+
+
+printf "%.2f%% / %.2f%%" "$avg_usage" "$max_usage"

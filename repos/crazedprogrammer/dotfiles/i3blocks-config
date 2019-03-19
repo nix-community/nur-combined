@@ -25,7 +25,7 @@
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
 # Change $SCRIPT_DIR to the location of your scripts!
-command=$(dirname $(readlink $(which i3blocks)))/../libexec/i3blocks/$BLOCK_NAME
+command=$SCRIPT_DIR/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
@@ -65,21 +65,29 @@ interval=10
 separator=false
 
 [bandwidth]
+# Specifying a label doesn't work for some reason
+# command=$SCRIPT_DIR/bandwidth --inlabel "I" --outlabel "O"
 interval=1
 
 # CPU usage
 #
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
-[cpu_usage]
-label=CPU
-interval=1
-min_width=CPU 100.00%
-#separator=false
+# [cpu_usage]
+# label=CPU
+# interval=1
+# min_width=CPU 100.00%
+# separator=false
 
-[load_average]
-label=LOAD
-interval=10
+[custom_cpu_max_usage]
+label=CPU
+min_width=100.00% / 100.00%
+command=cpu-usage
+interval=1
+
+# [load_average]
+# label=LOAD
+# interval=10
 
 # Battery indicator
 #

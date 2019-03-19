@@ -1,8 +1,13 @@
-{ stdenv }:
+{ stdenv, dash }:
 
 stdenv.mkDerivation {
   name = "dotfiles-bin";
   src = ../../dotfiles;
+  buildInputs = [ dash ];
+  configurePhase = ''
+    # Use dash as /bin/sh
+    find ./bin -type f -exec sed -i -e 's/bin\/sh/usr\/bin\/env dash/g' {} \;
+  '';
   installPhase = ''
     mkdir -p $out/lib/dotfiles
     cp -r ./* $out/lib/dotfiles

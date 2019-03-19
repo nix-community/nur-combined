@@ -1,7 +1,7 @@
 self: super:
 
 let
-  makeWrapped = { name, cmd ? name, pkg ? super.lib.getAttr name super, arg}:
+  makeWrapped = { name, cmd ? name, pkg ? super.lib.getAttr name super, arg, extraWrapArgs ? ""}:
     super.stdenv.mkDerivation {
       name = name + "-wrapped-" + (pkg.version or "");
       buildInputs = [ super.makeWrapper ];
@@ -10,7 +10,7 @@ let
         for BINARY in $(ls ${pkg}/bin); do
           ln -s ${pkg}/bin/$BINARY $out/bin/$BINARY
         done
-        wrapProgram $out/bin/${cmd} --add-flags "${arg}"
+        wrapProgram $out/bin/${cmd} --add-flags "${arg}" ${extraWrapArgs}
       '';
     };
 in
@@ -43,5 +43,10 @@ in
   cava-wrapped = makeWrapped {
     name = "cava";
     arg = "-p ~/Projects/nix/dotfiles/cava-config"; # FIX THIS
+  };
+  i3blocks-wrapped = makeWrapped {
+    name = "i3blocks";
+    arg = "-c \\$(dotfiles)/i3blocks-config";
+    extraWrapArgs = "--set SCRIPT_DIR ${super.i3blocks}/libexec/i3blocks";
   };
 }

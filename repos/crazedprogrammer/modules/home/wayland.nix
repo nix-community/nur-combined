@@ -20,10 +20,9 @@ let
 in
 
 {
-  # Enable sway beta window manager.
-  programs.sway-beta = {
+  # Enable sway window manager.
+  programs.sway = {
     enable = true;
-    package = pkgs.pkgsUnstable.sway-beta;
   };
   services.xserver.displayManager.extraSessionFilePackages = [
     (pkgs.sway-session.override { configFile = swayConfigFile; })

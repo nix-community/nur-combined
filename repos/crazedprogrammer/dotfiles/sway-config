@@ -29,6 +29,9 @@ bindsym $mod+p exec "rofi -show combi"
 # start the browser
 bindsym $mod+b exec firefox
 
+# install gentoo
+bindsym XF86Launch1 exec "mpv https://i.crzd.me/install-gentoo.mp4 --fullscreen"
+
 # toggle mouse cursor
 bindsym $mod+Shift+g exec "sh -c 'if ! pkill hhpc; then hhpc -i 0; fi &'"
 
@@ -149,7 +152,7 @@ bindsym Print exec "shot m"
 bindsym Ctrl+Print exec "shot s"
 bindsym Shift+Print exec "shot u"
 bindsym $mod+Print exec "record"
-bindsym $mod+Ctrl+Print exec "pkill -f ffmpeg"
+bindsym $mod+Ctrl+Print exec "pkill -2 -f wf-recorder || pkill -f ffmpeg"
 
 # volume keys
 bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume @DEFAULT_SINK@ +3%"
@@ -167,9 +170,12 @@ exec_always --no-startup-id "system kill reload"
 bar {
     position top
 
+    output DP-1
+    output LVDS-1
+
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command i3blocks -c $(dotfiles)/i3blocks-config
+    status_command i3blocks
 
     colors {
         statusline #ffffff

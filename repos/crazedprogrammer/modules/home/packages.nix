@@ -6,6 +6,9 @@
     pkgs.lib.elem (builtins.parseDrvName pkg.name).name
     [ "steam" "steam-original" "steam-runtime" "factorio-alpha" "teamspeak-client" ];
 
+  # Fix glava not finding config files.
+  environment.etc."xdg/glava".source = "${pkgs.glava}/etc/xdg/glava";
+
   environment.systemPackages = with pkgs; [
     # Basic tools
     wget curl jq bc loc p7zip fdupes binutils-unwrapped ls_extended file parallel
@@ -17,7 +20,7 @@
     qemu pandoc graphviz texlive.combined.scheme-medium clang-tools stress #kristvanity
 
     # X utilities
-    xsel xclip maim slop grim slurp wf-recorder xdotool hhpc xorg.xhost
+    xsel xclip maim slop grim slurp pkgsUnstable.wf-recorder xdotool hhpc xorg.xhost
 
     # Nix utilities
     nix-du
@@ -58,13 +61,13 @@
     gimp #tiled
 
     # Multimedia
-    audacity mpv gnome3.file-roller cli-visualizer-wrapped ffmpeg cava-wrapped zathura #projectm glava
+    audacity mpv gnome3.file-roller cli-visualizer-wrapped ffmpeg cava-wrapped glava zathura #projectm glava
 
     # Networking
     openssh #openvpn update-resolv-conf sshfs
 
     # WM utilities
-    polybar rofi-wrapped feh dunst-wrapped libnotify xtrlock-pam compton-latest i3lock i3blocks
+    polybar rofi-wrapped feh dunst-wrapped libnotify xtrlock-pam compton-latest i3lock i3blocks-wrapped
 
     # Scripts
     dotfiles-bin
@@ -73,7 +76,7 @@
     plantuml arduino subversion plantuml #fritzing astah-community
 
     # System utilities
-    pavucontrol polkit_gnome exfat-utils ntfs3g iotop bmon linuxPackages.perf picocom gotop htop
+    pavucontrol polkit_gnome exfat-utils ntfs3g iotop bmon linuxPackages.perf picocom gotop htop sysstat
   ] ++ (if builtins.pathExists /home/casper/.factorio.nix
     then lib.singleton (pkgsUnstable.factorio.override (import /home/casper/.factorio.nix))
     else [ ]);
