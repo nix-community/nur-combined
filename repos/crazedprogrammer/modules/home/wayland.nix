@@ -27,4 +27,6 @@ in
   services.xserver.displayManager.extraSessionFilePackages = [
     (pkgs.sway-session.override { configFile = swayConfigFile; })
   ];
+
+  services.dbus.socketActivated = true;
 }

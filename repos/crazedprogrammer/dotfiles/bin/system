@@ -27,7 +27,7 @@ function launch {
 
 function reload {
 	if is-wayland; then
-		true
+		dunst &
 	else
 		feh --bg-tile $HOME/Pictures/Background.png &
 		sh -c "polybar --config=$(dotfiles)/polybar-config \$(hostname) || polybar --config=$(dotfiles)/polybar-config generic" &
