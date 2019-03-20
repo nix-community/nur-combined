@@ -9,47 +9,39 @@ with builtins;
 let
 
   isSpecial = n: n == "lib" || n == "overlays" || n == "modules";
-  isBuildable = n: p: isAttrs p && !(p.meta.broken or false);
-  isCacheable = n: p: isAttrs p && !(p.preferLocalBuild or false);
+  isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
+  isBuildable = p: isDerivation p && !(p.meta.broken or false);
+  isCacheable = p: isDerivation p && !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
-  nameValue = n: v: { name = n; value = v; };
+  nameValuePair = n: v: { name = n; value = v; };
 
-  filterDrvsRec = pred:
+  flattenPkgs = s:
     let
-      go = s:
-        let
-          f = n:
-            let
-              p = s.${n};
-            in
-              if shouldRecurseForDerivations p
-                then [(nameValue n (go p))]
-              else if pred n p
-                then [(nameValue n p)]
-              else if !isAttrs p then [(nameValue n p)]
-              else [];
-        in
-          listToAttrs (concatMap f (attrNames s));
+      f = p:
+        if shouldRecurseForDerivations p then flattenPkgs p
+        else if isDerivation p then [p]
+        else [];
     in
-      go;
+      concatMap f (attrValues s);
 
-  filterAttrs = f: s:
-    listToAttrs
-    (filter (n: !isSpecial n)
-    (attrNames s));
+  outputsOf = p: map (o: p.${o}) p.outputs;
 
   nurAttrs = import ./default.nix { inherit pkgs; };
 
   nurPkgs =
-    listToAttrs
-    (map (n: nameValue n nurAttrs.${n})
+    flattenPkgs
+    (listToAttrs
+    (map (n: nameValuePair n nurAttrs.${n})
     (filter (n: !isSpecial n)
-    (attrNames nurAttrs)));
+    (attrNames nurAttrs))));
 
 in
 
 rec {
-  buildPkgs = filterDrvsRec isBuildable nurPkgs;
-  cachePkgs = filterDrvsRec isCacheable buildPkgs;
+  buildPkgs = filter isBuildable nurPkgs;
+  cachePkgs = filter isCacheable buildPkgs;
+
+  buildOutputs = concatMap outputsOf buildPkgs;
+  cacheOutputs = concatMap outputsOf cachePkgs;
 }
