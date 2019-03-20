@@ -22,6 +22,8 @@
       linuxPackages = pkgs.linuxPackages_latest;
       structuredExtraConfig = values: with values; {
         MIVYBRIDGE = yes;
+
+        DRM_AMDGPU = no;
       };
     });
   };

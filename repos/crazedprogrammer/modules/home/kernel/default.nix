@@ -10,6 +10,10 @@ linuxPackages.extend (lib.const (ksuper: {
         MODULE_COMPRESS = no;
         MODULE_COMPRESS_XZ.freeform = null;
 
+        # Unnecessary modules
+        BTRFS_FS = no;
+        BTRFS_FS_POSIX_ACL.freeform = null;
+
         # Not using Nvidia cards, so don't compile the (expensive) modules.
         FB_NVIDIA_I2C = no;
         DRM_NOUVEAU = no;

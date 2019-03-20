@@ -23,10 +23,7 @@
       structuredExtraConfig = values: with values; {
         MZEN = yes;
 
-        # Don't need Btrfs on this system, saves ~200ms at boot time due to
-        # unnecessary raid6 benchmarks.
-        BTRFS_FS = no;
-        BTRFS_FS_POSIX_ACL.freeform = null;
+        DRM_I915 = no;
       };
     });
   };
