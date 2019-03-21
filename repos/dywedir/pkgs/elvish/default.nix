@@ -1,8 +1,8 @@
 { stdenv, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
-  pname = "elvish";
-  version = "unstable-2019-03-19";
+  pname = "elvish-unstable";
+  version = "2019-03-19";
 
   goPackagePath = "github.com/elves/elvish";
   excludedPackages = [ "website" ];
