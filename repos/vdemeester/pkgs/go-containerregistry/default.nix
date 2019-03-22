@@ -15,7 +15,7 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
   subPackages = [
-    "cmd/crane" "cmd/gcrane" "cmd/ko"
+    "cmd/crane" "cmd/gcrane"
   ];
 
   meta = {

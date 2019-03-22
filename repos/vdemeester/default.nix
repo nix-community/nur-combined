@@ -20,6 +20,7 @@ rec {
   goreturns = pkgs.callPackage ./pkgs/goreturns {};
   gorun = pkgs.callPackage ./pkgs/gorun {};
   knctl = pkgs.callPackage ./pkgs/knctl {};
+  ko = pkgs.callPackage ./pkgs/ko {};
   krew = pkgs.callPackage ./pkgs/krew {};
   #openshift-installer = pkgs.callPackage ./pkgs/openshift-installer {};
   prm = pkgs.callPackage ./pkgs/prm {};
