@@ -12,4 +12,6 @@
   rnnoise = pkgs.callPackage ./pkgs/rnnoise {};
   noise-suppression-for-voice = pkgs.callPackage ./pkgs/noise-suppression-for-voice {};
   scanbuttond = pkgs.callPackage ./pkgs/scanbuttond {};
+  minionpro = pkgs.callPackage ./pkgs/minionpro {};
+#  python-pure25519 = pkgs.callPackage ./pkgs/python-pure25519 { buildPythonPackage = pkgs.python27.buildPythonPackage } };
 }
