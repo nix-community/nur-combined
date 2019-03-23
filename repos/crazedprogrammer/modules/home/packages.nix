@@ -37,7 +37,7 @@
 
     # Games
     multimc gnome3.gnome-mines #technic-launcher
-    steam steam.run ccemux the-powder-toy chip8 riko4
+    steam steam.run pkgsUnstable.ccemux the-powder-toy chip8 riko4
 
     # Emulators
     #dosbox stella snes9x-gtk vice dolphinEmuMaster
