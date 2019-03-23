@@ -20,7 +20,7 @@ Build NUR:
       || echo Not master
     - >-
       [ "$CI_COMMIT_REF_NAME" = "master" ]
-      && curl -XPOST https://nur-update.herokuapp.com/update?repo=rycee
+      && curl -sfSL -XPOST https://nur-update.herokuapp.com/update?repo=rycee
       || echo Not master
   except:
     - schedules
