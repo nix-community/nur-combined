@@ -12,7 +12,6 @@ make-gog-package {
     homepage    = https://gog.com;
     license     = licenses.unfree;
     maintainers = with maintainers; [ fgaz ];
-    broken = true; # Temporary, TODO exclude unfree from travis
     hydraPlatforms = [];
   };
 }
