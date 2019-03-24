@@ -60,12 +60,6 @@ Libraries and tools for Thai language
 - [libthai](https://github.com/tlwg/libthai) Thai language support library
 - [libdatrie](https://github.com/tlwg/libdatrie) Double-Array Trie Library
 
-[Okernel](https://github.com/linux-okernel/linux-okernel)
-- `okernel-procps-src` Forked `ps` with okernel column
-- `okernel-procps-patch` Patched `ps` with okernel column
-- `okernel-htop` Forked `htop` with okernel column
-- `okernel` Okernel userspace [components](https://github.com/linux-okernel/linux-okernel-components) and supporting material
-
 ## Available attributes
 ```
 .lib.aes-cbc
@@ -116,10 +110,4 @@ Libraries and tools for Thai language
 .libdatrie
 .libthai
 .thpronun
-
-.okernel-procps-src
-.okernel-procps-patch
-.okernel-procps-package
-.okernel-htop
-.okernel
 ```
