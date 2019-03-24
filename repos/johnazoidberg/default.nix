@@ -74,6 +74,7 @@ rec {
   linuxPackages_4_14 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_14);
   linuxPackages_4_19 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_19);
   linuxPackages_4_20 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_20);
+  linuxPackages_5_0 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_0);
 
   rfc-reader = pkgs.callPackage ./pkgs/rfc-reader {};
 
