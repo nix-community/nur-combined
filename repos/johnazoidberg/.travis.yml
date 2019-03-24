@@ -1,0 +1,33 @@
+language: nix
+
+sudo: false
+
+env:
+  global:
+    - CACHIX_CACHE=
+    - NUR_REPO=johnazoidberg/nur-packages
+
+matrix:
+  include:
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.09
+
+install:
+ - nix --version
+ - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
+ - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
+ - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
+ - nix-channel --add "${NIX_CHANNEL}" nixpkgs
+ - travis_retry nix-channel --update
+
+script:
+ - outs=$(nix-build buildable.nix) && echo Produced $outs
+ - nix eval -f default.nix 'lib'
+ - nix eval -f default.nix 'modules'
+ - nix eval -f default.nix 'overlays'
+
+after_success:
+  - if [ -n "${CACHIX_CACHE}" ]; then cachix push "${CACHIX_CACHE}" $outs; fi
+  - if [ "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
+      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi

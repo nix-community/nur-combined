@@ -24,6 +24,10 @@ rec {
 
   prosody-filer = pkgs.callPackage ./pkgs/prosody-filer {};
 
+  python2Packages = pkgs.recurseIntoAttrs (
+    pkgs.python2Packages.callPackage ./pkgs/python2-pkgs { }
+  );
+
   python3Packages = pkgs.recurseIntoAttrs (
     pkgs.python3Packages.callPackage ./pkgs/python-pkgs { }
   );

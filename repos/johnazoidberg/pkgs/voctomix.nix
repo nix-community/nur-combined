@@ -8,13 +8,13 @@
 }:
 python3.pkgs.buildPythonApplication rec {
   name = "voctomix-${version}";
-  version = "1.2";
+  version = "1.3";
 
   src = fetchFromGitHub {
     owner = "voc";
     repo = "voctomix";
     rev = version;
-    sha256 = "1r3cfsm2ib90a29s6644f1crax910aq5fy790h3jwy6xb8fww3s4";
+    sha256 = "175hhqyvm5cx4y1dfmvlmcndw14a225lk5a44lz6ca6y99b9y09v";
   };
 
   buildInputs = [

@@ -12,11 +12,7 @@ python27Packages.buildPythonApplication rec {
   };
 
   nativeBuildInputs = [
-    nasm
-  ];
-
-  buildInputs = [
-    libelf
+    nasm libelf
   ];
 
   setupPyBuildFlags = lib.optional (!withDriver) "--skip-driver";
