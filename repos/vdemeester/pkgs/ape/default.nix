@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   name = "ape-${version}";
-  version = "0.2.0";
+  version = "0.3.0";
   rev = "v${version}";
 
   goPackagePath = "github.com/vdemeester/ape";
@@ -11,7 +11,7 @@ buildGoPackage rec {
     inherit rev;
     owner = "vdemeester";
     repo = "ape";
-    sha256 = "0y7dapmsacs0hm5j79n3xfs2a53bsqb0fkjhg9ki87hb7nzszrfl";
+    sha256 = "17zhcaxkqn752hjxh8nlpmryaw2n0wp8fjg8pp0dsv3k0ym7wcx0";
   };
 
   meta = {
