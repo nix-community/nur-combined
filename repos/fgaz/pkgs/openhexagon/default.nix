@@ -1,8 +1,12 @@
-{ stdenv, fetchFromGitHub, cmake, sfml, lua5_1, luabind, sparsehash }:
+{ stdenv, fetchurl, fetchFromGitHub, cmake, sfml, lua5_1, luabind, sparsehash }:
 
-stdenv.mkDerivation rec {
+let
+  cmakeFlags = "-DCMAKE_INSTALL_PREFIX=$out -DCMAKE_BUILD_TYPE=RELEASE";
+  assetsVersion = "1.92";
+  githubVersion = "1.92b";
+in stdenv.mkDerivation rec {
   name = "openhexagon-${version}";
-  version = "1.92b";
+  version = githubVersion;
   srcs = [
       (fetchFromGitHub rec {
         owner = "SuperV1234";
@@ -12,35 +16,39 @@ stdenv.mkDerivation rec {
         sha256 = "0k4sc9cx4p3niy7fcpx4vfkpy5l355avchqas27za1n24zrq3x1b";
         fetchSubmodules = true;
       })
-      (fetchFromGitHub rec {
-        owner = "SuperV1234";
-        repo = "SSVOpenHexagonAssets";
-        name = repo;
-        rev = "1d125de695be2e74c9f2ad3198e8b5b29911d010";
-        sha256 = "02kwgvh3map24aqvd7crcb5vw6b3z11iv22sk58jc1qp7m24zfn4";
+      (fetchurl {
+        url = "https://vittorioromeo.info/Downloads/OpenHexagon/Linux/OpenHexagonV${assetsVersion}.tar.gz";
+        name = "SSVOpenHexagonAssets.tar.gz";
+        sha256 = "0hs9hrl052b68c1icp8layl01d37kfbwn2s9qqnwf94lrx2fmcx3";
       })
     ];
   sourceRoot = "SSVOpenHexagon";
-  unpackCmd = ''
-    srcName=$(basename $(stripHash $curSrc))
-    cp -r $curSrc ./$srcName
+  postUnpack = ''
+    mv OpenHexagon${assetsVersion} OpenHexagonAssets
+    cp -r OpenHexagonAssets/_DOCUMENTATION SSVOpenHexagon/
+    cp -r OpenHexagonAssets/config.json SSVOpenHexagon/
+    cp -r OpenHexagonAssets/Packs SSVOpenHexagon/
+    cp -r OpenHexagonAssets/Assets SSVOpenHexagon/
+    cp -r OpenHexagonAssets/ConfigOverrides SSVOpenHexagon/
+    cp -r OpenHexagonAssets/Profiles SSVOpenHexagon/
   '';
-  postUnpack = "cp -r SSVOpenHexagonAssets/_RELEASE SSVOpenHexagon/";
   patchPhase = ''
     substituteInPlace \
       extlibs/SSVLuaWrapper/include/SSVLuaWrapper/LuaContext/LuaContext.h \
       --replace "lua5.1/" ""
+    find . -type f -name "*.cmake" -print0 | xargs -0 sed -i -e s@/usr/local@\''${CMAKE_INSTALL_PREFIX}@g
+    sed -i -e s@/usr/local@\''${CMAKE_INSTALL_PREFIX}@g CMakeLists.txt
   '';
   nativeBuildInputs = [ cmake stdenv ];
   buildInputs = [ sfml lua5_1 luabind sparsehash ];
   configurePhase = ''
-    pushd extlibs/SSVJsonCpp; cmake .; make; popd
-    pushd extlibs/SSVUtils; cmake .; make; popd
-    pushd extlibs/SSVUtilsJson; cmake . -DSSVJSONCPP_ROOT=../SSVJsonCpp -DSSVUTILS_ROOT=../SSVUtils; make; popd
-    pushd extlibs/SSVStart; cmake .; make; popd
-    pushd extlibs/SSVEntitySystem; cmake .; make; popd
-    pushd extlibs/SSVMenuSystem; cmake .; make; popd
-    pushd extlibs/SSVLuaWrapper; cmake . -DLUA_INCLUDE_DIR=${lua5_1}/include; make; popd
+    pushd extlibs/SSVJsonCpp; cmake . ${cmakeFlags}; make; popd
+    pushd extlibs/SSVUtils; cmake . ${cmakeFlags}; make; popd
+    pushd extlibs/SSVUtilsJson; cmake . -DSSVJSONCPP_ROOT=../SSVJsonCpp -DSSVUTILS_ROOT=../SSVUtils ${cmakeFlags}; make; popd
+    pushd extlibs/SSVStart; cmake . ${cmakeFlags}; make; popd
+    pushd extlibs/SSVEntitySystem; cmake . ${cmakeFlags}; make; popd
+    pushd extlibs/SSVMenuSystem; cmake . ${cmakeFlags}; make; popd
+    pushd extlibs/SSVLuaWrapper; cmake . -DLUA_INCLUDE_DIR=${lua5_1}/include ${cmakeFlags}; make; popd
     cmake . \
       -DLUA_INCLUDE_DIR=${lua5_1}/include \
       -DSSVJSONCPP_ROOT=extlibs/SSVJsonCpp \
@@ -48,11 +56,8 @@ stdenv.mkDerivation rec {
       -DSSVSTART_ROOT=extlibs/SSVStart \
       -DSSVENTITYSYSTEM_ROOT=extlibs/SSVEntitySystem \
       -DSSVMENUSYSTEM_ROOT=extlibs/SSVMenuSystem \
-      -DSSVLUAWRAPPER_ROOT=extlibs/SSVLuaWrapper
+      -DSSVLUAWRAPPER_ROOT=extlibs/SSVLuaWrapper \
+      ${cmakeFlags}
   '';
-  installPhase = ''
-    install -Dm755 SSVOpenHexagon $out/bin/SSVOpenHexagon
-    # TODO, but I have to fix the segfault first
-  '';
-  meta.broken = true;
+  preFixup = "chmod +x $out/bin/SSVOpenHexagon";
 }
