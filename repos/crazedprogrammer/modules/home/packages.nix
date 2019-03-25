@@ -17,7 +17,7 @@
     git #mercurial darcs
 
     # Utilities
-    qemu pandoc graphviz texlive.combined.scheme-medium clang-tools stress #kristvanity
+    qemu pandoc graphviz flameGraph texlive.combined.scheme-medium clang-tools stress #kristvanity
 
     # X utilities
     xsel xclip maim slop grim slurp pkgsUnstable.wf-recorder xdotool hhpc xorg.xhost
