@@ -126,7 +126,7 @@ in {
   config = lib.mkIf cfg.enable {
     users.users."tox-node" = {
       description = "Tox node daemon user";
-      uid = config.ids.uids.tox-node;
+      uid = config.ids.uids.tox-bootstrapd;
     };
 
     systemd.services.tox-node = {
