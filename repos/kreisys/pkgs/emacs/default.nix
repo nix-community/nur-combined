@@ -14,6 +14,10 @@ let
       mkdir -p $out/share/emacs/site-lisp
       cp ${./default.el} $_/default.el
     '')
+    (runCommand "term-cursor" {} ''
+      mkdir -p $out/share/emacs/site-lisp
+      cp ${./term-cursor.el} $_/term-cursor.el
+    '')
     magit
     evil
     powerline

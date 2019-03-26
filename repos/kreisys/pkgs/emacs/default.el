@@ -28,3 +28,6 @@
 (evil-mode 1)
 (powerline-default-theme)
 (setq evil-emacs-state-cursor '("chartreuse3" (bar . 2)))
+
+(require 'term-cursor)
+(global-term-cursor-mode)
