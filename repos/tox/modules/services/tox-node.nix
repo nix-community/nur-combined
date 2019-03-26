@@ -136,7 +136,7 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.tox-node}/bin/tox-node --config ${configFile}";
+        ExecStart = "${pkgs.nur.repos.tox.tox-node}/bin/tox-node --config ${configFile}";
         User = "tox-node";
         Restart = "always";
       };
