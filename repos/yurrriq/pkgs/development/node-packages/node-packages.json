@@ -1,6 +1,5 @@
 [
   "aws-azure-login",
   "diff-so-fancy",
-  "mermaid.cli",
-  "vmd"
+  "mermaid.cli"
 ]
