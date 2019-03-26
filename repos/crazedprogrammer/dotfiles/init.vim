@@ -14,7 +14,7 @@ au BufNewFile,BufRead *.inc setlocal ft=cpp
 
 " Lazy plugins
 
-autocmd FileType lisp :packadd rainbow
+autocmd FileType lisp :packadd rainbow | :RainbowToggleOn
 autocmd FileType c,cpp :packadd vim-clang-format | :packadd vim-headerguard
 autocmd FileType markdown :packadd vim-pandoc-syntax
 
