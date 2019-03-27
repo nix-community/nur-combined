@@ -139,6 +139,7 @@ in {
         ExecStart = "${pkgs.nur.repos.tox.tox-node}/bin/tox-node --config ${configFile}";
         User = "tox-node";
         Restart = "always";
+        PermissionsStartOnly = true;
       };
 
       preStart = ''
