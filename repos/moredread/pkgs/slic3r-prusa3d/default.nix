@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     mkdir -p "$out/share/pixmaps/"
-    ln -s "$(out)/share/slic3r-prusa3d/icons/Slic3r.png" "$out/share/pixmaps/slic3r-prusa.png"
+    ln -s "$out/share/slic3r-prusa3d/icons/Slic3r.png" "$out/share/pixmaps/slic3r-prusa.png"
     mkdir -p "$out/share/applications"
     cp "$desktopItem"/share/applications/* "$out/share/applications/"
   '';
