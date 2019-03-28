@@ -1,3 +1,6 @@
 [submodule "pkgs/xinomorf"]
 	path = pkgs/xinomorf
 	url = https://github.com/kreisys/xinomorf
+[submodule "pkgs/lorri"]
+	path = pkgs/lorri
+	url = https://github.com/target/lorri

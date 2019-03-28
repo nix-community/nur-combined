@@ -24,6 +24,7 @@ in
   kretty   = pkgs.callPackage ./kreiscripts/kretty { inherit mkBashCli; };
   kurl     = pkgs.callPackage ./kreiscripts/kurl   { inherit mkBashCli; };
   kraks    = pkgs.callPackage ./kreiscripts/kraks  { inherit mkBashCli; };
+  lorri    = pkgs.callPackage ./lorri      { src = ./lorri; };
   nvim     = pkgs.callPackage ./nvim       { };
   oksh     = pkgs.callPackage ./ok.sh      { };
   webhook  = pkgs.callPackage ./webhook    { };
