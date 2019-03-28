@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   name = "knctl-${version}";
-  version = "0.1.0";
+  version = "0.3.0";
   rev = "v${version}";
 
   goPackagePath = "github.com/cppforlife/knctl";
@@ -12,7 +12,7 @@ buildGoPackage rec {
     inherit rev;
     owner = "cppforlife";
     repo = "knctl";
-    sha256 = "1j83wck1bmr0icfzpncwcq72sl55vfd2cxlg6zbwnzgiwvxchkj3";
+    sha256 = "1sy6iwcfn26862jwllbzjr47lwz493hjqcfay3sigbl71k8zprin";
   };
 
   meta = {
