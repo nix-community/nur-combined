@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   name = "slirp4netns-${version}";
-  version = "0.3.0-beta.0";
+  version = "0.3.0";
   rev = "v${version}";
 
   src = fetchFromGitHub {
     owner = "rootless-containers";
     repo = "slirp4netns";
-    sha256 = "0jdbkh0kp0yqsnslrr2pq84wmk3ishh44912cn155fmfp5p26cxf";
+    sha256 = "079m44l4l0p1c2sbkpzsy6zpv94glwmrc72ip2djcscnaq4b1763";
     inherit rev;
   };
 
