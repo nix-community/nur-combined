@@ -4,9 +4,16 @@
 (load-theme 'oceanic t)
 (set-frame-font "PragmataPro Liga")
 
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
+;(display-line-numbers-type (quote visual))
+;(global-display-line-numbers-mode t)
+;(custom-set-variables
+; '(display-line-numbers-type (quote visual))
+; '(global-display-line-numbers-mode t)
+; '(line-number-mode nil)
+; '(menu-bar-mode nil)
+; '(scroll-bar-mode nil)
+; '(tool-bar-mode nil)
+; )
 
 (setq global-linum-mode t)
 (global-display-line-numbers-mode)
@@ -27,7 +34,6 @@
 )
 (evil-mode 1)
 (powerline-default-theme)
-(setq evil-emacs-state-cursor '("chartreuse3" (bar . 2)))
 
 (require 'term-cursor)
 (global-term-cursor-mode)

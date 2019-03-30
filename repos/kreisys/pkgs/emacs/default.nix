@@ -1,11 +1,16 @@
-{ emacsPackagesNgGen, emacsMacport, emacs26, runCommand, stdenv, ncurses }:
+{ emacsPackagesNgGen, emacs26, runCommand, stdenv, ncurses }:
 
 let
   xterm-24bit = runCommand "xterm-24bit" {
     buildInputs = [ ncurses ];
   } "tic -x -o $out ${./xterm-24bit.terminfo}";
 
-  emacs = if stdenv.isDarwin then emacsMacport else emacs26;
+  emacs = emacs26.override {
+    # I live in terminal spare me the macOS gui garbage.
+    withNS = false;
+    # Assertion fails without this 🤷‍♀️
+    withX = true;
+  };
 
   inherit (emacsPackagesNgGen emacs) emacsWithPackages;
 
@@ -37,7 +42,7 @@ let
 
     for f in emacs{,client}; do
       chmod +w $f
-      (head -n1 $f ; printf "export TERMINFO_DIRS=${xterm-24bit}\nexport TERM=xterm-24bit\n" ; tail -n+2 $f) > $f.fixed
+      (head -n1 $f ; printf "export LANG=en_CA.UTF-8\nexport TERMINFO_DIRS=${xterm-24bit}\nexport TERM=xterm-24bit\n" ; tail -n+2 $f) > $f.fixed
       mv $f.fixed $f
       chmod +x $f
     done
