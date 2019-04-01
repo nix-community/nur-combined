@@ -1,4 +1,16 @@
-{ stdenv, fetchurl, fetchFromGitHub, cmake, sfml, lua5_1, luabind, sparsehash }:
+# Note: this packae tends to segfault without further output when it does not
+# find all the data files it needs in the right places (or not writable),
+# so be careful when editing
+
+{ stdenv
+, fetchurl
+, fetchFromGitHub
+, makeWrapper
+, cmake
+, sfml
+, lua5_1
+, luabind
+, sparsehash }:
 
 let
   cmakeFlags = "-DCMAKE_INSTALL_PREFIX=$out -DCMAKE_BUILD_TYPE=RELEASE";
@@ -25,30 +37,29 @@ in stdenv.mkDerivation rec {
   sourceRoot = "SSVOpenHexagon";
   postUnpack = ''
     mv OpenHexagon${assetsVersion} OpenHexagonAssets
-    cp -r OpenHexagonAssets/_DOCUMENTATION SSVOpenHexagon/
-    cp -r OpenHexagonAssets/config.json SSVOpenHexagon/
-    cp -r OpenHexagonAssets/Packs SSVOpenHexagon/
-    cp -r OpenHexagonAssets/Assets SSVOpenHexagon/
-    cp -r OpenHexagonAssets/ConfigOverrides SSVOpenHexagon/
-    cp -r OpenHexagonAssets/Profiles SSVOpenHexagon/
+    cp -r OpenHexagonAssets/_DOCUMENTATION  SSVOpenHexagon/_RELEASE
+    cp -r OpenHexagonAssets/config.json     SSVOpenHexagon/_RELEASE
+    cp -r OpenHexagonAssets/Packs           SSVOpenHexagon/_RELEASE
+    cp -r OpenHexagonAssets/Assets          SSVOpenHexagon/_RELEASE
+    cp -r OpenHexagonAssets/ConfigOverrides SSVOpenHexagon/_RELEASE
+    cp -r OpenHexagonAssets/Profiles        SSVOpenHexagon/_RELEASE
   '';
   patchPhase = ''
     substituteInPlace \
       extlibs/SSVLuaWrapper/include/SSVLuaWrapper/LuaContext/LuaContext.h \
       --replace "lua5.1/" ""
-    find . -type f -name "*.cmake" -print0 | xargs -0 sed -i -e s@/usr/local@\''${CMAKE_INSTALL_PREFIX}@g
     sed -i -e s@/usr/local@\''${CMAKE_INSTALL_PREFIX}@g CMakeLists.txt
   '';
-  nativeBuildInputs = [ cmake stdenv ];
+  nativeBuildInputs = [ cmake stdenv makeWrapper ];
   buildInputs = [ sfml lua5_1 luabind sparsehash ];
   configurePhase = ''
-    pushd extlibs/SSVJsonCpp; cmake . ${cmakeFlags}; make; popd
-    pushd extlibs/SSVUtils; cmake . ${cmakeFlags}; make; popd
-    pushd extlibs/SSVUtilsJson; cmake . -DSSVJSONCPP_ROOT=../SSVJsonCpp -DSSVUTILS_ROOT=../SSVUtils ${cmakeFlags}; make; popd
-    pushd extlibs/SSVStart; cmake . ${cmakeFlags}; make; popd
-    pushd extlibs/SSVEntitySystem; cmake . ${cmakeFlags}; make; popd
-    pushd extlibs/SSVMenuSystem; cmake . ${cmakeFlags}; make; popd
-    pushd extlibs/SSVLuaWrapper; cmake . -DLUA_INCLUDE_DIR=${lua5_1}/include ${cmakeFlags}; make; popd
+    pushd extlibs/SSVJsonCpp; cmake . ${cmakeFlags}; make; make install; popd
+    pushd extlibs/SSVUtils; cmake . ${cmakeFlags}; make; make install; popd
+    pushd extlibs/SSVUtilsJson; cmake . -DSSVJSONCPP_ROOT=../SSVJsonCpp -DSSVUTILS_ROOT=../SSVUtils ${cmakeFlags}; make; make install; popd
+    pushd extlibs/SSVStart; cmake . ${cmakeFlags}; make; make install; popd
+    pushd extlibs/SSVEntitySystem; cmake . ${cmakeFlags}; make; make install; popd
+    pushd extlibs/SSVMenuSystem; cmake . ${cmakeFlags}; make; make install; popd
+    pushd extlibs/SSVLuaWrapper; cmake . -DLUA_INCLUDE_DIR=${lua5_1}/include ${cmakeFlags}; make; make install; popd
     cmake . \
       -DLUA_INCLUDE_DIR=${lua5_1}/include \
       -DSSVJSONCPP_ROOT=extlibs/SSVJsonCpp \
@@ -59,5 +70,12 @@ in stdenv.mkDerivation rec {
       -DSSVLUAWRAPPER_ROOT=extlibs/SSVLuaWrapper \
       ${cmakeFlags}
   '';
-  preFixup = "chmod +x $out/bin/SSVOpenHexagon";
+  preFixup = ''
+    chmod +x $out/bin/SSVOpenHexagon
+    wrapProgram $out/bin/SSVOpenHexagon \
+      --prefix LD_LIBRARY_PATH : $out/lib \
+      --run "cd $out/games/SSVOpenHexagon"
+  '';
+  # TODO find a way to make config, logs, and profiles writable
 }
+
