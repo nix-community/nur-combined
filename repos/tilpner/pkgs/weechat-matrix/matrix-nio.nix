@@ -9,8 +9,8 @@ buildPythonPackage {
   src = fetchFromGitHub {
     owner = "poljar";
     repo = "matrix-nio";
-    rev = "62e2c8af2bedc59f53be812b0ba6e4cd0d8a91c6";
-    sha256 = "0iyhq7lfizn6py4vjvckdibhg0ggfv14bm4nrn350mpk928pxl93";
+    rev = "53df97444b148ee9f52741c56bfc5c49f98e6397";
+    sha256 = "040wfnl138q5jl1pc3szliany6fvr19whni8nb0yz8dwrgdyq4b8";
   };
 
   postPatch = ''

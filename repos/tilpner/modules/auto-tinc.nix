@@ -20,8 +20,8 @@ let
   currentHost = cleanHost config.networking.hostName;
 
   ipv6 = netName: net: hostName: "${net.ipv6Prefix}${nameToIpv6Suffix "${netName}/${hostName}${net.salt}"}";
-  subnets = netName: net: hostName: ''
-    Subnet = ${ipv6 netName net hostName}/128
+  subnets = ipv6: ''
+    Subnet = ${ipv6}/128
   '';
 
   tincNameRegex = "[A-Za-z0-9_]+";
@@ -31,16 +31,28 @@ let
 in with lib; {
   options.services.auto-tinc.networks = mkOption {
     default = {};
-    type = with types; attrsOf (submodule {
+    type = with types; attrsOf (submodule (netArgs@{ name, config, ... }: {
       options = {
         entry = mkOption { type = listOf string; };
         trusted = mkOption { type = bool; default = false; };
         ipv6Prefix = mkOption { type = string; default = "fd7f:8482:73b2::"; };
         salt = mkOption { type = string; default = ""; };
-        hosts = mkOption { type = attrsOf string; };
+        hosts = mkOption {
+          default = {};
+          type = attrsOf (submodule (hostArgs@{ name, ... }: {
+            options = {
+              config = mkOption { type = string; default = ""; };
+              ipv6 = mkOption {
+                internal = true;
+                type = string;
+                default = ipv6 netArgs.name netArgs.config hostArgs.name; };
+              };
+          }));
+        };
         package = mkOption { type = package; default = pkgs.tinc_pre; };
+        hostDNS = mkEnableOption "Host DNS server for this network on this node";
       };
-    });
+    }));
   };
 
   config = {
@@ -69,13 +81,12 @@ in with lib; {
       let forNet = netName: net:
         let forHost = hostName: host:
           ''
-            host-record=${hostName}.tinc,,${ipv6 netName net hostName}
-            cname=*.${hostName}.tinc,${hostName}.tinc
-            cname=${hostName}.local,${hostName}.tinc
+            host-record=${hostName}.${netName},,${ipv6 netName net hostName}
+            cname=*.${hostName}.${netName},${hostName}.${netName}
           '';
         in ''
-          auth-server=tinc,tinc.${netName}
-          auth-zone=tinc,127.0.0.0/24,tinc.${netName}
+          auth-server=${netName},tinc.${netName}
+          auth-zone=${netName},127.0.0.0/24,tinc.${netName}
 
           ${concatStringsSep "\n" (mapAttrsToList forHost net.hosts)}
         '';
@@ -86,7 +97,7 @@ in with lib; {
             ${netName} = {
               inherit (net) package;
               extraConfig = concatMapStringsSep "\n" (entry: "ConnectTo = ${entry}") net.entry;
-              hosts = mapAttrs (hostName: host: host + (subnets netName net hostName)) net.hosts;
+              hosts = mapAttrs (hostName: host: host.config + (subnets host.ipv6)) net.hosts;
             };
           };
       in  mkMerge (mapAttrsToList forNet cfg.networks);

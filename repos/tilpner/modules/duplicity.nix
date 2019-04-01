@@ -119,6 +119,9 @@ let
     wantedBy = [ "timers.target" ];
   };
 in {
+  # TODO: coexist
+  disabledModules = [ "services/backup/duplicity.nix" ];
+
   options.services.duplicity = with types; {
     enable = mkEnableOption "duplicity";
 
