@@ -36,7 +36,7 @@ in
       enableSSHSupport = true;
     };
 
-    security.pam.u2fAuth = true;
+    security.pam.u2f.enable = true;
 
     services = {
       pcscd.enable = true;
