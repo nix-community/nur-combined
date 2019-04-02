@@ -11,7 +11,9 @@
 , sfml
 , lua5_1
 , luabind
-, sparsehash }:
+, sparsehash
+, extraPacks ? []
+}:
 
 let
   githubVersion = "1.92b";
@@ -48,6 +50,8 @@ let
     # Also symlink the default packs.
     # This is separate so the user can add other packs by copying them to the
     # user's Packs directory
+    # TODO remove stale packs (not user packs though, not even symlinks!!)
+    #        solution: pass them to the script
     for p in $(ls ''${1}/games/SSVOpenHexagon/Packs/); do
       rm -f "''${datadir}/Packs/''${p}" # Store paths can change with updates
       ln -s "''${1}/games/SSVOpenHexagon/Packs/''${p}" "''${datadir}/Packs/''${p}"
@@ -113,6 +117,12 @@ in stdenv.mkDerivation rec {
     cmake . ${cmakeFlags}
     make
     make install
+    # Install the extra packs
+    echo symlinking packs
+    for pack in ${toString extraPacks}; do
+      echo ln -s "''${pack}" "''${out}/games/SSVOpenHexagon/Packs/$(basename "''${pack}")"
+      ln -s "''${pack}" "''${out}/games/SSVOpenHexagon/Packs/$(basename "''${pack}")"
+    done
   '';
 
   # OpenHexagon looks in a few places for assets, none of which is $out.

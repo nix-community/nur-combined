@@ -38,6 +38,13 @@ rec {
 
   ### GAMES
   openhexagon = pkgs.callPackage ./pkgs/openhexagon { };
+  openhexagon-with-all-extra-packs = pkgs.callPackage ./pkgs/openhexagon {
+    extraPacks = with openhexagonPacks; [
+      faith
+      tuxo
+    ];
+  };
+  openhexagonPacks = pkgs.callPackage ./pkgs/openhexagon/packs.nix { };
   powermanga = pkgs.libsForQt5.callPackage ./pkgs/powermanga { };
   enter-the-gungeon-gog = pkgs.callPackage (import ./pkgs/enter-the-gungeon-gog { stdenv = pkgs.stdenv; make-gog-package = lib.make-gog-package; }) { };
 
