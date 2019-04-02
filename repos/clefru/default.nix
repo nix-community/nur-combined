@@ -10,7 +10,9 @@
   #
   # Test all packages:
   # $ nix-build -E '((import ./overlay.nix) {} (import <nixpkgs> {}))'
+
   beam-wallet = pkgs.callPackage ./pkgs/beam {};
+  parsecgaming = pkgs.callPackage ./pkgs/parsecgaming {};
   grin = pkgs.callPackage ./pkgs/grin/grin.nix {};
   grin-miner = pkgs.callPackage ./pkgs/grin/grin-miner.nix {};
   linux-sgx = pkgs.callPackage ./pkgs/linux-sgx {};
