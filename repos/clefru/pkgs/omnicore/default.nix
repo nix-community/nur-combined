@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "OmniLayer";
     repo = "omnicore";
-    rev = "v${version}";
-    sha256 = "024n77bkkg2qmsazm14600kw4dzc3s3viv0g87ag06v1q32vq12f";
+    rev = "c0738a96b587c80a73f93cb653c032e1cc95b6f4";
+    sha256 = "0kdn0i59i444k5v5xfh6452s52bvkqfl0qi24nrzdwnivlgs8k4b";
   };
   buildInputs = [ pkgconfig autoreconfHook openssl db48 boost162 zlib
                   miniupnpc protobuf libevent]
