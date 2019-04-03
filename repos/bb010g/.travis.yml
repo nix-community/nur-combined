@@ -5,7 +5,7 @@ sudo: false
 env:
   global:
     - CACHIX_CACHE=bb010g
-    - NUR_REPO=<YOUR_NUR_REPO_NAME_HERE>
+    - NUR_REPO=bb010g
 
 matrix:
   include:
@@ -14,9 +14,10 @@ matrix:
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.09
 
 install:
+ - mkdir -p ~/.config/nixpkgs && echo '{ allowUnfree = true; }' > ~/.config/nixpkgs/config.nix
  - nix --version
  - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
- - if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix; fi
+ - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
  - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
  - nix-channel --add "${NIX_CHANNEL}" nixpkgs
  - travis_retry nix-channel --update

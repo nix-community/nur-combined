@@ -2,7 +2,7 @@
 # It's what gets built by CI, so if you correctly mark broken packages as
 # broken your CI will not try to build them and the non-broken packages will
 # be added to the cache.
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 let filterSet =
       (f: g: s: builtins.listToAttrs
