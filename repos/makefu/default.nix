@@ -1,4 +1,4 @@
-self: super: 
+self: super:
 with super.lib; with builtins; let
   # This callPackage will try to detect obsolete overrides.
   callPackage = path: args: let
