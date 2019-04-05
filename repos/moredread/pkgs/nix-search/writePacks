@@ -1,0 +1,8 @@
+#! /usr/bin/env bash
+
+OUTFILE=${1:-/dev/stdout}
+
+nix-env -f '<nixpkgs>' -qaP | awk '{print "nixpkgs."$1}' > $OUTFILE
+nix-env -f '<nixpkgs>' -qaP -A haskellPackages | \
+    awk '{print "nixpkgs."$1}' >> $OUTFILE
+#vim: ft=sh
