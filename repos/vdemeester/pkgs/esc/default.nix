@@ -1,17 +1,16 @@
 { stdenv, lib, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
-  name = "esc-unstable-${version}";
-  version = "2018-11-20";
-  rev = "e93e776f8cb66a6bdcdf1afbef94460c0a62d7d9";
+  name = "esc-${version}";
+  version = "0.2.0";
 
   goPackagePath = "github.com/mjibson/esc";
 
   src = fetchFromGitHub {
-    inherit rev;
+    rev = "v${version}";
     owner = "mjibson";
     repo = "esc";
-    sha256 = "1d3lwl5m07hx6i1zww5gbhsnml98r482vcl7ijgsppy113jmh26k";
+    sha256 = "0ci3bdm01prm114plcwkgzbqn825lh0zc1iqaw3jicjay5sh0bis";
   };
 
   goDeps = ./deps.nix;
