@@ -9,7 +9,11 @@
 { pkgs ? import <nixpkgs> {} }:
 
 {
-  PF = pkgs.callPackage ./pkgs/PF { };
   example-package = pkgs.callPackage ./pkgs/example-package { };
   helloworld = pkgs.callPackage ./pkgs/helloworld { };
+
+  PF-LT = pkgs.callPackage ./pkgs/PF-LT {};
+  ALM1 = pkgs.callPackage ./pkgs/ALM1 {};
+  PS = pkgs.callPackage ./pkgs/PS {};
+  TS = pkgs.callPackage ./pkgs/TS {};
 }
