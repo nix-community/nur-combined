@@ -1,14 +1,21 @@
-# This file filters out all the broken packages from your package set.
-# It's what gets built by CI, so if you correctly mark broken packages
-# as broken your CI will not try to build them and the non-broken (and
-# cacheable) packages will be added to the cache.
+# This file provides all the buildable and cacheable packages and
+# package outputs in you package set. These are what gets built by CI,
+# so if you correctly mark packages as
+#
+# - broken (using `meta.broken`),
+# - unfree (using `meta.license.free`), and
+# - locally built (using `preferLocalBuild`)
+#
+# then your CI will be able to build and cache only those packages for
+# which this is possible.
+
 { pkgs ? import <nixpkgs> {} }:
 
 with builtins;
 
 let
 
-  isSpecial = n: n == "lib" || n == "overlays" || n == "modules";
+  isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
   isCacheable = p: !(p.preferLocalBuild or false);
@@ -33,7 +40,7 @@ let
     flattenPkgs
     (listToAttrs
     (map (n: nameValuePair n nurAttrs.${n})
-    (filter (n: !isSpecial n)
+    (filter (n: !isReserved n)
     (attrNames nurAttrs))));
 
 in
