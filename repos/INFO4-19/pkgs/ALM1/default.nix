@@ -1,7 +1,7 @@
 { stdenv, fetchurl }:
 
 let
-  lustre = stdenv.mkDerivation {
+  lustre = stdenv.mkDerivation rec {
       name = "lustreV4";
 
       src = fetchurl {
@@ -18,12 +18,15 @@ let
 
     };
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   name = "ALM1";
   shellHook = ''
       echo -e "\e[32m=============================================\e[0m"
       echo -e "\e[32m=== Welcome to ALM1 environment ===\e[0m"
       echo -e "\e[32m=============================================\e[0m"
     '';
+  
+  src = ./.;
+  
   buildInputs = [ lustre ];
 }

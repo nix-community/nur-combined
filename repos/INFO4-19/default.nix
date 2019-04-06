@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-{
+{  
   example-package = pkgs.callPackage ./pkgs/example-package { };
   helloworld = pkgs.callPackage ./pkgs/helloworld { };
 
