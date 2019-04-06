@@ -1,8 +1,9 @@
 { pkgs ? import <nixpkgs> {} }:
 
 rec {
-  # Min
+  # Mine
   ape = pkgs.callPackage ./pkgs/ape {};
+  fhs-std = pkgs.callPackage ./pkgs/fhs/std.nix {};
   nr = pkgs.callPackage ./pkgs/nr {};
   ram = pkgs.callPackage ./pkgs/ram {};
   sec = pkgs.callPackage ./pkgs/sec {};
@@ -22,7 +23,7 @@ rec {
   knctl = pkgs.callPackage ./pkgs/knctl {};
   ko = pkgs.callPackage ./pkgs/ko {};
   krew = pkgs.callPackage ./pkgs/krew {};
-  #openshift-installer = pkgs.callPackage ./pkgs/openshift-installer {};
+  openshift-installer = pkgs.callPackage ./pkgs/openshift-installer {};
   prm = pkgs.callPackage ./pkgs/prm {};
   protobuild = pkgs.callPackage ./pkgs/protobuild {};
   rmapi = pkgs.callPackage ./pkgs/rmapi {};
