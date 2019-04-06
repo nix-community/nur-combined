@@ -25,8 +25,6 @@ stdenv.mkDerivation rec {
       echo -e "\e[32m=== Welcome to ALM1 environment ===\e[0m"
       echo -e "\e[32m=============================================\e[0m"
     '';
-  
-  src = ./.;
-  
+
   buildInputs = [ lustre ];
 }
