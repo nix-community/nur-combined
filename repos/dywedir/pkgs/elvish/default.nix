@@ -1,8 +1,8 @@
-{ stdenv, buildGoPackage, fetchFromGitHub }:
+{ stdenv, buildGoModule, fetchFromGitHub }:
 
-buildGoPackage rec {
-  pname = "elvish-unstable";
-  version = "2019-03-19";
+buildGoModule rec {
+  pname = "elvish";
+  version = "unstable-2019-04-06";
 
   goPackagePath = "github.com/elves/elvish";
   excludedPackages = [ "website" ];
@@ -13,10 +13,12 @@ buildGoPackage rec {
 
   src = fetchFromGitHub {
     owner = "elves";
-    repo = "elvish";
-    rev = "71d050b31c1578b763cf9d6cdae50ca6fcc2956a";
-    sha256 = "0whkcn89jy6bav84xgk5kppck88g1k2ajl5w90nncvy3mzdcp7jw";
+    repo = pname;
+    rev = "8907fdfbe196dcc558994893047d6f2049ebe801";
+    sha256 = "1ka059jcbj7fw9arfniwfbq11p0fy65gib9wmw7vc7bc53310lqb";
   };
+
+  modSha256 = "1gsfp8aj18aq0nz8cmh64886v4f37q1065cpxbcwvdgh4ns3hsqx";
 
   meta = with stdenv.lib; {
     description = "A friendly and expressive command shell";
