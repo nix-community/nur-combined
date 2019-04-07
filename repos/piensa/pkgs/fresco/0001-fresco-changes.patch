@@ -1,0 +1,13 @@
+diff --git a/package.json b/package.json
+index 04624dc..5fd25fb 100644
+--- a/package.json
++++ b/package.json
+@@ -2,7 +2,7 @@
+   "name": "fresco-app",
+   "version": "0.1.0",
+   "private": true,
+-  "homepage": "/",
++  "homepage": "/fresco/",
+   "dependencies": {
+     "axios": "^0.18.0",
+     "codemirror": "^5.40.2",
