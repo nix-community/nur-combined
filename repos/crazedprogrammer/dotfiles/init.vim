@@ -22,6 +22,9 @@ autocmd FileType markdown :packadd vim-pandoc-syntax
 " Autocomplete
 
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#on_insert_enter = 0
+let g:deoplete#max_list = 7
+
 
 " GUI and colors
 
@@ -43,7 +46,6 @@ nmap <C-j> :CF<CR>
 imap <C-w> <ESC>:w<CR>i
 imap <C-q> <ESC>:q<CR>
 imap <C-b> <ESC>diwi
-inoremap <silent><expr><CR> pumvisible() ? deoplete#mappings#close_popup()."\<CR>" : "\<CR>"
 tnoremap <Esc> <C-\><C-n>
 vnoremap p "_dP
 
@@ -69,7 +71,7 @@ set ignorecase smartcase
 
 autocmd FileType lisp,arduino,haskell,cabal,cpp,lua,typescript :setlocal et ts=2 sw=2
 autocmd FileType cs,php :setlocal ts=4 sw=4 et
-autocmd FileType markdown,text,plaintex :setlocal foldcolumn=4 colorcolumn=73 et ts=2 sw=2
+autocmd FileType markdown,text,plaintex :setlocal foldcolumn=4 colorcolumn=79 textwidth=79 et ts=2 sw=2
 autocmd FileType nix,plantuml :setlocal indentexpr=
 
 
