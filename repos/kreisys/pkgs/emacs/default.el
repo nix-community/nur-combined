@@ -15,6 +15,14 @@
 ; '(tool-bar-mode nil)
 ; )
 
+;; ITERM2 MOUSE SUPPORT
+(unless window-system
+  (require 'mouse)
+  (xterm-mouse-mode t)
+  (defun track-mouse (e))
+  (setq mouse-sel-mode t)
+)
+
 (setq global-linum-mode t)
 (global-display-line-numbers-mode)
 (global-hl-line-mode 1)
