@@ -23,7 +23,7 @@ rec {
   knctl = pkgs.callPackage ./pkgs/knctl {};
   ko = pkgs.callPackage ./pkgs/ko {};
   krew = pkgs.callPackage ./pkgs/krew {};
-  openshift-installer = pkgs.callPackage ./pkgs/openshift-installer {};
+  #openshift-installer = pkgs.callPackage ./pkgs/openshift-installer {};
   prm = pkgs.callPackage ./pkgs/prm {};
   protobuild = pkgs.callPackage ./pkgs/protobuild {};
   rmapi = pkgs.callPackage ./pkgs/rmapi {};
