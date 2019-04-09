@@ -24,6 +24,7 @@ rec {
   ko = pkgs.callPackage ./pkgs/ko {};
   krew = pkgs.callPackage ./pkgs/krew {};
   openshift-installer = pkgs.callPackage ./pkgs/openshift-installer {};
+  operator-sdk = pkgs.callPackage ./pkgs/operator-sdk {};
   prm = pkgs.callPackage ./pkgs/prm {};
   protobuild = pkgs.callPackage ./pkgs/protobuild {};
   rmapi = pkgs.callPackage ./pkgs/rmapi {};

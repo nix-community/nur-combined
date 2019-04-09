@@ -1,4 +1,4 @@
-{ stdenv, lib, buildGoPackage, fetchgit, libvirt, git, pkgconfig }:
+{ stdenv, lib, buildGoPackage, fetchFromGitHub, libvirt, git, pkgconfig }:
 
 buildGoPackage rec {
   name = "openshift-install-${version}";
@@ -7,9 +7,10 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/openshift/installer";
 
-  src = fetchgit {
+  src = fetchFromGitHub {
     inherit rev;
-    url = "https://github.com/openshift/installer.git";
+    owner = "openshift";
+    repo = "installer";
     sha256 = "1gn6m8hw7q5mijrp4rz1pwpwra4dish70dbygm2ksl02zc51x83r";
   };
 
