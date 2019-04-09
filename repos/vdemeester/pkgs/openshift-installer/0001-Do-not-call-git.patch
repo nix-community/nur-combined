@@ -1,0 +1,27 @@
+From 6bdcff59696e85efbbe2fff816386829b4a2390b Mon Sep 17 00:00:00 2001
+From: Vincent Demeester <vdemeest@redhat.com>
+Date: Tue, 9 Apr 2019 11:18:13 +0200
+Subject: [PATCH] Do not call git
+
+Signed-off-by: Vincent Demeester <vdemeest@redhat.com>
+---
+ hack/build.sh | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/hack/build.sh b/hack/build.sh
+index 6213aae14..8ef0c27c1 100755
+--- a/hack/build.sh
++++ b/hack/build.sh
+@@ -31,7 +31,8 @@ then
+ fi
+ 
+ MODE="${MODE:-release}"
+-LDFLAGS="${LDFLAGS} -X github.com/openshift/installer/pkg/version.Raw=$(git describe --always --abbrev=40 --dirty) -X github.com/openshift/installer/pkg/version.Commit=$(git rev-parse --verify 'HEAD^{commit}')"
++GITCOMMIT="${GITCOMMIT:-unknown}"
++LDFLAGS="${LDFLAGS} -X github.com/openshift/installer/pkg/version.Raw=${GITCOMMIT} -X github.com/openshift/installer/pkg/version.Commit=${GITCOMMIT}"
+ TAGS="${TAGS:-}"
+ OUTPUT="${OUTPUT:-bin/openshift-install}"
+ export CGO_ENABLED=0
+-- 
+2.19.2
+

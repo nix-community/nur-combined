@@ -2,24 +2,25 @@
 
 buildGoPackage rec {
   name = "openshift-install-${version}";
-  version = "0.9.1";
+  version = "0.16.1";
   rev = "v${version}";
 
   goPackagePath = "github.com/openshift/installer";
 
   src = fetchgit {
     inherit rev;
-    leaveDotGit = true;
     url = "https://github.com/openshift/installer.git";
-    sha256 = "0zjb1vzzbsf90hzc72ss2bbypiq1bs0v4ps9wyanlmzmqkg56lhd";
+    sha256 = "1gn6m8hw7q5mijrp4rz1pwpwra4dish70dbygm2ksl02zc51x83r";
   };
+
+  patches = [ ./0001-Do-not-call-git.patch ];
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ libvirt git ];
 
   buildPhase = ''
     cd go/src/${goPackagePath}
-    TAGS=libvirt hack/build.sh
+    GITCOMMIT=${version} TAGS=libvirt hack/build.sh
   '';
 
   installPhase = ''
