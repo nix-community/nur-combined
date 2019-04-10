@@ -1,22 +1,9 @@
 { config ? {}, lib, pkgs, ... }:
 
 let
-  xmonad = pkgs.xmonad-with-packages.override {
-  packages = self: [
-    self.xmonad-contrib
-    self.xmonad-extras
-    ];
-  };
-
-  # TODO: clean these up
-  # unstable = import <nixos-unstable> {};
-  unstable = pkgs;
   kubectx = pkgs.nur.repos.moredhel.kubectx;
-  kubectl = unstable.kubectl;
 in
 {
-  # home.packages = hm.base ++ hm.ui;
-
   home.keyboard = {
     layout = "dvorak";
   };
@@ -33,8 +20,8 @@ in
     shellAliases = {
       g = "git";
       # vim = "emacsclient --socket /tmp/emacs1000/server -nw"; # TODO: see if it is worth changing...
-      emacs = "emacsclient --socket /tmp/emacs1000/server -c -n";
-      k = "${kubectl}/bin/kubectl";
+      # emacs = "emacsclient --socket /tmp/emacs1000/server -c -n";
+      k = "${pkgs.kubectl}/bin/kubectl";
       ktx = "${kubectx}/bin/kubectx";
       kns = "${kubectx}/bin/kubens";
     };
@@ -42,9 +29,6 @@ in
     sessionVariables = {
       PAGER = "less";
     };
-    profileExtra = ''
-      if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
-    '';
   };
 
   programs.git = {
@@ -72,10 +56,10 @@ in
       [merge]
       conflictstyle = diff3
       tool = vimdiff
-      
+
       [push]
       default = simple
-      
+
       [url "ssh://git@github.com/"]
       insteadOf = https://github.com/
     '';
