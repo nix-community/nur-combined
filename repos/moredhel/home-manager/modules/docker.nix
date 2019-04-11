@@ -40,6 +40,7 @@ in {
 
   config = mkIf cfg.enable {
 
+    home.packages = [pkgs.docker];
     systemd.user.services.docker = {
       Unit = {
         After = [ "network.target" ];

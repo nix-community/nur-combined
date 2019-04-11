@@ -1,8 +1,8 @@
 {
-  home = ./home;
+  home = ./home; # auto-enabled
   crostini = ./crostini.nix;
-  unison = ./unison.nix;
   docker = ./docker.nix;
   dev = ./dev.nix;
+  unison = ./unison.nix;
 }
 

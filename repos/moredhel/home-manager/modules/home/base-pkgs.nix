@@ -21,4 +21,6 @@ htop
 gopass
 
 kubectl
+wget
+curl
 ]
