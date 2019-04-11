@@ -7,9 +7,61 @@ let
     sha256 = "0h063hhywrb4vj9g1lg9dp0r9h5i8b5n923iminnckkxxbr3iap1";
   };
 
+  mkHelmBinary = { version, flavor, sha256 }: pkgs.stdenv.mkDerivation rec {
+    pname = "helm";
+    name = "${pname}-${version}";
+    inherit version;
+    src = builtins.fetchTarball {
+    url = "https://storage.googleapis.com/kubernetes-helm/helm-v${version}-${flavor}.tar.gz";
+      inherit sha256;
+    };
+    installPhase = ''
+      install -dm755 "$out/bin"
+      install -m755 helm "$_"
+    '';
+  };
+
+  mkKops =  { version, sha256 }: _nixpkgs.kops.overrideAttrs(old: rec {
+    pname = "kops";
+    name = "${pname}-${version}";
+    inherit version;
+    src = _nixpkgs.fetchFromGitHub {
+      rev = version;
+      owner = "kubernetes";
+      repo = "kops";
+      inherit sha256;
+    };
+    buildFlagsArray = ''
+      -ldflags=
+          -X k8s.io/kops.Version=${version}
+          -X k8s.io/kops.GitVersion=${version}
+    '';
+  });
+
+  mkKubernetes = { version, sha256 }: _nixpkgs.kubernetes.overrideAttrs(old: rec {
+    pname = "kubernetes";
+    name = "${pname}-${version}";
+    inherit version;
+    src = _nixpkgs.fetchFromGitHub {
+      owner = "kubernetes";
+      repo = "kubernetes";
+      rev = "v${version}";
+      inherit sha256;
+    };
+  });
+
+  buildK8sEnv = { name, config }: pkgs.buildEnv {
+    inherit name;
+    paths = [
+      (mkKubernetes config.k8s)
+      (mkKops config.kops)
+      (mkHelmBinary config.helm)
+    ];
+  };
 in
 
 rec {
+  inherit buildK8sEnv mkHelmBinary mkKubernetes;
 
   inherit (_nixpkgs) autojump kubetail;
   inherit (_nixpkgs.gitAndTools) git-crypt;
@@ -43,42 +95,23 @@ rec {
 
   kubectx = (_nixpkgs.kubectx.override { inherit kubectl; });
 
-  kubernetes = _nixpkgs.kubernetes.overrideAttrs(old: rec {
-    pname = "kubernetes";
-    name = "${pname}-${version}";
+  kubernetes = mkKubernetes {
     version = "1.11.7";
-    src = _nixpkgs.fetchFromGitHub {
-      owner = "kubernetes";
-      repo = "kubernetes";
-      rev = "v${version}";
-      sha256 = "03dq9p6nwkisd80f0r3sp82vqx2ac4ja6b2s55k1l8k89snfxavf";
-    };
-  });
+    sha256 = "03dq9p6nwkisd80f0r3sp82vqx2ac4ja6b2s55k1l8k89snfxavf";
+  };
 
-  kops = _nixpkgs.kops.overrideAttrs(old: rec {
-    pname = "kops";
-    name = "${pname}-${version}";
+  kops = mkKops {
     version = "1.11.1";
-    src = _nixpkgs.fetchFromGitHub {
-      rev = version;
-      owner = "kubernetes";
-      repo = "kops";
-      sha256 = "0jia8dhawh786grnbpn64hvsdm6wz5p7hqir01q5xxpd1psnzygj";
-    };
-    buildFlagsArray = ''
-      -ldflags=
-          -X k8s.io/kops.Version=${version}
-          -X k8s.io/kops.GitVersion=${version}
-    '';
-  });
+    sha256 = "0jia8dhawh786grnbpn64hvsdm6wz5p7hqir01q5xxpd1psnzygj";
+  };
 
-  inherit (_nixpkgs) kubernetes-helm;
+  # inherit (_nixpkgs) kubernetes-helm;
 
   # TODO:
   # kubernetes-helm = _nixpkgs.kubernetes-helm.overrideAttrs(oldAttrs: rec {
   #   pname = "helm";
   #   name = "${pname}-${version}";
-  #   version = "2.12.3";
+  #   version = "2.13.1";
   #   goDeps = ./applications/networking/cluster/helm/deps.nix;
   #   src = _nixpkgs.fetchFromGitHub {
   #     owner = pname;
@@ -92,6 +125,18 @@ rec {
   #     -s
   #   '';
   # });
+
+  kubernetes-helm = mkHelmBinary {
+    flavor = "darwin-amd64";
+    version = "2.12.3";
+    sha256 = "0lcnmwqpf5wwq0iw81nlk5fpj4j5p4r6zkrjvbqw5mrjacpa9qf9";
+  };
+
+  kubernetes-helm-2_13_1 = mkHelmBinary {
+    flavor = "darwin-amd64";
+    version = "2.13.1";
+    sha256 = "0a21xigcblhc9wikl7ilqvs7514ds4x71jz4yv2kvv1zjvdd9i8n";
+  };
 
   lab = pkgs.callPackage ./applications/version-management/git-and-tools/lab {};
 
