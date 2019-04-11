@@ -115,10 +115,10 @@
     };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "13.5";
+      version = "13.6";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1725893/save_page_we-13.5-fx.xpi?src=";
-      sha256 = "7d64460eb08135854228428b89f23ac3807049dade7c1a4f79088274f6d41714";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1738947/save_page_we-13.6-fx.xpi?src=";
+      sha256 = "1e0c78d080dda546d9f507f4f45c2f0c8f7a5b5d4aa918b854f9e66def2209d3";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as curently displayed) as a single HTML file that can be opened in any browser. Choose which items to save. Define the format of the saved filename. Enter user comments.";
