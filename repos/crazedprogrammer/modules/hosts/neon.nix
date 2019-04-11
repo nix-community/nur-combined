@@ -3,6 +3,7 @@
 {
   imports = [
     ../home
+    ../overrides/thinkfan.nix
   ];
 
   boot = {
@@ -81,6 +82,26 @@
       '';
       startAt = "*-*-* *:*:00";
     };
+  };
+  services.thinkfan-override = {
+    enable = true;
+    sensors = ''
+      hwmon /sys/class/hwmon/hwmon2/temp1_input
+      hwmon /sys/class/hwmon/hwmon2/temp2_input
+      hwmon /sys/class/hwmon/hwmon2/temp3_input
+      hwmon /sys/class/hwmon/hwmon2/temp4_input
+      hwmon /sys/class/hwmon/hwmon2/temp5_input
+    '';
+    levels = ''
+      (0,     0,      55)
+      (1,     50,     62)
+      (2,     57,     68)
+      (3,     63,     73)
+      (6,     68,     75)
+      (7,     70,     84)
+      (127,   80,     32767)
+    '';
+    extraArgs = [ "-s 1" "-b 0" ];
   };
 
   services.xserver = {
