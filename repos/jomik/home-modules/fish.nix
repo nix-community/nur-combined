@@ -44,7 +44,7 @@ in {
       default = [];
       description = ''
         The plugins to add to fish.
-        Built with <varname>buildFishPlugin</varname> or fetched from GitHub with <varname>buildFishPluginFromGitHub</varname>.
+        Built with <varname>buildFishPlugin</varname>.
         Overrides manually installed ones.
       '';
     };
@@ -86,5 +86,6 @@ in {
     in mkIf (length cfg.plugins > 0) {
       xdg.configFile."fish/conf.d/99plugins.fish".source = "${combinedPluginDrv}/setup.fish";
       home.packages = dependencies;
-    })]);
+    })
+  ]);
 }
