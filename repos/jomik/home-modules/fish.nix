@@ -4,13 +4,13 @@ with lib;
 let
   cfg = config.programs.fish;
 
-  fileType = types.submodule (
+  fileType = textGen: types.submodule (
     { name, config, ... }: {
       options = {
         body = mkOption {
           default = null;
           type = types.nullOr types.lines;
-          description = "Body of the function.";
+          description = "Body of the file.";
         };
 
         source = mkOption {
@@ -26,11 +26,7 @@ let
         source = mkIf (config.body != null) (
           mkDefault (pkgs.writeTextFile {
             inherit name;
-            text = ''
-            function ${name}
-              ${config.body}
-            end
-            '';
+            text = textGen name config.body;
             executable = true;
           })
         );
@@ -49,17 +45,30 @@ in {
       '';
     };
     programs.fish.functions = mkOption {
-      type = types.attrsOf fileType;
+      type = types.attrsOf (fileType (name: body: ''
+            function ${name}
+              ${body}
+            end
+            ''));
       default = {};
       description = ''
         Functions to add to fish.
+      '';
+    };
+    programs.fish.completions = mkOption {
+      type = types.attrsOf (fileType (name: body: body));
+      default = {};
+      description = ''
+        Completions to add to fish.
       '';
     };
   };
 
   config = mkIf cfg.enable (mkMerge [
     {
-      xdg.configFile = map (n: { target = "fish/functions/${n}.fish"; source = cfg.functions.${n}.source; }) (attrNames cfg.functions);
+      xdg.configFile = 
+        (map (n: { target = "fish/functions/${n}.fish"; source = cfg.functions.${n}.source; }) (attrNames cfg.functions))
+        ++ (map (n: { target = "fish/completions/${n}.fish"; source = cfg.completions.${n}.source; }) (attrNames cfg.completions));
     } (
     let
       wrappedPkgVersion = lib.getVersion pkgs.fish;
@@ -70,12 +79,13 @@ in {
         paths = cfg.plugins;
         postBuild = ''
           touch $out/setup.fish
+
           if [ -d $out/functions ]; then
-            echo "set -x fish_function_path $out/functions \$fish_function_path" >> $out/setup.fish
+            echo "set fish_function_path $fish_function_path[1] $out/functions $fish_function_path[2..-1]" >> $out/setup.fish
           fi
 
           if [ -d $out/completions ]; then
-            echo "set -x fish_complete_path $out/completions \$fish_complete_path" >> $out/setup.fish
+            echo "set fish_complete_path $fish_complete_path[1] $out/completions $fish_complete_path[2..-1]" >> $out/setup.fish
           fi
 
           if [ -d $out/conf.d ]; then
