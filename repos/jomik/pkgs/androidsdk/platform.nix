@@ -16,4 +16,8 @@ pkgs.stdenv.mkDerivation rec {
     mkdir -p $out/platforms/android-${api}
     mv -t $out/platforms/android-${api} ./*
   '';
+
+  meta = {
+    license = lib.licenses.unfree;
+  };
 }

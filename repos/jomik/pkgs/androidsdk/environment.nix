@@ -1,11 +1,11 @@
-{ lib, pkgs }: { acceptLicenses ? false, platforms, buildTools }:
+{ lib, pkgs }: { licenseAccepted ? false, platforms, buildTools }:
 
 let
   androidsdk = import ./default.nix { inherit lib; inherit (pkgs) callPackage; };
   licenses = {
     android-sdk-license = "d56f5187479451eabf01fb78af6dfcb131a6481e";
   };
-in if acceptLicenses then
+in if licenseAccepted then
   pkgs.buildEnv {
     name = "android-sdk-environment";
     paths = with androidsdk; [ tools platformTools ]
@@ -18,5 +18,9 @@ in if acceptLicenses then
         echo ${licenses.${a}} > $out/licenses/${a}
       '') (lib.attrNames licenses)}
     '';
+
+    meta = {
+      license = lib.licenses.unfree;
+    };
   }
-else throw "You must accept the android licenses. Pass acceptLicenses = true."
+else throw "You must accept the android licenses. Pass licenseAccepted = true."

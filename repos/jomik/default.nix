@@ -1,13 +1,18 @@
 { pkgs ? import <nixpkgs> {} }:
 
-{
-  lib = import ./lib { inherit pkgs; };
-  modules = import ./modules;
-  overlays = import ./overlays;
+let
+  listDirectory = with builtins; action: dir:
+    let
+      list = readDir dir;
+    in listToAttrs (map
+      (name: {
+        name = replaceStrings [".nix"] [""] name;
+        value = action (dir + ("/" + name));
+      })
+      (attrNames list));
 
-  androidsdk = pkgs.callPackage ./pkgs/androidsdk {};
-  csd-post = pkgs.callPackage ./pkgs/csd-post.nix {};
-  dotfiles-sh = pkgs.callPackage ./pkgs/dotfiles-sh.nix {};
-  rofi-menu = pkgs.callPackage ./pkgs/rofi-menu.nix {};
-  slock = pkgs.callPackage ./pkgs/slock.nix {};
+  pkgs' = listDirectory (p: pkgs.callPackage p {}) ./pkgs;
+in pkgs' // {
+  pkgs = pkgs';
+  home-modules = listDirectory (x: x) ./home-modules;
 }
