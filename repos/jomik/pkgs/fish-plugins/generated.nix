@@ -4,14 +4,14 @@
 let
   packages = ( self:
 {
-  fasd = buildFishPlugin {
-    pname = "fasd";
-    version = "2017-12-30";
+  fish-fasd = buildFishPlugin {
+    pname = "fish-fasd";
+    version = "2019-04-12";
     src = fetchFromGitHub {
-      owner = "adityavm";
-      repo = "fasd";
-      rev = "a1e991b4a22a63af5f52751ef245b1b9f8a6e6d7";
-      sha256 = "0a28z9davbnpwg4j9nhsbs5b7qp8wisv59xv2440yd6xzr05v59d";
+      owner = "jomik";
+      repo = "fish-fasd";
+      rev = "58139b4ec80c24bd484483bee0200be40866cdcc";
+      sha256 = "0f1ddpz0xd5wmgsam7hy7yx4a7wkd2p66wpli9vqnxi74m44596h";
     };
   };
 

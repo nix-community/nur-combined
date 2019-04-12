@@ -34,4 +34,5 @@ in mapAliases {
   theme-eden = fish-theme-eden;
   theme-spacefish = spacefish;
   theme-pure = pure;
+  fasd = fish-fasd;
 }

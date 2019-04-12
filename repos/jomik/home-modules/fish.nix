@@ -81,11 +81,11 @@ in {
           touch $out/setup.fish
 
           if [ -d $out/functions ]; then
-            echo "set fish_function_path $fish_function_path[1] $out/functions $fish_function_path[2..-1]" >> $out/setup.fish
+            echo "set fish_function_path \$fish_function_path[1] $out/functions \$fish_function_path[2..-1]" >> $out/setup.fish
           fi
 
           if [ -d $out/completions ]; then
-            echo "set fish_complete_path $fish_complete_path[1] $out/completions $fish_complete_path[2..-1]" >> $out/setup.fish
+            echo "set fish_complete_path \$fish_complete_path[1] $out/completions \$fish_complete_path[2..-1]" >> $out/setup.fish
           fi
 
           if [ -d $out/conf.d ]; then

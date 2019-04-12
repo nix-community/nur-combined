@@ -1,7 +1,7 @@
 { pkgs, stdenv, lib, buildFishPlugin }:
 
 self: super: {
-  fasd = super.fasd.overrideAttrs (old: {
+  fish-fasd = super.fish-fasd.overrideAttrs (old: {
     dependencies = [ pkgs.fasd ];
   });
 
