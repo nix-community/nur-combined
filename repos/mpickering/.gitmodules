@@ -4,3 +4,6 @@
 [submodule "ghc-artefact-nix"]
 	path = ghc-artefact-nix
 	url = https://github.com/mpickering/ghc-artefact-nix
+[submodule "old-ghc-nix"]
+	path = old-ghc-nix
+	url = https://github.com/mpickering/old-ghc-nix.git

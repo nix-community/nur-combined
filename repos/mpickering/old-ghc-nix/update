@@ -1,0 +1,11 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p jq
+
+
+for version in $(cat versions.json | jq -c -r '.[]'); do
+  URL="http://haskell.org/ghc/dist/$version/ghc-$version-x86_64-deb8-linux.tar.xz"
+  NIX_VER="ghc$(echo $version | tr -d '.')"
+  SHA=$(nix-prefetch-url $URL)
+  TJQ="{\"version\" : \"$version\", \"nixversion\":\"$NIX_VER\", \"url\": \"$URL\", \"hash\": \"$SHA\"}"
+  echo $TJQ
+done | jq -s 'INDEX(.nixversion)' > hashes.json
