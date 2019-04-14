@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   name = "i3status-rust-${version}";
-  version = "0.9.0.2019-02-15";
+  version = "0.9.0.2019-04-11";
 
   src = fetchFromGitHub {
     owner = "greshake";
     repo = "i3status-rust";
-    rev = "2dc958995834b529a245c22c510b57d5c928c747";
-    sha256 = "091a2pqgkiwnya2xv5rw5sj730hf6lvkp2kk5midsa3wz2dfbc2j";
+    rev = "559d231caa574ddc665a7828fdef546e0429351b";
+    sha256 = "1c2ijn8lgpbp2byshvdz92dmihvylkbl2kvchg02difimxmp6rv7";
   };
 
   cargoSha256 = "06izzv86nkn1izapldysyryz9zvjxvq23c742z284bnxjfq5my6i";
