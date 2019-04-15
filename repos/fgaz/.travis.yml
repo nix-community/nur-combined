@@ -11,9 +11,9 @@ matrix:
   include:
     - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.09
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.03
   allow_failures:
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.09
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.03
 
 install:
  - nix --version
