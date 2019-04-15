@@ -4,8 +4,8 @@ sudo: false
 
 env:
   global:
-    - CACHIX_CACHE=
-    - NUR_REPO=<YOUR_NUR_REPO_NAME_HERE>
+    - CACHIX_CACHE=ysndr
+    - NUR_REPO=ysndr
 
 matrix:
   include:
@@ -31,4 +31,3 @@ after_success:
   - if [ -n "${CACHIX_CACHE}" ]; then cachix push "${CACHIX_CACHE}" $outs; fi
   - if [ "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
       curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
-
