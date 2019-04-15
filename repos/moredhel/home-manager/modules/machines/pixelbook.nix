@@ -12,9 +12,10 @@ in
   ];
 
   programs.crostini.enable = true;
-  programs.crostini.docker = true;
+  programs.crostini.docker.enable = true;
 
   programs.dev.enable = true;
+  programs.base.enable = true;
 
   services.keybase.enable = true;
   services.kbfs.enable = true;

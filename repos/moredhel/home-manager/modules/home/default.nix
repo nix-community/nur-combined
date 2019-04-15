@@ -1,24 +1,34 @@
 { config ? {}, lib, pkgs, ... }:
+with lib;
 
 let
+  cfg = config.programs.base;
   kubectx = pkgs.nur.repos.moredhel.kubectx;
 in
-{
-  home.keyboard = {
-    layout = "dvorak";
-  };
+  {
+    options.programs.base = with types; {
+      enable = mkOption {
+        type = bool;
+        default = false;
+      };
 
-  services.syncthing.enable = true;
+    };
+    config = mkIf cfg.enable {
+      home.keyboard = {
+        layout = "dvorak";
+      };
 
-  programs.bash = {
-    enable = true;
-    historyControl = [
-      "erasedups"
-      "ignoredups"
-      "ignorespace"
-    ];
-    shellAliases = {
-      g = "git";
+      services.syncthing.enable = true;
+
+      programs.bash = {
+        enable = true;
+        historyControl = [
+          "erasedups"
+          "ignoredups"
+          "ignorespace"
+          ];
+          shellAliases = {
+          g = "git";
       # vim = "emacsclient --socket /tmp/emacs1000/server -nw"; # TODO: see if it is worth changing...
       # emacs = "emacsclient --socket /tmp/emacs1000/server -c -n";
       k = "${pkgs.kubectl}/bin/kubectl";
@@ -71,4 +81,5 @@ in
     enable = true;
     path = https://github.com/rycee/home-manager/archive/master.tar.gz;
   };
+};
 }

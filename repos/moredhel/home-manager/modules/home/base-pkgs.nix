@@ -23,4 +23,5 @@ gopass
 kubectl
 wget
 curl
+dnsutils
 ]

@@ -1,7 +1,6 @@
 {
   home = ./home; # auto-enabled
-  crostini = ./crostini.nix;
-  docker = ./docker.nix;
+  crostini = import ./crostini;
   dev = ./dev.nix;
   unison = ./unison.nix;
 }

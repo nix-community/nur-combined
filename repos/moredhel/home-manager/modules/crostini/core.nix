@@ -11,14 +11,14 @@ in {
     };
 
     docker = mkOption {
-      type = bool;
-      default = false;
+      type = attrs;
+      default = {};
     };
   };
 
   config = mkIf cfg.enable {
     # enable custom docker service
-    services.docker.enable = cfg.docker;
+    services.docker = cfg.docker;
 
     # Add Crostini-specific Bash magic
     programs.bash = {
