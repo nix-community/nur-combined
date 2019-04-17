@@ -1,5 +1,5 @@
 { stdenv, fetchurl
-, oraclejdk
+, jdk
 , unzip
 }:
 
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    oraclejdk
+    jdk
   ];
 
   nativeBuildInputs = [
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       echo "#!/usr/bin/env bash" > $out/bin/wsclient
       echo "export LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:${libPath}\"" >> $out/bin/wsclient
       echo "cd /tmp" >> $out/bin/wsclient
-      echo "exec ${oraclejdk}/bin/java -Djava.library.path=\"$out/opt/Worksnaps/lib\" -jar \"$out/opt/Worksnaps/WSClient.jar\"" >> $out/bin/wsclient
+      echo "exec ${jdk}/bin/java -Djava.library.path=\"$out/opt/Worksnaps/lib\" -jar \"$out/opt/Worksnaps/WSClient.jar\"" >> $out/bin/wsclient
       chmod +x $out/bin/wsclient
     '';
 
