@@ -73,10 +73,10 @@
     };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "3.0.2";
+      version = "3.0.5";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1743714/octotree-3.0.2-fx.xpi?src=";
-      sha256 = "3fef6bff1bde1a17502ed9933f36f57a68b64e97c58450daf27c81042d404239";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1746067/octotree-3.0.5-fx.xpi?src=";
+      sha256 = "4b53c926c1ad9c46f20376ce4695d67e0efbccb994adb5c12d139d411d36a7e9";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -115,10 +115,10 @@
     };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "13.6";
+      version = "13.7";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1738947/save_page_we-13.6-fx.xpi?src=";
-      sha256 = "1e0c78d080dda546d9f507f4f45c2f0c8f7a5b5d4aa918b854f9e66def2209d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1745228/save_page_we-13.7-fx.xpi?src=";
+      sha256 = "89a0800c4395f5e35e45fb48ed4768440b61aad484d42a1507b077aa2e54055f";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as curently displayed) as a single HTML file that can be opened in any browser. Choose which items to save. Define the format of the saved filename. Enter user comments.";
