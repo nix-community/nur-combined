@@ -3,8 +3,8 @@
 let
 
   _nixpkgs = lib.pinnedNixpkgs {
-    rev = "e20ee8a710f3a8ea378bb664c2dbfa32dcf399a7";
-    sha256 = "0h063hhywrb4vj9g1lg9dp0r9h5i8b5n923iminnckkxxbr3iap1";
+    rev = "c793258a88a437f2bf473f67b5aa47150bd5bd7d";
+    sha256 = "1ypylf7cf1lsx481zn2i9fhjy6hswn3av55b7z3r3wr489iniw2n";
   };
 
 in
@@ -41,7 +41,7 @@ inherit (lib) buildK8sEnv;
 
   noweb = pkgs.callPackage ./development/tools/literate-programming/noweb {
     inherit icon-lang;
-    useIcon = false;
+    useIcon = true;
   };
 
 } // (if pkgs.stdenv.isDarwin then {

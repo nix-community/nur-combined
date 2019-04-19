@@ -46,7 +46,11 @@ let noweb = stdenv.mkDerivation rec {
              $out/lib/noweb/to{ascii,html,roff,tex} \
              $out/lib/noweb/{bt,empty}defn \
              $out/lib/noweb/{noidx,unmarkup}; do
-      substituteInPlace "$f" --replace "nawk" "${gawk}/bin/awk"
+        # NOTE: substituteInPlace breaks Icon binaries, so make sure the script
+        #       uses (n)awk before calling.
+        if [ grep nawk "$f"]; then
+            substituteInPlace "$f" --replace "nawk" "${gawk}/bin/awk"
+        fi
     done
 
     ln -s "$tex" "$out/share/texmf"
