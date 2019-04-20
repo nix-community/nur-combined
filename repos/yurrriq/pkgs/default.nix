@@ -41,7 +41,6 @@ inherit (lib) buildK8sEnv;
 
   noweb = pkgs.callPackage ./development/tools/literate-programming/noweb {
     inherit icon-lang;
-    useIcon = true;
   };
 
 } // (if pkgs.stdenv.isDarwin then {

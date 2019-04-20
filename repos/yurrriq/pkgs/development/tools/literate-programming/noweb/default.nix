@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gawk, gcc, icon-lang, useIcon ? false }:
+{ stdenv, fetchFromGitHub, gawk, icon-lang ? null }:
 
 let noweb = stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -15,14 +15,14 @@ let noweb = stdenv.mkDerivation rec {
 
   outputs = [ "out" "tex" ];
 
-  nativeBuildInputs = [ gcc ] ++ stdenv.lib.optionals useIcon [ icon-lang ];
+  nativeBuildInputs = stdenv.lib.optionals (icon-lang != null) [ icon-lang ];
 
   preBuild = ''
     mkdir -p "$out/lib/noweb"
     cd src
   '';
 
-  makeFlags = stdenv.lib.optionals useIcon [
+  makeFlags = stdenv.lib.optionals (icon-lang != null) [
     "LIBSRC=icon"
     "ICONC=icont"
   ];
