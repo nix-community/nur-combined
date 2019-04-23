@@ -27,7 +27,7 @@ bindsym $mod+Return exec "kitty"
 bindsym $mod+p exec "rofi -show combi"
 
 # start the browser
-bindsym $mod+b exec firefox
+bindsym $mod+b exec "env GDK_BACKEND=wayland firefox"
 
 # install gentoo
 bindsym XF86Launch1 exec "mpv https://i.crzd.me/install-gentoo.mp4 --fullscreen"
