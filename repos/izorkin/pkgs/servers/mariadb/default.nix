@@ -174,13 +174,13 @@ everything = stdenv.mkDerivation (common // {
 
 galera = stdenv.mkDerivation rec {
   name = "mariadb-galera-${version}";
-  version = "25.3.25";
+  version = "25.3.26";
 
   src = fetchFromGitHub {
     owner = "codership";
     repo = "galera";
     rev = "release_${version}";
-    sha256 = "09h25jldr8a9wadhw14hfszcp7xpc9kwff49j5a5m33wjn1ljq9d";
+    sha256 = "0fs0c1px9lknf1a5wwb12z1hj7j7b6hsfjddggikvkdkrnr2xs1f";
     fetchSubmodules = true;
   };
 
@@ -196,7 +196,7 @@ galera = stdenv.mkDerivation rec {
     export LIBPATH="${galeraLibs}/lib"
   '';
 
-  sconsFlags = "ssl=1 system_asio=1 strict_build_flags=0";
+  sconsFlags = "ssl=1 system_asio=0 strict_build_flags=0";
 
   installPhase = ''
     # copied with modifications from scripts/packages/freebsd.sh
