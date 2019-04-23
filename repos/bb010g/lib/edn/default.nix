@@ -6,7 +6,7 @@ inherit (builtins) elemAt isFunction isString match substring;
 identity = x: x;
 strHead = substring 0 1;
 strRest = substring 1 (-1);
-utf8 = import ../utf8;
+# utf8 = import ../utf8;
 
 # edn resources:
 # official edn spec: https://github.com/edn-format/edn
@@ -23,7 +23,8 @@ utf8 = import ../utf8;
 # std::regex doesn't like large strings:
 #   https://github.com/NixOS/nix/issues/2147
 #   (also PCRE consideration)
-# std::regex::ECMAScript consideration: https://github.com/NixOS/nix/issues/1520
+# std::regex::ECMAScript consideration:
+#   https://github.com/NixOS/nix/issues/1520
 # unlikely Earley consideration: https://github.com/NixOS/nix/issues/1491
 # lol Unicode:
 #   UTF-8 support (closed): https://github.com/NixOS/nix/issues/770
@@ -37,24 +38,24 @@ cLineFeed = "\n"; # builtins.fromJSON ''"\u000A"'';
 cNewline = "\n"; # (platform-dependent) \newline
 cCarriageReturn = "\r"; # builtins.fromJSON ''"\u000D"'';
 cReturn = "\n"; # (platform-dependent) \return
-whitespace = "${space}${characterTabulation}${lineFeed}${carriageReturn},";
+whitespace = "${cSpace}${cCharacterTabulation}${cLineFeed}${cCarriageReturn},";
 wsClass = "[" + whitespace + "]";
 
 # basic parsing: left space, value, ? right space, ? comment, ? repeat
 leftWsPat = "(${wsClass}*)(.*)";
-matchLeftWs = match leftWs;
+matchLeftWs = match leftWsPat;
 rightWsPat = "(${wsClass}*)(;.*)?";
-matchRightWs = match rightWs;
-commentPat = ";([^${newline}]*)${newline}?(.*)";
+matchRightWs = match rightWsPat;
+commentPat = ";([^${cNewline}]*)${cNewline}?(.*)";
 matchComment = match commentPat;
 
 literal = {
-  # \backspace = ;
-  # \formfeed = ;
-  \newline = cNewline;
-  \return = cReturn;
-  \space = cSpace;
-  \tab = cTab;
+  # \\backspace = ;
+  # \\formfeed = ;
+  "\\newline" = cNewline;
+  "\\return" = cReturn;
+  "\\space" = cSpace;
+  "\\tab" = cTab;
   false = false;
   nil = null;
   true = true;
@@ -65,11 +66,11 @@ parseLosslessGo = f: s: let
   leadingWs = elemAt leftWsGroups 0;
   elStr = elemAt leftWsGroups 1;
 
-  el = literal[elStr] or
-  if strHead elStr == "\\" then
-
-  else throw "bad edn parse";
-in f [ leadingWs elStr trailingWs comment ];
+  el = literal.${elStr} or
+  (if strHead elStr == "\\" then
+    "wut"
+  else throw "bad edn parse");
+in f []; # [ leadingWs elStr trailingWs comment ];
 
 parseLossless' = f: assert isFunction f; s: assert isString s;
   parseLosslessGo f s;

@@ -4,7 +4,7 @@
 }:
 
 rustPlatform.buildRustPackage rec {
-  name = "mozlz4-tool-${version}";
+  pname = "mozlz4-tool";
   version = "0.2.0+${stdenv.lib.substring 0 7 src.rev}";
 
   src = fetchFromGitHub {
@@ -24,8 +24,8 @@ rustPlatform.buildRustPackage rec {
   meta = with stdenv.lib; {
     description = "A tool to process mozlz4 files";
     longDescription = ''
-      A simple tool to decompress and compress files into the mozlz4 format used
-      by Firefox.
+      A simple tool to decompress and compress files into the mozlz4 format
+      used by Firefox.
     '';
     homepage = https://github.com/lilydjwg/mozlz4-tool;
     license = with licenses; free;

@@ -4,7 +4,7 @@
 }:
 
 rustPlatform.buildRustPackage rec {
-  name = "xcolor-${version}";
+  pname = "xcolor";
   version = "0.4.0";
 
   src = fetchFromGitHub {
@@ -52,8 +52,8 @@ rustPlatform.buildRustPackage rec {
   meta = with stdenv.lib; {
     description = "Lightweight color picker for X11";
     longDescription = ''
-      Lightweight color picker for X11. Use your mouse to select colors visible
-      anywhere on the screen to get their RGB representation.
+      Lightweight color picker for X11. Use your mouse to select colors
+      visible anywhere on the screen to get their RGB representation.
     '';
     homepage = https://soft.github.io/xcolor;
     license = with licenses; mit;

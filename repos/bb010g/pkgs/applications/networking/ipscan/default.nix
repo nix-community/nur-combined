@@ -1,25 +1,35 @@
-{ stdenv, fetchFromGitHub, makeDesktopItem, makeWrapper, writeText
-, glibcLocales, jre, swt
-, gradle, jdk, perl
+{ stdenv, buildPackages, fetchFromGitHub, makeDesktopItem, makeWrapper
+, writeText
+, jdk, jre, swt
 }:
 
 let
-  name = "ipscan";
-  longName = "${name}-${version}";
-  prettyName = "Angry IP Scanner";
+  pname = "ipscan";
+  desktopName = "Angry IP Scanner";
   version = "3.5.5";
-  description = "Fast and friendly network scanner";
-  homepage = https://angryip.org;
+  meta = with stdenv.lib; {
+    description = "Fast and friendly network scanner";
+    longDescription = ''
+      Angry IP Scanner is a cross-platform network scanner written in Java.
+      It can scan IP-based networks in any range, scan ports, and resolve
+      other information.
+      The program provides an easy to use GUI interface and is very
+      extensible, see ${homepage} for more information.
+    '';
+    homepage = https://angryip.org;
+    license = with licenses; gpl2;
+    maintainers = with maintainers; [ bb010g ];
+    platforms = platforms.all;
+  };
 
-  src = fetchFromGitHub rec {
+  src = fetchFromGitHub {
     owner = "angryip";
     repo = "ipscan";
     rev = version;
-    inherit name;
     sha256 = "19w896qk34mgzpm022da79jzmp9mhxv560syhf14dx2pcqndsy61";
   };
 
-  # Just cache the deps; don't build ( from
+  # Only cache the deps; don't build (from
   # https://stackoverflow.com/questions/21814652/how-to-download-dependencies-in-gradle/38528497 )
   gradleDepsInit = writeText "init.gradle" ''
     gradle.projectsEvaluated {
@@ -38,20 +48,30 @@ let
 
   # fake build to pre-download deps into fixed-output derivation
   deps = stdenv.mkDerivation {
-    name = "${longName}-deps";
+    pname = "${pname}-deps";
+    inherit version;
+
     inherit src;
-    nativeBuildInputs = [ gradle perl ];
+
+    nativeBuildInputs = [
+      buildPackages.gradle
+      buildPackages.perl
+    ];
 
     buildPhase = ''
-      export GRADLE_USER_HOME=$(mktemp -d);
+      export GRADLE_USER_HOME=$TMPDIR/gradle-user-home;
       gradle --no-daemon --init-script ${gradleDepsInit} fetchDeps
     '';
 
     # Mavenize dependency paths
-    # e.g. org.codehaus.groovy/groovy/2.4.0/{hash}/groovy-2.4.0.jar -> org/codehaus/groovy/groovy/2.4.0/groovy-2.4.0.jar
+    # e.g. org.codehaus.groovy/groovy/2.4.0/{hash}/groovy-2.4.0.jar ->
+    #   org/codehaus/groovy/groovy/2.4.0/groovy-2.4.0.jar
     installPhase = ''
-      find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
-        | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
+      find $GRADLE_USER_HOME/caches/modules-2 -type f \
+          -regex '.*\.\(jar\|pom\)' \
+        | perl -pe \
+      's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$#'\
+      ' ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
         | sh
     '';
 
@@ -60,7 +80,7 @@ let
     outputHash = "05v5xjz2h7n1sk0996q7xp0y7q4h6q0afj1m7ifkds4jlpz0zll5";
   };
 
-  hostPackageDeps = {
+  hostPkgDeps = {
     x86_64-darwin = rec { platform = "mac";
       jars = "[]"; libs = "[]"; };
     x86_64-linux = rec { platform = "linux64";
@@ -90,60 +110,67 @@ let
     }
     gradle.projectsEvaluated {
       rootProject {
-        packageTask('nix', ${hostPackageDeps.jars}, ${hostPackageDeps.libs}) {}
+        packageTask('nix', ${hostPkgDeps.jars}, ${hostPkgDeps.libs}) {
+        }
+        tasks.withType(AbstractArchiveTask) {
+          preserveFileTimestamps = false
+          reproducibleFileOrder = true
+        }
       }
     }
   '';
 
   desktopItem = makeDesktopItem {
-    inherit name;
-    exec = "ipscan";
-    icon = "ipscan";
-    comment = description;
-    desktopName = prettyName;
-    genericName = "Network scanner";
+    inherit desktopName;
     categories = "Application;Network;Internet;";
+    comment = meta.description;
+    exec = "ipscan";
+    genericName = "Network scanner";
+    icon = "ipscan";
+    name = pname;
   };
 in stdenv.mkDerivation {
-  name = longName;
-  inherit version src;
+  inherit pname version;
 
-  nativeBuildInputs = [ gradle perl makeWrapper ];
-  buildInputs = [ glibcLocales jdk ];
+  inherit src;
 
-  patchPhase = ''
-    cp ${swt}/jars/swt.jar lib/swt-nix.jar
+  nativeBuildInputs = [
+    buildPackages.canonicalize-jars-hook
+    buildPackages.gradle
+    buildPackages.makeWrapper
+  ];
+  buildInputs = [ jdk ];
+
+  patches = [
+    ./rt-jar-detection.patch
+  ];
+
+  LANG = "${if stdenv.isDarwin then "en_US" else "C"}.UTF-8";
+
+  # TODO package Java Native Access (JNA) in Nixpkgs & ln -sf in here
+  postPatch = ''
+    echo "rootProject.name = 'ipscan'" > settings.gradle
+    ln -s ${swt}/jars/swt.jar lib/swt-nix.jar
   '';
 
   buildPhase = ''
-    export LC_ALL=en_US.utf-8
+    export LC_ALL=C.utf-8
     export GRADLE_USER_HOME=$(mktemp -d)
     gradle --offline --no-daemon --info --init-script ${gradleInit} nix
   '';
 
   installPhase = ''
-    mkdir -p $out/share/{${name},pixmaps}
+    mkdir -p $out/share/{${pname},pixmaps}
 
-    cp build/libs/${name}-nix-${version}.jar $out/share/${name}/ipscan.jar
+    cp build/libs/ipscan-nix-${version}.jar $out/share/${pname}/ipscan.jar
     cp resources/images/icon128.png $out/share/pixmaps/ipscan.png
 
     makeWrapper ${jre}/bin/java $out/bin/ipscan \
-      --add-flags "-Djava.library.path=${swt}/lib -jar $out/share/${name}/ipscan.jar"
+      --add-flags \
+        "-Djava.library.path=${swt}/lib -jar $out/share/${pname}/ipscan.jar"
 
     ${desktopItem.buildCommand}
   '';
 
-  meta = with stdenv.lib; {
-    inherit description homepage;
-    longDescription = ''
-      Angry IP Scanner is a cross-platform network scanner written in Java.
-      It can scan IP-based networks in any range, scan ports, and resolve
-      other information.
-      The program provides an easy to use GUI interface and is very extensible,
-      see ${homepage} for more information.
-    '';
-    license = with licenses; gpl2;
-    maintainers = with maintainers; [ bb010g ];
-    platforms = platforms.all;
-  };
+  inherit meta;
 }

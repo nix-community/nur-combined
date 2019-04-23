@@ -270,7 +270,7 @@ to = byteGenAttrs (b: {
 });
 # based on Rust's core::str::UTF8_CHAR_WIDTH (MIT license)
 # extended to return -1 on continutation
-byteCharWidth = [
+byteCharWidth = let e = -1; in [
 # 0 1 2 3 4 5 6 7 8 9 A B C D E F
   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 # 0x1F
@@ -280,10 +280,10 @@ byteCharWidth = [
   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 # 0x5F
   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 # 0x7F
-  (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1)
-  (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) # 0x9F
-  (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1)
-  (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) (-1) # 0xBF
+  e e e e e e e e e e e e e e e e
+  e e e e e e e e e e e e e e e e # 0x9F
+  e e e e e e e e e e e e e e e e
+  e e e e e e e e e e e e e e e e # 0xBF
   0 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2
   2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 # 0xDF
   3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 # 0xEF

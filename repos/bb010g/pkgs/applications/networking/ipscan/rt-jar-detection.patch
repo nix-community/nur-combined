@@ -1,0 +1,7 @@
+--- a/build.gradle
++++ b/build.gradle
+@@ -98,3 +98,4 @@
+
+         def rtJar = new File(System.getProperty('java.home') + "/jre/lib/rt.jar")
++        if (!rtJar.exists()) rtJar = new File(System.getProperty('java.home') + "/lib/rt.jar")
+         if (!rtJar.exists()) rtJar = new File('/usr/lib/jvm/java-10-openjdk-amd64/jmods/java.base.jmod') // try Ubuntu version of Java 10

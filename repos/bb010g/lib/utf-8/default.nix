@@ -54,7 +54,8 @@ strLength = builtins.stringLength;
 strCharAtUnsafe = s: n: strSliceUnsafe n 1 s;
 # returns null if index `n` is invalid
 # strCharAt' s n :: (N::int, M::int) => str N -> M -> (null + str 1)
-strCharAt' = s: n: let t = strSliceUnsafe n 1 s; in if strLength t == 0 then null else t;
+strCharAt' = s: n:
+  let t = strSliceUnsafe n 1 s; in if strLength t == 0 then null else t;
 # strCharAt s n :: (N::int, M::int, (M<N)) => str N -> M -> str 1
 strCharAt = s: n: let t = strSliceUnsafe n 1 s; in assert strLength t != 0; t;
 
@@ -207,18 +208,19 @@ foldl' =
       c = strCharAtUnsafe s i;
       w = charWidth c; in
       if w <= 0 then null else
-      if w == 1 then
+      if w == 1 then let
         newAcc = op acc c;
         newI = i + 1; in
         if newI >= len then acc else
-        seq newAcc (go' newI newAcc); in
+        seq newAcc (go' newI newAcc)
       else let
         sCharAtUnsafe = strCharAtUnsafe s;
-        c = strSliceUnsafe i w s;
+        c = strSliceUnsafe i w s; in
         if !(isContinuationChar (sCharAtUnsafe (i+1))) then null else
         if w > 1 && !(isContinuationChar (sCharAtUnsafe (i+2))) then null else
         if w > 2 && !(isContinuationChar (sCharAtUnsafe (i+3))) then null else
-        if w == 4 && !(isContinuationChar (sCharAtUnsafe (i+4))) then null else
+        if w == 4 && !(isContinuationChar (sCharAtUnsafe (i+4))) then
+          null else let
         newAcc = op acc c;
         newI = i + w; in
         if newI >= len then acc else
@@ -228,10 +230,6 @@ foldl' =
 
 # chars s :: (N::int) => utf8str N -> (utf8str 1)[N];
 chars'Fold = foldl' (xs: x: xs ++ [x]) [ ];
-charsSplit = let
-  p = x: if isString x then assert x == ""; false else true;
-  f = x: builtins.elemAt x 0; in
-  s: map f (filter p (split "(${charPat})" s));
 charsSplit = let
   p = x: if isString x then assert x == ""; false else true;
   f = x: builtins.elemAt x 0; in

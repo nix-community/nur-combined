@@ -24,7 +24,7 @@ buildPythonPackage rec {
   ];
 
   patches = [
-    # use dnspython >= 1.13 (e.g. Nixpkgs's 1.16) instead of dnspython3 == 1.12
+    # use dnspython>=1.13 (e.g. Nixpkgs's 1.16) instead of dnspython3==1.12
     ./dnspython.patch
     # fix tests for dnspython >= 1.16
     (fetchpatch {
@@ -39,7 +39,8 @@ buildPythonPackage rec {
     description = "Wget-compatible web downloader and crawler.";
     homepage = https://github.com/ArchiveTeam/wpull;
     longDescription = ''
-      Wpull is a Wget-compatible (or remake/clone/replacement/alternative) web downloader and crawler.
+      Wpull is a Wget-compatible (or remake/clone/replacement/alternative) web
+      downloader and crawler.
 
       Notable Features:
       - Written in Python: lightweight, modifiable, robust, & scriptable

@@ -7,7 +7,7 @@ let
 in
 
 rustPlatform.buildRustPackage rec {
-  name = "just-${version}";
+  pname = "just";
   version = "0.3.13";
 
   src = fetchFromGitHub {
@@ -27,7 +27,8 @@ rustPlatform.buildRustPackage rec {
     do substituteInPlace "$f" \
         --replace '/bin/echo' ${escapeShellArg coreutils.out}'/bin/echo' \
         --replace '/bin/sh' ${escapeShellArg bash.out}'/bin/sh' \
-        --replace '/usr/bin/env cat' ${escapeShellArg coreutils.out}'/bin/cat' \
+        --replace '/usr/bin/env cat' \
+          ${escapeShellArg coreutils.out}'/bin/cat' \
         --replace '/usr/bin/env sh' ${escapeShellArg bash.out}'/bin/sh'
     done
     substituteInPlace tests/integration.rs \
@@ -58,8 +59,8 @@ rustPlatform.buildRustPackage rec {
       Commands are stored in a file called justfile or Justfile with syntax
       inspired by make. You can then run them with just COMMAND.
 
-      just produces detailed error messages and avoids make's idiosyncrasies, so
-      debugging a justfile is easier and less surprising than debugging a
+      just produces detailed error messages and avoids make's idiosyncrasies,
+      so debugging a justfile is easier and less surprising than debugging a
       makefile.
     '';
     homepage = https://github.com/casey/just;

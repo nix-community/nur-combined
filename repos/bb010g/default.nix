@@ -1,40 +1,41 @@
 { pkgs ? import <nixpkgs> { } }:
 
-let
-  gobject-introspection = pkgs: pkgs.gobject-introspection or pkgs.gobjectIntrospection;
-in rec {
+rec {
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  # applications
+  # # applications
 
-  ## applications.networking
-
-  ipscan = pkgs.callPackage ./pkgs/applications/networking/ipscan {
-    swt = swt46;
-  };
-
-  ## applications.graphics
+  # ## applications.graphics
 
   xcolor = pkgs.callPackage ./pkgs/applications/graphics/xcolor { };
 
-  # development
+  # ### applications.networking
 
-  ## development.build-managers
+  ipscan = (pkgs.callPackage ./pkgs/applications/networking/ipscan {
+    swt = swt_4_6;
+  }).overrideAttrs (o: {
+    meta = if !(swt_4_6.meta.broken or false) then o.meta else
+      o.meta // { broken = true; };
+  });
 
-  just = pkgs.callPackage ./pkgs/development/tools/build-managers/just {  };
+  # # development
 
-  ## development.libraries
+  # ## development.build-managers
 
-  ### development.libraries.java
+  just = pkgs.callPackage ./pkgs/development/tools/build-managers/just { };
 
-  swt46 = pkgs.swt.overrideAttrs (o: let
-    inherit (pkgs) fetchurl stdenv;
+  # ## development.libraries
+
+  # ### development.libraries.java
+
+  swt_4_6 = pkgs.swt.overrideAttrs (o: let
+    inherit (pkgs) fetchzip stdenv;
     platformMap = {
       "x86_64-linux" =
         { platform = "gtk-linux-x86_64";
-          sha256 = "0wnd01xssdq9pgx5xqh5lfiy3dmk60dzzqdxzdzf883h13692lgy"; };
+          sha256 = "1kdlnm1q0q3615nw56fwbck4h95mvyq8vja5ds2b60an84fpix3f"; };
       "i686-linux" =
         { platform = "gtk-linux-x86";
           sha256 = "0jmx1h65wqxsyjzs64i2z6ryiynllxzm13cq90fky2qrzagcw1ir"; };
@@ -43,19 +44,34 @@ in rec {
           sha256 = "0h9ws9fr85zdi2b23qwpq5074pphn54izg8h6hyvn6xby7l5r9ly"; };
     };
 
-    metadata = assert platformMap ? ${stdenv.hostPlatform.system}; platformMap.${stdenv.hostPlatform.system};
+    metadata = assert platformMap ? ${stdenv.hostPlatform.system};
+      platformMap.${stdenv.hostPlatform.system};
   in rec {
     version = "4.6";
     fullVersion = "${version}-201606061100";
-    name = "swt-${version}";
 
-    src = pkgs.fetchurl {
-      url = "http://archive.eclipse.org/eclipse/downloads/drops4/R-${fullVersion}/${name}-${metadata.platform}.zip";
+    src = fetchzip {
+      url = "http://archive.eclipse.org/eclipse/downloads/drops4/" +
+        "R-${fullVersion}/${o.pname}-${version}-${metadata.platform}.zip";
       sha256 = metadata.sha256;
+      stripRoot = false;
+      extraPostFetch = ''
+        mkdir "$unpackDir"
+        cd "$unpackDir"
+
+        renamed="$TMPDIR/src.zip"
+        mv "$out/src.zip" "$renamed"
+        unpackFile "$renamed"
+        rm -r "$out"
+
+        mv "$unpackDir" "$out"
+      '';
     };
+
+    meta = if o ? pname then o.meta else (o.meta // { broken = true; });
   });
 
-  ## development.python-modules
+  # ## development.python-modules
 
   pythonPackageOverrides = self: super: {
     namedlist = super.namedList or
@@ -67,22 +83,30 @@ in rec {
     packageOverrides = pythonPackageOverrides;
   }).pkgs.wpull;
 
-  # tools
+  # ## development.tools
 
-  ## tools.audio
+  # ### development.tools.misc
 
-  beets = pkgs.callPackage ./pkgs/tools/audio/beets {
-    pythonPackages = pkgs.python3Packages;
-    gobject-introspection = gobject-introspection pkgs;
-  };
+  # pince = pkgs.callPackage ./pkgs/development/tools/misc/pince { };
 
-  ## tools.compression
+  # # tools
+
+  # ## tools.compression
 
   lz4json = pkgs.callPackage ./pkgs/tools/compression/lz4json { };
 
   mozlz4-tool = pkgs.callPackage ./pkgs/tools/compression/mozlz4-tool { };
 
-  ## tools.text
+  # ## tools.misc
+
+  lorri = pkgs.callPackage ./pkgs/tools/misc/lorri { };
+
+  # ## tools.security
+
+  # bitwarden-desktop =
+  #   pkgs.callPackage ./pkgs/tools/security/bitwarden/desktop { };
+
+  # ## tools.text
 
   dwdiff = pkgs.callPackage ./pkgs/tools/text/dwdiff { };
   ydiff = pkgs.pythonPackages.callPackage ./pkgs/tools/text/ydiff { };
