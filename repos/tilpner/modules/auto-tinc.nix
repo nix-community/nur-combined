@@ -5,6 +5,7 @@
 let
   inherit (builtins) hashString substring match all;
   inherit (lib) take drop length stringToCharacters concatStrings intersperse;
+  inherit (pkgs) runtimeShell;
 
   listChunks =
     size: ls: if length ls <= size
@@ -108,7 +109,7 @@ in with lib; {
             "tinc/${netName}/tinc-up" = {
               mode = "0755";
               text = ''
-                #!${pkgs.stdenv.shell}
+                #!${runtimeShell}
                 ${ip} link set $INTERFACE up
                 ${ip} addr add ${ipv6 netName net currentHost}/64 dev $INTERFACE
               '';
@@ -117,7 +118,7 @@ in with lib; {
             "tinc/${netName}/tinc-down" = {
               mode = "0755";
               text = ''
-                #!${pkgs.stdenv.shell}
+                #!${runtimeShell}
                 ${ip} link set $INTERFACE down
               '';
             };
