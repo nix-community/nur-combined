@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gawk, icon-lang ? null }:
+{ stdenv, fetchFromGitHub, gawk, gcc, groff, icon-lang ? null }:
 
 let noweb = stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -15,14 +15,14 @@ let noweb = stdenv.mkDerivation rec {
 
   outputs = [ "out" "tex" ];
 
-  nativeBuildInputs = stdenv.lib.optionals (icon-lang != null) [ icon-lang ];
+  nativeBuildInputs = [ gcc groff ] ++ stdenv.lib.optionals (!isNull icon-lang) [ icon-lang ];
 
   preBuild = ''
     mkdir -p "$out/lib/noweb"
     cd src
   '';
 
-  makeFlags = stdenv.lib.optionals (icon-lang != null) [
+  makeFlags = stdenv.lib.optionals (!isNull icon-lang) [
     "LIBSRC=icon"
     "ICONC=icont"
   ];
@@ -39,6 +39,8 @@ let noweb = stdenv.mkDerivation rec {
     mkdir -p "$tex/tex/latex/noweb"
   '';
 
+  installTargets = "install-code install-tex install-elisp";
+
   postInstall = ''
     substituteInPlace "$out/bin/cpif" --replace "PATH=/bin:/usr/bin" ""
 
@@ -48,10 +50,14 @@ let noweb = stdenv.mkDerivation rec {
              $out/lib/noweb/{noidx,unmarkup}; do
         # NOTE: substituteInPlace breaks Icon binaries, so make sure the script
         #       uses (n)awk before calling.
-        if [ grep nawk "$f"]; then
+        if grep -q nawk "$f"; then
             substituteInPlace "$f" --replace "nawk" "${gawk}/bin/awk"
         fi
     done
+
+    # HACK: This is ugly, but functional.
+    PATH=$out/bin:$PATH make -BC xdoc
+    make $installFlags install-man
 
     ln -s "$tex" "$out/share/texmf"
   '';
