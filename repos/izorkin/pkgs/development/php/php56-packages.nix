@@ -7,6 +7,12 @@ let
       inherit (pkgs) stdenv autoreconfHook fetchurl;
     };
 
+  # Wrap mkDerivation to prepend pname with "php-" to make names consistent
+  # with how buildPecl does it and make the file easier to overview.
+  mkDerivation = { pname, ... }@args: pkgs.stdenv.mkDerivation (args // {
+    pname = "php-${pname}";
+  });
+
   apcu = buildPecl rec {
     version = "4.0.11";
     pname = "apcu";
@@ -16,9 +22,9 @@ let
     buildInputs = [ pkgs.pcre ];
   };
 
-  box = pkgs.stdenv.mkDerivation rec {
+  box = mkDerivation rec {
     version = "2.7.5";
-    pname = "php-box";
+    pname = "box";
 
     src = pkgs.fetchurl {
       url = "https://github.com/box-project/box2/releases/download/${version}/box-${version}.phar";
@@ -43,9 +49,9 @@ let
     };
   };
 
-  composer = pkgs.stdenv.mkDerivation rec {
+  composer = mkDerivation rec {
     version = "1.8.5";
-    pname = "php-composer";
+    pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
@@ -178,7 +184,7 @@ let
     sha256 = "0d4p1gpl8gkzdiv860qzxfz250ryf0wmjgyc8qcaaqgkdyh5jy5p";
   };
 
-  php-cs-fixer = pkgs.stdenv.mkDerivation rec {
+  php-cs-fixer = mkDerivation rec {
     version = "2.14.2";
     pname = "php-cs-fixer";
 
@@ -205,7 +211,7 @@ let
     };
   };
 
-  php-parallel-lint = pkgs.stdenv.mkDerivation rec {
+  php-parallel-lint = mkDerivation rec {
     version = "1.0.0";
     pname = "php-parallel-lint";
 
@@ -238,9 +244,9 @@ let
     };
   };
 
-  phpcbf = pkgs.stdenv.mkDerivation rec {
+  phpcbf = mkDerivation rec {
     version = "3.4.2";
-    pname = "php-phpcbf";
+    pname = "phpcbf";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcbf.phar";
@@ -265,9 +271,9 @@ let
     };
   };
 
-  phpcs = pkgs.stdenv.mkDerivation rec {
+  phpcs = mkDerivation rec {
     version = "3.4.2";
-    pname = "php-phpcs";
+    pname = "phpcs";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
@@ -292,9 +298,9 @@ let
     };
   };
 
-  phpstan = pkgs.stdenv.mkDerivation rec {
+  phpstan = mkDerivation rec {
     version = "0.11.5";
-    pname = "php-phpstan";
+    pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
@@ -326,9 +332,9 @@ let
     };
   };
 
-  psysh = pkgs.stdenv.mkDerivation rec {
+  psysh = mkDerivation rec {
     version = "0.9.9";
-    pname = "php-psysh";
+    pname = "psysh";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
