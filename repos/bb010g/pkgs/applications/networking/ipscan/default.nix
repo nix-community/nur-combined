@@ -154,7 +154,6 @@ in stdenv.mkDerivation {
   '';
 
   buildPhase = ''
-    export LC_ALL=C.utf-8
     export GRADLE_USER_HOME=$(mktemp -d)
     gradle --offline --no-daemon --info --init-script ${gradleInit} nix
   '';
