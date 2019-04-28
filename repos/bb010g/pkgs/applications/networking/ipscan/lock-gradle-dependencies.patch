@@ -1,0 +1,11 @@
+--- a/build.gradle
++++ b/build.gradle
+@@ -0,0 +0,8 @@
++dependencyLocking {
++  lockAllConfigurations()
++}
++buildscript {
++  configurations.classpath {
++    resolutionStrategy.activateDependencyLocking()
++  }
++}

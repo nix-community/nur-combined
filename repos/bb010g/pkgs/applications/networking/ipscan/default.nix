@@ -1,5 +1,5 @@
 { stdenv, buildPackages, fetchFromGitHub, makeDesktopItem, makeWrapper
-, writeText
+, substituteAll, writeText
 , jdk, jre, swt
 }:
 
@@ -31,24 +31,34 @@ let
 
   # Only cache the deps; don't build (from
   # https://stackoverflow.com/questions/21814652/how-to-download-dependencies-in-gradle/38528497 )
-  gradleDepsInit = writeText "init.gradle" ''
+  gradleDepsInit = builtins.toFile "init.gradle" ''
     gradle.projectsEvaluated {
       rootProject {
         task fetchDeps {
-          configurations.compileClasspath.files
-          configurations.annotationProcessor.files
-          configurations.runtimeClasspath.files
-          configurations.testCompileClasspath.files
-          configurations.testRuntimeClasspath.files
+          configurations.findAll {
+            it.canBeResolved
+          }.each { it.resolve() }
           logger.lifecycle 'Fetched all dependencies.'
         }
       }
     }
   '';
 
+  patches = [
+    ./rt-jar-detection.patch
+    ./gradle-dependency-locks.patch
+    ./lock-gradle-dependencies.patch
+  ];
+
+  # TODO package Java Native Access (JNA) in Nixpkgs & ln -sf in here
+  postPatch = { swt }: ''
+    echo "rootProject.name = 'ipscan'" > settings.gradle
+    ln -s ${swt}/jars/swt.jar lib/swt-nix.jar
+  '';
+
   # fake build to pre-download deps into fixed-output derivation
-  deps = stdenv.mkDerivation {
-    pname = "${pname}-deps";
+  gradleVendor = stdenv.mkDerivation {
+    pname = "${pname}-gradle-vendor";
     inherit version;
 
     inherit src;
@@ -58,9 +68,16 @@ let
       buildPackages.perl
     ];
 
+    inherit patches;
+    postPatch = postPatch { inherit swt; };
+
+    # to generate lock state files:
+    # gradle --no-daemon --init-script ${gradleDepsInit} \
+    #   fetchDeps --write-locks && false
     buildPhase = ''
       export GRADLE_USER_HOME=$TMPDIR/gradle-user-home;
-      gradle --no-daemon --init-script ${gradleDepsInit} fetchDeps
+      gradle --no-daemon --init-script ${gradleDepsInit} \
+        fetchDeps --refresh-dependencies
     '';
 
     # Mavenize dependency paths
@@ -77,7 +94,7 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "05v5xjz2h7n1sk0996q7xp0y7q4h6q0afj1m7ifkds4jlpz0zll5";
+    outputHash = "0zlgz6z7iw0p6jikcl0149pf11s1qa6xcw2q4jfcaklskpw84149";
   };
 
   hostPkgDeps = {
@@ -92,19 +109,19 @@ let
 
   # Point to our local deps repo and make a Nix-ish JAR build work
   gradleInit = writeText "init.gradle" ''
-    logger.lifecycle 'Replacing Maven repositories with ${deps}...'
+    logger.lifecycle 'Replacing Maven repositories with @gradleVendor@...'
 
     gradle.projectsLoaded {
       rootProject.allprojects {
         buildscript {
           repositories {
             clear()
-            maven { url '${deps}' }
+            maven { url '@gradleVendor@' }
           }
         }
         repositories {
           clear()
-          maven { url '${deps}' }
+          maven { url '@gradleVendor@' }
         }
       }
     }
@@ -141,21 +158,23 @@ in stdenv.mkDerivation {
   ];
   buildInputs = [ jdk ];
 
-  patches = [
-    ./rt-jar-detection.patch
-  ];
+  inherit gradleVendor;
+
+  inherit patches;
+  postPatch = postPatch { inherit swt; } + ''
+    substituteInPlace build.gradle \
+      --subst-var gradleVendor
+  '';
 
   LANG = "${if stdenv.isDarwin then "en_US" else "C"}.UTF-8";
 
-  # TODO package Java Native Access (JNA) in Nixpkgs & ln -sf in here
-  postPatch = ''
-    echo "rootProject.name = 'ipscan'" > settings.gradle
-    ln -s ${swt}/jars/swt.jar lib/swt-nix.jar
-  '';
-
-  buildPhase = ''
+  buildPhase = let initScript = substituteAll {
+    name = "${pname}-gradle-init-${version}";
+    src = gradleInit;
+    inherit gradleVendor;
+  }; in ''
     export GRADLE_USER_HOME=$(mktemp -d)
-    gradle --offline --no-daemon --info --init-script ${gradleInit} nix
+    gradle --offline --no-daemon --info --init-script ${initScript} nix
   '';
 
   installPhase = ''

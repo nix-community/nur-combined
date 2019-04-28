@@ -1,6 +1,18 @@
 { pkgs ? import <nixpkgs> { } }:
 
-rec {
+let
+  inherit (pkgs.lib) versionOlder;
+  applyIf = f: p: x: if p x then f x else x;
+  applyIf' = f: p: x: if p then f x else x;
+
+  break = p: p.overrideAttrs (o: { meta = o.meta // { broken = true; }; });
+  breakIf = applyIf break;
+  breakIf' = applyIf' break;
+
+  min-cargo-vendor = "0.1.23";
+  packageOlder = p: v: versionOlder (pkgs.lib.getVersion p) v;
+  cargoVendorTooOld = cargo-vendor: packageOlder cargo-vendor min-cargo-vendor;
+in rec {
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
@@ -9,7 +21,8 @@ rec {
 
   # ## applications.graphics
 
-  xcolor = pkgs.callPackage ./pkgs/applications/graphics/xcolor { };
+  xcolor = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
+    (pkgs.callPackage ./pkgs/applications/graphics/xcolor { });
 
   # ### applications.networking
 
@@ -24,7 +37,8 @@ rec {
 
   # ## development.build-managers
 
-  just = pkgs.callPackage ./pkgs/development/tools/build-managers/just { };
+  just = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
+    (pkgs.callPackage ./pkgs/development/tools/build-managers/just { });
 
   # ## development.libraries
 
@@ -95,11 +109,13 @@ rec {
 
   lz4json = pkgs.callPackage ./pkgs/tools/compression/lz4json { };
 
-  mozlz4-tool = pkgs.callPackage ./pkgs/tools/compression/mozlz4-tool { };
+  mozlz4-tool = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
+    (pkgs.callPackage ./pkgs/tools/compression/mozlz4-tool { });
 
   # ## tools.misc
 
-  lorri = pkgs.callPackage ./pkgs/tools/misc/lorri { };
+  lorri = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
+    (pkgs.callPackage ./pkgs/tools/misc/lorri { });
 
   # ## tools.security
 

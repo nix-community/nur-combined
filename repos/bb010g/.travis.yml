@@ -41,6 +41,7 @@ jobs:
   - stage: deploy
     name: "Notify NUR"
     if: 'type NOT IN (pull_request, cron) AND branch IN (master)'
+    install:
     script:
     - curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"
 
