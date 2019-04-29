@@ -10,7 +10,8 @@ rec {
   libssh2             = pkgs.callPackage  ./pkgs/development/libssh2 { openssl = pkgs.libressl; };
   mariadb             = pkgs.callPackage  ./pkgs/servers/mariadb { openssl = pkgs.libressl; asio = pkgs.asio_1_10; jemalloc = pkgs.jemalloc450.override ({ disableInitExecTls = true; }); inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
   unit                = pkgs.callPackage  ./pkgs/servers/unit { openssl = pkgs.libressl; php56 = php56-unit; php71 = php71-unit; php72 = php72-unit; php73 = php73-unit; withPython = false; withPHP56 = true; withPHP71 = true; withPHP72 = true; withPHP73 = true; withPerl = false; withPerldevel = false; withRuby_2_3 = false; withRuby_2_4 = false; withRuby = false; withSSL = true; withIPv6 = false; withDebug = false; };
-  oh-my-zsh-custom    = pkgs.callPackage  ./pkgs/shells/oh-my-zsh-custom { inherit zsh-theme-rkj-mod; };
+  oh-my-zsh-custom    = pkgs.callPackage  ./pkgs/shells/oh-my-zsh-custom { inherit zsh-history-sync; inherit zsh-theme-rkj-mod; };
+  zsh-history-sync    = pkgs.callPackage  ./pkgs/shells/zsh-history-sync { };
   zsh-theme-rkj-mod   = pkgs.callPackage  ./pkgs/shells/zsh-theme-rkj-mod { };
   curl                = pkgs.callPackage  ./pkgs/tools/curl { openssl = pkgs.libressl; inherit libssh2; brotliSupport = true; scpSupport = true; sslSupport = true; zlibSupport = true; };
   fail2ban            = pkgs.callPackage  ./pkgs/tools/fail2ban { };
