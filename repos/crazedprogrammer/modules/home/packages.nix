@@ -20,7 +20,7 @@
     qemu pandoc graphviz flameGraph texlive.combined.scheme-medium clang-tools stress #kristvanity
 
     # X utilities
-    xsel xclip maim slop grim slurp pkgsUnstable.wf-recorder xdotool hhpc xorg.xhost
+    xclip maim slop grim slurp pkgsUnstable.wf-recorder pkgsUnstable.wl-clipboard xdotool hhpc xorg.xhost
 
     # Nix utilities
     nix-du
