@@ -51,8 +51,8 @@
     # Web chat
     teamspeak_client #mumble
 
-    # GTK+ and icon theme
-    arc-theme paper-icon-theme
+    # GTK+ and icon theme (settings)
+    arc-theme paper-icon-theme glib gsettings-desktop-schemas
 
     # Office suite
     gnome3.gnome-calculator libreoffice-fresh
@@ -61,10 +61,11 @@
     gimp #tiled
 
     # Multimedia
+    (xfce.thunar.override { thunarPlugins = [ xfce.thunar-archive-plugin ]; }) xfce.mousepad
     audacity mpv gnome3.file-roller cli-visualizer-wrapped ffmpeg cava-wrapped glava zathura #projectm glava
 
     # Networking
-    openssh #openvpn update-resolv-conf sshfs
+    openssh networkmanagerapplet #openvpn update-resolv-conf sshfs
 
     # WM utilities
     polybar rofi-wrapped feh dunst-wrapped libnotify xtrlock-pam compton-latest i3lock i3blocks-wrapped

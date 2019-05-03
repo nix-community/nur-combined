@@ -29,17 +29,6 @@
         sxhkd.configFile = ../../dotfiles/sxhkdrc;
       };
     };
-
-    # Xfce utils
-    desktopManager = {
-      default = "none";
-      xfce = {
-        enable = true;
-        noDesktop = true;
-        enableXfwm = false;
-      };
-      xterm.enable = false;
-    };
   };
 
   environment.etc = {
@@ -67,6 +56,7 @@
   environment.extraInit = ''
     export XDG_CONFIG_DIRS="/etc/xdg:$XDG_CONFIG_DIRS"
     export RUST_BACKTRACE=1
+    export XDG_DATA_DIRS=$XDG_DATA_DIRS:${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-${pkgs.gsettings-desktop-schemas.version}
   '';
 
   fonts = {
