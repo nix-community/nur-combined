@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Never use nano.
+  # Use vim for all the things.
   environment.variables = {
     EDITOR = lib.mkOverride 900 "vim";
     TERMINAL = "kitty";

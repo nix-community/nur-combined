@@ -21,7 +21,7 @@ client.unfocused	#444444 #333333 #dddddd #333333 #555555
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec "kitty"
+bindsym $mod+Return exec "rofi-sensible-terminal"
 
 # start the application launcher
 bindsym $mod+p exec "rofi -show combi"
@@ -162,6 +162,9 @@ bindsym XF86AudioMute exec "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 # brightness keys
 bindsym XF86MonBrightnessUp exec "system brightness-inc"
 bindsym XF86MonBrightnessDown exec "system brightness-dec"
+
+# fix intrusive wl-paste window
+for_window [title="wl-clipboard"] floating enable
 
 # startup file
 exec --no-startup-id "system launch"

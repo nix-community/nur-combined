@@ -26,6 +26,23 @@ let g:deoplete#on_insert_enter = 0
 let g:deoplete#max_list = 7
 
 
+" Disable clipboard support until wl-clipboard doesn't create new
+" windows with wlroots compositors.
+
+let g:clipboard = {
+          \   'name': 'myClipboard',
+          \   'copy': {
+          \      '+': ':',
+          \      '*': ':',
+          \    },
+          \   'paste': {
+          \      '+': ':',
+          \      '*': ':',
+          \   },
+          \   'cache_enabled': 1,
+          \ }
+
+
 " GUI and colors
 
 set mouse=a guicursor= nu rnu noshowmode background=dark

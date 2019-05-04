@@ -1,0 +1,30 @@
+font:
+  normal:
+    family: "Fira Code"
+  bold:
+    family: "Fira Code"
+    style: "Bold"
+  italic:
+    family: "Fira Code"
+    style: "Oblique"
+  size: 9.0
+  offset:
+    y: 1
+
+colors:
+  primary:
+    foreground: "0xABB2BF"
+    background: "0x101010"
+  cursor:
+    cursor: "0x93A1A1"
+  selection:
+    text: "0x161616"
+    background: "0x91A1A1"
+
+
+background_opacity: 0.85
+
+live_config_reload: false
+
+draw_bold_text_with_bright_colors: false
+

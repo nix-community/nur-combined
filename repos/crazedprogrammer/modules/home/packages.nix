@@ -43,7 +43,7 @@
     #dosbox stella snes9x-gtk vice dolphinEmuMaster
 
     # Terminal and editor
-    kitty-wrapped neovim
+    kitty-wrapped neovim alacritty-wrapped
 
     # Browsers
     firefox w3m #luakit

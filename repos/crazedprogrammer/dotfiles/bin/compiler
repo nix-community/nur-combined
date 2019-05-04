@@ -17,6 +17,6 @@ esac
 if [ "$2" ]; then
 	case "$file" in
 		*\.md) xdg-open "$base".pdf ;;
-		*\.plantuml) firefox "$base".png ;;
+		*\.plantuml) xdg-open "$base".png ;;
 	esac
 fi

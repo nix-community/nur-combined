@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	kitty
+	rofi-sensible-terminal
 
 # program launcher
 super + p

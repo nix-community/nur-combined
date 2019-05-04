@@ -36,6 +36,11 @@ in
     name = "dunst";
     arg = "-config \\$(dotfiles)/dunst-config";
   };
+  alacritty-wrapped = makeWrapped {
+    pkg = super.pkgsUnstable.alacritty;
+    name = "alacritty";
+    arg = "--config-file=\\$(dotfiles)/alacritty-config.yml";
+  };
   kitty-wrapped = makeWrapped {
     name = "kitty";
     arg = "--config=\\$(dotfiles)/kitty-config";
