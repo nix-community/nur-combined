@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "wl-clipboard-x11";
-  version = "2";
+  version = "3";
 
   src = fetchFromGitHub {
     owner = "brunelli";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0k48via6qpnf1w0c887qljqdwky3hnzrhbwh8sc1r72qy2b1i3rz";
+    sha256 = "0map1kqygjdavcbvsgjlnhqy7rmly7cfn6i9cf881h59rp846453";
   };
 
   pathAdd = stdenv.lib.makeSearchPath "bin" [ wl-clipboard ];
