@@ -8,6 +8,28 @@ if $NEOVIM == 'true'
 endif
 let $NEOVIM = 'true'
 
+" Plugin polyglot (nix-plugin-manager and vim-plug)
+
+if !empty(glob('~/.vim/autoload/plug.vim')) || !empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+	call plug#begin('~/.vim-plug')
+	" Deoplete doesn't work in other installations I've tested,
+	" unfortunately.
+	" Plug 'Shougo/deoplete.nvim'
+	Plug 'tpope/vim-vinegar'
+	Plug 'tpope/vim-surround'
+	Plug 'ctrlpvim/ctrlp.vim'
+	Plug 'sheerun/vim-polyglot'
+	Plug 'itchyny/lightline.vim'
+	Plug 'easymotion/vim-easymotion'
+	Plug 'ntpeters/vim-better-whitespace'
+	Plug 'tpope/vim-commentary'
+	Plug 'luochen1990/rainbow'
+	Plug 'vim-pandoc/vim-pandoc-syntax'
+	Plug 'rhysd/vim-clang-format'
+	Plug 'drmikehenry/vim-headerguard'
+	call plug#end()
+endif
+
 " Filetype extension registery
 
 au BufNewFile,BufRead *.inc setlocal ft=cpp

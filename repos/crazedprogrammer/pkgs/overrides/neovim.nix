@@ -33,31 +33,25 @@ let
     }) plugins);
 
   customPlugins = buildCustomPlugins customPluginData;
+  customRC = builtins.readFile ../../dotfiles/init.vim;
+
+  retrievePluginName = line:
+    let fullName = lib.elemAt (lib.strings.splitString "'" line) 1;
+        rawName = lib.elemAt (lib.strings.splitString "/" fullName) 1;
+        name = builtins.replaceStrings ["."] ["-"] rawName; in
+      name;
+  isPluginLine = line:
+    lib.strings.hasPrefix "\tPlug '" line;
+
+  pluginNameList = (builtins.map retrievePluginName (builtins.filter isPluginLine (lib.strings.splitString "\n" customRC)))
+    ++ [ "deoplete-nvim" ]; # Deoplete doesn't work with other neovim installations for some reason.
 in
 
 neovim.override {
   vimAlias = true;
   configure = {
-    customRC = builtins.readFile ../../dotfiles/init.vim;
+    customRC = customRC;
 
-    packages.plugins = with vimPlugins; with customPlugins; {
-      start = [
-        deoplete-nvim
-        vinegar
-        surround
-        ctrlp
-        polyglot
-        lightline-vim
-        easymotion
-        vim-better-whitespace
-        commentary
-      ];
-      opt = [
-        rainbow
-        vim-pandoc-syntax
-        vim-clang-format
-        vim-headerguard
-      ];
-    };
+    packages.plugins.start = builtins.map (name: lib.getAttr name (vimPlugins // customPlugins)) pluginNameList;
   };
 }
