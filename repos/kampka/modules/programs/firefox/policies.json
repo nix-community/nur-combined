@@ -1,0 +1,15 @@
+{
+  "policies": {
+    "AppUpdateURL": "",
+    "DisableAppUpdate": true,
+    "DisableMasterPasswordCreation": true,
+    "DisableFeedbackCommands": true,
+    "DisableFirefoxAccounts": true,
+    "DisableFirefoxStudies": true,
+    "DisablePocket": true,
+    "DisableProfileImport": true,
+    "DisableSetDesktopBackground": true,
+    "DisableSystemAddonUpdate": true,
+    "DisableTelemetry": true
+  }
+}
