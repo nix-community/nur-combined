@@ -1,4 +1,4 @@
-{ stdenv, buildPythonApplication, fetchgit
+{ stdenv, buildPythonApplication, fetchFromGitHub
 , aiohttp, iso8601, websockets
 }:
 
@@ -6,8 +6,9 @@ buildPythonApplication rec {
   pname = "broca-unstable";
   version = "2018-02-07";
 
-  src = fetchgit {
-    url = "https://git.sr.ht/~sircmpwn/broca";
+  src = fetchFromGitHub {
+    owner = "ddevault";
+    repo = "broca";
     rev = "0ed8797949d2f99bf8a259021daedc42243c2e44";
     sha256 = "1kxia3gd7fzqqalc2z5sp9d2vsqhcgmzzi43dp7x7mwwp1xq203d";
   };
