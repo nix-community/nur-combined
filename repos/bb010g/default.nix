@@ -163,13 +163,9 @@ in rec {
     src = pkgs.fetchFromGitHub {
       owner = "mobile-shell";
       repo = "mosh";
-      rev = "a2b928a8d38317582bcde6cc48b128717493f9c5";
-      sha256 = "04v74gvgxqz2m5ihxyj7wwlci30xqqdpqxr7rn8v42caijfizsrs";
+      rev = "c3a2756065a0fb04cfd2681280123b362d862a5e";
+      sha256 = "1g4ncphw0hkvswy4jw546prqg3kifc600zjzdlpxdbafa2yyq34v";
     };
-    patches = [
-      ./pkgs/tools/networking/mosh/ssh_path.patch
-      ./pkgs/tools/networking/mosh/utempter_path.patch
-    ];
   });
 
   # ## tools.security
