@@ -44,5 +44,6 @@ jobs:
     install:
     script:
     - curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"
+    after_success:
 
 # vim:et:sw=2
