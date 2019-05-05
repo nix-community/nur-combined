@@ -1,0 +1,17 @@
+--- a/broca-daemon
++++ b/broca-daemon
+@@ -4,12 +4,13 @@
+ from broca.reaper import reaper
+ from broca.rpc import app
+ from configparser import ConfigParser
++from os import path
+
+ host = "127.0.0.1"
+ port = 9091
+
+ config = ConfigParser()
+-paths = [ "broca.ini", "/etc/broca.ini" ]
++paths = [ path.join(path.expanduser("~"), ".config", "broca.ini"), "/etc/broca.ini" ]
+ for path in paths:
+     try:
+         with open(path) as f:

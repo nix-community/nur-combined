@@ -21,11 +21,13 @@ buildPythonApplication rec {
 
   PKGVER = "0.1.0+${version}";
 
+  patches = [
+    ./xdg-config.patch
+  ];
+
   postPatch = ''
     sed -i setup.py \
       -e $'/install_requires = \\[\'srht\', \'flask-login\'\\]/d'
-    substituteInPlace broca-daemon \
-      --replace '[ "broca.ini"' '[ "~/.config/broca.ini", "broca.ini"'
   '';
 
   meta = with stdenv.lib; {
