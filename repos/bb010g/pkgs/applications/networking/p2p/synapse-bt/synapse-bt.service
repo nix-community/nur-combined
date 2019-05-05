@@ -1,0 +1,13 @@
+[Unit]
+Description=Flexible and fast BitTorrent daemon
+After=network.target
+
+[Service]
+Type=simple
+Environment="RUST_BACKTRACE=1"
+ExecStart=@synapse@/bin/synapse
+WorkingDirectory=%h
+Restart=always
+
+[Install]
+WantedBy=default.target

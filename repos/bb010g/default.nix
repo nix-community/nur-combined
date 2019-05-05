@@ -12,6 +12,9 @@ let
   min-cargo-vendor = "0.1.23";
   packageOlder = p: v: versionOlder (pkgs.lib.getVersion p) v;
   cargoVendorTooOld = cargo-vendor: packageOlder cargo-vendor min-cargo-vendor;
+
+  baseNameOf' = p: let p' = builtins.baseNameOf p; in
+    if pkgs.lib.isStorePath p then (builtins.substring 32 (-1) p') else p';
 in rec {
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -24,7 +27,33 @@ in rec {
   xcolor = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
     (pkgs.callPackage ./pkgs/applications/graphics/xcolor { });
 
-  # ### applications.networking
+  # ## applications.misc
+
+  st-bb010g-unstable = ((st-unstable.overrideAttrs (o: rec {
+    name = "${pname}-${version}";
+    pname = "st-bb010g-unstable";
+    version = "2019-05-04";
+  })).override {
+    conf = pkgs.lib.readFile ./pkgs/applications/misc/st/config.h;
+    patches = [
+      ./pkgs/applications/misc/st/bold-is-not-bright.diff
+      ./pkgs/applications/misc/st/scrollback.diff
+      ./pkgs/applications/misc/st/vertcenter.diff
+    ];
+  });
+
+  st-unstable = pkgs.st.overrideAttrs (o: rec {
+    name = "${pname}-${version}";
+    pname = "st-unstable";
+    version = "2019-04-04";
+    src = pkgs.fetchgit {
+      url = "https://git.suckless.org/st";
+      rev = "f1546cf9c1f9fc52d26dbbcf73210901e83c7ecf";
+      sha256 = "1hgs7q894bzh7gg6mx41dwf3csq9kznc8wp1g9r60v9r37hgbzn7";
+    };
+  });
+
+  # ## applications.networking
 
   ipscan = (pkgs.callPackage ./pkgs/applications/networking/ipscan {
     swt = swt_4_6;
@@ -33,12 +62,20 @@ in rec {
       o.meta // { broken = true; };
   });
 
+  # ### applications.networking.p2p
+
+  broca-unstable = pkgs.python3Packages.callPackage
+    ./pkgs/applications/networking/p2p/broca { };
+
+  receptor-unstable = pkgs.callPackage
+    ./pkgs/applications/networking/p2p/receptor { };
+
+  synapse-bt = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
+    (pkgs.callPackage ./pkgs/applications/networking/p2p/synapse-bt {
+      inherit (pkgs.darwin.apple_sdk.frameworks) Security;
+    });
+
   # # development
-
-  # ## development.build-managers
-
-  just = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
-    (pkgs.callPackage ./pkgs/development/tools/build-managers/just { });
 
   # ## development.libraries
 
@@ -116,6 +153,24 @@ in rec {
 
   lorri = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
     (pkgs.callPackage ./pkgs/tools/misc/lorri { });
+
+  # ## tools.networking
+
+  mosh-unstable = pkgs.mosh.overrideAttrs (o: rec {
+    name = "${pname}-${version}";
+    pname = "mosh-unstable";
+    version = "2019-01-04";
+    src = pkgs.fetchFromGitHub {
+      owner = "mobile-shell";
+      repo = "mosh";
+      rev = "a2b928a8d38317582bcde6cc48b128717493f9c5";
+      sha256 = "04v74gvgxqz2m5ihxyj7wwlci30xqqdpqxr7rn8v42caijfizsrs";
+    };
+    patches = [
+      ./pkgs/tools/networking/mosh/ssh_path.patch
+      ./pkgs/tools/networking/mosh/utempter_path.patch
+    ];
+  });
 
   # ## tools.security
 

@@ -1,0 +1,13 @@
+--- a/src/frontend/mosh-server.cc
++++ b/src/frontend/mosh-server.cc
+@@ -318,6 +318,10 @@
+     }
+   }
+
++#ifdef HAVE_UTEMPTER
++    utempter_set_helper( "utempter" );
++#endif
++
+   try {
+     return run_server( desired_ip, desired_port, command_path, command_argv, colors, verbose, with_motd );
+   } catch ( const Network::NetworkException &e ) {
