@@ -47,4 +47,11 @@ in stdenv.mkDerivation rec {
     mkdir -p "$out/webapps/receptor/"
     cp -t "$out/webapps/receptor/" -Rv dist index.html
   '';
+
+  meta = with stdenv.lib; {
+    description = "Web frontend for the synapse bittorrent client";
+    downloadPage = https://github.com/ddevault/receptor;
+    license = with licenses; bsd3;
+    maintainers = with maintainers; [ bb010g ];
+  };
 }

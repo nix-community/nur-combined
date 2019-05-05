@@ -25,14 +25,22 @@ buildPythonApplication rec {
     sed -i setup.py \
       -e $'/install_requires = \\[\'srht\', \'flask-login\'\\]/d'
     substituteInPlace broca-daemon \
-      --replace '[ "broca.ini"' '[ "~/.config/broca/broca.ini", "broca.ini"'
+      --replace '[ "broca.ini"' '[ "~/.config/broca.ini", "broca.ini"'
   '';
 
   meta = with stdenv.lib; {
     description =
       "Bittorrent RPC proxy between Transmission clients and Synapse servers";
+    longDescription = ''
+      This is a proxy server that translates Synapse RPC into Transmission RPC.
+
+      To use it, run the daemon and point your Transmission client at it. Set
+      the username to your desired Synapse RPC URI (e.g. ws://localhost:8412)
+      and the password to your Synapse RPC password, and the host to
+      http://localhost:9091.
+    '';
     homepage = https://broca.synapse-bt.org/;
-    downloadPage = https://git.sr.ht/~sircmpwn/broca;
+    downloadPage = https://github.com/ddevault/broca;
     license = with licenses; bsd3;
     maintainers = with maintainers; [ bb010g ];
   };
