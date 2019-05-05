@@ -25,7 +25,7 @@
       ovpn = "sudo openvpn --config ~/.ovpn-client";
       argonsshr = "mosh --ssh=\"ssh -p 18903\" casper@argon";
       argonssh = "argonsshr tmux";
-      qemu = "qemu-system-x86_64 -m 4096 --enable-kvm -smp (nproc --all)";
+      qemu = "qemu-system-x86_64 -m 8192 --enable-kvm -smp (nproc --all) -vga virtio";
       cargo = "env LIBRARY_PATH=/run/current-system/sw/lib cargo";
       iotop = "sudo iotop";
       bmon = "sudo bmon";
