@@ -5,5 +5,6 @@
 
   dns-cache = ./services/dns-cache;
   msmtp-relay = ./services/msmtp-relay;
+  nginx = ./services/nginx;
   tmux = ./services/tmux ;
 }
