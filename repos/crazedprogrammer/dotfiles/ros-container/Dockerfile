@@ -4,6 +4,7 @@ RUN [ "$(getent group users | cut -d: -f3)" = "100" ] \
     && apt-get update && apt-get -y install vim tmux htop mpv cppcheck valgrind doxygen \
          ros-melodic-ros-tutorials ros-melodic-rqt ros-melodic-rqt-common-plugins \
          ros-melodic-rviz ros-melodic-tf ros-melodic-tf2-tools ros-melodic-turtle-tf2
+RUN apt-get update && apt-get -y install libzbar-dev
 RUN useradd -m -u 1000 -g users -G dialout,sudo,tape -s /bin/bash casper
 RUN echo "source /opt/bashrc.sh" >> /etc/bash.bashrc
 
