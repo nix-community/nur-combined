@@ -1,4 +1,6 @@
-{ pname ? "lorri", version, src, cargoSha256 } @ versionArgs:
+{ pname ? "lorri", version, src, cargoSha256
+, postPreCheck ? ""
+} @ versionArgs:
 { stdenv, rustPlatform, fetchFromGitHub
 , darwin ? null, nix
 }:
@@ -26,7 +28,9 @@ in rustPlatform.buildRustPackage rec {
   BUILD_REV_COUNT = src.revCount or 1;
   NIX_PATH = "nixpkgs=${src + "/nix/bogus-nixpkgs"}";
 
-  preCheck = ''source ${src + "/nix/pre-check.sh"}'';
+  preCheck = ''
+    source ${src + "/nix/pre-check.sh"}
+  '' + postPreCheck;
 
   meta = with stdenv.lib; {
     description = "Your project's nix-env";
