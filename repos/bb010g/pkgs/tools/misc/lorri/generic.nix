@@ -1,23 +1,18 @@
-{ pname ? "lorri", version, src, cargoSha256
-, postPreCheck ? ""
-} @ versionArgs:
-{ stdenv, rustPlatform, fetchFromGitHub
+{ stdenv, rustPlatform
 , darwin ? null, nix
+, pname ? "lorri", version, src, cargoSha256
 }:
 
 let
-  inherit (stdenv.lib) optionals substring;
+  inherit (stdenv.lib) optionals;
 in rustPlatform.buildRustPackage rec {
   inherit pname version;
 
-  src = fetchFromGitHub ({
-    owner = "target";
-    repo = "lorri";
-  } // versionArgs.src);
+  inherit src;
 
   inherit cargoSha256;
 
-  buildInputs = [ nix ] ++ optionals stdenv.isDarwin [
+  buildInputs = [ nix ] ++ optionals stdenv.hostPlatform.isDarwin [
     darwin.cf-private
     darwin.security
     darwin.apple_sdk.frameworks.CoreServices
@@ -27,10 +22,6 @@ in rustPlatform.buildRustPackage rec {
 
   BUILD_REV_COUNT = src.revCount or 1;
   NIX_PATH = "nixpkgs=${src + "/nix/bogus-nixpkgs"}";
-
-  preCheck = ''
-    source ${src + "/nix/pre-check.sh"}
-  '' + postPreCheck;
 
   meta = with stdenv.lib; {
     description = "Your project's nix-env";
