@@ -29,6 +29,13 @@ in rec {
 
   # ## applications.misc
 
+  qcma = pkgs.libsForQt5.callPackage ./pkgs/applications/misc/qcma {
+    inherit libvitamtp;
+    buildPackages = pkgs.buildPackages.libsForQt5.callPackage ({
+      pkgconfig, qmake, qttools
+    } @ args: args) { };
+  };
+
   st-bb010g-unstable = ((st-unstable.overrideAttrs (o: rec {
     name = "${pname}-${version}";
     pname = "st-bb010g-unstable";
@@ -122,6 +129,23 @@ in rec {
     meta = if o ? pname then o.meta else (o.meta // { broken = true; });
   });
 
+  libvitamtp = libvitamtp-codestation;
+
+  # ### development.libraries.libvitamtp
+
+  libvitamtp-codestation = pkgs.callPackage
+    ./pkgs/development/libraries/libvitamtp/codestation.nix { };
+
+  # ### development.libraries.libvitamtp.yifanlu
+
+  libvitamtp-yifanlu = libvitamtp-yifanlu-stable;
+
+  libvitamtp-yifanlu-stable = pkgs.callPackage
+    ./pkgs/development/libraries/libvitamtp/yifanlu/stable.nix { };
+
+  libvitamtp-yifanlu-unstable = pkgs.callPackage
+    ./pkgs/development/libraries/libvitamtp/yifanlu/unstable.nix { };
+
   # ## development.python-modules
 
   pythonPackageOverrides = self: super: {
@@ -151,8 +175,19 @@ in rec {
 
   # ## tools.misc
 
-  lorri = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
-    (pkgs.callPackage ./pkgs/tools/misc/lorri { });
+  lorri = lorri-rolling;
+
+  psvimgtools = pkgs.callPackage ./pkgs/tools/misc/psvimgtools { };
+  # TODO: needs arm-vita-eabi host
+  # psvimgtools-dump_partials = pkgs.callPackage
+  #   ./pkgs/tools/misc/psvimgtools/dump_partials.nix { };
+
+  # ### tools.misc.lorri
+
+  lorri-rolling = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
+    (pkgs.callPackage ./pkgs/tools/misc/lorri/rolling.nix { });
+  lorri-unstable = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
+    (pkgs.callPackage ./pkgs/tools/misc/lorri/unstable.nix { });
 
   # ## tools.networking
 
@@ -170,8 +205,8 @@ in rec {
 
   # ## tools.security
 
-  # bitwarden-desktop =
-  #   pkgs.callPackage ./pkgs/tools/security/bitwarden/desktop { };
+  # bitwarden-desktop = pkgs.callPackage
+  #   ./pkgs/tools/security/bitwarden/desktop { };
 
   # ## tools.text
 

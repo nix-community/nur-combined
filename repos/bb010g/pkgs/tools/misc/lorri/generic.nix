@@ -1,3 +1,4 @@
+{ pname ? "lorri", version, src, cargoSha256 } @ versionArgs:
 { stdenv, rustPlatform, fetchFromGitHub
 , darwin ? null, nix
 }:
@@ -5,17 +6,14 @@
 let
   inherit (stdenv.lib) optionals substring;
 in rustPlatform.buildRustPackage rec {
-  pname = "lorri";
-  version = "0.1.0-2019-03-31+${substring 0 7 src.rev}";
+  inherit pname version;
 
-  src = fetchFromGitHub {
+  src = fetchFromGitHub ({
     owner = "target";
     repo = "lorri";
-    rev = "a1818308db1ed0d2de7d3cf95db3a669c40612b6";
-    sha256 = "0kh3hz0c38d5zhkp41b87q5sngsbkdpk9awx8lihgmas95n07rwm";
-  };
+  } // versionArgs.src);
 
-  cargoSha256 = "0lx4r05hf3snby5mky7drbnp006dzsg9ypsi4ni5wfl0hffx3a8g";
+  inherit cargoSha256;
 
   buildInputs = [ nix ] ++ optionals stdenv.isDarwin [
     darwin.cf-private
