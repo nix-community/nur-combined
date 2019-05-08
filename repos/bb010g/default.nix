@@ -29,6 +29,12 @@ in rec {
 
   # ## applications.misc
 
+  finalhe = pkgs.libsForQt5.callPackage ./pkgs/applications/misc/finalhe {
+    buildPackages = pkgs.buildPackages.libsForQt5.callPackage ({
+      pkgconfig, qmake, qttools
+    } @ args: args) { };
+  };
+
   qcma = pkgs.libsForQt5.callPackage ./pkgs/applications/misc/qcma {
     inherit libvitamtp;
     buildPackages = pkgs.buildPackages.libsForQt5.callPackage ({
