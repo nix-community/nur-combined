@@ -173,6 +173,15 @@ in rec {
   mozlz4-tool = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
     (pkgs.callPackage ./pkgs/tools/compression/mozlz4-tool { });
 
+  vita-pkg2zip = vita-pkg2zip-unstable;
+
+  # ### tools.compression.vita-pkg2zip
+
+  vita-pkg2zip-stable = pkgs.callPackage
+    ./pkgs/tools/compression/vita-pkg2zip/stable.nix { };
+  vita-pkg2zip-unstable = pkgs.callPackage
+    ./pkgs/tools/compression/vita-pkg2zip/unstable.nix { };
+
   # ## tools.misc
 
   lorri = lorri-rolling;
