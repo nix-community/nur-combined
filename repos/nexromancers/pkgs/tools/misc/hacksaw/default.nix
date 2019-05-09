@@ -1,22 +1,24 @@
-{ stdenv, rustPlatform, fetchFromGitHub
+{ stdenv, rustPlatform, buildPackages, fetchFromGitHub
 , libX11, libXrandr
-, pkgconfig, python3
 }:
 
 rustPlatform.buildRustPackage rec {
-  name = "hacksaw-${version}";
-  version = "0.0.1+${builtins.substring 0 7 src.rev}";
+  pname = "hacksaw-unstable";
+  version = "2019-02-20";
 
   src = fetchFromGitHub {
     owner = "neXromancers";
     repo = "hacksaw";
-    rev = "742de431caa5c0500fb064578a68900176783be6";
-    sha256 = "1gf7p11df3xz33z31xjpshv3qn5smw7n8qk8d6ha594cqz68cxvi";
+    rev = "0bee951e22240dc87b27dacc944653c9a741a1d0";
+    sha256 = "0z4pw8l895sc2cg688l9nwnl0mpabjc7fc5y3mfa0xjg4wyh5dd3";
   };
 
-  cargoSha256 = "0f8nklg5yjcs04kn95ccyl9gy5figzv0lpix2zzk3q0d9imzzcdg";
+  cargoSha256 = "09cc9mvf99p8nr6wh3g9a6xxb8q1z51284knlvamxk18sdc7s0h0";
 
-  nativeBuildInputs = [ pkgconfig python3 ];
+  nativeBuildInputs = [
+    buildPackages.pkgconfig
+    buildPackages.python3
+  ];
   buildInputs = [ libX11 libXrandr ];
 
   meta = with stdenv.lib; {

@@ -4,31 +4,48 @@ sudo: false
 
 env:
   global:
-    - CACHIX_CACHE=nexromancers
-    - NUR_REPO=nexromancers
-
-matrix:
-  include:
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.09
+  - CACHIX_CACHE=nexromancers
+  - NUR_REPO=nexromancers
+  - BUILD_UNFREE=false
 
 install:
- - nix --version
- - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
- - if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix; fi
- - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
- - nix-channel --add "${NIX_CHANNEL}" nixpkgs
- - travis_retry nix-channel --update
+- >
+  mkdir -p "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs" &&
+  echo "{ allowUnfree = ${BUILD_UNFREE}; }" > "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs/config.nix"
+- nix --version
+- if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
+- if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
+- if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
+- nix-channel --add "${NIX_CHANNEL}" nixpkgs
+- travis_retry nix-channel --update
 
 script:
- - outs=$(nix-build non-broken.nix) && echo Produced $outs
- - nix eval -f default.nix 'lib'
- - nix eval -f default.nix 'modules'
- - nix eval -f default.nix 'overlays'
+- nix-build ci.nix --arg buildUnfree "${BUILD_UNFREE}" -A buildOutputs
+- nix eval -f default.nix 'lib'
+- nix eval -f default.nix 'modules'
+- nix eval -f default.nix 'overlays'
 
 after_success:
-  - if [ -n "${CACHIX_CACHE}" ]; then cachix push "${CACHIX_CACHE}" $outs; fi
-  - if [ "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
-      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
+- if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
 
+jobs:
+  include:
+  - name: 'nixpkgs-unstable'
+    env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+  - name: 'nixos-unstable'
+    env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
+  - name: 'nixos-unstable (pinned)'
+    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/7defc47944fe6d1da4c3a08c60c8332ca660a680.tar.gz
+  - name: 'nixos-19.03'
+    env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.03
+  - name: 'nixos-19.03 (pinned)'
+    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/aade6ded7969ff2173a9eda4cd2f11ef83ca2768.tar.gz
+  - stage: deploy
+    name: "Notify NUR"
+    if: 'type NOT IN (pull_request, cron) AND branch IN (master)'
+    install:
+    script:
+    - curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"
+    after_success:
+
+# vim:et:sw=2

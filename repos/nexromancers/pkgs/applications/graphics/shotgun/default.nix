@@ -1,10 +1,9 @@
-{ stdenv, rustPlatform, fetchFromGitHub
+{ stdenv, rustPlatform, buildPackages, fetchFromGitHub
 , libX11, libXrandr
-, pkgconfig
 }:
 
 rustPlatform.buildRustPackage rec {
-  name = "shotgun-${version}";
+  pname = "shotgun";
   version = "2.1.0";
 
   src = fetchFromGitHub {
@@ -14,9 +13,9 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1jljwcpzsqixhacv8zhflmf67a6z6sffbwcf0px3gpcvpkvfvw19";
   };
 
-  cargoSha256 = "19l4v530s6v8qk1h83k6gs70gi0rzls1ahj2z87bl780m329q0bz";
+  cargoSha256 = "1zvmzmdwq9ddngfdk6psng1z1mvsdn3vqkzaavs0d90fj7lxlnvx";
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ buildPackages.pkgconfig ];
   buildInputs = [ libX11 libXrandr ];
 
   meta = with stdenv.lib; {
