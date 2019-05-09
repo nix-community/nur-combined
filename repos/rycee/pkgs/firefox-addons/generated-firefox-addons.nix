@@ -32,10 +32,10 @@
     };
     "greasemonkey" = buildFirefoxXpiAddon {
       pname = "greasemonkey";
-      version = "4.7";
+      version = "4.8";
       addonId = "{e4a8a97b-f2ed-450b-b12d-ee082ba24781}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1058458/greasemonkey-4.7-an+fx.xpi?src=";
-      sha256 = "537f187043e362a223155e670b3944d950938f0a7c7f43fd9da9f57fe41f0d6e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/2334146/greasemonkey-4.8-an+fx.xpi?src=";
+      sha256 = "243dd35537975ae4566710f3bac165dcf413642dbc735e9f92501fca30ff824e";
       meta = with stdenv.lib;
       {
         homepage = "http://www.greasespot.net/";
