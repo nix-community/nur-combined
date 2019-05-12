@@ -1,6 +1,8 @@
 { stdenv, fetchurl
 , pkgconfig, desktop-file-utils
 , SDL, gtk3
+, gsettings-desktop-schemas
+, wrapGAppsHook
 }:
 
 # Builds but can't find files at runtime because of hardcoded paths
@@ -25,7 +27,7 @@ stdenv.mkDerivation rec {
       "$out/share/sfxr/ld48.tga"
   '';
   nativeBuildInputs = [ pkgconfig desktop-file-utils ];
-  buildInputs = [ SDL gtk3 ];
+  buildInputs = [ SDL gtk3 gsettings-desktop-schemas wrapGAppsHook ];
   makeFlags = [ "DESTDIR=$(out)" ];
 }
 
