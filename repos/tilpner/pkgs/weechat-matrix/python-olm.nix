@@ -3,13 +3,13 @@
 
 buildPythonPackage {
   pname = "python-olm";
-  version = "git";
+  version = "dev";
 
   src = fetchFromGitHub {
     owner = "poljar";
     repo = "python-olm";
-    rev = "2594bbc87ec37cf743d427777748bb333be3e89d";
-    sha256 = "0s728ydbhwjrhz03b3iwqbmi31fs1rri86vphv64pkysigydidh2";
+    rev = "6ce1ffe6a7b3473959040405ae076dab21c8acc4";
+    sha256 = "1d64asb2h909wskwclmalbswwij6qbhr966lxa2ihx4ccd1z0x9m";
   };
 
   buildInputs = [ olm ];

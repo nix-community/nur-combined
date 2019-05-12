@@ -1,22 +1,23 @@
 { buildPythonPackage, fetchFromGitHub, git,
-  attrs, future, peewee, h11, h2, atomicwrites, pycrypto, sphinx, Logbook, jsonschema,
+  attrs, future, peewee, h11, h2, atomicwrites, pycryptodome, sphinx, Logbook, jsonschema,
   python-olm, unpaddedbase64 }:
 
 buildPythonPackage {
   pname = "nio";
-  version = "0.1";
+  version = "0.2";
 
   src = fetchFromGitHub {
     owner = "poljar";
     repo = "matrix-nio";
-    rev = "53df97444b148ee9f52741c56bfc5c49f98e6397";
-    sha256 = "040wfnl138q5jl1pc3szliany6fvr19whni8nb0yz8dwrgdyq4b8";
+    rev = "c574fb247566f6a33e05c090e7e8444f7dc6d336";
+    sha256 = "13mrw9lvhzf4ykdagvw38k1p682b244ap9vvrcmjxrylz6d686li";
   };
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace '@ git+https://github.com/poljar/python-olm.git@master#egg=python-olm-0' ""
+      --replace 'python-olm>=3.1.0' ""
   '';
+
 
   nativeBuildInputs = [
     git
@@ -29,7 +30,7 @@ buildPythonPackage {
     h11
     h2
     atomicwrites
-    pycrypto
+    pycryptodome
     sphinx
     Logbook
     jsonschema
