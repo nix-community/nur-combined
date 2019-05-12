@@ -19,6 +19,7 @@
     initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
     kernelModules = [ "kvm-intel" ];
     kernelParams = [ "i915.enable_psr=1" "i915.enable_fbc=1" "i915.fastboot=1" ];
+    extraModulePackages = [ config.boot.kernelPackages.acpi_call ];
     kernelPackages = import ../home/kernel (pkgs // {
       linuxPackages = pkgs.linuxPackages_latest;
       structuredExtraConfig = values: with values; {
@@ -54,7 +55,7 @@
   services.logind.lidSwitch = "ignore";
 
   environment.systemPackages = with pkgs; [
-    light
+    light tpacpi-bat
   ];
 
   # Using TLP because Powertop doesn't work. The cause of this is that the
@@ -64,6 +65,8 @@
     extraConfig = ''
       CPU_SCALING_GOVERNOR_ON_AC=performance
       CPU_SCALING_GOVERNOR_ON_BAT=powersave
+      START_CHARGE_THRESH_BAT0=70
+      STOP_CHARGE_THRESH_BAT0=78
     '';
   };
   systemd.services = {
