@@ -40,6 +40,7 @@ in {
     qcma = super.pkgs.libsForQt5.callPackage ./custom/qcma { };
     inherit (callPackage ./devpi {}) devpi-web ;
     nodemcu-uploader = super.pkgs.callPackage ./nodemcu-uploader {};
+    prison-break = abort "`prison-break` moved from this namespace to `nur.repos.krebs.prison-break`";
 }
 
 // (mapAttrs (_: flip callPackage {})
