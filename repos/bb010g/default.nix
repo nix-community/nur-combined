@@ -12,6 +12,8 @@ let
   min-cargo-vendor = "0.1.23";
   packageOlder = p: v: versionOlder (pkgs.lib.getVersion p) v;
   cargoVendorTooOld = cargo-vendor: packageOlder cargo-vendor min-cargo-vendor;
+  needsNewCargoVendor = p: breakIf' (cargoVendorTooOld p);
+  needsNewCargoVendor' = needsNewCargoVendor pkgs.cargo-vendor;
 
   baseNameOf' = p: let p' = builtins.baseNameOf p; in
     if pkgs.lib.isStorePath p then (builtins.substring 32 (-1) p') else p';
@@ -24,7 +26,7 @@ in rec {
 
   # ## applications.graphics
 
-  xcolor = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
+  xcolor = needsNewCargoVendor'
     (pkgs.callPackage ./pkgs/applications/graphics/xcolor { });
 
   # ## applications.misc
@@ -83,7 +85,7 @@ in rec {
   receptor-unstable = pkgs.callPackage
     ./pkgs/applications/networking/p2p/receptor { };
 
-  synapse-bt = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
+  synapse-bt = needsNewCargoVendor'
     (pkgs.callPackage ./pkgs/applications/networking/p2p/synapse-bt {
       inherit (pkgs.darwin.apple_sdk.frameworks) Security;
     });
@@ -176,7 +178,7 @@ in rec {
 
   lz4json = pkgs.callPackage ./pkgs/tools/compression/lz4json { };
 
-  mozlz4-tool = breakIf' (cargoVendorTooOld pkgs.cargo-vendor)
+  mozlz4-tool = needsNewCargoVendor'
     (pkgs.callPackage ./pkgs/tools/compression/mozlz4-tool { });
 
   vita-pkg2zip = vita-pkg2zip-unstable;
@@ -191,6 +193,22 @@ in rec {
   # ## tools.misc
 
   lorri = lorri-rolling;
+
+  nur-ci-helper = (pkgs.haskellPackages.override {
+    overrides = self: super: {
+      pangraph = pkgs.haskell.lib.overrideCabal super.pangraph (drv: {
+        version = "0.3.0";
+        # https://github.com/tuura/pangraph/pull/40
+        src = pkgs.fetchFromGitHub {
+          owner = "tuura";
+          repo = "pangraph";
+          rev = "e9cb33d9c50ec5980a7cc13d2fb8a67eca127274";
+          sha256 = "16qdclvdqmlycjrpm8hvp1142vz0m8v2f39ynhrppcabyz855bpr";
+        };
+        broken = false;
+      });
+    };
+  }).callPackage ./pkgs/tools/misc/nur-ci-helper { };
 
   psvimgtools = pkgs.callPackage ./pkgs/tools/misc/psvimgtools { };
   # TODO: needs arm-vita-eabi host
@@ -228,3 +246,5 @@ in rec {
   dwdiff = pkgs.callPackage ./pkgs/tools/text/dwdiff { };
   ydiff = pkgs.pythonPackages.callPackage ./pkgs/tools/text/ydiff { };
 }
+
+# vim:et:sw=2
