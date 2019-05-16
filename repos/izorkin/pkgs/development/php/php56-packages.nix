@@ -1,4 +1,4 @@
-{ pkgs, fetchgit, php }:
+{ pkgs, fetchgit, php, openssl, libevent }:
 
 let
   self = with self; {
@@ -127,6 +127,17 @@ let
 
     configureFlags = [ "--with-geoip=${pkgs.geoip}" ];
     buildInputs = [ pkgs.geoip ];
+  };
+
+  event = buildPecl rec {
+    version = "2.5.0";
+    pname = "event";
+
+    sha256 = "1igbxla4s784z7lw1jar6pjyfn596040a52kfmawwclqf9qcvx0v";
+
+    configureFlags = [ "--with-event-libevent-dir=${libevent.dev}" ];
+    nativeBuildInputs = [ pkgs.pkgconfig ];
+    buildInputs = [ openssl libevent ];
   };
 
   igbinary = buildPecl rec {
@@ -330,6 +341,36 @@ let
       homepage = https://github.com/phpstan/phpstan;
       maintainers = with maintainers; [ etu ];
     };
+  };
+
+  pinba = rec {
+    version = "1.1.1";
+    pname = "pinba";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "tony2001";
+      repo = "pinba_extension";
+      rev = "225262582ed3fb6e8de6eb5ec5a8c666716385dc";
+      sha256 = "1kdp7vav0y315695vhm3xifgsh6h6y6pny70xw3iai461n58khj5";
+    };
+
+    meta = with pkgs.lib; {
+      description = "PHP extension for Pinba";
+      longDescription = ''
+        Pinba is a MySQL storage engine that acts as a realtime monitoring and
+        statistics server for PHP using MySQL as a read-only interface.
+      '';
+      homepage = https://github.com/tony2001/pinba_extension;
+    };
+  };
+
+  protobuf = buildPecl rec {
+    version = "3.7.1";
+    pname = "protobuf";
+
+    sha256 = "0fbf29851dpgjfdgi6i1dgy047dfiazm6qh943w22zbj35l7g2yc";
+
+    buildInputs = [ pkgs.pcre ];
   };
 
   psysh = mkDerivation rec {
