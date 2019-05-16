@@ -46,10 +46,10 @@
     };
     "https-everywhere" = buildFirefoxXpiAddon {
       pname = "https-everywhere";
-      version = "2019.5.6.1";
+      version = "2019.5.13";
       addonId = "https-everywhere@eff.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/2227783/https_everywhere-2019.5.6.1-an+fx.xpi?src=";
-      sha256 = "0a1ff1dd23376511a30ed404cd5a836d57e3f072094ce19edfa689ea81b3ca00";
+      url = "https://addons.mozilla.org/firefox/downloads/file/2846214/https_everywhere-2019.5.13-an+fx.xpi?src=";
+      sha256 = "3bfcea3ff1a62ce12c58cc66e8cb1decc99a0428d0c88d9c1531fe4b1dbce25a";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/https-everywhere";
@@ -101,10 +101,10 @@
     };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.14.5";
+      version = "5.16.4";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1676938/reddit_enhancement_suite-5.14.5-an+fx.xpi?src=";
-      sha256 = "239c1954af303cc7b0f0cf2f9ccaa68ccc42cf6d17cf4e3598b4bc75ac59dc85";
+      url = "https://addons.mozilla.org/firefox/downloads/file/2933039/reddit_enhancement_suite-5.16.4-an+fx.xpi?src=";
+      sha256 = "a87073d2e994872acd33c39c0b1f706ade1d26528aa0ec705e43535ba2a401cc";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
