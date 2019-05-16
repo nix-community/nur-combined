@@ -1,0 +1,1 @@
+curl -XPOST https://nur-update.herokuapp.com/update?repo=mpickering

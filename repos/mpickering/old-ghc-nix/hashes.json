@@ -1,4 +1,10 @@
 {
+  "ghc865": {
+    "version": "8.6.5",
+    "nixversion": "ghc865",
+    "url": "http://haskell.org/ghc/dist/8.6.5/ghc-8.6.5-x86_64-deb8-linux.tar.xz",
+    "hash": "01wiwjp3hjd8jv54k5w5ygfrdik070r8w94sxg9f8pq6m45gs6f4"
+  },
   "ghc864": {
     "version": "8.6.4",
     "nixversion": "ghc864",
