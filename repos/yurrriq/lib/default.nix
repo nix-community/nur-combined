@@ -93,7 +93,7 @@ rec {
         (pkgs.kubectx.override { inherit kubectl; })
         pkgs.kubetail
       ];
-      passthru = { inherit config; };
+      passthru = { inherit config pkgs; };
     };
 
 }
