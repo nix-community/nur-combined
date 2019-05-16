@@ -8,7 +8,9 @@ rec {
   multichain          = pkgs.callPackage  ./pkgs/apps/altcoins/multichain.nix { };
   omnicore            = pkgs.callPackage  ./pkgs/apps/altcoins/omnicore.nix { };
   libssh2             = pkgs.callPackage  ./pkgs/development/libssh2 { openssl = pkgs.libressl; };
-  mariadb             = pkgs.callPackage  ./pkgs/servers/mariadb { openssl = pkgs.libressl; asio = pkgs.asio_1_10; jemalloc = pkgs.jemalloc450.override ({ disableInitExecTls = true; }); inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
+  mariadb_10_3        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_3.nix { openssl = pkgs.libressl; jemalloc = pkgs.jemalloc450.override ({ disableInitExecTls = true; }); inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
+  mariadb_10_4        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_4.nix { openssl = pkgs.libressl; jemalloc = pkgs.jemalloc450.override ({ disableInitExecTls = true; }); inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
+  mariadb-galera      = pkgs.callPackage  ./pkgs/servers/mariadb/galera.nix { openssl = pkgs.libressl; asio = pkgs.asio_1_10; };
   unit                = pkgs.callPackage  ./pkgs/servers/unit { openssl = pkgs.libressl; php56 = php56-unit; php71 = php71-unit; php72 = php72-unit; php73 = php73-unit; withPython = false; withPHP56 = true; withPHP71 = true; withPHP72 = true; withPHP73 = true; withPerl = false; withPerldevel = false; withRuby_2_3 = false; withRuby_2_4 = false; withRuby = false; withSSL = true; withIPv6 = false; withDebug = false; };
   oh-my-zsh-custom    = pkgs.callPackage  ./pkgs/shells/oh-my-zsh-custom { inherit zsh-history-sync; inherit zsh-theme-rkj-mod; };
   zsh-history-sync    = pkgs.callPackage  ./pkgs/shells/zsh-history-sync { };
@@ -23,8 +25,11 @@ rec {
   php72-unit          = php72.override { config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
   php73-unit          = php73.override { config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
 
-  php56Packages       = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php56-packages.nix { php = php56; openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); });
-  php56Packages-unit  = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php56-packages.nix { php = php56-unit; openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); });
+  php56Packages       = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php56-packages.nix { php = php56;      openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); libcouchbase = pkgs.libcouchbase.override ({ openssl = pkgs.libressl; }); });
+  php56Packages-unit  = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php56-packages.nix { php = php56-unit; openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); libcouchbase = pkgs.libcouchbase.override ({ openssl = pkgs.libressl; }); });
+  php71Packages       = pkgs.php71Packages.override { php = php71; };
+  php72Packages       = pkgs.php72Packages.override { php = php72; };
+  php73Packages       = pkgs.php73Packages.override { php = php73; };
   php71Packages-unit  = pkgs.php71Packages.override { php = php71-unit; };
   php72Packages-unit  = pkgs.php72Packages.override { php = php72-unit; };
   php73Packages-unit  = pkgs.php73Packages.override { php = php73-unit; };

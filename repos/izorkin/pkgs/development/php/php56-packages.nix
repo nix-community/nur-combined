@@ -1,4 +1,4 @@
-{ pkgs, fetchgit, php, openssl, libevent }:
+{ pkgs, fetchgit, php, openssl, libevent, libcouchbase }:
 
 let
   self = with self; {
@@ -82,7 +82,7 @@ let
     version = "2.6.0";
     pname = "couchbase";
 
-    buildInputs = [ pkgs.libcouchbase pkgs.zlib igbinary pcs ];
+    buildInputs = [ libcouchbase pkgs.zlib igbinary pcs ];
 
     src = pkgs.fetchFromGitHub {
       owner = "couchbase";
@@ -102,7 +102,7 @@ let
            else
              AC_MSG_CHECKING(for libcouchbase in default path)
         -    for i in /usr/local /usr; do
-        +    for i in ${pkgs.libcouchbase}; do
+        +    for i in ${libcouchbase}; do
                if test -r $i/include/libcouchbase/couchbase.h; then
                  LIBCOUCHBASE_DIR=$i
                  AC_MSG_RESULT(found in $i)
@@ -350,7 +350,7 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "tony2001";
       repo = "pinba_extension";
-      rev = "225262582ed3fb6e8de6eb5ec5a8c666716385dc";
+      rev = "RELEASE_1_1_1";
       sha256 = "1kdp7vav0y315695vhm3xifgsh6h6y6pny70xw3iai461n58khj5";
     };
 
@@ -360,7 +360,7 @@ let
         Pinba is a MySQL storage engine that acts as a realtime monitoring and
         statistics server for PHP using MySQL as a read-only interface.
       '';
-      homepage = https://github.com/tony2001/pinba_extension;
+      homepage = "http://pinba.org/";
     };
   };
 
@@ -370,7 +370,7 @@ let
 
     sha256 = "0fbf29851dpgjfdgi6i1dgy047dfiazm6qh943w22zbj35l7g2yc";
 
-    buildInputs = [ pkgs.pcre ];
+    buildInputs = with pkgs; [ pcre ];
   };
 
   psysh = mkDerivation rec {
