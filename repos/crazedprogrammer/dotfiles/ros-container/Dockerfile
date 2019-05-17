@@ -28,6 +28,11 @@ RUN cd /root \
     && cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF .. \
     && cmake --build .
 
+RUN cd /root \
+    && git clone https://github.com/linux-test-project/lcov.git \
+    && cd lcov \
+    && make install
+
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN chmod 777 /root
 
