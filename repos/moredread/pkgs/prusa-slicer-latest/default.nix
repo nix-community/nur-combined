@@ -1,6 +1,7 @@
 { stdenv, lib, fetchFromGitHub, makeWrapper, cmake, pkgconfig
 , boost, curl, expat, glew, libpng, tbb, wxGTK31
 , gtest, nlopt, xorg, makeDesktopItem
+, enableASan ? false
 }:
 let
   nloptVersion = if lib.hasAttr "version" nlopt
@@ -8,8 +9,8 @@ let
                  else "2.4";
 in
 stdenv.mkDerivation rec {
-  name = "slic3r-prusa-edition-${version}";
-  version = "1.42.0-beta2";
+  name = "prusa-slicer-${version}";
+  version = "2.0.0-rc";
 
   enableParallelBuilding = true;
 
@@ -53,33 +54,34 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "prusa3d";
-    repo = "Slic3r";
-    sha256 = "1098kvx6825c4b4klnx67smy4ib5k71absqkji3nr6dxsdjdkkr8";
+    repo = "PrusaSlicer";
+    sha256 = "0q0hvjl0g8hvgxdcmj8v7nllls90d2wih529z3nv9bj7nm3v7cix";
     rev = "version_${version}";
   };
 
-  cmakeFlags = [ "-DSLIC3R_FHS=1" ];
+  cmakeFlags = [ "-DSLIC3R_FHS=1" ]
+    ++ lib.optional enableASan "-DSLIC3R_ASAN=1";
 
   postInstall = ''
     mkdir -p "$out/share/pixmaps/"
-    ln -s "$out/share/slic3r-prusa3d/icons/Slic3r.png" "$out/share/pixmaps/slic3r-prusa.png"
+    ln -s "$out/share/PrusaSlicer/icons/PrusaSlicer.png" "$out/share/pixmaps/PrusaSlicer.png"
     mkdir -p "$out/share/applications"
     cp "$desktopItem"/share/applications/* "$out/share/applications/"
   '';
 
   desktopItem = makeDesktopItem {
-    name = "slic3r-Prusa-Edition";
-    exec = "slic3r-prusa3d";
-    icon = "slic3r-prusa";
+    name = "PrusaSlicer";
+    exec = "prusa-slicer";
+    icon = "PrusaSlicer";
     comment = "G-code generator for 3D printers";
-    desktopName = "Slic3r Prusa Edition";
+    desktopName = "PrusaSlicer";
     genericName = "3D printer tool";
     categories = "Application;Development;";
   };
 
   meta = with stdenv.lib; {
     description = "G-code generator for 3D printer";
-    homepage = https://github.com/prusa3d/Slic3r;
+    homepage = https://github.com/prusa3d/PrusaSlicer;
     license = licenses.agpl3;
     maintainers = with maintainers; [ moredread ];
   };
