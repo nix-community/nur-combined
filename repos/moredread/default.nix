@@ -20,7 +20,7 @@ rec {
   throttled = pkgs.callPackage ./pkgs/throttled { };
   lenovo-throttling-fix = throttled;
   prusa-slicer-latest = pkgs.callPackage ./pkgs/prusa-slicer-latest { };
-  prusa-slicer-with-asan = pkgs.callPackage ./pkgs/prusa-slicer-latest { enableASan = true; };
+  #prusa-slicer-with-asan = pkgs.callPackage ./pkgs/prusa-slicer-latest { enableASan = true; };
   slic3r-prusa3d-latest = prusa-slicer-latest;
 }
 
