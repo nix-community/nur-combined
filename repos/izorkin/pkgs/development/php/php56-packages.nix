@@ -138,6 +138,15 @@ let
     configureFlags = [ "--with-event-libevent-dir=${libevent.dev}" ];
     nativeBuildInputs = [ pkgs.pkgconfig ];
     buildInputs = [ openssl libevent ];
+
+    meta = with pkgs.lib; {
+      description = ''
+        This is an extension to efficiently schedule I/O, time and signal based
+        events using the best I/O notification mechanism available for specific platform.
+      '';
+      license = licenses.php301;
+      homepage = "https://bitbucket.org/osmanov/pecl-event/";
+     };
   };
 
   igbinary = buildPecl rec {
@@ -371,6 +380,14 @@ let
     sha256 = "0fbf29851dpgjfdgi6i1dgy047dfiazm6qh943w22zbj35l7g2yc";
 
     buildInputs = with pkgs; [ pcre ];
+
+    meta = with pkgs.lib; {
+      description = ''
+        Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data.
+      '';
+      license = licenses.bsd3;
+      homepage = "https://developers.google.com/protocol-buffers/";
+     };
   };
 
   psysh = mkDerivation rec {
