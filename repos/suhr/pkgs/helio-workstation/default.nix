@@ -4,15 +4,15 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "helio-workstation-2.0.78acdb7";
-  version = "78acdb737dd15379dd0b28a59bf3ed18ce551ccc";
+  name = "helio-workstation-2.1";
+  version = "2.1";
 
   src = fetchFromGitHub {
     owner = "helio-fm";
     repo = "helio-workstation";
     rev = "${version}";
     fetchSubmodules = true;
-    sha256 = "029bbz1cdjfqdxja63n4hrrzirvj138xwqm9gqvy3jnkl16dwyc7";
+    sha256 = "0m060znilm1vw8wn0jgs7qnmap13jgzk16qmy0ww92ldf56bkgxk";
   };
 
   buildInputs = [
