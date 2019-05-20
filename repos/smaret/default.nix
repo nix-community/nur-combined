@@ -11,5 +11,6 @@
        sundials = pkgs.callPackage ./pkgs/sundials2 { };
      }
   );
+  casa = pkgs.callPackage ./pkgs/casa { };
   sundials2 = pkgs.callPackage ./pkgs/sundials2 { };
 }
