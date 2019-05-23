@@ -39,6 +39,8 @@ rec {
     pythonPackages = pkgs.python2Packages;
   };
 
+  helmfile = pkgs.callPackage ./applications/networking/cluster/helmfile {};
+
   icon-lang = pkgs.callPackage ./development/interpreters/icon-lang {
     withGraphics = false;
   };
