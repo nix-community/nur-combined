@@ -34,6 +34,8 @@ in stdenv.mkDerivation rec {
 
   sconsFlags = "ssl=1 system_asio=0 strict_build_flags=0";
 
+  enableParallelBuilding = true;
+
   installPhase = ''
     # copied with modifications from scripts/packages/freebsd.sh
     GALERA_LICENSE_DIR="$share/licenses/${name}"
