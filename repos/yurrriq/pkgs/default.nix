@@ -4,6 +4,11 @@ let
 
   _nixpkgs = lib.pinnedNixpkgs (lib.fromJSONFile ../nixpkgs.json);
 
+  inherit (lib.pinnedNixpkgs {
+    rev = "348a2bc3a5ca7f17a418ad86779cbdd0a65447d7";
+    sha256 = "0m3cdqp0ql92lr7ghfqp9l9hpk140nixqf9vbl1s3fm8amzksxkj";
+  }) vgo2nix;
+
 in
 
 rec {
@@ -11,6 +16,8 @@ rec {
 
   inherit (_nixpkgs) autojump;
   inherit (_nixpkgs.gitAndTools) git-crypt;
+
+  inherit vgo2nix;
 
   cedille = _nixpkgs.cedille.override {
     inherit (pkgs.haskellPackages) alex happy Agda ghcWithPackages;
