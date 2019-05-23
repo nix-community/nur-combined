@@ -14,7 +14,7 @@ in
 rec {
   inherit (lib) buildK8sEnv;
 
-  inherit (_nixpkgs) autojump;
+  inherit (_nixpkgs) autojump sops;
   inherit (_nixpkgs.gitAndTools) git-crypt;
 
   inherit vgo2nix;
