@@ -11,9 +11,10 @@ rec {
 
   seemsDarwin = null != builtins.match ".*darwin$" builtins.currentSystem;
 
-  pinnedNixpkgs = args@{ rev, sha256, ... }:
-    let args' = args // { owner = "NixOS"; repo = "nixpkgs"; }; in
-    import (fetchTarballFromGitHub args') {};
+  _pinnedNixpkgs = args@{ rev, sha256, ... }:
+    fetchTarballFromGitHub (args // { owner = "NixOS"; repo = "nixpkgs"; });
+
+  pinnedNixpkgs = args: import (_pinnedNixpkgs args) {};
 
   mkHelmBinary = { pkgs, version, flavor, sha256 }: pkgs.stdenv.mkDerivation rec {
     pname = "helm";
