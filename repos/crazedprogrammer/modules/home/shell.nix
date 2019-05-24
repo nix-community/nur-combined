@@ -35,7 +35,7 @@
       vm-build = "sudo nixos-rebuild build-vm -p test -I nixos-config=./modules/hosts/nixos-qemu.nix";
       # TODO: try to find a way to persist the disk image without chown errors during VM boot.
       vm-run = "./result/bin/run-nixos-qemu-vm -m 4096 --enable-kvm --smp (nproc --all); and rm ./nixos-qemu.qcow2";
-      ros = "xhost +; docker run $argv -e DISPLAY=$DISPLAY --device /dev/dri -v /tmp/.X11-unix:/tmp/.X11-unix -v $HOME/.Xauthority:/home/casper/.Xauthority -v $PWD:/pwd --rm -it ros:melodic-custom; echo > /dev/null";
+      ros = "xhost +; docker run $argv --cap-add=SYS_PTRACE -e DISPLAY=$DISPLAY --device /dev/dri -v /tmp/.X11-unix:/tmp/.X11-unix -v $HOME/.Xauthority:/home/casper/.Xauthority -v $PWD:/pwd --rm -it ros:melodic-custom; echo > /dev/null";
       ros-install = "docker build -t ros:melodic-custom (dotfiles)/ros-container";
     };
 
