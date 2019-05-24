@@ -73,10 +73,10 @@
     };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "3.0.7";
+      version = "3.0.8";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1754895/octotree-3.0.7-fx.xpi?src=";
-      sha256 = "23797c29c97e95f2388461811c12772c56e74416479fbdb12068095af7849a34";
+      url = "https://addons.mozilla.org/firefox/downloads/file/2988920/octotree-3.0.8-fx.xpi?src=";
+      sha256 = "1db1fe9336d2e1fc6ac3bd86a73f8500963b1e70e27d855d0c64ab06790f8a8b";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -142,10 +142,10 @@
     };
     "swedish-dictionary" = buildFirefoxXpiAddon {
       pname = "swedish-dictionary";
-      version = "1.19";
+      version = "1.20";
       addonId = "swedish@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1671188/swedish_dictionary-1.19.xpi?src=";
-      sha256 = "649ab8b7c7e98e67ce336db47dd7d28b1b57d1db9d065f34957ab67a07376656";
+      url = "https://addons.mozilla.org/firefox/downloads/file/2987939/swedish_dictionary-1.20.xpi?src=";
+      sha256 = "61dc7f5f79676573c603492ac57699cec81680b259751e3655bf90631c207271";
       meta = with stdenv.lib;
       {
         homepage = "http://www.sfol.se/";
@@ -156,10 +156,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.19.2";
+      version = "1.19.4";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/2403352/ublock_origin-1.19.2-an+fx.xpi?src=";
-      sha256 = "c1a4bdd8fcef7120147425dfb4ec0c5d51ad33b5e55e775acb2736247a861d83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/2987948/ublock_origin-1.19.4-an+fx.xpi?src=";
+      sha256 = "99aee3787d7a15bad3cd9a1a4c00ca670f334fe42cc9acb2cf8290deb3c53a3a";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
