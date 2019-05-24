@@ -1,7 +1,7 @@
 { fetchurl, stdenv, p7zip, libX11, libXext, alsaLib, freetype, lv2, libjack2 }:
 
-let 
-  version = "6.4.1";
+let
+  version = "6.5.1";
   urlVersion = builtins.replaceStrings ["."] [""] version;
   url = "https://www.pianoteq.com/try?file=pianoteq_stage_linux_trial_v${urlVersion}.7z";
   re = ".*([A-Za-z0-9]{128}).*";
@@ -14,23 +14,22 @@ let
     "i386"
   else
     throw "Unsupported architecture";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "pianoteq-stage-${version}";
 
   nativeBuildInputs = [ p7zip ];
 
   buildPhase = ":";
-  
+
   src = fetchurl {
     url = "https://www.pianoteq.com/try?q=${downstr}";
-    sha256 = "0fvipijnp4xmw3k03n03r1rzasl4jhww0bd427qwyhvdxmw34qbx";
+    sha256 = "0pyqlp2nw98d7xg7ykh78hq8irfm3bk0pr2mrafq8995rgq620lz";
     name = "${name}.7z";
   };
-  
-  libPath = stdenv.lib.makeLibraryPath [ 
-    libX11 libXext alsaLib freetype lv2 libjack2 stdenv.cc.cc 
+
+  libPath = stdenv.lib.makeLibraryPath [
+    libX11 libXext alsaLib freetype lv2 libjack2 stdenv.cc.cc
   ];
 
   installPhase = ''
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/lib/lv2/Pianoteq 6.lv2"
     cp -a "${archdir}/Pianoteq 6 STAGE.lv2/"* "$out/lib/lv2/Pianoteq 6.lv2/"
   '';
-  
+
   fixupPhase = ":";
 
   meta = with stdenv.lib; {

@@ -3,6 +3,8 @@
 with { inherit (pkgs) callPackage; };
 
 {
+  aerc = callPackage ./pkgs/aerc { };
+
   dssim = callPackage ./pkgs/dssim { };
 
   elvish = callPackage ./pkgs/elvish { };
