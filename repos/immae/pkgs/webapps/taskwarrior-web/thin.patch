@@ -1,0 +1,23 @@
+diff --git a/Gemfile b/Gemfile
+index 8544e15..9c4279c 100644
+--- a/Gemfile
++++ b/Gemfile
+@@ -3,6 +3,8 @@ source "http://rubygems.org"
+ # Specify your gem's dependencies in taskwarrior-web.gemspec
+ gemspec
+ 
++gem 'thin'
++
+ group :local do
+   gem 'rb-fsevent', :require => false
+   gem 'growl', :require => false
+diff --git a/config.ru b/config.ru
+index c3050c6..52387d8 100644
+--- a/config.ru
++++ b/config.ru
+@@ -1,5 +1,4 @@
+ require File.join(File.dirname(__FILE__), 'lib', 'taskwarrior-web')
+ 
+-disable :run
+ TaskwarriorWeb::App.set({ :environment => :production })
+ run TaskwarriorWeb::App

@@ -1,0 +1,14 @@
+{
+  "tag": "d29a389-master",
+  "meta": {
+    "name": "password-store",
+    "url": "https://git.zx2c4.com/password-store/",
+    "branch": "master"
+  },
+  "git": {
+    "url": "https://git.zx2c4.com/password-store/",
+    "rev": "d29a389a40524c684595f51bb937f66958bc14ea",
+    "sha256": "17g43i0if9nggcq6005iyxxy9my8s15ihc2nzwjgqzhy3svh5xvn",
+    "fetchSubmodules": true
+  }
+}

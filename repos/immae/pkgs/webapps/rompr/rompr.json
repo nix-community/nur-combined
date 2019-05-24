@@ -1,0 +1,15 @@
+{
+  "tag": "1.24",
+  "meta": {
+    "name": "rompr",
+    "url": "https://github.com/fatg3erman/RompR",
+    "branch": "refs/tags/1.24"
+  },
+  "github": {
+    "owner": "fatg3erman",
+    "repo": "RompR",
+    "rev": "0d8f597027ac71b320963fe3f33f461a136312ad",
+    "sha256": "13p3c4whhmvz1vvh9fva5gdx4xji288k108hjdi8b1yn506lzix2",
+    "fetchSubmodules": true
+  }
+}

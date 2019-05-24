@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+tmp=$(mktemp -d)
+git clone . $tmp
+cd $tmp
+
+trap "rm -rf $tmp" EXIT
+
+git remote add NUR gitolite@git.immae.eu:perso/Immae/Config/Nix/NUR
+git fetch --tags NUR
+# tag nur_root on perso/Immae/Config/Nix/NUR
+nur_root="252dd7d899b7a0deea1537cc5d2d48b825afffb0"
+# tag nur_publish on perso/Immae/Config/Nix
+first_commit="5145061e9b679ea1e5d2709d22d0ee53467fed15"
+git rebase --onto=$nur_root $first_commit master
+
+clean_folder='
+  rm -rf modules/private pkgs/private nixops
+  for bad in pkgs/crypto/cardano/default.nix; do
+    if [ -f $bad ]; then
+      rm -f $bad
+      cat > $bad <<-EOF
+        { runCommand, mylibs }:
+        runCommand "empty" { preferLocalBuild = true; } "mkdir -p \$out"
+EOF
+    fi
+  done
+'
+
+git filter-branch --tree-filter "$clean_folder" --prune-empty master
+git push NUR +master

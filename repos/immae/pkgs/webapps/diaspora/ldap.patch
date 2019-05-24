@@ -1,0 +1,256 @@
+commit 936a14e225037aca4cdeac11c843c7985e636c88
+Author: Ismaël Bouya <ismael.bouya@normalesup.org>
+Date:   Mon Jul 24 19:58:24 2017 +0200
+
+    Add LDAP to diaspora
+
+diff --git a/Gemfile b/Gemfile
+index 414b0138d..2a934e9c9 100644
+--- a/Gemfile
++++ b/Gemfile
+@@ -217,6 +217,9 @@ gem "thor", "0.19.1"
+ 
+ # gem "therubyracer", :platform => :ruby
+ 
++# LDAP
++gem 'net-ldap', '~> 0.16'
++
+ group :production do # we don"t install these on travis to speed up test runs
+   # Analytics
+ 
+diff --git a/Gemfile.lock b/Gemfile.lock
+index 84f8172e4..cdbf19fcd 100644
+--- a/Gemfile.lock	2019-01-13 19:55:52.538561762 +0100
++++ b/Gemfile.lock	2019-01-13 19:58:11.087099067 +0100
+@@ -398,6 +398,7 @@
+     mysql2 (0.5.2)
+     naught (1.1.0)
+     nenv (0.3.0)
++    net-ldap (0.16.1)
+     nio4r (2.3.1)
+     nokogiri (1.8.5)
+       mini_portile2 (~> 2.3.0)
+@@ -820,6 +821,7 @@
+   minitest
+   mobile-fu (= 1.4.0)
+   mysql2 (= 0.5.2)
++  net-ldap (~> 0.16)
+   nokogiri (= 1.8.5)
+   omniauth (= 1.8.1)
+   omniauth-tumblr (= 1.2)
+diff --git a/app/models/user.rb b/app/models/user.rb
+index 940a48f25..d1e2beeee 100644
+--- a/app/models/user.rb
++++ b/app/models/user.rb
+@@ -337,6 +337,12 @@ class User < ActiveRecord::Base
+   end
+ 
+   def send_confirm_email
++    if skip_email_confirmation?
++      self.email = unconfirmed_email
++      self.unconfirmed_email = nil
++      save
++    end
++
+     return if unconfirmed_email.blank?
+     Workers::Mail::ConfirmEmail.perform_async(id)
+   end
+@@ -554,6 +560,14 @@ class User < ActiveRecord::Base
+     end
+   end
+ 
++  def ldap_user?
++    AppConfig.ldap.enable? && ldap_dn.present?
++  end
++
++  def skip_email_confirmation?
++    ldap_user? && AppConfig.ldap.skip_email_confirmation?
++  end
++
+   private
+ 
+   def clearable_fields
+diff --git a/config/defaults.yml b/config/defaults.yml
+index c046aff07..66e9afa13 100644
+--- a/config/defaults.yml
++++ b/config/defaults.yml
+@@ -202,6 +202,20 @@ defaults:
+       scope: tags
+       include_user_tags: false
+       pod_tags:
++  ldap:
++    enable: false
++    host: localhost
++    port: 389
++    only_ldap: true
++    mail_attribute: mail
++    skip_email_confirmation: true
++    use_bind_dn: true
++    bind_dn: "cn=diaspora,dc=example,dc=com"
++    bind_pw: "password"
++    search_base: "dc=example,dc=com"
++    search_filter: "uid=%{username}"
++    bind_template: "uid=%{username},dc=example,dc=com"
++
+ 
+ development:
+   environment:
+diff --git a/config/diaspora.yml.example b/config/diaspora.yml.example
+index b2573625d..c357c8651 100644
+--- a/config/diaspora.yml.example
++++ b/config/diaspora.yml.example
+@@ -710,6 +710,36 @@ configuration: ## Section
+       ## If scope is 'tags', a comma separated list of tags here can be set.
+       ## For example "linux,diaspora", to receive posts related to these tags
+       #pod_tags:
++  ldap:
++      # Uncomment next line if you want to use LDAP on your instance
++      enable: true
++      host: localhost
++      port: 389
++      # Use only LDAP authentication (don't try other means)
++      only_ldap: true
++      # LDAP attribute to find the user's e-mail. Necessary to create accounts
++      # for not existing users
++      mail_attribute: mail
++      # Skip e-mail confirmation when creating an account via LDAP.
++      skip_email_confirmation: true
++      # ----- Using bind_dn and bind_pw
++      # bind_dn and bind_pw may be used if the diaspora instance
++      # should be able to connect to LDAP to find and search for users.
++
++      use_bind_dn: true
++      bind_dn: "cn=diaspora,dc=example,dc=com"
++      bind_pw: "password"
++      search_base: "dc=example,dc=com"
++      # This is the filter with which to search for the user. %{username} will
++      # be replaced by the given login.
++      search_filter: "uid=%{username}"
++      #
++      # ----- Using template
++      # This setting doesn't require a diaspora LDAP user. Use a template, and
++      # diaspora will try to login with the templated dn and password
++      #
++      # bind_template: "uid=%{username},dc=example,dc=com"
++
+ 
+ ## Here you can override settings defined above if you need
+ ## to have them different in different environments.
+diff --git a/config/initializers/0_ldap_authenticatable.rb b/config/initializers/0_ldap_authenticatable.rb
+new file mode 100644
+index 000000000..49846502f
+--- /dev/null
++++ b/config/initializers/0_ldap_authenticatable.rb
+@@ -0,0 +1,82 @@
++require 'net/ldap'
++require 'devise/strategies/authenticatable'
++
++module Devise
++  module Strategies
++    class LdapAuthenticatable < Authenticatable
++      def valid?
++        AppConfig.ldap.enable? && params[:user].present?
++      end
++
++      def authenticate!
++        ldap = Net::LDAP.new(
++          host: AppConfig.ldap.host,
++          port: AppConfig.ldap.port,
++          encryption: :simple_tls,
++        )
++
++        if AppConfig.ldap.use_bind_dn?
++          ldap.auth AppConfig.ldap.bind_dn, AppConfig.ldap.bind_pw
++
++          if !ldap.bind
++            return fail(:ldap_configuration_error)
++          end
++
++          search_filter = AppConfig.ldap.search_filter % { username: params[:user][:username] }
++
++          result = ldap.search(base: AppConfig.ldap.search_base, filter: search_filter, result_set: true)
++
++          if result.count != 1
++            return login_fail
++          end
++
++          user_dn    = result.first.dn
++          user_email = result.first[AppConfig.ldap.mail_attribute].first
++        else
++          user_dn = AppConfig.ldap.bind_template % { username: params[:user][:username] }
++        end
++
++        ldap.auth user_dn, params[:user][:password]
++
++        if ldap.bind
++          user = User.find_by(ldap_dn: user_dn)
++
++          # We don't want to trust too much the email attribute from
++          # LDAP: if the user can edit it himself, he may login as
++          # anyone
++          if user.nil?
++            if !AppConfig.ldap.use_bind_dn?
++              result = ldap.search(base: user_dn, scope: Net::LDAP::SearchScope_BaseObject, filter: "(objectClass=*)", result_set: true)
++              user_email = result.first[AppConfig.ldap.mail_attribute].first
++            end
++
++            if user_email.present? && User.find_by(email: user_email).nil?
++              # Password is used for remember_me token
++              user = User.build(email: user_email, ldap_dn: user_dn, password: SecureRandom.hex, username: params[:user][:username])
++              user.save
++              user.seed_aspects
++            elsif User.find_by(email: user_email).present?
++              return fail(:ldap_existing_email)
++            else
++              return fail(:ldap_cannot_create_account_without_email)
++            end
++          end
++
++          success!(user)
++        else
++          return login_fail
++        end
++      end
++
++      def login_fail
++        if AppConfig.ldap.only_ldap?
++          return fail(:ldap_invalid_login)
++        else
++          return pass
++        end
++      end
++    end
++  end
++end
++
++Warden::Strategies.add(:ldap_authenticatable, Devise::Strategies::LdapAuthenticatable)
+diff --git a/config/initializers/devise.rb b/config/initializers/devise.rb
+index 3698e2373..14e88063e 100644
+--- a/config/initializers/devise.rb
++++ b/config/initializers/devise.rb
+@@ -250,10 +250,9 @@ Devise.setup do |config|
+   # If you want to use other strategies, that are not supported by Devise, or
+   # change the failure app, you can configure them inside the config.warden block.
+   #
+-  # config.warden do |manager|
+-  #   manager.intercept_401 = false
+-  #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
+-  # end
++  config.warden do |manager|
++    manager.default_strategies(scope: :user).unshift :ldap_authenticatable
++  end
+ 
+   # ==> Mountable engine configurations
+   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
+diff --git a/db/migrate/20170724182100_add_ldap_dn_to_users.rb b/db/migrate/20170724182100_add_ldap_dn_to_users.rb
+new file mode 100644
+index 000000000..f5cc84d11
+--- /dev/null
++++ b/db/migrate/20170724182100_add_ldap_dn_to_users.rb
+@@ -0,0 +1,6 @@
++class AddLdapDnToUsers < ActiveRecord::Migration
++  def change
++    add_column :users, :ldap_dn, :text, null: true, default: nil
++    add_index :users, ['ldap_dn'], :length => { "ldap_dn" => 191 }
++  end
++end

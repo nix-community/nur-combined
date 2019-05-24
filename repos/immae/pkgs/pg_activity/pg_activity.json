@@ -1,0 +1,15 @@
+{
+  "tag": "v1.4.0",
+  "meta": {
+    "name": "pg_activity",
+    "url": "https://github.com/julmon/pg_activity/",
+    "branch": "refs/tags/v1.4.0"
+  },
+  "github": {
+    "owner": "julmon",
+    "repo": "pg_activity",
+    "rev": "f26ae614c204254a805309026eebd5e9230b0214",
+    "sha256": "1bmvgrmna7vz2a6vknxm0k19vl9x7l6hn6vpfd7jgd53rz7c9w5p",
+    "fetchSubmodules": true
+  }
+}

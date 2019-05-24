@@ -1,0 +1,18 @@
+diff --git a/init.php b/init.php
+index 3c0f2f9..1aad146 100644
+--- a/init.php
++++ b/init.php
+@@ -600,10 +600,11 @@ class Feediron extends Plugin implements IHandler
+ 			return false;
+ 		}
+ 
+-		$this->host->set($this, 'json_conf', Feediron_Json::format($json_conf));
++                $new_conf = json_encode(json_decode($json_conf), JSON_PRETTY_PRINT);
++                $this->host->set($this, 'json_conf', $new_conf);
+ 		$json_reply['success'] = true;
+ 		$json_reply['message'] = __('Configuration saved.');
+-		$json_reply['json_conf'] = Feediron_Json::format($json_conf);
++                $json_reply['json_conf'] = $new_conf;
+ 		echo json_encode($json_reply);
+ 	}
+ 

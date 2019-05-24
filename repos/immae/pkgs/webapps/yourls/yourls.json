@@ -1,0 +1,15 @@
+{
+  "tag": "1.7.3",
+  "meta": {
+    "name": "yourls",
+    "url": "https://github.com/YOURLS/YOURLS",
+    "branch": "refs/tags/1.7.3"
+  },
+  "github": {
+    "owner": "YOURLS",
+    "repo": "YOURLS",
+    "rev": "077018822d3594229daa8343310d0b40804b9ddc",
+    "sha256": "1av6h619rwqn0yn0kjn2s2h3gmrhmxaaa9hd5ns4ralxgg731imd",
+    "fetchSubmodules": true
+  }
+}

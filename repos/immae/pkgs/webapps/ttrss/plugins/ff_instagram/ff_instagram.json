@@ -1,0 +1,15 @@
+{
+  "tag": "0366ffb-master",
+  "meta": {
+    "name": "ttrss-ff_instagram",
+    "url": "https://github.com/wltb/ff_instagram",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "wltb",
+    "repo": "ff_instagram",
+    "rev": "0366ffb18c4d490c8fbfba2f5f3367a5af23cfe8",
+    "sha256": "0vvzl6wi6jmrqknsfddvckjgsgfizz1d923d1nyrpzjfn6bda1vk",
+    "fetchSubmodules": true
+  }
+}

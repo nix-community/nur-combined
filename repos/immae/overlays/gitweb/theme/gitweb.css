@@ -1,0 +1,783 @@
+/* Reset
+------------------------------------------------------------------------- */
+
+/* Based on http://meyerweb.com/eric/tools/css/reset/ */
+/* v1.0 | 20080212 */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
+font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b,
+u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+ol, ul { list-style: none; }
+
+blockquote, q { quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+:focus { outline: 0; }
+
+ins { text-decoration: none; }
+
+del { text-decoration: line-through; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a { outline: none; }
+
+/* General
+---------------------------------------------------------------------------- */
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  font: 13px Helvetica,arial,freesans,clean,sans-serif;
+  line-height: 1.4;
+  margin: 0 0 105px;
+  background-color: #fff;
+  color: #000000;
+}
+
+/* Monospaced Fonts */
+.sha1, .mode, .diff_tree .list, .pre, .diff, .patchset {
+  font-family: 'Consolas','Bitstream Vera Sans Mono',monospace;
+}
+
+a:link, a:visited {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+td.list a[href*='tree'], td.list a[href*='blob'] {
+  padding-left: 20px;
+  display: block;
+  float: left;
+  height: 16px;
+  line-height: 16px;
+}
+
+td.list a[href*='tree'] {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABq0lEQVQ4y8WTu4oUQRSGv+rtGVuxhwVFdFEEE2c3d0HYTEMTn8DEVxADQTDUF9DMwMxQMBMx8AEWzRQ3cBHd9TI91+2urjq/QbczY2IygSep4nD+79yqnCRWsYQVbWVACvDh5ZXdrLe15dwyT1TjT/sxFFeB6i+VA2B6+cb7kAI4Jf0LO087zjlQI8Y5Qvnj0sHug321XoC1bk+K9eHk6+s7wPMUgKAS88eqb4+Jfg2SHs7lZBvX2Nh+2EUCDGSAcMnJsx9f7NxfAGqXyDzRd5EJO/pMPT1gcviGTnYOVIN5pAAE8v7dLrKL8xnglFk4ws9Afko9HpH3b5Gd2mwb/lOBmgrSdYhJugDUCenxM6xv3p4HCsP8F0LxCsUhCkMURihOyM7fg0osASTFEpu9a4LjGIUCqwcoDiEUrX+E4hRUQb20RiokC1j9vckUhygU7X3QZh7NAVKYL7YBeMkRUfjVCotF2XGIwnghtrJpMywB5G0QZj9P1JNujuWJ1AHLQadRrACPkuZ0SSSWpeStWgDK6tHek5vbiOs48n++XQHurcf0rFng//6NvwG+iB9/4duaTgAAAABJRU5ErkJgggo=) center left no-repeat;
+}
+
+td.list a[href*='blob'] {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAA6ElEQVQoFQXBMW5TQRgGwNnHnoE0QbiCjoIooUmTU3AuS1BwIoTSUdJBigg3GCWOg9/++zHTop078wIAsPMrE4SL5/1aIyMjIyMjz/m0tbFECFdrPeaQQw75mz/5nZH7fN7aWILmauSYfznmmIfss8vIUx7zZWsTTXM5vpWvTk5Wq9VHQP/gtgOLa0Qpw940vAQdaG6thpOhlOkG0AEuAVGmEkAH+G4YSikxXQM6wDsAMRFAB/ihDNNUmN4DOsAbBAEAdICfpmmaAt4COoj2GgCASbIkZh1NAACznhQt2itnFgAAlF3u/gMDtJXPzQxoswAAAABJRU5ErkJgggo=) center left no-repeat;
+}
+
+i {
+  font-style: normal;
+}
+
+td, th {
+  padding: 5px;
+}
+
+.page_nav br {
+  display: none;
+}
+
+/* Page Header
+---------------------------------------------------------------------------- */
+
+.page_header {
+  height: 50px;
+  line-height: 50px;
+  position: relative;
+  padding: 0 27px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-family: Helvetica, Arial, Freesans, Clean, sans-serif;
+  background: #FFFFFF; /* old browsers */
+  background: -moz-linear-gradient(top, #FFFFFF 0%, #F5F5F5 100%); /* firefox */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(100%,#F5F5F5)); /* webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#F5F5F5',GradientType=0 ); /* ie */
+  background: -o-linear-gradient(top, #FFFFFF 0%, #F5F5F5 100%);
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.page_header a:link, .page_header a:visited {
+  color: #4183C4;
+  text-decoration: none;
+  padding: 3px;
+  font-weight: bold;
+}
+
+.page_header a:hover {
+  font-weight: bold;
+  padding: 3px;
+  text-decoration: underline;
+}
+
+.page_header a:first-child {
+  background: transparent;
+}
+
+.page_header img.logo {
+  position: relative;
+  top: 7px;
+  margin-right: 5px;
+}
+
+/* Page Footer
+---------------------------------------------------------------------------- */
+
+.page_footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  margin-top: 15px;
+  background: #f1f1f1;
+  border-top: 2px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.page_footer_text {
+  color: #666;
+  display: inline;
+  float: left;
+  margin-left: 25px;
+  width: 80%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+a.rss_logo {
+  float: right;
+  padding: 3px 1px;
+  width: 35px;
+  line-height: 10px;
+  border: 1px solid;
+  border-color: #fcc7a5 #7d3302 #3e1a01 #ff954e;
+  color: #ffffff;
+  background-color: #ff6600;
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 80%;
+  text-align: center;
+  text-decoration: none;
+  margin-top: 30px;
+  margin-left: 5px;
+}
+
+a.rss_logo:hover {
+  background-color: #ee5500;
+}
+
+.rss_logo {
+  margin-right: 25px;
+  background: yellow;
+}
+
+.rss_logo:last-child {
+  margin-right: 5px;
+}
+
+/* Index include
+---------------------------------------------------------------------------- */
+
+.index_include {
+  width: 95%;
+  margin: 0 auto 15px;
+  background: -moz-linear-gradient(center top , #FFFFFF 0%, #F5F5F5 100%) repeat scroll 0 0 transparent;
+  border: 1px solid #DFDFDF;
+  padding: 8px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/* Elements
+---------------------------------------------------------------------------- */
+
+.project_list,
+.shortlog,
+.tree,
+.commit_search,
+.history {
+  width: 95%;
+  margin: 0 auto 15px auto;
+  border: 1px solid #d8d8d8;
+  -moz-box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+
+.project_list th,
+.shortlog th,
+.tree th,
+.commit_search th {
+  color: #afafaf;
+  font-weight: normal;
+}
+
+.project_list th {
+  font-weight: bold;
+}
+
+.project_list tr,
+.shortlog tr,
+.tree tr,
+.commit_search tr {
+  background: #eaeaea;
+  height: 2.5em;
+  text-align: left;
+  color: #545454;
+}
+
+.project_list tr.dark, .project_list tr.light,
+.shortlog tr.dark, .shortlog tr.light,
+.tree tr.dark, .tree tr.light,
+.commit_search tr.dark, .commit_search tr.light,
+.history tr.dark, .history tr.light,
+.heads tr.dark, .heads tr.light {
+  background: #F9F9F9; /* old browsers */
+  background: -moz-linear-gradient(top, #F9F9F9 0%, #EFEFEF 100%); /* firefox */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F9F9F9), color-stop(100%,#EFEFEF)); /* webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F9F9F9', endColorstr='#EFEFEF',GradientType=0 ); /* ie */
+  background: -o-linear-gradient(top, #F9F9F9 0%, #EFEFEF 100%);
+  height: 2.5em;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+th .header {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-weight: bold;
+}
+
+.tree {
+  width: 100%;
+  margin: 0;
+}
+
+.projsearch {
+  position: absolute;
+  right: 4%;
+  top: 15px;
+}
+
+.projsearch a {
+  display: none;
+}
+
+.commit_search {
+  background: #eaeaea;
+}
+
+.page_nav,
+.list_head,
+.page_path,
+.search {
+  width: 94%;
+  background: #eaeaea;
+  color: #545454;
+  border: 1px solid #d8d8d8;
+  padding: 5px;
+  margin: 0 auto 15px auto;
+}
+
+.history {
+  background: #eaeaea;
+}
+
+.title {
+  margin: 0 auto 15px auto;
+  padding: 5px;
+  width: 95%;
+}
+
+.readme {
+  background: #eaf2f5;
+  border: 1px solid #bedce7;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0 auto 15px auto;
+  padding: 15px;
+  width: 95%;
+}
+
+.readme h1 {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 0.67em;
+  margin-top: 0;
+}
+
+.readme h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.83em;
+}
+
+
+.readme h3 {
+  font-size: 1.17em;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.readme p {
+  margin-bottom: 1em;
+}
+
+.readme ul {
+  list-style: disc;
+  margin-bottom: 1em;
+  margin-left: 1.5em;
+}
+
+.readme ul ul {
+  margin-bottom: 0;
+}
+
+.readme ol {
+  list-style: decimal;
+  margin-bottom: 1em;
+  margin-left: 1.5em;
+}
+
+.readme ol ol {
+  margin-bottom: 0;
+}
+
+.readme pre {
+  font-family: monospace;
+  margin: 1em 0;
+  white-space: pre;
+}
+
+.readme tt, .readme code, .readme kbd, .readme samp {
+  font-family: monospace;
+}
+
+.readme blockquote {
+  margin: 1em;
+}
+
+.projects_list,
+.tags {
+  width: 95%;
+  background: #f0f0f0;
+  color: #545454;
+  border: 1px solid #d8d8d8;
+  padding: 5px;
+  margin: 0 auto 15px auto;
+}
+
+.heads {
+  width: 95%;
+  color: #545454;
+  border: 1px solid #d8d8d8;
+  padding: 5px;
+  margin: 0 auto 15px auto;
+}
+
+.header {
+  width: 94%;
+  margin: 0 auto 15px auto;
+  background: #eaf2f5;
+  border: 1px solid #bedce7;
+  padding: 5px;
+}
+
+.header .age {
+  float: left;
+  color: #000;
+  font-weight: bold;
+  width: 10em;
+}
+
+.title_text {
+  width: 94%;
+  background: #eaf2f5;
+  border: 1px solid #bedce7;
+  padding: 5px;
+  margin: 0 auto 0 auto;
+}
+
+.log_body {
+  width: 94%;
+  background: #eaf2f5;
+  border: 1px solid #bedce7;
+  border-top: 0;
+  padding: 5px;
+  margin: 0 auto 15px auto;
+}
+
+.page_body {
+  line-height: 1.4em;
+  width: 94%;
+  background: #f8f8f8;
+  border: 1px solid #d8d8d8;
+  padding: 5px;
+  margin: 15px auto 15px auto;
+}
+
+.diff_tree {
+  width: 95%;
+  background: #f0f0f0;
+  border: 1px solid #d8d8d8;
+  padding: 5px;
+  margin: 0 auto 15px auto;
+}
+
+.page_body > .list_head {
+  width: 98.5%;
+}
+
+.page_body > .diff_tree {
+  width: 99.5%;
+}
+
+.patch > .header {
+  width: 99%;
+}
+
+.author .avatar,
+.author_date .avatar {
+  position: relative;
+  top: 3px;
+}
+
+.object_header .avatar {
+  border: 1px solid #D8D8D8;
+  float: right;
+}
+
+.object_header td,
+.object_header th {
+  vertical-align: top;
+}
+
+/* Refs
+---------------------------------------------------------------------------- */
+
+span.refs span {
+  color: #707070;
+  display: inline-block;
+  margin: 0;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  height: 18px;
+  padding: 0 6px;
+  text-overflow: ellipsis;
+}
+
+span.refs span.ref {
+  color: #707070;
+  display: inline-block;
+  margin: 0;
+  background-color: #c4c4ff;
+  border: 1px solid #7878ff;
+  border-radius: 3px;
+  height: 18px;
+  padding: 0 6px;
+  text-overflow: ellipsis;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gIKFSUnpolg7AAAAHJQTFRFAAAAVVWqZmbMVVXVYGDgbW3td3fuc3PzdHT0cHD1d3f6dHT6dnb7dHT7dnb8dnb8dnb9d3f9dnb+eHj+d3f+eHj+d3f+d3f+d3f+eHj+d3f+eHj+d3f+eHj+d3f+d3f+eHj+d3f+d3f+d3f+eHj/////V9oQhQAAACR0Uk5TAAIEBQcNDhMVGCotNTZAT217i5CgobvExtjZ4eLr7vP09ff7uqQ6cgAAAAFiS0dEJcMByQ8AAABUSURBVBjTpc43AoAwDENRh95bgNBM1f3PyOpslD++RSJ61YgH5M2IbIkn4GocSR1MZVBL4t2n4FgkbaxI8Sqph041WknZCWAIrcmEUbpf3lNe0N9u59YFYHnZ78gAAAAASUVORK5CYII=);
+  background-repeat: no-repeat;
+  padding-left: 18px;
+}
+
+span.refs span.tag {
+  color: #707070;
+  display: inline-block;
+  margin: 0;
+  background-color: #ffffab;
+  border: 1px solid #d9d93b;
+  border-radius: 3px;
+  height: 18px;
+  padding: 0 6px;
+  text-overflow: ellipsis;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gIKFSUZZ+h9RwAAAGZQTFRFAAAAtrYkwMBAwMBAx8c4yso11NQ71NQ51dU52Ng71tY519c719c719c62Ng719c719c62Ng72dk62Ng62Ng72Ng72dk62Ng72Ng62dk62dk72dk62Ng62dk72Ng72Ng72dk7////ou/AnQAAACB0Uk5TAAYHCxESLjRCWWlqa4uNkpissbrO19jc3ufs8vf6/f7atAU2AAAAAWJLR0QhxGwNFgAAAF1JREFUGFeNy0cOgCAABVGw94rY5d//lC7omhhn+ZIh5Gf1xPk0Zi5dAABROIQjSU/fsAXhDkCUljAv8jW2wlQpaixpo4Nj+dtatVpjkSJjLNaizRVpvhBCu/4h391jzw1lU12Z7wAAAABJRU5ErkJggg==);
+  background-repeat: no-repeat;
+  padding-left: 18px;
+}
+
+span.refs span.head {
+  color: #707070;
+  display: inline-block;
+  margin: 0;
+  background-color: #c4ffc4;
+  border: 1px solid #78ff78;
+  border-radius: 3px;
+  height: 18px;
+  padding: 0 6px;
+  text-overflow: ellipsis;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gIKFSYDsafX/gAAAUpJREFUOMvVkjFLA0EQhd/s7l06MSCihbV/wC5/QBDEIFYWprRIIQQJFqKFQi4kUbBQsFSwtrUQLQULUTBFLCzVIgimCXe7z0q5yIWcqfRVwzDzMTNvgL8mSUqWw3JOtFQJdsIwLDYyjdYgkEmkazl2oVtQWk36nn8AYBYASmFpxmizGtnoqO7Vb+M9KglEkASdpWU872nvVCiPRpuTnz2JIHGyqX3d0kZfR1G0Ht+g/do+FIhOBbLW3n/FNb/28D0puZ+dyL44ur1UoH5yzt2JyIj6UGdDgwrPhYzSagNEszJaeU/lWlylbmnaeGZZICsAppxzi6nt73HK85oQCMknOuarpno+FIjglVjZDXaCS2yDv3rIHlCb88FY0BlUl3hs7ektkhckb5DFWhoz+n12zr7ZPLpYUqLm0oBMn8NUzLhpAgjpWMS/1CcSJ3ykD7Rk1QAAAABJRU5ErkJggg==);
+  background-repeat: no-repeat;
+  padding-left: 18px;
+}
+
+span.refs a {
+  color: #4e4e4e;
+  font: 11px "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, monospace;
+  line-height: 18px;
+}
+
+/* Diffs
+---------------------------------------------------------------------------- */
+
+div.diff.to_file a.path,
+div.diff.to_file {
+  color: #007000;
+}
+
+div.diff.from_file a.path,
+div.diff.from_file {
+  color: #aa0000;
+}
+
+.patch .header {
+  margin: 0;
+}
+
+.patchset {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.chunk_header {
+  background: #eaf2f5;
+  color: #999;
+}
+
+.rem {
+  background: #ffdddd;
+}
+.rem .marked {
+  background: #ffaaaa;
+}
+.add {
+  background: #ddffdd;
+}
+.add .marked {
+  background: #7dff7d;
+}
+
+.extended_header {
+  width: 99.5%;
+}
+
+div.chunk_block {
+  overflow: hidden;
+}
+
+div.chunk_block div.old {
+  float: left;
+  width: 50%;
+  overflow: hidden;
+  border-right: 5px solid #EAF2F5;
+}
+
+div.chunk_block.rem,
+div.chunk_block.add {
+  background: transparent;
+}
+
+div.chunk_block div.old .add,
+div.chunk_block div.old .rem {
+  padding-right: 3px;
+}
+
+div.chunk_block div.new .add,
+div.chunk_block div.new .rem {
+  padding-left: 3px;
+}
+
+div.chunk_block div.new {
+  margin-left: 50%;
+  width: 50%;
+  border-left: 5px solid #EAF2F5;
+}
+
+/* Category
+---------------------------------------------------------------------------- */
+
+td.category {
+  background: #E6F1F6; /* old browsers */
+  background: -moz-linear-gradient(top, #C8D8E7 0%, #E6F1F3 100%); /* firefox */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#C8D8E7), color-stop(100%,#E6F1F3)); /* webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C8D8E7', endColorstr='#E6F1F3',GradientType=0 ); /* ie */
+  background: -o-linear-gradient(top, #C8D8E7 0%, #E6F1F3 100%);
+  font-weight: bold;
+  border-bottom: 1px solid #D1D1D1;
+  border-top: 1px solid #D1D1D1;
+}
+
+/* Age
+---------------------------------------------------------------------------- */
+
+/* noage: "No commits" */
+.project_list td.noage {
+  color: #cdcdcd;
+}
+
+/* age2: 60*60*24*2 <= age */
+.project_list td.age2, .blame td.age2 {
+  color: #545454;
+}
+
+/* age1: 60*60*2 <= age < 60*60*24*2 */
+.project_list td.age1 {
+  color: #009900;
+}
+
+/* age0: age < 60*60*2 */
+.project_list td.age0 {
+  color: #009900;
+  font-weight: bold;
+}
+
+/* File status
+---------------------------------------------------------------------------- */
+
+.diff_tree span.file_status.new {
+  color: #008000;
+}
+
+table.diff_tree span.file_status.deleted {
+  color: #c00000;
+}
+
+table.diff_tree span.file_status.moved,
+table.diff_tree span.file_status.mode_chnge {
+  color: #545454;
+}
+
+table.diff_tree span.file_status.copied {
+  color: #70a070;
+}
+
+span.cntrl {
+  border: dashed #aaaaaa;
+  border-width: 1px;
+  padding: 0px 2px 0px 2px;
+  margin:  0px 2px 0px 2px;
+}
+
+span.match {
+  background: #aaffaa;
+  color: #000;
+}
+
+td.error {
+  color: red;
+  background: yellow;
+}
+
+/* blob view */
+
+td.pre, div.pre, div.diff {
+  white-space: pre-wrap;
+}
+
+/* JavaScript-based timezone manipulation */
+
+.popup { /* timezone selection UI */
+	position: absolute;
+	/* "top: 0; right: 0;" would be better, if not for bugs in browsers */
+	top: 0; left: 0;
+	border: 1px solid #d8d8d8;
+	padding: 2px;
+	background-color: #f0f0f0;
+	font-style: normal;
+	color: #545454;
+	cursor: auto;
+}
+
+.close-button { /* close timezone selection UI without selecting */
+	/* float doesn't work within absolutely positioned container,
+	 * if width of container is not set explicitly */
+	/* float: right; */
+	position: absolute;
+	top: 0px; right: 0px;
+	border:  1px solid #ffaaaa;
+	margin:  1px 1px 1px 1px;
+	padding-bottom: 2px;
+	width:     12px;
+	height:    10px;
+	font-size:  9px;
+	font-weight: bold;
+	text-align: center;
+	background-color: #ffdddd;
+	cursor: pointer;
+}
+
+/* Style definition generated by highlight 2.4.5, http://www.andre-simon.de/ */
+
+/* Highlighting theme definition: */
+
+.num    { color:#6ecf36; }
+.esc    { color:#ff00ff; }
+.str    { color:#ff00d3; background-color: #edc9ec }
+.dstr   { color:#818100; }
+.slc    { color:#838183; font-style:italic; }
+.com    { color:#838183; font-style:italic; }
+.dir    { color:#008200; }
+.sym    { color:#000000; }
+.line   { color:#555555; }
+.kwa    { color:#666666; font-weight:bold; }
+.kwb    { color:#6b3099; }
+.kwc    { color:#d4663d; }
+.kwd    { color:#2928ff; }
+
+/**** Styles supplémentaires *****/
+
+.readme div.toc {
+  float: right;
+  border: 1px solid black;
+  background-color: white;
+}
+.readme div.toc span.toctitle {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.readme table {
+  background-color: white;
+}
+
+.readme table thead tr {
+  background-color: #ccc;
+}
+
+.readme table tbody tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.readme table td, .readme table th {
+  border: 1px solid black;
+}

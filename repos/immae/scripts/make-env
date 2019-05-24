@@ -1,0 +1,12 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+source $DIR/nix_env
+nix-env -r -i -A myEnvironments.immae-eu -f "<nixpkgs>" "$@"
+result=$?
+
+cat >> $(dirname $DIR)/versions_log <<EOF
+Ran $(date) with args "$@" and returned "$result"
+$($DIR/nix_infos | sed -e "s/^/    /")
+EOF

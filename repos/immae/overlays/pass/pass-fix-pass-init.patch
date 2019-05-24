@@ -1,0 +1,42 @@
+From 33e8f1cd0065639a948d7b5ba3f93d43bdf7f3be Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Isma=C3=ABl=20Bouya?= <ismael.bouya@normalesup.org>
+Date: Sun, 11 Nov 2018 19:47:33 +0100
+Subject: [PATCH] Fix pass init for some gpg keys
+
+This fixes the pass init for gpg keys which have their main key as
+encryption key. This may happen for instance with RSA keys and specific
+configuration.
+---
+ src/password-store.sh       | 2 +-
+ tests/t0300-reencryption.sh | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/password-store.sh b/src/password-store.sh
+index d89d455..44d122e 100755
+--- a/src/password-store.sh
++++ b/src/password-store.sh
+@@ -124,7 +124,7 @@ reencrypt_path() {
+ 				IFS=";" eval 'GPG_RECIPIENTS+=( $group )' # http://unix.stackexchange.com/a/92190
+ 				unset "GPG_RECIPIENTS[$index]"
+ 			done
+-			gpg_keys="$($GPG $PASSWORD_STORE_GPG_OPTS --list-keys --with-colons "${GPG_RECIPIENTS[@]}" | sed -n 's/^sub:[^:]*:[^:]*:[^:]*:\([^:]*\):[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[a-zA-Z]*e[a-zA-Z]*:.*/\1/p' | LC_ALL=C sort -u)"
++			gpg_keys="$($GPG $PASSWORD_STORE_GPG_OPTS --list-keys --with-colons "${GPG_RECIPIENTS[@]}" | sed -n 's/^[ps]ub:[^:]*:[^:]*:[^:]*:\([^:]*\):[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[a-zA-Z]*e[a-zA-Z]*:.*/\1/p' | LC_ALL=C sort -u)"
+ 		fi
+ 		current_keys="$(LC_ALL=C $GPG $PASSWORD_STORE_GPG_OPTS -v --no-secmem-warning --no-permission-warning --decrypt --list-only --keyid-format long "$passfile" 2>&1 | sed -n 's/^gpg: public key is \([A-F0-9]\+\)$/\1/p' | LC_ALL=C sort -u)"
+ 
+diff --git a/tests/t0300-reencryption.sh b/tests/t0300-reencryption.sh
+index 3c88987..57d873f 100755
+--- a/tests/t0300-reencryption.sh
++++ b/tests/t0300-reencryption.sh
+@@ -7,7 +7,7 @@ cd "$(dirname "$0")"
+ INITIAL_PASSWORD="will this password live? a big question indeed..."
+ 
+ canonicalize_gpg_keys() {
+-	$GPG --list-keys --with-colons "$@" | sed -n 's/sub:[^:]*:[^:]*:[^:]*:\([^:]*\):[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[a-zA-Z]*e[a-zA-Z]*:.*/\1/p' | LC_ALL=C sort -u
++	$GPG --list-keys --with-colons "$@" | sed -n 's/[ps]ub:[^:]*:[^:]*:[^:]*:\([^:]*\):[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[a-zA-Z]*e[a-zA-Z]*:.*/\1/p' | LC_ALL=C sort -u
+ }
+ gpg_keys_from_encrypted_file() {
+ 	$GPG -v --no-secmem-warning --no-permission-warning --decrypt --list-only --keyid-format long "$1" 2>&1 | grep "public key is" | cut -d ' ' -f 5 | LC_ALL=C sort -u
+-- 
+2.19.1
+

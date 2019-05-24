@@ -1,0 +1,21 @@
+commit a64bf3d58f6ba7f5fa72fe5b89a3973cac0c1a99
+Author: Ismaël Bouya <ismael.bouya@normalesup.org>
+Date:   Sat Mar 9 20:13:52 2019 +0100
+
+    Remove mister_bump dependency
+
+diff --git a/setup.py b/setup.py
+index 84a99e9..a783dff 100644
+--- a/setup.py
++++ b/setup.py
+@@ -1,7 +1,9 @@
+ from setuptools import setup
+ from m2r import parse_from_file
+ import restructuredtext_lint
+-from mister_bump import bump
++
++def bump():
++    return "0.2.0"
+ 
+ # Parser README.md into reStructuredText format
+ rst_readme = parse_from_file('README.md')

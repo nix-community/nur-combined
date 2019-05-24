@@ -1,0 +1,15 @@
+{
+  "tag": "2a3cb03-master",
+  "meta": {
+    "name": "yourls-ldap-plugin",
+    "url": "https://github.com/k3a/yourls-ldap-plugin",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "k3a",
+    "repo": "yourls-ldap-plugin",
+    "rev": "2a3cb0334b8a6b81b284a7196e614bbd2b2b1615",
+    "sha256": "0cchbnli77d295lzf7kjmn4dcxj2bmdqa9qc3f8l8qgmp4n5n0gh",
+    "fetchSubmodules": true
+  }
+}

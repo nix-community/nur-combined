@@ -1,0 +1,20 @@
+--- a/bug_report.php	2019-05-06 12:06:44.265508011 +0200
++++ b/bug_report.php	2019-05-06 12:09:40.106952738 +0200
+@@ -67,6 +67,17 @@
+ 	'copy_files' => $f_copy_attachments_from_parent
+ );
+ 
++# begin captcha check for anon user
++if ( current_user_is_anonymous() && get_gd_version() > 0 ) {
++  $f_captcha = gpc_get_string( 'captcha', '' );
++  $f_captcha = utf8_strtolower( trim( $f_captcha ) );
++
++  $t_securimage = new Securimage();
++  if( $t_securimage->check( $f_captcha ) == false ) {
++    trigger_error( ERROR_SIGNUP_NOT_MATCHING_CAPTCHA, ERROR );
++  }
++}
++
+ if( $f_master_bug_id > 0 ) {
+ 	bug_ensure_exists( $f_master_bug_id );
+ 

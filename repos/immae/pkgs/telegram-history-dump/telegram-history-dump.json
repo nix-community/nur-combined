@@ -1,0 +1,15 @@
+{
+  "tag": "468ea91-master",
+  "meta": {
+    "name": "telegram-history-dump",
+    "url": "https://github.com/tvdstaaij/telegram-history-dump",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "tvdstaaij",
+    "repo": "telegram-history-dump",
+    "rev": "468ea91e543529b54bc2c5ea28b1ea17f362fd3e",
+    "sha256": "1wmwiqacfa56bmwx50njnb15cg0fy6rbdrmrjd4xfbh8bs6yp0gh",
+    "fetchSubmodules": true
+  }
+}

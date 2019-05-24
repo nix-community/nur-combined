@@ -1,0 +1,56 @@
+diff --git a/lib/taskwarrior-web/helpers.rb b/lib/taskwarrior-web/helpers.rb
+index 212aed7..94c57df 100644
+--- a/lib/taskwarrior-web/helpers.rb
++++ b/lib/taskwarrior-web/helpers.rb
+@@ -1,6 +1,8 @@
+ require 'active_support/core_ext/date/calculations'
+ 
+ module TaskwarriorWeb::App::Helpers
++  include ERB::Util
++
+   def format_date(timestamp)
+     format = TaskwarriorWeb::Config.dateformat || '%-m/%-d/%Y'
+     Time.parse(timestamp).localtime.strftime(format)
+diff --git a/lib/taskwarrior-web/services/builder/base.rb b/lib/taskwarrior-web/services/builder/base.rb
+index 58d246e..8f716ac 100644
+--- a/lib/taskwarrior-web/services/builder/base.rb
++++ b/lib/taskwarrior-web/services/builder/base.rb
+@@ -10,7 +10,7 @@ module TaskwarriorWeb::CommandBuilder::Base
+     :complete => ':id done',
+     :annotate => ':id annotate',
+     :denotate => ':id denotate',
+-    :projects => '_projects',
++    :projects => '_unique project',
+     :tags => '_tags',
+     :sync => 'sync'
+   }
+diff --git a/lib/taskwarrior-web/views/tasks/_form.erb b/lib/taskwarrior-web/views/tasks/_form.erb
+index 789e7a1..fa08698 100644
+--- a/lib/taskwarrior-web/views/tasks/_form.erb
++++ b/lib/taskwarrior-web/views/tasks/_form.erb
+@@ -1,14 +1,14 @@
+ <div class="control-group">
+   <label for="task-description" class="control-label">Description</label>
+   <div class="controls">
+-    <input type="text" required="required" id="task-description" name="task[description]" value="<%= @task.description unless @task.nil? %>" />
++    <input type="text" required="required" id="task-description" name="task[description]" value="<%=h @task.description unless @task.nil? %>" />
+   </div>
+ </div>
+ 
+ <div class="control-group">
+   <label for="task-project" class="control-label">Project</label>
+   <div class="controls">
+-    <input type="text" id="task-project" name="task[project]" value="<%= @task.project unless @task.nil? %>" autocomplete="off" />
++    <input type="text" id="task-project" name="task[project]" value="<%=h @task.project unless @task.nil? %>" autocomplete="off" />
+   </div>
+ </div>
+ 
+@@ -45,7 +45,7 @@
+ <div class="control-group">
+   <label for="task-tags" class="control-label">Tags</label>
+   <div class="controls">
+-    <input type="text" id="task-tags" name="task[tags]" value="<%= @task.tags.join(', ') unless @task.nil? %>" autocomplete="off" />
++    <input type="text" id="task-tags" name="task[tags]" value="<%=h @task.tags.join(', ') unless @task.nil? %>" autocomplete="off" />
+     <span class="help-block">Enter tags separated by commas or spaces (e.g. <em>each, word will,be a tag</em>)</span>
+   </div>
+ </div>

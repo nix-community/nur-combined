@@ -1,0 +1,20 @@
+--- a/bugnote_add.php	2018-02-10 21:29:27.000000000 +0100
++++ b/bugnote_add.php	2018-03-03 15:13:12.439919511 +0100
+@@ -44,6 +44,17 @@
+ 
+ $t_query = array( 'issue_id' => $f_bug_id );
+ 
++# begin captcha check for anon user
++if ( current_user_is_anonymous() && get_gd_version() > 0 ) {
++  $f_captcha = gpc_get_string( 'captcha', '' );
++  $f_captcha = utf8_strtolower( trim( $f_captcha ) );
++
++  $t_securimage = new Securimage();
++  if( $t_securimage->check( $f_captcha ) == false ) {
++    trigger_error( ERROR_SIGNUP_NOT_MATCHING_CAPTCHA, ERROR );
++  }
++}
++
+ if( count( $f_files ) > 0 && is_blank( $f_text ) && helper_duration_to_minutes( $f_duration ) == 0 ) {
+ 	$t_payload = array(
+ 		'files' => helper_array_transpose( $f_files )

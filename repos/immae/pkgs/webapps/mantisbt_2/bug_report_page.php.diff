@@ -1,0 +1,53 @@
+--- a/bug_report_page.php	2018-02-10 21:29:27.000000000 +0100
++++ b/bug_report_page.php	2018-03-03 15:04:19.622499678 +0100
+@@ -708,7 +708,50 @@
+ 				<span class="lbl padding-6"><?php echo lang_get( 'check_report_more_bugs' ) ?></span>
+ 			</label>
+ 		</td>
+ 	</tr>
++<?php
++	# captcha image requires GD library and related option to ON
++	if( current_user_is_anonymous() && get_gd_version() > 0 ) {
++		$t_securimage_path = 'vendor/dapphp/securimage';
++		$t_securimage_show = $t_securimage_path . '/securimage_show.php';
++		$t_securimage_play = $t_securimage_path . '/securimage_play.swf?'
++			. http_build_query( array(
++				'audio_file' => $t_securimage_path . '/securimage_play.php',
++				'bgColor1=' => '#fff',
++				'bgColor2=' => '#fff',
++				'iconColor=' => '#777',
++				'borderWidth=' => 1,
++				'borderColor=' => '#000',
++			) );
++?>
++	<tr>
++		<th class="category">CAPTCHA</th>
++		<td>
++
++				<label for="captcha-field" class="block clearfix">
++					<strong><?php echo lang_get( 'signup_captcha_request_label' ); ?></strong>
++				</label>
++				<span id="captcha-input" class="input">
++					<?php print_captcha_input( 'captcha' ); ?>
++
++					<span id="captcha-image" class="captcha-image" style="padding-right:3px;">
++						<img src="<?php echo $t_securimage_show; ?>" alt="visual captcha" />
++						<ul id="captcha-refresh"><li><a href="#"><?php
++							echo lang_get( 'signup_captcha_refresh' );
++						?></a></li></ul>
++					</span>
++
++					<object type="application/x-shockwave-flash" width="19" height="19"
++						data="<?php echo $t_securimage_play; ?>">
++						<param name="movie" value="<?php echo $t_securimage_play; ?>" />
++					</object>
++				</span>
++                </td>
++        </tr>
++<?php
++			}
++?>
++
+ </table>
+ </div>
+ </div>

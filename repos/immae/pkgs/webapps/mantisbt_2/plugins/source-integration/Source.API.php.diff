@@ -1,0 +1,12 @@
+--- b/Source/Source.API.php	2017-09-18 00:50:32.000000000 +0200
++++ a/Source/Source.API.php	2018-03-04 19:00:25.578889039 +0100
+@@ -452,6 +452,9 @@
+ 	# Allow other plugins to post-process commit data
+ 	event_signal( 'EVENT_SOURCE_COMMITS', array( $p_changesets ) );
+ 	event_signal( 'EVENT_SOURCE_FIXED', array( $t_fixed_bugs ) );
++	foreach( $t_fixed_bugs as $t_bug_id => $t_changeset ) {
++          event_signal( 'EVENT_BUG_ACTION', array('RESOLVE', $t_bug_id) );
++        }
+ }
+ 
+ /**

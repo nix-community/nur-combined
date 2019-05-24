@@ -1,0 +1,60 @@
+--- old/ecrire/auth/ldap.php	2017-06-08 21:58:17.000000000 +0200
++++ new/ecrire/auth/ldap.php	2017-06-10 02:54:02.687954143 +0200
+@@ -171,24 +171,41 @@
+ 	$desc = isset($ldap['attributes']) && $ldap['attributes'] ? $ldap['attributes'] : $GLOBALS['ldap_attributes'] ;
+ 
+ 	$logins = is_array($desc['login']) ? $desc['login'] : array($desc['login']);
++        if (isset($GLOBALS['ldap_search'])) {
++          $search_query = str_replace("%user%", $login_search, $GLOBALS['ldap_search']);
++          $result = @ldap_search($ldap_link, $ldap_base, $search_query, array("dn"));
++          $info = @ldap_get_entries($ldap_link, $result);
++          // Ne pas accepter les resultats si plus d'une entree
++          // (on veut un attribut unique)
+ 
+-	// Tenter une recherche pour essayer de retrouver le DN
+-	foreach ($logins as $att) {
+-		$result = @ldap_search($ldap_link, $ldap_base, "$att=$login_search", array("dn"));
+-		$info = @ldap_get_entries($ldap_link, $result);
+-		// Ne pas accepter les resultats si plus d'une entree
+-		// (on veut un attribut unique)
++          if (is_array($info) and $info['count'] == 1) {
++            $dn = $info[0]['dn'];
++            if (!$checkpass) {
++              return $dn;
++            }
++            if (@ldap_bind($ldap_link, $dn, $pass)) {
++              return $dn;
++            }
++          }
++        } else {
++          // Tenter une recherche pour essayer de retrouver le DN
++          foreach ($logins as $att) {
++                  $result = @ldap_search($ldap_link, $ldap_base, "$att=$login_search", array("dn"));
++                  $info = @ldap_get_entries($ldap_link, $result);
++                  // Ne pas accepter les resultats si plus d'une entree
++                  // (on veut un attribut unique)
+ 
+-		if (is_array($info) and $info['count'] == 1) {
+-			$dn = $info[0]['dn'];
+-			if (!$checkpass) {
+-				return $dn;
+-			}
+-			if (@ldap_bind($ldap_link, $dn, $pass)) {
+-				return $dn;
+-			}
+-		}
+-	}
++                  if (is_array($info) and $info['count'] == 1) {
++                          $dn = $info[0]['dn'];
++                          if (!$checkpass) {
++                                  return $dn;
++                          }
++                          if (@ldap_bind($ldap_link, $dn, $pass)) {
++                                  return $dn;
++                          }
++                  }
++          }
++        }
+ 
+ 	if ($checkpass and !isset($dn)) {
+ 		// Si echec, essayer de deviner le DN

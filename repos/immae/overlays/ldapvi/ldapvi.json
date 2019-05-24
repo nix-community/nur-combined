@@ -1,0 +1,14 @@
+{
+  "tag": "f1d42ba-master",
+  "meta": {
+    "name": "ldapvi",
+    "url": "http://www.lichteblau.com/git/ldapvi.git",
+    "branch": "master"
+  },
+  "git": {
+    "url": "http://www.lichteblau.com/git/ldapvi.git",
+    "rev": "f1d42bad66cc4623d1ff21fbd5dddbf5009d3e40",
+    "sha256": "0c2h4b1spp9z6a16gy9azf0wyxq397yy7001x1zlvc7c60q11wry",
+    "fetchSubmodules": true
+  }
+}

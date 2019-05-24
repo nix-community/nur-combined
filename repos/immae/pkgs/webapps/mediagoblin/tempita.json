@@ -1,0 +1,15 @@
+{
+  "tag": "47414a7-master",
+  "meta": {
+    "name": "tempita",
+    "url": "https://github.com/gjhiggins/tempita",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "gjhiggins",
+    "repo": "tempita",
+    "rev": "47414a7c6e46a9a9afe78f0bce2ea299fa84d10d",
+    "sha256": "0f33jjjs5rvp7ar2j6ggyfykcrsrn04jaqcq71qfvycf6b7nw3rn",
+    "fetchSubmodules": true
+  }
+}

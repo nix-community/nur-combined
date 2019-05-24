@@ -1,0 +1,15 @@
+{
+  "tag": "0ea2092-master",
+  "meta": {
+    "name": "ttrss-af_feedmod",
+    "url": "https://github.com/mbirth/ttrss_plugin-af_feedmod",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "mbirth",
+    "repo": "ttrss_plugin-af_feedmod",
+    "rev": "0ea2092dd34067ecd898802cfca3570023d1ecfe",
+    "sha256": "02ibf47zcrsc2rr45wsix8gxyyf371davj8n8i0gj1zdq95klvnv",
+    "fetchSubmodules": true
+  }
+}

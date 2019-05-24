@@ -1,0 +1,14 @@
+{
+  "tag": "cd465eb-stable",
+  "meta": {
+    "name": "mediagoblin",
+    "url": "git://git.savannah.gnu.org/mediagoblin.git",
+    "branch": "stable"
+  },
+  "git": {
+    "url": "git://git.savannah.gnu.org/mediagoblin.git",
+    "rev": "cd465ebfec837a75a44c4ebd727dffe2fff6d850",
+    "sha256": "1yz4i4i97z3rxl534a6psaybyjbyp5nnc52v3nvbpzc4pd2s69mx",
+    "fetchSubmodules": true
+  }
+}

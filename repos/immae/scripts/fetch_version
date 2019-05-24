@@ -1,0 +1,173 @@
+#!/bin/bash
+
+usage() {
+  echo "$0 file.json"
+  echo "$0 [-n|--name name] [-b|--branch branch_or_rev] [-f|--file out_file] [-h|--help] (-u|--url) url"
+  exit
+}
+
+branch="master"
+while [[ $# -gt 0 ]]; do
+  a="$1"
+  shift
+  case "$a" in
+    *.json)
+      file=$a
+      content=$(cat $a)
+      name="$(echo "$content" | jq -r ".meta.name")"
+      url="$(echo "$content" | jq -r ".meta.url")"
+      branch="$(echo "$content" | jq -r ".meta.branch")"
+      ;;
+    -n|--name)
+      name=$1
+      shift
+      ;;
+    -u|--url)
+      url=$1
+      shift
+      ;;
+    -b|--branch)
+      branch=$1
+      shift
+      ;;
+    -f|--file)
+      file=$1
+      shift
+      ;;
+    -h|--help)
+      usage
+      ;;
+  esac
+done
+if [ -z "$url" ]; then
+  usage
+fi
+if [ -z "$name" ]; then
+  name=$(echo "$url" | cut -d"/" -f5)
+fi
+if [ -z "$file" ]; then
+  file=$name.json
+fi
+
+# function fetch_ledger () {
+#   pushd $HOME/projets/ledger >/dev/null 2>/dev/null
+#   git fetch origin
+#   tag="$(git describe origin/next | sed -e "s/^v//")"
+#   rev="$(git show-ref -s refs/remotes/origin/next)"
+#   sha="$(nix-prefetch-url --unpack file://<(git archive --format=tar.gz HEAD) 2>/dev/null)"
+#   popd >/dev/null 2>/dev/null
+# }
+
+# awk_describe='BEGIN {
+#   FS = "[ /^]+"
+#   while ("git ls-remote " ARGV[1] "| sort -Vk2" | getline) {
+#     if (!sha)
+#       sha = substr($0, 1, 7)
+#     tag = $3
+#   }
+#   while ("curl -s " ARGV[1] "/releases/tag/" tag | getline)
+#     if ($3 ~ "commits")
+#       com = $2
+#   printf com ? "%s-%s-g%s\n" : "%s\n", tag, com, sha
+# }'
+
+function get_ref () {
+  case "$1" in
+    refs/*)
+      echo "$1"
+      ;;
+    *)
+      echo "refs/heads/$1"
+      ;;
+  esac
+}
+
+function get_name () {
+  branch="$1"
+  rev="$2"
+  minirev=${rev:0:7}
+
+  case "$branch" in
+    refs/tags/*)
+      b="${branch#refs/tags/}"
+      echo "${b//\//-}"
+      ;;
+    refs/heads/*)
+      b=${branch#refs/heads/}
+      echo "$minirev-${b//\//-}"
+      ;;
+    refs/*)
+      b=${branch#refs/}
+      echo "$minirev-${b//\//-}"
+      ;;
+    *)
+      echo "$minirev-${branch//\//-}"
+      ;;
+  esac
+}
+
+function fetch_github () {
+  rev="$(git ls-remote --refs $url $(get_ref $branch) | head -n1 | cut -f1)"
+  sha="$(nix-prefetch-url --unpack $url/archive/$rev.tar.gz)"
+  # Différent du git-describe et github-spécifique
+  #tag=$(echo "$awk_describe" | awk -f - $url | sed -e "s/^v//")
+  tag=$(get_name $branch $rev)
+}
+
+function fetch_other () {
+  rev="$(git ls-remote --refs $url $(get_ref $branch) | head -n1 | cut -f1)"
+  sha="$(nix-prefetch-git --url $url --rev $(get_ref $branch) | jq -r '.sha256')"
+  tag=$(get_name $branch $rev)
+}
+
+case "$url" in
+  https://*github.com/*)
+    fetch_github 2>/dev/null
+    owner=$(echo "$url" | cut -d"/" -f4)
+    repo=$(echo "$url" | cut -d"/" -f5)
+
+    F='{
+      "tag": $tag,
+      "meta": {
+        "name": $name,
+        "url": $url,
+        "branch": $branch
+      },
+      "github": {
+        "owner": $owner,
+        "repo": $repo,
+        "rev": $rev,
+        "sha256": $sha,
+        "fetchSubmodules": true
+      }
+    }'
+    ;;
+  *)
+    fetch_other 2>/dev/null
+    F='{
+      "tag": $tag,
+      "meta": {
+        "name": $name,
+        "url": $url,
+        "branch": $branch
+      },
+      "git": {
+        "url": $url,
+        "rev": $rev,
+        "sha256": $sha,
+        "fetchSubmodules": true
+      }
+    }'
+    ;;
+esac
+
+jq -n \
+  --arg name "$name" \
+  --arg owner "$owner" \
+  --arg repo "$repo" \
+  --arg tag "$tag" \
+  --arg rev "$rev" \
+  --arg url "$url" \
+  --arg branch "$branch" \
+  --arg sha "$sha" \
+  "$F" > $file

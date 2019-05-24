@@ -1,0 +1,698 @@
+diff --git a/.travis.yml b/.travis.yml
+index 04cea258..56b1f576 100644
+--- a/.travis.yml
++++ b/.travis.yml
+@@ -58,6 +58,7 @@ install:
+ 
+ before_script:
+     - PHP=$TRAVIS_PHP_VERSION
++    - echo "extension=ldap.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+     - if [[ ! $PHP = hhvm* ]]; then echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi;
+     # xdebug isn't enable for PHP 7.1
+     - if [[ ! $PHP = hhvm* ]]; then phpenv config-rm xdebug.ini || echo "xdebug not available"; fi
+diff --git a/app/AppKernel.php b/app/AppKernel.php
+index 40726f05..c4f465dc 100644
+--- a/app/AppKernel.php
++++ b/app/AppKernel.php
+@@ -42,6 +42,10 @@ class AppKernel extends Kernel
+             new OldSound\RabbitMqBundle\OldSoundRabbitMqBundle(),
+         ];
+ 
++        if (class_exists('FR3D\\LdapBundle\\FR3DLdapBundle')) {
++          $bundles[] = new FR3D\LdapBundle\FR3DLdapBundle();
++        }
++
+         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
+             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
+             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
+diff --git a/app/DoctrineMigrations/Version20170710113900.php b/app/DoctrineMigrations/Version20170710113900.php
+new file mode 100644
+index 00000000..7be83110
+--- /dev/null
++++ b/app/DoctrineMigrations/Version20170710113900.php
+@@ -0,0 +1,54 @@
++<?php
++
++namespace Application\Migrations;
++
++use Doctrine\DBAL\Migrations\AbstractMigration;
++use Doctrine\DBAL\Schema\Schema;
++use Symfony\Component\DependencyInjection\ContainerAwareInterface;
++use Symfony\Component\DependencyInjection\ContainerInterface;
++
++/**
++ * Added dn field on wallabag_users
++ */
++class Version20170710113900 extends AbstractMigration implements ContainerAwareInterface
++{
++    /**
++     * @var ContainerInterface
++     */
++    private $container;
++
++    public function setContainer(ContainerInterface $container = null)
++    {
++        $this->container = $container;
++    }
++
++    private function getTable($tableName)
++    {
++        return $this->container->getParameter('database_table_prefix').$tableName;
++    }
++
++    /**
++     * @param Schema $schema
++     */
++    public function up(Schema $schema)
++    {
++        $usersTable = $schema->getTable($this->getTable('user'));
++
++        $this->skipIf($usersTable->hasColumn('dn'), 'It seems that you already played this migration.');
++
++        $usersTable->addColumn('dn', 'text', [
++            'default' => null,
++            'notnull' => false,
++        ]);
++    }
++
++    /**
++     * @param Schema $schema
++     */
++    public function down(Schema $schema)
++    {
++        $usersTable = $schema->getTable($this->getTable('user'));
++        $usersTable->dropColumn('dn');
++    }
++}
++
+diff --git a/app/config/parameters.yml.dist b/app/config/parameters.yml.dist
+index 6b0cb8e8..cfd41b69 100644
+--- a/app/config/parameters.yml.dist
++++ b/app/config/parameters.yml.dist
+@@ -62,3 +62,23 @@ parameters:
+     redis_port: 6379
+     redis_path: null
+     redis_password: null
++
++    # ldap configuration
++    # To enable, you need to require fr3d/ldap-bundle
++    ldap_enabled: false
++    ldap_host: localhost
++    ldap_port: 389
++    ldap_tls:  false
++    ldap_ssl:  false
++    ldap_bind_requires_dn: true
++    ldap_base: dc=example,dc=com
++    ldap_manager_dn: ou=Manager,dc=example,dc=com
++    ldap_manager_pw: password
++    ldap_filter: (&(ObjectClass=Person))
++    # optional (if null: no ldap user is admin)
++    ldap_admin_filter: (&(memberOf=ou=admins,dc=example,dc=com)(uid=%s))
++    ldap_username_attribute: uid
++    ldap_email_attribute: mail
++    ldap_name_attribute: cn
++    # optional (default sets user as enabled unconditionally)
++    ldap_enabled_attribute: ~
+diff --git a/app/config/security.yml b/app/config/security.yml
+index 02afc9ea..48fbb553 100644
+--- a/app/config/security.yml
++++ b/app/config/security.yml
+@@ -6,6 +6,7 @@ security:
+         ROLE_ADMIN: ROLE_USER
+         ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+ 
++    # /!\ This list is modified in WallabagUserBundle when LDAP is enabled
+     providers:
+         administrators:
+             entity:
+@@ -36,6 +37,7 @@ security:
+             pattern: ^/login$
+             anonymous:  ~
+ 
++        # /!\ This section is modified in WallabagUserBundle when LDAP is enabled
+         secured_area:
+             pattern: ^/
+             form_login:
+diff --git a/composer.json b/composer.json
+index 68cfad05..32a3d1a4 100644
+--- a/composer.json
++++ b/composer.json
+@@ -85,7 +85,11 @@
+         "friendsofsymfony/jsrouting-bundle": "^1.6.3",
+         "bdunogier/guzzle-site-authenticator": "^1.0.0",
+         "defuse/php-encryption": "^2.1",
+-        "html2text/html2text": "^4.1"
++        "html2text/html2text": "^4.1",
++        "fr3d/ldap-bundle": "^3.0"
++    },
++    "suggest": {
++      "fr3d/ldap-bundle": "If you want to authenticate via LDAP"
+     },
+     "require-dev": {
+         "doctrine/doctrine-fixtures-bundle": "~2.2",
+diff --git a/composer.lock b/composer.lock
+index 251ee081..37795e0b 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "d2a0bd8408dccdeb7a7455996519829b",
++    "content-hash": "4699d166d03a8e5f70d802d0bc3e6a20",
+     "packages": [
+         {
+             "name": "bdunogier/guzzle-site-authenticator",
+@@ -1346,6 +1346,65 @@
+             ],
+             "time": "2018-12-14T19:44:53+00:00"
+         },
++        {
++            "name": "fr3d/ldap-bundle",
++            "version": "v3.0.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/Maks3w/FR3DLdapBundle.git",
++                "reference": "5a8927c11af45fa06331b97221c6da1a4a237475"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/Maks3w/FR3DLdapBundle/zipball/5a8927c11af45fa06331b97221c6da1a4a237475",
++                "reference": "5a8927c11af45fa06331b97221c6da1a4a237475",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=5.5",
++                "psr/log": "~1.0",
++                "symfony/config": "2.3 - 3",
++                "symfony/dependency-injection": "2.3 - 3",
++                "symfony/polyfill-php56": "^1.1",
++                "symfony/security": "2.3 - 3",
++                "symfony/security-bundle": "2.3 - 3",
++                "zendframework/zend-ldap": "2.5 - 3"
++            },
++            "require-dev": {
++                "fabpot/php-cs-fixer": "1.11.*",
++                "fr3d/psr3-message-assertions": "0.1.*",
++                "friendsofsymfony/user-bundle": "~1.3",
++                "maks3w/phpunit-methods-trait": "^4.6",
++                "phpunit/phpunit": "^4.6",
++                "symfony/validator": "2.3 - 3"
++            },
++            "suggest": {
++                "friendsofsymfony/user-bundle": "Integrate authentication and management for DB users, useful for unmanned LDAP servers",
++                "symfony/validator": "Allow pre-validate for existing users before register new ones"
++            },
++            "type": "symfony-bundle",
++            "autoload": {
++                "psr-4": {
++                    "FR3D\\LdapBundle\\": ""
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Maks3w"
++                }
++            ],
++            "description": "This package provide users and authentication services based on LDAP directories for Symfony2 framework",
++            "homepage": "https://github.com/Maks3w/FR3DLdapBundle",
++            "keywords": [
++                "Authentication",
++                "ldap"
++            ],
++            "time": "2016-02-12T17:45:14+00:00"
++        },
+         {
+             "name": "friendsofsymfony/jsrouting-bundle",
+             "version": "1.6.3",
+@@ -7027,6 +7086,59 @@
+                 "zf2"
+             ],
+             "time": "2018-04-25T15:33:34+00:00"
++        },
++        {
++            "name": "zendframework/zend-ldap",
++            "version": "2.10.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/zendframework/zend-ldap.git",
++                "reference": "b63c7884a08d3a6bda60ebcf7d6238cf8ad89f49"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/zendframework/zend-ldap/zipball/b63c7884a08d3a6bda60ebcf7d6238cf8ad89f49",
++                "reference": "b63c7884a08d3a6bda60ebcf7d6238cf8ad89f49",
++                "shasum": ""
++            },
++            "require": {
++                "ext-ldap": "*",
++                "php": "^5.6 || ^7.0"
++            },
++            "require-dev": {
++                "php-mock/php-mock-phpunit": "^1.1.2 || ^2.1.1",
++                "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.2",
++                "zendframework/zend-coding-standard": "~1.0.0",
++                "zendframework/zend-config": "^2.5",
++                "zendframework/zend-eventmanager": "^2.6.3 || ^3.0.1",
++                "zendframework/zend-stdlib": "^2.7 || ^3.0"
++            },
++            "suggest": {
++                "zendframework/zend-eventmanager": "Zend\\EventManager component"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "2.10.x-dev",
++                    "dev-develop": "2.11.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Zend\\Ldap\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "BSD-3-Clause"
++            ],
++            "description": "Provides support for LDAP operations including but not limited to binding, searching and modifying entries in an LDAP directory",
++            "keywords": [
++                "ZendFramework",
++                "ldap",
++                "zf"
++            ],
++            "time": "2018-07-05T05:05:12+00:00"
+         }
+     ],
+     "packages-dev": [
+@@ -7561,12 +7673,12 @@
+             "source": {
+                 "type": "git",
+                 "url": "https://github.com/symfony/phpunit-bridge.git",
+-                "reference": "5dab0d4b2ac99ab22b447b615fdfdc10ec4af3d5"
++                "reference": "d61ec438634e0f234c6bda1c6ee97016bbb0e7a1"
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/5dab0d4b2ac99ab22b447b615fdfdc10ec4af3d5",
+-                "reference": "5dab0d4b2ac99ab22b447b615fdfdc10ec4af3d5",
++                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/d61ec438634e0f234c6bda1c6ee97016bbb0e7a1",
++                "reference": "d61ec438634e0f234c6bda1c6ee97016bbb0e7a1",
+                 "shasum": ""
+             },
+             "require": {
+@@ -7619,7 +7731,7 @@
+             ],
+             "description": "Symfony PHPUnit Bridge",
+             "homepage": "https://symfony.com",
+-            "time": "2019-01-01T13:45:19+00:00"
++            "time": "2019-01-16T13:27:11+00:00"
+         },
+         {
+             "name": "symfony/polyfill-php72",
+diff --git a/scripts/install.sh b/scripts/install.sh
+index 8b7ea03f..3a4a33ab 100755
+--- a/scripts/install.sh
++++ b/scripts/install.sh
+@@ -26,5 +26,8 @@ ENV=$1
+ TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
+ 
+ git checkout $TAG
++if [ -n "$LDAP_ENABLED" ]; then
++  SYMFONY_ENV=$ENV $COMPOSER_COMMAND require --no-update fr3d/ldap-bundle
++fi
+ SYMFONY_ENV=$ENV $COMPOSER_COMMAND install --no-dev -o --prefer-dist
+ php bin/console wallabag:install --env=$ENV
+diff --git a/scripts/update.sh b/scripts/update.sh
+index c62d104a..6259a431 100755
+--- a/scripts/update.sh
++++ b/scripts/update.sh
+@@ -32,6 +32,9 @@ git fetch origin
+ git fetch --tags
+ TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
+ git checkout $TAG --force
++if [ -n "$LDAP_ENABLED" ]; then
++  SYMFONY_ENV=$ENV $COMPOSER_COMMAND require --no-update fr3d/ldap-bundle
++fi
+ SYMFONY_ENV=$ENV $COMPOSER_COMMAND install --no-dev -o --prefer-dist
+ php bin/console doctrine:migrations:migrate --no-interaction --env=$ENV
+ php bin/console cache:clear --env=$ENV
+diff --git a/src/Wallabag/UserBundle/DependencyInjection/WallabagUserExtension.php b/src/Wallabag/UserBundle/DependencyInjection/WallabagUserExtension.php
+index 5ca3482e..904a6af1 100644
+--- a/src/Wallabag/UserBundle/DependencyInjection/WallabagUserExtension.php
++++ b/src/Wallabag/UserBundle/DependencyInjection/WallabagUserExtension.php
+@@ -6,9 +6,34 @@ use Symfony\Component\Config\FileLocator;
+ use Symfony\Component\DependencyInjection\ContainerBuilder;
+ use Symfony\Component\DependencyInjection\Loader;
+ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
++use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+ 
+-class WallabagUserExtension extends Extension
++class WallabagUserExtension extends Extension implements PrependExtensionInterface
+ {
++    public function prepend(ContainerBuilder $container)
++    {
++        $ldap = $container->getParameter('ldap_enabled');
++
++        if ($ldap) {
++            $container->prependExtensionConfig('security', array(
++              'providers' => array(
++                'chain_provider' => array(),
++              ),
++            ));
++            $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
++            $loader->load('ldap.yml');
++        } elseif ($container->hasExtension('fr3d_ldap')) {
++            $container->prependExtensionConfig('fr3_d_ldap', array(
++            'driver' => array(
++              'host' => 'localhost',
++            ),
++            'user' => array(
++              'baseDn' => 'dc=example,dc=com',
++            ),
++          ));
++        }
++    }
++
+     public function load(array $configs, ContainerBuilder $container)
+     {
+         $configuration = new Configuration();
+@@ -16,6 +41,9 @@ class WallabagUserExtension extends Extension
+ 
+         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+         $loader->load('services.yml');
++        if ($container->getParameter('ldap_enabled')) {
++            $loader->load('ldap_services.yml');
++        }
+         $container->setParameter('wallabag_user.registration_enabled', $config['registration_enabled']);
+     }
+ 
+diff --git a/src/Wallabag/UserBundle/Entity/User.php b/src/Wallabag/UserBundle/Entity/User.php
+index 48446e3c..f93c59c7 100644
+--- a/src/Wallabag/UserBundle/Entity/User.php
++++ b/src/Wallabag/UserBundle/Entity/User.php
+@@ -1,5 +1,15 @@
+ <?php
+ 
++// This permits to have the LdapUserInterface even when fr3d/ldap-bundle is not
++// in the packages
++namespace FR3D\LdapBundle\Model;
++
++interface LdapUserInterface
++{
++    public function setDn($dn);
++    public function getDn();
++}
++
+ namespace Wallabag\UserBundle\Entity;
+ 
+ use Doctrine\Common\Collections\ArrayCollection;
+@@ -16,6 +26,7 @@ use Wallabag\ApiBundle\Entity\Client;
+ use Wallabag\CoreBundle\Entity\Config;
+ use Wallabag\CoreBundle\Entity\Entry;
+ use Wallabag\CoreBundle\Helper\EntityTimestampsTrait;
++use FR3D\LdapBundle\Model\LdapUserInterface;
+ 
+ /**
+  * User.
+@@ -28,7 +39,7 @@ use Wallabag\CoreBundle\Helper\EntityTimestampsTrait;
+  * @UniqueEntity("email")
+  * @UniqueEntity("username")
+  */
+-class User extends BaseUser implements TwoFactorInterface, TrustedComputerInterface
++class User extends BaseUser implements TwoFactorInterface, TrustedComputerInterface, LdapUserInterface
+ {
+     use EntityTimestampsTrait;
+ 
+@@ -67,6 +78,13 @@ class User extends BaseUser implements TwoFactorInterface, TrustedComputerInterf
+      */
+     protected $email;
+ 
++    /**
++     * @var string
++     *
++     * @ORM\Column(name="dn", type="text", nullable=true)
++     */
++    protected $dn;
++
+     /**
+      * @var \DateTime
+      *
+@@ -309,4 +327,33 @@ class User extends BaseUser implements TwoFactorInterface, TrustedComputerInterf
+             return $this->clients->first();
+         }
+     }
++
++    /**
++     * Set dn.
++     *
++     * @param string $dn
++     *
++     * @return User
++     */
++    public function setDn($dn)
++    {
++        $this->dn = $dn;
++
++        return $this;
++    }
++
++    /**
++     * Get dn.
++     *
++     * @return string
++     */
++    public function getDn()
++    {
++        return $this->dn;
++    }
++
++    public function isLdapUser()
++    {
++        return $this->dn !== null;
++    }
+ }
+diff --git a/src/Wallabag/UserBundle/LdapHydrator.php b/src/Wallabag/UserBundle/LdapHydrator.php
+new file mode 100644
+index 00000000..cea2450f
+--- /dev/null
++++ b/src/Wallabag/UserBundle/LdapHydrator.php
+@@ -0,0 +1,103 @@
++<?php
++
++namespace Wallabag\UserBundle;
++
++use FR3D\LdapBundle\Hydrator\HydratorInterface;
++use FOS\UserBundle\FOSUserEvents;
++use FOS\UserBundle\Event\UserEvent;
++
++class LdapHydrator implements HydratorInterface
++{
++    private $userManager;
++    private $eventDispatcher;
++    private $attributesMap;
++    private $enabledAttribute;
++    private $ldapBaseDn;
++    private $ldapAdminFilter;
++    private $ldapDriver;
++
++    public function __construct(
++      $user_manager,
++      $event_dispatcher,
++      array $attributes_map,
++      $ldap_base_dn,
++      $ldap_admin_filter,
++      $ldap_driver
++    ) {
++        $this->userManager = $user_manager;
++        $this->eventDispatcher = $event_dispatcher;
++
++        $this->attributesMap = array(
++        'setUsername' => $attributes_map[0],
++        'setEmail' => $attributes_map[1],
++        'setName' => $attributes_map[2],
++      );
++        $this->enabledAttribute = $attributes_map[3];
++
++        $this->ldapBaseDn = $ldap_base_dn;
++        $this->ldapAdminFilter = $ldap_admin_filter;
++        $this->ldapDriver = $ldap_driver;
++    }
++
++    public function hydrate(array $ldapEntry)
++    {
++        $user = $this->userManager->findUserBy(array('dn' => $ldapEntry['dn']));
++
++        if (!$user) {
++            $user = $this->userManager->createUser();
++            $user->setDn($ldapEntry['dn']);
++            $user->setPassword('');
++            $user->setSalt('');
++            $this->updateUserFields($user, $ldapEntry);
++
++            $event = new UserEvent($user);
++            $this->eventDispatcher->dispatch(FOSUserEvents::USER_CREATED, $event);
++
++            $this->userManager->reloadUser($user);
++        } else {
++            $this->updateUserFields($user, $ldapEntry);
++        }
++
++        return $user;
++    }
++
++    private function updateUserFields($user, $ldapEntry)
++    {
++        foreach ($this->attributesMap as $key => $value) {
++            if (is_array($ldapEntry[$value])) {
++                $ldap_value = $ldapEntry[$value][0];
++            } else {
++                $ldap_value = $ldapEntry[$value];
++            }
++
++            call_user_func([$user, $key], $ldap_value);
++        }
++
++        if ($this->enabledAttribute !== null) {
++            $user->setEnabled($ldapEntry[$this->enabledAttribute]);
++        } else {
++            $user->setEnabled(true);
++        }
++
++        if ($this->isAdmin($user)) {
++            $user->addRole('ROLE_SUPER_ADMIN');
++        } else {
++            $user->removeRole('ROLE_SUPER_ADMIN');
++        }
++
++        $this->userManager->updateUser($user, true);
++    }
++
++    private function isAdmin($user)
++    {
++        if ($this->ldapAdminFilter === null) {
++            return false;
++        }
++
++        $escaped_username = ldap_escape($user->getUsername(), '', LDAP_ESCAPE_FILTER);
++        $filter = sprintf($this->ldapAdminFilter, $escaped_username);
++        $entries = $this->ldapDriver->search($this->ldapBaseDn, $filter);
++
++        return $entries['count'] == 1;
++    }
++}
+diff --git a/src/Wallabag/UserBundle/OAuthStorageLdapWrapper.php b/src/Wallabag/UserBundle/OAuthStorageLdapWrapper.php
+new file mode 100644
+index 00000000..8a851f12
+--- /dev/null
++++ b/src/Wallabag/UserBundle/OAuthStorageLdapWrapper.php
+@@ -0,0 +1,43 @@
++<?php
++
++namespace Wallabag\UserBundle;
++
++use FOS\OAuthServerBundle\Storage\OAuthStorage;
++use OAuth2\Model\IOAuth2Client;
++use Symfony\Component\Security\Core\Exception\AuthenticationException;
++
++class OAuthStorageLdapWrapper extends OAuthStorage
++{
++    private $ldapManager;
++
++    public function setLdapManager($ldap_manager)
++    {
++        $this->ldapManager = $ldap_manager;
++    }
++
++    public function checkUserCredentials(IOAuth2Client $client, $username, $password)
++    {
++        try {
++            $user = $this->userProvider->loadUserByUsername($username);
++        } catch (AuthenticationException $e) {
++            return false;
++        }
++
++        if ($user->isLdapUser()) {
++            return $this->checkLdapUserCredentials($user, $password);
++        } else {
++            return parent::checkUserCredentials($client, $username, $password);
++        }
++    }
++
++    private function checkLdapUserCredentials($user, $password)
++    {
++        if ($this->ldapManager->bind($user, $password)) {
++            return array(
++        'data' => $user,
++      );
++        } else {
++            return false;
++        }
++    }
++}
+diff --git a/src/Wallabag/UserBundle/Resources/config/ldap.yml b/src/Wallabag/UserBundle/Resources/config/ldap.yml
+new file mode 100644
+index 00000000..5ec16088
+--- /dev/null
++++ b/src/Wallabag/UserBundle/Resources/config/ldap.yml
+@@ -0,0 +1,28 @@
++fr3d_ldap:
++    service:
++        user_hydrator: ldap_user_hydrator
++    driver:
++        host: "%ldap_host%"
++        port: "%ldap_port%"
++        useSsl: "%ldap_ssl%"
++        useStartTls: "%ldap_tls%"
++        bindRequiresDn: "%ldap_bind_requires_dn%"
++        username: "%ldap_manager_dn%"
++        password: "%ldap_manager_pw%"
++    user:
++        baseDn: "%ldap_base%"
++        filter: "%ldap_filter%"
++        usernameAttribute: "%ldap_username_attribute%"
++security:
++    providers:
++        chain_provider:
++            chain:
++                providers: [ fr3d_ldapbundle, fos_userbundle ]
++        fr3d_ldapbundle:
++            id: fr3d_ldap.security.user.provider
++    firewalls:
++        secured_area:
++            fr3d_ldap: ~
++            form_login:
++                provider: chain_provider
++
+diff --git a/src/Wallabag/UserBundle/Resources/config/ldap_services.yml b/src/Wallabag/UserBundle/Resources/config/ldap_services.yml
+new file mode 100644
+index 00000000..b3e3fd8a
+--- /dev/null
++++ b/src/Wallabag/UserBundle/Resources/config/ldap_services.yml
+@@ -0,0 +1,22 @@
++services:
++    fos_oauth_server.server:
++        class: OAuth2\OAuth2
++        arguments:
++            - "@oauth_storage_ldap_wrapper"
++            - "%fos_oauth_server.server.options%"
++    oauth_storage_ldap_wrapper:
++        class: Wallabag\UserBundle\OAuthStorageLdapWrapper
++        parent: fos_oauth_server.storage
++        calls:
++            - [setLdapManager, ["@fr3d_ldap.ldap_manager"]]
++
++    ldap_user_hydrator:
++        class: Wallabag\UserBundle\LdapHydrator
++        arguments:
++            - "@fos_user.user_manager"
++            - "@event_dispatcher"
++            - [ "%ldap_username_attribute%", "%ldap_email_attribute%", "%ldap_name_attribute%", "%ldap_enabled_attribute%" ]
++            - "%ldap_base%"
++            - "%ldap_admin_filter%"
++            - "@fr3d_ldap.ldap_driver"
++

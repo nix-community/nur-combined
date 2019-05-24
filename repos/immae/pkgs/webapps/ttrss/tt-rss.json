@@ -1,0 +1,14 @@
+{
+  "tag": "986ca25-master",
+  "meta": {
+    "name": "tt-rss",
+    "url": "https://git.tt-rss.org/fox/tt-rss.git",
+    "branch": "master"
+  },
+  "git": {
+    "url": "https://git.tt-rss.org/fox/tt-rss.git",
+    "rev": "986ca251f995f7754a0470d3e0c44538a545081f",
+    "sha256": "0xkafkh7l9zazm5d6snlq03kdfxfhkb4c8fdsb32wn8b9bhdzf5s",
+    "fetchSubmodules": true
+  }
+}

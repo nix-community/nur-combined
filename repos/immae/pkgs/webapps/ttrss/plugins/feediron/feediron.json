@@ -1,0 +1,15 @@
+{
+  "tag": "407168c-master",
+  "meta": {
+    "name": "ttrss-feediron",
+    "url": "https://github.com/m42e/ttrss_plugin-feediron",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "m42e",
+    "repo": "ttrss_plugin-feediron",
+    "rev": "407168c628880b5ced572cc549db6d50e866d3c8",
+    "sha256": "17b95ifpcph6m03hjd1mhi8gi1hw9yd3fnffmw66fqr5c9l3zd9r",
+    "fetchSubmodules": true
+  }
+}

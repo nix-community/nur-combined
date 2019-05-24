@@ -1,0 +1,15 @@
+{
+  "tag": "dbacada-1.3",
+  "meta": {
+    "name": "vit",
+    "url": "https://github.com/scottkosty/vit",
+    "branch": "1.3"
+  },
+  "github": {
+    "owner": "scottkosty",
+    "repo": "vit",
+    "rev": "dbacada5867b238fdf35dbf00a3ca0daf7703038",
+    "sha256": "1wlk62cv6dc0dqv8265xcx2l7ydzg40xf6l4qbrf6h5156ncc90l",
+    "fetchSubmodules": true
+  }
+}

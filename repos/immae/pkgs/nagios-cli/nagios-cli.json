@@ -1,0 +1,15 @@
+{
+  "tag": "edc51ea-master",
+  "meta": {
+    "name": "nagios-cli",
+    "url": "https://github.com/tehmaze/nagios-cli",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "tehmaze",
+    "repo": "nagios-cli",
+    "rev": "edc51eaccf1086bb4469ce45c5e5155f2d71a2f9",
+    "sha256": "1qw5fv4niz079zqwmfr3kzjv8cc31rbhi9whdbv9c32qdi3h7vsp",
+    "fetchSubmodules": true
+  }
+}

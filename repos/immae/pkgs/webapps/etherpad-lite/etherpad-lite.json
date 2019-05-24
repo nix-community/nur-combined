@@ -1,0 +1,15 @@
+{
+  "tag": "1.7.0",
+  "meta": {
+    "name": "etherpad-lite",
+    "url": "https://github.com/ether/etherpad-lite",
+    "branch": "refs/tags/1.7.0"
+  },
+  "github": {
+    "owner": "ether",
+    "repo": "etherpad-lite",
+    "rev": "96ac381afb9ea731dad48968f15d77dc6488bd0d",
+    "sha256": "03k6bwlm9ch9kssy9jipfg8ij7rpbzd89xq4mvg4grg1q6ivnzk9",
+    "fetchSubmodules": true
+  }
+}

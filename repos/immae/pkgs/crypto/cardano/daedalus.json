@@ -1,0 +1,15 @@
+{
+  "tag": "0.12.1",
+  "meta": {
+    "name": "daedalus",
+    "url": "https://github.com/input-output-hk/daedalus",
+    "branch": "refs/tags/0.12.1"
+  },
+  "github": {
+    "owner": "input-output-hk",
+    "repo": "daedalus",
+    "rev": "1276852b9a766d9fd4cda10561254f1a8ddd33ed",
+    "sha256": "0jf6ibwf0r4587g1ixq6zvi40kzwy137jgay5136yfbg15xw14k2",
+    "fetchSubmodules": true
+  }
+}

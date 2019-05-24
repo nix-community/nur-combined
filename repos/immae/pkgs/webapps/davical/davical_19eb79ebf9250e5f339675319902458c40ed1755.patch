@@ -1,0 +1,26 @@
+diff --git a/inc/ui/collection-edit.php b/inc/ui/collection-edit.php
+index 3af9edd3b8c4ad9074113273175098841af6a28e..8c1d84012b035f7bc7faedcb24916581a02a5d3e 100644
+--- a/inc/ui/collection-edit.php
++++ b/inc/ui/collection-edit.php
+@@ -190,7 +190,7 @@ $privilege_xlate = array(
+ * @param dbrow $row The row object we read from the database.
+ * @return string The formatted privileges.
+ */
+-function collection_privilege_format_function( $value, $column, $row ) {
++function collection_privilege_format_function( $value, $column = NULL, $row = NULL ) {
+   global $privilege_xlate;
+ 
+   $privs = bits_to_privilege($value, 'calendar');
+diff --git a/inc/ui/principal-edit.php b/inc/ui/principal-edit.php
+index 20dee7fa4ca2235ff2f74be0dfb52cbe937ef822..2e37cd596b597bcce1e59d7c02a1c5fc2a7f88ce 100644
+--- a/inc/ui/principal-edit.php
++++ b/inc/ui/principal-edit.php
+@@ -454,7 +454,7 @@ EOTEMPLATE;
+ * @param dbrow $row The row object we read from the database.
+ * @return string The formatted privileges.
+ */
+-function principal_privilege_format_function( $value, $column, $row ) {
++function principal_privilege_format_function( $value, $column = NULL, $row = NULL ) {
+   global $privilege_xlate;
+ 
+   $privs = bits_to_privilege($value,'*');

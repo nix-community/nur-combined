@@ -1,0 +1,15 @@
+{
+  "tag": "860d642-master",
+  "meta": {
+    "name": "flrn",
+    "url": "https://github.com/Cigaes/flrn",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "Cigaes",
+    "repo": "flrn",
+    "rev": "860d642bd6389a209c8b697bd044f78d23406509",
+    "sha256": "0sqlxxpy1xg7cb2hbxcr0al46nyr6jjnns4b5i8w04z5sypa9r5c",
+    "fetchSubmodules": true
+  }
+}

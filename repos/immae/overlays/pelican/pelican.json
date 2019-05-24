@@ -1,0 +1,15 @@
+{
+  "tag": "4.0.1",
+  "meta": {
+    "name": "pelican",
+    "url": "https://github.com/getpelican/pelican",
+    "branch": "refs/tags/4.0.1"
+  },
+  "github": {
+    "owner": "getpelican",
+    "repo": "pelican",
+    "rev": "24d6efa9fda4ad45649ddf88c1c596193d589bf8",
+    "sha256": "09fcwnnfln0cl5v0qpxzrllj27znrg6dbhaksxrl0192c3mbyjvl",
+    "fetchSubmodules": true
+  }
+}

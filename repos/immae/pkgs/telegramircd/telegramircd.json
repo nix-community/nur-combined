@@ -1,0 +1,15 @@
+{
+  "tag": "40a0c7c-master",
+  "meta": {
+    "name": "telegramircd",
+    "url": "https://github.com/MaskRay/telegramircd",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "MaskRay",
+    "repo": "telegramircd",
+    "rev": "40a0c7cf60492bde3f44d43f06f62e3792480139",
+    "sha256": "123fjhgxq2fzn0ar8274jv7jjbxnlpidrj5333kbch7rpcipks0y",
+    "fetchSubmodules": true
+  }
+}

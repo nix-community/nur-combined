@@ -1,0 +1,15 @@
+{
+  "tag": "3bd27fb-master",
+  "meta": {
+    "name": "cnagios",
+    "url": "https://github.com/dannywarren/cnagios",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "dannywarren",
+    "repo": "cnagios",
+    "rev": "3bd27fb40e68f61ffd01bea6234b919a667b6fe4",
+    "sha256": "0iy5pmlcz6y3if72nav22xqxniiv1v8ywi0927m6s459hkw5n2rb",
+    "fetchSubmodules": true
+  }
+}

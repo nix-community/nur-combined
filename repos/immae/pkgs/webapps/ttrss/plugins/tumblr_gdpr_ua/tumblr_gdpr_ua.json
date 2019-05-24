@@ -1,0 +1,15 @@
+{
+  "tag": "287c584-master",
+  "meta": {
+    "name": "ttrss-tumblr_gdpr_ua",
+    "url": "https://github.com/hkockerbeck/ttrss-tumblr-gdpr-ua",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "hkockerbeck",
+    "repo": "ttrss-tumblr-gdpr-ua",
+    "rev": "287c584e68845d524f920156bff0b2eaa6f65117",
+    "sha256": "1fviawgcclqky4k4xv1sqzvpb8i74w9f0pclm09m78s8l85wh9py",
+    "fetchSubmodules": true
+  }
+}

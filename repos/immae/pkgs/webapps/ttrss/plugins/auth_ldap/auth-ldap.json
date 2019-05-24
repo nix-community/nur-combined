@@ -1,0 +1,15 @@
+{
+  "tag": "4d751b0-master",
+  "meta": {
+    "name": "ttrss-auth-ldap",
+    "url": "https://github.com/hydrian/TTRSS-Auth-LDAP",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "hydrian",
+    "repo": "TTRSS-Auth-LDAP",
+    "rev": "4d751b095c29a8dbe2dc7bb07777742956136e94",
+    "sha256": "0b9fl86acrzpcv41r7pj3bl8b3n72hpkdywzx9zjyfqv5pskxyim",
+    "fetchSubmodules": true
+  }
+}

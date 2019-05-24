@@ -1,0 +1,14 @@
+{
+  "tag": "9e87787-master",
+  "meta": {
+    "name": "buildslist",
+    "url": "https://git.immae.eu/perso/Immae/Projets/Buildbot/buildslist",
+    "branch": "master"
+  },
+  "git": {
+    "url": "https://git.immae.eu/perso/Immae/Projets/Buildbot/buildslist",
+    "rev": "9e87787b40f4d6435218268e516be56eacd8d17b",
+    "sha256": "0bli9w0xwpij23jblggz2zwhb7y3gkjdvsppcy6ia3m0x0siclpi",
+    "fetchSubmodules": true
+  }
+}

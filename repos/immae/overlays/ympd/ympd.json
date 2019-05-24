@@ -1,0 +1,15 @@
+{
+  "tag": "612f8fc-master",
+  "meta": {
+    "name": "ympd",
+    "url": "https://github.com/notandy/ympd",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "notandy",
+    "repo": "ympd",
+    "rev": "612f8fc0b2c47fc89d403e4a044541c6b2b238c8",
+    "sha256": "01hnj10zl103mrn82vyd42fvq7w5az3jf1qz18889zv67kn73ll9",
+    "fetchSubmodules": true
+  }
+}

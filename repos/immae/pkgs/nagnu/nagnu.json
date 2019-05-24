@@ -1,0 +1,15 @@
+{
+  "tag": "c7e65fc-master",
+  "meta": {
+    "name": "nagnu",
+    "url": "https://github.com/frlen/nagnu",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "frlen",
+    "repo": "nagnu",
+    "rev": "c7e65fc02f46a3756a4cc47953ea2f3e57a84728",
+    "sha256": "1i2jm8ibvqcc734daamnzc3hx8q0nsry1x12q0kr5yvcsdjjgyy3",
+    "fetchSubmodules": true
+  }
+}

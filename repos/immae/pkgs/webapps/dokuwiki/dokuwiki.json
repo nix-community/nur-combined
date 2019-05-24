@@ -1,0 +1,15 @@
+{
+  "tag": "release_stable_2018-04-22b",
+  "meta": {
+    "name": "dokuwiki",
+    "url": "https://github.com/splitbrain/dokuwiki",
+    "branch": "refs/tags/release_stable_2018-04-22b"
+  },
+  "github": {
+    "owner": "splitbrain",
+    "repo": "dokuwiki",
+    "rev": "871dae1320b40211626c7ec665f5e6d5290aca95",
+    "sha256": "1syvd5dvv3v75swf8ig7dxqs0g5xikb0f6vlcy7g4c4ghldkw7nz",
+    "fetchSubmodules": true
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "tag": "v0.7.10.0",
+  "meta": {
+    "name": "diaspora",
+    "url": "https://github.com/diaspora/diaspora",
+    "branch": "refs/tags/v0.7.10.0"
+  },
+  "github": {
+    "owner": "diaspora",
+    "repo": "diaspora",
+    "rev": "f0085cf5bb1c45bdfba866f628153d299e56eca8",
+    "sha256": "02mnb40rdkk6jlnvpy61fad59gbpgnlwz1k35w4wfqdwzq0znaqp",
+    "fetchSubmodules": true
+  }
+}

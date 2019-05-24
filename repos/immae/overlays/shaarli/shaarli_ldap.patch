@@ -1,0 +1,420 @@
+commit bc82ebfd779b8641dadd6787f51639ea9105c3e8
+Author: Ismaël Bouya <ismael.bouya@normalesup.org>
+Date:   Sun Feb 3 20:58:18 2019 +0100
+
+    Add ldap connection
+
+diff --git a/.htaccess b/.htaccess
+index 4c00427..5acd708 100644
+--- a/.htaccess
++++ b/.htaccess
+@@ -6,10 +6,23 @@ RewriteEngine On
+ # Prevent accessing subdirectories not managed by SCM
+ RewriteRule ^(.git|doxygen|vendor) - [F]
+ 
++RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
++RewriteRule ^(.*) - [E=BASE:%1]
++
++RewriteCond %{ENV:REDIRECT_BASE} (.+)
++RewriteRule .* - [E=BASE:%1]
++
+ # Forward the "Authorization" HTTP header
+ RewriteCond %{HTTP:Authorization} ^(.*)
+ RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+ 
++RewriteCond %{REQUEST_FILENAME} !-f
++RewriteCond %{REQUEST_FILENAME} !-d
++RewriteRule ^((?!api/)[^/]*)/?(.*)$ $2?%{QUERY_STRING} [E=USERSPACE:$1]
++
++RewriteCond %{ENV:REDIRECT_USERSPACE} (.+)
++RewriteRule .* - [E=USERSPACE:%1]
++
+ # REST API
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteCond %{REQUEST_FILENAME} !-d
+diff --git a/application/ApplicationUtils.php b/application/ApplicationUtils.php
+index 911873a..f21a1ef 100644
+--- a/application/ApplicationUtils.php
++++ b/application/ApplicationUtils.php
+@@ -191,6 +191,9 @@ public static function checkResourcePermissions($conf)
+             $conf->get('resource.page_cache'),
+             $conf->get('resource.raintpl_tmp'),
+         ) as $path) {
++            if (! is_dir($path)) {
++                mkdir($path, 0755, true);
++            }
+             if (! is_readable(realpath($path))) {
+                 $errors[] = '"'.$path.'" '. t('directory is not readable');
+             }
+diff --git a/application/config/ConfigManager.php b/application/config/ConfigManager.php
+index 32aaea4..99efc15 100644
+--- a/application/config/ConfigManager.php
++++ b/application/config/ConfigManager.php
+@@ -21,6 +21,11 @@ class ConfigManager
+ 
+     public static $DEFAULT_PLUGINS = array('qrcode');
+ 
++    /**
++     * @var string User space.
++     */
++    protected $userSpace;
++
+     /**
+      * @var string Config folder.
+      */
+@@ -41,12 +46,36 @@ class ConfigManager
+      *
+      * @param string $configFile Configuration file path without extension.
+      */
+-    public function __construct($configFile = 'data/config')
++    public function __construct($configFile = null, $userSpace = null)
+     {
+-        $this->configFile = $configFile;
++        $this->userSpace = $this->findLDAPUser($userSpace);
++        if ($configFile !== null) {
++            $this->configFile = $configFile;
++        } else {
++            $this->configFile = ($this->userSpace === null) ? 'data/config' : 'data/' . $this->userSpace . '/config';
++        }
+         $this->initialize();
+     }
+ 
++    public function findLDAPUser($login, $password = null) {
++        $connect = ldap_connect(getenv('SHAARLI_LDAP_HOST'));
++        ldap_set_option($connect, LDAP_OPT_PROTOCOL_VERSION, 3);
++        if (!$connect || !ldap_bind($connect, getenv('SHAARLI_LDAP_DN'), getenv('SHAARLI_LDAP_PASSWORD'))) {
++            return false;
++        }
++
++        $search_query = str_replace('%login%', ldap_escape($login), getenv('SHAARLI_LDAP_FILTER'));
++
++        $search = ldap_search($connect, getenv('SHAARLI_LDAP_BASE'), $search_query);
++        $info = ldap_get_entries($connect, $search);
++
++        if (ldap_count_entries($connect, $search) == 1 && (is_null($password) || ldap_bind($connect, $info[0]["dn"], $password))) {
++            return $login;
++        } else {
++            return null;
++        }
++    }
++
+     /**
+      * Reset the ConfigManager instance.
+      */
+@@ -269,6 +298,16 @@ public function getConfigFileExt()
+         return $this->configFile . $this->configIO->getExtension();
+     }
+ 
++    /**
++     * Get the current userspace.
++     *
++     * @return mixed User space.
++     */
++    public function getUserSpace()
++    {
++      return $this->userSpace;
++    }
++
+     /**
+      * Recursive function which find asked setting in the loaded config.
+      *
+@@ -342,19 +381,31 @@ protected static function removeConfig($settings, &$conf)
+      */
+     protected function setDefaultValues()
+     {
+-        $this->setEmpty('resource.data_dir', 'data');
+-        $this->setEmpty('resource.config', 'data/config.php');
+-        $this->setEmpty('resource.datastore', 'data/datastore.php');
+-        $this->setEmpty('resource.ban_file', 'data/ipbans.php');
+-        $this->setEmpty('resource.updates', 'data/updates.txt');
+-        $this->setEmpty('resource.log', 'data/log.txt');
+-        $this->setEmpty('resource.update_check', 'data/lastupdatecheck.txt');
+-        $this->setEmpty('resource.history', 'data/history.php');
++        if ($this->userSpace === null) {
++          $data = 'data';
++          $tmp  = 'tmp';
++          $cache = 'cache';
++          $pagecache = 'pagecache';
++        } else {
++          $data = 'data/' . ($this->userSpace);
++          $tmp  = 'tmp/' . ($this->userSpace);
++          $cache = 'cache/' . ($this->userSpace);
++          $pagecache = 'pagecache/' . ($this->userSpace);
++        }
++
++        $this->setEmpty('resource.data_dir', $data);
++        $this->setEmpty('resource.config', $data . '/config.php');
++        $this->setEmpty('resource.datastore', $data . '/datastore.php');
++        $this->setEmpty('resource.ban_file', $data . '/ipbans.php');
++        $this->setEmpty('resource.updates', $data . '/updates.txt');
++        $this->setEmpty('resource.log', $data . '/log.txt');
++        $this->setEmpty('resource.update_check', $data . '/lastupdatecheck.txt');
++        $this->setEmpty('resource.history', $data . '/history.php');
+         $this->setEmpty('resource.raintpl_tpl', 'tpl/');
+         $this->setEmpty('resource.theme', 'default');
+-        $this->setEmpty('resource.raintpl_tmp', 'tmp/');
+-        $this->setEmpty('resource.thumbnails_cache', 'cache');
+-        $this->setEmpty('resource.page_cache', 'pagecache');
++        $this->setEmpty('resource.raintpl_tmp', $tmp);
++        $this->setEmpty('resource.thumbnails_cache', $cache);
++        $this->setEmpty('resource.page_cache', $pagecache);
+ 
+         $this->setEmpty('security.ban_after', 4);
+         $this->setEmpty('security.ban_duration', 1800);
+diff --git a/application/security/LoginManager.php b/application/security/LoginManager.php
+index d6784d6..bdfaca7 100644
+--- a/application/security/LoginManager.php
++++ b/application/security/LoginManager.php
+@@ -32,6 +32,9 @@ class LoginManager
+     /** @var string User sign-in token depending on remote IP and credentials */
+     protected $staySignedInToken = '';
+ 
++    protected $lastErrorReason = '';
++    protected $lastErrorIsBanishable = false;
++
+     /**
+      * Constructor
+      *
+@@ -83,7 +86,7 @@ public function getStaySignedInToken()
+      */
+     public function checkLoginState($cookie, $clientIpId)
+     {
+-        if (! $this->configManager->exists('credentials.login')) {
++        if (! $this->configManager->exists('credentials.login') || (isset($_SESSION['username']) && $_SESSION['username'] && $this->configManager->get('credentials.login') !== $_SESSION['username'])) {
+             // Shaarli is not configured yet
+             $this->isLoggedIn = false;
+             return;
+@@ -133,20 +136,40 @@ public function isLoggedIn()
+      */
+     public function checkCredentials($remoteIp, $clientIpId, $login, $password)
+     {
+-        $hash = sha1($password . $login . $this->configManager->get('credentials.salt'));
++        $this->lastErrorIsBanishable = false;
++
++        if ($this->configManager->getUserSpace() !== null && $this->configManager->getUserSpace() !== $login) {
++          logm($this->configManager->get('resource.log'),
++               $remoteIp,
++               'Trying to login to wrong user space');
++          $this->lastErrorReason = 'You’re trying to access the wrong account.';
++          return false;
++        }
+ 
+-        if ($login != $this->configManager->get('credentials.login')
+-            || $hash != $this->configManager->get('credentials.hash')
+-        ) {
++        logm($this->configManager->get('resource.log'),
++             $remoteIp,
++             'Trying LDAP connection');
++        $result = $this->configManager->findLDAPUser($login, $password);
++        if ($result === false) {
+             logm(
+                 $this->configManager->get('resource.log'),
+                 $remoteIp,
+-                'Login failed for user ' . $login
++                'Impossible to connect to LDAP'
+             );
++            $this->lastErrorReason = 'Server error.';
++            return false;
++        } else if (is_null($result)) {
++            logm(
++              $this->configManager->get('resource.log'),
++              $remoteIp,
++              'Login failed for user ' . $login
++            );
++            $this->lastErrorIsBanishable = true;
++            $this->lastErrorReason = 'Wrong login/password.';
+             return false;
+         }
+ 
+-        $this->sessionManager->storeLoginInfo($clientIpId);
++        $this->sessionManager->storeLoginInfo($clientIpId, $login);
+         logm(
+             $this->configManager->get('resource.log'),
+             $remoteIp,
+@@ -187,6 +210,10 @@ protected function writeBanFile()
+      */
+     public function handleFailedLogin($server)
+     {
++        if (!$this->lastErrorIsBanishable) {
++          return $this->lastErrorReason ?: 'Error during login.';
++        };
++
+         $ip = $server['REMOTE_ADDR'];
+         $trusted = $this->configManager->get('security.trusted_proxies', []);
+ 
+@@ -215,6 +242,7 @@ public function handleFailedLogin($server)
+             );
+         }
+         $this->writeBanFile();
++        return $this->lastErrorReason ?: 'Error during login.';
+     }
+ 
+     /**
+diff --git a/application/security/SessionManager.php b/application/security/SessionManager.php
+index b8b8ab8..5eb4aac 100644
+--- a/application/security/SessionManager.php
++++ b/application/security/SessionManager.php
+@@ -111,10 +111,10 @@ public static function checkId($sessionId)
+      *
+      * @param string $clientIpId Client IP address identifier
+      */
+-    public function storeLoginInfo($clientIpId)
++    public function storeLoginInfo($clientIpId, $login = null)
+     {
+         $this->session['ip'] = $clientIpId;
+-        $this->session['username'] = $this->conf->get('credentials.login');
++        $this->session['username'] = $login ?: $this->conf->get('credentials.login');
+         $this->extendTimeValidityBy(self::$SHORT_TIMEOUT);
+     }
+ 
+diff --git a/index.php b/index.php
+index 4b86a3e..85376e8 100644
+--- a/index.php
++++ b/index.php
+@@ -121,7 +121,27 @@
+     $_COOKIE['shaarli'] = session_id();
+ }
+ 
+-$conf = new ConfigManager();
++$folderBase = getenv("BASE");
++
++if (getenv("USERSPACE")) {
++    if (isset($_GET["do"]) && $_GET["do"] == "login") {
++        header("Location: $folderBase/?do=login");
++        exit;
++    }
++    $userspace = preg_replace("/[^-_A-Za-z0-9]/", '', getenv("USERSPACE"));
++} else if (isset($_SESSION["username"]) && $_SESSION["username"]) {
++    header("Location: " . $folderBase . "/" . $_SESSION["username"] . "?");
++    exit;
++} else if (!isset($_GET["do"]) || $_GET["do"] != "login") {
++    header("Location: $folderBase/?do=login");
++    exit;
++}
++
++if (isset($userspace)) {
++  $conf = new ConfigManager(null, $userspace);
++} else {
++  $conf = new ConfigManager();
++}
+ $sessionManager = new SessionManager($_SESSION, $conf);
+ $loginManager = new LoginManager($GLOBALS, $conf, $sessionManager);
+ $loginManager->generateStaySignedInToken($_SERVER['REMOTE_ADDR']);
+@@ -175,7 +195,7 @@
+     }
+ 
+     // Display the installation form if no existing config is found
+-    install($conf, $sessionManager, $loginManager);
++    install($conf, $sessionManager, $loginManager, $userspace);
+ }
+ 
+ $loginManager->checkLoginState($_COOKIE, $clientIpId);
+@@ -205,6 +225,7 @@ function isLoggedIn()
+         && $loginManager->checkCredentials($_SERVER['REMOTE_ADDR'], $clientIpId, $_POST['login'], $_POST['password'])
+     ) {
+         $loginManager->handleSuccessfulLogin($_SERVER);
++        $userspace = $_POST['login'];
+ 
+         $cookiedir = '';
+         if (dirname($_SERVER['SCRIPT_NAME']) != '/') {
+@@ -241,25 +262,25 @@ function isLoggedIn()
+                     $uri .= '&'.$param.'='.urlencode($_GET[$param]);
+                 }
+             }
+-            header('Location: '. $uri);
++            header('Location: '. $userspace . $uri);
+             exit;
+         }
+ 
+         if (isset($_GET['edit_link'])) {
+-            header('Location: ?edit_link='. escape($_GET['edit_link']));
++            header('Location: ' . $userspace . '?edit_link='. escape($_GET['edit_link']));
+             exit;
+         }
+ 
+         if (isset($_POST['returnurl'])) {
+             // Prevent loops over login screen.
+             if (strpos($_POST['returnurl'], 'do=login') === false) {
+-                header('Location: '. generateLocation($_POST['returnurl'], $_SERVER['HTTP_HOST']));
++                header('Location: ' . generateLocation($_POST['returnurl'], $_SERVER['HTTP_HOST']));
+                 exit;
+             }
+         }
+-        header('Location: ?'); exit;
++        header('Location: '. $userspace . '?'); exit;
+     } else {
+-        $loginManager->handleFailedLogin($_SERVER);
++        $errorReason = $loginManager->handleFailedLogin($_SERVER);
+         $redir = '&username='. urlencode($_POST['login']);
+         if (isset($_GET['post'])) {
+             $redir .= '&post=' . urlencode($_GET['post']);
+@@ -270,7 +291,7 @@ function isLoggedIn()
+             }
+         }
+         // Redirect to login screen.
+-        echo '<script>alert("'. t("Wrong login/password.") .'");document.location=\'?do=login'.$redir.'\';</script>';
++        echo '<script>alert("'. t($errorReason) .'");document.location=\'?do=login'.$redir.'\';</script>';
+         exit;
+     }
+ }
+@@ -1719,7 +1740,7 @@ function buildLinkList($PAGE, $LINKSDB, $conf, $pluginManager, $loginManager)
+  * @param SessionManager $sessionManager SessionManager instance
+  * @param LoginManager   $loginManager   LoginManager instance
+  */
+-function install($conf, $sessionManager, $loginManager) {
++function install($conf, $sessionManager, $loginManager, $userspace) {
+     // On free.fr host, make sure the /sessions directory exists, otherwise login will not work.
+     if (endsWith($_SERVER['HTTP_HOST'],'.free.fr') && !is_dir($_SERVER['DOCUMENT_ROOT'].'/sessions')) mkdir($_SERVER['DOCUMENT_ROOT'].'/sessions',0705);
+ 
+@@ -1755,7 +1776,7 @@ function install($conf, $sessionManager, $loginManager) {
+     }
+ 
+ 
+-    if (!empty($_POST['setlogin']) && !empty($_POST['setpassword']))
++    if (true)
+     {
+         $tz = 'UTC';
+         if (!empty($_POST['continent']) && !empty($_POST['city'])
+@@ -1764,15 +1785,15 @@ function install($conf, $sessionManager, $loginManager) {
+             $tz = $_POST['continent'].'/'.$_POST['city'];
+         }
+         $conf->set('general.timezone', $tz);
+-        $login = $_POST['setlogin'];
+-        $conf->set('credentials.login', $login);
++        $conf->set('credentials.login', $userspace);
+         $salt = sha1(uniqid('', true) .'_'. mt_rand());
+         $conf->set('credentials.salt', $salt);
+-        $conf->set('credentials.hash', sha1($_POST['setpassword'] . $login . $salt));
++        $hash = sha1(uniqid('', true) .'_'. mt_rand());
++        $conf->set('credentials.hash', $hash);
+         if (!empty($_POST['title'])) {
+             $conf->set('general.title', escape($_POST['title']));
+         } else {
+-            $conf->set('general.title', 'Shared links on '.escape(index_url($_SERVER)));
++            $conf->set('general.title', ucwords(str_replace("_", " ", $userspace)));
+         }
+         $conf->set('translation.language', escape($_POST['language']));
+         $conf->set('updates.check_updates', !empty($_POST['updateCheck']));
+@@ -1841,7 +1862,12 @@ function install($conf, $sessionManager, $loginManager) {
+ $app = new \Slim\App($container);
+ 
+ // REST API routes
+-$app->group('/api/v1', function() {
++if (isset($userspace)) {
++  $mountpoint = '/' . $userspace . '/api/v1';
++} else {
++  $mountpoint = '/api/v1';
++}
++$app->group($mountpoint, function() {
+     $this->get('/info', '\Shaarli\Api\Controllers\Info:getInfo')->setName('getInfo');
+     $this->get('/links', '\Shaarli\Api\Controllers\Links:getLinks')->setName('getLinks');
+     $this->get('/links/{id:[\d]+}', '\Shaarli\Api\Controllers\Links:getLink')->setName('getLink');
+@@ -1860,7 +1886,7 @@ function install($conf, $sessionManager, $loginManager) {
+ $response = $app->run(true);
+ // Hack to make Slim and Shaarli router work together:
+ // If a Slim route isn't found and NOT API call, we call renderPage().
+-if ($response->getStatusCode() == 404 && strpos($_SERVER['REQUEST_URI'], '/api/v1') === false) {
++if ($response->getStatusCode() == 404 && strpos($_SERVER['REQUEST_URI'], $mountpoint) === false) {
+     // We use UTF-8 for proper international characters handling.
+     header('Content-Type: text/html; charset=utf-8');
+     renderPage($conf, $pluginManager, $linkDb, $history, $sessionManager, $loginManager);

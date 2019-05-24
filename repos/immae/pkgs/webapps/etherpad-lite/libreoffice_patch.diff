@@ -1,0 +1,11 @@
+--- a/src/node/utils/LibreOffice.js      2018-06-18 09:54:15.087161212 +0200
++++ b/src/node/utils/LibreOffice.js    2018-06-18 10:33:27.534055021 +0200
+@@ -63,6 +63,7 @@
+         '--invisible',
+         '--nologo',
+         '--nolockcheck',
++        '-env:UserInstallation=file:///tmp/',
+         '--convert-to', task.type,
+         task.srcFile,
+         '--outdir', tmpDir
+

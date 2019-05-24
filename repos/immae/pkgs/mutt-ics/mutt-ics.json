@@ -1,0 +1,15 @@
+{
+  "tag": "d291187-master",
+  "meta": {
+    "name": "mutt-ics",
+    "url": "https://github.com/dmedvinsky/mutt-ics",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "dmedvinsky",
+    "repo": "mutt-ics",
+    "rev": "d29118788f291f67d34fefa6eda9f95846a2fe34",
+    "sha256": "0kqzngsvzjq5gpf60jhfmb2xzjznvk172khf4dlcb72n3ak4rb92",
+    "fetchSubmodules": true
+  }
+}

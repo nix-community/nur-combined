@@ -1,0 +1,15 @@
+{
+  "tag": "d7e2e08-master",
+  "meta": {
+    "name": "iota-cli-app",
+    "url": "https://github.com/iotaledger/cli-app",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "iotaledger",
+    "repo": "cli-app",
+    "rev": "d7e2e0856ae6bd34890fefb4245c07cd467a5032",
+    "sha256": "1n9kczsxdgjv8282nj2grlijvxipiskx0ndn169vz6v1l1hrwc8b",
+    "fetchSubmodules": true
+  }
+}

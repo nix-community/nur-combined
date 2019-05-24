@@ -1,0 +1,31 @@
+</div><!--/.wrapper-->
+
+<script type="text/javascript">
+// grab the 2nd child and add the parent class. tr:nth-child(2)
+document.getElementsByTagName('tr')[1].className = 'parent';
+// fix links when not adding a / at the end of the URI
+var uri = window.location.pathname.substr(1);
+if (uri.length > 0 && uri.substring(uri.length-1) != '/'){
+	var indexes = document.getElementsByClassName('indexcolname'),
+	i = indexes.length;
+	while (i--){
+	    var a = indexes[i].getElementsByTagName('a')[0];
+	    a.href = '/' + uri + '/' + a.getAttribute('href',2);
+	}
+}
+
+function getAjax(url, success) {
+  var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  xhr.open('GET', url);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState>3 && xhr.status==200)
+      success(xhr.responseText);
+  };
+  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  xhr.send();
+  return xhr;
+}
+getAjax("title", function(data) {
+  document.getElementById('pagetitle').innerHTML = data;
+});
+</script>

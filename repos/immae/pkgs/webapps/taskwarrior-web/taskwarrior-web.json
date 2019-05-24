@@ -1,0 +1,15 @@
+{
+  "tag": "a79cfe2-master",
+  "meta": {
+    "name": "taskwarrior-web",
+    "url": "https://github.com/theunraveler/taskwarrior-web",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "theunraveler",
+    "repo": "taskwarrior-web",
+    "rev": "a79cfe2b42791b62364118e58b21b892fff6ded8",
+    "sha256": "028rb4wry2an19707bvy4n305f3s0hipg214224p1m0mb61c3cq4",
+    "fetchSubmodules": true
+  }
+}

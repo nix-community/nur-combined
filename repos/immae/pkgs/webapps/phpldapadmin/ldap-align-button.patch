@@ -1,0 +1,11 @@
+--- a/htdocs/update_confirm.php	2012-10-01 08:54:14.000000000 +0200
++++ b/htdocs/update_confirm.php	2018-06-06 15:47:44.122398888 +0200
+@@ -187,7 +187,7 @@
+ 
+ 	echo '</table>';
+ 
+-	echo '<div style="text-align: center;">';
++	echo '<div style="text-align: left;">';
+ 	echo '<br />';
+ 	// @todo cant use AJAX here, it affects file uploads.
+ 	printf('<input type="submit" value="%s" />',

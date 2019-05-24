@@ -1,0 +1,15 @@
+{
+  "tag": "c9b957c-master",
+  "meta": {
+    "name": "apprise",
+    "url": "https://github.com/caronc/apprise",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "caronc",
+    "repo": "apprise",
+    "rev": "c9b957c4341e7d43e5be6463bd317a7401d083d9",
+    "sha256": "01zz4mh3xvplrm5xalzrcncnh0jq5y51pmdxkr4hdd6dz9wx0mbg",
+    "fetchSubmodules": true
+  }
+}

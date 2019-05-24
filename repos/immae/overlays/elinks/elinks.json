@@ -1,0 +1,15 @@
+{
+  "tag": "f86be65-master",
+  "meta": {
+    "name": "elinks",
+    "url": "https://github.com/nabetaro/elinks",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "nabetaro",
+    "repo": "elinks",
+    "rev": "f86be659718c0cd0a67f88b42f07044c23d0d028",
+    "sha256": "1jxb7xgawcjkb3gw4gqyw26g02709wwdbhyczfckh3l4njxhy14m",
+    "fetchSubmodules": true
+  }
+}
