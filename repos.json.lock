@@ -46,8 +46,8 @@
             "url": "https://github.com/dtzWill/nur-packages"
         },
         "dywedir": {
-            "rev": "64e34638fdad5bf5e9952450f2fc97df7c8f27d0",
-            "sha256": "0k3cfgkn7afjgxrvlzx93rwnrkwwhdymgzpcj47rlvckc2s86gc7",
+            "rev": "0e48dc5088885216ca028e32ad53a1793b0ea556",
+            "sha256": "03spyi125bqqgghdz6wazamda6kkxmr3c0ijaji4lma5j0wxs4nq",
             "url": "https://github.com/dywedir/nur-packages"
         },
         "eeva": {
@@ -59,6 +59,11 @@
             "rev": "ac6cb30066dae7217c406be38cafcd6139abf659",
             "sha256": "0rywgdfdpb5569wfvfk9g8ywf624q12lp71hzhv2j6gwwqwbfq09",
             "url": "https://github.com/fgaz/nur-packages"
+        },
+        "immae": {
+            "rev": "aa80f8d1382b0058ec878461a90b5e55529b4c28",
+            "sha256": "1rfwdh6wf4mpsmwj7snh6x24zdaki89c7c026zr5wxv6ady59s38",
+            "url": "https://git.immae.eu/perso/Immae/Config/Nix/NUR.git"
         },
         "izorkin": {
             "rev": "b81b3fea7e6b3a83050ed4187222bcbfa4ae16dd",
