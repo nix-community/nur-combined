@@ -16,6 +16,20 @@
         platforms = platforms.all;
       };
     };
+    "dark-night-mode" = buildFirefoxXpiAddon {
+      pname = "dark-night-mode";
+      version = "2.0.2";
+      addonId = "{27c3c9d8-95cd-44e6-ae9c-ff537348b9f3}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/932525/dark_night_mode-2.0.2-an+fx.xpi?src=";
+      sha256 = "8ee966c8bda37c5b2d9cb08d8801eedcfc5ba39959f78bb57d84bc0ab489bfbd";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://darknightmode.com";
+        description = "It is a universal night mode for the entire Internet. It uses a special algorithm to automatically change the colors of the websites you visit into dark mode so that you can browse without straining your eyes, especially at night.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+      };
+    };
     "decentraleyes" = buildFirefoxXpiAddon {
       pname = "decentraleyes";
       version = "2.0.11";
@@ -156,10 +170,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.19.4";
+      version = "1.19.6";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/2987948/ublock_origin-1.19.4-an+fx.xpi?src=";
-      sha256 = "99aee3787d7a15bad3cd9a1a4c00ca670f334fe42cc9acb2cf8290deb3c53a3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/2990453/ublock_origin-1.19.6-an+fx.xpi?src=";
+      sha256 = "42cc200785c6c644a557a8439e4c94e835e83ff7a7dcbf0d2b2d7a7e8a0efa88";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
