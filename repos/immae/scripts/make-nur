@@ -17,7 +17,7 @@ first_commit="5145061e9b679ea1e5d2709d22d0ee53467fed15"
 git rebase --onto=$nur_root $first_commit master
 
 clean_folder='
-  rm -rf modules/private pkgs/private nixops
+  rm -rf config modules/private pkgs/private nixops
   for bad in pkgs/crypto/cardano/default.nix; do
     if [ -f $bad ]; then
       rm -f $bad

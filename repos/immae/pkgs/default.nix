@@ -19,7 +19,7 @@ rec {
   notmuch-python3 = callPackage ../pkgs/notmuch/notmuch-python { pythonPackages = python3Packages; };
   notmuch-vim = callPackage ../pkgs/notmuch/notmuch-vim {};
   pg_activity = callPackage ../pkgs/pg_activity { inherit mylibs; };
-  pgloader = callPackage ../pkgs/pgloader { inherit mylibs; };
+  pgloader = callPackage ../pkgs/pgloader {};
   telegram-cli = callPackage ../pkgs/telegram-cli { inherit mylibs; };
   telegram-history-dump = callPackage ../pkgs/telegram-history-dump { inherit mylibs; };
   telegramircd = callPackage ../pkgs/telegramircd { inherit mylibs; telethon = callPackage ../pkgs/telethon_sync {}; };

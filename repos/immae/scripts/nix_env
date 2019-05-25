@@ -4,7 +4,7 @@ if [ -z "$NIXOPS_DEPLOYMENT" ]; then
   # This will automatically upgrade to latest version at each build
   nixpkgs="https://nixos.org/channels/nixos-19.03/nixexprs.tar.xz"
 else
-  nixpkgs="https://releases.nixos.org/nixos/19.03/nixos-19.03.172530.096e2f137b6/nixexprs.tar.xz"
+  nixpkgs="https://releases.nixos.org/nixos/19.03/nixos-19.03.172731.3efdf45dbd1/nixexprs.tar.xz"
 fi
 nixpkgsPrevious="$nixpkgs"
 nixpkgsNext="$nixpkgs"
