@@ -1,7 +1,7 @@
 image: nixos/nix:latest
 
 variables:
-  NIX_PATH: "nixpkgs=https://nixos.org/channels/nixos-18.09/nixexprs.tar.xz"
+  NIX_PATH: "nixpkgs=https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz"
 
 Build NUR:
   stage: build
@@ -39,7 +39,7 @@ Update Firefox addons:
     - git config --global user.email 'rybot@rycee.net'
     - git config --global user.name 'rybot'
   script:
-    - nix-firefox-addons $ADDONS_INPUT $ADDONS_OUTPUT
+    - nixpkgs-firefox-addons $ADDONS_INPUT $ADDONS_OUTPUT
     - >-
       [ "$(git status --porcelain --untracked-files=no)" ]
       && git commit -m "Automatic update of Firefox addons" $ADDONS_OUTPUT

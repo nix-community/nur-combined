@@ -1,13 +1,14 @@
 { mkDerivation, aeson, base-noprelude, directory, fetchgit, hnix
 , lens, lens-aeson, relude, stdenv, text, wreq
 }:
-mkDerivation {
+
+mkDerivation rec {
   pname = "nixpkgs-firefox-addons";
-  version = "0.1.0";
+  version = "0.2.0";
   src = fetchgit {
     url = "https://gitlab.com/rycee/nixpkgs-firefox-addons";
-    sha256 = "0h4lhy5l47asbyfjw28g15c8jiwc2xnmwycilkk30zmws466s9p9";
-    rev = "7d0ada9919d109c8809d3f622984d92397d88ad1";
+    sha256 = "1pirpkbm3r7xardp8rzv17y19ynxl40scgajsps6gxplmxyzpaq7";
+    rev = "v${version}";
     fetchSubmodules = false;
   };
   isLibrary = false;
