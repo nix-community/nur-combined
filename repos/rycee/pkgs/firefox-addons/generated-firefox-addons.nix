@@ -1,6 +1,4 @@
-{ buildFirefoxXpiAddon
-, fetchurl
-, stdenv }:
+{ buildFirefoxXpiAddon, fetchurl, stdenv }:
   {
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
@@ -14,8 +12,8 @@
         description = "Control your cookies! This WebExtension is inspired by Self Destructing Cookies. When a tab closes, any cookies not being used are automatically deleted. Whitelist the ones you trust while deleting the rest. Support for Container Tabs.";
         license = licenses.mit;
         platforms = platforms.all;
+        };
       };
-    };
     "dark-night-mode" = buildFirefoxXpiAddon {
       pname = "dark-night-mode";
       version = "2.0.2";
@@ -28,8 +26,8 @@
         description = "It is a universal night mode for the entire Internet. It uses a special algorithm to automatically change the colors of the websites you visit into dark mode so that you can browse without straining your eyes, especially at night.";
         license = licenses.gpl3;
         platforms = platforms.all;
+        };
       };
-    };
     "decentraleyes" = buildFirefoxXpiAddon {
       pname = "decentraleyes";
       version = "2.0.11";
@@ -42,8 +40,8 @@
         description = "Protects you against tracking through \"free\", centralized, content delivery. It prevents a lot of requests from reaching networks like Google Hosted Libraries, and serves local files to keep sites from breaking. Complements regular content blockers.";
         license = licenses.mpl20;
         platforms = platforms.all;
+        };
       };
-    };
     "greasemonkey" = buildFirefoxXpiAddon {
       pname = "greasemonkey";
       version = "4.8";
@@ -56,8 +54,8 @@
         description = "Customize the way a web page displays or behaves, by using small bits of JavaScript.";
         license = licenses.mit;
         platforms = platforms.all;
+        };
       };
-    };
     "https-everywhere" = buildFirefoxXpiAddon {
       pname = "https-everywhere";
       version = "2019.5.13";
@@ -69,8 +67,8 @@
         homepage = "https://www.eff.org/https-everywhere";
         description = "Encrypt the web! HTTPS Everywhere is a Firefox extension to protect your communications by enabling HTTPS encryption automatically on sites that are known to support it, even when you type URLs or follow links that omit the https: prefix.";
         platforms = platforms.all;
+        };
       };
-    };
     "link-cleaner" = buildFirefoxXpiAddon {
       pname = "link-cleaner";
       version = "1.5";
@@ -83,8 +81,8 @@
         description = "Clean URLs that are about to be visited:\n- removes utm_* parameters\n- on item pages of aliexpress and amazon, removes tracking parameters\n- skip redirect pages of facebook, steam and reddit";
         license = licenses.gpl3;
         platforms = platforms.all;
+        };
       };
-    };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
       version = "3.0.8";
@@ -97,8 +95,8 @@
         description = "Add-on to display GitHub code in tree format";
         license = licenses.mit;
         platforms = platforms.all;
+        };
       };
-    };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
       version = "2019.2.19";
@@ -111,8 +109,8 @@
         description = "Automatically learns to block invisible trackers.";
         license = licenses.gpl3;
         platforms = platforms.all;
+        };
       };
-    };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
       version = "5.16.7";
@@ -125,8 +123,8 @@
         description = "NOTE: Reddit Enhancement Suite is developed independently, and is not officially endorsed by or affiliated with reddit.\n\nRES is a suite of tools to enhance your reddit browsing experience.";
         license = licenses.gpl3;
         platforms = platforms.all;
+        };
       };
-    };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
       version = "15.0";
@@ -138,8 +136,8 @@
         description = "Save a complete web page (as curently displayed) as a single HTML file that can be opened in any browser. Choose which items to save. Define the format of the saved filename. Enter user comments.";
         license = licenses.gpl2;
         platforms = platforms.all;
+        };
       };
-    };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
       version = "1.5.3";
@@ -152,8 +150,8 @@
         description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
         license = licenses.gpl3;
         platforms = platforms.all;
+        };
       };
-    };
     "swedish-dictionary" = buildFirefoxXpiAddon {
       pname = "swedish-dictionary";
       version = "1.20";
@@ -166,8 +164,8 @@
         description = "Swedish spell-check dictionary.";
         license = licenses.lgpl3;
         platforms = platforms.all;
+        };
       };
-    };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
       version = "1.19.6";
@@ -180,6 +178,6 @@
         description = "Finally, an efficient blocker. Easy on CPU and memory.";
         license = licenses.gpl3;
         platforms = platforms.all;
+        };
       };
-    };
-  }
+    }
