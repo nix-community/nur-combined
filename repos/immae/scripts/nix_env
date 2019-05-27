@@ -1,17 +1,7 @@
 #!/bin/bash
 
-if [ -z "$NIXOPS_DEPLOYMENT" ]; then
-  # This will automatically upgrade to latest version at each build
-  nixpkgs="https://nixos.org/channels/nixos-19.03/nixexprs.tar.xz"
-else
-  nixpkgs="https://releases.nixos.org/nixos/19.03/nixos-19.03.172731.3efdf45dbd1/nixexprs.tar.xz"
-fi
+# This will automatically upgrade to latest version at each build
+nixpkgs="https://nixos.org/channels/nixos-19.03/nixexprs.tar.xz"
 nixpkgsPrevious="$nixpkgs"
 nixpkgsNext="$nixpkgs"
 export NIX_PATH="nixpkgs=$nixpkgs:nixpkgsNext=$nixpkgsNext:nixpkgsPrevious=$nixpkgsPrevious"
-
-nixops_custom () {
-  _DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-  d=$(nix-build --no-out-link -E "with import <nixpkgs> { overlays = builtins.attrValues (import $(dirname $_DIR)/overlays); }; nixops")
-  ${d}/bin/nixops "$@"
-}

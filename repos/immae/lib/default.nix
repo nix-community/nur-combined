@@ -61,22 +61,4 @@ rec {
         makeWrapper "$f" "$out" ${toString args}
       '';
 
-  # This adds header colors to the builds, but it rebuilds the whole
-  # world from scratch, so only use it to debug!
-  # add it as postHook in derivations
-  immaePostHook = ''
-    header() {
-      echo -ne "\033[1;36m"
-      echo -n "$1"
-      echo -e "\033[0m"
-    }
-
-    echoCmd() {
-      printf "\033[1;34m%s:\033[0m" "$1"
-      shift
-      printf ' %q' "$@"
-      echo
-    }
-  '';
-
-} // (if builtins.pathExists ./lib/private then import ./lib/private else {})
+} // (if builtins.pathExists ./private then callPackage ./private {} else {})

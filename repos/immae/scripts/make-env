@@ -2,11 +2,11 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-source $DIR/nix_env
+eval "$(make --no-print-directory -C $(dirname $DIR) nix-path)"
 nix-env -r -i -A myEnvironments.immae-eu -f "<nixpkgs>" "$@"
 result=$?
 
 cat >> $(dirname $DIR)/versions_log <<EOF
 Ran $(date) with args "$@" and returned "$result"
-$($DIR/nix_infos | sed -e "s/^/    /")
+$(make --no-print-directory -C $(dirname $DIR) nix-info | sed -e "s/^/    /")
 EOF

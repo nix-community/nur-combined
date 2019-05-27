@@ -17,14 +17,14 @@ first_commit="5145061e9b679ea1e5d2709d22d0ee53467fed15"
 git rebase --onto=$nur_root $first_commit master
 
 clean_folder='
-  rm -rf config modules/private pkgs/private nixops
-  for bad in pkgs/crypto/cardano/default.nix; do
-    if [ -f $bad ]; then
-      rm -f $bad
-      cat > $bad <<-EOF
-        { runCommand, mylibs }:
-        runCommand "empty" { preferLocalBuild = true; } "mkdir -p \$out"
-EOF
+  rm -rf config lib/private modules/private pkgs/private nixops
+  for broken in pkgs/crypto/cardano/default.nix; do
+    if [ -f $broken ]; then
+      rm -f $broken
+      cat > $broken <<-EOF
+	{ runCommand, mylibs }:
+	runCommand "empty" { preferLocalBuild = true; } "mkdir -p \$out"
+	EOF
     fi
   done
 '
