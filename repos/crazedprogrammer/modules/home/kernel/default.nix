@@ -13,10 +13,6 @@ linuxPackages.extend (lib.const (ksuper: {
         # Unnecessary modules
         BTRFS_FS = no;
         BTRFS_FS_POSIX_ACL.freeform = null;
-
-        # Not using Nvidia cards, so don't compile the (expensive) modules.
-        FB_NVIDIA_I2C = no;
-        DRM_NOUVEAU = no;
       } // (structuredExtraConfig (import <nixpkgs/lib/kernel.nix> { inherit lib; version = ksuper.kernel.version; }));
     };
   }))

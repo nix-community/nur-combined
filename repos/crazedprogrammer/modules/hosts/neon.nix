@@ -55,7 +55,7 @@
   services.logind.lidSwitch = "ignore";
 
   environment.systemPackages = with pkgs; [
-    light tpacpi-bat
+    light tpacpi-bat config.boot.kernelPackages.cpupower
   ];
 
   # Using TLP because Powertop doesn't work. The cause of this is that the
@@ -89,11 +89,8 @@
   services.thinkfan-override = {
     enable = true;
     sensors = ''
-      hwmon /sys/class/hwmon/hwmon2/temp1_input
-      hwmon /sys/class/hwmon/hwmon2/temp2_input
-      hwmon /sys/class/hwmon/hwmon2/temp3_input
-      hwmon /sys/class/hwmon/hwmon2/temp4_input
-      hwmon /sys/class/hwmon/hwmon2/temp5_input
+      hwmon /sys/class/thermal/thermal_zone1/temp
+      hwmon /sys/class/thermal/thermal_zone0/temp
     '';
     levels = ''
       (0,     0,      58)
@@ -108,7 +105,7 @@
   };
 
   services.xserver = {
-    videoDrivers = [ "intel" "modesetting" "vesa" ];
+    videoDrivers = [ "nouveau" "intel" "modesetting" "vesa" ];
     libinput = {
       enable = true;
       naturalScrolling = true;

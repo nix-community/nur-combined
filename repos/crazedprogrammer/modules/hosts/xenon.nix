@@ -24,6 +24,10 @@
         MZEN = yes;
 
         DRM_I915 = no;
+
+        # Not using Nvidia cards, so don't compile the (expensive) modules.
+        FB_NVIDIA_I2C = no;
+        DRM_NOUVEAU = no;
       };
     });
   };

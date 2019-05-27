@@ -7,6 +7,7 @@ RUN [ "$(getent group users | cut -d: -f3)" = "100" ] \
          libzbar-dev libpcl-dev libjpeg-turbo8-dev libturbojpeg0-dev libturbojpeg libglfw3-dev \
          libusb-1.0-0-dev libopenni2-dev opencl-headers openni2-utils \
          ros-melodic-tf2-tools
+RUN apt-get update && apt-get -y install ttf-ubuntu-font-family qt5-default
 
 RUN cd /root \
     && git clone https://github.com/OpenKinect/libfreenect2.git \
@@ -14,7 +15,7 @@ RUN cd /root \
     && /bin/bash -c "if ! [[ $FREENECT2_TAG == false ]]; then git checkout tags/$FREENECT2_TAG; fi" \
     && mkdir build && cd build \
     && cmake .. -DBUILD_OPENNI2_DRIVER=ON -DBUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=/root/freenect2 \
-    && make \
+    && make -j$(nproc) \
     && make install \
     && cp /root/libfreenect2/platform/linux/udev/90-kinect2.rules /etc/udev/rules.d/ \
     && ldconfig /root/freenect2 \
