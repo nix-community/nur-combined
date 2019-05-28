@@ -77,24 +77,31 @@ rec {
 
   buildK8sEnv = { pkgs, name, config }:
     let
-      kubernetes-helm = mkHelmBinary ({ inherit pkgs; } // config.helm);
-      kubernetes = mkKubernetes ({ inherit pkgs; } // config.k8s);
-      kubectl = (kubernetes.override { components = [ "cmd/kubectl" ]; }).overrideAttrs(oldAttrs: rec {
-        pname = "kubectl";
-        name = "${pname}-${oldAttrs.version}";
-      });
+      deps = rec {
+        kubernetes-helm = mkHelmBinary ({ inherit pkgs; } // config.helm);
+        kubernetes = mkKubernetes ({ inherit pkgs; } // config.k8s);
+        kubectx = pkgs.kubectx.override {
+          kubectl = (kubernetes.override { components = [ "cmd/kubectl" ]; }).overrideAttrs(oldAttrs: rec {
+            pname = "kubectl";
+            name = "${pname}-${oldAttrs.version}";
+          });
+        };
+        helmfile = (mkHelmfile ({ inherit pkgs; } // config.helmfile)).override { inherit kubernetes-helm; };
+        kops = mkKops ({ inherit pkgs; } // config.kops);
+        inherit (pkgs) kubetail;
+      };
     in
     pkgs.buildEnv {
       inherit name;
-      paths = [
-        ((mkHelmfile ({ inherit pkgs; } // config.helmfile)).override { inherit kubernetes-helm; })
-        (mkKops ({ inherit pkgs; } // config.kops))
+      paths = with deps; [
+        helmfile
+        kops
+        kubectx
         kubernetes
         kubernetes-helm
-        (pkgs.kubectx.override { inherit kubectl; })
-        pkgs.kubetail
+        kubetail
       ];
-      passthru = { inherit config pkgs; };
+      passthru = { inherit config pkgs; } // deps;
     };
 
 }
