@@ -30,22 +30,6 @@ rec {
     '';
   };
 
-  mkHelmfile = { pkgs, version, sha256 }: pkgs.helmfile.overrideAttrs(old: rec {
-    pname = "helmfile";
-    name = "helmfile-${version}";
-    inherit version;
-    src = pkgs.fetchFromGitHub {
-      owner = "roboll";
-      repo = "helmfile";
-      rev = "v${version}";
-      inherit sha256;
-    };
-    buildFlagsArray = ''
-      -ldflags=
-      -X main.Version=${version}
-    '';
-  });
-
   mkKops =  { pkgs, version, sha256 }: pkgs.kops.overrideAttrs(old: rec {
     pname = "kops";
     name = "${pname}-${version}";
@@ -86,7 +70,7 @@ rec {
             name = "${pname}-${oldAttrs.version}";
           });
         };
-        helmfile = (mkHelmfile ({ inherit pkgs; } // config.helmfile)).override { inherit kubernetes-helm; };
+        helmfile = pkgs.helmfile.override { inherit kubernetes-helm; };
         kops = mkKops ({ inherit pkgs; } // config.kops);
         inherit (pkgs) kubetail;
       };
