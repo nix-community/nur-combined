@@ -17,14 +17,14 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  version = "1.8.0";
+  version = "1.9.0";
   name = "unit-${version}";
 
   src = fetchFromGitHub {
     owner = "nginx";
     repo = "unit";
     rev = "${version}";
-    sha256 = "1s5pfyhabnf9p5z2h1fh0wb4hqzkrha5bxahjnikmlkhw59s8zip";
+    sha256 = "0f7smgshfzksks2jfhi53g87wiyy38vwgj6aa70ql61m135dx7b1";
   };
 
   nativeBuildInputs = [ which ];
@@ -41,8 +41,6 @@ stdenv.mkDerivation rec {
     ++ optional withRuby_2_4 ruby_2_4
     ++ optional withRuby ruby
     ++ optional withSSL openssl;
-
-  patches = [ ./unit-rootless.patch ];
 
   configureFlags = [
     "--control=unix:/run/unit/control.unit.sock"

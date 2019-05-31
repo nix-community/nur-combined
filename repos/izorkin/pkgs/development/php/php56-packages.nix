@@ -130,10 +130,10 @@ let
   };
 
   event = buildPecl rec {
-    version = "2.5.0";
+    version = "2.5.1";
     pname = "event";
 
-    sha256 = "1igbxla4s784z7lw1jar6pjyfn596040a52kfmawwclqf9qcvx0v";
+    sha256 = "0hnvmlbl994fjliqc3c65gv6f6syh9zmlfcbizqs3k67bbmkhiad";
 
     configureFlags = [ "--with-event-libevent-dir=${libevent.dev}" ];
     nativeBuildInputs = [ pkgs.pkgconfig ];
@@ -161,10 +161,10 @@ let
   };
 
   imagick = buildPecl rec {
-    version = "3.4.3";
+    version = "3.4.4";
     pname = "imagick";
 
-    sha256 = "0z2nc92xfc5axa9f2dy95rmsd2c81q8cs1pm4anh0a50x9g5ng0z";
+    sha256 = "0xvhaqny1v796ywx83w7jyjyd0nrxkxf34w9zi8qc8aw8qbammcd";
 
     configureFlags = [ "--with-imagick=${pkgs.imagemagick.dev}" ];
     nativeBuildInputs = [ pkgs.pkgconfig ];
@@ -205,12 +205,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "2.14.2";
+    version = "2.15.0";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "1d5msgrkiim8iwkkrq3m1cnx7wfi96m1qs6rbh279kw5ysvzkaj9";
+      sha256 = "0s3f6mkvk5ig48lcznv21s8swsgpkym90swchvx904h38l8nk67k";
     };
 
     phases = [ "installPhase" ];
@@ -319,12 +319,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.11.5";
+    version = "0.11.8";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "13akllfr5dav0y61i4ym5ww8z32ynwj5lpvsfiwx6z52avmcrc29";
+      sha256 = "0xdf0kq5jpbqs6dwyv2fggd3cxjjq16xk5nxz1hgh5d58x5yh14n";
     };
 
     phases = [ "installPhase" ];
@@ -374,10 +374,10 @@ let
   };
 
   protobuf = buildPecl rec {
-    version = "3.7.1";
+    version = "3.8.0";
     pname = "protobuf";
 
-    sha256 = "0fbf29851dpgjfdgi6i1dgy047dfiazm6qh943w22zbj35l7g2yc";
+    sha256 = "09zs7w9iv6432i0js44ihxymbd4pcxlprlzqkcjsxjpbprs4qpv2";
 
     buildInputs = with pkgs; [ pcre ];
 
