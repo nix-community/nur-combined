@@ -18,7 +18,6 @@ in
 
   fishPlugins = pkgs.recurseIntoAttrs (pkgs.callPackages ./fish-plugins { });
 
-  hydra    = mkB0rked (pkgs.callPackage ./hydra {});
   img2ansi = pkgs.callPackage ./img2ansi   { };
   kraks    = pkgs.callPackage ./kreiscripts/kraks  { inherit mkBashCli; };
   krec2    = pkgs.callPackage ./kreiscripts/krec2  { inherit mkBashCli; };
