@@ -15,4 +15,5 @@
   mimi = pkgs.callPackage ./pkgs/mimi { };
   quake3-data = pkgs.callPackage ./pkgs/quake3-data { };
   klystrack = pkgs.callPackage ./pkgs/klystrack { };
+  diofant = pkgs.python3Packages.callPackage ./pkgs/diofant { };
 }
