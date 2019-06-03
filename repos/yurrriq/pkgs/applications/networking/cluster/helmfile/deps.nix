@@ -14,8 +14,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/Masterminds/sprig";
-      rev = "v2.15.0";
-      sha256 = "10vzhx710vaxqzh45vrkw4vc3fgcbycpn04shcylzcmlxmfnpjv1";
+      rev = "v2.16.0";
+      sha256 = "1k5pfx9hxzb70kh73a009ikr3vqlq0jvzvbyvxz9x7a7yc4r5b14";
     };
   }
   {

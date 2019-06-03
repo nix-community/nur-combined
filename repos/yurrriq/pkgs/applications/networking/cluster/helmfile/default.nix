@@ -1,6 +1,6 @@
 { lib, buildGoPackage, fetchFromGitHub, makeWrapper, kubernetes-helm, ... }:
 
-let version = "0.68.1"; in
+let version = "0.69.0"; in
 
 buildGoPackage {
   name = "helmfile-${version}";
@@ -9,7 +9,7 @@ buildGoPackage {
     owner = "roboll";
     repo = "helmfile";
     rev = "v${version}";
-    sha256 = "13s1lzn3qflxp0pgigz4nk72iyq55q4r6ws3pamhhbbcsja5p38y";
+    sha256 = "0jaf6rf5mxv8hh9skxw1q8h80b0ib222qm5nbkqwb1al8k0nmndi";
   };
 
   goDeps = ./deps.nix;
