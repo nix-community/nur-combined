@@ -1,13 +1,17 @@
-{ stdenv, lib, linux, linuxConfig }:
+{ stdenv, lib, linux, linuxConfig, bison, flex }:
 
 { baseTarget ? "tinyconfig", config ? {} }:
 let
-  tiny = linuxConfig {
+  tiny = (linuxConfig {
     name = "kernel.config";
     inherit (linux) src;
 
     makeTarget = baseTarget;
-  };
+  }).overrideAttrs (old: {
+    nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
+      bison flex
+    ];
+  });
 
   linuxSrc = stdenv.mkDerivation {
     name = "linuxSrc";
