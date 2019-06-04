@@ -18,18 +18,16 @@
     initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
     kernelParams = [ "amdgpu.dc=1" ];
     kernelModules = [ "kvm-amd" ];
-    kernelPackages = import ../home/kernel (pkgs // {
-      linuxPackages = pkgs.linuxPackages_latest;
-      structuredExtraConfig = values: with values; {
-        MZEN = yes;
-
-        DRM_I915 = no;
-
-        # Not using Nvidia cards, so don't compile the (expensive) modules.
-        FB_NVIDIA_I2C = no;
-        DRM_NOUVEAU = no;
-      };
-    });
+    kernelPatches = [ {
+      name = "config-xenon";
+      patch = null;
+      extraConfig = ''
+        MZEN y
+        DRM_I915 n
+        FB_NVIDIA_I2C n
+        DRM_NOUVEAU n
+      '';
+    } ];
   };
 
   networking.hostName = "xenon"; # Define your hostname.

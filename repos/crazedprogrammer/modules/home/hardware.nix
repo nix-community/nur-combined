@@ -7,6 +7,23 @@
 
     # Assume /dev/sda is an SSD, which benefits from the BFQ queue scheduler.
     kernelModules = [ "bfq" ];
+
+    kernelPatches = [
+      {
+        name = "config-global";
+        patch = null;
+        extraConfig = ''
+          KERNEL_XZ n
+          PREEMPT y
+          MODULE_COMPRESS n
+          BTRFS_FS n
+        '';
+      }
+      pkgs.kernel-gcc-patch
+    ];
+
+    kernelPackages = pkgs.linuxPackages_latest;
+
     postBootCommands = "echo bfq > /sys/block/sda/queue/scheduler";
   };
 

@@ -1,4 +1,4 @@
-{ fetchFromGitHub, stdenv, ...}:
+{ fetchFromGitHub, stdenv }:
 
 let kernel_gcc_patch = stdenv.mkDerivation {
   name = "kernel_gcc_patch";

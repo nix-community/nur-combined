@@ -13,4 +13,5 @@ self: super:
   esp32-toolchain = super.callPackage ../custom/esp32-toolchain.nix {};
   compton-latest = super.callPackage ../custom/compton-latest.nix {};
   sway-session = super.callPackage ../custom/sway-session.nix {};
+  kernel-gcc-patch = super.callPackage ../custom/kernel-gcc-patch.nix {};
 }

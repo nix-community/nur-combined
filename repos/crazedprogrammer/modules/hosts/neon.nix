@@ -20,14 +20,14 @@
     kernelModules = [ "kvm-intel" ];
     kernelParams = [ "i915.enable_psr=1" "i915.enable_fbc=1" "i915.fastboot=1" ];
     extraModulePackages = [ config.boot.kernelPackages.acpi_call ];
-    kernelPackages = import ../home/kernel (pkgs // {
-      linuxPackages = pkgs.linuxPackages_latest;
-      structuredExtraConfig = values: with values; {
-        MIVYBRIDGE = yes;
-
-        DRM_AMDGPU = no;
-      };
-    });
+    kernelPatches = [ {
+      name = "config-neon";
+      patch = null;
+      extraConfig = ''
+        MIVYBRIDGE y
+        DRM_AMDGPU n
+      '';
+    } ];
   };
 
   networking.hostName = "neon"; # Define your hostname.
