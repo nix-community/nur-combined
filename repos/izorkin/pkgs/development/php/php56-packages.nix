@@ -79,7 +79,7 @@ let
   };
 
   couchbase = buildPecl rec {
-    version = "2.6.0";
+    version = "2.6.1";
     pname = "couchbase";
 
     buildInputs = [ libcouchbase pkgs.zlib igbinary pcs ];
@@ -88,7 +88,7 @@ let
       owner = "couchbase";
       repo = "php-couchbase";
       rev = "v${version}";
-      sha256 = "0lhcvgd4a0wvxniinxajj48p5krbp44h8932021qq14rv94r4k0b";
+      sha256 = "0jdzgcvab1vpxai23brmmvizjjq2d2dik9aklz6bzspfb512qjd6";
     };
 
     configureFlags = [ "--with-couchbase" ];
@@ -205,12 +205,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "2.15.0";
+    version = "2.15.1";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "0s3f6mkvk5ig48lcznv21s8swsgpkym90swchvx904h38l8nk67k";
+      sha256 = "0qbqdki6vj8bgj5m2k4mi0qgj17r6s2v2q7yc30hhgvksf7vamlc";
     };
 
     phases = [ "installPhase" ];
