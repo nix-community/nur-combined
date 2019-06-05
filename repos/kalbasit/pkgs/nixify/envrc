@@ -30,6 +30,10 @@ use_nix() {
 	# define all local variables
 	local shell f env_hash dir default wd drv dump path_backup
 	local files_to_watch=()
+	
+	declare opt
+        declare OPTARG
+        declare OPTIND
 
 	while getopts ":s:w:" opt; do
 		case "${opt}" in
