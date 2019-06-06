@@ -28,9 +28,11 @@ rec {
     wxSupport = false;
   };
 
-  gap-pygments-lexer = pkgs.callPackage ./tools/misc/gap-pygments-lexer {
+  gap-pygments-lexer = (pkgs.callPackage ./tools/misc/gap-pygments-lexer {
     pythonPackages = pkgs.python2Packages;
-  };
+  }).overrideAttrs (_: {
+    meta.broken = true;
+  });
 
   helmfile = pkgs.callPackage ./applications/networking/cluster/helmfile {
     buildGoModule = pkgs.buildGoModule.override {
@@ -99,6 +101,8 @@ rec {
 
   inherit (_nixpkgs) browserpass;
 
-  tellico = pkgs.libsForQt5.callPackage ./applications/misc/tellico {};
+  tellico = (pkgs.libsForQt5.callPackage ./applications/misc/tellico {}).overrideAttrs (_: {
+    meta.broken = true;
+  });
 
 })
