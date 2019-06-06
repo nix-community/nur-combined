@@ -33,17 +33,18 @@
   networking.hostName = "neon"; # Define your hostname.
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/67086bbd-73a7-4057-bfc6-72564be97cc1";
+    { device = "/dev/disk/by-uuid/566cacb4-81ea-48bb-929f-a60951b852cf";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/8688-2325";
+    { device = "/dev/disk/by-uuid/6989-46C8";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/0b60513b-c006-4e35-85f8-c69a2049f2ba"; }
+    [ { device = "/dev/disk/by-uuid/bf1dc388-c115-40c2-bef6-644f717e19a7"; }
+      { device = "/dev/disk/by-uuid/0ddc6bd7-c98e-4ea9-b2b2-535c91f61595"; }
     ];
 
   nix.maxJobs = 8;
