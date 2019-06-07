@@ -51,18 +51,6 @@ in {
   ix = pkgs.callPackage ./misc/ix {};
   mill = pkgs.callPackage ./development/tools/mill {};
   metals = ((mkCoursierBinary){ baseName = "metals"; packageName = "org.scalameta"; version = "0.5.2"; executable = "metals-emacs"; flags = "--java-opt -Dmetals.client=emacs --java-opt -Xms100m --java-opt -Xss4m";});
-  ngrok = pkgs.ngrok.overrideAttrs (oldAttrs: rec {
-    src = if pkgs.stdenv.system == "x86_64-darwin" then pkgs.fetchurl {
-      url = "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-amd64.tgz";
-      sha256 = "0cnpgd56dd2c4qb105qlvb7r2x80p49pqm79n0wm0s4vwg4kq1k1";
-    } else oldAttrs.src;
-    installPhase = if pkgs.stdenv.isDarwin then ''
-        mkdir -p $out/bin
-        cp ngrok $out/bin
-      ''
-      else oldAttrs.installPhase;
-    meta.platforms = pkgs.lib.platforms.unix;
-  });
   # luaPackages = pkgs.luaPackages // {
   #   cjson = pkgs.luaPackages.cjson.overrideAttrs(oldAttrs: rec {
   #   buildInputs = [ pkgs.lua52Packages.lua ];
