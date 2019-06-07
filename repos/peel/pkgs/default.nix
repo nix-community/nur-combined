@@ -1,6 +1,8 @@
 { pkgs }:
 
-{
+let
+  mkCoursierBinary = import ./development/tools/lib.nix { inherit (pkgs) stdenv jdk jre coursier makeWrapper;};
+in {
   codeship-jet = pkgs.callPackage ./tools/misc/codeship-jet {};
   emacsPlus = let
     patchMulticolorFonts = pkgs.fetchurl {
@@ -48,6 +50,7 @@
   hoverfly = pkgs.callPackage ./development/tools/hoverfly {};
   ix = pkgs.callPackage ./misc/ix {};
   mill = pkgs.callPackage ./development/tools/mill {};
+  metals = ((mkCoursierBinary){ baseName = "metals"; packageName = "org.scalameta"; version = "0.5.2"; sha256 = "1prwdnxydfj1cvjn4fbpapgb1wap5qz96f4r2cs9wdn15spy25ii";  executable = "metals-emacs"; flags = "--java-opt -Dmetals.client=emacs --java-opt -Xms100m --java-opt -Xss4m";});
   ngrok = pkgs.ngrok.overrideAttrs (oldAttrs: rec {
     src = if pkgs.stdenv.system == "x86_64-darwin" then pkgs.fetchurl {
       url = "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-amd64.tgz";
@@ -98,17 +101,12 @@
         inherit (pkgs) callPackage stdenv fetchFromGitHub imagemagick;
         inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa ApplicationServices;
   });
-  skhd = pkgs.skhd.overrideAttrs(oldAttrs: rec {
-    name = "skhd-${version}";
-    version = "0.2.2";
-    src = pkgs.fetchFromGitHub {
-      owner = "koekeishiya";
-      repo = "skhd";
-      rev = "v${version}";
-      sha256 = "0mn6svz2mqbpwlx510r447vflfcxryykpin6h6429dlz0wjlipa8";
-    };
-  });
-} else {
+  yabai = pkgs.callPackage ./os-specific/darwin/yabai {
+    inherit (pkgs) stdenv fetchFromGitHub;
+    inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa ScriptingBridge;
+
+  };
+  } else {
   rofi-emoji = pkgs.callPackage ./misc/rofi-emoji {};
   rofi-wifi-menu = pkgs.callPackage ./misc/rofi-wifi-menu {};
 })
