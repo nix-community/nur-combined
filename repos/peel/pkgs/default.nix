@@ -50,7 +50,7 @@ in {
   hoverfly = pkgs.callPackage ./development/tools/hoverfly {};
   ix = pkgs.callPackage ./misc/ix {};
   mill = pkgs.callPackage ./development/tools/mill {};
-  metals = ((mkCoursierBinary){ baseName = "metals"; packageName = "org.scalameta"; version = "0.5.2"; sha256 = "1prwdnxydfj1cvjn4fbpapgb1wap5qz96f4r2cs9wdn15spy25ii";  executable = "metals-emacs"; flags = "--java-opt -Dmetals.client=emacs --java-opt -Xms100m --java-opt -Xss4m";});
+  metals = ((mkCoursierBinary){ baseName = "metals"; packageName = "org.scalameta"; version = "0.5.2"; executable = "metals-emacs"; flags = "--java-opt -Dmetals.client=emacs --java-opt -Xms100m --java-opt -Xss4m";});
   ngrok = pkgs.ngrok.overrideAttrs (oldAttrs: rec {
     src = if pkgs.stdenv.system == "x86_64-darwin" then pkgs.fetchurl {
       url = "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-amd64.tgz";
@@ -63,28 +63,28 @@ in {
       else oldAttrs.installPhase;
     meta.platforms = pkgs.lib.platforms.unix;
   });
-  luaPackages = pkgs.luaPackages // {
-    cjson = pkgs.luaPackages.cjson.overrideAttrs(oldAttrs: rec {
-    buildInputs = [ pkgs.lua52Packages.lua ];
-    NIX_LDFLAGS="-L${pkgs.lua52Packages.lua}/lib -bundle -undefined dynamic_lookup";
+  # luaPackages = pkgs.luaPackages // {
+  #   cjson = pkgs.luaPackages.cjson.overrideAttrs(oldAttrs: rec {
+  #   buildInputs = [ pkgs.lua52Packages.lua ];
+  #   NIX_LDFLAGS="-L${pkgs.lua52Packages.lua}/lib -bundle -undefined dynamic_lookup";
     
-    preBuild = ''
-      sed -i "s|/usr/local|$out|" Makefile
-    '';
-    makeFlags = [
-      "LUA_VERSION=5.2"
-      "CC=clang"
-     ];
-  });
-  };
-  olm = pkgs.olm.overrideAttrs (oldAttrs: rec {
-    makeFlags = [ "CC=clang" ];
-    prePatch = if pkgs.stdenv.isDarwin then ''
-      substituteInPlace Makefile --replace 'soname' 'install_name'
-      substituteInPlace Makefile --replace '-Wl,--version-script,version_script.ver' ' '
-    '' else "";
-    meta.platforms = pkgs.lib.platforms.unix;
-  });
+  #   preBuild = ''
+  #     sed -i "s|/usr/local|$out|" Makefile
+  #   '';
+  #   makeFlags = [
+  #     "LUA_VERSION=5.2"
+  #     "CC=clang"
+  #    ];
+  # });
+  # };
+  # olm = pkgs.olm.overrideAttrs (oldAttrs: rec {
+  #   makeFlags = [ "CC=clang" ];
+  #   prePatch = if pkgs.stdenv.isDarwin then ''
+  #     substituteInPlace Makefile --replace 'soname' 'install_name'
+  #     substituteInPlace Makefile --replace '-Wl,--version-script,version_script.ver' ' '
+  #   '' else "";
+  #   meta.platforms = pkgs.lib.platforms.unix;
+  # });
   pragmatapro = pkgs.callPackage ./data/fonts/pragmatapro {};
   qarma = pkgs.callPackage ./misc/qarma {
     inherit (pkgs) stdenv fetchFromGitHub pkgconfig;

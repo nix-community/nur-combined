@@ -1,6 +1,6 @@
 { stdenv, jdk, jre, coursier, makeWrapper }:
 
-{ baseName, packageName, version, sha256, executable, flags ? {}, meta ? {}}:
+{ baseName, packageName, version, executable, flags ? {}, meta ? {}}:
 
 let
   scalaVersion = "2.12";
@@ -14,9 +14,6 @@ stdenv.mkDerivation rec {
   doCheck = true;
   
   phases = [ "buildPhase" "installPhase" "checkPhase" ];
-  outputHashMode = "recursive";
-  outputHashAlgo = "sha256";
-  outputHash     = sha256;
 
   buildCommand = ''
       mkdir -p $out/share/java
