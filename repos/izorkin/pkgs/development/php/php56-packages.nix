@@ -4,7 +4,7 @@ let
   self = with self; {
     buildPecl = import ./build-pecl.nix {
       inherit php;
-      inherit (pkgs) stdenv autoreconfHook fetchurl;
+      inherit (pkgs) stdenv autoreconfHook fetchurl re2c;
     };
 
   # Wrap mkDerivation to prepend pname with "php-" to make names consistent
@@ -135,7 +135,12 @@ let
 
     sha256 = "0b9zbwyyfcrzs1gcpqn2dkjq6jliw89g2m981f8ildbp84snkpcf";
 
-    configureFlags = [ "--with-event-libevent-dir=${libevent.dev}" ];
+    configureFlags = [
+      "--with-event-libevent-dir=${pkgs.libevent.dev}"
+      "--with-event-core"
+      "--with-event-extra"
+      "--with-event-pthreads"
+    ];
     nativeBuildInputs = [ pkgs.pkgconfig ];
     buildInputs = [ openssl libevent ];
 

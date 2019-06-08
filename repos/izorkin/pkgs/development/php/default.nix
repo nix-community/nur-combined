@@ -1,10 +1,10 @@
 # pcre functionality is tested in nixos/tests/php-pcre.nix
-{ lib, stdenv, fetchurl, flex, bison, autoconf
+{ lib, stdenv, fetchurl, autoconf, bison, flex, libtool, pkgconfig, re2c
 , mysql, libxml2, readline, zlib, curl, postgresql, gettext
-, openssl, pcre, pcre2, pkgconfig, sqlite, config, libjpeg, libpng, freetype
-, libxslt, libmcrypt, bzip2, icu, openldap, cyrus_sasl, libmhash, unixODBC, freetds
+, openssl, pcre, pcre2, sqlite, config, libjpeg, libpng, freetype
+, libxslt, libmcrypt, bzip2, icu, icu60, openldap, cyrus_sasl, libmhash, unixODBC, freetds
 , uwimap, pam, gmp, apacheHttpd, libiconv, systemd, libsodium, html-tidy, libargon2
-, libzip, re2c, valgrind
+, libzip, valgrind
 }:
 
 with lib;
@@ -51,7 +51,7 @@ let
   , fpmSupport ? config.php.fpm or true
   , gmpSupport ? config.php.gmp or true
   , mssqlSupport ? (config.php.mssql or (!stdenv.isDarwin)) && (!php7)
-  , ztsSupport ? config.php.zts or false
+  , ztsSupport ? (config.php.zts or false) || (apxs2Support)
   , calendarSupport ? config.php.calendar or true
   , sodiumSupport ? (config.php.sodium or true) && (versionAtLeast version "7.2")
   , tidySupport ? (config.php.tidy or false)
@@ -62,10 +62,8 @@ let
   , cliSupport ? config.php.cli or true
   , pharSupport ? config.php.phar or true
   , xmlrpcSupport ? (config.php.xmlrpc or false) && (libxml2Support)
-  , re2cSupport ? config.php.re2c or true
-  , cgotoSupport ? (config.php.cgoto or false) && (re2cSupport)
+  , cgotoSupport ? config.php.cgoto or false
   , valgrindSupport ? (config.php.valgrind or true) && (versionAtLeast version "7.2")
-  , valgrindPcreSupport ? (config.php.valgrindPcreSupport or false) && (valgrindSupport) && (versionAtLeast version "7.2")
   }:
 
     let
@@ -79,8 +77,8 @@ let
 
       enableParallelBuilding = true;
 
-      nativeBuildInputs = [ pkgconfig autoconf ];
-      buildInputs = [ flex bison ]
+      nativeBuildInputs = [ autoconf bison flex libtool pkgconfig re2c ];
+      buildInputs = [ ]
         ++ optional (versionOlder version "7.3") pcre
         ++ optional (versionAtLeast version "7.3") pcre2
         ++ optional withSystemd systemd
@@ -104,7 +102,8 @@ let
         ++ optional mysqliSupport mysqlBuildInputs
         ++ optional gmpSupport gmp
         ++ optional gettextSupport gettext
-        ++ optional intlSupport icu
+        ++ optional (intlSupport && (versionOlder version "7.0")) icu60
+        ++ optional (intlSupport && (versionAtLeast version "7.0")) icu
         ++ optional xslSupport libxslt
         ++ optional mcryptSupport libmcrypt'
         ++ optional bz2Support bzip2
@@ -113,7 +112,6 @@ let
         ++ optional tidySupport html-tidy
         ++ optional argon2Support libargon2
         ++ optional libzipSupport libzip
-        ++ optional re2cSupport re2c
         ++ optional valgrindSupport valgrind;
 
       CXXFLAGS = optional stdenv.cc.isClang "-std=c++11";
@@ -199,8 +197,7 @@ let
       ++ optional (!pharSupport) "--disable-phar"
       ++ optional xmlrpcSupport "--with-xmlrpc"
       ++ optional cgotoSupport "--enable-re2c-cgoto"
-      ++ optional valgrindSupport "--with-valgrind=${valgrind.dev}"
-      ++ optional valgrindPcreSupport "--with-pcre-valgrind";
+      ++ optional valgrindSupport "--with-valgrind=${valgrind.dev}";
 
       hardeningDisable = [ "bindnow" ];
 
