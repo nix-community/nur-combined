@@ -27,4 +27,8 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ dywedir ];
     platforms = platforms.all;
   };
+
+  passthru = {
+    shellPath = "/bin/janetsh-posix-wrapper";
+  };
 }
