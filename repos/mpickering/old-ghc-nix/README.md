@@ -14,7 +14,7 @@ where nix is used to provide ghc and cabal but not to manage haskell dependencie
 A function is provided so you can use your own bindist if you want.
 
 ```
-nur.repos.mpickering.ghc.mkGhc { version = "8.9.0"; url = "https://gitlab-artifact-url.com"; hash = "sha256"; }
+nur.repos.mpickering.ghc.mkGhc {  url = "https://gitlab-artifact-url.com"; hash = "sha256"; }
 ```
 
 Note that currently none of the artifacts produced by gitlab are suitable to

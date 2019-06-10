@@ -1,15 +1,20 @@
-{ stdenv
-, fetchurl, perl, gcc, llvm_39
-, ncurses5, gmp, glibc, libiconv
-}: { version, url, hash, ...}:
+{ stdenv, lib, patchelfUnstable
+, perl, gcc, llvm_39
+, ncurses6, ncurses5, gmp, glibc, libiconv
+}: { bindistTarball, ncursesVersion }:
 
 # Prebuilt only does native
 assert stdenv.targetPlatform == stdenv.hostPlatform;
 
 let
   libPath = stdenv.lib.makeLibraryPath ([
-    ncurses5 gmp
+    selectedNcurses gmp
   ] ++ stdenv.lib.optional (stdenv.hostPlatform.isDarwin) libiconv);
+
+  selectedNcurses = {
+    "5" = ncurses5;
+    "6" = ncurses6;
+  }."${ncursesVersion}";
 
   libEnvVar = stdenv.lib.optionalString stdenv.hostPlatform.isDarwin "DY"
     + "LD_LIBRARY_PATH";
@@ -21,16 +26,35 @@ let
     else
       "${stdenv.lib.getLib glibc}/lib/ld-linux*";
 
+  # Figure out version of bindist
+  version =
+    let
+      helper = stdenv.mkDerivation {
+        name = "bindist-version";
+        src = bindistTarball;
+        nativeBuildInputs = [ gcc perl ];
+        postUnpack = ''
+          patchShebangs ghc*/utils/
+          patchShebangs ghc*/configure
+          sed -i 's@utils/ghc-pwd/dist-install/build/tmp/ghc-pwd-bindist@pwd@g' ghc*/configure
+        '';
+        buildPhase = ''
+          make show VALUE=ProjectVersion > version
+        '';
+        installPhase = ''
+          source version
+          echo -n "$ProjectVersion" > $out
+        '';
+      };
+    in lib.readFile helper;
 in
 
 stdenv.mkDerivation rec {
+  inherit version;
 
-  name = "ghc-${version}-binary";
+  name = "ghc-${version}";
 
-  src = fetchurl {
-      url = url;
-      sha256 = hash;
-    };
+  src = bindistTarball;
 
   nativeBuildInputs = [ perl ];
   buildInputs = stdenv.lib.optionals (stdenv.targetPlatform.isAarch32 || stdenv.targetPlatform.isAarch64) [ llvm_39 ];
@@ -54,8 +78,8 @@ stdenv.mkDerivation rec {
 
     # Some scripts used during the build need to have their shebangs patched
     ''
-      patchShebangs ghc-${version}/utils/
-      patchShebangs ghc-${version}/configure
+      patchShebangs ghc*/utils/
+      patchShebangs ghc*/configure
     '' +
 
     # Strip is harmful, see also below. It's important that this happens
@@ -79,14 +103,15 @@ stdenv.mkDerivation rec {
           -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${libiconv}/lib@" {} \;
     '' +
     # Rename needed libraries and binaries, fix interpreter
+    # N.B. Use patchelfUnstable due to https://github.com/NixOS/patchelf/pull/85
     stdenv.lib.optionalString stdenv.isLinux ''
-      find . -type f -perm -0100 -exec patchelf \
-          --replace-needed libncurses${stdenv.lib.optionalString stdenv.is64bit "w"}.so.5 libncurses.so \
-          --replace-needed libtinfo.so libtinfo.so.5 \
+      find . -type f -perm -0100 -exec ${patchelfUnstable}/bin/patchelf \
+          --replace-needed libncurses${stdenv.lib.optionalString stdenv.is64bit "w"}.so.${ncursesVersion} libncurses.so \
+          --replace-needed libtinfo.so.${ncursesVersion} libncurses.so.${ncursesVersion} \
           --interpreter ${glibcDynLinker} {} \;
 
-      sed -i "s|/usr/bin/perl|perl\x00        |" ghc-${version}/ghc/stage2/build/tmp/ghc-stage2
-      sed -i "s|/usr/bin/gcc|gcc\x00        |" ghc-${version}/ghc/stage2/build/tmp/ghc-stage2
+      sed -i "s|/usr/bin/perl|perl\x00        |" ghc*/ghc/stage2/build/tmp/ghc-stage2
+      sed -i "s|/usr/bin/gcc|gcc\x00        |" ghc*/ghc/stage2/build/tmp/ghc-stage2
     '';
 
   configurePlatforms = [ ];
@@ -145,8 +170,9 @@ stdenv.mkDerivation rec {
   passthru = {
     targetPrefix = "";
     enableShared = true;
+    haskellCompilerName = "ghc-${version}";
   };
 
   meta.license = stdenv.lib.licenses.bsd3;
-  meta.platforms = ["x86_64-linux" "i686-linux" "x86_64-darwin"];
+  meta.platforms = ["x86_64-linux" "i686-linux" "x86_64-darwin" "armv7l-linux" "aarch64-linux"];
 }
