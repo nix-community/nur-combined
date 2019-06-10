@@ -26,6 +26,7 @@ in
   lorri    = pkgs.callPackage ./lorri      { };
   nvim     = pkgs.callPackage ./nvim       { };
   oksh     = pkgs.callPackage ./ok.sh      { };
+  pragmatapro = pkgs.callPackage ./pragmatapro.nix {};
   webhook  = pkgs.callPackage ./webhook    { };
   vgo2nix  = pkgs.callPackage ./vgo2nix    { };
   xinomorf = (pkgs.callPackage ./xinomorf  { }).cli;
