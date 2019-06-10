@@ -46,6 +46,7 @@ rec {
 
   lab = pkgs.callPackage ./applications/version-management/git-and-tools/lab {};
 
+  openlilylib-fonts = pkgs.callPackage ./misc/lilypond/fonts.nix { };
   lilypond = pkgs.callPackage ./misc/lilypond { guile = pkgs.guile_1_8; };
   lilypond-unstable = pkgs.callPackage ./misc/lilypond/unstable.nix {
     inherit lilypond;
@@ -53,7 +54,6 @@ rec {
   lilypond-with-fonts = pkgs.callPackage ./misc/lilypond/with-fonts.nix {
     lilypond = lilypond-unstable;
   };
-
 
   noweb = pkgs.callPackage ./development/tools/literate-programming/noweb {
     inherit icon-lang;
