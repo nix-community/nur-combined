@@ -22,6 +22,8 @@ rec {
     inherit cedille;
   };
 
+  inherit (_nixpkgs) elixir_1_8;
+
   erlang = pkgs.beam.interpreters.erlangR21.override {
     enableDebugInfo = true;
     installTargets = "install";
