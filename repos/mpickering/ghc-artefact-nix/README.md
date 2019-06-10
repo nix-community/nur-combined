@@ -36,12 +36,11 @@ and then test the compiler locally.
 ## `ghc-head-from` script
 
 The most convenient way to get into the shell is to use the `ghc-head-from` script
-which has two modes of operation.
+which has three modes of operation.
 
 1. Specifying a MR by its number as the first argument fetches artefacts from that MR.
+2. Specifying a link to a (fedora27) bindist uses that bindist.
 2. Omitting the argument means we fetch the artefact from `ghc/master`.
-
-Note that this script is broken on `nix-2.2` due to a [regression](https://github.com/NixOS/nix/issues/2646).
 
 
 This is an example of fetching the artefacts for MR 180.

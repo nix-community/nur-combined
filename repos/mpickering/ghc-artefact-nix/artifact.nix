@@ -1,15 +1,20 @@
-{ stdenv
-, fetchurl, perl, gcc, llvm_39
-, ncurses5, gmp, glibc, libiconv
-}: {branch ? "master", fork ? "ghc" }:
+{ stdenv, lib, patchelfUnstable
+, perl, gcc, llvm_39
+, ncurses6, ncurses5, gmp, glibc, libiconv
+}: { bindistTarball, ncursesVersion }:
 
 # Prebuilt only does native
 assert stdenv.targetPlatform == stdenv.hostPlatform;
 
 let
   libPath = stdenv.lib.makeLibraryPath ([
-    ncurses5 gmp
+    selectedNcurses gmp
   ] ++ stdenv.lib.optional (stdenv.hostPlatform.isDarwin) libiconv);
+
+  selectedNcurses = {
+    "5" = ncurses5;
+    "6" = ncurses6;
+  }."${ncursesVersion}";
 
   libEnvVar = stdenv.lib.optionalString stdenv.hostPlatform.isDarwin "DY"
     + "LD_LIBRARY_PATH";
@@ -21,30 +26,30 @@ let
     else
       "${stdenv.lib.getLib glibc}/lib/ld-linux*";
 
-  mkUrl = job: "https://gitlab.haskell.org/${fork}/ghc/-/jobs/artifacts/${branch}/raw/ghc.tar.xz?job=${job}";
-
+  # Figure out version of bindist
+  version =
+    let
+      helper = stdenv.mkDerivation {
+        name = "bindist-version";
+        src = bindistTarball;
+        nativeBuildInputs = [ gcc perl ];
+        buildPhase = ''
+          make show VALUE=ProjectVersion > version
+        '';
+        installPhase = ''
+          source version
+          echo -n "$ProjectVersion" > $out
+        '';
+      };
+    in lib.readFile helper;
 in
 
 stdenv.mkDerivation rec {
-  version = "8.7.0";
+  inherit version;
 
-  name = "ghc-${version}-binary";
+  name = "ghc-${version}";
 
-  src = builtins.fetchurl ({
-    "i386-linux"   = {
-      url = mkUrl "validate-i386-linux-deb9";
-    };
-    "x86_64-linux" = {
-      url = mkUrl "validate-x86_64-linux-deb8";
-    };
-    "aarch64-linux" = {
-      url = mkUrl "validate-aarch64-linux-deb9";
-    };
-    "x86_64-darwin" = {
-      url = mkUrl "validate-x86_64-darwin";
-    };
-  }.${stdenv.hostPlatform.system}
-    or (throw "cannot bootstrap GHC on this platform"));
+  src = bindistTarball;
 
   nativeBuildInputs = [ perl ];
   buildInputs = stdenv.lib.optionals (stdenv.targetPlatform.isAarch32 || stdenv.targetPlatform.isAarch64) [ llvm_39 ];
@@ -93,10 +98,11 @@ stdenv.mkDerivation rec {
           -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${libiconv}/lib@" {} \;
     '' +
     # Rename needed libraries and binaries, fix interpreter
+    # N.B. Use patchelfUnstable due to https://github.com/NixOS/patchelf/pull/85
     stdenv.lib.optionalString stdenv.isLinux ''
-      find . -type f -perm -0100 -exec patchelf \
-          --replace-needed libncurses${stdenv.lib.optionalString stdenv.is64bit "w"}.so.5 libncurses.so \
-          --replace-needed libtinfo.so libtinfo.so.5 \
+      find . -type f -perm -0100 -exec ${patchelfUnstable}/bin/patchelf \
+          --replace-needed libncurses${stdenv.lib.optionalString stdenv.is64bit "w"}.so.${ncursesVersion} libncurses.so \
+          --replace-needed libtinfo.so.${ncursesVersion} libncurses.so.${ncursesVersion} \
           --interpreter ${glibcDynLinker} {} \;
 
       sed -i "s|/usr/bin/perl|perl\x00        |" ghc*/ghc/stage2/build/tmp/ghc-stage2
@@ -159,6 +165,7 @@ stdenv.mkDerivation rec {
   passthru = {
     targetPrefix = "";
     enableShared = true;
+    haskellCompilerName = "ghc-${version}";
   };
 
   meta.license = stdenv.lib.licenses.bsd3;
