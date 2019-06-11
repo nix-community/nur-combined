@@ -16,6 +16,7 @@ rec {
   colombia = pkgs.callPackage ./pkgs/colombia { };
   puertico-osm = pkgs.callPackage ./pkgs/puertico-osm { };
   reva = pkgs.callPackage ./pkgs/reva { };
+  dbxcli = pkgs.callPackage ./pkgs/dbxcli { };
 #  jamaica = pkgs.callPackage ./pkgs/jamaica { };
 #  modules = import ./modules;
 } 
