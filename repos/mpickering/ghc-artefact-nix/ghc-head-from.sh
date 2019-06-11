@@ -13,7 +13,7 @@ then
 elif ! [ -z "$1" ]; then
   # Assume the argument is a URL
   echo "Fetching artefact from $1"
-  nix run -f . \
+  nix run -f https://github.com/mpickering/ghc-artefact-nix/archive/master.tar.gz \
     --argstr url $1 \
     ghcHEAD cabal-install gcc binutils-unwrapped
   exit 0
