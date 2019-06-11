@@ -15,6 +15,7 @@ rec {
   fresco = pkgs.callPackage ./pkgs/fresco { };
   colombia = pkgs.callPackage ./pkgs/colombia { };
   puertico-osm = pkgs.callPackage ./pkgs/puertico-osm { };
+  reva = pkgs.callPackage ./pkgs/reva { };
 #  jamaica = pkgs.callPackage ./pkgs/jamaica { };
 #  modules = import ./modules;
 } 
