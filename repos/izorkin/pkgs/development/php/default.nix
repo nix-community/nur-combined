@@ -1,5 +1,5 @@
 # pcre functionality is tested in nixos/tests/php-pcre.nix
-{ lib, stdenv, fetchurl, autoconf, bison, flex, libtool, pkgconfig, re2c
+{ lib, stdenv, fetchurl, autoconf, bison, libtool, pkgconfig, re2c
 , mysql, libxml2, readline, zlib, curl, postgresql, gettext
 , openssl, pcre, pcre2, sqlite, config, libjpeg, libpng, freetype
 , libxslt, libmcrypt, bzip2, icu, icu60, openldap, cyrus_sasl, libmhash, unixODBC, freetds
@@ -77,7 +77,7 @@ let
 
       enableParallelBuilding = true;
 
-      nativeBuildInputs = [ autoconf bison flex libtool pkgconfig re2c ];
+      nativeBuildInputs = [ autoconf bison libtool pkgconfig re2c ];
       buildInputs = [ ]
         ++ optional (versionOlder version "7.3") pcre
         ++ optional (versionAtLeast version "7.3") pcre2
