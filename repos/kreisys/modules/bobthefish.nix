@@ -78,7 +78,7 @@ in {
     programs = {
       bash = {
         interactiveShellInit = ''
-          if [[ $SHLVL == 1 ]]; then
+          if [[ $SHLVL == 1 && $TERM != dumb ]]; then
             exec fish
           fi
         '';
