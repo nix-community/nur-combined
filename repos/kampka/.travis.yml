@@ -1,5 +1,6 @@
 language: nix
 script:
+    - nix-build -E 'with import <nixpkgs>{}; (callPackage ./nur.nix {})'
     - nix-build -E 'with import <nixpkgs>{}; (callPackage ./default.nix {})'
 
 deploy:
