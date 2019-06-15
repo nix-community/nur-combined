@@ -69,6 +69,19 @@
         platforms = platforms.all;
         };
       };
+    "keepass-helper" = buildFirefoxXpiAddon {
+      pname = "keepass-helper";
+      version = "1.3";
+      addonId = "{e56fa932-ad2c-4cfa-b0d7-a35db1d9b0f6}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/839803/keepass_helper_url_in_title-1.3-an+fx.xpi?src=";
+      sha256 = "0ff5e82dd4526db8c7b8cddd7778f46d282de9f6fc4c1d11ac7aa7b0bbefe7e4";
+      meta = with stdenv.lib;
+      {
+        description = "Puts a hostname or a URL in the window title.\nIt does not modify the title of a tab, just the window title.\nIt does not inject any JavaScript code to a website, so it can't corrupt, nor can it be corrupted by it.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "link-cleaner" = buildFirefoxXpiAddon {
       pname = "link-cleaner";
       version = "1.5";
