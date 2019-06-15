@@ -55,6 +55,7 @@
             "url": "https://github.com/kalbasit/nur-packages"
         },
         "kampka": {
+            "file": "nur.nix",
             "url": "https://github.com/kampka/nix-packages"
         },
         "krebs": {
