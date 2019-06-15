@@ -2,5 +2,5 @@
 , pkgs ? import nixpkgs {} }:
 
 {
-  pkgs-linux = pkgs.callPackages ./non-broken.nix {};
+  pkgs-linux = builtins.removeAttrs (pkgs.callPackages ./non-broken.nix {}) [ "fishPlugins" "emacs" ];
 }
