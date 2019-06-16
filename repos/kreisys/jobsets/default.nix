@@ -14,7 +14,7 @@ let
       nixexprpath = "release.nix";
       checkinterval = 30;
       schedulingshares = 100;
-      enableemail = true;
+      enableemail = false;
       emailoverride = "sbergmann@benbria.ca";
       keepnr = 10;
       inputs.nixpkgs = {
