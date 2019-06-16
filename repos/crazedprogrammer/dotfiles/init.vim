@@ -67,7 +67,7 @@ let g:clipboard = {
 
 " GUI and colors
 
-set mouse=a guicursor= nu rnu noshowmode background=dark
+set mouse=a guicursor= nu rnu noshowmode background=dark tabpagemax=999
 highlight Statement ctermfg=yellow
 highlight LineNr ctermfg=darkgrey
 highlight CursorLineNr ctermfg=grey
