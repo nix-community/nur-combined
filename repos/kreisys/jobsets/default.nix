@@ -14,12 +14,21 @@ let
       nixexprpath = "release.nix";
       checkinterval = 30;
       schedulingshares = 100;
+      emailoverride = "";
       enableemail = false;
       keepnr = 10;
-      inputs.src = {
-        type = "git";
-        value = "https://github.com/kreisys/nur-packages.git master";
-        emailresponsible = false;
+      inputs = {
+        src = {
+          type = "git";
+          value = "https://github.com/kreisys/nur-packages.git master";
+          emailresponsible = false;
+        };
+
+        nixpkgs = {
+          type = "git";
+          value = "https://github.com/NixOS/nixpkgs-channels.git nixos-unstable";
+          emailresponsible = false;
+        };
       };
     };
   };
