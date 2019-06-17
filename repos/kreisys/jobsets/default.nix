@@ -10,16 +10,15 @@ let
       enabled = true;
       hidden = false;
       description = "Linux";
-      nixexprinput = "declInput";
+      nixexprinput = "src";
       nixexprpath = "release.nix";
       checkinterval = 30;
       schedulingshares = 100;
       enableemail = false;
-      emailoverride = "sbergmann@benbria.ca";
       keepnr = 10;
-      inputs.nixpkgs = {
+      inputs.src = {
         type = "git";
-        value = "https://github.com/NixOS/nixpkgs-channels.git nixpkgs-unstable";
+        value = "https://github.com/kreisys/nur-packages.git master";
         emailresponsible = false;
       };
     };
