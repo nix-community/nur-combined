@@ -6,7 +6,7 @@ RUN [ "$(getent group users | cut -d: -f3)" = "100" ] \
     && apt-get update && apt-get -y install vim tmux htop mpv cppcheck valgrind doxygen usbutils sudo \
          libzbar-dev libpcl-dev libjpeg-turbo8-dev libturbojpeg0-dev libturbojpeg libglfw3-dev \
          libusb-1.0-0-dev libopenni2-dev opencl-headers openni2-utils \
-         ros-melodic-tf2-tools
+         ros-melodic-tf2-tools libjson-perl libperlio-gzip-perl
 RUN apt-get update && apt-get -y install ttf-ubuntu-font-family qt5-default
 
 RUN cd /root \

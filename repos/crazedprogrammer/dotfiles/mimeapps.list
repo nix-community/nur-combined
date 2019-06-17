@@ -1,4 +1,4 @@
 [Default Applications]
 application/pdf=org.pwmt.zathura.desktop
 image/svg+xml=firefox.desktop
-image/png=feh.desktop
+image/png=ristretto.desktop
