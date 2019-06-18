@@ -10,20 +10,20 @@ let # in mariadb # spans the whole file
 
 libExt = stdenv.hostPlatform.extensions.sharedLibrary;
 
-mariadb = everything // {
-  inherit client; # libmysqlclient.so in .out, necessary headers in .dev and utils in .bin
-  server = everything; # a full single-output build, including everything in `client` again
+mariadb = server // {
+  inherit client; # MariaDB Client
+  inherit server; # MariaDB Server
 };
 
 common = rec { # attributes common to both builds
-  version = "10.3.15";
+  version = "10.3.16";
 
   src = fetchurl {
     urls = [
       "https://downloads.mariadb.org/f/mariadb-${version}/source/mariadb-${version}.tar.gz"
       "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz"
     ];
-    sha256 = "0s399nxk2z8fgdr527p64y74zwjc3gpv7psf1n2r6ksl9njr3wr7";
+    sha256 = "06z2wn4wzryc2kghl12hp8893a2hb8m2qnwjn2czs2k2mwz75s9r";
     name   = "mariadb-${version}.tar.gz";
   };
 
@@ -108,20 +108,21 @@ client = stdenv.mkDerivation (common // {
   postInstall = ''
     rm -r "$out"/share/mysql
     rm -r "$out"/share/doc
-    rm "$out"/bin/{msql2mysql,mysql_plugin,mytop,wsrep_sst_rsync_wan,mysql_config,mariadb_config}
+    rm "$out"/bin/{msql2mysql,mysql_plugin,mytop,wsrep_sst_rsync_wan}
     rm "$out"/lib/plugin/{daemon_example.ini,dialog.so,mysql_clear_password.so,sha256_password.so}
     libmysqlclient_path=$(readlink -f $out/lib/libmysqlclient${libExt})
     rm "$out"/lib/{libmariadb${libExt},libmysqlclient${libExt},libmysqlclient_r${libExt}}
     mv "$libmysqlclient_path" "$out"/lib/libmysqlclient${libExt}
     ln -sv libmysqlclient${libExt} "$out"/lib/libmysqlclient_r${libExt}
+    mkdir -p "$dev"/bin && mv "$out"/bin/{mariadb_config,mysql_config} "$dev"/bin
     mkdir -p "$dev"/lib && mv "$out"/lib/{libmariadbclient.a,libmysqlclient.a,libmysqlclient_r.a,libmysqlservices.a} "$dev"/lib
   '';
 
   enableParallelBuilding = true; # the client should be OK
 });
 
-everything = stdenv.mkDerivation (common // {
-  name = "mariadb-${common.version}";
+server = stdenv.mkDerivation (common // {
+  name = "mariadb-server-${common.version}";
 
   outputs = [ "out" "dev" "man" ];
 
@@ -158,8 +159,8 @@ everything = stdenv.mkDerivation (common // {
   postInstall = ''
     chmod +x "$out"/bin/wsrep_sst_common
     rm -r "$out"/data # Don't need testing data
-    rm "$out"/bin/{mysql_find_rows,mysql_waitpid,mysqlaccess,mysqladmin,mysqlbinlog,mysqlcheck}
-    rm "$out"/bin/{mysqldump,mysqlhotcopy,mysqlimport,mysqlshow,mysqlslap,mysqltest}
+    rm "$out"/bin/{mysql,mysql_find_rows,mysql_waitpid,mysqlaccess,mysqladmin,mysqlbinlog}
+    rm "$out"/bin/{mysqlcheck,mysqldump,mysqlhotcopy,mysqlimport,mysqlshow,mysqlslap,mysqltest}
     ${ # We don't build with GSSAPI on Darwin
       optionalString (! stdenv.isDarwin) ''
         rm "$out"/lib/mysql/plugin/auth_gssapi_client.so
@@ -168,6 +169,7 @@ everything = stdenv.mkDerivation (common // {
     rm "$out"/lib/mysql/plugin/{client_ed25519.so,daemon_example.ini}
     rm "$out"/lib/{libmysqlclient${libExt},libmysqlclient_r${libExt}}
     mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
+    mkdir -p "$dev"/bin && mv "$out"/bin/{mariadb_config,mysql_config} "$dev"/bin
     mkdir -p "$dev"/lib && mv "$out"/lib/{libmariadbclient.a,libmysqlclient.a,libmysqlclient_r.a,libmysqlservices.a} "$dev"/lib
   '' + optionalString (! stdenv.isDarwin) ''
     sed -i 's/-mariadb/-mysql/' "$out"/bin/galera_new_cluster
