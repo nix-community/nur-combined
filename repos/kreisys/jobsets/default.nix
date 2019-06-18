@@ -26,7 +26,7 @@ let
 
         nixpkgs = {
           type = "git";
-          value = "https://github.com/NixOS/nixpkgs-channels.git nixos-unstable";
+          value = "https://github.com/NixOS/nixpkgs-channels.git nixpkgs-unstable";
           emailresponsible = false;
         };
       };
