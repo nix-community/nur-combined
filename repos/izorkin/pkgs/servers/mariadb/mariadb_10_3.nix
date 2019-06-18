@@ -152,8 +152,8 @@ server = stdenv.mkDerivation (common // {
 
   preConfigure = ''
     cmakeFlags="$cmakeFlags \
-      -DINSTALL_SHAREDIR=$dev/share/mysql
-      -DINSTALL_SUPPORTFILESDIR=$dev/share/mysql"
+      -DINSTALL_SHAREDIR=$dev/share
+      -DINSTALL_SUPPORTFILESDIR=$dev/share/mysql/support"
   '';
 
   postInstall = ''
