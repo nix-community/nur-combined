@@ -1,10 +1,10 @@
-{ lib, newScope, recurseIntoAttrs, fetchgit }:
+{ lib, newScope, recurseIntoAttrs, dontRecurseIntoAttrs, fetchgit }:
 
 let
   callPackage = newScope self;
 
   self = rec {
-    packagePlugin = callPackage ./package-plugin.nix { };
+    packagePlugin = dontRecurseIntoAttrs (callPackage ./package-plugin.nix { });
 
     bobthefish = let
       inherit (lib.importJSON ./bobthefish.json) url rev sha256;
@@ -13,10 +13,7 @@ let
       src  = fetchgit { inherit url rev sha256; };
     };
 
-    completions = recurseIntoAttrs {
-      docker         = callPackage ./completions/docker.nix         {};
-      docker-compose = callPackage ./completions/docker-compose.nix {};
-    };
+    completions = recurseIntoAttrs (callPackage ./completions {});
 
     iterm2-integration = callPackage ./iterm2-integration.nix { };
   };
