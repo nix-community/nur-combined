@@ -6,7 +6,7 @@ let
   pkgs = import nixpkgs {};
 
   jobsets = {
-    pkgs-linux = {
+    pkgs = {
       enabled = true;
       hidden = false;
       description = "Linux";
