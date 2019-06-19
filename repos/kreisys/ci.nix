@@ -32,8 +32,20 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
+  filterDrvsRecursive = cond: f: set:
+    let
+      recurse = path: set:
+        let
+          g =
+            name: value:
+            if isAttrs value && cond value
+              then recurse (path ++ [name]) value
+              else f (path ++ [name]) value;
+        in filterAttrs (n: v: (trace "${n} ${if v == null then "null" else "not null"}" v) != null) (mapAttrs g set);
+    in recurse [] set;
+
   nurAttrs = import ./default.nix { inherit pkgs; };
-  nurDrvs = mapAttrsRecursiveCond (as: ! isDerivation as) (_: v: if isDerivation v then v else null) nurAttrs;
+  nurDrvs = mapAttrsRecursiveCond (as: ! isDerivation as && ! as ? "__functor") (_: v: if isDerivation v then v else null) nurAttrs;
 
   nurPkgs =
     #flattenPkgs
@@ -45,7 +57,7 @@ let
 in
 
 rec {
-  buildPkgs = nurDrvs;
+  buildPkgs = filterAttrsRecursive (_: v: v != null) nurDrvs;
   cachePkgs = filter isCacheable buildPkgs;
 
   buildOutputs = concatMap outputsOf buildPkgs;
