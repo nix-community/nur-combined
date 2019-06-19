@@ -8,9 +8,9 @@ in rec {
   inherit (pkgs) buildkite-agent3 consul dep2nix direnv exa ipfs;
   inherit (pkgs.gitAndTools) hub;
 
-  mkBashCli = pkgs.callPackage ./make-bash-cli {
+  mkBashCli = pkgs.dontRecurseIntoAttrs (pkgs.callPackage ./make-bash-cli {
     inherit (import ../lib { inherit pkgs; }) grid;
-  };
+  });
 
   buildkite-cli = pkgs.callPackage ./buildkite-cli { };
   consulate     = pkgs.callPackage ./consulate     { };
