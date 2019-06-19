@@ -15,7 +15,7 @@ let
       checkinterval = 30;
       schedulingshares = 100;
       emailoverride = "";
-      enableemail = false;
+      enableemail = true;
       keepnr = 10;
       inputs = {
         src = {

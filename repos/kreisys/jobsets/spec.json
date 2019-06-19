@@ -6,7 +6,7 @@
     "nixexprpath": "jobsets",
     "checkinterval": 60,
     "schedulingshares": 420,
-    "enableemail": false,
+    "enableemail": true,
     "emailoverride": "",
     "keepnr": 3,
     "inputs": {
