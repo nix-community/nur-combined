@@ -1,10 +1,13 @@
-{ nixpkgs ? <nixpkgs> }:
+{ nixpkgs ? <nixpkgs>
+, supportedSystems ? [ builtins.currentSystem ] }:
 
-let
-  pkgs.x86_64-linux  = import nixpkgs { system = "x86_64-linux"; };
-  pkgs.x86_64-darwin = import nixpkgs { system = "x86_64-darwin"; };
+with import <nixpkgs/pkgs/top-level/release-lib.nix> {
+  inherit supportedSystems;
+  packageSet = import ./ci.nix;
+  scrubJobs = false;
+};
 
-in {
-  pkgs-linux  = (import ./ci.nix { pkgs = pkgs.x86_64-linux; }).buildPkgs;
-  pkgs-darwin = (import ./ci.nix { pkgs = pkgs.x86_64-darwin; }).buildPkgs;
-}
+mapTestOn (packagePlatforms pkgs)
+#in {
+#  pkgs-darwin = (import ./ci.nix { pkgs = pkgs.x86_64-darwin; }).buildPkgs;
+#}

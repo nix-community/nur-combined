@@ -9,46 +9,35 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ pkgs ? import <nixpkgs> {} }:
+nixpkgsArgs:
+
+let pkgs = import <nixpkgs> nixpkgsArgs;
+in
 
 with builtins;
 with pkgs.lib;
 
 let
-
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
-  flattenPkgs = s:
-    let
-      f = p:
-        if shouldRecurseForDerivations p then flattenPkgs p
-        else if isDerivation p then [p]
-        else [];
-    in
-      concatMap f (attrValues s);
-
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
+  nurAttrs = import ./. { inherit pkgs; };
 
-  nurDrvs = mapAttrsRecursiveCond (as: ! isDerivation as && ! as ? __functor) (_: v: if isDerivation v then hydraJob v else null) nurAttrs;
+  nurDrvs = mapAttrsRecursiveCond (as: ! isDerivation as && ! as ? __functor) (_: v: if isDerivation v then v else null) nurAttrs;
 
   nurPkgs =
-    #flattenPkgs
     (listToAttrs
     (map (n: nameValuePair n nurDrvs.${n})
     (filter (n: !isReserved n)
     (attrNames nurDrvs))));
 
-in
-
-rec {
-  buildPkgs = filterAttrsRecursive (_: v: v != null && isBuildable v) nurDrvs;
+  buildPkgs = filterAttrsRecursive (_: v: v != null && isBuildable v) nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;
 
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;
-}
+in buildPkgs
