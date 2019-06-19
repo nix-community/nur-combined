@@ -5,6 +5,6 @@ let
   pkgs.x86_64-darwin = import nixpkgs { system = "x86_64-darwin"; };
 
 in {
-  pkgs-linux  = (pkgs.x86_64-linux.callPackages  ./ci.nix {}).buildPkgs;
-  pkgs-darwin = (pkgs.x86_64-darwin.callPackages ./ci.nix {}).buildPkgs;
+  pkgs-linux  = (import ./ci.nix { pkgs = pkgs.x86_64-linux; }).buildPkgs;
+  pkgs-darwin = (import ./ci.nix { pkgs = pkgs.x86_64-darwin; }).buildPkgs;
 }
