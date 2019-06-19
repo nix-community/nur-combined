@@ -33,7 +33,8 @@ let
   outputsOf = p: map (o: p.${o}) p.outputs;
 
   nurAttrs = import ./default.nix { inherit pkgs; };
-  nurDrvs = mapAttrsRecursiveCond (as: ! isDerivation as && ! as ? __functor) (_: v: if isDerivation v then v else null) nurAttrs;
+
+  nurDrvs = mapAttrsRecursiveCond (as: ! isDerivation as && ! as ? __functor) (_: v: if isDerivation v then hydraJob v else null) nurAttrs;
 
   nurPkgs =
     #flattenPkgs
@@ -45,7 +46,7 @@ let
 in
 
 rec {
-  buildPkgs = filterAttrsRecursive (_: v: v != null) nurDrvs;
+  buildPkgs = filterAttrsRecursive (_: v: v != null && isBuildable v) nurDrvs;
   cachePkgs = filter isCacheable buildPkgs;
 
   buildOutputs = concatMap outputsOf buildPkgs;
