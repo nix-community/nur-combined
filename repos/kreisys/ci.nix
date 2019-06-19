@@ -39,7 +39,7 @@ let
   nurAttrs = import ./default.nix { inherit pkgs; };
 
   nurPkgs =
-    flattenPkgs
+    #flattenPkgs
     (listToAttrs
     (map (n: nameValuePair n nurAttrs.${n})
     (filter (n: !isReserved n)
@@ -48,7 +48,8 @@ let
 in
 
 rec {
-  buildPkgs = filter isBuildable nurPkgs;
+  inherit nurPkgs;
+  buildPkgs = pkgs.lib.filterAttrsRecursive (_: v: isDerivation v || shouldRecurseForDerivations v) nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;
 
   buildOutputs = concatMap outputsOf buildPkgs;
