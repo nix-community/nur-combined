@@ -1,11 +1,6 @@
-{ lib, newScope, packagePlugin }:
+{ stdenv, newScope }:
 
-let
-  callPackage = newScope self;
-
-  self = rec {
-    inherit packagePlugin;
-    docker         = callPackage ./docker.nix         {};
-    docker-compose = callPackage ./docker-compose.nix {};
-  };
-in self
+stdenv.lib.makeScope newScope (self: with self; {
+  docker         = callPackage ./docker.nix         {};
+  docker-compose = callPackage ./docker-compose.nix {};
+})

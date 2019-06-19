@@ -1,9 +1,8 @@
-{ lib, newScope, recurseIntoAttrs, dontRecurseIntoAttrs, fetchgit }:
+{ pkgs, stdenv, lib, newScope, recurseIntoAttrs, dontRecurseIntoAttrs, fetchgit }:
 
-let
-  callPackage = newScope self;
-
-  self = rec {
+stdenv.lib.makeScope newScope (self: with self; let
+  callPackages = lib.callPackagesWith (pkgs // self);
+in {
     packagePlugin = dontRecurseIntoAttrs (callPackage ./package-plugin.nix { });
 
     bobthefish = let
@@ -13,8 +12,7 @@ let
       src  = fetchgit { inherit url rev sha256; };
     };
 
-    completions = recurseIntoAttrs (callPackage ./completions {});
+    completions = recurseIntoAttrs (callPackages ./completions {});
 
     iterm2-integration = callPackage ./iterm2-integration.nix { };
-  };
-in self
+})
