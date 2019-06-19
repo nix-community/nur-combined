@@ -3,14 +3,14 @@
 let
   # Here mk stands for mark
   mkB0rked = pkgs.lib.addMetaAttrs { broken = true; };
+
+in rec {
+  inherit (pkgs) buildkite-agent3 consul dep2nix direnv exa ipfs;
+  inherit (pkgs.gitAndTools) hub;
+
   mkBashCli = pkgs.callPackage ./make-bash-cli {
     inherit (import ../lib { inherit pkgs; }) grid;
   };
-
-in
-{
-  inherit (pkgs) buildkite-agent3 consul dep2nix direnv exa ipfs;
-  inherit (pkgs.gitAndTools) hub;
 
   buildkite-cli = pkgs.callPackage ./buildkite-cli { };
   consulate     = pkgs.callPackage ./consulate     { };
