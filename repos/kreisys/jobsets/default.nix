@@ -21,12 +21,20 @@ let
         src = {
           type = "git";
           value = "https://github.com/kreisys/nur-packages.git master";
-          emailresponsible = false;
+          emailresponsible = true;
         };
 
         nixpkgs = {
           type = "git";
           value = "https://github.com/NixOS/nixpkgs-channels.git nixpkgs-unstable";
+          emailresponsible = false;
+        };
+
+        supportedSystems = {
+          type = "nix";
+          value = ''
+            [ "x86_64-linux" "x86_64-darwin" ]
+          '';
           emailresponsible = false;
         };
       };
