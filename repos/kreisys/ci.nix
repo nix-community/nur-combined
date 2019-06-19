@@ -12,18 +12,14 @@
 { pkgs ? import <nixpkgs> {} }:
 
 with builtins;
+with pkgs.lib;
 
 let
 
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
-  isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
-
-  nameValuePair = n: v: { name = n; value = v; };
-
-  concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
 
   flattenPkgs = s:
     let
@@ -37,19 +33,19 @@ let
   outputsOf = p: map (o: p.${o}) p.outputs;
 
   nurAttrs = import ./default.nix { inherit pkgs; };
+  nurDrvs = mapAttrsRecursiveCond (as: ! isDerivation as) (_: v: if isDerivation v then v else null) nurAttrs;
 
   nurPkgs =
     #flattenPkgs
     (listToAttrs
-    (map (n: nameValuePair n nurAttrs.${n})
+    (map (n: nameValuePair n nurDrvs.${n})
     (filter (n: !isReserved n)
-    (attrNames nurAttrs))));
+    (attrNames nurDrvs))));
 
 in
 
 rec {
-  inherit nurPkgs;
-  buildPkgs = pkgs.lib.filterAttrsRecursive (_: v: isDerivation v || shouldRecurseForDerivations v) nurPkgs;
+  buildPkgs = nurDrvs;
   cachePkgs = filter isCacheable buildPkgs;
 
   buildOutputs = concatMap outputsOf buildPkgs;
