@@ -19,5 +19,7 @@ let
     filterOutNulls = filterAttrsRecursive (_: v: v != null) nullNonDrvs;
   in filterOutNulls;
 
-in sanitizedPkgs
+in sanitizedPkgs // {
+  lib-tests = import ./lib/tests/release.nix {};
+}
 
