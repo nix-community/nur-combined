@@ -3,6 +3,10 @@
 , scrubJobs ? false }:
 
 let
+  pkgs = import nixpkgs {};
+in with pkgs.lib;
+
+let
   platformizedPkgs = let
     releaseLib = import <nixpkgs/pkgs/top-level/release-lib.nix> {
       inherit supportedSystems scrubJobs;
@@ -12,7 +16,7 @@ let
     inherit (releaseLib) mapTestOn packagePlatforms pkgs;
   in mapTestOn (packagePlatforms pkgs);
 
-  sanitizedPkgs = with import <nixpkgs/lib>; let
+  sanitizedPkgs =  let
     isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
     nullNonDrvs = mapAttrsRecursiveCond
     (as: ! isDerivation as && ! as ? __functor)
@@ -24,5 +28,16 @@ let
 
 in sanitizedPkgs // {
   lib-tests = import ./lib/tests/release.nix {};
+
+  all-pkgs = pkgs.releaseTools.aggregate {
+    name = "all-pkgs";
+    meta = {
+      maintainer = [{
+        email = "shaybergmann@gmail.com";
+      }];
+      description = "all them pkgs";
+    };
+    constituents = collect isDerivation sanitizedPkgs;
+  };
 }
 
