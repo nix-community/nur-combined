@@ -1,6 +1,6 @@
 { nixpkgs ? <nixpkgs>
 , supportedSystems ? [ builtins.currentSystem ]
-, scrubJobs ? true }:
+, scrubJobs ? false }:
 
 let
   platformizedPkgs = let
@@ -19,7 +19,7 @@ let
     (_: v: if isDerivation v && isBuildable v then v else null)
     platformizedPkgs;
 
-    filterOutNulls = filterAttrsRecursive (_: v: v != null) nullNonDrvs;
+    filterOutNulls = filterAttrsRecursive (_: v: v != null && v != {}) nullNonDrvs;
   in filterOutNulls;
 
 in sanitizedPkgs // {
