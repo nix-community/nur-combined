@@ -5,41 +5,42 @@
 let
   pkgs = import nixpkgs {};
 
-  jobsets = {
-    pkgs = {
+  mkJobset = branch: channel: supportedSystems: {
+    "${branch}-${channel}" = {
       enabled = true;
       hidden = false;
-      description = "Linux";
+      description = "Build ${branch} against ${channel}";
       nixexprinput = "src";
       nixexprpath = "release.nix";
       checkinterval = 30;
       schedulingshares = 100;
-      emailoverride = "";
+      emailoverride = "shaybergmann@gmail.com";
       enableemail = true;
       keepnr = 10;
       inputs = {
         src = {
           type = "git";
-          value = "https://github.com/kreisys/nur-packages.git master";
+          value = "https://github.com/kreisys/nur-packages.git ${branch}";
           emailresponsible = true;
         };
 
         nixpkgs = {
           type = "git";
-          value = "https://github.com/NixOS/nixpkgs-channels.git nixpkgs-unstable";
+          value = "https://github.com/NixOS/nixpkgs-channels.git ${channel}";
           emailresponsible = false;
         };
 
         supportedSystems = {
           type = "nix";
-          value = ''
-            [ "x86_64-linux" "x86_64-darwin" ]
-          '';
+          value = supportedSystems;
           emailresponsible = false;
         };
       };
     };
   };
+
+  jobsets = (mkJobset "master" "nixpkgs-unstable" ''[ "x86_64-linux" "x86_64-darwin" ]'')
+         // (mkJobset "master" "nixos-unstable"   ''[ "x86_64-linux" ]'');
 
   jobsetsJSON = builtins.toJSON jobsets;
 
