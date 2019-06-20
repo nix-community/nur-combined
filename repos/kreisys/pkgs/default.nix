@@ -1,11 +1,11 @@
-{ pkgs, lib, newScope, recurseIntoAttrs, dontRecurseIntoAttrs }:
+{ pkgs, lib, newScope, recurseIntoAttrs }:
 
 lib.makeScope newScope (self: with self; let
   callPackages = lib.callPackagesWith (pkgs // self);
 in {
-  mkBashCli = dontRecurseIntoAttrs (callPackage ./make-bash-cli {
+  mkBashCli = callPackage ./make-bash-cli {
     inherit (import ../lib { inherit pkgs; }) grid;
-  });
+  };
 
   buildkite-cli = callPackage ./buildkite-cli { };
   consulate     = callPackage ./consulate     { };

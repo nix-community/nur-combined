@@ -1,5 +1,5 @@
 { stdenv, fish }:
-{ name , src }:
+{ name , src, ... }@attrs:
 
 stdenv.mkDerivation {
   inherit src;
@@ -8,6 +8,8 @@ stdenv.mkDerivation {
   buildInputs = [ fish ];
 
   passAsFile = [ "installPluginScript" ];
+
+  meta.platforms = stdenv.lib.platforms.all;
 
   installPluginScript = ''
     # This is pretty much stolen from github.com/fisherman/fin

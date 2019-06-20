@@ -1,13 +1,23 @@
 { nixpkgs ? <nixpkgs>
 , supportedSystems ? [ builtins.currentSystem ] }:
 
-with import <nixpkgs/pkgs/top-level/release-lib.nix> {
-  inherit supportedSystems;
-  packageSet = import ./ci.nix;
-  scrubJobs = false;
-};
+let
+  platformizedPkgs = let
+    releaseLib = import <nixpkgs/pkgs/top-level/release-lib.nix> {
+      inherit supportedSystems;
+      packageSet = import ./.;
+      scrubJobs = false;
+    };
 
-mapTestOn (packagePlatforms pkgs)
-#in {
-#  pkgs-darwin = (import ./ci.nix { pkgs = pkgs.x86_64-darwin; }).buildPkgs;
-#}
+    inherit (releaseLib) mapTestOn packagePlatforms pkgs;
+  in mapTestOn (packagePlatforms pkgs);
+
+  sanitizedPkgs = with import <nixpkgs/lib>; let
+    isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
+    nullNonDrvs = mapAttrsRecursiveCond (as: ! isDerivation as && ! as ? __functor) (_: v:
+      if isDerivation v && isBuildable v then v else null) platformizedPkgs;
+    filterOutNulls = filterAttrsRecursive (_: v: v != null && v != {}) nullNonDrvs;
+  in filterOutNulls;
+
+in sanitizedPkgs
+

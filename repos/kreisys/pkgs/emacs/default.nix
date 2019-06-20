@@ -7,7 +7,9 @@ let
 
   emacs = (emacsPackagesNgFor emacsMacport).emacsWithPackages (_: []);
 
-in runCommand emacs.name {} ''
+in runCommand emacs.name {
+  inherit (emacs) meta;
+} ''
   cp -a ${emacs} $out
 
   cd $out

@@ -1,9 +1,9 @@
-{ pkgs, stdenv, lib, newScope, recurseIntoAttrs, dontRecurseIntoAttrs, fetchgit }:
+{ pkgs, stdenv, lib, newScope, recurseIntoAttrs, fetchgit }:
 
 stdenv.lib.makeScope newScope (self: with self; let
   callPackages = lib.callPackagesWith (pkgs // self);
 in {
-    packagePlugin = dontRecurseIntoAttrs (callPackage ./package-plugin.nix { });
+    packagePlugin = callPackage ./package-plugin.nix { };
 
     bobthefish = let
       inherit (lib.importJSON ./bobthefish.json) url rev sha256;

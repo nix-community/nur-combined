@@ -101,7 +101,7 @@ name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: a
 
   mkCli = { action, name, description, arguments ? [], flags ? [], options ? [], previous ? [], ... }@c:
     assert ! builtins.isString action -> arguments == [];
-  let 
+  let
     mkCommand = name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: action: {
       inherit action arguments aliases description flags name options;
     };
@@ -211,4 +211,6 @@ in stdenv.mkDerivation ({
   checkPhase = ''
     true
   '';
+
+  meta.platforms = stdenv.lib.platforms.all;
 })

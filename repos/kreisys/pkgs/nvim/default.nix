@@ -1,4 +1,4 @@
-{ lib, vimUtils, vimPlugins, neovim, fetchgit }:
+{ lib, stdenv, vimUtils, vimPlugins, neovim, fetchgit }:
 
 with vimPlugins;
 let
@@ -264,15 +264,16 @@ let
 
   start = allPlugins;
 
-in neovim.override {
-  vimAlias = true;
-  viAlias = true;
+  nvim = neovim.override {
+    vimAlias = true;
+    viAlias = true;
 
-  configure = {
-    packages.myVimPackage = {
-      inherit start;
-    };
+    configure = {
+      packages.myVimPackage = {
+        inherit start;
+      };
 
-    customRC = vimrc;
+      customRC = vimrc;
+   };
  };
-}
+in nvim.overrideAttrs (_: { meta.platforms = stdenv.lib.platforms.all; })
