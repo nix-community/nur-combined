@@ -31,7 +31,7 @@ rec {
   # intersperseString "_" "foo" -> "f_o_o"
   intersperseString = sep: str: concatStrings (intersperse sep (stringToCharacters str));
 
-  camelToSnake = camelStr: assert isCamel camelStr; let
+  camelToSnake = camelStr: let
     # Not sure this is the best way to do it but it works;
     # Also, this actually ends up being [ "came" [ "lS" ] "tr" ]
     came'lS'tr   = split "([[:lower:][:digit:]][[:upper:]])" camelStr;
@@ -43,5 +43,5 @@ rec {
   # Easier than conversion; not that "foobar" would test positive for either but it doesn't really
   # matter since both conversions would still work and just return the same string.
   isSnake = str: match "[[:lower:]][[:lower:][:digit:]]+(_[[:lower:]][[:lower:][:digit:]]+)*" str != null;
-  isCamel = str: match "[[:lower:]][[:lower:][:digit:]]+([[:upper:]]+[[:lower:][:digit:]]+)*" str != null;
+  isCamel = str: match "[[:lower:][:upper:]][[:lower:][:digit:]]+([[:upper:]]+[[:lower:][:digit:]]+)*" str != null;
 }
