@@ -31,6 +31,7 @@ rec {
   s2i = pkgs.callPackage ./pkgs/s2i {};
   slirp4netns = pkgs.callPackage ./pkgs/slirp4netns {};
   # tilt = pkgs.callPackage ./pkgs/tilt {};
+  tkn = pkgs.callPackage ./pkgs/tkn {};
   yaspell = pkgs.callPackage ./pkgs/yaspell {};
 
   # Upstream
