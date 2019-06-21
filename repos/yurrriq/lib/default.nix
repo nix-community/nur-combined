@@ -30,7 +30,8 @@ rec {
     '';
   };
 
-  mkHelmfile = { pkgs, version, sha256, modSha256 }: pkgs.helmfile.overrideAttrs(old: rec {
+  mkHelmfile = { pkgs, version, sha256, modSha256 }: pkgs.helmfile.overrideAttrs(_: {
+    name = "helmfile-${version}";
     pname = "helmfile";
     inherit modSha256 version;
     src = pkgs.fetchFromGitHub {
@@ -41,7 +42,7 @@ rec {
     };
     buildFlagsArray = ''
       -ldflags=
-      -X main.Version=${version}
+          -X main.Version=${version}
     '';
   });
 
