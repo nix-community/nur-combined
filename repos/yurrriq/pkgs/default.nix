@@ -18,6 +18,8 @@ rec {
     meta.broken = true;
   });
 
+  conftest = pkgs.callPackage ./development/tools/conftest {};
+
   emacsPackages.cedille = _nixpkgs.emacsPackages.cedille.override {
     inherit cedille;
   };
