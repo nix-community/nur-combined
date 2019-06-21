@@ -173,7 +173,6 @@
       sha256 = "61dc7f5f79676573c603492ac57699cec81680b259751e3655bf90631c207271";
       meta = with stdenv.lib;
       {
-        homepage = "http://www.sfol.se/";
         description = "Swedish spell-check dictionary.";
         license = licenses.lgpl3;
         platforms = platforms.all;
