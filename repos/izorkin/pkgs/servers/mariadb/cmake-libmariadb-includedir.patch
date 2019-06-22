@@ -1,0 +1,34 @@
+diff --git a/libmariadb/mariadb_config/libmariadb.pc.in b/libmariadb/mariadb_config/libmariadb.pc.in
+index b7d1f18c..b52c9b94 100644
+--- a/libmariadb/mariadb_config/libmariadb.pc.in
++++ b/libmariadb/mariadb_config/libmariadb.pc.in
+@@ -6,7 +6,7 @@
+ #  Dan Nicholson’s Guide to pkg-config (http://www.freedesktop.org/wiki/Software/pkg-config/)
+ #
+ 
+-prefix=@CMAKE_INSTALL_PREFIX@
++prefix=@CMAKE_INSTALL_PREFIX_DEV@
+ includedir=${prefix}/@INSTALL_INCLUDEDIR@/@SUFFIX_INSTALL_DIR@
+ libdir=${prefix}/@INSTALL_LIBDIR@/@SUFFIX_INSTALL_DIR@
+ 
+diff --git a/libmariadb/mariadb_config/mariadb_config.c.in b/libmariadb/mariadb_config/mariadb_config.c.in
+index 45d2f4e3..3084c516 100644
+--- a/libmariadb/mariadb_config/mariadb_config.c.in
++++ b/libmariadb/mariadb_config/mariadb_config.c.in
+@@ -5,13 +5,13 @@
+ 
+ static char *mariadb_progname;
+ 
+-#define INCLUDE "-I@CMAKE_INSTALL_PREFIX@/@INSTALL_INCLUDEDIR@ -I@CMAKE_INSTALL_PREFIX@/@INSTALL_INCLUDEDIR@/mysql"
+-#define LIBS    "-L@CMAKE_INSTALL_PREFIX@/@INSTALL_LIBDIR@/ -lmariadb @extra_dynamic_LDFLAGS@"
++#define INCLUDE "-I@CMAKE_INSTALL_PREFIX_DEV@/@INSTALL_INCLUDEDIR@ -I@CMAKE_INSTALL_PREFIX_DEV@/@INSTALL_INCLUDEDIR@/mysql"
++#define LIBS    "-L@CMAKE_INSTALL_PREFIX_DEV@/@INSTALL_LIBDIR@/ -lmariadb @extra_dynamic_LDFLAGS@"
+ #define LIBS_SYS "@extra_dynamic_LDFLAGS@"
+ #define CFLAGS  INCLUDE
+ #define VERSION "@MARIADB_CLIENT_VERSION@"
+ #define CC_VERSION "@CPACK_PACKAGE_VERSION@"
+-#define PLUGIN_DIR "@CMAKE_INSTALL_PREFIX@/@INSTALL_PLUGINDIR@"
++#define PLUGIN_DIR "@CMAKE_INSTALL_PREFIX_DEV@/@INSTALL_PLUGINDIR@"
+ #define SOCKET  "@MARIADB_UNIX_ADDR@"
+ #define PORT "@MARIADB_PORT@"
+ #define TLS_LIBRARY_VERSION "@TLS_LIBRARY_VERSION@"

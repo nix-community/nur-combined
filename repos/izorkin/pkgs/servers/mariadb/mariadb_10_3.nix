@@ -12,7 +12,7 @@ libExt = stdenv.hostPlatform.extensions.sharedLibrary;
 
 mariadb = server // {
   inherit client; # MariaDB Client
-  inherit server; # MariaDB Server
+  server = server; # MariaDB Server
 };
 
 common = rec { # attributes common to both builds
@@ -38,12 +38,14 @@ common = rec { # attributes common to both builds
     sed -i 's,[^"]*/var/log,/var/log,g' storage/mroonga/vendor/groonga/CMakeLists.txt
   '';
 
-  patches = [ ./cmake-includedir.patch ]
-    ++ optionals stdenv.isDarwin [
+  patches = [
+    ./cmake-includedir.patch
+    ./cmake-libmariadb-includedir.patch
+  ] ++ optionals stdenv.isDarwin [
       # Derived from "Fixed c++11 narrowing error"
       # https://github.com/MariaDB/server/commit/a0dfefb0f8a47145e599a5f1b0dc576fa7634b92
       ./fix-c++11-narrowing-error.patch
-    ];
+  ];
 
   cmakeFlags = [
     "-DBUILD_CONFIG=mysql_release"
@@ -57,6 +59,8 @@ common = rec { # attributes common to both builds
     "-DINSTALL_DOCDIR=share/doc/mysql"
     "-DINSTALL_DOCREADMEDIR=share/doc/mysql"
     "-DINSTALL_INCLUDEDIR=include/mysql"
+    "-DINSTALL_LIBDIR=lib/mysql"
+    "-DINSTALL_PLUGINDIR=lib/mysql/plugin"
     "-DINSTALL_INFODIR=share/mysql/docs"
     "-DINSTALL_MANDIR=share/man"
     "-DINSTALL_MYSQLSHAREDIR=share/mysql"
@@ -69,6 +73,7 @@ common = rec { # attributes common to both builds
     "-DWITH_SSL=system"
     "-DWITH_PCRE=system"
     "-DWITH_SAFEMALLOC=OFF"
+    "-DWITH_UNIT_TESTS=OFF"
     "-DEMBEDDED_LIBRARY=OFF"
   ] ++ optional stdenv.isDarwin [
     # On Darwin without sandbox, CMake will find the system java and attempt to build with java support, but
@@ -79,6 +84,12 @@ common = rec { # attributes common to both builds
   ] ++ optional stdenv.hostPlatform.isMusl [
     "-DWITHOUT_TOKUDB=1" # mariadb docs say disable this for musl
   ];
+
+  postInstall = ''
+    mkdir -p "$dev"/bin && mv "$out"/bin/{mariadb_config,mysql_config} "$dev"/bin
+    mkdir -p "$dev"/lib/mysql && mv "$out"/lib/mysql/{libmariadbclient.a,libmysqlclient.a,libmysqlclient_r.a,libmysqlservices.a} "$dev"/lib/mysql
+    mkdir -p "$dev"/lib/mysql/plugin && mv "$out"/lib/mysql/plugin/{caching_sha2_password.so,dialog.so,mysql_clear_password.so,sha256_password.so} "$dev"/lib/mysql/plugin
+  '';
 
   passthru.mysqlVersion = "5.7";
 
@@ -98,24 +109,27 @@ client = stdenv.mkDerivation (common // {
 
   propagatedBuildInputs = [ openssl zlib ]; # required from mariadb.pc
 
-  patches = [ ./cmake-plugin-includedir.patch ];
+  patches = common.patches ++ [ ./cmake-plugin-includedir.patch ];
 
   cmakeFlags = common.cmakeFlags ++ [
     "-DWITHOUT_SERVER=ON"
     "-DWITH_WSREP=OFF"
+    "-DINSTALL_MYSQLSHAREDIR=share/mysql-client"
   ];
 
-  postInstall = ''
-    rm -r "$out"/share/mysql
+  preConfigure = ''
+    cmakeFlags="$cmakeFlags \
+      -DCMAKE_INSTALL_PREFIX_DEV=$dev"
+  '';
+
+  postInstall = common.postInstall + ''
+    rm "$out"/bin/{mysqltest,mytop,wsrep_sst_rsync_wan}
+    rm "$out"/lib/mysql/{libmariadb${libExt},libmysqlclient_r${libExt}}
+    rm "$out"/lib/mysql/plugin/daemon_example.ini
     rm -r "$out"/share/doc
-    rm "$out"/bin/{msql2mysql,mysql_plugin,mytop,wsrep_sst_rsync_wan}
-    rm "$out"/lib/plugin/{daemon_example.ini,dialog.so,mysql_clear_password.so,sha256_password.so}
-    libmysqlclient_path=$(readlink -f $out/lib/libmysqlclient${libExt})
-    rm "$out"/lib/{libmariadb${libExt},libmysqlclient${libExt},libmysqlclient_r${libExt}}
-    mv "$libmysqlclient_path" "$out"/lib/libmysqlclient${libExt}
-    ln -sv libmysqlclient${libExt} "$out"/lib/libmysqlclient_r${libExt}
-    mkdir -p "$dev"/bin && mv "$out"/bin/{mariadb_config,mysql_config} "$dev"/bin
-    mkdir -p "$dev"/lib && mv "$out"/lib/{libmariadbclient.a,libmysqlclient.a,libmysqlclient_r.a,libmysqlservices.a} "$dev"/lib
+    libmysqlclient_path=$(readlink -f $out/lib/mysql/libmysqlclient${libExt})
+    mv "$libmysqlclient_path" "$out"/lib/mysql/libmysqlclient${libExt}
+    ln -sv libmysqlclient${libExt} "$out"/lib/mysql/libmysqlclient_r${libExt}
   '';
 
   enableParallelBuilding = true; # the client should be OK
@@ -133,6 +147,8 @@ server = stdenv.mkDerivation (common // {
     libxml2 boost judy libevent cracklib
   ] ++ optional (stdenv.isLinux && !stdenv.isAarch32) numactl;
 
+  patches = common.patches ++ [ ./cmake-without-client.patch ];
+
   cmakeFlags = common.cmakeFlags ++ [
     "-DMYSQL_DATADIR=/var/lib/mysql"
     "-DINSTALL_PLUGINDIR=lib/mysql/plugin"
@@ -145,6 +161,7 @@ server = stdenv.mkDerivation (common // {
     "-DWITH_INNODB_DISALLOW_WRITES=ON"
     "-DWITHOUT_EXAMPLE=1"
     "-DWITHOUT_FEDERATED=1"
+    "-DWITHOUT_CLIENT=ON"
   ] ++ stdenv.lib.optionals stdenv.isDarwin [
     "-DWITHOUT_OQGRAPH=1"
     "-DWITHOUT_TOKUDB=1"
@@ -152,25 +169,24 @@ server = stdenv.mkDerivation (common // {
 
   preConfigure = ''
     cmakeFlags="$cmakeFlags \
+      -DCMAKE_INSTALL_PREFIX_DEV=$dev
       -DINSTALL_SHAREDIR=$dev/share
       -DINSTALL_SUPPORTFILESDIR=$dev/share/mysql/support"
   '';
 
-  postInstall = ''
+  postInstall = common.postInstall + ''
     chmod +x "$out"/bin/wsrep_sst_common
+    rm "$out"/bin/mysql_client_test
     rm -r "$out"/data # Don't need testing data
-    rm "$out"/bin/{mysql,mysql_find_rows,mysql_waitpid,mysqlaccess,mysqladmin,mysqlbinlog}
-    rm "$out"/bin/{mysqlcheck,mysqldump,mysqlhotcopy,mysqlimport,mysqlshow,mysqlslap,mysqltest}
+    rm "$out"/bin/mysqltest
     ${ # We don't build with GSSAPI on Darwin
       optionalString (! stdenv.isDarwin) ''
         rm "$out"/lib/mysql/plugin/auth_gssapi_client.so
       ''
     }
-    rm "$out"/lib/mysql/plugin/{client_ed25519.so,daemon_example.ini}
-    rm "$out"/lib/{libmysqlclient${libExt},libmysqlclient_r${libExt}}
+    rm "$out"/lib/mysql/{libmysqlclient${libExt},libmysqlclient_r${libExt}}
+    rm "$out"/lib/mysql/plugin/{daemon_example.ini,client_ed25519.so}
     mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
-    mkdir -p "$dev"/bin && mv "$out"/bin/{mariadb_config,mysql_config} "$dev"/bin
-    mkdir -p "$dev"/lib && mv "$out"/lib/{libmariadbclient.a,libmysqlclient.a,libmysqlclient_r.a,libmysqlservices.a} "$dev"/lib
   '' + optionalString (! stdenv.isDarwin) ''
     sed -i 's/-mariadb/-mysql/' "$out"/bin/galera_new_cluster
   '';
