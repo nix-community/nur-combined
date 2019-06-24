@@ -9,7 +9,7 @@ in
 rec {
   inherit (lib) buildK8sEnv;
 
-  inherit (_nixpkgs) autojump sops;
+  inherit (_nixpkgs) autojump conftest eksctl sops;
   inherit (_nixpkgs.gitAndTools) git-crypt;
 
   cedille = (_nixpkgs.cedille.override {
@@ -17,8 +17,6 @@ rec {
   }).overrideAttrs (_: {
     meta.broken = true;
   });
-
-  conftest = pkgs.callPackage ./development/tools/conftest {};
 
   emacsPackages.cedille = _nixpkgs.emacsPackages.cedille.override {
     inherit cedille;

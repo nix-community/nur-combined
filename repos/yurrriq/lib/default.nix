@@ -16,6 +16,16 @@ rec {
 
   pinnedNixpkgs = args: import (fetchNixpkgs args) {};
 
+  mkEksctl = { pkgs, version, sha256 }: pkgs.eksctl.overrideAttrs(_: {
+    inherit version;
+    src = pkgs.fetchFromGitHub {
+      owner = "weaveworks";
+      repo = "eksctl";
+      rev = version;
+      inherit sha256;
+    };
+  });
+
   mkHelmBinary = { pkgs, version, flavor, sha256 }: pkgs.stdenv.mkDerivation rec {
     pname = "helm";
     name = "${pname}-${version}";
@@ -78,6 +88,7 @@ rec {
   buildK8sEnv = { pkgs, name, config }:
     let
       deps = rec {
+        eksctl = mkEksctl({ inherit pkgs; } // config.eksctl);
         kubernetes-helm = mkHelmBinary ({ inherit pkgs; } // config.helm);
         kubernetes = mkKubernetes ({ inherit pkgs; } // config.k8s);
         kubectx = pkgs.kubectx.override {
@@ -94,6 +105,7 @@ rec {
     pkgs.buildEnv {
       inherit name;
       paths = with deps; [
+        eksctl
         helmfile
         kops
         kubectx
