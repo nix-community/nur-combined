@@ -1,12 +1,12 @@
 { fetchurl, stdenv, lib, undmg }:
 
 stdenv.mkDerivation rec {
-  version = "1.1.8.439.g8502297d";
+  version = "1.1.9.383.g9f48828e";
   name = "spotify-mac";
 
   src = fetchurl {
     url = "https://download.scdn.co/Spotify.dmg";
-    sha256 = "0r1dz8as6hzfwhkmzjxiz9rdzaw9x671x0zhz5amaqj7gff3qwki";
+    sha256 = "1bxxvrzx15k7pzax90nf9fa8jp8jgwm0s5pwv2bnazv684z9v8nn";
   };
 
   buildInputs = [ undmg ];
