@@ -1,6 +1,7 @@
 [
   "aws-azure-login",
   "bash-language-server",
+  "codeowners",
   "diff-so-fancy",
   "mermaid.cli",
   "vmd"
