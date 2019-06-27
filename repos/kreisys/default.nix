@@ -9,9 +9,11 @@
 { pkgs ? import <nixpkgs> args
 , system ? builtins.currentSystem, ... }@args:
 
+with import <nixpkgs/lib>;
+
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib      = import ./lib { inherit pkgs; }; # functions
   modules  = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-} // pkgs.callPackages ./pkgs {}
+} // (optionalAttrs (builtins.tryEval pkgs).success (pkgs.callPackages ./pkgs {}))
