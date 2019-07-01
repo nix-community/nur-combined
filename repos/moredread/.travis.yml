@@ -1,5 +1,8 @@
 language: nix
 sudo: false
+cache:
+  directories:
+    - /nix
 env:
   global:
   - CACHIX_CACHE=moredread-nur

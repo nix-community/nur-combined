@@ -35,7 +35,8 @@ SELECTION=`cat ${TARGET}                                \
 if [ ! -z "$SELECTION" ];
 then
   DEFPATH=`seeDef ${SELECTION}`
-  nix run nixpkgs.alacritty -c alacritty -e zsh -c "nix run nixpkgs.vim -c vim -R -c 'nnoremap q :q!<CR>' ${DEFPATH}; zsh"
+  echo $SELECTION
+  nix run nixpkgs.alacritty -c alacritty -e zsh -c "nix run ${SELECTION}"
 fi
 
 OPTSAGE=0
