@@ -1,6 +1,7 @@
 [
   "aws-azure-login",
   "bash-language-server",
+  "dispatch-proxy",
   "codeowners",
   "diff-so-fancy",
   "mermaid.cli",
