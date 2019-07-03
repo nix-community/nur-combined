@@ -6,8 +6,8 @@ let
 
   _cfg = {
     repo = "chunkwm";
-    sha256 = "0w8q92q97fdvbwc3qb5w44jn4vi3m65ssdvjp5hh6b7llr17vspl";
-    version = "0.4.9";
+    sha256 = "0vk0lqfbiwf8yq61kn1qpcy69zam9jkbypi1ssbbx62m4acbf8m5";
+    version = "0.4.10";
   };
 
   self = chunkwm;

@@ -9,7 +9,7 @@ in
 rec {
   inherit (lib) buildK8sEnv;
 
-  inherit (_nixpkgs) autojump conftest eksctl sops;
+  inherit (_nixpkgs) autojump conftest eksctl kitty sops;
   inherit (_nixpkgs.gitAndTools) git-crypt;
 
   cedille = (_nixpkgs.cedille.override {
@@ -36,15 +36,11 @@ rec {
     meta.broken = true;
   });
 
-  helmfile = pkgs.callPackage ./applications/networking/cluster/helmfile {
-    buildGoModule = pkgs.buildGoModule.override {
-      go = pkgs.go_1_12;
-    };
-  };
-
   icon-lang = pkgs.callPackage ./development/interpreters/icon-lang {
     withGraphics = false;
   };
+
+  kubefwd = pkgs.callPackage ./development/tools/kubefwd {};
 
   lab = pkgs.callPackage ./applications/version-management/git-and-tools/lab {};
 
@@ -78,29 +74,18 @@ rec {
 
   m-cli = pkgs.m-cli.overrideAttrs (_: rec {
     name = "m-cli-${version}";
-    version = "c658afcb";
+    version = "ffdcbde2";
     src = pkgs.fetchFromGitHub {
       owner = "rgcr";
       repo = "m-cli";
       rev = version;
-      sha256 = "1jjf4iqfkbi6jg1imcli3ajxwqpnqh7kiip4h3hc9wfwx639wljx";
+      sha256 = "1y7bl5i5i7da1k5yldc8fhj6jp2a33kci77kj5wmqkwpb2nkc5c2";
     };
   });
 
-  inherit (_nixpkgs) kitty musescore;
+  inherit (_nixpkgs) musescore skhd;
 
   onyx = pkgs.callPackage ./os-specific/darwin/onyx {};
-
-  skhd = pkgs.skhd.overrideAttrs (_: rec {
-    name = "skhd-${version}";
-    version = "0.3.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "koekeishiya";
-      repo = "skhd";
-      rev = "v${version}";
-      sha256 = "13pqnassmzppy2ipv995rh8lzw9rraxvi0ph6zgy63cbsdfzbhgl";
-    };
-  });
 
   skim = pkgs.callPackage ./applications/misc/skim {};
 
