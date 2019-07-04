@@ -1,19 +1,19 @@
 { fetchurl, stdenv, lib, undmg }:
 
 stdenv.mkDerivation rec {
-  version = "1.1.9.383.g9f48828e";
-  name = "spotify-mac";
+  pname = "spotify";
+  version = "1.1.10.540.gfcf0430f";
 
   src = fetchurl {
     url = "https://download.scdn.co/Spotify.dmg";
-    sha256 = "1bxxvrzx15k7pzax90nf9fa8jp8jgwm0s5pwv2bnazv684z9v8nn";
+    sha256 = "1nrrdfncghq8bb9gph7f0jvzk1dc4y0hvmldj0mxgcx7rcyjlpfy";
   };
 
   buildInputs = [ undmg ];
 
   installPhase = ''
-    mkdir -p $out/Applications
-    cp -r . $out/Applications/Spotify.app
+    install -dm755 "$out/Applications"
+    cp -r . "$_/Spotify.app"
   '';
 
   meta = with lib; {
