@@ -20,12 +20,11 @@ matrix:
 install:
 - nix --version
 - nix-channel --list
-- nix-channel --add https://nixos.org/channels/nixos-19.03 nixpkgs
+- nix-channel --add "${NIX_CHANNEL}" nixpkgs
+- travis_retry nix-channel --update
 - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
 - if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix; fi
 - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
-- nix-channel --add "${NIX_CHANNEL}" nixpkgs
-- travis_retry nix-channel --update
 script:
 - outs=$(nix-build non-broken.nix --cores ${NIX_BUILD_CORES}) && echo Produced $outs
 - nix eval -f default.nix 'lib'
