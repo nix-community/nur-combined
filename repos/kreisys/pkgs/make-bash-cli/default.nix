@@ -11,11 +11,13 @@ name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: a
     # Setup defaults
     ${lib.concatMapStrings ({ long, ... }: ''
       ${lib.toUpper long}=false
+      ${long}=false
     '') (defaultFlags ++ flags)}
 
     ${lib.concatMapStrings ({ long, default ? null, ...}: ''
       ${lib.optionalString (default != null) ''
         ${lib.toUpper long}="${default}"
+        ${long}="${default}"
       ''}
     '') options}
 
@@ -26,12 +28,14 @@ name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: a
         ${lib.concatMapStrings ({ short, long, ... }:
         ''-${short} | --${long} )
           ${lib.toUpper long}=true
+          ${long}=true
           shift
           ;;
           '') (defaultFlags ++ flags)}
         ${lib.concatMapStrings ({ short, long, ... }:
         ''-${short} | --${long} )
           ${lib.toUpper long}="$2"
+          ${long}="$2"
           shift 2
           ;;
           '') options}
@@ -48,54 +52,59 @@ name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: a
     '') options}
 
     if [[ -v opts_failed ]] || $HELP; then
-      cat ${usage}
+      . ${usage}
       exit 1
     fi
   '';
 
   mkUsageText = { name, description, arguments ? [], flags ? [], options ? [], commands ? [], previous ? [], ... }: let
     hasCommands = commands != [] && ! builtins.isString commands;
+    usageText = ''
+      Usage: ${lib.concatStringsSep " " (previous ++ [ name ])} [options/flags] ${lib.optionalString hasCommands "<command> "}${lib.concatMapStringsSep " " ({ name, ... }: "<${name}>") arguments}
+
+        ${description}
+
+    '' + (lib.optionalString (arguments != []) ''
+      Arguments:
+      ${grid.gridToStringLeft (map ({ name, description, ... }: [
+        "    "       # indentation
+        name         # argument name
+        " |"         # separator
+        description  # description
+      ]) arguments)}
+    '') + (lib.optionalString ((defaultFlags ++ flags) != []) ''
+      Flags:
+      ${grid.gridToStringLeft (map ({ short, long, description, ... }: [
+        "    "       # indentation
+        "--${long}"  # long form
+        "-${short}"  # short form
+        " |"         # separator
+        description  # description
+      ]) (defaultFlags ++ flags))}
+    '') + (lib.optionalString (options != []) ''
+      Options:
+      ${grid.gridToStringLeft (map ({ short, long, default, description, ... }: [
+        "    "       # indentation
+        "--${long}"  # long form
+        "-${short}"  # short form
+        " |"         # separator
+        description  # description
+        "   [ ${if default != null then "default: ${default}" else "required"} ]"
+      ]) options)}
+    '') + (lib.optionalString hasCommands ''
+      Commands:
+      ${grid.gridToStringLeft (map ({ name, description, aliases ? [], ... }: [
+        "    "                                            # indentation
+        (lib.concatStringsSep ", " ([ name ] ++ aliases)) # command name and aliases
+        " |"                                              # separator
+        description                                       # description
+      ]) commands)}
+    '');
   in ''
-    Usage: ${lib.concatStringsSep " " (previous ++ [ name ])} [options/flags] ${lib.optionalString hasCommands "<command> "}${lib.concatMapStringsSep " " ({ name, ... }: "<${name}>") arguments}
-
-      ${description}
-
-  '' + (lib.optionalString (arguments != []) ''
-    Arguments:
-    ${grid.gridToStringLeft (map ({ name, description, ... }: [
-      "    "       # indentation
-      name         # argument name
-      " |"         # separator
-      description  # description
-    ]) arguments)}
-  '') + (lib.optionalString ((defaultFlags ++ flags) != []) ''
-    Flags:
-    ${grid.gridToStringLeft (map ({ short, long, description, ... }: [
-      "    "       # indentation
-      "--${long}"  # long form
-      "-${short}"  # short form
-      " |"         # separator
-      description  # description
-    ]) (defaultFlags ++ flags))}
-  '') + (lib.optionalString (options != []) ''
-    Options:
-    ${grid.gridToStringLeft (map ({ short, long, default, description, ... }: [
-      "    "       # indentation
-      "--${long}"  # long form
-      "-${short}"  # short form
-      " |"         # separator
-      description  # description
-      "   [ ${if default != null then "default: ${default}" else "required"} ]"
-    ]) options)}
-  '') + (lib.optionalString hasCommands ''
-    Commands:
-    ${grid.gridToStringLeft (map ({ name, description, aliases ? [], ... }: [
-      "    "                                            # indentation
-      (lib.concatStringsSep ", " ([ name ] ++ aliases)) # command name and aliases
-      " |"                                              # separator
-      description                                       # description
-    ]) commands)}
-  '');
+    cat <<EOF
+    ${usageText}
+    EOF
+  '';
 
   mkUsage = { name, ... }@c: writeText "${name}-usage.txt" (mkUsageText c);
 
@@ -133,6 +142,7 @@ name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: a
       ${lib.concatMapStrings ({ name, ...}: ''
         if [[ $# > 0 ]]; then
           ${lib.toUpper name}=$1
+          ${name}=$1
           shift
         else
           err "argument '${name}' has not been specified"
@@ -141,7 +151,7 @@ name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: a
       '') arguments'}
 
       if [[ -v args_failed ]] || $HELP; then
-        cat ${usage}
+        . ${usage}
         exit 1
       fi
 
@@ -153,7 +163,7 @@ name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: a
       cmd=$1
       shift
     else
-      cat ${usage}
+      . ${usage}
       exit 1
     fi
 
@@ -168,7 +178,7 @@ name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: a
           err "unknown command: $cmd"
         fi
 
-        cat ${usage}
+        . ${usage}
         ;;
     esac
     ''}
