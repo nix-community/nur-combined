@@ -14,12 +14,33 @@ let
   });
 
   apcu = buildPecl rec {
-    version = "4.0.11";
+    version = "5.1.17";
     pname = "apcu";
 
-    sha256 = "002d1gklkf0z170wkbhmm2z1p9p5ghhq3q1r9k54fq1sq4p30ks5";
+    sha256 = "14y7alvj5q17q1b544bxidavkn6i40cjbq2nv1m0k70ai5vv84bb";
 
     buildInputs = with pkgs; [ pcre.dev ];
+    doCheck = true;
+    checkTarget = "test";
+    checkFlagsArray = ["REPORT_EXIT_STATUS=1" "NO_INTERACTION=1"];
+    makeFlags = [ "phpincludedir=$(dev)/include" ];
+    outputs = [ "out" "dev" ];
+  };
+
+  apcu_bc = buildPecl rec {
+    version = "1.0.5";
+    pname = "apcu_bc";
+
+    sha256 = "0ma00syhk2ps9k9p02jz7rii6x3i2p986il23703zz5npd6y9n20";
+
+    buildInputs = with pkgs; [ apcu pcre.dev ];
+  };
+
+  ast = buildPecl rec {
+    version = "1.0.1";
+    pname = "ast";
+
+    sha256 = "0ja74k2lmxwhhvp9y9kc7khijd7s2dqma5x8ghbhx9ajkn0wg8iq";
   };
 
   box = mkDerivation rec {
@@ -157,14 +178,14 @@ let
       '';
       license = licenses.php301;
       homepage = "https://bitbucket.org/osmanov/pecl-event/";
-     };
+    };
   };
 
   igbinary = buildPecl rec {
-    version = "2.0.8";
+    version = "3.0.1";
     pname = "igbinary";
 
-    sha256 = "105nyn703k9p9c7wwy6npq7xd9mczmmlhyn0gn2v2wz0f88spjxs";
+    sha256 = "1w8jmf1qpggdvq0ndfi86n7i7cqgh1s8q6hys2lijvi37rzn0nar";
 
     configureFlags = [
       "--enable-igbinary"
@@ -188,24 +209,22 @@ let
     buildInputs = with pkgs; [ pcre.dev ];
   };
 
-  memcache = buildPecl rec {
-    version = "3.0.8";
-    pname = "memcache";
+  mailparse = buildPecl rec {
+    version = "3.0.2";
+    pname = "mailparse";
 
-    sha256 = "04c35rj0cvq5ygn2jgmyvqcb0k8d03v4k642b6i37zgv7x15pbic";
-
-    configureFlags = with pkgs; [
-      "--with-zlib-dir=${zlib.dev}"
-    ];
-
-    makeFlags = [ "CFLAGS=-fgnu89-inline" ];
+    sha256 = "0fw447ralqihsjnn0fm2hkaj8343cvb90v0d1wfclgz49256y6nq";
   };
 
   memcached = buildPecl rec {
-    version = "2.2.0";
+    version = "3.1.3";
     pname = "memcached";
 
-    sha256 = "0n4z2mp4rvrbmxq079zdsrhjxjkmhz6mzi7mlcipz02cdl7n1f8p";
+    src = fetchgit {
+      url = "https://github.com/php-memcached-dev/php-memcached";
+      rev = "v${version}";
+      sha256 = "1w9g8k7bmq3nbzskskpsr5632gh9q75nqy7nkjdzgs17klq9khjk";
+    };
 
     configureFlags = with pkgs; [
       "--with-zlib-dir=${zlib.dev}"
@@ -221,6 +240,15 @@ let
     pname = "pcs";
 
     sha256 = "0d4p1gpl8gkzdiv860qzxfz250ryf0wmjgyc8qcaaqgkdyh5jy5p";
+  };
+
+  pdo_sqlsrv = buildPecl rec {
+    version = "5.6.1";
+    pname = "pdo_sqlsrv";
+
+    sha256 = "02ill1iqffa5fha9iz4y91823scml24ikfk8pn90jyycfwv07x6a";
+
+    buildInputs = with pkgs; [ unixODBC ];
   };
 
   php-cs-fixer = mkDerivation rec {
@@ -372,14 +400,14 @@ let
   };
 
   pinba = buildPecl rec {
-    version = "1.1.0";
+    version = "1.1.1";
     pname = "pinba";
 
     src = pkgs.fetchFromGitHub {
       owner = "tony2001";
       repo = "pinba_extension";
-      rev = "7e7cd25ebcd74234f058bfe350128238383c6b96";
-      sha256 = "1866c82ypijcm44sbfygfzs0d3klj7xsyc40imzac7s9x1x4fp81";
+      rev = "RELEASE_1_1_1";
+      sha256 = "1kdp7vav0y315695vhm3xifgsh6h6y6pny70xw3iai461n58khj5";
     };
 
     meta = with pkgs.lib; {
@@ -436,13 +464,16 @@ let
     };
   };
 
-  #pthreads requires a build of PHP with ZTS (Zend Thread Safety) enabled
-  #--enable-maintainer-zts or --enable-zts on Windows
   pthreads = buildPecl rec {
-    version = "2.0.10";
+    version = "3.2.0";
     pname = "pthreads";
 
-    sha256 = "1xlcb1b1g10jd0xhm3c01a06yqpb5qln47pd1k522138324qvpwb";
+    src = pkgs.fetchFromGitHub {
+      owner = "krakjoe";
+      repo = "pthreads";
+      rev = "v${version}";
+      sha256 = "17hypm75d4w7lvz96jb7s0s87018yzmmap0l125d5fd7abnhzfvv";
+    };
 
     buildInputs = with pkgs; [ pcre.dev ];
   };
@@ -454,64 +485,36 @@ let
     sha256 = "18hvll173mlp6dk6xvgajkjf4min8f5gn809nr1ahq4r6kn4rw60";
   };
 
-  spidermonkey = buildPecl rec {
-    version = "1.0.0";
-    pname = "spidermonkey";
+  sqlsrv = buildPecl rec {
+    version = "5.6.1";
+    pname = "sqlsrv";
 
-    sha256 = "1ywrsp90w6rlgq3v2vmvp2zvvykkgqqasab7h9bf3vgvgv3qasbg";
+    sha256 = "0ial621zxn9zvjh7k1h755sm2lc9aafc389yxksqcxcmm7kqmd0a";
 
-    configureFlags = with pkgs; [
-      "--with-spidermonkey=${spidermonkey_1_8_5}"
-    ];
-
-    buildInputs = with pkgs; [ spidermonkey_1_8_5 ];
-  };
-
-  xcache = buildPecl rec {
-    version = "3.2.0";
-    pname = "xcache";
-
-    src = pkgs.fetchurl {
-      url = "http://xcache.lighttpd.net/pub/Releases/${version}/${pname}.tar.bz2";
-      sha256 = "1gbcpw64da9ynjxv70jybwf9y88idm01kb16j87vfagpsp5s64kx";
-    };
-
-    doCheck = true;
-    checkTarget = "test";
-
-    configureFlags = [
-      "--enable-xcache"
-      "--enable-xcache-coverager"
-      "--enable-xcache-optimizer"
-      "--enable-xcache-assembler"
-      "--enable-xcache-encoder"
-      "--enable-xcache-decoder"
-    ];
-
-    buildInputs = with pkgs; [ m4 ];
+    buildInputs = with pkgs; [ unixODBC ];
   };
 
   xdebug = buildPecl rec {
-    version = "2.5.5";
+    version = "2.7.2";
     pname = "xdebug";
 
-    sha256 = "197i1fcspbrdxki6rljvpjdxzhyaxl7nlihhiqcyfkjipkr8n43j";
+    sha256 = "19m40n5h339yk0g458zpbsck1lslhnjsmhrp076kzhl5l4x2iwxh";
 
     doCheck = true;
     checkTarget = "test";
   };
 
   yaml = buildPecl rec {
-    version = "1.3.2";
+    version = "2.0.4";
     pname = "yaml";
 
-    sha256 = "16jr5v3pff3f1yd61hh4pb279ivb7np1kf8mhvfw16g0fsvx33js";
+    sha256 = "1036zhc5yskdfymyk8jhwc34kvkvsn5kaf50336153v4dqwb11lp";
 
     configureFlags = with pkgs; [
       "--with-yaml=${libyaml}"
     ];
 
-    nativeBuildInputs = [ pkgs.pkgconfig ];
+    nativeBuildInputs = with pkgs; [ pkgconfig ];
   };
 
   zmq = buildPecl rec {

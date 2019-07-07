@@ -28,13 +28,13 @@ rec {
   php73-unit          = php73.override { config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.fpm = false; };
 
   php56Packages       = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php56-packages.nix { php = php56;      openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); libcouchbase = pkgs.libcouchbase.override ({ openssl = pkgs.libressl; }); });
+  php71Packages       = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php71-packages.nix { php = php71;      openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); libcouchbase = pkgs.libcouchbase.override ({ openssl = pkgs.libressl; }); });
+  php72Packages       = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php72-packages.nix { php = php72;      openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); libcouchbase = pkgs.libcouchbase.override ({ openssl = pkgs.libressl; }); });
+  php73Packages       = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php73-packages.nix { php = php73;      openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); libcouchbase = pkgs.libcouchbase.override ({ openssl = pkgs.libressl; }); });
   php56Packages-unit  = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php56-packages.nix { php = php56-unit; openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); libcouchbase = pkgs.libcouchbase.override ({ openssl = pkgs.libressl; }); });
-  php71Packages       = pkgs.php71Packages.override { php = php71; };
-  php72Packages       = pkgs.php72Packages.override { php = php72; };
-  php73Packages       = pkgs.php73Packages.override { php = php73; };
-  php71Packages-unit  = pkgs.php71Packages.override { php = php71-unit; };
-  php72Packages-unit  = pkgs.php72Packages.override { php = php72-unit; };
-  php73Packages-unit  = pkgs.php73Packages.override { php = php73-unit; };
+  php71Packages-unit  = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php71-packages.nix { php = php71-unit; openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); libcouchbase = pkgs.libcouchbase.override ({ openssl = pkgs.libressl; }); });
+  php72Packages-unit  = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php72-packages.nix { php = php72-unit; openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); libcouchbase = pkgs.libcouchbase.override ({ openssl = pkgs.libressl; }); });
+  php73Packages-unit  = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php73-packages.nix { php = php73-unit; openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); libcouchbase = pkgs.libcouchbase.override ({ openssl = pkgs.libressl; }); });
 
   php-info            = pkgs.callPackage  ./pkgs/web/php-info { };
   php-bench           = pkgs.callPackage  ./pkgs/web/php-bench { };
