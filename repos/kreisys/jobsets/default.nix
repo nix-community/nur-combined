@@ -35,6 +35,12 @@ let
           value = supportedSystems;
           emailresponsible = false;
         };
+
+        allowUnfree = {
+          type = "boolean";
+          value = "true";
+          emailresponsible = false;
+        };
       };
     };
   };
