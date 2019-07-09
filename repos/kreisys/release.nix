@@ -1,10 +1,9 @@
 { nixpkgs ? <nixpkgs>
 , supportedSystems ? [ builtins.currentSystem ]
-, allowUnfree ? false
 , scrubJobs ? false }:
 
 let
-  pkgs = import nixpkgs { config = { inherit allowUnfree; }; };
+  pkgs = import nixpkgs {};
 in with pkgs.lib;
 
 let

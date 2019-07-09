@@ -7,8 +7,6 @@ in {
     inherit (import ../lib { inherit pkgs; }) grid;
   };
 
-  inherit (pkgs) graalvm8;
-
   buildkite-cli = callPackage ./buildkite-cli { };
   consulate     = callPackage ./consulate     { };
   emacs         = callPackage ./emacs         { };
