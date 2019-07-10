@@ -20,6 +20,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
+    broken = true;
     homepage = "https://github.com/lukesmithxyz/mutt-wizard";
     description = "A system for automatically configuring mutt and isync with a simple interface and safe passwords";
     license = licenses.gpl3;
