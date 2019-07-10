@@ -112,10 +112,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2019.2.19";
+      version = "2019.7.1.1";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1688114/privacy_badger-2019.2.19-an+fx.xpi?src=";
-      sha256 = "eebb3c1e71d17ec2e35192aefaa9b0a81441d0f74660d5f1000d226e86af0556";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3285452/privacy_badger-2019.7.1.1-an+fx.xpi?src=";
+      sha256 = "7bf4f0a7f527ac3d55f5917b994b2cbe2f4c907d57463f9bd8d04ffa82dc8dad";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/privacybadger";
@@ -180,10 +180,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.20.0";
+      version = "1.20.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3027669/ublock_origin-1.20.0-an+fx.xpi?src=";
-      sha256 = "c2427ca79df3d9e3e7b6c1e84fbba280d6ec159982d11aa20c02228959621596";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3293994/ublock_origin-1.20.2-an+fx.xpi?src=";
+      sha256 = "4634411118e2598f91dbb07289b11109e097660d64391cd04eceb205d2c50854";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
