@@ -4,7 +4,7 @@
   zsh-history = ./programs/zsh-history;
 
   dns-cache = ./services/dns-cache;
-  msmtp-relay = ./services/msmtp-relay;
+  msmtp-mailqueue = ./services/msmtp-mailqueue;
   nginx = ./services/nginx;
   tmux = ./services/tmux ;
 }
