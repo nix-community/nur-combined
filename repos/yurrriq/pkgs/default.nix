@@ -2,15 +2,16 @@
 
 let
 
-  _nixpkgs = lib.pinnedNixpkgs (lib.fromJSONFile ../nixpkgs.json);
+  _nixpkgs = lib.pinnedNixpkgs (lib.fromJSONFile ../nix/nixpkgs.json);
 
 in
 
 rec {
   inherit (lib) buildK8sEnv;
 
-  inherit (_nixpkgs) autojump conftest eksctl kitty sops;
-  inherit (_nixpkgs.gitAndTools) git-crypt;
+  inherit (lib.pinnedNixpkgs (lib.fromJSONFile ../nix/nixos-19.03.json)) kitty;
+
+  inherit (_nixpkgs) autojump conftest eksctl sops;
 
   cedille = (_nixpkgs.cedille.override {
     inherit (pkgs.haskellPackages) alex happy Agda ghcWithPackages;
@@ -94,8 +95,6 @@ rec {
   spotify = pkgs.callPackage ./applications/audio/spotify/darwin.nix {};
 
 } else {
-
-  inherit (_nixpkgs) browserpass;
 
   tellico = (pkgs.libsForQt5.callPackage ./applications/misc/tellico {}).overrideAttrs (_: {
     meta.broken = true;
