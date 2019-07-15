@@ -96,6 +96,10 @@ rec {
 
 } else {
 
+  apfs-fuse = pkgs.callPackage ./os-specific/linux/apfs-fuse {
+    fuse = pkgs.fuse3;
+  };
+
   tellico = (pkgs.libsForQt5.callPackage ./applications/misc/tellico {}).overrideAttrs (_: {
     meta.broken = true;
   });
