@@ -9,33 +9,19 @@ in
 rec {
   inherit (lib) buildK8sEnv;
 
-  inherit (lib.pinnedNixpkgs (lib.fromJSONFile ../nix/nixos-19.03.json)) kitty;
+  inherit (_nixpkgs) autojump conftest elixir_1_8 eksctl sops;
 
-  inherit (_nixpkgs) autojump conftest eksctl sops;
-
-  cedille = (_nixpkgs.cedille.override {
+  cedille = _nixpkgs.cedille.override {
     inherit (pkgs.haskellPackages) alex happy Agda ghcWithPackages;
-  }).overrideAttrs (_: {
-    meta.broken = true;
-  });
+  };
 
   emacsPackages.cedille = _nixpkgs.emacsPackages.cedille.override {
     inherit cedille;
   };
 
-  inherit (_nixpkgs) elixir_1_8;
-
-  erlang = pkgs.beam.interpreters.erlangR21.override {
-    enableDebugInfo = true;
-    installTargets = "install";
-    wxSupport = false;
-  };
-
-  gap-pygments-lexer = (pkgs.callPackage ./tools/misc/gap-pygments-lexer {
+  gap-pygments-lexer = pkgs.callPackage ./tools/misc/gap-pygments-lexer {
     pythonPackages = pkgs.python2Packages;
-  }).overrideAttrs (_: {
-    meta.broken = true;
-  });
+  };
 
   icon-lang = pkgs.callPackage ./development/interpreters/icon-lang {
     withGraphics = false;
@@ -57,6 +43,17 @@ rec {
   noweb = pkgs.callPackage ./development/tools/literate-programming/noweb {
     inherit icon-lang;
   };
+
+} // {
+
+  cedille.meta.broken = true;
+
+  gap-pygments-lexer.meta.broken = true;
+
+  openlilylib-fonts.meta.broken = true;
+  lilypond.meta.broken = true;
+  lilypond-unstable.meta.broken = true;
+  lilypond-with-fonts.meta.broken = true;
 
 } // (if pkgs.stdenv.isDarwin then {
 
@@ -86,7 +83,7 @@ rec {
 
   inherit (_nixpkgs) musescore skhd;
 
-  onyx = pkgs.callPackage ./os-specific/darwin/onyx {};
+  onyx = (pkgs.callPackage ./os-specific/darwin/onyx {});
 
   skim = pkgs.callPackage ./applications/misc/skim {};
 
@@ -94,14 +91,16 @@ rec {
 
   spotify = pkgs.callPackage ./applications/audio/spotify/darwin.nix {};
 
+} // {
+  onyx.meta.broken = true;
 } else {
 
   apfs-fuse = pkgs.callPackage ./os-specific/linux/apfs-fuse {
     fuse = pkgs.fuse3;
   };
 
-  tellico = (pkgs.libsForQt5.callPackage ./applications/misc/tellico {}).overrideAttrs (_: {
-    meta.broken = true;
-  });
+  tellico = pkgs.libsForQt5.callPackage ./applications/misc/tellico {};
 
+} // {
+  tellico.meta.broken = true;
 })
