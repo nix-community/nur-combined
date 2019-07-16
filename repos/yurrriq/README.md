@@ -3,6 +3,7 @@
 
 [![Build Status][Travis badge]][Travis link]
 [![Cachix Cache][Cachix badge]][Cachix link]
+[![Built with Nix][Built with Nix badge]][Built with Nix link]
 
 
 
@@ -13,3 +14,5 @@
 [Travis link]: https://travis-ci.org/yurrriq/nur-packages
 [Cachix badge]: https://img.shields.io/badge/cachix-yurrriq--nur--packages-blue.svg
 [Cachix link]: https://yurrriq-nur-packages.cachix.org
+[Built with Nix badge]: https://builtwithnix.org/badge.svg
+[Built with Nix link]: https://builtwithnix.org
