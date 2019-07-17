@@ -14,6 +14,7 @@ let
     {
       ghcHEAD =
         ghc self (config self) ;
+      ghc-head-from = self.callPackage ./ghc-head-from.nix {};
     };
 in
   import <nixpkgs> { overlays = [ol]; }

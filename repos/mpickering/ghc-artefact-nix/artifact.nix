@@ -34,6 +34,8 @@ let
         src = bindistTarball;
         nativeBuildInputs = [ gcc perl ];
         buildPhase = ''
+          # Run it twice since make might produce related output the first time.
+          make show VALUE=ProjectVersion
           make show VALUE=ProjectVersion > version
         '';
         installPhase = ''
