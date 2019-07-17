@@ -7,8 +7,8 @@ buildPythonPackage {
   src = fetchFromGitHub {
     owner = "poljar";
     repo = "weechat-matrix";
-    rev = "c1cfc4a8e4a67989d526a2c9142575e447f88cd7";
-    sha256 = "0q16xr1lfc7qybm3ny7clb4gpmv4vknsppmaaafza6xvysvnm4r6";
+    rev = "dc97101d47187f15e106579200ad0d17e9e67192";
+    sha256 = "19294nzvk4vxj8zna9vrqbyg2swyighqvfja4kknj3i1d9szdy3p";
   };
 
   passthru.scripts = [ "matrix.py" ];

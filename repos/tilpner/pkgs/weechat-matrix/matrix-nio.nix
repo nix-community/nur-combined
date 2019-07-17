@@ -4,13 +4,13 @@
 
 buildPythonPackage {
   pname = "nio";
-  version = "0.2";
+  version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "poljar";
     repo = "matrix-nio";
-    rev = "c574fb247566f6a33e05c090e7e8444f7dc6d336";
-    sha256 = "13mrw9lvhzf4ykdagvw38k1p682b244ap9vvrcmjxrylz6d686li";
+    rev = "587d2cc814af4bc9c7a8bc8380a5022afc39290b";
+    sha256 = "09kcqv5wjvxnx3ligql6k7h5rshsim97y356c9k01d9hpv1lbccb";
   };
 
   postPatch = ''

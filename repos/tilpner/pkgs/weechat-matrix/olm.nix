@@ -2,12 +2,12 @@
 
 olm.overrideAttrs (old: rec {
   name = "olm-${version}";
-  version = "3.1.2";
+  version = "3.1.3";
 
   # Temporarily different URL, matrix.org seems to have not yet gotten around to setting up
   # the old URLs after the security breach
   src = fetchurl {
     url = "https://gitlab.matrix.org/matrix-org/olm/-/archive/${version}/${name}.tar.gz";
-    sha256 = "0qa0n7hl6cgrjx6yy3idllzmvyh7gm5vgkm5jbyhlcr33rhjxd4n";
+    sha256 = "1zr6bi9kk1410mbawyvsbl1bnzw86wzwmgc7i5ap6i9l96mb1zqh";
   };
 })
