@@ -40,6 +40,8 @@ in {
 
   config = let
 
+    servicePath = config.systemd.services.nixos-upgrade.path ++ [ pkgs.gzip ];
+
     nixPathEntries = (filter (lib.strings.hasInfix "=") (strings.splitString ":" cfg.nixPath));
     nixPathPaths = (flatten (map (tail) (map (strings.splitString "=") nixPathEntries)));
 
@@ -55,6 +57,7 @@ in {
     ];
 
     system.autoUpgrade.enable = true;
+    systemd.services.nixos-upgrade.path = servicePath;
     systemd.services.nixos-upgrade.environment.NIX_PATH = lib.mkForce cfg.nixPath;
     systemd.services.nixos-upgrade.environment.NIXOS_CONFIG = pkgs.writeText "configuration.nix" ''
       { ... }: {
