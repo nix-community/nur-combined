@@ -460,12 +460,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.11.9";
+    version = "0.11.12";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "10iq86b6bbsvx2384pys3y5j93rah9mxv2r60n41ymxhfr28ghmk";
+      sha256 = "12k74108f7a3k7ms8n4c625vpxrq75qamw1k1q09ndzmbn3i7c9b";
     };
 
     phases = [ "installPhase" ];
@@ -567,10 +567,10 @@ let
   };
 
   protobuf = buildPecl rec {
-    version = "3.8.0";
+    version = "3.9.0";
     pname = "protobuf";
 
-    sha256 = "09zs7w9iv6432i0js44ihxymbd4pcxlprlzqkcjsxjpbprs4qpv2";
+    sha256 = "1pyfxrfdbzzg5al4byyazdrvy7yad13zwq7papbb2d8gkvc3f3kh";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -675,11 +675,26 @@ let
     meta.broken = !isPhp73;
   };
 
-  redis = buildPecl rec {
+  redis = if isPhp56 then redis43 else redis50;
+
+  #redis43 = assert isPhp56; buildPecl rec {
+  redis43 = buildPecl rec {
     version = "4.3.0";
     pname = "redis";
 
     sha256 = "18hvll173mlp6dk6xvgajkjf4min8f5gn809nr1ahq4r6kn4rw60";
+
+    meta.broken = !isPhp56;
+  };
+
+  #redis50 = assert !isPhp56; buildPecl rec {
+  redis50 = buildPecl rec {
+    version = "5.0.1";
+    pname = "redis";
+
+    sha256 = "0py6lgf8vlhd6bpa4xr8y5hwn0xr0q4imjdc5f127qr92r3dc8b9";
+
+    meta.broken = isPhp56;
   };
 
   #sqlsrv = assert !isPhp56; buildPecl rec {
