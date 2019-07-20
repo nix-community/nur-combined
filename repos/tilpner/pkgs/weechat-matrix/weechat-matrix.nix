@@ -1,4 +1,6 @@
-{ buildPythonPackage, stdenv, python, fetchFromGitHub }:
+{ buildPythonPackage, stdenv, python, fetchFromGitHub,
+  pyopenssl, typing, webcolors, future, atomicwrites,
+  attrs, Logbook, pygments, matrix-nio }:
 
 buildPythonPackage {
   pname = "weechat-matrix";
@@ -10,6 +12,18 @@ buildPythonPackage {
     rev = "dc97101d47187f15e106579200ad0d17e9e67192";
     sha256 = "19294nzvk4vxj8zna9vrqbyg2swyighqvfja4kknj3i1d9szdy3p";
   };
+
+  propagatedBuildInputs = [
+    pyopenssl
+    typing
+    webcolors
+    future
+    atomicwrites
+    attrs
+    Logbook
+    pygments
+    matrix-nio
+  ];
 
   passthru.scripts = [ "matrix.py" ];
 
