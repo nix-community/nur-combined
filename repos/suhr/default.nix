@@ -6,7 +6,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   carla = pkgs.callPackage ./pkgs/carla { };
-  helio-workstation = pkgs.callPackage ./pkgs/helio-workstation { };
   cadabra2 = pkgs.callPackage ./pkgs/cadabra2 { };
   worksnaps-client = pkgs.callPackage ./pkgs/worksnaps-client { };
   mathics = pkgs.callPackage ./pkgs/mathics { };
@@ -14,6 +13,4 @@
   _31key = pkgs.callPackage ./pkgs/31key { };
   mimi = pkgs.callPackage ./pkgs/mimi { };
   quake3-data = pkgs.callPackage ./pkgs/quake3-data { };
-  klystrack = pkgs.callPackage ./pkgs/klystrack { };
-  diofant = pkgs.python3Packages.callPackage ./pkgs/diofant { };
 }
