@@ -13,4 +13,6 @@
   _31key = pkgs.callPackage ./pkgs/31key { };
   mimi = pkgs.callPackage ./pkgs/mimi { };
   quake3-data = pkgs.callPackage ./pkgs/quake3-data { };
+  deadbeef-waveform-seekbar-plugin =
+    pkgs.callPackage ./pkgs/deadbeef-waveform-seekbar-plugin { };
 }
