@@ -4,22 +4,22 @@
 
 let
   sources = {
-    "@types/node-12.6.3" = {
+    "@types/node-12.6.8" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "12.6.3";
+      version = "12.6.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-12.6.3.tgz";
-        sha512 = "7TEYTQT1/6PP53NftXXabIZDaZfaoBdeBm8Md/i7zsWRoBe0YwOXguyK8vhHs8ehgB/w9U4K/6EWuTyp0W6nIA==";
+        url = "https://registry.npmjs.org/@types/node/-/node-12.6.8.tgz";
+        sha512 = "aX+gFgA5GHcDi89KG5keey2zf0WfZk/HAQotEamsK2kbey+8yGKcson0hbK8E+v0NArlCJQCqMP161YhV6ZXLg==";
       };
     };
-    "@types/node-8.10.50" = {
+    "@types/node-8.10.51" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "8.10.50";
+      version = "8.10.51";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-8.10.50.tgz";
-        sha512 = "+ZbcUwJdaBgOZpwXeT0v+gHC/jQbEfzoc9s4d0rN0JIKeQbuTrT+A2n1aQY6LpZjrLXJT7avVUqiCecCJeeZxA==";
+        url = "https://registry.npmjs.org/@types/node/-/node-8.10.51.tgz";
+        sha512 = "cArrlJp3Yv6IyFT/DYe+rlO8o3SIHraALbBW/+CcCYW/a9QucpLI+n2p4sRxAvl2O35TiecpX2heSZtJjvEO+Q==";
       };
     };
     "agent-base-4.2.1" = {
@@ -94,13 +94,13 @@ let
         sha512 = "jp/uFnooOiO+L211eZOoSyzpOITMXx1rBITauYykG3BRYPu8h0UcxsPNB04RR5vo4Tyz3+ay17tR6JVf9qzYWg==";
       };
     };
-    "aws-sdk-2.493.0" = {
+    "aws-sdk-2.499.0" = {
       name = "aws-sdk";
       packageName = "aws-sdk";
-      version = "2.493.0";
+      version = "2.499.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.493.0.tgz";
-        sha512 = "xLNpjiNgLZoXqwmLQ+czP3UQzeRgsutpG1KGfVUaj/3giqEElpn0wYkwhkJt4Glm9xf3jgzAdbFEDYM7u+Llxg==";
+        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.499.0.tgz";
+        sha512 = "Uz9147/QJ2e14LwvnLngkCjjiII3cGKSYggd7ywyYWJciPZPNMPJFSbWdCSjSqiFoRVsHdHQ8bBPhr+Sn22zSw==";
       };
     };
     "balanced-match-1.0.0" = {
@@ -787,13 +787,13 @@ let
         sha1 = "2b568b265eec944c6d9c0de9c3dbbbca0354cd8e";
       };
     };
-    "lodash-4.17.14" = {
+    "lodash-4.17.15" = {
       name = "lodash";
       packageName = "lodash";
-      version = "4.17.14";
+      version = "4.17.15";
       src = fetchurl {
-        url = "https://registry.npmjs.org/lodash/-/lodash-4.17.14.tgz";
-        sha512 = "mmKYbW3GLuJeX+iGP+Y7Gp1AiGHGbXHCOh/jZmrawMmsE7MS4znI3RL2FsjbqOyMayHInjOeykW7PEajUk1/xw==";
+        url = "https://registry.npmjs.org/lodash/-/lodash-4.17.15.tgz";
+        sha512 = "8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==";
       };
     };
     "lodash.maxby-4.6.0" = {
@@ -1093,13 +1093,13 @@ let
         sha1 = "9653a036fb7c1ee42342f2325cceefea3926c48d";
       };
     };
-    "puppeteer-1.18.1" = {
+    "puppeteer-1.19.0" = {
       name = "puppeteer";
       packageName = "puppeteer";
-      version = "1.18.1";
+      version = "1.19.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/puppeteer/-/puppeteer-1.18.1.tgz";
-        sha512 = "luUy0HPSuWPsPZ1wAp6NinE0zgetWtudf5zwZ6dHjMWfYpTQcmKveFRox7VBNhQ98OjNA9PQ9PzQyX8k/KrxTg==";
+        url = "https://registry.npmjs.org/puppeteer/-/puppeteer-1.19.0.tgz";
+        sha512 = "2S6E6ygpoqcECaagDbBopoSOPDv0pAZvTbnBgUY+6hq0/XDFDOLEMNlHF/SKJlzcaZ9ckiKjKDuueWI3FN/WXw==";
       };
     };
     "querystring-0.2.0" = {
@@ -1528,14 +1528,14 @@ in
       sha512 = "rVvYFWwCmm65WdXxpkw/A9CIOuX2alccau2Pq97rkEweELN/jfj2hDOUMyheDdMQyywiecrbZG0VDbxr3US2Jw==";
     };
     dependencies = [
-      sources."@types/node-12.6.3"
+      sources."@types/node-12.6.8"
       sources."agent-base-4.3.0"
       sources."ansi-escapes-3.2.0"
       sources."ansi-regex-3.0.0"
       sources."ansi-styles-3.2.1"
       sources."ast-types-0.13.2"
       sources."async-limiter-1.0.0"
-      sources."aws-sdk-2.493.0"
+      sources."aws-sdk-2.499.0"
       sources."balanced-match-1.0.0"
       sources."base64-js-1.3.0"
       sources."bluebird-3.5.5"
@@ -1565,7 +1565,7 @@ in
       sources."css-what-2.1.3"
       (sources."data-uri-to-buffer-2.0.1" // {
         dependencies = [
-          sources."@types/node-8.10.50"
+          sources."@types/node-8.10.51"
         ];
       })
       sources."debug-4.1.1"
@@ -1633,7 +1633,7 @@ in
       sources."isarray-1.0.0"
       sources."jmespath-0.15.0"
       sources."levn-0.3.0"
-      sources."lodash-4.17.14"
+      sources."lodash-4.17.15"
       sources."lru-cache-4.1.5"
       sources."mime-2.4.4"
       sources."mimic-fn-1.2.0"
@@ -1668,7 +1668,7 @@ in
       sources."proxy-from-env-1.0.0"
       sources."pseudomap-1.0.2"
       sources."punycode-1.3.2"
-      sources."puppeteer-1.18.1"
+      sources."puppeteer-1.19.0"
       sources."querystring-0.2.0"
       sources."raw-body-2.4.1"
       sources."readable-stream-3.4.0"
