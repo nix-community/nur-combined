@@ -1,8 +1,8 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub }:
+{ stdenv, lib, buildGo111Module, fetchFromGitHub }:
 
-buildGoModule rec {
+buildGo111Module rec {
   name = "prm-${version}";
-  version = "2.6.0";
+  version = "2.6.1";
   rev = "v${version}";
 
   goPackagePath = "github.com/ldez/prm";
@@ -17,9 +17,9 @@ buildGoModule rec {
     inherit rev;
     owner = "ldez";
     repo = "prm";
-    sha256 = "0jgy16dc7np9ij7zv769zazsa59vh1ipsiyvy6c4376yv2m10zm0";
+    sha256 = "02r0cc8nacp9mhnjbrg495p92g1pzxs2b7b2dgsclx00mfd1qpn5";
   };
-  modSha256 = "00m0j0a0k0ckx1v592vigqrlclnvnm66lq40i2i9xqg5yp0235yq";
+  modSha256 = "0qrgq1453ngkwshyyihj5dz6hdwr0k2alz3s2qpj0qic9n7zx7sn";
 
   meta = {
     description = "Pull Request Manager for Maintainers";

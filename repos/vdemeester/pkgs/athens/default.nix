@@ -1,6 +1,6 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub }:
+{ stdenv, lib, buildGo111Module, fetchFromGitHub }:
 
-buildGoModule rec {
+buildGo111Module rec {
   name = "athens-${version}";
   version = "0.5.0";
   rev = "v${version}";
