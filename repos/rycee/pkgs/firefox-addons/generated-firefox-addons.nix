@@ -180,10 +180,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.20.2";
+      version = "1.21.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3293994/ublock_origin-1.20.2-an+fx.xpi?src=";
-      sha256 = "4634411118e2598f91dbb07289b11109e097660d64391cd04eceb205d2c50854";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3361355/ublock_origin-1.21.2-an+fx.xpi?src=";
+      sha256 = "6c7ecdb7704963b83e03f9ada79d70a9af7486c1149f41edac3ed760fec0ed7a";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
