@@ -32,9 +32,9 @@ after_success:
 - if [ -n "${CACHIX_CACHE}" ]; then cachix push "${CACHIX_CACHE}" $outs; fi
 - if [ "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
   curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
-cache:
-  directories:
-    - /nix
+#cache:
+#  directories:
+#    - /nix
 before_cache:
   - echo "gc-keep-outputs = true" >> /etc/nix.conf
   - nix-collect-garbage

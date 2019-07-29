@@ -15,6 +15,7 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   i3status-rust = pkgs.callPackage ./pkgs/i3status-rust { };
+  ipbt = pkgs.callPackage ./pkgs/ipbt { };
   implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad { };
   nix-search = pkgs.callPackage ./pkgs/nix-search { };
   throttled = pkgs.callPackage ./pkgs/throttled { };
