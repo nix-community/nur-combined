@@ -1,4 +1,5 @@
 ''
+(setq gc-cons-threshold 100000000)
 (setq inhibit-startup-screen t)
 
 (require 'package)
@@ -14,8 +15,11 @@
 
 ;; non-specific functionality
 (setq vc-follow-symlinks t)
-(load-theme 'whiteboard)
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
+
+;; remove backup files
+(setq make-backup-files nil) ; stop creating backup~ files
+(setq auto-save-default nil) ; stop creating #autosave# files
 
 
 ;; ----------- Nix ------------------
@@ -48,11 +52,19 @@
 ;; move this somewhere more useful...
 (global-set-key (kbd "M-p") 'helm-save-and-paste)
 
-;; (use-package solarized-theme
-;;   :ensure t
-;;   :no-require t
-;;   :config
-;;   (load-theme 'solarized-dark t))
+;; Theme
+(use-package doom-themes
+  :ensure t
+  :config
+  (load-theme 'doom-one t))
+
+(use-package vimish-fold
+  :config
+  (vimish-fold-global-mode 1))
+
+(use-package evil-vimish-fold
+  :config
+  (vimish-fold-global-mode 1))
 
 (use-package magit
   :ensure t
@@ -61,7 +73,6 @@
    magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 
 (use-package better-defaults :ensure t)
-(use-package better-defaults)
 
 ;; custom keybindings
 (let ((map (make-sparse-keymap)))
@@ -99,13 +110,21 @@
     "cj" 'org-clock-goto
     "cr" 'org-resolve-clocks
 
+    ;; narrow
+    "np" 'narrow-to-page
+    "nr" 'narrow-to-region
+    "nf" 'narrow-to-defun
+    "nw" 'widen
+
     ))
+
 (use-package evil
   :ensure t
   :config
   (evil-mode 1))
 
 (use-package swiper
+  :defer t
   :config
   (global-set-key "\C-s" 'swiper))
 
@@ -113,7 +132,7 @@
 (use-package idle-highlight-mode :ensure t)
 
 (use-package paredit
-  :ensure t
+  :defer t
   :config
   (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
   (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
@@ -132,36 +151,38 @@
   ;; This is your old M-x.
   (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))
 
-(use-package scpaste :ensure t)
+;; (use-package scpaste :ensure t)
 (use-package swiper :ensure t)
 
 (use-package helm
+  :defer t
   :config
   (helm-mode)
   (global-set-key (kbd "M-x") 'helm-M-x))
 
 (use-package helm-ag
+  :defer t
   :ensure t)
 
 (use-package helm-projectile
-  :ensure t
+  :defer t
   :config
   (setq projectile-completion-system 'helm)
   (helm-projectile-on))
 
 (use-package projectile
-  :ensure t
+  :defer t
   :config
   (projectile-global-mode))
 
 (use-package company
-  :ensure t
+  :defer t
   :config
   (add-hook 'after-init-hook 'global-company-mode)
   (add-hook 'racer-mode-hook #'company-mode))
 
 (use-package racer
-  :ensure t
+  :defer t
   :config
   (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
@@ -169,16 +190,15 @@
   (setq racer-rust-src-path ""
         racer-cmd "racer"))
 
-;; start the server
-;; (server-start)
 (global-undo-tree-mode t)
 
 ;; language specific configs
 (use-package go-mode
+  :defer t
   :no-require t)
 
 (use-package markdown-mode
-  :ensure t
+  :defer t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
@@ -187,16 +207,18 @@
 
 
 (use-package yaml-mode
-  :ensure t
+  :defer t
   :config
   (add-hook 'yaml-mode-hook
             (lambda ()
               (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
 
 (use-package nix-mode
+  :defer t
   :no-require t)
 
 (use-package dockerfile-mode
+  :defer t
   :no-require t)
 
 (server-start)

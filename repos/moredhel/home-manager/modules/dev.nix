@@ -16,7 +16,6 @@ in {
   home.file.".emacs".text = import ./emacs.nix;
   programs.emacs = {
     enable = true;
-    # extraPackages = (epkgs: (with epkgs.melpaStablePackages; [
       extraPackages = (epkgs: with epkgs; [
         company
         counsel
@@ -41,8 +40,11 @@ in {
         yaml-mode
         nix-mode
         dockerfile-mode
+        doom-themes
+        vimish-fold
+        evil-vimish-fold
+
       ]);
-    # ]));
   };
 
   programs.vim = {
