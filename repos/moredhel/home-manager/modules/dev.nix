@@ -13,17 +13,36 @@ in {
 
   config = mkIf cfg.enable {
   # TODO: figure out why Emacs is not working properly...
+  home.file.".emacs".text = import ./emacs.nix;
   programs.emacs = {
     enable = true;
-    extraPackages = (epkgs: (with epkgs.melpaStablePackages; [
-      company
-      counsel
-      flycheck
-      ivy
-      magit
-      projectile
-      use-package
-    ]));
+    # extraPackages = (epkgs: (with epkgs.melpaStablePackages; [
+      extraPackages = (epkgs: with epkgs; [
+        company
+        counsel
+        flycheck
+        ivy
+        magit
+        projectile
+        use-package
+        evil
+        evil-leader
+        better-defaults
+        find-file-in-project
+        idle-highlight-mode
+        paredit
+        smex
+        scpaste
+        helm
+        helm-ag
+        helm-projectile
+        racer
+        markdown-mode
+        yaml-mode
+        nix-mode
+        dockerfile-mode
+      ]);
+    # ]));
   };
 
   programs.vim = {
@@ -36,7 +55,9 @@ in {
       "nerdtree"
       "vim-better-whitespace"
       "fugitive"
+      "emmet-vim"
     ];
+
     settings = {
       ignorecase = true;
       background = "dark";
@@ -51,7 +72,7 @@ in {
     };
     extraConfig = ''
       " leader bindings
-      let mapleader=" "
+      let mapleader="\<Space>"
       nnoremap <leader>w :w<enter>
       nnoremap <leader>pd :NERDTreeToggle<enter>
 
@@ -107,5 +128,5 @@ in {
     '';
 
   };
-  };
+};
 }

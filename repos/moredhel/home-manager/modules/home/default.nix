@@ -28,17 +28,22 @@ in
           "ignorespace"
           ];
           shellAliases = {
-          g = "git";
-      # vim = "emacsclient --socket /tmp/emacs1000/server -nw"; # TODO: see if it is worth changing...
-      # emacs = "emacsclient --socket /tmp/emacs1000/server -c -n";
-      k = "${pkgs.kubectl}/bin/kubectl";
-      ktx = "${kubectx}/bin/kubectx";
-      kns = "${kubectx}/bin/kubens";
+            g = "git";
+            k = "${pkgs.kubectl}/bin/kubectl";
+            ktx = "${kubectx}/bin/kubectx";
+            kns = "${kubectx}/bin/kubens";
+            cat = "${pkgs.bat}/bin/bat";
+            emacs = "emacsclient --socket /tmp/emacs1000/server" -c -n";
+            vim = "emacsclient --socket /tmp/emacs1000/server -nw"; # TODO: see if it is worth changing...
     };
     enableAutojump = true;
     sessionVariables = {
       PAGER = "less";
     };
+    initExtra = ''
+      # extend PATH
+      PATH=$PATH:./node_modules/.bin:~/bin
+    '';
   };
 
   programs.git = {

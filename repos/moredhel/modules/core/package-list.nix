@@ -16,7 +16,7 @@ let
     google-cloud-sdk # user
     docker_compose
     hledger
-    emacs
+    # emacs
     gnupg
     pass
   ];
