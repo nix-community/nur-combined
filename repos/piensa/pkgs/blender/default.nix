@@ -4,7 +4,7 @@
 , libtiff, libGLU_combined, openal, opencolorio, openexr, openimageio, openjpeg_1, pythonPackages, python37
 , zlib, fftw, opensubdiv, freetype, jemalloc, ocl-icd
 , jackaudioSupport ? false, libjack2
-, cudaSupport ? false, cudatoolkit
+, cudaSupport ? true, cudatoolkit
 , colladaSupport ? true, opencollada
 , enableNumpy ? false, makeWrapper
 }:
@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = "https://git.blender.org/blender.git";
     deepClone = true;
-    rev = "38984b10ff7b8c61c5e1b85a971c77841de5f4e7";
-    sha256 = "1p6w9wch16270wvr0ccy9hp5mw02r90y16695zcy46ins39l5y60";
+    rev = "v2.80";
+    sha256 = "1yrb38kbr7kifi0xizs2ccfbq43hdr061harkcyfncx8cx20bqcl";
   };
 
   buildInputs =
