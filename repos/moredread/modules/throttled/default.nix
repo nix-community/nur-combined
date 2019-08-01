@@ -10,12 +10,12 @@ in {
   meta.maintainers = [ maintainers.moredread ];
 
   options = {
-    services.throttled = {
+    services.throttled-custom = {
       enable = mkEnableOption "the Lenovo throttling fix";
     };
   };
 
-  config = mkIf config.services.throttled.enable {
+  config = mkIf config.services.throttled-custom.enable {
     systemd.services.throttled = {
       description = "Lenovo throttling fix";
 
