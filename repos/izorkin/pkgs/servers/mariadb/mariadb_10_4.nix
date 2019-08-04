@@ -185,7 +185,7 @@ server = stdenv.mkDerivation (common // {
 
   postInstall = common.postInstall + ''
     chmod +x "$out"/bin/wsrep_sst_common
-    rm "$out"/bin/mysql_client_test
+    rm "$out"/bin/{mysql_client_test,mysqltest}
     rm -r "$out"/data # Don't need testing data
     rm "$out"/lib/mysql/{libmysqlclient${libExt},libmysqlclient_r${libExt}}
     mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
