@@ -63,10 +63,10 @@ let
 
   #ast = assert !isPhp56; buildPecl rec {
   ast = buildPecl rec {
-    version = "1.0.1";
+    version = "1.0.3";
     pname = "ast";
 
-    sha256 = "0ja74k2lmxwhhvp9y9kc7khijd7s2dqma5x8ghbhx9ajkn0wg8iq";
+    sha256 = "1sk9bkyw3ck9jgvlazxx8zl2nv6lc0gq66v1rfcby9v0zyydb7xr";
 
     meta.broken = isPhp56;
   };
@@ -99,12 +99,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.8.6";
+    version = "1.9.0";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "0hnm7njab9nsifpb1qbwx54yfpsi00g8mzny11s13ibjvd9rnvxn";
+      sha256 = "0x88bin1c749ajymz2cqjx8660a3wxvndpv4xr6w3pib16fzdpy9";
     };
 
     unpackPhase = ":";
@@ -259,12 +259,12 @@ let
 
   #mailparse = assert !isPhp56; assert !isPhp73; buildPecl rec {
   mailparse = buildPecl rec {
-    version = "3.0.2";
+    version = "3.0.3";
     pname = "mailparse";
 
-    sha256 = "0fw447ralqihsjnn0fm2hkaj8343cvb90v0d1wfclgz49256y6nq";
+    sha256 = "00nk14jbdbln93mx3ag691avc11ff94hkadrcv5pn51c6ihsxbmz";
 
-    meta.broken = (isPhp56 || isPhp73);
+    meta.broken = isPhp56;
   };
 
   #memcache = assert isPhp56; buildPecl rec {
@@ -689,10 +689,10 @@ let
 
   #redis50 = assert !isPhp56; buildPecl rec {
   redis50 = buildPecl rec {
-    version = "5.0.1";
+    version = "5.0.2";
     pname = "redis";
 
-    sha256 = "0py6lgf8vlhd6bpa4xr8y5hwn0xr0q4imjdc5f127qr92r3dc8b9";
+    sha256 = "0b5pw17lzqknhijfymksvf8fm1zilppr97ypb31n599jw3mxf62f";
 
     meta.broken = isPhp56;
   };
