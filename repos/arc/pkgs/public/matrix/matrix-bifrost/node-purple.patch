@@ -1,0 +1,824 @@
+diff --git a/binding.gyp b/binding.gyp
+index ad640c6..d74374f 100644
+--- a/binding.gyp
++++ b/binding.gyp
+@@ -34,15 +34,13 @@
+         "./src/napi_helpers.c"
+       ],
+       "include_dirs": [
+-        "deps/pidgin-2.13.0/libpurple",
+-        "./src/",
++        "./",
+         "./src/bindings",
+-        "./deps/libpurple ",
+-        "<!(pkg-config --cflags glib-2.0 | cut -c 3-)"
++        "<!@(pkg-config --cflags-only-I purple glib-2.0 | sed s/-I//g)"
+       ],
+       "libraries": [
+-        "-Wl,-rpath,./deps/libpurple -L ./deps/libpurple",
+-        "<!(pkg-config --libs purple)"
++        "-Wl,-rpath,./deps/libpurple",
++        "<!@(pkg-config --libs glib-2.0 purple)"
+       ]
+     },
+     {
+diff --git a/src/bindings/b_accounts.c b/src/bindings/b_accounts.c
+index 1b212f2..c042c8d 100644
+--- a/src/bindings/b_accounts.c
++++ b/src/bindings/b_accounts.c
+@@ -82,7 +82,7 @@ PurpleAccount* __getacct(napi_env env, napi_callback_info info) {
+ napi_value _purple_accounts_new(napi_env env, napi_callback_info info) {
+     napi_value n_out;
+     size_t argc = 3;
+-    napi_value opts[2];
++    napi_value opts[3];
+ 
+     napi_get_cb_info(env, info, &argc, opts, NULL, NULL);
+     if (argc == 0) {
+@@ -152,7 +152,7 @@ napi_value _purple_accounts_get_enabled(napi_env env, napi_callback_info info) {
+     return n_out;
+ }
+ 
+-void _purple_accounts_set_enabled(napi_env env, napi_callback_info info) {
++napi_value _purple_accounts_set_enabled(napi_env env, napi_callback_info info) {
+     size_t argc = 2;
+     napi_value opts[2];
+     PurpleAccount *account;
+@@ -165,16 +165,28 @@ void _purple_accounts_set_enabled(napi_env env, napi_callback_info info) {
+     gboolean enable;
+     napi_get_value_bool(env, opts[1], (void*)&enable);
+     purple_account_set_enabled(account, STR_PURPLE_UI, enable);
++
++    napi_value jres;
++    napi_get_undefined(env, &jres);
++    return jres;
+ }
+ 
+-void _purple_accounts_connect(napi_env env, napi_callback_info info) {
++napi_value _purple_accounts_connect(napi_env env, napi_callback_info info) {
+     PurpleAccount *account = __getacct(env, info);
+     purple_account_connect(account);
++
++    napi_value jres;
++    napi_get_undefined(env, &jres);
++    return jres;
+ }
+ 
+-void _purple_accounts_disconnect(napi_env env, napi_callback_info info) {
++napi_value _purple_accounts_disconnect(napi_env env, napi_callback_info info) {
+     PurpleAccount *account = __getacct(env, info);
+     purple_account_disconnect(account);
++
++    napi_value jres;
++    napi_get_undefined(env, &jres);
++    return jres;
+ }
+ 
+ napi_value _purple_account_is_connected(napi_env env, napi_callback_info info) {
+@@ -220,7 +232,7 @@ napi_value _purple_account_get_status_types(napi_env env, napi_callback_info inf
+     return status_array;
+ }
+ 
+-void _purple_account_set_status(napi_env env, napi_callback_info info) {
++napi_value _purple_account_set_status(napi_env env, napi_callback_info info) {
+     PurpleAccount *account;
+     char* id;
+     bool active;
+@@ -236,4 +248,8 @@ void _purple_account_set_status(napi_env env, napi_callback_info info) {
+     napi_get_value_bool(env, opt[2], &active);
+ 
+     purple_account_set_status(account, id, active, NULL);
++
++    napi_value jres;
++    napi_get_undefined(env, &jres);
++    return jres;
+ }
+diff --git a/src/bindings/b_accounts.h b/src/bindings/b_accounts.h
+index 54ec78e..33e4c59 100644
+--- a/src/bindings/b_accounts.h
++++ b/src/bindings/b_accounts.h
+@@ -5,20 +5,20 @@
+ #include <account.h>
+ #include <status.h>
+ #include <prpl.h>
+-#include "../helper.h"
+-#include "../napi_helpers.h"
++#include "src/helper.h"
++#include "src/napi_helpers.h"
+ 
+ napi_value _purple_accounts_new(napi_env env, napi_callback_info info);
+ napi_value _purple_accounts_find(napi_env env, napi_callback_info info);
+ napi_value _purple_accounts_get_enabled(napi_env env, napi_callback_info info);
+-void _purple_accounts_set_enabled(napi_env env, napi_callback_info info);
+-void _purple_accounts_connect(napi_env env, napi_callback_info info);
+-void _purple_accounts_disconnect(napi_env env, napi_callback_info info);
++napi_value _purple_accounts_set_enabled(napi_env env, napi_callback_info info);
++napi_value _purple_accounts_connect(napi_env env, napi_callback_info info);
++napi_value _purple_accounts_disconnect(napi_env env, napi_callback_info info);
+ napi_value _purple_account_is_connected(napi_env env, napi_callback_info info);
+ napi_value _purple_account_is_connecting(napi_env env, napi_callback_info info);
+ napi_value _purple_account_is_disconnected(napi_env env, napi_callback_info info);
+ napi_value _purple_account_get_status_types(napi_env env, napi_callback_info info);
+-void _purple_account_set_status(napi_env env, napi_callback_info info);
++napi_value _purple_account_set_status(napi_env env, napi_callback_info info);
+ 
+ /* Helpers */
+ napi_value nprpl_account_create(napi_env env, PurpleAccount *acct);
+diff --git a/src/bindings/b_buddy.h b/src/bindings/b_buddy.h
+index 3336597..0fabc7d 100644
+--- a/src/bindings/b_buddy.h
++++ b/src/bindings/b_buddy.h
+@@ -6,7 +6,7 @@
+ #include <blist.h>
+ #include <buddyicon.h>
+ #include <status.h>
+-#include "../napi_helpers.h"
++#include "src/napi_helpers.h"
+ 
+ void buddy_bind_node(napi_env env,napi_value root);
+ 
+diff --git a/src/bindings/b_core.h b/src/bindings/b_core.h
+index a94d697..54dd6de 100644
+--- a/src/bindings/b_core.h
++++ b/src/bindings/b_core.h
+@@ -5,7 +5,7 @@
+ #include <prefs.h>
+ #include <core.h>
+ #include <node_api.h>
+-#include "helper.h"
++#include "src/helper.h"
+ napi_value _purple_core_get_version(napi_env env, napi_callback_info info);
+ napi_value _purple_core_init(napi_env env, napi_callback_info info);
+ napi_value _purple_core_quit(napi_env env, napi_callback_info info);
+diff --git a/src/bindings/b_notify.c b/src/bindings/b_notify.c
+index 9711572..9adc2e6 100644
+--- a/src/bindings/b_notify.c
++++ b/src/bindings/b_notify.c
+@@ -1,6 +1,6 @@
+ #include "b_notify.h"
+ 
+-void get_user_info(napi_env env, napi_callback_info info) {
++napi_value get_user_info(napi_env env, napi_callback_info info) {
+     PurpleAccount *account;
+     size_t argc = 2;
+     napi_value opt[2];
+@@ -8,11 +8,16 @@ void get_user_info(napi_env env, napi_callback_info info) {
+     napi_get_cb_info(env, info, &argc, opt, NULL, NULL);
+     if (argc < 2) {
+       napi_throw_error(env, NULL, "takes two arguments");
++      return NULL;
+     }
+     napi_get_value_external(env, opt[0], (void*)&account);
+     PurpleConnection* conn = purple_account_get_connection(account);
+     char* who = napi_help_strfromval(env, opt[1]);
+     serv_get_info(conn, who);
++    free(who);
++
++    napi_get_undefined(env, &n_out);
++    return n_out;
+ }
+ 
+ void notify_bind_node(napi_env env,napi_value root) {
+diff --git a/src/bindings/b_notify.h b/src/bindings/b_notify.h
+index 322454e..cb41706 100644
+--- a/src/bindings/b_notify.h
++++ b/src/bindings/b_notify.h
+@@ -1,12 +1,12 @@
+-#ifndef BUDDY_H_INCLUDED
+-#define BUDDY_H_INCLUDED
++#ifndef NOTIFY_H_INCLUDED
++#define NOTIFY_H_INCLUDED
+ 
+ #include <node_api.h>
+ #include <account.h>
+ #include <blist.h>
+ #include <buddyicon.h>
+ #include <status.h>
+-#include "../napi_helpers.h"
++#include "src/napi_helpers.h"
+ 
+ void notify_bind_node(napi_env env,napi_value root);
+ 
+diff --git a/src/eventloop.c b/src/eventloop.c
+index db4fff3..0b23654 100644
+--- a/src/eventloop.c
++++ b/src/eventloop.c
+@@ -1,4 +1,6 @@
+-#include "eventloop.h"
++#include "src/eventloop.h"
++#include <sys/ioctl.h>
++
+ /*
+  Horrible stiching together of libuv's loop for purple.
+  This works by getting the node env's loop and adding our own
+@@ -149,8 +151,8 @@ gboolean timeout_remove(guint handle) {
+         return false;
+     }
+     uv_timer_stop(timer->handle);
+-    if (!uv_is_closing(timer->handle)) {
+-        uv_close(timer->handle, on_timer_close_complete);
++    if (!uv_is_closing((uv_handle_t*)timer->handle)) {
++        uv_close((uv_handle_t*)timer->handle, on_timer_close_complete);
+     }
+     return true;
+ }
+@@ -251,6 +253,7 @@ guint input_add(int fd, PurpleInputCondition cond,
+         // We don't have an input handler for that FD yet.
+         poll_handle = malloc(sizeof(uv_poll_t));
+         uv_poll_init(evLoopState.loop, poll_handle, fd);
++        int zero = 0; ioctl(fd, FIONBIO, &zero); // purple does *not* like its FD to be nonblocking
+         pollsOpen = malloc(sizeof(uint32_t));
+         *pollsOpen = 0;
+     } else {
+@@ -315,7 +318,7 @@ void call_callback(uv_timer_t* handle) {
+     }
+     gboolean res = timer->function(timer->data);
+     // If the function succeeds, continue
+-    if (!res && !uv_is_closing(timer->handle)) {
++    if (!res && !uv_is_closing((uv_handle_t *)timer->handle)) {
+         uv_close((uv_handle_t *)timer->handle, on_timer_close_complete);
+         return;
+     }
+diff --git a/src/helper.c b/src/helper.c
+index 068a1e1..70f679f 100644
+--- a/src/helper.c
++++ b/src/helper.c
+@@ -1,4 +1,4 @@
+-#include "helper.h"
++#include "src/helper.h"
+ 
+ bool getValueFromObject(napi_env env, napi_value object, char* propStr, napi_valuetype *type, napi_value *value);
+ 
+@@ -11,7 +11,6 @@ typedef struct {
+ 
+ void getSetupPurpleStruct(napi_env env, napi_callback_info info, s_setupPurple *o) {
+     size_t argc = 1;
+-    napi_status status;
+     napi_value opts;
+     s_setupPurple stemp;
+     napi_valuetype type;
+@@ -28,7 +27,9 @@ void getSetupPurpleStruct(napi_env env, napi_callback_info info, s_setupPurple *
+ 
+     /* debugEnabled */
+     if (getValueFromObject(env, opts, "debugEnabled", &type, &value)) {
+-      status = napi_get_value_int32(env, value, &stemp.debugEnabled);
++      if (napi_ok != napi_get_value_int32(env, value, &stemp.debugEnabled)) {
++        napi_throw_error(env, NULL, "setupPurple expects debugEnabled to be numeric");
++	  }
+     }
+ 
+     if (napi_ok != napi_get_named_property(env, opts, "eventFunc", &stemp.eventFunc)) {
+@@ -154,6 +155,11 @@ void wirePurpleSignalsIntoNode(napi_env env, napi_value eventFunc) {
+                 PURPLE_CALLBACK(handleInvited), NULL);
+ }
+ 
++static gboolean _purple_account_connect(PurpleAccount* account) {
++    purple_account_connect(account);
++    return FALSE;
++}
++
+ void _accounts_restore_current_statuses()
+ {
+     GList *l;
+@@ -172,7 +178,7 @@ void _accounts_restore_current_statuses()
+         if (purple_account_get_enabled(account, purple_core_get_ui()) &&
+             (purple_presence_is_online(account->presence)))
+         {
+-            timeout_add(timeout, (GSourceFunc)purple_account_connect, account);
++            timeout_add(timeout, (GSourceFunc)_purple_account_connect, account);
+             timeout += 100;
+         }
+     }
+@@ -222,7 +228,7 @@ napi_value setupPurple(napi_env env, napi_callback_info info) {
+ 
+     purple_debug_set_enabled(opts.debugEnabled);
+ 
+-    purple_conversation_set_ui_ops(&uiopts, NULL);
++    purple_conversations_set_ui_ops(&uiopts);
+     purple_prefs_load();
+     purple_set_blist(purple_blist_new());
+     purple_core_init(STR_PURPLE_UI);
+diff --git a/src/helper.h b/src/helper.h
+index 84087cd..1d343e4 100644
+--- a/src/helper.h
++++ b/src/helper.h
+@@ -10,8 +10,8 @@
+ #include <conversation.h>
+ #include <eventloop.h>
+ #include <node_api.h>
+-#include "eventloop.h"
+-#include "signalling.h"
++#include "src/eventloop.h"
++#include "src/signalling.h"
+ 
+ napi_value setupPurple(napi_env env, napi_callback_info info);
+ napi_value pollEvents(napi_env env, napi_callback_info info);
+diff --git a/src/messaging.c b/src/messaging.c
+index 193ceda..3ae8471 100644
+--- a/src/messaging.c
++++ b/src/messaging.c
+@@ -1,6 +1,6 @@
+-#include "messaging.h"
++#include "src/messaging.h"
+ 
+-void messaging_sendIM(napi_env env, napi_callback_info info) {
++napi_value messaging_sendIM(napi_env env, napi_callback_info info) {
+     PurpleAccount* account;
+     size_t argc = 3;
+     napi_value opts[3];
+@@ -10,7 +10,7 @@ void messaging_sendIM(napi_env env, napi_callback_info info) {
+     napi_get_cb_info(env, info, &argc, opts, NULL, NULL);
+     if (argc < 3) {
+         napi_throw_error(env, NULL, "sendIM takes three arguments");
+-        return;
++        return NULL;
+     }
+ 
+     // Get the account
+@@ -18,12 +18,12 @@ void messaging_sendIM(napi_env env, napi_callback_info info) {
+ 
+     if (account == NULL) {
+         napi_throw_error(env, NULL, "account is null");
+-        return;
++        return NULL;
+     }
+ 
+     name = napi_help_strfromval(env, opts[1]);
+ 
+-    const PurpleConversation* conv = purple_find_conversation_with_account(
++    PurpleConversation* conv = purple_find_conversation_with_account(
+         PURPLE_CONV_TYPE_IM,
+         name,
+         account
+@@ -41,9 +41,13 @@ void messaging_sendIM(napi_env env, napi_callback_info info) {
+     purple_conv_im_send(convIm, body);
+     free(name);
+     free(body);
++
++    napi_value res;
++    napi_get_undefined(env, &res);
++    return res;
+ }
+ 
+-void messaging_sendChat(napi_env env, napi_callback_info info) {
++napi_value messaging_sendChat(napi_env env, napi_callback_info info) {
+     PurpleAccount* account;
+     size_t argc = 3;
+     napi_value opts[3];
+@@ -53,7 +57,7 @@ void messaging_sendChat(napi_env env, napi_callback_info info) {
+     napi_get_cb_info(env, info, &argc, opts, NULL, NULL);
+     if (argc < 3) {
+         napi_throw_error(env, NULL, "sendIM takes three arguments");
+-        return;
++        return NULL;
+     }
+ 
+     // Get the account
+@@ -61,12 +65,12 @@ void messaging_sendChat(napi_env env, napi_callback_info info) {
+ 
+     if (account == NULL) {
+         napi_throw_error(env, NULL, "account is null");
+-        return;
++        return NULL;
+     }
+ 
+     name = napi_help_strfromval(env, opts[1]);
+ 
+-    const PurpleConversation* conv = purple_find_conversation_with_account(
++    PurpleConversation* conv = purple_find_conversation_with_account(
+         PURPLE_CONV_TYPE_CHAT,
+         name,
+         account
+@@ -74,7 +78,7 @@ void messaging_sendChat(napi_env env, napi_callback_info info) {
+ 
+     if (conv == NULL) {
+         napi_throw_error(env, NULL, "conversation not found");
+-        return;
++        return NULL;
+     }
+     // Get the chat
+     PurpleConvChat* convChat = purple_conversation_get_chat_data(conv);
+@@ -84,6 +88,10 @@ void messaging_sendChat(napi_env env, napi_callback_info info) {
+     purple_conv_chat_send(convChat, body);
+     free(name);
+     free(body);
++
++    napi_value res;
++    napi_get_undefined(env, &res);
++    return res;
+ }
+ 
+ napi_value messaging_chatParams(napi_env env, napi_callback_info info) {
+@@ -99,7 +107,7 @@ napi_value messaging_chatParams(napi_env env, napi_callback_info info) {
+     napi_get_cb_info(env, info, &argc, opts, NULL, NULL);
+     if (argc < 2) {
+       napi_throw_error(env, NULL, "chatParams takes two arguments");
+-      return;
++      return NULL;
+     }
+ 
+     // Get the account
+@@ -138,7 +146,7 @@ napi_value messaging_chatParams(napi_env env, napi_callback_info info) {
+ 
+  }
+ 
+-void messaging_joinChat(napi_env env, napi_callback_info info) {
++napi_value messaging_joinChat(napi_env env, napi_callback_info info) {
+     PurpleAccount* account;
+     PurpleConnection* conn;
+     size_t argc = 2;
+@@ -147,7 +155,7 @@ void messaging_joinChat(napi_env env, napi_callback_info info) {
+     napi_get_cb_info(env, info, &argc, opts, NULL, NULL);
+     if (argc < 2) {
+       napi_throw_error(env, NULL, "joinChat takes two arguments");
+-      return;
++      return NULL;
+     }
+ 
+     // Get the account
+@@ -182,10 +190,15 @@ void messaging_joinChat(napi_env env, napi_callback_info info) {
+     }
+     serv_join_chat(conn, components);
+     g_hash_table_remove_all(components);
+-}
+ 
+-void messaging_rejectChat(napi_env env, napi_callback_info info) {
++    napi_value res;
++    napi_get_undefined(env, &res);
++    return res;
++}
+ 
++napi_value messaging_rejectChat(napi_env env, napi_callback_info info) {
++    napi_throw_error(env, NULL, "rejectChat unimplemented");
++    return NULL;
+ }
+ 
+ napi_value messaging_getBuddyFromChat(napi_env env, napi_callback_info info) {
+@@ -198,13 +211,21 @@ napi_value messaging_getBuddyFromChat(napi_env env, napi_callback_info info) {
+ 
+     napi_get_cb_info(env, info, &argc, opts, NULL, NULL);
+     if (argc < 2) {
+-      napi_throw_error(env, NULL, "getBuddyFromConv takes two arguments");
+-      return;
++      napi_throw_error(env, NULL, "getBuddyFromChat takes two arguments");
++      return NULL;
+     }
+     napi_get_value_external(env, opts[0], (void*)&conv);
+     type = purple_conversation_get_type(conv);
+     if (type == PURPLE_CONV_TYPE_CHAT) {
+         PurpleConvChat* chat = purple_conversation_get_chat_data(conv);
++        const char* name = napi_help_strfromval(env, opts[1]);
++        PurpleConvChatBuddy* buddy = purple_conv_chat_cb_find(chat, name);
++        if (buddy) {
++            return nprpl_conv_chat_buddy_create(env, buddy);
++        } else {
++            napi_get_undefined(env, &res);
++        }
++        free(buddy);
+     } else {
+         napi_get_undefined(env, &res);
+     }
+@@ -222,16 +243,17 @@ napi_value messaging_getNickForChat(napi_env env, napi_callback_info info) {
+     napi_get_cb_info(env, info, &argc, opts, NULL, NULL);
+     if (argc < 1) {
+       napi_throw_error(env, NULL, "getNickForChat takes one argument");
+-      return;
++      return NULL;
+     }
+     napi_get_value_external(env, opts[0], (void*)&conv);
+     type = purple_conversation_get_type(conv);
+     if (type == PURPLE_CONV_TYPE_CHAT) {
+         PurpleConvChat* chat = purple_conversation_get_chat_data(conv);
+-        char* nick = purple_conv_chat_get_nick(chat);
++        const char* nick = purple_conv_chat_get_nick(chat);
+         napi_create_string_utf8(env, nick, NAPI_AUTO_LENGTH, &res);
+     } else {
+         napi_throw_error(env, NULL, "conversation was not PURPLE_CONV_TYPE_CHAT");
++        res = NULL;
+     }
+     return res;
+ }
+@@ -245,7 +267,7 @@ napi_value messaging_findConversation(napi_env env, napi_callback_info info) {
+     napi_get_cb_info(env, info, &argc, opts, NULL, NULL);
+     if (argc < 2) {
+         napi_throw_error(env, NULL, "findConversation takes two arguments");
+-        return;
++        return NULL;
+     }
+ 
+     // Get the account
+@@ -253,12 +275,12 @@ napi_value messaging_findConversation(napi_env env, napi_callback_info info) {
+ 
+     if (account == NULL) {
+         napi_throw_error(env, NULL, "account is null");
+-        return;
++        return NULL;
+     }
+ 
+     name = napi_help_strfromval(env, opts[1]);
+ 
+-    const PurpleConversation* conv = purple_find_conversation_with_account(
++    PurpleConversation* conv = purple_find_conversation_with_account(
+         PURPLE_CONV_TYPE_ANY,
+         name,
+         account
+@@ -267,7 +289,7 @@ napi_value messaging_findConversation(napi_env env, napi_callback_info info) {
+     free(name);
+     if (conv == NULL) {
+         napi_throw_error(env, NULL, "conversation not found");
+-        return;
++        return NULL;
+     }
+ 
+     return nprpl_conv_create(env, conv);
+@@ -294,7 +316,7 @@ void messaging_bind_node(napi_env env,napi_value root) {
+     napi_set_named_property(env, namespace, "rejectChat", _func);
+ 
+     napi_create_function(env, NULL, 0, messaging_getBuddyFromChat, NULL, &_func);
+-    napi_set_named_property(env, namespace, "getBuddyFromConv", _func);
++    napi_set_named_property(env, namespace, "getBuddyFromChat", _func);
+ 
+     napi_create_function(env, NULL, 0, messaging_getNickForChat, NULL, &_func);
+     napi_set_named_property(env, namespace, "getNickForChat", _func);
+diff --git a/src/messaging.h b/src/messaging.h
+index 1b67ee0..a5235d1 100644
+--- a/src/messaging.h
++++ b/src/messaging.h
+@@ -7,7 +7,7 @@
+ #include <server.h>
+ #include <node_api.h>
+ #include <prpl.h>
+-#include "napi_helpers.h"
++#include "src/napi_helpers.h"
+ 
+ void messaging_bind_node(napi_env env,napi_value root);
+ #endif
+diff --git a/src/module.c b/src/module.c
+index c04d56e..aba2380 100644
+--- a/src/module.c
++++ b/src/module.c
+@@ -3,13 +3,13 @@
+ #include <node_api.h>
+ #include <glib.h>
+ 
+-#include "bindings/b_core.h"
+-#include "bindings/b_plugins.h"
+-#include "bindings/b_accounts.h"
+-#include "bindings/b_buddy.h"
+-#include "bindings/b_notify.h"
+-#include "helper.h"
+-#include "messaging.h"
++#include "b_core.h"
++#include "b_plugins.h"
++#include "b_accounts.h"
++#include "b_buddy.h"
++#include "b_notify.h"
++#include "src/helper.h"
++#include "src/messaging.h"
+ 
+ 
+ napi_value Init(napi_env env, napi_value exports) {
+diff --git a/src/napi_helpers.c b/src/napi_helpers.c
+index 7b31528..f22eb7e 100644
+--- a/src/napi_helpers.c
++++ b/src/napi_helpers.c
+@@ -1,4 +1,5 @@
+-#include "napi_helpers.h"
++#include "src/napi_helpers.h"
++
+ char* napi_help_strfromval(napi_env env, napi_value opt) {
+     size_t length = 0;
+     char* buffer;
+@@ -15,7 +16,7 @@ napi_value nprpl_conv_create(napi_env env, PurpleConversation *conv) {
+     napi_create_object(env, &obj);
+     purple_conversation_get_name(conv);
+ 
+-    char *sval = purple_conversation_get_name(conv);
++    const char *sval = purple_conversation_get_name(conv);
+ 
+     napi_create_string_utf8(env, sval, NAPI_AUTO_LENGTH, &value);
+     napi_set_named_property(env, obj, "name", value);
+@@ -26,3 +27,22 @@ napi_value nprpl_conv_create(napi_env env, PurpleConversation *conv) {
+ 
+     return obj;
+ }
++
++napi_value nprpl_conv_chat_buddy_create(napi_env env, PurpleConvChatBuddy *buddy) {
++    napi_value obj;
++    napi_value value;
++    napi_create_object(env, &obj);
++
++    const char *sval = purple_conv_chat_cb_get_name(buddy);
++
++    napi_create_string_utf8(env, sval, NAPI_AUTO_LENGTH, &value);
++    napi_set_named_property(env, obj, "name", value);
++
++    // TODO: alias, alias_key, flags, attributes
++
++    /* handle */
++    napi_create_external(env, buddy, NULL, NULL, &value);
++    napi_set_named_property(env, obj, "handle", value);
++
++    return obj;
++}
+diff --git a/src/napi_helpers.h b/src/napi_helpers.h
+index 88b8278..f80655a 100644
+--- a/src/napi_helpers.h
++++ b/src/napi_helpers.h
+@@ -7,5 +7,6 @@
+ 
+ char* napi_help_strfromval(napi_env env, napi_value opt);
+ napi_value nprpl_conv_create(napi_env env, PurpleConversation *conv);
++napi_value nprpl_conv_chat_buddy_create(napi_env env, PurpleConvChatBuddy *buddy);
+ 
+ #endif
+diff --git a/src/signalling.c b/src/signalling.c
+index b021c4e..fba058c 100644
+--- a/src/signalling.c
++++ b/src/signalling.c
+@@ -1,4 +1,4 @@
+-#include "signalling.h"
++#include "src/signalling.h"
+ 
+ static GSList *eventQueue = NULL; // s_signalEventData
+ 
+@@ -28,13 +28,19 @@ typedef struct {
+ typedef struct {
+     PurpleAccount *account;
+     char* who;
+-    GList* items;
++    GSList* items;
+ } e_UserInfoResponse;
+ 
+ typedef struct {
+     char* label;
+     char* value;
+ } e_UserInfoResponseItem;
++static void free_UserInfoResponseItem(void* data) {
++    e_UserInfoResponseItem* res = (e_UserInfoResponseItem*)data;
++    free(res->label);
++    free(res->value);
++    free(res);
++}
+ 
+ napi_value getJsObjectForSignalEvent(napi_env env, s_signalEventData *eventData) {
+     napi_value evtObj;
+@@ -91,7 +97,7 @@ napi_value getJsObjectForSignalEvent(napi_env env, s_signalEventData *eventData)
+     if(strcmp(eventData->signal, "user-info-response") == 0) {
+         e_UserInfoResponse msgData = *(e_UserInfoResponse*)eventData->data;
+         napi_value jkey, jvalue;
+-        GList* l;
++        GSList* l;
+         for (l = msgData.items; l != NULL; l = l->next) {
+             e_UserInfoResponseItem item = *(e_UserInfoResponseItem*)l->data;
+             napi_create_string_utf8(env, item.label, NAPI_AUTO_LENGTH, &jkey);
+@@ -102,13 +108,14 @@ napi_value getJsObjectForSignalEvent(napi_env env, s_signalEventData *eventData)
+             }
+             napi_set_property(env, evtObj, jkey, jvalue);
+         }
+-        g_slist_free_full(msgData.items, free);
++        g_slist_free_full(msgData.items, free_UserInfoResponseItem);
+ 
+         napi_value acct = nprpl_account_create(env, msgData.account);
+         napi_set_named_property(env, evtObj, "account", acct);
+ 
+         napi_create_string_utf8(env, msgData.who, NAPI_AUTO_LENGTH, &value);
+         napi_set_named_property(env, evtObj, "who", value);
++        free(msgData.who);
+     }
+ 
+     if (strcmp(eventData->signal, "chat-joined") == 0) {
+@@ -127,16 +134,19 @@ napi_value getJsObjectForSignalEvent(napi_env env, s_signalEventData *eventData)
+         if (msgData.message != NULL) {
+             napi_create_string_utf8(env, msgData.message, NAPI_AUTO_LENGTH, &value);
+             napi_set_named_property(env, evtObj, "message", value);
++            free(msgData.message);
+         }
+ 
+         if (msgData.roomName != NULL) {
+             napi_create_string_utf8(env, msgData.roomName, NAPI_AUTO_LENGTH, &value);
+             napi_set_named_property(env, evtObj, "room_name", value);
++            free(msgData.roomName);
+         }
+ 
+         if(msgData.sender != NULL) {
+             napi_create_string_utf8(env, msgData.sender, NAPI_AUTO_LENGTH, &value);
+             napi_set_named_property(env, evtObj, "sender", value);
++            free(msgData.sender);
+         }
+ 
+         napi_create_object(env, &value);
+@@ -188,11 +198,8 @@ void handleReceivedMessage(PurpleAccount *account, char *sender, char *buffer, P
+     ev->signal = cbData.signal;
+     msgData->account = account;
+ 
+-    msgData->buffer = malloc(strlen(buffer) + 1);
+-    strcpy(msgData->buffer, buffer);
+-
+-    msgData->sender = malloc(strlen(sender) + 1);
+-    strcpy(msgData->sender, sender);
++    msgData->buffer = strdup(buffer);
++    msgData->sender = strdup(sender);
+ 
+ //    // TODO: Do not create a convo for chats
+ //    // The first message won't have a conversation, so create it.
+@@ -217,24 +224,21 @@ void handleInvited(PurpleAccount *account, const char *inviter, const char *room
+ 
+ 
+     if (inviter != NULL) {
+-        msgData->sender = malloc(strlen(inviter) + 1);
+-        strcpy(msgData->sender, inviter);
++        msgData->sender = strdup(inviter);
+     } else {
+         msgData->sender = NULL;
+     }
+ 
+ 
+     if (room_name != NULL) {
+-        msgData->roomName = malloc(strlen(room_name) + 1);
+-        strcpy(msgData->roomName, room_name);
++        msgData->roomName = strdup(room_name);
+     } else {
+         msgData->roomName = NULL;
+     }
+ 
+ 
+     if (message != NULL) {
+-        msgData->message = malloc(strlen(message) + 1);
+-        strcpy(msgData->message, message);
++        msgData->message = strdup(message);
+     } else {
+         msgData->message = NULL;
+     }
+@@ -274,8 +278,7 @@ void handleAccountConnectionError(PurpleAccount *account, PurpleConnectionError
+     s_signalEventData *ev = malloc(sizeof(s_signalEventData));
+     s_EventDataConnectionError *msgData = malloc(sizeof(s_EventDataConnectionError));
+     msgData->account = account;
+-    msgData->description = malloc(strlen(description) + 1);
+-    strcpy(msgData->description, description);
++    msgData->description = strdup(description);
+     msgData->type = type;
+     ev->data = msgData;
+     ev->signal = "account-connection-error";
+@@ -283,10 +286,10 @@ void handleAccountConnectionError(PurpleAccount *account, PurpleConnectionError
+     signalling_push(ev);
+ }
+ 
+-void handleUserInfo(PurpleConnection *gc, const char *who, PurpleNotifyUserInfo *user_info) {
++void* handleUserInfo(PurpleConnection *gc, const char *who, PurpleNotifyUserInfo *user_info) {
+     GList* entries = purple_notify_user_info_get_entries(user_info);
+     if (entries == NULL) {
+-        return;
++        return NULL;
+     }
+ 
+     s_signalEventData *ev = malloc(sizeof(s_signalEventData));
+@@ -305,21 +308,20 @@ void handleUserInfo(PurpleConnection *gc, const char *who, PurpleNotifyUserInfo
+         }
+         dest = malloc(sizeof(e_UserInfoResponseItem));
+ 
+-        char* label = purple_notify_user_info_entry_get_label(src);
+-        dest->label = malloc(strlen(label) + 1);
+-        strcpy(dest->label, label);
++        const char* label = purple_notify_user_info_entry_get_label(src);
++        dest->label = strdup(label);
+ 
+-        char* value = purple_notify_user_info_entry_get_value(src);
+-        dest->value = malloc(strlen(value) + 1);
+-        strcpy(dest->value, value);
++        const char* value = purple_notify_user_info_entry_get_value(src);
++        dest->value = strdup(value);
+ 
+         msgData->items = g_slist_append(msgData->items, dest);
+     }
+-    msgData->who = malloc(strlen(who) + 1);
++    msgData->who = strdup(who);
+     msgData->account = purple_connection_get_account(gc);
+-    strcpy(msgData->who, who);
+     ev->signal = "user-info-response";
+     ev->freeMe = true;
+     ev->data = msgData;
+     signalling_push(ev);
++
++    return NULL;
+ }
+diff --git a/src/signalling.h b/src/signalling.h
+index 00056c0..e3285dd 100644
+--- a/src/signalling.h
++++ b/src/signalling.h
+@@ -6,7 +6,7 @@
+ #include <account.h>
+ #include <conversation.h>
+ #include <prpl.h>
+-#include "bindings/b_accounts.h"
++#include "b_accounts.h"
+ 
+ typedef struct {
+     char* signal;
+@@ -35,5 +35,5 @@ void handleReceivedMessage(PurpleAccount *account, char *sender, char *buffer, P
+ void handleInvited(PurpleAccount *account, const char *inviter, const char *room_name, const char *message, GHashTable *data);
+ void handleAccountConnectionError(PurpleAccount *account, PurpleConnectionError type, char* description);
+ void handleJoined(PurpleConversation *chat);
+-void handleUserInfo(PurpleConnection *gc, const char *who, PurpleNotifyUserInfo *user_info);
++void* handleUserInfo(PurpleConnection *gc, const char *who, PurpleNotifyUserInfo *user_info);
+ #endif

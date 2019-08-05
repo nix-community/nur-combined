@@ -1,0 +1,32 @@
+diff --git a/pkgs/os-specific/linux/kernel/generate-config.pl b/pkgs/os-specific/linux/kernel/generate-config.pl
+index f886fcfdc35..0eae358c449 100644
+--- a/pkgs/os-specific/linux/kernel/generate-config.pl
++++ b/pkgs/os-specific/linux/kernel/generate-config.pl
+@@ -1,3 +1,4 @@
++#!/bin/env perl -w
+ # This script runs `make config' to generate a Linux kernel
+ # configuration file.  For each question (i.e. kernel configuration
+ # option), unless an override is provided, it answers "m" if possible,
+@@ -47,7 +48,7 @@ sub runConfig {
+     my $line = ""; my $s;
+     my %choices = ();
+ 
+-    my ($prevQuestion, $prevName);
++    my ($prevQuestion, $prevAnswer, $prevName);
+ 
+     while (!eof IN) {
+         read IN, $s, 1 or next;
+@@ -76,10 +77,12 @@ sub runConfig {
+                 # Build everything as a module if possible.
+                 $answer = "m" if $autoModules && $alts =~ /\/m/ && !($preferBuiltin && $alts =~ /Y/);
+                 $answer = $answers{$name} if defined $answers{$name};
++                $answer = "" if $prevQuestion && $prevQuestion eq $question && $name eq $prevName;
+                 print STDERR "QUESTION: $question, NAME: $name, ALTS: $alts, ANSWER: $answer\n" if $debug;
+                 print OUT "$answer\n";
+-                die "repeated question: $question" if $prevQuestion && $prevQuestion eq $question && $name eq $prevName;
++                die "repeated question: $question" if $prevQuestion && $prevQuestion eq $question && $name eq $prevName && $prevAnswer eq "";
+                 $prevQuestion = $question;
++                $prevAnswer = $answer;
+                 $prevName = $name;
+             }
+ 

@@ -1,0 +1,3 @@
+{
+  rust = import ./rust.nix;
+}

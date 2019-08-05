@@ -1,0 +1,3 @@
+[submodule "yarn2nix"]
+	path = yarn2nix
+	url = https://github.com/moretea/yarn2nix.git
