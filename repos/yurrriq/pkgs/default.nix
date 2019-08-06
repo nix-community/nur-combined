@@ -44,6 +44,13 @@ rec {
     inherit icon-lang;
   };
 
+  python35Packages = pkgs.python35Packages // {
+    inherit ((lib.pinnedNixpkgs {
+      rev = "97ce5d27e87af578dc964a0dba740c7531d75590";
+      sha256 = "1w6j98kh6x784z5dax36pd87cxsyfi53gq67hgwwkdbnmww2q5jj";
+    }).python35Packages) bugwarrior;
+  };
+
 } // {
 
   cedille.meta.broken = true;

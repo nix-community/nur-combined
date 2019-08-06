@@ -2,6 +2,6 @@
   "owner": "NixOS",
   "repo": "nixpkgs",
   "branch": "master",
-  "rev": "2e869f71a7aebf0e96114cf7317b73583e893eac",
-  "sha256": "07kzrsn1lcdkagnqxkkfdr6migd5nbwb8k9jcz20wmbg8xc6n748"
+  "rev": "a4c6a7b336bc859fab81a3fe926b7468cc46a911",
+  "sha256": "1njlnpyjzpirx1myh40gkwrkj0cfpx9dvvnhi0iwbzxxq6nradcp"
 }
