@@ -12,7 +12,17 @@ in {
   };
 
   config = mkIf cfg.enable {
-  # TODO: figure out why Emacs is not working properly...
+
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+    escapeTime = 0;
+    historyLimit = 5000;
+    extraConfig = ''
+      set -g mouse on;
+    '';
+  };
+  # emacs config import here <3
   home.file.".emacs".text = import ./emacs.nix;
   programs.emacs = {
     enable = true;
@@ -43,6 +53,8 @@ in {
         doom-themes
         vimish-fold
         evil-vimish-fold
+        js2-mode
+        dired-sidebar
 
       ]);
   };

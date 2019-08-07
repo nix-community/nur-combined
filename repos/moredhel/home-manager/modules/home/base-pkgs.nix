@@ -1,7 +1,6 @@
 { pkgs }:
 with pkgs;
 [
-tmux
 silver-searcher
 gitAndTools.hub
 mosh

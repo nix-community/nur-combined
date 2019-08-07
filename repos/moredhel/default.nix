@@ -28,5 +28,6 @@ rec {
   shot = pkgs.callPackage ./pkgs/shot { };
   kubectx = pkgs.callPackage ./pkgs/kubectx { };
   haskellPackages = import ./pkgs/haskellPackages { inherit pkgs; };
+  emacs = pkgs.callPackage ./pkgs/emacs { };
 }
 

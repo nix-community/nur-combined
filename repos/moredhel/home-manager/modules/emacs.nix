@@ -58,6 +58,17 @@
   :config
   (load-theme 'doom-one t))
 
+(use-package dired-sidebar
+  :ensure t
+  :commands (dired-sidebar-toggle-sidebar)
+  :config
+  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
+  (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
+  (setq dired-sidebar-subtree-line-prefix "__")
+  (setq dired-sidebar-theme 'vscode)
+  (setq dired-sidebar-use-term-integration t)
+  (setq dired-sidebar-use-custom-font t))
+
 (use-package vimish-fold
   :config
   (vimish-fold-global-mode 1))
@@ -89,19 +100,24 @@
   (evil-leader/set-leader "<SPC>" "C-")
   (evil-leader/set-key
     ;; toggles
+    "dd" 'dired-sidebar-toggle-sidebar
     "tt" 'whitespace-mode
 
     "q"  'delete-frame
     "bd"  'evil-delete-buffer
     "w"  'save-buffer
-    "pb"  'helm-projectile-switch-to-buffer
-    "pf" 'projectile-find-file
     "bb"  'helm-buffers-list
     "bs"  'switch-to-scratch
     "oo"  'other-frame
     "kb" 'kill-buffer
     "gs" 'magit-status
+
+    ;; projectile
+    "pp" 'projectile-switch-project
     "/"  'helm-projectile-ag
+    "pb"  'helm-projectile-switch-to-buffer
+    "pf" 'projectile-find-file
+    "\t" 'evil-switch-to-windows-last-buffer
 
     ;; org
     "mp" 'my-org-mobile-push
@@ -192,7 +208,8 @@
 
 (global-undo-tree-mode t)
 
-;; language specific configs
+;;;; language specific configs ;;;;
+;; go
 (use-package go-mode
   :defer t
   :no-require t)
@@ -220,6 +237,9 @@
 (use-package dockerfile-mode
   :defer t
   :no-require t)
+
+;; javascript
+(setq js-indent-mode 2)
 
 (server-start)
 

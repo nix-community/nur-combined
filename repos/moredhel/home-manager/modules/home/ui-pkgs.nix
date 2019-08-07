@@ -27,7 +27,6 @@ paprefs
 gnome3.gnome_terminal
 inkscape
 lispPackages.quicklisp
-tmuxinator
 gimp
 reflex
 neovim

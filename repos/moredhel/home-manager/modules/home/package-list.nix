@@ -43,7 +43,6 @@ autojump
 direnv
 ble.powerline-go
 gimp
-tmuxinator
 reflex
 
 packer
