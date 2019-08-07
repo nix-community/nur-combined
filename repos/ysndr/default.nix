@@ -13,7 +13,7 @@
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-  collections = pkgs.callPackage ./collections {}; # nixpkgs overlays
+  pkgs = pkgs.callPackage ./pkgs {}; # nixpkgs overlays
 
   kde = import ./pkgs/kde { inherit pkgs; };
   
