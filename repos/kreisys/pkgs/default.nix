@@ -24,4 +24,20 @@ in {
   pragmatapro = callPackage ./pragmatapro.nix    { };
   webhook     = callPackage ./webhook            { };
   vgo2nix     = callPackage ./vgo2nix            { };
+
+
+  graalvm = callPackage ./graalvm {
+    inherit (darwin.apple_sdk.frameworks) JavaVM ApplicationServices Cocoa CoreFoundation Foundation Security;
+    inherit (darwin) objc4;
+
+    openjdk = openjdk.overrideAttrs (o: {
+      name = "zulu8.36.0.1-ca-jdk8.0.202";
+
+      src = fetchurl {
+        url = "http://cdn.azul.com/zulu/bin/zulu8.36.0.1-ca-jdk8.0.202-macosx_x64.zip";
+        sha256 = "37556902100779fc2a1aab88015fb59de383a75054e7dd50975b004779a02269";
+        curlOpts = "-H Referer:https://www.azul.com/downloads/zulu/";
+      };
+    });
+  };
 })
