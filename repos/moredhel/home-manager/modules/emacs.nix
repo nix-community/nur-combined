@@ -1,4 +1,6 @@
 ''
+
+
 (setq gc-cons-threshold 100000000)
 (setq inhibit-startup-screen t)
 
@@ -100,7 +102,7 @@
   (evil-leader/set-leader "<SPC>" "C-")
   (evil-leader/set-key
     ;; toggles
-    "dd" 'dired-sidebar-toggle-sidebar
+    "d" 'dired-sidebar-toggle-sidebar
     "tt" 'whitespace-mode
 
     "q"  'delete-frame
@@ -113,7 +115,7 @@
     "gs" 'magit-status
 
     ;; projectile
-    "pp" 'projectile-switch-project
+    "pp" 'helm-projectile-switch-project
     "/"  'helm-projectile-ag
     "pb"  'helm-projectile-switch-to-buffer
     "pf" 'projectile-find-file
@@ -181,13 +183,13 @@
   :ensure t)
 
 (use-package helm-projectile
-  :defer t
+  :ensure t
   :config
   (setq projectile-completion-system 'helm)
   (helm-projectile-on))
 
 (use-package projectile
-  :defer t
+  :ensure t
   :config
   (projectile-global-mode))
 
@@ -240,6 +242,7 @@
 
 ;; javascript
 (setq js-indent-mode 2)
+(setq js-indent-level 2)
 
 (server-start)
 
