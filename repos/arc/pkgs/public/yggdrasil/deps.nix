@@ -59,8 +59,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/yggdrasil-network/water";
-      rev = "f732c88f34ae";
-      sha256 = "059z4qg7qi5dkdlj6arqisl444k729lskf45ar1nd6260g7n05b0";
+      rev = "c83fe40250f8";
+      sha256 = "0nx33m74n09p7szm3lrics4bi6xqh9fwvf2lmkdwm806ysymc01b";
     };
   }
   {
