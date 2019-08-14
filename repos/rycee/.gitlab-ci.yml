@@ -22,20 +22,21 @@ Build NUR:
       [ "$CI_COMMIT_REF_NAME" = "master" ]
       && curl -sfSL -XPOST https://nur-update.herokuapp.com/update?repo=rycee
       || echo Not master
-  except:
-    - schedules
+  only:
+    - pushes
 
 Update Firefox addons:
   stage: build
   variables:
     ADDONS_INPUT: pkgs/firefox-addons/addons.json
     ADDONS_OUTPUT: pkgs/firefox-addons/generated-firefox-addons.nix
+    REMOTE_URL: https://nur-updates:$RYBOT_TOKEN@gitlab.com/$CI_PROJECT_PATH.git
   before_script:
     - nix-env -f https://cachix.org/api/v1/install -iA cachix
     - cachix use rycee
     - nix-env -f . -iA firefox-addons-generator
     - nix-env -f '<nixpkgs>' -iA git
-    - git remote set-url origin https://nur-updates:$RYBOT_TOKEN@gitlab.com/$CI_PROJECT_PATH.git
+    - git remote set-url origin $REMOTE_URL
     - git config --global user.email 'rybot@rycee.net'
     - git config --global user.name 'rybot'
   script:
