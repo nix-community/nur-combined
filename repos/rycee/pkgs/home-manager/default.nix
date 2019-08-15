@@ -1,5 +1,5 @@
 { fetchFromGitLab, lib
-, version ? lib.versions.majorMinor lib.version
+, version ? lib.trivial.release
 }:
 
 let
