@@ -51,6 +51,8 @@ rec {
     }).python35Packages) bugwarrior;
   };
 
+  renderizer = pkgs.callPackage ./development/tools/renderizer {};
+
 } // {
 
   cedille.meta.broken = true;
