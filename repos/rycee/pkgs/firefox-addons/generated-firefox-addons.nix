@@ -28,6 +28,20 @@
         platforms = platforms.all;
         };
       };
+    "darkreader" = buildFirefoxXpiAddon {
+      pname = "darkreader";
+      version = "4.7.14";
+      addonId = "addon@darkreader.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3363040/dark_reader-4.7.14-an+fx.xpi?src=";
+      sha256 = "806632fea5c52b9c444c476c5ada33a78fdf560c5d9528e8f6abe6e0bb672984";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://darkreader.org/";
+        description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "decentraleyes" = buildFirefoxXpiAddon {
       pname = "decentraleyes";
       version = "2.0.12";
@@ -140,10 +154,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "15.1";
+      version = "16.0";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3158778/save_page_we-15.1-fx.xpi?src=";
-      sha256 = "25e5c70a6c1cb12596fd5ca6c4544d49af8a745d35f7d07e8c8accc74f9a9a4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3379380/save_page_we-16.0-fx.xpi?src=";
+      sha256 = "b59d67bcefdea9add33c800ebed820249081a85b28358e091d6e48565554fd1c";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as curently displayed) as a single HTML file that can be opened in any browser. Choose which items to save. Define the format of the saved filename. Enter user comments.";
@@ -153,10 +167,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.4";
+      version = "1.5.5";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3333853/stylus-1.5.4-fx.xpi?src=";
-      sha256 = "664d4290e739905cc9f3c2842e2e4096622c9d1023e58c67fd98cabfb8a0a082";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3374955/stylus-1.5.5-fx.xpi?src=";
+      sha256 = "939dc9789096cfb390b93e5a54a621be6a96cb3aa0165a9fee7d20d9b607c5f5";
       meta = with stdenv.lib;
       {
         homepage = "https://add0n.com/stylus.html";

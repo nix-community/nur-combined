@@ -48,3 +48,30 @@ Update Firefox addons:
       || echo No changes to push
   only:
     - schedules
+
+Update Home Manager:
+  stage: build
+  variables:
+    FETCH_DATA: pkgs/home-manager/$HM_BRANCH.json
+    REMOTE_URL: https://nur-updates:$RYBOT_TOKEN@gitlab.com/rycee/nur-expressions.git
+  before_script:
+    - nix-env -f '<nixpkgs>' -iA git nix-prefetch-github
+    - git remote set-url origin $REMOTE_URL
+    - git config --global user.email 'rybot@rycee.net'
+    - git config --global user.name 'rybot'
+  script:
+    - nix-prefetch-github --rev $HM_COMMIT_SHA rycee home-manager > $FETCH_DATA
+    - cat $FETCH_DATA
+    - >-
+      if git add -v $FETCH_DATA | grep -q add
+      ; then
+      git commit -m "Automatic update of Home Manager"
+      && git push origin HEAD:$CI_COMMIT_REF_NAME
+      ; else
+      echo No changes to push
+      ; fi
+  only:
+    refs:
+      - pipelines
+    variables:
+      - $HM_BRANCH
