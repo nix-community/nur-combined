@@ -1,7 +1,8 @@
 image: nixos/nix:latest
 
 variables:
-  NIX_PATH: "nixpkgs=https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz"
+  # Pinned 2019-08-10.
+  NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/bc8bc2c7cf3066f8a4e0c365651f968195338422.tar.gz"
 
 Build NUR:
   stage: build
