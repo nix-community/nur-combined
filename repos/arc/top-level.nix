@@ -18,15 +18,12 @@ self: super: with super.lib; let
   subpackages' = mapAttrs (k: p: filtered filterPackageKeys.${k} p) subpackages;
   packages'' = packages' // subpackages';
   arc = rec {
-    modules = import ./modules;
-    overlays = import ./overlays;
-    overlay = import ./overlay.nix;
     pkgs = self;
     packages = builtins.removeAttrs packages'' [ "shells" "pythonInterpreters" ];
     build = filtered filterBuildSupportKeys self;
     lib = filtered filterLibKeys self.lib;
     inherit (packages'') shells;
-  };
+  } // import ./static.nix;
 in {
   inherit arc lib;
 } // (import ./pkgs/instantiate.nix { inherit self super lib; })
