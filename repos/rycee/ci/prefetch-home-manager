@@ -1,0 +1,29 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p ""
+
+set -euo pipefail
+
+while [[ $# -gt 0 ]]; do
+    opt="$1"
+    shift
+    case $opt in
+        --rev)
+            commitSha="$1"
+            shift
+            ;;
+        *)
+            echo "Unknown option: $opt"
+            exit 1
+            ;;
+    esac
+done
+
+downloadUrl="https://gitlab.com/rycee/home-manager/-/archive/$commitSha/home-manager.tar.gz"
+sha256=$(nix-prefetch-url --unpack "$downloadUrl")
+
+cat <<EOF
+{
+  "url": "$downloadUrl",
+  "sha256": "$sha256"
+}
+EOF

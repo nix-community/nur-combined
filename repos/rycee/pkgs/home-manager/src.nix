@@ -1,8 +1,8 @@
-{ fetchFromGitLab, lib
-, version ? lib.trivial.release
-}:
+{ lib, version ? lib.trivial.release }:
 
 let
+
+  inherit (builtins) abort fetchTarball fromJSON getAttr hasAttr readFile;
 
   branchMap = {
     "19.03" = ./release-19.03.json;
@@ -10,9 +10,9 @@ let
   };
 
   getOrAbort = err: key: attrs:
-    if builtins.hasAttr key attrs
-    then builtins.getAttr key attrs
-    else builtins.abort err;
+    if hasAttr key attrs
+    then getAttr key attrs
+    else abort err;
 
   branch =
     let
@@ -22,9 +22,9 @@ let
 
 in
 
-fetchFromGitLab (
+fetchTarball (
   {
     name = "home-manager-${version}";
   }
-  // builtins.fromJSON (builtins.readFile branch)
+  // fromJSON (readFile branch)
 )
