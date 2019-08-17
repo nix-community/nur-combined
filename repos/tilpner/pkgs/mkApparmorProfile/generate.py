@@ -13,16 +13,20 @@ bin_dir = Path(subject) / 'bin'
 if not bin_dir.is_dir():
     exit(1)
 
-executables = sorted([e.resolve(strict=True) for e in bin_dir.iterdir()])
+executables = sorted([e.resolve(strict=True).as_posix() for e in bin_dir.iterdir()])
 
 with open(attrs['outputs']['out'], "w") as out:
     out.write('include <tunables/global>\n\n')
 
-    # /{nix/store/*-foo/bin/foo,nix/store/*-bar/bin/bar}
-    glob = ','.join([p.as_posix().lstrip('/') for p in executables])
-    out.write(f"profile {profileArgs['name']} /{{{glob}}}")
-    out.write('' if enforce else ' flags=(complain)')
-    out.write(" {\n")
+    # Single-element alternations are invalid
+    if len(executables) == 1:
+        attachment = executables[0]
+    else:
+        # /{nix/store/*-foo/bin/foo,nix/store/*-bar/bin/bar}
+        attachment = f"/{{{','.join([p.lstrip('/') for p in executables])}}}"
+
+    flags = '' if enforce else ' flags=(complain)'
+    out.write(f"profile {profileArgs['name']} {attachment} {flags} {{\n")
 
     out.write(profileArgs['prepend'])
     for item in closure:
