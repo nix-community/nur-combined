@@ -15,6 +15,7 @@ Build NUR:
     - nix eval -f default.nix hmModules
     - nix eval -f default.nix lib
     - nix eval -f default.nix modules
+    - nix eval -f default.nix ndModules
     - nix eval -f default.nix overlays
     - |
       if [ "$CI_COMMIT_REF_NAME" = "master" ] ; then
