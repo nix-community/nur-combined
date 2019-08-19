@@ -4,6 +4,12 @@ let
       doInstallCheck = !hostPlatform.isDarwin;
     });
 
+    nix-readline = { nix, readline }: nix.overrideAttrs (old: {
+      buildInputs = old.buildInputs ++ [ readline ];
+      EDITLINE_LIBS = "${readline}/lib/libreadline${nix.stdenv.hostPlatform.extensions.sharedLibrary}";
+      EDITLINE_CFLAGS = "-DREADLINE";
+    });
+
     vim_configurable-pynvim = { vim_configurable, python3 }: vim_configurable.override {
       # vim with python3
       python = python3.withPackages(ps: with ps; [ pynvim ]);
