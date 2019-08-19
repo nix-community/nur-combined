@@ -8,6 +8,7 @@ let
       buildInputs = old.buildInputs ++ [ readline ];
       EDITLINE_LIBS = "${readline}/lib/libreadline${nix.stdenv.hostPlatform.extensions.sharedLibrary}";
       EDITLINE_CFLAGS = "-DREADLINE";
+      doInstallCheck = old.doInstallCheck or false && !nix.stdenv.isDarwin;
     });
 
     vim_configurable-pynvim = { vim_configurable, python3 }: vim_configurable.override {
