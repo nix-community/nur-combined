@@ -128,6 +128,9 @@
     "cj" 'org-clock-goto
     "cr" 'org-resolve-clocks
 
+    ;; comments
+    "cc" 'comment-dwim
+
     ;; narrow
     "np" 'narrow-to-page
     "nr" 'narrow-to-region

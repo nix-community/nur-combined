@@ -15,7 +15,8 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   hm = home-manager;
-  home-manager = rec {
+  home-manager = hmModules;
+  hmModules = rec {
     modules = pkgs.lib.attrValues rawModules;
     rawModules = import ./home-manager/modules;
     machines = import ./home-manager/modules/machines.nix;
@@ -25,6 +26,7 @@ rec {
 
   };
 
+  # packages
   shot = pkgs.callPackage ./pkgs/shot { };
   kubectx = pkgs.callPackage ./pkgs/kubectx { };
   haskellPackages = import ./pkgs/haskellPackages { inherit pkgs; };

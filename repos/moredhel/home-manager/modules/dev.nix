@@ -26,6 +26,7 @@ in {
   home.file.".emacs".text = import ./emacs.nix;
   programs.emacs = {
     enable = true;
+    package = pkgs.nur.repos.moredhel.emacs;
       extraPackages = (epkgs: with epkgs; [
         company
         counsel
@@ -55,6 +56,7 @@ in {
         evil-vimish-fold
         js2-mode
         dired-sidebar
+        go-mode
 
       ]);
   };
