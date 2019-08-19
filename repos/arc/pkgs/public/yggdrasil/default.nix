@@ -1,5 +1,5 @@
 let
-  version = "0.3.5";
+  version = "0.3.7";
   buildPackage = pname: { buildGoPackage, fetchFromGitHub, lib }: lib.drvExec "bin/${pname}" (buildGoPackage {
     inherit pname version;
     goPackagePath = "github.com/yggdrasil-network/yggdrasil-go";
@@ -8,7 +8,7 @@ let
       owner = "yggdrasil-network";
       repo = "yggdrasil-go";
       rev = "v${version}";
-      sha256 = "0cbj9hqrgn93jlybf3mfpffb68yyizxlvrsh1s5q21jv2lhhjcwj";
+      sha256 = "0pinkcbcxlyd5532dk8rk2jpd6946lw7c68jri1y9w17is9f51xa";
     };
 
     goDeps = ./deps.nix;

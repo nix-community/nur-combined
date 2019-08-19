@@ -12,10 +12,10 @@ index 5c13257..560df59 100644
  }
  
  // isValid returns true if an address falls within the range used by nodes in the network.
-diff --git a/src/yggdrasil/icmpv6.go b/src/yggdrasil/icmpv6.go
+diff --git a/src/tuntap/icmpv6.go b/src/tuntap/icmpv6.go
 index 52ca50c..f1ddd3e 100644
---- a/src/yggdrasil/icmpv6.go
-+++ b/src/yggdrasil/icmpv6.go
+--- a/src/tuntap/icmpv6.go
++++ b/src/tuntap/icmpv6.go
 @@ -315,7 +315,7 @@ func (i *icmpv6) handle_ndp(in []byte) ([]byte, error) {
  	case source.IsValid():
  	case snet.IsValid():
