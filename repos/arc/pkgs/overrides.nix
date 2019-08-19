@@ -104,6 +104,14 @@ let
 
     vit2 = { python3Packages }: with python3Packages; toPythonApplication vit;
 
+    flashplayer-standalone = { flashplayer-standalone, fetchurl }: flashplayer-standalone.overrideAttrs (old: {
+      version = "32.0.0.238";
+      src = fetchurl {
+        url = "https://fpdownload.macromedia.com/pub/flashplayer/updaters/32/flash_player_sa_linux.x86_64.tar.gz";
+        sha256 = "0am95xi2jasvxj5b2i12wzpvl3bvxli537k1i04698cg0na6x0y0";
+      };
+    });
+
     olm = { olm, fetchurl }: olm.overrideAttrs (old: rec {
       pname = "olm";
       version = "3.1.3";
