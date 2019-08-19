@@ -71,14 +71,19 @@ let
 
     xdg_utils-mimi = { xdg_utils }: xdg_utils.override { mimiSupport = true; };
 
-    luakit-develop = { fetchFromGitHub, luakit }: luakit.overrideAttrs (old: rec {
+    luakit-develop = { fetchFromGitHub, luakit, gst_all_1-noqt }: let
+      drv = luakit.override {
+        gst_all_1 = gst_all_1-noqt;
+      };
+    in drv.overrideAttrs (old: rec {
       name = "luakit-${version}";
-      version = "6f809182e0c0b9709cec3a01f31ff8ec77dce997";
+      rev = "4276fcad76d507cf82877a8dbab0709cbf48083b";
+      version = "2019-08-13";
       src = fetchFromGitHub {
         owner = "luakit";
         repo = "luakit";
-        rev = "${version}";
-        sha256 = "1vn1i9ak7c7j3fk8b241rf88h2qfj3hrm0kyv6rhdj2yya8zdcnb";
+        inherit rev;
+        sha256 = "1vdvnqnwd0sya0zyz1zn7vwm36jrqij7zsv59axyfmjj9dsj63kv";
       };
     });
 
