@@ -1,6 +1,6 @@
 { buildPythonPackage, stdenv, python, fetchFromGitHub,
   pyopenssl, typing, webcolors, future, atomicwrites,
-  attrs, Logbook, pygments, matrix-nio }:
+  attrs, Logbook, pygments, cachetools, matrix-nio }:
 
 buildPythonPackage {
   pname = "weechat-matrix";
@@ -22,6 +22,7 @@ buildPythonPackage {
     attrs
     Logbook
     pygments
+    cachetools
     matrix-nio
   ];
 
