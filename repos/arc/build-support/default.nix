@@ -14,6 +14,7 @@
     (call ./kakoune.nix) //
     (call ./weechat.nix) //
     (call ./rust.nix) //
+    (call ./base16.nix) //
     (call ./misc.nix) //
     {
       inherit sourceBashArray;
