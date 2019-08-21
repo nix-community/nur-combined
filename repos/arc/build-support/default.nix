@@ -31,5 +31,10 @@
           };
         }
         else super.yarn2nix;
+
+      nodeEnv = self.callPackage ({ path, stdenv, python2, utillinux, runCommand, writeTextFile, nodejs, darwin }: import (path + "/pkgs/development/node-packages/node-env.nix") {
+        inherit stdenv python2 utillinux runCommand writeTextFile nodejs;
+        libtool = if stdenv.isDarwin then darwin.cctools else null;
+      }) { };
     };
 in build-support

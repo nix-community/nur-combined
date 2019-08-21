@@ -40,6 +40,7 @@ let
         urxvt_theme_switch
         urxvt_vtwheel
         urxvt_osc_52
+        urxvt_xresources_256
       ];
     };
 
@@ -116,6 +117,17 @@ let
         sha256 = "0am95xi2jasvxj5b2i12wzpvl3bvxli537k1i04698cg0na6x0y0";
       };
     });
+
+    mustache = { nodeEnv, fetchurl }: nodeEnv.buildNodePackage rec {
+      name = "mustache";
+      packageName = "mustache";
+      version = "3.0.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/${packageName}/-/${packageName}-${version}.tgz";
+        sha512 = "2lfq2nlqd738xcb3j7h83ds7wcfz2rwshqx572sy3xk58b39h5sjp2iy82kgc39carra3v2n6kwwdrbzfj4r0xva4fidcai8phkyllc";
+      };
+      production = true;
+    };
 
     olm = { olm, fetchurl }: olm.overrideAttrs (old: rec {
       pname = "olm";

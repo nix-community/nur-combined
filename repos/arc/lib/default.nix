@@ -49,6 +49,16 @@ in with self; {
 
   moduleValue = config: builtins.removeAttrs config ["_module"]; # wh-what was this for..?
 
+  # .extend for extensible attrsets that may not exist yet
+  makeOrExtend = attrs: attr: overlay: let
+    overlay' = if isAttrs overlay then (_: _: overlay) else overlay;
+  in if attrs ? ${attr}.extend then attrs.${attr}.extend overlay'
+    else makeExtensible (flip overlay' attrs.${attr} or { });
+
+  # NOTE: a very basic/incomplete parser
+  fromYAML = import ./from-yaml.nix self;
+  importYAML = path: fromYAML (builtins.readFile path);
+
   # copy function signature
   copyFunctionArgs = src: dst: setFunctionArgs dst (functionArgs src);
 
