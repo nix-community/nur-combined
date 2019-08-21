@@ -35,7 +35,7 @@ buildPythonPackage rec {
         sha256 = "16ppd6xz840d5sxii5y1h3y3i0j21hzcfvb9g950w3kj2qx7skqb";
       };
     }))
-    urwid
+    urwid1
     (MechanicalSoup.overrideAttrs (old: rec {
       version = "0.6.0";
       src = fetchzip {

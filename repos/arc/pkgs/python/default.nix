@@ -8,4 +8,5 @@
   olm = import ./olm.nix;
   weechat-matrix = import ./weechat-matrix.nix;
   vit = import ./vit.nix;
+  urwid1 = import ./urwid1.nix;
 }
