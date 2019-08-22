@@ -8,7 +8,7 @@
 in {
   options.home.shell = {
     functions = mkOption {
-      type = types.attrsOf types.string;
+      type = types.attrsOf types.lines;
       default = { };
     };
     aliases = mkOption {

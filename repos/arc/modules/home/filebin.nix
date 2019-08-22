@@ -10,7 +10,7 @@ in {
     };
 
     extraConfig = mkOption {
-      type = types.string;
+      type = types.lines;
       default = "";
     };
   };
