@@ -174,11 +174,11 @@
       escape = { mode, ty ? null, idx ? null, value }: let
         esc' = mode:
           base16.shell.escape.mode.${mode} ({ inherit idx; inherit (value) hex; } // optionalAttrs (ty != null) { inherit ty; });
-      in optional (idx != null && idx < 16 /*&& mode == "16"*/) (esc' "16")
+      in optional (idx != null && idx < 16 && mode == "16") (esc' "16")
         ++ optional (mode == "256a" && (value.hasAlpha || value.has16bit)) (esc' "256a")
         ++ optional (mode == "256a" || mode == "256") (esc' "256");
       escapes = { mode, colours }:
-        concatLists (imap (idx: value: escape { inherit mode idx value; }) colours);
+        concatLists (imap0 (idx: value: escape { inherit mode idx value; }) colours);
       forScheme = { scheme, mode ? "256a", ansiCompatibility ? true }: makeExtensible (self: let
         cEscapes = { cmd, mode }: map cmd (escapes { inherit mode; inherit (self) colours; });
         cmdEscapes = { cmd, mode }: concatLists (
@@ -221,22 +221,21 @@
         script = ''
           # 16/256 colour space
           if [ -n "$TMUX" ]; then
-            echo "${self.escapes.tmux.all}"
+            echo -en '${self.escapes.tmux.all}'
             if [ -n "$ITERM_SESSION_ID" ]; then
-              echo "${self.escapes.tmux.iterm2}"
+              echo -en '${self.escapes.tmux.iterm2}'
             fi
           elif [ "''${TERM%%[-.]*}" = "screen" ]; then
-            echo "${self.escapes.screen.all}"
+            echo -en '${self.escapes.screen.all}'
             if [ -n "$ITERM_SESSION_ID" ]; then
-              echo "${self.escapes.screen.iterm2}"
+              echo -en '${self.escapes.screen.iterm2}'
             fi
-          elif [ "''${TERM%%-*}" == "linux" ]; then
-            # TODO: colours16?
-            echo "${self.escapes.generic.colours}"
+          elif [ "''${TERM%%-*}" = "linux" ]; then
+            echo -en '${self.escapes.generic.colours16}'
           else
-            echo "${self.escapes.generic.all}"
+            echo -en '${self.escapes.generic.all}'
             if [ -n "$ITERM_SESSION_ID" ]; then
-              echo "${self.escapes.screen.iterm2}"
+              echo -en '${self.escapes.screen.iterm2}'
             fi
           fi
         '';
@@ -248,15 +247,15 @@
       forScheme = makeOverridable forScheme;
       escape = {
         term = {
-          tmux = cmd: ''\033Ptmux;\033\033]${cmd}\033\033\\\033\\'';
-          screen = cmd: ''\033P\033]${cmd}\007\033\\'';
-          generic = cmd: ''\033]${cmd}\033\\'';
+          tmux = cmd: ''\ePtmux;\e\e]${cmd}\e\e\\\e\\'';
+          screen = cmd: ''\eP\e]${cmd}\007\e\\'';
+          generic = cmd: ''\e]${cmd}\e\\'';
         };
         mode = {
           "256a" = { ty ? "4;${toString idx}", idx ? null, hex }: ''${ty};rgba:${hex.r16}/${hex.g16}/${hex.b16}/${hex.a16}'';
           # TODO: 256-16? can't remember if urxvt supports that...
           "256" = { ty ? "4;${toString idx}", idx ? null, hex }: ''${ty};rgb:${hex.r}/${hex.g}/${hex.b}'';
-          "16" = { idx, hex }: assert idx < 16; ''\e]P${toHexUpper idx}${hex.r}${hex.g}${hex.b}'';
+          "16" = { idx, hex }: assert idx < 16; ''P${toHexUpper idx}${hex.rgb}'';
         };
       };
     } // mapping256.shell;

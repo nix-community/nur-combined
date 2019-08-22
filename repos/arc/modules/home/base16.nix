@@ -41,7 +41,7 @@ in {
       in if isString scheme then getAttrFromPath path pkgs.base16.scheme else scheme;
       shellScriptFor = scheme: let
         scheme' = config.lib.arc.base16.schemeFor scheme;
-      in pkgs.writeText "base16-${scheme'.scheme-name}.sh" scheme'.shell.script;
+      in pkgs.writeText "base16-${scheme'.scheme-slug}.sh" scheme'.shell.script;
     };
   } ++ optional (!isNixos) {
     programs.zsh = mkIf (config.programs.zsh.enable && cfg.shell.enable) {

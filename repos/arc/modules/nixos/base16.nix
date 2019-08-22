@@ -20,9 +20,10 @@ in {
         default = cfg.alias.default;
       };
       mingetty = {
-        enable = mkEnableOption "migetty login colours";
-        default = cfg.console.enable;
-        defaultText = "true";
+        enable = mkEnableOption "migetty login colours" // {
+          default = cfg.console.enable;
+          defaultText = "true";
+        };
       };
       ansiCompatibility = mkEnableOption "bright colours mimic their normal counterparts" // { default = cfg.terminal.ansiCompatibility; };
     };
@@ -32,7 +33,7 @@ in {
       consoleColors = map (v: v.hex.rgb) consoleShell.colours16;
     };
     services.mingetty = mkIf cfg.console.mingetty.enable {
-      greetingPrefix = mkBefore concatImap0Strings makeColorCS config.i18n.consoleColors;
+      greetingPrefix = mkBefore (concatImap0Strings makeColorCS config.i18n.consoleColors);
       greeting = mkDefault ''<<< Welcome to NixOS ${config.system.nixos.label} (\m) - \l >>>'';
       greetingLine = "${config.services.mingetty.greetingPrefix}${config.services.mingetty.greeting}";
     };
