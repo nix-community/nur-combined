@@ -124,16 +124,20 @@ in with self; {
   isRust2018 = rustPlatform: rustVersionAtLeast rustPlatform "1.31";
   rustVersionAtLeast = rustPlatform: versionAtLeast rustPlatform.rust.rustc.version;
 
-  # add persistent passthru attributes that can refer to the derivation
-  drvPassthru = fn: drv: let
+  # derivations that can reference their own (potentially overridden) attributes
+  drvRec = fn: let
+    drv = fn drv;
     passthru = {
-      override = f: drvPassthru fn (drv.override f);
-      overrideDerivation = f: drvPassthru fn (drv.overrideDerivation f);
-      overrideAttrs = f: drvPassthru fn (drv.overrideAttrs f);
-    } // (fn drv);
-  in if isFunction drv # allow chaining with mkDerivation
+      override = f: drvRec (drv: (fn drv).override f);
+      overrideDerivation = f: drvRec (drv: (fn drv).overrideDerivation f);
+      overrideAttrs = f: drvRec (drv: (fn drv).overrideAttrs f);
+    };
+  in extendDerivation true passthru drv;
+
+  # add persistent passthru attributes that can refer to the derivation
+  drvPassthru = fn: drv: if isFunction drv # allow chaining with mkDerivation
     then attrs: drvPassthru fn (drv attrs)
-    else self.extendDerivation true passthru drv;
+    else drvRec (dself: drv.overrideAttrs (old: { passthru = old.passthru or {} // fn dself; }));
 
   # add a .exec attribute to a derivation with the absolute path of its main binary
   drvExec = relPath: drvPassthru (drv: {
