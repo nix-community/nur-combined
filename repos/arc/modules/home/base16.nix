@@ -59,11 +59,13 @@ in {
     programs.vim = mkIf (config.programs.vim.enable && cfg.shell.enable) {
       extraConfig = mkBefore (optionalString cfg.terminal.ansiCompatibility ''
         let base16colorspace=256
-      '' + (optionalString (cfg.schemes != []) ''
-          if !exists('g:colors_name') || g:colors_name != 'base16-${config.lib.arc.base16.schemeForAlias.default.scheme-slug}'
-            colorscheme base16-${cfg.alias.default}
-          endif
-        '')
+      '' + (let
+        colorscheme = "base16-${config.lib.arc.base16.schemeForAlias.default.scheme-slug}";
+      in optionalString (cfg.schemes != []) ''
+        if !exists('g:colors_name') || g:colors_name != 'base16-${colorscheme}'
+          colorscheme ${colorscheme}
+        endif
+      '')
       );
     };
   });
