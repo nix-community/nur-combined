@@ -33,8 +33,8 @@ in
             ktx = "${kubectx}/bin/kubectx";
             kns = "${kubectx}/bin/kubens";
             cat = "${pkgs.bat}/bin/bat";
-            emacs = "emacsclient --socket /tmp/emacs1000/server -c -n";
-            vim = "emacsclient --socket /tmp/emacs1000/server -nw"; # TODO: see if it is worth changing...
+            emacs = "emacsclient -c -n";
+            vim = "emacsclient -nw"; # TODO: see if it is worth changing...
     };
     enableAutojump = true;
     sessionVariables = {

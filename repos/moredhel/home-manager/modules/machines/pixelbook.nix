@@ -9,6 +9,7 @@ in
   imports = lib.attrValues hm.rawModules;
 
   home.packages = hm.base ++ [
+    pkgs.tilix
   ];
 
   programs.crostini.enable = true;

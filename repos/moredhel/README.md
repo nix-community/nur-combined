@@ -42,7 +42,8 @@ let
   nur-no-pkgs = (import /data/src/hub/moredhel/nur-packages { inherit pkgs; });
 in
 {
-  imports = lib.attrValues nur-no-pkgs.home-manager.rawModules;
+  # example for the pixelbook
+  imports = nur-no-pkgs.hm.machines.pixelbook;
 }
 ```
 
