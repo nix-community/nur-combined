@@ -1,0 +1,13 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index 20534e2..5f1f17a 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -125,7 +125,7 @@ impl Context {
+     }
+ 
+     fn tool(&self, tool: Tool, target: &str) -> Command {
+-        let mut c = Command::new(format!("rust-{}", tool.name()));
++        let mut c = Command::new(format!("{}", tool.name()));
+ 
+         if tool == Tool::Objdump {
+             let arch_name = llvm::arch_name(self.rustc_cfg(), target);
