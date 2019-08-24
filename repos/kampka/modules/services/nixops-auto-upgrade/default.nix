@@ -44,7 +44,6 @@ in {
     nixPathPaths = (flatten (map (tail) (map (strings.splitString "=") nixPathEntries)));
 
   in mkIf cfg.enable rec {
-/*
     assertions = [
       { assertion = (foldl (a: b: a && b) true (map (strings.hasPrefix "http") nixPathPaths));
         message = "NIX_PATH can only contain paths that start with http (got: ${cfg.nixPath})"; }
@@ -53,7 +52,7 @@ in {
       { assertion = ((length nixPathPaths) == (length nixPathEntries)) ;
         message = "NIX_PATH contains invalid entrie (got: ${cfg.nixPath})"; }
     ];
-*/
+
     system.autoUpgrade.enable = true;
     systemd.services.nixos-upgrade.path = [ pkgs.gzip ];
     systemd.services.nixos-upgrade.environment.NIX_PATH = lib.mkForce cfg.nixPath;
