@@ -160,9 +160,13 @@ in {
         set -e
         mkdir -p "${cfg.mailDir}"
         chown smtpq:smtpq "${cfg.mailDir}"
-        chmod 0770 "${cfg.mailDir}"
+        chmod 0773 "${cfg.mailDir}"
         chmod g+s "${cfg.mailDir}"
         setfacl -R -m g:smtpq:rwx "${cfg.mailDir}"
+
+        mkdir -p /var/lib/msmtpq
+        chown smtpq:smtpq /var/lib/msmtpq
+        chmod 700 /var/lib/msmtpq
       '';
 
       after = [ "local-fs.target" ];
@@ -190,7 +194,7 @@ in {
         MAILQUEUE_DIR = cfg.mailDir;
         MSMTP_CONFIG = msmtprc;
         GPG_ENCRYPT_KEYS = "${concatStringsSep " " cfg.gpgKeys}";
-        GNUPGHOME = "${cfg.mailDir}/.gnupg";
+        GNUPGHOME = "/var/lib/msmtpq/.gnupg";
       };
 
       path = [ mailqueue pkgs.coreutils pkgs.utillinux ];

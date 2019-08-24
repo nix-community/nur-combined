@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     install -m 755 src/msmtpq $out/bin/msmtpq
     install -m 755 src/msmtpq-flush $out/bin/msmtpq-flush
-    wrapProgram $out/bin/msmtpq --prefix PATH : "${pkgs.stdenv.lib.makeBinPath [ pkgs.coreutils pkgs.utillinux ]}"
+    wrapProgram $out/bin/msmtpq --prefix PATH : "${pkgs.stdenv.lib.makeBinPath [ pkgs.coreutils pkgs.utillinux pkgs.nettools ]}"
     wrapProgram $out/bin/msmtpq-flush --prefix PATH : "${pkgs.stdenv.lib.makeBinPath [ pkgs.msmtp pkgs.gnupg pkgs.coreutils pkgs.utillinux pkgs.nettools ]}"
   '';
 
