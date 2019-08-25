@@ -1,4 +1,0 @@
-
-{
-  tmux = import ./tmux ;
-}

@@ -8,9 +8,6 @@
 
   fzy = pkgs.callPackage ./pkgs/fzy {};
 
-  # overlays
-  overlays = import ./overlays;
-
   # modules
   modules = import ./modules ;
 }
