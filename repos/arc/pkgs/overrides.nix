@@ -110,12 +110,54 @@ let
 
     vit2 = { python3Packages }: with python3Packages; toPythonApplication vit;
 
-    flashplayer-standalone = { flashplayer-standalone, fetchurl }: flashplayer-standalone.overrideAttrs (old: {
-      version = "32.0.0.238";
-      src = fetchurl {
-        url = "https://fpdownload.macromedia.com/pub/flashplayer/updaters/32/flash_player_sa_linux.x86_64.tar.gz";
-        sha256 = "0am95xi2jasvxj5b2i12wzpvl3bvxli537k1i04698cg0na6x0y0";
+    libjaylink = { stdenv, fetchgit, autoreconfHook, pkgconfig, libusb1 }: stdenv.mkDerivation {
+      pname = "libjaylink";
+      version = "2019-06-07";
+      nativeBuildInputs = [ pkgconfig autoreconfHook ];
+      buildInputs = [ libusb1 ];
+
+      src = fetchgit {
+        url = "git://git.zapb.de/libjaylink.git";
+        rev = "c2c4bb025f3f02336ea88f57f59e204a1303da9b";
+        sha256 = "1qsw1wlkjiqnhqxgddh7l8vawy8170ll6lqrxq7viq91wi9fggsl";
       };
+    };
+
+    jimtcl-minimal = { lib, tcl, jimtcl, readline }: (jimtcl.override { SDL = null; SDL_gfx = null; sqlite = null; }).overrideAttrs (old: {
+      NIX_CFLAGS_COMPILE = "";
+      configureFlags = with lib; filter (f: !hasSuffix "sqlite3" f && !hasSuffix "sdl" f) old.configureFlags;
+      propagatedBuildInputs = old.propagatedBuildInputs or [] ++ [ readline ];
+      nativeBuildInputs = old.nativeBuildInputs or [] ++ [ tcl ];
+    });
+
+    openocd-eclipse = {
+      openocd
+    , fetchFromGitHub, autoreconfHook, lib
+    , git, jimtcl-minimal ? null, libjaylink ? null, enableJaylink ? libjaylink != null
+    }: with lib; openocd.overrideAttrs (old: rec {
+      pname = "openocd-eclipse";
+      name = "openocd-eclipse-${version}";
+      version = "0.10.0-12-20190422";
+
+      nativeBuildInputs = old.nativeBuildInputs ++ [ autoreconfHook git jimtcl-minimal ];
+      buildInputs = old.buildInputs
+        ++ optional enableJaylink libjaylink
+        ++ optional (jimtcl-minimal != null) jimtcl-minimal;
+      configureFlags = filter (f: !hasSuffix "oocd_trace" f) old.configureFlags
+        ++ optional (jimtcl-minimal != null) "--disable-internal-jimtcl"
+        ++ optional (!enableJaylink || libjaylink != null) "--disable-internal-libjaylink";
+
+      NIX_LDFLAGS = optional (jimtcl-minimal != null) "-lreadline";
+
+      src = fetchFromGitHub ({
+        owner = "gnu-mcu-eclipse";
+        repo = "openocd";
+        rev = "v${version}";
+        sha256 = "08hqb2r58i8v7smw0x0jhlsiaf5hmnaq5igfbcy1p6zbip1prwnp";
+      } // optionalAttrs (jimtcl-minimal == null || (enableJaylink && libjaylink == null)) {
+        fetchSubmodules = true;
+        sha256 = "13g8h2j1vg2dj97mxfiiwch1pw6xsg0r1wc2li3v6j85xvkcf4h9";
+      });
     });
 
     mustache = { nodeEnv, fetchurl }: nodeEnv.buildNodePackage rec {
