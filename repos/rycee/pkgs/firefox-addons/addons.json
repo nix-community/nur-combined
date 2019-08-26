@@ -32,6 +32,9 @@
     "slug": "octotree"
   },
   {
+    "slug": "peertubeify"
+  },
+  {
     "slug": "privacy-badger17",
     "pname": "privacy-badger"
   },
@@ -44,6 +47,9 @@
   {
     "slug": "styl-us",
     "pname": "stylus"
+  },
+  {
+    "slug": "transparent-standalone-image"
   },
   {
     "slug": "ublock-origin"

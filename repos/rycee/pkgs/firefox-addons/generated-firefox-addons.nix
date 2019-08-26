@@ -30,10 +30,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.7.16";
+      version = "4.7.17";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3380647/dark_reader-4.7.16-an+fx.xpi?src=";
-      sha256 = "1bbbb7b1af9c14c6fc3f7fa1f1d107e641879af83dc40bb2fbc888cb13b02d9a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3387282/dark_reader-4.7.17-an+fx.xpi?src=";
+      sha256 = "f176785bebc6ba64231d5cb6efd82173e2d977ef3d3de22134c39ab058685fa7";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -124,6 +124,20 @@
         platforms = platforms.all;
         };
       };
+    "peertubeify" = buildFirefoxXpiAddon {
+      pname = "peertubeify";
+      version = "0.6.0";
+      addonId = "{01175c8e-4506-4263-bad9-d3ddfd4f5a5f}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1687641/peertubeify-0.6.0-an+fx.xpi?src=";
+      sha256 = "9ccd1eec053a1131629c60983d6fc5ff8ac96205bbcf5a1ed22c7bb46ad07d3b";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://gitlab.com/Ealhad/peertubeify";
+        description = "PeerTubeify allows to redirect between YouTube and PeerTube and across PeerTube instances, automatically or by displaying a link.\n\nDon't forget to set your preferences :)\n\nPeerTubeify is not affiliated with PeerTube.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
       version = "2019.7.1.1";
@@ -189,6 +203,19 @@
       {
         description = "Swedish spell-check dictionary.";
         license = licenses.lgpl3;
+        platforms = platforms.all;
+        };
+      };
+    "transparent-standalone-image" = buildFirefoxXpiAddon {
+      pname = "transparent-standalone-image";
+      version = "2.1";
+      addonId = "jid0-ezUl0hF1SPM9hLO5BMBkNoblB8s@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/738931/transparent_standalone_images-2.1-an+fx.xpi?src=";
+      sha256 = "f56bc840d5ac96d1697feed57e7ab0928ff2c47232e236d00560efc2f3bf57b5";
+      meta = with stdenv.lib;
+      {
+        description = "This add-on renders standalone images on a transparent background, so you can see the image in all its glory!";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
