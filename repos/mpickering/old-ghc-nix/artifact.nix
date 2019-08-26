@@ -1,6 +1,6 @@
 { stdenv, lib, patchelfUnstable
 , perl, gcc, llvm_39
-, ncurses6, ncurses5, gmp, glibc, libiconv
+, ncurses6, ncurses5, gmp, glibc, libiconv, elfutils
 }: { bindistTarball, ncursesVersion }:
 
 # Prebuilt only does native
@@ -8,7 +8,7 @@ assert stdenv.targetPlatform == stdenv.hostPlatform;
 
 let
   libPath = stdenv.lib.makeLibraryPath ([
-    selectedNcurses gmp
+    selectedNcurses gmp elfutils
   ] ++ stdenv.lib.optional (stdenv.hostPlatform.isDarwin) libiconv);
 
   selectedNcurses = {
@@ -32,7 +32,7 @@ let
       helper = stdenv.mkDerivation {
         name = "bindist-version";
         src = bindistTarball;
-        nativeBuildInputs = [ gcc perl ];
+        nativeBuildInputs = [ gcc perl elfutils ];
         postUnpack = ''
           patchShebangs ghc*/utils/
           patchShebangs ghc*/configure
@@ -56,8 +56,8 @@ stdenv.mkDerivation rec {
 
   src = bindistTarball;
 
-  nativeBuildInputs = [ perl ];
-  buildInputs = stdenv.lib.optionals (stdenv.targetPlatform.isAarch32 || stdenv.targetPlatform.isAarch64) [ llvm_39 ];
+  nativeBuildInputs = [ perl elfutils ];
+  buildInputs = stdenv.lib.optionals (stdenv.targetPlatform.isAarch32 || stdenv.targetPlatform.isAarch64) [ llvm_39 elfutils ];
 
   # Cannot patchelf beforehand due to relative RPATHs that anticipate
   # the final install location/
@@ -98,6 +98,9 @@ stdenv.mkDerivation rec {
     ''
       find . -name integer-gmp.buildinfo \
           -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${gmp.out}/lib@" {} \;
+
+      find . -name terminfo.buildinfo \
+          -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${selectedNcurses.out}/lib@" {} \;
     '' + stdenv.lib.optionalString stdenv.isDarwin ''
       find . -name base.buildinfo \
           -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${libiconv}/lib@" {} \;

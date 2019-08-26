@@ -2,10 +2,19 @@
 #! nix-shell -i bash -p jq
 
 
-for version in $(cat versions.json | jq -c -r '.[]'); do
-  URL="http://haskell.org/ghc/dist/$version/ghc-$version-x86_64-deb8-linux.tar.xz"
+
+declare -A ncurses=( ["deb8"]="5" ["fedora27"]="6")
+
+for row in $(cat versions.json | jq -c -r '.[]'); do
+  _jq() {
+     echo ${row} | jq -r ${1}
+  }
+  version=$(_jq ".version")
+  bindist=$(_jq ".bindist")
+
+  URL="http://haskell.org/ghc/dist/$version/ghc-$version-x86_64-$bindist-linux.tar.xz"
   NIX_VER="ghc$(echo $version | tr -d '.')"
   SHA=$(nix-prefetch-url $URL)
-  TJQ="{\"version\" : \"$version\", \"nixversion\":\"$NIX_VER\", \"url\": \"$URL\", \"hash\": \"$SHA\"}"
+  TJQ="{\"version\" : \"$version\", \"nixversion\":\"$NIX_VER\", \"url\": \"$URL\", \"hash\": \"$SHA\", \"ncursesVersion\": \"${ncurses[$bindist]}\"}"
   echo $TJQ
 done | jq -s 'INDEX(.nixversion)' > hashes.json

@@ -1,0 +1,15 @@
+os:
+- linux
+language: nix
+nix: 2.2.1
+env:
+  global:
+    - secure: "cYlon30p3ftLJO3YF59Lf9yA8FVhxbglPFUXjQD864GPZlIhfQXn7VMugMZWDEqQti3BB5NAnXoZjRjBQhK13lYvR57bpkM78zdP4pfjrno58eOOdW8D+joC8uhq34RoStH5cv62bHm5SqkJyle5SNp0gV1CdJZ8y2fu25xnv/PjF9cx7K+vpvEaMpGzAwzArvc0E0UJ9bK4SNeRGSnDqLEiG3JH9ohvbvR+/xFHg5GibuG+3GP2rgdgTaXVGzMvr8PxkP2TnoOtGTaTqo5gV9p6g6rTS8tuD+4/3tIqtqoo4t/bLgdI9Og4K4uB7hLXxxzGu2MTL98pvpNgr+lWA5JHBBQ2oBk178MFGFqU7JqYKd4elvlTPxLmk/nCjoadqaLe25CfhfD2Q9I4UAksQGy6jqagytpRwz70mtNtr86RWFYTYDZk7AcPXqzWGHOcxi9ScgL1qdUp30nfIJG0sYomC6tnis2RkXQ9lEsymo17t5XkjJ4mJcgDehymtw1/7X8jzoMbFB/rxc9NBWkt0iPTUpucgn1tYx3bgznt7mco8qooBNOZ1FOqciB2X/qp819uniiW+XCe+WrcUoN8KGpNAozDK5Jo8H8LaiBZPYCyYLRPFrQ/NCfIRbNvmUIv9Ouyl7alM7rdeDDCgafga5PPlh6SIbw2ks7zr41ZIs4="
+jobs:
+  include:
+  - stage: build library
+    script:
+    - nix-env -iA cachix -f https://cachix.org/api/v1/install
+    - cachix use mpickering
+    - cachix push mpickering --watch-store&
+    - nix-build --arg pkgs "import <nixpkgs> {}"

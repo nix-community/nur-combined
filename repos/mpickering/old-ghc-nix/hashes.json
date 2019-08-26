@@ -1,80 +1,100 @@
 {
+  "ghc881": {
+    "version": "8.8.1",
+    "nixversion": "ghc881",
+    "url": "http://haskell.org/ghc/dist/8.8.1/ghc-8.8.1-x86_64-fedora27-linux.tar.xz",
+    "hash": "1mh4j8iba24p8ajsza1zk6af4map1l29fb159g1mdh0bcbgph6l5",
+    "ncursesVersion": "6"
+  },
   "ghc865": {
     "version": "8.6.5",
     "nixversion": "ghc865",
-    "url": "http://haskell.org/ghc/dist/8.6.5/ghc-8.6.5-x86_64-deb8-linux.tar.xz",
-    "hash": "01wiwjp3hjd8jv54k5w5ygfrdik070r8w94sxg9f8pq6m45gs6f4"
+    "url": "http://haskell.org/ghc/dist/8.6.5/ghc-8.6.5-x86_64-fedora27-linux.tar.xz",
+    "hash": "18dlqm5d028fqh6ghzn7pgjspr5smw030jjzl3kq6q1kmwzbay6g",
+    "ncursesVersion": "6"
   },
   "ghc864": {
     "version": "8.6.4",
     "nixversion": "ghc864",
-    "url": "http://haskell.org/ghc/dist/8.6.4/ghc-8.6.4-x86_64-deb8-linux.tar.xz",
-    "hash": "0bdlsj422mvsjziaryl71j2fm0ca3idyl2qq4yh35z7jvp45zvrl"
+    "url": "http://haskell.org/ghc/dist/8.6.4/ghc-8.6.4-x86_64-fedora27-linux.tar.xz",
+    "hash": "0imqsfd740yif0jvvc0bcprm9q7x6pnr44bskmgw7mkrlsksvcg0",
+    "ncursesVersion": "6"
   },
   "ghc863": {
     "version": "8.6.3",
     "nixversion": "ghc863",
-    "url": "http://haskell.org/ghc/dist/8.6.3/ghc-8.6.3-x86_64-deb8-linux.tar.xz",
-    "hash": "1m9gaga2pzi2cx5gvasg0rx1dlvr68gmi20l67652kag6xjsa719"
+    "url": "http://haskell.org/ghc/dist/8.6.3/ghc-8.6.3-x86_64-fedora27-linux.tar.xz",
+    "hash": "17x8s4vybz9mmiw7rfwbpzvzb0bhlcyym1vjhjvw0amvx3s95bjj",
+    "ncursesVersion": "6"
   },
   "ghc862": {
     "version": "8.6.2",
     "nixversion": "ghc862",
-    "url": "http://haskell.org/ghc/dist/8.6.2/ghc-8.6.2-x86_64-deb8-linux.tar.xz",
-    "hash": "0fjk931cg11zfwbqmgikga928k3lhn8gz1jpjl7vcnxvhf5nxy8k"
+    "url": "http://haskell.org/ghc/dist/8.6.2/ghc-8.6.2-x86_64-fedora27-linux.tar.xz",
+    "hash": "0z84g1yh6flmfyr9gcgc59bb17vx0njp2xgb7jakg733l7gsaakh",
+    "ncursesVersion": "6"
   },
   "ghc861": {
     "version": "8.6.1",
     "nixversion": "ghc861",
-    "url": "http://haskell.org/ghc/dist/8.6.1/ghc-8.6.1-x86_64-deb8-linux.tar.xz",
-    "hash": "0hnwjwqyb2br4kpwg8lrffcf684rag06wc0pza80rn3x3d0891vd"
+    "url": "http://haskell.org/ghc/dist/8.6.1/ghc-8.6.1-x86_64-fedora27-linux.tar.xz",
+    "hash": "1swbb0r8yjv2ns07hn7g9mkqs2dw9pqc7nmpm1vwkrhyy6y3z46s",
+    "ncursesVersion": "6"
   },
   "ghc844": {
     "version": "8.4.4",
     "nixversion": "ghc844",
     "url": "http://haskell.org/ghc/dist/8.4.4/ghc-8.4.4-x86_64-deb8-linux.tar.xz",
-    "hash": "06mb0l3y3gbs8znafxskzrkvgf2wbl0m22xsxhs3wzvbyxbqhajc"
+    "hash": "06mb0l3y3gbs8znafxskzrkvgf2wbl0m22xsxhs3wzvbyxbqhajc",
+    "ncursesVersion": "5"
   },
   "ghc843": {
     "version": "8.4.3",
     "nixversion": "ghc843",
     "url": "http://haskell.org/ghc/dist/8.4.3/ghc-8.4.3-x86_64-deb8-linux.tar.xz",
-    "hash": "1qm847j76zrl5n9sljakwc3yjhmcwfdg2iq51q16qjkmsk30591h"
+    "hash": "1qm847j76zrl5n9sljakwc3yjhmcwfdg2iq51q16qjkmsk30591h",
+    "ncursesVersion": "5"
   },
   "ghc842": {
     "version": "8.4.2",
     "nixversion": "ghc842",
     "url": "http://haskell.org/ghc/dist/8.4.2/ghc-8.4.2-x86_64-deb8-linux.tar.xz",
-    "hash": "1gbgyz0pkx7na7higpnycz8g4wlrizy2ql2mfwf0zbglavmncvr4"
+    "hash": "1gbgyz0pkx7na7higpnycz8g4wlrizy2ql2mfwf0zbglavmncvr4",
+    "ncursesVersion": "5"
   },
   "ghc841": {
     "version": "8.4.1",
     "nixversion": "ghc841",
     "url": "http://haskell.org/ghc/dist/8.4.1/ghc-8.4.1-x86_64-deb8-linux.tar.xz",
-    "hash": "1ngvk2pbd36a374vl3dkdzz26hzv583qrhwjx4fky35k6jlpfz22"
+    "hash": "1ngvk2pbd36a374vl3dkdzz26hzv583qrhwjx4fky35k6jlpfz22",
+    "ncursesVersion": "5"
   },
   "ghc822": {
     "version": "8.2.2",
     "nixversion": "ghc822",
     "url": "http://haskell.org/ghc/dist/8.2.2/ghc-8.2.2-x86_64-deb8-linux.tar.xz",
-    "hash": "0ahv26304pqi3dm7i78si4pxwvg5f5dc2jwsfgvcrhcx5g30bqj8"
+    "hash": "0ahv26304pqi3dm7i78si4pxwvg5f5dc2jwsfgvcrhcx5g30bqj8",
+    "ncursesVersion": "5"
   },
   "ghc821": {
     "version": "8.2.1",
     "nixversion": "ghc821",
     "url": "http://haskell.org/ghc/dist/8.2.1/ghc-8.2.1-x86_64-deb8-linux.tar.xz",
-    "hash": "0c51mb8s7j26gl2n9dars714s2d90xk6q78ik01vsh02c6zq2fsl"
+    "hash": "0c51mb8s7j26gl2n9dars714s2d90xk6q78ik01vsh02c6zq2fsl",
+    "ncursesVersion": "5"
   },
   "ghc802": {
     "version": "8.0.2",
     "nixversion": "ghc802",
     "url": "http://haskell.org/ghc/dist/8.0.2/ghc-8.0.2-x86_64-deb8-linux.tar.xz",
-    "hash": "13vchl2lcl3crskric50kp7fj3a7rsysbhvvsmwhpjh0vf885rjy"
+    "hash": "13vchl2lcl3crskric50kp7fj3a7rsysbhvvsmwhpjh0vf885rjy",
+    "ncursesVersion": "5"
   },
   "ghc801": {
     "version": "8.0.1",
     "nixversion": "ghc801",
     "url": "http://haskell.org/ghc/dist/8.0.1/ghc-8.0.1-x86_64-deb8-linux.tar.xz",
-    "hash": "1vcc15k6vh9cc1yfls8pigdl5qs3b0gk3wrf29disli9kgs6mh5i"
+    "hash": "1vcc15k6vh9cc1yfls8pigdl5qs3b0gk3wrf29disli9kgs6mh5i",
+    "ncursesVersion": "5"
   }
 }
