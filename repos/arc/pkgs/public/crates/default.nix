@@ -85,6 +85,8 @@
     cargoSha256 = if lib.isNixpkgsStable
       then "1ssb5kwjmiwnzsxpc9581vmv77xrycvxpjb42gm3hj8vnhlqc2ml"
       else "0v2zgbzx3sxmwn6axiv1nz59y62sfzdkfbs90ly63zcbjf801qm9";
+
+    meta.broken = !lib.rustVersionAtLeast rustPlatform "1.33";
   };
 
   cargo-stack-sizes = {
