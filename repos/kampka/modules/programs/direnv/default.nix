@@ -23,7 +23,7 @@ in {
     environment.systemPackages = [ pkgs.direnv ];
 
     programs.zsh.interactiveShellInit = mkIf cfg.configureZsh ''
-      eval "$(direnv hook zsh)"
+      eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
     '';
   };
 }
