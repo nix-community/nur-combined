@@ -1,0 +1,29 @@
+diff --git a/src/bin/cargo-stack-sizes.rs b/src/bin/cargo-stack-sizes.rs
+index d228a83..e564cb6 100644
+--- a/src/bin/cargo-stack-sizes.rs
++++ b/src/bin/cargo-stack-sizes.rs
+@@ -55,6 +55,13 @@ fn main() {
+                 .value_name("NAME")
+                 .help("Build only the specified example"),
+         )
++        .arg(
++            Arg::with_name("features")
++                .long("features")
++                .takes_value(true)
++                .value_name("FEATURES")
++                .help("Build with the specified features"),
++        )
+         .arg(
+             Arg::with_name("release")
+                 .long("release")
+@@ -99,6 +106,10 @@ fn run(matches: &ArgMatches) -> Result<i32, failure::Error> {
+         cargo.args(&["--target", target]);
+     }
+ 
++    if let Some(features) = matches.value_of("features") {
++        cargo.args(&["--features", features]);
++    }
++
+     match artifact {
+         Artifact::Bin(bin) => {
+             cargo.args(&["--bin", bin]);

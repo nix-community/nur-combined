@@ -66,4 +66,46 @@
       fi
     '';
   };
+
+  cargo-call-stack = {
+    lib, fetchFromGitHub, rustPlatform
+  }: rustPlatform.buildRustPackage rec {
+    pname = "cargo-call-stack";
+    version = "0.1.3";
+
+    src = fetchFromGitHub {
+      owner = "japaric";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "0bbkvxb0y8czidvmsrnk46gm7r8da7cckdbkwxwby2bcvv2fg812";
+    };
+
+    cargoPatches = [ ./cargo-call-stack-lock.patch ];
+    patches = [ ./cargo-call-stack-intrinsics.patch ];
+    cargoSha256 = if lib.isNixpkgsStable
+      then "1ssb5kwjmiwnzsxpc9581vmv77xrycvxpjb42gm3hj8vnhlqc2ml"
+      else "0v2zgbzx3sxmwn6axiv1nz59y62sfzdkfbs90ly63zcbjf801qm9";
+  };
+
+  cargo-stack-sizes = {
+    lib, fetchFromGitHub, rustPlatform
+  }: rustPlatform.buildRustPackage rec {
+    pname = "stack-sizes";
+    version = "0.4.0";
+
+    src = fetchFromGitHub {
+      owner = "japaric";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "0k260hkv734zwwwz5r93zriimrg13v4h0cmhmqf5a4svkns8z06h";
+    };
+
+    cargoPatches = [ ./cargo-stack-sizes-lock.patch ];
+    patches = [ ./cargo-stack-sizes-warn.patch ./cargo-stack-sizes-features.patch ];
+    cargoSha256 = if lib.isNixpkgsStable
+      then "0ph5lhxk01rn68jk7981r61pi1wfhrzrv6h4a0h2cndg3n93vg1x"
+      else "11snk7mah1kvvxjlvcx8xz2h1f4ficyd8czh43whhn0y1lsb0k57";
+
+    doCheck = false; # there are no tests
+  };
 }

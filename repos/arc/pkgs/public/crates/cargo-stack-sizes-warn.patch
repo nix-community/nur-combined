@@ -1,0 +1,23 @@
+From ecfff8c4f5c228d68b71a61fda73435281c5ed65 Mon Sep 17 00:00:00 2001
+From: Jeremy Fitzhardinge <jsgf@fb.com>
+Date: Sat, 18 May 2019 15:23:15 -0700
+Subject: [PATCH] Don't crash on missing addresses - just print them and go on
+
+This allows stack-sizes to work on binaries where previously it was crashing.
+---
+ src/lib.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/lib.rs b/src/lib.rs
+index c66205a..d8f0bdc 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -311,7 +311,7 @@ pub fn analyze_executable(elf: &[u8]) -> Result<Functions<'_>, failure::Error> {
+             } else if let Some(sym) = defined.get_mut(&(address & !1)) {
+                 sym.stack = Some(stack);
+             } else {
+-                unreachable!()
++                eprintln!("Address {:?} not found", address);
+             }
+         }
+     }
