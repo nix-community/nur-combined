@@ -1,0 +1,26 @@
+{
+    "lambda-launcher": {
+        "branch": "master",
+        "description": "Application launcher in haskell. Mostly Just For Fun.",
+        "homepage": null,
+        "owner": "balsoft",
+        "repo": "lambda-launcher",
+        "rev": "18c5878ba4b9e9d04fd26731a7092bfaf5f47490",
+        "sha256": "159cfcb4vxyssl2pdi71y5q2krvf4d1j6973v9pwg6gj3krlm7cv",
+        "type": "tarball",
+        "url": "https://github.com/balsoft/lambda-launcher/archive/18c5878ba4b9e9d04fd26731a7092bfaf5f47490.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "termNote": {
+        "branch": "master",
+        "description": "Terminal Notes Application",
+        "homepage": null,
+        "owner": "terodom",
+        "repo": "termNote",
+        "rev": "8d96b7d3d66f725b1f395e8b8eeea82c59f3956f",
+        "sha256": "07wcd0py5hxdbfl47mkdrk5mcq3w7b4v5f7caidz4ap082kmvyxh",
+        "type": "tarball",
+        "url": "https://github.com/terodom/termNote/archive/8d96b7d3d66f725b1f395e8b8eeea82c59f3956f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
