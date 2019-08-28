@@ -40,25 +40,29 @@ rec {
     '';
   };
 
-  mkHelmfile = { pkgs, version, sha256, modSha256 }: pkgs.helmfile.overrideAttrs(_: {
-    name = "helmfile-${version}";
-    pname = "helmfile";
-    inherit modSha256 version;
-    src = pkgs.fetchFromGitHub {
-      owner = "roboll";
-      repo = "helmfile";
-      rev = "v${version}";
-      inherit sha256;
-    };
-    buildFlagsArray = ''
-      -ldflags=
-          -X main.Version=${version}
-    '';
-  });
+  mkHelmfile = { pkgs, version, sha256, modSha256 }@attrs:
+    (pkgs.callPackage ./applications/networking/cluster/helmfile {
+      kubernetes-helm = mkHelmBinary {
+        inherit pkgs;
+        flavor = "linux-amd64";
+        version = "2.14.3";
+        sha256 = "03rad3v9z1kk7j9wl8fh0wvsn46rny096wjq3xbyyr8slwskxg5y";
+      };
+    }).mkHelmfile (builtins.removeAttrs attrs ["pkgs"]);
 
   mkKops = { pkgs, version, sha256 }@args: pkgs.mkKops (builtins.removeAttrs args ["pkgs"]);
 
-  mkKubernetes = { pkgs, version, sha256 }@args: pkgs.mkKubernetes (builtins.removeAttrs args ["pkgs"]);
+  mkKubernetes = { pkgs, version, sha256 }: pkgs.kubernetes.overrideAttrs(old: rec {
+    pname = "kubernetes";
+    name = "${pname}-${version}";
+    inherit version;
+    src = pkgs.fetchFromGitHub {
+      owner = "kubernetes";
+      repo = "kubernetes";
+      rev = "v${version}";
+      inherit sha256;
+    };
+  });
 
   buildK8sEnv = { pkgs, name, config }:
     let
