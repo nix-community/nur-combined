@@ -233,4 +233,18 @@
         platforms = platforms.all;
         };
       };
+    "umatrix" = buildFirefoxXpiAddon {
+      pname = "umatrix";
+      version = "1.3.16";
+      addonId = "uMatrix@raymondhill.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1193322/umatrix-1.3.16-an+fx.xpi?src=";
+      sha256 = "03dcdbca2135f81820167c49ac83b9fc75f1ba3c1792a1713f886d9274ad7fb6";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/gorhill/uMatrix";
+        description = "Point &amp; click to forbid/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     }
