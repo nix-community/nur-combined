@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "186wcfzw60z6i59yl37rkppw8w88z5kikvsi65k4r9kwpll2z6z4";
   };
 
-  modSha256 = "1klaf6g3p3j6gjs0q3i7v62c05cwhxm5qbi12yj0rnvv2s02184l";
+  modSha256 = "1sxg9skd5hjpg2f4wyxh5hwjrplw3b3v32gn61a9yixfk3wvi05x";
 
   meta = with stdenv.lib; {
     description = "CLI to render Go template text files";
