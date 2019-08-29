@@ -8,11 +8,9 @@ buildGoPackage rec {
   src = fetchFromGitHub {
     owner = "b4b4r07";
     repo = "history";
-    rev = "ff09a04a385bd11ab112c9233be9b83fe9f84b33";
-    sha256 = "1h1sdpm8fg9nh3k0s26xrkzvjlsjpcwx35db60q32z6g6wvr19sx";
+    rev = "108698699b5fa03faec1bba1bdf7b8d1204535e6";
+    sha256 = "0c11m7nkxc904zl3qf07h2an1dis6iizrvyfnhp1nslnmjrkida4";
   };
-
-  patches = [ ./0001-Allow-search-filtering-for-command-that-returned-wit.patch ./0002-Fix-filter-with-multiple-options.patch ];
 
   goDeps = ./deps.nix;
   goPackagePath = "history";
