@@ -1,0 +1,71 @@
+<book xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      version="5.0"
+      xml:id="book-nur-rycee-manual">
+ <info>
+  <title>rycee's NUR manual</title>
+ </info>
+ <preface>
+  <title>Preface</title>
+  <para>
+   Some basic documentation of rycee's NUR.
+  </para>
+  <para>
+   If you encounter problems or bugs then please report them on the
+   <link xlink:href="https://gitlab.com/rycee/nur-expressions/issues">issue
+   tracker</link>.
+  </para>
+  <note>
+   <para>
+    Commands prefixed with <literal>#</literal> have to be run as root, either
+    requiring to login as root user or temporarily switching to it using
+    <literal>sudo</literal> for example.
+   </para>
+  </note>
+ </preface>
+ <appendix xml:id="ch-hm-options">
+  <title>Home Manager configuration options</title>
+  <section xml:id="sec-hm-usage">
+   <title>Usage</title>
+
+   <para>
+    To use these options modify your <filename>home.nix</filename> such that it
+    has the format
+<programlisting language="nix">
+{ pkgs, ... }:
+
+let
+
+  nurNoPkgs = import &lt;nur&gt; { pkgs = null; };
+
+in
+
+{
+  import = [ nurNoPkgs.repos.rycee.hmModules.<replaceable>name</replaceable> … ];
+
+  # …
+}
+</programlisting>
+    where <replaceable>name</replaceable> is
+    <variablelist>
+     <varlistentry>
+      <term>
+       <varname>emacs-init</varname>
+      </term>
+      <listitem>
+       <para>
+        for options under <varname>programs.emacs.init</varname>.
+       </para>
+      </listitem>
+     </varlistentry>
+    </variablelist>
+   </para>
+  </section>
+  <section xml:id="sec-hm-options">
+   <title>Options</title>
+
+   <xi:include href="./nmd-result/nur-rycee-hm-options.xml" />
+  </section>
+ </appendix>
+</book>

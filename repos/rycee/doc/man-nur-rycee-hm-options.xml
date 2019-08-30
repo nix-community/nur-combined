@@ -1,0 +1,36 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xi="http://www.w3.org/2001/XInclude">
+ <refmeta>
+  <refentrytitle><filename>nur-rycee-hm-options</filename>
+  </refentrytitle><manvolnum>5</manvolnum>
+  <refmiscinfo class="source">rycee's Home Manager NUR</refmiscinfo>
+ </refmeta>
+ <refnamediv>
+  <refname><filename>nur-rycee-hm-options</filename>
+  </refname><refpurpose>rycee's Home Manager NUR configuration specification</refpurpose>
+ </refnamediv>
+ <refsection>
+  <title>Description</title>
+  <para>
+   This contains the Home Manager module options available from rycee's NUR.
+  </para>
+ </refsection>
+ <refsection>
+  <title>Options</title>
+  <para>
+   You can use the following options in <filename>home.nix</filename>:
+  </para>
+  <xi:include href="./nmd-result/nur-rycee-hm-options.xml" />
+ </refsection>
+ <refsection>
+  <title>See also</title>
+  <para>
+   <citerefentry>
+   <refentrytitle>home-manager</refentrytitle>
+   <manvolnum>1</manvolnum> </citerefentry> and <citerefentry>
+   <refentrytitle>home-configuration.nix</refentrytitle>
+   <manvolnum>5</manvolnum> </citerefentry>
+  </para>
+ </refsection>
+</refentry>

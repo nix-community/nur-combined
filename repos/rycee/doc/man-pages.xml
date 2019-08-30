@@ -1,0 +1,12 @@
+<reference xmlns="http://docbook.org/ns/docbook"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xi="http://www.w3.org/2001/XInclude">
+ <title>rycee's NUR Reference Pages</title>
+ <info>
+  <author><personname>Robert Helgesson</personname>
+  </author>
+  <copyright><year>2019</year><holder>Robert Helgesson</holder>
+  </copyright>
+ </info>
+ <xi:include href="man-nur-rycee-hm-options.xml" />
+</reference>

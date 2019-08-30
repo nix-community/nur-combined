@@ -19,7 +19,6 @@ let
       package = mkOption {
         type = emacsPackageType;
         default = name;
-        defaultText = "<name>";
         description = ''
           The package to use for this module. Either the package name
           within the Emacs package set or a function taking the Emacs
@@ -353,9 +352,12 @@ in
       example = literalExample ''
         {
           dhall-mode = {
-            mode = [ ''"\\.dhall\\'"'' ];
+            mode = [ '''"\\.dhall\\'"''' ];
           };
         }
+      '';
+      description = ''
+        Attribute set of use-package configurations.
       '';
     };
   };

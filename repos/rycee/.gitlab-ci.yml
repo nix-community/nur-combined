@@ -4,6 +4,25 @@ variables:
   # Pinned 2019-08-10.
   NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/bc8bc2c7cf3066f8a4e0c365651f968195338422.tar.gz"
 
+stages:
+  - build
+  - deploy
+
+pages:
+  stage: deploy
+  script:
+    - nix-build -E '(import ./doc { pkgs = import <nixpkgs> {}; }).manual.html'
+    - mkdir public
+    - cp -r result/share/doc/nur-rycee/* public/
+  artifacts:
+    paths:
+      - public
+  only:
+    refs:
+      - pushes
+    variables:
+      - $CI_COMMIT_REF_NAME == "master"
+
 Build NUR:
   stage: build
   before_script:
