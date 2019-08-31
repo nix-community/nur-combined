@@ -1,15 +1,14 @@
 { stdenv, fetchFromGitHub, python, pythonPackages, gamin }:
 
-let version = "0.11"; in
-
 pythonPackages.buildPythonApplication {
-  name = "fail2ban-${version}";
+  version = "0.11.dev3-2019-08-22";
+  pname = "fail2ban";
 
   src = fetchFromGitHub {
     owner  = "fail2ban";
     repo   = "fail2ban";
-    rev    = "1e59d53bbe8c32a7be047e0e0d3617c06cd53668";
-    sha256 = "1fpqi9rqx4h5cfa68xvz6xb23xdf8i4g2yni2v2pjc45gvdcxz9n";
+    rev    = "822f8adb6a59c37698232580cb66236b51c2721f";
+    sha256 = "13j13kwrdnd5jqlx927chcm3wv4fgy1ax22zh3llyjkqsinhcbsz";
   };
 
   propagatedBuildInputs = [ gamin ]
@@ -21,6 +20,9 @@ pythonPackages.buildPythonApplication {
         --replace /usr/sbin/sendmail sendmail \
         --replace /usr/bin/whois whois
     done
+
+    substituteInPlace config/filter.d/dovecot.conf \
+      --replace dovecot.service dovecot2.service
   '';
 
   doCheck = false;
@@ -41,7 +43,7 @@ pythonPackages.buildPythonApplication {
   '';
 
   meta = with stdenv.lib; {
-    homepage    = http://www.fail2ban.org/;
+    homepage    = https://www.fail2ban.org/;
     description = "A program that scans log files for repeated failing login attempts and bans IP addresses";
     license     = licenses.gpl2Plus;
     maintainers = with maintainers; [ eelco lovek323 fpletz ];

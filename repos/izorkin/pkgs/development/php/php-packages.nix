@@ -345,12 +345,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "2.15.1";
+    version = "2.15.2";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "0qbqdki6vj8bgj5m2k4mi0qgj17r6s2v2q7yc30hhgvksf7vamlc";
+      sha256 = "0kah0mck4s17rf9gwbzziwxy7gwmhr2z7l8yqjj33crh4hlqks57";
     };
 
     phases = [ "installPhase" ];
@@ -460,12 +460,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.11.12";
+    version = "0.11.15";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "12k74108f7a3k7ms8n4c625vpxrq75qamw1k1q09ndzmbn3i7c9b";
+      sha256 = "1fa3bq5k548jpyph2rxkgnarblyy5f1m55awjcps8mjqbw9r6439";
     };
 
     phases = [ "installPhase" ];
@@ -567,10 +567,10 @@ let
   };
 
   protobuf = buildPecl rec {
-    version = "3.9.0";
+    version = "3.9.1";
     pname = "protobuf";
 
-    sha256 = "1pyfxrfdbzzg5al4byyazdrvy7yad13zwq7papbb2d8gkvc3f3kh";
+    sha256 = "1cfwh3ksxbziazydycx64fybwl1yqga589hcknbq88rf9pmay34h";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
