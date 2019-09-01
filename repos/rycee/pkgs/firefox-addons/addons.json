@@ -1,9 +1,15 @@
 [
   {
+    "slug": "auto-tab-discard"
+  },
+  {
     "slug": "cookie-autodelete"
   },
   {
     "slug": "dark-night-mode"
+  },
+  {
+    "slug": "dark-scroll-for-tweetdeck"
   },
   {
     "slug": "darkreader"
@@ -12,11 +18,17 @@
     "slug": "decentraleyes"
   },
   {
+    "slug": "facebook-container"
+  },
+  {
     "slug": "greasemonkey"
   },
   {
     "slug": "görans-hemmasnickrade-ordli",
     "pname": "swedish-dictionary"
+  },
+  {
+    "slug": "header-editor"
   },
   {
     "slug": "https-everywhere"
@@ -29,10 +41,16 @@
     "slug": "link-cleaner"
   },
   {
+    "slug": "multi-account-containers"
+  },
+  {
     "slug": "octotree"
   },
   {
     "slug": "peertubeify"
+  },
+  {
+    "slug": "plasma-integration"
   },
   {
     "slug": "privacy-badger17",
@@ -56,5 +74,11 @@
   },
   {
     "slug": "umatrix"
+  },
+  {
+    "slug": "vim-vixen"
+  },
+  {
+    "slug": "zoom-page-we"
   }
 ]
