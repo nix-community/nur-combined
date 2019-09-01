@@ -7,6 +7,7 @@
   msmtp-mailqueue = ./services/msmtp-mailqueue;
   nginx = ./services/nginx;
   nixops-auto-upgrade = ./services/nixops-auto-upgrade;
+  ntp = ./services/ntp;
   systemd-failure-email = ./services/systemd-failure-email ;
   tmux = ./services/tmux ;
 }
