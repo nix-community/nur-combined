@@ -118,7 +118,7 @@ in {
 
     interval = mkOption {
       type = types.str;
-      default = "hourly";
+      default = "15min";
       description = ''
         The interval at which to trigger a queue flush.
         Valid values must conform to systemd.time(7) format.
