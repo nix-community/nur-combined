@@ -22,7 +22,7 @@ in {
       alias hs="command history"
       ZSH_HISTORY_KEYBIND_GET="^r"
       ZSH_HISTORY_KEYBIND_GET_ALL="^r^r"
-      ZSH_HISTORY_KEYBIND_GET_BY_DIR=""
+      ZSH_HISTORY_KEYBIND_GET_BY_DIR="^f"
       ZSH_HISTORY_KEYBIND_ARROW_UP="^p"
       ZSH_HISTORY_KEYBIND_ARROW_DOWN="^n"
       ZSH_HISTORY_AUTO_SYNC=false

@@ -1,14 +1,14 @@
 { stdenv, buildPackages, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  version = "0.9";
+  version = "1.0";
   name = "fzy-${version}";
 
   src = fetchFromGitHub {
     owner = "jhawthorn";
     repo = "fzy";
     rev = "${version}";
-    sha256 = "1f1sh88ivdgnqaqha5ircfd9vb0xmss976qns022n0ddb91k5ka6";
+    sha256 = "1gkzdvj73f71388jvym47075l9zw61v6l8wdv2lnc0mns6dxig0k";
   };
 
   preConfigure = ''
