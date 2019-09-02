@@ -1,5 +1,19 @@
 { buildFirefoxXpiAddon, fetchurl, stdenv }:
   {
+    "auto-tab-discard" = buildFirefoxXpiAddon {
+      pname = "auto-tab-discard";
+      version = "0.3.2.1";
+      addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3303929/auto_tab_discard-0.3.2.1-an+fx.xpi?src=";
+      sha256 = "1dd91cb0c29ebb94b9b4a3407c46c7d60acd58e91a78b1876c82ceadeb4d430e";
+      meta = with stdenv.lib;
+      {
+        homepage = "http://add0n.com/tab-discard.html";
+        description = "Use native tab discard method to automatically reduce memory usage of inactive tabs";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
       version = "3.0.2";
@@ -25,6 +39,19 @@
         homepage = "https://darknightmode.com";
         description = "It is a universal night mode for the entire Internet. It uses a special algorithm to automatically change the colors of the websites you visit into dark mode so that you can browse without straining your eyes, especially at night.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "dark-scroll-for-tweetdeck" = buildFirefoxXpiAddon {
+      pname = "dark-scroll-for-tweetdeck";
+      version = "2.0.0";
+      addonId = "{759d3eb8-baf1-49e0-938b-0f963fdac3ae}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1754743/dark_scroll_for_tweetdeck-2.0.0-fx.xpi?src=";
+      sha256 = "e0f4e625eda09e9c8300ef650373d5a582a8c77c18eba572aa39d0bd8e3eb596";
+      meta = with stdenv.lib;
+      {
+        description = "Makes the scrollbars on TweetDeck and other sites dark in Firefox. This should be done by the site itself, not by an addon :(\n\nImage based on Scroll by Juan Pablo Bravo, CL <a href=\"https://outgoing.prod.mozaws.net/v1/f9c83bffbd0bf3bfa6ea46deecfa4fa4e9d5a69f49f323c020877e0bf283efac/https%3A//thenounproject.com/term/scroll/18607/\" rel=\"nofollow\">https://thenounproject.com/term/scroll/18607/</a>";
+        license = licenses.lgpl3;
         platforms = platforms.all;
         };
       };
@@ -56,6 +83,20 @@
         platforms = platforms.all;
         };
       };
+    "facebook-container" = buildFirefoxXpiAddon {
+      pname = "facebook-container";
+      version = "2.0.2";
+      addonId = "@contain-facebook";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3383495/facebook_container-2.0.2-fx.xpi?src=";
+      sha256 = "786b46086225c00c63db646302b4d38442027a79118b2b46f7f1bc93ba04f1bb";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/mozilla/contain-facebook";
+        description = "Prevent Facebook from tracking you around the web. The Facebook Container extension for Firefox helps you take control and isolate your web activity from Facebook.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "greasemonkey" = buildFirefoxXpiAddon {
       pname = "greasemonkey";
       version = "4.9";
@@ -67,6 +108,20 @@
         homepage = "http://www.greasespot.net/";
         description = "Customize the way a web page displays or behaves, by using small bits of JavaScript.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "header-editor" = buildFirefoxXpiAddon {
+      pname = "header-editor";
+      version = "4.0.7";
+      addonId = "headereditor-amo@addon.firefoxcn.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1677680/header_editor-4.0.7-an+fx.xpi?src=";
+      sha256 = "8aaaefcfad6f281aee61f085c446d54afe223ff35bdde31426a01f682891d9b3";
+      meta = with stdenv.lib;
+      {
+        homepage = "http://team.firefoxcn.net";
+        description = "Manage browser's requests, include modify the request headers and response headers, redirect requests, cancel requests";
+        license = licenses.gpl2;
         platforms = platforms.all;
         };
       };
@@ -110,6 +165,20 @@
         platforms = platforms.all;
         };
       };
+    "multi-account-containers" = buildFirefoxXpiAddon {
+      pname = "multi-account-containers";
+      version = "6.1.0";
+      addonId = "@testpilot-containers";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1400557/firefox_multi_account_containers-6.1.0-fx.xpi?src=";
+      sha256 = "f4847e135b750e46bfc8f0b5dfd2375001216d781a014270477fad5f9b7a2242";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/mozilla/multi-account-containers/#readme";
+        description = "Firefox Multi-Account Containers lets you keep parts of your online life separated into color-coded tabs that preserve your privacy. Cookies are separated by container, allowing you to use the web with multiple identities or accounts simultaneously.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
       version = "3.0.8";
@@ -134,6 +203,20 @@
       {
         homepage = "https://gitlab.com/Ealhad/peertubeify";
         description = "PeerTubeify allows to redirect between YouTube and PeerTube and across PeerTube instances, automatically or by displaying a link.\n\nDon't forget to set your preferences :)\n\nPeerTubeify is not affiliated with PeerTube.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "plasma-integration" = buildFirefoxXpiAddon {
+      pname = "plasma-integration";
+      version = "1.6.1";
+      addonId = "plasma-browser-integration@kde.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3392927/plasma_integration-1.6.1-fx.xpi?src=";
+      sha256 = "e01aa8876a2e964afb1af5bd53218821a893ba98d824096b6159ff36bbbf8297";
+      meta = with stdenv.lib;
+      {
+        homepage = "http://kde.org";
+        description = "Multitask efficiently by controlling browser functions from the Plasma desktop.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
@@ -244,6 +327,33 @@
         homepage = "https://github.com/gorhill/uMatrix";
         description = "Point &amp; click to forbid/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "vim-vixen" = buildFirefoxXpiAddon {
+      pname = "vim-vixen";
+      version = "0.23";
+      addonId = "vim-vixen@i-beam.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/2995721/vim_vixen-0.23-fx.xpi?src=";
+      sha256 = "4a7bec6dbc00979192ec4bc946b9ebd5df78098eff135a3267212e0df826758b";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/ueokande/vim-vixen";
+        description = "An add-on which allows you to navigate with vim-like bindings.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "zoom-page-we" = buildFirefoxXpiAddon {
+      pname = "zoom-page-we";
+      version = "15.1";
+      addonId = "zoompage-we@DW-dev";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3391156/zoom_page_we-15.1-fx.xpi?src=";
+      sha256 = "d43b3028c842c15e6cdcf03278d4a2c6238ec9c51084e5f04a6a1c449d9f8560";
+      meta = with stdenv.lib;
+      {
+        description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
+        license = licenses.gpl2;
         platforms = platforms.all;
         };
       };
