@@ -186,13 +186,13 @@ let
     pythonInterpreters = { lib, pythonInterpreters, pkgs }: builtins.mapAttrs (_: py: let
         pythonOverrides = import ./python;
         packageOverrides = pself: psuper:
-          builtins.mapAttrs (_: drv: pkgs.callPackage drv { pythonPackages = pself; }) pythonOverrides;
+          builtins.mapAttrs (_: drv: pkgs.callPackage drv { pythonPackages = pself; }) (pythonOverrides psuper);
       in if py.pkgs or null != null
         then py.override (old: {
           packageOverrides =
             pself: psuper: let
               psuper' = ((old.packageOverrides or (_: _: {})) pself psuper);
-            in psuper' // packageOverrides pself psuper';
+            in psuper' // packageOverrides pself (psuper // psuper');
         })
         else py
     ) pythonInterpreters;
