@@ -1,6 +1,6 @@
-{ stdenv, lib, buildGoPackage, fetchFromGitHub  }:
+{ stdenv, lib, buildGo111Package, fetchFromGitHub  }:
 
-buildGoPackage rec {
+buildGo111Package rec {
   pname = "tkn";
   name = "${pname}-${version}";
   version = "0.2.2";
@@ -14,7 +14,7 @@ buildGoPackage rec {
     owner = "tektoncd";
     repo = "cli";
     rev = "v${version}";
-    sha256 = "16vxldhjj8ws2y96irwpiq0frlig4bwhm845gnwzpv7zyyyhwi7y";
+    sha256 = "0qrgd3c5c1wz3mk3x7z0bdsiric2qap47zfa5hgv753fhbvswj5x";
   };
 
   meta = with stdenv.lib; {
