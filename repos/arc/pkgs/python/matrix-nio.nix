@@ -34,6 +34,7 @@ buildPythonPackage rec {
     Logbook
     jsonschema
     unpaddedbase64
+    cachetools
   ] ++ lib.optional (!pythonPackages.python.isPy2) aiohttp
     ++ lib.optional enableOlm olm;
 
