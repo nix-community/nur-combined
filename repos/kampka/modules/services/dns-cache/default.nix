@@ -284,4 +284,7 @@ ${cfg.dnsmasq.extraConfig}
 '';
     };
   };
+
+  # Likely redundant in this case
+  services.nscd.enable = mkDefault false;
 }
