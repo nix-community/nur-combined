@@ -3,7 +3,7 @@
 buildGo111Package rec {
   pname = "tkn";
   name = "${pname}-${version}";
-  version = "0.2.2";
+  version = "0.3.0";
 
   goPackagePath = "github.com/tektoncd/cli";
   buildFlagsArray = let t = "${goPackagePath}/pkg/cmd/version"; in ''
@@ -14,7 +14,7 @@ buildGo111Package rec {
     owner = "tektoncd";
     repo = "cli";
     rev = "v${version}";
-    sha256 = "0qrgd3c5c1wz3mk3x7z0bdsiric2qap47zfa5hgv753fhbvswj5x";
+    sha256 = "11s5qwj5s3ybakdl53hk75f4894588z25863wrd12i22fmxls0aq";
   };
 
   meta = with stdenv.lib; {
