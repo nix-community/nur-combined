@@ -12,7 +12,7 @@
     buildInputs = lib.optionals hostPlatform.isDarwin [ darwin.cf-private darwin.apple_sdk.frameworks.CoreServices ];
     # darwin undefined symbol _CFURLResourceIsReachable: https://discourse.nixos.org/t/help-with-rust-linker-error-on-darwin-cfurlresourceisreachable/2657
 
-    cargoSha256 = "056pnnh3rx5piq95qmvv4wznf2ds1qv07c5w4724iy5i34ajmdzk";
+    cargoSha256 = "0f0vpbczysb1mhcdq6rva9k5w3jy65zqshzm04bmrs0glibdnhci";
     meta.broken = lib.versionAtLeast "1.36.0" rustPlatform.rust.rustc.version;
 
     doCheck = false;
@@ -33,7 +33,7 @@
 
     cargoSha256 = if lib.isNixpkgsStable
       then "1lqdcjwfndak59i89rzb1bfyc4p0644ahyyi6mvbll3p5h6h47gj"
-      else "1wr27w3ff7zwknb8mipg27frhdxakpyci760gpd9hyf9bwhm6b8m";
+      else "0cvsw06r174xc5zn04glcvlc2ckjj32y7bs8qk1wicm28nkq71qp";
 
     doCheck = false;
 
@@ -84,7 +84,7 @@
     patches = [ ./cargo-call-stack-intrinsics.patch ];
     cargoSha256 = if lib.isNixpkgsStable
       then "1ssb5kwjmiwnzsxpc9581vmv77xrycvxpjb42gm3hj8vnhlqc2ml"
-      else "0v2zgbzx3sxmwn6axiv1nz59y62sfzdkfbs90ly63zcbjf801qm9";
+      else "0wwdyzavq2x9iand65nzrabn7hlv36ygvrmr3996dxc90k7jg7v9";
 
     meta.broken = !lib.rustVersionAtLeast rustPlatform "1.33";
   };
@@ -106,7 +106,7 @@
     patches = [ ./cargo-stack-sizes-warn.patch ./cargo-stack-sizes-features.patch ];
     cargoSha256 = if lib.isNixpkgsStable
       then "0ph5lhxk01rn68jk7981r61pi1wfhrzrv6h4a0h2cndg3n93vg1x"
-      else "11snk7mah1kvvxjlvcx8xz2h1f4ficyd8czh43whhn0y1lsb0k57";
+      else "1zmfa7s0zcwkkqfqk2svashl9a0mnpscyn1p9ds9k423r52gifwk";
 
     doCheck = false; # there are no tests
   };

@@ -45,14 +45,14 @@ in rustPlatform.buildRustPackage rec {
     owner = "target";
     repo = "lorri";
     #branch = "rolling-release";
-    rev = "d3e452ebc2b24ab86aec18af44c8217b2e469b2a";
-    sha256 = "07yf3gl9sixh7acxayq4q8h7z4q8a66412z0r49sr69yxb7b4q89";
+    rev = "38eae3d487526ece9d1b8c9bb0d27fb45cf60816";
+    sha256 = "11k9lxg9cv6dlxj4haydvw4dhcfyszwvx7jx9p24jadqsy9jmbj4";
   };
   pname = "lorri";
   version = "rolling-release";
   cargoSha256 = if lib.isNixpkgsStable
-    then "1ix9rmpfhs06xzccvx8xpdl60849ygm25rmixa69wkk0vs3s1bz2"
-    else "094w2lp6jvxs8j59cjqp6b3kg4y4crlnqka5v2wmq4j0mn6hvhsj";
+    then "1bc5clyxsmfq45xlb394zmvsv8gihwrn7apnh5h90wncarsr1sbq"
+    else "1daff4plh7hwclfp21hkx4fiflh9r80y2c7k2sd3zm4lmpy0jpfz";
   COREUTILS = coreutils;
   BUILD_REV_COUNT = 1;
   RUN_TIME_CLOSURE = runtimeClosure;
