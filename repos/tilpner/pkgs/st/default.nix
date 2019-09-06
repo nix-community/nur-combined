@@ -2,25 +2,25 @@
 
 stdenv.mkDerivation rec {
   name = "st-${version}";
-  version = "3be4cf11d79ca87ff1fbbb57801913ec6f822429";
+  version = "0.8.2";
 
   src = fetchgit {
     url = git://git.suckless.org/st;
     rev = version;
-    sha256 = "0i3m7wv0bbagl0gm7mif9sw4mpf6m36i2pr3r21cz31vfjqckwsa";
+    sha256 = "0403r8d4krfs5022xzanwam1qx65spgz5y8v8240ygmcfngfahzy";
   };
 
   patches = [
     ./st-fix-deletekey.patch
 
     (fetchpatch {
-      url = https://st.suckless.org/patches/scrollback/st-scrollback-20181224-096b125.diff;
-      sha256 = "01901l9q0naj5plrb68qir54jif9d0a0hag7brjhvg36rpv123lg";
+      url = https://st.suckless.org/patches/scrollback/st-scrollback-0.8.2.diff;
+      sha256 = "1qwdl1fyl2rkw67ml80gyzgwk3mvcp332ijriqx3dp846n75d48d";
     })
 
     (fetchpatch {
-      url = https://st.suckless.org/patches/scrollback/st-scrollback-mouse-0.8.diff;
-      sha256 = "19nwskj7nycym8s9m6w0jrxjqgz6azggbq5bmk4h7hgbc7xfgzbc";
+      url = https://st.suckless.org/patches/scrollback/st-scrollback-mouse-0.8.2.diff;
+      sha256 = "0sk6qldb1b1rik2wzra29lsaas1q8qj2xcp6da8n9zwbsrllmb48";
     })
 
     (fetchpatch {
