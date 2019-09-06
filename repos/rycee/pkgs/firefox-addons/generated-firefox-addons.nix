@@ -318,10 +318,10 @@
       };
     "umatrix" = buildFirefoxXpiAddon {
       pname = "umatrix";
-      version = "1.3.16";
+      version = "1.4.0";
       addonId = "uMatrix@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1193322/umatrix-1.3.16-an+fx.xpi?src=";
-      sha256 = "03dcdbca2135f81820167c49ac83b9fc75f1ba3c1792a1713f886d9274ad7fb6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3396815/umatrix-1.4.0-an+fx.xpi?src=";
+      sha256 = "991f0fa5c64172b8a2bc0a010af60743eba1c18078c490348e1c6631882cbfc7";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uMatrix";
