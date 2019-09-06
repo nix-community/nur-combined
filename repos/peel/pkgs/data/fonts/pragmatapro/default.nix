@@ -5,14 +5,14 @@
 #   nix-prefetch-url --type sha256 file:///home/peel/PragmataPro-0.826.zip
 
 let
-  version = "0.826";
+  version = "0.828";
   installPath = "share/fonts/truetype/";
 in stdenv.mkDerivation rec {
   name = "pragmatapro-${version}";
   src = requireFile rec {
     name = "PragmataPro-${version}.zip";
-    url = "file://path/to/${name}";
-    sha256 = "19q36l4yqs94ri4an1j89f3v48ccajv4bwqawcfg648zwanwb6wf";
+    url = "file://$HOME/Dropbox/Software/PragmataPro-${version}.zip";
+    sha256 = "116ziblxz6pil74ahdh7zxwj8z848ggbsgmbgrgrivavbjcky763";
   };
   buildInputs = [ unzip ];
   phases = [ "unpackPhase" "installPhase" ];

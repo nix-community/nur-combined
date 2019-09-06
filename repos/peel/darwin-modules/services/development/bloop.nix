@@ -16,7 +16,7 @@ in {
   config = mkIf (cfg.enable && pkgs.stdenv.isDarwin) {
     environment.systemPackages = [pkgs.bloop];
     launchd.user.agents.bloop = {
-      serviceConfig.ProgramArguments = [ "${pkgs.bloop}/bin/blp-server" ];
+      serviceConfig.ProgramArguments = [ "${pkgs.bloop}/blp-server" ];
       serviceConfig.KeepAlive = true;
       serviceConfig.ProcessType = "Interactive";
     };
