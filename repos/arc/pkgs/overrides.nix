@@ -54,9 +54,14 @@ let
       meta.broken = pidgin.stdenv.isDarwin;
     });
 
-    weechat-arc = { wrapWeechat, weechat-unwrapped, weechatScripts, pythonPackages }: let
-      wrapWeechat' = wrapWeechat.override { inherit pythonPackages; };
-      weechat-unwrapped' = weechat-unwrapped.override { inherit pythonPackages; };
+    weechat-arc = { lib, wrapWeechat, weechat-unwrapped, weechatScripts, pythonPackages, python3Packages }: let
+      pythonOverride = if lib.isNixpkgsStable then {
+        inherit pythonPackages;
+      } else {
+        inherit python3Packages;
+      };
+      wrapWeechat' = wrapWeechat.override pythonOverride;
+      weechat-unwrapped' = weechat-unwrapped.override pythonOverride;
     in wrapWeechat' weechat-unwrapped' {
       configure = { availablePlugins, ... }: {
         plugins = with availablePlugins; [
