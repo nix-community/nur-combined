@@ -25,6 +25,11 @@
       );
     scripts = drvAttrsFor pkgs.weechatScripts cfg.scripts;
   };
+  pythonOverride = if pkgs.lib.isNixpkgsStable then {
+    inherit (cfg) pythonPackages;
+  } else {
+    python3Packages = cfg.pythonPackages;
+  };
 in {
   options.programs.weechat = {
     enable = mkEnableOption "weechat";
@@ -38,20 +43,20 @@ in {
     packageUnwrapped = mkOption {
       type = types.package;
       defaultText = "pkgs.weechat-unwrapped";
-      default = pkgs.weechat-unwrapped.override { inherit (cfg) pythonPackages; };
+      default = pkgs.weechat-unwrapped.override pythonOverride;
     };
 
     packageWrapper = mkOption {
       type = types.unspecified;
       defaultText = "pkgs.wrapWeechat";
-      default = pkgs.wrapWeechat.override { inherit (cfg) pythonPackages; };
+      default = pkgs.wrapWeechat.override pythonOverride;
     };
 
     pythonPackages = mkOption {
       type = types.unspecified;
-      defaultText = "pkgs.pythonPackages";
-      example = literalExample "pkgs.python3Packages";
-      default = pkgs.pythonPackages;
+      defaultText = "pkgs.python3Packages";
+      example = literalExample "pkgs.pythonPackages";
+      default = pkgs.python3Packages;
     };
 
     plugins = {
