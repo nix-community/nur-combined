@@ -128,14 +128,14 @@ in {
 
   config = mkIf cfg.enable {
     users.groups = {
-      smtpq.gid = config.ids.gids.smtpq;
+      msmtpq = {};
     };
 
     users.users = {
-      smtpq = {
+      msmtpq = {
         description = "msmtpq queue user";
-        uid = config.ids.uids.smtpq;
-        group = "smtpq";
+        isSystemUser = true;
+        group = "msmtpq";
         extraGroups = [ "keys" ];
       };
     };
@@ -143,7 +143,7 @@ in {
     services.mail.sendmailSetuidWrapper = mkIf config.services.postfix.setSendmail {
       program = "sendmail";
       source = "${sendmail}/bin/sendmail";
-      group = "smtpq";
+      group = "msmtpq";
       setuid = false;
       setgid = true;
     };
@@ -159,13 +159,13 @@ in {
       script = ''
         set -e
         mkdir -p "${cfg.mailDir}"
-        chown smtpq:smtpq "${cfg.mailDir}"
+        chown msmtpq:msmtpq "${cfg.mailDir}"
         chmod 0773 "${cfg.mailDir}"
         chmod g+s "${cfg.mailDir}"
-        setfacl -R -m g:smtpq:rwx "${cfg.mailDir}"
+        setfacl -R -m g:msmtpq:rwx "${cfg.mailDir}"
 
         mkdir -p /var/lib/msmtpq
-        chown smtpq:smtpq /var/lib/msmtpq
+        chown msmtpq:msmtpq /var/lib/msmtpq
         chmod 700 /var/lib/msmtpq
       '';
 
@@ -204,7 +204,7 @@ in {
       serviceConfig = {
         ExecStart = "${mailqueue}/bin/msmtpq-flush";
         Type = "oneshot";
-        User = "smtpq";
+        User = "msmtpq";
         PrivateTmp = true;
         WorkingDirectory = cfg.mailDir;
       };
