@@ -62,18 +62,23 @@ let
       };
       wrapWeechat' = wrapWeechat.override pythonOverride;
       weechat-unwrapped' = weechat-unwrapped.override pythonOverride;
-    in wrapWeechat' weechat-unwrapped' {
-      configure = { availablePlugins, ... }: {
-        plugins = with availablePlugins; [
-          (python.withPackages (ps: with ps; [
-            weechat-matrix
-          ]))
-        ];
-        scripts = with weechatScripts; [
-          go auto_away autoconf autosort colorize_nicks unread_buffer urlgrab vimode-git weechat-matrix
-        ];
+      weechat-wrapped = wrapWeechat' weechat-unwrapped' {
+        configure = { availablePlugins, ... }: {
+          plugins = with availablePlugins; [
+            (python.withPackages (ps: with ps; [
+              weechat-matrix
+            ]))
+          ];
+          scripts = with weechatScripts; [
+            go auto_away autoconf autosort colorize_nicks unread_buffer urlgrab vimode-git weechat-matrix
+          ];
+        };
       };
-    };
+    in weechat-wrapped.overrideAttrs (old: {
+        meta = old.meta // {
+          broken = old.meta.broken or false || weechat-unwrapped.stdenv.isDarwin;
+        };
+    });
 
     xdg_utils-mimi = { xdg_utils }: xdg_utils.override { mimiSupport = true; };
 
