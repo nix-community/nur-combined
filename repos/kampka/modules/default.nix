@@ -10,4 +10,6 @@
   ntp = ./services/ntp;
   systemd-failure-email = ./services/systemd-failure-email ;
   tmux = ./services/tmux ;
+
+  headless = ./profiles/headless.nix;
 }
