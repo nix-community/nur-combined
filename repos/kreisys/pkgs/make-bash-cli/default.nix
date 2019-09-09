@@ -1,4 +1,4 @@
-{ lib, grid, stdenv, bash, shfmt, linkFarm, writeText, runCommand }:
+{ lib, grid, stdenv, bashInteractive, shfmt, linkFarm, writeText, runCommand }:
 
 name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: action: let
   defaultFlags = [ (mkFlag "h" "help" "show help") ];
@@ -196,7 +196,7 @@ in stdenv.mkDerivation ({
     cd $_
 
     cat <<'EOF' | shfmt -i 2 > ${name}
-    #!${bash}/bin/bash
+    #!${bashInteractive}/bin/bash
 
     set -euo pipefail
 

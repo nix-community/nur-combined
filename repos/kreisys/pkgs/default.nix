@@ -18,6 +18,7 @@ in {
   krec2       = callPackage ./kreiscripts/krec2  { };
   kretty      = callPackage ./kreiscripts/kretty { };
   kurl        = callPackage ./kreiscripts/kurl   { };
+  libfixposix = callPackage ./libfixposix        { };
   lorri       = callPackage ./lorri              { };
   nvim        = callPackage ./nvim               { };
   oksh        = callPackage ./ok.sh              { };
