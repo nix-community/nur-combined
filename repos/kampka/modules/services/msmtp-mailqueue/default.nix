@@ -165,7 +165,7 @@ in {
         setfacl -R -m g:msmtpq:rwx "${cfg.mailDir}"
 
         mkdir -p /var/lib/msmtpq
-        chown msmtpq:msmtpq /var/lib/msmtpq
+        chown -R msmtpq:msmtpq /var/lib/msmtpq
         chmod 700 /var/lib/msmtpq
       '';
 
