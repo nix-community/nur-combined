@@ -46,7 +46,7 @@ in {
     };
 
     networking.firewall.enable = mkDefault true;
-    networking.firewall.logRefusedConnections = mkDefault true;
+    networking.firewall.logRefusedConnections = mkDefault false;
 
     kampka.services.ntp.enable = mkDefault true;
     kampka.services.dns-cache.enable = mkDefault true;
