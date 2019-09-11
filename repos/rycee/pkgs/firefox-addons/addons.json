@@ -21,6 +21,9 @@
     "slug": "facebook-container"
   },
   {
+    "slug": "gopass-bridge"
+  },
+  {
     "slug": "greasemonkey"
   },
   {
@@ -60,11 +63,18 @@
     "slug": "reddit-enhancement-suite"
   },
   {
+    "slug": "refined-github-",
+    "pname": "refined-github"
+  },
+  {
     "slug": "save-page-we"
   },
   {
     "slug": "styl-us",
     "pname": "stylus"
+  },
+  {
+    "slug": "text-contrast-for-dark-themes"
   },
   {
     "slug": "transparent-standalone-image"

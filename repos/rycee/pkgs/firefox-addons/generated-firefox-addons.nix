@@ -97,6 +97,20 @@
         platforms = platforms.all;
         };
       };
+    "gopass-bridge" = buildFirefoxXpiAddon {
+      pname = "gopass-bridge";
+      version = "0.5.1";
+      addonId = "{eec37db0-22ad-4bf1-9068-5ae08df8c7e9}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1200957/gopass_bridge-0.5.1-fx.xpi?src=";
+      sha256 = "0e8829d4451bb34ceefd12c9baceffffabfc6ebc1f546d10568413332268bedd";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/gopasspw/gopassbridge";
+        description = "Gopass Bridge allows searching and inserting login credentials from the gopass password manager ( <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/fa484fa7cde64c1be04f689a80902fdf34bfe274b8675213f619c3a13e6606ab/https%3A//www.gopass.pw/\">https://www.gopass.pw/</a> ).";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "greasemonkey" = buildFirefoxXpiAddon {
       pname = "greasemonkey";
       version = "4.9";
@@ -249,6 +263,20 @@
         platforms = platforms.all;
         };
       };
+    "refined-github" = buildFirefoxXpiAddon {
+      pname = "refined-github";
+      version = "19.9.11";
+      addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3401220/refined_github-19.9.11-an+fx.xpi?src=";
+      sha256 = "eab3aa4d63f59e0a4f6bda94cfb514a4c40cfa4dd533925ea423ee854dfee38c";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/sindresorhus/refined-github";
+        description = "Simplifies the GitHub interface and adds many useful features.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
       version = "16.0";
@@ -286,6 +314,19 @@
       {
         description = "Swedish spell-check dictionary.";
         license = licenses.lgpl3;
+        platforms = platforms.all;
+        };
+      };
+    "text-contrast-for-dark-themes" = buildFirefoxXpiAddon {
+      pname = "text-contrast-for-dark-themes";
+      version = "2.1.5";
+      addonId = "jid1-nMVE2oP40qeQDQ@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1721952/text_contrast_for_dark_themes-2.1.5-fx.xpi?src=";
+      sha256 = "386731f1a34fbc76c8b719dc98ce7b91c712cb047da3da9c058b1af20fa26fd5";
+      meta = with stdenv.lib;
+      {
+        description = "Fixes low-contrast text when using a dark desktop theme.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
