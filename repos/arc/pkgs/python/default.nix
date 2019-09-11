@@ -26,4 +26,9 @@ psuper: {
       sha256 = "1s3ipf9s41m1lksws3xv3j133q7jnjdqvmgk4sfnm8q7li2dww39";
     });
   });
+  brotli = { lib, pythonPackages }: psuper.brotli.overrideAttrs (old:
+    lib.optionalAttrs lib.isNixpkgsUnstable {
+      dontConfigure = true;
+    }
+  );
 }
