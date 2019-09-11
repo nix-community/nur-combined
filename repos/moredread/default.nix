@@ -20,7 +20,7 @@ rec {
   nix-search = pkgs.callPackage ./pkgs/nix-search { };
   throttled = pkgs.callPackage ./pkgs/throttled { };
   lenovo-throttling-fix = throttled;
-  prusa-slicer-latest = pkgs.callPackage ./pkgs/prusa-slicer-latest { };
+  prusa-slicer-latest = pkgs.callPackage ./pkgs/prusa-slicer-latest { cereal = pkgs.callPackage ./pkgs/cereal { }; };
   #prusa-slicer-with-asan = pkgs.callPackage ./pkgs/prusa-slicer-latest { enableASan = true; };
   slic3r-prusa3d-latest = prusa-slicer-latest;
 }

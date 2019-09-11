@@ -1,7 +1,6 @@
 { stdenv, lib, fetchFromGitHub, makeWrapper, cmake, pkgconfig
-, boost, curl, expat, glew, libpng, tbb, wxGTK31
+, boost, cereal, curl, eigen, expat, glew, libpng, tbb, wxGTK30
 , gtest, nlopt, xorg, makeDesktopItem
-, enableASan ? false
 }:
 let
   nloptVersion = if lib.hasAttr "version" nlopt
@@ -9,8 +8,8 @@ let
                  else "2.4";
 in
 stdenv.mkDerivation rec {
-  name = "prusa-slicer-${version}";
-  version = "2.0.0";
+  pname = "prusa-slicer";
+  version = "2.1.0-rc";
 
   enableParallelBuilding = true;
 
@@ -24,12 +23,14 @@ stdenv.mkDerivation rec {
   # nixpkgs.
   buildInputs = [
     boost
+    cereal
     curl
+    eigen
     expat
     glew
     libpng
     tbb
-    wxGTK31
+    wxGTK30
     xorg.libX11
   ] ++ checkInputs;
 
@@ -55,12 +56,14 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "prusa3d";
     repo = "PrusaSlicer";
-    sha256 = "135wn2sza2f2kvbja1haxil5kx1b74lc1i7dsa35i1y3phabykhz";
+    sha256 = "1p1z38bgiga5kwnjxhvapn3xji52k5gs4dy3xjzpi3qnglvvpbgq";
     rev = "version_${version}";
   };
 
-  cmakeFlags = [ "-DSLIC3R_FHS=1" ]
-    ++ lib.optional enableASan "-DSLIC3R_ASAN=1";
+  cmakeFlags = [
+    "-DSLIC3R_FHS=1"
+    "-DSLIC3R_WX_STABLE=1"  # necessary when compiling against wxGTK 3.0
+  ];
 
   postInstall = ''
     mkdir -p "$out/share/pixmaps/"
