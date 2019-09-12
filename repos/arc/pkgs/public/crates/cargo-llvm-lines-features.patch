@@ -1,0 +1,20 @@
+diff --git a/src/main.rs b/src/main.rs
+index 855b4fc..0e86e71 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -31,6 +31,15 @@ enum Opt {
+         #[structopt(long = "bin", raw(hidden = "true"))]
+         bin: Option<String>,
+ 
++        #[structopt(long = "features", raw(hidden = "true"))]
++        features: Option<String>,
++
++        #[structopt(long = "release", raw(hidden = "true"))]
++        release: bool,
++
++        #[structopt(long = "target", raw(hidden = "true"))]
++        target: Option<String>,
++
+         /// Set the sort order to number of instantiations
+         #[structopt(
+             short = "s",

@@ -1,0 +1,51 @@
+diff --git a/src/main.rs b/src/main.rs
+index 855b4fc..68ab87b 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -23,8 +23,6 @@ enum Opt {
+         raw(setting = "structopt::clap::AppSettings::AllowExternalSubcommands")
+     )]
+     LLVMLines {
+-        #[structopt(long = "filter-cargo", raw(hidden = "true"))]
+-        filter_cargo: bool,
+         #[structopt(long = "lib", raw(hidden = "true"))]
+         lib: bool,
+ 
+@@ -44,10 +42,10 @@ enum Opt {
+ 
+ fn main() {
+     let Opt::LLVMLines {
+-        filter_cargo, sort, ..
++        sort, ..
+     } = Opt::from_args();
+ 
+-    let result = cargo_llvm_lines(filter_cargo, sort);
++    let result = cargo_llvm_lines(env::var_os(FILTER_CARGO).is_some(), sort);
+ 
+     process::exit(match result {
+         Ok(code) => code,
+@@ -73,6 +71,8 @@ fn cargo_llvm_lines(filter_cargo: bool, sort_order: SortOrder) -> io::Result<i32
+     Ok(0)
+ }
+ 
++const FILTER_CARGO: &'static str = "CARGO_LLVM_LINES_FILTER";
++
+ fn run_cargo_rustc(outfile: PathBuf) -> io::Result<()> {
+     let mut cmd = Command::new("cargo");
+     let args: Vec<_> = env::args_os()
+@@ -86,7 +86,6 @@ fn run_cargo_rustc(outfile: PathBuf) -> io::Result<()> {
+ 
+     let mut filter_cargo = Vec::new();
+     filter_cargo.extend(args.iter().map(OsString::as_os_str));
+-    filter_cargo.push(OsStr::new("--filter-cargo"));
+ 
+     let _wait = cmd.pipe_to(&[OsStr::new("cat")], &filter_cargo)?;
+     run(cmd)?;
+@@ -278,6 +277,7 @@ impl PipeTo for Command {
+         errcmd.stdin(stderr);
+         errcmd.stdout(Stdio::null());
+         errcmd.stderr(Stdio::inherit());
++        errcmd.env(FILTER_CARGO, "1");
+         let spawn = errcmd.spawn()?;
+         Ok(Wait(vec![spawn, child]))
+     }

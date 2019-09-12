@@ -110,4 +110,24 @@
 
     doCheck = false; # there are no tests
   };
+
+  cargo-llvm-lines = {
+    lib, fetchFromGitHub, rustPlatform
+  }: rustPlatform.buildRustPackage rec {
+    pname = "cargo-llvm-lines";
+    version = "0.1.6";
+
+    src = fetchFromGitHub {
+      owner = "dtolnay";
+      repo = pname;
+      rev = "${version}";
+      sha256 = "0g3vb8zicz8ib6ydjl5vn5lijfx6z61ips60x1zfhyx8h44xp7v5";
+    };
+
+    cargoPatches = [ ./cargo-llvm-lines-lock.patch ];
+    patches = [ ./cargo-llvm-lines-features.patch ./cargo-llvm-lines-fix-filter.patch ];
+    cargoSha256 = if lib.isNixpkgsStable
+      then "0b4zq7ck2plxbl8phndgajsrc81ym7la0v5ikap4jrfvmiz94h6h"
+      else "0arjrs67z9rqbkrs77drj068614kg2n3y4f1wyf103bsad0vy783";
+  };
 }
