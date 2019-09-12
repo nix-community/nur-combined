@@ -1,6 +1,6 @@
 { lib, grid, stdenv, bashInteractive, shfmt, linkFarm, writeText, runCommand }:
 
-name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: action: let
+name: description: { packages ? [], arguments ? [], aliases ? [], options ? [], flags ? [], init ? "" }: action: let
   defaultFlags = [ (mkFlag "h" "help" "show help") ];
 
   mkArgument = name:                 description: { inherit name               description; };
@@ -108,11 +108,11 @@ name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: a
 
   mkUsage = { name, ... }@c: writeText "${name}-usage.txt" (mkUsageText c);
 
-  mkCli = { action, name, description, arguments ? [], flags ? [], options ? [], previous ? [], ... }@c:
+  mkCli = { action, name, description, init ? "", arguments ? [], flags ? [], options ? [], previous ? [], packages ? [], ... }@c:
     assert ! builtins.isString action -> arguments == [];
   let
-    mkCommand = name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: action: {
-      inherit action arguments aliases description flags name options;
+    mkCommand = name: description: { init ? "", arguments ? [], aliases ? [], options ? [], flags ? [], packages ? [] }: action: {
+      inherit action init arguments aliases description flags name options packages;
     };
 
     commands   = if builtins.isFunction    action then    action mkCommand  else    action;
@@ -137,6 +137,10 @@ name: description: { arguments ? [], aliases ? [], options ? [], flags ? [] }: a
       options = options';
       flags   = flags';
     })}
+
+    PATH=${lib.makeBinPath packages}:$PATH
+
+    ${init}
 
     ${if builtins.isString commands then ''
       ${lib.concatMapStrings ({ name, ...}: ''
@@ -208,7 +212,11 @@ in stdenv.mkDerivation ({
       stderr "\e[31merror\e[0m:" "$@"
     }
 
-    ${mkCli { inherit arguments action name description options flags; } }
+    warn() {
+      stderr "\e[33mwarning\e[0m:" "$@"
+    }
+
+    ${mkCli { inherit arguments action name description options flags init packages; } }
 
     EOF
 
