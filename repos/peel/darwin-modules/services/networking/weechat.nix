@@ -8,7 +8,7 @@ let
   weechatRunCommand = weechat: withMatrix: home: extraConfig: (if withMatrix then ''
       env LUA_CPATH="${pkgs.luaPackages.getLuaCPath pkgs.luaPackages.cjson}" LUA_PATH="${pkgs.luaPackages.getLuaPath pkgs.luaPackages.cjson}" WEECHAT_EXTRA_LIBDIR="${weechat}/share" ''
     else "")
-    + ''${weechat}/bin/weechat-headless --daemon --dir "${home}" --run-command "${configFormat extraConfig}"'';
+    + ''${weechat}/bin/weechat-headless --dir "${home}" --run-command "${configFormat extraConfig}"'';
     weechat = withSlack : withMatrix: pkgs.weechat.override {
     configure = {availablePlugins,...}: {
       extraBuildInputs = [ pkgs.luaPackages.cjson ];

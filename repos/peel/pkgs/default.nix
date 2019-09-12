@@ -50,7 +50,7 @@ in {
   hoverfly = pkgs.callPackage ./development/tools/hoverfly {};
   ix = pkgs.callPackage ./misc/ix {};
   mill = pkgs.callPackage ./development/tools/mill {};
-  metals = ((mkCoursierBinary){ baseName = "metals"; packageName = "org.scalameta"; version = "0.5.2"; executable = "metals-emacs"; flags = "--java-opt -Dmetals.client=emacs --java-opt -Xms100m --java-opt -Xss4m";});
+  metals = pkgs.callPackage ./development/tools/metals {};
   # luaPackages = pkgs.luaPackages // {
   #   cjson = pkgs.luaPackages.cjson.overrideAttrs(oldAttrs: rec {
   #   buildInputs = [ pkgs.lua52Packages.lua ];

@@ -2,18 +2,20 @@
 
 stdenv.mkDerivation rec {
   name = "yabai-${version}";
-  version = "git-20190603";
+  version = "2.0.1";
   src = fetchFromGitHub {
     owner = "koekeishiya";
     repo = "yabai";
-    rev = "4e1f43b924cbded5cb6a508ceb7cd9248beed47a";
-    sha256 = "0310p54519d4c3905di57ndqiiwradi262cdj2r7v1a8vnhmfxxx";
+    rev = "v${version}";
+    sha256 = "0vr3ivbqn1xc4x1r9x73dappqsxim3n0snz82mcshnp5sng4vf9m";
   };
 
   installPhase = ''
     mkdir -p $out/bin
     make install
     cp bin/* $out/bin/
+    mkdir -p $out/share/man/man1
+    cp doc/yabai.1 $out/share/man/man1/yabai.1
   '';
   buildInputs = [ Carbon Cocoa ScriptingBridge ];
 
