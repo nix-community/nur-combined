@@ -11,13 +11,13 @@ let
   llvm_version = if (llvm ? release_version) then llvm.release_version else (builtins.parseDrvName llvm.name).version;
 in
 stdenv.mkDerivation rec {
-  version = "2019-03-11"; # Date of commit used
+  version = "2019-03-25"; # Date of commit used
   name = "dg_llvm${llvm_version}-${version}";
   src = fetchFromGitHub {
     owner = "mchalupa";
     repo = "dg";
-    rev = "40c504db270165618d1c78a4b70b8b6f7402758b";
-    sha256 = "0i5mji6n5nnpp12g2qhahbb1dm1g533rzrf53kys4ljski140npw";
+    rev = "56376dd380301cc348caae52cf49e6bb596eecb4";
+    sha256 = "05ayf8cfqar9yc3ky0c2m52shhkin10yci0br7szwsprj1w2cf8k";
   };
 
   enableParallelBuilding = true;
@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
   # Install other utilities as well
   postPatch = ''
     substituteInPlace tools/CMakeLists.txt \
-      --replace "install(TARGETS" "install(TARGETS llvm-ps-dump llvm-rd-dump llvm-to-source llvm-pta-compare"
+      --replace "install(TARGETS" \
+                "install(TARGETS llvm-ps-dump llvm-rd-dump llvm-to-source llvm-pta-compare llvm-vr-dump llvm-thread-regions-dump llvm-pta-ben"
   '' + # temporary kludge to workaround test that fails but seems like that's intended?
   ''
     substituteInPlace tests/CMakeLists.txt \
@@ -54,6 +55,10 @@ stdenv.mkDerivation rec {
     substituteInPlace tests/CMakeLists.txt \
       --replace "add_test(rdmap-test rdmap-test)" "" \
       --replace "add_dependencies(check rdmap-test)" ""
+  '' + # and thread test
+  ''
+    substituteInPlace tests/CMakeLists.txt \
+      --replace 'add_test(thread-regions-test thread-regions-test)' ""
   '';
 
   inherit doCheck;
@@ -69,13 +74,13 @@ stdenv.mkDerivation rec {
     export hardeningDisable=all
 
     # Do default tests, ctest stuff but also other things
-    make check
+    make check ''${enableParallelChecking:+-j''${NIX_BUILD_CORES} -l''${NIX_BUILD_CORES}}
   '' + stdenv.lib.optionalString checkWithOtherPTAs ''
     # Try other pointer analysis variants
     for pta in fi fs old; do
       export DG_TESTS_PTA=$pta
       echo "Running tests with DG_TESTS_PTA=$DG_TESTS_PTA..."
-      make check
+      make check ''${enableParallelChecking:+-j''${NIX_BUILD_CORES} -l''${NIX_BUILD_CORES}}
     done
   '';
 

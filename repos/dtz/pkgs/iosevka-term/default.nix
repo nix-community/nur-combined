@@ -1,7 +1,7 @@
 { stdenv, fetchzip }:
 
 let
-  version = "2.2.0";
+  version = "2.2.1";
   mkSS = ss: sha256:
     let pname = "iosevka-term-ss${ss}"; in fetchzip rec {
     name = "${pname}-${version}";
@@ -30,15 +30,15 @@ let
   };
 in {
   # See https://raw.githubusercontent.com/be5invis/Iosevka/master/images/stylesets.png
-  ss01 = mkSS "01" "0809jb8zasv8xz1yfk931shjavpqa98zw9k98z6ilg86dvr7n3p7";
-  ss02 = mkSS "02" "1d8wvszfj1rzaav1svvbdnn13d3mr0q73s0645zwdi0mf8j4ys3n";
-  ss03 = mkSS "03" "0hnj78fpf65rwzfgrhpxjp4rna0yg3zs7pwhc3iggp37c9shdrb3";
-  ss04 = mkSS "04" "03qjw7mr91wcmwlxa5pqkmyk0i3jgbck1v3nkz3swr42vq16s63i";
-  ss05 = mkSS "05" "1sqbv26fw61n675g9hlzfap6f7gjlakpwfikb7kqn202i0gvwdri";
-  ss06 = mkSS "06" "16b74wfr8imlrpixl28yxiv4s2v0sf241j93y0h456a7j33z54ya";
-  ss07 = mkSS "07" "1qkqm782gcy2r0vzpkfmrzplllh78flm8v9afzz4ncclqairz9jc";
-  ss08 = mkSS "08" "12xcvdrqvv39438d8g4yzclnsiprlypj1mpvh98rr1zipplhwik5";
-  ss09 = mkSS "09" "05xp3wmjljllr3q1w37mw93mp0liyhrc30dicrv2wy3pz1ki0amq";
-  ss10 = mkSS "10" "1p6ckwyfgmlvrnql4465bjn188d2k02hbp0xmrgkvg15i4jkvqhl";
-  ss11 = mkSS "11" "1jx5p4varpdiaysilw3l05yr00v1x0jp9s26wygz55rrszq7shcr";
+  ss01 = mkSS "01" "14ksvld849xsblxggl6qiyr7ic05kskx5mfdcn1w9vmcqjkngyyd";
+  ss02 = mkSS "02" "12sx7b313cnxi5miczxh8a0qvdvq7vd133k99q43ida24v6dqp0k";
+  ss03 = mkSS "03" "1q4m1hkam7lly9kniws72xrilmikjk8hmd38x8m583qrg3hc7y14";
+  ss04 = mkSS "04" "0cfkcpdvvdqq4y359f0lmhidlhhn33fsmhw7gqsi4ff5lrqazjja";
+  ss05 = mkSS "05" "1vra36lrd10vqd9h37iw3747znxpj5yblnq0f83z8z9ap3v1602d";
+  ss06 = mkSS "06" "1cgdfjikm4lp8m3psma5l3bjssypv6jh7qff8pslfk85b637657j";
+  ss07 = mkSS "07" "1x7iz9lyzx8ljg8di6bnbrdiv0skim66lb36s770r45m3wz4czxv";
+  ss08 = mkSS "08" "0m0iiy98yyaxwxsr42jcai9skyy3shxgs9zhccgrrjhsa8x9n3jb";
+  ss09 = mkSS "09" "0ncf3y0v1906lq0k9jjd1ikgl4r8dbxik4v3j6vcri4pfrn2vi2x";
+  ss10 = mkSS "10" "18gvi32cxavipxhs4yk0jnlzklaag7klap3m9lyn4gdzdk20zy34";
+  ss11 = mkSS "11" "0l9iszmkx8ldkxb010c7gv6dsf5b5xbj828f9mrmq6p5fmz1ljap";
 }

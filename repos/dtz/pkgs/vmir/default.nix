@@ -13,11 +13,12 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "all" /* :( */ ];
 
+  NIX_CFLAGS_COMPILE = [ "-Wno-error" /* -Werror=restrict as of gcc8 */ ];
+
   makeFlags = [ "vmir" "vmir.dbg" "vmir.asan" ];
 
   installPhase = ''
-    mkdir -p $out/bin
-    mv vmir{,.dbg,.asan} $out/bin/
+    install -Dm755 -t $out/bin vmir{,.dbg,.asan}
   '';
 
   # For now just keep debug info and symbols "as-is"

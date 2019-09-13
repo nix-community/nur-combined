@@ -3,12 +3,13 @@
 self: super: {
   taskwarrior = super.taskwarrior.overrideAttrs (o: rec {
     name = "taskwarrior-${version}";
-    version = "2019-03-03"; # 2.5.2 branch
+    version = "2019-03-20"; # 2.5.2 branch (dev, moving)
     src = super.fetchFromGitHub {
       owner = "GothenburgBitFactory";
       repo = "taskwarrior";
-      rev = "b87703eb39e4ad89ef8f8447440d890d555678f6";
-      sha256 = "10bz87p4q1jrf8k3vz0sjs7slakl6zfa4bjzk1g72y528sqhrxnp";
+      rev = "82ed5d35b7d5994606873ccf1916e9af445d8b1c
+";
+      sha256 = "0rr9hya30jyzz7gxyjfmhbfkpaavr5i67yzgkzpfxyjq69zpm7ci";
       fetchSubmodules = true;
     };
     patches = [];

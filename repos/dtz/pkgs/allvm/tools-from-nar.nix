@@ -3,7 +3,7 @@
 let info = rec {
   name = "${pname}-${version}";
   pname = "allvm-tools";
-  version = "2018-10-10-49fddb9";
+  version = "2019-04-09-0a4d2cf";
 
   meta = with lib; {
     description = "ALLVM Tools (multiplexed)";
@@ -14,6 +14,6 @@ let info = rec {
 };
 in info // lib.from-nar {
   inherit (info) name;
-  narurl = "nar/9ae340db7f677677ae11a8182218fb4b8b87d1c30cfade9bbff1538891ad8548.nar.xz";
-  narHash = "sha256:0j5wd5v47lmdqcrcjksjyl0gp2avvp8by9s08ic9541m0hhwwa2a";
+  narurl = "nar/e50213d3724f6fa21a35d5552b8a3461851a994f7e991ffe0ab1ad815d93b4f1.nar.xz";
+  narHash = "sha256:1cyx5wiwgbil3fdzviqs8i8jyc4avqv1zgvx12ipmqwsx4axklyz";
 }

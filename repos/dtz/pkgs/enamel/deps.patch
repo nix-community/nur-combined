@@ -1,19 +1,47 @@
-From 628c1cf86750522699ce1d82e0634ac2fe5dd50f Mon Sep 17 00:00:00 2001
+From e555bf400e73dd1bffccfa211178523cb88a7b27 Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
-Date: Sun, 30 Dec 2018 12:59:32 -0600
-Subject: [PATCH] don't look locally for deps, get from git; be consistent
- re:notmuch-rs
+Date: Fri, 29 Mar 2019 14:11:56 -0500
+Subject: [PATCH] use public versions of dependencies, so building is possible
 
-* webkit2gtk
-* gmime-rs
 ---
- enamel-core/Cargo.toml | 4 ++--
- enamel-gtk/Cargo.toml  | 8 ++++----
- enamel-tui/Cargo.toml  | 8 ++++----
- 3 files changed, 10 insertions(+), 10 deletions(-)
+ Cargo.toml             | 20 ++++++++++----------
+ enamel-core/Cargo.toml |  4 ++--
+ enamel-gtk/Cargo.toml  |  4 ++--
+ enamel-tui/Cargo.toml  |  8 ++++----
+ 4 files changed, 18 insertions(+), 18 deletions(-)
 
+diff --git a/Cargo.toml b/Cargo.toml
+index af10dbd..277c9ee 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -14,15 +14,15 @@ gtk = { git = "https://github.com/vhdirk/gtk-rs", branch="subclassing", features
+ [patch."https://github.com/gtk-rs/webkit2gtk-rs"]
+ webkit2gtk = { git = "https://github.com/vhdirk/webkit2gtk-rs"}
+ 
+-# [patch."https://github.com/capnproto/capnproto-rust.git"]
+-# capnp = { git = "https://github.com/vhdirk/capnproto-rust.git", branch="std-future"}
+-# capnpc = { git = "https://github.com/vhdirk/capnproto-rust.git", branch="std-future"}
+-# capnp-rpc = { git = "https://github.com/vhdirk/capnproto-rust.git", branch="std-future"}
+-# capnp-futures = { git = "https://github.com/vhdirk/capnproto-rust.git", branch="std-future"}
++[patch."https://github.com/capnproto/capnproto-rust.git"]
++capnp = { git = "https://github.com/vhdirk/capnproto-rust.git", branch="std-future"}
++capnpc = { git = "https://github.com/vhdirk/capnproto-rust.git", branch="std-future"}
++capnp-rpc = { git = "https://github.com/vhdirk/capnproto-rust.git", branch="std-future"}
++capnp-futures = { git = "https://github.com/vhdirk/capnproto-rust.git", branch="std-future"}
+ 
+ 
+-[patch."https://github.com/capnproto/capnproto-rust.git"]
+-capnp = { path = "../capnproto-rust/capnp"}
+-capnpc = { path = "../capnproto-rust/capnpc"}
+-capnp-rpc = { path = "../capnproto-rust/capnp-rpc"}
+-capnp-futures = { path = "../capnproto-rust/capnp-futures"}
++# [patch."https://github.com/capnproto/capnproto-rust.git"]
++# capnp = { path = "../capnproto-rust/capnp"}
++# capnpc = { path = "../capnproto-rust/capnpc"}
++# capnp-rpc = { path = "../capnproto-rust/capnp-rpc"}
++# capnp-futures = { path = "../capnproto-rust/capnp-futures"}
 diff --git a/enamel-core/Cargo.toml b/enamel-core/Cargo.toml
-index f7688d1..b0042e9 100644
+index 553ac11..8788259 100644
 --- a/enamel-core/Cargo.toml
 +++ b/enamel-core/Cargo.toml
 @@ -35,11 +35,11 @@ gio-sys = { git = "https://github.com/gtk-rs/sys"}
@@ -29,24 +57,13 @@ index f7688d1..b0042e9 100644
 +#gmime = { path = "../../gmime-rs" }
  
  [features]
- default = ["glib/subclassing",
+ default = ["glib/futures"]
 diff --git a/enamel-gtk/Cargo.toml b/enamel-gtk/Cargo.toml
-index b31c5d6..f551d8d 100644
+index 346ff6d..e32e972 100644
 --- a/enamel-gtk/Cargo.toml
 +++ b/enamel-gtk/Cargo.toml
-@@ -54,8 +54,8 @@ gtk-sys = { git = "https://github.com/gtk-rs/sys" }
- gdk-sys = { git = "https://github.com/gtk-rs/sys" }
- gdk-pixbuf-sys = { git = "https://github.com/gtk-rs/sys" }
- cairo-sys-rs = { git = "https://github.com/gtk-rs/cairo" }
--#webkit2gtk    = { git = "https://github.com/gtk-rs/webkit2gtk-rs" }
--webkit2gtk    = { path = "../../webkit2gtk-rs" }
-+webkit2gtk    = { git = "https://github.com/gtk-rs/webkit2gtk-rs" }
-+#webkit2gtk    = { path = "../../webkit2gtk-rs" }
- 
- webkit2gtk-webextension = { git = "https://github.com/gtk-rs/webkit2gtk-webextension-rs" }
- 
-@@ -73,11 +73,11 @@ relm-derive = { git = "https://github.com/vhdirk/relm" }
- relm-state = { git = "https://github.com/vhdirk/relm" }
+@@ -78,11 +78,11 @@ relm = { git = "https://github.com/vhdirk/relm" }
+ relm-derive = { git = "https://github.com/vhdirk/relm" }
  
  notmuch = "*"
 -# gmime = { git = "https://github.com/vhdirk/gmime-rs"}
@@ -81,5 +98,5 @@ index 76b67c3..60a394a 100644
  [dev-dependencies]
  cargo-expand = "*"
 -- 
-2.19.2
+2.23.0
 

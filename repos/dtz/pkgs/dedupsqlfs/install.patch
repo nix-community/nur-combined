@@ -1,0 +1,23 @@
+diff --git a/setup.py b/setup.py
+index aa32c4b..6e0c0ea 100644
+--- a/setup.py
++++ b/setup.py
+@@ -108,8 +108,17 @@ if args.count("build_ext") > 0 and args.count("--inplace") == 0:
+ extensions = [makeExtension(name) for name in extNames]
+ 
+ setup(
+-    ext_modules = cythonize(extensions),
++    ext_modules = cythonize(extensions, language_level=3),
+     name="dedupsqlfs",
+     packages=["dedupsqlfs",],
+     cmdclass = {'build_ext': build_ext},
++    entry_points = {
++        'console_scripts': [
++            'cache_flusher = dedupsqlfs.app.cache_flusher:main',
++            'do.dedupsqlfs = dedupsqlfs.app.do:main',
++            'fsck.dedupsqlfs = dedupsqlfs.app.fsck:main',
++            'mkfs.dedupsqlfs = dedupsqlfs.app.mkfs:main',
++            'mount.dedupsqlfs = dedupsqlfs.app.mount:main',
++        ]
++    }
+ )

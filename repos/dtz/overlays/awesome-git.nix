@@ -3,13 +3,15 @@ self: super: {
   awesome = super.awesome.overrideAttrs (o: rec {
     pname = "awesome";
     name = "${pname}-${version}"; # override
-    version = "2019-03-13";
+    version = "2019-08-25";
     src = super.fetchFromGitHub {
-      owner = "AwesomeWM";
+      owner = "AwesomeWM"; # "dtzWill";
       repo = "awesome";
-      rev = "d8687dc251a62a5620fea577369ffda9bbb6c9b0";
-      sha256 = "12s109mg8wmxyrc4qkc1k8ip758k5q32vd8cm6lg2n60q7h8n0l4";
+      rev = "f1335be21ad0cbca90c63d9a25982904b966ac65";
+      sha256 = "1v5d4cx1jbhfk5zdccmvcaiypsly607s1ydf80y3hl5iyilnrh3n";
     };
     buildInputs = (o.buildInputs or []) ++ [ self.xorg.xcbutilerrors ];
+
+    #doCheck = true;
   });
 }

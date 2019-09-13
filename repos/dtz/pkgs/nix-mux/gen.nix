@@ -38,10 +38,10 @@ in rec {
     tarball = pkgs.runCommandNoCC "nix.tar.xz" {} "cp ${package} $out";
   };
 
-  unpack = import ./unpack.nix {
-    inherit (pkgs.hostPlatform) system;
-    inherit bootstrapFiles;
-  };
+  #unpack = import ./unpack.nix {
+  #  inherit (pkgs.hostPlatform) system;
+  #  inherit bootstrapFiles;
+  #};
 
  # test = derivation = {
  #   name = "test-nix-mux";

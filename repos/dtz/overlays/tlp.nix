@@ -1,20 +1,14 @@
 self: super: {
   tlp = super.tlp.overrideAttrs (o: rec {
     name = "tlp-${version}";
-    #version = "2019-03-09";
-    version = "1.2";
+    #version = "2019-04-28";
+    version = "2019-08-18";
     src = super.fetchFromGitHub {
       owner = "linrunner";
       repo = "tlp";
-      #rev = "527b0e1acbf77dad13e973bd2a98412acadd5e7f";
-      rev = version;
-      sha256 = "0vabhz3iil0danil0s88c6z97cycl03s2y948h8s9fmcgkh34gwd";
+      rev = "81a99c0b531101c93f7953aedcf966bedca4e2de";
+      #rev = version;
+      sha256 = "1kq5hsqbbamwmscr6jinigxi655s3p22gwqdhcydrsd3nh4ddig5";
     };
-
-    makeFlags = (o.makeFlags or []) ++ [
-      # not sure why we put things in share/tlp-pm vs default share/tlp
-      # but follow along for now.
-      "TLP_FLIB=${placeholder "out"}/share/tlp-pm/func.d"
-    ];
   });
 }

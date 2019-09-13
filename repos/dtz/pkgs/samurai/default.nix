@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "samurai";
-  version = "0.6";
+  version = "0.7";
 
   src = fetchFromGitHub {
     owner = "michaelforney";
     repo = pname;
     rev = version;
-    sha256 = "1m4yjkyjm278399hj02vs6nzpll1zxr72c62rhx08gsq755q3ncs";
+    sha256 = "0d5i5nxfaznargqncnzpvxz9v91hy1kp9ncargc57nigdp2mjs2m";
   };
 
   makeFlags = [ "DESTDIR=" "PREFIX=${placeholder "out"}" ];

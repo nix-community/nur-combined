@@ -15,11 +15,25 @@ let toplevel = {
 
     ccontrol = callPackage ./pkgs/ccontrol { };
 
+    chamferwm = callPackage ./pkgs/chamferwm {
+      boost = (pkgs.boost166.override {
+        python = pkgs.python3;
+        enablePython = true;
+      }).overrideAttrs (oa: {
+        NIX_CFLAGS_COMPILE = (oa.NIX_CFLAGS_COMPILE or [])
+          ++ [ "-fpermissive" ];
+      });
+    };
+
     chelf = callPackage ./pkgs/chelf { };
 
     crex = callPackage ./pkgs/crex { };
 
+    dedupsqlfs = callPackage ./pkgs/dedupsqlfs { };
+
     diva = callPackage ./pkgs/diva { };
+
+    dyninst = callPackage ./pkgs/dyninst { };
 
     dwarf-type-reader = callPackage ./pkgs/dwarf-type-reader {
       inherit (pkgs.llvmPackages_5) llvm;
@@ -56,7 +70,6 @@ let toplevel = {
 
     iml = callPackage ./pkgs/iml { };
     patchelf-git = callPackage ./pkgs/patchelf { };
-    patchelf-dtz = callPackage ./pkgs/patchelf/dtz.nix { };
 
     samurai = callPackage ./pkgs/samurai { };
 
