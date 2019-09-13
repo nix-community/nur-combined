@@ -6,14 +6,14 @@ let
   cfg = config.services.bloop;
 in {
   options = {
-    services.bloop.enable = mkOption {
+    services.bloop.install = mkOption {
       type = types.bool;
       default = false;
       description = "Whether to enable Bloop build server.";
     };
   };
 
-  config = mkIf (cfg.enable && pkgs.stdenv.isDarwin) {
+  config = mkIf (cfg.install && pkgs.stdenv.isDarwin) {
     environment.systemPackages = [pkgs.bloop];
     launchd.user.agents.bloop = {
       serviceConfig.ProgramArguments = [ "${pkgs.bloop}/blp-server" ];

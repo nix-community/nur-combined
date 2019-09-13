@@ -73,7 +73,6 @@ in {
   #   '' else "";
   #   meta.platforms = pkgs.lib.platforms.unix;
   # });
-  pragmatapro = pkgs.callPackage ./data/fonts/pragmatapro {};
   qarma = pkgs.callPackage ./misc/qarma {
     inherit (pkgs) stdenv fetchFromGitHub pkgconfig;
     inherit (pkgs.qt5) qtbase qmake qttools qtmacextras qtx11extras;
