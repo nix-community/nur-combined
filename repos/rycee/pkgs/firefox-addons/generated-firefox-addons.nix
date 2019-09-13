@@ -57,10 +57,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.7.17";
+      version = "4.8.0";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3387282/dark_reader-4.7.17-an+fx.xpi?src=";
-      sha256 = "f176785bebc6ba64231d5cb6efd82173e2d977ef3d3de22134c39ab058685fa7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3402380/dark_reader-4.8.0-an+fx.xpi?src=";
+      sha256 = "fcd8b33ad1648b1d84e2d6c12c101616e7a22e636de080f9c02be8258ebd3f9f";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -292,10 +292,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.5";
+      version = "1.5.6";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3374955/stylus-1.5.5-fx.xpi?src=";
-      sha256 = "939dc9789096cfb390b93e5a54a621be6a96cb3aa0165a9fee7d20d9b607c5f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3401561/stylus-1.5.6-fx.xpi?src=";
+      sha256 = "4ac675d1b5e2edb837bef2bed6044b9be3a7af24201080728f194e46b1ed025f";
       meta = with stdenv.lib;
       {
         homepage = "https://add0n.com/stylus.html";
