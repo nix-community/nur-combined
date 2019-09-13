@@ -3,6 +3,7 @@
   udiskie = ./services/hardware/udiskie.nix;
   autocutsel = ./services/misc/autocutsel.nix;
   dunst = ./services/misc/dunst.nix;
-  weechat = ./services/networking/weechat.nix;
+  bloop = ./services/development/bloop.nix;
+  # weechat = ./services/networking/weechat.nix;
 }
 
