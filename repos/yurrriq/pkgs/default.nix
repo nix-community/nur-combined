@@ -19,6 +19,8 @@ rec {
     inherit cedille;
   };
 
+  inherit (_nixpkgs) firefox;
+
   gap-pygments-lexer = pkgs.callPackage ./tools/misc/gap-pygments-lexer {
     pythonPackages = pkgs.python2Packages;
   };
