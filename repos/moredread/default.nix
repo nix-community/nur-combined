@@ -14,6 +14,9 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  airnef = pkgs.callPackage ./pkgs/airnef { pythonPackages =
+    pkgs.python3Packages; buildPythonApplication =
+      pkgs.python3Packages.buildPythonApplication; };
   i3status-rust = pkgs.callPackage ./pkgs/i3status-rust { };
   ipbt = pkgs.callPackage ./pkgs/ipbt { };
   implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad { };
