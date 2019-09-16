@@ -6,7 +6,8 @@ let
 
   cfg = config.kampka.programs.direnv;
 
-in {
+in
+{
 
   options.kampka.programs.direnv = {
     enable = mkEnableOption "direnv - environment switcher for the shell";

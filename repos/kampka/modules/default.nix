@@ -8,8 +8,8 @@
   nginx = ./services/nginx;
   nixops-auto-upgrade = ./services/nixops-auto-upgrade;
   ntp = ./services/ntp;
-  systemd-failure-email = ./services/systemd-failure-email ;
-  tmux = ./services/tmux ;
+  systemd-failure-email = ./services/systemd-failure-email;
+  tmux = ./services/tmux;
 
   headless = ./profiles/headless.nix;
 }

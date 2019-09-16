@@ -1,25 +1,35 @@
-{ pkgs, lib, firefox, wrapFirefox, stdenv, fetchurl, unzip, lndir, makeWrapper, wrapGAppsHook, makeDesktopItem
-  , userSettings ? {}
-  , userPolicies ? {}
- }:
+{ pkgs
+, lib
+, firefox
+, wrapFirefox
+, stdenv
+, fetchurl
+, unzip
+, lndir
+, makeWrapper
+, wrapGAppsHook
+, makeDesktopItem
+, userSettings ? {}
+, userPolicies ? {}
+}:
 
 let
   version = firefox.unwrapped.version;
 
   settingsJson = builtins.fromJSON (lib.readFile ./settings.json) // userSettings;
   autoconfigJs = pkgs.writeText "autoconfig.js" ''
-pref("general.config.filename", "mozilla.cfg");
-pref("general.config.obscure_value", 0);
-'';
+    pref("general.config.filename", "mozilla.cfg");
+    pref("general.config.obscure_value", 0);
+  '';
 
-  policiesJson = builtins.fromJSON (lib.readFile ./policies.json) ;
-  updatedPolicies = { "policies" = policiesJson.policies // userPolicies ; };
+  policiesJson = builtins.fromJSON (lib.readFile ./policies.json);
+  updatedPolicies = { "policies" = policiesJson.policies // userPolicies; };
 
   policiesFile = pkgs.writeText "policies.json" (builtins.toJSON updatedPolicies);
 
   mozillaCfg = pkgs.writeText "mozilla.cfg" ''
-${lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: ''lockPref( ${(builtins.toJSON key)} , ${(builtins.toJSON value)} );'') settingsJson)}
-'';
+    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: ''lockPref( ${(builtins.toJSON key)} , ${(builtins.toJSON value)} );'') settingsJson)}
+  '';
 
   userFoxUnwrapped = stdenv.mkDerivation {
     name = "UserFox-unwrapped-${version}";
@@ -32,7 +42,7 @@ ${lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: ''lockPref( ${(buil
     buildInputs = [ makeWrapper ];
     nativeBuildInputs = [ lndir wrapGAppsHook ];
 
-    phases = [ "installPhase" "fixupPhase"];
+    phases = [ "installPhase" "fixupPhase" ];
 
     installPhase = ''
       mkdir -p $out $out/bin $out/lib/userfox/
@@ -57,4 +67,5 @@ ${lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: ''lockPref( ${(buil
   };
 
   userfox = wrapFirefox userFoxUnwrapped {};
-in userfox
+in
+userfox

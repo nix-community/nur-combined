@@ -7,5 +7,5 @@
   zsh-history = pkgs.callPackage ./pkgs/zsh-history {};
 
   # modules
-  modules = import ./modules ;
+  modules = import ./modules;
 }

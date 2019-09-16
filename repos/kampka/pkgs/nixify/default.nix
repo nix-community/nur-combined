@@ -1,13 +1,27 @@
-{ stdenv, fetchFromGitHub
+{ stdenv
+, fetchFromGitHub
 , makeWrapper
-, bash, coreutils, findutils, gawk, gnugrep, nix, vim
+, bash
+, coreutils
+, findutils
+, gawk
+, gnugrep
+, nix
+, vim
 }:
 
 let
   path = [
-    bash coreutils findutils gawk gnugrep nix vim
+    bash
+    coreutils
+    findutils
+    gawk
+    gnugrep
+    nix
+    vim
   ];
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   name = "nixify";
 
   src = fetchFromGitHub {

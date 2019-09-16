@@ -65,29 +65,34 @@ let
   };
 
   aliasesFile = pkgs.writeText "aliases" ''
-${concatStringsSep "\n" (map (alias: "${alias.name}: ${(concatStringsSep ", " alias.aliases)}") cfg.aliases )}
-'';
+    ${concatStringsSep "\n" (map (alias: "${alias.name}: ${(concatStringsSep ", " alias.aliases)}") cfg.aliases)}
+  '';
 
   msmtprc = pkgs.writeText "msmtprc" ''
-defaults
-auth           on
-tls            on
-tls_trust_file /etc/ssl/certs/ca-certificates.crt
-syslog         on
-aliases        ${aliasesFile}
+    defaults
+    auth           on
+    tls            on
+    tls_trust_file /etc/ssl/certs/ca-certificates.crt
+    syslog         on
+    aliases        ${aliasesFile}
 
-${concatStringsSep "\n\n" (map (account: ''
-account        ${account.name}
-host           ${account.host}
-port           ${toString account.port}
-from           ${account.from}
-user           ${account.user}
-passwordeval   "cat ${account.password-file}"
-'') cfg.accounts)}
+    ${concatStringsSep "\n\n" (
+    map (
+      account: ''
+        account        ${account.name}
+        host           ${account.host}
+        port           ${toString account.port}
+        from           ${account.from}
+        user           ${account.user}
+        passwordeval   "cat ${account.password-file}"
+      ''
+    ) cfg.accounts
+  )}
 
-account default : ${cfg.accountDefault}
-'';
-in {
+    account default : ${cfg.accountDefault}
+  '';
+in
+{
   options.kampka.services.msmtp-mailqueue = {
     enable = mkEnableOption "sendmail drop-in replacement with mail queue for msmtp";
 
@@ -182,7 +187,7 @@ in {
       wantedBy = [ "timers.target" ];
       timerConfig = {
         OnActiveSec = cfg.interval;
-        OnUnitActiveSec=cfg.interval;
+        OnUnitActiveSec = cfg.interval;
         Unit = "msmtpq-flush.service";
       };
     };

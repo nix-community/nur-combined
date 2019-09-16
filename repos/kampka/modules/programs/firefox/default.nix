@@ -6,10 +6,11 @@ let
 
   cfg = config.kampka.programs.firefox;
 
-  userSettings = {"foo" = "bar";};
+  userSettings = { "foo" = "bar"; };
   fox = pkgs.callPackage ./firefox.nix { userSettings = cfg.userSettings; userPolicies = cfg.userPolicies; };
 
-in {
+in
+{
   options.kampka.programs.firefox = {
     enable = mkEnableOption "Firefox with strict settings";
 
@@ -22,7 +23,7 @@ in {
         The set defined here must serialize to a key/value pair where keys are always strings and values are the Nix representations of the JSON value valid for the given key.
         All valid key/value pairs are listed in about:config.
         See also https://developer.mozilla.org/en-US/docs/Mozilla/Preferences/A_brief_guide_to_Mozilla_preferences
-        '';
+      '';
       example = {
         "browser.search.region" = "US";
         "geo.enabled" = true;
@@ -37,17 +38,17 @@ in {
         Policies allow additional control over Firefox settings in addition or sometimes beyond the scope of userSettings.
         The set defined here must serialize to a key/value pair where keys are always strings and values are the Nix representations of the JSON value valid for the given key.
         See https://github.com/mozilla/policy-templates/blob/master/README.md for details.
-        '';
+      '';
       example = {
         "DisableFirefoxScreenshots" = true;
         "Extensions" = {
-          "Install" = ["//path/to/xpi"];
+          "Install" = [ "//path/to/xpi" ];
         };
       };
     };
   };
 
   config = mkIf cfg.enable {
-      environment.systemPackages = [ fox ];
+    environment.systemPackages = [ fox ];
   };
 }

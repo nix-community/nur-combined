@@ -1,4 +1,4 @@
-{ config, lib, pkgs,  ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -6,7 +6,8 @@ let
 
   cfg = config.kampka.services.nginx;
 
-in {
+in
+{
   options.kampka.services.nginx = {
     enable = mkEnableOption "nginx";
 

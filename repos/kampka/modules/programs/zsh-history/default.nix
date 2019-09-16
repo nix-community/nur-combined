@@ -8,7 +8,8 @@ let
 
   zsh-history = pkgs.callPackage ./../../../pkgs/zsh-history {};
 
-in {
+in
+{
 
   options.kampka.programs.zsh-history = {
     enable = mkEnableOption "A CLI to provide enhanced history for your shell";

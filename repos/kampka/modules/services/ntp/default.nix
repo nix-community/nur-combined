@@ -1,4 +1,4 @@
-{ config, lib, pkgs,  ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -6,7 +6,8 @@ let
 
   cfg = config.kampka.services.ntp;
 
-in {
+in
+{
   options.kampka.services.ntp = {
     enable = mkEnableOption "NTP service";
 
@@ -38,14 +39,14 @@ in {
     services.timesyncd.enable = false;
     services.chrony.enable = true;
     services.chrony.extraConfig = ''
-logchange 0.5
-mailonchange root 0.5
+      logchange 0.5
+      mailonchange root 0.5
 
-dumponexit
+      dumponexit
 
-${optionalString (cfg.allowAddress != []) "local stratum 10" }
-${concatStringsSep "\n" (map (address: "allow ${address}") cfg.allowAddress)}
+      ${optionalString (cfg.allowAddress != []) "local stratum 10" }
+      ${concatStringsSep "\n" (map (address: "allow ${address}") cfg.allowAddress)}
 
-      '';
+    '';
   };
 }

@@ -6,14 +6,15 @@ let
 
   cfg = config.kampka.services.dns-cache;
 
-  renderServer = (server:
-    ''
-      - address_data: ${server.address}
-          tls_auth_name: "${server.tlsAuthName}"
-          tls_pubkey_pinset:
-            - digest: "${server.tlsPubkeyPinset.digest}"
-              value: ${server.tlsPubkeyPinset.value}
-    ''
+  renderServer = (
+    server:
+      ''
+        - address_data: ${server.address}
+            tls_auth_name: "${server.tlsAuthName}"
+            tls_pubkey_pinset:
+              - digest: "${server.tlsPubkeyPinset.digest}"
+                value: ${server.tlsPubkeyPinset.value}
+      ''
   );
 
   upstreamServers = ''
@@ -33,8 +34,8 @@ let
       };
 
       ipAddress = mkOption {
-          type = types.str;
-          description = "The IP address leased to the given hardware address";
+        type = types.str;
+        description = "The IP address leased to the given hardware address";
       };
 
       leaseTime = mkOption {
@@ -111,58 +112,64 @@ let
     };
   };
 
-in {
+in
+{
   options.kampka.services.dns-cache = {
     enable = mkEnableOption "dns cache service with dns-over-tls";
 
     upstreamServers = mkOption {
       description = "List of upstream dns servers";
-      default = [{
-        # Nameserver run by SecureDNS.eu
-        address = "146.185.167.43";
-        tlsAuthName = "dot.securedns.eu";
-        tlsPubkeyPinset = {
-          value = "h3mufC43MEqRD6uE4lz6gAgULZ5/riqH/E+U+jE3H8g=";
-          digest = "sha256";
-        };
-      } {
-        # Nameserver run by Digitalcourage e.V.
-        address = "46.182.19.48";
-        tlsAuthName = "dns2.digitalcourage.de";
-        tlsPubkeyPinset = {
-          value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
-          digest = "sha256";
-        };
-      }];
-      type = types.listOf (types.submodule {
-        options = {
-          address = mkOption {
-            type = types.str;
-            example = "1.1.1.1";
-            description = "IP address of the upstream DNS server";
+      default = [
+        {
+          # Nameserver run by SecureDNS.eu
+          address = "146.185.167.43";
+          tlsAuthName = "dot.securedns.eu";
+          tlsPubkeyPinset = {
+            value = "h3mufC43MEqRD6uE4lz6gAgULZ5/riqH/E+U+jE3H8g=";
+            digest = "sha256";
           };
-          tlsAuthName = mkOption {
-            type = types.str;
-            description = "DNS name for which the certificate has to be valid";
+        }
+        {
+          # Nameserver run by Digitalcourage e.V.
+          address = "46.182.19.48";
+          tlsAuthName = "dns2.digitalcourage.de";
+          tlsPubkeyPinset = {
+            value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
+            digest = "sha256";
           };
-          tlsPubkeyPinset = mkOption {
-            type = types.submodule {
-              options = {
-                digest = mkOption {
-                  type = types.str;
-                  example = "sha256";
-                  default = "sha256";
-                  description = "Hash algorithm of the certificate hash";
-                };
-                value = mkOption {
-                  type = types.str;
-                  description = "Base64 encoded hash of servers TLS certificate";
+        }
+      ];
+      type = types.listOf (
+        types.submodule {
+          options = {
+            address = mkOption {
+              type = types.str;
+              example = "1.1.1.1";
+              description = "IP address of the upstream DNS server";
+            };
+            tlsAuthName = mkOption {
+              type = types.str;
+              description = "DNS name for which the certificate has to be valid";
+            };
+            tlsPubkeyPinset = mkOption {
+              type = types.submodule {
+                options = {
+                  digest = mkOption {
+                    type = types.str;
+                    example = "sha256";
+                    default = "sha256";
+                    description = "Hash algorithm of the certificate hash";
+                  };
+                  value = mkOption {
+                    type = types.str;
+                    description = "Base64 encoded hash of servers TLS certificate";
+                  };
                 };
               };
             };
           };
-        };
-      });
+        }
+      );
     };
 
     dnsmasq = mkOption {
@@ -236,52 +243,64 @@ in {
       servers = [ "127.0.0.1#5353" ];
       resolveLocalQueries = false;
       extraConfig = ''
-  ${optionalString (cfg.dnsmasq.validateDnsSec) "
+          ${optionalString (cfg.dnsmasq.validateDnsSec) "
 dnssec
 dnssec-check-unsigned
 conf-file=${pkgs.dnsmasq}/share/dnsmasq/trust-anchors.conf
 "}
-  ${optionalString (cfg.dnsmasq.noNegCache) "
+          ${optionalString (cfg.dnsmasq.noNegCache) "
 # Disable negative caching. Negative caching allows dnsmasq to remember 'no such domain' answers from upstream nameservers and answer identical queries without forwarding them again.
 no-negcache
 "}
-  ${optionalString (cfg.dnsmasq.allServers) "
+          ${optionalString (cfg.dnsmasq.allServers) "
 # Query all configured server for a successful dns resolve
 all-servers
 "}
 
-${optionalString (cfg.dnsmasq.bogusPriv) ''
-# Prevent queries for local networks from being sent upstream
-bogus-priv
-''}
+        ${optionalString (cfg.dnsmasq.bogusPriv) ''
+        # Prevent queries for local networks from being sent upstream
+        bogus-priv
+      ''}
 
-${concatStringsSep "\n" (map (interface: "interface=${interface}") cfg.dnsmasq.interfaces)}
+        ${concatStringsSep "\n" (map (interface: "interface=${interface}") cfg.dnsmasq.interfaces)}
 
-${optionalString (cfg.dnsmasq.dhcp != []) "
+        ${optionalString (cfg.dnsmasq.dhcp != []) "
 no-dhcp-interface=lo
 dhcp-ttl=180
 "}
 
-${concatStringsSep "\n" (map (dhcp: ''
+        ${concatStringsSep "\n" (
+        map (
+          dhcp: ''
 
-domain=${dhcp.domain.name}${optionalString (dhcp.domain.network != "" ) ",${dhcp.domain.network}${optionalString (dhcp.domain.local) ",local" }"}
+domain=${dhcp.domain.name}${optionalString (dhcp.domain.network != "") ",${dhcp.domain.network}${optionalString (dhcp.domain.local) ",local" }"}
 
-${concatStringsSep "\n" (map (range: "dhcp-range=set:${range.interface},${range.startAddr},${range.endAddr},${range.leaseTime}
-") dhcp.range)}
+${concatStringsSep "\n" (
+            map (
+              range: "dhcp-range=set:${range.interface},${range.startAddr},${range.endAddr},${range.leaseTime}
+"
+            ) dhcp.range
+          )}
 
-${concatStringsSep "\n" (map (host: ''
-dhcp-host=${host.hardwareAddress},${host.name},${host.ipAddress},${host.leaseTime},set:${host.name}
-${optionalString (host.staticRecord) "host-record=${host.name},${host.name}.${dhcp.domain.name},${host.ipAddress},120" }
-'') dhcp.host)}
+${concatStringsSep "\n" (
+            map (
+              host: ''
+                dhcp-host=${host.hardwareAddress},${host.name},${host.ipAddress},${host.leaseTime},set:${host.name}
+                ${optionalString (host.staticRecord) "host-record=${host.name},${host.name}.${dhcp.domain.name},${host.ipAddress},120" }
+              ''
+            ) dhcp.host
+          )}
 
-'') cfg.dnsmasq.dhcp )}
+''
+        ) cfg.dnsmasq.dhcp
+      )}
 
-${optionalString (cfg.dnsmasq.logQueries) "
+        ${optionalString (cfg.dnsmasq.logQueries) "
 log-queries
 "}
 
-${cfg.dnsmasq.extraConfig}
-'';
+        ${cfg.dnsmasq.extraConfig}
+      '';
     };
 
     # Likely redundant in this case
