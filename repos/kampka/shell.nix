@@ -4,7 +4,7 @@ let
   nixpkgsFmt = (
     import (
       builtins.fetchTarball {
-        url = "https://github.com/nix-community/nixpkgs-fmt/archive/master.tar.gz";
+        url = "https://github.com/nix-community/nixpkgs-fmt/archive/v0.6.0.tar.gz";
         sha256 = "18kvsgl3kpla33dp1nbpd1kdgndfqcmlwwpjls55fp4mlczf8lcx";
       }
     ) {}
@@ -18,4 +18,8 @@ in
 pkgs.mkShell {
   name = "nix-packages";
   inherit shellHook;
+
+  buildInputs = [
+    nixpkgsFmt
+  ];
 }
