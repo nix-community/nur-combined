@@ -43,7 +43,7 @@ in
 
     powerlinePackage = mkOption {
       type = types.package;
-      default = pkgs.python27Packages.powerline;
+      default = pkgs.python3Packages.powerline;
       description = "The powerline package to install";
     };
 
