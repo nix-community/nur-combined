@@ -119,6 +119,7 @@ let
     });
 
     vit2 = { python3Packages }: with python3Packages; toPythonApplication vit;
+    yamllint = { python3Packages }: with python3Packages; toPythonApplication yamllint;
 
     libjaylink = { stdenv, fetchgit, autoreconfHook, pkgconfig, libusb1 }: stdenv.mkDerivation {
       pname = "libjaylink";

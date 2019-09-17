@@ -44,20 +44,20 @@
 
     kakrc = "share/kak/autoload/tree.kak";
     pname = "kak-tree";
-    version = "6d32dda895fbfcbb772ab234ffa04dd257b9309d";
+    version = "16a7d44d6c00cec9023eb4043a3faeeac5054270";
     src = fetchFromGitHub {
       owner = "ul";
       repo = pname;
       rev = version;
-      sha256 = "0c42v7kypcn4s24kr6mrjx2yxdcmay0z9jzggvay9z7766ja9d8r";
+      sha256 = "1wwpxq87plyxpkfwgy5lnadiv69h7jd7xwaclhck6f2yjkxmswjm";
       fetchSubmodules = true;
     };
 
     buildInputs = lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
 
     cargoSha256 = if lib.isNixpkgsStable
-      then "15rc6p437vxmz3ng5gk060qpdh120r6p10jd9z8w31cdpa82pc4n"
-      else "05fd53l4i94857z66byy2fc481g10sg07aysgjj6kllkmlsb3wix";
+      then "1dhwvvdzq2i27k8il20zgs0p10kbxwhrak3zc6h6qnz0wc84dxwb"
+      else "1hqnxjn898kpi850m3qz361hkkhjkhr5j4gk828isqlwl8q75dpr";
 
     preBuild = ''
       sed -e "s,\"kak-tree\",\"$out/bin/kak-tree\"," -i rc/tree.kak
@@ -71,12 +71,12 @@
     mkDerivation = rustPlatform.buildRustPackage;
 
     pname = "kak-lsp";
-    version = "6.2.0";
+    version = "6.2.1";
     src = fetchFromGitHub {
       owner = "ul";
       repo = pname;
       rev = "v${version}";
-      sha256 = "0gv7acx2vy2n9wbgays0s3ag43sqqx9pqyr90ffglli0rsm0m1p6";
+      sha256 = "0bazbz1g5iqxlwybn5whidvavglvgdl9yp9qswgsk1jrjmcr5klx";
     };
 
     buildInputs = lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
