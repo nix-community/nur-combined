@@ -1,22 +1,56 @@
 {
   rust-analyzer = { fetchFromGitHub, rustPlatform, lib, darwin, hostPlatform }: rustPlatform.buildRustPackage rec {
     pname = "rust-analyzer";
-    version = "4647e89defd367a92d00d3bbb11c2463408bb3ad";
+    version = "2019-09-16";
     src = fetchFromGitHub {
       owner = "rust-analyzer";
       repo = pname;
-      rev = version;
-      sha256 = "1m3v5fwvqapd61llzbinji62s029kfwrfl24wbls59v3x816b23b";
+      rev = "8eb2697b7d2a98c952b3acd1711829a13e13cab1";
+      sha256 = "0gg5mf2j5ly89hiffdhhlgnvw84wyargmjvapy4nzpqhv7byv4a8";
     };
     cargoBuildFlags = ["--features" "jemalloc" "-p" "ra_lsp_server"];
     buildInputs = lib.optionals hostPlatform.isDarwin [ darwin.cf-private darwin.apple_sdk.frameworks.CoreServices ];
     # darwin undefined symbol _CFURLResourceIsReachable: https://discourse.nixos.org/t/help-with-rust-linker-error-on-darwin-cfurlresourceisreachable/2657
 
-    cargoSha256 = "0f0vpbczysb1mhcdq6rva9k5w3jy65zqshzm04bmrs0glibdnhci";
+    cargoSha256 = "093w2jmg9rdsdv246p4cs09am1igdnabv1x6l1nyjgfapjx3dbsj";
     meta.broken = lib.versionAtLeast "1.36.0" rustPlatform.rust.rustc.version;
 
     doCheck = false;
   };
+
+  rnix-lsp = {
+    lib, fetchFromGitHub, rustPlatform
+  }: rustPlatform.buildRustPackage rec {
+    pname = "rnix-lsp";
+    version = "2019-04-06";
+
+    src = fetchFromGitHub {
+      owner = "nix-community";
+      repo = pname;
+      rev = "3e6b015bb1fa2b1349519f56fbe0f4897a98ca69";
+      sha256 = "01s1sywlv133xzakrp2mki1w14rkicsf0h0wbrn2nf2fna3vk5ln";
+    };
+
+    RUSTC_BOOTSTRAP = true; # whee unstable features
+    cargoSha256 = "0j9swbh9iig9mimsy8kskzxqpwppp7jikd4cz2lz16jg7irvjq0w";
+
+    meta.broken = !lib.rustVersionAtLeast rustPlatform "1.36";
+  };
+
+  rnix-lsp-server = { rnix-lsp, fetchurl, rustPlatform }: let
+    patch = fetchurl {
+      # https://github.com/nix-community/rnix-lsp/pull/2
+      name = "rnix-lsp-server.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/nix-community/rnix-lsp/pull/2.patch";
+      sha256 = "00l7la23mmlh7kq603lnn5qv5pr4lr6y018ddnrvxgbxdgvvxg94";
+    };
+  in rustPlatform.buildRustPackage rec {
+    inherit (rnix-lsp) pname version src RUSTC_BOOTSTRAP meta;
+
+    cargoPatches = rnix-lsp.cargoPatches or [] ++ [ patch ];
+    cargoSha256 = "1fk11q6pf31c5ri5zkarc3iqyc7jf3xyfvr8f6xxwqcn3h6kz4iw";
+  };
+
   cargo-binutils-unwrapped = {
     lib, fetchFromGitHub, rustPlatform
   }: rustPlatform.buildRustPackage rec {

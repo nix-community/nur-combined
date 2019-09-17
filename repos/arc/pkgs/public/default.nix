@@ -8,6 +8,7 @@
   base16-shell = import ./base16-shell.nix;
   urxvt_osc_52 = import ./urxvt-osc-52.nix;
   urxvt_xresources_256 = import ./urxvt-xresources-256.nix;
+  efm-langserver = import ./efm-langserver;
 } // (import ./nixos.nix)
 // (import ./droid.nix)
 // (import ./weechat.nix)
