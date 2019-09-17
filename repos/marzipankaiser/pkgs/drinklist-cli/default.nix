@@ -23,8 +23,8 @@ stdenvNoCC.mkDerivation rec {
    src = fetchFromGitHub {
      owner = "FIUS";
      repo = "drinklist-cli";
-     rev = "b86c7bf3b23b72d1eaf876374f42e9fc8770f1f8";
-     sha256 = "01qskw3j8yg5nw0s0pqwlv3pjc4rrj8ff3687ll8lmbj2wcfy003";
+     rev = "877225c0f2e020025c7246d1a4ba1e966e449375";
+     sha256 = "0l3ijsfj5svgywfp4cvwvcvbx9ddb6r1lryx7vk0c7ssiq4fb77s";
    };
 
    dontBuild = true;
@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
    installPhase = ''
      mkdir -p $out/bin
      mkdir -p $out/opt
-     for file in ./*
+     for file in ./src/*
      do
        cp -r $file $out/opt/
      done
