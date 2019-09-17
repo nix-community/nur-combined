@@ -2,13 +2,13 @@ self: super: {
   tlp = super.tlp.overrideAttrs (o: rec {
     name = "tlp-${version}";
     #version = "2019-04-28";
-    version = "2019-08-18";
+    version = "2019-08-29";
     src = super.fetchFromGitHub {
       owner = "linrunner";
       repo = "tlp";
-      rev = "81a99c0b531101c93f7953aedcf966bedca4e2de";
+      rev = "237ac9a1648ac16f4a52a062311df6698c61d216";
       #rev = version;
-      sha256 = "1kq5hsqbbamwmscr6jinigxi655s3p22gwqdhcydrsd3nh4ddig5";
+      sha256 = "1gb0z5hhrisvdb8bipnkmpqqgxsnrib1j27njafpr6i5m7lq1da0";
     };
   });
 }
