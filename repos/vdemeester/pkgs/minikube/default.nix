@@ -1,4 +1,4 @@
-{ stdenv, buildGo111Module, fetchFromGitHub, go-bindata, libvirt, qemu
+{ stdenv, buildGoModule, fetchFromGitHub, go-bindata, libvirt, qemu
 , gpgme, makeWrapper
 , docker-machine-kvm, docker-machine-kvm2
 , extraDrivers ? []
@@ -11,7 +11,7 @@ let
   binPath = drivers
             ++ stdenv.lib.optionals stdenv.isLinux ([ libvirt qemu ]);
 
-in buildGo111Module rec {
+in buildGoModule rec {
   pname   = "minikube";
   version = "1.2.0";
 

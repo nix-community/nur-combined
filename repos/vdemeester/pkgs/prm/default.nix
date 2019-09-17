@@ -1,6 +1,6 @@
-{ stdenv, lib, buildGo111Module, fetchFromGitHub }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub }:
 
-buildGo111Module rec {
+buildGoModule rec {
   name = "prm-${version}";
   version = "2.6.1";
   rev = "v${version}";
