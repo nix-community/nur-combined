@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
 
 {
-  lib = import ./lib { inherit pkgs; };
+  lib = import ./lib { inherit (pkgs) lib; };
   modules = import ./modules;      # NixOS modules.
   overlays = import ./overlays;    # Nixpkgs overlays.
   hmModules = import ./hm-modules; # Home Manager modules.
