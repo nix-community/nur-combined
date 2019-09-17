@@ -1,16 +1,16 @@
 { buildPythonPackage, fetchFromGitHub, git,
   attrs, future, peewee, h11, h2, atomicwrites, pycryptodome, sphinx, Logbook, jsonschema,
-  python-olm, unpaddedbase64 }:
+  python-olm, unpaddedbase64, aiohttp }:
 
-buildPythonPackage {
+buildPythonPackage rec {
   pname = "nio";
-  version = "0.4.1";
+  version = "0.6";
 
   src = fetchFromGitHub {
     owner = "poljar";
     repo = "matrix-nio";
-    rev = "cfe900cc55a1b6fb435ecf792d9d173aa16fa9b9";
-    sha256 = "1nyaxmdd5wyr58nfk33sbihnm23dfznzbrvd7l76sd913cgnk9hk";
+    rev = version;
+    sha256 = "0pq5i6ks3pck2kq9m4p3pw9hbvkzs27xkyv68mjnfc6chp2g2mg9";
   };
 
   postPatch = ''
@@ -36,6 +36,7 @@ buildPythonPackage {
     jsonschema
     python-olm
     unpaddedbase64
+    aiohttp
   ];
 
   doCheck = false;

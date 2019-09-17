@@ -9,9 +9,15 @@ buildPythonPackage {
   sourceRoot = "${olm.name}/python";
   buildInputs = [ olm ];
 
+  preBuild = ''
+    make include/olm/olm.h
+  '';
+
   propagatedBuildInputs = [
     cffi
     future
     typing
   ];
+
+  doCheck = false;
 }

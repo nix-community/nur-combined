@@ -1,7 +1,7 @@
 { pkgs }:
 
 let
-  inherit (pkgs.python2Packages) callPackage;
+  inherit (pkgs.python3Packages) callPackage;
   self = rec {
     olm = callPackage ./olm.nix {};
     python-olm = callPackage ./python-olm.nix { inherit olm; };
