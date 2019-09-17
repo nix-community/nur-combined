@@ -16,7 +16,7 @@
 
     closureToNix = runCommand "closure.nix" {} ''
       tee $out <<EOF
-        [ $(sed -E 's/^(.*)$/    (dep \1)/' ${runtimeClosureInfo}/store-paths) ]
+        { dep }: [ $(sed -E 's/^(.*)$/    (dep \1)/' ${runtimeClosureInfo}/store-paths) ]
       EOF
     '';
 

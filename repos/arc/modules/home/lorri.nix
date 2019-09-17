@@ -21,14 +21,7 @@ in {
       enable = mkDefault true;
       stdlib = ''
         use_lorri() {
-          local LORRI_SERVICE LORRI_EVAL
-          LORRI_SERVICE=lorri@$(${pkgs.systemd}/bin/systemd-escape "$(pwd)")
           eval "$(${pkgs.lorri}/bin/lorri direnv)"
-          if ! ${pkgs.systemd}/bin/systemctl --user --quiet is-active $LORRI_SERVICE; then
-            ${pkgs.systemd}/bin/systemctl --user import-environment LOCALE_ARCHIVE TZDIR ''${TZ+TZ}
-            ${pkgs.systemd}/bin/systemctl --user start $LORRI_SERVICE
-            echo "[lorri] build status: journalctl --user -fu '$LORRI_SERVICE'" >&2
-          fi
         }
       '' + optionalString cfg.useNix ''
         use_nix() {
@@ -37,19 +30,26 @@ in {
       '';
     };
 
-    systemd.user.services."lorri@" = {
+    systemd.user.sockets."lorri" = {
+      wantedBy = [ "sockets.target" ];
+      Socket = {
+        ListenStream = "%t/lorri/daemon.socket";
+        RuntimeDirectory = "lorri";
+      };
+    };
+    systemd.user.services."lorri" = {
       Unit = {
-        Description = "lorri watch";
-        ConditionPathExists = "%I";
+        Description = "lorri";
         ConditionUser = "!@system";
+        After = [ "lorri.socket" ];
+        Requires = [ "lorri.socket" ];
       };
       Service = {
-        #Type = "exec";
+        Type = "exec";
         Restart = "on-failure";
-        WorkingDirectory = "%I";
         PrivateTmp = true;
-        ProtectSystem = "full";
-        ExecStart = "${cfg.package}/bin/lorri watch";
+        ProtectSystem = "full"; # strict?
+        ExecStart = "${cfg.package}/bin/lorri daemon";
       };
     };
   };
