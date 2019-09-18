@@ -368,6 +368,8 @@ in
         pname = "hm-init";
         version = "0";
         src = pkgs.writeText "hm-init.el" initFile;
+        preferLocalBuild = true;
+        allowSubstitutes = false;
       })
     ];
 
