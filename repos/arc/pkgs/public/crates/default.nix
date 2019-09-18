@@ -18,8 +18,44 @@
     doCheck = false;
   };
 
+  xargo-unwrapped = { fetchFromGitHub, rustPlatform, lib }: rustPlatform.buildRustPackage rec {
+    pname = "xargo";
+    version = "0.3.16";
+    src = fetchFromGitHub {
+      owner = "japaric";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "019s7jd7k8r1r0iwd40113c56sfifrzz8i4lwh75n0fpnalpcnyb";
+    };
+
+    RUSTC_BOOTSTRAP = true;
+
+    patches = [ ./xargo-stable.patch ];
+    cargoSha256 = if lib.isNixpkgsStable
+      then "07s2md5k9k0cgl3badhljmdd17151ysgcg5d8dm5a7p48yz2v2vm"
+      else "0cmdi9dcdn2nzk1h5n764305h9nzk5qzzjwgq1k86mxsn49i5w8c";
+
+    doCheck = false;
+  };
+
+  xargo = { stdenvNoCC, xargo-unwrapped, makeWrapper, rustPlatform, rustc, cargo, rustcSrc ? rustPlatform.rustcSrc }: stdenvNoCC.mkDerivation {
+    inherit (xargo-unwrapped) pname version;
+    xargo = xargo-unwrapped;
+    inherit rustcSrc rustc cargo;
+
+    nativeBuildInputs = [ makeWrapper ];
+
+    buildCommand = ''
+      mkdir -p $out/bin
+      makeWrapper $xargo/bin/xargo $out/bin/xargo \
+        --set-default XARGO_RUST_SRC "$rustcSrc" \
+        --set-default CARGO "$cargo/bin/cargo" \
+        --set-default RUSTC "$rustc/bin/rustc"
+    '';
+  };
+
   rnix-lsp = {
-    lib, fetchFromGitHub, rustPlatform
+    lib, fetchFromGitHub, rustPlatform, hostPlatform, darwin
   }: rustPlatform.buildRustPackage rec {
     pname = "rnix-lsp";
     version = "2019-04-06";
@@ -34,6 +70,8 @@
     RUSTC_BOOTSTRAP = true; # whee unstable features
     cargoSha256 = "0j9swbh9iig9mimsy8kskzxqpwppp7jikd4cz2lz16jg7irvjq0w";
 
+    buildInputs = lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
+
     meta.broken = !lib.rustVersionAtLeast rustPlatform "1.36";
   };
 
@@ -45,7 +83,7 @@
       sha256 = "00l7la23mmlh7kq603lnn5qv5pr4lr6y018ddnrvxgbxdgvvxg94";
     };
   in rustPlatform.buildRustPackage rec {
-    inherit (rnix-lsp) pname version src RUSTC_BOOTSTRAP meta;
+    inherit (rnix-lsp) pname version src buildInputs RUSTC_BOOTSTRAP meta;
 
     cargoPatches = rnix-lsp.cargoPatches or [] ++ [ patch ];
     cargoSha256 = "1fk11q6pf31c5ri5zkarc3iqyc7jf3xyfvr8f6xxwqcn3h6kz4iw";
