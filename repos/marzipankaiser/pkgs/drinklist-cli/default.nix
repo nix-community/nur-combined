@@ -23,8 +23,8 @@ stdenvNoCC.mkDerivation rec {
    src = fetchFromGitHub {
      owner = "FIUS";
      repo = "drinklist-cli";
-     rev = "cb65f13f8c9422ffd736fa99bfd9aff53aa275b8";
-     sha256 = "05axr0vnqzp4myarbm4826mhmwxsaqg5vig3df45gp1sdcn3sv3d";
+     rev = "8543df9b80a2b53ba6725a0d6f8e3478e350809e";
+     sha256 = "1qr22qdw2g3vr1hrv3pqaxc48n13hwfkhmnq3bx1487zz283zyy8";
    };
 
    dontBuild = true;
@@ -49,10 +49,8 @@ stdenvNoCC.mkDerivation rec {
 
      # Link zsh completion
      mkdir -p $out/share/zsh/site-functions
-     ln -s $out/opt/zsh_completions.zsh $out/share/zsh/site-functions/_drinklist
-     ln -s $out/opt/zsh_completions.zsh $out/share/zsh/site-functions/_drink
-     mkdir -p $out/share/zsh/vendor-completions
-     ln -s $out/opt/zsh_completions.zsh $out/share/zsh/vendor-completions/_drinklist
-     ln -s $out/opt/zsh_completions.zsh $out/share/zsh/vendor-completions/_drink
+     ln -s $out/opt/zsh_completion_drinklist.zsh $out/share/zsh/site-functions/_drinklist
+     ln -s $out/opt/zsh_completion_drink.zsh $out/share/zsh/site-functions/_drink
+     ln -s $out/opt/zsh_completion_helpers.zsh $out/share/zsh/site-functions/_drinklist_completion_helpers
    '';
 }
