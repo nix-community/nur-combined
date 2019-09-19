@@ -23,8 +23,8 @@ stdenvNoCC.mkDerivation rec {
    src = fetchFromGitHub {
      owner = "FIUS";
      repo = "drinklist-cli";
-     rev = "557b85e717efa9c2a67c3f541ed437f2fdbbee28";
-     sha256 = "0dmkkzn88sc0hpfd191rxrh05ss9xqagdiswrlrd05jaczzz05c6";
+     rev = "8f775699bf658b8524b9da9228c9bdbf4728f2bb";
+     sha256 = "1n5d70n0ikngxy9c3chf2vi3miil1hx0hix2cp8gh0grfr1lbrsr";
    };
 
    dontBuild = true;
