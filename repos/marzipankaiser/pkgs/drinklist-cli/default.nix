@@ -1,5 +1,5 @@
-{ stdenvNoCC
-, pkgs ? import <nixpkgs> {}
+{ pkgs ? import <nixpkgs> {}
+, stdenvNoCC ? pkgs.stdenvNoCC
 , ...
 }:
 with pkgs;
@@ -23,8 +23,8 @@ stdenvNoCC.mkDerivation rec {
    src = fetchFromGitHub {
      owner = "FIUS";
      repo = "drinklist-cli";
-     rev = "942606d97b8db53c1723e875f5b09c2ba19e6dc7";
-     sha256 = "1bsjsg736lviqvm20vds5bkyfkyx47f95g2g5spv4fc4jw11r21k";
+     rev = "557b85e717efa9c2a67c3f541ed437f2fdbbee28";
+     sha256 = "0dmkkzn88sc0hpfd191rxrh05ss9xqagdiswrlrd05jaczzz05c6";
    };
 
    dontBuild = true;

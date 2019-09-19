@@ -7,7 +7,7 @@ stdenv.mkDerivation {
       name = "frams-shell-tools";
       src = fetchurl {
           url = "https://fex.belwue.de/sw/share/fstools-0.0.tar";
-          sha256 = "11kacsxl6mf6qplxl8lrr47nv7wbq29w8124y8x40wszf2cjwa1l";
+          sha256 = "0qb93ny17m1f8rqgi7mp82vzhgsxxjrwmncirk5afvf3srmkdamb";
       };
       buildInputs = [pkgs.perl];
       dontBuild = true;
