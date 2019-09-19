@@ -31,7 +31,7 @@ in {
     };
 
     systemd.user.sockets."lorri" = {
-      wantedBy = [ "sockets.target" ];
+      Install.WantedBy = [ "sockets.target" ];
       Socket = {
         ListenStream = "%t/lorri/daemon.socket";
         RuntimeDirectory = "lorri";
