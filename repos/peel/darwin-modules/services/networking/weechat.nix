@@ -8,6 +8,32 @@ let
   validPaths = paths: with builtins;
     let check = paths: foldl' (x: y: x && (pathExists y)) true paths;
     in check paths || trace "weechat-config: defined extra config files missing. Configuration will not be applied." false;
+
+
+  runWithOpenSSL = file: cmd: pkgs.runCommand file {
+    buildInputs = [ pkgs.openssl ];
+  } cmd;
+  key = runWithOpenSSL "relay.key" "openssl genrsa -out $out 2048";
+  cert = runWithOpenSSL "relay.cert" ''
+    openssl req \
+      -x509 -new -nodes -key ${key} \
+      -days 10000 -out $out -subj "/CN=localhost"
+  '';
+  bundle = pkgs.writeTextFile{
+    name = "relay.pem";
+    text = ''
+      ${builtins.readFile key}
+      ${builtins.readFile cert}
+    '';
+  };
+
+  relayCfg = pkgs.writeTextFile {
+    name = "relay.cfg";
+    text = ''
+      /relay sslcertkey
+      /relay add ssl.weechat 9001
+    '';
+  };
   
   weechatConfigure = paths: pkgs.writeScript "weechat-configure" ''
     server_status(){
@@ -20,9 +46,15 @@ let
       done
     }
 
+    setup_ssl(){
+      mkdir -p ''${1}/ssl
+      ln -fvs ${bundle} ''${1}/ssl/relay.pem
+    }
+
     for i in {1..24}; do 
       server_status == 0 \
       && echo "Writing config..." \
+      && setup_ssl ''${1} \
       && write_config ''${1} \
       && break \
       || echo "Weechat service not running..." \
@@ -92,12 +124,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    launchd.user.agents.weechat-config = mkIf (validPaths cfg.extraConfigFiles) {
+    launchd.user.agents.weechat-config = {
       path = [ pkgs.coreutils pkgs.gawk pkgs.gnugrep ];
-      command = "${weechatConfigure cfg.extraConfigFiles} ${cfg.home}";
+      command = "${weechatConfigure ([ relayCfg ] ++ cfg.extraConfigFiles) } ${cfg.home}";
       serviceConfig.ProcessType = "Background";
       serviceConfig.KeepAlive.OtherJobEnabled."org.nixos.weechat" = true;
     };
+
     launchd.user.agents.weechat = {
       path = [
         (weechat cfg.withSlack cfg.withMatrix)
