@@ -175,6 +175,20 @@ in with self; {
       else ":${toString port}";
   in "${protocol}://${domain}${portStr}";
 
+  # Retrieve a channel from NIX_PATH (or via overlaid attr), falling back to a pinned url if it can't be found.
+  channelOrPin = { name, imp, url, sha256, check ? (_: null) }: let
+    hasPath = builtins.filter ({ prefix, ... }: prefix == name) builtins.nixPath != [];
+    channel =
+      if hasPath
+      then builtins.findFile builtins.nixPath name
+      else builtins.fetchTarball {
+        name = "source";
+        inherit url sha256;
+      };
+  in pkgs: if check pkgs != null
+    then check pkgs
+    else imp channel pkgs;
+
   nixpkgsVersionStable = "19.03";
   nixpkgsVersionUnstable = "19.09";
   isNixpkgsStable = versionOlder version "${nixpkgsVersionUnstable}pre";

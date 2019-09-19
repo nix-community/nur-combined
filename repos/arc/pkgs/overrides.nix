@@ -207,6 +207,21 @@ let
         })
         else py
     ) pythonInterpreters;
+
+    mkShell = { lib, mkShell, mkShellEnv }: {
+      inherit mkShell;
+      mkShellEnv = mkShellEnv.override { inherit mkShell; };
+      __functor = self: lib.drvPassthru (drv: {
+        shellEnv = self.mkShellEnv drv;
+      }) self.mkShell;
+    };
+
+    # nix progress displays better with the builtin :(
+    fetchurl = { fetchurl, nixFetchurl }: {
+      inherit fetchurl;
+      nixFetchurl = nixFetchurl.override { inherit fetchurl; };
+      __functor = self: self.nixFetchurl;
+    };
   };
 in packages // {
   instantiate = { self, super, ... }: let

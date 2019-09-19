@@ -19,7 +19,7 @@ self: super: with super.lib; let
   packages'' = packages' // subpackages';
   arc = rec {
     pkgs = self;
-    packages = builtins.removeAttrs packages'' [ "shells" "pythonInterpreters" ];
+    packages = builtins.removeAttrs packages'' [ "shells" "pythonInterpreters" "fetchurl" "mkShell" ];
     build = filtered filterBuildSupportKeys self;
     lib = filtered filterLibKeys self.lib;
     inherit (packages'') shells;

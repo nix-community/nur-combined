@@ -18,6 +18,89 @@
     doCheck = false;
   };
 
+  cargo-deps = { fetchFromGitHub, rustPlatform, lib }: rustPlatform.buildRustPackage rec {
+    pname = "cargo-deps";
+    version = "1.1.1";
+    src = fetchFromGitHub {
+      owner = "m-cat";
+      repo = pname;
+      rev = "ab93f5655900e49fb0360ccaf72b2b61b6b428ef";
+      sha256 = "16181p7ghvy9mqippg1xi2cw7yxvicis8v6n39wly5qw05i57aw2";
+    };
+
+    patches = lib.optional lib.isNixpkgsStable ./cargo-deps-mrv.patch;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "1wcvk3flmvs7617j7zrrsf4kwsapvn10xd9337rp5rx7kci1r7q8"
+      else "1a9svdw1cgk6s7gqpsq3r25wxa2gr2xddqkc1cjk7hf6sk327cpv";
+  };
+
+  cargo-download = {
+    fetchFromGitHub, rustPlatform, lib
+  , openssl, pkgconfig, hostPlatform, darwin
+  }: rustPlatform.buildRustPackage rec {
+    pname = "cargo-download";
+    version = "0.1.2";
+    src = fetchFromGitHub {
+      owner = "Xion";
+      repo = pname;
+      rev = "b73f6ced56799757945d5bdf2e03df32e9b9ed39";
+      sha256 = "1knwxx9d9vnkxib44xircgw1zhwjnf6mlpkcq81dixp3f070yabl";
+    };
+
+    nativeBuildInputs = lib.optional hostPlatform.isLinux pkgconfig;
+    buildInputs = lib.optional hostPlatform.isLinux openssl
+      ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "00j3gkqzcnj4qlpxw0l276djgjfalq849i4vhjaiga80d2lkms29"
+      else "00sja62fykd3x1lq48as30xss301m04r0qj8c9rlv297yxnlz1vx";
+  };
+
+  cargo-with = { fetchFromGitHub, rustPlatform, lib }: rustPlatform.buildRustPackage rec {
+    pname = "cargo-with";
+    version = "0.3.2";
+    src = fetchFromGitHub {
+      owner = "cbourjau";
+      repo = pname;
+      rev = "2eb3cbd87f221f24e780b84306574541de38a1e4";
+      sha256 = "127ifblgp7v2vv8iafl88y1cjyskymqdi0nzsavnyab0x9jiskcr";
+    };
+
+    cargoPatches = [ ./cargo-with-lock.patch ];
+    cargoSha256 = if lib.isNixpkgsStable
+      then "01hy0bwj76hg16fq5s3nrmj7ddqwggm6s038isjhsmlwkm0j3crz"
+      else "0x08nc9d6jgrfnlrnyrln2lvxr7dpys4sfh2lvq0814bfg22byid";
+  };
+
+  cargo-info = {
+    fetchFromGitLab, fetchurl, rustPlatform, lib
+  , hostPlatform, darwin
+  , openssl, pkgconfig
+  }: rustPlatform.buildRustPackage rec {
+    pname = "cargo-info";
+    version = "0.5.14";
+    src = fetchFromGitLab {
+      owner = "imp";
+      repo = pname;
+      rev = version;
+      sha256 = "0gpzcfw607wfb1pv8z46yk4l2rx6pn64mhw5jrj7x8331vl2dvwv";
+    };
+
+    cargoPatches = [ (fetchurl {
+      # https://gitlab.com/imp/cargo-info/merge_requests/6
+      # NOTE: there's also https://gitlab.com/imp/cargo-info/merge_requests/7 which is about equivalent?
+      name = "update-deps.patch";
+      url = "https://gitlab.com/imp/cargo-info/commit/635a128a9e46ee9f3c443ed070da63b3ebb78033.diff";
+      sha256 = "14vz860a40njx4fdaxdw1iy92isihgab65x5c6kxb68iha6bg4j9";
+    }) ];
+    cargoSha256 = if lib.isNixpkgsStable
+      then "0cfr002v4myhbsdnkp5lw58wrsqvq0fz9kf5x7z8w52nl4x78n9g"
+      else "1fw8fd67ixhy13xvfkssssy5b78n5dgq4qr0m0xvi50i2553rlgj";
+
+    nativeBuildInputs = lib.optional hostPlatform.isLinux pkgconfig;
+    buildInputs = lib.optional hostPlatform.isLinux openssl
+      ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
+  };
+
   xargo-unwrapped = { fetchFromGitHub, rustPlatform, lib }: rustPlatform.buildRustPackage rec {
     pname = "xargo";
     version = "0.3.16";

@@ -9,6 +9,8 @@
     (call ./wrap.nix) //
     #(call ./call.nix) //
     (call ./exec.nix) //
+    (call ./shell.nix) //
+    (call ./fetchurl.nix) //
     (call ./curl.nix) //
     (call ./linux.nix) //
     (call ./kakoune.nix) //
