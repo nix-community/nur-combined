@@ -26,6 +26,14 @@ in with self; {
   # named // operator
   update = a: b: a // b;
 
+  # alias in lib, syntax is removeAttrs attrs [ "blacklist" ]
+  removeAttrs = builtins.removeAttrs;
+
+  # the inverse of removeAttrs
+  retainAttrs = attrs: whitelist: let
+    attrlist = genAttrs whitelist (_: null);
+  in filterAttrs (k: _: attrlist ? ${k}) attrs;
+
   bitShl = sh: v:
     assert isInt sh; assert isInt v;
     if sh == 0 then v
