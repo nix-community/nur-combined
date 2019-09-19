@@ -1,4 +1,4 @@
-{ pkgs, lib, newScope, recurseIntoAttrs }:
+{ pkgs, lib, newScope, recurseIntoAttrs, sources }:
 
 lib.makeScope newScope (self: with self; let
   callPackages = lib.callPackagesWith (pkgs // self);
