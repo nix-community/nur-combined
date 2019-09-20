@@ -50,6 +50,9 @@ in {
         PrivateTmp = true;
         ProtectSystem = "full"; # strict?
         ExecStart = "${cfg.package}/bin/lorri daemon";
+        Environment = with pkgs; [
+          "PATH=${makeSearchPath "bin" [ gnutar gzip bzip2 xz ]}"
+        ];
       };
     };
   };

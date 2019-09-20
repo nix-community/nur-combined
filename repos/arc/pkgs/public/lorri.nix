@@ -2,12 +2,12 @@
 , rustPlatform
 , coreutils, nix, direnv, which, darwin
 # for runtime: https://github.com/target/lorri/blob/d3e452ebc2b24ab86aec18af44c8217b2e469b2a/nix/runtime.nix
-, bash, gnutar, gzip, bzip2, xz, closureInfo, substituteAll, runCommand, buildEnv
+, bash, closureInfo, substituteAll, runCommand, buildEnv
 }: let
   runtimeClosure = let
     tools = buildEnv {
       name = "lorri-runtime-tools";
-      paths = [ coreutils bash gnutar gzip bzip2 xz ];
+      paths = [ coreutils bash ];
     };
 
     runtimeClosureInfo = closureInfo {
