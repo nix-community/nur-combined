@@ -31,7 +31,7 @@ let
     name = "relay.cfg";
     text = ''
       /relay sslcertkey
-      /relay add ssl.weechat 9001
+      /relay add weechat 9001
     '';
   };
   
@@ -41,8 +41,8 @@ let
     }
 
     write_config(){
-      for f in ${strings.escapeShellArgs cfg.extraConfigFiles}; do
-        sed 's/^/*/' ''${f} > ''${1}/weechat_fifo_*
+      for f in ${strings.escapeShellArgs paths}; do
+        sed 's/^/*/' ''${f} > ''${1}/weechat_fifo
       done
     }
 
