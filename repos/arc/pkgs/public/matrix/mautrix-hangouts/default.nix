@@ -21,6 +21,7 @@
       python_magic
       hangups
       mautrix-python
+      setuptools
     ];
 
     doCheck = false;
