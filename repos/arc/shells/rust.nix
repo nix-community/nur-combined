@@ -4,12 +4,12 @@
     cargoCommands = [
       "download" "outdated" "deps" "info"
       "bloat" "llvm-lines"
-      "with"
+      "with" "watch"
       "release"
       "fmt" "clippy" "expand"
     ];
     rustTools = [
-      "rust-analyzer" "gdb"
+      "rust-analyzer" "rust-src" "gdb"
     ];
   };
 in mapAttrs (_: p: mapPlatform p) {

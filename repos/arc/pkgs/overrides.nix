@@ -211,9 +211,14 @@ let
     mkShell = { lib, mkShell, mkShellEnv }: {
       inherit mkShell;
       mkShellEnv = mkShellEnv.override { inherit mkShell; };
-      __functor = self: lib.drvPassthru (drv: {
-        shellEnv = self.mkShellEnv drv;
-      }) self.mkShell;
+      __functor = self: attrs: lib.drvPassthru (drv: let
+        shellEnv = self.mkShellEnv attrs;
+      in {
+        inherit shellEnv;
+        ci = attrs.ci or {} // {
+          inputs = attrs.ci.inputs or [] ++ [ shellEnv ];
+        };
+      }) (self.mkShell attrs);
     };
 
     # nix progress displays better with the builtin :(

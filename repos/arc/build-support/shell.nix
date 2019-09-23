@@ -10,12 +10,11 @@
         ${coreutils}/bin/cp .attrs.sh $out/nix-support/attrs.sh
       '';
       shellEnv = args: {
-        name = args.pname or args.name;
+        name = args.pname or args.name or "nix-shell";
         builder = runtimeShell;
         args = [ "-eu" mkShellBuilder ];
         __structuredAttrs = true;
       };
-      drv = mkShell attrs;
     in if lib.isDerivation attrs
       then attrs.overrideAttrs (attrs: shellEnv attrs)
       else mkShell (attrs // shellEnv attrs);
