@@ -19,8 +19,6 @@ stdenv.mkDerivation rec {
     pkgconfig
   ];
 
-  # We could add Eigen, but it doesn't currently compile with the version in
-  # nixpkgs.
   buildInputs = [
     boost
     cereal
@@ -40,12 +38,17 @@ stdenv.mkDerivation rec {
   # xs/src/libnest2d/cmake_modules/FindNLopt.cmake in the package source -
   # for finding the nlopt library, which doesn't pick up the package in the nix store.
   # We need to set the path via the NLOPT environment variable instead.
-  NLOPT = "${nlopt}";
+  NLOPT = nlopt;
+
+  # Disable compiler warnings that clutter the build log
+  # It seems to be a known issue for Eigen:
+  # http://eigen.tuxfamily.org/bz/show_bug.cgi?id=1221
+  NIX_CFLAGS_COMPILE = "-Wno-ignored-attributes";
 
   prePatch = ''
     # In nix ioctls.h isn't available from the standard kernel-headers package
-    # on other distributions. As the copy in glibc seems to be identical to the
-    # one in the kernel, we use that one instead.
+    # like in other distributions. The copy in glibc seems to be identical to the
+    # one in the kernel though, so we use that one instead.
     sed -i 's|"/usr/include/asm-generic/ioctls.h"|<asm-generic/ioctls.h>|g' src/libslic3r/GCodeSender.cpp
   '' + lib.optionalString (lib.versionOlder "2.5" nloptVersion) ''
     # Since version 2.5.0 of nlopt we need to link to libnlopt, as libnlopt_cxx
