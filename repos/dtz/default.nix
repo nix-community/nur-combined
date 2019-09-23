@@ -49,6 +49,8 @@ let toplevel = {
     intelxed = callPackage ./pkgs/xed { };
     mbuild = callPackage ./pkgs/xed/mbuild.nix { };
 
+    isolate = callPackage ./pkgs/isolate { };
+
     laptop-mode-tools = callPackage ./pkgs/laptop-mode-tools { };
 
     kittel-koat = callPackage ./pkgs/kittel-koat {
