@@ -46,6 +46,13 @@ let toplevel = {
     fcd4 = callPackage ./pkgs/fcd/4.nix { };
     fcd4-tests = callPackage ./pkgs/fcd/test.nix { fcd = fcd4; };
 
+    htop3beta = callPackage ./pkgs/htop/3.nix { inherit (pkgs.darwin) IOKit; };
+
+    iml = callPackage ./pkgs/iml { };
+
+    iwinfo = callPackage ./pkgs/iwinfo { };
+
+
     intelxed = callPackage ./pkgs/xed { };
     mbuild = callPackage ./pkgs/xed/mbuild.nix { };
 
@@ -69,11 +76,9 @@ let toplevel = {
       inherit (pkgs.llvmPackages_4) llvm clang;
     };
 
-    htop3beta = callPackage ./pkgs/htop/3.nix { inherit (pkgs.darwin) IOKit; };
+    nlmon = callPackage ./pkgs/nlmon { };
 
-    iml = callPackage ./pkgs/iml { };
-
-    iwinfo = callPackage ./pkgs/iwinfo { };
+    nltrace = callPackage ./pkgs/nltrace { };
 
     patchelf-git = callPackage ./pkgs/patchelf { };
 
