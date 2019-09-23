@@ -8,6 +8,10 @@ in with self; {
   # (note: true for paths and strings that look like paths)
   isPath = types.path.check;
 
+  isFloat = super.isFloat or builtins.isFloat or (f:
+    (builtins.tryEval (builtins.match "[0-9]*\\.[0-9]+" (toString f) != null)).value
+  );
+
   # Coerce into a Path type if appropriate, otherwise copy contents to store first
   # (this really should just be a module data type, like either path lines)
   asPath = name: contentsOrPath:
@@ -91,6 +95,8 @@ in with self; {
   # NOTE: a very basic/incomplete parser
   fromYAML = import ./from-yaml.nix self;
   importYAML = path: fromYAML (builtins.readFile path);
+
+  inherit (import ./toml.nix self) toTOML;
 
   # copy function signature
   copyFunctionArgs = src: dst: setFunctionArgs dst (functionArgs src);

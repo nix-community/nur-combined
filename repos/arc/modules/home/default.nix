@@ -6,6 +6,7 @@
     ./konawall.nix
     ./task.nix
     ./kakoune.nix
+    ./rustfmt.nix
     ./base16-shell.nix
     (import ./base16.nix false)
     ./symlink.nix
