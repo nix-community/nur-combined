@@ -39,6 +39,7 @@ let toplevel = {
       inherit (pkgs.llvmPackages_5) llvm;
     };
 
+    # TODO: fix NUR eval with this included!
     # enamel = callPackage ./pkgs/enamel { };
 
     capstone_3 = callPackage ./pkgs/fcd/capstone.nix { };
@@ -69,6 +70,9 @@ let toplevel = {
     htop3beta = callPackage ./pkgs/htop/3.nix { inherit (pkgs.darwin) IOKit; };
 
     iml = callPackage ./pkgs/iml { };
+
+    iwinfo = callPackage ./pkgs/iwinfo { };
+
     patchelf-git = callPackage ./pkgs/patchelf { };
 
     samurai = callPackage ./pkgs/samurai { };
@@ -133,6 +137,11 @@ let toplevel = {
     slipstream-libipc = callPackage ./pkgs/slipstream/libipc.nix { };
 
     toybox = callPackage ./pkgs/toybox { };
+
+    libubox = callPackage ./pkgs/libubox { };
+    ubox = callPackage ./pkgs/ubox { };
+    ubus = callPackage ./pkgs/ubus { };
+    uci = callPackage ./pkgs/uci { };
 
     vmir = callPackage ./pkgs/vmir { };
     vmir-clang4 = callPackage ./pkgs/vmir { inherit (pkgs.llvmPackages_4) stdenv; };

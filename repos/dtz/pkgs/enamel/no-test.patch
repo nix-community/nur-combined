@@ -1,0 +1,26 @@
+From c3b40286c05a7e6be9d974a81a9704a9d4c6e641 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Tue, 17 Sep 2019 17:49:45 -0500
+Subject: [PATCH] enamel-core: drop test, requires ~/.mail/.notmuch to exist
+ (at least
+
+---
+ enamel-core/Cargo.toml | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/enamel-core/Cargo.toml b/enamel-core/Cargo.toml
+index 8788259..315e27e 100644
+--- a/enamel-core/Cargo.toml
++++ b/enamel-core/Cargo.toml
+@@ -47,8 +47,3 @@ default = ["glib/futures"]
+ [dev-dependencies]
+ cargo-expand = "*"
+ 
+-
+-[[test]]
+-name = "main"
+-harness = false
+-
+-- 
+2.23.GIT
+

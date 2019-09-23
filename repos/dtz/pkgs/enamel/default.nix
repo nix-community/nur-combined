@@ -17,20 +17,20 @@ let
   };
 in rustPlatform.buildRustPackage rec {
   name = "enamel-${version}";
-  version = "2019-09-09";
+  version = "2019-09-17";
 
   src = fetchFromGitHub {
     owner = "vhdirk";
     repo = "enamel";
-    rev = "11f500f98e57e4d0a7248146138676c2941b20a3";
-    sha256 = "09h1wq346r9fyx984g45hfaz4bnwa41yam718v3dm8wxaig3cvws";
+    rev = "6be0185fcee9d89b878a3434e2bbc7db982ab112";
+    sha256 = "1nq13lyq59rq0vchiqj8b8xlk5ac2w0cn6drpcgj80kqbaq6g440";
   };
 
   buildInputs = [ sassc glib gtk3 notmuch libsoup gmime3 webkitgtk capnproto ];
 
-  cargoSha256 = "0j97p3nd8chqs7w8068kgii2skjid7690r03gd3bx1l3v81ynqwz";
+  cargoSha256 = "1y9l31mncm9m99msfj55wxglprp7y74dlpbfw2nixkn69gfm3rpn";
 
-  cargoPatches = [ ./deps.patch ./cargo-lock.patch ];
+  cargoPatches = [ ./cargo-lock.patch ./no-test.patch ];
   # cargoBuildFlags = [ "-p" "enamel-tui" ];
 
   # doCheck = false;
