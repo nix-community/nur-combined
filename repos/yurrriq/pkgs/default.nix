@@ -9,7 +9,7 @@ in
 rec {
   inherit (lib) buildK8sEnv;
 
-  inherit (_nixpkgs) autojump conftest elixir_1_8 eksctl sops;
+  inherit (_nixpkgs) autojump cachix conftest elixir_1_8 eksctl next sops;
 
   cedille = _nixpkgs.cedille.override {
     inherit (pkgs.haskellPackages) alex happy Agda ghcWithPackages;
@@ -18,8 +18,6 @@ rec {
   emacsPackages.cedille = _nixpkgs.emacsPackages.cedille.override {
     inherit cedille;
   };
-
-  inherit (_nixpkgs) firefox;
 
   gap-pygments-lexer = pkgs.callPackage ./tools/misc/gap-pygments-lexer {
     pythonPackages = pkgs.python2Packages;
