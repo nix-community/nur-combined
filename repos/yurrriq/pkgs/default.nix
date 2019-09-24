@@ -9,7 +9,7 @@ in
 rec {
   inherit (lib) buildK8sEnv;
 
-  inherit (_nixpkgs) autojump cachix conftest elixir_1_8 eksctl next sops;
+  inherit (_nixpkgs) autojump cachix conftest elixir_1_8 eksctl firefox sops;
 
   cedille = _nixpkgs.cedille.override {
     inherit (pkgs.haskellPackages) alex happy Agda ghcWithPackages;
