@@ -46,6 +46,8 @@ let toplevel = {
     fcd4 = callPackage ./pkgs/fcd/4.nix { };
     fcd4-tests = callPackage ./pkgs/fcd/test.nix { fcd = fcd4; };
 
+    focal = callPackage ./pkgs/focal { };
+
     htop3beta = callPackage ./pkgs/htop/3.nix { inherit (pkgs.darwin) IOKit; };
 
     iml = callPackage ./pkgs/iml { };
@@ -154,6 +156,8 @@ let toplevel = {
     vmir-clang4 = callPackage ./pkgs/vmir { inherit (pkgs.llvmPackages_4) stdenv; };
     vmir-clang5 = callPackage ./pkgs/vmir { inherit (pkgs.llvmPackages_5) stdenv; };
     vmir-clang6 = callPackage ./pkgs/vmir { inherit (pkgs.llvmPackages_6) stdenv; };
+
+    wtplan = callPackage ./pkgs/wtplan { };
 
     ycomp = callPackage ./pkgs/ycomp { };
 
