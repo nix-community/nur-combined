@@ -30,7 +30,7 @@
         nightly = rustPlatformFor (rustChannel.nightly.override {
           date = "2019-09-13";
           sha256 = "06881g7ba2hzmfq5vaz888d2q762zf4bxjc621rw3g8z702ps7w9";
-          manifestPath = ./rust/channel-rust-nightly.toml;
+          manifestPath = ./channel-rust-nightly.toml;
         });
         impure = mapAttrs (_: rustPlatformFor) {
           inherit (rustChannel) stable beta nightly;

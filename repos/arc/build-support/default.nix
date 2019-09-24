@@ -15,7 +15,7 @@
     (call ./linux.nix) //
     (call ./kakoune.nix) //
     (call ./weechat.nix) //
-    (call ./rust.nix) //
+    (call ./rust) //
     (call ./base16.nix) //
     (call ./misc.nix) //
     {

@@ -30,6 +30,10 @@ in with self; {
   # named // operator
   update = a: b: a // b;
 
+  unlessNull = item: alt:
+    if item == null then alt else item;
+  coalesce = foldl unlessNull null;
+
   # alias in lib, syntax is removeAttrs attrs [ "blacklist" ]
   removeAttrs = builtins.removeAttrs;
 
