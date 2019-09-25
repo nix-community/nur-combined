@@ -1,4 +1,5 @@
 language: nix
+nix: 2.3
 sudo: false
 env:
   global:
@@ -17,8 +18,6 @@ install:
 - nix-channel --list
 - nix-channel --add "${NIX_CHANNEL}" nixpkgs
 - travis_retry nix-channel --update
-- nix-env -u nix
-- nix --version
 - if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix; fi
 - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
 script:
