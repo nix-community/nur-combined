@@ -1,0 +1,22 @@
+diff --git a/src/Makefile.in b/src/Makefile.in
+index 76aa6a1ec5..d78d021a2e 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -570,7 +570,7 @@ emacs$(EXEEXT):
+                 lisp.mk $(etc)/DOC $(lisp) \
+                 $(lispsource)/international/charprop.el ${charsets}
+ ifeq ($(DUMPING),unexec)
+-	LC_ALL=C $(RUN_TEMACS) -batch $(BUILD_DETAILS) -l loadup --temacs=dump
++	env -i LC_ALL=C $(RUN_TEMACS) -batch $(BUILD_DETAILS) -l loadup --temacs=dump
+   ifneq ($(PAXCTL_dumped),)
+ 	      $(PAXCTL_dumped) emacs$(EXEEXT)
+   endif
+@@ -581,7 +581,7 @@ emacs$(EXEEXT):
+ 
+ ifeq ($(DUMPING),pdumper)
+ $(pdmp): emacs$(EXEEXT)
+-	LC_ALL=C $(RUN_TEMACS) -batch $(BUILD_DETAILS) -l loadup --temacs=pdump
++	env -i LC_ALL=C $(RUN_TEMACS) -batch $(BUILD_DETAILS) -l loadup --temacs=pdump
+ 	cp -f $@ $(bootstrap_pdmp)
+ endif
+ 

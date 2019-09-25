@@ -1,60 +1,53 @@
-{ emacsPackagesNgFor, emacsMacport, fetchpatch, runCommand, stdenv, ncurses, writeText }:
+{ callPackage, darwin, fetchpatch, imagemagick, imagemagick7, sources, xorg }:
 
 let
-  xterm-24bit = runCommand "xterm-24bit" {
-    buildInputs = [ ncurses ];
-  } "tic -x -o $out ${./xterm-24bit.terminfo}";
+  mkEmacs = callPackage ./generic.nix;
 
-  #emacs = (emacsPackagesNgFor emacsMacport).emacsWithPackages (_: []);
+  emacs26 = mkEmacs {
+    inherit (darwin.apple_sdk.frameworks) AppKit GSS ImageIO;
+    inherit imagemagick;
 
-  patches = [
-    (fetchpatch {
-      name = "multi-tty.patch";
-      url = https://bitbucket.org/ylluminarious/emacs-mac-multi-tty/commits/08874543cb806d0c2dc7b6b5c0f5f92836b7671a/raw;
-      sha256 = "1qg0i5ap5nmrd13cxl3sbp2yhc0i88lbfqv6m5wggrzv8vzxvh50";
-    })
+    acl      = null;
+    alsaLib  = null;
+    gconf    = null;
+    gpm      = null;
+    harfbuzz = null;
+    libXaw   = xorg.libXaw;
+    Xaw3d    = null;
+    jansson  = null;
 
-    (fetchpatch {
-      name = "natural-titlebar.patch";
-      url = https://gist.github.com/lululau/f2e6314a14cc95586721272dd85a7c51/raw/f5a92d3e654cc41d0eab2b229a98ed63da82ee1c/emacs-mac-title-bar-7.4.patch;
-      sha256 = "135ynj1ibxgf18x6njwgk25f8fyxsi7mbs2fcmfv2djgj5w81f2g";
-    })
-  ];
+    src     = sources.emacs-26_3;
+    version = "26.3";
 
-  emacsPkgs = _: [];
+    patches = [
+      ./clean-env.patch
+      ./tramp-detect-wrapped-gvfsd.patch
+      (fetchpatch {
+        name   = "multicolor-font.diff";
+        url    = https://gist.githubusercontent.com/aatxe/260261daf70865fbf1749095de9172c5/raw/214b50c62450be1cbee9f11cecba846dd66c7d06/patch-multicolor-font.diff;
+        sha256 = "0a8zzf8cmjykk1gznih500p2m44ldp07dqb4l4fmp6iv6havjs1k"; })
+    ];
+  };
 
-  emacs = let
-    emacsMacportWithPatches = emacsMacport.overrideAttrs (o: {
-      patches = o.patches ++ patches;
-    });
-    emacsMacportWithPkgs = (emacsPackagesNgFor emacsMacportWithPatches).emacsWithPackages emacsPkgs;
-  in emacsMacportWithPkgs;
+  emacs27 = mkEmacs {
+    inherit (darwin.apple_sdk.frameworks) AppKit GSS ImageIO;
 
-in emacs
+    acl         = null;
+    alsaLib     = null;
+    gconf       = null;
+    gpm         = null;
+    imagemagick = imagemagick7;
+    libXaw      = xorg.libXaw;
+    Xaw3d       = null;
 
-#in runCommand emacs.name {
-#  inherit (emacs) meta;
-#} ''
-#  cp -a ${emacs} $out
+    src     = sources.emacs-master;
+    version = "27.0.50";
 
-#  cd $out
-
-#  chmod -R +w Applications
-#  cp ${./Emacs.icns} $_/Emacs.app/Contents/Resources/Emacs.icns
-
-#  cd bin
-
-#  chmod +w .
-
-#  for f in emacs{,client}; do
-#    chmod +w $f
-#    (head -n1 $f ; cat ${writeText "emacs-wrapper-patch" ''
-#      export LANG=en_CA.UTF-8
-#      export TERMINFO_DIRS=${xterm-24bit}
-#      export TERM=xterm-24bit
-#    ''} ; tail -n+2 $f) > $f.fixed
-#    mv $f.fixed $f
-#    chmod +x $f
-#  done
-
-#''
+    patches = [
+      ./clean-env-27.patch
+      ./tramp-detect-wrapped-gvfsd.patch
+    ];
+  };
+in {
+  inherit emacs26 emacs27;
+}
