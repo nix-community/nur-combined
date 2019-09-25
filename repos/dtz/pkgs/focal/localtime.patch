@@ -1,0 +1,66 @@
+diff --git a/src/outlook-calendar.c b/src/outlook-calendar.c
+index 8d64933..c4c1ca0 100644
+--- a/src/outlook-calendar.c
++++ b/src/outlook-calendar.c
+@@ -641,10 +641,17 @@ Calendar* outlook_calendar_new(CalendarConfig* cfg)
+ 	oc->sync_url = NULL;
+ 
+ 	// TODO: error handling
+-	char* localtime_link = realpath("/etc/localtime", NULL);
+-	oc->tz = g_strdup(localtime_link + strlen("/usr/share/zoneinfo/"));
+-	free(localtime_link);
+-	oc->ical_tz = icaltimezone_get_builtin_timezone(oc->tz);
++	char* zoneinfo_link = realpath("/etc/localtime", NULL);
++	g_assert_nonnull(zoneinfo_link);
++	char* X = "/zoneinfo/";
++	char* TZ = strstr(zoneinfo_link, X);
++
++	if (TZ) {
++		TZ += strlen(X);
++		oc->tz = g_strdup(TZ);
++		oc->ical_tz = icaltimezone_get_builtin_timezone(oc->tz);
++	}
++	free(zoneinfo_link);
+ 	oc->prefer_tz = g_strdup_printf("Prefer: outlook.timezone=\"%s\"", oc->tz);
+ 
+ 	return FOCAL_CALENDAR(oc);
+diff --git a/src/reminder.c b/src/reminder.c
+index 7e70f30..f26cea5 100644
+--- a/src/reminder.c
++++ b/src/reminder.c
+@@ -132,7 +132,14 @@ void reminder_init(void)
+ 	g_assert_null(reminders);
+ 
+ 	char* zoneinfo_link = realpath("/etc/localtime", NULL);
+-	current_tz = icaltimezone_get_builtin_timezone(zoneinfo_link + strlen("/usr/share/zoneinfo/"));
++	g_assert_nonnull(zoneinfo_link);
++	char* X = "/zoneinfo/";
++	char* TZ = strstr(zoneinfo_link, X);
++
++	if (TZ) {
++		TZ += strlen(X);
++		current_tz = icaltimezone_get_builtin_timezone(TZ);
++	}
+ 	free(zoneinfo_link);
+ 
+ 	update_current_time();
+diff --git a/src/week-view.c b/src/week-view.c
+index ef70067..b990ed2 100644
+--- a/src/week-view.c
++++ b/src/week-view.c
+@@ -574,7 +574,14 @@ GtkWidget* week_view_new(void)
+ 	WeekView* cw = g_object_new(FOCAL_TYPE_WEEK_VIEW, NULL);
+ 
+ 	char* zoneinfo_link = realpath("/etc/localtime", NULL);
+-	cw->current_tz = icaltimezone_get_builtin_timezone(zoneinfo_link + strlen("/usr/share/zoneinfo/"));
++	g_assert_nonnull(zoneinfo_link);
++	char* X = "/zoneinfo/";
++	char* TZ = strstr(zoneinfo_link, X);
++
++	if (TZ) {
++		TZ += strlen(X);
++		cw->current_tz = icaltimezone_get_builtin_timezone(TZ);
++	}
+ 	free(zoneinfo_link);
+ 
+ 	update_current_time(cw);

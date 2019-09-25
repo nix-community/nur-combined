@@ -14,6 +14,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./dont-crash-if-calendar-has-vtodos-not-just-vevents.patch
+    ./sync-timer.patch
+    ./localtime.patch
     (fetchpatch {
       name = "initially-showing-next-week-instead-of-current.patch";
       url = "https://github.com/ohwgiles/focal/pull/61.diff"; # diff not patch, don't want series
