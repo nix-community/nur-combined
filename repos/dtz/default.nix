@@ -78,6 +78,8 @@ let toplevel = {
       inherit (pkgs.llvmPackages_4) llvm clang;
     };
 
+    notify-send-sh = callPackage ./pkgs/notify-send.sh { };
+
     nlmon = callPackage ./pkgs/nlmon { };
 
     nltrace = callPackage ./pkgs/nltrace { };
