@@ -48,6 +48,26 @@ let
       ./tramp-detect-wrapped-gvfsd.patch
     ];
   };
+
+  emacs27-lucid = mkEmacs {
+    inherit (darwin.apple_sdk.frameworks) AppKit GSS ImageIO;
+    imagemagick = imagemagick7;
+    libXaw      = xorg.libXaw;
+    withNS      = false;
+    withX       = true;
+    withGTK2    = false;
+    withGTK3    = false;
+    gconf       = null;
+
+
+    src     = sources.emacs-master;
+    version = "27.0.50";
+
+    patches = [
+      ./clean-env-27.patch
+      ./tramp-detect-wrapped-gvfsd.patch
+    ];
+  };
 in {
-  inherit emacs26 emacs27;
+  inherit emacs26 emacs27 emacs27-lucid;
 }

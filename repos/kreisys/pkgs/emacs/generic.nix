@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     [ ncurses gconf libxml2 gnutls alsaLib acl gpm gettext jansson harfbuzz ]
     ++ lib.optionals stdenv.isLinux [ dbus libselinux systemd ]
     ++ lib.optionals withX
-      [ xlibsWrapper libXaw Xaw3d libXpm libpng libjpeg libungif libtiff librsvg libXft
+      [ cairo xlibsWrapper libXaw Xaw3d libXpm libpng libjpeg libungif libtiff librsvg libXft
         gconf ]
     ++ lib.optionals (withX || withNS) [ imagemagick ]
     ++ lib.optionals (stdenv.isLinux && withX) [ m17n_lib libotf ]
@@ -66,14 +66,14 @@ stdenv.mkDerivation rec {
     "--disable-build-details" # for a (more) reproducible build
     "--with-modules"
   ] ++
-    (lib.optional (withGUI && imagemagick != null) [ "--with-imagemagick" ]) ++
-    (lib.optional (jansson != null) [ "--with-json" ]) ++
+    (lib.optional (withGUI && imagemagick != null) "--with-imagemagick") ++
+    (lib.optional (jansson != null) "--with-json") ++
     (lib.optional stdenv.isDarwin
       (lib.withFeature withNS "ns")) ++
     (if withNS
       then [ "--disable-ns-self-contained" ]
     else if withX
-      then [ "--with-x-toolkit=${toolkit}" "--with-xft" ]
+      then [ "--with-x-toolkit=${toolkit}" "--with-xft" ] ++ (lib.optional (cairo != null) "--with-cairo")
       else [ "--with-x=no" "--with-xpm=no" "--with-jpeg=no" "--with-png=no"
              "--with-gif=no" "--with-tiff=no" ])
     ++ lib.optional withXwidgets "--with-xwidgets";
