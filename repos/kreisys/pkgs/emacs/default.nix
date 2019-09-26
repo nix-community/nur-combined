@@ -52,6 +52,7 @@ let
   emacs27-lucid = mkEmacs {
     inherit (darwin.apple_sdk.frameworks) AppKit GSS ImageIO;
 
+    alsaLib     = null;
     imagemagick = imagemagick7;
     libXaw      = xorg.libXaw;
     withNS      = false;
