@@ -13,7 +13,7 @@ in {
 
   docker-distribution = callPackage ./docker-distribution     { };
 
-  inherit (emacsen) emacs26 emacs27;
+  inherit (emacsen) emacs26 emacs27 emacs27-lucid;
 
   fishPlugins = recurseIntoAttrs (callPackages ./fish-plugins { });
 
