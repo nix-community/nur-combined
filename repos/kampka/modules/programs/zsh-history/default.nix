@@ -28,6 +28,7 @@ in
       ZSH_HISTORY_KEYBIND_ARROW_DOWN="^n"
       ZSH_HISTORY_AUTO_SYNC=false
       ZSH_HISTORY_FILTER_OPTIONS="--filter-dir --filter-status"
+      ZSH_HISTORY_FILTER_OPTIONS_BY_DIR="--filter-dir --filter-branch --filter-status"
 
       source ${zsh-history.out}/share/zsh/init.zsh
 
