@@ -265,10 +265,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.9.26";
+      version = "19.9.27";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3412115/refined_github-19.9.26-an+fx.xpi?src=";
-      sha256 = "a8209b7042213575f1a7dea943aef1dfeb7f4a29640696ef96f2aebcbb7c17d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3413325/refined_github-19.9.27-an+fx.xpi?src=";
+      sha256 = "82f075786f70d59147292c11217b34a03fd235607db26737c9f79af03f088a65";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -345,10 +345,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.22.2";
+      version = "1.22.4";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3398284/ublock_origin-1.22.2-an+fx.xpi?src=";
-      sha256 = "85ceffa542f0fa0ce3b1b481314098d2941413f04d464b70db7ef7c99dc81078";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3412681/ublock_origin-1.22.4-an+fx.xpi?src=";
+      sha256 = "b5b734095af64cf9e019eb117cc97cf7e5c7d18a2f8ea9e3fd8955158c5929d6";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
