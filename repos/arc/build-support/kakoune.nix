@@ -5,15 +5,16 @@
     name ? "${pname}-${attrs.version}",
     pname ? (builtins.parseDrvName name).name,
     kakrc ? "share/kak/autoload/${pname}.kak",
+    kakInstall ? true,
     ...
   } @ attrs: let
-    attrs' = builtins.removeAttrs attrs [ "mkDerivation" ];
+    attrs' = builtins.removeAttrs attrs [ "mkDerivation" "kakInstall" ];
     buildKakrc = drv: {
       kakrc = "${drv}/${kakrc}";
     };
     drv = mkDerivation ({
       inherit kakrc;
-    } // lib.optionalAttrs (src != null) {
+    } // lib.optionalAttrs (src != null && kakInstall) {
       installPhase = ''
         runHook preInstall
 

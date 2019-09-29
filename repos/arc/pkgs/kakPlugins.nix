@@ -41,6 +41,7 @@
   };
   kak-tree = { fetchFromGitHub, rustPlatform, buildKakPluginFrom2Nix, lib, darwin, hostPlatform }: buildKakPluginFrom2Nix rec {
     mkDerivation = rustPlatform.buildRustPackage;
+    kakInstall = false;
 
     kakrc = "share/kak/autoload/tree.kak";
     pname = "kak-tree";
@@ -69,6 +70,7 @@
   };
   kak-lsp = { fetchFromGitHub, rustPlatform, buildKakPluginFrom2Nix, lib, darwin, hostPlatform }: buildKakPluginFrom2Nix rec {
     mkDerivation = rustPlatform.buildRustPackage;
+    kakInstall = false;
 
     pname = "kak-lsp";
     version = "6.2.1";
