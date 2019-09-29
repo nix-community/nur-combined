@@ -4,12 +4,16 @@ let
       doInstallCheck = !hostPlatform.isDarwin;
     });
 
-    nix-readline = { nix, readline }: nix.overrideAttrs (old: {
+    nix-readline = { nix, readline, fetchurl }: nix.overrideAttrs (old: {
       buildInputs = old.buildInputs ++ [ readline ];
+      patches = old.patches or [] ++ [ (fetchurl {
+        name = "readline-completion.patch";
+        url = "https://github.com/arcnmx/nix/commit/f4d1453c2b86aa576f1a707d47eb2174fd7e4a90.patch";
+        sha256 = "18b3bv0wjkx5hmrmhbzf6rl6swcx8ibk29c5pk4fysjd71rfd5d0";
+      }) ];
       EDITLINE_LIBS = "${readline}/lib/libreadline${nix.stdenv.hostPlatform.extensions.sharedLibrary}";
       EDITLINE_CFLAGS = "-DREADLINE";
       doInstallCheck = old.doInstallCheck or false && !nix.stdenv.isDarwin;
-      meta.broken = true;
     });
 
     vim_configurable-pynvim = { vim_configurable, python3 }: vim_configurable.override {
