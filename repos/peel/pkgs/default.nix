@@ -8,7 +8,6 @@
     inherit (pkgs) stdenv fetchFromGitHub pkgconfig;
     inherit (pkgs.qt5) qtbase qmake qttools qtmacextras qtx11extras;
   };
-  # remacs = pkgs.callPackage ./pkgs/applications/editors/emacs/remacs.nix {};
   scripts = pkgs.callPackage ./misc/scripts {
     inherit pkgs; inherit (pkgs) stdenv;
   };
