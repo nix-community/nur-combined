@@ -1,4 +1,4 @@
-{ fetchFromGitHub, yarn2nix, yarn, vimUtils }: let
+{ fetchFromGitHub, yarn2nix, yarn, vimUtils, nodePackages }: let
   pname = "coc-nvim";
   version = "0.0.74";
   src = fetchFromGitHub {
@@ -17,21 +17,26 @@
 in vimUtils.buildVimPluginFrom2Nix {
   inherit version pname src;
 
+  nativeBuildInputs = with nodePackages; [ webpack-cli yarn ];
+  NODE_PATH = "${nodePackages.webpack}/lib/node_modules";
+
   configurePhase = ''
     mkdir -p node_modules
     ln -s ${deps}/node_modules/* node_modules/
     ln -s ${deps}/node_modules/.bin node_modules/
+
+    # fragile :(
+    substituteInPlace webpack.config.js \
+      --replace "/Users/chemzqm/.config/yarn/global/node_modules/" "" \
+      --replace "git rev-parse HEAD" "echo $version" \
+      --replace "res.slice(0, 10)" "res"
   '';
 
   buildPhase = ''
-    ${yarn}/bin/yarn build
-  '';
+    yarn build
 
-  postFixup = ''
-    substituteInPlace $target/autoload/coc/util.vim \
-      --replace "'yarnpkg'" "'${yarn}/bin/yarnpkg'"
-    substituteInPlace $target/autoload/health/coc.vim \
-      --replace "'yarnpkg'" "'${yarn}/bin/yarnpkg'"
+    webpack-cli
+    rm -r node_modules
   '';
 
   meta.broken = !(builtins.tryEval yarn2nix).success;

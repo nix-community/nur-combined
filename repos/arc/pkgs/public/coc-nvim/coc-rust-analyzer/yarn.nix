@@ -10,11 +10,11 @@
       };
     }
     {
-      name = "_types_node___node_12.7.5.tgz";
+      name = "_types_node___node_12.7.8.tgz";
       path = fetchurl {
-        name = "_types_node___node_12.7.5.tgz";
-        url  = "https://registry.yarnpkg.com/@types/node/-/node-12.7.5.tgz";
-        sha1 = "e19436e7f8e9b4601005d73673b6dc4784ffcc2f";
+        name = "_types_node___node_12.7.8.tgz";
+        url  = "https://registry.yarnpkg.com/@types/node/-/node-12.7.8.tgz";
+        sha1 = "cb1bf6800238898bc2ff6ffa5702c3cadd350708";
       };
     }
     {
@@ -3290,11 +3290,11 @@
       };
     }
     {
-      name = "ts_loader___ts_loader_6.1.0.tgz";
+      name = "ts_loader___ts_loader_6.1.2.tgz";
       path = fetchurl {
-        name = "ts_loader___ts_loader_6.1.0.tgz";
-        url  = "https://registry.yarnpkg.com/ts-loader/-/ts-loader-6.1.0.tgz";
-        sha1 = "999cb0a7644f9c7c6c0901802dce50ceb0a76e5b";
+        name = "ts_loader___ts_loader_6.1.2.tgz";
+        url  = "https://registry.yarnpkg.com/ts-loader/-/ts-loader-6.1.2.tgz";
+        sha1 = "ff6bc767334970226438949fbde2e211147a1325";
       };
     }
     {
@@ -3474,6 +3474,14 @@
       };
     }
     {
+      name = "vscode_jsonrpc___vscode_jsonrpc_5.0.0_next.2.tgz";
+      path = fetchurl {
+        name = "vscode_jsonrpc___vscode_jsonrpc_5.0.0_next.2.tgz";
+        url  = "https://registry.yarnpkg.com/vscode-jsonrpc/-/vscode-jsonrpc-5.0.0-next.2.tgz";
+        sha1 = "a44bc03f67069e53f8d8beb88b96c0cacbfefbca";
+      };
+    }
+    {
       name = "vscode_languageserver_protocol___vscode_languageserver_protocol_3.15.0_next.6.tgz";
       path = fetchurl {
         name = "vscode_languageserver_protocol___vscode_languageserver_protocol_3.15.0_next.6.tgz";
@@ -3482,11 +3490,11 @@
       };
     }
     {
-      name = "vscode_languageserver_protocol___vscode_languageserver_protocol_3.15.0_next.8.tgz";
+      name = "vscode_languageserver_protocol___vscode_languageserver_protocol_3.15.0_next.9.tgz";
       path = fetchurl {
-        name = "vscode_languageserver_protocol___vscode_languageserver_protocol_3.15.0_next.8.tgz";
-        url  = "https://registry.yarnpkg.com/vscode-languageserver-protocol/-/vscode-languageserver-protocol-3.15.0-next.8.tgz";
-        sha1 = "5e3cc0ae143fe3364820249e32f6019ce974fa9e";
+        name = "vscode_languageserver_protocol___vscode_languageserver_protocol_3.15.0_next.9.tgz";
+        url  = "https://registry.yarnpkg.com/vscode-languageserver-protocol/-/vscode-languageserver-protocol-3.15.0-next.9.tgz";
+        sha1 = "e768256bd5b580b25bfbc8099bc03bc4c42ebf30";
       };
     }
     {
@@ -3498,11 +3506,11 @@
       };
     }
     {
-      name = "vscode_languageserver_types___vscode_languageserver_types_3.15.0_next.4.tgz";
+      name = "vscode_languageserver_types___vscode_languageserver_types_3.15.0_next.5.tgz";
       path = fetchurl {
-        name = "vscode_languageserver_types___vscode_languageserver_types_3.15.0_next.4.tgz";
-        url  = "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.15.0-next.4.tgz";
-        sha1 = "9aae49844ef826ae656382facecc20664113c060";
+        name = "vscode_languageserver_types___vscode_languageserver_types_3.15.0_next.5.tgz";
+        url  = "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.15.0-next.5.tgz";
+        sha1 = "863d711bf47b338ff5e63ae19fb20d4fcd4d713b";
       };
     }
     {
@@ -3522,11 +3530,11 @@
       };
     }
     {
-      name = "webpack_cli___webpack_cli_3.3.8.tgz";
+      name = "webpack_cli___webpack_cli_3.3.9.tgz";
       path = fetchurl {
-        name = "webpack_cli___webpack_cli_3.3.8.tgz";
-        url  = "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.3.8.tgz";
-        sha1 = "caeaebcc26f685db1736e5decd3f01aac30123ec";
+        name = "webpack_cli___webpack_cli_3.3.9.tgz";
+        url  = "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.3.9.tgz";
+        sha1 = "79c27e71f94b7fe324d594ab64a8e396b9daa91a";
       };
     }
     {
@@ -3538,11 +3546,11 @@
       };
     }
     {
-      name = "webpack___webpack_4.40.2.tgz";
+      name = "webpack___webpack_4.41.0.tgz";
       path = fetchurl {
-        name = "webpack___webpack_4.40.2.tgz";
-        url  = "https://registry.yarnpkg.com/webpack/-/webpack-4.40.2.tgz";
-        sha1 = "d21433d250f900bf0facbabe8f50d585b2dc30a7";
+        name = "webpack___webpack_4.41.0.tgz";
+        url  = "https://registry.yarnpkg.com/webpack/-/webpack-4.41.0.tgz";
+        sha1 = "db6a254bde671769f7c14e90a1a55e73602fc70b";
       };
     }
     {
