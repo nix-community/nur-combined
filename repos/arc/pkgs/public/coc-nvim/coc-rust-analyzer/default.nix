@@ -17,6 +17,8 @@
 in vimUtils.buildVimPluginFrom2Nix {
   inherit version pname src;
 
+  patches = [ ./be-quiet.patch ];
+
   nativeBuildInputs = with nodePackages; [ webpack-cli yarn ];
   NODE_PATH = "${nodePackages.webpack}/lib/node_modules";
 
