@@ -1,12 +1,12 @@
 # file generated from go.mod using vgo2nix (https://github.com/adisbladis/vgo2nix)
 [
   {
-    goPackagePath = "github.com/docker/libcontainer";
+    goPackagePath = "github.com/Arceliar/phony";
     fetch = {
       type = "git";
-      url = "https://github.com/docker/libcontainer";
-      rev = "v2.2.1";
-      sha256 = "1qa4fijghmgw1sjpr0mppqqnw8zx5r8nyi4jghwpx3vc6mb6g2w9";
+      url = "https://github.com/Arceliar/phony";
+      rev = "af5bdbeecab6";
+      sha256 = "1lv3sb25d7aw63f47v1nib41v4a4dci3q4vwv49xr3z2qas5gnyl";
     };
   }
   {
@@ -32,8 +32,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/hjson/hjson-go";
-      rev = "a25ecf6bd222";
-      sha256 = "0iaz1jp3cgwcd6f57csnwf9m81iy3334mxh8n1v83fl7c4pcnss5";
+      rev = "9147687966d9";
+      sha256 = "1fhq67hp7a971gcycsx6k1nwnq37y3xxgkiy871hyvrks1m4jg9v";
     };
   }
   {
@@ -61,6 +61,15 @@
       url = "https://github.com/songgao/packets";
       rev = "549a10cd4091";
       sha256 = "0wf8vslmdh6aj70d3w7h8bibjslgrlyalsccqx0ax5xq7fzqmsjr";
+    };
+  }
+  {
+    goPackagePath = "github.com/songgao/water";
+    fetch = {
+      type = "git";
+      url = "https://github.com/songgao/water";
+      rev = "fd331bda3f4b";
+      sha256 = "1ypgv2wxwq4qqz70lycya419p2c8hshhmg9yvparaapsibd15kka";
     };
   }
   {
@@ -95,8 +104,8 @@
     fetch = {
       type = "git";
       url = "https://go.googlesource.com/crypto";
-      rev = "4def268fd1a4";
-      sha256 = "1bfsnari529gw34cz0zqk3d9mrkcj1ay35kangri8kbgll0ss5a6";
+      rev = "c2843e01d9a2";
+      sha256 = "01xgxbj5r79nmisdvpq48zfy8pzaaj90bn6ngd4nf33j9ar1dp8r";
     };
   }
   {
@@ -106,15 +115,6 @@
       url = "https://go.googlesource.com/net";
       rev = "74dc4d7220e7";
       sha256 = "0563yswwqknxx2gsvl0qikn0lmwalilbng8i12iw4d3v40n23s0l";
-    };
-  }
-  {
-    goPackagePath = "golang.org/x/sync";
-    fetch = {
-      type = "git";
-      url = "https://go.googlesource.com/sync";
-      rev = "112230192c58";
-      sha256 = "05i2k43j2d0llq768hg5pf3hb2yhfzp9la1w5wp0rsnnzblr0lfn";
     };
   }
   {
@@ -140,17 +140,8 @@
     fetch = {
       type = "git";
       url = "https://go.googlesource.com/tools";
-      rev = "5b18234b3ae0";
-      sha256 = "0ddh47wfwfp9iwq5v30ykhd5rq2xmn0ksmbfcnp5pi31q8qxx72l";
-    };
-  }
-  {
-    goPackagePath = "golang.org/x/xerrors";
-    fetch = {
-      type = "git";
-      url = "https://go.googlesource.com/xerrors";
-      rev = "a985d3407aa7";
-      sha256 = "00wzr5w8aadipgc3rkk8f11i41znskfj9ix5nhhaxyg7isrslgcj";
+      rev = "90fa682c2a6e";
+      sha256 = "03ic2xsy51jw9749wl7gszdbz99iijbd2bckgygl6cm9w5m364ak";
     };
   }
 ]

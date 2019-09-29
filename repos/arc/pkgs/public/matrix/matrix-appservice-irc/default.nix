@@ -1,23 +1,18 @@
 { lib, fetchFromGitHub, runCommand, yarn2nix, nodejs, nodePackages, python2, libiconv }: let
-  version = "0.12.0";
+  version = "0.13.0";
   pname = "matrix-appservice-irc";
   src = fetchFromGitHub {
     owner = "matrix-org";
     repo = pname;
     rev = version;
-    sha256 = "1awqcl3aka2l3aj2dnd935ip7wakzcr9jvsyf2xwkx4i091hv05g";
+    sha256 = "0cpdv7v7i64pzyaxfk9jwin897w7g5qhvlmvbsazsc9w6adg9ja1";
   };
-  packageJSON = runCommand "package.json" { inherit src; } ''
-    substitute $src/package.json $out --replace \
-      '"irc": "matrix-org/' \
-      '"irc": "git+https://github.com/matrix-org/'
-  '';
   nodeSources = runCommand "node-sources" {} ''
     tar --no-same-owner --no-same-permissions -xf ${nodejs.src}
     mv node-* $out
   '';
   drv = yarn2nix.mkYarnPackage {
-    inherit version pname src packageJSON;
+    inherit version pname src;
     name = "${pname}-${version}";
     yarnLock = ./yarn.lock;
     yarnNix = ./yarn.nix;
