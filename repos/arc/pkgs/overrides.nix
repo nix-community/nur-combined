@@ -176,7 +176,9 @@ let
       });
     });
 
-    kakoune = { kakoune, kakoune-unwrapped }: kakoune-unwrapped;
+    kakoune = { kakoune, kakoune-unwrapped ? null }: if kakoune-unwrapped != null
+      then kakoune-unwrapped
+      else kakoune;
 
     mustache = { nodeEnv, fetchurl }: nodeEnv.buildNodePackage rec {
       name = "mustache";
