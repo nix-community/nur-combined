@@ -14,8 +14,11 @@ in {
   };
 
   config = mkIf (cfg.install && pkgs.stdenv.isDarwin) {
-    environment.systemPackages = [pkgs.bloop];
+    environment.systemPackages = with pkgs; [ bloop adoptopenjdk-bin ];
     launchd.user.agents.bloop = {
+      environment = {
+        JAVA_HOME = "${pkgs.adoptopenjdk-bin}";
+      };
       serviceConfig.ProgramArguments = [ "${pkgs.bloop}/blp-server" ];
       serviceConfig.KeepAlive = true;
       serviceConfig.ProcessType = "Interactive";
