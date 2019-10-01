@@ -380,7 +380,7 @@
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
-        description = "An add-on which allows you to navigate with vim-like bindings.";
+        description = "Accelerates your web browsing with Vim power!!";
         license = licenses.mit;
         platforms = platforms.all;
         };
