@@ -33,5 +33,5 @@ in vimUtils.buildVimPluginFrom2Nix {
     rm -r node_modules
   '';
 
-  meta.broken = !(builtins.tryEval yarn2nix).success;
+  meta.broken = !(builtins.tryEval yarn2nix).success || yarn.stdenv.isDarwin;
 }
