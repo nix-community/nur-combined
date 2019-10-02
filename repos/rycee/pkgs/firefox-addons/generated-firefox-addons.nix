@@ -85,10 +85,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.0.2";
+      version = "2.0.3";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3383495/facebook_container-2.0.2-fx.xpi?src=";
-      sha256 = "786b46086225c00c63db646302b4d38442027a79118b2b46f7f1bc93ba04f1bb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3414682/facebook_container-2.0.3-fx.xpi?src=";
+      sha256 = "26d4b0541484ffc7364b8e429500a28bd71b9676bb92934e394661a5afcf160b";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
