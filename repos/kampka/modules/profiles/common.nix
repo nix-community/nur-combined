@@ -15,6 +15,7 @@ in
     bat
     less
     most
+    ncdu
 
     neovim
     ripgrep
