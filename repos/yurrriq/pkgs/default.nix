@@ -32,6 +32,8 @@ rec {
     inherit (pkgs.haskellPackages) alex happy Agda ghcWithPackages;
   };
 
+  elba = pkgs.callPackage ./development/tools/elba {};
+
   emacsPackages.cedille = _nixpkgs.emacsPackages.cedille.override {
     inherit cedille;
   };
