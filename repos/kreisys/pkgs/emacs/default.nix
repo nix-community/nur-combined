@@ -1,16 +1,22 @@
-{ callPackage, darwin, fetchpatch, imagemagick, imagemagick7, sources, xorg }:
+{ lib, callPackage, darwin, fetchpatch, imagemagick, imagemagick7, sources, stdenv, xorg }:
 
 let
-  mkEmacs = callPackage ./generic.nix;
+  mkEmacs = args: let
+    commonArgs = {
+      inherit (darwin.apple_sdk.frameworks) AppKit GSS ImageIO;
+      gconf   = null;
+    } // (lib.optionalAttrs stdenv.isDarwin darwinArgs);
+
+    darwinArgs = {
+      acl     = null;
+      alsaLib = null;
+      gpm     = null;
+    };
+  in callPackage ./generic.nix (commonArgs // args);
 
   emacs26 = mkEmacs {
-    inherit (darwin.apple_sdk.frameworks) AppKit GSS ImageIO;
     inherit imagemagick;
 
-    acl      = null;
-    alsaLib  = null;
-    gconf    = null;
-    gpm      = null;
     harfbuzz = null;
     libXaw   = xorg.libXaw;
     Xaw3d    = null;
@@ -30,11 +36,6 @@ let
   };
 
   emacs27 = mkEmacs {
-    inherit (darwin.apple_sdk.frameworks) AppKit GSS ImageIO;
-
-    acl         = null;
-    alsaLib     = null;
-    gconf       = null;
     gpm         = null;
     imagemagick = imagemagick7;
     libXaw      = xorg.libXaw;
@@ -50,16 +51,12 @@ let
   };
 
   emacs27-lucid = mkEmacs {
-    inherit (darwin.apple_sdk.frameworks) AppKit GSS ImageIO;
-
-    alsaLib     = null;
     imagemagick = imagemagick7;
     libXaw      = xorg.libXaw;
     withNS      = false;
     withX       = true;
     withGTK2    = false;
     withGTK3    = false;
-    gconf       = null;
 
     src     = sources.emacs-master;
     version = "27.0.50";
