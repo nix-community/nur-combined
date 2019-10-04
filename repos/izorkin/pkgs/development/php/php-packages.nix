@@ -345,12 +345,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "2.15.2";
+    version = "2.15.3";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "0kah0mck4s17rf9gwbzziwxy7gwmhr2z7l8yqjj33crh4hlqks57";
+      sha256 = "0hbc9y3676dd0841llgp1g7bhklfxi1cw47dcww0qmk69gjfv54c";
     };
 
     phases = [ "installPhase" ];
@@ -406,12 +406,12 @@ let
   };
 
   phpcbf = mkDerivation rec {
-    version = "3.4.2";
+    version = "3.5.0";
     pname = "phpcbf";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcbf.phar";
-      sha256 = "08s47r8i5dyjivk1q3nhrz40n6fx3zghrn5irsxfnx5nj9pb7ffp";
+      sha256 = "15n3r3sc62ar1kq38idw22y7gasvy747bix99zs0l0paapcbxz6n";
     };
 
     phases = [ "installPhase" ];
@@ -433,12 +433,12 @@ let
   };
 
   phpcs = mkDerivation rec {
-    version = "3.4.2";
+    version = "3.5.0";
     pname = "phpcs";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
-      sha256 = "0hk9w5kn72z9xhswfmxilb2wk96vy07z4a1pwrpspjlr23aajrk9";
+      sha256 = "078anf2r6a3p8v575m65vryazipgfchs07yb92m9xh41lk5wlndf";
     };
 
     phases = [ "installPhase" ];
@@ -460,12 +460,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.11.15";
+    version = "0.11.16";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "1fa3bq5k548jpyph2rxkgnarblyy5f1m55awjcps8mjqbw9r6439";
+      sha256 = "0c2417kwkj3nf1zya1flw7g1mz0dwhh27hjs3wz04b0kgnv4syzs";
     };
 
     phases = [ "installPhase" ];
@@ -567,10 +567,10 @@ let
   };
 
   protobuf = buildPecl rec {
-    version = "3.9.1";
+    version = "3.10.0";
     pname = "protobuf";
 
-    sha256 = "1cfwh3ksxbziazydycx64fybwl1yqga589hcknbq88rf9pmay34h";
+    sha256 = "1a1l8k2bcyjlgi02mxh5d5rcj5iyjy3lqma2k1r2lp3phzx8gbhm";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
