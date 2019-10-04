@@ -31,9 +31,11 @@ let
         librsvg
         haskellPackages.pandoc-citeproc
       ];
+      buildInputs = [ makeWrapper python ] ++ pandocPackages ++ extraPackages;
+
     in
-    runCommand name {
-      buildInputs = [ makeWrapper pandocPackages python ] ++ extraPackages;
+    runCommand name  {
+      inherit buildInputs;
     } ''
         for file in ${ lib.concatStringsSep " " filters }
         do
@@ -42,7 +44,7 @@ let
 
         makeWrapper ${pandoc}/bin/pandoc $out/bin/pandoc \
           ${ lib.concatMapStringsSep " " (filter: "--add-flags \"-F ${filter}\"") filters} \
-          --prefix PATH : "${python}/bin"
+          --prefix PATH : "${lib.makeBinPath buildInputs}"
           
       '';
   
