@@ -86,6 +86,8 @@ let toplevel = {
 
     patchelf-git = callPackage ./pkgs/patchelf { };
 
+    pfetch = callPackage ./pkgs/pfetch { };
+
     samurai = callPackage ./pkgs/samurai { };
 
     stoke = let
