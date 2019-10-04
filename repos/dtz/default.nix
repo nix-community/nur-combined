@@ -189,4 +189,4 @@ let toplevel = {
   // (pkgs.callPackages ./pkgs/svf { lib = pkgs.lib // toplevel.lib; /* FIXME */ })
   // { xlayoutdisplay = pkgs.callPackage ./pkgs/xlayoutdisplay { }; }
   ));
-}; in toplevel #  // toplevel.pkgs
+}; in toplevel.lib.recurseIntoAttrs toplevel #  // toplevel.pkgs
