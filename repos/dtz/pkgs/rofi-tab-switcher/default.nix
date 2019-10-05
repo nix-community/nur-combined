@@ -11,13 +11,13 @@ let
   };
   native_helper = stdenv.mkDerivation rec {
     pname = "rofi-tab-switcher";
-    version = "unstable-2019-09-07";
+    version = "unstable-2019-10-04";
 
     src = fetchFromGitHub {
-      owner = "blackhole89";
+      owner = "dtzWill"; # "blackhole89";
       repo = pname;
-      rev = "92fbd93114a9058d6ae7c7cd339e299fd6c6d0b9";
-      sha256 = "19lh4jgqc3lmakwnqknsac1iq2dg8f5i8xl783vfm5aw57gvp48c";
+      rev = "e7ea4db0e7d38d7e607b8d8a4bbad7440f9725b6";
+      sha256 = "0f7clns873l3jm95hkrbd7sj9l2dp4pm5i5yvrw78m3qararxr4s";
     };
 
     buildInputs = [ python3 ];
