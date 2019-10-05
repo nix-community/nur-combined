@@ -188,5 +188,6 @@ let toplevel = {
   // (pkgs.callPackages ./pkgs/xi { })
   // (pkgs.callPackages ./pkgs/svf { lib = pkgs.lib // toplevel.lib; /* FIXME */ })
   // { xlayoutdisplay = pkgs.callPackage ./pkgs/xlayoutdisplay { }; }
+  // { rofi-tab-switcher = pkgs.callPackage ./pkgs/rofi-tab-switcher { }; }
   ));
 }; in toplevel.lib.recurseIntoAttrs toplevel #  // toplevel.pkgs
