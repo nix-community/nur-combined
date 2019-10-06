@@ -10,7 +10,9 @@
     NIX_PATH = concatStringsSep ":" nixPath;
   };
   # nix 2.0 CLI adds magic default attrs for NIX_PATH entries, but doesn't support populating it from prefixless paths so fix that
-  workaround = mapAttrsToList (k: v: "${k}=${config.home.nix.nixPathDirectory}/${k}") nixPathDirs;
+  # (it will actually still load them from the prefixless path, but there need to be explicit entries so it knows the keys)
+  # alternatively: "${k}=${config.home.nix.nixPathDirectory}/${k}"
+  workaround = mapAttrsToList (k: _: "${k}=/xxx") nixPathDirs;
 in {
   options.home.nix = {
     enable = mkEnableOption "nix configuration";
