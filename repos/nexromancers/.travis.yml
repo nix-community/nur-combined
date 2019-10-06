@@ -1,4 +1,5 @@
 language: nix
+nix: 2.3
 
 sudo: false
 
@@ -9,24 +10,57 @@ env:
   - BUILD_UNFREE=false
 
 install:
-- >
-  mkdir -p "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs" &&
-  echo "{ allowUnfree = ${BUILD_UNFREE}; }" > "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs/config.nix"
+- mkdir -p "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs" &&
+  echo "{ allowUnfree = ${BUILD_UNFREE}; sandbox = true; }" >
+    "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs/config.nix"
 - nix --version
 - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
-- if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
+- if [ -n "${CACHIX_CACHE}" ]; then
+    nix-env -iA cachix -f https://cachix.org/api/v1/install;
+  fi
 - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
 - nix-channel --add "${NIX_CHANNEL}" nixpkgs
 - travis_retry nix-channel --update
 
 script:
-- nix-build ci.nix --arg buildUnfree "${BUILD_UNFREE}" -A buildOutputs
-- nix eval -f default.nix 'lib'
-- nix eval -f default.nix 'modules'
-- nix eval -f default.nix 'overlays'
-
-after_success:
-- if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
+- |
+  function sortDrvs() {
+    typeset IFS=$'\n' drvs='' drv=''
+    drvs=$( \
+      nix-instantiate --show-trace --arg buildUnfree "${BUILD_UNFREE}" \
+        "$@" | \
+      cut -d '!' -f 1 | uniq | sort \
+    )
+    for drv in $drvs; do
+      nix-store -q --graph -- "$drv" | \
+        sed -e '1d; $d' -e 's/ \[.*\];$//' \
+          -e 's/^"\(\([^"\\]\|\\"\)*\)"$/"\1" -> "\1"/' \
+          -e 's/^"\(\([^"\\]\|\\"\)*\)" -> "\(\([^"\\]\|\\"\)*\)"$/\3 \1/'
+    done | tsort | grep -xFf - <(printf '%s' "$drvs") || true
+  }
+  function nixBuildDrv() {
+    printf '\n%s\n' "building $1 (all outputs if possible)"
+    typeset paths='' s=''
+    paths=$(nix-build --show-trace -E \
+      '{drv}: let d = import drv; in d.all or d' --argstr drv "$@")
+    s=$?; if [[ "$s" != 0 ]]; then return "$s"; fi
+    if [[ -n "${CACHIX_CACHE}" ]]; then
+      <<< "$paths" cachix push "${CACHIX_CACHE}"
+      s=$?; if [[ "$s" != 0 ]]; then return "$s"; fi
+    fi
+  }
+  function nixBuildDrvs() {
+    typeset s=''
+    while IFS='' read -r drv; do
+      nixBuildDrv "$drv"
+      s=$?; if [[ "$s" != 0 ]]; then return "$s"; fi
+    done
+  }
+- sortDrvs ./ci.nix -A cacheOutputs | nixBuildDrvs
+- sortDrvs ./ci.nix -A buildOutputs | CACHIX_CACHE='' nixBuildDrvs
+- nix eval -f ./default.nix 'lib'
+- nix eval -f ./default.nix 'modules'
+- nix eval -f ./default.nix 'overlays'
 
 jobs:
   include:
@@ -35,17 +69,16 @@ jobs:
   - name: 'nixos-unstable'
     env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
   - name: 'nixos-unstable (pinned)'
-    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/7defc47944fe6d1da4c3a08c60c8332ca660a680.tar.gz
+    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/2436c27541b2f52deea3a4c1691216a02152e729.tar.gz
   - name: 'nixos-19.03'
     env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.03
   - name: 'nixos-19.03 (pinned)'
-    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/aade6ded7969ff2173a9eda4cd2f11ef83ca2768.tar.gz
+    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/77295b0bd26555c39a1ba9c1da72dbdb651fd280.tar.gz
   - stage: deploy
     name: "Notify NUR"
     if: 'type NOT IN (pull_request, cron) AND branch IN (master)'
     install:
     script:
     - curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"
-    after_success:
 
 # vim:et:sw=2
