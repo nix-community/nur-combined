@@ -18,7 +18,8 @@ in
         layout = "dvorak";
       };
 
-      services.syncthing.enable = true;
+      # Move to Linux-specific
+      # services.syncthing.enable = true;
 
       programs.bash = {
         enable = true;

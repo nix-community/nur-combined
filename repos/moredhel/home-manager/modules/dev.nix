@@ -62,7 +62,7 @@ in {
   };
 
   programs.vim = {
-    enable = true;
+    enable = false;
     plugins = [
       "typescript-vim"
       "vim-airline"
