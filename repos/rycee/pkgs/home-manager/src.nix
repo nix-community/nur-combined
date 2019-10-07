@@ -6,7 +6,7 @@ let
 
   branchMap = {
     "19.03" = ./release-19.03.json;
-    "19.09" = ./master.json;
+    "19.09" = ./release-19.09.json;
     "20.03" = ./master.json;
   };
 
