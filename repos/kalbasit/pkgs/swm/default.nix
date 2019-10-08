@@ -1,7 +1,7 @@
-{ stdenv, buildGo111Module, fetchFromGitHub }:
+{ stdenv, buildGoModule, fetchFromGitHub }:
 
-buildGo111Module rec {
-  name = "swm-${version}";
+buildGoModule rec {
+  pname = "swm";
   version = "0.2.2";
 
   src = fetchFromGitHub {
