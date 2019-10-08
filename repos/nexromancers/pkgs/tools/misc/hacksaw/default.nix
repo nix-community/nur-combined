@@ -4,16 +4,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "hacksaw-unstable";
-  version = "2019-02-20";
+  version = "2019-10-08";
 
   src = fetchFromGitHub {
     owner = "neXromancers";
     repo = "hacksaw";
-    rev = "0bee951e22240dc87b27dacc944653c9a741a1d0";
-    sha256 = "0z4pw8l895sc2cg688l9nwnl0mpabjc7fc5y3mfa0xjg4wyh5dd3";
+    rev = "fc2549f34943b2e8cd76137d1ab01b2569d7bc91";
+    sha256 = "03knw1247q8xqin17qswf681kmsdg4lalm0hhrrm5lfy5wdn5iq0";
   };
 
-  cargoSha256 = "09cc9mvf99p8nr6wh3g9a6xxb8q1z51284knlvamxk18sdc7s0h0";
+  cargoSha256 = "1jmlmz4b1x1b914c0b3g9i7qjjlyi8disb4gj58bx5ykxr2g28kc";
 
   nativeBuildInputs = [
     buildPackages.pkgconfig
