@@ -1,4 +1,4 @@
-pkgs: let
+{ pkgs }: let
   home = ../modules/home;
   nixos = ../modules/nixos;
   system = pkgs.nixos {
@@ -8,4 +8,5 @@ pkgs: let
       imports = [home];
     };
   };
-in [system]
+  # TODO: support nix-darwin
+in pkgs.lib.optional pkgs.hostPlatform.isLinux system.toplevel

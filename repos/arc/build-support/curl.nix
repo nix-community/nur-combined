@@ -3,6 +3,7 @@
     curlHeaders' = mapAttrsToList (h: v: [ "-H" "${h}: ${v}" ])
       (foldAttrList [ { User-Agent = "arcnmx-nix-channel"; } curlHeaders ]);
     curlOptions' = (flatten curlHeaders') ++ curlOptions;
+    env' = builtins.removeAttrs env [ "passthru" ];
     package = assert jqFilter == null -> jq != null; stdenvNoCC.mkDerivation ({
       inherit name curlUrl;
       outputHashMode = "flat";
@@ -33,17 +34,17 @@
         jq_filter < out.json > $out
       '';
 
-      passthru = rec {
+      passthru = env.passthru or {} // rec {
         contents = builtins.readFile package.out;
         json = builtins.fromJSON contents;
       };
-    } // env);
+    } // env');
   in package;
-  fetchGitHubApi = { fetchCurlJson, lib }: { gitHubEndpoint, gitHubOAuth2Token ? null, gitHubPostData ? null, sha256, jqFilter ? null, name ? "fetch-github-json" }: with lib; let
+  fetchGitHubApi = { fetchCurlJson, lib }: { gitHubEndpoint, gitHubOAuth2Token ? null, gitHubPostData ? null, sha256, jqFilter ? null, name ? "fetch-github-json", env ? {} }@args: with lib; let
     curlHeaders = optionalAttrs (gitHubOAuth2Token != null) { Authorization = "token ${gitHubOAuth2Token}"; };
     curlUrl = "https://api.github.com/${gitHubEndpoint}";
     curlOptions = if gitHubPostData != null then ["-d" (builtins.toJSON gitHubPostData)] else [];
-    env = {
+    env = args.env or {} // {
       inherit gitHubOAuth2Token;
       impureEnvVars = ["GITHUB_TOKEN"];
       configurePhase = ''
@@ -51,6 +52,11 @@
           CURL_OPTS+=(-H "Authorization: token $GITHUB_TOKEN")
         fi
       '';
+      passthru = args.env.passthru or {} // {
+        ci = args.env.passthru.ci or {} // {
+          skip = if gitHubOAuth2Token == null && builtins.getEnv "GITHUB_TOKEN" == "" then "no token" else false;
+        };
+      };
     };
   in fetchCurlJson { inherit curlHeaders curlUrl jqFilter sha256 name env; };
 };

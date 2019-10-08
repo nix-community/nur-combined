@@ -56,7 +56,10 @@ let
         sha256 = "0ndac9wxyhmsdjj7fnq37fd79ny5zrndqqbrkbj1xw5fn095g5b6";
       };
     in stdenv.mkDerivation rec {
-        name = "ax88179-${version}-${kernel.version}";
+        name = let
+          name = "ax88179-${version}";
+          kernel-name = builtins.tryEval "${name}-${kernel.version}";
+        in if kernel-name.success then kernel-name.value else name;
         version = "1.19.0";
 
         src = fetchurl {

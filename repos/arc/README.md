@@ -7,5 +7,5 @@ nix run nixpkgs.cachix -c cachix use arc
 ```
 
 
-[ci-badge]: https://dev.azure.com/arcnmx/nixexprs/_apis/build/status/arc?branchName=master
-[ci]: https://dev.azure.com/arcnmx/nixexprs/_build/latest?definitionId=2
+[ci-badge]: https://github.com/arcnmx/nixexprs/workflows/arc-nixexprs/badge.svg
+[ci]: https://github.com/arcnmx/nixexprs/actions?workflow=arc-nixexprs

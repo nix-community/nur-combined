@@ -16,6 +16,8 @@ let
         --set-default NIX_PATH nixpkgs=${path}
     '';
 
+    passthru.ci.cache.wrap = true;
+
     meta.platforms = lib.platforms.linux;
   };
   /*config = { lib, nix }: {

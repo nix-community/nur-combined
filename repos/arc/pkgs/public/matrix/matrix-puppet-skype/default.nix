@@ -10,6 +10,7 @@
   version = rev;
   drv = yarn2nix.mkYarnPackage {
     inherit version pname src;
+    name = "${pname}-${version}";
     packageJSON = src + "/package.json";
     yarnLock = src + "/yarn.lock";
     yarnNix = ./yarn.nix;
@@ -22,7 +23,7 @@
 
     meta = {
       broken = !(builtins.tryEval yarn2nix).success;
-      skip.ci = true; # derivation name depends on the package json...
     };
+    passthru.ci.omit = true; # derivation name depends on the package json...
   };
 in lib.drvExec "bin/${drv.pname}" drv

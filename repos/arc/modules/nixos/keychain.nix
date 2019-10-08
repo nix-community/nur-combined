@@ -4,7 +4,7 @@ isNixos: { pkgs, config, lib, ... }: with lib; let
   activationScript = ''
     ${pkgs.coreutils}/bin/install -dm 0755 ${cfg.root}
     ${concatStringsSep "\n" (mapAttrsToList (_: f: ''
-      ${pkgs.coreutils}/bin/install -Dm${f.mode} -o${f.owner} -g${f.group} ${f.sourceFile} ${f.path}
+      ${pkgs.coreutils}/bin/install -Dm${f.mode} ${optionalString isNixos "-o${f.owner} -g${f.group}"} ${f.sourceFile} ${f.path}
     '') config.keychain.files)
     }
   '';
