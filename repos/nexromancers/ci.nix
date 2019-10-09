@@ -16,7 +16,7 @@ let
       url = https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
     };
 in
-{ pkgs ? import nixpkgs { }, buildUnfree ? false }:
+{ pkgs ? import nixpkgs { }, buildUnfree ? false, flattened ? false }:
 
 with builtins;
 
@@ -32,6 +32,14 @@ let
 
   nameValuePair = n: v: { name = n; value = v; };
 
+  nurAttrs = import ./default.nix { inherit pkgs; };
+
+  nurPkgsAttrs =
+    listToAttrs
+    (map (n: nameValuePair n nurAttrs.${n})
+    (filter (n: !isReserved n)
+    (attrNames nurAttrs)));
+
   concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
 
   flattenPkgs = s:
@@ -40,26 +48,18 @@ let
         if shouldRecurseForDerivations p then flattenPkgs p
         else if isDerivation p then [p]
         else [];
-    in
-      concatMap f (attrValues s);
+    in concatMap f (attrValues s);
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
-
-  nurPkgs =
-    flattenPkgs
-    (listToAttrs
-    (map (n: nameValuePair n nurAttrs.${n})
-    (filter (n: !isReserved n)
-    (attrNames nurAttrs))));
+  nurPkgs = flattenPkgs nurPkgsAttrs;
 
 in
 
-rec {
+if flattened then rec {
   buildPkgs = filter isBuildable nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;
 
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;
-}
+} else nurPkgsAttrs

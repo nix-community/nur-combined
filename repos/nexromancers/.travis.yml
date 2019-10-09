@@ -56,8 +56,9 @@ script:
       s=$?; if [[ "$s" != 0 ]]; then return "$s"; fi
     done
   }
-- sortDrvs ./ci.nix -A cacheOutputs | nixBuildDrvs
-- sortDrvs ./ci.nix -A buildOutputs | CACHIX_CACHE='' nixBuildDrvs
+- sortDrvs ./ci.nix --arg flattened true -A cacheOutputs | nixBuildDrvs
+- sortDrvs ./ci.nix --arg flattened true -A buildOutputs |
+  CACHIX_CACHE='' nixBuildDrvs
 - nix eval -f ./default.nix 'lib'
 - nix eval -f ./default.nix 'modules'
 - nix eval -f ./default.nix 'overlays'
