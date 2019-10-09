@@ -9,7 +9,14 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ pkgs ? import <nixpkgs> { }, buildUnfree ? false }:
+let
+  pathNixpkgs = builtins.tryEval <nixpkgs>;
+  nixpkgs = if pathNixpkgs.success then pathNixpkgs.value
+    else builtins.fetchTarball {
+      url = https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
+    };
+in
+{ pkgs ? import nixpkgs { }, buildUnfree ? false }:
 
 with builtins;
 
