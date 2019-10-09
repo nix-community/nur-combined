@@ -60,13 +60,8 @@ let
     });
 
     weechat-arc = { lib, wrapWeechat, weechat-unwrapped, weechatScripts, pythonPackages, python3Packages }: let
-      pythonOverride = if lib.isNixpkgsStable then {
-        inherit pythonPackages;
-      } else {
-        inherit python3Packages;
-      };
-      wrapWeechat' = wrapWeechat.override pythonOverride;
-      weechat-unwrapped' = weechat-unwrapped.override pythonOverride;
+      wrapWeechat' = wrapWeechat.override { inherit python3Packages; };
+      weechat-unwrapped' = weechat-unwrapped.override { inherit python3Packages; };
       weechat-wrapped = wrapWeechat' weechat-unwrapped' {
         configure = { availablePlugins, ... }: {
           plugins = with availablePlugins; [
@@ -104,22 +99,18 @@ let
     });
 
     electrum-cli = { lib, electrum }: let
-      electrum-cli = if lib.isNixpkgsUnstable
-        then electrum.override { enableQt = false; }
-        else electrum;
+      electrum-cli = electrum.override { enableQt = false; };
     in electrum-cli.overrideAttrs (old: {
       meta = old.meta // {
-        broken = old.meta.broken or false || lib.isNixpkgsStable || electrum.stdenv.isDarwin;
+        broken = old.meta.broken or false || electrum.stdenv.isDarwin;
       };
     });
 
     duc-cli = { lib, duc }: let
-      duc-cli = if lib.isNixpkgsUnstable
-        then duc.override { enableCairo = false; }
-        else duc;
+      duc-cli = duc.override { enableCairo = false; };
     in duc-cli.overrideAttrs (old: {
       meta = old.meta // {
-        broken = old.meta.broken or false || lib.isNixpkgsStable;
+        broken = old.meta.broken or false;
       };
     });
 

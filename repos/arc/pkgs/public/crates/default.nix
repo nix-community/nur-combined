@@ -28,10 +28,7 @@
       sha256 = "16181p7ghvy9mqippg1xi2cw7yxvicis8v6n39wly5qw05i57aw2";
     };
 
-    patches = lib.optional lib.isNixpkgsStable ./cargo-deps-mrv.patch;
-    cargoSha256 = if lib.isNixpkgsStable
-      then "1wcvk3flmvs7617j7zrrsf4kwsapvn10xd9337rp5rx7kci1r7q8"
-      else "1a9svdw1cgk6s7gqpsq3r25wxa2gr2xddqkc1cjk7hf6sk327cpv";
+    cargoSha256 = "1a9svdw1cgk6s7gqpsq3r25wxa2gr2xddqkc1cjk7hf6sk327cpv";
   };
 
   cargo-download = {
@@ -50,9 +47,7 @@
     nativeBuildInputs = lib.optional hostPlatform.isLinux pkgconfig;
     buildInputs = lib.optional hostPlatform.isLinux openssl
       ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
-    cargoSha256 = if lib.isNixpkgsStable
-      then "00j3gkqzcnj4qlpxw0l276djgjfalq849i4vhjaiga80d2lkms29"
-      else "00sja62fykd3x1lq48as30xss301m04r0qj8c9rlv297yxnlz1vx";
+    cargoSha256 = "00sja62fykd3x1lq48as30xss301m04r0qj8c9rlv297yxnlz1vx";
   };
 
   cargo-with = { fetchFromGitHub, rustPlatform, lib }: rustPlatform.buildRustPackage rec {
@@ -66,9 +61,7 @@
     };
 
     cargoPatches = [ ./cargo-with-lock.patch ];
-    cargoSha256 = if lib.isNixpkgsStable
-      then "01hy0bwj76hg16fq5s3nrmj7ddqwggm6s038isjhsmlwkm0j3crz"
-      else "0x08nc9d6jgrfnlrnyrln2lvxr7dpys4sfh2lvq0814bfg22byid";
+    cargoSha256 = "0x08nc9d6jgrfnlrnyrln2lvxr7dpys4sfh2lvq0814bfg22byid";
   };
 
   cargo-info = {
@@ -92,9 +85,7 @@
       url = "https://gitlab.com/imp/cargo-info/commit/635a128a9e46ee9f3c443ed070da63b3ebb78033.diff";
       sha256 = "14vz860a40njx4fdaxdw1iy92isihgab65x5c6kxb68iha6bg4j9";
     }) ];
-    cargoSha256 = if lib.isNixpkgsStable
-      then "0cfr002v4myhbsdnkp5lw58wrsqvq0fz9kf5x7z8w52nl4x78n9g"
-      else "1fw8fd67ixhy13xvfkssssy5b78n5dgq4qr0m0xvi50i2553rlgj";
+    cargoSha256 = "1fw8fd67ixhy13xvfkssssy5b78n5dgq4qr0m0xvi50i2553rlgj";
 
     nativeBuildInputs = lib.optional hostPlatform.isLinux pkgconfig;
     buildInputs = lib.optional hostPlatform.isLinux openssl
@@ -114,9 +105,7 @@
     RUSTC_BOOTSTRAP = true;
 
     patches = [ ./xargo-stable.patch ];
-    cargoSha256 = if lib.isNixpkgsStable
-      then "07s2md5k9k0cgl3badhljmdd17151ysgcg5d8dm5a7p48yz2v2vm"
-      else "0cmdi9dcdn2nzk1h5n764305h9nzk5qzzjwgq1k86mxsn49i5w8c";
+    cargoSha256 = "0cmdi9dcdn2nzk1h5n764305h9nzk5qzzjwgq1k86mxsn49i5w8c";
 
     doCheck = false;
   };
@@ -186,9 +175,7 @@
     cargoPatches = [ ./cargo-binutils-lock.patch ];
     patches = [ ./cargo-binutils-path.patch ];
 
-    cargoSha256 = if lib.isNixpkgsStable
-      then "1lqdcjwfndak59i89rzb1bfyc4p0644ahyyi6mvbll3p5h6h47gj"
-      else "0cvsw06r174xc5zn04glcvlc2ckjj32y7bs8qk1wicm28nkq71qp";
+    cargoSha256 = "0cvsw06r174xc5zn04glcvlc2ckjj32y7bs8qk1wicm28nkq71qp";
 
     doCheck = false;
 
@@ -237,9 +224,7 @@
 
     cargoPatches = [ ./cargo-call-stack-lock.patch ];
     patches = [ ./cargo-call-stack-intrinsics.patch ];
-    cargoSha256 = if lib.isNixpkgsStable
-      then "1ssb5kwjmiwnzsxpc9581vmv77xrycvxpjb42gm3hj8vnhlqc2ml"
-      else "0wwdyzavq2x9iand65nzrabn7hlv36ygvrmr3996dxc90k7jg7v9";
+    cargoSha256 = "0wwdyzavq2x9iand65nzrabn7hlv36ygvrmr3996dxc90k7jg7v9";
 
     meta.broken = !lib.rustVersionAtLeast rustPlatform "1.33";
   };
@@ -259,9 +244,7 @@
 
     cargoPatches = [ ./cargo-stack-sizes-lock.patch ];
     patches = [ ./cargo-stack-sizes-warn.patch ./cargo-stack-sizes-features.patch ];
-    cargoSha256 = if lib.isNixpkgsStable
-      then "0ph5lhxk01rn68jk7981r61pi1wfhrzrv6h4a0h2cndg3n93vg1x"
-      else "1zmfa7s0zcwkkqfqk2svashl9a0mnpscyn1p9ds9k423r52gifwk";
+    cargoSha256 = "1zmfa7s0zcwkkqfqk2svashl9a0mnpscyn1p9ds9k423r52gifwk";
 
     doCheck = false; # there are no tests
   };
@@ -281,8 +264,6 @@
 
     cargoPatches = [ ./cargo-llvm-lines-lock.patch ];
     patches = [ ./cargo-llvm-lines-features.patch ./cargo-llvm-lines-fix-filter.patch ];
-    cargoSha256 = if lib.isNixpkgsStable
-      then "0b4zq7ck2plxbl8phndgajsrc81ym7la0v5ikap4jrfvmiz94h6h"
-      else "0arjrs67z9rqbkrs77drj068614kg2n3y4f1wyf103bsad0vy783";
+    cargoSha256 = "0arjrs67z9rqbkrs77drj068614kg2n3y4f1wyf103bsad0vy783";
   };
 }

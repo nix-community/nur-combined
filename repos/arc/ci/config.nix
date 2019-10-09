@@ -80,13 +80,9 @@ in {
     stable = {
       system = "x86_64-linux";
       channels = {
-        nixpkgs.version = "19.03";
-        home-manager = "release-19.03";
+        nixpkgs.version = "19.09";
+        home-manager = "release-19.09";
       };
-    };
-    beta = {
-      system = "x86_64-linux";
-      channels.nixpkgs.version = "19.09";
     };
     unstable = {
       system = "x86_64-linux";
@@ -105,14 +101,9 @@ in {
     stable-mac = {
       system = "x86_64-darwin";
       channels = {
-        nixpkgs.version = "19.03";
-        home-manager = "release-19.03";
+        nixpkgs.version = "19.09";
+        home-manager = "release-19.09";
       };
-      warn = true;
-    };
-    beta-mac = {
-      system = "x86_64-darwin";
-      channels.nixpkgs.version = "19.09";
       warn = true;
     };
     unstable-mac = {

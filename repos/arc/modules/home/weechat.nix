@@ -25,9 +25,7 @@
       );
     scripts = drvAttrsFor pkgs.weechatScripts cfg.scripts;
   };
-  pythonOverride = if pkgs.lib.isNixpkgsStable then {
-    inherit (cfg) pythonPackages;
-  } else {
+  pythonOverride = {
     python3Packages = cfg.pythonPackages;
   };
 in {

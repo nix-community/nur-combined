@@ -53,5 +53,5 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  meta.broken = lib.isNixpkgsStable || pythonPackages.python.isPy2;
+  meta.broken = pythonPackages.python.isPy2;
 }

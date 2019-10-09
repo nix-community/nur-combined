@@ -1,5 +1,5 @@
 { lib, pythonPackages, fetchFromGitHub, git
-, enableOlm ? !pythonPackages.python.stdenv.isDarwin && !lib.isNixpkgsStable
+, enableOlm ? !pythonPackages.python.stdenv.isDarwin
 }:
 
 with pythonPackages;

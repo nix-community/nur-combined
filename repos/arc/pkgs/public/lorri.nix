@@ -50,9 +50,7 @@ in rustPlatform.buildRustPackage rec {
   };
   pname = "lorri";
   version = "rolling-release";
-  cargoSha256 = if lib.isNixpkgsStable
-    then "1bc5clyxsmfq45xlb394zmvsv8gihwrn7apnh5h90wncarsr1sbq"
-    else "1daff4plh7hwclfp21hkx4fiflh9r80y2c7k2sd3zm4lmpy0jpfz";
+  cargoSha256 = "1daff4plh7hwclfp21hkx4fiflh9r80y2c7k2sd3zm4lmpy0jpfz";
   COREUTILS = coreutils;
   BUILD_REV_COUNT = 1;
   RUN_TIME_CLOSURE = runtimeClosure;
