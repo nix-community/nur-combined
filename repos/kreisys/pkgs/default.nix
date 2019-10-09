@@ -11,6 +11,7 @@ in {
   buildkite-cli = callPackage ./buildkite-cli { };
   consulate     = callPackage ./consulate     { };
 
+  docker-auth         = callPackage ./docker-auth             { };
   docker-distribution = callPackage ./docker-distribution     { };
 
   inherit (emacsen) emacs26 emacs27 emacs27-lucid;
