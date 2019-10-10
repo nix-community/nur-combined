@@ -237,10 +237,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2019.9.23";
+      version = "2019.10.8";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3410286/privacy_badger-2019.9.23-an+fx.xpi?src=";
-      sha256 = "903972ff4907843286b0f54a4242fee121e9e63fd15323fe57c637f77600677b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3420722/privacy_badger-2019.10.8-an+fx.xpi?src=";
+      sha256 = "14bb91f75b9886d7269e89fa5bfbe1032eb4f42c466ce80fbc61be8fd80bf4df";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/privacybadger";
@@ -279,10 +279,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "16.1";
+      version = "16.2";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3407037/save_page_we-16.1-fx.xpi?src=";
-      sha256 = "acc3fa86462a47003b2e68566906a726fe674f877c30f3970c56abbc063f1904";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3421167/save_page_we-16.2-fx.xpi?src=";
+      sha256 = "0a2227ebf2d65776a7c568a3fbd3bdeaf66aa5459298e56ed109b9eba4151d09";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as curently displayed) as a single HTML file that can be opened in any browser. Choose which items to save. Define the format of the saved filename. Enter user comments.";
@@ -387,10 +387,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "15.2";
+      version = "15.3";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3409575/zoom_page_we-15.2-fx.xpi?src=";
-      sha256 = "0adc39e165581a8a74ecc51ec4dc5310e809c7ab9e58258884d2a035680c1ec8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3421175/zoom_page_we-15.3-fx.xpi?src=";
+      sha256 = "ccf300c0ff7c893cab5dfc49d654f7b75b9dbf1f49e4ab7e592dcd7031cad1e1";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
