@@ -251,10 +251,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.18.3";
+      version = "5.18.4";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3418551/reddit_enhancement_suite-5.18.3-an+fx.xpi?src=";
-      sha256 = "f7a1510b20ffa5941baecc135bc8280629a633621af92995a82ee0c3af66a7de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3422019/reddit_enhancement_suite-5.18.4-an+fx.xpi?src=";
+      sha256 = "674972b465f3cfb3796850fa99265fbbf2638abc4f4da50308d0bde4b1c3166b";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -265,10 +265,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.9.27";
+      version = "19.10.10";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3413325/refined_github-19.9.27-an+fx.xpi?src=";
-      sha256 = "82f075786f70d59147292c11217b34a03fd235607db26737c9f79af03f088a65";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3421610/refined_github-19.10.10-an+fx.xpi?src=";
+      sha256 = "002084cc76cece23b22f38f3f00fa202339be16ebad322a6650e857e37340c64";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -373,10 +373,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "0.24";
+      version = "0.25";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3395145/vim_vixen-0.24-an+fx.xpi?src=";
-      sha256 = "19555c6b38704035e0cb7635ae20552985c996f4555795d88036bc3830782765";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3421772/vim_vixen-0.25-an+fx.xpi?src=";
+      sha256 = "1cc97e83d7fe90572b6e5344bc73ff022840cd90f029c69f6bf4d2eb5d6a436c";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
