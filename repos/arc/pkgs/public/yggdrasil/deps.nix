@@ -5,8 +5,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/Arceliar/phony";
-      rev = "af5bdbeecab6";
-      sha256 = "1lv3sb25d7aw63f47v1nib41v4a4dci3q4vwv49xr3z2qas5gnyl";
+      rev = "21679e75e3f0";
+      sha256 = "0rbvjp0cpf1syggbfcypxjjl23r8bk32nn5n0d2m3wz8q7il5214";
     };
   }
   {

@@ -194,6 +194,14 @@ let
       };
     });
 
+    flashplayer-standalone = { flashplayer-standalone, fetchurl }: flashplayer-standalone.overrideAttrs (old: {
+      version = "32.0.0.270";
+      src = fetchurl {
+        url = "https://fpdownload.macromedia.com/pub/flashplayer/updaters/32/flash_player_sa_linux.x86_64.tar.gz";
+        sha256 = "1la5s4wxchfpl8in576xj675yrg84pify22pwf063h0jg3rdgi68";
+      };
+    });
+
     olm = { olm, fetchurl }: olm.overrideAttrs (old: rec {
       pname = "olm";
       version = "3.1.3";
