@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "iwinfo";
-  version = "2019-09-30";
+  version = "2019-10-15";
 
   src = fetchgit {
     url = "https://git.openwrt.org/project/${pname}.git";
-    rev = "2a95086db2b730346d87c320e2c753126c4ff795";
-    sha256 = "16cppl61ichdgvswq1z9h7ggh0gf3vcaq9n0q2va194dshb7bcky";
+    rev = "a29b7d4e26a8d97e48c2a899dda3665d385b95db";
+    sha256 = "0y4iy8pvlxgzjviamcn5fayww38g8pdf3sf63h8iz5jdygzfsfc5";
   };
 
   buildInputs = [ json_c libubox ubus uci lua5_1 libnl ];
