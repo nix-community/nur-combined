@@ -5,7 +5,7 @@
     owner = "matrix-org";
     repo = pname;
     rev = version;
-    sha256 = "0cpdv7v7i64pzyaxfk9jwin897w7g5qhvlmvbsazsc9w6adg9ja1";
+    sha256 = "1g3i3i41mlm6s6sfhlk4r5q5rfj8d1xf022ik9rlpd5wv360rr3r";
   };
   nodeSources = runCommand "node-sources" {} ''
     tar --no-same-owner --no-same-permissions -xf ${nodejs.src}

@@ -4,13 +4,13 @@ with pythonPackages;
 
 buildPythonPackage rec {
   pname = "weechat-matrix";
-  version = "2019-07-16";
+  version = "2019-09-22";
 
   src = fetchFromGitHub {
     owner = "poljar";
     repo = pname;
-    rev = "dc97101d47187f15e106579200ad0d17e9e67192";
-    sha256 = "19294nzvk4vxj8zna9vrqbyg2swyighqvfja4kknj3i1d9szdy3p";
+    rev = "b26dc838ef0a69c99fab525a6647dc44c7015cb9";
+    sha256 = "0miilwksm9ra460w19zgqqkqqawhsjdwawl28icwk4x3lr882rnj";
   };
 
   propagatedBuildInputs = [

@@ -6,13 +6,13 @@ with pythonPackages;
 
 buildPythonPackage rec {
   pname = "nio";
-  version = "0.5";
+  version = "0.6";
 
   src = fetchFromGitHub {
     owner = "poljar";
     repo = "matrix-nio";
     rev = version;
-    sha256 = "1nbpldjbrd7chfdfrmqmb621k3jrzn7arb339lw3a266iy0s8nnv";
+    sha256 = "0pq5i6ks3pck2kq9m4p3pw9hbvkzs27xkyv68mjnfc6chp2g2mg9";
   };
 
   postPatch = lib.optionalString (!enableOlm) ''
