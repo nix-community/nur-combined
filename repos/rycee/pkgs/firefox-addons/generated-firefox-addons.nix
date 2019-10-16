@@ -71,10 +71,10 @@
       };
     "decentraleyes" = buildFirefoxXpiAddon {
       pname = "decentraleyes";
-      version = "2.0.12";
+      version = "2.0.13";
       addonId = "jid1-BoFifL9Vbdl2zQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3048828/decentraleyes-2.0.12-an+fx.xpi?src=";
-      sha256 = "99e10c581e372ccf884f463954d5f1f4885d29c3a74a3fb4095140024e87200d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3423038/decentraleyes-2.0.13-an+fx.xpi?src=";
+      sha256 = "9dd1aa4e752166fb13ddc06068cf4c1aacc7e2789128fa103cf81285818943ea";
       meta = with stdenv.lib;
       {
         homepage = "https://decentraleyes.org";
@@ -387,10 +387,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "15.4";
+      version = "15.5";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3423352/zoom_page_we-15.4-fx.xpi?src=";
-      sha256 = "75b64f38089bf9434f59807970c623e1eeab8166cc15676849793d105250eb6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3424083/zoom_page_we-15.5-fx.xpi?src=";
+      sha256 = "3ac56ebdedc33e6b5071bb5a35dda437431e1f254393eddc18c543b50544599d";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
