@@ -19,7 +19,7 @@
       "autocmd ${configStrs.autocmdName name} ${configStrs.urlPattern value.urlPattern} ${configStrs.cmd value.cmd}"
     ) list);
     autocontain = { urlPattern, container, ... }:
-      "autocontain ${urlPattern} ${container}";
+      "autocontain ${urlPattern} ${if container == null then throw "default container unimplemented" else container}";
     keyseq = mods: key: let
       modStr = concatStrings (map (mod: {
         alt = "A";
@@ -149,7 +149,7 @@ in {
           };
 
           container = mkOption {
-            type = types.str;
+            type = types.nullOr types.str;
           };
         };
       }));

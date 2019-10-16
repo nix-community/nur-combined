@@ -11,6 +11,7 @@
     (import ./base16.nix false)
     ./symlink.nix
     ./filebin.nix
+    ./buku.nix
     ./i3.nix
     ./i3gopher.nix
     ./lorri.nix
