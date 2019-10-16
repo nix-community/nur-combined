@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   checkInputs = [ pytest ];
   propagatedBuildInputs = [ docrep ];
-
+  strictDeps = false;
   # do not run entire tests suite (requires slurm, sge, etc.)
   checkPhase = ''
     py.test dask_jobqueue/tests/test_jobqueue_core.py
