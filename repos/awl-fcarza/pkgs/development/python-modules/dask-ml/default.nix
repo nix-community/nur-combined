@@ -28,7 +28,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest xgboost tensorflow joblib distributed ];
-  propagatedBuildInputs = [ distributed dask numpy toolz numba pandas scikitlearn scipy dask-glm six multipledispatch packaging ];
+  propagatedBuildInputs = [ numpy toolz numba pandas scikitlearn scipy dask-glm six multipledispatch packaging ];
 
   # dask-ml has some heavy test requirements
   # and requires some very new packages

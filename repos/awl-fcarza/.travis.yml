@@ -6,6 +6,8 @@ env:
   global:
     - CACHIX_CACHE=awl-fcarza
     - NUR_REPO=awl-fcarza
+
+matrix:
   include:
     - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable

@@ -17,7 +17,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest ];
-  propagatedBuildInputs = [ dask distributed docrep ];
+  propagatedBuildInputs = [ docrep ];
 
   # do not run entire tests suite (requires slurm, sge, etc.)
   checkPhase = ''
