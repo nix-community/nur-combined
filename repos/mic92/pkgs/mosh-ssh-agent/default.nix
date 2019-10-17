@@ -6,7 +6,7 @@ mosh.overrideAttrs (old: {
     owner = "Mic92";
     repo = "mosh";
     rev = "a91d93275fd28b5b52c645fffe06ce369a9a27ab";
-    sha256 = "0w7jxdsyxgnf5h09rm8mfgm5z1qc1sqwvgzvrwzb04yshxpsg0zd";
+    sha256 = "0i1r1yi4cdqmchnjnvfv7d50dqv67hky4476q07vhzp4a468zm6d";
   };
 
   patches = [
