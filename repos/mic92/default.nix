@@ -38,7 +38,7 @@ rec {
     inherit (python3Packages) Mastodon;
   };
 
-  mosh-truecolor = pkgs.callPackage ./pkgs/mosh-truecolor {};
+  mosh-ssh-agent = pkgs.callPackage ./pkgs/mosh-ssh-agent {};
 
   nix-review-unstable = pkgs.callPackage ./pkgs/nix-review {};
 
