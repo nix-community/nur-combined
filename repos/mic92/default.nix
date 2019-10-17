@@ -38,21 +38,13 @@ rec {
     inherit (python3Packages) Mastodon;
   };
 
-  nix-lsp = pkgs.callPackage ./pkgs/nix-lsp {
-    inherit rustNightlyPlatform;
-  };
-
-  nixpkgs-fmt = pkgs.callPackage ./pkgs/nixpkgs-fmt {};
+  mosh-truecolor = pkgs.callPackage ./pkgs/mosh-truecolor {};
 
   nix-review-unstable = pkgs.callPackage ./pkgs/nix-review {};
 
   nixos-shell = pkgs.callPackage ./pkgs/nixos-shell {};
 
   oni = pkgs.callPackage ./pkgs/oni {};
-
-  rust-nightly = pkgs.callPackage ./pkgs/rust-nightly {};
-
-  rustNightlyPlatform = pkgs.recurseIntoAttrs (pkgs.makeRustPlatform rust-nightly);
 
   source-code-pro-nerdfonts = pkgs.callPackage ./pkgs/source-code-pro-nerdfonts {};
 
