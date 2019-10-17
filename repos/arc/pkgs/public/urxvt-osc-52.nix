@@ -36,7 +36,11 @@ stdenvNoCC.mkDerivation {
 
       my ($clip, $data) = split ';', $args, 2;
       if ($data eq '?') {
-        my $data_free = $term->selection();
+        if ($clip !~ /c/) {
+          # I don't feel like doing the x11 selection dance, maybe cave in and `xsel -po` here instead?
+          $term->selection_grab(urxvt::CurrentTime, $clip =~ /c/);
+        }
+        my $data_free = $term->selection(undef, $clip =~ /c/);
         Encode::_utf8_off($data_free); # XXX
         $term->tt_write("\e]52;$clip;".encode_base64($data_free, "")."\a");
       }
