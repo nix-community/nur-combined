@@ -17,26 +17,21 @@ rec {
     elixir_1_8
     eksctl
     firefox
-    next
+    # TODO: next
     pass
     sops
     thunderbird
     tomb
     ;
 
-  rust-cbindgen = _nixpkgs.rust-cbindgen.overrideAttrs(_: {
-    cargoSha256 = "1l2dmvpg7114g7kczhaxv97037wdjah174xa992hv90a79kiz8da";
-  });
-
   cedille = _nixpkgs.cedille.override {
     inherit (pkgs.haskellPackages) alex happy Agda ghcWithPackages;
   };
-
-  elba = pkgs.callPackage ./development/tools/elba {};
-
   emacsPackages.cedille = _nixpkgs.emacsPackages.cedille.override {
     inherit cedille;
   };
+
+  elba = pkgs.callPackage ./development/tools/elba {};
 
   gap-pygments-lexer = pkgs.callPackage ./tools/misc/gap-pygments-lexer {
     pythonPackages = pkgs.python2Packages;
@@ -46,7 +41,7 @@ rec {
     withGraphics = false;
   };
 
-  kubefwd = pkgs.callPackage ./development/tools/kubefwd {};
+  # FIXME: kubefwd = pkgs.callPackage ./development/tools/kubefwd {};
 
   lab = pkgs.callPackage ./applications/version-management/git-and-tools/lab {};
 
@@ -72,7 +67,13 @@ rec {
 
   renderizer = pkgs.callPackage ./development/tools/renderizer {};
 
+  rust-cbindgen = _nixpkgs.rust-cbindgen.overrideAttrs(_: {
+    cargoSha256 = "1l2dmvpg7114g7kczhaxv97037wdjah174xa992hv90a79kiz8da";
+  });
+
 } // {
+
+  cachix.meta.broken = true;
 
   cedille.meta.broken = true;
 
@@ -83,45 +84,8 @@ rec {
   lilypond-unstable.meta.broken = true;
   lilypond-with-fonts.meta.broken = true;
 
-} // (if pkgs.stdenv.isDarwin then {
-
-  chunkwm = pkgs.recurseIntoAttrs (pkgs.callPackage ./os-specific/darwin/chunkwm {
-    inherit (pkgs) callPackage stdenv fetchFromGitHub imagemagick;
-    inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa ApplicationServices;
-  });
-
-  clementine = pkgs.callPackage ./applications/audio/clementine {};
-
-  copyq = pkgs.callPackage ./applications/misc/copyq {};
-
-  diff-pdf = pkgs.callPackage ./tools/text/diff-pdf {
-    inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
-  };
-
-  m-cli = pkgs.m-cli.overrideAttrs (_: rec {
-    name = "m-cli-${version}";
-    version = "ffdcbde2";
-    src = pkgs.fetchFromGitHub {
-      owner = "rgcr";
-      repo = "m-cli";
-      rev = version;
-      sha256 = "1y7bl5i5i7da1k5yldc8fhj6jp2a33kci77kj5wmqkwpb2nkc5c2";
-    };
-  });
-
-  inherit (_nixpkgs) musescore skhd;
-
-  onyx = (pkgs.callPackage ./os-specific/darwin/onyx {});
-
-  skim = pkgs.callPackage ./applications/misc/skim {};
-
-  sourcetree = pkgs.callPackage ./os-specific/darwin/sourcetree {};
-
-  spotify = pkgs.callPackage ./applications/audio/spotify/darwin.nix {};
-
-} // {
-  onyx.meta.broken = true;
-} else {
+  tellico.meta.broken = true;
+} // (if pkgs.stdenv.isLinux then {
 
   apfs-fuse = pkgs.callPackage ./os-specific/linux/apfs-fuse {
     fuse = pkgs.fuse3;
@@ -129,6 +93,4 @@ rec {
 
   tellico = pkgs.libsForQt5.callPackage ./applications/misc/tellico {};
 
-} // {
-  tellico.meta.broken = true;
-})
+} else {})

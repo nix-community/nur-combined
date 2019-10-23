@@ -18,7 +18,7 @@ buildGoModule rec {
     inherit (src.meta) homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ yurrriq ];
-    kplatforms = platforms.unix;
+    platforms = platforms.unix;
   };
 }
 
