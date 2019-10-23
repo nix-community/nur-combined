@@ -44,7 +44,7 @@ index 8982f7f..a35192f 100644
  static void focal_create_main_window(GApplication* app, FocalApp* fm)
  {
  	fm->mainWindow = gtk_application_window_new(GTK_APPLICATION(app));
-@@ -357,13 +365,20 @@ static void focal_create_main_window(GApplication* app, FocalApp* fm)
+@@ -357,5 +365,12 @@ static void focal_create_main_window(GApplication* app, FocalApp* fm)
  	gtk_widget_show_all(fm->mainWindow);
  
  	app_header_set_event(FOCAL_APP_HEADER(fm->header), NULL);
@@ -57,15 +57,6 @@ index 8982f7f..a35192f 100644
 +	g_source_set_name_by_id(fm->sync_timer_id, "[focal] sync_timer");
  }
  
- static void load_preferences(const char* filename, FocalPrefs* out)
- {
- 	// set defaults
- 	out->week_start_day = 0; // Sunday
--	out->week_end_day = 6;   // Saturday
-+	out->week_end_day = 6;	 // Saturday
- 
- 	GKeyFile* kf = g_key_file_new();
- 	GError* err = NULL;
 @@ -410,6 +425,9 @@ static void focal_activate(GApplication* app)
  static void focal_shutdown(GApplication* app)
  {

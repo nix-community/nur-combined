@@ -4,23 +4,18 @@
 
 stdenv.mkDerivation rec {
   pname = "focal";
-  version = "2019-07-25";
+  version = "2019-10-22";
   src = fetchFromGitHub {
     owner = "ohwgiles";
     repo = pname;
-    rev = "95c527d1ff3d90f5733fb947274b22f324267a10";
-    sha256 = "0yiqvg8wfvw2x7k36zaz92qpc8kvpjr3n7v64vik9ibhnhdfzqrv";
+    rev = "2dd165a48f91f1c291b71ca12bc8f2d02001fa59";
+    sha256 = "0p50za4m9dq0ll0kcg8b80z96adq9pvb7sy699is57mlz90j726d";
   };
 
   patches = [
     ./dont-crash-if-calendar-has-vtodos-not-just-vevents.patch
     ./sync-timer.patch
     ./localtime.patch
-    (fetchpatch {
-      name = "initially-showing-next-week-instead-of-current.patch";
-      url = "https://github.com/ohwgiles/focal/pull/61.diff"; # diff not patch, don't want series
-      sha256 = "0r726xgmc6qp6w6fpjc023m4f1i6gdg8kwfjila21fwymna9cygj";
-    })
   ];
 
   nativeBuildInputs = [ wrapGAppsHook cmake pkgconfig ];
