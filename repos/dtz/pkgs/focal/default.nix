@@ -4,17 +4,16 @@
 
 stdenv.mkDerivation rec {
   pname = "focal";
-  version = "2019-10-22";
+  version = "2019-10-24";
   src = fetchFromGitHub {
     owner = "ohwgiles";
     repo = pname;
-    rev = "2dd165a48f91f1c291b71ca12bc8f2d02001fa59";
-    sha256 = "0p50za4m9dq0ll0kcg8b80z96adq9pvb7sy699is57mlz90j726d";
+    rev = "a21b8710cc602eae729ea7deb60d5b45588ed7bf"; # sync timer PR
+    sha256 = "03fq1465bz39b7mylfh8pi1342rjp8jpvjlmmhvr6ikd7xb29w49";
   };
 
   patches = [
     ./dont-crash-if-calendar-has-vtodos-not-just-vevents.patch
-    ./sync-timer.patch
     ./localtime.patch
   ];
 
