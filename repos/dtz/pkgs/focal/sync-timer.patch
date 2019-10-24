@@ -1,25 +1,45 @@
+From c75d7e77608567e2eea13e75cd92fa938e0b45da Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Tue, 22 Oct 2019 22:28:16 -0500
+Subject: [PATCH] Add timer to trigger periodic sync every 120s
+
+---
+ CMakeLists.txt |  5 +++++
+ src/main.c     | 17 +++++++++++++++++
+ 2 files changed, 22 insertions(+)
+
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 1436ec1..4a66b3d 100644
+index 1436ec1..1561315 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -31,7 +31,7 @@ add_definitions(${LIBXML2_DEFINITIONS})
- # cURL
- find_package(CURL REQUIRED)
- include_directories(${CURL_INCLUDE_DIRS})
--add_definitions(${LIBXML2_DEFINITIONS})
-+add_definitions(${CURL_DEFINITIONS})
+@@ -41,6 +41,10 @@ include_directories(${ICAL_INCLUDE_DIRS})
+ pkg_check_modules(LIBSECRET REQUIRED libsecret-1)
+ include_directories(${LIBSECRET_INCLUDE_DIRS})
  
- # libical
- pkg_check_modules(ICAL REQUIRED libical)
++# glib
++pkg_check_modules(GLIB REQUIRED glib-2.0)
++include_directories(${GLIB_INCLUDE_DIRS})
++
+ # json-glib
+ pkg_check_modules(JSONGLIB REQUIRED json-glib-1.0)
+ include_directories(${JSONGLIB_INCLUDE_DIRS})
+@@ -88,6 +92,7 @@ target_link_libraries(${PROJECT_NAME}
+ 	${ICAL_LIBRARIES}
+ 	${LIBSECRET_LIBRARIES}
+ 	${JSONGLIB_LIBRARIES}
++	${GLIB_LIBRARIES}
+ )
+ 
+ install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 diff --git a/src/main.c b/src/main.c
-index 8982f7f..a35192f 100644
+index 8982f7f..a9e3d86 100644
 --- a/src/main.c
 +++ b/src/main.c
 @@ -21,6 +21,7 @@
  #include "week-view.h"
  
  #include <curl/curl.h>
-+#include <gdk/gdk.h>
++#include <glib/gmain.h>
  #include <gtk/gtk.h>
  #include <libical/ical.h>
  #include <string.h>
@@ -44,20 +64,20 @@ index 8982f7f..a35192f 100644
  static void focal_create_main_window(GApplication* app, FocalApp* fm)
  {
  	fm->mainWindow = gtk_application_window_new(GTK_APPLICATION(app));
-@@ -357,5 +365,12 @@ static void focal_create_main_window(GApplication* app, FocalApp* fm)
+@@ -357,6 +365,12 @@ static void focal_create_main_window(GApplication* app, FocalApp* fm)
  	gtk_widget_show_all(fm->mainWindow);
  
  	app_header_set_event(FOCAL_APP_HEADER(fm->header), NULL);
 +
-+	fm->sync_timer_id = gdk_threads_add_timeout_seconds_full(G_PRIORITY_DEFAULT_IDLE,
-+															 120 /* sync interval, seconds */,
-+															 (GSourceFunc) sync_func,
-+															 fm,
-+															 NULL /* finalize */);
++	fm->sync_timer_id = g_timeout_add_seconds(
++		120 /* sync interval, seconds */,
++		G_SOURCE_FUNC(sync_func),
++		fm);
 +	g_source_set_name_by_id(fm->sync_timer_id, "[focal] sync_timer");
  }
  
-@@ -410,6 +425,9 @@ static void focal_activate(GApplication* app)
+ static void load_preferences(const char* filename, FocalPrefs* out)
+@@ -410,6 +424,9 @@ static void focal_activate(GApplication* app)
  static void focal_shutdown(GApplication* app)
  {
  	FocalApp* fm = FOCAL_APP(app);
