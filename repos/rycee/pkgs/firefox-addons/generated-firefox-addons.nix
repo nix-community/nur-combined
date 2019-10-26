@@ -83,6 +83,20 @@
         platforms = platforms.all;
         };
       };
+    "ecosia" = buildFirefoxXpiAddon {
+      pname = "ecosia";
+      version = "4.0.4";
+      addonId = "{d04b0b40-3dab-4f0b-97a6-04ec3eddbfb0}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/964413/ecosia_the_search_engine_that_plants_trees-4.0.4-an+fx.xpi?src=";
+      sha256 = "b74bdbd58766df623bc044e265d8880da2872c37007a5c6e954560aaf130d90b";
+      meta = with stdenv.lib;
+      {
+        homepage = "http://www.ecosia.org";
+        description = "Ecosia is a search engine that uses 80% of its profits from ad revenue to plant trees. By searching with Ecosia you can help the environment for free. This extension adds <a href=\"https://outgoing.prod.mozaws.net/v1/c7a1fe7e1838aaf8fcdb3e88c6700a42c275a31c5fdea179157c9751846df4bf/http%3A//Ecosia.org\" rel=\"nofollow\">Ecosia.org</a> as the default search engine to your Firefox browser. Give it a try!";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
       version = "2.0.3";
@@ -249,6 +263,20 @@
         platforms = platforms.all;
         };
       };
+    "react-devtools" = buildFirefoxXpiAddon {
+      pname = "react-devtools";
+      version = "4.2.0";
+      addonId = "@react-devtools";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3417593/react_developer_tools-4.2.0-fx.xpi?src=";
+      sha256 = "e66396522ac8caeb64336194082de7e3f5b66365719e95321f14adddf624741e";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/facebook/react";
+        description = "React Developer Tools is a tool that allows you to inspect a React tree, including the component hierarchy, props, state, and more. To get started, just open the Firefox devtools and switch to the \"⚛️ Components\" or \"⚛️ Profiler\" tab.";
+        license = licenses.bsd3;
+        platforms = platforms.all;
+        };
+      };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
       version = "5.18.4";
@@ -381,6 +409,20 @@
       {
         homepage = "https://github.com/ueokande/vim-vixen";
         description = "Accelerates your web browsing with Vim power!!";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "violentmonkey" = buildFirefoxXpiAddon {
+      pname = "violentmonkey";
+      version = "2.11.2";
+      addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3372087/violentmonkey-2.11.2-an+fx.xpi?src=";
+      sha256 = "2e2b48781520da1a1f0826b621666571ed16687228de52dcb57c4415b2c23bbe";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://violentmonkey.github.io/";
+        description = "Violentmonkey provides userscripts support for browsers.\nIt's open source! <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/c8bcebd9a0e76f20c888274e94578ab5957439e46d59a046ff9e1a9ef55c282c/https%3A//github.com/violentmonkey/violentmonkey\">https://github.com/violentmonkey/violentmonkey</a>";
         license = licenses.mit;
         platforms = platforms.all;
         };

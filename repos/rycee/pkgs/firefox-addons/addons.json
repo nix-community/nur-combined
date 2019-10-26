@@ -18,6 +18,10 @@
     "slug": "decentraleyes"
   },
   {
+    "slug": "ecosia-the-green-search",
+    "pname": "ecosia"
+  },
+  {
     "slug": "facebook-container"
   },
   {
@@ -60,6 +64,9 @@
     "pname": "privacy-badger"
   },
   {
+    "slug": "react-devtools"
+  },
+  {
     "slug": "reddit-enhancement-suite"
   },
   {
@@ -87,6 +94,9 @@
   },
   {
     "slug": "vim-vixen"
+  },
+  {
+    "slug": "violentmonkey"
   },
   {
     "slug": "zoom-page-we"
