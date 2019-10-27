@@ -1,5 +1,19 @@
 { buildFirefoxXpiAddon, fetchurl, stdenv }:
   {
+    "adsum-notabs" = buildFirefoxXpiAddon {
+      pname = "adsum-notabs";
+      version = "1.1";
+      addonId = "{c9f848fb-3fb6-4390-9fc1-e4dd4d1c5122}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/883289/no_tabs-1.1-an+fx-linux.xpi?src=";
+      sha256 = "48e846a60b217c13ee693ac8bfe23a8bdef2ec073f5f713cce0e08814f280354";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://gitlab.com/adsum/firefox-notabs";
+        description = "Disable tabs completely, by always opening a new window instead.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
       version = "0.3.2.1";
@@ -11,6 +25,19 @@
         homepage = "http://add0n.com/tab-discard.html";
         description = "Use native tab discard method to automatically reduce memory usage of inactive tabs";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "close-other-windows" = buildFirefoxXpiAddon {
+      pname = "close-other-windows";
+      version = "0.1";
+      addonId = "{fab4ea0f-e0d3-4bb4-9515-aea14d709f69}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/589832/close_other_windows-0.1-an+fx-linux.xpi?src=";
+      sha256 = "6c189fb4d396f835bf8f0f09c9f1e9ae5dc7cde471b776d8c7d12592a373d3d3";
+      meta = with stdenv.lib;
+      {
+        description = "Adds a button to close all tabs in other windows which are not pinned";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -355,6 +382,20 @@
       {
         description = "Fixes low-contrast text when using a dark desktop theme.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "torswitch" = buildFirefoxXpiAddon {
+      pname = "torswitch";
+      version = "1.0";
+      addonId = "{34fab4dc-77cc-4631-be8b-7a85a1e9fc09}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1020346/torswitch-1.0-an+fx.xpi?src=";
+      sha256 = "3c50bd5c8890628a7260a742099293b6e752e7826e0643e3f515105ec3d9b85e";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://gitlab.com/faridb/TorSwitch";
+        description = "Browse through Tor's SOCKS5 proxy.\n\nThis extension allows you to set Firefox proxy settings to use Tor's SOCKS5 proxy and quickly enable/disable Tor's proxy with just a click.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };

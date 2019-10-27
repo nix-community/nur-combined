@@ -1,6 +1,12 @@
 [
   {
+    "slug": "adsum-notabs"
+  },
+  {
     "slug": "auto-tab-discard"
+  },
+  {
+    "slug": "close-other-windows"
   },
   {
     "slug": "cookie-autodelete"
@@ -82,6 +88,9 @@
   },
   {
     "slug": "text-contrast-for-dark-themes"
+  },
+  {
+    "slug": "torswitch"
   },
   {
     "slug": "transparent-standalone-image"
