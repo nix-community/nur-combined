@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, lib }:
 
 {
   gitignore = pkgs.callPackage (pkgs.fetchFromGitHub {

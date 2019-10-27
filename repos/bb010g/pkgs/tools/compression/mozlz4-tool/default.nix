@@ -21,15 +21,15 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ lz4 ];
 
-  meta = with stdenv.lib; {
+  meta = let inherit (stdenv) lib; in {
     description = "A tool to process mozlz4 files";
     longDescription = ''
       A simple tool to decompress and compress files into the mozlz4 format
       used by Firefox.
     '';
     homepage = https://github.com/lilydjwg/mozlz4-tool;
-    license = with licenses; free;
-    maintainers = with maintainers; [ bb010g ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = let m = lib.maintainers; in [ m.bb010g ];
+    platforms = lib.platforms.all;
   };
 }

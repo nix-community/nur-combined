@@ -1,17 +1,17 @@
 { stdenv, pkgs, buildEnv, buildPackages, fetchFromGitHub
-, nodejs-8_x }:
+, nodejs-10_x }:
 
 let
   srcMeta = {
     owner = "ddevault";
     repo = "receptor";
-    rev = "1dc07756256c49599e58b4e917312ca0569e6b06";
+    rev = "9c252c7251f76785723fd46b36d9af91f808d41d";
   };
 
   src = fetchFromGitHub {
     inherit (srcMeta) owner repo rev;
     fetchSubmodules = true;
-    sha256 = "1d1zdm1pkbqnszcw6y2jnhynd09l97a0c7ad9gz9wzw16sd730zg";
+    sha256 = "10lfb0lh6f3dj90404ihcqzx3x4npx0hk3sd1vqbg348ih98ca1b";
   };
 
   pNodeUrl = let inherit (srcMeta) owner repo rev; in
@@ -28,11 +28,11 @@ let
   nodeDevPkg = nodeDevPackages.${pNodeName};
 in stdenv.mkDerivation rec {
   pname = "receptor-unstable";
-  version = "2019-03-15";
+  version = "2019-06-15";
 
   inherit src;
 
-  buildInputs = [ nodejs-8_x ];
+  buildInputs = [ nodejs-10_x ];
 
   postPatch = ''
     patchShebangs .
@@ -48,10 +48,10 @@ in stdenv.mkDerivation rec {
     cp -t "$out/webapps/receptor/" -Rv dist index.html
   '';
 
-  meta = with stdenv.lib; {
+  meta = let inherit (stdenv) lib; in {
     description = "Web frontend for the synapse bittorrent client";
     downloadPage = https://github.com/ddevault/receptor;
-    license = with licenses; bsd3;
-    maintainers = with maintainers; [ bb010g ];
+    license = lib.licenses.bsd3;
+    maintainers = let m = lib.maintainers; in [ m.bb010g ];
   };
 }

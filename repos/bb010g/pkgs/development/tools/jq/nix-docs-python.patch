@@ -1,0 +1,52 @@
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -141,9 +141,9 @@
+ ### Building the manpage
+ 
+ man_MANS = jq.1
+-if ENABLE_DOCS
++if ENABLE_DOCS
+-jq.1: $(srcdir)/docs/content/manual/manual.yml
++jq.1: $(srcdir)/docs/content/manual/manual.yml
+-	$(AM_V_GEN) ( cd ${abs_srcdir}/docs; pipenv run python build_manpage.py ) > $@ || { rm -f $@; false; }
++	$(AM_V_GEN) ( cd ${abs_srcdir}/docs; @docs_python@ build_manpage.py ) > $@ || { rm -f $@; false; }
+ jq.1.prebuilt: jq.1
+ 	$(AM_V_GEN) cp jq.1 $@ || { rm -f $@; false; }
+ else
+--- a/configure.ac
++++ b/configure.ac
+@@ -88,25 +88,1 @@
+-
++
+-AS_IF([test "x$enable_docs" = "xyes"],[
+-   AC_CHECK_PROGS(pipenv_cmd, pipenv)
+-
+-   AC_CACHE_CHECK([for Python dependencies], [jq_cv_python_deps],
+-     [jq_cv_python_deps=yes;
+-        AS_IF([test "x$pipenv_cmd" = "x" || \
+-        ! bmsg="`cd ${srcdir}/docs; LC_ALL=$LANG "$pipenv_cmd" check`"],[
+-           AC_MSG_ERROR([$bmsg])
+-           cat <<EOF
+-*****************************************************************
+-*  Python dependencies for building jq documentation not found. *
+-*  You can still build, install and hack on jq, but the manpage *
+-*  will not be rebuilt and some of the tests will not run.      *
+-*  See docs/README.md for how to install the docs dependencies. *
+-*****************************************************************
+-EOF
+-           jq_cv_python_deps=no
+-     ])])
+-
+-   if test "x$jq_cv_python_deps" != "xyes"; then
+-     enable_docs=no
+-   fi
+-])
+-
+@@ -276,7 +252,6 @@
+ AC_SUBST(onig_LDFLAGS)
+ 
+ AM_CONDITIONAL([BUILD_ONIGURUMA], [test "x$build_oniguruma" = xyes])
+-AC_SUBST([BUNDLER], ["$bundle_cmd"])
+ 
+ AC_CONFIG_MACRO_DIR([config/m4])
+ AC_CONFIG_FILES([Makefile libjq.pc])

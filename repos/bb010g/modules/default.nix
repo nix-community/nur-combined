@@ -1,6 +1,7 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  home-manager = {
+    programs = {
+      pijul = ./home-manager/programs/pijul.nix;
+    };
+  };
 }
-
