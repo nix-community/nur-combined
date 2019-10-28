@@ -4,18 +4,20 @@
 
 stdenv.mkDerivation rec {
   pname = "focal";
-  version = "2019-10-24";
+  version = "2019-10-26";
   src = fetchFromGitHub {
     owner = "ohwgiles";
     repo = pname;
-    rev = "1250bb0caa8f18c34c60020e0d3ac87ebcbe01b8"; 
-    sha256 = "15m8r3qf6sz4iv73xn8h5nrjgqxvb5gpzag8fg8hr7im4dh9ljff";
+    rev = "4b165c916d9d4f75418a51c4a92b0275a6999f8f"; 
+    sha256 = "0b7zhvlqdq146rzq9fak5afycgv32w2zs9772xr222whc898p3ha";
   };
 
   patches = [
-    ./dont-crash-if-calendar-has-vtodos-not-just-vevents.patch
-    ./sync-timer.patch
     ./localtime.patch
+
+    ./0001-caldav-Handle-gracefully-components-containing-no-VE.patch
+    ./0002-minor-style-tweaks.patch
+    ./0003-caldav-calendar-fix-leak-of-comp-in-parse-failure.patch
   ];
 
   nativeBuildInputs = [ wrapGAppsHook cmake pkgconfig ];

@@ -1,0 +1,31 @@
+From 88b9d1ae30c2a98ce47a2f4b073213f18d9f9f48 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Mon, 28 Oct 2019 04:17:26 -0500
+Subject: [PATCH 3/3] caldav-calendar: fix leak of 'comp' in parse failure
+
+Fix credit to review comment:
+
+https://github.com/ohwgiles/focal/pull/81#discussion_r338911468
+---
+ src/caldav-calendar.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/caldav-calendar.c b/src/caldav-calendar.c
+index fe406ed..63dbab4 100644
+--- a/src/caldav-calendar.c
++++ b/src/caldav-calendar.c
+@@ -395,8 +395,10 @@ static Event* create_event_from_parsed_xml(CaldavCalendar* cal, CaldavEntry* cde
+ 	// event updated
+ 	icalcomponent* comp = icalparser_parse_string(cde->caldata);
+ 	icalcomponent* vev = icalcomponent_get_first_component(comp, ICAL_VEVENT_COMPONENT);
+-	if (!vev)
++	if (!vev) {
++		icalcomponent_free(comp);
+ 		return NULL;
++	};
+ 	Event* ev = event_new_from_icalcomponent(vev);
+ 	event_set_calendar(ev, FOCAL_CALENDAR(cal));
+ 	event_set_url(ev, cde->href);
+-- 
+2.24.0-rc1
+

@@ -1,8 +1,23 @@
+From a03edd565ceb54d2a2b20c6bc36de81e85464020 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Thu, 24 Oct 2019 09:38:56 -0500
+Subject: [PATCH 1/3] caldav: Handle gracefully components containing no
+ VEVENT's
+
+Currently such data causes an assertion failure,
+effectively preventing use with such calendars entirely.
+
+With this change, focal gracefully handles these by
+ignoring them and moving along.
+---
+ src/caldav-calendar.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
 diff --git a/src/caldav-calendar.c b/src/caldav-calendar.c
-index c0256ac..6f4ce7d 100644
+index 255a3d1..4ea24cb 100644
 --- a/src/caldav-calendar.c
 +++ b/src/caldav-calendar.c
-@@ -396,7 +396,7 @@ static Event* create_event_from_parsed_xml(CaldavCalendar* cal, CaldavEntry* cde
+@@ -395,7 +395,7 @@ static Event* create_event_from_parsed_xml(CaldavCalendar* cal, CaldavEntry* cde
  	// event updated
  	icalcomponent* comp = icalparser_parse_string(cde->caldata);
  	icalcomponent* vev = icalcomponent_get_first_component(comp, ICAL_VEVENT_COMPONENT);
@@ -11,17 +26,19 @@ index c0256ac..6f4ce7d 100644
  	Event* ev = event_new_from_icalcomponent(vev);
  	event_set_calendar(ev, FOCAL_CALENDAR(cal));
  	event_set_url(ev, cde->href);
-@@ -505,11 +505,13 @@ static void sync_multiget_report_done(CURL* curl, CURLcode ret, void* user)
+@@ -509,12 +509,14 @@ static void sync_multiget_report_done(CURL* curl, CURLcode ret, void* user)
  		// but its caldata member will be empty. So it can be ignored.
  		if (cde->caldata) {
  			Event* event = create_event_from_parsed_xml(rc, cde);
 -			sc->cal->events = g_slist_append(sc->cal->events, event);
 -			nNew++;
+-			g_signal_emit_by_name(rc, "event-updated", NULL, event);
 -		} else {
 -			caldav_entry_free(cde);
 +			if (event) {
 +				sc->cal->events = g_slist_append(sc->cal->events, event);
 +				nNew++;
++				g_signal_emit_by_name(rc, "event-updated", NULL, event);
 +				continue;
 +			}
  		}
@@ -29,3 +46,6 @@ index c0256ac..6f4ce7d 100644
  	}
  	g_slist_free(ctx.result_list);
  
+-- 
+2.24.0-rc1
+
