@@ -248,7 +248,7 @@ let
         outputsToInstall = [ "out" "dev" ];
       };
 
-      patches = if !php7 then [ ./fix-paths-php5.patch ] else [ ./fix-paths-php7.patch ] ++ extraPatches;
+      patches = if !php7 then [ ./patch/fix-paths-php5.patch ] else [ ./patch/fix-paths-php7.patch ] ++ extraPatches;
 
       postPatch = optional stdenv.isDarwin ''
         substituteInPlace configure --replace "-lstdc++" "-lc++"
@@ -264,29 +264,48 @@ in {
   php56 = generic {
     version = "5.6.40";
     sha256 = "005s7w167dypl41wlrf51niryvwy1hfv53zxyyr3lm938v9jbl7z";
+
+    extraPatches = [
+     ./patch/php56/php5640-77540.patch # https://bugs.php.net/bug.php?id=77540
+     ./patch/php56/php5640-77563.patch # https://bugs.php.net/bug.php?id=77563
+     ./patch/php56/php5640-77630.patch # https://bugs.php.net/bug.php?id=77630
+     ./patch/php56/php5640-76846.patch # https://bugs.php.net/bug.php?id=76846
+     ./patch/php56/php5640-77753.patch # https://bugs.php.net/bug.php?id=77753
+     ./patch/php56/php5640-77831.patch # https://bugs.php.net/bug.php?id=77831
+     ./patch/php56/php5640-sqlite3-defensive.patch # Added sqlite3.defensive INI directive
+     ./patch/php56/php5640-77950.patch # https://bugs.php.net/bug.php?id=77950
+     ./patch/php56/php5640-77967.patch # https://bugs.php.net/bug.php?id=77967
+     ./patch/php56/php5640-77988.patch # https://bugs.php.net/bug.php?id=77988
+     ./patch/php56/php5640-78069.patch # https://bugs.php.net/bug.php?id=78069
+     ./patch/php56/php5640-77919.patch # https://bugs.php.net/bug.php?id=77919
+     ./patch/php56/php5640-78222.patch # https://bugs.php.net/bug.php?id=78222
+     ./patch/php56/php5640-78256.patch # https://bugs.php.net/bug.php?id=78256
+     ./patch/php56/php5640-75457.patch # https://bugs.php.net/bug.php?id=75457
+     ./patch/php56/php5640-78380.patch # https://bugs.php.net/bug.php?id=78380
+    ];
   };
 
   php71 = generic {
-    version = "7.1.32";
-    sha256 = "0ymbkj8117pakcs40rkkrsrvcc2rn9nrd7ilcdzw2nn7vnns3iyp";
+    version = "7.1.33";
+    sha256 = "0jsgiwawlais8s1l38lz51h1x2ci5ildk0ksfdmkg6xpwbrfb9cm";
 
     # https://bugs.php.net/bug.php?id=76826
-    extraPatches = optional stdenv.isDarwin ./php71-darwin-isfinite.patch;
+    extraPatches = optional stdenv.isDarwin ./patch/php71-darwin-isfinite.patch;
   };
 
   php72 = generic {
-    version = "7.2.23";
-    sha256 = "03a3snx8wdn2pwfy8qdk035da9g3qdnpgqvpz4qfgmr97mjg6ym1";
+    version = "7.2.24";
+    sha256 = "00znhjcn6k4mbxz6jqlqf6bzr4cqdf8pnbmxkg6bns1hnr6r6yd0";
 
     # https://bugs.php.net/bug.php?id=76826
-    extraPatches = optional stdenv.isDarwin ./php72-darwin-isfinite.patch;
+    extraPatches = optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
   };
 
   php73 = generic {
-    version = "7.3.10";
-    sha256 = "0j2lqiw8miv9aqg55z2dvfg3mwm5vyqx6ggmfbw013zvq1qxhvah";
+    version = "7.3.11";
+    sha256 = "1rxm256vhnvyabfwmyv51sqrkjlid1g8lczcy4skc2f72d5zzlcj";
 
     # https://bugs.php.net/bug.php?id=76826
-    extraPatches = optional stdenv.isDarwin ./php73-darwin-isfinite.patch;
+    extraPatches = optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
   };
 }
