@@ -21,6 +21,9 @@ stdenv.mkDerivation rec {
 
     ./app-header-tooltips.patch
     ./event-popup-tooltips.patch
+
+    ./add-action.patch
+    ./new-events-get-actions.patch
   ];
 
   nativeBuildInputs = [ wrapGAppsHook cmake pkgconfig ];

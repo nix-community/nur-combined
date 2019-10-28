@@ -1,0 +1,37 @@
+From bdba53c96f8224d0665490ec51c6b79e0b12fd65 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Mon, 28 Oct 2019 07:04:57 -0500
+Subject: [PATCH] add action to alarm if not present, as my server insists for
+ validation
+
+---
+ src/event.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/src/event.c b/src/event.c
+index a807723..a2db3a9 100644
+--- a/src/event.c
++++ b/src/event.c
+@@ -188,6 +188,19 @@ void event_set_alarm_trigger(Event* ev, const char* trigger_string)
+ 		icalcomponent_add_property(valarm, icalproperty_new_trigger(trigger));
+ 	}
+ 
++	// VALARM must have exactly one ACTION (or so my server insists)
++	// DISPLAY seems like a good default, but requires a description FWIW
++	//( Not sure if allowed to set NONE?)
++	if (icalcomponent_get_first_property(valarm, ICAL_ACTION_PROPERTY)) {
++		// existing ACTION, leave alone
++  } else {
++		enum icalproperty_action action = ICAL_ACTION_DISPLAY;
++		icalproperty* action_prop = icalproperty_new_action(action);
++		icalcomponent_add_property(valarm, action_prop);
++	}
++
++
++
+ 	ev->dirty = TRUE;
+ }
+ 
+-- 
+2.24.0-rc1
+

@@ -1,0 +1,34 @@
+From 8cdda420bc6272e561f343785cee976c16e58b35 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Mon, 28 Oct 2019 07:12:02 -0500
+Subject: [PATCH] event: new events get actions too
+
+---
+ src/event.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/event.c b/src/event.c
+index a2db3a9..5213ca6 100644
+--- a/src/event.c
++++ b/src/event.c
+@@ -199,8 +199,6 @@ void event_set_alarm_trigger(Event* ev, const char* trigger_string)
+ 		icalcomponent_add_property(valarm, action_prop);
+ 	}
+ 
+-
+-
+ 	ev->dirty = TRUE;
+ }
+ 
+@@ -399,6 +397,8 @@ Event* event_new(const char* summary, icaltimetype dtstart, icaltimetype dtend,
+ 	struct icaltriggertype minus_5_minutes = {
+ 		.duration = icaldurationtype_from_string("-PT5M")};
+ 	icalcomponent_add_property(valarm, icalproperty_new_trigger(minus_5_minutes));
++
++	icalcomponent_add_property(valarm, icalproperty_new_action(ICAL_ACTION_DISPLAY));
+ 	icalcomponent_add_component(ev, valarm);
+ 	e->cmp = ev;
+ 	event_get_uid(e); // force generation of uid
+-- 
+2.24.0-rc1
+
