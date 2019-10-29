@@ -54,6 +54,8 @@ rec {
 
   # smashing = pkgs.callPackage ./pkgs/smashing {};
 
+  pandoc-bin = pkgs.callPackage ./pkgs/pandoc {};
+
   phpldapadmin = pkgs.callPackage ./pkgs/phpldapadmin {};
 
   purple-skypeweb = pkgs.callPackage ./pkgs/purple-skypeweb {};
