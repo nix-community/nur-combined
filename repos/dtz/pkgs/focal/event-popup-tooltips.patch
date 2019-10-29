@@ -1,33 +1,33 @@
-From c16a1b8d0ba07792b0c8a801177c9ea73514c7c5 Mon Sep 17 00:00:00 2001
+From 8a80daf1bf8cb7dabb21d162bfd3d6c90c4aae0e Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
 Date: Mon, 28 Oct 2019 05:49:11 -0500
-Subject: [PATCH] event-popups: tooltips for buttons
+Subject: [PATCH 1/2] event-popups: tooltips for buttons
 
 ---
  src/event-popup.c | 6 ++++++
  1 file changed, 6 insertions(+)
 
 diff --git a/src/event-popup.c b/src/event-popup.c
-index 3712491..4dad056 100644
+index 3712491..7665767 100644
 --- a/src/event-popup.c
 +++ b/src/event-popup.c
 @@ -117,31 +117,37 @@ static void event_popup_init(EventPopup* e)
  	btn = gtk_button_new();
  	gtk_button_set_image(GTK_BUTTON(btn), gtk_image_new_from_icon_name("emblem-ok-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR));
  	g_signal_connect(btn, "clicked", (GCallback) &rsvp_yes_clicked, e);
-+	gtk_widget_set_tooltip_text(btn, "RSVP: Yes");
++	gtk_widget_set_tooltip_text(btn, "Attending");
  	gtk_action_bar_pack_start(GTK_ACTION_BAR(actions), btn);
  
  	btn = gtk_button_new();
  	gtk_button_set_image(GTK_BUTTON(btn), gtk_image_new_from_icon_name("dialog-question-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR));
  	g_signal_connect(btn, "clicked", (GCallback) &rsvp_maybe_clicked, e);
-+	gtk_widget_set_tooltip_text(btn, "RSVP: Maybe");
++	gtk_widget_set_tooltip_text(btn, "Tentative");
  	gtk_action_bar_pack_start(GTK_ACTION_BAR(actions), btn);
  
  	btn = gtk_button_new();
  	gtk_button_set_image(GTK_BUTTON(btn), gtk_image_new_from_icon_name("dialog-error-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR));
  	g_signal_connect(btn, "clicked", (GCallback) &rsvp_no_clicked, e);
-+	gtk_widget_set_tooltip_text(btn, "RSVP: No");
++	gtk_widget_set_tooltip_text(btn, "Decline");
  	gtk_action_bar_pack_start(GTK_ACTION_BAR(actions), btn);
  
  	e->btn_delete = gtk_button_new();
@@ -50,5 +50,5 @@ index 3712491..4dad056 100644
  
  	gtk_box_pack_start(GTK_BOX(box), bar, FALSE, FALSE, 0);
 -- 
-2.24.0-rc1
+2.23.0
 
