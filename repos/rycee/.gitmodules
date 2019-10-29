@@ -1,0 +1,12 @@
+[submodule "hm-release-19.03"]
+	path = pkgs/home-manager/hm-release-19.03
+	url = https://gitlab.com/rycee/home-manager.git
+	branch = release-19.03
+[submodule "hm-release-19.09"]
+	path = pkgs/home-manager/hm-release-19.09
+	url = https://gitlab.com/rycee/home-manager.git
+	branch = release-19.09
+[submodule "hm-master"]
+	path = pkgs/home-manager/hm-master
+	url = https://gitlab.com/rycee/home-manager.git
+	branch = master
