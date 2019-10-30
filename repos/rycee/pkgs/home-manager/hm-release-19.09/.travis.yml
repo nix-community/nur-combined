@@ -1,0 +1,12 @@
+language: nix
+
+os:
+  - linux
+  - osx
+
+before_script:
+  - mkdir -m 0755 -p /nix/var/nix/{profiles,gcroots}/per-user/$USER
+
+script:
+  - nix-shell . -A install
+  - nix-shell tests -A run.all
