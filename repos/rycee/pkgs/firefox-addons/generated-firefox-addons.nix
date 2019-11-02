@@ -84,10 +84,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.8.3";
+      version = "4.8.4";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3430898/dark_reader-4.8.3-an+fx.xpi?src=";
-      sha256 = "f919a6ce72b68049612743d96349a76f8d7b057d8ddfec9c5aefe1324b8b9b42";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3436917/dark_reader-4.8.4-an+fx.xpi?src=";
+      sha256 = "cf393390785a9fdde03aca679d3cdbf1fabaf4ff7a950a54bb5719e5a8de581d";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -306,10 +306,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.18.5";
+      version = "5.18.6";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3436533/reddit_enhancement_suite-5.18.5-an+fx.xpi?src=";
-      sha256 = "857fd85d055b806619a6704cf36982fbdc7953182b728dfbb364d2070db47461";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3437338/reddit_enhancement_suite-5.18.6-an+fx.xpi?src=";
+      sha256 = "166c051fb667d0e84e3b10a8715992c777ee24c52592d615188c7b8b63bfcb24";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
