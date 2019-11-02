@@ -72,7 +72,6 @@ rec {
         kubernetes = mkKubernetes ({ inherit pkgs; } // config.k8s);
         kubectl = (kubernetes.override { components = [ "cmd/kubectl" ]; }).overrideAttrs(_: { pname = "kubectl"; });
         kubectx = pkgs.kubectx.override { inherit kubectl; };
-        kubefwd = pkgs.kubefwd.override { inherit kubectl; };
         helmfile = (mkHelmfile ({ inherit pkgs; } // config.helmfile)).override { inherit kubernetes-helm; };
         kops = mkKops ({ inherit pkgs; } // config.kops);
         inherit (pkgs) kubetail;
@@ -85,7 +84,6 @@ rec {
         helmfile
         kops
         kubectx
-        kubefwd
         kubernetes
         kubernetes-helm
         kubetail

@@ -14,7 +14,7 @@ rec {
     browserpass
     cachix
     conftest
-    elixir_1_8
+    # elixir_1_8
     eksctl
     firefox
     # TODO: next
@@ -23,13 +23,6 @@ rec {
     thunderbird
     tomb
     ;
-
-  cedille = _nixpkgs.cedille.override {
-    inherit (pkgs.haskellPackages) alex happy Agda ghcWithPackages;
-  };
-  emacsPackages.cedille = _nixpkgs.emacsPackages.cedille.override {
-    inherit cedille;
-  };
 
   elba = pkgs.callPackage ./development/tools/elba {};
 
@@ -40,8 +33,6 @@ rec {
   icon-lang = _nixpkgs.icon-lang.override {
     withGraphics = false;
   };
-
-  # FIXME: kubefwd = pkgs.callPackage ./development/tools/kubefwd {};
 
   lab = pkgs.callPackage ./applications/version-management/git-and-tools/lab {};
 
@@ -71,11 +62,17 @@ rec {
     cargoSha256 = "1l2dmvpg7114g7kczhaxv97037wdjah174xa992hv90a79kiz8da";
   });
 
-} // {
+} // (if pkgs.stdenv.isLinux then {
+
+  apfs-fuse = pkgs.callPackage ./os-specific/linux/apfs-fuse {
+    fuse = pkgs.fuse3;
+  };
+
+} else {}) // {
+
+  browserpass.meta.broken = true;
 
   cachix.meta.broken = true;
-
-  cedille.meta.broken = true;
 
   gap-pygments-lexer.meta.broken = true;
 
@@ -84,13 +81,8 @@ rec {
   lilypond-unstable.meta.broken = true;
   lilypond-with-fonts.meta.broken = true;
 
-  tellico.meta.broken = true;
-} // (if pkgs.stdenv.isLinux then {
+  sops.meta.broken = true;
 
-  apfs-fuse = pkgs.callPackage ./os-specific/linux/apfs-fuse {
-    fuse = pkgs.fuse3;
-  };
+  thunderbird.meta.broken = true;
 
-  tellico = pkgs.libsForQt5.callPackage ./applications/misc/tellico {};
-
-} else {})
+}
