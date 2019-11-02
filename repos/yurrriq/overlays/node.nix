@@ -1,6 +1,6 @@
 self: super: rec {
 
-  nodejs = super.nodejs-8_x;
+  nodejs = super.nodejs-10_x;
 
   nodePackages = let _nodePackages = super.callPackage ../pkgs/development/node-packages {
     inherit (super) pkgs;
