@@ -19,13 +19,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "zps";
-  version = "1.2.0";
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     owner = "orhun";
     repo = pname;
     rev = "refs/tags/${version}";
-    sha256 = "05fjynnzvs42xsbwaxw28ndf9m67z1msdi6nqk2g2431r7n2afry";
+    sha256 = "0qmf85j62ychjb5vclc9l6f5sg8wyfxkrzhf8jl5aq71v8gzaxba";
   };
 
   nativeBuildInputs = [ cmake_dep ];
