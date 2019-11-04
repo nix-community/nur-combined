@@ -9,3 +9,4 @@
 ## Future Packages
 *  instaloader
 *  TinyMediaManager (Should be upstreamed)
+*  Blobmoji
