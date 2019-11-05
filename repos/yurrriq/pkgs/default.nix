@@ -11,18 +11,22 @@ rec {
 
   inherit (_nixpkgs)
     autojump
-    browserpass
+    # FIXME: browserpass
     cachix
     conftest
     # elixir_1_8
     eksctl
+    expat # NOTE: https://github.com/NixOS/nixpkgs/issues/71075
     firefox
     # TODO: next
     pass
-    sops
+    # FIXME: ripgrep
+    # FIXME: sops
     thunderbird
     tomb
     ;
+
+  browserpass = _nixpkgs.callPackage ./tools/security/browserpass {};
 
   elba = pkgs.callPackage ./development/tools/elba {};
 
@@ -58,9 +62,15 @@ rec {
 
   renderizer = pkgs.callPackage ./development/tools/renderizer {};
 
+  ripgrep = _nixpkgs.callPackage ./tools/text/ripgrep {
+    inherit (_nixpkgs.darwin.apple_sdk.frameworks) Security;
+  };
+
   rust-cbindgen = _nixpkgs.rust-cbindgen.overrideAttrs(_: {
     cargoSha256 = "1l2dmvpg7114g7kczhaxv97037wdjah174xa992hv90a79kiz8da";
   });
+
+  sops = _nixpkgs.callPackage ./tools/security/sops {};
 
 } // (if pkgs.stdenv.isLinux then {
 
@@ -70,8 +80,6 @@ rec {
 
 } else {}) // {
 
-  browserpass.meta.broken = true;
-
   cachix.meta.broken = true;
 
   gap-pygments-lexer.meta.broken = true;
@@ -80,8 +88,6 @@ rec {
   lilypond.meta.broken = true;
   lilypond-unstable.meta.broken = true;
   lilypond-with-fonts.meta.broken = true;
-
-  sops.meta.broken = true;
 
   thunderbird.meta.broken = true;
 
