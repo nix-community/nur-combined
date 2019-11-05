@@ -80,15 +80,11 @@ rec {
 
 } else {}) // {
 
-  cachix.meta.broken = true;
-
   gap-pygments-lexer.meta.broken = true;
 
   openlilylib-fonts.meta.broken = true;
   lilypond.meta.broken = true;
   lilypond-unstable.meta.broken = true;
   lilypond-with-fonts.meta.broken = true;
-
-  thunderbird.meta.broken = true;
 
 }
