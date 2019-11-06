@@ -190,5 +190,6 @@ let toplevel = {
   // { xlayoutdisplay = pkgs.callPackage ./pkgs/xlayoutdisplay { }; }
   // { rofi-tab-switcher = pkgs.callPackage ./pkgs/rofi-tab-switcher { }; }
   // { zps = pkgs.callPackage ./pkgs/zps { }; }
+  // { yarpgen = pkgs.callPackage ./pkgs/yarpgen { }; }
   ));
 }; in toplevel.lib.recurseIntoAttrs toplevel #  // toplevel.pkgs
