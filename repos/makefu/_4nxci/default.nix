@@ -1,11 +1,11 @@
 { stdenv, lib, fetchFromGitHub, mbedtls, python2, perl }:
 let
-  version = "1.35";
+  version = "4.03";
   src = fetchFromGitHub {
     owner = "The-4n";
     repo = "4NXCI";
     rev = "v${version}";
-    sha256 = "0yq0irxzi4wi71ajw8ld01zfpkrgknpq7g3m76pbnwmdzkm7dra6";
+    sha256 = "0n49sqv6s8cj2dw1dbcyskfc2zr92p27f1bdd6jqfbawv0fqr1wf";
   };
 
   mymbedtls = stdenv.mkDerivation {

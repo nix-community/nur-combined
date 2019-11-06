@@ -3,13 +3,13 @@
 with python3Packages; buildPythonApplication rec {
   name = "Fluffy-${version}";
   format = "other";
-  version = "2.7";
+  version = "2.9";
 
   src = pkgs.fetchFromGitHub {
     owner = "fourminute";
     repo = "Fluffy";
     rev = "v${version}";
-    sha256 = "1l346bklidcl40q91cfdszrfskdwlmfjbmsc3mgs0i8wi1yhvq99";
+    sha256 = "1w1j7cdp0zpgwn7zi28z8dcbgnhxvllgh3rp1gkdjnpr4a6ngj8z";
   };
 
   prePatch = ''

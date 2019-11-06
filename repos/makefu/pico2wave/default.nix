@@ -41,4 +41,11 @@ stdenv.mkDerivation rec {
       --set NIX_REDIRECTS /usr/share/pico/lang=$out/share/pico/lang
   '';
 
+  meta = with stdenv.lib; {
+    description = "Text-to-speech engine";
+    homepage = https://android.googlesource.com/platform/external/svox;
+    platforms = platforms.linux;
+    license = licenses.asl20;
+    maintainers = with maintainers; [ abbradar ];
+  };
 }

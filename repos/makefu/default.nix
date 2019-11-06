@@ -25,22 +25,21 @@ in {
       patches = [ ./custom/quodlibet/single-digit-discnumber.patch
                   ./custom/quodlibet/remove-override-warning.patch ];
     });
-    rclone = super.pkgs.stdenv.lib.overrideDerivation super.rclone (old: {
-      postInstall = old.postInstall + ''
+    #rclone = super.pkgs.stdenv.lib.overrideDerivation super.rclone (old: {
+    #  postInstall = old.postInstall + ''
 
-            $bin/bin/rclone genautocomplete zsh _rclone
-            install -D -m644 _rclone $bin/share/zsh/vendor-completions/_rclone
-            $bin/bin/rclone genautocomplete bash _rclone
-            install -D -m644 _rclone $bin/etc/bash_completion.d/rclone
-        '';
-    });
+    #        $out/bin/rclone genautocomplete zsh _rclone
+    #        install -D -m644 _rclone $out/share/zsh/vendor-completions/_rclone
+    #        $out/bin/rclone genautocomplete bash _rclone
+    #        install -D -m644 _rclone $out/etc/bash_completion.d/rclone
+    #    '';
+    #});
     alsa-hdspconf = callPackage ./custom/alsa-tools { alsaToolTarget="hdspconf";};
     alsa-hdspmixer = callPackage ./custom/alsa-tools { alsaToolTarget="hdspmixer";};
     alsa-hdsploader = callPackage ./custom/alsa-tools { alsaToolTarget="hdsploader";};
     qcma = super.pkgs.libsForQt5.callPackage ./custom/qcma { };
     inherit (callPackage ./devpi {}) devpi-web ;
     nodemcu-uploader = super.pkgs.callPackage ./nodemcu-uploader {};
-    prison-break = abort "`prison-break` moved from this namespace to `nur.repos.krebs.prison-break`";
 }
 
 // (mapAttrs (_: flip callPackage {})
