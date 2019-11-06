@@ -80,10 +80,10 @@ pkgs.callPackage ./top-level/all-packages.nix {
             # (woo you can tell it's still good because we reimplemented a bit
             # of lib.callPackageWith just now)
 
-          in (if (lib.functionArgs f) ? packageOverrides then
-            args // { inherit packageOverrides; }
-          else
-            args));
+            in if (lib.functionArgs f) ? packageOverrides then
+              args // { inherit packageOverrides; }
+            else
+              args);
         };
       });
     } // (setupPyAttrs self super [

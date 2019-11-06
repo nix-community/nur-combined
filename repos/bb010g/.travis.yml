@@ -68,8 +68,8 @@ jobs:
     env: NIX_CHANNEL=https://github.com/bb010g/nixpkgs/archive/bb010g-nixos-unstable.tar.gz
   - name: 'nixos-unstable'
     env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
-  - name: 'nixos-19.03'
-    env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.03
+  - name: 'nixos-19.09'
+    env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
   - stage: deploy
     name: "Notify NUR"
     if: 'type NOT IN (pull_request, cron) AND branch IN (master)'
