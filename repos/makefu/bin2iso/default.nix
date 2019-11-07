@@ -1,19 +1,17 @@
-{ stdenv, lib, pkgs, fetchurl }:
+{ stdenv, lib, pkgs, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   pname = "bin2iso";
   version = "1.9b";
-  _dlver = builtins.replaceStrings ["."] [""] version;
-  name = "${pname}-${version}";
 
-  src = fetchurl {
-    url = "http://users.eastlink.ca/~doiron/${pname}/linux/${pname}${_dlver}_linux.c";
-    sha256 = "0gg4hbzlm83nnbccy79dnxbwpn7lxl3fb87ka36mlclikvknm2hy";
+  src = fetchFromGitHub {
+    owner = "einsteinx2";
+    repo = "bin2iso";
+    rev = "a08f6f93b833878dc009fe59da072643f06a7830";
+    sha256 = "1bnhj8z7wbq2v070zkx0xal6hx37y20a068gpy95zh13vihvbgh3";
   };
 
-  unpackPhase = "true";
-
   buildPhase =''
-    gcc -Wall -o $pname $src
+    gcc -Wall -o $pname $src/src/linux_macos/${pname}_v${version}_linux.c
   '';
 
   installPhase = ''
@@ -21,7 +19,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://users.eastlink.ca/~doiron/bin2iso/ ;
+    homepage = https://github.com/einsteinx2/bin2iso;
     description = "converts bin+cue to iso";
     license = lib.licenses.gpl3;
   };
