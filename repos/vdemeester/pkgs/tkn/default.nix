@@ -17,7 +17,7 @@ buildGoModule rec {
     rev = "v${version}";
     sha256 = "00851p3mky3rgv0yqhdmj6kvp2ih1z3inkp668851fsscajswkb1";
   };
-  modSha256 = "0yhmbfp3nnk92p07g2nmw31n0ima8yh1951llrw9wgjdlnr33klp";
+  modSha256 = "16vnw7isqzwh71hby27jns7imn8xwhhz5fnwmbrw17bvz0krdx2s";
 
   meta = with stdenv.lib; {
     homepage    = https://github.com/tektoncd/cli;
