@@ -23,8 +23,12 @@ in
     coreutils
     utillinux
 
+    atop
+    iotop
+
     curl
     inetutils
+    wget
 
     gzip
     bzip2
@@ -42,6 +46,7 @@ in
     cat = "bat -p --pager=never";
   };
 
+  boot.cleanTmpDir = mkDefault (! config.boot.tmpOnTmpfs);
 
   i18n = {
     defaultLocale = mkDefault "en_US.UTF-8";
@@ -49,6 +54,11 @@ in
 
   networking.firewall.enable = mkDefault true;
   networking.firewall.logRefusedConnections = mkDefault false;
+  networking.firewall.extraCommands = ''
+    # Nixos firewall already adds a chain that rejects all incoming by default.
+    # However, I find this is more explicit.
+    iptables -P INPUT DROP
+  '';
 
   kampka.services.ntp.enable = mkDefault true;
   kampka.services.dns-cache.enable = mkDefault true;

@@ -11,5 +11,6 @@
   systemd-failure-email = ./services/systemd-failure-email;
   tmux = ./services/tmux;
 
+  desktop = ./profiles/desktop.nix;
   headless = ./profiles/headless.nix;
 }

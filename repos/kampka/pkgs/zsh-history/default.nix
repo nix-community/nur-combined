@@ -1,40 +1,34 @@
-{ stdenv, lib, fetchFromGitHub, buildGoPackage }:
+{ lib, fetchFromGitHub, buildGoModule }:
 
-with lib;
-
-buildGoPackage rec {
-  name = "zsh-history";
+buildGoModule rec {
+  pname = "zsh-history";
+  version = "2019-10-07";
 
   src = fetchFromGitHub {
     owner = "b4b4r07";
     repo = "history";
-    rev = "527e6f51873992fbf9c1aad70aa3009a0027a8de";
-    sha256 = "12dc380zfg3b9k7rcsyzi9dxqh28c4957b3fsx1nxvqvdm3ralm2";
+    rev = "a08ad2dcffc852903ae54b0c5704b8a085009ef7";
+    sha256 = "0r3p04my40dagsq1dssnk583qrlcps9f7ajp43z7mq73q3hrya5s";
   };
 
-  goDeps = ./deps.nix;
-  goPackagePath = "history";
+  modSha256 = "1lyb5n3g1msn4iw1jc7hmrdx6fzphdj7qprvflh2rkyp1q2c8bil";
+  goPackagePath = "github.com/b4b4r07/history";
 
-  preConfigure = ''
-    # Extract the source
-    mkdir -p "$NIX_BUILD_TOP/go/src/github.com/b4b4r07"
-    cp -a $NIX_BUILD_TOP/source "$NIX_BUILD_TOP/go/src/github.com/b4b4r07/history"
-    export GOPATH=$NIX_BUILD_TOP/go/src/github.com/b4b4r07/history:$GOPATH
-  '';
+  patches = [
+    ./0001-Fix-path-marshalling-when-saveing-config.patch
+    ./0002-Add-test-for-marshaling-unmarshaling-configs.patch
+  ];
 
-  installPhase = ''
-    install -d "$bin/bin"
-    install -m 0755 $NIX_BUILD_TOP/go/bin/history "$bin/bin"
+  postInstall = ''
     install -d $out/share
-    cp -r $NIX_BUILD_TOP/go/src/history/misc/* $out/share
-    cp -r $out/share/zsh/completions $out/share/zsh/site-functions
+    cp -r "$NIX_BUILD_TOP/source/misc/"* "$out/share"
   '';
 
-  meta = {
-    description = "A CLI to provide enhanced history for your shell";
+  meta = with lib; {
+    description = "A CLI to provide enhanced history for your ZSH shell";
     license = licenses.mit;
     homepage = https://github.com/b4b4r07/history;
     platforms = platforms.unix;
-    outputsToInstall = [ "out" "bin" ];
+    maintainers = with maintainers; [ kampka ];
   };
 }
