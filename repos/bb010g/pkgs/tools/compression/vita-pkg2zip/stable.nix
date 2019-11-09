@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python3 }:
+{ stdenv, fetchFromGitHub, fetchpatch, python3 }:
 
 stdenv.mkDerivation {
   pname = "vita-pkg2zip";
@@ -15,6 +15,14 @@ stdenv.mkDerivation {
   buildInputs = [ python3 ];
 
   outputBin = "out";
+
+  patches = [
+    # "ignore unnecessary warnings": build with -Wno-format-truncation
+    (fetchpatch {
+      url = https://github.com/mmozeiko/pkg2zip/commit/bb1b430ada4510375f070f42d5474c7ce24bf5bf.patch;
+      sha256 = "0zsk2s4s9pa69kvar025ldc9qhw922y22z9lf7h4ck46hd7l8v3k";
+    })
+  ];
 
   installPhase = ''
     runHook preInstall

@@ -1,7 +1,8 @@
-{ stdenv, fetchgit, fetchpatch
+{ stdenv, fetchgit
 , pkgconfig, wrapGAppsHook
 , gcr, glib, glib-networking, gsettings-desktop-schemas, gtk, libsoup
-, webkitgtk, coreutils, dmenu, findutils, gnused, xorg
+, webkitgtk
+, coreutils, dmenu, findutils, gnused, xorg
 , patches ? null
 }:
 

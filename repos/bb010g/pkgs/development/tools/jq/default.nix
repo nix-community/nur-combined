@@ -3,13 +3,11 @@
 # installCheck inputs
 , python3 ? null
 # features
-, enableAsan ? false
-, enableUbsan ? false
+# (disable Valgrind checks to severly reduce build time while testing)
 , enableValgrindChecks ? true
 , less ? null, valgrind ? null, which ? null
 }:
 
-assert enableAsan -> !enableValgrindChecks;
 assert enableValgrindChecks -> valgrind != null;
 assert enableValgrindChecks -> which != null;
 
@@ -73,8 +71,6 @@ stdenv.mkDerivation rec {
     "--sbindir=\${bin}/bin"
     "--datadir=\${doc}/share"
     "--mandir=\${man}/share/man"
-    (lib.enableFeature enableAsan "asan")
-    (lib.enableFeature enableUbsan "ubsan")
     (lib.enableFeature enableValgrindChecks "valgrind")
   ] ++
     # jq is linked to libjq:

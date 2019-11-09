@@ -1,7 +1,7 @@
 { buildPackages, lib, newScope, recurseIntoAttrs
-, fetchFromGitHub, fetchgit, fetchzip, gtk3, libsForQt5, mosh, path, st
+, fetchFromGitHub, fetchgit, fetchzip, gtk3, libsForQt5, mosh, path
+, python3Packages, python36Packages, st
 , stdenv, swt
-, cargo-vendor ? null
 }:
 lib.makeScope newScope (self: let inherit (self) callPackage; in
 
@@ -14,17 +14,9 @@ let
   breakIf = applyIf break;
   breakIf' = applyIf' break;
 
-  min-cargo-vendor = "0.1.23";
-  packageOlder = p: v: p != null && versionOlder (lib.getVersion p) v;
-  cargoVendorTooOld = cargo-vendor: packageOlder cargo-vendor min-cargo-vendor;
-  needsNewCargoVendor = p: breakIf' (cargoVendorTooOld p);
-  needsNewCargoVendor' = needsNewCargoVendor cargo-vendor;
-
   withPyPkgs = pkgs: pkgs.overrideScope' self.pythonPkgsScope;
-  python3Packages = callPackage ({ python3Packages }:
-    withPyPkgs python3Packages) { };
-  python36Packages = callPackage ({ python36Packages }:
-    withPyPkgs python36Packages) { };
+  python3Packages' = withPyPkgs python3Packages;
+  python36Packages' = withPyPkgs python36Packages;
 in {
   # # applications
 
@@ -34,8 +26,7 @@ in {
 
   # ## applications.graphics
 
-  xcolor = needsNewCargoVendor'
-    (callPackage ../applications/graphics/xcolor { });
+  xcolor = callPackage ../applications/graphics/xcolor { };
 
   # ## applications.misc
 
@@ -94,7 +85,7 @@ in {
 
   # ### applications.networking.p2p
 
-  broca-unstable = python3Packages.callPackage
+  broca-unstable = python3Packages'.callPackage
     ../applications/networking/p2p/broca { };
 
   receptor-unstable = callPackage ../applications/networking/p2p/receptor { };
@@ -177,7 +168,7 @@ in {
 
   # ## development.python-modules
 
-  wpull = python36Packages.toPythonApplication python36Packages.wpull;
+  wpull = python36Packages'.toPythonApplication python36Packages'.wpull;
 
   # ## development.tools
 
@@ -199,8 +190,7 @@ in {
 
   lz4json = callPackage ../tools/compression/lz4json { };
 
-  mozlz4-tool = needsNewCargoVendor'
-    (callPackage ../tools/compression/mozlz4-tool { });
+  mozlz4-tool = callPackage ../tools/compression/mozlz4-tool { };
 
   vita-pkg2zip = self.vita-pkg2zip-unstable;
 
@@ -249,7 +239,7 @@ in {
 
   dwdiff = callPackage ../tools/text/dwdiff { };
 
-  ydiff = python3Packages.callPackage ../tools/text/ydiff { };
+  ydiff = python3Packages'.callPackage ../tools/text/ydiff { };
 
   # # top-level
 
