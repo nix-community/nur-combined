@@ -17,6 +17,10 @@ rec {
   airnef = pkgs.callPackage ./pkgs/airnef { pythonPackages =
     pkgs.python3Packages; buildPythonApplication =
       pkgs.python3Packages.buildPythonApplication; };
+
+  nmigen = pkgs.callPackage ./pkgs/nmigen {};
+  nmigen-boards = pkgs.callPackage ./pkgs/nmigen-boards { nmigen = nmigen; };
+
   i3status-rust = pkgs.callPackage ./pkgs/i3status-rust { };
   ipbt = pkgs.callPackage ./pkgs/ipbt { };
   implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad { };
