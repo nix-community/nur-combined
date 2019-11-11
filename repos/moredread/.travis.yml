@@ -17,7 +17,7 @@ install:
 - nix-channel --list
 - nix-channel --add "${NIX_CHANNEL}" nixpkgs
 - travis_retry nix-channel --update
-- if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix; fi
+- if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix -f channel:nixos-unstable; fi
 - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
 script:
 - outs=$(nix-build non-broken.nix --cores ${NIX_BUILD_CORES}) && echo Produced $outs
