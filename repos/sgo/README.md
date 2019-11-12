@@ -25,7 +25,8 @@
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
+
 [![Build Status](https://travis-ci.com/stigtsp/nur.svg?branch=master)](https://travis-ci.com/stigtsp/nur)
-<!-- [![Cachix Cache](https://img.shields.io/badge/cachix-<YOUR_CACHIX_CACHE_NAME>-blue.svg)](https://<YOUR_CACHIX_CACHE_NAME>.cachix.org) -->
+[![Cachix Cache](https://img.shields.io/badge/cachix-sgo-blue.svg)](https://sgo.cachix.org) 
 
 
