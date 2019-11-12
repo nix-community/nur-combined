@@ -19,15 +19,14 @@ stdenv.mkDerivation rec {
   # '';
 
   installPhase = ''
-    set -ex
     mkdir -p "$out"
-    export HOME=$TMPDIR
-    ${rakudo}/bin/perl6 -I. ./bin/zef --/depends --/test-depends --/build-depends --install-to=$out install .
+
+    # TODO: Set $HOME be $TMPDIR since zef writes cache-stuff there
+    env HOME=$TMPDIR ${rakudo}/bin/perl6 -I. ./bin/zef --/depends --/test-depends --/build-depends --install-to=$out install .
   '';
 
   postFixup =''
-    wrapProgram $out/bin/zef \
-      --prefix RAKUDOLIB : "inst#$out"
+    wrapProgram $out/bin/zef --argv0 zef --prefix RAKUDOLIB , "inst#$out"
   '';
 
   meta = with stdenv.lib; {
