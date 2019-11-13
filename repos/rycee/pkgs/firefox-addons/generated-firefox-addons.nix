@@ -182,10 +182,10 @@
       };
     "https-everywhere" = buildFirefoxXpiAddon {
       pname = "https-everywhere";
-      version = "2019.6.27";
+      version = "2019.11.7";
       addonId = "https-everywhere@eff.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3060290/https_everywhere-2019.6.27-an+fx.xpi?src=";
-      sha256 = "37bb2155496910fdcf093c6f40d7871bd9605b4bd0200498b1c7c29b2ca4831c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3442258/https_everywhere-2019.11.7-an+fx.xpi?src=";
+      sha256 = "b4c33fcc43f9da395ff0b139cec005afa43f007c45a991d6089402c0b78288e6";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/https-everywhere";
@@ -320,10 +320,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.11.11";
+      version = "19.11.12";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3443832/refined_github-19.11.11-an+fx.xpi?src=";
-      sha256 = "c88a46ab3caac6638829f58558a05c0cb61c380f4c8ed478d8df8982d9841046";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3444630/refined_github-19.11.12-an+fx.xpi?src=";
+      sha256 = "87a948683cde3832f5cb544a046cd41f923e8b0009836225041259e56cd80cd8";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
