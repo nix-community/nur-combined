@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   name = "libfabric-${version}";
-  version = "1.6.1";
+  version = "1.8.1";
 
   enableParallelBuilding = true;
 
@@ -10,14 +10,14 @@ stdenv.mkDerivation rec {
     owner = "ofiwg";
     repo = "libfabric";
     rev = "v${version}";
-    sha256 = "0fsx9fx7z5pr2w0jh2lg4fk6csmp5qrpp1lj6vi5axvdndycfznn";
+    sha256 = "1qf4jz9bkq6f6dpcg5d5r0yjbqizaqxqakpwbgcr08jg4s3pp6la";
   };
 
   buildInputs = [ pkgconfig autoreconfHook psm2 ];
 
   preConfigure = ''
-    ./autogen.sh   
-  '';              
+    ./autogen.sh
+  '';
 
   configureFlags = [ "--enable-psm2=${psm2}/usr" ] ;
 

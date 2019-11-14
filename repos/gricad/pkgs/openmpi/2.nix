@@ -18,14 +18,14 @@ with stdenv.lib;
 
 let
   majorVersion = "2.1";
-  minorVersion = "3";
+  minorVersion = "6";
 
 in stdenv.mkDerivation rec {
   name = "openmpi-${majorVersion}.${minorVersion}";
 
   src = fetchurl {
     url = "http://www.open-mpi.org/software/ompi/v${majorVersion}/downloads/${name}.tar.bz2";
-    sha256 = "1s3r9lsnk12zax4fngy6yac19ipc8dh4jx24a8ah8rzdd4m3wnr8";
+    sha256 = "0vm89i6r8h4civa09aj708cqhls09bazqyfsl23cbgkvb6wf3f4q";
   };
 
   buildInputs = [ gfortran ]
