@@ -11,6 +11,18 @@
         "url": "https://github.com/balsoft/lambda-launcher/archive/a33805711dee4b8c80980e39803f49755b41059c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nix-patch": {
+        "branch": "master",
+        "description": "A simple script to aid patching sources with nix",
+        "homepage": null,
+        "owner": "balsoft",
+        "repo": "nix-patch",
+        "rev": "81c2d8882c22f8651912889a8b1f6380d8e4b3a7",
+        "sha256": "0xld2jb2s60x1km2i662sc6liw76zxhkniazvql42mjarw942aj6",
+        "type": "tarball",
+        "url": "https://github.com/balsoft/nix-patch/archive/81c2d8882c22f8651912889a8b1f6380d8e4b3a7.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "termNote": {
         "branch": "master",
         "description": "Terminal Notes Application",
