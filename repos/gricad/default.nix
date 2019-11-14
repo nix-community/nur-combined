@@ -66,7 +66,7 @@ rec {
         };
 
   # ParMETIS
-  parmetis = pkgs.callPackage ./pkgs/parmetis { };
+  #parmetis = pkgs.callPackage ./pkgs/parmetis { };
 
   # Trilinos
   trilinos =  pkgs.callPackage ./pkgs/trilinos { };
