@@ -1,0 +1,46 @@
+--- a/src/lumi_pdf.cxx	2018-12-04 12:00:08.706096551 +0100
++++ b/src/lumi_pdf.cxx	2018-12-04 11:58:24.146115716 +0100
+@@ -24,6 +24,8 @@
+   appl_pdf(s), m_filename(s) //,  m_amcflag(amcflag)
+ {
+   
++  std::cout << "lumi_pdf::lumi_pdf() " << s << "\tv size " << combinations.size() << " lookup size " << m_lookup.size() << " " << this << std::endl; 
++
+   /// need to decode the input std::vector
+ 
+   if ( combinations.size() ) { 
+@@ -95,8 +97,6 @@
+ 
+   m_Nproc = m_combinations.size();
+ 
+-  std::cout << "lumi_pdf::lumi_pdf() " << s << "\tcombinations " << size() << std::endl;  // << " lookup size " << m_lookup.size() << " " << this << std::endl; 
+-
+   // create the reverse lookup 
+ 
+   create_lookup();
+@@ -107,7 +107,7 @@
+ 
+   //  lumi_pdf* _pdf = dynamic_cast<lumi_pdf*>(appl::appl_pdf::getpdf(name()));
+   //  std::cout << "done " << _pdf << _pdf->decideSubProcess( 0, 0 ) << std::endl;
+-
++  
+ }
+ 
+ 
+@@ -225,16 +225,8 @@
+ 
+ }
+ 
+-
+ void lumi_pdf::write(const std::string& filename) const {  
+   std::ofstream s(filename.c_str());
+   write(s);
+ }
+ 
+-
+-// std::string lumi_pdf::summary(std::ostream& s=std::cout) const { 
+-std::string lumi_pdf::summary() const { 
+-  std::stringstream s;
+-  s << "lumi_pdf::lumi_pdf() " << s << "\tsize " << m_combinations.size() << " lookup size " << m_lookup.size() << " " << this; 
+-  return s.str();
+-}

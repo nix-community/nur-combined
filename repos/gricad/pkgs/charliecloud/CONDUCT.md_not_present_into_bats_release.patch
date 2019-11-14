@@ -1,0 +1,12 @@
+diff -u -r charliecloud-0.2.3.orig/Makefile charliecloud-0.2.3/Makefile
+--- charliecloud-0.2.3.orig/Makefile	2018-02-14 22:33:10.000000000 +0100
++++ charliecloud-0.2.3/Makefile	2018-04-09 17:48:06.282548507 +0200
+@@ -145,7 +145,7 @@
+ #       Bats (if embedded)
+ 	if [ -d test/bats/bin ]; then \
+ 	    install -d $(TEST)/bats && \
+-	    install -pm 644 -t $(TEST)/bats test/bats/CONDUCT.md \
++	    install -pm 644 -t $(TEST)/bats \
+ 	                                    test/bats/LICENSE \
+ 	                                    test/bats/README.md && \
+ 	    install -d $(TEST)/bats/libexec && \

@@ -1,0 +1,18 @@
+diff -u -r petsc-3.11.1.orig/lib/petsc/bin/petscmpiexec petsc-3.11.1/lib/petsc/bin/petscmpiexec
+--- petsc-3.11.1.orig/lib/petsc/bin/petscmpiexec	2018-07-02 17:58:27.000000000 +0200
++++ petsc-3.11.1/lib/petsc/bin/petscmpiexec	2019-04-25 14:17:20.584742396 +0200
+@@ -45,11 +45,11 @@
+ #echo $MPI_HOME
+ 
+ #echo $run
+-set trun = `echo ${run} | sed -e sz\$MPI_BUILD_HOMEz${MPI_BUILD_HOME}z`
++set trun = `echo ${run} | sed -e s,\$MPI_BUILD_HOME,${MPI_BUILD_HOME},`
+ #echo $trun
+-set nrun = `echo ${trun} | sed -e sz\$MPI_HOMEz${MPI_HOME}z`
++set nrun = `echo ${trun} | sed -e s,\$MPI_HOME,${MPI_HOME},`
+ #echo $nrun
+-set qrun = `echo ${nrun} | sed -e sz\$PETSC_DIRz${PETSC_DIR}z`
++set qrun = `echo ${nrun} | sed -e s,\$PETSC_DIR,${PETSC_DIR},`
+ #echo $qrun
+ 
+ #echo $qrun $*
