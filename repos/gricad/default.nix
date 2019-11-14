@@ -122,5 +122,8 @@ rec {
   # Scotch 6.0.5a with mumps libraries
   scotch-mumps = pkgs.callPackages ./pkgs/scotch-mumps { };
 
+  # Obitools3
+  obitools3 = pkgs.callPackage ./pkgs/obitools/obitools3.nix { };
+
 }
 
