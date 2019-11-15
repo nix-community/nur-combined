@@ -15,6 +15,7 @@ rec {
   overlays = import ./overlays;
 
   python3Packages = {
+    cooldict = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cooldict {};
     crypto-commons = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/crypto-commons {};
   };
 }

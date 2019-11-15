@@ -14,8 +14,10 @@ buildPythonPackage rec {
     sha256 = "1f5xwcqwc55b4ap2z173h38x5dny126iikp7rji0sfap6jm6gvxk";
   };
 
+  # No tests in repo.
   doCheck = false;
 
+  # Verify imports still work.
   pythonImportsCheck = [
     "crypto_commons.generic"
     "crypto_commons.rsa.rsa_commons"
