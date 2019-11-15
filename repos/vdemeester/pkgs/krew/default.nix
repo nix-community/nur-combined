@@ -1,22 +1,23 @@
-{ stdenv, lib, buildGoPackage, fetchFromGitHub }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub }:
 
-buildGoPackage rec {
+buildGoModule rec {
   name = "krew-${version}";
-  version = "0.2.1";
+  version = "0.3.2";
   rev = "v${version}";
 
-  goPackagePath = "github.com/GoogleContainerTools/krew";
-
+  goPackagePath = "github.com/kubernetes-sigs/krew";
+  subPackages = [ "cmd/krew" ];
   src = fetchFromGitHub {
     inherit rev;
-    owner = "GoogleContainerTools";
+    owner = "kubernetes-sigs";
     repo = "krew";
-    sha256 = "078vc54mfgx0nigr0hwrih2i4ifq2kfk3jy4zj5i8hs7631xz5s1";
+    sha256 = "0zn3m1s3h8nghshxy1llzc51ranbyaj3v25zbjwjcq16gpak16i7";
   };
+  modSha256 = "04w2gqi0q58fj5sz173fcjkgnb1npki4484c35y562j21gvzmc33";
 
   meta = {
     description = "The package manager for 'kubectl plugins. ";
-    homepage = "https://github.com/GoogleContainerTools/krew";
+    homepage = "https://github.com/kubernetes-sigs/krew";
     license = lib.licenses.asl20;
   };
 }
