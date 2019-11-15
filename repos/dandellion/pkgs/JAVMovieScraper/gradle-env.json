@@ -1333,18 +1333,6 @@
           "sha256": "bd318001ec581c9f594472376017e0035569cc77f0213d9d5f32b4598d9b5247"
         },
         {
-          "name": "com.github.codacy-codacy-coverage-reporter--SNAPSHOT-jar",
-          "filename": "codacy-coverage-reporter--SNAPSHOT.jar",
-          "path": "com/github/codacy/codacy-coverage-reporter/-SNAPSHOT",
-          "urls": [
-            "https://repo.maven.apache.org/maven2/com/github/codacy/codacy-coverage-reporter/-SNAPSHOT/codacy-coverage-reporter--SNAPSHOT.jar",
-            "http://clojars.org/repo/com/github/codacy/codacy-coverage-reporter/-SNAPSHOT/codacy-coverage-reporter--SNAPSHOT.jar",
-            "https://jitpack.io/com/github/codacy/codacy-coverage-reporter/-SNAPSHOT/codacy-coverage-reporter--SNAPSHOT.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/com/github/codacy/codacy-coverage-reporter/-SNAPSHOT/codacy-coverage-reporter--SNAPSHOT.jar"
-          ],
-          "sha256": "22583bad7ef14c7a051a473ffad4620a921ba74134c8869c93875309f8d96fe0"
-        },
-        {
           "name": "com.github.codacy-codacy-coverage-reporter--SNAPSHOT-pom",
           "filename": "codacy-coverage-reporter--SNAPSHOT.pom",
           "path": "com/github/codacy/codacy-coverage-reporter/-SNAPSHOT",
