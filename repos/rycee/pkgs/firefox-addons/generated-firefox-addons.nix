@@ -306,10 +306,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.18.6";
+      version = "5.18.7";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3437338/reddit_enhancement_suite-5.18.6-an+fx.xpi?src=";
-      sha256 = "166c051fb667d0e84e3b10a8715992c777ee24c52592d615188c7b8b63bfcb24";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3446859/reddit_enhancement_suite-5.18.7-an+fx.xpi?src=";
+      sha256 = "7977b4d6f2106215414ca33162f53df2ca1f8f4b4c35976e2913ba19f1d55ecc";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
