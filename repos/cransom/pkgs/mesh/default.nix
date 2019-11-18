@@ -11,9 +11,6 @@ stdenv.mkDerivation {
   };
   buildInputs = [ python ];
 
-  configurePhase = ''
-  ./configure
-  '';
   preBuild = ''
     sed -i "s|PREFIX = .*|PREFIX = $out|;s/ldconfig//" Makefile GNUmakefile
     mkdir -p $out/lib

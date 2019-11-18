@@ -6,13 +6,10 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
-let 
-  inherit (pkgs) pkgsCross;
+{ pkgs ? import <nixpkgs> { } }:
+let inherit (pkgs) pkgsCross;
 
-in
-
-  {
+in {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -20,14 +17,14 @@ in
 
   plater = pkgs.callPackage ./pkgs/plater { };
   rfm = pkgs.callPackage ./pkgs/rfm { };
-  libmesh = pkgs.callPackages ./pkgs/mesh { };
-  /*
-  klipper = pkgs.callPackages ./pkgs/klipper {
-    avrgcc = pkgsCross.avr.buildPackages.gcc;
-    #avrlibc = pkgsCross.avr.buildPackages.libcCross;
-    avrbinutils = pkgsCross.avr.buildPackages.binutils;
-    gcc-armhf-embedded = pkgsCross.armhf-embedded.buildPackages.gcc;
-  };
+  #libmesh = pkgs.callPackages ./pkgs/mesh { };
+  fah7 = pkgs.callPackages ./pkgs/fah7 { };
+  /* klipper = pkgs.callPackages ./pkgs/klipper {
+       avrgcc = pkgsCross.avr.buildPackages.gcc;
+       #avrlibc = pkgsCross.avr.buildPackages.libcCross;
+       avrbinutils = pkgsCross.avr.buildPackages.binutils;
+       gcc-armhf-embedded = pkgsCross.armhf-embedded.buildPackages.gcc;
+     };
   */
 
 }
