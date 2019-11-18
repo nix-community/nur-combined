@@ -5,11 +5,11 @@
 
 let
 self = stdenv.mkDerivation rec {
-  name = "mysql-${version}";
+  pname = "mysql";
   version = "5.5.62";
 
   src = fetchurl {
-    url = "mirror://mysql/MySQL-5.5/${name}.tar.gz";
+    url = "mirror://mysql/MySQL-5.5/${pname}-${version}.tar.gz";
     sha256 = "1mwrzwk9ap09s430fpdkyhvx5j2syd3xj2hyfzvanjphq4xqbrxi";
   };
 

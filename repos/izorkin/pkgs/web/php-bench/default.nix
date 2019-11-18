@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   version = "1.0.32";
-  name = "php-simple-benchmark-script-${version}";
+  pname = "php-simple-benchmark-script";
 
   src = fetchFromGitHub {
     owner = "rusoft";

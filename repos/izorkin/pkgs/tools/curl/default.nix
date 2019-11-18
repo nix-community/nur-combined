@@ -9,6 +9,7 @@
 , gssSupport ? !stdenv.hostPlatform.isWindows, libkrb5 ? null
 , c-aresSupport ? false, c-ares ? null
 , brotliSupport ? false, brotli ? null
+, ipv6Support ? true
 }:
 
 assert http2Support -> nghttp2 != null;
@@ -24,14 +25,15 @@ assert brotliSupport -> brotli != null;
 assert gssSupport -> libkrb5 != null;
 
 stdenv.mkDerivation rec {
-  name = "curl-7.66.0";
+  pname = "curl";
+  version = "7.67.0";
 
   src = fetchurl {
     urls = [
-      "https://curl.haxx.se/download/${name}.tar.bz2"
-      "https://github.com/curl/curl/releases/download/${lib.replaceStrings ["."] ["_"] name}/${name}.tar.bz2"
+      "https://curl.haxx.se/download/${pname}-${version}.tar.bz2"
+      "https://github.com/curl/curl/releases/download/${pname}-${lib.replaceStrings ["."] ["_"] version}/${pname}-${version}.tar.bz2"
     ];
-    sha256 = "0hd1wwplw357hn876s4n2gk7dpmd1gfw5d2c3yi21i1m09726636";
+    sha256 = "0v2qb1c82m3qzkiyglsg1745qi791i9pl1jgnks8nm0sh9b6jpyx";
   };
 
   outputs = [ "bin" "dev" "out" "man" "devdoc" ];
@@ -85,7 +87,8 @@ stdenv.mkDerivation rec {
     ++ stdenv.lib.optionals stdenv.hostPlatform.isWindows [
       "--disable-shared"
       "--enable-static"
-    ];
+    ]
+    ++ stdenv.lib.optional (!ipv6Support) "--disable-ipv6";
 
   CXX = "${stdenv.cc.targetPrefix}c++";
   CXXCPP = "${stdenv.cc.targetPrefix}c++ -E";

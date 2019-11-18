@@ -1,10 +1,11 @@
 # pcre functionality is tested in nixos/tests/php-pcre.nix
-{ lib, stdenv, fetchurl, autoconf, bison, libtool, pkgconfig, re2c
-, mysql, libxml2, readline, zlib, curl, postgresql, gettext
-, openssl, pcre, pcre2, sqlite, config, libjpeg, libpng, freetype
+{ config, lib, stdenv, fetchurl, autoconf, bison, libtool, pkgconfig, re2c
+, libmysqlclient, libxml2, readline, zlib, curl, postgresql, gettext
+, openssl, pcre, pcre2, sqlite
 , libxslt, libmcrypt, bzip2, icu, icu60, openldap, cyrus_sasl, libmhash, unixODBC, freetds
 , uwimap, pam, gmp, apacheHttpd, libiconv, systemd, libsodium, html-tidy, libargon2
-, libzip, valgrind
+, gd, freetype, libXpm, libjpeg, libpng, libwebp
+, libzip, valgrind, oniguruma
 }:
 
 with lib;
@@ -64,16 +65,17 @@ let
   , xmlrpcSupport ? (config.php.xmlrpc or false) && (libxml2Support)
   , cgotoSupport ? config.php.cgoto or false
   , valgrindSupport ? (config.php.valgrind or true) && (versionAtLeast version "7.2")
+  , ipv6Support ? config.php.ipv6 or true
   }:
 
     let
-      mysqlBuildInputs = optional (!mysqlndSupport) mysql.connector-c;
+      mysqlBuildInputs = optional (!mysqlndSupport) libmysqlclient;
       libmcrypt' = libmcrypt.override { disablePosixThreads = true; };
     in stdenv.mkDerivation {
 
       inherit version;
 
-      name = "php-${version}";
+      pname = "php";
 
       enableParallelBuilding = true;
 
@@ -81,11 +83,12 @@ let
       buildInputs = [ ]
         ++ optional (versionOlder version "7.3") pcre
         ++ optional (versionAtLeast version "7.3") pcre2
+        ++ optional (versionAtLeast version "7.4") oniguruma
         ++ optional withSystemd systemd
         ++ optionals imapSupport [ uwimap openssl pam ]
         ++ optionals curlSupport [ curl openssl ]
         ++ optionals ldapSupport [ openldap openssl ]
-        ++ optionals gdSupport [ libpng libjpeg freetype ]
+        ++ optionals gdSupport [ gd freetype libXpm libjpeg libpng libwebp ]
         ++ optionals opensslSupport [ openssl openssl.dev ]
         ++ optional apxs2Support apacheHttpd
         ++ optional (ldapSupport && stdenv.isLinux) cyrus_sasl
@@ -120,7 +123,8 @@ let
         "--with-config-file-scan-dir=/etc/php.d"
       ]
       ++ optional (versionOlder version "7.3") "--with-pcre-regex=${pcre.dev} PCRE_LIBDIR=${pcre}"
-      ++ optional (versionAtLeast version "7.3") "--with-pcre-regex=${pcre2.dev} PCRE_LIBDIR=${pcre2}"
+      ++ optional ((versionAtLeast version "7.3") && (!versionAtLeast version "7.4")) "--with-pcre-regex=${pcre2.dev} PCRE_LIBDIR=${pcre2}"
+      ++ optional (versionAtLeast version "7.4") "--with-external-pcre=${pcre2.dev} PCRE_LIBDIR=${pcre2}"
       ++ optional stdenv.isDarwin "--with-iconv=${libiconv}"
       ++ optional withSystemd "--with-fpm-systemd"
       ++ optionals imapSupport [
@@ -133,16 +137,16 @@ let
         "LDAP_INCDIR=${openldap.dev}/include"
         "LDAP_LIBDIR=${openldap.out}/lib"
       ]
-      ++ optional (ldapSupport && stdenv.isLinux)   "--with-ldap-sasl=${cyrus_sasl.dev}"
+      ++ optional (ldapSupport && stdenv.isLinux) "--with-ldap-sasl=${cyrus_sasl.dev}"
       ++ optional apxs2Support "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
       ++ optional embedSupport "--enable-embed"
       ++ optional mhashSupport "--with-mhash"
       ++ optional curlSupport "--with-curl=${curl.dev}"
       ++ optional zlibSupport "--with-zlib=${zlib.dev}"
-      ++ optional libxml2Support "--with-libxml-dir=${libxml2.dev}"
+      ++ optional (libxml2Support && (versionOlder version "7.4")) "--with-libxml-dir=${libxml2.dev}"
       ++ optional (!libxml2Support) [
         "--disable-dom"
-        "--disable-libxml"
+        ( if (versionOlder version "7.4") then "--disable-libxml" else "--without-libxml" )
         "--disable-simplexml"
         "--disable-xml"
         "--disable-xmlreader"
@@ -155,19 +159,33 @@ let
       ++ optional postgresqlSupport "--with-pgsql=${postgresql}"
       ++ optional pdo_odbcSupport "--with-pdo-odbc=unixODBC,${unixODBC}"
       ++ optional pdo_pgsqlSupport "--with-pdo-pgsql=${postgresql}"
-      ++ optional pdo_mysqlSupport "--with-pdo-mysql=${if mysqlndSupport then "mysqlnd" else mysql.connector-c}"
+      ++ optional pdo_mysqlSupport "--with-pdo-mysql=${if mysqlndSupport then "mysqlnd" else libmysqlclient}"
       ++ optional mysqlSupport "--with-mysql${if mysqlndSupport then "=mysqlnd" else ""}"
       ++ optionals mysqliSupport [
-        "--with-mysqli=${if mysqlndSupport then "mysqlnd" else "${mysql.connector-c}/bin/mysql_config"}"
+        "--with-mysqli=${if mysqlndSupport then "mysqlnd" else "${libmysqlclient}/bin/mysql_config"}"
       ]
       ++ optional ( pdo_mysqlSupport || mysqlSupport || mysqliSupport ) "--with-mysql-sock=/run/mysqld/mysqld.sock"
       ++ optional bcmathSupport "--enable-bcmath"
-      # FIXME: Our own gd package doesn't work, see https://bugs.php.net/bug.php?id=60108.
       ++ optionals gdSupport [
-        "--with-gd"
-        "--with-freetype-dir=${freetype.dev}"
-        "--with-png-dir=${libpng.dev}"
-        "--with-jpeg-dir=${libjpeg.dev}"
+        ( if (versionOlder version "7.4")
+          then [
+            "--with-gd=${gd.dev}"
+            "--with-webp-dir=${libwebp}"
+            "--with-jpeg-dir=${libjpeg.dev}"
+            "--with-png-dir=${libpng.dev}"
+            "--with-freetype-dir=${freetype.dev}"
+            "--with-xpm-dir=${libXpm.dev}"
+            "--enable-gd-jis-conv"
+          ] else [
+            "--enable-gd"
+            "--with-external-gd=${gd.dev}"
+            "--with-webp=${libwebp}"
+            "--with-jpeg=${libjpeg.dev}"
+            "--with-xpm=${libXpm.dev}"
+            "--with-freetype=${freetype.dev}"
+            "--enable-gd-jis-conv"
+          ]
+        )
       ]
       ++ optional gmpSupport "--with-gmp=${gmp.dev}"
       ++ optional soapSupport "--enable-soap"
@@ -180,7 +198,7 @@ let
       ++ optional xslSupport "--with-xsl=${libxslt.dev}"
       ++ optional mcryptSupport "--with-mcrypt=${libmcrypt'}"
       ++ optional bz2Support "--with-bz2=${bzip2.dev}"
-      ++ optional zipSupport "--enable-zip"
+      ++ optional (zipSupport && (versionOlder version "7.4")) "--enable-zip"
       ++ optional ftpSupport "--enable-ftp"
       ++ optional fpmSupport "--enable-fpm"
       ++ optional (mssqlSupport && !stdenv.isDarwin) "--with-mssql=${freetds}"
@@ -189,7 +207,7 @@ let
       ++ optional sodiumSupport "--with-sodium=${libsodium.dev}"
       ++ optional tidySupport "--with-tidy=${html-tidy}"
       ++ optional argon2Support "--with-password-argon2=${libargon2}"
-      ++ optional libzipSupport "--with-libzip=${libzip.dev}"
+      ++ optional (libzipSupport && (versionOlder version "7.4")) "--with-libzip=${libzip.dev}"
       ++ optional phpdbgSupport "--enable-phpdbg"
       ++ optional (!phpdbgSupport) "--disable-phpdbg"
       ++ optional (!cgiSupport) "--disable-cgi"
@@ -197,7 +215,8 @@ let
       ++ optional (!pharSupport) "--disable-phar"
       ++ optional xmlrpcSupport "--with-xmlrpc"
       ++ optional cgotoSupport "--enable-re2c-cgoto"
-      ++ optional valgrindSupport "--with-valgrind=${valgrind.dev}";
+      ++ optional valgrindSupport "--with-valgrind=${valgrind.dev}"
+      ++ optional (!ipv6Support) "--disable-ipv6";
 
       hardeningDisable = [ "bindnow" ];
 
@@ -235,13 +254,16 @@ let
       '';
 
       src = fetchurl {
-        url = "http://www.php.net/distributions/php-${version}.tar.bz2";
+        urls = [
+          "https://www.php.net/distributions/php-${version}.tar.bz2"
+          "https://downloads.php.net/~derick/php-${version}.tar.bz2"
+        ];
         inherit sha256;
       };
 
       meta = with stdenv.lib; {
         description = "An HTML-embedded scripting language";
-        homepage = http://www.php.net/;
+        homepage = https://www.php.net/;
         license = licenses.php301;
         maintainers = with maintainers; [ globin etu ];
         platforms = platforms.all;
@@ -307,5 +329,10 @@ in {
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
+  };
+
+  php74 = generic {
+    version = "7.4.0RC6";
+    sha256 = "1q20ax5mphypq7dwxd509lzca6m0rcxkzmcbkc6kg4bw6gvnjkyv";
   };
 }

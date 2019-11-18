@@ -6,7 +6,7 @@
 with stdenv.lib;
 stdenv.mkDerivation rec {
 
-  name = "multichain-${version}";
+  pname = "multichain";
   version = "2018-06-13";
 
   src = fetchFromGitHub {
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Open platform for blockchain applications";
-    homepage = https://http://www.multichain.com/;
+    homepage = https://www.multichain.com/;
     platforms = platforms.linux;
   };
 }

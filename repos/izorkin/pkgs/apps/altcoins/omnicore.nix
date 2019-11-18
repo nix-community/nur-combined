@@ -6,7 +6,7 @@
 with stdenv.lib;
 stdenv.mkDerivation rec {
 
-  name = "omnicore-${version}";
+  pname = "omnicore";
   version = "0.3.1";
 
   src = fetchFromGitHub {

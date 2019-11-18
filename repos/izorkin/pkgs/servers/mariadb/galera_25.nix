@@ -9,7 +9,7 @@ let
   };
 
 in stdenv.mkDerivation rec {
-  name = "mariadb-galera-${version}";
+  pname = "mariadb-galera";
   version = "25.3.28";
 
   src = fetchFromGitHub {
@@ -38,7 +38,7 @@ in stdenv.mkDerivation rec {
 
   installPhase = ''
     # copied with modifications from scripts/packages/freebsd.sh
-    GALERA_LICENSE_DIR="$share/licenses/${name}"
+    GALERA_LICENSE_DIR="$share/licenses/${pname}-${version}"
     install -d $out/{bin,lib/galera,share/doc/galera,$GALERA_LICENSE_DIR}
     install -m 555 "garb/garbd"                       "$out/bin/garbd"
     install -m 444 "libgalera_smm.so"                 "$out/lib/galera/libgalera_smm.so"
@@ -53,7 +53,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Galera 3 wsrep provider library";
-    homepage = http://galeracluster.com/;
+    homepage = https://galeracluster.com/;
     license = licenses.lgpl2;
     maintainers = with maintainers; [ izorkin ];
     platforms = platforms.all;
