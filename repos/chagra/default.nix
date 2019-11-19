@@ -8,5 +8,6 @@
   ueberzug = pkgs.callPackage ./pkgs/ueberzug { };
   nudoku = pkgs.callPackage ./pkgs/nudoku { };
   ydotool = pkgs.callPackage ./pkgs/ydotool { };
+  bemenu = pkgs.callPackage ./pkgs/bemenu { };
 }
 
