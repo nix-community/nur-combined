@@ -10,7 +10,6 @@
 , withPHP72 ? false, php72
 , withPHP73 ? true, php73
 , withPHP74 ? false, php74
-, withGo ? true, go
 , withPerl528 ? false, perl528
 , withPerl530 ? true, perl530
 , withPerldevel ? false, perldevel
@@ -49,7 +48,6 @@ stdenv.mkDerivation rec {
     ++ optional withPHP72 php72
     ++ optional withPHP73 php73
     ++ optional withPHP74 php74
-    ++ optional withGo go
     ++ optional withPerl528 perl528
     ++ optional withPerl530 perl530
     ++ optional withPerldevel perldevel
@@ -67,11 +65,6 @@ stdenv.mkDerivation rec {
     ++ optional (!withIPv6) [ "--no-ipv6" ]
     ++ optional withDebug   [ "--debug" ];
 
-  preConfigure = optionalString withGo ''
-    export GOCACHE=$TMPDIR/go-cache
-    export GOPATH=$out/share/go
-  '';
-
   postConfigure = ''
     ${optionalString withPython27   "./configure python --module=python27 --config=${python27}/bin/python2.7-config   --lib-path=${python27}/lib"}
     ${optionalString withPython35   "./configure python --module=python35 --config=${python35}/bin/python3.5m-config  --lib-path=${python35}/lib"}
@@ -83,7 +76,6 @@ stdenv.mkDerivation rec {
     ${optionalString withPHP72      "./configure php    --module=php72    --config=${php72.dev}/bin/php-config        --lib-path=${php72}/lib"}
     ${optionalString withPHP73      "./configure php    --module=php73    --config=${php73.dev}/bin/php-config        --lib-path=${php73}/lib"}
     ${optionalString withPHP74      "./configure php    --module=php74    --config=${php74.dev}/bin/php-config        --lib-path=${php74}/lib"}
-    ${optionalString withGo         "./configure go     --go=${go}/bin/go --go-path=$out/share/go"}
     ${optionalString withPerl528    "./configure perl   --module=perl528  --perl=${perl528}/bin/perl"}
     ${optionalString withPerl530    "./configure perl   --module=perl530  --perl=${perl530}/bin/perl"}
     ${optionalString withPerldevel  "./configure perl   --module=perldev  --perl=${perldevel}/bin/perl"}

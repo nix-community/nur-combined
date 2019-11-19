@@ -1,6 +1,6 @@
 # pcre functionality is tested in nixos/tests/php-pcre.nix
-{ config, lib, stdenv, fetchurl, autoconf, bison, libtool, pkgconfig, re2c
-, libmysqlclient, libxml2, readline, zlib, curl, postgresql, gettext
+{ config, lib, stdenv, fetchurl, fetchFromGitHub, autoconf, bison, libtool, pkgconfig, re2c
+, libxml2, readline, zlib, curl, postgresql, gettext
 , openssl, pcre, pcre2, sqlite
 , libxslt, libmcrypt, bzip2, icu, icu60, openldap, cyrus_sasl, libmhash, unixODBC, freetds
 , uwimap, pam, gmp, apacheHttpd, libiconv, systemd, libsodium, html-tidy, libargon2
@@ -20,10 +20,9 @@ let
   , imapSupport ? config.php.imap or (!stdenv.isDarwin)
   , ldapSupport ? config.php.ldap or true
   , mhashSupport ? (config.php.mhash or true) && (versionOlder version "7.0")
-  , mysqlSupport ? (config.php.mysql or true) && (!php7)
   , mysqlndSupport ? config.php.mysqlnd or true
-  , mysqliSupport ? config.php.mysqli or true
-  , pdo_mysqlSupport ? config.php.pdo_mysql or true
+  , mysqliSupport ? (config.php.mysqli or true) && (mysqlndSupport)
+  , pdo_mysqlSupport ? (config.php.pdo_mysql or true) && (mysqlndSupport)
   , libxml2Support ? config.php.libxml2 or true
   , apxs2Support ? config.php.apxs2 or (!stdenv.isDarwin)
   , embedSupport ? config.php.embed or false
@@ -66,11 +65,15 @@ let
   , cgotoSupport ? config.php.cgoto or false
   , valgrindSupport ? (config.php.valgrind or true) && (versionAtLeast version "7.2")
   , ipv6Support ? config.php.ipv6 or true
+  , pearSupport ? (config.php.pear or true) && (libxml2Support)
   }:
 
     let
-      mysqlBuildInputs = optional (!mysqlndSupport) libmysqlclient;
       libmcrypt' = libmcrypt.override { disablePosixThreads = true; };
+      pear-nozlib = fetchurl {
+        url = "https://pear.php.net/install-pear-nozlib.phar";
+        sha256 = "19jizza0h7xxnnnw8wpsw6qr62yab9vzhd6qac7dlgwdw6vv5kka";
+      };
     in stdenv.mkDerivation {
 
       inherit version;
@@ -100,9 +103,6 @@ let
         ++ optional postgresqlSupport postgresql
         ++ optional pdo_odbcSupport unixODBC
         ++ optional pdo_pgsqlSupport postgresql
-        ++ optional pdo_mysqlSupport mysqlBuildInputs
-        ++ optional mysqlSupport mysqlBuildInputs
-        ++ optional mysqliSupport mysqlBuildInputs
         ++ optional gmpSupport gmp
         ++ optional gettextSupport gettext
         ++ optional (intlSupport && (versionOlder version "7.0")) icu60
@@ -159,12 +159,9 @@ let
       ++ optional postgresqlSupport "--with-pgsql=${postgresql}"
       ++ optional pdo_odbcSupport "--with-pdo-odbc=unixODBC,${unixODBC}"
       ++ optional pdo_pgsqlSupport "--with-pdo-pgsql=${postgresql}"
-      ++ optional pdo_mysqlSupport "--with-pdo-mysql=${if mysqlndSupport then "mysqlnd" else libmysqlclient}"
-      ++ optional mysqlSupport "--with-mysql${if mysqlndSupport then "=mysqlnd" else ""}"
-      ++ optionals mysqliSupport [
-        "--with-mysqli=${if mysqlndSupport then "mysqlnd" else "${libmysqlclient}/bin/mysql_config"}"
-      ]
-      ++ optional ( pdo_mysqlSupport || mysqlSupport || mysqliSupport ) "--with-mysql-sock=/run/mysqld/mysqld.sock"
+      ++ optional (pdo_mysqlSupport && mysqlndSupport) "--with-pdo-mysql=mysqlnd"
+      ++ optional (mysqliSupport && mysqlndSupport) "--with-mysqli=mysqlnd"
+      ++ optional (pdo_mysqlSupport || mysqliSupport) "--with-mysql-sock=/run/mysqld/mysqld.sock"
       ++ optional bcmathSupport "--enable-bcmath"
       ++ optionals gdSupport [
         ( if (versionOlder version "7.4")
@@ -216,7 +213,8 @@ let
       ++ optional xmlrpcSupport "--with-xmlrpc"
       ++ optional cgotoSupport "--enable-re2c-cgoto"
       ++ optional valgrindSupport "--with-valgrind=${valgrind.dev}"
-      ++ optional (!ipv6Support) "--disable-ipv6";
+      ++ optional (!ipv6Support) "--disable-ipv6"
+      ++ optional (pearSupport && libxml2Support) "--with-pear";
 
       hardeningDisable = [ "bindnow" ];
 
@@ -240,6 +238,10 @@ let
         ./buildconf --force
       '';
 
+      preInstall = optional (pearSupport && libxml2Support) ''
+        cp ${pear-nozlib} $TMPDIR/source/pear/install-pear-nozlib.phar
+      '';
+
       postInstall = ''
         test -d $out/etc || mkdir $out/etc
         cp php.ini-production $out/etc/php.ini
@@ -253,11 +255,10 @@ let
           $dev/share/man/man1/
       '';
 
-      src = fetchurl {
-        urls = [
-          "https://www.php.net/distributions/php-${version}.tar.bz2"
-          "https://downloads.php.net/~derick/php-${version}.tar.bz2"
-        ];
+      src = fetchFromGitHub {
+        owner = "php";
+        repo = "php-src";
+        rev = "php-${version}";
         inherit sha256;
       };
 
@@ -285,7 +286,7 @@ let
 in {
   php56 = generic {
     version = "5.6.40";
-    sha256 = "005s7w167dypl41wlrf51niryvwy1hfv53zxyyr3lm938v9jbl7z";
+    sha256 = "0svjffwnwvvvsg5ja24v4kpfyycs5f8zqnc2bbmgm968a0vdixn2";
 
     extraPatches = [
      ./patch/php56/php5640-77540.patch # https://bugs.php.net/bug.php?id=77540
@@ -309,7 +310,7 @@ in {
 
   php71 = generic {
     version = "7.1.33";
-    sha256 = "0jsgiwawlais8s1l38lz51h1x2ci5ildk0ksfdmkg6xpwbrfb9cm";
+    sha256 = "1lz90pyvqxwmi7z2pgr8zc05hss11m61xaqy4d86wh80yra3m5rg";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php71-darwin-isfinite.patch;
@@ -317,7 +318,7 @@ in {
 
   php72 = generic {
     version = "7.2.24";
-    sha256 = "00znhjcn6k4mbxz6jqlqf6bzr4cqdf8pnbmxkg6bns1hnr6r6yd0";
+    sha256 = "0zzfpsazz86yc26i227h2jv20266hq4rvj54926nwm0f7y7rw1vg";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
@@ -325,7 +326,7 @@ in {
 
   php73 = generic {
     version = "7.3.11";
-    sha256 = "1rxm256vhnvyabfwmyv51sqrkjlid1g8lczcy4skc2f72d5zzlcj";
+    sha256 = "02nb7wy85yj15n0ah65xx0ziw13r7hpm89cxfw06x7w7nskcdqfy";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
@@ -333,6 +334,6 @@ in {
 
   php74 = generic {
     version = "7.4.0RC6";
-    sha256 = "1q20ax5mphypq7dwxd509lzca6m0rcxkzmcbkc6kg4bw6gvnjkyv";
+    sha256 = "1rx6kqws9ml8zlla2s6b9rkd552xm6l5libjns4apqygbckv7184";
   };
 }
