@@ -10,3 +10,5 @@
 *  instaloader
 *  TinyMediaManager (Should be upstreamed)
 *  Blobmoji
+*  JanusVR (Should be upstreamed)
+*  mcrcon
