@@ -278,10 +278,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2019.10.28";
+      version = "2019.11.18";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3434057/privacy_badger-2019.10.28-an+fx.xpi?src=";
-      sha256 = "c701b5b6b67fc2c11f39f61ebe90075826e1c6158aa5cf1e052ebedad2cdcc66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3448925/privacy_badger-2019.11.18-an+fx.xpi?src=";
+      sha256 = "1ffa75044528f312b282f61cfab7520c006416771e85a63644a1bf528591129d";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/privacybadger";
@@ -320,10 +320,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.11.14";
+      version = "19.11.19";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3446022/refined_github-19.11.14-an+fx.xpi?src=";
-      sha256 = "837d2e47e8b9475e4e65de3b339e9d688fbc6e4bb73149c9a24dff90a1d4a402";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3449127/refined_github-19.11.19-an+fx.xpi?src=";
+      sha256 = "b766251d87d434ba4273304d6d255e93c9006e183b4538ab833f295a92764f0b";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
