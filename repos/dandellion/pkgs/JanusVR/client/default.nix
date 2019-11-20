@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, bullet, libopus, qt5, mesa_glu, vlc }:
+{ stdenv, fetchFromGitHub, bullet, libopus, qt5, mesa_glu, vlc, openal, assimp, pkgconfig, tree }:
 
 stdenv.mkDerivation {
   pname = "janus";
@@ -12,6 +12,7 @@ stdenv.mkDerivation {
   };
 
   buildInputs = [
+    tree
     mesa_glu
     vlc
     qt5.qmake
@@ -20,14 +21,26 @@ stdenv.mkDerivation {
     qt5.qtscript
     bullet
     libopus
+    openal
+    assimp
   ];
 
-#  installPhase = ''
-#  '';
+  nativeBuildInputs = [
+    pkgconfig
+  ];
+
+
+  preConfigure = ''
+    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${bullet}/include/bullet"
+  '';
+
+  BuildPhase = ''
+    tree .
+  '';
   
   meta = {
     description = "VR Social app like the web";
-    broken = true;
+    broken = false;
   };
 
 }
