@@ -74,7 +74,7 @@ let
       libmcrypt' = libmcrypt.override { disablePosixThreads = true; };
       pear-nozlib = fetchurl {
         url = "https://pear.php.net/install-pear-nozlib.phar";
-        sha256 = "19jizza0h7xxnnnw8wpsw6qr62yab9vzhd6qac7dlgwdw6vv5kka";
+        sha256 = "06glkx9gbagkpzaysfw3wzwbb6b0r5krczcpfqnljnpcyh5i78y3";
       };
     in stdenv.mkDerivation {
 
