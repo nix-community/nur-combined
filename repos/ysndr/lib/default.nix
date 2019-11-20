@@ -9,7 +9,7 @@ with pkgs; {
       set  = n: v: "--set ${escapeShellArg (escapeShellArg n)} " +
                     "'\"'${escapeShellArg (escapeShellArg v)}'\"'";
       args = (map (p: "--prefix PATH : ${p}/bin") paths) ++
-            (attrValues (mapAttrs set vars));
+             (builtins.attrValues (builtins.mapAttrs set vars));
     };
     runCommand name
       {
@@ -17,7 +17,7 @@ with pkgs; {
         buildInputs = [ makeWrapper ];
       }
       ''
-        makeWrapper "$f" "$out" ${toString args}
+        makeWrapper "$f" "$out" ${builtins.toString args}
       '';
 
 
