@@ -16,10 +16,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.3.2.1";
+      version = "0.3.3";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3303929/auto_tab_discard-0.3.2.1-an+fx.xpi?src=";
-      sha256 = "1dd91cb0c29ebb94b9b4a3407c46c7d60acd58e91a78b1876c82ceadeb4d430e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3450943/auto_tab_discard-0.3.3-an+fx.xpi?src=";
+      sha256 = "89b57b39d82552314a411e58e77f984cf72fc7244f499024d53d1e56a99ac10e";
       meta = with stdenv.lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -320,10 +320,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.11.20";
+      version = "19.11.21";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3449925/refined_github-19.11.20-an+fx.xpi?src=";
-      sha256 = "dc417d178402419b9b1dd266f3ef2b62eaa87ee05a3705c053d5053682643e90";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3450828/refined_github-19.11.21-an+fx.xpi?src=";
+      sha256 = "ad02e61cb0132d54535b87ebb2f16ba8fd0605b3adcc1d0f4265e5a025046247";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -414,10 +414,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.23.0";
+      version = "1.24.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3428595/ublock_origin-1.23.0-an+fx.xpi?src=";
-      sha256 = "b72c8bf1038d18e2d8badd0accd20f9d6938efe2f45303e99aaab189a66dbbc1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3448596/ublock_origin-1.24.0-an+fx.xpi?src=";
+      sha256 = "bf2c1637b401871d3d78bd5e1488d85875eef6e8afab4cf9c31ce1c6be3e07aa";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
