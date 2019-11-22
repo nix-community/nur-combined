@@ -1,6 +1,6 @@
-{ stdenv, fetchFromGitHub, bullet, libopus, qt5, mesa_glu, vlc, openal, assimp, pkgconfig, tree }:
+{ mkDerivation, lib, fetchFromGitHub, bullet, libopus, qtbase, qt5, mesa_glu, vlc, openal, assimp, pkgconfig, tree, git, git-lfs, libxcb }:
 
-stdenv.mkDerivation {
+mkDerivation {
   pname = "janus";
   version = "66.4";
   
@@ -23,22 +23,40 @@ stdenv.mkDerivation {
     libopus
     openal
     assimp
+ #   libxcb
   ];
 
   nativeBuildInputs = [
-    pkgconfig
+ #   pkgconfig
+    git
+    git-lfs
   ];
 
 
   preConfigure = ''
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${bullet}/include/bullet"
+    export BUILD_DIR="dist/linux/"
+
+    #qmake FireBox.pro -spec linux-g++ CONFIG+=release CONFIG+=force_debug_info
+
+    touch riftid.txt
   '';
 
-  BuildPhase = ''
-    tree .
+#  buildPhase = ''
+#    make
+#  '';
+
+  postBuild = ''
+    find . -name "*openvr*"
+  '';
+
+  installPhase = ''
+    mkdir -p $out/bin $out/lib
+    cp -v janusvr $out/bin
+    cp -v dependencies/linux/libopenvr_api.so $out/lib
   '';
   
-  meta = {
+  meta = with lib; {
     description = "VR Social app like the web";
     broken = false;
   };

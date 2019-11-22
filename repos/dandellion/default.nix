@@ -20,6 +20,6 @@
   rank_photos = pkgs.callPackage ./pkgs/rank_photos { };
   JAVMovieScraper = pkgs.callPackage ./pkgs/JAVMovieScraper { };
 
-  janus = pkgs.callPackage ./pkgs/JanusVR/client { };
+  janus = pkgs.libsForQt5.callPackage ./pkgs/JanusVR/client { };
 }
 
