@@ -37,6 +37,5 @@ stdenv.mkDerivation rec {
     large scale numerical simulations.";
     maintainers = [ stdenv.lib.maintainers.ltavard ];
     platforms = stdenv.lib.platforms.unix;
-    broken  = true;
   };
 }

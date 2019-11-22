@@ -95,5 +95,6 @@ stdenv.mkDerivation rec {
          focused on one primary class of numerical methods.";
 	 homepage = "https://trilinos.org/";
 	 platforms = stdenv.lib.platforms.linux;
+         broken = true; # needs parmetis which is unfree
     };
 }
