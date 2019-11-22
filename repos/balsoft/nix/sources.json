@@ -17,10 +17,10 @@
         "homepage": null,
         "owner": "balsoft",
         "repo": "nix-patch",
-        "rev": "81c2d8882c22f8651912889a8b1f6380d8e4b3a7",
-        "sha256": "0xld2jb2s60x1km2i662sc6liw76zxhkniazvql42mjarw942aj6",
+        "rev": "fec198088197ecd65ba0510239efc0e78051926c",
+        "sha256": "07zlmb7z5bir6zmlgy5gljx5s9mvxg2yk4n5ckn0074li082q0s3",
         "type": "tarball",
-        "url": "https://github.com/balsoft/nix-patch/archive/81c2d8882c22f8651912889a8b1f6380d8e4b3a7.tar.gz",
+        "url": "https://github.com/balsoft/nix-patch/archive/fec198088197ecd65ba0510239efc0e78051926c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "termNote": {
