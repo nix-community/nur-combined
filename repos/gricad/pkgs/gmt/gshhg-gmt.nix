@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   name = "gshhg-gmt-${version}";
 
   src = fetchurl {
-    url = "ftp://ftp.soest.hawaii.edu/gshhg/${name}.tar.gz";
+    url = "http://www.scc.u-tokai.ac.jp/gmt/${name}.tar.gz";
     sha256 = "0zzy5jlw4hmh13gpbwc1rq05llwpaxi2x17g7c48qwd0zibakccv";
   };
   

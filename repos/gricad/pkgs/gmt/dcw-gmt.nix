@@ -2,12 +2,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  version = "1.1.2";
+  version = "1.1.4";
   name = "dcw-gmt-${version}";
 
   src = fetchurl {
-    url = "http://www.soest.hawaii.edu/pwessel/dcw/${name}.tar.gz";
-    sha256 = "1dmz1001mawlkymcs1gdhdsfyf3zphalqb8qnl87nzk5im7ha6gp";
+    url = "http://www.scc.u-tokai.ac.jp/gmt/${name}.tar.gz";
+    sha256 = "1lxa8fj5w0ya24vcinjf6bdagbjf5q1csr8kf47lmxfpphm40iwd";
   };
   
   

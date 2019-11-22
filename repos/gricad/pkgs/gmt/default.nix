@@ -3,12 +3,12 @@ graphicsmagick, gshhg-gmt, dcw-gmt
 }:
 
 stdenv.mkDerivation rec {
-  version = "5.4.1"; 
+  version = "5.4.5"; 
   name = "gmt-${version}";
 
   src = fetchurl {
-    url = "ftp://ftp.soest.hawaii.edu/gmt/${name}-src.tar.gz";
-    sha256 = "1c1szykyxa98cdyzfkb8vnb5p6b9pf4b9vajjn0g19b31gal2mf8";
+    url = "http://www.scc.u-tokai.ac.jp/gmt/${name}-src.tar.gz";
+    sha256 = "1xlyydmqkhpplkf8plhy7vw47qj3v954qf0skxgls84yhv3jjmi2";
   };
 
   propagatedBuildInputs = [ netcdf gdal pcre zlib curl gshhg-gmt graphicsmagick ];
