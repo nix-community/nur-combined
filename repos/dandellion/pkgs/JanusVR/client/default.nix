@@ -1,4 +1,6 @@
-{ mkDerivation, lib, fetchFromGitHub, bullet, libopus, qtbase, qt5, mesa_glu, vlc, openal, assimp, pkgconfig, tree, git, git-lfs, libxcb }:
+{ mkDerivation, lib, fetchFromGitHub, 
+bullet, libopus, vlc, openal, assimp, libvorbis,
+qtbase, qt5, mesa_glu, tree, git, git-lfs, zlib}:
 
 mkDerivation {
   pname = "janus";
@@ -21,9 +23,10 @@ mkDerivation {
     qt5.qtscript
     bullet
     libopus
+    libvorbis
     openal
     assimp
- #   libxcb
+    zlib
   ];
 
   nativeBuildInputs = [
@@ -54,6 +57,7 @@ mkDerivation {
     mkdir -p $out/bin $out/lib
     cp -v janusvr $out/bin
     cp -v dependencies/linux/libopenvr_api.so $out/lib
+    cp -r -v assets $out/bin/assets
   '';
   
   meta = with lib; {
