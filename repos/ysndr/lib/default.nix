@@ -2,7 +2,7 @@
 
 with pkgs; {
 
-  wrap = { paths ? [], vars ? {}, file ? null, script ? null, shell ? false, name ? "wrap" }:
+  wrap = { paths ? [], vars ? {}, file ? null, script ? null, shell ? false, bin ? false, name ? "wrap" }:
     assert file != null || script != null ||
           abort "wrap needs 'file' or 'script' argument";
     with rec {
@@ -10,14 +10,18 @@ with pkgs; {
                     "'\"'${escapeShellArg (escapeShellArg v)}'\"'";
       args = (map (p: "--prefix PATH : ${p}/bin") paths) ++
              (builtins.attrValues (builtins.mapAttrs set vars));
+      destination = if bin then "/bin/${name}" else "";
     };
     runCommand name
       {
-        f           = if file == null then (if shell then writeShellScript else writeScript) name script else file;
+        f = if file != null then file
+            else (
+              if shell then writeShellScript
+              else writeScript) "${name}-unwrapped" script;
         buildInputs = [ makeWrapper ];
       }
       ''
-        makeWrapper "$f" "$out" ${builtins.toString args}
+        makeWrapper "$f" "$out"${destination} ${builtins.toString args}
       '';
 
 
