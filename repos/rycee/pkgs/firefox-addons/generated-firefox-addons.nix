@@ -236,14 +236,14 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "3.0.8";
+      version = "4.0.1";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/2988920/octotree-3.0.8-fx.xpi?src=";
-      sha256 = "1db1fe9336d2e1fc6ac3bd86a73f8500963b1e70e27d855d0c64ab06790f8a8b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3452163/octotree-4.0.1-fx.xpi?src=";
+      sha256 = "647791778a41d6401aca021ebf120cee4e98133cacf96d54e8afeefeee438a26";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
-        description = "Add-on to display GitHub code in tree format";
+        description = "GitHub on steroids";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -320,10 +320,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.11.21";
+      version = "19.11.22";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3450828/refined_github-19.11.21-an+fx.xpi?src=";
-      sha256 = "ad02e61cb0132d54535b87ebb2f16ba8fd0605b3adcc1d0f4265e5a025046247";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3452158/refined_github-19.11.22-an+fx.xpi?src=";
+      sha256 = "af8f47651ff8a7e5c91e684a941bfd2c79707f7dad4c3c3ac7a084950243d1c8";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
