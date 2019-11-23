@@ -1,25 +1,22 @@
-{ lib, buildGoModule, fetchFromGitHub, python }:
+{ sources, lib, buildGoModule, fetchFromGitHub, python }:
 
 let
-  rev     = "3fb13f1d7eb9bbe0285c3877ed1938e39609e1af";
+  inherit (sources.docker_auth) rev;
 
 in buildGoModule rec {
   pname   = "docker_auth";
-  version = "1.4.0-17-g${builtins.substring 0 7 rev}";
+  version = "1.4.0-18-g${builtins.substring 0 7 rev}";
 
   buildInputs = [ python ];
-  src = fetchFromGitHub {
-    inherit rev;
-    owner  = "cesanta";
-    repo   = "docker_auth";
-    sha256 = "1b1rjp6kf37yxbwmx2cbqrm398sywmifvhpw3ls6g5wigqpyp31d";
-  };
 
-  modSha256 = "0bxggy2lqh3j4ivfv759nafspzsh5hs0b2w4m6ysvvgdh7if1c7f";
+  src = sources.docker_auth;
+
+  modSha256 = "0jhlkd41z5b52dkns56h92fp6wr0gcl19jhgvigmbl84vanyz2ml";
+
+  sourceRoot = "source/auth_server";
+  overrideModAttrs = _: { inherit sourceRoot; };
 
   postConfigure = ''
-    cd auth_server
-
     cat <<EOF > version.go
     package main
 

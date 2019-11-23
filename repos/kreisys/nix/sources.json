@@ -1,4 +1,16 @@
 {
+    "docker_auth": {
+        "branch": "master",
+        "description": "Authentication server for Docker Registry 2",
+        "homepage": "",
+        "owner": "cesanta",
+        "repo": "docker_auth",
+        "rev": "9818bbaabaf1596d61438bc44fa1b6815cc8e45f",
+        "sha256": "0087kk69zn38cxcg8mwasl5xqpy5r2v0z4c7cz1cps5g3gv6z7bb",
+        "type": "tarball",
+        "url": "https://github.com/cesanta/docker_auth/archive/9818bbaabaf1596d61438bc44fa1b6815cc8e45f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "emacs-26_3": {
         "branch": "emacs-26.3",
         "description": "Mirror of GNU Emacs",
