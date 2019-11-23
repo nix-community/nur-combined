@@ -5,10 +5,10 @@ stdenv.mkDerivation rec {
   name = "bemenu-2019-04-28";
 
   src = fetchFromGitHub {
-    owner = "Cloudef";
+    owner = "cloudef";
     repo = "bemenu";
-    rev = "f27e35e";
-    sha256 = "0aayzg0amg7rqrmkic5mln9lgmr7sidl0y35jha1dv2j6vsqjdxb";
+    rev = "c9d9bcdaf5f4454ea521b1c15452676df1414005";
+    sha256 = "1mih2vd2lb8ix3bvb1vxqc13qhck5y3wgz2r4c8lc7gsi9all6sh";
   };
 
   cmakeFlags = [
