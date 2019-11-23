@@ -12,10 +12,6 @@ sudo: yes
 
 env:
   matrix:
-    - NIX_CHANNEL=nixpkgs-19.03-darwin
-    - NIX_CHANNEL=nixos-19.03
-    - NIX_CHANNEL=nixpkgs-19.09-darwin
-    - NIX_CHANNEL=nixos-19.09
     - NIX_CHANNEL=nixpkgs-unstable
     - NIX_CHANNEL=nixos-unstable
   global:

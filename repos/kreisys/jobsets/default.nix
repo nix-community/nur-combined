@@ -41,11 +41,7 @@ let
 
   jobsets = builtins.foldl' (jobsets: jobset: jobsets // jobset) {} [
     (mkJobset "master" "nixpkgs-unstable"     ''[ "x86_64-linux" "x86_64-darwin" ]'')
-    (mkJobset "master" "nixpkgs-19.03-darwin" ''[ "x86_64-darwin" ]'')
-    (mkJobset "master" "nixpkgs-19.09-darwin" ''[ "x86_64-darwin" ]'')
     (mkJobset "master" "nixos-unstable"       ''[ "x86_64-linux" ]'')
-    (mkJobset "master" "nixos-19.03"          ''[ "x86_64-linux" ]'')
-    (mkJobset "master" "nixos-19.09"          ''[ "x86_64-linux" ]'')
   ];
 
   jobsetsJSON = builtins.toJSON jobsets;
