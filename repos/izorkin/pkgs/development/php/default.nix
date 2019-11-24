@@ -1,5 +1,5 @@
 # pcre functionality is tested in nixos/tests/php-pcre.nix
-{ config, lib, stdenv, fetchurl, fetchFromGitHub
+{ config, lib, stdenv, fetchurl
 , autoconf, automake, bison, file, flex, libtool, pkgconfig, re2c
 , libxml2, readline, zlib, curl, postgresql, gettext
 , openssl, pcre, pcre2, sqlite
@@ -22,6 +22,7 @@ let
   , imapSupport ? config.php.imap or (!stdenv.isDarwin)
   , ldapSupport ? config.php.ldap or true
   , mhashSupport ? (config.php.mhash or true) && (versionOlder version "7.0")
+  , mysqlSupport ? (config.php.mysql or true) && (!php7)
   , mysqlndSupport ? config.php.mysqlnd or true
   , mysqliSupport ? (config.php.mysqli or true) && (mysqlndSupport)
   , pdo_mysqlSupport ? (config.php.pdo_mysql or true) && (mysqlndSupport)
@@ -72,10 +73,6 @@ let
 
     let
       libmcrypt' = libmcrypt.override { disablePosixThreads = true; };
-      pear-nozlib = fetchurl {
-        url = "https://pear.php.net/install-pear-nozlib.phar";
-        sha256 = "06glkx9gbagkpzaysfw3wzwbb6b0r5krczcpfqnljnpcyh5i78y3";
-      };
     in stdenv.mkDerivation {
 
       inherit version;
@@ -143,7 +140,7 @@ let
         "LDAP_INCDIR=${openldap.dev}/include"
         "LDAP_LIBDIR=${openldap.out}/lib"
       ]
-      ++ optional (ldapSupport && stdenv.isLinux) "--with-ldap-sasl=${cyrus_sasl.dev}"
+      ++ optional (ldapSupport && stdenv.isLinux)   "--with-ldap-sasl=${cyrus_sasl.dev}"
       ++ optional apxs2Support "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
       ++ optional embedSupport "--enable-embed"
       ++ optional mhashSupport "--with-mhash"
@@ -220,7 +217,7 @@ let
       ++ optional cgotoSupport "--enable-re2c-cgoto"
       ++ optional valgrindSupport "--with-valgrind=${valgrind.dev}"
       ++ optional (!ipv6Support) "--disable-ipv6"
-      ++ optional (pearSupport && libxml2Support) "--with-pear";
+      ++ optional (pearSupport && libxml2Support) "--with-pear=$(out)/lib/php/pear";
 
       hardeningDisable = [ "bindnow" ];
 
@@ -236,12 +233,7 @@ let
 
         substituteInPlace ./build/libtool.m4 --replace /usr/bin/file ${file}/bin/file
 
-        #[[ -z "$libxml2" ]] || addToSearchPath PATH $libxml2/bin
-
         export EXTENSION_DIR=$out/lib/php/extensions
-
-        configureFlags+=(--with-config-file-path=$out/etc \
-          --includedir=$dev/include)
 
         ./buildconf --copy --force
 
@@ -250,10 +242,6 @@ let
         fi
       '' + optionalString stdenv.isDarwin ''
         substituteInPlace configure --replace "-lstdc++" "-lc++"
-      '';
-
-      preInstall = optional (pearSupport && libxml2Support) ''
-        cp ${pear-nozlib} $TMPDIR/source/pear/install-pear-nozlib.phar
       '';
 
       postInstall = ''
@@ -269,10 +257,8 @@ let
            $dev/share/man/man1/
       '';
 
-      src = fetchFromGitHub {
-        owner = "php";
-        repo = "php-src";
-        rev = "php-${version}";
+      src = fetchurl {
+        url = "https://www.php.net/distributions/php-${version}.tar.bz2";
         inherit sha256;
       };
 
@@ -296,7 +282,7 @@ let
 in {
   php56 = generic {
     version = "5.6.40";
-    sha256 = "0svjffwnwvvvsg5ja24v4kpfyycs5f8zqnc2bbmgm968a0vdixn2";
+    sha256 = "005s7w167dypl41wlrf51niryvwy1hfv53zxyyr3lm938v9jbl7z";
 
     extraPatches = [
      ./patch/php56/php5640-77540.patch # https://bugs.php.net/bug.php?id=77540
@@ -320,15 +306,15 @@ in {
 
   php71 = generic {
     version = "7.1.33";
-    sha256 = "1lz90pyvqxwmi7z2pgr8zc05hss11m61xaqy4d86wh80yra3m5rg";
+    sha256 = "0jsgiwawlais8s1l38lz51h1x2ci5ildk0ksfdmkg6xpwbrfb9cm";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php71-darwin-isfinite.patch;
   };
 
   php72 = generic {
-    version = "7.2.24";
-    sha256 = "0zzfpsazz86yc26i227h2jv20266hq4rvj54926nwm0f7y7rw1vg";
+    version = "7.2.25";
+    sha256 = "17kb7b3wpdmdhnlv23qc0vax0lp2gr1v7dxwdgs8g78gxnqkdcvw";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
@@ -336,14 +322,21 @@ in {
 
   php73 = generic {
     version = "7.3.12";
-    sha256 = "187lb36ily6svha5nallam1479kwcwx0np0h8n1rjjmn5dy1yy11";
+    sha256 = "0fccmnrwwyy5zvhj8wbyqqlyqr7pr5v4pfiqriw0ahciz4lv05yk";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
   };
 
-  php74 = generic {
+  php74 = let
     version = "7.4.0RC6";
-    sha256 = "1rx6kqws9ml8zlla2s6b9rkd552xm6l5libjns4apqygbckv7184";
-  };
+    sha256 = "1q20ax5mphypq7dwxd509lzca6m0rcxkzmcbkc6kg4bw6gvnjkyv";
+  in (generic {
+    inherit version sha256;
+  }).overrideAttrs(oa: {
+    src = fetchurl {
+      url = "https://downloads.php.net/~derick/php-${version}.tar.bz2";
+      inherit sha256;
+    };
+  });
 }

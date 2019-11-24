@@ -7,17 +7,17 @@ let
       inherit (pkgs) stdenv autoreconfHook fetchurl file re2c;
     };
 
-  # Wrap mkDerivation to prepend pname with "php-" to make names consistent
-  # with how buildPecl does it and make the file easier to overview.
-  mkDerivation = { pname, ... }@args: pkgs.stdenv.mkDerivation (args // {
-    pname = "php-${pname}";
-  });
+    # Wrap mkDerivation to prepend pname with "php-" to make names consistent
+    # with how buildPecl does it and make the file easier to overview.
+    mkDerivation = { pname, ... }@args: pkgs.stdenv.mkDerivation (args // {
+      pname = "php-${pname}";
+    });
 
-  isPhp56 = pkgs.lib.versionOlder   php.version "7.0";
-  isPhp71 = pkgs.lib.versionAtLeast php.version "7.1";
-  isPhp72 = pkgs.lib.versionAtLeast php.version "7.2";
-  isPhp73 = pkgs.lib.versionAtLeast php.version "7.3";
-  isPhp74 = pkgs.lib.versionAtLeast php.version "7.4";
+    isPhp56 = pkgs.lib.versionOlder   php.version "7.0";
+    isPhp71 = pkgs.lib.versionAtLeast php.version "7.1";
+    isPhp72 = pkgs.lib.versionAtLeast php.version "7.2";
+    isPhp73 = pkgs.lib.versionAtLeast php.version "7.3";
+    isPhp74 = pkgs.lib.versionAtLeast php.version "7.4";
 
   apcu = if isPhp56 then apcu40 else apcu51;
 
@@ -144,7 +144,7 @@ let
 
     configureFlags = [ "--with-couchbase" ];
 
-    patches = [
+    patches = with pkgs; [
       (pkgs.writeText "php-couchbase.patch" ''
         --- a/config.m4
         +++ b/config.m4
@@ -208,7 +208,7 @@ let
       '';
       license = licenses.php301;
       homepage = "https://bitbucket.org/osmanov/pecl-event/";
-     };
+    };
   };
 
   igbinary = if isPhp56 then igbinary20 else igbinary30;
@@ -342,8 +342,8 @@ let
       openssl
       snappy
       zlib
-      (if isPhp73 then pcre2 else pcre)
-    ] ++ lib.optional (pkgs.stdenv.isDarwin) pkgs.darwin.apple_sdk.frameworks.Security;
+      (if isPhp73 then pcre2.dev else pcre.dev)
+    ] ++ lib.optional (stdenv.isDarwin) darwin.apple_sdk.frameworks.Security;
   };
 
   #pcov = assert !isPhp56; buildPecl {
@@ -353,7 +353,7 @@ let
 
     sha256 = "1psfwscrc025z8mziq69pcx60k4fbkqa5g2ia8lplb94mmarj0v1";
 
-    buildInputs = with pkgs; [ (if isPhp73 then pcre2 else pcre) ];
+    buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
     meta.broken = isPhp56;
   };
@@ -418,8 +418,8 @@ let
       sha256 = "16nv8yyk2z3l213dg067l6di4pigg5rd8yswr5xgd18jwbys2vnw";
     };
 
-    nativeBuildInputs = with pkgs; [ makeWrapper];
-    buildInputs = with pkgs; [ composer box ];
+    nativeBuildInputs = with pkgs; [ makeWrapper ];
+    buildInputs = [ composer box ];
 
     buildPhase = ''
       composer dump-autoload
@@ -895,4 +895,3 @@ let
     meta.broken = isPhp73;
   };
 }; in self
-
