@@ -1,4 +1,4 @@
-{ python3Packages, fetchFromGitHub, libX11, libXext }:
+{ lib, python3Packages, fetchFromGitHub, libX11, libXext }:
 
 with python3Packages;
 
@@ -37,4 +37,12 @@ buildPythonPackage rec {
 	    docopt
 	    attrs
     ];
+
+  meta = with lib; {
+    homepage = "https://github.com/seebye/ueberzug";
+    description = "alternative for w3mimgdisplay";
+    license = licenses.gpl3;
+    platforms = platforms.linux;
+  };
+
 }

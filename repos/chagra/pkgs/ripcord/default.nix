@@ -17,7 +17,7 @@ in appimageTools.wrapType2 rec {
   meta = with lib; {
     description = "Desktop chat client for group-centric services like Slack and Discord";
     homepage = https://cancel.fm/ripcord/;
-    license = https://cancel.fm/ripcord/shareware-redistribution/;
+    license.free = false;
     platforms = [ "x86_64-linux" ];
   };
 }
