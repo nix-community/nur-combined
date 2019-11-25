@@ -236,10 +236,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "4.0.3";
+      version = "4.0.4";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3453181/octotree-4.0.3-fx.xpi?src=";
-      sha256 = "44beb115b9f649012cdba0d73821f07661b200b2abb76e8fbed6ab808742e2ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3453964/octotree-4.0.4-fx.xpi?src=";
+      sha256 = "f4637a33a5a085d8fdf6f175796f2820c6bb7cc3b187e644170cedeefadcdb2f";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -414,10 +414,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.24.0";
+      version = "1.24.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3448596/ublock_origin-1.24.0-an+fx.xpi?src=";
-      sha256 = "bf2c1637b401871d3d78bd5e1488d85875eef6e8afab4cf9c31ce1c6be3e07aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3452970/ublock_origin-1.24.2-an+fx.xpi?src=";
+      sha256 = "bea5a60d423ffd1c1a860ad34a249b4f12c9711f525022f54325c51c52e4524e";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
