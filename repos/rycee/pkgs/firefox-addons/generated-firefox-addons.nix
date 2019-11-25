@@ -28,6 +28,19 @@
         platforms = platforms.all;
         };
       };
+    "browserpass" = buildFirefoxXpiAddon {
+      pname = "browserpass";
+      version = "3.4.1";
+      addonId = "browserpass@maximbaz.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3427772/browserpass-3.4.1-fx.xpi?src=";
+      sha256 = "42038bdda96609400d09f54417e7899a9650c34d2bf6969e042c68a5c008c05b";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/browserpass/browserpass-extension";
+        description = "Browserpass is a browser extension for Firefox and Chrome to retrieve login details from zx2c4's pass (<a href=\"https://outgoing.prod.mozaws.net/v1/fcd8dcb23434c51a78197a1c25d3e2277aa1bc764c827b4b4726ec5a5657eb64/http%3A//passwordstore.org\" rel=\"nofollow\">passwordstore.org</a>) straight from your browser. Tags: passwordstore, password store, password manager, passwordmanager, gpg";
+        platforms = platforms.all;
+        };
+      };
     "close-other-windows" = buildFirefoxXpiAddon {
       pname = "close-other-windows";
       version = "0.1";
