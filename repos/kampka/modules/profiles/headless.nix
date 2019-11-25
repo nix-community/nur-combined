@@ -5,7 +5,7 @@ with lib;
 let
 
   cfg = config.kampka.profiles.headless;
-  common = import ./common.nix { inherit pkgs lib; };
+  common = import ./common.nix { inherit config pkgs lib; };
 
 in
 {

@@ -5,12 +5,16 @@ with lib;
 let
 
   cfg = config.kampka.profiles.desktop;
-  common = import ./common.nix { inherit pkgs lib; };
+  common = import ./common.nix { inherit config pkgs lib; };
 
-  oldStable = (import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-19.03.tar.gz";
-    sha256 = "05625fwgsa15i2jlsf2ymv3jx68362nf3zqbpnrwq6d3sn89liny";
-  }) {inherit config; });
+  oldStable = (
+    import (
+      builtins.fetchTarball {
+        url = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-19.03.tar.gz";
+        sha256 = "05625fwgsa15i2jlsf2ymv3jx68362nf3zqbpnrwq6d3sn89liny";
+      }
+    ) { inherit config; }
+  );
 
   alacritty-oldStable = oldStable.alacritty;
 in
@@ -53,7 +57,8 @@ in
       programs.gnupg.agent.enable = mkDefault true;
       programs.gnupg.agent.enableSSHSupport = mkDefault true;
       services.udev.packages = with pkgs; [
-        yubikey-personalization libu2f-host
+        yubikey-personalization
+        libu2f-host
       ];
       # Enable smartcard daemon
       services.pcscd.enable = mkDefault true;
@@ -67,20 +72,22 @@ in
       # Disable wayland if the nvidia driver is used
       services.xserver.displayManager.gdm.wayland = mkDefault (!(any (v: v == "nvidia") config.services.xserver.videoDrivers));
       services.xserver.desktopManager.gnome3.enable = mkDefault true;
-      
+
       # Typically needed for wifi drivers and the like
       hardware.enableRedistributableFirmware = mkDefault true;
 
-      environment.systemPackages = common.environment.systemPackages ++ (with pkgs; [
-        ctags
-        git
-        gnupg
-        rsync
-        stow
-        fzf
-        ntfs3g
-        alacritty
-      ]);
+      environment.systemPackages = common.environment.systemPackages ++ (
+        with pkgs; [
+          ctags
+          git
+          gnupg
+          rsync
+          stow
+          fzf
+          ntfs3g
+          alacritty
+        ]
+      );
     }
   );
 }
