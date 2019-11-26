@@ -38,6 +38,7 @@
       {
         homepage = "https://github.com/browserpass/browserpass-extension";
         description = "Browserpass is a browser extension for Firefox and Chrome to retrieve login details from zx2c4's pass (<a href=\"https://outgoing.prod.mozaws.net/v1/fcd8dcb23434c51a78197a1c25d3e2277aa1bc764c827b4b4726ec5a5657eb64/http%3A//passwordstore.org\" rel=\"nofollow\">passwordstore.org</a>) straight from your browser. Tags: passwordstore, password store, password manager, passwordmanager, gpg";
+        license = licenses.isc;
         platforms = platforms.all;
         };
       };
@@ -97,10 +98,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.8.4";
+      version = "4.8.5";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3436917/dark_reader-4.8.4-an+fx.xpi?src=";
-      sha256 = "cf393390785a9fdde03aca679d3cdbf1fabaf4ff7a950a54bb5719e5a8de581d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3453224/dark_reader-4.8.5-an+fx.xpi?src=";
+      sha256 = "cad415f9952fa01aaf9fb9687d14e4840bfaf4a94d87b22f9f98bd2e57fd2f95";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -333,10 +334,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.11.22";
+      version = "19.11.25";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3452158/refined_github-19.11.22-an+fx.xpi?src=";
-      sha256 = "af8f47651ff8a7e5c91e684a941bfd2c79707f7dad4c3c3ac7a084950243d1c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3454608/refined_github-19.11.25-an+fx.xpi?src=";
+      sha256 = "b8b611901375155d07dd519b4c1f27c3a30b2f27848b616fe212269650246ef2";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -469,10 +470,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.12.1";
+      version = "2.12.2";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3441979/violentmonkey-2.12.1-an+fx.xpi?src=";
-      sha256 = "07aa5bb51e0612c0a2ed7bc4b408e42bb123f58f00620443e6002b88df672a80";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3455131/violentmonkey-2.12.2-an+fx.xpi?src=";
+      sha256 = "79c1f88349d14fe2d2368e7aec441b674afb0bc974df4e4aa464f0dbbdb6dd47";
       meta = with stdenv.lib;
       {
         homepage = "https://violentmonkey.github.io/";
