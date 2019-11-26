@@ -5,4 +5,4 @@ LICENSE
 Makefile
 README.md
 result
-result-bin
+result-.*

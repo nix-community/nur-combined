@@ -1,8 +1,8 @@
-{ lib, pkgs }:
+{ lib, pkgs, sources ? import ../nix/sources.nix }:
 
 let
 
-  _nixpkgs = lib.pinnedNixpkgs (lib.fromJSONFile ../nix/nixpkgs.json);
+  _nixpkgs = import sources.nixpkgs-unstable {};
 
 in
 
@@ -41,23 +41,26 @@ rec {
   lab = pkgs.callPackage ./applications/version-management/git-and-tools/lab {};
 
   openlilylib-fonts = pkgs.callPackage ./misc/lilypond/fonts.nix { };
+
   lilypond = pkgs.callPackage ./misc/lilypond { guile = pkgs.guile_1_8; };
+
   lilypond-unstable = pkgs.callPackage ./misc/lilypond/unstable.nix {
     inherit lilypond;
   };
-  lilypond-with-fonts = pkgs.callPackage ./misc/lilypond/with-fonts.nix {
-    lilypond = lilypond-unstable;
-  };
+
+  lilypond-improviso-lilyjazz = lilypond-unstable.with-fonts [
+    "improviso"
+    "lilyjazz"
+  ];
+
+  # FIXME: mcrl2 = pkgs.callPackage ./applications/science/logic/mcrl2 {};
 
   noweb = _nixpkgs.noweb.override {
     inherit icon-lang;
   };
 
   python35Packages = pkgs.python35Packages // {
-    inherit ((lib.pinnedNixpkgs {
-      rev = "97ce5d27e87af578dc964a0dba740c7531d75590";
-      sha256 = "1w6j98kh6x784z5dax36pd87cxsyfi53gq67hgwwkdbnmww2q5jj";
-    }).python35Packages) bugwarrior;
+    inherit ((import sources.nixpkgs-66234 {}).python35Packages) bugwarrior;
   };
 
   renderizer = pkgs.callPackage ./development/tools/renderizer {};
@@ -81,10 +84,5 @@ rec {
 } else {}) // {
 
   gap-pygments-lexer.meta.broken = true;
-
-  openlilylib-fonts.meta.broken = true;
-  lilypond.meta.broken = true;
-  lilypond-unstable.meta.broken = true;
-  lilypond-with-fonts.meta.broken = true;
 
 }
