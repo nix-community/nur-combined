@@ -381,12 +381,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "2.16.0";
+    version = "2.16.1";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "15614b0d9yfvxgfqg7n7n54qbi02sl8rxhr6fkfnz53fikzgg9ar";
+      sha256 = "1dq1nhy666zg6d4fkfsjwhj1vwh1ncap2c9ljplxv98a9mm6fk68";
     };
 
     phases = [ "installPhase" ];
@@ -604,10 +604,10 @@ let
 
   #protobuf = assert isPhp74; buildPecl {
   protobuf = buildPecl {
-    version = "3.10.0";
+    version = "3.11.0";
     pname = "protobuf";
 
-    sha256 = "1a1l8k2bcyjlgi02mxh5d5rcj5iyjy3lqma2k1r2lp3phzx8gbhm";
+    sha256 = "0r1768pgpcmkp2zb6ask07lxh5m16d8172kpmh4bp9jz8amx5r86";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
