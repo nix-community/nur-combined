@@ -64,10 +64,10 @@ let
 
   #ast = assert !isPhp56; buildPecl {
   ast = buildPecl {
-    version = "1.0.4";
+    version = "1.0.5";
     pname = "ast";
 
-    sha256 = "1dspqjp1wxi48qbf698x653fhlvz8l07gy1hdj0h100d7s3qmsj7";
+    sha256 = "16c5isldm4csjbcvz1qk2mmrhgvh24sxsp6w6f5a37xpa3vciawp";
 
     meta.broken = isPhp56;
   };
@@ -623,12 +623,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.6.6";
+    version = "3.7.0";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "1m12ck16srgnwaigvi92glkcfxb3xpn6a096pz8bx3ih6kkmy21f";
+      sha256 = "1w09jqpyyzskhaz6njh1d1v6bq9dv5iy21d1w40qgs4m92b3bxp0";
     };
 
     phases = [ "installPhase" ];
