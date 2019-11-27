@@ -6,6 +6,10 @@
     "slug": "auto-tab-discard"
   },
   {
+    "slug": "bitwarden-password-manager",
+    "pname": "bitwarden"
+  },
+  {
     "slug": "browserpass-ce",
     "pname": "browserpass"
   },

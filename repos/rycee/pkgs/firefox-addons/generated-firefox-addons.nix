@@ -28,6 +28,20 @@
         platforms = platforms.all;
         };
       };
+    "bitwarden" = buildFirefoxXpiAddon {
+      pname = "bitwarden";
+      version = "1.41.0";
+      addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3369227/bitwarden_free_password_manager-1.41.0-an+fx.xpi?src=";
+      sha256 = "bf804806c6b276b91555b225fa77678fd152ea3dfc148ef1c7dbf8fb37a81948";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://bitwarden.com";
+        description = "A secure and free password manager for all of your devices.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "browserpass" = buildFirefoxXpiAddon {
       pname = "browserpass";
       version = "3.4.1";
