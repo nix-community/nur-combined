@@ -278,10 +278,10 @@
       };
     "plasma-integration" = buildFirefoxXpiAddon {
       pname = "plasma-integration";
-      version = "1.6.1";
+      version = "1.7";
       addonId = "plasma-browser-integration@kde.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3392927/plasma_integration-1.6.1-fx.xpi?src=";
-      sha256 = "e01aa8876a2e964afb1af5bd53218821a893ba98d824096b6159ff36bbbf8297";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3455928/plasma_integration-1.7-fx.xpi?src=";
+      sha256 = "2e412a55b4391ee3c49714da7cd280a9d414f24c7155a1733fc18307cb066dc9";
       meta = with stdenv.lib;
       {
         homepage = "http://kde.org";
@@ -470,10 +470,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.12.2";
+      version = "2.12.3";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3455131/violentmonkey-2.12.2-an+fx.xpi?src=";
-      sha256 = "79c1f88349d14fe2d2368e7aec441b674afb0bc974df4e4aa464f0dbbdb6dd47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3455520/violentmonkey-2.12.3-an+fx.xpi?src=";
+      sha256 = "16afef559f39b46d77c068a6c9634827157f654efde86376c8a1582d41fdea66";
       meta = with stdenv.lib;
       {
         homepage = "https://violentmonkey.github.io/";
