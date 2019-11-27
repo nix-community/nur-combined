@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "libubox";
-  version = "2019-10-29";
+  version = "2019-11-23";
 
   src = fetchgit {
     url = "https://git.openwrt.org/project/${pname}.git";
-    rev = "301303911dded723b7eda4d6a4a933b22d2c1b60";
-    sha256 = "0xlzcrhyich08m9ikbbcdh5jf8na6f6qyr243g6jfk8k3r2rjqc2";
+    rev = "07413cce72e19520af55dfcbc765484f5ab41dd9";
+    sha256 = "0bbkmjq8gyzbjamzxpys4s911p8nnqffr636774imzdzm9skz01v";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];

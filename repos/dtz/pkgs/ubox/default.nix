@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "ubox";
-  version = "2019-10-20";
+  version = "2019-10-22";
 
   src = fetchgit {
     url = "https://git.openwrt.org/project/${pname}.git";
-    rev = "c9ffeac74a3de0ea6cd6b79b9ce9238668be388c";
-    sha256 = "0m0gndj8dxkb1lv11x5h1cq28cx6sibqgwasbn6bvz2fycvdrivf";
+    rev = "17689b61a1cdc05b2c27fc5a33407e1a3c384137";
+    sha256 = "1jnkvxpik5hy0iq7shrvs9h1z98y69xr8mg93qcgp4jn5lf0h90h";
   };
 
   nativeBuildInputs = [ cmake ];
