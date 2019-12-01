@@ -23,4 +23,6 @@ rec {
 
 
   mars-simulator = pkgs.callPackage ./pkgs/mars-simulator/default.nix {};
+
+  ammonite = pkgs.callPackage ./pkgs/ammonite/default.nix {};
 }
