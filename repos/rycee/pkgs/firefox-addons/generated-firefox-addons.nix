@@ -16,10 +16,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.3.3";
+      version = "0.3.4";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3450943/auto_tab_discard-0.3.3-an+fx.xpi?src=";
-      sha256 = "89b57b39d82552314a411e58e77f984cf72fc7244f499024d53d1e56a99ac10e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3459110/auto_tab_discard-0.3.4-an+fx.xpi?src=";
+      sha256 = "1747f6a21ca84a6bb3f6effb78597871778c86bf4f412e9fdad7850734168431";
       meta = with stdenv.lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -348,10 +348,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.11.30";
+      version = "19.12.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3458626/refined_github-19.11.30-an+fx.xpi?src=";
-      sha256 = "52cdc37a129d683e6da9d328f9e83401e360a55f44c5b9fc9633b69ae663a3ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3458999/refined_github-19.12.1-an+fx.xpi?src=";
+      sha256 = "bdea4eab6a66dbe1c5436c5a7ad277c12eee0acac4dd067cf8c6525b2edf63e9";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -498,10 +498,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "16.1";
+      version = "16.2";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3456739/zoom_page_we-16.1-fx.xpi?src=";
-      sha256 = "0bfbcf20dd683bcee656190ec9b43e5dcc961ca00d633a5c0fa1e6a992c32570";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3458430/zoom_page_we-16.2-fx.xpi?src=";
+      sha256 = "878573884573c23ae2c74c2cdc8fd896e932a2fe0d3569959cfb86e1bfed2705";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
