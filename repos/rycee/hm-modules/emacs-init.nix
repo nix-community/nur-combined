@@ -381,7 +381,7 @@ in
       in
         [ epkgs.use-package ]
         ++ optional hasBind epkgs.bind-key
-        ++ optional hasBind epkgs.diminish
+        ++ optional hasDiminish epkgs.diminish
         ++ (
           concatMap (v: getPkg (v.package))
           (builtins.attrValues cfg.usePackage)

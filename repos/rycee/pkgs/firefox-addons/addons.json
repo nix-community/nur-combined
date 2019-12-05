@@ -32,11 +32,23 @@
     "slug": "decentraleyes"
   },
   {
+    "slug": "disconnect"
+  },
+  {
     "slug": "ecosia-the-green-search",
     "pname": "ecosia"
   },
   {
     "slug": "facebook-container"
+  },
+  {
+    "slug": "gesturefy"
+  },
+  {
+    "slug": "ghostery"
+  },
+  {
+    "slug": "google-search-link-fix"
   },
   {
     "slug": "gopass-bridge"
@@ -78,6 +90,9 @@
     "pname": "privacy-badger"
   },
   {
+    "slug": "privacy-possum"
+  },
+  {
     "slug": "react-devtools"
   },
   {
@@ -98,6 +113,9 @@
     "slug": "text-contrast-for-dark-themes"
   },
   {
+    "slug": "textern"
+  },
+  {
     "slug": "torswitch"
   },
   {
@@ -111,6 +129,10 @@
   },
   {
     "slug": "vim-vixen"
+  },
+  {
+    "slug": "vimium-ff",
+    "pname": "vimium"
   },
   {
     "slug": "violentmonkey"

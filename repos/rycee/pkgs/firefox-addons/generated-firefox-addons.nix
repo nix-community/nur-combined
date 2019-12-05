@@ -138,6 +138,20 @@
         platforms = platforms.all;
         };
       };
+    "disconnect" = buildFirefoxXpiAddon {
+      pname = "disconnect";
+      version = "5.19.3";
+      addonId = "2.0@disconnect.me";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3363084/disconnect-5.19.3-fx.xpi?src=";
+      sha256 = "0c3c632fd997de1459d21e757c6ceeaa90e533d1bb434014b63bbac797894a3d";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://disconnect.me/";
+        description = "Make the web faster, more private, and more secure.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "ecosia" = buildFirefoxXpiAddon {
       pname = "ecosia";
       version = "4.0.4";
@@ -162,6 +176,48 @@
       {
         homepage = "https://github.com/mozilla/contain-facebook";
         description = "Prevent Facebook from tracking you around the web. The Facebook Container extension for Firefox helps you take control and isolate your web activity from Facebook.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "gesturefy" = buildFirefoxXpiAddon {
+      pname = "gesturefy";
+      version = "2.1.3";
+      addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3431399/gesturefy-2.1.3-fx.xpi?src=";
+      sha256 = "54e94db2efa2cc0f76c28089041c6a4460a993f45881e27825d82b9428838a5a";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/Robbendebiene/Gesturefy";
+        description = "Navigate, operate and browse faster with mouse gestures! A customizable mouse gesture add-on with a variety of different commands.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "ghostery" = buildFirefoxXpiAddon {
+      pname = "ghostery";
+      version = "8.4.5";
+      addonId = "firefox@ghostery.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3450602/ghostery_privacy_ad_blocker-8.4.5-an+fx.xpi?src=";
+      sha256 = "cf2b8d8808a15ed4debc04e4e689560774243871a9bf9aeae6259fcd635032e5";
+      meta = with stdenv.lib;
+      {
+        homepage = "http://www.ghostery.com/";
+        description = "Ghostery is a powerful privacy extension. \n\nBlock ads, stop trackers and speed up websites.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "google-search-link-fix" = buildFirefoxXpiAddon {
+      pname = "google-search-link-fix";
+      version = "1.6.9";
+      addonId = "jid0-XWJxt5VvCXkKzQK99PhZqAn7Xbg@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3445488/google_search_link_fix-1.6.9-an+fx.xpi?src=";
+      sha256 = "c62024e8f711217585731b00c083af13f921f8245ece72c766528eaba9895732";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/palant/searchlinkfix";
+        description = "This extension prevents Google and Yandex search pages from modifying search result links when you click them. This is useful when copying links but it also helps privacy by preventing the search engines from recording your clicks.";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -318,6 +374,20 @@
         platforms = platforms.all;
         };
       };
+    "privacy-possum" = buildFirefoxXpiAddon {
+      pname = "privacy-possum";
+      version = "2019.7.18";
+      addonId = "woop-NoopscooPsnSXQ@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3360398/privacy_possum-2019.7.18-an+fx.xpi?src=";
+      sha256 = "0840a8c443e25d8a65da22ce1b557216456b900a699b3541e42e1b47e8cb6c0e";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/cowlicks/privacypossum";
+        description = "Privacy Possum monkey wrenches common commercial tracking methods by reducing and falsifying the data gathered by tracking companies.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
       version = "4.2.1";
@@ -413,6 +483,20 @@
         platforms = platforms.all;
         };
       };
+    "textern" = buildFirefoxXpiAddon {
+      pname = "textern";
+      version = "0.5";
+      addonId = "textern@jlebon.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/969526/textern-0.5-an+fx-linux.xpi?src=";
+      sha256 = "49787b829ce3ce1cdf593612d30db2ea2f89a8007b429e75a873661a00fa3c70";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/jlebon/textern";
+        description = "Edit text in your favourite external editor!";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "torswitch" = buildFirefoxXpiAddon {
       pname = "torswitch";
       version = "1.0";
@@ -478,6 +562,20 @@
       {
         homepage = "https://github.com/ueokande/vim-vixen";
         description = "Accelerates your web browsing with Vim power!!";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "vimium" = buildFirefoxXpiAddon {
+      pname = "vimium";
+      version = "1.64.6";
+      addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/2985278/vimium_ff-1.64.6-fx.xpi?src=";
+      sha256 = "7044bd3983e541faf2e56c117048fdc281c4c52e4196472fc4f9e4af42c5e1da";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/philc/vimium";
+        description = "The Hacker's Browser. Vimium provides keyboard shortcuts for navigation and control in the spirit of Vim.\n\nThis is a port of the popular Chrome extension to Firefox.\n\nMost stuff works, but the port to Firefox remains a work in progress.";
         license = licenses.mit;
         platforms = platforms.all;
         };
