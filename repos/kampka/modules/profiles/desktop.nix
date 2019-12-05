@@ -7,16 +7,15 @@ let
   cfg = config.kampka.profiles.desktop;
   common = import ./common.nix { inherit config pkgs lib; };
 
-  oldStable = (
-    import (
-      builtins.fetchTarball {
-        url = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-19.03.tar.gz";
-        sha256 = "05625fwgsa15i2jlsf2ymv3jx68362nf3zqbpnrwq6d3sn89liny";
-      }
-    ) { inherit config; }
-  );
-
-  alacritty-oldStable = oldStable.alacritty;
+  trilium = let
+    version = "0.37.8";
+  in pkgs.trilium.overrideAttrs (attrs: {
+    inherit version;
+    src = pkgs.fetchurl {
+      url = "https://github.com/zadam/trilium/releases/download/v${version}/trilium-linux-x64-${version}.tar.xz";
+      sha256 = "06d88waxxjdnrn0y8qr6p9rf5xkvl5lbabb0xyk0dgy3wg70zlxz";
+    };
+  });
 in
 {
 
@@ -76,7 +75,9 @@ in
       # Typically needed for wifi drivers and the like
       hardware.enableRedistributableFirmware = mkDefault true;
 
-      environment.systemPackages = common.environment.systemPackages ++ (
+      environment.systemPackages = common.environment.systemPackages ++ [ 
+        trilium
+      ] ++(
         with pkgs; [
           ctags
           git
