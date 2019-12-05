@@ -472,10 +472,10 @@
       };
     "text-contrast-for-dark-themes" = buildFirefoxXpiAddon {
       pname = "text-contrast-for-dark-themes";
-      version = "2.1.5";
+      version = "2.1.6";
       addonId = "jid1-nMVE2oP40qeQDQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1721952/text_contrast_for_dark_themes-2.1.5-fx.xpi?src=";
-      sha256 = "386731f1a34fbc76c8b719dc98ce7b91c712cb047da3da9c058b1af20fa26fd5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3462082/text_contrast_for_dark_themes-2.1.6-fx.xpi?src=";
+      sha256 = "e768c13a4fa10e4dc2ce54f0539dd5a115c76babe6c044ae1115966f6062244d";
       meta = with stdenv.lib;
       {
         description = "Fixes low-contrast text when using a dark desktop theme.";
