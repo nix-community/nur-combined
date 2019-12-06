@@ -7,6 +7,9 @@
             "type": "gitlab",
             "url": "https://gricad-gitlab.univ-grenoble-alpes.fr/Projets-INFO4/18-19/19/code"
         },
+        "angr": {
+            "url": "https://github.com/angr/nixpkgs"
+        },
         "arc": {
             "file": "nur.nix",
             "url": "https://github.com/arcnmx/nixexprs"
@@ -147,6 +150,9 @@
         },
         "pschuprikov": {
             "url": "https://github.com/pschuprikov/nur-packages"
+        },
+        "rummik": {
+            "url": "https://gitlab.com/rummik/nixos/nur-packages"
         },
         "rycee": {
             "url": "https://gitlab.com/rycee/nur-expressions"
