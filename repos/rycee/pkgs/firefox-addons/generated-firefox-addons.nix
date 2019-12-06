@@ -112,10 +112,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.8.5";
+      version = "4.8.6";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3453224/dark_reader-4.8.5-an+fx.xpi?src=";
-      sha256 = "cad415f9952fa01aaf9fb9687d14e4840bfaf4a94d87b22f9f98bd2e57fd2f95";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3461726/dark_reader-4.8.6-an+fx.xpi?src=";
+      sha256 = "243aa83be02765b5468b54de53e42f246da93211d25d66f5fad67740a1f3b516";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
