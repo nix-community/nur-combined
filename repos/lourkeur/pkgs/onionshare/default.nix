@@ -43,7 +43,7 @@ buildPythonApplication rec {
     pytest
   ];
 
-  patches = [ ./nixify.patch ];
+  patches = [ ./fix-paths.patch ];
 
   # replace @tor@, @obfs4@, @geoip@ w/ store paths.
   inherit tor obfs4;
