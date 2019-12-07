@@ -1,7 +1,7 @@
 { lib, appimageTools, fetchurl }:
 let
   pname = "deezloader-remix";
-  version = "4.2.2";
+  version = "4.3.0";
 in appimageTools.wrapType2 rec {
   name = "deezloader-remix";
   src = fetchurl {
