@@ -15,9 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   python3Packages = {
-    ailment = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/archinfo {};
     archinfo = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/archinfo {};
-    mulpyplexer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/mulpyplexer {};
     pyvex = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvex {};
   };
 }

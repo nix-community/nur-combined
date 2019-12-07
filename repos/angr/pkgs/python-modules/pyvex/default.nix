@@ -22,8 +22,11 @@ buildPythonPackage rec {
     sha256 = "116qwrg8lh8pbp3xcas69nf9jal847k2ff8zf0gvnrljf544kg9x";
   };
 
-  # very long tests
+  # Very long tests.
   doCheck = false;
+
+  # Verify import still works.
+  pythonImportsCheck = [ "pyvex" ];
 
   meta = with pkgs.lib; {
     description = "Python bindings for Valgrind's VEX IR";
