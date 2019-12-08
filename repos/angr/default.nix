@@ -14,8 +14,22 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  python3Packages = {
+  python3Packages = rec {
+    ailment = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ailment {};
+
     archinfo = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/archinfo {};
-    pyvex = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvex {};
+
+    cle = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cle {
+      archinfo = archinfo;
+      pyvex = pyvex;
+    };
+
+    mulpyplexer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/mulpyplexer {};
+
+    pyvex = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvex {
+      archinfo = archinfo;
+    };
+
+    PySMT = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pysmt {};
   };
 }
