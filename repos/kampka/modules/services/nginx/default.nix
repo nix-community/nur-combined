@@ -49,16 +49,6 @@ in
       error_log stderr debug;
     '';
 
-    services.nginx.appendHttpConfig = ''
-      add_header Strict-Transport-Security "max-age=15552000; includeSubDomains";
-      # This will prevent certain click-jacking attacks, but will prevent
-      # other sites from framing your site, so delete or modify as necessary!
-      add_header X-Frame-Options "SAMEORIGIN";
-      add_header Referrer-Policy "no-referrer";
-      add_header X-XSS-Protection "1; mode=block";
-      add_header X-Content-Type-Options "nosniff";
-    '';
-
     services.nginx.sslDhparam = mkIf cfg.generateDhParams
       "${config.services.nginx.stateDir}/dhparams-${toString cfg.dhParamBytes}.pem"
     ;
