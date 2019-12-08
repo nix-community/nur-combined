@@ -290,6 +290,20 @@
         platforms = platforms.all;
         };
       };
+    "keepassxc-browser" = buildFirefoxXpiAddon {
+      pname = "keepassxc-browser";
+      version = "1.5.3";
+      addonId = "keepassxc-browser@keepassxc.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3428559/keepassxc_browser-1.5.3-fx.xpi?src=";
+      sha256 = "f5f528bd2bcf0ed3d107f8d75a0a65dc82f0a7e31651d077ffd5eb75ae2a68a4";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://keepassxc.org/";
+        description = "Official browser plugin for the KeePassXC password manager (<a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/aebde84f385b73661158862b419dd43b46ac4c22bea71d8f812030e93d0e52d5/https%3A//keepassxc.org\">https://keepassxc.org</a>).";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "link-cleaner" = buildFirefoxXpiAddon {
       pname = "link-cleaner";
       version = "1.5";
