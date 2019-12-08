@@ -5,8 +5,8 @@ let
 in appimageTools.wrapType2 rec {
   name = "deezloader-remix";
   src = fetchurl {
-    url = "https://www.dropbox.com/s/vx39czo691ndtfr/Deezloader_Remix_${version}-x86_64.appimage?dl=1";
-    sha256 = "0gvc62dvdr31ga7zdlad0xfxwjkqir8qc7l6h22lj2vkvgxmpnwc";
+    url = "https://srv-file5.gofile.io/download/r4sZke/Deezloader_Remix_${version}-x86_64.AppImage";
+    sha256 = "17v3gbliymzsmzjvwhz3z6bz86fpxcfzvnzafnlbrg8ikds3kamc";
   };
 
   meta = with lib; {
