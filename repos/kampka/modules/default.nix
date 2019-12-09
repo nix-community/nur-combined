@@ -4,6 +4,7 @@
   zsh-history = ./programs/zsh-history;
 
   dns-cache = ./services/dns-cache;
+  matrix = ./services/matrix;
   msmtp-mailqueue = ./services/msmtp-mailqueue;
   nginx = ./services/nginx;
   nixops-auto-upgrade = ./services/nixops-auto-upgrade;
