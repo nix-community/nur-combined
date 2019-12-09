@@ -15,9 +15,16 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   python3Packages = rec {
-    ailment = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ailment {};
+    ailment = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ailment {
+      pyvex = pyvex;
+    };
 
     archinfo = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/archinfo {};
+
+    claripy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/claripy {
+      PySMT = PySMT;
+      z3-solver = z3-solver;
+    };
 
     cle = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cle {
       archinfo = archinfo;
@@ -31,5 +38,8 @@
     };
 
     PySMT = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pysmt {};
+
+    # TODO: Remove once NixOS/nixpkgs#75125 is resolved: This is here for `claripy` to work.
+    z3-solver = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/z3-solver {};
   };
 }

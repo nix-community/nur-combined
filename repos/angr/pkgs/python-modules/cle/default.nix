@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "angr";
-    repo = "${pname}";
+    repo = pname;
     rev = "fceb6b1a9591cdda8fdd4f018d6a498c9fca2268";
     sha256 = "1zs94ridvvxkwvmrhwhqfmkvm005b8fhhavqhmv7dh0znbg42j9f";
   };
