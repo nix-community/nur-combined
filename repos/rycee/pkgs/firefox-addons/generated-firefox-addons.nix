@@ -16,10 +16,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.3.4";
+      version = "0.3.5.2";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3459110/auto_tab_discard-0.3.4-an+fx.xpi?src=";
-      sha256 = "1747f6a21ca84a6bb3f6effb78597871778c86bf4f412e9fdad7850734168431";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3464092/auto_tab_discard-0.3.5.2-an+fx.xpi?src=";
+      sha256 = "e45a372bb1f48c37d285ffd9794df41fe327e799d1b57ebdb9295e3e94e25311";
       meta = with stdenv.lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -292,10 +292,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.5.3";
+      version = "1.5.4";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3428559/keepassxc_browser-1.5.3-fx.xpi?src=";
-      sha256 = "f5f528bd2bcf0ed3d107f8d75a0a65dc82f0a7e31651d077ffd5eb75ae2a68a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3465157/keepassxc_browser-1.5.4-fx.xpi?src=";
+      sha256 = "8a0b585e0921c67c5d9b5e19d0e2398e9893c4bdbd24c108af280df737c56f2f";
       meta = with stdenv.lib;
       {
         homepage = "https://keepassxc.org/";
@@ -432,10 +432,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.12.2";
+      version = "19.12.9";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3459396/refined_github-19.12.2-an+fx.xpi?src=";
-      sha256 = "6773d931bb066f6b9afe8b21e719da55d6da71a40b836414e3f752f2f48eb949";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3464827/refined_github-19.12.9-an+fx.xpi?src=";
+      sha256 = "e4484a435a5a05c51851d93a47660dd07ca9cf14a820281b82037f88f30edcd3";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -610,10 +610,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "16.2";
+      version = "16.3";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3458430/zoom_page_we-16.2-fx.xpi?src=";
-      sha256 = "878573884573c23ae2c74c2cdc8fd896e932a2fe0d3569959cfb86e1bfed2705";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3463984/zoom_page_we-16.3-fx.xpi?src=";
+      sha256 = "2e12bcf31092b232a5a51640303c6749c4b342fb7b893dc8a4f4d202c3a25352";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
