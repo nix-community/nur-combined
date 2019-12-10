@@ -7,6 +7,6 @@
   swayblocks = pkgs.callPackage ./pkgs/swayblocks { };
   cboard = pkgs.callPackage ./pkgs/cboard { };
   ripcord = pkgs.callPackage ./pkgs/ripcord { };
-  deezloader-remix = pkgs.callPackage ./pkgs/deezloader-remix { };
+  ydotool = pkgs.callPackage ./pkgs/ydotool { };
 }
 
