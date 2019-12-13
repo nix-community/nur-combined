@@ -15,11 +15,19 @@ Basic usage
 }
 ```
 
+
+* List the packages
+
+```console
+$ nix-env -f "<nixpkgs>" -qaP -A nur.repos.gricad
+```
+
 * Install a package
 
 ```console
 $ nix-env -iA -f "<nixpkgs>" nur.repos.gricad.openmpi2-opa
 ```
+
 
 Advanced usage (mostly for admins)
 ----------------------------------
