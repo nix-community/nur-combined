@@ -13,11 +13,15 @@ in
 
   options.kampka.programs.zsh-history = {
     enable = mkEnableOption "A CLI to provide enhanced history for your shell";
+    package = mkOption {
+      type = type.pkg;
+      default = zsh-history;
+    };
   };
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ zsh-history ];
+    environment.systemPackages = [ cfg.package ];
 
     programs.zsh.interactiveShellInit = ''
       alias hs="command history"
@@ -30,7 +34,7 @@ in
       ZSH_HISTORY_FILTER_OPTIONS="--filter-dir --filter-status"
       ZSH_HISTORY_FILTER_OPTIONS_BY_DIR="--filter-dir --filter-branch --filter-status"
 
-      source ${zsh-history.out}/share/zsh/init.zsh
+      source ${cfg.package.out}/share/zsh/init.zsh
 
       # Keybinding seem to be buggy when filter options are set
       # Unsetting options disables columns filters
