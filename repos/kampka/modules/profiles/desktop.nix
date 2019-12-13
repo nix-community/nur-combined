@@ -52,6 +52,8 @@ in
       kampka.programs.direnv.enable = mkDefault true;
       kampka.services.tmux.enable = mkDefault true;
 
+      services.lorri.enable = mkDefault true;
+
       # Setup gpg-agent with yubikey support
       programs.gnupg.agent.enable = mkDefault true;
       programs.gnupg.agent.enableSSHSupport = mkDefault true;
