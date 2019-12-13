@@ -14,7 +14,7 @@ in
   options.kampka.programs.zsh-history = {
     enable = mkEnableOption "A CLI to provide enhanced history for your shell";
     package = mkOption {
-      type = type.pkg;
+      type = types.package;
       default = zsh-history;
     };
   };
