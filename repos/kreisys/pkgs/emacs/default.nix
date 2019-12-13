@@ -1,9 +1,10 @@
-{ lib, callPackage, darwin, fetchpatch, imagemagick, imagemagick7, sources, stdenv, xorg }:
+{ lib, callPackage, darwin, fetchpatch, imagemagick, imagemagick7, sources, stdenv, xorg, srcRepo ? true }:
 
 let
   mkEmacs = args: let
     commonArgs = {
       inherit (darwin.apple_sdk.frameworks) AppKit GSS ImageIO;
+      inherit srcRepo;
       gconf   = null;
     } // (lib.optionalAttrs stdenv.isDarwin darwinArgs);
 

@@ -1,5 +1,9 @@
-{ pkgs, lib, newScope, recurseIntoAttrs, sources }:
+{ pkgs, sources }:
 
+let
+  inherit (pkgs) lib newScope recurseIntoAttrs;
+
+in
 lib.makeScope newScope (self: with self; let
   callPackages = lib.callPackagesWith (pkgs // self);
   emacsen = callPackages ./emacs { inherit sources; };

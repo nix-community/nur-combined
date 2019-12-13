@@ -12,7 +12,7 @@
 , withCsrc     ? true
 , siteStart    ? ./site-start.el
 , patches ? []
-, src
+, src, srcRepo ? false
 , version
 }:
 
@@ -42,8 +42,12 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   CFLAGS = "-DMAC_OS_X_VERSION_MAX_ALLOWED=101200";
+  postPatch = lib.optionalString srcRepo ''
+    rm -fr .git
+  '';
 
-  nativeBuildInputs = [ autoconf automake pkgconfig texinfo ]
+  nativeBuildInputs = [ pkgconfig ]
+    ++ lib.optionals srcRepo [ autoconf automake texinfo ]
     ++ lib.optional (withX && (withGTK3 || withXwidgets)) wrapGAppsHook;
 
   buildInputs =
@@ -78,8 +82,10 @@ stdenv.mkDerivation rec {
              "--with-gif=no" "--with-tiff=no" ])
     ++ lib.optional withXwidgets "--with-xwidgets";
 
-  preConfigure = ''
+  preConfigure = lib.optionalString srcRepo ''
     ./autogen.sh
+  '' + ''
+
     substituteInPlace lisp/international/mule-cmds.el \
       --replace /usr/share/locale ${gettext}/share/locale
 

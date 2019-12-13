@@ -17,4 +17,6 @@ with (import <nixpkgs/lib>).attrsets;
   lib      = import ./lib { inherit pkgs; }; # functions
   modules  = import ./modules;               # NixOS modules
   overlays = import ./overlays;              # nixpkgs overlays
-} // (optionalAttrs (builtins.tryEval pkgs).success (pkgs.callPackages ./pkgs { inherit sources; }))
+} // (optionalAttrs (builtins.tryEval pkgs).success (import ./pkgs {
+  inherit sources pkgs;
+}))
