@@ -1,0 +1,28 @@
+name: Update dtn7-go NUR packages
+
+on: repository_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Nix
+      uses: cachix/install-nix-action@v6
+
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Update dtn7-go packages
+      run: ./update-dtn7-go.sh
+
+    - name: Commit changes
+      run: |
+        git config --local user.name "update-dtn7-go.sh"
+        git config --local user.email "nope@nope.local"
+        git commit -a -m "Updated dtn7-go"
+
+    - name: GitHub Push
+      uses: ad-m/github-push-action@v0.5.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
