@@ -30,11 +30,6 @@
             "sha256": "0b8p1sw6vgwqz1bfv81xl2n832a0dqzgjbikhrj1cfw101hasir9",
             "url": "https://github.com/babariviere/nur-packages"
         },
-        "balsoft": {
-            "rev": "6c7008730e0677b937522d7e2ab48980eb26bac1",
-            "sha256": "0gm63di3amsj4d8isrkqni5l8zji1kivb28568zsrk4jgxfbxbdl",
-            "url": "https://github.com/balsoft/nur-packages"
-        },
         "bb010g": {
             "rev": "8b7852b797c98808c11cfeebfba66a0d11f202e2",
             "sha256": "0y98fabccp102znc07m26s5vy35hiqmn5c1168dff557cdp930yg",
