@@ -1,4 +1,16 @@
 {
+    "arduino-cli": {
+        "branch": "0.5.0",
+        "description": "Arduino command line interface",
+        "homepage": null,
+        "owner": "arduino",
+        "repo": "arduino-cli",
+        "rev": "3be22875e27f220350d8ab5b13403d804acfd20b",
+        "sha256": "1gbwrmzs4lf2c854g9qwh8xr9yfa8v6jhslad6kpkh261xqhmqkm",
+        "type": "tarball",
+        "url": "https://github.com/arduino/arduino-cli/archive/3be22875e27f220350d8ab5b13403d804acfd20b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "lambda-launcher": {
         "branch": "master",
         "description": "Application launcher in haskell. Mostly Just For Fun.",

@@ -8,4 +8,5 @@ in {
     (import "${sources.lambda-launcher}/default.nix" { }).lambda-launcher;
   roboto-mono-nerd = pkgs.callPackage ./roboto-mono-nerd.nix { };
   nix-patch = pkgs.callPackage ./nix-patch.nix { inherit (sources) nix-patch; };
+  arduino-cli = pkgs.callPackage ./arduino-cli/default.nix { inherit (sources) arduino-cli; };
 }
