@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "moarvm";
-  version = "2019.07.1";
+  version = "2019.11";
 
   src = fetchurl {
-    url    = "https://github.com/MoarVM/MoarVM/releases/download/2019.07.1/MoarVM-2019.07.1.tar.gz";
-    sha256 = "122rjns4sqs9yn7f34316aygrgj28n0pg3lvjkkfv2dmwrg98g15";
+    url    = "https://github.com/MoarVM/MoarVM/releases/download/${version}/MoarVM-${version}.tar.gz";
+    sha256 = "0082hy3kl8fvgqz4d9nyxyrrhbh5jx4i1wi64ax0x01m9q8wb0nq";
   };
 
   buildInputs = [ perl ];

@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "rakudo";
-  version = "2019.07.1";
+  version = "2019.11";
 
   src = fetchurl {
-    url    = "https://github.com/rakudo/rakudo/releases/download/2019.07.1/rakudo-2019.07.1.tar.gz";
-    sha256 = "1xs4hj3hr3v0ixvmv56wffx6jcl2rk5wzsn74cbwlvrzxjaww7fr";
+    url    = "https://github.com/rakudo/rakudo/releases/download/${version}/rakudo-${version}.tar.gz";
+    sha256 = "0camnv73b2gqkdc6f70fjzq4r7pgri8xh0jn7rrdvdd8sxh93q9n";
   };
 
   buildInputs = [ icu zlib gmp perl ];
@@ -15,7 +15,6 @@ stdenv.mkDerivation rec {
     "--backends=moar"
     "--with-nqp=${nqp}/bin/nqp"
   ];
-  #checkPhase = "make spectest";
   doCheck = true;
 
   meta = with stdenv.lib; {
