@@ -6,13 +6,13 @@ with lib;
 
 stdenv.mkDerivation rec {
   pname = "libtgvoip";
-  version = "4dabb67-1";
+  version = "303dcac-1";
 
   src = fetchFromGitHub {
     owner = "telegramdesktop";
     repo = "libtgvoip";
-    rev = "4dabb67eff8756e1ee0ad6e27a0a0478ea65b6d4";
-    sha256 = "0agdfjnlg04qmvcd7n03rs1vpsi9kfxl3zpcns1z6a45v8xdqy4i";
+    rev = "303dcacc2ad0428fd165c71455056d3f8f884d6f";
+    sha256 = "1r25nan5khg0r2a4nimil1ck1ryr9fzd01wr15wy5saiz2nwc84q";
   };
 
   outputs = [ "out" "dev" ];
