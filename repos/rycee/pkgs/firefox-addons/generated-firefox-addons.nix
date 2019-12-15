@@ -334,10 +334,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "4.0.4";
+      version = "4.1.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3453964/octotree-4.0.4-fx.xpi?src=";
-      sha256 = "f4637a33a5a085d8fdf6f175796f2820c6bb7cc3b187e644170cedeefadcdb2f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3468510/octotree-4.1.0-fx.xpi?src=";
+      sha256 = "ae59d91593ea70e93e0403549e85c2e2be5801a0fa2201c5d09c64c0679fabac";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
