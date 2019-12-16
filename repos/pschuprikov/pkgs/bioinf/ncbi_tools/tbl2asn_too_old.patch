@@ -1,0 +1,24 @@
+--- ncbi-tools6-6.1.20170106+dfsg1.orig/ncbi/demo/tbl2asn.c
++++ ncbi-tools6-6.1.20170106+dfsg1/ncbi/demo/tbl2asn.c
+@@ -8911,10 +8911,12 @@ Int2 Main (void)
+     return 1;
+   }
+ 
++  /*
+   if (MoreThanYearOld ()) {
+     too_old = TRUE;
+     Message (MSG_POST, "This copy of tbl2asn is more than a year old.  Please download the current version.");
+   }
++  */
+ 
+   /* process command line arguments */
+ 
+@@ -9668,6 +9670,9 @@ Int2 Main (void)
+   }
+ 
+   if (tbl.other_failure) {
++    if (MoreThanYearOld ()) {
++      Message (MSG_POST, "This copy of tbl2asn is more than a year old.  Please try again with the current version.");
++    }
+     return 1;
+   }
