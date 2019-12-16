@@ -1,9 +1,9 @@
 { stdenv, fetchurl, coreutils, procps, cpio }:
 stdenv.mkDerivation rec {
-  version = "2.9.0+";
+  version = "2.9.0";
   name = "ncbi-blast-${version}";
   src = fetchurl {
-    url = "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/${name}-src.tar.gz";
+    url = "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/${name}+-src.tar.gz";
     sha256 = "sha256:0my2rpd1bln05sxnp4c5wk5j5y6yx56vi38pzicjfhh9g8nwr453";
   };
 
@@ -40,11 +40,11 @@ stdenv.mkDerivation rec {
       'CXXFLAGS="-Wno-format-security"'
       'CFLAGS="-Wno-format-security"'
       '-j'
-      '-l4'
+      "-l''${NIX_BUILD_CORES}"
     )
   '';
 
   buildInputs = [ procps cpio ];
 
-  sourceRoot = "${name}-src/c++";
+  sourceRoot = "${name}+-src/c++";
 }
