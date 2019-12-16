@@ -20,9 +20,9 @@ let scope = pkgs.lib.makeScope pkgs.newScope (self: {
   arbslhelix = self.callPackage ./pkgs/bioinf/arb/sl/helix { };
   sina = self.callPackage ./pkgs/bioinf/sina { };
   #prokka = self.callPackage ./pkgs/bioinf/prokka { };
-  #infernal = self.callPackage ./pkgs/bioinf/infernal { };
+  infernal = self.callPackage ./pkgs/bioinf/infernal { };
   #ncbi_blast = self.callPackage ./pkgs/bioinf/ncbi_blast { };
-  #ncbi_tools = self.callPackage ./pkgs/bioinf/ncbi_tools { };
+  ncbi_tools = self.callPackage ./pkgs/bioinf/ncbi_tools { };
   aragorn = self.callPackage ./pkgs/bioinf/aragorn { };
   prodigal = self.callPackage ./pkgs/bioinf/prodigal { };
 
