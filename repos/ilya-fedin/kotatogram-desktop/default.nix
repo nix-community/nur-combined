@@ -30,7 +30,7 @@ let
   ] ++ optional integrateWithSystem "TDESKTOP_DISABLE_GTK_INTEGRATION");
 in mkDerivation rec {
   pname = "kotatogram-desktop";
-  version = "1.1.1-2";
+  version = "1.1.1-3";
 
   src = fetchFromGitHub {
     owner = "kotatogram";
