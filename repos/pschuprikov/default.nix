@@ -19,12 +19,13 @@ let scope = pkgs.lib.makeScope pkgs.newScope (self: {
   arbprobe_com = self.callPackage ./pkgs/bioinf/arb/probe_com { };
   arbslhelix = self.callPackage ./pkgs/bioinf/arb/sl/helix { };
   sina = self.callPackage ./pkgs/bioinf/sina { };
-  #prokka = self.callPackage ./pkgs/bioinf/prokka { };
+  prokka = self.callPackage ./pkgs/bioinf/prokka { };
   infernal = self.callPackage ./pkgs/bioinf/infernal { };
   ncbi_blast = self.callPackage ./pkgs/bioinf/ncbi_blast { };
   ncbi_tools = self.callPackage ./pkgs/bioinf/ncbi_tools { };
   aragorn = self.callPackage ./pkgs/bioinf/aragorn { };
   prodigal = self.callPackage ./pkgs/bioinf/prodigal { };
+  mafft = self.callPackage ./pkgs/bioinf/mafft { };
 
   BioPerl = self.callPackage ./pkgs/bioinf/bioperl { };
   BioPerlSearchIOhmmer = self.callPackage ./pkgs/bioinf/bioperl_searchio_hmmer { };
