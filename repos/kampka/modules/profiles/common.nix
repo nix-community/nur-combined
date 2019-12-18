@@ -27,8 +27,9 @@ in
     iotop
 
     curl
-    inetutils
     wget
+    inetutils
+    dnsutils
 
     gzip
     bzip2
