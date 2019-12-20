@@ -10,7 +10,20 @@ let
     #!${pkgs.stdenv.shell}
     set -e
 
-    nix-build -Q -A nixpkgs -o /run/nixpkgs /etc/nixos/nix/sources.nix
+    ${optionalString cfg.builtin ''
+      pushd /etc/nixos > /dev/null
+      niv modify nixpkgs -a builtin=true
+      nix-build -Q -A nixpkgs -o /run/nixpkgs ./nix/sources.nix
+      popd > /dev/null
+    ''}
+
+    ${optionalString (!cfg.builtin) ''
+      pushd /etc/nixos > /dev/null
+      niv modify nixpkgs -a builtin=false
+      ln -sfn $(nix-instantiate --eval -A nixpkgs.outPath ./nix/sources.nix | sed 's/"//g') /run/nixpkgs
+      popd > /dev/null
+    ''}
+
     exec nixos-rebuild "$@"
   '';
 
@@ -33,6 +46,15 @@ in {
         internal = true;
         description = ''
           Whether to use niv-based nixpkgs.
+        '';
+      };
+
+      builtin = mkOption {
+        type = types.bool;
+        default = true;
+        internal = true;
+        description = ''
+          Whether to use builtin fetch functions.
         '';
       };
     };
