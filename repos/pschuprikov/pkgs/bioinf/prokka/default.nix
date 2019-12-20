@@ -1,6 +1,6 @@
-{ stdenv, perlPackages, fetchFromGitHub, BioPerl, hmmer, infernal, ncbi_blast, ncbi_tools, aragorn, gnugrep, findutils, parallel, jdk, prodigal, makeWrapper, BioPerlSearchIOhmmer }:
+{ stdenv, perlPackages, fetchFromGitHub, BioPerl, hmmer, infernal, ncbi_blast, ncbi_tools, aragorn, gnugrep, findutils, parallel, jdk, prodigal, makeWrapper, BioSearchIOhmmer }:
 let perl = perlPackages.perl.withPackages (pkgs: with pkgs; [ 
-      XMLSimple BioPerl BioPerlSearchIOhmmer
+      XMLSimple BioPerl BioSearchIOhmmer
       ]);
     toolsPath = stdenv.lib.makeBinPath [ hmmer infernal ncbi_blast ncbi_tools aragorn gnugrep findutils parallel prodigal jdk ];
 in stdenv.mkDerivation rec {

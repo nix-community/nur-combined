@@ -1,6 +1,7 @@
 { stdenv, fetchurl }:
 stdenv.mkDerivation rec {
   version = "7.453";
+
   name = "mafft-${version}";
   src = fetchurl {
     url = "https://mafft.cbrc.jp/alignment/software/${name}-without-extensions-src.tgz";

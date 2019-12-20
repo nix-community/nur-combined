@@ -1,10 +1,12 @@
+{ version, sha256, postPatch ? "", patches ? [] }:
 { stdenv, fetchurl, coreutils, procps, cpio }:
-stdenv.mkDerivation rec {
-  version = "2.9.0";
+let oldPostPatch = postPatch;
+in stdenv.mkDerivation rec {
+  inherit version patches;
   name = "ncbi-blast-${version}";
   src = fetchurl {
     url = "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/${name}+-src.tar.gz";
-    sha256 = "sha256:0my2rpd1bln05sxnp4c5wk5j5y6yx56vi38pzicjfhh9g8nwr453";
+    inherit sha256;
   };
 
   postPatch = ''
@@ -29,7 +31,7 @@ stdenv.mkDerivation rec {
     done
     substituteInPlace ./src/build-system/helpers/run_with_lock.c \
       --replace "/bin/rm" "${coreutils}/bin/rm" \
-  '';
+  '' + "\n" + oldPostPatch;
 
   preConfigure = ''
     export AR="$AR cr"
