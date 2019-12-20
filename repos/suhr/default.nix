@@ -15,4 +15,5 @@
   deadbeef-waveform-seekbar-plugin =
     pkgs.callPackage ./pkgs/deadbeef-waveform-seekbar-plugin { };
   augr = pkgs.callPackage ./pkgs/augr { };
+  rosie = pkgs.luaPackages.callPackage ./pkgs/rosie { };
 }
