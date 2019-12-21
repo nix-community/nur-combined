@@ -25,7 +25,11 @@ rec {
       makeFlagsArray+=("bindir=$bin/bin" "sbindir=$bin/sbin" "rootsbindir=$bin/sbin" "--quiet")
     '';
   });
-
+  
+  haskellPackages = import ./pkgs/haskellPackages { inherit pkgs; };
+  
+  arion = pkgs.callPackage ./pkgs/arion { arion-compose = haskellPackages.arion-compose; };
+ 
   batsky = pkgs.callPackage ./pkgs/batsky { };
 
   procset = pkgs.callPackage ./pkgs/procset { };
