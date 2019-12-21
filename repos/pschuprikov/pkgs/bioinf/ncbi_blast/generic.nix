@@ -1,5 +1,5 @@
 { version, sha256, postPatch ? "", patches ? [] }:
-{ stdenv, fetchurl, coreutils, procps, cpio, zlib, bzip2, pcre, lmdb }:
+{ lib, stdenv, fetchurl, coreutils, procps, cpio, zlib, bzip2, pcre, lmdb }:
 let oldPostPatch = postPatch;
 in stdenv.mkDerivation rec {
   inherit version patches;
@@ -59,4 +59,9 @@ in stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     platforms = platforms.unix;
   };
+} // lib.optionalAttrs stdenv.isDarwin {
+  configurePhase = ''
+    ./configure $configureFlags || cat config.log && exit 1
+  '';
 }
+
