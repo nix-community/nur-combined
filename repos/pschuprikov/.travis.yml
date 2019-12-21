@@ -1,5 +1,5 @@
 language: nix
-sudo: false
+nix: 2.3
 
 env:
   global:
@@ -16,6 +16,10 @@ jobs:
     os: linux
   - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
     os: osx
+    language: generic
+    before_install:
+    - curl https://nixos.org/nix/install | sh
+    - source /Users/travis/.nix-profile/etc/profile.d/nix.sh
   allow_failures:
   - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
     os: osx
