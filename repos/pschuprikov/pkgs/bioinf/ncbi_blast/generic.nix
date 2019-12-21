@@ -61,7 +61,9 @@ in stdenv.mkDerivation rec {
   };
 } // lib.optionalAttrs stdenv.isDarwin {
   configurePhase = ''
-    ./configure $configureFlags || cat config.log && exit 1
+    echo "HI!!! It's me"
+    cat config.log
+    ./configure $configureFlags || cat config.log
   '';
 }
 
