@@ -57,6 +57,6 @@ in stdenv.mkDerivation rec {
   sourceRoot = "${name}+-src/c++";
 
   meta = with stdenv.lib; {
-    platforms = platforms.linux;
+    platforms = platforms.unix;
   };
 }
