@@ -252,10 +252,10 @@
       };
     "header-editor" = buildFirefoxXpiAddon {
       pname = "header-editor";
-      version = "4.0.7";
+      version = "4.1.1";
       addonId = "headereditor-amo@addon.firefoxcn.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1677680/header_editor-4.0.7-an+fx.xpi?src=";
-      sha256 = "8aaaefcfad6f281aee61f085c446d54afe223ff35bdde31426a01f682891d9b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3472456/header_editor-4.1.1-an+fx.xpi?src=";
+      sha256 = "389fba1a1a08b97f8b4bf0ed9c21ac2e966093ec43cecb80fc574997a0a99766";
       meta = with stdenv.lib;
       {
         homepage = "http://team.firefoxcn.net";
@@ -404,10 +404,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.2.1";
+      version = "4.3.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3456693/react_developer_tools-4.2.1-fx.xpi?src=";
-      sha256 = "4932170bd788657477441332dcfa4ab8cf71da6caaf09ee70ccd36620259ee32";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3472587/react_developer_tools-4.3.0-fx.xpi?src=";
+      sha256 = "b15f12df305c42c0ff0030d4736513455694d4d33710a59d25e801e2033d06ba";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -432,10 +432,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.12.17";
+      version = "19.12.20";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3469980/refined_github-19.12.17-an+fx.xpi?src=";
-      sha256 = "4ae0fc9c0e955b9bc300202b004381d0c9e54db9823bdafda218ff9fcc721167";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3472280/refined_github-19.12.20-an+fx.xpi?src=";
+      sha256 = "e3a05c9cfa7ee0176999dda9d6b77bb4d4b7917b238ee55a7b520af98ec4d29b";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
