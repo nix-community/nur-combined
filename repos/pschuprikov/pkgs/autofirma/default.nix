@@ -26,4 +26,8 @@ stdenv.mkDerivation {
     mkdir $out
     cp -r usr/* $out/
   '';
+
+  meta = with stdenv.lib; {
+    platforms = platforms.linux;
+  };
 }
