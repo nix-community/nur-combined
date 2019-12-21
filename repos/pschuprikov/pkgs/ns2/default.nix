@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     description = "A discrete event simulator targeted at networking research";
     homepage = http://nsnam.sourceforge.net/wiki/index.php/User_Information;
     license = with licenses; [ bsdOriginal bsd3 asl20 gpl2 ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }

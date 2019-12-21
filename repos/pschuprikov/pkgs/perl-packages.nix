@@ -60,6 +60,7 @@ rec {
       homepage = http://www.sanger.ac.uk/;
       description = "Create a pan genome";
       license = stdenv.lib.licenses.gpl3Plus;
+      platforms = stdenv.lib.platforms.linux;
     };
   };
 

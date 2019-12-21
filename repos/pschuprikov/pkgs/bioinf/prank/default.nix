@@ -15,4 +15,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin/
     cp prank $out/bin/
   '';
+
+  meta = with stdenv.lib; {
+    platforms = platforms.linux;
+  };
 }

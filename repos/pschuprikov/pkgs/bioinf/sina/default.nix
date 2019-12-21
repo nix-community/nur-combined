@@ -25,4 +25,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config autoreconfHook zlib glib boost tbb arbdb arbcommon arbcore arbslhelix arbprobe_com arbaisc_com ];
 
   installTargets = "install-exec";
+
+  meta = with stdenv.lib; {
+    platforms = platforms.linux;
+  };
 }

@@ -10,4 +10,8 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${name}-without-extensions/core";
   makeFlags = [ "PREFIX=$(out)" ];
+
+  meta = with stdenv.lib; {
+    platforms = platforms.linux;
+  };
 }

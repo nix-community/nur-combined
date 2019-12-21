@@ -55,4 +55,8 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ zlib bzip2 pcre lmdb ];
 
   sourceRoot = "${name}+-src/c++";
+
+  meta = with stdenv.lib; {
+    platforms = platforms.linux;
+  };
 }

@@ -8,4 +8,8 @@ stdenv.mkDerivation rec {
   };
 
   makeFlags = [ "INSTALLDIR=$(out)/bin" ];
+
+  meta = with stdenv.lib; {
+    platforms = platforms.linux;
+  };
 }

@@ -7,4 +7,8 @@ stdenv.mkDerivation rec {
     url = "http://eddylab.org/infernal/${name}.tar.gz";
     sha256 = "sha256:0pm8bm3s6nfa0av4x6m6h27lsg12b3lz3jm0fyh1mc77l2isd61v";
   };
+
+  meta = with stdenv.lib; {
+    platforms = platforms.unix;
+  };
 }

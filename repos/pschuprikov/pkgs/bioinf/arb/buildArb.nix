@@ -17,4 +17,8 @@ stdenv.mkDerivation (attrs // {
       'SHARED_LIB_SUFFIX=${lib.removePrefix "." stdenv.hostPlatform.extensions.sharedLibrary}'
       )
   '' + lib.optionalString (attrs ? preBuild) attrs.preBuild;
+
+  meta = with stdenv.lib; {
+    platforms = platforms.linux;
+  };
 })

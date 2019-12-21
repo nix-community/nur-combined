@@ -32,4 +32,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out
     cp -r ncbi/bin $out/
   '';
+
+  meta = with stdenv.lib; {
+    platforms = platforms.linux;
+  };
 }

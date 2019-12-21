@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     description = "An extension to Tcl/Tk for object-oriented programming";
     homepage = http://otcl-tclcl.sourceforge.net/otcl/;
     license = licenses.free;
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }
