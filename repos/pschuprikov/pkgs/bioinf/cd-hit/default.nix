@@ -11,15 +11,10 @@ stdenv.mkDerivation rec {
     sha256 = "032nva6iiwmw59gjipm1mv0xlcckhxsf45mc2qbnv19lbis0q22i";
   };
 
-  postPatch = ''
-    sed -i -e "/^CC\s*=/d" Makefile
-  '';
-
   propagatedBuildInputs = [ perl perlPackages.TextNSP perlPackages.PerlMagick perlPackages.Storable ];
 
   nativeBuildInputs = [ zlib makeWrapper ];
-
-  makeFlags = [ "PREFIX=$(out)/bin" ];
+makeFlags = [ "PREFIX=$(out)/bin" "CC=$(CXX)"];
 
   preInstall = "mkdir -p $out/bin";
 
