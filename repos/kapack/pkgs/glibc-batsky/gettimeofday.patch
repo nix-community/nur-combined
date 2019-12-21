@@ -1,0 +1,141 @@
+--- glibc-2.27-orig/sysdeps/unix/sysv/linux/x86/gettimeofday.c	2018-02-01 17:17:18.000000000 +0100
++++ glibc-2.27/sysdeps/unix/sysv/linux/x86/gettimeofday.c	2019-09-26 09:12:07.563338439 +0200
+@@ -15,47 +15,112 @@
+    You should have received a copy of the GNU Lesser General Public
+    License along with the GNU C Library; if not, see
+    <http://www.gnu.org/licenses/>.  */
++#include <sysdep.h>
+ 
+ #include <sys/time.h>
++#include <errno.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <sys/types.h>
++#include <unistd.h>
++#include <sys/socket.h>
++#include <sys/un.h>
++#include <sys/stat.h> // mkdir
++#include <emmintrin.h>
++
++void _create_and_wait_connection(void);
++void _get_batsky_time(struct timeval *tv);
++
++#define BATSKY_SOCK_DIR "/tmp/batsky"
++
++int batsky_init = 0;
++
++int batsky_server_sockfd, batsky_client_sockfd;
++socklen_t batsky_client_len;
++struct sockaddr_un batsky_server_address;
++struct sockaddr_un  batsky_client_address;
+ 
+-#ifdef SHARED
++static int batsky_lock = 0;
+ 
+-# include <dl-vdso.h>
+-# include <errno.h>
++void ___spin_lock(int volatile *p)
++{
++    while(!__sync_bool_compare_and_swap(p, 0, 1))
++    {
++        // spin read-only until a cmpxchg might succeed
++        while(*p) _mm_pause();  // or maybe do{}while(*p) to pause first
++    }
++}
+ 
+-static int
+-__gettimeofday_syscall (struct timeval *tv, struct timezone *tz)
++void ___spin_unlock(int volatile *p)
+ {
+-  return INLINE_SYSCALL (gettimeofday, 2, tv, tz);
++    asm volatile ("":::"memory"); // acts as a memory barrier.
++    *p = 0;
+ }
+ 
+-# ifndef __gettimeofday_type
+-/* The i386 gettimeofday.c includes this file with a defined
+-   __gettimeofday_type macro.  For x86_64 we have to define it to __gettimeofday
+-   as the internal symbol is the ifunc'ed one.  */
+-#  define __gettimeofday_type __gettimeofday
+-# endif
+-
+-# undef INIT_ARCH
+-# define INIT_ARCH() PREPARE_VERSION_KNOWN (linux26, LINUX_2_6)
+-/* If the vDSO is not available we fall back to syscall.  */
+-libc_ifunc_hidden (__gettimeofday_type, __gettimeofday,
+-		   (_dl_vdso_vsym ("__vdso_gettimeofday", &linux26)
+-		    ?: &__gettimeofday_syscall))
+-libc_hidden_def (__gettimeofday)
++void _create_and_wait_connection(void) {
++    char batsky_sock_name[256];
++    pid_t pid = getpid();
++
++    /* create socket */
++    snprintf(batsky_sock_name, sizeof batsky_sock_name, "%s/%d_batsky.sock", BATSKY_SOCK_DIR, pid);
++    unlink(batsky_sock_name);
++    batsky_server_sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
++
++    batsky_server_address.sun_family = AF_UNIX;
++    strcpy(batsky_server_address.sun_path, batsky_sock_name);
++
++    int ret = bind(batsky_server_sockfd, (struct sockaddr *)&batsky_server_address, sizeof(batsky_server_address));
++    if (ret) {
++        perror("Bind for batsky_socket failed");
++    }
++    
++    listen(batsky_server_sockfd, 1);
++
++    /*  Accept a connection.  */
++    batsky_client_len = sizeof(batsky_client_address);
++    batsky_client_sockfd = accept(batsky_server_sockfd, (struct sockaddr *)&batsky_client_address, &batsky_client_len);
++
++    write(batsky_client_sockfd, &pid, 4);
++   
++}
+ 
+-#else
++void _get_batsky_time(struct timeval *tv) {
++    int n;
++    // Ask batsky
++    n = write(batsky_client_sockfd, &tv->tv_sec, 8);
++    if (n != 8) perror("Write incomplete");
++    n = write(batsky_client_sockfd, &tv->tv_usec, 8);
++    if (n != 8) perror("Write incomplete");
++    // Receive simulated time
++    n = read(batsky_client_sockfd, &tv->tv_sec, 8);
++    if (n != 8) perror("Read incomplete");
++    n = read(batsky_client_sockfd, &tv->tv_usec, 8);
++    if (n != 8) perror("Read incomplete");
++    
++}
+ 
+-# include <sysdep.h>
+-# include <errno.h>
+ 
+ int
+ __gettimeofday (struct timeval *tv, struct timezone *tz)
+ {
+-  return INLINE_SYSCALL (gettimeofday, 2, tv, tz);
++
++    int ret = INLINE_SYSCALL (gettimeofday, 2, tv, tz);
++    
++    ___spin_lock(&batsky_lock);
++
++    /* if BATSKY_SOCK_DIR does not exist return the orginal gettimeofday's result */
++    if( access( BATSKY_SOCK_DIR, F_OK ) != -1 ) {
++        if (batsky_init == 0) {
++            _create_and_wait_connection();
++            batsky_init = 1;
++        }  
++        _get_batsky_time(tv);
++    }
++    ___spin_unlock(&batsky_lock);
++
++    return ret;
+ }
+-libc_hidden_def (__gettimeofday)
+ 
+-#endif
++libc_hidden_def (__gettimeofday)
+ weak_alias (__gettimeofday, gettimeofday)
+ libc_hidden_weak (gettimeofday)
