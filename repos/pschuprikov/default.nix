@@ -22,7 +22,8 @@ let scope = pkgs.lib.makeScope pkgs.newScope (self: rec {
   prokka = self.callPackage ./pkgs/bioinf/prokka { };
   infernal = self.callPackage ./pkgs/bioinf/infernal { };
 
-  ncbi_blast_2_6_0 = self.callPackage ./pkgs/bioinf/ncbi_blast/2_6_0.nix { };
+  # TODO: mark as no build
+  #ncbi_blast_2_6_0 = self.callPackage ./pkgs/bioinf/ncbi_blast/2_6_0.nix { };
   ncbi_blast_2_9_0 = self.callPackage ./pkgs/bioinf/ncbi_blast/2_9_0.nix { };
   ncbi_blast = ncbi_blast_2_9_0;
 

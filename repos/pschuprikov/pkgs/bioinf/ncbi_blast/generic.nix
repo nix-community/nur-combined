@@ -1,5 +1,5 @@
 { version, sha256, postPatch ? "", patches ? [] }:
-{ stdenv, fetchurl, coreutils, procps, cpio }:
+{ stdenv, fetchurl, coreutils, procps, cpio, zlib, bzip2, pcre, lmdb }:
 let oldPostPatch = postPatch;
 in stdenv.mkDerivation rec {
   inherit version patches;
@@ -9,10 +9,11 @@ in stdenv.mkDerivation rec {
     inherit sha256;
   };
 
+  hardeningDisable = [ "format" ];
+
   postPatch = ''
     patchShebangs ./scripts
 
-    # TODO: helpers/
     for f in ./scripts/common/impl/*.sh ./src/build-system/Makefile* ./src/build-system/configure; do
       substituteInPlace $f \
         --replace "PATH=/bin:/usr/bin" "" \
@@ -37,16 +38,21 @@ in stdenv.mkDerivation rec {
     export AR="$AR cr"
   '';
 
+  configureFlags = [
+    "--with-dll"
+    "--without-boost"
+  ];
+
   preBuild = ''
     makeFlagsArray+=(
-      'CXXFLAGS="-Wno-format-security"'
-      'CFLAGS="-Wno-format-security"'
       '-j'
       "-l''${NIX_BUILD_CORES}"
     )
   '';
 
   buildInputs = [ procps cpio ];
+
+  nativeBuildInputs = [ zlib bzip2 pcre lmdb ];
 
   sourceRoot = "${name}+-src/c++";
 }
