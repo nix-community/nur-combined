@@ -16,4 +16,11 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp FastTree $out/bin/
   '';
+
+  meta = with stdenv.lib; {
+    description = "Inference of approximately-maximum-likelihood trees for large multiple sequence alignments";
+    homepage = http://www.microbesonline.org/fasttree/;
+    license = licenses.gpl2;
+    platforms = platforms.unix;
+  };
 }

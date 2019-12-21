@@ -16,4 +16,11 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp aragorn $out/bin/
   '';
+  
+  meta = with stdenv.lib; {
+    description = "tRNA (and tmRNA) detection";
+    homepage = http://130.235.244.92/ARAGORN/;
+    license = licenses.gpl2;
+    platforms = platforms.unix;
+  };
 }
