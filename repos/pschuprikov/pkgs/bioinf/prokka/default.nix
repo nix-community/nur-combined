@@ -25,4 +25,8 @@ in stdenv.mkDerivation rec {
     mkdir -p $db/share/prokka
     cp -r db $db/share/prokka/
   '';
+
+  meta = with stdenv.lib; {
+    platforms = platforms.linux;
+  };
 }
