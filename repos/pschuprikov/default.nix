@@ -21,6 +21,7 @@ let scope = pkgs.lib.makeScope pkgs.newScope (self: rec {
   sina = self.callPackage ./pkgs/bioinf/sina { };
   prokka = self.callPackage ./pkgs/bioinf/prokka { };
   infernal = self.callPackage ./pkgs/bioinf/infernal { };
+  cd-hit = self.callPackage ./pkgs/bioinf/cd-hit { };
 
   # TODO: mark as no build
   #ncbi_blast_2_6_0 = self.callPackage ./pkgs/bioinf/ncbi_blast/2_6_0.nix { };
@@ -39,7 +40,9 @@ let scope = pkgs.lib.makeScope pkgs.newScope (self: rec {
 
   perlPackages = self.callPackage ./pkgs/perl-packages.nix { 
     inherit (pkgs) perlPackages; 
-    };
+  } // pkgs.perlPackages // {
+    recurseForDerivations = false;
+  };
 
   inherit (perlPackages) BioPerl BioRoary BioSearchIOhmmer;
 
