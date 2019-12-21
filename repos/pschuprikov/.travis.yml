@@ -9,9 +9,10 @@ env:
   - secure: VVc5W9Emk3aw772x/4tFEbBSNb4X5F5VLMrGHT3rMt8KkQ3EkbJCGdLXIoeXutVEnv0kUg3Tbq1bYAY4G0f0/Vla6p8tMxq7UG6I3yXibp0EcunLbIrFlIKgd8krm/mZxie9MDpnmMxaoa16pB+Mu1+Pjon6m1i9+LWxMH5e763SLk11TKi4PnbNJaqHMW6wO8CvfXm0AJkaiGu0tRje7CrUbjItC1U1SsuPfKW8bIKSDxH4h/wUBRDqX+JvX5K4zEWZRiPJwFwkHGERVchC40nEa3a6vEa1HQRvVBjcgHdLZpoHvHys2BpRsJCZgyp5QlGICMZ86ATo+6foVlOCdIqtYRo8ueDI5WNkYRmVml4H+6Y93k/3dY88aWVQIXorPtEkG9zrVNQWWABItKtxZdJEVRn/f5HaGD0UXDoqF3amEcdJXRRhWVO8/ZerAjUa09SW2WrAB3TWt807ilZNpNwgdUfKG1aB0nH/M2zDjVQI5cbwk4xj5m3/J2xCuNGgxNnfVaGJ77D4lXvsTBT71UMvQk8sneykBNGpfWSl/GhN23J8vfFJSw8WHnoy6Wvw9GGIk+/l4ksi1FZP5O+tSG+yo2CW9NmdB6uvtaVSegy7+EnZ49cP/xv18KkM1GMlgpS5iPqPG3pRzjoJ5ofq8QYwhEnJFFrO0wCQu7sR120=
 
 matrix:
-  include:
+  allow_failures:
   - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
     os: osx
+  include:
   - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
     os: linux
   - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
