@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, makeWrapper, zlib, perl, perlPackages }:
+{ stdenv, fetchFromGitHub, makeWrapper, zlib, perl, perlPackages, llvmPackages }:
 
 stdenv.mkDerivation rec {
   version = "4.8.1";
@@ -13,8 +13,10 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ perl perlPackages.TextNSP perlPackages.PerlMagick perlPackages.Storable ];
 
-  nativeBuildInputs = [ zlib makeWrapper ];
-makeFlags = [ "PREFIX=$(out)/bin" "CC=$(CXX)"];
+  nativeBuildInputs = [ zlib makeWrapper ] 
+    ++ stdenv.lib.optional stdenv.isDarwin llvmPackages.openmp;
+
+  makeFlags = [ "PREFIX=$(out)/bin" "CC=$(CXX)"];
 
   preInstall = "mkdir -p $out/bin";
 
