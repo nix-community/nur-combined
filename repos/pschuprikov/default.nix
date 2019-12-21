@@ -23,6 +23,10 @@ let scope = pkgs.lib.makeScope pkgs.newScope (self: rec {
   infernal = self.callPackage ./pkgs/bioinf/infernal { };
   cd-hit = self.callPackage ./pkgs/bioinf/cd-hit { };
 
+  abricate = self.callPackage ./pkgs/bioinf/abricate { };
+
+  any2fasta = self.callPackage ./pkgs/bioinf/any2fasta { };
+
   # TODO: mark as no build
   #ncbi_blast_2_6_0 = self.callPackage ./pkgs/bioinf/ncbi_blast/2_6_0.nix { };
   ncbi_blast_2_9_0 = self.callPackage ./pkgs/bioinf/ncbi_blast/2_9_0.nix { };
