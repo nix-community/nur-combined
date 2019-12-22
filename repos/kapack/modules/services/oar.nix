@@ -226,56 +226,26 @@ in
     # add package*
     # TODO oarVisualization conditional
     environment.systemPackages =  [ oarVisualization oarTools pkgs.taktuk pkgs.xorg.xauth pkgs.nur.repos.kapack.oar ];
-    
-    # oardodo
-    security.wrappers.oardodo = {
-       source = "${oarTools}/oardodo_toWrap";
-       owner = "root";
-       group = "oar";
-       setuid = true;
-       permissions = "u+rwx,g+rx";
-     };
-    
-    security.wrappers.oarsub = {
-      source = "${oarTools}/oarsub";
-      owner = "root";
-      group = "oar";
-      setuid = true;
-      permissions = "u+rx,g+x,o+x";
-    };
 
-    security.wrappers.oarstat = {
-      source = "${oarTools}/oarstat";
+          
+    # manage setuid for oardodo and oarcli 
+    security.wrappers = {
+      oardodo = {
+        source = "${oarTools}/oardodo_toWrap";
+        owner = "root";
+        group = "oar";
+        setuid = true;
+        permissions = "u+rwx,g+rx";
+      };
+    } // lib.genAttrs ["oarsub" "oarstat" "oardel" "oarnodes" "oarnodesetting"]
+      (name: {
+      source = "${oarTools}/${name}";
       owner = "root";
       group = "oar";
       setuid = true;
       permissions = "u+rx,g+x,o+x";
-    };
-    
-    security.wrappers.oardel = {
-      source = "${oarTools}/oardel";
-      owner = "root";
-      group = "oar";
-      setuid = true;
-      permissions = "u+rx,g+x,o+x";
-    };
-    
-    security.wrappers.oarnodes = {
-      source = "${oarTools}/oarnodes";
-      owner = "root";
-      group = "oar";
-      setuid = true;
-      permissions = "u+rx,g+x,o+x";
-    };
-    
-    security.wrappers.oarnodesetting = {
-      source = "${oarTools}/oarnodesetting";
-      owner = "root";
-      group = "oar";
-      setuid = true;
-      permissions = "u+rx,g+x,o+x";
-    };
-    
+    });
+        
     # oar user declaration
     users.users.oar = mkIf ( cfg.client.enable || cfg.node.enable || cfg.server.enable )  {
       description = "OAR user";
