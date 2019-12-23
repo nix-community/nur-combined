@@ -59,8 +59,8 @@ rec {
     inherit icon-lang;
   };
 
-  python35Packages = pkgs.python35Packages // {
-    inherit ((import sources.nixpkgs-66234 {}).python35Packages) bugwarrior;
+  python38Packages = pkgs.python38Packages // {
+    inherit ((import sources.nixpkgs-66234 {}).python38Packages) bugwarrior;
   };
 
   renderizer = pkgs.callPackage ./development/tools/renderizer {};
