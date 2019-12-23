@@ -35,6 +35,30 @@
         "url": "https://github.com/tumic0/GPXSee-maps/archive/8d53800eb0ce4d9240a145959bccb94513128a17.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "csvquote": {
+        "branch": "master",
+        "description": "Enables common unix utlities like cut, awk, wc, head to work correctly with csv data containing delimiters and newlines",
+        "homepage": "",
+        "owner": "dbro",
+        "repo": "csvquote",
+        "rev": "baf37fa4cccc656282551db4ea7ce4ec6b9c318e",
+        "sha256": "06kzg52mnli0mvwrhw4vifj7lfs3id2v73z63s11jj2qvlcp8biy",
+        "type": "tarball",
+        "url": "https://github.com/dbro/csvquote/archive/baf37fa4cccc656282551db4ea7ce4ec6b9c318e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "csvtools": {
+        "branch": "master",
+        "description": "GNU-alike tools for parsing RFC 4180 CSVs at high speed.",
+        "homepage": "",
+        "owner": "DavyLandman",
+        "repo": "csvtools",
+        "rev": "efd3ef1c94c26c673e958ecb045056bfc2c7b4f3",
+        "sha256": "0s4aw9wf1apxjas7hsgfzryisb67nipxhivxkzrar3rpykk0ilc4",
+        "type": "tarball",
+        "url": "https://github.com/DavyLandman/csvtools/archive/efd3ef1c94c26c673e958ecb045056bfc2c7b4f3.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "datamaps": {
         "branch": "master",
         "description": "Indexes points and lines and generates map tiles to display them",
