@@ -432,10 +432,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.12.20";
+      version = "19.12.22";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3472280/refined_github-19.12.20-an+fx.xpi?src=";
-      sha256 = "e3a05c9cfa7ee0176999dda9d6b77bb4d4b7917b238ee55a7b520af98ec4d29b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3473045/refined_github-19.12.22-an+fx.xpi?src=";
+      sha256 = "ace9f51a2b2bbfae4d15204cea84c6c5df1ab0af7c1767f088b5a8c1bb32f04d";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -568,10 +568,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "0.25";
+      version = "0.26";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3421772/vim_vixen-0.25-an+fx.xpi?src=";
-      sha256 = "1cc97e83d7fe90572b6e5344bc73ff022840cd90f029c69f6bf4d2eb5d6a436c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3473097/vim_vixen-0.26-an+fx.xpi?src=";
+      sha256 = "dc12e34dcfc27aed631c4ef72449cdcb8e25f1f36e2f00fa8afeb9e589254b3f";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
@@ -596,10 +596,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.12.3";
+      version = "2.12.4";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3455520/violentmonkey-2.12.3-an+fx.xpi?src=";
-      sha256 = "16afef559f39b46d77c068a6c9634827157f654efde86376c8a1582d41fdea66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3473272/violentmonkey-2.12.4-an+fx.xpi?src=";
+      sha256 = "8bebf10aa6b6eed0c24351eacfcf7092503ec583884588bd7ccf833e06c364f6";
       meta = with stdenv.lib;
       {
         homepage = "https://violentmonkey.github.io/";
