@@ -37,6 +37,9 @@ in {
   mbutil = python3Packages.callPackage ./pkgs/mbutil {
     inherit (sources) mbutil;
   };
+  openorienteering-mapper = libsForQt5.callPackage ./pkgs/openorienteering-mapper {
+    inherit (sources) mapper;
+  };
   redict = libsForQt5.callPackage ./pkgs/redict {
     inherit (sources) redict;
   };

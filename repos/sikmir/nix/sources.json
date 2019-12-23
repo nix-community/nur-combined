@@ -119,6 +119,18 @@
         "url": "https://notabug.org/irdvo/gpxtools/archive/b989f357abb9f9b694cbe95081dd8d1094019233.tar.gz",
         "url_template": "https://notabug.org/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "mapper": {
+        "branch": "master",
+        "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport.",
+        "homepage": "https://www.openorienteering.org/apps/mapper/",
+        "owner": "OpenOrienteering",
+        "repo": "mapper",
+        "rev": "3c943cf1e11fe3b0268d2aea7b5365ffc1811bfa",
+        "sha256": "1ndwwp3vhm83z9xmq7k9w3l61rkc7g150ljw5r3y71bf594h5d14",
+        "type": "tarball",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/3c943cf1e11fe3b0268d2aea7b5365ffc1811bfa.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "mbutil": {
         "branch": "master",
         "description": "Importer and Exporter of MBTiles",
