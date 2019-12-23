@@ -56,7 +56,14 @@ in {
   redict = libsForQt5.callPackage ./pkgs/redict {
     inherit (sources) redict;
   };
-  stardict-tools = callPackage ./pkgs/stardict-tools {
-    inherit (sources) stardict-3;
-  };
+  stardict-tools =
+    # Needed for nixos-19.09
+    if pkgs ? libmysql
+    then callPackage ./pkgs/stardict-tools {
+      inherit (sources) stardict-3;
+      libmysqlclient = libmysql;
+    }
+    else callPackage ./pkgs/stardict-tools {
+      inherit (sources) stardict-3;
+    };
 }
