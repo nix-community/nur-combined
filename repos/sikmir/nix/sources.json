@@ -17,10 +17,10 @@
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "a986293f20fba8cf3a649c0ed308ac8d568ba9fc",
-        "sha256": "0910yjzpsd1cri7rc5738496zl94kb75yma7z7zm7jx5jxmagnmp",
+        "rev": "6839119794c5002c06b46bf0d1edf4420a388aac",
+        "sha256": "0pkvhcb0wyy2piky4pjhkqn9d1mp3c1nhwa8p45dgv2sz99jz6nv",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/a986293f20fba8cf3a649c0ed308ac8d568ba9fc.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/6839119794c5002c06b46bf0d1edf4420a388aac.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "GPXSee-maps": {
