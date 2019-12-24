@@ -610,10 +610,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "16.5";
+      version = "16.6";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3471284/zoom_page_we-16.5-fx.xpi?src=";
-      sha256 = "85b04c401fa451aad3f9ba5bc1ad537990e3264e549fdd70965084e4bacf055f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3472868/zoom_page_we-16.6-fx.xpi?src=";
+      sha256 = "57d2e979a5a3dc0514f3055cc2f2aca0322bb5b65d8492dab568be60a1a6d958";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
