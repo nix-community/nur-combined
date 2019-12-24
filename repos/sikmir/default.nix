@@ -44,8 +44,17 @@ in {
   gpxtools = callPackage ./pkgs/gpxtools {
     inherit (sources) gpxtools;
   };
+  lsd2dsl = libsForQt5.callPackage ./pkgs/lsd2dsl {
+    inherit (sources) lsd2dsl;
+  };
+  lsdreader = python3Packages.callPackage ./pkgs/lsdreader {
+    inherit (sources) lsdreader;
+  };
   gt4gd = python3Packages.callPackage ./pkgs/gt4gd {
     inherit (sources) google-translate-for-goldendict;
+  };
+  mbtileserver = callPackage ./pkgs/mbtileserver {
+    inherit (sources) mbtileserver;
   };
   mbutil = python3Packages.callPackage ./pkgs/mbutil {
     inherit (sources) mbutil;

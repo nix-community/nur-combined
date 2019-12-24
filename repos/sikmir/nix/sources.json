@@ -119,6 +119,30 @@
         "url": "https://notabug.org/irdvo/gpxtools/archive/b989f357abb9f9b694cbe95081dd8d1094019233.tar.gz",
         "url_template": "https://notabug.org/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "lsd2dsl": {
+        "branch": "master",
+        "description": "Lingvo dictionaries decompiler",
+        "homepage": null,
+        "owner": "nongeneric",
+        "repo": "lsd2dsl",
+        "rev": "f7bce9c9b331603e1c29b775ca674c06f2df250c",
+        "sha256": "1sxf8kqlnazbg48sy8sp2i54jrh5i2k88jwskvcy09h1608yzbx5",
+        "type": "tarball",
+        "url": "https://github.com/nongeneric/lsd2dsl/archive/f7bce9c9b331603e1c29b775ca674c06f2df250c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "lsdreader": {
+        "branch": "master",
+        "description": "decompile Lingvo LSD dictionary to DSL",
+        "homepage": "",
+        "owner": "sv99",
+        "repo": "lsdreader",
+        "rev": "c78ab22e794f1fbfbc93ffb3ee7ae481f54dd8c2",
+        "sha256": "039biv10772zrw6s8a0ydgv9z995gw13wgvsr514ck9s6icxyddx",
+        "type": "tarball",
+        "url": "https://github.com/sv99/lsdreader/archive/c78ab22e794f1fbfbc93ffb3ee7ae481f54dd8c2.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "mapper": {
         "branch": "master",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport.",
@@ -129,6 +153,18 @@
         "sha256": "1ndwwp3vhm83z9xmq7k9w3l61rkc7g150ljw5r3y71bf594h5d14",
         "type": "tarball",
         "url": "https://github.com/OpenOrienteering/mapper/archive/3c943cf1e11fe3b0268d2aea7b5365ffc1811bfa.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "mbtileserver": {
+        "branch": "master",
+        "description": "Basic Go server for mbtiles",
+        "homepage": null,
+        "owner": "consbio",
+        "repo": "mbtileserver",
+        "rev": "1043e833a649100426145caa2c6542a38834b280",
+        "sha256": "0mgd8id4z5qb8jhl7yra9zcwizjggpwq3byvcrbj858ddx5bfw3d",
+        "type": "tarball",
+        "url": "https://github.com/consbio/mbtileserver/archive/1043e833a649100426145caa2c6542a38834b280.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mbutil": {
