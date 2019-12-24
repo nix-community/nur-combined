@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     '';
     maintainers = [ stdenv.lib.maintainers.bzizou ];
     platforms = stdenv.lib.platforms.linux;
-    broken = true;
+    license = stdenv.lib.licenses.unfree;
   };
 }
 

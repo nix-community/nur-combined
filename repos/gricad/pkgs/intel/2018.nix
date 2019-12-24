@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Intel compilers and libraries 2018 update 4";
     maintainers = [ stdenv.lib.maintainers.bzizou ];
     platforms = stdenv.lib.platforms.linux;
-    broken = true;
+    license = stdenv.lib.licenses.unfree;
   };
 }
 

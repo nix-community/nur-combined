@@ -24,8 +24,8 @@ rec {
 
   # Intel compiler
   #intel-compilers-2016 = pkgs.callPackage ./pkgs/intel/2016.nix { };
-  #intel-compilers-2017 = pkgs.callPackage ./pkgs/intel/2017.nix { };
-  #intel-compilers-2018 = pkgs.callPackage ./pkgs/intel/2018.nix { };
+  intel-compilers-2017 = pkgs.callPackage ./pkgs/intel/2017.nix { };
+  intel-compilers-2018 = pkgs.callPackage ./pkgs/intel/2018.nix { };
   intel-compilers-2019 = pkgs.callPackage ./pkgs/intel/2019.nix { };
 
   # Openmpi
