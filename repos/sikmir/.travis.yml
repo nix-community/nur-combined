@@ -4,7 +4,7 @@ sudo: false
 
 env:
   global:
-    - CACHIX_CACHE=
+    - CACHIX_CACHE=sikmir
     - NUR_REPO=sikmir
 
 matrix:
