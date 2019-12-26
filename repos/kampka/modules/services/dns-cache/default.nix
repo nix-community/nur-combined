@@ -130,14 +130,23 @@ in
           };
         }
         {
-          # Nameserver run by Digitalcourage e.V.
-          address = "46.182.19.48";
-          tlsAuthName = "dns2.digitalcourage.de";
+          # Nameserver run by dismail.de
+          address = "80.241.218.68";
+          tlsAuthName = "fdns1.dismail.de";
           tlsPubkeyPinset = {
-            value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
+            value = "MMi3E2HZr5A5GL+badqe3tzEPCB00+OmApZqJakbqUU=";
             digest = "sha256";
           };
         }
+        #{
+        #  # Nameserver run by Digitalcourage e.V.
+        #  address = "46.182.19.48";
+        #  tlsAuthName = "dns2.digitalcourage.de";
+        #  tlsPubkeyPinset = {
+        #    value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
+        #    digest = "sha256";
+        #  };
+        #}
       ];
       type = types.listOf (
         types.submodule {
