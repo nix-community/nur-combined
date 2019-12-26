@@ -24,5 +24,6 @@
         homepage = "https://lhapdf.hepforge.org/";
         license = stdenv.lib.licenses.bsd3;
         platforms = stdenv.lib.platforms.all;
+        broken = true; # Error: Actual argument contains too few elements for dummy argument 'xa' (3/10) at (1) : wrapacfgpg.f:628:19
      };
  }
