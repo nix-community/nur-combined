@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     homepage    = http://applgrid.hepforge.org;
     platforms   = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
-    broken = true; # /nix/store/wd1jazzawjk4w1d31ism7fm7vdg4ma9l-bash-4.4-p23/bin/bash: rootcint: command not found
+    broken = false;
   };
 }

@@ -12,6 +12,8 @@
 
      preConfigure=''
 	substituteInPlace ./pyext/lhapdf_wrap.cc --replace "PyErr_Format(PyExc_RuntimeError, mesg);" "PyErr_Format(PyExc_RuntimeError, \"%s\", mesg);"
+        substituteInPlace ./configure --replace "/bin/sh" "/bin/bash"
+        patchShebangs ./configure
      '';
 
      buildInputs = [ gfortran autoconf python ];
@@ -22,6 +24,5 @@
         homepage = "https://lhapdf.hepforge.org/";
         license = stdenv.lib.licenses.bsd3;
         platforms = stdenv.lib.platforms.all;
-        broken = true;
      };
  }
