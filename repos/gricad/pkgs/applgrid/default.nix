@@ -21,11 +21,10 @@ stdenv.mkDerivation rec {
   ];
 
   preConfigure = ''
-  #  substituteInPlace src/Makefile \
-  #    --replace "ROOTCINT = rootcint" "ROOTCINT = rootcling"
-  #  substituteInPlace src/Makefile \
-  #    --replace "CINT = rootcint" "CINT = rootcling"
-
+    substituteInPlace src/Makefile.in \
+      --replace "ROOTCINT = rootcint" "ROOTCINT = rootcling"
+    substituteInPlace src/Makefile.in \
+      --replace "CINT = rootcint" "CINT = rootcling"
   '' + (if stdenv.isDarwin then ''
     substituteInPlace src/Makefile.in \
       --replace "gfortran -print-file-name=libgfortran.a" "gfortran -print-file-name=libgfortran.dylib"
