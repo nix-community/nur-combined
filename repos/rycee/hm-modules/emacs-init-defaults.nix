@@ -26,6 +26,12 @@
       '';
     };
 
+    notmuch = {
+      config = ''
+        (setq notmuch-command "${pkgs.notmuch}/bin/notmuch")
+      '';
+    };
+
     ob-plantuml = {
       config = ''
         (setq org-plantuml-jar-path "${pkgs.plantuml}/lib/plantuml.jar")
