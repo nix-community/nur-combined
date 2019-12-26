@@ -12,5 +12,6 @@
   cboard = pkgs.callPackage ./pkgs/cboard { };
   ripcord = pkgs.callPackage ./pkgs/ripcord { };
   ydotool = pkgs.callPackage ./pkgs/ydotool { };
+  compton-tryone = pkgs.callPackage ./pkgs/compton-tryone { };
 }
 
