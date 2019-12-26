@@ -61,7 +61,7 @@ oarTools = pkgs.stdenv.mkDerivation {
       
     #oarsh_shell
     substitute ${cfg.package}/tools/oarsh/oarsh_shell.in $out/bin/oarsh_shell \
-      --replace "DEFAULT_SHELL=/bin/bash" "DEFAULT_SHELL=${pkgs.bash}/bin/bash" \
+      --replace "/bin/bash" "${pkgs.bash}/bin/bash" \
       --replace "%%XAUTHCMDPATH%%" /run/current-system/sw/bin/xauth \
       --replace "\$OARDIR/oardodo/oardodo" /run/wrappers/bin/oardodo \
       --replace "%%OARCONFDIR%%" /etc/oar \
@@ -197,6 +197,7 @@ in
       
       node = {
         enable = mkEnableOption "OAR node";
+        register = mkEnableOption "Register node into OAR server";
       };
       
       server = {
@@ -226,8 +227,7 @@ in
     # add package*
     # TODO oarVisualization conditional
     environment.systemPackages =  [ oarVisualization oarTools pkgs.taktuk pkgs.xorg.xauth pkgs.nur.repos.kapack.oar ];
-
-          
+ 
     # manage setuid for oardodo and oarcli 
     security.wrappers = {
       oardodo = {
@@ -325,7 +325,7 @@ in
       script = ''
         mkdir -p /etc/oar
 
-        # copy some needed or useful script
+        # copy some required and useful scripts
         cp ${cfg.package}/tools/*.pl ${cfg.package}/tools/*.sh /etc/oar/
 
         cat <<EOF > /etc/oar/oar.conf
@@ -1052,8 +1052,11 @@ EOF
       '';
     };
 
+    
     ##############
     # Node Section
+    services.openssh = mkIf cfg.node.enable { enable = true; };
+    
     systemd.services.oar-node =  mkIf (cfg.node.enable) {
       description = "OAR's SSH Daemon";
       wantedBy = [ "multi-user.target" ];
@@ -1066,7 +1069,7 @@ EOF
         exec >&2
         if ! [ -f "/etc/oar/oar_ssh_host_rsa_key" ]; then
           ${pkgs.openssh}/bin/ssh-keygen -t rsa -b 4096 -N "" -f /etc/oar/oar_ssh_host_rsa_key
-        fi   
+        fi
       '';
       serviceConfig = {
         #ExecStart = " ${pkgs.openssh}/bin/sshd -f /srv/sshd.conf";
@@ -1077,6 +1080,14 @@ EOF
       };
     };
 
+
+    systemd.services.oar-node-register =  mkIf (cfg.node.register) {
+      wantedBy = [ "multi-user.target" ];      
+      after = [ "network.target" "oar-user-init" "oar-node" ];
+      serviceConfig.Type = "oneshot";
+      path = [ pkgs.hostname ];
+      script = ''/run/wrappers/bin/oarnodesetting -a -s Alive'';
+    };
     
     ################
     # Server Section
@@ -1119,8 +1130,9 @@ EOF
       after = [ "postgresql.service" ];
       description = "OARD DB initialization";
       path = [ config.services.postgresql.package ];
-
       wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "oneshot";
+      
       # TODO DB_PASSWORD=$(head -n1 ${cfg.database.passwordFile})
       script = ''
         DB_PASSWORD=oar 
@@ -1136,7 +1148,6 @@ EOF
           touch /var/lib/oar/db-created
         fi
         '';
-      serviceConfig.Type = "oneshot";
     };
 
     #################
@@ -1182,7 +1193,7 @@ EOF
         '';
       };
     };
-
+    
     services.uwsgi = mkIf cfg.web.enable {
       enable = true;
       plugins = [ "python3" ];

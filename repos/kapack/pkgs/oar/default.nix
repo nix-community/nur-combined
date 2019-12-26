@@ -7,9 +7,10 @@ python37Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "oar-team";
     repo = "oar3";
-    rev = "27c364b8c57cd4f179e21169de6aa308d7ab4cb3";
-    sha256 = "0435yrrpz0b574h0xvxcri49rs08d3qiik6487cac9kv0zpb8yds";
+    rev = "4541bcbb9dea7cf32aea3bc97fef5aa3b57c74f";
+    sha256 = "085fdhzx55da5svhf250s5w1pr1rc585padxhh264jjfymmzxvmy";
   };
+  #src = /home/auguste/dev/oar3;
 
   propagatedBuildInputs = with python37Packages; [
     pyzmq
