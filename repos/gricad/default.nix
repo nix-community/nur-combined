@@ -66,9 +66,6 @@ rec {
           dcw-gmt = dcw-gmt ;
         };
 
-  # ParMETIS
-  #parmetis = pkgs.callPackage ./pkgs/parmetis { };
-
   # Trilinos
   trilinos =  pkgs.callPackage ./pkgs/trilinos { };
 

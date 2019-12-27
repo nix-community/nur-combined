@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://peterbeerli.com/migrate-html5/download_version3/migrate-${version}.src.tar.gz";
-    sha256 = "0mb8b0jrjb83bp2f6if2gdwz5f0nbysc1vchn5bfa4jhxfgscr53";
+    sha256 = "1p2364ffjc56i82snzvjpy6pkf6wvqwvlvlqxliscx2c303fxs8v";
   };
 
   buildInputs = [ zlib glibc openmpi ];

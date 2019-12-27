@@ -17,11 +17,11 @@
 
 stdenv.mkDerivation rec {
   name = "petsc-${version}";
-  version = "3.11.1";
+  version = "3.11.4";
 
   src = fetchurl {
     url = "http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-${version}.tar.gz";
-    sha256 = "08zvy44w4ilygwshwnrvmgryrwd5i6gihf7kpgml05ffyycpyqnb";
+    sha256 = "1hf343zllm06h79lbrhsj8hjw64gp84h1fdiwmzsd4m6fnlbb71i";
   };
 
   patches = [ ./petscmpiexec.patch ];
@@ -61,14 +61,17 @@ stdenv.mkDerivation rec {
       "--with-mpi-dir=${openmpi}"
       "--with-blas-lapack-lib=${openblasCompat}/lib/libopenblas${sharedLibraryExtension}"
       "--with-valgrind=1"
-      "--with-valgrind-dir=${valgrind}"
+      "--with-valgrind-include=${valgrind.dev}/include"
       "--with-suitesparse-dir=${suitesparse}"
-      "--with-hwloc-dir=${hwloc.lib}"
+      "--with-hwloc-lib=${hwloc.lib}/lib/libhwloc.so"
+      "--with-hwloc-include=${hwloc.dev}/include"
       "--with-netcdf-dir=${netcdf}"
       "--with-hdf5-dir=${hdf5}"
       "--with-metis-dir=${metis}"
-      "--with-zlib-dir=${zlib}"
+      "--with-zlib-lib=${zlib}/lib/libz.so"
+      "--with-zlib-include=${zlib.dev}/include"
       "--with-64-bit-indices=1"
+      "AR=${stdenv.cc.targetPrefix}ar"
   ];
 
   postInstall = ''
