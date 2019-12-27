@@ -5,7 +5,7 @@ buildGoModule rec {
   version = lib.substring 0 7 src.rev;
   src = mbtileserver;
 
-  modSha256 = "0pa9dni3ihxnqpvarxmgvlm9wlgalnx97bdhy8s36as1rdzbgl16";
+  modSha256 = "147rpf3dd0md7pm7yfniy139kv3fb3kmyp82slpjrf8xdqgbrpk0";
 
   meta = with lib; {
     description = mbtileserver.description;
