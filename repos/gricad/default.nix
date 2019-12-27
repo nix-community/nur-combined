@@ -109,7 +109,10 @@ rec {
   migrate = pkgs.callPackages ./pkgs/migrate { };
 
   # GDL
-  #gdl = pkgs.callPackages ./pkgs/gdl { };
+  gdl = pkgs.callPackages ./pkgs/gdl {
+    plplot = plplot;
+    fftw3 = fftw3;
+  };
 
   # CSA
   csa = pkgs.callPackages ./pkgs/csa { };
