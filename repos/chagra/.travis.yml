@@ -4,7 +4,7 @@ sudo: false
 
 env:
   global:
-    - CACHIX_CACHE=
+    - CACHIX_CACHE=chagra
     - NUR_REPO=chagra
 
 matrix:
