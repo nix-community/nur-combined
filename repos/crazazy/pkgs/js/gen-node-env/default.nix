@@ -6,8 +6,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "crazazy";
     repo = "nix-gen-node-tools";
-    sha256 = "0ydqr1qk5kbzpcsligy6nrml0wiwdhc53q2wdcxjzlq9rdijlzxc";
-    rev = "dd565f81b3a977ec3e938e5de28d36d653aa3853";
+    sha256 = "0d4gkck81j18d061d1cfizri7bdhv9h3r8wdh5h9064plnvcdawa";
+    rev = "169919ec94091b9ad133edf1dd1d88b154f5ec12";
   };
 
   buildInputs = [jq curl nodePackages.node2nix];

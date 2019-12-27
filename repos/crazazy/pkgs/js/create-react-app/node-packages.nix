@@ -819,7 +819,7 @@ let
     name = "create-react-app";
     packageName = "create-react-app";
     version = "3.3.0";
-    src = fetchurl { url = "https://registry.npmjs.org/create-react-app/-/create-react-app-3.3.0.tgz"; sha512 = "yheXb68YkLCHD+INCHB4f8/3hyet4psVpSyieiPHemIbGbbYl085n22vECIRcjoF043qyP70Cg4WWBiSIx1mWw=="; };
+    src = fetchurl { url = "https://registry.npmjs.org/create-react-app/-/create-react-app-3.3.0.tgz"; sha1 = "582dc2c0bbafbc584435ac5c4afed055b22fc6d6"; };
     dependencies = [
       sources."ansi-escapes-3.2.0"
       sources."ansi-regex-3.0.0"

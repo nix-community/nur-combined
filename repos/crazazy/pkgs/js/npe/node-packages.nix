@@ -36,7 +36,7 @@ let
     name = "npe";
     packageName = "npe";
     version = "1.1.3";
-    src = fetchurl { url = "https://registry.npmjs.org/npe/-/npe-1.1.3.tgz"; sha512 = "fe5Tktx8NhDzPHhc+zFSYkttGnxHUhJFRik09mqMuHv2xMhQEgd+MuBu5nfEPSNKs/2USl6RTNN9swnuo2dfxA=="; };
+    src = fetchurl { url = "https://registry.npmjs.org/npe/-/npe-1.1.3.tgz"; sha1 = "a0b1224d94fcce03fb0490bc109ed77456f02d19"; };
     dependencies = [
       sources."merge-1.2.1"
       sources."minimist-1.2.0"

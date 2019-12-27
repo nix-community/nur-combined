@@ -4,22 +4,22 @@
 
 let
   sources = {
-    "@types/estree-0.0.40" = {
+    "@types/estree-0.0.41" = {
       name = "_at_types_slash_estree";
       packageName = "@types/estree";
-      version = "0.0.40";
+      version = "0.0.41";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/estree/-/estree-0.0.40.tgz";
-        sha512 = "p3KZgMto/JyxosKGmnLDJ/dG5wf+qTRMUjHJcspC2oQKa4jP7mz+tv0ND56lLBu3ojHlhzY33Ol+khLyNmilkA==";
+        url = "https://registry.npmjs.org/@types/estree/-/estree-0.0.41.tgz";
+        sha512 = "rIAmXyJlqw4KEBO7+u9gxZZSQHaCNnIzYrnNmYVpgfJhxTqO0brCX0SYpqUTkVI5mwwUwzmtspLBGBKroMeynA==";
       };
     };
-    "@types/node-12.12.21" = {
+    "@types/node-13.1.0" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "12.12.21";
+      version = "13.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-12.12.21.tgz";
-        sha512 = "8sRGhbpU+ck1n0PGAUgVrWrWdjSW2aqNeyC15W88GRsMpSwzv6RJGlLhE7s2RhVSOdyDmxbqlWSeThq4/7xqlA==";
+        url = "https://registry.npmjs.org/@types/node/-/node-13.1.0.tgz";
+        sha512 = "zwrxviZS08kRX40nqBrmERElF2vpw4IUTd5khkhBTfFH8AOaeoLVx48EC4+ZzS2/Iga7NevncqnsUSYjM4OWYA==";
       };
     };
     "acorn-7.1.0" = {
@@ -35,11 +35,11 @@ let
   args = {
     name = "rollup";
     packageName = "rollup";
-    version = "1.27.13";
-    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-1.27.13.tgz"; sha512 = "hDi7M07MpmNSDE8YVwGVFA8L7n8jTLJ4lG65nMAijAyqBe//rtu4JdxjUBE7JqXfdpqxqDTbCDys9WcqdpsQvw=="; };
+    version = "1.27.14";
+    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-1.27.14.tgz"; sha1 = "940718d5eec1a6887e399aa0089944bae5c4f377"; };
     dependencies = [
-      sources."@types/estree-0.0.40"
-      sources."@types/node-12.12.21"
+      sources."@types/estree-0.0.41"
+      sources."@types/node-13.1.0"
       sources."acorn-7.1.0"
     ];
     buildInputs = globalBuildInputs;

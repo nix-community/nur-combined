@@ -47,7 +47,9 @@
       js-env = buildEnv {
         name = "js-env";
         paths = with crazazy.js; [
-          parcel
+          tldr
+          npe
+          jspm
         ];
       };
 

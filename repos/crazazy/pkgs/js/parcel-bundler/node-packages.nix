@@ -6219,7 +6219,7 @@ let
     name = "parcel-bundler";
     packageName = "parcel-bundler";
     version = "1.12.4";
-    src = fetchurl { url = "https://registry.npmjs.org/parcel-bundler/-/parcel-bundler-1.12.4.tgz"; sha512 = "G+iZGGiPEXcRzw0fiRxWYCKxdt/F7l9a0xkiU4XbcVRJCSlBnioWEwJMutOCCpoQmaQtjB4RBHDGIHN85AIhLQ=="; };
+    src = fetchurl { url = "https://registry.npmjs.org/parcel-bundler/-/parcel-bundler-1.12.4.tgz"; sha1 = "31223f4ab4d00323a109fce28d5e46775409a9ee"; };
     dependencies = [
       sources."@babel/code-frame-7.5.5"
       (sources."@babel/core-7.7.7" // {

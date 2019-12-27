@@ -9126,7 +9126,7 @@ let
     name = "preact-cli";
     packageName = "preact-cli";
     version = "2.2.1";
-    src = fetchurl { url = "https://registry.npmjs.org/preact-cli/-/preact-cli-2.2.1.tgz"; sha512 = null; };
+    src = fetchurl { url = "https://registry.npmjs.org/preact-cli/-/preact-cli-2.2.1.tgz"; sha1 = "05a3311e89bdb120a5273532c77b87bdd710e04b"; };
     dependencies = [
       sources."@sindresorhus/is-0.7.0"
       sources."@types/configstore-2.1.1"
