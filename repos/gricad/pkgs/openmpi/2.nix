@@ -1,4 +1,4 @@
-{stdenv, fetchurl, gfortran, perl, rdma-core, python27, psm2, libfabric
+{stdenv, fetchurl, gfortran, perl, rdma-core, python27, psm2, libfabric, zlib
 
 # Enable the Sun Grid Engine bindings
 , enableSGE ? false
@@ -28,7 +28,7 @@ in stdenv.mkDerivation rec {
     sha256 = "0vm89i6r8h4civa09aj708cqhls09bazqyfsl23cbgkvb6wf3f4q";
   };
 
-  buildInputs = [ gfortran ]
+  buildInputs = [ gfortran zlib ]
     ++ optional enableIbverbs rdma-core
     ++ optional enableFabric psm2
     ++ optional enableFabric libfabric
@@ -36,7 +36,7 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ perl python27 ];
 
-  configureFlags = []
+  configureFlags = [ "--with-zlib-lib=${zlib}/lib/libz.so" "--with-zlib-include=${zlib.dev}/include" ]
     ++ optional enableSGE "--with-sge"
     ++ optional enablePrefix "--enable-mpirun-prefix-by-default"
     ++ optional enableFabric "--with-psm2=${psm2}/usr --with-libfabric=${libfabric}"
