@@ -64,9 +64,9 @@ neovim.override {
       	map <leader><leader> <Esc>/<++><Enter>"_c4l
 
       " open up vim.nix
-      	map <leader>v <Esc>:vsplit /etc/nixos/packages/vim.nix<Enter>
-      	inoremap <leader>v <Esc>:vsplit /etc/nixos/packages/vim.nix<Enter>
-      	vnoremap <leader>v <Esc>:vsplit /etc/nixos/packages/vim.nix<Enter>
+        map <leader>v <Esc>:vsplit ~/.local/repos/nur-packages/pkgs/overrides/vim.nix<Enter>
+      	inoremap <leader>v <Esc>:vsplit ~/.local/repos/nur-packages/pkgs/overrides/vim.nix<Enter>
+      	vnoremap <leader>v <Esc>:vsplit ~/.local/repos/nur-packages/pkgs/overrides/vim.nix<Enter>
 
       " set nohlsearch
       	nnoremap <esc> :noh<return><esc>
