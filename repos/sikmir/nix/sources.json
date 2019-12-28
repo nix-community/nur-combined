@@ -131,6 +131,18 @@
         "url": "https://notabug.org/irdvo/gpxtools/archive/b989f357abb9f9b694cbe95081dd8d1094019233.tar.gz",
         "url_template": "https://notabug.org/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "imgp": {
+        "branch": "master",
+        "description": ":camera_flash: High-performance CLI batch image resizer & rotator",
+        "homepage": "",
+        "owner": "jarun",
+        "repo": "imgp",
+        "rev": "9a50724cbc97a282ed79476398ab6ff3f6f7339e",
+        "sha256": "13r4fn3dd0nyidfhrr7zzpls5ifbyqdwxhyvpkqr8ahchws7wfc6",
+        "type": "tarball",
+        "url": "https://github.com/jarun/imgp/archive/9a50724cbc97a282ed79476398ab6ff3f6f7339e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "lsd2dsl": {
         "branch": "master",
         "description": "Lingvo dictionaries decompiler",
@@ -213,6 +225,18 @@
         "sha256": "0vmvhr1qlh0zih1v3xg7nnrfajrcy877cfphi5p249pyw3hsv0av",
         "type": "tarball",
         "url": "https://github.com/huzheng001/stardict-3/archive/8c5c26996dca52d6bda0aedb5da0381db930a733.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "supload": {
+        "branch": "master",
+        "description": "Bash script for upload file to cloud storage based on OpenStack Swift API.",
+        "homepage": "",
+        "owner": "selectel",
+        "repo": "supload",
+        "rev": "70690682867713c68d7c6daa833a1013e79df407",
+        "sha256": "0di1hr9j2wdicj6n2mlf9achfxd05rqwrfnymsnxhhy7sv50n2bm",
+        "type": "tarball",
+        "url": "https://github.com/selectel/supload/archive/70690682867713c68d7c6daa833a1013e79df407.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "ueberzug": {

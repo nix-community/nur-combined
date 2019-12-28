@@ -57,6 +57,9 @@ in rec {
   gt4gd = python3Packages.callPackage ./pkgs/gt4gd {
     inherit (sources) google-translate-for-goldendict;
   };
+  imgp = python3Packages.callPackage ./pkgs/imgp {
+    inherit (sources) imgp;
+  };
   mbtileserver = callPackage ./pkgs/mbtileserver {
     inherit (sources) mbtileserver;
   };
@@ -79,6 +82,9 @@ in rec {
     else callPackage ./pkgs/stardict-tools {
       inherit (sources) stardict-3;
     };
+  supload = callPackage ./pkgs/supload {
+    inherit (sources) supload;
+  };
   ueberzug = python3Packages.callPackage ./pkgs/ueberzug {
     inherit (sources) ueberzug;
   };
