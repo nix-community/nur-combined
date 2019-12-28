@@ -17,6 +17,7 @@
 
 
   #Overrides
+  ncmpcpp = import ./pkgs/overrides/ncmpcpp.nix;
   neomutt = import ./pkgs/overrides/neomutt.nix;
   notmuch = import ./pkgs/overrides/notmuch.nix;
   vimCustom = import ./pkgs/overrides/vim.nix;
