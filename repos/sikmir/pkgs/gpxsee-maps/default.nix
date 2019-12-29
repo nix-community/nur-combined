@@ -1,9 +1,9 @@
-{ stdenv, GPXSee-maps }:
+{ stdenv, gpxsee-maps }:
 
 stdenv.mkDerivation rec {
   pname = "gpxsee-maps";
   version = stdenv.lib.substring 0 7 src.rev;
-  src = GPXSee-maps;
+  src = gpxsee-maps;
 
   installPhase = ''
     install -dm755 "$out/share/gpxsee/maps"
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = GPXSee-maps.description;
+    description = gpxsee-maps.description;
     homepage = "https://github.com/tumic0/GPXSee-maps";
     license = licenses.unlicense;
     maintainers = with maintainers; [ sikmir ];

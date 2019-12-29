@@ -11,7 +11,7 @@
         "url": "https://github.com/BourgeoisLab/GPXLab/archive/68721865f5fd6a5b2414da47a00778d5c342a461.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "GPXSee": {
+    "gpxsee": {
         "branch": "master",
         "description": "GPS log file viewer and analyzer with support for GPX, TCX, KML, FIT, IGC, NMEA, SLF, LOC, GeoJSON and OziExplorer files.",
         "homepage": "https://www.gpxsee.org",
@@ -23,7 +23,7 @@
         "url": "https://github.com/tumic0/GPXSee/archive/6839119794c5002c06b46bf0d1edf4420a388aac.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "GPXSee-maps": {
+    "gpxsee-maps": {
         "branch": "master",
         "description": "GPXSee maps",
         "homepage": "http://www.gpxsee.org",
@@ -107,6 +107,18 @@
         "url": "https://github.com/ericfischer/gpx-layer/archive/746b4723cf1f69fb86d45cf2d4efeaae9e711d2d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "gpxelevations": {
+        "branch": "master",
+        "description": "Geo elevation data parser for \"The Shuttle Radar Topography Mission\" data",
+        "homepage": "",
+        "owner": "tkrajina",
+        "repo": "srtm.py",
+        "rev": "075126875bedbee0f23676f4a8159c6240398a95",
+        "sha256": "0yya7y5vkya6aqq338jwxry71yhywyjnb67nxvplq69nadzy0vn0",
+        "type": "tarball",
+        "url": "https://github.com/tkrajina/srtm.py/archive/075126875bedbee0f23676f4a8159c6240398a95.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "gpxpy": {
         "branch": "master",
         "description": "gpx-py is a python GPX parser. GPX (GPS eXchange Format) is an XML based file format for GPS tracks.",
@@ -173,10 +185,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "3c943cf1e11fe3b0268d2aea7b5365ffc1811bfa",
-        "sha256": "1ndwwp3vhm83z9xmq7k9w3l61rkc7g150ljw5r3y71bf594h5d14",
+        "rev": "9ff0368ca9548da52c6ac7f04c087ef4dcb3a1e3",
+        "sha256": "1ij0b1yzmvmdmmf86yhjfwbr2q9xk23q2jvvd5b4cdclm5ri2v91",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/3c943cf1e11fe3b0268d2aea7b5365ffc1811bfa.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/9ff0368ca9548da52c6ac7f04c087ef4dcb3a1e3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mbtileserver": {

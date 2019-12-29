@@ -1,9 +1,9 @@
-{ mkDerivation, lib, qmake, qtbase, qttools, qttranslations, GPXSee }:
+{ mkDerivation, lib, qmake, qtbase, qttools, qttranslations, gpxsee }:
 
 mkDerivation rec {
   pname = "gpxsee";
   version = lib.substring 0 7 src.rev;
-  src = GPXSee;
+  src = gpxsee;
 
   nativeBuildInputs = [ qmake qttools ];
   buildInputs = [ qtbase qttranslations ];
@@ -16,7 +16,7 @@ mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.gpxsee.org/";
-    description = GPXSee.description;
+    description = gpxsee.description;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux;
