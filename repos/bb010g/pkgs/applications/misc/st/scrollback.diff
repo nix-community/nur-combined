@@ -1,6 +1,6 @@
 --- a/config.def.h
 +++ b/config.def.h
-@@ -178,6 +178,8 @@ static Shortcut shortcuts[] = {
+@@ -186,6 +186,8 @@ static Shortcut shortcuts[] = {
  	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
  	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
  	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
@@ -47,7 +47,7 @@
  	int top;      /* top    scroll limit */
  	int bot;      /* bottom scroll limit */
  	int mode;     /* terminal mode flags */
-@@ -184,8 +195,8 @@ static void tnewline(int);
+@@ -185,8 +196,8 @@ static void tnewline(int);
  static void tputtab(int);
  static void tputc(Rune);
  static void treset(void);
@@ -58,7 +58,7 @@
  static void tsetattr(int *, int);
  static void tsetchar(Rune, Glyph *, int, int);
  static void tsetdirt(int, int);
-@@ -409,10 +420,11 @@ tlinelen(int y)
+@@ -414,10 +425,11 @@ tlinelen(int y)
  {
  	int i = term.col;
  
@@ -72,7 +72,7 @@
  		--i;
  
  	return i;
-@@ -521,7 +533,7 @@ selsnap(int *x, int *y, int direction)
+@@ -526,7 +538,7 @@ selsnap(int *x, int *y, int direction)
  		 * Snap around if the word wraps around at the end or
  		 * beginning of a line.
  		 */
@@ -81,7 +81,7 @@
  		prevdelim = ISDELIM(prevgp->u);
  		for (;;) {
  			newx = *x + direction;
-@@ -536,14 +548,14 @@ selsnap(int *x, int *y, int direction)
+@@ -541,14 +553,14 @@ selsnap(int *x, int *y, int direction)
  					yt = *y, xt = *x;
  				else
  					yt = newy, xt = newx;
@@ -98,7 +98,7 @@
  			delim = ISDELIM(gp->u);
  			if (!(gp->mode & ATTR_WDUMMY) && (delim != prevdelim
  					|| (delim && gp->u != prevgp->u)))
-@@ -564,14 +576,14 @@ selsnap(int *x, int *y, int direction)
+@@ -569,14 +581,14 @@ selsnap(int *x, int *y, int direction)
  		*x = (direction < 0) ? 0 : term.col - 1;
  		if (direction < 0) {
  			for (; *y > 0; *y += direction) {
@@ -115,7 +115,7 @@
  						& ATTR_WRAP)) {
  					break;
  				}
-@@ -601,14 +613,15 @@ getsel(void)
+@@ -606,14 +618,15 @@ getsel(void)
  			continue;
  		}
  
@@ -134,7 +134,7 @@
  		while (last >= gp && last->u == ' ')
  			--last;
  
-@@ -831,6 +844,9 @@ void
+@@ -836,6 +849,9 @@ void
  ttywrite(const char *s, size_t n, int may_echo)
  {
  	const char *next;
@@ -144,7 +144,7 @@
  
  	if (may_echo && IS_SET(MODE_ECHO))
  		twrite(s, n, 1);
-@@ -1025,7 +1041,12 @@ treset(void)
+@@ -1030,7 +1046,12 @@ treset(void)
  void
  tnew(int col, int row)
  {
@@ -158,7 +158,7 @@
  	tresize(col, row);
  	treset();
  }
-@@ -1034,21 +1055,71 @@ void
+@@ -1039,21 +1060,71 @@ void
  tswapscreen(void)
  {
  	Line *tmp = term.line;
@@ -231,7 +231,7 @@
  	tsetdirt(orig, term.bot-n);
  	tclearregion(0, term.bot-n+1, term.col-1, term.bot);
  
-@@ -1062,13 +1133,23 @@ tscrolldown(int orig, int n)
+@@ -1067,13 +1138,23 @@ tscrolldown(int orig, int n)
  }
  
  void
@@ -256,7 +256,7 @@
  	tclearregion(0, orig, term.col-1, orig+n-1);
  	tsetdirt(orig+n, term.bot);
  
-@@ -1117,7 +1198,7 @@ tnewline(int first_col)
+@@ -1122,7 +1203,7 @@ tnewline(int first_col)
  	int y = term.c.y;
  
  	if (y == term.bot) {
@@ -265,7 +265,7 @@
  	} else {
  		y++;
  	}
-@@ -1209,7 +1290,8 @@ tsetchar(Rune u, Glyph *attr, int x, int y)
+@@ -1214,7 +1295,8 @@ tsetchar(Rune u, Glyph *attr, int x, int y)
  		term.line[y][x-1].mode &= ~ATTR_WIDE;
  	}
  
@@ -275,7 +275,7 @@
  	term.line[y][x] = *attr;
  	term.line[y][x].u = u;
  }
-@@ -1282,14 +1364,14 @@ void
+@@ -1287,14 +1369,14 @@ void
  tinsertblankline(int n)
  {
  	if (BETWEEN(term.c.y, term.top, term.bot))
@@ -292,7 +292,7 @@
  }
  
  int32_t
-@@ -1720,11 +1802,11 @@ csihandle(void)
+@@ -1725,11 +1807,11 @@ csihandle(void)
  		break;
  	case 'S': /* SU -- Scroll <n> line up */
  		DEFAULT(csiescseq.arg[0], 1);
@@ -306,7 +306,7 @@
  		break;
  	case 'L': /* IL -- Insert <n> blank lines */
  		DEFAULT(csiescseq.arg[0], 1);
-@@ -2227,7 +2309,7 @@ eschandle(uchar ascii)
+@@ -2235,7 +2317,7 @@ eschandle(uchar ascii)
  		return 0;
  	case 'D': /* IND -- Linefeed */
  		if (term.c.y == term.bot) {
@@ -315,7 +315,7 @@
  		} else {
  			tmoveto(term.c.x, term.c.y+1);
  		}
-@@ -2240,7 +2322,7 @@ eschandle(uchar ascii)
+@@ -2248,7 +2330,7 @@ eschandle(uchar ascii)
  		break;
  	case 'M': /* RI -- Reverse index */
  		if (term.c.y == term.top) {
@@ -324,7 +324,7 @@
  		} else {
  			tmoveto(term.c.x, term.c.y-1);
  		}
-@@ -2458,7 +2540,7 @@ twrite(const char *buf, int buflen, int show_ctrl)
+@@ -2469,7 +2551,7 @@ twrite(const char *buf, int buflen, int show_ctrl)
  void
  tresize(int col, int row)
  {
@@ -333,7 +333,7 @@
  	int minrow = MIN(row, term.row);
  	int mincol = MIN(col, term.col);
  	int *bp;
-@@ -2495,6 +2577,22 @@ tresize(int col, int row)
+@@ -2506,6 +2588,22 @@ tresize(int col, int row)
  	term.dirty = xrealloc(term.dirty, row * sizeof(*term.dirty));
  	term.tabs = xrealloc(term.tabs, col * sizeof(*term.tabs));
  
@@ -356,7 +356,7 @@
  	/* resize each row to new width, zero-pad if needed */
  	for (i = 0; i < minrow; i++) {
  		term.line[i] = xrealloc(term.line[i], col * sizeof(Glyph));
-@@ -2552,7 +2650,7 @@ drawregion(int x1, int y1, int x2, int y2)
+@@ -2563,7 +2661,7 @@ drawregion(int x1, int y1, int x2, int y2)
  			continue;
  
  		term.dirty[y] = 0;
@@ -365,7 +365,7 @@
  	}
  }
  
-@@ -2573,8 +2671,9 @@ draw(void)
+@@ -2584,8 +2682,9 @@ draw(void)
  		cx--;
  
  	drawregion(0, 0, term.col, term.row);
@@ -379,7 +379,7 @@
  	xximspot(term.ocx, term.ocy);
 --- a/st.h
 +++ b/st.h
-@@ -80,6 +80,8 @@ void die(const char *, ...);
+@@ -81,6 +81,8 @@ void die(const char *, ...);
  void redraw(void);
  void draw(void);
  

@@ -1,7 +1,6 @@
 { buildPackages, lib, newScope, recurseIntoAttrs
-, fetchFromGitHub, fetchgit, fetchzip, gtk3, libsForQt5, mosh, path
-, python3Packages, python36Packages, st
-, stdenv, swt
+, fetchFromGitHub, fetchgit, fetchpatch, fetchzip, gtk3, libsForQt5, libXft
+, mosh, path, python3Packages, python36Packages, st, stdenv, swt
 }:
 lib.makeScope newScope (self: let inherit (self) callPackage; in
 
@@ -44,10 +43,10 @@ in {
       } @ args: args) { };
   };
 
-  st-bb010g-unstable = ((self.st-unstable.overrideAttrs (o: rec {
+  st-bb010g-unstable = (self.st-unstable.overrideAttrs (o: rec {
     name = "${pname}-${version}";
     pname = "st-bb010g-unstable";
-    version = "2019-05-04";
+    version = "2019-12-29";
   })).override {
     conf = lib.readFile ../applications/misc/st/config.h;
     patches = [
@@ -55,18 +54,31 @@ in {
       ../applications/misc/st/scrollback.diff
       ../applications/misc/st/vertcenter.diff
     ];
-  });
+  };
 
-  st-unstable = st.overrideAttrs (o: rec {
+  st-unstable = (st.overrideAttrs (o: rec {
     name = "${pname}-${version}";
     pname = "st-unstable";
-    version = "2019-04-04";
+    version = "2019-11-17";
     src = fetchgit {
       url = "https://git.suckless.org/st";
-      rev = "f1546cf9c1f9fc52d26dbbcf73210901e83c7ecf";
-      sha256 = "1hgs7q894bzh7gg6mx41dwf3csq9kznc8wp1g9r60v9r37hgbzn7";
+      rev = "384830110bddcebed00b6530a5336f07ad7c405f";
+      sha256 = "0620yr9s148hdrl7qr83xcklabk1hc4n4abnnfj9wlxrcimx3qam";
     };
-  });
+  })).override {
+    libXft = libXft.overrideAttrs (o: {
+      patches = o.patches or [] ++ [
+        (fetchpatch {
+          # http://git.suckless.org/st/commit/caa1d8fbea2b92bca24652af0fee874bdbbbb3e5.html
+          # https://gitlab.freedesktop.org/xorg/lib/libxft/issues/6
+          # https://gitlab.freedesktop.org/xorg/lib/libxft/merge_requests/1
+          url = "https://gitlab.freedesktop.org/xorg/lib/libxft/commit/" +
+            "fe41537b5714a2301808eed2d76b2e7631176573.patch";
+          sha256 = "045lp1q50i2wlwvpsq6ycxdc6p3asm2r3bk2nbad1dwkqw2xf9jc";
+        })
+      ];
+    });
+  };
 
   # ## applications.networking
 
@@ -87,8 +99,6 @@ in {
 
   broca-unstable = python3Packages'.callPackage
     ../applications/networking/p2p/broca { };
-
-  receptor-unstable = callPackage ../applications/networking/p2p/receptor { };
 
   # ## applications.version-management
 

@@ -1,6 +1,6 @@
 --- a/x.c
 +++ b/x.c
-@@ -1318,10 +1318,6 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
+@@ -1340,10 +1340,6 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
  		bg = &dc.col[base.bg];
  	}
  
