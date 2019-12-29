@@ -1,6 +1,6 @@
 { mkDerivation, lib, fetchFromGitHub, 
 bullet, libopus, vlc, openal, assimp, libvorbis,
-qtbase, qt5, mesa_glu, tree, git, git-lfs, zlib}:
+qtbase, qt5, mesa_glu, mesa, tree, git, git-lfs, zlib}:
 
 mkDerivation {
   pname = "janus";
@@ -16,6 +16,7 @@ mkDerivation {
   buildInputs = [
     tree
     mesa_glu
+    mesa
     vlc
     qt5.qmake
     qt5.qtwebsockets

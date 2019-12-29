@@ -130,6 +130,87 @@
           "sha256": "e713d02c85dff608caca171d06697f77b63468c1b8ec0f7ac7722b59e85e885a"
         },
         {
+          "name": "com.github.javaparser-javaparser-core-3.6.23-jar",
+          "filename": "javaparser-core-3.6.23.jar",
+          "path": "com/github/javaparser/javaparser-core/3.6.23",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/github/javaparser/javaparser-core/3.6.23/javaparser-core-3.6.23.jar"
+          ],
+          "sha256": "25de98e09ba5277701887171416c75066b0c90ae10c84479c08cbad8ec02da4a"
+        },
+        {
+          "name": "com.github.javaparser-javaparser-core-3.6.23-pom",
+          "filename": "javaparser-core-3.6.23.pom",
+          "path": "com/github/javaparser/javaparser-core/3.6.23",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/github/javaparser/javaparser-core/3.6.23/javaparser-core-3.6.23.pom"
+          ],
+          "sha256": "b92e1c7d498591a454072a08e1a6c44a08ef4f96321fbef68e53e741a8323bce"
+        },
+        {
+          "name": "com.github.javaparser-javaparser-parent-3.6.23-pom",
+          "filename": "javaparser-parent-3.6.23.pom",
+          "path": "com/github/javaparser/javaparser-parent/3.6.23",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/github/javaparser/javaparser-parent/3.6.23/javaparser-parent-3.6.23.pom"
+          ],
+          "sha256": "46ba657ccc177dc22b9972d30eadef07ea4ad98ec2d992789a2da9c8c68e10c6"
+        },
+        {
+          "name": "com.github.javaparser-javaparser-symbol-solver-core-3.6.23-jar",
+          "filename": "javaparser-symbol-solver-core-3.6.23.jar",
+          "path": "com/github/javaparser/javaparser-symbol-solver-core/3.6.23",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/github/javaparser/javaparser-symbol-solver-core/3.6.23/javaparser-symbol-solver-core-3.6.23.jar"
+          ],
+          "sha256": "c60647638ddd765d776cdd230e1cd69664f905856b9d35201dca5915c1e184b3"
+        },
+        {
+          "name": "com.github.javaparser-javaparser-symbol-solver-core-3.6.23-pom",
+          "filename": "javaparser-symbol-solver-core-3.6.23.pom",
+          "path": "com/github/javaparser/javaparser-symbol-solver-core/3.6.23",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/github/javaparser/javaparser-symbol-solver-core/3.6.23/javaparser-symbol-solver-core-3.6.23.pom"
+          ],
+          "sha256": "23196146ab66a39b05c4e22ca10deb7296c1be63ee2395696b1db5c0eedaca24"
+        },
+        {
+          "name": "com.github.javaparser-javaparser-symbol-solver-logic-3.6.23-jar",
+          "filename": "javaparser-symbol-solver-logic-3.6.23.jar",
+          "path": "com/github/javaparser/javaparser-symbol-solver-logic/3.6.23",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/github/javaparser/javaparser-symbol-solver-logic/3.6.23/javaparser-symbol-solver-logic-3.6.23.jar"
+          ],
+          "sha256": "89428be40a0bb525e20b90704d4ce6844fcc8a7d9e3f109a4a621c908202292a"
+        },
+        {
+          "name": "com.github.javaparser-javaparser-symbol-solver-logic-3.6.23-pom",
+          "filename": "javaparser-symbol-solver-logic-3.6.23.pom",
+          "path": "com/github/javaparser/javaparser-symbol-solver-logic/3.6.23",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/github/javaparser/javaparser-symbol-solver-logic/3.6.23/javaparser-symbol-solver-logic-3.6.23.pom"
+          ],
+          "sha256": "f9cef45c9c3387b27de5ad2e9dea46475f12e672eb313ba8da197d9f9293b94b"
+        },
+        {
+          "name": "com.github.javaparser-javaparser-symbol-solver-model-3.6.23-jar",
+          "filename": "javaparser-symbol-solver-model-3.6.23.jar",
+          "path": "com/github/javaparser/javaparser-symbol-solver-model/3.6.23",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/github/javaparser/javaparser-symbol-solver-model/3.6.23/javaparser-symbol-solver-model-3.6.23.jar"
+          ],
+          "sha256": "3b2a2dd369a728481924891a442ee01f3b4416bf5af38906bfe0970041076d1b"
+        },
+        {
+          "name": "com.github.javaparser-javaparser-symbol-solver-model-3.6.23-pom",
+          "filename": "javaparser-symbol-solver-model-3.6.23.pom",
+          "path": "com/github/javaparser/javaparser-symbol-solver-model/3.6.23",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/github/javaparser/javaparser-symbol-solver-model/3.6.23/javaparser-symbol-solver-model-3.6.23.pom"
+          ],
+          "sha256": "97d5e8772c10a83d737abaac2176ae7c32183761734b536c85deba90e76c7d5d"
+        },
+        {
           "name": "com.github.jengelman.gradle.plugins-shadow-5.0.0-jar",
           "filename": "shadow-5.0.0.jar",
           "path": "com/github/jengelman/gradle/plugins/shadow/5.0.0",
@@ -155,6 +236,114 @@
             "https://plugins.gradle.org/m2/com/github/johnrengelman/shadow/com.github.johnrengelman.shadow.gradle.plugin/5.0.0/com.github.johnrengelman.shadow.gradle.plugin-5.0.0.pom"
           ],
           "sha256": "bda9d3b8b6b9e6289b225a4ac420584f5c9257b3293ce9b46816f22b399c8147"
+        },
+        {
+          "name": "com.google.code.findbugs-jsr305-3.0.2-jar",
+          "filename": "jsr305-3.0.2.jar",
+          "path": "com/google/code/findbugs/jsr305/3.0.2",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"
+          ],
+          "sha256": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7"
+        },
+        {
+          "name": "com.google.code.findbugs-jsr305-3.0.2-pom",
+          "filename": "jsr305-3.0.2.pom",
+          "path": "com/google/code/findbugs/jsr305/3.0.2",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.pom"
+          ],
+          "sha256": "19889dbdf1b254b2601a5ee645b8147a974644882297684c798afe5d63d78dfe"
+        },
+        {
+          "name": "com.google.errorprone-error_prone_annotations-2.0.18-jar",
+          "filename": "error_prone_annotations-2.0.18.jar",
+          "path": "com/google/errorprone/error_prone_annotations/2.0.18",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/errorprone/error_prone_annotations/2.0.18/error_prone_annotations-2.0.18.jar"
+          ],
+          "sha256": "cb4cfad870bf563a07199f3ebea5763f0dec440fcda0b318640b1feaa788656b"
+        },
+        {
+          "name": "com.google.errorprone-error_prone_annotations-2.0.18-pom",
+          "filename": "error_prone_annotations-2.0.18.pom",
+          "path": "com/google/errorprone/error_prone_annotations/2.0.18",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/errorprone/error_prone_annotations/2.0.18/error_prone_annotations-2.0.18.pom"
+          ],
+          "sha256": "9144127192d6f612c2366825dceaeb23b0d53130b83e0bf1ffe107d1470a8487"
+        },
+        {
+          "name": "com.google.errorprone-error_prone_parent-2.0.18-pom",
+          "filename": "error_prone_parent-2.0.18.pom",
+          "path": "com/google/errorprone/error_prone_parent/2.0.18",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/errorprone/error_prone_parent/2.0.18/error_prone_parent-2.0.18.pom"
+          ],
+          "sha256": "cf149955279b07d4f11e817985c1164a69e930d73db7441b43a6ef53bbd286c4"
+        },
+        {
+          "name": "com.google.gradle-osdetector-gradle-plugin-1.6.1-jar",
+          "filename": "osdetector-gradle-plugin-1.6.1.jar",
+          "path": "com/google/gradle/osdetector-gradle-plugin/1.6.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/gradle/osdetector-gradle-plugin/1.6.1/osdetector-gradle-plugin-1.6.1.jar"
+          ],
+          "sha256": "37f4a6d92f258762ecf62fd77186522bbecb5da1b20debc78f8361b856df0da7"
+        },
+        {
+          "name": "com.google.gradle-osdetector-gradle-plugin-1.6.1-pom",
+          "filename": "osdetector-gradle-plugin-1.6.1.pom",
+          "path": "com/google/gradle/osdetector-gradle-plugin/1.6.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/gradle/osdetector-gradle-plugin/1.6.1/osdetector-gradle-plugin-1.6.1.pom"
+          ],
+          "sha256": "8b831113a94e097bc49e1eca4d327fd22340570454d44cbb71c252b99e6c4c3f"
+        },
+        {
+          "name": "com.google.guava-guava-parent-23.4-jre-pom",
+          "filename": "guava-parent-23.4-jre.pom",
+          "path": "com/google/guava/guava-parent/23.4-jre",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/guava/guava-parent/23.4-jre/guava-parent-23.4-jre.pom"
+          ],
+          "sha256": "10ef176c53cd8f959ded6af740516e99b5fc20aa201e3a9198bb92194a6a3934"
+        },
+        {
+          "name": "com.google.guava-guava-23.4-jre-jar",
+          "filename": "guava-23.4-jre.jar",
+          "path": "com/google/guava/guava/23.4-jre",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/guava/guava/23.4-jre/guava-23.4-jre.jar"
+          ],
+          "sha256": "2662a33f09febab5023ddbf52780cb8d2a6e0c49a24db8094adc0e944801a810"
+        },
+        {
+          "name": "com.google.guava-guava-23.4-jre-pom",
+          "filename": "guava-23.4-jre.pom",
+          "path": "com/google/guava/guava/23.4-jre",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/guava/guava/23.4-jre/guava-23.4-jre.pom"
+          ],
+          "sha256": "22ebbb83bd95c00a6bea878cb5b9bb8a602ea12a66467b0cfa4f97b414ea5d0e"
+        },
+        {
+          "name": "com.google.j2objc-j2objc-annotations-1.1-jar",
+          "filename": "j2objc-annotations-1.1.jar",
+          "path": "com/google/j2objc/j2objc-annotations/1.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar"
+          ],
+          "sha256": "2994a7eb78f2710bd3d3bfb639b2c94e219cedac0d4d084d516e78c16dddecf6"
+        },
+        {
+          "name": "com.google.j2objc-j2objc-annotations-1.1-pom",
+          "filename": "j2objc-annotations-1.1.pom",
+          "path": "com/google/j2objc/j2objc-annotations/1.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.pom"
+          ],
+          "sha256": "f0c98c571e93a7cb4dd18df0fa308f0963e7a0620ac2d4244e61e709d03ad6be"
         },
         {
           "name": "com.googlecode.concurrent-trees-concurrent-trees-2.6.1-jar",
@@ -263,6 +452,24 @@
             "https://plugins.gradle.org/m2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.pom"
           ],
           "sha256": "3250ac3ac6bd60ed0631f5cd0335032b2993d63e405a6ae0555d27a7e4865849"
+        },
+        {
+          "name": "kr.motd.maven-os-maven-plugin-1.6.0-jar",
+          "filename": "os-maven-plugin-1.6.0.jar",
+          "path": "kr/motd/maven/os-maven-plugin/1.6.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/kr/motd/maven/os-maven-plugin/1.6.0/os-maven-plugin-1.6.0.jar"
+          ],
+          "sha256": "1cd9d6c089f966711bc7d9564976b3ffe65102616a5247681cc23095cfbdd1ac"
+        },
+        {
+          "name": "kr.motd.maven-os-maven-plugin-1.6.0-pom",
+          "filename": "os-maven-plugin-1.6.0.pom",
+          "path": "kr/motd/maven/os-maven-plugin/1.6.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/kr/motd/maven/os-maven-plugin/1.6.0/os-maven-plugin-1.6.0.pom"
+          ],
+          "sha256": "cd151f51078a46777b50f8283b882a8ace0c08bbbe17446b3f9ea63c8122fca8"
         },
         {
           "name": "org.apache.ant-ant-launcher-1.9.7-jar",
@@ -517,6 +724,42 @@
           "sha256": "9a76974ff96069d8503f56c5da0661fad202316df0387108ecf180ec5feaf358"
         },
         {
+          "name": "org.codehaus.mojo-animal-sniffer-annotations-1.14-jar",
+          "filename": "animal-sniffer-annotations-1.14.jar",
+          "path": "org/codehaus/mojo/animal-sniffer-annotations/1.14",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.jar"
+          ],
+          "sha256": "2068320bd6bad744c3673ab048f67e30bef8f518996fa380033556600669905d"
+        },
+        {
+          "name": "org.codehaus.mojo-animal-sniffer-annotations-1.14-pom",
+          "filename": "animal-sniffer-annotations-1.14.pom",
+          "path": "org/codehaus/mojo/animal-sniffer-annotations/1.14",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.pom"
+          ],
+          "sha256": "1879f19a05991e3ed95910b96689333396b0c467a215dc4d1f90018404b72a26"
+        },
+        {
+          "name": "org.codehaus.mojo-animal-sniffer-parent-1.14-pom",
+          "filename": "animal-sniffer-parent-1.14.pom",
+          "path": "org/codehaus/mojo/animal-sniffer-parent/1.14",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/codehaus/mojo/animal-sniffer-parent/1.14/animal-sniffer-parent-1.14.pom"
+          ],
+          "sha256": "f51550a06b1410bd4962cb0e71df0b921a60a7ef47bfa9c4825a14be72316eea"
+        },
+        {
+          "name": "org.codehaus.mojo-mojo-parent-34-pom",
+          "filename": "mojo-parent-34.pom",
+          "path": "org/codehaus/mojo/mojo-parent/34",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/codehaus/mojo/mojo-parent/34/mojo-parent-34.pom"
+          ],
+          "sha256": "3e395d6fbc43c09a3774cac8694ce527398305ea3fd5492d80e25af27d382a9c"
+        },
+        {
           "name": "org.codehaus.plexus-plexus-utils-3.0.24-jar",
           "filename": "plexus-utils-3.0.24.jar",
           "path": "org/codehaus/plexus/plexus-utils/3.0.24",
@@ -542,6 +785,15 @@
             "https://plugins.gradle.org/m2/org/codehaus/plexus/plexus/4.0/plexus-4.0.pom"
           ],
           "sha256": "0a1b692d7fcc90d6a45dae2e50f4660d48f7a44504f174aa60ef34fbe1327f6a"
+        },
+        {
+          "name": "org.codehaus-codehaus-parent-4-pom",
+          "filename": "codehaus-parent-4.pom",
+          "path": "org/codehaus/codehaus-parent/4",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/codehaus/codehaus-parent/4/codehaus-parent-4.pom"
+          ],
+          "sha256": "6b87237de8c2e1740cf80627c7f3ce3e15de1930bb250c55a1eca94fa3e014df"
         },
         {
           "name": "org.eclipse.jgit-org.eclipse.jgit-parent-4.9.0.201710071750-r-pom",
@@ -571,6 +823,42 @@
           "sha256": "0fd9bb80acf4b5b1e87432e7bd03f85aa77222991f03b0afb7bf16c29edccf30"
         },
         {
+          "name": "org.javamodularity-moduleplugin-1.4.0-jar",
+          "filename": "moduleplugin-1.4.0.jar",
+          "path": "org/javamodularity/moduleplugin/1.4.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/javamodularity/moduleplugin/1.4.0/moduleplugin-1.4.0.jar"
+          ],
+          "sha256": "0ec46944f329e6ceeabbee264f7f655b754ecfea97b62d737913af9bf7275a49"
+        },
+        {
+          "name": "org.javamodularity-moduleplugin-1.4.0-pom",
+          "filename": "moduleplugin-1.4.0.pom",
+          "path": "org/javamodularity/moduleplugin/1.4.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/javamodularity/moduleplugin/1.4.0/moduleplugin-1.4.0.pom"
+          ],
+          "sha256": "cace8c9999958ecbee1c2d34ff2655c47be03abb651489c3bacb42365f9edf7b"
+        },
+        {
+          "name": "org.javassist-javassist-3.23.1-GA-jar",
+          "filename": "javassist-3.23.1-GA.jar",
+          "path": "org/javassist/javassist/3.23.1-GA",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/javassist/javassist/3.23.1-GA/javassist-3.23.1-GA.jar"
+          ],
+          "sha256": "d2b14c09763523374624f32a09d6e31fcb174082a97addb5ae2d580b474fd806"
+        },
+        {
+          "name": "org.javassist-javassist-3.23.1-GA-pom",
+          "filename": "javassist-3.23.1-GA.pom",
+          "path": "org/javassist/javassist/3.23.1-GA",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/javassist/javassist/3.23.1-GA/javassist-3.23.1-GA.pom"
+          ],
+          "sha256": "4c18cb09f54a5e7deebac54251b5ec65a5e04ae46067f31bdce333c2f0ee8c99"
+        },
+        {
           "name": "org.jdom-jdom2-2.0.6-jar",
           "filename": "jdom2-2.0.6.jar",
           "path": "org/jdom/jdom2/2.0.6",
@@ -587,6 +875,33 @@
             "https://plugins.gradle.org/m2/org/jdom/jdom2/2.0.6/jdom2-2.0.6.pom"
           ],
           "sha256": "47b23a79fe336b741b82434c6e049d68165256e405e75c10921fd72fa8a65d8d"
+        },
+        {
+          "name": "org.openjfx.javafxplugin-org.openjfx.javafxplugin.gradle.plugin-0.0.7-pom",
+          "filename": "org.openjfx.javafxplugin.gradle.plugin-0.0.7.pom",
+          "path": "org/openjfx/javafxplugin/org.openjfx.javafxplugin.gradle.plugin/0.0.7",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/openjfx/javafxplugin/org.openjfx.javafxplugin.gradle.plugin/0.0.7/org.openjfx.javafxplugin.gradle.plugin-0.0.7.pom"
+          ],
+          "sha256": "4b26dd67f1ea39e91ff9ccb26e738d2704750e58456186a3573f5069d3887b55"
+        },
+        {
+          "name": "org.openjfx-javafx-plugin-0.0.7-jar",
+          "filename": "javafx-plugin-0.0.7.jar",
+          "path": "org/openjfx/javafx-plugin/0.0.7",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/openjfx/javafx-plugin/0.0.7/javafx-plugin-0.0.7.jar"
+          ],
+          "sha256": "70c34c2e2fcc14b0e212426e6216d7ef192d07e8b87f0dcef32d5dad9fbab4ad"
+        },
+        {
+          "name": "org.openjfx-javafx-plugin-0.0.7-pom",
+          "filename": "javafx-plugin-0.0.7.pom",
+          "path": "org/openjfx/javafx-plugin/0.0.7",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/openjfx/javafx-plugin/0.0.7/javafx-plugin-0.0.7.pom"
+          ],
+          "sha256": "2554d7ae5d04b18309729e4b9079b2f2240a5d37ebd46c6b0bdec767cabfb2f9"
         },
         {
           "name": "org.ow2.asm-asm-analysis-7.0-beta-jar",
@@ -796,6 +1111,15 @@
           "sha256": "b51f8867c92b6a722499557fc3a1fdea77bdf9ef574722fe90ce436a29559454"
         },
         {
+          "name": "org.sonatype.oss-oss-parent-9-pom",
+          "filename": "oss-parent-9.pom",
+          "path": "org/sonatype/oss/oss-parent/9",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom"
+          ],
+          "sha256": "fb40265f982548212ff82e362e59732b2187ec6f0d80182885c14ef1f982827a"
+        },
+        {
           "name": "org.vafer-jdependency-2.1.1-jar",
           "filename": "jdependency-2.1.1.jar",
           "path": "org/vafer/jdependency/2.1.1",
@@ -925,100 +1249,100 @@
           "sha256": "1113933e472124613f384f0c51a3f0eebac59546e8b2346e0436313e44b24b65"
         },
         {
-          "name": "com.chuusai-shapeless_2.11-2.3.2-jar",
-          "filename": "shapeless_2.11-2.3.2.jar",
-          "path": "com/chuusai/shapeless_2.11/2.3.2",
+          "name": "com.chuusai-shapeless_2.12-2.3.2-jar",
+          "filename": "shapeless_2.12-2.3.2.jar",
+          "path": "com/chuusai/shapeless_2.12/2.3.2",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/chuusai/shapeless_2.11/2.3.2/shapeless_2.11-2.3.2.jar",
-            "http://clojars.org/repo/com/chuusai/shapeless_2.11/2.3.2/shapeless_2.11-2.3.2.jar",
-            "https://jitpack.io/com/chuusai/shapeless_2.11/2.3.2/shapeless_2.11-2.3.2.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/com/chuusai/shapeless_2.11/2.3.2/shapeless_2.11-2.3.2.jar"
+            "https://repo.maven.apache.org/maven2/com/chuusai/shapeless_2.12/2.3.2/shapeless_2.12-2.3.2.jar",
+            "http://clojars.org/repo/com/chuusai/shapeless_2.12/2.3.2/shapeless_2.12-2.3.2.jar",
+            "https://jitpack.io/com/chuusai/shapeless_2.12/2.3.2/shapeless_2.12-2.3.2.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/com/chuusai/shapeless_2.12/2.3.2/shapeless_2.12-2.3.2.jar"
           ],
-          "sha256": "f9741699b9a84d218c97907f445ea24f401f84239041c91332ca53c481670e36"
+          "sha256": "75926d9dd4688710ca16d852b58746dcfc013a2a1a58d1e817a27f95b2d42303"
         },
         {
-          "name": "com.chuusai-shapeless_2.11-2.3.2-pom",
-          "filename": "shapeless_2.11-2.3.2.pom",
-          "path": "com/chuusai/shapeless_2.11/2.3.2",
+          "name": "com.chuusai-shapeless_2.12-2.3.2-pom",
+          "filename": "shapeless_2.12-2.3.2.pom",
+          "path": "com/chuusai/shapeless_2.12/2.3.2",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/chuusai/shapeless_2.11/2.3.2/shapeless_2.11-2.3.2.pom",
-            "http://clojars.org/repo/com/chuusai/shapeless_2.11/2.3.2/shapeless_2.11-2.3.2.pom",
-            "https://jitpack.io/com/chuusai/shapeless_2.11/2.3.2/shapeless_2.11-2.3.2.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/com/chuusai/shapeless_2.11/2.3.2/shapeless_2.11-2.3.2.pom"
+            "https://repo.maven.apache.org/maven2/com/chuusai/shapeless_2.12/2.3.2/shapeless_2.12-2.3.2.pom",
+            "http://clojars.org/repo/com/chuusai/shapeless_2.12/2.3.2/shapeless_2.12-2.3.2.pom",
+            "https://jitpack.io/com/chuusai/shapeless_2.12/2.3.2/shapeless_2.12-2.3.2.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/com/chuusai/shapeless_2.12/2.3.2/shapeless_2.12-2.3.2.pom"
           ],
-          "sha256": "71bbea127a2d926f870524262a96a3d8547619e602dc1df610590051bd3b930e"
+          "sha256": "60b2345ad127c61f2c6d5d2bbafa95dd358c22aa978783d23be624a08b298714"
         },
         {
-          "name": "com.codacy-codacy-api-scala_2.11-4.0.0-jar",
-          "filename": "codacy-api-scala_2.11-4.0.0.jar",
-          "path": "com/codacy/codacy-api-scala_2.11/4.0.0",
+          "name": "com.codacy-codacy-api-scala_2.12-4.0.0-jar",
+          "filename": "codacy-api-scala_2.12-4.0.0.jar",
+          "path": "com/codacy/codacy-api-scala_2.12/4.0.0",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/codacy/codacy-api-scala_2.11/4.0.0/codacy-api-scala_2.11-4.0.0.jar",
-            "http://clojars.org/repo/com/codacy/codacy-api-scala_2.11/4.0.0/codacy-api-scala_2.11-4.0.0.jar",
-            "https://jitpack.io/com/codacy/codacy-api-scala_2.11/4.0.0/codacy-api-scala_2.11-4.0.0.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/com/codacy/codacy-api-scala_2.11/4.0.0/codacy-api-scala_2.11-4.0.0.jar"
+            "https://repo.maven.apache.org/maven2/com/codacy/codacy-api-scala_2.12/4.0.0/codacy-api-scala_2.12-4.0.0.jar",
+            "http://clojars.org/repo/com/codacy/codacy-api-scala_2.12/4.0.0/codacy-api-scala_2.12-4.0.0.jar",
+            "https://jitpack.io/com/codacy/codacy-api-scala_2.12/4.0.0/codacy-api-scala_2.12-4.0.0.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/com/codacy/codacy-api-scala_2.12/4.0.0/codacy-api-scala_2.12-4.0.0.jar"
           ],
-          "sha256": "12c8b933d9355b4599574288877cc13f15863022ac082c602465e54fb6b6ae1f"
+          "sha256": "6ae33e571efc2ac772281e7d99279ad71ccd8cb40324f20d8756d2ec8b173977"
         },
         {
-          "name": "com.codacy-codacy-api-scala_2.11-4.0.0-pom",
-          "filename": "codacy-api-scala_2.11-4.0.0.pom",
-          "path": "com/codacy/codacy-api-scala_2.11/4.0.0",
+          "name": "com.codacy-codacy-api-scala_2.12-4.0.0-pom",
+          "filename": "codacy-api-scala_2.12-4.0.0.pom",
+          "path": "com/codacy/codacy-api-scala_2.12/4.0.0",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/codacy/codacy-api-scala_2.11/4.0.0/codacy-api-scala_2.11-4.0.0.pom",
-            "http://clojars.org/repo/com/codacy/codacy-api-scala_2.11/4.0.0/codacy-api-scala_2.11-4.0.0.pom",
-            "https://jitpack.io/com/codacy/codacy-api-scala_2.11/4.0.0/codacy-api-scala_2.11-4.0.0.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/com/codacy/codacy-api-scala_2.11/4.0.0/codacy-api-scala_2.11-4.0.0.pom"
+            "https://repo.maven.apache.org/maven2/com/codacy/codacy-api-scala_2.12/4.0.0/codacy-api-scala_2.12-4.0.0.pom",
+            "http://clojars.org/repo/com/codacy/codacy-api-scala_2.12/4.0.0/codacy-api-scala_2.12-4.0.0.pom",
+            "https://jitpack.io/com/codacy/codacy-api-scala_2.12/4.0.0/codacy-api-scala_2.12-4.0.0.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/com/codacy/codacy-api-scala_2.12/4.0.0/codacy-api-scala_2.12-4.0.0.pom"
           ],
-          "sha256": "0ec30be4718f8e0efd9f6bd273a6c5b019e41cb44cfcc32bc23390198e5da841"
+          "sha256": "3a3641835ad4523528801132ca591002580fe45a650d2b2cdf8e09c750934a48"
         },
         {
-          "name": "com.codacy-codacy-plugins-api_2.11-3.0.293-jar",
-          "filename": "codacy-plugins-api_2.11-3.0.293.jar",
-          "path": "com/codacy/codacy-plugins-api_2.11/3.0.293",
+          "name": "com.codacy-codacy-plugins-api_2.12-3.0.293-jar",
+          "filename": "codacy-plugins-api_2.12-3.0.293.jar",
+          "path": "com/codacy/codacy-plugins-api_2.12/3.0.293",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/codacy/codacy-plugins-api_2.11/3.0.293/codacy-plugins-api_2.11-3.0.293.jar",
-            "http://clojars.org/repo/com/codacy/codacy-plugins-api_2.11/3.0.293/codacy-plugins-api_2.11-3.0.293.jar",
-            "https://jitpack.io/com/codacy/codacy-plugins-api_2.11/3.0.293/codacy-plugins-api_2.11-3.0.293.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/com/codacy/codacy-plugins-api_2.11/3.0.293/codacy-plugins-api_2.11-3.0.293.jar"
+            "https://repo.maven.apache.org/maven2/com/codacy/codacy-plugins-api_2.12/3.0.293/codacy-plugins-api_2.12-3.0.293.jar",
+            "http://clojars.org/repo/com/codacy/codacy-plugins-api_2.12/3.0.293/codacy-plugins-api_2.12-3.0.293.jar",
+            "https://jitpack.io/com/codacy/codacy-plugins-api_2.12/3.0.293/codacy-plugins-api_2.12-3.0.293.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/com/codacy/codacy-plugins-api_2.12/3.0.293/codacy-plugins-api_2.12-3.0.293.jar"
           ],
-          "sha256": "12486a58259e485216abb70d919a9b8fe18050f466f5284ae4f9491d35f29054"
+          "sha256": "d5e42a0401a4f375ce4c36cd97fe8419238fe54b6234d380fea71c0031c2c0f8"
         },
         {
-          "name": "com.codacy-codacy-plugins-api_2.11-3.0.293-pom",
-          "filename": "codacy-plugins-api_2.11-3.0.293.pom",
-          "path": "com/codacy/codacy-plugins-api_2.11/3.0.293",
+          "name": "com.codacy-codacy-plugins-api_2.12-3.0.293-pom",
+          "filename": "codacy-plugins-api_2.12-3.0.293.pom",
+          "path": "com/codacy/codacy-plugins-api_2.12/3.0.293",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/codacy/codacy-plugins-api_2.11/3.0.293/codacy-plugins-api_2.11-3.0.293.pom",
-            "http://clojars.org/repo/com/codacy/codacy-plugins-api_2.11/3.0.293/codacy-plugins-api_2.11-3.0.293.pom",
-            "https://jitpack.io/com/codacy/codacy-plugins-api_2.11/3.0.293/codacy-plugins-api_2.11-3.0.293.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/com/codacy/codacy-plugins-api_2.11/3.0.293/codacy-plugins-api_2.11-3.0.293.pom"
+            "https://repo.maven.apache.org/maven2/com/codacy/codacy-plugins-api_2.12/3.0.293/codacy-plugins-api_2.12-3.0.293.pom",
+            "http://clojars.org/repo/com/codacy/codacy-plugins-api_2.12/3.0.293/codacy-plugins-api_2.12-3.0.293.pom",
+            "https://jitpack.io/com/codacy/codacy-plugins-api_2.12/3.0.293/codacy-plugins-api_2.12-3.0.293.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/com/codacy/codacy-plugins-api_2.12/3.0.293/codacy-plugins-api_2.12-3.0.293.pom"
           ],
-          "sha256": "c700d9879534884acb36d15c2691401eb401b46e88053416fa66f4ddb1781d34"
+          "sha256": "7964c51b34642e1c3b6b55b13813c000e4c361450e778b5dc325641c99726f21"
         },
         {
-          "name": "com.codacy-coverage-parser_2.11-2.1.0-jar",
-          "filename": "coverage-parser_2.11-2.1.0.jar",
-          "path": "com/codacy/coverage-parser_2.11/2.1.0",
+          "name": "com.codacy-coverage-parser_2.12-2.1.0-jar",
+          "filename": "coverage-parser_2.12-2.1.0.jar",
+          "path": "com/codacy/coverage-parser_2.12/2.1.0",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/codacy/coverage-parser_2.11/2.1.0/coverage-parser_2.11-2.1.0.jar",
-            "http://clojars.org/repo/com/codacy/coverage-parser_2.11/2.1.0/coverage-parser_2.11-2.1.0.jar",
-            "https://jitpack.io/com/codacy/coverage-parser_2.11/2.1.0/coverage-parser_2.11-2.1.0.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/com/codacy/coverage-parser_2.11/2.1.0/coverage-parser_2.11-2.1.0.jar"
+            "https://repo.maven.apache.org/maven2/com/codacy/coverage-parser_2.12/2.1.0/coverage-parser_2.12-2.1.0.jar",
+            "http://clojars.org/repo/com/codacy/coverage-parser_2.12/2.1.0/coverage-parser_2.12-2.1.0.jar",
+            "https://jitpack.io/com/codacy/coverage-parser_2.12/2.1.0/coverage-parser_2.12-2.1.0.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/com/codacy/coverage-parser_2.12/2.1.0/coverage-parser_2.12-2.1.0.jar"
           ],
-          "sha256": "b31d629aa6043971eaadede07e9126369446eeca3bc0d63b853b9a45a7417bb6"
+          "sha256": "94b648353e8743dc512fa6c14631878baa23f6cf68e65d953679aec535bfe492"
         },
         {
-          "name": "com.codacy-coverage-parser_2.11-2.1.0-pom",
-          "filename": "coverage-parser_2.11-2.1.0.pom",
-          "path": "com/codacy/coverage-parser_2.11/2.1.0",
+          "name": "com.codacy-coverage-parser_2.12-2.1.0-pom",
+          "filename": "coverage-parser_2.12-2.1.0.pom",
+          "path": "com/codacy/coverage-parser_2.12/2.1.0",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/codacy/coverage-parser_2.11/2.1.0/coverage-parser_2.11-2.1.0.pom",
-            "http://clojars.org/repo/com/codacy/coverage-parser_2.11/2.1.0/coverage-parser_2.11-2.1.0.pom",
-            "https://jitpack.io/com/codacy/coverage-parser_2.11/2.1.0/coverage-parser_2.11-2.1.0.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/com/codacy/coverage-parser_2.11/2.1.0/coverage-parser_2.11-2.1.0.pom"
+            "https://repo.maven.apache.org/maven2/com/codacy/coverage-parser_2.12/2.1.0/coverage-parser_2.12-2.1.0.pom",
+            "http://clojars.org/repo/com/codacy/coverage-parser_2.12/2.1.0/coverage-parser_2.12-2.1.0.pom",
+            "https://jitpack.io/com/codacy/coverage-parser_2.12/2.1.0/coverage-parser_2.12-2.1.0.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/com/codacy/coverage-parser_2.12/2.1.0/coverage-parser_2.12-2.1.0.pom"
           ],
-          "sha256": "318eea52989b9fc32d606aa102803a834f184d189dafefd27836ef6389963c81"
+          "sha256": "42fe0bf893f2e56d71f95aa65599f563fb96154363cbe4e20dd761c46d4565bc"
         },
         {
           "name": "com.fasterxml.jackson.core-jackson-annotations-2.8.11-jar",
@@ -1261,76 +1585,88 @@
           "sha256": "b9b8f388fd628057b1249756468b86726c8fd5816ce14d313cb40003a509beeb"
         },
         {
-          "name": "com.github.alexarchambault-case-app-annotations_2.11-1.2.0-jar",
-          "filename": "case-app-annotations_2.11-1.2.0.jar",
-          "path": "com/github/alexarchambault/case-app-annotations_2.11/1.2.0",
+          "name": "com.github.alexarchambault-case-app-annotations_2.12-1.2.0-jar",
+          "filename": "case-app-annotations_2.12-1.2.0.jar",
+          "path": "com/github/alexarchambault/case-app-annotations_2.12/1.2.0",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/github/alexarchambault/case-app-annotations_2.11/1.2.0/case-app-annotations_2.11-1.2.0.jar",
-            "http://clojars.org/repo/com/github/alexarchambault/case-app-annotations_2.11/1.2.0/case-app-annotations_2.11-1.2.0.jar",
-            "https://jitpack.io/com/github/alexarchambault/case-app-annotations_2.11/1.2.0/case-app-annotations_2.11-1.2.0.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/com/github/alexarchambault/case-app-annotations_2.11/1.2.0/case-app-annotations_2.11-1.2.0.jar"
+            "https://repo.maven.apache.org/maven2/com/github/alexarchambault/case-app-annotations_2.12/1.2.0/case-app-annotations_2.12-1.2.0.jar",
+            "http://clojars.org/repo/com/github/alexarchambault/case-app-annotations_2.12/1.2.0/case-app-annotations_2.12-1.2.0.jar",
+            "https://jitpack.io/com/github/alexarchambault/case-app-annotations_2.12/1.2.0/case-app-annotations_2.12-1.2.0.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/com/github/alexarchambault/case-app-annotations_2.12/1.2.0/case-app-annotations_2.12-1.2.0.jar"
           ],
-          "sha256": "8b78194c4f3fd9dc4621d38a0a8a340992416dd75be286c400ead0be3b8ea9bc"
+          "sha256": "f11466c855f9db55f334fcce032731090c464777a2d145d78ddbbd2bb35fbd8e"
         },
         {
-          "name": "com.github.alexarchambault-case-app-annotations_2.11-1.2.0-pom",
-          "filename": "case-app-annotations_2.11-1.2.0.pom",
-          "path": "com/github/alexarchambault/case-app-annotations_2.11/1.2.0",
+          "name": "com.github.alexarchambault-case-app-annotations_2.12-1.2.0-pom",
+          "filename": "case-app-annotations_2.12-1.2.0.pom",
+          "path": "com/github/alexarchambault/case-app-annotations_2.12/1.2.0",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/github/alexarchambault/case-app-annotations_2.11/1.2.0/case-app-annotations_2.11-1.2.0.pom",
-            "http://clojars.org/repo/com/github/alexarchambault/case-app-annotations_2.11/1.2.0/case-app-annotations_2.11-1.2.0.pom",
-            "https://jitpack.io/com/github/alexarchambault/case-app-annotations_2.11/1.2.0/case-app-annotations_2.11-1.2.0.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/com/github/alexarchambault/case-app-annotations_2.11/1.2.0/case-app-annotations_2.11-1.2.0.pom"
+            "https://repo.maven.apache.org/maven2/com/github/alexarchambault/case-app-annotations_2.12/1.2.0/case-app-annotations_2.12-1.2.0.pom",
+            "http://clojars.org/repo/com/github/alexarchambault/case-app-annotations_2.12/1.2.0/case-app-annotations_2.12-1.2.0.pom",
+            "https://jitpack.io/com/github/alexarchambault/case-app-annotations_2.12/1.2.0/case-app-annotations_2.12-1.2.0.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/com/github/alexarchambault/case-app-annotations_2.12/1.2.0/case-app-annotations_2.12-1.2.0.pom"
           ],
-          "sha256": "7266390b4562c192c2828ba54055f95797191896ef70b351bf3b49813451cdcf"
+          "sha256": "d0f8c5e362a5f8c58be57a7b2aeb3f08d23b696853de8913a29ed313aabcd294"
         },
         {
-          "name": "com.github.alexarchambault-case-app-util_2.11-1.2.0-jar",
-          "filename": "case-app-util_2.11-1.2.0.jar",
-          "path": "com/github/alexarchambault/case-app-util_2.11/1.2.0",
+          "name": "com.github.alexarchambault-case-app-util_2.12-1.2.0-jar",
+          "filename": "case-app-util_2.12-1.2.0.jar",
+          "path": "com/github/alexarchambault/case-app-util_2.12/1.2.0",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/github/alexarchambault/case-app-util_2.11/1.2.0/case-app-util_2.11-1.2.0.jar",
-            "http://clojars.org/repo/com/github/alexarchambault/case-app-util_2.11/1.2.0/case-app-util_2.11-1.2.0.jar",
-            "https://jitpack.io/com/github/alexarchambault/case-app-util_2.11/1.2.0/case-app-util_2.11-1.2.0.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/com/github/alexarchambault/case-app-util_2.11/1.2.0/case-app-util_2.11-1.2.0.jar"
+            "https://repo.maven.apache.org/maven2/com/github/alexarchambault/case-app-util_2.12/1.2.0/case-app-util_2.12-1.2.0.jar",
+            "http://clojars.org/repo/com/github/alexarchambault/case-app-util_2.12/1.2.0/case-app-util_2.12-1.2.0.jar",
+            "https://jitpack.io/com/github/alexarchambault/case-app-util_2.12/1.2.0/case-app-util_2.12-1.2.0.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/com/github/alexarchambault/case-app-util_2.12/1.2.0/case-app-util_2.12-1.2.0.jar"
           ],
-          "sha256": "1b2749c01cb807da7c148be9bc5e81743b71972b419383dc22ca038e6d63597d"
+          "sha256": "65ae3c037fd533fa02433970ce686d45e17ab9cad6a895fff65e3b7cfcec625a"
         },
         {
-          "name": "com.github.alexarchambault-case-app-util_2.11-1.2.0-pom",
-          "filename": "case-app-util_2.11-1.2.0.pom",
-          "path": "com/github/alexarchambault/case-app-util_2.11/1.2.0",
+          "name": "com.github.alexarchambault-case-app-util_2.12-1.2.0-pom",
+          "filename": "case-app-util_2.12-1.2.0.pom",
+          "path": "com/github/alexarchambault/case-app-util_2.12/1.2.0",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/github/alexarchambault/case-app-util_2.11/1.2.0/case-app-util_2.11-1.2.0.pom",
-            "http://clojars.org/repo/com/github/alexarchambault/case-app-util_2.11/1.2.0/case-app-util_2.11-1.2.0.pom",
-            "https://jitpack.io/com/github/alexarchambault/case-app-util_2.11/1.2.0/case-app-util_2.11-1.2.0.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/com/github/alexarchambault/case-app-util_2.11/1.2.0/case-app-util_2.11-1.2.0.pom"
+            "https://repo.maven.apache.org/maven2/com/github/alexarchambault/case-app-util_2.12/1.2.0/case-app-util_2.12-1.2.0.pom",
+            "http://clojars.org/repo/com/github/alexarchambault/case-app-util_2.12/1.2.0/case-app-util_2.12-1.2.0.pom",
+            "https://jitpack.io/com/github/alexarchambault/case-app-util_2.12/1.2.0/case-app-util_2.12-1.2.0.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/com/github/alexarchambault/case-app-util_2.12/1.2.0/case-app-util_2.12-1.2.0.pom"
           ],
-          "sha256": "eaf30631c43189c167911bbbf661db39aad16d7a38a62d3ee579d65eb4f9ca34"
+          "sha256": "1526815fe6161f0ceefc528c438e527784054bacbd6492fa39c721a1da1a1a49"
         },
         {
-          "name": "com.github.alexarchambault-case-app_2.11-1.2.0-jar",
-          "filename": "case-app_2.11-1.2.0.jar",
-          "path": "com/github/alexarchambault/case-app_2.11/1.2.0",
+          "name": "com.github.alexarchambault-case-app_2.12-1.2.0-jar",
+          "filename": "case-app_2.12-1.2.0.jar",
+          "path": "com/github/alexarchambault/case-app_2.12/1.2.0",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/github/alexarchambault/case-app_2.11/1.2.0/case-app_2.11-1.2.0.jar",
-            "http://clojars.org/repo/com/github/alexarchambault/case-app_2.11/1.2.0/case-app_2.11-1.2.0.jar",
-            "https://jitpack.io/com/github/alexarchambault/case-app_2.11/1.2.0/case-app_2.11-1.2.0.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/com/github/alexarchambault/case-app_2.11/1.2.0/case-app_2.11-1.2.0.jar"
+            "https://repo.maven.apache.org/maven2/com/github/alexarchambault/case-app_2.12/1.2.0/case-app_2.12-1.2.0.jar",
+            "http://clojars.org/repo/com/github/alexarchambault/case-app_2.12/1.2.0/case-app_2.12-1.2.0.jar",
+            "https://jitpack.io/com/github/alexarchambault/case-app_2.12/1.2.0/case-app_2.12-1.2.0.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/com/github/alexarchambault/case-app_2.12/1.2.0/case-app_2.12-1.2.0.jar"
           ],
-          "sha256": "5dde65c3c718ca12b6eddc0b3c8b005fe847dfdb0710c28b8c5a26a6d845a550"
+          "sha256": "b3326b400394700ca92e5eaaa3389a9b713568ec80eaf6daec58c4f4828ec343"
         },
         {
-          "name": "com.github.alexarchambault-case-app_2.11-1.2.0-pom",
-          "filename": "case-app_2.11-1.2.0.pom",
-          "path": "com/github/alexarchambault/case-app_2.11/1.2.0",
+          "name": "com.github.alexarchambault-case-app_2.12-1.2.0-pom",
+          "filename": "case-app_2.12-1.2.0.pom",
+          "path": "com/github/alexarchambault/case-app_2.12/1.2.0",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/github/alexarchambault/case-app_2.11/1.2.0/case-app_2.11-1.2.0.pom",
-            "http://clojars.org/repo/com/github/alexarchambault/case-app_2.11/1.2.0/case-app_2.11-1.2.0.pom",
-            "https://jitpack.io/com/github/alexarchambault/case-app_2.11/1.2.0/case-app_2.11-1.2.0.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/com/github/alexarchambault/case-app_2.11/1.2.0/case-app_2.11-1.2.0.pom"
+            "https://repo.maven.apache.org/maven2/com/github/alexarchambault/case-app_2.12/1.2.0/case-app_2.12-1.2.0.pom",
+            "http://clojars.org/repo/com/github/alexarchambault/case-app_2.12/1.2.0/case-app_2.12-1.2.0.pom",
+            "https://jitpack.io/com/github/alexarchambault/case-app_2.12/1.2.0/case-app_2.12-1.2.0.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/com/github/alexarchambault/case-app_2.12/1.2.0/case-app_2.12-1.2.0.pom"
           ],
-          "sha256": "bd318001ec581c9f594472376017e0035569cc77f0213d9d5f32b4598d9b5247"
+          "sha256": "2950bbe381180257b2477d705749a2f2ba9b66eb722f56086ab69ee22fa7304b"
+        },
+        {
+          "name": "com.github.codacy-codacy-coverage-reporter--SNAPSHOT-jar",
+          "filename": "codacy-coverage-reporter--SNAPSHOT.jar",
+          "path": "com/github/codacy/codacy-coverage-reporter/-SNAPSHOT",
+          "urls": [
+            "https://repo.maven.apache.org/maven2/com/github/codacy/codacy-coverage-reporter/-SNAPSHOT/codacy-coverage-reporter--SNAPSHOT.jar",
+            "http://clojars.org/repo/com/github/codacy/codacy-coverage-reporter/-SNAPSHOT/codacy-coverage-reporter--SNAPSHOT.jar",
+            "https://jitpack.io/com/github/codacy/codacy-coverage-reporter/-SNAPSHOT/codacy-coverage-reporter--SNAPSHOT.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/com/github/codacy/codacy-coverage-reporter/-SNAPSHOT/codacy-coverage-reporter--SNAPSHOT.jar"
+          ],
+          "sha256": "e6f86fb2c7d58406023be8c8dc27d3508388d06aaad1eee35fd75b800100e6e0"
         },
         {
           "name": "com.github.codacy-codacy-coverage-reporter--SNAPSHOT-pom",
@@ -1342,7 +1678,7 @@
             "https://jitpack.io/com/github/codacy/codacy-coverage-reporter/-SNAPSHOT/codacy-coverage-reporter--SNAPSHOT.pom",
             "http://dl.bintray.com/typesafe/maven-releases/com/github/codacy/codacy-coverage-reporter/-SNAPSHOT/codacy-coverage-reporter--SNAPSHOT.pom"
           ],
-          "sha256": "191bc0c5d550086915c0673970ca931a1a225534ae88081067e733e17f068bb7"
+          "sha256": "a2f688d60a812d1a96572ac21f3d6947b5c970f828c66c8bac45039aafc0424c"
         },
         {
           "name": "com.google.code.findbugs-annotations-2.0.1-jar",
@@ -1765,88 +2101,88 @@
           "sha256": "82c21bce2967242540110131376686e4e69b3aaa4ef558cc8ffac4c8b8784663"
         },
         {
-          "name": "com.typesafe.play-play-functional_2.11-2.6.10-jar",
-          "filename": "play-functional_2.11-2.6.10.jar",
-          "path": "com/typesafe/play/play-functional_2.11/2.6.10",
+          "name": "com.typesafe.play-play-functional_2.12-2.6.10-jar",
+          "filename": "play-functional_2.12-2.6.10.jar",
+          "path": "com/typesafe/play/play-functional_2.12/2.6.10",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/typesafe/play/play-functional_2.11/2.6.10/play-functional_2.11-2.6.10.jar",
-            "http://clojars.org/repo/com/typesafe/play/play-functional_2.11/2.6.10/play-functional_2.11-2.6.10.jar",
-            "https://jitpack.io/com/typesafe/play/play-functional_2.11/2.6.10/play-functional_2.11-2.6.10.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/play/play-functional_2.11/2.6.10/play-functional_2.11-2.6.10.jar"
+            "https://repo.maven.apache.org/maven2/com/typesafe/play/play-functional_2.12/2.6.10/play-functional_2.12-2.6.10.jar",
+            "http://clojars.org/repo/com/typesafe/play/play-functional_2.12/2.6.10/play-functional_2.12-2.6.10.jar",
+            "https://jitpack.io/com/typesafe/play/play-functional_2.12/2.6.10/play-functional_2.12-2.6.10.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/play/play-functional_2.12/2.6.10/play-functional_2.12-2.6.10.jar"
           ],
-          "sha256": "4ff2e8923b78442c49ca631025b7b8c6e8b19151b5d7b096d01c0e2039db3ef9"
+          "sha256": "a2593541782bdc2413ee80701628ff1de8f7d26a448564dbefca8b8bc73745e8"
         },
         {
-          "name": "com.typesafe.play-play-functional_2.11-2.6.10-pom",
-          "filename": "play-functional_2.11-2.6.10.pom",
-          "path": "com/typesafe/play/play-functional_2.11/2.6.10",
+          "name": "com.typesafe.play-play-functional_2.12-2.6.10-pom",
+          "filename": "play-functional_2.12-2.6.10.pom",
+          "path": "com/typesafe/play/play-functional_2.12/2.6.10",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/typesafe/play/play-functional_2.11/2.6.10/play-functional_2.11-2.6.10.pom",
-            "http://clojars.org/repo/com/typesafe/play/play-functional_2.11/2.6.10/play-functional_2.11-2.6.10.pom",
-            "https://jitpack.io/com/typesafe/play/play-functional_2.11/2.6.10/play-functional_2.11-2.6.10.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/play/play-functional_2.11/2.6.10/play-functional_2.11-2.6.10.pom"
+            "https://repo.maven.apache.org/maven2/com/typesafe/play/play-functional_2.12/2.6.10/play-functional_2.12-2.6.10.pom",
+            "http://clojars.org/repo/com/typesafe/play/play-functional_2.12/2.6.10/play-functional_2.12-2.6.10.pom",
+            "https://jitpack.io/com/typesafe/play/play-functional_2.12/2.6.10/play-functional_2.12-2.6.10.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/play/play-functional_2.12/2.6.10/play-functional_2.12-2.6.10.pom"
           ],
-          "sha256": "d22c319f736e7c9c8dc42f6262656576a551ac9ce6b1dcf8d4d3f5b3c1c04333"
+          "sha256": "38f0d1106006a1355de9d796fa844d6eef102165ef45a04707846e40601fd98a"
         },
         {
-          "name": "com.typesafe.play-play-json_2.11-2.6.10-jar",
-          "filename": "play-json_2.11-2.6.10.jar",
-          "path": "com/typesafe/play/play-json_2.11/2.6.10",
+          "name": "com.typesafe.play-play-json_2.12-2.6.10-jar",
+          "filename": "play-json_2.12-2.6.10.jar",
+          "path": "com/typesafe/play/play-json_2.12/2.6.10",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/typesafe/play/play-json_2.11/2.6.10/play-json_2.11-2.6.10.jar",
-            "http://clojars.org/repo/com/typesafe/play/play-json_2.11/2.6.10/play-json_2.11-2.6.10.jar",
-            "https://jitpack.io/com/typesafe/play/play-json_2.11/2.6.10/play-json_2.11-2.6.10.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/play/play-json_2.11/2.6.10/play-json_2.11-2.6.10.jar"
+            "https://repo.maven.apache.org/maven2/com/typesafe/play/play-json_2.12/2.6.10/play-json_2.12-2.6.10.jar",
+            "http://clojars.org/repo/com/typesafe/play/play-json_2.12/2.6.10/play-json_2.12-2.6.10.jar",
+            "https://jitpack.io/com/typesafe/play/play-json_2.12/2.6.10/play-json_2.12-2.6.10.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/play/play-json_2.12/2.6.10/play-json_2.12-2.6.10.jar"
           ],
-          "sha256": "f1a6588769450ce1b47d6a5145d23566c52ae807f8bc45c78e1f313cd051c0d3"
+          "sha256": "62dafe5ef0e7f933e481e59394ae14da92873f5dec6c0ba00a1e1b13c189029d"
         },
         {
-          "name": "com.typesafe.play-play-json_2.11-2.6.10-pom",
-          "filename": "play-json_2.11-2.6.10.pom",
-          "path": "com/typesafe/play/play-json_2.11/2.6.10",
+          "name": "com.typesafe.play-play-json_2.12-2.6.10-pom",
+          "filename": "play-json_2.12-2.6.10.pom",
+          "path": "com/typesafe/play/play-json_2.12/2.6.10",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/typesafe/play/play-json_2.11/2.6.10/play-json_2.11-2.6.10.pom",
-            "http://clojars.org/repo/com/typesafe/play/play-json_2.11/2.6.10/play-json_2.11-2.6.10.pom",
-            "https://jitpack.io/com/typesafe/play/play-json_2.11/2.6.10/play-json_2.11-2.6.10.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/play/play-json_2.11/2.6.10/play-json_2.11-2.6.10.pom"
+            "https://repo.maven.apache.org/maven2/com/typesafe/play/play-json_2.12/2.6.10/play-json_2.12-2.6.10.pom",
+            "http://clojars.org/repo/com/typesafe/play/play-json_2.12/2.6.10/play-json_2.12-2.6.10.pom",
+            "https://jitpack.io/com/typesafe/play/play-json_2.12/2.6.10/play-json_2.12-2.6.10.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/play/play-json_2.12/2.6.10/play-json_2.12-2.6.10.pom"
           ],
-          "sha256": "3c8bb5068fb317332f8af6f0f3a8afe547c0cb59ca319bf9c3ab935d890f6d21"
+          "sha256": "ec2ed1977b95df93a3e2e1abf9b0c0cf05a4984fa31eeddb1270f9a5c7426565"
         },
         {
-          "name": "com.typesafe.play-play-json_2.11-2.6.10-sources-jar",
-          "filename": "play-json_2.11-2.6.10-sources.jar",
-          "path": "com/typesafe/play/play-json_2.11/2.6.10",
+          "name": "com.typesafe.play-play-json_2.12-2.6.10-sources-jar",
+          "filename": "play-json_2.12-2.6.10-sources.jar",
+          "path": "com/typesafe/play/play-json_2.12/2.6.10",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/typesafe/play/play-json_2.11/2.6.10/play-json_2.11-2.6.10-sources.jar",
-            "http://clojars.org/repo/com/typesafe/play/play-json_2.11/2.6.10/play-json_2.11-2.6.10-sources.jar",
-            "https://jitpack.io/com/typesafe/play/play-json_2.11/2.6.10/play-json_2.11-2.6.10-sources.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/play/play-json_2.11/2.6.10/play-json_2.11-2.6.10-sources.jar"
+            "https://repo.maven.apache.org/maven2/com/typesafe/play/play-json_2.12/2.6.10/play-json_2.12-2.6.10-sources.jar",
+            "http://clojars.org/repo/com/typesafe/play/play-json_2.12/2.6.10/play-json_2.12-2.6.10-sources.jar",
+            "https://jitpack.io/com/typesafe/play/play-json_2.12/2.6.10/play-json_2.12-2.6.10-sources.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/play/play-json_2.12/2.6.10/play-json_2.12-2.6.10-sources.jar"
           ],
-          "sha256": "411cd8ee5454969381ec1ce1e8bd3e6db6d4859c1eee10cec54418531c14ccda"
+          "sha256": "b85540722c3bd0b0785dc769d1a2544f174f4f67a57eac979f03bd574039231b"
         },
         {
-          "name": "com.typesafe.scala-logging-scala-logging_2.11-3.9.0-jar",
-          "filename": "scala-logging_2.11-3.9.0.jar",
-          "path": "com/typesafe/scala-logging/scala-logging_2.11/3.9.0",
+          "name": "com.typesafe.scala-logging-scala-logging_2.12-3.9.0-jar",
+          "filename": "scala-logging_2.12-3.9.0.jar",
+          "path": "com/typesafe/scala-logging/scala-logging_2.12/3.9.0",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/typesafe/scala-logging/scala-logging_2.11/3.9.0/scala-logging_2.11-3.9.0.jar",
-            "http://clojars.org/repo/com/typesafe/scala-logging/scala-logging_2.11/3.9.0/scala-logging_2.11-3.9.0.jar",
-            "https://jitpack.io/com/typesafe/scala-logging/scala-logging_2.11/3.9.0/scala-logging_2.11-3.9.0.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/scala-logging/scala-logging_2.11/3.9.0/scala-logging_2.11-3.9.0.jar"
+            "https://repo.maven.apache.org/maven2/com/typesafe/scala-logging/scala-logging_2.12/3.9.0/scala-logging_2.12-3.9.0.jar",
+            "http://clojars.org/repo/com/typesafe/scala-logging/scala-logging_2.12/3.9.0/scala-logging_2.12-3.9.0.jar",
+            "https://jitpack.io/com/typesafe/scala-logging/scala-logging_2.12/3.9.0/scala-logging_2.12-3.9.0.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/scala-logging/scala-logging_2.12/3.9.0/scala-logging_2.12-3.9.0.jar"
           ],
-          "sha256": "6f58222c736833066894f51de21fdac840e573a545e776dafff670b673ed52e4"
+          "sha256": "58073c9891e26b99a12c1b501754d8447897913e023fdd37765b58e6377408bc"
         },
         {
-          "name": "com.typesafe.scala-logging-scala-logging_2.11-3.9.0-pom",
-          "filename": "scala-logging_2.11-3.9.0.pom",
-          "path": "com/typesafe/scala-logging/scala-logging_2.11/3.9.0",
+          "name": "com.typesafe.scala-logging-scala-logging_2.12-3.9.0-pom",
+          "filename": "scala-logging_2.12-3.9.0.pom",
+          "path": "com/typesafe/scala-logging/scala-logging_2.12/3.9.0",
           "urls": [
-            "https://repo.maven.apache.org/maven2/com/typesafe/scala-logging/scala-logging_2.11/3.9.0/scala-logging_2.11-3.9.0.pom",
-            "http://clojars.org/repo/com/typesafe/scala-logging/scala-logging_2.11/3.9.0/scala-logging_2.11-3.9.0.pom",
-            "https://jitpack.io/com/typesafe/scala-logging/scala-logging_2.11/3.9.0/scala-logging_2.11-3.9.0.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/scala-logging/scala-logging_2.11/3.9.0/scala-logging_2.11-3.9.0.pom"
+            "https://repo.maven.apache.org/maven2/com/typesafe/scala-logging/scala-logging_2.12/3.9.0/scala-logging_2.12-3.9.0.pom",
+            "http://clojars.org/repo/com/typesafe/scala-logging/scala-logging_2.12/3.9.0/scala-logging_2.12-3.9.0.pom",
+            "https://jitpack.io/com/typesafe/scala-logging/scala-logging_2.12/3.9.0/scala-logging_2.12-3.9.0.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/com/typesafe/scala-logging/scala-logging_2.12/3.9.0/scala-logging_2.12-3.9.0.pom"
           ],
-          "sha256": "b5e802337ab9560aa00d984d684d102e3193fe0ff689878db8bc8c1f089aef66"
+          "sha256": "c5f85d0e2749b9323df8d63f3d541fd7b0d61fd64ad7d916e7a68a6f81879caf"
         },
         {
           "name": "commons-beanutils-commons-beanutils-1.9.2-jar",
@@ -2185,28 +2521,28 @@
           "sha256": "fc3db49d13f6061edb15774ad5a2a7b279ea51aa90097087988b05a806decfff"
         },
         {
-          "name": "junit-junit-4.13-rc-1-jar",
-          "filename": "junit-4.13-rc-1.jar",
-          "path": "junit/junit/4.13-rc-1",
+          "name": "junit-junit-4.13-rc-2-jar",
+          "filename": "junit-4.13-rc-2.jar",
+          "path": "junit/junit/4.13-rc-2",
           "urls": [
-            "https://repo.maven.apache.org/maven2/junit/junit/4.13-rc-1/junit-4.13-rc-1.jar",
-            "http://clojars.org/repo/junit/junit/4.13-rc-1/junit-4.13-rc-1.jar",
-            "https://jitpack.io/junit/junit/4.13-rc-1/junit-4.13-rc-1.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/junit/junit/4.13-rc-1/junit-4.13-rc-1.jar"
+            "https://repo.maven.apache.org/maven2/junit/junit/4.13-rc-2/junit-4.13-rc-2.jar",
+            "http://clojars.org/repo/junit/junit/4.13-rc-2/junit-4.13-rc-2.jar",
+            "https://jitpack.io/junit/junit/4.13-rc-2/junit-4.13-rc-2.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/junit/junit/4.13-rc-2/junit-4.13-rc-2.jar"
           ],
-          "sha256": "a1dc50121ca16529b8f3a0f03f8aa082edc3c2bb5a7796a8f969170049173d1c"
+          "sha256": "0ebc2b8957c6b2770011253777d8ac173745f54bb267337be175e283619e93ba"
         },
         {
-          "name": "junit-junit-4.13-rc-1-pom",
-          "filename": "junit-4.13-rc-1.pom",
-          "path": "junit/junit/4.13-rc-1",
+          "name": "junit-junit-4.13-rc-2-pom",
+          "filename": "junit-4.13-rc-2.pom",
+          "path": "junit/junit/4.13-rc-2",
           "urls": [
-            "https://repo.maven.apache.org/maven2/junit/junit/4.13-rc-1/junit-4.13-rc-1.pom",
-            "http://clojars.org/repo/junit/junit/4.13-rc-1/junit-4.13-rc-1.pom",
-            "https://jitpack.io/junit/junit/4.13-rc-1/junit-4.13-rc-1.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/junit/junit/4.13-rc-1/junit-4.13-rc-1.pom"
+            "https://repo.maven.apache.org/maven2/junit/junit/4.13-rc-2/junit-4.13-rc-2.pom",
+            "http://clojars.org/repo/junit/junit/4.13-rc-2/junit-4.13-rc-2.pom",
+            "https://jitpack.io/junit/junit/4.13-rc-2/junit-4.13-rc-2.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/junit/junit/4.13-rc-2/junit-4.13-rc-2.pom"
           ],
-          "sha256": "03e348758fc28f2da83e155f0f9109b57eba7856965c218556692fbcf395f907"
+          "sha256": "0135dca271da6bfb4983a48980694d6bc5506b2dd6e1ca54e85469be92364c21"
         },
         {
           "name": "net.sf.saxon-Saxon-HE-9.9.0-2-jar",
@@ -3073,6 +3409,138 @@
           "sha256": "f3beaf6715a2302f338a388157dd2d10261dd40e8bb57af13d86b123a980158d"
         },
         {
+          "name": "org.openjfx-javafx-base-11.0.2-jar",
+          "filename": "javafx-base-11.0.2.jar",
+          "path": "org/openjfx/javafx-base/11.0.2",
+          "urls": [
+            "https://repo.maven.apache.org/maven2/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2.jar",
+            "http://clojars.org/repo/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2.jar",
+            "https://jitpack.io/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2.jar"
+          ],
+          "sha256": "1f2f88898f54f1a29e2b58caaeb0a11050598a07524f296cd9aef6c00bb93d0f"
+        },
+        {
+          "name": "org.openjfx-javafx-base-11.0.2-pom",
+          "filename": "javafx-base-11.0.2.pom",
+          "path": "org/openjfx/javafx-base/11.0.2",
+          "urls": [
+            "https://repo.maven.apache.org/maven2/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2.pom",
+            "http://clojars.org/repo/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2.pom",
+            "https://jitpack.io/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2.pom"
+          ],
+          "sha256": "17f41668850b803ba4a83a7e2d96039b69f072788bbdba88e09fec8157a0329c"
+        },
+        {
+          "name": "org.openjfx-javafx-base-11.0.2-linux-jar",
+          "filename": "javafx-base-11.0.2-linux.jar",
+          "path": "org/openjfx/javafx-base/11.0.2",
+          "urls": [
+            "https://repo.maven.apache.org/maven2/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-linux.jar",
+            "http://clojars.org/repo/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-linux.jar",
+            "https://jitpack.io/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-linux.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-linux.jar"
+          ],
+          "sha256": "84c356f1344bfd3aa74b55a23a0ce078b4c5e6a9be8853da8de415e5ecfcd41b"
+        },
+        {
+          "name": "org.openjfx-javafx-graphics-11.0.2-jar",
+          "filename": "javafx-graphics-11.0.2.jar",
+          "path": "org/openjfx/javafx-graphics/11.0.2",
+          "urls": [
+            "https://repo.maven.apache.org/maven2/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2.jar",
+            "http://clojars.org/repo/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2.jar",
+            "https://jitpack.io/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2.jar"
+          ],
+          "sha256": "dee900a186a70bae8266845c56b03ad9a24e697cb52ba3da421c6049089b3638"
+        },
+        {
+          "name": "org.openjfx-javafx-graphics-11.0.2-pom",
+          "filename": "javafx-graphics-11.0.2.pom",
+          "path": "org/openjfx/javafx-graphics/11.0.2",
+          "urls": [
+            "https://repo.maven.apache.org/maven2/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2.pom",
+            "http://clojars.org/repo/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2.pom",
+            "https://jitpack.io/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2.pom"
+          ],
+          "sha256": "e4edfea2cd9635adc92d3a9ba7cd5ec3a56ab1b17ea4a2560d122bfbdee053c8"
+        },
+        {
+          "name": "org.openjfx-javafx-graphics-11.0.2-linux-jar",
+          "filename": "javafx-graphics-11.0.2-linux.jar",
+          "path": "org/openjfx/javafx-graphics/11.0.2",
+          "urls": [
+            "https://repo.maven.apache.org/maven2/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-linux.jar",
+            "http://clojars.org/repo/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-linux.jar",
+            "https://jitpack.io/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-linux.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-linux.jar"
+          ],
+          "sha256": "fb209564e50de3d8d055d9b3cd69d46a16d3ef18ec55162fc1300d1408a9d502"
+        },
+        {
+          "name": "org.openjfx-javafx-graphics-11.0.2-mac-jar",
+          "filename": "javafx-graphics-11.0.2-mac.jar",
+          "path": "org/openjfx/javafx-graphics/11.0.2",
+          "urls": [
+            "https://repo.maven.apache.org/maven2/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-mac.jar",
+            "http://clojars.org/repo/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-mac.jar",
+            "https://jitpack.io/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-mac.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-mac.jar"
+          ],
+          "sha256": "7e07721f4615c408e3934a093ae8aedf3b4243b80cd2a37ea16b4f5e8f66a194"
+        },
+        {
+          "name": "org.openjfx-javafx-graphics-11.0.2-win-jar",
+          "filename": "javafx-graphics-11.0.2-win.jar",
+          "path": "org/openjfx/javafx-graphics/11.0.2",
+          "urls": [
+            "https://repo.maven.apache.org/maven2/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-win.jar",
+            "http://clojars.org/repo/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-win.jar",
+            "https://jitpack.io/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-win.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-win.jar"
+          ],
+          "sha256": "853109f747709bc31e9298baf531c84dbda1764fe24533390635aa4049cfb29b"
+        },
+        {
+          "name": "org.openjfx-javafx-swing-11.0.2-pom",
+          "filename": "javafx-swing-11.0.2.pom",
+          "path": "org/openjfx/javafx-swing/11.0.2",
+          "urls": [
+            "https://repo.maven.apache.org/maven2/org/openjfx/javafx-swing/11.0.2/javafx-swing-11.0.2.pom",
+            "http://clojars.org/repo/org/openjfx/javafx-swing/11.0.2/javafx-swing-11.0.2.pom",
+            "https://jitpack.io/org/openjfx/javafx-swing/11.0.2/javafx-swing-11.0.2.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/org/openjfx/javafx-swing/11.0.2/javafx-swing-11.0.2.pom"
+          ],
+          "sha256": "86ebe526581be63786de12713cc14bdb7c15030ccf69c8c9ee596ec3252d07b3"
+        },
+        {
+          "name": "org.openjfx-javafx-swing-11.0.2-linux-jar",
+          "filename": "javafx-swing-11.0.2-linux.jar",
+          "path": "org/openjfx/javafx-swing/11.0.2",
+          "urls": [
+            "https://repo.maven.apache.org/maven2/org/openjfx/javafx-swing/11.0.2/javafx-swing-11.0.2-linux.jar",
+            "http://clojars.org/repo/org/openjfx/javafx-swing/11.0.2/javafx-swing-11.0.2-linux.jar",
+            "https://jitpack.io/org/openjfx/javafx-swing/11.0.2/javafx-swing-11.0.2-linux.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/org/openjfx/javafx-swing/11.0.2/javafx-swing-11.0.2-linux.jar"
+          ],
+          "sha256": "e562dbdad05b2864e8dc5ef9721b0c9a2cb173159da4496a2782b8cd1e65b14c"
+        },
+        {
+          "name": "org.openjfx-javafx-11.0.2-pom",
+          "filename": "javafx-11.0.2.pom",
+          "path": "org/openjfx/javafx/11.0.2",
+          "urls": [
+            "https://repo.maven.apache.org/maven2/org/openjfx/javafx/11.0.2/javafx-11.0.2.pom",
+            "http://clojars.org/repo/org/openjfx/javafx/11.0.2/javafx-11.0.2.pom",
+            "https://jitpack.io/org/openjfx/javafx/11.0.2/javafx-11.0.2.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/org/openjfx/javafx/11.0.2/javafx-11.0.2.pom"
+          ],
+          "sha256": "bc67f03d0d95b175114a98efffb13e44e46ad9e3ac19eff0e8e063a6e7675ad8"
+        },
+        {
           "name": "org.ow2.asm-asm-analysis-7.1-jar",
           "filename": "asm-analysis-7.1.jar",
           "path": "org/ow2/asm/asm-analysis/7.1",
@@ -3205,100 +3673,100 @@
           "sha256": "da63282e6604864c5f00ed0242481c0588878ffe4e31bb63c6375f0681e6e4bd"
         },
         {
-          "name": "org.scala-lang.modules-scala-xml_2.11-1.1.1-jar",
-          "filename": "scala-xml_2.11-1.1.1.jar",
-          "path": "org/scala-lang/modules/scala-xml_2.11/1.1.1",
+          "name": "org.scala-lang.modules-scala-xml_2.12-1.1.1-jar",
+          "filename": "scala-xml_2.12-1.1.1.jar",
+          "path": "org/scala-lang/modules/scala-xml_2.12/1.1.1",
           "urls": [
-            "https://repo.maven.apache.org/maven2/org/scala-lang/modules/scala-xml_2.11/1.1.1/scala-xml_2.11-1.1.1.jar",
-            "http://clojars.org/repo/org/scala-lang/modules/scala-xml_2.11/1.1.1/scala-xml_2.11-1.1.1.jar",
-            "https://jitpack.io/org/scala-lang/modules/scala-xml_2.11/1.1.1/scala-xml_2.11-1.1.1.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/org/scala-lang/modules/scala-xml_2.11/1.1.1/scala-xml_2.11-1.1.1.jar"
+            "https://repo.maven.apache.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.1.1/scala-xml_2.12-1.1.1.jar",
+            "http://clojars.org/repo/org/scala-lang/modules/scala-xml_2.12/1.1.1/scala-xml_2.12-1.1.1.jar",
+            "https://jitpack.io/org/scala-lang/modules/scala-xml_2.12/1.1.1/scala-xml_2.12-1.1.1.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/org/scala-lang/modules/scala-xml_2.12/1.1.1/scala-xml_2.12-1.1.1.jar"
           ],
-          "sha256": "e420a7e75b8bdf67727e0e1d947d18da199c91f25fec0fa98dc45666b75edac7"
+          "sha256": "dbc3964556e8ac9de5378fc0f8c5f657cd8e1f9896a0d005f4f469c6b056f9be"
         },
         {
-          "name": "org.scala-lang.modules-scala-xml_2.11-1.1.1-pom",
-          "filename": "scala-xml_2.11-1.1.1.pom",
-          "path": "org/scala-lang/modules/scala-xml_2.11/1.1.1",
+          "name": "org.scala-lang.modules-scala-xml_2.12-1.1.1-pom",
+          "filename": "scala-xml_2.12-1.1.1.pom",
+          "path": "org/scala-lang/modules/scala-xml_2.12/1.1.1",
           "urls": [
-            "https://repo.maven.apache.org/maven2/org/scala-lang/modules/scala-xml_2.11/1.1.1/scala-xml_2.11-1.1.1.pom",
-            "http://clojars.org/repo/org/scala-lang/modules/scala-xml_2.11/1.1.1/scala-xml_2.11-1.1.1.pom",
-            "https://jitpack.io/org/scala-lang/modules/scala-xml_2.11/1.1.1/scala-xml_2.11-1.1.1.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/org/scala-lang/modules/scala-xml_2.11/1.1.1/scala-xml_2.11-1.1.1.pom"
+            "https://repo.maven.apache.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.1.1/scala-xml_2.12-1.1.1.pom",
+            "http://clojars.org/repo/org/scala-lang/modules/scala-xml_2.12/1.1.1/scala-xml_2.12-1.1.1.pom",
+            "https://jitpack.io/org/scala-lang/modules/scala-xml_2.12/1.1.1/scala-xml_2.12-1.1.1.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/org/scala-lang/modules/scala-xml_2.12/1.1.1/scala-xml_2.12-1.1.1.pom"
           ],
-          "sha256": "cb9bd375386c88bd7d4f3645d30098d51432f885f6f3e694623b1f6014f9220a"
+          "sha256": "0b696de4f557ab32d44783f7718fa4a0f23da63008e44d9571f4176fab278152"
         },
         {
-          "name": "org.scala-lang-scala-library-2.11.12-jar",
-          "filename": "scala-library-2.11.12.jar",
-          "path": "org/scala-lang/scala-library/2.11.12",
+          "name": "org.scala-lang-scala-library-2.12.10-jar",
+          "filename": "scala-library-2.12.10.jar",
+          "path": "org/scala-lang/scala-library/2.12.10",
           "urls": [
-            "https://repo.maven.apache.org/maven2/org/scala-lang/scala-library/2.11.12/scala-library-2.11.12.jar",
-            "http://clojars.org/repo/org/scala-lang/scala-library/2.11.12/scala-library-2.11.12.jar",
-            "https://jitpack.io/org/scala-lang/scala-library/2.11.12/scala-library-2.11.12.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/org/scala-lang/scala-library/2.11.12/scala-library-2.11.12.jar"
+            "https://repo.maven.apache.org/maven2/org/scala-lang/scala-library/2.12.10/scala-library-2.12.10.jar",
+            "http://clojars.org/repo/org/scala-lang/scala-library/2.12.10/scala-library-2.12.10.jar",
+            "https://jitpack.io/org/scala-lang/scala-library/2.12.10/scala-library-2.12.10.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/org/scala-lang/scala-library/2.12.10/scala-library-2.12.10.jar"
           ],
-          "sha256": "0b3d6fd42958ee98715ba2ec5fe221f4ca1e694d7c981b0ae0cd68e97baf6dce"
+          "sha256": "0a57044d10895f8d3dd66ad4286891f607169d948845ac51e17b4c1cf0ab569d"
         },
         {
-          "name": "org.scala-lang-scala-library-2.11.12-pom",
-          "filename": "scala-library-2.11.12.pom",
-          "path": "org/scala-lang/scala-library/2.11.12",
+          "name": "org.scala-lang-scala-library-2.12.10-pom",
+          "filename": "scala-library-2.12.10.pom",
+          "path": "org/scala-lang/scala-library/2.12.10",
           "urls": [
-            "https://repo.maven.apache.org/maven2/org/scala-lang/scala-library/2.11.12/scala-library-2.11.12.pom",
-            "http://clojars.org/repo/org/scala-lang/scala-library/2.11.12/scala-library-2.11.12.pom",
-            "https://jitpack.io/org/scala-lang/scala-library/2.11.12/scala-library-2.11.12.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/org/scala-lang/scala-library/2.11.12/scala-library-2.11.12.pom"
+            "https://repo.maven.apache.org/maven2/org/scala-lang/scala-library/2.12.10/scala-library-2.12.10.pom",
+            "http://clojars.org/repo/org/scala-lang/scala-library/2.12.10/scala-library-2.12.10.pom",
+            "https://jitpack.io/org/scala-lang/scala-library/2.12.10/scala-library-2.12.10.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/org/scala-lang/scala-library/2.12.10/scala-library-2.12.10.pom"
           ],
-          "sha256": "34b6dc77529781224d72552c08ce95ee6ea6681da87d649aad8a4fda95dcc1ed"
+          "sha256": "b7340bf1930762bf5052b69b5e28be646076a1b210260a7c407a099648617669"
         },
         {
-          "name": "org.scala-lang-scala-reflect-2.11.12-jar",
-          "filename": "scala-reflect-2.11.12.jar",
-          "path": "org/scala-lang/scala-reflect/2.11.12",
+          "name": "org.scala-lang-scala-reflect-2.12.4-jar",
+          "filename": "scala-reflect-2.12.4.jar",
+          "path": "org/scala-lang/scala-reflect/2.12.4",
           "urls": [
-            "https://repo.maven.apache.org/maven2/org/scala-lang/scala-reflect/2.11.12/scala-reflect-2.11.12.jar",
-            "http://clojars.org/repo/org/scala-lang/scala-reflect/2.11.12/scala-reflect-2.11.12.jar",
-            "https://jitpack.io/org/scala-lang/scala-reflect/2.11.12/scala-reflect-2.11.12.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/org/scala-lang/scala-reflect/2.11.12/scala-reflect-2.11.12.jar"
+            "https://repo.maven.apache.org/maven2/org/scala-lang/scala-reflect/2.12.4/scala-reflect-2.12.4.jar",
+            "http://clojars.org/repo/org/scala-lang/scala-reflect/2.12.4/scala-reflect-2.12.4.jar",
+            "https://jitpack.io/org/scala-lang/scala-reflect/2.12.4/scala-reflect-2.12.4.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/org/scala-lang/scala-reflect/2.12.4/scala-reflect-2.12.4.jar"
           ],
-          "sha256": "6ba385b450a6311a15c918cf8688b9af9327c6104f0ecbd35933cfcd3095fe04"
+          "sha256": "ea70fe0e550e24d23fc52a18963b2be9c3b24283f4cb18b98327eb72746567cc"
         },
         {
-          "name": "org.scala-lang-scala-reflect-2.11.12-pom",
-          "filename": "scala-reflect-2.11.12.pom",
-          "path": "org/scala-lang/scala-reflect/2.11.12",
+          "name": "org.scala-lang-scala-reflect-2.12.4-pom",
+          "filename": "scala-reflect-2.12.4.pom",
+          "path": "org/scala-lang/scala-reflect/2.12.4",
           "urls": [
-            "https://repo.maven.apache.org/maven2/org/scala-lang/scala-reflect/2.11.12/scala-reflect-2.11.12.pom",
-            "http://clojars.org/repo/org/scala-lang/scala-reflect/2.11.12/scala-reflect-2.11.12.pom",
-            "https://jitpack.io/org/scala-lang/scala-reflect/2.11.12/scala-reflect-2.11.12.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/org/scala-lang/scala-reflect/2.11.12/scala-reflect-2.11.12.pom"
+            "https://repo.maven.apache.org/maven2/org/scala-lang/scala-reflect/2.12.4/scala-reflect-2.12.4.pom",
+            "http://clojars.org/repo/org/scala-lang/scala-reflect/2.12.4/scala-reflect-2.12.4.pom",
+            "https://jitpack.io/org/scala-lang/scala-reflect/2.12.4/scala-reflect-2.12.4.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/org/scala-lang/scala-reflect/2.12.4/scala-reflect-2.12.4.pom"
           ],
-          "sha256": "e86ed8af049706ce767cd78521f3a42ac9baa371a160989f31244a9863a5b726"
+          "sha256": "9bb07ca874c7ec1a945e32a02d4308bd3d655a3abd7a23ceb1f109c795339ce0"
         },
         {
-          "name": "org.scalaj-scalaj-http_2.11-2.4.1-jar",
-          "filename": "scalaj-http_2.11-2.4.1.jar",
-          "path": "org/scalaj/scalaj-http_2.11/2.4.1",
+          "name": "org.scalaj-scalaj-http_2.12-2.4.1-jar",
+          "filename": "scalaj-http_2.12-2.4.1.jar",
+          "path": "org/scalaj/scalaj-http_2.12/2.4.1",
           "urls": [
-            "https://repo.maven.apache.org/maven2/org/scalaj/scalaj-http_2.11/2.4.1/scalaj-http_2.11-2.4.1.jar",
-            "http://clojars.org/repo/org/scalaj/scalaj-http_2.11/2.4.1/scalaj-http_2.11-2.4.1.jar",
-            "https://jitpack.io/org/scalaj/scalaj-http_2.11/2.4.1/scalaj-http_2.11-2.4.1.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/org/scalaj/scalaj-http_2.11/2.4.1/scalaj-http_2.11-2.4.1.jar"
+            "https://repo.maven.apache.org/maven2/org/scalaj/scalaj-http_2.12/2.4.1/scalaj-http_2.12-2.4.1.jar",
+            "http://clojars.org/repo/org/scalaj/scalaj-http_2.12/2.4.1/scalaj-http_2.12-2.4.1.jar",
+            "https://jitpack.io/org/scalaj/scalaj-http_2.12/2.4.1/scalaj-http_2.12-2.4.1.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/org/scalaj/scalaj-http_2.12/2.4.1/scalaj-http_2.12-2.4.1.jar"
           ],
-          "sha256": "ceb17eb3b42a637368ae99bdac38388e0bc2af63a11c3a3d77d85b825fa5a6e6"
+          "sha256": "7ddfce7d52c436390e21958907976560dee5060abad8511015cba664e13f4ae7"
         },
         {
-          "name": "org.scalaj-scalaj-http_2.11-2.4.1-pom",
-          "filename": "scalaj-http_2.11-2.4.1.pom",
-          "path": "org/scalaj/scalaj-http_2.11/2.4.1",
+          "name": "org.scalaj-scalaj-http_2.12-2.4.1-pom",
+          "filename": "scalaj-http_2.12-2.4.1.pom",
+          "path": "org/scalaj/scalaj-http_2.12/2.4.1",
           "urls": [
-            "https://repo.maven.apache.org/maven2/org/scalaj/scalaj-http_2.11/2.4.1/scalaj-http_2.11-2.4.1.pom",
-            "http://clojars.org/repo/org/scalaj/scalaj-http_2.11/2.4.1/scalaj-http_2.11-2.4.1.pom",
-            "https://jitpack.io/org/scalaj/scalaj-http_2.11/2.4.1/scalaj-http_2.11-2.4.1.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/org/scalaj/scalaj-http_2.11/2.4.1/scalaj-http_2.11-2.4.1.pom"
+            "https://repo.maven.apache.org/maven2/org/scalaj/scalaj-http_2.12/2.4.1/scalaj-http_2.12-2.4.1.pom",
+            "http://clojars.org/repo/org/scalaj/scalaj-http_2.12/2.4.1/scalaj-http_2.12-2.4.1.pom",
+            "https://jitpack.io/org/scalaj/scalaj-http_2.12/2.4.1/scalaj-http_2.12-2.4.1.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/org/scalaj/scalaj-http_2.12/2.4.1/scalaj-http_2.12-2.4.1.pom"
           ],
-          "sha256": "9450d9e5115a150c615ef47d94c7c145b1b54739b25f3466d30433a9f57a56c1"
+          "sha256": "5e41c2a1e6858d7e2f896ab1ddff83a31d147e81bc3a6c7720bf1f64a73e1936"
         },
         {
           "name": "org.slf4j-slf4j-api-1.7.21-jar",
@@ -3421,124 +3889,28 @@
           "sha256": "fb40265f982548212ff82e362e59732b2187ec6f0d80182885c14ef1f982827a"
         },
         {
-          "name": "org.typelevel-cats-core_2.11-1.0.1-jar",
-          "filename": "cats-core_2.11-1.0.1.jar",
-          "path": "org/typelevel/cats-core_2.11/1.0.1",
+          "name": "org.typelevel-macro-compat_2.12-1.1.1-jar",
+          "filename": "macro-compat_2.12-1.1.1.jar",
+          "path": "org/typelevel/macro-compat_2.12/1.1.1",
           "urls": [
-            "https://repo.maven.apache.org/maven2/org/typelevel/cats-core_2.11/1.0.1/cats-core_2.11-1.0.1.jar",
-            "http://clojars.org/repo/org/typelevel/cats-core_2.11/1.0.1/cats-core_2.11-1.0.1.jar",
-            "https://jitpack.io/org/typelevel/cats-core_2.11/1.0.1/cats-core_2.11-1.0.1.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/org/typelevel/cats-core_2.11/1.0.1/cats-core_2.11-1.0.1.jar"
+            "https://repo.maven.apache.org/maven2/org/typelevel/macro-compat_2.12/1.1.1/macro-compat_2.12-1.1.1.jar",
+            "http://clojars.org/repo/org/typelevel/macro-compat_2.12/1.1.1/macro-compat_2.12-1.1.1.jar",
+            "https://jitpack.io/org/typelevel/macro-compat_2.12/1.1.1/macro-compat_2.12-1.1.1.jar",
+            "http://dl.bintray.com/typesafe/maven-releases/org/typelevel/macro-compat_2.12/1.1.1/macro-compat_2.12-1.1.1.jar"
           ],
-          "sha256": "480344e2a291c04b8c83acb29c80fb9b6cba2ddc408a1d1da2f7a1dfad8fc0e6"
+          "sha256": "8b1514ec99ac9c7eded284367b6c9f8f17a097198a44e6f24488706d66bbd2b8"
         },
         {
-          "name": "org.typelevel-cats-core_2.11-1.0.1-pom",
-          "filename": "cats-core_2.11-1.0.1.pom",
-          "path": "org/typelevel/cats-core_2.11/1.0.1",
+          "name": "org.typelevel-macro-compat_2.12-1.1.1-pom",
+          "filename": "macro-compat_2.12-1.1.1.pom",
+          "path": "org/typelevel/macro-compat_2.12/1.1.1",
           "urls": [
-            "https://repo.maven.apache.org/maven2/org/typelevel/cats-core_2.11/1.0.1/cats-core_2.11-1.0.1.pom",
-            "http://clojars.org/repo/org/typelevel/cats-core_2.11/1.0.1/cats-core_2.11-1.0.1.pom",
-            "https://jitpack.io/org/typelevel/cats-core_2.11/1.0.1/cats-core_2.11-1.0.1.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/org/typelevel/cats-core_2.11/1.0.1/cats-core_2.11-1.0.1.pom"
+            "https://repo.maven.apache.org/maven2/org/typelevel/macro-compat_2.12/1.1.1/macro-compat_2.12-1.1.1.pom",
+            "http://clojars.org/repo/org/typelevel/macro-compat_2.12/1.1.1/macro-compat_2.12-1.1.1.pom",
+            "https://jitpack.io/org/typelevel/macro-compat_2.12/1.1.1/macro-compat_2.12-1.1.1.pom",
+            "http://dl.bintray.com/typesafe/maven-releases/org/typelevel/macro-compat_2.12/1.1.1/macro-compat_2.12-1.1.1.pom"
           ],
-          "sha256": "faedcb962e0cc47e257c936cc022c77bb2cfd493b91f6c8551f96a2173c5c280"
-        },
-        {
-          "name": "org.typelevel-cats-kernel_2.11-1.0.1-jar",
-          "filename": "cats-kernel_2.11-1.0.1.jar",
-          "path": "org/typelevel/cats-kernel_2.11/1.0.1",
-          "urls": [
-            "https://repo.maven.apache.org/maven2/org/typelevel/cats-kernel_2.11/1.0.1/cats-kernel_2.11-1.0.1.jar",
-            "http://clojars.org/repo/org/typelevel/cats-kernel_2.11/1.0.1/cats-kernel_2.11-1.0.1.jar",
-            "https://jitpack.io/org/typelevel/cats-kernel_2.11/1.0.1/cats-kernel_2.11-1.0.1.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/org/typelevel/cats-kernel_2.11/1.0.1/cats-kernel_2.11-1.0.1.jar"
-          ],
-          "sha256": "865b012da4f510e4d0f214300dc24f1fa436c57e7f74afb087e5cc7fe8b4d40b"
-        },
-        {
-          "name": "org.typelevel-cats-kernel_2.11-1.0.1-pom",
-          "filename": "cats-kernel_2.11-1.0.1.pom",
-          "path": "org/typelevel/cats-kernel_2.11/1.0.1",
-          "urls": [
-            "https://repo.maven.apache.org/maven2/org/typelevel/cats-kernel_2.11/1.0.1/cats-kernel_2.11-1.0.1.pom",
-            "http://clojars.org/repo/org/typelevel/cats-kernel_2.11/1.0.1/cats-kernel_2.11-1.0.1.pom",
-            "https://jitpack.io/org/typelevel/cats-kernel_2.11/1.0.1/cats-kernel_2.11-1.0.1.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/org/typelevel/cats-kernel_2.11/1.0.1/cats-kernel_2.11-1.0.1.pom"
-          ],
-          "sha256": "ba07c3ec31e7ca6e40456ad181c51c6128f2d5989207c5292d6d825298f3cc4a"
-        },
-        {
-          "name": "org.typelevel-cats-macros_2.11-1.0.1-jar",
-          "filename": "cats-macros_2.11-1.0.1.jar",
-          "path": "org/typelevel/cats-macros_2.11/1.0.1",
-          "urls": [
-            "https://repo.maven.apache.org/maven2/org/typelevel/cats-macros_2.11/1.0.1/cats-macros_2.11-1.0.1.jar",
-            "http://clojars.org/repo/org/typelevel/cats-macros_2.11/1.0.1/cats-macros_2.11-1.0.1.jar",
-            "https://jitpack.io/org/typelevel/cats-macros_2.11/1.0.1/cats-macros_2.11-1.0.1.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/org/typelevel/cats-macros_2.11/1.0.1/cats-macros_2.11-1.0.1.jar"
-          ],
-          "sha256": "6ae9fa38480e66b633efdc46566ec565e6c005ddd14075bf2db112a60832953c"
-        },
-        {
-          "name": "org.typelevel-cats-macros_2.11-1.0.1-pom",
-          "filename": "cats-macros_2.11-1.0.1.pom",
-          "path": "org/typelevel/cats-macros_2.11/1.0.1",
-          "urls": [
-            "https://repo.maven.apache.org/maven2/org/typelevel/cats-macros_2.11/1.0.1/cats-macros_2.11-1.0.1.pom",
-            "http://clojars.org/repo/org/typelevel/cats-macros_2.11/1.0.1/cats-macros_2.11-1.0.1.pom",
-            "https://jitpack.io/org/typelevel/cats-macros_2.11/1.0.1/cats-macros_2.11-1.0.1.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/org/typelevel/cats-macros_2.11/1.0.1/cats-macros_2.11-1.0.1.pom"
-          ],
-          "sha256": "b0199f7ed6e1aed5a4db71453e747b2492790fb4313197f45cfbd870d37bde27"
-        },
-        {
-          "name": "org.typelevel-machinist_2.11-0.6.2-jar",
-          "filename": "machinist_2.11-0.6.2.jar",
-          "path": "org/typelevel/machinist_2.11/0.6.2",
-          "urls": [
-            "https://repo.maven.apache.org/maven2/org/typelevel/machinist_2.11/0.6.2/machinist_2.11-0.6.2.jar",
-            "http://clojars.org/repo/org/typelevel/machinist_2.11/0.6.2/machinist_2.11-0.6.2.jar",
-            "https://jitpack.io/org/typelevel/machinist_2.11/0.6.2/machinist_2.11-0.6.2.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/org/typelevel/machinist_2.11/0.6.2/machinist_2.11-0.6.2.jar"
-          ],
-          "sha256": "44d11274e9cf1d6d22cd79a38abd60986041eb8a58083682df29bafd0aaba965"
-        },
-        {
-          "name": "org.typelevel-machinist_2.11-0.6.2-pom",
-          "filename": "machinist_2.11-0.6.2.pom",
-          "path": "org/typelevel/machinist_2.11/0.6.2",
-          "urls": [
-            "https://repo.maven.apache.org/maven2/org/typelevel/machinist_2.11/0.6.2/machinist_2.11-0.6.2.pom",
-            "http://clojars.org/repo/org/typelevel/machinist_2.11/0.6.2/machinist_2.11-0.6.2.pom",
-            "https://jitpack.io/org/typelevel/machinist_2.11/0.6.2/machinist_2.11-0.6.2.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/org/typelevel/machinist_2.11/0.6.2/machinist_2.11-0.6.2.pom"
-          ],
-          "sha256": "3c3c23e89d2c1be6796a281c806606be5a0f13fae366f137b0bd7c021f077f8b"
-        },
-        {
-          "name": "org.typelevel-macro-compat_2.11-1.1.1-jar",
-          "filename": "macro-compat_2.11-1.1.1.jar",
-          "path": "org/typelevel/macro-compat_2.11/1.1.1",
-          "urls": [
-            "https://repo.maven.apache.org/maven2/org/typelevel/macro-compat_2.11/1.1.1/macro-compat_2.11-1.1.1.jar",
-            "http://clojars.org/repo/org/typelevel/macro-compat_2.11/1.1.1/macro-compat_2.11-1.1.1.jar",
-            "https://jitpack.io/org/typelevel/macro-compat_2.11/1.1.1/macro-compat_2.11-1.1.1.jar",
-            "http://dl.bintray.com/typesafe/maven-releases/org/typelevel/macro-compat_2.11/1.1.1/macro-compat_2.11-1.1.1.jar"
-          ],
-          "sha256": "5200a80ad392f0b882021d6de2efb17b874cc179ff8539f9bcedabc100b7890b"
-        },
-        {
-          "name": "org.typelevel-macro-compat_2.11-1.1.1-pom",
-          "filename": "macro-compat_2.11-1.1.1.pom",
-          "path": "org/typelevel/macro-compat_2.11/1.1.1",
-          "urls": [
-            "https://repo.maven.apache.org/maven2/org/typelevel/macro-compat_2.11/1.1.1/macro-compat_2.11-1.1.1.pom",
-            "http://clojars.org/repo/org/typelevel/macro-compat_2.11/1.1.1/macro-compat_2.11-1.1.1.pom",
-            "https://jitpack.io/org/typelevel/macro-compat_2.11/1.1.1/macro-compat_2.11-1.1.1.pom",
-            "http://dl.bintray.com/typesafe/maven-releases/org/typelevel/macro-compat_2.11/1.1.1/macro-compat_2.11-1.1.1.pom"
-          ],
-          "sha256": "c2154207174784dcc2e45b1036a119697bd43989349a179a46f3bdc5b5e7a9f4"
+          "sha256": "ae219fd3fc5c226a60d62633e3dd729dcdcec864bd303cbec247d4b5476b8613"
         },
         {
           "name": "xmlpull-xmlpull-1.1.3.1-jar",
