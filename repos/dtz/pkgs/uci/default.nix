@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "uci";
-  version = "2019-11-05";
+  version = "2019-11-30";
 
   src = fetchgit {
     url = "https://git.openwrt.org/project/${pname}.git";
-    rev = "8dd50da20de0ece65118b2b4b71f8df8ac3a1f6d";
-    sha256 = "078s0wfw8zdyx82fb8v3kw2iwdlgcvfh80cwk7wipq7aflh8bv5c";
+    rev = "165b444131453d63fc78c1d86f23c3ca36a2ffd7";
+    sha256 = "056mcm4pm02q8dglcq4s4fdi0zfmdigmlgc5nswdq12hq93k46fw";
   };
 
   nativeBuildInputs = [ cmake ];

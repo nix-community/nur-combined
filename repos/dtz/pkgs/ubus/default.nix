@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "ubus";
-  version = "2019-06-14";
+  version = "2019-12-27";
 
   src = fetchgit {
     url = "https://git.openwrt.org/project/${pname}.git";
-    rev = "2e051f62899666805d477830ef790e1149bc6a89";
-    sha256 = "0dx7hxzrmhbcndbm500vjn147y4mxfxbbg60cj9rq7ix105szmzn";
+    rev = "041c9d1c052bb4936fd03240f7d0dd64aedda972";
+    sha256 = "1lyis4knnlyb8yyq95kj4aw5y4r2xfcqnyfdx4n5ik2f4zwp7ars";
   };
 
   nativeBuildInputs = [ cmake ];
