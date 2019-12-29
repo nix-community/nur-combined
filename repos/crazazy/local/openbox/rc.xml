@@ -42,7 +42,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Mikachu</name>
+    <name>Tonolith_light</name>
     <titleLayout>NLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -362,9 +362,9 @@
       </action>
     </keybind>
     <keybind key="A-XF86AudioMute">
-        <action name="Execute">
-            <command>amixer -q set Capture toggle</command>
-        </action>
+      <action name="Execute">
+        <command>amixer -q set Capture toggle</command>
+      </action>
     </keybind>
     <keybind key="XF86AudioMute">
       <action name="Execute">
@@ -742,7 +742,7 @@
     <!-- show the manage desktops section in the client-list-(combined-)menu -->
   </menu>
   <applications>
-    <application class = "*">
+    <application class="*">
       <decor>no</decor>
     </application>
     <!--
