@@ -28,7 +28,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description = lsd2dsl.description;
-    homepage = "https://rcebits.com/lsd2dsl/index.html";
+    homepage = lsd2dsl.homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux;

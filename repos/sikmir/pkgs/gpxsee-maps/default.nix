@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = gpxsee-maps.description;
-    homepage = "https://github.com/tumic0/GPXSee-maps";
+    homepage = gpxsee-maps.homepage;
     license = licenses.unlicense;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

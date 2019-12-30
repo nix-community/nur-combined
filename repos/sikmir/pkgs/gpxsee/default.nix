@@ -15,7 +15,7 @@ mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    homepage = "https://www.gpxsee.org/";
+    homepage = gpxsee.homepage;
     description = gpxsee.description;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];

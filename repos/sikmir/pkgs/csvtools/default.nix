@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = csvtools.description;
-    homepage = "https://github.com/DavyLandman/csvtools";
+    homepage = csvtools.homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux ++ platforms.darwin;

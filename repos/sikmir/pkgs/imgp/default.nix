@@ -14,7 +14,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description = imgp.description;
-    homepage = "https://github.com/jarun/imgp";
+    homepage = imgp.homepage;
     license = licenses.gpl3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];

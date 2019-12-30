@@ -11,7 +11,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description = ueberzug.description;
-    homepage = "https://github.com/seebye/ueberzug";
+    homepage = ueberzug.homepage;
     license = licenses.gpl3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];

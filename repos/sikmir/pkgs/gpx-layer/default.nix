@@ -20,7 +20,7 @@ buildPerlPackage rec {
 
   meta = with lib; {
     description = gpx-layer.description;
-    homepage = "https://github.com/ericfischer/gpx-layer";
+    homepage = gpx-layer.homepage;
     license = licenses.free;
     platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];

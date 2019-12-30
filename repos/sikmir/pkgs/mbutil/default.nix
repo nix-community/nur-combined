@@ -10,7 +10,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description = mbutil.description;
-    homepage = "https://github.com/mapbox/mbutil";
+    homepage = mbutil.homepage;
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];

@@ -38,7 +38,7 @@ in rec {
     inherit (sources) gpxelevations;
   };
   gpxlab = libsForQt5.callPackage ./pkgs/gpxlab {
-    inherit (sources) GPXLab;
+    inherit (sources) gpxlab;
   };
   gpxpy = python3Packages.callPackage ./pkgs/gpxpy {
     inherit (sources) gpxpy;
@@ -63,6 +63,9 @@ in rec {
   };
   imgp = python3Packages.callPackage ./pkgs/imgp {
     inherit (sources) imgp;
+  };
+  mapsoft = callPackage ./pkgs/mapsoft {
+    inherit (sources) mapsoft;
   };
   mbtileserver = callPackage ./pkgs/mbtileserver {
     inherit (sources) mbtileserver;

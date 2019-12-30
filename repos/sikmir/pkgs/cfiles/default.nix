@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = cfiles.description;
-    homepage = "https://github.com/mananapr/cfiles";
+    homepage = cfiles.homepage;
     license = licenses.mit;
     #maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

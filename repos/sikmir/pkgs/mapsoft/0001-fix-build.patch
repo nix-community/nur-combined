@@ -1,0 +1,64 @@
+diff --git i/SConstruct w/SConstruct
+index ddcf739d..f98e338c 100644
+--- i/SConstruct
++++ w/SConstruct
+@@ -16,7 +16,7 @@ else:
+ ######################################
+ # Create environment, add some methods
+ 
+-env = Environment ()
++env = Environment (ENV = {'PATH' : os.environ['PATH']})
+ Export('env')
+ 
+ # UseLibs -- use pkg-config libraries
+@@ -50,10 +50,13 @@ env.Append (CCFLAGS=['-Werror=return-type'])
+ env.Append (CCFLAGS=['-O2'])
+ env.Append (CCFLAGS='-std=gnu++11')
+ 
+-env.Append (ENV = {'PKG_CONFIG_PATH': os.getcwd()+'/core/pc'})
+ if os.getenv('PKG_CONFIG_PATH'):
+-  env.Append (ENV = {'PKG_CONFIG_PATH':
+-    [ os.getcwd()+'/core/pc', os.getenv('PKG_CONFIG_PATH')]})
++  env.Append (ENV = {'PKG_CONFIG_PATH': os.getenv('PKG_CONFIG_PATH')})
++
++if os.getenv('CPPFLAGS'):
++  env.Append (CPPFLAGS=os.getenv('CPPFLAGS'))
++if os.getenv('LINKFLAGS'):
++  env.Append (LINKFLAGS=os.getenv('LINKFLAGS'))
+ 
+ env.Append (CPPPATH = "#core")
+ env.Append (LIBPATH = "#core")
+@@ -62,13 +65,13 @@ env.Append (LIBS    = "mapsoft")
+ ######################################
+ ## Parse command-line arguments:
+ 
+-env.PREFIX = ARGUMENTS.get('prefix', '')
+-env.bindir=env.PREFIX+'/usr/bin'
+-env.datadir=env.PREFIX+'/usr/share/mapsoft'
+-env.man1dir=env.PREFIX+'/usr/share/man/man1'
+-env.figlibdir=env.PREFIX+'/usr/share/xfig/Libraries'
+-env.libdir=env.PREFIX+ sysconfig.get_config_var('LIBDIR')
+-env.desktopdir=env.PREFIX+'/usr/share/applications'
++env.PREFIX = ARGUMENTS.get('prefix', '/usr')
++env.bindir=env.PREFIX+'/bin'
++env.datadir=env.PREFIX+'/share/mapsoft'
++env.man1dir=env.PREFIX+'/share/man/man1'
++env.figlibdir=env.PREFIX+'/share/xfig/Libraries'
++env.libdir=env.PREFIX+ '/lib'
++env.desktopdir=env.PREFIX+'/share/applications'
+ 
+ env.Alias('install', [env.bindir, env.man1dir,
+   env.datadir, env.figlibdir, env.libdir, env.desktopdir])
+diff --git i/core/SConscript w/core/SConscript
+index fe5f1802..7238c176 100644
+--- i/core/SConscript
++++ w/core/SConscript
+@@ -13,7 +13,7 @@ import os
+ ##################################################
+ ## build mapsoft library
+ 
+-env.UseLibs('libxml-2.0 libzip libproj libgif libjpeg libpng libtiff-4 libcurl zlib yaml-0.1 shp jansson')
++env.UseLibs('libxml-2.0 libzip proj libjpeg libpng libtiff-4 libcurl zlib yaml-0.1 shapelib jansson')
+ env.UseLibs('glibmm-2.4 gtkmm-2.4 gthread-2.0')
+ env.UseLibs('cairomm-1.0 pixman-1 freetype2 libusb-1.0')
+ 

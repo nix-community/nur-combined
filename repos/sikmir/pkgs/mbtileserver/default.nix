@@ -9,7 +9,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description = mbtileserver.description;
-    homepage = "https://github.com/consbio/mbtileserver";
+    homepage = mbtileserver.homepage;
     license = licenses.isc;
     maintainers = with maintainers; [ sikmir ];
   };

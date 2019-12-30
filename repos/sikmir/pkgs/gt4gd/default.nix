@@ -18,7 +18,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description = google-translate-for-goldendict.description;
-    homepage = "https://github.com/xinebf/google-translate-for-goldendict";
+    homepage = google-translate-for-goldendict.homepage;
     license = licenses.gpl3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];

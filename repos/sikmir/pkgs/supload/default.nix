@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = supload.description;
-    homepage = "https://github.com/selectel/supload";
+    homepage = supload.homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

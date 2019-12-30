@@ -13,7 +13,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description = gpxpy.description;
-    homepage = "https://github.com/tkrajina/gpxpy";
+    homepage = gpxpy.homepage;
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];

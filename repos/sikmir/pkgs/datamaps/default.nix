@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = datamaps.description;
-    homepage = "https://github.com/ericfischer/datamaps";
+    homepage = datamaps.homepage;
     license = licenses.bsd2;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux ++ platforms.darwin;

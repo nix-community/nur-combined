@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = gpxtools.description;
-    homepage = "https://notabug.org/irdvo/gpxtools";
+    homepage = gpxtools.homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux ++ platforms.darwin;

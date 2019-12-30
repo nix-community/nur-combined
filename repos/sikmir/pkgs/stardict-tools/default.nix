@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = stardict-3.description;
-    homepage = "https://github.com/huzheng001/stardict-3";
+    homepage = stardict-3.homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux;

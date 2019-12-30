@@ -9,7 +9,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description = lsdreader.description;
-    homepage = "https://github.com/sv99/lsdreader";
+    homepage = lsdreader.homepage;
     license = licenses.free;
     platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];

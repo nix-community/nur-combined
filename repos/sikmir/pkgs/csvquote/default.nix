@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = csvquote.description;
-    homepage = "https://github.com/dbro/csvquote";
+    homepage = csvquote.homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux ++ platforms.darwin;

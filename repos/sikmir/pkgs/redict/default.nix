@@ -24,7 +24,7 @@ mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    homepage = "https://github.com/rekols/redict";
+    homepage = redict.homepage;
     description = redict.description;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
