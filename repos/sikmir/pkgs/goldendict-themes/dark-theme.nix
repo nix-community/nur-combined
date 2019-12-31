@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
   dontBuild = true;
 
   installPhase = ''
-    install -Dm755 article-style.css $out/share/goldendict/styles/dark-theme/article-style.css
-    install -Dm755 qt-style.css $out/share/goldendict/styles/dark-theme/qt-style.css
+    install -Dm644 article-style.css $out/share/goldendict/styles/dark-theme/article-style.css
+    install -Dm644 qt-style.css $out/share/goldendict/styles/dark-theme/qt-style.css
   '';
 
   meta = with stdenv.lib; {

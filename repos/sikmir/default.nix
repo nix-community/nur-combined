@@ -78,6 +78,7 @@ in rec {
   openorienteering-mapper = libsForQt5.callPackage ./pkgs/openorienteering-mapper {
     inherit (sources) mapper;
   };
+  qmapshack-maps = callPackage ./pkgs/qmapshack-maps { };
   redict = libsForQt5.callPackage ./pkgs/redict {
     inherit (sources) redict;
   };
