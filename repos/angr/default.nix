@@ -15,27 +15,23 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   python3Packages = rec {
-    ailment = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ailment {
-      pyvex = pyvex;
+    ailment = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ailment { inherit pyvex; };
+
+    angr = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/angr {
+      inherit archinfo ailment claripy cle cooldict mulpyplexer pyvex;
     };
 
     archinfo = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/archinfo {};
 
-    claripy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/claripy {
-      PySMT = PySMT;
-      z3-solver = z3-solver;
-    };
+    claripy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/claripy { inherit PySMT z3-solver; };
 
-    cle = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cle {
-      archinfo = archinfo;
-      pyvex = pyvex;
-    };
+    cle = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cle { inherit archinfo pyvex; };
+
+    cooldict = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cooldict {};
 
     mulpyplexer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/mulpyplexer {};
 
-    pyvex = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvex {
-      archinfo = archinfo;
-    };
+    pyvex = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvex { inherit archinfo; };
 
     PySMT = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pysmt {};
 
