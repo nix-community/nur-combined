@@ -177,7 +177,7 @@ in
         type = types.lines;
         description = ''
           Extra configuration options that will be added verbatim at
-          the end of the slurm configuration file.
+          the end of the oar configuration file.
         '';
       };
       
@@ -197,7 +197,14 @@ in
       
       node = {
         enable = mkEnableOption "OAR node";
-        register = mkEnableOption "Register node into OAR server";
+        register = {
+          enable = mkEnableOption "Register node into OAR server";
+          extraCommand = mkOption {
+            type = types.str;
+            default = "";
+            description = "Extra command called once after registration";
+          }; 
+        };
       };
       
       server = {
@@ -1081,12 +1088,17 @@ EOF
     };
 
 
-    systemd.services.oar-node-register =  mkIf (cfg.node.register) {
+    systemd.services.oar-node-register =  mkIf (cfg.node.register.enable) {
       wantedBy = [ "multi-user.target" ];      
       after = [ "network.target" "oar-user-init" "oar-node" ];
       serviceConfig.Type = "oneshot";
       path = [ pkgs.hostname ];
-      script = ''/run/wrappers/bin/oarnodesetting -a -s Alive'';
+      script = concatStringsSep "\n" [''
+        /run/wrappers/bin/oarnodesetting -a -s Alive''
+        (optionalString (cfg.node.register.extraCommand != "") ''
+          ${cfg.node.register.extraCommand}
+        '')
+        ];
     };
     
     ################
