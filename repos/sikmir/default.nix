@@ -30,6 +30,8 @@ in rec {
   datamaps = callPackage ./pkgs/datamaps {
     inherit (sources) datamaps;
   };
+  goldendict-dark-theme =
+    callPackage ./pkgs/goldendict-themes/dark-theme.nix { };
   gpx-layer = perlPackages.callPackage ./pkgs/gpx-layer {
     inherit (sources) gpx-layer;
   };
