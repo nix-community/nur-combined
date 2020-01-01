@@ -22,6 +22,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gist.github.com/ilius/5a2f35c79775267fbdb249493c041453";
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.unix;
+    platforms = platforms.all;
   };
 }

@@ -16,7 +16,7 @@ buildPythonApplication rec {
     description = imgp.description;
     homepage = imgp.homepage;
     license = licenses.gpl3;
-    platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];
+    platforms = platforms.unix;
   };
 }

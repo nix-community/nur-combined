@@ -12,5 +12,6 @@ buildGoModule rec {
     homepage = mbtileserver.homepage;
     license = licenses.isc;
     maintainers = with maintainers; [ sikmir ];
+    platforms = platforms.unix;
   };
 }

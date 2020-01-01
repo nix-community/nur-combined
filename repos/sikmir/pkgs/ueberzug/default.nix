@@ -13,7 +13,7 @@ buildPythonApplication rec {
     description = ueberzug.description;
     homepage = ueberzug.homepage;
     license = licenses.gpl3;
-    platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];
+    platforms = platforms.unix;
   };
 }

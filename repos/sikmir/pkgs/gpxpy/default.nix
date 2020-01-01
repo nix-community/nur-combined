@@ -15,7 +15,7 @@ buildPythonApplication rec {
     description = gpxpy.description;
     homepage = gpxpy.homepage;
     license = licenses.asl20;
-    platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];
+    platforms = platforms.unix;
   };
 }

@@ -11,7 +11,7 @@ buildPythonApplication rec {
     description = lsdreader.description;
     homepage = lsdreader.homepage;
     license = licenses.free;
-    platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];
+    platforms = platforms.unix;
   };
 }

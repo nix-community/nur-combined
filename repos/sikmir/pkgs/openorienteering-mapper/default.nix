@@ -51,9 +51,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = mapper.description;
-    homepage = "https://www.openorienteering.org/apps/mapper/";
+    homepage = mapper.homepage;
     license = licenses.gpl3;
-    platforms = with platforms; linux ++ darwin;
     maintainers = with maintainers; [ sikmir ];
+    platforms = with platforms; linux ++ darwin;
   };
 }

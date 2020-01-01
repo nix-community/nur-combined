@@ -14,9 +14,9 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description = gpxelevations.description;
-    homepage = "https://github.com/tkrajina/srtm.py";
+    homepage = gpxelevations.homepage;
     license = licenses.asl20;
-    platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];
+    platforms = platforms.unix;
   };
 }

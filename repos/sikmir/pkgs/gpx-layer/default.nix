@@ -22,7 +22,7 @@ buildPerlPackage rec {
     description = gpx-layer.description;
     homepage = gpx-layer.homepage;
     license = licenses.free;
-    platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];
+    platforms = platforms.unix;
   };
 }

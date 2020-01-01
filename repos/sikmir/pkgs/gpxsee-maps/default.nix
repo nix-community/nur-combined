@@ -15,6 +15,6 @@ stdenv.mkDerivation rec {
     homepage = gpxsee-maps.homepage;
     license = licenses.unlicense;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.unix;
+    platforms = platforms.all;
   };
 }

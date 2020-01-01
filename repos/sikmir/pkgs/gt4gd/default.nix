@@ -20,7 +20,7 @@ buildPythonApplication rec {
     description = google-translate-for-goldendict.description;
     homepage = google-translate-for-goldendict.homepage;
     license = licenses.gpl3;
-    platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];
+    platforms = platforms.unix;
   };
 }

@@ -12,7 +12,7 @@ buildPythonApplication rec {
     description = mbutil.description;
     homepage = mbutil.homepage;
     license = licenses.bsd3;
-    platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];
+    platforms = platforms.unix;
   };
 }

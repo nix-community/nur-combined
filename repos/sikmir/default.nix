@@ -75,8 +75,14 @@ in rec {
   mbutil = python3Packages.callPackage ./pkgs/mbutil {
     inherit (sources) mbutil;
   };
+  mercantile = python3Packages.callPackage ./pkgs/mercantile {
+    inherit (sources) mercantile;
+  };
   openorienteering-mapper = libsForQt5.callPackage ./pkgs/openorienteering-mapper {
     inherit (sources) mapper;
+  };
+  pymbtiles = python3Packages.callPackage ./pkgs/pymbtiles {
+    inherit (sources) pymbtiles;
   };
   qmapshack-maps = callPackage ./pkgs/qmapshack-maps { };
   redict = libsForQt5.callPackage ./pkgs/redict {
@@ -94,6 +100,11 @@ in rec {
     };
   supload = callPackage ./pkgs/supload {
     inherit (sources) supload;
+  };
+  tpkutils = python3Packages.callPackage ./pkgs/tpkutils {
+    inherit mercantile;
+    inherit pymbtiles;
+    inherit (sources) tpkutils;
   };
   ueberzug = python3Packages.callPackage ./pkgs/ueberzug {
     inherit (sources) ueberzug;
