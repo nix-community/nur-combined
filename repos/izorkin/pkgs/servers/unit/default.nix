@@ -1,10 +1,6 @@
 { stdenv, fetchFromGitHub, which
-, ncurses
-, withPython27 ? false, python27
-, withPython35 ? false, python35
-, withPython36 ? false, python36
-, withPython37 ? true, python37
-, withPython38 ? false, python38
+, withPython2 ? false, python2
+, withPython3 ? true, python3, ncurses
 , withPHP56 ? false, php56
 , withPHP71 ? false, php71
 , withPHP72 ? false, php72
@@ -24,25 +20,26 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  version = "1.13.0";
+  version = "1.14.0";
   pname = "unit";
 
   src = fetchFromGitHub {
     owner = "nginx";
     repo = "unit";
     rev = "${version}";
-    sha256 = "1b5il05isq5yvnx2qpnihsrmj0jliacvhrm58i87d48anwpv1k8q";
+    sha256 = "01anczfcdwd22hb0y4zw647f86ivk5zq8lcd13xfxjvkmnsnbj9w";
   };
+
+  patches = [
+    # https://github.com/nginx/unit/issues/357
+    ./drop_cap.patch
+  ];
 
   nativeBuildInputs = [ which ];
 
   buildInputs = [ ]
-    ++ optional withPython27 python27
-    ++ optional withPython35 python35
-    ++ optional withPython36 python36
-    ++ optional withPython37 python37
-    ++ optional withPython38 python38
-    ++ optional (withPython35 || withPython36 || withPython37 || withPython38) ncurses
+    ++ optional withPython2 python2
+    ++ optionals withPython3 [ python3 ncurses ]
     ++ optional withPHP56 php56
     ++ optional withPHP71 php71
     ++ optional withPHP72 php72
@@ -66,16 +63,13 @@ stdenv.mkDerivation rec {
     ++ optional withDebug   [ "--debug" ];
 
   postConfigure = ''
-    ${optionalString withPython27   "./configure python --module=python27 --config=${python27}/bin/python2.7-config   --lib-path=${python27}/lib"}
-    ${optionalString withPython35   "./configure python --module=python35 --config=${python35}/bin/python3.5m-config  --lib-path=${python35}/lib"}
-    ${optionalString withPython36   "./configure python --module=python36 --config=${python36}/bin/python3.6m-config  --lib-path=${python36}/lib"}
-    ${optionalString withPython37   "./configure python --module=python37 --config=${python37}/bin/python3.7m-config  --lib-path=${python37}/lib"}
-    ${optionalString withPython38   "./configure python --module=python38 --config=${python38}/bin/python3.8-config   --lib-path=${python38}/lib"}
-    ${optionalString withPHP56      "./configure php    --module=php56    --config=${php56.dev}/bin/php-config        --lib-path=${php56}/lib"}
-    ${optionalString withPHP71      "./configure php    --module=php71    --config=${php71.dev}/bin/php-config        --lib-path=${php71}/lib"}
-    ${optionalString withPHP72      "./configure php    --module=php72    --config=${php72.dev}/bin/php-config        --lib-path=${php72}/lib"}
-    ${optionalString withPHP73      "./configure php    --module=php73    --config=${php73.dev}/bin/php-config        --lib-path=${php73}/lib"}
-    ${optionalString withPHP74      "./configure php    --module=php74    --config=${php74.dev}/bin/php-config        --lib-path=${php74}/lib"}
+    ${optionalString withPython2    "./configure python --module=python2  --config=${python2}/bin/python2-config  --lib-path=${python2}/lib"}
+    ${optionalString withPython3    "./configure python --module=python3  --config=${python3}/bin/python3-config  --lib-path=${python3}/lib"}
+    ${optionalString withPHP56      "./configure php    --module=php56    --config=${php56.dev}/bin/php-config    --lib-path=${php56}/lib"}
+    ${optionalString withPHP71      "./configure php    --module=php71    --config=${php71.dev}/bin/php-config    --lib-path=${php71}/lib"}
+    ${optionalString withPHP72      "./configure php    --module=php72    --config=${php72.dev}/bin/php-config    --lib-path=${php72}/lib"}
+    ${optionalString withPHP73      "./configure php    --module=php73    --config=${php73.dev}/bin/php-config    --lib-path=${php73}/lib"}
+    ${optionalString withPHP74      "./configure php    --module=php74    --config=${php74.dev}/bin/php-config    --lib-path=${php74}/lib"}
     ${optionalString withPerl528    "./configure perl   --module=perl528  --perl=${perl528}/bin/perl"}
     ${optionalString withPerl530    "./configure perl   --module=perl530  --perl=${perl530}/bin/perl"}
     ${optionalString withPerldevel  "./configure perl   --module=perldev  --perl=${perldevel}/bin/perl"}

@@ -232,10 +232,10 @@ let
 
   #igbinary30 = assert !isPhp56; buildPecl {
   igbinary30 = buildPecl {
-    version = "3.0.1";
+    version = "3.1.0";
     pname = "igbinary";
 
-    sha256 = "1w8jmf1qpggdvq0ndfi86n7i7cqgh1s8q6hys2lijvi37rzn0nar";
+    sha256 = "0m3dkp5hf2a6x19wxqqc6ml70hwm2pj87wqcsnvizjg763k9bj3f";
 
     configureFlags = [
       "--enable-igbinary"
@@ -263,10 +263,10 @@ let
 
   #mailparse = assert !isPhp56; assert !isPhp73; buildPecl {
   mailparse = buildPecl {
-    version = "3.0.3";
+    version = "3.0.4";
     pname = "mailparse";
 
-    sha256 = "00nk14jbdbln93mx3ag691avc11ff94hkadrcv5pn51c6ihsxbmz";
+    sha256 = "0fsngm3ixdiwcpvz3kq7c0q5p67c301pz1pvzijq4grj2l7sp84x";
 
     meta.broken = isPhp56;
   };
@@ -309,13 +309,13 @@ let
 
   #memcached31 = assert !isPhp56; buildPecl rec {
   memcached31 = buildPecl rec {
-    version = "3.1.4";
+    version = "3.1.5";
     pname = "memcached";
 
     src = fetchgit {
       url = "https://github.com/php-memcached-dev/php-memcached";
       rev = "v${version}";
-      sha256 = "043x964gvmm38l3lyifsv48jc6bvhz7drr2gal630b9h8rgwxsri";
+      sha256 = "01mbh2m3kfbdvih3c8g3g9h4vdd80r0i9g2z8b3lx3mi8mmcj380";
     };
 
     configureFlags = with pkgs; [
@@ -331,9 +331,9 @@ let
 
   mongodb = buildPecl {
     pname = "mongodb";
-    version = "1.6.0";
+    version = "1.6.1";
 
-    sha256 = "0bybfjs61v66bynajbd8dwjlwbz6p2gck49r3zqbxa3ja6d671l6";
+    sha256 = "1j1w4n33347j9kwvxwsrix3gvjbiqcn1s5v59pp64s536cci8q0m";
 
     nativeBuildInputs = with pkgs; [ pkgconfig ];
     buildInputs = with pkgs; [
@@ -442,12 +442,12 @@ let
   };
 
   phpcbf = mkDerivation rec {
-    version = "3.5.2";
+    version = "3.5.3";
     pname = "phpcbf";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcbf.phar";
-      sha256 = "0zhnzmm46i01h92gdjl52xp6wpm4772mbj12hzg1fpmvjiclccm6";
+      sha256 = "1mrsf9p6p64pyqyylnlxb2b7cirdfccch83g7yhfnka3znffq86v";
     };
 
     phases = [ "installPhase" ];
@@ -469,12 +469,12 @@ let
   };
 
   phpcs = mkDerivation rec {
-    version = "3.5.2";
+    version = "3.5.3";
     pname = "phpcs";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
-      sha256 = "0kv49sd8riwr973g170cg07vbm282nsykl7lddk2z5ry7gkizb8m";
+      sha256 = "0y4nhsifj4pdmf5g1nnm4951yjgiqswyz7wmjxx6kqiqc7chlkml";
     };
 
     phases = [ "installPhase" ];
@@ -496,12 +496,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.11.19";
+    version = "0.12.3";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0b04d2x07vipx1850v3d2hga3s6ssv7g21x58dhcjrg35i1bvq71";
+      sha256 = "08ya50qf75nq8ypyhb0vsqnj166kc27rc8iasxr3y7kssbfd95ai";
     };
 
     phases = [ "installPhase" ];
@@ -604,10 +604,10 @@ let
 
   #protobuf = assert isPhp74; buildPecl {
   protobuf = buildPecl {
-    version = "3.11.1";
+    version = "3.11.2";
     pname = "protobuf";
 
-    sha256 = "1dv2hln2rifjlljry4b7qqx3gx68fm0a6nf66sh4ls2p9if1jzp2";
+    sha256 = "0bhdykdyk58ywqj940zb7jyvrlgdr6hdb4s8kn79fz3p0i79l9hz";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -617,18 +617,16 @@ let
       '';
       license = licenses.bsd3;
       homepage = "https://developers.google.com/protocol-buffers/";
-
-      broken = isPhp74;
     };
   };
 
   psalm = mkDerivation rec {
-    version = "3.7.1";
+    version = "3.8.1";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "1q7jdxr1q9h945g4c953xlbj6cq0fz77w3mb235aka1wcnsamfs2";
+      sha256 = "1z957z41mi42y89hxz2bariqr8ddpp78lrn8hlnsf3m0409dxzmc";
     };
 
     phases = [ "installPhase" ];
@@ -649,12 +647,12 @@ let
   };
 
   psysh = mkDerivation rec {
-    version = "0.9.9";
+    version = "0.9.12";
     pname = "psysh";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "0knbib0afwq2z5fc639ns43x8pi3kmp85y13bkcl00dhvf46yinw";
+      sha256 = "0bzmc94li481xk81gv460ipq9zl03skbnq8m3rnw34i2c04hxczc";
     };
 
     phases = [ "installPhase" ];
@@ -817,7 +815,7 @@ let
     meta.broken = !isPhp56;
   };
 
-  xdebug = if isPhp56 then xdebug25 else xdebug28;
+  xdebug = if isPhp56 then xdebug25 else xdebug29;
 
   #xdebug25 = assert isPhp56; buildPecl {
   xdebug25 = buildPecl {
@@ -832,12 +830,12 @@ let
     meta.broken = !isPhp56;
   };
 
-  #xdebug28 = assert !isPhp56; buildPecl {
-  xdebug28 = buildPecl {
-    version = "2.8.1";
+  #xdebug29 = assert !isPhp56; buildPecl {
+  xdebug29 = buildPecl {
+    version = "2.9.0";
     pname = "xdebug";
 
-    sha256 = "080mwr7m72rf0jsig5074dgq2n86hhs7rdbfg6yvnm959sby72w3";
+    sha256 = "0hsrrapd2gfcybp7arbdpvpq5sw027d2a67wrs6ffjjxh1kzilcd";
 
     doCheck = true;
     checkTarget = "test";

@@ -126,7 +126,7 @@ let
         "--with-config-file-scan-dir=/etc/php.d"
       ]
       ++ optional (versionOlder version "7.3") "--with-pcre-regex=${pcre.dev} PCRE_LIBDIR=${pcre}"
-      ++ optional ((versionAtLeast version "7.3") && (!versionAtLeast version "7.4")) "--with-pcre-regex=${pcre2.dev} PCRE_LIBDIR=${pcre2}"
+      ++ optional (versions.majorMinor version == "7.3") "--with-pcre-regex=${pcre2.dev} PCRE_LIBDIR=${pcre2}"
       ++ optional (versionAtLeast version "7.4") "--with-external-pcre=${pcre2.dev} PCRE_LIBDIR=${pcre2}"
       ++ optional stdenv.isDarwin "--with-iconv=${libiconv}"
       ++ optional withSystemd "--with-fpm-systemd"
@@ -149,7 +149,7 @@ let
       ++ optional (libxml2Support && (versionOlder version "7.4")) "--with-libxml-dir=${libxml2.dev}"
       ++ optional (!libxml2Support) [
         "--disable-dom"
-        ( if (versionOlder version "7.4") then "--disable-libxml" else "--without-libxml" )
+        (if (versionOlder version "7.4") then "--disable-libxml" else "--without-libxml")
         "--disable-simplexml"
         "--disable-xml"
         "--disable-xmlreader"
@@ -166,26 +166,22 @@ let
       ++ optional (mysqliSupport && mysqlndSupport) "--with-mysqli=mysqlnd"
       ++ optional (pdo_mysqlSupport || mysqliSupport) "--with-mysql-sock=/run/mysqld/mysqld.sock"
       ++ optional bcmathSupport "--enable-bcmath"
-      ++ optionals gdSupport [
-        ( if (versionOlder version "7.4")
-          then [
-            "--with-gd=${gd.dev}"
-            ( if (versionAtLeast version "7.0") then "--with-webp-dir=${libwebp}" else null )
-            "--with-jpeg-dir=${libjpeg.dev}"
-            "--with-png-dir=${libpng.dev}"
-            "--with-freetype-dir=${freetype.dev}"
-            "--with-xpm-dir=${libXpm.dev}"
-            "--enable-gd-jis-conv"
-          ] else [
-            "--enable-gd"
-            "--with-external-gd=${gd.dev}"
-            "--with-webp=${libwebp}"
-            "--with-jpeg=${libjpeg.dev}"
-            "--with-xpm=${libXpm.dev}"
-            "--with-freetype=${freetype.dev}"
-            "--enable-gd-jis-conv"
-          ]
-        )
+      ++ optionals (gdSupport && versionAtLeast version "7.4") [
+        "--enable-gd"
+        "--with-external-gd=${gd.dev}"
+        "--with-webp=${libwebp}"
+        "--with-jpeg=${libjpeg.dev}"
+        "--with-xpm=${libXpm.dev}"
+        "--with-freetype=${freetype.dev}"
+        "--enable-gd-jis-conv"
+      ] ++ optionals (gdSupport && versionOlder version "7.4") [
+        "--with-gd=${gd.dev}"
+        (if (versionAtLeast version "7.0") then "--with-webp-dir=${libwebp}" else null)
+        "--with-jpeg-dir=${libjpeg.dev}"
+        "--with-png-dir=${libpng.dev}"
+        "--with-freetype-dir=${freetype.dev}"
+        "--with-xpm-dir=${libXpm.dev}"
+        "--enable-gd-jis-conv"
       ]
       ++ optional gmpSupport "--with-gmp=${gmp.dev}"
       ++ optional soapSupport "--enable-soap"
@@ -313,23 +309,23 @@ in {
   };
 
   php72 = generic {
-    version = "7.2.25";
-    sha256 = "17kb7b3wpdmdhnlv23qc0vax0lp2gr1v7dxwdgs8g78gxnqkdcvw";
+    version = "7.2.26";
+    sha256 = "0yw49v3rk3cd0fb4gsli74pgd4qrykhn9c37dyfr3zsprzp8cvgk";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
   };
 
   php73 = generic {
-    version = "7.3.12";
-    sha256 = "0fccmnrwwyy5zvhj8wbyqqlyqr7pr5v4pfiqriw0ahciz4lv05yk";
+    version = "7.3.13";
+    sha256 = "1g376b9caw21mw8738z354llbzb3shzgc60m7naw7wql5038jysw";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
   };
 
   php74 = generic {
-    version = "7.4.0";
-    sha256 = "1h01bahvcm9kgm5jqhm2j9k9d4q4rpfkkpqk00c47rirdblnn85z";
+    version = "7.4.1";
+    sha256 = "0klfwhm2935ariwzqdri1fwh4a0vbrk3jis53qzi18isp3qa073b";
   };
 }
