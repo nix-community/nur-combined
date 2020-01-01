@@ -25,5 +25,6 @@ stdenv.mkDerivation {
         description = "Perl shell tools by framstag@rus.uni-stuttgart.de, e.g. fexsend/fexget";
         homepage = "https://fex.belwue.de/fstools/";
         license = stdenv.lib.licenses.artistic1;
+        broken = true;
       };
 }
