@@ -1,4 +1,6 @@
 {
-  fail2ban = ./services/fail2ban.nix;
+  # Add your NixOS modules here
+  #
+  # my-module = ./my-module;
 }
 
