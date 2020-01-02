@@ -1,0 +1,31 @@
+diff --git a/src/webkit2-extension.c b/src/webkit2-extension.c
+index 94de995..8716d34 100644
+--- a/src/webkit2-extension.c
++++ b/src/webkit2-extension.c
+@@ -1846,18 +1846,24 @@ should_block_request(const char *file_path) {
+ 		return result;
+ 	}
+ 
++	for (iter = paths; iter; iter = iter->next) {
++		if (g_str_has_prefix(file_path, iter->data)) {
++			return FALSE; /* Allowed */
++		}
++	}
++
+ 	canonical_path = canonicalize_file_name(file_path);
+ 
+ 	if (NULL != canonical_path) {
+ 		for (iter = paths; iter; iter = iter->next) {
+-			if (0 == g_strcmp0(canonical_path, iter->data) || g_str_has_prefix(canonical_path, iter->data)) {
++			if (g_str_has_prefix(canonical_path, iter->data)) {
+ 				result = FALSE; /* Allowed */
+ 				break;
+ 			}
+ 		}
+ 	}
+ 
+-	g_free(canonical_path);
++	free(canonical_path);
+ 
+ 	return result;
+ }

@@ -1,0 +1,13 @@
+diff --git a/themes/antergos/js/greeter.js b/themes/antergos/js/greeter.js
+index a529f70..7afe481 100644
+--- a/themes/antergos/js/greeter.js
++++ b/themes/antergos/js/greeter.js
+@@ -722,7 +722,7 @@ class AntergosTheme {
+ 		_self.selected_user = null;
+ 		_self.auth_pending = false;
+ 
+-		if ( $(event.target).hasClass('alert') ) {
++		if ( event && $(event.target).hasClass('alert') ) {
+ 			/* We were triggered by the authentication failed message being dismissed.
+ 			 * Keep the same account selected so user can retry without re-selecting an account.
+ 			 */
