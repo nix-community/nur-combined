@@ -1,18 +1,20 @@
-{ stdenv, fetchFromGitHub, python, pythonPackages, gamin }:
+{ stdenv, fetchFromGitHub, python3 }:
 
-pythonPackages.buildPythonApplication {
-  version = "0.11.dev3-2019-08-22";
+python3.pkgs.buildPythonApplication {
   pname = "fail2ban";
+  version = "0.11.dev3-2019-12-12";
 
   src = fetchFromGitHub {
     owner  = "fail2ban";
     repo   = "fail2ban";
-    rev    = "f51712d27530bc679cc1f26f1d5df3f82e34f489";
-    sha256 = "1xlczvmg3gxrf0f84fsr5ki91mn51y0pa85wm5j6wv1wmqcvf9s4";
+    rev    = "657b147c0d7830f3600f3dc7feaa4815a7e19fde";
+    sha256 = "0ansxn7yqmjkn1cs6k9vz4n0p5p1n7pc8vm13szs1fz3lgfzkp84";
   };
 
-  propagatedBuildInputs = [ gamin ]
-    ++ (stdenv.lib.optional stdenv.isLinux pythonPackages.systemd);
+  pythonPath = with python3.pkgs;
+    stdenv.lib.optionals stdenv.isLinux [
+      systemd
+  ];
 
   preConfigure = ''
     for i in config/action.d/sendmail*.conf; do
@@ -29,16 +31,22 @@ pythonPackages.buildPythonApplication {
 
   preInstall = ''
     substituteInPlace setup.py --replace /usr/share/doc/ share/doc/
-  
+
     # see https://github.com/NixOS/nixpkgs/issues/4968
-    ${python}/bin/${python.executable} setup.py install_data --install-dir=$out --root=$out
+    ${python3.interpreter} setup.py install_data --install-dir=$out --root=$out
+  '';
+
+  postPatch = ''
+    ${stdenv.shell} ./fail2ban-2to3
   '';
 
   postInstall = let
-    sitePackages = "$out/lib/${python.libPrefix}/site-packages";
+    sitePackages = "$out/${python3.sitePackages}";
   in ''
     # see https://github.com/NixOS/nixpkgs/issues/4968
     rm -rf ${sitePackages}/etc ${sitePackages}/usr ${sitePackages}/var;
+
+    # Add custom filters
     cd ${./filter.d} && cp * $out/etc/fail2ban/filter.d
   '';
 
