@@ -7,8 +7,8 @@ python37Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "oar-team";
     repo = "oar3";
-    rev = "4541bcbb9dea7cf32aea3bc97fef5aa3b57c74f";
-    sha256 = "085fdhzx55da5svhf250s5w1pr1rc585padxhh264jjfymmzxvmy";
+    rev = "d56dbb11447c6d1b5dd32e3cc342c5040c490f91";
+    sha256 = "087rlr10h0kbqx70fdxbndi7v2i312q3rzixjfs0naabjxi8g3in";
   };
   #src = /home/auguste/dev/oar3;
 
