@@ -2,13 +2,13 @@
 
 python3.pkgs.buildPythonApplication {
   pname = "fail2ban";
-  version = "0.11.dev3-2019-12-12";
+  version = "0.11.dev3-2019-11-25";
 
   src = fetchFromGitHub {
     owner  = "fail2ban";
     repo   = "fail2ban";
-    rev    = "657b147c0d7830f3600f3dc7feaa4815a7e19fde";
-    sha256 = "0ansxn7yqmjkn1cs6k9vz4n0p5p1n7pc8vm13szs1fz3lgfzkp84";
+    rev    = "24d1ea9aa24672cd3381e06ed9418eb4fdff3172";
+    sha256 = "0ny4j5mqa01lkhmkb4ynwf99ygp6cm2hxwvw5jnngj2x859qpkhq";
   };
 
   pythonPath = with python3.pkgs;
