@@ -1,0 +1,25 @@
+From 351ca438727b50c38af3240c6cc8707d1c546d35 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Fri, 3 Jan 2020 13:43:32 -0600
+Subject: [PATCH] gmtime instead of localtime
+
+---
+ src/week-view.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/week-view.c b/src/week-view.c
+index 767b179..f6a59fd 100644
+--- a/src/week-view.c
++++ b/src/week-view.c
+@@ -243,7 +243,7 @@ static void week_view_draw(WeekView* wv, cairo_t* cr)
+ 		double x = wv->x + SIDEBAR_WIDTH + d * day_width;
+ 		char day_label[16];
+ 		time_t tt = icaltime_as_timet(day);
+-		struct tm* t = localtime(&tt);
++		struct tm* t = gmtime(&tt);
+ 
+ 		// day of month
+ 		strftime(day_label, 16, "%e", t);
+-- 
+2.25.0-rc1
+

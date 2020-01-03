@@ -14,6 +14,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./localtime.patch
+    ./gmtime.patch
 
     ./add-action.patch
     ./new-events-get-actions.patch
