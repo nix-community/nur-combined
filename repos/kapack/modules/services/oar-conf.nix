@@ -719,5 +719,38 @@ settingsString = concatStrings (lib.mapAttrsToList (n: v: ''${n}="${toString v}"
 
 in
 {
- oarBaseConf = pkgs.writeText "oar-base.conf"  (oarBaseConfString + settingsString);
+  oarBaseConf = pkgs.writeText "oar-base.conf"  (oarBaseConfString + settingsString);
+  oarSshdConf = pkgs.writeText "sshd_config" ''
+Protocol 2
+
+UsePAM yes
+
+AddressFamily any
+Port 6667
+
+X11Forwarding no
+
+PermitRootLogin prohibit-password
+GatewayPorts no
+
+ChallengeResponseAuthentication yes
+
+PrintMotd no # handled by pam_motd
+
+HostKey /etc/oar/oar_ssh_host_rsa_key
+
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
+
+LogLevel VERBOSE
+
+UseDNS no
+
+AcceptEnv OAR_CPUSET OAR_JOB_USER
+PermitUserEnvironment yes
+
+AllowUsers oar
+XAuthLocation /usr/bin/xauth
+'';
 }

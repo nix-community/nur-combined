@@ -14,8 +14,8 @@ let
   cfg = config.services.oar;
   pgSuperUser = config.services.postgresql.superUser;
 
-inherit (import ./oar-conf.nix { pkgs=pkgs; lib=lib; cfg=cfg;} ) oarBaseConf;
-
+inherit (import ./oar-conf.nix { pkgs=pkgs; lib=lib; cfg=cfg;} ) oarBaseConf oarSshdConf;
+  
 oarVisualization = pkgs.stdenv.mkDerivation {
   name = "oar_visualization";
   phases          = [ "installPhase" ];
@@ -32,7 +32,6 @@ oarVisualization = pkgs.stdenv.mkDerivation {
       --replace "%%WWWROOTDIR%%" $out/monika
   '';
 };
-
 
 oarTools = pkgs.stdenv.mkDerivation {
   name = "oar_tools";
@@ -359,8 +358,7 @@ in
         fi
       '';
       serviceConfig = {
-        #ExecStart = " ${pkgs.openssh}/bin/sshd -f /srv/sshd.conf";
-        ExecStart = " ${pkgs.openssh}/bin/sshd -f /srv/sshd_config";
+        ExecStart = " ${pkgs.openssh}/bin/sshd -f ${oarSshdConf}";
         KillMode = "process";
         Restart = "always";
         Type = "simple";
