@@ -14,7 +14,7 @@ let
   cfg = config.services.oar;
   pgSuperUser = config.services.postgresql.superUser;
 
-inherit (import ./oar-conf.nix { pkgs=pkgs; cfg=cfg;} ) oarBaseConf;
+inherit (import ./oar-conf.nix { pkgs=pkgs; lib=lib; cfg=cfg;} ) oarBaseConf;
 
 oarVisualization = pkgs.stdenv.mkDerivation {
   name = "oar_visualization";
@@ -168,21 +168,14 @@ in
       };
 
       extraConfig = mkOption {
-        default = "";
-        type = types.lines;
+        type = types.attrs;
+        default = {};
+        example = {
+          LOG_LEVEL="3";
+          OARSUB_DEFAULT_RESOURCES="/resource_id=1";
+        };
         description = ''
-          Extra configuration options that will be added verbatim at
-          the end of the oar configuration file.
-        '';
-      };
-      
-      extraConfigPaths = mkOption {
-        type = with types; listOf path;
-        default = [];
-        description = ''
-          Add extra nix store
-          paths that should be merged into same directory as
-          <literal>oar.conf</literal>.
+          Extra configuration options that will replace default.
         '';
       };
 
@@ -204,6 +197,13 @@ in
       
       server = {
         enable = mkEnableOption "OAR server";
+        host = mkOption {
+          type = types.str;
+          default = "localhost";
+          description = ''
+            Host of the OAR server. 
+          '';
+        };
       };
       
       dbserver = {
@@ -329,8 +329,12 @@ in
 
         # copy some required and useful scripts
         cp ${cfg.package}/tools/*.pl ${cfg.package}/tools/*.sh /etc/oar/
+        
+        touch /etc/oar/oar.conf
+        chmod 600 /etc/oar/oar.conf
+        chown oar /etc/oar/oar.conf
 
-        cat ${cfg.database.passwordFile} > /etc/oar/oar.conf
+        cat ${cfg.database.passwordFile} >> /etc/oar/oar.conf
         cat /etc/oar/oar-base.conf >> /etc/oar/oar.conf
       '';
     };
@@ -370,7 +374,7 @@ in
       serviceConfig.Type = "oneshot";
       path = [ pkgs.hostname ];
       script = concatStringsSep "\n" [''
-        /run/wrappers/bin/oarnodesetting -a -s Alive &> /tmp/oar-node.log''
+        /run/wrappers/bin/oarnodesetting -a -s Alive''
         (optionalString (cfg.node.register.extraCommand != "") ''
           ${cfg.node.register.extraCommand}
         '')

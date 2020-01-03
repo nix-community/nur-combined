@@ -1,20 +1,23 @@
-{pkgs, cfg}:
-{ oarBaseConf = pkgs.writeText "oar-base.conf" ''
+{pkgs, lib, cfg}:
+with lib;
+let
+
+  baseConfString = ''
 
 # Database type ("mysql" or "Pg")
 DB_TYPE="Pg"
 
 # DataBase hostname
-DB_HOSTNAME="server"
+DB_HOSTNAME="${cfg.database.host}"
 
 # DataBase port
 DB_PORT="5432"
 
 # Database base name
-DB_BASE_NAME="oar"
+DB_BASE_NAME="${cfg.database.dbname}"
 
 # OAR server hostname
-SERVER_HOSTNAME="server"
+SERVER_HOSTNAME="${cfg.server.host}"
 
 # OAR server port
 SERVER_PORT="6666"
@@ -29,7 +32,7 @@ OARSUB_NODES_RESOURCES="network_address"
 OARSUB_FORCE_JOB_KEY="no"
 
 # OAR log level: 3(debug+warnings+errors), 2(warnings+errors), 1(errors)
-LOG_LEVEL="3"
+LOG_LEVEL="1"
 
 # Log categories to display in the log file.
 # Ex: LOG_CATEGORIES="scheduler,main,energy"
@@ -44,7 +47,6 @@ OAREXEC_DEBUG_MODE="0"
 OAR_RUNTIME_DIRECTORY="/var/lib/oar"
 
 # OAR log file
-#LOG_FILE="/var/log/oar.log"
 LOG_FILE="/tmp/oar.log"
 
 DEBUG_REMOTE_COMMANDS="yes"
@@ -707,4 +709,15 @@ API_TRUST_IDENT="1"
 # The API will automatically append .<timestamp>.hdf5
 #API_COLMET_HDF5_PATH_PREFIX="/var/lib/colmet/hdf5/cluster"
   '';
+
+vars =  mapAttrsToList (name: value: name) cfg.extraConfig;
+commentedVars = map (value: "#" + value) vars;
+
+oarBaseConfString = replaceStrings vars commentedVars baseConfString;
+
+settingsString = concatStrings (lib.mapAttrsToList (n: v: ''${n}="${toString v}"'' + "\n") cfg.extraConfig);
+
+in
+{
+ oarBaseConf = pkgs.writeText "oar-base.conf"  (oarBaseConfString + settingsString);
 }
