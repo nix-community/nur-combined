@@ -566,7 +566,7 @@ JOB_RESOURCE_MANAGER_PROPERTY_DB_FIELD="cpuset"
 # Name of the perl script that manages cpuset.
 # (default is /etc/oar/job_resource_manager.pl which handles the linux kernel
 # cpuset, job keys, clean processes, ...)
-JOB_RESOURCE_MANAGER_FILE="/srv/job_resource_manager_cgroups_nixos.pl"
+JOB_RESOURCE_MANAGER_FILE="/etc/oar/job_resource_manager_cgroups_nixos.pl"
 
 # Path of the relative directory where the cpusets will be created on each
 # nodes(same value than in /proc/self/cpuset).
