@@ -404,10 +404,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.3.0";
+      version = "4.4.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3472587/react_developer_tools-4.3.0-fx.xpi?src=";
-      sha256 = "b15f12df305c42c0ff0030d4736513455694d4d33710a59d25e801e2033d06ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3478747/react_developer_tools-4.4.0-fx.xpi?src=";
+      sha256 = "a55adcbfa3160c9c2e286d2dbf1b34769488ab36161383dbecaf0c81b222a578";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -432,10 +432,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.12.22";
+      version = "19.12.9";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3473045/refined_github-19.12.22-an+fx.xpi?src=";
-      sha256 = "ace9f51a2b2bbfae4d15204cea84c6c5df1ab0af7c1767f088b5a8c1bb32f04d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3464827/refined_github-19.12.9-an+fx.xpi?src=";
+      sha256 = "e4484a435a5a05c51851d93a47660dd07ca9cf14a820281b82037f88f30edcd3";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
