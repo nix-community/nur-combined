@@ -1,4 +1,5 @@
 language: nix
+nix: 2.3
 
 matrix:
   include:
@@ -22,12 +23,8 @@ env:
 
 matrix:
   exclude:
-    - os: linux
-      env: NIX_CHANNEL=nixpkgs-19.03-darwin
     - os: osx
       env: NIX_CHANNEL=nixos-unstable
-    - os: osx
-      env: NIX_CHANNEL=nixos-19.03
   allow_failures:
     - os: osx
 

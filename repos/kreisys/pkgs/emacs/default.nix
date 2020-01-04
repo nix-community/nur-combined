@@ -1,4 +1,4 @@
-{ lib, callPackage, darwin, fetchpatch, imagemagick, imagemagick7, sources, stdenv, xorg, srcRepo ? true }:
+{ lib, callPackage, darwin, fetchpatch, imagemagick, imagemagick7, sources, stdenv, xorg, llvmPackages_6, srcRepo ? true }:
 
 let
   mkEmacs = args: let
@@ -69,4 +69,10 @@ let
   };
 in {
   inherit emacs26 emacs27 emacs27-lucid;
+
+  emacsMacport = callPackage ./macport.nix {
+    inherit (darwin.apple_sdk.frameworks) AppKit Carbon Cocoa IOKit OSAKit Quartz QuartzCore WebKit ImageCaptureCore GSS ImageIO;
+
+    stdenv = if stdenv.cc.isClang then llvmPackages_6.stdenv else stdenv;
+  };
 }
