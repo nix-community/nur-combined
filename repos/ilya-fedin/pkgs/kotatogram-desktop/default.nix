@@ -1,14 +1,16 @@
-{ mkDerivation, lib, fetchFromGitHub, fetchsvn, fetchpatch
-, pkgconfig, pythonPackages, cmake, ninja, wrapGAppsHook, qtbase
-, qtimageformats, gtk3, libappindicator-gtk3, libnotify, xdg_utils
-, desktop-file-utils, ffmpeg_4, openalSoft, lzma, lz4, xxHash, zlib
-, minizip, openssl, libtgvoip, rlottie-tdesktop, range-v3
-, integrateWithSystem ? true, adaptiveBaloons ? true
+{ mkDerivation, lib, fetchFromGitHub, fetchsvn, fetchurl
+, pkgconfig, python3, pythonPackages, cmake, ninja, dos2unix, wrapGAppsHook
+, qtbase, qtimageformats, gtk3, libappindicator-gtk3, libnotify, enchant
+, xdg_utils, desktop-file-utils, ffmpeg, openalSoft, lzma, lz4, xxHash
+, zlib, minizip, openssl, libopus, alsaLib, libpulseaudio, rlottie-tdesktop
+, range-v3, integrateWithSystem ? true
 }:
 
 with lib;
 
 let
+  ver = "1.1.2";
+
   # Arch patches (svn export telegram-desktop/trunk)
   archPatches = fetchsvn {
     url = "svn://svn.archlinux.org/community/telegram-desktop/trunk";
@@ -17,9 +19,23 @@ let
     sha256 = "1hl7znvv6qr4cwpkj8wlplpa63i1lhk2iax7hb4l1s1a4mijx9ls";
   };
 
-  animatedStickersPatch = fetchpatch {
-    url = "https://github.com/kotatogram/kotatogram-desktop/commit/a196b0aba723de85ee573594d9ad420412b6391a.patch";
-    sha256 = "1mzfvcgj42r05k27423hbkvgg0gjrm3xv9hvadfqaq1ys46bpqi0";
+  newIcons = {
+    intro_qr_plane = fetchurl {
+      url = "https://raw.githubusercontent.com/telegramdesktop/tdesktop/100fed362271ada828fdaeb27e52f660a5a05d18/Telegram/Resources/icons/intro_qr_plane.png";
+      sha256 = "1393092a71pcknsb527jp2hlqylqzix71kr9fxsk6pqjrfnjlgvs";
+    };
+  
+    intro_qr_plane_2x = fetchurl {
+      name = "intro_qr_plane_2x.png";
+      url = "https://raw.githubusercontent.com/telegramdesktop/tdesktop/100fed362271ada828fdaeb27e52f660a5a05d18/Telegram/Resources/icons/intro_qr_plane@2x.png";
+      sha256 = "1daa8yjwfi43a55b4714zm66wl7l7n2npm9xplqzl9dagnm4qas8";
+    };
+  
+    intro_qr_plane_3x = fetchurl {
+      name = "intro_qr_plane_3x.png";
+      url = "https://raw.githubusercontent.com/telegramdesktop/tdesktop/100fed362271ada828fdaeb27e52f660a5a05d18/Telegram/Resources/icons/intro_qr_plane@3x.png";
+      sha256 = "0rxj456g5rbikbqh8sq5qrzyxln7hd1wa4688jssjx1zvb792jhz";
+    };
   };
 
   GYP_DEFINES = concatStringsSep "," ([
@@ -30,34 +46,45 @@ let
   ] ++ optional integrateWithSystem "TDESKTOP_DISABLE_GTK_INTEGRATION");
 in mkDerivation rec {
   pname = "kotatogram-desktop";
-  version = "1.1.1-3";
+  version = "${ver}-1";
 
   src = fetchFromGitHub {
     owner = "kotatogram";
     repo = "kotatogram-desktop";
-    rev = "k${version}";
-    sha256 = "156r229dpxnyaxxgp1dr4vz8jla5p7r0dydhgdgk2yx1p11z6m3w";
+    rev = "k${ver}";
+    sha256 = "0gpfhx3pbkhbkmgfsm0wjkjvaxb1aab8s7zbqad06zmxk8rdrmbb";
     fetchSubmodules = true;
   };
 
-  patches = [
-    ./tdesktop.patch
-    animatedStickersPatch
-  ] ++ optionals integrateWithSystem [
-    ./fix-unneeded-private-header.patch
-    ./Use-system-wide-font.patch
-    ./Use-system-wide-font-families.patch
-    ./Parse-Semibold-Fontnames.patch
-    ./QtDBus-Notifications-Implementation.patch
+  patches = optionals integrateWithSystem [
+    ./update-to-v1.9.3.patch
+    ./cmake-rules-fix.patch
+    ./fix-spellcheck.patch
+    ./Use-system-font.patch
     ./system-tray-icon.patch
     ./linux-autostart.patch
+    ./Use-system-font-by-default.patch
     ./Use-native-notifications-by-default.patch
   ] ++ optionals (!integrateWithSystem) [
+    ./tdesktop.patch
     ./fix-glib-function.patch
     "${archPatches}/no-gtk2.patch"
-  ] ++ optional adaptiveBaloons ./baloons-follows-text-width-on-adaptive-layout.patch;
+  ];
 
-  postPatch = optionalString (!integrateWithSystem) ''
+  prePatch = optionalString integrateWithSystem ''
+    dos2unix Telegram/build/build.bat
+  '';
+
+  postPatch = optionalString integrateWithSystem ''
+    unix2dos Telegram/build/build.bat
+
+    cp ${newIcons.intro_qr_plane} Telegram/Resources/icons/intro_qr_plane.png
+    cp ${newIcons.intro_qr_plane_2x} Telegram/Resources/icons/intro_qr_plane@2x.png
+    cp ${newIcons.intro_qr_plane_3x} Telegram/Resources/icons/intro_qr_plane@3x.png
+
+    substituteInPlace Telegram/lib_spellcheck/spellcheck/platform/linux/linux_enchant.cpp \
+      --replace '"libenchant-2.so.2"' '"${enchant}/lib/libenchant-2.so.2"'
+  '' + optionalString (!integrateWithSystem) ''
     substituteInPlace Telegram/SourceFiles/platform/linux/linux_libs.cpp \
       --replace '"gtk-3"' '"${gtk3}/lib/libgtk-3.so"'
     substituteInPlace Telegram/SourceFiles/platform/linux/linux_libs.cpp \
@@ -66,13 +93,16 @@ in mkDerivation rec {
       --replace '"notify"' '"${libnotify}/lib/libnotify.so"'
   '';
 
-  nativeBuildInputs = [ pkgconfig pythonPackages.gyp cmake ninja ]
-    ++ optional (!integrateWithSystem) wrapGAppsHook;
+  nativeBuildInputs = [ pkgconfig python3 cmake ninja ]
+    ++ optional integrateWithSystem dos2unix
+    ++ optionals (!integrateWithSystem) [ pythonPackages.gyp wrapGAppsHook ];
 
   buildInputs = [
-    qtbase qtimageformats ffmpeg_4 openalSoft lzma lz4 xxHash
-    zlib minizip openssl libtgvoip rlottie-tdesktop range-v3
-  ] ++ optionals (!integrateWithSystem) [ gtk3 libappindicator-gtk3 ];
+    qtbase qtimageformats ffmpeg openalSoft lzma lz4 xxHash
+    zlib minizip openssl libopus alsaLib libpulseaudio
+    rlottie-tdesktop range-v3
+  ] ++ optional integrateWithSystem enchant
+    ++ optionals (!integrateWithSystem) [ gtk3 libappindicator-gtk3 ];
 
   enableParallelBuilding = true;
 
@@ -85,18 +115,26 @@ in mkDerivation rec {
     "--prefix PATH : ${desktop-file-utils}/bin"
   ];
 
-  NIX_CFLAGS_COMPILE = [
-    "-I${getDev libtgvoip}/include/tgvoip"
-  ] ++ optional (!integrateWithSystem) "-I${getDev qtbase}/mkspecs/linux-g++"
-  ++ concatMap (x: [
+  NIX_CFLAGS_COMPILE = optionals (!integrateWithSystem) ([
+    "-I${getDev libopus}/include/opus"
+    "-I${getDev qtbase}/mkspecs/linux-g++"
+  ] ++ concatMap (x: [
     "-I${getDev qtbase}/include/${x}"
   ]) [ "QtCore" "QtGui" "QtDBus" ] ++ concatMap (x: [
     "-I${getDev qtbase}/include/${x}/${qtbase.version}"
     "-I${getDev qtbase}/include/${x}/${qtbase.version}/${x}"
-  ]) [ "QtCore" "QtGui" ];
+  ]) [ "QtCore" "QtGui" ]);
   CPPFLAGS = NIX_CFLAGS_COMPILE;
 
-  preConfigure = ''
+  cmakeFlags = optionals integrateWithSystem [
+    "-DTDESKTOP_API_TEST=ON"
+    "-DDESKTOP_APP_DISABLE_CRASH_REPORTS=ON"
+    "-DTDESKTOP_DISABLE_REGISTER_CUSTOM_SCHEME=ON"
+    "-DTDESKTOP_DISABLE_DESKTOP_FILE_GENERATION=ON"
+    "-DTDESKTOP_DISABLE_GTK_INTEGRATION=ON"
+  ];
+
+  preConfigure = optionalString (!integrateWithSystem) ''
     gyp \
       -Dapi_id=17349 \
       -Dapi_hash=344583e45741c457fe1862106095a5eb \
@@ -116,15 +154,20 @@ in mkDerivation rec {
   '';
 
   installPhase = ''
-    install -Dm755 Telegram $out/bin/kotatogram-desktop
-
     mkdir -p $out/share/applications $out/share/kservices5
     install -m444 "$src/lib/xdg/kotatogramdesktop.desktop" "$out/share/applications/kotatogramdesktop.desktop"
     sed "s,/usr/bin,$out/bin,g" $src/lib/xdg/tg.protocol > $out/share/kservices5/tg.protocol
     for icon_size in 16 32 48 64 128 256 512; do
-      install -Dm644 "../../../Telegram/Resources/art/icon''${icon_size}.png" "$out/share/icons/hicolor/''${icon_size}x''${icon_size}/apps/kotatogram.png"
+      install -Dm644 "$src/Telegram/Resources/art/icon''${icon_size}.png" "$out/share/icons/hicolor/''${icon_size}x''${icon_size}/apps/kotatogram.png"
     done
   '' + optionalString integrateWithSystem ''
+    install -Dm755 bin/Telegram $out/bin/kotatogram-desktop
+
+    mkdir -p $out/share/KotatogramDesktop/autostart
+    install -m444 "${./autostart.desktop}" "$out/share/KotatogramDesktop/autostart/kotatogramdesktop.desktop"
+  '' + optionalString (!integrateWithSystem) ''
+    install -Dm755 Telegram $out/bin/kotatogram-desktop
+
     mkdir -p $out/share/KotatogramDesktop/autostart
     install -m444 "${./autostart.desktop}" "$out/share/KotatogramDesktop/autostart/kotatogramdesktop.desktop"
   '';

@@ -104,14 +104,12 @@ index 000000000..5a9117773
 +        flags |= QTextItem::StrikeOut;
 +}
 diff --git a/Telegram/gyp/Telegram.gyp b/Telegram/gyp/Telegram.gyp
-index b141322a9..f2da2eb3d 100644
+index b141322a9..1aafc5595 100644
 --- a/Telegram/gyp/Telegram.gyp
 +++ b/Telegram/gyp/Telegram.gyp
-@@ -75,10 +75,7 @@
-       '<(submodules_loc)/codegen/codegen.gyp:codegen_style',
-       '<(submodules_loc)/lib_base/lib_base.gyp:lib_base',
+@@ -77,8 +77,6 @@
        '<(submodules_loc)/lib_ui/lib_ui.gyp:lib_ui',
--      '<(third_party_loc)/libtgvoip/libtgvoip.gyp:libtgvoip',
+       '<(third_party_loc)/libtgvoip/libtgvoip.gyp:libtgvoip',
        '<(submodules_loc)/lib_lottie/lib_lottie.gyp:lib_lottie',
 -      'tests/tests.gyp:tests',
 -      'utils.gyp:Updater',
@@ -120,7 +118,7 @@ index b141322a9..f2da2eb3d 100644
        'lib_ffmpeg.gyp:lib_ffmpeg',
 Submodule Telegram/gyp/helpers contains modified content
 diff --git a/Telegram/gyp/helpers/common/linux.gypi b/Telegram/gyp/helpers/common/linux.gypi
-index 12b91b0..28a4a13 100644
+index 12b91b0..507a6b9 100644
 --- a/Telegram/gyp/helpers/common/linux.gypi
 +++ b/Telegram/gyp/helpers/common/linux.gypi
 @@ -11,7 +11,6 @@
@@ -131,15 +129,7 @@ index 12b91b0..28a4a13 100644
            '-W',
            '-fPIC',
            '-Wno-unused-variable',
-@@ -42,6 +41,7 @@
-         '<(linux_path_breakpad)/include/breakpad',
-         '<(linux_path_opus_include)',
-         '<(linux_path_range)/include',
-+        '/usr/include/tgvoip',
-       ],
-       'library_dirs': [
-         '/usr/local/lib',
-@@ -87,7 +87,6 @@
+@@ -87,7 +86,6 @@
        ],
        'defines': [
          '_REENTRANT',
@@ -325,16 +315,15 @@ index d32757623..19423c2b4 100644
      'sources': [
        '<(src_loc)/storage/storage_clear_legacy.cpp',
 diff --git a/Telegram/gyp/telegram/linux.gypi b/Telegram/gyp/telegram/linux.gypi
-index ba6bc45e8..6a096a1d9 100644
+index ba6bc45e8..08a26916d 100644
 --- a/Telegram/gyp/telegram/linux.gypi
 +++ b/Telegram/gyp/telegram/linux.gypi
-@@ -20,28 +20,21 @@
+@@ -20,9 +20,10 @@
        ],
      },
      'libraries': [
 -      '-Wl,-Bstatic',
 -      '-lbreakpad_client',
-+      '-ltgvoip',
 +      '-lrlottie',
        '-llzma',
 +      '-llz4',
@@ -342,10 +331,10 @@ index ba6bc45e8..6a096a1d9 100644
        '-lopenal',
        '-lavformat',
        '-lavcodec',
-       '-lswresample',
+@@ -30,18 +31,10 @@
        '-lswscale',
        '-lavutil',
--      '-lopus',
+       '-lopus',
 -      '-lva-x11',
 -      '-lva-drm',
 -      '-lva',
@@ -460,15 +449,3 @@ index eb4654c..22cb8f5 100644
        '-name', '<(RULE_INPUT_ROOT)',
        '-no-compress',
        '<(RULE_INPUT_PATH)',
-diff --git a/Telegram/lib_ui/qt_conf/linux.qrc b/Telegram/lib_ui/qt_conf/linux.qrc
-index b9f5692..8a9bbb3 100644
---- a/Telegram/lib_ui/qt_conf/linux.qrc
-+++ b/Telegram/lib_ui/qt_conf/linux.qrc
-@@ -1,7 +1,4 @@
- <RCC>
--  <qresource prefix="/qt/etc">
--    <file alias="qt.conf">qt_linux.conf</file>
--  </qresource>
-   <qresource prefix="/fc">
-     <file>fc-custom.conf</file>
-   </qresource>

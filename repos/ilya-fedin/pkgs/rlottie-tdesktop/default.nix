@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, meson, ninja }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, cmake, ninja }:
 
 with lib;
 
@@ -13,10 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "1x9m6p07n5pchshw34318k1wkqdymcgnzjhqz21rizswv7c6qhyi";
   };
 
-  outputs = [ "out" "dev" ];
-
-  nativeBuildInputs = [ pkgconfig meson ninja ];
+  nativeBuildInputs = [ pkgconfig cmake ninja ];
   enableParallelBuilding = true;
+
+  cmakeFlags = [ "-DLIB_INSTALL_DIR=lib" ];
 
   meta = {
     description = "A platform independent standalone library that plays Lottie Animation (tdesktop fork)";
