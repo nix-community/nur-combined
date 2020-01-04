@@ -1,5 +1,3 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  lightdm-webkit2-greeter = ./services/x11/display-managers/lightdm-greeters/webkit2.nix;
 }
