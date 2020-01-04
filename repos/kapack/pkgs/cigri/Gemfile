@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+gem 'dbd-pg'
+gem 'rest-client'
+gem 'json'
+gem 'sinatra'
+gem 'xmpp4r'
