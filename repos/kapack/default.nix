@@ -26,6 +26,7 @@ rec {
     '';
   });
   
+
   haskellPackages = import ./pkgs/haskellPackages { inherit pkgs; };
   
   arion = pkgs.callPackage ./pkgs/arion { arion-compose = haskellPackages.arion-compose; };
@@ -39,7 +40,9 @@ rec {
   pytest_flask = pkgs.callPackage ./pkgs/pytest-flask { };
 
   remote_pdb = pkgs.callPackage ./pkgs/remote-pdb { };
-  
+
+  cigri = pkgs.callPackage ./pkgs/cigri { };
+ 
   oar = pkgs.callPackage ./pkgs/oar { inherit procset sqlalchemy_utils pytest_flask pybatsim remote_pdb; };
 
   sqlalchemy_utils = pkgs.callPackage ./pkgs/sqlalchemy-utils { };
