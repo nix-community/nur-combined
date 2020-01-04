@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - name: Install Nix
-      uses: cachix/install-nix-action@v6
+      uses: cachix/install-nix-action@70742d22d932888bb199587f910c72183e62c6da # v6
 
     - name: Checkout
       uses: actions/checkout@v1
@@ -16,13 +16,11 @@ jobs:
     - name: Update dtn7-go packages
       run: ./update-dtn7-go.sh
 
-    - name: Commit changes
-      run: |
-        git config --local user.name "update-dtn7-go.sh"
-        git config --local user.email "nope@nope.local"
-        git commit -a -m "Updated dtn7-go"
-
-    - name: GitHub Push
-      uses: ad-m/github-push-action@v0.5.0
+    - name: Commit and Push
+      uses: github-actions-x/commit@310f99bded869e47f73aa47de0955cbc022c4d74 # v2.4
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        push-branch: 'master'
+        commit-message: 'Updated dtn7-go'
+        rebase: true
+        name: 'update-dtn7-go.sh'
