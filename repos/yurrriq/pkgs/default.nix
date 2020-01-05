@@ -4,29 +4,31 @@ let
 
   _nixpkgs = import sources.nixpkgs-unstable {};
 
+  _nixpkgs-stable = import sources.nixpkgs {};
+
 in
 
 rec {
   inherit (lib) buildK8sEnv;
 
+  inherit (_nixpkgs-stable)
+    cachix;
+
   inherit (_nixpkgs)
     autojump
-    # FIXME: browserpass
-    cachix
+    browserpass
+    # FIXME: cachix
     conftest
     # elixir_1_8
     eksctl
-    expat # NOTE: https://github.com/NixOS/nixpkgs/issues/71075
     firefox
     # TODO: next
     pass
-    # FIXME: ripgrep
-    # FIXME: sops
+    ripgrep
+    sops
     thunderbird
     tomb
     ;
-
-  browserpass = _nixpkgs.callPackage ./tools/security/browserpass {};
 
   elba = pkgs.callPackage ./development/tools/elba {};
 
@@ -34,7 +36,7 @@ rec {
     pythonPackages = pkgs.python2Packages;
   };
 
-  icon-lang = _nixpkgs.icon-lang.override {
+  icon-lang = _nixpkgs-stable.icon-lang.override {
     withGraphics = false;
   };
 
@@ -55,7 +57,7 @@ rec {
 
   # FIXME: mcrl2 = pkgs.callPackage ./applications/science/logic/mcrl2 {};
 
-  noweb = _nixpkgs.noweb.override {
+  noweb = _nixpkgs-stable.noweb.override {
     inherit icon-lang;
   };
 
@@ -65,24 +67,8 @@ rec {
 
   renderizer = pkgs.callPackage ./development/tools/renderizer {};
 
-  ripgrep = _nixpkgs.callPackage ./tools/text/ripgrep {
-    inherit (_nixpkgs.darwin.apple_sdk.frameworks) Security;
-  };
-
   rust-cbindgen = _nixpkgs.rust-cbindgen.overrideAttrs(_: {
     cargoSha256 = "1l2dmvpg7114g7kczhaxv97037wdjah174xa992hv90a79kiz8da";
   });
 
-  sops = _nixpkgs.callPackage ./tools/security/sops {};
-
-} // (if pkgs.stdenv.isLinux then {
-
-  apfs-fuse = pkgs.callPackage ./os-specific/linux/apfs-fuse {
-    fuse = pkgs.fuse3;
-  };
-
-} else {}) // {
-
-  gap-pygments-lexer.meta.broken = true;
-
-}
+} // (import ./broken.nix { inherit pkgs; })
