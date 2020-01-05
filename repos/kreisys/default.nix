@@ -6,7 +6,8 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs    ? import <nixpkgs> args
+let nixpkgs = if (builtins.tryEval <nixpkgs>).success then <nixpkgs> else (import nix/sources.nix).nixpkgs; in
+{ pkgs    ? import nixpkgs args
 , sources ? import nix/sources.nix
 , system  ? builtins.currentSystem, ... }@args:
 
