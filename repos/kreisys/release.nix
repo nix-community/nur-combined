@@ -27,7 +27,7 @@ let
   in filterOutNulls;
 
 in sanitizedPkgs // {
-  lib-tests = import ./lib/tests/release.nix {};
+  lib-tests = import ./lib/tests/release.nix { inherit pkgs; };
 
   all-pkgs = pkgs.releaseTools.aggregate {
     name = "all-pkgs";
