@@ -10,13 +10,11 @@
 , sources ? import nix/sources.nix
 , system  ? builtins.currentSystem, ... }@args:
 
-with (import <nixpkgs/lib>).attrsets;
-
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib      = import ./lib { inherit pkgs; }; # functions
   modules  = import ./modules;               # NixOS modules
   overlays = import ./overlays;              # nixpkgs overlays
-} // (optionalAttrs (builtins.tryEval pkgs).success (import ./pkgs {
+} // (pkgs.lib.optionalAttrs (builtins.tryEval pkgs).success (import ./pkgs {
   inherit sources pkgs;
 }))
