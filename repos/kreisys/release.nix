@@ -8,7 +8,7 @@ in with pkgs.lib;
 
 let
   platformizedPkgs = let
-    releaseLib = import <nixpkgs/pkgs/top-level/release-lib.nix> {
+    releaseLib = import (nixpkgs + "/pkgs/top-level/release-lib.nix") {
       inherit supportedSystems scrubJobs;
       packageSet = import ./.;
     };
