@@ -36,6 +36,6 @@ with pkgs;
     description = "Grin Mimblewimble miner";
     homepage = https://grin-tech.org/;
     license = stdenv.lib.licenses.asl20;
+    broken = true;
   };
-
 })

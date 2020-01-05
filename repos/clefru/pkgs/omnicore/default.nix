@@ -26,5 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/OmniLayer/omnicore";
     license = licenses.mit;
     platforms = platforms.unix;
+    broken = true;  # This version here is too old to be safe to run.
   };
 }

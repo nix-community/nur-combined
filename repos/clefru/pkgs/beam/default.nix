@@ -36,5 +36,6 @@ in buildFHSUserEnv {
     description = "Beam Mimblewimble Wallet";
     homepage = https://www.beam.mw/;
     license = stdenv.lib.licenses.asl20;
+    broken = true;
   };
 }

@@ -21,5 +21,7 @@
   scanbuttond = pkgs.callPackage ./pkgs/scanbuttond {};
   minionpro = pkgs.callPackage ./pkgs/minionpro {};
   omnicore = pkgs.callPackage ./pkgs/omnicore { withGui = true; };
-#  python-pure25519 = pkgs.callPackage ./pkgs/python-pure25519 { buildPythonPackage = pkgs.python27.buildPythonPackage } };
+  zsh-nix-shell = pkgs.callPackage ./pkgs/zsh-nix-shell { };
+  #qemu = pkgs.qemu.overrideDerivation (old: { configureFlags = old.configureFlags ++ ["--enable-vhost-user-fs"] ; });
+  virtiofsd = pkgs.callPackage ./pkgs/virtiofsd { };
 }

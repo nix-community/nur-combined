@@ -5,13 +5,15 @@ let debExtract = stdenv.mkDerivation {
   name = "parsecgaming-pkg";
   src = fetchurl {
     url = "https://s3.amazonaws.com/parsec-build/package/parsec-linux.deb";
-    sha256 = "0wx2nchjr0cbd8a9wdq38wf6kiyxw6892gda4a69w670pqg9bvdy";
+    sha256 = "0x5wyy7830xd0gjw185n4zqzym93ddpimzyka0x8axp66nss0h87";
     };
   phases = [ "buildPhase" ];
   buildInputs = [ dpkg ];
   buildPhase = ''
     mkdir $out
     dpkg-deb -x $src $out
+    # dpkg-deb makes $out group-writable, which nix doesn't like
+    chmod 755 $out
     mv $out/usr/* $out
     rmdir $out/usr
   '';
