@@ -16,10 +16,44 @@
   compton-tryone = pkgs.callPackage ./pkgs/compton-tryone { };
 
 
-  #Overrides
-  ncmpcpp = import ./pkgs/overrides/ncmpcpp.nix;
-  neomutt = import ./pkgs/overrides/neomutt.nix;
-  notmuch = import ./pkgs/overrides/notmuch.nix;
-  vimCustom = import ./pkgs/overrides/vim.nix;
+  #Overrides that Travis CI will build so I don't have to
+  vimCustom = pkgs.callPackage ./pkgs/overrides/vim.nix { };
   zathura-poppler-only = pkgs.callPackage ./pkgs/overrides/zathurapoppler.nix { };
+
+  wineWow = pkgs.wine.override { wineBuild = "wineWow"; };
+  ncmpcpp = pkgs.ncmpcpp.override { visualizerSupport = true; };
+  neomutt = pkgs.neomutt.overrideAttrs ( oldAttrs: {
+    buildInputs = with pkgs; [
+      cyrus_sasl gss gpgme kerberos libidn ncurses
+      openssl perl lmdb
+      mailcap
+    ];
+    configureFlags = [
+      "--gpgme"
+      "--gss"
+      "--lmdb"
+      "--ssl"
+      "--sasl"
+      "--with-homespool=mailbox"
+      "--with-mailpath="
+      # Look in $PATH at runtime, instead of hardcoding /usr/bin/sendmail
+      "ac_cv_path_SENDMAIL=sendmail"
+    ];
+  });
+  notmuch = pkgs.notmuch.overrideAttrs ( oldAttrs: {
+    buildInputs = with pkgs; [
+      gnupg
+      xapian gmime3 talloc zlib
+      perl
+      pythonPackages.python
+    ];
+    postPatch = ''
+      patchShebangs configure
+      patchShebangs test/
+
+      substituteInPlace lib/Makefile.local \
+        --replace '-install_name $(libdir)' "-install_name $out/lib"
+    '';
+    doCheck = false;
+  });
 }

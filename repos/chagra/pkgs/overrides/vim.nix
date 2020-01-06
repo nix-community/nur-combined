@@ -1,6 +1,6 @@
-with import <nixpkgs> {};
+{ pkgs }:
 
-neovim.override {
+pkgs.neovim.override {
   withPython = false;
   withPython3 = true;
   withRuby = false;

@@ -4,8 +4,7 @@ let
 in
 
 stdenv.mkDerivation {
-  pname="zathura-poppler";
-  version="1";
+  name="zathura-poppler-only";
   dontUnpack=true;
   dontInstall=true;
   buildInputs = [ makeWrapper ];
