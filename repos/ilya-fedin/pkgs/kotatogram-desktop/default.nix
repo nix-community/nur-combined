@@ -2,8 +2,8 @@
 , pkgconfig, python3, pythonPackages, cmake, ninja, dos2unix, wrapGAppsHook
 , qtbase, qtimageformats, gtk3, libappindicator-gtk3, libnotify, enchant
 , xdg_utils, desktop-file-utils, ffmpeg, openalSoft, lzma, lz4, xxHash
-, zlib, minizip, openssl, libopus, alsaLib, libpulseaudio, rlottie-tdesktop
-, range-v3, integrateWithSystem ? true
+, zlib, minizip, openssl, libtgvoip, rlottie-tdesktop, range-v3
+, integrateWithSystem ? true
 }:
 
 with lib;
@@ -46,7 +46,7 @@ let
   ] ++ optional integrateWithSystem "TDESKTOP_DISABLE_GTK_INTEGRATION");
 in mkDerivation rec {
   pname = "kotatogram-desktop";
-  version = "${ver}-1";
+  version = "${ver}-2";
 
   src = fetchFromGitHub {
     owner = "kotatogram";
@@ -60,6 +60,7 @@ in mkDerivation rec {
     ./update-to-v1.9.3.patch
     ./cmake-rules-fix.patch
     ./fix-spellcheck.patch
+    ./add-default-notification-action.patch
     ./Use-system-font.patch
     ./system-tray-icon.patch
     ./linux-autostart.patch
@@ -99,8 +100,7 @@ in mkDerivation rec {
 
   buildInputs = [
     qtbase qtimageformats ffmpeg openalSoft lzma lz4 xxHash
-    zlib minizip openssl libopus alsaLib libpulseaudio
-    rlottie-tdesktop range-v3
+    zlib minizip openssl libtgvoip rlottie-tdesktop range-v3
   ] ++ optional integrateWithSystem enchant
     ++ optionals (!integrateWithSystem) [ gtk3 libappindicator-gtk3 ];
 
@@ -116,7 +116,7 @@ in mkDerivation rec {
   ];
 
   NIX_CFLAGS_COMPILE = optionals (!integrateWithSystem) ([
-    "-I${getDev libopus}/include/opus"
+    "-I${getDev libtgvoip}/include/tgvoip"
     "-I${getDev qtbase}/mkspecs/linux-g++"
   ] ++ concatMap (x: [
     "-I${getDev qtbase}/include/${x}"
@@ -154,22 +154,17 @@ in mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out/share/applications $out/share/kservices5
-    install -m444 "$src/lib/xdg/kotatogramdesktop.desktop" "$out/share/applications/kotatogramdesktop.desktop"
-    sed "s,/usr/bin,$out/bin,g" $src/lib/xdg/tg.protocol > $out/share/kservices5/tg.protocol
+    install -Dm644 "$src/lib/xdg/kotatogramdesktop.desktop" "$out/share/applications/kotatogramdesktop.desktop"
+    install -Dm644 "$src/lib/xdg/tg.protocol" "$out/share/kservices5/tg.protocol"
+    substituteInPlace "$out/share/kservices5/tg.protocol" --replace /usr/bin "$out/bin"
     for icon_size in 16 32 48 64 128 256 512; do
       install -Dm644 "$src/Telegram/Resources/art/icon''${icon_size}.png" "$out/share/icons/hicolor/''${icon_size}x''${icon_size}/apps/kotatogram.png"
     done
   '' + optionalString integrateWithSystem ''
     install -Dm755 bin/Telegram $out/bin/kotatogram-desktop
-
-    mkdir -p $out/share/KotatogramDesktop/autostart
-    install -m444 "${./autostart.desktop}" "$out/share/KotatogramDesktop/autostart/kotatogramdesktop.desktop"
+    install -Dm644 "${./autostart.desktop}" "$out/share/KotatogramDesktop/autostart/kotatogramdesktop.desktop"
   '' + optionalString (!integrateWithSystem) ''
     install -Dm755 Telegram $out/bin/kotatogram-desktop
-
-    mkdir -p $out/share/KotatogramDesktop/autostart
-    install -m444 "${./autostart.desktop}" "$out/share/KotatogramDesktop/autostart/kotatogramdesktop.desktop"
   '';
 
   postFixup = optionalString (!integrateWithSystem) ''

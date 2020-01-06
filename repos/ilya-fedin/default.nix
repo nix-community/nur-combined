@@ -9,7 +9,7 @@ rec {
 
   kotatogram-desktop = qt5.callPackage ./pkgs/kotatogram-desktop {
     cmake = cmake_3_16;
-    inherit rlottie-tdesktop;
+    inherit libtgvoip rlottie-tdesktop;
   };
 
   libtgvoip = callPackage ./pkgs/libtgvoip {};
