@@ -54,6 +54,9 @@ in rec {
   gpxtools = callPackage ./pkgs/gpxtools {
     inherit (sources) gpxtools;
   };
+  gt-bash-client = callPackage ./pkgs/gt-bash-client {
+    inherit (sources) gt-bash-client;
+  };
   lsd2dsl = libsForQt5.callPackage ./pkgs/lsd2dsl {
     inherit (sources) lsd2dsl;
   };
@@ -84,7 +87,7 @@ in rec {
   pymbtiles = python3Packages.callPackage ./pkgs/pymbtiles {
     inherit (sources) pymbtiles;
   };
-  qmapshack-maps = callPackage ./pkgs/qmapshack-maps { };
+  qmapshack-onlinemaps = callPackage ./pkgs/qmapshack-onlinemaps { };
   redict = libsForQt5.callPackage ./pkgs/redict {
     inherit (sources) redict;
   };

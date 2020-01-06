@@ -1,7 +1,7 @@
 { stdenv, fetchzip }:
 
 stdenv.mkDerivation rec {
-  pname = "qmapshack-maps";
+  pname = "qmapshack-onlinemaps";
   version = "2019-12-26";
 
   src = fetchzip {

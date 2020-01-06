@@ -143,6 +143,18 @@
         "url": "https://notabug.org/irdvo/gpxtools/archive/b989f357abb9f9b694cbe95081dd8d1094019233.tar.gz",
         "url_template": "https://notabug.org/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "gt-bash-client": {
+        "branch": "master",
+        "description": "Get translated text from your terminal! Console Google Translate Script (bash+curl+sed)",
+        "homepage": "https://ophoperhpo.github.io/GT-bash-client/",
+        "owner": "OPHoperHPO",
+        "repo": "GT-bash-client",
+        "rev": "f8959489d93de963721985b2b9501ed0bc8ce3e8",
+        "sha256": "10877mq9w5fc9krhr7fw8a0l2v27a1iy61zri3whbk2r604s0s6q",
+        "type": "tarball",
+        "url": "https://github.com/OPHoperHPO/GT-bash-client/archive/f8959489d93de963721985b2b9501ed0bc8ce3e8.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "imgp": {
         "branch": "master",
         "description": ":camera_flash: High-performance CLI batch image resizer & rotator",
