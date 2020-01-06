@@ -12,14 +12,14 @@ let
 
     ${optionalString cfg.builtin ''
       pushd /etc/nixos > /dev/null
-      niv modify nixpkgs -a builtin=true
+      ${pkgs.niv}/bin/niv modify nixpkgs -a builtin=true
       nix-build -Q -A nixpkgs -o /run/nixpkgs ./nix/sources.nix
       popd > /dev/null
     ''}
 
     ${optionalString (!cfg.builtin) ''
       pushd /etc/nixos > /dev/null
-      niv modify nixpkgs -a builtin=false
+      ${pkgs.niv}/bin/niv modify nixpkgs -a builtin=false
       ln -sfn $(nix-instantiate --eval -A nixpkgs.outPath ./nix/sources.nix | sed 's/"//g') /run/nixpkgs
       popd > /dev/null
     ''}
