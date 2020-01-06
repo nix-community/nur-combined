@@ -19,7 +19,7 @@ inherit (import ./oar-conf.nix { pkgs=pkgs; lib=lib; cfg=cfg;} ) oarBaseConf oar
 oarVisualization = pkgs.stdenv.mkDerivation {
   name = "oar_visualization";
   phases          = [ "installPhase" ];
-  buildInputs     = [  ];
+  buildInputs     = [  ]; # TODO to remove
   installPhase = ''
     mkdir -p $out/monika
     cp -r ${cfg.package}/visualization_interfaces/Monika/lib $out/monika/
@@ -257,7 +257,7 @@ in
       uid = 745;
     };
 
-    users.groups.oar.gid = mkIf ( cfg.client.enable || cfg.node.enable || cfg.server.enable) 735;
+    users.groups.oar.gid = mkIf ( cfg.client.enable || cfg.node.enable || cfg.server.enable) 745;
 
     systemd.services.oar-user-init = {
       wantedBy = [ "network.target" ];      
@@ -415,7 +415,6 @@ in
     #networking.firewall.allowedTCPPorts = mkIf cfg.dbserver.enable [5432];
         
     systemd.services.oardb-init = mkIf cfg.dbserver.enable {
-      #pgSuperUser = config.services.postgresql.superUser;
       requires = [ "postgresql.service" ];
       after = [ "postgresql.service" ];
       description = "OARD DB initialization";
@@ -521,21 +520,3 @@ in
     
   };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

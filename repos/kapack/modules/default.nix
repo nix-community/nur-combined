@@ -4,5 +4,6 @@
   fe-slurm = ./services/fe-slurm.nix;
   rs-munge = ./services/bs-munge.nix;
   oar = ./services/oar.nix;
+  cigri = /services/cigri.nix;
 }
 
