@@ -5,14 +5,14 @@
 }:
 with pkgs;
 buildGoPackage rec {
-  name = "sync3c-v${version}";
-  version = "0.1";
+  name = "sync3c-git-${version}";
+  version = "e7b331b9a7f376298466bd45380b7ff11592a0f4";
 
   src = fetchFromGitHub {
     owner = "muesli";
     repo = "sync3c";
-    rev = "v0.1";
-    sha256 = "0bpq2j5x534q253ywwlwyiqnlb321k7v9j3lpcifcv08p848y8v0";
+    rev = version;
+    sha256 = "0hbr28q6293hx0zai4j647ci3a1h058bbb93k0avb4lnr74yn36w";
   };
 
   goPackagePath = "github.com/muesli/sync3c";
