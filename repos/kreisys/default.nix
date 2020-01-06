@@ -6,16 +6,17 @@
 # commands such as:
 #     nix-build -A mypackage
 
-let nixpkgs = if (builtins.tryEval <nixpkgs>).success then <nixpkgs> else (import nix/sources.nix).nixpkgs; in
-{ pkgs    ? import nixpkgs args
+{ pkgs    ? import <nixpkgs> args
 , sources ? import nix/sources.nix
 , system  ? builtins.currentSystem, ... }@args:
+
+with (import <nixpkgs/lib>).attrsets;
 
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib      = import ./lib { inherit pkgs; }; # functions
   modules  = import ./modules;               # NixOS modules
   overlays = import ./overlays;              # nixpkgs overlays
-} // (pkgs.lib.optionalAttrs (builtins.tryEval pkgs).success (import ./pkgs {
+} // (optionalAttrs (builtins.tryEval pkgs).success (import ./pkgs {
   inherit sources pkgs;
 }))

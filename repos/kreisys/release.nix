@@ -8,7 +8,7 @@ in with pkgs.lib;
 
 let
   platformizedPkgs = let
-    releaseLib = import (nixpkgs + "/pkgs/top-level/release-lib.nix") {
+    releaseLib = import <nixpkgs/pkgs/top-level/release-lib.nix> {
       inherit supportedSystems scrubJobs;
       packageSet = import ./.;
     };
@@ -27,7 +27,7 @@ let
   in filterOutNulls;
 
 in sanitizedPkgs // {
-  lib-tests = import ./lib/tests/release.nix { inherit pkgs; };
+  lib-tests = import ./lib/tests/release.nix {};
 
   all-pkgs = pkgs.releaseTools.aggregate {
     name = "all-pkgs";
