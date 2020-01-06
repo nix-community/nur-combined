@@ -23,12 +23,6 @@ in
         defaultText = "pkgs.nur.repos.kapack.cigri";
       };
 
-      cigriHomeDir = mkOption {
-        type = types.str;
-        default = "/var/lib/cigri";
-        description = "Home for CiGri user ";
-      };
-
       database = {
         host = mkOption {
           type = types.str;
@@ -45,8 +39,8 @@ in
         description = ''
           A file containing the usernames/passwords for database, content example:
 
-          DATABASE_USER_NAME = "cigri3"
-          DATABASE_USER_PASSWORD = "cigri3"
+          DATABASE_USER_NAME="cigri3"
+          DATABASE_USER_PASSWORD="cigri3"
         '';
         };
         
@@ -82,30 +76,65 @@ in
             Host of the CiGri server. 
           '';
         };
+        logfile = mkOption {
+          type = types.str;
+          default = "/dev/null";
+          description = "Specify the log file name.";
+          example = "/var/cigri/state/home/cigri.log";
+        };
+
+        statePath = mkOption {
+          type = types.str;
+          default = "/var/cigri/state";
+          description = ''
+          Cigri state directory. Configuration, repositories and
+          logs, among other things, are stored here.
+
+          The directory will be created automatically if it doesn't
+          exist already.
+        '';
+      };
+
+
+        
       };
       
       dbserver = {
         enable = mkEnableOption "CiGri database";
       };
     };
+
+    
+
+    
   };
 
   ###### implementation
 
-  config = mkIf ( cfg.user.enable ||
+  config = mkIf ( cfg.client.enable ||
                   cfg.server.enable ||
                   cfg.dbserver.enable ) {
 
     environment.etc."cigri/cigri-base.conf" = { mode = "0600"; source = cigriBaseConf; };
     
     # cigri user declaration
-    users.users.cigri = mkIf ( cfg.server )  {
+    users.users.cigri = mkIf cfg.server.enable {
       description = "CiGri user";
-      home = cfg.cigriHomeDir;
+      home = "${cfg.server.statePath}/home";
       shell = pkgs.bashInteractive;
       uid = 746;
     };
+    
+    users.groups = [
+      { name = "cigri";
+        gid = 746;
+      }
+    ];
 
+    systemd.tmpfiles.rules = mkIf cfg.server.enable [
+      "d ${cfg.server.statePath}/home 0750 cigri cigri -"
+    ];
+    
     systemd.services.cigri-conf-init = {
       wantedBy = [ "network.target" ];
       before = [ "network.target" ];
@@ -124,7 +153,7 @@ in
     
     ################
     # Server Section
-    systemd.services.cigri-server =  mkIf (cfg.server.enable) {
+    systemd.services.cigri-server =  mkIf cfg.server.enable {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target"];
       description = "CiGri server's main process";

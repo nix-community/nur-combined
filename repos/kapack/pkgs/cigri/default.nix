@@ -14,10 +14,13 @@ let
     rev = "eeadb6b34c9d1365762a6b7d6f5598ad4bc68a21";
     sha256 = "1l9jpnzph4kal5950x2x8nzbqhdfk0f6jjbs79wznnkxqra5n9qc";
   };
-
-  buildInputs = [rubyEnv ruby bash perl];
+  
+  buildInputs = [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler bash perl ];
   
   buildPhase = ''
+    substituteInPlace modules/almighty.rb \
+    --replace /var/run/cigri/almighty.pid /var/cigri/state/home/almighty.pid
+
     mkdir -p $out/bin $out/sbin
     make PREFIX=$out SHELL=${bash}/bin/bash \
     install-cigri-libs install-cigri-modules \
@@ -27,7 +30,6 @@ let
   postInstall = ''
     cp -r database $out
   '';
-
   
   meta = with stdenv.lib; {
     homepage = "https://github.com/oar-team/cigri";
