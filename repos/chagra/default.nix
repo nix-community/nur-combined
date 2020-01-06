@@ -20,7 +20,7 @@
   vimCustom = pkgs.callPackage ./pkgs/overrides/vim.nix { };
   zathura-poppler-only = pkgs.callPackage ./pkgs/overrides/zathurapoppler.nix { };
 
-  wineWow = pkgs.wine.override { wineBuild = "wineWow"; };
+  wineWow = pkgs.wineStaging.override { wineBuild = "wineWow"; };
   ncmpcpp = pkgs.ncmpcpp.override { visualizerSupport = true; };
   neomutt = pkgs.neomutt.overrideAttrs ( oldAttrs: {
     buildInputs = with pkgs; [
