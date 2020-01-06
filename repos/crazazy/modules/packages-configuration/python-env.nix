@@ -7,6 +7,7 @@ let
         matplotlib
         virtualenvwrapper
         pandas
+        scikitlearn
         ipykernel
         jupyter
         tkinter
