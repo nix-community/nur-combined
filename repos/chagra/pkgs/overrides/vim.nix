@@ -13,7 +13,7 @@ pkgs.neovim.override {
     customRC = ''
       set nocompatible
       filetype off
-      colorscheme default
+      colorscheme desert
       let mapleader = ","
 
       " basics
