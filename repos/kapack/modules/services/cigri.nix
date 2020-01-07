@@ -6,6 +6,31 @@ with lib;
 let
   cfg = config.services.cigri;
 inherit (import ./cigri-conf.nix { pkgs=pkgs; lib=lib; cfg=cfg;} ) cigriBaseConf;
+
+cigriEnv = {
+  HOME = "${cfg.server.statePath}/home";
+  UNICORN_PATH = "${cfg.server.statePath}/";
+  CIGRI_API_PATH = "${cfg.package}/share/cigri/api";
+  #CIGRI_LOG_PATH = "${cfg.server.statePath}/log";
+};
+
+unicornConfig = pkgs.writeText "unicorn.rb" ''
+worker_processes 2
+
+listen ENV["UNICORN_PATH"] + "/tmp/sockets/cigri.socket", :backlog => 64
+
+working_directory ENV["CIGRI_API_PATH"]
+
+timeout 60
+
+# Set process id path
+pid ENV["UNICORN_PATH"] + "/tmp/pids/unicorn.pid"
+
+# Set log file paths
+stderr_path ENV["UNICORN_PATH"] +"/log/unicorn.stderr.log"
+stdout_path ENV["UNICORN_PATH"] +"/log/unicorn.stdout.log"
+'';
+
 in
 
 {
@@ -82,21 +107,18 @@ in
           description = "Specify the log file name.";
           example = "/var/cigri/state/home/cigri.log";
         };
-
+        
         statePath = mkOption {
           type = types.str;
           default = "/var/cigri/state";
           description = ''
-          Cigri state directory. Configuration, repositories and
-          logs, among other things, are stored here.
-
-          The directory will be created automatically if it doesn't
-          exist already.
-        '';
-      };
-
-
-        
+            Cigri state directory. Configuration, repositories and
+            logs, among other things, are stored here.
+            
+            The directory will be created automatically if it doesn't
+            exist already.
+          '';
+        };
       };
       
       dbserver = {
@@ -133,6 +155,11 @@ in
 
     systemd.tmpfiles.rules = mkIf cfg.server.enable [
       "d ${cfg.server.statePath}/home 0750 cigri cigri -"
+      "d ${cfg.server.statePath}/config 0750 cigri cigri -"
+      "d ${cfg.server.statePath}/log 0750 cigri cigri -"
+      "d ${cfg.server.statePath}/tmp 0750 cigri cigri -"
+      "d ${cfg.server.statePath}/tmp/pids 0750 cigri cigri -"
+      "d ${cfg.server.statePath}/tmp/sockets 0750 cigri cigri -"
     ];
     
     systemd.services.cigri-conf-init = {
@@ -156,7 +183,7 @@ in
     systemd.services.cigri-server =  mkIf cfg.server.enable {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target"];
-      description = "CiGri server's main process";
+      description = "CiGri's server main process";
       restartIfChanged = false;
       serviceConfig = {
         User = "cigri";
@@ -166,6 +193,25 @@ in
       };
     };
 
+    ################
+    # Rest-api Section
+    systemd.services.cigri-rest-api =  mkIf cfg.server.enable {
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      description = "CiGri's rest api";
+      environment = cigriEnv;
+      serviceConfig = {
+        Type = "simple";
+        User = "cigri";
+        TimeoutSec = "infinity";
+        KillMode = "process";
+        Restart = "on-failure";
+        WorkingDirectory = "${cfg.package}/share/cigri/api";
+        ExecStart = "${cfg.package.rubyEnv}/bin/unicorn -c ${unicornConfig} -E production";
+      };
+    };
+
+    
     ##################
     # Database section 
     
