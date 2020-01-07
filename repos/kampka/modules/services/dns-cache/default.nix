@@ -209,6 +209,12 @@ in
             description = "List of network interfaces to bind to.";
           };
 
+          cache-size = mkOption {
+            type = types.int;
+            default = 1500;
+            description = "Amount of DNS resolves to cache";
+          };
+
           dhcp = mkOption {
             type = types.listOf (types.submodule dhcpOpts);
             default = [];
@@ -307,6 +313,8 @@ ${concatStringsSep "\n" (
         ${optionalString (cfg.dnsmasq.logQueries) "
 log-queries
 "}
+
+cache-size=${toString cfg.dnsmasq.cache-size}
 
         ${cfg.dnsmasq.extraConfig}
       '';
