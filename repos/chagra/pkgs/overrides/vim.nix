@@ -13,7 +13,7 @@ pkgs.neovim.override {
     customRC = ''
       set nocompatible
       filetype off
-      colorscheme desert
+      colorscheme wal
       let mapleader = ","
 
       " basics
@@ -145,6 +145,7 @@ pkgs.neovim.override {
         vim-airline-themes
         vim-nix
         supertab
+        wal-vim
       ];
       opt = [ ];
     };
