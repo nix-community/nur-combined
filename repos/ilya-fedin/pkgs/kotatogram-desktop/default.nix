@@ -46,7 +46,7 @@ let
   ] ++ optional integrateWithSystem "TDESKTOP_DISABLE_GTK_INTEGRATION");
 in mkDerivation rec {
   pname = "kotatogram-desktop";
-  version = "${ver}-2";
+  version = "${ver}-3";
 
   src = fetchFromGitHub {
     owner = "kotatogram";
@@ -59,6 +59,7 @@ in mkDerivation rec {
   patches = optionals integrateWithSystem [
     ./update-to-v1.9.3.patch
     ./cmake-rules-fix.patch
+    ./remove-qt-config.patch
     ./fix-spellcheck.patch
     ./add-default-notification-action.patch
     ./Use-system-font.patch
