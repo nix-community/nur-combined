@@ -1,6 +1,3 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  custom-services = ./custom-services.nix;
 }
-
