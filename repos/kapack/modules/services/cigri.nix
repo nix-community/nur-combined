@@ -39,14 +39,14 @@ in
         description = ''
           A file containing the usernames/passwords for database, content example:
 
-          DATABASE_USER_NAME="cigri3"
-          DATABASE_USER_PASSWORD="cigri3"
+          DATABASE_USER_NAME="cigri"
+          DATABASE_USER_PASSWORD="cigri"
         '';
         };
         
         dbname = mkOption {
           type = types.str;
-          default = "cigri3";
+          default = "cigri";
           description = "Name of the postgresql database";
         };
       };
@@ -188,13 +188,13 @@ in
       requires = [ "postgresql.service" ];
       after = [ "postgresql.service" ];
       description = "CiGri DB initialization";
-      path = [ config.services.postgresql.package ];
+      path = [ config.services.postgresql.package pkgs.sudo];
       wantedBy = [ "multi-user.target" ];
       serviceConfig.Type = "oneshot";
       script = ''
         source ${cfg.database.passwordFile};
         ${cfg.package}/database/init_db.rb \
-          -d $DATABASE_NAME -u $DATABASE_USER_NAME -p $DATABASE_USER_PASSWOR \
+          -d ${cfg.database.dbname} -u $DATABASE_USER_NAME -p $DATABASE_USER_PASSWORD \
           -t psql -s ${cfg.package}/database/psql_structure.sql
       '';
     };

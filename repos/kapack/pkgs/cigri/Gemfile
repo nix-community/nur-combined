@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
-gem 'dbd-pg'
+gem 'pg'
+gem 'ydbi'
+gem 'ydbd-pg'
 gem 'rest-client'
 gem 'json'
 gem 'sinatra'
