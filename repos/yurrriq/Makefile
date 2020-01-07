@@ -8,7 +8,7 @@ niv-update: COMMIT_MSG_FILE = ../../../../.git/COMMIT_EDITMSG
 niv-update:
 	@ niv update ${package}
 	@ git add ${sources}
-	@ jq '"[nix] ${package}: ${rev} -> \(.["${package}"].rev[:8])"' \
+	@ jq '"${package}: ${rev} -> \(.["${package}"].rev[:8])"' \
 	${sources} | xargs git commit -m
 
 
