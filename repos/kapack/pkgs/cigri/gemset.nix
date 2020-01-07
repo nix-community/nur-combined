@@ -51,6 +51,16 @@
     };
     version = "2.3.0";
   };
+  kgio = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1528pyj1szzzp3pgj05fzjd36qjrxm9yj2x5radc9p1z7vl67y50";
+      type = "gem";
+    };
+    version = "2.11.2";
+  };
   mime-types = {
     dependencies = ["mime-types-data"];
     groups = ["default"];
@@ -124,6 +134,16 @@
     };
     version = "2.0.8.1";
   };
+  raindrops = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1qpbd9jif40c53fz2r0l8khfl016y8s8bkx37ibcaafclbl3xygp";
+      type = "gem";
+    };
+    version = "0.19.0";
+  };
   rest-client = {
     dependencies = ["http-accept" "http-cookie" "mime-types" "netrc"];
     groups = ["default"];
@@ -186,6 +206,17 @@
       type = "gem";
     };
     version = "0.0.7.6";
+  };
+  unicorn = {
+    dependencies = ["kgio" "raindrops"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0d42f7fxck7k179awhrwxdpvs9mpkc9mpxwq27s9nx1x7yjris6d";
+      type = "gem";
+    };
+    version = "5.5.2";
   };
   xmpp4r = {
     groups = ["default"];

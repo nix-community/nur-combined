@@ -8,6 +8,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     json (2.3.0)
+    kgio (2.11.2)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
@@ -18,6 +19,7 @@ GEM
     rack (2.0.8)
     rack-protection (2.0.8.1)
       rack
+    raindrops (0.19.0)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
@@ -33,6 +35,9 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
+    unicorn (5.5.2)
+      kgio (~> 2.6)
+      raindrops (~> 0.7)
     xmpp4r (0.5.6)
     ydbd-pg (0.5.6)
       pg
@@ -48,6 +53,7 @@ DEPENDENCIES
   pg
   rest-client
   sinatra
+  unicorn
   xmpp4r
   ydbd-pg
   ydbi
