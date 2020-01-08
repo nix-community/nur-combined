@@ -5,7 +5,7 @@ with lib;
 
 let
   cfg = config.services.cigri;
-inherit (import ./cigri-conf.nix { pkgs=pkgs; lib=lib; cfg=cfg;} ) cigriBaseConf;
+inherit (import ./cigri-conf.nix { pkgs=pkgs; lib=lib; cfg=cfg;} ) cigriBaseConf cigriApiClientsConf unicornConfig;
 
 cigriEnv = {
   HOME = "${cfg.server.statePath}/home";
@@ -13,23 +13,6 @@ cigriEnv = {
   CIGRI_API_PATH = "${cfg.package}/share/cigri/api";
   #CIGRI_LOG_PATH = "${cfg.server.statePath}/log";
 };
-
-unicornConfig = pkgs.writeText "unicorn.rb" ''
-worker_processes 2
-
-listen ENV["UNICORN_PATH"] + "/tmp/sockets/cigri.socket", :backlog => 64
-
-working_directory ENV["CIGRI_API_PATH"]
-
-timeout 60
-
-# Set process id path
-pid ENV["UNICORN_PATH"] + "/tmp/pids/unicorn.pid"
-
-# Set log file paths
-stderr_path ENV["UNICORN_PATH"] +"/log/unicorn.stderr.log"
-stdout_path ENV["UNICORN_PATH"] +"/log/unicorn.stdout.log"
-'';
 
 in
 
@@ -119,6 +102,32 @@ in
             exist already.
           '';
         };
+
+        api_port = mkOption {
+          type = types.int;
+          default = 80;
+          description = ''
+            Port to access to Cigir's Rest API.
+          '';
+        };
+
+        api_base = mkOption {
+          type = types.str;
+          default = "/cigri-api";
+          
+          description = ''
+            Base location to Cigir's Rest API.
+          '';
+        };
+        
+        api_SSL = mkEnableOption "Enable API_SSL"; # TODO to finish
+
+        web = {
+          enable = mkEnableOption "Web server to serve rest-api";
+        };
+      
+
+        
       };
       
       dbserver = {
@@ -138,20 +147,19 @@ in
                   cfg.dbserver.enable ) {
 
     environment.etc."cigri/cigri-base.conf" = { mode = "0600"; source = cigriBaseConf; };
-    
+    environment.etc."cigri/api-clients.conf" = mkIf cfg.client.enable {source = cigriApiClientsConf; };
+
+    environment.systemPackages =  [ pkgs.nur.repos.kapack.cigri ];
     # cigri user declaration
     users.users.cigri = mkIf cfg.server.enable {
       description = "CiGri user";
       home = "${cfg.server.statePath}/home";
       shell = pkgs.bashInteractive;
+      group = "cigri";
       uid = 746;
     };
     
-    users.groups = [
-      { name = "cigri";
-        gid = 746;
-      }
-    ];
+    users.groups.cigri.gid = mkIf cfg.server.enable 746;
 
     systemd.tmpfiles.rules = mkIf cfg.server.enable [
       "d ${cfg.server.statePath}/home 0750 cigri cigri -"
@@ -162,7 +170,7 @@ in
       "d ${cfg.server.statePath}/tmp/sockets 0750 cigri cigri -"
     ];
     
-    systemd.services.cigri-conf-init = {
+    systemd.services.cigri-conf-init = mkIf cfg.server.enable {
       wantedBy = [ "network.target" ];
       before = [ "network.target" ];
       serviceConfig.Type = "oneshot";
@@ -211,6 +219,21 @@ in
       };
     };
 
+
+    services.nginx =mkIf cfg.server.web.enable {
+      enable = true;
+      user = "cigri";
+      group = "cigri";
+      recommendedProxySettings = true;
+      virtualHosts = {
+        default = {
+          locations."${cfg.server.api_base}" = {
+            proxyPass = "http://unix:${cfg.server.statePath}//tmp/sockets/cigri.socket";
+            extraConfig = "proxy_set_header HTTP_X_REMOTE_IDENT $remote_user;";
+          };
+        };
+      };
+    };
     
     ##################
     # Database section 

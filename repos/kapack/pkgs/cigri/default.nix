@@ -12,8 +12,8 @@ let
   src = fetchFromGitHub {
     owner = "oar-team";
     repo = "cigri";
-    rev = "eeadb6b34c9d1365762a6b7d6f5598ad4bc68a21";
-    sha256 = "1l9jpnzph4kal5950x2x8nzbqhdfk0f6jjbs79wznnkxqra5n9qc";
+    rev = "904bed81d61f5565bd5b86c345241bc0c511c317";
+    sha256 = "001rapmzp08314c4y9birmfi6njgyvn7f95735qrd0443kfwhd19";
   };
   
   buildInputs = [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler bash perl ];
@@ -33,7 +33,8 @@ let
   postInstall = ''
     cp -r database $out
   '';
-  
+
+  # Allow rubyEnv to be use in modules/services/cigri configuration
   passthru = {
     inherit rubyEnv;
   };

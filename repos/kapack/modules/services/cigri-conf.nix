@@ -142,4 +142,34 @@ settingsString = concatStrings (lib.mapAttrsToList (n: v: ''${n}="${toString v}"
 in
 {
   cigriBaseConf = pkgs.writeText "cigri-base.conf"  (cigriBaseConfString + settingsString);
+  
+  cigriApiClientsConf =  pkgs.writeText "api-clients.conf" (concatStringsSep "\n" [
+  ''
+    API_HOST = "${cfg.server.host}"
+    API_PORT = "${toString cfg.server.api_port}"
+    API_TIMEOUT = "60"
+    API_BASE = "${cfg.server.api_base}"
+  '' 
+  (optionalString (cfg.server.api_SSL) ''
+    API_SSL = "true"
+    API_VERIFY_SSL="OpenSSL::SSL::VERIFY_NONE"  
+  '')]);
+  
+  unicornConfig = pkgs.writeText "unicorn.rb" ''
+    worker_processes 2
+
+    listen ENV["UNICORN_PATH"] + "/tmp/sockets/cigri.socket", :backlog => 64
+
+    working_directory ENV["CIGRI_API_PATH"]
+
+    timeout 60
+
+    # Set process id path
+    pid ENV["UNICORN_PATH"] + "/tmp/pids/unicorn.pid"
+
+    # Set log file paths
+    stderr_path ENV["UNICORN_PATH"] +"/log/unicorn.stderr.log"
+    stdout_path ENV["UNICORN_PATH"] +"/log/unicorn.stdout.log"
+  '';
+  
 }
