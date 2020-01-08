@@ -1,0 +1,19 @@
+#+TITLE:   NUR packages
+#+DATE:    January 8, 2020
+#+SINCE:   January 8, 2020
+#+STARTUP: inlineimages nofold
+
+* Table of Contents :TOC_3:noexport:
+- [[#description][Description]]
+  - [[#nerd-font-symbols][nerd-font-symbols]]
+  - [[#godot][godot]]
+
+* Description
+A list of all my custom packages.
+
+** nerd-font-symbols
+A stripped down version of nerd fonts.
+Independent of a full font, it contains only symbols.
+
+** godot
+A modified version of godot with voxel module.
