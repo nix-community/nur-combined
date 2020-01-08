@@ -210,7 +210,14 @@ in
       };
 
       web = {
-        enable = mkEnableOption "OAR web apps and rest-api";
+        enable = mkEnableOption "OAR web server and rest-api";
+        extraConfig = mkOption {
+          type = types.str;
+          default = "";
+          description = ''
+            Extra configuration to append to Nginx's one. 
+          '';
+        };
       };
       
     };
@@ -453,7 +460,7 @@ in
       group = "oar";
       virtualHosts.default = {
         #TODO root = "${pkgs.nix.doc}/share/doc/nix/manual";
-        extraConfig = ''
+        extraConfig = concatStringsSep "\n" [''
           location @oarapi {
             rewrite ^/oarapi-priv/?(.*)$ /$1 break;
             rewrite ^/oarapi/?(.*)$ /$1 break;
@@ -475,7 +482,7 @@ in
           }
 
           location /monika {
-            rewrite ^/monika/?$ / break;
+            #rewrite ^/monika/?$ / break;
             rewrite ^/monika/(.*)$ $1 break;
             include ${pkgs.nginx}/conf/fastcgi_params;
             try_files $fastcgi_script_name =404;
@@ -483,8 +490,11 @@ in
             fastcgi_param SCRIPT_FILENAME ${oarVisualization}/monika.cgi;
             fastcgi_param PATH_INFO $fastcgi_script_name;
           }
-
-        '';
+        ''
+          (optionalString (cfg.web.extraConfig != "") ''
+            ${cfg.web.extraConfig}
+          '')
+          ];  
       };
     };
     

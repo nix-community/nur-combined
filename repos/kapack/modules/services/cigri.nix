@@ -126,8 +126,6 @@ in
           enable = mkEnableOption "Web server to serve rest-api";
         };
       
-
-        
       };
       
       dbserver = {
