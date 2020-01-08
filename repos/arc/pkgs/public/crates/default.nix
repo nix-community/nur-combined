@@ -1,19 +1,19 @@
 {
   rust-analyzer = { fetchFromGitHub, rustPlatform, lib, darwin, hostPlatform }: rustPlatform.buildRustPackage rec {
     pname = "rust-analyzer";
-    version = "2019-09-16";
+    version = "2019-01-03";
     src = fetchFromGitHub {
       owner = "rust-analyzer";
       repo = pname;
-      rev = "8eb2697b7d2a98c952b3acd1711829a13e13cab1";
-      sha256 = "0gg5mf2j5ly89hiffdhhlgnvw84wyargmjvapy4nzpqhv7byv4a8";
+      rev = "823c152";
+      sha256 = "12wm0cjqkwmdfa4xlhnwm49q3dk23gv98cx0sq8lq2symsyknayh";
     };
-    cargoBuildFlags = ["--features" "jemalloc" "-p" "ra_lsp_server"];
+    cargoBuildFlags = [/*"--features" "jemalloc"*/ "-p" "ra_lsp_server"];
     buildInputs = lib.optionals hostPlatform.isDarwin [ darwin.cf-private darwin.apple_sdk.frameworks.CoreServices ];
     # darwin undefined symbol _CFURLResourceIsReachable: https://discourse.nixos.org/t/help-with-rust-linker-error-on-darwin-cfurlresourceisreachable/2657
 
-    cargoSha256 = "093w2jmg9rdsdv246p4cs09am1igdnabv1x6l1nyjgfapjx3dbsj";
-    meta.broken = lib.versionAtLeast "1.36.0" rustPlatform.rust.rustc.version;
+    cargoSha256 = "05ky8cxh7sa7a22lr2qs0fni7c870mjlbpg31k7zbjxys38m2jsv";
+    meta.broken = lib.versionAtLeast "1.38.0" rustPlatform.rust.rustc.version;
 
     doCheck = false;
   };
@@ -29,6 +29,26 @@
     };
 
     cargoSha256 = "1a9svdw1cgk6s7gqpsq3r25wxa2gr2xddqkc1cjk7hf6sk327cpv";
+  };
+
+  cargo-download-arc = {
+    fetchFromGitHub, rustPlatform, lib
+  , openssl, pkgconfig, hostPlatform, darwin,
+  }: rustPlatform.buildRustPackage rec {
+    pname = "cargo-download";
+    version = "0.1.2";
+    src = fetchFromGitHub {
+      owner = "Xion";
+      repo = pname;
+      rev = "b73f6ced56799757945d5bdf2e03df32e9b9ed39";
+      sha256 = "1knwxx9d9vnkxib44xircgw1zhwjnf6mlpkcq81dixp3f070yabl";
+    };
+
+    nativeBuildInputs = lib.optional hostPlatform.isLinux pkgconfig;
+    buildInputs = lib.optional hostPlatform.isLinux openssl
+      ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
+    cargoSha256 = "1ak0idi1wlwndw5rsp9ff1l3j05hf26h06rjs2ldfh09rss4s54b";
+    cargoPatches = [ ./cargo-download-lock.patch ];
   };
 
   cargo-with = { fetchFromGitHub, rustPlatform, lib }: rustPlatform.buildRustPackage rec {
@@ -181,7 +201,7 @@
       mkdir -p $out
       for binary in $cargoBinutils/bin/cargo-*; do
         makeWrapper $binary $out/bin/$(basename $binary) \
-          --run '[[ -z $CARGO_BUILD_TARGET ]] || extraFlagsArray+=(--target $CARGO_BUILD_TARGET)' \
+          --run '[[ -z $CARGO_BUILD_TARGET ]] || set -- --target "$CARGO_BUILD_TARGET" "$@"' \
           --prefix PATH : $bintools/bin
       done
       if [[ -e $bintools/bin/readelf && ! -e $bintools/bin/readobj ]]; then

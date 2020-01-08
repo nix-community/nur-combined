@@ -1,4 +1,5 @@
 { ... }: let
+  # https://github.com/NixOS/nixpkgs/commit/62a6eeb1f3da0a5954ad2da54c454eb7fc1c6e5d
   # convert { nixpkgs = ./path; } attrsets to [ { path = ./path; prefix = "nixpkgs" } ] format
   nixPathList = nixPathAttrs: let 
     nixPath = {

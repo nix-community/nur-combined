@@ -1,11 +1,11 @@
 { fetchFromGitHub, yarn2nix, yarn, vimUtils, nodePackages }: let
   pname = "coc-nvim";
-  version = "0.0.74";
+  version = "2019-12-08";
   src = fetchFromGitHub {
     owner = "neoclide";
     repo = "coc.nvim";
-    rev = "bc017b02e6";
-    sha256 = "0z9jjflbl8ib2k6jzfrz9a90wivnhwpdarp497bh6g9bl17xby9b";
+    rev = "d83536aa4e";
+    sha256 = "06wwwjs6807msklsf2yka0y9bjyh4i4ass6x4vm30zacnjx9hc32";
   };
   deps = yarn2nix.mkYarnModules rec {
     inherit pname version;

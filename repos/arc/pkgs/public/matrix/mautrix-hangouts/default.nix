@@ -1,13 +1,13 @@
 { fetchFromGitHub, lib, python3Packages }: with python3Packages; let
   drv = buildPythonApplication rec {
     pname = "mautrix-hangouts";
-    version = "2019-09-02";
+    version = "2019-10-24";
 
     src = fetchFromGitHub {
       owner = "tulir";
       repo = pname;
-      rev = "a592e7de5f1cae3ffd7ebf1c4ee276df019310cb";
-      sha256 = "14cbxs975zyz4cixirdnqlans738ykas56n6chm95lil8x6kvjr0";
+      rev = "b0c0a99ef3b49911eb360df075f5f7a21149dc2c";
+      sha256 = "1n1jghz9waz5zrd7xwij18jw7qal42p593kpz5qi90mnygf614xl";
     };
 
     postPatch = ''

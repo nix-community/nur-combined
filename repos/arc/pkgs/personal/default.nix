@@ -7,4 +7,5 @@
   filebin = import ./filebin;
   winpath = import ./winpath.nix;
   task-blocks = import ./task-blocks.nix;
+  pass2bitwarden = import ./pass2bitwarden.nix;
 } // (import ./yggdrasil-7n/default.nix)

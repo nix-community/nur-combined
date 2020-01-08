@@ -48,56 +48,6 @@ let
     });
   packages = {
     inherit mergeLinuxConfig generateLinuxConfig;
-    ax88179_178a = { stdenv, fetchurl, fetchgit, linux }: let
-      kernel = linux;
-      patchsrc = fetchgit {
-        url = https://aur.archlinux.org/asix-ax88179-dkms.git;
-        rev = "38fdfbf2c04ee5576427eefffc6525ab581da7d5";
-        sha256 = "0ndac9wxyhmsdjj7fnq37fd79ny5zrndqqbrkbj1xw5fn095g5b6";
-      };
-    in stdenv.mkDerivation rec {
-        name = let
-          name = "ax88179-${version}";
-          kernel-name = builtins.tryEval "${name}-${kernel.version}";
-        in if kernel-name.success then kernel-name.value else name;
-        version = "1.19.0";
-
-        src = fetchurl {
-          url = "https://www.asix.com.tw/FrootAttach/driver/AX88179_178A_LINUX_DRIVER_v${version}_SOURCE.tar.bz2";
-          sha256 = "17jc085ph17pwlzq0d5fsrqafyz5c8758c88mdbi05m95x7q64kj";
-        };
-        patches = [
-          "${patchsrc}/0001-No-date-time.patch"
-          "${patchsrc}/0002-b2b128.patch"
-          "${patchsrc}/0003-linux-4.20.patch"
-        ];
-
-        hardeningDisable = [ "pic" ];
-
-        kernelVersion = kernel.modDirVersion;
-
-        makeFlags = [
-          "KDIR=${kernel.dev}/lib/modules/$(kernelVersion)/build"
-          "MDIR=drivers/net/usb"
-          "SUBLEVEL=0"
-        ];
-
-        configurePhase = ''
-          #kernel_version=${kernel.modDirVersion}
-          #sed -i -e 's|/lib/modules|${kernel.dev}/lib/modules|' Makefile
-          #export makeFlags="BUILD_KERNEL=$kernel_version CURRENT=$kernel_version MDIR=drivers/net/usb"
-          #export makeFlags="KDIR=${kernel.dev}/lib/modules/$kernel_version/build MDIR=drivers/net/usb SUBLEVEL=0"
-        '';
-
-        installPhase = ''
-          install -Dm644 -t $out/lib/modules/$kernelVersion/kernel/drivers/net/usb/ ax88179_178a.ko
-        '';
-
-        dontStrip = true;
-
-        enableParallelBuilding = true;
-        meta.platforms = stdenv.lib.platforms.linux;
-      };
   };
 #in (callPackage packages { })
 in packages

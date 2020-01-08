@@ -231,6 +231,5 @@ in {
   };
 
   linuxPackagesFor = kernel: (super.linuxPackagesFor kernel).extend (_: ksuper: {
-    ax88179_178a = self.ax88179_178a.override { linux = ksuper.kernel; };
   });
 }

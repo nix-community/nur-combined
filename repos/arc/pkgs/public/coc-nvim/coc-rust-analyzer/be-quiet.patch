@@ -1,5 +1,5 @@
 diff --git a/src/index.ts b/src/index.ts
-index 42e1b91..a4e74d4 100644
+index 29551f9..cf6f8c1 100644
 --- a/src/index.ts
 +++ b/src/index.ts
 @@ -8,11 +8,6 @@ import { Server } from './server';
@@ -9,8 +9,8 @@ index 42e1b91..a4e74d4 100644
 -    workspace.showMessage(`ra_lsp_server is not found, you need to build rust-analyzer from source`, 'error');
 -    const ret = await workspace.showQuickpick(['Yes', 'No'], 'Get ra_lsp_server?');
 -    if (ret === 0) {
--      commands.executeCommand('vscode.open', 'https://github.com/rust-analyzer/rust-analyzer').catch(_e => {});
+-      commands.executeCommand('vscode.open', 'https://github.com/rust-analyzer/rust-analyzer').catch(() => {});
 -    }
      return;
    }
-   function disposeOnDeactivation(disposable: Disposable) {
+ 

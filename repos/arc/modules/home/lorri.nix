@@ -2,21 +2,13 @@
   cfg = config.services.lorri;
 in {
   options.services.lorri = {
-    enable = mkEnableOption "lorri";
-
     useNix = mkOption {
       type = types.bool;
       default = true;
     };
-
-    package = mkOption {
-      type = types.package;
-      default = pkgs.lorri;
-      defaultText = "pkgs.lorri";
-    };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.enable or false {
     programs.direnv = {
       enable = mkDefault true;
       stdlib = ''
@@ -28,32 +20,6 @@ in {
           use_lorri "$@"
         }
       '';
-    };
-
-    systemd.user.sockets."lorri" = {
-      Install.WantedBy = [ "sockets.target" ];
-      Socket = {
-        ListenStream = "%t/lorri/daemon.socket";
-        RuntimeDirectory = "lorri";
-      };
-    };
-    systemd.user.services."lorri" = {
-      Unit = {
-        Description = "lorri";
-        ConditionUser = "!@system";
-        After = [ "lorri.socket" ];
-        Requires = [ "lorri.socket" ];
-      };
-      Service = {
-        Type = "exec";
-        Restart = "on-failure";
-        PrivateTmp = true;
-        ProtectSystem = "full"; # strict?
-        ExecStart = "${cfg.package}/bin/lorri daemon";
-        Environment = with pkgs; [
-          "PATH=${makeSearchPath "bin" [ gnutar gzip bzip2 xz ]}"
-        ];
-      };
     };
   };
 }

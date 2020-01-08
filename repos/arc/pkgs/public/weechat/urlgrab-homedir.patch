@@ -1,0 +1,16 @@
+diff -ruN a/urlgrab.py b/urlgrab.py
+--- a/urlgrab.py	2018-05-11 05:25:03.000000000 -0700
++++ b/urlgrab.py	2019-12-22 14:12:45.316763689 -0800
+@@ -298,10 +298,11 @@
+             "remotecmd", "string", remotecmd, "", 0, 0,
+             remotecmd, remotecmd, 0, "", "", "", "", "", "")
+ 
++        urllog="%s/urls.log" % (weechat.info_get("weechat_dir", ""))
+         self.data['url_log']=weechat.config_new_option(
+             self.config_file, section_default,
+             "url_log", "string", """log location""", "", 0, 0,
+-            "~/.weechat/urls.log", "~/.weechat/urls.log", 0, "", "", "", "", "", "")
++            urllog, urllog, 0, "", "", "", "", "", "")
+ 
+         self.data['time_format']=weechat.config_new_option(
+             self.config_file, section_default,

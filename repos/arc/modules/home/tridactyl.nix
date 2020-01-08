@@ -18,8 +18,8 @@
     autocmds = name: list: concatStringsSep "\n" (map (value:
       "autocmd ${configStrs.autocmdName name} ${configStrs.urlPattern value.urlPattern} ${configStrs.cmd value.cmd}"
     ) list);
-    autocontain = { urlPattern, container, ... }:
-      "autocontain ${urlPattern} ${if container == null then throw "default container unimplemented" else container}";
+    autocontain = { urlPattern, container, isDomainPattern, ... }:
+      "autocontain${optionalString (!isDomainPattern) " -u"} ${urlPattern} ${if container == null then throw "default container unimplemented" else container}";
     keyseq = mods: key: let
       modStr = concatStrings (map (mod: {
         alt = "A";
@@ -134,7 +134,7 @@ in {
           "sanitise"
           (optionalString cfg.sanitise.local "tridactyllocal")
           (optionalString cfg.sanitise.sync "tridactylsync")
-        ] + optionalString (cfg.settings ? storageloc) "\n${configStrs.setting "storageloc" cfg.settings.storageloc}"; # TODO: don't re-emit this while expanding cfg.settings, or move it out of cfg.settings?
+        ] + optionalString (cfg.settings ? storageloc) "\n${configStrs.setting "storageloc" cfg.settings.storageloc}";
       };
     };
 
@@ -146,6 +146,11 @@ in {
           urlPattern = mkOption {
             type = types.str;
             default = name;
+          };
+
+          isDomainPattern = mkOption {
+            type = types.bool;
+            default = true;
           };
 
           container = mkOption {
@@ -230,8 +235,8 @@ in {
       (mkIf (cfg.sanitise.local || cfg.sanitise.sync) (mkBefore cfg.sanitise.excmd))
       (mkIf (cfg.exalias != { }) (concatStringsSep "\n" (mapAttrsToList configStrs.alias cfg.exalias)))
       (mkIf (cfg.autocmd != { }) (concatStringsSep "\n" (mapAttrsToList configStrs.autocmds cfg.autocmd)))
-      (mkIf (cfg.autocontain != { }) (concatStringsSep "\n" (mapAttrsToList (_ configStrs.autocontain) cfg.autocontain)))
-      (mkIf (cfg.settings != { }) (concatStringsSep "\n" (mapAttrsToList configStrs.setting cfg.settings)))
+      (mkIf (cfg.autocontain != { }) (concatStringsSep "\n" (mapAttrsToList (_: configStrs.autocontain) cfg.autocontain)))
+      (mkIf (cfg.settings != { }) (concatStringsSep "\n" (mapAttrsToList configStrs.setting (builtins.removeAttrs cfg.settings ["storageloc"]))))
       (mkIf (cfg.urlSettings != { }) (concatStringsSep "\n" (mapAttrsToList configStrs.urlSettings cfg.urlSettings)))
       (mkIf (cfg.bindings != { }) (concatStringsSep "\n" (mapAttrsToList (_: configStrs.binding) cfg.bindings)))
     ];

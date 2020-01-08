@@ -1,11 +1,11 @@
 { fetchFromGitHub, yarn2nix, yarn, vimUtils, nodePackages }: let
   pname = "coc-json";
-  version = "1.2.3";
+  version = "1.2.4";
   src = fetchFromGitHub {
     owner = "neoclide";
     repo = pname;
     rev = version;
-    sha256 = "0h3dwcv931xs5y87kqyq2my5z85xv904cbmr41bj8mn1myw8chsf";
+    sha256 = "0vp735ibzifpz7mi8mcm02a1pdarjn7ax6bsi54wxclr4kniqil7";
   };
   deps = yarn2nix.mkYarnModules rec {
     inherit pname version;

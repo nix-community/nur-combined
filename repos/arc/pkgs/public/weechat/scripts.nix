@@ -16,8 +16,8 @@
   };
   autosort = { buildWeechatScript }: buildWeechatScript {
     pname = "autosort.py";
-    version = "3.6";
-    sha256 = "0i56y0glp23krkahrrfzrd31y3pj59z7skr1przlkngwdbrpf06r";
+    version = "3.8";
+    sha256 = "14b2alm4440222qbygavj9a8pv0whw66cqsfx8z5lrrcwxlw0vyq";
   };
   colorize_nicks = { buildWeechatScript }: buildWeechatScript {
     pname = "colorize_nicks.py";
@@ -33,6 +33,9 @@
     pname = "urlgrab.py";
     version = "3.0";
     sha256 = "1z940g7r5w7qsay5jl7mr4ra9nyw3cgp5398i9xkmd0cxqw9aiw7";
+    patches = [
+      ./urlgrab-homedir.patch
+    ];
   };
   vimode = { buildWeechatScript }: buildWeechatScript {
     pname = "vimode.py";
@@ -66,7 +69,7 @@
     passthru.scripts = [ pname ];
   };
 
-  weechat-matrix = { stdenvNoCC, weechat-matrix-contrib }: stdenvNoCC.mkDerivation {
+  weechat-matrix = { stdenvNoCC, weechat-matrix-contrib, lib }: stdenvNoCC.mkDerivation {
     pname = "weechat-matrix";
     inherit (weechat-matrix-contrib) version src;
 
@@ -80,5 +83,6 @@
     '';
 
     passthru.scripts = [ "matrix.py" ];
+    meta.broken = lib.isNixpkgsStable;
   };
 }

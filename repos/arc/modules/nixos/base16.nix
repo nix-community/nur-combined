@@ -29,11 +29,11 @@ in {
     };
   };
   config = {
-    i18n = mkIf cfg.console.enable {
-      consoleColors = map (v: v.hex.rgb) consoleShell.colours16;
+    console = mkIf cfg.console.enable {
+      colors = map (v: v.hex.rgb) consoleShell.colours16;
     };
     services.mingetty = mkIf cfg.console.mingetty.enable {
-      greetingPrefix = mkBefore (concatImap0Strings makeColorCS config.i18n.consoleColors);
+      greetingPrefix = mkBefore (concatImap0Strings makeColorCS config.console.colors);
       greeting = mkDefault ''<<< Welcome to NixOS ${config.system.nixos.label} (\m) - \l >>>'';
       greetingLine = "${config.services.mingetty.greetingPrefix}${config.services.mingetty.greeting}";
     };

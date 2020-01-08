@@ -38,6 +38,9 @@
     NodeInfo = cfg.nodeInfo;
   };
 in {
+  disabledModules = [
+    "services/networking/yggdrasil.nix" # what was merged feels pretty weird so...
+  ];
   options.services.yggdrasil = {
     enable = mkEnableOption "yggdrasil systemd service";
 

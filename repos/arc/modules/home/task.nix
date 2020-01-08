@@ -221,7 +221,7 @@
     sorted' = sort (a: b: a.sort.priority < b.sort.priority) sorted;
     columnString = col: col.id +
       (if col.format != null then ".${col.format}" else "");
-    sortString = col: (columnString col) +
+    sortString = col: col.id +
       (if col.sort.order == "ascending" then "+" else "-") +
       (if col.sort.visualBreak then "/" else "");
   in {

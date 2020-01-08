@@ -5,7 +5,7 @@
   vimPlugins = import ./vimPlugins.nix;
   kakPlugins = import ./kakPlugins.nix;
   gitAndTools = import ./git;
-  weechatScripts = import ./weechatScripts.nix;
+  weechatScripts = import ./public/weechat/scripts.nix;
   shells = import ../shells;
 }
   /*select = {

@@ -26,7 +26,7 @@ in {
       push = {};
       pull_request = {};
       schedule = [ {
-        cron = "30 3-7/2,13-21/4 * * *";
+        cron = "30 */2 * * *";
       } ];
     };
   };
