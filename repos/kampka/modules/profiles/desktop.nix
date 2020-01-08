@@ -7,15 +7,23 @@ let
   cfg = config.kampka.profiles.desktop;
   common = import ./common.nix { inherit config pkgs lib; };
 
-  trilium = let
-    version = "0.37.8";
-  in pkgs.trilium.overrideAttrs (attrs: {
-    inherit version;
-    src = pkgs.fetchurl {
-      url = "https://github.com/zadam/trilium/releases/download/v${version}/trilium-linux-x64-${version}.tar.xz";
-      sha256 = "06d88waxxjdnrn0y8qr6p9rf5xkvl5lbabb0xyk0dgy3wg70zlxz";
+  neovim-overlay = self: super: let
+    vimConfigure = {
+      customRC = ''
+        let s:localVimConfig = $HOME . "/.config/nvim/init.vim"
+        if filereadable(expand(s:localVimConfig))
+          exe 'source' s:localVimConfig
+        endif
+      '';
+      packages.kampka-defaults.opt = with pkgs.vimPlugins; [ LanguageClient-neovim ];
     };
-  });
+  in
+    {
+      neovim = super.neovim.override {
+        configure = vimConfigure;
+        extraMakeWrapperArgs = "--set MYVIMRC ${pkgs.vimUtils.vimrcFile vimConfigure}";
+      };
+    };
 in
 {
 
@@ -25,6 +33,8 @@ in
 
   config = mkIf cfg.enable (
     recursiveUpdate common rec{
+
+      nixpkgs.overlays = [ neovim-overlay ];
 
       boot.loader.grub.splashImage = null;
 
@@ -77,9 +87,7 @@ in
       # Typically needed for wifi drivers and the like
       hardware.enableRedistributableFirmware = mkDefault true;
 
-      environment.systemPackages = common.environment.systemPackages ++ [ 
-        trilium
-      ] ++(
+      environment.systemPackages = common.environment.systemPackages ++ [] ++ (
         with pkgs; [
           ctags
           git
