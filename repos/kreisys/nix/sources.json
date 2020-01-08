@@ -66,17 +66,17 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "silver": {
-        "branch": "v1.1.0",
+        "branch": "master",
         "builtin": false,
         "description": "A cross-shell customizable powerline-like prompt with icons",
         "homepage": null,
-        "owner": "reujab",
+        "owner": "kreisys",
         "repo": "silver",
-        "rev": "5186183758704c288f56da43aee43829572664bf",
-        "sha256": "0p992lvsvs0fr2dksb84h9xyzxxwi8y3720zz2b7l5yg61brz72m",
+        "rev": "6a1f0fd911270e5863d540965a0c5e7b40a44369",
+        "sha256": "1h6mr4vymd579dvkvsvazg0nw4ifnhlgh2b4qaqfdxr76jg5khvv",
         "type": "tarball",
-        "url": "https://github.com/reujab/silver/archive/5186183758704c288f56da43aee43829572664bf.tar.gz",
+        "url": "https://github.com/kreisys/silver/archive/6a1f0fd911270e5863d540965a0c5e7b40a44369.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz",
-        "version": "v1.1.0"
+        "version": "v1.2.0"
     }
 }
