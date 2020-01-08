@@ -30,6 +30,8 @@ rec {
     tomb
     ;
 
+  bugwarrior = _nixpkgs.python38Packages.bugwarrior;
+
   elba = pkgs.callPackage ./development/tools/elba {};
 
   gap-pygments-lexer = pkgs.callPackage ./tools/misc/gap-pygments-lexer {
@@ -57,18 +59,15 @@ rec {
 
   # FIXME: mcrl2 = pkgs.callPackage ./applications/science/logic/mcrl2 {};
 
+  inherit (import (fetchTarball {
+    url = "https://github.com/yurrriq/naal/tarball/0.2.4";
+    sha256 = "0vlvi84sii6hg6g43h19qkhydip1vsh23m5iwzxpljzw55i5dgvm";
+  }) {}) naal;
+
   noweb = _nixpkgs-stable.noweb.override {
     inherit icon-lang;
   };
 
-  python38Packages = pkgs.python38Packages // {
-    inherit ((import sources.nixpkgs-66234 {}).python38Packages) bugwarrior;
-  };
-
   renderizer = pkgs.callPackage ./development/tools/renderizer {};
-
-  rust-cbindgen = _nixpkgs.rust-cbindgen.overrideAttrs(_: {
-    cargoSha256 = "1l2dmvpg7114g7kczhaxv97037wdjah174xa992hv90a79kiz8da";
-  });
 
 } // (import ./broken.nix { inherit pkgs; })
