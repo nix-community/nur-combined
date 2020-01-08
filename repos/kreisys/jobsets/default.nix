@@ -16,7 +16,7 @@ let
       schedulingshares = 100;
       emailoverride = "shaybergmann@gmail.com";
       enableemail = true;
-      keepnr = 10;
+      keepnr = 2;
       inputs = {
         src = {
           type = "git";
