@@ -23,11 +23,12 @@ let
     substituteInPlace modules/almighty.rb \
     --replace /var/run/cigri/almighty.pid /var/cigri/state/home/pidsalmighty.pid
 
-    mkdir -p $out/bin $out/sbin
+    mkdir -p $out/bin  $out/sbin
     make PREFIX=$out SHELL=${bash}/bin/bash \
     install-cigri-libs install-cigri-modules \
     install-cigri-server-tools install-cigri-user-cmds \
     install-cigri-api
+    install -m 0755 sbin/new_cluster.rb $out/sbin/newcluster
   '';
 
   postInstall = ''
