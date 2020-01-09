@@ -30,6 +30,9 @@ in rec {
   datamaps = callPackage ./pkgs/datamaps {
     inherit (sources) datamaps;
   };
+  docker-reg-tool = callPackage ./pkgs/docker-reg-tool {
+    inherit (sources) docker-reg-tool;
+  };
   goldendict-dark-theme =
     callPackage ./pkgs/goldendict-themes/dark-theme.nix { };
   gpx-layer = perlPackages.callPackage ./pkgs/gpx-layer {

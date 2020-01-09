@@ -47,6 +47,18 @@
         "url": "https://github.com/ericfischer/datamaps/archive/76e620adabbedabd6866b23b30c145b53bae751e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "docker-reg-tool": {
+        "branch": "master",
+        "description": "Docker registry cli tool, primarily for deleting images.",
+        "homepage": "https://github.com/byrnedo/docker-reg-tool",
+        "owner": "byrnedo",
+        "repo": "docker-reg-tool",
+        "rev": "c5e7ff63fa476cac1eed717d0aef238beb50c21c",
+        "sha256": "02ilwyanfgcsncnhwyy1y6l4bc6phcx610xckb7rnklkplw4c04m",
+        "type": "tarball",
+        "url": "https://github.com/byrnedo/docker-reg-tool/archive/c5e7ff63fa476cac1eed717d0aef238beb50c21c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "google-translate-for-goldendict": {
         "branch": "master",
         "description": "Add Google translate to GoldenDict",
@@ -113,10 +125,10 @@
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "6839119794c5002c06b46bf0d1edf4420a388aac",
-        "sha256": "0pkvhcb0wyy2piky4pjhkqn9d1mp3c1nhwa8p45dgv2sz99jz6nv",
+        "rev": "8c9180190ae6d87d7a3f294bc942b6db3f3ebb00",
+        "sha256": "1an3s3rnz0f05hn55cin4cq1dy4q0s6dj1lg9fj6nq5z3z73jgzi",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/6839119794c5002c06b46bf0d1edf4420a388aac.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/8c9180190ae6d87d7a3f294bc942b6db3f3ebb00.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -197,10 +209,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "9ff0368ca9548da52c6ac7f04c087ef4dcb3a1e3",
-        "sha256": "1ij0b1yzmvmdmmf86yhjfwbr2q9xk23q2jvvd5b4cdclm5ri2v91",
+        "rev": "8170a3818b59dde4b35c971c5472cfe3152c4a95",
+        "sha256": "1b74rs6lynyqsimwxg2qmh43m4bkf8wnn8aspcj1xz91gq9aydvv",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/9ff0368ca9548da52c6ac7f04c087ef4dcb3a1e3.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/8170a3818b59dde4b35c971c5472cfe3152c4a95.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
