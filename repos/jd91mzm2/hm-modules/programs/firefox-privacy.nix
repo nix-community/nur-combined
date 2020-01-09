@@ -53,10 +53,10 @@ in
         '';
       };
       profiles = mkOption {
-        type = types.attrsOf (types.submodule ({config, name, ...}: {
+        type = types.attrsOf (types.submodule ({ config, ... }: {
           options = {
             privacy = mkOption {
-              type = types.submodule ({ ... }: {
+              type = types.submodule {
                 options = {
                   enableSettings = mkOption {
                     type = types.bool;
@@ -68,33 +68,33 @@ in
                     '';
                   };
                 };
-                config = {
-                  settings = mkIf config.privacy.enableSettings {
-                    # Privacy recommendations from https://www.privacytools.io/browsers/#about_config
-                    "privacy.firstparty.isolate"                        = true;
-                    "privacy.resistFingerprinting"                      = true;
-                    "privacy.trackingprotection.fingerprinting.enabled" = true;
-                    "privacy.trackingprotection.cryptomining.enabled"   = true;
-                    "privacy.trackingprotection.enabled"                = true;
-                    "browser.send_pings"                                = false;
-                    "browser.urlbar.speculativeConnect.enabled"         = false;
-                    "dom.event.clipboardevents.enabled"                 = false;
-                    "media.eme.enabled"                                 = false;
-                    "media.gmp-widevinecdm.enabled"                     = false;
-                    "media.navigator.enabled"                           = false;
-                    "network.cookie.cookieBehavior"                     = 1;
-                    "network.http.referer.XOriginPolicy"                = 2;
-                    "network.http.referer.XOriginTrimmingPolicy"        = 2;
-                    "webgl.disabled"                                    = true;
-                    "browser.sessionstore.privacy_level"                = 2;
-                    "network.IDN_show_punycode"                         = true;
-                  };
-                };
-              });
+              };
               default = {};
               description = ''
                 Privacy-related profile options
               '';
+            };
+          };
+          config = {
+            settings = mkIf config.privacy.enableSettings {
+              # Privacy recommendations from https://www.privacytools.io/browsers/#about_config
+              "privacy.firstparty.isolate"                        = true;
+              "privacy.resistFingerprinting"                      = true;
+              "privacy.trackingprotection.fingerprinting.enabled" = true;
+              "privacy.trackingprotection.cryptomining.enabled"   = true;
+              "privacy.trackingprotection.enabled"                = true;
+              "browser.send_pings"                                = false;
+              "browser.urlbar.speculativeConnect.enabled"         = false;
+              "dom.event.clipboardevents.enabled"                 = false;
+              "media.eme.enabled"                                 = false;
+              "media.gmp-widevinecdm.enabled"                     = false;
+              "media.navigator.enabled"                           = false;
+              "network.cookie.cookieBehavior"                     = 1;
+              "network.http.referer.XOriginPolicy"                = 2;
+              "network.http.referer.XOriginTrimmingPolicy"        = 2;
+              "webgl.disabled"                                    = true;
+              "browser.sessionstore.privacy_level"                = 2;
+              "network.IDN_show_punycode"                         = true;
             };
           };
         }));
