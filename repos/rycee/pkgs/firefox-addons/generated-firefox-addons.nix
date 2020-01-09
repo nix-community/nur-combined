@@ -23,7 +23,7 @@
       meta = with stdenv.lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
-        description = "Use native tab discard method to automatically reduce memory usage of inactive tabs";
+        description = "Increase browser speed and reduce memory load and when you have numerous open tabs.";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
