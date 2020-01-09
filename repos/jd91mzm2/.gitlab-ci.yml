@@ -5,12 +5,13 @@ variables:
 
 stages:
   - build
-  - deploy
+  - cache
+  - update
 
 default:
   image: nixos/nix
   retry: 1
-  before_script:
+  before_script: &default_script
     - nix --version
     - nix-channel --update
     - nix-env -iA cachix -f https://cachix.org/api/v1/install
@@ -19,8 +20,13 @@ default:
           cachix use "${CACHIX_CACHE}"
       fi
 
-build:
+# Build phase
+
+build unstable:
   stage: build
+  before_script: &unstable_script
+    - nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+    - *default_script
   script:
     - nix-build ci.nix -A buildOutputs
     - nix eval -f default.nix 'lib'
@@ -28,12 +34,35 @@ build:
     - nix eval -f default.nix 'hm-modules'
     - nix eval -f default.nix 'overlays'
 
-deploy:
-  stage: deploy
+build stable:
+  stage: build
+  extends: build unstable
+  before_script: &stable_script
+    - nix-channel --add https://nixos.org/channels/nixos-19.09 nixos
+    - *default_script
+
+# Cache phase
+
+cache unstable:
+  stage: cache
   only:
     - master
     - gitlab-ci
+  before_script: *unstable_script
   script:
     - nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"
+
+cache stable:
+  stage: cache
+  extends: cache unstable
+  before_script: *stable_script
+
+# Update phase
+
+update:
+  stage: update
+  before_script:
+    - nix --version
+  script:
     - nix-env -iA nixpkgs.curl
     - curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"
