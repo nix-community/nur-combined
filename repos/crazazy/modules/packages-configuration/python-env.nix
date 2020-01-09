@@ -4,6 +4,7 @@ let
         pygame
         ConfigArgParse
         django_2_2
+        pillow
         matplotlib
         virtualenvwrapper
         pandas
