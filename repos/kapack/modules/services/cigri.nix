@@ -226,8 +226,15 @@ in
       virtualHosts = {
         default = {
           locations."${cfg.server.api_base}" = {
-            proxyPass = "http://unix:${cfg.server.statePath}//tmp/sockets/cigri.socket";
-            extraConfig = "proxy_set_header HTTP_X_REMOTE_IDENT $remote_user;";
+            extraConfig = ''
+              rewrite ^${cfg.server.api_base}/(.*) /$1 break;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_set_header X-Forwarded-Host $host;
+              proxy_set_header X-Forwarded-Server $host;
+              proxy_pass http://unix:${cfg.server.statePath}/tmp/sockets/cigri.socket;
+              
+            '';
           };
         };
       };

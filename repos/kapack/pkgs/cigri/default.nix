@@ -28,9 +28,12 @@ let
     install-cigri-libs install-cigri-modules \
     install-cigri-server-tools install-cigri-user-cmds \
     install-cigri-api
-    install -m 0755 sbin/new_cluster.rb $out/sbin/newcluster
+    # generate well located newcluster
+    echo -e "#!/bin/bash\nCIGRICONFFILE=/etc/cigri.conf CIGRIDIR=$out/share/cigri \
+    $out/share/cigri/sbin/newcluster "'"$@"' > $out/sbin/newcluster
+    chmod 755 $out/sbin/newcluster
   '';
-
+    
   postInstall = ''
     cp -r database $out
   '';
