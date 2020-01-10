@@ -14,6 +14,9 @@ cigriEnv = {
   #CIGRI_LOG_PATH = "${cfg.server.statePath}/log";
 };
 
+apacheHttpdWithIdent = pkgs.apacheHttpd.overrideAttrs (oldAttrs: rec {
+  configureFlags = oldAttrs.configureFlags ++ [ "--enable-ident" ]; });
+
 in
 
 {
@@ -216,30 +219,38 @@ in
         ExecStart = "${cfg.package.rubyEnv}/bin/unicorn -c ${unicornConfig} -E production";
       };
     };
-
-
-    services.nginx =mkIf cfg.server.web.enable {
-      enable = true;
-      user = "cigri";
-      group = "cigri";
-      recommendedProxySettings = true;
-      virtualHosts = {
-        default = {
-          locations."${cfg.server.api_base}" = {
-            extraConfig = ''
-              rewrite ^${cfg.server.api_base}/(.*) /$1 break;
-              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_set_header X-Forwarded-Proto $scheme;
-              proxy_set_header X-Forwarded-Host $host;
-              proxy_set_header X-Forwarded-Server $host;
-              proxy_pass http://unix:${cfg.server.statePath}/tmp/sockets/cigri.socket;
-              
-            '';
-          };
-        };
-      };
-    };
     
+    services.httpd =  mkIf cfg.server.web.enable {
+      user="cigri";
+      group="cigri";
+      package = apacheHttpdWithIdent;
+      enable = true;
+      adminAddr = "foo@example.org";
+      extraModules = [ "ident"];
+      extraConfig = ''
+        <Location ${cfg.server.api_base}>
+        
+          # Deny access by default, except from localhost
+
+          Order deny,allow
+          Allow from             ${cfg.server.host}
+          Deny from all
+          # Pidentd is a simple and efficient way to authentify unix users on a cigri frontend
+          <IfModule ident_module>
+            IdentityCheck On
+            # We need the rewrite module to set the X_CIGRI_USER header variable from the 
+            # ident_module output.
+            RewriteEngine On
+            RewriteCond %{REMOTE_IDENT} (.*)
+            RewriteRule .* - [E=HTTP_X_CIGRI_USER:%1]
+          </IfModule>
+
+          ProxyPass unix://${cfg.server.statePath}/tmp/sockets/cigri.socket|http://${cfg.server.host}/
+          ProxyPassReverse unix://${cfg.server.statePath}/tmp/sockets/cigri.socket|http://${cfg.server.host}/
+        </Location>
+      '';
+    };
+     
     ##################
     # Database section 
     
