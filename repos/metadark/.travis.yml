@@ -16,8 +16,10 @@ jobs:
       env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
 
     - os: osx
+      sudo: required
       env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
     - os: osx
+      sudo: required
       env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-19.09-darwin
 
 install:
