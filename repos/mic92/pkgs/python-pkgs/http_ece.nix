@@ -1,6 +1,11 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ stdenv
+, buildPythonPackage
+, fetchPypi
 , cryptography
-, flake8, nose, mock, coverage
+, flake8
+, nose
+, mock
+, coverage
 }:
 buildPythonPackage rec {
   pname = "http_ece";

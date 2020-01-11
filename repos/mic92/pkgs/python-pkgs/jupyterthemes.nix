@@ -1,5 +1,10 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, notebook, matplotlib, lesscpy }:
+{ stdenv
+, buildPythonPackage
+, fetchPypi
+, notebook
+, matplotlib
+, lesscpy
+}:
 
 buildPythonPackage rec {
   pname = "jupyterthemes";

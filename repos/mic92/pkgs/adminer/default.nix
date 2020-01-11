@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   name = "adminer-${version}";
-  version = "4.6.3";
+  version = "4.7.5";
 
   src = fetchurl {
     url = "https://www.adminer.org/static/download/${version}/${name}.php";
-    sha256 = "1qi41wgxp9nk7zdqq17849kad8apivdm29184v7h210x5np60jma";
+    sha256 = "172kjpn5vmpy86vlla21gy6w5cwn4fyrd9pi45basqw99pd52ww5";
   };
 
   unpackPhase = ":";

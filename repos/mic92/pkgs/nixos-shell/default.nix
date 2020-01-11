@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  installFlags = [ "PREFIX=${placeholder "out"}"];
+  installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   postInstall = ''
     wrapProgram $out/bin/nixos-shell \

@@ -1,6 +1,16 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, requests, dateutil, pytz, decorator, http_ece, cryptography
-, pytestcov, pytest-mock, vcrpy, pytestrunner
+{ stdenv
+, buildPythonPackage
+, fetchPypi
+, requests
+, dateutil
+, pytz
+, decorator
+, http_ece
+, cryptography
+, pytestcov
+, pytest-mock
+, vcrpy
+, pytestrunner
 }:
 
 buildPythonPackage rec {
@@ -11,7 +21,12 @@ buildPythonPackage rec {
     sha256 = "1xih3wq47ki5wxm04v4haqnxc38hvnkx28yrmpyr02klw8s0y01z";
   };
   propagatedBuildInputs = [
-    requests dateutil pytz decorator http_ece cryptography
+    requests
+    dateutil
+    pytz
+    decorator
+    http_ece
+    cryptography
   ];
   buildInputs = [
     pytestrunner

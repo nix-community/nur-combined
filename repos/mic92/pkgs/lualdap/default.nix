@@ -13,7 +13,7 @@ luaPackages.buildLuaPackage rec {
   installFlags = [ "DESTDIR=$(out)/lib/lua/${lua.luaversion}" ];
 
   buildInputs = [
-    openldap 
+    openldap
     lua
   ];
 

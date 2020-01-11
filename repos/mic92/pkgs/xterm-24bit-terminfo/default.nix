@@ -8,4 +8,3 @@ stdenv.mkDerivation {
     tic -x -o $out/share/terminfo xterm-24bit.terminfo
   '';
 }
-

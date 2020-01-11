@@ -16,8 +16,6 @@ rec {
 
   eapol_test = pkgs.callPackage ./pkgs/eapol_test {};
 
-  esptool = pkgs.python3.pkgs.callPackage ./pkgs/esptool {};
-
   fira-code-nerdfonts = pkgs.callPackage ./pkgs/fira-code-nerdfonts {};
 
   frida-tools = pkgs.callPackage ./pkgs/frida-tools { myPython3Packages = python3Packages; };
@@ -62,9 +60,6 @@ rec {
     Pry = pkgs.callPackage ./pkgs/pry {};
   };
 
-  python2Packages = pkgs.recurseIntoAttrs (
-    pkgs.python2Packages.callPackage ./pkgs/python-pkgs {}
-  );
   python3Packages = pkgs.recurseIntoAttrs (
     pkgs.python3Packages.callPackage ./pkgs/python-pkgs {}
   );

@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchzip {
     url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/Inconsolata.zip";
     sha256 = "014kxpbz6lwy84hhnmmakw1lwmylks5x1c1ffqn974lvk572zfar";
-    stripRoot=false;
+    stripRoot = false;
   };
   buildCommand = ''
     install --target $out/share/fonts/opentype -D $src/*.otf 

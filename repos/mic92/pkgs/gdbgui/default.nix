@@ -1,5 +1,7 @@
 { gdbgui }:
 # patched to unlock "full" version
-gdbgui.overrideAttrs (old: {
-  patches = [ ./gdbgui.patch ];
-})
+gdbgui.overrideAttrs (
+  old: {
+    patches = [ ./gdbgui.patch ];
+  }
+)

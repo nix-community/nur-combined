@@ -1,14 +1,36 @@
-{ stdenv, fetchFromGitHub
-, makeWrapper, perl
-, dmidecode, file, glxinfo, hddtemp, nettools, iproute, lm_sensors, usbutils, kmod, xlibs
+{ stdenv
+, fetchFromGitHub
+, makeWrapper
+, perl
+, dmidecode
+, file
+, glxinfo
+, hddtemp
+, nettools
+, iproute
+, lm_sensors
+, usbutils
+, kmod
+, xlibs
 }:
 
 let
   path = [
-    dmidecode file glxinfo hddtemp nettools iproute lm_sensors usbutils kmod
-    xlibs.xdpyinfo xlibs.xprop xlibs.xrandr
+    dmidecode
+    file
+    glxinfo
+    hddtemp
+    nettools
+    iproute
+    lm_sensors
+    usbutils
+    kmod
+    xlibs.xdpyinfo
+    xlibs.xprop
+    xlibs.xrandr
   ];
-in stdenv.mkDerivation rec { 
+in
+stdenv.mkDerivation rec {
   name = "inxi-${version}";
   version = "3.0.27-1";
 

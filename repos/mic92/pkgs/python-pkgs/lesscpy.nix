@@ -1,6 +1,12 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub
-, six, ply
-, nose, flake8, glibcLocales }:
+{ stdenv
+, buildPythonPackage
+, fetchFromGitHub
+, six
+, ply
+, nose
+, flake8
+, glibcLocales
+}:
 
 buildPythonPackage rec {
   pname = "lesscpy";

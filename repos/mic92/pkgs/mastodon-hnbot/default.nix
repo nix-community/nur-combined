@@ -10,7 +10,8 @@ buildPythonApplication rec {
     sha256 = "1mwrl5gspk9icn0jvsy6dj09dsqgi1nzai9ls6as6kyaz9bm40ff";
   };
   propagatedBuildInputs = [
-    feedparser Mastodon
+    feedparser
+    Mastodon
   ];
   meta = with stdenv.lib; {
     description = "A bot posting hnbot news";
