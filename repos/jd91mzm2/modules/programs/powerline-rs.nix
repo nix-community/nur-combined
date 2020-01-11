@@ -20,24 +20,34 @@ in
     };
   };
   config = mkIf cfg.enable {
-    programs.bash.initExtra = ''
+    programs.bash.promptInit = ''
       powerline() {
-        PS1="$(${powerline-rs} --shell bash $?)"
+        local exit_code="$?"
+        if [[ "$TERM" == eterm* ]]; then
+          PS1="''${PWD/$HOME/\~} % "
+        else
+          PS1="$(${powerline-rs} --shell bash "$exit_code")"
+        fi
       }
       PROMPT_COMMAND=powerline
     '';
     programs.fish.promptInit = ''
       function fish_prompt
-          ${powerline-rs} --shell bare $status
+          set exit_code $status
+          if string match -q "eterm*" "$TERM"
+            echo (string replace "$HOME" "~" (pwd))" % "
+          else
+            ${powerline-rs} --shell bare $exit_code
+          end
       end
     '';
-    programs.zsh.initExtra = ''
+    programs.zsh.promptInit = ''
       powerline() {
         local exit_code="$?"
         if [[ "$TERM" == eterm* ]]; then
-            PS1="''${PWD/$HOME/~} %% "
+          PS1="''${PWD/$HOME/~} %% "
         else
-            PS1="$(${powerline-rs} --shell zsh "$exit_code")"
+          PS1="$(${powerline-rs} --shell zsh "$exit_code")"
         fi
       }
       precmd_functions+=(powerline)
