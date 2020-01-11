@@ -30,10 +30,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.41.0";
+      version = "1.42.2";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3369227/bitwarden_free_password_manager-1.41.0-an+fx.xpi?src=";
-      sha256 = "bf804806c6b276b91555b225fa77678fd152ea3dfc148ef1c7dbf8fb37a81948";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3475993/bitwarden_free_password_manager-1.42.2-an+fx.xpi?src=";
+      sha256 = "dd2f402da37772cfcc93b36fbe3afe2075341d818fa6cc4bab2dc3e39891d42e";
       meta = with stdenv.lib;
       {
         homepage = "https://bitwarden.com";
@@ -376,10 +376,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2019.11.18";
+      version = "2020.1.7.1";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3448925/privacy_badger-2019.11.18-an+fx.xpi?src=";
-      sha256 = "1ffa75044528f312b282f61cfab7520c006416771e85a63644a1bf528591129d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3480808/privacy_badger-2020.1.7.1-an+fx.xpi?src=";
+      sha256 = "0015e97a2ea9cf7e9f046d0ec9a090148b05189dd9f36727759ea70d7362dc72";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/privacybadger";
