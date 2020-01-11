@@ -24,6 +24,8 @@ rec {
 
   gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard {};
 
+  hello-nur = pkgs.callPackage ./pkgs/hello-nur {};
+
   inconsolata-nerdfonts = pkgs.callPackage ./pkgs/inconsolata-nerdfonts {};
 
   inxi = pkgs.callPackage ./pkgs/inxi {};
