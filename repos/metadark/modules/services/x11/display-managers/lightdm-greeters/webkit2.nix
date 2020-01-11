@@ -133,7 +133,7 @@ in {
 
   config = mkIf (ldmcfg.enable && cfg.enable) {
     # Install package, for manpages and the ability to run the greeter while logged in
-    environment.systemPackages = [ pkgs.pkgs.nur.repos.metadark.lightdm-webkit2-greeter ];
+    environment.systemPackages = [ pkgs.nur.repos.metadark.lightdm-webkit2-greeter ];
 
     services = {
       xserver.displayManager.lightdm = {
