@@ -28,8 +28,6 @@ rec {
 
   inconsolata-nerdfonts = pkgs.callPackage ./pkgs/inconsolata-nerdfonts {};
 
-  inxi = pkgs.callPackage ./pkgs/inxi {};
-
   lualdap = pkgs.callPackage ./pkgs/lualdap {};
 
   mastodon-hnbot = pkgs.python3Packages.callPackage ./pkgs/mastodon-hnbot {
