@@ -40,8 +40,6 @@ rec {
 
   nixos-shell = pkgs.callPackage ./pkgs/nixos-shell {};
 
-  oni = pkgs.callPackage ./pkgs/oni {};
-
   source-code-pro-nerdfonts = pkgs.callPackage ./pkgs/source-code-pro-nerdfonts {};
 
   threema-web = pkgs.callPackage ./pkgs/threema-web {};

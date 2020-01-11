@@ -4,13 +4,13 @@ with python3.pkgs;
 
 buildPythonApplication rec {
   pname = "brotab";
-  version = "2018-09-14";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "balta2ar";
     repo = "brotab";
-    rev = "f93626aaf460b9e63979e452346c340b91fd5934";
-    sha256 = "014slk92687f226vkgsr9pl5x7gs7y6ljbid90dw3p5kw014dqxy";
+    rev = "${version}";
+    sha256 = "17yj5i8p28a7zmixdfa1i4gfc7c2fmdkxlymazasar58dz8m68mw";
   };
 
   propagatedBuildInputs = [ requests psutil flask ipython ];
