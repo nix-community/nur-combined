@@ -1,9 +1,5 @@
 language: nix
 
-os:
-  - linux
-  - osx
-
 env:
   global:
     - CACHIX_CACHE=metadark
