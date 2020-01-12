@@ -38,6 +38,14 @@
         name = "notmuch-vim-gems";
         paths = with ruby.gems; [ notmuch mail gpgme rack mail-gpg ];
         pathsToLink = [ "/lib" "/nix-support" ];
+        # https://github.com/NixOS/nixpkgs/pull/76765
+        postBuild = ''
+          for gem in $out/lib/ruby/gems/*/gems/*; do
+            cp -a $gem/ $gem.new
+            rm $gem
+            mv $gem.new $gem
+          done
+        '';
       };
     in ''
       echo 'let $GEM_PATH=$GEM_PATH . ":${gemEnv}/${ruby.gemPath}"' >> plugin/notmuch.vim
