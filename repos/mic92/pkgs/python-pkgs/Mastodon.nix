@@ -11,14 +11,16 @@
 , pytest-mock
 , vcrpy
 , pytestrunner
+, python_magic
+, blurhash
 }:
 
 buildPythonPackage rec {
   pname = "Mastodon.py";
-  version = "1.3.1";
+  version = "1.5.0";
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1xih3wq47ki5wxm04v4haqnxc38hvnkx28yrmpyr02klw8s0y01z";
+    sha256 = "0mypfz5k1phn7b2fk362w8zqh2wi3czf58g4zik64n17r8viww40";
   };
   propagatedBuildInputs = [
     requests
@@ -27,6 +29,8 @@ buildPythonPackage rec {
     decorator
     http_ece
     cryptography
+    python_magic
+    blurhash
   ];
   buildInputs = [
     pytestrunner

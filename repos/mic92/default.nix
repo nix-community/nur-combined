@@ -3,6 +3,8 @@
 rec {
   adminer = pkgs.callPackage ./pkgs/adminer {};
 
+  bitwarden_rs_ldap = pkgs.callPackage ./pkgs/bitwarden_rs_ldap {};
+
   brotab = pkgs.callPackage ./pkgs/brotab {};
 
   # TODO checksum can break ... make a mirror?
@@ -52,8 +54,6 @@ rec {
 
   phpldapadmin = pkgs.callPackage ./pkgs/phpldapadmin {};
 
-  purple-skypeweb = pkgs.callPackage ./pkgs/purple-skypeweb {};
-
   perlPackages = {
     Pry = pkgs.callPackage ./pkgs/pry {};
   };
@@ -61,7 +61,6 @@ rec {
   python3Packages = pkgs.recurseIntoAttrs (
     pkgs.python3Packages.callPackage ./pkgs/python-pkgs {}
   );
-
 
   yubikey-touch-detector = pkgs.callPackages ./pkgs/yubikey-touch-detector {};
 

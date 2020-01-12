@@ -11,7 +11,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A pure-Python HTTP/2 Priority implementation";
-    homepage = "https://python-hyper.org/priority";
+    homepage = "https://github.com/python-hyper/priority";
     license = licenses.mit;
   };
 }

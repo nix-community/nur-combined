@@ -8,13 +8,13 @@
 
 buildPythonPackage rec {
   pname = "jupyterthemes";
-  version = "0.19.6";
+  version = "0.20.0";
 
   propagatedBuildInputs = [ notebook matplotlib lesscpy ];
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "14ypp2i3q7dkhndh55yqygk1fkiz2gryk6vn6w3flyc3ynpfmjfp";
+    sha256 = "07mldarwi9wi5m4v4x9s1n9m6grab307yxgip6csn4mjhh6br3ia";
   };
 
   meta = with stdenv.lib; {

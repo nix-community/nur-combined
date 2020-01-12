@@ -2,11 +2,11 @@
 
 buildPythonPackage rec {
   pname = "remote-pdb";
-  version = "1.2.0";
+  version = "2.0.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "00aicmlrw3q31s26h8549n71p75p1nr0jcv40fyx47axw96kdbk1";
+    sha256 = "0qpfjigsgnvr2sqha5jw25hk8pbd6qc2c1ll1y1bw8lvadpz6f5d";
   };
 
   meta = with stdenv.lib; {

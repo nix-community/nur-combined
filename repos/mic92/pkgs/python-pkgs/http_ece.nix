@@ -9,10 +9,10 @@
 }:
 buildPythonPackage rec {
   pname = "http_ece";
-  version = "1.0.5";
+  version = "1.1.0";
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1k06843n5q1rp3wh8qx1akl9lmcsvl2p1qxi9a9w581i1ija0c9g";
+    sha256 = "1y5ln09ji4dwpzhxr77cggk02kghq7lql60a6969a5n2lwpvqblk";
   };
   propagatedBuildInputs = [
     cryptography

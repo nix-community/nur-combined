@@ -1,6 +1,8 @@
 { callPackage }:
 
 rec {
+  blurhash = callPackage ./blurhash.nix {};
+
   jupyterthemes = callPackage ./jupyterthemes.nix {
     inherit lesscpy;
   };
@@ -10,7 +12,7 @@ rec {
   http_ece = callPackage ./http_ece.nix {};
 
   Mastodon = callPackage ./Mastodon.nix {
-    inherit http_ece;
+    inherit http_ece blurhash;
   };
 
   lesscpy = callPackage ./lesscpy.nix {};
