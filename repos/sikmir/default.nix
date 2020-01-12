@@ -33,6 +33,9 @@ in rec {
   docker-reg-tool = callPackage ./pkgs/docker-reg-tool {
     inherit (sources) docker-reg-tool;
   };
+  embox = callPackage ./pkgs/embox {
+    inherit (sources) embox;
+  };
   goldendict-dark-theme =
     callPackage ./pkgs/goldendict-themes/dark-theme.nix { };
   gpx-layer = perlPackages.callPackage ./pkgs/gpx-layer {

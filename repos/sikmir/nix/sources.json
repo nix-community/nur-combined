@@ -59,6 +59,18 @@
         "url": "https://github.com/byrnedo/docker-reg-tool/archive/c5e7ff63fa476cac1eed717d0aef238beb50c21c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "embox": {
+        "branch": "master",
+        "description": "Modular and configurable OS for embedded applications",
+        "homepage": "http://embox.github.io",
+        "owner": "embox",
+        "repo": "embox",
+        "rev": "6f8a4207fb9649b2572b8c23c056fc776f2e4492",
+        "sha256": "1fwp3wk9hn3ra0ls7z4bxzrpmdrcvidlcaiv5xx766397hdk12r0",
+        "type": "tarball",
+        "url": "https://github.com/embox/embox/archive/6f8a4207fb9649b2572b8c23c056fc776f2e4492.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "google-translate-for-goldendict": {
         "branch": "master",
         "description": "Add Google translate to GoldenDict",
@@ -125,10 +137,10 @@
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "8c9180190ae6d87d7a3f294bc942b6db3f3ebb00",
-        "sha256": "1an3s3rnz0f05hn55cin4cq1dy4q0s6dj1lg9fj6nq5z3z73jgzi",
+        "rev": "2efc6fb6d3c83de93a8204dfa828e7410ec7d283",
+        "sha256": "1lf63c68qbay37sz9f76n61g9a3dbciiafbyp6mhmhngw75m52wn",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/8c9180190ae6d87d7a3f294bc942b6db3f3ebb00.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/2efc6fb6d3c83de93a8204dfa828e7410ec7d283.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -209,10 +221,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "8170a3818b59dde4b35c971c5472cfe3152c4a95",
-        "sha256": "1b74rs6lynyqsimwxg2qmh43m4bkf8wnn8aspcj1xz91gq9aydvv",
+        "rev": "89dd4ac48199125d05d5a59876699eaa095c440c",
+        "sha256": "0xyzc6d7dskfjrlq9bj9kq6s0a7c306s393y305d3zicm2mzgblb",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/8170a3818b59dde4b35c971c5472cfe3152c4a95.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/89dd4ac48199125d05d5a59876699eaa095c440c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
