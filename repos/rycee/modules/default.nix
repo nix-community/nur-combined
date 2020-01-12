@@ -1,4 +1,6 @@
 {
+  containers-docker-support = ./containers-docker-support.nix;
+
   home-manager = { lib, ... }: {
     imports =
       let
