@@ -41,9 +41,6 @@ in
   options = {
     containers = mkOption {
       type = types.attrsOf (types.submodule containerModule);
-      description = ''
-        See <link xlink:href="https://nixos.org/nixos/manual/options.html#opt-containers"/>.
-      '';
     };
   };
 
