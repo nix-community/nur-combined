@@ -9,4 +9,5 @@
   </copyright>
  </info>
  <xi:include href="man-nur-rycee-hm-options.xml" />
+ <xi:include href="man-nur-rycee-nixos-options.xml" />
 </reference>

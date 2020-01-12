@@ -12,15 +12,11 @@
    Some basic documentation of rycee's NUR.
   </para>
   <para>
-   If you encounter problems or bugs then please report them on the
-   <link xlink:href="https://gitlab.com/rycee/nur-expressions/issues">issue
-   tracker</link>.
+   If you encounter problems or bugs then please report them on the <link xlink:href="https://gitlab.com/rycee/nur-expressions/issues">issue tracker</link>.
   </para>
   <note>
    <para>
-    Commands prefixed with <literal>#</literal> have to be run as root, either
-    requiring to login as root user or temporarily switching to it using
-    <literal>sudo</literal> for example.
+    Commands prefixed with <literal>#</literal> have to be run as root, either requiring to login as root user or temporarily switching to it using <literal>sudo</literal> for example.
    </para>
   </note>
  </preface>
@@ -30,8 +26,7 @@
    <title>Usage</title>
 
    <para>
-    To use these options modify your <filename>home.nix</filename> such that it
-    has the format
+    To use these options modify your <filename>home.nix</filename> such that it has the format
 <programlisting language="nix">
 { pkgs, ... }:
 
@@ -66,6 +61,59 @@ in
    <title>Options</title>
 
    <xi:include href="./nmd-result/nur-rycee-hm-options.xml" />
+  </section>
+ </appendix>
+ <appendix xml:id="ch-nixos-options">
+  <title>NixOS configuration options</title>
+  <section xml:id="sec-nixos-usage">
+   <title>Usage</title>
+
+   <para>
+    To use these options modify your <filename>configuration.nix</filename> such that it has the format
+<programlisting language="nix">
+{ pkgs, ... }:
+
+let
+
+  nurNoPkgs = import &lt;nur&gt; { pkgs = null; };
+
+in
+
+{
+  import = [ nurNoPkgs.repos.rycee.modules.<replaceable>name</replaceable> … ];
+
+  # …
+}
+</programlisting>
+    where <replaceable>name</replaceable> is
+    <variablelist>
+     <varlistentry>
+      <term>
+       <varname>containers-docker-support</varname>
+      </term>
+      <listitem>
+       <para>
+        for the <varname>containers.&lt;name&gt;.enableDockerSupport</varname> option, which enables configuration of NixOS declarative containers such that they allow running Docker containers;
+       </para>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term>
+       <varname>home-manager</varname>
+      </term>
+      <listitem>
+       <para>
+        for using Home Manager as a NixOS module.
+       </para>
+      </listitem>
+     </varlistentry>
+    </variablelist>
+   </para>
+  </section>
+  <section xml:id="sec-nixos-options">
+   <title>Options</title>
+
+   <xi:include href="./nmd-result/nur-rycee-nixos-options.xml" />
   </section>
  </appendix>
 </book>
