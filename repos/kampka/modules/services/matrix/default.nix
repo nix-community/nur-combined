@@ -167,7 +167,6 @@ in
     security.acme.certs."${cfg.matrix.hostName}" = {
       group = "matrix-synapse";
       allowKeysForGroup = true;
-      extraDomains = { "${cfg.matrix.serverName}" = null; };
       postRun = "systemctl reload nginx.service; systemctl restart matrix-synapse.service";
     };
 
