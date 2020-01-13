@@ -1,3 +1,4 @@
+os: linux
 language: nix
 
 env:
@@ -8,25 +9,15 @@ env:
 
 jobs:
   include:
-    - os: linux
-      env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
-    - os: linux
-      env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
-    - os: linux
-      env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
-
-    - os: osx
-      sudo: required
-      env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
-    - os: osx
-      sudo: required
-      env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-19.09-darwin
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
 
 install:
  - nix --version
  - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
  - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
- - if [ -n "${CACHIX_CACHE}" -a "$TRAVIS_OS_NAME" = "linux" ]; then cachix use "${CACHIX_CACHE}"; fi
+ - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
  - nix-channel --add "${NIX_CHANNEL}" nixpkgs
  - travis_retry nix-channel --update
 

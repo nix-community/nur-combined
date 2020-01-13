@@ -36,7 +36,7 @@ in stdenvNoCC.mkDerivation {
     cp data/VVVVVV.png "$out/share/pixmaps/vvvvvv.png"
   '';
 
-  meta = vvvvvv // {
+  meta = vvvvvv.meta // {
     license = stdenvNoCC.lib.licenses.unfree;
   };
 }

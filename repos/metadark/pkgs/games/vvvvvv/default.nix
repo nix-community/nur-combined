@@ -33,5 +33,6 @@ stdenv.mkDerivation rec {
       url = "https://github.com/TerryCavanagh/VVVVVV/blob/master/LICENSE.md";
     };
     maintainers = with maintainers; [ metadark ];
+    platforms = platforms.all;
   };
 }
