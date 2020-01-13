@@ -1,6 +1,6 @@
 { stdenv, lib, fetchFromGitHub, makeWrapper, cmake, pkgconfig
 , boost, cereal, curl, eigen, expat, glew, libpng, tbb, wxGTK30
-, gtest, nlopt, xorg, makeDesktopItem
+, gtest, nlopt, xorg, makeDesktopItem, libudev
 }:
 let
   nloptVersion = if lib.hasAttr "version" nlopt
@@ -9,7 +9,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "prusa-slicer";
-  version = "2.1.0";
+  version = "2.2.0-alpha2";
 
   enableParallelBuilding = true;
 
@@ -27,6 +27,7 @@ stdenv.mkDerivation rec {
     expat
     glew
     libpng
+    libudev
     tbb
     wxGTK30
     xorg.libX11
@@ -35,7 +36,7 @@ stdenv.mkDerivation rec {
   checkInputs = [ gtest ];
 
   # The build system uses custom logic - defined in
-  # xs/src/libnest2d/cmake_modules/FindNLopt.cmake in the package source -
+  # cmake/modules/FindNLopt.cmake in the package source -
   # for finding the nlopt library, which doesn't pick up the package in the nix store.
   # We need to set the path via the NLOPT environment variable instead.
   NLOPT = nlopt;
@@ -53,19 +54,18 @@ stdenv.mkDerivation rec {
   '' + lib.optionalString (lib.versionOlder "2.5" nloptVersion) ''
     # Since version 2.5.0 of nlopt we need to link to libnlopt, as libnlopt_cxx
     # now seems to be integrated into the main lib.
-    sed -i 's|nlopt_cxx|nlopt|g' src/libnest2d/cmake_modules/FindNLopt.cmake
+    sed -i 's|nlopt_cxx|nlopt|g' cmake/modules/FindNLopt.cmake
   '';
 
   src = fetchFromGitHub {
     owner = "prusa3d";
     repo = "PrusaSlicer";
-    sha256 = "172nz01iiqfjzkpcbl78j6almq6av70l71jgrzrcdw6ham1wqnpr";
+    sha256 = "18nbgpv1j9dp43shzy83qffgs78dlyx2zl17bpzghx65p9z54qs9";
     rev = "version_${version}";
   };
 
   cmakeFlags = [
     "-DSLIC3R_FHS=1"
-    "-DSLIC3R_WX_STABLE=1"  # necessary when compiling against wxGTK 3.0
   ];
 
   postInstall = ''
