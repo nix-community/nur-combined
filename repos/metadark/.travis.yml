@@ -15,6 +15,16 @@ jobs:
     - os: linux
       env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
 
+    - os: linux
+      arch: arm64
+      env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+    - os: linux
+      arch: arm64
+      env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
+    - os: linux
+      arch: arm64
+      env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
+
     - os: osx
       env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
     - os: osx
