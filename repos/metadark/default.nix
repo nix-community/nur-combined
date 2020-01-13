@@ -30,5 +30,11 @@ rec {
     inherit lightdm-webkit2-greeter;
   };
 
-  vvvvvv = pkgs.callPackage ./pkgs/games/vvvvvv/wrapper.nix {};
+  texlab = pkgs.callPackage ./pkgs/development/tools/misc/texlab {
+    inherit (pkgs.darwin.apple_sdk.frameworks) Security;
+  };
+
+  vvvvvv = pkgs.callPackage ./pkgs/games/vvvvvv/wrapper.nix {
+    inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
+  };
 }

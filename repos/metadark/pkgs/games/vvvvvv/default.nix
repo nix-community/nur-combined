@@ -1,5 +1,6 @@
 { stdenv, fetchFromGitHub
 , cmake, SDL2, SDL2_mixer
+, Foundation
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +20,12 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ SDL2 SDL2_mixer ];
+  buildInputs = [
+    SDL2 SDL2_mixer
+  ] ++ stdenv.lib.optionals stdenv.isDarwin [
+    Foundation
+  ];
+
   installPhase = ''
     mkdir -p "$out/bin"
     cp vvvvvv "$out/bin"
@@ -31,6 +37,7 @@ stdenv.mkDerivation rec {
     license = {
       fullName = "VVVVVV Source Code License v1.0";
       url = "https://github.com/TerryCavanagh/VVVVVV/blob/master/LICENSE.md";
+      free = false;
     };
     maintainers = with maintainers; [ metadark ];
     platforms = platforms.all;

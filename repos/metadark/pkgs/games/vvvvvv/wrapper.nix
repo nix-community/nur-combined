@@ -1,8 +1,10 @@
 { stdenvNoCC, callPackage, makeDesktopItem, fetchurl
-, makeWrapper, unzip }:
+, Foundation
+, makeWrapper, unzip
+}:
 
 let
-  vvvvvv = callPackage ./default.nix {};
+  vvvvvv = callPackage ./default.nix { inherit Foundation; };
   desktopItem = makeDesktopItem {
     name = "vvvvvv";
     desktopName = "VVVVVV";
@@ -12,7 +14,7 @@ let
     categories = "Game;";
   };
 in stdenvNoCC.mkDerivation {
-  inherit (vvvvvv) pname version;
+  inherit (vvvvvv) pname version meta;
 
   # Obtain data.zip from Make and Play edition
   src = fetchurl {
@@ -35,8 +37,4 @@ in stdenvNoCC.mkDerivation {
     cp ${desktopItem}/share/applications/* "$out/share/applications"
     cp data/VVVVVV.png "$out/share/pixmaps/vvvvvv.png"
   '';
-
-  meta = vvvvvv.meta // {
-    license = stdenvNoCC.lib.licenses.unfree;
-  };
 }

@@ -17,7 +17,9 @@ let
 
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: !(p.meta.broken or false);
+  isBuildable = p: !(p.meta.broken or false)
+                   && any (pkgs.stdenv.lib.meta.platformMatch pkgs.stdenv.hostPlatform)
+                     p.meta.hydraPlatforms or p.meta.platforms or [ "x86_64-linux" ];
   isCacheable = p: !(p.preferLocalBuild or false) && p.meta.license.free or true;
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
