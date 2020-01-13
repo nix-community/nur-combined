@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
      for i in $(find $out -type l)
      do
        dest=$(readlink $i)
-       if [[ $dest = $sourceRoot* ]]
+       if [[ $dest = *$sourceRoot* ]]
        then
          rm $i
-         newlink=$(echo "$dest" |sed s",$sourceRoot,$out,")
+         newlink=$(echo "$dest" |sed s",.*$sourceRoot,$out,")
          ln -s $newlink $i
       fi
     done
