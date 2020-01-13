@@ -216,7 +216,7 @@ in
         KillMode = "process";
         Restart = "on-failure";
         WorkingDirectory = "${cfg.package}/share/cigri/api";
-        ExecStart = "${cfg.package.rubyEnv}/bin/unicorn -c ${unicornConfig} -E production";
+        ExecStart = "${cfg.package.rubyEnv}/bin/unicorn -d -c ${unicornConfig} -E production";
       };
     };
     
@@ -243,6 +243,7 @@ in
             RewriteEngine On
             RewriteCond %{REMOTE_IDENT} (.*)
             RewriteRule .* - [E=HTTP_X_CIGRI_USER:%1]
+            RequestHeader set X-Cigri-User "%{HTTP_X_CIGRI_USER}e"
           </IfModule>
 
           ProxyPass unix://${cfg.server.statePath}/tmp/sockets/cigri.socket|http://${cfg.server.host}/
@@ -250,7 +251,9 @@ in
         </Location>
       '';
     };
-     
+
+    services.oidentd.enable = mkIf cfg.server.web.enable true;
+      
     ##################
     # Database section 
     
