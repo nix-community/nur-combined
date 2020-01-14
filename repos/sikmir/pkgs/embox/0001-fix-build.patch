@@ -36,29 +36,3 @@ index baf62448e..7d5c2a74b 100644
  
  comma_sep_list = $(subst $(\s),$(,),$(strip $1))
  
-diff --git i/mk/image2.mk w/mk/image2.mk
-index be5f39879..ad7f2b52f 100644
---- i/mk/image2.mk
-+++ w/mk/image2.mk
-@@ -51,7 +51,7 @@ $(ROOTFS_DIR)/% :
- 	$(CP) -r $(cp_T_if_supported) $(src_file) $@$(if \
- 		$(and $(chmod),$(findstring $(chmod),'')),,;chmod $(chmod) $@)
- 	@touch $@ # workaround when copying directories
--	@find $@ -name .gitkeep -type f -print0 | xargs -0 /bin/rm -rf
-+	@find $@ -name .gitkeep -type f -print0 | xargs -0 rm -rf
- 
- fmt_line = $(addprefix \$(\n)$(\t)$(\t),$1)
- 
-diff --git i/mk/image3.mk w/mk/image3.mk
-index 34d1cf656..9c8ffaf37 100644
---- i/mk/image3.mk
-+++ w/mk/image3.mk
-@@ -283,7 +283,7 @@ $(__cpio_files) : FORCE
- 		$(foreach c,chmod chown,$(if $(and $($c),$(findstring $($c),'')),,$c $($c) $f;)) \
- 		$(foreach a,$(strip $(subst ',,$(xattr))), \
- 			attr -s $(basename $(subst =,.,$a)) -V $(subst .,,$(suffix $(subst =,.,$a))) $f;) \
--		find $f -name .gitkeep -type f -print0 | xargs -0 /bin/rm -rf)
-+		find $f -name .gitkeep -type f -print0 | xargs -0 rm -rf)
- 
- __copy_user_rootfs :
- 	if [ -d $(USER_ROOTFS_DIR) ]; \

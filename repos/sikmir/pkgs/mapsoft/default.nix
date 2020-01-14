@@ -11,6 +11,15 @@ stdenv.mkDerivation rec {
 
   patches = [ ./0001-fix-build.patch ];
 
+  postPatch = ''
+    substituteInPlace scripts/map_rescale \
+      --replace "/usr/share/mapsoft" "${mapsoft}/share/mapsoft"
+    substituteInPlace core/vmap/vmap_ocad.cpp \
+      --replace "/usr/share/mapsoft" "${mapsoft}/share/mapsoft"
+    substituteInPlace core/vmap/zn.cpp \
+      --replace "/usr/share/mapsoft" "${mapsoft}/share/mapsoft"
+  '';
+
   nativeBuildInputs = [
     fig2dev
     imagemagick
