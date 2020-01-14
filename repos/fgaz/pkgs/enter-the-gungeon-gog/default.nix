@@ -2,10 +2,10 @@
 
 make-gog-package {
   pname = "enter-the-gungeon";
-  version = "2_0_12_23095";
-  installername = "enter_the_gungeon_en";
+  version = "2_1_9_33951";
+  installername = "enter_the_gungeon";
   binname = "enter-the-gungeon";
-  sha256 = "0v0lba8d1dfb7rd1wxhzgw3wkvkl549pslfjkja8w140w13a4psc";
+  sha256 = "0z0693drj6aawzva021xaszgmvrhkd4p61zdn6myqgnsam5l3sr3";
 
   meta = with stdenv.lib; {
     description = "";
