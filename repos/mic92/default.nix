@@ -18,6 +18,8 @@ rec {
 
   eapol_test = pkgs.callPackage ./pkgs/eapol_test {};
 
+  ferdi = pkgs.callPackage ./pkgs/ferdi {};
+
   fira-code-nerdfonts = pkgs.callPackage ./pkgs/fira-code-nerdfonts {};
 
   frida-tools = pkgs.callPackage ./pkgs/frida-tools { myPython3Packages = python3Packages; };
