@@ -196,10 +196,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.4.5";
+      version = "8.4.6";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3450602/ghostery_privacy_ad_blocker-8.4.5-an+fx.xpi?src=";
-      sha256 = "cf2b8d8808a15ed4debc04e4e689560774243871a9bf9aeae6259fcd635032e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3474268/ghostery_privacy_ad_blocker-8.4.6-an+fx.xpi?src=";
+      sha256 = "40731d0fd6751416423210c9b40981d7054a26a192c9c3e848c51ad27c1acb84";
       meta = with stdenv.lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -376,10 +376,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2020.1.7.1";
+      version = "2020.1.13";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3480808/privacy_badger-2020.1.7.1-an+fx.xpi?src=";
-      sha256 = "0015e97a2ea9cf7e9f046d0ec9a090148b05189dd9f36727759ea70d7362dc72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3484647/privacy_badger-2020.1.13-an+fx.xpi?src=";
+      sha256 = "5b7b93688f77c96b67bce431f631577ca5bc6c86a5e613558fdecb0fda368df5";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/privacybadger";
@@ -432,10 +432,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "19.12.9";
+      version = "20.1.6";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3464827/refined_github-19.12.9-an+fx.xpi?src=";
-      sha256 = "e4484a435a5a05c51851d93a47660dd07ca9cf14a820281b82037f88f30edcd3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3480007/refined_github-20.1.6-an+fx.xpi?src=";
+      sha256 = "61ca2bbb2420784bb14c5b3f63257ac7279bde6fdc5d23b2bba4f39e8254ed84";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
