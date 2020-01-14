@@ -36,6 +36,7 @@ in rec {
   embox = callPackage ./pkgs/embox {
     inherit (sources) embox;
   };
+  gmaptool = callPackage ./pkgs/gmaptool { };
   goldendict-dark-theme =
     callPackage ./pkgs/goldendict-themes/dark-theme.nix { };
   gpx-layer = perlPackages.callPackage ./pkgs/gpx-layer {
