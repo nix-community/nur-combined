@@ -184,6 +184,9 @@ in
 
         cat ${cfg.database.passwordFile} >> /etc/cigri/cigri.conf
         cat /etc/cigri/cigri-base.conf >> /etc/cigri/cigri.conf
+
+        echo '{"normal_authorized": {}}' > /etc/cigri/user_lists
+
       '';
     };
     
