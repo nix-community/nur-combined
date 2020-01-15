@@ -157,6 +157,22 @@ let
       };
     });
 
+    yggdrasilctl = { stdenvNoCC, yggdrasil ? null }: let
+      drv = stdenvNoCC.mkDerivation {
+        pname = "yggdrasilctl";
+        inherit (yggdrasil) version meta;
+        inherit yggdrasil;
+
+        buildCommand = ''
+          mkdir -p $out/bin
+          ln -s $yggdrasil/bin/yggdrasilctl $out/bin/yggdrasil
+        '';
+      };
+    in if yggdrasil == null then stdenvNoCC.mkDerivation {
+      name = "yggdrasilctl";
+      meta.broken = true;
+    } else drv;
+
     yamllint = { python3Packages }: with python3Packages; toPythonApplication yamllint;
     cargo-download = { lib, hostPlatform, cargo-download, cargo-download-arc }: let
       isBroken = hostPlatform.isDarwin || cargo-download.meta.broken or false == true || !lib.isNixpkgsStable;
