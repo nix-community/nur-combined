@@ -191,6 +191,18 @@
         "url": "https://github.com/jarun/imgp/archive/9a50724cbc97a282ed79476398ab6ff3f6f7339e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "libshell": {
+        "branch": "master",
+        "description": "A library of shell functions",
+        "homepage": "https://github.com/legionus/libshell",
+        "owner": "legionus",
+        "repo": "libshell",
+        "rev": "b05a238290160d67c4253208b9c9523643c7471a",
+        "sha256": "0xdg1xnkwi70c0q5aw288zr51b1iwvbnjxm0ld1j0smaza7xndad",
+        "type": "tarball",
+        "url": "https://github.com/legionus/libshell/archive/b05a238290160d67c4253208b9c9523643c7471a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "lsd2dsl": {
         "branch": "master",
         "description": "Lingvo dictionaries decompiler",

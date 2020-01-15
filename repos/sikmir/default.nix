@@ -77,7 +77,11 @@ in rec {
     inherit (sources) imgp;
   };
   ish = callPackage ./pkgs/ish { };
+  libshell = callPackage ./pkgs/libshell {
+    inherit (sources) libshell;
+  };
   mapsoft = callPackage ./pkgs/mapsoft {
+    inherit libshell;
     inherit (sources) mapsoft;
   };
   mbtileserver = callPackage ./pkgs/mbtileserver {

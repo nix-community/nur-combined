@@ -1,7 +1,7 @@
 { stdenv, perlPackages, python2Packages, gimp, mapsoft
-, fig2dev, imagemagick, m4, netpbm, pkgconfig, scons
+, bc, fig2dev, imagemagick, m4, netpbm, pkgconfig, scons
 , boost, curl, giflib, gtkmm2, jansson, libjpeg, libpng
-, libtiff, libusb1, libxml2, libyaml, libzip
+, libshell, libtiff, libusb1, libxml2, libyaml, libzip
 , proj, shapelib, zlib }:
 
 stdenv.mkDerivation rec {
@@ -48,6 +48,7 @@ stdenv.mkDerivation rec {
     shapelib
     zlib
   ];
+  propagatedBuildInputs = [ bc libshell ];
 
   preBuild = ''
     export CPPFLAGS="-I${boost.dev}/include -I${giflib}/include"
