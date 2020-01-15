@@ -1,6 +1,8 @@
-{ pkgs }:
+{ lib }:
 
-with pkgs.lib; rec {
+with lib;
+
+rec {
   # A variation of sourceByRegex that excludes files based on regex rather than includes them.
   sourceByNotRegex = src: excludes: (
     let
