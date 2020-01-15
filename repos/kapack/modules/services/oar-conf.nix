@@ -708,6 +708,9 @@ API_TRUST_IDENT="1"
 # Colmet hdf5 files path with filename prefix
 # The API will automatically append .<timestamp>.hdf5
 #API_COLMET_HDF5_PATH_PREFIX="/var/lib/colmet/hdf5/cluster"
+
+OARDODO="/run/wrappers/bin/oardodo"
+
   '';
 
 vars =  mapAttrsToList (name: value: name) cfg.extraConfig;
