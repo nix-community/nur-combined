@@ -5,4 +5,5 @@
   rs-munge = ./services/bs-munge.nix;
   oar = ./services/oar.nix;
   cigri = ./services/cigri.nix;
+  my-startup = ./services/my-startup.nix;
 }
