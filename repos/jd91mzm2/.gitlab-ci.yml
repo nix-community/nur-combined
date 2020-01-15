@@ -32,7 +32,6 @@ build unstable:
     - nix eval -f default.nix 'lib'
     - nix eval -f default.nix 'modules'
     - nix eval -f default.nix 'hm-modules'
-    - nix eval -f default.nix 'overlays'
 
 build stable:
   stage: build
