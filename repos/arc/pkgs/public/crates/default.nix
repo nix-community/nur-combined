@@ -127,41 +127,6 @@
     '';
   };
 
-  rnix-lsp = {
-    lib, fetchFromGitHub, rustPlatform, hostPlatform, darwin
-  }: rustPlatform.buildRustPackage rec {
-    pname = "rnix-lsp";
-    version = "2019-04-06";
-
-    src = fetchFromGitHub {
-      owner = "nix-community";
-      repo = pname;
-      rev = "3e6b015bb1fa2b1349519f56fbe0f4897a98ca69";
-      sha256 = "01s1sywlv133xzakrp2mki1w14rkicsf0h0wbrn2nf2fna3vk5ln";
-    };
-
-    RUSTC_BOOTSTRAP = true; # whee unstable features
-    cargoSha256 = "0j9swbh9iig9mimsy8kskzxqpwppp7jikd4cz2lz16jg7irvjq0w";
-
-    buildInputs = lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
-
-    meta.broken = !lib.rustVersionAtLeast rustPlatform "1.36";
-  };
-
-  rnix-lsp-server = { rnix-lsp, fetchurl, rustPlatform }: let
-    patch = fetchurl {
-      # https://github.com/nix-community/rnix-lsp/pull/2
-      name = "rnix-lsp-server.patch";
-      url = "https://patch-diff.githubusercontent.com/raw/nix-community/rnix-lsp/pull/2.patch";
-      sha256 = "00l7la23mmlh7kq603lnn5qv5pr4lr6y018ddnrvxgbxdgvvxg94";
-    };
-  in rustPlatform.buildRustPackage rec {
-    inherit (rnix-lsp) pname version src buildInputs RUSTC_BOOTSTRAP meta;
-
-    cargoPatches = rnix-lsp.cargoPatches or [] ++ [ patch ];
-    cargoSha256 = "1fk11q6pf31c5ri5zkarc3iqyc7jf3xyfvr8f6xxwqcn3h6kz4iw";
-  };
-
   cargo-binutils-unwrapped = {
     lib, fetchFromGitHub, rustPlatform
   }: rustPlatform.buildRustPackage rec {
