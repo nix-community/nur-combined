@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, jq, curl, nodePackages}:
+{stdenv, fetchFromGitHub, jq, curl, node2nix}:
 stdenv.mkDerivation {
   pname = "nix-gen-node-tools";
   version = "1.0.0";
@@ -10,7 +10,7 @@ stdenv.mkDerivation {
     rev = "f3f61bb103fa11e3d7c9be6b5caa8b6bb96c8b3e";
   };
 
-  buildInputs = [jq curl nodePackages.node2nix];
+  buildInputs = [jq curl node2nix];
 
   installPhase = ''
     install -m755 -D genNodeNix "$out/bin/nix-gen-node-tools"
