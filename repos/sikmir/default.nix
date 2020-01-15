@@ -76,6 +76,7 @@ in rec {
   imgp = python3Packages.callPackage ./pkgs/imgp {
     inherit (sources) imgp;
   };
+  ish = callPackage ./pkgs/ish { };
   mapsoft = callPackage ./pkgs/mapsoft {
     inherit (sources) mapsoft;
   };
@@ -91,6 +92,7 @@ in rec {
   openorienteering-mapper = libsForQt5.callPackage ./pkgs/openorienteering-mapper {
     inherit (sources) mapper;
   };
+  ptunnel =  callPackage ./pkgs/ptunnel { };
   pymbtiles = python3Packages.callPackage ./pkgs/pymbtiles {
     inherit (sources) pymbtiles;
   };

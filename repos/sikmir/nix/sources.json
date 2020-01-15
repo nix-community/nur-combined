@@ -197,10 +197,10 @@
         "homepage": "https://rcebits.com/lsd2dsl/index.html",
         "owner": "nongeneric",
         "repo": "lsd2dsl",
-        "rev": "f7bce9c9b331603e1c29b775ca674c06f2df250c",
-        "sha256": "1sxf8kqlnazbg48sy8sp2i54jrh5i2k88jwskvcy09h1608yzbx5",
+        "rev": "9700272c49ccf2658ab396d49b9098d685838f08",
+        "sha256": "0hs51ymh4pbmsz53ahrm7zkinxqlghbqyvavymkn59wflpm2hsxy",
         "type": "tarball",
-        "url": "https://github.com/nongeneric/lsd2dsl/archive/f7bce9c9b331603e1c29b775ca674c06f2df250c.tar.gz",
+        "url": "https://github.com/nongeneric/lsd2dsl/archive/9700272c49ccf2658ab396d49b9098d685838f08.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lsdreader": {
