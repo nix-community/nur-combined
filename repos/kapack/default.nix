@@ -83,5 +83,6 @@ rec {
 
   tgz-g5k = pkgs.callPackage ./pkgs/tgz-g5k { };
 
+  wait-for-it = pkgs.callPackage ./pkgs/wait-for-it { };
 }
 
