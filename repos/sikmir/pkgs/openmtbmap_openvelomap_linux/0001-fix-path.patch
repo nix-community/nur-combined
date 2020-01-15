@@ -1,0 +1,61 @@
+diff --git i/create_omtb_garmin_img.sh w/create_omtb_garmin_img.sh
+index 03a0ae6..143260d 100755
+--- i/create_omtb_garmin_img.sh
++++ w/create_omtb_garmin_img.sh
+@@ -90,20 +90,20 @@ elif [[ -n ${OMTB_EXE:t} ]]; then
+     usage
+ fi
+ 
+-GMT_CMD=( ${ARGS_A[-g]}(.N,@-.) ${^path}/gmt(.N,@-.) )
++GMT_CMD=( ${ARGS_A[-g]}(.N,@-.) %gmaptool%/bin/gmt(.N,@-.) )
+ GMT_CMD="${GMT_CMD[1]:a}"
+ # if wine exists, this expands into e.g. /usr/bin/wine, otherwhise it will remain as string =wine
+ # advantage over which wine is, that it outputs only one result, namely the executable that a call to wine on the CL would actually use
+ WINE_EXE==wine
+ 
+ # NB: If mkgmap is not found, we fall back to using gmt later.
+-MKGMAP=( ${ARGS_A[-m]}(.N,@-.) /usr/share/mkgmap/mkgmap.jar(.N,@-.) /usr/local/share/mkgmap/mkgmap.jar(.N,@-.) /usr/share/java/mkgmap.jar(.N,@-.) /usr/share/java/mkgmap/mkgmap.jar(.N,@-.) ${^path}/mkgmap.jar(.N,@-.) )
++MKGMAP=( ${ARGS_A[-m]}(.N,@-.) %mkgmap%/bin/mkgmap(.N,@-.) )
+ MKGMAP="${MKGMAP[1]:a}"
+ 
+-if ! [[ -x =7z ]]; then
+-    print "\nERROR: 7z is not installed, but needed to extract openmtbmap downloads !" > /dev/stderr
+-    exit 3
+-fi
++#if ! [[ -x =7z ]]; then
++#    print "\nERROR: 7z is not installed, but needed to extract openmtbmap downloads !" > /dev/stderr
++#    exit 3
++#fi
+ 
+ 
+ DESC="${OMTBORVELO}_${OMTB_NAME}"
+@@ -116,7 +116,7 @@ else
+     [[ -n $ARGS_A[-o] ]] && {print "\nWarning: -o given but ${ARGS_A[-o]} is not a directory.\n         Using ${OMTB_EXE:A:h} instead..\n"}
+ fi
+ 
+-if ! [[ ( -n $MKGMAP && -x =java ) || -x $WINE_EXE ]]; then
++if ! [[ ( -n $MKGMAP ) || -x $WINE_EXE ]]; then
+     print "\nERROR: either mkgmap (+java) or wine are required!" > /dev/stderr
+     exit 4
+ fi
+@@ -151,7 +151,7 @@ fi
+ FIMG_a=(${TMPDIR}/6<->.img(N[1]))
+ if [[ -z $FIMG_a ]] ; then
+     print "Extracting $OMTB_EXE ..."
+-    7z e -y -o$TMPDIR ${OMTB_EXE} &>/dev/null || exit 1
++    %7z% e -y -o$TMPDIR ${OMTB_EXE} &>/dev/null || exit 1
+     #Check if extraction files are there
+     FIMG_a=(${TMPDIR}/6<->.img(N[1]))
+     [[ -z $FIMG_a ]] && {print "\nERROR: Could not find 6*.img file after extracting $OMTB_EXE" >/dev/stderr ; exit 1}
+@@ -192,9 +192,9 @@ if [[ -n $MKGMAP ]]; then
+     print "Using mkgmap, building address search index..."
+     #java -Xmx1000M -jar mkgmap.jar --family-id=$FID --index --description="$DESC" --series-name="$DESC" --family-name="$DESC" --show-profiles=1  --product-id=1 --gmapsupp 6*.img 7*.img 01002468.TYP
+     if [[ $(grep MemTotal: /proc/meminfo | awk '{print $2}') -gt $((1024*1024*3)) ]]; then
+-      java -Xmx3000M -jar "$MKGMAP" --family-id=$FID --index --description="$DESC" --series-name="$DESC" --family-name="$DESC" --show-profiles=1  --product-id=1 --gmapsupp [67]*.img 01002468.TYP || exit 7
++      $MKGMAP -Xmx3000M --family-id=$FID --index --description="$DESC" --series-name="$DESC" --family-name="$DESC" --show-profiles=1  --product-id=1 --gmapsupp [67]*.img 01002468.TYP || exit 7
+     else
+-      java -Xmx1000M -jar "$MKGMAP" --family-id=$FID --index --description="$DESC" --series-name="$DESC" --family-name="$DESC" --show-profiles=1  --product-id=1 --gmapsupp [67]*.img 01002468.TYP || exit 7
++      $MKGMAP -Xmx1000M --family-id=$FID --index --description="$DESC" --series-name="$DESC" --family-name="$DESC" --show-profiles=1  --product-id=1 --gmapsupp [67]*.img 01002468.TYP || exit 7
+     fi
+     mv (#i)gmapsupp.img "${DSTFILENAME}" || exit 7
+ else

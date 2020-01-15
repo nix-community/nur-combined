@@ -119,28 +119,16 @@
         "url": "https://github.com/BourgeoisLab/GPXLab/archive/44755cf7d12c4342d24ee6204a09ad8d3e7cd994.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "gpxpy": {
-        "branch": "master",
-        "description": "gpx-py is a python GPX parser. GPX (GPS eXchange Format) is an XML based file format for GPS tracks.",
-        "homepage": "https://github.com/tkrajina/gpxpy",
-        "owner": "tkrajina",
-        "repo": "gpxpy",
-        "rev": "5e81b930c81cb88f3534e6f48d970c367de302b7",
-        "sha256": "0ps468n0xhk69c7c8j612xmhml7pysv2d78241vkdyy3gr771576",
-        "type": "tarball",
-        "url": "https://github.com/tkrajina/gpxpy/archive/5e81b930c81cb88f3534e6f48d970c367de302b7.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "gpxsee": {
         "branch": "master",
         "description": "GPS log file viewer and analyzer with support for GPX, TCX, KML, FIT, IGC, NMEA, SLF, LOC, GeoJSON and OziExplorer files.",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "a89ef11d733337a6263aa7e9f5ada7c2e9dcbd5e",
-        "sha256": "10a917y26l1iz0k8njdb4cvyly6qr0hv5pa5f6dgch01p85c52da",
+        "rev": "42b4216d9c43ff22146bfa305da766a3d330b2f9",
+        "sha256": "14pzcyy8kbnmr21yzml1hp7qmc055gyf48s27ff0jndd6f2dmxiq",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/a89ef11d733337a6263aa7e9f5ada7c2e9dcbd5e.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/42b4216d9c43ff22146bfa305da766a3d330b2f9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -285,6 +273,18 @@
         "sha256": "1f3gw512396v5lljkn9czsln8qciccg7mm6bvv5qxggf8ih6vgya",
         "type": "tarball",
         "url": "https://github.com/mapbox/mercantile/archive/dae32795f9da7a9f39d8ea52f2321af008f35ab9.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "openmtbmap_openvelomap_linux": {
+        "branch": "master",
+        "description": "Linux script to extract and compile garmin *.img map files from openmtbmap.org or openvelomap.org downloads",
+        "homepage": "https://github.com/btittelbach/openmtbmap_openvelomap_linux",
+        "owner": "btittelbach",
+        "repo": "openmtbmap_openvelomap_linux",
+        "rev": "6d00e273d7391fae72fb7fd21859483db3e26c1a",
+        "sha256": "17az6k4z71k85ibcabka6yig6bnpk6fknmgx9ilk1x74rifaz06s",
+        "type": "tarball",
+        "url": "https://github.com/btittelbach/openmtbmap_openvelomap_linux/archive/6d00e273d7391fae72fb7fd21859483db3e26c1a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pymbtiles": {

@@ -43,14 +43,10 @@ in rec {
     inherit (sources) gpx-layer;
   };
   gpxelevations = python3Packages.callPackage ./pkgs/gpxelevations {
-    inherit gpxpy;
     inherit (sources) gpxelevations;
   };
   gpxlab = libsForQt5.callPackage ./pkgs/gpxlab {
     inherit (sources) gpxlab;
-  };
-  gpxpy = python3Packages.callPackage ./pkgs/gpxpy {
-    inherit (sources) gpxpy;
   };
   gpxsee = libsForQt5.callPackage ./pkgs/gpxsee {
     inherit (sources) gpxsee;
@@ -92,6 +88,10 @@ in rec {
   };
   mercantile = python3Packages.callPackage ./pkgs/mercantile {
     inherit (sources) mercantile;
+  };
+  openmtbmap_openvelomap_linux = callPackage ./pkgs/openmtbmap_openvelomap_linux {
+    inherit gmaptool;
+    inherit (sources) openmtbmap_openvelomap_linux;
   };
   openorienteering-mapper = libsForQt5.callPackage ./pkgs/openorienteering-mapper {
     inherit (sources) mapper;
