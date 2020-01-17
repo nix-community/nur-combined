@@ -10,19 +10,15 @@ let
     #!${pkgs.stdenv.shell}
     set -e
 
+    pushd /etc/nixos > /dev/null
     ${optionalString cfg.builtin ''
-      pushd /etc/nixos > /dev/null
       ${pkgs.niv}/bin/niv modify nixpkgs -a builtin=true
-      nix-build -Q -A nixpkgs -o /run/nixpkgs ./nix/sources.nix
-      popd > /dev/null
     ''}
-
     ${optionalString (!cfg.builtin) ''
-      pushd /etc/nixos > /dev/null
       ${pkgs.niv}/bin/niv modify nixpkgs -a builtin=false
-      ln -sfn $(nix-instantiate --eval -A nixpkgs.outPath ./nix/sources.nix | sed 's/"//g') /run/nixpkgs
-      popd > /dev/null
     ''}
+    ln -sfn $(nix eval --raw '(import ./nix/sources.nix).nixpkgs') /run/nixpkgs
+    popd > /dev/null
 
     exec nixos-rebuild "$@"
   '';
