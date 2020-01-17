@@ -231,10 +231,9 @@ in stdenv.mkDerivation ({
     }
 
     tmp() {
-      WORK_DIR=$(mktemp -d --tmpdir ${name}.XXXXXX)
-      cleanup() { { chmod -R +w "$WORK_DIR"; rm -rf "$WORK_DIR"; } || true; }
-      trap 'trap - EXIT; cleanup; kill -- $$' EXIT
-      echo $WORK_DIR
+      local work_dir=$(mktemp -d --tmpdir ${name}.XXXXXX)
+      trap "chmod -R +w $work_dir; rm -rf $work_dir" EXIT
+      echo $work_dir
     }
 
     ${mkCli { inherit arguments action name description options flags preInit init packages; } }
