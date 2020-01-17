@@ -231,7 +231,7 @@ in stdenv.mkDerivation ({
     }
 
     tmp() {
-      local WORK_DIR=$(mktemp -d --tmpdir ${name}.XXXXXX)
+      WORK_DIR=$(mktemp -d --tmpdir ${name}.XXXXXX)
       cleanup() { { chmod -R +w "$WORK_DIR"; rm -rf "$WORK_DIR"; } || true; }
       trap 'trap - EXIT; cleanup; kill -- $$' EXIT
       echo $WORK_DIR
