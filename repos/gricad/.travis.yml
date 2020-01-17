@@ -20,8 +20,7 @@ install:
 - travis_retry nix-channel --update
 script:
 - set -o pipefail
-  #- nix-build ci.nix -A buildOutputs | cachix push "${CACHIX_CACHE}"
-- nix-build --arg pkgs 'import <nixpkgs> {}' -A hello | cachix push "${CACHIX_CACHE}"
+- nix-build ci.nix -A buildOutputs | cachix push "${CACHIX_CACHE}"
 - nix eval -f default.nix 'lib'
 - nix eval -f default.nix 'modules'
 - nix eval -f default.nix 'overlays'
