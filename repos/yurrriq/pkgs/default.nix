@@ -32,6 +32,8 @@ rec {
 
   bugwarrior = _nixpkgs.python38Packages.bugwarrior;
 
+  ec2instanceconnectcli = _nixpkgs.python38Packages.callPackage ./development/tools/ec2instanceconnectcli {};
+
   elba = pkgs.callPackage ./development/tools/elba {};
 
   gap-pygments-lexer = pkgs.callPackage ./tools/misc/gap-pygments-lexer {
