@@ -1,6 +1,6 @@
 { lib, grid, stdenv, bashInteractive, shfmt, linkFarm, writeText, runCommand }:
 
-name: description: { packages ? [], arguments ? [], aliases ? [], options ? [], flags ? [], init ? "" }: action: let
+name: description: { packages ? [], arguments ? [], aliases ? [], options ? [], flags ? [], init ? "", tempDir ? false }: action: let
   defaultFlags = [ (mkFlag "h" "help" "show help") ];
 
   mkArgument = name:                 description: { inherit name               description; };
@@ -108,7 +108,19 @@ name: description: { packages ? [], arguments ? [], aliases ? [], options ? [], 
 
   mkUsage = { name, ... }@c: writeText "${name}-usage.txt" (mkUsageText c);
 
-  mkCli = { action, name, description, init ? "", arguments ? [], flags ? [], options ? [], previous ? [], packages ? [], ... }@c:
+  mkCli =
+    { action
+    , name
+    , description
+    , init      ? ""
+    , arguments ? []
+    , flags     ? []
+    , options   ? []
+    , previous  ? []
+    , packages  ? []
+    , tempDir   ? false
+    , ... }@c:
+
     assert ! builtins.isString action -> arguments == [];
   let
     mkCommand = name: description: { init ? "", arguments ? [], aliases ? [], options ? [], flags ? [], packages ? [] }: action: {
@@ -139,6 +151,12 @@ name: description: { packages ? [], arguments ? [], aliases ? [], options ? [], 
     })}
 
     PATH=${lib.makeBinPath packages}:$PATH
+
+    ${lib.optionalString tempDir ''
+      WORK_DIR=$(mktemp -d --tmpdir ${name}.XXXXXX)
+      cleanup() { { chmod -R +w "$WORK_DIR"; rm -rf "$WORK_DIR"; } || true; }
+      trap 'trap - EXIT; cleanup; kill -- $$' EXIT
+    ''}
 
     ${init}
 
@@ -216,7 +234,7 @@ in stdenv.mkDerivation ({
       stderr "\e[33mwarning\e[0m:" "$@"
     }
 
-    ${mkCli { inherit arguments action name description options flags init packages; } }
+    ${mkCli { inherit arguments action name description options flags init packages tempDir; } }
 
     EOF
 
