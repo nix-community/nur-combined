@@ -1,6 +1,6 @@
-{ lib, grid, stdenv, bashInteractive, shfmt, linkFarm, writeText, runCommand }:
+{ lib, grid, stdenv, bashInteractive, shfmt, writeText, runCommand }:
 
-name: description: { packages ? [], arguments ? [], aliases ? [], options ? [], flags ? [], init ? "" }: action: let
+name: description: { packages ? [], arguments ? [], aliases ? [], options ? [], flags ? [], preInit ? "", init ? "" }: action: let
   defaultFlags = [ (mkFlag "h" "help" "show help") ];
 
   mkArgument = name:                 description: { inherit name               description; };
@@ -112,6 +112,7 @@ name: description: { packages ? [], arguments ? [], aliases ? [], options ? [], 
     { action
     , name
     , description
+    , preInit      ? ""
     , init      ? ""
     , arguments ? []
     , flags     ? []
@@ -122,8 +123,8 @@ name: description: { packages ? [], arguments ? [], aliases ? [], options ? [], 
 
     assert ! builtins.isString action -> arguments == [];
   let
-    mkCommand = name: description: { init ? "", arguments ? [], aliases ? [], options ? [], flags ? [], packages ? [] }: action: {
-      inherit action init arguments aliases description flags name options packages;
+    mkCommand = name: description: { preInit ? "", init ? "", arguments ? [], aliases ? [], options ? [], flags ? [], packages ? [] }: action: {
+      inherit action preInit init arguments aliases description flags name options packages;
     };
 
     commands   = if builtins.isFunction    action then    action mkCommand  else    action;
@@ -142,6 +143,8 @@ name: description: { packages ? [], arguments ? [], aliases ? [], options ? [], 
     currentName = name;
 
   in ''
+    ${preInit}
+
     ${mkGetOpts (c // {
       inherit usage;
 
@@ -234,7 +237,7 @@ in stdenv.mkDerivation ({
       echo $WORK_DIR
     }
 
-    ${mkCli { inherit arguments action name description options flags init packages; } }
+    ${mkCli { inherit arguments action name description options flags preInit init packages; } }
 
     EOF
 
