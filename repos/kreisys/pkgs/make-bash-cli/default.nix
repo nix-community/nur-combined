@@ -230,11 +230,8 @@ in stdenv.mkDerivation ({
       stderr "\e[33mwarning\e[0m:" "$@"
     }
 
-    tmp() {
-      local work_dir=$(mktemp -d --tmpdir ${name}.XXXXXX)
-      trap "chmod -R +w $work_dir; rm -rf $work_dir" EXIT
-      echo $work_dir
-    }
+    TMPDIR=$(mktemp -d --tmpdir ${name}.XXXXXX)
+    trap "chmod -R +w $TMPDIR; rm -rf $_" EXIT
 
     ${mkCli { inherit arguments action name description options flags preInit init packages; } }
 
