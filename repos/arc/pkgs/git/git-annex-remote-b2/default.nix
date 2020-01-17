@@ -1,15 +1,13 @@
-{ stdenv, buildGoPackage, fetchFromGitHub }: buildGoPackage rec {
+{ buildGoModule, fetchFromGitHub }: buildGoModule rec {
   pname = "git-annex-remote-b2";
-  version = "2019-10-11-arc";
-
-  goPackagePath = "github.com/encryptio/git-annex-remote-b2";
+  version = "2020-01-17-arc";
 
   src = fetchFromGitHub {
     owner = "arcnmx";
     repo = pname;
-    rev = "c1141bcc2f8c72ced81bf8bcd60e3f692184c814";
-    sha256 = "1dag6h661zgm09d9yk00vyswn5p4i7adl2clbsjf36v0910q9mvi";
+    rev = "d036ce90a51cddd5b7e7fbcf98e6b2a10f5aa64e";
+    sha256 = "01gwmswj37qa19i4sdbap33zs8m0rz8il1wars18l40mh9a0c1rz";
   };
 
-  goDeps = ./deps.nix;
+  modSha256 = "0565nvb6gq90i1ypv08rq41ivf04xqa3pw3hvl7208vdxzmn9ry2";
 }
