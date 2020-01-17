@@ -3,15 +3,15 @@
 buildGoPackage rec {
   pname = "ko";
   name = "${pname}-${version}";
-  version = "0.1";
+  version = "dev";
 
   goPackagePath = "github.com/google/ko";
 
   src = fetchFromGitHub {
     owner = "google";
     repo = "ko";
-    rev = "v${version}";
-    sha256 = "1sn1s6784jb5p6q43nb87qs19hx3s4gnin59ava9mzw3n6p0bihc";
+    rev = "2e28671384daf65cbb9fd7fbf0488ae2900c3ae5";
+    sha256 = "00l141sgx64qv7mpy40qm4a29pm9qqxg7k7d1gj3g8qq6j0n7ks1";
   };
 
   meta = with stdenv.lib; {
