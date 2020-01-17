@@ -15,5 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   scarlett-mixer = pkgs.callPackage ./pkgs/scarlett-mixer { };
+  ddev = pkgs.callPackage ./pkgs/ddev { };
 }
 
