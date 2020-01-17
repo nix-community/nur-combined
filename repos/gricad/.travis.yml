@@ -4,7 +4,7 @@ env:
   global:
   - CACHIX_CACHE=gricad
   - NUR_REPO=https://github.com/Gricad/nur-packages
-  - secure: JYIW90fCihFmpF9LsTZBxw0CfYW63j+sE6dqjMwTYS+cg41Jms2pKjAjU4hM7IMjoLKcP+ArYwM88bx6+eI8SmANSeCumCbo4ioCUL0NXNV5cKi5SmXwHGuHprtyKZRPb+5AkEZkZS0FHxcZLFITppIxlwQ8wsQ+bRA2XcmiyeF86xPa0O+xj+MFyJYVizqOWFFMK0cktFmo1P4yxtK71+ERxM8ugYb1s0tk6pxbaTfO8Blqc0GwR+Twgkow0Om5G7XQ4IEePd77n9di5Q/Z2GBUZYZlalqcQlXdwzsDpuNIRuo80TS3ZTCFkT9oAkerENudEgyb3L72mQYSbsf862a02u7EH2dXRDvjBsu33kN3q29p8CJKwdwzDXQoKhJSdCDiG7Q6jFNHwwtKqTLj76Ss3FVGld+lrFRkMWPnljnjSEPpxNQ/q7jBwZkqepFJvFV9LHc3cslBy47UvpEe+donkYjeGJK0uX1YxF4SHAi0XCVePBHgsqMd1pSBC/IwWuZ8amweLiAp0g5ASnnjfFdDNwoqsdbpYZQ9tTlJCcH89R2siJvX2YGT6EdVg3JtH6XYJQnNqbsihVkn6SSsApCRmj2Dyi6Z8BeCYu414xARmp4kg9Z7V4Md7wXNOSzewRfHV4ebEvfzmBnrFYAO5jbrt/mvSbIYVdZ7pcP8CCU=
+  - secure: "xLNFxjZ8jvCjwAaN/vz6PUoAeceHEHg35Gy2+v+PeHsj0qagJJ4AOlgQkBZjPM3cu+vk8URqaGOP5HNDiLSdQRyX8XO/tFmqzueeJm/IrUYLuWvFKegR4FTjqbe2FSBVt3LZVsLqBhpnXk0RFnozz9zhQqYBIy1KvnsgLUfxWGkN/33Tb+vQmfV8zFMfmD1H1xNnMaoFIIeY8O+smKIQvLTQNtXGA3Dj1aNaP4lD4L4DUBjhrDno3CpbNvynesYbta/GafIhiUi/KvxgxtYc3dU0Gpk2OK8gghsXUFkAdKxt05LMvxkauJuSbVb/v6T9fnsPXetvpZhXwJSJDcl6AxjPknCgUj6zgJS2q0wQg+Txz2/J0lynERs+a64vx446+14wzbbPnSUtMtH0vUz1SHei4uZQJeYsC8z9S/N3IjIb0QH2QGtGY43ZofLOLpyU5Mxa/Yg7bM+bzNOXhm1yX5MNbGwEO0jsVsxC5QoULQyG4RocmAFxnKiOxKhBT8tbgIqnIf0Lpp7jwp9RnLiXGIIpFwTMNxPibWeOqDHzA5gaFOyKJ7cmzANHNeZoCQ1TkHTxJMQ7BeRRssKyiAP+8elLIB/NIRU6WFhf7OiOibYFr1wOCH052V/83BSBGpSuW8PfJJ37WZxHMtCBZb21tof7204nF2wJZ7aUuS1ScxU="
 matrix:
   include:
   - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
@@ -20,7 +20,8 @@ install:
 - travis_retry nix-channel --update
 script:
 - set -o pipefail
-- nix-build ci.nix -A buildOutputs | cachix push "${CACHIX_CACHE}"
+  #- nix-build ci.nix -A buildOutputs | cachix push "${CACHIX_CACHE}"
+- nix-build --arg pkgs 'import <nixpkgs> {}' -A hello | cachix push "${CACHIX_CACHE}"
 - nix eval -f default.nix 'lib'
 - nix eval -f default.nix 'modules'
 - nix eval -f default.nix 'overlays'

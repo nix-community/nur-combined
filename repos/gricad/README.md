@@ -55,6 +55,14 @@ curl -XPOST https://nur-update.herokuapp.com/update?repo=gricad
   * Install cachix: `nix-env -iA cachix -f https://cachix.org/api/v1/install`
   * Activate cachix: `cachix use gricad`
 
+* Cachix configuration for Travis
+
+Frst, get the secretkey (from ~/.config/cachix/cachix.dhall)
+
+```
+travis encrypt --pro CACHIX_SIGNING_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=="
+```
+
 [![Build Status](https://travis-ci.com/Gricad/nur-packages.svg?branch=master)](https://travis-ci.com/Gricad/nur-packages)
 [![Cachix Cache](https://img.shields.io/badge/cachix-gricad-blue.svg)](https://gricad.cachix.org)
 
