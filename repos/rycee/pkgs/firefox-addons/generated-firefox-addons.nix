@@ -14,6 +14,20 @@
         platforms = platforms.all;
         };
       };
+    "anchors-reveal" = buildFirefoxXpiAddon {
+      pname = "anchors-reveal";
+      version = "1.1";
+      addonId = "jid1-XX0TcCGBa7GVGw@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1690998/anchors_reveal-1.1-fx.xpi?src=";
+      sha256 = "0412acabe742f7e78ff77aa95c4196150c240592a1bbbad75012b39a05352c36";
+      meta = with stdenv.lib;
+      {
+        homepage = "http://dascritch.net/post/2014/06/24/Sniffeur-d-ancre";
+        description = "Reveal the anchors in a webpage";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
       version = "0.3.5.2";
@@ -219,20 +233,6 @@
         homepage = "https://github.com/palant/searchlinkfix";
         description = "This extension prevents Google and Yandex search pages from modifying search result links when you click them. This is useful when copying links but it also helps privacy by preventing the search engines from recording your clicks.";
         license = licenses.mpl20;
-        platforms = platforms.all;
-        };
-      };
-    "gopass-bridge" = buildFirefoxXpiAddon {
-      pname = "gopass-bridge";
-      version = "0.6.0";
-      addonId = "{eec37db0-22ad-4bf1-9068-5ae08df8c7e9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3476523/gopass_bridge-0.6.0-fx.xpi?src=";
-      sha256 = "4a7df8b3e008941b95134acfe9d94e739af0f2e1bc71919b7dfccb2e19c45747";
-      meta = with stdenv.lib;
-      {
-        homepage = "https://github.com/gopasspw/gopassbridge";
-        description = "Gopass Bridge allows searching and inserting login credentials from the gopass password manager ( <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/fa484fa7cde64c1be04f689a80902fdf34bfe274b8675213f619c3a13e6606ab/https%3A//www.gopass.pw/\">https://www.gopass.pw/</a> ).";
-        license = licenses.mit;
         platforms = platforms.all;
         };
       };

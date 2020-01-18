@@ -3,6 +3,9 @@
     "slug": "adsum-notabs"
   },
   {
+    "slug": "anchors-reveal"
+  },
+  {
     "slug": "auto-tab-discard"
   },
   {
@@ -49,9 +52,6 @@
   },
   {
     "slug": "google-search-link-fix"
-  },
-  {
-    "slug": "gopass-bridge"
   },
   {
     "slug": "greasemonkey"
