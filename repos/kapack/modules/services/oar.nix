@@ -511,6 +511,8 @@ in
           type = "normal";
           master = true;
           workers = 2;
+          # TODO: PATH variable suffered duplication, the bug is in nixpkgs/nixos/.../uwsgi.nix 
+          env = [ "PATH=/run/current-system/sw/bin/" ];
           module = "oarapi:application";
           chdir = pkgs.writeTextDir "oarapi.py" ''
           from oar.rest_api.app import wsgi_app as application 
