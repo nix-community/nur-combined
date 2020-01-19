@@ -15,6 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   ripcord = pkgs.callPackage ./pkgs/ripcord { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  # ms-pls = pkgs.callPackage ./pkgs/python-language-server { };
+  zunit = pkgs.callPackage ./pkgs/zunit { };
 }
