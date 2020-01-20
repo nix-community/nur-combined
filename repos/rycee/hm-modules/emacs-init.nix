@@ -6,18 +6,22 @@ let
 
   cfg = config.programs.emacs.init;
 
-  emacsPackageType =
-    types.coercedTo
-      types.str
-      (pkgName: epkgs: [ epkgs.${pkgName} ])
-      (types.nullOr types.unspecified);
+  packageFunctionType = mkOptionType {
+    name = "packageFunction";
+    description = "function from epkgs to package";
+    check = isFunction;
+    merge = mergeOneOption;
+  };
 
   usePackageType = types.submodule ({ name, config, ... }: {
     options = {
       enable = mkEnableOption "Emacs package ${name}";
 
       package = mkOption {
-        type = emacsPackageType;
+        type =
+          types.either
+            (types.str // { description = "name of package"; })
+            packageFunctionType;
         default = name;
         description = ''
           The package to use for this module. Either the package name
