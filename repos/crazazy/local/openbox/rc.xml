@@ -295,6 +295,11 @@
       </action>
     </keybind>
     <!-- Keybindings for window switching with the arrow keys -->
+    <keybind key="W-Up">
+      <action name="DirectionalFocusNorth">
+        <dialog>yes</dialog>
+      </action>
+    </keybind>
     <keybind key="W-Down">
       <action name="DirectionalFocusSouth">
         <dialog>yes</dialog>

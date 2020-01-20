@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    albert lemonbar alock glava
+    albert lemonbar alock glava feh
   ];
 
   fonts.fonts = with pkgs; [
