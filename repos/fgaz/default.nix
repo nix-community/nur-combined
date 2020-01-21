@@ -14,6 +14,9 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  ### DEVELOPMENT
+  lobster = pkgs.callPackage ./pkgs/lobster { };
+
   ### APPLICATIONS
   variety = pkgs.callPackage ./pkgs/variety { };
   gnubiff = pkgs.callPackage ./pkgs/gnubiff { };
