@@ -72,4 +72,6 @@ rec {
 
   renderizer = pkgs.callPackage ./development/tools/renderizer {};
 
+  yq = pkgs.python3Packages.callPackage ./development/tools/yq {};
+
 } // (import ./broken.nix { inherit pkgs; })
