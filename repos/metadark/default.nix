@@ -14,7 +14,7 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  clonehero-unwrapped = pkgs.callPackage ./pkgs/games/clonehero { };
+  clonehero-unwrapped = pkgs.callPackage ./pkgs/games/clonehero {};
 
   clonehero-xdg-wrapper = pkgs.callPackage ./pkgs/games/clonehero/xdg-wrapper.nix {
     inherit clonehero-unwrapped;
@@ -29,6 +29,8 @@ rec {
   lightdm-webkit2-greeter = pkgs.callPackage ./pkgs/applications/display-managers/lightdm-webkit2-greeter {
     inherit lightdm-webkit2-greeter;
   };
+
+  runescape-launcher = pkgs.callPackage ./pkgs/games/runescape-launcher/wrapper.nix {};
 
   texlab = pkgs.callPackage ./pkgs/development/tools/misc/texlab {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
