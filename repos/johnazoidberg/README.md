@@ -51,10 +51,6 @@ Python3 Modules
 My own package for transforming a youtube channel or playlist into a podcast RSS feed
 - [youtuberss](https://github.com/JohnAZoidberg/youtuberss)
 
-TPM 2.0 tools and library by Intel
-- [tpm2-tools](https://github.com/tpm2-software/tpm2-tools)
-- [tpm2-tss](https://github.com/tpm2-software/tpm2-tss)
-
 Libraries and tools for Thai language
 - [thpronun](https://github.com/tlwg/thpronun) Thai pronunciation analyzer
 - [libthai](https://github.com/tlwg/libthai) Thai language support library

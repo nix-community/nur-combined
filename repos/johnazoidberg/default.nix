@@ -4,6 +4,9 @@ rec {
   modules = import ./modules;
   overlays = import ./overlays;
 
+  gtkterm = pkgs.callPackage ./pkgs/gtkterm { };
+
+
   dkgpg = pkgs.callPackage ./pkgs/dkgpg.nix {
     inherit libtmcg;
     bzip2 = pkgs.bzip2;
@@ -77,18 +80,10 @@ rec {
   linuxPackages_4_9 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_9);
   linuxPackages_4_14 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_14);
   linuxPackages_4_19 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_19);
-  linuxPackages_4_20 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_20);
-  linuxPackages_5_0 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_0);
 
   rfc-reader = pkgs.callPackage ./pkgs/rfc-reader {};
 
   youtube-rss = pkgs.callPackage ./pkgs/youtuberss.nix {};
-
-  # TODO update and eventually upstream into nixpkgs
-  tpm2-tools = pkgs.callPackage ./pkgs/tpm2/tpm2-tools.nix {
-    inherit tpm2-tss;
-  };
-  tpm2-tss = pkgs.callPackage ./pkgs/tpm2/tpm2-tss.nix {};
 
   libdatrie = pkgs.callPackage ./pkgs/libdatrie.nix {};
   libthai = pkgs.callPackage ./pkgs/libthai.nix {
