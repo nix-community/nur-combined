@@ -24,6 +24,7 @@ rec {
     firefox
     # TODO: next
     pass
+    renderizer
     ripgrep
     sops
     thunderbird
@@ -69,8 +70,6 @@ rec {
   noweb = _nixpkgs-stable.noweb.override {
     inherit icon-lang;
   };
-
-  renderizer = pkgs.callPackage ./development/tools/renderizer {};
 
   yq = pkgs.python3Packages.callPackage ./development/tools/yq {};
 
