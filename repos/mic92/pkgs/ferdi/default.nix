@@ -3,14 +3,14 @@
 , gnome2, dbus, nss, nspr, alsaLib, cups, expat, udev, libnotify, xdg_utils }:
 
 let
-  version = "5.4.0-beta.4";
+  version = "5.4.1-beta.5";
 in stdenv.mkDerivation {
   pname = "ferdi";
   inherit version;
   src = fetchurl {
     #url = "https://github.com/meetfranz/franz/releases/download/v${version}/franz_${version}_amd64.deb";
     url = "https://github.com/getferdi/ferdi/releases/download/v${version}/ferdi_${version}_amd64.deb";
-    sha256 = "1fdy8x3lac0b2f9vd15yzdprrssk7wsdk7ygzbwkbr0vyzyp5zlf";
+    sha256 = "1m5rldjfc9ss30il5v2da9xsjw2w4shqjigar1p7gd4aycvgnmja";
   };
 
   # don't remove runtime deps
