@@ -16,8 +16,8 @@
             "url": "https://github.com/angr/nixpkgs"
         },
         "arc": {
-            "rev": "dc99cc2ded698222cea4e5a39dbe07da574a8f9f",
-            "sha256": "0h6dnh20xfkm88xk8sbnpc86pm0gq8gs0l6gy6wqyfh9fjb4kpkh",
+            "rev": "a652dd3554b5c8e37a11e0e004c09daf436364a4",
+            "sha256": "0hgwjli2b6dab3n2ggis7ld2h4qd7fmg4wzhjb9kxxhy47gpanfw",
             "url": "https://github.com/arcnmx/nixexprs"
         },
         "awl-fcarza": {
