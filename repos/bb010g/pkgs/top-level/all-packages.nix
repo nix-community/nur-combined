@@ -1,21 +1,13 @@
-{ buildPackages, lib, newScope, recurseIntoAttrs
-, fetchFromGitHub, fetchgit, fetchpatch, fetchzip, gtk3, libsForQt5, libXft
-, mosh, path, python3Packages, python36Packages, st, stdenv, swt
-}:
-lib.makeScope newScope (self: let inherit (self) callPackage; in
+self: pkgs:
 
-let
-  inherit (lib) versionOlder;
+let inherit (self) callPackage; in let
+  inherit (pkgs.lib) versionOlder;
   applyIf = f: p: x: if p x then f x else x;
   applyIf' = f: p: x: if p then f x else x;
 
   break = p: p.overrideAttrs (o: { meta = o.meta // { broken = true; }; });
   breakIf = applyIf break;
   breakIf' = applyIf' break;
-
-  withPyPkgs = pkgs: pkgs.overrideScope' self.pythonPkgsScope;
-  python3Packages' = withPyPkgs python3Packages;
-  python36Packages' = withPyPkgs python36Packages;
 in {
   # # applications
 
@@ -29,26 +21,30 @@ in {
 
   # ## applications.misc
 
-  finalhe = (libsForQt5.overrideScope' (_: _: self)).callPackage ../applications/misc/finalhe {
-    buildPackages =
-      (buildPackages.libsForQt5.overrideScope' (_: _: self)).callPackage ({
-        pkgconfig, qmake, qttools
-      } @ args: args) { };
-  };
+  finalhe = (pkgs.libsForQt5.overrideScope' (_: _: self))
+    .callPackage ../applications/misc/finalhe {
+      buildPackages =
+        (pkgs.buildPackages.libsForQt5.overrideScope' (_: _: self))
+          .callPackage ({
+            pkgconfig, qmake, qttools
+          } @ args: args) { };
+    };
 
-  qcma = (libsForQt5.overrideScope' (_: _: self)).callPackage ../applications/misc/qcma {
-    buildPackages =
-      (buildPackages.libsForQt5.overrideScope' (_: _: self)).callPackage ({
-        pkgconfig, qmake, qttools
-      } @ args: args) { };
-  };
+  qcma = (pkgs.libsForQt5.overrideScope' (_: _: self))
+    .callPackage ../applications/misc/qcma {
+      buildPackages =
+        (pkgs.buildPackages.libsForQt5.overrideScope' (_: _: self))
+          .callPackage ({
+            pkgconfig, qmake, qttools
+          } @ args: args) { };
+    };
 
   st-bb010g-unstable = (self.st-unstable.overrideAttrs (o: rec {
     name = "${pname}-${version}";
     pname = "st-bb010g-unstable";
     version = "2019-12-29";
   })).override {
-    conf = lib.readFile ../applications/misc/st/config.h;
+    conf = pkgs.lib.readFile ../applications/misc/st/config.h;
     patches = [
       ../applications/misc/st/bold-is-not-bright.diff
       ../applications/misc/st/scrollback.diff
@@ -56,19 +52,19 @@ in {
     ];
   };
 
-  st-unstable = (st.overrideAttrs (o: rec {
+  st-unstable = (pkgs.st.overrideAttrs (o: rec {
     name = "${pname}-${version}";
     pname = "st-unstable";
     version = "2019-11-17";
-    src = fetchgit {
+    src = pkgs.fetchgit {
       url = "https://git.suckless.org/st";
       rev = "384830110bddcebed00b6530a5336f07ad7c405f";
       sha256 = "0620yr9s148hdrl7qr83xcklabk1hc4n4abnnfj9wlxrcimx3qam";
     };
   })).override {
-    libXft = libXft.overrideAttrs (o: {
+    libXft = pkgs.xorg.libXft.overrideAttrs (o: {
       patches = o.patches or [] ++ [
-        (fetchpatch {
+        (pkgs.fetchpatch {
           # http://git.suckless.org/st/commit/caa1d8fbea2b92bca24652af0fee874bdbbbb3e5.html
           # https://gitlab.freedesktop.org/xorg/lib/libxft/issues/6
           # https://gitlab.freedesktop.org/xorg/lib/libxft/merge_requests/1
@@ -92,19 +88,19 @@ in {
   # ### applications.networking.browsers
 
   surf-unstable = callPackage ../applications/networking/browsers/surf {
-    gtk = gtk3;
+    gtk = pkgs.gtk3;
   };
 
   # ### applications.networking.p2p
 
-  broca-unstable = python3Packages'.callPackage
+  broca-unstable = pkgs.python3Packages.callPackage
     ../applications/networking/p2p/broca { };
 
   # ## applications.version-management
 
   # ### applications.version-management
 
-  gitAndTools = recurseIntoAttrs
+  gitAndTools = pkgs.recurseIntoAttrs
     (callPackage ../applications/version-management/git-and-tools { });
 
   # # data
@@ -119,7 +115,7 @@ in {
 
   # ### development.libraries.java
 
-  ${null/*swt_4_6*/} = swt.overrideAttrs (o: let
+  ${null/*swt_4_6*/} = pkgs.swt.overrideAttrs (o: let
     platformMap = {
       "x86_64-linux" =
         { platform = "gtk-linux-x86_64";
@@ -132,13 +128,13 @@ in {
           sha256 = "0h9ws9fr85zdi2b23qwpq5074pphn54izg8h6hyvn6xby7l5r9ly"; };
     };
 
-    metadata = assert platformMap ? ${stdenv.hostPlatform.system};
-      platformMap.${stdenv.hostPlatform.system};
+    metadata = assert platformMap ? ${pkgs.stdenv.hostPlatform.system};
+      platformMap.${pkgs.stdenv.hostPlatform.system};
   in rec {
     version = "4.6";
     fullVersion = "${version}-201606061100";
 
-    src = fetchzip {
+    src = pkgs.fetchzip {
       url = "http://archive.eclipse.org/eclipse/downloads/drops4/" +
         "R-${fullVersion}/${o.pname}-${version}-${metadata.platform}.zip";
       sha256 = metadata.sha256;
@@ -178,7 +174,8 @@ in {
 
   # ## development.python-modules
 
-  wpull = python36Packages'.toPythonApplication python36Packages'.wpull;
+  wpull = let pyPkgs = pkgs.python36Packages; in
+    pyPkgs.toPythonApplication pyPkgs.wpull;
 
   # ## development.tools
 
@@ -222,11 +219,11 @@ in {
 
   # ## tools.networking
 
-  mosh-unstable = mosh.overrideAttrs (o: rec {
+  mosh-unstable = pkgs.mosh.overrideAttrs (o: rec {
     name = "${pname}-${version}";
     pname = "mosh-unstable";
     version = "2019-06-13";
-    src = fetchFromGitHub {
+    src = pkgs.fetchFromGitHub {
       owner = "mobile-shell";
       repo = "mosh";
       rev = "335e3869b7af59314255a121ec7ed0f6309b06e7";
@@ -234,7 +231,7 @@ in {
     };
     patches = let
       moshPatch = n:
-        /. + "${toString path}/pkgs/tools/networking/mosh/${n}.patch";
+        /. + "${toString pkgs.path}/pkgs/tools/networking/mosh/${n}.patch";
     in [
       (moshPatch "ssh_path")
       (moshPatch "utempter_path")
@@ -249,11 +246,5 @@ in {
 
   dwdiff = callPackage ../tools/text/dwdiff { };
 
-  ydiff = python3Packages'.callPackage ../tools/text/ydiff { };
-
-  # # top-level
-
-  # ## top-level.python-packages
-
-  pythonPkgsScope = import ./python-packages.nix;
-})
+  ydiff = pkgs.python3Packages.callPackage ../tools/text/ydiff { };
+}

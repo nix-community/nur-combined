@@ -1,14 +1,46 @@
-{ pkgs, lib }:
+lib: libSuper:
 
-{
-  gitignore = pkgs.callPackage (pkgs.fetchFromGitHub {
-    owner = "siers";
-    repo = "nix-gitignore";
-    rev = "4f2d85f2f1aa4c6bff2d9fcfd3caad443f35476e";
-    sha256 = "1vzfi3i3fpl8wqs1yq95jzdi6cpaby80n8xwnwa8h2jvcw3j7kdz";
-  }) { };
+let
+  inherit (builtins) getAttr hasAttr mapAttrs;
+  mergeModule = name: module:
+    if hasAttr name libSuper then
+      (getAttr name libSuper) // module
+    else module;
+  callLib = file: import file lib libSuper;
+in let modules = {
 
+  attrsets = callLib ./attrsets.nix;
+  # edn = import ./edn;
+  fixedPoints = callLib ./fixed-points.nix;
+  lists = callLib ./lists.nix;
+  trivial = callLib ./trivial.nix;
   # utf8 = import ./utf-8;
 
-  # edn = import ./edn;
+}; in (mapAttrs mergeModule modules) // {
+
+  inherit (lib.attrsets)
+    mapAttr
+    mapAttr'
+    mapAttrOr mapAttrOrElse
+    mapOptionalAttr
+  ;
+
+  inherit (lib.fixedPoints)
+    composeExtensionList
+  ;
+
+  inherit (lib.lists)
+    foldl1'
+  ;
+
+  inherit (lib.trivial)
+    apply applyOp
+    comp compOp flow
+    comp2 comp2Op flow2
+    comp3 comp3Op flow3
+    hideFunctionArgs
+    mapFunctionArgs
+    mapIf
+  ;
+
 }
