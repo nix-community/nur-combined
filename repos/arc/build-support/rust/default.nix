@@ -28,8 +28,8 @@
         # An occasionally pinned unstable release
         # Check https://rust-lang.github.io/rustup-components-history/ before updating this to avoid breaking things
         nightly = rustPlatformFor (rustChannel.nightly.override {
-          date = "2019-12-12";
-          sha256 = "181p2sa5haqljcmb04xa20lfanqz3y5fx901yi8315g1m3xlsk1c";
+          date = "2020-01-25";
+          sha256 = "0rif9d2z53h94w7hdvkdmx60f575921y95l6hfzbd6j67499mzyq";
           manifestPath = ./channel-rust-nightly.toml;
         });
         impure = mapAttrs (_: rustPlatformFor) {
