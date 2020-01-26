@@ -89,14 +89,17 @@ in
 
       environment.systemPackages = common.environment.systemPackages ++ [] ++ (
         with pkgs; [
+          alacritty
+          bat
           ctags
+          fzf
           git
           gnupg
+          neovim
+          ntfs3g
+          ripgrep
           rsync
           stow
-          fzf
-          ntfs3g
-          alacritty
         ]
       );
     }

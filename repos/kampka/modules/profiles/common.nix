@@ -12,13 +12,11 @@ in
   environment.systemPackages = with pkgs; [
     bash
 
-    bat
     less
     most
     ncdu
 
-    neovim
-    ripgrep
+    gnugrep
 
     coreutils
     utillinux
