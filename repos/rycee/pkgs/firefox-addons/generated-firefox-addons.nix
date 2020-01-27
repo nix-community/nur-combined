@@ -444,6 +444,19 @@
         platforms = platforms.all;
         };
       };
+    "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
+      pname = "reddit-moderator-toolbox";
+      version = "5.2.1";
+      addonId = "yes@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3427141/moderator_toolbox_for_reddit-5.2.1-an+fx.xpi?src=";
+      sha256 = "b3c7940aec04da524ebe1eef817d1411c6099bf45a0698e41f08a43c55c5ceb1";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://www.reddit.com/r/toolbox";
+        description = "This is bundled extension of the /r/toolbox moderator tools for <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/42268797a19a16a2ebeeda77cca1eda5a48db14e0cff56de4fab35eaef484216/http%3A//reddit.com\">reddit.com</a>\n\nContaining:\n\nMod Tools Enhanced\nMod Button\nMod Mail Pro\nMod Domain Tagger\nToolbox Notifier\nMod User Notes\nToolbox Config";
+        platforms = platforms.all;
+        };
+      };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
       version = "20.1.22";
