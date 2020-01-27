@@ -95,6 +95,7 @@ in
           fzf
           git
           gnupg
+          most
           neovim
           ntfs3g
           ripgrep
@@ -102,6 +103,18 @@ in
           stow
         ]
       );
+
+      environment.variables = {
+        EDITOR = "nvim";
+        PAGER = "most";
+      };
+
+      environment.shellAliases = {
+        vi = "nvim";
+        vim = "nvim";
+        cat = "bat -p --pager=never";
+      };
+
     }
   );
 }

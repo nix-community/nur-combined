@@ -13,7 +13,6 @@ in
     bash
 
     less
-    most
     ncdu
 
     gnugrep
@@ -33,17 +32,6 @@ in
     bzip2
     xz
   ];
-
-  environment.variables = {
-    EDITOR = "nvim";
-    PAGER = "most";
-  };
-
-  environment.shellAliases = {
-    vi = "nvim";
-    vim = "nvim";
-    cat = "bat -p --pager=never";
-  };
 
   boot.cleanTmpDir = mkDefault (! config.boot.tmpOnTmpfs);
 
