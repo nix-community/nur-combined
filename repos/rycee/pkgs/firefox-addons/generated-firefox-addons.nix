@@ -196,10 +196,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "2.1.3";
+      version = "2.1.4";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3431399/gesturefy-2.1.3-fx.xpi?src=";
-      sha256 = "54e94db2efa2cc0f76c28089041c6a4460a993f45881e27825d82b9428838a5a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3492946/gesturefy-2.1.4-fx.xpi?src=";
+      sha256 = "3d0f62627be9c83ce70a6c660d7c3dbc0e6c497a95df5311c3cf14aaf69f4a02";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -454,6 +454,7 @@
       {
         homepage = "https://www.reddit.com/r/toolbox";
         description = "This is bundled extension of the /r/toolbox moderator tools for <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/42268797a19a16a2ebeeda77cca1eda5a48db14e0cff56de4fab35eaef484216/http%3A//reddit.com\">reddit.com</a>\n\nContaining:\n\nMod Tools Enhanced\nMod Button\nMod Mail Pro\nMod Domain Tagger\nToolbox Notifier\nMod User Notes\nToolbox Config";
+        license = licenses.asl20;
         platforms = platforms.all;
         };
       };
