@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 let
-  myVim = pkgs.vim_configurable.customize {
-    name = "vi";
-    vimrcConfig.customRC = ''
+  myVim = pkgs.neovim.override {
+    viAlias = true;
+    configure.customRC = ''
       "
       " A (not so) minimal vimrc.
       "
@@ -57,7 +57,7 @@ let
             \ <SID>check_back_space() ? "\<Tab>" :
             \ coc#refresh()
     '';
-    vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
+    configure.packages.myVimPackage = with pkgs.vimPlugins; {
       start = [
         vim-polyglot
         coc-nvim
@@ -77,6 +77,7 @@ let
         coc-wxml
       ];
     };
+    withNodeJs = true;
   };
 in
 {

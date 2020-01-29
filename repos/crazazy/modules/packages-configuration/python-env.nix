@@ -12,5 +12,6 @@ let
         ipykernel
         jupyter
         tkinter
+        grip
       ];
 in python.withPackages python-personal-packages
