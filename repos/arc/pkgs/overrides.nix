@@ -262,17 +262,28 @@ let
       };
     });
 
-    awscli = { awscli, hostPlatform, lib }: awscli.overrideAttrs (old: {
-      meta = old.meta // {
-        broken = old.meta.broken or false || (hostPlatform.isDarwin && lib.isNixpkgsStable);
+    qemu-vfio = { qemu, fetchpatch, lib }: (qemu.override {
+      gtkSupport = false;
+      smartcardSupport = false;
+      hostCpuOnly = true;
+      smbdSupport = true;
+    }).overrideAttrs (old: {
+      patches = old.patches or [] ++ [
+        (fetchpatch {
+          name = "qemu-cpu-pinning.patch";
+          url = "https://github.com/saveriomiroddi/qemu-pinning/commit/4e4fe6402e9e4943cc247a4ccfea21fa5f608b30.patch";
+          sha256 = "12na0z8n48aiwiv96xn37b0i7i8kj5ph0rk8xbpm9jrzmi5rd4l1";
+        })
+      ];
+
+      meta = old.meta or {} // {
+        platforms = lib.platforms.linux;
       };
     });
 
-    flashplayer-standalone = { flashplayer-standalone, fetchurl }: flashplayer-standalone.overrideAttrs (old: {
-      version = "32.0.0.303";
-      src = fetchurl {
-        url = "https://fpdownload.macromedia.com/pub/flashplayer/updaters/32/flash_player_sa_linux.x86_64.tar.gz";
-        sha256 = "0mi3ggv6zhzmdd1h68cgl87n6izhp0pbkhnidd2gl2cp95f23c2d";
+    awscli = { awscli, hostPlatform, lib }: awscli.overrideAttrs (old: {
+      meta = old.meta // {
+        broken = old.meta.broken or false || (hostPlatform.isDarwin && lib.isNixpkgsStable);
       };
     });
 

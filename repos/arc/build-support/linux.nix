@@ -231,5 +231,6 @@ in {
   };
 
   linuxPackagesFor = kernel: (super.linuxPackagesFor kernel).extend (_: ksuper: {
+    forcefully-remove-bootfb = (self.forcefully-remove-bootfb.override { linux = ksuper.kernel; }).out;
   });
 }

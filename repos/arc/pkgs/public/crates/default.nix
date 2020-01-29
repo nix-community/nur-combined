@@ -232,4 +232,52 @@
     patches = [ ./cargo-llvm-lines-features.patch ./cargo-llvm-lines-fix-filter.patch ];
     cargoSha256 = "0arjrs67z9rqbkrs77drj068614kg2n3y4f1wyf103bsad0vy783";
   };
+
+  screenstub = {
+    fetchFromGitHub
+  , rustPlatform
+  , lib
+  , makeWrapper
+  , qemucomm ? arc'private.qemucomm, arc'private ? null
+  , libxcb
+  , python3
+  , ddcutil
+  }: let
+    ddcutil_0_8 = ddcutil.overrideAttrs (old: rec {
+      version = "0.8.6";
+      src = fetchFromGitHub {
+        owner = "rockowitz";
+        repo = "ddcutil";
+        rev = "v${version}";
+        sha256 = "1c4cl9cac90xf9rap6ss2d4yshcmhdq8pdfjz3g4cns789fs1vcf";
+      };
+      NIX_CFLAGS_COMPILE = toString [
+        "-Wno-error=format-truncation"
+        "-Wno-error=format-overflow"
+        "-Wno-error=stringop-truncation"
+      ];
+      enableParallelBuilding = true;
+    });
+  in rustPlatform.buildRustPackage rec {
+    pname = "screenstub";
+    version = "2018-03-13";
+    src = fetchFromGitHub {
+      owner = "arcnmx";
+      repo = pname;
+      rev = "4fb8b12";
+      sha256 = "0d5vvj7dyp664c302n9jh5rcwlfwnlnshdj1k4jb83pfx91dlvh8";
+    };
+
+    nativeBuildInputs = [ python3 makeWrapper ];
+    buildInputs = [ libxcb ddcutil_0_8 ];
+    depsPath = lib.makeBinPath [ qemucomm ];
+
+    cargoSha256 = "047nwakmz01yvz92wyfvz6w1867j9279njj75kjsanajm7nybdw1";
+
+    postInstall = ''
+      wrapProgram $out/bin/screenstub --prefix PATH : $depsPath
+    '';
+
+    doCheck = false;
+  };
 }

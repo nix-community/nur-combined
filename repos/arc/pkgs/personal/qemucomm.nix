@@ -12,7 +12,7 @@ let
 in
 wrapShellScriptBin "qemucomm" src {
   depsRuntimePath = [coreutils jq socat netcat-gnu'];
-  name = "qemucomm-${rev}";
+  name = "qemucomm";
   version = rev;
   source = "${src}/qemucomm";
 }

@@ -48,6 +48,42 @@ let
     });
   packages = {
     inherit mergeLinuxConfig generateLinuxConfig;
+
+    forcefully-remove-bootfb = { stdenv, fetchFromGitHub, linux, kmod, gnugrep, coreutils, makeWrapper }: stdenv.mkDerivation rec {
+      version = "2018-02-08";
+      pname = let
+        name = "forcefully-remove-bootfb";
+        kernel-name = builtins.tryEval "${name}-${linux.version}";
+      in if kernel-name.success then kernel-name.value else name;
+
+      src = fetchFromGitHub {
+        owner = "arcnmx";
+        repo = "arch-forcefully-remove-bootfb-dkms";
+        rev = "2793a4b";
+        sha256 = "1npbns5x2lssjxkqvj97bgi263l7zx6c9ij5r9ksbcdfpws5mmy5";
+      };
+
+      nativeBuildInputs = [ makeWrapper ];
+      shellPath = stdenv.lib.makeBinPath [ kmod gnugrep coreutils ];
+
+      kernelVersion = linux.modDirVersion;
+      modules = [ "forcefully_remove_bootfb" ];
+      makeFlags = [
+        "-C ${linux.dev}/lib/modules/${linux.modDirVersion}/build modules"
+        "M=$(NIX_BUILD_TOP)/source"
+      ];
+
+      outputs = [ "bin" "out" ];
+
+      installPhase = ''
+        install -Dm644 -t $out/lib/modules/$kernelVersion/kernel/drivers/video/fbdev/ forcefully_remove_bootfb.ko
+        install -Dm755 forcefully_remove_bootfb.sh $bin/bin/forcefully-remove-bootfb
+        wrapProgram $bin/bin/forcefully-remove-bootfb --prefix PATH : $shellPath
+      '';
+
+      dontStrip = true;
+      meta.platforms = stdenv.lib.platforms.linux;
+    };
   };
 #in (callPackage packages { })
 in packages
