@@ -11,6 +11,8 @@ rec {
 
   http_ece = callPackage ./http_ece.nix {};
 
+  ldap0 = callPackage ./ldap0.nix {};
+
   Mastodon = callPackage ./Mastodon.nix {
     inherit http_ece blurhash;
   };

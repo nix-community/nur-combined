@@ -66,6 +66,10 @@ rec {
 
   yubikey-touch-detector = pkgs.callPackages ./pkgs/yubikey-touch-detector {};
 
+  web2ldap = pkgs.python3Packages.callPackage ./pkgs/web2ldap {
+    inherit (python3Packages) ldap0;
+  };
+
   modules = import ./modules;
 
   #inherit (pkgs.callPackages ./pkgs/node-packages {})
