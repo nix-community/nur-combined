@@ -6,10 +6,15 @@ let
 
   _nixpkgs-stable = import sources.nixpkgs {};
 
+  _nixpkgs-78800 = import sources.nixpkgs-78800 {};
+
 in
 
 rec {
   inherit (lib) buildK8sEnv;
+
+  inherit (_nixpkgs-78800)
+    scc;
 
   inherit (_nixpkgs-stable)
     cachix;
@@ -70,8 +75,6 @@ rec {
   noweb = _nixpkgs-stable.noweb.override {
     inherit icon-lang;
   };
-
-  scc = pkgs.callPackage ./tools/misc/scc {};
 
   yq = pkgs.python3Packages.callPackage ./development/tools/yq {};
 
