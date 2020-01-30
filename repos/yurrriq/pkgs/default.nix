@@ -46,6 +46,8 @@ rec {
     pythonPackages = pkgs.python2Packages;
   };
 
+  github-cli = _nixpkgs.callPackage ./development/tools/github/cli {};
+
   icon-lang = _nixpkgs-stable.icon-lang.override {
     withGraphics = false;
   };
