@@ -22,7 +22,7 @@ rec {
   fail2ban            = pkgs.callPackage  ./pkgs/tools/fail2ban { };
   uwimap              = pkgs.callPackage  ./pkgs/tools/uwimap { openssl = pkgs.libressl; };
 
-  inherit              (pkgs.callPackages ./pkgs/development/php { openssl = pkgs.libressl; inherit curl; inherit uwimap; config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; }) php56 php71 php72 php73 php74;
+  inherit              (pkgs.callPackages ./pkgs/development/php { openssl = pkgs.libressl; inherit bison2; inherit curl; inherit uwimap; config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; }) php56 php71 php72 php73 php74;
 
   php56-unit          = php56.override { config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.ipv6 = false; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.phpdbg = false; config.php.cgi = false; config.php.fpm = false; };
   php71-unit          = php71.override { config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.ipv6 = false; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.phpdbg = false; config.php.cgi = false; config.php.fpm = false; };
