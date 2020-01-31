@@ -11,6 +11,7 @@
   clip = import ./clip.nix;
   nvflash = import ./nvflash.nix;
   nvidia-vbios-vfio-patcher = import ./nvidia-vbios-vfio-patcher;
+  edfbrowser = import ./edfbrowser;
 } // (import ./nixos.nix)
 // (import ./droid.nix)
 // (import ./weechat)
