@@ -280,4 +280,49 @@
 
     doCheck = false;
   };
+
+  wezterm = {
+    lib
+  , fetchFromGitHub
+  , autoPatchelfHook
+  , rustPlatform
+  , pkgconfig
+  , python3
+  , dbus
+  , fontconfig
+  , openssl
+  , libxkbcommon
+  , libX11
+  , libxcb
+  , xcbutilkeysyms
+  , xcbutilwm
+  , wayland
+  , libGL
+  }: rustPlatform.buildRustPackage rec {
+    pname = "wezterm";
+    version = "2020-01-29";
+    src = fetchFromGitHub {
+      owner = "wez";
+      repo = pname;
+      rev = "5f2f359";
+      sha256 = "174kvxyc5jbhhapd6pvkc9mvvrjy5kdg165wvnnb8hzgfxjyjqqf";
+      fetchSubmodules = true;
+    };
+
+    cargoSha256 = "1z2gqlg2pdfq9hlj4p7ngv29ijxfcld41v44g08jf6lwz81lh1bs";
+    cargoPatches = [
+      # full of hacks around optional/platform-specific dependencies, split this up to fix the macos build
+      ./wezterm-lock.patch
+    ];
+
+    nativeBuildInputs = [ pkgconfig python3 autoPatchelfHook ];
+    buildInputs = [
+      dbus libX11 libxcb openssl wayland libxkbcommon xcbutilkeysyms xcbutilwm fontconfig
+    ];
+    runtimeDependencies = [ libGL ];
+
+    doCheck = false;
+
+    meta.platforms = lib.platforms.linux;
+  };
 }
