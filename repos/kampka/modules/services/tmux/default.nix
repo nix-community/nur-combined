@@ -17,6 +17,9 @@ let
     set -g exit-unattached off
     set -g destroy-unattached off
 
+    # Update the PATH to prevent the daemon path from leaking through
+    set -g update-environment ' PATH'
+
     ${optionalString (cfg.zshAutoConfigure) ''
     # Configure zsh as default shell
     set-option -g default-shell ${pkgs.zsh}/bin/zsh

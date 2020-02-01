@@ -95,6 +95,7 @@ in
           fzf
           git
           gnupg
+          kitty
           most
           neovim
           ntfs3g
