@@ -15,29 +15,46 @@ in with lib; {
     };
   };
 
-  config.systemd.user.services = mkIf cfg.enable {
-    konawall = {
+  config.systemd.user = mkIf cfg.enable {
+    services = {
+      konawall = {
+        Unit = {
+          Description = "Random wallpapers";
+          After = ["graphical-session-pre.target"];
+          PartOf = ["graphical-session.target"];
+          Requisite = ["graphical-session.target"];
+        };
+        Service = {
+          Environment = ["KONATAGS=${concatStringsSep "+" cfg.tags}"];
+          Type = "oneshot";
+          ExecStart = pkgs.arc'private.konawall.exec;
+          RemainAfterExit = true;
+          IOSchedulingClass = "idle";
+          TimeoutStartSec = "5m";
+        };
+        Install.WantedBy = ["graphical-session.target"];
+      };
+      konawall-rotation = mkIf (cfg.interval != null) {
+        Unit = {
+          Description = "Random wallpaper rotation";
+          Requisite = ["graphical-session.target"];
+        };
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.systemd}/bin/systemctl --user restart konawall";
+        };
+      };
+    };
+    timers.konawall-rotation = mkIf (cfg.interval != null) {
       Unit = {
-        Description = "Random wallpapers";
         After = ["graphical-session-pre.target"];
         PartOf = ["graphical-session.target"];
       };
-      Service = {
-        Environment = ["KONATAGS=${concatStringsSep "+" cfg.tags}"];
-        Type = "oneshot";
-        ExecStart = pkgs.arc'private.konawall.exec;
-        IOSchedulingClass = "idle";
-      };
-      Install.WantedBy = ["graphical-session.target"];
-    };
-  };
-
-  config.systemd.user.timers = mkIf (cfg.enable && cfg.interval != null) {
-    konawall = {
       Timer = {
         OnUnitInactiveSec = cfg.interval;
+        OnStartupSec = cfg.interval;
       };
-      Install.WantedBy = ["timers.target"];
+      Install.WantedBy = ["graphical-session.target"];
     };
   };
 }

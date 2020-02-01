@@ -18,29 +18,45 @@ if [ -z "${KONATAGS-}" ]; then
 fi
 
 TAGS="$KONATAGS+order:random"
+FILES=()
 
-if [ -n "${SWAYSOCK-}" ]; then
-	OUTPUTS=($(swaymsg -t get_outputs | jq -r .[].name))
-	OUTPUT_I=0
-	FILES=()
-	for url in $(urls ${#OUTPUTS[@]} "$TAGS"); do
-		file=$(mktemp)
-		timeout 30 curl -fsSLo "$file" "$url"
-		swaymsg output "${OUTPUTS[OUTPUT_I]}" background "$file" fill
-		OUTPUT_I=$((OUTPUT_I + 1))
-		FILES+=($file)
-	done
-
-	sleep 2
-
+cleanup() {
 	# delete our temporary files
 	# TODO: maybe use a cache directory that only gets cleaned up at the start
 	for file in "${FILES[@]}"; do
-		rm "$file"
+		rm -f "$file"
 	done
-elif [ -n "${DISPLAY-}" ]; then
-	SCREEN_COUNT=$(xrandr -q | grep ' connected' | wc -l)
+}
 
-	timeout 30 feh --no-fehbg --bg-fill $(urls "$SCREEN_COUNT" "$TAGS")
+trap cleanup EXIT
+
+if [ -n "${SWAYSOCK-}" ]; then
+	OUTPUTS=($(swaymsg -t get_outputs | jq -r .[].name))
+	URL_COUNT=${#OUTPUTS[@]}
+elif [ -n "${DISPLAY-}" ]; then
+	URL_COUNT=$(xrandr -q | grep ' connected' | wc -l)
+fi
+
+WAITPIDS=()
+for url in $(urls $URL_COUNT "$TAGS"); do
+	file=$(mktemp)
+	curl --retry 3 -fsSLo "$file" "$url" &
+	WAITPIDS+=($!)
+	FILES+=($file)
+done
+for pid in "${WAITPIDS[@]}"; do
+	wait -n $pid
+done
+
+if [ -n "${SWAYSOCK-}" ]; then
+	OUTPUT_I=0
+	for file in "${FILES[@]}"; do
+		swaymsg output "${OUTPUTS[OUTPUT_I]}" background "$file" fill
+		OUTPUT_I=$((OUTPUT_I + 1))
+	done
+
+	sleep 2
+elif [ -n "${DISPLAY-}" ]; then
+	feh --no-fehbg --bg-fill "${FILES[@]}"
 	xsetroot -cursor_name left_ptr
 fi
