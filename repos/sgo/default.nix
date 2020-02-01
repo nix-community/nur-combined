@@ -10,5 +10,10 @@ rec {
   nqp = callPackage ./pkgs/rakudo/nqp.nix { moarvm = moarvm; };
   zef = callPackage ./pkgs/rakudo/zef.nix { rakudo = rakudo; };
 
+  ttystatus = callPackages ./pkgs/ttystatus { };
+  cliapp = callPackages ./pkgs/cliapp { };
+  cmdtest = callPackages ./pkgs/cmdtest { cliapp = cliapp; ttystatus = ttystatus; };
+  vmdb2 = callPackages ./pkgs/vmdb2 { cmdtest = cmdtest; };
+
 }
 
