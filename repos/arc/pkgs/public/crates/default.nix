@@ -323,6 +323,9 @@
 
     doCheck = false;
 
-    meta.platforms = lib.platforms.linux;
+    meta = {
+      broken = lib.versionAtLeast "1.38.0" rustPlatform.rust.rustc.version;
+      platforms = lib.platforms.linux;
+    };
   };
 }
