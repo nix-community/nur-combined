@@ -189,5 +189,6 @@ let toplevel = {
   // { rofi-tab-switcher = pkgs.callPackage ./pkgs/rofi-tab-switcher { }; }
   // { zps = pkgs.callPackage ./pkgs/zps { }; }
   // { yarpgen = pkgs.callPackage ./pkgs/yarpgen { }; }
+  // { yubikey-touch-detector = pkgs.callPackage ./pkgs/yubikey-touch-detector { }; }
   ));
 }; in toplevel.lib.recurseIntoAttrs toplevel #  // toplevel.pkgs
