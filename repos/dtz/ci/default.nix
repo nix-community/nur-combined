@@ -14,8 +14,23 @@ let
 in
   toplevel // {
     pkgs = builtins.removeAttrs toplevel.pkgs [
+      # unfree
       "diva"
       "stoke" "stoke-haswell" "stoke-sandybridge"
       "ycomp"
+      
+      # Need LLVM versions removed in latest nixpkgs :(
+      "fcd4" "fcd4-tests"
+      "llvm-dbas"
+      "llvmslicer"
+      "remill"
+      "vmir-clang4"
+      "svfPkgs_4"
+      "dg_4"
+      "llvm2kittel"
+      "libebc"
+
+      # broken
+      "llstrata"
     ];
   }

@@ -40,5 +40,6 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "Using Strata to generate semantics for mcsema";
+    broken = true; # Needs older rust
   };
 }

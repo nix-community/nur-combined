@@ -66,7 +66,7 @@ let toplevel = {
       ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_03;
     };
     libebc = callPackage ./pkgs/libebc {
-      inherit (pkgs.llvmPackages_4) llvm;
+      inherit (pkgs.llvmPackages_5) llvm;
     };
     llvm2kittel = callPackage ./pkgs/llvm2kittel {
       inherit (pkgs.llvmPackages_4) llvm;

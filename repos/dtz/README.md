@@ -5,8 +5,7 @@
 [cachix-cache]: https://allvm.cachix.org
 [cachix-cache-shield]: https://img.shields.io/badge/cachix-allvm-blue.svg
 
-dtzWill's personal [NUR][nur] repository. If you don't use the NUR, you can apply
-`overlay.nix` (but you should try the NUR).
+dtzWill's personal [NUR][nur] repository.
 
 [nur]: https://github.com/nix-community/NUR
 
