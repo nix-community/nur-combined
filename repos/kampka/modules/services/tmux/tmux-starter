@@ -1,7 +1,7 @@
 # Don't run tmux if it is already running
 if [[ "$-" = *i* ]] && [ -z $TMUX ] && [ -z "$SSH_CLIENT" ]; then
 
-    if [[ "$TERM" = "xterm-termite" ]]; then
+    if [[ "$TERM" = "xterm-termite" ]] || [[ "$TERM" = "xterm-kitty" ]]; then
         export TERM="screen-256color"
     fi
 
