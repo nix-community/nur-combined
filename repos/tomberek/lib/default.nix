@@ -1,10 +1,21 @@
 { pkgs }:
 
 with pkgs.lib; rec {
-  # Add your library functions here
+  # Split derivations
   #
+  #
+  # For large files it is convenient to either transfer or use them split
+  # into smaller derivations. These are some utilities to do this automatically
+  # by either fetching a url in chunks or splitting an existing derivation,
+  # either a file or directory, into a "split-derviation".
+  #
+  # The format of a "split-derivation":
+  # drv.out: a list of files in the store to concatenate
+  # drv.useTar: whether to tar/untar the concatenation
+  # drv.x001: format for chunks. Currently supports up to 999 chunks.
 
-  # Extension of fetch url that allows chunked fetches
+  # Extension of fetch url that fetches directly into a split derivation
+  # can prefetch hashes using the ./nix-prefetch-urlchunked.sh script
   fetchurlChunked = {chunksize ? 1024 * 1024 * 64, hashes,url,...}@args : with pkgs.lib;
   let
     chunknum = length(hashes);
@@ -31,6 +42,7 @@ with pkgs.lib; rec {
   '';
 
   # Split something into chunks
+  # $out contains a list of files in order, separated into multiple outputs
   splitFile = splitDrv false;
   splitDir = splitDrv true;
   splitDrv = useTar : file : num :
