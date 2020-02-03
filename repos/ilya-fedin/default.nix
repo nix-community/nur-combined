@@ -6,12 +6,10 @@ rec {
   modules = import ./modules;
 
   kotatogram-desktop = qt5.callPackage ./pkgs/kotatogram-desktop {
-    inherit libtgvoip rlottie-tdesktop;
+    inherit libtgvoip;
   };
 
   libtgvoip = callPackage ./pkgs/libtgvoip {};
-
-  rlottie-tdesktop = callPackage ./pkgs/rlottie-tdesktop {};
 
   silver = callPackage ./pkgs/silver {};
 }

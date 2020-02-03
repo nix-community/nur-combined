@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, autoreconfHook
+{ stdenv, lib, fetchFromGitHub, pkg-config, autoreconfHook
 , openssl, libopus, alsaLib, libpulseaudio
 }:
 
@@ -6,29 +6,26 @@ with lib;
 
 stdenv.mkDerivation rec {
   pname = "libtgvoip";
-  version = "88b47b6-1";
+  version = "unstable-2020-01-21";
 
   src = fetchFromGitHub {
     owner = "telegramdesktop";
     repo = "libtgvoip";
-    rev = "88b47b6f808f2573d4eaf37e1463ecd59c43deda";
-    sha256 = "0ck3y1lwi9blp09gqvakc71iiqfcy1ibg8r6zpdbafq37mkqwrxp";
+    rev = "ade4434f1c6efabecc3b548ca1f692f8d103d22a";
+    sha256 = "1bhnx3sknadx7a4qk9flh356kffb02xx32grj7cj7ik4rarccgp0";
   };
 
-  patches = [ ./libtgvoip-use-pkgconfig.patch ];
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [ pkgconfig autoreconfHook ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
   buildInputs = [ openssl libopus alsaLib libpulseaudio ];
   enableParallelBuilding = true;
 
   meta = {
     description = "VoIP library for Telegram clients";
-    longDescription = ''
-      VoIP library for Telegram clients
-    '';
     license = licenses.unlicense;
     platforms = platforms.linux;
     homepage = https://github.com/telegramdesktop/libtgvoip;
+    maintainers = with maintainers; [ ilya-fedin ];
   };
 }
