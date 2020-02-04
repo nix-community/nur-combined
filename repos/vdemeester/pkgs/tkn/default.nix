@@ -3,21 +3,21 @@
 buildGoModule rec {
   pname = "tkn";
   name = "${pname}-${version}";
-  version = "0.6.0";
+  version = "0.7.1";
 
   goPackagePath = "github.com/tektoncd/cli";
   subPackages = [ "cmd/tkn" ];
   buildFlagsArray = let t = "${goPackagePath}/pkg/cmd/version"; in ''
      -ldflags=
-       -X ${t}.clientVersion=${version} 
+       -X ${t}.clientVersion=${version}
   '';
   src = fetchFromGitHub {
     owner = "tektoncd";
     repo = "cli";
     rev = "v${version}";
-    sha256 = "15x3gr97r45br7j38lg6vr39nwxds5rz16mf7j85wi2zszkbn0ri";
+    sha256 = "08chgzrhh2c2i37xn67bc77jvwg1rcxa0yrdqdsamph0k9iajh5s";
   };
-  modSha256 = "1mfr34nfbgr7dv3iqcwiqbivbdhl2likwhcr3w4dvg79crms4fvs";
+  modSha256 = "0axczv060rb1n31pizrnydaayxlv9bgcy577dk1f1wv89yshy04x";
 
   meta = with stdenv.lib; {
     homepage    = https://github.com/tektoncd/cli;
