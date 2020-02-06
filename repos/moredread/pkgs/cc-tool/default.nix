@@ -18,6 +18,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     mkdir -p $out/lib
     cp -r udev $out/lib
+    chmod -R 755 $out/lib
   '';
 
   src = fetchFromGitHub {
