@@ -512,6 +512,20 @@
         platforms = platforms.all;
         };
       };
+    "temporary-containers" = buildFirefoxXpiAddon {
+      pname = "temporary-containers";
+      version = "1.7";
+      addonId = "{c607c8df-14a7-4f28-894f-29e8722976af}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3458647/temporary_containers-1.7-fx.xpi?src=";
+      sha256 = "3debb077593dc61a38bfb7d2efcb0e8cef747130996ff803954000a5c35bc10f";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/stoically/temporary-containers";
+        description = "Open tabs, websites, and links in automatically managed disposable containers. Containers isolate data websites store (cookies, storage, and more) from each other, enhancing your privacy and security while you browse.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "text-contrast-for-dark-themes" = buildFirefoxXpiAddon {
       pname = "text-contrast-for-dark-themes";
       version = "2.1.6";
