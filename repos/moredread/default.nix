@@ -21,6 +21,7 @@ rec {
   nmigen = pkgs.callPackage ./pkgs/nmigen {};
   nmigen-boards = pkgs.callPackage ./pkgs/nmigen-boards { nmigen = nmigen; };
 
+  cc-tool = pkgs.callPackage ./pkgs/cc-tool {};
   i3status-rust = pkgs.callPackage ./pkgs/i3status-rust { };
   ipbt = pkgs.callPackage ./pkgs/ipbt { };
   implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad { };
