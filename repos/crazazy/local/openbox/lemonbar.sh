@@ -11,10 +11,10 @@ Backlight() {
 
 Wifi() {
     local WIFI=$(nmcli -t -f active,ssid dev wifi | egrep '^yes' | cut -d: -f2 | head -n 1)
-    if [ -n WIFI ]; then
-        echo -n "Connected on: $WIFI"
-    else
+    if [ -z WIFI ]; then
         echo -n "Not connected to WiFi"
+    else
+        echo -n "Connected to: $WIFI"
     fi
 }
 
@@ -31,6 +31,6 @@ Battery() {
 # Print the clock
 
 while true; do
-    echo "%{c}%{F#FFFF00}%{B#0000FF}$(Wifi) : $(Backlight) : $(Volume) : $(Battery) : $(Clock) %{F-}%{B-}"
+    echo "%{c}%{F#FFFF00}%{B#0000FF} $(Wifi) : $(Backlight) : $(Volume) : $(Battery) : $(Clock) %{F-}%{B-}"
         sleep 5
 done

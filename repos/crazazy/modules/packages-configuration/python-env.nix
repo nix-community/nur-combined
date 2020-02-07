@@ -10,6 +10,7 @@ let
         pandas
         scikitlearn
         ipykernel
+        Pweave
         jupyter
         tkinter
         grip
