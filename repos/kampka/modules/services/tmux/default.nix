@@ -18,7 +18,7 @@ let
     set -g destroy-unattached off
 
     # Update the PATH to prevent the daemon path from leaking through
-    set -g update-environment ' PATH'
+    set -g update-environment ' ${concatStringsSep " " cfg.updateEnvironment}'
 
     ${optionalString (cfg.zshAutoConfigure) ''
     # Configure zsh as default shell
@@ -59,6 +59,11 @@ in
     zshAutoConfigure = mkOption {
       type = types.bool;
       default = config.programs.zsh.enable;
+    };
+
+    updateEnvironment = mkOption {
+      type = types.listOf types.string;
+      default = [ "DISPLAY" "PATH" "SSH_AUTH_SOCKET" "SSH_CONNECTION" ];
     };
   };
 
