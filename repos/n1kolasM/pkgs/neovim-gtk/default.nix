@@ -18,6 +18,23 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ wrapGAppsHook ];
   buildInputs = [ gtk3 gnome3.vte ];
 
+  postInstall = ''
+    mkdir -p $out/share/nvim-gtk/
+    cp -r runtime $out/share/nvim-gtk/
+    mkdir -p $out/share/applications/
+    sed -e "s|Exec=nvim-gtk|Exec=$out/bin/nvim-gtk|" \
+		desktop/org.daa.NeovimGtk.desktop \
+        >$out/share/applications/org.daa.NeovimGtk.desktop
+    mkdir -p $out/share/icons/hicolor/128x128/apps/
+	cp desktop/org.daa.NeovimGtk_128.png $out/share/icons/hicolor/128x128/apps/org.daa.NeovimGtk.png
+	mkdir -p $out/share/icons/hicolor/48x48/apps/
+	cp desktop/org.daa.NeovimGtk_48.png $out/share/icons/hicolor/48x48/apps/org.daa.NeovimGtk.png
+	mkdir -p $out/share/icons/hicolor/scalable/apps/
+	cp desktop/org.daa.NeovimGtk.svg $out/share/icons/hicolor/scalable/apps/
+	mkdir -p $out/share/icons/hicolor/symbolic/apps/
+	cp desktop/org.daa.NeovimGtk-symbolic.svg $out/share/icons/hicolor/symbolic/apps/
+  '';
+
   meta = with stdenv.lib; {
     description = "GTK+ UI for Neovim";
     homepage = https://github.com/daa84/neovim-gtk;
