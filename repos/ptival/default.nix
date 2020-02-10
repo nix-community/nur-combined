@@ -8,15 +8,11 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-
-  # Not sure how to override `coqPackages`, so these are defined at the top-level
-  coq-extensible-records = pkgs.callPackage ./pkgs/coq/coq-extensible-records {};
-  coq-plugin-lib         = pkgs.callPackage ./pkgs/coq/coq-plugin-lib {};
 
   meslo-nerd-powerlevel10k = pkgs.callPackage ./pkgs/meslo-nerd-powerlevel10k {};
 }
