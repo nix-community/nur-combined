@@ -624,10 +624,10 @@
       };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "1.64.6";
+      version = "1.65";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/2985278/vimium_ff-1.64.6-fx.xpi?src=";
-      sha256 = "7044bd3983e541faf2e56c117048fdc281c4c52e4196472fc4f9e4af42c5e1da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3502377/vimium_ff-1.65-fx.xpi?src=";
+      sha256 = "a8fa3dcac2ac8faf0cac6b8b739f51ffb4544d57ae3f312fa7ae2130e45cc161";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/philc/vimium";
@@ -638,10 +638,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.12.5";
+      version = "2.12.6";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3500479/violentmonkey-2.12.5-an+fx.xpi?src=";
-      sha256 = "7f251472ace0b55003e779e37ee498454c416f41638f23ed0f12278687cec13d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3502369/violentmonkey-2.12.6-an+fx.xpi?src=";
+      sha256 = "a87243361ca38fcb2bfbb13bd9c0d07cf86221ada1d32b965e3b5ef0e04cba06";
       meta = with stdenv.lib;
       {
         homepage = "https://violentmonkey.github.io/";
