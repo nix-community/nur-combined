@@ -62,15 +62,3 @@ index fe5f1802..7238c176 100644
  env.UseLibs('glibmm-2.4 gtkmm-2.4 gthread-2.0')
  env.UseLibs('cairomm-1.0 pixman-1 freetype2 libusb-1.0')
  
-diff --git i/vector/vmap3/SConscript w/vector/vmap3/SConscript
-index 539f01c3..bbc4cade 100644
---- i/vector/vmap3/SConscript
-+++ w/vector/vmap3/SConscript
-@@ -7,4 +7,7 @@ env.Program("vmap_fix_diff.cpp")
- 
- env.Install(env.bindir, Split("""
-   vmap_render
-+  vmap_mmb_filter
-+  vmap_1km_filter
-+  vmap_fix_diff
- """))
