@@ -12,7 +12,9 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ m4 ];
   checkInputs = [ perl ];
 
-  patches = lib.optional stdenv.isDarwin ./patch/darwin-vasnprintf.patch;
+  patches = [
+    ./patch/fix_fseterr_c.patch
+  ] ++ lib.optional stdenv.isDarwin ./patch/darwin-vasnprintf.patch;
 
   doCheck = true;
   # M4 = "${m4}/bin/m4";
