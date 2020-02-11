@@ -180,15 +180,15 @@ let
 
     libjaylink = { stdenv, fetchgit, autoreconfHook, pkgconfig, libusb1 }: stdenv.mkDerivation {
       pname = "libjaylink";
-      version = "2019-06-07";
+      version = "2019-10-03";
       nativeBuildInputs = [ pkgconfig autoreconfHook ];
       buildInputs = [ libusb1 ];
 
       src = fetchgit {
         #url = "git://git.zapb.de/libjaylink.git"; # appears to be down?
         url = "git://repo.or.cz/libjaylink.git";
-        rev = "c2c4bb025f3f02336ea88f57f59e204a1303da9b";
-        sha256 = "1qsw1wlkjiqnhqxgddh7l8vawy8170ll6lqrxq7viq91wi9fggsl";
+        rev = "cfccbc9d6763733f1d14dff3c2dc5b75aaef136b";
+        sha256 = "0z3hv2wadbmx8mf7kjfrcgp5ivi5lix0vapg24gykhadgg2a6gcm";
       };
     };
 
@@ -206,7 +206,7 @@ let
     }: with lib; openocd.overrideAttrs (old: rec {
       pname = "openocd-git";
       name = "openocd-git-${version}";
-      version = "2019-01-03";
+      version = "2020-02-09";
 
       patches = [ ];
 
@@ -223,11 +223,11 @@ let
 
       src = fetchgit ({
         url = "https://repo.or.cz/r/openocd.git";
-        rev = "9f1529da4fcc7d1e508ab9ea4dc915800d68e730";
-        sha256 = "12zxih93ygb2hq9llgd0ji3qwfhy7d1kax50jpp1qnfgmabnjs6f";
+        rev = "853a05287c987d419440b21e2b22f5ab75297739";
+        sha256 = "1czpj7c63q2bli2c5mnaiqz3ngw2na5yqwzvxqrrrzjczqjn8fli";
       } // optionalAttrs (jimtcl-minimal == null || (enableJaylink && libjaylink == null)) {
         fetchSubmodules = true;
-        sha256 = "13g8h2j1vg2dj97mxfiiwch1pw6xsg0r1wc2li3v6j85xvkcf4h9";
+        sha256 = "1czpj7c63q2bli2c5mnaiqz3ngw2na5yqwzvxqrrrzjczqjn8fli";
       });
 
       meta = old.meta or {} // {
