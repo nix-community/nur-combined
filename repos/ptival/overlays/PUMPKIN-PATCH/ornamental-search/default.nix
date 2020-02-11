@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
     owner = "uwplse";
     repo = "ornamental-search";
-    rev = "6177ca37755888aed16bc06e7fc6eb8b117a28c5";
-    sha256 = "0w849q1d2ki6ifd8sx1d29qdhickmagw0dsnk09rxm2inkpr8am2";
+    rev = "55e61d77ff1903d513ea003e77d194e8826e71ef";
+    sha256 = "0ppcv0nk4d2ps327x4hcy8la3x329azgh2b1ljafwlnpba6pzc52";
   };
 
   buildInputs = [
