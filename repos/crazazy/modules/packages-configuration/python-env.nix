@@ -7,6 +7,7 @@ let
         pillow
         matplotlib
         virtualenvwrapper
+        pip
         pandas
         scikitlearn
         ipykernel

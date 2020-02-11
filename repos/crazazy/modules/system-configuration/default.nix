@@ -59,6 +59,7 @@
 
   # List services that you want to enable:
   services.logind.lidSwitch = "suspend-then-hibernate";
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
