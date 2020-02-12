@@ -1,0 +1,70 @@
+name: pipeline
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: 0 12 * * 0
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+
+    strategy:
+      matrix:
+        channel:
+          - "https://nixos.org/channels/nixos-19.09"
+          - "https://nixos.org/channels/nixos-unstable"
+          - "https://nixos.org/channels/nixpkgs-unstable"
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: cachix/install-nix-action@v6
+
+      - name: Add channels
+        run: |
+          nix-channel --add ${{ matrix.channel }} nixpkgs
+          nix-channel --update
+
+      - name: Check lib
+        run: nix eval -f default.nix 'lib'
+
+      - name: Check modules
+        run: nix eval -f default.nix 'modules'
+
+      - name: Check overlays
+        run: nix eval -f default.nix 'overlays'
+
+      - name: Publish to Cachix
+        uses: cachix/cachix-action@v3
+        with:
+          name: sondr3-nix
+          signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+          file: ci.nix
+          attributes: cacheOutputs
+
+  website:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build website
+        run: hugo --minify -s site
+
+      - name: Publish website
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: ./site/public

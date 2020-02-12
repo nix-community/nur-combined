@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Version</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{ range .Site.Data.pkgs }}
+    <tr>
+      <td><a href="{{ .meta.homepage }}">{{ .pname }}</a></td>
+      <td>{{ .version }}</td>
+      <td>{{ .meta.description }}</td>
+    </tr>
+    {{ end }}
+  </tbody>
+</table>
