@@ -44,7 +44,7 @@
     "version": "0.4.22",
     "system": "x86_64-linux",
     "meta": {
-      "available": true,
+      "available": false,
       "description": "Desktop chat client for Slack (and Discord)",
       "homepage": "https://cancel.fm/ripcord/",
       "license": {
@@ -60,20 +60,6 @@
         "x86_64-linux"
       ],
       "position": "/home/sondre/Code/nix/nix-expressions/pkgs/ripcord/default.nix:24"
-    }
-  },
-  "xmobar-wrapped": {
-    "name": "xmobar-with-packages-8.6.5",
-    "pname": "xmobar-with-packages",
-    "version": "8.6.5",
-    "system": "x86_64-linux",
-    "meta": {
-      "available": true,
-      "name": "xmobar-with-packages-8.6.5",
-      "outputsToInstall": [
-        "out"
-      ],
-      "position": "/home/sondre/Code/nix/nix-expressions/pkgs/xmobar-wrapped/default.nix:5"
     }
   }
 }
