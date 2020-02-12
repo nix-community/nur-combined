@@ -1,4 +1,4 @@
-name: Update dtn7-go NUR packages
+name: Update dtn7-go
 
 on: repository_dispatch
 
