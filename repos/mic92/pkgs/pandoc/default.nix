@@ -14,6 +14,12 @@ stdenv.mkDerivation rec {
     cp -r * $out
   '';
 
+  installCheckPhase = ''
+    $out/bin/pandoc --version
+  '';
+
+  dontStrip = true;
+
   meta = with stdenv.lib; {
     description = "Universal markup converter (static binary to save disk space)";
     homepage = https://github.com/jgm/pandoc;
