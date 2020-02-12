@@ -70,6 +70,20 @@
         platforms = platforms.all;
         };
       };
+    "buster-captcha-solver" = buildFirefoxXpiAddon {
+      pname = "buster-captcha-solver";
+      version = "0.7.1";
+      addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3504167/buster_captcha_solver_for_humans-0.7.1-an+fx.xpi?src=";
+      sha256 = "05385e12f68b00de346a2c3beab4aa21d0cf2290e7e6e3a539f911deeb16421a";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/dessant/buster";
+        description = "Save time by asking Buster to solve captchas for you.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "close-other-windows" = buildFirefoxXpiAddon {
       pname = "close-other-windows";
       version = "0.1";
