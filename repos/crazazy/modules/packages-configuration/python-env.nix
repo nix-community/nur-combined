@@ -4,7 +4,7 @@ let
         pygame
         ConfigArgParse
         django_2_2
-        pillow
+        python-language-server
         matplotlib
         virtualenvwrapper
         pip

@@ -1,6 +1,7 @@
 { pkgs }:
 {
   CRA = (import ./create-react-app { inherit pkgs; }).package;
+  eslint = (import ./eslint { inherit pkgs; }).package;
   jspm = (import ./jspm { inherit pkgs; }).package;
   npe = (import ./npe { inherit pkgs; }).package;
   parcel = (import ./parcel-bundler { inherit pkgs; }).package;
@@ -10,5 +11,4 @@
   tldr = (import ./tldr { inherit pkgs; }).package;
   webpack = (import ./webpack-cli { inherit pkgs; }).package;
 
-  nix-gen-node-tools = pkgs.callPackage ./gen-node-env { inherit (pkgs.nodePackages) node2nix; };
 }

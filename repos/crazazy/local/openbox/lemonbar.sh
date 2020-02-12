@@ -11,10 +11,10 @@ Backlight() {
 
 Wifi() {
     local WIFI=$(nmcli -t -f active,ssid dev wifi | egrep '^yes' | cut -d: -f2 | head -n 1)
-    if [ -z WIFI ]; then
-        echo -n "Not connected to WiFi"
-    else
+    if [ -v WIFI ]; then
         echo -n "Connected to: $WIFI"
+    else
+        echo -n "Not connected to WiFi"
     fi
 }
 
