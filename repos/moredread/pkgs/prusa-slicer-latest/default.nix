@@ -9,7 +9,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "prusa-slicer";
-  version = "2.2.0-alpha2";
+  version = "2.2.0-alpha3";
 
   enableParallelBuilding = true;
 
@@ -54,13 +54,13 @@ stdenv.mkDerivation rec {
   '' + lib.optionalString (lib.versionOlder "2.5" nloptVersion) ''
     # Since version 2.5.0 of nlopt we need to link to libnlopt, as libnlopt_cxx
     # now seems to be integrated into the main lib.
-    sed -i 's|nlopt_cxx|nlopt|g' src/libnest2d/cmake_modules/FindNLopt.cmake
+    sed -i 's|nlopt_cxx|nlopt|g' cmake/modules/FindNLopt.cmake
   '';
 
   src = fetchFromGitHub {
     owner = "prusa3d";
     repo = "PrusaSlicer";
-    sha256 = "172nz01iiqfjzkpcbl78j6almq6av70l71jgrzrcdw6ham1wqnpr";
+    sha256 = "16psilm4r4zv4p1nrpx6nmrx4yyg2h8jlmh9rbwyzxka36ac37qy";
     rev = "version_${version}";
   };
 
