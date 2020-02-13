@@ -1,9 +1,9 @@
-{ stdenv, csvquote }:
+{ stdenv, sources }:
 
 stdenv.mkDerivation rec {
   pname = "csvquote";
   version = stdenv.lib.substring 0 7 src.rev;
-  src = csvquote;
+  src = sources.csvquote;
 
   makeFlags = [ "BINDIR=$(out)/bin" ];
 
@@ -12,10 +12,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = csvquote.description;
-    homepage = csvquote.homepage;
+    inherit (src) description homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.linux ++ platforms.darwin;
+    platforms = with platforms; linux ++ darwin;
   };
 }

@@ -1,11 +1,11 @@
 { lib, buildPythonApplication, fasteners, future, appdirs, click
 , gnumake, curl, unzip, gzip, gdal
-, pytest, pytest-mock, elevation }:
+, pytest, pytest-mock, sources }:
 
 buildPythonApplication rec {
   pname = "elevation";
   version = lib.substring 0 7 src.rev;
-  src = elevation;
+  src = sources.elevation;
 
   propagatedBuildInputs = [ fasteners future appdirs click ];
 
@@ -28,8 +28,7 @@ buildPythonApplication rec {
   checkPhase = "pytest";
 
   meta = with lib; {
-    description = elevation.description;
-    homepage = elevation.homepage;
+    inherit (src) description homepage;
     license = licenses.asl20;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

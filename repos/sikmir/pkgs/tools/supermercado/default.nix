@@ -1,10 +1,10 @@
 { lib, fetchpatch, buildPythonApplication
-, click-plugins, rasterio, mercantile, numpy, pytest, supermercado }:
+, click-plugins, rasterio, mercantile, numpy, pytest, sources }:
 
 buildPythonApplication rec {
   pname = "supermercado";
   version = lib.substring 0 7 src.rev;
-  src = supermercado;
+  src = sources.supermercado;
 
   patches = [
     # Replace np subtract operator https://github.com/mapbox/supermercado/pull/27
@@ -20,8 +20,7 @@ buildPythonApplication rec {
   checkPhase = "pytest";
 
   meta = with lib; {
-    description = supermercado.description;
-    homepage = supermercado.homepage;
+    inherit (src) description homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

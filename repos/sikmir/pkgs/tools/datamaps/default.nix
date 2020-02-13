@@ -1,9 +1,9 @@
-{ stdenv, libpng, pkg-config, datamaps }:
+{ stdenv, libpng, pkg-config, sources }:
 
 stdenv.mkDerivation rec {
   pname = "datamaps";
   version = stdenv.lib.substring 0 7 src.rev;
-  src = datamaps;
+  src = sources.datamaps;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ libpng ];
@@ -18,10 +18,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = datamaps.description;
-    homepage = datamaps.homepage;
+    inherit (src) description homepage;
     license = licenses.bsd2;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.linux ++ platforms.darwin;
+    platforms = with platforms; linux ++ darwin;
   };
 }

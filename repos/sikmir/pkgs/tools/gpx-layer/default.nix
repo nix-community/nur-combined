@@ -1,9 +1,9 @@
-{ lib, buildPerlPackage, XMLParser, gpx-layer }:
+{ lib, buildPerlPackage, XMLParser, sources }:
 
 buildPerlPackage rec {
   pname = "gpx-layer";
   version = lib.substring 0 7 src.rev;
-  src = gpx-layer;
+  src = sources.gpx-layer;
 
   outputs = [ "out" ];
 
@@ -19,8 +19,7 @@ buildPerlPackage rec {
   '';
 
   meta = with lib; {
-    description = gpx-layer.description;
-    homepage = gpx-layer.homepage;
+    inherit (src) description homepage;
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

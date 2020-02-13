@@ -22,6 +22,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gmaptool.eu";
     license = licenses.cc-by-sa-30;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.all;
+    platforms = platforms.linux;
   };
 }

@@ -1,9 +1,9 @@
-{ lib, buildPythonApplication, requests, google-translate-for-goldendict }:
+{ lib, buildPythonApplication, requests, sources }:
 
 buildPythonApplication rec {
   pname = "gt4gd";
   version = lib.substring 0 7 src.rev;
-  src = google-translate-for-goldendict;
+  src = sources.google-translate-for-goldendict;
 
   propagatedBuildInputs = [ requests ];
 
@@ -17,8 +17,7 @@ buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = google-translate-for-goldendict.description;
-    homepage = google-translate-for-goldendict.homepage;
+    inherit (src) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

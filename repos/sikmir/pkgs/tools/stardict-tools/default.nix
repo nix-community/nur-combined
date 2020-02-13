@@ -1,10 +1,10 @@
 { stdenv, autoconf, automake, libtool, pkg-config,
-  gtk3, libmysqlclient, libxml2, pcre, stardict-3 }:
+  gtk3, libmysqlclient, libxml2, pcre, sources }:
 
 stdenv.mkDerivation rec {
   pname = "stardict-tools";
   version = stdenv.lib.substring 0 7 src.rev;
-  src = stardict-3;
+  src = sources.stardict-3;
 
   nativeBuildInputs = [
     autoconf
@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    description = stardict-3.description;
-    homepage = stardict-3.homepage;
+    inherit (src) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux;

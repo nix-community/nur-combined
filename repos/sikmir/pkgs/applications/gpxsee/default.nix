@@ -1,9 +1,9 @@
-{ mkDerivation, lib, qmake, qtbase, qttools, qttranslations, gpxsee }:
+{ stdenv, mkDerivation, lib, qmake, qtbase, qttools, qttranslations, sources }:
 
 mkDerivation rec {
   pname = "gpxsee";
   version = lib.substring 0 7 src.rev;
-  src = gpxsee;
+  src = sources.gpxsee;
 
   nativeBuildInputs = [ qmake qttools ];
   buildInputs = [ qtbase qttranslations ];
@@ -12,13 +12,18 @@ mkDerivation rec {
     lrelease lang/*.ts
   '';
 
+  postInstall = lib.optionalString stdenv.isDarwin ''
+    mkdir -p $out/Applications
+    mv GPXSee.app $out/Applications
+    wrapQtApp $out/Applications/GPXSee.app/Contents/MacOS/GPXSee
+  '';
+
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = gpxsee.description;
-    homepage = gpxsee.homepage;
+    inherit (src) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.linux;
+    platforms = with platforms; linux ++ darwin;
   };
 }

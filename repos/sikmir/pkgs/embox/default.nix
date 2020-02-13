@@ -1,10 +1,10 @@
-{ stdenv, fetchurl, writers, embox
+{ stdenv, fetchurl, writers, sources
 , cpio, gcc-arm-embedded, python, qemu, unzip, which }:
 
 stdenv.mkDerivation rec {
   pname = "embox";
   version = stdenv.lib.substring 0 7 src.rev;
-  src = embox;
+  src = sources.embox;
   template = "arm/qemu";
 
   cjson = fetchurl {
@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = embox.description;
-    homepage = embox.homepage;
+    inherit (src) description homepage;
     license = licenses.bsd2;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux;

@@ -162,10 +162,10 @@
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "25939cfa621998b45ee0ec80ecb32587865c974f",
-        "sha256": "0x05vx883nfj5jp4zc3f74qmjs3y5033ixd9lrqjl0047f9jlvrw",
+        "rev": "2002b828dd25412cbe51e9a48d924d7dd1c15f0b",
+        "sha256": "0gxkx255d8cn5076ync731cdygwvi95rxv463pd4rdw5srbr0gm5",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/25939cfa621998b45ee0ec80ecb32587865c974f.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/2002b828dd25412cbe51e9a48d924d7dd1c15f0b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -240,10 +240,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "ebcca6364e4a2af5ceeb6a10cee466e6b3a64dd2",
-        "sha256": "14s7s9iib5xk24343syssh86flshm87jc0pgmin4fiv1ams4r4za",
+        "rev": "4b1116b5f836b53de01ab73bf0b9ca4950cf2e96",
+        "sha256": "0jbxx97m3mcsx0db5k6nivw43lqgbscl3ibv379vcxs8gqbcmqs8",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/ebcca6364e4a2af5ceeb6a10cee466e6b3a64dd2.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/4b1116b5f836b53de01ab73bf0b9ca4950cf2e96.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -266,10 +266,10 @@
         "homepage": "https://github.com/consbio/mbtileserver",
         "owner": "consbio",
         "repo": "mbtileserver",
-        "rev": "1043e833a649100426145caa2c6542a38834b280",
-        "sha256": "0mgd8id4z5qb8jhl7yra9zcwizjggpwq3byvcrbj858ddx5bfw3d",
+        "rev": "b872713c7dbf3cce83e03289e6fb992c4e68386c",
+        "sha256": "17y1x1gj6c56s4cvpan18m3bh6f7fmclj0k4llmsbma5i3jnbmvr",
         "type": "tarball",
-        "url": "https://github.com/consbio/mbtileserver/archive/1043e833a649100426145caa2c6542a38834b280.tar.gz",
+        "url": "https://github.com/consbio/mbtileserver/archive/b872713c7dbf3cce83e03289e6fb992c4e68386c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mbutil": {
@@ -400,19 +400,6 @@
         "sha256": "06izbgq912qlbhwgas0ycnsx2hniya5bdb24x2bd3i19wlhrps36",
         "type": "tarball",
         "url": "https://github.com/consbio/tpkutils/archive/5aec5e5a996b16575812d90586a5cd1e865437bf.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "ueberzug": {
-        "branch": "master",
-        "builtin": false,
-        "description": "ueberzug is an alternative for w3mimgdisplay",
-        "homepage": "https://github.com/seebye/ueberzug",
-        "owner": "seebye",
-        "repo": "ueberzug",
-        "rev": "6f488070a8eda856289f19b70604c0f80ffd5bf0",
-        "sha256": "1cliar6vsbc2mlrpigk6j13i20832giprargggb5ivscmfakywi8",
-        "type": "tarball",
-        "url": "https://github.com/seebye/ueberzug/archive/6f488070a8eda856289f19b70604c0f80ffd5bf0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

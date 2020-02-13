@@ -1,10 +1,10 @@
 { stdenv, gdal, cmake, ninja, proj, clipper, zlib, qtbase, qttools, qtlocation
-, qtsensors, doxygen, cups, wrapQtAppsHook, qtimageformats, mapper }:
+, qtsensors, doxygen, cups, wrapQtAppsHook, qtimageformats, sources }:
 
 stdenv.mkDerivation rec {
   pname = "OpenOrienteering-Mapper";
   version = stdenv.lib.substring 0 7 src.rev;
-  src = mapper;
+  src = sources.mapper;
 
   buildInputs = [
     gdal
@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = mapper.description;
-    homepage = mapper.homepage;
+    inherit (src) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = with platforms; linux ++ darwin;

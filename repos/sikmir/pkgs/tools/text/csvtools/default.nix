@@ -1,9 +1,9 @@
-{ stdenv, pcre, openssl, csvtools }:
+{ stdenv, pcre, openssl, sources }:
 
 stdenv.mkDerivation rec {
   pname = "csvtools";
   version = stdenv.lib.substring 0 7 src.rev;
-  src = csvtools;
+  src = sources.csvtools;
 
   buildInputs = [ pcre ];
 
@@ -22,10 +22,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = csvtools.description;
-    homepage = csvtools.homepage;
+    inherit (src) description homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.linux ++ platforms.darwin;
+    platforms = with platforms; linux ++ darwin;
   };
 }

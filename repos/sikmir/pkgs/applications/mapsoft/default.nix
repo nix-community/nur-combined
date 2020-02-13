@@ -1,4 +1,4 @@
-{ stdenv, perlPackages, python2Packages, gimp, mapsoft
+{ stdenv, perlPackages, python2Packages, gimp, sources
 , bc, fig2dev, imagemagick, m4, netpbm, pkgconfig, scons
 , boost, curl, giflib, gtkmm2, jansson, libjpeg, libpng
 , libshell, libtiff, libusb1, libxml2, libyaml, libzip
@@ -7,7 +7,7 @@
 stdenv.mkDerivation rec {
   pname = "mapsoft";
   version = stdenv.lib.substring 0 7 src.rev;
-  src = mapsoft;
+  src = sources.mapsoft;
 
   patches = [ ./0001-fix-build.patch ];
 
@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = mapsoft.description;
-    homepage = mapsoft.homepage;
+    inherit (src) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux;

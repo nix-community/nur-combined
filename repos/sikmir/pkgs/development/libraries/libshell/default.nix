@@ -1,9 +1,9 @@
-{ stdenv, dash, help2man, ncurses, scdoc, libshell }:
+{ stdenv, dash, help2man, ncurses, scdoc, sources }:
 
 stdenv.mkDerivation rec {
   pname = "libshell";
   version = stdenv.lib.substring 0 7 src.rev;
-  src = libshell;
+  src = sources.libshell;
 
   nativeBuildInputs = [ help2man scdoc ];
   buildInputs = [ dash ncurses ];
@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = libshell.description;
-    homepage = libshell.homepage;
+    inherit (src) description homepage;
     license = licenses.gpl2;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.all;

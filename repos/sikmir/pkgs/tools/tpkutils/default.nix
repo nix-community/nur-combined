@@ -1,9 +1,9 @@
-{ lib, buildPythonApplication, mercantile, pymbtiles, pytest, setuptools, six, tpkutils }:
+{ lib, buildPythonApplication, mercantile, pymbtiles, pytest, setuptools, six, sources }:
 
 buildPythonApplication rec {
   pname = "tpkutils";
   version = lib.substring 0 7 src.rev;
-  src = tpkutils;
+  src = sources.tpkutils;
 
   propagatedBuildInputs = [ mercantile pymbtiles setuptools six ];
 
@@ -11,8 +11,7 @@ buildPythonApplication rec {
   checkPhase = "pytest";
 
   meta = with lib; {
-    description = tpkutils.description;
-    homepage = tpkutils.homepage;
+    inherit (src) description homepage;
     license = licenses.isc;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

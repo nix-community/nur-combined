@@ -1,13 +1,12 @@
-{ lib, buildPythonPackage, pyephem }:
+{ lib, buildPythonPackage, sources }:
 
 buildPythonPackage rec {
   pname = "pyephem";
   version = lib.substring 0 7 src.rev;
-  src = pyephem;
+  src = sources.pyephem;
 
   meta = with lib; {
-    description = pyephem.description;
-    homepage = pyephem.homepage;
+    inherit (src) description homepage;
     license = licenses.lgpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

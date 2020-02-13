@@ -1,9 +1,9 @@
-{ stdenv, gmaptool, mkgmap, p7zip, zsh, openmtbmap_openvelomap_linux }:
+{ stdenv, gmaptool, mkgmap, p7zip, zsh, sources }:
 
 stdenv.mkDerivation rec {
   pname = "openmtbmap_openvelomap_linux";
   version = stdenv.lib.substring 0 7 src.rev;
-  src = openmtbmap_openvelomap_linux;
+  src = sources.openmtbmap_openvelomap_linux;
 
   patches = [ ./0001-fix-path.patch ];
 
@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = openmtbmap_openvelomap_linux.description;
-    homepage = openmtbmap_openvelomap_linux.homepage;
+    inherit (src) description homepage;
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.all;

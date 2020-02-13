@@ -1,10 +1,10 @@
 { mkDerivation, lib, pkgconfig, qmake, qtbase, qtmultimedia, qtsvg, qttools
-, qtx11extras, libX11, libXext, libXtst, redict }:
+, qtx11extras, libX11, libXext, libXtst, sources }:
 
 mkDerivation rec {
   pname = "redict";
   version = lib.substring 0 7 src.rev;
-  src = redict;
+  src = sources.redict;
 
   nativeBuildInputs = [ qmake qttools pkgconfig ];
   buildInputs =
@@ -24,8 +24,7 @@ mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = redict.description;
-    homepage = redict.homepage;
+    inherit (src) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux;
