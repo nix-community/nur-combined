@@ -71,22 +71,28 @@ let
         broken = old.meta.broken or false || !rxvt_unicode.stdenv.isLinux;
       };
     });
-    rxvt_unicode-arc = { rxvt_unicode-with-plugins, rxvt_unicode-cvs, pkgs }: (rxvt_unicode-with-plugins.override {
-      rxvt_unicode = rxvt_unicode-cvs; # current release is years old, doesn't include 24bit colour changes
-      plugins = with pkgs; [
-        urxvt_perl
-        urxvt_perls
-        #urxvt_font_size ?
-        urxvt_theme_switch
-        urxvt_vtwheel
-        urxvt_osc_52
-        urxvt_xresources_256
-      ];
-    }).overrideAttrs (old: {
-      meta = old.meta or {} // {
-        broken = rxvt_unicode-cvs.meta.broken or false;
-      };
-    });
+    rxvt_unicode-arc = { rxvt_unicode-with-plugins ? null, rxvt_unicode-cvs, pkgs }: let
+      rxvt_unicode-arc = (rxvt_unicode-with-plugins.override {
+        rxvt_unicode = rxvt_unicode-cvs; # current release is years old, doesn't include 24bit colour changes
+        plugins = with pkgs; [
+          urxvt_perl
+          urxvt_perls
+          #urxvt_font_size ?
+          urxvt_theme_switch
+          urxvt_vtwheel
+          urxvt_osc_52
+          urxvt_xresources_256
+        ];
+      }).overrideAttrs (old: {
+        meta = old.meta or {} // {
+          broken = rxvt_unicode-cvs.meta.broken or false;
+        };
+      });
+    # TODO: fix once https://github.com/NixOS/nixpkgs/pull/77347 actually lands somewhere
+    in if rxvt_unicode-with-plugins == null then pkgs.stdenv.mkDerivation {
+      inherit (rxvt_unicode-cvs) name;
+      meta.broken = true;
+    } else rxvt_unicode-arc;
 
     bitlbee-libpurple = { bitlbee }: bitlbee.override { enableLibPurple = true; };
 
