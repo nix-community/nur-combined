@@ -20,6 +20,7 @@ lib.makeScope newScope (self: with self; {
     inherit sources click;
   };
   embox = callPackage ./embox { };
+  gimgtools = callPackage ./tools/gimgtools { };
   gmaptool = callPackage ./tools/gmaptool { };
   goldendict-dark-theme =
     callPackage ./data/themes/goldendict-themes/dark-theme.nix { };

@@ -103,6 +103,19 @@
         "url": "https://github.com/embox/embox/archive/ad5ed2947ae7ad68e6b0b0400c1a12d1a5114fa2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "gimgtools": {
+        "branch": "master",
+        "builtin": false,
+        "description": "Garmin Image Tools",
+        "homepage": "https://github.com/wuyongzheng/gimgtools",
+        "owner": "wuyongzheng",
+        "repo": "gimgtools",
+        "rev": "92d015749e105c5fb8eb704ae503a5c7e51af2bd",
+        "sha256": "14i9knc1dbkag0gsc2y1kv9hwzzzkycfy7fj1zmrgbsq71rnl1h2",
+        "type": "tarball",
+        "url": "https://github.com/wuyongzheng/gimgtools/archive/92d015749e105c5fb8eb704ae503a5c7e51af2bd.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "google-translate-for-goldendict": {
         "branch": "master",
         "builtin": false,
