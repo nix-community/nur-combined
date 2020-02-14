@@ -241,9 +241,6 @@ in
 
 
     environment.etc."oar/oar-base.conf" = { mode = "0600"; source = oarBaseConf; };
-
-    
-
     
     # add package*
     # TODO oarVisualization conditional
@@ -445,17 +442,21 @@ in
         source ${cfg.database.passwordFile};
         mkdir -p /var/lib/oar
         if [ ! -f /var/lib/oar/db-created ]; then
+          echo "Create OAR DB role"
           ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres -c "create role $DB_BASE_LOGIN with login password '$DB_BASE_PASSWD'";
+          echo "Create OAR DB (void)"
           ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres -c "create database ${cfg.database.dbname} with owner $DB_BASE_LOGIN";
+          echo "Create OAR DB role"
           ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres -c "create role $DB_BASE_LOGIN_RO with login password '$DB_BASE_PASSWD_RO'";
 
+          echo "Create OAR DB tables"
           PGPASSWORD=$DB_BASE_PASSWD ${pkgs.postgresql}/bin/psql -U $DB_BASE_LOGIN \
             -f ${cfg.package}/setup/database/pg_structure.sql \
             -f ${cfg.package}/setup/database/default_data.sql \
             -h localhost ${cfg.database.dbname}
 
           PGPASSWORD=$DB_BASE_PASSWD ${pkgs.postgresql}/bin/psql -U $DB_BASE_LOGIN \
-            -c "alter default privileges in schema public grant select on tables to $DB_BASE_LOGIN_RO;" \
+            -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO $DB_BASE_LOGIN_RO;" \
             -h localhost ${cfg.database.dbname}
             
           touch /var/lib/oar/db-created
