@@ -14,23 +14,27 @@ let
   cfg = config.services.oar;
   pgSuperUser = config.services.postgresql.superUser;
 
-inherit (import ./oar-conf.nix { pkgs=pkgs; lib=lib; cfg=cfg;} ) oarBaseConf oarSshdConf;
-  
+inherit (import ./oar-conf.nix { pkgs=pkgs; lib=lib; cfg=cfg;} ) oarBaseConf oarSshdConf monikaBaseConf;
+
+# Move to independant package ?
 oarVisualization = pkgs.stdenv.mkDerivation {
   name = "oar_visualization";
-  phases          = [ "installPhase" ];
-  buildInputs     = [  ]; # TODO to remove
+  buildInputs = [ pkgs.makeWrapper pkgs.perl ];
+  phases = [ "installPhase" "fixupPhase" ];
+
   installPhase = ''
-    mkdir -p $out/monika
+    mkdir -p $out/monika/share
+
     cp -r ${cfg.package}/visualization_interfaces/Monika/lib $out/monika/
     cp ${cfg.package}/visualization_interfaces/Monika/monika.css $out/monika/
-
-    substitute ${cfg.package}/visualization_interfaces/Monika/monika.cgi.in $out/monika/monika.cgi \
+    substitute ${cfg.package}/visualization_interfaces/Monika/monika.cgi.in $out/monika/share/monika.cgi \
       --replace "%%OARCONFDIR%%" /etc/oar
 
-    substitute ${cfg.package}/visualization_interfaces/Monika/monika.conf.in $out/monika/monika.conf \
-      --replace "%%WWWROOTDIR%%" $out/monika
-  '';
+    chmod a+x $out/monika/share/monika.cgi 
+
+    makeWrapper $out/monika/share/monika.cgi $out/monika/monika.cgi --set PERL5LIB \
+      "${with pkgs.perlPackages; makePerlPath ([CGI DBI DBDPg AppConfig SortNaturally TieIxHash HTMLParser])}:$out/monika/lib"
+    '';
 };
 
 oarTools = pkgs.stdenv.mkDerivation {
@@ -211,6 +215,12 @@ in
 
       web = {
         enable = mkEnableOption "OAR web server and rest-api";
+        monika = {
+          enable = mkEnableOption "Monkia resources' status web page";
+        };
+        drawgantt = {
+          enable = mkEnableOption "Drawgantt web page";
+        };
         extraConfig = mkOption {
           type = types.str;
           default = "";
@@ -232,6 +242,9 @@ in
 
     environment.etc."oar/oar-base.conf" = { mode = "0600"; source = oarBaseConf; };
 
+    
+
+    
     # add package*
     # TODO oarVisualization conditional
     environment.systemPackages =  [ oarVisualization oarTools pkgs.taktuk pkgs.xorg.xauth pkgs.nur.repos.kapack.oar ];
@@ -293,7 +306,7 @@ in
           export PATH="/run/wrappers/bin/:/run/current-system/sw/bin:$PATH"
           OAR_BASHRC=yes
         }
-      
+
         bash_oar
         EOF
 
@@ -344,7 +357,6 @@ in
         cat /etc/oar/oar-base.conf >> /etc/oar/oar.conf
       '';
     };
-
     
     ##############
     # Node Section
@@ -460,7 +472,9 @@ in
       group = "oar";
       virtualHosts.default = {
         #TODO root = "${pkgs.nix.doc}/share/doc/nix/manual";
-        extraConfig = concatStringsSep "\n" [''
+        extraConfig = let
+          fcgi = config.services.fcgiwrap;
+        in concatStringsSep "\n" [''
           location @oarapi {
             rewrite ^/oarapi-priv/?(.*)$ /$1 break;
             rewrite ^/oarapi/?(.*)$ /$1 break;
@@ -480,17 +494,18 @@ in
           location ~ ^/oarapi {
             error_page 404 = @oarapi;
           }
-
+        ''
+          (optionalString  cfg.web.monika.enable '' 
           location /monika {
-            #rewrite ^/monika/?$ / break;
+            gzip off;
+            rewrite ^/monika/?$ / break;
             rewrite ^/monika/(.*)$ $1 break;
             include ${pkgs.nginx}/conf/fastcgi_params;
-            try_files $fastcgi_script_name =404;
-            fastcgi_pass unix:/run/oar-fcgi.sock;
-            fastcgi_param SCRIPT_FILENAME ${oarVisualization}/monika.cgi;
+            fastcgi_pass ${fcgi.socketType}:${fcgi.socketAddress};
+            fastcgi_param SCRIPT_FILENAME ${oarVisualization}/monika/monika.cgi;
             fastcgi_param PATH_INFO $fastcgi_script_name;
           }
-        ''
+        '')
           (optionalString (cfg.web.extraConfig != "") ''
             ${cfg.web.extraConfig}
           '')
@@ -529,6 +544,40 @@ in
         };
       };
     };
+
+
+    # fcgiwrap server to run CGI application, here Monika, over FastCGI.
+    services.fcgiwrap = mkIf cfg.web.monika.enable {
+      enable = true;
+      preforkProcesses = 1;
+      user = "oar";
+      group = "oar";
+    };
+
     
+    environment.etc."oar/monika-base.conf" = mkIf cfg.web.monika.enable { mode = "0600"; source = monikaBaseConf; };
+    systemd.services.oar-visu-conf-init = mkIf (cfg.web.monika.enable || cfg.web.drawgantt.enable) {
+      wantedBy = [ "network.target" ];
+      before = [ "network.target" ];
+      serviceConfig.Type = "oneshot";
+      script = concatStringsSep "\n" [''
+        mkdir -p /etc/oar
+        touch /etc/oar/yop
+        source ${cfg.database.passwordFile}
+      ''  
+        (optionalString cfg.web.monika.enable ''
+          touch /etc/oar/monika.conf
+          chmod 600 /etc/oar/monika.conf
+          chown oar /etc/oar/monika.conf
+          
+          echo "username = $DB_BASE_LOGIN_RO" >> /etc/oar/monika.conf
+          echo "password = $DB_BASE_PASSWD_RO" >> /etc/oar/monika.conf
+          echo "css_path = ${oarVisualization}/monika/monika.css"
+          cat /etc/oar/monika-base.conf >> /etc/oar/monika.conf          
+        '')
+        
+        ];
+    };
+
   };
 }

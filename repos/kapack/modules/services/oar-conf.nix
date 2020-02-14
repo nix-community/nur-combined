@@ -3,8 +3,7 @@ with lib;
 let
 
   baseConfString = ''
-
-# Database type ("mysql" or "Pg")
+# Database type 
 DB_TYPE="Pg"
 
 # DataBase hostname
@@ -755,5 +754,218 @@ PermitUserEnvironment yes
 
 AllowUsers oar
 XAuthLocation /usr/bin/xauth
+'';
+  monikaBaseConf = pkgs.writeText "monika-base.conf" ''
+## Created on November 2007 by Joseph.Emeras@imag.fr
+
+#################
+## monika.conf ##
+#################
+
+##############################################################################
+## WARNING: About the location of this file:
+## monika.cgi is looking first for its configuration file in its own
+## directory then in /etc/oar/
+##############################################################################
+
+##############################################################################
+## CSS path for the HTML diplay
+## - default is "/monika.css"
+##############################################################################
+#css_path = /var/www/monika.css
+
+##############################################################################
+## clustername: set the name of the cluster
+## - default is "Cluster"
+## - ex: clustername = "MyCluster"
+##############################################################################
+clustername = OAR Cluster
+
+##############################################################################
+## DataBase : set the connection parameters to the OAR PostgreSQL DataBase
+##############################################################################
+hostname = ${cfg.database.host}
+dbport = 5432
+dbname = ${cfg.database.dbname}
+#username = oar_ro
+#password = oar_ro
+
+
+##############################################################################
+## nodes_synonym: which real resource must be used when using the "nodes" 
+## keyword ?
+## - ex: nodes_synonym = resource_id
+##       nodes_synonym = host
+## - default is resource_id
+##############################################################################
+nodes_synonym = network_address
+
+
+##############################################################################
+## Summary Display: specify how to display the summary status. For each type 
+## of resource, a resource hierarchy can be specified. Syntax is:
+## <resource type>[:<resource>[,<resource>]...][;<resource type...>...]
+## -ex: summary_display = default:nodes_synonym;licence:resource_id;
+##                        memory:resource_id;userid:resource_id
+## -ex: summary_display = default:host,cpu,core;licence;memory;userid
+## -ex: summary_display = default:network_address
+## -ex: summary_display = default:nodes_synonym
+##############################################################################
+summary_display = default:nodes_synonym,resource_id
+
+##############################################################################
+## nodes_per_line: set the number of node to be displayed per line in the
+## reservation table
+## - default is 10
+## - ex: nodes_per_line = 5
+##############################################################################
+nodes_per_line = 2
+
+##############################################################################
+## max_cores_per_line: set the number of cores to be displayed per line in the
+## reservation table
+## - default is 16
+## - ex: max_cores_per_line = 32
+##############################################################################
+max_cores_per_line = 16
+
+##############################################################################
+## nodename_regex: set the regular expression to extract nodes' short
+## names (ex: node22 => 22). Use Perl regular expression syntax.
+## - default is "(\d+)" ie extract the first number from the left in nodenames
+## - ex: nodename_regex = cluster5node(\d+) ie basename contains a number...
+## - ex: nodename_regex = ([^.]+) ie to extract the short hostname.
+## - ex: nodename_regex = (.+) ie to keep the whole word if really needed.
+## Rq: this regex is used to sort nodes
+##############################################################################
+nodename_regex = (.+)
+
+##############################################################################
+## nodename_regex_display: set the regex display on the page node names
+## it is just for final display
+## Rq: monika looks better with numerical only short nodenames...
+##############################################################################
+nodename_regex_display = (.*)
+
+##############################################################################
+## server_do_mail: set the capability of the server to handle mail. If
+## true, then monika use the job owner attribut as a valid email address
+## unless -M <email> is specified in qsub and then used instead
+## - default is "False"
+## - ex: server_do_mail = "True"
+##############################################################################
+#server_do_mail = "False"
+
+##############################################################################
+## user_infos : if server_do_mail is not set then you can specify a cgi page
+## wich can display informations about a user. It is a link on the user name.
+## The link pints on the content of user_infos+user_name
+##############################################################################
+#user_infos = "userInfos.cgi?"
+
+##############################################################################
+## node_group: define a group of nodes
+## - ex: node_group group1 = 5-10 25 32 40-50
+## - ex: node_group group2 = master nodeone nodetwo
+## * Rq: monika looks better with numerical only node names.
+## * Rq: nodes you define this way may be either extra nodes (ex: login nodes)
+##       or the nodes in order to give them a "rescue" state (ex: Missing)
+##############################################################################
+#node_group login = 1-4
+#node_group batch = 5-225
+
+##############################################################################
+## default_state: define the default state for a node group defined above
+## - ex: default_state group1 = "StateGroup1"
+##############################################################################
+#default_state login = Login
+#default_state batch = Missing
+
+##############################################################################
+## set_color: associate a HTML color to a node state
+## - ex: set_color Down = "red"
+## - ex: set_color Free = "#33ff33"
+##############################################################################
+set_color Down = "red"
+set_color Free = "#ffffff"
+set_color Absent = "#c22200"
+set_color StandBy = "cyan"
+set_color Suspected = "#ff7b7b"
+#set_color Missing = "grey"
+#set_color Login = "cyan"
+
+##############################################################################
+## color_pool: add an HTML color to dynamically use in HTML table generation
+## - ex: color_pool = "#9999ff"
+##       color_pool = "#ff6600"
+##       color_pool = "#00cccc"
+##############################################################################
+color_pool = "#9999ff"
+color_pool = "#00cccc"
+color_pool = "pink"
+color_pool = "yellow"
+color_pool = "orange"
+color_pool = "#ff22ff"
+color_pool = "#33cc00"
+color_pool = "#cc66cc"
+color_pool = "#99ff99"
+color_pool = "#995522"
+color_pool = "orange"
+color_pool = "#999999"
+
+##############################################################################
+## hidden_property: define properties not to be shown in the main page
+## - ex: hidden_property = hostname
+##       hidden_property = besteffort
+##       hidden_property = expiryDate
+##############################################################################
+#hidden_property = network_address
+#hidden_property = besteffort
+#hidden_property = expiry_date
+#hidden_property = desktop_computing
+#hidden_property = cpu
+#hidden_property = cpuset
+#hidden_property = available_upto
+#hidden_property = core
+#hidden_property = finaud_decision
+#hidden_property = last_job_date
+#hidden_property = resource_id
+#hidden_property = state
+#hidden_property = state_num
+#hidden_property = type
+#hidden_property = mem
+#hidden_property = suspended_jobs
+#hidden_property = next_state
+#hidden_property = next_finaud_decision
+#hidden_property = deploy
+#hidden_property = host
+
+
+hidden_property = network_address
+hidden_property = host
+hidden_property = cpu
+hidden_property = core
+hidden_property = thread
+hidden_property = cpuset
+hidden_property = ip
+hidden_property = hostname
+#hidden_property = besteffort
+hidden_property = expiry_date
+hidden_property = desktop_computing
+hidden_property = available_upto
+hidden_property = last_available_upto
+hidden_property = finaud_decision
+hidden_property = last_job_date
+hidden_property = resource_id
+#hidden_property = state
+hidden_property = state_num
+#hidden_property = type
+#hidden_property = mem
+hidden_property = suspended_jobs
+hidden_property = next_state
+hidden_property = next_finaud_decision
+hidden_property = deploy
+hidden_property = scheduler_priority
+#hidden_property = switch
 '';
 }
