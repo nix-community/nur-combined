@@ -1,0 +1,26 @@
+From 17495e9c8651baaab807e5935d0d75965713a57d Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Thu, 6 Feb 2020 07:16:47 -0600
+Subject: [PATCH] fix pkgconfig to correctly handle absolute CMAKE_INSTALL_*DIR
+
+---
+ libnl-tiny.pc.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libnl-tiny.pc.in b/libnl-tiny.pc.in
+index 691ba82..8cee0b5 100644
+--- a/libnl-tiny.pc.in
++++ b/libnl-tiny.pc.in
+@@ -1,7 +1,7 @@
+ prefix=@CMAKE_INSTALL_PREFIX@
+ exec_prefix=${prefix}
+-libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
+-includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@/libnl-tiny
++libdir=@CMAKE_INSTALL_FULL_LIBDIR@
++includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@/libnl-tiny
+ 
+ Name: libnl-tiny
+ Description: Convenience library for netlink sockets
+-- 
+2.25.0.3
+

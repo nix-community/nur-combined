@@ -1,6 +1,10 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {}, withOldies ? false }:
 
-let toplevel = {
+let
+  # Lazy eval, but defined here so eval'd at most once
+  pkgs1909 = if withOldies then import (fetchTarball channel:nixos-19.09) {} else throw "oldies disabled, can't fetch 19.09";
+  pkgs1609 = if withOldies then import (fetchTarball channel:nixos-16.09) {} else throw "oldies disabled, can't fetch 16.09";
+in let toplevel = {
   lib = import ./lib;
   modules = toplevel.lib.pathDirectory ./modules;
   overlays = toplevel.lib.importDirectory ./overlays;
@@ -42,9 +46,12 @@ let toplevel = {
     # TODO: fix NUR eval with this included!
     # enamel = callPackage ./pkgs/enamel { };
 
-    capstone_3 = callPackage ./pkgs/fcd/capstone.nix { };
-    fcd4 = callPackage ./pkgs/fcd/4.nix { };
-    fcd4-tests = callPackage ./pkgs/fcd/test.nix { fcd = fcd4; };
+    fcd4Pkgs = pkgs1909.lib.makeScope pkgs1909.newScope (self: with self; {
+        inherit (pkgs1909) llvmPackages_4;
+        capstone_3 = callPackage ./pkgs/fcd/capstone.nix { };
+        fcd = callPackage ./pkgs/fcd/4.nix { };
+        fcd-tests = callPackage ./pkgs/fcd/test.nix { };
+      });
 
     focal = callPackage ./pkgs/focal { };
 
@@ -52,8 +59,9 @@ let toplevel = {
 
     iml = callPackage ./pkgs/iml { };
 
-    iwinfo = callPackage ./pkgs/iwinfo { };
-
+    iwinfo-libnl = callPackage ./pkgs/iwinfo { withTiny = false; };
+    iwinfo-tiny = callPackage ./pkgs/iwinfo { withTiny = true; };
+    iwinfo = iwinfo-tiny;
 
     intelxed = callPackage ./pkgs/xed { };
     mbuild = callPackage ./pkgs/xed/mbuild.nix { };
@@ -65,20 +73,20 @@ let toplevel = {
     kittel-koat = callPackage ./pkgs/kittel-koat {
       ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_03;
     };
-    libebc = callPackage ./pkgs/libebc {
-      inherit (pkgs.llvmPackages_5) llvm;
-    };
-    llvm2kittel = callPackage ./pkgs/llvm2kittel {
+    libebc = pkgs1909.callPackage ./pkgs/libebc {
       inherit (pkgs.llvmPackages_4) llvm;
     };
-
-    llvm-dbas = callPackage ./pkgs/llvm-dbas { llvm = pkgs.llvm_4; };
-
-    llstrata = callPackage ./pkgs/llstrata {
-      inherit (pkgs.llvmPackages_4) llvm clang;
+    llvm2kittel = pkgs1909.callPackage ./pkgs/llvm2kittel {
+      inherit (pkgs1909.llvmPackages_4) llvm;
+    };
+    llvm-dbas = pkgs1909.callPackage ./pkgs/llvm-dbas { llvm = pkgs1909.llvm_4; };
+    llstrata = pkgs1909.callPackage ./pkgs/llstrata {
+      inherit (pkgs1909.llvmPackages_4) llvm clang;
     };
 
     notify-send-sh = callPackage ./pkgs/notify-send.sh { };
+
+    libnl-tiny = callPackage ./pkgs/libnl-tiny { };
 
     nlmon = callPackage ./pkgs/nlmon { };
 
@@ -117,8 +125,8 @@ let toplevel = {
     strata-haswell = strata.override { stoke = stoke-haswell; };
     */
 
-    llvmslicer = callPackage ./pkgs/llvmslicer {
-      inherit (pkgs.llvmPackages_35) llvm;
+    llvmslicer = pkgs1909.callPackage ./pkgs/llvmslicer {
+      inherit (pkgs1909.llvmPackages_35) llvm;
     };
 
     pahole = callPackage ./pkgs/pahole { };
@@ -132,6 +140,7 @@ let toplevel = {
 
     remill =
       let
+        pkgs = pkgs1909; # XXX
         llvmPkgs = pkgs.llvmPackages_4;
         llvm = llvmPkgs.llvm;
         clang = pkgs.wrapClangMulti llvmPkgs.clang;
@@ -155,7 +164,7 @@ let toplevel = {
     uci = callPackage ./pkgs/uci { };
 
     vmir = callPackage ./pkgs/vmir { };
-    vmir-clang4 = callPackage ./pkgs/vmir { inherit (pkgs.llvmPackages_4) stdenv; };
+    vmir-clang4 = pkgs1909.callPackage ./pkgs/vmir { inherit (pkgs1909.llvmPackages_4) stdenv; };
     vmir-clang5 = callPackage ./pkgs/vmir { inherit (pkgs.llvmPackages_5) stdenv; };
     vmir-clang6 = callPackage ./pkgs/vmir { inherit (pkgs.llvmPackages_6) stdenv; };
 
@@ -165,15 +174,11 @@ let toplevel = {
 
     # XXX: scoping
     # These expressions are a bit dated
-    seahornPkgs = /* lib.recurseIntoAttrs */ (
-      let 
-        pkgs1609 = import (fetchTarball channel:nixos-16.09) {};
-        inherit (pkgs1609) llvmPackages_36;
-      in rec {
+    seahornPkgs = /* lib.recurseIntoAttrs */ (rec {
       z3-spacer = pkgs1609.callPackage ./pkgs/seahorn/z3-spacer.nix { };
       seahorn = pkgs1609.callPackage ./pkgs/seahorn {
-        llvm = llvmPackages_36.llvm.override { enableSharedLibraries = false; };
-        inherit (llvmPackages_36) clang;
+        llvm = pkgs1609.llvmPackages_36.llvm.override { enableSharedLibraries = false; };
+        inherit (pkgs1609.llvmPackages_36) clang;
         inherit z3-spacer;
       };
       seahorn-demo = pkgs1609.callPackage ./pkgs/seahorn/demo { inherit seahorn; };
