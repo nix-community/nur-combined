@@ -362,15 +362,14 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "4.1.4";
+      version = "4.1.5";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3501628/octotree-4.1.4-fx.xpi?src=";
-      sha256 = "a2d7094f9abf2364718555fb9b059027f1ee84c873ed971b2237edc7d56a7822";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3505680/octotree-4.1.5-fx.xpi?src=";
+      sha256 = "5653044ece6ff57006350389152e634cba6666742c8363b386cca7fc49136500";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
         description = "GitHub on steroids";
-        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -652,10 +651,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.12.6";
+      version = "2.12.7";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3502369/violentmonkey-2.12.6-an+fx.xpi?src=";
-      sha256 = "a87243361ca38fcb2bfbb13bd9c0d07cf86221ada1d32b965e3b5ef0e04cba06";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3505281/violentmonkey-2.12.7-an+fx.xpi?src=";
+      sha256 = "351235d7bc488b79e495d99d667dbc07587c231b28ec529f14ffcfee010125fb";
       meta = with stdenv.lib;
       {
         homepage = "https://violentmonkey.github.io/";
