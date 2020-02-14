@@ -50,14 +50,29 @@ let
         </match>
 
         <!--
-        It seems Symbola is often selected as a fallback font before ${emojiName}.
-        This will try to remove Symbola from the list of fallback fonts.
+        It seems Symbola and DejaVu fonts are often selected as a fallback font before ${emojiName}.
+        This will try to remove Symbola and DejaVu fonts from the list of fallback fonts.
         -->
         <selectfont>
             <rejectfont>
                 <pattern>
                     <patelt name="family">
                         <string>Symbola</string>
+                    </patelt>
+                </pattern>
+                <pattern>
+                    <patelt name="family">
+                        <string>DejaVu Sans</string>
+                    </patelt>
+                </pattern>
+                <pattern>
+                    <patelt name="family">
+                        <string>DejaVu Serif</string>
+                    </patelt>
+                </pattern>
+                <pattern>
+                    <patelt name="family">
+                        <string>DejaVu Sans Mono</string>
                     </patelt>
                 </pattern>
             </rejectfont>
