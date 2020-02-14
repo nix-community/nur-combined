@@ -1,0 +1,39 @@
+diff --git a/wemake_python_styleguide/options/config.py b/wemake_python_styleguide/options/config.py
+index d006719..1db314b 100644
+--- a/wemake_python_styleguide/options/config.py
++++ b/wemake_python_styleguide/options/config.py
+@@ -129,7 +129,7 @@ You can also show all options that ``flake8`` supports by running:
+ 
+ """
+ 
+-from typing import ClassVar, FrozenSet, Mapping, Optional, Sequence, Union
++from typing import ClassVar, Mapping, Optional, Sequence, Union
+ 
+ import attr
+ from flake8.options.manager import OptionManager
+@@ -137,7 +137,7 @@ from typing_extensions import final
+ 
+ from wemake_python_styleguide.options import defaults
+ 
+-ConfigValuesTypes = Union[str, int, bool, FrozenSet[str]]
++ConfigValuesTypes = Union[str, int, bool, Sequence[str]]
+ 
+ 
+ @final
+diff --git a/wemake_python_styleguide/options/defaults.py b/wemake_python_styleguide/options/defaults.py
+index 7c3bf2d..addc75b 100644
+--- a/wemake_python_styleguide/options/defaults.py
++++ b/wemake_python_styleguide/options/defaults.py
+@@ -33,10 +33,10 @@ I_CONTROL_CODE: Final = True
+ MAX_NOQA_COMMENTS: Final = 10  # guessed
+ 
+ #: List of nested classes' names we allow to use.
+-NESTED_CLASSES_WHITELIST: Final = frozenset((
++NESTED_CLASSES_WHITELIST: Final = (
+     'Meta',  # django forms, models, drf, etc
+     'Params',  # factoryboy specific
+-))
++)
+ 
+ 
+ # ===========

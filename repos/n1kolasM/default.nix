@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -21,6 +21,14 @@
   in pkgs.callPackage ./pkgs/neovim-gtk { oldCargoVendor = if (hasAttr "cargo-vendor" pkgs) then cargoVendorTooOld pkgs.cargo-vendor else false; };
   avr8-burn-omat = pkgs.callPackage ./pkgs/avr8-burn-omat { };
   simulavr = pkgs.callPackage ./pkgs/simulavr { };
+  
+  python36Packages = pkgs.python36Packages.callPackage ./pkgs/python-pkgs { };
+  
+  python37Packages = pkgs.recurseIntoAttrs (
+    pkgs.python37Packages.callPackage ./pkgs/python-pkgs { }
+  );
+
+  python3Packages = python37Packages;
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
