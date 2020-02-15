@@ -348,10 +348,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "6.2.0";
+      version = "6.2.1";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3503926/firefox_multi_account_containers-6.2.0-fx.xpi?src=";
-      sha256 = "f13ffb364edb971109fb8c75de0d4ee672233b302f8eed687fe7d30d83d323a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3506564/firefox_multi_account_containers-6.2.1-fx.xpi?src=";
+      sha256 = "49d90b7d9de476923f8e911cac9a824f8bc606ac59d94fb215d51ffbc8390dd0";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -473,10 +473,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.2.3";
+      version = "20.2.14";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3498312/refined_github-20.2.3-an+fx.xpi?src=";
-      sha256 = "e11f63ee0af325a636767b4b394f2d113c18658d002b2a2a27bdb3fcc0f7b3a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3506148/refined_github-20.2.14-an+fx.xpi?src=";
+      sha256 = "1101cf4664fb47c49df6fc3a259c336fa60de3d3212b3c1ab0af896ec36702ce";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
