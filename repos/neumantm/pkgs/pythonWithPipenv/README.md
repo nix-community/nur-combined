@@ -9,7 +9,7 @@ To override the used python derivation override the argument `myPythonDerivation
 To add python packages to be installed override the argument `myPythonPackages`.
 
 Example:
-```
+```nix
 {
   nixpkgs.config.packageOverrides = pkgs: {
     nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
@@ -19,7 +19,7 @@ Example:
   environment.systemPackages = with pkgs; [
    #nur.repos.neumantm.pythonWithPipenv #For default functionality
     nur.repos.neumantm.pythonWithPipenv.override { myPythonDerivation = python37; myPythonPackages = pp: with pp; [ pylint ]; }
-  ]
+  ];
 }
 ```
 

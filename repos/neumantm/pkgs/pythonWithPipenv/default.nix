@@ -16,7 +16,6 @@ let
   ];
 
   pipenv-extra-chrootenv = stdenv.mkDerivation {
-
     name = "pipenv-extra-chrootenv";
     buildCommand = ''
       mkdir -p $out/etc
@@ -50,9 +49,9 @@ let
       # All the C libraries that a manylinux_1 wheel might depend on:
       glib
       libxslt.dev
-      #libxml2.dev
+      libxml2.dev
       ncurses
-      #rdkafka
+      rdkafka
       xorg.libX11
       xorg.libXext
       xorg.libXrender
