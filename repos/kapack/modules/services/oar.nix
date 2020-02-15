@@ -1,12 +1,7 @@
 { config, lib, pkgs, ... }:
 
-# TODO DB_PASSWORD=$(head -n1 ${cfg.database.passwordFile})
 # TODO Assert on password prescence
-# TODO db password is visible during db creation
-# TODO readonly read-only db user
-# TODO fcgiwrap for monika
 # TODO Drawgantt
-# TODO copy monika
 
 with lib;
 
@@ -14,7 +9,7 @@ let
   cfg = config.services.oar;
   pgSuperUser = config.services.postgresql.superUser;
 
-inherit (import ./oar-conf.nix { pkgs=pkgs; lib=lib; cfg=cfg;} ) oarBaseConf oarSshdConf monikaBaseConf;
+inherit (import ./oar-conf.nix { pkgs=pkgs; lib=lib; cfg=cfg;} ) oarBaseConf oarSshdConf monikaBaseConf drawganttBaseConf;
 
 # Move to independant package ?
 oarVisualization = pkgs.stdenv.mkDerivation {
@@ -34,6 +29,12 @@ oarVisualization = pkgs.stdenv.mkDerivation {
 
     makeWrapper $out/monika/share/monika.cgi $out/monika/monika.cgi --set PERL5LIB \
       "${with pkgs.perlPackages; makePerlPath ([CGI DBI DBDPg AppConfig SortNaturally TieIxHash HTMLParser])}:$out/monika/lib"
+      
+   mkdir -p $out/drawgantt
+   substitute ${cfg.package}/visualization_interfaces/DrawGantt-SVG/drawgantt.php.in $out/drawgantt/drawgantt.php \
+     --replace "%%OARCONFDIR%%" /etc/oar
+   substitute ${cfg.package}/visualization_interfaces/DrawGantt-SVG/drawgantt-svg.php.in $out/drawgantt/drawgantt-svg.php \
+     --replace "%%OARCONFDIR%%" /etc/oar
     '';
 };
 
@@ -505,6 +506,17 @@ in
             fastcgi_pass ${fcgi.socketType}:${fcgi.socketAddress};
             fastcgi_param SCRIPT_FILENAME ${oarVisualization}/monika/monika.cgi;
             fastcgi_param PATH_INFO $fastcgi_script_name;
+          } 
+        '')
+          (optionalString  cfg.web.drawgantt.enable ''
+          location ~ \.php$ {
+             #gzip off;
+             #rewrite ^/drawgantt/?$ / break;
+             #rewrite ^/drawgantt/(.*)$ $1 break;
+             #fastcgi_index index.php;
+             include ${pkgs.nginx}/conf/fastcgi_params;
+             fastcgi_param SCRIPT_FILENAME ${oarVisualization}/drawgantt/$fastcgi_script_name;
+             fastcgi_pass unix:${config.services.phpfpm.pools.oar.socket};
           }
         '')
           (optionalString (cfg.web.extraConfig != "") ''
@@ -555,8 +567,27 @@ in
       group = "oar";
     };
 
+    services.phpfpm = lib.mkIf cfg.web.drawgantt.enable  {
+      pools.oar = {
+        user = "oar";
+        group = "oar";  
+        settings = lib.mapAttrs (name: lib.mkDefault) {
+          "listen.owner" = "oar";
+          "listen.group" = "oar";
+          "listen.mode" = "0660";
+          "pm" = "dynamic";
+          "pm.start_servers" = 1;
+          "pm.min_spare_servers" = 1;
+          "pm.max_spare_servers" = 2;
+          "pm.max_requests" = 50;
+          "pm.max_children" = 5;
+        };
+      };
+    };
     
     environment.etc."oar/monika-base.conf" = mkIf cfg.web.monika.enable { mode = "0600"; source = monikaBaseConf; };
+    environment.etc."oar/drawgantt-base.conf" = mkIf cfg.web.drawgantt.enable { mode = "0600"; source = drawganttBaseConf; };
+    
     systemd.services.oar-visu-conf-init = mkIf (cfg.web.monika.enable || cfg.web.drawgantt.enable) {
       wantedBy = [ "network.target" ];
       before = [ "network.target" ];
@@ -577,6 +608,15 @@ in
           cat /etc/oar/monika-base.conf >> /etc/oar/monika.conf          
         '')
         
+        (optionalString cfg.web.drawgantt.enable ''
+          touch /etc/oar/drawgantt-config.inc.php
+          chmod 600 /etc/oar/drawgantt-config.inc.php
+          chown oar /etc/oar/drawgantt-config.inc.php
+
+          cp /etc/oar/drawgantt-base.conf /etc/oar/drawgantt-config.inc.php
+          sed -i -e "s/DB_BASE_LOGIN_RO/$DB_BASE_LOGIN_RO/" /etc/oar/drawgantt-config.inc.php
+          sed -i -e "s/DB_BASE_PASSWD_RO/$DB_BASE_PASSWD_RO/" /etc/oar/drawgantt-config.inc.php
+        '')
         ];
     };
 
