@@ -496,8 +496,11 @@ in
             error_page 404 = @oarapi;
           }
         ''
-          (optionalString  cfg.web.monika.enable '' 
-          location /monika {
+          (optionalString  cfg.web.monika.enable ''
+          location =/monika.css {
+            alias ${oarVisualization}/monika/monika.css;
+          }
+          location ~ ^/monika {
             gzip off;
             rewrite ^/monika/?$ / break;
             rewrite ^/monika/(.*)$ $1 break;
@@ -508,11 +511,11 @@ in
           } 
         '')
           (optionalString  cfg.web.drawgantt.enable ''
-          location ~ \.php$ {
+          location ~ ^/drawgantt {
              #gzip off;
-             #rewrite ^/drawgantt/?$ / break;
-             #rewrite ^/drawgantt/(.*)$ $1 break;
-             #fastcgi_index index.php;
+             rewrite ^/drawgantt/?$ / break;
+             rewrite ^/drawgantt/(.*)$ $1 break;
+             fastcgi_index drawgantt.php;
              include ${pkgs.nginx}/conf/fastcgi_params;
              fastcgi_param SCRIPT_FILENAME ${oarVisualization}/drawgantt/$fastcgi_script_name;
              fastcgi_pass unix:${config.services.phpfpm.pools.oar.socket};
@@ -603,7 +606,6 @@ in
           
           echo "username = $DB_BASE_LOGIN_RO" >> /etc/oar/monika.conf
           echo "password = $DB_BASE_PASSWD_RO" >> /etc/oar/monika.conf
-          echo "css_path = ${oarVisualization}/monika/monika.css"
           cat /etc/oar/monika-base.conf >> /etc/oar/monika.conf          
         '')
         
