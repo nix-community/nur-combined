@@ -15,5 +15,7 @@ rec {
   cmdtest = callPackages ./pkgs/cmdtest { cliapp = cliapp; ttystatus = ttystatus; };
   vmdb2 = callPackages ./pkgs/vmdb2 { cmdtest = cmdtest; };
 
+  yuma123 = callPackages ./pkgs/yuma123 { };
+
 }
 
