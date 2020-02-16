@@ -1,7 +1,9 @@
 { stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, makeWrapper, ncurses, zlib, xz, lzo, lz4, bzip2, snappy
 , libiconv, openssl, pcre, boost, judy, bison, libxml2, libkrb5, linux-pam, curl
-, libaio, libevent, jemalloc, cracklib, systemd, numactl, perl
+, libaio, libevent, jemalloc, cracklib, systemd, perl
 , fixDarwinDylibNames, cctools, CoreServices, less
+, withNUMA ? true, numactl
+, withStorageMroonga ? true, kytea, msgpack, zeromq
 , withoutClient ? false
 }:
 
@@ -19,14 +21,14 @@ mariadb = server // {
 };
 
 common = rec { # attributes common to both builds
-  version = "10.4.11";
+  version = "10.4.12";
 
   src = fetchurl {
     urls = [
       "https://downloads.mariadb.org/f/mariadb-${version}/source/mariadb-${version}.tar.gz"
       "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz"
     ];
-    sha256 = "1f9zvrwlxvvaiydnj0r7096lgcwjf5h2zmn6nfgb0cwlp4r641sc";
+    sha256 = "0252b9rxxz1ljjv6ni0wwgy14j8qmmdd2sq0a65dslx2ib9y3wgy";
     name   = "mariadb-${version}.tar.gz";
   };
 
@@ -143,7 +145,8 @@ server = stdenv.mkDerivation (common // {
   buildInputs = common.buildInputs ++ [
     xz lzo lz4 bzip2 snappy
     libxml2 boost judy libevent cracklib
-  ] ++ optional (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) numactl
+  ] ++ optional ((stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) && withNUMA) numactl
+    ++ optionals withStorageMroonga [ kytea msgpack zeromq ]
     ++ optional stdenv.hostPlatform.isLinux linux-pam
     ++ optional (!stdenv.hostPlatform.isDarwin) mytopEnv;
 
@@ -165,6 +168,10 @@ server = stdenv.mkDerivation (common // {
     "-DWITH_INNODB_DISALLOW_WRITES=ON"
     "-DWITHOUT_EXAMPLE=1"
     "-DWITHOUT_FEDERATED=1"
+  ] ++ optional ((stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) && withNUMA) [
+    "-DWITH_NUMA=ON"
+  ] ++ optional (!withStorageMroonga) [
+    "-DWITHOUT_MROONGA=ON"
   ] ++ optionals withoutClient [
     "-DWITHOUT_CLIENT=ON"
   ] ++ optionals stdenv.hostPlatform.isDarwin [
@@ -178,9 +185,8 @@ server = stdenv.mkDerivation (common // {
 
   postInstall = common.postInstall + ''
     chmod +x "$out"/bin/wsrep_sst_common
-    rm "$out"/bin/{mysql_client_test,mysqltest}
+    rm "$out"/bin/{mariadb-client-test,mariadb-test,mysql_client_test,mysqltest}
     rm -r "$out"/data # Don't need testing data
-    mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
   '' + optionalString withoutClient ''
     ${ # We don't build with GSSAPI on Darwin
       optionalString (!stdenv.hostPlatform.isDarwin) ''
@@ -189,6 +195,8 @@ server = stdenv.mkDerivation (common // {
     }
     rm "$out"/lib/mysql/plugin/client_ed25519.so
     rm "$out"/lib/{libmysqlclient${libExt},libmysqlclient_r${libExt}}
+  '' + optionalString withStorageMroonga ''
+    mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
   '' + optionalString (!stdenv.hostPlatform.isDarwin) ''
     sed -i 's/-mariadb/-mysql/' "$out"/bin/galera_new_cluster
   '';
