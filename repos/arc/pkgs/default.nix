@@ -4,6 +4,7 @@
   overrides = import ./overrides.nix;
   vimPlugins = import ./vimPlugins.nix;
   kakPlugins = import ./kakPlugins.nix;
+  rxvt-unicode-plugins = import ./urxvt;
   gitAndTools = import ./git;
   weechatScripts = import ./public/weechat/scripts.nix;
   shells = import ../shells;

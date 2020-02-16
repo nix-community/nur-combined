@@ -13,6 +13,7 @@
     # darwin undefined symbol _CFURLResourceIsReachable: https://discourse.nixos.org/t/help-with-rust-linker-error-on-darwin-cfurlresourceisreachable/2657
 
     cargoSha256 = "0qsil1y2gv8h75x3mnp6h7b295k3icwjhmhriy3bv49qm11ffz0w";
+    legacyCargoFetcher = true;
     meta.broken = lib.versionAtLeast "1.38.0" rustPlatform.rust.rustc.version;
 
     doCheck = false;
@@ -29,6 +30,7 @@
     };
 
     cargoSha256 = "1a9svdw1cgk6s7gqpsq3r25wxa2gr2xddqkc1cjk7hf6sk327cpv";
+    legacyCargoFetcher = true;
   };
 
   cargo-download-arc = {
@@ -48,6 +50,7 @@
     buildInputs = lib.optional hostPlatform.isLinux openssl
       ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
     cargoSha256 = "1ak0idi1wlwndw5rsp9ff1l3j05hf26h06rjs2ldfh09rss4s54b";
+    legacyCargoFetcher = true;
     cargoPatches = [ ./cargo-download-lock.patch ];
   };
 
@@ -63,6 +66,7 @@
 
     cargoPatches = [ ./cargo-with-lock.patch ];
     cargoSha256 = "0x08nc9d6jgrfnlrnyrln2lvxr7dpys4sfh2lvq0814bfg22byid";
+    legacyCargoFetcher = true;
   };
 
   cargo-info = {
@@ -87,6 +91,7 @@
       sha256 = "14vz860a40njx4fdaxdw1iy92isihgab65x5c6kxb68iha6bg4j9";
     }) ];
     cargoSha256 = "1fw8fd67ixhy13xvfkssssy5b78n5dgq4qr0m0xvi50i2553rlgj";
+    legacyCargoFetcher = true;
 
     nativeBuildInputs = lib.optional hostPlatform.isLinux pkgconfig;
     buildInputs = lib.optional hostPlatform.isLinux openssl
@@ -107,6 +112,7 @@
 
     patches = [ ./xargo-stable.patch ];
     cargoSha256 = "0cmdi9dcdn2nzk1h5n764305h9nzk5qzzjwgq1k86mxsn49i5w8c";
+    legacyCargoFetcher = true;
 
     doCheck = false;
   };
@@ -142,6 +148,7 @@
     patches = [ ./cargo-binutils-path.patch ];
 
     cargoSha256 = "0cvsw06r174xc5zn04glcvlc2ckjj32y7bs8qk1wicm28nkq71qp";
+    legacyCargoFetcher = true;
 
     doCheck = false;
 
@@ -191,6 +198,7 @@
     cargoPatches = [ ./cargo-call-stack-lock.patch ];
     patches = [ ./cargo-call-stack-intrinsics.patch ];
     cargoSha256 = "0wwdyzavq2x9iand65nzrabn7hlv36ygvrmr3996dxc90k7jg7v9";
+    legacyCargoFetcher = true;
 
     meta.broken = !lib.rustVersionAtLeast rustPlatform "1.33";
   };
@@ -211,6 +219,7 @@
     cargoPatches = [ ./cargo-stack-sizes-lock.patch ];
     patches = [ ./cargo-stack-sizes-warn.patch ./cargo-stack-sizes-features.patch ];
     cargoSha256 = "1zmfa7s0zcwkkqfqk2svashl9a0mnpscyn1p9ds9k423r52gifwk";
+    legacyCargoFetcher = true;
 
     doCheck = false; # there are no tests
   };
@@ -231,6 +240,7 @@
     cargoPatches = [ ./cargo-llvm-lines-lock.patch ];
     patches = [ ./cargo-llvm-lines-features.patch ./cargo-llvm-lines-fix-filter.patch ];
     cargoSha256 = "0arjrs67z9rqbkrs77drj068614kg2n3y4f1wyf103bsad0vy783";
+    legacyCargoFetcher = true;
   };
 
   screenstub = {
@@ -273,6 +283,7 @@
     depsPath = lib.makeBinPath [ qemucomm ];
 
     cargoSha256 = "047nwakmz01yvz92wyfvz6w1867j9279njj75kjsanajm7nybdw1";
+    legacyCargoFetcher = true;
 
     postInstall = ''
       wrapProgram $out/bin/screenstub --prefix PATH : $depsPath
@@ -310,6 +321,7 @@
     };
 
     cargoSha256 = "1z2gqlg2pdfq9hlj4p7ngv29ijxfcld41v44g08jf6lwz81lh1bs";
+    legacyCargoFetcher = true;
     cargoPatches = [
       # full of hacks around optional/platform-specific dependencies, split this up to fix the macos build
       ./wezterm-lock.patch
