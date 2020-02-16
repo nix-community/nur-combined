@@ -102,7 +102,7 @@ oarTools = pkgs.stdenv.mkDerivation {
 in
 
 {
-
+  imports = [ ./phpfpm0.nix ];
   ###### interface
   
   meta.maintainers = [ maintainers.augu5te ];
@@ -516,7 +516,7 @@ in
              #fastcgi_index index.php;
              include ${pkgs.nginx}/conf/fastcgi_params;
              fastcgi_param SCRIPT_FILENAME ${oarVisualization}/drawgantt/$fastcgi_script_name;
-             fastcgi_pass unix:${config.services.phpfpm.pools.oar.socket};
+             fastcgi_pass unix:${config.services.phpfpm0.pools.oar.socket};
           }
         '')
           (optionalString (cfg.web.extraConfig != "") ''
@@ -567,7 +567,7 @@ in
       group = "oar";
     };
 
-    services.phpfpm = lib.mkIf cfg.web.drawgantt.enable  {
+    services.phpfpm0 = lib.mkIf cfg.web.drawgantt.enable  {
       pools.oar = {
         user = "oar";
         group = "oar";  
