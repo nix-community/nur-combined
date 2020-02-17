@@ -285,19 +285,6 @@
         "url": "https://github.com/consbio/mbtileserver/archive/b872713c7dbf3cce83e03289e6fb992c4e68386c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "mbutil": {
-        "branch": "master",
-        "builtin": false,
-        "description": "Importer and Exporter of MBTiles",
-        "homepage": "http://mapbox.com/developers/",
-        "owner": "mapbox",
-        "repo": "mbutil",
-        "rev": "2fc4161f9be890a65d07f5e7b2ed0c8a0a123ed6",
-        "sha256": "1z48iispxg5mfch86f06amdaqy5mnpq6vsyrp8znspjsvr7s4r3r",
-        "type": "tarball",
-        "url": "https://github.com/mapbox/mbutil/archive/2fc4161f9be890a65d07f5e7b2ed0c8a0a123ed6.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "mercantile": {
         "branch": "master",
         "builtin": false,
