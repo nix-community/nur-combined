@@ -33,6 +33,8 @@ rec {
  
   batsky = pkgs.callPackage ./pkgs/batsky { };
 
+  colmet = pkgs.callPackage ./pkgs/colmet { };
+  
   procset = pkgs.callPackage ./pkgs/procset { };
   
   pybatsim = pkgs.callPackage ./pkgs/pybatsim { inherit procset; };
@@ -42,7 +44,7 @@ rec {
   remote_pdb = pkgs.callPackage ./pkgs/remote-pdb { };
 
   cigri = pkgs.callPackage ./pkgs/cigri { };
- 
+  
   oar = pkgs.callPackage ./pkgs/oar { inherit procset sqlalchemy_utils pytest_flask pybatsim remote_pdb; };
 
   sqlalchemy_utils = pkgs.callPackage ./pkgs/sqlalchemy-utils { };
