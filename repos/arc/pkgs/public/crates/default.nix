@@ -1,18 +1,21 @@
 {
   rust-analyzer = { fetchFromGitHub, rustPlatform, lib, darwin, hostPlatform }: rustPlatform.buildRustPackage rec {
     pname = "rust-analyzer";
-    version = "2020-01-20";
+    version = "2020-02-17";
     src = fetchFromGitHub {
       owner = "rust-analyzer";
       repo = pname;
-      rev = "ad10d0c";
-      sha256 = "0k2nrl1pvviyfnxmydpmdzlz05qjrajzks60qbb96b5qw36qnbpk";
+      rev = version;
+      sha256 = "04bl9k7sv51hb5r0lcxb5sa6y3v7ia1xay79dchy43dg3lm0yvvs";
     };
-    cargoBuildFlags = [/*"--features" "jemalloc"*/ "-p" "ra_lsp_server"];
+    cargoBuildFlags = ["--features" "jemalloc" ];
+    preBuild = "pushd crates/ra_lsp_server";
+    postBuild = "popd";
+
     buildInputs = lib.optionals hostPlatform.isDarwin [ darwin.cf-private darwin.apple_sdk.frameworks.CoreServices ];
     # darwin undefined symbol _CFURLResourceIsReachable: https://discourse.nixos.org/t/help-with-rust-linker-error-on-darwin-cfurlresourceisreachable/2657
 
-    cargoSha256 = "0qsil1y2gv8h75x3mnp6h7b295k3icwjhmhriy3bv49qm11ffz0w";
+    cargoSha256 = "0ha71kv54aijaadcakpb4hr69dlc4wfc8i7m8fl6jgp631bn2rla";
     legacyCargoFetcher = true;
     meta.broken = lib.versionAtLeast "1.38.0" rustPlatform.rust.rustc.version;
 
@@ -21,15 +24,15 @@
 
   cargo-deps = { fetchFromGitHub, rustPlatform, lib }: rustPlatform.buildRustPackage rec {
     pname = "cargo-deps";
-    version = "1.1.1";
+    version = "1.3.0";
     src = fetchFromGitHub {
       owner = "m-cat";
       repo = pname;
-      rev = "ab93f5655900e49fb0360ccaf72b2b61b6b428ef";
-      sha256 = "16181p7ghvy9mqippg1xi2cw7yxvicis8v6n39wly5qw05i57aw2";
+      rev = "9f2344b";
+      sha256 = "0d4gy78jyibwnga3g5xr354gy2r23nb26lcwa05nd0kmwsdkb6cq";
     };
 
-    cargoSha256 = "1a9svdw1cgk6s7gqpsq3r25wxa2gr2xddqkc1cjk7hf6sk327cpv";
+    cargoSha256 = "0nxmr8b3j7p08bvdm1b3ql7wnsyfg3qzd5m0zjs5l7f0gzbz6471";
     legacyCargoFetcher = true;
   };
 
@@ -186,18 +189,20 @@
     lib, fetchFromGitHub, rustPlatform
   }: rustPlatform.buildRustPackage rec {
     pname = "cargo-call-stack";
-    version = "0.1.3";
+    version = "0.1.4";
 
     src = fetchFromGitHub {
       owner = "japaric";
       repo = pname;
       rev = "v${version}";
-      sha256 = "0bbkvxb0y8czidvmsrnk46gm7r8da7cckdbkwxwby2bcvv2fg812";
+      sha256 = "0ccskajkikkkmxc6bd60kj5mxwdfyw5wbrnvc35y9r0g2k7r5f9m";
     };
 
     cargoPatches = [ ./cargo-call-stack-lock.patch ];
-    patches = [ ./cargo-call-stack-intrinsics.patch ];
-    cargoSha256 = "0wwdyzavq2x9iand65nzrabn7hlv36ygvrmr3996dxc90k7jg7v9";
+    patches = [
+      ./cargo-call-stack-udf.patch # https://github.com/japaric/cargo-call-stack/issues/20
+    ];
+    cargoSha256 = "0ih8z2jkvjs9krsqkpc353charqymlz65kf78n7x304p2i9jbwxx";
     legacyCargoFetcher = true;
 
     meta.broken = !lib.rustVersionAtLeast rustPlatform "1.33";

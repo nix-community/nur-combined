@@ -1,11 +1,11 @@
-{ fetchFromGitHub, yarn2nix, yarn, vimUtils, nodePackages }: let
+{ fetchFromGitHub, yarn2nix, yarn, vimUtils, nodePackages, fetchpatch }: let
   pname = "coc-rust-analyzer";
-  version = "0.0.17";
+  version = "0.4.2";
   src = fetchFromGitHub {
     owner = "fannheyward";
     repo = pname;
-    rev = "fa6b866c2f881137ce7f14234e854e4abd8d2f48";
-    sha256 = "00blld5c3frlsgmz9qvh1zs591y0aghiswac0wlympcylkxb758f";
+    rev = "d247884";
+    sha256 = "1p0j9xm8a7w1gaq24x3kk2jw5q4y1waz6l66709cxjisi9c69p7y";
   };
   deps = yarn2nix.mkYarnModules rec {
     inherit pname version;
@@ -17,7 +17,14 @@
 in vimUtils.buildVimPluginFrom2Nix {
   inherit version pname src;
 
-  patches = [ ./be-quiet.patch ];
+  patches = [
+    ./be-quiet.patch
+    (fetchpatch {
+      # ssr (Structural Search Replace)
+      url = "https://github.com/fannheyward/coc-rust-analyzer/commit/9a5664e52576fe9a17824dfd5373375136c48725.patch";
+      sha256 = "13lphfg0y4cgkj11r4z80y187ljjwzyz1vns4dsw36i8ddrfk32y";
+    })
+  ];
 
   nativeBuildInputs = with nodePackages; [ webpack-cli yarn ];
   NODE_PATH = "${nodePackages.webpack}/lib/node_modules";

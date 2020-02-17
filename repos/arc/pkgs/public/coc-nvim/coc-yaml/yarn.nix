@@ -1514,11 +1514,11 @@
       };
     }
     {
-      name = "https_proxy_agent___https_proxy_agent_2.2.1.tgz";
+      name = "https_proxy_agent___https_proxy_agent_2.2.4.tgz";
       path = fetchurl {
-        name = "https_proxy_agent___https_proxy_agent_2.2.1.tgz";
-        url  = "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-2.2.1.tgz";
-        sha1 = "51552970fa04d723e04c56d04178c3f92592bbc0";
+        name = "https_proxy_agent___https_proxy_agent_2.2.4.tgz";
+        url  = "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-2.2.4.tgz";
+        sha1 = "4ee7a737abd92678a293d9b34a1af4d0d08c787b";
       };
     }
     {
@@ -1882,19 +1882,19 @@
       };
     }
     {
-      name = "jsonc_parser___jsonc_parser_1.0.3.tgz";
-      path = fetchurl {
-        name = "jsonc_parser___jsonc_parser_1.0.3.tgz";
-        url  = "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-1.0.3.tgz";
-        sha1 = "1d53d7160e401a783dbceabaad82473f80e6ad7e";
-      };
-    }
-    {
       name = "jsonc_parser___jsonc_parser_2.1.0.tgz";
       path = fetchurl {
         name = "jsonc_parser___jsonc_parser_2.1.0.tgz";
         url  = "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-2.1.0.tgz";
         sha1 = "eb0d0c7a3c33048524ce3574c57c7278fb2f1bf3";
+      };
+    }
+    {
+      name = "jsonc_parser___jsonc_parser_2.2.0.tgz";
+      path = fetchurl {
+        name = "jsonc_parser___jsonc_parser_2.2.0.tgz";
+        url  = "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-2.2.0.tgz";
+        sha1 = "f206f87f9d49d644b7502052c04e82dd6392e9ef";
       };
     }
     {
@@ -2594,6 +2594,14 @@
       };
     }
     {
+      name = "prettier___prettier_1.19.1.tgz";
+      path = fetchurl {
+        name = "prettier___prettier_1.19.1.tgz";
+        url  = "https://registry.yarnpkg.com/prettier/-/prettier-1.19.1.tgz";
+        sha1 = "f7d7f5ff8a9cd872a7be4ca142095956a60797cb";
+      };
+    }
+    {
       name = "process_nextick_args___process_nextick_args_2.0.1.tgz";
       path = fetchurl {
         name = "process_nextick_args___process_nextick_args_2.0.1.tgz";
@@ -2770,11 +2778,11 @@
       };
     }
     {
-      name = "request_light___request_light_0.2.4.tgz";
+      name = "request_light___request_light_0.2.5.tgz";
       path = fetchurl {
-        name = "request_light___request_light_0.2.4.tgz";
-        url  = "https://registry.yarnpkg.com/request-light/-/request-light-0.2.4.tgz";
-        sha1 = "3cea29c126682e6bcadf7915353322eeba01a755";
+        name = "request_light___request_light_0.2.5.tgz";
+        url  = "https://registry.yarnpkg.com/request-light/-/request-light-0.2.5.tgz";
+        sha1 = "38a3da7b2e56f7af8cbba57e8a94930ee2380746";
       };
     }
     {
@@ -3514,11 +3522,11 @@
       };
     }
     {
-      name = "vscode_json_languageservice___vscode_json_languageservice_3.0.12.tgz";
+      name = "vscode_json_languageservice___vscode_json_languageservice_3.4.12.tgz";
       path = fetchurl {
-        name = "vscode_json_languageservice___vscode_json_languageservice_3.0.12.tgz";
-        url  = "https://registry.yarnpkg.com/vscode-json-languageservice/-/vscode-json-languageservice-3.0.12.tgz";
-        sha1 = "85258632f2f7718028fbdfbb95b4ad009107b821";
+        name = "vscode_json_languageservice___vscode_json_languageservice_3.4.12.tgz";
+        url  = "https://registry.yarnpkg.com/vscode-json-languageservice/-/vscode-json-languageservice-3.4.12.tgz";
+        sha1 = "e7c96a1824896a624cc7bb14f46fbf9cb7e6c5a3";
       };
     }
     {
@@ -3554,6 +3562,14 @@
       };
     }
     {
+      name = "vscode_languageserver_textdocument___vscode_languageserver_textdocument_1.0.1_next.1.tgz";
+      path = fetchurl {
+        name = "vscode_languageserver_textdocument___vscode_languageserver_textdocument_1.0.1_next.1.tgz";
+        url  = "https://registry.yarnpkg.com/vscode-languageserver-textdocument/-/vscode-languageserver-textdocument-1.0.1-next.1.tgz";
+        sha1 = "c8f2f792c7c88d33ea8441ca04bfb8376896b671";
+      };
+    }
+    {
       name = "vscode_languageserver_types___vscode_languageserver_types_3.14.0.tgz";
       path = fetchurl {
         name = "vscode_languageserver_types___vscode_languageserver_types_3.14.0.tgz";
@@ -3570,11 +3586,11 @@
       };
     }
     {
-      name = "vscode_languageserver___vscode_languageserver_4.4.2.tgz";
+      name = "vscode_languageserver_types___vscode_languageserver_types_3.15.1.tgz";
       path = fetchurl {
-        name = "vscode_languageserver___vscode_languageserver_4.4.2.tgz";
-        url  = "https://registry.yarnpkg.com/vscode-languageserver/-/vscode-languageserver-4.4.2.tgz";
-        sha1 = "600ae9cc7a6ff1e84d93c7807840c2cb5b22821b";
+        name = "vscode_languageserver_types___vscode_languageserver_types_3.15.1.tgz";
+        url  = "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.15.1.tgz";
+        sha1 = "17be71d78d2f6236d414f0001ce1ef4d23e6b6de";
       };
     }
     {
@@ -3583,14 +3599,6 @@
         name = "vscode_languageserver___vscode_languageserver_5.2.1.tgz";
         url  = "https://registry.yarnpkg.com/vscode-languageserver/-/vscode-languageserver-5.2.1.tgz";
         sha1 = "0d2feddd33f92aadf5da32450df498d52f6f14eb";
-      };
-    }
-    {
-      name = "vscode_nls___vscode_nls_3.2.5.tgz";
-      path = fetchurl {
-        name = "vscode_nls___vscode_nls_3.2.5.tgz";
-        url  = "https://registry.yarnpkg.com/vscode-nls/-/vscode-nls-3.2.5.tgz";
-        sha1 = "25520c1955108036dec607c85e00a522f247f1a4";
       };
     }
     {
@@ -3615,6 +3623,14 @@
         name = "vscode_uri___vscode_uri_2.0.2.tgz";
         url  = "https://registry.yarnpkg.com/vscode-uri/-/vscode-uri-2.0.2.tgz";
         sha1 = "cbc7982525e1cd102d2da6515e6f103650cb507c";
+      };
+    }
+    {
+      name = "vscode_uri___vscode_uri_2.1.1.tgz";
+      path = fetchurl {
+        name = "vscode_uri___vscode_uri_2.1.1.tgz";
+        url  = "https://registry.yarnpkg.com/vscode-uri/-/vscode-uri-2.1.1.tgz";
+        sha1 = "5aa1803391b6ebdd17d047f51365cf62c38f6e90";
       };
     }
     {
@@ -3730,11 +3746,11 @@
       };
     }
     {
-      name = "yaml_language_server___yaml_language_server_0.4.1.tgz";
+      name = "yaml_language_server___yaml_language_server_0.7.1.tgz";
       path = fetchurl {
-        name = "yaml_language_server___yaml_language_server_0.4.1.tgz";
-        url  = "https://registry.yarnpkg.com/yaml-language-server/-/yaml-language-server-0.4.1.tgz";
-        sha1 = "746655bd1db0a109e0a5c74408983cf3c57329ee";
+        name = "yaml_language_server___yaml_language_server_0.7.1.tgz";
+        url  = "https://registry.yarnpkg.com/yaml-language-server/-/yaml-language-server-0.7.1.tgz";
+        sha1 = "d941e5b7b455f35fb82ff1fd3ee57614e5a7949b";
       };
     }
     {
