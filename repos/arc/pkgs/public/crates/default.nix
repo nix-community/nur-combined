@@ -205,7 +205,8 @@
     cargoSha256 = "0ih8z2jkvjs9krsqkpc353charqymlz65kf78n7x304p2i9jbwxx";
     legacyCargoFetcher = true;
 
-    meta.broken = !lib.rustVersionAtLeast rustPlatform "1.33";
+    # Only because of the cargo lockfile version...
+    meta.broken = !lib.rustVersionAtLeast rustPlatform "1.41";
   };
 
   cargo-stack-sizes = {
