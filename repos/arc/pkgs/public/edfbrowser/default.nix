@@ -1,4 +1,4 @@
-{ libsForQt5 }: libsForQt5.callPackage ({ mkDerivation, qmake, fetchFromGitLab }: let
+{ lib, libsForQt5 }: libsForQt5.callPackage ({ mkDerivation, qmake, fetchFromGitLab }: let
   pname = "EDFbrowser";
   version = "1.71";
 in mkDerivation {
@@ -18,4 +18,8 @@ in mkDerivation {
   nativeBuildInputs = [
     qmake
   ];
+
+  meta = {
+    platforms = lib.platforms.linux;
+  };
 }) { }

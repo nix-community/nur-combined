@@ -9,5 +9,6 @@ in rustPlatform.buildRustPackage {
   inherit pname src version;
 
   cargoSha256 = "0dixvmwq611wg2g3rp1n1gqali46904fnhb90gcpl9a1diqb34sh";
+  legacyCargoFetcher = true;
   buildInputs = with darwin.apple_sdk.frameworks; lib.optionals stdenv.isDarwin [ CoreFoundation CoreServices ];
 }

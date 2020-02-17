@@ -254,13 +254,23 @@ let
     mustache = { nodeEnv, fetchurl }: nodeEnv.buildNodePackage rec {
       name = "mustache";
       packageName = "mustache";
-      version = "3.0.1";
+      version = "4.0.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/${packageName}/-/${packageName}-${version}.tgz";
-        sha512 = "2lfq2nlqd738xcb3j7h83ds7wcfz2rwshqx572sy3xk58b39h5sjp2iy82kgc39carra3v2n6kwwdrbzfj4r0xva4fidcai8phkyllc";
+        sha512 = "34bjsgdkm5f3z2yx33z9jgk9jqmx31f1bz3svrhl571dnnm1jgyw84dhx6fz7a4aj5vcg25dalhl133irzw053n0pblcmn8gz4j760l";
       };
       production = true;
     };
+
+    bitlbee-discord = { bitlbee-discord, fetchFromGitHub }: bitlbee-discord.overrideAttrs (old: {
+      version = "2020-02-07";
+      src = fetchFromGitHub {
+        owner = "sm00th";
+        repo = "bitlbee-discord";
+        rev = "69e16be9d1d427e9bb085eabb9e4caecaa97dfc6";
+        sha256 = "1wd7qfzriccdbwmf8d20r479rrz92xg64q38c77nzqpw8dwz93gv";
+      };
+    });
 
     mpd-youtube-dl = { lib, mpd, fetchpatch }: mpd.overrideAttrs (old: {
       pname = "${mpd.pname}-youtube-dl";
