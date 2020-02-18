@@ -24,6 +24,8 @@ rec {
 
   frida-tools = pkgs.callPackage ./pkgs/frida-tools { myPython3Packages = python3Packages; };
 
+  gatttool = pkgs.callPackage ./pkgs/gatttool {};
+
   gdbgui-donation = pkgs.callPackage ./pkgs/gdbgui {};
 
   gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard {};

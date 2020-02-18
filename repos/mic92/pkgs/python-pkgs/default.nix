@@ -17,6 +17,8 @@ rec {
     inherit http_ece blurhash;
   };
 
+  pygatt = callPackage ./pygatt.nix {};
+
   lesscpy = callPackage ./lesscpy.nix {};
 
   pry = callPackage ./pry.nix {};
