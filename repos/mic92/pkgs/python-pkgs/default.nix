@@ -9,6 +9,8 @@ rec {
 
   frida = callPackage ./frida.nix {};
 
+  gatt = callPackage ./gatt.nix {};
+
   http_ece = callPackage ./http_ece.nix {};
 
   ldap0 = callPackage ./ldap0.nix {};
@@ -17,7 +19,6 @@ rec {
     inherit http_ece blurhash;
   };
 
-  pygatt = callPackage ./pygatt.nix {};
 
   lesscpy = callPackage ./lesscpy.nix {};
 
