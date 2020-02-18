@@ -69,6 +69,7 @@ lib.makeScope newScope (self: with self; {
   redict = libsForQt5.callPackage ./applications/redict {
     inherit sources;
   };
+  sendmap20 = callPackage ./tools/geo/sendmap20 { };
   stardict-tools =
     # Needed for nixos-19.09
     if pkgs ? libmysql

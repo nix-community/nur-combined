@@ -2,7 +2,7 @@
 , bc, fig2dev, imagemagick, m4, netpbm, pkgconfig, scons
 , boost, curl, giflib, gtkmm2, jansson, libjpeg, libpng
 , libshell, libtiff, libusb1, libxml2, libyaml, libzip
-, proj, shapelib, zlib }:
+, proj, shapelib, zlib, getopt }:
 
 stdenv.mkDerivation rec {
   pname = "mapsoft";
@@ -62,6 +62,8 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/bin/mapsoft_wp_parse \
       --replace "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
     wrapProgram $out/bin/mapsoft_wp_parse --prefix PERL5LIB : "$PERL5LIB"
+    substituteInPlace $out/bin/map_rescale \
+      --replace "getopt " "${getopt}/bin/getopt "
   '';
 
   meta = with stdenv.lib; {

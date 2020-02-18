@@ -175,10 +175,10 @@
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "2002b828dd25412cbe51e9a48d924d7dd1c15f0b",
-        "sha256": "0gxkx255d8cn5076ync731cdygwvi95rxv463pd4rdw5srbr0gm5",
+        "rev": "1de9c6ef5dc69851b7bf1617439f100c2c67424c",
+        "sha256": "1gfpwq161762njrrhphgyk11b2ngpw9rm16bq8n6ncpnpaa0s0kl",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/2002b828dd25412cbe51e9a48d924d7dd1c15f0b.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/1de9c6ef5dc69851b7bf1617439f100c2c67424c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -253,10 +253,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "4b1116b5f836b53de01ab73bf0b9ca4950cf2e96",
-        "sha256": "0jbxx97m3mcsx0db5k6nivw43lqgbscl3ibv379vcxs8gqbcmqs8",
+        "rev": "de9b33779d46ccf37686f77899fd7723ecb274d5",
+        "sha256": "05v98kccv163cb9953m88j9xnhysmz3yvkl0ap4jh1ilvizbhjk5",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/4b1116b5f836b53de01ab73bf0b9ca4950cf2e96.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/de9b33779d46ccf37686f77899fd7723ecb274d5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -279,10 +279,10 @@
         "homepage": "https://github.com/consbio/mbtileserver",
         "owner": "consbio",
         "repo": "mbtileserver",
-        "rev": "b872713c7dbf3cce83e03289e6fb992c4e68386c",
-        "sha256": "17y1x1gj6c56s4cvpan18m3bh6f7fmclj0k4llmsbma5i3jnbmvr",
+        "rev": "a613fe59f49b841006c5f1ad2fa23e4444e7090b",
+        "sha256": "03a8rkkcgdk7drzp0j68xy27is6fwcwd3r34grj7srkqs2zf3vn5",
         "type": "tarball",
-        "url": "https://github.com/consbio/mbtileserver/archive/b872713c7dbf3cce83e03289e6fb992c4e68386c.tar.gz",
+        "url": "https://github.com/consbio/mbtileserver/archive/a613fe59f49b841006c5f1ad2fa23e4444e7090b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mercantile": {
