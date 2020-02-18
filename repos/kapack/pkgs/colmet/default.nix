@@ -7,8 +7,8 @@ python37Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "oar-team";
     repo = "colmet";
-    rev = "56e1d9098dea0df340d7798f4cc6d4ba66c567b0";
-    sha256 = "1cz97l84xhz3rzhd5rfa92sc7zx8s3mhq71y0fj2si9j5bmcsm0b";
+    rev = "540ddb6aec4c7e262cedbd7f05722d3c919daf25";
+    sha256 = "199p5cgg4dhbm8by27968g71sdi6486mc3vx4h66afcvv1xhk34m";
   };
 
   propagatedBuildInputs = with python37Packages; [

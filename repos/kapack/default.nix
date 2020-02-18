@@ -26,6 +26,7 @@ rec {
     '';
   });
   
+  libpowercap = pkgs.callPackage ./pkgs/libpowercap { };
 
   haskellPackages = import ./pkgs/haskellPackages { inherit pkgs; };
   
