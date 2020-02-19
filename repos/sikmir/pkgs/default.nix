@@ -7,6 +7,7 @@ in
 lib.makeScope newScope (self: with self; {
   inherit sources;
 
+  cambridge = callPackage ./data/dicts/cambridge { };
   cfiles = callPackage ./tools/cfiles { };
   cgpsmapper = callPackage ./tools/geo/cgpsmapper { };
   cheetah3 = python3Packages.callPackage ./development/python-modules/cheetah3 {
@@ -49,6 +50,7 @@ lib.makeScope newScope (self: with self; {
   hiblovgpsmap = callPackage ./data/maps/hiblovgpsmap { };
   ish = callPackage ./tools/networking/ish { };
   libshell = callPackage ./development/libraries/libshell { };
+  macmillan = callPackage ./data/dicts/macmillan { };
   mapsoft = callPackage ./applications/mapsoft { };
   mbtileserver = callPackage ./servers/mbtileserver { };
   mercantile = python3Packages.callPackage ./development/python-modules/mercantile {
@@ -86,4 +88,5 @@ lib.makeScope newScope (self: with self; {
   tpkutils = python3Packages.callPackage ./tools/geo/tpkutils {
     inherit sources mercantile pymbtiles;
   };
+  webster = callPackage ./data/dicts/webster { };
 })

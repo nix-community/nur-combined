@@ -58,5 +58,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux;
+    skip.ci = true;
   };
 }
