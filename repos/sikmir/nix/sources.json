@@ -246,6 +246,32 @@
         "url": "https://github.com/sv99/lsdreader/archive/c78ab22e794f1fbfbc93ffb3ee7ae481f54dd8c2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "map_hr": {
+        "branch": "master",
+        "builtin": false,
+        "description": "Slazav mountains",
+        "homepage": "http://slazav.mccme.ru/maps/",
+        "owner": "slazav",
+        "repo": "map_hr",
+        "rev": "1555f0e49e8b26b5991c6b8ce8ea1f0688b26047",
+        "sha256": "1ymyyx4z35vicrr5hz12fcjgdy60vfbjfv2m4m154vw4ay7216wa",
+        "type": "tarball",
+        "url": "https://github.com/slazav/map_hr/archive/1555f0e49e8b26b5991c6b8ce8ea1f0688b26047.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "map_podm": {
+        "branch": "master",
+        "builtin": false,
+        "description": "Карты Подмосковья в виде номенклатурных листов 1:100000 - исходники в формате mapsoft vmap",
+        "homepage": "http://slazav.mccme.ru/maps/",
+        "owner": "slazav",
+        "repo": "map_podm",
+        "rev": "6083ef51c543c4587186acf9792ebc8299554773",
+        "sha256": "1pww6zkh2wphh595g137xlpqxsrjki7bx1iv437dcsn7gg0a5mh9",
+        "type": "tarball",
+        "url": "https://github.com/slazav/map_podm/archive/6083ef51c543c4587186acf9792ebc8299554773.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "mapper": {
         "branch": "master",
         "builtin": false,

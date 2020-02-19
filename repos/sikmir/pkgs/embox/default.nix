@@ -30,6 +30,8 @@ stdenv.mkDerivation rec {
 
   configurePhase = "make confload-${template}";
 
+  preferLocalBuild = true;
+
   installPhase = let
     runScript = writers.writeBash "run-embox" ''
       ${qemu}/bin/qemu-system-arm \

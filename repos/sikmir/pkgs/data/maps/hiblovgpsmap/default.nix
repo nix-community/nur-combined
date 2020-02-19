@@ -16,6 +16,8 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
+  preferLocalBuild = true;
+
   installPhase = ''
     install -dm755 "$out/share/gpxsee/maps"
     cp *.img "$out/share/gpxsee/maps"
