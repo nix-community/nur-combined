@@ -14,6 +14,8 @@ rec {
   cliapp = callPackages ./pkgs/cliapp { };
   cmdtest = callPackages ./pkgs/cmdtest { cliapp = cliapp; ttystatus = ttystatus; };
   vmdb2 = callPackages ./pkgs/vmdb2 { cmdtest = cmdtest; };
+  elgato-ghcd-firmware = callPackages ./pkgs/elgato-gchd/firmware.nix {};
+  elgato-gchd = callPackages ./pkgs/elgato-gchd { elgato-gchd-firmware = elgato-ghcd-firmware; };
 
   yuma123 = callPackages ./pkgs/yuma123 { };
 
