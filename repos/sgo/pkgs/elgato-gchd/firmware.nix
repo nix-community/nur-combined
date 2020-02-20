@@ -3,7 +3,7 @@
 # Based on instructions here: https://github.com/tolga9009/elgato-gchd/wiki/Firmware
 
 stdenv.mkDerivation rec {
-  pname = "elgato-ghcd-firmware";
+  pname = "elgato-gchd-firmware";
   version = "3.70.42.3042-x64";
   
   src = fetchurl {
@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
 
   rm -f $TEMPDIR/x86_yPushFile3.dll
   pushd $TEMPDIR
-  mkdir -p "$out/firmware/gchd"
-  cp gchd/* $out/firmware/gchd
+  mkdir -p "$out/lib/firmware/gchd"
+  cp gchd/* $out/lib/firmware/gchd
   '';
 
   meta = with stdenv.lib; {
