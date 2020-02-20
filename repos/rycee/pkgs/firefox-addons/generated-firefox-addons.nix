@@ -210,10 +210,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "2.1.4";
+      version = "2.1.6";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3492946/gesturefy-2.1.4-fx.xpi?src=";
-      sha256 = "3d0f62627be9c83ce70a6c660d7c3dbc0e6c497a95df5311c3cf14aaf69f4a02";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3509115/gesturefy-2.1.6-fx.xpi?src=";
+      sha256 = "c9c6d471889b614e1d743317bf67c65072f04cdc681f2ad67b526e0749261bb2";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -362,10 +362,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "4.1.5";
+      version = "4.1.6";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3505680/octotree-4.1.5-fx.xpi?src=";
-      sha256 = "5653044ece6ff57006350389152e634cba6666742c8363b386cca7fc49136500";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3510077/octotree-4.1.6-fx.xpi?src=";
+      sha256 = "41ecb69dc9bbfa12af7779cb74e7dc194450f7ca73542305c757f70f3a4d5697";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -473,10 +473,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.2.18";
+      version = "20.2.19";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3508730/refined_github-20.2.18-an+fx.xpi?src=";
-      sha256 = "b8b40d0b825cf4ef384a934847623ef10e7745b3833ca0dbe4489e5fd61fe367";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3509883/refined_github-20.2.19-an+fx.xpi?src=";
+      sha256 = "71b8a3d341f6d3b0be09e1a75380070539e3c9321b78442ca04c9c395785d15f";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
