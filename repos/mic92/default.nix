@@ -30,6 +30,8 @@ rec {
 
   gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard {};
 
+  healthcheck = pkgs.callPackage ./pkgs/healthcheck {};
+
   hello-nur = pkgs.callPackage ./pkgs/hello-nur {};
 
   inconsolata-nerdfonts = pkgs.callPackage ./pkgs/inconsolata-nerdfonts {};
