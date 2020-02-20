@@ -4,8 +4,8 @@ stdenv.mkDerivation {
   pname = "healthcheck";
   version = "2020-02-20";
   src = fetchzip {
-    url = "https://gist.github.com/Mic92/b2ebb4790db65d686d608c6875281dbf/archive/9c6e4dbab06fbc2ab587cea94ec0930918a760b1.tar.gz";
-    sha256 = "0xx529bv915dmyfnh7h8c39k6xkz6mgxlah6fvg59hm9ibidairz";
+    url = "https://gist.github.com/Mic92/b2ebb4790db65d686d608c6875281dbf/archive/6e53d82b7399f1863f98b5d834c69be227ef9854.tar.gz";
+    sha256 = "0yxwlrazbl4lipgh5gcd1kcgxfiq4i8yxr6xhqcm92y68fwfckjh";
   };
   buildInputs = [ python3 ];
   installPhase = ''
