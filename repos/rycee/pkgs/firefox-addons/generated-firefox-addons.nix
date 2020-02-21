@@ -403,10 +403,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2020.1.13";
+      version = "2020.2.19";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3484647/privacy_badger-2020.1.13-an+fx.xpi?src=";
-      sha256 = "5b7b93688f77c96b67bce431f631577ca5bc6c86a5e613558fdecb0fda368df5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3509922/privacy_badger-2020.2.19-an+fx.xpi?src=";
+      sha256 = "4030aebff2e538e3cd637a7d2c5cea4d3f3817cc10e171891abd505ef67b5ac7";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/privacybadger";
