@@ -38,9 +38,7 @@ in
 
       boot.loader.grub.splashImage = null;
 
-      i18n = {
-        consoleKeyMap = mkDefault "de-latin1-nodeadkeys";
-      };
+      console.keyMap = mkDefault "de-latin1-nodeadkeys";
 
       documentation.enable = mkDefault true;
       documentation.dev.enable = mkDefault true;
