@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl ];
 
-  cargoSha256 = "0iwgipj6vpc6gy06m873lylzv3fbsmc6srk9lqnyc2zik3h3v9la";
+  cargoSha256 = "02qk4h4qd00nm25mia52fa5n4is8yybi5agqhw8gvr4jkswj7nb2";
 
   meta = with stdenv.lib; {
     description = "A cross-shell customizable powerline-like prompt with icons";
