@@ -252,10 +252,10 @@
       };
     "gopass-bridge" = buildFirefoxXpiAddon {
       pname = "gopass-bridge";
-      version = "0.6.1";
+      version = "0.6.2";
       addonId = "{eec37db0-22ad-4bf1-9068-5ae08df8c7e9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3489684/gopass_bridge-0.6.1-fx.xpi?src=";
-      sha256 = "84616271de66957974474e3a5ce77b7d6b50231ed6cc100cd9e2403c33b774f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3511297/gopass_bridge-0.6.2-fx.xpi?src=";
+      sha256 = "c0a9d84683dabfedf5ff67d522954389c0c4c94fc1ca3dd55b4ba8c03add10f9";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gopasspw/gopassbridge";
@@ -527,10 +527,10 @@
       };
     "temporary-containers" = buildFirefoxXpiAddon {
       pname = "temporary-containers";
-      version = "1.7";
+      version = "1.8";
       addonId = "{c607c8df-14a7-4f28-894f-29e8722976af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3458647/temporary_containers-1.7-fx.xpi?src=";
-      sha256 = "3debb077593dc61a38bfb7d2efcb0e8cef747130996ff803954000a5c35bc10f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3511233/temporary_containers-1.8-fx.xpi?src=";
+      sha256 = "abd3cc36826e571a3779c112ebd3e18886e6d0708aad4936a3c82b6f5eab7a2b";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/stoically/temporary-containers";
