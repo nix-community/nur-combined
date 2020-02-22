@@ -51,7 +51,7 @@ in
     };
 
     sessionName = mkOption {
-      type = types.string;
+      type = types.str;
       default = "default";
       description = "The name of the tmux session to spawn.";
     };
@@ -62,7 +62,7 @@ in
     };
 
     updateEnvironment = mkOption {
-      type = types.listOf types.string;
+      type = types.listOf types.str;
       default = [ "DISPLAY" "PATH" "SSH_AUTH_SOCKET" "SSH_CONNECTION" ];
     };
   };
