@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ openssl ] ++ stdenv.lib.optionals stdenv.isDarwin [ Security CoreServices ];
 
-  cargoSha256 = "1ciaq6743q1vv1r52v9sp0x627jgycxw4qsxgbq8pbzhss6f71dp";
+  cargoSha256 = "16fh38bhkiv97dik2984nlxks5j91g943gw84i6q32grccdlk78p";
 
   meta = with stdenv.lib; {
     description = "LDAP directory connector for bitwarden_rs";
