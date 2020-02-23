@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "maple";
-  version = "0.7";
+  version = "0.8";
 
   src = fetchFromGitHub {
     owner = "liuchengxu";
     repo = "vim-clap";
     rev = "v${version}";
-    sha256 = "1klbl6j8618bdhsvpplwq2igakgcgzgc4j1428s428kxr7g4l7pb";
+    sha256 = "18zf15yg6fvcrpvsl8ff2gihyi9pnx0pr91k5m5y1888s9gc0lf4";
   };
 
-  cargoSha256 = "1crwd8444zaa0yb8jz01nij4xzc5s0qh8h0v6l6x3lbwxg7idbay";
+  cargoSha256 = "0wrnd8rqd76ybqaypa0apjfs2621xym1kl2idzjw1wvgcssy3hii";
 
   nativeBuildInputs = [ pkgconfig ];
   doCheck = false;

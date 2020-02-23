@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "ripcord";
-  version = "0.4.22";
+  version = "0.4.23";
 
   src = fetchurl {
     url = "https://cancel.fm/dl/Ripcord-${version}-x86_64.AppImage";
-    sha256 = "1sxh7g1p6f3j6mckn3v5c89404jn55cxms1m4xrf1l8j7ss9dchd";
+    sha256 = "0395w0pwr1cz8ichcbyrsscmm2p7srgjk4vkqvqgwyx41prm0x2h";
   };
 
   buildInputs = [ appimage-run ];
