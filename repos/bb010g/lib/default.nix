@@ -1,22 +1,20 @@
 lib: libSuper:
 
 let
-  inherit (builtins) getAttr hasAttr mapAttrs;
-  mergeModule = name: module:
-    if hasAttr name libSuper then
-      (getAttr name libSuper) // module
-    else module;
-  callLib = file: import file lib libSuper;
-in let modules = {
+  callLibs = name: file:
+    libSuper.${name} // import file { lib = lib; libSuper = libSuper; };
+in let exports = {
 
-  attrsets = callLib ./attrsets.nix;
+  ## modules
+
+  attrsets = callLibs "attrsets" ./attrsets.nix;
   # edn = import ./edn;
-  fixedPoints = callLib ./fixed-points.nix;
-  lists = callLib ./lists.nix;
-  trivial = callLib ./trivial.nix;
+  fixedPoints = callLibs "fixedPoints" ./fixed-points.nix;
+  lists = callLibs "lists" ./lists.nix;
+  trivial = callLibs "trivial" ./trivial.nix;
   # utf8 = import ./utf-8;
 
-}; in (mapAttrs mergeModule modules) // {
+  ## top-level
 
   inherit (lib.attrsets)
     mapAttr
@@ -43,4 +41,4 @@ in let modules = {
     mapIf
   ;
 
-}
+}; in exports

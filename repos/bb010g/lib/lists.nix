@@ -1,4 +1,4 @@
-lib: libSuper:
+{ lib, libSuper ? lib }:
 
 let
   inherit (lib.lists)

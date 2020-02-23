@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { }, enablePkgsCompat ? true }:
 
 let libExtension = import ./lib; self = {
-  lib = libExtension pkgs.lib { };
+  lib = pkgs.lib.extend self.libExtension;
   inherit libExtension;
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # Nixpkgs overlays
