@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonApplication,
+  stdenv,
   fetchFromGitHub,
   isPy3k,
   flask,
@@ -10,48 +11,20 @@
   pycrypto,
   pysocks,
   pytest,
+  qt5,
   requests,
   tor,
   obfs4,
 }:
 
-buildPythonApplication rec {
-  pname = "onionshare";
+let
   version = "2.2";
   src = fetchFromGitHub {
     owner = "micahflee";
-    repo = pname;
+    repo = "onionshare";
     rev = "v${version}";
     sha256 = "0m8ygxcyp3nfzzhxs2dfnpqwh1vx0aws44lszpnnczz4fks3a5j4";
   };
-
-  disable = !isPy3k;
-  propagatedBuildInputs = [
-    flask
-    flask-httpauth
-    stem
-    pyqt5
-    pycrypto
-    pysocks
-    requests
-  ];
-  buildInputs = [
-    tor
-    obfs4
-  ];
-  checkInputs = [
-    pytest
-  ];
-
-  patches = [ ./fix-paths.patch ];
-
-  # replace @tor@, @obfs4@, @geoip@ w/ store paths.
-  inherit tor obfs4;
-  inherit (tor) geoip;
-  postPatch = "substituteAllInPlace onionshare/common.py";
-
-  doCheck = false;  # need a $HOME
-
   meta = with lib; {
     description = "Securely and anonymously send and receive files";
     longDescription = ''
@@ -74,5 +47,63 @@ buildPythonApplication rec {
     homepage = https://onionshare.org/;
 
     license = licenses.gpl3Plus;
+  };
+
+  common = buildPythonApplication {
+    pname = "onionshare-common";
+    inherit version meta src;
+
+    disable = !isPy3k;
+    propagatedBuildInputs = [
+      flask
+      flask-httpauth
+      stem
+      pyqt5
+      pycrypto
+      pysocks
+      requests
+    ];
+    buildInputs = [
+      tor
+      obfs4
+    ];
+
+    patches = [ ./fix-paths.patch ];
+
+    # replace @tor@, @obfs4@, @geoip@ w/ store paths.
+    inherit tor obfs4;
+    inherit (tor) geoip;
+    postPatch = "substituteAllInPlace onionshare/common.py";
+
+    doCheck = false;
+  };
+in
+{
+  onionshare = stdenv.mkDerivation {
+    pname = "onionshare";
+    inherit version meta;
+
+    dontUnpack = true;
+
+    inherit common;
+    installPhase = ''
+      mkdir -p $out/bin
+      cp $common/bin/onionshare -t $out/bin
+    '';
+  };
+  onionshare-gui = stdenv.mkDerivation {
+    pname = "onionshare-gui";
+    inherit version meta;
+
+    nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+
+    dontUnpack = true;
+
+    inherit common;
+    installPhase = ''
+      mkdir -p $out/bin
+      cp $common/bin/onionshare-gui -t $out/bin
+      wrapQtApp $out/bin/onionshare-gui
+    '';
   };
 }
