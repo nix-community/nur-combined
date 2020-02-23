@@ -80,8 +80,8 @@ stdenvNoCC.mkDerivation {
     runHook preBuild
 
     mkdir -p out/fonts
-    mv src/mutant-standard-sbixot/font/mtnt_''${version}_sbixOT.ttf \
-      out/fonts/MutantStandardEmoji-sbixOT.ttf
+    mv src/mutant-standard-''${version}-sbixot/font/MutantStandardEmoji-sbixOT.ttf \
+      out/fonts/MutantStandardEmoji-sbixot.ttf
 
     mkdir -p out/fontconfig
     cp "$fontconf_45" out/fontconfig/45-${fcConf}
@@ -94,8 +94,9 @@ stdenvNoCC.mkDerivation {
   installPhase = /*sh*/''
     runHook preInstall
 
-    mkdir -p "$out"/share/fonts/{opentype,truetype}
-    mv -t "$out"/share/fonts/opentype out/fonts/*.otf
+    # mkdir -p "$out"/share/fonts/opentype
+    # mv -t "$out"/share/fonts/opentype out/fonts/*.otf
+    mkdir -p "$out"/share/fonts/truetype
     mv -t "$out"/share/fonts/truetype out/fonts/*.ttf
 
     mkdir -p "$out"/etc/fonts/conf.d
