@@ -1,9 +1,10 @@
 { pkgs ? import <nixpkgs> { }, enablePkgsCompat ? true }:
 
-let libExtension = import ./lib; self = {
-  lib = pkgs.lib.extend self.libExtension;
-  inherit libExtension;
+let self = {
+  lib = self.lib'.standalone pkgs.lib;
+  lib' = import ./lib;
+  libExtension = self.lib'.extension;
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # Nixpkgs overlays
-  pkgs = import ./pkgs { inherit pkgs; inherit libExtension; };
+  pkgs = import ./pkgs { inherit pkgs; inherit (self) libExtension; };
 }; in if enablePkgsCompat then self.pkgs // self else self

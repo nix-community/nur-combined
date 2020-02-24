@@ -1,4 +1,4 @@
-{ lib, libSuper ? lib }:
+{ lib, libSuper }:
 
 let
   inherit (builtins)
