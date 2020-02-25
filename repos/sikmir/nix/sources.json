@@ -175,23 +175,23 @@
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "1de9c6ef5dc69851b7bf1617439f100c2c67424c",
-        "sha256": "1gfpwq161762njrrhphgyk11b2ngpw9rm16bq8n6ncpnpaa0s0kl",
+        "rev": "92deaaaf2b92af55862aa18997d9a2de4d019f8b",
+        "sha256": "1ackcx2pjrysxsxfzprqn5m4wxiz4d1j7vhk00sxjr6pf8wl89l9",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/1de9c6ef5dc69851b7bf1617439f100c2c67424c.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/92deaaaf2b92af55862aa18997d9a2de4d019f8b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
         "branch": "master",
         "builtin": false,
         "description": "GPXSee maps",
-        "homepage": "http://www.gpxsee.org",
+        "homepage": "https://tumic0.github.io/GPXSee-maps",
         "owner": "tumic0",
         "repo": "GPXSee-maps",
-        "rev": "a16239a890f9ebd1a0e926be2ffb30a0327e5c16",
-        "sha256": "1jv0fa7vjf378irnbghmpvd8amwr1m5nkhdcrsmqvqc7d8irv2iv",
+        "rev": "00d9a58fe81be1ee7b439c6cf568ff2843fcf594",
+        "sha256": "1laav8r5dhp5z8fi8r1vwa9svgmqxrpxdb3xx6wi0cdax7r0nsgb",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee-maps/archive/a16239a890f9ebd1a0e926be2ffb30a0327e5c16.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee-maps/archive/00d9a58fe81be1ee7b439c6cf568ff2843fcf594.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxtools": {
@@ -279,10 +279,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "de9b33779d46ccf37686f77899fd7723ecb274d5",
-        "sha256": "05v98kccv163cb9953m88j9xnhysmz3yvkl0ap4jh1ilvizbhjk5",
+        "rev": "11c18a908357bfeeafe129793c286fed64f77f99",
+        "sha256": "0899ykja1v1fw5iwb4w64dw4m99gf2ra7i9a2cvhfz9iqm2dj8bx",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/de9b33779d46ccf37686f77899fd7723ecb274d5.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/11c18a908357bfeeafe129793c286fed64f77f99.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -297,6 +297,17 @@
         "type": "tarball",
         "url": "https://github.com/ushakov/mapsoft/archive/904e2da8a55e8426a56de7e41b06cb92e1656005.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "maptourist": {
+        "builtin": false,
+        "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
+        "homepage": "https://maptourist.org",
+        "region": "szfo",
+        "sha256": "0nxmgngsid2srgvp7ikzi7fmfck8j0jw9yyflj87747rwlzpjq0w",
+        "type": "file",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-02-24.zip",
+        "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
+        "version": "2020-02-24"
     },
     "mbtileserver": {
         "branch": "master",
@@ -335,6 +346,19 @@
         "sha256": "17az6k4z71k85ibcabka6yig6bnpk6fknmgx9ilk1x74rifaz06s",
         "type": "tarball",
         "url": "https://github.com/btittelbach/openmtbmap_openvelomap_linux/archive/6d00e273d7391fae72fb7fd21859483db3e26c1a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "osm2mp": {
+        "branch": "master",
+        "builtin": false,
+        "description": "Convert Openstreetmap data to MP format",
+        "homepage": "https://github.com/liosha/osm2mp",
+        "owner": "liosha",
+        "repo": "osm2mp",
+        "rev": "748f93792ead174ad0e94a183a173ef3fcacf200",
+        "sha256": "0k525fzlcxih51hxvy24fhc12z4i0jvvd4lrfrlhjyhbx8x486v3",
+        "type": "tarball",
+        "url": "https://github.com/liosha/osm2mp/archive/748f93792ead174ad0e94a183a173ef3fcacf200.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pyephem": {

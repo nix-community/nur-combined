@@ -1,7 +1,7 @@
 { pkgs, sources }:
 
 let
-  inherit (pkgs) lib newScope recurseIntoAttrs perlPackages python3Packages libsForQt5;
+  inherit (pkgs) lib newScope recurseIntoAttrs python3Packages libsForQt5;
 
 in
 lib.makeScope newScope (self: with self; {
@@ -52,6 +52,7 @@ lib.makeScope newScope (self: with self; {
   libshell = callPackage ./development/libraries/libshell { };
   macmillan = callPackage ./data/dicts/macmillan { };
   mapsoft = callPackage ./applications/mapsoft { };
+  maptourist = callPackage ./data/maps/maptourist { };
   mbtileserver = callPackage ./servers/mbtileserver { };
   mercantile = python3Packages.callPackage ./development/python-modules/mercantile {
     inherit sources;
@@ -59,6 +60,10 @@ lib.makeScope newScope (self: with self; {
   openmtbmap_openvelomap_linux = callPackage ./tools/geo/openmtbmap_openvelomap_linux { };
   openorienteering-mapper = libsForQt5.callPackage ./applications/openorienteering-mapper {
     inherit sources;
+  };
+  osm2mp = perlPackages.callPackage ./tools/geo/osm2mp {
+    inherit sources;
+    inherit (perlPackages) GeoOpenstreetmapParser MatchSimple MathPolygon MathPolygonTree TreeR;
   };
   ptunnel = callPackage ./tools/networking/ptunnel { };
   pyephem = python3Packages.callPackage ./development/python-modules/pyephem {
@@ -89,4 +94,10 @@ lib.makeScope newScope (self: with self; {
     inherit sources mercantile pymbtiles;
   };
   webster = callPackage ./data/dicts/webster { };
+
+  perlPackages = (callPackage ./perl-packages.nix {
+  }) // pkgs.perlPackages // {
+    recurseForDerivations = false;
+  };
+  inherit (perlPackages) MatchSimple SubInfix MathPolygon MathPolygonTree MathGeometryPlanarGPCPolygonXS TreeR GeoOpenstreetmapParser;
 })
