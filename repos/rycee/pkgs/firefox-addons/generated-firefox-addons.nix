@@ -595,10 +595,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.24.4";
+      version = "1.25.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3498086/ublock_origin-1.24.4-an+fx.xpi?src=";
-      sha256 = "062a8dd4044e3cd7d96b189758de576e1a0fbd1c01833fb44b4efc05ccf0320e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3509800/ublock_origin-1.25.0-an+fx.xpi?src=";
+      sha256 = "2c1becc2f25255e46cf4560c32ef196f9c95d4438c48e92282ce89251851d65f";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -665,10 +665,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "16.8";
+      version = "16.9";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3503907/zoom_page_we-16.8-fx.xpi?src=";
-      sha256 = "aea3fc5a9de1da6de02354e13dafc47c1d6bf0193852de39feedd616f0ad35d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3511927/zoom_page_we-16.9-fx.xpi?src=";
+      sha256 = "6b9b45d22c6731d442ab3c0960690732f37a3346d9dca91a6577e3333411193c";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
