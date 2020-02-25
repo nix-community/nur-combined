@@ -10,14 +10,12 @@ env:
   - BUILD_UNFREE=false
 
 install:
-- mkdir -p "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs" &&
-  echo "{ allowUnfree = ${BUILD_UNFREE}; sandbox = true; }" >
-    "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs/config.nix"
+- >
+  mkdir -p "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs" &&
+  echo "{ allowUnfree = ${BUILD_UNFREE}; sandbox = true; }" > "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs/config.nix"
 - nix --version
 - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
-- if [ -n "${CACHIX_CACHE}" ]; then
-    nix-env -iA cachix -f https://cachix.org/api/v1/install;
-  fi
+- if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
 - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
 - nix-channel --add "${NIX_CHANNEL}" nixpkgs
 - travis_retry nix-channel --update
@@ -57,8 +55,7 @@ script:
     done
   }
 - sortDrvs ./ci.nix --arg flattened true -A cacheOutputs | nixBuildDrvs
-- sortDrvs ./ci.nix --arg flattened true -A buildOutputs |
-  CACHIX_CACHE='' nixBuildDrvs
+- sortDrvs ./ci.nix --arg flattened true -A buildOutputs | CACHIX_CACHE='' nixBuildDrvs
 - nix eval -f ./default.nix 'lib'
 - nix eval -f ./default.nix 'modules'
 - nix eval -f ./default.nix 'overlays'
@@ -70,11 +67,11 @@ jobs:
   - name: 'nixos-unstable'
     env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
   - name: 'nixos-unstable (pinned)'
-    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/2436c27541b2f52deea3a4c1691216a02152e729.tar.gz
-  - name: 'nixos-19.03'
-    env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.03
-  - name: 'nixos-19.03 (pinned)'
-    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/77295b0bd26555c39a1ba9c1da72dbdb651fd280.tar.gz
+    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/ea79a830dcf9c0059656da7f52835d2663d5c436.tar.gz
+  - name: 'nixos-19.09'
+    env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
+  - name: 'nixos-19.09 (pinned)'
+    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/c2c5dcc00b05f0f6007d7a997dc9d90aefb49f28.tar.gz
   - stage: deploy
     name: "Notify NUR"
     if: 'type NOT IN (pull_request, cron) AND branch IN (master)'

@@ -22,7 +22,6 @@ with builtins;
 
 let
 
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p:
     !(p.meta.broken or false) && (buildUnfree || p.meta.license.free or true);
@@ -31,14 +30,6 @@ let
     isAttrs p && p.recurseForDerivations or false;
 
   nameValuePair = n: v: { name = n; value = v; };
-
-  nurAttrs = import ./default.nix { inherit pkgs; };
-
-  nurPkgsAttrs =
-    listToAttrs
-    (map (n: nameValuePair n nurAttrs.${n})
-    (filter (n: !isReserved n)
-    (attrNames nurAttrs)));
 
   concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
 
@@ -52,14 +43,19 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurPkgs = flattenPkgs nurPkgsAttrs;
+  nurAttrs = (import ./default.nix { inherit pkgs; }).pkgs;
+
+  nurPkgs = listToAttrs (map (n:
+    nameValuePair n nurAttrs.${n}
+  ) (attrNames nurAttrs));
+  flattenedNurPkgs = flattenPkgs nurPkgs;
 
 in
 
 if flattened then rec {
-  buildPkgs = filter isBuildable nurPkgs;
+  buildPkgs = filter isBuildable flattenedNurPkgs;
   cachePkgs = filter isCacheable buildPkgs;
 
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;
-} else nurPkgsAttrs
+} else nurPkgs

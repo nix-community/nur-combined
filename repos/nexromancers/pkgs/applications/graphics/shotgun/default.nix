@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "0fpc09yvxjcvjkai7afyig4gyc7inaqxxrwzs17mh8wdgzawb6dl";
   };
 
-  cargoSha256 = "0nlgq94796p8a4hc4mk072s1ay6ljxrh8ssm645jihq22xx9dgac";
+  cargoSha256 = "0sbhij8qh9n05nzhp47dm46hbc59awar515f9nhd3wvahwz53zam";
 
   nativeBuildInputs = [ buildPackages.pkgconfig ];
   buildInputs = [ libX11 libXrandr ];

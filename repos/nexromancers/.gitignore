@@ -1,3 +1,9 @@
+# nix
 result
 result-*
 
+# external tree diff/patch work
+**/a/*
+**/b/*
+
+# vim:ft=gitignore.conf:et:sw=2
