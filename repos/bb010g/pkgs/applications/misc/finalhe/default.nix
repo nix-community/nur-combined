@@ -33,13 +33,13 @@ in stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    
+
     mkdir -p "''${!outputBin}/bin"
     cp -t "''${!outputBin}/bin" src/FinalHE
 
     runHook postInstall
   '';
-  
+
   meta = with stdenv.lib; {
     description =
       "Tool to push h-encore exploit for PS VITA/PS TV automatically";

@@ -26,7 +26,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    
+
     mkdir -p "''${!outputBin}/bin"
     cp -t "''${!outputBin}/bin/" pkg2zip
     cp rif2zrif.py "''${!outputBin}/bin/rif2zrif"

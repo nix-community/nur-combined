@@ -87,7 +87,7 @@ stdenvNoCC.mkDerivation {
     cp "$fontconf_45" out/fontconfig/45-${fcConf}
     cp "$fontconf_60" out/fontconfig/60-${fcConf}
     cp "$fontconf_80" out/fontconfig/80-${fcConf}
-    
+
     runHook postBuild
   '';
 
@@ -111,7 +111,7 @@ stdenvNoCC.mkDerivation {
       Mutant Standard is an alternative emoji set. It rejects the status quo
       while maintaining many old favourites. It is pushing for a more diverse
       emoji future.
-      
+
       Unlike other emoji sets, this is truly gender-neutral and inclusive to
       people of all kinds of orientations and genders.
 

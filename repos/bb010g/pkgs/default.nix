@@ -21,34 +21,36 @@ pythonPkgsScoped = pkgs: super: {
         scopeGenSelf = genSelf;
         scopeOverrides = f;
       }; in self;
-    pi = attachScope (self: super: { }) (self:
-      # override the `pkgs` used in `with pkgs;` to access `callPackage`
-      super.pythonInterpreters.override (mapAttr "pkgs" (pkgs':
-        # which we're hijacking just to get at one call involving an
-        # `overrides` attrset argument
-        mapAttr "callPackage" (callPackage:
-          # yoink overrides and abuse it to drill
-          fn: flow (mapAttrOrElse "overrides" (overrides:
-            # walk backwards through the infinite-ish recursion of lib.fix'
-            pySelf: pySuper: pySuper.__extends__ or (let
-              # until we can insert our scope-y selves at the root
-              # and take advantage of the specific way python-packages seals
-              # itself up with its overrides
-              pyScope = pkgs'.lib.makeScope pkgs'.newScope
-                (pySelf': pySuper // { inherit (pySelf') callPackage; });
-              in pyScope.overrideScope'
-                (pkgs'.lib.composeExtensions self.scopeOverrides overrides))
-          ) (_: s: s)) (callPackage fn)
-        ) pkgs'
-      ))
-    );
-  in pi;
+  in attachScope (self: super: { }) (self:
+    # override the `pkgs` used in `with pkgs;` to access `callPackage`
+    super.pythonInterpreters.override (mapAttr "pkgs" (pkgs':
+      # which we're hijacking just to get at one call involving an `overrides`
+      # attrset argument
+      mapAttr "callPackage" (callPackage:
+        # yoink overrides and abuse it to drill
+        fn: flow (mapAttrOrElse "overrides" (overrides:
+          # walk backwards through the infinite-ish recursion of lib.fix'
+          pySelf: pySuper: pySuper.__extends__ or (let
+            # until we can insert our scope-y selves at the root and take
+            # advantage of the specific way python-packages seals itself up
+            # with its overrides
+            pyScope = pkgs'.lib.makeScope pkgs'.newScope
+              (pySelf': pySuper // { inherit (pySelf') callPackage; });
+            in pyScope.overrideScope'
+              (pkgs'.lib.composeExtensions self.scopeOverrides overrides))
+        ) (_: s: s)) (callPackage fn)
+      ) pkgs'
+    ))
+  );
 };
 
 allPackages = import ./top-level/all-packages.nix;
 
 in let p = pkgs'; pkgs' = pkgs.appendOverlays [
-  (pkgs: super: { lib = super.lib.extend libExtension; })
+  (pkgs: super: {
+    lib = super.lib.extend libExtension;
+    stdenv = super.stdenv // { lib = pkgs.lib; };
+  })
   pythonPkgsScoped
   (pkgs: super: {
     pythonPackagesScope = import ./top-level/python-packages.nix;
@@ -56,6 +58,9 @@ in let p = pkgs'; pkgs' = pkgs.appendOverlays [
       pkgs.pythonPackagesScope;
   })
 ]; in p.lib.makeScope p.newScope (scopedPkgs: (p.lib.composeExtensionList [
-  (self: super: { inherit (super) pythonPackagesScope; })
+  (self: pkgs: let res = import ./stdenv/adapters.nix pkgs; in res // {
+    stdenvAdapters = res;
+  })
+  (self: pkgs: { inherit (pkgs) pythonPackagesScope; })
   allPackages
 ]) scopedPkgs p)

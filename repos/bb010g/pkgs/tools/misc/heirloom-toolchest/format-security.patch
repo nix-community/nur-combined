@@ -1,0 +1,53 @@
+--- a/bc/bc.y
++++ b/bc/bc.y
+@@ -586,7 +586,7 @@
+ 		/* part of a bundle */
+ 		while( *p != 0 ) routput( (intptr_t *)*p++ );
+ 	}
+-	else printf( (char *)p );	 /* character string */
++	else printf("%s", (char *)p );	 /* character string */
+ }
+ 
+ static void
+--- a/cpio/cpio.c
++++ b/cpio/cpio.c
+@@ -2410,7 +2410,7 @@
+ 		answer[i] = 0;
+ 		if (Iflag || Oflag) {
+ 			if (answer[0] == '\0')
+-				snprintf(answer, sizeof answer, Iflag ? Iflag :
++				snprintf(answer, sizeof answer, "%s", Iflag ? Iflag :
+ 						Oflag);
+ 			else if (answer[0] == 'q')
+ 				exit(errcnt != 0 ? sysv3 ? 1 : 2 : 0);
+--- a/hd/hd.c
++++ b/hd/hd.c
+@@ -523,7 +523,7 @@
+ 					putchar(' ');
+ 					col++;
+ 				}
+-				printf(cp);
++				printf("%s", cp);
+ 			}
+ 		}
+ 		break;
+--- a/ls/ls.c
++++ b/ls/ls.c
+@@ -996,7 +996,7 @@
+ 			if (Bold)
+ 				tputs(Bold, 1, putchar);
+ #endif	/* USE_TERMCAP */
+-			printf(color);
++			printf("%s", color);
+ 		}
+ 	}
+ 	if (q || istty) {
+@@ -1063,7 +1063,7 @@
+ 		if (Normal)
+ 			tputs(Normal, 1, putchar);
+ #endif	/* USE_TERMCAP */
+-		printf(fc_get(FC_NORMAL));
++		printf("%s", fc_get(FC_NORMAL));
+ 	}
+ 	if (f)
+ 		f->namlen = n;

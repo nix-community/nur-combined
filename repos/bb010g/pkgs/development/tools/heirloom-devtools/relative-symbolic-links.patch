@@ -1,0 +1,11 @@
+--- a/make/src/Makefile.mk
++++ b/make/src/Makefile.mk
+@@ -35,7 +35,7 @@
+ 	$(INSTALL) -c make $(ROOT)$(BINDIR)/make
+ 	$(STRIP) $(ROOT)$(BINDIR)/make
+ 	rm -f $(ROOT)$(LIBDIR)/svr4.make
+-	ln -s ../bin/make $(ROOT)$(LIBDIR)/svr4.make
++	ln -s $(ROOT)$(BINDIR)/make $(ROOT)$(LIBDIR)/../lib/svr4.make
+ 	$(INSTALL) -c make_sus $(ROOT)$(SUSBIN)/make
+ 	$(STRIP) $(ROOT)$(SUSBIN)/make
+ 	$(INSTALL) -c -m 644 make.rules.file $(ROOT)$(HDRSDIR)/make.rules

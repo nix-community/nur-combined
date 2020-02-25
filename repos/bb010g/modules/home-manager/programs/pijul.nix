@@ -37,7 +37,7 @@ let
         default = trace "global.signing_key default" null;
         description = ''
           Absolute path to your signing secret key.
-        
+
           A signing key can be generated with <code>pijul key gen --signing-id
           'me@example.com'</code>, and will by default be placed in your Pijul
           global config directory.

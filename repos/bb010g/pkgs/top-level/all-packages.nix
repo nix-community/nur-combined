@@ -1,25 +1,27 @@
 self: pkgs:
 
 let inherit (self) callPackage; in let
-  inherit (pkgs.lib) versionOlder;
-  applyIf = f: p: x: if p x then f x else x;
-  applyIf' = f: p: x: if p then f x else x;
+  inherit (pkgs.lib) breakDrv getVersion mapIf versionAtLeast;
 
-  break = p: p.overrideAttrs (o: { meta = o.meta // { broken = true; }; });
-  breakIf = applyIf break;
-  breakIf' = applyIf' break;
+  cargoHashBreakageVersion = "1.39.0";
+  isUsingOldCargoHash =
+    versionAtLeast cargoHashBreakageVersion (getVersion pkgs.cargo or "");
+  breakIf = mapIf breakDrv;
+  needsNewCargoHash = breakIf isUsingOldCargoHash;
+  needsOldCargoHash = breakIf (!isUsingOldCargoHash);
 in {
-  # # applications
 
-  # ## applications.editors
+  # applications {{{1
+  # applications.editors {{{2
 
   edbrowse = callPackage ../applications/editors/edbrowse { };
 
-  # ## applications.graphics
+  # applications.graphics {{{2
 
-  xcolor = callPackage ../applications/graphics/xcolor { };
+  xcolor = needsOldCargoHash
+    (callPackage ../applications/graphics/xcolor { });
 
-  # ## applications.misc
+  # applications.misc {{{2
 
   finalhe = (pkgs.libsForQt5.overrideScope' (_: _: self))
     .callPackage ../applications/misc/finalhe {
@@ -62,21 +64,10 @@ in {
       sha256 = "0620yr9s148hdrl7qr83xcklabk1hc4n4abnnfj9wlxrcimx3qam";
     };
   })).override {
-    libXft = pkgs.xorg.libXft.overrideAttrs (o: {
-      patches = o.patches or [] ++ [
-        (pkgs.fetchpatch {
-          # http://git.suckless.org/st/commit/caa1d8fbea2b92bca24652af0fee874bdbbbb3e5.html
-          # https://gitlab.freedesktop.org/xorg/lib/libxft/issues/6
-          # https://gitlab.freedesktop.org/xorg/lib/libxft/merge_requests/1
-          url = "https://gitlab.freedesktop.org/xorg/lib/libxft/commit/" +
-            "fe41537b5714a2301808eed2d76b2e7631176573.patch";
-          sha256 = "045lp1q50i2wlwvpsq6ycxdc6p3asm2r3bk2nbad1dwkqw2xf9jc";
-        })
-      ];
-    });
+    inherit (self) libXft;
   };
 
-  # ## applications.networking
+  # applications.networking {{{2
 
   ${null/*ipscan*/} = (callPackage ../applications/networking/ipscan {
     swt = self.swt_4_6;
@@ -85,35 +76,30 @@ in {
       o.meta // { broken = true; };
   });
 
-  # ### applications.networking.browsers
+  # applications.networking.browsers {{{3
 
   surf-unstable = callPackage ../applications/networking/browsers/surf {
     gtk = pkgs.gtk3;
   };
 
-  # ### applications.networking.p2p
+  # applications.networking.p2p {{{3
 
   broca-unstable = pkgs.python3Packages.callPackage
     ../applications/networking/p2p/broca { };
 
-  # ## applications.version-management
-
-  # ### applications.version-management
+  # applications.version-management {{{2
 
   gitAndTools = pkgs.recurseIntoAttrs
     (callPackage ../applications/version-management/git-and-tools { });
 
-  # # data
-
-  # ## data.fonts
+  # data {{{1
+  # data.fonts {{{2
 
   mutant-standard = callPackage ../data/fonts/mutant-standard { };
 
-  # # development
-
-  # ## development.libraries
-
-  # ### development.libraries.java
+  # development {{{1
+  # development.libraries {{{2
+  # development.libraries.java {{{3
 
   ${null/*swt_4_6*/} = pkgs.swt.overrideAttrs (o: let
     platformMap = {
@@ -155,14 +141,14 @@ in {
     meta = if o ? pname then o.meta else (o.meta // { broken = true; });
   });
 
-  libvitamtp = self.libvitamtp-codestation;
+  # development.libraries.libvitamtp {{{3
 
-  # ### development.libraries.libvitamtp
+  libvitamtp = self.libvitamtp-codestation;
 
   libvitamtp-codestation = callPackage
     ../development/libraries/libvitamtp/codestation.nix { };
 
-  # ### development.libraries.libvitamtp.yifanlu
+  # development.libraries.libvitamtp.yifanlu {{{4
 
   libvitamtp-yifanlu = self.libvitamtp-yifanlu-stable;
 
@@ -172,52 +158,84 @@ in {
   libvitamtp-yifanlu-unstable = callPackage
     ../development/libraries/libvitamtp/yifanlu/unstable.nix { };
 
-  # ## development.python-modules
+  # development.python-modules {{{2
 
   wpull = let pyPkgs = pkgs.python36Packages; in
     pyPkgs.toPythonApplication pyPkgs.wpull;
 
-  # ## development.tools
+  # development.tools {{{2
+
+  heirloom-devtools = callPackage ../development/tools/heirloom-devtools {
+    # stdenv = pkgs.clangStdenv;
+  };
 
   jq = callPackage ../development/tools/jq { };
 
   jq-dlopen = callPackage ../development/tools/jq/dlopen.nix { };
 
-  # ### development.tools.misc
+  just = needsNewCargoHash (callPackage ../development/tools/just {
+    inherit (pkgs) just;
+  });
+
+  # development.tools.misc {{{3
 
   # pince = callPackage ../development/tools/misc/pince { };
 
-  # servers
+  # servers {{{1
 
   ttyd = callPackage ../servers/ttyd { };
 
-  # # tools
+  # servers.x11 {{{2
+  # servers.x11.xorg {{{3
 
-  # ## tools.compression
+  libXft = callPackage ({ lib, libXft, fetchpatch }: libXft.overrideAttrs (o: {
+    patches = lib.filter (patch: !(lib.elem patch.name [
+      "fe41537b5714a2301808eed2d76b2e7631176573.patch"
+    ])) (o.patches or []) ++ [
+      (fetchpatch {
+        # http://git.suckless.org/st/commit/caa1d8fbea2b92bca24652af0fee874bdbbbb3e5.html
+        # https://gitlab.freedesktop.org/xorg/lib/libxft/issues/6
+        # https://gitlab.freedesktop.org/xorg/lib/libxft/merge_requests/1
+        url = "https://gitlab.freedesktop.org/xorg/lib/libxft/commit/" +
+          "fe41537b5714a2301808eed2d76b2e7631176573.patch";
+        sha256 = "045lp1q50i2wlwvpsq6ycxdc6p3asm2r3bk2nbad1dwkqw2xf9jc";
+      })
+    ];
+  })) { libXft = pkgs.xorg.libXft; };
+
+  # shells {{{1
+
+  heirloom-sh = callPackage ../shells/heirloom-sh { };
+
+  # tools {{{1
+  # tools.compression {{{2
 
   lz4json = callPackage ../tools/compression/lz4json { };
 
-  mozlz4-tool = callPackage ../tools/compression/mozlz4-tool { };
+  mozlz4-tool = needsOldCargoHash
+    (callPackage ../tools/compression/mozlz4-tool { });
 
   vita-pkg2zip = self.vita-pkg2zip-unstable;
 
-  # ### tools.compression.vita-pkg2zip
+  # tools.compression.vita-pkg2zip {{{3
 
   vita-pkg2zip-stable = callPackage
     ../tools/compression/vita-pkg2zip/stable.nix { };
   vita-pkg2zip-unstable = callPackage
     ../tools/compression/vita-pkg2zip/unstable.nix { };
 
-  # ## tools.misc
+  # tools.misc {{{2
 
   gallery-dl = callPackage ../tools/misc/gallery-dl { };
+
+  # heirloom = callPackage ../tools/misc/heirloom-toolchest { };
 
   psvimgtools = callPackage ../tools/misc/psvimgtools { };
   # TODO: needs arm-vita-eabi host
   # psvimgtools-dump_partials = callPackage
   #   ../tools/misc/psvimgtools/dump_partials.nix { };
 
-  # ## tools.networking
+  # tools.networking {{{2
 
   mosh-unstable = pkgs.mosh.overrideAttrs (o: rec {
     name = "${pname}-${version}";
@@ -238,13 +256,17 @@ in {
     ];
   });
 
-  # ## tools.security
+  # tools.security {{{2
 
   # bitwarden-desktop = callPackage ../tools/security/bitwarden/desktop { };
 
-  # ## tools.text
+  # tools.text {{{2
 
   dwdiff = callPackage ../tools/text/dwdiff { };
 
   ydiff = pkgs.python3Packages.callPackage ../tools/text/ydiff { };
+
+  # }}}1
+
 }
+# vim:fdm=marker:fdl=0

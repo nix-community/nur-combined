@@ -1,0 +1,68 @@
+--- a/make/mksh/dosys.cc
++++ b/make/mksh/dosys.cc
+@@ -809,7 +809,7 @@
+ 	int			status;
+ 	Boolean			command_generated_output = false;
+ 
+-	command->text.p = (int) nul_char;
++	*command->text.p = (int) nul_char;
+ 	WCSTOMBS(mbs_buffer, command->buffer.start);
+ 	if ((fd = popen(mbs_buffer, "r")) == NULL) {
+ 		WCSTOMBS(mbs_buffer, command->buffer.start);
+--- a/make/mksh/macro.cc
++++ b/make/mksh/macro.cc
+@@ -190,16 +190,23 @@
+ /* (since last $ processing) to the destination. When we find a $ we call */
+ /* expand_macro() and let it expand that particular $ reference into dest */
+ 	block_start = source_p;
++	fprintf(stderr, "%ls\n", source_p);
+ 	quote_seen = 0;
+ 	for (; 1; source_p++) {
+-		switch (GET_CHAR()) {
++		wchar_t my_char;
++		if ((source == NULL) || (source_p >= source_end)) { my_char = 0; fprintf(stderr, "\nsource_p >= source_end\n"); }
++			else { my_char = *source_p; fprintf(stderr, "%lc", my_char); };
++		fprintf(stderr, "%lc", my_char);
++		switch (my_char) {
+ 		case backslash_char:
++			fprintf(stderr, "\nbackslash_char\n");
+ 			/* Quote $ in macro value */
+ 			if (!cmd) {
+ 				quote_seen = ~quote_seen;
+ 			}
+ 			continue;
+ 		case dollar_char:
++			fprintf(stderr, "\ndollar_char\n");
+ 			/* Save the plain string we found since */
+ 			/* start of string or previous $ */
+ 			if (quote_seen) {
+@@ -220,6 +227,7 @@
+ 			block_start = source_p + 1;
+ 			break;
+ 		case nul_char:
++			fprintf(stderr, "\nnul_char\n");
+ 			/* The string ran out. Get some more */
+ 			append_string(block_start,
+ 				      destination,
+@@ -238,7 +246,9 @@
+ 			continue;
+ 		}
+ 		quote_seen = 0;
++		fprintf(stderr, ">");
+ 	}
++	fprintf(stderr, "\n");
+ 	retmem(sourceb.string.buffer.start);
+ }
+ 
+--- a/yacc/y2.c
++++ b/yacc/y2.c
+@@ -201,7 +201,9 @@
+ 	levprd = malloc(sizeof (int) * (nprodsz+2));
+ 	had_act = calloc(nprodsz + 2, sizeof (wchar_t));
+ 	lhstext = malloc(sizeof (wchar_t) * LHS_TEXT_LEN);
++	if (LHS_TEXT_LEN > 0) lhstext[0] = 0;
+ 	rhstext = malloc(sizeof (wchar_t) * RHS_TEXT_LEN);
++	if (RHS_TEXT_LEN > 0) rhstext[0] = 0;
+ 	aryfil(toklev, ntoksz, 0);
+ 	aryfil(levprd, nprodsz, 0);
+ 	for (ii = 0; ii < ntoksz; ++ii)

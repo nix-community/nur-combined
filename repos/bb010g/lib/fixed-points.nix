@@ -1,19 +1,24 @@
 { lib, libSuper }:
 
 let
-  inherit (lib.fixedPoints)
-    composeExtensions
-    composeExtensionList # (mod)
-  ;
-  inherit (lib.lists)
+  # lib imports {{{1
+  inherit (lib.lists) #{{{2
     foldl1'
   ;
+  inherit (lib.fixedPoints) #{{{1
+    composeExtensions
+    composeExtensionList # (mod)
+  ; #}}}1
 in {
 
+  # composeExtensionList {{{2
   composeExtensionList =
-    fs:
-    if fs == [ ]
+    exts:
+    if exts == [ ]
       then (self: super: { })
-      else foldl1' composeExtensions fs;
+      else foldl1' composeExtensions exts;
+
+  #}}}1
 
 }
+# vim:fdm=marker:fdl=1

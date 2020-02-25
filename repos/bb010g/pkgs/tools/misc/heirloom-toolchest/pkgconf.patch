@@ -1,0 +1,45 @@
+--- a/build/mk.config
++++ b/build/mk.config
+@@ -121,36 +121,36 @@
+ # does not supply our needs. Use -ltermcap instead and add -DUSE_TERMCAP
+ # to CPPFLAGS.
+ #
+-LCURS = -lcurses
++LCURS = `pkgconf --cflags --libs curses`
+ 
+ #
+ # Socket library, necessary on Solaris and Open UNIX. If your system has
+ # socket support in libc (as glibc on Linux), leave it empty or undefined.
+-#LSOCKET = -lsocket -lnsl
++#LSOCKET = `pkgconf --cflags --libs socket nsl`
+ 
+ #
+ # Uncomment this on Open UNIX.
+ #
+-#LIBGEN = -lgen
++#LIBGEN = `pkgconf --cflags --libs gen`
+ 
+ #
+ # Uncomment this on FreeBSD, NetBSD, and OpenBSD.
+ #
+-#LKVM = -lkvm
++#LKVM = `pkgconf --cflags --libs kvm`
+ 
+ #
+ # zlib (statically linked by default). Set USE_ZLIB to 0 if you don't have
+ # zlib or don't want to use it; you need it only if you want to use inflate
+ # compression when creating zip files with cpio.
+ #
+-LIBZ = -Wl,-Bstatic -lz -Wl,-Bdynamic
++LIBZ = -Wl,-Bstatic `pkgconf --cflags --libs --static zlib` -Wl,-Bdynamic
+ USE_ZLIB = 1
+ 
+ #
+ # The name of the bzip2 library, and whether to use it. The library is only
+ # needed to read and write bzip2 compressed parts of zip files with cpio.
+ #
+-#LIBBZ2 = -Wl,-Bstatic -lbz2 -Wl,-Bdynamic
++#LIBBZ2 = -Wl,-Bstatic `pkgconf --cflags --libs --static bzip2` -Wl,-Bdynamic
+ USE_BZLIB = 0
+ 
+ #

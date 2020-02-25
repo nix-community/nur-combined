@@ -1,10 +1,11 @@
 { lib, libSuper }:
 
 let
-  inherit (builtins)
+  # lib imports {{{1
+  inherit (builtins) #{{{2
     isAttrs
   ;
-  inherit (lib.trivial)
+  inherit (lib.trivial) #{{{1
     apply applyOp # (mod)
     comp compOp flow # (mod)
     comp2 comp2Op flow2 # (mod)
@@ -17,13 +18,16 @@ let
     mapFunctionArgs # (mod)
     mapIf # (mod)
     setFunctionArgs
-  ;
+  ; #}}}1
 in {
 
+  # apply [applyOp] {{{2
   apply = id;
 
+  # applyOp {{{3
   applyOp = flip apply;
 
+  # comp [compOp flow] {{{2
   /* Compose two functions, with data from the second supplying the first.
 
      Type: comp :: (b -> c) -> (a -> b) -> a -> c
@@ -43,22 +47,31 @@ in {
     x:
     g (f x);
 
+  # compOp {{{3
   compOp = flip comp;
 
+  # flow {{{3
   flow = compOp;
 
+  # comp2 [comp2Op flow2] {{{2
   comp2 = comp comp comp;
 
+  # comp2Op {{{3
   comp2Op = flip comp2;
 
+  # flow2 {{{3
   flow2 = comp2Op;
 
+  # comp3 [comp3Op flow3] {{{2
   comp3 = comp comp comp2;
 
+  # comp3Op {{{3
   comp3Op = flip comp3;
 
+  # flow3 {{{3
   flow3 = comp3Op;
 
+  # hideFunctionArgs {{{2
   hideFunctionArgs =
     names:
     f:
@@ -67,6 +80,7 @@ in {
       (builtins.trace (builtins.attrNames args) args) names);
     }; in self;
 
+  # mapFunctionArgs {{{2
   mapFunctionArgs =
     f:
     fun:
@@ -74,6 +88,7 @@ in {
       then fun // { __functionArgs = f (functionArgs fun); }
       else setFunctionArgs fun (f (builtins.functionArgs fun));
 
+  # mapIf {{{2
   /* Apply function if the second argument is true.
 
      Type: mapIf :: (a -> a) -> bool -> a -> a
@@ -91,4 +106,7 @@ in {
     b:
     if b then f else id;
 
+  #}}}1
+
 }
+# vim:fdm=marker:fdl=1

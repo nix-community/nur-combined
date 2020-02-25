@@ -1,0 +1,20 @@
+diff -u b/build/mk.config b/build/mk.config
+--- b/build/mk.config
++++ b/build/mk.config
+@@ -143,14 +143,14 @@
+ # zlib or don't want to use it; you need it only if you want to use inflate
+ # compression when creating zip files with cpio.
+ #
+-LIBZ = -Wl,-Bstatic `pkgconf --cflags --libs --static zlib` -Wl,-Bdynamic
++LIBZ = `pkgconf --cflags --libs zlib`
+ USE_ZLIB = 1
+ 
+ #
+ # The name of the bzip2 library, and whether to use it. The library is only
+ # needed to read and write bzip2 compressed parts of zip files with cpio.
+ #
+-#LIBBZ2 = -Wl,-Bstatic `pkgconf --cflags --libs --static bzip2` -Wl,-Bdynamic
++#LIBBZ2 = `pkgconf --cflags --libs bzip2`
+ USE_BZLIB = 0
+ 
+ #
