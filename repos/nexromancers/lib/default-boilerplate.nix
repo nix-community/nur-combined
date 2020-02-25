@@ -4,10 +4,12 @@
     builtins.mapAttrs (name: module:
       libSuper.${name} or { } // module moduleArg
     ) modules // reexports moduleArg;
-  standalone' =
-    let dummyModuleArg = { lib = { }; libSuper = { }; }; in
-    libSuper:
-    let lib = libSuper.extend extension; in {
+  standalone' = libSuper: let
+      # An actual lib is provided instead of { } because of basic
+      # top-level import evaluation in modules like lib.licenses.
+      dummyModuleArg = { lib = libSuper; inherit libSuper; };
+      lib = libSuper.extend extension;
+    in {
       modules = builtins.mapAttrs (name: module:
         let libModule = lib.${name}; in
         builtins.mapAttrs (attrName: dummyValue:
