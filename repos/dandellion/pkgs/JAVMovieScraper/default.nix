@@ -27,6 +27,14 @@ buildGradle {
     cat ./bin/source | sed 's~$JAVA_HOME~${openjdk11}~' > $out/bin/JAVMovieScraper
     chmod +x $out/bin/JAVMovieScraper
   '';
+
+  meta = with pkgs.stdenv.lib; {
+    broken = true;
+    description = "A program to fetch metadata for Japanese Adult Video";
+    homepage = "https://github.com/DoctorD1501/JAVMovieScraper";
+    license = licenses.gpl2;
+  };
+
 }
 
 

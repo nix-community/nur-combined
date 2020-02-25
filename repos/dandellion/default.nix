@@ -21,5 +21,8 @@
   JAVMovieScraper = pkgs.callPackage ./pkgs/JAVMovieScraper { };
 
   janus = pkgs.libsForQt5.callPackage ./pkgs/JanusVR/client { };
+
+  radical-native = pkgs.callPackage ./pkgs/radical-native { };
+
 }
 
