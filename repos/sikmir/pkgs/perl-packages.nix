@@ -103,4 +103,34 @@ rec {
       license = licenses.free;
     };
   };
+
+  GeoNamesRussian = buildPerlPackage rec {
+    pname = "Geo-Names-Russian";
+    version = "0.02";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/L/LI/LIOSHA/${pname}-${version}.tar.gz";
+      sha256 = "1jlrz18xgwcbicpfyfp9mi6dlnqd9j46lmygacn6aqwbk35jiv4s";
+    };
+    propagatedBuildInputs = [ ListMoreUtils EncodeLocale ];
+    meta = with stdenv.lib; {
+      homepage = "https://metacpan.org/pod/Geo::Openstreetmap::Parser";
+      description = "Geo::Names::Russian - parse and split russian geographical names";
+      license = licenses.free;
+    };
+  };
+
+  DateTimeFormatEXIF = buildPerlPackage rec {
+    pname = "DateTime-Format-EXIF";
+    version = "0.002";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/L/LI/LIOSHA/${pname}-${version}.tar.gz";
+      sha256 = "0caxw619l1bk7fgdqxb52sb6vlkrd9qd4cn1i24q4lani3lvfx3b";
+    };
+    propagatedBuildInputs = [ DateTimeFormatBuilder ];
+    meta = with stdenv.lib; {
+      homepage = "https://metacpan.org/pod/DateTime::Format::EXIF";
+      description = "DateTime::Format::EXIF - DateTime parser for EXIF timestamps";
+      license = licenses.free;
+    };
+  };
 }
