@@ -52,6 +52,7 @@ lib.makeScope newScope (self: with self; {
   libshell = callPackage ./development/libraries/libshell { };
   macmillan = callPackage ./data/dicts/macmillan { };
   mapsoft = callPackage ./applications/mapsoft { };
+  mapsoft2 = callPackage ./applications/mapsoft/2.nix { };
   maptourist = callPackage ./data/maps/maptourist { };
   mbtileserver = callPackage ./servers/mbtileserver { };
   mercantile = python3Packages.callPackage ./development/python-modules/mercantile {

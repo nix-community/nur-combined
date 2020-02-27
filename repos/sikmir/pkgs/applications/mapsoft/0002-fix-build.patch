@@ -1,0 +1,88 @@
+Submodule modules contains modified content
+diff --git i/modules/Makefile.inc w/modules/Makefile.inc
+index 3ff6a7a..da19730 100644
+--- i/modules/Makefile.inc
++++ w/modules/Makefile.inc
+@@ -50,9 +50,9 @@ $(shell $(MODDIR)/get_deps $(MODDIR) . > Makefile.deps)
+ # Building flags
+ 
+ override CXXFLAGS += $(shell [ "$(PKG_CONFIG)" == "" ] ||\
+-                      PKG_CONFIG_PATH=$(MODDIR)/pc pkg-config --cflags '$(PKG_CONFIG)')
++                      PKG_CONFIG_PATH=$(PKG_CONFIG_PATH):$(MODDIR)/pc pkg-config --cflags '$(PKG_CONFIG)')
+ override LDLIBS   += $(shell [ "$(PKG_CONFIG)" == "" ] ||\
+-                      PKG_CONFIG_PATH=$(MODDIR)/pc pkg-config --libs '$(PKG_CONFIG)')
++                      PKG_CONFIG_PATH=$(PKG_CONFIG_PATH):$(MODDIR)/pc pkg-config --libs '$(PKG_CONFIG)')
+ override CXXFLAGS += -std=gnu++11 -Werror=return-type -O2 -fPIC
+ override CXXFLAGS += -I$(MODDIR)
+ 
+diff --git i/modules/cairo/Makefile w/modules/cairo/Makefile
+index 30aa283..d9e0b79 100644
+--- i/modules/cairo/Makefile
++++ w/modules/cairo/Makefile
+@@ -1,7 +1,7 @@
+ MOD_SOURCES := cairo_wrapper.cpp
+ MOD_HEADERS := cairo_wrapper.h
+ 
+-SCRIPT_TESTS := cairo1
++#SCRIPT_TESTS := cairo1
+ PKG_CONFIG := gtkmm-3.0 fontconfig cairomm-1.0 cairomm-ft-1.0
+ 
+ include ../Makefile.inc
+diff --git i/modules/pc/libdb.pc w/modules/pc/libdb.pc
+index 6a40e95..682c932 100644
+--- i/modules/pc/libdb.pc
++++ w/modules/pc/libdb.pc
+@@ -1,5 +1,11 @@
++prefix=@db@
++exec_prefix=${prefix}
++libdir=${exec_prefix}/lib
++includedir=${prefix}/include
++
+ Name: libdb
+ Description: libdb
+ Requires:
+ Version: 1
+-Libs: -ldb
++Libs: -L${libdir} -ldb
++Cflags: -I${includedir}
+diff --git i/modules/pc/libgif.pc w/modules/pc/libgif.pc
+index cb154c9..24d8898 100644
+--- i/modules/pc/libgif.pc
++++ w/modules/pc/libgif.pc
+@@ -1,5 +1,11 @@
++prefix=@giflib@
++exec_prefix=${prefix}
++libdir=${exec_prefix}/lib
++includedir=${prefix}/include
++
+ Name: libgif
+ Description: libgif
+ Requires:
+ Version: 1
+-Libs: -lgif
++Libs: -L${libdir} -lgif
++Cflags: -I${includedir}
+diff --git i/modules/tmpdir/Makefile w/modules/tmpdir/Makefile
+index d44adac..c0b361e 100644
+--- i/modules/tmpdir/Makefile
++++ w/modules/tmpdir/Makefile
+@@ -1,6 +1,6 @@
+ MOD_HEADERS  := tmpdir.h
+ MOD_SOURCES  := tmpdir.cpp
+-SCRIPT_TESTS := tmpdir
++#SCRIPT_TESTS := tmpdir
+ 
+ PKG_CONFIG   := libzip
+ 
+diff --git i/programs/ms2conv/Makefile w/programs/ms2conv/Makefile
+index 6adf510..57d2d38 100644
+--- i/programs/ms2conv/Makefile
++++ w/programs/ms2conv/Makefile
+@@ -7,7 +7,6 @@ OTHER_TESTS :=\
+   ms2conv.test5\
+   ms2conv.test6\
+   ms2conv.test7\
+-  ms2conv.test_img\
+   ms2conv.test_mkref
+ 
+ MODDIR := ../../modules
