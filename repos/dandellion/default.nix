@@ -23,6 +23,7 @@
   janus = pkgs.libsForQt5.callPackage ./pkgs/JanusVR/client { };
 
   radical-native = pkgs.callPackage ./pkgs/radical-native { };
+  photini = pkgs.libsForQt5.callPackage ./pkgs/photini { };
 
 }
 
