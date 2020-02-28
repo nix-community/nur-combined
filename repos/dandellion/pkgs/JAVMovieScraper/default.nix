@@ -13,7 +13,11 @@ buildGradle {
     sha256 = "0qwdzyfmscjj75jyh9mnk1rlmy12fnnsqbhvp9xdsnfhwy78x6xm";
   };
 
-  patches = [ ./disable_spotless.patch ./respectXDG.patch ];
+  patches = [
+    ./0001-disable_spotless.patch
+    ./0002-respectXDG.patch
+    ./0003-disable-codacy.patch
+  ];
 
   gradleFlags = [ "DistTar" ];
 
@@ -29,7 +33,7 @@ buildGradle {
   '';
 
   meta = with pkgs.stdenv.lib; {
-    broken = true;
+    #broken = true;
     description = "A program to fetch metadata for Japanese Adult Video";
     homepage = "https://github.com/DoctorD1501/JAVMovieScraper";
     license = licenses.gpl2;

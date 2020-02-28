@@ -1,3 +1,13 @@
+From a347ad085f22d0282ad64926533f2b585e9c3a5c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Daniel=20L=C3=B8vbr=C3=B8tte=20Olsen?= <daniel@dodsorf.as>
+Date: Sun, 3 Nov 2019 13:55:09 +0100
+Subject: [PATCH 2/3] respectXDG
+
+---
+ .../AllAmalgamationOrderingPreferences.java            |  7 +++++--
+ .../doctord/model/preferences/Settings.java            | 10 +++++++---
+ 2 files changed, 12 insertions(+), 5 deletions(-)
+
 diff --git a/src/main/java/moviescraper/doctord/controller/amalgamation/AllAmalgamationOrderingPreferences.java b/src/main/java/moviescraper/doctord/controller/amalgamation/AllAmalgamationOrderingPreferences.java
 index ac9cf4e..ce57ee3 100644
 --- a/src/main/java/moviescraper/doctord/controller/amalgamation/AllAmalgamationOrderingPreferences.java
@@ -63,3 +73,6 @@ index 5810bf3..84fdde2 100644
 -}
 \ No newline at end of file
 +}
+-- 
+2.19.3
+
