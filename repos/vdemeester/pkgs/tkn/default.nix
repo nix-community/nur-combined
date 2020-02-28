@@ -3,7 +3,7 @@
 buildGoModule rec {
   pname = "tkn";
   name = "${pname}-${version}";
-  version = "0.7.1";
+  version = "0.8.0";
 
   goPackagePath = "github.com/tektoncd/cli";
   subPackages = [ "cmd/tkn" ];
@@ -15,9 +15,9 @@ buildGoModule rec {
     owner = "tektoncd";
     repo = "cli";
     rev = "v${version}";
-    sha256 = "08chgzrhh2c2i37xn67bc77jvwg1rcxa0yrdqdsamph0k9iajh5s";
+    sha256 = "00qznm02gsxvgxjakj7qpm8rgx82bnyycw4l7kpnrly5m07nm9gv";
   };
-  modSha256 = "0axczv060rb1n31pizrnydaayxlv9bgcy577dk1f1wv89yshy04x";
+  modSha256 = "0a9m46aspqbvnnvhg6qv0adarr7plj91vknbz9idc8yz4sv9wi8j";
   postInstall = ''
     mkdir -p $out/share/bash-completion/completions/
     $out/bin/tkn completion bash > $out/share/bash-completion/completions/tkn
