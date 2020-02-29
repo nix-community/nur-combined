@@ -361,10 +361,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "6.2.1";
+      version = "6.2.3";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3506564/firefox_multi_account_containers-6.2.1-fx.xpi?src=";
-      sha256 = "49d90b7d9de476923f8e911cac9a824f8bc606ac59d94fb215d51ffbc8390dd0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3516682/firefox_multi_account_containers-6.2.3-fx.xpi?src=";
+      sha256 = "49483425058a609acf2928b17cccee47025b37f2732aad940138e49100006e7d";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -375,10 +375,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "4.1.6";
+      version = "4.1.7";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3510077/octotree-4.1.6-fx.xpi?src=";
-      sha256 = "41ecb69dc9bbfa12af7779cb74e7dc194450f7ca73542305c757f70f3a4d5697";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3516688/octotree-4.1.7-fx.xpi?src=";
+      sha256 = "12a0f7e5c9b150b01580bc7e12e2cfcfd2acb02e3f952adfcb02022796cf78ae";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -486,10 +486,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.2.19";
+      version = "20.2.28";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3509883/refined_github-20.2.19-an+fx.xpi?src=";
-      sha256 = "71b8a3d341f6d3b0be09e1a75380070539e3c9321b78442ca04c9c395785d15f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3516420/refined_github-20.2.28-an+fx.xpi?src=";
+      sha256 = "005475886ed1f32b9fa69b2ae5247cb7111ec6a46afb4ab45208d8f4df1a4302";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
