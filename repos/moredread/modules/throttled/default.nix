@@ -6,7 +6,8 @@ let
   # TODO: find a way to specify it that works with NUR and just my own
   # nur-packages repo
   throttled = pkgs.callPackage ../../pkgs/throttled {};
-in {
+in
+{
   meta.maintainers = [ maintainers.moredread ];
 
   options = {

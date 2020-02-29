@@ -1,11 +1,28 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, cmake, pkgconfig
-, boost, cereal, curl, eigen, expat, glew, libpng, tbb, wxGTK30
-, gtest, nlopt, xorg, makeDesktopItem, libudev
+{ stdenv
+, lib
+, fetchFromGitHub
+, makeWrapper
+, cmake
+, pkgconfig
+, boost
+, cereal
+, curl
+, eigen
+, expat
+, glew
+, libpng
+, tbb
+, wxGTK30
+, gtest
+, nlopt
+, xorg
+, makeDesktopItem
+, libudev
 }:
 let
   nloptVersion = if lib.hasAttr "version" nlopt
-                 then lib.getAttr "version" nlopt
-                 else "2.4";
+  then lib.getAttr "version" nlopt
+  else "2.4";
 in
 stdenv.mkDerivation rec {
   pname = "prusa-slicer";
@@ -66,7 +83,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DSLIC3R_FHS=1"
-    "-DSLIC3R_WX_STABLE=1"  # necessary when compiling against wxGTK 3.0
+    "-DSLIC3R_WX_STABLE=1" # necessary when compiling against wxGTK 3.0
   ];
 
   postInstall = ''

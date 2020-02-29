@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, libusb, boost, autoreconfHook, pkgconfig  }:
+{ stdenv, fetchFromGitHub, libusb, boost, autoreconfHook, pkgconfig }:
 
 # TODO: needs cleanup and meta
 stdenv.mkDerivation rec {
@@ -6,8 +6,9 @@ stdenv.mkDerivation rec {
   version = "0.26";
 
   buildInputs = [
-     libusb boost
-   ];
+    libusb
+    boost
+  ];
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
 

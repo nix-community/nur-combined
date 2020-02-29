@@ -1,9 +1,34 @@
-{ mkDerivation, base, blaze-builder, blaze-markup, blaze-svg
-, bytestring, bytestring-builder, containers, criterion, deepseq
-, directory, fetchgit, filepath, hspec, JuicyPixels, monads-tf, mtl
-, NumInstances, optparse-applicative, parallel, parsec, random
-, silently, snap-core, snap-server, stdenv, storable-endian, text
-, transformers, unordered-containers, vector-space
+{ mkDerivation
+, base
+, blaze-builder
+, blaze-markup
+, blaze-svg
+, bytestring
+, bytestring-builder
+, containers
+, criterion
+, deepseq
+, directory
+, fetchgit
+, filepath
+, hspec
+, JuicyPixels
+, monads-tf
+, mtl
+, NumInstances
+, optparse-applicative
+, parallel
+, parsec
+, random
+, silently
+, snap-core
+, snap-server
+, stdenv
+, storable-endian
+, text
+, transformers
+, unordered-containers
+, vector-space
 }:
 mkDerivation {
   pname = "implicitcad";
@@ -17,17 +42,55 @@ mkDerivation {
   isLibrary = true;
   isExecutable = true;
   libraryHaskellDepends = [
-    base blaze-builder blaze-markup blaze-svg bytestring
-    bytestring-builder containers criterion deepseq directory filepath
-    hspec JuicyPixels monads-tf NumInstances parallel parsec silently
-    snap-core snap-server storable-endian text transformers
-    unordered-containers vector-space
+    base
+    blaze-builder
+    blaze-markup
+    blaze-svg
+    bytestring
+    bytestring-builder
+    containers
+    criterion
+    deepseq
+    directory
+    filepath
+    hspec
+    JuicyPixels
+    monads-tf
+    NumInstances
+    parallel
+    parsec
+    silently
+    snap-core
+    snap-server
+    storable-endian
+    text
+    transformers
+    unordered-containers
+    vector-space
   ];
   executableHaskellDepends = [
-    base blaze-builder blaze-markup blaze-svg bytestring containers
-    criterion deepseq directory filepath JuicyPixels monads-tf
-    optparse-applicative parallel parsec silently snap-core snap-server
-    storable-endian text transformers vector-space
+    base
+    blaze-builder
+    blaze-markup
+    blaze-svg
+    bytestring
+    containers
+    criterion
+    deepseq
+    directory
+    filepath
+    JuicyPixels
+    monads-tf
+    optparse-applicative
+    parallel
+    parsec
+    silently
+    snap-core
+    snap-server
+    storable-endian
+    text
+    transformers
+    vector-space
   ];
   testHaskellDepends = [ base containers hspec mtl parsec ];
   benchmarkHaskellDepends = [ base criterion parsec random ];

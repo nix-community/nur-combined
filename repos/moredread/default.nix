@@ -14,20 +14,18 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  airnef = pkgs.callPackage ./pkgs/airnef { pythonPackages =
-    pkgs.python3Packages; buildPythonApplication =
-      pkgs.python3Packages.buildPythonApplication; };
-
-  nmigen = pkgs.callPackage ./pkgs/nmigen {};
-  nmigen-boards = pkgs.callPackage ./pkgs/nmigen-boards { nmigen = nmigen; };
+  experimental = {
+    airnef = pkgs.callPackage ./pkgs/airnef {
+      pythonPackages = pkgs.python3Packages;
+      buildPythonApplication = pkgs.python3Packages.buildPythonApplication;
+    };
+  };
 
   cc-tool = pkgs.callPackage ./pkgs/cc-tool {};
-  i3status-rust = pkgs.callPackage ./pkgs/i3status-rust { };
-  ipbt = pkgs.callPackage ./pkgs/ipbt { };
-  implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad { };
-  nix-search = pkgs.callPackage ./pkgs/nix-search { };
-  prusa-slicer-latest = pkgs.callPackage ./pkgs/prusa-slicer-latest { cereal = pkgs.callPackage ./pkgs/cereal { }; };
-  #prusa-slicer-with-asan = pkgs.callPackage ./pkgs/prusa-slicer-latest { enableASan = true; };
+  cereal = pkgs.callPackage ./pkgs/cereal {};
+  implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad {};
+  ipbt = pkgs.callPackage ./pkgs/ipbt {};
+  nix-search = pkgs.callPackage ./pkgs/nix-search {};
+  prusa-slicer-latest = pkgs.callPackage ./pkgs/prusa-slicer-latest { inherit cereal; };
   slic3r-prusa3d-latest = prusa-slicer-latest;
 }
-
