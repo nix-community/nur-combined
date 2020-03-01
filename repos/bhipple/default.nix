@@ -14,6 +14,5 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
   plaid2qif = pkgs.callPackage ./pkgs/plaid2qif { };
 }

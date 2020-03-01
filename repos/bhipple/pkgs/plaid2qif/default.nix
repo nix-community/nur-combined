@@ -2,11 +2,11 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "plaid2qif";
-  version = "1.3.1";
+  version = "1.3.2";
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "0s2wah7wxwla9k04kh6q4v5rf51419ilv0a57xmh9vbsdbz2y0ia";
+    sha256 = "0h92g397y9d7qb5hi6gdnhq077q80v0kkcicbyglal4fiihyp2c4";
   };
 
   # TODO: See if we can fix setup.py instead.
@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   meta = {
-    homepage = https://github.com/ebridges/plaid2qif;
+    homepage = "https://github.com/ebridges/plaid2qif";
     description = "Download financial transactions from Plaid as QIF files";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bhipple ];
