@@ -14,11 +14,7 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  neovim-gtk = with pkgs.lib; let
-    min-cargo-vendor = "0.1.23";
-    packageOlder = p: v: versionOlder (getVersion p) v;
-    cargoVendorTooOld = cargo-vendor: packageOlder cargo-vendor min-cargo-vendor;
-  in pkgs.callPackage ./pkgs/neovim-gtk { oldCargoVendor = if (hasAttr "cargo-vendor" pkgs) then cargoVendorTooOld pkgs.cargo-vendor else false; };
+  neovim-gtk = pkgs.callPackage ./pkgs/neovim-gtk { };
   avr8-burn-omat = pkgs.callPackage ./pkgs/avr8-burn-omat { };
   simulavr = pkgs.callPackage ./pkgs/simulavr { };
   
