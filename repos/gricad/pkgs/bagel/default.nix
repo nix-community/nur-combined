@@ -34,6 +34,7 @@ stdenv.mkDerivation rec{
 
   configureFlags = [ "--with-mpi=openmpi" "--disable-scalapack" "--with-boost=${boost}" ];
 
+  enableParallelBuilding = true;
 
   postPatch = ''
     # Fixed upstream
@@ -48,6 +49,7 @@ stdenv.mkDerivation rec{
   meta = {
     homepage = "https://nubakery.org/index.html";
     description = "BAGEL is a parallel electronic-structure program licensed under the GNU General Public License.";
+    broken = true ; # not really, but compilation is too long for the CI
   };
 }  
 

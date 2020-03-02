@@ -30,27 +30,27 @@ rec {
 
   # Openmpi
   #openmpi = pkgs.callPackage ./pkgs/openmpi { };
-  #openmpi2 = pkgs.callPackage ./pkgs/openmpi/2.nix { psm2 = psm2; libfabric = libfabric;};
+  openmpi2 = pkgs.callPackage ./pkgs/openmpi/2.nix { psm2 = psm2; libfabric = libfabric;};
   openmpi2-opa = pkgs.callPackage ./pkgs/openmpi/2.nix {
     psm2 = psm2;
     libfabric = libfabric;
     enableFabric = true;
   };
-  #openmpi2-ib = pkgs.callPackage ./pkgs/openmpi/2.nix {
-    #  psm2 = psm2;
-    #libfabric = libfabric;
-    #enableIbverbs = true;
-    #};
-    #openmpi3 = pkgs.callPackage ./pkgs/openmpi/3.nix {
-      #psm2 = psm2;
-      #};
+  openmpi2-ib = pkgs.callPackage ./pkgs/openmpi/2.nix {
+        psm2 = psm2;
+    libfabric = libfabric;
+    enableIbverbs = true;
+    };
+  openmpi3 = pkgs.callPackage ./pkgs/openmpi/3.nix {
+        psm2 = psm2;
+      };
   psm2 = pkgs.callPackage ./pkgs/psm2 { };
   libfabric = pkgs.callPackage ./pkgs/libfabric { psm2 = psm2; };
 
   # Petsc
-  #petscComplex = pkgs.callPackage ./pkgs/petsc { scalarType = "complex"; };
-  #petscReal = pkgs.callPackage ./pkgs/petsc { scalarType = "real"; };
-  #petsc = petscComplex;
+  petscComplex = pkgs.callPackage ./pkgs/petsc { scalarType = "complex"; };
+  petscReal = pkgs.callPackage ./pkgs/petsc { scalarType = "real"; };
+  petsc = petscComplex;
 
   # udocker
   udocker = pkgs.pythonPackages.callPackage ./pkgs/udocker { };
@@ -61,13 +61,13 @@ rec {
   # GMT
   gshhg-gmt = pkgs.callPackage ./pkgs/gmt/gshhg-gmt.nix { };
   dcw-gmt   = pkgs.callPackage ./pkgs/gmt/dcw-gmt.nix { };
-  gmt = pkgs.callPackage ./pkgs/gmt { 
+  gmt = pkgs.callPackage ./pkgs/gmt {
           gshhg-gmt = gshhg-gmt ;
           dcw-gmt = dcw-gmt ;
         };
 
   # Trilinos
-  #trilinos =  pkgs.callPackage ./pkgs/trilinos { };
+  trilinos =  pkgs.callPackage ./pkgs/trilinos { };
 
   # Szip
   szip =  pkgs.callPackage ./pkgs/szip { };
@@ -82,7 +82,7 @@ rec {
   plplot = pkgs.callPackage ./pkgs/plplot { };
 
   # Hoppet
-  #hoppet = pkgs.callPackage ./pkgs/hoppet { };
+  hoppet = pkgs.callPackage ./pkgs/hoppet { };
 
   # applgrid
   applgrid = pkgs.callPackage ./pkgs/applgrid { };
@@ -91,7 +91,7 @@ rec {
   lhapdf59 = pkgs.callPackage ./pkgs/lhapdf59 { };
 
   # Bagel
-  #bagel = pkgs.callPackage ./pkgs/bagel { };
+  bagel = pkgs.callPackage ./pkgs/bagel { };
 
   # stacks
   stacks = pkgs.callPackages ./pkgs/stacks { };
@@ -100,7 +100,7 @@ rec {
   messer-slim = pkgs.callPackages ./pkgs/messer-slim { };
 
   # Fate
-  #fate = pkgs.callPackages ./pkgs/fate { };
+  fate = pkgs.callPackages ./pkgs/fate { };
 
   # Migrate
   migrate = pkgs.callPackages ./pkgs/migrate { };
@@ -124,7 +124,7 @@ rec {
   scotch-mumps = pkgs.callPackages ./pkgs/scotch-mumps { };
 
   # Obitools3
-  #obitools3 = pkgs.callPackage ./pkgs/obitools/obitools3.nix { };
+  obitools3 = pkgs.callPackage ./pkgs/obitools/obitools3.nix { };
 
 }
 

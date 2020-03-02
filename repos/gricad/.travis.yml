@@ -7,9 +7,9 @@ env:
   - secure: "xLNFxjZ8jvCjwAaN/vz6PUoAeceHEHg35Gy2+v+PeHsj0qagJJ4AOlgQkBZjPM3cu+vk8URqaGOP5HNDiLSdQRyX8XO/tFmqzueeJm/IrUYLuWvFKegR4FTjqbe2FSBVt3LZVsLqBhpnXk0RFnozz9zhQqYBIy1KvnsgLUfxWGkN/33Tb+vQmfV8zFMfmD1H1xNnMaoFIIeY8O+smKIQvLTQNtXGA3Dj1aNaP4lD4L4DUBjhrDno3CpbNvynesYbta/GafIhiUi/KvxgxtYc3dU0Gpk2OK8gghsXUFkAdKxt05LMvxkauJuSbVb/v6T9fnsPXetvpZhXwJSJDcl6AxjPknCgUj6zgJS2q0wQg+Txz2/J0lynERs+a64vx446+14wzbbPnSUtMtH0vUz1SHei4uZQJeYsC8z9S/N3IjIb0QH2QGtGY43ZofLOLpyU5Mxa/Yg7bM+bzNOXhm1yX5MNbGwEO0jsVsxC5QoULQyG4RocmAFxnKiOxKhBT8tbgIqnIf0Lpp7jwp9RnLiXGIIpFwTMNxPibWeOqDHzA5gaFOyKJ7cmzANHNeZoCQ1TkHTxJMQ7BeRRssKyiAP+8elLIB/NIRU6WFhf7OiOibYFr1wOCH052V/83BSBGpSuW8PfJJ37WZxHMtCBZb21tof7204nF2wJZ7aUuS1ScxU="
 matrix:
   include:
-  - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
-  - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
   - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
+          #  - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+          #  - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
 install:
 - nix --version
 - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
