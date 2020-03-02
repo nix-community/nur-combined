@@ -21,11 +21,15 @@ rec {
     };
   };
 
+  deps = {
+    cereal = pkgs.callPackage ./pkgs/cereal {};
+    cgal_5 = pkgs.callPackage ./pkgs/prusa-slicer-latest/cgal_5.nix {};
+  };
+
   cc-tool = pkgs.callPackage ./pkgs/cc-tool {};
-  cereal = pkgs.callPackage ./pkgs/cereal {};
   implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad {};
   ipbt = pkgs.callPackage ./pkgs/ipbt {};
   nix-search = pkgs.callPackage ./pkgs/nix-search {};
-  prusa-slicer-latest = pkgs.callPackage ./pkgs/prusa-slicer-latest { inherit cereal; };
+  prusa-slicer-latest = with deps; pkgs.callPackage ./pkgs/prusa-slicer-latest { inherit cereal cgal_5; };
   slic3r-prusa3d-latest = prusa-slicer-latest;
 }

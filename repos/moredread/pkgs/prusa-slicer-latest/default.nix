@@ -1,32 +1,16 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, makeWrapper
-, cmake
-, pkgconfig
-, boost
-, cereal
-, curl
-, eigen
-, expat
-, glew
-, libpng
-, tbb
-, wxGTK30
-, gtest
-, nlopt
-, xorg
-, makeDesktopItem
-, libudev
+{ stdenv, lib, fetchFromGitHub, makeWrapper, cmake, pkgconfig
+, boost, cereal, curl, eigen, expat, glew, libpng, tbb, wxGTK30
+, gtest, nlopt, xorg, makeDesktopItem, libudev
+, cgal_5, ilmbase, gmp, mpfr, qhull, openvdb
 }:
 let
   nloptVersion = if lib.hasAttr "version" nlopt
-  then lib.getAttr "version" nlopt
-  else "2.4";
+                 then lib.getAttr "version" nlopt
+                 else "2.4";
 in
 stdenv.mkDerivation rec {
   pname = "prusa-slicer";
-  version = "2.2.0-alpha3";
+  version = "2.2.0-rc";
 
   enableParallelBuilding = true;
 
@@ -39,12 +23,17 @@ stdenv.mkDerivation rec {
   buildInputs = [
     boost
     cereal
+    cgal_5
     curl
     eigen
     expat
     glew
+    gmp
+    ilmbase
     libpng
     libudev
+    mpfr
+    openvdb
     tbb
     wxGTK30
     xorg.libX11
@@ -77,7 +66,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "prusa3d";
     repo = "PrusaSlicer";
-    sha256 = "16psilm4r4zv4p1nrpx6nmrx4yyg2h8jlmh9rbwyzxka36ac37qy";
+    sha256 = "051kp4f7yqgpai3mpr5l224drrjmx9wvv0kc3n3cq0bygqnszwff";
     rev = "version_${version}";
   };
 
