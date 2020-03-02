@@ -21,16 +21,16 @@ rec {
     };
   };
 
+  # copy of dependencies that are not available on older nixos channels
   deps = {
     cereal = pkgs.callPackage ./pkgs/cereal {};
     cgal_5 = pkgs.callPackage ./pkgs/prusa-slicer-latest/cgal_5.nix {};
   };
 
   cc-tool = pkgs.callPackage ./pkgs/cc-tool {};
+  extplane-panel = pkgs.libsForQt5.callPackage ./pkgs/extplane-panel {};
   implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad {};
   ipbt = pkgs.callPackage ./pkgs/ipbt {};
   nix-search = pkgs.callPackage ./pkgs/nix-search {};
-  extplane-panel = pkgs.libsForQt5.callPackage ./pkgs/extplane-panel {};
   prusa-slicer-latest = with deps; pkgs.callPackage ./pkgs/prusa-slicer-latest { inherit cereal cgal_5; };
-  slic3r-prusa3d-latest = prusa-slicer-latest;
 }

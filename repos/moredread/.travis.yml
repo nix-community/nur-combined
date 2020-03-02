@@ -1,6 +1,7 @@
 language: nix
 nix: 2.3.3
 sudo: false
+
 env:
   global:
   - CACHIX_CACHE=moredread-nur
@@ -16,17 +17,21 @@ matrix:
   - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
   - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
 install:
-- nix-channel --list
-- nix-channel --add "${NIX_CHANNEL}" nixpkgs
-- travis_retry nix-channel --update
-- if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix -f channel:nixos-unstable; fi
-- if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
+ - nix --version
+ - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
+ - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
+ - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
+ - nix-channel --add "${NIX_CHANNEL}" nixpkgs
+ - travis_retry nix-channel --update
+
 script:
-- outs=$(nix-build non-broken.nix --cores ${NIX_BUILD_CORES}) && echo Produced $outs
-- nix eval -f default.nix 'lib'
-- nix eval -f default.nix 'modules'
-- nix eval -f default.nix 'overlays'
+ - nix-build ci.nix -A buildOutputs --cores ${NIX_BUILD_CORES}
+ - nix eval -f default.nix 'lib'
+ - nix eval -f default.nix 'modules'
+ - nix eval -f default.nix 'overlays'
+
 after_success:
-- if [ -n "${CACHIX_CACHE}" ]; then travis_wait cachix push "${CACHIX_CACHE}" $outs; fi
-- if [ "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
-  curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
+  - if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
+  - if [ "cron" != "${TRAVIS_EVENT_TYPE}" -a "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
+      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
+

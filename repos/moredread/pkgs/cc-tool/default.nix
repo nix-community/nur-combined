@@ -12,8 +12,6 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
 
-  #preConfigure = "./bootstrap";
-
   enableParallelBuilding = true;
 
   postInstall = ''
@@ -27,5 +25,12 @@ stdenv.mkDerivation rec {
     repo = "cc-tool";
     rev = "407fd7e1631768c724e7d78e56c0b042598a8c23";
     sha256 = "1q7zqib4rn5l8clk2hj7078rfyrjdwxzpyg4r10is31lq22zhxqj";
+  };
+
+  meta = with stdenv.lib; {
+    description = "WIP";
+    homepage = https://github.com/dashesy/cc-tool;
+    license = licenses.gpl2;
+    maintainers = with maintainers; [ moredread ];
   };
 }

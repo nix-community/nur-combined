@@ -27,8 +27,6 @@ in stdenv.mkDerivation rec {
       --replace "/usr/" "$out/"
   '';
 
-  qmakeFlags = [ "INSTALL_DIR=${placeholder "out"}" ];
-
   nativeBuildInputs = [ qmake ];
   buildInputs = [ qtsvg qtquickcontrols2 ];
 
