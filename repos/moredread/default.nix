@@ -30,6 +30,7 @@ rec {
   implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad {};
   ipbt = pkgs.callPackage ./pkgs/ipbt {};
   nix-search = pkgs.callPackage ./pkgs/nix-search {};
+  extplane-panel = pkgs.libsForQt5.callPackage ./pkgs/extplane-panel {};
   prusa-slicer-latest = with deps; pkgs.callPackage ./pkgs/prusa-slicer-latest { inherit cereal cgal_5; };
   slic3r-prusa3d-latest = prusa-slicer-latest;
 }
