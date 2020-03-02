@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "mapsoft2";
-  version = "2020-02-27";
+  version = "2020-03-02";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = pname;
-    rev = "048befdc24252c798d3c2339a34a25e8faa7c6f1";
-    sha256 = "05fbcrikcnaydzl53m8gl42z8qgqyrn78ir95h76pkl2vkfdscyh";
+    rev = "3c4e27fc6c48be158656f31cf9cbb32cd5246ab3";
+    sha256 = "1fb4r7nqj5z40s2pzl0i3p1gxcwxs3cca83i95a78n8gvjwkv9vm";
     fetchSubmodules = true;
   };
 
@@ -48,6 +48,8 @@ stdenv.mkDerivation rec {
   ];
 
   dontConfigure = true;
+
+  preBuild = "export SKIP_IMG_DIFFS=1";
 
   makeFlags = [ "prefix=${placeholder "out"}" ];
 
