@@ -45,14 +45,14 @@ $ nix-shell -p kampka.nixify
 ```
 or
 ```console
-$ nix-env -iA kampka.nixify
+$ nix-env -iA nixos.kampka.nixify
 ```
 or
 ```nix
 {
     # /etc/nixos/configuration.nix
     environment.systemPackages = [
-      kampka.nixify
+      pkgs.kampka.nixify
     ];
 }
 ```
