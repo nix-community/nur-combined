@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, qmake, qtsvg, qtquickcontrols2 }:
+{ stdenv, fetchFromGitHub, wrapQtAppsHook, qmake, qtsvg, qtquickcontrols2 }:
 
 let
   extplane_src = fetchFromGitHub {
@@ -27,7 +27,7 @@ in stdenv.mkDerivation rec {
       --replace "/usr/" "$out/"
   '';
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [ qmake wrapQtAppsHook ];
   buildInputs = [ qtsvg qtquickcontrols2 ];
 
   enableParallelBuilding = true;
