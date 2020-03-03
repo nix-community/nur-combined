@@ -8,9 +8,7 @@ pythonPkgsScoped = pkgs: super: {
   # deriving other overrides is easier and we can have universal python
   # overrides, because god is dead
   pythonInterpreters = let
-    inherit (pkgs.lib)
-      composeExtensions flow foldl' hideFunctionArgs mapAttr mapAttrOrElse
-      mapFunctionArgs mapOptionalAttr;
+    inherit (pkgs.lib) composeExtensions flow foldl' mapAttr mapAttrOrElse;
     # we need a way to carry along overrides for all packages
     # i wrote this at one a.m. and somehow it pretty much just worked
     # (fixed points permanently bend your brain)

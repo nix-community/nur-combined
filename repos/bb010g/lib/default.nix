@@ -1,4 +1,4 @@
-import ./default-boilerplate.nix {
+import ./boilerplate-default.nix {
   modules = { #{{{1
     attrsets = import ./attrsets.nix;
     # edn = import ./edn;
@@ -37,7 +37,9 @@ import ./default-boilerplate.nix {
       comp3 comp3Op flow3
       hideFunctionArgs
       mapFunctionArgs
-      mapIf
+      mapIf mapUnless
+      setFunctionArgs'
+      wrapFunction
     ;
     #}}}2
   };

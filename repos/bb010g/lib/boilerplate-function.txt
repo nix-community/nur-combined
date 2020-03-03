@@ -1,0 +1,13 @@
+  # L_FUNCTION {{{2
+  /* L_DESCRIPTION.
+
+     Type: L_TYPE
+
+     Example:
+       L_INVOCATION
+       => L_RESULT
+  */
+  L_FUNCTION =
+    # L_ARGUMENT
+    x:
+    L_BODY;

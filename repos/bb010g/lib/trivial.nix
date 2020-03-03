@@ -16,8 +16,10 @@ let
     id
     isFunction
     mapFunctionArgs # (mod)
-    mapIf # (mod)
+    mapIf mapUnless # (mod)
     setFunctionArgs
+    setFunctionArgs' # (mod)
+    wrapFunction # (mod)
   ; #}}}1
 in {
 
@@ -81,12 +83,21 @@ in {
     }; in self;
 
   # mapFunctionArgs {{{2
+  /* Transform metadata about expected function arguments.
+
+     Type: (Map string bool -> Map string bool) -> (a -> b) -> a -> b
+
+     Example:
+       functionArgs
+         (mapFunctionArgs (m: m // { b = false; }) ({ a ? 1, ... }: a))
+       => { a = true; b = false; }
+  */
   mapFunctionArgs =
+    # Function to call
     f:
+    # Function to transform argument metadata of
     fun:
-    if isAttrs fun
-      then fun // { __functionArgs = f (functionArgs fun); }
-      else setFunctionArgs fun (f (builtins.functionArgs fun));
+    setFunctionArgs' (f (functionArgs fun));
 
   # mapIf {{{2
   /* Apply function if the second argument is true.
@@ -105,6 +116,72 @@ in {
     # Boolean to test
     b:
     if b then f else id;
+
+  # mapUnless {{{3
+  /* Apply function if the second argument is false.
+
+     Type: mapUnless :: (a -> a) -> bool -> a -> a
+
+     Example:
+       mapUnless (x: x+1) false 9
+       => 10
+       mapUnless (x: x+1) true 9
+       => 9
+  */
+  mapUnless =
+    # Function to call
+    f:
+    # Boolean to test
+    b:
+    if b then id else f;
+
+  # setFunctionArgs' {{{2
+  /* Add metadata about expected function arguments to a function.
+
+     Like setFunctionArgs, but avoids further nesting functors.
+
+     Type: setFunctionArgs :: (a -> b) -> Map string bool -> (a -> b)
+
+     Example:
+       functionArgs (setFunctionArgs ({ a ? 1, ... }: a) { b = false; })
+       => { b = false; }
+  */
+  setFunctionArgs' =
+    # Function to set argument metadata of
+    f:
+    # Function argument metadata
+    args:
+    if isAttrs f && f ? __functor
+      then f // { __functionArgs = args; }
+      else setFunctionArgs f args;
+
+  # wrapFunction {{{2
+  /* L_DESCRIPTION.
+
+     Type: ((a -> b) -> a -> b) -> (a -> b) -> a -> b
+
+     Example:
+       let
+         f = { a ? 1, ... } @ args: args;
+         g = wrapFunction (origFun: { b, ... } @ args: origFun args) f;
+       in rec {
+         fRes = f { }; fArgs = functionArgs f;
+         gRes = g { b = 2; }; gArgs = functionArgs g;
+       }
+       => {
+           fRes = { a = 1; }; fArgs = { a = true; };
+           gRes = { a = 1; b = 2; }; gArgs = { a = true; b = false; };
+         }
+  */
+  wrapFunction =
+    # Function to call with original function and then call
+    wrapperFunFun:
+    # Function to wrap
+    origFun:
+    let
+      wrapperFun = wrapperFunFun origFun;
+      origArgs = functionArgs origFun;
+    in mapFunctionArgs wrapperFun (wrapperArgs: origArgs // wrapperArgs);
 
   #}}}1
 

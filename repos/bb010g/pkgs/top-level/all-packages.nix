@@ -1,6 +1,7 @@
 self: pkgs:
 
 let inherit (self) callPackage; in let
+  inherit (pkgs) lib recurseIntoAttrs;
   inherit (pkgs.lib) breakDrv getVersion mapIf versionAtLeast;
 
   cargoHashBreakageVersion = "1.39.0";
@@ -48,9 +49,9 @@ in {
   })).override {
     conf = pkgs.lib.readFile ../applications/misc/st/config.h;
     patches = [
-      ../applications/misc/st/bold-is-not-bright.diff
-      ../applications/misc/st/scrollback.diff
-      ../applications/misc/st/vertcenter.diff
+      ../applications/misc/st/bold-is-not-bright.patch
+      ../applications/misc/st/scrollback.patch
+      ../applications/misc/st/vertcenter.patch
     ];
   };
 
@@ -89,7 +90,7 @@ in {
 
   # applications.version-management {{{2
 
-  gitAndTools = pkgs.recurseIntoAttrs
+  gitAndTools = recurseIntoAttrs
     (callPackage ../applications/version-management/git-and-tools { });
 
   # data {{{1
@@ -99,6 +100,10 @@ in {
 
   # development {{{1
   # development.libraries {{{2
+
+  gdtoa-desktop = self.gdtoa-desktop-unstable;
+  gdtoa-desktop-unstable = callPackage ../development/libraries/gdtoa-desktop { };
+
   # development.libraries.java {{{3
 
   ${null/*swt_4_6*/} = pkgs.swt.overrideAttrs (o: let
