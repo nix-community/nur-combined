@@ -2,95 +2,100 @@
 # your system.  Help is available in the configuration(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+with lib;
 {
   imports =
-    [ # Include desktop configuration
-      ../desktop-configuration
-      # Include custom package environments
+    [ # Include custom package environments
       ../packages-configuration
-      # Include vim config
-      ../vim-configuration
-      # Include steam
-      ../steam-configuration
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "RACEMONSTER"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.enp0s31f6.useDHCP = true;
-  networking.interfaces.wlp1s0.useDHCP = true;
-  networking.networkmanager.enable = true;
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  console = {
-    font = "Lat2.Terminus16";
-    keyMap = "us";
+  # main user option
+  options = {
+    mainUser = mkOption {
+      type = types.str;
+      default = "erik";
+      description = ''Name for the default user of the system'';
+    };
   };
 
-  # Set your time zone.
-  time.timeZone = "Europe/Amsterdam";
+  config = {
+    # Use the systemd-boot EFI boot loader.
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    wget curl ntfs3g sshfs
-  ];
+    networking.hostName = "RACEMONSTER"; # Define your hostname.
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
+    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
+    # Per-interface useDHCP will be mandatory in the future, so this generated config
+    # replicates the default behaviour.
+    networking.useDHCP = false;
+    networking.interfaces.enp0s31f6.useDHCP = true;
+    networking.interfaces.wlp1s0.useDHCP = true;
+    networking.networkmanager.enable = true;
 
-  # List services that you want to enable:
-  services.logind.lidSwitch = "suspend-then-hibernate";
+    # Configure network proxy if necessary
+    # networking.proxy.default = "http://user:password@proxy:port/";
+    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+    # Select internationalisation properties.
+    i18n.defaultLocale = "en_US.UTF-8";
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+    console = {
+      font = "Lat2.Terminus16";
+      keyMap = "us";
+    };
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
+    # Set your time zone.
+    time.timeZone = "Europe/Amsterdam";
 
-  # Enable sound.
-   sound.enable = true;
-   hardware.pulseaudio.enable = true;
+    # List packages installed in system profile. To search, run:
+    # $ nix search wget
+    environment.systemPackages = with pkgs; [
+      wget curl ntfs3g sshfs
+    ];
 
-  # Enable virtualbox
-  virtualisation.virtualbox.host.enable = true;
+    # Some programs need SUID wrappers, can be configured further or are
+    # started in user sessions.
+    # programs.mtr.enable = true;
+    # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.erik = {
-    isNormalUser = true;
-    packages = with pkgs; [ all-env ];
-    extraGroups = [ "wheel" "networkmanager" "user-with-access-to-virtualbox" ]; # Enable ‘sudo’ for the user.
+    # List services that you want to enable:
+    services.logind.lidSwitch = "suspend-then-hibernate";
+
+    # Enable the OpenSSH daemon.
+    # services.openssh.enable = true;
+
+    # Open ports in the firewall.
+    # networking.firewall.allowedTCPPorts = [ ... ];
+    # networking.firewall.allowedUDPPorts = [ ... ];
+    # Or disable the firewall altogether.
+    # networking.firewall.enable = false;
+
+    # Enable CUPS to print documents.
+    # services.printing.enable = true;
+
+    # Enable sound.
+    sound.enable = true;
+    hardware.pulseaudio.enable = true;
+
+    # Enable virtualbox
+    virtualisation.virtualbox.host.enable = true;
+
+    # Define a user account. Don't forget to set a password with ‘passwd’.
+    users.users.${config.mainUser} = {
+      isNormalUser = true;
+      packages = with pkgs; [ all-env ];
+      extraGroups = [ "wheel" "networkmanager" "user-with-access-to-virtualbox" ]; # Enable ‘sudo’ for the user.
+    };
+
+    # This value determines the NixOS release with which your system is to be
+    # compatible, in order to avoid breaking some software such as database
+    # servers. You should change this only after NixOS release notes say you
+    # should.
+    system.stateVersion = "19.09"; # Did you read the comment?
   };
-
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
-  system.stateVersion = "19.09"; # Did you read the comment?
-
 }
 
