@@ -89,10 +89,10 @@ let
     };
   });
 
-  renderIncludeRule = rule: let
-    path = if builtins.isPath rule.include
-      then lib.replaceStrings ["%"] ["%%"] (toString rule.include)
-      else rule.include;
+  renderIncludeRule = { include, ... }: let
+    path = if builtins.isPath include
+      then lib.replaceStrings ["%"] ["%%"] (toString include)
+      else include;
   in ''include ${renderLiteralString path}'';
 
   sequenceEventType = ty.coercedTo ty.str (keysym: { inherit keysym; })
@@ -116,14 +116,13 @@ let
           Alternatively, <literal>null</literal> means that no modifier may
           be present.
         '';
-        default = null;
+        default = [ ];
       };
     }));
 
-  renderSequenceEvent = event:
-    if event.modifiers == null then "None" else
-      concatSpace
-        (lib.optional event.exactModifers "!" ++ event.exactModifers);
+  renderSequenceEvent = { keysym, modifiers, exactModifiers, ... }:
+    if modifiers == null then "None" else concatSpace
+      (lib.optional exactModifiers "!" ++ modifiers ++ [ keysym ]);
 
   sequenceResultType = ty.addCheck (ty.submodule ({ config, lib, ... }: {
     options.string = lib.mkOption {
@@ -158,10 +157,10 @@ let
     };
   })) (result: result.string != null || result.keysym != null);
 
-  renderSequenceResult = result: let
-    string = nullMapOptional renderEscapedString result.string;
-    keysym = nullOptional result.keysym;
-  in concatSpace (string ++ keysym);
+  renderSequenceResult = { string, keysym, ... }: let
+    string' = nullMapOptional renderEscapedString string;
+    keysym' = nullOptional keysym;
+  in concatSpace (string' ++ keysym');
 
   sequenceRuleType = ty.submodule ({ lib, ... }: {
     options.events = lib.mkOption {
@@ -215,8 +214,8 @@ let
     };
   });
 
-  renderCommentRule = { commentLines, ... } @ rule:
-    if commentLines == "" then "\n" else renderCommentLines commentLines;
+  renderCommentRule = { commentLines, ... }:
+    if commentLines == "" then "" else renderCommentLines commentLines;
 
   ruleType = ty.oneOf [
     (ty.addCheck commentRuleType (r: r ? commentLines))
