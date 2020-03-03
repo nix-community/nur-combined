@@ -100,5 +100,4 @@ lib.makeScope newScope (self: with self; {
   }) // pkgs.perlPackages // {
     recurseForDerivations = false;
   };
-  inherit (perlPackages) MatchSimple SubInfix MathPolygon MathPolygonTree MathGeometryPlanarGPCPolygonXS TreeR GeoOpenstreetmapParser;
 })

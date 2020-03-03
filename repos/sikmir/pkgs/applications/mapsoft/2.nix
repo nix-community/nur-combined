@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, db, giflib, gsettings-desktop-schemas
+{ stdenv, fetchFromGitHub, substituteAll, db, giflib, gsettings-desktop-schemas
 , gtkmm3, jansson, libjpeg, libpng, libtiff, libxml2, libzip
 , perlPackages, pkgconfig, proj, shapelib, unzip }:
 
@@ -14,15 +14,17 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [ ./0002-fix-build.patch ];
+  patches = [
+    (substituteAll {
+      src = ./0002-fix-build.patch;
+      db = db.dev;
+      giflib = giflib;
+    })
+  ];
 
   postPatch = ''
     substituteInPlace modules/get_deps \
       --replace "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
-    substituteInPlace modules/pc/libgif.pc \
-      --replace "@giflib@" "${giflib}"
-    substituteInPlace modules/pc/libdb.pc \
-      --replace "@db@" "${db.dev}"
     substituteInPlace modules/mapview/mapview.cpp \
       --replace "/usr/share" "${placeholder "out"}/share"
     patchShebangs .
