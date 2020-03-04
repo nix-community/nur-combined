@@ -444,10 +444,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.4.0";
+      version = "4.5.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3478747/react_developer_tools-4.4.0-fx.xpi?src=";
-      sha256 = "a55adcbfa3160c9c2e286d2dbf1b34769488ab36161383dbecaf0c81b222a578";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3519191/react_developer_tools-4.5.0-fx.xpi?src=";
+      sha256 = "a7073f2677a36d116ccf72346fa20b0f974ea158e72f7e43b24b588d0afc3b05";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -486,10 +486,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.2.28";
+      version = "20.3.3";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3516420/refined_github-20.2.28-an+fx.xpi?src=";
-      sha256 = "005475886ed1f32b9fa69b2ae5247cb7111ec6a46afb4ab45208d8f4df1a4302";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3518764/refined_github-20.3.3-an+fx.xpi?src=";
+      sha256 = "ca0834b488c37b5b159da9df4f8e4aa9362a7c50989caecfb1bf28ab71e139f5";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -513,10 +513,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.6";
+      version = "1.5.10";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3401561/stylus-1.5.6-fx.xpi?src=";
-      sha256 = "4ac675d1b5e2edb837bef2bed6044b9be3a7af24201080728f194e46b1ed025f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3515614/stylus-1.5.10-fx.xpi?src=";
+      sha256 = "b441bd4dd764e2406185c49c44d36627c3453f8686ee2c159948ebb78785eec9";
       meta = with stdenv.lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -650,10 +650,10 @@
       };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "1.65.1";
+      version = "1.66";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3502765/vimium_ff-1.65.1-fx.xpi?src=";
-      sha256 = "10afafcdb0e4ec64b8ccc96f9142a664807efc66fdafe83e2692fd7c7750b87c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3518684/vimium_ff-1.66-fx.xpi?src=";
+      sha256 = "ff034c5e35eef842da531080e2d345360ccce09f6eb7dfa53fd2c2b7d662b758";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/philc/vimium";
