@@ -82,7 +82,10 @@ rec {
   mpi-ping = pkgs.callPackage ./pkgs/mpi-ping { };
 
   # Singularity
-  singularity = pkgs.callPackage ./pkgs/singularity { };
+  singularity = pkgs.callPackage ./pkgs/singularity { 
+    buildGoModule = pkgs.buildGo113Module;
+    go = pkgs.go_1_13;
+  };
 
   # PLPlot
   plplot = pkgs.callPackage ./pkgs/plplot { };

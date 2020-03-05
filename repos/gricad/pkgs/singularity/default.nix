@@ -1,58 +1,78 @@
-{ stdenv
+{stdenv
+, removeReferencesTo
+, lib
 , fetchFromGitHub
-, autoreconfHook
-, gnutar
-, which
-, gnugrep
+, utillinux
+, openssl
 , coreutils
-, python
-, e2fsprogs
+, go
+, which
 , makeWrapper
 , squashfsTools
-, gzip
-, gnused
-, curl
-, utillinux
-, libarchive
- }:
+, buildGoModule}:
 
-stdenv.mkDerivation rec {
-  name = "singularity-${version}";
-  version = "2.5-nix";
+with lib;
 
-  enableParallelBuilding = true;
-
-  patches = [ ./env.patch ];
-
-  preConfigure = ''
-    sed -i 's/-static//g' src/Makefile.am
-    patchShebangs .
-  '';
-
-  fixupPhase = ''
-    patchShebangs $out
-    for f in $out/libexec/singularity/helpers/help.sh $out/libexec/singularity/cli/*.exec $out/libexec/singularity/bootstrap-scripts/*.sh ; do
-      chmod a+x $f
-      sed -i 's| /sbin/| |g' $f
-      sed -i 's| /bin/bash| ${stdenv.shell}|g' $f
-      wrapProgram $f --prefix PATH : ${stdenv.lib.makeBinPath buildInputs}
-    done
-  '';
+buildGoModule rec {
+  pname = "singularity";
+  version = "3.5.3";
 
   src = fetchFromGitHub {
-    owner = "bzizou";
+    owner = "sylabs";
     repo = "singularity";
-    rev = version;
-    sha256 = "1sn2z9l8qf7fiya63qf4pkxbs97ipkf8igzr4fh7l0pahk8879ch";
+    rev = "v${version}";
+    sha256 = "0n4mphf8q2mj9qi3lxdg8bm97lpf0c80y69nnps1mf0rk70bkbj0";
   };
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper ];
-  buildInputs = [ coreutils gnugrep python e2fsprogs which gnutar squashfsTools gzip gnused curl utillinux libarchive ];
+  modSha256 = "0iak4cc78q6s5cg2ffh6jkyfqhkvnj2j42fbq7az9n1hsmmlkqhm";
+
+  goPackagePath = "github.com/sylabs/singularity";
+  goDeps = ./deps.nix;
+
+  buildInputs = [ openssl ];
+  nativeBuildInputs = [ removeReferencesTo utillinux which makeWrapper ];
+  propagatedBuildInputs = [ coreutils squashfsTools ];
+
+  prePatch = ''
+    substituteInPlace internal/pkg/build/files/copy.go \
+      --replace /bin/cp ${coreutils}/bin/cp
+  '';
+
+  postConfigure = ''
+    #cd go/src/github.com/sylabs/singularity
+    echo ${version} > VERSION
+
+    patchShebangs .
+    sed -i 's|defaultPath := "[^"]*"|defaultPath := "${stdenv.lib.makeBinPath propagatedBuildInputs}"|' cmd/internal/cli/actions.go
+
+    ./mconfig -V ${version} -p $out --localstatedir=/var --without-suid
+
+    # Don't install SUID binaries
+    sed -i 's/-m 4755/-m 755/g' builddir/Makefile
+
+  '';
+
+  buildPhase = ''
+    cd builddir
+    make
+  '';
+
+  installPhase = ''
+    make install LOCALSTATEDIR=$out/var
+    wrapProgram $out/bin/singularity --prefix PATH : ${stdenv.lib.makeBinPath propagatedBuildInputs}
+  '';
+
+  postFixup = ''
+    find $out/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
+
+    # These etc scripts shouldn't have their paths patched
+    #cp ../e2e/actions/* $out/etc/singularity/actions/
+  '';
 
   meta = with stdenv.lib; {
-    homepage = http://singularity.lbl.gov/;
-    description = "Designed around the notion of extreme mobility of compute and reproducible science, Singularity enables users to have full control of their operating system environment";
-    license = "BSD license with 2 modifications";
+    homepage = http://www.sylabs.io/;
+    description = "Application containers for linux";
+    license = licenses.bsd3;
     platforms = platforms.linux;
     maintainers = [ maintainers.jbedo ];
   };
