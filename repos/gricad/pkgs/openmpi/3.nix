@@ -9,14 +9,14 @@
 
 let
   majorVersion = "3.1";
-  minorVersion = "1";
+  minorVersion = "5";
 
 in stdenv.mkDerivation rec {
   name = "openmpi-${majorVersion}.${minorVersion}";
 
   src = fetchurl {
     url = "http://www.open-mpi.org/software/ompi/v${majorVersion}/downloads/${name}.tar.bz2";
-    sha256 = "0z67h3zb0vgg5jp7gbaifwlpigs35izpgsaps1wbia0qvm4bc49z";
+    sha256 = "0cr1yw56227kbd7maj2mh9kncglnki6lvlsnipn5ws3r8mdhgw7v";
   };
 
   postPatch = ''
@@ -32,7 +32,7 @@ in stdenv.mkDerivation rec {
 
   configureFlags = with stdenv; [ "--disable-mca-dso" ]
     ++ lib.optional isLinux  "--with-libnl=${libnl.dev}"
-    ++ lib.optional isLinux  "--with-psm2=${psm2}/usr"
+    ++ lib.optional isLinux  "--with-psm2=${psm2}"
     ++ lib.optional enableSGE "--with-sge"
     ++ lib.optional enablePrefix "--enable-mpirun-prefix-by-default"
     ;

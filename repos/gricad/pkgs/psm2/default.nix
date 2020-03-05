@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   name = "opa-psm2-${version}";
-  version = "11.2.78";
+  version = "10_10_1_0_36";
 
   preConfigure= ''
     export UDEVDIR=$out/etc/udev
@@ -22,9 +22,14 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "intel";
     repo = "opa-psm2";
-    rev = "PSM2_${version}";
-    sha256 = "0vkw5g1p3pfr58a2g7a4mk247jg07jawx9iwkikwyqgnrsrkcqg1";
+    rev = "IFS_RELEASE_${version}";
+    sha256 = "13qd4nln38fvc440bnwfr37bm6xniadnslxcakvj2kjn4lrlwdgn";
   };
+
+  postInstall = ''
+    mv $out/usr/* $out
+    rmdir $out/usr
+  '';
 
   meta = with stdenv.lib; {
     homepage = https://github.com/intel/opa-psm2;

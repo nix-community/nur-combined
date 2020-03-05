@@ -96,5 +96,6 @@ stdenv.mkDerivation rec {
 	 homepage = "https://trilinos.org/";
 	 platforms = stdenv.lib.platforms.linux;
          license = stdenv.lib.licenses.unfree; # because of the dependency on parmetis
+         broken = true;
     };
 }

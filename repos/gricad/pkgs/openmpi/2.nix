@@ -39,7 +39,7 @@ in stdenv.mkDerivation rec {
   configureFlags = [ "--with-zlib-lib=${zlib}/lib/libz.so" "--with-zlib-include=${zlib.dev}/include" ]
     ++ optional enableSGE "--with-sge"
     ++ optional enablePrefix "--enable-mpirun-prefix-by-default"
-    ++ optional enableFabric "--with-psm2=${psm2}/usr --with-libfabric=${libfabric}"
+    ++ optional enableFabric "--with-psm2=${psm2} --with-libfabric=${libfabric}"
     ;
 
   enableParallelBuilding = true;

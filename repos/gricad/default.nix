@@ -6,9 +6,6 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-
   # Hello
   hello = pkgs.callPackage ./pkgs/hello { };
 
@@ -19,9 +16,6 @@ rec {
   #casa-511 = pkgs.callPackage ./pkgs/casa/5.1.1.nix { };
   #casa = pkgs.callPackage ./pkgs/casa/default.nix { };
 
-  # Charliecloud
-  charliecloud = pkgs.callPackage ./pkgs/charliecloud { };
-
   # Intel compiler
   #intel-compilers-2016 = pkgs.callPackage ./pkgs/intel/2016.nix { };
   intel-compilers-2017 = pkgs.callPackage ./pkgs/intel/2017.nix { };
@@ -29,7 +23,7 @@ rec {
   intel-compilers-2019 = pkgs.callPackage ./pkgs/intel/2019.nix { };
 
   # Openmpi
-  #openmpi = pkgs.callPackage ./pkgs/openmpi { };
+  openmpi = pkgs.callPackage ./pkgs/openmpi { };
   openmpi2 = pkgs.callPackage ./pkgs/openmpi/2.nix { psm2 = psm2; libfabric = libfabric;};
   openmpi2-opa = pkgs.callPackage ./pkgs/openmpi/2.nix {
     psm2 = psm2;
@@ -37,13 +31,19 @@ rec {
     enableFabric = true;
   };
   openmpi2-ib = pkgs.callPackage ./pkgs/openmpi/2.nix {
-        psm2 = psm2;
+    psm2 = psm2;
     libfabric = libfabric;
     enableIbverbs = true;
-    };
+  };
   openmpi3 = pkgs.callPackage ./pkgs/openmpi/3.nix {
         psm2 = psm2;
-      };
+  };
+  openmpi4 = pkgs.callPackage ./pkgs/openmpi/4.nix {
+    enablePrefix = true;
+    enableFabric = true;
+    libfabric = libfabric;
+    psm2 = psm2;
+  };
   psm2 = pkgs.callPackage ./pkgs/psm2 { };
   libfabric = pkgs.callPackage ./pkgs/libfabric { psm2 = psm2; };
 
@@ -58,10 +58,16 @@ rec {
   # Arpack-ng
   arpackNG = pkgs.callPackage ./pkgs/arpack-ng { };
 
+  # Gdal
+  gdal = pkgs.callPackage ./pkgs/gdal {  # forked from nixpkgs master as unstable is bugged, for dep
+    libmysqlclient = pkgs.mysql // {lib = {dev = pkgs.mysql;};};
+  };
+
   # GMT
   gshhg-gmt = pkgs.callPackage ./pkgs/gmt/gshhg-gmt.nix { };
   dcw-gmt   = pkgs.callPackage ./pkgs/gmt/dcw-gmt.nix { };
   gmt = pkgs.callPackage ./pkgs/gmt {
+          gdal = gdal ;
           gshhg-gmt = gshhg-gmt ;
           dcw-gmt = dcw-gmt ;
         };
@@ -100,7 +106,7 @@ rec {
   messer-slim = pkgs.callPackages ./pkgs/messer-slim { };
 
   # Fate
-  fate = pkgs.callPackages ./pkgs/fate { };
+  fate = pkgs.callPackages ./pkgs/fate { gdal = gdal; };
 
   # Migrate
   migrate = pkgs.callPackages ./pkgs/migrate { };
@@ -118,7 +124,7 @@ rec {
   fftw3 = pkgs.callPackages ./pkgs/fftw { };
 
   # Zonation
-  zonation-core = pkgs.callPackages ./pkgs/zonation-core { };
+  zonation-core = pkgs.callPackages ./pkgs/zonation-core { gdal = gdal ; };
 
   # Scotch 6.0.5a with mumps libraries
   scotch-mumps = pkgs.callPackages ./pkgs/scotch-mumps { };

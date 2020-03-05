@@ -23,6 +23,5 @@ stdenv.mkDerivation rec {
     homepage    = https://hoppet.hepforge.org;
     platforms   = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
-    broken = true; # Logs for building are too long for CI
   };
 }
