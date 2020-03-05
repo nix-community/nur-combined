@@ -4,12 +4,12 @@
 
 stdenv.mkDerivation rec {
   pname = "focal";
-  version = "2020-01-03";
+  version = "2020-03-05";
   src = fetchFromGitHub {
     owner = "ohwgiles";
     repo = pname;
-    rev = "09715f6662f332de312bafc42a743465e9878596"; 
-    sha256 = "0b4giadhr07hq6rbwhym556i2iicvbfyf0vdg7q9d72l8bvxia1f";
+    rev = "72cfc4b1fcb3bf4fdc43a8ef673b63d984776e8a"; 
+    sha256 = "0fqh2r3yzdpwg07rgvf18cw8wdbj36ds5lhwaxwcn6414xbrvzwh";
   };
 
   patches = [
