@@ -31,6 +31,10 @@ stdenv.mkDerivation rec {
     
     cmakeFlags = [
       "-DCMAKE_INSTALL_PREFIX=$out"
+      "-DTrilinos_INSTALL_INCLUDE_DIR=$out/include"
+      "-DTrilinos_INSTALL_LIB_DIR=$out/lib"
+      "-DTrilinos_INSTALL_RUNTIME_DIR=$out/bin"
+      "-DTrilinos_INSTALL_EXAMPLE_DIR=$out/example"
       "-DCMAKE_CXX_COMPILER=mpic++"
       "-DCMAKE_C_COMPILER=mpicc"
       "-DCMAKE_Fortran_COMPILER=mpif90"
@@ -87,12 +91,6 @@ stdenv.mkDerivation rec {
       "-DCMAKE_CXX_FLAGS=-DHAVE_EPETRA_LAPACK_GSSVD3"
     ];
    
-
-      #"-DTrilinos_INSTALL_INCLUDE_DIR=$out/include"
-      #"-DTrilinos_INSTALL_LIB_DIR=$out/lib"
-      #"-DTrilinos_INSTALL_RUNTIME_DIR=$out/bin"
-      #"-DTrilinos_INSTALL_EXAMPLE_DIR=$out/example"
- 
     #enableParallelBuilding = true;
     #dochek = true;
     meta = {
