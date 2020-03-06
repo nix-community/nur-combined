@@ -5,8 +5,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "uwplse";
     repo = "coq-plugin-lib";
-    rev = "37db8d0ec595bcc7840ad272f9e88555c35f2bc3";
-    sha256 = "112aqfgxxqkd92x56hj9nvwvlw38is4db1jv2f8pzh9j1c6mlpsy";
+    rev = "9ef820a05b779d69d5f175dd7840444012267db6";
+    sha256 = "1s20zwq2j3ar3kkp48jjgm1dp5x8vf32fm7qwmajqgkllhg6pj4h";
   };
 
   buildInputs = [ coq ];

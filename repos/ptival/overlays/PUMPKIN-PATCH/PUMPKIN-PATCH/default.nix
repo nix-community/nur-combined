@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
     owner = "uwplse";
     repo = "PUMPKIN-PATCH";
-    rev = "fcee3f044f4696c003c95ae7c03d377bd4f6ca32";
-    sha256 = "01iycc3qi3c23rwr43ml0avj27sbxshj2v3mi1cn1ymsz5inj2yh";
+    rev = "1e4753e0cabf7e674244f570f5a0f9947022e177";
+    sha256 = "11jcqiy52dvg4lp51pvjg6w7n7w59qkyray54wkpzr4s8bga41x6";
   };
 
   buildInputs = [
