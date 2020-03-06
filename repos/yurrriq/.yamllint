@@ -1,0 +1,7 @@
+extends: default
+
+rules:
+  document-start: disable
+  indentation:
+    indent-sequences: false
+  key-ordering: {}

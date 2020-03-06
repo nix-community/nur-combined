@@ -1,13 +1,9 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-
 let
-
   cfg = config.yubikey-gpg;
-
 in
-
 {
 
   options = {

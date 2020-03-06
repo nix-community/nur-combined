@@ -3,23 +3,24 @@
 # broken your CI will not try to build them and the non-broken packages will
 # be added to the cache.
 { pkgs ? import <nixpkgs> {} }:
-
-let filterSet =
-      (g: s: builtins.listToAttrs
-        (map
-          (n: { name = n; value = builtins.getAttr n s; })
-          (builtins.filter
-            (n: g (builtins.getAttr n s))
-            (builtins.attrNames s)
-          )
+let
+  filterSet =
+    (g: s: builtins.listToAttrs
+      (map
+        (n: { name = n; value = builtins.getAttr n s; })
+        (builtins.filter
+          (n: g (builtins.getAttr n s))
+          (builtins.attrNames s)
         )
-      );
-in filterSet
-     (p: (builtins.isAttrs p)
-       && !(
-             (builtins.hasAttr "meta" p)
-             && (builtins.hasAttr "broken" p.meta)
-             && (p.meta.broken)
-           )
-     )
-     (import ./default.nix { inherit pkgs; }).pkgs
+      )
+    );
+in
+filterSet
+  (p: (builtins.isAttrs p)
+  && !(
+    (builtins.hasAttr "meta" p)
+    && (builtins.hasAttr "broken" p.meta)
+    && (p.meta.broken)
+  )
+  )
+  (import ./default.nix { inherit pkgs; }).pkgs

@@ -1,6 +1,14 @@
-{ stdenv, fetchFromGitHub,
-  pkgconfig, automake, autoconf,
-  Cocoa, libX11, wxmac, cairo, poppler }:
+{ stdenv
+, fetchFromGitHub
+, pkgconfig
+, automake
+, autoconf
+, Cocoa
+, libX11
+, wxmac
+, cairo
+, poppler
+}:
 
 stdenv.mkDerivation rec {
   name = "diff-pdf-${version}";

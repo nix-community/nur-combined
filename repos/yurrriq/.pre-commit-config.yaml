@@ -1,0 +1,24 @@
+repos:
+- hooks:
+  - id: check-hooks-apply
+  - id: check-useless-excludes
+  repo: meta
+- hooks:
+  - id: trailing-whitespace
+  - files: ^.pre-commit-config.yaml$
+    id: check-yaml
+    name: Check pre-commit config
+  repo: git://github.com/pre-commit/pre-commit-hooks
+  rev: v2.4.0
+- hooks:
+  - args: ["--format=colored"]
+    files: ^.pre-commit-config.yaml$
+    id: yamllint
+    name: Lint pre-commit config
+  repo: git://github.com/adrienverge/yamllint.git
+  rev: v1.17.0
+- hooks:
+  - id: nixpkgs-fmt
+    name: Format .nix files
+  repo: git://github.com/nix-community/nixpkgs-fmt
+  rev: master

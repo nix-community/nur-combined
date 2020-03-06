@@ -1,14 +1,9 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-
 let
-
   cfg = config.programs.tomb;
-
 in
-
-
 {
 
   options = {
@@ -55,7 +50,7 @@ in
         type = types.bool;
       };
 
-      searchContents= mkOption {
+      searchContents = mkOption {
         default = false;
         description = ''
           Whether to enable fast searching of file contents inside tombs.
@@ -109,10 +104,10 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; (
-      [ file tomb ] ++
-      optional cfg.slam lsof ++
-      optional cfg.qrcode libqrencode ++
-      optional cfg.steganography steghide
+      [ file tomb ]
+      ++ optional cfg.slam lsof
+      ++ optional cfg.qrcode libqrencode
+      ++ optional cfg.steganography steghide
     );
   };
 

@@ -1,16 +1,13 @@
 { lib, pkgs, sources ? import ../nix/sources.nix }:
-
 let
-
   _nixpkgs = import sources.nixpkgs-unstable {};
 
   _nixpkgs-stable = import sources.nixpkgs {};
 
   _nixpkgs-78800 = import sources.nixpkgs-78800 {};
-
 in
-
-rec {
+rec
+{
   inherit (lib) buildK8sEnv;
 
   inherit (_nixpkgs-78800)
@@ -54,7 +51,7 @@ rec {
 
   lab = pkgs.callPackage ./applications/version-management/git-and-tools/lab {};
 
-  openlilylib-fonts = pkgs.callPackage ./misc/lilypond/fonts.nix { };
+  openlilylib-fonts = pkgs.callPackage ./misc/lilypond/fonts.nix {};
 
   lilypond = pkgs.callPackage ./misc/lilypond { guile = pkgs.guile_1_8; };
 
@@ -79,5 +76,5 @@ rec {
   };
 
   yq = pkgs.python3Packages.callPackage ./development/tools/yq {};
-
-} // (import ./broken.nix { inherit pkgs; })
+}
+// (import ./broken.nix { inherit pkgs; })

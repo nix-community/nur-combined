@@ -1,7 +1,14 @@
-{ stdenv, fetchurl
-, CoreAudio, libogg, libvorbis, flac, speex, libao
+{ stdenv
+, fetchurl
+, CoreAudio
+, libogg
+, libvorbis
+, flac
+, speex
+, libao
 , freepats
-, ncurses, pkgconfig
+, ncurses
+, pkgconfig
 }:
 
 stdenv.mkDerivation {
@@ -14,7 +21,12 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    CoreAudio libogg libvorbis flac speex libao
+    CoreAudio
+    libogg
+    libvorbis
+    flac
+    speex
+    libao
     freepats
     ncurses
   ];

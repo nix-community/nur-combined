@@ -1,5 +1,4 @@
 { stdenv, makeWrapper, symlinkJoin, lilypond, openlilylib-fonts, fonts }:
-
 let
   _fonts = openlilylib-fonts.override { inherit lilypond; };
 
@@ -10,8 +9,6 @@ let
 
   fontPaths = map getFont fonts;
 in
-
-
 symlinkJoin {
   name = (stdenv.lib.appendToName "with-fonts" lilypond).name;
   inherit (lilypond) meta version;
