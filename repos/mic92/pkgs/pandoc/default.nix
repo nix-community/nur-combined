@@ -1,7 +1,7 @@
 { stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
-  name = "pandoc-bin";
+  pname = "pandoc-bin";
   version = "2.9.2";
 
   src = fetchurl {
