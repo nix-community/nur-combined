@@ -1,4 +1,4 @@
-{ pkgs ? import (import ../nix/sources.nix).nixpkgs {} }:
+{ pkgs ? import <nixpkgs> {} }:
 {
   # package sets
   js = import ./js { inherit pkgs; };
