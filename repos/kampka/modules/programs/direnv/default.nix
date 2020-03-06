@@ -12,6 +12,12 @@ in
   options.kampka.programs.direnv = {
     enable = mkEnableOption "direnv - environment switcher for the shell";
 
+    configureBash = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether or not to enable bash configuration.";
+    };
+
     configureZsh = mkOption {
       type = types.bool;
       default = true;
@@ -22,6 +28,10 @@ in
   config = mkIf cfg.enable {
 
     environment.systemPackages = [ pkgs.direnv ];
+
+    programs.bash.interactiveShellInit = mkIf cfg.configureBash ''
+      eval "$(${pkgs.direnv}/bin/direnv hook bash)"
+    '';
 
     programs.zsh.interactiveShellInit = mkIf cfg.configureZsh ''
       eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
