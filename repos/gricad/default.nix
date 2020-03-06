@@ -73,7 +73,10 @@ rec {
         };
 
   # Trilinos
-  trilinos =  pkgs.callPackage ./pkgs/trilinos { };
+  trilinos =  pkgs.callPackage ./pkgs/trilinos { 
+    suitesparse = suitesparse;
+    openmpi = openmpi4;
+  };
 
   # Szip
   szip =  pkgs.callPackage ./pkgs/szip { };
@@ -134,6 +137,9 @@ rec {
 
   # Obitools3
   obitools3 = pkgs.callPackage ./pkgs/obitools/obitools3.nix { };
+
+  # Suitesparse
+  suitesparse = pkgs.callPackage ./pkgs/suitesparse  { };
 
 }
 

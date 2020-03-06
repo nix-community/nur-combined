@@ -1,6 +1,6 @@
 #!/bin/bash
 
-packages="hello obitools3 plplot openmpi openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 petscComplex petscReal udocker arpackNG gmt szip mpi-ping hoppet applgrid stacks messer-slim fate migrate gdl fftw3 zonation-core scotch-mumps"
+packages="hello obitools3 plplot openmpi openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 petscComplex petscReal udocker arpackNG gmt szip mpi-ping hoppet applgrid stacks messer-slim fate migrate gdl fftw3 zonation-core scotch-mumps suitesparse"
 packages_sandbox_disabled="singularity"
 broken="trilinos lhapdf59 bagel"
 n_cores=10

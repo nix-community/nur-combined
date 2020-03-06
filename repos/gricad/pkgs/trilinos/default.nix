@@ -11,29 +11,26 @@
 , parmetis
 , superlu
 , suitesparse
+, bc
 , cppunit }:
 #mumps
 
 stdenv.mkDerivation rec {
 
-    version = "12-12-1";
+    version = "12-18-1";
     name = "trilinos-release-${version}";
     
     src = fetchFromGitHub {
       owner = "trilinos";
       repo = "Trilinos";
-      rev = "89b8c7f016c247568f7c9c1f32d250c8d2683de0";
-      sha256 = "1smz3wlpfyjn0czmpl8bj4hw33p1zi9nnfygpsx7jl1523nypa1n";
+      rev = "55a75997332636a28afc9db1aee4ae46fe8d93e7";
+      sha256 = "0fnwlhzsh85qj38cq3igbs8nm1b2jdgr2z734sapmyyzsy21mkgp";
     };
 
-    buildInputs = [ parmetis cppunit suitesparse superlu metis perl cmake gfortran blas liblapack boost netcdf netcdffortran hdf5 matio x11 python27 python27Packages.numpy openmpi swig];
+    buildInputs = [ parmetis cppunit suitesparse superlu metis perl cmake gfortran blas liblapack boost netcdf netcdffortran hdf5 matio x11 python27 python27Packages.numpy openmpi swig bc ];
     
     cmakeFlags = [
       "-DCMAKE_INSTALL_PREFIX=$out"
-      "-DTrilinos_INSTALL_INCLUDE_DIR=$out/include"
-      "-DTrilinos_INSTALL_LIB_DIR=$out/lib"
-      "-Drilinos_INSTALL_RUNTIME_DIR=$out/bin"
-      "-Drilinos_INSTALL_EXAMPLE_DIR=$out/example"
       "-DCMAKE_CXX_COMPILER=mpic++"
       "-DCMAKE_C_COMPILER=mpicc"
       "-DCMAKE_Fortran_COMPILER=mpif90"
@@ -86,8 +83,16 @@ stdenv.mkDerivation rec {
       "-DTeuchos_ENABLE_COMPLEX=ON"
       "-DTrilinos_ENABLE_TESTS=ON"
       "-DCMAKE_VERBOSE_MAKEFILE=ON"
+      "-DCMAKE_C_FLAGS=-DHAVE_EPETRA_LAPACK_GSSVD3"
+      "-DCMAKE_CXX_FLAGS=-DHAVE_EPETRA_LAPACK_GSSVD3"
     ];
-    
+   
+
+      #"-DTrilinos_INSTALL_INCLUDE_DIR=$out/include"
+      #"-DTrilinos_INSTALL_LIB_DIR=$out/lib"
+      #"-DTrilinos_INSTALL_RUNTIME_DIR=$out/bin"
+      #"-DTrilinos_INSTALL_EXAMPLE_DIR=$out/example"
+ 
     #enableParallelBuilding = true;
     #dochek = true;
     meta = {
