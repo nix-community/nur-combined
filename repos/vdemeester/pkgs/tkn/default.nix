@@ -1,4 +1,4 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub  }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "tkn";
@@ -18,7 +18,16 @@ buildGoModule rec {
     sha256 = "00qznm02gsxvgxjakj7qpm8rgx82bnyycw4l7kpnrly5m07nm9gv";
   };
   modSha256 = "0a9m46aspqbvnnvhg6qv0adarr7plj91vknbz9idc8yz4sv9wi8j";
+
   postInstall = ''
+    # manpages
+    manRoot="$out/share/man"
+    mkdir -p "$manRoot/man1"
+    for manFile in docs/man/man1/*; do
+      manName="$(basename "$manFile")" # "docker-build.1"
+      gzip -c "$manFile" > "$manRoot/man1/$manName.gz"
+    done
+    # completions
     mkdir -p $out/share/bash-completion/completions/
     $out/bin/tkn completion bash > $out/share/bash-completion/completions/tkn
     mkdir -p $out/share/zsh/site-functions
