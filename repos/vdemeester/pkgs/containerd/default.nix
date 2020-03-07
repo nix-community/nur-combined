@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, buildGoPackage, btrfs-progs, go-md2man, utillinux }:
+{ stdenv, lib, fetchFromGitHub, buildGoPackage, btrfs-progs, libseccomp, go-md2man, utillinux, pkgconfig }:
 
 with lib;
 
@@ -18,8 +18,9 @@ buildGoPackage rec {
 
   hardeningDisable = [ "fortify" ];
 
-  buildInputs = [ btrfs-progs go-md2man utillinux ];
+  buildInputs = [ btrfs-progs libseccomp go-md2man utillinux ];
   buildFlags = "VERSION=v${version}";
+  nativeBuildInputs = [ pkgconfig ];
 
   BUILDTAGS = []
     ++ optional (btrfs-progs == null) "no_btrfs";
