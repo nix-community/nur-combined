@@ -209,10 +209,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.0.3";
+      version = "2.1.0";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3414682/facebook_container-2.0.3-fx.xpi?src=";
-      sha256 = "26d4b0541484ffc7364b8e429500a28bd71b9676bb92934e394661a5afcf160b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3519841/facebook_container-2.1.0-fx.xpi?src=";
+      sha256 = "01f50f3e54e5120361b88feb549263b552946231d30d84ecb686d14676074235";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -458,10 +458,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.18.10";
+      version = "5.18.11";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3488767/reddit_enhancement_suite-5.18.10-an+fx.xpi?src=";
-      sha256 = "b42a74568b794de4ed149b177d37b22a65df764c1cbca15b36633f704e14fbbe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3515793/reddit_enhancement_suite-5.18.11-an+fx.xpi?src=";
+      sha256 = "abf174ee23f1fedad5eb040e02f0d45579d6241b54d266095aa96f635916a0a9";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -486,10 +486,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.3.4";
+      version = "20.3.6";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3519293/refined_github-20.3.4-an+fx.xpi?src=";
-      sha256 = "720a5c5b008bda6f1aa5b9fad9d87c9030353f38039a17337d2f2c76ad821c3f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3521203/refined_github-20.3.6-an+fx.xpi?src=";
+      sha256 = "e55306d3f3e0bd80bcbc27f3544ae8877dbdd4d7f71136ee442f4422619262c5";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -678,10 +678,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "16.9";
+      version = "17.0";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3511927/zoom_page_we-16.9-fx.xpi?src=";
-      sha256 = "6b9b45d22c6731d442ab3c0960690732f37a3346d9dca91a6577e3333411193c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3520574/zoom_page_we-17.0-fx.xpi?src=";
+      sha256 = "50e76a3c13f811a06842db5b067107a592f01c1faa1fad650aac27a8224e2198";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
