@@ -36,12 +36,7 @@ rec {
 
   # Upstream
   buildkit = pkgs.callPackage ./pkgs/buildkit {};
-  cni = pkgs.callPackage ./pkgs/cni {};
-  cni-plugins = pkgs.callPackage ./pkgs/cni/plugins.nix {};
-  conmon = pkgs.callPackage ./pkgs/podman/conmon.nix {};
   containerd = pkgs.callPackage ./pkgs/containerd {};
   linuxkit = pkgs.callPackage ./pkgs/linuxkit {};
   minikube = pkgs.callPackage ./pkgs/minikube {};
-  podman = pkgs.callPackage ./pkgs/podman {};
-  runc = pkgs.callPackage ./pkgs/runc {};
 }
