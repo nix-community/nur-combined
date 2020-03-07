@@ -318,6 +318,19 @@
         platforms = platforms.all;
         };
       };
+    "ipfs-companion" = buildFirefoxXpiAddon {
+      pname = "ipfs-companion";
+      version = "2.10.0";
+      addonId = "ipfs-firefox-addon@lidel.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3469552/ipfs_companion-2.10.0-an+fx.xpi?src=";
+      sha256 = "b99b250c4b6bc5ec2e3e83f619b9e9d6ffb0a913cb1415a52beb4a494ef33772";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
+        description = "Official browser extension that simplifies access to IPFS resources";
+        platforms = platforms.all;
+        };
+      };
     "keepass-helper" = buildFirefoxXpiAddon {
       pname = "keepass-helper";
       version = "1.3";

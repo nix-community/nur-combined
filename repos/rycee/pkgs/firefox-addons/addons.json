@@ -76,6 +76,9 @@
     "slug": "https-everywhere"
   },
   {
+    "slug": "ipfs-companion"
+  },
+  {
     "slug": "keepass-helper-url-in-title",
     "pname": "keepass-helper"
   },
