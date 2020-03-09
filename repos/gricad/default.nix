@@ -47,6 +47,9 @@ rec {
   psm2 = pkgs.callPackage ./pkgs/psm2 { };
   libfabric = pkgs.callPackage ./pkgs/libfabric { psm2 = psm2; };
 
+  # HPL
+  hpl = pkgs.callPackage ./pkgs/hpl { mpi = openmpi4; };
+
   # Petsc
   petscComplex = pkgs.callPackage ./pkgs/petsc { scalarType = "complex"; };
   petscReal = pkgs.callPackage ./pkgs/petsc { scalarType = "real"; };
