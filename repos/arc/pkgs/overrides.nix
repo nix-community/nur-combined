@@ -43,9 +43,9 @@ let
 
       meta = old.meta or {} // {
         broken = old.meta.broken or false || notmuch.stdenv.isDarwin;
-        passthru = old.meta.passthru or {} // {
-          super = notmuch;
-        };
+      };
+      passthru = old.passthru or {} // {
+        super = notmuch;
       };
     });
     vim_configurable-pynvim = { vim_configurable, python3 }: vim_configurable.override {

@@ -16,9 +16,9 @@
     check = pkgs: pkgs.rustChannel or null;
     imp = channel: pkgs: import (channel + "/default.nix") { inherit pkgs; };
     url = "https://github.com/arcnmx/nixexprs-rust/archive/${rustOverlayRev}.tar.gz";
-    sha256 = "0pxwz9446cfzj9anay99z078nkq96yz03qzbnnp1pwnfnirayib5";
+    sha256 = "15jf6215c5aks9pk4zg4vhvvwlr1gycc2wcyfj5ryvfg1n99is4a";
   };
-  rustOverlayRev = "5b3f44cf408263a5dd87088c7477d6d21e7f8395";
+  rustOverlayRev = "71a911c36e797117be01927e2c7138a3fee6feec";
   rustPlatformFor = { rustPlatform, ... }: rustPlatform;
 
   builders = {
