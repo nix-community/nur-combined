@@ -46,6 +46,7 @@ defaultPackages: with defaultPackages.pkgs; {
       tldr
       npe
       jspm
+      typescript
     ];
   };
 

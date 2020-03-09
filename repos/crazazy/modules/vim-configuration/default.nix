@@ -7,20 +7,21 @@ let
       start = [
         vim-polyglot
         coc-nvim
-        coc-css
-        coc-emmet
-        coc-html
-        coc-java
-        coc-json
-        coc-lists
-        coc-prettier
-        coc-python
-        coc-r-lsp
-        coc-tslint
-        coc-tsserver
-        coc-vetur
-        coc-vimtex
-        coc-wxml
+        LanguageClient-neovim
+        # coc-css
+        # coc-emmet
+        # coc-html
+        # coc-java
+        # coc-json
+        # coc-lists
+        # coc-prettier
+        # coc-python
+        # coc-r-lsp
+        # coc-tslint
+        # coc-tsserver
+        # coc-vetur
+        # coc-vimtex
+        # coc-wxml
       ];
     };
     withNodeJs = true;
@@ -28,4 +29,5 @@ let
 in
 {
   environment.systemPackages = [ myVim ];
+  environment.variables.EDITOR = "nvim";
 }

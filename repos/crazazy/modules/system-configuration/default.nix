@@ -9,6 +9,7 @@ with lib;
   imports =
     [ # Include custom package environments
       ../packages-configuration
+      ../vim-configuration
     ];
 
   # main user option

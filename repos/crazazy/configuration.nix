@@ -1,6 +1,8 @@
 {config, pkgs, ...}:
 {
-  imports = [
+  imports = with import ./modules; [
     ./hardware-configuration.nix
-  ] ++ builtins.attrValues (import ./modules);
+    system-config
+    desktop-config
+  ];
 }
