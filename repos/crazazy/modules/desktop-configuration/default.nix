@@ -1,8 +1,11 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ../internet-background
+  ];
   environment.systemPackages = with pkgs; [
-    albert lemonbar alock glava feh
+    albert lemonbar alock glava
   ];
 
   fonts.fonts = with pkgs; [
@@ -34,6 +37,11 @@
   services.xserver.windowManager.openbox.enable = true;
   # fixes the edges issue with ulauncher
   services.compton.enable = true;
+  # fetches random background
+  fetchBackground = {
+    enable = true;
+    url = "https://source.unsplash.com/1980x1080?architecture,night";
+  };
   # set default config
   services.xserver.displayManager.defaultSession = "none+openbox";
 }

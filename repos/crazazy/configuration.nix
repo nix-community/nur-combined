@@ -1,8 +1,8 @@
 {config, pkgs, ...}:
 {
-  imports = with import ./modules; [
+  imports = [
     ./hardware-configuration.nix
-    system-config
-    desktop-config
+    ./modules/system-configuration
+    ./modules/desktop-configuration
   ];
 }
