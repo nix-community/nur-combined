@@ -25,7 +25,7 @@ buildGoPackage rec {
 
     You run it once and it'll set up everything above, automatically, keeping your existing custom images. You can run again when you get more games or want to update the category overlays.
     '';
-    #maintainers = with maintainers; [  ];
+    maintainers = with maintainers; [ joshuafern ];
     platforms = platforms.unix;
   };
 }

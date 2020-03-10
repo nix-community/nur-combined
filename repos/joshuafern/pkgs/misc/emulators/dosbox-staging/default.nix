@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     longDescription = ''
     This repository attempts to modernize the DOSBox project by using current development practices and tools, fixing issues, adding features that better support today's systems, and sending patches upstream.
     '';
-    #maintainers = with maintainers; [  ];
+    maintainers = with maintainers; [ joshuafern ];
     platforms = platforms.unix;
   };
 }
