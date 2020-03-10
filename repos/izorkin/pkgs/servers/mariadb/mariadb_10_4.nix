@@ -2,7 +2,7 @@
 , libiconv, openssl, pcre, boost, judy, bison, libxml2, libkrb5, linux-pam, curl
 , libaio, libevent, jemalloc, cracklib, systemd, perl
 , fixDarwinDylibNames, cctools, CoreServices, less
-, withNUMA ? true, numactl
+, numactl # NUMA Support
 , withStorageMroonga ? true, kytea, msgpack, zeromq
 , withoutClient ? false
 }:
@@ -89,7 +89,6 @@ common = rec { # attributes common to both builds
     # Remove Development components. Need to use libmysqlclient.
     rm "$out"/lib/mysql/plugin/daemon_example.ini
     rm "$out"/lib/{libmariadbclient.a,libmysqlclient.a,libmysqlclient_r.a,libmysqlservices.a}
-    rm "$out"/lib/mysql/plugin/{caching_sha2_password.so,dialog.so,mysql_clear_password.so,sha256_password.so}
     rm "$out"/bin/{mariadb_config,mysql_config}
     rm -r $out/include
     rm -r $out/lib/pkgconfig
@@ -145,7 +144,7 @@ server = stdenv.mkDerivation (common // {
   buildInputs = common.buildInputs ++ [
     xz lzo lz4 bzip2 snappy
     libxml2 boost judy libevent cracklib
-  ] ++ optional ((stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) && withNUMA) numactl
+  ] ++ optional (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) numactl
     ++ optionals withStorageMroonga [ kytea msgpack zeromq ]
     ++ optional stdenv.hostPlatform.isLinux linux-pam
     ++ optional (!stdenv.hostPlatform.isDarwin) mytopEnv;
@@ -168,7 +167,7 @@ server = stdenv.mkDerivation (common // {
     "-DWITH_INNODB_DISALLOW_WRITES=ON"
     "-DWITHOUT_EXAMPLE=1"
     "-DWITHOUT_FEDERATED=1"
-  ] ++ optional ((stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) && withNUMA) [
+  ] ++ optional (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) [
     "-DWITH_NUMA=ON"
   ] ++ optional (!withStorageMroonga) [
     "-DWITHOUT_MROONGA=ON"
@@ -203,7 +202,7 @@ server = stdenv.mkDerivation (common // {
 
   # perlPackages.DBDmysql is broken on darwin
   postFixup = optionalString (!stdenv.hostPlatform.isDarwin) ''
-    wrapProgram $out/bin/mytop --set PATH ${less}/bin/less
+    wrapProgram $out/bin/mytop --set PATH ${makeBinPath [ less ncurses ]}
   '';
 
   CXXFLAGS = optionalString stdenv.hostPlatform.isi686 "-fpermissive";

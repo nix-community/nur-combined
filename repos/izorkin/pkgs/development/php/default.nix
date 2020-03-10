@@ -22,7 +22,6 @@ let
   , imapSupport ? config.php.imap or (!stdenv.isDarwin)
   , ldapSupport ? config.php.ldap or true
   , mhashSupport ? (config.php.mhash or true) && (versionOlder version "7.0")
-  , mysqlSupport ? (config.php.mysql or true) && (!php7)
   , mysqlndSupport ? config.php.mysqlnd or true
   , mysqliSupport ? (config.php.mysqli or true) && (mysqlndSupport)
   , pdo_mysqlSupport ? (config.php.pdo_mysql or true) && (mysqlndSupport)
@@ -120,14 +119,14 @@ let
         ++ optional libzipSupport libzip
         ++ optional valgrindSupport valgrind;
 
-      CXXFLAGS = optional stdenv.cc.isClang "-std=c++11";
+      CXXFLAGS = optionalString stdenv.cc.isClang "-std=c++11";
 
       configureFlags = [
         "--with-config-file-scan-dir=/etc/php.d"
       ]
-      ++ optional (versionOlder version "7.3") "--with-pcre-regex=${pcre.dev} PCRE_LIBDIR=${pcre}"
-      ++ optional (versions.majorMinor version == "7.3") "--with-pcre-regex=${pcre2.dev} PCRE_LIBDIR=${pcre2}"
-      ++ optional (versionAtLeast version "7.4") "--with-external-pcre=${pcre2.dev} PCRE_LIBDIR=${pcre2}"
+      ++ optionals (versionOlder version "7.3") [ "--with-pcre-regex=${pcre.dev}" "PCRE_LIBDIR=${pcre}" ]
+      ++ optionals (versions.majorMinor version == "7.3") [ "--with-pcre-regex=${pcre2.dev}" "PCRE_LIBDIR=${pcre2}" ]
+      ++ optionals (versionAtLeast version "7.4") [ "--with-external-pcre=${pcre2.dev}" "PCRE_LIBDIR=${pcre2}" ]
       ++ optional stdenv.isDarwin "--with-iconv=${libiconv}"
       ++ optional withSystemd "--with-fpm-systemd"
       ++ optionals imapSupport [
@@ -140,7 +139,7 @@ let
         "LDAP_INCDIR=${openldap.dev}/include"
         "LDAP_LIBDIR=${openldap.out}/lib"
       ]
-      ++ optional (ldapSupport && stdenv.isLinux)   "--with-ldap-sasl=${cyrus_sasl.dev}"
+      ++ optional (ldapSupport && stdenv.isLinux) "--with-ldap-sasl=${cyrus_sasl.dev}"
       ++ optional apxs2Support "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
       ++ optional embedSupport "--enable-embed"
       ++ optional mhashSupport "--with-mhash"
@@ -195,6 +194,7 @@ let
       ++ optional mcryptSupport "--with-mcrypt=${libmcrypt'}"
       ++ optional bz2Support "--with-bz2=${bzip2.dev}"
       ++ optional (zipSupport && (versionOlder version "7.4")) "--enable-zip"
+      ++ optional (zipSupport && (versionAtLeast version "7.4")) "--with-zip"
       ++ optional ftpSupport "--enable-ftp"
       ++ optional fpmSupport "--enable-fpm"
       ++ optional (mssqlSupport && !stdenv.isDarwin) "--with-mssql=${freetds}"
@@ -281,22 +281,33 @@ in {
     sha256 = "005s7w167dypl41wlrf51niryvwy1hfv53zxyyr3lm938v9jbl7z";
 
     extraPatches = [
+     ./patch/php56/php5640-75457.patch # https://bugs.php.net/bug.php?id=75457
+     ./patch/php56/php5640-76846.patch # https://bugs.php.net/bug.php?id=76846
      ./patch/php56/php5640-77540.patch # https://bugs.php.net/bug.php?id=77540
      ./patch/php56/php5640-77563.patch # https://bugs.php.net/bug.php?id=77563
      ./patch/php56/php5640-77630.patch # https://bugs.php.net/bug.php?id=77630
-     ./patch/php56/php5640-76846.patch # https://bugs.php.net/bug.php?id=76846
      ./patch/php56/php5640-77753.patch # https://bugs.php.net/bug.php?id=77753
      ./patch/php56/php5640-77831.patch # https://bugs.php.net/bug.php?id=77831
-     ./patch/php56/php5640-sqlite3-defensive.patch # Added sqlite3.defensive INI directive
+     ./patch/php56/php5640-77919.patch # https://bugs.php.net/bug.php?id=77919
      ./patch/php56/php5640-77950.patch # https://bugs.php.net/bug.php?id=77950
      ./patch/php56/php5640-77967.patch # https://bugs.php.net/bug.php?id=77967
      ./patch/php56/php5640-77988.patch # https://bugs.php.net/bug.php?id=77988
      ./patch/php56/php5640-78069.patch # https://bugs.php.net/bug.php?id=78069
-     ./patch/php56/php5640-77919.patch # https://bugs.php.net/bug.php?id=77919
      ./patch/php56/php5640-78222.patch # https://bugs.php.net/bug.php?id=78222
      ./patch/php56/php5640-78256.patch # https://bugs.php.net/bug.php?id=78256
-     ./patch/php56/php5640-75457.patch # https://bugs.php.net/bug.php?id=75457
      ./patch/php56/php5640-78380.patch # https://bugs.php.net/bug.php?id=78380
+     ./patch/php56/php5640-78599.patch # https://bugs.php.net/bug.php?id=78599
+     ./patch/php56/php5640-78793.patch # https://bugs.php.net/bug.php?id=78793
+     ./patch/php56/php5640-78862.patch # https://bugs.php.net/bug.php?id=78862
+     ./patch/php56/php5640-78863.patch # https://bugs.php.net/bug.php?id=78863
+     ./patch/php56/php5640-78878.patch # https://bugs.php.net/bug.php?id=78878
+     ./patch/php56/php5640-78910.patch # https://bugs.php.net/bug.php?id=78910
+     ./patch/php56/php5640-79037.patch # https://bugs.php.net/bug.php?id=79037
+     ./patch/php56/php5640-79082.patch # https://bugs.php.net/bug.php?id=79082
+     ./patch/php56/php5640-79099.patch # https://bugs.php.net/bug.php?id=79099
+     ./patch/php56/php5640-79221.patch # https://bugs.php.net/bug.php?id=79221
+     ./patch/php56/php5640-php-openssl-cert.patch # Openssl cert updates
+     ./patch/php56/php5640-sqlite3-defensive.patch # Added sqlite3.defensive INI directive
     ];
   };
 
@@ -309,23 +320,23 @@ in {
   };
 
   php72 = generic {
-    version = "7.2.27";
-    sha256 = "0jbhc8x2i6xx6p7zc30ahg9xplsqlz334m1w13mhr1qv2xdnkh2v";
+    version = "7.2.28";
+    sha256 = "18sjvl67z5a2x5s2a36g6ls1r3m4hbrsw52hqr2qsgfvg5dkm5bw";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
   };
 
   php73 = generic {
-    version = "7.3.14";
-    sha256 = "0wn2qsfrnch90l8nxbpcjd2q0ijzdiiyhvcpbycngki9r6xwppxr";
+    version = "7.3.15";
+    sha256 = "0g84hws15s8gh8iq4h6q747dyfazx47vh3da3whz8d80x83ibgld";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
   };
 
   php74 = generic {
-    version = "7.4.2";
-    sha256 = "05p8z0ld058yjanxaphy3ka20hn7x7d6nak5sm782w4wprs9k402";
+    version = "7.4.3";
+    sha256 = "053d9hxpvk442nc3kiks99y51z6lfvf3wfn7ck62vyvqjnj7nlf1";
   };
 }

@@ -1,5 +1,5 @@
 { stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, makeWrapper, ncurses, zlib, xz, lzo, lz4, bzip2, snappy
-, libiconv, openssl, pcre, boost, judy, bison, libxml2, libkrb5, linux-pam, curl
+, libiconv, openssl, pcre2, boost, judy, bison, libxml2, libkrb5, linux-pam, curl
 , libaio, libevent, jemalloc, cracklib, systemd, perl
 , fixDarwinDylibNames, cctools, CoreServices, less
 , numactl # NUMA Support
@@ -21,21 +21,21 @@ mariadb = server // {
 };
 
 common = rec { # attributes common to both builds
-  version = "10.3.22";
+  version = "10.5.1";
 
   src = fetchurl {
     urls = [
       "https://downloads.mariadb.org/f/mariadb-${version}/source/mariadb-${version}.tar.gz"
       "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz"
     ];
-    sha256 = "1iyf1hl82nqsci5h327a537rvdrc5qcbrd1v3fc4cxy2pmfha01j";
+    sha256 = "118x9rbh44bxm6fysf3qx4b3x6fck55vcrw0kl2852898akdg69s";
     name   = "mariadb-${version}.tar.gz";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
 
   buildInputs = [
-    ncurses openssl zlib pcre jemalloc libiconv curl
+    ncurses openssl zlib pcre2 jemalloc libiconv curl
   ] ++ optionals stdenv.hostPlatform.isLinux [ libaio systemd libkrb5 ]
     ++ optionals stdenv.hostPlatform.isDarwin [ perl fixDarwinDylibNames cctools CoreServices ];
 
@@ -151,6 +151,7 @@ server = stdenv.mkDerivation (common // {
 
   patches = common.patches ++ [
     ./cmake-without-client.patch
+    ./cmake-disable-auth-pam-testing.patch
   ] ++ optionals stdenv.hostPlatform.isDarwin [
     ./cmake-without-plugin-auth-pam.patch
   ];
@@ -183,7 +184,7 @@ server = stdenv.mkDerivation (common // {
 
   postInstall = common.postInstall + ''
     chmod +x "$out"/bin/wsrep_sst_common
-    rm "$out"/bin/{mysql_client_test,mysqltest}
+    rm "$out"/bin/{mariadb-client-test,mariadb-test,mysql_client_test,mysqltest}
     rm -r "$out"/data # Don't need testing data
   '' + optionalString withoutClient ''
     ${ # We don't build with GSSAPI on Darwin
