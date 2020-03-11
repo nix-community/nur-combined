@@ -13,4 +13,5 @@ self: super: {
 
     #doCheck = true;
   });
+  awesome-gtk = self.awesome.override { gtk3Support = true; };
 }
