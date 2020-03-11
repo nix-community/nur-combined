@@ -1,0 +1,66 @@
+diff --git a/lib/include/capabilities.hpp b/lib/include/capabilities.hpp
+index d8d05dc..46f3660 100644
+--- a/lib/include/capabilities.hpp
++++ b/lib/include/capabilities.hpp
+@@ -37,7 +37,7 @@ enum property_codes: uint16_t {
+ bool is_known_property(uint16_t value);
+ std::string to_string(property_codes property);
+ 
+-enum data_type : uint16_t {
++enum data_types : uint16_t {
+ 	data_type_unknown = 0,
+ 	data_type_int8 = 1,
+ 	data_type_uint8 = 2,
+@@ -47,7 +47,7 @@ enum data_type : uint16_t {
+ 	data_type_uint32 = 6
+ };
+ 
+-inline bool is_signed(data_type dt)
++inline bool is_signed(data_types dt)
+ {
+ 	switch (dt) {
+ 	default:
+@@ -59,7 +59,7 @@ inline bool is_signed(data_type dt)
+ 	}
+ }
+ 
+-inline size_t data_type_size(data_type dt)
++inline size_t data_type_size(data_types dt)
+ {
+ 	switch (dt) {
+ 	case data_type_int8:
+@@ -79,7 +79,7 @@ inline size_t data_type_size(data_type dt)
+ 
+ struct capability {
+   property_codes property_code = property_unknown;
+-  data_type data_type = data_type_unknown;
++  data_types data_type = data_type_unknown;
+   uint8_t get_set = 0;
+   uint32_t default_value = 0;
+   uint32_t current_value = 0;
+diff --git a/lib/src/capabilities.cpp b/lib/src/capabilities.cpp
+index 9f5b175..141d8fc 100644
+--- a/lib/src/capabilities.cpp
++++ b/lib/src/capabilities.cpp
+@@ -63,7 +63,7 @@ std::string to_string(property_codes property)
+                 flag = "(current)"; \
+             printf("\t\t%s %s\n", value_string, flag.c_str())
+ 
+-static int cap_value_to_int(data_type dt, uint32_t value)
++static int cap_value_to_int(data_types dt, uint32_t value)
+ {
+ 	switch (dt)
+ 	{
+diff --git a/tool/CMakeLists.txt b/tool/CMakeLists.txt
+index 74c15d6..3d221c9 100644
+--- a/tool/CMakeLists.txt
++++ b/tool/CMakeLists.txt
+@@ -30,3 +30,8 @@ endif()
+ if(WIN32)
+   target_link_libraries(fuji_cam_wifi_tool wsock32 ws2_32)
+ endif()
++
++
++# install
++install(TARGETS fuji_cam_wifi_tool DESTINATION bin)
++
