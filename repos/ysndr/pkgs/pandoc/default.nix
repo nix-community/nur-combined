@@ -6,25 +6,23 @@
 with pkgs;
 let
 
-  latex = texlive.combine {
+  latexWithExtraPackages = {...}@pkgs: texlive.combine ({
     inherit (texlive) scheme-small
     collection-langgerman
     collection-latexextra
     collection-mathscience
-    quattrocento ;
+    quattrocento
+    tracklang;
     #isodate substr lipsum nonfloat supertabular;
-  };
+  } // builtins.trace pkgs pkgs);
+
+  latex = latexWithExtraPackages {};
 
 
 
-
- 
-  
-
-
-  pandocWithFilters = 
-    { name ? "pandoc", filters ? [], extraPackages ? [], pythonExtra ? (_: [])}: 
-    let 
+  pandocWithFilters =
+    { name ? "pandoc", filters ? [], extraPackages ? [], pythonExtra ? (_: [])}:
+    let
       pythonDefault = packages: [ packages.ipython packages.pandocfilters packages.pygraphviz ];
       python = python3.withPackages (p: (pythonDefault p) ++ (pythonExtra p));
       pandocPackages = [
@@ -45,30 +43,16 @@ let
         makeWrapper ${pandoc}/bin/pandoc $out/bin/pandoc \
           ${ lib.concatMapStringsSep " " (filter: "--add-flags \"-F ${filter}\"") filters} \
           --prefix PATH : "${lib.makeBinPath buildInputs}"
-          
       '';
-  
+
 
 
   inputs = nixpkgs ++ [latex];
 
 in {
   inherit latex;
+  inherit latexWithExtraPackages;
   inherit pandoc-pkgs;
   inherit pandocWithFilters;
+  pandoc = pandocWithFilters {};
 }
-
-
-
-
-
-
-
-
-
-/*
-with (import <nixpkgs> {}).pkgs;
-stdenv.mkDerivation {
-  name = "haskell-env";
-  buildInputs = [ texlive.combined.scheme-full];
-} */
