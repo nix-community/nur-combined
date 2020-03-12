@@ -3746,11 +3746,11 @@
       };
     }
     {
-      name = "yaml_language_server___yaml_language_server_0.7.1.tgz";
+      name = "yaml_language_server___yaml_language_server_0.7.2.tgz";
       path = fetchurl {
-        name = "yaml_language_server___yaml_language_server_0.7.1.tgz";
-        url  = "https://registry.yarnpkg.com/yaml-language-server/-/yaml-language-server-0.7.1.tgz";
-        sha1 = "d941e5b7b455f35fb82ff1fd3ee57614e5a7949b";
+        name = "yaml_language_server___yaml_language_server_0.7.2.tgz";
+        url  = "https://registry.yarnpkg.com/yaml-language-server/-/yaml-language-server-0.7.2.tgz";
+        sha1 = "1704a44632ec6a13b47ccd93cf7eee7026422af1";
       };
     }
     {

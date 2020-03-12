@@ -16,15 +16,15 @@
     check = pkgs: pkgs.rustChannel or null;
     imp = channel: pkgs: import (channel + "/default.nix") { inherit pkgs; };
     url = "https://github.com/arcnmx/nixexprs-rust/archive/${rustOverlayRev}.tar.gz";
-    sha256 = "15jf6215c5aks9pk4zg4vhvvwlr1gycc2wcyfj5ryvfg1n99is4a";
+    sha256 = "04c5wak0a1zpjnr8acq15z155nrxd3kmhcf6kn84p993vlsvjb4v";
   };
-  rustOverlayRev = "71a911c36e797117be01927e2c7138a3fee6feec";
+  rustOverlayRev = "b23c0b0b17fd2e3bba550b904de8ba2e03e143aa";
   rustPlatformFor = { rustPlatform, ... }: rustPlatform;
 
   builders = {
     rustPlatforms = { rustChannel ? rust pkgs, pkgs ? null }: with lib;
       mapAttrs (_: rustPlatformFor) rustChannel.releases // {
-        stable = rustPlatformFor rustChannel.releases."1.41.1";
+        stable = rustPlatformFor rustChannel.releases."1.42.0";
         # An occasionally pinned unstable release
         # Check https://rust-lang.github.io/rustup-components-history/ before updating this to avoid breaking things
         nightly = rustPlatformFor (rustChannel.nightly.override {

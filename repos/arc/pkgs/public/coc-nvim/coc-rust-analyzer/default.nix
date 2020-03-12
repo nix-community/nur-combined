@@ -1,11 +1,11 @@
 { fetchFromGitHub, yarn2nix, yarn, vimUtils, nodePackages, fetchpatch }: let
   pname = "coc-rust-analyzer";
-  version = "0.4.2";
+  version = "0.4.6";
   src = fetchFromGitHub {
     owner = "fannheyward";
     repo = pname;
-    rev = "d247884";
-    sha256 = "1p0j9xm8a7w1gaq24x3kk2jw5q4y1waz6l66709cxjisi9c69p7y";
+    rev = "9bf3c89";
+    sha256 = "08kwr9drwigh3kdjh69mbmkghjc3bviahp7pw758p7gdx48ksfnf";
   };
   deps = yarn2nix.mkYarnModules rec {
     inherit pname version;
@@ -19,11 +19,6 @@ in vimUtils.buildVimPluginFrom2Nix {
 
   patches = [
     ./be-quiet.patch
-    (fetchpatch {
-      # ssr (Structural Search Replace)
-      url = "https://github.com/fannheyward/coc-rust-analyzer/commit/9a5664e52576fe9a17824dfd5373375136c48725.patch";
-      sha256 = "13lphfg0y4cgkj11r4z80y187ljjwzyz1vns4dsw36i8ddrfk32y";
-    })
   ];
 
   nativeBuildInputs = with nodePackages; [ webpack-cli yarn ];

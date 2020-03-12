@@ -1,8 +1,8 @@
 diff --git a/src/ctx.ts b/src/ctx.ts
-index 44c66ff..a163409 100644
+index e6ca42b..215e70e 100644
 --- a/src/ctx.ts
 +++ b/src/ctx.ts
-@@ -76,14 +76,6 @@ export class Ctx {
+@@ -80,14 +80,6 @@ export class Ctx {
          bin = bin.replace('~', homedir());
        }
      }
@@ -18,7 +18,7 @@ index 44c66ff..a163409 100644
      return bin;
    }
 diff --git a/src/index.ts b/src/index.ts
-index 158765b..a57627e 100644
+index 77edee5..eacee60 100644
 --- a/src/index.ts
 +++ b/src/index.ts
 @@ -15,19 +15,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
@@ -31,7 +31,7 @@ index 158765b..a57627e 100644
 -      try {
 -        await downloadServer(context);
 -      } catch (e) {
--        msg = 'Download ra_lsp_server failed, you can get it from https://github.com/rust-analyzer/rust-analyzer';
+-        msg = 'Download rust-analyzer failed, you can get it from https://github.com/rust-analyzer/rust-analyzer';
 -        workspace.showMessage(msg, 'error');
 -        return;
 -      }
