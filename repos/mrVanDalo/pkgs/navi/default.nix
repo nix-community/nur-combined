@@ -4,13 +4,14 @@ rustPlatform.buildRustPackage rec {
 
   name = "navi-${version}";
 
-  version = "2.0.8";
+  version = "e99e1511e50a2706f0eea3286df94b6373acf8b0";
 
   src = fetchFromGitHub {
     owner = "denisidoro";
     repo = "navi";
-    rev = "v${version}";
-    sha256 = "1kh4s7s595l95xirdb0fvgkdbig3zcfkdiqk8zdz9cfglzcm5192";
+    # rev = "v${version}";
+    rev = "${version}";
+    sha256 = "07pfyvbzy62i5ncxgwcdim1pl5nfis3b8a2vkvjdvz167kx99xhg";
   };
 
   cargoSha256 = "18d3b9g2jxkgscx9186v5301y4y01wd00kcs14617fgjnv0lyz1g";
