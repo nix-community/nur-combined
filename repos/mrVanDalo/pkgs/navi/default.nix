@@ -1,4 +1,4 @@
-{ rustPlatform, fetchFromGitHub, stdenv, fzf , makeWrapper, ... }:
+{ rustPlatform, fetchFromGitHub, stdenv, fzf, makeWrapper, ... }:
 
 rustPlatform.buildRustPackage rec {
 
@@ -20,11 +20,10 @@ rustPlatform.buildRustPackage rec {
     mkdir -p $out/share/navi/
     cp -r ./cheats $out/share/navi/
     wrapProgram "$out/bin/navi" \
-      --set "PATH" "$PATH:${fzf}/bin" \
-      --set "NAVI_PATH" "$NAVI_PATH:$out/share/navi/cheats"
-
-    '';
-    buildInputs = [ fzf makeWrapper];
+      --suffix "PATH" : "${fzf}/bin" \
+      --suffix "NAVI_PATH" : "$out/share/navi/cheats"
+  '';
+  buildInputs = [ fzf makeWrapper ];
 
   meta = with stdenv.lib; {
     description = "An interactive cheatsheet tool for the command-line";
