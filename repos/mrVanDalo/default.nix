@@ -21,5 +21,8 @@
   # audio
   wolf-spectrum = pkgs.callPackage ./pkgs/wolf-spectrum { };
   lv2vst = pkgs.callPackage ./pkgs/lv2vst { };
+
+  # terminal
+  navi = pkgs.callPackage ./pkgs/navi { };
 }
 
