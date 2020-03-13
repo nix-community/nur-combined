@@ -249,8 +249,8 @@
             "url": "https://github.com/mpickering/nur-packages"
         },
         "mrVanDalo": {
-            "rev": "5d224f04d53fe46987b760f4cf4d90feba6a53f2",
-            "sha256": "1c1qsrw50mhp6ck0qwy59mdq23ff0kgp72hvdn62h5zpdxl1qzcn",
+            "rev": "bf97cb506a6983ff50651546845ad6e1df1ed686",
+            "sha256": "0di2v365sy2i36n5knga2442rnsvgqf7830zw7jc8s58pqwfns1d",
             "url": "https://github.com/mrVanDalo/nur-packages"
         },
         "n1kolasM": {
@@ -339,8 +339,8 @@
             "url": "https://github.com/thilobillerbeck/nur-packages"
         },
         "tilpner": {
-            "rev": "5d6ef1794437c88e32893853b389975c15b1ffdd",
-            "sha256": "1c4243zzq9f29caxw08h7m6nn9pq0gka429y1wciqp7wsvb1rhcx",
+            "rev": "87eb99d4243106e2fbbe0ab31feb419dc9bb1571",
+            "sha256": "19zyw7wjdhk9b53288nn1p9wjikm6g4r131zfvszf48hjknvrwvg",
             "url": "https://github.com/tilpner/nur-packages"
         },
         "tomberek": {
