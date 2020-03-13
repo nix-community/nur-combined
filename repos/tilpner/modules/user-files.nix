@@ -2,9 +2,9 @@
 
 with lib;
 let
-  envFiles = builtins.elemAt options.environment.files.type.functor.wrapped.getSubModules 0;
-  envFilesFiles = envFiles.submodule.options.files.type.functor.wrapped;
-  envFilesDirectories = envFiles.submodule.options.directories.type.functor.wrapped;
+  envFiles = options.environment.files.type.getSubOptions {};
+  envFilesFiles = envFiles.files.type.functor.wrapped;
+  envFilesDirectories = envFiles.directories.type.functor.wrapped;
 
   relevantUser = user: user.files != {} || user.directories != {};
 in {

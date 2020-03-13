@@ -25,6 +25,11 @@ let
   mkBackupService = store: {
     path = with pkgs; [ cfg.package gnupg gawk ];
 
+    unitConfig = {
+      StartLimitInterval = 5000;
+      StartLimitBurst = 5;
+    };
+
     serviceConfig = {
       # Prevent restart loops, which quickly become costly
       # with cloud providers that will happily let you pay
@@ -145,30 +150,30 @@ in {
       type = attrsOf (submodule ({ name, config, ... }: {
         options = {
           dir = mkOption {
-            type = string;
+            type = str;
           };
 
           include = mkOption {
-            type = listOf string;
+            type = listOf str;
             default = [];
           };
 
           exclude = mkOption {
-            type = listOf string;
+            type = listOf str;
             default = [];
           };
 
           remote = mkOption {
-            type = string;
+            type = str;
           };
 
           time = mkOption {
-            type = string;
+            type = str;
             default = "04:04";
           };
 
           expiration = mkOption {
-            type = string;
+            type = str;
             default = "30D";
           };
 
@@ -178,7 +183,7 @@ in {
           };
 
           logLevel = mkOption {
-            type = string;
+            type = str;
             default = "notice";
           };
 
@@ -193,7 +198,7 @@ in {
           };
 
           extraArgs = mkOption {
-            type = listOf string;
+            type = listOf str;
             default = [];
           };
         };
