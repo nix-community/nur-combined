@@ -51,8 +51,8 @@
             "url": "https://github.com/ihebchagra/nur-packages"
         },
         "clefru": {
-            "rev": "7635e072a2a785b7dea53d439350ce38fcb74edf",
-            "sha256": "0hmkx1ybgbq6yii0lrfyh57gzi1r0v5hraj6c96yhn2qcd4yrr44",
+            "rev": "e547135fb8890442c8741938ebb593f14f452b78",
+            "sha256": "0s71y5hd5yx7b2azc1l8lr2vby5nj2yza5787zvm1zsf3li1isgy",
             "url": "https://github.com/clefru/nur-packages"
         },
         "cransom": {
