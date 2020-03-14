@@ -10,7 +10,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "prusa-slicer";
-  version = "2.2.0-rc";
+  version = "2.2.0-rc3";
 
   enableParallelBuilding = true;
 
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "prusa3d";
     repo = "PrusaSlicer";
-    sha256 = "051kp4f7yqgpai3mpr5l224drrjmx9wvv0kc3n3cq0bygqnszwff";
+    sha256 = "01pc505nnn5bwrrdkprqil8rahg1ph96zgnah2n380929dqzi87z";
     rev = "version_${version}";
   };
 
