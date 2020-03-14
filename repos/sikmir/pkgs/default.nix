@@ -48,6 +48,7 @@ lib.makeScope newScope (self: with self; {
     inherit sources;
   };
   hiblovgpsmap = callPackage ./data/maps/hiblovgpsmap { };
+  i18n-editor = callPackage ./tools/i18n-editor { };
   ish = callPackage ./tools/networking/ish { };
   libshell = callPackage ./development/libraries/libshell { };
   macmillan = callPackage ./data/dicts/macmillan { };
