@@ -5,8 +5,6 @@ rec {
   modules             = import ./modules;
   overlays            = import ./overlays;
 
-  multichain          = pkgs.callPackage  ./pkgs/apps/altcoins/multichain.nix { };
-  omnicore            = pkgs.callPackage  ./pkgs/apps/altcoins/omnicore.nix { };
   bison2              = pkgs.callPackage  ./pkgs/development/bison2 { };
   libssh2             = pkgs.callPackage  ./pkgs/development/libssh2 { openssl = pkgs.libressl; };
   mariadb_10_3        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_3.nix { openssl = pkgs.libressl; jemalloc = pkgs.jemalloc450.override ({ disableInitExecTls = true; }); inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; withoutClient = true; };
