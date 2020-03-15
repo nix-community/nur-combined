@@ -1,4 +1,4 @@
-{ rustPlatform, fetchFromGitHub, stdenv, fzf, makeWrapper, installShellFiles }:
+{ rustPlatform, fetchFromGitHub, stdenv, fzf, makeWrapper }:
 
 rustPlatform.buildRustPackage rec {
   pname = "navi";
@@ -17,14 +17,13 @@ rustPlatform.buildRustPackage rec {
   postInstall = ''
     mkdir -p $out/share/navi/
     mv cheats $out/share/navi/
-
-    installShellCompletion shell/navi.plugin.{bash,fish,zsh}
+    mv shell $out/share/navi/
 
     wrapProgram "$out/bin/navi" \
       --suffix "PATH" : "${fzf}/bin" \
       --suffix "NAVI_PATH" : "$out/share/navi/cheats"
   '';
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [ makeWrapper ];
 
 
   meta = with stdenv.lib; {
@@ -35,4 +34,3 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ mrVanDalo ];
   };
 }
-
