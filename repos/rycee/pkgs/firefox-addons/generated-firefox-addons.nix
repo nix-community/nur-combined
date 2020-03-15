@@ -551,6 +551,20 @@
         platforms = platforms.all;
         };
       };
+    "tab-center-redux" = buildFirefoxXpiAddon {
+      pname = "tab-center-redux";
+      version = "0.7.1";
+      addonId = "{0ad88674-2b41-4cfb-99e3-e206c74a0076}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1015844/tab_center_redux-0.7.1-an+fx-linux.xpi?src=";
+      sha256 = "b710917f86da1968fcba3f159750006550305d36222e1fa0f069b3868378163c";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/eoger/tabcenter-redux";
+        description = "Move your tabs to the side of your browser window.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "temporary-containers" = buildFirefoxXpiAddon {
       pname = "temporary-containers";
       version = "1.8";
