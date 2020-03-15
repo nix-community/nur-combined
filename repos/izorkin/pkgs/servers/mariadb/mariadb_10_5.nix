@@ -4,7 +4,6 @@
 , fixDarwinDylibNames, cctools, CoreServices, less
 , numactl # NUMA Support
 , withStorageMroonga ? true, kytea, msgpack, zeromq
-, withoutClient ? false
 }:
 
 with stdenv.lib;
@@ -150,7 +149,6 @@ server = stdenv.mkDerivation (common // {
     ++ optional (!stdenv.hostPlatform.isDarwin) mytopEnv;
 
   patches = common.patches ++ [
-    ./cmake-without-client.patch
     ./cmake-disable-auth-pam-testing.patch
   ] ++ optionals stdenv.hostPlatform.isDarwin [
     ./cmake-without-plugin-auth-pam.patch
@@ -171,8 +169,6 @@ server = stdenv.mkDerivation (common // {
     "-DWITH_NUMA=ON"
   ] ++ optional (!withStorageMroonga) [
     "-DWITHOUT_MROONGA=ON"
-  ] ++ optionals withoutClient [
-    "-DWITHOUT_CLIENT=ON"
   ] ++ optionals stdenv.hostPlatform.isDarwin [
     "-DWITHOUT_OQGRAPH=1"
     "-DWITHOUT_TOKUDB=1"
@@ -186,14 +182,6 @@ server = stdenv.mkDerivation (common // {
     chmod +x "$out"/bin/wsrep_sst_common
     rm "$out"/bin/{mariadb-client-test,mariadb-test,mysql_client_test,mysqltest}
     rm -r "$out"/data # Don't need testing data
-  '' + optionalString withoutClient ''
-    ${ # We don't build with GSSAPI on Darwin
-      optionalString (!stdenv.hostPlatform.isDarwin) ''
-        rm "$out"/lib/mysql/plugin/auth_gssapi_client.so
-      ''
-    }
-    rm "$out"/lib/mysql/plugin/client_ed25519.so
-    rm "$out"/lib/{libmysqlclient${libExt},libmysqlclient_r${libExt}}
   '' + optionalString withStorageMroonga ''
     mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
   '' + optionalString (!stdenv.hostPlatform.isDarwin) ''
