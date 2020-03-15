@@ -28,5 +28,6 @@
 
   # terminal
   navi = pkgs.callPackage ./pkgs/navi { };
+  navi-master = pkgs.callPackage ./pkgs/navi/master.nix { };
 }
 
