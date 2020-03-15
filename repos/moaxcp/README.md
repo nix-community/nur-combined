@@ -20,6 +20,10 @@ native-platform-osx-amd64-0.21.jar
 
 How to access stdenv in ./default.nix? adoptopenjdk-bin uses and adding support for many more versions will require it.
 
+https://ci.adoptopenjdk.net produces artifacts with metadata.
+https://ci.adoptopenjdk.net/job/build-scripts/job/jobs/
+https://api.adoptopenjdk.net/
+
 ## micronaut
 
 Need to add other versions and standard way to support multiple versions.

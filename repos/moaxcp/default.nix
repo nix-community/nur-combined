@@ -18,6 +18,41 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  adoptopenjdk-bin-13-packages-linux = import ./pkgs/adoptopenjdk-bin/jdk13-linux.nix;
+  adoptopenjdk-bin-13-packages-darwin = import ./pkgs/adoptopenjdk-bin/jdk13-darwin.nix;
+
+  adoptopenjdk-hotspot-bin-13 = if stdenv.isLinux
+    then callPackage adoptopenjdk-bin-13-packages-linux.jdk-hotspot {}
+    else callPackage adoptopenjdk-bin-13-packages-darwin.jdk-hotspot {};
+  adoptopenjdk-jre-hotspot-bin-13 = if stdenv.isLinux
+    then callPackage adoptopenjdk-bin-13-packages-linux.jre-hotspot {}
+    else callPackage adoptopenjdk-bin-13-packages-darwin.jre-hotspot {};
+
+  adoptopenjdk-openj9-bin-13 = if stdenv.isLinux
+    then callPackage adoptopenjdk-bin-13-packages-linux.jdk-openj9 {}
+    else callPackage adoptopenjdk-bin-13-packages-darwin.jdk-openj9 {};
+
+  adoptopenjdk-jre-openj9-bin-13 = if stdenv.isLinux
+    then callPackage adoptopenjdk-bin-13-packages-linux.jre-openj9 {}
+    else callPackage adoptopenjdk-bin-13-packages-darwin.jre-openj9 {};
+
+  adoptopenjdk-bin-12-packages-linux = import ./pkgs/adoptopenjdk-bin/jdk12-linux.nix;
+  adoptopenjdk-bin-12-packages-darwin = import ./pkgs/adoptopenjdk-bin/jdk12-darwin.nix;
+
+  adoptopenjdk-hotspot-bin-12 = if stdenv.isLinux
+    then callPackage adoptopenjdk-bin-12-packages-linux.jdk-hotspot {}
+    else callPackage adoptopenjdk-bin-12-packages-darwin.jdk-hotspot {};
+  adoptopenjdk-jre-hotspot-bin-12 = if stdenv.isLinux
+    then callPackage adoptopenjdk-bin-12-packages-linux.jre-hotspot {}
+    else callPackage adoptopenjdk-bin-12-packages-darwin.jre-hotspot {};
+
+  adoptopenjdk-openj9-bin-12 = if stdenv.isLinux
+    then callPackage adoptopenjdk-bin-12-packages-linux.jdk-openj9 {}
+    else callPackage adoptopenjdk-bin-12-packages-darwin.jdk-openj9 {};
+
+  adoptopenjdk-jre-openj9-bin-12 = if stdenv.isLinux
+    then callPackage adoptopenjdk-bin-12-packages-linux.jre-openj9 {}
+    else callPackage adoptopenjdk-bin-12-packages-darwin.jre-openj9 {};
 
   adoptopenjdk-bin-11-packages-linux = import ./pkgs/adoptopenjdk-bin/jdk11-linux.nix;
   adoptopenjdk-bin-11-packages-darwin = import ./pkgs/adoptopenjdk-bin/jdk11-darwin.nix;
