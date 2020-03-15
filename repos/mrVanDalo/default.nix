@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -21,6 +21,10 @@
   # audio
   wolf-spectrum = pkgs.callPackage ./pkgs/wolf-spectrum { };
   lv2vst = pkgs.callPackage ./pkgs/lv2vst { };
+  bitwig-studio-3_1_2 =
+    pkgs.callPackage ./pkgs/bitwig/bitwig-studio-3.1.2.nix { };
+  bitwig-studio-3_1_3 =
+    pkgs.callPackage ./pkgs/bitwig/bitwig-studio-3.1.3.nix { };
 
   # terminal
   navi = pkgs.callPackage ./pkgs/navi { };
