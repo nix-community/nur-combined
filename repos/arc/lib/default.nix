@@ -62,7 +62,6 @@ in with self; {
     foldr (chr: value: value * 16 + hexCharToInt chr) 0 (stringToCharacters str);
   toHex = toHexLower;
   toHexLower = int: let
-    shit = mod int 16;
     rest = int / 16;
   in optionalString (int > 16) (toHexLower (int / 16)) + elemAt hexChars (mod int 16);
   toHexUpper = int: toUpper (toHexLower int);
