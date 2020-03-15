@@ -51,9 +51,7 @@ rec {
     };
   };
 
-  gradle_latest = gradle_6_2_2;
-
-  gradle_6_2_2 = gradleGen rec {
+  gradle-6_2_2 = gradleGen rec {
     name = "gradle-6.2.2";
     nativeVersion = "0.21";
 
@@ -63,7 +61,7 @@ rec {
     };
   };
 
-  gradle_5_6_4 = gradleGen rec {
+  gradle-5_6_4 = gradleGen rec {
     name = "gradle-5.6.4";
     nativeVersion = "0.18";
 
@@ -73,7 +71,7 @@ rec {
     };
   };
 
-  gradle_4_10_3 = gradleGen rec {
+  gradle-4_10_3 = gradleGen rec {
     name = "gradle-4.10.3";
     nativeVersion = "0.14";
 
