@@ -24,6 +24,21 @@ https://ci.adoptopenjdk.net produces artifacts with metadata.
 https://ci.adoptopenjdk.net/job/build-scripts/job/jobs/
 https://api.adoptopenjdk.net/
 
+When building the jdk14 nightly
+
+```
+searching for dependencies of /nix/store/cbjn1abg2zdbxfll3fycdr5888nnq8rj-adoptopenjdk-hotspot-bin-jdk14-2020-03-14-05-11/lib/libsaproc.so
+  libstdc++.so.6 -> not found!
+builder for '/nix/store/3qyvjp42kwqw3bfw1m2i6lxv3j7qgkwj-adoptopenjdk-hotspot-bin-jdk14-2020-03-14-05-11.drv' failed with exit code 1
+
+```
+
+This appears to fix it. source: https://github.com/NixOS/nixpkgs/issues/47374
+
+```
+LD_LIBRARY_PATH="${stdenv.cc.cc.lib}/lib64:$LD_LIBRARY_PATH";
+```
+
 ## micronaut
 
 Need to add other versions and standard way to support multiple versions.

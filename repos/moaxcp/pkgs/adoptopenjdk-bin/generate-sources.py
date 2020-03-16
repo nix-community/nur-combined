@@ -6,7 +6,8 @@ import re
 import requests
 import sys
 
-releases = ("openjdk8", "openjdk11", "openjdk12", "openjdk13")
+releases = ("openjdk8", "openjdk11", "openjdk13")
+nightlyBuilds = ("openjdk14",)
 oses = ("mac", "linux")
 types = ("jre", "jdk")
 impls = ("hotspot", "openj9")
@@ -33,8 +34,12 @@ def generate_sources(release, assets):
         if asset["heap_size"] != "normal": continue
         if asset["architecture"] not in arch_to_nixos: continue
 
+        version, build = None, None
         # examples: 11.0.1+13, 8.0.222+10
-        version, build = asset["version_data"]["semver"].split("+")
+        if asset["version_data"].get("semver") != None:
+            version, build = asset["version_data"]["semver"].split("+")
+        else:
+            version = asset["version_data"]["openjdk_version"]
 
         type_map = out.setdefault(asset["os"], {})
         impl_map = type_map.setdefault(asset["binary_type"], {})
@@ -54,12 +59,19 @@ def generate_sources(release, assets):
     return out
 
 out = {}
-for release in releases:
-    resp = requests.get("https://api.adoptopenjdk.net/v2/latestAssets/releases/" + release)
-    if resp.status_code != 200:
-        print("error: could not fetch data for release {} (code {})".format(release, resp.code), file=sys.stderr)
-        sys.exit(1)
-    out[release] = generate_sources(release, resp.json())
+
+def request(builds, type):
+    for build in builds:
+        url = "https://api.adoptopenjdk.net/v2/latestAssets/{}/{}".format(type, build)
+        print("GET {}".format(url))
+        resp = requests.get(url)
+        if resp.status_code != 200:
+            print("error: could not fetch data for {} {}:\n{}".format(type, build, resp), file=sys.stderr)
+            sys.exit(1)
+        out[build] = generate_sources(build, resp.json())
+
+request(nightlyBuilds, "nightly")
+request(releases, "releases")
 
 with open("sources.json", "w") as f:
     json.dump(out, f, indent=2, sort_keys=True)

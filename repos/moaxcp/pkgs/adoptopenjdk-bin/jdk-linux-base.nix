@@ -30,6 +30,8 @@ let result = stdenv.mkDerivation rec {
     alsaLib freetype fontconfig zlib xorg.libX11 xorg.libXext xorg.libXtst
     xorg.libXi xorg.libXrender
   ];
+  #https://github.com/NixOS/nixpkgs/issues/47374
+  LD_LIBRARY_PATH="${stdenv.cc.cc.lib}/lib64:$LD_LIBRARY_PATH";
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
