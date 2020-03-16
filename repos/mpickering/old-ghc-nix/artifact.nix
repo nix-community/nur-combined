@@ -39,6 +39,8 @@ let
           sed -i 's@utils/ghc-pwd/dist-install/build/tmp/ghc-pwd-bindist@pwd@g' ghc*/configure
         '';
         buildPhase = ''
+          # Run it twice since make might produce related output the first time.
+          make show VALUE=ProjectVersion
           make show VALUE=ProjectVersion > version
         '';
         installPhase = ''
@@ -152,6 +154,17 @@ stdenv.mkDerivation rec {
     for file in $(find "$out" -name setup-config); do
       substituteInPlace $file --replace /usr/bin/ranlib "$(type -P ranlib)"
     done
+  '';
+
+  postInstall = stdenv.lib.optionalString stdenv.isLinux ''
+    # Fix dependencies on libtinfo in package registrations.
+    for f in $(find "$out" -type f -iname '*.conf'); do
+        echo "Fixing tinfo dependency in $f..."
+        #sed -i "s/extra-libraries: *tinfo/extra-libraries: ncurses\n/" $f
+        echo "library-dirs: ${selectedNcurses}/lib" >> $f
+        echo "dynamic-library-dirs: ${selectedNcurses}/lib" >> $f
+    done
+    $out/bin/ghc-pkg recache
   '';
 
   doInstallCheck = true;

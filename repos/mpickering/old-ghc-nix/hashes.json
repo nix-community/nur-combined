@@ -1,4 +1,18 @@
 {
+  "ghc883": {
+    "version": "8.8.3",
+    "nixversion": "ghc883",
+    "url": "http://haskell.org/ghc/dist/8.8.3/ghc-8.8.3-x86_64-fedora27-linux.tar.xz",
+    "hash": "0668wy8vziwvpqnsqpm81a1d7qmda5vgqrbbi32br369pziivvj5",
+    "ncursesVersion": "6"
+  },
+  "ghc882": {
+    "version": "8.8.2",
+    "nixversion": "ghc882",
+    "url": "http://haskell.org/ghc/dist/8.8.2/ghc-8.8.2-x86_64-fedora27-linux.tar.xz",
+    "hash": "07x27r688rddj2a0qpr4kldb5j9i59ylhphm1rwhyiikgdqxpqnv",
+    "ncursesVersion": "6"
+  },
   "ghc881": {
     "version": "8.8.1",
     "nixversion": "ghc881",
