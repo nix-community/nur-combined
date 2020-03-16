@@ -11,6 +11,9 @@ let
   gradleGen = pkgs.callPackage ./pkgs/gradle {
       java = pkgs.jdk;
   };
+  groovyGen = pkgs.callPackage ./pkgs/groovy {
+      java = pkgs.jdk;
+  };
 in with pkgs;
 rec {
   # The `lib`, `modules`, and `overlay` names are special
@@ -93,6 +96,10 @@ rec {
   gradle-4_10_3 = gradleGen.gradle-4_10_3;
   gradle-5_6_4 = gradleGen.gradle-5_6_4;
   gradle-6_2_2 = gradleGen.gradle-6_2_2;
+
+  groovy-3_0_2 = groovyGen.groovy-3_0_2;
+  groovy-2_5_10 = groovyGen.groovy-2_5_10;
+  groovy-2_4_19 = groovyGen.groovy-2_4_19;
 
   micronaut-1_3_3 = callPackage ./pkgs/micronaut { };
 

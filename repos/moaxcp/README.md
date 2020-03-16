@@ -66,12 +66,4 @@ removed at any time in nixpkgs.
 
 There are no general attributes for the latest package. You have to select the specific version to install.
 
-Versions are always included in the attribute.
-
-Attribute format
-
-```
-${pname}-${underscore_version}
-```
-
-`underscore_version` is the version with special characters replaced by underscores.
+installChecks should be added to every package
