@@ -31,7 +31,7 @@ buildGoModule rec {
     '';
 
   meta = with lib; {
-    broken = true;
+    broken = false;
     description = "A simple, federated blogging platform";
     homepage = https://writefreely.org;
     license = licenses.agpl3;
