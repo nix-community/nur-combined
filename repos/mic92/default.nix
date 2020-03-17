@@ -46,6 +46,8 @@ rec {
 
   nix-review-unstable = pkgs.callPackage ./pkgs/nix-review {};
 
+  nix-update = pkgs.python3.pkgs.callPackage ./pkgs/nix-update {};
+
   nixos-shell = pkgs.callPackage ./pkgs/nixos-shell {};
 
   source-code-pro-nerdfonts = pkgs.callPackage ./pkgs/source-code-pro-nerdfonts {};
