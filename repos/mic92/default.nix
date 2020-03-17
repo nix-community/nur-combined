@@ -50,6 +50,8 @@ rec {
 
   nixos-shell = pkgs.callPackage ./pkgs/nixos-shell {};
 
+  sgx-lkl = pkgs.callPackage ./pkgs/sgx-lkl {};
+
   source-code-pro-nerdfonts = pkgs.callPackage ./pkgs/source-code-pro-nerdfonts {};
 
   threema-web = pkgs.callPackage ./pkgs/threema-web {};
