@@ -44,10 +44,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.43.1";
+      version = "1.43.3";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3521480/bitwarden_free_password_manager-1.43.1-an+fx.xpi?src=";
-      sha256 = "83354221811a6003b6999574486fdbcc572294737795dba69be3de27a51c2d1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3526255/bitwarden_free_password_manager-1.43.3-an+fx.xpi?src=";
+      sha256 = "a70bce344249820241b13100bc2dd878d3f70eda43a2aa927162c36f211383af";
       meta = with stdenv.lib;
       {
         homepage = "https://bitwarden.com";
@@ -153,10 +153,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.8.10";
+      version = "4.9.0";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3519548/dark_reader-4.8.10-an+fx.xpi?src=";
-      sha256 = "547910036e79d247baef50e1186e90aeb931dab9e423b519ec8505daa449fe92";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3525571/dark_reader-4.9.0-an+fx.xpi?src=";
+      sha256 = "d5bfad6a3ca8e8111ed98d58302386bae51ba178a7737c6917fae53356b5e68d";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -499,10 +499,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.3.13";
+      version = "20.3.16";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3526541/refined_github-20.3.13-an+fx.xpi?src=";
-      sha256 = "ac8a9aef895dee877eb6afc2dc22832df15766473fe075c6295af68f2ab6c6b4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3528184/refined_github-20.3.16-an+fx.xpi?src=";
+      sha256 = "1e9e44307c70da8d5234c71edff93d55b1ea68fda60c66b5202e663accc40b76";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -705,10 +705,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "17.1";
+      version = "17.2";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3522757/zoom_page_we-17.1-fx.xpi?src=";
-      sha256 = "ef296c1c035b9941d8f25a88c67a24f003205daff2fcf2734505c4087e881762";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3527152/zoom_page_we-17.2-fx.xpi?src=";
+      sha256 = "47e52e565b16c20e7d878e470a73a5033232fa269b67d235120a39fdf669d5ca";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
