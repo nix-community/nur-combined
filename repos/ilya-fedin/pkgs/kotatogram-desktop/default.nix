@@ -1,13 +1,13 @@
 { mkDerivation, lib, fetchFromGitHub, pkg-config, python3, cmake, ninja
-, qtbase, qtimageformats, enchant, xdg_utils, ffmpeg, openalSoft, lzma
-, lz4, xxHash, zlib, minizip, openssl, libtgvoip, range-v3
-, integrateWithSystem ? true
+, qtbase, qtimageformats, libsForQt5, hunspell, xdg_utils, ffmpeg, openalSoft
+, lzma, lz4, xxHash, zlib, minizip, openssl, libtgvoip, microsoft_gsl, tl-expected
+, range-v3
 }:
 
 with lib;
 
 let
-  ver = "1.1.6";
+  ver = "1.2";
 in mkDerivation rec {
   pname = "kotatogram-desktop";
   version = "${ver}-1";
@@ -16,24 +16,15 @@ in mkDerivation rec {
     owner = "kotatogram";
     repo = "kotatogram-desktop";
     rev = "k${ver}";
-    sha256 = "166cy8vcw5h6xdfbvw591h8jhr4myf6f8r1cdgl6pdrhlm4wdz1k";
+    sha256 = "00pdx3cjhrihf7ihhmszcf159jrzn1bcx20vwiiizs5r1qk8l210";
     fetchSubmodules = true;
   };
-
-  patches = optionals integrateWithSystem [
-    ./system-tray-icon.patch
-  ];
-
-  postPatch = ''
-    substituteInPlace Telegram/lib_spellcheck/spellcheck/platform/linux/linux_enchant.cpp \
-      --replace '"libenchant-2.so.2"' '"${enchant}/lib/libenchant-2.so.2"'
-  '';
 
   nativeBuildInputs = [ pkg-config python3 cmake ninja ];
 
   buildInputs = [
-    qtbase qtimageformats ffmpeg openalSoft lzma lz4 xxHash
-    zlib minizip openssl enchant libtgvoip range-v3
+    qtbase qtimageformats ffmpeg openalSoft lzma lz4 xxHash libsForQt5.libdbusmenu
+    zlib minizip openssl hunspell libtgvoip microsoft_gsl tl-expected range-v3
   ];
 
   qtWrapperArgs = [
@@ -42,8 +33,8 @@ in mkDerivation rec {
 
   cmakeFlags = [
     "-DTDESKTOP_API_TEST=ON"
-    "-DTDESKTOP_DISABLE_GTK_INTEGRATION=ON"
     "-DDESKTOP_APP_USE_PACKAGED_RLOTTIE=OFF"
+    "-DDESKTOP_APP_USE_PACKAGED_VARIANT=OFF"
   ];
 
   meta = {
