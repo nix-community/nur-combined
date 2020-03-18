@@ -4,7 +4,7 @@ let
   rev = "285f4d4526d2f64bd8e0f06bfaecfeeb4c3b19d8";
 in
 buildGoModule {
-  name = "rust-hello-world";
+  name = "go-hello-world";
   preferLocalBuild = true;
 
   src = fetchzip {
