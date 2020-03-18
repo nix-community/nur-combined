@@ -28,6 +28,7 @@ rec {
   };
 
   cc-tool = pkgs.callPackage ./pkgs/cc-tool {};
+  dump1090-hptoa = pkgs.callPackage ./pkgs/dump1090-hptoa {};
   extplane-panel = pkgs.libsForQt5.callPackage ./pkgs/extplane-panel {};
   implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad {};
   ipbt = pkgs.callPackage ./pkgs/ipbt {};
