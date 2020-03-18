@@ -112,10 +112,10 @@
       };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
-      version = "3.0.4";
+      version = "3.1.0";
       addonId = "CookieAutoDelete@kennydo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3514619/cookie_autodelete-3.0.4-an+fx.xpi?src=";
-      sha256 = "083e8c50cd9200d363b45499d0639ba3edc4fcf27cd88694376cfcbb66f4931e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3528401/cookie_autodelete-3.1.0-an+fx.xpi?src=";
+      sha256 = "4d3f7da6b75de74c60251390c5ef67eb6970584040786fade7cbb005f3ea27e9";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mrdokenny/Cookie-AutoDelete";
