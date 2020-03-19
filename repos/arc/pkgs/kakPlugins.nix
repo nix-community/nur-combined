@@ -45,19 +45,20 @@
 
     kakrc = "share/kak/autoload/tree.kak";
     pname = "kak-tree";
-    version = "16a7d44d6c00cec9023eb4043a3faeeac5054270";
+    version = "2020-01-21";
     src = fetchFromGitHub {
       owner = "ul";
       repo = pname;
-      rev = version;
+      rev = "2fa4b122a06c6b8b802329a66e2a59ddf00e8372";
       sha256 = "1wwpxq87plyxpkfwgy5lnadiv69h7jd7xwaclhck6f2yjkxmswjm";
       fetchSubmodules = true;
     };
 
     buildInputs = lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
 
-    cargoSha256 = "1hqnxjn898kpi850m3qz361hkkhjkhr5j4gk828isqlwl8q75dpr";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "1hqnxjn898kpi850m3qz361hkkhjkhr5j4gk828isqlwl8q75dpr"
+      else "14m7yy5m9xwzrprrzmkg8l7g2hgn9przqqwi3fkyvjsk55lj0d1p";
 
     preBuild = ''
       sed -e "s,\"kak-tree\",\"$out/bin/kak-tree\"," -i rc/tree.kak
@@ -72,18 +73,19 @@
     kakInstall = false;
 
     pname = "kak-lsp";
-    version = "6.2.1";
+    version = "7.0.0";
     src = fetchFromGitHub {
       owner = "ul";
       repo = pname;
       rev = "v${version}";
-      sha256 = "0bazbz1g5iqxlwybn5whidvavglvgdl9yp9qswgsk1jrjmcr5klx";
+      sha256 = "1b9v417g0z9q1sqgnms5vy740xggg4fcz0fdwbc4hfvfj6jkyaad";
     };
 
     buildInputs = lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
 
-    cargoSha256 = "0w0mnh8fnl8zi9n0fxzqaqbvmfagf3ay5v2na3laxb72jm76hrwa";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "0kzrrphlilnyl79yfmlvd6an8iyi8zcs0inwiq74z383lnbdpk7q"
+      else "1cmms8kvh24sjb0w77i1bwl09wkx3x65p49pkg1j0lipwic3apm3";
 
     defaultConfig = "share/kak/kak-lsp.toml";
     kakrc = "share/kak/autoload/kak-lsp.kak";

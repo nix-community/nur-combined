@@ -74,6 +74,14 @@
       };
     }
     {
+      name = "_types_node___node_13.9.1.tgz";
+      path = fetchurl {
+        name = "_types_node___node_13.9.1.tgz";
+        url  = "https://registry.yarnpkg.com/@types/node/-/node-13.9.1.tgz";
+        sha1 = "96f606f8cd67fb018847d9b61e93997dabdefc72";
+      };
+    }
+    {
       name = "_types_parse_json___parse_json_4.0.0.tgz";
       path = fetchurl {
         name = "_types_parse_json___parse_json_4.0.0.tgz";
@@ -82,35 +90,35 @@
       };
     }
     {
-      name = "_typescript_eslint_eslint_plugin___eslint_plugin_2.21.0.tgz";
+      name = "_typescript_eslint_eslint_plugin___eslint_plugin_2.24.0.tgz";
       path = fetchurl {
-        name = "_typescript_eslint_eslint_plugin___eslint_plugin_2.21.0.tgz";
-        url  = "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.21.0.tgz";
-        sha1 = "a34de84a0791cae0357c4dda805c5b4e8203b6c6";
+        name = "_typescript_eslint_eslint_plugin___eslint_plugin_2.24.0.tgz";
+        url  = "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.24.0.tgz";
+        sha1 = "a86cf618c965a462cddf3601f594544b134d6d68";
       };
     }
     {
-      name = "_typescript_eslint_experimental_utils___experimental_utils_2.21.0.tgz";
+      name = "_typescript_eslint_experimental_utils___experimental_utils_2.24.0.tgz";
       path = fetchurl {
-        name = "_typescript_eslint_experimental_utils___experimental_utils_2.21.0.tgz";
-        url  = "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-2.21.0.tgz";
-        sha1 = "71de390a3ec00b280b69138d80733406e6e86bfa";
+        name = "_typescript_eslint_experimental_utils___experimental_utils_2.24.0.tgz";
+        url  = "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-2.24.0.tgz";
+        sha1 = "a5cb2ed89fedf8b59638dc83484eb0c8c35e1143";
       };
     }
     {
-      name = "_typescript_eslint_parser___parser_2.21.0.tgz";
+      name = "_typescript_eslint_parser___parser_2.24.0.tgz";
       path = fetchurl {
-        name = "_typescript_eslint_parser___parser_2.21.0.tgz";
-        url  = "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-2.21.0.tgz";
-        sha1 = "4f200995517c3d5fc5ef51b17527bc948992e438";
+        name = "_typescript_eslint_parser___parser_2.24.0.tgz";
+        url  = "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-2.24.0.tgz";
+        sha1 = "2cf0eae6e6dd44d162486ad949c126b887f11eb8";
       };
     }
     {
-      name = "_typescript_eslint_typescript_estree___typescript_estree_2.21.0.tgz";
+      name = "_typescript_eslint_typescript_estree___typescript_estree_2.24.0.tgz";
       path = fetchurl {
-        name = "_typescript_eslint_typescript_estree___typescript_estree_2.21.0.tgz";
-        url  = "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.21.0.tgz";
-        sha1 = "7e4be29f2e338195a2e8c818949ed0ff727cc943";
+        name = "_typescript_eslint_typescript_estree___typescript_estree_2.24.0.tgz";
+        url  = "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.24.0.tgz";
+        sha1 = "38bbc8bb479790d2f324797ffbcdb346d897c62a";
       };
     }
     {
@@ -282,11 +290,11 @@
       };
     }
     {
-      name = "acorn___acorn_6.4.0.tgz";
+      name = "acorn___acorn_6.4.1.tgz";
       path = fetchurl {
-        name = "acorn___acorn_6.4.0.tgz";
-        url  = "https://registry.yarnpkg.com/acorn/-/acorn-6.4.0.tgz";
-        sha1 = "b659d2ffbafa24baf5db1cdbb2c94a983ecd2784";
+        name = "acorn___acorn_6.4.1.tgz";
+        url  = "https://registry.yarnpkg.com/acorn/-/acorn-6.4.1.tgz";
+        sha1 = "531e58ba3f51b9dacb9a6646ca4debf5b14ca474";
       };
     }
     {
@@ -794,11 +802,11 @@
       };
     }
     {
-      name = "coc.nvim___coc.nvim_0.0.76.tgz";
+      name = "coc.nvim___coc.nvim_0.0.77.tgz";
       path = fetchurl {
-        name = "coc.nvim___coc.nvim_0.0.76.tgz";
-        url  = "https://registry.yarnpkg.com/coc.nvim/-/coc.nvim-0.0.76.tgz";
-        sha1 = "3f9ecd7160bb4cc1cc68dccc798c1bc8fbe5d003";
+        name = "coc.nvim___coc.nvim_0.0.77.tgz";
+        url  = "https://registry.yarnpkg.com/coc.nvim/-/coc.nvim-0.0.77.tgz";
+        sha1 = "537ee43fb0f4b40e6c07ad239a30677e274a9ad9";
       };
     }
     {
@@ -4338,11 +4346,11 @@
       };
     }
     {
-      name = "typescript___typescript_3.8.2.tgz";
+      name = "typescript___typescript_3.8.3.tgz";
       path = fetchurl {
-        name = "typescript___typescript_3.8.2.tgz";
-        url  = "https://registry.yarnpkg.com/typescript/-/typescript-3.8.2.tgz";
-        sha1 = "91d6868aaead7da74f493c553aeff76c0c0b1d5a";
+        name = "typescript___typescript_3.8.3.tgz";
+        url  = "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz";
+        sha1 = "409eb8544ea0335711205869ec458ab109ee1061";
       };
     }
     {

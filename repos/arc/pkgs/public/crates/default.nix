@@ -1,12 +1,12 @@
 {
   rust-analyzer = { fetchFromGitHub, rustPlatform, lib, darwin, hostPlatform }: rustPlatform.buildRustPackage rec {
     pname = "rust-analyzer";
-    version = "2020-03-09";
+    version = "2020-03-16";
     src = fetchFromGitHub {
       owner = "rust-analyzer";
       repo = pname;
       rev = version;
-      sha256 = "1m97sinfyg43p3crhbjrsgf64bn5pyj7m96ikvznps80w8dnsv5n";
+      sha256 = "0h1dpf9jcdf15qvqmq10giiqmcwdnhw3r8jr26jyh8sk0331i3am";
     };
     cargoBuildFlags = ["--features" "jemalloc" ];
     preBuild = "pushd crates/rust-analyzer";
@@ -15,8 +15,9 @@
     buildInputs = lib.optionals hostPlatform.isDarwin [ darwin.cf-private darwin.apple_sdk.frameworks.CoreServices ];
     # darwin undefined symbol _CFURLResourceIsReachable: https://discourse.nixos.org/t/help-with-rust-linker-error-on-darwin-cfurlresourceisreachable/2657
 
-    cargoSha256 = "1iisny73l0qflbwz0s9yiqzb6k5srm39knccs21hfqwq8srpv50h";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "1iisny73l0qflbwz0s9yiqzb6k5srm39knccs21hfqwq8srpv501"
+      else "1z0k5cvmzcfpwc6hz13jnymq5nxfk4wwcy61b9ph7mjis2m5pv4s";
     meta.broken = lib.versionAtLeast "1.38.0" rustPlatform.rust.rustc.version;
 
     doCheck = false;
@@ -24,16 +25,17 @@
 
   cargo-deps = { fetchFromGitHub, rustPlatform, lib }: rustPlatform.buildRustPackage rec {
     pname = "cargo-deps";
-    version = "1.3.0";
+    version = "1.4.1";
     src = fetchFromGitHub {
       owner = "m-cat";
       repo = pname;
-      rev = "9f2344b";
-      sha256 = "0d4gy78jyibwnga3g5xr354gy2r23nb26lcwa05nd0kmwsdkb6cq";
+      rev = "4033018eaa53134fd6169653b709b195a5f5958b";
+      sha256 = "1cdmgdag9chjifsp2hxr9j15hb6l6anqq38y8srj1nk047a3kbcw";
     };
 
-    cargoSha256 = "0nxmr8b3j7p08bvdm1b3ql7wnsyfg3qzd5m0zjs5l7f0gzbz6471";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "1gjbvgpicy9n311qh9a5n0gdyd2rnc0b9zypnzk2ibn1pgaikafy"
+      else "0pv76mwbdg39sqdizj2x0nlx680hig69vpqr3j5y8zp9ykhk0d2p";
   };
 
   cargo-download-arc = {
@@ -52,8 +54,9 @@
     nativeBuildInputs = lib.optional hostPlatform.isLinux pkgconfig;
     buildInputs = lib.optional hostPlatform.isLinux openssl
       ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
-    cargoSha256 = "1ak0idi1wlwndw5rsp9ff1l3j05hf26h06rjs2ldfh09rss4s54b";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "1ak0idi1wlwndw5rsp9ff1l3j05hf26h06rjs2ldfh09rss4s54b"
+      else "1q62rk253nmvvgw8ksf8nvlc1g0ynzqkk3w35wa2iiral7wnfj2r";
     cargoPatches = [ ./cargo-download-lock.patch ];
   };
 
@@ -68,8 +71,9 @@
     };
 
     cargoPatches = [ ./cargo-with-lock.patch ];
-    cargoSha256 = "0x08nc9d6jgrfnlrnyrln2lvxr7dpys4sfh2lvq0814bfg22byid";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "0x08nc9d6jgrfnlrnyrln2lvxr7dpys4sfh2lvq0814bfg22byid"
+      else "0mvyimwqxg5i9m29ikzfl9dzbjsp1ksjkpxc794xnn7c0lspa2gi";
   };
 
   cargo-info = {
@@ -93,8 +97,9 @@
       url = "https://gitlab.com/imp/cargo-info/commit/635a128a9e46ee9f3c443ed070da63b3ebb78033.diff";
       sha256 = "14vz860a40njx4fdaxdw1iy92isihgab65x5c6kxb68iha6bg4j9";
     }) ];
-    cargoSha256 = "1fw8fd67ixhy13xvfkssssy5b78n5dgq4qr0m0xvi50i2553rlgj";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "1fw8fd67ixhy13xvfkssssy5b78n5dgq4qr0m0xvi50i2553rlgj"
+      else "0pzync67crq9raw78yyvsj5b2vflpvb17p5fwn5f5mwgfqj82dvi";
 
     nativeBuildInputs = lib.optional hostPlatform.isLinux pkgconfig;
     buildInputs = lib.optional hostPlatform.isLinux openssl
@@ -114,8 +119,9 @@
     RUSTC_BOOTSTRAP = true;
 
     patches = [ ./xargo-stable.patch ];
-    cargoSha256 = "0cmdi9dcdn2nzk1h5n764305h9nzk5qzzjwgq1k86mxsn49i5w8c";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "0cmdi9dcdn2nzk1h5n764305h9nzk5qzzjwgq1k86mxsn49i5w8c"
+      else "17afazmggwlnd6cs43cbj8hghc2ddlka517vjrpiqgcw1vx4h7qw";
 
     doCheck = false;
   };
@@ -150,8 +156,9 @@
     cargoPatches = [ ./cargo-binutils-lock.patch ];
     patches = [ ./cargo-binutils-path.patch ];
 
-    cargoSha256 = "0cvsw06r174xc5zn04glcvlc2ckjj32y7bs8qk1wicm28nkq71qp";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "0cvsw06r174xc5zn04glcvlc2ckjj32y7bs8qk1wicm28nkq71qp"
+      else "08hidjsz7kk93kx5mix84g3zr98y7j9wg55l4c74069690gc5ch7";
 
     doCheck = false;
 
@@ -202,8 +209,9 @@
     patches = [
       ./cargo-call-stack-udf.patch # https://github.com/japaric/cargo-call-stack/issues/20
     ];
-    cargoSha256 = "0ih8z2jkvjs9krsqkpc353charqymlz65kf78n7x304p2i9jbwxx";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "0ih8z2jkvjs9krsqkpc353charqymlz65kf78n7x304p2i9jbwxx"
+      else "09ajy6d510av4qa7q32m14d8x0rm1z4h4cawkn20j4wzx9sx21a4";
 
     # Only because of the cargo lockfile version...
     meta.broken = !lib.rustVersionAtLeast rustPlatform "1.41";
@@ -224,8 +232,9 @@
 
     cargoPatches = [ ./cargo-stack-sizes-lock.patch ];
     patches = [ ./cargo-stack-sizes-warn.patch ./cargo-stack-sizes-features.patch ];
-    cargoSha256 = "1zmfa7s0zcwkkqfqk2svashl9a0mnpscyn1p9ds9k423r52gifwk";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "1zmfa7s0zcwkkqfqk2svashl9a0mnpscyn1p9ds9k423r52gifwk"
+      else "1lnplkxapxl84cbrrhi0hs875d9v7mdgqj719177xy86nywsmwba";
 
     doCheck = false; # there are no tests
   };
@@ -245,8 +254,9 @@
 
     cargoPatches = [ ./cargo-llvm-lines-lock.patch ];
     patches = [ ./cargo-llvm-lines-features.patch ./cargo-llvm-lines-fix-filter.patch ];
-    cargoSha256 = "0arjrs67z9rqbkrs77drj068614kg2n3y4f1wyf103bsad0vy783";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "0arjrs67z9rqbkrs77drj068614kg2n3y4f1wyf103bsad0vy783"
+      else "1smv1s00sw23zzap95p89hi09riadr753rywkhskm9sgabzxj54y";
   };
 
   screenstub = {
@@ -288,8 +298,9 @@
     buildInputs = [ libxcb ddcutil_0_8 ];
     depsPath = lib.makeBinPath [ qemucomm ];
 
-    cargoSha256 = "047nwakmz01yvz92wyfvz6w1867j9279njj75kjsanajm7nybdw1";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "047nwakmz01yvz92wyfvz6w1867j9279njj75kjsanajm7nybdw1"
+      else "0f9rv1935ldfzh87hg9k7r1krc01j2v89z9vnrrav53rb2py51nw";
 
     postInstall = ''
       wrapProgram $out/bin/screenstub --prefix PATH : $depsPath
@@ -326,8 +337,9 @@
       fetchSubmodules = true;
     };
 
-    cargoSha256 = "1z2gqlg2pdfq9hlj4p7ngv29ijxfcld41v44g08jf6lwz81lh1bs";
-    legacyCargoFetcher = true;
+    cargoSha256 = if lib.isNixpkgsStable
+      then "1z2gqlg2pdfq9hlj4p7ngv29ijxfcld41v44g08jf6lwz81lh1bs"
+      else "1irmx4rm6mvf9b0nzss2j6mvwivvabpj692wsvnvh6a57cqy9q6r";
     cargoPatches = [
       # full of hacks around optional/platform-specific dependencies, split this up to fix the macos build
       ./wezterm-lock.patch
