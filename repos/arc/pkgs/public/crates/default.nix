@@ -34,8 +34,8 @@
     };
 
     cargoSha256 = if lib.isNixpkgsStable
-      then "1gjbvgpicy9n311qh9a5n0gdyd2rnc0b9zypnzk2ibn1pgaikafy"
-      else "0pv76mwbdg39sqdizj2x0nlx680hig69vpqr3j5y8zp9ykhk0d2p";
+      then "0pv76mwbdg39sqdizj2x0nlx680hig69vpqr3j5y8zp9ykhk0d2p"
+      else "1gjbvgpicy9n311qh9a5n0gdyd2rnc0b9zypnzk2ibn1pgaikafy";
   };
 
   cargo-download-arc = {

@@ -12,4 +12,5 @@ in rustPlatform.buildRustPackage {
     then "1w8g7pxwnjqp9zi47h4lz2mcg5daldsk5z72h8cjj750wng8a82c"
     else "0rp4zic2bgb781v92zzdch9wazrc9j8a44b1wxsqjbpqazy0izcw";
   buildInputs = with darwin.apple_sdk.frameworks; lib.optionals stdenv.isDarwin [ CoreFoundation CoreServices ];
+  meta.broken = lib.versionAtLeast "1.40.0" rustPlatform.rust.rustc.version;
 }

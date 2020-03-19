@@ -50,15 +50,15 @@
       owner = "ul";
       repo = pname;
       rev = "2fa4b122a06c6b8b802329a66e2a59ddf00e8372";
-      sha256 = "1wwpxq87plyxpkfwgy5lnadiv69h7jd7xwaclhck6f2yjkxmswjm";
+      sha256 = "17n0g9dljz700f1qd5qa4ps78mbzl24ai2zv549knv57ig09g5k5";
       fetchSubmodules = true;
     };
 
     buildInputs = lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
 
     cargoSha256 = if lib.isNixpkgsStable
-      then "1hqnxjn898kpi850m3qz361hkkhjkhr5j4gk828isqlwl8q75dpr"
-      else "14m7yy5m9xwzrprrzmkg8l7g2hgn9przqqwi3fkyvjsk55lj0d1p";
+      then "0n3j2d15m039cl3fn5ibk4kyk1hnawhwbkinph50ry4pzhix3ikb"
+      else "0d7k7c8gq5b9blxxz0xzj1w51x6vqvrb3ac3azhvbl3xf55z6gl4";
 
     preBuild = ''
       sed -e "s,\"kak-tree\",\"$out/bin/kak-tree\"," -i rc/tree.kak
