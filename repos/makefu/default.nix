@@ -40,6 +40,8 @@ in {
     qcma = super.pkgs.libsForQt5.callPackage ./custom/qcma { };
     inherit (callPackage ./devpi {}) devpi-web ;
     nodemcu-uploader = super.pkgs.callPackage ./nodemcu-uploader {};
+    liveproxy = super.pkgs.python3Packages.callPackage ./custom/liveproxy {};
+    hydra-check = super.pkgs.python3Packages.callPackage ./custom/hydra-check {};
 }
 
 // (mapAttrs (_: flip callPackage {})

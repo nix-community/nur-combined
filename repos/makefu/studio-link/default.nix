@@ -11,17 +11,22 @@
 stdenv.mkDerivation rec {
   name = "studio-link-${version}";
   version = "17.03.1-beta";
+
   src = fetchurl {
     url = "https://github.com/Studio-Link-v2/backend/releases/download/v${version}/studio-link-standalone-linux.zip";
     sha256 = "1y21nymin7iy64hcffc8g37fv305b1nvmh944hkf7ipb06kcx6r9";
   };
-  nativeBuildInputs = [ unzip autoPatchelfHook ];
-  buildInputs = [
-      alsaLib
 
-      openssl_1_0_2
-      zlib
-      libjack2
+  nativeBuildInputs = [
+    unzip
+    autoPatchelfHook
+  ];
+
+  buildInputs = [
+    alsaLib
+    openssl_1_0_2
+    zlib
+    libjack2
   ];
 
   unpackPhase = ''
@@ -29,9 +34,7 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out/bin
-    cp studio-link-standalone $out/bin/studio-link
-    chmod +x $out/bin/studio-link
+    install -m755 -D studio-link-standalone $out/bin/studio-link
   '';
 
   meta = with stdenv.lib; {
