@@ -7,6 +7,7 @@
   overlays = import ./overlays;
 
   # pkgs
+  annotatego = pkgs.callPackage ./pkgs/annotatego {};
   go-hello-world = pkgs.callPackage ./pkgs/go-hello-world {};
   nanoc = pkgs.callPackage ./pkgs/nanoc {};
   rust-hello-world = pkgs.callPackage ./pkgs/rust-hello-world {};
