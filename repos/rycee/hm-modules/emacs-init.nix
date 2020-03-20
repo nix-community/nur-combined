@@ -54,6 +54,15 @@ let
         '';
       };
 
+      chords = mkOption {
+        type = types.attrsOf types.str;
+        default = {};
+        example = { "jj" = "ace-jump-char-mode"; "jk" = "ace-jump-word-mode"; };
+        description = ''
+          The entries to use for <option>:chords</option>.
+        '';
+      };
+
       mode = mkOption {
         type = types.listOf types.str;
         default = [];
@@ -167,6 +176,7 @@ let
             in
               flatten (mapAttrsToList mkMap bs);
           mkBindKeyMap = mkBindHelper "bind-keymap" "";
+          mkChords = mkBindHelper "chords" "";
           mkHook = map (v: ":hook ${v}");
           mkDefer = v:
             if isBool v then optional v ":defer t"
@@ -179,6 +189,7 @@ let
             ++ mkBind config.bind
             ++ mkBindKeyMap config.bindKeyMap
             ++ mkBindLocal config.bindLocal
+            ++ mkChords config.chords
             ++ mkCommand config.command
             ++ mkDefer config.defer
             ++ mkDemand config.demand
@@ -247,6 +258,9 @@ let
   # Whether the configuration makes use of `:bind`.
   hasBind = any (p: p.bind != {}) (attrValues cfg.usePackage);
 
+  # Whether the configuration makes use of `:chords`.
+  hasChords = any ( p: p.chords != {}) (attrValues cfg.usePackage);
+
   usePackageSetup =
     ''
       (eval-when-compile
@@ -270,6 +284,11 @@ let
     + optionalString hasBind ''
       ;; For :bind in (use-package).
       (require 'bind-key)
+    ''
+    + optionalString hasChords ''
+      ;; For :chords in (use-package).
+      (use-package use-package-chords
+        :config (key-chord-mode 1))
     '';
 
   initFile = ''
@@ -386,6 +405,7 @@ in
         [ epkgs.use-package ]
         ++ optional hasBind epkgs.bind-key
         ++ optional hasDiminish epkgs.diminish
+        ++ optional hasChords epkgs.use-package-chords
         ++ (
           concatMap (v: getPkg (v.package))
           (builtins.attrValues cfg.usePackage)
