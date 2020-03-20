@@ -6,8 +6,7 @@ import re
 import requests
 import sys
 
-releases = ("openjdk8", "openjdk11", "openjdk13")
-nightlyBuilds = ("openjdk14",)
+releases = ("openjdk8", "openjdk11", "openjdk13", "openjdk14")
 oses = ("mac", "linux")
 types = ("jre", "jdk")
 impls = ("hotspot", "openj9")
@@ -68,9 +67,10 @@ def request(builds, type):
         if resp.status_code != 200:
             print("error: could not fetch data for {} {}:\n{}".format(type, build, resp), file=sys.stderr)
             sys.exit(1)
+        if type == 'nightly':
+          build += "-{}".format(type)
         out[build] = generate_sources(build, resp.json())
 
-request(nightlyBuilds, "nightly")
 request(releases, "releases")
 
 with open("sources.json", "w") as f:

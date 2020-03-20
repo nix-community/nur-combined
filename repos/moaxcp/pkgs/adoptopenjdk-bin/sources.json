@@ -240,56 +240,56 @@
       "jdk": {
         "hotspot": {
           "aarch64": {
-            "build": null,
-            "sha256": "7477d910b60348ef0b8661846d421db814a641de262ed486a8c763bb83019894",
-            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk14-2020-03-14-05-11/OpenJDK14-jdk_aarch64_linux_hotspot_2020-03-14-05-11.tar.gz",
-            "version": "jdk14-2020-03-14-05-11"
+            "build": "36",
+            "sha256": "902899c9c4781a5ef16fc79bf153e9decff595a6597e39e2e4672faf2ec9c99f",
+            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36/OpenJDK14U-jdk_aarch64_linux_hotspot_14_36.tar.gz",
+            "version": "14.0.0"
           },
           "packageType": "jdk",
           "vmType": "hotspot",
           "x86_64": {
-            "build": null,
-            "sha256": "7765144645f7981debf4f12faeed5cdefcd75aab67bccb79e719363043fe5a61",
-            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk14-2020-03-14-05-11/OpenJDK14-jdk_x64_linux_hotspot_2020-03-14-05-11.tar.gz",
-            "version": "jdk14-2020-03-14-05-11"
+            "build": "36",
+            "sha256": "6c06853332585ab58834d9e8a02774b388e6e062ef6c4084b4f058c67f2e81b5",
+            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36/OpenJDK14U-jdk_x64_linux_hotspot_14_36.tar.gz",
+            "version": "14.0.0"
           }
         },
         "openj9": {
           "packageType": "jdk",
           "vmType": "openj9",
           "x86_64": {
-            "build": null,
-            "sha256": "c1e0fbe64f7e5ef6a6e5dc6db61152f92c478365e8836e1a5d177623c6efbf20",
-            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk14-2020-03-14-05-11/OpenJDK14-jdk_x64_linux_openj9_2020-03-14-05-11.tar.gz",
-            "version": "jdk14-2020-03-14-05-11"
+            "build": "36",
+            "sha256": "106b72d565be98834ead5fea9555bd646d488a86fc4ae4dd294a38e97bf77509",
+            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36.1_openj9-0.19.0/OpenJDK14U-jdk_x64_linux_openj9_14_36_openj9-0.19.0.tar.gz",
+            "version": "14.0.0"
           }
         }
       },
       "jre": {
         "hotspot": {
           "aarch64": {
-            "build": null,
-            "sha256": "faa838e01057294a42573d98e4f60fffa330a6916af0ac5d6f5c50bad0cece57",
-            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk14-2020-03-14-05-11/OpenJDK14-jre_aarch64_linux_hotspot_2020-03-14-05-11.tar.gz",
-            "version": "jdk14-2020-03-14-05-11"
+            "build": "36",
+            "sha256": "22d76b788680fb6e46bbab420b0610439581dea6c06f082614c9822f9c4df445",
+            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36/OpenJDK14U-jre_aarch64_linux_hotspot_14_36.tar.gz",
+            "version": "14.0.0"
           },
           "packageType": "jre",
           "vmType": "hotspot",
           "x86_64": {
-            "build": null,
-            "sha256": "d664947949248f6cae3d483d3e87149b7f5d148a1890beb46c934d8d3110f409",
-            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk14-2020-03-14-05-11/OpenJDK14-jre_x64_linux_hotspot_2020-03-14-05-11.tar.gz",
-            "version": "jdk14-2020-03-14-05-11"
+            "build": "36",
+            "sha256": "2103fc385b738bc7dd64ccbf53d9c35353033f49fce98f3ed2e3a41ff8a57190",
+            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36/OpenJDK14U-jre_x64_linux_hotspot_14_36.tar.gz",
+            "version": "14.0.0"
           }
         },
         "openj9": {
           "packageType": "jre",
           "vmType": "openj9",
           "x86_64": {
-            "build": null,
-            "sha256": "6f6baae10459ea4d1f06e0456dbdbc10410679ddaac5a6f16b061afd945aaac2",
-            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk14-2020-03-14-05-11/OpenJDK14-jre_x64_linux_openj9_2020-03-14-05-11.tar.gz",
-            "version": "jdk14-2020-03-14-05-11"
+            "build": "36",
+            "sha256": "55cff9151fecd610ffbbe81e12adfbce83d0e7033b944e139e6ff758868b0509",
+            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36.1_openj9-0.19.0/OpenJDK14U-jre_x64_linux_openj9_14_36_openj9-0.19.0.tar.gz",
+            "version": "14.0.0"
           }
         }
       }
@@ -300,20 +300,20 @@
           "packageType": "jdk",
           "vmType": "hotspot",
           "x86_64": {
-            "build": null,
-            "sha256": "639fc7b6a58d68a69f4910ca08937552ca2ed8b8795fb9ac6cb5f24cde03ea14",
-            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk14-2020-03-14-05-11/OpenJDK14-jdk_x64_mac_hotspot_2020-03-14-05-11.tar.gz",
-            "version": "jdk14-2020-03-14-05-11"
+            "build": "36",
+            "sha256": "aabc3aebb0abf1ba64d9bd5796d0c7eb7239983f6e4c0f015b5b88be5616e4bd",
+            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36/OpenJDK14U-jdk_x64_mac_hotspot_14_36.tar.gz",
+            "version": "14.0.0"
           }
         },
         "openj9": {
           "packageType": "jdk",
           "vmType": "openj9",
           "x86_64": {
-            "build": null,
-            "sha256": "b16da433e4c713b26949fc6b00eee1db5c92189879935a36d141f42287073e2e",
-            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk14-2020-03-14-05-11/OpenJDK14-jdk_x64_mac_openj9_2020-03-14-05-11.tar.gz",
-            "version": "jdk14-2020-03-14-05-11"
+            "build": "36",
+            "sha256": "dbcb956a33c18db0626952d9ad2e2d8cb8faf66d1b550f70bd922b8853530c36",
+            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36.1_openj9-0.19.0/OpenJDK14U-jdk_x64_mac_openj9_14_36_openj9-0.19.0.tar.gz",
+            "version": "14.0.0"
           }
         }
       },
@@ -322,20 +322,20 @@
           "packageType": "jre",
           "vmType": "hotspot",
           "x86_64": {
-            "build": null,
-            "sha256": "54017d2df59fa9caeceedde117e7946564b907f471ee0deba6f2a23382b02a92",
-            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk14-2020-03-14-05-11/OpenJDK14-jre_x64_mac_hotspot_2020-03-14-05-11.tar.gz",
-            "version": "jdk14-2020-03-14-05-11"
+            "build": "36",
+            "sha256": "54f4c7ac9dad6a31f5069ac613abaf6a932f73ab7d46315ac6d1d2fee56fae32",
+            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36/OpenJDK14U-jre_x64_mac_hotspot_14_36.tar.gz",
+            "version": "14.0.0"
           }
         },
         "openj9": {
           "packageType": "jre",
           "vmType": "openj9",
           "x86_64": {
-            "build": null,
-            "sha256": "098c5bec93323e52a591da566e9249fe39724b6422f8355a65f78b074dea49b3",
-            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk14-2020-03-14-05-11/OpenJDK14-jre_x64_mac_openj9_2020-03-14-05-11.tar.gz",
-            "version": "jdk14-2020-03-14-05-11"
+            "build": "36",
+            "sha256": "0ab9de96803b0a1996ee8d3aa3969917102259170009cbdcb159eda1857ec8ca",
+            "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36.1_openj9-0.19.0/OpenJDK14U-jre_x64_mac_openj9_14_36_openj9-0.19.0.tar.gz",
+            "version": "14.0.0"
           }
         }
       }
