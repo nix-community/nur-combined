@@ -1,4 +1,4 @@
-{ buildGoModule, fetchFromGitHub }: buildGoModule rec {
+{ buildGoModule, fetchFromGitHub, lib, hostPlatform, darwin }: buildGoModule rec {
   pname = "git-annex-remote-b2";
   version = "2020-02-05-arc";
 
@@ -10,4 +10,5 @@
   };
 
   modSha256 = "0xdmiwfkj84rh81w5wkd8cnvg0vsv5jv748l5ggj038bq0hmvrp2";
+  buildInputs = lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
 }

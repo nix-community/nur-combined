@@ -173,16 +173,20 @@ let
       };
     });
 
-    yggdrasilctl = { stdenvNoCC, yggdrasil ? null }: let
+    yggdrasilctl = { stdenvNoCC, yggdrasil ? null, hostPlatform }: let
       drv = stdenvNoCC.mkDerivation {
         pname = "yggdrasilctl";
-        inherit (yggdrasil) version meta;
+        inherit (yggdrasil) version;
         inherit yggdrasil;
 
         buildCommand = ''
           mkdir -p $out/bin
           ln -s $yggdrasil/bin/yggdrasilctl $out/bin/yggdrasil
         '';
+
+        meta = yggdrasil.meta or {} // {
+          broken = yggdrasil.meta.broken or false || hostPlatform.isDarwin;
+        };
       };
     in if yggdrasil == null then stdenvNoCC.mkDerivation {
       name = "yggdrasilctl";
