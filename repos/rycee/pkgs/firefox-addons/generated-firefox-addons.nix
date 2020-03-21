@@ -112,10 +112,10 @@
       };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
-      version = "3.1.0";
+      version = "3.1.1";
       addonId = "CookieAutoDelete@kennydo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3528401/cookie_autodelete-3.1.0-an+fx.xpi?src=";
-      sha256 = "4d3f7da6b75de74c60251390c5ef67eb6970584040786fade7cbb005f3ea27e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3530747/cookie_autodelete-3.1.1-an+fx.xpi?src=";
+      sha256 = "f13eac57fe7f0b3a443565b4d4dfcaf9d190277c6d21e6a28297fd87e2c52076";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mrdokenny/Cookie-AutoDelete";
@@ -485,10 +485,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.2.1";
+      version = "5.3.0";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3427141/moderator_toolbox_for_reddit-5.2.1-an+fx.xpi?src=";
-      sha256 = "b3c7940aec04da524ebe1eef817d1411c6099bf45a0698e41f08a43c55c5ceb1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3531048/moderator_toolbox_for_reddit-5.3.0-an+fx.xpi?src=";
+      sha256 = "06de42d62a740c98483c78531baadb4e99c4660ab902a97088599615077346d4";
       meta = with stdenv.lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
