@@ -1,9 +1,9 @@
 image: nixos/19.09
+repositories:
+  nixpkgs: https://nixos.org/channels/nixos-20.03
 packages:
   - nixpkgs.cachix
   - nixpkgs.nixpkgs-fmt
-repositories:
-  nixpkgs: https://nixos.org/channels/nixos-20.03
 sources:
   - https://git.sr.ht/~priegger/nur-packages
 secrets:
@@ -14,6 +14,9 @@ environment:
 tasks:
   - setup: |
       cachix use "${CACHIX_CACHE}" --mode user-nixconf
+  - lint: |
+      cd nur-packages
+      find . -name '*.nix' -exec nixpkgs-fmt --check {} +
   - build: |
       cd nur-packages
 
@@ -26,9 +29,6 @@ tasks:
   - test: |
       cd nur-packages
       nix-build ./tests/reresolve-dns.nix
-  - lint: |
-      cd nur-packages
-      find . -name '*.nix' -exec nixpkgs-fmt --check {} +
   - deploy: |
       cd nur-packages
       [ "$(git rev-parse HEAD)" == "$(git rev-parse master)" ] || complete-build

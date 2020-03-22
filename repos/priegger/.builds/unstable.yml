@@ -1,8 +1,9 @@
 image: nixos/latest
-packages:
-  - nixpkgs.nixpkgs-fmt
 repositories:
   nixpkgs: https://nixos.org/channels/nixos-unstable
+packages:
+  - nixpkgs.cachix
+  - nixpkgs.nixpkgs-fmt
 sources:
   - https://git.sr.ht/~priegger/nur-packages
 secrets:
@@ -11,8 +12,10 @@ environment:
   CACHIX_CACHE: priegger
 tasks:
   - setup: |
-      nix-env -iA cachix -f https://cachix.org/api/v1/install
       cachix use "${CACHIX_CACHE}" --mode user-nixconf
+  - lint: |
+      cd nur-packages
+      find . -name '*.nix' -exec nixpkgs-fmt --check {} +
   - build: |
       cd nur-packages
 
@@ -25,9 +28,6 @@ tasks:
   - test: |
       cd nur-packages
       nix-build ./tests/reresolve-dns.nix
-  - lint: |
-      cd nur-packages
-      find . -name '*.nix' -exec nixpkgs-fmt --check {} +
   - deploy: |
       cd nur-packages
       [ "$(git rev-parse HEAD)" == "$(git rev-parse master)" ] || complete-build

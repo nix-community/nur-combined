@@ -1,14 +1,10 @@
 { pkgs ? import <nixpkgs> {}, ... }:
 
+# special attributes
 {
-  # special attributes
   lib = import ./lib { inherit pkgs; };
   modules = import ./modules;
   overlays = import ./overlays;
-
-  # pkgs
-  annotatego = pkgs.callPackage ./pkgs/annotatego {};
-  go-hello-world = pkgs.callPackage ./pkgs/go-hello-world {};
-  nanoc = pkgs.callPackage ./pkgs/nanoc {};
-  rust-hello-world = pkgs.callPackage ./pkgs/rust-hello-world {};
 }
+# pkgs
+// (import ./pkgs { inherit pkgs; })
