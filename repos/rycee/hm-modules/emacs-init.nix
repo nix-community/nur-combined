@@ -386,30 +386,32 @@ in
   };
 
   config = mkIf (config.programs.emacs.enable && cfg.enable) {
-    home.packages = [
-      ((pkgs.emacsPackagesNgGen config.programs.emacs.finalPackage).trivialBuild {
-        pname = "hm-init";
-        version = "0";
-        src = pkgs.writeText "hm-init.el" initFile;
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-      })
-    ];
-
     programs.emacs.extraPackages = epkgs:
       let
         getPkg = v:
-          if isFunction v then [ (v epkgs) ]
+          if isFunction v
+          then [ (v epkgs) ]
           else optional (isString v && hasAttr v epkgs) epkgs.${v};
-      in
-        [ epkgs.use-package ]
-        ++ optional hasBind epkgs.bind-key
-        ++ optional hasDiminish epkgs.diminish
-        ++ optional hasChords epkgs.use-package-chords
-        ++ (
+
+        packages =
           concatMap (v: getPkg (v.package))
-          (builtins.attrValues cfg.usePackage)
-        );
+          (builtins.attrValues cfg.usePackage);
+      in
+        [
+          (epkgs.trivialBuild {
+            pname = "hm-init";
+            version = "0";
+            src = pkgs.writeText "hm-init.el" initFile;
+            packageRequires =
+              [ epkgs.use-package ]
+              ++ packages
+              ++ optional hasBind epkgs.bind-key
+              ++ optional hasDiminish epkgs.diminish
+              ++ optional hasChords epkgs.use-package-chords;
+            preferLocalBuild = true;
+            allowSubstitutes = false;
+          })
+        ];
 
     home.file.".emacs.d/init.el".text = ''
       (require 'hm-init)
