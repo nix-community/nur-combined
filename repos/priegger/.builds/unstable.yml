@@ -5,7 +5,14 @@ repositories:
   nixpkgs: https://nixos.org/channels/nixos-unstable
 sources:
   - https://git.sr.ht/~priegger/nur-packages
+secrets:
+  -  979bc696-35ff-421b-a46e-99f04e657a87 # cachix-priegger
+environment:
+  CACHIX_CACHE: priegger
 tasks:
+  - setup: |
+      nix-env -iA cachix -f https://cachix.org/api/v1/install
+      cachix use "${CACHIX_CACHE}" --mode user-nixconf
   - build: |
       cd nur-packages
 
@@ -21,3 +28,7 @@ tasks:
   - lint: |
       cd nur-packages
       find . -name '*.nix' -exec nixpkgs-fmt --check {} +
+  - deploy: |
+      cd nur-packages
+      [ "$(git rev-parse HEAD)" == "$(git rev-parse master)" ] || complete-build
+      nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"
