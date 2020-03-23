@@ -7,14 +7,14 @@
 
 buildPythonPackage rec {
   pname = "archinfo";
-  version = "8.19.10.30";
+  version = "8.20.1.7";
   disabled = !isPy3k;
 
   src = fetchFromGitHub {
     owner = "angr";
     repo = pname;
-    rev = "ddcd3a60256789b0ed3302907cb798bf01b1c5e6";
-    sha256 = "1wvqhrxynj652jpzcn1nmrbchxxwwfwqrgfwrhhynyxrw1gal84m";
+    rev = "fa979436bd07b4178877d31a5166d28063a89807";
+    sha256 = "018asj1gnnc189i7gnd3gm7as58pd6r6lpfd7aq57848rlrsrxv8";
   };
 
   checkInputs = [ nose ];

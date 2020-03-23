@@ -27,7 +27,7 @@
 
 buildPythonPackage rec {
   pname = "angr";
-  version = "8.19.10.30";
+  version = "8.20.1.7";
   disabled = !isPy3k;
 
   propagatedBuildInputs = [
@@ -57,8 +57,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "angr";
     repo = pname;
-    rev = "eef5b2f07df74d22b87cf8c7f9f3578c3af918b7";
-    sha256 = "002f9m6l0m0ws5f6wzg541v2s798p1l9ba59ir0r02yicmkr96sf";
+    rev = "6b1a0825cbe156e2d32c577ba47ff50920f005aa";
+    sha256 = "1j2icbid82p06jrrs5dg45xwvya61mzvjckwg517yz7jkr1wmzk6";
   };
 
   setupPyBuildFlags = [

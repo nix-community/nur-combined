@@ -25,9 +25,11 @@
 
     claripy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/claripy { inherit PySMT z3-solver; };
 
-    cle = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cle { inherit archinfo pyvex; };
+    cle = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cle { inherit archinfo minidump pyvex; };
 
     cooldict = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cooldict {};
+
+    minidump = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/minidump {};
 
     mulpyplexer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/mulpyplexer {};
 

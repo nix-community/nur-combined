@@ -1,5 +1,6 @@
 { buildPythonPackage
 , cachetools
+, decorator
 , fetchFromGitHub
 , future
 , pkgs
@@ -9,15 +10,15 @@
 
 buildPythonPackage rec {
   pname = "claripy";
-  version = "8.19.10.30";
+  version = "8.20.1.7";
 
-  propagatedBuildInputs = [ cachetools future PySMT z3-solver ];
+  propagatedBuildInputs = [ cachetools decorator future PySMT z3-solver ];
 
   src = fetchFromGitHub {
     owner = "angr";
     repo = "claripy";
-    rev = "adf7452ff7226544cf2f19dc6d510728ba430758";
-    sha256 = "1279d3smdrmhnyk5hqgm7p21mc4q34viqpnjkhg9mcqnjg3h3i6g";
+    rev = "ea20bb80a84aab942f89cffbf035675dc0cf1af4";
+    sha256 = "1fl96c69pabrrz7mq8hzkgq3hjdnsbkpqcf41y3285706pq6yv7w";
   };
 
   # Tests are failing.

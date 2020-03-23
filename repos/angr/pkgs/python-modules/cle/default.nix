@@ -3,6 +3,7 @@
 , buildPythonPackage
 , fetchFromGitHub
 , git
+, minidump
 , nose
 , pefile
 , pkgs
@@ -13,22 +14,22 @@
 
 buildPythonPackage rec {
   pname = "cle";
-  version = "8.19.10.30";
+  version = "8.20.1.7";
 
-  propagatedBuildInputs = [ archinfo cffi pefile pyelftools pyvex sortedcontainers ];
+  propagatedBuildInputs = [ archinfo cffi minidump pefile pyelftools pyvex sortedcontainers ];
 
   src = fetchFromGitHub {
     owner = "angr";
     repo = pname;
-    rev = "fceb6b1a9591cdda8fdd4f018d6a498c9fca2268";
-    sha256 = "1zs94ridvvxkwvmrhwhqfmkvm005b8fhhavqhmv7dh0znbg42j9f";
+    rev = "18f073190e37310737ee2d79ba52f72a481b4a9f";
+    sha256 = "0yn108y7iy392cj50nwzl9qqs9pn2bda75firagjgd9fnndqr560";
   };
 
   binaries = fetchFromGitHub {
     owner = "angr";
     repo = "binaries";
-    rev = "556b7a100e9ba386bb1c0a8fbfba72e9893f33bd";
-    sha256 = "00ag6wc2dv3n0qwjkmpl6nf9vcbfih4jgh2bnfar325yw258zgg2";
+    rev = "0a0cd2e6a2aadd1af7be137c5719650d52d5fa28";
+    sha256 = "1iz294sjvam9kfl5jvcdyrf6fi7y57vfzjkyi316qm0hixcf4xwb";
   };
 
   checkInputs = [ binaries nose ];
