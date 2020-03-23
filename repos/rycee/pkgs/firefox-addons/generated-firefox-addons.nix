@@ -346,10 +346,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.6.0";
+      version = "1.6.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3531496/keepassxc_browser-1.6.0-fx.xpi?src=";
-      sha256 = "669b719973f8b0ee909ab56a38f9e9da1d01c16b8cd2dc83fa67ece0bf1ca5d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3531811/keepassxc_browser-1.6.1-fx.xpi?src=";
+      sha256 = "a6d2b8a538450e16bfb794f5e30049bde4373ddda4cca082a880501d2b18c41d";
       meta = with stdenv.lib;
       {
         homepage = "https://keepassxc.org/";
@@ -388,10 +388,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "4.1.7";
+      version = "4.2.1";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3516688/octotree-4.1.7-fx.xpi?src=";
-      sha256 = "12a0f7e5c9b150b01580bc7e12e2cfcfd2acb02e3f952adfcb02022796cf78ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3531977/octotree-4.2.1-fx.xpi?src=";
+      sha256 = "d6eaf311c258dc16aa00ca0a0cc2e02ccfa35b4072a70bd259f46d10f1e33bed";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -499,10 +499,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.3.16";
+      version = "20.3.22";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3528184/refined_github-20.3.16-an+fx.xpi?src=";
-      sha256 = "1e9e44307c70da8d5234c71edff93d55b1ea68fda60c66b5202e663accc40b76";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3531997/refined_github-20.3.22-an+fx.xpi?src=";
+      sha256 = "131e40accd7ad389d35ef06abd1927bf89ccf08f424a4391b489d43fd1509acf";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
