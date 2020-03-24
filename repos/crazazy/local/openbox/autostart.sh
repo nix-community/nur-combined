@@ -1,3 +1,4 @@
+~/.fehbg
 CURRENT=$(cd $(dirname $0) && pwd)
 albert &
 glava -d &

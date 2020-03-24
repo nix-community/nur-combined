@@ -3,49 +3,16 @@
 {nodeEnv, fetchurl, fetchgit, globalBuildInputs ? []}:
 
 let
-  sources = {
-    "@types/estree-0.0.42" = {
-      name = "_at_types_slash_estree";
-      packageName = "@types/estree";
-      version = "0.0.42";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@types/estree/-/estree-0.0.42.tgz";
-        sha512 = "K1DPVvnBCPxzD+G51/cxVIoc2X8uUVl1zpJeE6iKcgHMj4+tbat5Xu4TjV7v2QSDbIeAfLi2hIk+u2+s0MlpUQ==";
-      };
-    };
-    "@types/node-13.7.0" = {
-      name = "_at_types_slash_node";
-      packageName = "@types/node";
-      version = "13.7.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-13.7.0.tgz";
-        sha512 = "GnZbirvmqZUzMgkFn70c74OQpTTUcCzlhQliTzYjQMqg+hVKcDnxdL19Ne3UdYzdMA/+W3eb646FWn/ZaT1NfQ==";
-      };
-    };
-    "acorn-7.1.0" = {
-      name = "acorn";
-      packageName = "acorn";
-      version = "7.1.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/acorn/-/acorn-7.1.0.tgz";
-        sha512 = "kL5CuoXA/dgxlBbVrflsflzQ3PAas7RYZB52NOm/6839iVYJgKMJ3cQJD+t2i5+qFa8h3MDpEOJiS64E8JLnSQ==";
-      };
-    };
-  };
+  sources = {};
   args = {
     name = "rollup";
     packageName = "rollup";
-    version = "1.31.0";
-    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-1.31.0.tgz"; sha1 = "e2a87212e96aa7850f3eb53fdd02cf89f2d2fe9a"; };
-    dependencies = [
-      sources."@types/estree-0.0.42"
-      sources."@types/node-13.7.0"
-      sources."acorn-7.1.0"
-    ];
+    version = "2.2.0";
+    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-2.2.0.tgz"; sha1 = "d82cfd6eda6d9561593a7e8a2fc0b72811a89b49"; };
     buildInputs = globalBuildInputs;
     meta = {
       description = "Next-generation ES module bundler";
-      homepage = https://github.com/rollup/rollup;
+      homepage = https://rollupjs.org/;
       license = "MIT";
     };
     production = true;

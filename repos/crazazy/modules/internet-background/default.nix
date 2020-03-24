@@ -15,7 +15,7 @@ with lib;
   };
    config = {
      services.xserver.displayManager.sessionCommands = mkIf config.fetchBackground.enable ''
-        ${pkgs.feh}/bin/feh --no-fehbg --bg-scale ${config.fetchBackground.url}
+        ${pkgs.feh}/bin/feh --bg-scale ${config.fetchBackground.url}
        '';
    };
  }

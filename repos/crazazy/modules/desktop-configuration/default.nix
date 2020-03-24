@@ -5,7 +5,7 @@
     ../internet-background
   ];
   environment.systemPackages = with pkgs; [
-    albert lemonbar alock glava
+    albert lemonbar alock glava libnotify
   ];
 
   fonts.fonts = with pkgs; [
@@ -31,7 +31,7 @@
   # xfce for file managing, volume control etc.
   services.xserver.desktopManager.xfce = {
     enable = true;
-    noDesktop = true;
+    enableXfwm = false;
   };
   # openbox wm
   services.xserver.windowManager.openbox.enable = true;

@@ -4,22 +4,22 @@
 
 let
   sources = {
-    "afinn-165-1.0.3" = {
+    "afinn-165-1.0.4" = {
       name = "afinn-165";
       packageName = "afinn-165";
-      version = "1.0.3";
+      version = "1.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/afinn-165/-/afinn-165-1.0.3.tgz";
-        sha512 = "LTwJcUGRzjQCR6uQCXMEUkoecezmWNjyWRjPm9pv0WlIYtLLaOnVsR1RvAdSMgOJPTFNlxS1IkfXxrkmV+gcyQ==";
+        url = "https://registry.npmjs.org/afinn-165/-/afinn-165-1.0.4.tgz";
+        sha512 = "7+Wlx3BImrK0HiG6y3lU4xX7SpBPSSu8T9iguPMlaueRFxjbYwAQrp9lqZUuFikqKbd/en8lVREILvP2J80uJA==";
       };
     };
-    "ajv-6.11.0" = {
+    "ajv-6.12.0" = {
       name = "ajv";
       packageName = "ajv";
-      version = "6.11.0";
+      version = "6.12.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ajv/-/ajv-6.11.0.tgz";
-        sha512 = "nCprB/0syFYy9fVYU1ox1l2KN8S9I+tziH8D4zdZuLT3N6RMlGSGt5FSTpAiHB/Whv8Qs1cWHma1aMKZyaHRKA==";
+        url = "https://registry.npmjs.org/ajv/-/ajv-6.12.0.tgz";
+        sha512 = "D6gFiFA0RRLyUbvijN74DWAjXSFxWKaWP7mldxkVhyhAV3+SWA9HEJPHQ2c9soIeTFJqcSdFDGFgdqs1iUU2Hw==";
       };
     };
     "ansi-regex-4.1.0" = {
@@ -625,22 +625,22 @@ let
         sha512 = "yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==";
       };
     };
-    "minimist-0.0.8" = {
+    "minimist-1.2.5" = {
       name = "minimist";
       packageName = "minimist";
-      version = "0.0.8";
+      version = "1.2.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz";
-        sha1 = "857fcabfc3397d2625b8228262e86aa7a011b05d";
+        url = "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz";
+        sha512 = "FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==";
       };
     };
-    "mkdirp-0.5.1" = {
+    "mkdirp-0.5.4" = {
       name = "mkdirp";
       packageName = "mkdirp";
-      version = "0.5.1";
+      version = "0.5.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz";
-        sha1 = "30057438eac6cf7f8c4767f38648d6697d75c903";
+        url = "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.4.tgz";
+        sha512 = "iG9AK/dJLtJ0XNgTuDbSyNS3zECqDlAhnQW4CsNxBG3LQJBbHmRX1egw39DmtOdCAqY+dKXV+sgPgilNWUKMVw==";
       };
     };
     "ms-2.1.2" = {
@@ -760,15 +760,6 @@ let
         sha1 = "d6fb3bf5aed697e831150eb1002c25a3f8ae1314";
       };
     };
-    "punycode-1.4.1" = {
-      name = "punycode";
-      packageName = "punycode";
-      version = "1.4.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/punycode/-/punycode-1.4.1.tgz";
-        sha1 = "c0d5a63b2718800ad8e1eb0fa5269c84dd41845e";
-      };
-    };
     "punycode-2.1.1" = {
       name = "punycode";
       packageName = "punycode";
@@ -796,13 +787,13 @@ let
         sha1 = "125820e34bc842d2f2aaafafe4c2916ee32c157c";
       };
     };
-    "request-2.88.0" = {
+    "request-2.88.2" = {
       name = "request";
       packageName = "request";
-      version = "2.88.0";
+      version = "2.88.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/request/-/request-2.88.0.tgz";
-        sha512 = "NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==";
+        url = "https://registry.npmjs.org/request/-/request-2.88.2.tgz";
+        sha512 = "MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==";
       };
     };
     "restore-cursor-2.0.0" = {
@@ -913,13 +904,13 @@ let
         sha1 = "5a884415cd2d002c57e7a3aac99462a75ce9fdb4";
       };
     };
-    "tough-cookie-2.4.3" = {
+    "tough-cookie-2.5.0" = {
       name = "tough-cookie";
       packageName = "tough-cookie";
-      version = "2.4.3";
+      version = "2.5.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.4.3.tgz";
-        sha512 = "Q5srk/4vDM54WJsJio3XNn6K2sCG+CQ8G5Wz6bZhRZoAe/+TxjWB/GlFAnYEbkYVlON9FMk/fE3h2RLpPXo4lQ==";
+        url = "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.5.0.tgz";
+        sha512 = "nlLsUzgm1kfLXSXfRZMc1KLAugd4hqJHDTvc2hDIwS3mZAfMEuMbc03SujMF+GEcpaX/qboeycw6iO8JwVv2+g==";
       };
     };
     "traverse-0.3.9" = {
@@ -1019,8 +1010,8 @@ let
     version = "3.3.2";
     src = fetchurl { url = "https://registry.npmjs.org/tldr/-/tldr-3.3.2.tgz"; sha1 = "3610e39e39c8fcf47eb2ae7f9315e792ecc04d26"; };
     dependencies = [
-      sources."afinn-165-1.0.3"
-      sources."ajv-6.11.0"
+      sources."afinn-165-1.0.4"
+      sources."ajv-6.12.0"
       sources."ansi-regex-4.1.0"
       sources."ansi-styles-3.2.1"
       sources."apparatus-0.0.10"
@@ -1088,8 +1079,8 @@ let
       sources."mime-types-2.1.26"
       sources."mimic-fn-1.2.0"
       sources."minimatch-3.0.4"
-      sources."minimist-0.0.8"
-      sources."mkdirp-0.5.1"
+      sources."minimist-1.2.5"
+      sources."mkdirp-0.5.4"
       sources."ms-2.1.2"
       sources."natural-0.6.3"
       sources."node-unzip-2-0.2.8"
@@ -1106,7 +1097,7 @@ let
       sources."punycode-2.1.1"
       sources."qs-6.5.2"
       sources."readable-stream-1.0.34"
-      sources."request-2.88.0"
+      sources."request-2.88.2"
       sources."restore-cursor-2.0.0"
       sources."rimraf-2.7.1"
       sources."safe-buffer-5.2.0"
@@ -1119,11 +1110,7 @@ let
       sources."strip-ansi-5.2.0"
       sources."supports-color-5.5.0"
       sources."sylvester-0.0.12"
-      (sources."tough-cookie-2.4.3" // {
-        dependencies = [
-          sources."punycode-1.4.1"
-        ];
-      })
+      sources."tough-cookie-2.5.0"
       sources."traverse-0.3.9"
       sources."tunnel-agent-0.6.0"
       sources."tweetnacl-0.14.5"
