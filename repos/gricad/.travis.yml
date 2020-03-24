@@ -8,7 +8,7 @@ env:
 matrix:
   include:
   - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
-  - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+  - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
           #  - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
 install:
 - nix --version

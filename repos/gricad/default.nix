@@ -23,7 +23,7 @@ rec {
   intel-compilers-2019 = pkgs.callPackage ./pkgs/intel/2019.nix { };
 
   # Openmpi
-  openmpi = pkgs.callPackage ./pkgs/openmpi { };
+  openmpi1 = pkgs.callPackage ./pkgs/openmpi { };
   openmpi2 = pkgs.callPackage ./pkgs/openmpi/2.nix { psm2 = psm2; libfabric = libfabric;};
   openmpi2-opa = pkgs.callPackage ./pkgs/openmpi/2.nix {
     psm2 = psm2;
@@ -44,6 +44,7 @@ rec {
     libfabric = libfabric;
     psm2 = psm2;
   };
+  openmpi = openmpi4;
   psm2 = pkgs.callPackage ./pkgs/psm2 { };
   libfabric = pkgs.callPackage ./pkgs/libfabric { psm2 = psm2; };
 
