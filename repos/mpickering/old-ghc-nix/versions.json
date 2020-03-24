@@ -1,5 +1,6 @@
 [
-  { "version": "8.8.3", "bindist": "fedora27" }
+  { "version": "8.10.1", "bindist": "fedora27" }
+  , { "version": "8.8.3", "bindist": "fedora27" }
   , { "version": "8.8.2", "bindist": "fedora27" }
   ,{ "version": "8.8.1", "bindist": "fedora27" }
   ,{ "version": "8.6.5", "bindist": "fedora27" }
