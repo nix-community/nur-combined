@@ -44,10 +44,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.43.3";
+      version = "1.43.4";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3526255/bitwarden_free_password_manager-1.43.3-an+fx.xpi?src=";
-      sha256 = "a70bce344249820241b13100bc2dd878d3f70eda43a2aa927162c36f211383af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3533484/bitwarden_free_password_manager-1.43.4-an+fx.xpi?src=";
+      sha256 = "1e1701fcb4f120cefecfcfd8302a75735809f7f7b0d4ef687625c3b3af5cdcd0";
       meta = with stdenv.lib;
       {
         homepage = "https://bitwarden.com";
@@ -485,10 +485,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.3.0";
+      version = "5.3.1";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3531048/moderator_toolbox_for_reddit-5.3.0-an+fx.xpi?src=";
-      sha256 = "06de42d62a740c98483c78531baadb4e99c4660ab902a97088599615077346d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3533421/moderator_toolbox_for_reddit-5.3.1-an+fx.xpi?src=";
+      sha256 = "a78134975fbfdd65b7c3d5a6ea28820ccf1b86235682f3a2f2098556d9cee46a";
       meta = with stdenv.lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -513,10 +513,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "17.0";
+      version = "17.1";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3527150/save_page_we-17.0-fx.xpi?src=";
-      sha256 = "29e26e9735a0153acacf37f34ab91a26803e19fe28b3aa2269a7affd4214489f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3533464/save_page_we-17.1-fx.xpi?src=";
+      sha256 = "7b29c6b51577f77afd4f71d26be9fbcd5f9356107b0d548ce5646f59573a7006";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as curently displayed) as a single HTML file that can be opened in any browser. Choose which items to save. Define the format of the saved filename. Enter user comments.";
