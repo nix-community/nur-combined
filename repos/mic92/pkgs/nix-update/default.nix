@@ -11,13 +11,13 @@
 
 buildPythonApplication rec {
   pname = "nix-update";
-  version = "2020-03-24";
+  version = "2020-03-25";
 
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "nix-update";
-    rev = "c472f6eba3eb4ee11940712b0be7a4d32c704a8f";
-    sha256 = "17cjr1mli3x9hqzbs433489z66riffplzx1miy1gpm6iqfna0avy";
+    rev = "2d35d15cc90d5afbb87e8079bd336820cd87efe1";
+    sha256 = "1np312kb9nyq8a22537xf7xri5qvw5rdr4f9b0hv08xdfwhy9qzd";
   };
 
   makeWrapperArgs = [
