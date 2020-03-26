@@ -80,6 +80,5 @@ rec {
 
   modules = import ./modules;
 
-  #inherit (pkgs.callPackages ./pkgs/node-packages {})
-  #  backport; # write-good typescript-language-server
+  inherit (pkgs.callPackages ./pkgs/node-packages {}) speedscope;
 }
