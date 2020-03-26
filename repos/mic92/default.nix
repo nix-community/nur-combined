@@ -56,8 +56,6 @@ rec {
 
   threema-web = pkgs.callPackage ./pkgs/threema-web {};
 
-  xterm-24bit-terminfo = pkgs.callPackage ./pkgs/xterm-24bit-terminfo {};
-
   # smashing = pkgs.callPackage ./pkgs/smashing {};
 
   pandoc-bin = pkgs.callPackage ./pkgs/pandoc {};
