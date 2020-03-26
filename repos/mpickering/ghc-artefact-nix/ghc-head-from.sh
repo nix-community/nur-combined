@@ -1,4 +1,10 @@
 #! /usr/bin/env bash
+
+default_nix=https://github.com/mpickering/ghc-artefact-nix/archive/master.tar.gz
+if [ -f $(dirname $0)/default.nix ]; then
+  default_nix=$(dirname $0)
+fi
+
 re='^[0-9]+$'
 if [[ $1 =~ $re ]] ;
 then
@@ -13,7 +19,7 @@ then
 elif ! [ -z "$1" ]; then
   # Assume the argument is a URL
   echo "Fetching artefact from $1"
-  nix run -f https://github.com/mpickering/ghc-artefact-nix/archive/master.tar.gz \
+  nix run -f $default_nix \
     --argstr url $1 \
     ghcHEAD cabal-install gcc binutils-unwrapped
   exit 0
@@ -22,7 +28,7 @@ fi
 FORK=''${PARSED_FORK:-ghc}
 BRANCH=''${PARSED_BRANCH:-master}
 echo "Fetching artefact from $FORK/$BRANCH"
-nix run -f https://github.com/mpickering/ghc-artefact-nix/archive/master.tar.gz \
+nix run -f $default_nix \
   --argstr fork $FORK \
   --argstr branch $BRANCH \
    ghcHEAD cabal-install gcc binutils-unwrapped

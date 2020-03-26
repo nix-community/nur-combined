@@ -148,6 +148,17 @@ stdenv.mkDerivation rec {
     done
   '';
 
+  postInstall = stdenv.lib.optionalString stdenv.isLinux ''
+    # Fix dependencies on libtinfo in package registrations.
+    for f in $(find "$out" -type f -iname '*.conf'); do
+        echo "Fixing tinfo dependency in $f..."
+        #sed -i "s/extra-libraries: *tinfo/extra-libraries: ncurses\n/" $f
+        echo "library-dirs: ${selectedNcurses}/lib" >> $f
+        echo "dynamic-library-dirs: ${selectedNcurses}/lib" >> $f
+    done
+    $out/bin/ghc-pkg recache
+  '';
+
   doInstallCheck = true;
   installCheckPhase = ''
     unset ${libEnvVar}
