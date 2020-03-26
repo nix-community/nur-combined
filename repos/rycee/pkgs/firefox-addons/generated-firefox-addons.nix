@@ -153,10 +153,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.2";
+      version = "4.9.3";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3528805/dark_reader-4.9.2-an+fx.xpi?src=";
-      sha256 = "9e6186aeaee8dafa0d179eda542c3739b6571fa50a101a1e74d1447f62dfee64";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3534246/dark_reader-4.9.3-an+fx.xpi?src=";
+      sha256 = "5770042a6d9b2db89f66bc7114aafd36c29070c538aef8657e6e9423013b172b";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -265,10 +265,10 @@
       };
     "gopass-bridge" = buildFirefoxXpiAddon {
       pname = "gopass-bridge";
-      version = "0.6.2";
+      version = "0.7.0";
       addonId = "{eec37db0-22ad-4bf1-9068-5ae08df8c7e9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3511297/gopass_bridge-0.6.2-fx.xpi?src=";
-      sha256 = "c0a9d84683dabfedf5ff67d522954389c0c4c94fc1ca3dd55b4ba8c03add10f9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3534506/gopass_bridge-0.7.0-fx.xpi?src=";
+      sha256 = "9831b89377fac7805046b1410c734a5ad671ebea68a62ece36cec6e9b3e30104";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gopasspw/gopassbridge";
