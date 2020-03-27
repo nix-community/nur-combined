@@ -307,10 +307,10 @@
       };
     "https-everywhere" = buildFirefoxXpiAddon {
       pname = "https-everywhere";
-      version = "2019.11.7";
+      version = "2020.3.16";
       addonId = "https-everywhere@eff.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3442258/https_everywhere-2019.11.7-an+fx.xpi?src=";
-      sha256 = "b4c33fcc43f9da395ff0b139cec005afa43f007c45a991d6089402c0b78288e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3528100/https_everywhere-2020.3.16-an+fx.xpi?src=";
+      sha256 = "6fa87c2f90d938f49cbd8ea949a6ca0999687952af3293cab1b11f5bc0b7b9ff";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/https-everywhere";
@@ -346,10 +346,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.6.1";
+      version = "1.6.2";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3531811/keepassxc_browser-1.6.1-fx.xpi?src=";
-      sha256 = "a6d2b8a538450e16bfb794f5e30049bde4373ddda4cca082a880501d2b18c41d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3535304/keepassxc_browser-1.6.2-fx.xpi?src=";
+      sha256 = "b67a457407ed063eb0213d7076ca59dee8593ea4b187c6cf76d5403e1edde2e7";
       meta = with stdenv.lib;
       {
         homepage = "https://keepassxc.org/";
@@ -457,15 +457,15 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.5.0";
+      version = "4.6.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3519191/react_developer_tools-4.5.0-fx.xpi?src=";
-      sha256 = "a7073f2677a36d116ccf72346fa20b0f974ea158e72f7e43b24b588d0afc3b05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3535281/react_developer_tools-4.6.0-fx.xpi?src=";
+      sha256 = "7c9e10d61c63628a8a407f33f76b52a8c7f26008b4e024b1dcf32409fed9eb7c";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/facebook/react";
         description = "React Developer Tools is a tool that allows you to inspect a React tree, including the component hierarchy, props, state, and more. To get started, just open the Firefox devtools and switch to the \"⚛️ Components\" or \"⚛️ Profiler\" tab.";
-        license = licenses.bsd3;
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -499,10 +499,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.3.22";
+      version = "20.3.26";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3531997/refined_github-20.3.22-an+fx.xpi?src=";
-      sha256 = "131e40accd7ad389d35ef06abd1927bf89ccf08f424a4391b489d43fd1509acf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3535266/refined_github-20.3.26-an+fx.xpi?src=";
+      sha256 = "e7ec6db78b22bd331fc6f2ad8174712379fff44d26b237027423d4ad0c856959";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
