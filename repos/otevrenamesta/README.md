@@ -4,4 +4,12 @@
 
 [![Build Status](https://travis-ci.com/otevrenamesta/nur-packages.svg?branch=master)](https://travis-ci.com/otevrenamesta/nur-packages)
 
+## packages
 
+* jitsi-meet
+* jitsi-videobridge
+* jicofo
+
+## modules
+
+* jitsi-meet

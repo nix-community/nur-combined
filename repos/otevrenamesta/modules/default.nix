@@ -1,6 +1,6 @@
 {
   # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+
+  jitsi-meet = ./jitsi-meet.nix;
 }
 
