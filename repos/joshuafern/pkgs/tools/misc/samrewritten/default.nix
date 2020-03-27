@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/usr/lib/${pname}
     cp -r --parents ./{bin/{launch.sh,libsteam_api.so,samrewritten},glade} "$out/usr/lib/${pname}"
     # Executable
-    install -dm755 "$out/usr/bin"
-    ln -s "$out/usr/lib/${pname}/bin/launch.sh" "$out/usr/bin/samrewritten"
+    install -dm755 "$out/bin"
+    ln -s "$out/usr/lib/${pname}/bin/launch.sh" "$out/bin/samrewritten"
   '';
 
   meta = with stdenv.lib; {
