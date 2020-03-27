@@ -14,12 +14,12 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  steamgrid = pkgs.callPackage ./pkgs/applications/graphics/steamgrid { };
+  citra = pkgs.libsForQt5.callPackage ./pkgs/misc/emulators/citra { };
   dosbox-staging = pkgs.callPackage ./pkgs/misc/emulators/dosbox-staging { };
   #lobase = pkgs.callPackage ./pkgs/tools/misc/lobase { };
   qdl = pkgs.callPackage ./pkgs/development/mobile/qdl { };
+  samrewritten = pkgs.callPackage ./pkgs/tools/misc/samrewritten { };
   sbase = pkgs.callPackage ./pkgs/tools/misc/sbase { };
+  steamgrid = pkgs.callPackage ./pkgs/applications/graphics/steamgrid { };
   ubase = pkgs.callPackage ./pkgs/tools/misc/ubase { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }
