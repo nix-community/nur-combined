@@ -3,9 +3,9 @@
 with lib;
 
 let
-  pkgsJitsiMeet = pkgs.callPackage ../../pkgs/jitsi-meet { };
-  pkgsJicofo = pkgs.callPackage ../../pkgs/jicofo { };
-  pkgsJitsiVideobridge = pkgs.callPackage ../../pkgs/jitsi-videobridge { };
+  pkgsJitsiMeet = pkgs.callPackage ../pkgs/jitsi-meet { };
+  pkgsJicofo = pkgs.callPackage ../pkgs/jicofo { };
+  pkgsJitsiVideobridge = pkgs.callPackage ../pkgs/jitsi-videobridge { };
 
   cfg = config.services.jitsi-meet;
   dataDir = "/var/lib/jitsi-meet";
