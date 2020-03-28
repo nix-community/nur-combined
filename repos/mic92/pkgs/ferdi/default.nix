@@ -1,10 +1,33 @@
-{ stdenv, fetchurl, makeWrapper, wrapGAppsHook, autoPatchelfHook, dpkg
-, xorg, atk, glib, pango, gdk-pixbuf, cairo, freetype, fontconfig, gtk3
-, gnome2, dbus, nss, nspr, alsaLib, cups, expat, udev, libnotify, xdg_utils }:
-
+{ stdenv
+, fetchurl
+, makeWrapper
+, wrapGAppsHook
+, autoPatchelfHook
+, dpkg
+, xorg
+, atk
+, glib
+, pango
+, gdk-pixbuf
+, cairo
+, freetype
+, fontconfig
+, gtk3
+, gnome2
+, dbus
+, nss
+, nspr
+, alsaLib
+, cups
+, expat
+, udev
+, libnotify
+, xdg_utils
+}:
 let
   version = "5.4.4-beta.3";
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "ferdi";
   inherit version;
   src = fetchurl {
@@ -17,12 +40,37 @@ in stdenv.mkDerivation {
   dontPatchELF = true;
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper wrapGAppsHook dpkg ];
-  buildInputs = (with xorg; [
-    libXi libXcursor libXdamage libXrandr libXcomposite libXext libXfixes
-    libXrender libX11 libXtst libXScrnSaver
-  ]) ++ [
-    gtk3 atk glib pango gdk-pixbuf cairo freetype fontconfig dbus
-    gnome2.GConf nss nspr alsaLib cups expat stdenv.cc.cc
+  buildInputs = (
+    with xorg; [
+      libXi
+      libXcursor
+      libXdamage
+      libXrandr
+      libXcomposite
+      libXext
+      libXfixes
+      libXrender
+      libX11
+      libXtst
+      libXScrnSaver
+    ]
+  ) ++ [
+    gtk3
+    atk
+    glib
+    pango
+    gdk-pixbuf
+    cairo
+    freetype
+    fontconfig
+    dbus
+    gnome2.GConf
+    nss
+    nspr
+    alsaLib
+    cups
+    expat
+    stdenv.cc.cc
   ];
   runtimeDependencies = [ udev.lib libnotify ];
 
@@ -54,7 +102,7 @@ in stdenv.mkDerivation {
     homepage = https://getferdi.com;
     license = licenses.free;
     maintainers = [ maintainers.mic92 ];
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
     hydraPlatforms = [];
   };
 }

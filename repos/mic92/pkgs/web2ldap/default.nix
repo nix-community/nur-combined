@@ -1,5 +1,12 @@
-{ stdenv, buildPythonApplication, fetchFromGitLab
-, ldap0, paramiko, asn1crypto, xlwt, dnspython }:
+{ stdenv
+, buildPythonApplication
+, fetchFromGitLab
+, ldap0
+, paramiko
+, asn1crypto
+, xlwt
+, dnspython
+}:
 
 buildPythonApplication rec {
   pname = "web2ldap";

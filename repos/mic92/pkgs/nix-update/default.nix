@@ -21,7 +21,10 @@ buildPythonApplication rec {
   };
 
   makeWrapperArgs = [
-    "--prefix" "PATH" ":" (lib.makeBinPath [ nix nix-prefetch ])
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ nix nix-prefetch ])
   ];
 
   nativeBuildInputs = [ mypy ];

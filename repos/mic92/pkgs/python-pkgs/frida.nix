@@ -6,7 +6,8 @@
 }:
 let
   pythonVersion = "37";
-in buildPythonPackage rec {
+in
+buildPythonPackage rec {
   pname = "frida";
   version = "12.8.6";
   disabled = !isPy37;

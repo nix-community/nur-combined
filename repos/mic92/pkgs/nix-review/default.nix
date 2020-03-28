@@ -1,5 +1,4 @@
 { nix-review, lib, fetchFromGitHub }:
-
 let
   version = "1.0.0-rc1";
 in

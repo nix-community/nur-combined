@@ -6,7 +6,6 @@
 , openssl
 , darwin
 }:
-
 let
   inherit (darwin.apple_sdk.frameworks) Security CoreServices;
 in
