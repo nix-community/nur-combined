@@ -101,18 +101,7 @@ in
     videobridge = {
       config = mkOption {
         type = attrsOf str;
-        default = {
-          "org.jitsi.videobridge.AUTHORIZED_SOURCE_REGEXP" = "focus@auth.${cfg.hostName}/.*";
-          "org.jitsi.videobridge.TCP_HARVESTER_PORT" = "4443";
-          "org.jitsi.videobridge.SINGLE_PORT_HARVESTER_PORT" = "10000";
-        };
-        defaultText = ''
-          {
-            "org.jitsi.videobridge.AUTHORIZED_SOURCE_REGEXP" = "focus@auth.''${config.services.jitsi-meet.hostName}/.*";
-            "org.jitsi.videobridge.TCP_HARVESTER_PORT" = "4443";
-            "org.jitsi.videobridge.SINGLE_PORT_HARVESTER_PORT" = "10000";
-          }
-        '';
+        default = {};
         description = ''
           Contents of the <filename>sip-communicator.properties</filename> configuration file for jitsi-videobridge.
 
@@ -178,6 +167,12 @@ in
   };
 
   config = mkIf cfg.enable {
+    services.jitsi-meet.videobridge.config = mapAttrs (_: v: mkDefault v) {
+      "org.jitsi.videobridge.AUTHORIZED_SOURCE_REGEXP" = "focus@auth.${cfg.hostName}/.*";
+      "org.jitsi.videobridge.TCP_HARVESTER_PORT" = "4443";
+      "org.jitsi.videobridge.SINGLE_PORT_HARVESTER_PORT" = "10000";
+    };
+
     services.prosody = mkIf cfg.prosody.enable {
       enable = mkDefault true;
       modules = {
@@ -302,7 +297,7 @@ in
         };
         locations."=/config.js" = {
           alias = pkgs.writeText "config.js" ''
-            var config = ${builtins.toJSON (defaultCfg // cfg.config)};
+            var config = ${builtins.toJSON (recursiveUpdate defaultCfg cfg.config)};
           '';
         };
       };
