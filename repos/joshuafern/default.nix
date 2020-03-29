@@ -16,6 +16,7 @@
 
   citra = pkgs.libsForQt5.callPackage ./pkgs/misc/emulators/citra { };
   dosbox-staging = pkgs.callPackage ./pkgs/misc/emulators/dosbox-staging { };
+  libspeedhack = pkgs.callPackage ./pkgs/tools/misc/libspeedhack { };
   #lobase = pkgs.callPackage ./pkgs/tools/misc/lobase { };
   qdl = pkgs.callPackage ./pkgs/development/mobile/qdl { };
   samrewritten = pkgs.callPackage ./pkgs/tools/misc/samrewritten { };
