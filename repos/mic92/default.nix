@@ -56,6 +56,8 @@ rec {
 
   threema-web = pkgs.callPackage ./pkgs/threema-web {};
 
+  xterm-24bit-terminfo = pkgs.callPackage ./pkgs/xterm-24bit-terminfo {};
+
   # smashing = pkgs.callPackage ./pkgs/smashing {};
 
   pandoc-bin = pkgs.callPackage ./pkgs/pandoc {};
@@ -72,7 +74,7 @@ rec {
     pkgs.python3Packages.callPackage ./pkgs/python-pkgs {}
   );
 
-  yubikey-touch-detector = pkgs.callPackages ./pkgs/yubikey-touch-detector {};
+  yubikey-touch-detector = pkgs.callPackage ./pkgs/yubikey-touch-detector {};
 
   web2ldap = pkgs.python3Packages.callPackage ./pkgs/web2ldap {
     inherit (python3Packages) ldap0;
