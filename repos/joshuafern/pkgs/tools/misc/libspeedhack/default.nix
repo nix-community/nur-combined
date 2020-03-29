@@ -5,6 +5,7 @@ let
     #!/bin/bash
     rm -f /tmp/speedhack_{pipe,log} # Remove old pipe and log
     mkfifo /tmp/speedhack_pipe # Create pipe for speed control commands
+    export SHSPEED=1 # Set variable for scripting
     # Fix line below if you put libs in different location
     cd $(dirname "$0")
     LD_LIBRARY_PATH=../usr/lib/libspeedhack/lib32:../usr/lib/libspeedhack/lib64:$LD_LIBRARY_PATH \
