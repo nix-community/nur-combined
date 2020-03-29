@@ -1,0 +1,7 @@
+pre-commit:
+  commands:
+    format_other:
+      glob: "*.{md}"
+      run: npx prettier {staged_files} --write && git add {staged_files}
+pre-push:
+  commands:
