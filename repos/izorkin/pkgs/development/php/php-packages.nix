@@ -100,12 +100,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.0";
+    version = "1.10.1";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "028bf01x62460qwm5y8rfsycfvyw4ypqsn456f64d29dvqxp3vcc";
+      sha256 = "1qk792j3m9dlxj4wl3iszi7r6365gy6vbm04vj4i28hgb1kg4c8q";
     };
 
     unpackPhase = ":";
@@ -513,12 +513,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.14";
+    version = "0.12.18";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0f5imcw0l8lsy4vy6s5hhwwq3z375bmids0y8l53i1fmwvzva2i4";
+      sha256 = "0xf0q2z6rhpnbys53si05mddfyjn3wx5wc8zx5y6dv5fzw6z7rch";
     };
 
     phases = [ "installPhase" ];
@@ -638,12 +638,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.9.5";
+    version = "3.10.1";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "1ij9zx0iyb4qi2r5zsc7ia5m2qa6rrv4h5sr1q7dwgj95qyskipf";
+      sha256 = "0aag82g0p7x21m2qkhgv6bcsbc6f0l44vd5jkknwvv4n7sflc3id";
     };
 
     phases = [ "installPhase" ];
@@ -664,12 +664,12 @@ let
   };
 
   psysh = mkDerivation rec {
-    version = "0.9.12";
+    version = "0.10.2";
     pname = "psysh";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "0bzmc94li481xk81gv460ipq9zl03skbnq8m3rnw34i2c04hxczc";
+      sha256 = "0mgrj8l27j5rwyx4pgbnn5an87r0244samqispcylq3h3wgvz0n2";
     };
 
     phases = [ "installPhase" ];
@@ -769,10 +769,10 @@ let
 
   #redis50 = assert !isPhp56; buildPecl {
   redis50 = buildPecl {
-    version = "5.2.0";
+    version = "5.2.1";
     pname = "redis";
 
-    sha256 = "1fzi0h2lrw661nl2p2nzq5afn2ds4857pl18m3cnf6idpyr9d42f";
+    sha256 = "1gnbkv3jxi6acx7970d0n5r47nsbsnr172xy7wq48j3h9ljzcnn0";
 
     meta.broken = isPhp56;
   };
@@ -849,10 +849,10 @@ let
 
   #xdebug29 = assert !isPhp56; buildPecl {
   xdebug29 = buildPecl {
-    version = "2.9.2";
+    version = "2.9.4";
     pname = "xdebug";
 
-    sha256 = "0sfcxsrri41hb9lx18s1q81lpg9wjf0dlyi2063i44a4yigwx30m";
+    sha256 = "0xbmd8zik6261cllzycd6q9vlz640i8gf8891qzhk2181jczbqpv";
 
     doCheck = true;
     checkTarget = "test";

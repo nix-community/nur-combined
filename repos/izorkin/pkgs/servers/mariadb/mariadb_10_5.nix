@@ -20,14 +20,14 @@ mariadb = server // {
 };
 
 common = rec { # attributes common to both builds
-  version = "10.5.1";
+  version = "10.5.2";
 
   src = fetchurl {
     urls = [
       "https://downloads.mariadb.org/f/mariadb-${version}/source/mariadb-${version}.tar.gz"
       "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz"
     ];
-    sha256 = "118x9rbh44bxm6fysf3qx4b3x6fck55vcrw0kl2852898akdg69s";
+    sha256 = "00n0xskkrmdfd2kdpzsxh91g17bni36dsmlmydzfk5mikx1xhw2a";
     name   = "mariadb-${version}.tar.gz";
   };
 
@@ -91,7 +91,7 @@ common = rec { # attributes common to both builds
     rm "$out"/bin/{mariadb_config,mysql_config}
     rm -r $out/include
     rm -r $out/lib/pkgconfig
-    rm -r $out/share/{aclocal,pkgconfig}
+    rm -r $out/share/aclocal
   '';
 
   enableParallelBuilding = true;
@@ -181,7 +181,6 @@ server = stdenv.mkDerivation (common // {
   postInstall = common.postInstall + ''
     chmod +x "$out"/bin/wsrep_sst_common
     rm "$out"/bin/{mariadb-client-test,mariadb-test,mysql_client_test,mysqltest}
-    rm -r "$out"/data # Don't need testing data
   '' + optionalString withStorageMroonga ''
     mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
   '' + optionalString (!stdenv.hostPlatform.isDarwin) ''
