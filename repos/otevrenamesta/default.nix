@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -17,5 +17,10 @@
   jicofo = pkgs.callPackage ./pkgs/jicofo { };
   jitsi-meet = pkgs.callPackage ./pkgs/jitsi-meet { };
   jitsi-videobridge = pkgs.callPackage ./pkgs/jitsi-videobridge { };
+
+  fetchMavenDeps = pkgs.callPackage ./lib/fetch-maven-deps.nix { };
+
+  jicofo-git = pkgs.callPackage ./pkgs/jicofo-git { inherit fetchMavenDeps; };
+  jitsi-videobridge-git = pkgs.callPackage ./pkgs/jitsi-videobridge-git { inherit fetchMavenDeps; };
 }
 

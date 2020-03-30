@@ -3,9 +3,6 @@
 with lib;
 
 let
-  pkgsJitsiMeet = pkgs.callPackage ../pkgs/jitsi-meet { };
-  pkgsJicofo = pkgs.callPackage ../pkgs/jicofo { };
-  pkgsJitsiVideobridge = pkgs.callPackage ../pkgs/jitsi-videobridge { };
 
   cfg = config.services.jitsi-meet;
   dataDir = "/var/lib/jitsi-meet";
@@ -98,6 +95,11 @@ in
       '';
     };
 
+    package = mkOption {
+      type = package;
+      default = pkgs.callPackage ../pkgs/jitsi-meet { };
+    };
+
     videobridge = {
       config = mkOption {
         type = attrsOf str;
@@ -112,6 +114,12 @@ in
           org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS = <replaceable>Public.IP.Address</replaceable>
           </programlisting>
         '';
+      };
+
+      package = mkOption {
+        type = package;
+        default = pkgs.callPackage ../pkgs/jitsi-videobridge { };
+        #defaultText = "pkgs.jitsi-videobridge";
       };
 
       openFirewall = mkOption {
@@ -135,6 +143,12 @@ in
         description = ''
           Contents of the <filename>sip-communicator.properties</filename> configuration file for jicofo.
         '';
+      };
+
+      package = mkOption {
+        type = package;
+        default = pkgs.callPackage ../pkgs/jicofo { };
+        #defaultText = "pkgs.jicofo";
       };
     };
 
@@ -273,7 +287,7 @@ in
     services.nginx = mkIf cfg.nginx.enable {
       enable = mkDefault true;
       virtualHosts.${cfg.hostName} = {
-        root = pkgsJitsiMeet;
+        root = cfg.package;
         locations."~ ^/([a-zA-Z0-9=\\?]+)$" = {
           extraConfig = ''
             rewrite ^/(.*)$ / break;
@@ -293,7 +307,7 @@ in
           '';
         };
         locations."=/external_api.js" = {
-          alias = "${pkgsJitsiMeet}/libs/external_api.min.js";
+          alias = "${cfg.package}/libs/external_api.min.js";
         };
         locations."=/config.js" = {
           alias = pkgs.writeText "config.js" ''
@@ -313,7 +327,7 @@ in
 
       serviceConfig = {
         Type = "exec";
-        ExecStart = "${pkgsJitsiVideobridge}/bin/jitsi-videobridge ${attrsToArgs jvbArgs}";
+        ExecStart = "${cfg.videobridge.package}/bin/jitsi-videobridge ${attrsToArgs jvbArgs}";
 
         DynamicUser = true;
         User = "jitsi-videobridge";
@@ -362,7 +376,7 @@ in
 
       serviceConfig = {
         Type = "exec";
-        ExecStart = "${pkgsJicofo}/bin/jicofo ${attrsToArgs jicofoArgs}";
+        ExecStart = "${cfg.jicofo.package}/bin/jicofo ${attrsToArgs jicofoArgs}";
 
         DynamicUser = true;
         User = "jicofo";
