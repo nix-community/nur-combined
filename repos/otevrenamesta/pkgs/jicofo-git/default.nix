@@ -40,6 +40,7 @@ stdenv.mkDerivation {
 
     mv $out/share/jicofo/lib/logging.properties $out/etc/jitsi/jicofo/
     rm $out/share/jicofo/jicofo.bat
+    cp ${./logging.properties-journal} $out/etc/jitsi/jicofo/logging.properties-journal
     ln -s $out/share/jicofo/jicofo.sh $out/bin/jicofo
   '';
 

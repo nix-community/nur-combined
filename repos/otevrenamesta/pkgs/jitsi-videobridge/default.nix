@@ -27,6 +27,7 @@ stdenv.mkDerivation {
 
     mkdir -p $out/{bin,share/jitsi-videobridge,etc/jitsi/videobridge}
     mv lib/logging.properties $out/etc/jitsi/videobridge/
+    cp ${./logging.properties-journal} $out/etc/jitsi/videobridge/logging.properties-journal
     mv * $out/share/jitsi-videobridge/
     ln -s $out/share/jitsi-videobridge/jvb.sh $out/bin/jitsi-videobridge
   '';

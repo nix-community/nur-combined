@@ -39,6 +39,8 @@ stdenv.mkDerivation {
       --replace "exec java" "exec ${jre}/bin/java"
 
     mv $out/share/jitsi-videobridge/lib/logging.properties $out/etc/jitsi/videobridge/
+    cp ${./logging.properties-journal} $out/etc/jitsi/videobridge/logging.properties-journal
+
     rm $out/share/jitsi-videobridge/jvb.bat
     ln -s $out/share/jitsi-videobridge/jvb.sh $out/bin/jitsi-videobridge
   '';

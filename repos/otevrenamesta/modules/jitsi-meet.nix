@@ -3,7 +3,6 @@
 with lib;
 
 let
-
   cfg = config.services.jitsi-meet;
   dataDir = "/var/lib/jitsi-meet";
   attrsToArgs = a: concatStringsSep " " (mapAttrsToList (k: v: "${k}=${toString v}") a);
@@ -50,20 +49,6 @@ let
     bosh = "//${cfg.hostName}/http-bind";
     enableWelcomePage = true;
   };
-
-  # default logging.properties modified to work better with journald - no timestamp or progname
-  loggingProperties = ''
-    handlers= java.util.logging.ConsoleHandler
-    java.util.logging.ConsoleHandler.level = ALL
-    java.util.logging.ConsoleHandler.formatter = net.java.sip.communicator.util.ScLogFormatter
-    .level=INFO
-    net.sf.level=SEVERE
-    net.java.sip.communicator.plugin.reconnectplugin.level=FINE
-    org.ice4j.level=SEVERE
-    org.jitsi.impl.neomedia.level=SEVERE
-    net.java.sip.communicator.service.resources.AbstractResourcesService.level=SEVERE
-    net.java.sip.communicator.util.ScLogFormatter.disableTimestamp=true
-  '';
 
 in
 {
@@ -158,7 +143,7 @@ in
       description = ''
         Whether to enable nginx virtual host that will serve the javascript application and act as
         a proxy for the XMPP server. Further nginx configuration can be done by adapting
-        <option>services.nginx.virutalHosts.&lt;hostName&gt;</option>. It is highly recommended to
+        <option>services.nginx.virtualHosts.&lt;hostName&gt;</option>. It is highly recommended to
         enable the <option>enableACME</option> and <option>forceSSL</option> options:
 
         <programlisting>
@@ -359,7 +344,8 @@ in
     };
 
     environment.etc."jitsi/videobridge/sip-communicator.properties".source = jvbConfig;
-    environment.etc."jitsi/videobridge/logging.properties".text = loggingProperties;
+    environment.etc."jitsi/videobridge/logging.properties".source =
+      mkDefault "${cfg.videobridge.package}/etc/jitsi/videobridge/logging.properties-journal";
 
     networking.firewall.allowedTCPPorts = mkIf cfg.videobridge.openFirewall
       [ (toInt cfg.videobridge.config."org.jitsi.videobridge.TCP_HARVESTER_PORT") ];
@@ -404,7 +390,8 @@ in
     };
 
     environment.etc."jitsi/jicofo/sip-communicator.properties".source = jicofoConfig;
-    environment.etc."jitsi/jicofo/logging.properties".text = loggingProperties;
+    environment.etc."jitsi/jicofo/logging.properties".source =
+      mkDefault "${cfg.jicofo.package}/etc/jitsi/jicofo/logging.properties-journal";
   };
 
   meta.maintainers = with lib.maintainers; [ mmilata ];
