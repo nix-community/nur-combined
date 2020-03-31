@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, cmake, pkgconfig
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig
 , boost, cereal, curl, eigen, expat, glew, libpng, tbb, wxGTK30
 , gtest, nlopt, xorg, makeDesktopItem
 , cgal_5, gmp, ilmbase, mpfr, qhull, openvdb, systemd
@@ -11,7 +11,6 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    makeWrapper
     pkgconfig
   ];
 
@@ -27,6 +26,7 @@ stdenv.mkDerivation rec {
     ilmbase
     libpng
     mpfr
+    nlopt
     openvdb
     systemd
     tbb
@@ -37,15 +37,18 @@ stdenv.mkDerivation rec {
   checkInputs = [ gtest ];
 
   # The build system uses custom logic - defined in
-  # cmake/modules/FindNLopt.cmake in the package source -
-  # for finding the nlopt library, which doesn't pick up the package in the nix store.
-  # We need to set the path via the NLOPT environment variable instead.
+  # cmake/modules/FindNLopt.cmake in the package source - for finding the nlopt
+  # library, which doesn't pick up the package in the nix store.  We
+  # additionally need to set the path via the NLOPT environment variable.
   NLOPT = nlopt;
 
   # Disable compiler warnings that clutter the build log.
   # It seems to be a known issue for Eigen:
   # http://eigen.tuxfamily.org/bz/show_bug.cgi?id=1221
   NIX_CFLAGS_COMPILE = "-Wno-ignored-attributes";
+
+  # prusa-slicer uses dlopen on `libudev.so` at runtime
+  NIX_LDFLAGS = "-ludev";
 
   prePatch = ''
     # In nix ioctls.h isn't available from the standard kernel-headers package
@@ -75,11 +78,6 @@ stdenv.mkDerivation rec {
     ln -s "$out/share/PrusaSlicer/icons/PrusaSlicer.png" "$out/share/pixmaps/PrusaSlicer.png"
     mkdir -p "$out/share/applications"
     cp "$desktopItem"/share/applications/* "$out/share/applications/"
-  '';
-
-  preFixup = stdenv.lib.optionalString stdenv.isLinux ''
-    wrapProgram $out/bin/prusa-slicer \
-      --prefix LD_LIBRARY_PATH : "${systemd.lib}/lib"
   '';
 
   desktopItem = makeDesktopItem {
