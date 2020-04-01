@@ -85,6 +85,11 @@
             "sha256": "0x9q6zdw56sldffqhyvwdx64bjzw5yb6idag4ggrf6ivisrvyszy",
             "url": "https://github.com/dezgeg/nur-packages"
         },
+        "drewrisinger": {
+            "rev": "7807bdb6f10387729ea17c822a2aca902c9d2009",
+            "sha256": "04pbqq6c19xvm950yy08swps2vd0cwnj03jbfjzpcx71pmh4a8s6",
+            "url": "https://github.com/drewrisinger/nur-packages"
+        },
         "dtn7": {
             "rev": "733f7bdd1961bb08a0de477cd98fa44efe90cbcb",
             "sha256": "0w95ysndw4a9ws83zhd41zy54bk2yyqakqrrmycmm8g58lz77cy9",
