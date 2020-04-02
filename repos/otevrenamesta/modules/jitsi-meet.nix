@@ -39,15 +39,36 @@ let
   };
   jicofoConfig = attrsToCfg cfg.jicofo.config;
 
+  # The configuration files are JS of format "var <<string>> = <<JSON>>;". In order to
+  # override only some settings, we need to extract the JSON, use jq to merge it with
+  # the config provided by user, and then reconstruct the file.
+  overrideJs =
+    source: varName: userCfg:
+    let
+      extractor = pkgs.writeText "extractor.js" ''
+        var fs = require("fs");
+        eval(fs.readFileSync(process.argv[2], 'utf8'));
+        process.stdout.write(JSON.stringify(eval(process.argv[3])));
+      '';
+      userJson = pkgs.writeText "user.json" (builtins.toJSON userCfg);
+    in (pkgs.runCommand "${varName}.js" { } ''
+      ${pkgs.nodejs}/bin/node ${extractor} ${source} ${varName} > default.json
+      (
+        echo "var ${varName} = "
+        ${pkgs.jq}/bin/jq -s '.[0] * .[1]' default.json ${userJson}
+        echo ";"
+      ) > $out
+    '');
+
+  # Essential config - it's probably not good to have these as option default because
+  # types.attrs doesn't do merging. Let's merge explicitly, can still be overriden if
+  # user desires.
   defaultCfg = {
     hosts = {
       domain = cfg.hostName;
       muc = "conference.${cfg.hostName}";
-      bridge = "jitsi-videobridge.${cfg.hostName}";
     };
-    useNicks = false;
     bosh = "//${cfg.hostName}/http-bind";
-    enableWelcomePage = true;
   };
 
 in
@@ -63,6 +84,11 @@ in
       '';
     };
 
+    package = mkOption {
+      type = package;
+      default = pkgs.callPackage ../pkgs/jitsi-meet { };
+    };
+
     config = mkOption {
       type = attrs;
       default = {};
@@ -73,16 +99,28 @@ in
         }
       '';
       description = ''
-        Contents of the <filename>config.js</filename> file containing the web app configuration.
+        Client-side web application settings that override the defaults in <filename>config.js</filename>.
 
-        See <link xlink:href="https://github.com/jitsi/jitsi-meet/blob/master/config.js" /> for an
-        example configuration with comments.
+        See <link xlink:href="https://github.com/jitsi/jitsi-meet/blob/master/config.js" /> for default
+        configuration with comments.
       '';
     };
 
-    package = mkOption {
-      type = package;
-      default = pkgs.callPackage ../pkgs/jitsi-meet { };
+    interfaceConfig = mkOption {
+      type = attrs;
+      default = {};
+      example = literalExample ''
+        {
+          SHOW_JITSI_WATERMARK = false;
+          SHOW_WATERMARK_FOR_GUESTS = false;
+        }
+      '';
+      description = ''
+        Client-side web-app interface settings that override the defaults in <filename>interface_config.js</filename>.
+
+        See <link xlink:href="https://github.com/jitsi/jitsi-meet/blob/master/interface_config.js" /> for
+        default configuration with comments.
+      '';
     };
 
     videobridge = {
@@ -295,9 +333,10 @@ in
           alias = "${cfg.package}/libs/external_api.min.js";
         };
         locations."=/config.js" = {
-          alias = pkgs.writeText "config.js" ''
-            var config = ${builtins.toJSON (recursiveUpdate defaultCfg cfg.config)};
-          '';
+          alias = overrideJs "${cfg.package}/config.js" "config" (recursiveUpdate defaultCfg cfg.config);
+        };
+        locations."=/interface_config.js" = {
+          alias = overrideJs "${cfg.package}/interface_config.js" "interfaceConfig" cfg.interfaceConfig;
         };
       };
     };
