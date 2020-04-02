@@ -163,6 +163,7 @@ buildPythonPackage rec {
     homepage = "http://www.pyscf.org/";
     downloadPage = "https://github.com/pyscf/pyscf/releases";
     license = licenses.asl20;
+    broken = true;
     # maintainers = with maintainers; [ drewrisinger ];
   };
 }
