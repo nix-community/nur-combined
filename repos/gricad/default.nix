@@ -51,6 +51,9 @@ rec {
   # HPL
   hpl = pkgs.callPackage ./pkgs/hpl { mpi = openmpi4; };
 
+  # HPL
+  hp2p = pkgs.callPackage ./pkgs/hp2p { mpi = openmpi4; };
+
   # Petsc
   petscComplex = pkgs.callPackage ./pkgs/petsc { scalarType = "complex"; };
   petscReal = pkgs.callPackage ./pkgs/petsc { scalarType = "real"; };
