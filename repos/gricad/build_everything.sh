@@ -1,4 +1,6 @@
 #!/bin/bash
+# Script to build every package (excepted non public packages) of this repository
+# to populate a public binary cache (especially the one used by travis)
 
 export LANG=C
 
@@ -6,7 +8,7 @@ packages="hello hp2p obitools3 plplot openmpi openmpi1 openmpi2 openmpi2-opa ope
 packages_sandbox_disabled="singularity"
 broken="trilinos lhapdf59 bagel"
 n_cores=10
-channels="https://nixos.org/channels/nixos-19.09 https://nixos.org/channels/nixos-20.03"
+channels="https://github.com/NixOS/nixpkgs/archive/nixos-20.03.tar.gz https://github.com/NixOS/nixpkgs/archive/nixos-19.09.tar.gz"
 
 
 build () {
@@ -25,8 +27,7 @@ build () {
 perl -pi -e "s/sandbox = false/sandbox = true/" ~/.config/nix/nix.conf
 for c in $channels
 do
-	nix-channel --add $c nixpkgs
-	nix-channel --update
+	export NIX_PATH="nixpkgs=$c"
 	build "$packages"
 done
 
@@ -34,8 +35,7 @@ done
 perl -pi -e "s/sandbox = true/sandbox = false/" ~/.config/nix/nix.conf
 for c in $channels
 do
-        nix-channel --add $c nixpkgs
-        nix-channel --update
+	export NIX_PATH="nixpkgs=$c"
         build "$packages_sandbox_disabled"
 done
 perl -pi -e "s/sandbox = false/sandbox = true/" ~/.config/nix/nix.conf
