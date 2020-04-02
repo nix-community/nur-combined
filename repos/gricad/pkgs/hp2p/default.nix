@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
   nativeBuildInputs = [ autoconf automake python2Packages.wrapPython ];
-  buildInputs = [ mpi ] ++ (with python2Packages; [ python numpy matplotlib ]) ;
-  pythonPath = (with python2Packages; [ numpy matplotlib ]) ; 
+  buildInputs = [ mpi ] ++ (with python2Packages; [ python numpy matplotlib plotly ]) ;
+  pythonPath = (with python2Packages; [ numpy matplotlib plotly ]) ; 
 
   preConfigure = ''
     patchShebangs .
