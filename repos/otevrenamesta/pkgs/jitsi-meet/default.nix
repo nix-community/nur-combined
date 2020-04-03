@@ -2,13 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "jitsi-meet";
-  # Upstream seems to publish source tarball for almost every git commit. Find the latest stable
-  # version number by looking for the newest jitsi-meet-web DEB here: https://download.jitsi.org/stable/
-  version = "3729";
+  version = "3962";
 
   src = fetchurl {
     url = "https://download.jitsi.org/jitsi-meet/src/jitsi-meet-1.0.${version}.tar.bz2";
-    sha256 = "0vl5hia571v293ha7kd7lr6pp0ncx9yras848p7ikvcjr6l6v312";
+    sha256 = "1rqpn3as4x9mk6sbr2mcjiis28iqc3ablmxg7i1b5hakqkid764i";
   };
 
   phases = [ "unpackPhase" "installPhase" ];

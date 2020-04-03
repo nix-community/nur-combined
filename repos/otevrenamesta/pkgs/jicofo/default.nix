@@ -2,28 +2,22 @@
 
 let
   pname = "jicofo";
-  version = "508";
-  src32 = fetchurl {
-    url = "https://download.jitsi.org/stable/${pname}_1.0-${version}-1_i386.deb";
-    sha256 = "1gqrrwf8kacl4rs0ckrpxbg1clbj4y7fyrqks09z0zv7i7kdyhdd";
-  };
-  src64 = fetchurl {
-    url = "https://download.jitsi.org/stable/${pname}_1.0-${version}-1_amd64.deb";
-    sha256 = "16qwja138p8ygxg491gzfqpy0ihs2lkpq5221n5sdiq5wh8cq8dm";
+  version = "541";
+  src = fetchurl {
+    url = "https://download.jitsi.org/stable/${pname}_1.0-${version}-1_all.deb";
+    sha256 = "0s45bjsja2nkjhjcd2gx6hbby49v1d6r6553l6jfainycf6dh7xy";
   };
 in
 stdenv.mkDerivation {
-  inherit pname version;
+  inherit pname version src;
 
-  src = if stdenv.isx86_64 then src64
-     else if stdenv.isi686 then src32
-     else throw "Unknown achitecture for ${pname}";
+  phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
 
-  phases = [ "installPhase" "fixupPhase" ];
+  unpackPhase = ''
+    dpkg-deb -x $src .
+  '';
 
   installPhase = ''
-    dpkg -x $src .
-
     substituteInPlace usr/share/jicofo/jicofo.sh \
       --replace "exec java" "exec ${jre_headless}/bin/java"
 
@@ -48,6 +42,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/jitsi/jicofo";
     license = licenses.asl20;
     maintainers = with maintainers; [ mmilata ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = platforms.linux;
   };
 }

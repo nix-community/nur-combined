@@ -1,36 +1,34 @@
-{ stdenv, fetchzip, jre, nixosTests }:
+{ stdenv, fetchurl, dpkg, jre_headless, nixosTests }:
 
 let
-  pname = "jitsi-videobridge";
-  version = "1132";
-  src32 = fetchzip {
-    url = "https://download.jitsi.org/${pname}/linux/${pname}-linux-x86-${version}.zip";
-    sha256 = "1lk5nv6xnq9mww1xb8lwlw86fj1w2j83qx1z4fg8qvyi6cs2ablb";
-  };
-  src64 = fetchzip {
-    url = "https://download.jitsi.org/${pname}/linux/${pname}-linux-x64-${version}.zip";
-    sha256 = "0c62xp43agj4dgfwmjs7qr2gh24rgcm7398m05qbpggayc75dj1j";
+  pname = "jitsi-videobridge2";
+  version = "163-g63d2f9da";
+  src = fetchurl {
+    url = "https://download.jitsi.org/stable/${pname}_2.1-${version}-1_all.deb";
+    sha256 = "0f3m1nj53nd0z122b8l3wagnf8kjyy713m8z39h0w2krllk7ryvj";
   };
 in
 stdenv.mkDerivation {
-  inherit pname version;
-
-  src = if stdenv.isx86_64 then src64
-     else if stdenv.isi686 then src32
-     else throw "Unknown achitecture for ${pname}";
+  inherit pname version src;
 
   phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
 
+  unpackPhase = ''
+    dpkg-deb -x $src .
+  '';
+
   installPhase = ''
-    substituteInPlace jvb.sh \
-      --replace "exec java" "exec ${jre}/bin/java"
+    substituteInPlace usr/share/jitsi-videobridge/jvb.sh \
+      --replace "exec java" "exec ${jre_headless}/bin/java"
 
     mkdir -p $out/{bin,share/jitsi-videobridge,etc/jitsi/videobridge}
-    mv lib/logging.properties $out/etc/jitsi/videobridge/
+    mv etc/jitsi/videobridge/logging.properties $out/etc/jitsi/videobridge/
     cp ${./logging.properties-journal} $out/etc/jitsi/videobridge/logging.properties-journal
-    mv * $out/share/jitsi-videobridge/
+    mv usr/share/jitsi-videobridge/* $out/share/jitsi-videobridge/
     ln -s $out/share/jitsi-videobridge/jvb.sh $out/bin/jitsi-videobridge
   '';
+
+  nativeBuildInputs = [ dpkg ];
 
   passthru.tests = {
     inherit (nixosTests) jitsi-meet;
@@ -48,6 +46,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/jitsi/jitsi-videobridge";
     license = licenses.asl20;
     maintainers = with maintainers; [ mmilata ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = platforms.linux;
   };
 }

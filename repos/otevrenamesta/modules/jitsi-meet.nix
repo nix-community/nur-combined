@@ -262,7 +262,7 @@ in
 
     systemd.services.jitsi-meet-init-secrets = {
       wantedBy = [ "multi-user.target" ];
-      before = [ "jicofo.service" "jitsi-videobridge.service" ] ++ (optional cfg.prosody.enable "prosody.service");
+      before = [ "jicofo.service" "jitsi-videobridge2.service" ] ++ (optional cfg.prosody.enable "prosody.service");
       serviceConfig = {
         Type = "oneshot";
       };
@@ -341,7 +341,8 @@ in
       };
     };
 
-    systemd.services.jitsi-videobridge = {
+    systemd.services.jitsi-videobridge2 = {
+      aliases = [ "jitsi-videobridge.service" ];
       description = "Jitsi Videobridge";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
@@ -385,6 +386,11 @@ in
     environment.etc."jitsi/videobridge/sip-communicator.properties".source = jvbConfig;
     environment.etc."jitsi/videobridge/logging.properties".source =
       mkDefault "${cfg.videobridge.package}/etc/jitsi/videobridge/logging.properties-journal";
+
+    # (from videobridge2 .deb)
+    # this sets the max, so that we can bump the JVB UDP single port buffer size.
+    boot.kernel.sysctl."net.core.rmem_max" = mkDefault 10485760;
+    boot.kernel.sysctl."net.core.netdev_max_backlog" = mkDefault 100000;
 
     networking.firewall.allowedTCPPorts = mkIf cfg.videobridge.openFirewall
       [ (toInt cfg.videobridge.config."org.jitsi.videobridge.TCP_HARVESTER_PORT") ];
