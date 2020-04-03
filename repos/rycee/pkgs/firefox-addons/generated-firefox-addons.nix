@@ -167,10 +167,10 @@
       };
     "decentraleyes" = buildFirefoxXpiAddon {
       pname = "decentraleyes";
-      version = "2.0.13";
+      version = "2.0.14";
       addonId = "jid1-BoFifL9Vbdl2zQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3423038/decentraleyes-2.0.13-an+fx.xpi?src=";
-      sha256 = "9dd1aa4e752166fb13ddc06068cf4c1aacc7e2789128fa103cf81285818943ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3539177/decentraleyes-2.0.14-an+fx.xpi?src=";
+      sha256 = "71a55834ee991605d461f304271f989aa1147e1cf772e25787cbada19ab0ba51";
       meta = with stdenv.lib;
       {
         homepage = "https://decentraleyes.org";
@@ -499,10 +499,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.3.29";
+      version = "20.4.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3537271/refined_github-20.3.29-an+fx.xpi?src=";
-      sha256 = "69bc39d7063f84519f0b72b23c55b1375ca90e340fb1f563744fa1bd9a3b4987";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3539774/refined_github-20.4.1-an+fx.xpi?src=";
+      sha256 = "b0f1dfd247ac02c3df237aba83b7fbf2d0d8ffedebe9305f02e5c82a322e12d8";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -540,10 +540,10 @@
       };
     "swedish-dictionary" = buildFirefoxXpiAddon {
       pname = "swedish-dictionary";
-      version = "1.20";
+      version = "1.21";
       addonId = "swedish@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/2987939/swedish_dictionary-1.20.xpi?src=";
-      sha256 = "61dc7f5f79676573c603492ac57699cec81680b259751e3655bf90631c207271";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3539390/swedish_dictionary-1.21.xpi?src=";
+      sha256 = "7d2ce7f7bfb65cfb5dd4138686acd977cf589c6ce91fc342ae5e2e26a09d1dbe";
       meta = with stdenv.lib;
       {
         description = "Swedish spell-check dictionary.";
