@@ -45,7 +45,6 @@ buildPythonPackage rec {
   pname = "pygsti";
   version = "0.9.9.1";
 
-  # must download from GitHub to get the Cmake & C source files
   src = fetchFromGitHub {
     owner = "pyGSTio";
     repo = pname;
