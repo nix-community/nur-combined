@@ -17,4 +17,10 @@ buildGoPackage rec {
   '';
 
   allowGoReference = false;
+
+  meta = {
+    homepage = "https://tulpa.dev/Xe/quickserv";
+    description = "Single folder HTTP server";
+    license = stdenv.lib.licenses.mit;
+  };
 }
