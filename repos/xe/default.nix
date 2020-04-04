@@ -17,6 +17,7 @@
   dwm = pkgs.callPackage ./pkgs/dwm { };
   gopls = pkgs.callPackage ./pkgs/gopls { };
   johaus = pkgs.callPackage ./pkgs/johaus { };
+  jvozba = pkgs.callPackage ./pkgs/jvozba { };
   minica = pkgs.callPackage ./pkgs/minica { };
   quickserv = pkgs.callPackage ./pkgs/quickserv { };
   st = pkgs.callPackage ./pkgs/st { };
