@@ -1,0 +1,72 @@
+#+TITLE: Package Documentation
+
+This contains information for all of the packages that I have in my [[https://github.com/Xe/xepkgs][NUR
+repository]]. These packages are known working and are used in my machines.
+
+* Usage
+
+** niv
+
+To use this with [[https://github.com/nmattia/niv][niv]], run the following command:
+
+#+BEGIN_SRC shell
+niv add Xe/xepkgs
+#+END_SRC
+
+And then import =xepkgs= like this:
+
+#+BEGIN_SRC nix
+let
+  sources = import ./nix/sources.nix;
+  pkgs = import sources.nixpkgs { };
+  xepkgs = import sources.xepkgs { inherit pkgs; };
+in # ...
+#+END_SRC
+
+** Cachix
+
+To use my [[https://xe.cachix.org][Cachix cache]], run the following command:
+
+#+BEGIN_SRC shell
+cachix use xe
+#+END_SRC
+
+* Packages
+** [[https://github.com/Xe/xepkgs/tree/master/pkgs/dwm][dwm]]
+
+[[https://dwm.suckless.org/][dwm]] with my own config and set of patches. This theme is called orca.
+
+** [[https://github.com/Xe/xepkgs/tree/master/pkgs/gopls][gopls]]
+
+[[https://github.com/golang/tools/blob/master/gopls/doc/user.md][gopls]] is the language server for the [[https://golang.org][Go]] programming language. This is packaged
+so it is useful from =shell.nix=.
+
+** [[https://github.com/Xe/johaus][johaus]]
+
+jo'aus is a set of parsers for the [[https://lojban.pw][Lojban]] logical language. This package exposes
+a command line program that lets you see the output of the parsers.
+
+** [[https://github.com/Xe/jvozba][jvozba]]
+
+jvozba is a [[https://lojban.pw/cll/uncll-1.2.5/xhtml_section_chunks/section-lujvo.html][lujvo]] builder (lujvo zbasu -> jvozba) for the [[https://lojban.pw][Lojban]] logical
+language. This takes input over standard in and returns lujvo on standard out.
+
+** [[https://github.com/Xe/xepkgs/tree/master/pkgs/minica][minica]]
+
+[[https://github.com/jsha/minica][minica]] is a tool that helps you manage a small, simple CA for internal usage
+only. I use this for my WireGuard prefix.
+
+** [[https://github.com/Xe/xepkgs/tree/master/pkgs/MoonPlus][MoonPlus]]
+
+[[https://github.com/pigpigyyy/MoonPlus][MoonPlus]] is a C++ based compiler for [[https://moonscript.org][MoonScript]] to Lua. This is a more advanced
+implementation of the upstream MoonScript compiler. Its binary is =moonp=.
+
+** [[https://github.com/Xe/xepkgs/tree/master/pkgs/quickserv][quickserv]]
+
+[[https://tulpa.dev/Xe/quickserv][quickserv]] is a dead-simple HTTP server that serves a filesystem directory to a
+given port.
+
+** [[https://github.com/Xe/xepkgs/tree/master/pkgs/st][st]]
+
+[[https://st.suckless.org][st]] is a dead-simple terminal emulator with my config and set of patches. It uses
+[[https://github.com/morhetz/gruvbox][gruvbox]] for its theme. It also has transparency and box drawing patches.
