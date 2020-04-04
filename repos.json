@@ -89,6 +89,9 @@
         "izorkin": {
             "url": "https://github.com/Izorkin/nur-packages"
         },
+        "jakobrs": {
+            "url": "https://github.com/jakobrs/nur-packages"
+        },
         "jd91mzm2": {
             "url": "https://gitlab.com/jD91mZM2/nur-packages"
         },
@@ -110,6 +113,9 @@
         },
         "kapack": {
             "url": "https://github.com/oar-team/nur-kapack"
+        },
+        "kolloch": {
+            "url": "https://github.com/kolloch/nur-packages"
         },
         "krebs": {
             "submodules": true,
