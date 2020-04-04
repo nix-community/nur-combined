@@ -5,6 +5,37 @@ repository]]. These packages are known working and are used in my machines.
 
 * Usage
 
+** NUR
+
+To use this from the [[https://github.com/nix-community/NUR][NUR]], add this to your =~/.config/nixpkgs/config.nix=:
+
+#+BEGIN_SRC nix
+{
+  packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
+}
+#+END_SRC
+
+And then you can use my packages as =pkgs.nur.repos.xe.<pname>=.
+
+Or add the NUR as a nix channel:
+
+#+BEGIN_SRC shell
+sudo nix-channel --add https://github.com/nix-community/NUR/archive/master.tar.gz nur
+#+END_SRC
+
+And then use my packages like this:
+
+#+BEGIN_SRC nix
+let
+  pkgs = import <nixpkgs> { };
+  nur = import <nur> { inherit pkgs; };
+in # ...
+#+END_SRC
+
 ** niv
 
 To use this with [[https://github.com/nmattia/niv][niv]], run the following command:
