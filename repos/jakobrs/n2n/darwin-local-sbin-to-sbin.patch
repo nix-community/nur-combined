@@ -1,0 +1,28 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -34,11 +34,7 @@ INSTALL_DOC=$(INSTALL) -m644
+ # DESTDIR set in debian make system
+ PREFIX?=$(DESTDIR)/usr
+ #BINDIR=$(PREFIX)/bin
+-ifeq ($(OS),Darwin)
+-SBINDIR=$(PREFIX)/local/sbin
+-else
+ SBINDIR=$(PREFIX)/sbin
+-endif
+ 
+ MANDIR?=$(PREFIX)/share/man
+ MAN1DIR=$(MANDIR)/man1
+--- a/tools/Makefile.in
++++ b/tools/Makefile.in
+@@ -8,11 +8,7 @@ INSTALL_PROG=$(INSTALL) -m755
+ MKDIR=mkdir -p
+ 
+ PREFIX?=$(DESTDIR)/usr
+-ifeq ($(OS),Darwin)
+-SBINDIR=$(PREFIX)/local/sbin
+-else
+ SBINDIR=$(PREFIX)/sbin
+-endif
+ 
+ LIBS_EDGE_OPT=@N2N_LIBS@
+ LIBS_EDGE+=$(LIBS_EDGE_OPT)

@@ -1,0 +1,42 @@
+From 912eab0fe89496b1f002eadb14ad122d983629c8 Mon Sep 17 00:00:00 2001
+From: jakobrs <jakobrs100@gmail.com>
+Date: Sun, 9 Feb 2020 15:47:02 +0100
+Subject: [PATCH] Replace dnspython3 with dnspython
+
+---
+ mcstatus.egg-info/requires.txt | 2 +-
+ setup.py                       | 7 +------
+ 2 files changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/mcstatus.egg-info/requires.txt b/mcstatus.egg-info/requires.txt
+index 412fb06..f4e80f3 100644
+--- a/mcstatus.egg-info/requires.txt
++++ b/mcstatus.egg-info/requires.txt
+@@ -1,3 +1,3 @@
+ six
+ Click
+-dnspython3
++dnspython
+diff --git a/setup.py b/setup.py
+index 7b9abe4..3c15a56 100644
+--- a/setup.py
++++ b/setup.py
+@@ -3,14 +3,9 @@ import sys
+ PY2 = sys.version_info[0] == 2
+ 
+ install_requires = [
+-    'six', 'Click'
++    'six', 'Click', 'dnspython'
+ ]
+ 
+-if PY2:
+-    install_requires.append('dnspython')
+-else:
+-    install_requires.append('dnspython3')
+-
+ tests_require = [
+     'mock'
+ ]
+-- 
+2.23.1
+
