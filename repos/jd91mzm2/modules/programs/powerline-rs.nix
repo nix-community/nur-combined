@@ -7,16 +7,14 @@ let
   powerline-rs = "${cfg.package}/bin/powerline-rs";
 in
 {
-  options = {
-    programs.powerline-rs = {
-      enable = mkEnableOption "powerline-rs";
-      package = mkOption {
-        type = types.package;
-        default = pkgs.powerline-rs;
-        description = ''
-          The powerline-rs package to use. Defaults to the latest one in nixpkgs.
-        '';
-      };
+  options.programs.powerline-rs = {
+    enable = mkEnableOption "powerline-rs";
+    package = mkOption {
+      type = types.package;
+      default = pkgs.powerline-rs;
+      description = ''
+        The powerline-rs package to use. Defaults to the latest one in nixpkgs.
+      '';
     };
   };
   config = mkIf cfg.enable {
