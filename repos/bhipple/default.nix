@@ -12,7 +12,23 @@
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+  overlays = map import [
+    ./overlays/ami.nix
+    ./overlays/bhipple-nur-overlay.nix
+    ./overlays/emacs-overlay.nix
+    ./overlays/envs.nix
+    ./overlays/hie.nix
+    ./overlays/mkl.nix
+    ./overlays/spacemacs.nix
+  ];
 
-  plaid2qif = pkgs.callPackage ./pkgs/plaid2qif { };
+  # gccemacs = pkgs.callPackage ./pkgs/gccemacs {};
+  # libgccjit = pkgs.callPackage ./pkgs/libgccjit {};
+
+  gmpydl = pkgs.callPackage ./pkgs/gmpydl {};
+  plaid2qif = pkgs.callPackage ./pkgs/plaid2qif {};
+
+  # ledger-cli only gets a release every couple years; build the latest commit
+  # off master.
+  # ledger-git = pkgs.callPackage ./pkgs/ledger {};
 }

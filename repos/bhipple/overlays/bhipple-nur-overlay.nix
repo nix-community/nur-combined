@@ -8,7 +8,8 @@ let
 
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   nameValuePair = n: v: { name = n; value = v; };
-  nurAttrs = import ./default.nix { pkgs = super; };
+  # TODO: See if there's a way to do this without abspath?
+  nurAttrs = import /home/bhipple/dotfiles/nur-packages/default.nix { pkgs = super; };
 
 in
 
