@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
     ../internet-background
   ];
   environment.systemPackages = with pkgs; [
-    albert lemonbar alock glava libnotify
+    albert lemonbar alock glava libnotify lxqt.lxqt-policykit
   ];
 
   fonts.fonts = with pkgs; [
@@ -33,6 +33,9 @@
     enable = true;
     enableXfwm = false;
   };
+  # samba client
+  services.gvfs.enable = true;
+  services.gvfs.package = lib.mkForce pkgs.gvfs;
   # openbox wm
   services.xserver.windowManager.openbox.enable = true;
   # fixes the edges issue with ulauncher

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 Volume() {
-    local VOLUME=$(amixer sget Master | grep '^\s*Front' | sed -e 's/[^0-9[]*//g' | cut -d [ -f 2 | head -n 1)
+    local VOLUME=$(amixer sget Master | grep -o '[0-9]*%' | head -n 1)
     echo -n "Volume: $VOLUME %"
 }
 

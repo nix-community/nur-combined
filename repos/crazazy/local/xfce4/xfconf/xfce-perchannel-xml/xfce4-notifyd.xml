@@ -6,6 +6,7 @@
       <value type="string" value="discord"/>
       <value type="string" value="Discord"/>
       <value type="string" value="Electron"/>
+      <value type="string" value="firefox_Firefox"/>
       <value type="string" value="notify-send"/>
       <value type="string" value="xfce4-power-manager"/>
     </property>
