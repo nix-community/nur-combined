@@ -1,0 +1,225 @@
+diff -up a/config.mk b/config.mk
+--- a/config.mk	2013-01-05 08:26:47.000000000 -0500
++++ b/config.mk	2013-02-15 15:27:10.183075163 -0500
+@@ -16,7 +16,7 @@ VERSION     = 1.7
+ 
+ # includes and libs
+ INCLUDES    = -I. -I${INCDIR} -I/usr/include
+-LIBS        = -L${LIBDIR} -L/usr/lib -lc
++LIBS        = -L${LIBDIR} -L/usr/lib -lc -lssl -lcrypto
+ # uncomment and comment other variables for compiling on Solaris
+ #LIBS = -L${LIBDIR} -L/usr/lib -lc -lsocket -lnsl
+ #CFLAGS      = -g ${INCLUDES} -DVERSION=\"${VERSION}\"
+diff -up a/ii.1 b/ii.1
+--- a/ii.1	2013-01-05 08:26:47.000000000 -0500
++++ b/ii.1	2013-02-15 15:28:42.739074771 -0500
+@@ -25,6 +25,8 @@ and ii creates a new channel directory w
+ .IR servername ]
+ .RB [ \-p
+ .IR port ]
++.RB [ \-e
++.IR ssl ]
+ .RB [ \-k
+ .IR environment variable ]
+ .RB [ \-i
+@@ -42,6 +44,9 @@ lets you override the default servername
+ .BI \-p " port"
+ lets you override the default port (6667)
+ .TP
++.BI \-e " ssl"
++lets you connect using ssl encryption. The default ssl port is 6697.
++.TP
+ .BI \-k " environment variable"
+ lets you specify an environment variable that contains your IRC password, e.g. IIPASS="foobar" ii -k IIPASS.
+ This is done in order to prevent other users from eavesdropping the server password via the process list.
+diff -up a/ii.c b/ii.c
+--- a/ii.c	2013-01-05 08:26:47.000000000 -0500
++++ b/ii.c	2013-02-15 15:33:39.603075095 -0500
+@@ -18,12 +18,23 @@
+ #include <ctype.h>
+ #include <time.h>
+ #include <unistd.h>
++#include <openssl/rand.h>
++#include <openssl/ssl.h>
++#include <openssl/err.h>
+ 
+ #ifndef PIPE_BUF /* FreeBSD don't know PIPE_BUF */
+ #define PIPE_BUF 4096
+ #endif
+ #define PING_TIMEOUT 300
+ #define SERVER_PORT 6667
++#define SSL_SERVER_PORT 6697
++#define WRITE(con, mes, len) (use_ssl ? SSL_write(irc->sslHandle, mes, len) : write(con->irc, mes, len))
++#define READ(fd, buf, size) (from_server && use_ssl ? SSL_read(irc->sslHandle, buf, size) : read(fd, buf, size))
++typedef struct {
++	int irc;
++	SSL *sslHandle;
++	SSL_CTX *sslContext;
++} conn;
+ enum { TOK_NICKSRV = 0, TOK_USER, TOK_CMD, TOK_CHAN, TOK_ARG, TOK_TEXT, TOK_LAST };
+ 
+ typedef struct Channel Channel;
+@@ -33,7 +44,8 @@ struct Channel {
+ 	Channel *next;
+ };
+ 
+-static int irc;
++conn *irc;
++static int use_ssl;
+ static time_t last_response;
+ static Channel *channels = NULL;
+ static char *host = "irc.freenode.net";
+@@ -45,7 +57,7 @@ static void usage() {
+ 	fputs("ii - irc it - " VERSION "\n"
+ 	      "(C)opyright MMV-MMVI Anselm R. Garbe\n"
+ 	      "(C)opyright MMV-MMXI Nico Golde\n"
+-	      "usage: ii [-i <irc dir>] [-s <host>] [-p <port>]\n"
++	      "usage: ii [-i <irc dir>] [-s <host>] [-p <port>] [-e ssl]\n"
+ 	      "          [-n <nick>] [-k <password>] [-f <fullname>]\n", stderr);
+ 	exit(EXIT_FAILURE);
+ }
+@@ -148,11 +160,12 @@ static void login(char *key, char *fulln
+ 				nick, nick, host, fullname ? fullname : nick);
+ 	else snprintf(message, PIPE_BUF, "NICK %s\r\nUSER %s localhost %s :%s\r\n",
+ 				nick, nick, host, fullname ? fullname : nick);
+-	write(irc, message, strlen(message));	/* login */
++	WRITE(irc, message, strlen(message));	/* login */
+ }
+ 
+-static int tcpopen(unsigned short port) {
++conn *tcpopen(unsigned short port) {
+ 	int fd;
++    conn *c;
+ 	struct sockaddr_in sin;
+ 	struct hostent *hp = gethostbyname(host);
+ 
+@@ -172,7 +185,22 @@ static int tcpopen(unsigned short port)
+ 		perror("ii: cannot connect to host");
+ 		exit(EXIT_FAILURE);
+ 	}
+-	return fd;
++	c = malloc(sizeof(conn));
++	c->irc = fd;
++	if(use_ssl) {
++		c->sslHandle = NULL;
++		c->sslContext = NULL;
++		SSL_load_error_strings();
++		SSL_library_init();
++		c->sslContext = SSL_CTX_new(SSLv23_client_method());
++		if(c->sslContext == NULL)
++			ERR_print_errors_fp(stderr);
++		c->sslHandle = SSL_new(c->sslContext);
++		if(!SSL_set_fd(c->sslHandle, c->irc)
++				|| (SSL_connect(c->sslHandle) != 1))
++			ERR_print_errors_fp(stderr);
++	}
++	return c;
+ }
+ 
+ static size_t tokenize(char **result, size_t reslen, char *str, char delim) {
+@@ -219,7 +247,7 @@ static void proc_channels_privmsg(char *
+ 	snprintf(message, PIPE_BUF, "<%s> %s", nick, buf);
+ 	print_out(channel, message);
+ 	snprintf(message, PIPE_BUF, "PRIVMSG %s :%s\r\n", channel, buf);
+-	write(irc, message, strlen(message));
++	WRITE(irc, message, strlen(message));
+ }
+ 
+ static void proc_channels_input(Channel *c, char *buf) {
+@@ -273,7 +301,7 @@ static void proc_channels_input(Channel
+ 			else
+ 				snprintf(message, PIPE_BUF,
+ 						"PART %s :ii - 500 SLOC are too much\r\n", c->name);
+-			write(irc, message, strlen(message));
++			WRITE(irc, message, strlen(message));
+ 			close(c->fd);
+ 			/*create_filepath(infile, sizeof(infile), c->name, "in");
+ 			unlink(infile); */
+@@ -288,7 +316,7 @@ static void proc_channels_input(Channel
+ 		snprintf(message, PIPE_BUF, "%s\r\n", &buf[1]);
+ 
+ 	if (message[0] != '\0')
+-		write(irc, message, strlen(message));
++		WRITE(irc, message, strlen(message));
+ }
+ 
+ static void proc_server_cmd(char *buf) {
+@@ -339,7 +367,7 @@ static void proc_server_cmd(char *buf) {
+ 		return;
+ 	} else if(!strncmp("PING", argv[TOK_CMD], 5)) {
+ 		snprintf(message, PIPE_BUF, "PONG %s\r\n", argv[TOK_TEXT]);
+-		write(irc, message, strlen(message));
++		WRITE(irc, message, strlen(message));
+ 		return;
+ 	} else if(!argv[TOK_NICKSRV] || !argv[TOK_USER]) {	/* server command */
+ 		snprintf(message, PIPE_BUF, "%s%s", argv[TOK_ARG] ? argv[TOK_ARG] : "", argv[TOK_TEXT] ? argv[TOK_TEXT] : "");
+@@ -373,11 +401,11 @@ static void proc_server_cmd(char *buf) {
+ 		print_out(argv[TOK_CHAN], message);
+ }
+ 
+-static int read_line(int fd, size_t res_len, char *buf) {
++static int read_line(int fd, size_t res_len, char *buf, int from_server) {
+ 	size_t i = 0;
+ 	char c = 0;
+ 	do {
+-		if(read(fd, &c, sizeof(char)) != sizeof(char))
++		if(READ(fd, &c, sizeof(char)) != sizeof(char))
+ 			return -1;
+ 		buf[i++] = c;
+ 	}
+@@ -388,7 +416,7 @@ static int read_line(int fd, size_t res_
+ 
+ static void handle_channels_input(Channel *c) {
+ 	static char buf[PIPE_BUF];
+-	if(read_line(c->fd, PIPE_BUF, buf) == -1) {
++	if(read_line(c->fd, PIPE_BUF, buf, 0) == -1) {
+ 		close(c->fd);
+ 		int fd = open_channel(c->name);
+ 		if(fd != -1)
+@@ -402,7 +430,7 @@ static void handle_channels_input(Channe
+ 
+ static void handle_server_output() {
+ 	static char buf[PIPE_BUF];
+-	if(read_line(irc, PIPE_BUF, buf) == -1) {
++	if(read_line(irc->irc, PIPE_BUF, buf, 1) == -1) {
+ 		perror("ii: remote host closed connection");
+ 		exit(EXIT_FAILURE);
+ 	}
+@@ -419,8 +447,8 @@ static void run() {
+ 	snprintf(ping_msg, sizeof(ping_msg), "PING %s\r\n", host);
+ 	for(;;) {
+ 		FD_ZERO(&rd);
+-		maxfd = irc;
+-		FD_SET(irc, &rd);
++		maxfd = irc->irc;
++		FD_SET(irc->irc, &rd);
+ 		for(c = channels; c; c = c->next) {
+ 			if(maxfd < c->fd)
+ 				maxfd = c->fd;
+@@ -440,10 +468,10 @@ static void run() {
+ 				print_out(NULL, "-!- ii shutting down: ping timeout");
+ 				exit(EXIT_FAILURE);
+ 			}
+-			write(irc, ping_msg, strlen(ping_msg));
++			WRITE(irc, ping_msg, strlen(ping_msg));
+ 			continue;
+ 		}
+-		if(FD_ISSET(irc, &rd)) {
++		if(FD_ISSET(irc->irc, &rd)) {
+ 			handle_server_output();
+ 			last_response = time(NULL);
+ 		}
+@@ -475,10 +503,13 @@ int main(int argc, char *argv[]) {
+ 			case 'p': port = strtol(argv[++i], NULL, 10); break;
+ 			case 'n': snprintf(nick,sizeof(nick),"%s", argv[++i]); break;
+ 			case 'k': key = getenv(argv[++i]); break;
++			case 'e': use_ssl = 1; ++i; break;
+ 			case 'f': fullname = argv[++i]; break;
+ 			default: usage(); break;
+ 		}
+ 	}
++	if(use_ssl)
++		port = port == SERVER_PORT ? SSL_SERVER_PORT : port;
+ 	irc = tcpopen(port);
+ 	if(!snprintf(path, sizeof(path), "%s/%s", prefix, host)) {
+ 		fputs("ii: path to irc directory too long\n", stderr);

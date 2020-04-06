@@ -16,6 +16,7 @@
 
   dwm = pkgs.callPackage ./pkgs/dwm { };
   gopls = pkgs.callPackage ./pkgs/gopls { };
+  ii = pkgs.callPackage ./pkgs/ii { };
   johaus = pkgs.callPackage ./pkgs/johaus { };
   jvozba = pkgs.callPackage ./pkgs/jvozba { };
   minica = pkgs.callPackage ./pkgs/minica { };
