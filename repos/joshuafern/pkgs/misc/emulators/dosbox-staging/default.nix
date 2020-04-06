@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   name = "dosbox-staging";
-  version = "1f1e832a6c18a282c41aa91f12aee858e1ddb8f4";
+  version = "811beec345632eeb7bab12b4eca5a6aa8f5d4eac";
 
   src = fetchFromGitHub {
     owner = "dreamer";
     repo = name;
     rev = version;
-    sha256 = "1s8bip3ks7v1xl97dgzr46lzwsgsxxm1imx6si0zs5f5a0qjnphr";
+    sha256 = "1ghbngsnmk3m3i7x5m58dgmmc58j8vq5dq3yss0xkhqsncga2aj8";
   };
 
   dontGzipMan = true;
