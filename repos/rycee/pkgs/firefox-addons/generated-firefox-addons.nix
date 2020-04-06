@@ -499,10 +499,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.4.1";
+      version = "20.4.5";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3539774/refined_github-20.4.1-an+fx.xpi?src=";
-      sha256 = "b0f1dfd247ac02c3df237aba83b7fbf2d0d8ffedebe9305f02e5c82a322e12d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3542669/refined_github-20.4.5-an+fx.xpi?src=";
+      sha256 = "270dbb9964b5038e7a07c99f9405d537ba0ea7688cb867e76f54fcd916ed8560";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -594,10 +594,10 @@
       };
     "textern" = buildFirefoxXpiAddon {
       pname = "textern";
-      version = "0.5";
+      version = "0.6";
       addonId = "textern@jlebon.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/969526/textern-0.5-an+fx-linux.xpi?src=";
-      sha256 = "49787b829ce3ce1cdf593612d30db2ea2f89a8007b429e75a873661a00fa3c70";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3542716/textern-0.6-fx.xpi?src=";
+      sha256 = "d52066af80a2f7ed589af168909fafa694c6c4a22c105a1a2dcbb83e03d684f9";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/jlebon/textern";
