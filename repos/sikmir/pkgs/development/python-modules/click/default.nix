@@ -9,10 +9,12 @@ buildPythonPackage rec {
     sha256 = "02qkfpykbq35id8glfgwc38yc430427yd05z1wc5cnld8zgicmgi";
   };
 
-  patches = stdenv.lib.optional (stdenv.lib.versionAtLeast version "6.7") (substituteAll {
-    src = ./fix-paths.patch;
-    locale = "${locale}/bin/locale";
-  });
+  patches = stdenv.lib.optional (stdenv.lib.versionAtLeast version "6.7") (
+    substituteAll {
+      src = ./fix-paths.patch;
+      locale = "${locale}/bin/locale";
+    }
+  );
 
   buildInputs = [ pytest ];
 

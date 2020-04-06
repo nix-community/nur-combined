@@ -1,5 +1,20 @@
-{ stdenv, gdal, cmake, ninja, proj, clipper, zlib, qtbase, qttools, qtlocation
-, qtsensors, doxygen, cups, wrapQtAppsHook, qtimageformats, sources }:
+{ stdenv
+, gdal
+, cmake
+, ninja
+, proj
+, clipper
+, zlib
+, qtbase
+, qttools
+, qtlocation
+, qtsensors
+, doxygen
+, cups
+, wrapQtAppsHook
+, qtimageformats
+, sources
+}:
 
 stdenv.mkDerivation rec {
   pname = "OpenOrienteering-Mapper";
@@ -26,20 +41,22 @@ stdenv.mkDerivation rec {
     # Building the manual and bundling licenses fails
     "-DLICENSING_PROVIDER:BOOL=OFF"
     "-DMapper_MANUAL_QTHELP:BOOL=OFF"
-  ] ++ (stdenv.lib.optionals stdenv.isDarwin [
-    # Usually enabled on Darwin
-    "-DCMAKE_FIND_FRAMEWORK=never"
-    # FindGDAL is broken and always finds /Library/Framework unless this is
-    # specified
-    "-DGDAL_INCLUDE_DIR=${gdal}/include"
-    "-DGDAL_CONFIG=${gdal}/bin/gdal-config"
-    "-DGDAL_LIBRARY=${gdal}/lib/libgdal.dylib"
-    # Don't bundle libraries
-    "-DMapper_PACKAGE_PROJ=0"
-    "-DMapper_PACKAGE_QT=0"
-    "-DMapper_PACKAGE_ASSISTANT=0"
-    "-DMapper_PACKAGE_GDAL=0"
-  ]);
+  ] ++ (
+    stdenv.lib.optionals stdenv.isDarwin [
+      # Usually enabled on Darwin
+      "-DCMAKE_FIND_FRAMEWORK=never"
+      # FindGDAL is broken and always finds /Library/Framework unless this is
+      # specified
+      "-DGDAL_INCLUDE_DIR=${gdal}/include"
+      "-DGDAL_CONFIG=${gdal}/bin/gdal-config"
+      "-DGDAL_LIBRARY=${gdal}/lib/libgdal.dylib"
+      # Don't bundle libraries
+      "-DMapper_PACKAGE_PROJ=0"
+      "-DMapper_PACKAGE_QT=0"
+      "-DMapper_PACKAGE_ASSISTANT=0"
+      "-DMapper_PACKAGE_GDAL=0"
+    ]
+  );
 
   postInstall = stdenv.lib.optionalString stdenv.isDarwin ''
     # Fixes "This application failed to start because it could not find or load the Qt

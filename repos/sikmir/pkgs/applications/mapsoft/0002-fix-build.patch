@@ -1,20 +1,4 @@
 Submodule modules contains modified content
-diff --git i/modules/Makefile.inc w/modules/Makefile.inc
-index 3ff6a7a..da19730 100644
---- i/modules/Makefile.inc
-+++ w/modules/Makefile.inc
-@@ -50,9 +50,9 @@ $(shell $(MODDIR)/get_deps $(MODDIR) . > Makefile.deps)
- # Building flags
- 
- override CXXFLAGS += $(shell [ "$(PKG_CONFIG)" == "" ] ||\
--                      PKG_CONFIG_PATH=$(MODDIR)/pc pkg-config --cflags '$(PKG_CONFIG)')
-+                      PKG_CONFIG_PATH=$(PKG_CONFIG_PATH):$(MODDIR)/pc pkg-config --cflags '$(PKG_CONFIG)')
- override LDLIBS   += $(shell [ "$(PKG_CONFIG)" == "" ] ||\
--                      PKG_CONFIG_PATH=$(MODDIR)/pc pkg-config --libs '$(PKG_CONFIG)')
-+                      PKG_CONFIG_PATH=$(PKG_CONFIG_PATH):$(MODDIR)/pc pkg-config --libs '$(PKG_CONFIG)')
- override CXXFLAGS += -std=gnu++11 -Werror=return-type -O2 -fPIC
- override CXXFLAGS += -I$(MODDIR)
- 
 diff --git i/modules/pc/libdb.pc w/modules/pc/libdb.pc
 index 6a40e95..682c932 100644
 --- i/modules/pc/libdb.pc

@@ -1,7 +1,21 @@
-{ lib, buildPerlPackage, sources, ConfigStd, EncodeLocale
-, FileSlurp, GeoOpenstreetmapParser, JSON, ListMoreUtils
-, LWPProtocolHttps, MatchSimple, MathPolygon, MathPolygonTree
-, TemplateToolkit, TextUnidecode, TreeR, YAML }:
+{ lib
+, buildPerlPackage
+, sources
+, ConfigStd
+, EncodeLocale
+, FileSlurp
+, GeoOpenstreetmapParser
+, JSON
+, ListMoreUtils
+, LWPProtocolHttps
+, MatchSimple
+, MathPolygon
+, MathPolygonTree
+, TemplateToolkit
+, TextUnidecode
+, TreeR
+, YAML
+}:
 
 buildPerlPackage rec {
   pname = "osm2mp";

@@ -19,10 +19,10 @@
         "homepage": "https://cheetahtemplate.org/",
         "owner": "CheetahTemplate3",
         "repo": "cheetah3",
-        "rev": "44ebf7f59a749322fcc397b21611ad487193e697",
-        "sha256": "1962imkj6w54h5c46jnxx79lpc7dw5a731p38j8z4630hwzli1dw",
+        "rev": "7f4ab7d20c7b052c6f240fc146e04b7d6d5b7d63",
+        "sha256": "03lxxsy53a5bmbnmf11ndbdvrb58lccj531lvsqjm0li9f0s63xk",
         "type": "tarball",
-        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/44ebf7f59a749322fcc397b21611ad487193e697.tar.gz",
+        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/7f4ab7d20c7b052c6f240fc146e04b7d6d5b7d63.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "csvquote": {
@@ -103,6 +103,30 @@
         "url": "https://github.com/embox/embox/archive/ad5ed2947ae7ad68e6b0b0400c1a12d1a5114fa2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "geofabrik-estonia": {
+        "builtin": false,
+        "sha256": "1r7f8q4par0jnnfc0v7y0a2zp7xv27lgjwanm99x81ipcncrhq34",
+        "type": "file",
+        "url": "https://download.geofabrik.de/europe/estonia-200403.osm.pbf",
+        "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
+        "version": "200403"
+    },
+    "geofabrik-finland": {
+        "builtin": false,
+        "sha256": "1bflaszvzr296mcgq4g9l029x3xxqzgfaab7ydyjn12z6a2paylb",
+        "type": "file",
+        "url": "https://download.geofabrik.de/europe/finland-200403.osm.pbf",
+        "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
+        "version": "200403"
+    },
+    "geofabrik-russia-nwfd": {
+        "builtin": false,
+        "sha256": "047gsrnz3qjhkpc2qksjxs9px3hkahyi0sgmwi0aai9j0692fx4i",
+        "type": "file",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200403.osm.pbf",
+        "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
+        "version": "200403"
+    },
     "gimgtools": {
         "branch": "master",
         "builtin": false,
@@ -123,10 +147,10 @@
         "homepage": "https://github.com/xinebf/google-translate-for-goldendict",
         "owner": "xinebf",
         "repo": "google-translate-for-goldendict",
-        "rev": "d8a271ed5f8b9db6c7504f5ebcc0a0bd0380b0c8",
-        "sha256": "1wmxyak6b86657wavfxi33m3l60v10r8n26fjv6z47krk7a318a1",
+        "rev": "3f0a896176cb0b4544811168560e569273435c03",
+        "sha256": "0iin4f1vqiixywwd42yy4mzhcyqp7yz88diic2281a04yxcgc647",
         "type": "tarball",
-        "url": "https://github.com/xinebf/google-translate-for-goldendict/archive/d8a271ed5f8b9db6c7504f5ebcc0a0bd0380b0c8.tar.gz",
+        "url": "https://github.com/xinebf/google-translate-for-goldendict/archive/3f0a896176cb0b4544811168560e569273435c03.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpx-layer": {
@@ -175,10 +199,10 @@
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "aea17c9fedd3c688cc1ea42d13bc0540c0604d05",
-        "sha256": "0b4w66c61vlhrxbilqr021f40hn07kl7z0r5a4viczj37dx0d491",
+        "rev": "a56c02953f0baf973808dce4e60742c97e96a202",
+        "sha256": "1j6hk4qhl4ds15c8g5axnx0wkcvsmwdq6hxgw2azr25lk805rlbw",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/aea17c9fedd3c688cc1ea42d13bc0540c0604d05.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/a56c02953f0baf973808dce4e60742c97e96a202.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -188,10 +212,10 @@
         "homepage": "https://tumic0.github.io/GPXSee-maps",
         "owner": "tumic0",
         "repo": "GPXSee-maps",
-        "rev": "a0448a4488dbe8cc700eb24eb4632e94e7cf0d2e",
-        "sha256": "1ask34zrlr0sd0qjzads1l9ggqm2zfxfpksp0awax1fp6dllnkqc",
+        "rev": "1d63d4f0e8301e6f9f1d552c19632b35ea20434a",
+        "sha256": "0ar1xl33s9k14mclg905daj8vsgxq68i03k43v8w812lfqxp7cx4",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee-maps/archive/a0448a4488dbe8cc700eb24eb4632e94e7cf0d2e.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee-maps/archive/1d63d4f0e8301e6f9f1d552c19632b35ea20434a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxtools": {
@@ -201,10 +225,10 @@
         "homepage": "https://notabug.org/irdvo/gpxtools",
         "owner": "irdvo",
         "repo": "gpxtools",
-        "rev": "b989f357abb9f9b694cbe95081dd8d1094019233",
-        "sha256": "0zqdfv8qh6k5am17xnzhpki2rlvf5vpfjdpxazgli3pzbv2i6dbn",
+        "rev": "f7d289ab9f42e492e6db800a073f4464db24dd56",
+        "sha256": "15smkw2izqml4y9knyi0ywnn7805v13gbdz09r9ygqk5z50xsv7b",
         "type": "tarball",
-        "url": "https://notabug.org/irdvo/gpxtools/archive/b989f357abb9f9b694cbe95081dd8d1094019233.tar.gz",
+        "url": "https://notabug.org/irdvo/gpxtools/archive/f7d289ab9f42e492e6db800a073f4464db24dd56.tar.gz",
         "url_template": "https://notabug.org/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gt-bash-client": {
@@ -227,10 +251,10 @@
         "homepage": "https://github.com/legionus/libshell",
         "owner": "legionus",
         "repo": "libshell",
-        "rev": "b05a238290160d67c4253208b9c9523643c7471a",
-        "sha256": "0xdg1xnkwi70c0q5aw288zr51b1iwvbnjxm0ld1j0smaza7xndad",
+        "rev": "62559f85214bb902c2201d0a1e338d56d5f640e4",
+        "sha256": "1iyqagc8mc0afp0clbigjqds1hg3wz884cp1nng7gx08rnmr0l89",
         "type": "tarball",
-        "url": "https://github.com/legionus/libshell/archive/b05a238290160d67c4253208b9c9523643c7471a.tar.gz",
+        "url": "https://github.com/legionus/libshell/archive/62559f85214bb902c2201d0a1e338d56d5f640e4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lsdreader": {
@@ -279,10 +303,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "0d56dc402c6b00f13799785d7eb9326ab15b3882",
-        "sha256": "0rxb096wsh4ppwhl5kg7maisgdfwn0fxb0daw6v0ygnjhl50w88r",
+        "rev": "e8ff8d94a6f57771eec6b63326fe7eda6f43a775",
+        "sha256": "165wjk2nm69h4ghq6xqn2w3pyiixgrxmn4mvixy5nvwnhjsi1ckq",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/0d56dc402c6b00f13799785d7eb9326ab15b3882.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/e8ff8d94a6f57771eec6b63326fe7eda6f43a775.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -303,11 +327,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "10hhrpd10jjdpzc71rba4vrjnzipjfx8gnfv1ixanqrk7d09j0c8",
+        "sha256": "01y1cdpj0vcd33ic6964x0fhzcp330h1ni10qli97ahk3lmai0xh",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-03-11.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-04-04.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-03-11"
+        "version": "2020-04-04"
     },
     "mbtileserver": {
         "branch": "master",
@@ -316,10 +340,10 @@
         "homepage": "https://github.com/consbio/mbtileserver",
         "owner": "consbio",
         "repo": "mbtileserver",
-        "rev": "a613fe59f49b841006c5f1ad2fa23e4444e7090b",
-        "sha256": "03a8rkkcgdk7drzp0j68xy27is6fwcwd3r34grj7srkqs2zf3vn5",
+        "rev": "f2305b518fa81a9d7a3695abc0e4131401a936e6",
+        "sha256": "0b0982rn5jsv8zxfkrcmhys764nim6136hafc8ccj0mwdyvwafxd",
         "type": "tarball",
-        "url": "https://github.com/consbio/mbtileserver/archive/a613fe59f49b841006c5f1ad2fa23e4444e7090b.tar.gz",
+        "url": "https://github.com/consbio/mbtileserver/archive/f2305b518fa81a9d7a3695abc0e4131401a936e6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mercantile": {
@@ -333,6 +357,19 @@
         "sha256": "1f3gw512396v5lljkn9czsln8qciccg7mm6bvv5qxggf8ih6vgya",
         "type": "tarball",
         "url": "https://github.com/mapbox/mercantile/archive/dae32795f9da7a9f39d8ea52f2321af008f35ab9.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "morse-talk": {
+        "branch": "master",
+        "builtin": false,
+        "description": "A Python library written for Morse Code",
+        "homepage": "https://github.com/morse-talk/morse-talk",
+        "owner": "morse-talk",
+        "repo": "morse-talk",
+        "rev": "71e09ace0aa554d28cada5ee658e43758305b8fa",
+        "sha256": "0jnpv73q4s7x2zhpvnvxhv3bw6asnrqfr1pjr4hzsbpl7h8h5x3y",
+        "type": "tarball",
+        "url": "https://github.com/morse-talk/morse-talk/archive/71e09ace0aa554d28cada5ee658e43758305b8fa.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "openmtbmap_openvelomap_linux": {

@@ -1,8 +1,33 @@
-{ stdenv, perlPackages, python2Packages, gimp, sources
-, bc, fig2dev, imagemagick, m4, netpbm, pkgconfig, scons
-, boost, curl, giflib, gtkmm2, jansson, libjpeg, libpng
-, libshell, libtiff, libusb1, libxml2, libyaml, libzip
-, proj, shapelib, zlib, getopt }:
+{ stdenv
+, perlPackages
+, python2Packages
+, gimp
+, sources
+, bc
+, fig2dev
+, imagemagick
+, m4
+, netpbm
+, pkgconfig
+, scons
+, boost
+, curl
+, giflib
+, gtkmm2
+, jansson
+, libjpeg
+, libpng
+, libshell
+, libtiff
+, libusb1
+, libxml2
+, libyaml
+, libzip
+, proj
+, shapelib
+, zlib
+, getopt
+}:
 
 stdenv.mkDerivation rec {
   pname = "mapsoft";

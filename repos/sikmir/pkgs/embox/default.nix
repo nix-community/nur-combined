@@ -1,5 +1,14 @@
-{ stdenv, fetchurl, writers, sources
-, cpio, gcc-arm-embedded, python, qemu, unzip, which }:
+{ stdenv
+, fetchurl
+, writers
+, sources
+, cpio
+, gcc-arm-embedded
+, python
+, qemu
+, unzip
+, which
+}:
 
 stdenv.mkDerivation rec {
   pname = "embox";

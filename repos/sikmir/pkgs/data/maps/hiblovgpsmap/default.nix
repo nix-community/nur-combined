@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url = "https://drive.google.com/uc?export=download&id=10aAOKY8U7TQvFvuWBkwTei9iP3-cUvoE";
     sha256 = "1079bn8rkdfsbqivxkm3zi327k2i4k5p20rr2jw7gacfsvdk4954";
-    name = "OV-Hib-Lov-${stdenv.lib.replaceStrings ["-"] [""] version}-1.02.zip";
+    name = "OV-Hib-Lov-${stdenv.lib.replaceStrings [ "-" ] [ "" ] version}-1.02.zip";
   };
 
   nativeBuildInputs = [ unzip ];

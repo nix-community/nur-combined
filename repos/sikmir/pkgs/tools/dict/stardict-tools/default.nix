@@ -1,5 +1,14 @@
-{ stdenv, autoconf, automake, libtool, pkg-config,
-  gtk3, libmysqlclient, libxml2, pcre, sources }:
+{ stdenv
+, autoconf
+, automake
+, libtool
+, pkg-config
+, gtk3
+, libmysqlclient
+, libxml2
+, pcre
+, sources
+}:
 
 stdenv.mkDerivation rec {
   pname = "stardict-tools";

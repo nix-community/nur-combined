@@ -1,6 +1,18 @@
-{ lib, buildPythonApplication, fasteners, future, appdirs, click
-, gnumake, curl, unzip, gzip, gdal
-, pytest, pytest-mock, sources }:
+{ lib
+, buildPythonApplication
+, fasteners
+, future
+, appdirs
+, click
+, gnumake
+, curl
+, unzip
+, gzip
+, gdal
+, pytest
+, pytest-mock
+, sources
+}:
 
 buildPythonApplication rec {
   pname = "elevation";

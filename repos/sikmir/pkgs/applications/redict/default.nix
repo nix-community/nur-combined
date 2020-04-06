@@ -1,5 +1,17 @@
-{ mkDerivation, lib, pkgconfig, qmake, qtbase, qtmultimedia, qtsvg, qttools
-, qtx11extras, libX11, libXext, libXtst, sources }:
+{ mkDerivation
+, lib
+, pkgconfig
+, qmake
+, qtbase
+, qtmultimedia
+, qtsvg
+, qttools
+, qtx11extras
+, libX11
+, libXext
+, libXtst
+, sources
+}:
 
 mkDerivation rec {
   pname = "redict";

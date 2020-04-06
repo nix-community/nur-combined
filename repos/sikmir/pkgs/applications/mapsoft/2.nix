@@ -1,25 +1,44 @@
-{ stdenv, fetchFromGitHub, substituteAll, db, giflib, gsettings-desktop-schemas
-, gtkmm3, jansson, libjpeg, libpng, libtiff, libxml2, libzip
-, perlPackages, pkgconfig, proj, shapelib, unzip }:
+{ stdenv
+, fetchFromGitHub
+, substituteAll
+, db
+, giflib
+, gsettings-desktop-schemas
+, gtkmm3
+, jansson
+, libjpeg
+, libpng
+, librsvg
+, libtiff
+, libxml2
+, libzip
+, perlPackages
+, pkgconfig
+, proj
+, shapelib
+, unzip
+}:
 
 stdenv.mkDerivation rec {
   pname = "mapsoft2";
-  version = "2020-03-02";
+  version = "2020-04-04";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = pname;
-    rev = "3c4e27fc6c48be158656f31cf9cbb32cd5246ab3";
-    sha256 = "1fb4r7nqj5z40s2pzl0i3p1gxcwxs3cca83i95a78n8gvjwkv9vm";
+    rev = "c5cc594f8508726537c070d9e9655706ee6540e6";
+    sha256 = "0qax2yrbb4506bj1m7ird9rbqjwdd3bvpcwf8mknd448hsbq1c05";
     fetchSubmodules = true;
   };
 
   patches = [
-    (substituteAll {
-      src = ./0002-fix-build.patch;
-      db = db.dev;
-      giflib = giflib;
-    })
+    (
+      substituteAll {
+        src = ./0002-fix-build.patch;
+        db = db.dev;
+        giflib = giflib;
+      }
+    )
   ];
 
   postPatch = ''
@@ -42,6 +61,7 @@ stdenv.mkDerivation rec {
     jansson
     libjpeg
     libpng
+    librsvg
     libtiff
     libxml2
     libzip

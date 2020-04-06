@@ -1,5 +1,12 @@
-{ stdenv, bash, dash, help2man, ncurses, sources
-, withDoc ? false, scdoc }:
+{ stdenv
+, bash
+, dash
+, help2man
+, ncurses
+, sources
+, withDoc ? false
+, scdoc
+}:
 
 stdenv.mkDerivation rec {
   pname = "libshell";
