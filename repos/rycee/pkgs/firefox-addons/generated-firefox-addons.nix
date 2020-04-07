@@ -320,10 +320,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.10.0";
+      version = "2.11.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3469552/ipfs_companion-2.10.0-an+fx.xpi?src=";
-      sha256 = "b99b250c4b6bc5ec2e3e83f619b9e9d6ffb0a913cb1415a52beb4a494ef33772";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3543307/ipfs_companion-2.11.0-an+fx.xpi?src=";
+      sha256 = "282c4bda9483443877b1b5d44f336639beab03fc9aef3f2d1b44a6924de29a8f";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -635,10 +635,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.25.2";
+      version = "1.26.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3521827/ublock_origin-1.25.2-an+fx.xpi?src=";
-      sha256 = "997aac00064665641298047534c9392492ef09f0cbf177b6a30d4fa288081579";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3541312/ublock_origin-1.26.0-an+fx.xpi?src=";
+      sha256 = "77dc9b59c953a6040e871e72be969e19ecdec841cc851295c21d1c0e755c8620";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
