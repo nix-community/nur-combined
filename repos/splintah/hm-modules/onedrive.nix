@@ -6,18 +6,7 @@ with lib;
 let
   cfg = config.programs.onedrive;
 
-  isEmpty = l: l == [];
-
-  zipWith = f: xs: ys:
-    if isEmpty xs || isEmpty ys
-    then []
-    else [(f (head xs) (head ys))] ++ zipWith f (tail xs) (tail ys);
-
-  attrsToList = attrs:
-    zipWith
-      (name: value: { inherit name value; })
-      (builtins.attrNames attrs)
-      (attrValues attrs);
+  attrsToList = mapAttrsToList nameValuePair;
 
   toOnedriveConfig = config:
     let
