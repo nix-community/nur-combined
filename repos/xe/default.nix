@@ -14,6 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  cabytcini = pkgs.callPackage ./pkgs/cabytcini { };
   dwm = pkgs.callPackage ./pkgs/dwm { };
   gopls = pkgs.callPackage ./pkgs/gopls { };
   ii = pkgs.callPackage ./pkgs/ii { };
