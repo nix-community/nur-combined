@@ -2,9 +2,9 @@
 
 let
   pname = "jicofo";
-  version = "541";
+  version = "1.0-541";
   src = fetchurl {
-    url = "https://download.jitsi.org/stable/${pname}_1.0-${version}-1_all.deb";
+    url = "https://download.jitsi.org/stable/${pname}_${version}-1_all.deb";
     sha256 = "0s45bjsja2nkjhjcd2gx6hbby49v1d6r6553l6jfainycf6dh7xy";
   };
 in
