@@ -4,14 +4,20 @@ self: super: let
     # There's a bug in the current source of evil-escape that causes it to
     # fail to build. We'll patch it out for now and hope it gets fixed in a
     # future version.
-    (ep.evil-escape.overrideAttrs (o: {
-      patches = (o.patches or []) ++ [
-        (super.fetchpatch {
-          url = https://github.com/BrianHicks/evil-escape/commit/b548e8450570a0c8dea47b47221b728c047a9baf.patch;
-          sha256 = "1a2qrf4bpj7wm84qa3haqdg3pd9d8nh5vrj8v1sc0j1a9jifsbf6";
-        })
-      ];
-    }))
+    (
+      ep.evil-escape.overrideAttrs (
+        o: {
+          patches = (o.patches or []) ++ [
+            (
+              super.fetchpatch {
+                url = https://github.com/BrianHicks/evil-escape/commit/b548e8450570a0c8dea47b47221b728c047a9baf.patch;
+                sha256 = "1a2qrf4bpj7wm84qa3haqdg3pd9d8nh5vrj8v1sc0j1a9jifsbf6";
+              }
+            )
+          ];
+        }
+      )
+    )
 
 
     emacsql
@@ -473,12 +479,16 @@ self: super: let
   # `exec-path` variable so that they're accessible inside emacs.
   myEmacsDeps = [
     # General tools
-    self.direnv   # For direnv-mode
-    self.ripgrep  # For helm
-    self.sqlite   # For dash-docsets
+    self.direnv # For direnv-mode
+    self.ripgrep # For helm
+    self.sqlite # For dash-docsets
 
     # Python Tools
     self.autoflake
+    self.python3Packages.pyflakes
+    self.python3Packages.pyls-black
+    self.python3Packages.pyls-isort
+    self.python3Packages.pyls-mypy
 
     # Rust Tools
     self.cargo
@@ -486,7 +496,8 @@ self: super: let
     self.rustfmt
   ];
 
-in {
+in
+{
 
   # Build a spacemacs with the pinned overlay import
   spacemacs = self.emacsWithPackagesFromUsePackage {
