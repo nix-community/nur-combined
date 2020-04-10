@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "runescape-launcher";
-  version = "2.2.6";
+  version = "2.2.7";
 
   # Debian Repo:
   # curl https://content.runescape.com/downloads/ubuntu/dists/trusty/Release
   # curl https://content.runescape.com/downloads/ubuntu/dists/trusty/non-free/binary-amd64/Packages
   src = fetchurl {
     url = "https://content.runescape.com/downloads/ubuntu/pool/non-free/r/${pname}/${pname}_${version}_amd64.deb";
-    sha256 = "13gbj0i1znp48bg7avfspyz68ha87a9vzs4in7fqdwmz091nmyxs";
+    sha256 = "1p76825fskbsrxmycrcpbzrm0j3zz95fvqqpbmja4jkhs1dns45i";
   };
 
   nativeBuildInputs = [ dpkg ];
@@ -33,11 +33,11 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "RuneScape Game Client (NXT)";
-    homepage = https://www.runescape.com/;
+    homepage = "https://www.runescape.com";
     maintainers = with maintainers; [ metadark ];
     license = {
       fullName = "RuneScape EULA";
-      url = http://content.runescape.com/downloads/LICENCE.txt;
+      url = "http://content.runescape.com/downloads/LICENCE.txt";
       free = false;
     };
     platforms = [ "x86_64-linux" ];

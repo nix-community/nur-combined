@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A retro-styled 2D platformer";
-    homepage = https://github.com/TerryCavanagh/VVVVVV;
+    homepage = "https://github.com/TerryCavanagh/VVVVVV";
     license = {
       fullName = "VVVVVV Source Code License v1.0";
       url = "https://github.com/TerryCavanagh/VVVVVV/blob/master/LICENSE.md";
