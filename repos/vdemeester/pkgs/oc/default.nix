@@ -26,6 +26,8 @@ stdenv.mkDerivation rec {
       $out/bin/oc
     $out/bin/oc --help
     # completions
+    mkdir -p $out/share/bash-completion/completions/
+    $out/bin/oc completion bash > $out/share/bash-completion/completions/oc
     mkdir -p $out/share/zsh/site-functions
     $out/bin/oc completion zsh > $out/share/zsh/site-functions/_oc
   '';
