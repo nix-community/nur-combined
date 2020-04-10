@@ -24,7 +24,6 @@ stdenv.mkDerivation rec {
     patchelf \
       --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
       $out/bin/oc
-    $out/bin/oc --help
     # completions
     mkdir -p $out/share/bash-completion/completions/
     $out/bin/oc completion bash > $out/share/bash-completion/completions/oc
