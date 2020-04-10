@@ -1,7 +1,8 @@
 { stdenv, lib, python3, fetchFromGitHub }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   name = "kss-git";
+
   src = fetchFromGitHub {
     owner = "chmouel";
     repo = "kss";

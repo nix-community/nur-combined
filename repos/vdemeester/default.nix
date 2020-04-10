@@ -25,6 +25,7 @@ rec {
   kss = pkgs.callPackage ./pkgs/kss {};
   kubernix = pkgs.callPackage ./pkgs/kubernix {};
   krew = pkgs.callPackage ./pkgs/krew {};
+  oc = pkgs.callPackage ./pkgs/oc {};
   openshift-installer = pkgs.callPackage ./pkgs/openshift-installer {};
   operator-sdk = pkgs.callPackage ./pkgs/operator-sdk {};
   prm = pkgs.callPackage ./pkgs/prm {};
