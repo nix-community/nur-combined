@@ -22,11 +22,15 @@ let
       doInstallCheck = old.doInstallCheck or false && !nix.stdenv.isDarwin;
     });
 
-    notmuch = { notmuch, coreutils }@args: let
+    notmuch = { lib, notmuch, coreutils }@args: let
       notmuch = args.notmuch.super or args.notmuch;
-      drv = notmuch.override { emacs = coreutils; };
+      drvargs = if lib.isNixpkgsStable
+        then { emacs = coreutils; }
+        else { withEmacs = false; };
+      drv = notmuch.override drvargs;
     in drv.overrideAttrs (old: {
-      configureFlags = old.configureFlags or [] ++ [ "--without-emacs" ];
+      configureFlags = old.configureFlags or []
+        ++ lib.optional lib.isNixpkgsStable "--without-emacs";
 
       doCheck = false;
 
