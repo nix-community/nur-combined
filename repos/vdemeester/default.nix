@@ -22,6 +22,7 @@ rec {
   gorun = pkgs.callPackage ./pkgs/gorun {};
   knctl = pkgs.callPackage ./pkgs/knctl {};
   ko = pkgs.callPackage ./pkgs/ko {};
+  kss = pkgs.callPackage ./pkgs/kss {};
   kubernix = pkgs.callPackage ./pkgs/kubernix {};
   krew = pkgs.callPackage ./pkgs/krew {};
   openshift-installer = pkgs.callPackage ./pkgs/openshift-installer {};
