@@ -20,12 +20,14 @@
   rank_photos = pkgs.callPackage ./pkgs/rank_photos { };
   JAVMovieScraper = pkgs.callPackage ./pkgs/JAVMovieScraper { };
 
-  av1an = pkgs.callPackage ./pkgs/av1an { };
-
   janus = pkgs.libsForQt5.callPackage ./pkgs/JanusVR/client { };
 
   radical-native = pkgs.callPackage ./pkgs/radical-native { };
   photini = pkgs.libsForQt5.callPackage ./pkgs/photini { };
+
+  mangohud = pkgs.callPackage ./pkgs/MangoHUD { };
+
+  botamusique = pkgs.callPackage ./pkgs/botamusique {};
 
 }
 
