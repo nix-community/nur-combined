@@ -14,14 +14,22 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  # applications/graphics
+  steamgrid = pkgs.callPackage ./pkgs/applications/graphics/steamgrid { };
+
+  # development/mobile
+  qdl = pkgs.callPackage ./pkgs/development/mobile/qdl { };
+
+  # misc/emulators
   citra = pkgs.libsForQt5.callPackage ./pkgs/misc/emulators/citra { };
   dosbox-staging = pkgs.callPackage ./pkgs/misc/emulators/dosbox-staging { };
+
+  # tools/audio
+  vban = pkgs.callPackage ./pkgs/tools/audio/vban { };
+
+  # tools/misc
   libspeedhack = pkgs.callPackage ./pkgs/tools/misc/libspeedhack { };
-  #lobase = pkgs.callPackage ./pkgs/tools/misc/lobase { };
-  qdl = pkgs.callPackage ./pkgs/development/mobile/qdl { };
   samrewritten = pkgs.callPackage ./pkgs/tools/misc/samrewritten { };
   sbase = pkgs.callPackage ./pkgs/tools/misc/sbase { };
-  steamgrid = pkgs.callPackage ./pkgs/applications/graphics/steamgrid { };
   ubase = pkgs.callPackage ./pkgs/tools/misc/ubase { };
-  vban = pkgs.callPackage ./pkgs/tools/audio/vban { };
 }
