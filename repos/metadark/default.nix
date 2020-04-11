@@ -36,7 +36,11 @@ rec {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
 
-  vvvvvv = pkgs.callPackage ./pkgs/games/vvvvvv/wrapper.nix {
+  VVVVVV-unwrapped = pkgs.callPackage ./pkgs/games/VVVVVV/default.nix {
+    inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
+  };
+
+  VVVVVV = pkgs.callPackage ./pkgs/games/VVVVVV/wrapper.nix {
     inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
   };
 }

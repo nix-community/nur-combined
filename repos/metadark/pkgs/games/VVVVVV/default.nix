@@ -4,20 +4,17 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "vvvvvv";
-  version = "f4767ce18ba12231084b0ba592ad061cf301f1ed";
+  pname = "VVVVVV-unwrapped";
+  version = "d4034661e260ee3eda610a21db75b9695cd4a0ad";
 
   src = fetchFromGitHub {
     owner = "TerryCavanagh";
     repo = pname;
     rev = version;
-    sha256 = "14wvbvbardzxvdyl0z2mg72a9mgbmw542jn4mk7fxmnpsx8171a0";
+    sha256 = "0kfnvfs5bi0iwjfq99wci91k89l8qgvmwxf896rinawcdxad6025";
   };
 
   sourceRoot = "source/desktop_version";
-  patches = [
-    ./no-executable-suffix.patch
-  ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [
@@ -26,9 +23,13 @@ stdenv.mkDerivation rec {
     Foundation
   ];
 
+  patches = [
+    ./find-sdl-mixer.patch
+  ];
+
   installPhase = ''
     mkdir -p "$out/bin"
-    cp vvvvvv "$out/bin"
+    cp VVVVVV "$out/bin"
   '';
 
   meta = with stdenv.lib; {
