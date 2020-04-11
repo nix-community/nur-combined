@@ -21,6 +21,7 @@ lib.makeScope newScope (
       inherit sources click;
     };
     embox = callPackage ./embox {};
+    gef = callPackage ./development/tools/gef {};
     gimgtools = callPackage ./tools/geo/gimgtools {};
     gmaptool = callPackage ./tools/geo/gmaptool {};
     goldendict-dark-theme =

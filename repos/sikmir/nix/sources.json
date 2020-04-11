@@ -103,6 +103,19 @@
         "url": "https://github.com/embox/embox/archive/ad5ed2947ae7ad68e6b0b0400c1a12d1a5114fa2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "gef": {
+        "branch": "dev",
+        "builtin": false,
+        "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
+        "homepage": "http://gef.rtfd.io",
+        "owner": "hugsy",
+        "repo": "gef",
+        "rev": "f17bea5301adce271fe307320272346ac733a895",
+        "sha256": "0bfwkygyik5sd9kddfs3q8wylxh70yvvapxyg98qjmz1dqv41md1",
+        "type": "tarball",
+        "url": "https://github.com/hugsy/gef/archive/f17bea5301adce271fe307320272346ac733a895.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "geofabrik-estonia": {
         "builtin": false,
         "sha256": "1r7f8q4par0jnnfc0v7y0a2zp7xv27lgjwanm99x81ipcncrhq34",
