@@ -66,6 +66,7 @@ lib.makeScope newScope (
     openorienteering-mapper = libsForQt5.callPackage ./applications/openorienteering-mapper {
       inherit sources;
     };
+    opentopomap = callPackage ./data/maps/opentopomap {};
     osm2mp = perlPackages.callPackage ./tools/geo/osm2mp {
       inherit sources;
       inherit (perlPackages) GeoOpenstreetmapParser MatchSimple MathPolygon MathPolygonTree TreeR;
