@@ -23,4 +23,5 @@
   sbase = pkgs.callPackage ./pkgs/tools/misc/sbase { };
   steamgrid = pkgs.callPackage ./pkgs/applications/graphics/steamgrid { };
   ubase = pkgs.callPackage ./pkgs/tools/misc/ubase { };
+  vban = pkgs.callPackage ./pkgs/tools/audio/vban { };
 }
