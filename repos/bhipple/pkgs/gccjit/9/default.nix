@@ -39,10 +39,7 @@ let majorVersion = "9";
 
     inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-    patches =
-         optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
-      ++ optional noSysDirs ../no-sys-dirs.patch
-    ;
+    patches = optional noSysDirs ../no-sys-dirs.patch ;
 
     /* Cross-gcc settings (build == host != target) */
     crossMingw = false;

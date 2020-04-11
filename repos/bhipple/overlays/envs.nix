@@ -46,6 +46,7 @@ in {
       self.aspell
       self.autoflake
       self.bind
+      self.cachix
       self.chromium
       self.cmake
       self.dasht
@@ -70,16 +71,12 @@ in {
       self.remmina
       self.selected-hies  # Haskell IDE tools
       self.shellcheck
-      self.sloc
       self.source-code-pro
-      self.thunderbolt
       self.truecrypt
-      self.vagrant
       self.vlc
       self.xclip
       self.xsel
       self.youtube-dl
-      self.zeal
       self.zlib
     ];
   });
