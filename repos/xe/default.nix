@@ -23,5 +23,6 @@
   minica = pkgs.callPackage ./pkgs/minica { };
   quickserv = pkgs.callPackage ./pkgs/quickserv { };
   st = pkgs.callPackage ./pkgs/st { };
+  sw = pkgs.callPackage ./pkgs/sw { };
 }
 
