@@ -1,8 +1,6 @@
 { pkgs ? import <nixpkgs> {} }:
 
 rec {
-  adminer = pkgs.callPackage ./pkgs/adminer {};
-
   bitwarden_rs_ldap = pkgs.callPackage ./pkgs/bitwarden_rs_ldap {};
 
   brotab = pkgs.callPackage ./pkgs/brotab {};
@@ -33,6 +31,8 @@ rec {
   healthcheck = pkgs.callPackage ./pkgs/healthcheck {};
 
   hello-nur = pkgs.callPackage ./pkgs/hello-nur {};
+
+  keystone = pkgs.callPackage ./pkgs/keystone {};
 
   inconsolata-nerdfonts = pkgs.callPackage ./pkgs/inconsolata-nerdfonts {};
 
@@ -73,7 +73,9 @@ rec {
   phpldapadmin = pkgs.callPackage ./pkgs/phpldapadmin {};
 
   python3Packages = pkgs.recurseIntoAttrs (
-    pkgs.python3Packages.callPackage ./pkgs/python-pkgs {}
+    (pkgs.python3Packages.callPackage ./pkgs/python-pkgs {
+      inherit keystone;
+    })
   );
 
   yubikey-touch-detector = pkgs.callPackage ./pkgs/yubikey-touch-detector {};

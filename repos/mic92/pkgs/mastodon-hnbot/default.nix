@@ -15,7 +15,7 @@ buildPythonApplication rec {
   ];
   meta = with stdenv.lib; {
     description = "A bot posting hnbot news";
-    homepage = https://github.com/Mic92/mastodon-hnbot;
+    homepage = "https://github.com/Mic92/mastodon-hnbot";
     license = licenses.mit;
   };
 }

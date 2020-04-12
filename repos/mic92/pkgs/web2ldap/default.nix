@@ -25,7 +25,7 @@ buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "Full-featured LDAP client running as web application";
-    homepage = https://www.web2ldap.de;
+    homepage = "https://www.web2ldap.de";
     license = licenses.apsl20;
     platforms = platforms.unix;
   };

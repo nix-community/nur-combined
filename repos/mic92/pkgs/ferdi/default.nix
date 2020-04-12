@@ -99,7 +99,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "A free messaging app that combines chat & messaging services into one application";
-    homepage = https://getferdi.com;
+    homepage = "https://getferdi.com";
     license = licenses.free;
     maintainers = [ maintainers.mic92 ];
     platforms = [ "x86_64-linux" ];

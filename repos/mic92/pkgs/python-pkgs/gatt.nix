@@ -18,8 +18,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Bluetooth GATT SDK for Python";
-    homepage = https://github.com/getsenic/gatt-python;
+    homepage = "https://github.com/getsenic/gatt-python";
     license = licenses.mit;
-    # maintainers = [ maintainers. ];
   };
 }

@@ -11,7 +11,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Remote vanilla PDB (over TCP sockets) done right: no extras, proper handling around connection failures and CI";
-    homepage = https://github.com/ionelmc/python-remote-pdb;
+    homepage = "https://github.com/ionelmc/python-remote-pdb";
     license = licenses.bsd2;
   };
 }

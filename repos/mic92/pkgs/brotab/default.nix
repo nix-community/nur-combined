@@ -18,7 +18,7 @@ buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "Control your browser's tabs from the command line";
-    homepage = https://github.com/balta2ar/brotab;
+    homepage = "https://github.com/balta2ar/brotab";
     license = licenses.mit;
   };
 }

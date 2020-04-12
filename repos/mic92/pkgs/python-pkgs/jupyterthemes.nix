@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Custom Jupyter Notebook Themes";
-    homepage = https://github.com/dunovank/jupyter-themes;
+    homepage = "https://github.com/dunovank/jupyter-themes";
     license = licenses.mit;
   };
 }

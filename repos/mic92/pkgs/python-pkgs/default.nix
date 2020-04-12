@@ -1,6 +1,8 @@
-{ callPackage }:
+{ keystone, callPackage }:
 
-rec {
+let
+  keystone-native = keystone;
+in rec {
   blurhash = callPackage ./blurhash.nix {};
 
   jupyterthemes = callPackage ./jupyterthemes.nix {
@@ -13,14 +15,17 @@ rec {
 
   http_ece = callPackage ./http_ece.nix {};
 
+  keystone = callPackage ./keystone.nix {
+    keystone = keystone-native;
+  };
+
   ldap0 = callPackage ./ldap0.nix {};
+
+  lesscpy = callPackage ./lesscpy.nix {};
 
   Mastodon = callPackage ./Mastodon.nix {
     inherit http_ece blurhash;
   };
-
-
-  lesscpy = callPackage ./lesscpy.nix {};
 
   pry = callPackage ./pry.nix {};
 

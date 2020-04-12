@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Encryped Content-Encoding for HTTP";
-    homepage = https://github.com/web-push-libs/encrypted-content-encoding;
+    homepage = "https://github.com/web-push-libs/encrypted-content-encoding";
     license = licenses.mit;
   };
 }

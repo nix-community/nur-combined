@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Modular visual interface for GDB in Python";
-    homepage = https://github.com/cyrus-and/gdb-dashboard;
+    homepage = "https://github.com/cyrus-and/gdb-dashboard";
     license = licenses.mit;
     maintainers = with maintainers; [ mic92 ];
   };

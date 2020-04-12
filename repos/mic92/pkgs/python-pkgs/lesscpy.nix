@@ -22,7 +22,7 @@ buildPythonPackage rec {
   LC_ALL = "en_US.utf8";
   meta = with stdenv.lib; {
     description = "Python LESS Compiler";
-    homepage = https://github.com/lesscpy/lesscpy;
+    homepage = "https://github.com/lesscpy/lesscpy";
     license = licenses.mit;
   };
 }

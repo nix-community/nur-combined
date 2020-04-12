@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Universal markup converter (static binary to save disk space)";
-    homepage = https://github.com/jgm/pandoc;
+    homepage = "https://github.com/jgm/pandoc";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.unix;
   };

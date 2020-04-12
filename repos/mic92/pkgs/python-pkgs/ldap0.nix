@@ -28,7 +28,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ pyasn1 pyasn1-modules ];
   meta = with stdenv.lib; {
     description = "Object-oriented API to access LDAP directory servers";
-    homepage = https://gitlab.com/ae-dir/python-ldap0;
+    homepage = "https://gitlab.com/ae-dir/python-ldap0";
     license = licenses.asl20;
   };
 }

@@ -54,7 +54,7 @@ buildPerlPackage rec {
   ];
   meta = with stdenv.lib; {
     description = "Intrude on your code";
-    homepage = https://metacpan.org/pod/Pry;
+    homepage = "https://metacpan.org/pod/Pry";
     license = licenses.artistic1;
   };
 }

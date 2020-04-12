@@ -46,7 +46,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python wrapper for the Mastodon API";
-    homepage = https://github.com/halcy/Mastodon.py;
+    homepage = "https://github.com/halcy/Mastodon.py";
     license = licenses.mit;
   };
 }

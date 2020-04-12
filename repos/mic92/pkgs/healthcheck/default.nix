@@ -13,7 +13,7 @@ stdenv.mkDerivation {
   '';
   meta = with stdenv.lib; {
     description = "Healtcheck for icingamaster.bsd.services";
-    homepage = https://gist.github.com/Mic92/b2ebb4790db65d686d608c6875281dbf;
+    homepage = "https://gist.github.com/Mic92/b2ebb4790db65d686d608c6875281dbf";
     license = licenses.mit;
     platforms = platforms.all;
   };

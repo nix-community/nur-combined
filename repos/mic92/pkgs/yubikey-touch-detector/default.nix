@@ -19,6 +19,6 @@ buildGoPackage rec {
   meta = with stdenv.lib; {
     description = "Detect when your YubiKey is waiting for a touch";
     license = licenses.mit;
-    homepage = https://github.com/maximbaz/yubikey-touch-detector;
+    homepage = "https://github.com/maximbaz/yubikey-touch-detector";
   };
 }

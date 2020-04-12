@@ -11,7 +11,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "An interactive drop in shell for python, similar to binding.pry in ruby";
-    homepage = https://github.com/Mic92/pry.py;
+    homepage = "https://github.com/Mic92/pry.py";
     license = licenses.mit;
   };
 }
