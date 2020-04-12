@@ -15,6 +15,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.udev.packages = with pkgs; [ k380-function-keys-conf ];
+    services.udev.packages = with pkgs; [ pkgs.nur.repos.gnidorah.k380-function-keys-conf ];
   };
 }
