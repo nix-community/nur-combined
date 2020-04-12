@@ -1,4 +1,4 @@
-{ lib, pkgs, sources ? import ../nix/sources.nix }:
+{ pkgs, sources ? import ../nix/sources.nix }:
 let
   _nixpkgs = import sources.nixpkgs-unstable { };
 
@@ -8,7 +8,6 @@ let
 in
 rec
 {
-  inherit (lib) buildK8sEnv;
 
   inherit (_nixpkgs-83519)
     kubelogin;
