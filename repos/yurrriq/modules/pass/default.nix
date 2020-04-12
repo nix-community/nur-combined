@@ -65,7 +65,8 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [
       (pkgs.pass.withExtensions
-        (exts:
+        (
+          exts:
           optional cfg.genphrase exts.pass-genphrase
           ++ optional cfg.otp exts.pass-otp
           ++ optional cfg.tomb exts.pass-tomb

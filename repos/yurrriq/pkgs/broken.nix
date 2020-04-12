@@ -11,5 +11,5 @@
       fuse = pkgs.fuse3;
     };
 
-  } else {}
+  } else { }
 )

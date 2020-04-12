@@ -5,7 +5,7 @@ let
   python = if nodejs ? python then nodejs.python else python2;
 
   # Create a tar wrapper that filters all the 'Ignoring unknown extended header keyword' noise
-  tarWrapper = runCommand "tarWrapper" {} ''
+  tarWrapper = runCommand "tarWrapper" { } ''
     mkdir -p $out/bin
 
     cat > $out/bin/tar <<EOF
@@ -37,9 +37,10 @@ let
     };
 
   includeDependencies = { dependencies }:
-    stdenv.lib.optionalString (dependencies != [])
+    stdenv.lib.optionalString (dependencies != [ ])
       (stdenv.lib.concatMapStrings
-        (dependency:
+        (
+          dependency:
           ''
             # Bundle the dependencies of the package
             mkdir -p node_modules
@@ -56,7 +57,7 @@ let
         ) dependencies);
 
   # Recursively composes the dependencies of a package
-  composePackage = { name, packageName, src, dependencies ? [], ... }@args:
+  composePackage = { name, packageName, src, dependencies ? [ ], ... }@args:
     ''
       DIR=$(pwd)
       cd $TMPDIR
@@ -161,22 +162,22 @@ let
       ''
         node ${pinpointDependenciesFromPackageJSON} ${if production then "production" else "development"}
 
-        ${stdenv.lib.optionalString (dependencies != [])
-        ''
-          if [ -d node_modules ]
-          then
-              cd node_modules
-              ${stdenv.lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency) dependencies}
-              cd ..
-          fi
-        ''}
+        ${stdenv.lib.optionalString (dependencies != [ ])
+          ''
+            if [ -d node_modules ]
+            then
+                cd node_modules
+                ${stdenv.lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency) dependencies}
+                cd ..
+            fi
+          ''}
       '';
 
   # Recursively traverses all dependencies of a package and pinpoints all
   # dependencies in the package.json file to the versions that are actually
   # being used.
 
-  pinpointDependenciesOfPackage = { packageName, dependencies ? [], production ? true, ... }@args:
+  pinpointDependenciesOfPackage = { packageName, dependencies ? [ ], production ? true, ... }@args:
     ''
       if [ -d "${packageName}" ]
       then
@@ -189,7 +190,7 @@ let
 
   # Extract the Node.js source code which is used to compile packages with
   # native bindings
-  nodeSources = runCommand "node-sources" {} ''
+  nodeSources = runCommand "node-sources" { } ''
     tar --no-same-owner --no-same-permissions -xf ${nodejs.src}
     mv node-* $out
   '';
@@ -377,8 +378,8 @@ let
     { name
     , packageName
     , version
-    , dependencies ? []
-    , buildInputs ? []
+    , dependencies ? [ ]
+    , buildInputs ? [ ]
     , production ? true
     , npmFlags ? ""
     , dontNpmInstall ? false
@@ -453,8 +454,8 @@ let
     , packageName
     , version
     , src
-    , dependencies ? []
-    , buildInputs ? []
+    , dependencies ? [ ]
+    , buildInputs ? [ ]
     , production ? true
     , npmFlags ? ""
     , dontNpmInstall ? false
@@ -535,7 +536,7 @@ let
 
         # Provide the dependencies in a development shell through the NODE_PATH environment variable
         inherit nodeDependencies;
-        shellHook = stdenv.lib.optionalString (dependencies != []) ''
+        shellHook = stdenv.lib.optionalString (dependencies != [ ]) ''
           export NODE_PATH=$nodeDependencies/lib/node_modules
           export PATH="$nodeDependencies/bin:$PATH"
         '';

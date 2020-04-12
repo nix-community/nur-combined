@@ -51,7 +51,7 @@ let
   mkPkgs = sources:
     let
       sourcesNixpkgs =
-        import (builtins_fetchTarball { inherit (sources.nixpkgs) url sha256; }) {};
+        import (builtins_fetchTarball { inherit (sources.nixpkgs) url sha256; }) { };
       hasNixpkgsPath = builtins.any (x: x.prefix == "nixpkgs") builtins.nixPath;
       hasThisAsNixpkgsPath = <nixpkgs> == ./.;
     in
@@ -60,7 +60,7 @@ let
       else
         if hasNixpkgsPath && ! hasThisAsNixpkgsPath
         then
-          import <nixpkgs> {}
+          import <nixpkgs> { }
         else
           abort
             ''
@@ -144,4 +144,4 @@ let
       inherit pkgs;
     };
 in
-mkSources (mkConfig {}) // { __functor = _: settings: mkSources (mkConfig settings); }
+mkSources (mkConfig { }) // { __functor = _: settings: mkSources (mkConfig settings); }

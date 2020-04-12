@@ -14,7 +14,7 @@ rec {
   fetchNixpkgs = args@{ rev, sha256, ... }:
     fetchTarballFromGitHub (args // { owner = "NixOS"; repo = "nixpkgs"; });
 
-  pinnedNixpkgs = args: import (fetchNixpkgs args) {};
+  pinnedNixpkgs = args: import (fetchNixpkgs args) { };
 
   mkEksctl = { pkgs, version, sha256 }: pkgs.eksctl.overrideAttrs
     (_: {
@@ -90,12 +90,13 @@ rec {
         );
         kubectl = (kubernetes.override { components = [ "cmd/kubectl" ]; }).overrideAttrs (_: { pname = "kubectl"; });
         kubectx = pkgs.kubectx.override { inherit kubectl; };
-        helmfile = (mkHelmfile (
-          {
-            inherit pkgs;
-          }
-          // config.helmfile
-        )
+        helmfile = (
+          mkHelmfile (
+            {
+              inherit pkgs;
+            }
+            // config.helmfile
+          )
         ).override { inherit kubernetes-helm; };
         kops = mkKops (
           {
