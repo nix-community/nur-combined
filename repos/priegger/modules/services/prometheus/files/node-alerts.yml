@@ -1,0 +1,26 @@
+groups:
+  - name: node
+    rules:
+      - alert: HighCPUUsage
+        expr: (((sum by(instance, job, env) (rate(node_cpu_seconds_total{mode=~"user|nice|system|irq|softirq|steal|idle|iowait"}[5m])))-(sum by(instance, job, env) (rate(node_cpu_seconds_total{mode=~"idle|iowait"}[5m]))))/(sum by(instance, job, env)(rate(node_cpu_seconds_total{mode=~"user|nice|system|irq|softirq|steal|idle|iowait"}[5m])))) >= 75.0
+        for: 10m
+        annotations:
+          summary: High CPU Usage on Instance
+      - alert: LowDiskSpace
+        expr: max(1 - (node_filesystem_avail_bytes{fstype!~"tmpfs|ramfs"} / node_filesystem_size_bytes{fstype!~"tmpfs|ramfs"}) ) by (device) > 0.85
+        for: 10m
+        annotations:
+          summary: Low Disk Space on Instance
+          description: Disc usage for device={{ $labels.device }}, fstype={{ $labels.fstype }}, mountpoint={{ $labels.mountpoint }} is {{ $value }}%.
+      - alert: HighMachineLoad
+        expr: (node_load1 / (count(node_cpu_seconds_total{mode="idle"}) without (cpu, mode))) >= 1.5
+        for: 10m
+        annotations:
+          summary: High Load on Instance
+          description: The system load is {{ $value }}.
+      - alert: SystemdUnitFailed
+        expr: node_systemd_unit_state{state="failed"} > 0
+        for: 10m
+        annotations:
+          summary: Systemd Unit Failed
+          description: The systemd unit {{ $labels.name }} failed.

@@ -1,0 +1,8 @@
+groups:
+  - name: prometheus
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 5m
+        annotations:
+          summary: A prometheus scrape target is down
