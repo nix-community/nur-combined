@@ -1,12 +1,12 @@
-{ stdenv, fetchzip }:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "webster";
   version = "2.4.2";
 
-  src = fetchzip {
+  src = fetchurl {
     url = "http://download.huzheng.org/bigdict/stardict-Webster_s_Unabridged_3-${version}.tar.bz2";
-    sha256 = "0bbqawgvp1h4a403xa3f7n417gv9wxjgll8cymm75qsrh7z9w7c2";
+    sha256 = "1gj33px44d4ywhnxv7x5hxvh43f8m7skwmhvc62ld0c50blrqi7a";
   };
 
   installPhase = ''

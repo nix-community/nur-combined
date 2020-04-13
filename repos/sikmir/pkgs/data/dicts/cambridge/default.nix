@@ -1,12 +1,12 @@
-{ stdenv, fetchzip }:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "cambridge";
   version = "2.4.2";
 
-  src = fetchzip {
+  src = fetchurl {
     url = "http://download.huzheng.org/bigdict/stardict-Cambridge_Advanced_Learners_Dictionary_3th_Ed-${version}.tar.bz2";
-    sha256 = "09x4dmgb49mza87f51csvmq273g5hb3d8pzbakpz0bm0qm02qcsi";
+    sha256 = "0mqrf5fr6hx3bjy1brsggmkrii2xf497jkaj6zf1hjxnp0ijswgr";
   };
 
   installPhase = ''

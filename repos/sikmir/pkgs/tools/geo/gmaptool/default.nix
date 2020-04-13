@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   version = "0.8.220";
 
   src = fetchzip {
-    url = "https://www.gmaptool.eu/sites/default/files/lgmt08220.zip";
+    url = "https://www.gmaptool.eu/sites/default/files/lgmt${stdenv.lib.replaceStrings [ "." ] [ "" ] version}.zip";
     sha256 = "0wf9ys52slf2hzmfl81d8754alfqiylsk7g5af3lxsiivd5284gy";
     stripRoot = false;
   };

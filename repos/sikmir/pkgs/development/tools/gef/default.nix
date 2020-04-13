@@ -1,4 +1,14 @@
-{ stdenv, fetchFromGitHub, sources, runtimeShell, procps, binutils-unwrapped, bash, python3, gdb }:
+{ stdenv
+, fetchFromGitHub
+, sources
+, runtimeShell
+, writeScript
+, procps
+, binutils-unwrapped
+, bash
+, python3
+, gdb
+}:
 
 stdenv.mkDerivation rec {
   pname = "gef";
@@ -15,16 +25,27 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   doCheck = false;
 
+  initGef = writeScript "init-gef" ''
+    source @out@/share/gef/gef.py
+  '';
+
+  gdbGef = writeScript "gdb-gef" (
+    with stdenv.lib; ''
+      #!${runtimeShell}
+      export PATH="${makeBinPath [ procps binutils-unwrapped ]}:$PATH"
+      ${gdb}/bin/gdb -x @out@/share/gef/init-gef "$@"
+    ''
+  );
+
   installPhase = ''
     install -Dm644 gef.py -t $out/share/gef
-    echo "source $out/share/gef/gef.py" > $out/share/gef/init-gef
-    install -dm755 $out/bin
-    cat << EOF > $out/bin/gdb-gef
-    #!${runtimeShell}
-    export PATH="${stdenv.lib.makeBinPath [ procps binutils-unwrapped ]}:\$PATH"
-    ${gdb}/bin/gdb -x $out/share/gef/init-gef "\$@"
-    EOF
-    chmod +x $out/bin/gdb-gef
+    install -Dm644 ${initGef} $out/share/gef/init-gef
+    install -Dm755 ${gdbGef} $out/bin/gdb-gef
+  '';
+
+  postFixup = ''
+    substituteInPlace $out/share/gef/init-gef --subst-var out
+    substituteInPlace $out/bin/gdb-gef --subst-var out
   '';
 
   meta = with stdenv.lib; {

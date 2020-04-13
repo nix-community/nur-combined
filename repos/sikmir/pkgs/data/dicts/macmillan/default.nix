@@ -1,12 +1,12 @@
-{ stdenv, fetchzip }:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "macmillan";
   version = "2.4.2";
 
-  src = fetchzip {
+  src = fetchurl {
     url = "http://download.huzheng.org/bigdict/stardict-Macmillan_English_Dictionary-${version}.tar.bz2";
-    sha256 = "171q6p6f81yi9gjk9rw49kfm2dr6c7aj6rpnavsn20g426pskj2r";
+    sha256 = "1xg4xvxnni5vc371sd0bvskl1vly6p62q3c8r36bd2069ln7jy8r";
   };
 
   installPhase = ''

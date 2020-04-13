@@ -81,6 +81,7 @@ lib.makeScope newScope (
     qmapshack-onlinemaps = callPackage ./data/maps/qmapshack-onlinemaps {};
     qmapshack-routinodb = callPackage ./data/maps/qmapshack-routinodb {};
     qmapshack-dem = callPackage ./data/maps/qmapshack-dem {};
+    qtpbfimageplugin-styles = callPackage ./data/themes/qtpbfimageplugin-styles {};
     redict = libsForQt5.callPackage ./applications/redict {
       inherit sources;
     };
@@ -102,6 +103,7 @@ lib.makeScope newScope (
       inherit sources mercantile pymbtiles;
     };
     webster = callPackage ./data/dicts/webster {};
+    xfractint = callPackage ./tools/xfractint {};
 
     perlPackages = (
       callPackage ./perl-packages.nix {}
