@@ -5,6 +5,8 @@ let
   hostName = config.networking.hostName;
   prometheusPort = builtins.elemAt (lib.strings.splitString ":" config.services.prometheus.listenAddress) 1;
 
+  nodeTextfileDirectory = "/var/lib/prometheus-node-exporter-text-files";
+
   nodeExporterPort = toString config.services.prometheus.exporters.node.port;
   torExporterPort = toString config.services.prometheus.exporters.tor.port;
 
@@ -13,9 +15,20 @@ in
 {
   options.priegger.services.prometheus = {
     enable = mkEnableOption "Enable the Prometheus monitoring daemon and some exporters.";
+
+    exporters.node.textfileDirectory = mkOption {
+      type = types.str;
+      readOnly = true;
+      description = ''
+        Path to the promethes node exporter textfile directory.
+        This option is read-only.
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
+    priegger.services.prometheus.exporters.node.textfileDirectory = nodeTextfileDirectory;
+
     services.prometheus = {
       enable = true;
 
@@ -24,7 +37,7 @@ in
           enable = true;
           enabledCollectors = [ "logind" "systemd" "tcpstat" ];
           extraFlags = [
-            "--collector.textfile.directory=/var/lib/prometheus-node-exporter-text-files"
+            "--collector.textfile.directory=${nodeTextfileDirectory}"
           ];
         };
         tor = {
@@ -64,9 +77,9 @@ in
     };
 
     system.activationScripts.node-exporter-system-version = mkIf config.services.prometheus.exporters.node.enable ''
-      mkdir -pm 0775 /var/lib/prometheus-node-exporter-text-files
+      mkdir -pm 0775 ${nodeTextfileDirectory}
       (
-        cd /var/lib/prometheus-node-exporter-text-files
+        cd ${nodeTextfileDirectory}
         (
           echo -n "system_version ";
           if [ -L /nix/var/nix/profiles/system ]; then
