@@ -36,11 +36,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.tor = mkDefault {
-      enable = true;
-      controlPort = 9051;
+    services.tor = {
+      enable = mkDefault true;
+      controlPort = mkDefault 9051;
 
-      client.enable = true;
+      client.enable = mkDefault true;
 
       hiddenServices = {
         "ssh" = {

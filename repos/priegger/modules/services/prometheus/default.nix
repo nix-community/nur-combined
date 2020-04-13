@@ -32,9 +32,9 @@ in
     services.prometheus = {
       enable = true;
 
-      exporters = mkDefault {
+      exporters = {
         node = {
-          enable = true;
+          enable = mkDefault true;
           enabledCollectors = [ "logind" "systemd" "tcpstat" ];
           extraFlags = [
             "--collector.textfile.directory=${nodeTextfileDirectory}"
