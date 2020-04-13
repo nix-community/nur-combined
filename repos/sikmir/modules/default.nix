@@ -1,6 +1,8 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  home-manager = {
+    programs = {
+      gpxsee = ./home-manager/programs/gpxsee.nix;
+    };
+  };
 }
 
