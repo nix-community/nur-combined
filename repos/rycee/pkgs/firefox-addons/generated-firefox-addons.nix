@@ -209,10 +209,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.1.0";
+      version = "2.1.1";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3519841/facebook_container-2.1.0-fx.xpi?src=";
-      sha256 = "01f50f3e54e5120361b88feb549263b552946231d30d84ecb686d14676074235";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3548655/facebook_container-2.1.1-fx.xpi?src=";
+      sha256 = "b8cca6d366bf1aa601cd8f0e4e6c51443e067e32c62900293aebea58ff11825d";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -237,10 +237,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.4.6";
+      version = "8.4.9";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3474268/ghostery_privacy_ad_blocker-8.4.6-an+fx.xpi?src=";
-      sha256 = "40731d0fd6751416423210c9b40981d7054a26a192c9c3e848c51ad27c1acb84";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3546039/ghostery_privacy_ad_blocker-8.4.9-an+fx.xpi?src=";
+      sha256 = "5aae04a6e943d7b14dd8827e25a8d017c480b3b593ae2ce2123071f002b3fca1";
       meta = with stdenv.lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -374,10 +374,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "6.2.3";
+      version = "6.2.5";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3516682/firefox_multi_account_containers-6.2.3-fx.xpi?src=";
-      sha256 = "49483425058a609acf2928b17cccee47025b37f2732aad940138e49100006e7d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3548609/firefox_multi_account_containers-6.2.5-fx.xpi?src=";
+      sha256 = "4f7b981adc510005ba7fed566ced1f5a31fb383993cb292741fd6a5d6db7f001";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
