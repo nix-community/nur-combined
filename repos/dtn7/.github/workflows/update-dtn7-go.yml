@@ -24,3 +24,6 @@ jobs:
         commit-message: 'dtn7-go: automated version bump'
         rebase: true
         name: 'update-dtn7-go.sh'
+
+    - name: Update NUR
+      run: curl -XPOST https://nur-update.herokuapp.com/update?repo=dtn7

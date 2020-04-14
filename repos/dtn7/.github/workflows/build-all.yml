@@ -15,3 +15,6 @@ jobs:
 
     - name: Build all packages
       run: nix-build
+
+    - name: Update NUR
+      run: curl -XPOST https://nur-update.herokuapp.com/update?repo=dtn7
