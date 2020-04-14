@@ -21,11 +21,16 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "azlux";
     repo = "botamusique";
+    fetchSubmodules = true;
     rev = "${version}";
-    sha256 = "08gb11ldclg22wn3pa808vw742pvx8rv2w0frmllghsvh63w04ma";
+    sha256 = "0fmdxi8fsi3qqx9f8sjlnml656l46dx93l7amhhp6zvpnmr6fl1n";
   };
 
   buildInputs = [ ffmpeg opusTools ];
+
+  meta = {
+    broken = true;
+  };
 
 
 }

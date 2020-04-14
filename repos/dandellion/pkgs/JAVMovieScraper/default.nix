@@ -33,7 +33,7 @@ buildGradle {
   '';
 
   meta = with pkgs.stdenv.lib; {
-    #broken = true;
+    broken = true;
     description = "A program to fetch metadata for Japanese Adult Video";
     homepage = "https://github.com/DoctorD1501/JAVMovieScraper";
     license = licenses.gpl2;

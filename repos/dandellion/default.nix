@@ -30,7 +30,5 @@
 
   botamusique = pkgs.callPackage ./pkgs/botamusique {};
 
-  
-
 }
 
