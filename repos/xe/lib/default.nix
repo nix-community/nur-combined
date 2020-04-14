@@ -1,8 +1,16 @@
 { pkgs }:
 
 with pkgs.lib; {
-  # Add your library functions here
-  #
-  # hexint = x: hexvals.${toLower x};
+  dockerImage = import ./dockerImage.nix;
+
+  srcNoTarget = dir:
+    builtins.filterSource
+    (path: type: type != "directory" || builtins.baseNameOf path != "target")
+    dir;
+
+  zigNightly = import ./zigNightly.nix {
+    fetchurl = pkgs.fetchurl;
+    stdenv = pkgs.stdenv;
+  };
 }
 
