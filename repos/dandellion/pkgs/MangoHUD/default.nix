@@ -1,7 +1,7 @@
 { stdenv, lib, fetchFromGitHub
 , pkgconfig, ninja, meson
 , python3Packages, glslang, libglvnd
-, xorg, git, vulkan-loader, vulkan-headers}:
+, xorg, git, vulkan-loader, vulkan-headers, mesa }:
 
 let
   version = "0.3.1";
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
 
   buildInputs = [
     libglvnd glslang python3Packages.Mako
-    xorg.libX11 vulkan-loader vulkan-headers
+    xorg.libX11 vulkan-loader vulkan-headers mesa
   ];
 
   nativeBuildInputs = [
@@ -39,4 +39,3 @@ stdenv.mkDerivation {
     ln -sf "${vulkan-headers}/include" ./modules/Vulkan-Headers/
   '';
 }
-
