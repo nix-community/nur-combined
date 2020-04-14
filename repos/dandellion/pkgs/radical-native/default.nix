@@ -8,18 +8,18 @@ let
   host = 
     rustPlatform.buildRustPackage rec {
       pname = "radical-native";
-      version = "0.1.9";
+      version = "0.1.10";
 
       buildInputs = [ sqlcipher ];
 
       src = fetchFromGitHub {
         owner = "stoically";
         repo = pname;
-        rev = "v0.1beta9";
-        sha256 = "1saaczkpdb61wfdingjvvq25vmyvrlvry7xrdq877i9agzbrzknw";
+        rev = "v0.1beta10";
+        sha256 = "1gd1k9my7qp2gp8k149ga2dcw14yxxb0ld6j3856wz5a2yr4izi2";
       };
 
-      cargoSha256 = "07499mybgr91kklbxcp3wlj0d2a3d25hj68w98z2xy1j1dkyhyw6";
+      cargoSha256 = "1ll320ljikrv1v8a7k07smp4syc969fwpxfc2b7axn6pc6l8izi8";
     };
 
   manifest = pkgs.writeTextFile {
