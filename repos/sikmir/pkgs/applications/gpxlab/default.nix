@@ -1,14 +1,15 @@
-{ stdenv, mkDerivation, lib, qmake, qtbase, qttools, qttranslations, sources }:
+{ stdenv, mkDerivation, lib, qmake, qtbase, qttools, qttranslations, sources
+, withI18n ? false }:
 
 mkDerivation rec {
   pname = "gpxlab";
   version = lib.substring 0 7 src.rev;
   src = sources.gpxlab;
 
-  nativeBuildInputs = [ qmake qttools ];
-  buildInputs = [ qtbase qttranslations ];
+  nativeBuildInputs = [ qmake ] ++ (lib.optional withI18n qttools);
+  buildInputs = [ qtbase ];
 
-  preConfigure = ''
+  preConfigure = lib.optionalString withI18n ''
     lrelease GPXLab/locale/*.ts
   '';
 

@@ -1,14 +1,15 @@
-{ stdenv, mkDerivation, lib, qmake, qtbase, qttools, qttranslations, sources }:
+{ stdenv, mkDerivation, lib, qmake, qtbase, qttools, qttranslations, sources
+, withI18n ? true }:
 
 mkDerivation rec {
   pname = "gpxsee";
   version = lib.substring 0 7 src.rev;
   src = sources.gpxsee;
 
-  nativeBuildInputs = [ qmake qttools ];
-  buildInputs = [ qtbase qttranslations ];
+  nativeBuildInputs = [ qmake ] ++ (lib.optional withI18n qttools);
+  buildInputs = [ qtbase ];
 
-  preConfigure = ''
+  preConfigure = lib.optionalString withI18n ''
     lrelease lang/*.ts
   '';
 
