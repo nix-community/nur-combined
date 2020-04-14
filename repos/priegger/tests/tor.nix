@@ -9,6 +9,7 @@ import ./make-test.nix (
         environment.systemPackages = [ pkgs.jq ];
         priegger.services.prometheus.enable = true;
         priegger.services.tor.enable = true;
+        services.openssh.enable = true;
         services.prometheus.globalConfig.scrape_interval = "1s";
       };
     };

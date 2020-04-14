@@ -42,7 +42,7 @@ in
 
       client.enable = mkDefault true;
 
-      hiddenServices = {
+      hiddenServices = mkIf config.services.openssh.enable {
         "ssh" = {
           map = [
             { port = 22; }
