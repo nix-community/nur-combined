@@ -57,32 +57,38 @@ in
       ProxyCommand ${pkgs.netcat}/bin/nc -x${config.services.tor.client.socksListenAddress} -X5 %h %p
     '';
 
-    systemd = mkIf (config.services.tor.enable && config.priegger.services.prometheus.enable) {
-      services = {
-        "tor-metrics" = {
-          description = "Additional metrics for tor";
-          path = with pkgs; [ bash ];
-          serviceConfig = {
-            User = "root";
-            ExecStart = torMetrics;
+    systemd = let
+      onionServiceNames = map
+        (name: "${torOnionDirectory}/${name}")
+        (attrNames config.services.tor.hiddenServices);
+
+      hasNodeExporter = config.services.prometheus.exporters.node.enable;
+      hasTor = config.services.tor.enable;
+      hasOnionService = onionServiceNames != [];
+    in
+      mkIf (hasNodeExporter && hasTor && hasOnionService) {
+        services = {
+          "tor-metrics" = {
+            description = "Additional metrics for tor";
+            path = with pkgs; [ bash ];
+            serviceConfig = {
+              User = "root";
+              ExecStart = torMetrics;
+            };
+          };
+        };
+
+        paths = {
+          "tor-onion-services" = {
+            description = "Tor onion service hostname paths";
+            wantedBy = [ "multi-user.target" ];
+            pathConfig = {
+              PathExists = toString onionServiceNames;
+              PathChanged = toString onionServiceNames;
+              Unit = "tor-metrics.service";
+            };
           };
         };
       };
-
-      paths = {
-        "tor-onion-service-names" = {
-          description = "Tor onion service hostname paths";
-          wantedBy = [ "multi-user.target" ];
-          pathConfig = let
-            paths = map (name: "${torOnionDirectory}/${name}") (attrNames config.services.tor.hiddenServices);
-          in
-            {
-              PathExists = toString paths;
-              PathChanged = toString paths;
-              Unit = "tor-metrics.service";
-            };
-        };
-      };
-    };
   };
 }

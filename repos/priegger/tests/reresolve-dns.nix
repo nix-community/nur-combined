@@ -1,4 +1,4 @@
-import ./make-test.nix (
+import ./lib/make-test.nix (
   { ... }: {
     name = "reresolve-dns";
     nodes = {

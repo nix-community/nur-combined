@@ -27,7 +27,7 @@ tasks:
       nix-build -E 'with import <nixpkgs>{}; (callPackage ./default.nix {})'
   - test: |
       cd nur-packages
-      nix-build ./tests/prometheus.nix ./tests/reresolve-dns.nix ./tests/tor.nix
+      nix-build ./tests/*.nix
   - deploy: |
       cd nur-packages
       [ "$(git rev-parse HEAD)" == "$(git rev-parse master)" ] || complete-build

@@ -3,7 +3,7 @@ let
   nodeExporterPort = 9100;
   torExporterPort = 9130;
 in
-import ./make-test.nix (
+import ./lib/make-test.nix (
   { pkgs, ... }: {
     name = "prometheus";
     nodes = rec {
