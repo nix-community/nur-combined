@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, fetchurl, tinycbor }:
 
 stdenv.mkDerivation rec {
-  name = "upcn";
+  pname = "upcn";
   version = "0.7.0";
 
   src = fetchurl {

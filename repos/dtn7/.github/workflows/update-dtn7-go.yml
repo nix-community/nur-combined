@@ -21,6 +21,6 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         push-branch: 'master'
-        commit-message: 'Updated dtn7-go'
+        commit-message: 'dtn7-go: automated version bump'
         rebase: true
         name: 'update-dtn7-go.sh'

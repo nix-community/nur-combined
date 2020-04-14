@@ -1,20 +1,18 @@
 { lib, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
-  name = "dtn7-rs-${version}";
-  version = "unstable-2020-01-28";
+  pname = "dtn7-rs";
+  version = "unstable-2020-04-05";
 
   src = fetchFromGitHub {
     owner = "dtn7";
     repo = "dtn7-rs";
-    rev = "47c48742d48539d633dd072a7b24bdaae81c55a1";
-    sha256 = "17ssf37qc6bf1y1zfcy02cl96z0js5i1j3kzdadf5yfwivz1nnbq";
+    rev = "5032ad0c1b19bb4af60c806f2b5125df323ac18b";
+    sha256 = "1bh9mc9sigsdrcnvdna0pzmbjcy6lx4vhzza4mw88jiqfgsmmr8d";
   };
 
   cargoPatches = [ ./cargo-lock.patch ]; # Cargo.lock is missing.
-  cargoSha256 = "17ya3rivkyi21lw5lq8cv9p4mls935gpisqvbzpb9nlmg3h4jjll";
-
-  doCheck = false; # Skip failing tests.
+  cargoSha256 = "1mfdf75mi3finv3k2k235lzzybh6lrj6a48srjhaixnp20aac62j";
 
   meta = with lib; {
     description = "Rust implementation of DTN7";

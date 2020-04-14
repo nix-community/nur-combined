@@ -2,7 +2,7 @@
 , version, rev, sha256, modSha256 }:
 
 buildGoModule rec {
-  name = "dtn7-go";
+  pname = "dtn7-go";
   inherit version modSha256;
 
   src = fetchFromGitHub {
