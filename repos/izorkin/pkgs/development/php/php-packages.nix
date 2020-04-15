@@ -100,12 +100,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.1";
+    version = "1.10.5";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "1qk792j3m9dlxj4wl3iszi7r6365gy6vbm04vj4i28hgb1kg4c8q";
+      sha256 = "0a9iwhd7ijm8gkp3zadxza0xb6xwa5ps0d16pz4mz2p21gfzvwym";
     };
 
     unpackPhase = ":";
@@ -398,12 +398,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "2.16.1";
+    version = "2.16.2";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "1dq1nhy666zg6d4fkfsjwhj1vwh1ncap2c9ljplxv98a9mm6fk68";
+      sha256 = "1lryrfm03xq1a7blzs45q96am7gyxf1mgy3mk9dp49n7afnxdc14";
     };
 
     phases = [ "installPhase" ];
@@ -638,12 +638,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.10.1";
+    version = "3.11.2";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "0aag82g0p7x21m2qkhgv6bcsbc6f0l44vd5jkknwvv4n7sflc3id";
+      sha256 = "1ani0907whqy2ycr01sjlvrmwps4dg5igim8z1qyv8grhwvw6gb0";
     };
 
     phases = [ "installPhase" ];
@@ -664,12 +664,12 @@ let
   };
 
   psysh = mkDerivation rec {
-    version = "0.10.2";
+    version = "0.10.3";
     pname = "psysh";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "0mgrj8l27j5rwyx4pgbnn5an87r0244samqispcylq3h3wgvz0n2";
+      sha256 = "0glply451fy0g7zbasyp350qvmk2aglrlcrcdd7w0igylgwfkg71";
     };
 
     phases = [ "installPhase" ];

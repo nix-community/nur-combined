@@ -1,20 +1,22 @@
 { stdenv, fetchFromGitHub, python3 }:
 
+let version = "0.11.1"; in
+
 python3.pkgs.buildPythonApplication {
   pname = "fail2ban";
-  version = "0.11.dev3-2019-11-25";
+  inherit version;
 
   src = fetchFromGitHub {
     owner  = "fail2ban";
     repo   = "fail2ban";
-    rev    = "24d1ea9aa24672cd3381e06ed9418eb4fdff3172";
-    sha256 = "0ny4j5mqa01lkhmkb4ynwf99ygp6cm2hxwvw5jnngj2x859qpkhq";
+    rev    = version;
+    sha256 = "0kqvkxpb72y3kgmxf6g36w67499c6gcd2a9yyblagwx12y05f1sh";
   };
 
   pythonPath = with python3.pkgs;
     stdenv.lib.optionals stdenv.isLinux [
       systemd
-  ];
+    ];
 
   preConfigure = ''
     for i in config/action.d/sendmail*.conf; do
@@ -51,7 +53,7 @@ python3.pkgs.buildPythonApplication {
   '';
 
   meta = with stdenv.lib; {
-    homepage    = https://www.fail2ban.org/;
+    homepage    = "https://www.fail2ban.org/";
     description = "A program that scans log files for repeated failing login attempts and bans IP addresses";
     license     = licenses.gpl2Plus;
     maintainers = with maintainers; [ eelco lovek323 fpletz ];
