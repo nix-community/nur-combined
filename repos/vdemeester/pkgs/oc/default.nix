@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "oc";
-  version = "4.4.0-rc.6";
+  version = "4.4.0-rc.8";
   name = "${pname}-${version}";
 
   src = fetchurl {
     url = "https://dl.sbr.pm/nix/oc/openshift-client-linux-${version}.tar.gz";
-    sha256 = "1x6sz0m0yiq3fdknwy3kkqxhpjxv5mw4h467jwqxbw2xgil0ybzx";
+    sha256 = "0a4l64ga4d2kdniz24llmpczdpg444br81mrcrhxm3mnhyv9yvsz";
   };
 
   phases = " unpackPhase installPhase fixupPhase ";
