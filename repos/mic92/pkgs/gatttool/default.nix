@@ -8,5 +8,8 @@ bluez.overrideAttrs (
     installPhase = ''
       install -D attrib/gatttool $out/bin/gatttool
     '';
+
+    # bluetooth.h missing for unknown reason.
+    meta = old.meta // { broken = true; };
   }
 )
