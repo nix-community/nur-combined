@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   cabytcini = pkgs.callPackage ./pkgs/cabytcini { };
+  discord = pkgs.callPackage ./pkgs/discord { };
   dwm = pkgs.callPackage ./pkgs/dwm { };
   gopls = pkgs.callPackage ./pkgs/gopls { };
   gruvbox-css = pkgs.callPackage ./pkgs/gruvbox-css { };
