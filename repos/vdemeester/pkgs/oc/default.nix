@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "https://dl.sbr.pm/nix/oc/openshift-client-linux-${version}.tar.gz";
+    url = "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${version}/openshift-client-linux-${version}.tar.gz";
     sha256 = "0a4l64ga4d2kdniz24llmpczdpg444br81mrcrhxm3mnhyv9yvsz";
   };
 
