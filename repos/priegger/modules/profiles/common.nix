@@ -32,7 +32,27 @@ with lib;
     SystemMaxUse=512M
   '';
 
-  # Enable the OpenSSH daemon.
+  # Make firewall less verbose
+  networking.firewall.logRefusedConnections = mkDefault false;
+
+  # Nix options
+  nix = {
+    autoOptimiseStore = mkDefault true;
+    useSandbox = mkDefault true;
+  };
+
+
+  # --- Program options ---
+  programs.bash.enableCompletion = mkDefault true;
+  programs.vim.defaultEditor = mkDefault true;
+
+
+  # --- Service options ---
+
+  services.fail2ban.enable = mkDefault true;
+  services.lorri.enable = mkDefault true;
+
+  ## Enable the OpenSSH daemon.
   services.openssh = {
     enable = mkDefault true;
     logLevel = mkDefault "ERROR";

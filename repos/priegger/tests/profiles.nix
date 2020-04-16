@@ -17,6 +17,12 @@ import ./lib/make-test.nix (
     testScript =
       ''
         def checkCommonProperties(machine):
+            machine.require_unit_state("fail2ban")
+
+            machine.succeed("lorri --version")
+            machine.succeed("test -f /etc/systemd/user/lorri.service")
+            machine.succeed("test -f /etc/systemd/user/lorri.socket")
+
             machine.require_unit_state("sshd")
             machine.wait_for_open_port("22")
 
