@@ -1,6 +1,5 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  base = ./base.nix;
+  dwm = ./dwm;
 }
 
