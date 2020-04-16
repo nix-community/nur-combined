@@ -15,4 +15,15 @@ recursiveUpdate common {
 
   # Typically needed for wifi drivers and the like
   hardware.enableRedistributableFirmware = mkDefault true;
+
+  # Networking
+  networking.networkmanager.enable = mkDefault true;
+
+  # Sound
+  sound.enable = mkDefault true;
+  hardware.pulseaudio.enable = mkDefault true;
+
+  # 32bit graphics and sound support for steam
+  hardware.opengl.driSupport32Bit = mkDefault true;
+  hardware.pulseaudio.support32Bit = mkDefault true;
 }

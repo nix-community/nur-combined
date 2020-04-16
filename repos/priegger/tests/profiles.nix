@@ -1,43 +1,63 @@
 import ./lib/make-test.nix (
-  { ... }: {
-    name = "profiles";
-    nodes = {
-      desktop = {
-        imports = [
-          ../modules/profiles/desktop.nix
-        ];
-      };
-      headless = {
-        imports = [
-          ../modules/profiles/headless.nix
-        ];
-      };
-    };
+  { lib, ... }:
+    let
+      nur-no-pkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {};
+    in
+      {
+        name = "profiles";
+        nodes = {
+          desktop = {
+            imports = [
+              ../modules/profiles/desktop.nix
+            ]
+            ++ lib.attrValues nur-no-pkgs.repos.kampka.modules
+            ;
+          };
+          headless = {
+            imports = [
+              ../modules/profiles/headless.nix
+            ]
+            ++ lib.attrValues nur-no-pkgs.repos.kampka.modules
+            ;
+          };
+        };
 
-    testScript =
-      ''
-        def checkCommonProperties(machine):
-            machine.require_unit_state("fail2ban")
+        testScript =
+          ''
+            def checkCommonProperties(machine):
+                machine.require_unit_state("fail2ban")
 
-            machine.succeed("lorri --version")
-            machine.succeed("test -f /etc/systemd/user/lorri.service")
-            machine.succeed("test -f /etc/systemd/user/lorri.socket")
+                machine.succeed("lorri --version")
+                machine.succeed("test -f /etc/systemd/user/lorri.service")
+                machine.succeed("test -f /etc/systemd/user/lorri.socket")
 
-            machine.require_unit_state("sshd")
-            machine.wait_for_open_port("22")
+                machine.require_unit_state("chronyd")
+
+                machine.require_unit_state("prometheus")
+                machine.require_unit_state("prometheus-node-exporter")
+
+                machine.require_unit_state("tor")
+                machine.require_unit_state("prometheus-tor-exporter")
+
+                machine.require_unit_state("dnsmasq")
+                machine.require_unit_state("stubby")
+
+                machine.require_unit_state("sshd")
+                machine.wait_for_open_port("22")
 
 
-        start_all()
+            start_all()
 
-        with subtest("desktop starts"):
-            desktop.wait_for_unit("multi-user.target")
-            checkCommonProperties(desktop)
+            with subtest("desktop starts"):
+                desktop.wait_for_unit("multi-user.target")
+                checkCommonProperties(desktop)
 
-            desktop.wait_for_unit("display-manager.service")
+                desktop.require_unit_state("display-manager.service")
+                desktop.require_unit_state("NetworkManager.service")
 
-        with subtest("headless starts"):
-            headless.wait_for_unit("multi-user.target")
-            checkCommonProperties(headless)
-      '';
-  }
+            with subtest("headless starts"):
+                headless.wait_for_unit("multi-user.target")
+                checkCommonProperties(headless)
+          '';
+      }
 )
