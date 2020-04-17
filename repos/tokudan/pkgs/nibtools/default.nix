@@ -1,19 +1,26 @@
-{ stdenv, fetchsvn, fetchFromGitHub, writeText,
+{ stdenv, fetchgit, fetchsvn, fetchFromGitHub, writeText,
   pkg-config, libusb1, ncurses, which,
   cc65, opencbm,
 }:
 
 stdenv.mkDerivation rec {
   name = "nibtools-${version}";
-  # latest svn is 657, but it doesn't build, trying 637 instead
   version = "657";
 
-  src = fetchsvn {
-    url = "https://c64preservation.com/svn/nibtools/trunk/";
-    rev = version;
-    # v637
-    # sha256 = "0rqfks6xks6khjfc143lzqs1mqkv4b1zch83rxas598nmshgxy13";
-    # v657
+  # The Subversion repo seems to have a lot of temporary failures, so I made a git clone.
+  # Original repo for reference, if you prefer it.
+  #src = fetchsvn {
+  #  url = "https://c64preservation.com/svn/nibtools/trunk/";
+  #  rev = version;
+  #  # v637
+  #  # sha256 = "0rqfks6xks6khjfc143lzqs1mqkv4b1zch83rxas598nmshgxy13";
+  #  # v657
+  #  sha256 = "18hs5v05hcsizmpr4r2sm0fv7115kqcxsfr998dw46iawg7f26z6";
+  #};
+
+  src = fetchgit {
+    url = "https://codeberg.org/tokudan/nibtools.git";
+    rev = "refs/tags/r${version}";
     sha256 = "18hs5v05hcsizmpr4r2sm0fv7115kqcxsfr998dw46iawg7f26z6";
   };
 
