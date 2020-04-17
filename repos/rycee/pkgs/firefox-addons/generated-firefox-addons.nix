@@ -415,10 +415,10 @@
       };
     "plasma-integration" = buildFirefoxXpiAddon {
       pname = "plasma-integration";
-      version = "1.7";
+      version = "1.7.5";
       addonId = "plasma-browser-integration@kde.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3455928/plasma_integration-1.7-fx.xpi?src=";
-      sha256 = "2e412a55b4391ee3c49714da7cd280a9d414f24c7155a1733fc18307cb066dc9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3550879/plasma_integration-1.7.5-fx.xpi?src=";
+      sha256 = "3119760badb3a849b51dcb4dd14a87ab742b5bba3b93041d84fb126db89f0cb9";
       meta = with stdenv.lib;
       {
         homepage = "http://kde.org";
