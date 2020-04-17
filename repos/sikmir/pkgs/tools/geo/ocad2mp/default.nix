@@ -16,6 +16,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -Dm755 Release/ocad2mp -t "$out/bin"
+    install -Dm644 SYM.TXT $out/share/ocad2mp/sym.txt
   '';
 
   meta = with stdenv.lib; {

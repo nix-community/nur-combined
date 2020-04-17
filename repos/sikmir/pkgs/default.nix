@@ -111,6 +111,9 @@ lib.makeScope newScope (
     morse-talk = python3Packages.callPackage ./tools/morse-talk {
       inherit sources;
     };
+    ocad2img = perlPackages.callPackage ./tools/geo/ocad2img {
+      inherit cgpsmapper ocad2mp;
+    };
     ocad2mp = callPackage ./tools/geo/ocad2mp {};
     openmtbmap_openvelomap_linux = callPackage ./tools/geo/openmtbmap_openvelomap_linux {};
     osm2mp = perlPackages.callPackage ./tools/geo/osm2mp {
