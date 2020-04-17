@@ -7,15 +7,15 @@ with lib;
     defaultLocale = mkDefault "en_US.UTF-8";
   };
 
-  console = {
-    font = mkDefault "Lat2-Terminus16";
-    keyMap = mkDefault "de";
-  };
-
   environment.variables = {
     LC_TIME = mkDefault "en_GB.UTF-8";
     LC_PAPER = mkDefault "en_GB.UTF-8";
     LC_MEASUREMENT = mkDefault "en_GB.UTF-8";
+  };
+
+  console = {
+    font = mkDefault "Lat2-Terminus16";
+    keyMap = mkDefault "de";
   };
 
   # Set your time zone.
@@ -48,6 +48,9 @@ with lib;
     useSandbox = mkDefault true;
   };
 
+  # Clean the tmp dir
+  boot.cleanTmpDir = mkDefault (! config.boot.tmpOnTmpfs);
+
 
   # --- Program options ---
   programs.autojump.enable = mkDefault true;
@@ -63,6 +66,13 @@ with lib;
   services.fail2ban.enable = mkDefault true;
   services.lorri.enable = mkDefault true;
 
+  ## Enable the OpenSSH daemon.
+  services.openssh = {
+    enable = mkDefault true;
+    logLevel = mkDefault "ERROR";
+    passwordAuthentication = mkDefault false;
+  };
+
   # This requires the kampka nur packages
   kampka.services.dns-cache.enable = mkDefault true;
   kampka.services.ntp.enable = mkDefault true;
@@ -70,11 +80,4 @@ with lib;
   # This requires the priegger nur packages
   priegger.services.prometheus.enable = mkDefault true;
   priegger.services.tor.enable = mkDefault true;
-
-  ## Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = mkDefault true;
-    logLevel = mkDefault "ERROR";
-    passwordAuthentication = mkDefault false;
-  };
 }

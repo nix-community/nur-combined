@@ -6,6 +6,13 @@ import ./lib/make-test.nix (
       {
         name = "profiles";
         nodes = {
+          common = {
+            imports = [
+              ../modules/profiles/common.nix
+            ]
+            ++ lib.attrValues nur-no-pkgs.repos.kampka.modules
+            ;
+          };
           desktop = {
             imports = [
               ../modules/profiles/desktop.nix
@@ -31,7 +38,13 @@ import ./lib/make-test.nix (
                 machine.succeed("test -f /etc/systemd/user/lorri.service")
                 machine.succeed("test -f /etc/systemd/user/lorri.socket")
 
+                machine.require_unit_state("sshd")
+                machine.wait_for_open_port("22")
+
                 machine.require_unit_state("chronyd")
+
+                machine.require_unit_state("dnsmasq")
+                machine.require_unit_state("stubby")
 
                 machine.require_unit_state("prometheus")
                 machine.require_unit_state("prometheus-node-exporter")
@@ -39,14 +52,12 @@ import ./lib/make-test.nix (
                 machine.require_unit_state("tor")
                 machine.require_unit_state("prometheus-tor-exporter")
 
-                machine.require_unit_state("dnsmasq")
-                machine.require_unit_state("stubby")
-
-                machine.require_unit_state("sshd")
-                machine.wait_for_open_port("22")
-
 
             start_all()
+
+            with subtest("common starts"):
+                common.wait_for_unit("multi-user.target")
+                checkCommonProperties(common)
 
             with subtest("desktop starts"):
                 desktop.wait_for_unit("multi-user.target")
