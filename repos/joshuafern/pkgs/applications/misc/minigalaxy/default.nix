@@ -4,13 +4,13 @@
 
 buildPythonApplication rec {
   pname = "minigalaxy";
-  version = "2020-04-11";
+  version = "2020-04-18";
 
   src = fetchFromGitHub {
     owner = "sharkwouter";
     repo = pname;
-    rev = "d0e596d5d07d0f5b1d2f8c87788a887dfcf799a1";
-    sha256 = "0pk9a3zrlbi1rvqwiyl4mq5lx7wlrlxhsnh0hknjihv4qbv3nqky";
+    rev = "5a19885d326b92e537a2da0d18f96ac8e11fde40";
+    sha256 = "1p7j2ip7gz4cnqy5pzs56c542qihskqbszi9hwdsiq8kkzhh02vr";
   };
 
   doCheck = false;
@@ -21,13 +21,6 @@ buildPythonApplication rec {
   buildInputs = [ glib-networking gobjectIntrospection gtk3 setuptools ];
   nativeBuildInputs = [ gettext wrapGAppsHook ];
   propagatedBuildInputs = [ docutils pygobject3 requests steam-run webkitgtk ];
-
-  # This patch fixes a missing file error, see: sharkwouter/minigalaxy/pull/131
-  patchPhase = ''
-    substituteInPlace setup.py --replace \
-    "subprocess.run(['scripts/compile-translations.sh'])" \
-    "subprocess.run(['bash', 'scripts/compile-translations.sh'])"
-  '';
 
   # Prevent homeless error
   preCheck = "export HOME=$PWD";
