@@ -387,10 +387,10 @@ let
 
   #pdo_sqlsrv = assert !isPhp56; assert isPhp74; buildPecl {
   pdo_sqlsrv = buildPecl {
-    version = "5.8.0";
+    version = "5.8.1";
     pname = "pdo_sqlsrv";
 
-    sha256 = "0z4vbyd851b4jr6p69l2ylk91iihndsm2qjb429pxcv8g6dqzqll";
+    sha256 = "06ba4x34fgs092qq9w62y2afsm1nyasqiprirk4951ax9v5vcir0";
 
     buildInputs = with pkgs; [ unixODBC ];
 
@@ -398,12 +398,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "2.16.2";
+    version = "2.16.3";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "1lryrfm03xq1a7blzs45q96am7gyxf1mgy3mk9dp49n7afnxdc14";
+      sha256 = "195j61qbgbdn5xi0l6030mklji8m7fan2kf3446a1m2n4df3f5hb";
     };
 
     phases = [ "installPhase" ];
@@ -486,12 +486,12 @@ let
   };
 
   phpcs = mkDerivation rec {
-    version = "3.5.4";
+    version = "3.5.5";
     pname = "phpcs";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
-      sha256 = "1lrybdxxig3yqd3i3nwji5jjn377p50sbpm4s4852dlsxz9qnlgs";
+      sha256 = "0jl038l55cmzn5ml61qkv4z1w4ri0h3v7h00pcb04xhz3gznlbsa";
     };
 
     phases = [ "installPhase" ];
@@ -779,10 +779,10 @@ let
 
   #sqlsrv = assert !isPhp56; assert !isPhp74; buildPecl {
   sqlsrv = buildPecl {
-    version = "5.8.0";
+    version = "5.8.1";
     pname = "sqlsrv";
 
-    sha256 = "1kv4krk1w4hri99b0sdgwgy9c4y0yh217wx2y3irhkfi46kdrjnw";
+    sha256 = "0c9a6ghch2537vi0274vx0mn6nb1xg2qv7nprnf3xdfqi5ww1i9r";
 
     buildInputs = with pkgs; [ unixODBC ];
 

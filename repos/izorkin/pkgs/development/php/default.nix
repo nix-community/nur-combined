@@ -306,6 +306,8 @@ in {
      ./patch/php56/php5640-79082.patch # https://bugs.php.net/bug.php?id=79082
      ./patch/php56/php5640-79099.patch # https://bugs.php.net/bug.php?id=79099
      ./patch/php56/php5640-79221.patch # https://bugs.php.net/bug.php?id=79221
+     ./patch/php56/php5640-79282.patch # https://bugs.php.net/bug.php?id=79282
+     ./patch/php56/php5640-79329.patch # https://bugs.php.net/bug.php?id=79329
      ./patch/php56/php5640-php-openssl-cert.patch # Openssl cert updates
      ./patch/php56/php5640-sqlite3-defensive.patch # Added sqlite3.defensive INI directive
     ];
@@ -316,27 +318,44 @@ in {
     sha256 = "0jsgiwawlais8s1l38lz51h1x2ci5ildk0ksfdmkg6xpwbrfb9cm";
 
     # https://bugs.php.net/bug.php?id=76826
-    extraPatches = optional stdenv.isDarwin ./patch/php71-darwin-isfinite.patch;
+    extraPatches = [
+      ./patch/php71/php7133-77569.patch # https://bugs.php.net/bug.php?id=77569
+      ./patch/php71/php7133-78793.patch # https://bugs.php.net/bug.php?id=78793
+      ./patch/php71/php7133-78862.patch # https://bugs.php.net/bug.php?id=78862
+      ./patch/php71/php7133-78863.patch # https://bugs.php.net/bug.php?id=78863
+      ./patch/php71/php7133-78878.patch # https://bugs.php.net/bug.php?id=78878
+      ./patch/php71/php7133-78910.patch # https://bugs.php.net/bug.php?id=78910
+      ./patch/php71/php7133-79037.patch # https://bugs.php.net/bug.php?id=79037
+      ./patch/php71/php7133-79082.patch # https://bugs.php.net/bug.php?id=79082
+      ./patch/php71/php7133-79091.patch # https://bugs.php.net/bug.php?id=79091
+      ./patch/php71/php7133-79099.patch # https://bugs.php.net/bug.php?id=79099
+      ./patch/php71/php7133-79221.patch # https://bugs.php.net/bug.php?id=79221
+      ./patch/php71/php7133-79282.patch # https://bugs.php.net/bug.php?id=79282
+      ./patch/php71/php7133-79329.patch # https://bugs.php.net/bug.php?id=79329
+      ./patch/php71/php7133-php-openssl-cert.patch # Openssl cert updates
+    ] 
+      # https://bugs.php.net/bug.php?id=76826
+      ++ optional stdenv.isDarwin ./patch/php71-darwin-isfinite.patch;
   };
 
   php72 = generic {
-    version = "7.2.29";
-    sha256 = "08xry2fgqgg8s0ym1hh11wkbr36av3zq1bn4krbciw1b7x8gb8ga";
+    version = "7.2.30";
+    sha256 = "1gqjly3nmb5z4pl5gbjm4p9bva535z7k2clk1bpqvzg8xffmrky4";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
   };
 
   php73 = generic {
-    version = "7.3.16";
-    sha256 = "0bh499v9dfgh9k51w4rird1slb9rh9whp5h37fb84c98d992s1xq";
+    version = "7.3.17";
+    sha256 = "02cplaja13l9j2abfsn6cxd2kryhw7a2wwrkk4h9z6ac0bcr0gnq";
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
   };
 
   php74 = generic {
-    version = "7.4.4";
-    sha256 = "17w2m4phhpj76x5fx67vgjrlkcczqvky3f5in1kjg2pch90qz3ih";
+    version = "7.4.5";
+    sha256 = "0vrxy5ymfkpi2sxbnh6967nc4xnxcwlc27bivaa36g5nslrsbnir";
   };
 }

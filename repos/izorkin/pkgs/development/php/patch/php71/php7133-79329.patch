@@ -1,0 +1,23 @@
+From b7b9302660a23a67285e204bc3d7fcf6ba7f6533 Mon Sep 17 00:00:00 2001
+From: Remi Collet <remi@remirepo.net>
+Date: Tue, 17 Mar 2020 07:25:12 +0100
+Subject: [PATCH] Fix bug #79329 - get_headers should not accept \0
+
+From 0d139c5b94a5f485a66901919e51faddb0371c43
+---
+ ext/standard/url.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ext/standard/url.c b/ext/standard/url.c
+index 0eac03ee0a..39e5b1b2c2 100644
+--- a/ext/standard/url.c
++++ b/ext/standard/url.c
+@@ -660,7 +660,7 @@ PHP_FUNCTION(get_headers)
+ 	zval *zcontext = NULL;
+ 	php_stream_context *context;
+ 
+-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s|lr!", &url, &url_len, &format, &zcontext) == FAILURE) {
++	if (zend_parse_parameters(ZEND_NUM_ARGS(), "p|lr!", &url, &url_len, &format, &zcontext) == FAILURE) {
+ 		return;
+ 	}
+ 
