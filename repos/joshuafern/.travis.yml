@@ -6,6 +6,7 @@ env:
   global:
     - CACHIX_CACHE=joshuafern
     - NUR_REPO=JoshuaFern
+    - BUILD_UNFREE=true
 
 matrix:
   include:
@@ -14,6 +15,9 @@ matrix:
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
 
 install:
+- >
+  mkdir -p "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs" &&
+  echo "{ allowUnfree = ${BUILD_UNFREE}; sandbox = true; }" > "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs/config.nix"
  - nix --version
  - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
  - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
