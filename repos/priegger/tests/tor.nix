@@ -1,11 +1,14 @@
 let
   controlPort = 9051;
+  prometheusPort = 9090;
+  torExporterPort = 9130;
 in
 import ./lib/make-test.nix (
   { pkgs, ... }: {
     name = "tor";
     nodes = {
-      default = {
+      tor = {
+        environment.systemPackages = [ pkgs.jq ];
         priegger.services.tor.enable = true;
         priegger.services.prometheus.enable = true;
         services.openssh.enable = true;
@@ -24,18 +27,24 @@ import ./lib/make-test.nix (
 
 
         start_all()
+        tor.wait_for_unit("multi-user.target")
 
-        with subtest("should not have onion service info metrics"):
-            default.wait_for_unit("multi-user.target")
-            checkCommonProperties(default)
-            default.succeed("systemctl list-units | grep tor-onion-services.path")
-            default.succeed(
+        with subtest("should have onion service info metrics"):
+            checkCommonProperties(tor)
+            tor.succeed("systemctl list-units | grep tor-onion-services.path")
+            tor.succeed(
                 "curl -sf 'http://127.0.0.1:9100/metrics' | grep 'tor_onion_service_info{hostname=\".\\+\",name=\"ssh\"} 1'"
             )
-            default.succeed(
-                "echo 'foo 1' > /var/lib/prometheus-node-exporter-text-files/foo.prom"
+
+        with subtest("should have tor metrics"):
+            tor.require_unit_state("prometheus-tor-exporter.service")
+            tor.wait_for_open_port(${toString torExporterPort})
+            tor.succeed("curl -s http://127.0.0.1:${toString torExporterPort}/metrics | grep -q 'tor_version{.\\+} 1'")
+            tor.require_unit_state("prometheus.service")
+            tor.wait_until_succeeds(
+                "curl -sf 'http://127.0.0.1:${toString prometheusPort}/api/v1/query?query=tor_version' | "
+                + "jq '.data.result[0].value[1]' | grep '\"1\"'"
             )
-            default.succeed("curl -sf 'http://127.0.0.1:9100/metrics' | grep 'foo 1'")
       '';
   }
 )

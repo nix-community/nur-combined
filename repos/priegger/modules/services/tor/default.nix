@@ -2,8 +2,12 @@
 
 with lib;
 let
+  hostName = config.networking.hostName;
+
   torOnionDirectory = "/var/lib/tor/onion";
   nodeTextfileDirectory = config.priegger.services.prometheus.exporters.node.textfileDirectory;
+
+  torExporterPort = toString config.services.prometheus.exporters.tor.port;
 
   torMetrics = pkgs.writeScript "tor-metrics" ''
     #!/usr/bin/env bash
@@ -56,6 +60,25 @@ in
       Host *.onion
       ProxyCommand ${pkgs.netcat}/bin/nc -x${config.services.tor.client.socksListenAddress} -X5 %h %p
     '';
+
+    services.prometheus = mkIf config.services.prometheus.enable {
+      exporters = {
+        tor = {
+          enable = mkDefault true;
+        };
+      };
+
+      scrapeConfigs = [
+        (
+          mkIf config.services.prometheus.exporters.tor.enable {
+            job_name = "tor";
+            static_configs = [
+              { targets = [ "${hostName}:${torExporterPort}" ]; }
+            ];
+          }
+        )
+      ];
+    };
 
     systemd = let
       onionServiceNames = map

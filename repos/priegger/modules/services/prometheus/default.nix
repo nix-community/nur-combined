@@ -6,9 +6,7 @@ let
   prometheusPort = builtins.elemAt (lib.strings.splitString ":" config.services.prometheus.listenAddress) 1;
 
   nodeTextfileDirectory = "/var/lib/prometheus-node-exporter-text-files";
-
   nodeExporterPort = toString config.services.prometheus.exporters.node.port;
-  torExporterPort = toString config.services.prometheus.exporters.tor.port;
 
   cfg = config.priegger.services.prometheus;
 in
@@ -51,9 +49,6 @@ in
             "--collector.textfile.directory=${nodeTextfileDirectory}"
           ];
         };
-        tor = {
-          enable = mkDefault config.services.tor.enable;
-        };
       };
 
       scrapeConfigs = [
@@ -68,14 +63,6 @@ in
             job_name = "node";
             static_configs = [
               { targets = [ "${hostName}:${nodeExporterPort}" ]; }
-            ];
-          }
-        )
-        (
-          mkIf config.services.prometheus.exporters.tor.enable {
-            job_name = "tor";
-            static_configs = [
-              { targets = [ "${hostName}:${torExporterPort}" ]; }
             ];
           }
         )
