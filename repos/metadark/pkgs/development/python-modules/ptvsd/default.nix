@@ -1,7 +1,7 @@
 { stdenv, buildPythonPackage, fetchFromGitHub
 , substituteAll, gdb
 , autoPatchelfHook
-, colorama, django, flask, psutil, pytest
+, colorama, django_2_2, flask, psutil, pytest
 , pytest-timeout, pytest_xdist, requests
 }:
 
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   };
 
   patches = [
-    # Hard code GDB path. Used to attach to process.
+    # Hard code GDB path. Used to attach to processes.
     (substituteAll {
       src = ./fix-add-code-to-python-process.patch;
       inherit gdb;
@@ -36,11 +36,11 @@ buildPythonPackage rec {
   ];
 
   checkInputs = [
-    colorama django flask psutil pytest
+    colorama django_2_2 flask psutil pytest
     pytest-timeout pytest_xdist requests
   ];
 
-  # override default arguments in pytest.ini
+  # Override default arguments in pytest.ini
   checkPhase = "pytest --timeout 0 -n $NIX_BUILD_CORES";
 
   meta = with stdenv.lib; {
