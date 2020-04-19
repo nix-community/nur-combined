@@ -6,17 +6,17 @@
 stdenv.mkDerivation rec {
   emacsVersion = "26.3";
   emacsName = "emacs-${emacsVersion}";
-  macportVersion = "7.8";
+  macportVersion = "7.9";
   name = "emacs-mac-${emacsVersion}-${macportVersion}";
 
   src = fetchurl {
     url  = "mirror://gnu/emacs/${emacsName}.tar.xz";
-    hash = "sha256-TZDmdRrYlngixuCS2wdGa504PvFlP+svlck+feZtNIU=";
+    hash = "sha256:119ldpk7sgn9jlpyngv5y4z3i7bb8q3xp4p0qqi7i5nq39syd42d";
   };
 
   macportSrc = fetchurl {
     url  = "ftp://ftp.math.s.chiba-u.ac.jp/emacs/${emacsName}-mac-${macportVersion}.tar.gz";
-    hash = "sha256-sTbha8h+PlH6E3cwnZuZw0Gy+Op2w9BvaD2Yr9CcFSQ=";
+    hash = "sha256:1g9y3gc286ih8d2nmxi1yrdi9chmj6inahcljkjh7673xwvjhvsv";
   };
 
   patches = [ ./clean-env.patch ./mac-title-bar.patch ];

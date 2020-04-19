@@ -1,0 +1,905 @@
+{
+  "jobs": {
+    "buildkite-cli-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "buildkite-cli",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "buildkite-cli-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "buildkite-cli",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "consulate-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "consulate",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "consulate-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "consulate",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "docker-auth-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "docker-auth",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "docker-auth-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "docker-auth",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "docker-distribution-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "docker-distribution",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "docker-distribution-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "docker-distribution",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "emacs26-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "emacs26",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "emacs26-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "emacs26",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "emacs27-lucid-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "emacs27-lucid",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "emacs27-lucid-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "emacs27-lucid",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "emacs27-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "emacs27",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "emacs27-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "emacs27",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "emacsMacport-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "emacsMacport",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "fishPlugins_bobthefish-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "fishPlugins.bobthefish",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "fishPlugins_bobthefish-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "fishPlugins.bobthefish",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "fishPlugins_completions_docker-compose-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "fishPlugins.completions.docker-compose",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "fishPlugins_completions_docker-compose-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "fishPlugins.completions.docker-compose",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "fishPlugins_completions_docker-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "fishPlugins.completions.docker",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "fishPlugins_completions_docker-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "fishPlugins.completions.docker",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "fishPlugins_iterm2-integration-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "fishPlugins.iterm2-integration",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "image-to-ascii-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "image-to-ascii",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "image-to-ascii-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "image-to-ascii",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "img2ansi-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "img2ansi",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "img2ansi-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "img2ansi",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "kraks-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "kraks",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "kraks-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "kraks",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "krec2-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "krec2",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "krec2-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "krec2",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "kretty-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "kretty",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "kretty-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "kretty",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "kurl-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "kurl",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "kurl-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "kurl",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "libfixposix-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "libfixposix",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "libfixposix-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "libfixposix",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "nvim-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "nvim",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "nvim-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "nvim",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "oksh-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "oksh",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "oksh-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "oksh",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "silver-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "silver",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "silver-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "silver",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "vgo2nix-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "vgo2nix",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "vgo2nix-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "vgo2nix",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "webhook-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "webhook",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "webhook-x86_64-linux": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "webhook",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    },
+    "yabai-x86_64-darwin": {
+      "runs-on": "macos-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "uses": "cachix/install-nix-action@v8"
+        },
+        {
+          "uses": "cachix/cachix-action@v5",
+          "with": {
+            "attributes": "yabai",
+            "name": "kreisys",
+            "signingKey": "'${{ secrets.CACHIX_SIGNING_KEY }}'"
+          }
+        }
+      ]
+    }
+  },
+  "name": "CI",
+  "on": {
+    "push": {
+      "branches": [
+        "master"
+      ]
+    }
+  }
+}

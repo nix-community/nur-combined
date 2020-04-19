@@ -17,6 +17,7 @@ let
       emailoverride = "shaybergmann@gmail.com";
       enableemail = true;
       keepnr = 2;
+      type = 0;
       inputs = {
         src = {
           type = "git";

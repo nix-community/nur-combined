@@ -1,15 +1,13 @@
 { stdenv, fish }:
-{ name , src, ... }@attrs:
+{ name, src, ... }@attrs:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation ({
   inherit src;
   name = "fish-plugin-${name}";
 
   buildInputs = [ fish ];
 
   passAsFile = [ "installPluginScript" ];
-
-  meta.platforms = stdenv.lib.platforms.all;
 
   installPluginScript = ''
     # This is pretty much stolen from github.com/fisherman/fin
@@ -37,4 +35,4 @@ stdenv.mkDerivation {
     mkdir -p ~/.local/bin
     fish $installPluginScriptPath
   '';
-}
+} // attrs)

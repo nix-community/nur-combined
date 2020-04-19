@@ -9,6 +9,7 @@
     "enableemail": true,
     "emailoverride": "shaybergmann@gmail.com",
     "keepnr": 3,
+    "type": 0,
     "inputs": {
       "nixpkgs": { "type": "git", "value": "https://github.com/NixOS/nixpkgs-channels.git nixos-19.09", "emailresponsible": false }
     }
