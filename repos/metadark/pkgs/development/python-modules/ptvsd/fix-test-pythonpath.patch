@@ -1,0 +1,16 @@
+diff --git a/tests/helpers/session.py b/tests/helpers/session.py
+index 1b294a3..e602e51 100644
+--- a/tests/helpers/session.py
++++ b/tests/helpers/session.py
+@@ -61,7 +61,10 @@ class DebugSession(object):
+         self.rules = []
+         self.stepping_resumes_all_threads = None
+         self.env = os.environ.copy()
+-        self.env['PYTHONPATH'] = os.path.dirname(debuggee.__file__)
++        if 'PYTHONPATH' in self.env:
++            self.env['PYTHONPATH'] = os.path.dirname(debuggee.__file__) + os.pathsep + self.env['PYTHONPATH']
++        else:
++            self.env['PYTHONPATH'] = os.path.dirname(debuggee.__file__)
+         self.cwd = None
+         self.expected_returncode = 0
+         self.program_args = []
