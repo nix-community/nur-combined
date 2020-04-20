@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -23,6 +23,9 @@
   ix = pkgs.callPackage ./pkgs/ix { };
   johaus = pkgs.callPackage ./pkgs/johaus { };
   jvozba = pkgs.callPackage ./pkgs/jvozba { };
+  luakit = pkgs.callPackage ./pkgs/luakit {
+    inherit (pkgs.luajitPackages) luafilesystem;
+  };
   minica = pkgs.callPackage ./pkgs/minica { };
   quickserv = pkgs.callPackage ./pkgs/quickserv { };
   st = pkgs.callPackage ./pkgs/st { };

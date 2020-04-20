@@ -9,19 +9,6 @@ Subject: [PATCH] Scrollback w/ mouse
  st.h         |   2 +
  3 files changed, 95 insertions(+), 24 deletions(-)
 
-diff --git a/config.def.h b/config.def.h
-index 0e01717..7326a74 100644
---- a/config.def.h
-+++ b/config.def.h
-@@ -176,6 +176,8 @@ static Shortcut shortcuts[] = {
- 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
- 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
- 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
-+	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
-+	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
- 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
- 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
- };
 diff --git a/st.c b/st.c
 index b8e6077..07e71e1 100644
 --- a/st.c
