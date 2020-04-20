@@ -118,27 +118,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "1k2vn3lf49z95kxdv6mjia5iraaa388p6dsrpp7kn185gfj2sr1a",
+        "sha256": "1plqqihmjk6ps8llpd3bnirp0jr3l3zdgdxg9asp7hdvki21y8sk",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-200413.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-200419.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "200413"
+        "version": "200419"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "1jxzx1m90j743qy96ry9xv1c52izvmxz17c0ax1j0ajgywazv5aa",
+        "sha256": "0bj8132hd68nkqjccdq9vkb6zfa29k1rf8lrbamnvp61rp3yr5rr",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-200413.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-200419.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "200413"
+        "version": "200419"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "1lgy8v6mx1n04naawg6cskr2x4mrw392vb9j3m82pssp5pyfydlr",
+        "sha256": "1lixls9zrr8vkmbkybnkyd7ymn22cszkiilh98mq4vqhpnkn51j8",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200413.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200419.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "200413"
+        "version": "200419"
     },
     "gimgtools": {
         "branch": "master",
@@ -212,10 +212,10 @@
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "652cbd7c1133fe8657a95430c9192bd51165bd4b",
-        "sha256": "03xjawi90h0iwsggjm3wj1kkglr5zxbk6qxqfp2iqr0g47jh9qr2",
+        "rev": "cbe312d9c8673d361bac48cfc80587aec24c30fa",
+        "sha256": "17p6h9141vfj43szcib8b3i8czx0v374qiwhvir9cidv9g2b4cir",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/652cbd7c1133fe8657a95430c9192bd51165bd4b.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/cbe312d9c8673d361bac48cfc80587aec24c30fa.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -316,10 +316,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "1b5e0d5ffe175afd41d9dd944afc82b820225033",
-        "sha256": "1zsakrx3a6cp9z334c56rmy3n7x8vmr0267gjwh3cv0xc05jdgc7",
+        "rev": "e2ff81537f69defd0baf44ac974ab04be3513375",
+        "sha256": "0gf4lijav3a2z7xxsk3a0qf0pxvar19w8lqc3b4i7j60zz0wi7lp",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/1b5e0d5ffe175afd41d9dd944afc82b820225033.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/e2ff81537f69defd0baf44ac974ab04be3513375.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -340,11 +340,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "18xn3rz21i991pki8fbmpdz2vd1fwvj30qspbab9vjl7zw6hbv9j",
+        "sha256": "1090yn9vclh16vcpc2glzrb9z05ihd2mnpx06h3jnirfih5jkal2",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-04-13.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-04-19.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-04-13"
+        "version": "2020-04-19"
     },
     "mbtileserver": {
         "branch": "master",
@@ -384,6 +384,16 @@
         "type": "tarball",
         "url": "https://github.com/morse-talk/morse-talk/archive/71e09ace0aa554d28cada5ee658e43758305b8fa.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "mtk-suomi": {
+        "builtin": false,
+        "description": "Maanmittauslaitoksen peruskartan tasoiset ja näköiset ilmaiset maastokartat",
+        "homepage": "https://kartat.hylly.org/",
+        "sha256": "1nf10nljnnahi7adj2pn1l6kl3ak69prc1jjqmrrnajm53g8c1il",
+        "type": "file",
+        "url": "https://kartat-dl.hylly.org/2020-04-18/mtk_suomi.img",
+        "url_template": "https://kartat-dl.hylly.org/<version>/mtk_suomi.img",
+        "version": "2020-04-18"
     },
     "openmtbmap_openvelomap_linux": {
         "branch": "master",

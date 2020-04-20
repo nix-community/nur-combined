@@ -36,6 +36,7 @@ lib.makeScope newScope (
     gpxsee-maps = callPackage ./data/maps/gpxsee-maps {};
     hiblovgpsmap = callPackage ./data/maps/hiblovgpsmap {};
     maptourist = callPackage ./data/maps/maptourist {};
+    mtk-suomi = callPackage ./data/maps/mtk-suomi {};
     opentopomap = callPackage ./data/maps/opentopomap {};
     qmapshack-onlinemaps = callPackage ./data/maps/qmapshack-onlinemaps {};
     qmapshack-routinodb = callPackage ./data/maps/qmapshack-routinodb {};
