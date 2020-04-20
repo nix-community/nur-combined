@@ -20,6 +20,7 @@ rec {
   gogo-protobuf = pkgs.callPackage ./pkgs/gogo-protobuf {};
   goreturns = pkgs.callPackage ./pkgs/goreturns {};
   gorun = pkgs.callPackage ./pkgs/gorun {};
+  govanityurl = pkgs.callPackage ./pkgs/govanityurl {};
   knctl = pkgs.callPackage ./pkgs/knctl {};
   ko = pkgs.callPackage ./pkgs/ko {};
   kss = pkgs.callPackage ./pkgs/kss {};
