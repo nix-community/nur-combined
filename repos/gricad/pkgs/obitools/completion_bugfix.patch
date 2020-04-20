@@ -1,9 +1,0 @@
-diff -ur obitools3-v3.0.0-beta11-0b4a2346711bdc1e59aceb7310ff1ef483f9958d/obi_completion_script.sh obitools3-v3.0.0-beta11-0b4a2346711bdc1e59aceb7310ff1ef483f9958d.new/obi_completion_script.sh
---- obitools3-v3.0.0-beta11-0b4a2346711bdc1e59aceb7310ff1ef483f9958d/obi_completion_script.sh	2020-02-12 14:23:42.000000000 +0100
-+++ obitools3-v3.0.0-beta11-0b4a2346711bdc1e59aceb7310ff1ef483f9958d.new/obi_completion_script.sh	2020-02-13 11:30:34.524060125 +0100
-@@ -1,4 +1,4 @@
--#/usr/bin/env bash
-+#!/usr/bin/env bash
- 
- _obi_comp ()
- {
