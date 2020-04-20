@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   name = "vban";
-  version = "9845c22d86cc45007f19ec61154202c999519e41";
+  version = "2020-02-21";
 
   src = fetchFromGitHub {
     owner = "quiniouben";
     repo = name;
-    rev = version;
+    rev = "9845c22d86cc45007f19ec61154202c999519e41";
     sha256 = "1qnl97c58ypp6r9ypq4zlqbzwyr07qz7r766byhlrs2w5b83r3fj";
   };
 

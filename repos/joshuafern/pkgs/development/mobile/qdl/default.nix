@@ -1,13 +1,13 @@
 { stdenv, fetchFromGitHub, libxml2, udev }:
 
 stdenv.mkDerivation rec {
-  version = "760b3dffb03d2b7dfb82c6eac652a092f51c572d";
+  version = "2019-04-30";
   pname = "qdl";
 
   src = fetchFromGitHub {
     owner = "andersson";
     repo = pname;
-    rev = version;
+    rev = "760b3dffb03d2b7dfb82c6eac652a092f51c572d";
     sha256 = "1kdvv51bb9lcg4in3n6valm67pmvfap4jc1m66hzhw4rg7g295na";
   };
 
@@ -20,12 +20,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Qualcomm Download";
+    description = "A flasher for Qualcomm's Emergency Download (EDL) mode";
     homepage = "https://github.com/andersson/qdl/";
     license = licenses.bsd3;
-    longDescription = ''
-    This tool communicates with USB devices of id 05c6:9008 to upload a flash loader and use this to flash images.
-    '';
     maintainers = with maintainers; [ joshuafern ];
     platforms = platforms.unix;
   };
