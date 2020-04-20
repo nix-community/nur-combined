@@ -1,18 +1,17 @@
-{ stdenv, lib, buildGoPackage, fetchFromGitHub }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub }:
 
-buildGoPackage rec {
+buildGoModule rec {
   name = "ape-${version}";
-  version = "0.3.0";
+  version = "0.4.0";
   rev = "v${version}";
-
-  goPackagePath = "github.com/vdemeester/ape";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "vdemeester";
     repo = "ape";
-    sha256 = "17zhcaxkqn752hjxh8nlpmryaw2n0wp8fjg8pp0dsv3k0ym7wcx0";
+    sha256 = "0lqh34j4ass41vm2jzzrdy1fnhbzibsrysc55595ny1hwcf2kf98";
   };
+  modSha256 = "0ffbnfsp25r37b6zgv3clvhjbdlcxp0fsy8bp69pqmzjalrs95b5";
 
   meta = {
     description = "a git mirror *upstream* updater ";

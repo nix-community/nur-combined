@@ -1,18 +1,17 @@
-{ stdenv, lib, buildGoPackage, fetchFromGitHub }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub }:
 
-buildGoPackage rec {
+buildGoModule rec {
   name = "nr-${version}";
-  version = "0.3.0";
+  version = "0.4.0";
   rev = "v${version}";
-
-  goPackagePath = "github.com/vdemeester/nr";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "vdemeester";
     repo = "nr";
-    sha256 = "1k7qzsv9jqmgpk9dv2cv4islrkwrswgkk6lkaryndrfa6i7w112d";
+    sha256 = "1n6plmypw6iz0q1gs4i8rwsmkvx0bwgzpzmrr4qirpfpcyb4av2z";
   };
+  modSha256 = "17cz2gahs1j9vd9nqg36q2q04xq24gd2pyvivxkjhqgmq2fcpl17";
 
   meta = {
     description = "a nix run alias generator";

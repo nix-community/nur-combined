@@ -1,18 +1,17 @@
-{ stdenv, lib, buildGoPackage, fetchFromGitHub }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub }:
 
-buildGoPackage rec {
+buildGoModule rec {
   name = "sec-${version}";
-  version = "0.1.0";
+  version = "0.2.0";
   rev = "v${version}";
-
-  goPackagePath = "github.com/vdemeester/sec";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "vdemeester";
     repo = "sec";
-    sha256 = "13w5znsm2vj3ycnrhwvg4s6sj4712rlmh0q3mvz8lf7jd4njn88x";
+    sha256 = "01xmvycdbyvcjsd1pvbd2qjn4ij99pyyw9sasyffhw0bxfnpcvyq";
   };
+  modSha256 = "1b8zis0hv32sh51s01n3z3nd20ayfcj4vv3m943r8d0gqd7hj7zw";
 
   meta = {
     description = "Sec § — a golang opiniated dependency updater";
