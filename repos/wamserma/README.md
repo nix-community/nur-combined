@@ -2,9 +2,8 @@
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
-[![Build Status](https://travis-ci.org/wamserma/NUR.svg?branch=master)](https://travis-ci.com/wamserma/NUR)
+[![Build Status](https://travis-ci.org/wamserma/nur-packages.svg?branch=master)](https://travis-ci.com/wamserma/NUR)
 [![Cachix Cache](https://img.shields.io/badge/cachix-wamserma-blue.svg)](https://wamserma.cachix.org)
-
 
 Want you own? I used [this template](https://github.com/nix-community/nur-packages-template).
 
