@@ -4,7 +4,7 @@
 
 buildPythonApplication rec {
   pname = "minigalaxy";
-  version = "2020-04-18";
+  version = "unstable-2020-04-18";
 
   src = fetchFromGitHub {
     owner = "sharkwouter";

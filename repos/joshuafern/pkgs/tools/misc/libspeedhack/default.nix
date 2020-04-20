@@ -10,16 +10,16 @@ let
     LD_PRELOAD="libspeedhack.so:$LD_PRELOAD" \
     exec "$@"
   '';
-in
-multiStdenv.mkDerivation rec {
+in multiStdenv.mkDerivation rec {
   name = "libspeedhack";
 
   src = fetchurl {
-    url = "https://github.com/evg-zhabotinsky/libspeedhack/archive/master.tar.gz";
+    url =
+      "https://github.com/evg-zhabotinsky/libspeedhack/archive/master.tar.gz";
     sha256 = "0b9sc93h3h3n2c0lxqggi1p36h7i2maqmgmdrdw5v6gfmbln31pz";
   };
 
-  installPhase = ''  
+  installPhase = ''
     install -dm755 "$out/usr/lib/"
     mkdir -p $out/usr/lib/${name}
     cp -r ./{lib32,lib64} "$out/usr/lib/${name}"
@@ -28,8 +28,8 @@ multiStdenv.mkDerivation rec {
   '';
 
   meta = with multiStdenv.lib; {
-    homepage = https://github.com/evg-zhabotinsky/libspeedhack;
-    description = "A simple dynamic library to slow down or speed up applications";
+    homepage = "https://github.com/evg-zhabotinsky/libspeedhack";
+    description = "A simple dynamic library to tweak the speed of applications";
     platforms = platforms.linux;
     maintainers = with maintainers; [ joshuafern ];
     license = licenses.mit;

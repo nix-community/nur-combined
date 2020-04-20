@@ -1,8 +1,9 @@
-{ stdenv, mkDerivation, lib, fetchgit, cmake, SDL2, qtbase, qtmultimedia, boost }:
+{ stdenv, mkDerivation, lib, fetchgit, cmake, SDL2, qtbase, qtmultimedia, boost
+}:
 
 mkDerivation {
   pname = "citra";
-  version = "2020-04-20";
+  version = "unstable-2020-04-20";
 
   # Submodules
   src = fetchgit {

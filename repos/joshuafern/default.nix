@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -18,7 +18,8 @@
   steamgrid = pkgs.callPackage ./pkgs/applications/graphics/steamgrid { };
 
   # applications/misc
-  minigalaxy = pkgs.python3.pkgs.callPackage ./pkgs/applications/misc/minigalaxy { };
+  minigalaxy =
+    pkgs.python3.pkgs.callPackage ./pkgs/applications/misc/minigalaxy { };
 
   # development/mobile
   qdl = pkgs.callPackage ./pkgs/development/mobile/qdl { };

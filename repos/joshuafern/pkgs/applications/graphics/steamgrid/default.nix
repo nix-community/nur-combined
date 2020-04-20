@@ -1,8 +1,8 @@
 { stdenv, buildGoPackage, fetchgit }:
 
 buildGoPackage rec {
-  name = "steamgrid-unstable-${version}";
-  version = "2020-03-22";
+  name = "steamgrid-${version}";
+  version = "unstable-2020-03-22";
 
   goPackagePath = "github.com/boppreh/steamgrid";
 

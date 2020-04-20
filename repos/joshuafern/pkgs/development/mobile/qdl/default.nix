@@ -1,8 +1,8 @@
 { stdenv, fetchFromGitHub, libxml2, udev }:
 
 stdenv.mkDerivation rec {
-  version = "2019-04-30";
   pname = "qdl";
+  version = "unstable-2019-04-30";
 
   src = fetchFromGitHub {
     owner = "andersson";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1kdvv51bb9lcg4in3n6valm67pmvfap4jc1m66hzhw4rg7g295na";
   };
 
-  buildInputs = [libxml2 udev];
+  buildInputs = [ libxml2 udev ];
 
   prePatch = ''
     # set prefixes

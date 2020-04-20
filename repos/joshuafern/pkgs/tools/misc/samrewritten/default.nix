@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = "-lpthread";
 
-  installPhase = ''  
+  installPhase = ''
     install -dm755 "$out/usr/lib/"
     # Copy required files.
     mkdir -p $out/usr/lib/${pname}
@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Allows you to unlock and relock your Steam achievements";
-    homepage    = "https://github.com/PaulCombal/SamRewritten";
-    license     = licenses.gpl3;
+    homepage = "https://github.com/PaulCombal/SamRewritten";
+    license = licenses.gpl3;
     maintainers = with maintainers; [ joshuafern ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

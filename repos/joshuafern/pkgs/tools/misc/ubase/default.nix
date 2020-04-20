@@ -15,15 +15,13 @@ stdenv.mkDerivation rec {
       mknod.c mountpoint.c stat.c libutil/tty.c
   '';
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "suckless linux base utils";
     license = licenses.mit;
-    #maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [ joshuafern ];
   };
 }

@@ -2,24 +2,21 @@
 
 stdenv.mkDerivation rec {
   pname = "sbase";
-  version = "unstable-2020-01-21";
+  version = "unstable-2020-04-15";
 
   src = fetchgit {
     url = "git://git.suckless.org/${pname}";
-    rev = "971c573e873d34c10d2467d682d7934f39cb2a25";
-    sha256 = "19cr9f94f51hlpdaprihqyla89aifzfilajsvqv8x67zi235xc1b";
+    rev = "92f17ad648114ce6bf967d890053d5b6b8504c28";
+    sha256 = "0y1nisyn9h8gmrcp9422yyqa1mw8gzk6i00k94f2vs09s98h17vd";
   };
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "suckless unix tools";
     license = licenses.mit;
-    #maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [ joshuafern ];
   };
 }
-                                              

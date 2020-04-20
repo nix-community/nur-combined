@@ -1,8 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, autoconf, automake, alsaLib, libpulseaudio, libjack2 }:
+{ stdenv, lib, fetchFromGitHub, autoconf, automake, alsaLib, libpulseaudio
+, libjack2 }:
 
 stdenv.mkDerivation rec {
   name = "vban";
-  version = "2020-02-21";
+  version = "unstable-2020-02-21";
 
   src = fetchFromGitHub {
     owner = "quiniouben";
@@ -18,7 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "a simple audio over UDP protocol proposed by VB-Audio";
-    homepage = https://github.com/quiniouben/vban;
+    homepage = "https://github.com/quiniouben/vban";
     license = licenses.gpl3;
     maintainers = with maintainers; [ joshuafern ];
     platforms = platforms.unix;
