@@ -42,5 +42,4 @@ rec {
   buildkit = pkgs.callPackage ./pkgs/buildkit {};
   containerd = pkgs.callPackage ./pkgs/containerd {};
   linuxkit = pkgs.callPackage ./pkgs/linuxkit {};
-  minikube = pkgs.callPackage ./pkgs/minikube {};
 }
