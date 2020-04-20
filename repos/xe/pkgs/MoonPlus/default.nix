@@ -1,23 +1,24 @@
-{ sources ? import ../../nix/sources.nix, pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { } }:
 with pkgs;
-let
-  defaultAttrs = {
-    builder = ./builder.sh;
-    baseInputs = [ ];
-    src = fetchFromGitHub {
-      owner = "pigpigyyy";
-      repo = "MoonPlus";
-      rev = "fc79fc1a549db29d3eada79cc2084eecd5b7fe21";
-      sha256 = "0jscq6jwjpj3qhcfdvdssvili7037fc8c3bmbk0b58dh1vj56kp3";
-    };
-    version = "HEAD";
-    name = "MoonPlus";
-    system = builtins.currentSystem;
-
-    installPhase = ''
-      ls
-      install -D bin/release/moonp $out/bin/moonp
-    '';
+stdenv.mkDerivation rec {
+  name = "MoonPlus";
+  version = "0.3.8";
+  src = fetchFromGitHub {
+    owner = "pigpigyyy";
+    repo = name;
+    rev = "v${version}";
+    sha256 = "12wcw6zvm1a7hphjngy0hr6ywq1y9wpa9ssrryqv0ni4kamylqqr";
   };
 
-in stdenv.mkDerivation defaultAttrs
+  installPhase = ''
+    install -D bin/release/moonp $out/bin/moonp
+  '';
+
+  meta = with stdenv.lib; {
+    homepage = "https://github.com/pigpigyyy/MoonPlus";
+    description = "Moonscript to Lua compiler";
+    license = licenses.mit;
+    maintainers = with maintainers; [ xe ];
+    platforms = platforms.all;
+  };
+}

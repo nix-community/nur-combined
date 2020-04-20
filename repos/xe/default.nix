@@ -20,6 +20,7 @@
   gopls = pkgs.callPackage ./pkgs/gopls { };
   gruvbox-css = pkgs.callPackage ./pkgs/gruvbox-css { };
   ii = pkgs.callPackage ./pkgs/ii { };
+  ix = pkgs.callPackage ./pkgs/ix { };
   johaus = pkgs.callPackage ./pkgs/johaus { };
   jvozba = pkgs.callPackage ./pkgs/jvozba { };
   minica = pkgs.callPackage ./pkgs/minica { };
