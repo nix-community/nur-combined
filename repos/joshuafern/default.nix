@@ -27,6 +27,7 @@
   # misc/emulators
   citra = pkgs.libsForQt5.callPackage ./pkgs/misc/emulators/citra { };
   dosbox-staging = pkgs.callPackage ./pkgs/misc/emulators/dosbox-staging { };
+  yuzu-mainline = pkgs.libsForQt5.callPackage ./pkgs/misc/emulators/yuzu-mainline {};
 
   # tools/audio
   vban = pkgs.callPackage ./pkgs/tools/audio/vban { };
