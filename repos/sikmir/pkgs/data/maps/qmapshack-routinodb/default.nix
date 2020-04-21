@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "qmapshack-routinodb";
-  version = "2020-04-03";
+  version = sources.geofabrik-russia-nwfd.version;
   srcs = [
     sources.geofabrik-finland
     sources.geofabrik-estonia

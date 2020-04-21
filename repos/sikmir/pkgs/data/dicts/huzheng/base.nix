@@ -1,12 +1,11 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchurl, pname, version, filename, sha256, description }:
 
 stdenv.mkDerivation rec {
-  pname = "macmillan";
-  version = "2.4.2";
+  inherit pname version;
 
   src = fetchurl {
-    url = "http://download.huzheng.org/bigdict/stardict-Macmillan_English_Dictionary-${version}.tar.bz2";
-    sha256 = "1xg4xvxnni5vc371sd0bvskl1vly6p62q3c8r36bd2069ln7jy8r";
+    url = "http://download.huzheng.org/bigdict/${filename}";
+    inherit sha256;
   };
 
   installPhase = ''
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
   preferLocalBuild = true;
 
   meta = with stdenv.lib; {
-    description = "Macmillan English Dictionary (En-En)";
+    inherit description;
     homepage = "http://download.huzheng.org/bigdict/";
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];

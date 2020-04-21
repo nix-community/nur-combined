@@ -1,4 +1,4 @@
-{ stdenv, cmake, expat, sources }:
+{ stdenv, cmake, expat, exiv2, sources }:
 
 stdenv.mkDerivation rec {
   pname = "gpxtools";
@@ -7,6 +7,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ expat ];
+
+  postPatch = ''
+    substituteInPlace gpxgeotag.cpp \
+      --replace "exiv2" "${exiv2}/bin/exiv2"
+  '';
 
   installPhase = ''
     install -Dm755 gpx* -t $out/bin
