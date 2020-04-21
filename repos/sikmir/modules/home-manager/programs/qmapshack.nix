@@ -19,6 +19,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    home.packages = [
+      cfg.package
+      qmapshack-onlinemaps
+      qmapshack-routinodb
+      qmapshack-dem
+    ];
   };
 }

@@ -19,6 +19,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    home.packages = [
+      cfg.package
+      goldendict-dark-theme
+    ];
   };
 }
