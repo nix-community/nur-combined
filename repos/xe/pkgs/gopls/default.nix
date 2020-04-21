@@ -7,8 +7,8 @@ let
     src = fetchFromGitHub {
       owner = "golang";
       repo = "tools";
-      rev = "44a64ad78b9b521790ab78240c17a3bc75b5eaa7";
-      sha256 = "1lnr5pcagfzwk0r2jh49kfqivcim4rrigkijqy6fm86pm2f4bjyg";
+      rev = "cfa8b22178d2faeacea202c63787cc6193a51a8c";
+      sha256 = "1dayvnib80cci1536qgxsqda3wp3c6bv8wskvdlvxzk280qjqixg";
     };
     goDeps = ./deps.nix;
     subPackages = [ "gopls" ];

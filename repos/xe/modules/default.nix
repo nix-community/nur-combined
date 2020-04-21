@@ -4,9 +4,10 @@
   fish = ./fish;
   htop = ./htop.nix;
   luakit = ./luakit;
-  neofetch = ./neofetch;
+  neofetch = ./neofetch.nix;
   tmux = ./tmux.nix;
   urxvt = ./urxvt.nix;
+  xeserv = ./xeserv;
   zathura = ./zathura;
 }
 

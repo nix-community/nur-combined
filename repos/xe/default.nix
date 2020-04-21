@@ -27,6 +27,7 @@
     inherit (pkgs.luajitPackages) luafilesystem;
   };
   minica = pkgs.callPackage ./pkgs/minica { };
+  nix-simple-deploy = pkgs.callPackage ./pkgs/nix-simple-deploy { };
   quickserv = pkgs.callPackage ./pkgs/quickserv { };
   st = pkgs.callPackage ./pkgs/st { };
   sw = pkgs.callPackage ./pkgs/sw { };
