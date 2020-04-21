@@ -10,9 +10,24 @@ stdenv.mkDerivation rec {
     sha256 = "1700apfsjd27q9jsvvr94mk7rd0x24ib3bkn4y8hak0zvknib563";
   };
 
-  NIX_CFLAGS_COMPILE = "-std=c++03 -include stddef.h -Wno-error=format-security";
+  postPatch = stdenv.lib.optionalString stdenv.isDarwin ''
+    substituteInPlace Makefile.gcc \
+      --replace "CXX=g++" "" \
+      --replace "LINK=g++" "LINK=$CXX" \
+      --replace "-lgcc" ""
+  '';
 
-  makeFlags = [ "-f" "Makefile.gcc" "CFG=Release" "TARGET_ARCH_BITS=64" ];
+  NIX_CFLAGS_COMPILE = [
+    "-std=c++03"
+    "-include stddef.h"
+    "-Wno-error=format-security"
+  ];
+
+  makeFlags = [
+    "-f Makefile.gcc"
+    "CFG=Release"
+    "TARGET_ARCH_BITS=64"
+  ];
 
   installPhase = ''
     install -Dm755 Release/ocad2mp -t "$out/bin"
@@ -24,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/ocad2mp/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.linux;
+    platforms = with platforms; linux ++ darwin;
   };
 }

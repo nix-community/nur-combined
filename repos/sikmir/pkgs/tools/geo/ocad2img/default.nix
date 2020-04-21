@@ -43,6 +43,6 @@ buildPerlPackage rec {
     homepage = "http://news.worldofo.com/2009/10/11/howto-convert-any-orienteering-map-to-a-garmin-map/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }

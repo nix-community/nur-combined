@@ -1,5 +1,13 @@
-{ stdenv, mkDerivation, lib, qmake, qtbase, qttools, qttranslations, sources
-, withI18n ? true }:
+{ stdenv
+, mkDerivation
+, lib
+, qmake
+, qtbase
+, qttools
+, qttranslations
+, sources
+, withI18n ? true
+}:
 
 mkDerivation rec {
   pname = "gpxsee";

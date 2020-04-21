@@ -1,4 +1,5 @@
 { mkDerivation
+, stdenv
 , lib
 , pkgconfig
 , qmake
@@ -21,7 +22,12 @@ mkDerivation rec {
 
   nativeBuildInputs = [ qmake pkgconfig ] ++ (lib.optional withI18n qttools);
   buildInputs =
-    [ qtbase qtmultimedia qtsvg qtx11extras libX11 libXext libXtst ];
+    [ qtbase qtmultimedia qtsvg ] ++ (lib.optionals stdenv.isLinux [ qtx11extras libX11 libXext libXtst ]);
+
+  postPatch = ''
+    substituteInPlace redict.pro \
+      --replace "unix " "unix:!mac "
+  '';
 
   preConfigure = lib.optionalString withI18n ''
     lupdate redict.pro
@@ -40,6 +46,6 @@ mkDerivation rec {
     inherit (src) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.linux;
+    platforms = with platforms; linux ++ darwin;
   };
 }

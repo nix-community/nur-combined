@@ -1,9 +1,16 @@
-{ stdenv, sources }:
+{ stdenv, sources, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "gimgtools";
   version = stdenv.lib.substring 0 7 src.rev;
   src = sources.gimgtools;
+
+  buildInputs = stdenv.lib.optional stdenv.isDarwin libiconv;
+
+  postPatch = stdenv.lib.optionalString stdenv.isDarwin ''
+    substituteInPlace Makefile \
+      --replace "CC = gcc" ""
+  '';
 
   installPhase = ''
     for tool in gimginfo gimgfixcmd gimgxor gimgunlock gimgch gimgextract cmdc; do

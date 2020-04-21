@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
     pcre
   ];
 
-  NIX_CFLAGS_COMPILE = [ "-Wno-error=format-security" ];
+  NIX_CFLAGS_COMPILE = [
+    "-std=c++03"
+    "-Wno-error=format-security"
+  ];
 
   postPatch = ''
     substituteInPlace tools/src/wikipediaImage.cpp \
@@ -37,7 +40,7 @@ stdenv.mkDerivation rec {
       --replace "noinst_PROGRAMS =" "bin_PROGRAMS ="
   '';
 
-  preConfigure = ''./autogen.sh'';
+  preConfigure = "./autogen.sh";
   configureFlags = [ "--disable-dict" ];
 
   postInstall = ''
@@ -52,6 +55,6 @@ stdenv.mkDerivation rec {
     inherit (src) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.linux;
+    platforms = with platforms; linux ++ darwin;
   };
 }

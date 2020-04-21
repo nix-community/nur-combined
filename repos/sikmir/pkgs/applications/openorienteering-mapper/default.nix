@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , gdal
 , cmake
 , ninja
@@ -18,7 +19,7 @@
 
 stdenv.mkDerivation rec {
   pname = "OpenOrienteering-Mapper";
-  version = stdenv.lib.substring 0 7 src.rev;
+  version = lib.substring 0 7 src.rev;
   src = sources.mapper;
 
   buildInputs = [
@@ -42,7 +43,7 @@ stdenv.mkDerivation rec {
     "-DLICENSING_PROVIDER:BOOL=OFF"
     "-DMapper_MANUAL_QTHELP:BOOL=OFF"
   ] ++ (
-    stdenv.lib.optionals stdenv.isDarwin [
+    lib.optionals stdenv.isDarwin [
       # Usually enabled on Darwin
       "-DCMAKE_FIND_FRAMEWORK=never"
       # FindGDAL is broken and always finds /Library/Framework unless this is
@@ -58,15 +59,15 @@ stdenv.mkDerivation rec {
     ]
   );
 
-  postInstall = stdenv.lib.optionalString stdenv.isDarwin ''
+  postInstall = lib.optionalString stdenv.isDarwin ''
+    mkdir -p $out/Applications
+    mv $out/Mapper.app $out/Applications
     # Fixes "This application failed to start because it could not find or load the Qt
     # platform plugin "cocoa"."
-    wrapQtApp $out/Mapper.app/Contents/MacOS/Mapper
-    mkdir -p $out/bin
-    ln -s $out/Mapper.app/Contents/MacOS/Mapper $out/bin/mapper
+    wrapQtApp $out/Applications/Mapper.app/Contents/MacOS/Mapper
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (src) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];

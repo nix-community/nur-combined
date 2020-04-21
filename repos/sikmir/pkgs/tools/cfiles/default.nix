@@ -10,6 +10,7 @@ stdenv.mkDerivation rec {
 
   prePatch = ''
     substituteInPlace Makefile \
+      --replace "CC = gcc" "" \
       --replace "prefix = usr" "prefix=$out"
     substituteInPlace scripts/clearimg \
       --replace "/usr/lib/w3m/w3mimgdisplay" "${w3m}/bin/w3mimgdisplay"
@@ -23,6 +24,6 @@ stdenv.mkDerivation rec {
     inherit (src) description homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.unix;
+    platforms = with platforms; linux ++ darwin;
   };
 }

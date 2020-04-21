@@ -25,7 +25,7 @@ lib.makeScope newScope (
 
     ### BUILD SUPPORT
 
-    fetchgdrive = callPackage ./build-support/fetchgdrive { };
+    fetchgdrive = callPackage ./build-support/fetchgdrive {};
 
     ### DATA
 
