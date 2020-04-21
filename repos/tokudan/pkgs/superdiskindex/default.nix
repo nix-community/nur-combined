@@ -3,11 +3,11 @@
 
 stdenv.mkDerivation rec {
   version = "git";
-  pname = "disk-utilities";
+  pname = "superdiskindex";
 
   src = fetchFromGitHub {
     owner = "shamada-code";
-    repo = "superdiskindex";
+    repo = "${pname}";
     rev = "ce5785a92ddf886ec1e340553b73d43f14e3eb87";
     sha512 = "20p5q6r6i01vpj6lvyx880hnvrjjslbfhfvxbbr675698kxi0hqdq45zgay8dg4cx4zkd54cslp10adjp6rwp2iv69p1a1vkqlaza77";
   };
