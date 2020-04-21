@@ -1,18 +1,17 @@
-{ stdenv, lib, buildGoPackage, fetchFromGitHub }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub }:
 
-buildGoPackage rec {
+buildGoModule rec {
   name = "ram-${version}";
-  version = "0.2.3";
+  version = "0.3.0";
   rev = "v${version}";
-
-  goPackagePath = "github.com/vdemeester/ram";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "vdemeester";
     repo = "ram";
-    sha256 = "155as4rmqcxlq0vv32hb3xqnijyz7i93678vfg2s490zn801ba4h";
+    sha256 = "1lnxscq6lfli09yq5raj2gyg7fss4a8m99nd6f1izm84xn0n0lji";
   };
+  modSha256 = "1rynwivgc9ilsixri8vcxss20j8wpns1jw9g0k37lgdqx88wpl9y";
 
   meta = {
     description = "A golang opiniated continuous testing tool 🐏";
