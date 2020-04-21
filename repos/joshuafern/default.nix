@@ -18,8 +18,7 @@
   steamgrid = pkgs.callPackage ./pkgs/applications/graphics/steamgrid { };
 
   # applications/misc
-  minigalaxy =
-    pkgs.python3.pkgs.callPackage ./pkgs/applications/misc/minigalaxy { };
+  #minigalaxy = pkgs.python3.pkgs.callPackage ./pkgs/applications/misc/minigalaxy { };
 
   # development/mobile
   qdl = pkgs.callPackage ./pkgs/development/mobile/qdl { };
