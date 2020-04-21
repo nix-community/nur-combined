@@ -4,7 +4,10 @@
 # into account.
 
 {
-  config = lib.mkIf (config.services.xserver.extraLayouts != { }) {
+  config = lib.mkIf (config.services.xserver.extraLayouts != { } &&
+    # Fixed upstream, avoid overcorrecting
+    # https://github.com/NixOS/nixpkgs/pull/76591
+    builtins.compareVersions nixos.system.release "20.03" < 0) {
 
     # ideally this should be all we need once GNOME properly adopts libxkbcommon.
     environment.sessionVariables = {
