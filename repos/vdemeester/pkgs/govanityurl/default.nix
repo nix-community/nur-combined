@@ -3,15 +3,14 @@
 buildGoModule rec {
   pname = "govanityurl";
   name = "${pname}-${version}";
-  version = "unstable-2020-02-18";
-  rev = "7d96c4d8e4390c625bf358526e7281f84f79b83a";
+  version = "unstable-2020-04-21";
+  rev = "dc69709ad3d951c32263b4e43029d54e818e7d2b";
 
-  goPackagePath = "github.com/gotestyourself/vanityurl";
   src = fetchFromGitHub {
     inherit rev;
-    owner = "gotestyourself";
+    owner = "vdemeester";
     repo = "vanityurl";
-    sha256 = "02ba1wxjs1nl9cibhlhhp8fp6vv1zj7nb2zha38sgb4f0bgacd2p";
+    sha256 = "0birf5y8j9s7s2ycqdx1rl0qivb93bkya4y25yigjyiclcgqp8a4";
   };
   modSha256 = "0s99bp9g1rfgrxmh9i94p2h8p68q93fk2799ifxd76r88f0f0hcn";
 }
