@@ -139,13 +139,13 @@ let
         sha512 = "I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==";
       };
     };
-    "cli-width-2.2.0" = {
+    "cli-width-2.2.1" = {
       name = "cli-width";
       packageName = "cli-width";
-      version = "2.2.0";
+      version = "2.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/cli-width/-/cli-width-2.2.0.tgz";
-        sha1 = "ff19ede8a9a5e579324147b0c11f0fbcbabed639";
+        url = "https://registry.npmjs.org/cli-width/-/cli-width-2.2.1.tgz";
+        sha512 = "GRMWDxpOB6Dgk2E5Uo+3eEBvtOOlimMmpbFiKuLFnQzYDavtLFY3K5ona41jgN/WdRZtG7utuVSVTL4HbZHGkw==";
       };
     };
     "color-convert-1.9.3" = {
@@ -905,7 +905,7 @@ let
       sources."chalk-3.0.0"
       sources."chardet-0.7.0"
       sources."cli-cursor-3.1.0"
-      sources."cli-width-2.2.0"
+      sources."cli-width-2.2.1"
       sources."color-convert-2.0.1"
       sources."color-name-1.1.4"
       sources."commander-4.1.0"

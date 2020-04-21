@@ -13,13 +13,13 @@ let
         sha512 = "7+Wlx3BImrK0HiG6y3lU4xX7SpBPSSu8T9iguPMlaueRFxjbYwAQrp9lqZUuFikqKbd/en8lVREILvP2J80uJA==";
       };
     };
-    "ajv-6.12.0" = {
+    "ajv-6.12.2" = {
       name = "ajv";
       packageName = "ajv";
-      version = "6.12.0";
+      version = "6.12.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ajv/-/ajv-6.12.0.tgz";
-        sha512 = "D6gFiFA0RRLyUbvijN74DWAjXSFxWKaWP7mldxkVhyhAV3+SWA9HEJPHQ2c9soIeTFJqcSdFDGFgdqs1iUU2Hw==";
+        url = "https://registry.npmjs.org/ajv/-/ajv-6.12.2.tgz";
+        sha512 = "k+V+hzjm5q/Mr8ef/1Y9goCmlsK4I6Sm74teeyGvFk1XrOsbsKLjEdrvny42CZ+a8sXbk8KWpY/bDwS+FLL2UQ==";
       };
     };
     "ansi-regex-4.1.0" = {
@@ -1011,7 +1011,7 @@ let
     src = fetchurl { url = "https://registry.npmjs.org/tldr/-/tldr-3.3.2.tgz"; sha1 = "3610e39e39c8fcf47eb2ae7f9315e792ecc04d26"; };
     dependencies = [
       sources."afinn-165-1.0.4"
-      sources."ajv-6.12.0"
+      sources."ajv-6.12.2"
       sources."ansi-regex-4.1.0"
       sources."ansi-styles-3.2.1"
       sources."apparatus-0.0.10"

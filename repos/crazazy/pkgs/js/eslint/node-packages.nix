@@ -13,13 +13,13 @@ let
         sha512 = "a9gxpmdXtZEInkCSHUJDLHZVBgb1QS0jhss4cPP93EW7s+uC5bikET2twEF3KV+7rDblJcmNvTR7VJejqd2C2g==";
       };
     };
-    "@babel/helper-validator-identifier-7.9.0" = {
+    "@babel/helper-validator-identifier-7.9.5" = {
       name = "_at_babel_slash_helper-validator-identifier";
       packageName = "@babel/helper-validator-identifier";
-      version = "7.9.0";
+      version = "7.9.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.9.0.tgz";
-        sha512 = "6G8bQKjOh+of4PV/ThDm/rRqlU7+IGoJuofpagU5GlEl29Vv0RGqqt86ZGRV8ZuSOY3o+8yXl5y782SMcG7SHw==";
+        url = "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.9.5.tgz";
+        sha512 = "/8arLKUFq882w4tWGj9JYzRpAlZgiWUJ+dtteNTDqrRBz9Iguck9Rn3ykuBDoUwh2TO4tSAJlrxDUOXWklJe4g==";
       };
     };
     "@babel/highlight-7.9.0" = {
@@ -58,13 +58,13 @@ let
         sha512 = "HiUX/+K2YpkpJ+SzBffkM/AQ2YE03S0U1kjTLVpoJdhZMOWy8qvXVN9JdLqv2QsaQ6MPYQIuNmwD8zOiYUofLQ==";
       };
     };
-    "ajv-6.12.0" = {
+    "ajv-6.12.2" = {
       name = "ajv";
       packageName = "ajv";
-      version = "6.12.0";
+      version = "6.12.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ajv/-/ajv-6.12.0.tgz";
-        sha512 = "D6gFiFA0RRLyUbvijN74DWAjXSFxWKaWP7mldxkVhyhAV3+SWA9HEJPHQ2c9soIeTFJqcSdFDGFgdqs1iUU2Hw==";
+        url = "https://registry.npmjs.org/ajv/-/ajv-6.12.2.tgz";
+        sha512 = "k+V+hzjm5q/Mr8ef/1Y9goCmlsK4I6Sm74teeyGvFk1XrOsbsKLjEdrvny42CZ+a8sXbk8KWpY/bDwS+FLL2UQ==";
       };
     };
     "ansi-escapes-4.3.1" = {
@@ -193,13 +193,13 @@ let
         sha512 = "I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==";
       };
     };
-    "cli-width-2.2.0" = {
+    "cli-width-2.2.1" = {
       name = "cli-width";
       packageName = "cli-width";
-      version = "2.2.0";
+      version = "2.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/cli-width/-/cli-width-2.2.0.tgz";
-        sha1 = "ff19ede8a9a5e579324147b0c11f0fbcbabed639";
+        url = "https://registry.npmjs.org/cli-width/-/cli-width-2.2.1.tgz";
+        sha512 = "GRMWDxpOB6Dgk2E5Uo+3eEBvtOOlimMmpbFiKuLFnQzYDavtLFY3K5ona41jgN/WdRZtG7utuVSVTL4HbZHGkw==";
       };
     };
     "color-convert-1.9.3" = {
@@ -355,13 +355,13 @@ let
         sha512 = "eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==";
       };
     };
-    "esquery-1.2.0" = {
+    "esquery-1.3.1" = {
       name = "esquery";
       packageName = "esquery";
-      version = "1.2.0";
+      version = "1.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/esquery/-/esquery-1.2.0.tgz";
-        sha512 = "weltsSqdeWIX9G2qQZz7KlTRJdkkOCTPgLYJUz1Hacf48R4YOwGPHO3+ORfWedqJKbq5WQmsgK90n+pFLIKt/Q==";
+        url = "https://registry.npmjs.org/esquery/-/esquery-1.3.1.tgz";
+        sha512 = "olpvt9QG0vniUBZspVRN6lwB7hOZoTRtT+jzR+tS4ffYx2mzbw+z0XCOk44aaLYKApNX5nMm+E+P6o25ip/DHQ==";
       };
     };
     "esrecurse-4.2.1" = {
@@ -382,13 +382,13 @@ let
         sha512 = "39nnKffWz8xN1BU/2c79n9nB9HDzo0niYUqx6xyqUnyoAnQyyWpOTdZEeiCch8BBu515t4wp9ZmgVfVhn9EBpw==";
       };
     };
-    "estraverse-5.0.0" = {
+    "estraverse-5.1.0" = {
       name = "estraverse";
       packageName = "estraverse";
-      version = "5.0.0";
+      version = "5.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/estraverse/-/estraverse-5.0.0.tgz";
-        sha512 = "j3acdrMzqrxmJTNj5dbr1YbjacrYgAxVMeF0gK16E3j494mOe7xygM/ZLIguEQ0ETwAg2hlJCtHRGav+y0Ny5A==";
+        url = "https://registry.npmjs.org/estraverse/-/estraverse-5.1.0.tgz";
+        sha512 = "FyohXK+R0vE+y1nHLoBM7ZTyqRpqAlhdZHCWIWEviFLiGB8b04H6bQs8G+XTthacvT8VuwvteiP7RJSxMs8UEw==";
       };
     };
     "esutils-2.0.3" = {
@@ -1191,12 +1191,12 @@ let
     src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-6.8.0.tgz"; sha1 = "62262d6729739f9275723824302fb227c8c93ffb"; };
     dependencies = [
       sources."@babel/code-frame-7.8.3"
-      sources."@babel/helper-validator-identifier-7.9.0"
+      sources."@babel/helper-validator-identifier-7.9.5"
       sources."@babel/highlight-7.9.0"
       sources."@types/color-name-1.1.1"
       sources."acorn-7.1.1"
       sources."acorn-jsx-5.2.0"
-      sources."ajv-6.12.0"
+      sources."ajv-6.12.2"
       (sources."ansi-escapes-4.3.1" // {
         dependencies = [
           sources."type-fest-0.11.0"
@@ -1212,7 +1212,7 @@ let
       sources."chalk-2.4.2"
       sources."chardet-0.7.0"
       sources."cli-cursor-3.1.0"
-      sources."cli-width-2.2.0"
+      sources."cli-width-2.2.1"
       sources."color-convert-1.9.3"
       sources."color-name-1.1.3"
       sources."concat-map-0.0.1"
@@ -1231,9 +1231,9 @@ let
       sources."eslint-visitor-keys-1.1.0"
       sources."espree-6.2.1"
       sources."esprima-4.0.1"
-      (sources."esquery-1.2.0" // {
+      (sources."esquery-1.3.1" // {
         dependencies = [
-          sources."estraverse-5.0.0"
+          sources."estraverse-5.1.0"
         ];
       })
       sources."esrecurse-4.2.1"
