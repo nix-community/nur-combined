@@ -1,27 +1,32 @@
-{ stdenv, fetchgit, cmake, libressl, wrapQtAppsHook, SDL2, qtbase, python2 }:
+{ stdenv, mkDerivation, lib, fetchgit, cmake, libressl, SDL2, qtbase, python2 }:
 
-stdenv.mkDerivation {
+mkDerivation rec {
   pname = "yuzu-mainline";
   version = "unstable-2020-04-13";
 
+  # Submodules
   src = fetchgit {
-    url = "https://github.com/yuzu-emu/yuzu-mainline";
+    url = "https://github.com/yuzu-emu/${pname}";
     rev = "20c42dc9ea8bdc208d9d274350af2ff347876c76";
-    sha256 = "0486nhpvl824ajksn496g0rfi9hismm8xzwdka5lplxrdmk961q2";
-    leaveDotGit = true;
-    fetchSubmodules = true;
+    sha256 = "0s9p5di9kcr8sh6iipv21b74c4dhn37an4khy4y7b9s9y8p1haim";
   };
 
-  enableParallelBuilding = true;
-  nativeBuildInputs = [ cmake libressl wrapQtAppsHook ];
-  cmakeFlags = "-DCMAKE_BUILD_TYPE=Release";
+  nativeBuildInputs = [ cmake libressl ];
   buildInputs = [ SDL2 qtbase python2 ];
+  cmakeFlags = ["-DCMAKE_BUILD_TYPE=Release"];
+
+  preConfigure = ''
+    # Trick configure system.
+    sed -n 's,^ *path = \(.*\),\1,p' .gitmodules | while read path; do
+      mkdir "$path/.git"
+    done
+  '';
 
   meta = with stdenv.lib; {
     homepage = "https://yuzu-emu.org";
-    description = "An experimental open-source emulator for the Nintendo Switch";
-    license = licenses.gpl2;
-    maintainers = with maintainers; [ ivar ];
+    description = "An experimental Nintendo Switch emulator";
+    license = with licenses; [ gpl2 cc-by-nd-30 cc0 ];
+    maintainers = with maintainers; [ joshuafern ];
     platforms = platforms.linux;
   };
 }
