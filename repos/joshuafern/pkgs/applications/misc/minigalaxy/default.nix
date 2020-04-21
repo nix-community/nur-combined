@@ -4,19 +4,16 @@
 
 buildPythonApplication rec {
   pname = "minigalaxy";
-  version = "unstable-2020-04-18";
+  version = "0.9.4";
 
   src = fetchFromGitHub {
     owner = "sharkwouter";
     repo = pname;
-    rev = "5a19885d326b92e537a2da0d18f96ac8e11fde40";
-    sha256 = "1p7j2ip7gz4cnqy5pzs56c542qihskqbszi9hwdsiq8kkzhh02vr";
+    rev = version;
+    sha256 = "0m8r5gb1k9cjji64rswximl49klychxzbzxhmfrpjq57c0zg5vs8";
   };
 
   doCheck = false;
-  enableParallelBuilding = true;
-  # Disable Webkit Compositing to fix a bug with Nvidia GPUs on the login screen
-  makeWrapperArgs = [ "--prefix WEBKIT_DISABLE_COMPOSITING_MODE : 1" ];
 
   buildInputs = [ glib-networking gobjectIntrospection gtk3 setuptools ];
   nativeBuildInputs = [ gettext wrapGAppsHook ];
