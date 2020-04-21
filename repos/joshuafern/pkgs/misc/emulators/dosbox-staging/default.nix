@@ -1,70 +1,38 @@
-{ stdenv, lib, fetchFromGitHub, makeDesktopItem, autoconf, autoconf-archive
-, automake, pkgconfig, alsaLib, SDL2, SDL2_net, libGL, libGLU, libogg, opusfile
-, graphicsmagick }:
+{ stdenv, lib, fetchFromGitHub, autoconf, autoconf-archive, automake, pkgconfig, alsaLib, SDL2, SDL2_net, libGL, libGLU, libogg, opusfile }:
 
 stdenv.mkDerivation rec {
-  name = "dosbox-staging";
-  version = "unstable-ls-2020-02-27";
+  pname = "dosbox-staging";
+  version = "unstable-2020-04-19";
 
   src = fetchFromGitHub {
     owner = "dreamer";
-    repo = name;
-    rev = "811beec345632eeb7bab12b4eca5a6aa8f5d4eac";
-    sha256 = "1ghbngsnmk3m3i7x5m58dgmmc58j8vq5dq3yss0xkhqsncga2aj8";
+    repo = pname;
+    rev = "871556d57fbb494b296d81f148f7a09444d01c83";
+    sha256 = "04790gffrzl4s7s50lxghcn7sd5z0kgw57mbv5y6bmkhp86qi0x9";
   };
 
-  dontGzipMan = true;
-  enableParallelBuilding = true;
   hardeningDisable = [ "format" ];
 
-  nativeBuildInputs = [ pkgconfig graphicsmagick ];
-  buildInputs = [
-    autoconf
-    autoconf-archive
-    automake
-    SDL2
-    libGL
-    libGLU
-    libogg
-    opusfile
-    # Optional
-    alsaLib # For ALSA audio support under Linux.
-    SDL2_net # For modem/ipx support.
-  ];
+  nativeBuildInputs = [ pkgconfig ];
+  buildInputs = [ autoconf autoconf-archive automake SDL2 libGL libGLU libogg opusfile alsaLib SDL2_net ];
 
   preConfigure = "./autogen.sh";
 
-  preBuild = let CXXFLAGS = "-O3 -DNDEBUG";
-  in ''
-    buildFlagsArray=( "CXXFLAGS=${CXXFLAGS}" )
+  preBuild = ''
+    buildFlagsArray=( "CXXFLAGS=-O3 -DNDEBUG" )
   '';
 
-  desktopItem = makeDesktopItem {
-    name = "dosbox-staging";
-    exec = "dosbox";
-    icon = "dosbox-staging";
-    comment = meta.description;
-    desktopName = "DOSBox-Staging";
-    genericName = "DOS emulator";
-    categories = "Application;Emulator;";
-  };
-
   postInstall = ''
-    install -Dm755 -t $out/share/man/man1 docs/*.1
     mkdir -p $out/share/applications
-    cp ${desktopItem}/share/applications/* $out/share/applications
-    mkdir -p $out/share/icons/hicolor/256x256/apps
-    gm convert src/dosbox.ico $out/share/icons/hicolor/256x256/apps/dosbox.png
+    cp $src/contrib/linux/dosbox-staging.desktop $out/share/applications/dosbox-staging.desktop
+    mkdir -p $out/share/icons/hicolor/scalable/apps
+    cp $src/contrib/icons/dosbox-staging.svg $out/share/icons/hicolor/scalable/apps/dosbox-staging.svg
   '';
 
   meta = with stdenv.lib; {
     description = "A modernized DOS emulator";
-    downloadPage = "https://github.com/dreamer/dosbox-staging/releases";
     homepage = "https://github.com/dreamer/dosbox-staging";
     license = licenses.gpl2;
-    longDescription = ''
-      This repository attempts to modernize the DOSBox project by using current development practices and tools, fixing issues, adding features that better support today's systems, and sending patches upstream.
-    '';
     maintainers = with maintainers; [ joshuafern ];
     platforms = platforms.unix;
   };
