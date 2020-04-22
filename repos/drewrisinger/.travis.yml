@@ -10,8 +10,9 @@ env:
 matrix:
   include:
     - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
+    # - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable  # disabled b/c I don't really use/care about nixos-unstable, more care about nixpkgs-unstable & older revs
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
 
 install:
  - nix --version

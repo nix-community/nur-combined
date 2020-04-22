@@ -1,0 +1,134 @@
+{ lib
+, pythonOlder
+, buildPythonPackage
+, fetchFromGitHub
+  # Python requirements
+, cython
+, dill
+, fastjsonschema
+, jsonschema
+, numpy
+, marshmallow
+, marshmallow-polyfield
+, networkx
+, ply
+, psutil
+, python-constraint
+, retworkx
+, scipy
+, sympy
+  # Python visualization requirements, semi-optional
+, ipywidgets
+, matplotlib
+, pillow
+, pydot
+, pygments
+, pylatexenc
+, seaborn
+  # test requirements
+, ddt
+, hypothesis
+, nbformat
+, nbconvert
+, pytestCheckHook
+, python
+}:
+
+buildPythonPackage rec {
+  pname = "qiskit-terra";
+  version = "0.13.0";
+
+  disabled = pythonOlder "3.5";
+
+  src = fetchFromGitHub {
+    owner = "Qiskit";
+    repo = pname;
+    rev = version;
+    sha256 = "03fgqmyahgmkf5dbw19n9c1v8p4kmpk50wxhhc8435cclvs26x9j";
+  };
+
+  nativeBuildInputs = [ cython ];
+
+  propagatedBuildInputs = [
+    dill
+    fastjsonschema
+    jsonschema
+    numpy
+    marshmallow
+    marshmallow-polyfield
+    matplotlib
+    networkx
+    ply
+    psutil
+    python-constraint
+    retworkx
+    scipy
+    sympy
+    # Optional/visualization inputs
+    ipywidgets
+    matplotlib
+    pillow
+    pydot
+    pygments
+    pylatexenc
+    seaborn
+  ];
+
+  postPatch = ''
+    # Fix relative imports in tests
+    touch test/python/dagcircuit/__init__.py
+  '';
+
+  # *** Tests ***
+  checkInputs = [
+    ddt
+    hypothesis
+    nbformat
+    nbconvert
+    pytestCheckHook
+  ];
+  dontUseSetuptoolsCheck = true;  # can't find setup.py, so fails. tested by pytest
+
+  pythonImportsCheck = [
+    "qiskit"
+    "qiskit.transpiler.passes.routing.cython.stochastic_swap.swap_trial"
+  ];
+
+  disabledTests = [
+    "test_jupyter_jobs_pbars" # needs IBMQ provider package (qiskit-ibmq-provider), circular dependency
+  ];
+
+  pytestFlagsArray = [
+    "--ignore=test/randomized/test_transpiler_equivalence.py" # collection requires qiskit-aer, which would cause circular dependency
+  ];
+
+  # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding
+  # cythonized modules and expecting to find some resource files in the test directory.
+  preCheck = ''
+    export PACKAGEDIR=$out/${python.sitePackages}
+    echo "Moving Qiskit test files to package directory"
+    cp -r $TMP/source/test $PACKAGEDIR
+    cp -r $TMP/source/examples $PACKAGEDIR
+    cp -r $TMP/source/qiskit/schemas/examples $PACKAGEDIR/qiskit/schemas/
+
+    # run pytest from Nix's $out path
+    pushd $PACKAGEDIR
+  '';
+  postCheck = ''
+    rm -rf test
+    rm -rf examples
+    popd
+  '';
+
+
+  meta = with lib; {
+    description = "Provides the foundations for Qiskit.";
+    longDescription = ''
+      Allows the user to write quantum circuits easily, and takes care of the constraints of real hardware.
+    '';
+    homepage = "https://qiskit.org/terra";
+    downloadPage = "https://github.com/QISKit/qiskit-terra/releases";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ drewrisinger ];
+  };
+}

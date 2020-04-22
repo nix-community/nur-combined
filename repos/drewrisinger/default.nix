@@ -6,13 +6,16 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ rawpkgs ? import <nixpkgs> {} }:
 
 rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
+
+  # NOTE: default pkgs to updated versions as required by qiskit
+  pkgs = rawpkgs.appendOverlays [ overlays.qiskit-updates ];
 
   # Packages/updates accepted to nixpkgs/master, but need the update
   lib-scs = pkgs.callPackage ./pkgs/libraries/scs { };
@@ -22,6 +25,7 @@ rec {
   xcfun = pkgs.callPackage ./pkgs/libraries/xcfun { };
 
   python3Packages = pkgs.recurseIntoAttrs rec {
+    # New packages NOT in NixOS/nixpkgs (and likely never will be)
     nose-timer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/nose-timer { };
     pyscf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyscf { inherit libcint xcfun; };
     pygsti = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pygsti { inherit cvxpy nose-timer; };
@@ -35,11 +39,45 @@ rec {
       };
     });
 
-    # Following are in Nixpkgs, just not made it to release yet.
+    # Following have been PR'd to Nixpkgs, just not made it to release yet.
     cvxpy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cvxpy { inherit ecos osqp ; inherit (python3Packages) scs; };
     ecos = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ecos { };
     osqp = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/osqp { };
     scs = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/scs { scs = lib-scs; };
+
+    # Qiskit new packages or updates over what's in nixpkgs, in rough build order. All exist in nixpkgs, but only as of ~20.03
+    dlx = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/dlx { };
+    docloud = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/docloud { };
+    docplex = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/docplex { inherit docloud; };
+    fastdtw = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/fastdtw { };
+    fastjsonschema = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/fastjsonschema { };
+    ipyvue = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ipyvue { };
+    ipyvuetify = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ipyvuetify { inherit ipyvue; };
+    marshmallow-polyfield = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/marshmallow-polyfield { };
+    pproxy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pproxy { };
+    python-constraint = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/python-constraint { };
+    pylatexenc = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pylatexenc { };
+    retworkx = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/retworkx { isPy38 = false; };
+
+    # Qiskit proper, build order
+    qiskit-terra = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-terra {
+      inherit fastjsonschema marshmallow-polyfield python-constraint pylatexenc retworkx;
+    };
+    qiskit-aer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-aer {
+      inherit cvxpy qiskit-terra;
+    };
+    qiskit-ignis = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ignis {
+      inherit qiskit-aer qiskit-terra;
+    };
+    qiskit-aqua = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-aqua {
+      inherit dlx docplex fastdtw qiskit-aer qiskit-ignis qiskit-terra;
+    };
+    qiskit-ibmq-provider = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ibmq-provider {
+      inherit ipyvuetify pproxy qiskit-terra;
+    };
+    qiskit = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit {
+      inherit qiskit-aer qiskit-terra qiskit-ignis qiskit-aqua qiskit-ibmq-provider;
+    };
   };
 
 }
