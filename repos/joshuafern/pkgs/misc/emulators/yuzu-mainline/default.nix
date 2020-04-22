@@ -1,4 +1,7 @@
-{ stdenv, mkDerivation, lib, fetchgit, cmake, libressl, SDL2, qtbase, python2 }:
+{ stdenv, mkDerivation, lib, fetchgit
+, cmake, libressl, SDL2, qtbase, python2
+, useVulkan ? true, vulkan-loader, vulkan-headers 
+}:
 
 mkDerivation rec {
   pname = "yuzu-mainline";
@@ -12,14 +15,19 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake libressl ];
-  buildInputs = [ SDL2 qtbase python2 ];
-  cmakeFlags = ["-DCMAKE_BUILD_TYPE=Release"];
+  buildInputs = [ SDL2 qtbase python2 ]
+  ++ stdenv.lib.optionals useVulkan [ vulkan-loader vulkan-headers ];
 
   preConfigure = ''
-    # Trick configure system.
+    # Trick configure system
     sed -n 's,^ *path = \(.*\),\1,p' .gitmodules | while read path; do
       mkdir "$path/.git"
     done
+  '';
+
+  postFixup = stdenv.lib.optionals useVulkan ''
+    # Fix vulkan detection
+    wrapProgram $out/bin/yuzu --prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib
   '';
 
   meta = with stdenv.lib; {
