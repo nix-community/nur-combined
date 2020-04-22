@@ -1,5 +1,5 @@
 { stdenv, mkDerivation, lib, fetchgit
-, cmake, libressl, SDL2, qtbase, python2
+, cmake, libressl, SDL2, qtbase, python2, alsaLib
 , useVulkan ? true, vulkan-loader, vulkan-headers 
 }:
 
@@ -15,7 +15,7 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake libressl ];
-  buildInputs = [ SDL2 qtbase python2 ]
+  buildInputs = [ SDL2 qtbase python2 alsaLib ]
   ++ stdenv.lib.optionals useVulkan [ vulkan-loader vulkan-headers ];
 
   preConfigure = ''
