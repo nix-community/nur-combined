@@ -14,6 +14,7 @@ lib.makeScope newScope (
     gpxsee = libsForQt5.callPackage ./applications/gpxsee {
       inherit sources;
     };
+    macpass = callPackage ./applications/macpass {};
     mapsoft = callPackage ./applications/mapsoft {};
     mapsoft2 = callPackage ./applications/mapsoft/2.nix {};
     openorienteering-mapper = libsForQt5.callPackage ./applications/openorienteering-mapper {
