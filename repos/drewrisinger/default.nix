@@ -25,6 +25,15 @@ rec {
     nose-timer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/nose-timer { };
     pyscf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyscf { inherit libcint xcfun; };
     pygsti = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pygsti { inherit cvxpy nose-timer; };
+    pygsti-cirq = pygsti.overrideAttrs (oldAttrs: {
+      version = "unstable-2020-04-20";
+      src = pkgs.fetchFromGitHub {
+        owner = "pyGSTio";
+        repo = "pygsti";
+        rev = "79ff1467c79a33d3afb05831f78202dfc798b4a1";
+        sha256 = "1dp6w5rh6kddxa5hp3kr249xnmbjpn6jdrpppsbm4hrfw9yh6hjw";
+      };
+    });
 
     # Following are in Nixpkgs, just not made it to release yet.
     cvxpy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cvxpy { inherit ecos osqp ; inherit (python3Packages) scs; };
@@ -34,4 +43,3 @@ rec {
   };
 
 }
-
