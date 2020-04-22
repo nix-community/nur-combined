@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "dosbox-staging";
-  version = "unstable-2020-04-19";
+  version = "v0.75.0-rc1";
 
   src = fetchFromGitHub {
     owner = "dreamer";
     repo = pname;
-    rev = "871556d57fbb494b296d81f148f7a09444d01c83";
-    sha256 = "04790gffrzl4s7s50lxghcn7sd5z0kgw57mbv5y6bmkhp86qi0x9";
+    rev = version;
+    sha256 = "0yr4ifpwk49cgy60y56hkpsyx89f8n45yqq5a9f8rvyq56m1nr1x";
   };
 
   hardeningDisable = [ "format" ];
