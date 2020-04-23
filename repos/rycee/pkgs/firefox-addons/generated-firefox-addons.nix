@@ -399,6 +399,20 @@
         platforms = platforms.all;
         };
       };
+    "old-reddit-redirect" = buildFirefoxXpiAddon {
+      pname = "old-reddit-redirect";
+      version = "1.1.4";
+      addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3522186/old_reddit_redirect-1.1.4-an+fx.xpi?src=";
+      sha256 = "e4d43fd993eab432f2cebf242b1f63821ad0e4f9a55cc0d08d146499fd609d48";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
+        description = "Ensure Reddit always loads the old design";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "peertubeify" = buildFirefoxXpiAddon {
       pname = "peertubeify";
       version = "0.6.0";
