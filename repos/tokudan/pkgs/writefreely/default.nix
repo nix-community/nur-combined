@@ -3,23 +3,23 @@
 
 buildGoModule rec {
   name = "writefreely-${version}";
-  version = "0.11.2";
+  version = "0.12.0";
 
   src = fetchFromGitHub {
     owner = "writeas";
     repo = "writefreely";
     rev = "v${version}";
-    sha256 = "1h6mcsb74ybp4dksylh2avyvgcrc232ny9l1075pmslhqr85kbvv";
+    sha256 = "1594s38ryw97vggki9mrn6pfqz1acacpsjw4g0sz3imp7dy53fp8";
   };
 
   assets = fetchurl {
     url = "https://github.com/writeas/writefreely/releases/download/v${version}/writefreely_${version}_linux_amd64.tar.gz";
-    sha256 = "0kahp93jj6irgcl692ddd7p87zh7gxwrs3arw5lbrf77jr1jgvkm";
+    sha256 = "04y6f32w2v3hsizclg41gdb7pgvpnd4dmjpwkzf8kxxk3jhwsqwm";
   };
 
   buildInputs = [ go-bindata ];
 
-  modSha256 = "140rh8hfz133flng72j4p9zsmvv05i0330ngsz4b90p2kaavfqqz";
+  modSha256 = "1wrs4hddp30h46lhvrf9zd9gqhl65j8fbivzrql888vgnh8q4532";
   preBuild = ''
     go-bindata -pkg writefreely -ignore=\\.gitignore -tags="!wflib" schema.sql sqlite.sql
     '';
