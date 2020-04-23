@@ -395,6 +395,19 @@
         "url_template": "https://kartat-dl.hylly.org/<version>/mtk_suomi.img",
         "version": "2020-04-18"
     },
+    "nakarte": {
+        "branch": "master",
+        "builtin": false,
+        "description": "Source code of site http://nakarte.me",
+        "homepage": "https://nakarte.me",
+        "owner": "wladich",
+        "repo": "nakarte",
+        "rev": "89c3e0a94a848a72d5c2b199100d565a9af0dbab",
+        "sha256": "1izh4fc946ksk6lzrv06sz81sd827ybgrgdmh7x32ap9lv3rqi9l",
+        "type": "tarball",
+        "url": "https://github.com/wladich/nakarte/archive/89c3e0a94a848a72d5c2b199100d565a9af0dbab.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "openmtbmap_openvelomap_linux": {
         "branch": "master",
         "builtin": false,

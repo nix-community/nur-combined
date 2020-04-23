@@ -142,6 +142,7 @@ lib.makeScope newScope (
     ### SERVERS
 
     mbtileserver = callPackage ./servers/mbtileserver {};
+    nakarte = callPackage ./servers/nakarte {};
 
     ### MISC
 
