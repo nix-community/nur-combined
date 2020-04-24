@@ -51,8 +51,15 @@ import ./lib/make-test.nix (
                 "echo 'foo 1' > /var/lib/prometheus-node-exporter-text-files/foo.prom"
             )
             prometheus.succeed("curl -sf 'http://127.0.0.1:9100/metrics' | grep 'foo 1'")
+
             prometheus.succeed(
-                "curl -s http://127.0.0.1:${toString nodeExporterPort}/metrics | grep -q 'system_version NaN'"
+                "curl -s http://127.0.0.1:${toString nodeExporterPort}/metrics | grep -q '^system_version NaN$'"
+            )
+            prometheus.succeed(
+                "curl -s http://127.0.0.1:${toString nodeExporterPort}/metrics | grep -q '^system_activation_time_seconds '"
+            )
+            prometheus.succeed(
+                "curl -s http://127.0.0.1:${toString nodeExporterPort}/metrics | grep -q 'system_nixpkgs_time_seconds NaN$'"
             )
 
             prometheus.succeed(

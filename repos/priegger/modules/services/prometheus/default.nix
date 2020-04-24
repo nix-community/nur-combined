@@ -79,9 +79,25 @@ in
       (
         cd ${nodeTextfileDirectory}
         (
-          echo -n "system_version ";
+          echo -n "system_version "
           if [ -L /nix/var/nix/profiles/system ]; then
             readlink /nix/var/nix/profiles/system | cut -d- -f2
+          else
+            echo NaN
+          fi
+
+          echo "system_activation_time_seconds $(date -u '+%s')"
+
+          echo -n "system_nixpkgs_time_seconds "
+          if [ -x /run/current-system/sw/bin/nixos-version ]; then
+            nixos_revision="$(/run/current-system/sw/bin/nixos-version --revision)"
+            commit_json="$(${pkgs.curl}/bin/curl -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/NixOS/nixpkgs/commits/"$nixos_revision")"
+            if [ "$?" = "0" ]; then
+              nixos_date="$(echo "$commit_json" | ${pkgs.jq}/bin/jq -r .commit.author.date)"
+              date --date="$nixos_date" -u '+%s'
+            else
+              echo NaN
+            fi
           else
             echo NaN
           fi
