@@ -2,7 +2,7 @@ import ./lib/make-test.nix (
   { ... }: {
     name = "reresolve-dns";
     nodes = {
-      default = {
+      reresolveDns = {
         priegger.services.reresolve-dns.enable = true;
       };
     };
@@ -11,7 +11,7 @@ import ./lib/make-test.nix (
       ''
         # Check configuration
         with subtest("Timer exists"):
-            default.succeed("systemctl list-timers | grep reresolve-dns.timer")
+            reresolveDns.succeed("systemctl list-timers | grep reresolve-dns.timer")
       '';
   }
 )

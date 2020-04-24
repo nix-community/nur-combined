@@ -17,17 +17,17 @@ import ./lib/make-test.nix (
 
     testScript =
       ''
-        def checkCommonProperties(machine):
-            machine.wait_for_unit("tor.service")
-            machine.wait_for_open_port(${toString controlPort})
-            machine.succeed(
+        with subtest("should start tor"):
+            tor.wait_for_unit("tor.service")
+            tor.wait_for_open_port(${toString controlPort})
+
+        with subtest("should have ssh tor config"):
+            tor.succeed(
                 "cat /etc/ssh/ssh_config | "
                 + "grep '^Host \*.onion\nProxyCommand /nix/store/[^/]*/bin/nc -xlocalhost:9050 -X5 %h %p$'"
             )
 
-
         with subtest("should have onion service info metrics"):
-            checkCommonProperties(tor)
             tor.succeed("systemctl list-units | grep tor-onion-services.path")
             tor.succeed(
                 "curl -sf 'http://127.0.0.1:9100/metrics' | grep 'tor_onion_service_info{hostname=\".\\+\",name=\"ssh\"} 1'"

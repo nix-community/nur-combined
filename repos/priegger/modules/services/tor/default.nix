@@ -36,7 +36,7 @@ let
 in
 {
   options.priegger.services.tor = {
-    enable = mkEnableOption "Enable the Tor daemon. By default, the daemon is run without relay, exit or bridge connectivity. ";
+    enable = mkEnableOption "Enable the Tor daemon. By default, the daemon is run without relay, exit or bridge connectivity.";
   };
 
   config = mkIf cfg.enable {
