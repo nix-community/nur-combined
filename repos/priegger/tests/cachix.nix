@@ -9,7 +9,6 @@ import ./lib/make-test.nix (
 
     testScript =
       ''
-        start_all()
         cachix.wait_for_unit("multi-user.target")
       '';
   }

@@ -18,16 +18,13 @@ import ./lib/make-test.nix (
     testScript =
       ''
         def checkCommonProperties(machine):
-            machine.require_unit_state("tor.service")
+            machine.wait_for_unit("tor.service")
             machine.wait_for_open_port(${toString controlPort})
             machine.succeed(
                 "cat /etc/ssh/ssh_config | "
                 + "grep '^Host \*.onion\nProxyCommand /nix/store/[^/]*/bin/nc -xlocalhost:9050 -X5 %h %p$'"
             )
 
-
-        start_all()
-        tor.wait_for_unit("multi-user.target")
 
         with subtest("should have onion service info metrics"):
             checkCommonProperties(tor)
@@ -37,10 +34,10 @@ import ./lib/make-test.nix (
             )
 
         with subtest("should have tor metrics"):
-            tor.require_unit_state("prometheus-tor-exporter.service")
+            tor.wait_for_unit("prometheus-tor-exporter.service")
             tor.wait_for_open_port(${toString torExporterPort})
             tor.succeed("curl -s http://127.0.0.1:${toString torExporterPort}/metrics | grep -q 'tor_version{.\\+} 1'")
-            tor.require_unit_state("prometheus.service")
+            tor.wait_for_unit("prometheus.service")
             tor.wait_until_succeeds(
                 "curl -sf 'http://127.0.0.1:${toString prometheusPort}/api/v1/query?query=tor_version' | "
                 + "jq '.data.result[0].value[1]' | grep '\"1\"'"

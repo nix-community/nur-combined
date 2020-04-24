@@ -18,8 +18,6 @@ import ./lib/make-test.nix (
 
     testScript =
       ''
-        start_all()
-
         with subtest("should have prometheus metrics"):
             prometheus.wait_for_unit("prometheus.service")
             prometheus.wait_for_open_port(${toString prometheusPort})

@@ -28,7 +28,7 @@ tasks:
       nix-build -E 'with import <nixpkgs>{}; (callPackage ./default.nix {})'
   - test: |
       cd nur-packages
-      nix-build ./tests/*.nix
+      for test in tests/*.nix; do nix-build --no-out-link "${test}"; done
   - deploy: |
       cd nur-packages
       [ "$(git rev-parse HEAD)" == "$(git rev-parse master)" ] || complete-build

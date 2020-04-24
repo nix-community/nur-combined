@@ -32,6 +32,8 @@ import ./lib/make-test.nix (
         testScript =
           ''
             def checkCommonProperties(machine):
+                machine.wait_for_unit("multi-user.target")
+
                 machine.require_unit_state("fail2ban")
 
                 machine.succeed("lorri --version")
@@ -53,21 +55,16 @@ import ./lib/make-test.nix (
                 machine.require_unit_state("prometheus-tor-exporter")
 
 
-            start_all()
-
             with subtest("common starts"):
-                common.wait_for_unit("multi-user.target")
                 checkCommonProperties(common)
 
             with subtest("desktop starts"):
-                desktop.wait_for_unit("multi-user.target")
                 checkCommonProperties(desktop)
 
                 desktop.require_unit_state("display-manager.service")
                 desktop.require_unit_state("NetworkManager.service")
 
             with subtest("headless starts"):
-                headless.wait_for_unit("multi-user.target")
                 checkCommonProperties(headless)
           '';
       }
