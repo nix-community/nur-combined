@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -16,6 +16,8 @@ nur_root="252dd7d899b7a0deea1537cc5d2d48b825afffb0"
 first_commit="5145061e9b679ea1e5d2709d22d0ee53467fed15"
 git rebase --onto=$nur_root $first_commit master
 
+# The list below musn't get shrinked, it is used by filter-branch on
+# every commit
 clean_folder='
   rm -rf config lib/private modules/private pkgs/private nixops
   for broken in pkgs/crypto/cardano/default.nix; do

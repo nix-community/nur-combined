@@ -1,0 +1,150 @@
+--- /nix/store/xj651aslybfsma20hpbi5nznfcffq8ky-nixexprs.tar.xz/nixos/modules/services/web-servers/apache-httpd/default.nix	1970-01-01 01:00:01.000000000 +0100
++++ modules/websites/httpd-service-builder.nix	2020-04-04 03:08:29.068490345 +0200
+@@ -1,12 +1,15 @@
++# to help backporting this builder should stay as close as possible to
++# nixos/modules/services/web-servers/apache-httpd/default.nix
++{ httpdName, withUsers ? true }:
+ { config, lib, pkgs, ... }:
+ 
+ with lib;
+ 
+ let
+ 
+-  cfg = config.services.httpd;
++  cfg = config.services.httpd."${httpdName}";
+ 
+-  runtimeDir = "/run/httpd";
++  runtimeDir = "/run/httpd_${httpdName}";
+ 
+   pkg = cfg.package.out;
+ 
+@@ -318,13 +321,6 @@
+         Require all denied
+     </Directory>
+ 
+-    # But do allow access to files in the store so that we don't have
+-    # to generate <Directory> clauses for every generated file that we
+-    # want to serve.
+-    <Directory /nix/store>
+-        Require all granted
+-    </Directory>
+-
+     ${cfg.extraConfig}
+ 
+     ${concatMapStringsSep "\n" mkVHostConf vhosts}
+@@ -347,30 +343,30 @@
+ {
+ 
+   imports = [
+-    (mkRemovedOptionModule [ "services" "httpd" "extraSubservices" ] "Most existing subservices have been ported to the NixOS module system. Please update your configuration accordingly.")
+-    (mkRemovedOptionModule [ "services" "httpd" "stateDir" ] "The httpd module now uses /run/httpd as a runtime directory.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "extraSubservices" ] "Most existing subservices have been ported to the NixOS module system. Please update your configuration accordingly.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "stateDir" ] "The httpd module now uses /run/httpd as a runtime directory.")
+ 
+     # virtualHosts options
+-    (mkRemovedOptionModule [ "services" "httpd" "documentRoot" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+-    (mkRemovedOptionModule [ "services" "httpd" "enableSSL" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+-    (mkRemovedOptionModule [ "services" "httpd" "enableUserDir" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+-    (mkRemovedOptionModule [ "services" "httpd" "globalRedirect" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+-    (mkRemovedOptionModule [ "services" "httpd" "hostName" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+-    (mkRemovedOptionModule [ "services" "httpd" "listen" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+-    (mkRemovedOptionModule [ "services" "httpd" "robotsEntries" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+-    (mkRemovedOptionModule [ "services" "httpd" "servedDirs" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+-    (mkRemovedOptionModule [ "services" "httpd" "servedFiles" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+-    (mkRemovedOptionModule [ "services" "httpd" "serverAliases" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+-    (mkRemovedOptionModule [ "services" "httpd" "sslServerCert" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+-    (mkRemovedOptionModule [ "services" "httpd" "sslServerChain" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+-    (mkRemovedOptionModule [ "services" "httpd" "sslServerKey" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "documentRoot" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "enableSSL" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "enableUserDir" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "globalRedirect" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "hostName" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "listen" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "robotsEntries" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "servedDirs" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "servedFiles" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "serverAliases" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "sslServerCert" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "sslServerChain" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
++    (mkRemovedOptionModule [ "services" "httpd" httpdName "sslServerKey" ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+   ];
+ 
+   # interface
+ 
+   options = {
+ 
+-    services.httpd = {
++    services.httpd."${httpdName}" = {
+ 
+       enable = mkEnableOption "the Apache HTTP Server";
+ 
+@@ -622,7 +618,7 @@
+         Using config.services.httpd.virtualHosts."${name}".servedFiles is deprecated and will become unsupported in a future release. Your configuration will continue to work as is but please migrate your configuration to config.services.httpd.virtualHosts."${name}".locations before the 20.09 release of NixOS.
+       '') (filterAttrs (name: hostOpts: hostOpts.servedFiles != []) cfg.virtualHosts);
+ 
+-    users.users = optionalAttrs (cfg.user == "wwwrun") {
++    users.users = optionalAttrs (withUsers && cfg.user == "wwwrun") {
+       wwwrun = {
+         group = cfg.group;
+         description = "Apache httpd user";
+@@ -630,7 +626,7 @@
+       };
+     };
+ 
+-    users.groups = optionalAttrs (cfg.group == "wwwrun") {
++    users.groups = optionalAttrs (withUsers && cfg.group == "wwwrun") {
+       wwwrun.gid = config.ids.gids.wwwrun;
+     };
+ 
+@@ -646,9 +642,9 @@
+     environment.systemPackages = [ pkg ];
+ 
+     # required for "apachectl configtest"
+-    environment.etc."httpd/httpd.conf".source = httpdConf;
++    environment.etc."httpd/httpd_${httpdName}.conf".source = httpdConf;
+ 
+-    services.httpd.phpOptions =
++    services.httpd."${httpdName}" = { phpOptions =
+       ''
+         ; Needed for PHP's mail() function.
+         sendmail_path = sendmail -t -i
+@@ -661,7 +657,7 @@
+         date.timezone = "${config.time.timeZone}"
+       '';
+ 
+-    services.httpd.extraModules = mkBefore [
++    extraModules = mkBefore [
+       # HTTP authentication mechanisms: basic and digest.
+       "auth_basic" "auth_digest"
+ 
+@@ -682,17 +678,18 @@
+       # For compatibility with old configurations, the new module mod_access_compat is provided.
+       "access_compat"
+     ];
++    };
+ 
+     systemd.tmpfiles.rules =
+       let
+-        svc = config.systemd.services.httpd.serviceConfig;
++        svc = config.systemd.services."httpd${httpdName}".serviceConfig;
+       in
+         [
+           "d '${cfg.logDir}' 0700 ${svc.User} ${svc.Group}"
+           "Z '${cfg.logDir}' - ${svc.User} ${svc.Group}"
+         ];
+ 
+-    systemd.services.httpd =
++    systemd.services."httpd${httpdName}" =
+       let
+         vhostsACME = filter (hostOpts: hostOpts.enableACME) vhosts;
+       in
+@@ -730,7 +727,7 @@
+           PIDFile = "${runtimeDir}/httpd.pid";
+           Restart = "always";
+           RestartSec = "5s";
+-          RuntimeDirectory = "httpd httpd/runtime";
++          RuntimeDirectory = "httpd_${httpdName} httpd_${httpdName}/runtime";
+           RuntimeDirectoryMode = "0750";
+         };
+       };

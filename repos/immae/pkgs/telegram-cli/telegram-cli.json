@@ -1,15 +1,15 @@
 {
-  "tag": "6547c0b-master",
+  "tag": "3da0e4a-master",
   "meta": {
     "name": "telegram-cli",
-    "url": "https://github.com/vysheng/tg",
+    "url": "https://github.com/kenorb-contrib/tg/",
     "branch": "master"
   },
   "github": {
-    "owner": "vysheng",
+    "owner": "kenorb-contrib",
     "repo": "tg",
-    "rev": "6547c0b21b977b327b3c5e8142963f4bc246187a",
-    "sha256": "07sss5cnw2ygd7mp8f5532lmj7qm6ywqf4cjaq5g13i8igzqzwzj",
+    "rev": "3da0e4a54c3a63cee11aae3c23f2077adfc4949d",
+    "sha256": "0pvswzajipzkk1x5cyf10dw18ka9jalar0aa2i7y23ifm4ddnif4",
     "fetchSubmodules": true
   }
 }

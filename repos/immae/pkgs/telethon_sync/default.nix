@@ -1,13 +1,14 @@
-{ lib, python3Packages }:
+{ lib, python3Packages, fetchgit }:
 with python3Packages;
 buildPythonPackage rec {
   pname = "Telethon-sync";
   version = "1.1.1";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 =
-      "01z8fzqn0qs5pxhvzq891r3mwffq1ga3f8xvm7qdn6kvmxjni9fy";
+  src = fetchgit {
+    url = "https://github.com/LonamiWebs/Telethon";
+    branchName = "sync-stale";
+    rev = "6a785a01aa56cfd21c8c5beb9d722c68d664ba5e";
+    sha256 = "0g7gnln5kbh1gy6sfb3jg6knmi33n6sgzy2rni2x6af84lza0lgc";
   };
 
   propagatedBuildInputs = [

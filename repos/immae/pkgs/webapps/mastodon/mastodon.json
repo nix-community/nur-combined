@@ -1,15 +1,15 @@
 {
-  "tag": "v2.7.4",
+  "tag": "v2.9.4",
   "meta": {
     "name": "mastodon",
     "url": "https://github.com/tootsuite/mastodon",
-    "branch": "refs/tags/v2.7.4"
+    "branch": "refs/tags/v2.9.4"
   },
   "github": {
     "owner": "tootsuite",
     "repo": "mastodon",
-    "rev": "a91349d45da18d3c85f68ae9be762dad6301c3cf",
-    "sha256": "0x16c2m8d9nszr9hjw6j1i8gicvpgxzli5afaqd0z144y0ar62qa",
+    "rev": "9bace2dd88d127d396794375c8fcb2132619a799",
+    "sha256": "1x9pai1q73lsq1i685w7z4v3w478iyij65mar13k4hq9zdz9d2b0",
     "fetchSubmodules": true
   }
 }

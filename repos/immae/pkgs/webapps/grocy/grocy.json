@@ -1,0 +1,15 @@
+{
+  "tag": "d7738aa-master",
+  "meta": {
+    "name": "grocy",
+    "url": "https://github.com/grocy/grocy/",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "grocy",
+    "repo": "grocy",
+    "rev": "d7738aa1ec330c81f11e4976681df0299d4ed35a",
+    "sha256": "13zxzq71hvs3dzywrdwqflnkx6dpdc40l9klm4slv0fmmyclbbdf",
+    "fetchSubmodules": true
+  }
+}

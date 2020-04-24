@@ -1,5 +1,5 @@
 {
-  "tag": "9e87787-master",
+  "tag": "fb8641f-master",
   "meta": {
     "name": "buildslist",
     "url": "https://git.immae.eu/perso/Immae/Projets/Buildbot/buildslist",
@@ -7,8 +7,8 @@
   },
   "git": {
     "url": "https://git.immae.eu/perso/Immae/Projets/Buildbot/buildslist",
-    "rev": "9e87787b40f4d6435218268e516be56eacd8d17b",
-    "sha256": "0bli9w0xwpij23jblggz2zwhb7y3gkjdvsppcy6ia3m0x0siclpi",
+    "rev": "fb8641f2badcec9f232cc5f727009911fc1c89b0",
+    "sha256": "0hgz5yaq0mz9lvfywbkbjap7z55839k18vfyg1yhx6l1mvvbq8zc",
     "fetchSubmodules": true
   }
 }

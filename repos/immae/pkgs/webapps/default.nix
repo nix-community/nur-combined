@@ -1,4 +1,4 @@
-{ callPackage, mylibs, composerEnv, lib, private }:
+{ callPackage, mylibs, composerEnv, lib }:
 rec {
   adminer = callPackage ./adminer {};
   apache-theme = callPackage ./apache-theme {};
@@ -32,6 +32,8 @@ rec {
     (name: (callPackage (./etherpad-lite/modules + "/${name}/node-packages.nix") { inherit nodeEnv; })
       .${name}.overrideAttrs(old: { passthru = (old.passthru or {}) // { moduleName = name; }; }));
 
+  grocy = callPackage ./grocy { inherit mylibs composerEnv; };
+
   infcloud = callPackage ./infcloud {};
 
   mantisbt_2 = callPackage ./mantisbt_2 {};
@@ -59,8 +61,8 @@ rec {
         "audioplayer" "bookmarks" "calendar" "contacts" "deck"
         "files_markdown" "gpxedit" "gpxpod" "keeweb" "music"
         "notes" "ocsms" "passman" "spreed" "tasks"
-        "flowupload" "carnet"
-        # FIXME: fix passman for NC 16
+        "flowupload" "carnet" "maps" "cookbook" "polls"
+        "apporder" "extract" "files_readmemd" "metadata"
       ];
     in
     lib.attrsets.genAttrs names
@@ -111,4 +113,4 @@ rec {
   in
     lib.attrsets.genAttrs names
       (name: callPackage (./yourls/plugins + "/${name}") { inherit mylibs; });
-} // private.webapps
+}

@@ -1,8 +1,5 @@
 { stdenv, mylibs, pkgconfig, libevent, lua, jansson, openssl, readline, zlib, libconfig }:
 stdenv.mkDerivation (mylibs.fetchedGithub ./telegram-cli.json // {
-  patches = [
-    ./telegram-cli.patch
-    ];
   buildInputs = [ pkgconfig libevent lua jansson openssl readline zlib libconfig ];
   preBuild = ''
     sed -i -e 's@"/etc/" PROG_NAME "/server.pub"@"'$out'/etc/server.pub"@' main.c

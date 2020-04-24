@@ -1,6 +1,6 @@
 { buildPerlPackage, fetchurl, perlPackages, lib }:
 buildPerlPackage rec {
-  name = "mtop-${version}";
+  pname = "mtop";
   version = "0.6.6";
   src = fetchurl {
     url = "http://downloads.sourceforge.net/project/mtop/mtop/v${version}/mtop-${version}.tar.gz";

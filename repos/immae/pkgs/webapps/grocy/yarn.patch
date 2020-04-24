@@ -1,0 +1,67 @@
+diff --git a/package.json b/package.json
+index 1afdf44..8acc985 100644
+--- a/package.json
++++ b/package.json
+@@ -2,9 +2,9 @@
+ 	"name": "grocy",
+ 	"private": true,
+ 	"dependencies": {
+-		"@danielfarrell/bootstrap-combobox": "https://github.com/berrnd/bootstrap-combobox.git#master",
++		"@danielfarrell/bootstrap-combobox": "^1.1.8",
+ 		"@fortawesome/fontawesome-free": "^5.12.1",
+-		"TagManager": "https://github.com/max-favilli/tagmanager.git#master",
++		"TagManager": "^3.0.1",
+ 		"animate.css": "^3.7.2",
+ 		"bootbox": "^5.3.2",
+ 		"bootstrap": "^4.3.1",
+@@ -32,7 +32,7 @@
+ 		"startbootstrap-sb-admin": "4.0.0",
+ 		"summernote": "^0.8.12",
+ 		"swagger-ui-dist": "^3.23.10",
+-		"tempusdominus-bootstrap-4": "https://github.com/berrnd/tempusdominus-bootstrap-4.git#master",
++		"tempusdominus-bootstrap-4": "^5.1.2",
+ 		"timeago": "^1.6.7",
+ 		"toastr": "^2.1.4"
+ 	}
+diff --git a/yarn.lock b/yarn.lock
+index dfb3108..7f8d761 100644
+--- a/yarn.lock
++++ b/yarn.lock
+@@ -2,18 +2,20 @@
+ # yarn lockfile v1
+ 
+ 
+-"@danielfarrell/bootstrap-combobox@https://github.com/berrnd/bootstrap-combobox.git#master":
++"@danielfarrell/bootstrap-combobox@^1.1.8":
+   version "1.1.8"
+-  resolved "https://github.com/berrnd/bootstrap-combobox.git#fcf0110146f4daab94888234c57d198b4ca5f129"
++  resolved "https://github.com/berrnd/bootstrap-combobox/archive/fcf0110146f4daab94888234c57d198b4ca5f129.tar.gz#dummy"
++  integrity sha512-svyqYhH2HYrgJtPhyGF/dydpERR9UIdKo7WUGcXbSnEqwSUQjcCh8ILhn+Ze0eqKf/zQCejrDrWl/578t9rz3Q==
+ 
+ "@fortawesome/fontawesome-free@^5.12.1":
+   version "5.12.1"
+   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.12.1.tgz#2a98fea9fbb8a606ddc79a4680034e9d5591c550"
+   integrity sha512-ZtjIIFplxncqxvogq148C3hBLQE+W3iJ8E4UvJ09zIJUgzwLcROsWwFDErVSXY2Plzao5J9KUYNHKHMEUYDMKw==
+ 
+-"TagManager@https://github.com/max-favilli/tagmanager.git#master":
++"TagManager@^3.0.1":
+   version "3.0.1"
+-  resolved "https://github.com/max-favilli/tagmanager.git#b43646ef2f2373facaf21c7acc5e3eea61188d76"
++  resolved "https://github.com/max-favilli/tagmanager/archive/b43646ef2f2373facaf21c7acc5e3eea61188d76.tar.gz#dummy"
++  integrity sha512-lisa2KW8z+7kmPT+QAkR2FC2LGE2rCPmQ4Qt8+hF83hoTuqoc3sqpRha14oqYfCjKufXGGCdH3sQG5xdHABkTA==
+   dependencies:
+     jquery "1"
+ 
+@@ -719,9 +721,10 @@ swagger-ui-dist@^3.23.10:
+   resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-3.25.0.tgz#90279cdcc56e591fcfbe7b5240a9d653b989336d"
+   integrity sha512-vwvJPPbdooTvDwLGzjIXinOXizDJJ6U1hxnJL3y6U3aL1d2MSXDmKg2139XaLBhsVZdnQJV2bOkX4reB+RXamg==
+ 
+-"tempusdominus-bootstrap-4@https://github.com/berrnd/tempusdominus-bootstrap-4.git#master":
++"tempusdominus-bootstrap-4@^5.1.2":
+   version "5.1.2"
+-  resolved "https://github.com/berrnd/tempusdominus-bootstrap-4.git#2cf725fed9216cb77a298e5ce46762bfe979eaa0"
++  resolved "https://github.com/berrnd/tempusdominus-bootstrap-4/archive/2cf725fed9216cb77a298e5ce46762bfe979eaa0.tar.gz#dummy"
++  integrity sha512-xYDSn8Gb8GicQHt6Ax9VULKSviPrEm7Fpk5WpSY2qBfX1hQbDiEhBZXcWIlgVBPWQmJoUSPzLpe0B2xbOmjaeg==
+   dependencies:
+     bootstrap ">=4.1.2"
+     jquery "^3.0"

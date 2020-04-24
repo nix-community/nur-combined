@@ -1,8 +1,9 @@
 { lib, buildPerlPackage, fetchurl, perlPackages }:
 buildPerlPackage rec {
-  name = "note-1.3.26";
+  pname = "note";
+  version = "1.3.26";
   src = fetchurl {
-    url = "mirror://cpan/authors/id/T/TL/TLINDEN/${name}.tar.gz";
+    url = "mirror://cpan/authors/id/T/TL/TLINDEN/${pname}-${version}.tar.gz";
     sha256 = "1h645rnb5vpms48fcyzvp7cwwcbf9k5xq49w2bpniyzzgk2brjrq";
   };
   outputs = ["out" "man"];

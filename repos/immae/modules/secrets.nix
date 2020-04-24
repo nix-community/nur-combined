@@ -11,7 +11,16 @@
       default = "/var/secrets";
       description = "Location where to put the keys";
     };
+    # Read-only variables
+    fullPaths = lib.mkOption {
+      type = lib.types.attrsOf lib.types.path;
+      default = builtins.listToAttrs
+        (map (v: { name = v.dest; value = "${config.secrets.location}/${v.dest}"; }) config.secrets.keys);
+      readOnly = true;
+      description = "set of full paths to secrets";
+    };
   };
+
   config = let
     location = config.secrets.location;
     keys = config.secrets.keys;
@@ -39,11 +48,15 @@
         if [ -f /run/keys/secrets.tar ]; then
           if [ ! -f ${location}/currentSecrets ] || ! sha512sum -c --status "${location}/currentSecrets"; then
             echo "rebuilding secrets"
-            rm -rf ${location}
-            install -m0750 -o root -g keys -d ${location}
-            ${pkgs.gnutar}/bin/tar --strip-components 1 -C ${location} -xf /run/keys/secrets.tar
-            sha512sum /run/keys/secrets.tar > ${location}/currentSecrets
-            find ${location} -type d -exec chown root:keys {} \; -exec chmod o-rx {} \;
+            TMP=$(${pkgs.coreutils}/bin/mktemp -d)
+            if [ -n "$TMP" ]; then
+              install -m0750 -o root -g keys -d $TMP
+              ${pkgs.gnutar}/bin/tar --strip-components 1 -C $TMP -xf /run/keys/secrets.tar
+              sha512sum /run/keys/secrets.tar > $TMP/currentSecrets
+              find $TMP -type d -exec chown root:keys {} \; -exec chmod o-rx {} \;
+              ${pkgs.rsync}/bin/rsync -O -c -av --delete $TMP/ ${location}
+              rm -rf $TMP
+            fi
           fi
         fi
         '';

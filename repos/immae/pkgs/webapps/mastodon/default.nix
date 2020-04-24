@@ -1,13 +1,23 @@
 { varDir ? "/var/lib/mastodon", mylibs,
   stdenv, writeText, runCommand,
   ruby_2_6, bundlerEnv, defaultGemConfig,
-  jq, protobuf, protobufc, pkgconfig, libidn, pam, nodejs, yarn }:
+  jq, protobuf, protobufc, pkgconfig, libidn, pam, nodejs, yarn, yarn2nix-moretea }:
 let
+  info = mylibs.fetchedGithub ./mastodon.json // {
+    src = runCommand "mastodon-patched" {
+      source = (mylibs.fetchedGithub ./mastodon.json).src;
+    } ''
+    cp -a $source $out
+    chmod -R u+w $out
+    sed -i -e "/fuubar/s/2.4.0/2.4.1/" $out/Gemfile.lock
+    sed -i -e "s/ff00dc470b5b2d9f145a6d6e977a54de5df2b4c9/ff00dc470b5b2d9f145a6d6e977a54de5df2b4c9#4255dc41fa7df9c3a02c1595f058e248bc37b784/" $out/yarn.lock
+    '';
+  };
   gems = bundlerEnv {
     name = "mastodon-env";
     ruby = ruby_2_6;
     gemset = ./gemset.nix;
-    gemdir = (mylibs.fetchedGithub ./mastodon.json).src;
+    gemdir = info.src;
     groups = [ "default" "production" "test" "development" ];
     gemConfig = defaultGemConfig // {
       redis-rack = attrs: {
@@ -32,12 +42,11 @@ let
     };
   };
   yarnModules = let
-    info = mylibs.fetchedGithub ./mastodon.json;
     packagejson = runCommand "package.json" { buildInputs = [ jq ]; } ''
       cat ${info.src}/package.json | jq -r '.version = "${info.version}"' > $out
       '';
   in
-    mylibs.yarn2nixPackage.mkYarnModules rec {
+    yarn2nix-moretea.mkYarnModules rec {
       name = "mastodon-yarn";
       pname = name;
       version = info.version;
@@ -45,9 +54,6 @@ let
       yarnLock = "${info.src}/yarn.lock";
       yarnNix = ./yarn-packages.nix;
       pkgConfig = {
-        all = {
-          buildInputs = [ mylibs.yarn2nixPackage.src ];
-        };
         uws = {
           postInstall = ''
             npx node-gyp rebuild > build_log.txt 2>&1 || true
@@ -55,7 +61,7 @@ let
         };
       };
     };
-  mastodon_with_yarn = stdenv.mkDerivation (mylibs.fetchedGithub ./mastodon.json // rec {
+  mastodon_with_yarn = stdenv.mkDerivation (info // rec {
     installPhase = ''
       cp -a . $out
       cp -a ${yarnModules}/node_modules $out
@@ -75,7 +81,7 @@ stdenv.mkDerivation {
       cp -a $mastodon_with_yarn $out
       cd $out
       chmod u+rwX . public
-      chmod -R u+rwX config/
+      chmod -R u+rwX config/ node_modules/
       sed -i -e 's@^end$@  config.action_mailer.sendmail_settings = { location: ENV.fetch("SENDMAIL_LOCATION", "/usr/sbin/sendmail") }\nend@' config/environments/production.rb
       RAILS_ENV=production ${gems}/bin/rails assets:precompile
       rm -rf tmp/cache

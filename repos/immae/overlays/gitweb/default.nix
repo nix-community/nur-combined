@@ -1,6 +1,6 @@
 self: super: {
   gitweb = super.gitweb.overrideAttrs(old: {
-    installPhase = old.installPhase + ''
+    postBuild = old.postBuild or "" + ''
       cp -r ${./theme} $out/gitweb-theme;
       '';
   });

@@ -27,7 +27,7 @@ in
       '';
     };
     socketsPrefix = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "live";
       description = ''
         The prefix to use for Mastodon sockets.
@@ -96,18 +96,20 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.users = lib.optionalAttrs (cfg.user == name) (lib.singleton {
-      inherit name;
-      inherit uid;
-      group = cfg.group;
-      description = "Mastodon user";
-      home = cfg.dataDir;
-      useDefaultShell = true;
-    });
-    users.groups = lib.optionalAttrs (cfg.group == name) (lib.singleton {
-      inherit name;
-      inherit gid;
-    });
+    users.users = lib.optionalAttrs (cfg.user == name) {
+      "${name}" = {
+        inherit uid;
+        group = cfg.group;
+        description = "Mastodon user";
+        home = cfg.dataDir;
+        useDefaultShell = true;
+      };
+    };
+    users.groups = lib.optionalAttrs (cfg.group == name) {
+      "${name}" = {
+        inherit gid;
+      };
+    };
 
     systemd.services.mastodon-streaming = {
       description = "Mastodon Streaming";
@@ -171,6 +173,9 @@ in
         exec ./bin/bundle exec puma -C config/puma.rb
       '';
 
+      postStart = ''
+        exec ./bin/tootctl cache clear
+        '';
       serviceConfig = {
         User = cfg.user;
         EnvironmentFile = cfg.configFile;
@@ -178,6 +183,36 @@ in
         Restart = "always";
         TimeoutSec = 60;
         Type = "simple";
+        WorkingDirectory = cfg.workdir;
+        StateDirectory = cfg.systemdStateDirectory;
+        RuntimeDirectory = cfg.systemdRuntimeDirectory;
+        RuntimeDirectoryPreserve = "yes";
+      };
+
+      unitConfig.RequiresMountsFor = cfg.dataDir;
+    };
+
+    systemd.services.mastodon-cleanup = {
+      description = "Cleanup mastodon";
+      startAt = "daily";
+      restartIfChanged = false;
+
+      environment.RAILS_ENV = "production";
+      environment.BUNDLE_PATH = "${cfg.workdir.gems}/${cfg.workdir.gems.ruby.gemPath}";
+      environment.BUNDLE_GEMFILE = "${cfg.workdir.gems.confFiles}/Gemfile";
+      environment.SOCKET = cfg.sockets.rails;
+
+      path = [ cfg.workdir.gems cfg.workdir.gems.ruby pkgs.file ];
+
+      script = ''
+        exec ./bin/tootctl media remove --days 30
+      '';
+
+      serviceConfig = {
+        User = cfg.user;
+        EnvironmentFile = cfg.configFile;
+        PrivateTmp = true;
+        Type = "oneshot";
         WorkingDirectory = cfg.workdir;
         StateDirectory = cfg.systemdStateDirectory;
         RuntimeDirectory = cfg.systemdRuntimeDirectory;

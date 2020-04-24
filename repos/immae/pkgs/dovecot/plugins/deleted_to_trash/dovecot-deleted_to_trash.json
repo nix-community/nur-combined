@@ -1,0 +1,15 @@
+{
+  "tag": "81b0754-master",
+  "meta": {
+    "name": "dovecot-deleted_to_trash",
+    "url": "https://github.com/lexbrugman/dovecot_deleted_to_trash",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "lexbrugman",
+    "repo": "dovecot_deleted_to_trash",
+    "rev": "81b07549accfc36467bf8527a53c295c7a02dbb9",
+    "sha256": "1b3k31g898s4fa0a9l4kvjsdyds772waaay84sjdxv09jw6mqs0f",
+    "fetchSubmodules": true
+  }
+}

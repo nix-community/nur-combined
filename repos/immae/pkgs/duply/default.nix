@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, makeWrapper, coreutils, python2, duplicity, gawk, gnupg1, bash, gnugrep, txt2man, which }:
+{ stdenv, fetchurl, makeWrapper, coreutils, python3, duplicity, gawk, gnupg1, bash, gnugrep, txt2man, which }:
 stdenv.mkDerivation rec {
   name = "duply-${version}";
   version = "2.1";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/share/man/man1"
     install -vD duply "$out/bin"
     sed -i $out/bin/duply -e "1a \
-    export PATH='${stdenv.lib.makeBinPath [ coreutils python2 duplicity gawk gnupg1 bash gnugrep txt2man which ]}'
+    export PATH='${stdenv.lib.makeBinPath [ coreutils python3 duplicity gawk gnupg1 bash gnugrep txt2man which ]}'
     " -e "1a \
     export DUPL_PYTHON_BIN=$(basename ${duplicity}/lib/python*)
     "

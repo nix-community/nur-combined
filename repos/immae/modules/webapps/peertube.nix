@@ -53,18 +53,20 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.users = lib.optionalAttrs (cfg.user == name) (lib.singleton {
-      inherit name;
-      inherit uid;
-      group = cfg.group;
-      description = "Peertube user";
-      home = cfg.dataDir;
-      useDefaultShell = true;
-    });
-    users.groups = lib.optionalAttrs (cfg.group == name) (lib.singleton {
-      inherit name;
-      inherit gid;
-    });
+    users.users = lib.optionalAttrs (cfg.user == name) {
+      "${name}" = {
+        inherit uid;
+        group = cfg.group;
+        description = "Peertube user";
+        home = cfg.dataDir;
+        useDefaultShell = true;
+      };
+    };
+    users.groups = lib.optionalAttrs (cfg.group == name) {
+      "${name}" = {
+        inherit gid;
+      };
+    };
 
     systemd.services.peertube = {
       description = "Peertube";
@@ -81,6 +83,7 @@ in
       script = ''
         install -m 0750 -d ${cfg.dataDir}/config
         ln -sf ${cfg.configFile} ${cfg.dataDir}/config/production.yaml
+        ln -sf ${cfg.package}/config/default.yaml ${cfg.dataDir}/config/default.yaml
         exec npm run start
       '';
 

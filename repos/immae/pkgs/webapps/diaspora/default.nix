@@ -15,10 +15,6 @@ let
   });
   gems = bundlerEnv {
     name = "diaspora-env";
-    # https://git.immae.eu/mantisbt/view.php?id=131
-    ruby = ruby_2_4.overrideAttrs(old: {
-      postInstall = builtins.replaceStrings [" --destdir $GEM_HOME"] [""] old.postInstall;
-    });
     gemfile = "${diaspora_src}/Gemfile";
     lockfile = "${diaspora_src}/Gemfile.lock";
     gemset = if ldap then ./gemset_ldap.nix else ./gemset.nix;

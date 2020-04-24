@@ -7,5 +7,5 @@ buildPythonPackage rec {
     sha256 = "1spq44gg8gsviqx1dvlmjpgfc0wk0jpyx4ap01y2pad1ai9cw016";
   };
   propagatedBuildInputs = [ twisted.extras.tls twisted incremental dateutil ];
-  doChecks = false;
+  doCheck = false;
 }

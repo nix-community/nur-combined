@@ -25,4 +25,5 @@ in
   apprise = fromMyPythonPackages "apprise";
   buildbot = import ./buildbot.nix;
   wokkel = fromMyPythonPackages "wokkel";
+  pymilter = fromMyPythonPackages "pymilter";
 }

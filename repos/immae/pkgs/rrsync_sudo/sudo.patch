@@ -1,0 +1,20 @@
+--- a/support/rrsync	2015-09-14 01:23:54.000000000 +0200
++++ b/support/rrsync	2020-02-08 13:55:14.302163313 +0100
+@@ -48,7 +48,7 @@
+ 
+ my $command = $ENV{SSH_ORIGINAL_COMMAND};
+ die "$0: Not invoked via sshd\n$Usage"	unless defined $command;
+-die "$0: SSH_ORIGINAL_COMMAND='$command' is not rsync\n" unless $command =~ s/^rsync\s+//;
++die "$0: SSH_ORIGINAL_COMMAND='$command' is not rsync\n" unless $command =~ s/^sudo rsync\s+//;
+ die "$0: --server option is not first\n" unless $command =~ /^--server\s/;
+ our $am_sender = $command =~ /^--server\s+--sender\s/; # Restrictive on purpose!
+ die "$0 sending to read-only server not allowed\n" if $only eq 'r' && !$am_sender;
+@@ -227,7 +227,7 @@
+ }
+ 
+ # Note: This assumes that the rsync protocol will not be maliciously hijacked.
+-exec(RSYNC, @opts, @args) or die "exec(rsync @opts @args) failed: $? $!";
++exec("/usr/bin/sudo", RSYNC, @opts, @args) or die "exec(sudo rsync @opts @args) failed: $? $!";
+ 
+ sub check_arg
+ {

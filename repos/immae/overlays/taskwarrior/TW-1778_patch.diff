@@ -1,0 +1,12 @@
+--- a/src/text.cpp 2016-02-24 23:18:11.000000000 +0100
++++ b/src/text.cpp 2020-02-26 18:53:15.869331031 +0100
+@@ -248,7 +248,7 @@
+     // Premature EOL.
+     if (character == '\n')
+     {
+-      line = text.substr (offset, line_length);
++      line = text.substr (offset, prior_cursor-offset);
+       offset = cursor;
+       return true;
+     }
+

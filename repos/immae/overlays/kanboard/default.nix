@@ -7,7 +7,7 @@ self: super: {
         owner = "kanboard";
         repo = "kanboard";
         rev = "c4152316b14936556edf3bcc4d11f16ba31b8ae7";
-        sha256 = "18bn9zhyfc5x28hwcxss7chdq7c8rshc8jxgai65i5l68iwhvjg7";
+        sha256 = "1hdr95cpxgdzrzhffs63gdl0g7122ma2zg8bkqwp42p5xphx0xan";
       };
       installPhase = ''
         cp -a . $out

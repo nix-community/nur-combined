@@ -1,0 +1,15 @@
+{
+  "tag": "dacf3fb-master",
+  "meta": {
+    "name": "predixy",
+    "url": "https://github.com/joyieldInc/predixy",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "joyieldInc",
+    "repo": "predixy",
+    "rev": "dacf3fb30c2602dc044040df04e194d44b49c1be",
+    "sha256": "0sbvy0jg551lwkfq8qh0a49cl9mhfnkhi3cnk25l8pz4jcdrr9k9",
+    "fetchSubmodules": true
+  }
+}

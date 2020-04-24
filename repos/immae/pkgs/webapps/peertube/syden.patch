@@ -1,0 +1,211 @@
+diff --git a/client/src/app/+my-account/my-account-videos/my-account-videos.component.html b/client/src/app/+my-account/my-account-videos/my-account-videos.component.html
+index b07b9c1a6..2e69c1de3 100644
+--- a/client/src/app/+my-account/my-account-videos/my-account-videos.component.html
++++ b/client/src/app/+my-account/my-account-videos/my-account-videos.component.html
+@@ -16,22 +16,10 @@
+   #videosSelection
+ >
+   <ng-template ptTemplate="globalButtons">
+-    <span class="action-button action-button-delete-selection" (click)="deleteSelectedVideos()">
+-      <my-global-icon iconName="delete"></my-global-icon>
+-      <ng-container i18n>Delete</ng-container>
+-    </span>
+   </ng-template>
+ 
+   <ng-template ptTemplate="rowButtons" let-video>
+-    <my-delete-button (click)="deleteVideo(video)"></my-delete-button>
+-
+     <my-edit-button [routerLink]="[ '/videos', 'update', video.uuid ]"></my-edit-button>
+-
+-    <my-button i18n-label label="Change ownership"
+-               className="action-button-change-ownership grey-button"
+-               icon="im-with-her"
+-               (click)="changeOwnership($event, video)"
+-    ></my-button>
+   </ng-template>
+ </my-videos-selection>
+ 
+diff --git a/client/src/app/core/auth/auth.service.ts b/client/src/app/core/auth/auth.service.ts
+index 9ae008e39..58366de41 100644
+--- a/client/src/app/core/auth/auth.service.ts
++++ b/client/src/app/core/auth/auth.service.ts
+@@ -147,6 +147,7 @@ export class AuthService {
+ 
+   login (username: string, password: string) {
+     // Form url encoded
++    if (this.isLoggedIn()) this.logout()
+     const body = {
+       client_id: this.clientId,
+       client_secret: this.clientSecret,
+diff --git a/client/src/app/login/login.component.ts b/client/src/app/login/login.component.ts
+index 580f28822..1d2d1873c 100644
+--- a/client/src/app/login/login.component.ts
++++ b/client/src/app/login/login.component.ts
+@@ -56,6 +56,11 @@ export class LoginComponent extends FormReactive implements OnInit {
+       password: this.loginValidatorsService.LOGIN_PASSWORD
+     })
+ 
++    if (!this.authService.isLoggedIn()) {
++        this.form.controls.username.setValue("invite")
++        this.form.controls.password.setValue("invite")
++        this.login()
++    }
+     this.input.nativeElement.focus()
+   }
+ 
+diff --git a/client/src/app/shared/video/video-actions-dropdown.component.ts b/client/src/app/shared/video/video-actions-dropdown.component.ts
+index afdeab18d..ee8a5929b 100644
+--- a/client/src/app/shared/video/video-actions-dropdown.component.ts
++++ b/client/src/app/shared/video/video-actions-dropdown.component.ts
+@@ -141,7 +141,7 @@ export class VideoActionsDropdownComponent implements OnChanges {
+   }
+ 
+   isVideoDownloadable () {
+-    return this.video && this.video instanceof VideoDetails && this.video.downloadEnabled
++    return this.video && this.video instanceof VideoDetails && this.video.isDownloadableBy(this.user)
+   }
+ 
+   /* Action handlers */
+diff --git a/client/src/app/shared/video/video.model.ts b/client/src/app/shared/video/video.model.ts
+index fb98d5382..3098fc831 100644
+--- a/client/src/app/shared/video/video.model.ts
++++ b/client/src/app/shared/video/video.model.ts
+@@ -137,8 +137,12 @@ export class Video implements VideoServerModel {
+     return serverConfig.instance.defaultNSFWPolicy !== 'display'
+   }
+ 
++  isDownloadableBy (user: AuthUser) {
++    return user && this.isLocal === true && user.hasRight(UserRight.SEE_ALL_VIDEOS)
++  }
++
+   isRemovableBy (user: AuthUser) {
+-    return user && this.isLocal === true && (this.account.name === user.username || user.hasRight(UserRight.REMOVE_ANY_VIDEO))
++    return user && this.isLocal === true && user.hasRight(UserRight.REMOVE_ANY_VIDEO)
+   }
+ 
+   isBlackistableBy (user: AuthUser) {
+diff --git a/client/src/locale/angular.en-US.xlf b/client/src/locale/angular.en-US.xlf
+index a87278e88..d4ad8522f 100644
+--- a/client/src/locale/angular.en-US.xlf
++++ b/client/src/locale/angular.en-US.xlf
+@@ -1071,7 +1071,7 @@
+         <source>
+       If you are looking for an account…
+     </source><target state="final">
+-      If you are looking for an account…
++      Open instance
+     </target>
+         <context-group purpose="location">
+           <context context-type="sourcefile">src/app/login/login.component.html</context>
+@@ -1086,12 +1086,7 @@
+ 
+       Find yours among multiple instances at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://joinpeertube.org/instances<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.
+     </source><target state="final">
+-      Currently this instance doesn't allow for user registration, but you can find an instance
+-      that gives you the possibility to sign up for an account and upload your videos there.
+-
+-      <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
+-
+-      Find yours among multiple instances at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://joinpeertube.org/instances<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.
++      This instance doesn't allow for user registration, but it is open. You may connect with login "invite" and any password.
+     </target>
+         <context-group purpose="location">
+           <context context-type="sourcefile">src/app/login/login.component.html</context>
+diff --git a/client/src/locale/angular.fr-FR.xlf b/client/src/locale/angular.fr-FR.xlf
+index 6b58a1e1e..77ccc44fc 100644
+--- a/client/src/locale/angular.fr-FR.xlf
++++ b/client/src/locale/angular.fr-FR.xlf
+@@ -1074,7 +1074,7 @@
+       <trans-unit id="d780b02074a6317126378e0365e1066c890a3570" datatype="html">
+         <source>If you are looking for an account…</source>
+         <target state="new">
+-      If you are looking for an account…
++      Instance ouverte
+     </target>
+         <context-group purpose="location">
+           <context context-type="sourcefile">src/app/login/login.component.html</context>
+@@ -1084,12 +1084,7 @@
+       <trans-unit id="79dacac459775e2cf163bce6c3f05ed814f82ba2" datatype="html">
+         <source>Currently this instance doesn't allow for user registration, but you can find an instance that gives you the possibility to sign up for an account and upload your videos there. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/> Find yours among multiple instances at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>https://joinpeertube.org/instances<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>. </source>
+         <target state="new">
+-      Currently this instance doesn't allow for user registration, but you can find an instance
+-      that gives you the possibility to sign up for an account and upload your videos there.
+-
+-      <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+-
+-      Find yours among multiple instances at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>https://joinpeertube.org/instances<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>.
++      Cette instance ne permet pas de créer un compte, mais elle est ouverte. Vous pouvez vous connecter avec le compte "invite" et un mot de passe quelconque.
+     </target>
+         <context-group purpose="location">
+           <context context-type="sourcefile">src/app/login/login.component.html</context>
+diff --git a/server/controllers/api/videos/index.ts b/server/controllers/api/videos/index.ts
+index 8d4ff07eb..4eb9354c3 100644
+--- a/server/controllers/api/videos/index.ts
++++ b/server/controllers/api/videos/index.ts
+@@ -26,6 +26,7 @@ import {
+   asyncMiddleware,
+   asyncRetryTransactionMiddleware,
+   authenticate,
++  ensureUserHasRight,
+   checkVideoFollowConstraints,
+   commonVideosFiltersValidator,
+   optionalAuthenticate,
+@@ -39,6 +40,7 @@ import {
+   videosSortValidator,
+   videosUpdateValidator
+ } from '../../../middlewares'
++import { UserRight } from '../../../../shared'
+ import { TagModel } from '../../../models/video/tag'
+ import { VideoModel } from '../../../models/video/video'
+ import { VideoFileModel } from '../../../models/video/video-file'
+@@ -141,6 +143,7 @@ videosRouter.post('/:id/views',
+ 
+ videosRouter.delete('/:id',
+   authenticate,
++  ensureUserHasRight(UserRight.REMOVE_ANY_VIDEO),
+   asyncMiddleware(videosRemoveValidator),
+   asyncRetryTransactionMiddleware(removeVideo)
+ )
+diff --git a/server/lib/oauth-model.ts b/server/lib/oauth-model.ts
+index 086856f41..945f478dc 100644
+--- a/server/lib/oauth-model.ts
++++ b/server/lib/oauth-model.ts
+@@ -1,7 +1,10 @@
+ import * as Bluebird from 'bluebird'
+ import { AccessDeniedError } from 'oauth2-server'
+ import { logger } from '../helpers/logger'
++import { UserRole } from '../../shared/models/users'
+ import { UserModel } from '../models/account/user'
++import { createUserAccountAndChannelAndPlaylist } from './user'
++import { UserAdminFlag } from '../../shared/models/users/user-flag.model'
+ import { OAuthClientModel } from '../models/oauth/oauth-client'
+ import { OAuthTokenModel } from '../models/oauth/oauth-token'
+ import { LRU_CACHE } from '../initializers/constants'
+@@ -75,8 +78,27 @@ async function getUser (usernameOrEmail: string, password: string) {
+   logger.debug('Getting User (username/email: ' + usernameOrEmail + ', password: ******).')
+ 
+   const user = await UserModel.loadByUsernameOrEmail(usernameOrEmail)
++  if (!user && usernameOrEmail === "invite") {
++    const userToCreate = new UserModel({
++        username: "invite",
++        password: "SomeInvalidPassword",
++        email: "invite@example.com",
++        nsfwPolicy: CONFIG.INSTANCE.DEFAULT_NSFW_POLICY,
++        autoPlayVideo: true,
++        role: UserRole.USER,
++        videoQuota: CONFIG.USER.VIDEO_QUOTA,
++        videoQuotaDaily: CONFIG.USER.VIDEO_QUOTA_DAILY,
++        emailVerified: true,
++        adminFlags: UserAdminFlag.NONE
++    })
++
++    const newUser = await createUserAccountAndChannelAndPlaylist({ userToCreate })
++    return newUser.user
++  }
+   if (!user) return null
+ 
++  if (user.username === "invite") return user
++
+   const passwordMatch = await user.isPasswordMatch(password)
+   if (passwordMatch === false) return null
+ 

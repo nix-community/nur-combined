@@ -1,0 +1,15 @@
+diff --git a/nix/hetzner-bootstrap.nix b/nix/hetzner-bootstrap.nix
+index 035e6f9..def42a1 100644
+--- a/nix/hetzner-bootstrap.nix
++++ b/nix/hetzner-bootstrap.nix
+@@ -3,9 +3,7 @@ with import <nixpkgs> { system = "x86_64-linux"; };
+ let
+   pkgsNative = import <nixpkgs> {};
+
+-  nixpart = python2Packages.nixpart0.override {
+-    useNixUdev = false;
+-  };
++  nixpart = python2Packages.nixpart0;
+
+   generateConfig = (import <nixpkgs/nixos> {
+     configuration = {};

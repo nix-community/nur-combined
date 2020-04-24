@@ -1,0 +1,15 @@
+{
+  "tag": "355ee2a-master",
+  "meta": {
+    "name": "openarc",
+    "url": "https://github.com/trusteddomainproject/OpenARC",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "trusteddomainproject",
+    "repo": "OpenARC",
+    "rev": "355ee2a1ca85acccce494478991983b54f794f4e",
+    "sha256": "0101k6hwwf3pb3jrc88x86d4l698gjmynn9v2rpvxwxv200r2i65",
+    "fetchSubmodules": true
+  }
+}

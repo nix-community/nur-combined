@@ -1,11 +1,11 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ sources ? import ./nix/sources.nix, pkgs ? import sources.nixpkgs {} }:
 let
-  pkgs_ = pkgs;
-  mypkgs = import ./pkgs { pkgs = pkgs_; };
+  mypkgs = pkgs.callPackage ./pkgs {};
 in
 {
-  lib = import ./lib { pkgs = pkgs_; };
+  lib = pkgs.callPackage ./lib {};
   modules = import ./modules;
   overlays = import ./overlays;
   pkgs = mypkgs;
+  environments = pkgs.callPackage ./environments {};
 } // mypkgs

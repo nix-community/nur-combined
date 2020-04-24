@@ -1,6 +1,9 @@
 self: super:
 {
   taskwarrior = super.taskwarrior.overrideAttrs (old: {
+    patches = old.patches or [] ++ [
+      ./TW-1778_patch.diff
+    ];
     postInstall = ''${old.postInstall}
       mkdir -p "$out/share/vim/vimfiles/ftdetect"
       mkdir -p "$out/share/vim/vimfiles/syntax"

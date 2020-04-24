@@ -1,0 +1,12 @@
+diff --git a/src/deleted-to-trash-plugin.c b/src/deleted-to-trash-plugin.c
+index bb4cc78..66bad53 100644
+--- a/src/deleted-to-trash-plugin.c
++++ b/src/deleted-to-trash-plugin.c
+@@ -82,6 +82,7 @@ static struct mailbox *mailbox_open_or_create(struct mailbox_list *list, const c
+ 	*error_r = mail_storage_get_last_error(mailbox_get_storage(box), &error);
+ 	if (error != MAIL_ERROR_NOTFOUND)
+ 	{
++		i_error("%s", *error_r);
+ 		mailbox_free(&box);
+ 		return NULL;
+ 	}

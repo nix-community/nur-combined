@@ -1,6 +1,6 @@
 { buildPerlPackage, fetchurl, perlPackages }:
 buildPerlPackage rec {
-  name = "tiv-${version}";
+  pname = "tiv";
   version = "2015";
   src = fetchurl {
     url = "http://xyne.archlinux.ca/projects/tiv/src/tiv-${version}.tar.xz";

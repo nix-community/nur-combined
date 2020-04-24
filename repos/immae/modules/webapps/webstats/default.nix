@@ -23,7 +23,7 @@ in {
               '';
           };
           name = lib.mkOption {
-            type = lib.types.string;
+            type = lib.types.str;
             description  = ''
               Domain name. Corresponds to the Apache file name and the
               folder name in which the state will be saved.
@@ -37,6 +37,9 @@ in {
   };
 
   config = lib.mkIf (builtins.length cfg.sites > 0) {
+    services.duplyBackup.profiles.goaccess = {
+      rootDir = cfg.dataDir;
+    };
     users.users.root.packages = [
       pkgs.goaccess
     ];

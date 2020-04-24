@@ -15,6 +15,10 @@ buildPythonApplication rec {
     ./fix_build.patch
   ];
 
+  preCheck = ''
+    # Needed for urwid test
+    export LC_ALL=en_US.UTF-8
+    '';
   propagatedBuildInputs = [
     chardet
     urwid

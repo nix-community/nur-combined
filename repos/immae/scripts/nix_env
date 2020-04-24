@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# This will automatically upgrade to latest version at each build
-nixpkgs="https://nixos.org/channels/nixos-19.03/nixexprs.tar.xz"
-nixpkgsPrevious="$nixpkgs"
-nixpkgsNext="$nixpkgs"
-export NIX_PATH="nixpkgs=$nixpkgs:nixpkgsNext=$nixpkgsNext:nixpkgsPrevious=$nixpkgsPrevious"

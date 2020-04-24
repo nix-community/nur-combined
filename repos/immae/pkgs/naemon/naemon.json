@@ -1,0 +1,15 @@
+{
+  "tag": "ba6fd20-master",
+  "meta": {
+    "name": "naemon",
+    "url": "https://github.com/naemon/naemon-core",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "naemon",
+    "repo": "naemon-core",
+    "rev": "ba6fd20221fbdd5c99b4eb5dcf4ee5681c5a9495",
+    "sha256": "15rvqg985nn05rsgkch4ix8y2wg7a6pb70d63ckzy1inwqjp8z46",
+    "fetchSubmodules": true
+  }
+}

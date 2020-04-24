@@ -7,10 +7,10 @@
 let
   app = stdenv.mkDerivation rec {
     name = "${siteName}-${environment}-spip-${version}";
-    version = "3.2.3";
+    version = "3.2.7";
     src = fetchzip {
       url = "https://files.spip.net/spip/archives/SPIP-v${version}.zip";
-      sha256 = "1r1mjvsnrp6mvkgjakvi3x4ms8m8k5mp93micbbg8r99fj7qlfkq";
+      sha256 = "0n4kc95nhn524zbb11bpfjs965pm4v026s3m3q44pl8nyms91r33";
     };
     paches = lib.optionals ldap [ ./spip_ldap_patch.patch ];
     buildPhase = ''

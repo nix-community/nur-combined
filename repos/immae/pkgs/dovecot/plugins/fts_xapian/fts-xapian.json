@@ -1,0 +1,15 @@
+{
+  "tag": "9a94b4a-master",
+  "meta": {
+    "name": "fts-xapian",
+    "url": "https://github.com/grosjo/fts-xapian",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "grosjo",
+    "repo": "fts-xapian",
+    "rev": "9a94b4aeaac3988786ad72a716127c306b05c9d6",
+    "sha256": "12xv5fnqahs0cy26ja2jwk6dg95626amblisf2wcx3nqzkcf4w1y",
+    "fetchSubmodules": true
+  }
+}

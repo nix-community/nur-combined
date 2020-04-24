@@ -2,6 +2,15 @@
 let
   overridePython = let
     packageOverrides = self: super: {
+      pybcrypt = super.buildPythonPackage rec {
+        pname = "pybcrypt";
+        version = "0.4";
+
+        src = self.fetchPypi {
+          inherit pname version;
+          sha256 = "5fa13bce551468350d66c4883694850570f3da28d6866bb638ba44fe5eabda78";
+        };
+      };
       celery = super.celery.overridePythonAttrs(old: rec {
         version = "3.1.26.post2";
         src = self.fetchPypi {
@@ -19,6 +28,8 @@ let
           inherit (old) pname;
           sha256 = "02wxsc6bhqvzh8j6w758kvgqbnj14l796mvmrcms8fgfamd2lak9";
         };
+        doCheck = false;
+        doInstallCheck = false;
       });
       amqp = super.amqp.overridePythonAttrs(old: rec {
         version = "1.4.9";
@@ -45,6 +56,7 @@ let
           inherit (old) pname;
           sha256 = "8b0ec71af9291191ba83a91c03d157b19ab3e7119e27da97932a4773a3f664a9";
         };
+        doCheck = false;
       });
       tempita_5_3_dev = super.buildPythonPackage (mylibs.fetchedGithub ./tempita.json // rec {
         buildInputs = with self; [ nose ];

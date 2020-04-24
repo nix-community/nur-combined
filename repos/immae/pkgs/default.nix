@@ -4,48 +4,63 @@ let
   mylibs = import ../lib { inherit pkgs; };
 in
 rec {
-  boinctui = callPackage ../pkgs/boinctui {};
-  cnagios = callPackage ../pkgs/cnagios { inherit mylibs; };
-  duply = callPackage ../pkgs/duply {};
-  flrn = callPackage ../pkgs/flrn { inherit mylibs; slang = callPackage ../pkgs/slang_1 {}; };
-  genius = callPackage ../pkgs/genius {};
-  mtop = callPackage ../pkgs/mtop {};
-  muttprint = callPackage ../pkgs/muttprint {};
-  mutt-ics = callPackage ../pkgs/mutt-ics { inherit mylibs; };
-  nagios-cli = callPackage ../pkgs/nagios-cli { inherit mylibs; };
-  nagnu = callPackage ../pkgs/nagnu { inherit mylibs; };
-  note = callPackage ../pkgs/note {};
-  notmuch-python2 = callPackage ../pkgs/notmuch/notmuch-python { pythonPackages = python2Packages; };
-  notmuch-python3 = callPackage ../pkgs/notmuch/notmuch-python { pythonPackages = python3Packages; };
-  notmuch-vim = callPackage ../pkgs/notmuch/notmuch-vim {};
-  pg_activity = callPackage ../pkgs/pg_activity { inherit mylibs; };
-  pgloader = callPackage ../pkgs/pgloader {};
-  telegram-cli = callPackage ../pkgs/telegram-cli { inherit mylibs; };
-  telegram-history-dump = callPackage ../pkgs/telegram-history-dump { inherit mylibs; };
-  telegramircd = callPackage ../pkgs/telegramircd { inherit mylibs; telethon = callPackage ../pkgs/telethon_sync {}; };
-  terminal-velocity = callPackage ../pkgs/terminal-velocity {};
-  tiv = callPackage ../pkgs/tiv {};
-  unicodeDoc = callPackage ../pkgs/unicode {};
+  sources = import ../nix/sources.nix;
+  myEnvironments = callPackage ../environments {};
+  boinctui = callPackage ./boinctui {};
+  cnagios = callPackage ./cnagios { inherit mylibs; };
+  duply = callPackage ./duply {};
+  flrn = callPackage ./flrn { inherit mylibs; slang = callPackage ./slang_1 {}; };
+  genius = callPackage ./genius {};
+  mtop = callPackage ./mtop {};
+  muttprint = callPackage ./muttprint {};
+  mutt-ics = callPackage ./mutt-ics { inherit mylibs; };
+  nagios-cli = callPackage ./nagios-cli { inherit mylibs; };
+  nagnu = callPackage ./nagnu { inherit mylibs; };
+  note = callPackage ./note {};
+  notmuch-python2 = callPackage ./notmuch/notmuch-python { pythonPackages = python2Packages; };
+  notmuch-python3 = callPackage ./notmuch/notmuch-python { pythonPackages = python3Packages; };
+  notmuch-vim = callPackage ./notmuch/notmuch-vim {};
+  openarc = callPackage ./openarc { inherit mylibs; };
+  opendmarc = callPackage ./opendmarc { libspf2 = callPackage ./opendmarc/libspf2.nix {}; };
+  pg_activity = callPackage ./pg_activity { inherit mylibs; };
+  pgloader = callPackage ./pgloader {};
+  predixy = callPackage ./predixy { inherit mylibs; };
+  rrsync_sudo = callPackage ./rrsync_sudo {};
+  telegram-cli = callPackage ./telegram-cli { inherit mylibs; };
+  telegram-history-dump = callPackage ./telegram-history-dump { inherit mylibs; };
+  telegramircd = callPackage ./telegramircd { inherit mylibs; telethon = callPackage ./telethon_sync {}; };
+  terminal-velocity = callPackage ./terminal-velocity {};
+  tiv = callPackage ./tiv {};
+  unicodeDoc = callPackage ./unicode {};
 
-  cardano = callPackage ../pkgs/crypto/cardano { inherit mylibs; };
-  iota-cli-app = callPackage ../pkgs/crypto/iota-cli-app { inherit mylibs; };
-  sia = callPackage ../pkgs/crypto/sia {};
+  cardano = callPackage ./crypto/cardano { inherit mylibs; };
+  cardano-cli = callPackage ./crypto/cardano-cli {};
+  iota-cli-app = callPackage ./crypto/iota-cli-app { inherit mylibs; };
+  sia = callPackage ./crypto/sia {};
 
-  pure-ftpd = callPackage ../pkgs/pure-ftpd {};
-  mpd = (callPackage ../pkgs/mpd_0_21 {}).mpd;
-  mpd-small = (callPackage ../pkgs/mpd_0_21 {}).mpd-small;
+  pure-ftpd = callPackage ./pure-ftpd {};
+  mpd = (callPackage ./mpd_0_21 {}).mpd;
+  mpd-small = (callPackage ./mpd_0_21 {}).mpd-small;
 
   bitlbee-mastodon = callPackage ./bitlbee-mastodon {};
 
   composerEnv = callPackage ./composer-env {};
-  webapps = callPackage ./webapps { inherit mylibs composerEnv private; };
+  webapps = callPackage ./webapps { inherit mylibs composerEnv; };
 
-  private = if builtins.pathExists (./. + "/private")
-    then import ./private { inherit pkgs; }
-    else { webapps = {}; };
+  monitoring-plugins = callPackage ./monitoring-plugins {};
+  naemon = callPackage ./naemon { inherit mylibs monitoring-plugins; };
+  naemon-livestatus = callPackage ./naemon-livestatus { inherit mylibs naemon; };
 
   python3PackagesPlus = callPackage ./python-packages {
     python = python3;
     inherit mylibs;
   };
+  dovecot_deleted-to-trash = callPackage ./dovecot/plugins/deleted_to_trash {
+    inherit mylibs;
+  };
+  dovecot_fts-xapian = callPackage ./dovecot/plugins/fts_xapian {
+    inherit mylibs;
+  };
+
+  fiche = callPackage ./fiche { inherit mylibs; };
 }

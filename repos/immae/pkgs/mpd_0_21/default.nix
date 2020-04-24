@@ -21,13 +21,7 @@
 }:
 
 let
-  major = "0.21";
-  minor = "7";
-
   lib = stdenv.lib;
-  mkDisable = f: "-D${f}=disabled";
-  mkEnable = f: "-D${f}=enabled";
-  keys = lib.mapAttrsToList (k: v: k);
 
   featureDependencies = {
     # Storage plugins
@@ -77,6 +71,7 @@ let
     icu           = [ icu ];
     pcre          = [ pcre ];
     sqlite        = [ sqlite ];
+    syslog        = [ ];
     systemd       = [ systemd ];
     yajl          = [ yajl ];
     zeroconf      = [ avahi dbus ];
@@ -84,49 +79,60 @@ let
 
   run = { features ? null }:
     let
-      fl = if (features == null )
-        then keys featureDependencies
-        else features;
-
       # Disable platform specific features if needed
       # using libmad to decode mp3 files on darwin is causing a segfault -- there
       # is probably a solution, but I'm disabling it for now
-      platformMask = lib.optionals stdenv.isDarwin [ "mad" "pulse" "jack" "nfs" "smb" ]
-                  ++ lib.optionals (!stdenv.isLinux) [ "alsa" "systemd" ];
-      features_ = lib.subtractLists platformMask fl;
+      platformMask = lib.optionals stdenv.isDarwin [ "mad" "pulse" "jack" "nfs" "smbclient" ]
+                  ++ lib.optionals (!stdenv.isLinux) [ "alsa" "systemd" "syslog" ];
+
+      knownFeatures = builtins.attrNames featureDependencies;
+      platformFeatures = lib.subtractLists platformMask knownFeatures;
+
+      features_ = if (features == null )
+        then platformFeatures
+        else
+          let unknown = lib.subtractLists knownFeatures features; in
+          if (unknown != [])
+            then throw "Unknown feature(s): ${lib.concatStringsSep " " unknown}"
+            else
+              let unsupported = lib.subtractLists platformFeatures features; in
+              if (unsupported != [])
+                then throw "Feature(s) ${lib.concatStringsSep " " unsupported} are not supported on ${stdenv.hostPlatform.system}"
+                else features;
 
     in stdenv.mkDerivation rec {
-      name = "mpd-${version}";
-      version = "${major}${if minor == "" then "" else "." + minor}";
+      pname = "mpd";
+      version = "0.21.21";
 
       src = fetchFromGitHub {
         owner  = "MusicPlayerDaemon";
         repo   = "MPD";
         rev    = "v${version}";
-        sha256 = "11zi8hmlj63ngzl06vzx05669k20j4cdsp0caz4p4ayn46fd4m17";
+        sha256 = "0ysyjlmmfm1y5jqyv83bs9p7zqr9pgj1hmdq2b7kx9kridclbnng";
       };
 
       buildInputs = [ glib boost ]
         ++ (lib.concatLists (lib.attrVals features_ featureDependencies))
-        ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AudioToolbox;
+        ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AudioToolbox darwin.apple_sdk.frameworks.AudioUnit ];
 
       nativeBuildInputs = [ meson ninja pkgconfig ];
 
       enableParallelBuilding = true;
 
+      mesonAutoFeatures = "disabled";
       mesonFlags =
-        map mkEnable features_ ++ map mkDisable (lib.subtractLists features_ (keys featureDependencies))
-        ++ [ "-Dsyslog=enabled" ]
-        ++ lib.optional (lib.any (x: x == "zeroconf") features_)
+        map (x: "-D${x}=enabled") features_
+        ++ map (x: "-D${x}=disabled") (lib.subtractLists features_ knownFeatures)
+        ++ lib.optional (builtins.elem "zeroconf" features_)
           "-Dzeroconf=avahi"
-        ++ lib.optional stdenv.isLinux
+        ++ lib.optional (builtins.elem "systemd" features_)
           "-Dsystemd_system_unit_dir=etc/systemd/system";
 
       meta = with stdenv.lib; {
         description = "A flexible, powerful daemon for playing music";
-        homepage    = http://mpd.wikia.com/wiki/Music_Player_Daemon_Wiki;
+        homepage    = "https://www.musicpd.org/";
         license     = licenses.gpl2;
-        maintainers = with maintainers; [ astsmtl fuuzetsu ehmry fpletz ];
+        maintainers = with maintainers; [ astsmtl ehmry fpletz tobim ];
         platforms   = platforms.unix;
 
         longDescription = ''
@@ -140,13 +146,17 @@ in
 {
   mpd = run { };
   mpd-small = run { features = [
-    "webdav" "curl" "mms" "nfs" "bzip2" "zzip"
+    "webdav" "curl" "mms" "bzip2" "zzip"
     "audiofile" "faad" "flac" "gme" "mad"
-    "mpg123" "opus" "vorbis"
-    "vorbisenc" "lame" "libsamplerate"
-    "alsa" "shout" "libmpdclient"
-    "id3tag" "expat" "pcre" "yajl" "sqlite"
+    "mpg123" "opus" "vorbis" "vorbisenc"
+    "lame" "libsamplerate" "shout"
+    "libmpdclient" "id3tag" "expat" "pcre"
+    "yajl" "sqlite"
     "soundcloud" "qobuz" "tidal"
-    "systemd"
+  ] ++ lib.optionals stdenv.isLinux [
+    "alsa" "systemd" "syslog"
+  ] ++ lib.optionals (!stdenv.isDarwin) [
+    "mad" "jack" "nfs"
   ]; };
+  mpdWithFeatures = run;
 }

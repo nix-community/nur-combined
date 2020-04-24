@@ -1,0 +1,15 @@
+{
+  "tag": "4bba916-master",
+  "meta": {
+    "name": "fiche",
+    "url": "https://github.com/solusipse/fiche",
+    "branch": "master"
+  },
+  "github": {
+    "owner": "solusipse",
+    "repo": "fiche",
+    "rev": "4bba916e0f4a54d98a3947df7e2d0714d92a8bab",
+    "sha256": "060pxn8ns2zqszv1dlf7zcaf42avn9svya6irwy5d1ry29hp2ds9",
+    "fetchSubmodules": true
+  }
+}

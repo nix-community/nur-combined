@@ -108,19 +108,21 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.users = lib.optionalAttrs (cfg.user == name) (lib.singleton {
-      inherit name;
-      inherit uid;
-      group = cfg.group;
-      description = "Diaspora user";
-      home = cfg.dataDir;
-      packages = [ cfg.workdir.gems pkgs.nodejs cfg.workdir.gems.ruby ];
-      useDefaultShell = true;
-    });
-    users.groups = lib.optionalAttrs (cfg.group == name) (lib.singleton {
-      inherit name;
-      inherit gid;
-    });
+    users.users = lib.optionalAttrs (cfg.user == name) {
+      "${name}" = {
+        inherit uid;
+        group = cfg.group;
+        description = "Diaspora user";
+        home = cfg.dataDir;
+        packages = [ cfg.workdir.gems pkgs.nodejs cfg.workdir.gems.ruby ];
+        useDefaultShell = true;
+      };
+    };
+    users.groups = lib.optionalAttrs (cfg.group == name) {
+      "${name}" = {
+        inherit gid;
+      };
+    };
 
     systemd.services.diaspora = {
       description = "Diaspora";
