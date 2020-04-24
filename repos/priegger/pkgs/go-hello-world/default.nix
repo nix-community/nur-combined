@@ -5,6 +5,7 @@ let
 in
 buildGoModule {
   name = "go-hello-world";
+  preferLocalBuild = true;
 
   src = fetchzip {
     url = "${repo}/archive/${rev}.tar.gz";

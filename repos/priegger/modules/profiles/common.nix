@@ -78,6 +78,7 @@ with lib;
   kampka.services.ntp.enable = mkDefault true;
 
   # This requires the priegger nur packages
+  priegger.services.cachix.enable = mkDefault true;
   priegger.services.prometheus.enable = mkDefault true;
   priegger.services.tor.enable = mkDefault true;
 }

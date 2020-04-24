@@ -5,6 +5,7 @@ let
 in
 rustPlatform.buildRustPackage {
   name = "rust-hello-world";
+  preferLocalBuild = true;
 
   src = fetchzip {
     url = "${repo}/archive/${rev}.tar.gz";
