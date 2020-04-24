@@ -112,10 +112,10 @@
       };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
-      version = "3.1.1";
+      version = "3.2.0";
       addonId = "CookieAutoDelete@kennydo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3530747/cookie_autodelete-3.1.1-an+fx.xpi?src=";
-      sha256 = "f13eac57fe7f0b3a443565b4d4dfcaf9d190277c6d21e6a28297fd87e2c52076";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3555212/cookie_autodelete-3.2.0-an+fx.xpi?src=";
+      sha256 = "c54835d57b0cfa7df538489bb8658447ae94411d24c96bce8ca1789117333115";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mrdokenny/Cookie-AutoDelete";
@@ -153,10 +153,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.5";
+      version = "4.9.6";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3554733/dark_reader-4.9.5-an+fx.xpi?src=";
-      sha256 = "7acb49e6616856d1defd6abc36b888eba02e70b0a041937b1df96549fef4b380";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3555530/dark_reader-4.9.6-an+fx.xpi?src=";
+      sha256 = "0d8724a11ee1349b1661eb4d172a4119dcc531d04852368e50f955629181df27";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -540,10 +540,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.10";
+      version = "1.5.11";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3515614/stylus-1.5.10-fx.xpi?src=";
-      sha256 = "b441bd4dd764e2406185c49c44d36627c3453f8686ee2c159948ebb78785eec9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3553643/stylus-1.5.11-fx.xpi?src=";
+      sha256 = "f665c05183486d91f0d76d7685350483b9404d175b20627f256d4073a682c106";
       meta = with stdenv.lib;
       {
         homepage = "https://add0n.com/stylus.html";
