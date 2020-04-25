@@ -15,7 +15,7 @@
     "cheetah3": {
         "branch": "master",
         "builtin": false,
-        "description": "Cheetah3 is a free (MIT) and open source template engine for Python.",
+        "description": "Cheetah3 is a free (MIT) and open source template engine for Python",
         "homepage": "https://cheetahtemplate.org/",
         "owner": "CheetahTemplate3",
         "repo": "cheetah3",
@@ -41,7 +41,7 @@
     "csvtools": {
         "branch": "master",
         "builtin": false,
-        "description": "GNU-alike tools for parsing RFC 4180 CSVs at high speed.",
+        "description": "GNU-alike tools for parsing RFC 4180 CSVs at high speed",
         "homepage": "https://github.com/DavyLandman/csvtools",
         "owner": "DavyLandman",
         "repo": "csvtools",
@@ -67,7 +67,7 @@
     "docker-reg-tool": {
         "branch": "master",
         "builtin": false,
-        "description": "Docker registry cli tool, primarily for deleting images.",
+        "description": "Docker registry cli tool, primarily for deleting images",
         "homepage": "https://github.com/byrnedo/docker-reg-tool",
         "owner": "byrnedo",
         "repo": "docker-reg-tool",
@@ -80,7 +80,7 @@
     "elevation": {
         "branch": "master",
         "builtin": false,
-        "description": "Python script to download global terrain digital elevation models, SRTM 30m DEM and SRTM 90m DEM.",
+        "description": "Python script to download global terrain digital elevation models, SRTM 30m DEM and SRTM 90m DEM",
         "homepage": "http://elevation.bopen.eu",
         "owner": "bopen",
         "repo": "elevation",
@@ -208,7 +208,7 @@
     "gpxsee": {
         "branch": "master",
         "builtin": false,
-        "description": "GPS log file viewer and analyzer with support for GPX, TCX, KML, FIT, IGC, NMEA, SLF, LOC, GeoJSON and OziExplorer files.",
+        "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
@@ -234,7 +234,7 @@
     "gpxtools": {
         "branch": "master",
         "builtin": false,
-        "description": "A collection of c++ tools for using GPX files ",
+        "description": "A collection of c++ tools for using GPX files",
         "homepage": "https://notabug.org/irdvo/gpxtools",
         "owner": "irdvo",
         "repo": "gpxtools",
@@ -312,7 +312,7 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport.",
+        "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
@@ -476,7 +476,7 @@
     "redict": {
         "branch": "master",
         "builtin": false,
-        "description": "A dictionary for Linux, based on C++/Qt development.",
+        "description": "A dictionary for Linux, based on C++/Qt development",
         "homepage": "https://github.com/rekols/redict",
         "owner": "rekols",
         "repo": "redict",
@@ -515,7 +515,7 @@
     "supload": {
         "branch": "master",
         "builtin": false,
-        "description": "Bash script for upload file to cloud storage based on OpenStack Swift API.",
+        "description": "Bash script for upload file to cloud storage based on OpenStack Swift API",
         "homepage": "https://github.com/selectel/supload",
         "owner": "selectel",
         "repo": "supload",

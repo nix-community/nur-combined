@@ -34,6 +34,7 @@ lib.makeScope newScope (
     wiktionary = callPackage ./data/dicts/wiktionary {};
 
     gpxsee-maps = callPackage ./data/maps/gpxsee-maps {};
+    gpxsee-poi = callPackage ./data/maps/gpxsee-poi {};
     hiblovgpsmap = callPackage ./data/maps/hiblovgpsmap {};
     maptourist = callPackage ./data/maps/maptourist {};
     mtk-suomi = callPackage ./data/maps/mtk-suomi {};

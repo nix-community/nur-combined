@@ -8,7 +8,7 @@ mkYarnPackage rec {
     if (secretsConfig != null) then
       "cp ${builtins.toFile "secrets.js" secretsConfig} src/secrets.js"
     else
-      "cp src/secrets.js.template src/secrets.js";
+      "cp src/secrets.js{.template,}";
 
   buildPhase = "yarn build";
 
