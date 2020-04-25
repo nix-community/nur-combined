@@ -66,4 +66,28 @@
       skip.ci = true;
     };
   };
+
+  westra = fetchurl {
+    name = "westra-2020-04-25";
+    url = "https://nakarte.me/westraPasses/westra_passes.json";
+    sha256 = "sha256-v2htTodltU+f+sUup3KZBq3zd+Oe3532kF7SWbRx4wA=";
+    downloadToTemp = true;
+    recursiveHash = true;
+    preferLocalBuild = true;
+    postFetch = ''
+      install -dm755 $out/share/gpxsee/POI
+      cat $downloadedFile | \
+        ${gzip}/bin/gzip -d | \
+        ${jq}/bin/jq -r '.[]|[.latlon[1],.latlon[0],.name]|@csv' > $out/share/gpxsee/POI/westra_passes.csv
+    '';
+
+    meta = with lib; {
+      homepage = "https://westra.ru/passes/";
+      description = "Mountain passes (Westra)";
+      maintainers = with maintainers; [ sikmir ];
+      license = licenses.free;
+      platforms = platforms.all;
+      skip.ci = true;
+    };
+  };
 }
