@@ -25,7 +25,7 @@ import ./lib/make-test.nix (
         testScript =
           ''
             def checkCommonProperties(machine):
-                # programs that should exist
+                # programs that should be there
                 for program in [
                     "autojump",
                     "bash",
@@ -81,6 +81,23 @@ import ./lib/make-test.nix (
             with subtest("desktop starts"):
                 checkCommonProperties(desktop)
 
+                # programs that should be there
+                for program in ["gnome-tweaks"]:
+                    desktop.succeed("type -p {} 1>&2".format(program))
+
+                # programs that should NOT be there
+                for program in [
+                    "epiphany",
+                    "evolution",
+                    "geary",
+                    "gnome-software",
+                    "rygel",
+                    "totem",
+                    "tracker",
+                ]:
+                    desktop.fail("type -p {} 1>&2".format(program))
+
+                # services that should be running
                 desktop.require_unit_state("display-manager.service")
                 desktop.require_unit_state("NetworkManager.service")
 
