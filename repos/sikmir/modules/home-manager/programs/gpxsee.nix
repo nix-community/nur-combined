@@ -9,7 +9,10 @@ let
       "Library/Application Support/GPXSee"
     else
       "${config.xdg.dataHome}/gpxsee";
+  demDir = "${appDataLocation}/DEM";
   mapDir = "${appDataLocation}/maps";
+  poiDir = "${appDataLocation}/POI";
+  styleDir = "${appDataLocation}/style";
 in
 {
   meta.maintainers = with maintainers; [ sikmir ];
@@ -24,41 +27,84 @@ in
       type = types.package;
     };
 
+    demPackage = mkOption {
+      default = null;
+      description = "GPXSee DEM package to install.";
+      type = types.nullOr types.package;
+    };
+
     mapsPackage = mkOption {
-      default = pkgs.gpxsee-maps;
+      default = null;
       description = "GPXSee maps package to install.";
-      type = types.package;
+      type = types.nullOr types.package;
+    };
+
+    poiPackages = mkOption {
+      default = [];
+      description = "GPXSee POI packages to install.";
+      type = types.listOf types.package;
     };
 
     stylesPackage = mkOption {
-      default = pkgs.qtpbfimageplugin-styles;
+      default = null;
       description = "QtPBFImagePlugin styles package to install.";
-      type = types.package;
+      type = types.nullOr types.package;
+    };
+
+    maps = mkOption {
+      default = [];
+      description = "";
+      type = types.listOf types.str;
+    };
+
+    style = mkOption {
+      default = "";
+      description = "Style for MVT usable with QtPBFImagePlugin";
+      type = types.str;
     };
   };
 
-  config = mkIf cfg.enable {
-    home.packages = [ cfg.package pkgs.qtpbfimageplugin ];
+  config = mkIf cfg.enable (
+    mkMerge [
+      {
+        home.packages = [ cfg.package pkgs.qtpbfimageplugin ];
+      }
 
-    home.file."${mapDir}/OpenStreetMap.xml".source =
-      if pkgs.stdenv.isDarwin then
-        "${cfg.package}/Applications/GPXSee.app/Contents/Resources/maps/OpenStreetMap.xml"
-      else
-        "${cfg.package}/share/gpxsee/maps/OpenStreetMap.xml";
-    home.file."${mapDir}/OpenTopoMap-RU.xml".source =
-      "${cfg.mapsPackage}/share/gpxsee/maps/World/Europe/RU/OpenTopoMap-RU.xml";
-    home.file."${mapDir}/nakarte-ggc500.xml".source =
-      "${cfg.mapsPackage}/share/gpxsee/maps/World/Europe/RU/nakarte-ggc500.xml";
-    home.file."${mapDir}/Karjalankartta20k.xml".source =
-      "${cfg.mapsPackage}/share/gpxsee/maps/World/Europe/FI/Karjalankartta20k.xml";
-    home.file."${mapDir}/Maastokartta.xml".source =
-      "${cfg.mapsPackage}/share/gpxsee/maps/World/Europe/FI/Maastokartta.xml";
-    home.file."${mapDir}/CyclOSM.xml".source =
-      "${cfg.mapsPackage}/share/gpxsee/maps/World/CyclOSM.xml";
-    home.file."${mapDir}/MapTiler.xml".source =
-      "${cfg.mapsPackage}/share/gpxsee/maps/World/MapTiler.xml";
+      (
+        mkIf (cfg.demPackage != null) {
+          home.file."${demDir}".source =
+            "${cfg.demPackage}/share/gpxsee/DEM";
+        }
+      )
 
-    home.file."${appDataLocation}/style".source =
-      "${cfg.stylesPackage}/share/gpxsee/style/OpenMapTiles/klokantech-basic";
-  };
+      (
+        let
+          mapXml = map: {
+            name = "${mapDir}/${map}";
+            value.source = "${cfg.mapsPackage}/share/gpxsee/maps/${map}";
+          };
+        in mkIf (cfg.mapsPackage != null && cfg.maps != []) {
+          home.file = listToAttrs (map mapXml cfg.maps);
+        }
+      )
+
+      (
+        let
+          mapPoi = poi: {
+            name = "${poiDir}/${poi.name}";
+            value.source = "${poi}/share/gpxsee/POI";
+          };
+        in mkIf (cfg.poiPackages != []) {
+          home.file = listToAttrs (map mapPoi cfg.poiPackages);
+        }
+      )
+
+      (
+        mkIf (cfg.stylesPackage != null && cfg.style != "") {
+          home.file."${styleDir}".source =
+            "${cfg.stylesPackage}/share/gpxsee/style/${cfg.style}";
+        }
+      )
+    ]
+  );
 }
