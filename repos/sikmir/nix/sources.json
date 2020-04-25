@@ -118,27 +118,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "08sw1r5fi23grczci2clxaprhwrd0a4ajfbqbwir56rybszl7z3z",
+        "sha256": "17a8gcry3114rms5gq0dshn01vh1q296nahgny5annrbnf5w01v2",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-200421.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-200424.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "200421"
+        "version": "200424"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "167jr82yl306zapd174pdi8yw3yzs2r9a7dhbcl4ibcnazid77bs",
+        "sha256": "1fvsll4d5zw29z6sjg8p7320d0g1s3c361h9cwk4ai03a5nwipaj",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-200421.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-200424.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "200421"
+        "version": "200424"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "0nnr5yimp1lfkjqlfbw27gdvrqzay27iqrwnpwiag6c2l81s397l",
+        "sha256": "1i48mclpajs4rr9060mz3nqgsil45l4xnlzs2almwv3qv2pbw06i",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200421.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200424.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "200421"
+        "version": "200424"
     },
     "gimgtools": {
         "branch": "master",
@@ -340,11 +340,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "1zk8s1yh755vf47hyii381mg2j4rnvdm6nn5m6f6xc0ypc6raybh",
+        "sha256": "10x9805xm1qsr0rjgd9ycysvfbix83ndbwv09lpjjwm3c2v80gip",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-04-21.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-04-24.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-04-21"
+        "version": "2020-04-24"
     },
     "mbtileserver": {
         "branch": "master",
