@@ -102,7 +102,7 @@ in rec {
   groovy-2_5_10 = groovyGen.groovy-2_5_10;
   groovy-2_4_19 = groovyGen.groovy-2_4_19;
 
-  micronaut-1_3_3 = callPackage ./pkgs/micronaut { };
+  micronaut-1_3_4 = callPackage ./pkgs/micronaut { };
 
   spring-boot-cli-2_2_5 = callPackage ./pkgs/spring-boot-cli { };
 }
