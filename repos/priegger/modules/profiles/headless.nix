@@ -4,6 +4,15 @@ let
   common = import ./common.nix { inherit config pkgs lib; };
 in
 recursiveUpdate common {
+  environment.systemPackages = common.environment.systemPackages ++ (
+    with pkgs; [
+      # dev tools
+      git
+
+      # misc tools
+      (gnupg.override { guiSupport = false; })
+    ]
+  );
 
   nix.gc = mkDefault {
     automatic = true;

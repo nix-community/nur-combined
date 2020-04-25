@@ -6,13 +6,6 @@ import ./lib/make-test.nix (
       {
         name = "profiles";
         nodes = {
-          common = {
-            imports = [
-              ../modules/profiles/common.nix
-            ]
-            ++ lib.attrValues nur-no-pkgs.repos.kampka.modules
-            ;
-          };
           desktop = {
             imports = [
               ../modules/profiles/desktop.nix
@@ -32,6 +25,34 @@ import ./lib/make-test.nix (
         testScript =
           ''
             def checkCommonProperties(machine):
+                # programs that should exist
+                for program in [
+                    "autojump",
+                    "bash",
+                    "cryptsetup",
+                    "curl",
+                    "direnv",
+                    "file",
+                    "git",
+                    "gpg",
+                    "htop",
+                    "kill",
+                    "killall",
+                    "lorri",
+                    "man",
+                    "ps",
+                    "pv",
+                    "pwgen",
+                    "ssh",
+                    "tcpdump",
+                    "tree",
+                    "vim",
+                    "wg",
+                    "wget",
+                ]:
+                    machine.succeed("type -p {} 1>&2".format(program))
+
+                # services that should be running
                 machine.wait_for_unit("multi-user.target")
 
                 machine.require_unit_state("fail2ban")
@@ -55,8 +76,7 @@ import ./lib/make-test.nix (
                 machine.require_unit_state("prometheus-tor-exporter")
 
 
-            with subtest("common starts"):
-                checkCommonProperties(common)
+            start_all()
 
             with subtest("desktop starts"):
                 checkCommonProperties(desktop)

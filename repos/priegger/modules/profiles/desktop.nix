@@ -4,6 +4,16 @@ let
   common = import ./common.nix { inherit config pkgs lib; };
 in
 recursiveUpdate common {
+  environment.systemPackages = common.environment.systemPackages ++ (
+    with pkgs; [
+      # dev tools
+      gitAndTools.gitFull
+
+      # misc tools
+      gnupg
+    ]
+  );
+
   # X-Server and Gnome3 desktop configuration
   services.xserver.enable = mkDefault true;
   services.xserver.layout = mkDefault "de";

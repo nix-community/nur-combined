@@ -2,6 +2,20 @@
 with lib;
 
 {
+  environment.systemPackages = with pkgs; [
+    # misc tools
+    cryptsetup
+    file
+    htop
+    psmisc
+    pv
+    pwgen
+    tcpdump
+    tree
+    wget
+    wireguard
+  ];
+
   # Select internationalisation properties.
   i18n = {
     defaultLocale = mkDefault "en_US.UTF-8";
