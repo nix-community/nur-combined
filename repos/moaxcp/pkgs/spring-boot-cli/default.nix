@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     rm -r shell-completion
     cp -r . $out
     wrapProgram $out/bin/spring \
-      --prefix JAVA_HOME : ${jdk} \
+      --set JAVA_HOME : ${jdk} \
       --prefix PATH : ${jdk}/bin
     runHook postInstall
   '';
