@@ -18,7 +18,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-aer";
-  version = "0.5.0";
+  version = "0.5.1";
 
   disabled = pythonOlder "3.5";
 
@@ -27,7 +27,7 @@ buildPythonPackage rec {
     repo = "qiskit-aer";
     rev = version;
     fetchSubmodules = true; # fetch muparserx and other required libraries
-    sha256 = "05lsirrdnnr5yqhwkgv08d9aib8xq4xpd6aq2pfqsi9qkii2fff1";
+    sha256 = "0pbi8ldz8f1zm7pf2n5229g6kccriq21f24q9cb7bd4j5gdky5sk";
   };
 
   nativeBuildInputs = [
