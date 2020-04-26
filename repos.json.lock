@@ -318,11 +318,6 @@
             "sha256": "01zmzc1y50px9j2rjr41q7bhh0z8qzmp2rv6nj6fwkgl6izbq6cq",
             "url": "https://github.com/piensa/nur-packages"
         },
-        "priegger": {
-            "rev": "e60c7800886796669b5c073c2c937b5aed78805a",
-            "sha256": "1s3q517iimgfb6jd7im89kaplpcsvl0n71vb12gw8hjq1axj1jdf",
-            "url": "https://git.sr.ht/~priegger/nur-packages"
-        },
         "pschuprikov": {
             "rev": "43be15c31133d903ec419d6fc93b76f5ba62e3bc",
             "sha256": "0lsk1x02zg5rdrvza4qkrpjvnvq49vjkjb3v790q9zapbdq9rrkp",
