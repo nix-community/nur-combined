@@ -25,14 +25,14 @@
 , xdg_utils
 }:
 let
-  version = "5.5.0-gm";
+  version = "5.5.0";
 in
 stdenv.mkDerivation {
   pname = "ferdi";
   inherit version;
   src = fetchurl {
     url = "https://github.com/getferdi/ferdi/releases/download/v${version}/ferdi_${version}_amd64.deb";
-    sha256 = "0di6abkz8ajh7q5im7ipfbnbnidl1xc9dslpc8gqw2mbpmii8v6s";
+    sha256 = "1swxsgr2fhc6kjb2fpzxs2k03kp1bdhfm592jv7l6ylrvq9pbqjg";
   };
 
   # don't remove runtime deps
