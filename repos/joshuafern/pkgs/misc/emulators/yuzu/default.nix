@@ -1,21 +1,23 @@
-{ stdenv, mkDerivation, fetchgit
-, cmake, libressl, SDL2, qtbase, python2, alsaLib
+{ stdenv, mkDerivation, fetchFromGitHub
+, cmake, pkgconfig, SDL2, qtbase, python2, alsaLib
+, fmt, lz4, zstd, libopus, openssl, libzip
 , useVulkan ? true, vulkan-loader, vulkan-headers
 }:
 
 mkDerivation rec {
-  pname = "yuzu-mainline";
-  version = "unstable-2020-04-13";
+  pname = "yuzu";
+  version = "unstable-2020-04-25";
 
-  # Submodules
-  src = fetchgit {
-    url = "https://github.com/yuzu-emu/yuzu-mainline";
-    rev = "20c42dc9ea8bdc208d9d274350af2ff347876c76";
-    sha256 = "0s9p5di9kcr8sh6iipv21b74c4dhn37an4khy4y7b9s9y8p1haim";
+  src = fetchFromGitHub {
+    owner = "yuzu-emu";
+    repo = "yuzu-mainline"; # They use a separate repo for mainline “branch”
+    fetchSubmodules = true;
+    rev = "76b65f7f33a60ab7068854328b8411dc5ae538c6";
+    sha256 = "1jvqq40c4sdmzzb5ia3nfmhfdk80rpp0hspfrsbx0cwmx9298l2i";
   };
 
-  nativeBuildInputs = [ cmake libressl ];
-  buildInputs = [ SDL2 qtbase python2 alsaLib ]
+  nativeBuildInputs = [ cmake pkgconfig ];
+  buildInputs = [ SDL2 qtbase python2 alsaLib fmt lz4 zstd libopus openssl libzip ]
   ++ stdenv.lib.optionals useVulkan [ vulkan-loader vulkan-headers ];
   cmakeFlags = stdenv.lib.optionals (!useVulkan) [ "-DENABLE_VULKAN=No" ];
 
@@ -34,7 +36,11 @@ mkDerivation rec {
   meta = with stdenv.lib; {
     homepage = "https://yuzu-emu.org";
     description = "An experimental Nintendo Switch emulator";
-    license = with licenses; [ gpl2 cc-by-nd-30 cc0 ];
+    license = with licenses; [ 
+      gpl2Plus
+      # Icons
+      cc-by-nd-30 cc0 
+    ];
     maintainers = with maintainers; [ ivar joshuafern ];
     platforms = platforms.linux;
   };
