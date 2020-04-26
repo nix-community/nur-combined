@@ -1,0 +1,14 @@
+diff --git i/src/GUI/app.cpp w/src/GUI/app.cpp
+index 10e84d5..ac9059b 100644
+--- i/src/GUI/app.cpp
++++ w/src/GUI/app.cpp
+@@ -37,8 +37,7 @@ App::App(int &argc, char **argv) : QApplication(argc, argv)
+ #if defined(Q_OS_WIN32) || defined(Q_OS_MAC)
+ 	qt->load(QLocale::system(), "qt", "_", ProgramPaths::translationsDir());
+ #else // Q_OS_WIN32 || Q_OS_MAC
+-	qt->load(QLocale::system(), "qt", "_", QLibraryInfo::location(
+-	  QLibraryInfo::TranslationsPath));
++	qt->load(QLocale::system(), "qt", "_", "@qttranslations@/translations");
+ #endif // Q_OS_WIN32 || Q_OS_MAC
+ 	installTranslator(qt);
+ 

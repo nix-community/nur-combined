@@ -14,11 +14,21 @@ mkDerivation rec {
   version = lib.substring 0 7 src.rev;
   src = sources.gpxsee;
 
+  patches = [
+    # See https://github.com/NixOS/nixpkgs/issues/86054
+    ./fix-qttranslations-path.diff
+  ];
+
   nativeBuildInputs = [ qmake ] ++ (lib.optional withI18n qttools);
   buildInputs = [ qtbase ];
 
+  postPatch = ''
+    substituteInPlace src/GUI/app.cpp \
+      --subst-var-by qttranslations ${qttranslations}
+  '';
+
   preConfigure = lib.optionalString withI18n ''
-    lrelease lang/*.ts
+    lrelease gpxsee.pro
   '';
 
   postInstall = lib.optionalString stdenv.isDarwin ''
