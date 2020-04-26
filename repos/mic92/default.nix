@@ -42,9 +42,12 @@ rec {
 
   mosh-ssh-agent = pkgs.callPackage ./pkgs/mosh-ssh-agent {};
 
+
   nixpkgs-review-unstable = pkgs.callPackage ./pkgs/nixpkgs-review {};
   # compatibility
   nix-review-unstable = nixpkgs-review-unstable;
+
+  nix-build-uncached = pkgs.callPackage ./pkgs/nix-build-uncached {};
 
   nix-update = pkgs.python3.pkgs.callPackage ./pkgs/nix-update {};
 

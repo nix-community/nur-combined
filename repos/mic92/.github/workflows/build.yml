@@ -13,4 +13,4 @@ jobs:
       with:
         name: mic92
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - run: nix-build -k non-broken.nix
+    - run: nix run -f . nix-build-uncached -c nix-build-uncached non-broken.nix
