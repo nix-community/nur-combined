@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchsvn {
     url = "https://svn.code.sf.net/p/libgarmin/svn/libgarmin/dev";
     rev = "320";
-    sha256 = "sha256-aFXD+HnEZBsg2kcc8m8v95poz87DrwgZl4diHSeQZ78=";
+    sha256 = "1gv7j0kisql7jwchiby3rv7ni6pp5xpz4727v8h1nr64g7wc6mb8";
   };
 
   nativeBuildInputs = [ autoconf automake libtool ];

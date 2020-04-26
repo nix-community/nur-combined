@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/garmin-img/${pname}-${version}.tar.gz";
-    sha256 = "sha256-VQC9o/QOti6jTCYi4ktH6UKZLPLwLOUAfosZftf+uWc=";
+    sha256 = "0rxrzvbpw6cbgq0fab7hy8n9jhp98x5y48i69jijxdhfyjivs02m";
   };
 
   postPatch = ''
