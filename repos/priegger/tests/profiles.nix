@@ -40,9 +40,11 @@ import ./lib/make-test.nix (
                     "killall",
                     "lorri",
                     "man",
+                    "mosh",
                     "ps",
                     "pv",
                     "pwgen",
+                    "screen",
                     "ssh",
                     "tcpdump",
                     "tree",
@@ -79,8 +81,6 @@ import ./lib/make-test.nix (
             start_all()
 
             with subtest("desktop starts"):
-                checkCommonProperties(desktop)
-
                 # programs that should be there
                 for program in ["gnome-tweaks"]:
                     desktop.succeed("type -p {} 1>&2".format(program))
@@ -97,11 +97,17 @@ import ./lib/make-test.nix (
                 ]:
                     desktop.fail("type -p {} 1>&2".format(program))
 
+                checkCommonProperties(desktop)
+
                 # services that should be running
                 desktop.require_unit_state("display-manager.service")
                 desktop.require_unit_state("NetworkManager.service")
 
             with subtest("headless starts"):
+                # programs that should be there
+                for program in ["mosh-server"]:
+                    desktop.succeed("type -p {} 1>&2".format(program))
+
                 checkCommonProperties(headless)
           '';
       }

@@ -14,6 +14,8 @@ recursiveUpdate common {
     ]
   );
 
+  programs.mosh.enable = mkDefault true;
+
 
   # --- defaults from the kampka headless profile ---
 
