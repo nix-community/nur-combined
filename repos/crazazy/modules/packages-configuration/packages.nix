@@ -35,7 +35,7 @@ defaultPackages: with defaultPackages.pkgs; {
       nodejs_latest
       racket
       rEnv
-      jetbrains.pycharm-professional
+      jetbrains.pycharm-community
       jetbrains.idea-community
     ];
   };
@@ -46,7 +46,6 @@ defaultPackages: with defaultPackages.pkgs; {
       tldr
       npe
       jspm
-      typescript
     ];
   };
 

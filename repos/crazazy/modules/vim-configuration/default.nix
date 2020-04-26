@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 let
+  js = (import ../../pkgs { inherit pkgs; }).js;
   myVim = pkgs.neovim.override {
     viAlias = true;
     configure.customRC = builtins.readFile ./vimrc;
@@ -28,6 +29,11 @@ let
   };
 in
 {
-  environment.systemPackages = [ myVim ];
+
+  environment.systemPackages = [
+    myVim
+    pkgs.python3Packages.python-language-server
+    js.typescript
+    ];
   environment.variables.EDITOR = "nvim";
 }
