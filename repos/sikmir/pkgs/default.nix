@@ -56,6 +56,9 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / LIBRARIES
 
+    libgarmin = callPackage ./development/libraries/libgarmin {
+      automake = pkgs.automake111x;
+    };
     libshell = callPackage ./development/libraries/libshell {};
 
     ### DEVELOPMENT / PERL MODULES
@@ -110,6 +113,7 @@ lib.makeScope newScope (
       inherit sources;
     };
     i18n-editor = callPackage ./tools/i18n-editor {};
+    imgdecode = callPackage ./tools/geo/imgdecode {};
     ish = callPackage ./tools/networking/ish {};
     morse-talk = python3Packages.callPackage ./tools/morse-talk {
       inherit sources;

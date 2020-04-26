@@ -10,6 +10,7 @@
 , qttools
 , qtlocation
 , qtsensors
+, qttranslations
 , doxygen
 , cups
 , wrapQtAppsHook
@@ -21,6 +22,11 @@ stdenv.mkDerivation rec {
   pname = "OpenOrienteering-Mapper";
   version = lib.substring 0 7 src.rev;
   src = sources.mapper;
+
+  patches = [
+    # See https://github.com/NixOS/nixpkgs/issues/86054
+    ./fix-qttranslations-path.diff
+  ];
 
   buildInputs = [
     gdal
@@ -37,6 +43,11 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake wrapQtAppsHook ninja ];
+
+  postPatch = ''
+    substituteInPlace src/util/translation_util.cpp \
+      --subst-var-by qttranslations ${qttranslations}
+  '';
 
   cmakeFlags = [
     # Building the manual and bundling licenses fails

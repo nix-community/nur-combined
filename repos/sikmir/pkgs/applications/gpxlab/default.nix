@@ -14,8 +14,18 @@ mkDerivation rec {
   version = lib.substring 0 7 src.rev;
   src = sources.gpxlab;
 
+  patches = [
+    # See https://github.com/NixOS/nixpkgs/issues/86054
+    ./fix-qttranslations-path.diff
+  ];
+
   nativeBuildInputs = [ qmake ] ++ (lib.optional withI18n qttools);
   buildInputs = [ qtbase ];
+
+  postPatch = ''
+    substituteInPlace GPXLab/main.cpp \
+      --subst-var-by qttranslations ${qttranslations}
+  '';
 
   preConfigure = lib.optionalString withI18n ''
     lrelease GPXLab/locale/*.ts

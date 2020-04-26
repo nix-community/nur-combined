@@ -1,0 +1,13 @@
+diff --git i/GPXLab/main.cpp w/GPXLab/main.cpp
+index b12d2dd..d0c3000 100644
+--- i/GPXLab/main.cpp
++++ w/GPXLab/main.cpp
+@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
+ #if defined(Q_OS_WIN32) || defined(Q_OS_MAC)
+     qt.load(QLocale::system(), "qt", "_", TRANSLATIONS_DIR);
+ #else
+-    qt.load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
++    qt.load(QLocale::system(), "qt", "_", QLatin1String("@qttranslations@/translations"));
+ #endif
+     app.installTranslator(&qt);
+ 
