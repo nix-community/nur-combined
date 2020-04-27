@@ -87,6 +87,7 @@ import ./lib/make-test.nix (
 
                 # programs that should NOT be there
                 for program in [
+                    "cheese",
                     "epiphany",
                     "evolution",
                     "geary",
@@ -96,6 +97,13 @@ import ./lib/make-test.nix (
                     "tracker",
                 ]:
                     desktop.fail("type -p {} 1>&2".format(program))
+
+                # nix store paths that should not be there
+                for pattern in ["flatpak"]:
+                    path = desktop.succeed(
+                        "find /nix/store -maxdepth 1 -name '*-{}-*' -print -quit".format(pattern)
+                    )
+                    assert not path, "Found unexpected nix store path {}".format(path)
 
                 checkCommonProperties(desktop)
 

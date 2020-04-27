@@ -30,6 +30,7 @@ recursiveUpdate common {
   # Gnome3 adjustments
   environment.gnome3.excludePackages = with pkgs; [
     epiphany
+    gnome3.cheese
     gnome3.gnome-software
     gnome3.totem
   ];
@@ -44,6 +45,8 @@ recursiveUpdate common {
   services.gnome3.rygel.enable = false;
   services.gnome3.tracker.enable = false;
   services.gnome3.tracker-miners.enable = false;
+
+  xdg.portal.enable = mkForce false;
 
   # Typically needed for wifi drivers and the like
   hardware.enableRedistributableFirmware = mkDefault true;

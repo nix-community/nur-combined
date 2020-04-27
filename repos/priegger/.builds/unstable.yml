@@ -1,9 +1,10 @@
 image: nixos/latest
 repositories:
   nixpkgs: https://nixos.org/channels/nixos-unstable
+  nixpkgs-stable: https://nixos.org/channels/nixos-20.03
 packages:
   - nixpkgs.cachix
-  - nixpkgs.nixpkgs-fmt
+  - nixpkgs-stable.nixpkgs-fmt
 sources:
   - https://git.sr.ht/~priegger/nur-packages
 secrets:
