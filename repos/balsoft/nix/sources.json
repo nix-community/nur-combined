@@ -1,14 +1,14 @@
 {
     "arduino-cli": {
-        "branch": "0.5.0",
+        "branch": "master",
         "description": "Arduino command line interface",
         "homepage": null,
         "owner": "arduino",
         "repo": "arduino-cli",
-        "rev": "3be22875e27f220350d8ab5b13403d804acfd20b",
-        "sha256": "1gbwrmzs4lf2c854g9qwh8xr9yfa8v6jhslad6kpkh261xqhmqkm",
+        "rev": "cf39fbe69df7f9655121d0d8225b2c119c48e3d6",
+        "sha256": "1lcbgcab04gs73vn29004488qiy00jgdawd8x6cahf3dywvisr7s",
         "type": "tarball",
-        "url": "https://github.com/arduino/arduino-cli/archive/3be22875e27f220350d8ab5b13403d804acfd20b.tar.gz",
+        "url": "https://github.com/arduino/arduino-cli/archive/cf39fbe69df7f9655121d0d8225b2c119c48e3d6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lambda-launcher": {
@@ -17,10 +17,10 @@
         "homepage": null,
         "owner": "balsoft",
         "repo": "lambda-launcher",
-        "rev": "b35c41e10b5758eeddc3d6992b2bf53d11bbea03",
-        "sha256": "08b64i7irlin16fpa8vahypdxlv5qhjlpmfnsbm9pwmlhf9fmjzm",
+        "rev": "f2e6865f319930ba999b55754585fbd12775b950",
+        "sha256": "1n4zv83yysmnqjrfqdrz1hlndqvm8ysl15sdrxs5fpgcn7cayjgx",
         "type": "tarball",
-        "url": "https://github.com/balsoft/lambda-launcher/archive/b35c41e10b5758eeddc3d6992b2bf53d11bbea03.tar.gz",
+        "url": "https://github.com/balsoft/lambda-launcher/archive/f2e6865f319930ba999b55754585fbd12775b950.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nix-patch": {
