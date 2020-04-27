@@ -81,6 +81,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gruvbox_bg0_h, "-nf", col_gruvbox_fg, "-sb", col_gruvbox_purple_dark, "-sf", col_gruvbox_fg0, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *emacscmd[] = { "emacsclient", "-c", "-n", NULL };
+static const char *frontcmd[] = { "front", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -98,6 +99,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+  { MODKEY|ShiftMask,             XK_f,      spawn,          {.v = frontcmd } },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
   { MODKEY,                       XK_c,      setlayout,      {.v = &layouts[3]} },
   { MODKEY,                       XK_e,      spawn,          {.v = emacscmd } },
