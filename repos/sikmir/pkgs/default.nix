@@ -33,6 +33,8 @@ lib.makeScope newScope (
     huzheng = callPackage ./data/dicts/huzheng {};
     wiktionary = callPackage ./data/dicts/wiktionary {};
 
+    gpsmap64 = callPackage ./data/firmwares/gpsmap64 {};
+
     gpxsee-dem = callPackage ./data/maps/gpxsee-dem {};
     gpxsee-maps = callPackage ./data/maps/gpxsee-maps {};
     gpxsee-poi = callPackage ./data/maps/gpxsee-poi {};
