@@ -28,6 +28,7 @@ buildPythonApplication rec {
   '';
 
   meta = with lib; {
+    broken = true; # Not actually, just saving my ci time
     homepage = "https://sharkwouter.github.io/minigalaxy/";
     downloadPage = "https://github.com/sharkwouter/minigalaxy/releases";
     description = "A simple GOG client for Linux";
