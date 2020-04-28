@@ -36,4 +36,5 @@
   samrewritten = pkgs.callPackage ./pkgs/tools/misc/samrewritten { };
   sbase = pkgs.callPackage ./pkgs/tools/misc/sbase { };
   ubase = pkgs.callPackage ./pkgs/tools/misc/ubase { };
+  vkbasalt = pkgs.callPackage ./pkgs/tools/misc/vkbasalt { };
 }
