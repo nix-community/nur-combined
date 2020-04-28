@@ -19,7 +19,10 @@ buildPythonApplication rec {
   doCheck = false;
 
   propagatedBuildInputs = [
-    pygments prompt_toolkit colorama myPython3Packages.frida
+    pygments
+    prompt_toolkit
+    colorama
+    myPython3Packages.frida
   ];
 
   meta = with stdenv.lib; {

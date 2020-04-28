@@ -102,6 +102,6 @@ stdenv.mkDerivation {
     license = licenses.free;
     maintainers = [ maintainers.mic92 ];
     platforms = [ "x86_64-linux" ];
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

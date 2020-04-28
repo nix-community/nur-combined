@@ -10,7 +10,6 @@ let
     };
     propagatedBuildInputs = [ ConfigINI ];
   };
-
   DevelLexAlias = buildPerlPackage rec {
     name = "Devel-LexAlias-0.05";
     src = fetchurl {
@@ -19,7 +18,6 @@ let
     };
     propagatedBuildInputs = [ DevelCaller ];
   };
-
   Reply = buildPerlPackage rec {
     name = "Reply-0.42";
     src = fetchurl {

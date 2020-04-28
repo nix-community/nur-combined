@@ -45,7 +45,6 @@ let
         $out/bin/cpp
     '';
   };
-
   srcs = {
     cryptsetup = fetchFromGitLab {
       owner = "cryptsetup";
