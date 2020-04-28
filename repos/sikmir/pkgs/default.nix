@@ -58,6 +58,7 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / LIBRARIES
 
+    geographiclib = callPackage ./development/libraries/geographiclib {};
     libgarmin = callPackage ./development/libraries/libgarmin {
       automake = pkgs.automake111x;
     };
