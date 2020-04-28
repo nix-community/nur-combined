@@ -55,11 +55,11 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.light ];
     services.udev.packages = [ pkgs.light ];
-    services.actkbd = mkIf config.programs.light.brightnessKeys.enable {
+    services.actkbd = mkIf cfg.brightnessKeys.enable {
       enable = true;
       bindings = let
         light = "${pkgs.light}/bin/light";
-        step = toString config.programs.light.brightnessKeys.step;
+        step = toString cfg.brightnessKeys.step;
       in [
         {
           keys = [ 224 ];
