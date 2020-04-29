@@ -34,6 +34,8 @@ rec {
 
   keystone = pkgs.callPackage ./pkgs/keystone {};
 
+  kvmtool = pkgs.callPackage ./pkgs/kvmtool {};
+
   lualdap = pkgs.callPackage ./pkgs/lualdap {};
 
   mastodon-hnbot = pkgs.python3Packages.callPackage ./pkgs/mastodon-hnbot {
