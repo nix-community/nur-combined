@@ -263,10 +263,10 @@ let
 
   #mailparse = assert !isPhp56; assert !isPhp73; buildPecl {
   mailparse = buildPecl {
-    version = "3.0.4";
+    version = "3.1.0";
     pname = "mailparse";
 
-    sha256 = "0fsngm3ixdiwcpvz3kq7c0q5p67c301pz1pvzijq4grj2l7sp84x";
+    sha256 = "168wrg99y4ggq04kpryaka2x3zr6vn39979kyna4s6zrgdpcckvd";
 
     meta.broken = isPhp56;
   };
@@ -513,12 +513,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.18";
+    version = "0.12.19";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0xf0q2z6rhpnbys53si05mddfyjn3wx5wc8zx5y6dv5fzw6z7rch";
+      sha256 = "15fz7rixi9s46qqxpj26349aky7wxqnzmfsnwlh1f2p4jsfd85ki";
     };
 
     phases = [ "installPhase" ];
@@ -849,10 +849,10 @@ let
 
   #xdebug29 = assert !isPhp56; buildPecl {
   xdebug29 = buildPecl {
-    version = "2.9.4";
+    version = "2.9.5";
     pname = "xdebug";
 
-    sha256 = "0xbmd8zik6261cllzycd6q9vlz640i8gf8891qzhk2181jczbqpv";
+    sha256 = "040shrg0a2xw97rxpdvy2mp88rvs24agw4x7ssbbj4cn202ifnvp";
 
     doCheck = true;
     checkTarget = "test";
@@ -880,10 +880,10 @@ let
 
   #yaml20 = assert !isPhp56; buildPecl {
   yaml20 = buildPecl {
-    version = "2.0.4";
+    version = "2.1.0";
     pname = "yaml";
 
-    sha256 = "1036zhc5yskdfymyk8jhwc34kvkvsn5kaf50336153v4dqwb11lp";
+    sha256 = "0rmn2irzny24ivzc09ss46s2s48i0zy2cww7ikphljqbfx6zdjss";
 
     configureFlags = with pkgs; [
       "--with-yaml=${libyaml}"
