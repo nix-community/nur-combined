@@ -1,4 +1,4 @@
-{ stdenv, coreutils, fetchzip, jdk, makeWrapper, installShellFiles }:
+{ stdenv, fetchzip, jdk, makeWrapper, installShellFiles, coreutils }:
 
 stdenv.mkDerivation rec {
   pname = "micronaut";

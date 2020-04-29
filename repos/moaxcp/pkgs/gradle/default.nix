@@ -14,6 +14,7 @@ rec {
       test -f $gradle_launcher_jar
       makeWrapper ${java}/bin/java $out/bin/gradle \
         --set JAVA_HOME ${java} \
+        --set PATH ${java}/bin \
         --add-flags "-classpath $gradle_launcher_jar org.gradle.launcher.GradleMain"
     '';
 

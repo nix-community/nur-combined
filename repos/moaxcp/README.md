@@ -51,3 +51,14 @@ removed at any time in nixpkgs.
 There are no general attributes for the latest package. You have to select the specific version to install.
 
 installChecks should be added to every package
+
+# helpful tools for adding packages
+
+## pkgs/adoptopenjdk-bin/generate-sources.py
+
+updates sources.json with latest versions from adoptopenjdk. Update variables in top of file for versions to add. 
+nightly builds can also be added.
+
+## nix-prefetch-url
+
+adds a download to the nix store and prints the hash.

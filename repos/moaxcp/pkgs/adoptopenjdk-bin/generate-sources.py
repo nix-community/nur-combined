@@ -7,6 +7,7 @@ import requests
 import sys
 
 releases = ("openjdk8", "openjdk11", "openjdk13", "openjdk14")
+nightlys = ('openjdk15',)
 oses = ("mac", "linux")
 types = ("jre", "jdk")
 impls = ("hotspot", "openj9")
@@ -72,6 +73,7 @@ def request(builds, type):
         out[build] = generate_sources(build, resp.json())
 
 request(releases, "releases")
+#request(nightlys, "nightly")
 
 with open("sources.json", "w") as f:
     json.dump(out, f, indent=2, sort_keys=True)
