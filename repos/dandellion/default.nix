@@ -26,9 +26,11 @@
   radical-native = pkgs.callPackage ./pkgs/radical-native { };
   photini = pkgs.libsForQt5.callPackage ./pkgs/photini { };
 
+  plotbitrate = pkgs.callPackage ./pkgs/plotbitrate { };
+
   mangohud = pkgs.callPackage ./pkgs/MangoHUD { };
 
-  botamusique = pkgs.callPackage ./pkgs/botamusique {};
+  botamusique = pkgs.callPackage ./pkgs/botamusique { };
 
 }
 
