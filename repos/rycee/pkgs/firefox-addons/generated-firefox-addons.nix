@@ -153,10 +153,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.6";
+      version = "4.9.7";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3555530/dark_reader-4.9.6-an+fx.xpi?src=";
-      sha256 = "0d8724a11ee1349b1661eb4d172a4119dcc531d04852368e50f955629181df27";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3556685/dark_reader-4.9.7-an+fx.xpi?src=";
+      sha256 = "ab751b9b391ff5aa04a7b24dce462975cacd02ed045fc32652e115b3f3798b26";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -346,10 +346,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.6.2";
+      version = "1.6.3";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3535304/keepassxc_browser-1.6.2-fx.xpi?src=";
-      sha256 = "b67a457407ed063eb0213d7076ca59dee8593ea4b187c6cf76d5403e1edde2e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3558577/keepassxc_browser-1.6.3-fx.xpi?src=";
+      sha256 = "e7502d44b3fc83a2e0514bafec3227b55c8fb647055f2f28e5304cc8ad247019";
       meta = with stdenv.lib;
       {
         homepage = "https://keepassxc.org/";
@@ -513,10 +513,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.4.21";
+      version = "20.4.28";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3554168/refined_github-20.4.21-an+fx.xpi?src=";
-      sha256 = "b64f37d571e0720fd8bcd3f55bd50d4acafcd3f7b6490ae187c39fbfea82a868";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3559118/refined_github-20.4.28-an+fx.xpi?src=";
+      sha256 = "0f7843c38cf84983b7796fd3972b36a425717247910dd97f7769d8ce5a79bb54";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
