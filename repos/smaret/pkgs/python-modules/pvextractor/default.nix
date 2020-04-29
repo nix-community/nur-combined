@@ -14,17 +14,12 @@
 
 buildPythonPackage rec {
   pname = "pvextractor";
-  version = "0.1";
+  version = "0.2";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "52d6795981cc5d3db68e5c8ec506cd5723ca856754b450567242c53dec4b74f4";
+    sha256 = "0213cy1c3vqlyv8ln8psav5sk9s4pqpkasa98538ydc1a7xg3mzx";
   };
-
-  postPatch = ''
-    substituteInPlace setup.cfg --replace "[pytest]" "[tool:pytest]"
-    substituteInPlace pvextractor/pvextractor.py --replace "from astropy.extern import six" "import six"
-  '';
 
   propagatedBuildInputs = [ astropy matplotlib scipy qtpy spectral-cube ];
 
@@ -32,7 +27,7 @@ buildPythonPackage rec {
   
   checkInputs = [ pytest pytest-astropy ];
 
-  # Tests are broken with Astropy > 4
+  # TODO: enable tests
   doCheck = false;
 
   meta = {
