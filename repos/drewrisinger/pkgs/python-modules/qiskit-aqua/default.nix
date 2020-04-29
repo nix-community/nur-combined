@@ -94,6 +94,9 @@ buildPythonPackage rec {
     "--ignore=test/aqua/test_mcr.py"
     "--ignore=test/aqua/test_mcu1.py"
     "--ignore=test/aqua/test_vqe.py"
+
+    # Disabled b/c taking too many log lines in Travis
+    "--disable-warnings"
   ];
   disabledTests = [
     # TODO: broken for some reason on nixpkgs~19.09. Works on 20.03, just disabling it here for my NUR version.

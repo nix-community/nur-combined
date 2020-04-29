@@ -100,6 +100,9 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [
     "--ignore=test/randomized/test_transpiler_equivalence.py" # collection requires qiskit-aer, which would cause circular dependency
+
+    # Disabled b/c taking too many log lines in Travis
+    "--disable-warnings"
   ];
 
   # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding

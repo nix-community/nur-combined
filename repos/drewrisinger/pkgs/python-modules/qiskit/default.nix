@@ -36,6 +36,11 @@ buildPythonPackage rec {
 
   checkInputs = [ pytestCheckHook ];
   dontUseSetuptoolsCheck = true;
+
+  pytestFlagsArray = [
+    # Disabled b/c taking too many log lines in Travis
+    "--disable-warnings"
+  ];
   # following doesn't work b/c they are distributed across different nix sitePackages dirs. Tested with pytest though.
   # pythonImportsCheck = [ "qiskit" "qiskit.terra" "qiskit.ignis" "qiskit.aer" "qiskit.aqua" ];
 

@@ -40,7 +40,7 @@ rec {
     });
 
     # Following have been PR'd to Nixpkgs, just not made it to release yet.
-    cvxpy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cvxpy { inherit ecos osqp ; inherit (python3Packages) scs; };
+    cvxpy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cvxpy { inherit ecos osqp scs; };
     ecos = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ecos { };
     osqp = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/osqp { };
     scs = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/scs { scs = lib-scs; };

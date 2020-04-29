@@ -77,6 +77,11 @@ buildPythonPackage rec {
   ];
   dontUseSetuptoolsCheck = true;  # Otherwise runs tests twice
 
+  pytestFlagsArray = [
+    # Disabled b/c taking too many log lines in Travis
+    "--disable-warnings"
+  ];
+
   preCheck = ''
     # Tests include a compiled "circuit" which is auto-built in $HOME
     export HOME=$(mktemp -d)

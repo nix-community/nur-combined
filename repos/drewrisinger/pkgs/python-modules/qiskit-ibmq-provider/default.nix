@@ -77,6 +77,10 @@ buildPythonPackage rec {
     "test_non_auth_url"
     "test_non_auth_url_with_hub"
   ];
+  pytestFlagsArray = [
+    # Disabled b/c taking too many log lines in Travis
+    "--disable-warnings"
+  ];
   # Ensure run from source dir, not all versions of pytestcheckhook run from proper dir
   preCheck = "pushd $TMP/$sourceRoot";
   postCheck = "popd";

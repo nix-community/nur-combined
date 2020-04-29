@@ -55,6 +55,10 @@ buildPythonPackage rec {
   # Test is in test/verification/test_entanglemet.py. test fails due to out-of-date calls & bad logic with this file since qiskit-ignis#328
   # see qiskit-ignis#386 for all issues. Should be able to re-enable in future.
   disabledTests = [ "TestEntanglement" ];
+  pytestFlagsArray = [
+    # Disabled b/c taking too many log lines in Travis
+    "--disable-warnings"
+  ];
 
   meta = with lib; {
     description = "Qiskit tools for quantum hardware verification, noise characterization, and error correction";
