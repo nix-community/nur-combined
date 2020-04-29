@@ -1,19 +1,19 @@
-{ stdenv, fetchurl, fetchFromGitHub, pythonPackages, autoconf, automake, gfortran, libtool, hdf5, sundials }:
+{ stdenv, fetchFromGitHub, pythonPackages, autoconf, automake, libtool, ncurses, hdf5, sundials }:
 
 stdenv.mkDerivation rec {
 
   name = "astrochem";
 
-  version = "3f8091b748a97e1a420b58ffd6f9e434ea8fae89";
+  version = "v0.8";
 
   src = fetchFromGitHub {
     owner = "smaret";
     repo = "astrochem";
-    rev = version;
-    sha256 = "15185b6va556wynv1jfhgk6giqd26mjxbxj66xszv6gqv4ps7xza";
+    rev = "ad5b1e718ade69c2193f9d5b03447ba813bf5e12";
+    sha256 = "1ngbfvbb95dspg0nk8z1wsx65bpn7k1cif405zvsaalcs51ds9fc";
   };
 
-  nativeBuildInputs = [ autoconf automake gfortran libtool ];
+  nativeBuildInputs = [ autoconf automake libtool ncurses ];
 
   buildInputs = [
     pythonPackages.python
@@ -25,6 +25,7 @@ stdenv.mkDerivation rec {
     pythonPackages.numpy
     pythonPackages.h5py
     pythonPackages.cython
+    pythonPackages.matplotlib
   ];
 
   preConfigure = "./bootstrap";
