@@ -10,4 +10,5 @@
       pythonPackages = pkgs.python3Packages;
     }
   );
+  pvextractor = pkgs.python3Packages.callPackage ./pkgs/python-modules/pvextractor {};
 }
