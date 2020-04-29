@@ -17,6 +17,7 @@ lib.makeScope newScope (
     macpass = callPackage ./applications/macpass {};
     mapsoft = callPackage ./applications/mapsoft {};
     mapsoft2 = callPackage ./applications/mapsoft/2.nix {};
+    nnn-plugins = callPackage ./applications/nnn-plugins {};
     openorienteering-mapper = libsForQt5.callPackage ./applications/openorienteering-mapper {
       inherit sources;
     };
@@ -35,6 +36,7 @@ lib.makeScope newScope (
 
     gpsmap64 = callPackage ./data/firmwares/gpsmap64 {};
 
+    freizeitkarte-osm = callPackage ./data/maps/freizeitkarte-osm {};
     gpxsee-dem = callPackage ./data/maps/gpxsee-dem {};
     gpxsee-maps = callPackage ./data/maps/gpxsee-maps {};
     gpxsee-poi = callPackage ./data/maps/gpxsee-poi {};

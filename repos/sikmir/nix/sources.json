@@ -408,6 +408,19 @@
         "url": "https://github.com/wladich/nakarte/archive/89c3e0a94a848a72d5c2b199100d565a9af0dbab.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nnn": {
+        "branch": "master",
+        "builtin": false,
+        "description": "n³ The missing terminal file manager for X",
+        "homepage": "https://github.com/jarun/nnn",
+        "owner": "jarun",
+        "repo": "nnn",
+        "rev": "5d7095e3b96409b9b3276013bab04d644da70cf5",
+        "sha256": "1plscky2bab7kfl7f8qa39r13f1m9w28m5yymcgfqifpkhq8mmz4",
+        "type": "tarball",
+        "url": "https://github.com/jarun/nnn/archive/5d7095e3b96409b9b3276013bab04d644da70cf5.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "openmtbmap_openvelomap_linux": {
         "branch": "master",
         "builtin": false,
