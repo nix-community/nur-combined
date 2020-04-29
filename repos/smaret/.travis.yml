@@ -4,15 +4,28 @@ sudo: false
 
 env:
   global:
-    - NUR_REPO=https://github.com/smaret/nur-packages
+    # Set this to cache your build results in cachix for faster builds
+    # in travis and for everyone who uses your cache.
+    #
+    # Format: Your cachix cache host name without the ".cachix.org" suffix.
+    # Example: mycache (for mycache.cachix.org)
+    #
+    # For this to work, you also need to set the  CACHIX_SIGNING_KEY
+    # in your repository settings in Travis.
     - CACHIX_CACHE=smaret
     - secure: ROjohoqz0UtraOpSm+ocIZ5nh0uBKo93HpGBHakoBJjIDE9e2kZdWpuuXqN8rBtRssdwRar6bfT8WtMlEuZVlt4q+8WfDPHnLiVpGhozn2p9aHeuN9NP+wBvPhmZxi9RGnTfIJvg68bCE6sEnnHVMjIkvQVuAjAUKJiqh/JEl16o69+9h5ReTBingZvaIPI0yRK674JR0Psz2XwidB0UcP7xZYH3E1Icggo8NpVtspZNihIPHfEvf8Cyw6TZa4mScEqKE1+XRO4OTXCDGL+7WO4KbAKh+1XG1DoKCcD9R2ulkHYWHzyb0zFELrgu9VMCv391/FeGTETUMapFj3EW6OS91FA5hqVMseEbCcALj4wpF3EJmN7+lItuPuAkjkfk9idibujZV4JfyOKsbOIF2kuMWZk+he+Zit/CXofRVRV9cfKNNxN8/OvK+w6mUw3rgPKrS63kUeMjTvPcER2dvNW6B4R9QftJlTsqsa15ZocDfI59d0dUs9LslAeEI5J7BkhNZwoawlLS7F4mRWQAlKc0Y+2+6oClkrvK0u2JQQ7XABw2nvicOf1B1LWcAXk7B+c9GmTaWDFkOqDhtAUFUpB6+wJ5aa5JEP+A8AsaQVHK+W+mezg4Njqs8LDffJQpVCITmKEn7RXvFQO0l2VfRkOlb+kr36tEzQd8nRGy0i0=
+    # Set this to notify the global nur package registry that changes are
+    # available.
+    #
+    # The repo name as used in
+    # https://github.com/nix-community/NUR/blob/master/repos.json
+    - NUR_REPO=https://github.com/smaret/nur-packages
 
 matrix:
   include:
     - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.03
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
 
 install:
  - nix --version
@@ -29,6 +42,6 @@ script:
  - nix eval -f default.nix 'overlays'
 
 after_success:
-  - if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | travis_wait cachix push "${CACHIX_CACHE}"; fi
-  - if [ "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
+  - if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
+  - if [ "cron" != "${TRAVIS_EVENT_TYPE}" -a "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
       curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
