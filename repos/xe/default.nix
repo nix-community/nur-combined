@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -17,6 +17,9 @@
   cabytcini = pkgs.callPackage ./pkgs/cabytcini { };
   discord = pkgs.callPackage ./pkgs/discord { };
   dwm = pkgs.callPackage ./pkgs/dwm { };
+  girara = pkgs.callPackage ./pkgs/girara {
+    gtk = pkgs.gtk3;
+  };
   gopls = pkgs.callPackage ./pkgs/gopls { };
   gruvbox-css = pkgs.callPackage ./pkgs/gruvbox-css { };
   ii = pkgs.callPackage ./pkgs/ii { };
@@ -31,5 +34,6 @@
   quickserv = pkgs.callPackage ./pkgs/quickserv { };
   st = pkgs.callPackage ./pkgs/st { };
   sw = pkgs.callPackage ./pkgs/sw { };
+  zathura = pkgs.callPackage ./pkgs/zathura { inherit girara; };
 }
 
