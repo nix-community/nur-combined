@@ -2,20 +2,18 @@
 
 let
   pname = "jitsi-videobridge2";
-  version = "2.1-164-gfdce823f";
+  version = "2.1-183-gdbddd169";
   src = fetchurl {
     url = "https://download.jitsi.org/stable/${pname}_${version}-1_all.deb";
-    sha256 = "0n4c5iz5gwsa142ihm1bd48k71crwls6fgfm4i0wgzvvxhgs213a";
+    sha256 = "1njsal2gq2jl888mliz88809irc4afvr0f0wphc5hrafgr1i9pf2";
   };
 in
 stdenv.mkDerivation {
   inherit pname version src;
 
-  phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
+  dontBuild = true;
 
-  unpackPhase = ''
-    dpkg-deb -x $src .
-  '';
+  unpackCmd = "${dpkg}/bin/dpkg-deb -x $src debcontents";
 
   installPhase = ''
     substituteInPlace usr/share/jitsi-videobridge/jvb.sh \
@@ -28,10 +26,8 @@ stdenv.mkDerivation {
     ln -s $out/share/jitsi-videobridge/jvb.sh $out/bin/jitsi-videobridge
   '';
 
-  nativeBuildInputs = [ dpkg ];
-
   passthru.tests = {
-    inherit (nixosTests) jitsi-meet;
+    single-host-smoke-test = nixosTests.jitsi-meet;
   };
 
   meta = with stdenv.lib; {

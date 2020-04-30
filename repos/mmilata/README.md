@@ -13,3 +13,4 @@
 ## modules
 
 * jitsi-meet
+* jitsi-videobridge

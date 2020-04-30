@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "jitsi-meet";
-  version = "1.0.3969";
+  version = "1.0.4025";
 
   src = fetchurl {
     url = "https://download.jitsi.org/jitsi-meet/src/jitsi-meet-${version}.tar.bz2";
-    sha256 = "0s6glh655ifw67gamj533c0hai4c023a5qaxckyf3i1rbsazm6f8";
+    sha256 = "0cri009r549dqa7gj4skj82f17sy63csfsixkvm9cjj1i5ndjnbm";
   };
 
-  phases = [ "unpackPhase" "installPhase" ];
+  dontBuild = true;
 
   installPhase = ''
     mkdir $out
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    inherit (nixosTests) jitsi-meet;
+    single-host-smoke-test = nixosTests.jitsi-meet;
   };
 
   meta = with stdenv.lib; {

@@ -2,20 +2,18 @@
 
 let
   pname = "jicofo";
-  version = "1.0-541";
+  version = "1.0-549";
   src = fetchurl {
     url = "https://download.jitsi.org/stable/${pname}_${version}-1_all.deb";
-    sha256 = "0s45bjsja2nkjhjcd2gx6hbby49v1d6r6553l6jfainycf6dh7xy";
+    sha256 = "1wqsy0phdaz6skgvazrm2bhwc8vgspvcq9mzj4m4ngnvp5h70q3p";
   };
 in
 stdenv.mkDerivation {
   inherit pname version src;
 
-  phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
+  dontBuild = true;
 
-  unpackPhase = ''
-    dpkg-deb -x $src .
-  '';
+  unpackCmd = "${dpkg}/bin/dpkg-deb -x $src debcontents";
 
   installPhase = ''
     substituteInPlace usr/share/jicofo/jicofo.sh \
@@ -28,10 +26,8 @@ stdenv.mkDerivation {
     ln -s $out/share/jicofo/jicofo.sh $out/bin/jicofo
   '';
 
-  nativeBuildInputs = [ dpkg ];
-
   passthru.tests = {
-    inherit (nixosTests) jitsi-meet;
+    single-node-smoke-test = nixosTests.jitsi-meet;
   };
 
   meta = with stdenv.lib; {

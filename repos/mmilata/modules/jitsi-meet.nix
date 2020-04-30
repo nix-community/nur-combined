@@ -4,42 +4,7 @@ with lib;
 
 let
   cfg = config.services.jitsi-meet;
-  dataDir = "/var/lib/jitsi-meet";
   attrsToArgs = a: concatStringsSep " " (mapAttrsToList (k: v: "${k}=${toString v}") a);
-
-  # HOCON is a JSON superset that videobridge2 uses for configuration
-  # it can substitute environment variables which we use for passwords here
-  # https://github.com/lightbend/config/blob/master/README.md
-  toHOCON = v: builtins.replaceStrings [ ''"__ENV__'' ''__ENV__"'' ] [ "\${" "}" ] (builtins.toJSON v);
-  jvbArgs = {
-    "--apis" = "none";
-  };
-  jvbProps = {
-    "-Dnet.java.sip.communicator.SC_HOME_DIR_LOCATION" = "/etc/jitsi";
-    "-Dnet.java.sip.communicator.SC_HOME_DIR_NAME" = "videobridge";
-    "-Djava.util.logging.config.file" = "/etc/jitsi/videobridge/logging.properties";
-    "-Dconfig.file" = pkgs.writeText "jvb.conf" (toHOCON jvbConfig);
-  } // (mapAttrs' (k: v: nameValuePair "-D${k}" v) cfg.videobridge.extraProperties);
-  jvbConfig = recursiveUpdate defaultJvbConfig cfg.videobridge.config;
-
-  jicofoArgs = {
-    "--host" = "localhost";
-    "--domain" = cfg.hostName;
-    "--secret" = "\${JICOFO_COMPONENT_SECRET}";
-    "--user_domain" = "auth.${cfg.hostName}";
-    "--user_name" = "focus";
-    "--user_password" = "\${JICOFO_USER_SECRET}";
-  };
-  jicofoProps = {
-    "-Dnet.java.sip.communicator.SC_HOME_DIR_LOCATION" = "/etc/jitsi";
-    "-Dnet.java.sip.communicator.SC_HOME_DIR_NAME" = "jicofo";
-    "-Djava.util.logging.config.file" = "/etc/jitsi/jicofo/logging.properties";
-    "-Djavax.net.ssl.trustStore" = "${dataDir}/prosody-ca.jks";
-    "-Djavax.net.ssl.trustStorePassword" = "javapls";
-  };
-  jicofoConfig = pkgs.writeText "sip-communicator.properties" (
-    concatStringsSep "\n" (mapAttrsToList (k: v: "${k}=${v}") cfg.jicofo.config)
-  );
 
   # The configuration files are JS of format "var <<string>> = <<JSON>>;". In order to
   # override only some settings, we need to extract the JSON, use jq to merge it with
@@ -69,39 +34,16 @@ let
     hosts = {
       domain = cfg.hostName;
       muc = "conference.${cfg.hostName}";
+      focus = "focus.${cfg.hostName}";
     };
     bosh = "//${cfg.hostName}/http-bind";
   };
-
-  defaultJvbConfig = {
-    videobridge = {
-      apis.xmpp-client.configs.xmppserver1 = {
-        hostname = "localhost";
-        domain = "auth.${cfg.hostName}";
-        username = "jvb";
-        password = "__ENV__VIDEOBRIDGE_SECRET__ENV__";
-        muc_jids = "jvbbrewery@internal.${cfg.hostName}";
-        muc_nickname = builtins.replaceStrings [ "." ] [ "-" ] (
-          config.networking.hostName + optionalString (config.networking.domain != null) ".${config.networking.domain}"
-        );
-        disable_certificate_verification = true;
-      };
-      ice = {
-        tcp = {
-          enabled = true;
-          port = 4443;
-        };
-        udp.port = 10000;
-      };
-      stats = {
-        enabled = true;
-        transports = [ { type = "muc"; } ];
-      };
-    };
-  };
-
 in
 {
+  imports = [
+    ./jitsi-videobridge.nix
+  ];
+
   options.services.jitsi-meet = with types; {
     enable = mkEnableOption "Jitsi Meet - Secure, Simple and Scalable Video Conferences";
 
@@ -152,63 +94,14 @@ in
       '';
     };
 
-    videobridge = {
-      config = mkOption {
-        type = attrs;
-        default = { };
-        example = literalExample ''
-          {
-            videobridge = {
-              ice.udp.port = 5000;
-              websockets = {
-                enabled = true;
-                server-id = "jvb1";
-              };
-            };
-          }
-        '';
-        description = ''
-          Videobridge configuration.
+    videobridge.enable = mkOption {
+      type = bool;
+      default = true;
+      description = ''
+        Whether to enable Jitsi Videobridge instance and configure it to connect to Prosody.
 
-          See <link xlink:href="https://github.com/jitsi/jitsi-videobridge/blob/master/src/main/resources/reference.conf" />
-          for default configuration with comments.
-        '';
-      };
-
-      extraProperties = mkOption {
-        type = attrsOf str;
-        default = { };
-        example = literalExample ''
-          {
-            "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" = "192.168.1.42";
-            "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" = "1.2.3.4";
-          }
-        '';
-        description = ''
-          Additional Java properties passed to jitsi-videobridge.
-
-          The following extra properties need to be added when running behind NAT:
-
-          <programlisting>
-          org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS = <replaceable>Local.IP.Address</replaceable>
-          org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS = <replaceable>Public.IP.Address</replaceable>
-          </programlisting>
-        '';
-      };
-
-      package = mkOption {
-        type = package;
-        default = pkgs.callPackage ../pkgs/jitsi-videobridge { };
-        #defaultText = "pkgs.jitsi-videobridge";
-      };
-
-      openFirewall = mkOption {
-        type = bool;
-        default = false;
-        description = ''
-          Whether to open ports in the firewall for the videobridge.
-        '';
-      };
+        Additional configuration is possible with <option>services.jitsi-videobridge</option>.
+      '';
     };
 
     jicofo = {
@@ -217,7 +110,6 @@ in
         default = { };
         example = literalExample ''
           {
-            "org.jitsi.jicofo.ALWAYS_TRUST_MODE_ENABLED" = "true";
             "org.jitsi.jicofo.auth.URL" = "XMPP:jitsi-meet.example.com";
           }
         '';
@@ -264,6 +156,7 @@ in
   config = mkIf cfg.enable {
     services.jitsi-meet.jicofo.config = mapAttrs (_: v: mkDefault v) {
       "org.jitsi.jicofo.BRIDGE_MUC" = "jvbbrewery@internal.${cfg.hostName}";
+      "org.jitsi.jicofo.ALWAYS_TRUST_MODE_ENABLED" = "true";
     };
 
     services.prosody = mkIf cfg.prosody.enable {
@@ -313,13 +206,13 @@ in
       };
     };
     systemd.services.prosody.serviceConfig = mkIf cfg.prosody.enable {
-      EnvironmentFile = [ "${dataDir}/secrets" ];
+      EnvironmentFile = [ "/var/lib/jitsi-meet/secrets" ];
       SupplementaryGroups = [ "jitsi-meet" ];
     };
 
     users.groups.jitsi-meet = {};
     systemd.tmpfiles.rules = [
-      "d '${dataDir}' 0750 root jitsi-meet - -"
+      "d '/var/lib/jitsi-meet' 0750 root jitsi-meet - -"
     ];
 
     systemd.services.jitsi-meet-init-secrets = {
@@ -333,18 +226,28 @@ in
         secrets = [ "VIDEOBRIDGE_SECRET" "JICOFO_COMPONENT_SECRET" "JICOFO_USER_SECRET" ];
       in
       ''
-        if [ ! -f ${dataDir}/secrets ]; then
+        if [ ! -f /var/lib/jitsi-meet/secrets ]; then
           ${concatMapStringsSep "\n" (var: ''
-            echo "${var}=$(tr -dc a-zA-Z0-9 </dev/urandom | head -c 64)" >> ${dataDir}/secrets
+            echo "${var}=$(tr -dc a-zA-Z0-9 </dev/urandom | head -c 64)" >> /var/lib/jitsi-meet/secrets
           '') secrets}
 
-          chown root:jitsi-meet ${dataDir}/secrets
-          chmod 640 ${dataDir}/secrets
+          chown root:jitsi-meet /var/lib/jitsi-meet/secrets
+          chmod 640 /var/lib/jitsi-meet/secrets
         fi
 
+        source /var/lib/jitsi-meet/secrets
+
+        ${concatMapStringsSep "\n" (var: ''
+          if [ -z "''$${var}" ]; then
+            echo "Variable ${var} is missing in /var/lib/jitsi-meet/secrets!"
+            echo "Delete the file and restart jitsi-meet-init-secrets service to regenerate it."
+            exit 1
+          fi
+        '') secrets}
+
+        echo "$VIDEOBRIDGE_SECRET" > /var/lib/jitsi-meet/videobridge-secret
       ''
       + optionalString cfg.prosody.enable ''
-        source ${dataDir}/secrets
         ${config.services.prosody.package}/bin/prosodyctl register focus auth.${cfg.hostName} "$JICOFO_USER_SECRET"
         ${config.services.prosody.package}/bin/prosodyctl register jvb auth.${cfg.hostName} "$VIDEOBRIDGE_SECRET"
 
@@ -362,11 +265,6 @@ in
           # used for jicofo<->prosody user connection
           echo | ${config.services.prosody.package}/bin/prosodyctl cert generate auth.${cfg.hostName}
         fi
-
-        # don't know how to add it to the system-wide ceritificate bundle, instead convert it to java truststore and pass it to jicofo
-        rm -f ${dataDir}/prosody-ca.jks
-        ${pkgs.jre}/bin/keytool -importcert -file auth.${cfg.hostName}.crt -keystore ${dataDir}/prosody-ca.jks -storepass javapls -noprompt
-        chown root:jitsi-meet ${dataDir}/prosody-ca.jks
       '';
     };
 
@@ -404,66 +302,29 @@ in
       };
     };
 
-    systemd.services.jitsi-videobridge2 = {
-      aliases = [ "jitsi-videobridge.service" ];
-      description = "Jitsi Videobridge";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-
-      environment.JAVA_SYS_PROPS = attrsToArgs jvbProps;
-
-      serviceConfig = {
-        Type = "exec";
-        ExecStart = "${cfg.videobridge.package}/bin/jitsi-videobridge ${attrsToArgs jvbArgs}";
-
-        DynamicUser = true;
-        User = "jitsi-videobridge";
-        Group = "jitsi-videobridge";
-        SupplementaryGroups = [ "jitsi-meet" ];
-
-        EnvironmentFile = [ "${dataDir}/secrets" ];
-
-        CapabilityBoundingSet = "";
-        NoNewPrivileges = true;
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        PrivateTmp = true;
-        PrivateDevices = true;
-        ProtectHostname = true;
-        ProtectKernelTunables = true;
-        ProtectKernelModules = true;
-        ProtectControlGroups = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
-        RestrictNamespaces = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-
-        TasksMax = 65000;
-        LimitNPROC = 65000;
-        LimitNOFILE = 65000;
+    systemd.services.jicofo = let
+      jicofoProps = {
+        "-Dnet.java.sip.communicator.SC_HOME_DIR_LOCATION" = "/etc/jitsi";
+        "-Dnet.java.sip.communicator.SC_HOME_DIR_NAME" = "jicofo";
+        "-Djava.util.logging.config.file" = "/etc/jitsi/jicofo/logging.properties";
       };
-    };
-
-    environment.etc."jitsi/videobridge/logging.properties".source =
-      mkDefault "${cfg.videobridge.package}/etc/jitsi/videobridge/logging.properties-journal";
-
-    # (from videobridge2 .deb)
-    # this sets the max, so that we can bump the JVB UDP single port buffer size.
-    boot.kernel.sysctl."net.core.rmem_max" = mkDefault 10485760;
-    boot.kernel.sysctl."net.core.netdev_max_backlog" = mkDefault 100000;
-
-    networking.firewall.allowedTCPPorts = mkIf cfg.videobridge.openFirewall
-      [ jvbConfig.videobridge.ice.tcp.port ];
-    networking.firewall.allowedUDPPorts = mkIf cfg.videobridge.openFirewall
-      [ jvbConfig.videobridge.ice.udp.port ];
-
-    systemd.services.jicofo = {
+      jicofoArgs = {
+        "--host" = "localhost"; # disable org.jitsi.jicofo.ALWAYS_TRUST_MODE_ENABLED for nonlocalhost
+        "--domain" = cfg.hostName;
+        "--secret" = "\${JICOFO_COMPONENT_SECRET}";
+        "--user_domain" = "auth.${cfg.hostName}";
+        "--user_name" = "focus";
+        "--user_password" = "\${JICOFO_USER_SECRET}";
+      };
+    in
+    {
       description = "JItsi COnference FOcus";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
-      restartTriggers = [ jicofoConfig ];
+      restartTriggers = [
+        config.environment.etc."jitsi/jicofo/sip-communicator.properties".source
+      ];
       environment.JAVA_SYS_PROPS = attrsToArgs jicofoProps;
 
       serviceConfig = {
@@ -472,10 +333,9 @@ in
 
         DynamicUser = true;
         User = "jicofo";
-        Group = "jicofo";
-        SupplementaryGroups = [ "jitsi-meet" ];
+        Group = "jitsi-meet";
 
-        EnvironmentFile = [ "${dataDir}/secrets" ];
+        EnvironmentFile = [ "/var/lib/jitsi-meet/secrets" ];
 
         CapabilityBoundingSet = "";
         NoNewPrivileges = true;
@@ -495,19 +355,23 @@ in
       };
     };
 
-    environment.etc."jitsi/jicofo/sip-communicator.properties".source = jicofoConfig;
+    environment.etc."jitsi/jicofo/sip-communicator.properties".source =
+      pkgs.writeText "sip-communicator.properties" (
+        concatStringsSep "\n" (mapAttrsToList (k: v: "${k}=${v}") cfg.jicofo.config)
+      );
     environment.etc."jitsi/jicofo/logging.properties".source =
       mkDefault "${cfg.jicofo.package}/etc/jitsi/jicofo/logging.properties-journal";
 
-    assertions = [{
-      message = "Strings that start with __ENV__ must also end with __ENV__";
-      assertion = let
-        p = x: if isString x then (hasPrefix "__ENV__" x) == (hasSuffix "__ENV__" x)
-          else if isList x then builtins.all p x
-          else if isAttrs x then p (builtins.attrValues x)
-          else true;
-      in p jvbConfig;
-    }];
+    services.jitsi-videobridge = mkIf cfg.videobridge.enable {
+      enable = true;
+      xmppConfigs."localhost" = {
+        userName = "jvb";
+        domain = "auth.${cfg.hostName}";
+        passwordFile = "/var/lib/jitsi-meet/videobridge-secret";
+        mucJids = "jvbbrewery@internal.${cfg.hostName}";
+        disableCertificateVerification = true;
+      };
+    };
   };
 
   meta.maintainers = with lib.maintainers; [ mmilata ];
