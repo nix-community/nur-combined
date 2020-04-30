@@ -29,17 +29,15 @@ rec {
   prm = pkgs.callPackage ./pkgs/prm {};
   protobuild = pkgs.callPackage ./pkgs/protobuild {};
   rmapi = pkgs.callPackage ./pkgs/rmapi {};
-  slirp4netns = pkgs.callPackage ./pkgs/slirp4netns {};
   toolbox = pkgs.callPackage ./pkgs/toolbox {};
   yaspell = pkgs.callPackage ./pkgs/yaspell {};
-  s2i = pkgs.callPackage ./pkgs/s2i {};
 
   # OpenShift
   inherit (pkgs.callPackage ./pkgs/oc {})
-    oc_4_4
-    oc_4_3
-    oc_4_2
     oc_4_1
+    oc_4_2
+    oc_4_3
+    oc_4_4
     ;
   oc = oc_4_4;
   openshift-install = pkgs.callPackage ./pkgs/openshift-install {};
@@ -48,7 +46,11 @@ rec {
   operator-sdk = pkgs.callPackage ./pkgs/operator-sdk {};
 
   # Tekton
-  tkn = pkgs.callPackage ./pkgs/tkn {};
+  inherit (pkgs.callPackage ./pkgs/tkn {})
+    tkn_0_8
+    tkn_0_9
+    ;
+  tkn = tkn_0_9;
 
   # Upstream
   buildkit = pkgs.callPackage ./pkgs/buildkit {};
