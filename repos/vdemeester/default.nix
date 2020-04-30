@@ -26,17 +26,29 @@ rec {
   kss = pkgs.callPackage ./pkgs/kss {};
   kubernix = pkgs.callPackage ./pkgs/kubernix {};
   krew = pkgs.callPackage ./pkgs/krew {};
-  oc = pkgs.callPackage ./pkgs/oc {};
-  openshift-install = pkgs.callPackage ./pkgs/openshift-install {};
-  operator-sdk = pkgs.callPackage ./pkgs/operator-sdk {};
   prm = pkgs.callPackage ./pkgs/prm {};
   protobuild = pkgs.callPackage ./pkgs/protobuild {};
   rmapi = pkgs.callPackage ./pkgs/rmapi {};
-  s2i = pkgs.callPackage ./pkgs/s2i {};
   slirp4netns = pkgs.callPackage ./pkgs/slirp4netns {};
-  tkn = pkgs.callPackage ./pkgs/tkn {};
   toolbox = pkgs.callPackage ./pkgs/toolbox {};
   yaspell = pkgs.callPackage ./pkgs/yaspell {};
+  s2i = pkgs.callPackage ./pkgs/s2i {};
+
+  # OpenShift
+  inherit (pkgs.callPackage ./pkgs/oc {})
+    oc_4_4
+    oc_4_3
+    oc_4_2
+    oc_4_1
+    ;
+  oc = oc_4_4;
+  openshift-install = pkgs.callPackage ./pkgs/openshift-install {};
+
+  # Operator SDK
+  operator-sdk = pkgs.callPackage ./pkgs/operator-sdk {};
+
+  # Tekton
+  tkn = pkgs.callPackage ./pkgs/tkn {};
 
   # Upstream
   buildkit = pkgs.callPackage ./pkgs/buildkit {};
