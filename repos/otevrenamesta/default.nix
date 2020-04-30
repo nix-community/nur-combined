@@ -14,13 +14,8 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  jicofo = pkgs.callPackage ./pkgs/jicofo { };
-  jitsi-meet = pkgs.callPackage ./pkgs/jitsi-meet { };
-  jitsi-videobridge = pkgs.callPackage ./pkgs/jitsi-videobridge { };
-
-  fetchMavenDeps = pkgs.callPackage ./lib/fetch-maven-deps.nix { };
-
-  jicofo-git = pkgs.callPackage ./pkgs/jicofo-git { inherit fetchMavenDeps; };
-  jitsi-videobridge-git = pkgs.callPackage ./pkgs/jitsi-videobridge-git { inherit fetchMavenDeps; };
+  jicofo = throw "Package has been moved to nur.repos.mmilata.jicofo";
+  jitsi-meet = throw "Package has been moved to nur.repos.mmilata.jitsi-meet";
+  jitsi-videobridge = throw "Package has been moved to nur.repos.mmilata.jitsi-videobridge";
 }
 

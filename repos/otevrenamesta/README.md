@@ -6,10 +6,8 @@
 
 ## packages
 
-* jitsi-meet
-* jitsi-videobridge
-* jicofo
+* (TBD)
 
 ## modules
 
-* jitsi-meet
+* (TBD)
