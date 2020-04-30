@@ -34,8 +34,8 @@ rec {
   rmapi = pkgs.callPackage ./pkgs/rmapi {};
   s2i = pkgs.callPackage ./pkgs/s2i {};
   slirp4netns = pkgs.callPackage ./pkgs/slirp4netns {};
-  # tilt = pkgs.callPackage ./pkgs/tilt {};
   tkn = pkgs.callPackage ./pkgs/tkn {};
+  toolbox = pkgs.callPackage ./pkgs/toolbox {};
   yaspell = pkgs.callPackage ./pkgs/yaspell {};
 
   # Upstream

@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "openshift-install";
-  version = "4.4.0-rc.8";
+  version = "4.4.1";
   name = "${pname}-${version}";
 
   src = fetchurl {
     url = "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${version}/openshift-install-linux-${version}.tar.gz";
-    sha256 = "0br2zwwb8avkgslgl5snkgvf3n226pvccgfq73fxr55i1bqjqarp";
+    sha256 = "1iqiqbnlfn6514a8cgrdw66chjhdjf76film9dc547pafaw918s1";
   };
 
   phases = " unpackPhase installPhase fixupPhase ";
