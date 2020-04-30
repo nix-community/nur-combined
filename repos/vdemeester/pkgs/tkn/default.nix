@@ -3,21 +3,21 @@
 buildGoModule rec {
   pname = "tkn";
   name = "${pname}-${version}";
-  version = "0.8.0";
+  version = "0.9.0";
 
   goPackagePath = "github.com/tektoncd/cli";
   subPackages = [ "cmd/tkn" ];
   buildFlagsArray = let t = "${goPackagePath}/pkg/cmd/version"; in ''
-     -ldflags=
-       -X ${t}.clientVersion=${version}
+    -ldflags=
+      -X ${t}.clientVersion=${version}
   '';
   src = fetchFromGitHub {
     owner = "tektoncd";
     repo = "cli";
     rev = "v${version}";
-    sha256 = "00qznm02gsxvgxjakj7qpm8rgx82bnyycw4l7kpnrly5m07nm9gv";
+    sha256 = "11wcips37k1vfif2ckpdxgf1p5yh2zgccv3ngnl1jjm8kcqla40q";
   };
-  modSha256 = "0a9m46aspqbvnnvhg6qv0adarr7plj91vknbz9idc8yz4sv9wi8j";
+  modSha256 = "160174vw34v9w53azkzslcskzhsk1dflccfbvl1l38xm624fj4lw";
 
   postInstall = ''
     # manpages
@@ -34,9 +34,9 @@ buildGoModule rec {
     $out/bin/tkn completion zsh > $out/share/zsh/site-functions/_tkn
   '';
   meta = with stdenv.lib; {
-    homepage    = https://github.com/tektoncd/cli;
+    homepage = https://github.com/tektoncd/cli;
     description = "A CLI for interacting with Tekton!";
-    license     = licenses.asl20;
+    license = licenses.asl20;
     maintainers = with maintainers; [ vdemeester ];
   };
 }
