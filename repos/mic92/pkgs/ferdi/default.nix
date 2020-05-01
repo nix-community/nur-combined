@@ -32,7 +32,7 @@ stdenv.mkDerivation {
   inherit version;
   src = fetchurl {
     url = "https://github.com/getferdi/ferdi/releases/download/v${version}/ferdi_${version}_amd64.deb";
-    sha256 = "1swxsgr2fhc6kjb2fpzxs2k03kp1bdhfm592jv7l6ylrvq9pbqjg";
+    sha256 = "0i24vcnq4iz5amqmn2fgk92ff9x9y7fg8jhc3g6ksvmcfly7af3k";
   };
 
   # don't remove runtime deps
