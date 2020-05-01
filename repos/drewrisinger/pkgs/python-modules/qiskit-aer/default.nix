@@ -2,6 +2,7 @@
 , pythonOlder
 , buildPythonPackage
 , fetchFromGitHub
+, fetchpatch
 , cmake
 , cvxpy
 , cython
@@ -47,7 +48,15 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  prePatch = ''
+  patches = [
+    (fetchpatch{
+      url = "https://github.com/Qiskit/qiskit-aer/commit/09afb3b6b0710042ab65d88e863363f2c843dcb0.patch";
+      sha256 = "0521b7i4fpc5brqs08w381g3c655f9cbn6my1740jnk7dv5lhsv9";
+      name = "qiskit-aer-pr-727-fix-random-unitary-test";
+    })
+  ];
+
+  postPatch = ''
     # remove dependency on PyPi cmake package, which isn't in Nixpkgs
     substituteInPlace setup.py --replace "'cmake!=3.17,!=3.17.0'" ""
   '';

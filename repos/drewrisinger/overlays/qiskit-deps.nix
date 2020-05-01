@@ -12,6 +12,7 @@ rec {
       dill = py-super.callPackage ../pkgs/python-modules/dill { };
       marshmallow = py-super.callPackage ../pkgs/python-modules/marshmallow { };
       pybind11 = py-super.callPackage ../pkgs/python-modules/pybind11 { };
+      scipy = py-super.callPackage ../pkgs/python-modules/scipy { };
     };
   };
 
