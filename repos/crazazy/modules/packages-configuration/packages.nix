@@ -22,6 +22,7 @@ defaultPackages: with defaultPackages.pkgs; {
       vlc
       ffmpeg
       libreoffice
+      evince
       (wine.override {wineBuild = "wineWow";})
     ];
   };

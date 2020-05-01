@@ -1,14 +1,14 @@
 { buildGoModule, fetchFromGitHub, lib}:
 buildGoModule rec {
   name = "efm-langserver";
-  version = "0.0.10";
+  version = "0.0.14";
   src = fetchFromGitHub {
     owner = "mattn";
     repo = "efm-langserver";
     rev = "v${version}";
-    sha256 = "1bcfyna4dkwid7kpla9f9798lyg92n54rbkf5f909c9wj8ss3xwa";
+    sha256 = "0gswjz9m68xl8r9f11bqp71lvb0b8j0j7vy0nkiwf4rmsyg0mjnb";
   };
-  modSha256 = "027v8b88i5dab0pbgv2mwk1k0ll8781lkcip8dd8gl7mpqjbwlzz";
+  modSha256 = "0mi0rhfxbb06jjc87jl07kg9dgjysracc0ndjwmz9vic5jrjvydz";
   subPackages = ["."];
 
   meta = with lib; {
