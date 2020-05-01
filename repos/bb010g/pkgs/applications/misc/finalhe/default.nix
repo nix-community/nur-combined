@@ -1,5 +1,5 @@
 { stdenv, buildPackages, fetchFromGitHub
-, libiconv, libusb, libxml2
+, libiconv, libusb1, libxml2
 }:
 
 let
@@ -23,7 +23,7 @@ in stdenv.mkDerivation rec {
   ];
   buildInputs = chooseDevOutputs [
     libiconv
-    libusb
+    libusb1
     libxml2
   ];
 

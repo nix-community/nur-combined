@@ -22,7 +22,10 @@ import ./boilerplate-default.nix {
     ;
 
     inherit (lib.lists) #{{{2
+      findIndex
       foldl1'
+      ifoldl'
+      uniqBy uniq
     ;
 
     inherit (lib.meta) #{{{2

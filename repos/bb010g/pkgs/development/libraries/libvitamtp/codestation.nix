@@ -4,12 +4,12 @@
 , withDevdoc ? true
 # options
 , enableUsb ? true
-, libusb ? null
+, libusb1 ? null
 , enableWireless ? true
 }:
 
 assert withDevdoc -> buildPackages.doxygen != null;
-assert enableUsb -> libusb != null;
+assert enableUsb -> libusb1 != null;
 
 let
   inherit (stdenv.lib) enableFeature enableFeatureAs optional;
@@ -39,7 +39,7 @@ in stdenv.mkDerivation rec {
     libiconv
     libxml2
   ] ++ optional enableUsb
-    libusb;
+    libusb1;
 
   configureFlags = [
     (enableFeature withDevdoc "doxygen")

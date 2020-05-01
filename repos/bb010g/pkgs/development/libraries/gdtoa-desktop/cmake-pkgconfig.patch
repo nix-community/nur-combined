@@ -1,0 +1,12 @@
+diff -ur a/gdtoa-desktop.pc.cmake b/gdtoa-desktop.pc.cmake
+--- a/gdtoa-desktop.pc.cmake
++++ b/gdtoa-desktop.pc.cmake
+@@ -1,6 +1,6 @@
+ prefix=@CMAKE_INSTALL_PREFIX@
+-libdir=@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@
+-includedir=@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_INCLUDEDIR@
++libdir=@CMAKE_INSTALL_FULL_LIBDIR@
++includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
+ 
+ Name: gdtoa-desktop
+ Description: Binary↔decimal floating-point conversion library

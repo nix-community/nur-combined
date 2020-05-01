@@ -15,6 +15,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ buildPackages.cmake ];
 
+  patches = [
+    ./cmake-pkgconfig.patch
+  ];
+
   cmakeFlags =
     stdenv.lib.optionalString enableRenamedFunctions "-DRENAME_FUNCTIONS=ON";
 

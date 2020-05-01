@@ -1,7 +1,7 @@
 self: pkgs:
 
 let inherit (self) callPackage; in let
-  inherit (pkgs) lib recurseIntoAttrs;
+  inherit (pkgs) lib recurseIntoAttrs dontRecurseIntoAttrs;
   inherit (pkgs.lib) breakDrv getVersion mapIf versionAtLeast;
 
   cargoHashBreakageVersion = "1.39.0";
@@ -13,7 +13,14 @@ let inherit (self) callPackage; in let
 in {
 
   # applications {{{1
+  # applications.audio {{{2
+
+  sayonara-unstable = (pkgs.libsForQt5.overrideScope' (_: _: self))
+    .callPackage ../applications/audio/sayonara/unstable.nix { };
+
   # applications.editors {{{2
+
+  _010-editor = callPackage ../applications/editors/010-editor { };
 
   edbrowse = callPackage ../applications/editors/edbrowse { };
 
@@ -184,6 +191,18 @@ in {
 
   # development.tools.misc {{{3
 
+  edb-debugger = (pkgs.libsForQt5.overrideScope' (_: _: self))
+    .callPackage ../development/tools/misc/edb-debugger {
+      buildPackages =
+        (pkgs.buildPackages.libsForQt5.overrideScope' (_: _: self))
+          .callPackage ({
+            cmake, pkgconfig
+          } @ args: args) { };
+      gdtoa-desktop = self.gdtoa-desktop.override {
+        enableRenamedFunctions = true;
+      };
+    };
+
   # pince = callPackage ../development/tools/misc/pince { };
 
   # servers {{{1
@@ -217,6 +236,7 @@ in {
 
   lz4json = callPackage ../tools/compression/lz4json { };
 
+  # 19.09 compat (breaks on 20.03)
   mozlz4-tool = needsOldCargoHash
     (callPackage ../tools/compression/mozlz4-tool { });
 
@@ -245,19 +265,28 @@ in {
   mosh-unstable = pkgs.mosh.overrideAttrs (o: rec {
     name = "${pname}-${version}";
     pname = "mosh-unstable";
-    version = "2019-06-13";
+    version = "2019-10-02";
     src = pkgs.fetchFromGitHub {
       owner = "mobile-shell";
       repo = "mosh";
-      rev = "335e3869b7af59314255a121ec7ed0f6309b06e7";
-      sha256 = "0h42grx0sdxix9x9ph800szddwmbxxy7nnzmfnpldkm6ar6i6ws2";
+      rev = "0cc492dbae2f6aaef9a54dc2a8ba3222868b150f";
+      sha256 = "0w7jxdsyxgnf5h09rm8mfgm5z1qc1sqwvgzvrwzb04yshxpsg0zd";
     };
-    patches = let
-      moshPatch = n:
-        /. + "${toString pkgs.path}/pkgs/tools/networking/mosh/${n}.patch";
-    in [
-      (moshPatch "ssh_path")
-      (moshPatch "utempter_path")
+    patches = let go =
+      let pkgsMosh = "${toString pkgs.path}/pkgs/tools/networking/mosh"; in
+      { patch ? null, moshPatch ? null, optional ? false } @ args:
+      if moshPatch != null then
+        assert patch == null; go (args // {
+          moshPatch = null;
+          patch = /. + "${pkgsMosh}/${moshPatch}";
+        })
+      else
+        if optional && !(builtins.pathExists patch) then [ ] else [ patch ]
+    ; in lib.concatMap go [
+      { moshPatch = "ssh_path.patch"; }
+      { moshPatch = "utempter_path.patch"; }
+      # 19.09 compat
+      { moshPatch = "bash_completion_datadir.patch"; optional = true; }
     ];
   });
 
@@ -270,6 +299,18 @@ in {
   dwdiff = callPackage ../tools/text/dwdiff { };
 
   ydiff = pkgs.python3Packages.callPackage ../tools/text/ydiff { };
+
+  # tools.typesetting {{{2
+  # tools.typesetting.tex {{{3
+
+  texlive = let tl = pkgs.texlive; in dontRecurseIntoAttrs (tl // {
+    combine = callPackage ../tools/typesetting/tex/texlive/combine.nix {
+      inherit (tl) bin;
+      combinePkgs = pkgSet: lib.concatLists
+        (lib.mapAttrsToList (_n: a: a.pkgs) pkgSet);
+      ghostscript = pkgs.ghostscriptX;
+    };
+  });
 
   # }}}1
 

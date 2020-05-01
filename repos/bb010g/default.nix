@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { }, enablePkgsCompat ? true }:
+{ pkgs ? import <nixpkgs> { }, enablePkgsCompat ? false }:
 
 let recurseIntoAttrs = attrs: attrs // { recurseForDerivations = true; };
 self = {

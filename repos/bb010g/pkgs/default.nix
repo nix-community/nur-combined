@@ -56,9 +56,9 @@ in let p = pkgs'; pkgs' = pkgs.appendOverlays [
       pkgs.pythonPackagesScope;
   })
 ]; in p.lib.makeScope p.newScope (scopedPkgs: (p.lib.composeExtensionList [
-  (self: pkgs: let res = import ./stdenv/adapters.nix pkgs; in res // {
-    stdenvAdapters = res;
-  })
+  # (self: pkgs: let res = import ./stdenv/adapters.nix pkgs; in res // {
+    # stdenvAdapters = res;
+  # })
   (self: pkgs: { inherit (pkgs) pythonPackagesScope; })
   allPackages
 ]) scopedPkgs p)

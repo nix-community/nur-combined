@@ -2,7 +2,7 @@
 
 let
   pname = "mutant-standard";
-  version = "0.4.1";
+  version = "2020.04";
 
   fcConf = "mutant-standard-emoji.conf";
 
@@ -10,7 +10,7 @@ let
     sbixotSrc = fetchzip {
       name = "mutant-standard-${version}-sbixot-source";
       url = "https://mutant.tech/dl/${version}/mtnt_${version}_font_sbixot.zip";
-      sha256 = "111ld1bxydca8xfgmjm883s04l8d0l45p8l6x86jyy8wnf1085nl";
+      sha256 = "1sb1l24szj85qsy365zhg5v0j7bxvcwhb5lrd4maambyjpp0hd69";
     };
   };
 in
