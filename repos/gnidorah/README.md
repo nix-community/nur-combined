@@ -4,5 +4,3 @@
 
 [![Build Status](https://travis-ci.com/gnidorah/nur-packages.svg?branch=master)](https://travis-ci.com/gnidorah/nur-packages)
 [![Cachix Cache](https://img.shields.io/badge/cachix-gnidorah-blue.svg)](https://gnidorah.cachix.org)
-
-
