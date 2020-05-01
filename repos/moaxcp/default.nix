@@ -107,6 +107,6 @@ in rec {
 
   micronaut-1_3_4 = callPackage ./pkgs/micronaut { };
 
-  spring-boot-cli-2_2_5 = callPackage ./pkgs/spring-boot-cli { };
+  spring-boot-cli-2_2_6 = callPackage ./pkgs/spring-boot-cli { };
 }
 

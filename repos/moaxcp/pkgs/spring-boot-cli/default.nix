@@ -1,12 +1,12 @@
 { stdenv, fetchzip, jdk, makeWrapper, installShellFiles, coreutils }:
 
 stdenv.mkDerivation rec {
-  pname = "spring-boot";
-  version = "2.2.5";
+  pname = "spring-boot-cli";
+  version = "2.2.6";
 
   src = fetchzip {
-    url = "https://repo.spring.io/release/org/springframework/boot/${pname}-cli/${version}.RELEASE/${pname}-cli-${version}.RELEASE-bin.zip";
-    sha256 = "09sybgk4xvv10lbpgmnyvxmdxjsv4jg79nfp0c7j328k92f23lb8";
+    url = "https://repo.spring.io/release/org/springframework/boot/${pname}/${version}.RELEASE/${pname}-${version}.RELEASE-bin.zip";
+    sha256 = "1rb21a8nr4mcdsfv3c3xh45kcpdwllhjfb26w9xsdgfh1j4mhb81";
   };
 
   nativeBuildInputs = [ makeWrapper installShellFiles ];
