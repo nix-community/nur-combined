@@ -71,7 +71,7 @@ in stdenv.mkDerivation rec {
       sent and received. OpenCMA is a command line tool that aims to be an
       open source replacement to Sony's official Content Management Assistant.
     '';
-    homepage = https://github.com/yifanlu/VitaMTP;
+    homepage = "https://github.com/yifanlu/VitaMTP";
     license = with licenses; gpl3Plus;
     maintainers = with maintainers; [ bb010g ];
     platforms = with platforms; linux;

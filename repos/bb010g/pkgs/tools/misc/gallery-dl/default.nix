@@ -59,7 +59,7 @@ pyPkgs.buildPythonApplication rec {
   meta = {
     description =
       "A CLI image-gallery & -collection downloader for several image hosts";
-    homepage = https://github.com/mikf/gallery-dl;
+    homepage = "https://github.com/mikf/gallery-dl";
     license = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ bb010g ];
   };

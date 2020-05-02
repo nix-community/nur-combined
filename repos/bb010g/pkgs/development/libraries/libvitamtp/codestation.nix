@@ -55,7 +55,7 @@ in stdenv.mkDerivation rec {
       the Vita sends, which are a proprietary set of commands that is based on
       the MTP open standard.
     '';
-    homepage = https://github.com/codestation/libvitamtp;
+    homepage = "https://github.com/codestation/libvitamtp";
     license = with licenses; gpl3Plus;
     maintainers = with maintainers; [ bb010g ];
     platforms = with platforms; linux;

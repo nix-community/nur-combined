@@ -1,7 +1,7 @@
 diff -ur a/CMakeLists.txt b/CMakeLists.txt
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -50,11 +50,10 @@
+@@ -37,11 +37,10 @@
  
  if (UNIX)
  	find_package(PkgConfig REQUIRED)
@@ -16,7 +16,7 @@ diff -ur a/CMakeLists.txt b/CMakeLists.txt
  	endif()
  endif()
  
-@@ -109,13 +108,12 @@
+@@ -96,13 +95,12 @@
  # FIXME: This is also useful on Windows, so it should be made usable there too.
  if(UNIX)
  	if(TARGET_ARCH_FAMILY_X86)

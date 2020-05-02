@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A portable variant of the traditional Unix shell";
-    homepage = http://heirloom.sourceforge.net/sh.html;
+    homepage = "http://heirloom.sourceforge.net/sh.html";
     license = with licenses; [ zlib ccdl10 caldera ];
     maintainers = with maintainers; [ bb010g ];
     platforms = platforms.all;

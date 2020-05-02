@@ -37,7 +37,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Wget-compatible web downloader and crawler.";
-    homepage = https://github.com/ArchiveTeam/wpull;
+    homepage = "https://github.com/ArchiveTeam/wpull";
     longDescription = ''
       Wpull is a Wget-compatible (or remake/clone/replacement/alternative) web
       downloader and crawler.

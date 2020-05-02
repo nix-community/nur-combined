@@ -16,10 +16,13 @@ stdenv.mkDerivation {
 
   outputBin = "out";
 
-  patches = [
+  patches = let
+    commitUrl = commitHash:
+      "https://github.com/mmozeiko/pkg2zip/commit/${commitHash}.patch";
+  in [
     # "ignore unnecessary warnings": build with -Wno-format-truncation
     (fetchpatch {
-      url = https://github.com/mmozeiko/pkg2zip/commit/bb1b430ada4510375f070f42d5474c7ce24bf5bf.patch;
+      url = commitUrl "bb1b430ada4510375f070f42d5474c7ce24bf5bf";
       sha256 = "0zsk2s4s9pa69kvar025ldc9qhw922y22z9lf7h4ck46hd7l8v3k";
     })
   ];
@@ -37,7 +40,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Decrypt PlayStation Vita pkg files and create zips";
-    homepage = https://github.com/mmozeiko/pkg2zip;
+    homepage = "https://github.com/mmozeiko/pkg2zip";
     longDescription = ''
       Utility that decrypts PlayStation Vita pkg file and creates zip package.
       Supported pkg files - main application, DLC, patch and PSM files. Also

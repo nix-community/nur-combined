@@ -34,7 +34,11 @@ stdenv.mkDerivation {
     webkitgtk
   ];
 
-  inherit patches;
+  patches = let defaultPatches = [
+    ./update-uri.patch
+  ]; in if patches == null then defaultPatches
+    else if lib.isFunction patches then patches defaultPatches
+    else defaultPatches ++ patches;
 
   installFlags = [ "PREFIX=$(out)" ];
 
@@ -62,7 +66,7 @@ stdenv.mkDerivation {
       possible to embed it in another application. Furthermore, one can point
       surf to another URI by setting its XProperties.
     '';
-    homepage = https://surf.suckless.org/;
+    homepage = "https://surf.suckless.org/";
     license = licenses.mit;
     platforms = webkitgtk.meta.platforms;
     maintainers = with maintainers; [ bb010g joachifm ];

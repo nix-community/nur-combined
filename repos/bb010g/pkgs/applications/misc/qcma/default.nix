@@ -42,8 +42,8 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Cross-platform content manager assistant for the PS Vita";
-    homepage = https://codestation.github.io/qcma/;
-    downloadPage = https://github.com/codestation/qcma/releases;
+    homepage = "https://codestation.github.io/qcma/";
+    downloadPage = "https://github.com/codestation/qcma/releases";
     license = with licenses; gpl2;
     maintainers = with maintainers; [ bb010g ];
     platforms = with platforms; all;

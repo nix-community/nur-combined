@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = let inherit (stdenv) lib; in {
     description = "Per-repo and global Git hooks with version control";
-    homepage = https://github.com/rycus86/githooks;
+    homepage = "https://github.com/rycus86/githooks";
     license = lib.licenses.mit;
     maintainers = let m = lib.maintainers; in [ m.bb010g ];
     platforms = lib.platforms.all;

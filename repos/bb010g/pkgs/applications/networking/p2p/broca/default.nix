@@ -41,8 +41,8 @@ buildPythonApplication rec {
       and the password to your Synapse RPC password, and the host to
       http://localhost:9091.
     '';
-    homepage = https://broca.synapse-bt.org/;
-    downloadPage = https://github.com/ddevault/broca;
+    homepage = "https://broca.synapse-bt.org/";
+    downloadPage = "https://github.com/ddevault/broca";
     license = with licenses; bsd3;
     maintainers = with maintainers; [ bb010g ];
   };

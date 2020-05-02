@@ -1,0 +1,13 @@
+diff --git a/surf.c b/surf.c
+index 2b54e3c..cedf273 100644
+--- a/surf.c
++++ b/surf.c
+@@ -1513,6 +1513,8 @@ loadchanged(WebKitWebView *v, WebKitLoadEvent e, Client *c)
+ 		seturiparameters(c, uri, loadtransient);
+ 		break;
+ 	case WEBKIT_LOAD_COMMITTED:
++		// uri isn't necessarily updated until now
++		setatom(c, AtomUri, uri);
+ 		seturiparameters(c, uri, loadcommitted);
+ 		c->https = webkit_web_view_get_tls_info(c->view, &c->cert,
+ 		                                        &c->tlserr);

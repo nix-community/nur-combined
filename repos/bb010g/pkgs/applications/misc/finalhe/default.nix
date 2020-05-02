@@ -43,8 +43,8 @@ in stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description =
       "Tool to push h-encore exploit for PS VITA/PS TV automatically";
-    homepage = https://github.com/soarqin/finalhe;
-    downloadPage = https://github.com/soarqin/finalhe/releases;
+    homepage = "https://github.com/soarqin/finalhe";
+    downloadPage = "https://github.com/soarqin/finalhe/releases";
     license = with licenses; gpl3Plus;
     maintainers = with maintainers; [ bb010g ];
     platforms = with platforms; all;

@@ -90,8 +90,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = ''A lightweight and flexible command-line JSON processor'';
-    downloadPage = https://stedolan.github.io/jq/download/;
-    homepage = https://stedolan.github.io/jq/;
+    downloadPage = "https://stedolan.github.io/jq/download/";
+    homepage = "https://stedolan.github.io/jq/";
     license = lib.licenses.mit;
     maintainers = let m = lib.maintainers; in [ m.raskin m.globin m.bb010g ];
     platforms = let p = lib.platforms; in p.linux ++ p.darwin;

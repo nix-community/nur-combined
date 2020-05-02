@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix build against recent libcurl
     (fetchpatch {
-      url = https://github.com/CMB/edbrowse/commit/5d2b9e21fdf019f461ebe62738d615428d5db963.diff;
+      url = "https://github.com/CMB/edbrowse/commit/5d2b9e21fdf019f461ebe62738d615428d5db963.diff";
       sha256 = "167q8n0syj3iv6lxrbpv4kvb63j4byj4qxrxayy08bah3pss3gky";
     })
   ];
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       edbrowse can also tap into databases through odbc. It was primarily written by Karl Dahlke.
       '';
     license = lib.licenses.gpl1Plus;
-    homepage = http://edbrowse.org/;
+    homepage = "http://edbrowse.org/";
     maintainers = let m = lib.maintainers; in [ m.schmitthenner m.vrthra ];
     platforms = lib.platforms.linux;
   };

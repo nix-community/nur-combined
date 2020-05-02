@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = let inherit (stdenv) lib; in {
     description = "Share your terminal over the web";
-    homepage = https://github.com/tsl0922/ttyd;
+    homepage = "https://github.com/tsl0922/ttyd";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.bb010g ];
     platforms = lib.platforms.linux;

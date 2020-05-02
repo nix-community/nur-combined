@@ -4,20 +4,16 @@
 
 stdenv.mkDerivation rec {
   pname = "gdtoa-desktop-unstable";
-  version = "2019-12-12";
+  version = "2020-05-01";
 
   src = fetchFromGitHub {
     owner = "10110111";
     repo = "gdtoa-desktop";
-    rev = "5c0663125d7704f7f9f8ef4b70c8567fa212f9cc";
-    sha256 = "0fz6icxigvi7jqi0pjv19vgmmggcna6kr0ch0hm5si606w2qzwcq";
+    rev = "c178e2c44d3644440f3502d0934ffce53bcab9b5";
+    sha256 = "0kmafzyh14msxraprcx9gq55904icfqns16nanxfpa4ml3cdx1ib";
   };
 
   nativeBuildInputs = [ buildPackages.cmake ];
-
-  patches = [
-    ./cmake-pkgconfig.patch
-  ];
 
   cmakeFlags =
     stdenv.lib.optionalString enableRenamedFunctions "-DRENAME_FUNCTIONS=ON";
@@ -28,7 +24,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description =
       "Binary-decimal floating-point conversion library by David M. Gay";
-    homepage = https://github.com/10110111/gdtoa-desktop;
+    homepage = "https://github.com/10110111/gdtoa-desktop";
     license = with licenses; mit;
     maintainers = with maintainers; [ bb010g ];
     platforms = with platforms; all;

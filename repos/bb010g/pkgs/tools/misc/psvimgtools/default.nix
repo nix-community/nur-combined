@@ -31,7 +31,7 @@ in stdenv.mkDerivation rec {
       CMA backup images. To use this you need your backup key which is tied to
       your PSN AID.
     '';
-    homepage = https://github.com/yifanlu/psvimgtools;
+    homepage = "https://github.com/yifanlu/psvimgtools";
     license = with licenses; mit;
     maintainers = with maintainers; [ bb010g ];
     platforms = with platforms; all;

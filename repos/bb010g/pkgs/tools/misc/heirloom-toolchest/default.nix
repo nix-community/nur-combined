@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description =
       "The Heirloom Toolchest collection of standard Unix utilities";
-    homepage = http://heirloom.sourceforge.net/tools.html;
+    homepage = "http://heirloom.sourceforge.net/tools.html";
     # ordered to follow /LICENSE/LICENSE
     license = with licenses; [
       zlib # newly written code & changes to existing code

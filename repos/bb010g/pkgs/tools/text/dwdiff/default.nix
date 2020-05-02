@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A diff program that operates word by word";
-    homepage = https://os.ghalkes.nl/dwdiff.html;
+    homepage = "https://os.ghalkes.nl/dwdiff.html";
     license = with licenses; gpl3;
     maintainers = with maintainers; [ bb010g ];
     platforms = platforms.all;

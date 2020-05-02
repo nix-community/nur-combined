@@ -125,7 +125,7 @@ stdenvNoCC.mkDerivation {
 
       No marketing, no brands, no spying.
     '';
-    homepage = https://mutant.tech/;
+    homepage = "https://mutant.tech/";
     license = lib.licenses.cc-by-nc-sa-40;
     maintainers = let m = lib.maintainers; in [ m.bb010g ];
   };

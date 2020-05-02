@@ -138,8 +138,8 @@ in stdenv.mkDerivation rec {
       hosted on GitHub and everyone is free to review, audit, and contribute
       to the Bitwarden codebase.
     '';
-    homepage = https://bitwarden.com/;
-    downloadPage = https://github.com/bitwarden/desktop;
+    homepage = "https://bitwarden.com/";
+    downloadPage = "https://github.com/bitwarden/desktop";
     license = with licenses; gpl3;
     maintainers = with maintainers; [ bb010g ];
     platforms = platforms.unix;

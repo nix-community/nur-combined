@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
       A simple tool to decompress and compress files into the mozlz4 format
       used by Firefox.
     '';
-    homepage = https://github.com/lilydjwg/mozlz4-tool;
+    homepage = "https://github.com/lilydjwg/mozlz4-tool";
     license = lib.licenses.free;
     maintainers = let m = lib.maintainers; in [ m.bb010g ];
     platforms = lib.platforms.all;

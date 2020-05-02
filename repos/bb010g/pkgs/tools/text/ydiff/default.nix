@@ -12,7 +12,7 @@ buildPythonApplication rec {
   meta = with stdenv.lib; {
     description = "View colored, incremental diff in a workspace or from " +
       "stdin, with side by side and auto pager support";
-    homepage = https://github.com/ymattw/ydiff;
+    homepage = "https://github.com/ymattw/ydiff";
     license = with licenses; bsd3;
     maintainers = with maintainers; [ bb010g ];
   };

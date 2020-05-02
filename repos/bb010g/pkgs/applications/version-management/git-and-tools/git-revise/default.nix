@@ -17,7 +17,7 @@ buildPythonApplication rec {
 
   meta = let inherit (stdenv) lib; in {
     description = "Efficiently update, split, and rearrange git commits";
-    homepage = https://github.com/mystor/git-revise;
+    homepage = "https://github.com/mystor/git-revise";
     license = lib.licenses.mit;
     maintainers = let m = lib.maintainers; in [ m.bb010g ];
     platforms = lib.platforms.all;

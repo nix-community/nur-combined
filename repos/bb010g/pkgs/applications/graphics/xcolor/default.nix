@@ -55,7 +55,7 @@ rustPlatform.buildRustPackage rec {
       Lightweight color picker for X11. Use your mouse to select colors
       visible anywhere on the screen to get their RGB representation.
     '';
-    homepage = https://soft.github.io/xcolor;
+    homepage = "https://soft.github.io/xcolor";
     license = with licenses; mit;
     maintainers = with maintainers; [ bb010g ];
     platforms = platforms.unix;

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       bookmark backups and session restore. This is a different format from
       what the normal lz4 utility expects. The data is dumped to stdout.
     '';
-    homepage = https://github.com/andikleen/lz4json;
+    homepage = "https://github.com/andikleen/lz4json";
     license = with licenses; mit;
     maintainers = with maintainers; [ bb010g ];
     platforms = platforms.all;

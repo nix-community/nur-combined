@@ -153,7 +153,7 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description =
       "A stable base for compiling other components of the Heirloom Project";
-    homepage = http://heirloom.sourceforge.net/tools.html;
+    homepage = "http://heirloom.sourceforge.net/tools.html";
     license = with licenses; [ bsdOriginalUC caldera ccdl10 ];
     maintainers = with maintainers; [ bb010g ];
     platforms = platforms.all;

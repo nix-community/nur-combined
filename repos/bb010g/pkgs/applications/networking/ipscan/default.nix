@@ -16,7 +16,7 @@ let
       The program provides an easy to use GUI interface and is very
       extensible, see ${homepage} for more information.
     '';
-    homepage = https://angryip.org;
+    homepage = "https://angryip.org";
     license = with licenses; gpl2;
     maintainers = with maintainers; [ bb010g ];
     platforms = platforms.all;
