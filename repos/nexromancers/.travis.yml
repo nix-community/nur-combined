@@ -67,11 +67,11 @@ jobs:
   - name: 'nixos-unstable'
     env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
   - name: 'nixos-unstable (pinned)'
-    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/ea79a830dcf9c0059656da7f52835d2663d5c436.tar.gz
-  - name: 'nixos-19.09'
-    env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
-  - name: 'nixos-19.09 (pinned)'
-    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/c2c5dcc00b05f0f6007d7a997dc9d90aefb49f28.tar.gz
+    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/3b00e78e63b6539369821660245cd579f6723b58.tar.gz
+  - name: 'nixos-20.03'
+    env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
+  - name: 'nixos-20.03 (pinned)'
+    env: NIX_CHANNEL=https://github.com/NixOS/nixpkgs/archive/73e73c7d6b5f9aace09a2aa12beb8688b3d7b7c8.tar.gz
   - stage: deploy
     name: "Notify NUR"
     if: 'type NOT IN (pull_request, cron) AND branch IN (master)'

@@ -11,10 +11,11 @@
 
 let
   pathNixpkgs = builtins.tryEval <nixpkgs>;
-  nixpkgs = if pathNixpkgs.success then pathNixpkgs.value
-    else builtins.fetchTarball {
-      url = https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
-    };
+  nixpkgsUrl =
+    "https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
+  nixpkgs = if pathNixpkgs.success
+    then pathNixpkgs.value
+    else builtins.fetchTarball { url = nixpkgsUrl; };
 in
 { pkgs ? import nixpkgs { }, buildUnfree ? false, flattened ? false }:
 

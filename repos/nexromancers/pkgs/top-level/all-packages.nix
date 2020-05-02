@@ -1,11 +1,11 @@
 self: pkgs:
 
 let inherit (self) callPackage; in let
-  inherit (pkgs.lib) breakDrv getVersion mapIf versionAtLeast;
+  inherit (pkgs.lib) breakDrv getVersion mapIf versionOlder;
 
   needsNewCargoHash = let
-    minVersion = "1.39.0";
-    isOutdated = versionAtLeast minVersion (getVersion pkgs.cargo or "");
+    minVersion = "1.41.0";
+    isOutdated = versionOlder minVersion (getVersion pkgs.cargo or "");
   in mapIf breakDrv isOutdated;
 in {
 
@@ -15,11 +15,16 @@ in {
   shotgun = needsNewCargoHash
     (callPackage ../applications/graphics/shotgun { });
 
+  shotgun-unstable = needsNewCargoHash
+    (callPackage ../applications/graphics/shotgun/unstable.nix { });
+
   # tools {{{1
   # tools.misc {{{2
 
-  hacksaw = needsNewCargoHash
-    (callPackage ../tools/misc/hacksaw { });
+  hacksaw = self.hacksaw-unstable;
+
+  hacksaw-unstable = needsNewCargoHash
+    (callPackage ../tools/misc/hacksaw/unstable.nix { });
 
   # }}}1
 
