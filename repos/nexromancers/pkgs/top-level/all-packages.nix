@@ -26,6 +26,12 @@ in {
   hacksaw-unstable = needsNewCargoHash
     (callPackage ../tools/misc/hacksaw/unstable.nix { });
 
+  uniconize = needsNewCargoHash
+    (callPackage ../tools/misc/uniconize { });
+
+  uniconize-unstable = needsNewCargoHash
+    (callPackage ../tools/misc/uniconize/unstable.nix { });
+
   # }}}1
 
 }
