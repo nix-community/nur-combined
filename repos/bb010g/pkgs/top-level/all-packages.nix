@@ -2,11 +2,11 @@ self: pkgs:
 
 let inherit (self) callPackage; in let
   inherit (pkgs) lib recurseIntoAttrs dontRecurseIntoAttrs;
-  inherit (pkgs.lib) breakDrv getVersion mapIf versionAtLeast;
+  inherit (pkgs.lib) breakDrv getVersion mapIf versionOlder;
 
   cargoHashBreakageVersion = "1.39.0";
   isUsingOldCargoHash =
-    versionAtLeast cargoHashBreakageVersion (getVersion pkgs.cargo or "");
+    versionOlder (getVersion pkgs.cargo or "") cargoHashBreakageVersion;
   breakIf = mapIf breakDrv;
   needsNewCargoHash = breakIf isUsingOldCargoHash;
   needsOldCargoHash = breakIf (!isUsingOldCargoHash);
@@ -26,7 +26,7 @@ in {
 
   # applications.graphics {{{2
 
-  xcolor = needsOldCargoHash
+  xcolor = needsNewCargoHash
     (callPackage ../applications/graphics/xcolor { });
 
   # applications.misc {{{2
@@ -236,8 +236,7 @@ in {
 
   lz4json = callPackage ../tools/compression/lz4json { };
 
-  # 19.09 compat (breaks on 20.03)
-  mozlz4-tool = needsOldCargoHash
+  mozlz4-tool = needsNewCargoHash
     (callPackage ../tools/compression/mozlz4-tool { });
 
   vita-pkg2zip = self.vita-pkg2zip-unstable;

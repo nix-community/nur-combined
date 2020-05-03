@@ -1,4 +1,4 @@
-{ stdenv, rustPlatform, fetchFromGitHub
+{ lib, rustPlatform, fetchFromGitHub
 , libxcb
 , pkgconfig, python3
 }:
@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1nxyy0d12xw1pksshxl31h2fzcaqazlw60g1h279jh103b2xdbhz";
   };
 
-  cargoSha256 = "1zziyhkgz1hpjhvl5az4yq194kbn3cg1zwciay7zr3hfr9rrylpg";
+  cargoSha256 = "16l41q2aprh36bz6zz8y1x8d5kmbzz8pfh73jsw9y0p0ra5ssx3s";
 
   outputs = [ "bin" "man" "out" ];
 
@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     #install .* -- target/release/\([^ ]\+\) ".*bin/\1"$#{d}
   ''; in ''
     # don't make install binaries or libraries
-    sed -i ${stdenv.lib.escapeShellArg makefileSedScript} Makefile
+    sed -i ${lib.escapeShellArg makefileSedScript} Makefile
   '';
 
   makeFlags = [ "PREFIX=$(bin)" ];
@@ -49,7 +49,7 @@ rustPlatform.buildRustPackage rec {
     unset flagsArray
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Lightweight color picker for X11";
     longDescription = ''
       Lightweight color picker for X11. Use your mouse to select colors

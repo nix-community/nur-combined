@@ -1,11 +1,11 @@
-{ stdenv, rustPlatform, fetchFromGitHub
+{ lib, rustPlatform, fetchFromGitHub
 , lz4
 , pkgconfig
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "mozlz4-tool";
-  version = "0.2.0+${stdenv.lib.substring 0 7 src.rev}";
+  version = "0.2.0+${lib.substring 0 7 src.rev}";
 
   src = fetchFromGitHub {
     owner = "lilydjwg";
@@ -14,14 +14,14 @@ rustPlatform.buildRustPackage rec {
     sha256 = "09300w0750ij75jf5xn1fyrh57c2545dcv7s1sc67n95d6jv6khq";
   };
 
-  cargoSha256 = "1lqb0268miw41zjk44an38l17l59xqrk02981x0aawiz2z74qpqv";
+  cargoSha256 = "1padi78v2v1zkm4hn0wlrs3qjdmay6wdwcalq4jan1sms3rjdpi9";
 
   outputs = [ "out" ];
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ lz4 ];
 
-  meta = let inherit (stdenv) lib; in {
+  meta = {
     description = "A tool to process mozlz4 files";
     longDescription = ''
       A simple tool to decompress and compress files into the mozlz4 format
