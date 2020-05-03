@@ -8,6 +8,8 @@ rec {
   # TODO checksum can break ... make a mirror?
   # binary-ninja = pkgs.callPackage ./pkgs/binary-ninja {};
 
+  check_mk-agent = pkgs.callPackage ./pkgs/check_mk-agent {};
+
   cntr = pkgs.callPackage ./pkgs/cntr {};
 
   conky-symbols = pkgs.callPackage ./pkgs/conky-symbols {};
