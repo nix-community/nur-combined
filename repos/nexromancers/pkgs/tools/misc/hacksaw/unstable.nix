@@ -8,5 +8,5 @@ import ./generic.nix ({ lib,
     sha256 = "0ncyr0rw9f4bnvxcq6i8vkgj0ixg060inrssbwz4y3nq9nakbp61";
   };
 
-  cargoSha256 = "13pgj1azsz6p74yrxjwsf28mn0cginw5rg0ricv69zzwlmy2wkji";
+  cargoSha256 = "0hqji115vwb16276aj6gj4c690yhj40bf98h8vrz3g162vvwir2j";
 })

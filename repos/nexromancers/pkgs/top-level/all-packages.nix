@@ -3,10 +3,12 @@ self: pkgs:
 let inherit (self) callPackage; in let
   inherit (pkgs.lib) breakDrv getVersion mapIf versionOlder;
 
-  needsNewCargoHash = let
-    minVersion = "1.41.0";
-    isOutdated = versionOlder minVersion (getVersion pkgs.cargo or "");
-  in mapIf breakDrv isOutdated;
+  cargoHashBreakageVersion = "1.39.0";
+  isUsingOldCargoHash =
+    versionOlder (getVersion pkgs.cargo or "") cargoHashBreakageVersion;
+  breakIf = mapIf breakDrv;
+  needsNewCargoHash = breakIf isUsingOldCargoHash;
+  needsOldCargoHash = breakIf (!isUsingOldCargoHash);
 in {
 
   # applications {{{1

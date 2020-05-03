@@ -6,5 +6,5 @@ import ./generic.nix ({ lib,
     sha256 = "188lhyaxb9800s11ih13mh1mxf6pa2m6r2m6l16jgwlal7k1yp11";
   };
 
-  cargoSha256 = "0qcj39ljd331k45vf2yrqv64pw7cimgdnvwhfzqp93xqild4qdpn";
+  cargoSha256 = "1gsmn1p7dljsqvfcvk6jp5519fpyzdnxijpmlsbrm42zpzwfjv6q";
 })
