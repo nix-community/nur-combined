@@ -70,13 +70,7 @@ with lib;
   # --- Program options ---
   programs.autojump.enable = mkDefault true;
   programs.bash.enableCompletion = mkDefault true;
-  programs.screen.screenrc = readFile (
-    pkgs.fetchurl {
-      name = "screenrc";
-      url = "https://config.stoile.name/.screenrc";
-      sha256 = "0a102hzc61hrx9jgrdpq7swljcfrkcbiarp0l2syvf64m0arbv2k";
-    }
-  );
+  programs.screen.screenrc = readFile ./files/.screenrc;
   programs.vim.defaultEditor = mkDefault true;
 
   # This requires the kampka nur packages
