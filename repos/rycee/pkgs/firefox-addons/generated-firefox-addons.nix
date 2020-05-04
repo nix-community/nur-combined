@@ -513,10 +513,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.4.28";
+      version = "20.5.3";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3559118/refined_github-20.4.28-an+fx.xpi?src=";
-      sha256 = "0f7843c38cf84983b7796fd3972b36a425717247910dd97f7769d8ce5a79bb54";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3561805/refined_github-20.5.3-an+fx.xpi?src=";
+      sha256 = "7ad1ca9b045bddfececdfd9596899757fef8ec0527f43e3f8df4f06ba512de01";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -677,10 +677,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "0.27";
+      version = "0.28";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3511966/vim_vixen-0.27-an+fx.xpi?src=";
-      sha256 = "95509c736526005d86202987ffeb7f8721499af2bd3337986eb7248fcbe4ce3b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3562037/vim_vixen-0.28-an+fx.xpi?src=";
+      sha256 = "c501f99876445a1f0175e0750144d26185fdbab5a34dd40cf7d6058886638821";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
