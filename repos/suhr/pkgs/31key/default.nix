@@ -37,6 +37,8 @@ in
     cargoSha256 = "1cms7c35z7sqh3952gvqmz9c9pbwg1c0wzgyg4sbc4xw9crx96iy";
 
     meta = with stdenv.lib; {
+      broken = true;
+
       description = "Tricesimoprimal Keyboard";
       homepage = https://github.com/diaschisma/31key;
       license = [ licenses.mit ];
