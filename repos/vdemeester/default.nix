@@ -54,6 +54,10 @@ rec {
 
   # Upstream
   buildkit = pkgs.callPackage ./pkgs/buildkit {};
-  containerd = pkgs.callPackage ./pkgs/containerd {};
+  inherit (pkgs.callPackage ./pkgs/containerd {})
+    containerd_1_2
+    containerd_1_3
+    ;
+  containerd = containerd_1_3;
   linuxkit = pkgs.callPackage ./pkgs/linuxkit {};
 }
