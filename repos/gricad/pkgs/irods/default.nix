@@ -90,7 +90,6 @@ in rec {
        description = common.meta.description + " CLI clients";
        longDescription = common.meta.longDescription + ''
          This package provides the CLI clients, called 'icommands'.'';
-       broken = true;
      };
   });
 }
