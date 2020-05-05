@@ -153,10 +153,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.7";
+      version = "4.9.8";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3556685/dark_reader-4.9.7-an+fx.xpi?src=";
-      sha256 = "ab751b9b391ff5aa04a7b24dce462975cacd02ed045fc32652e115b3f3798b26";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3562295/dark_reader-4.9.8-an+fx.xpi?src=";
+      sha256 = "181325754404dba2cda1fa979ef45af56546b8d9f1aabc7262c580af3c377dd2";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -677,10 +677,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "0.28";
+      version = "0.29";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3562037/vim_vixen-0.28-an+fx.xpi?src=";
-      sha256 = "c501f99876445a1f0175e0750144d26185fdbab5a34dd40cf7d6058886638821";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3562130/vim_vixen-0.29-an+fx.xpi?src=";
+      sha256 = "bdd8fed2ce3db98aad28cfc8ed2fc12d5bd05f4612fbd3850e99f4f292de6857";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
