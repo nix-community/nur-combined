@@ -554,6 +554,14 @@
       };
     }
     {
+      name = "arch___arch_2.1.1.tgz";
+      path = fetchurl {
+        name = "arch___arch_2.1.1.tgz";
+        url  = "https://registry.yarnpkg.com/arch/-/arch-2.1.1.tgz";
+        sha1 = "8f5c2731aa35a30929221bb0640eed65175ec84e";
+      };
+    }
+    {
       name = "are_we_there_yet___are_we_there_yet_1.1.5.tgz";
       path = fetchurl {
         name = "are_we_there_yet___are_we_there_yet_1.1.5.tgz";
@@ -919,6 +927,14 @@
         name = "class_utils___class_utils_0.3.6.tgz";
         url  = "https://registry.yarnpkg.com/class-utils/-/class-utils-0.3.6.tgz";
         sha1 = "f93369ae8b9a7ce02fd41faad0ca83033190c463";
+      };
+    }
+    {
+      name = "clipboardy___clipboardy_2.3.0.tgz";
+      path = fetchurl {
+        name = "clipboardy___clipboardy_2.3.0.tgz";
+        url  = "https://registry.yarnpkg.com/clipboardy/-/clipboardy-2.3.0.tgz";
+        sha1 = "3c2903650c68e46a91b388985bc2774287dba290";
       };
     }
     {
@@ -2047,6 +2063,14 @@
         name = "is_wsl___is_wsl_1.1.0.tgz";
         url  = "https://registry.yarnpkg.com/is-wsl/-/is-wsl-1.1.0.tgz";
         sha1 = "1f16e4aa22b04d1336b66188a66af3c600c3a66d";
+      };
+    }
+    {
+      name = "is_wsl___is_wsl_2.1.1.tgz";
+      path = fetchurl {
+        name = "is_wsl___is_wsl_2.1.1.tgz";
+        url  = "https://registry.yarnpkg.com/is-wsl/-/is-wsl-2.1.1.tgz";
+        sha1 = "4a1c152d429df3d441669498e2486d3596ebaf1d";
       };
     }
     {
@@ -4255,6 +4279,14 @@
         name = "vscode_languageserver_protocol___vscode_languageserver_protocol_3.15.3.tgz";
         url  = "https://registry.yarnpkg.com/vscode-languageserver-protocol/-/vscode-languageserver-protocol-3.15.3.tgz";
         sha1 = "3fa9a0702d742cf7883cb6182a6212fcd0a1d8bb";
+      };
+    }
+    {
+      name = "vscode_languageserver_textdocument___vscode_languageserver_textdocument_1.0.1.tgz";
+      path = fetchurl {
+        name = "vscode_languageserver_textdocument___vscode_languageserver_textdocument_1.0.1.tgz";
+        url  = "https://registry.yarnpkg.com/vscode-languageserver-textdocument/-/vscode-languageserver-textdocument-1.0.1.tgz";
+        sha1 = "178168e87efad6171b372add1dea34f53e5d330f";
       };
     }
     {

@@ -1,8 +1,8 @@
 diff --git a/src/ctx.ts b/src/ctx.ts
-index f9f42f7..1c7923b 100644
+index c853f2b..5d16e6c 100644
 --- a/src/ctx.ts
 +++ b/src/ctx.ts
-@@ -69,24 +69,12 @@ export class Ctx {
+@@ -62,24 +62,12 @@ export class Ctx {
      // 1. from config, custom server path
      // 2. bundled
      let bin = join(this.extCtx.storagePath, process.platform === 'win32' ? 'rust-analyzer.exe' : 'rust-analyzer');
@@ -10,7 +10,7 @@ index f9f42f7..1c7923b 100644
 -      // fallback to old ra_lsp_server naming
 -      bin = join(this.extCtx.storagePath, process.platform === 'win32' ? 'ra_lsp_server.exe' : 'ra_lsp_server');
 -    }
-     if (this.config.serverPath.length > 0) {
+     if (this.config.serverPath) {
        bin = this.config.serverPath;
        if (bin.startsWith('~/')) {
          bin = bin.replace('~', homedir());
@@ -28,10 +28,10 @@ index f9f42f7..1c7923b 100644
      return bin;
    }
 diff --git a/src/index.ts b/src/index.ts
-index 77edee5..eacee60 100644
+index 5901ab7..7fc0439 100644
 --- a/src/index.ts
 +++ b/src/index.ts
-@@ -15,19 +15,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
+@@ -17,19 +17,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
  
    const bin = ctx.resolveBin();
    if (!bin) {
@@ -39,7 +39,7 @@ index 77edee5..eacee60 100644
 -    const ret = await workspace.showQuickpick(['Yes', 'Cancel'], msg);
 -    if (ret === 0) {
 -      try {
--        await downloadServer(context);
+-        await downloadServer(context, config.channel);
 -      } catch (e) {
 -        msg = 'Download rust-analyzer failed, you can get it from https://github.com/rust-analyzer/rust-analyzer';
 -        workspace.showMessage(msg, 'error');
@@ -51,4 +51,4 @@ index 77edee5..eacee60 100644
 +    return;
    }
  
-   activateStatusDisplay(ctx);
+   await ctx.startServer();
