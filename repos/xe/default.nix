@@ -32,6 +32,7 @@ rec {
   minica = pkgs.callPackage ./pkgs/minica { };
   nix-simple-deploy = pkgs.callPackage ./pkgs/nix-simple-deploy { };
   quickserv = pkgs.callPackage ./pkgs/quickserv { };
+  sm64pc = pkgs.callPackage ./pkgs/sm64pc { };
   st = pkgs.callPackage ./pkgs/st { };
   sw = pkgs.callPackage ./pkgs/sw { };
   zathura = pkgs.callPackage ./pkgs/zathura { inherit girara; };
