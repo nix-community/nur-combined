@@ -22,6 +22,17 @@ rec {
   intel-compilers-2018 = pkgs.callPackage ./pkgs/intel/2018.nix { };
   intel-compilers-2019 = pkgs.callPackage ./pkgs/intel/2019.nix { };
 
+  # iRods
+  inherit (pkgs.callPackages ./pkgs/irods rec {
+          stdenv = pkgs.llvmPackages.libcxxStdenv;
+          libcxx = pkgs.llvmPackages.libcxx;
+          boost = pkgs.boost160.override { inherit stdenv; };
+          avro-cpp_llvm = pkgs.avro-cpp.override { inherit stdenv boost; };
+        })
+    irods
+    irods-icommands;
+
+
   # Openmpi
   openmpi1 = pkgs.callPackage ./pkgs/openmpi { };
   openmpi2 = pkgs.callPackage ./pkgs/openmpi/2.nix { psm2 = psm2; libfabric = libfabric;};

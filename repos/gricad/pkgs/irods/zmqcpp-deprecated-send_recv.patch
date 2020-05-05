@@ -1,0 +1,21 @@
+diff -r -u source/src/irods-grid.cpp source.new/src/irods-grid.cpp
+--- source/src/irods-grid.cpp	1970-01-01 01:00:01.000000000 +0100
++++ source.new/src/irods-grid.cpp	2020-05-05 14:11:36.830828058 +0200
+@@ -412,7 +412,7 @@
+             data_to_send.data(),
+             data_to_send.size() );
+         try {
+-            zmq_skt.send( rep );
++            zmq_skt.send( rep , zmq::send_flags::dontwait );
+         }
+         catch ( const zmq::error_t& ) {
+             std::cerr << "ZeroMQ encountered an error receiving a message.\n";
+@@ -423,7 +423,7 @@
+         zmq::message_t req;
+         // wait for the server reponse
+         try {
+-            zmq_skt.recv( &req );
++            zmq_skt.recv( req , zmq::recv_flags::dontwait );
+         }
+         catch ( const zmq::error_t& ) {
+             std::cerr << "ZeroMQ encountered an error receiving a message.\n";
