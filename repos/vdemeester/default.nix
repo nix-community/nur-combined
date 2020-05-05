@@ -42,6 +42,12 @@ rec {
   oc = oc_4_4;
   openshift-install = pkgs.callPackage ./pkgs/openshift-install {};
 
+  inherit (pkgs.callPackage ./pkgs/crc {})
+    crc_1_9
+    crc_1_10
+    ;
+  crc = crc_1_10;
+
   # Operator SDK
   operator-sdk = pkgs.callPackage ./pkgs/operator-sdk {};
 
@@ -59,5 +65,4 @@ rec {
     containerd_1_3
     ;
   containerd = containerd_1_3;
-  linuxkit = pkgs.callPackage ./pkgs/linuxkit {};
 }
