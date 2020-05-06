@@ -33,5 +33,6 @@ rec {
   implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad {};
   ipbt = pkgs.callPackage ./pkgs/ipbt {};
   nix-search = pkgs.callPackage ./pkgs/nix-search {};
+  sc3-plugins = pkgs.callPackage ./pkgs/sc3-plugins {};
   prusa-slicer-latest = with deps; pkgs.callPackage ./pkgs/prusa-slicer-latest { inherit cereal cgal_5; };
 }
