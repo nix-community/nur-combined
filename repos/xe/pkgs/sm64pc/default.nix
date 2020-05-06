@@ -1,4 +1,4 @@
-{ pkgsi686Linux }:
+{ pkgsi686Linux ? (import <nixpkgs> {}).pkgsi686Linux }:
 
 with pkgsi686Linux;
 
@@ -31,11 +31,9 @@ in stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://tulpa.dev/saved/sm64pc";
-    rev = "3439b5064b72cf89a6ea7f1ddd5992c34b3a321a";
-    sha256 = "16csyfynyw09a4fizwka2iardkj7dnkpf12pvk8y22zcr5paak78";
+    rev = "c69c75bf9beed9c7f7c8e9612e5e351855065120";
+    sha256 = "148pk9iqpcgzwnxlcciqz0ngy6vsvxiv5lp17qg0bs7ph8ly3k4l";
   };
-
-  patches = [ ./makefile_hack.patch ];
 
   buildPhase = ''
     chmod +x ./extract_assets.py
