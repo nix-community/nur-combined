@@ -29,7 +29,7 @@ rec {
     nose-timer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/nose-timer { };
     oitg = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/oitg { };
     pyscf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyscf { inherit libcint xcfun; };
-    pygsti = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pygsti { inherit cvxpy nose-timer; };
+    pygsti = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pygsti { inherit cvxpy; };
     pygsti-cirq = pygsti.overrideAttrs (oldAttrs: {
       version = "unstable-2020-04-20";
       src = pkgs.fetchFromGitHub {

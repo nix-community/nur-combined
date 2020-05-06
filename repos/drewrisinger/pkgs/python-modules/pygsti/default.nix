@@ -22,11 +22,9 @@
 , psutil
 , pyzmq
 # Check Inputs
-, coverage
+# , coverage
 , cvxpy
-, nose
-, rednose
-, nose-timer
+, pytestCheckHook
 }:
 
 let
@@ -98,25 +96,46 @@ buildPythonPackage rec {
     "pygsti.tools"
   ];
 
-  checkInputs = [ nose nose-timer rednose cvxpy ];
+  checkInputs = [ pytestCheckHook cvxpy ];
   dontUseSetuptoolsCheck = true;
 
   # Run tests from temp directory to avoid nose finding un-cythonized code
   preCheck = ''
     export TESTDIR=$(mktemp -d)
-    cp -r test/ $TESTDIR
+    cp -r $TMP/$sourceRoot/test/ $TESTDIR
     pushd $TESTDIR
   '';
-  checkPhase = ''
-    runHook preCheck
-
-    nosetests test/unit -v --detailed-errors
-
-    runHook postCheck
-  '';
-  postCheck = ''
-    popd
-  '';
+  postCheck = "popd";
+  pytestFlagsArray = [
+    "./test/unit"
+    # "-v"
+    # "--durations=25"
+    "--disable-warnings"  # reduce garbage lines from many tests throwing same warning
+  ];
+  # Disable slow tests
+  disabledTests = [
+    "CPTPGaugeOpt"
+    "test_squeeze"
+    "test_find_sufficient_fiducial_pairs"
+    "test_long_sequence_gst"
+    "test_stdpractice_gst_CPTP"
+    "LGSTGaugeOpt"
+    "test_grasp_germ_set_optimization"
+    "test_focused_mc2gst_models"
+    "GreedyGermSelection"
+    "test_split_on_max_subtree_size"
+    "test_logl_hessian"
+    "test_add_gaugeoptimized"
+    "test_generate_fake_data"
+    "test_evaluation_order"
+    "test_circuit_layer_by_Qelimination"
+    "fiducial_pairs_from"
+    "test_merge_outcomes"
+    "optimize_integer_fiducials"
+    "generate_germs_with_candidate_germ_counts" # runs especially slow on travis, probably due to random num generation
+    "gauge_optimize_model_list"
+    "test_final_slice"
+  ];
 
   meta = with lib; {
     description = "A python implementation of quantum Gate Set Tomography";
