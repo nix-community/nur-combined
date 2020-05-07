@@ -15,7 +15,7 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   # NOTE: default pkgs to updated versions as required by qiskit
-  pkgs = rawpkgs.appendOverlays [ overlays.qiskit-updates ];
+  pkgs = rawpkgs.appendOverlays [ overlays.python-updates ];
 
   # Packages/updates accepted to nixpkgs/master, but need the update
   lib-scs = pkgs.callPackage ./pkgs/libraries/scs { };

@@ -44,6 +44,7 @@ buildPythonPackage rec {
   checkInputs = [ pytestCheckHook nbformat ];
   disabledTests = [
     "test_deprecated_test"
+    "tutorial_1_basis_change" # see openfermion-cirq #401. Issue is cirq 0.8 deprecated cirq.Rz -> cirq.rz
   ];
   pytestFlagsArray = [
     "--ignore=dev_tools"
@@ -51,7 +52,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Quantum circuits for simulations of quantum chemistry and materials.";
-    homepage = "https://github.com/quantumlib/openfermion-cirq";
+    homepage = "https://openfermion-cirq.readthedocs.io/en/latest/";
+    downloadPage = "https://github.com/quantumlib/openfermion-cirq/releases";
     license = licenses.asl20;
     # maintainers = with maintainers; [ drewrisinger ];
   };
