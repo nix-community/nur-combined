@@ -25,6 +25,7 @@
 # , coverage
 , cvxpy
 , pytestCheckHook
+, nose  # needed for test assert import
 }:
 
 let
@@ -96,7 +97,7 @@ buildPythonPackage rec {
     "pygsti.tools"
   ];
 
-  checkInputs = [ pytestCheckHook cvxpy ];
+  checkInputs = [ pytestCheckHook cvxpy nose ];
   dontUseSetuptoolsCheck = true;
 
   # Run tests from temp directory to avoid nose finding un-cythonized code

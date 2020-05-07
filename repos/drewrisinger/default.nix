@@ -30,7 +30,7 @@ rec {
     oitg = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/oitg { };
     pyscf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyscf { inherit libcint xcfun; };
     pygsti = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pygsti { inherit cvxpy; };
-    pygsti-cirq = pygsti.overrideAttrs (oldAttrs: {
+    pygsti-cirq = pygsti.overridePythonAttrs (oldAttrs: {
       version = "unstable-2020-04-20";
       src = pkgs.fetchFromGitHub {
         owner = "pyGSTio";
