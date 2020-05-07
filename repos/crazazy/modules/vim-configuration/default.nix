@@ -9,6 +9,7 @@ let
         vim-polyglot
         coc-nvim
         LanguageClient-neovim
+        emmet-vim
         # coc-css
         # coc-emmet
         # coc-html
