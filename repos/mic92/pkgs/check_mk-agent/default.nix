@@ -1,12 +1,17 @@
-{ stdenv, fetchurl, makeWrapper, coreutils, gnused, gnugrep
+{ stdenv
+, fetchurl
+, makeWrapper
+, coreutils
+, gnused
+, gnugrep
 , perl
-# all these are optional
+  # all these are optional
 , ethtool ? null
 , zfs ? null
 , ipmitool ? null
 , lvm2 ? null
 , postfix ? null
-, extraPackages ? []
+, extraPackages ? [ ]
 }:
 stdenv.mkDerivation rec {
   pname = "check_mk-agent";
@@ -26,15 +31,22 @@ stdenv.mkDerivation rec {
     sed -i -e 's!/bin/bash!bash!' agents/check_mk_agent.linux
   '';
 
-  installPhase = let
-    path = stdenv.lib.makeBinPath ([
-      coreutils zfs gnused gnugrep ethtool postfix lvm2
-    ] ++ extraPackages);
-  in ''
-    install -D -m744 agents/check_mk_agent.linux $out/bin/check_mk_agent
-    wrapProgram "$out/bin/check_mk_agent" \
-      --prefix PATH ":" ${path}
-  '';
+  installPhase =
+    let
+      path = stdenv.lib.makeBinPath ([
+        coreutils
+        zfs
+        gnused
+        gnugrep
+        ethtool
+        postfix
+        lvm2
+      ] ++ extraPackages);
+    in ''
+      install -D -m744 agents/check_mk_agent.linux $out/bin/check_mk_agent
+      wrapProgram "$out/bin/check_mk_agent" \
+        --prefix PATH ":" ${path}
+    '';
 
   meta = with stdenv.lib; {
     description = "Agent to send information to a Check_MK server";
