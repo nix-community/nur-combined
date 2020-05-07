@@ -1,6 +1,6 @@
-{ pkgsi686Linux ? (import <nixpkgs> {}).pkgsi686Linux }:
+{ pkgs ? import <nixpkgs> {} }:
 
-with pkgsi686Linux;
+with pkgs;
 
 let
   baserom = fetchurl {
