@@ -6,16 +6,29 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {}
+}:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = pkgs.callPackage ./lib { nixTestRunner = nix-test-runner; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  # Integration tests.
+  tests = pkgs.lib.callPackageWith
+    (pkgs // { nurKollochLib = lib; } )
+    ./tests {};
+
+  # Packages.
+
+  # Ripped from https://github.com/NixOS/nixpkgs/pull/82920
+  jicofo = pkgs.callPackage ./pkgs/jitsi/jicofo {};
+  jitsi-meet = pkgs.callPackage ./pkgs/jitsi/jitsi-meet {};
+  jitsi-videobridge = pkgs.callPackage ./pkgs/jitsi/jitsi-videobridge {};
+
+  # Rest
+  nix-test-runner = (pkgs.callPackage ./pkgs/rust/nix-test-runner.nix {}).package;
+  crate2nix = (pkgs.callPackage ./pkgs/rust/crate2nix.nix {}).package;
 }
 

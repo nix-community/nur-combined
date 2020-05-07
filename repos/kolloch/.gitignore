@@ -1,3 +1,5 @@
 result
 result-*
 
+pkgs/rust/generated/crate2nix-sources
+pkgs/rust/generated/crate2nix-sources.nix

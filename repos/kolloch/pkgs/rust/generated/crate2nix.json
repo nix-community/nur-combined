@@ -1,0 +1,14 @@
+{
+  "sources": {
+    "crate2nix": {
+      "type": "Nix",
+      "package": "../crate2nix.nix",
+      "attr": "source"
+    },
+    "nix-test-runner": {
+      "type": "Nix",
+      "package": "../nix-test-runner.nix",
+      "attr": "source"
+    }
+  }
+}
