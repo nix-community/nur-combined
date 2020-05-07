@@ -11,6 +11,7 @@
 , networkx
 , numpy
 , psutil
+, python
 , qiskit-ignis
 , qiskit-terra
 , quandl
@@ -82,6 +83,8 @@ buildPythonPackage rec {
       >> qiskit/optimization/__init__.py
 
   '';
+
+  postInstall = "rm -rf $out/${python.sitePackages}/docs";
 
   checkInputs = [ ddt qiskit-aer pytestCheckHook ];
   dontUseSetuptoolsCheck = true;

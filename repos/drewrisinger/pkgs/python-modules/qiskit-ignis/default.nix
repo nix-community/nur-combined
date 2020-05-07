@@ -3,6 +3,7 @@
 , buildPythonPackage
 , fetchFromGitHub
 , fetchpatch
+, python
 , numpy
 , qiskit-terra
 , scikitlearn
@@ -38,6 +39,7 @@ buildPythonPackage rec {
     scikitlearn
     scipy
   ];
+  postInstall = "rm -rf $out/${python.sitePackages}/docs";
 
   # Tests
   pythonImportsCheck = [ "qiskit.ignis" ];
