@@ -41,3 +41,25 @@ in
   drew-nur-master.python3Packages.qiskit
   drew-nur-at-commit.python3Packages.cirq
 ```
+
+## Common Problems
+
+### Resolving Python Conflicts
+
+This repository relies on overlaying certain Python packages to provide backwards-compatibility. E.g. qiskit requires scipy>1.4.0, which isn't in NixOS/nixpkgs 19.09, so I overlaid a new scipy version. However, this can cause conflicts if you're combining this repository with outside Python packages. To resolve this issue, do something like the following Nix script:
+
+```nix
+{ rawpkgs ? import <nixpkgs> {} }:
+
+let
+  drew-nur-master = import (builtins.fetchTarball "https://github.com/drewrisinger/nur-packages/archive/master.tar.gz") {
+    inherit rawpkgs;
+  };
+  pkgs = drew-nur-master.pkgs;
+  my-python-package = pkgs.python3Packages.callPackage ./PATH/TO/PACKAGE {
+    # following line may be optional, but included for demonstration
+    inherit (pkgs.python3Packages) scipy; inherit (drew-nur-master.python3Packages) qiskit; 
+  };
+in
+  (pkgs.python3.withPackages(ps: [ my-python-package ] )).env
+```
