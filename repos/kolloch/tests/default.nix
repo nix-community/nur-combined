@@ -37,16 +37,16 @@ rec {
     });
 
   rerunOnChange_myFixedOutputDerivation =
-    nurKollochLib.rerunFixedDerivationOnChange myFixedOutputDerivation;
+    nurKollochLib.rerunOnChange {} myFixedOutputDerivation;
 
   rerunOnChange_myChangedFixedOutputDerivation =
-    nurKollochLib.rerunFixedDerivationOnChange myChangedFixedOutputDerivation;
+    nurKollochLib.rerunOnChange {} myChangedFixedOutputDerivation;
 
   overridden_rerunOnChange_myFixedOutputDerivation =
     rerunOnChange_myFixedOutputDerivation.overrideAttrs (attrs: { something = "change"; });
 
-  rerunFixedDerivationOnChangeTests = nurKollochLib.runTests {
-    name = "rerunFixedDerivationOnChange";
+  rerunOnChangeTests = nurKollochLib.runTests {
+    name = "rerunOnChange";
     tests = {
       testChangedFixedOutputDerivation = {
         expr = "${myFixedOutputDerivation}";
