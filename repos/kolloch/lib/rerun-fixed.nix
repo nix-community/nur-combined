@@ -1,7 +1,8 @@
 { pkgs, lib }:
 
 rec {
-  /* Creates a fixed output derivation that reruns if any of its inputs change.
+  /* Instruments the fixed output derivation so that it reruns whenever any of its
+     inputs change.
 
      Type: rerunOnChange -> attr set -> derivation -> derivation
 
@@ -29,6 +30,18 @@ rec {
      where at least ran once -- with the exact versions of the buildInputs that
      you specified. It does so by putting a hash of all the inputs into the
      name.
+
+     ## Avoid rebuilding dependants
+
+     Currently, all derivations dependent on the returned derivation, will be
+     rebuilt. That is somewhat unfortunate because the output has not changed,
+     only the path. I don't know how to work exactly around that without
+     changing nix itself.
+
+     What you can do is instead of using the changed fixed output derivation
+     everywhere, you keep using the unchanged fixed output derivation in most
+     places. But you add a test to you CI that includes the modified fixed
+     output derivation.
 
      ## Implementation
 
