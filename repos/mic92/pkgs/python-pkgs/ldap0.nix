@@ -10,13 +10,13 @@
 
 buildPythonPackage rec {
   pname = "ldap0";
-  version = "0.6.10";
+  version = "1.0.6";
 
   src = fetchFromGitLab {
     owner = "ae-dir";
     repo = "python-ldap0";
     rev = "v${version}";
-    sha256 = "0b30zy1p7b4p6xiwbrvcaxdq37r51shnsgw835xr14jn3v2i9y1g";
+    sha256 = "05xipdzpz3hp2wswgvdbgl7ir6mawyh19r0r5balgk2byf3mf14s";
   };
 
   SBIN = "${openldap}/libexec";

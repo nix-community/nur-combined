@@ -10,7 +10,7 @@
 
 buildPythonApplication rec {
   pname = "web2ldap";
-  version = "1.5.57";
+  version = "1.5.75";
 
   propagatedBuildInputs = [ ldap0 paramiko asn1crypto xlwt dnspython ];
 
@@ -20,7 +20,7 @@ buildPythonApplication rec {
     owner = "ae-dir";
     repo = "web2ldap";
     rev = "v${version}";
-    sha256 = "0z6q9vx2km3h5kd728sz7iy7v02wz5sgxswyb0s66b9jdi2v5741";
+    sha256 = "1f10qnh94fcwdkvdamac96501hbs1fxb4kgz673j7xd8cx3a77ci";
   };
 
   meta = with stdenv.lib; {
