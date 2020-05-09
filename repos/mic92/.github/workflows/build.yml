@@ -4,10 +4,17 @@ on:
   push:
 jobs:
   tests:
+    strategy:
+      matrix:
+        nixPath:
+          - nixpkgs=channel:nixos-unstable
+          - nixpkgs=https://github.com/Mic92/nixpkgs/archive/master.tar.gz
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v8
+    - uses: Gerschtli/install-nix-action@ddf1cd2bc500fec5a443c8858214d79545cc5e2d
+      with:
+        NIX_PATH: ${{ matrix.nixPath }}
     - run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - uses: cachix/cachix-action@v6
       with:

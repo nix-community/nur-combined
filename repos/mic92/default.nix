@@ -57,6 +57,8 @@ rec {
 
   nixos-shell = pkgs.callPackage ./pkgs/nixos-shell {};
 
+  rnix-lsp-unstable = pkgs.callPackage ./pkgs/rnix-lsp {};
+
   sgx-lkl = pkgs.callPackage ./pkgs/sgx-lkl {};
 
   source-code-pro-nerdfonts = pkgs.nerdfonts.override {
