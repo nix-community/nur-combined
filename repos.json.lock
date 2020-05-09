@@ -253,8 +253,8 @@
             "url": "https://github.com/metadark/nur-packages"
         },
         "mic92": {
-            "rev": "d9363d64d10bb7f813545fa87b74ebd83be63308",
-            "sha256": "1dlyrm4kh963sf09pm3qp6xdiaq5z3h8i0j86xyxmyxcz4lqpwsd",
+            "rev": "cfb6c39e3f9ec380e20b539c98627f49a1500c34",
+            "sha256": "00cqm51vaiaga1avh8fidd73qrqi987h9845dinkli0v3g06f2fl",
             "url": "https://github.com/Mic92/nur-packages"
         },
         "mmilata": {
