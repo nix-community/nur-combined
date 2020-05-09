@@ -1,5 +1,5 @@
 { stdenv
-, buildPythonApplication
+, buildPythonPackage
 , fetchFromGitLab
 , ldap0
 , paramiko
@@ -8,7 +8,7 @@
 , dnspython
 }:
 
-buildPythonApplication rec {
+buildPythonPackage rec {
   pname = "web2ldap";
   version = "1.5.75";
 
@@ -23,6 +23,11 @@ buildPythonApplication rec {
     sha256 = "1f10qnh94fcwdkvdamac96501hbs1fxb4kgz673j7xd8cx3a77ci";
   };
 
+  makeWrapperArgs = [
+    "--prefix" "PYTHONPATH" ":" "${placeholder "out"}/etc/web2ldap"
+    "--set" "WEB2LDAP_HOME" "${placeholder "out"}"
+  ];
+
   meta = with stdenv.lib; {
     description = "Full-featured LDAP client running as web application";
     homepage = "https://www.web2ldap.de";
@@ -30,3 +35,4 @@ buildPythonApplication rec {
     platforms = platforms.unix;
   };
 }
+

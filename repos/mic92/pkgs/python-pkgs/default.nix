@@ -32,4 +32,8 @@ rec {
   priority = callPackage ./priority.nix { };
 
   remote-pdb = callPackage ./remote-pdb.nix { };
+
+  web2ldap = callPackage ./web2ldap {
+    inherit ldap0;
+  };
 }
