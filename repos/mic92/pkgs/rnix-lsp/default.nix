@@ -5,9 +5,9 @@ rustPlatform.buildRustPackage rec {
   version = "2020-05-09";
 
   src = fetchFromGitHub {
-    owner = "Mic92";
+    owner = "nix-community";
     repo = "rnix-lsp";
-    rev = "7fdde77ecbb3b32db18168692830dc4f10f2239c";
+    rev = "a8e0b96b2c4d58b0157e3a770777f9d0b17fda20";
     sha256 = "0jb58df4r91dklgsa2zj2fdgjwzjrhbd7xp8mz3gv2rx1y53ilja";
   };
 

@@ -1,24 +1,24 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 rec {
-  bitwarden_rs_ldap = pkgs.callPackage ./pkgs/bitwarden_rs_ldap {};
+  bitwarden_rs_ldap = pkgs.callPackage ./pkgs/bitwarden_rs_ldap { };
 
   brotab = pkgs.callPackage ./pkgs/brotab {};
 
   # TODO checksum can break ... make a mirror?
   # binary-ninja = pkgs.callPackage ./pkgs/binary-ninja {};
 
-  check_mk-agent = pkgs.callPackage ./pkgs/check_mk-agent {};
+  check_mk-agent = pkgs.callPackage ./pkgs/check_mk-agent { };
 
-  cntr = pkgs.callPackage ./pkgs/cntr {};
+  cntr = pkgs.callPackage ./pkgs/cntr { };
 
-  conky-symbols = pkgs.callPackage ./pkgs/conky-symbols {};
+  conky-symbols = pkgs.callPackage ./pkgs/conky-symbols { };
 
-  clearsans = pkgs.callPackage ./pkgs/clearsans {};
+  clearsans = pkgs.callPackage ./pkgs/clearsans { };
 
-  eapol_test = pkgs.callPackage ./pkgs/eapol_test {};
+  eapol_test = pkgs.callPackage ./pkgs/eapol_test { };
 
-  ferdi = pkgs.callPackage ./pkgs/ferdi {};
+  ferdi = pkgs.callPackage ./pkgs/ferdi { };
 
   fira-code-pro-nerdfonts = pkgs.nerdfonts.override {
     fonts = [ "FiraCode" ];
@@ -26,60 +26,60 @@ rec {
 
   frida-tools = pkgs.callPackage ./pkgs/frida-tools { myPython3Packages = python3Packages; };
 
-  gatttool = pkgs.callPackage ./pkgs/gatttool {};
+  gatttool = pkgs.callPackage ./pkgs/gatttool { };
 
-  gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard {};
+  gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard { };
 
-  healthcheck = pkgs.callPackage ./pkgs/healthcheck {};
+  healthcheck = pkgs.callPackage ./pkgs/healthcheck { };
 
-  hello-nur = pkgs.callPackage ./pkgs/hello-nur {};
+  hello-nur = pkgs.callPackage ./pkgs/hello-nur { };
 
-  keystone = pkgs.callPackage ./pkgs/keystone {};
+  keystone = pkgs.callPackage ./pkgs/keystone { };
 
-  kvmtool = pkgs.callPackage ./pkgs/kvmtool {};
+  kvmtool = pkgs.callPackage ./pkgs/kvmtool { };
 
-  lualdap = pkgs.callPackage ./pkgs/lualdap {};
+  lualdap = pkgs.callPackage ./pkgs/lualdap { };
 
   mastodon-hnbot = pkgs.python3Packages.callPackage ./pkgs/mastodon-hnbot {
     inherit (python3Packages) Mastodon;
   };
 
-  mosh-ssh-agent = pkgs.callPackage ./pkgs/mosh-ssh-agent {};
+  mosh-ssh-agent = pkgs.callPackage ./pkgs/mosh-ssh-agent { };
 
 
-  nixpkgs-review-unstable = pkgs.callPackage ./pkgs/nixpkgs-review {};
+  nixpkgs-review-unstable = pkgs.callPackage ./pkgs/nixpkgs-review { };
   # compatibility
   nix-review-unstable = nixpkgs-review-unstable;
 
-  nix-build-uncached = pkgs.callPackage ./pkgs/nix-build-uncached {};
+  nix-build-uncached = pkgs.callPackage ./pkgs/nix-build-uncached { };
 
-  nix-update = pkgs.python3.pkgs.callPackage ./pkgs/nix-update {};
+  nix-update = pkgs.python3.pkgs.callPackage ./pkgs/nix-update { };
 
-  nixos-shell = pkgs.callPackage ./pkgs/nixos-shell {};
+  nixos-shell = pkgs.callPackage ./pkgs/nixos-shell { };
 
-  rnix-lsp-unstable = pkgs.callPackage ./pkgs/rnix-lsp {};
+  rnix-lsp-unstable = pkgs.callPackage ./pkgs/rnix-lsp { };
 
-  sgx-lkl = pkgs.callPackage ./pkgs/sgx-lkl {};
+  sgx-lkl = pkgs.callPackage ./pkgs/sgx-lkl { };
 
   source-code-pro-nerdfonts = pkgs.nerdfonts.override {
     fonts = [ "SourceCodePro" ];
   };
 
-  threema-web = pkgs.callPackage ./pkgs/threema-web {};
+  threema-web = pkgs.callPackage ./pkgs/threema-web { };
 
-  xterm-24bit-terminfo = pkgs.callPackage ./pkgs/xterm-24bit-terminfo {};
+  xterm-24bit-terminfo = pkgs.callPackage ./pkgs/xterm-24bit-terminfo { };
 
   # smashing = pkgs.callPackage ./pkgs/smashing {};
 
-  pandoc-bin = pkgs.callPackage ./pkgs/pandoc {};
+  pandoc-bin = pkgs.callPackage ./pkgs/pandoc { };
 
-  peep = pkgs.callPackage ./pkgs/peep {};
+  peep = pkgs.callPackage ./pkgs/peep { };
 
   perlPackages = {
-    Pry = pkgs.callPackage ./pkgs/pry {};
+    Pry = pkgs.callPackage ./pkgs/pry { };
   };
 
-  phpldapadmin = pkgs.callPackage ./pkgs/phpldapadmin {};
+  phpldapadmin = pkgs.callPackage ./pkgs/phpldapadmin { };
 
   python3Packages = pkgs.recurseIntoAttrs (
     (pkgs.python3Packages.callPackage ./pkgs/python-pkgs {
@@ -87,7 +87,7 @@ rec {
     })
   );
 
-  yubikey-touch-detector = pkgs.callPackage ./pkgs/yubikey-touch-detector {};
+  yubikey-touch-detector = pkgs.callPackage ./pkgs/yubikey-touch-detector { };
 
   web2ldap = pkgs.python3Packages.callPackage ./pkgs/web2ldap {
     inherit (python3Packages) ldap0;
@@ -95,5 +95,5 @@ rec {
 
   modules = import ./modules;
 
-  inherit (pkgs.callPackages ./pkgs/node-packages {}) speedscope;
+  inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope;
 }
