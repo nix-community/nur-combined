@@ -19,5 +19,6 @@
   # ...
   century-gothic = pkgs.callPackage ./pkgs/century-gothic { };
   wingdings = pkgs.callPackage ./pkgs/wingdings { };
+  electrum-personal-server = pkgs.callPackage ./pkgs/electrum-personal-server { };
 }
 

@@ -18,6 +18,10 @@ fonts.fonts = with pkgs; [
 
 A Wingdings font.
 
+### electrum-personal-server
+
+See the corresponding module in the NixOS Modules section below.
+
 ## NixOS Modules
 
 ### btrbk
@@ -39,3 +43,6 @@ services.btrbk = {
     '';
 };
 ```
+### electrum-personal-server
+
+This module enables the [Electrum Personal Server](https://github.com/chris-belcher/electrum-personal-server), a maximally lightweight electrum server for a single user. It is configured as a systemd user service, so each user who wishes to use the service needs to create an Electrum Personal Server configuration file at `$HOME/.config/electrum-personal-server/config.ini`.
