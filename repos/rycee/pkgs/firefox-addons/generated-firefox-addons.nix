@@ -656,7 +656,7 @@
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
-        description = "Finally, an efficient blocker. Easy on CPU and memory.";
+        description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
