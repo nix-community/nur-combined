@@ -20,4 +20,8 @@ jobs:
       with:
         name: mic92
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - run: nix run -f . nix-build-uncached -c nix-build-uncached non-broken.nix
+    - name: nix-build
+      run: nix run -f . nix-build-uncached -c nix-build-uncached non-broken.nix
+    - name: Trigger NUR update
+      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=mic92"
+   
