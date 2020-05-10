@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, jdk11, makeWrapper }:
+{ stdenv, fetchzip, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "i18n-editor";
@@ -10,13 +10,13 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  buildInputs = [ jdk11 makeWrapper ];
+  buildInputs = [ jre makeWrapper ];
 
   installPhase = ''
     install -dm755 $out/bin
     install -Dm644 i18n-editor.jar -t $out/share/java
 
-    makeWrapper ${jdk11}/bin/java $out/bin/i18n-editor \
+    makeWrapper ${jre}/bin/java $out/bin/i18n-editor \
       --add-flags "-jar $out/share/java/i18n-editor.jar"
   '';
 

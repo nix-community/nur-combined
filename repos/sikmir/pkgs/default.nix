@@ -117,7 +117,7 @@ lib.makeScope newScope (
     gt4gd = python3Packages.callPackage ./tools/dict/gt4gd {
       inherit sources;
     };
-    i18n-editor = callPackage ./tools/i18n-editor {};
+    i18n-editor = callPackage ./tools/i18n-editor { jre = pkgs.jdk11; };
     imgdecode = callPackage ./tools/geo/imgdecode {};
     ish = callPackage ./tools/networking/ish {};
     morse-talk = python3Packages.callPackage ./tools/morse-talk {

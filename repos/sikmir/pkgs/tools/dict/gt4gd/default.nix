@@ -1,19 +1,16 @@
-{ lib, buildPythonApplication, requests, sources }:
+{ lib, buildPythonApplication, requests, sources
+, withUI ? true, tkinter }:
 
 buildPythonApplication rec {
   pname = "gt4gd";
   version = lib.substring 0 7 src.rev;
   src = sources.google-translate-for-goldendict;
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [ requests ] ++ (lib.optional withUI tkinter);
 
-  preConfigure = ''
-    touch setup.py
-  '';
-
-  installPhase = ''
-    install -Dm755 googletranslate.py $out/bin/gt4gd
-    install -Dm644 google_translate.png $out/share/gt4gd/gt.png
+  postInstall = lib.optionalString withUI ''
+    install -Dm755 googletranslateui.py $out/bin/googletranslateui
+    install -Dm644 google_translate.png -t $out/share/gt4gd
   '';
 
   meta = with lib; {
