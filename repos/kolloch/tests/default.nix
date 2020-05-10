@@ -57,6 +57,16 @@ rec {
         expected = "${myOverriddenFixedOutputDerivation}";
       };
 
+      testWithPreOverrides =
+        let rerunOnRelevantChanges = nurKollochLib.rerunOnChange {
+              preOverrideAttrs = attrs: { irrelevant = null; };
+            };
+            withIrrelevantChange = myFixedOutputDerivation.overrideAttrs(attrs: { irrelevant = "asd"; });
+        in {
+          expr = "${rerunOnRelevantChanges myFixedOutputDerivation}";
+          expected = "${rerunOnRelevantChanges withIrrelevantChange}";
+        };
+
       testInstrumentedFixedOutputDerivation = {
         expr =
           if "${rerunOnChange_myFixedOutputDerivation}" != "${rerunOnChange_myChangedFixedOutputDerivation}"
