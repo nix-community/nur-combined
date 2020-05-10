@@ -41,7 +41,7 @@ buildPythonPackage rec {
   ];
 
   # Override default arguments in pytest.ini
-  checkPhase = "pytest --timeout 0 -n $NIX_BUILD_CORES";
+  checkPhase = "pytest -v --timeout 0 -n $NIX_BUILD_CORES";
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/microsoft/ptvsd";

@@ -1,28 +1,32 @@
 diff --git a/desktop_version/CMakeLists.txt b/desktop_version/CMakeLists.txt
-index 121441e..6bf02fa 100644
+index e1b64fa..439a041 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -168,15 +168,20 @@ else()
- 	find_package(SDL2 CONFIG)
- 	if (TARGET SDL2::SDL2)
- 		message(STATUS "Using TARGET SDL2::SDL2")
+@@ -168,19 +168,14 @@ if (DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)
+ 	target_include_directories(VVVVVV PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
+ 	target_link_libraries(VVVVVV ${SDL2_LIBRARIES})
+ else()
+-	# Only try to autodetect if both SDL2 variables aren't explicitly set
+-	find_package(SDL2 CONFIG)
+-	if (TARGET SDL2::SDL2)
+-		message(STATUS "Using TARGET SDL2::SDL2")
 -		target_link_libraries(VVVVVV SDL2::SDL2 SDL2_mixer)
-+		target_link_libraries(VVVVVV SDL2::SDL2)
- 	elseif (TARGET SDL2)
- 		message(STATUS "Using TARGET SDL2")
+-	elseif (TARGET SDL2)
+-		message(STATUS "Using TARGET SDL2")
 -		target_link_libraries(VVVVVV SDL2 SDL2_mixer)
-+		target_link_libraries(VVVVVV SDL2)
- 	else()
- 		message(STATUS "No TARGET SDL2::SDL2, or SDL2, using variables")
- 		target_include_directories(VVVVVV PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
+-	else()
+-		message(STATUS "No TARGET SDL2::SDL2, or SDL2, using variables")
+-		target_include_directories(VVVVVV PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
 -		target_link_libraries(VVVVVV ${SDL2_LIBRARIES} SDL2_mixer)
-+		target_link_libraries(VVVVVV ${SDL2_LIBRARIES})
- 	endif()
+-	endif()
++	find_path(SDL2_INCLUDE_DIR SDL.h PATH_SUFFIXES SDL2)
++	find_library(SDL2_LIBRARY SDL2)
 +
 +	find_path(SDL2_MIXER_INCLUDE_DIR SDL_mixer.h PATH_SUFFIXES SDL2)
 +	find_library(SDL2_MIXER_LIBRARY SDL2_mixer)
-+	target_include_directories(VVVVVV PUBLIC ${SDL2_MIXER_INCLUDE_DIR})
-+	target_link_libraries(VVVVVV ${SDL2_MIXER_LIBRARY})
++
++	target_include_directories(VVVVVV PUBLIC ${SDL2_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR})
++	target_link_libraries(VVVVVV ${SDL2_LIBRARY} ${SDL2_MIXER_LIBRARY})
  endif()
  
  # Yes, more Apple Crap

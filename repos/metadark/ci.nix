@@ -1,10 +1,12 @@
 # This file provides all the buildable and cacheable packages and
 # package outputs in you package set. These are what gets built by CI,
-# so if you correctly mark packages as
+# so if you correctly mark packages with
 #
-# - broken (using `meta.broken`),
-# - unfree (using `meta.license.free`), and
-# - locally built (using `preferLocalBuild`)
+# - meta.broken
+# - meta.platforms
+# - meta.license.free
+# - meta.license.redistributable
+# - preferLocalBuild
 #
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
@@ -17,10 +19,13 @@ let
 
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: !(p.meta.broken or false)
-                   && any (pkgs.stdenv.lib.meta.platformMatch pkgs.stdenv.hostPlatform)
+  isBuildable = p: !(p.meta.broken or false) &&
+                   any (pkgs.stdenv.lib.meta.platformMatch pkgs.stdenv.hostPlatform)
                      p.meta.hydraPlatforms or p.meta.platforms or [ "x86_64-linux" ];
-  isCacheable = p: !(p.preferLocalBuild or false) && p.meta.license.free or true;
+  isCacheable = p: !(p.preferLocalBuild or false) &&
+                   (p.meta.license.redistributable or p.meta.license.free or true);
+
+
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
   nameValuePair = n: v: { name = n; value = v; };

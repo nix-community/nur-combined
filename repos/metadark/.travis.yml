@@ -10,35 +10,38 @@ jobs:
   fast_finish: true
 
   include:
-    - os: linux
+    - stage: Build & Test
+      name: "linux: nixpkgs-unstable"
+      os: linux
       env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+      script: source travis/build.sh
     - os: linux
+      name: "linux: nixos-unstable"
       env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
+      script: source travis/build.sh
     - os: linux
+      name: "linux: nixos-19.09"
       env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
+      script: source travis/build.sh
+    - os: osx
+      name: "macOS: nixpkgs-unstable"
+      env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+      script: source travis/build.sh
+    - os: osx
+      name: "macOS: nixpkgs-19.09-darwin"
+      env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-19.09-darwin
+      script: source travis/build.sh
+
+    - stage: Deploy
+      script: source travis/deploy.sh
+      if: type IN (push, api) AND branch = master
 
   allow_failures:
     - os: osx
       env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+      script: source travis/build.sh
     - os: osx
       env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-19.09-darwin
+      script: source travis/build.sh
 
-install:
- - nix --version
- - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
- - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
- - if [ -n "${CACHIX_CACHE}" -a "osx" != "${TRAVIS_OS_NAME}" ]; then cachix use "${CACHIX_CACHE}"; fi
- - if [ -n "${CACHIX_CACHE}" -a "osx" = "${TRAVIS_OS_NAME}" ]; then sudo cachix use "${CACHIX_CACHE}"; fi
- - nix-channel --add "${NIX_CHANNEL}" nixpkgs
- - travis_retry nix-channel --update
-
-script:
- - travis_wait 50 nix-build ci.nix -A buildOutputs --keep-going
- - nix eval -f default.nix 'lib'
- - nix eval -f default.nix 'modules'
- - nix eval -f default.nix 'overlays'
-
-after_success:
-  - if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
-  - if [ "cron" != "${TRAVIS_EVENT_TYPE}" -a "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
-      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
+install: source travis/setup.sh

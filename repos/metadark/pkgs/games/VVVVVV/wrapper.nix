@@ -16,12 +16,13 @@ let
   };
 in stdenvNoCC.mkDerivation {
   pname = "VVVVVV";
-  inherit (VVVVVV) version meta;
+  inherit (VVVVVV) version;
 
   # Obtain data.zip from Make and Play edition
   src = fetchurl {
     url = "https://thelettervsixtim.es/makeandplay/data.zip";
     sha256 = "1q2pzscrglmwfgdl8yj300wymwskh51iq66l4xcd0qk0q3g3rbkg";
+    meta.licence = stdenvNoCC.lib.licenses.unfree;
   };
 
   nativeBuildInputs = [ makeWrapper unzip ];
@@ -39,4 +40,8 @@ in stdenvNoCC.mkDerivation {
     cp ${desktopItem}/share/applications/* "$out/share/applications"
     cp VVVVVV.png "$out/share/pixmaps"
   '';
+
+  meta = VVVVVV.meta // {
+    license = stdenvNoCC.lib.licenses.unfree;
+  };
 }

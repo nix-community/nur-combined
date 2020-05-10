@@ -39,6 +39,7 @@ stdenv.mkDerivation rec {
       fullName = "VVVVVV Source Code License v1.0";
       url = "https://github.com/TerryCavanagh/VVVVVV/blob/master/LICENSE.md";
       free = false;
+      redistributable = true;
     };
     maintainers = with maintainers; [ metadark ];
     platforms = platforms.all;
