@@ -1,4 +1,4 @@
-{ lib, buildPythonPackage, click, pytest, sources }:
+{ lib, buildPythonPackage, click, pytest, hypothesis, sources }:
 
 buildPythonPackage rec {
   pname = "mercantile";
@@ -7,7 +7,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ click ];
 
-  checkInputs = [ pytest ];
+  checkInputs = [ pytest hypothesis ];
   checkPhase = "pytest";
 
   meta = with lib; {
