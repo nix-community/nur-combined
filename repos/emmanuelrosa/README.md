@@ -22,6 +22,10 @@ A Wingdings font.
 
 See the corresponding module in the NixOS Modules section below.
 
+### er-wallpaper
+
+My custom script to set wallpaper and color schemes. It's simply a wrapper for `pywal` and `betterlockscreen`.
+
 ## NixOS Modules
 
 ### btrbk
