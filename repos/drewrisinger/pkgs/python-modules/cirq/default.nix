@@ -39,6 +39,14 @@ buildPythonPackage rec {
     sha256 = "01nnv7r595sp60wvp7750lfdjwdsi4q0r4lmaj6li09zsdw0r4b3";
   };
 
+  patches = [
+    (fetchpatch {
+      name = "cirq-pr-2986-protobuf-bools.patch";
+      url = "https://github.com/quantumlib/Cirq/commit/78ddfb574c0f3936f713613bf4ba102163efb7b3.patch";
+      sha256 = "0hmad9ndsqf5ci7shvd924d2rv4k9pzx2r2cl1bm5w91arzz9m18";
+    })
+  ];
+
   # Cirq locks protobuf==3.8.0, but tested working with default pythonPackages.protobuf (3.7). This avoids overrides/pythonPackages.protobuf conflicts
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -78,15 +86,12 @@ buildPythonPackage rec {
   # TODO: enable op_serializer_test. Error is type checking, for some reason wants bool instead of numpy.bool_. Not sure if protobuf or internal issue
   pytestFlagsArray = [
     "--ignore=dev_tools"  # Only needed when developing new code, which is out-of-scope
-    # "--ignore=cirq/google/op_serializer_test.py"  # investigating in https://github.com/quantumlib/Cirq/issues/2727
     "--disable-warnings"  # warnings take too many lines, mostly just warning that Qiskit isn't installed so can't cross-verify. Guards against travis build errors (too many log lines)
     "-rfE"
   ];
   disabledTests = [
     "test_serialize_sympy_constants"  # fails due to small error in pi (~10e-7)
-    "test_serialize_conversion" # same failure mechanism as op_serializer_test
     "test_convert_to_ion_gates" # fails due to rounding error, 0.75 != 0.750...2
-    "val_type5-val5-arg_value5" # from op_serializer_test, just disable the bool value.
 
     # Newly disabled tests on cirq 0.8
     # TODO: test & figure out why failing

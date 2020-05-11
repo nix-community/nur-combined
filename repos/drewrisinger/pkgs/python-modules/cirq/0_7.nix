@@ -44,6 +44,11 @@ buildPythonPackage rec {
       url = "https://github.com/quantumlib/Cirq/commit/28a8aac5b6226e8e0772d9ef0e121d4205b5f9fc.patch";
       sha256 = "00sx0nwjz6gnj8d1wyl14r7c68d44ygygggimjdijp6hy43g9x0w";
     })
+    (fetchpatch {
+      name = "cirq-pr-2986-protobuf-bools.patch";
+      url = "https://github.com/quantumlib/Cirq/commit/78ddfb574c0f3936f713613bf4ba102163efb7b3.patch";
+      sha256 = "0hmad9ndsqf5ci7shvd924d2rv4k9pzx2r2cl1bm5w91arzz9m18";
+    })
   ];
 
   # Cirq locks protobuf==3.8.0, but tested working with default pythonPackages.protobuf (3.7). This avoids overrides/pythonPackages.protobuf conflicts
@@ -87,11 +92,9 @@ buildPythonPackage rec {
   # TODO: enable op_serializer_test. Error is type checking, for some reason wants bool instead of numpy.bool_. Not sure if protobuf or internal issue
   pytestFlagsArray = [
     "--ignore=dev_tools"  # Only needed when developing new code, which is out-of-scope
-    "--ignore=cirq/google/op_serializer_test.py"  # investigating in https://github.com/quantumlib/Cirq/issues/2727
   ];
   disabledTests = [
     "test_serialize_sympy_constants"  # fails due to small error in pi (~10e-7)
-    "test_serialize_conversion" # same failure mechanism as op_serializer_test
     "test_convert_to_ion_gates" # fails due to rounding error, 0.75 != 0.750...2
   ] ++ lib.optionals stdenv.isAarch64 [
     # Seem to fail due to math issues on aarch64?
