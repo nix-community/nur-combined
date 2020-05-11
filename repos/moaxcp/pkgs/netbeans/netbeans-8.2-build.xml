@@ -1,0 +1,183 @@
+diff --git a/cnd.modelimpl/build.xml b/cnd.modelimpl/build.xml
+index 5e5eb25..f0e0bc9 100644
+--- a/cnd.modelimpl/build.xml
++++ b/cnd.modelimpl/build.xml
+@@ -71,11 +71,13 @@ made subject to such option by the copyright holder.
+ 
+          <!-- Expression evaluator -->
+         <property name="antlr3.evaluator.output.dir" location="src/org/netbeans/modules/cnd/modelimpl/impl/services/evaluator/parser/generated"/>
++        <!--
+         <downloadbinaries cache="${binaries.cache}" server="${binaries.server}">
+             <manifest dir="${nb_all}">
+                 <include name="libs.antlr3.devel/external/binaries-list"/>
+             </manifest>
+         </downloadbinaries>
++        -->
+         <property name="antlr3.jar" location="${nb_all}/libs.antlr3.devel/external/antlr-3.4.jar"/>
+         <property name="antlr3.evaluator.grammar.dir" location="src/org/netbeans/modules/cnd/modelimpl/impl/services/evaluator/parser"/>
+ 
+@@ -169,7 +171,7 @@ made subject to such option by the copyright holder.
+             <arg value="-o"/>
+             <arg value="${antlr.output.dir}"/>
+             <arg value="${antlr.grammar.dir}/FortranParser.g"/>
+-            <classpath path="${antlr3.jar}"/>
++            <classpath path="${antlr3.jar}:../libs.antlr3.devel/external/antlr-2.7.jar:../libs.antlr3.devel/external/stringtemplate-3.2.jar"/>
+         </java>
+ 
+         <replaceregexp file="${antlr.output.dir}/FortranParser.java"
+diff --git a/ide/launcher/netbeans.conf b/ide/launcher/netbeans.conf
+index dca2e0c..6f483f3 100644
+--- a/ide/launcher/netbeans.conf
++++ b/ide/launcher/netbeans.conf
+@@ -55,6 +55,7 @@ netbeans_default_options="-J-client -J-Xss2m -J-Xms32m -J-Dnetbeans.logger.conso
+ # based on the Java version selected at installation time.
+ #
+ #netbeans_jdkhome="/path/to/jdk"
++netbeans_jdkhome="$(java-config -O)"
+ 
+ # Additional module clusters:
+ # using ${path.separator} (';' on Windows or ':' on Unix):
+diff --git a/java.examples/build.xml b/java.examples/build.xml
+index de3cd09..c8dc9c1 100644
+--- a/java.examples/build.xml
++++ b/java.examples/build.xml
+@@ -51,7 +51,7 @@ made subject to such option by the copyright holder.
+ 
+     <target name="client-editor-compile">
+         <path id="swing-layout-classpath">
+-            <fileset dir="../o.jdesktop.layout/external">
++            <fileset dir="${netbeans.dest.dir}/${nb.cluster.platform.dir}/modules/ext">
+                 <include name="**/*.jar"/>
+             </fileset>
+         </path>
+diff --git a/libs.jna/nbproject/project.properties b/libs.jna/nbproject/project.properties
+index 1c9a8af..2716804 100644
+--- a/libs.jna/nbproject/project.properties
++++ b/libs.jna/nbproject/project.properties
+@@ -42,16 +42,4 @@
+ 
+ javac.source=1.6
+ release.external/jna-4.2.2.jar=modules/ext/jna-4.2.2.jar
+-# Do not forget to rename native libs being extracted from the JAR when upgrading the JNA library, and patch org.netbeans.libs.jna.Installer as well.
+-release.external/jna-4.2.2.jar!/com/sun/jna/darwin/libjnidispatch.jnilib=modules/lib/libjnidispatch-422.jnilib
+-release.external/jna-4.2.2.jar!/com/sun/jna/linux-x86-64/libjnidispatch.so=modules/lib/amd64/linux/libjnidispatch-422.so
+-release.external/jna-4.2.2.jar!/com/sun/jna/linux-x86/libjnidispatch.so=modules/lib/i386/linux/libjnidispatch-422.so
+-release.external/jna-4.2.2.jar!/com/sun/jna/win32-x86-64/jnidispatch.dll=modules/lib/amd64/jnidispatch-422.dll
+-release.external/jna-4.2.2.jar!/com/sun/jna/win32-x86/jnidispatch.dll=modules/lib/x86/jnidispatch-422.dll
+-jnlp.verify.excludes=\
+-    modules/lib/amd64/jnidispatch-422.dll,\
+-    modules/lib/amd64/linux/libjnidispatch-422.so,\
+-    modules/lib/i386/linux/libjnidispatch-422.so,\
+-    modules/lib/x86/jnidispatch-422.dll,\
+-    modules/lib/libjnidispatch-422.jnilib
+ sigtest.gen.fail.on.error=false
+diff --git a/nbbuild/build.xml b/nbbuild/build.xml
+index e5065ce..e10ed46 100644
+--- a/nbbuild/build.xml
++++ b/nbbuild/build.xml
+@@ -93,12 +93,14 @@ made subject to such option by the copyright holder.
+     <deregisterexternalhook root=".."/>
+     <taskdef name="downloadbinaries" classname="org.netbeans.nbbuild.extlibs.DownloadBinaries" classpath="${build.ant.classes.dir}"/>
+     <property name="have-downloadbinaries-task" value="true" />
++    <!--
+     <downloadbinaries cache="${binaries.cache}" server="${binaries.server}">
+         <manifest dir="${nb_all}">
+             <include name="libs.junit4/external/binaries-list"/>
+             <include name="javahelp/external/binaries-list"/>
+         </manifest>
+     </downloadbinaries>
++    -->
+ 
+     <echo message="Bootstrapping NetBeans-specific Ant extensions..."/>
+     <path id="bootstrap-cp">
+@@ -124,6 +126,7 @@ made subject to such option by the copyright holder.
+ 
+   <target name="download-all-extbins" unless="ext.binaries.downloaded" depends="bootstrap">
+     <echo>Downloading external binaries (*/external/ directories)...</echo>
++    <!--
+     <downloadbinaries cache="${binaries.cache}" server="${binaries.server}">
+         <manifest dir="${nb_all}">
+             <include name="*/external/binaries-list"/>
+@@ -131,6 +134,7 @@ made subject to such option by the copyright holder.
+             <include name="otherlicenses/*/external/binaries-list"/>
+         </manifest>
+     </downloadbinaries>
++    -->
+     <property name="ext.binaries.downloaded" value="true"/>
+   </target>
+ 
+@@ -143,9 +147,11 @@ made subject to such option by the copyright holder.
+         <map from="${nb_all}/" to=""/>
+         <globmapper from="*" to="*/external/binaries-list"/>
+     </pathconvert>
++    <!--
+     <downloadbinaries cache="${binaries.cache}" server="${binaries.server}">
+         <manifest dir="${nb_all}" includes="${modules.binaries-list}"/>
+     </downloadbinaries>
++    -->
+   </target>
+ 
+   <target name="init-module-list" depends="bootstrap,init-tasks">
+@@ -328,12 +334,14 @@ made subject to such option by the copyright holder.
+     <copy file="../ide/launcher/netbeans.clusters" todir="${netbeans.dest.dir}/etc" overwrite="true"/>
+ 
+     <echo message="${netbeans.dest.dir}/${nb.cluster.platform.dir}/lib/nbexec" />
++    <!-- fails for unknown reason
+     <fixcrlf eol="lf" srcdir="${netbeans.dest.dir}" >
+       <include name="etc/netbeans.conf" />
+       <include name="etc/netbeans.clusters" />
+       <include name="bin/netbeans" />      
+       <include name="${nb.cluster.platform.dir}/lib/nbexec" />      
+     </fixcrlf>
++    -->
+     <mkdir dir="${nb.build.dir}"/>
+     <hgid property="hg.id" file=".."/>
+     <echo file="${nb.build.dir}/build_info">NetBeans dev build
+@@ -1103,6 +1111,7 @@ It is possible to use -Ddebug.port=3234 -Ddebug.pause=y to start the system in d
+       </fileset>
+     </subant>
+     <taskdef name="downloadbinaries" classname="org.netbeans.nbbuild.extlibs.DownloadBinaries" classpath="${nbantext.jar}"/>
++    <!--
+     <downloadbinaries cache="${binaries.cache}" server="${binaries.server}" clean="true">
+         <manifest dir="${nb_all}">
+             <include name="*/external/binaries-list"/>
+@@ -1110,6 +1119,7 @@ It is possible to use -Ddebug.port=3234 -Ddebug.pause=y to start the system in d
+             <include name="otherlicenses/*/external/binaries-list"/>
+         </manifest>
+     </downloadbinaries>
++    -->
+   </target>
+ 
+   <target name="-real-clean" depends="-cleanall,localclean,-clean-external">
+@@ -1498,11 +1508,13 @@ It is possible to use -Ddebug.port=3234 -Ddebug.pause=y to start the system in d
+     <pathconvert property="source.dirs" pathsep="," refid="source.dirset">
+       <regexpmapper from="${nb_all}/(.*)$" to="\1/**/*" handledirsep="yes"/>
+     </pathconvert>
++    <!--
+     <downloadbinaries cache="${binaries.cache}" server="${binaries.server}">
+         <manifest dir="${nb_all}">
+             <include name="libs.antlr3.devel/external/binaries-list"/>
+         </manifest>
+     </downloadbinaries>
++    -->
+     <zip zipfile="${nb.build.dir}/${cluster.config}-src-${buildnum}.zip" duplicate="preserve">
+       <zipfileset dir="${nb_all}" includes="${source.dirs}">
+           <exclude name="*/build/**/*"/>
+diff --git a/nbbuild/templates/projectized.xml b/nbbuild/templates/projectized.xml
+index b867849..b1df77b 100644
+--- a/nbbuild/templates/projectized.xml
++++ b/nbbuild/templates/projectized.xml
+@@ -236,11 +236,13 @@ If you are sure you want to build with JDK 9+ anyway, use: -Dpermit.jdk9.builds=
+ 
+     <!-- See: http://wiki.netbeans.org/wiki/view/DevFaqExternalLibrariesUpdated -->
+     <target name="-release.files" depends="projectized-common.-release.files,-define-downloadbinaries-task">
++        <!--
+         <downloadbinaries cache="${binaries.cache}" server="${binaries.server}">
+             <manifest dir=".">
+                 <include name="external/binaries-list"/>
+             </manifest>
+         </downloadbinaries>
++        -->
+         <taskdef name="releasefilesextra" classname="org.netbeans.nbbuild.extlibs.ReleaseFilesExtra" classpath="${nbantext.jar}"/>
+         <releasefilesextra property="release.files.extra"/>
+     </target>
