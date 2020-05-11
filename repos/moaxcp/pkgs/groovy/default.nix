@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip, which, makeWrapper, jdk, java ? jdk, coreutils, gawk }:
+{ stdenv, fetchurl, unzip, which, makeWrapper, jdk, coreutils, gawk }:
 
 rec {
     groovyGen = {version, src} : stdenv.mkDerivation {
@@ -22,6 +22,10 @@ rec {
                 --set JAVA_HOME "${jdk}" \
                 --set PATH "${gawk}/bin:${coreutils}/bin:${jdk}/bin"
         done
+      '';
+
+      installCheckPhase = ''
+        $out/bin/groovy --version 2>&1 | grep -q "${version}"
       '';
 
       meta = with stdenv.lib; {

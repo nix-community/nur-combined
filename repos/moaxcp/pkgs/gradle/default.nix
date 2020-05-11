@@ -1,10 +1,13 @@
-{ stdenv, fetchurl, unzip, jdk, java ? jdk, makeWrapper }:
-
-rec {
-  gradleGen = {name, src, nativeVersion} : stdenv.mkDerivation {
-    inherit name src nativeVersion;
+{ stdenv, fetchurl, unzip, jdk, makeWrapper }:
+let
+  pname = "gradle";
+in rec {
+  gradleGen = {version, nativeVersion, src} : stdenv.mkDerivation {
+    inherit pname version nativeVersion src;
 
     dontBuild = true;
+
+    buildInputs = [ unzip jdk makeWrapper ];
 
     installPhase = ''
       mkdir -pv $out/lib/gradle/
@@ -12,9 +15,9 @@ rec {
 
       gradle_launcher_jar=$(echo $out/lib/gradle/lib/gradle-launcher-*.jar)
       test -f $gradle_launcher_jar
-      makeWrapper ${java}/bin/java $out/bin/gradle \
-        --set JAVA_HOME ${java} \
-        --set PATH ${java}/bin \
+      makeWrapper ${jdk}/bin/java $out/bin/gradle \
+        --set JAVA_HOME ${jdk} \
+        --set PATH ${jdk}/bin \
         --add-flags "-classpath $gradle_launcher_jar org.gradle.launcher.GradleMain"
     '';
 
@@ -34,7 +37,9 @@ rec {
         echo ${stdenv.cc.cc} > $out/nix-support/manual-runtime-dependencies
       '';
 
-    buildInputs = [ unzip java makeWrapper ];
+      installCheckPhase = ''
+        $out/bin/gradle --version 2>&1 | grep -q "Gradle ${version}"
+      '';
 
     meta = {
       description = "Enterprise-grade build system";
@@ -52,42 +57,52 @@ rec {
     };
   };
 
+  gradle-6_4 = gradleGen rec {
+    version = "6.4";
+    nativeVersion = "0.22-milestone-2";
+
+    src = fetchurl {
+      url = "https://services.gradle.org/distributions/gradle-${version}-bin.zip";
+      sha256 = "1jdcvczlcg77klkl336553w09jxizkfjcqlzficyg1vqcfgnb25q";
+    };
+  };
+
   gradle-6_3 = gradleGen rec {
-    name = "gradle-6.3";
+    version = "6.3";
     nativeVersion = "0.22-milestone-1";
 
     src = fetchurl {
-      url = "https://services.gradle.org/distributions/${name}-bin.zip";
+      url = "https://services.gradle.org/distributions/gradle-${version}-bin.zip";
       sha256 = "0s0ppngixkkaz1h4nqzwycjcilbrc9rbc1vi6k34aiqzxzz991q3";
     };
   };
 
   gradle-6_2_2 = gradleGen rec {
-    name = "gradle-6.2.2";
+    version = "6.2.2";
     nativeVersion = "0.21";
 
     src = fetchurl {
-      url = "https://services.gradle.org/distributions/${name}-bin.zip";
+      url = "https://services.gradle.org/distributions/gradle-${version}-bin.zip";
       sha256 = "05vxzcr51v5sq3kl47xgdmpgf3cfv6s71a6p4616s9w6p4qs4sqg";
     };
   };
 
   gradle-5_6_4 = gradleGen rec {
-    name = "gradle-5.6.4";
+    version = "5.6.4";
     nativeVersion = "0.18";
 
     src = fetchurl {
-      url = "https://services.gradle.org/distributions/${name}-bin.zip";
+      url = "https://services.gradle.org/distributions/gradle-${version}-bin.zip";
       sha256 = "1f3067073041bc44554d0efe5d402a33bc3d3c93cc39ab684f308586d732a80d";
     };
   };
 
   gradle-4_10_3 = gradleGen rec {
-    name = "gradle-4.10.3";
+    version = "4.10.3";
     nativeVersion = "0.14";
 
     src = fetchurl {
-      url = "https://services.gradle.org/distributions/${name}-bin.zip";
+      url = "https://services.gradle.org/distributions/gradle-${version}-bin.zip";
       sha256 = "0vhqxnk0yj3q9jam5w4kpia70i4h0q4pjxxqwynh3qml0vrcn9l6";
     };
   };
