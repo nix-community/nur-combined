@@ -14,6 +14,7 @@ let
   groovyGen = pkgs.callPackage ./pkgs/groovy {
       java = pkgs.jdk;
   };
+  springGen = pkgs.callPackage ./pkgs/spring-boot-cli {};
   callPackage = pkgs.callPackage;
   stdenv = pkgs.stdenv;
 in rec {
@@ -107,6 +108,7 @@ in rec {
 
   micronaut-1_3_4 = callPackage ./pkgs/micronaut { };
 
-  spring-boot-cli-2_2_6 = callPackage ./pkgs/spring-boot-cli { };
+  spring-boot-cli-2_2_6 = springGen.spring-boot-cli-2_2_6;
+  spring-boot-cli-2_2_7 = springGen.spring-boot-cli-2_2_7;
 }
 
