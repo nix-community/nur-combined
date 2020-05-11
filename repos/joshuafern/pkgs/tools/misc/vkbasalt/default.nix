@@ -36,13 +36,13 @@ let
   '';
 in multiStdenv.mkDerivation rec {
   pname = "vkbasalt";
-  version = "unstable-2020-04-24";
+  version = "unstable-2020-05-03";
 
   src = fetchFromGitHub {
     owner = "DadSchoorse";
     repo = pname;
-    rev = "d8f363bdbae2e522d8b737701514fd7c3e6e92c7";
-    sha256 = "141mjg7b1hy8bzk7dc9v2hqzvmfb1di4z6c1g1bdf6ha6ck2c4k3";
+    rev = "db15e964c8559de6b73cdd535b38b72c8e2f7619";
+    sha256 = "04jizwpvv6lvxw8w1ggrlf43hg956s4z58fhwprdgv3qss2aa9d1";
     fetchSubmodules = true;
   };
 
