@@ -19,20 +19,21 @@
 
   # applications/misc
   minigalaxy = pkgs.python3.pkgs.callPackage ./pkgs/applications/misc/minigalaxy { };
-
+  
   # development/mobile
   qdl = pkgs.callPackage ./pkgs/development/mobile/qdl { };
 
   # misc/emulators
   citra = pkgs.libsForQt5.callPackage ./pkgs/misc/emulators/citra { };
   dosbox-staging = pkgs.callPackage ./pkgs/misc/emulators/dosbox-staging { };
-  #yuzu = pkgs.libsForQt5.callPackage ./pkgs/misc/emulators/yuzu {};
+  yuzu = pkgs.libsForQt5.callPackage ./pkgs/misc/emulators/yuzu { };
 
   # tools/audio
   vban = pkgs.callPackage ./pkgs/tools/audio/vban { };
 
   # tools/misc
   libspeedhack = pkgs.callPackage ./pkgs/tools/misc/libspeedhack { };
+  oblige = pkgs.callPackage ./pkgs/tools/misc/oblige { };
   samrewritten = pkgs.callPackage ./pkgs/tools/misc/samrewritten { };
   sbase = pkgs.callPackage ./pkgs/tools/misc/sbase { };
   ubase = pkgs.callPackage ./pkgs/tools/misc/ubase { };
