@@ -3,16 +3,17 @@
 let
   orcaSrc = fetchgit {
     url = "https://git.sr.ht/~rabbits/orca";
-    rev = "3a92c8e3b3b75598ed762aee4aa34e689f1471a5";
-    sha256 = "1yf8963aik77y3i403g7fzb3qqhhbqdz1zhzdbp64bmm13prxifi";
+    rev = "105371b868f6acd36da4a86e1a8dfd1fc2c9bf25";
+    sha256 = "02s93j55akxw5lwikwwzblw58g9v6zbrw4bdwdbx1743w87m28l5";
   };
 
 in stdenv.mkDerivation {
-  name = "orca";
+  pname = "orca";
+  version = "git";
   src = orcaSrc;
   buildInputs = [ ncurses ncurses5 portmidi ];
   buildPhase = ''
-    bash ./tool build --portmidi orca
+    bash ./tool build --portmidi --mouse --pie --harden orca
   '';
   installPhase = ''
     mkdir -p $out/bin
