@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ alsaLib libpulseaudio libjack2 ];
 
   meta = with stdenv.lib; {
-    description = "a simple audio over UDP protocol proposed by VB-Audio";
+    description = "A simple audio over UDP protocol proposed by VB-Audio";
     homepage = "https://github.com/quiniouben/vban";
     license = licenses.gpl3;
     maintainers = with maintainers; [ joshuafern ];
