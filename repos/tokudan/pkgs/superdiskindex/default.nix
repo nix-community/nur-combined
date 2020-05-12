@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "shamada-code";
     repo = "${pname}";
-    rev = "ce5785a92ddf886ec1e340553b73d43f14e3eb87";
-    sha512 = "20p5q6r6i01vpj6lvyx880hnvrjjslbfhfvxbbr675698kxi0hqdq45zgay8dg4cx4zkd54cslp10adjp6rwp2iv69p1a1vkqlaza77";
+    rev = "release-0.04";
+    sha512 = "05b4bsfcsw6f3l5m6wp2p56rkfydvjdq48vvg4kwgfbxm9cy39vapa2h68cw7szh5mh8k5j7y9338hvmw3giz4w5jhfb8c1fkffrcxm";
   };
 
   buildInputs = [  ];
