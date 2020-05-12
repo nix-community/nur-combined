@@ -1,0 +1,4 @@
+{
+  papermc = ./papermc.nix;
+}
+
