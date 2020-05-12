@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+START_TIME=$(date +%s)
 
 if [ -n "${CACHIX_CACHE}" ]; then
    travis_retry nix-channel --update

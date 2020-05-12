@@ -25,6 +25,5 @@ rustPlatform.buildRustPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar metadark ];
     platforms = platforms.all;
-    broken = builtins.compareVersions rustPlatform.rust.rustc.version "1.39" < 0;
   };
 }

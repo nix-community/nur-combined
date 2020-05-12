@@ -26,11 +26,17 @@ rec {
 
   clonehero = clonehero-fhs-wrapper;
 
+  cmake-language-server = pkgs.python3Packages.callPackage ./pkgs/development/tools/misc/cmake-language-server {
+    inherit pygls;
+  };
+
   lightdm-webkit2-greeter = pkgs.callPackage ./pkgs/applications/display-managers/lightdm-webkit2-greeter {
     inherit lightdm-webkit2-greeter;
   };
 
   ptvsd = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/ptvsd {};
+
+  pygls = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pygls {};
 
   runescape-launcher = pkgs.callPackage ./pkgs/games/runescape-launcher/wrapper.nix {};
 

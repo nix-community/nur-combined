@@ -15,22 +15,27 @@ jobs:
       os: linux
       env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
       script: source travis/build.sh
+      if: branch != nixpkgs-20.03
     - os: linux
       name: "linux: nixos-unstable"
       env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
       script: source travis/build.sh
+      if: branch != nixpkgs-20.03
     - os: linux
-      name: "linux: nixos-19.09"
-      env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
+      name: "linux: nixos-20.03"
+      env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
       script: source travis/build.sh
+      if: branch = nixpkgs-20.03
     - os: osx
       name: "macOS: nixpkgs-unstable"
       env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
       script: source travis/build.sh
+      if: branch != nixpkgs-20.03
     - os: osx
-      name: "macOS: nixpkgs-19.09-darwin"
-      env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-19.09-darwin
+      name: "macOS: nixpkgs-20.03-darwin"
+      env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-20.03-darwin
       script: source travis/build.sh
+      if: branch = nixpkgs-20.03
 
     - stage: Deploy
       script: source travis/deploy.sh
@@ -41,7 +46,7 @@ jobs:
       env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
       script: source travis/build.sh
     - os: osx
-      env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-19.09-darwin
+      env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-20.03-darwin
       script: source travis/build.sh
 
 install: source travis/setup.sh
