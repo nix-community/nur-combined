@@ -1,4 +1,4 @@
-{ buildEnv, writeShellScriptBin, writeTextDir, linkFarm, manifestBuilder }:
+{ buildEnv, writeShellScriptBin, writeTextDir, linkFarm, manifest-nix }:
 
 { name ? "user-environment"
 
@@ -17,7 +17,7 @@ let
     ''
     else linkFarm "manifest.nix" [{
       name = "manifest.nix";
-      path = manifestBuilder packages;
+      path = manifest-nix packages;
     }];
 
   profile = buildEnv {
