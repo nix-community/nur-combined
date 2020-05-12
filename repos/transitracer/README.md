@@ -5,7 +5,7 @@ My personal nix helpers. Also a NUR repository.
 ## `user-environment`
 
 A trivial-style builder that takes a list of packages and builds a
-derivation containing the script `switch-to-environment` which will
+derivation containing the script `install-user-environment` which will
 switch the current user to a user environment containing only those
 packages.
 
@@ -23,16 +23,27 @@ with pkgs; with (callPackage (fetchgit {
   sha256 = ...;
 }) {}).pkgs;
 
-userEnv [
-  # Add packages here
-  hello
-]
+userEnv {
+  packages = [
+    hello
+  ];
+}
 ```
 
 ```sh
 $ nix-build
-$ result/bin/switch-to-environment
+$ result/bin/install-user-environment
 ```
+
+Notes/Tips:
+
+  - If you want your user-environment to not be editable imperatively,
+    you can pass `static = true;` to `userEnv`.
+
+    To escape this setting, however, and go back to managing
+    imperatively, you'll need to install a user-environment without it
+    set, or set an arbitrary directory as your user-environment using
+    `nix-env --set $directory`
 
 ## `emacs-with-config`
 
