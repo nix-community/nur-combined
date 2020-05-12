@@ -1,0 +1,22 @@
+--- a/Makefile
++++ b/Makefile
+@@ -17,7 +17,7 @@ EXT_OBJS = $(foreach obj,$(EXT_SRCS:.c=.o),$(obj))
+ # Must be kept in sync with doc/docgen.ld
+ DOC_SRCS = $(filter-out lib/markdown.lua lib/lousy/init.lua,$(shell for d in doc/luadoc lib common/clib; do find $$d -type f; done)) tests/lib.lua
+
+-all: options newline luakit luakit.1.gz luakit.so apidoc
++all: options newline luakit luakit.1.gz luakit.so
+
+ options:
+ 	@echo luakit build options:
+@@ -96,10 +96,6 @@ install: all
+ 	install -d $(DESTDIR)$(PREFIX)/share/luakit/
+ 	install -d $(DESTDIR)$(DOCDIR) $(DESTDIR)$(DOCDIR)/classes $(DESTDIR)$(DOCDIR)/modules $(DESTDIR)$(DOCDIR)/pages
+ 	install -m644 README.md AUTHORS COPYING.GPLv3 $(DESTDIR)$(DOCDIR)
+-	install -m644 doc/apidocs/classes/* $(DESTDIR)$(DOCDIR)/classes
+-	install -m644 doc/apidocs/modules/* $(DESTDIR)$(DOCDIR)/modules
+-	install -m644 doc/apidocs/pages/* $(DESTDIR)$(DOCDIR)/pages
+-	install -m644 doc/apidocs/*.html $(DESTDIR)$(DOCDIR)
+ 	install -d $(DESTDIR)$(PREFIX)/share/luakit/lib $(DESTDIR)$(PREFIX)/share/luakit/lib/lousy $(DESTDIR)$(PREFIX)/share/luakit/lib/lousy/widget
+ 	install -m644 lib/*.* $(DESTDIR)$(PREFIX)/share/luakit/lib
+ 	install -m644 lib/lousy/*.* $(DESTDIR)$(PREFIX)/share/luakit/lib/lousy

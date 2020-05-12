@@ -21,8 +21,8 @@
   };
   colorize_nicks = { buildWeechatScript }: buildWeechatScript {
     pname = "colorize_nicks.py";
-    version = "26";
-    sha256 = "1ldk6q4yhwgf1b8iizr971vqd9af6cz7f3krd3xw99wd1kjqqbx5";
+    version = "27";
+    sha256 = "0hiay88vvy171jiq6ahflm0ipb7sslfxwhmmm8psv6qk19rv2sxs";
   };
   unread_buffer = { buildWeechatScript }: buildWeechatScript {
     pname = "unread_buffer.py";

@@ -141,20 +141,18 @@ let
 
     xdg_utils-mimi = { xdg_utils }: xdg_utils.override { mimiSupport = true; };
 
-    luakit-develop = { fetchFromGitHub, luakit, gst_all_1-noqt, lib }: let
-      drv = luakit.override {
-        gst_all_1 = gst_all_1-noqt;
-      };
-    in drv.overrideAttrs (old: rec {
+    luakit-develop = { fetchFromGitHub, luakit, lib }: luakit.overrideAttrs (old: rec {
       name = "luakit-${version}";
-      rev = "a023d2612982933dcfc888c1845e3d1df48e3e32";
-      version = "2020-01-14";
+      rev = "818d8f4777657d3bba0447c3baee86c2fe67fabf";
+      version = "2020-04-28";
       src = fetchFromGitHub {
         owner = "luakit";
         repo = "luakit";
         inherit rev;
-        sha256 = "1l9ifaxdjhbr4nwk5pqwhmk1z5xpznn69pvc6hbyp85kq80pc99r";
+        sha256 = "0jqyv5s07inkdpq5nryk1xfgkamnsnlxg1d5r6mx237y8gy8nax3";
       };
+      enableParallelBuilding = true;
+      patches = old.patches or [] ++ [ ./public/luakit/nodoc.patch ];
 
       meta = old.meta or {} // {
         broken = old.meta.broken or false || lib.isNixpkgsStable;
@@ -307,10 +305,18 @@ let
       hostCpuOnly = true;
       smbdSupport = true;
     }).overrideAttrs (old: {
-      patches = old.patches or [] ++ lib.optional (lib.versionAtLeast qemu.version "4.2") (fetchpatch {
+      patches = old.patches or [] ++ lib.optional (lib.versionAtLeast qemu.version "4.2" && lib.versionOlder qemu.version "5.0") (fetchpatch {
         name = "qemu-cpu-pinning.patch";
         url = "https://github.com/saveriomiroddi/qemu-pinning/commit/4e4fe6402e9e4943cc247a4ccfea21fa5f608b30.patch";
         sha256 = "12na0z8n48aiwiv96xn37b0i7i8kj5ph0rk8xbpm9jrzmi5rd4l1";
+      }) ++ lib.optional (lib.versionAtLeast qemu.version "5.0") (fetchpatch {
+        name = "qemu-cpu-pinning.patch";
+        url = "https://github.com/saveriomiroddi/qemu-pinning/commit/76241abfe8c5c71bc02a7e268ff3d3ca0734308c.patch";
+        sha256 = "1h4rm68vr4b2lpj7vi3wr5692kx4w4iccjasl86ldjsl40yfmc47";
+      }) ++ lib.singleton (fetchpatch {
+        name = "qemu-smb-symlinks.patch";
+        url = "https://github.com/saveriomiroddi/qemu-pinning/commit/c7d24d17e7cf9153dd2a3fcf716a17a4c86413fe.patch";
+        sha256 = "18sqw3sbsa5w7w5580g1b6l98grm0w3bhj7mrgnjgnir8m0as678";
       });
 
       meta = old.meta or {} // {
