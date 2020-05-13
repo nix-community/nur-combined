@@ -6,13 +6,13 @@
 
 stdenv.mkDerivation rec {
   name = "opencbm-${version}";
-  version = "git-20191221";
+  version = "git-20200512";
 
   src = fetchFromGitHub {
     owner = "OpenCBM";
     repo = "OpenCBM";
-    rev = "4b1afe5374bffbb733e89121c8ca6afab803ee8f";
-    sha256 = "0pxw88gq3dig3kkmsng3s6s61659w72x3zrln5ybxxdasdshnyd5";
+    rev = "a78c15e582eef9e2ed6e068500442de5f623c8db";
+    sha256 = "0bvy7xi49d4fqv7l4i12dbabpmizfjqzv3yixd39pd7fbnv5swby";
   };
 
   patches = [
