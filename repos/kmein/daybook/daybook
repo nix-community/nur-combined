@@ -1,0 +1,92 @@
+#!/bin/sh
+DAYBOOK_DIR="${DAYBOOK_DIR-$HOME/daybook}"
+DAYBOOK_TITLE="${DAYBOOK_TITLE-Diary}"
+DAYBOOK_AUTHOR="${DAYBOOK_AUTHOR-$(getent passwd "$USER" | cut -d: -f5 | cut -d, -f1)}"
+DAYBOOK_AUTHOR="${DAYBOOK_AUTHOR-$USER}"
+DAYBOOK_PROGRAM_NAME=daybook
+
+fail() {
+  echo "$1" >/dev/stderr
+  exit 1
+}
+
+require_EDITOR() {
+  test "$EDITOR" || fail "$DAYBOOK_PROGRAM_NAME: EDITOR not set. Aborting."
+}
+
+require_pandoc() {
+  command -v pandoc >/dev/null || fail "$DAYBOOK_PROGRAM_NAME: pandoc not found. Aborting."
+}
+
+print_entry_date() {
+  file="$(basename "$1")"
+  echo "${file%.*}"
+}
+
+print_title_block() {
+  echo % "$DAYBOOK_TITLE"
+  echo % "$DAYBOOK_AUTHOR"
+  echo % "$(print_entry_date "$(ls -t1 "$DAYBOOK_DIR" | head -n 1)")"
+}
+
+daybook_add() {
+  require_EDITOR
+  "$EDITOR" "$DAYBOOK_DIR/$(date +%F).md"
+}
+
+daybook_amend() {
+  require_EDITOR
+  "$EDITOR" "$DAYBOOK_DIR/$(date -d yesterday +%F).md"
+}
+
+daybook_show() {
+  require_pandoc
+  pattern="${1-????-??-??}"
+  (
+    print_title_block
+    for entry in "$DAYBOOK_DIR"/$pattern.md; do
+      echo "# $(print_entry_date "$entry")"
+      cat "$entry"
+      echo
+    done
+  ) | pandoc - -s -V section="$USER" -t man | man -l -
+}
+
+daybook_search() {
+  test $# -eq 1 || fail "usage: $DAYBOOK_PROGRAM_NAME search <pattern>"
+  grep --color=always "$1" "$DAYBOOK_DIR"/*
+}
+
+daybook_render() {
+  require_pandoc
+  test $# -eq 1 || fail "usage: $DAYBOOK_PROGRAM_NAME render <target>"
+  (
+    print_title_block
+    for entry in "$DAYBOOK_DIR"/????-??-??.md; do
+      echo "\\marginnote{\\sffamily $(print_entry_date "$entry")}\\noindent"
+      cat "$entry"
+      echo "\\par\\medskip"
+    done
+  ) | pandoc - --pdf-engine=xelatex -s -o "$1" \
+    -V documentclass=book -V mainfont="Linux Libertine O" -V sansfont="Linux Biolinum O" -V header-includes="\\usepackage{marginnote}" -V indent
+}
+
+case "${1-}" in
+  add)
+    daybook_add;;
+  amend)
+    daybook_amend;;
+  show)
+    shift
+    daybook_show "$@";;
+  render)
+    shift
+    daybook_render "$@";;
+  search)
+    shift
+    daybook_search "$@";;
+  -h|--help)
+    man "$DAYBOOK_PROGRAM_NAME";;
+  *)
+    fail "usage: $DAYBOOK_PROGRAM_NAME add|amend|show|search|render"
+esac

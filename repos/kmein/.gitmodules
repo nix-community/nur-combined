@@ -1,0 +1,3 @@
+[submodule "daybook"]
+	path = daybook
+	url = https://github.com/kmein/daybook
