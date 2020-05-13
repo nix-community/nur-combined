@@ -53,6 +53,10 @@ buildPythonPackage rec {
       --replace "networkx~=2.4" "networkx" \
       --replace "protobuf==3.8.0" "protobuf" \
       --replace "freezegun~=0.3.15" "freezegun"
+
+    # Fix serialize_sympy_constants test (#2728) by allowing small errors in pi
+    substituteInPlace cirq/google/arg_func_langs_test.py \
+      --replace "{'arg_value': {'float_value': float(np.float32(sympy.pi))}}" "{'arg_value': pytest.approx({'float_value': float(np.float32(sympy.pi))})}"
   '';
 
   propagatedBuildInputs = [
@@ -90,7 +94,6 @@ buildPythonPackage rec {
     "-rfE"
   ];
   disabledTests = [
-    "test_serialize_sympy_constants"  # fails due to small error in pi (~10e-7)
     "test_convert_to_ion_gates" # fails due to rounding error, 0.75 != 0.750...2
 
     # Newly disabled tests on cirq 0.8
