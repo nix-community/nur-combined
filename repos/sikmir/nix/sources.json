@@ -316,10 +316,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "a95da123ba39a3c3eb21f70181cac3b4c4ecb5ad",
-        "sha256": "1v5fgkszsf3fblfpn938v1clpvkamsfgic43jlkfcyw49lycyjz4",
+        "rev": "1c28600b87d7343de00855ae93e0c846117e4a76",
+        "sha256": "0x81qgzrxnvp69913gzmd3mm5ib37sa1a66xn5n86syj99dkl48h",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/a95da123ba39a3c3eb21f70181cac3b4c4ecb5ad.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/1c28600b87d7343de00855ae93e0c846117e4a76.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -340,11 +340,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "1xzkai4wianiir86bkr333sndpkx1lkm0l1ignzzisf0z0vd651r",
+        "sha256": "0lmfa1pn7795fibdgqgdpfld853pig0ss65a6vhr3v4rl1dfa01q",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-05-09.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-05-11.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-05-09"
+        "version": "2020-05-11"
     },
     "mbtileserver": {
         "branch": "master",
