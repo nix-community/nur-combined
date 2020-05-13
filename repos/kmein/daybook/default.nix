@@ -4,8 +4,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "kmein";
     repo = "daybook";
-    rev = "cad1aef158b0df36861434eb04c953d99a122e80";
-    sha256 = "07qippyry0yjf971pnqxm9i0xpvih8mvbhxwfwpwq980jik1hbl1";
+    rev = "db2c34830e09183c80f3381bf5e4c44d52f05d53";
+    sha256 = "0nbsv8f12qh5spq7zhimhdf3p7msk33xrb0ilqvlc6jmlkpislmv";
   };
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ pandoc ];

@@ -1,0 +1,7 @@
+[package]
+name = "slide"
+version = "0.1.0"
+authors = ["Kierán Meinhardt <kieran.meinhardt@gmail.com>"]
+
+[dependencies]
+structopt = "0.2.18"
