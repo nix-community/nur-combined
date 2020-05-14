@@ -27,7 +27,7 @@ in
       enable = mkDefault true;
       defaultBitSize = mkDefault 4096;
 
-      params.nginx = {};
+      params.nginx = { };
     };
 
     services.prometheus = mkIf config.services.prometheus.enable {

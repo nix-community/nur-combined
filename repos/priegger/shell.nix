@@ -1,4 +1,4 @@
-with { pkgs = import ./nix {}; };
+with { pkgs = import ./nix { }; };
 pkgs.mkShell {
   name = "nur-packages";
 

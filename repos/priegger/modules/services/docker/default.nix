@@ -16,11 +16,11 @@ in
       enable = true;
       enableOnBoot = true;
       extraOptions = mkIf config.services.prometheus.enable "--config-file=${pkgs.writeText "daemon.json" (
-        builtins.toJSON {
-          metrics-addr = metricsAddr;
-          experimental = true;
-        }
-      )}";
+          builtins.toJSON {
+              metrics-addr = metricsAddr;
+              experimental = true;
+              }
+          )}";
     };
 
     services.cadvisor = mkIf config.services.prometheus.enable {
@@ -37,13 +37,13 @@ in
         ];
       }
       (
-        mkIf config.services.cadvisor.enable
-          {
-            job_name = "cadvisor";
-            static_configs = [
-              { targets = [ "127.0.0.1:${toString config.services.cadvisor.port}" ]; }
-            ];
-          }
+        mkIf
+          config.services.cadvisor.enable {
+          job_name = "cadvisor";
+          static_configs = [
+            { targets = [ "127.0.0.1:${toString config.services.cadvisor.port}" ]; }
+          ];
+        }
       )
     ];
   };

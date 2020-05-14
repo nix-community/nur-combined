@@ -25,13 +25,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = let
-      unbreak = p: p.overrideAttrs (old: { meta = old.meta // { broken = false; }; });
-    in
+    nixpkgs.overlays =
+      let
+        unbreak = p: p.overrideAttrs (old: { meta = old.meta // { broken = false; }; });
+      in
       [
         # error: Package ‘python3.7-stem-1.7.1’ in /nix/store/... is marked as broken, refusing to evaluate.
         (
-          mkIf config.services.prometheus.exporters.tor.enable
+          mkIf
+            config.services.prometheus.exporters.tor.enable
             (self: super: { python3Packages = super.python3Packages // { stem = unbreak super.python3Packages.stem; }; })
         )
       ];

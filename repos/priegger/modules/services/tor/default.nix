@@ -80,15 +80,17 @@ in
       ];
     };
 
-    systemd = let
-      onionServiceNames = map
-        (name: "${torOnionDirectory}/${name}")
-        (attrNames config.services.tor.hiddenServices);
+    systemd =
+      let
+        onionServiceNames =
+          map
+            (name: "${torOnionDirectory}/${name}")
+            (attrNames config.services.tor.hiddenServices);
 
-      hasNodeExporter = config.services.prometheus.exporters.node.enable;
-      hasTor = config.services.tor.enable;
-      hasOnionService = onionServiceNames != [];
-    in
+        hasNodeExporter = config.services.prometheus.exporters.node.enable;
+        hasTor = config.services.tor.enable;
+        hasOnionService = onionServiceNames != [ ];
+      in
       mkIf (hasNodeExporter && hasTor && hasOnionService) {
         services = {
           "tor-metrics" = {

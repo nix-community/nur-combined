@@ -3,7 +3,6 @@ repositories:
   nixpkgs: https://nixos.org/channels/nixos-20.03
 packages:
   - nixpkgs.cachix
-  - nixpkgs.nixpkgs-fmt
 sources:
   - https://git.sr.ht/~priegger/nur-packages
 secrets:
@@ -16,7 +15,7 @@ tasks:
       cachix use "${CACHIX_CACHE}" --mode user-nixconf
   - lint: |
       cd nur-packages
-      find . -name '*.nix' -exec nixpkgs-fmt --check {} +
+      nix-shell -p nixpkgs-fmt -I nixpkgs=./nix --run "find . -name '*.nix' -exec nixpkgs-fmt --check {} +"
   - build: |
       cd nur-packages
 

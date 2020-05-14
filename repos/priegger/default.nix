@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {}, ... }:
+{ pkgs ? import <nixpkgs> { }, ... }:
 
 # special attributes
 {
@@ -6,5 +6,5 @@
   modules = import ./modules;
   overlays = import ./overlays;
 }
-# pkgs
-// (import ./pkgs { inherit pkgs; })
+  # pkgs
+  // (import ./pkgs { inherit pkgs; })

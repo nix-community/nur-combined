@@ -2,7 +2,7 @@
 
 with lib;
 let
-  reresolveDns = pkgs.callPackage ./pkg.nix {};
+  reresolveDns = pkgs.callPackage ./pkg.nix { };
 
   cfg = config.priegger.services.reresolve-dns;
 in

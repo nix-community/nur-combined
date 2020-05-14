@@ -12,7 +12,7 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 with builtins;
 let
@@ -31,26 +31,26 @@ let
       f = p:
         if shouldRecurseForDerivations p then flattenPkgs p
         else if isDerivation p then [ p ]
-        else [];
+        else [ ];
     in
-      concatMap f (attrValues s);
+    concatMap f (attrValues s);
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
   nurAttrs = import ./nur.nix { inherit pkgs; };
 
   nurPkgs =
-    flattenPkgs
-      (
-        listToAttrs
+    flattenPkgs (
+      listToAttrs (
+        map
+          (n: nameValuePair n nurAttrs.${n})
           (
-            map (n: nameValuePair n nurAttrs.${n})
-              (
-                filter (n: !isReserved n)
-                  (attrNames nurAttrs)
-              )
+            filter
+              (n: !isReserved n)
+              (attrNames nurAttrs)
           )
-      );
+      )
+    );
 in
 rec {
   buildPkgs = filter isBuildable nurPkgs;
