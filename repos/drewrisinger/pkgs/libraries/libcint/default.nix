@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "libcint";
-  version = "3.0.19";
+  version = "3.0.20";
 
   src = fetchFromGitHub {
     owner = "sunqm";
     repo = "libcint";
     rev = "v${version}";
-    sha256 = "0x613f2hiqi2vbhp20fcl7rhxb07f2714lplzd0vkvv07phagip9";
+    sha256 = "0iqqq568q9sxppr08rvmpyjq0n82pm04x9rxhh3mf20x1ds7ngj5";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -28,14 +28,6 @@ stdenv.mkDerivation rec {
     "-DWITH_F12=1"
     "-DWITH_RANGE_COULOMB=1"
     "-DWITH_COULOMB_ERF=1"
-  ];
-
-  patches = [
-    (fetchpatch {
-      name = "libcint-python3-test-syntax-patch";
-      url = "http://patch-diff.githubusercontent.com/raw/sunqm/libcint/pull/33.patch";
-      sha256 = "1pg9rz8vffijl3kkk6f4frsivd7m2gp2k44llzkaajav4m5q8q4a";
-    })
   ];
 
   doCheck = true;
