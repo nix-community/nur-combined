@@ -15,7 +15,7 @@
 buildPythonPackage rec {
   pname = "qiskit";
   # NOTE: This version denotes a specific set of subpackages. See https://qiskit.org/documentation/release_notes.html#version-history
-  version = "0.19.1";
+  version = "0.19.2";
 
   disabled = pythonOlder "3.5";
 
@@ -23,7 +23,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit";
     rev = version;
-    sha256 = "0p1sahgf6qgbkvxb067mnyj6ya8nv7y57yyiiaadhjw242sjkjy5";
+    sha256 = "1z5wzpx6649cvb68w2c74hzbg8i6m820szcw890an9dwa9aq00v8";
   };
 
   propagatedBuildInputs = [
@@ -42,7 +42,9 @@ buildPythonPackage rec {
     "--disable-warnings"
   ];
   # following doesn't work b/c they are distributed across different nix sitePackages dirs. Tested with pytest though.
-  # pythonImportsCheck = [ "qiskit" "qiskit.terra" "qiskit.ignis" "qiskit.aer" "qiskit.aqua" ];
+  pythonImportsCheck = [ "qiskit" "qiskit.circuit" "qiskit.ignis" "qiskit.providers.aer" "qiskit.aqua" ];
+  preCheck = "pushd $TMP/$sourceRoot";  # Required when using importsCheck + pytestCheckHook on Nixpkgs 19.09
+  postCheck = "popd";
 
   meta = {
     description = "Software for developing quantum computing programs";
