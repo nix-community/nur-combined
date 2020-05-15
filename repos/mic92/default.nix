@@ -65,6 +65,8 @@ rec {
     fonts = [ "SourceCodePro" ];
   };
 
+  traceshark = pkgs.qt5.callPackage ./pkgs/traceshark { };
+
   threema-web = pkgs.callPackage ./pkgs/threema-web { };
 
   xterm-24bit-terminfo = pkgs.callPackage ./pkgs/xterm-24bit-terminfo { };
