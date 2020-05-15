@@ -100,12 +100,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.5";
+    version = "1.10.6";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "0a9iwhd7ijm8gkp3zadxza0xb6xwa5ps0d16pz4mz2p21gfzvwym";
+      sha256 = "0yzfzgg9qlc388g91bdg7y7rp1q8vqb5hkwykwmr1n1lv8dsrg99";
     };
 
     unpackPhase = ":";
@@ -186,10 +186,10 @@ let
   };
 
   event = buildPecl {
-    version = "2.5.4";
+    version = "2.5.5";
     pname = "event";
 
-    sha256 = "1vnfxnh33p3d5ih2n1syp7ylgzj15i8sdcd64idd342anla1zs02";
+    sha256 = "0cwx2d0kq7cnl2lh3jfz0jw4024szqb4vm0v8b0r35gz571j7dsr";
 
     configureFlags = with pkgs; [
       "--with-event-libevent-dir=${libevent.dev}"
@@ -513,12 +513,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.19";
+    version = "0.12.25";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "15fz7rixi9s46qqxpj26349aky7wxqnzmfsnwlh1f2p4jsfd85ki";
+      sha256 = "1a864v7fxpv5kp24nkvczrir3ldl6wxvaq85rd391ppa8ahdhvdd";
     };
 
     phases = [ "installPhase" ];
@@ -638,12 +638,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.11.2";
+    version = "3.11.3";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "1ani0907whqy2ycr01sjlvrmwps4dg5igim8z1qyv8grhwvw6gb0";
+      sha256 = "0knk3dcmc53r1458i4mrsy61snqmnd9l06i65aw3biwzpvxn9bz8";
     };
 
     phases = [ "installPhase" ];
@@ -664,12 +664,12 @@ let
   };
 
   psysh = mkDerivation rec {
-    version = "0.10.3";
+    version = "0.10.4";
     pname = "psysh";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "0glply451fy0g7zbasyp350qvmk2aglrlcrcdd7w0igylgwfkg71";
+      sha256 = "005xh5rz12bsy9yvzzr69zpr0p7v4sh6cafhpinpfrvbwfq068f1";
     };
 
     phases = [ "installPhase" ];
@@ -769,10 +769,10 @@ let
 
   #redis50 = assert !isPhp56; buildPecl {
   redis50 = buildPecl {
-    version = "5.2.1";
+    version = "5.2.2";
     pname = "redis";
 
-    sha256 = "1gnbkv3jxi6acx7970d0n5r47nsbsnr172xy7wq48j3h9ljzcnn0";
+    sha256 = "04dadrzdrsl2wnbsyn5qn9wpagh5sxqbfhz9fcc7cj6sr2g2crcr";
 
     meta.broken = isPhp56;
   };
