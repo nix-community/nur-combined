@@ -18,7 +18,6 @@
 
   programs.bat.enable = true;
   programs.command-not-found.enable = true;
-  programs.firefox.enable = true;
   programs.fzf.enable = true;
   programs.fzf.enableZshIntegration = true;
   programs.feh.enable = true;
@@ -31,8 +30,6 @@
   programs.zathura.enable = true;
   programs.zsh = {
     enable = true;
-
-    defaultKeymap = "vicmd";
     enableCompletion = true;
     oh-my-zsh.enable = true;
     oh-my-zsh.plugins =
@@ -41,7 +38,6 @@
     shellAliases.nixos = "sudo nixos-rebuild";
   };
 
-  services.blueman-applet.enable = true;
   services.flameshot.enable = true;
   services.gpg-agent = {
     enable = true;
