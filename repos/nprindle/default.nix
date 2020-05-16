@@ -9,5 +9,8 @@
   # packages
   butler = pkgs.callPackage ./pkgs/butler {};
   riscv-gnu-toolchain = pkgs.callPackage ./pkgs/riscv-gnu-toolchain {};
+  xs = pkgs.callPackage ./pkgs/xs {
+    ocamlPackages = pkgs.ocamlPackages_latest;
+  };
 }
 
