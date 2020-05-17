@@ -2,15 +2,15 @@
 
 buildGoModule rec {
   pname = "nix-build-uncached";
-  version = "0.1.0";
+  version = "0.1.1";
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "nix-build-uncached";
     rev = "v${version}";
-    sha256 = "0gl6y6qsd7d3b9il8zqb8w4wq0crqqr38d0nx23d5hfqf8adv6si";
+    sha256 = "0jkpg3ab56lg2kdms9w9ka9ba89py3ajksjsi1rd3iqi74zz2mmh";
   };
 
-  modSha256 = "1fl0wb1xj4v4whqm6ivzqjpac1iwpq7m12g37gr4fpgqp8kzi6cn";
+  vendorSha256 = null;
 
   nativeBuildInputs = [ makeWrapper ];
 
