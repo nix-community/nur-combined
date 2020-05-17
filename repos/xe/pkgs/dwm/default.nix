@@ -9,5 +9,7 @@ pkgs.dwm.overrideAttrs (old: rec {
     ./alphasystray.diff
     ./dwm-uselessgap-6.2.diff
     ./dwm-autostart-20161205-bb3bd6f.diff
+    ./dwm-pertag-6.2.diff
+    ./dwm-centeredmaster-6.1.diff
   ];
 })
