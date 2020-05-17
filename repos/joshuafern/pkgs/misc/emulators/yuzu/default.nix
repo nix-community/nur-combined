@@ -6,14 +6,14 @@
 
 mkDerivation rec {
   pname = "yuzu";
-  version = "unstable-2020-04-25";
+  version = "unstable-2020-05-08";
 
   src = fetchFromGitHub {
     owner = "yuzu-emu";
     repo = "yuzu-mainline"; # They use a separate repo for mainline “branch”
     fetchSubmodules = true;
-    rev = "76b65f7f33a60ab7068854328b8411dc5ae538c6";
-    sha256 = "1jvqq40c4sdmzzb5ia3nfmhfdk80rpp0hspfrsbx0cwmx9298l2i";
+    rev = "50c27d5ae1bfe6cff6f091f07d68ab7b8e394d9d";
+    sha256 = "00zyg0baf358zrs9s5ml12mafcn9180bis6jiz06xh5lv1v24qd7";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];

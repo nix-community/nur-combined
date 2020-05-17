@@ -3,13 +3,13 @@
 
 mkDerivation {
   pname = "citra";
-  version = "unstable-2020-05-11";
+  version = "unstable-2020-05-13";
 
   # Submodules
   src = fetchgit {
     url = "https://github.com/citra-emu/citra";
-    rev = "d11d600b61e44599a3b7379727263396e51b6ef4";
-    sha256 = "1f2bviffyiknw1sshqvnj3fhkhhwz0iaw9gshab5j3r6b2wd5473";
+    rev = "213c956b7ce15a2ceabceef7539b881b1934467c";
+    sha256 = "0w72yybyfhfrmnkicwk2xmgl7nfmrvjvw02965rim9njzvy3cspg";
   };
 
   enableParallelBuilding = true;
@@ -26,7 +26,11 @@ mkDerivation {
   meta = with stdenv.lib; {
     homepage = "https://citra-emu.org";
     description = "An open-source emulator for the Nintendo 3DS";
-    license = licenses.gpl2;
+    license = with licenses; [ 
+      gpl2Plus
+      # Icons
+      cc-by-nd-30 cc0
+    ];
     maintainers = with maintainers; [ abbradar joshuafern ];
     platforms = platforms.linux;
   };
