@@ -36,7 +36,6 @@ mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    broken = true;
     homepage = "https://yuzu-emu.org";
     description = "An experimental Nintendo Switch emulator";
     license = with licenses; [ 
