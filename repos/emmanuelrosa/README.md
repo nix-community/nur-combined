@@ -26,6 +26,14 @@ See the corresponding module in the NixOS Modules section below.
 
 My custom script to set wallpaper and color schemes. It's simply a wrapper for `pywal` and `betterlockscreen`.
 
+### electrum-hardened
+
+The (Electrum)[https://electrum.org] wallet executed in a restricted environment using [Bubblewrap)[https://github.com/containers/bubblewrap].
+
+More specifically, Electrum is executed in a Linux container with no network access and with limited access to the filesystem. This makes it more difficult for Electrum to (perhaps accidently) leak information. In short, it prevents Electrum from using public Electrum servers. And it also prevents Electrum from accessing BTC price APIs. Although the latter can probably be fixed.
+
+It's expected that you use `electrum-hardened` with `electrum-personal-server`; It's the only network access permitted. In addition, if the directory `$HOME/tnxs` exists, it's bind-mounted into the container; This allows the transfer of files, such as partially-signed transactions, between the host and the container.
+
 ## NixOS Modules
 
 ### btrbk
