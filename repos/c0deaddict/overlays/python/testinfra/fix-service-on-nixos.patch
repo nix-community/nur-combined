@@ -1,0 +1,14 @@
+diff --git a/testinfra/modules/service.py b/testinfra/modules/service.py
+index 80d6921..f39c2e0 100644
+--- a/testinfra/modules/service.py
++++ b/testinfra/modules/service.py
+@@ -51,7 +51,8 @@ class Service(Module):
+         if host.system_info.type == "linux":
+             if (
+                 host.exists("systemctl")
+-                and "systemd" in host.file("/sbin/init").linked_to
++                and ("systemd" == host.process.get(pid=1).cmd
++                     or "systemd" in host.file("/sbin/init").linked_to)
+             ):
+                 return SystemdService
+             if (host.exists("initctl")

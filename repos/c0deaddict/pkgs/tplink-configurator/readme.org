@@ -1,0 +1,41 @@
+[[https://shred.zone/cilla/page/383/setting-up-tp-link-tl-sg108e-with-linux.html][source]]
+
+Unfortunately the ones I have (v1.0) don't have a web interface. The
+=Easy Smart Configuration Utility= is needed which can be found [[https://www.tp-link.com/en/support/download/tl-sg108e/v1/#Easy_Smart_Configuration_Utility][here]].
+
+Run the file with =wine= and install it. Go to the installed
+directory, it can be found at: =/home/jos/.wine/drive_c/Program
+Files/TP-LINK=.
+
+Remove all files in the folder except the =com= and =META-INF=
+directories and create a =jar= file of it:
+
+#+begin_src bash
+jar --create --file tplink-config.jar --manifest META-INF/MANIFEST.MF .
+#+end_src
+
+The application uses JavaFX with features tht aren't supported by the
+Jetbrains OpenJDK build (which does have JavaFX). So we need to run it
+with =oraclejdk8=.
+
+#+begin_src bash
+nix-shell -p oraclejdk8 --run "java -jar tplink-config.jar"
+#+end_src
+
+The program works, but it can't find switches. This is because the
+software discovers the switches via UDP broadcast, but the interface
+is bound to the local IP address instead of any address, as is
+required on Linux. We need to tweak the firewall:
+
+(replace =$your_ip=)
+
+#+begin_src bash
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A PREROUTING -p udp -d 255.255.255.255 --dport 29809 -j DNAT --to $your_ip:29809
+#+end_src
+
+Also make sure that UDP port =29808= is allowed (incoming) by the
+firewall.
+
+Now hit refresh in the configurator GUI and the switch should
+appear. The default username and password are =admin=/=admin=.
