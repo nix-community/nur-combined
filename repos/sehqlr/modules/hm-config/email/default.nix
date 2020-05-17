@@ -52,6 +52,9 @@
       programs.afew = {
         enable = true;
       };
+      programs.alot = {
+        enable = true;
+      };
 
       programs.astroid = {
         enable = true;
