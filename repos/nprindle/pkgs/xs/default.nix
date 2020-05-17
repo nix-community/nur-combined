@@ -37,7 +37,7 @@ in opkgs.buildDunePackage {
     description = "Concatenative array language inspired by kdb/+q";
     homepage = "https://github.com/smabie/xs";
     platforms = platforms.unix;
-    license = null; # no license yet
+    license = licenses.publicDomain;
   };
 }
 
