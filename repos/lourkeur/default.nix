@@ -14,13 +14,7 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  python3Packages.flask-httpauth = pkgs.python3Packages.callPackage pkgs/python/flask-httpauth.nix {};
-
   semiphemeral = pkgs.python3Packages.callPackage pkgs/semiphemeral {};
-  onionshare = pkgs.python3Packages.callPackage pkgs/onionshare {
-    inherit (python3Packages) flask-httpauth;
-  };
-
 
   mars-simulator = pkgs.callPackage pkgs/mars-simulator {};
 
