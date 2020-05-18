@@ -14,6 +14,7 @@ let
 in
 let
   python3AppPackages = pkgs.recurseIntoAttrs rec {
+    bandit = pkgs.python3.pkgs.callPackage ./pkgs/development/python-modules/bandit { lib = mylib; };
     bundlewrap = pkgs.python3.pkgs.callPackage ./pkgs/development/python-modules/bundlewrap { lib = mylib; };
   };
 in
@@ -23,6 +24,8 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  bandit = pkgs.python3.pkgs.toPythonApplication python3AppPackages.bandit;
   bundlewrap = pkgs.python3.pkgs.toPythonApplication python3AppPackages.bundlewrap;
+
 }
 
