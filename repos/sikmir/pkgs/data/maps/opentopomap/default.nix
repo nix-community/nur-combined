@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "opentopomap";
-  version = "2020-04-10";
+  version = "2020-05-15";
 
   src = fetchurl {
     url = "http://garmin.opentopomap.org/data/russia-european-part/russia-european-part_garmin.zip";

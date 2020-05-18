@@ -118,27 +118,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "10c24p6ch833lkxj3cf2cvi2jfcrqnwhzd02jrhb061q2zw333vk",
+        "sha256": "1q193jgp7zbnqyna956b518baixri6s6qkscqr2smbqm5py3ws7m",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-200515.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-200517.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "200515"
+        "version": "200517"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "1q9cw2rg5dq9zrpgx5r493i1i32hajih20cb6ba2nqkmpsbbghn9",
+        "sha256": "0k03y8lp92gkvxlj9n1zxhjdfmpflqvix4rj0p9xbc5fkgaf43rv",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-200515.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-200517.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "200515"
+        "version": "200517"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "0w7s0s53mfxaq5akgc8irmv29r3npidy6a9qrr3cjkdijkvz08y9",
+        "sha256": "1n78i5h39dfllr0hl5kzvjxlbm4ph1kw29hrgpg4a6gsgki6xj33",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200515.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200517.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "200515"
+        "version": "200517"
     },
     "gimgtools": {
         "branch": "master",
@@ -316,10 +316,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "1546944847a8c4214758a7e74dfc3beedf760474",
-        "sha256": "0rxxjwppi6xxp1gqa1rnlsgkfhgm2syaj2rdpqhgf89yk274wvmh",
+        "rev": "8b8f00f91c284839587718680fe7d2fd44ceeb07",
+        "sha256": "1wk4bn4lbjy3g6k1hk6zlvdzl0r5k9d9iybwl8lxi2lxqp10z3ab",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/1546944847a8c4214758a7e74dfc3beedf760474.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/8b8f00f91c284839587718680fe7d2fd44ceeb07.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -340,11 +340,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "0v6xd1x1swncq34p6yn6l7kqyl0mjmvxlh3vfi1ri1idwc5gq040",
+        "sha256": "1jkxm6jn2ggnx2akpmkvkzxr8wlkcx32nx8hbb2sqrpk177x8m5a",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-05-16.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-05-18.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-05-16"
+        "version": "2020-05-18"
     },
     "mbtileserver": {
         "branch": "master",
