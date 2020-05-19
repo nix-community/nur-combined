@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/wamserma/nur-packages.svg?branch=master)](https://travis-ci.org/wamserma/nur-packages)
 [![Cachix Cache](https://img.shields.io/badge/cachix-wamserma-blue.svg)](https://wamserma.cachix.org)
 
-Want you own? I used [this template](https://github.com/nix-community/nur-packages-template).
+Want your own? I used [this template](https://github.com/nix-community/nur-packages-template).
 
 ## What's here?
 
@@ -18,6 +18,22 @@ Search: <https://nix-community.github.io/nur-search/repos/wamserma/>
 
 + [bundlewrap](https://bundlewrap.org/) a lightweight, python-based alternative to Ansible
 
+### Security Tools
+
++ [bandit](https://github.com/PyCQA/bandit) a static code analysis tool designed to find common security issues in Python code
+(without self tests due to their depndecy hell)
+
 ## How to use?
 
+Launch directly:  
+```
+nix run -f "https://github.com/wamserma/nur-packages/archive/master.tar.gz" bundlewrap --command bw --version
+```
+
+One-off install (example):  
+```
+nix-env -f "https://github.com/wamserma/nur-packages/archive/master.tar.gz" -iA bundlewrap
+```
+
+Persistent:
 [see here](https://github.com/nix-community/NUR/blob/master/README.md)
