@@ -5,7 +5,6 @@ let
   
   self = {
     emacsWithConfig = callPackage ./emacs-with-config {};
-    manifest-nix    = callPackage ./manifest-nix  {};
     userEnv         = callPackage ./user-environment  {};
   };
 in self
