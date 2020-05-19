@@ -10,4 +10,5 @@
     instaloader = pkgs.python3Packages.callPackage ./instaloader {};
   };
   text2pdf = pkgs.callPackage ./text2pdf {};
+  vimv = pkgs.callPackage ./vimv {};
 }
