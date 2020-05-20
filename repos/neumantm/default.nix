@@ -14,9 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
   pythonWithPipenv = pkgs.callPackage ./pkgs/pythonWithPipenv { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  multiEclipse = pkgs.callPackage ./pkgs/multiEclipse { };
 }
 
