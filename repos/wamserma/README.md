@@ -21,7 +21,7 @@ Search: <https://nix-community.github.io/nur-search/repos/wamserma/>
 ### Security Tools
 
 + [bandit](https://github.com/PyCQA/bandit) a static code analysis tool designed to find common security issues in Python code
-(without self tests due to their depndecy hell)
+(without self tests due to the test dependencies)
 
 ## How to use?
 
