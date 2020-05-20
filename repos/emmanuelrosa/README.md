@@ -34,6 +34,10 @@ More specifically, Electrum is executed in a Linux container with no network acc
 
 It's expected that you use `electrum-hardened` with `electrum-personal-server`; It's the only network access permitted. In addition, if the directory `$HOME/tnxs` exists, it's bind-mounted into the container; This allows the transfer of files, such as partially-signed transactions, between the host and the container.
 
+### pdf2png
+
+A simple script I wrote to convert a PDF into PNGs.
+
 ## NixOS Modules
 
 ### btrbk
