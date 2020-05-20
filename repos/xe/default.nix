@@ -23,6 +23,7 @@ rec {
   };
   gopls = pkgs.callPackage ./pkgs/gopls { };
   gruvbox-css = pkgs.callPackage ./pkgs/gruvbox-css { };
+  hewwo = pkgs.callPackage ./pkgs/hewwo { };
   ii = pkgs.callPackage ./pkgs/ii { };
   ix = pkgs.callPackage ./pkgs/ix { };
   johaus = pkgs.callPackage ./pkgs/johaus { };
