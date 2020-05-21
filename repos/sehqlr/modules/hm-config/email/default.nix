@@ -52,13 +52,14 @@
       programs.afew = {
         enable = true;
       };
+
       programs.alot = {
         enable = true;
       };
 
       programs.astroid = {
         enable = true;
-        pollScript = "afew -m";
+        pollScript = "notmuch new";
         extraConfig = {
           editor.cmd = "urxvt -embed %3 -e kak %1";
           startup.queries = {
