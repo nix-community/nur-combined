@@ -118,27 +118,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "1q193jgp7zbnqyna956b518baixri6s6qkscqr2smbqm5py3ws7m",
+        "sha256": "1jb7cwnri99m2az9ckgnz4ip4l4x3ad50051mrr769rxwr72hp97",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-200517.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-200520.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "200517"
+        "version": "200520"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "0k03y8lp92gkvxlj9n1zxhjdfmpflqvix4rj0p9xbc5fkgaf43rv",
+        "sha256": "0c1jsxhf4dnc30i43fcaqnmshcvjkw1yn0aq7cying3hpd5jws0b",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-200517.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-200520.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "200517"
+        "version": "200520"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "1n78i5h39dfllr0hl5kzvjxlbm4ph1kw29hrgpg4a6gsgki6xj33",
+        "sha256": "0amqvdcj4p92klzlz47idgk4xbnbblycibxzr6njgalqlscvxan9",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200517.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200520.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "200517"
+        "version": "200520"
     },
     "gimgtools": {
         "branch": "master",
@@ -212,10 +212,10 @@
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "035883aab2e136c5d83f36eaf81fb84025455e57",
-        "sha256": "01wrgc3l9kw9s1dm02mgvibz6zr7i21xwb7yfal7yphs5qdxp4nd",
+        "rev": "9bd004359daab185b6184831e0bbde24eb6860f3",
+        "sha256": "118qyixrhlhvgkk893s0bgxc3wr792r15i76bwmg0rkxm5a4w9v9",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/035883aab2e136c5d83f36eaf81fb84025455e57.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/9bd004359daab185b6184831e0bbde24eb6860f3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -316,10 +316,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "8b8f00f91c284839587718680fe7d2fd44ceeb07",
-        "sha256": "1wk4bn4lbjy3g6k1hk6zlvdzl0r5k9d9iybwl8lxi2lxqp10z3ab",
+        "rev": "033489171e4ef2ff7a7f6658bb19b711d481e340",
+        "sha256": "00v5qkhwiil0qzx7779c1vqxiiwa6xd5k9427s2kxc5drnln1h6g",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/8b8f00f91c284839587718680fe7d2fd44ceeb07.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/033489171e4ef2ff7a7f6658bb19b711d481e340.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -340,11 +340,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "1jkxm6jn2ggnx2akpmkvkzxr8wlkcx32nx8hbb2sqrpk177x8m5a",
+        "sha256": "0ilssma6g1dfp5b2pqcgzp9vqkwzcv4kzhb3wj5k393y5sjzf0x4",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-05-18.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-05-20.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-05-18"
+        "version": "2020-05-20"
     },
     "mbtileserver": {
         "branch": "master",
