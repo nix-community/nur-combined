@@ -186,10 +186,10 @@ let
   };
 
   event = buildPecl {
-    version = "2.5.5";
+    version = "2.5.6";
     pname = "event";
 
-    sha256 = "0cwx2d0kq7cnl2lh3jfz0jw4024szqb4vm0v8b0r35gz571j7dsr";
+    sha256 = "16qxdpm55birp7vpwjcbx35a5c1rfz1bcvqg4jm2k5y85vdjnwfz";
 
     configureFlags = with pkgs; [
       "--with-event-libevent-dir=${libevent.dev}"
@@ -621,10 +621,10 @@ let
 
   #protobuf = assert isPhp74; buildPecl {
   protobuf = buildPecl {
-    version = "3.11.4";
+    version = "3.12.1";
     pname = "protobuf";
 
-    sha256 = "17dj9fwlh41221c8fxrdvbbiwr95sdvqlkip5gmbs9kwrc9vsmbx";
+    sha256 = "1x53nwzkmvb66f06wlnj7i9rwgvckdrz3q5n6n0kmhvd40nh6xsq";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
