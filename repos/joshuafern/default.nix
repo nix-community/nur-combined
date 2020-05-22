@@ -21,6 +21,7 @@
   minigalaxy = pkgs.python3.pkgs.callPackage ./pkgs/applications/misc/minigalaxy { };
   
   # development/mobile
+  checkra1n = pkgs.callPackage ./pkgs/development/mobile/checkra1n { };
   qdl = pkgs.callPackage ./pkgs/development/mobile/qdl { };
 
   # misc/emulators
