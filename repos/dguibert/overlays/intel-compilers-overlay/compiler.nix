@@ -1,7 +1,9 @@
-{ stdenv, fetchurl, glibc, gcc, file
+{ stdenv, fetchannex, gcc, file
 , cpio, rpm
 , patchelf
 , version ? "2019.0.117"
+, url
+, sha256
 , preinstDir ? "opt/intel/compilers_and_libraries_${version}/linux"
 , config
 }:
@@ -37,61 +39,23 @@ let
 
   components_ = [
     "intel-comp*"
-    "intel-c-comp*"
     "intel-openmp*"
     "intel-icc*"
     "intel-ifort*"
-  ];
+  ] ++ stdenv.lib.optionals (stdenv.lib.versionOlder "2017.99.999" version) [ "intel-c-comp*" ];
 
   extract = pattern: ''
-    for rpm in $(ls /build/parallel_studio_xe_*/rpm/${pattern} | grep -v 32bit); do
+    for rpm in $(ls $build/rpm/${pattern}.rpm | grep -v 32bit); do
+      echo "Extracting: $rpm"
       ${rpm}/bin/rpm2cpio $rpm | ${cpio}/bin/cpio -ivd
     done
   '';
-
-versions = {
-# "2016.0.109"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/7997/parallel_studio_xe_2016.tgz
-# "2016.1.150"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/8365/parallel_studio_xe_2016_update1.tgz
-# "2016.2.181"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/8676/parallel_studio_xe_2016_update2.tgz
-# "2016.3.210" = null;
-# "2016.3.223"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/9061/parallel_studio_xe_2016_update3.tgz
-# "2016.4.258"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/9781/parallel_studio_xe_2016_update4.tgz
-#
-#
-# "2017.0.098"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/9651/parallel_studio_xe_2017.tgz
-# "2017.1.132"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/10973/parallel_studio_xe_2017_update1.tgz
-# "2017.2.174"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11298/parallel_studio_xe_2017_update2.tgz
-# http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11460/parallel_studio_xe_2017_update3.tgz
-# "2017.4.196"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11537/parallel_studio_xe_2017_update4.tgz
-# "2017.5.239"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12138/parallel_studio_xe_2017_update5.tgz
-# http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12534/parallel_studio_xe_2017_update6.tgz
-# "2017.7.259"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12856/parallel_studio_xe_2017_update7.tgz
-# http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13709/parallel_studio_xe_2017_update8.tgz
-#
-#
-# "2018.0.128"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12062/parallel_studio_xe_2018_professional_edition.tgz
-# "2018.1.163"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12375/parallel_studio_xe_2018_update1_professional_edition.tgz
-# "2018.2.199"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12718/parallel_studio_xe_2018_update2_professional_edition.tgz
-# "2018.3.222"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12999/parallel_studio_xe_2018_update3_professional_edition.tgz
-# "2018.5.274"http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13718/parallel_studio_xe_2018_update4_professional_edition.tgz
-
-
-  "2019.0.117" = fetchurl {
-    url = "http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/13578/parallel_studio_xe_2019_professional_edition.tgz";
-    sha256 = "1qhicj98x60csr4a2hjb3krvw74iz3i3dclcsdc4yp1y6m773fcl";
-  };
-  "2019.1.144" = fetchurl {
-    url = "http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/14854/parallel_studio_xe_2019_update1_professional_edition.tgz";
-    sha256 = "1rhcfbig0qvkh622cvf8xjk758i3jh2vbr5ajdgms7jnwq99mii8";
-  };
-};
-
 
 self = stdenv.mkDerivation rec {
   inherit version;
   name = "intel-compilers-${version}";
 
-  src = versions."${version}";
+  src = fetchannex { inherit url sha256; };
 
   nativeBuildInputs= [ file patchelf ];
 
@@ -100,6 +64,7 @@ self = stdenv.mkDerivation rec {
 
   installPhase = ''
     set -xv
+    export build=$PWD
     mkdir $out
     cd $out
     echo "${stdenv.lib.concatStringsSep "+" components_}"
@@ -127,11 +92,11 @@ self = stdenv.mkDerivation rec {
       case "$type" in
       "application/executable"|"application/x-executable")
         echo "Patching executable: $f"
-        patchelf --set-interpreter $(echo ${glibc}/lib/ld-linux*.so.2) --set-rpath ${glibc}/lib:${gcc.cc}/lib:${gcc.cc.lib}/lib:\$ORIGIN:\$ORIGIN/../lib $f || true
+        patchelf --set-interpreter $(echo ${stdenv.cc.libc.out}/lib/ld-linux*.so.2) --set-rpath ${stdenv.cc.libc.out}/lib:${gcc.cc}/lib:${gcc.cc.lib}/lib:\$ORIGIN:\$ORIGIN/../lib $f || true
         ;;
       "application/x-sharedlib"|"application/x-pie-executable")
         echo "Patching library: $f"
-        patchelf --set-rpath ${glibc}/lib:${gcc.cc}/lib:${gcc.cc.lib}/lib:\$ORIGIN:\$ORIGIN/../lib $f || true
+        patchelf --set-rpath ${stdenv.cc.libc.out}/lib:${gcc.cc}/lib:${gcc.cc.lib}/lib:\$ORIGIN:\$ORIGIN/../lib $f || true
         ;;
       *)
         echo "$f ($type) not patched"
@@ -145,13 +110,14 @@ self = stdenv.mkDerivation rec {
       sed -e "s,/${preinstDir}/,$out,g" -i $file
     done
 
-    libc=$(dirname $(dirname $(echo ${glibc}/lib/ld-linux*.so.2)))
+    libc=$(dirname $(dirname $(echo ${stdenv.cc.libc.out}/lib/ld-linux*.so.2)))
     for comp in icc icpc ifort ; do
-      echo "-idirafter $libc/include -dynamic-linker $(echo ${glibc}/lib/ld-linux*.so.2)" >> $out/bin/intel64/$comp.cfg
+      echo "-idirafter $libc/include -dynamic-linker $(echo ${stdenv.cc.libc.out}/lib/ld-linux*.so.2)" >> $out/bin/intel64/$comp.cfg
     done
 
     for comp in icc icpc ifort xild xiar; do
       echo "#!/bin/sh" > $out/bin/$comp
+
       echo "export PATH=${gcc}/bin:${gcc.cc}/bin:\$PATH" >> $out/bin/$comp
       echo "source $out/bin/compilervars.sh intel64" >> $out/bin/$comp
       echo "$out/bin/intel64/$comp \"\$@\"" >> $out/bin/$comp

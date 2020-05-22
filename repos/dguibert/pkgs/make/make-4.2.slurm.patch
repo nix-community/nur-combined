@@ -1,0 +1,34 @@
+--- job.c.orig	2016-05-21 22:22:32.000000000 +0200
++++ job.c	2019-03-11 15:24:18.291883430 +0100
+@@ -2123,6 +2123,22 @@
+   int fdin = good_stdin ? FD_STDIN : get_bad_stdin ();
+   int fdout = FD_STDOUT;
+   int fderr = FD_STDERR;
++  char** argx=NULL;
++  /* PARALLEL JOB LAUNCH VIA SLURM */
++  if (getenv("SLURM_JOB_ID")) {
++    unsigned int i, argc=4;
++    for (i=0; argv[i] != NULL ; i++) argc++;
++    argx = (char**) malloc( sizeof(char*)*( argc  ));
++    argx[0] = "srun";
++    argx[1] = "-N1";
++    argx[2] = "-n1";
++    for (i=0; argv[i] != NULL ; i++) {
++      argx[i+3] = argv[i];
++    }
++    argx[ argc -1 ] = NULL;
++    argv = argx;
++  }
++  /* END OF SLURM PATCH */
+ 
+   /* Divert child output if we want to capture it.  */
+   if (out && out->syncout)
+@@ -2157,6 +2173,8 @@
+ 
+   /* Run the command.  */
+   exec_command (argv, envp);
++
++  free(argx);
+ }
+ #endif /* !AMIGA && !__MSDOS__ && !VMS */
+ #endif /* !WINDOWS32 */

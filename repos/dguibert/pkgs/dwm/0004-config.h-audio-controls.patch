@@ -1,0 +1,44 @@
+From 36e1dd49e235c38bd09fd6e7251aa5d5ee6ea29b Mon Sep 17 00:00:00 2001
+From: David Guibert <david.guibert@hydrocean.fr>
+Date: Thu, 12 Nov 2015 16:59:24 +0100
+Subject: [PATCH 4/9] config.h: audio controls
+
+---
+ config.def.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/config.def.h b/config.def.h
+index cac01ed..ac3c70f 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -1,4 +1,5 @@
+ /* See LICENSE file for copyright and license details. */
++#include <X11/XF86keysym.h>
+ 
+ /* appearance */
+ static const unsigned int borderpx  = 1;        /* border pixel of windows */
+@@ -63,6 +64,11 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn()
+ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+ static const char *termcmd[]  = { "urxvtc", NULL };
+ 
++// for pulse compatible //
++static const char *pulseup[] = { "amixer", "-q", "sset", "Master", "1%+", NULL };
++static const char *pulsedown[]= { "amixer", "-q", "sset", "Master", "1%-", NULL };
++static const char *pulsetoggle[]= { "amixer", "-q", "set", "Master", "+1", "toggle", NULL };
++
+ static Key keys[] = {
+ 	/* modifier                     key           function        argument */
+ 	{ MODKEY,                       XK_p,         spawn,          {.v = dmenucmd } },
+@@ -98,6 +104,9 @@ static Key keys[] = {
+ 	TAGKEYS(                        XK_underscore,                7)
+ 	TAGKEYS(                        XK_ccedilla,                  8)
+ 	{ MODKEY|ShiftMask,             XK_q,         quit,           {0} },
++        { 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = pulseup } },
++        { 0,                            XF86XK_AudioLowerVolume, spawn, {.v = pulsedown } },
++        { 0,                            XF86XK_AudioMute,        spawn, {.v = pulsetoggle } },
+ };
+ 
+ /* button definitions */
+-- 
+2.19.2
+

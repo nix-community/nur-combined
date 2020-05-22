@@ -1,19 +1,16 @@
-{ stdenv, fetchurl, glibc, file
+{ stdenv, fetchannex, glibc, file
 , patchelf
 , version ? "2019.0.117"
+, url
+, sha256
 , preinstDir ? "compilers_and_libraries_${version}/linux"
 }:
 
-let
-redist_srcs = {
-  "2019.1.144" = fetchurl { url="https://software.intel.com/sites/default/files/managed/79/cd/l_comp_lib_2019.1.144_comp.for_redist.tgz"; sha256="05kd2lc2iyq3rgnbcalri86nf615n0c1ii21152yrfyxyhk60dxm"; };
-};
-
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   inherit version;
   name = "intel-compilers-redist-${version}";
 
-  src = redist_srcs."${version}";
+  src = fetchannex { inherit url sha256; };
   nativeBuildInputs= [ file patchelf ];
 
   dontPatchELF = true;
@@ -37,7 +34,7 @@ in stdenv.mkDerivation rec {
         ;;
       "application/x-sharedlib"|"application/x-pie-executable")
         echo "Patching library: $f"
-        patchelf --set-rpath ${glibc}/lib:\$ORIGIN:\$ORIGIN/../lib $f || true
+        patchelf --set-rpath ${glibc}/lib:\$ORIGIN:\$ORIGIN/../lib:${stdenv.cc.cc.lib}/lib $f || true
         ;;
       *)
         echo "$f ($type) not patched"

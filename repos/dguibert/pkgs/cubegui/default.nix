@@ -16,4 +16,8 @@ stdenv.mkDerivation {
   #];
   buildInputs = [ cubelib qt5.qtbase perl which ];
   enableParallelBuilding = true;
+  meta = {
+    # /nix/store/2dfjlvp38xzkyylwpavnh61azi0d168b-binutils-2.31.1/bin/ld: cannot find -lcube.tools.common
+    broken = true;
+  };
 }

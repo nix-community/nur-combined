@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     mpiicc -o $out/bin/mpiniapp-ping-pong $src -lcaliper-mpi -lcaliper -lcaliper-reader -lcaliper-common
     ''}
-    ${stdenv.lib.optionalString stdenv.cc.isGnu or false ''
+    ${stdenv.lib.optionalString stdenv.cc.isGNU or false ''
     mkdir -p $out/bin
     mpicc -o $out/bin/mpiniapp-ping-pong $src -lcaliper-mpi -lcaliper -lcaliper-reader -lcaliper-common
     ''}

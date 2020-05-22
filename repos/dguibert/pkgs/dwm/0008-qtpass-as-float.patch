@@ -1,0 +1,24 @@
+From 6c5e3f569f7dcc286347db9d8e82c1c51f1ab241 Mon Sep 17 00:00:00 2001
+From: David Guibert <david.guibert@gmail.com>
+Date: Fri, 10 Mar 2017 09:35:34 +0100
+Subject: [PATCH 8/9] qtpass as float
+
+---
+ config.def.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/config.def.h b/config.def.h
+index ec2b5b9..3b5fff0 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -34,6 +34,7 @@ static const Rule rules[] = {
+ 	/* class      instance    title       tags mask     isfloating   monitor */
+ 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+ 	{ "Xpra",     NULL,       NULL,       0,            1,           -1 },
++	{ "QtPass",     NULL,       NULL,       0,            1,           -1 },
+ 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+ };
+ 
+-- 
+2.19.2
+

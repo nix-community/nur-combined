@@ -1,0 +1,10 @@
+{
+  "_nixpkgs": "/home/dguibert/code/nixpkgs",
+  "nixpkgs": {
+    "owner": "dguibert",
+    "repo": "nixpkgs",
+    "branch": "pu",
+    "rev": "caadc948af8167cec82d7646908434a818cb949c",
+    "sha256": "15hnnnqwbay253746cww8k0yjcbwlk1c5lg2afknagnxnscl33ym"
+  }
+}

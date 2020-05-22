@@ -109,12 +109,12 @@ fi
 
 export NIX_${role_pre}CC=@out@
 
-export ${role_pre}CC=@out@/bin/@named_cc@
-export ${role_pre}CXX=@out@/bin/@named_cxx@
-export ${role_pre}FC=@out@/bin/@named_fc@
-export CC${role_post}=@out@/bin/@named_cc@
-export CXX${role_post}=@out@/bin/@named_cxx@
-export FC${role_post}=@out@/bin/@named_fc@
+export ${role_pre}CC=@named_cc@
+export ${role_pre}CXX=@named_cxx@
+export ${role_pre}FC=@named_fc@
+export CC${role_post}=@named_cc@
+export CXX${role_post}=@named_cxx@
+export FC${role_post}=@named_fc@
 
 # If unset, assume the default hardening flags.
 : ${NIX_HARDENING_ENABLE="fortify stackprotector pic strictoverflow format relro bindnow"}

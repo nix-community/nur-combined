@@ -20,7 +20,7 @@ let
       owner = "flang-compiler";
       repo = "flang";
       rev = "master";
-      sha256 = "1l267bj3ylfjlizgmc70im6am0w8haylg6gikvnlv6n6kb0m7s6j";
+      sha256 = "0akl3aqs1f97xm0kryfim4gsfknwpp9avqqgs5n6x18jrdg11k3k";
     };
 
     libraries  = let
@@ -30,7 +30,9 @@ let
         });
     tools = let
       callPackage = newScope (tools // { inherit stdenv cmake libxml2 python isl release_version version flang_src; });
-      mkExtraBuildCommands = cc: ''
+      mkExtraBuildCommands = cc: flang: ''
+        ${pkgs.lib.optionalString (flang !=null) "echo \"-I${flang}/include -L${flang}/lib -L${tools.libpgmath}/lib -Wl,-rpath ${flang}/lib -Wl,-rpath ${tools.libpgmath}/lib -B${flang}/bin\" >> $out/nix-support/cc-cflags"}
+
         rsrc="$out/resource-root"
         mkdir "$rsrc"
         ln -s "${cc}/lib/clang/${release_version}/include" "$rsrc"
@@ -53,30 +55,31 @@ let
         nativeLibc = targetPlatform == hostPlatform && stdenv.cc.nativeLibc or false;
         nativePrefix = stdenv.cc.nativePrefix or "";
         noLibc = !self.nativeLibc && (self.libc == null);
-  
+
         isGNU = cc.isGNU or false;
         isClang = cc.isClang or false;
-  
+
         inherit cc bintools libc;
       } // extraArgs; in self);
 
     in llvmPackages_6.tools.extend (s: p: {
         clang-unwrapped = callPackage ./clang { };
         libpgmath = callPackage ../libpgmath.nix {
-          stdenv = llvmPackages_6.stdenv; 
+          stdenv = llvmPackages_6.stdenv;
         };
-        flang-unwrapped = callPackage ../flang.nix { 
+        flang-unwrapped = callPackage ../flang.nix {
           stdenv = llvmPackages_6.stdenv;
           inherit (libraries) openmp;
         };
         flang = wrapCCWith rec {
+          name = "flang";
           cc = tools.clang-unwrapped;
           extraPackages = [
             libstdcxxHook
             libraries.compiler-rt
             tools.flang-unwrapped
           ];
-          extraBuildCommands = mkExtraBuildCommands cc;
+          extraBuildCommands = mkExtraBuildCommands cc tools.flang-unwrapped;
         };
         llvm = callPackage ./llvm.nix { };
         clang = if stdenv.cc.isGNU then tools.libstdcxxClang else tools.libcxxClang;
@@ -86,9 +89,9 @@ let
             libstdcxxHook
             libraries.compiler-rt
           ];
-          extraBuildCommands = mkExtraBuildCommands cc;
+          extraBuildCommands = mkExtraBuildCommands cc null;
         };
-    
+
         libcxxClang = wrapCCWith rec {
           cc = tools.clang-unwrapped;
           extraPackages = [
@@ -96,7 +99,7 @@ let
             libraries.libcxxabi
             libraries.compiler-rt
           ];
-          extraBuildCommands = mkExtraBuildCommands cc;
+          extraBuildCommands = mkExtraBuildCommands cc null;
         };
 
       });

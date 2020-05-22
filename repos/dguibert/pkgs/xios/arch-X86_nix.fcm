@@ -2,7 +2,7 @@
 %FCOMPILER      @fc@
 %LINKER         @fc@
 
-%BASE_CFLAGS    -w -std=gnu++98
+%BASE_CFLAGS    -w -std=c++11
 %PROD_CFLAGS    -O3 -D BOOST_DISABLE_ASSERTS
 %DEV_CFLAGS     -g -traceback
 %DEV_CFLAGS     -g

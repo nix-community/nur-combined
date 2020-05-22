@@ -35,7 +35,7 @@ in {
     nixpkgs = {
       overlays = [ (import ../overlays/qemu-user.nix) ];
     };
-    boot.binfmtMiscRegistrations =
+    boot.binfmt.registrations =
       optionalAttrs cfg.arm { inherit arm; } //
       optionalAttrs cfg.aarch64 { inherit aarch64; } //
       optionalAttrs cfg.riscv64 { inherit riscv64; };

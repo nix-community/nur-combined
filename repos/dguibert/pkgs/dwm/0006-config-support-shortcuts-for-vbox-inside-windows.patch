@@ -1,0 +1,31 @@
+From 80055e05562f37221ca0019d5aa71f1268286b47 Mon Sep 17 00:00:00 2001
+From: David Guibert <david.guibert@gmail.com>
+Date: Fri, 22 Apr 2016 18:22:25 +0200
+Subject: [PATCH 6/9] config: support shortcuts for vbox inside windows
+
+---
+ config.def.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/config.def.h b/config.def.h
+index d4a51be..bc5be7f 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -80,6 +80,14 @@ static Key keys[] = {
+ 	{ MODKEY,                       XK_d,         incnmaster,     {.i = -1 } },
+ 	{ MODKEY,                       XK_h,         setmfact,       {.f = -0.05} },
+ 	{ MODKEY,                       XK_l,         setmfact,       {.f = +0.05} },
++        // support for virtualbox inside Windows
++	{ MODKEY,                       XK_Up,        focusstack,     {.i = +1 } },
++	{ MODKEY,                       XK_Down,      focusstack,     {.i = -1 } },
++	{ MODKEY,                       XK_KP_Add,      incnmaster,   {.i = +1 } },
++	{ MODKEY,                       XK_KP_Subtract, incnmaster,   {.i = -1 } },
++	{ MODKEY,                       XK_Left,      setmfact,       {.f = -0.05} },
++	{ MODKEY,                       XK_Right,     setmfact,       {.f = +0.05} },
++
+ 	{ MODKEY,                       XK_Return,    zoom,           {0} },
+ 	{ MODKEY,                       XK_Tab,       view,           {0} },
+ 	{ MODKEY|ShiftMask,             XK_c,         killclient,     {0} },
+-- 
+2.19.2
+

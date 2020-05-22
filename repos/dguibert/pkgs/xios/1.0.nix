@@ -7,10 +7,13 @@
 , perlPackages
 , netcdf-mpi
 , netcdffortran
+, hdf5-mpi
 , blitz, boost166
 }:
 let
   blitz_ = blitz.override { boost = boost166; };
+  netcdffortran_ = netcdffortran.override { netcdf = netcdf-mpi; hdf5 = hdf5-mpi; };
+
   arch-X86_nix_fcm = substituteAll {
     src = ./arch-X86_nix.fcm;
     inherit netcdffortran;
@@ -35,7 +38,7 @@ in stdenv.mkDerivation {
     rev = "703";
     sha256 = "0w598pi2y6ag2836b10qvz12kdxqxd9j41gqwkzlj3ji3yf8pcp4";
   };
-  buildInputs = [ gfortran mpi perl netcdf-mpi netcdffortran
+  buildInputs = [ gfortran mpi perl netcdf-mpi netcdffortran_
     perlPackages.URI
     blitz_ boost166.all
   ];
@@ -57,6 +60,8 @@ in stdenv.mkDerivation {
   '';
   buildPhase = ''
     cp ${arch-X86_nix_fcm} arch/arch-X64_nix.fcm
+    sed -i -e "s@-std=c++11@-std=c++98@" arch/arch-X64_nix.fcm
+
     cp ${arch-X86_nix_path} arch/arch-X64_nix.path
     touch arch/arch-X64_nix.env
     cat arch/arch-X64_nix.fcm

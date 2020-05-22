@@ -28,5 +28,8 @@ stdenv.mkDerivation {
   meta = {
     homePage = "https://doc.itc.rwth-aachen.de/display/CCP/Project+MUST";
     description = "detects usage errors of the Message Passing Interface (MPI) and reports them to the user";
+    # InsertCPredef(MUST_MPI_UB, MPI_UB, predefs, alignments, extents);
+    # error: 'MPI_UB' was not declared in this scope
+    broken = true;
   };
 }

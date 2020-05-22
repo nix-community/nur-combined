@@ -25,7 +25,7 @@ rec {
       , fflags ? ""
       ,ldflags ? ""
     }:
-    pkg: pkgs.lib.overrideDerivation pkg (attrs: {
+    pkg: pkg.overrideAttrs (attrs: {
     preConfigure = ''
       export CFLAGS="$CFLAGS ${flags} ${cflags}"
       export FFLAGS="$FFLAGS ${flags} ${fflags}"
@@ -34,13 +34,14 @@ rec {
     '' + "${attrs.preConfigure or ""}";
   });
 
-  customFlagsWithinStdEnv = 
+  customFlagsWithinStdEnv =
     {    flags ? "" # all flags (cflags, fflags, ldflags)
       , cflags ? ""
       , fflags ? ""
       ,ldflags ? ""
     }:
     stdenv: stdenv // {mkDerivation = args: stdenv.mkDerivation (args // {
+      phases = [ "preConfigure" ] ++ args.phases;
       preConfigure = ''
         export CFLAGS="$CFLAGS ${flags} ${cflags}"
         export FFLAGS="$FFLAGS ${flags} ${fflags}"

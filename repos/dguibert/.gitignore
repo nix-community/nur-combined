@@ -2,4 +2,7 @@ result
 result-*
 *.swp
 *.swo
-
+nix*.tar.bz2
+downloads/*
+ARM-Compiler-for-HPC_19.0_AArch64_RHEL_7_aarch64/
+*-software
