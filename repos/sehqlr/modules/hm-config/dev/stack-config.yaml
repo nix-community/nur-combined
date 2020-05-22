@@ -8,10 +8,10 @@
 # See https://docs.haskellstack.org/en/stable/yaml_configuration/#templates
 templates:
   params:
-#    author-name:
-#    author-email:
-#    copyright:
-#    github-username:
+    author-name: Sam Hatfield
+    author-email: hey@samhatfield.me
+    copyright: 2020 Sam Hatfield
+    github-username: sehqlr
 
 # The following parameter specifies stack's output styles; STYLES is a
 # colon-delimited sequence of key=value, where 'key' is a style name and
@@ -19,3 +19,5 @@ templates:
 # Rendition) control codes (in decimal). Use "stack ls stack-colors --basic"
 # to see the current sequence.
 # stack-colors: STYLES
+nix:
+    enable: true
