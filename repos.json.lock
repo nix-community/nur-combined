@@ -95,6 +95,11 @@
             "sha256": "0x9q6zdw56sldffqhyvwdx64bjzw5yb6idag4ggrf6ivisrvyszy",
             "url": "https://github.com/dezgeg/nur-packages"
         },
+        "dguibert": {
+            "rev": "17c2652201b7dbb069d2628e79ec7dd6cc0144a6",
+            "sha256": "1lyvddv2270a5gsmbmx1gvgm2khbxg592gj0zjhqg7g13d5qzk25",
+            "url": "https://github.com/dguibert/nur-packages"
+        },
         "drewrisinger": {
             "rev": "b08629ebe76eec05cd82d5af92a00af839b794a8",
             "sha256": "0dk09p139077z5zsbj8y0f6p5rvar23plxmbxz6cf8qnrcm15kw4",
@@ -454,6 +459,11 @@
             "rev": "f45e5a2ab2f29c9b7e7eee6c62289db755545329",
             "sha256": "1pv53mxn5ci76lzvabrkqcvd9nnpsqkqs2wzdwrh3r394zfjp22h",
             "url": "https://github.com/trevorriles/nur-packages"
+        },
+        "vdemeester": {
+            "rev": "ffd5ed1d584e8102c8a692e0069f1a6b63e890b7",
+            "sha256": "0bqik5361fyagiphvfwbxq3lk6120lyxhrrl44jv45jqsfgp7dzv",
+            "url": "https://gitlab.com/vdemeester/home"
         },
         "wamserma": {
             "rev": "ab81651a2d9af80fb733eb6295df3c21c4a74423",

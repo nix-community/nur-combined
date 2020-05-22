@@ -61,6 +61,9 @@
         "dezgeg": {
             "url": "https://github.com/dezgeg/nur-packages"
         },
+        "dguibert": {
+            "url": "https://github.com/dguibert/nur-packages"
+        },
         "drewrisinger": {
             "url": "https://github.com/drewrisinger/nur-packages"
         },
@@ -284,6 +287,10 @@
         },
         "trevorriles": {
             "url": "https://github.com/trevorriles/nur-packages"
+        },
+        "vdemeester": {
+            "file": "pkgs/default.nix",
+            "url": "https://gitlab.com/vdemeester/home"
         },
         "wamserma": {
             "url": "https://github.com/wamserma/nur-packages"
