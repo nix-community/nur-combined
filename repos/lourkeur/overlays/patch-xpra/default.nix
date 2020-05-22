@@ -1,8 +1,10 @@
 self: super:
 let
-  branch = self.fetchzip {
-    url = https://github.com/lourkeur/nixpkgs/archive/bb52cbe103363ffd03f707c43ec14dfca0077513.zip;
-    sha256 = "01w05z11scmv3frjsqbpff3r3554739zvsj5xrvqba0rck2ad718";
+  branch = self.fetchFromGitHub {
+    owner = "mjlbach";
+    repo = "nixpkgs";
+    rev = "700615f1640d4c86d3f25d4cd3be366da540c566";
+    sha256 = "0rdaqrz7lchmsp4bnhz2ppdr2kl1dmz5jjdq6c2zmcv2q8pjvpdr";
   };
 in {
   xpra = self.callPackage "${branch}/pkgs/tools/X11/xpra" { };
