@@ -38,6 +38,7 @@ in opkgs.buildDunePackage {
     homepage = "https://github.com/smabie/xs";
     platforms = platforms.unix;
     license = licenses.publicDomain;
+    broken = true;
   };
 }
 
