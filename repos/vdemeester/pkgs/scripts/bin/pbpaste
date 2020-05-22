@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+if [ ! $(uname -s) = "Darwin" ]; then
+    xsel --clipboard --output $@
+else
+    pbpaste $@
+fi

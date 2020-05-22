@@ -1,0 +1,1407 @@
+#+TITLE: Vincent Demeester's .emacs.d
+#+SETUPFILE: ./.setupfile.org
+#+FILETAGS: emacs
+
+#+TOC: headlines 3
+
+* Overview
+:PROPERTIES:
+:CUSTOM_ID: h:64b142be-1326-479b-ab6e-e88ca298f56d
+:END:
+** Canonical links to this document
+:PROPERTIES:
+:CUSTOM_ID: h:9e025e71-b8c5-4cd3-88cc-c81f1e026d13
+:END:
+
+- HTML version :: [[https://vincent.demeester.fr/configurations/emacs.html][vincent.demeester.fr/configurations/emacs.html]]
+- Git repo :: [[https://gitlab.com/vdemeester/home/-/tree/master/tools/emacs][https://gitlab.com/vdemeester/home/-/tree/master/tools/emacs]]
+
+** What is this
+:PROPERTIES:
+:CUSTOM_ID: h:6cf02bfd-0266-456f-be5f-728c75e3013e
+:END:
+
+The present document, referred to in the source code version as =emacs.org=, contains the
+bulk of my configurations for GNU Emacs. It is designed using principles of "literate
+programming": a combination of ordinary language and inline code blocks. Emacs knows how
+to parse this file properly so as to evaluate only the elisp ("Emacs Lisp") included
+herein. The rest is for humans to make sense of my additions and their underlying
+rationale.
+
+#+BEGIN_QUOTE
+Literate programming allows us to be more expressive and deliberate. Not only we can use
+typography to its maximum potential, but can also employ techniques such as internal links
+between sections. This makes the end product much better for end users, than a terse
+script.
+#+END_QUOTE
+
+I switched back and forth on using =org-mode= and literate programming, so why re-using
+it. First, I think I went for it the wrong way the first time. I copied part of the
+configuration from elsewhere, sometimes without really needing what I was copying. for
+some reason I think this is a common pattern when configuring Emacs. You start by using a
+distribution (Doom Emacs, Spacemacs, …) or by copying configuration from all over the
+place. Slowly but surely you realize this was a mistake as you didn't learn anything, so
+you *reboot* your configuration.
+
+I'm taking [[https://protesilaos.com/][Protesilaos Stavrou]] approach on writing and configuring this file (see [[https://protesilaos.com/dotemacs/][his
+dotemacs]]), although I am not loading it directly. I prefer using the [[https://orgmode.org/manual/tangle.html][tangle]] feature of
+=org-mode= instead of loading it using ~org-babel~ function. This allows me to document my
+configuration and generating final(s) ~.el~ files. Those files can then load and/or
+pre-compile, without the need to load =org= first. It also means that I can add code
+pieces in there that won't be /tangle/, like usage example ; and I also can use this to
+generate any additional file I need, whatever the programming language they are written
+in. [[https://protesilaos.com/][Protesilaos Stavrou]] is not my only source, here are some others:
+
++ https://gitlab.com/ndw/dotfiles
++ https://github.com/MatthewZMD/.emacs.d
++ https://github.com/alhassy/emacs.d
++ https://github.com/chmouel/emacs-config
++ https://github.com/seagle0128/.emacs.d
++ https://github.com/hlissner/doom-emacs
++ http://doc.norang.ca/org-mode.html
+
+And also:
+
+- [[https://sriramkswamy.github.io/dotemacs/][Emacs configuration file]]
+- [[https://blog.d46.us/advanced-emacs-startup/][Advanced Techniques for Reducing Emacs Startup Time]]
+- [[https://www.bartuka.com/posts/emacs-config/index.html][@bartuka: emacs.d]]
+- [[http://www.howardism.org/Technical/Emacs/getting-boxes-done.html][Getting Boxes Done]]
+- [[https://idiocy.org/emacs-fonts-and-fontsets.html][Emacs, fonts and fontsets]]
+- [[https://spin.atomicobject.com/2016/05/27/write-emacs-package/][A Simple Guide to Writing & Publishing Emacs Packages]]
+- [[https://alphapapa.github.io/emacs-package-dev-handbook/][The Emacs Package Developer's Handbook]]
+
+** Why using GNU/Emacs ?
+:PROPERTIES:
+:CUSTOM_ID: h:165fca5a-b87d-4140-963b-658a2438e769
+:END:
+
+This is a question I thought I needed to answer, or at least, document why I am choosing
+GNU/Emacs as my primary editor. [[https://protesilaos.com/][Protesilaos Stavrou]] has a [[https://protesilaos.com/codelog/2019-12-20-vlog-switch-emacs/][video]] about it, really
+interesting.
+
+There is a lot of reasons but for me, the following are the main ones:
+- *Open Source*: this is a "of course", but my editor _has to be_ open-sourced. This seems
+  to be the norm these days anyway (and for a long time, with =vim=).
+- *Lightweight*: the editor should be relatively lightweight. I don't want a full browser
+  loaded to edit files, and I want to be able to run it in a terminal, on a server. =vim=
+  can do that (and sometimes, =vim= or =vi= is enough 👼).
+- *Extensible*: to be honest, this is the most important reason. I want to be able to
+  extend my editor as much as possible.
+
+GNU/Emacs checks all the boxes for me. Even though GNU/Emacs is probably not as
+lightweight as =vim=, it is definitely lightweight compared to all the Electron-based
+editors (vscode, …). It is of course open-source, and since ages (almost as old as I am
+😅). And best of all, GNU/Emacs is extensible as you couldn't dream of. Emacs is a lisp
+interpreter, and it is designed to be extended in order to meet the user's
+needs. /Extensibility/ is the quintessential Emacs quality. You can modify any piece of
+elisp /in real time/.
+
+I'm also a huge fan of /text-based/ software, a.k.a. do whatever you can using text :
+reading mails, news, organizing notes and todos, all can be done in text. And GNU/Emacs
+shines at this. For emails and news, you've got Gnus built-in, for notes and todos, the
+wonderful =org-mode= is the best thing on earth (seriously, this is the *one* mode that
+made me switch from =vim=).
+
+** Assumptions
+:PROPERTIES:
+:CUSTOM_ID: h:657c38cd-d910-42c2-bd8c-8c20171a8bd5
+:END:
+
+I'll make a few assumption in the following document (that may or may not be true):
+
+- [[https://nixos.org/nix/][~nix~]] is available, either from [[https://nixos.org][NixOS]] or via an install of nix. I'll try my best to
+  support non-nix environment, but it's definitely not my current focus.
+  + As I am making the assumption that ~nix~ is available, I am also making the assumption
+    that all the library required are already present (in my [[https://github.com/vdemeester/home][~home~]], there is a file
+    called [[https://github.com/vdemeester/home/blob/master/modules/profiles/emacs.nix][~emacs.nix~]] that encapsulate those dependencies). This is why, by default
+    *use-package* doesn't use the =ensure= option in 99% of the configuration.
+- Any function I wrote is going to be prefixed by ~vde/~ so that it doesn't conflicts with
+  function that would have been defined elsewhere.
+
+*** TODO Keybinding
+
+As it is detailed in each part of this configuration, I am trying to setup keybinding in a
+/mnemonics/ way so it's easy to remember (and use). This is what [[https://www.spacemacs.org/][spacemacs]] does with evil
+keybindings (aka vim-like keybindings). I am staying with the /standard/ emacs keybinding
+as much as possible (as there is already some mnemonics in there).
+
+There are countless jokes and comics on Emacs’s seemingly ridiculous keybindings. Good
+laughs indeed, but at the end of day, it’s not incomprehensible. It has well-defined
+conventions listed at [[https://www.gnu.org/software/emacs/manual/html%5Fnode/elisp/Key-Binding-Conventions.html][Emacs Key Bindings Convention]]. In summary, the general rules are:
+
++ =C-x= reserved for Emacs native essential keybindings: buffer, window, frame, file, directory, etc…
++ =C-c= reserved for user and major mode:
+  - =C-c letter= reserved for user. =<F5>=-=<F9>= reserved for user.
+  - =C-c C-letter= reserved for major mode.
++ Don’t rebind =C-g=, =C-h= and =ESC=.
+
+To give a small example, most of my personal =org-mode= keybinding will start with =C-c
+o=, as it is reserved for user, and =o= is for =org-mode=. For version control, it's gonna
+be =C-c v=, for projects it's gonna be =C-c p=, etc…
+
+| prefix  | "mode"                              |
+|---------+-------------------------------------|
+| <F1>    |                                     |
+| <F2>    |                                     |
+| <F3>    | /built-in/ Register macro(s)        |
+| <F4>    | /built-in/ Plays macro(s)           |
+| <F5>    | =revert-buffer=                     |
+| <F6>    |                                     |
+| <F7>    |                                     |
+| <F8>    |                                     |
+| <F9>    |                                     |
+| <F10>   |                                     |
+| <F11>   |                                     |
+| <F12>   |                                     |
+| =C-c b= | Bookmarks (=bookmark-plus=)         |
+| =C-c h= | Help (=helpful=, …)                 |
+| =C-c n= | Navigation (=avy=, …)               |
+| =C-c o= | Org mode                            |
+| =C-c p= | Projects (=projectile=, …)          |
+| =C-c v= | Version control (=vc=, =magit=, …)  |
+| =C-c w= | Window management (=ace-window=, …) |
+| =C-x p= | Bookmarks (=bookmark-plus=, …)      |
+
+See also:
+- https://karl-voit.at/2018/07/08/emacs-key-bindings/
+- https://www.masteringemacs.org/article/mastering-key-bindings-emacs
+- http://www.wilfred.me.uk/blog/2018/01/06/the-emacs-guru-guide-to-key-bindings/
+
+** COPYING
+:PROPERTIES:
+:CUSTOM_ID: h:d4cfb344-dcff-4144-951a-8197c5ae2c84
+:END:
+
+Copyright (c) 2013-2020 Vincent Demeester <vincent@sbr.pm>
+
+This file is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or (at
+your option) any later version.
+
+This file is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this file.  If not, see <http://www.gnu.org/licenses/>.
+
+* Base settings
+:PROPERTIES:
+:CUSTOM_ID: h:e483cc48-eb2d-42a7-93ca-3e1a37fa6a7c
+:END:
+
+This section contains configurations that are needed prior to the setup of everything
+else. Anything that needs to be configured first should be in there, this includes the
+~init.el~ and ~early-init.el~ files content.
+
+** Initiazing emacs
+:PROPERTIES:
+:CUSTOM_ID: h:4886d661-e2e0-4a75-bf3f-e85aef27b50c
+:END:
+
+Starting with Emacs 27, an =early-init.el= file can be used to do early configuration
+and optimization.
+
+#+begin_quote
+Emacs can now be configured using an early init file. The file is called ~early-init.el~,
+in ~user-emacs-directory~. It is loaded very early in the startup process: before
+graphical elements such as the tool bar are initialized, and before the package manager is
+initialized. The primary purpose is to allow customizing how the package system is
+initialized given that initialization now happens before loading the regular init file
+(see below).
+
+We recommend against putting any customizations in this file that don't need to be set up
+before initializing installed add-on packages, because the early init file is read too
+early into the startup process, and some important parts of the Emacs session, such as
+'window-system' and other GUI features, are not yet set up, which could make some
+customization fail to work.
+#+end_quote
+
+We can use this to our advantage and optimize the initial loading of emacs.
+
+- Before Emacs 27, the init file was responsible for initializing the package manager by
+  calling `package-initialize'.  Emacs 27 changed the default behavior: It now calls
+  `package-initialize' before loading the init file.
+
+  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "PkgStartup" :range-end "-PkgStartup" :lines "3-4"
+
+- Let's inhibit resizing the frame at early stage.
+
+  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "FrameResize" :range-end "-FrameResize" :lines "7-8"
+
+- I never use the /menu-bar/, or the /tool-bar/ or even the /scroll-bar/, so we can safely
+  disable those very very early.
+
+  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "DisableUI" :range-end "-DisableUI" :lines "11-15"
+
+- Finally we can try to avoid garbage collection at startup. The garbage collector can
+  easily double startup time, so we suppress it at startup by turning up ~gc-cons-threshold~
+  (and perhaps ~gc-cons-percentage~) temporarily.
+
+  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "GarbageCollection" :range-end "-GarbageCollection" :lines "18-20"
+
+- Another small optimization concerns on =file-name-handler-alist= : on every .el and .elc
+  file loaded during start up, it has to runs those regexps against the filename ; setting
+  it to ~nil~ and after initialization finished put the value back make the initialization
+  process quicker.
+
+  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "FileNameHandler" :range-end "-FileNameHandler" :lines "23-25"
+
+  However, it is important to reset it eventually. Not doing so will cause garbage
+  collection freezes during long-term interactive use. Conversely, a ~gc-cons-threshold~
+  that is too small will cause stuttering.
+
+  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "AfterInitHook" :range-end "-AfterInitHook" :lines "61-67"
+
+One thing though, I am currently not necessarily running Emacs 27, so I am going to need
+to have the same configuration in ~init.el~ for a little bit of time.
+
+/Note: the lowest emacs version I wanna support is 26 (as of today, might evolve)/
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "CheckVer" :range-end "-CheckVer" :lines "25-35"
+
+We also want our configuration to be working the same on any computer, this means we want
+to define every option by ourselves, not relying on default files (~default.el~) that
+would be set by our distribution. This is where =inhibit-default-init= comes into play,
+setting it to non-nil inhibit loading the ~default~ library.
+
+We also want to inhibit some initial default start messages and screen. The default screen
+will be as bare as possible.
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "Inhibit" :range-end "-Inhibit" :lines "38-42"
+
+Let's also use =y= or =n= instead of =yes= and =no= when exiting Emacs.
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "Confirm" :range-end "-Confirm" :lines "45-46"
+
+One last piece to the puzzle is the default mode. Setting it to fundamental-mode means we
+won't load any /heavy/ mode at startup (like =org-mode=). We also want this scratch buffer
+to be empty, so let's set it as well
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "DefaultMode" :range-end "-DefaultMode" :lines "49-51"
+
+*** Unicode all the way
+:PROPERTIES:
+:CUSTOM_ID: h:df45a01a-177d-4909-9ce7-a5423e0ea20f
+:END:
+
+By default, all my systems are configured and support =utf-8=, so let's just make it a
+default in Emacs ; and handle special case on demand.
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "Unicode" :range-end "-Unicode" :lines "54-59"
+
+*** Package management with =use-package=
+:PROPERTIES:
+:CUSTOM_ID: h:112262a1-dd4d-4a50-a9e2-85b36bbbd95b
+:END:
+
+=use-package= is a tool that streamlines the configuration of packages. It handles
+everything from assigning key bindings, setting the value of customisation options,
+writing hooks, declaring a package as a dependency for another, and so on.
+
+#+begin_quote
+The =use-package= macro allows you to isolate package configuration in your =.emacs= file
+in a way that is both performance-oriented and, well, tidy.  I created it because I have
+over 80 packages that I use in Emacs, and things were getting difficult to manage.  Yet
+with this utility my total load time is around 2 seconds, with no loss of functionality!
+#+end_quote
+
+With =use-package= we can improve the start-up performance of Emacs in a few fairly simple
+ways. Whenever a command is bound to a key it is configured to be loaded only once
+invoked. Otherwise we can specify which functions should be autoloaded by means of the
+=:commands= keyword.
+
+We need to setup the emacs package system and install =use-package= if not present
+already.
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "UsePackageSetup" :range-end "-UsePackageSetup" :lines "62-111"
+
+*** =custom.el=
+:PROPERTIES:
+:CUSTOM_ID: h:1ddaf27e-ff7c-424e-8615-dd0bd22b685f
+:END:
+
+When you install a package or use the various customisation interfaces to tweak things to
+your liking, Emacs will append a piece of elisp to your init file. I prefer to have that
+stored in a separate file.
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "CustomFile" :range-end "-CustomFile" :lines "116-131"
+
+*** Remove built-in =org-mode=
+:PROPERTIES:
+:CUSTOM_ID: h:9462c0d7-03be-4231-8f22-ce1a04be32b1
+:END:
+
+I want to make sure I am using the installed version of =orgmode= (from my org
+configuration) instead of the built-in one. To do that safely, let's remove the built-in
+version out of the load path.
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "NoBuiltinOrg" :range-end "-NoBuiltinOrg" :lines "134-140"
+
+*** Loading configuration files
+:PROPERTIES:
+:CUSTOM_ID: h:d6aebc56-aadb-4b01-8404-bb922d12f8a8
+:END:
+
+This =org-mode= document /tangles/ into several files in different folders :
+- ~config~ for my configuration
+- ~lisp~ for imported code or library I've written and not yet published
+
+I used to load them by hand in the ~init.el~ file, which is very cumbersome, so let's try
+to automatically load them. I want to first load the file in the ~lisp~ folder as they are
+potentially used by my configuration (in ~config~).
+
+Let's define some functions that would do the job.
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "LoadCfgFunc" :range-end "-LoadCfgFunc" :lines "143-153"
+
+Let's define some constants early, based on the system, and the environment, to be able to
+use those later on to skip some package or change some configuration accordingly.
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "CfgConstant" :range-end "-CfgConstant" :lines "156-187"
+
+Now, in order to load ~lisp~ and ~config~ files, it's just a matter of calling this
+function with the right argument.
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "CfgLoad" :range-end "-CfgLoad" :lines "190-195"
+
+Finally, I want to be able to load files for a specific machine, in case I need it (not
+entirely sure why yet but…)
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "CfgHostLoad" :range-end "-CfgHostLoad" :lines "198-200"
+
+*** Counting the time of loading
+:PROPERTIES:
+:CUSTOM_ID: h:2b645e95-6776-4f5b-a318-e5a915943881
+:END:
+
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "LastInit" :range-end "-LastInit" :lines "203-214"
+
+** ~PATH~'s customization
+:PROPERTIES:
+:header-args: :tangle config/00-environments.el
+:CUSTOM_ID: h:2a72b00e-ea97-4a3b-a70c-cbbe648df428
+:END:
+
+To make sure my emacs instance and my user environment setup is always /similar/, I use
+=exec-path-from-shell=.
+
+#+begin_quote
+Ever find that a command works in your shell, but not in Emacs?
+
+This happens a lot on OS X, where an Emacs instance started from the GUI inherits a
+default set of environment variables.
+
+This library solves this problem by copying important environment variables from the
+user's shell: it works by asking your shell to print out the variables of interest, then
+copying them into the Emacs environment.
+#+end_quote
+
+#+begin_src emacs-lisp
+(use-package exec-path-from-shell       ; Set up environment variables
+  :if (display-graphic-p)
+  :unless (eq system-type 'windows-nt)
+  :config
+  (setq exec-path-from-shell-variables
+        '("PATH"               ; Full path
+          "INFOPATH"           ; Info directories
+          "GOPATH"             ; Golang path
+          ))
+  (exec-path-from-shell-initialize))
+
+(setenv "PAGER" "cat")
+(setenv "TERM" "xterm-256color")
+#+end_src
+
+
+** Keep emacs clean
+:PROPERTIES:
+:header-args: :tangle config/00-clean.el
+:CUSTOM_ID: h:8a9d7d0d-0900-4261-a9e3-923a0afc1324
+:END:
+
+I want to keep the =~/.emacs.d= folder as clean as possible. The [[https://github.com/emacscollective/no-littering][no-littering]] project
+helps wit that.
+
+#+begin_quote
+The default paths used to store configuration files and persistent data are not consistent
+across Emacs packages. This isn't just a problem with third-party packages but even with
+built-in packages.
+
+Some packages put these files directly in user-emacs-directory or $HOME or in a
+subdirectory of either of the two or elsewhere. Furthermore sometimes file names are used
+that don't provide any insight into what package might have created them.
+
+This package sets out to fix this by changing the values of path variables to put
+configuration files in no-littering-etc-directory (defaulting to ~/.emacs.d/etc/) and
+persistent data files in no-littering-var-directory (defaulting to ~/.emacs.d/var/), and
+by using descriptive file names and subdirectories when appropriate. This is similar to a
+color-theme; a "path-theme" if you will.
+#+end_quote
+
+Let's configure it *and* make sure we load it as soon as possible (hence the
+=config/00-clean.el=).
+
+As I am loading =recentf= during this cleanup part, I need to setup recentf before 😅. In
+a gist:
+
+- I keep about 200 items.
+- I don't want the /auto-cleanup/ of recentf items to happen when the mode is loaded (a.k.a.
+  at startup). It is configured to run after 360s of idle time.
+- I don't really want to show the Nth number of the items.
+- I don't want recentf to save remote, =su= and =sudo= items (=ssh:=, =sudo:=, …)
+
+#+begin_src emacs-lisp
+(use-package recentf
+  :config
+  (setq recentf-max-saved-items 200
+        recentf-auto-cleanup 360
+        recentf-show-file-shortcuts-flag nil)
+  (recentf-mode 1)
+  (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:")
+  ;; Magic advice to rename entries in recentf when moving files in
+  ;; dired.
+  (defun rjs/recentf-rename-notify (oldname newname &rest args)
+    (if (file-directory-p newname)
+        (rjs/recentf-rename-directory oldname newname)
+      (rjs/recentf-rename-file oldname newname)))
+
+  (defun rjs/recentf-rename-file (oldname newname)
+    (setq recentf-list
+          (mapcar (lambda (name)
+                    (if (string-equal name oldname)
+                        newname
+                      oldname))
+                  recentf-list))
+    recentf-cleanup)
+
+  (defun rjs/recentf-rename-directory (oldname newname)
+    ;; oldname, newname and all entries of recentf-list should already
+    ;; be absolute and normalised so I think this can just test whether
+    ;; oldname is a prefix of the element.
+    (setq recentf-list
+          (mapcar (lambda (name)
+                    (if (string-prefix-p oldname name)
+                        (concat newname (substring name (length oldname)))
+                      name))
+                  recentf-list))
+    recentf-cleanup)
+
+  (advice-add 'dired-rename-file :after #'rjs/recentf-rename-notify))
+
+(use-package no-littering               ; Keep .emacs.d clean
+  :config
+  (require 'recentf)
+  (add-to-list 'recentf-exclude no-littering-var-directory)
+  (add-to-list 'recentf-exclude no-littering-etc-directory)
+
+  ;; Move this in its own thing
+  (setq
+   create-lockfiles nil
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)
+
+  (setq
+   backup-directory-alist
+   `((".*" . ,(no-littering-expand-var-file-name "backup/")))
+   auto-save-file-name-transforms
+   `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+#+end_src
+
+** Server mode
+:PROPERTIES:
+:CUSTOM_ID: h:51ffd089-63c6-4ba6-8cc5-4c888521ef3a
+:END:
+
+My current setup involves a =emacs --daemon= systemd service. We want to start the server
+if it's not already running, so that =emacsclient= can connect to it.
+
+#+INCLUDE: "../tools/emacs/config/01-server.el" src emacs-lisp :range-begin "UseServer" :range-end "-UseServer" :lines "7-10"
+
+** Base typeface configurations
+:PROPERTIES:
+:CUSTOM_ID: h:117f0725-0708-43b9-b191-0956ad0a0a7a
+:END:
+
+Let's configure the font that Emacs will use. In the emacs world this is call =face=. I am
+a big fan of the [[https://design.ubuntu.com/font/][=Ubuntu= fonts]], so this is the set of font family I use, if available. If
+the =Ubuntu= font are not available on the system, I am just letting Emacs start with its
+default font.
+
+#+INCLUDE: "../tools/emacs/config/config-appearance.el" src emacs-lisp :range-begin "TypeFaceConfiguration" :range-end "-TypeFaceConfiguration" :lines "6-28"
+
+** Typeface suitability test
+:PROPERTIES:
+:CUSTOM_ID: h:293b5c57-a3d4-4d53-ab7d-dd05a264748d
+:END:
+
+ Here is a simple test I have come up with to make an initial assessment of the overall
+ quality of the font: can you discern the character at a quick glance? If yes, your choice
+ of typeface is good prima facie, else search for something else.
+
+
+()[]{}<>«»‹›
+6bB8&0ODdo
+1tiIlL|
+!ij
+5$Ss
+7Zz
+gqp
+nmMN
+uvvwWuuw
+x×X
+.,·°;:¡!¿?
+:;
+`'
+‘’
+''"
+'
+"
+“”
+—-~≈=_.…
+
+Sample character set
+Check for monospacing and Greek glyphs
+
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+1234567890#%^*
+ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ
+αβγδεζηθικλμνξοπρστυφχψω
+
+שלום, السّلام عليكم
+
+ሠላም
+
+* TODO Selection candidates and search methods
+:PROPERTIES:
+:CUSTOM_ID: h:4323a022-5419-48f7-acf9-7af94e43eddf
+:END:
+
+** TODO Completion framework and extras
+:PROPERTIES:
+:CUSTOM_ID: h:f352f694-f22c-4e19-b1ff-fdd8405ef8c0
+:END:
+
+One of the optimal way of using Emacs is through searching and narrowing selection
+candidates. Spend less time worrying about where things are on the screen and more on how
+fast you can bring them into focus. This is, of course, a matter of realigning priorities,
+as we still wish to control every aspect of the interface.
+
+Since the day I started using Emacs, I used multiple completion framework, from the
+/built-in/ =ido-mode=, to =ivy= (and =counsel=) passing through =helm= at some point. I
+never experimented with any sort of customisations to the generic minibuffer
+experience. Nor did I ever bother with the oldest built-in tool of the sort (icomplete)
+that is designed to complement the minibuffer's internal mechanisms for matching
+items, until I've watched [[https://protesilaos.com/codelog/2020-02-26-emacs-icomplete/][Protesilaos video on it]].
+
+It turns out that, despite appearances to the contrary, the defaults are very powerful,
+opening up a range of possibilities to those eager to learn and experiment (a common theme
+in Emacs).
+
+In the following package declarations I am defining several functions that enhance the
+experience of icomplete. These are part of a learning process to (i) explore the internals
+of Emacs and study how various problems are solved with elisp, and (ii) determine how far
+one can go, in terms of efficient functionality, without deviating from the norms inherent
+to the tools that are shipped with Emacs.
+
+*** TODO Minibuffer essentials and Icomplete (built-in completion)
+:PROPERTIES:
+:CUSTOM_ID: h:5fb80d63-6c5b-4d2d-9755-ffe48c851b73
+:END:
+
+ The minibuffer is the locus of extended command interaction. Whether it is about offering
+ input to a prompt, performing a search, executing a function by its name, the minibuffer
+ remains at the epicentre. The default experience is far more powerful than it seems to
+ be. It can get even better by tweaking the available customisation options and defining
+ our own extensions.
+* TODO Directory, buffer and window management
+:PROPERTIES:
+:CUSTOM_ID: h:88c7f450-bb9d-41f6-a8f9-3082a32d3179
+:END:
+
+* Applications and utilities
+:PROPERTIES:
+:CUSTOM_ID: h:8219f8ae-d4a8-4b9d-9a4a-3e457d69751e
+:END:
+
+This section includes configurations for programs like email clients, messages, knowledge
+database and other /applications/ that runs in Emacs. Most of those should be the "killer
+apps" of the Emacs ecosystem.
+
+** Org-mode (personal information manager)
+:PROPERTIES:
+:header-args: :tangle config/config-org.el
+:CUSTOM_ID: h:c8fd2624-6c91-4b89-9645-4261ca85d584
+:END:
+
+I am an heavy user of [[https://orgmode.org/][=org-mode=]]. This is most likely *the one* mode that made me switch
+back to GNU/Emacs years back.
+
+#+begin_quote
+Org mode is for keeping notes, maintaining TODO lists, planning projects, and authoring
+documents with a fast and effective plain-text system.
+#+end_quote
+
+I'm going to quote [[https://protesilaos.com/dotemacs/#h:4e8347de-415e-4804-b383-d61499e05ca1][Protesilaos Stavrou]] too as he describe it way better than I would do.
+
+#+begin_quote
+ Org offers you the basic tools to organise your life in super-efficient ways using
+ nothing but plain text.
+
+In its purest form, Org is a markup language that is similar to Markdown: symbols are used
+to denote the meaning of a construct in its context, such as what may represent a headline
+element or a phrase that calls for emphasis.
+
+What lends Org its super powers though is everything else built around it: a rich corpus
+of elisp functions that automate, link, combine, enhance, structure, or otherwise enrich
+the process of using this otherwise simple markup language. This very document is written
+in org-mode while its website version is produced by a function that exports Org notation
+into its HTML equivalent.
+#+end_quote
+
+I am using =org-mode= for managing my tasks and partly my daily agenda, for /journaling/,
+knowledge database (taking notes on stuff) and publishing documents (right now mainly on
+[[https://sbr.pm][sbr.pm]]). I have been using =org-mode= for a while now, I feel some of my configuration may
+be heavily /tailored/ to my needs.
+
+The /base/ user keybinding for =org-mode= (and related modes) is =C-c o= (e.g. showing
+agenda is =C-c o a=, capture is =C-c o c=, …).
+
+*** Base settings                                                  :ATTACH:
+:PROPERTIES:
+:CUSTOM_ID: h:9287c076-1944-4c13-b4e4-c7cbc6587358
+:ID:       1f74bbae-c4a1-4723-977e-e48900fcd1c7
+:END:
+
+First, let's define some basic constants, mainly on how my main =org= folder is organized.
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgConstants" :range-end "-OrgConstants" :lines "7-18"
+
+In a nutshell, I am currently trying the following organization, with =~/desktop/org/= as
+the base of almost all =org-mode= things:
+
++ =projects= is the main /TODO/ folder. It holds todos and current projects along with ideas.
+  - =inbox.org= is my inbox, where most of my captured todo, ideas and link will be store,
+    waiting for reviews.
+  - =incubate.org= is where I store my ideas that could become projects at some point. It
+    is also waiting for reviews (once a week more or less).
+  - =next.org= is where simple todos are stored, quick one shot /things/ that do not need
+    a project to be created.
+  - ={project}.org= are files that holds a project information and todos. It can be
+    /long-lived/ projects (like =redhat.org= or =tekton.org=) or, prefered, /short-lived/
+    projects, like =rework-infra.org= or =tekton-beta.org=. Once a project is marked as
+    done or completed, it either goes into the =archive=, or into =technical= ; if it can
+    be published.
++ =technical= is the public / to-be-published documents and /public/ knowledge base. It can holds todos, but its main
+  purpose is to be publish, at [[https://sbr.pm][sbr.pm]]. Thus, it's organization is the same as the
+  website.
++ =personal= is my private knowledge base. Those are private information or notes that I
+  don't want to publish *and* might be encrypted (using =gnupg=).
++ =archive= holds all archived files (projects, todos from =projects= files, …)
+
+Additionnaly, I may have =org-mode= files and /todos/ in other files, like in my
+=~/.emacs.d= folder or my [[https://github.com/vdemeester/home][=home=]] configuration.
+
+I want a way to quickly jump to certain =org-mode= files, like =next.org= or the
+=inbox.org=. For this, we can use the emacs [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Registers.html][registers]] and more accurately the [[https://www.gnu.org/software/emacs/manual/html_node/emacs/File-Registers.html#File-Registers][file
+registers]].
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgRegisters" :range-end "-OrgRegisters" :lines "21-26"
+
+With this, I can jump to the inbox with ~C-x r j i~, to the journal using ~C-x r j j~, …
+
+Let's setup the base of =org-mode=, with the following things in mind:
+
+- Agenda :: =org-agenda-files= contains =~/desktop/org/=, =~/.emacs.d/= and
+  =~/.config/nixpkgs/=. The rest of the configuration will happen when configuring
+  =org-agenda=.
+- Navigation and key bindings ::
+  + As said before, =C-c o= is the prefix of my user specific keybindings
+    - =C-c o l= is to store the link (default keybinding is =C-c C-l=)
+    - =C-c o r r= is to refile a task from an org-mode buffer (default keybinding is =C-c
+      C-w=, and there is a different keybinding when in an org-mode agenda buffer)
+  + Activating [[https://orgmode.org/manual/Speed-Keys.html][/speed commands/]], aka being able to use one keystroke to do some action (like
+    changing the TODO state, …)
+  + =C-a=, =C-e= and =C-k= should be =org-mode= aware. This is achieved by setting
+    =org-special-ctrl-a/e= and =org-special-ctrl-k= to =t=.
+- To-do settings :: My current setup of /todo-keywords/ (a.k.a. =org-todo-keywords=) might
+  be more complicated that it should be but I've been using it a while
+  now. =org-todo-keywords= is a list of sequences, I have three:
+  + =TODO= → =NEXT= → =STARTED= → =DONE= /or/ =CANCELED=
+  + =WAITING= → =SOMEDAY= → move to a =TODO= or =CANCELED=
+  + =IDEA= → move to a =TODO= or =CANCELED=
+
+  I am leaning towards simplifying this, especially as =NEXT= is not really useful (I have
+  =next.org= for this), and =IDEA= or =WAITING= are not really used either (=IDEA= goes
+  into =incubate.org= and I don't seem to use =WAITING=).
+
+  /I need to update and document =org-todo-state-tags-triggers= too/
+- Tags :: I am using generic tags and some groups. Groups allow to define mutually
+  exclusive tags, like =#home= and =#work= (can't be both). This is achieve by using
+  =:startgroup= and =:endgroup= in the =org-tag-alist= variable. It is also possible to
+  define [[https://orgmode.org/manual/Tag-Hierarchy.html#Tag-Hierarchy][tag hierarchies]] but I didn't look into it yet.
+
+  I also want to have tag inheritance, aka children entry inherits their parent's tag —
+  even though it may have a cost (search, …), it allows to reduce lots of /duplications/.
+- Refile :: In the =org-mode= jargon, this means moving an entry from one heading (parent
+  entry) to another. This move can be done across files. =org-mode= displays a list of
+  choice, this list is controlled by the =org-refile-targets= variable.
+
+  The =org-refile-targets= is pretty powerful if you read the doc. You specify a list of
+  file and some /search/ options for org to build its list from. Those options can be the
+  level of the entry, some tag, regular expression, … In my case, I want this list to be
+  all the =org= file in the =project= folder and also the =inbox.org= file. For the inbox,
+  I want to look only at level 0 (aka root), for the other, I want to look at level 1 (aka
+  root and sub entries).
+
+  I also changed the default way to show the refile targets (=level1/level2/level3=) to
+  include the file name. When refiling, you can either do the completion hierarchically
+  (select the file, then the first level, …) or you can display all the choice at once. I
+  tend to prefer having all the choice at once and let my completion framework (=ivy= as
+  of now) to do the /fuzzy/ selection.
+
+  Finally, I want to be able to create new node if I want, while refiling, so I'm setting
+  =org-refile-allow-creating-parent-nodes= to =confirm=, to ask me if I am sure 👼.
+- User Interface ::
+  + I want, by default, to display the effort and clock summary on org columns, so I am
+    setting the =org-columns-default-format= to do that.
+
+    [[./images/2020-02-29-13-46-08.png]]
+
+  + I want to /fontify/ the whole header line (it tends to look better for some theme)
+  + I want things /pretty/, hence the =org-pretty-entities= 😹
+  + When a entry (or a drawer) is closed, I like having a visual cue that it is. I chose
+    the =…= character to show that. It can be set with =org-ellipsis=.
+- Logging :: =org-mode= allows to write the time (or a note) on a entry state change, this
+  is achieved by the =org-log-*= variables. On marking entries as =DONE= or when
+  rescheduling them (or changing the deadline), I want to mark the time.
+
+  Additionally, when I log those state changes, I don't want them to pollute the content
+  of the to-do (aka description, …). Setting =org-log-int-drawer= will insert those logs
+  in a =LOGBOOK= drawer (same as the property drawer).
+- Archiving :: I don't want to pollute my current folder with =_archive= files, so I am
+  redefining =org-archive-location= to archive to my =org-default-completed-dir=, also
+  using =datetree= to put archived items in a datetree.
+- Miscellaneous ::
+  + I am setting up =org-use-property-inheritance= to make children node inherit their
+    parent property. It has a cost on search but I feel, as for tag inheritance, it is
+    worth the cost.
+  + Still on properties, =org-global-properties= allows you to add values to properties
+    that will show in the completion when setting those. For example, setting =EFFORT_ALL=
+    to a list, will give you those options when you are trying to set the effort property.
+  + I am setting =org-enforce-todo-dependencies= to make sure a parent entry cannot be
+    mark as done if children are not in complete state (=DONE=, =CANCELLED=, …).
+  + I want to add a new blank line whenever I create a new entry *but* I don't want that
+    extra new blank line when adding a new list item. =org-blank-before-new-entry= allow
+    to customize that behaviour.
+  + I don't want to load inline image at startup ; it slows down for nothing.
+
+/The =ensure org-plus-contrib= is there to make sure I am loading the =org= module from my
+nix configuration and not the built-in =org= module (that might lag in terms of version)/
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgMain" :range-end "-OrgMain" :lines "29-106"
+
+I've set-up an =org-mode= hook to add few modes to the default setup.
+- I am really annoyed by trailing white-space so I want them to be shown
+- If the major mod is not =org-agenda-mode= (a sub-mode of =org-mode=)
+  + I set the =fill-column= to ~90~ (instead of the usual ~80~), and I enable =auto-fill= mode.
+  + I turn on =auto-revert-mode= so that the buffer is always up-to-date.
+  + I like to have header indented, so I'm enabling =org-indent-mode=.
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgHook" :range-end "-OrgHook" :lines "109-121"
+
+Let's also use =org-id=…
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgId" :range-end "-OrgId" :lines "124-153"
+
+… and =org-crypt= (for encrypted =org-mode= files).
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCrypt" :range-end "-OrgCrypt" :lines "156-161"
+
+**** TODO Refiling
+:PROPERTIES:
+:CUSTOM_ID: h:da7330fb-2b24-4bc8-a9a8-7bf6b7ef3761
+:END:
+
+Heavily based on [[http://www.howardism.org/Technical/Emacs/getting-more-boxes-done.html][Getting Boxes Done, the Code]] and [[http://www.howardism.org/Technical/Emacs/getting-even-more-boxes-done.html][Refiling Trees to Files]].
+There is also [[https://stackoverflow.com/questions/11902620/org-mode-how-do-i-create-a-new-file-with-org-capture][emacs - Org-Mode - How do I create a new file with org-capture? - Stack Overflow]]
+
+*** TODO Agenda
+:PROPERTIES:
+:CUSTOM_ID: h:ba2a773a-88d1-4df9-a98c-5e547ee50691
+:END:
+
+The =org-mode= agenda is *the* source of my day-to-day organization. This is how I know
+what I have to do that, what I can do. This is also where I log my work (see /Clocking/
+below).
+
+#+begin_quote
+Due to the way Org works, TODO items, time-stamped items, and tagged headlines can be
+scattered throughout a file or even a number of files.  To get an overview of open action
+items, or of events that are important for a particular date, this information must be
+collected, sorted and displayed in an organized way.
+#+end_quote
+
+Invoking =org-agenda= presents a list of possible options. There as a list of built-in
+agenda views, where =a= shows all the items that have date assigned to them (=SCHEDULED=
+or =DEADLINE=), =t= for listing to-dos, =T= for listing to-dos with a specific state and
+=m= for more advanced matching possibilities.
+
+I am using [[https://github.com/alphapapa/org-super-agenda/][=org-super-agenda=]] to /supercharge/ the =org-mode= agenda 👼 to define my own
+agenda views. This allows to group things and overall set-up the agenda view I want. This
+agenda view uses the =n= key.
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgAgenda" :range-end "-OrgAgenda" :lines "164-213"
+
+Let's try to get my work calendar entries in my agenda too. It is a little bit tricky 👼.
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgGcal" :range-end "-OrgGcal" :lines "216-230"
+
+*** Habits                                                         :ATTACH:
+:PROPERTIES:
+:CUSTOM_ID: h:291bae2c-f3eb-4c2a-9415-606afa28ac86
+:ID:       17a3ed73-aaca-4a18-8ed1-3efe7bac855a
+:END:
+
+Org has the ability to track the consistency of a special category of
+TODO, called /habits/.
+
+#+begin_quote
+What’s really useful about habits is that they are displayed along
+with a consistency graph, to show how consistent you’ve been at getting
+that task done in the past.  This graph shows every day that the task
+was done over the past three weeks, with colors for each day.  The
+colors used are:
+
+Blue
+     If the task was not to be done yet on that day.
+Green
+     If the task could have been done on that day.
+Yellow
+     If the task was going to be overdue the next day.
+Red
+     If the task was overdue on that day.
+#+end_quote
+
+This look as followed in the agenda.
+
+[[./images/2020-02-29-14-41-59.png]]
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgHabit" :range-end "-OrgHabit" :lines "233-238"
+
+*** TODO Sources
+:PROPERTIES:
+:CUSTOM_ID: h:82c3b800-9d80-408d-b3b6-54dc15b0590c
+:END:
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgSrc" :range-end "-OrgSrc" :lines "241-248"
+
+*** TODO Capture
+:PROPERTIES:
+:CUSTOM_ID: h:b29abe71-6e9a-4ddf-8519-453170212777
+:END:
+
+The =org-capture= tool is a powerful way to quickly produce some kind of structured
+information with little interruption of your workflow. With =org-agenda=, this is one of
+the most used feature of =org-mode= (at least for me).
+
+Each template is accessed via a key. These are listed in a buffer when you call
+=org-capture=. Unique keys give direct access to their template, whereas templates that
+share a common initial key will produce a second selection list with the remaining
+options. This is very interesting when you want to group some capture template together
+(like templates related to /work/, …).
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureStart" :range-end "-OrgCaptureStart" :lines "251-255"
+
+Some of my capture template are big and hard to read if embedded in the =emacs-lisp=
+code. The good thing is that =org-mode= is able to load the template from files too 💃.
+
+Here is a list of my templates:
+- Default :: Store a link (mainly used with =org-protocol=) and take a random note
+
+  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureOldTemplate" :range-end "-OrgCaptureOldTemplate" :lines "258-267"
+
+- Tasks :: /work/ task, like reviewing a PR, or cleaning a folder.
+
+  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureTask" :range-end "-OrgCaptureTask" :lines "270-282"
+
+- journaling :: As I use =org-mode= for my /journal/ too, I need capture entry for
+  it. I currently have two types of journal entry :
+
+  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureJournalBase" :range-end "-OrgCaptureJournalBase" :lines "285-287"
+
+  + standard: one title and some text
+
+    #+INCLUDE: "../tools/emacs/etc/orgmode/journal.org" src org
+
+    #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureJournalEntry" :range-end "-OrgCaptureJournalEntry" :lines "290-297"
+
+  + worklog: related to work, to be able to say what I did, what I wanted to do, problems,
+    … during the daily
+
+    #+INCLUDE: "../tools/emacs/etc/orgmode/worklog.org" src org
+
+    #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureWorklog" :range-end "-OrgCaptureWorklog" :lines "300-305"
+
+- weekly review :: each and every week, I am going through this item to make my review of
+  the week.
+
+  #+INCLUDE: "../tools/emacs/etc/orgmode/weekly.org" src org
+
+  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureWeekly" :range-end "-OrgCaptureWeekly" :lines "308-313"
+
+- blog posts ::
+
+  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureBlog" :range-end "-OrgCaptureBlog" :lines "323-325"
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureEnd" :range-end "-OrgCaptureEnd" :lines "328-329"
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgProtocol" :range-end "-OrgProtocol" :lines "332-334"
+
+*** Clocking
+:PROPERTIES:
+:CUSTOM_ID: h:264afe05-79e3-4bff-aafc-9fc726c4034b
+:END:
+
+I am heavily using the clocking along with =org-agenda=. My usual workflow, related to
+clocking is :
+
+- I bring the Agenda up
+- I clock the task I am working on, using =I= in the agenda
+- When I stop working on the task
+  + if the task is completed, I use =t d= to mark it as done, the clock should
+    automatically stop.
+  + if the task is not completed, I use =O= to stop the clock
+
+In addition to that workflow, I want to switch the state of the task to =STARTED= when I
+am clocking-in, if it's not already =STARTED=.
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgClock" :range-end "-OrgClock" :lines "337-430"
+
+*** TODO Links
+:PROPERTIES:
+:CUSTOM_ID: h:afc81fbb-f7a0-401c-8b56-19f51edebd88
+:END:
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgAttach" :range-end "-OrgAttach" :lines "433-437"
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgLinks" :range-end "-OrgLinks" :lines "440-474"
+
+*** TODO Litterate programming
+:PROPERTIES:
+:CUSTOM_ID: h:b5f6beba-6195-4ff0-a194-502ac2a9e3da
+:END:
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgBabel" :range-end "-OrgBabel" :lines "477-525"
+
+*** TODO Exporting
+:PROPERTIES:
+:CUSTOM_ID: h:afad00e0-367c-4c7b-b191-e3ed72be754b
+:END:
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgExportConstants" :range-end "-OrgExportConstants" :lines "528-530"
+
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgExportCfg" :range-end "-OrgExportCfg" :lines "533-538"
+
+** TODO Email and newsgroup
+:PROPERTIES:
+:CUSTOM_ID: h:afa562d5-b07e-413b-8c1d-2d489fb72900
+:END:
+
+I have been back and forth on using email inside Emacs, from ~mu4e~ to ~notmuch~. In the
+past I have used Thunderbird, and for a while now, I have been only using webmail UI for
+emails (and mobile apps of course). I recently re-discover [[https://www.gnus.org/][Gnus]] as a mail reader, so my
+current setup is the following:
+
+- [[https://www.gnus.org/][Gnus]], the Emacs built-in newsreader and email client.
+- ~notmuch~ to be able to browse my mail backups (using ~isync~, …), see [[https://sbr.pm/technical/mail-setup.html][here]] for the
+  current setup.
+
+One of the main reason to rely on [[https://www.gnus.org/][Gnus]] instead of ~notmuch~ for the mails, is that I don't
+need to worry about some complex mechanism for syncing, storing and indexing email. I
+still use ~notmuch~ with ~isync~ to backup my mails somewhere, with the possibility to
+search them.
+
+*** Base email settings
+:PROPERTIES:
+:CUSTOM_ID: h:765191a3-81cb-4e6e-9360-6a42b2a55b0f
+:END:
+
+Before configuring any email client, we need to establish some essentials: who we are,
+where our credentials are stored and whether encryption is supported.
+
+#+INCLUDE: "../tools/emacs/config/config-mails.el" src emacs-lisp :range-begin "AuthSource" :range-end "-AuthSource" :lines "12-17"
+
+*** Gnus
+:PROPERTIES:
+:CUSTOM_ID: h:0aeec7d8-b6c9-4244-8c10-2788c6e89cc5
+:END:
+
+The documentation describes Gnus as the /"coffee-brewing, all singing, all dancing,
+kitchen sink newsreader"/. It is massive, which means the learning curve is more or less
+similar to =org-mode=. You need to go slowly, starting simple and enhance your workflow
+and configuration along the way.
+
+Now some basic information on the abstractions that Gnus relies on:
+
+1. The default Gnus buffer is called "Group".  It will present you with a list of all the
+   news sources you have subscribed to.  By default, Gnus only displays messages that have
+   not been read.  The same applies for groups.  The "Group" buffer will be empty the very
+   first time you log in because you have not subscribed to anything yet.  Use =g= to
+   fetch new messages from the sources.  If you only want to refresh the group at point,
+   do it with =M-g=.
+2. The "Server" buffer contains a list with all the sources you have specified for
+   discovering news.  In my case, these are my email accounts and a Usenet server where
+   mailing lists are hosted.  To access the "Server" buffer from inside the "Group"
+   buffer, just hit the caret sign =^=.  To subscribe to an item, place the point over it
+   and hit =u=.  Do that for your email's inbox and for whatever mailing lists you intend
+   to follow.
+3. The "Summary" buffer contains all the messages of a group.  Hitting the return key over
+   a message will split the view in two, with the list above and the message below.  Use
+   =n= or =p= to move to the next or previous unread message (or =N= and =P= to just the
+   next/prev).  You access the "Summary" buffer both from the "Group" and the "Server" by
+   entering a group.
+
+As noted, Gnus will only show you a list of unread items. To view all your groups, hit
+=L=. Use the lower case version =l= to view only the unread ones. To produce a Summary
+buffer with read items, hit =C-u RET= over a group and specify the number of messages you
+want to list (the other option is =C-u M-g= from inside the Summary). Another useful trick
+for the Summary buffer is the use of the caret sign (=^=) to show you the previous message
+that the current item is a reply to.
+
+/Note: this is in a =gnus/init.el= file that is loaded when the =gnus= command is
+ran. This means it is only loaded whenever I need to use =gnus= and not before/
+
+**** Account settings
+:PROPERTIES:
+:CUSTOM_ID: h:be7bbb5b-4b13-49f0-8044-b79363ccba7f
+:END:
+
+Let's first configure the essentials of Gnus.
+
+The =gnus-select-method= sets the default method for fetching news items. As I want to
+read mail from several accounts in addition to following Usenet sources, I choose to set
+it to nil.
+
+The =gnus-secondary-select-methods= is where my accounts are specified. Each =nnimap= list
+points to a specific line in my =authinfo.gpg= file. My emails all use the same server so
+this method allows me to specify the username (email) and password combination for each of
+them /without/ making this information public.  I am not sure whether the =nnimap-stream=
+and =nnimap-authinfo-file= are needed, but I keep them for the sake of completeness.
+
+- [[http://www.cataclysmicmutation.com/2010/11/multiple-gmail-accounts-in-gnus/][Multiple GMail Accounts in Gnus - Cataclysmic Mutation]]
+- [[https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/gnus-guide-en.org][mastering-emacs-in-one-year-guide/gnus-guide-en.org at master · redguardtoo/mastering-emacs-in-one-year-guide]]
+
+#+INCLUDE: "../tools/gnus/init.el" src emacs-lisp :range-begin "GnusCfg" :range-end "-GnusCfg" :lines "3-61"
+
+Let's also give to gnus my GnuPG key.
+
+#+INCLUDE: "../tools/gnus/init.el" src emacs-lisp :range-begin "GnusMmlSec" :range-end "-GnusMmlSec" :lines "64-68"
+
+
+**** Gnus agent
+:PROPERTIES:
+:CUSTOM_ID: h:2beac436-62ba-4b52-acc5-559016ec477f
+:END:
+
+Gnus has something call the "agent", which represent the bridge between Gnus and the
+server it connects to. Gnus is said to be "plugged" when a connection is established,
+otherwise it is "unplugged".
+
+Technicalities aside, we basically use this to save a local copy of the items we have
+already fetched from the server.  We can also use the agent to configure the handling of
+local messages.  For example, we can set an expiry date, after which the message is
+deleted, or we can create a queue of outgoing messages when Gnus is in an unplugged state.
+
+#+INCLUDE: "../tools/gnus/init.el" src emacs-lisp :range-begin "GnusAgent" :range-end "-GnusAgent" :lines "71-85"
+
+**** Gnus asynchronous operations
+:PROPERTIES:
+:CUSTOM_ID: h:c089372e-4aeb-4daf-96d5-77a997ff2dd0
+:END:
+
+By default, Gnus performs all its actions in a synchronous fashion. This means that Emacs
+is blocked until Gnus has finished. By enabling this library, we can use certain functions
+in a non-blocking way. I do this for [[#h:8cd8c972-ba38-40c2-b30f-68a4233593d6][sending email]].
+
+#+INCLUDE: "../tools/gnus/init.el" src emacs-lisp :range-begin "GnusAsync" :range-end "-GnusAsync" :lines "88-93"
+
+**** Gnus group
+:PROPERTIES:
+:CUSTOM_ID: h:4e52ab94-4e54-41df-a43e-db0c8d23a55a
+:END:
+
+Let's dig a bit more into groups :
+
++ A group can be assigned a level of importance.  This is a grade whose highest score is 1
+  and the lowest is 6 (customisable though). Each level has a different colour. To assign
+  a new value to the group at point, do it with =S l= and then give it a number.  Once you
+  have graded your groups, you can perform various actions on a per-level basis.  For
+  example, to refresh all levels from 1 up to 3 but not higher, pass a numeric argument to
+  the standard =g= command. So =C-3 g= (this is the same as =C-u 3 g=).
++ Groups can be organised by topic. Create a new one with =T n= and give it a name.  Move
+  a group to a topic with =T m=. To toggle the view of topics use =t= (I have a hook that
+  does this automatically at startup). The level of indentation tells us whether a topic
+  is a sub-set of another.  Use =TAB= or =C-u TAB= to adjust it accordingly. As with
+  levels, you can operate on a per-topic basis. For example, to catch up on all the news
+  of a given topic (mark all as read), you place the point over it, hit =c= and then
+  confirm your choice.
+
+Note that =gnus-group-sort-functions= requires the most important function to be declared
+last.
+
+#+INCLUDE: "../tools/gnus/init.el" src emacs-lisp :range-begin "GnusGroup" :range-end "-GnusGroup" :lines "96-112"
+
+**** Gnus Summary
+:PROPERTIES:
+:CUSTOM_ID: h:dfe4a692-1f0f-44c7-8d72-a1488e4ef80b
+:END:
+
+Threads should not be hidden, while messages whose root has been removed should be grouped
+together in some meaningful way. Furthermore, when moving up or down in the list of
+messages using just =n= or =p=, I want to go to the next message, regardless of whether it
+has been read or not.  I can otherwise rely on standard Emacs motions.
+
+The formatting of the threads using Unicode characters was taken from the [[https://www.emacswiki.org/emacs/GnusFormatting][relevant Emacs
+wiki entry]] plus some minor tweaks by me.
+
+The =gnus-user-date-format-alist=, this basically adapts the date to whether the message
+was within the day or the one before, else falls back to a default value. It is then
+called with =%&user-date;=.
+
+#+INCLUDE: "../tools/gnus/init.el" src emacs-lisp :range-begin "GnusSummary" :range-end "-GnusSummary" :lines "124-167"
+
+Gnus summary displays a mark for each messages, those `O`, `!`, … Let's first describe
+what are those marks (from the [[https://www.gnu.org/software/emacs/manual/html_node/gnus/Marking-Articles.html#Marking-Articles][documentation]]) and which one make the more sense for me.
+Most of those marks can be set using the =M= prefix (or =M M=) from the Summary buffer.
+
+First there is two groups of /marks/ : *unread* and *read*. Note they do not entirely map
+to what IMAP defines or what you would see in another mail UI (webmail, …).
+
++ *unread*: those will appear by default on a Summary buffer (almost 😜)
+  - =<SPC>= are the /standard/ unread, never read. Once a mail is read you can mark it back as
+    unread with =M M u u=.
+  - =!= is for /ticked/. This is similar to the *starred* thread/message on GMail (or
+    Thunderbird, … — in ~notmuch~ it appears as =flagged=). Those will always appear in
+    the summary, so this is mainly for really important message to be remembered all the
+    time.
+  - =?= is for /dormant/. This is similar to /ticked/ *but* the article will only appear
+    if there is a follow-up of the message. This would be a good use of "waiting for an
+    answer so keep it".
++ *read*: those will not appear by default on a Summary buffer
+  - =r= and =R= are /just read/ (like in the /reading session/) more or less
+  - =O= is /read/ in an older session
+  - =Y= is for /too low of a score/, this means this message got automatically read
+    because it had low score (/more on that later/).
+  - =E= is for /marked as expirable/, so that Gnus can delete/expunge them (or do
+    something else — /more on that later/).
+  - =M= is for /duplicated/.
+  - =K=, =X= are for /killed/, =C= is for /catchup/ =Q= is for /sparsely reffed article/
+    and =G= is for cancelled — not sure what this means yet…
+
+**** Gnus intersection with Dired
+:PROPERTIES:
+:CUSTOM_ID: h:35901f1a-4a24-46a8-bc8f-a334cd156f2b
+:END:
+
+We can use the built-in directory editor (file manager) as a more convenient way of
+performing certain tasks that relate to emails, such as attaching all the marked items of
+the =dired= buffer to an email we are currently composing or wish to initiate the
+composition of.
+
+Run =C-h m= inside of a Dired buffer that has =gnus-dired-mode= enabled and search for
+"gnus" to see all the relevant key bindings and the functions they call. I only ever use
+=C-c C-m C-a= (=C-m= is the same as =RET=).
+
+#+INCLUDE: "../tools/gnus/init.el" src emacs-lisp :range-begin "GnusDired" :range-end "-GnusDired" :lines "170-173"
+
+**** TODO Searching mails
+:PROPERTIES:
+:CUSTOM_ID: h:8288c9b3-cfe2-4599-a55b-9b2b1c71f524
+:END:
+
+**** TODO Subscribing to RSS
+:PROPERTIES:
+:CUSTOM_ID: h:259bbc05-4ea6-43b7-bfef-0036434a86f8
+:END:
+
+*** TODO Sending mails
+:PROPERTIES:
+:CUSTOM_ID: h:8cd8c972-ba38-40c2-b30f-68a4233593d6
+:END:
+
+#+INCLUDE: "../tools/emacs/config/config-mails.el" src emacs-lisp :range-begin "SendmailCfg" :range-end "-SendmailCfg" :lines "30-44"
+
+#+INCLUDE: "../tools/emacs/config/config-mails.el" src emacs-lisp :range-begin "MessageCfg" :range-end "-MessageCfg" :lines "47-65"
+
+*** TODO ~notmuch~ configuration
+:PROPERTIES:
+:CUSTOM_ID: h:b67b377e-0fbc-4237-857c-641cdf2de1cf
+:END:
+
+#+INCLUDE: "../tools/emacs/config/config-mails.el" src emacs-lisp :range-begin "Notmuch" :range-end "-Notmuch" :lines "68-86"
+
+* User interface and interactions
+:PROPERTIES:
+:CUSTOM_ID: h:93826a52-2f51-437b-8625-ce7cd36d53b6
+:END:
+** Mouse
+:PROPERTIES:
+:CUSTOM_ID: h:cb0ad0e0-62a8-469a-970d-074a423b720d
+:header-args: :tangle config/setup-mouse.el
+:END:
+
+The value of mouse-wheel-scroll-amount means the following:
+
+- By default scroll by one line.
+- Hold down Shift to do so by five lines.
+- Hold down Meta to scroll half a screen.
+- Hold down Control to adjust the size of the text. This is added in Emacs 27.
+
+By enabling mouse-drag-copy-region we automatically place the mouse selection to the kill
+ring. This is the same behaviour as terminal emulators that place the selection to the
+clipboard (or the primary selection).
+
+The other options in short:
+
+- Hide mouse pointer while typing.
+- Enable mouse scroll.
+- Faster wheel movement means faster scroll.
+
+#+begin_src emacs-lisp
+(use-package mouse
+  :config
+  (setq mouse-wheel-scroll-amount
+        '(1
+          ((shift) . 5)
+          ((meta) . 0.5)
+          ((control) . text-scale)))
+  (setq make-pointer-invisible t
+        mouse-wheel-progressive-speed t
+        mouse-wheel-follow-mouse t)
+  :hook (after-init . mouse-wheel-mode))
+#+end_src
+
+** Theme
+:PROPERTIES:
+:CUSTOM_ID: h:18fcf62d-a919-4614-803d-f5d28bc47985
+:END:
+
+*** My own theme                                                   :ATTACH:
+:PROPERTIES:
+:CUSTOM_ID: h:1a7c1e91-d3c5-4395-b956-8001a1a1a393
+:ID:       83bc2073-0681-4fe9-bcf7-3070bd1ab695
+:END:
+
+I navigate between themes, but the more I use Emacs (or any editor really), the more I
+lean towards writing my own. Those theme are base on [[https://github.com/Jannis/emacs-constant-theme][=emacs-constant-theme=]] which is "A
+calm, almost monochrome color theme for Emacs with a dark and light variant".
+
+My main goal is to make a theme that, at least for syntax highlighting, differs from the
+usual color(ful) themes. The reason come from a [[https://www.linusakesson.net/programming/syntaxhighlighting/][bunch]] [[https://jameshfisher.com/2014/05/11/your-syntax-highlighter-is-wrong/][of]] [[https://www.robertmelton.com/project/syntax-highlighting-off/][articles]] and [[https://asylum.madhouse-project.org/blog/2018/09/06/the-brutalist-path/][repositories]] that
+discuss how, /maybe/ the way we see and use syntax highlighting today is not optimum. This
+is a _touchy_ subject to see the least but it does make sense to me: I want to highlight
+comments (because they may be important to understand the code), and I don't want to
+highlight the language keyword more than the actual code.
+
+I wrote two version, a dark one and a light one. I currently mainly use the light theme
+(as this is when I do work 😅).
+
+**** Light theme
+:PROPERTIES:
+:CUSTOM_ID: h:8997adc9-8681-4d3a-a118-616866895f93
+:ID:       83bc2073-0681-4fe9-bcf7-3070bd1ab695
+:END:
+
+[[./images/2020-03-03-21-57-41.png]]
+
+#+INCLUDE: ../tools/emacs/lisp/shortbrain-light-theme.el src emacs-lisp
+
+**** Dark theme
+:PROPERTIES:
+:CUSTOM_ID: h:e986baca-a7dc-463e-85ee-ea10fb69bf0f
+:ID:       83bc2073-0681-4fe9-bcf7-3070bd1ab695
+:END:
+
+[[./images/2020-03-03-21-59-22.png]]
+
+#+INCLUDE: ../tools/emacs/lisp/shortbrain-theme.el src emacs-lisp
+
+* TODO Programming
+:PROPERTIES:
+:CUSTOM_ID: h:635a27c4-5ff9-46e4-8d42-283d316cf4d6
+:END:
+
+* Nix-ies
+:PROPERTIES:
+:CUSTOM_ID: h:8bc69da9-b49c-4ddd-a6c9-b944aad993a1
+:END:
+
+This is where the magic happens, when using [[https://nixos.org/nix/][~nix~]] or [[https://nixos.org][NixOS]] with [[https://github.com/rycee/home-manager][~home-manager~]]. In a gist
+we will create a set of nix files that tangle, get dependencies and generate the correct
+emacs package with the packages used inside the configuration. This means, if I add a
+=(use-package magit)= in my configuration, and I tangle / re-execute this script(s), I now
+have a new packaged installed as part of my Emacs package. This is *heavily* inspired by
+[[https://matthewbauer.us/bauer/][Matthew Bauer's bauer]] emacs configuration.
+
+** Required lisp libraries
+:PROPERTIES:
+:CUSTOM_ID: h:316fd3ee-ab99-4f01-ba5a-1a91c54bc334
+:END:
+
+We need a way to list packages used in the configuration using ~use-package~. This is
+coming straight from [[https://matthewbauer.us/bauer/][Matthew Bauer's bauer]].
+
+#+INCLUDE: ../tools/emacs/lisp/use-package-list.el src emacs-lisp
+
+The idea is to run some like the following.
+
+#+begin_src bash :tangle no
+emacs --batch --quick \
+      -L /nix/store/acm9rskhx237xb16zdy7vx6r1m5n8q58-emacs-packages-deps/share/emacs/site-lisp/elpa/use-package-20191126.2034/use-package-* \
+      -l /home/vincent/.emacs.d/lisp/use-package-list.el \
+      --eval "(use-package-list \"/home/vincent/.emacs.d/init.el\")"
+#+end_src
+
+* External libraries
+:PROPERTIES:
+:CUSTOM_ID: h:96ce2856-182e-42c8-a8b3-418c38124dcc
+:END:
+** ~gotest-ui.el~
+:PROPERTIES:
+:CUSTOM_ID: h:a94b8ba9-2d74-4fb3-a43a-58f4cd6e5141
+:END:
+
+From [[https://github.com/antifuchs/gotest-ui-mode/][antifuchs/gotest-ui-mode]].
+
+#+INCLUDE: ../tools/emacs/lisp/gotest-ui.el src emacs-lisp
+
+** Org mode links
+:PROPERTIES:
+:CUSTOM_ID: h:80cc4939-759a-456b-8dfd-220dd8b48727
+:END:
+
+I am defining additonal org-mode links for my day to day usage.
+
+- ~ol-github.el~: link to GitHub repositories, issues and pull-requests.
+
+  #+INCLUDE: ../tools/emacs/lisp/ol-github.el src emacs-lisp
+
+- ~ol-gitlab.el~: link to GitLab repositories, issues and merge-requests.
+
+  #+INCLUDE: ../tools/emacs/lisp/ol-gitlab.el src emacs-lisp
+
+- ~ol-ripgrep.el~: link to a =ripgrep= search buffer.
+
+  #+INCLUDE: ../tools/emacs/lisp/ol-ripgrep.el src emacs-lisp
+
+- ~ol-grep.el~: link to a =grep= search buffer.
+
+  #+INCLUDE: ../tools/emacs/lisp/ol-grep.el src emacs-lisp
+
+And that's all folks 💃

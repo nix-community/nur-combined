@@ -1,0 +1,93 @@
+#!/usr/bin/env zsh
+set -eu
+local preview pods p follow choose_containers containeri container use_tkn
+local use_kss last
+
+function help {
+    cat <<EOF
+tktl [TASK Query] [Container Query]"
+
+Queries are initial queries for selection on fzf, i.e:
+
+tktl buildah push
+
+will autoselect the buildah taskrun (or ask to choose if there is multiple) and
+the push container
+
+Flags:
+
+-l select the last taskruns
+-f follow logs
+-K use kss for previewing the taskruns (need to be installed)
+-t use tkn to display the logs
+-c choose a specific container (ie step) not supported with -t
+
+EOF
+}
+while getopts 'lhfKtc' arg
+do
+    case $arg in
+        (l) last="true";;
+        (f) follow="-f"  ;;
+        (K) use_kss=yes ;;
+        (t) use_tkn="yes";;
+        (c) use_tkn="";choose_containers="yes";; # use kubectl until tkn support limiting to container we should be implicit
+        (h) help; exit 0;;
+        (\?) help;exit 1;;
+    esac
+done
+(( OPTIND > 1 )) && shift $(( OPTIND - 1 ))
+
+chooseTaskArg=${1:-""};[[ -n ${chooseTaskArg} ]] && chooseTaskArg="-q ${chooseTaskArg}"
+chooseContainerArg=${2:-""}
+
+if [[ -n ${use_kss} ]];then
+    preview='kss `kubectl get -o json tr {}| jq -r .status.podName`'
+else
+    preview='tkn taskrun describe {}'
+fi
+
+if [[ -n ${last} ]];then
+    task=$(kubectl get tr -o name --sort-by=.metadata.creationTimestamp|sed 's,.*/,,'|tail -1)
+else
+    task=$(kubectl get tr -o json --sort-by=.metadata.creationTimestamp| python <(cat  <<EOF
+import json,sys
+jeez=json.loads(sys.stdin.read())
+def colit(condition, name):
+    if condition=='Succeeded':
+       color=32
+    elif condition=='Failed':
+       color=31
+    elif condition=='Running':
+       color=34
+    else:
+       color=30
+    return("\033[1;%dm%s\033[0;0m" % (color, name))
+for i in jeez['items']:
+    print(colit(i['status']['conditions'][0]['reason'], i['metadata']['name']))
+
+EOF
+  ) | fzf --ansi -1 ${chooseTaskArg} --tac \
+          --header "Choose a taskrun" \
+          --preview  ${preview})
+fi
+
+[[ -z ${task} ]] && return
+
+podName=$(kubectl get tr -o json ${task} | jq -r '.status.podName')
+if [[ -n ${choose_containers} ]];then
+    [[ -n ${chooseContainerArg} ]] && containeri="-q ${chooseContainerArg}"
+    container=$(kubectl get pod ${podName} -o json|sed 's/step-//'|jq -r '.spec.containers[].name'| \
+                    fzf --header "Choose a container." \
+                        --tac -1 ${containeri} --preview "kubectl logs ${podName} -c step-{}")
+    [[ -n ${container} ]] && container=(-c step-${container})
+else
+    container=(--all-containers --max-log-requests=10)
+fi
+
+t=$(basename ${task});
+if [[ -n ${use_tkn} ]];then
+    tkn taskrun logs ${follow} ${t}
+else
+    kubectl logs ${follow} ${podName} ${container[@]}
+fi

@@ -1,0 +1,245 @@
+/***************************************************************************/
+/* My Stylesheet for Pandoc generated files                                */
+/* Copyright (c) 2015 Sebastian Wiesner <swiesner@lunaryorn.com>           */
+/*                                                                         */
+/* Permission is hereby granted, free of charge, to any person obtaining a */
+/* copy of this software and associated documentation files (the           */
+/* "Software"), to deal in the Software without restriction, including     */
+/* without limitation the rights to use, copy, modify, merge, publish,     */
+/* distribute, sublicense, and/or sell copies of the Software, and to      */
+/* permit persons to whom the Software is furnished to do so, subject to   */
+/* the following conditions:                                               */
+/*                                                                         */
+/* The above copyright notice and this permission notice shall be included */
+/* in all copies or substantial portions of the Software.                  */
+/*                                                                         */
+/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS */
+/* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF              */
+/* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND                   */
+/* NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE  */
+/* LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION  */
+/* OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION   */
+/* WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.         */
+/***************************************************************************/
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  line-height: 1.35;
+  color: #444;
+  font-feature-settings: "onum", "kern", "liga", "clig", "dlig", "calt";
+  -webkit-font-feature-settings: "onum", "kern", "liga", "clig", "dlig", "calt";
+  margin: 0 auto;
+  padding: 15px;
+  margin-bottom: 1.35em;
+  word-wrap: break-word;
+}
+
+p {
+  margin: 0 0;
+  text-indent: 1.5em;
+  text-align: left;
+}
+
+p:only-child {
+  text-indent: 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+ul, ol {
+  margin: 1em 4em;
+  padding: 0;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+small, sup {
+  font-size: 0.86em;
+}
+
+h1 small, h2 small, h3 small, h4 small {
+  font-weight: normal;
+  font-size: 0.65em;
+  line-height: 1;
+  color: #777;
+}
+
+blockquote {
+  margin: 1.2em 0;
+  padding: 0 2em;
+  line-height: 1.25;
+  font-size: 0.9em;
+  border-left: 5px solid #EEE;
+}
+
+a {
+  color: #333;
+  text-decoration: underline;
+}
+
+a:hover {
+  background-color: #fbf3f3;
+  border-radius: 4px;
+  transition-property: background;
+  transition-duration: 0.2s;
+}
+
+.footnoteRef {                  /* Use body font for footnotes */
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4 {                /* Text headings*/
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  line-height: 1;
+  color: #222;
+  margin-top: 2em;
+  margin-bottom: 0.8em;
+  hyphens: none;
+  font-feature-settings: "salt", "lnum";
+  -webkit-font-feature-settings: "salt", "lnum";
+}
+
+h1 {
+  font-size: 1.2em;
+}
+
+h2 {
+  font-size: 1.1em;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+.header-section-number {
+  margin-right: 0.5em;
+}
+
+.header-section-number:after {
+  content: "."
+}
+
+hr {
+  border-width: 1px;
+  border-color: #CCC;
+  border-style: none none solid;
+  margin: 1.35em 0;
+}
+
+/* Images and figures */
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+figure {
+  margin: 2em;
+}
+
+figcaption {
+  margin-top: 0.8em;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+figcaption:before {
+  content: "Figure.";
+  font-weight: 700;
+  margin-right: 0.5em;
+}
+
+/* Code and pre-formatted text */
+kbd, code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 0.83em;
+}
+
+kbd {
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #FFF inset;
+  padding: 0 4px;
+}
+
+code {
+  padding: 0.11em 0.22em;
+}
+
+pre {
+  overflow: auto;
+  padding: 10px;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+}
+
+pre:hover {                     /* Auto-expand pre on hover */
+  position: relative;
+  width: 900px;
+  z-index: 99;
+}
+
+pre code {
+  padding: 0;
+}
+
+.title {               /* Page title */
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.2em;
+  margin-top: 0;
+}
+
+nav {
+  margin: 1em;
+  font-feature-settings: "salt", "lnum";
+  -webkit-font-feature-settings: "salt", "lnum";
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav ul {
+  list-style: none inside disc;
+  margin: 0;
+  padding: 0 0.5em;
+}
+
+header {
+  border-width: 1px;
+  border-color: #CCC;
+  border-style: none none solid;
+  margin: 1.35em 0;
+}
+
+
+@media print {
+  body {
+    width: auto;
+    height: auto;
+    font-size: 10pt;
+  }
+}
+
+@media screen and (min-width: 650px) {     /* Larger devices */
+  body {
+    width: 600px;
+  }
+}
+
+@page
+{
+  size: A4;
+  margin: 24.75mm 17.50mm;
+}

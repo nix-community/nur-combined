@@ -1,0 +1,5 @@
+! Use Caps Lock button for compose key
+keycode 66 = Multi_key
+
+! Remove shift lock functionality
+clear Lock

@@ -1,0 +1,10 @@
+image: fedora/latest
+sources:
+  - https://gitlab.com/vdemeester/home.git
+tasks:
+- hello: |
+    echo "do something with fedora at some point"
+triggers:
+- action: email
+  condition: failure
+  to: vincent@sbr.pm

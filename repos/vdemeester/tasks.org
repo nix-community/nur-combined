@@ -1,0 +1,321 @@
+#+TITLE: Home tasks
+#+FILETAGS: #home infra configuration dotfiles
+
+
+* DONE Choose the repository to use
+CLOSED: [2020-03-13 Fri 19:17]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-03-13 Fri 19:17]
+:END:
+Heading towards using ~home~ or a new ~dotfiles~ repository 😅
+
+*Decision*: Using ~home~ and whenever I feel, renaming to ~dotfiles~ (so that we get the
+redirection)
+
+* DONE Make it clear what that repository supports
+CLOSED: [2020-03-13 Fri 19:21]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-03-13 Fri 19:21]
+:END:
+
+- NixOS
+- Nix with home-manager
+- Ansible for Fedora (?)
+
+* DONE Organize the repository
+CLOSED: [2020-03-14 Sat 14:47]
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2020-03-14 Sat 14:47]
+CLOCK: [2020-03-14 Sat 14:35]--[2020-03-14 Sat 14:50] =>  0:15
+CLOCK: [2020-03-14 Sat 10:30]--[2020-03-14 Sat 14:30] =>  4:00
+CLOCK: [2020-03-13 Fri 19:3g0]--[2020-03-13 Fri 21:30] =>  2:00
+:END:
+
+Documented on the repository itself.
+
+* DONE Import repositories
+CLOSED: [2020-03-14 Sat 15:10]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-03-14 Sat 15:10]
+CLOCK: [2020-03-14 Sat 14:47]--[2020-03-14 Sat 15:10] =>  0:23
+:END:
+
+Using =git subtree=
+
+** DONE gh:vdemeester/nixos-configuration
+CLOSED: [2020-03-14 Sat 15:10]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-03-14 Sat 15:10]
+:END:
+
+Made sure my local working directory was up-to-date.
+
+#+begin_src emacs-lisp
+git subtree add --prefix=tmp/nixos-configuration \
+    ~/src/github.com/vdemeester/nixos-configuration/.git master
+#+end_src
+
+
+** DONE gh:vdemeester/emacs-config
+CLOSED: [2020-03-14 Sat 15:10]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-03-14 Sat 15:10]
+:END:
+
+Made sure my local working directory was up-to-date.
+
+#+begin_src bash
+git subtree add --prefix=tmp/emacs-config ~/.emacs.d/.git master
+#+end_src
+
+
+* DONE What is the main repository ?
+CLOSED: [2020-03-29 Sun 18:35]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-03-29 Sun 18:35]
+:END:
+
+Choices are:
+
+- +github.com+
+- gitlab.com
+- git.sr.ht (mirrored)
+
+* DONE Where to put what ?
+CLOSED: [2020-04-14 Tue 21:25]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-04-14 Tue 21:25]
+:END:
+
+Base on [[https://git.tazj.in/about][tazjin's personal monorepo]], some tooling only configuration, like =emacs= could go
+into a ~tools/{tool}~ folder.
+
+- ~tools/emacs~ for the emacs configurations
+- …
+
+* DONE Bootstrap script
+CLOSED: [2020-04-29 Wed 11:37]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-04-29 Wed 11:37]
+:END:
+
+- Detect the host system
+  + NixOS livecd/install (~nixos-configuration~)
+  + NixOS installed, run as user (~home-manager~)
+  + Fedora (~nixpkgs~ to install, ansible, …)
+
+The main problem I can see still is : how do I bootstrap NixOS and how do I keep it
+up-to-date.
+
+- Should it link itself to the home at some point ?
+- Should it be read-only (~/etc/nixos~) and only get updates from the main repository ?
+  + This is 95% possible if I have good reproducibility, easily test my /shit/ using a VM
+    or something (and quickly too)
+
+* DONE Auto-detect the hostname (for home-manager, …)
+CLOSED: [2020-04-14 Tue 21:25]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-04-14 Tue 21:25]
+:END:
+
+support both ~hostname~ commands (~home-manager~) and a file (~/etc/nixos~)
+
+
+* DONE Auto-detect ~home-manager~ vs ~nixos~
+CLOSED: [2020-04-14 Tue 21:26]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-04-14 Tue 21:26]
+:END:
+
+mainly for modules that could be used in both. This could be done manually (aka in the
+main configuration)
+
+Using sudo 😎
+
+* DONE Update submodules overlays
+CLOSED: [2020-04-28 Tue 23:32]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-04-28 Tue 23:32]
+:END:
+
+Using a ~make~. Should it be submodules *or* subtree ?
+- submodule makes the repo smaller
+- subtree makes the repo reproductible
+
+Submodule is easy to manage, especially in magit too
+
+* DONE Install script
+CLOSED: [2020-04-30 Thu 00:56]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-04-30 Thu 00:56]
+:END:
+
+* DONE [#A] Move =tmp/nixos-configuration= to root
+CLOSED: [2020-04-30 Thu 02:11]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-04-30 Thu 02:11]
+:END:
+
+Have some variable to let modules know if they are from home-manager or not.
+Maybe I can try on an test module
+
+First step is to import =machine/{hostname}.nixos.nix=.
+For modules, it's a little bit tricker, but the first step is to have a separate nixos
+module list.
+
+* DONE update kerkouane to nixos 20.03
+CLOSED: [2020-05-06 Wed 05:37]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-05-06 Wed 05:37]
+:END:
+
+* DONE Find a way to detect if the module is called from h-m or nixos
+CLOSED: [2020-05-06 Wed 05:37]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-05-06 Wed 05:37]
+:END:
+
+After importing modules, import a file conditionnally (home & nixos) that set a config to
+true or false. This would also allow to support more things, like specifics for ubunt,
+fedora, …
+
+* DONE Migrate nur-package here
+CLOSED: [2020-05-06 Wed 09:51]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-05-06 Wed 09:51]
+:END:
+
+- [X] Have a CI setup for it (using sr.ht)
+  + Automate cachix push (nixos + nixos-unstable + nixpkgs-unstable + …)
+  + =curl= on nur-community in case of nur file changed (and only for it)
+- [X] Update nur-community
+
+* TODO Where should be the cloned ?
+
+That's a real interesting question.
+The next question is then, what do we do with the existing setup ?
+- link =./tmp/emacs= in =~/.emacs.d/= ?
+- have a tool to help migrate (aka backup + link and later do something else) ?
+
+So latest status on this.
+- =/etc/home= with user rights might make the most sense. Why ?
+  + At install time, I don't have a user yet
+  + In all system, I can, in some way,
+
+How does this work with =~/src/www= ? The main problem might be the =git clone= but I
+think it's ok to use sudo for this.
+
+The real question is :
+- =/etc/home= everywhere ? or…
+- =~/src/home= on fedora/ubuntu and =/etc/nixos= on nixos
+
+It could also be in =/etc/nixos= if it is writable for the user (=vincent= in most case)
+
+* TODO De-duplicate modules
+
+* TODO Better wireguard support
+
+- support for creating key
+- support for importing keys
+
+* TODO Handle machines.nix better (somehow?)
+
+* DONE [#A] Update auto-update service
+CLOSED: [2020-05-09 Sat 22:51]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-05-09 Sat 22:51]
+:END:
+
+Make it simpler
+- auto-update simple
+- a nightly git pull --rebase … as *user*
+
+* TODO [#B] =qemu=/=kvm= setup to tests things
+
+- start a system with nixos iso (cache and download)
+- start a system with nixos pre-installed (cached)
+- start a system with fedora pre-installed (cached)
+
+- https://github.com/Xe/nixos-configs
+- https://rycee.gitlab.io/home-manager/
+- [[https://www.tomas.io/articles/try-fedora][Try fedora | tomas.io]]
+
+
+* TODO Makefile executable from anywhere
+
+aka ~make -C ~/.config/nixpkgs~ should work
+
+* TODO Zsh configuration
+For zsh on nixos:
+- [ ] use emacs keybinding
+- [ ] completion
+- [ ] take some stuff from ~home~ configuration
+
+* TODO Have a ~emacs.nix~ aware config                          :nixos:emacs:
+:PROPERTIES:
+:CREATED:[2019-03-16 Sat 11:57]
+:END:
+
+1. Can be cloned, exec(d) and run as is (using ~nix~)
+2. Can be run without ~nix~ (see ~bauer~)
+3. Can put build and pushed to nix, making updates (~home-manager~) less verbose and long.
+
+From: [[file:~/desktop/org/technical/tekton-dev.org::*Environments][Environments]]
+* TODO better overlays
+
+- [ ] =default.nix= to import others
+- [ ] =pkgs= and overlay smooth integration (aka no prefix =my=)
+
+* TODO [#B] bootstrap.nix (and install.nix)
+
+Reduce the sh script to the minimum and use =nix-shell= with a =.nix= file as much as
+possible.
+To run the install script from a NixOS livecd, =nix-shell= can be used, same in bootstrap
+as soon as we have installed nix.
+
+* DONE [#A] Add =.githooks= support
+CLOSED: [2020-05-09 Sat 15:08]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-05-09 Sat 15:08]
+:END:
+
+* TODO virtualization.buildkit options
+
+- [ ] with containerd, default is to use runc only
+
+* TODO pkgs: support stdenv.isLinux, …
+
+stdenv.lib.optionals stdenv.isLinux
+
+* DONE =ci.nix= with build.sr.ht
+CLOSED: [2020-05-06 Wed 10:13]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-05-06 Wed 10:13]
+:END:
+
+* DONE [#B] cron-job to schedule a build at build.sr.ht 👼
+CLOSED: [2020-05-10 Sun 13:55]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-05-10 Sun 13:55]
+:END:
+
+Daily or weekly build
+
+* TODO [#B] self-contained configuration
+
+- Pin different channels in the configuration (?)
+- Run the configuration against multiple channels (?)
+
+* TODO =private= folder for nix (instead of =assets=)
+* TODO [#B] =ci.nix= build on multiple channels
+:PROPERTIES:
+:CREATED:[2020-05-05 Tue 12:45]
+:END:
+
+Automatic =nix-build . | cachix push shortbrain=, on nixos-unstable and nixpkgs-unstable too.
+
+From: [[eshell:*eshell nur-packages*:cd /home/vincent/src/github.com/vdemeester/nur-packages][cd /home/vincent/src/github.com/vdemeester/nur-packages]]
+
+* TODO add crc profile on nixos
+
+Mainy for the dnsmasq configuration, …

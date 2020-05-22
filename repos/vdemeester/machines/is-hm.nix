@@ -1,0 +1,3 @@
+{
+  machine.home-manager = true;
+}

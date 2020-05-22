@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Update creds and link to the openshift4 devcluster
+
+set -e
+
+BASE_URL="https://uploader-ci-openshift-pipelines.apps.devint.openshiftknativedemo.org/devreinstall/"
+curl -s "${BASE_URL}/vincent/kubeadmin.password.gpg"|gpg --decrypt > ~/sync/work/chos4/kubeadmin.password.os4
+curl -s "${BASE_URL}/vincent/webaccess.gpg"|gpg --decrypt > ~/sync/work/chos4/webaccess.os4
+curl -s "${BASE_URL}/vincent/kubeconfig.gpg"|gpg --decrypt > ~/sync/work/chos4/config.os4 && export KUBECONFIG=~/sync/work/chos4/config.os4
+
+for file in kubeadmin.password.os4 webaccess.os4 config.os4; do
+    if ! test -f $HOME/.kube/$file; then
+        ln -s $HOME/sync/work/chos4/$file ~/.kube/$file
+    fi
+done
+
+export KUBECONFIG=~/.kube/config.os4
+oc login -u kubeadmin -p $(cat ~/.kube/kubeadmin.password.os4)
+
+if [[ "$1" == "install" ]]; then
+    op-inst
+fi
+
+echo ">>> your cluster is ready :)"
+read

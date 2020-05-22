@@ -1,0 +1,12 @@
+---
+- name: Install essentials
+  become: yes
+  package: name={{item}} state=present
+  with_items:
+  - python3-psutil
+  - util-linux-user
+  - oathtool
+  - lm_sensors
+  - qrencode
+  - caca-utils
+  - ykpers

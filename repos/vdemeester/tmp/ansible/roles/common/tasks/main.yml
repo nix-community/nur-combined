@@ -1,0 +1,4 @@
+---
+- include: install-essentials.yml
+- include: install-fedora-essentials.yml
+  when: ansible_distribution == 'Fedora'

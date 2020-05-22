@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+emacs --dump-file=${HOME}/.config/emacs/emacs.pdmp

@@ -1,0 +1,17 @@
+*~
+result
+hostname
+*.retry
+assets/machines.nix
+docs/sitemap.org
+tools/emacs/emacs.pdmp
+tools/emacs/recentf
+qemu
+accounts.nix
+assets/*
+private/*
+networking.nix
+wireguard*.key
+.envrc
+hardware-configuration.nix
+/key.bin

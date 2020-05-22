@@ -1,0 +1,20 @@
+* %^{meeting}
+
+- Actions ::
+  #+BEGIN: columnview :id local :match "/TODO|DONE" :format "%ITEM(What) %TAGS(Who) %DEADLINE(When) %TODO(State)"
+  | What                                | Who        | When | State |
+  |-------------------------------------+------------+------+-------|
+  #+END:
+- Decisions ::
+  #+BEGIN: columnview :id local :match "Decision" :format "%ITEM(Decisions)"
+  | Decisions |
+  |-----------|
+  #+END:
+
+** Present at meeting
+  - [ ]
+** Agenda
+- %?
+** Notes
+- Use =:Decision:= tag for decision
+- Use entry with =TODO= (or =DONE=) for actions

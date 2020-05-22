@@ -1,0 +1,11 @@
+---
+- name: add google-cloud-sdk repo
+  copy:
+    src: "google-cloud-sdk.repo"
+    dest: "/etc/yum.repos.d/google-cloud-sdk.repo"
+    owner: root
+    group: root
+    mode: 0644
+- name: install google-cloud-sdk
+  become: yes
+  package: name=google-cloud-sdk state=present

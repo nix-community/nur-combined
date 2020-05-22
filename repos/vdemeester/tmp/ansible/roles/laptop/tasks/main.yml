@@ -1,0 +1,7 @@
+---
+- include: common.yml
+- include: thinkpad.yml
+  when: ansible_product_version == 'ThinkPad X220'
+#- name: just force systemd to reread configs (2.4 and above)
+#  systemd:
+#    daemon_reload: yes

@@ -1,19 +1,18 @@
-{ stdenv, lib, buildGoPackage, fetchgit }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub }:
 
-buildGoPackage rec {
+buildGoModule rec {
   name = "protobuild-unstable-${version}";
-  version = "2018-03-27";
-  rev = "e76179fda745e7e601c8c78943191913e3e8a009";
+  version = "2020-04-14";
+  rev = "324b1750ca060b814b18f4142b544b292d42968e";
 
   goPackagePath = "github.com/stevvooe/protobuild";
-
-  src = fetchgit {
+  src = fetchFromGitHub {
     inherit rev;
-    url = "https://github.com/stevvooe/protobuild";
-    sha256 = "0p8smvf2984kjx3m4qx5ap3005m1df40ynww8rjcrq7gzc3vn61n";
+    owner = "stevvooe";
+    repo = "protobuild";
+    sha256 = "0v3biryf56hscg7s8mm9ds8zypajb976z6x4xlhx1852wz6vqfxh";
   };
-
-  goDeps = ./deps.nix;
+  modSha256 = "19wazsl2k8563k96w75lcfdvvz4k5l5kg8inbm1hkh1h0knnzh8r";
 
   meta = {
     description = "Build protobufs in Go, easily";

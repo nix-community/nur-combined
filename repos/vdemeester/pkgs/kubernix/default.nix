@@ -2,16 +2,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "kubernix";
-  version = "dev-2020-04-30";
+  version = "unstable-2020-05-07";
+  preferLocalBuild = true;
 
   src = fetchFromGitHub {
     owner = "saschagrunert";
     repo = pname;
-    rev = "5a33f33e58cb95fb2673fdba8da244ab1851d585";
-    sha256 = "1kygm3ijpfpy2sypx6kvjg83j7pwy43li55cacifqcwbn4w6sphs";
+    rev = "01ea39f468dd8abf6816a87fcac886a25ec05b0d";
+    sha256 = "1zqqdcxidn10a4p1b64r1w79nwlifk1si0lf9jfkb7099rfrhalf";
   };
 
-  cargoSha256 = "0r1q5mj6znny435jw7ch02srgsb5cb6f2iz8s96n5c5vdz60cyj1";
+  cargoSha256 = "0xaf056x46c5561hypd85ni7bkijvz26kpwy5iiw19ijnlj1adw9";
   doCheck = false;
 
   meta = with stdenv.lib; {

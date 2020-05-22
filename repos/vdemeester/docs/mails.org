@@ -1,0 +1,429 @@
+#+TITLE: My email setup
+#+SUBTITLE: A very opiniated mail setup
+#+SETUPFILE: ./.setupfile.org
+
+#+BEGIN_abstract
+This article presents my opinionated email setup, client side. By opinionated I mean that
+it requires quite some stuff (like =nixpkgs=) and is cli/emacs/… oriented.
+#+END_abstract
+
+I used to read my mails only through the web interface of my mail provider (GMail for the
+most part), or through my phone. As I'm trying to use my phone less, at least for work,
+and as I wanted to not have a gmail tab always opened on my browser, I decided to
+configure an email client on my laptops/desktops.
+
+#+TOC: headlines 1
+
+So far, I ended up using the following tools:
+
+- [[http://isync.sourceforge.net/mbsync.html][~mbsync~]] to sync mails between server and laptop/desktop.
+- [[https://marlam.de/msmtp/][~msmtp~]] to send mails.
+- [[https://notmuchmail.org/][~notmuch~]] to index, and tag mails.
+- [[https://www.gnu.org/software/emacs/][~emacs~]] with [[https://www.gnu.org/software/emacs/manual/html_node/gnus/][~gnus~]] and [[https://notmuchmail.org/notmuch-emacs/][~notmuch~]] for reading/sending mails.
+- [[http://astroidmail.github.io/][~astroid~]] for cases where I want another GUI than emacs.
+
+Something a bit special here is that I also use [[https://github.com/rycee/home-manager][~home-manager~]]… and [[https://github.com/rycee/home-manager][~home-manager~]] has
+modules for those tools, so we are going to use thoses.
+
+* Module
+:PROPERTIES:
+:CUSTOM_ID: h:db00a56e-c928-47d4-a784-3b2d2600759c
+:END:
+
+Let's start by defining the module, the usual Nix way.
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+  # Generated from an org file 💃
+  # See : https://sbr.pm/technical/configurations/mails.html
+  { config, lib, pkgs, ... }:
+
+  with lib;
+  let
+    cfg = config.profiles.mails;
+  in
+  {
+#+end_src
+
+Let's now define options. As of now, except ~enable~ (to activate or not the module) I
+don't have any options in mind.
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+options = {
+  profiles.mails = {
+    enable = mkEnableOption "Enable mails configuration";
+    sync = mkEnableOption "Enable sync mail service";
+    frequency = mkOption {
+      default = "*:0/30";
+      description = "Frequency at which the mail should be checked";
+      type = types.str;
+    };
+  };
+};
+#+end_src
+
+Finally, create the configuration.
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+config = mkIf cfg.enable (mkMerge [
+  {
+#+end_src
+
+* Base settings
+:PROPERTIES:
+:CUSTOM_ID: h:e492a4cf-41e5-4091-9fc3-1294bef31875
+:END:
+
+** Accounts
+:PROPERTIES:
+:CUSTOM_ID: h:ddef34cf-07c6-4ae1-abc9-129440ded5e2
+:END:
+
+The next step is to actually define the accounts we want use and where we want to store
+email, amongst other need.
+
+- We want to store mails in ~desktop/mails/{account}~.
+- We don't want to input password each and every time so we're using an encrypted file
+  ([[https://www.gnupg.org/gph/en/manual/x110.html][symmetric encryption using GnuPG]] with a passphrase file).
+- We're gonna enable diverse modules on each account
+  + ~mbsync~ to sync the mail with some setupts (like specific rules for GMail specific
+    folders)
+  + ~notmuch~ for email indexing
+  + ~msmtp~ to send a mail, using the account's smtp server
+  + ~astroid~ for a GUI
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+accounts.email = {
+  maildirBasePath = "desktop/mails";
+  accounts = {
+    "redhat" = {
+      address = "vdemeest@redhat.com";
+      userName = "vdemeest@redhat.com";
+      realName = "Vincent Demeester";
+      passwordCommand = "${pkgs.gnupg}/bin/gpg -q --for-your-eyes-only --no-tty --exit-on-status-write-error --batch --passphrase-file ${config.home.homeDirectory}/sync/rh.pass -d ${config.home.homeDirectory}/desktop/documents/rh.pass.gpg";
+      imap.host = "imap.gmail.com";
+      smtp.host = "smtp.gmail.com";
+      mbsync = {
+        enable = true;
+        create = "both";
+        expunge = "both";
+        patterns = ["*" "![Gmail]*" "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"];
+        extraConfig = {
+          channel = {
+            Sync = "All";
+          };
+          account = {
+            Timeout = 120;
+            PipelineDepth = 1;
+          };
+        };
+      };
+      notmuch.enable = cfg.sync;
+      astroid.enable = cfg.sync;
+      msmtp.enable = true;
+    };
+    "perso" = {
+      address = "vinc.demeester@gmail.com";
+      userName = "vinc.demeester@gmail.com";
+      realName = "Vincent Demeester";
+      passwordCommand = "${pkgs.gnupg}/bin/gpg -q --for-your-eyes-only --no-tty --exit-on-status-write-error --batch --passphrase-file ${config.home.homeDirectory}/sync/perso.pass -d ${config.home.homeDirectory}/desktop/documents/perso.pass.gpg";
+      imap.host = "imap.gmail.com";
+      smtp.host = "smtp.gmail.com";
+      mbsync = {
+        enable = true;
+        create = "both";
+        expunge = "both";
+        patterns = ["*" "![Gmail]*" "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"];
+        extraConfig = {
+          channel = {
+            Sync = "All";
+          };
+          account = {
+            Timeout = 120;
+            PipelineDepth = 1;
+          };
+        };
+      };
+      notmuch.enable = cfg.sync;
+      astroid.enable = cfg.sync;
+      msmtp.enable = true;
+    };
+    "prv" = {
+      primary = true;
+      address = "vincent@demeester.fr";
+      userName = "vincent@demeester.fr";
+      realName = "Vincent Demeester";
+      passwordCommand = "${pkgs.gnupg}/bin/gpg -q --for-your-eyes-only --no-tty --exit-on-status-write-error --batch --passphrase-file ${config.home.homeDirectory}/sync/prv.pass -d ${config.home.homeDirectory}/desktop/documents/prv.pass.gpg";
+      imap.host = "mail.gandi.net";
+      smtp.host = "mail.gandi.net";
+      mbsync = {
+        enable = true;
+        create = "both";
+        expunge = "both";
+        patterns = ["*"];
+        extraConfig = {
+          channel = {
+            Sync = "All";
+          };
+          account = {
+            Timeout = 120;
+            PipelineDepth = 1;
+          };
+        };
+      };
+      notmuch.enable = cfg.sync;
+      astroid.enable = cfg.sync;
+      msmtp.enable = true;
+    };
+  };
+};
+#+end_src
+
+To create the pasword files:
+- create =~/desktop/documents/{account}.pass.gpg= file, you need to create a
+  =~/desktop/documents/prv.pass= file with the actual password.
+- create =~/sync/{account}.pass= with a passphrase (long, complex, whatever…)
+- encrypt =~/desktop/documents/{account}.pass.gpg= with the following command
+
+  #+begin_src bash
+  gpg --batch --yes --symmetric --passphrase-file ~/sync/{account}.pass --encrypt {account.pass}
+  #+end_src
+
+- remove =~/desktop/documents/{account}.pass=
+
+
+** ~msmtp~ wrapper
+:PROPERTIES:
+:CUSTOM_ID: h:cc9d0707-d775-49ef-884d-ae65174fb259
+:END:
+
+As I have multiple accounts, I need to be able to send mails from those multiple accounts
+too. For this we will use ~msmtp~. We will ~$HOME/.nix-profile/bin/msmtp~ to make sure it
+uses ~--read-envolep-from~. This means it will look at what ~FROM~ header is set in the
+e-mail and use the correct account accordingly.
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+home.file."bin/msmtp" = {
+  text = ''
+  #!${pkgs.stdenv.shell}
+  ${pkgs.libnotify}/bin/notify-send "Sending mail ✉️"
+  ${pkgs.msmtp}/bin/msmtp --read-envelope-from $@
+  '';
+  executable = true;
+};
+#+end_src
+
+We also want to make sure we enable ~msmtp~.
+
+#+begin_src  nix :tangle ./modules/profiles/mails.nix
+programs.msmtp.enable = true;
+#+end_src
+
+And that should be all for the base settings, so let's close that part
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+}
+#+end_src
+
+
+* Syncing
+:PROPERTIES:
+:CUSTOM_ID: h:47e38880-580e-4335-a504-b3c9c580ec91
+:END:
+
+I may not want to sync and index mails on all computers. In practice, I only do that on
+one computer and I sync these mails with the others.
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+(mkIf cfg.sync {
+#+end_src
+
+** Service
+:PROPERTIES:
+:CUSTOM_ID: h:2b822f1b-cd0a-430d-8942-3ad21a4bcaa1
+:END:
+
+Now that all the configuration are defined (and generated once we run [[https://github.com/rycee/home-manager][~home-manager~]]),
+we're going to enable the ~mbsync~ service to synchronize email at the given frequency.
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+services.mbsync = {
+  enable = true;
+  preExec = "${config.xdg.configHome}/mbsync/preExec";
+  postExec = "${config.xdg.configHome}/mbsync/postExec";
+  frequency = cfg.frequency;
+};
+#+end_src
+
+We also setup ~preExec~ and ~postExec~ hooks on the service to be able to run commands
+before and after actually running ~mbsync~.
+
+- ~preExec~ has two main purpose :
+
+  + Create the accounts mail folder — this is *only* useful for the first run ever, but it
+    is required.
+  + Move mails on the right folders
+    - from Inbox to elsewhere (All mails, …)
+    - (in the future) to the right folders (from the tags)
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+xdg.configFile."mbsync/preExec" = {
+  text = ''
+  #!${pkgs.stdenv.shell}
+
+  export NOTMUCH_CONFIG=${config.xdg.configHome}/notmuch/notmuchrc
+  export NMBGIT=${config.xdg.dataHome}/notmuch/nmbug
+
+  ${pkgs.coreutils}/bin/mkdir -p ${config.home.homeDirectory}/desktop/mails/redhat ${config.home.homeDirectory}/desktop/mails/perso
+  ${pkgs.afew}/bin/afew -C  ${config.xdg.configHome}/notmuch/notmuchrc -m -v
+  '';
+  executable = true;
+};
+#+end_src
+
+- ~postExec~ will index the new emails in the ~notmuch~ database and tag mail accordingly
+  (to their folders and other rules in place).
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+xdg.configFile."mbsync/postExec" = {
+  text = ''
+  #!${pkgs.stdenv.shell}
+
+  export NOTMUCH_CONFIG=${config.xdg.configHome}/notmuch/notmuchrc
+  export NMBGIT=${config.xdg.dataHome}/notmuch/nmbug
+
+  ${pkgs.notmuch}/bin/notmuch new
+  ${pkgs.afew}/bin/afew -C ${config.xdg.configHome}/notmuch/notmuchrc --tag --new -v
+  # Remove inbox (lower-case)
+  ${pkgs.notmuch}/bin/notmuch tag -inbox -- tag:inbox
+  # Remove Inbox tagged message that are not in an Inbox
+  ${pkgs.notmuch}/bin/notmuch tag -Inbox -- not folder:redhat/Inbox and not folder:perso/Inbox and tag:Inbox
+  ${pkgs.libnotify}/bin/notify-send "Mails synced 📬"
+  '';
+  executable = true;
+};
+#+end_src
+
+Finally, let's define custom commands to simplify my mail usage. Those should be nix
+package in the near future — as of now, it is a bit ugly as I'm creating binaries inside
+~$HOME/bin~ instead of relying of Nix.
+
+- ~msync~ is an helper to run quickly ~mbsync~ systemd service from anywhere
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+home.file."bin/msync" = {
+  text = ''
+  #!${pkgs.stdenv.shell}
+  ${pkgs.libnotify}/bin/notify-send "Syncing mails 📫️"
+  systemctl --user start mbsync
+  '';
+  executable = true;
+};
+#+end_src
+
+
+** Programs
+:PROPERTIES:
+:CUSTOM_ID: h:8e918ee0-4ef7-4f98-b170-dcfea20c6443
+:END:
+
+Additionally we can enable some programs and customize their behavior. Let's enable
+~programs.mbsync~, which has for effect to put ~mbsync~ binary in ~PATH~ so that the user
+(us) can call it. Same goes for ~programs.msmtp~ and ~programs.notmuch~.
+
+#+begin_src  nix :tangle ./modules/profiles/mails.nix
+programs.mbsync.enable = true;
+programs.notmuch.enable = true;
+#+end_src
+
+*** Afew
+:PROPERTIES:
+:CUSTOM_ID: h:74f4160b-d34a-490e-b56a-ad3d0e5f966c
+:END:
+
+[[https://github.com/afewmail/afew][~afew~]] is "an initial tagging script for notmuch mail". We're going to define some extra
+configuration to enable some filters and ~MailMover~ rules.
+
+Note: This should go away at some point as these rules are not dynamic enough for my usage.
+
+#+begin_src  nix :tangle ./modules/profiles/mails.nix
+programs.afew = {
+  enable = true;
+  extraConfig = ''
+    [SpamFilter]
+    [KillThreadsFilter]
+    [ListMailsFilter]
+    [ArchiveSentMailsFilter]
+    [FolderNameFilter]
+    maildir_separator = /
+
+    [MailMover]
+    folders = perso/Inbox redhat/Inbox
+    rename = true
+
+    perso/Inbox = 'NOT tag:Inbox':"perso/[Gmail]/All Mail"
+    redhat/Inbox = 'NOT tag:Inbox':"redhat/[Gmail]/All Mail"
+  '';
+};
+#+end_src
+
+*** Astroid
+:PROPERTIES:
+:CUSTOM_ID: h:2d4558d2-0596-4c80-bab0-f259385375b1
+:END:
+
+[[https://github.com/astroidmail/astroid/][~astroid~]] is a "graphical threads-with-tags style, lightweight and fast, e-mail client for
+Notmuch". My main e-mail client is ~emacs~ with the ~notmuch~ mode, but sometimes I want a
+GUI, mainly to see wanky HTML mails that would not render correctly some times.
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+programs.astroid = {
+  enable = true;
+  externalEditor = "emacsclient -c";
+  extraConfig = {
+    startup.queries.inbox = "tag:Inbox";
+    startup.queries.inbox_perso = "folder:perso/Inbox";
+    startup.queries.inbox_redhat = "folder:redhat/Inbox";
+  };
+};
+#+end_src
+
+And that's all for the sync part, so let's close it
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+})
+#+end_src
+
+* Close the module
+:PROPERTIES:
+:CUSTOM_ID: h:7672fedf-2afa-4eb1-a9f2-38a6aada5f5f
+:END:
+
+#+begin_src nix :tangle ./modules/profiles/mails.nix
+]);
+}
+#+end_src
+
+
+* References
+:PROPERTIES:
+:CUSTOM_ID: h:7012be97-2b81-44e9-b9bb-8c4147e3d561
+:END:
+
+- [[https://copyninja.info/blog/email_setup.html][My personal Email setup - Notmuch, mbsync, postfix and dovecot]]
+- [[https://anarc.at/blog/2016-05-12-email-setup/][Notmuch, offlineimap and Sieve setup - anarcat]]
+- [[https://github.com/kzar/davemail]]
+- [[https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/][Handling Email with Emacs – malb::blog]]
+- [[https://kirang.in/post/emacs-as-email-client-with-offlineimap-and-mu4e-on-osx/][Emacs as email client with offlineimap and mu4e on OS X]]
+- [[http://cachestocaches.com/2017/3/complete-guide-email-emacs-using-mu-and-/][A Complete Guide to Email in Emacs using Mu and Mu4e]]
+- [[https://notmuchmail.org/emacstips/#index24h2][emacstips]]
+- [[https://kkatsuyuki.github.io/notmuch-conf/][notmuch + emacs + offlineimap configuration procedure]]
+- [[https://wiki.archlinux.org/index.php/Isync][isync - ArchWiki]]
+- [[https://superuser.com/questions/437027/emacs-and-multiple-smtp-servers][email - Emacs and Multiple SMTP servers - Super User]]
+- [[https://notanumber.io/2016-10-03/better-email-with-mu4e/][Better Email with mu4e | NaN]]
+- [[https://wwwtech.de/articles/2016/jul/my-personal-mail-setup][My personal mail setup]]
+- [[https://foobacca.co.uk/blog/2013/04/initial-tagging-and-afew/][initial tagging and afew - Foobacca]]
+- [[https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/][Handling Email with Emacs – malb::blog]]
+- [[http://deferred.io/2016/01/18/how-i-email.html][How I email, 2016 edition]]
+- [[https://bostonenginerd.com/posts/notmuch-of-a-mail-setup-part-2-notmuch-and-emacs/][Notmuch of mail a setup Part 2 - notmuch and Emacs | Assorted Nerdery]]
+- [[http://www.johnborwick.com/2019/02/09/notmuch-gmailieer.html][Checking email with gmailieer + notmuch + Emacs | John’s Blog]]
+- [[https://blog.einval.eu/2019/06/one-year-with-notmuch.html][One year with Notmuch]]

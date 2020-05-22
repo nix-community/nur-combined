@@ -1,0 +1,35 @@
+---
+- name: Install gnome essentials
+  become: yes
+  package: name={{item}} state=present
+  with_items:
+  - seahorse
+  - seahorse-nautilus
+  - tilix
+  - tilix-nautilus
+  - nautilus-image-converter
+  - deja-dup
+  - deja-dup-nautilus
+  - gnome-tweaks
+  - gnome-shell-extension-pomodoro
+  - snapd
+  - xsel
+  - pavucontrol
+- name: Install dconf-editor
+  become: yes
+  package: name=dconf-editor state=present
+- name: Enable Night Light
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/color/night-light-enabled"
+    value: "true"
+    state: present
+- name: Enable Night Light
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/color/night-light-schedule-automatic"
+    value: "true"
+    state: present
+- name: Enable Night Light
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/color/night-light-temperature"
+    value: "5000"
+    state: present

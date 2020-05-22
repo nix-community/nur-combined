@@ -1,0 +1,13 @@
+---
+- name: Install essentials
+  become: yes
+  package: name={{item}} state=present
+  with_items:
+  - vim
+  - htop
+  - tmux
+  - zsh
+  - sshfs
+  - mosh
+  - krb5-auth-dialog
+  - krb5-workstation

@@ -1,0 +1,21 @@
+include = cat ${HOME}/.config/mr
+
+[github.com]
+chain = true
+skip = true
+
+[gitlab.com]
+chain = true
+skip = true
+
+[git.sr.ht]
+chain = true
+skip = true
+
+[knative.dev]
+chain = true
+skip = true
+
+[pkgs.devel.redhat.com]
+chain = true
+skip = true

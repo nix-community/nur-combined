@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+maim -g $(slop; sleep ${2:-0}) | {
+    case $1 in
+	%c) to='clipboard'; xclip -selection clipboard -t image/png ;;
+	%d) to=~/desktop/pictures/screenshots/$(hostname)/$(date +'%Y-%m-%d-%H%M%S').png; cat > "$to" ;;
+	*)  to=$1; cat > "$to" ;;
+    esac
+    notify-send -i accessories-screenshot 'Screenshot Taken' "Saved to $to"
+}

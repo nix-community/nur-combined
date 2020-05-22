@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Emacs capture
+Exec=capture
+Type=Application
+Terminal=false
+Categories=System;
+Icon=emacs;

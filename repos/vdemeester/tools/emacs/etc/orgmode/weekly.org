@@ -1,0 +1,19 @@
+* weekly review                                               :weekly:review:
+%U
+
+- [ ] review [[file:../projects/inbox.org][~inbox.org~]]
+  Clean the file by either
+  - refiling it to ~incubate.org~
+  - removing it / archiving it
+- [ ] review [[file:../projects/incubate.org][~incubate.org~]]
+  - Is something worth becoming a project
+  - Is something not worth thinking about anymore ?
+- [ ] empty mail inbox (and create task if needed)
+  - [ ] work
+  - [ ] perso
+- [ ] Review next week ~F12 n w f~
+- [ ] review ~org-mode~ workflow
+  - *what works, what doesn't ?*
+  - *is there task / stuck projects ?*
+  - *enhancement possible ?*
+- [ ] export previous agenda (somewhere)

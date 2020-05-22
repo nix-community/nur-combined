@@ -1,0 +1,1 @@
+Put stuff here that are local to a specific machine, those are private, aka not shared via this git repository.

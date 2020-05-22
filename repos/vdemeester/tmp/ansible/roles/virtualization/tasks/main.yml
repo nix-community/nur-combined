@@ -1,0 +1,11 @@
+---
+- name: install the 'Virtualization' package group
+  dnf:
+    name: '@Virtualization'
+    state: present
+- name: Install virtualization essentials
+  become: yes
+  package: name={{item}} state=present
+  with_items:
+  - guestfs-browser
+  - libguestfs-tools

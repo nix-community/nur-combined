@@ -1,0 +1,30 @@
+local root=~/src/
+local res results args
+
+while getopts "np" opt; do
+  if [[ $opt = "?" ]]; then
+    print -r -- "$myname: unrecognized option: -$OPTARG" >&2
+    return 1
+  fi
+  eval "opt_$opt=\${OPTARG:--\$opt}"
+done
+(( OPTIND > 1 )) && shift $(( OPTIND - 1 ))
+
+local fnd=$1
+type -f zshz 2>/dev/null >/dev/null || opt_n=true
+
+if [[ -n ${fnd} ]];then
+
+    [[ -z ${opt_n} ]] && {
+        local zz=$(zshz -e ${fnd})
+        [[ -n ${zz} ]] && { echo "ZSHZ: ${zz}"; [[ -z ${opt_p} ]] && cd ${zz}; return;}
+    }
+
+    local results=($(fd -d 3 -t d . ${root}|egrep -i "${fnd}"))
+    [[ ${#results} == 1 ]] && { echo ${results}; [[ -z ${opt_p} ]] && cd ${results} ; return;}
+    [[ ${#results} == 0 ]] && { echo "No results found for ${fnd}"; return 1;}
+    args="-q ${fnd}"
+fi
+
+res=$(fd -d 3 -t d . ${root}|sed "s,${root},,"|fzf --height 50% --border ${args})
+[[ -n ${res} ]] && {echo ${root}${res}; [[ -z ${opt_p} ]]  && cd ${root}${res} ; }

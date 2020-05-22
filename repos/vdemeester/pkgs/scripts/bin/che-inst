@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Update creds and link to the openshift4 devcluster
+
+set -e
+
+echo ">>> install che in the cluster"
+chectl update next #is it required ?
+
+chectl server:start --platform=openshift --installer=operator
+
+echo "<<< Get your token using 'window._keycloak.token' in the devconsole"
+read

@@ -1,0 +1,35 @@
+#+TITLE: Configurations
+#+FILETAGS: #home infra configuration dotfiles
+#+SETUPFILE: ./.setupfile.org
+
+This set of pages and articles are describing and discussion my
+configurations. Configurations means the [[https://dotfiles.github.io/][dotfiles]] for miscellaneous software and operating
+systems (like [[https://nixos.org][=NixOS=]], or [[https://www.gnu.org/software/emacs/][GNU Emacs]]).
+
+This documents comes from my [[https://gitlab.com/vdemeester/home][monorepo]] for my personal tools and infrastructure. I'm trying
+to use [[https://nixos.org/nix/][Nix]] as much as possible for those configuration, using [[https://nixos.org][=NixOS=]] and
+[[https://rycee.gitlab.io/home-manager/][=home-manager=]]. But it is not limited to this. The goal of my [[https://gitlab.com/vdemeester/home][monorepo]] is:
+
+- Centralized literate configuration
+- Shareable nix modules (e.g. =zsh= configuration on =nixos= and using =home-manager=)
+- One repository to rule all my configurations, for all my machines.
+
+The following part of this page tries to present an organization to all my
+configurations ; but there is a [[file:sitemap.org][sitemap]] if you want to see all the content.
+
+* The Setup
+
+My [[https://gitlab.com/vdemeester/home][monorepo]] can be used on multiple system — [[https://nixos.org][=NixOS=]] and [[https://fedoraproject.org/][Fedora]] mainly, but it should work
+on anything that can run [[https://nixos.org/nix][Nix]] is available, and where [[https://rycee.gitlab.io/home-manager/][=home-manager=]] works.
+
+- [[file:install/nixos.org][How to install on NixOS]] explains how to setup and use the monorepo when installing NixOS
+- [[file:install/fedora.org][How to install on Fedora]] explains how to setup and use the monorepo when installing on
+  Fedora (after the installation)
+- [[file:install/bootstrap.org][Bootstrap & install]] scripts explained
+
+* Triage
+
+Those are =work-in-progress= document, that needs to be refined, redefined or completed.
+
+- [[file:mails.org][My email setup]]
+- [[file:emacs.org][Vincent Demeester's .emacs.d]]

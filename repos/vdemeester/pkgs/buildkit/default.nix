@@ -1,16 +1,17 @@
 { stdenv, lib, fetchFromGitHub, buildGoPackage }:
 
 buildGoPackage rec {
-  name = "buildkit${version}";
+  name = "buildkit-${version}";
   version = "0.7.1";
   rev = "v${version}";
 
   goPackagePath = "github.com/moby/buildkit";
   subPackages = [ "cmd/buildctl" "cmd/buildkitd" ];
-  buildFlagsArray = let t = "${goPackagePath}/version"; in ''
-    -ldflags=
-      -X ${t}.Version=${version}
-  '';
+  buildFlagsArray = let t = "${goPackagePath}/version"; in
+    ''
+      -ldflags=
+        -X ${t}.Version=${version}
+    '';
 
   src = fetchFromGitHub {
     inherit rev;

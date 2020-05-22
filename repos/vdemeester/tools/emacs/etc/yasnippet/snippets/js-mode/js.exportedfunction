@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: js.exportedfunction
+# key: xf
+# --
+export function ${1:f}($2) {
+  $0
+}

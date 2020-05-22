@@ -1,0 +1,3 @@
+{
+  machine.nixos = true;
+}

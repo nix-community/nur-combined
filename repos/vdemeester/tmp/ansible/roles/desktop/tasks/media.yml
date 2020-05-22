@@ -1,0 +1,24 @@
+---
+# https://rpmfusion.org/Configuration (fix this)
+- name: add rpmfusion repos
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/yum.repos.d/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - rpmfusion-free.repo
+  - rpmfusion-free-updates.repo
+  - rpmfusion-free-updates-testing.repo
+  - rpmfusion-nonfree-nvidia-driver.repo
+  - rpmfusion-nonfree.repo
+  - rpmfusion-nonfree-steam.repo
+  - rpmfusion-nonfree-updates.repo
+  - rpmfusion-nonfree-updates-testing.repo
+  when: ansible_distribution == 'Fedora'
+- name: install media
+  become: yes
+  package: name={{item}} state=present
+  with_items:
+  - mpv

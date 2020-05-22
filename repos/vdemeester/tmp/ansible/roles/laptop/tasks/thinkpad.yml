@@ -1,0 +1,17 @@
+---
+- name: ThinkPad X220 laptop utilities
+  become: yes
+  package: name={{item}} state=present
+  with_items:
+  - tlp
+  - tlp-rdw
+- name: enable tlp
+  systemd:
+    name: tlp.service
+    state: started
+    enabled: yes
+- name: enable tlp-sleep
+  systemd:
+    name: tlp.service
+    state: started
+    enabled: yes

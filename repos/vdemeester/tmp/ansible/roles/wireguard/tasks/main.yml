@@ -1,0 +1,74 @@
+---
+- name: install wireguard and tools
+  become: yes
+  package: name={{item}} state=present
+  with_items:
+  - wireguard
+# - name: Enable packet forwording for IPv4
+#   sysctl:
+#     name: net.ipv4.ip_forward
+#     value: 1
+#     sysctl_set: yes
+#     state: present
+#     reload: yes
+# - name: Create WireGuard configurations directory
+#   file:
+#     dest: /etc/wireguard
+#     state: directory
+# - name: Generate WireGuard private and public keys
+#   shell: umask 077 && wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey
+# - name: Register WireGuard private key as a variable
+#   slurp:
+#     src: /etc/wireguard/privatekey
+#   register: wg_privatekey
+# - name: Generate WireGuard configuration file
+#   template:
+#     src: wireguard.conf.j2
+#     dest: /etc/wireguard/wg0.conf
+#     owner: root
+#     group: root
+#     mode: 0600
+#     force: no
+# - name: Add WireGuard as a service to FirewallD
+#   template:
+#     src: wireguard.xml.j2
+#     dest: /etc/firewalld/services/wireguard.xml
+#     owner: root
+#     group: root
+#     mode: 0600
+#     force: no
+# - name: Allow WireGuard service for FirewallD public zone
+#   firewalld:
+#     zone: public
+#     service: wireguard
+#     state: enabled
+#     permanent: yes
+#     immediate: yes
+# - name: Add WireGuard interface to FirewallD public zone
+#   firewalld:
+#     zone: public
+#     interface: wg0
+#     state: enabled
+#     permanent: yes
+#     immediate: yes
+# - name: Enable Masquerading
+#   firewalld:
+#     zone: public
+#     masquerade: "yes"
+#     state: enabled
+#     permanent: yes
+#     immediate: yes
+# - name: Enable WireGuard kernel module
+#   modprobe:
+#     name: wireguard
+#     state: present
+#   register: wireguard_module_enabled
+#   until:  wireguard_module_enabled is succeeded
+#   retries: 10
+#   delay: 10
+#   failed_when: wireguard_module_enabled is failure
+# - name: Start and enable WireGuard service
+#   service:
+#     name: wg-quick@wg0
+#     state: started
+#     enabled: yes

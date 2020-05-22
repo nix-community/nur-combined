@@ -1,0 +1,51 @@
+set -g history-limit 500000
+# Be sure to deactive the mode
+# set -g mode-mouse off
+# By default tmux adds a small delay when sending commands.
+# Reducing this delay by setting escape-time.
+set -sg escape-time 1
+bind v paste-buffer
+# Vim-behavior for moving between panes
+bind c select-pane -L
+bind t select-pane -D
+bind s select-pane -U
+bind r select-pane -R
+# Re-binding new-window and kill-pane to something more bepo-ish
+bind x new-window
+unbind c
+bind y kill-pane
+# Re-binding list-of-session
+bind u list-sessions
+# Vim-behavior for moving between windows
+bind -r C-t select-window -t :-
+bind -r C-s select-window -t :+
+# Vim-behavior for resizing panes
+bind -r C resize-pane -L 5
+bind -r T resize-pane -D 5
+bind -r S resize-pane -U 5
+bind -r R resize-pane -R 5
+# vi-mode for copy.
+set -g mode-key vi
+# `PREFIX`-`ESCAPE` for going into copy mode
+bind-key ESCAPE copy-mode
+bind-key b copy-mode
+# Rebinding some vi-copy keys in a more bepoish fashion.
+#bind-key -Tvi-copy 'v' begin-selection
+#bind-key -Tvi-copy 'y' copy-selection
+#bind-key -Tvi-copy 'C' top-line
+#bind-key -Tvi-copy 'T' scroll-down
+#bind-key -Tvi-copy 'S' scroll-up
+#bind-key -Tvi-copy 'R' bottom-line
+#bind-key -Tvi-copy 'c' cursor-left
+#bind-key -Tvi-copy 't' cursor-down
+#bind-key -Tvi-copy 's' cursor-up
+#bind-key -Tvi-copy 'r' cursor-right
+# Telling childs that this is a 256 terminal multiplexer
+set -g default-terminal "screen-256color"
+# Maximizing/Restoring panes (useful for *a lot* of workflows)
+unbind Up
+bind Up new-window -d -n tmp \; swap-pane -s tmp \; select-window -t tmp
+unbind Down
+bind Down last-window \; swap-pane -s tmp \; kill-window -t tmp
+# Recording pane content to a file. (This is crasy !)
+bind P pipe-pane -o "cat >>~/#W.log" \; display "Toggled logging to ~/#W.log"

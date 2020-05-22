@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Emacs (client)
+Exec=ec
+Type=Application
+Terminal=false
+Categories=System;
+Icon=emacs;

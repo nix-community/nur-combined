@@ -2,19 +2,19 @@
 
 buildGoModule rec {
   name = "athens-${version}";
-  version = "0.5.0";
+  version = "0.8.1";
   rev = "v${version}";
 
   goPackagePath = "github.com/gomods/athens";
+  subPackages = [ "cmd/proxy" ];
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "gomods";
     repo = "athens";
-    sha256 = "1fsvnzw3l1qfvga6r7vfzq1sda9ggdl2ps81v0cqcr9d8ggpgzhc";
+    sha256 = "16ilzxmpwarf0c7195bfqn3ir3s6dkqma4bhjx57amswmkjjrqfp";
   };
-
-  modSha256 = "1fanb3mhvnldkryz74yarcwl4ma6353mfkivs5hr678g6785srqj";
+  modSha256 = "0nad3k01a58xj21sj4m0ydv5m64w3klkgzbdvbx9szy298wq1w18";
 
   meta = {
     description = "a Go module datastore and proxy";

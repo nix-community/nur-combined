@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Look for /etc/vrsync.conf
+# For each line run rsync with on source:target
+# and some specials cases
+CONF=${CONF:-/etc/vrsync}
+
+cmd="rsync -ave ssh --progress --size-only --delete --exclude='*~' --exclude=.stfolder"
+test -e $CONF || {
+    echo "$CONF does not exists, bailing…"
+    exit 1
+}
+
+while IFS='' read -r line || [[ -n "$line" ]]; do
+    $cmd $line $@
+done < "$CONF"

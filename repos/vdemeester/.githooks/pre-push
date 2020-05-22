@@ -1,0 +1,62 @@
+#!/bin/sh
+
+# Based on https://gist.github.com/Quintok/815396509ff79d886656b2855e1a8a46
+
+# A pre-push hook based on the git template. This will verify that no WIP or
+# autosquash commits are present. If such a commit is present, pushing will not
+# be possible.
+
+# This hook is called with the following parameters:
+#
+# $1 -- Name of the remote to which the push is being done
+# $2 -- URL to which the push is being done
+#
+# If pushing without using a named remote those arguments will be equal.
+#
+# Information about the commits which are being pushed is supplied as lines to
+# the standard input in the form:
+#
+#   <local ref> <local sha1> <remote ref> <remote sha1>
+
+z40=0000000000000000000000000000000000000000
+
+IFS=' '
+while read -r local_ref local_sha remote_ref remote_sha
+do
+  echo "$remote_ref" > /dev/null
+
+  if [ "$local_sha" = $z40 ]
+  then
+    # Ignore delete
+    :
+  else
+    if [ "$remote_sha" = $z40 ]
+    then
+      # New branch, examine all commits since master
+      range="$(git merge-base $local_sha master)..$local_sha"
+    else
+      # Update to existing branch, examine new commits
+      range="$remote_sha..$local_sha"
+    fi
+
+    # Check for WIP commits
+    commit=$(git rev-list -n 1 --grep '^WIP' "$range")
+    if [ "${local_ref}" = refs/heads/master ] && [ -n "$commit" ]
+    then
+      printf "\nPush rejected: WIP commit detected\n\n"
+      exit 1
+    fi
+
+    # Check for autosquash commits
+    commit=$(git rev-list -n 1 --grep '^\(fixup\|squash\)!' "$range")
+    if [ -n "$commit" ]
+    then
+      printf "\nPush rejected: autosquash commit detected\n\n"
+      exit 1
+    fi
+  fi
+done
+
+# Local Variables:
+# sh-basic-offset: 2
+# End:

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Connect to RedHat VPN
+# This will ask for which VPN to connect (using available tools) and
+# do some magic
+set -e
+connection=$(nmcli connection show | grep vpn | zenity --list --title "Red Hat VPNs" --text "Choose your VPN.." --column "Name" --width=600 --height=450)
+uuid=$(echo ${connection} | awk '{print $3}')
+name=$(echo ${connection} | awk '{print $1 $2}')
+VPNSTATUS=$(nmcli connection show --active $uuid | wc -l)
+if [ "$VPNSTATUS" == "0" ]
+then
+    key=$(authkey)
+    passfile=$(mktemp)
+
+    echo -n "vpn.secrets.password:" > $passfile
+    gpg --decrypt $HOME/desktop/documents/Red\ Hat/naruhodo.pass.gpg 2>/dev/null >>$passfile
+    echo -n "${key}" >> $passfile
+
+    nmcli connection up ${uuid} passwd-file $passfile
+    rm $passfile
+    notify-send "VPN ${name} is connected." "You are now connected to the Red Hat VPN, let's work !"
+else
+    notify-send "VPN ${name} is already connected." "You are already connected to the Red Hat VPN, let's work !"
+fi

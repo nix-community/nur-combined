@@ -1,0 +1,4 @@
+[Interface]
+Address = {{ wireguard_interface_ip }}
+ListenPort = {{ wireguard_port }}
+PrivateKey = {{ wg_privatekey['content'] | b64decode }}

@@ -1,0 +1,30 @@
+[rpmfusion-nonfree-steam]
+name=RPM Fusion for Fedora $releasever - Nonfree - Steam
+#baseurl=http://download1.rpmfusion.org/nonfree/fedora/steam/$releasever/$basearch/
+metalink=https://mirrors.rpmfusion.org/metalink?repo=nonfree-fedora-steam-$releasever&arch=$basearch
+enabled=0
+enabled_metadata=1
+type=rpm-md
+gpgcheck=1
+repo_gpgcheck=0
+gpgkey=file:///usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever
+
+[rpmfusion-nonfree-steam-debuginfo]
+name=RPM Fusion for Fedora $releasever - Nonfree - Steam Debug
+#baseurl=http://download1.rpmfusion.org/nonfree/fedora/steam/$releasever/$basearch/debug/
+metalink=https://mirrors.rpmfusion.org/metalink?repo=nonfree-fedora-steam-debug-$releasever&arch=$basearch
+enabled=0
+type=rpm-md
+gpgcheck=1
+repo_gpgcheck=0
+gpgkey=file:///usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever
+
+[rpmfusion-nonfree-steam-source]
+name=RPM Fusion for Fedora $releasever - Nonfree - Steam Source
+#baseurl=http://download1.rpmfusion.org/nonfree/fedora/steam/$releasever/SRPMS/
+metalink=https://mirrors.rpmfusion.org/metalink?repo=nonfree-fedora-steam-source-$releasever&arch=$basearch
+enabled=0
+type=rpm-md
+gpgcheck=1
+repo_gpgcheck=0
+gpgkey=file:///usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever

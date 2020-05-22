@@ -1,0 +1,19 @@
+include = cat ${HOME}/.config/mr
+
+[DEFAULT]
+lib =
+    export BASE_HOST="${HOME}/src/knative.dev/"
+    export GIT_BASE="github.com:knative/"
+
+[build]
+[build-template]
+[caching]
+[client]
+[client-contrib]
+[community]
+[eventing]
+[eventing-contrib]
+[net-kourier]
+[observability]
+[pkg]
+[serving]

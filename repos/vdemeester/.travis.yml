@@ -1,9 +1,0 @@
-language: nix
-matrix:
-  include:
-    - env: CHANNEL=https://nixos.org/channels/nixos-19.03
-    - env: CHANNEL=https://nixos.org/channels/nixos-unstable
-    - env: CHANNEL=https://nixos.org/channels/nixpkgs-unstable
-script:
-  - nix-env -iA cachix -f https://cachix.org/api/v1/install
-  - ./hack/ci.sh

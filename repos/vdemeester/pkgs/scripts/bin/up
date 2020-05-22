@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# Author: Vincent Demeester <vincent@sbr.pm>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+# up is my main command I wanna run in the morning, it should try to be smart
+DEFAULTS_ARGS="home-manager redhat-vpn"
+ARGS=${@}
+
+[[ -z ${@} ]] && ARGS="${DEFAULTS_ARGS}"
+
+for script in ${ARGS}; do
+    command -v up-$script 2>/dev/null >/dev/null || {
+        echo up-$script is missing
+    }
+done
+
+for script in ${ARGS}; do
+    up-$script
+done

@@ -1,0 +1,1 @@
+../../sync/emacs/wakasu.el

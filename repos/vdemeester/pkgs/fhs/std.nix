@@ -3,7 +3,12 @@
 buildFHSUserEnv {
   name = "fhs-std";
   targetPkgs = pkgs: with pkgs; [
-    envsubst exa git gnumake coreutils
+    envsubst
+    exa
+    git
+    gnumake
+    coreutils
+    zsh
   ];
-  runScript = "/bin/bash";
+  runScript = "/bin/zsh";
 }

@@ -1,0 +1,38 @@
+---
+- name: add vscode rpm key
+  rpm_key:
+    state: present
+    key: https://packages.microsoft.com/keys/microsoft.asc
+  when: ansible_distribution == 'Fedora'
+- name: add rpmfusion repos
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/yum.repos.d/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - vscode.repo
+  when: ansible_distribution == 'Fedora'
+- name: install vscode
+  become: yes
+  package: name={{item}} state=present
+  with_items:
+  - code
+- name: install go
+  become: yes
+  package: name={{item}} state=present
+  with_items:
+  - golang
+  - golang-docs
+  - golang-googlecode-tools-goimports
+- name: install toolbox
+  become: yes
+  package: name={{item}} state=present
+  with_items:
+  - toolbox
+  - podman
+  - buildah
+  - skopeo
+  - origin-clients
+# make, automake

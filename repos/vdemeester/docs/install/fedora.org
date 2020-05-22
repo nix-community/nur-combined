@@ -1,0 +1,2 @@
+#+TITLE: Fedora installation
+#+SETUPFILE: ../.setupfile.org

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+export DISPLAY=":0.0"
+export XAUTHORITY=/home/vincent/.Xauthority
+xmessage dock

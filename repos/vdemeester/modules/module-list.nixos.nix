@@ -1,0 +1,40 @@
+{
+  imports = [
+    ./machines.nix
+    ./hardware/sane-extra-config.nixos.nix
+    ./profiles/avahi.nixos.nix
+    ./profiles/base.nixos.nix
+    ./profiles/buildkit.nixos.nix
+    ./profiles/fish.nixos.nix
+    ./profiles/containerd.nixos.nix
+    ./profiles/desktop.nixos.nix
+    ./profiles/dev.nixos.nix
+    ./profiles/docker.nixos.nix
+    ./profiles/gaming.nixos.nix
+    ./profiles/git.nixos.nix
+    ./profiles/i18n.nixos.nix
+    ./profiles/ipfs.nixos.nix
+    ./profiles/laptop.nixos.nix
+    ./profiles/mail.nixos.nix
+    ./profiles/nix-config.nixos.nix
+    ./profiles/nix-auto-update.nixos.nix
+    ./profiles/printing.nixos.nix
+    ./profiles/pulseaudio.nixos.nix
+    ./profiles/qemu.nixos.nix
+    ./profiles/scanning.nixos.nix
+    ./profiles/ssh.nixos.nix
+    ./profiles/syncthing.nixos.nix
+    ./profiles/users.nixos.nix
+    ./profiles/virtualization.nixos.nix
+    ./profiles/wireguard.server.nixos.nix
+    ./profiles/yubikey.nixos.nix
+    ./profiles/zsh.nixos.nix
+    ./programs/podman.nixos.nix
+    ./services/athens.nixos.nix
+    ./services/govanityurl.nixos.nix
+    ./services/nix-binary-cache.nixos.nix
+    ./services/wireguard.client.nixos.nix
+    ./virtualisation/buildkit.nixos.nix
+    ./virtualisation/containerd.nixos.nix
+  ];
+}

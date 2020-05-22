@@ -1,0 +1,40 @@
+#+TITLE: vdemeester's .emacs.d
+#+AUTHOR: Vincent Demeester
+#+EMAIL: vincent@sbr.pm
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 27.0.90 (Org mode 9.3)
+#+LANGUAGE: en
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./notes.css"/>
+#+OPTIONS: html-style:nil
+
+#+BEGIN_QUOTE
+My emacs setup is tested to work only with emacs 26.1 and newer versions. If you are on
+older versions, I would recommend that you upgrade to the [[https://www.gnu.org/software/emacs/download.html][latest available stable version]].
+#+END_QUOTE
+
+*Warning: this repository is being /transformed/ a bit: slowly migrating to literate programming ([[./emacs.org][emacs.org]]) and most likely moving into [[https://github.com/vdemeester/home][=home=]] at some point*
+
+* Few notes
+
+- This works best in =NixOS=, coupled with my [[https://github.com/vdemeester/home][=home=]] repository (especially with my
+  [[https://github.com/vdemeester/home/blob/master/modules/profiles/emacs.nix][emacs.nix]] file).
+- Almost all setup files have setup done as per my personal tastes and needs.
+- If you want to change the default theme, font size, etc, you would want to edit
+  =setup-files/setup-style.el=
+
+* Key points
+
+- Use of my minor mode =vde-mode= to enable my custom key-bindings. Doing so allows me to
+  force override my bindings in all major and minor modes. If I ever need to try out the
+  default emacs bindings, I can simply disable =vde-mode= by doing =M-x vde-mode=. /It
+  is enabled globally by default./
+- Use of =use-package= in load all packages for faster load times.
+- Use of =bind-keys= allows me to review my custom bindings in a single buffer by doing
+  =M-x describe-personal-keybindings=.
+- Certain packages will be loaded only if you have the associated applications installed.
+
+* Feedback
+
+Use at your own risk, but I am definitely looking forward to suggestions, corrections.
+
+Thanks!

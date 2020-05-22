@@ -1,0 +1,12 @@
+---
+- name: Common laptop utilities
+  become: yes
+  package: name={{item}} state=present
+  with_items:
+  - acpi
+  - powertop
+- name: enable powertop
+  systemd:
+    name: powertop.service
+    state: started
+    enabled: yes

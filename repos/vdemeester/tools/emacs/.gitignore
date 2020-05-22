@@ -1,0 +1,34 @@
+flycheck_*.el
+*.elc
+*.pdf
+*.html
+*.log
+*.aux
+*.out
+*.toc
+
+# nix stuff
+result
+result-*
+
+# misc
+auto-save-list
+var
+tramp
+elpa
+custom.el
+
+%backup%~
+# wat?
+history
+projectile-bookmarks.eld
+
+# dap-mode
+.dap-breakpoints
+.extension
+
+# publishing
+publish.el
+sitemap.org
+
+# private

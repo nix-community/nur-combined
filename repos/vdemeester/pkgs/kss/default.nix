@@ -1,13 +1,15 @@
 { stdenv, lib, python3, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  name = "kss-git";
+  pname = "kss";
+  version = "0.0.2";
+  name = "${pname}-${version}";
 
   src = fetchFromGitHub {
     owner = "chmouel";
     repo = "kss";
-    rev = "6d950ead30f2b12b0e4e55530326b8d3b91e999c";
-    sha256 = "1cvq4hm151j0lk2hrxxa11qqa6fidmmvplqrs5kfsfwfljsz339j";
+    rev = "${version}";
+    sha256 = "1akjval7f17ij0fwyghspp2p27agkls82nafynfaxiakmxwmr7lr";
   };
   buildInputs = [ python3 ];
   installPhase = ''

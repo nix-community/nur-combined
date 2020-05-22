@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: func main() { ... }
+# --
+func main() {
+   $0
+}

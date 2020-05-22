@@ -1,0 +1,1 @@
+set -gx GOPATH $HOME

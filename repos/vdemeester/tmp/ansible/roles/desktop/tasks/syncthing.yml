@@ -1,0 +1,11 @@
+---
+- name: Install syncthing
+  become: yes
+  package: name={{item}} state=present
+  with_items:
+  - syncthing
+- name: Enable and ensure Syncthing is started
+  systemd:
+    name: syncthing@vincent
+    enabled: yes
+    state: started

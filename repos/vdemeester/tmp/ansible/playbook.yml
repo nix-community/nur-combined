@@ -1,0 +1,15 @@
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html
+---
+- hosts: localhost
+  roles:
+  - common
+  - desktop
+  - { role: laptop, when: ansible_form_factor == 'Notebook' }
+  - gcloud
+  - virtualization
+  - dev
+  - wireguard
+
+# ansible_hostname == 'hokkaido'
+# ansible_product_version == 'ThinkPad X220'
+# ansible_form_factor == 'Notebook'

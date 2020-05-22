@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -e
+
+SRCDIR=$1
+shift
+DSTDIR=$1
+shift
+
+echo "Import photos from $SRCDIR to $DSTDIR"
+echo "-------------------------------------"
+
+TMPDIR=$HOME/tmp/google-photo-import
+mkdir -p $TMPDIR
+
+# 1. Copy folder to a safe place
+rsync -av --progress --size-only "$SRCDIR" "$TMPDIR" --delete
+# trap "rm -rf -- '$TMPDIR'" INT TERM EXIT
+
+# 2. Run exiftool :)
+exiftool -r -d $DSTDIR/%Y/%m/%d/%f.%%le '-filename<CreateDate' \
+	 -ext jpg -ext JPG -ext jpeg -ext JPEG -ext jpe -ext JPE \
+	 -ext 3gp -ext 3GP -ext mov -ext MOV -ext avi -ext AVI -ext mpg -ext MPG \
+	 -ext nef -ext NEF -ext mts -ext MTS \
+	 -ext HEIC -ext heic "$TMPDIR"

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+emacsclient -s ${XDG_RUNTIME_DIR}/emacs/org --create-frame $@
