@@ -8,7 +8,7 @@ let
   cfg = config.services.day-night-plasma-wallpapers;
   shamilton = import (builtins.fetchTarball {
           url = "https://github.com/SCOTT-HAMILTON/nur-packages-template/archive/master.tar.gz";
-          sha256 = "07mp5x3gaxzqpxphfhg6hw6bw7vl0d6mb6zxxll5hmkbp8l9lh7s";
+          sha256 = "1fkizrmcrzkvm3hsjcvhlybdh509dgsfvp07d47a3np99m0mxbyc";
         }) {};
 in {
 
@@ -31,7 +31,7 @@ in {
 
     onCalendar = mkOption {
       type = types.str;
-      default = "=*-*-* 16:00:00"; # Run at 4 pm everyday (16h)
+      default = "*-*-* 16:00:00"; # Run at 4 pm everyday (16h)
       description = "When in the evening do you want your wallpaper to go to bed. Default is at 4 pm. See systemd.time(7) for more information about the format.";
     };
   };
@@ -49,7 +49,7 @@ in {
       wantedBy = [ "timers.target" ];
       timerConfig.OnCalendar = cfg.onCalendar;
       # start immediately after computer is started:
-      timerConfig.Persistent = "true";
+      # timerConfig.Persistent = "true";
     };
   };
 }
