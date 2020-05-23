@@ -12,11 +12,15 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "Day-night-plasma-wallpapers";
-    rev = "59311ffd7f5861a447cec53d17873150628a8815";
-    sha256 = "1km2qp6bx76vfwg3s1wk8phmrrx7cdzqp8h2i99rmw805ky32ch5";
+    rev = "45c85945b63a8835546e862fc667fadfde46a97d";
+    sha256 = "01di417wlv40szjwak6wk73j6bqjgxnxfy216izsi78jlz5m8vm2";
   };
 
   buildInputs = [ qttools ];
+
+  postPatch = ''
+    sed -Ei "s:(WALLPAPERDIR=\"):\1$out:g" update-day-night-plasma-wallpapers.sh
+  '';
 
   installPhase = ''
     install -Dm 555 update-day-night-plasma-wallpapers.sh $out/bin/update-day-night-plasma-wallpapers.sh
