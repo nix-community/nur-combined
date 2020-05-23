@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs,
+  shamilton ? import (builtins.fetchTarball {
+    url = "https://github.com/SCOTT-HAMILTON/nur-packages-template/archive/master.tar.gz";
+    sha256 = "1c2y5v0w9wswhd908xw5nwv7hjrzfbbf4sk7392j4za4h0wsmqvj";
+  }) {};
+}:
 
 with lib;
 
@@ -15,6 +20,13 @@ in {
       description = ''
         Whether to install a user service for Day-Night.
       '';
+    };
+
+    package = mkOption {
+      type = types.package;
+      default = shamilton.day-night-plasma-wallpapers;
+      defaultText = "shamilton.day-night-plasma-wallpapers";
+      description = "Day-night-plasma-wallpapers derivation to use.";
     };
 
     path = mkOption {

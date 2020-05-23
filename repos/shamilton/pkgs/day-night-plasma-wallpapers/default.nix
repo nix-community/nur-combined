@@ -12,8 +12,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "Day-night-plasma-wallpapers";
-    rev = "45c85945b63a8835546e862fc667fadfde46a97d";
-    sha256 = "01di417wlv40szjwak6wk73j6bqjgxnxfy216izsi78jlz5m8vm2";
+    rev = "6e30a43b5eb6f3e3fa8d8742da04efcf4fa2f8aa";
+    sha256 = "0c7mgz30hxgraxnq7ryqifj8ksv21jhwxik53lshxy230yxpkidx";
   };
 
   buildInputs = [ qttools ];
