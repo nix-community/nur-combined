@@ -1,26 +1,19 @@
-{ config, lib, pkgs,
-  shamilton ? import (builtins.fetchTarball {
-    url = "https://github.com/SCOTT-HAMILTON/nur-packages-template/archive/master.tar.gz";
-    sha256 = "1c2y5v0w9wswhd908xw5nwv7hjrzfbbf4sk7392j4za4h0wsmqvj";
-  }) {};
+{ config, lib, pkgs, options,
+  modulesPath
 }:
 
 with lib;
 
 let
   cfg = config.services.day-night-plasma-wallpapers;
+  shamilton = import (builtins.fetchTarball {
+          url = "https://github.com/SCOTT-HAMILTON/nur-packages-template/archive/master.tar.gz";
+          sha256 = "07mp5x3gaxzqpxphfhg6hw6bw7vl0d6mb6zxxll5hmkbp8l9lh7s";
+        }) {};
 in {
 
   options.services.day-night-plasma-wallpapers = {
     enable = mkEnableOption "Day-Night Plasma Wallpapers, a software to update your wallpaper according to the day light";
-
-    install = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Whether to install a user service for Day-Night.
-      '';
-    };
 
     package = mkOption {
       type = types.package;
@@ -29,12 +22,12 @@ in {
       description = "Day-night-plasma-wallpapers derivation to use.";
     };
 
-    path = mkOption {
-      type = types.listOf types.path;
-      default = [];
-      example = literalExample "[ pkgs.bash ]";
-      description = "List of derivations to put in path.";
-    };
+    # path = mkOption {
+    #   type = types.listOf types.path;
+    #   default = [];
+    #   example = literalExample "[ pkgs.bash ]";
+    #   description = "List of derivations to put in path.";
+    # };
 
     onCalendar = mkOption {
       type = types.str;
@@ -43,24 +36,20 @@ in {
     };
   };
 
-  config = mkIf (cfg.enable || cfg.install) {
+  config = {
     systemd.user.services.day-night-plasma-wallpapers = {
       description = "Day-night-plasma-wallpapers: a software to update your wallpaper according to the day light";
-      serviceConfig = {
-        Type      = "oneshot";
-        ExecStart = "${cfg.package}/bin/update-day-night-plasma-wallpapers.sh";
-      };
-      path = cfg.path;
+      path = [ cfg.package ];
+      script = ''${cfg.package}/bin/update-day-night-plasma-wallpapers.sh'';
     };
     environment.systemPackages = [ cfg.package ];
     systemd.user.timers.day-night-plasma-wallpapers = {
       description = "Day-night-plasma-wallpapers timer";
-      timerConfig = {
-        Unit = "day-night-plasma-wallpapers.service";
-        OnCalendar = cfg.onCalendar;
-        # start immediately after computer is started:
-        Persistent = "true";
-      };
+      partOf = [ "day-night-plasma-wallpapers.service" ];
+      wantedBy = [ "timers.target" ];
+      timerConfig.OnCalendar = cfg.onCalendar;
+      # start immediately after computer is started:
+      timerConfig.Persistent = "true";
     };
   };
 }
