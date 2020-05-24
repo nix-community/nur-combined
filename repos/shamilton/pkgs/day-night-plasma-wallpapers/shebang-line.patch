@@ -1,0 +1,9 @@
+diff -ur a/update-day-night-plasma-wallpapers.sh b/update-day-night-plasma-wallpapers.sh
+--- a/update-day-night-plasma-wallpapers.sh	2020-05-24 13:32:37.811491014 +0200
++++ b/update-day-night-plasma-wallpapers.sh	2020-05-24 13:32:49.404562953 +0200
+@@ -1,5 +1,3 @@
+-#!/bin/sh
+-
+ if [ "$(date +%H)" -ge 16 ]; then
+ 	WALLPAPERDIR="/usr/share/wallpapers/macOS-Mojave-Night"
+ else

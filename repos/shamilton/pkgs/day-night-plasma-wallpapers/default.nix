@@ -18,6 +18,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ qttools ];
 
+  patches = [ ./shebang-line.patch ];
+
   postPatch = ''
     sed -Ei "s:(WALLPAPERDIR=\"):\1$out:g" update-day-night-plasma-wallpapers.sh
   '';

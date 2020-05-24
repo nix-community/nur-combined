@@ -1,4 +1,4 @@
-{ config, lib, pkgs, options,
+{ config, lib, pkgs, shamilton, options,
 modulesPath
 }:
 
@@ -6,9 +6,9 @@ with lib;
 
 let
   cfg = config.services.day-night-plasma-wallpapers;
-  # package-day-night-plasma-wallpapers = pkgs.callPackage ./../pkgs/day-night-plasma-wallpapers { 
-    # qttools = pkgs.qt5.qttools;  
-  # };
+  package-day-night-plasma-wallpapers = pkgs.callPackage ./../pkgs/day-night-plasma-wallpapers { 
+    qttools = pkgs.qt5.qttools;  
+  };
 in {
 
   options.services.day-night-plasma-wallpapers = {
@@ -32,17 +32,17 @@ in {
       systemd.user.services.day-night-plasma-wallpapers = {
         Unit = {
           Description = "Day-night-plasma-wallpapers: a software to update your wallpaper according to the day light";
-          After = [ "graphical-session.target" ];
+          Requires = [ "graphical-session.target" ];
            
         };
 
         Service = {
           Type = "oneshot";
-          # Environment = [ "PATH=${pkgs.qttools}/bin" ];
-          ExecStart = "${cfg.package}/bin/update-day-night-plasma-wallpapers.sh";
+          # Environment = [ "\"PATH=${pkgs.coreutils}/bin\"" ];
+          ExecStart = "${pkgs.coreutils}/bin/env PATH=\"${pkgs.coreutils}/bin:${pkgs.qt5.qttools.bin}/bin\" ${package-day-night-plasma-wallpapers}/bin/update-day-night-plasma-wallpapers.sh";
         };
 
-        Install = { WantedBy = [ "timers.target" ]; };
+        # Install = { WantedBy = s "timers.target" ]; };
       };
     }
     (mkIf (cfg.onCalendar != null) {
