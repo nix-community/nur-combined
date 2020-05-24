@@ -6,20 +6,20 @@ with lib;
 
 let
   cfg = config.services.day-night-plasma-wallpapers;
-  package-day-night-plasma-wallpapers = pkgs.callPackage ./../pkgs/day-night-plasma-wallpapers { 
-    qttools = pkgs.qt5.qttools;  
-  };
+  # package-day-night-plasma-wallpapers = pkgs.callPackage ./../pkgs/day-night-plasma-wallpapers { 
+    # qttools = pkgs.qt5.qttools;  
+  # };
 in {
 
   options.services.day-night-plasma-wallpapers = {
     enable = mkEnableOption "Day-Night Plasma Wallpapers, a software to update your wallpaper according to the day light";
 
-    package = mkOption {
-      type = types.package;
-      default = package-day-night-plasma-wallpapers;
-      defaultText = "shamilton.day-night-plasma-wallpapers";
-      description = "Day-night-plasma-wallpapers derivation to use.";
-    };
+    # package = mkOption {
+    #   type = types.package;
+    #   default = package-day-night-plasma-wallpapers;
+    #   defaultText = "shamilton.day-night-plasma-wallpapers";
+    #   description = "Day-night-plasma-wallpapers derivation to use.";
+    # };
 
     onCalendar = mkOption {
       type = types.str;
@@ -38,7 +38,7 @@ in {
 
         Service = {
           Type = "oneshot";
-          Environment = [ "PATH=${pkgs.qttools}/bin" ];
+          # Environment = [ "PATH=${pkgs.qttools}/bin" ];
           ExecStart = "${cfg.package}/bin/update-day-night-plasma-wallpapers.sh";
         };
 
