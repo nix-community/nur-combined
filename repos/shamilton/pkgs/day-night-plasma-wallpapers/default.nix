@@ -12,8 +12,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "Day-night-plasma-wallpapers";
-    rev = "6e30a43b5eb6f3e3fa8d8742da04efcf4fa2f8aa";
-    sha256 = "0c7mgz30hxgraxnq7ryqifj8ksv21jhwxik53lshxy230yxpkidx";
+    rev = "07cfb47b6b960909c3b8274dff0dcefd18151bae";
+    sha256 = "0vjnl5p1l50sfmvmmggzxajppyd58val7a35vlfzklmwiv24w5lc";
   };
 
   buildInputs = [ qttools ];
@@ -21,11 +21,13 @@ stdenv.mkDerivation rec {
   patches = [ ./shebang-line.patch ];
 
   postPatch = ''
+    sed -Ei "s:(Exec=)(/bin/update-day-night-plasma-wallpapers.sh):\1env PATH=\"${qttools}/bin\" $out\2:g" day-night-plasma-wallpapers.desktop
     sed -Ei "s:(WALLPAPERDIR=\"):\1$out:g" update-day-night-plasma-wallpapers.sh
   '';
 
   installPhase = ''
     install -Dm 555 update-day-night-plasma-wallpapers.sh $out/bin/update-day-night-plasma-wallpapers.sh
+    install -Dm 555 day-night-plasma-wallpapers.desktop $out/.config/autostart/day-night-plasma-wallpapers.desktop
     install -D macOS-Mojave-Light/macOS-Mojave-Day-wallpaper.jpg $out/usr/share/wallpapers/macOS-Mojave-Light/macOS-Mojave-Day-wallpaper.jpg
     install -D macOS-Mojave-Night/macOS-Mojave-Night-wallpaper.jpg $out/usr/share/wallpapers/macOS-Mojave-Night/macOS-Mojave-Night-wallpaper.jpg
   '';
