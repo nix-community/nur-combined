@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   patches = [ ./shebang-line.patch ];
 
   postPatch = ''
-    sed -Ei "s:(Exec=)(/bin/update-day-night-plasma-wallpapers.sh):\1env PATH=\"${qttools}/bin\" $out\2:g" day-night-plasma-wallpapers.desktop
+    sed -Ei "s:(Exec=)(/bin/update-day-night-plasma-wallpapers.sh):\1env PATH=\"${qttools.bin}/bin\" $out\2:g" day-night-plasma-wallpapers.desktop
     sed -Ei "s:(WALLPAPERDIR=\"):\1$out:g" update-day-night-plasma-wallpapers.sh
   '';
 
