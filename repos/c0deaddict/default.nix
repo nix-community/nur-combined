@@ -36,4 +36,5 @@ rec {
 
   bitwarden-rofi = pkgs.callPackage ./pkgs/bitwarden-rofi {};
 
+  marble-marcher = pkgs.callPackage ./pkgs/marble-marcher {};
 }
