@@ -18,5 +18,7 @@
   githug = pkgs.callPackage ./pkgs/githug {};
 
   pandocWithFilters = pkgs.callPackage ./pkgs/pandoc-with-filters {};
+
+  nord-css = pkgs.callPackage ./pkgs/nord-css {};
 }
 

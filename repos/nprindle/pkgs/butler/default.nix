@@ -8,10 +8,10 @@ buildGoPackage rec {
   version = "15.17.0";
   goPackagePath = "github.com/itchio/butler";
 
-  src = fetchFromGitHub {
+  src = fetchFromGitHub rec {
     owner = "itchio";
     repo = pname;
-    rev = "0833dc8a25860564c4a71625992054b40d967e83";
+    rev = version;
     sha256 = "06iylqh9y5flsjij641xci7avrscvbhzvmgw1q7jnh4idzxm22hk";
   };
 

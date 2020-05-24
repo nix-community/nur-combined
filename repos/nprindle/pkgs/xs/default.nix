@@ -19,14 +19,14 @@ let
   });
 in opkgs.buildDunePackage {
   pname = "xs";
-  version = "0.1.0";
+  version = "unstable-2020-05-21";
   minimumOcamlVersion = "4.10";
 
   src = fetchFromGitHub {
     owner = "smabie";
     repo = "xs";
-    rev = "6b5d6333f6e5f752651f7f8df23fcb1899108071";
-    sha256 = "13qm9df8vx9bic4iyp6v5vshajrc7lis9dc2f5ais8nqqqhlhcvg";
+    rev = "c41fbee63895570e01a0943ea4924c362e932273";
+    sha256 = "1d5gwjca8cgq3qljmrmsh3zi4ksiqz141s9lcni584cn75ivp50v";
   };
 
   useDune2 = true;
