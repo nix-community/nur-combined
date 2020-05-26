@@ -20,5 +20,9 @@
   pandocWithFilters = pkgs.callPackage ./pkgs/pandoc-with-filters {};
 
   nord-css = pkgs.callPackage ./pkgs/nord-css {};
+
+  carbon-now = pkgs.callPackage ./pkgs/carbon-now {
+    nodejs = pkgs.nodejs-13_x;
+  };
 }
 
