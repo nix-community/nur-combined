@@ -13,15 +13,13 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   dontFixup = true;
 
-  installPhase = ''
-    install -Dm755 gmt -t "$out/bin"
-  '';
+  installPhase = "install -Dm755 gmt -t $out/bin";
 
   meta = with stdenv.lib; {
     description = "Program for splitting and merging maps in Garmin format";
     homepage = "https://www.gmaptool.eu";
     license = licenses.cc-by-sa-30;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.linux;
+    platforms = [ "i686-linux" "x86_64-linux" ];
   };
 }

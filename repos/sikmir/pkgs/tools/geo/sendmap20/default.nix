@@ -10,22 +10,18 @@ stdenv.mkDerivation rec {
   };
 
   sourceRoot = ".";
-  unpackCmd = ''
-    gunzip -c $curSrc > sendmap20
-  '';
+  unpackCmd = "gunzip -c $curSrc > sendmap20";
 
   dontBuild = true;
   dontFixup = true;
 
-  installPhase = ''
-    install -Dm755 sendmap20 -t "$out/bin"
-  '';
+  installPhase = "install -Dm755 sendmap20 -t $out/bin";
 
   meta = with stdenv.lib; {
     description = "Software for uploading maps to your GPS";
     homepage = "https://web.archive.org/web/20160620061746if_/http://www.cgpsmapper.com";
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.linux;
+    platforms = [ "i686-linux" "x86_64-linux" ];
   };
 }

@@ -9,12 +9,11 @@ stdenv.mkDerivation rec {
     sha256 = "1gikixbrz1pvyjspp62msdmhjdy1rfkx8jhy7rajjr8bzm8pzpmc";
   };
 
-  dontUnpack = true;
-  dontBuild = true;
+  unpackPhase = "${unzip}/bin/unzip $src";
 
   installPhase = ''
     mkdir -p $out/Applications
-    ${unzip}/bin/unzip $src -d $out/Applications
+    cp -r MacPass.app $out/Applications
   '';
 
   preferLocalBuild = true;
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     homepage = "https://macpassapp.org/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.darwin;
+    platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };
 }

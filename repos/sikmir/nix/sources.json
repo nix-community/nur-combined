@@ -415,10 +415,10 @@
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "5f3faf613a920f5a084425affd5449773ac26479",
-        "sha256": "1b9vicgwk2sdckki8029lnb0klr8q4lwmq9644m4wqkkp61hx443",
+        "rev": "b6762e292ca4f7ddf73f5752b571d3e0f04adbbb",
+        "sha256": "1wy3ckssg1pnq9ys69nvm6b02vsiv84nhasq5cni5w07cfkdf934",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/5f3faf613a920f5a084425affd5449773ac26479.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/b6762e292ca4f7ddf73f5752b571d3e0f04adbbb.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "openmtbmap_openvelomap_linux": {

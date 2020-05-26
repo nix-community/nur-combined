@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/aequitas/macos-menubar-wireguard";
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
-    platforms = with platforms; darwin;
+    platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };
 }
