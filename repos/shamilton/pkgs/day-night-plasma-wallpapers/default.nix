@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     owner = "SCOTT-HAMILTON";
     repo = "Day-night-plasma-wallpapers";
     rev = "master";
-    sha256 = "174nkm8v814gd98mm7n2lwcx19fha9qyh78dsih2n5pnzqiyq5xm";
+    sha256 = "0mhkp20mhrdrp70qa7gfzf8ydzpi7rs6z3m166h0qdh0xima56c2";
   };
 
   buildInputs = [ qttools ];

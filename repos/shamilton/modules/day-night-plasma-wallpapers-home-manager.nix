@@ -1,5 +1,5 @@
 { config, lib, pkgs, shamilton, options,
-modulesPath
+home, modulesPath
 }:
 
 with lib;
@@ -21,6 +21,7 @@ in {
     #   description = "Day-night-plasma-wallpapers derivation to use.";
     # };
 
+
     onCalendar = mkOption {
       type = types.str;
       default = "*-*-* 16:00:00"; # Run at 4 pm everyday (16h)
@@ -29,6 +30,9 @@ in {
   };
   config = mkIf cfg.enable (mkMerge ([
     {
+      home.file.".config/autostart-scripts/update-day-night-plasma-wallpapers.sh".source 
+        = "${package-day-night-plasma-wallpapers}/.config/autostart-scripts/update-day-night-plasma-wallpapers.sh";
+
       systemd.user.services.day-night-plasma-wallpapers = {
         Unit = {
           Description = "Day-night-plasma-wallpapers: a software to update your wallpaper according to the day light";
@@ -58,6 +62,7 @@ in {
       };
     })
   ]));
+
 
   # config = {
   #   systemd.user.services.day-night-plasma-wallpapers = {
