@@ -24,6 +24,7 @@ lib.makeScope newScope (
     redict = libsForQt5.callPackage ./applications/redict {
       inherit sources;
     };
+    wireguard-statusbar = callPackage ./applications/wireguard-statusbar {};
 
     ### BUILD SUPPORT
 
