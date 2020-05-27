@@ -4,74 +4,41 @@
 , wrapGAppsHook
 , autoPatchelfHook
 , dpkg
-, xorg
-, atk
-, glib
-, pango
-, gdk-pixbuf
-, cairo
-, freetype
-, fontconfig
 , gtk3
-, gnome2
-, dbus
-, nss
-, nspr
 , alsaLib
-, cups
-, expat
-, udev
+, systemd
 , libnotify
+, xlibs
 , xdg_utils
+, nss
+, nodePackages
 }:
 let
-  version = "5.5.0";
+  version = "5.5.1-nightly.15";
 in
 stdenv.mkDerivation {
   pname = "ferdi";
   inherit version;
   src = fetchurl {
-    url = "https://github.com/getferdi/ferdi/releases/download/v${version}/ferdi_${version}_amd64.deb";
-    sha256 = "0i24vcnq4iz5amqmn2fgk92ff9x9y7fg8jhc3g6ksvmcfly7af3k";
+    url = "https://github.com/getferdi/nightlies/releases/download/v${version}/ferdi_${version}_amd64.deb";
+    sha256 = "1m9xh24p3dz7krv65w06n4iy856c9c2klwb5ma1nqfqhd9czc3sb";
   };
 
-  # don't remove runtime deps
-  dontPatchELF = true;
-
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper wrapGAppsHook dpkg ];
-  buildInputs = (
-    with xorg; [
-      libXi
-      libXcursor
-      libXdamage
-      libXrandr
-      libXcomposite
-      libXext
-      libXfixes
-      libXrender
-      libX11
-      libXtst
-      libXScrnSaver
-    ]
-  ) ++ [
-    gtk3
-    atk
-    glib
-    pango
-    gdk-pixbuf
-    cairo
-    freetype
-    fontconfig
-    dbus
-    gnome2.GConf
-    nss
-    nspr
-    alsaLib
-    cups
-    expat
-    stdenv.cc.cc
+  nativeBuildInputs = [
+    autoPatchelfHook makeWrapper wrapGAppsHook dpkg
+    nodePackages.asar
   ];
-  runtimeDependencies = [ udev.lib libnotify ];
+
+  buildInputs = [
+    gtk3
+    xlibs.libXScrnSaver
+    xlibs.libXtst
+    xlibs.libxkbfile
+    alsaLib
+    nss
+  ];
+
+  runtimeDependencies = [ systemd.lib libnotify ];
 
   unpackPhase = "dpkg-deb -x $src .";
 
@@ -79,6 +46,10 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     cp -r opt $out
     ln -s $out/opt/Ferdi/ferdi $out/bin
+
+    asar extract $out/opt/Ferdi/resources/app.asar resources
+    autoPatchelf resources
+    asar pack resources $out/opt/Ferdi/resources/app.asar
 
     # provide desktop item and icon
     cp -r usr/share $out
@@ -92,7 +63,6 @@ stdenv.mkDerivation {
     # ferdi without an account requires libstdc++ at runtime
     wrapProgram $out/opt/Ferdi/ferdi \
       --prefix PATH : ${xdg_utils}/bin \
-      --prefix LD_LIBRARY_PATH : "${stdenv.cc.cc.lib}/lib" \
       "''${gappsWrapperArgs[@]}"
   '';
 
