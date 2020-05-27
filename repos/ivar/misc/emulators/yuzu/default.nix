@@ -25,14 +25,14 @@ let
 in
 mkDerivation rec {
   pname = "yuzu";
-  version = "266";
+  version = "267";
 
   src = fetchFromGitHub {
     owner = "yuzu-emu";
     repo = "yuzu-mainline"; # They use a separate repo for mainline “branch”
     fetchSubmodules = true;
     rev = "mainline-0-${version}";
-    sha256 = "1c43ggxh38wib0l7m4fi71jx18nw6b9hamfsmj92b5n3gd6i8lgv";
+    sha256 = "1kllbk7f5hrii79v3d0qh4f9xb07caf51izl7z3dcawf6s3fkh20";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
