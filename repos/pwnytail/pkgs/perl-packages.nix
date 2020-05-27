@@ -1,6 +1,8 @@
 { stdenv, fetchurl, perlPackages, parallel, buildPerlPackage }:
 with perlPackages; 
 rec {
+  inherit perl;
+
   AIMicroStructure = buildPerlPackage rec {
     pname = "AI-MicroStructure";
     version = "0.20";

@@ -8,11 +8,11 @@
 # missing runtime dep  libwebkitgtk-3.0-0
 stdenv.mkDerivation rec {
   name = "PortfolioPerformance-${version}";
-  version = "0.46.1";
+  version = "0.46.3";
 
   src = fetchurl {
     url = "https://github.com/buchen/portfolio/releases/download/${version}/${name}-linux.gtk.x86_64.tar.gz";
-    sha256 = "b0cc728e5b8bc516ecbc7ddda6d17ac25739307376a758f029d2ea9cf12585c9";
+    sha256 = "c6a4ee6861843eeca4550c04d8806808be7043e75513ed399bc7555c3dd8c308";
   };
 
 
