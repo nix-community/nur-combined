@@ -6,22 +6,29 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  # packages
-  butler = pkgs.callPackage ./pkgs/butler {};
+  # development
+  riscv-gnu-toolchain = pkgs.callPackage ./pkgs/development/riscv-gnu-toolchain {};
 
-  riscv-gnu-toolchain = pkgs.callPackage ./pkgs/riscv-gnu-toolchain {};
-
-  xs = pkgs.callPackage ./pkgs/xs {
+  xs = pkgs.callPackage ./pkgs/development/xs {
     ocamlPackages = pkgs.ocamlPackages_latest;
   };
 
-  githug = pkgs.callPackage ./pkgs/githug {};
+  nord-css = pkgs.callPackage ./pkgs/development/nord-css {};
 
-  pandocWithFilters = pkgs.callPackage ./pkgs/pandoc-with-filters {};
+  # tools
+  butler = pkgs.callPackage ./pkgs/tools/butler {};
 
-  nord-css = pkgs.callPackage ./pkgs/nord-css {};
+  carbon-now = pkgs.callPackage ./pkgs/tools/carbon-now {
+    nodejs = pkgs.nodejs-13_x;
+  };
 
-  carbon-now = pkgs.callPackage ./pkgs/carbon-now {
+  # build-support
+  pandocWithFilters = pkgs.callPackage ./pkgs/build-support/pandoc-with-filters {};
+
+  # games
+  githug = pkgs.callPackage ./pkgs/games/githug {};
+
+  aurora = pkgs.callPackage ./pkgs/games/aurora {
     nodejs = pkgs.nodejs-13_x;
   };
 }
