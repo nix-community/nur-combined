@@ -53,15 +53,10 @@
         enable = true;
       };
 
-      programs.alot = {
-        enable = true;
-      };
-
       programs.astroid = {
         enable = true;
         pollScript = "notmuch new";
         extraConfig = {
-          editor.cmd = "urxvt -embed %3 -e kak %1";
           startup.queries = {
             todo = "tag:flagged";
             social = "tag:social";
