@@ -12,6 +12,7 @@
 , xdg_utils
 , nss
 , nodePackages
+, pulseaudio
 }:
 let
   version = "5.5.1-nightly.15";
@@ -38,7 +39,11 @@ stdenv.mkDerivation {
     nss
   ];
 
-  runtimeDependencies = [ systemd.lib libnotify ];
+  runtimeDependencies = [
+    systemd.lib
+    libnotify
+    pulseaudio
+  ];
 
   unpackPhase = "dpkg-deb -x $src .";
 
