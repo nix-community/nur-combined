@@ -1,26 +1,23 @@
 { pkgs ? import <nixpkgs> { } }:
 with pkgs;
 
-buildGoPackage rec {
-  name = "quickserv";
-  version = "1.0.0";
-  goPackagePath = "tulpa.dev/Xe/quickserv";
+rustPlatform.buildRustPackage rec {
+  pname = "quickserv";
+  version = "0.1.0";
+
   src = fetchgit {
     url = "https://tulpa.dev/Xe/quickserv";
-    rev = "933859e95e7c666e5247db58f2194ac65f3c3cad";
-    sha256 = "1cya6rcism40q1vpdfzq3s5igfx5xc4dhf722dgr2k54y7kh9w0h";
+    rev = "v${version}";
+    sha256 = "0v3b8l4cbqx8vxi4dg44rvg61bc5rpmjxyzx015687n72vz9s7rn";
   };
-  goDeps = ./deps.nix;
-  preBuild = ''
-    export CGO_ENABLED=0
-    buildFlagsArray+=(-pkgdir "$TMPDIR")
-  '';
 
-  allowGoReference = false;
+  legacyCargoFetcher = true;
+  cargoSha256 = "07crv9wx0zg0fjga6alx3pks7cnkla9p6y9jy8wq13y3q7yrm8n9";
 
-  meta = {
+  meta = with lib; {
+    description = "A quick HTTP server for when you've given up on life";
     homepage = "https://tulpa.dev/Xe/quickserv";
-    description = "Single folder HTTP server";
-    license = stdenv.lib.licenses.mit;
+    license = licenses.mit;
+    maintainers = [ maintainers.xe ];
   };
 }
