@@ -9,24 +9,31 @@ jobs:
   tests:
     strategy:
       matrix:
+        nurRepo:
+          - mic92
+        cachixName:
+          - mic92
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=https://github.com/Mic92/nixpkgs/archive/master.tar.gz
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v9
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Install nix
+      uses: cachix/install-nix-action@v9
       with:
         skip_adding_nixpkgs_channel: true
-    - name: set NIX_PATH
+    - name: Setup NIX_PATH
       run: echo "::set-env name=NIX_PATH::${{ matrix.nixPath }}"
-    - run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - uses: cachix/cachix-action@v6
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Setup cachix
+      uses: cachix/cachix-action@v6
       with:
-        name: mic92
+        name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - name: nix-build
+    - name: Build nix packages
       run: nix run nixpkgs.nix-build-uncached -c nix-build-uncached non-broken.nix
     - name: Trigger NUR update
-      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=mic92"
-   
+      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
