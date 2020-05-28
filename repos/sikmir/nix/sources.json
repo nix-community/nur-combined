@@ -340,11 +340,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "001hq55fm1qq5sg1djqdc9pnydx8yzcrv3cp6wca6mwmq8fqp3x3",
+        "sha256": "05pmwg55b0njzm21djp4bnjnbq7kagh524bcs27vbw7gq45mfc1h",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-05-24.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-05-28.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-05-24"
+        "version": "2020-05-28"
     },
     "mbtileserver": {
         "branch": "master",
@@ -389,11 +389,11 @@
         "builtin": false,
         "description": "Maanmittauslaitoksen peruskartan tasoiset ja näköiset ilmaiset maastokartat",
         "homepage": "https://kartat.hylly.org/",
-        "sha256": "0ci6n31vigdyh2szdp6lc2y4xhs8hvlq5zzmwq8rrby6ix8ix61x",
+        "sha256": "0kyj5l3g9vkkxb11lpzz4xczn4gz9cj2gap7xxmq4ijljalbm9pj",
         "type": "file",
-        "url": "https://kartat-dl.hylly.org/2020-05-05/mtk_suomi.img",
+        "url": "https://kartat-dl.hylly.org/2020-05-26/mtk_suomi.img",
         "url_template": "https://kartat-dl.hylly.org/<version>/mtk_suomi.img",
-        "version": "2020-05-05"
+        "version": "2020-05-26"
     },
     "nakarte": {
         "branch": "master",
