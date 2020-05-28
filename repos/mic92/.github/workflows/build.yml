@@ -15,9 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: Gerschtli/install-nix-action@ddf1cd2bc500fec5a443c8858214d79545cc5e2d
+    - uses: cachix/install-nix-action@v9
       with:
-        NIX_PATH: ${{ matrix.nixPath }}
+        skip_adding_nixpkgs_channel: true
+    - name: set NIX_PATH
+      run: echo "::set-env name=NIX_PATH::${{ matrix.nixPath }}"
     - run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - uses: cachix/cachix-action@v6
       with:
