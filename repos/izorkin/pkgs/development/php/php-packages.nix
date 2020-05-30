@@ -621,10 +621,10 @@ let
 
   #protobuf = assert isPhp74; buildPecl {
   protobuf = buildPecl {
-    version = "3.12.1";
+    version = "3.12.2";
     pname = "protobuf";
 
-    sha256 = "1x53nwzkmvb66f06wlnj7i9rwgvckdrz3q5n6n0kmhvd40nh6xsq";
+    sha256 = "1jqi9pxm895s74w9zv1qyv0f11vh3skha3zf48vfxsvv00kljk0z";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -638,12 +638,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.11.3";
+    version = "3.11.5";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "0knk3dcmc53r1458i4mrsy61snqmnd9l06i65aw3biwzpvxn9bz8";
+      sha256 = "005cziqkq54326w7rm4vscscnrz1gjp2gjk08dx9kwabpcykbhsz";
     };
 
     phases = [ "installPhase" ];
@@ -849,10 +849,10 @@ let
 
   #xdebug29 = assert !isPhp56; buildPecl {
   xdebug29 = buildPecl {
-    version = "2.9.5";
+    version = "2.9.6";
     pname = "xdebug";
 
-    sha256 = "040shrg0a2xw97rxpdvy2mp88rvs24agw4x7ssbbj4cn202ifnvp";
+    sha256 = "0m748qkfy5i95dvsf4mwy6i3arxgpnsj1md878winj868w0vc0xb";
 
     doCheck = true;
     checkTarget = "test";

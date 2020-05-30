@@ -20,14 +20,14 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  version = "1.17.0";
+  version = "1.18.0";
   pname = "unit";
 
   src = fetchFromGitHub {
     owner = "nginx";
     repo = "unit";
     rev = "${version}";
-    sha256 = "1q3659vw8rxv4fk7ljkjav8ga72sb3arljfxcqw8b080f9hvi7hh";
+    sha256 = "0r2l3ra63qjjbpjzrmx75jp9fvz83yis4j3qxqdnmxm77psykwy8";
   };
 
   nativeBuildInputs = [ which ];
