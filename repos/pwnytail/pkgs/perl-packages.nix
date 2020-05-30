@@ -1,16 +1,19 @@
-{ stdenv, fetchurl, perlPackages, parallel, buildPerlPackage }:
+{ stdenv, fetchurl, perlPackages, parallel, buildPerlPackage, couchdb, wordnet, poppler_utils, tesseract }:
 with perlPackages; 
 rec {
   inherit perl;
 
-  AIMicroStructure = buildPerlPackage rec {
+  AIMicroStructure =
+    let 
+      external = [ couchdb wordnet poppler_utils tesseract ];
+    in buildPerlPackage rec {
     pname = "AI-MicroStructure";
     version = "0.20";
     src = fetchurl {
       url = "mirror://cpan/authors/id/S/SA/SANTEX/${pname}-${version}.tar.gz";
       sha256 = "bb9d056fdddddb669fa501ae7325f709175ef565b5e592fe0b51ca608b6fd05e";
     };
-    buildInputs = [ ModuleBuild ];
+    buildInputs = [ ModuleBuild ] ++ external;
     propagatedBuildInputs = [ AICategorizer AlgorithmBaumWelch AnyEventSubprocess CacheMemcachedFast ClassContainer ConfigAuto DataPrinter DigestSHA1 FileHomeDir HTMLSimpleLinkExtor HTMLStrip HTTPMessage IOAsync JSON JSONXS LWP LinguaStopWords Mojolicious NetAsyncWebSocket ParallelIterator ParamsValidate SearchContextGraph StatisticsBasic StatisticsContingency StatisticsDescriptive StatisticsDistributionsAncova StatisticsMVABayesianDiscrimination StatisticsMVAHotellingTwoSample StorableCouchDB SysadmInstall  ];
     meta = {
       homepage = http://active-memory.de:2323;
