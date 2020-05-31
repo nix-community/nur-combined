@@ -1,17 +1,29 @@
-{ pkgs ? import <nixpkgs> { } }:
+{stdenv, fetchgit, libX11, libXinerama, libXft}:
 
-pkgs.dwm.overrideAttrs (old: rec {
-  postPatch = ''
-    cp ${./config.h} ./config.h
-  '';
+let
+  pname = "dwm";
+  version = "6.2-kadis";
+in
+stdenv.mkDerivation {
+  inherit pname version;
 
-  patches = [
-    ./alphasystray.diff
-    ./dwm-uselessgap-6.2.diff
-    ./dwm-autostart-20161205-bb3bd6f.diff
-    ./dwm-pertag-6.2.diff
-    ./dwm-centeredmaster-6.1.diff
-    ./dwm-attachbelow-6.2.diff
-    ./dwm-cfacts-6.2.diff
-  ];
-})
+  src = fetchgit {
+    url = "https://tulpa.dev/cadey/dwm.git";
+    rev = "2a30ea769c87396284829fa5201d445f4779da27";
+    sha256 = "1czlm6k0vb6sngkqwgs9pdr40k3xi9w2zd7c5736pw35f5q97dfc";
+  };
+
+  buildInputs = [ libX11 libXinerama libXft ];
+
+  prePatch = ''sed -i "s@/usr/local@$out@" config.mk'';
+
+  buildPhase = " make ";
+
+  meta = {
+    homepage = "https://suckless.org/";
+    description = "Dynamic window manager for X";
+    license = stdenv.lib.licenses.mit;
+    maintainers = with stdenv.lib.maintainers; [xe];
+    platforms = with stdenv.lib.platforms; all;
+  };
+}
