@@ -18,11 +18,13 @@ rec {
 
   import-garmin-connect = pkgs.python3Packages.callPackage ./pkgs/import-garmin-connect {};
 
-  salt-py3 = pkgs.callPackage ./pkgs/salt-py3 {};
+  # TODO: pyyaml_3 has been removed from nixpkgs, check if there is an
+  # update for salt.
+  # salt-py3 = pkgs.callPackage ./pkgs/salt-py3 {};
 
-  salt-lint = pkgs.callPackage ./pkgs/salt-lint {
-    salt = salt-py3;
-  };
+  # salt-lint = pkgs.callPackage ./pkgs/salt-lint {
+  #   salt = salt-py3;
+  # };
 
   prometheus-unbound-exporter = pkgs.callPackage ./pkgs/prometheus-unbound-exporter {};
 
@@ -37,4 +39,7 @@ rec {
   bitwarden-rofi = pkgs.callPackage ./pkgs/bitwarden-rofi {};
 
   marble-marcher = pkgs.callPackage ./pkgs/marble-marcher {};
+
+  oversteer = pkgs.callPackage ./pkgs/oversteer {};
+
 }
