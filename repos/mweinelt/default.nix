@@ -19,5 +19,9 @@
     mini-media-player = (pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/mini-media-player {});
     multiple-entity-row = (pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/multiple-entity-row {});
   };
+
+  hassThemes = pkgs.recurseIntoAttrs {
+    clear-theme-dark = (pkgs.callPackage ./pkgs/home-assistant/themes/clear-theme-dark {});
+  };
 }
 
