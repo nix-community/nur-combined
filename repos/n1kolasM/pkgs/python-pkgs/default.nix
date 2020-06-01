@@ -30,8 +30,9 @@ let
     radon = callPackage ./radon {};
     wemake-python-styleguide = callPackage ./wemake-python-styleguide {};
     returns = callPackage ./returns/without-poetry.nix {};
+    zope_i18nmessageid = callPackage ./zope_i18nmessageid {};
     zope-hookable = callPackage ./zope-hookable {};
-    zope_component = pythonPackages.zope_component.override { inherit zope-hookable; };
+    zope_component = pythonPackages.zope_component.override { inherit zope-hookable zope_i18nmessageid; };
     testfixtures = pythonPackages.testfixtures.override { inherit zope_component; };
   });
 in
