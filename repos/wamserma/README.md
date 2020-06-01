@@ -22,6 +22,10 @@ Search: <https://nix-community.github.io/nur-search/repos/wamserma/>
 
 + [bandit](https://github.com/PyCQA/bandit) a static code analysis tool designed to find common security issues in Python code (just appifies the python package from Nixpkgs)
 
+### Libraries
+
++ [dietlibc](https://www.fefe.de/dietlibc/) a libc optimized for small size, useful for small statically linked binaries
+
 ## How to use?
 
 Launch directly:  

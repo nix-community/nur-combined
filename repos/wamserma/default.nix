@@ -25,6 +25,7 @@ in
 
   bandit = pkgs.python3.pkgs.toPythonApplication pkgs.python3.pkgs.bandit;
   bundlewrap = pkgs.python3.pkgs.toPythonApplication python3AppPackages.bundlewrap;
+  dietlibc = pkgs.callPackage ./pkgs/development/libraries/dietlibc { lib = mylib; };
 
 }
 
