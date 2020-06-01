@@ -15,6 +15,7 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   cabytcini = pkgs.callPackage ./pkgs/cabytcini { };
+  comma = pkgs.callPackage ./pkgs/comma { };
   deno = pkgs.callPackage ./pkgs/deno { };
   discord = pkgs.callPackage ./pkgs/discord { };
   dwm = pkgs.callPackage ./pkgs/dwm { };
