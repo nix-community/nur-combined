@@ -3,7 +3,7 @@ with lib;
 let
   upstreamNewScope = scope: newScope (pythonPackages // scope);
   isPackageBroken = package: builtins.hasAttr "broken" package.meta && package.meta.broken;
-  packages = (self: with self; {
+  packages = (self: with self; rec {
     cognitive-complexity = callPackage ./cognitive-complexity {};
     darglint = callPackage ./darglint {};
     flake8-annotations-complexity = callPackage ./flake8-annotations-complexity {};
@@ -31,6 +31,8 @@ let
     wemake-python-styleguide = callPackage ./wemake-python-styleguide {};
     returns = callPackage ./returns/without-poetry.nix {};
     zope-hookable = callPackage ./zope-hookable {};
+    zope_component = pythonPackages.zope_component.override { inherit zope-hookable; };
+    testfixtures = pythonPackages.testfixtures.override { inherit zope_component; };
   });
 in
   makeScope upstreamNewScope packages
