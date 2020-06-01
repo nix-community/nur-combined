@@ -1,0 +1,39 @@
+name: Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: '1 1 * * 0'
+
+jobs:    
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        channel:
+          - nixpkgs-unstable
+          - nixos-unstable
+          - nixos-20.03
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v9
+      with:
+        nix_path: nixpkgs=channel:${{ matrix.channel }}
+    - name: Build and test
+      uses: cachix/cachix-action@v6
+      with:
+        name: n1kolasm
+    - run: nix-build ci.nix -A buildOutputs
+    - name: Push to cachix
+      uses: cachix/cachix-action@v6
+      with:
+        name: n1kolasm
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+    - run: nix-build ci.nix -A cacheOutputs
+    - run: nix eval -f default.nix 'lib'
+    - run: nix eval -f default.nix 'modules'
+    - run: nix eval -f default.nix 'overlays'
