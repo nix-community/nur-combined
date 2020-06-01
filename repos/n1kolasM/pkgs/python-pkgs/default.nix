@@ -5,8 +5,6 @@ let
   isPackageBroken = package: builtins.hasAttr "broken" package.meta && package.meta.broken;
   packages = (self: with self; {
     cognitive-complexity = callPackage ./cognitive-complexity {};
-    stevedore = callPackage ./stevedore {};
-    bandit = callPackage ./bandit {};
     darglint = callPackage ./darglint {};
     flake8-annotations-complexity = callPackage ./flake8-annotations-complexity {};
     flake8-bandit = callPackage ./flake8-bandit {};
@@ -32,8 +30,6 @@ let
     radon = callPackage ./radon {};
     wemake-python-styleguide = callPackage ./wemake-python-styleguide {};
     returns = callPackage ./returns/without-poetry.nix {};
-    tox = callPackage ./tox {};
-    sentry-sdk = callPackage ./sentry-sdk {};
   });
 in
   makeScope upstreamNewScope packages
