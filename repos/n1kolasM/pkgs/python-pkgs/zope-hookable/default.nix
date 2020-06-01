@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, coverage
 , zope_testing
 }:
 
@@ -14,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "0hc82lfr7bk53nvbxvjkibkarngyrzgfk2i6bg8wshl0ly0pdl19";
   };
 
-  checkInputs = [ zope_testing ];
+  checkInputs = [ zope_testing coverage ];
 
   meta = with lib; {
     description = "Supports the efficient creation of “hookable” objects";
