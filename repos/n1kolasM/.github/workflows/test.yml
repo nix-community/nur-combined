@@ -6,35 +6,48 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    - cron: '1 1 * * 0'
+    - cron: '14 1 * * *'
 
 jobs:    
   build:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        channel:
-          - nixpkgs-unstable
-          - nixos-unstable
-          - nixos-20.03
+        nixPath:
+          - nixpkgs=channel:nixpkgs-unstable
+          - nixpkgs=channel:nixos-unstable
+          - nixpkgs=channel:nixos-20.03
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v9
+    - name: Checkout repository 
+      uses: actions/checkout@v2
+    - name: Install nix
+      uses: cachix/install-nix-action@v9
       with:
-        nix_path: nixpkgs=channel:${{ matrix.channel }}
-    - name: Build and test
+        skip_adding_nixpkgs_channel: true
+    - name: Setup NIX_PATH
+      run: echo "::set-env name=NIX_PATH::${{ matrix.nixPath }}"
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Setup cachix
       uses: cachix/cachix-action@v6
       with:
         name: nikolasm
         skipPush: true
-    - run: nix-build ci.nix -A buildOutputs
-    - name: Push to cachix
+    - name: Build and test all attributes
+      run: nix-build ci.nix -A buildOutputs
+    - name: Setup cachix push
       uses: cachix/cachix-action@v6
       with:
         name: nikolasm
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - run: nix-build ci.nix -A cacheOutputs
-    - run: nix eval -f default.nix 'lib'
-    - run: nix eval -f default.nix 'modules'
-    - run: nix eval -f default.nix 'overlays'
+    - name: Build, test and push cacheable attributes
+      run: nix-build ci.nix -A cacheOutputs
+    - name: Test lib
+      run: nix eval -f default.nix 'lib'
+    - name: Test modules
+      run: nix eval -f default.nix 'modules'
+    - name: Test overlays
+      run: nix eval -f default.nix 'overlays'
+    - name: Trigger NUR update
+      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=n1kolasM"
