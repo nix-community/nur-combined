@@ -32,7 +32,8 @@ let
     returns = callPackage ./returns/without-poetry.nix {};
     zope_i18nmessageid = callPackage ./zope_i18nmessageid {};
     zope-hookable = callPackage ./zope-hookable {};
-    zope_component = pythonPackages.zope_component.override { inherit zope-hookable zope_i18nmessageid; };
+    zope_configuration = pythonPackages.zope_configuration.override { inherit zope_i18nmessageid; };
+    zope_component = pythonPackages.zope_component.override { inherit zope-hookable zope_i18nmessageid zope_configuration; };
     testfixtures = pythonPackages.testfixtures.override { inherit zope_component; };
   });
 in
