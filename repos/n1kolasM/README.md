@@ -27,7 +27,7 @@
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
-[![Build Status](https://travis-ci.org/n1kolasM/nur-packages.svg?branch=master)](https://travis-ci.org/n1kolasM/nur-packages)
+[![Test](https://github.com/n1kolasM/nur-packages/workflows/Test/badge.svg)](https://github.com/n1kolasM/nur-packages/actions?query=workflow%3ATest)
 [![Cachix Cache](https://img.shields.io/badge/cachix-nikolasm-blue.svg)](https://nikolasm.cachix.org)
 
 

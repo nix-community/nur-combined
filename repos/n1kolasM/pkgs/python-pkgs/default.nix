@@ -30,6 +30,7 @@ let
     radon = callPackage ./radon {};
     wemake-python-styleguide = callPackage ./wemake-python-styleguide {};
     returns = callPackage ./returns/without-poetry.nix {};
+    zope-hookable = callPackage ./zope-hookable {};
   });
 in
   makeScope upstreamNewScope packages
