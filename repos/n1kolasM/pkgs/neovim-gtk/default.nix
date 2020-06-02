@@ -1,4 +1,4 @@
-{ stdenv, rustPlatform, fetchFromGitHub, gtk3, gnome3, wrapGAppsHook, diffutils }:
+{ stdenv, rustPlatform, fetchFromGitHub, gtk3, gnome3, wrapGAppsHook, lib }:
 rustPlatform.buildRustPackage rec {
   name = "neovim-gtk-unstable-${version}";
   version = "0.2.0";
@@ -10,12 +10,12 @@ rustPlatform.buildRustPackage rec {
     sha256 = "0idn0j41h3bvyhcq2k0ywwnbr9rg9ci0knphbf7h7p5fd4zrfb30";
   };
 
-  cargoSha256 = "1gsnr2j68kfx2w2r2pv11rln0qlmgq05van2f3h0f7jk5c7rs4yb";
+  cargoSha256 = if lib.hasPrefix "20.03" lib.version then
+    "0js581whb6bg65bby2zyssxxrxjcgk925mgv1ds5djdj3bin42ig"
+  else
+    "1gsnr2j68kfx2w2r2pv11rln0qlmgq05van2f3h0f7jk5c7rs4yb";
 
   nativeBuildInputs = [
-    # TODO: Workaround for cargoSha256 not matching itself. Fixed in 20.09.
-    # Remove once buildRustPackage is fixed.
-    diffutils
     wrapGAppsHook
   ];
 
