@@ -21,6 +21,7 @@ Search: <https://nix-community.github.io/nur-search/repos/wamserma/>
 ### Security Tools
 
 + [bandit](https://github.com/PyCQA/bandit) a static code analysis tool designed to find common security issues in Python code (just appifies the python package from Nixpkgs)
++ [encpipe](https://github.com/jedisct1/encpipe) a simple, pipeable encryption tool without runtime deps, with `encpipe-static` being a fully static binary (only 50K) that can run on any Linux system
 
 ### Libraries
 

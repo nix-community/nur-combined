@@ -17,9 +17,17 @@ stdenv.mkDerivation  {
     url = "https://www.fefe.de/dietlibc/dietlibc-${version}.tar.xz";
     inherit sha256;
   };
-  
+
+  patchPhase = ''
+      substituteInPlace ./Makefile --replace "/opt/diet" "$out"
+      substituteInPlace ./libdl/Makefile --replace "/opt/diet" "$out"
+      substituteInPlace ./contrib/Makefile.dyn --replace "/opt/diet" "$out"
+  '';
+
+  enableParallelBuilding=true;
+
   installPhase = ''
-    make DESTDIR=$out install
+    make install
   '';
 
   meta = with lib; {

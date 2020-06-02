@@ -17,7 +17,7 @@ let
     bundlewrap = pkgs.python3.pkgs.callPackage ./pkgs/development/python-modules/bundlewrap { lib = mylib; };
   };
 in
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -26,6 +26,8 @@ in
   bandit = pkgs.python3.pkgs.toPythonApplication pkgs.python3.pkgs.bandit;
   bundlewrap = pkgs.python3.pkgs.toPythonApplication python3AppPackages.bundlewrap;
   dietlibc = pkgs.callPackage ./pkgs/development/libraries/dietlibc { lib = mylib; };
+  encpipe = pkgs.callPackage ./pkgs/tools/security/encpipe { lib = mylib; };
+  encpipe-static = pkgs.callPackage ./pkgs/tools/security/encpipe { lib = mylib; static = true; dietlibc = dietlibc; };
 
 }
 
