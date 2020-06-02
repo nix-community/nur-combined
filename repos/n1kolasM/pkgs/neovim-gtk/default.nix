@@ -33,7 +33,6 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    broken = true;
     description = "GTK+ UI for Neovim";
     homepage = https://github.com/daa84/neovim-gtk;
     license = with licenses; [ gpl3 ];
