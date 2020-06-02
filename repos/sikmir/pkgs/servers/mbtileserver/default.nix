@@ -5,7 +5,7 @@ buildGoModule rec {
   version = lib.substring 0 7 src.rev;
   src = sources.mbtileserver;
 
-  modSha256 = "1brhj1pczaz7p1d3r3bzkbd3d14zqcbr96r1s8z134lq6axqhb7q";
+  vendorSha256 = null;
 
   meta = with lib; {
     inherit (src) description homepage;

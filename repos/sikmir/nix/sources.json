@@ -353,10 +353,10 @@
         "homepage": "https://github.com/consbio/mbtileserver",
         "owner": "consbio",
         "repo": "mbtileserver",
-        "rev": "f2305b518fa81a9d7a3695abc0e4131401a936e6",
-        "sha256": "0b0982rn5jsv8zxfkrcmhys764nim6136hafc8ccj0mwdyvwafxd",
+        "rev": "ca4a94e0c5a4487c64d271e6d1428a6aefcd094c",
+        "sha256": "1hivsk1z22dy9gjn7r7n229j5ij3yzmd8p8l6baz6z36cfpz8qin",
         "type": "tarball",
-        "url": "https://github.com/consbio/mbtileserver/archive/f2305b518fa81a9d7a3695abc0e4131401a936e6.tar.gz",
+        "url": "https://github.com/consbio/mbtileserver/archive/ca4a94e0c5a4487c64d271e6d1428a6aefcd094c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mercantile": {
