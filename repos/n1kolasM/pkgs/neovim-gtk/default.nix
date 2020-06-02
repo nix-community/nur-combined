@@ -10,10 +10,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "0idn0j41h3bvyhcq2k0ywwnbr9rg9ci0knphbf7h7p5fd4zrfb30";
   };
 
-  cargoSha256 = if pkgs.lib.version == "20.03" then
-    "0js581whb6bg65bby2zyssxxrxjcgk925mgv1ds5djdj3bin42ig"
-  else
-    "1gsnr2j68kfx2w2r2pv11rln0qlmgq05van2f3h0f7jk5c7rs4yb";
+  cargoSha256 = "1gsnr2j68kfx2w2r2pv11rln0qlmgq05van2f3h0f7jk5c7rs4yb";
 
   nativeBuildInputs = [ wrapGAppsHook ];
   buildInputs = [ gtk3 gnome3.vte ];
