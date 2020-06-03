@@ -42,13 +42,13 @@ let
 in
 buildPythonPackage rec {
   pname = "pygsti";
-  version = "0.9.9.1";
+  version = "0.9.9.2";
 
   src = fetchFromGitHub {
     owner = "pyGSTio";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1c028xfn3bcjfvy2wcnm1p6k986271ygn755zxw4w72y1br808zd";
+    sha256 = "1pvd9i9sfna5wcr8wf12rzlg2qw9xdlvh2fr2037600l87008vnp";
   };
 
   disabled = pythonOlder "3.5";
