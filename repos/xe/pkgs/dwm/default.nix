@@ -9,8 +9,8 @@ stdenv.mkDerivation {
 
   src = fetchgit {
     url = "https://tulpa.dev/cadey/dwm.git";
-    rev = "14ad3d842ec1b373e572d5fb03764fd262a47846";
-    sha256 = "18qq7q13zcn12dxvbd5w9v6v3lrgf05yhafpx6q9zvic4im32ppy";
+    rev = "299c70874c5eb062ccbe9781cabccecb60452489";
+    sha256 = "195gcpc7s2m64i2v3ld5bb3xm4yh777s8m79h4hhi4q73c7wvjs6";
   };
 
   buildInputs = [ libX11 libXinerama libXft ];
