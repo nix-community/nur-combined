@@ -303,6 +303,7 @@ let
       '';
 
       src = fetchFromGitHub {
+        name = "php-src-${version}";
         owner = "php";
         repo = "php-src";
         rev = (if (versionAtLeast version "8.0") then "${rev}" else "php-${version}");
