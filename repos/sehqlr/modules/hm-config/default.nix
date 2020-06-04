@@ -6,29 +6,36 @@
     gnupg
     gpa
 
-    pass
-    qtpass
-
     file
     nixfmt
     pandoc
     ripgrep
+    w3m
     xclip
   ];
   nixpkgs.config.allowUnfree = true;
 
   programs.bat.enable = true;
+
   programs.command-not-found.enable = true;
+
   programs.fzf.enable = true;
   programs.fzf.enableZshIntegration = true;
+
   programs.feh.enable = true;
+  programs.zathura.enable = true;
+
   programs.htop.enable = true;
+
   programs.rofi = {
     enable = true;
     theme = "lb"; # rofi-theme-selector
   };
+
+  programs.password-store.enable = true;
+
   programs.termite.enable = true;
-  programs.zathura.enable = true;
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -40,13 +47,10 @@
   };
 
   services.flameshot.enable = true;
+
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
     sshKeys = [ "3759E9087871E845B0621E00F6BE8F0DE65D9666" ];
-  };
-  services.kdeconnect = {
-    enable = true;
-    indicator = true;
   };
 }
