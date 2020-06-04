@@ -5,14 +5,15 @@
   home.packages = with pkgs; [
     gnupg
     gpa
+
     pass
     qtpass
+
+    file
+    nixfmt
+    pandoc
     ripgrep
     xclip
-    file
-    pandoc
-    graphviz
-    transmission-gtk
   ];
   nixpkgs.config.allowUnfree = true;
 

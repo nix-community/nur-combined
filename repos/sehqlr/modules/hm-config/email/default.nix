@@ -52,27 +52,7 @@
       programs.afew = {
         enable = true;
       };
-
-      programs.astroid = {
-        enable = true;
-        pollScript = "notmuch new";
-        extraConfig = {
-          startup.queries = {
-            todo = "tag:flagged";
-            social = "tag:social";
-            reading_list = "tag:unread AND (tag:news OR tag:lists)";
+      programs.alot = {
+          enable = true;
           };
-          thread_view = {
-            default_save_directory = "~/Downloads";
-            indent_messages = true;
-            preferred_html_only = true;
-          };
-        };
-      };
-      # TODO get this working
-      # xdg.configFile."astroid/plugins/syntax-highlight" = fetchFromGitHub {
-      #   owner = "astroidmail";
-      #   repo = "syntax-highlight";
-      # }
-
 }
