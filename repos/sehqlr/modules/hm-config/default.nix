@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   imports = [ ./dev ./email ];
 
   home.packages = with pkgs; [
@@ -34,6 +33,14 @@
 
   programs.password-store.enable = true;
 
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      prompt_order = [ "nix_shell" "line_break" "character" ];
+      character.symbol = "λ";
+    };
+  };
   programs.termite.enable = true;
 
   programs.zsh = {
