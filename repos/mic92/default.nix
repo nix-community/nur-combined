@@ -89,6 +89,8 @@ rec {
     })
   );
 
+  pyps4-2ndscreen = pkgs.python3.pkgs.toPythonApplication python3Packages.pyps4-2ndscreen;
+
   yubikey-touch-detector = pkgs.callPackage ./pkgs/yubikey-touch-detector { };
 
   modules = import ./modules;

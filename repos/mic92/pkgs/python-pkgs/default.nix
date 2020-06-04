@@ -31,6 +31,8 @@ rec {
 
   priority = callPackage ./priority.nix { };
 
+  pyps4-2ndscreen = callPackage ./pyps4-2ndscreen.nix { };
+
   remote-pdb = callPackage ./remote-pdb.nix { };
 
   web2ldap = callPackage ./web2ldap {
