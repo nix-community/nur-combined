@@ -40,6 +40,7 @@ rec {
         rev = "79ff1467c79a33d3afb05831f78202dfc798b4a1";
         sha256 = "1dp6w5rh6kddxa5hp3kr249xnmbjpn6jdrpppsbm4hrfw9yh6hjw";
       };
+      propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ cirq ];
     });
     pubchempy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pubchempy { };
     openfermion = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/openfermion { inherit pubchempy; };

@@ -28,7 +28,7 @@
 
 buildPythonPackage rec {
   pname = "cirq";
-  version = "0.8.0";
+  version = "0.8.1";
 
   disabled = pythonOlder "3.5";
 
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     owner = "quantumlib";
     repo = "cirq";
     rev = "v${version}";
-    sha256 = "01nnv7r595sp60wvp7750lfdjwdsi4q0r4lmaj6li09zsdw0r4b3";
+    sha256 = "12695042a75pzgqfqjb84n3qm25zgz74qh3cqifdbc9adasz5gr8";
   };
 
   patches = [
