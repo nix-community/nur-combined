@@ -37,7 +37,15 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
-      prompt_order = [ "nix_shell" "line_break" "character" ];
+      prompt_order = [
+        "nix_shell"
+        "git_branch"
+        "git_commit"
+        "git_state"
+        "git_status"
+        "line_break"
+        "character"
+      ];
       character.symbol = "λ";
     };
   };
