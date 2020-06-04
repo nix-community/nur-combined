@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 {
-      home.packages = [ pkgs.rxvt_unicode ];
       xdg.configFile."afew/lobsters.py".source = ./lobsters.py;
 
       accounts.email.accounts = {
@@ -14,22 +13,6 @@
           userName = "hey#samhatfield.me";
 
           notmuch.enable = true;
-          astroid.enable = true;
-          msmtp.enable = true;
-          mbsync = {
-            create = "both";
-            enable = true;
-            expunge = "both";
-          };
-        };
-        gmail = {
-          address = "samuel.e.hatfield@gmail.com";
-          flavor = "gmail.com";
-          passwordCommand = "pass email/gmail.com/home-manager";
-          realName = "Sam Hatfield";
-
-          notmuch.enable = true;
-          astroid.enable = true;
           msmtp.enable = true;
           mbsync = {
             create = "both";
@@ -53,6 +36,6 @@
         enable = true;
       };
       programs.alot = {
-          enable = true;
-          };
+        enable = true;
+      };
 }
