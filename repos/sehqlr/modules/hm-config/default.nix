@@ -12,6 +12,7 @@
     w3m
     xclip
   ];
+
   nixpkgs.config.allowUnfree = true;
 
   programs.bat.enable = true;
@@ -37,14 +38,19 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
+      add_newline = false;
       prompt_order = [
+        "hostname"
+        "directory"
         "nix_shell"
         "git_branch"
         "git_commit"
         "git_state"
         "git_status"
         "line_break"
+        "time"
         "character"
+        "jobs"
       ];
       character.symbol = "λ";
     };
@@ -68,4 +74,6 @@
     enableSshSupport = true;
     sshKeys = [ "3759E9087871E845B0621E00F6BE8F0DE65D9666" ];
   };
+
+  services.lorri.enable = true;
 }
