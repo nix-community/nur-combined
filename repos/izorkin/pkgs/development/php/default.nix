@@ -290,7 +290,7 @@ let
       '';
 
       preInstall = lib.optionalString pearSupport ''
-        cp ${php-pearweb-phars}/install-pear-nozlib.phar $TMPDIR/source/pear/install-pear-nozlib.phar
+        cp ${php-pearweb-phars}/install-pear-nozlib.phar $TMPDIR/php-src-${version}/pear/install-pear-nozlib.phar
       '';
 
       postFixup = ''
