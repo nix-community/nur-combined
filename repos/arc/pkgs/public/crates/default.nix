@@ -1,12 +1,12 @@
 {
   rust-analyzer = { fetchFromGitHub, rustPlatform, lib, darwin, hostPlatform }: rustPlatform.buildRustPackage rec {
     pname = "rust-analyzer";
-    version = "2020-05-18";
+    version = "2020-06-01";
     src = fetchFromGitHub {
       owner = "rust-analyzer";
       repo = pname;
       rev = version;
-      sha256 = "1h21jpsn6db8jcgfy2n6sj7vx54kmnc60nc1bfpnc4k8dwr6lc10";
+      sha256 = "0chm47mrd4hybhvzn4cndq2ck0mj948mm181p1i1j1w0ms7zk1fg";
     };
     cargoBuildFlags = ["--features" "jemalloc" ];
     preBuild = "pushd crates/rust-analyzer";
@@ -15,7 +15,7 @@
     buildInputs = lib.optionals hostPlatform.isDarwin [ darwin.cf-private darwin.apple_sdk.frameworks.CoreServices ];
     # darwin undefined symbol _CFURLResourceIsReachable: https://discourse.nixos.org/t/help-with-rust-linker-error-on-darwin-cfurlresourceisreachable/2657
 
-    cargoSha256 = "0dw9hzijs4lbrrd8w5cs9748z87f1z42cmv3f1hv9hd8vh71y1p9";
+    cargoSha256 = "1fqz5sniq2mmz5iyn6vx996kvnvmc7ywmnkjydfghy1dcw2jnakj";
     meta.broken = lib.isNixpkgsStable;
 
     doCheck = false;
