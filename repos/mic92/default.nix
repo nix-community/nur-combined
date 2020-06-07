@@ -46,7 +46,6 @@ rec {
 
   mosh-ssh-agent = pkgs.callPackage ./pkgs/mosh-ssh-agent { };
 
-
   nixpkgs-review-unstable = pkgs.callPackage ./pkgs/nixpkgs-review { };
   # compatibility
   nix-review-unstable = nixpkgs-review-unstable;
@@ -90,6 +89,12 @@ rec {
   );
 
   pyps4-2ndscreen = pkgs.python3.pkgs.toPythonApplication python3Packages.pyps4-2ndscreen;
+
+  rhasspyPackages = import ./pkgs/rhasspy {
+    inherit (pkgs.python3Packages) callPackage;
+  };
+
+  inherit (rhasspyPackages) rhasspy;
 
   yubikey-touch-detector = pkgs.callPackage ./pkgs/yubikey-touch-detector { };
 
