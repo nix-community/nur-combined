@@ -7,12 +7,12 @@
 
 buildPythonPackage rec {
   pname = "ailment";
-  version = "8.20.1.7";
+  version = "8.20.6.1";
   disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0lm6b8njl1a55i4m8mfkl42s1kmygzcgnxk8lvnczlcxbxq11h8z";
+    sha256 = "0dbaxz6gxj5crkflmmmixb1hcxjs4rqjcqdcl2svcw1m6jdk6a42";
   };
 
   propagatedBuildInputs = [ pyvex ];

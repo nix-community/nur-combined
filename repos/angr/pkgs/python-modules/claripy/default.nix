@@ -10,18 +10,18 @@
 
 buildPythonPackage rec {
   pname = "claripy";
-  version = "8.20.1.7";
+  version = "8.20.6.1";
 
   propagatedBuildInputs = [ cachetools decorator future PySMT z3-solver ];
 
   src = fetchFromGitHub {
     owner = "angr";
     repo = "claripy";
-    rev = "ea20bb80a84aab942f89cffbf035675dc0cf1af4";
-    sha256 = "1fl96c69pabrrz7mq8hzkgq3hjdnsbkpqcf41y3285706pq6yv7w";
+    rev = "e152f5851dc625f14e2871982801c21cb88603dc";
+    sha256 = "0abfxswqfn822j46dxs0ga738mg1sgyf0kkr12hk44n95vpfzz7f";
   };
 
-  # Tests are failing.
+  # Tests are non-deterministically failing.
   doCheck = false;
 
   # Verify import still works.

@@ -5,43 +5,41 @@
 , git
 , minidump
 , nose
+, nose2
 , pefile
 , pkgs
 , pyelftools
 , pyvex
+, pyxbe
 , sortedcontainers
 }:
 
 buildPythonPackage rec {
   pname = "cle";
-  version = "8.20.1.7";
+  version = "8.20.6.1";
 
-  propagatedBuildInputs = [ archinfo cffi minidump pefile pyelftools pyvex sortedcontainers ];
+  propagatedBuildInputs = [ archinfo cffi minidump pefile pyelftools pyvex pyxbe sortedcontainers ];
 
   src = fetchFromGitHub {
     owner = "angr";
     repo = pname;
-    rev = "18f073190e37310737ee2d79ba52f72a481b4a9f";
-    sha256 = "0yn108y7iy392cj50nwzl9qqs9pn2bda75firagjgd9fnndqr560";
+    rev = "d12e604bdb45f6d962378e2134292a80a1c05f1d";
+    sha256 = "0lbxm9ciqn5wpfvv25k8df0sgpjxwmmy2g7mgxj3i5r7pfqb2skn";
   };
 
   binaries = fetchFromGitHub {
     owner = "angr";
     repo = "binaries";
-    rev = "0a0cd2e6a2aadd1af7be137c5719650d52d5fa28";
-    sha256 = "1iz294sjvam9kfl5jvcdyrf6fi7y57vfzjkyi316qm0hixcf4xwb";
+    rev = "c0e1f221c608243165603c2359555a7c0b7c4f08";
+    sha256 = "0pvw4fclb0swgkc81pax79ms62fj6xcpckvl033vl86gc27v5iwz";
   };
 
-  checkInputs = [ binaries nose ];
+  checkInputs = [ binaries nose nose2 ];
 
   checkPhase = ''
     cp -r ${binaries} /build/binaries
-    nosetests tests/
+    nose2 -s tests/
   '';
-
-  # Verify import still works.
-  pythonImportsCheck = [ "cle" ];
-
 
   meta = with pkgs.lib; {
     description = "CLE loads binaries and their associated libraries, resolves imports and provides an abstraction of process memory the same way as if it was loader by the OS's loader.";

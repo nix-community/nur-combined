@@ -1,23 +1,26 @@
 { buildPythonPackage
 , fetchPypi
 , pkgs
+, python3
 }:
 
 buildPythonPackage rec {
   pname = "z3-solver";
-  version = "4.8.5.0";
+  version = "4.8.8.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0qpfhpdvlmif94ckbf5lwqfn0jv9j8f5ph38pqlzp60w4lh80xpj";
+    sha256 = "03xsxy6pw09vzlm9hv9l501zdw5p7fn4l4ih8v0agzdrdm399ncl";
   };
 
   setupPyBuildFlags = [
      "--plat-name x86_64-linux"
    ];
 
-  # tests require other angr related components
+  # Tests fail for non-understandable reasons.
   doCheck = false;
+
+  pythonImportsCheck = [ "z3" ];
 
   meta = with pkgs.lib; {
     description = "angr's version of the python binding for the Z3 theorem prover";

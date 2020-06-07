@@ -2,24 +2,25 @@
 , fetchFromGitHub
 , isPy3k
 , nose
+, nose2
 , pkgs
 }:
 
 buildPythonPackage rec {
   pname = "archinfo";
-  version = "8.20.1.7";
+  version = "8.20.6.1";
   disabled = !isPy3k;
 
   src = fetchFromGitHub {
     owner = "angr";
     repo = pname;
-    rev = "fa979436bd07b4178877d31a5166d28063a89807";
-    sha256 = "018asj1gnnc189i7gnd3gm7as58pd6r6lpfd7aq57848rlrsrxv8";
+    rev = "ad017e5d782c6a7d23bfdbec4c7d73d6899565d5";
+    sha256 = "1nsm1vhc8pk8kxdq0p0sgd19sgg0p8zfk6pcq0czds9i1hdhgca4";
   };
 
-  checkInputs = [ nose ];
+  checkInputs = [ nose nose2 ];
   checkPhase = ''
-    nosetests tests/
+    nose2 -s tests/
   '';
 
   meta = with pkgs.lib; {

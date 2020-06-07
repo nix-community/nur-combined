@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "pyvex";
-  version = "8.20.1.7";
+  version = "8.20.6.1";
 
   propagatedBuildInputs = [ archinfo bitstring cffi future ];
 
@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1kp1la8rjmm6r95dwllqphna4cqwna69z7arc5c763fpc7xlzn0n";
+    sha256 = "17jz05s2950rv18vc6m23qp99hizdhl3z5i919dabhb1z5fpql7l";
   };
 
   # Very long tests.

@@ -21,8 +21,8 @@ nix-shell -p 'python3.withPackages(ps: with ps; [ nur.repos.angr.python3Packages
 
 ```
 git clone git@github.com:angr/nixpkgs.git angr-nixpkgs
-export ANGR_NIXPKGS="$(pwd)/angr-nixpkgs"
-nix-shell --arg ANGR_NIXPKGS_PATH ANGR_NIXPKGS
+export ANGR_NIXPKGS="$(pwd)"
+nix-shell --arg ANGR_NIXPKGS_PATH "$ANGR_NIXPKGS"
 ```
 
   * For a more "persistent" solution, add `export ANGR_NIXPKGS="$(pwd)/angr-nixpkgs"` to your shell configuration file.
