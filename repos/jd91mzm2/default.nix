@@ -15,7 +15,6 @@
   hm-modules = import ./hm-modules;                   # home-manager modules
   # overlays = import ./overlays; # nixpkgs overlays
 
-  st = pkgs.callPackage ./pkgs/st.nix {};
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

@@ -37,7 +37,7 @@ in
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
 
-    home.file.".config/scaff/config.toml".text = ''
+    xdg.configFile."scaff/config.toml".text = ''
       [imports]
       ${builtins.concatStringsSep "\n" (mapAttrsToList (name: url: "${name} = \"${toString url}\"") cfg.imports)}
     '';

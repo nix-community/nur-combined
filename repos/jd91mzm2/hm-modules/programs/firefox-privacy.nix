@@ -18,9 +18,9 @@ in
                     type = types.bool;
                     default = false;
                     description = ''
-                        Enables various privacy addons for Firefox,
-                        as recommended by
-                        https://www.privacytools.io/browsers/#addons
+                      Enables various privacy addons for Firefox,
+                      as recommended by
+                      https://www.privacytools.io/browsers/#addons
                     '';
                   };
                   repository = mkOption {
@@ -28,13 +28,13 @@ in
                     default = null;
                     defaultText = literalExample "pkgs.nur.repos.rycee.firefox-addons";
                     description = ''
-                        Where to fetch the extensions from. Note that there's no
-                        firefox extensions library bundled with home-manager;
-                        the default is coming from rycee's NUR repository, which
-                        requires you to add Nix User Repositories as an
-                        overlay. You're also required to enable the specified
-                        extensions, as described by
-                        <option>programs.firefox.extensions</option>.
+                      Where to fetch the extensions from. Note that there's no
+                      firefox extensions library bundled with home-manager;
+                      the default is coming from rycee's NUR repository, which
+                      requires you to add Nix User Repositories as an
+                      overlay. You're also required to enable the specified
+                      extensions, as described by
+                      <option>programs.firefox.extensions</option>.
                     '';
                   };
                 };
@@ -49,7 +49,7 @@ in
         };
         default = {};
         description = ''
-            Global privacy-related options
+          Global privacy-related options
         '';
       };
       profiles = mkOption {
