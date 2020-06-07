@@ -1,10 +1,10 @@
 self: super:
 let
   branch = self.fetchFromGitHub {
-    owner = "lourkeur";
+    owner = "NixOS";
     repo = "nixpkgs";
-    rev = "2be0d21958b1e8594c295b268d4e8103f99f8619";
-    sha256 = "0rdaqrz7lchmsp4bnhz2ppdr2kl1dmz5jjdq6c2zmcv2q8pjvpdr";
+    rev = "82ef74d0105bb2ab3ffa0cdccb4713054c5acbe8";
+    sha256 = "0pcskqcvfs7knbl6hpqldqi4vrwcp9hg73l99qhhj72v3kglz4ri";
   };
 in {
   xpra = self.callPackage "${branch}/pkgs/tools/X11/xpra" { };
