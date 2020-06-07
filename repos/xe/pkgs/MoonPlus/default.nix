@@ -2,13 +2,8 @@
 with pkgs;
 stdenv.mkDerivation rec {
   name = "MoonPlus";
-  version = "0.3.8";
-  src = fetchFromGitHub {
-    owner = "pigpigyyy";
-    repo = name;
-    rev = "v${version}";
-    sha256 = "12wcw6zvm1a7hphjngy0hr6ywq1y9wpa9ssrryqv0ni4kamylqqr";
-  };
+  version = "git";
+  src = fetchFromGitHub (builtins.fromJSON (builtins.readFile ./source.json));
 
   installPhase = ''
     install -D bin/release/moonp $out/bin/moonp

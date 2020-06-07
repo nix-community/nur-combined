@@ -1,16 +1,9 @@
 { fetchgit, stdenv, ncurses, ncurses5, portmidi }:
 
-let
-  orcaSrc = fetchgit {
-    url = "https://git.sr.ht/~rabbits/orca";
-    rev = "105371b868f6acd36da4a86e1a8dfd1fc2c9bf25";
-    sha256 = "02s93j55akxw5lwikwwzblw58g9v6zbrw4bdwdbx1743w87m28l5";
-  };
-
-in stdenv.mkDerivation {
+stdenv.mkDerivation {
   pname = "orca";
   version = "git";
-  src = orcaSrc;
+  src = fetchgit (builtins.fromJSON (builtins.readFile ./source.json));
   buildInputs = [ ncurses ncurses5 portmidi ];
   buildPhase = ''
     bash ./tool build --portmidi --mouse --pie --harden orca

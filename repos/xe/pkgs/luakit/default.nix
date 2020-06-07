@@ -5,12 +5,7 @@ stdenv.mkDerivation rec {
   pname = "luakit";
   version = "git";
 
-  src = fetchFromGitHub {
-    owner = "luakit";
-    repo = "luakit";
-    rev = "0de4b1c0a0dc60a3e058f3a57fc3f9920d5fcfca";
-    sha256 = "041y1xlxa4zwbbl5niyr1wxv2xp7fyjvxmfxp5sz5jxfvdyqvgym";
-  };
+  src = fetchFromGitHub (builtins.fromJSON (builtins.readFile ./source.json));
 
   nativeBuildInputs = [ pkgconfig help2man wrapGAppsHook ];
 
