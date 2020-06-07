@@ -1,5 +1,24 @@
 { buildFirefoxXpiAddon, fetchurl, stdenv }:
   {
+    "1password-x-password-manager" = buildFirefoxXpiAddon {
+      pname = "1password-x-password-manager";
+      version = "1.19.1";
+      addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3567442/1password_x_password_manager-1.19.1-fx.xpi?src=";
+      sha256 = "8c98da4f03de8a5dad11c66f5fa2e66e93f0339d5bd3f8e52e3e794207ffe41b";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://1password.com";
+        description = "The best way to experience 1Password in your browser. Easily sign in to sites, generate passwords, and store secure information, including logins, credit cards, notes, and more.";
+        license = {
+          shortName = "1pwd";
+          fullName = "Service Agreement for 1Password users and customers";
+          url = "https://1password.com/legal/terms-of-service/";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "adsum-notabs" = buildFirefoxXpiAddon {
       pname = "adsum-notabs";
       version = "1.1";
@@ -44,10 +63,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.43.4";
+      version = "1.44.3";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3533484/bitwarden_free_password_manager-1.43.4-an+fx.xpi?src=";
-      sha256 = "1e1701fcb4f120cefecfcfd8302a75735809f7f7b0d4ef687625c3b3af5cdcd0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3582922/bitwarden_free_password_manager-1.44.3-an+fx.xpi?src=";
+      sha256 = "f2e2c08a1427b719d7d65219a7694f70da6764d4c065e9988e845bf7057ecaf0";
       meta = with stdenv.lib;
       {
         homepage = "https://bitwarden.com";
@@ -85,10 +104,10 @@
       };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
-      version = "0.7.1";
+      version = "0.7.3";
       addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3504167/buster_captcha_solver_for_humans-0.7.1-an+fx.xpi?src=";
-      sha256 = "05385e12f68b00de346a2c3beab4aa21d0cf2290e7e6e3a539f911deeb16421a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3580695/buster_captcha_solver_for_humans-0.7.3-an+fx.xpi?src=";
+      sha256 = "2682a344cc762ca99dad8b1118bb25e568722ee3ec64182eb32b68be027bf339";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/dessant/buster";
@@ -112,10 +131,10 @@
       };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
-      version = "3.2.0";
+      version = "3.3.1";
       addonId = "CookieAutoDelete@kennydo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3555212/cookie_autodelete-3.2.0-an+fx.xpi?src=";
-      sha256 = "c54835d57b0cfa7df538489bb8658447ae94411d24c96bce8ca1789117333115";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3576332/cookie_autodelete-3.3.1-an+fx.xpi?src=";
+      sha256 = "c9b3ae0504a32be2365965ba26d060e449d4e86446676063aa5477cc53311854";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mrdokenny/Cookie-AutoDelete";
@@ -153,10 +172,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.8";
+      version = "4.9.9";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3562295/dark_reader-4.9.8-an+fx.xpi?src=";
-      sha256 = "181325754404dba2cda1fa979ef45af56546b8d9f1aabc7262c580af3c377dd2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3577636/dark_reader-4.9.9-an+fx.xpi?src=";
+      sha256 = "a03a0b2e0daa571557b14570952e445bef75f8547b7c3a03a37fed1a96964b2e";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -221,12 +240,40 @@
         platforms = platforms.all;
         };
       };
+    "firefox-color" = buildFirefoxXpiAddon {
+      pname = "firefox-color";
+      version = "2.1.5";
+      addonId = "FirefoxColor@mozilla.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3387078/firefox_color-2.1.5-fx.xpi?src=";
+      sha256 = "d7d86292a277bc22b7dd68e64c77ba4df52e6ae602f55b4af31e9c32ded6a65f";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://color.firefox.com";
+        description = "Build, save and share beautiful Firefox themes.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "fraidycat" = buildFirefoxXpiAddon {
+      pname = "fraidycat";
+      version = "1.1.5";
+      addonId = "{94060031-effe-4b93-89b4-9cd570217a8d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3573031/fraidycat-1.1.5-fx.xpi?src=";
+      sha256 = "c6981a97c8fa6c83e42ca765ef2bfb1fdfd0cc6e1b0d89c3fc305c943eebfe72";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://fraidyc.at/";
+        description = "Follow from afar. Follow blogs, wikis, Twitter, Instagram, Tumblr - anyone on nearly any blog-like network - from your browser. No notifications, no unread messages, no 'inbox'. Just a single page overview of all your follows.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "2.1.6";
+      version = "3.0.0";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3509115/gesturefy-2.1.6-fx.xpi?src=";
-      sha256 = "c9c6d471889b614e1d743317bf67c65072f04cdc681f2ad67b526e0749261bb2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3584829/gesturefy-3.0.0-fx.xpi?src=";
+      sha256 = "f4341402c111f2685b4d48706819be17e0c72bed0f9d8024071ee0fe0c226485";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -237,10 +284,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.4.9";
+      version = "8.5.0";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3546039/ghostery_privacy_ad_blocker-8.4.9-an+fx.xpi?src=";
-      sha256 = "5aae04a6e943d7b14dd8827e25a8d017c480b3b593ae2ce2123071f002b3fca1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3565092/ghostery_privacy_ad_blocker-8.5.0-an+fx.xpi?src=";
+      sha256 = "9362d4e3eefefd997e61bc89ef62cd02bf83e2d7fa936fa0d181c6d2095493c0";
       meta = with stdenv.lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -305,12 +352,31 @@
         platforms = platforms.all;
         };
       };
+    "honey" = buildFirefoxXpiAddon {
+      pname = "honey";
+      version = "12.1.1";
+      addonId = "jid1-93CWPmRbVPjRQA@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3549544/honey-12.1.1-fx.xpi?src=";
+      sha256 = "adbf160d5f843ff8b4d7b6b734aaf36e02b48ed639329fefc40515483579045f";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://www.joinhoney.com";
+        description = "Automatically find and try coupon codes with 1-click. Works at thousands of stores in the US, Canada, Australia, India and the UK.";
+        license = {
+          shortName = "honeyl";
+          fullName = "Custom License for Honey";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/honey/license/";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "https-everywhere" = buildFirefoxXpiAddon {
       pname = "https-everywhere";
-      version = "2020.3.16";
+      version = "2020.5.20";
       addonId = "https-everywhere@eff.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3528100/https_everywhere-2020.3.16-an+fx.xpi?src=";
-      sha256 = "6fa87c2f90d938f49cbd8ea949a6ca0999687952af3293cab1b11f5bc0b7b9ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3574076/https_everywhere-2020.5.20-an+fx.xpi?src=";
+      sha256 = "ec94fcb5d481d3bf09e4519f8b06a232ac7a4fbdf78ee38c92ae659e668d9283";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/https-everywhere";
@@ -318,16 +384,31 @@
         platforms = platforms.all;
         };
       };
+    "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
+      pname = "i-dont-care-about-cookies";
+      version = "3.1.7";
+      addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3576925/i_dont_care_about_cookies-3.1.7-an+fx.xpi?src=";
+      sha256 = "b23fa17acbf9bd770310d2572bfd76e9a3aed544e075608f80c7b0862399c2b6";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://www.i-dont-care-about-cookies.eu/";
+        description = "Get rid of cookie warnings from almost all websites!";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.11.0";
+      version = "2.13.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3543307/ipfs_companion-2.11.0-an+fx.xpi?src=";
-      sha256 = "282c4bda9483443877b1b5d44f336639beab03fc9aef3f2d1b44a6924de29a8f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3584891/ipfs_companion-2.13.0-an+fx.xpi?src=";
+      sha256 = "3219e45c21fcf2c362e64965e9f0679c598845c98f67949a9f87462dcc083a42";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
         description = "Official browser extension that simplifies access to IPFS resources";
+        license = licenses.cc0;
         platforms = platforms.all;
         };
       };
@@ -388,10 +469,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "4.2.1";
+      version = "5.0.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3531977/octotree-4.2.1-fx.xpi?src=";
-      sha256 = "d6eaf311c258dc16aa00ca0a0cc2e02ccfa35b4072a70bd259f46d10f1e33bed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3583560/octotree-5.0.0-fx.xpi?src=";
+      sha256 = "b38023673c3b490ccc102f57ae1897fe51690d4de3164c748131ec38be9ed2b0";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -443,13 +524,13 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2020.5.12";
+      version = "2020.6.2";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3567905/privacy_badger-2020.5.12-an+fx.xpi?src=";
-      sha256 = "63aeb27488f0f6b603bb108ca75c41140fa3df3dce9fdef3c3b46a5f4838d307";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3583416/privacy_badger-2020.6.2-an+fx.xpi?src=";
+      sha256 = "4e56b0e1efaafd05f920de99c6b98a953fa5e3483c5e7f20978e5823bcb9bca1";
       meta = with stdenv.lib;
       {
-        homepage = "https://www.eff.org/privacybadger";
+        homepage = "https://privacybadger.org/";
         description = "Automatically learns to block invisible trackers.";
         license = licenses.gpl3;
         platforms = platforms.all;
@@ -471,10 +552,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.6.0";
+      version = "4.7.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3535281/react_developer_tools-4.6.0-fx.xpi?src=";
-      sha256 = "7c9e10d61c63628a8a407f33f76b52a8c7f26008b4e024b1dcf32409fed9eb7c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3572261/react_developer_tools-4.7.0-fx.xpi?src=";
+      sha256 = "ca182804350c02c2a85e38d7cfca212c2f6775422ed15ca7823afe330167881b";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -492,7 +573,7 @@
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
-        description = "NOTE: Reddit Enhancement Suite is developed independently, and is not officially endorsed by or affiliated with reddit.\n\nRES is a suite of tools to enhance your reddit browsing experience.";
+        description = "Reddit Enhancement Suite (RES) is a suite of tools to enhance your Reddit browsing experience.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
@@ -513,10 +594,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.5.11";
+      version = "20.6.4";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3567447/refined_github-20.5.11-an+fx.xpi?src=";
-      sha256 = "5fab0c9226535488f4b106b5e8ad6deb449fcb4031fcfa29f2cb77d6a61bb642";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3584988/refined_github-20.6.4-an+fx.xpi?src=";
+      sha256 = "163fe13e88de261fff756930187ef622bee37f16c3e5998ef591a2ab7541ce05";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -527,14 +608,28 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "17.2";
+      version = "17.3";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3537172/save_page_we-17.2-fx.xpi?src=";
-      sha256 = "7c727921144f8e998b04cad516a9f2ed638e5ba655662f98578cf7b7ed61c126";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3570112/save_page_we-17.3-fx.xpi?src=";
+      sha256 = "3385d34227cb52cab9ba715de0f6ff4fbccfdaa7ebd19b25b5eb1e663ae6a338";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as curently displayed) as a single HTML file that can be opened in any browser. Choose which items to save. Define the format of the saved filename. Enter user comments.";
         license = licenses.gpl2;
+        platforms = platforms.all;
+        };
+      };
+    "sidebery" = buildFirefoxXpiAddon {
+      pname = "sidebery";
+      version = "4.9.0";
+      addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3583437/sidebery-4.9.0-fx.xpi?src=";
+      sha256 = "818f4ed1f396191edd1098d09d6b6d692124e83a1a870aaf3c039ce853790e66";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/mbnuqw/sidebery";
+        description = "Tabs tree and bookmarks in sidebar with advanced containers configuration.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -647,12 +742,26 @@
         platforms = platforms.all;
         };
       };
+    "tridactyl" = buildFirefoxXpiAddon {
+      pname = "tridactyl";
+      version = "1.19.1";
+      addonId = "tridactyl.vim@cmcaine.co.uk";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3581422/tridactyl-1.19.1-an+fx.xpi?src=";
+      sha256 = "e1ea49083efed530b29c47832dcd06fb0ebab292cdfeec35d744d52330964886";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/cmcaine/tridactyl";
+        description = "Vim, but in your browser. Replace Firefox's control mechanism with one modelled on Vim.\n\nThis addon is very usable, but is in an early stage of development. We intend to implement the majority of Vimperator's features.";
+        license = licenses.asl20;
+        platforms = platforms.all;
+        };
+      };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.26.2";
+      version = "1.27.10";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3551054/ublock_origin-1.26.2-an+fx.xpi?src=";
-      sha256 = "13f2d13dcee8bd8af3edaa29d074c474da8e05465af17b34ef5f70bdba9d147c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3579401/ublock_origin-1.27.10-an+fx.xpi?src=";
+      sha256 = "d40f84113e7d7fa6289bdb8192fd9477abc4ed6d5dd40de55ddc79bed1ea070c";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -719,10 +828,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "17.2";
+      version = "17.4";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3527152/zoom_page_we-17.2-fx.xpi?src=";
-      sha256 = "47e52e565b16c20e7d878e470a73a5033232fa269b67d235120a39fdf669d5ca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3571751/zoom_page_we-17.4-fx.xpi?src=";
+      sha256 = "4fa19e10d7a014141fb969fc74bfed7678a10255ea17ee653f4f774882b7e203";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";

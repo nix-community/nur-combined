@@ -1,5 +1,15 @@
 [
   {
+    "slug": "1password-x-password-manager",
+    "license": {
+      "tag": "custom",
+      "shortName": "1pwd",
+      "fullName": "Service Agreement for 1Password users and customers",
+      "url": "https://1password.com/legal/terms-of-service/",
+      "free": false
+    }
+  },
+  {
     "slug": "adsum-notabs"
   },
   {
@@ -51,6 +61,12 @@
     "slug": "facebook-container"
   },
   {
+    "slug": "firefox-color"
+  },
+  {
+    "slug": "fraidycat"
+  },
+  {
     "slug": "gesturefy"
   },
   {
@@ -73,7 +89,20 @@
     "slug": "header-editor"
   },
   {
+    "slug": "honey",
+    "license": {
+      "tag": "custom",
+      "shortName": "honeyl",
+      "fullName": "Custom License for Honey",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/honey/license/",
+      "free": false
+    }
+  },
+  {
     "slug": "https-everywhere"
+  },
+  {
+    "slug": "i-dont-care-about-cookies"
   },
   {
     "slug": "ipfs-companion"
@@ -127,6 +156,9 @@
     "slug": "save-page-we"
   },
   {
+    "slug": "sidebery"
+  },
+  {
     "slug": "styl-us",
     "pname": "stylus"
   },
@@ -147,6 +179,14 @@
   },
   {
     "slug": "transparent-standalone-image"
+  },
+  {
+    "slug": "tridactyl-vim",
+    "pname": "tridactyl",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
   },
   {
     "slug": "ublock-origin"

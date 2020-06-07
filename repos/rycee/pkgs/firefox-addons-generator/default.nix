@@ -4,10 +4,10 @@
 
 mkDerivation rec {
   pname = "nixpkgs-firefox-addons";
-  version = "0.5.0";
+  version = "0.6.0";
   src = fetchgit {
     url = "https://gitlab.com/rycee/nixpkgs-firefox-addons";
-    sha256 = "0bffz0yfw9gbgq6bnb2s17nv832fc1x6w0illsvih9376bj6rxb7";
+    sha256 = "0nsngypr7ygvdrjpbi3xa414fzq78zag1a14938arp9cv9nym2dd";
     rev = "v${version}";
     fetchSubmodules = false;
   };

@@ -15,4 +15,6 @@ attribute names you can run
 
     $ nix-env -f '<nixpkgs>' -qaP -A nur.repos.rycee.firefox-addons
 
-If you use an add-on not listed here then feel free to open an issue.
+If you use one or more add-on that is not listed here then feel free
+to open an issue. In the issue include links to the add-ons at
+https://addons.mozilla.org/.
