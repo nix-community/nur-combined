@@ -108,6 +108,15 @@
   (add-hook 'after-save-hook #'magit-after-save-refresh-status))
 ;; -UseMagit
 
+;; UseMagitTodos
+(use-package magit-todos
+  :hook (magit-mode . magit-todos-mode)
+  :custom
+  (magit-todos-exclude-globs '("node_modules" "vendor" "*.json" "*.html"))
+  :config
+  (setq magit-todos-auto-group-items 'always))
+;; -UseMagittodos
+
 ;; UseMagitAnnex
 (use-package magit-annex
   :after magit)

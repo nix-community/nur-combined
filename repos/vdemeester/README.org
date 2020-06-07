@@ -1,23 +1,25 @@
 #+TITLE: Home configuration files
 #+FILETAGS: #home infra configuration dotfiles
 
+[[https://builds.sr.ht/~vdemeester/home.svg]]
+
 * What is ~home~
 :PROPERTIES:
 :CUSTOM_ID: h:0272c5ac-0b7f-4ebb-91f0-defa66c2d285
 :END:
 
-This repository is the monorepo for my personal tools and infrastructure. It containers my
-dotfiles, some tools and scripts. It is mainly based on =nix= and =home-manager=some shell
-script and maybe sometimes ansible — especially on non-NixOS system.
+Veritas is the declarative configuration of my servers, desktops and laptops. This project is based
+on the NixOS operating system and uses home-manager to manage my dotfiles, for both NixOS and
+non-NixOS hosts (like WSL).
 
-The goal of is repository is to be able to have a way to setup dotfiles and packages in
-/one go/, sharing those configuration between multiple computers. The documentation part
-is using (or /will/) =org-mode= following principles of "literate programming": a
-combination of ordinary language and inline code blocks.
+This repository is the monorepo for my personal tools and the declarative configuration of
+my servers, desktops and laptops. It is based on the NixOS operating system and
+~home-manager~ (and some scripts) to manage my dotfiles, for both NixOS and non-NixOS
+hosts (like Fedora, …).
 
-On idea is also to try to do something like "[[https://willschenk.com/articles/2020/leveraging_disposability_for_exploration/][Leveraging disposability for exploration]]",
-aka "how to play around without leaving a mess". I'll try my best to make everything
-reproducible and easily testable without making /a mess/. Nix/NixOS should help with that…
+It is fully reproducible (utilizing [[https://github.com/nmattia/niv][niv]]) and position-independent, meaning there is no
+moving around of ~configuration.nix~. For the configurations' entry points see the
+individual [[file:systems][systems]], as well as [[file:default.nix][default.nix]].
 
 This will be a all-time work-in-progress, so please beware that things might change
 dramatically or even not working anymore 😛.
@@ -27,7 +29,7 @@ dramatically or even not working anymore 😛.
 :CUSTOM_ID: h:e289aa81-d0ec-49a0-ba94-933e85d4ee8c
 :END:
 
-/todo: rework that part/
+/todo: rework that part, link to the =docs= folder/
 
 You should be able to run the =bootstrap.sh= script as is. And if you feel adventurous,
 you can use ~curl~ for this.
@@ -40,29 +42,16 @@ Otherwise, clone this repository somewhere, read the =bootstrap.sh= file and exe
 you feel safe
 
 ** TODO ~home-manager~ only
+:PROPERTIES:
+:CUSTOM_ID: h:62ee62f0-7e1a-4abc-b289-ac24d12e733c
+:END:
 
 /todo: rework that part/
 
-If you don't have ~nix~ installed, run ~curl https://nixos.org/nix/install | sh~ to install it.
-
-- clone this repository in ~$HOME/.config/nixpkgs~
-- create a `home.nix` file with the content you want.
-  Some machines files already exists that you can use :
-
-  #+begin_src nix
-  { pkgs, ... }:
-
-  {
-    imports = [
-      ./machines/hokkaido.nix
-    ];
-  }
-  #+end_src
-
-- run ~nix-shell https://github.com/rycee/home-manager/archive/master.tar.gz -A install~ (maybe twice :D)
-- run ~home-manager switch;~
-
 ** TODO ~nixos~ only
+:PROPERTIES:
+:CUSTOM_ID: h:5529fb57-a55d-4b81-a164-e5d1104b7e0b
+:END:
 
 /todo: rework that part/
 
@@ -70,6 +59,8 @@ If you don't have ~nix~ installed, run ~curl https://nixos.org/nix/install | sh~
 :PROPERTIES:
 :CUSTOM_ID: h:b74304bf-e7e6-4425-9123-e50eca3eb8fa
 :END:
+
+/todo: rework that part/
 
 This is probably gonna be a moving target, but this is how it looks (or should look
 soon-ish 👼):
@@ -99,8 +90,15 @@ mainly to document my configuration and publish it, most likely on [[https://sbr
 :END:
 
 Repositories
+- [[https://github.com/lovesegfault/nix-config][https://github.com/lovesegfault/nix-config]]
+- [[https://github.com/utdemir/dotfiles]]
+- [[https://github.com/davidtwco/veritas]]
+- [[https://gitlab.com/samueldr/nixos-configuration]]
+- [[https://github.com/rasendubi/dotfiles]]
+- [[https://github.com/yurrriq/dotfiles][https://github.com/yurrriq/dotfiles]]
 - [[https://github.com/akirak/nixos-config]]
 - [[https://github.com/akirak/home.nix]]
+- [[https://github.com/cstrahan/nixos-config]]
 - [[https://github.com/jwiegley/nix-config]]
 - [[https://github.com/arianvp/nixos-stuff]]
 - [[https://github.com/leotaku/nixos-config]]
@@ -130,6 +128,11 @@ Repositories
 - [[https://github.com/uwap/nixos-configs]]
 - [[https://github.com/yacinehmito/yarn-nix]]
 - [[https://github.com/yrashk/nix-home]]
+- [[https://github.com/pSub/configs]]
+- [[https://github.com/periklis/nix-config]]
+- [[https://github.com/peel/dotfiles]]
+- [[https://github.com/bennofs/etc-nixos]]
+- [[https://github.com/Baughn/machine-config]]
 
 * COPYING
 :PROPERTIES:

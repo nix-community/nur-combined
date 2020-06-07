@@ -18,6 +18,7 @@ in
         git-lfs
         gitAndTools.git-annex
         gitAndTools.hub
+        gitAndTools.gh
         mr
         my.prm
         my.ape

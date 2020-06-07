@@ -2,6 +2,7 @@
 
 with lib;
 let
+  sources = import ../../nix/sources.nix;
   cfg = config.profiles.nix-config;
 in
 {
@@ -46,10 +47,17 @@ in
         dates = cfg.gcDates;
         options = "--delete-older-than ${cfg.olderThan}";
       };
+      nixPath = [
+        "nixpkgs=${sources.nixos}"
+        "nixos-config=/etc/nixos/configuration.nix"
+        "nixpkgs-overlays=/etc/nixos/overlays/compat"
+      ];
       # if hydra is down, don't wait forever
       extraOptions = ''
         connect-timeout = 20
         build-cores = 0
+        keep-outputs = true
+        keep-derivations = true
       '';
       binaryCaches = cfg.localCaches ++ [
         "https://cache.nixos.org/"
@@ -69,7 +77,7 @@ in
       overlays = [
         (import ../../overlays/sbr.nix)
         (import ../../overlays/unstable.nix)
-        (import ../../overlays/emacs-overlay)
+        (import ../../nix).emacs
       ];
       config = {
         allowUnfree = true;

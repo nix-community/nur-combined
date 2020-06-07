@@ -53,12 +53,18 @@ switch: assets setup
 	home-manager switch
 
 .PHONY: nixos-switch
+.PHONY: nixos-switch
 nixos-switch: assets setup
 	nixos-rebuild switch
 
+.PHONY: install-hooks
 install-hooks:
 	if [ -e .git ]; then nix-shell -p git --run 'git config core.hooksPath .githooks'; fi
 
+.PHONY: pre-commit
+pre-commit: README.md fmt update-docs
+
+.PHONY: fmt
 fmt:
 	nixpkgs-fmt *.nix lib machines modules overlays/*.nix overlays/emacs pkgs tmp tools
 
@@ -85,10 +91,16 @@ update-docs:
 		--load lib/lisp/docs.el \
 		--funcall update-docs
 
+README.md: README.org
+	@echo "Updating README.md…"
+	$(EMACS) --batch --directory $(DOTEMACS)/lisp/ \
+		--load lib/lisp/docs.el \
+		--funcall update-readme-md
+
 .PHONY: build-www
 build-www: $(SRCWWW)/publish-common.el lib/lisp/publish.el update-docs
 	@echo "Publishing... with current Emacs configurations."
-	${EMACS} --batch --directory $(DOTEMACS)/lisp/ \
+	${EMACS} --batch --directory $(DOTEMACS)/lisp/ --directory $(DOTEMACS)/lisp/vorg/ \
 		--load $(SRCWWW)/publish-common.el --load lib/lisp/publish.el \
 		--funcall org-publish-all
 

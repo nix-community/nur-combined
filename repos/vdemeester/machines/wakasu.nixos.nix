@@ -1,5 +1,3 @@
-{ config, pkgs, ... }:
-
 with import ../assets/machines.nix; {
   imports = [ ../hardware/lenovo-p50.nix ./home.nixos.nix ];
   boot = {

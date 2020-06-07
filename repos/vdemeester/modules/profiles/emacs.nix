@@ -89,11 +89,10 @@ in
           highlight-indentation
           highlight-numbers
           ibuffer-vc
+          icomplete-vertical
           iedit
           json-mode
           markdown-mode
-          #modus-operandi-theme
-          #modus-vivendi-theme
           mpdel
           multiple-cursors
           nixpkgs-fmt
@@ -101,10 +100,12 @@ in
           ob-async
           ob-go
           ob-http
+          orderless
           orgit
           org-plus-contrib
           org-capture-pop-frame
           org-gcal
+          org-ql
           org-ref
           org-super-agenda
           org-web-tools
@@ -135,6 +136,7 @@ in
           magit
           magit-annex
           magit-popup
+          magit-todos
           minions
           moody
           mwim

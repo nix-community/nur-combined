@@ -253,6 +253,11 @@ using either KUBECONFIG or ~/.kube/config"
   (setq eshell-output-filter-functions (remove 'eshell-handle-ansi-color eshell-output-filter-functions))
   (setq compilation-environment '("TERM=xterm-256color")))
 
+(use-package vterm
+  :commands (vterm)
+  :custom
+  (vterm-kill-buffer-on-exit t))
+
 ;; for fish in ansi-term
 (add-hook 'term-mode-hook 'toggle-truncate-lines)
 

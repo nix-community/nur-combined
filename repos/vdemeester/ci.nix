@@ -9,7 +9,11 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ pkgs ? import <nixpkgs> { } }:
+{ sources ? import ./nix
+, pkgs ? sources.pkgs { }
+, pkgs-unstable ? sources.pkgs-unstable { }
+, nixpkgs ? sources.nixpkgs { }
+}:
 
 with builtins;
 let
@@ -29,24 +33,38 @@ let
     in
     concatMap f (attrValues s);
   outputsOf = p: map (o: p.${o}) p.outputs;
-  nurAttrs = import ./pkgs/default.nix { inherit pkgs; };
-  nurPkgs =
+  nurAttrs = p: import ./pkgs/default.nix { pkgs = p; };
+  nurPkgs = p:
     flattenPkgs (
       listToAttrs (
         map
-          (n: nameValuePair n nurAttrs.${n})
+          (n: nameValuePair n (nurAttrs p).${n})
           (
             filter
               (n: !isReserved n)
-              (attrNames nurAttrs)
+              (attrNames (nurAttrs p))
           )
       )
     );
+  nixosNurPkgs = nurPkgs pkgs;
+  nixosUnstableNurPkgs = nurPkgs pkgs-unstable;
+  nixpkgsNurPkgs = nurPkgs nixpkgs;
 in
 rec {
-  buildPkgs = filter isBuildable nurPkgs;
-  cachePkgs = filter isCacheable buildPkgs;
+  nixosBuildPkgs = filter isBuildable nixosNurPkgs;
+  nixosCachePkgs = filter isCacheable nixosBuildPkgs;
+  nixosUnstableBuildPkgs = filter isBuildable nixosUnstableNurPkgs;
+  nixosUnstableCachePkgs = filter isCacheable nixosUnstableBuildPkgs;
+  nixpkgsBuildPkgs = filter isBuildable nixpkgsNurPkgs;
+  nixpkgsCachePkgs = filter isCacheable nixpkgsBuildPkgs;
 
-  buildOutputs = concatMap outputsOf buildPkgs;
-  cacheOutputs = concatMap outputsOf cachePkgs;
+  nixosBuildOutputs = concatMap outputsOf nixosBuildPkgs;
+  nixosCacheOutputs = concatMap outputsOf nixosCachePkgs;
+  nixosUnstableBuildOutputs = concatMap outputsOf nixosUnstableBuildPkgs;
+  nixosUnstableCacheOutputs = concatMap outputsOf nixosUnstableCachePkgs;
+  nixpkgsBuildOutputs = concatMap outputsOf nixpkgsBuildPkgs;
+  nixpkgsCacheOutputs = concatMap outputsOf nixpkgsCachePkgs;
+
+  buildOuputs = nixosBuildOutputs ++ nixosUnstableBuildOutputs ++ nixpkgsBuildOutputs;
+  cacheOutputs = nixosCacheOutputs ++ nixosUnstableCacheOutputs ++ nixpkgsCacheOutputs;
 }

@@ -35,27 +35,11 @@
 ;; UseWindmove
 (use-package windmove
   :commands (windmove-left windmove-right windmove-down windmove-up)
-  :bind (("S-<left>" . windmove-left)
-         ("S-<down>" . windmove-down)
-         ("S-<up>" . windmove-up)
-         ("S-<right>" . windmove-right)))
+  :bind (("C-s-<up>" . windmove-up)
+         ("C-s-<right>" . windmove-right)
+         ("C-s-<down>" . windmove-down)
+         ("C-s-<left>" . windmove-left)))
 ;; -UseWindmove
-
-(defun vde/window-split-toggle ()
-  "Toggle between horizontal and vertical split with two windows."
-  (interactive)
-  (if (> (length (window-list)) 2)
-      (error "Can't toggle with more than 2 windows!")
-    (let ((func (if (window-full-height-p)
-                    #'split-window-vertically
-                  #'split-window-horizontally)))
-      (delete-other-windows)
-      (funcall func)
-      (save-selected-window
-        (other-window 1)
-        (switch-to-buffer (other-buffer))))))
-
-;;(bind-key "C-c w t" #'vde/window-split-toggle)
 
 (provide 'config-windows)
 ;;; config-windows ends here

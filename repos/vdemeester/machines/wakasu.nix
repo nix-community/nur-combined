@@ -32,7 +32,7 @@
     enable = true;
     krew = true;
     kind = true;
-    nr = true;
+    nr = false;
   };
   profiles.containers.openshift = {
     enable = true;

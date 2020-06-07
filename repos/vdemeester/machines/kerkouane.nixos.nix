@@ -75,6 +75,14 @@ with import ../assets/machines.nix; {
           index = "index.html";
         };
       };
+      virtualHosts."sbr.systems" = {
+        enableACME = true;
+        forceSSL = true;
+        root = "/home/vincent/desktop/sites/sbr.systems";
+        locations."/" = {
+          index = "index.html";
+        };
+      };
       virtualHosts."vincent.demeester.fr" = {
         enableACME = true;
         forceSSL = true;

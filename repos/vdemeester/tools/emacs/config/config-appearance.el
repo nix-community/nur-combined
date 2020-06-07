@@ -54,117 +54,59 @@
 ;; UseTheme
 (use-package emacs
   :config
-  (setq custom-safe-themes t)
+  (setq-default custom-safe-themes t)
+  (setq-default custom--inhibit-theme-enable nil)
 
   (defun sbr/before-load-theme (&rest args)
     "Clear existing theme settings instead of layering them.
 Ignores `ARGS'."
     (mapc #'disable-theme custom-enabled-themes))
 
-  (advice-add 'load-theme :before #'sbr/before-load-theme)
-
-  (defvar contrib/after-load-theme-hook nil
-    "Hook run after a color theme is loaded using `load-theme'.")
-
-  (defun contrib/run-after-load-theme-hook (&rest _)
-    "Run `contrib/after-load-theme-hook'."
-    (run-hooks 'contrib/after-load-theme-hook))
-
-  (advice-add #'load-theme :after #'contrib/run-after-load-theme-hook)
-
-  (defcustom sbr/modus-themes-toggle-hook nil
-    "Hook that runs after `prot/modus-themes-toggle' is invoked."
-    :type 'hook)
-
-  (defun sbr/modus-themes-toggle ()
-    "Toggle between `sbr/modus-operandi' and `sbr/modus-vivendi'.
-Also run `sbr/modus-themes-toggle-hook'."
-    (interactive)
-    (if (eq (car custom-enabled-themes) 'modus-operandi)
-        (sbr/modus-vivendi)
-      (sbr/modus-operandi))
-    (run-hooks 'sbr/modus-themes-toggle-hook))
-
-  :bind ("<f10>" . sbr/modus-themes-toggle)
-  :hook ((after-init-hook . sbr/modus-operandi)))
-
-(use-package modus-operandi-theme
-  :config
-  (defun sbr/modus-operandi ()
-    "Enable some Modus Operandi variables and load the theme.
-This is used internally by `sbr/modus-themes-toggle'."
-    (setq modus-operandi-theme-slanted-constructs t
-          modus-operandi-theme-bold-constructs t
-          modus-operandi-theme-visible-fringes nil
-          modus-operandi-theme-3d-modeline t
-          modus-operandi-theme-subtle-diffs t
-          modus-operandi-theme-distinct-org-blocks nil
-          modus-operandi-theme-proportional-fonts nil
-          modus-operandi-theme-rainbow-headings t
-          modus-operandi-theme-section-headings nil
-          modus-operandi-theme-scale-headings nil
-          modus-operandi-theme-scale-1 1.05
-          modus-operandi-theme-scale-2 1.1
-          modus-operandi-theme-scale-3 1.15
-          modus-operandi-theme-scale-4 1.2)
-    (load-theme 'modus-operandi t))
-  (defun sbr/modus-operandi-custom ()
-    "Customize modus-operandi theme"
-    (message "fooo")
-    (if (member 'modus-operandi custom-enabled-themes)
-        (modus-operandi-theme-with-color-variables ; this macro allows us to access the colour palette
-         (custom-theme-set-faces
-          'modus-operandi
-          `(whitespace-tab ((,class (:background "#ffffff" :foreground "#cccccc"))))
-          `(whitespace-space ((,class (:background "#ffffff" :foreground "#cccccc"))))
-          `(whitespace-hspace ((,class (:background "#ffffff" :foreground "#cccccc"))))
-          `(whitespace-newline ((,class (:background "#ffffff" :foreground "#cccccc"))))
-          `(whitespace-indentation ((,class (:background "#ffffff" :foreground "#cccccc"))))
-          ))))
-  (add-hook 'contrib/after-load-theme-hook 'sbr/modus-operandi-custom)
-  (sbr/modus-operandi))
-
-(use-package modus-vivendi-theme
-  :config
-  (defun sbr/modus-vivendi ()
-    "Enable some Modus Vivendi variables and load the theme.
-This is used internally by `sbr/modus-themes-toggle'."
-    (setq modus-vivendi-theme-slanted-constructs t
-          modus-vivendi-theme-bold-constructs t
-          modus-vivendi-theme-visible-fringes nil
-          modus-vivendi-theme-3d-modeline t
-          modus-vivendi-theme-subtle-diffs t
-          modus-vivendi-theme-distinct-org-blocks nil
-          modus-vivendi-theme-proportional-fonts nil
-          modus-vivendi-theme-rainbow-headings nil
-          modus-vivendi-theme-section-headings nil
-          modus-vivendi-theme-scale-headings nil
-          modus-vivendi-theme-scale-1 1.05
-          modus-vivendi-theme-scale-2 1.1
-          modus-vivendi-theme-scale-3 1.15
-          modus-vivendi-theme-scale-4 1.2)
-    (load-theme 'modus-vivendi t))
-  (defun sbr/modus-vivendi-custom ()
-    "Customize modus-vivendi theme"
-    (if (member 'modus-vivendi custom-enabled-themes)
-        (modus-vivendi-theme-with-color-variables ; this macro allows us to access the colour palette
-         (custom-theme-set-faces
-          'modus-vivendi
-          `(whitespace-tab ((,class (:background "#000000" :foreground "#666666"))))
-          `(whitespace-space ((,class (:background "#000000" :foreground "#666666"))))
-          `(whitespace-hspace ((,class (:background "#000000" :foreground "#666666"))))
-          `(whitespace-newline ((,class (:background "#000000" :foreground "#666666"))))
-          `(whitespace-indentation ((,class (:background "#000000" :foreground "#666666"))))
-          ))))
-  (add-hook 'contrib/after-load-theme-hook 'sbr/modus-vivendi-custom))
+  (advice-add 'load-theme :before #'sbr/before-load-theme))
 ;; -UseTheme
 
+;; UseWindowDivider
 (use-package emacs
   :config
   (setq window-divider-default-right-width 1)
   (setq window-divider-default-bottom-width 1)
   (setq window-divider-default-places 'right-only)
   :hook (after-init-hook . window-divider-mode))
+;; -UseWindowDivider
+
+;; UseTabbar
+(use-package tab-bar
+  :config
+  (setq-default tab-bar-close-button-show nil)
+  (setq-default tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
+  (setq-default tab-bar-close-tab-select 'recent)
+  (setq-default tab-bar-new-tab-choice t)
+  (setq-default tab-bar-new-tab-to 'right)
+  (setq-default tab-bar-position nil)
+  (setq-default tab-bar-show t)
+  (setq-default tab-bar-tab-hints nil)
+  (setq-default tab-bar-tab-name-function 'tab-bar-tab-name-all)
+
+  (defun sbr/icomplete-tab-bar-tab-dwim ()
+    "Do-What-I-Mean function for getting to a `tab-bar-mode' tab.
+If no other tab exists, create one and switch to it.  If there is
+one other tab (so two in total) switch to it without further
+questions.  Else use completion to select the tab to switch to."
+    (interactive)
+    (let ((tabs (mapcar (lambda (tab)
+                          (alist-get 'name tab))
+                        (tab-bar--tabs-recent))))
+      (cond ((eq tabs nil)
+             (tab-new))
+            ((eq (length tabs) 1)
+             (tab-next))
+            (t
+             (tab-bar-switch-to-tab
+              (completing-read "Select tab: " tabs nil t))))))
+
+  :bind (("C-x t t" . sbr/icomplete-tab-bar-tab-dwim)
+         ("C-x t s" . tab-switcher)))
+;; -UseTabbar
 
 ;; UseMoody
 (use-package moody

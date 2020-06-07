@@ -1,4 +1,5 @@
 #!/bin/sh
 unset NIX_BUILD_SHELL
 export NIX_BUILD_SHELL
-nix-shell -p gnumake --run 'make update-docs'
+nix-shell -p gnumake --run 'make pre-commit'
+git add README.md docs

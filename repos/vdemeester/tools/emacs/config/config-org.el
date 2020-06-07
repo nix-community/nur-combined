@@ -218,7 +218,7 @@
   :commands (org-gcal-fetch)
   :config
   (require 'netrc)
-
+  (setq-default org-gcal-remove-cancelled-events t)
   (defun get-authinfo (host port)
     (let* ((netrc (netrc-parse (expand-file-name "~/.authinfo.gpg")))
            (hostentry (netrc-machine netrc host port port)))

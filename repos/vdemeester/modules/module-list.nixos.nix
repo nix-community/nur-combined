@@ -5,13 +5,14 @@
     ./profiles/avahi.nixos.nix
     ./profiles/base.nixos.nix
     ./profiles/buildkit.nixos.nix
-    ./profiles/fish.nixos.nix
     ./profiles/containerd.nixos.nix
     ./profiles/desktop.nixos.nix
     ./profiles/dev.nixos.nix
     ./profiles/docker.nixos.nix
+    ./profiles/fish.nixos.nix
     ./profiles/gaming.nixos.nix
     ./profiles/git.nixos.nix
+    ./profiles/home.nixos.nix
     ./profiles/i18n.nixos.nix
     ./profiles/ipfs.nixos.nix
     ./profiles/laptop.nixos.nix

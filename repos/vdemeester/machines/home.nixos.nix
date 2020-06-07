@@ -2,7 +2,7 @@
 
 with import ../assets/machines.nix; {
   boot.kernelParams = [ "nfs.nfs4_disable_idmapping=0" "nfsd.nfs4_disable_idmapping=0" ];
-  networking.domain = "synodine.home";
+  networking.domain = "home";
   time.timeZone = "Europe/Paris";
   # To mimic autofs on fedora
   fileSystems."/net/synodine.home/" = {

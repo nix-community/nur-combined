@@ -7,9 +7,7 @@
     };
   };
   home.file.".nix-channels".source = ../assets/nix-channels;
-  home.file."Makefile".source = ../assets/Makefile;
   home.packages = with pkgs; [
-    direnv
     enchive
     entr
     exa
@@ -20,6 +18,13 @@
     scripts
     tree
   ];
+  programs.direnv.enable = true;
+  programs.direnv.stdlib = ''
+    mkdir -p $HOME/.cache/direnv/layouts
+    pwd_hash=$(echo -n $PWD | shasum | cut -d ' ' -f 1)
+    direnv_layout_dir=$HOME/.cache/direnv/layouts/$pwd_hash
+    source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc
+  '';
   xdg.configFile."nr/default" = {
     text = builtins.toJSON [
       { cmd = "ncdu"; }

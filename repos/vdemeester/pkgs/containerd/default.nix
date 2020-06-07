@@ -15,7 +15,11 @@ rec {
       };
 
       goPackagePath = "github.com/containerd/containerd";
-      outputs = [ "bin" "out" "man" ];
+
+      # FIXME: remove this
+      allowGoReference = true;
+
+      outputs = [ "out" "man" ];
 
       nativeBuildInputs = [ go-md2man utillinux pkgconfig ];
 
@@ -29,12 +33,12 @@ rec {
       buildPhase = ''
         cd go/src/${goPackagePath}
         patchShebangs .
-        make binaries
+        make binaries $buildFlags
       '';
 
       installPhase = ''
         for b in bin/*; do
-          install -Dm555 $b $bin/$b
+          install -Dm555 $b $out/$b
         done
 
         make man
@@ -65,5 +69,10 @@ rec {
   containerd_1_3 = makeOverridable containerdGen {
     version = "1.3.4";
     sha256 = "0gws6v35sw4xl0rj4wb07sqkw8f5h3zhliv0rrliipbx9mb23yyw";
+  };
+
+  containerd_1_4 = makeOverridable containerdGen {
+    version = "1.4.0-beta.0";
+    sha256 = "1mrkqkl0ywgq2g5f2j64mp2kazfgbwi37p3dp1fk6xa8ypfqjbl0";
   };
 }

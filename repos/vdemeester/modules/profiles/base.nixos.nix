@@ -16,6 +16,9 @@ in
   };
   config = mkIf cfg.enable {
     boot.loader.systemd-boot.enable = true;
+    environment.pathsToLink = [
+      "/share/nix-direnv"
+    ];
     environment = {
       variables = {
         EDITOR = pkgs.lib.mkOverride 0 "vim";

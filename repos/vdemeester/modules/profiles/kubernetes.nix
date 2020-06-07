@@ -32,6 +32,7 @@ in
       profiles.containers.enable = cfg.containers;
       home.packages = with pkgs; [
         #cri-tools
+        kubectl
         kail
         kustomize
         kube-prompt

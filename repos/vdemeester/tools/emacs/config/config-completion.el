@@ -3,6 +3,30 @@
 ;;; Setup completion framework
 ;;; Code
 
+;; UseOrderless
+(use-package orderless
+  :config
+  (setq orderless-regexp-separator "[/\s_-]+")
+  (setq orderless-matching-styles
+        '(orderless-strict-leading-initialism
+          orderless-regexp
+          orderless-prefixes
+          orderless-literal))
+
+  (defun prot/orderless-literal-dispatcher (pattern _index _total)
+    (when (string-suffix-p "=" pattern)
+      `(orderless-literal . ,(substring pattern 0 -1))))
+
+  (defun prot/orderless-initialism-dispatcher (pattern _index _total)
+    (when (string-suffix-p "," pattern)
+      `(orderless-strict-leading-initialism . ,(substring pattern 0 -1))))
+
+  (setq orderless-style-dispatchers '(prot/orderless-literal-dispatcher
+                                      prot/orderless-initialism-dispatcher))
+  :bind (:map minibuffer-local-completion-map
+              ("SPC" . nil)))         ; space should never complete
+;; -UseOrderless
+
 ;; UseMinibuffer
 (use-package minibuffer
   :unless noninteractive
@@ -13,7 +37,7 @@
   (setq completion-pcm-word-delimiters "-_./:| ")
   ;; NOTE: flex completion is introduced in Emacs 27
   (setq completion-show-help nil)
-  (setq completion-styles '(partial-completion substring initials flex))
+  (setq completion-styles '(orderless partial-completion substring initials flex))
   (setq completion-category-overrides
         '((file (styles initials basic))
           (buffer (styles initials basic))
@@ -102,7 +126,7 @@ instead."
   :after minibuffer                     ; Read that section as well
   :config
   (setq icomplete-delay-completions-threshold 0)
-  (setq icomplete-max-delay-chars 0)
+  (setq icomplete-max-delay-chars 2)
   (setq icomplete-compute-delay 0)
   (setq icomplete-show-matches-on-no-input t)
   (setq icomplete-hide-common-prefix nil)
@@ -129,22 +153,6 @@ In my testing, this is necessary when the variable
     (interactive)
     (icomplete-force-complete)
     (exit-minibuffer))
-
-  (defun vde/icomplete-kill-ring-save (&optional arg)
-    "Expand and save current `icomplete' match to the kill ring.
-
-With a prefix argument, insert the match to the point in the
-current buffer and switch focus back to the minibuffer."
-    (interactive "*P")
-    (when (and (minibufferp)
-               (bound-and-true-p icomplete-mode))
-      (icomplete-force-complete)
-      (kill-new (field-string-no-properties))
-      (when current-prefix-arg
-        (kill-new (field-string-no-properties))
-        (select-window (get-mru-window))
-        (insert (car kill-ring))
-        (vde/focus-minibuffer))))
 
   (defun vde/icomplete-toggle-completion-styles (&optional arg)
     "Toggle between flex and prefix matching.
@@ -184,6 +192,7 @@ Otherwise, use `projectile-switch-to-project'."
   :bind (("C-x b" . vde/switch-buffer)
          ("C-x B" . switch-to-buffer)
          :map icomplete-minibuffer-map
+         ("C-j" . exit-minibuffer) ; force input unconditionally
          ("C-m" . minibuffer-complete-and-exit) ; force current input
          ("C-n" . icomplete-forward-completions)
          ("<right>" . icomplete-forward-completions)
@@ -192,17 +201,67 @@ Otherwise, use `projectile-switch-to-project'."
          ("<left>" . icomplete-backward-completions)
          ("<up>" . icomplete-backward-completions)
          ("<return>" . vde/icomplete-force-complete-and-exit)
-         ("M-o w" . vde/icomplete-kill-ring-save)
-         ("M-o i" . (lambda ()
-                      (interactive)
-                      (let ((current-prefix-arg t))
-                        (vde/icomplete-kill-ring-save))))
          ("C-M-," . vde/icomplete-toggle-completion-styles)
          ("C-M-." . (lambda ()
                       (interactive)
                       (let ((current-prefix-arg t))
                         (vde/icomplete-toggle-completion-styles))))))
 ;; -UseIComplete
+
+;; UseIcompleteVertical
+(use-package icomplete-vertical
+  :demand
+  :after (minibuffer icomplete) ; do not forget to check those as well
+  :config
+  (setq icomplete-vertical-prospects-height (/ (frame-height) 6))
+  (icomplete-vertical-mode -1)
+
+  (defun vde/icomplete-yank-kill-ring ()
+    "Insert the selected `kill-ring' item directly at point.
+When region is active, `delete-region'.
+
+Sorting of the `kill-ring' is disabled.  Items appear as they
+normally would when calling `yank' followed by `yank-pop'."
+    (interactive)
+    (let ((kills                    ; do not sort items
+           (lambda (string pred action)
+             (if (eq action 'metadata)
+                 '(metadata (display-sort-function . identity)
+                            (cycle-sort-function . identity))
+               (complete-with-action
+                action kill-ring string pred)))))
+      (icomplete-vertical-do
+          (:separator 'dotted-line :height (/ (frame-height) 4))
+        (when (use-region-p)
+          (delete-region (region-beginning) (region-end)))
+        (insert
+         (completing-read "Yank from kill ring: " kills nil t)))))
+
+  :bind (("C-M-y" . vde/icomplete-yank-kill-ring)
+         :map icomplete-minibuffer-map
+         ("C-v" . icomplete-vertical-toggle)))
+;; -UseIcompleteVertical
+
+(use-package embark
+  :load-path "~/.config/emacs/lisp/embark/" ; in development
+  :config
+  (defun vde/embark-insert-exit ()
+    "Like `embark-insert' but exits current recursive minibuffer."
+    (interactive)
+    (with-minibuffer-selected-window (insert (embark-target)))
+    (abort-recursive-edit))
+
+  (defun vde/embark-insert-exit-all ()
+    "Like `embark-insert' but exits all recursive minibuffers."
+    (interactive)
+    (with-minibuffer-selected-window (insert (embark-target)))
+    (top-level))
+
+  :bind (:map minibuffer-local-completion-map
+              ("M-o" . embark-act)
+              :map embark-general-map
+              ("m" . vde/embark-insert-exit)
+              ("j" . vde/embark-insert-exit-all)))
 
 ;; UseCompany
 (use-package company

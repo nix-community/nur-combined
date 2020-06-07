@@ -188,7 +188,6 @@
 
 ;; CfgLoad
 (add-to-list 'load-path (concat user-emacs-directory "lisp/"))
-(add-to-list 'load-path (concat user-emacs-directory "lisp/modus-themes"))
 (add-to-list 'load-path (concat user-emacs-directory "lisp/vorg"))
 (require 'init-func)
 (vde/el-load-dir (concat user-emacs-directory "/config/"))

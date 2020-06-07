@@ -1390,18 +1390,22 @@ I am defining additonal org-mode links for my day to day usage.
 
 - ~ol-github.el~: link to GitHub repositories, issues and pull-requests.
 
-  #+INCLUDE: ../tools/emacs/lisp/ol-github.el src emacs-lisp
+  #+INCLUDE: ../tools/emacs/lisp/vorg/ol-github.el src emacs-lisp
 
 - ~ol-gitlab.el~: link to GitLab repositories, issues and merge-requests.
 
-  #+INCLUDE: ../tools/emacs/lisp/ol-gitlab.el src emacs-lisp
+  #+INCLUDE: ../tools/emacs/lisp/vorg/ol-gitlab.el src emacs-lisp
+
+- ~ol-rg.el~: link to a =rg= search buffer.
+
+  #+INCLUDE: ../tools/emacs/lisp/vorg/ol-rg.el src emacs-lisp
 
 - ~ol-ripgrep.el~: link to a =ripgrep= search buffer.
 
-  #+INCLUDE: ../tools/emacs/lisp/ol-ripgrep.el src emacs-lisp
+  #+INCLUDE: ../tools/emacs/lisp/vorg/ol-ripgrep.el src emacs-lisp
 
 - ~ol-grep.el~: link to a =grep= search buffer.
 
-  #+INCLUDE: ../tools/emacs/lisp/ol-grep.el src emacs-lisp
+  #+INCLUDE: ../tools/emacs/lisp/vorg/ol-grep.el src emacs-lisp
 
 And that's all folks 💃

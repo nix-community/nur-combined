@@ -1,9 +1,9 @@
-[submodule "overlays/emacs-overlay"]
-	path = overlays/emacs-overlay
-	url = https://github.com/nix-community/emacs-overlay.git
 [submodule "tools/emacs/lisp/modus-themes"]
 	path = tools/emacs/lisp/modus-themes
 	url = https://gitlab.com/protesilaos/modus-themes.git
 [submodule "tools/emacs/lisp/vorg"]
 	path = tools/emacs/lisp/vorg
 	url = https://gitlab.com/vdemeester/vorg.git
+[submodule "tools/emacs/lisp/emark"]
+	path = tools/emacs/lisp/embark
+	url = https://github.com/oantolin/embark/

@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ sources ? import ../nix
+, pkgs ? sources.pkgs { }
+}:
 
 rec {
   # pre nur-packages import
@@ -70,6 +72,7 @@ rec {
   inherit (pkgs.callPackage ./containerd { })
     containerd_1_2
     containerd_1_3
+    containerd_1_4
     ;
   containerd = containerd_1_3;
 }

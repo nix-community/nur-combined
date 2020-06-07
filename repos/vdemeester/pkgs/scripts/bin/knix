@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Create session if it doesn't exists
+NAME=$1
+shift
+SESSIONNAME=kubernix-${NAME}
+KUBERNIX_ROOT=${HOME}/var/kubernix/${NAME}
+tmux new-session -s "${SESSIONNAME}" -d || true
+
+# Main window
+tmux send-keys -t "${SESSIONNAME}:0" "sudo kubernix --root=${KUBERNIX_ROOT} --nodes=3 --no-shell" C-m
+tmux split-window -t ${SESSIONNAME}:0 -p 66
+tmux rename-window -t ${SESSIONNAME}:0 kubernix
+tmux send-keys -t "${SESSIONNAME}:0" "export KUBECONFIG=${KUBERNIX_ROOT}/kubeconfig/admin.kubeconfig" C-m
+
+# Logs in other windows
+# cri-o logs
+tmux new-window -t ${SESSIONNAME}:1 -n cri-o tail -f ${KUBERNIX_ROOT}/crio/node-0/podman.log
+tmux split-window -t ${SESSIONNAME}:1 tail -f ${KUBERNIX_ROOT}/crio/node-1/podman.log
+tmux split-window -t ${SESSIONNAME}:1 tail -f ${KUBERNIX_ROOT}/crio/node-2/podman.log
+
+# kubelet
+tmux new-window -t ${SESSIONNAME}:2 -n kubelet tail -f ${KUBERNIX_ROOT}/kubelet/node-0/podman.log
+tmux split-window -t ${SESSIONNAME}:2 tail -f ${KUBERNIX_ROOT}/kubelet/node-1/podman.log
+tmux split-window -t ${SESSIONNAME}:2 tail -f ${KUBERNIX_ROOT}/kubelet/node-2/podman.log
+
+# apiserver & controller-manager
+tmux new-window -t ${SESSIONNAME}:3 -n k8s tail -f ${KUBERNIX_ROOT}/apiserver/kube-apiserver.log
+tmux split-window -t ${SESSIONNAME}:3 tail -f ${KUBERNIX_ROOT}/controllermanager/kube-controller-manager.log
+
+tmux select-window -t ${SESSIONNAME}:0

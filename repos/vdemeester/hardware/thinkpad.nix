@@ -12,7 +12,7 @@
       options snd_hda_intel power_save=1
     '';
     initrd = {
-      availableKernelModules = [ "aesni-intel" "aes_x86_64" "cryptd" ];
+      availableKernelModules = [ "ehci_pci" "ahci" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci" "aesni-intel" "aes_x86_64" "cryptd" ];
     };
     kernelModules = [ "kvm_intel" ];
     kernelParams = [

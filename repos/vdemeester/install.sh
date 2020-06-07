@@ -43,11 +43,17 @@ echo "Setup configuration"
 set -x
 
 mkdir -p /mnt/etc
-git clone https://gitlab.com/vdemeester/home.git /mnt/etc/nixos
+git clone --recurse-submodules https://gitlab.com/vdemeester/home.git /mnt/etc/nixos
 echo -n ${name} > /mnt/etc/nixos/hostname
 nixos-generate-config --root /mnt
 
 set +x
 echo "Run the following:"
 echo "- populate assets/ folder"
-echo "- (once ready) nixos-install"
+echo "- do last minutes changes"
+echo "Once you are done, just exit the shell (C-D or exit)"
+bash || true
+
+echo "Run nixos-install"
+set -x
+nixos-install --channel $(nix eval --raw '(import /mnt/etc/nixos/nix/sources.nix).nixos.outPath') --no-channel-copy

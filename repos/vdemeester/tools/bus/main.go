@@ -12,6 +12,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	yaml "gopkg.in/yaml.v2"
 )
 
 var (
@@ -26,6 +28,23 @@ type Build struct {
 	Manifest string   `json:"manifest"`
 	Note     string   `json:"note"`
 	Tags     []string `json:"tags"`
+}
+
+// Represents a build trigger object as described on <the docs for
+// this are currently down>
+type Trigger struct {
+	Action    string `json:"action"`
+	Condition string `json:"condition"`
+	To        string `json:"to"`
+}
+
+// Represents a build manifest for sourcehut.
+type Manifest struct {
+	Image    string                `json:"image"`
+	Sources  []string              `json:"sources"`
+	Secrets  []string              `json:"secrets"`
+	Tasks    [](map[string]string) `json:"tasks"`
+	Triggers []Trigger             `json:"triggers"`
 }
 
 func triggerBuild(token, name, manifest, branch string) {
@@ -69,6 +88,15 @@ func triggerBuild(token, name, manifest, branch string) {
 	}
 }
 
+func prepareManifest(manifest []byte) ([]byte, error) {
+	var m Manifest
+	if err := yaml.Unmarshal(manifest, &m); err != nil {
+		return manifest, err
+	}
+	m.Sources = append(m.Sources, "https://git.sr.ht/~vdemeester/home")
+	return yaml.Marshal(m)
+}
+
 func main() {
 	flag.Parse()
 	token, err := ioutil.ReadFile(*secret)
@@ -78,7 +106,7 @@ func main() {
 	}
 	files, err := ioutil.ReadDir(*builds)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "cannot list builds manifest from %s.", *builds)
+		fmt.Fprintf(os.Stderr, "cannot list builds manifest from %s: %v.\n", *builds, err)
 		os.Exit(1)
 	}
 	fmt.Fprintf(os.Stdout, "triggering builds for %v\n", *branch)
@@ -86,7 +114,12 @@ func main() {
 		path := filepath.Join(*builds, f.Name())
 		manifest, err := ioutil.ReadFile(path)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "cannot read manifest %s.", path)
+			fmt.Fprintf(os.Stderr, "cannot read manifest %s: %v.\n", path, err)
+			os.Exit(1)
+		}
+		manifest, err = prepareManifest(manifest)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "failed to prepare manifest %s: %v.\n", path, err)
 			os.Exit(1)
 		}
 		triggerBuild(string(token), f.Name(), string(manifest), *branch)

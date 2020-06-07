@@ -51,7 +51,6 @@ in
         ];
         onChange = "${pkgs.my.nr}/bin/nr dev";
       };
-      services.lorri.enable = true;
     }
   ]);
 }

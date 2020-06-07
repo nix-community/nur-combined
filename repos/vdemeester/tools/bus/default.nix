@@ -1,19 +1,8 @@
-{ stdenv, lib, go }:
+{ stdenv, lib, buildGoModule }:
 
-stdenv.mkDerivation rec {
+buildGoModule rec {
   name = "bus";
   src = ./.;
 
-  phases = "buildPhase installPhase";
-  buildInputs = [ go ];
-
-  buildPhase = ''
-    HOME=$(pwd)
-    cp $src/main.go .
-    go build -o bus main.go
-  '';
-  installPhase = ''
-    mkdir $out
-    install -D bus $out/bin/bus
-  '';
+  modSha256 = "1633qy8a24pacr337v20ws12p3wgr2kf7q2mymar90qrq301wfnx";
 }

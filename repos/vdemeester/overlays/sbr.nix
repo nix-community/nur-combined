@@ -19,7 +19,9 @@ rec {
     inherit (self) stdenv lib;
   };
 
-  my = import ../pkgs { };
+  my = import ../pkgs {
+    inherit (self) pkgs;
+  };
 
   emacs27 = (self.emacs.override { srcRepo = true; }).overrideAttrs (
     old: {

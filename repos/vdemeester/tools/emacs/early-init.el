@@ -12,6 +12,8 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (horizontal-scroll-bar-mode -1)
+(message "foo")
+(message "bar")
 ;; -DisableUI
 
 ;; GarbageCollection
@@ -23,6 +25,55 @@
 (defvar file-name-handler-alist-original file-name-handler-alist)
 (setq file-name-handler-alist nil)
 ;; -FileNameHandler
+
+;; EarlyThemeSetup
+(defvar contrib/after-load-theme-hook nil
+  "Hook run after a color theme is loaded using `load-theme'.")
+
+(defun contrib/run-after-load-theme-hook (&rest _)
+  "Run `contrib/after-load-theme-hook'."
+  (run-hooks 'contrib/after-load-theme-hook))
+
+(advice-add #'load-theme :after #'contrib/run-after-load-theme-hook)
+
+(add-to-list 'load-path (concat user-emacs-directory "lisp/modus-themes"))
+(require 'modus-operandi-theme)
+
+(defun sbr/modus-operandi ()
+  "Enable some Modus Operandi variables and load the theme.
+This is used internally by `sbr/modus-themes-toggle'."
+  (setq modus-operandi-theme-slanted-constructs t
+        modus-operandi-theme-bold-constructs t
+        modus-operandi-theme-visible-fringes nil
+        modus-operandi-theme-3d-modeline t
+        modus-operandi-theme-subtle-diffs t
+        modus-operandi-theme-distinct-org-blocks nil
+        modus-operandi-theme-proportional-fonts nil
+        modus-operandi-theme-rainbow-headings t
+        modus-operandi-theme-section-headings nil
+        modus-operandi-theme-scale-headings nil
+        modus-operandi-theme-scale-1 1.05
+        modus-operandi-theme-scale-2 1.1
+        modus-operandi-theme-scale-3 1.15
+        modus-operandi-theme-scale-4 1.2)
+  (load-theme 'modus-operandi t))
+
+(defun sbr/modus-operandi-custom ()
+  "Customize modus-operandi theme"
+  (if (member 'modus-operandi custom-enabled-themes)
+      (modus-operandi-theme-with-color-variables ; this macro allows us to access the colour palette
+        (custom-theme-set-faces
+         'modus-operandi
+         `(whitespace-tab ((,class (:background "#ffffff" :foreground "#cccccc"))))
+         `(whitespace-space ((,class (:background "#ffffff" :foreground "#cccccc"))))
+         `(whitespace-hspace ((,class (:background "#ffffff" :foreground "#cccccc"))))
+         `(whitespace-newline ((,class (:background "#ffffff" :foreground "#cccccc"))))
+         `(whitespace-indentation ((,class (:background "#ffffff" :foreground "#cccccc"))))
+         ))))
+
+(add-hook 'contrib/after-load-theme-hook 'sbr/modus-operandi-custom)
+(sbr/modus-operandi)
+;; -EarlyThemeSetup
 
 ;;-EarlyFontSetup
 (defconst font-height 130

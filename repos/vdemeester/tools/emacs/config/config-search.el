@@ -79,6 +79,8 @@ confines of word boundaries (e.g. multiple words)."
          ("M-s r p" . rg-project)
          ("M-s r s" . rg-dwiw))
   :config
+  (cl-pushnew '("tmpl" . "*.tmpl") rg-custom-type-aliases)
+  (cl-pushnew '("gotest" . "*_test.go") rg-custom-type-aliases)
   (with-eval-after-load 'projectile
     (defalias 'projectile-ripgrep #'rg-project)))
 ;; -UseRG

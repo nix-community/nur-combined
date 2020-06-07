@@ -1,9 +1,17 @@
 image: fedora/latest
+secrets:
+  - 67527e1f-d69c-4f8e-a26d-21685f4ed380
 sources:
-  - https://gitlab.com/vdemeester/home.git
+  - git@git.sr.ht:~vdemeester/secrets
 tasks:
-- hello: |
-    echo "do something with fedora at some point"
+- setup: |
+    sudo dnf install -y tar jq
+- install_nix: |
+    set -euo pipefail
+    curl -L https://nixos.org/nix/install | sh
+- install_home_manager: |
+    . /home/build/.nix-profile/etc/profile.d/nix.sh
+    nix-shell $(jq --raw-output '.["home-manager"].url' ./home/nix/sources.json) -A install
 triggers:
 - action: email
   condition: failure
