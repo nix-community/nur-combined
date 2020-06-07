@@ -14,24 +14,25 @@ in {
   options.services.day-night-plasma-wallpapers = {
     enable = mkEnableOption "Day-Night Plasma Wallpapers, a software to update your wallpaper according to the day light";
 
-    # package = mkOption {
-    #   type = types.package;
-    #   default = package-day-night-plasma-wallpapers;
-    #   defaultText = "shamilton.day-night-plasma-wallpapers";
-    #   description = "Day-night-plasma-wallpapers derivation to use.";
-    # };
-
-
     onCalendar = mkOption {
       type = types.str;
       default = "*-*-* 16:00:00"; # Run at 4 pm everyday (16h)
       description = "When in the evening do you want your wallpaper to go to bed. Default is at 4 pm. See systemd.time(7) for more information about the format.";
     };
+
+    sleepDuration = mkOption {
+      type = types.int;
+      default = 10; # Wait 10 seconds before running
+      description = "Delay hack to make the autostart-script run successfully.";
+    };
   };
   config = mkIf cfg.enable (mkMerge ([
     {
       home.file.".config/autostart-scripts/update-day-night-plasma-wallpapers.sh".source 
-        = "${package-day-night-plasma-wallpapers}/.config/autostart-scripts/update-day-night-plasma-wallpapers.sh";
+      = "${package-day-night-plasma-wallpapers}/.config/autostart-scripts/update-day-night-plasma-wallpapers.sh";
+
+      # Writing JSON configuration file.
+      home.file.".config/day-night-plasma-wallpapers.conf".text = builtins.toJSON cfg;
 
       systemd.user.services.day-night-plasma-wallpapers = {
         Unit = {
