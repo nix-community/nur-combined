@@ -11,8 +11,8 @@ buildGoPackage rec {
   src = fetchFromGitHub rec {
     owner = "itchio";
     repo = pname;
-    rev = version;
-    sha256 = "06iylqh9y5flsjij641xci7avrscvbhzvmgw1q7jnh4idzxm22hk";
+    rev = "v${version}";
+    sha256 = "02cp5wlsp46fifqjy8bqdvh8ad41897qhgajq4qi3jr13vlym7wy";
   };
 
   goDeps = ./deps.nix;
