@@ -270,10 +270,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.0.0";
+      version = "2.1.6";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3584829/gesturefy-3.0.0-fx.xpi?src=";
-      sha256 = "f4341402c111f2685b4d48706819be17e0c72bed0f9d8024071ee0fe0c226485";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3509115/gesturefy-2.1.6-fx.xpi?src=";
+      sha256 = "c9c6d471889b614e1d743317bf67c65072f04cdc681f2ad67b526e0749261bb2";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
