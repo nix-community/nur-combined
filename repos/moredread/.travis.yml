@@ -10,11 +10,9 @@ env:
   - secure: K1FHv+9fj5BC1Tl1z78ay+Ac+OX7sgdPc4vh+2C/ywLPFIbLbX2ECZG8yiwhjE7ZVpa93x1WCkiyMVopuXiXo3M8n8rfBm3H3BfjJ5qovjAqAWjpZ3hjHfQE+qYaiejdIuo2w4bbKCAatzkguaclPEBObOlAhyePIDEGxA+cXRGy9nGc8UnSm2N4OtIDExTmqi3c+0RKl5Fezid+wfb00TeETyLR3lWAseyH3j2ejYYW1qa3kyAo3fvQG1DVwrYp6BzEVki7D6EfwpO0OFSK+56dG/9UgFI3tWz8rGRpKa8nyLjegq8siF6wFgYpXxJ3u8HB0FRt3uuS2vR0I1X8AlZ00Wl1K3ao6hvMn4xWtlh+2803ZwrU599YEa6PHqMN4dShJRiGoOB1AUy6HhNDdcUU2RohdDbmt+ZUrd7w+JL7ODTKi2gY0SBHBtiDWb/lB+cIP3xB4UGzOuDu89BKsl5Hde+9wEtOO3tx9Ez0Imbk7WqQPO6pSwAEOlD2/Km/12NZKNRoiO5HD8k7QQVBvKEGsFvLkjO/wfOdyVoa9NllGwmRQ0AI8jYMQ53OEN3+nkR5F7yoSB3jbIrx1rHgIB3h2vjPGfyLljSXA7eQEZmg1uxIc8FiH4IK52DDpxWHPk2fmJ6CH/Ls0Q58bQTvI3td2UU4X3Ds2HRxQLZiOTY=
 matrix:
   include:
-  - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
   - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
   - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
   allow_failures:
-  - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
   - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
 install:
  - nix --version
