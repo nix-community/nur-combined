@@ -2,9 +2,9 @@
 
 {
   geocachingSu = fetchurl {
-    name = "geocaching_su-2020-05-20";
+    name = "geocaching_su-2020-06-08";
     url = "https://nakarte.me/geocachingSu/geocaching_su2.json";
-    sha256 = "0ff2r8lzysd51j5knvxknmqzqczk3ylv2n1a0dl3jr34wzld7rpv";
+    sha256 = "0fjajjbf63xsn8l5xhfm14cjbrcidng3b26csms4ln6r5xnmvd88";
     downloadToTemp = true;
     recursiveHash = true;
     preferLocalBuild = true;
@@ -26,9 +26,9 @@
   };
 
   laavut = fetchurl {
-    name = "laavut-2020-05-02";
+    name = "laavut-2020-06-08";
     url = "http://www.laavu.org/lataa.php?paikkakunta=kaikki";
-    sha256 = "0n7pni13krswgjfrpmkjjbhv5fnqsjx3dxha9m5nhkj1qb84n47z";
+    sha256 = "0y0wks3qs0rs112r2s0bncxya4l0q9svrhp5ykwk0w9mxqha67sf";
     downloadToTemp = true;
     recursiveHash = true;
     preferLocalBuild = true;
@@ -68,9 +68,9 @@
   };
 
   westra = fetchurl {
-    name = "westra-2020-05-20";
+    name = "westra-2020-06-08";
     url = "https://nakarte.me/westraPasses/westra_passes.json";
-    sha256 = "0zssyw1zknqlb0klbx986l0q3848g3gm9l8sv0djrqapyi3jz93b";
+    sha256 = "1scnlkf9iykrg2pysnzgvrw7j3hr3g8jv85yzwplr5xc0s7mxgfs";
     downloadToTemp = true;
     recursiveHash = true;
     preferLocalBuild = true;
