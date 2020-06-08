@@ -22,5 +22,9 @@ rec {
 
   jicofo-git = pkgs.callPackage ./pkgs/jicofo-git { inherit fetchMavenDeps; };
   jitsi-videobridge-git = pkgs.callPackage ./pkgs/jitsi-videobridge-git { inherit fetchMavenDeps; };
+
+  prometheus-lnd-exporter = pkgs.callPackage ./pkgs/prometheus-lnd-exporter { };
+  lndmanage = pkgs.callPackage ./pkgs/lndmanage { };
+  rtl = pkgs.callPackage ./pkgs/rtl { };
 }
 

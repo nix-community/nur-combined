@@ -9,8 +9,13 @@
 * jitsi-meet
 * jitsi-videobridge
 * jicofo
+* prometheus-lnd-exporter (aka lndmon)
+* lndmanage
+* rtl (Ride-The-Lightning)
 
 ## modules
 
 * jitsi-meet
 * jitsi-videobridge
+* prometheus-exporters-lnd
+* rtl (Ride-The-Lightning)

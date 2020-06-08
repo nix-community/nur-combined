@@ -1,0 +1,22 @@
+diff --git a/lndmanage/lib/network.py b/lndmanage/lib/network.py
+index ec6bfbd..e76d52d 100644
+--- a/lndmanage/lib/network.py
++++ b/lndmanage/lib/network.py
+@@ -165,7 +165,7 @@ class Network(object):
+         :return: alias string
+         """
+         try:
+-            return self.graph.node[node_pub_key]['alias']
++            return self.graph.nodes[node_pub_key]['alias']
+         except KeyError:
+             return 'unknown alias'
+ 
+@@ -176,7 +176,7 @@ class Network(object):
+         :param node_pub_key:
+         :return: list
+         """
+-        return self.graph.node[node_pub_key]['address']
++        return self.graph.nodes[node_pub_key]['address']
+ 
+     def node_age(self, node_pub_key):
+         """
