@@ -29,6 +29,7 @@
 
   programs.rofi = {
     enable = true;
+    package = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji pkgs.rofi-pass ]; };
     theme = "lb"; # rofi-theme-selector
   };
 
@@ -39,19 +40,6 @@
     enableZshIntegration = true;
     settings = {
       add_newline = false;
-      prompt_order = [
-        "hostname"
-        "directory"
-        "nix_shell"
-        "git_branch"
-        "git_commit"
-        "git_state"
-        "git_status"
-        "line_break"
-        "time"
-        "character"
-        "jobs"
-      ];
       character.symbol = "λ";
     };
   };

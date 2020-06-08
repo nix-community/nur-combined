@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }: {
-  imports = [ ./git.nix ];
   home.packages = with pkgs; [ stack nixops ];
 
   programs.direnv.enable = true;
