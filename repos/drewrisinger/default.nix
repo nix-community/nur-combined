@@ -27,7 +27,6 @@ rec {
   python3Packages = pkgs.recurseIntoAttrs rec {
     # New packages NOT in NixOS/nixpkgs (and likely never will be)
     asteval = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/asteval { };
-    lmfit = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/lmfit { inherit asteval; };
     nose-timer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/nose-timer { };
     oitg = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/oitg { };
     pyscf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyscf { inherit libcint xcfun; };
