@@ -32,7 +32,7 @@ mkDerivation rec {
     description = "Computer-aided translation system that focuses on productivity and quality assurance";
     license = licenses.mit;
     homepage = "https://dangvd.github.io/ksmoothdock/";
-    # maintainers = with maintainers; [ shamilton ];
+    maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };
 }

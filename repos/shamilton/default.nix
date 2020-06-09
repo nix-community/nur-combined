@@ -32,6 +32,9 @@ rec {
   lokalize = pkgs.libsForQt5.callPackage ./pkgs/Lokalize { };
   ksmoothdock = pkgs.libsForQt5.callPackage ./pkgs/ksmoothdock { };
   keysmith = pkgs.kdeApplications.callPackage ./pkgs/keysmith { };
+  kapptemplate = pkgs.kdeApplications.callPackage ./pkgs/KAppTemplate { };
+  kirigami-gallery = pkgs.kdeApplications.callPackage ./pkgs/KirigamiGallery { };
+  kbreakout = pkgs.kdeApplications.callPackage ./pkgs/KBreakOut { };
 
 }
 
