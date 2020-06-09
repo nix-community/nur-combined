@@ -439,6 +439,20 @@
         platforms = platforms.all;
         };
       };
+    "leechblock-ng" = buildFirefoxXpiAddon {
+      pname = "leechblock-ng";
+      version = "1.0.5";
+      addonId = "leechblockng@proginosko.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3542788/leechblock_ng-1.0.5-an+fx.xpi?src=";
+      sha256 = "77c2b4bc3f8ba59f3198a07c8d7d528e3e204c734b2c2650003e0b4ffae95091";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://www.proginosko.com/leechblock/";
+        description = "LeechBlock NG is a simple productivity tool designed to block those time-wasting sites that can suck the life out of your working day. All you need to do is specify which sites to block and when to block them.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "link-cleaner" = buildFirefoxXpiAddon {
       pname = "link-cleaner";
       version = "1.5";
