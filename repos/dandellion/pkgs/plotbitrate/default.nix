@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, python3, ffmpeg}:
 
 stdenv.mkDerivation {
-  name = "rank_photos";
+  name = "plot_bitrate";
   version = "1.0.0";
   
   src = fetchFromGitHub {
