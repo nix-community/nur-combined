@@ -12,13 +12,13 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "KnobKraft-orm";
-  version = "1.4.0";
+  version = "1.6.0";
 
   src = fetchFromGitHub {
     owner = "christofmuc";
     repo = "KnobKraft-orm";
     rev = version;
-    sha256 = "0xbxamscfraw9r41g02p2vjvzba6s46l88q31h87hgzldfsd3kzb";
+    sha256 = "05lh33mpqnrzqsmr7xmm8fz3kfvchv7927asms18z9si03f6681k";
     fetchSubmodules = true;
   };
 
@@ -28,14 +28,6 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake python3 pkgconfig makeWrapper
   ];
-
-  preConfigure = ''
-    # adaptions are installed under $out/opt/KnobKraft-orm-adaptions
-    export HOME=$out/opt
-    substituteInPlace adaptions/GenericAdaption.cpp \
-      --replace 'File::getSpecialLocation(File::userDocumentsDirectory).getFullPathName() + "/KnobKraft-Orm-adaptions"' \
-        \"$out/opt/KnobKraft-orm-adaptions\"
-  '';
 
   installPhase = ''
     install -Dm755 ./The-Orm/KnobKraftOrm $out/bin/KnobKraftOrm
