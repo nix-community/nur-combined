@@ -562,6 +562,20 @@
     ]
   },
   {
+    "name": "MegaBotStart",
+    "version": "0.18.1",
+    "file_name": "MegaBotStart_0.18.1.zip",
+    "download_url": "/download/MegaBotStart/5ebaf0397a74f3000de01d22",
+    "sha1": "a47c9a8c5e386bbcc7d7e0db3e410323ba42aa37",
+    "dependencies": [
+      "base >= 0.18",
+      "? Krastorio2",
+      "? bobwarfare",
+      "? bobequipment",
+      "? boblogistics"
+    ]
+  },
+  {
     "name": "Nanobots",
     "version": "3.2.8",
     "file_name": "Nanobots_3.2.8.zip",
