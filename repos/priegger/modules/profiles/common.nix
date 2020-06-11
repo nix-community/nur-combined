@@ -93,7 +93,7 @@ with lib;
   kampka.services.dns-cache.enable = mkDefault true;
 
   # - Loading NSS modules from system.nssModules (/nix/store/...-systemd-245.5/lib), requires services.nscd.enable being set to true.
-  system.nssModules = mkForce [ ];
+  system.nssModules = mkIf (! config.services.nscd.enable) (mkForce [ ]);
 
   kampka.services.ntp.enable = mkDefault true;
 
