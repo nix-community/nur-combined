@@ -205,20 +205,20 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "0m43wk7gswwkl6lfxwlliqc9v1qp8arfygihyz91jc9icf270xzm";
+      sha256 = "1vpy0i108by2lhpilprad1nw8smkvsznj6aia01c5ir4a7x2cfyc";
       type = "gem";
     };
-    version = "0.7.3";
+    version = "0.7.4";
   };
   public_suffix = {
     groups = [ "default" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1l1kqw75asziwmzrig8rywxswxz8l91sc3pvns02ffsqac1a3wiz";
+      sha256 = "0vywld400fzi17cszwrchrzcqys4qm6sshbv73wy5mwcixmrgg7g";
       type = "gem";
     };
-    version = "4.0.4";
+    version = "4.0.5";
   };
   rack = {
     groups = [ "default" ];

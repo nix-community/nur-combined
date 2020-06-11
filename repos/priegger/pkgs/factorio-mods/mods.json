@@ -378,10 +378,10 @@
   },
   {
     "name": "bobmining",
-    "version": "0.18.1",
-    "file_name": "bobmining_0.18.1.zip",
-    "download_url": "/download/bobmining/5e6aa97bd1a668000d4baea5",
-    "sha1": "b9446e0978fe89264a9b708b4f29fcbe73edd4b6",
+    "version": "0.18.2",
+    "file_name": "bobmining_0.18.2.zip",
+    "download_url": "/download/bobmining/5ee10283c00acd000ccdc254",
+    "sha1": "8ac2c17ab03afae8c24440604674ea7e8d297cfb",
     "dependencies": [
       "base >= 0.18.0",
       "boblibrary >= 0.18.0",
@@ -511,6 +511,18 @@
     ]
   },
   {
+    "name": "Construction_Drones",
+    "version": "0.6.3",
+    "file_name": "Construction_Drones_0.6.3.zip",
+    "download_url": "/download/Construction_Drones/5ed2c31f32e410000b816b5a",
+    "sha1": "0bb1922bf3ddeae895613880bc44f6d192ea94d5",
+    "dependencies": [
+      "base >= 0.18.28",
+      "(?) Hovercraft",
+      "(?) walls-block-spitters"
+    ]
+  },
+  {
     "name": "Crafting_Speed_Research",
     "version": "0.2.2",
     "file_name": "Crafting_Speed_Research_0.2.2.zip",
@@ -520,12 +532,23 @@
   },
   {
     "name": "grappling-gun",
-    "version": "0.2.4",
-    "file_name": "grappling-gun_0.2.4.zip",
-    "download_url": "/download/grappling-gun/5ed3a7dd32e410000db30573",
-    "sha1": "af764f904d7632900478bce973aac68b62667e79",
+    "version": "0.2.5",
+    "file_name": "grappling-gun_0.2.5.zip",
+    "download_url": "/download/grappling-gun/5ee0dc077c9370000b0aa314",
+    "sha1": "c785c9a38b0b64cc85ecf35f98457507ff413b96",
     "dependencies": [
       "base >= 0.17.35"
+    ]
+  },
+  {
+    "name": "ixuBottleneck",
+    "version": "0.2.0",
+    "file_name": "ixuBottleneck_0.2.0.zip",
+    "download_url": "/download/ixuBottleneck/5ea592cd7ed351000b853311",
+    "sha1": "10d7ccef57dd478a571528a6244aa3343254b44f",
+    "dependencies": [
+      "base >= 0.18.0",
+      "! Bottleneck"
     ]
   },
   {
@@ -536,6 +559,35 @@
     "sha1": "8805a5fd3e0516579e854372d1d00dbcdcf40e29",
     "dependencies": [
       "base >= 0.17.0"
+    ]
+  },
+  {
+    "name": "Nanobots",
+    "version": "3.2.8",
+    "file_name": "Nanobots_3.2.8.zip",
+    "download_url": "/download/Nanobots/5ed489b1196b49000e432d7e",
+    "sha1": "beeb7c4d3d0b0bc29990aadf7fb355113064bf39",
+    "dependencies": [
+      "base >= 0.18.0",
+      "stdlib >= 1.0.0",
+      "(?) PickerAtheneum >= 1.1.2"
+    ]
+  },
+  {
+    "name": "Rampant",
+    "version": "0.18.16",
+    "file_name": "Rampant_0.18.16.zip",
+    "download_url": "/download/Rampant/5ecf22de4833f6000d4de675",
+    "sha1": "6267537ca3b0b2bbfdc1e60b26a9d5db9adc9d98",
+    "dependencies": [
+      "base >= 0.18.26",
+      "? bobenemies",
+      "? Natural_Evolution_Enemies >= 0.17.0",
+      "? Clockwork",
+      "? Orbital Ion Cannon",
+      "? RampantArsenal",
+      "? RampantResources",
+      "? ArmouredBiters"
     ]
   },
   {
@@ -576,6 +628,16 @@
     "sha1": "3805195e79dfefe7a9df1f14940c1f7cdb863398",
     "dependencies": [
       "base >= 0.18.4"
+    ]
+  },
+  {
+    "name": "RPGsystem",
+    "version": "0.18.46",
+    "file_name": "RPGsystem_0.18.46.zip",
+    "download_url": "/download/RPGsystem/5eabeeeee99b81000cbadd5c",
+    "sha1": "b13a731f03845b8725d3eb7307fcf4912691e7c5",
+    "dependencies": [
+      "base >= 0.18.22"
     ]
   },
   {
