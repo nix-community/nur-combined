@@ -270,10 +270,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "2.1.6";
+      version = "3.0.1";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3509115/gesturefy-2.1.6-fx.xpi?src=";
-      sha256 = "c9c6d471889b614e1d743317bf67c65072f04cdc681f2ad67b526e0749261bb2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3587519/gesturefy-3.0.1-fx.xpi?src=";
+      sha256 = "95ad943077c36f2ebcbdf9b0bbb2a747eb88b572590388edbeee7c2580c29c22";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -386,10 +386,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.1.7";
+      version = "3.1.8";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3576925/i_dont_care_about_cookies-3.1.7-an+fx.xpi?src=";
-      sha256 = "b23fa17acbf9bd770310d2572bfd76e9a3aed544e075608f80c7b0862399c2b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3588161/i_dont_care_about_cookies-3.1.8-an+fx.xpi?src=";
+      sha256 = "28fcc9da23bc6d1c416e17724f2b3bf02bdc09ee960dc107ba2bcd245dd885a3";
       meta = with stdenv.lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -622,10 +622,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "17.3";
+      version = "18.0";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3570112/save_page_we-17.3-fx.xpi?src=";
-      sha256 = "3385d34227cb52cab9ba715de0f6ff4fbccfdaa7ebd19b25b5eb1e663ae6a338";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3588389/save_page_we-18.0-fx.xpi?src=";
+      sha256 = "43598ef091f334459064fd2e4a1e8886df403666b09719d70ba735942e170e06";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as curently displayed) as a single HTML file that can be opened in any browser. Choose which items to save. Define the format of the saved filename. Enter user comments.";
