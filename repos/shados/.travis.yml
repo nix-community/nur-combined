@@ -6,13 +6,7 @@ sudo: false
 env:
   global:
     - CACHIX_CACHE=shados-nur-packages
-
-    # Set this to notify the global nur package registry that changes are
-    # available.
-    #
-    # The repo name as used in
-    # https://github.com/nix-community/NUR/blob/master/repos.json
-    # - NUR_REPO=<YOUR_NUR_REPO_NAME_HERE>
+    - NUR_REPO=shados
 
 matrix:
   include:
@@ -29,12 +23,12 @@ install:
  - travis_retry nix-channel --update
 
 script:
- - nix-build ci.nix -A buildOutputs
+ - nix-build travis.nix -A buildOutputs
  - nix eval -f default.nix 'lib'
  - nix eval -f default.nix 'modules'
  - nix eval -f default.nix 'overlays'
 
 after_success:
-  - if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
-  # - if [ "cron" != "${TRAVIS_EVENT_TYPE}" -a "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
-  #     curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
+  - if [ -n "${CACHIX_CACHE}" ]; then nix-build travis.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
+  - if [ "cron" != "${TRAVIS_EVENT_TYPE}" -a "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
+      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
