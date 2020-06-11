@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+NIXPKGS_PATH=$(nix-instantiate --eval '<nixpkgs>' -A path)
+"$NIXPKGS_PATH/maintainers/scripts/update-luarocks-packages" -c luarocks-packages.csv generated-packages.nix
+
+# vim: set ft=sh :

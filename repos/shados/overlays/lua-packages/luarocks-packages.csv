@@ -1,0 +1,21 @@
+# nix name, luarocks name, server, version,luaversion,maintainers
+cmark,,,,,arobyn
+copas,,,,,arobyn
+etlua,,,,,arobyn
+inotify,,,,,arobyn
+lcmark,,,,,arobyn
+ldbus,,https://luarocks.org/manifests/daurnimator,,,arobyn
+loadkit,,,,,arobyn
+lua-ev,,,,,arobyn
+lua-testmore,,,,,arobyn
+luagraph,,,,,arobyn
+lunix,,,,,arobyn
+lub,,,,,arobyn
+mobdebug,,,,,arobyn
+moonpick,,,,,arobyn
+moonscript,,,,,arobyn
+moor,,,,,arobyn
+optparse,,,,,arobyn
+pegdebug,,,,,arobyn
+spawn,,,,,arobyn
+yaml,,https://luarocks.org/manifests/gaspard,,,arobyn

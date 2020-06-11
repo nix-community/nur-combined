@@ -1,0 +1,26 @@
+diff --git a/config-print b/config-print
+index 37f22f7..5c864f3 100644
+--- a/config-print
++++ b/config-print
+@@ -7,7 +7,7 @@ our @resources = (
+       qw(
+           background foreground cursor
+           mouse_background mouse_foreground
+-          highlight border
++          highlight borderColor
+           font geometry
+       ),
+       map { "color$_" } 0..15
+diff --git a/config-reload b/config-reload
+index 1a0b144..f73d2cc 100644
+--- a/config-reload
++++ b/config-reload
+@@ -35,7 +35,7 @@ RESOURCE:
+             $key = 13 when "mouse_foreground";
+             $key = 14 when "mouse_background";
+             $key = 17 when "highlight";
+-            $key = 708 when "border";
++            $key = 708 when "borderColor";
+             $key = 710 when "font";
+             when ("geometry") {
+                 if (my ($col, $row) = $resource{$_} =~ /(\d+)x(\d+)/) {

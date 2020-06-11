@@ -1,0 +1,51 @@
+diff -Naur yaml/src/lyaml.c yaml-modified/src/lyaml.c
+--- yaml/src/lyaml.c	2015-05-11 20:37:21.000000000 +1000
++++ yaml-modified/src/lyaml.c	2019-06-14 01:15:07.007987897 +1000
+@@ -53,10 +53,10 @@
+ #define LUAYAML_KIND_SEQUENCE 1
+ #define LUAYAML_KIND_MAPPING 2
+ 
+-#if LUA_VERSION_NUM > 501
++#if LUA_VERSION_NUM >= 502
+ #define COMPAT_GETN luaL_len
+ #else
+-#define COMPAT_GETN luaL_getn
++#define COMPAT_GETN lua_objlen
+ #endif
+ 
+ #define RETURN_ERRMSG(s, msg) do { \
+@@ -587,11 +587,7 @@
+ }
+ 
+ static int dump_array(struct lua_yaml_dumper *dumper) {
+-#if LUA_VERSION_NUM > 501
+-   int i, n = luaL_len(dumper->L, -1);
+-#else
+-   int i, n = luaL_getn(dumper->L, -1);
+-#endif
++   int i, n = COMPAT_GETN(dumper->L, -1);
+    yaml_event_t ev;
+    yaml_char_t *anchor = get_yaml_anchor(dumper);
+ 
+@@ -654,11 +650,7 @@
+          type = figure_table_type(dumper->L);
+ 
+       if (type == LUAYAML_KIND_UNKNOWN && Dump_Auto_Array &&
+-#if LUA_VERSION_NUM > 501
+-          luaL_len(dumper->L, -1) > 0) {
+-#else
+-          luaL_getn(dumper->L, -1) > 0) {
+-#endif
++          COMPAT_GETN(dumper->L, -1) > 0) {
+ 
+          type = LUAYAML_KIND_SEQUENCE;
+       }
+@@ -855,7 +847,7 @@
+   lua_newtable(L);
+   // <lib>
+ 
+-#if LUA_VERSION_NUM > 501
++#if LUA_VERSION_NUM >= 502
+   luaL_setfuncs(L, yaml_functions, 0);
+ #else
+   luaL_register(L, NULL, yaml_functions);

@@ -1,0 +1,26 @@
+diff --git a/lcmark.lua b/lcmark.lua
+index b016c29..c016184 100644
+--- a/lcmark.lua
++++ b/lcmark.lua
+@@ -54,7 +54,8 @@ end
+ 
+ -- We inject cmark into environment where filters are
+ -- run, so users don't need to qualify each function with 'cmark.'.
+-local defaultEnv = _ENV
++-- local defaultEnv = _ENV
++local defaultEnv = {}
+ for k,v in pairs(cmark) do
+   defaultEnv[k] = v
+ end
+@@ -69,8 +70,10 @@ end
+ -- If successful, 'load_filter' returns the filter,
+ -- otherwise it returns nil and an error message,
+ function lcmark.load_filter(filename)
+-  local result, msg = loadfile(filename, 't', defaultEnv)
++  -- local result, msg = loadfile(filename, 't', defaultEnv)
++  local result, msg = loadfile(filename)
+   if result then
++    result = setfenv(result, defaultEnv)
+     local evaluated = result()
+     if type(evaluated) == 'function' then
+         return evaluated
