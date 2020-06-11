@@ -23,5 +23,6 @@
   er-wallpaper = pkgs.haskellPackages.callPackage ./pkgs/er-wallpaper { };
   electrum-hardened = pkgs.callPackage ./pkgs/applications/misc/electrum-hardened { };
   pdf2png = pkgs.callPackage ./pkgs/tools/graphics/pdf2png { };
+  rofi-menu = pkgs.callPackage ./pkgs/applications/misc/rofi-menu { };
 }
 

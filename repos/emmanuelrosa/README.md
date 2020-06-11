@@ -38,6 +38,10 @@ It's expected that you use `electrum-hardened` with `electrum-personal-server`; 
 
 A simple script I wrote to convert a PDF into PNGs.
 
+### rofi-menu
+
+Misc. rofi menus (aka. modi).
+
 ## NixOS Modules
 
 ### btrbk
