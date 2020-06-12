@@ -24,20 +24,38 @@
     mosh = if versionAtLeast (getVersion super.mosh) "1.3.3"
       then super.mosh
       else super.mosh.overrideAttrs (oldAttrs: rec {
-          name = "${pname}-${version}";
-          pname = "mosh";
-          version = "unstable-2018-08-30";
-          src = super.fetchFromGitHub {
-            owner = "mobile-shell"; repo = pname;
-            rev = "944fd6c796338235c4f3d8daf4959ff658f12760";
-            sha256 = "0fwrdqizwnn0kmf8bvlz334va526mlbm1kas9fif0jmvl1q11ayv";
-          };
-          patches = [
-            (super.path + /pkgs/tools/networking/mosh/ssh_path.patch)
-            (super.path + /pkgs/tools/networking/mosh/utempter_path.patch)
-            (super.path + /pkgs/tools/networking/mosh/bash_completion_datadir.patch)
-          ];
-        });
+        name = "${pname}-${version}";
+        pname = "mosh";
+        version = "unstable-2018-08-30";
+        src = super.fetchFromGitHub {
+          owner = "mobile-shell"; repo = pname;
+          rev = "944fd6c796338235c4f3d8daf4959ff658f12760";
+          sha256 = "0fwrdqizwnn0kmf8bvlz334va526mlbm1kas9fif0jmvl1q11ayv";
+        };
+        patches = [
+          (super.path + /pkgs/tools/networking/mosh/ssh_path.patch)
+          (super.path + /pkgs/tools/networking/mosh/utempter_path.patch)
+          (super.path + /pkgs/tools/networking/mosh/bash_completion_datadir.patch)
+        ];
+      });
+    # Use Clementine > 1.3.1 to fix Clementine issue #4748
+    clementine = if versionAtLeast (getVersion super.clementine) "1.3.2"
+      then super.clementine
+      else super.clementine.overrideAttrs (oa: rec {
+        name = "${pname}-${version}";
+        pname = "clementine";
+        version = "1.4.0rc1-270-g6900197a8";
+        src = super.fetchFromGitHub {
+          owner = "clementine-player"; repo = "Clementine";
+          rev = version;
+          sha256 = "0c6dfn7258ndjkbw0w1rqqbldnqz0ym8liv1qi828q4xxg8md8pl";
+        };
+        patches = [
+          (super.path + /pkgs/applications/audio/clementine/clementine-spotify-blob.patch)
+        ];
+        buildInputs = oa.buildInputs or [] ++ [ super.qt5.qtx11extras ];
+        nativeBuildInputs = oa.nativeBuildInputs or [] ++ [ super.qt5.wrapQtAppsHook ];
+      });
   };
 
   # Pinned old flashplayer versions

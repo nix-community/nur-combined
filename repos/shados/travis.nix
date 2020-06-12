@@ -29,9 +29,16 @@ let
     (map (n: nameValuePair n nurAttrs.${n})
     (filter (n: !isReserved n)
     (attrNames nurAttrs))));
+
+  nurOverlays = (import ./default.nix { }).overlays;
+  fixedPkgs = let
+    fixedPkgNames = attrNames (nurOverlays.fixes {} {});
+    fixedNixpkgs = pkgs.lib.fix (pkgs.lib.extends nurOverlays.fixes (self: pkgs));
+  in flattenPkgs
+     (listToAttrs (map (n: nameValuePair n fixedNixpkgs.${n}) fixedPkgNames));
 in rec {
   # TODO build the lua packages?
-  buildPkgs = filter isBuildable nurPkgs;
+  buildPkgs = filter isBuildable (nurPkgs ++ fixedPkgs);
   cachePkgs = filter isCacheable buildPkgs;
 
   buildOutputs = concatMap outputsOf buildPkgs;
