@@ -12,6 +12,11 @@
   programs.kakoune.enable = true;
   programs.kakoune.config = {
     colorScheme = "solarized-dark";
+    hooks = [{
+        group = "global";
+        name = "WinCreate ^[^]+$";
+        commands = "%{editorconfig-load}";
+    }];
     numberLines.enable = true;
     showWhitespace.enable = true;
     ui.enableMouse = true;
