@@ -13,8 +13,9 @@
   programs.kakoune.config = {
     colorScheme = "solarized-dark";
     hooks = [{
-        name = "WinCreate ^[^]+$";
-        commands = "%{editorconfig-load}";
+        name = "WinCreate ";
+        option = "^[^*]+$";
+        commands = "editorconfig-load";
     }];
     numberLines.enable = true;
     showWhitespace.enable = true;
