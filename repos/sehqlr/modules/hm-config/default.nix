@@ -6,6 +6,7 @@
     gpa
 
     file
+    httpie
     nixfmt
     pandoc
     ripgrep
@@ -62,6 +63,4 @@
     enableSshSupport = true;
     sshKeys = [ "3759E9087871E845B0621E00F6BE8F0DE65D9666" ];
   };
-
-  services.lorri.enable = true;
 }
