@@ -1,7 +1,8 @@
 # Basically a reimplementation in nix of https://github.com/adi1090x/rofi/blob/master/launchers-git/launcher.sh
 
 {
-  stdenv, fetchFromGitHub, rofi-unwrapped-git, source-rofi, writeScript,
+  stdenv, fetchFromGitHub, rofi-unwrapped-git, writeScript,
+  source-rofi ? import ../source-rofi.nix { inherit fetchFromGitHub; },
   theme ? "screen",
 }:
 
