@@ -13,7 +13,6 @@
   programs.kakoune.config = {
     colorScheme = "solarized-dark";
     hooks = [{
-        group = "global";
         name = "WinCreate ^[^]+$";
         commands = "%{editorconfig-load}";
     }];
