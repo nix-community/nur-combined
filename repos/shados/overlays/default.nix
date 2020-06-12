@@ -53,9 +53,10 @@
         patches = [
           (super.path + /pkgs/applications/audio/clementine/clementine-spotify-blob.patch)
         ];
-        buildInputs = oa.buildInputs or [] ++ [ super.qt5.qtx11extras ];
+        buildInputs = oa.buildInputs or [] ++ [ super.qt5.qtx11extras self.liblastfm5 ];
         nativeBuildInputs = oa.nativeBuildInputs or [] ++ [ super.qt5.wrapQtAppsHook ];
       });
+    liblastfm5 = super.liblastfm5 or (super.libsForQt5.callPackage ./fixes/liblastfm5.nix { });
   };
 
   # Pinned old flashplayer versions
