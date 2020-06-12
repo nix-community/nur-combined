@@ -270,10 +270,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.0.1";
+      version = "3.0.2";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3587519/gesturefy-3.0.1-fx.xpi?src=";
-      sha256 = "95ad943077c36f2ebcbdf9b0bbb2a747eb88b572590388edbeee7c2580c29c22";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3588765/gesturefy-3.0.2-fx.xpi?src=";
+      sha256 = "d14cc6ff846621b53e4bf0fec444023459d906ec37204f98f50c38c1dda445f6";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -284,10 +284,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.5.0";
+      version = "8.5.1";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3565092/ghostery_privacy_ad_blocker-8.5.0-an+fx.xpi?src=";
-      sha256 = "9362d4e3eefefd997e61bc89ef62cd02bf83e2d7fa936fa0d181c6d2095493c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3583441/ghostery_privacy_ad_blocker-8.5.1-an+fx.xpi?src=";
+      sha256 = "3b185a39933e544726a93dcb74bce36328b4dd19904aeef844f8e1b59c78f3bd";
       meta = with stdenv.lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -608,10 +608,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.6.4";
+      version = "20.6.11";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3584988/refined_github-20.6.4-an+fx.xpi?src=";
-      sha256 = "163fe13e88de261fff756930187ef622bee37f16c3e5998ef591a2ab7541ce05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3588915/refined_github-20.6.11-an+fx.xpi?src=";
+      sha256 = "853eb867149bcd906f2ad78406cd203de8c28ed44b47bec9d77c363d477d45ab";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -842,10 +842,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "17.4";
+      version = "17.5";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3571751/zoom_page_we-17.4-fx.xpi?src=";
-      sha256 = "4fa19e10d7a014141fb969fc74bfed7678a10255ea17ee653f4f774882b7e203";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3588392/zoom_page_we-17.5-fx.xpi?src=";
+      sha256 = "aa4cb4e4cff6f37b979c6eaa7757dfa15b62774bfd26239a190ad46c7ac6f056";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
