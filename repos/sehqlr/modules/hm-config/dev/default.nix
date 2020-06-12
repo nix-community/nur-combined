@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: {
-  home.packages = with pkgs; [ stack nixops ];
+  home.packages = with pkgs; [ stack nixops python3.7-editorconfig ];
 
   programs.direnv.enable = true;
   programs.direnv.enableZshIntegration = true;
