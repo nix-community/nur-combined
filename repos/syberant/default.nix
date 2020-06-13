@@ -9,4 +9,5 @@ rec {
           inherit rofi-unwrapped-git;
         };
         polybar-1 = pkgs.callPackage ./pkgs/adi1090x/polybar-themes/polybar-1 {};
+        polybar-3 = pkgs.callPackage ./pkgs/adi1090x/polybar-themes/polybar-3 {};
 }

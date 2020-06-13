@@ -43,6 +43,6 @@ let
 in writeScript "polybar-1" ''
   #unset PATH
 
-  ${polybarFull}/bin/polybar main -c ${repo}/polybar-1/config.ini
+  ${polybarFull}/bin/polybar main -c ${repo}/polybar-1/config.ini &
 ''
 
