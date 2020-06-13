@@ -1,4 +1,9 @@
-with { pkgs = import ./nix { }; };
+{ sources ? import ./nix/sources.nix
+, pkgs ? import ./nix { inherit sources; }
+}:
+let
+  pre-commit-hooks = import sources.pre-commit-hooks { };
+in
 pkgs.mkShell {
   name = "nur-packages";
 
@@ -7,4 +12,8 @@ pkgs.mkShell {
     niv
     nixpkgs-fmt
   ];
+
+  shellHook = pre-commit-hooks.shellHook {
+    hooks = [ (pre-commit-hooks.hooks.mkNixpkgsFmt { nixpkgsFmtPkg = pkgs.nixpkgs-fmt; }) ];
+  };
 }

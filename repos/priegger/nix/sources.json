@@ -23,6 +23,18 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/70717a337f7ae4e486ba71a500367cad697e5f09.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "pre-commit-hooks": {
+        "branch": "master",
+        "description": "A nixified approach for managing git pre-commit hooks in a nix shell",
+        "homepage": null,
+        "owner": "kampka",
+        "repo": "pre-commit-hooks",
+        "rev": "cf1cb1529155bb6d9068cbfcfcf816089458d79a",
+        "sha256": "0np9rydzarxhd79ydij8dafiag0lycncr9n1cvyl279z2cyzjszc",
+        "type": "tarball",
+        "url": "https://github.com/kampka/pre-commit-hooks/archive/cf1cb1529155bb6d9068cbfcfcf816089458d79a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "unstable": {
         "branch": "nixpkgs-unstable",
         "description": "Nix Packages collection",
