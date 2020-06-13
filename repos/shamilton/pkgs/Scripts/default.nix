@@ -1,12 +1,13 @@
-{ lib
+{ pkgs
+, lib
 , stdenv
 , fetchFromGitHub
-, eom
-, surf
-, zathura
-, coreutils
-, findutils
-, gawk
+
+## Open documentation deps
+, eom, surf, zathura, coreutils, findutils, gawk
+
+## Sync databases deps
+, sync-database, buildPythonPackage, parallel-ssh, merge-keepass
 }:
 stdenv.mkDerivation rec {
 
@@ -20,23 +21,30 @@ stdenv.mkDerivation rec {
     sha256 = "110k1zpa7h4sgdpchpp9003agair68fa0alv03qr3lpmiadzyyc6";
   };
 
-  propagatedBuildInputs = [ coreutils findutils gawk eom surf zathura ];
+  propagatedBuildInputs = [
+    coreutils findutils gawk eom surf zathura 
+    sync-database merge-keepass parallel-ssh
+  ];
 
   postPatch = ''
-    ls -lh
     substituteInPlace scripts.desktop \
       --replace @Scripts@ $out
-    cat scripts.desktop
   '';
 
   installPhase = ''
+    # Install CleanMusic script
     install -Dm 555 CleanMusics.sh $out/bin/CleanMusics.sh
+
+    # Install Open Documentation script
     install -Dm 555 open-documentation.py $out/bin/open-documentation.py
     install -Dm 555 scripts.desktop $out/share/applications/scripts.desktop
     install -Dm 644 icons/16-app-icon.png $out/share/icons/hicolor/16x16/apps/scripts.png
     install -Dm 644 icons/22-app-icon.png $out/share/icons/hicolor/22x22/apps/scripts.png
     install -Dm 644 icons/32-app-icon.png $out/share/icons/hicolor/32x32/apps/scripts.png
     install -Dm 644 icons/app-icon.svgz $out/share/icons/hicolor/scalable/apps/scripts.svgz
+
+    # Install Synchronize Databases script
+    ln -s ${sync-database}/bin/sync_database $out/bin/sync_database
   '';
 
   meta = with lib; {

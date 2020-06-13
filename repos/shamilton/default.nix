@@ -1,5 +1,4 @@
-# This file describes your repository contents.
-# It should return a set of nix derivations
+# This file describes your repository contents.  It should return a set of nix derivations
 # and optionally the special attributes `lib`, `modules` and `overlays`.
 # It should NOT import <nixpkgs>. Instead, you should take pkgs as an argument.
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
@@ -26,6 +25,7 @@ rec {
   inkscape = pkgs.callPackage ./pkgs/inkscape-1.0 { 
     lcms = pkgs.lcms2;
   };
+  juk = pkgs.kdeApplications.callPackage ./pkgs/Juk { };
   kapptemplate = pkgs.kdeApplications.callPackage ./pkgs/KAppTemplate { };
   kbreakout = pkgs.kdeApplications.callPackage ./pkgs/KBreakOut { };
   keysmith = pkgs.kdeApplications.callPackage ./pkgs/keysmith { };
@@ -33,10 +33,22 @@ rec {
   kirigami-gallery = pkgs.kdeApplications.callPackage ./pkgs/KirigamiGallery { };
   ksmoothdock = pkgs.libsForQt5.callPackage ./pkgs/ksmoothdock { };
   lokalize = pkgs.libsForQt5.callPackage ./pkgs/Lokalize { };
-  scripts = pkgs.callPackage ./pkgs/Scripts {
+  merge-keepass = with pkgs.python3Packages; pkgs.callPackage ./pkgs/merge-keepass { 
+    inherit buildPythonPackage pykeepass click;
+  };
+  parallel-ssh = with pkgs.python3Packages; pkgs.callPackage ./pkgs/parallel-ssh {
+    inherit buildPythonPackage setuptools fetchPypi paramiko gevent ssh2-python;
+  };
+  scripts = with pkgs.python3Packages; pkgs.callPackage ./pkgs/Scripts {
     eom = pkgs.mate.eom;
+    inherit sync-database buildPythonPackage parallel-ssh merge-keepass;
   };
   spectacle-clipboard = pkgs.libsForQt5.callPackage ./pkgs/spectacle-clipboard { };
-
+  ssh2-python = with pkgs.python3Packages; pkgs.callPackage ./pkgs/ssh2-python {
+    inherit buildPythonPackage fetchPypi cython setuptools pytest;
+  };
+  sync-database = with pkgs.python3Packages; pkgs.callPackage ./pkgs/sync-database {
+    inherit buildPythonPackage parallel-ssh merge-keepass pykeepass;
+  };
 }
 
