@@ -50,5 +50,6 @@ rec {
   sync-database = with pkgs.python3Packages; pkgs.callPackage ./pkgs/sync-database {
     inherit buildPythonPackage parallel-ssh merge-keepass pykeepass;
   };
+
 }
 
