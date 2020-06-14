@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A cool desktop panel for KDE Plasma 5";
+    description = "A pulseaudio client to play wav in a simulated microphone";
     license = licenses.mit;
-    homepage = "https://dangvd.github.io/ksmoothdock/";
+    homepage = "https://github.com/SCOTT-HAMILTON/FakeMicWavPlayer";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };

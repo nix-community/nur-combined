@@ -20,16 +20,16 @@
 , xcb-util-cursor
 , qtx11extras
 }:
-mkDerivation rec {
+mkDerivation {
 
   pname = "spectacle-clipboard";
-  version = "master";
+  version = "unstable";
 
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "spectacle";
-    rev = "349b33c4a82ddb69724a8e085c364bac2d5a04ff";
-    sha256 = "1xylvhs2fni0vjkqp2p92hbby9151ydk54gmh6l3rdlvbp7i1sx8";
+    rev = "master";
+    sha256 = "0zwxsm7a66637dakzw5qrh8mar6h7pmyhfyg88v517wqps43kzly";
   };
 
   postPatch = ''
@@ -43,10 +43,10 @@ mkDerivation rec {
   kcoreaddons extra-cmake-modules qtbase qttools ];
 
   meta = with lib; {
-    description = "The new screenshot capture utility, replaces KSnapshot";
+    description = "KDE Spectacle fork to enable clipboard funcionnalities";
     license = licenses.mit;
     homepage = "https://github.com/SCOTT-HAMILTON/spectacle";
-    maintainers = [ "Scott Hamilton <sgn.hamilton+nur@protonmail.com>" ];
+    maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };
 }

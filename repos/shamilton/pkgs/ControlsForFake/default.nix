@@ -11,7 +11,7 @@
 , FakeMicWavPlayer
 , pulseaudio
 }:
-mkDerivation rec {
+mkDerivation {
 
   pname = "ControlsForFake";
   version = "unstable";
@@ -20,7 +20,7 @@ mkDerivation rec {
     owner = "SCOTT-HAMILTON";
     repo = "ControlsForFake";
     rev = "master";
-    sha256 = "1xxdjxx9phj9gim5wbyfr9mvdxydhxrhjwwd5irvsm27bspgz6k6";
+    sha256 = "0ijcxid2kfp1pq8d1893vfrzrk0j6pgs73y1d5xyc7lc37qv8jr5";
   };
 
   nativeBuildInputs = [ qttranslations qtbase pkg-config ninja meson ];
