@@ -388,12 +388,12 @@ let
   };
 
   pcs = buildPecl {
-    version = "1.3.3";
+    version = "1.3.5";
     pname = "pcs";
 
-    sha256 = "0d4p1gpl8gkzdiv860qzxfz250ryf0wmjgyc8qcaaqgkdyh5jy5p";
+    sha256 = "11vp2jc37awspnp76mdli48y0igwbynspxsqfm4nm835z1r40ssf";
 
-    meta.broken = isPhp74;
+    meta.broken = isPhp80;
   };
 
   pdo_sqlsrv = buildPecl {
@@ -523,12 +523,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.25";
+    version = "0.12.28";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "1a864v7fxpv5kp24nkvczrir3ldl6wxvaq85rd391ppa8ahdhvdd";
+      sha256 = "1qch7laxxhyq3adbcns0hwmzkafhzj8lhdkj82n3mlxjczq3b4n1";
     };
 
     phases = [ "installPhase" ];

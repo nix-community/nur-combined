@@ -332,6 +332,7 @@ in {
     sha256 = "0svjffwnwvvvsg5ja24v4kpfyycs5f8zqnc2bbmgm968a0vdixn2";
 
     extraPatches = [
+     ./patch/fix-paths-pkgconfig-php56.patch # PKG_CONFIG need not be a relative path
      ./patch/php56/php5640-75457.patch # https://bugs.php.net/bug.php?id=75457
      ./patch/php56/php5640-76846.patch # https://bugs.php.net/bug.php?id=76846
      ./patch/php56/php5640-77540.patch # https://bugs.php.net/bug.php?id=77540
@@ -370,6 +371,7 @@ in {
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = [
+      ./patch/fix-paths-pkgconfig-php71.patch # PKG_CONFIG need not be a relative path
       ./patch/php71/php7133-77569.patch # https://bugs.php.net/bug.php?id=77569
       ./patch/php71/php7133-78793.patch # https://bugs.php.net/bug.php?id=78793
       ./patch/php71/php7133-78862.patch # https://bugs.php.net/bug.php?id=78862
@@ -393,21 +395,27 @@ in {
     version = "7.2.31";
     sha256 = "1z7h3j343x0k2y5ji7vv6rmim98kgz950mvd6nys5rvcq2a89pj5";
 
-    # https://bugs.php.net/bug.php?id=76826
-    extraPatches = optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
+    extraPatches = [
+      ./patch/fix-paths-pkgconfig-php72.patch # PKG_CONFIG need not be a relative path
+    ]
+      # https://bugs.php.net/bug.php?id=76826
+      ++ optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
   };
 
   php73 = generic {
-    version = "7.3.18";
-    sha256 = "1v1avh41kj6rami0l53cfx34lgykx3kg889q9pvfdsrx0w0cdq94";
+    version = "7.3.19";
+    sha256 = "1vcx5as2wl1wz5hg1fg78l4ixfwhsf7znr7vrs0avljcibv843vc";
 
-    # https://bugs.php.net/bug.php?id=76826
-    extraPatches = optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
+    extraPatches = [
+      ./patch/fix-paths-pkgconfig-php73.patch # PKG_CONFIG need not be a relative path
+    ]
+      # https://bugs.php.net/bug.php?id=76826
+      ++optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
   };
 
   php74 = generic {
-    version = "7.4.6";
-    sha256 = "1hbyfv8b8wc3xf5w7rggrk45pv9ssjnblfjf43lp9qh23m3ym8h4";
+    version = "7.4.7";
+    sha256 = "0hgf6671wlpm8l14l14dig5mp3kb3daraidds4pza2l4q7lvyb9b";
   };
 
   php80 = generic {
