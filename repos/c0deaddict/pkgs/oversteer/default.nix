@@ -15,7 +15,7 @@
 }:
 
 python3.pkgs.buildPythonApplication rec {
-  pname = "overseer";
+  pname = "oversteer";
   version = "0.4.1";
 
   src = fetchFromGitHub {

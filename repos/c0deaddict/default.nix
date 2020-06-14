@@ -42,4 +42,6 @@ rec {
 
   oversteer = pkgs.callPackage ./pkgs/oversteer {};
 
+  nats-utils = pkgs.callPackage ./pkgs/nats-utils {};
+
 }
