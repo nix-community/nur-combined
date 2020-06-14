@@ -118,7 +118,7 @@ let
 
     buku = { buku }: buku.overrideAttrs (old: {
       doInstallCheck = false;
-      meta = old.meta or {} // {
+      passthru = old.passthru or {} // {
         # TODO: remove me when flask-admin is fixed
         ci.skip = true;
       };
