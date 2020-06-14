@@ -31,6 +31,8 @@
         url = if args ? urls && ! args ? url then head args.urls else args.url;
       in retainAttrs (unusedWarn args) allowed // {
         url = mirrorUrl url;
+      } // optionalAttrs (!(args.showURLs or false || args ? name)) {
+        name = baseNameOf url;
       } // optionalAttrs (args ? recursiveHash) { unpack = args.recursiveHash; };
       nixFetchurl = { meta ? {}, passthru ? {}, ... }@args:
         if !nix-fetchurl.success || needsNixpkgs args

@@ -116,8 +116,12 @@ let
       };
     });
 
-    buku = { buku }: buku.overrideAttrs (_: {
+    buku = { buku }: buku.overrideAttrs (old: {
       doInstallCheck = false;
+      meta = old.meta or {} // {
+        # TODO: remove me when flask-admin is fixed
+        ci.skip = true;
+      };
     });
 
     weechat-arc = { lib, wrapWeechat, weechat-unwrapped, weechatScripts, python3Packages }: let
