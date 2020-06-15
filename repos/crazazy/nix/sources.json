@@ -1,0 +1,62 @@
+{
+    "classicube": {
+        "branch": "master",
+        "description": "Custom Minecraft Classic / ClassiCube client written in C (formerly ClassicalSharp in C#) from scratch.",
+        "homepage": "",
+        "owner": "unknownshadow200",
+        "repo": "classicube",
+        "rev": "ca361b7f0b806ec57daaf292d15e258ebdacdc1e",
+        "sha256": "17064xb43dxds03n276b43s6xmk3cgfnd73qywvb9jqwhcjk5fdb",
+        "type": "tarball",
+        "url": "https://github.com/unknownshadow200/classicube/archive/ca361b7f0b806ec57daaf292d15e258ebdacdc1e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "efm-langserver": {
+        "branch": "master",
+        "description": "General purpose Language Server",
+        "homepage": "",
+        "owner": "mattn",
+        "repo": "efm-langserver",
+        "rev": "6e115193a190e5fa3450448db774e6e6da714489",
+        "sha256": "0b54rg0s3km8dqmsh28k3kn6phqdmsnc6hyn81zs19bsvfykcrss",
+        "type": "tarball",
+        "url": "https://github.com/mattn/efm-langserver/archive/6e115193a190e5fa3450448db774e6e6da714489.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "f73bf8d584148677b01859677a63191c31911eae",
+        "sha256": "0jlmrx633jvqrqlyhlzpvdrnim128gc81q5psz2lpp2af8p8q9qs",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/f73bf8d584148677b01859677a63191c31911eae.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nix-gen-node-tools": {
+        "branch": "master",
+        "description": "generate nix expressions for downloading node CLI tools",
+        "homepage": null,
+        "owner": "crazazy",
+        "repo": "nix-gen-node-tools",
+        "rev": "f3f61bb103fa11e3d7c9be6b5caa8b6bb96c8b3e",
+        "sha256": "1j5qxjgkdw0gw10arcliw8mx07nkxcah9bvnhv7kpcyjzpm6nd9j",
+        "type": "tarball",
+        "url": "https://github.com/crazazy/nix-gen-node-tools/archive/f3f61bb103fa11e3d7c9be6b5caa8b6bb96c8b3e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs-channels": {
+        "branch": "nixos-unstable",
+        "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
+        "homepage": "https://github.com/NixOS/nixpkgs",
+        "owner": "nixos",
+        "repo": "nixpkgs-channels",
+        "rev": "0a146054bdf6f70f66de4426f84c9358521be31e",
+        "sha256": "154ypjfhy9qqa0ww6xi7d8280h85kffqaqf6b6idymizga9ckjcd",
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixpkgs-channels/archive/0a146054bdf6f70f66de4426f84c9358521be31e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
