@@ -1,0 +1,23 @@
+commit a1fbc429bb6c1567e1b86695954105579b3d098c
+Author: Aluísio Augusto Silva Gonçalves <aluisio@aasg.name>
+Date:   Tue Jun 9 20:56:20 2020 -0300
+
+    Revert "html: Remove 'raw' element type."
+
+    This reverts commit 33702f3777a760ba8ae84088bf582b6953d4a256, for the
+    sxml->html procedure only.
+
+diff --git a/haunt/html.scm b/haunt/html.scm
+index 5891cd0..31f16d0 100644
+--- a/haunt/html.scm
++++ b/haunt/html.scm
+@@ -112,6 +112,9 @@ list ATTRS and the child nodes in BODY."
+     (() *unspecified*)
+     (('doctype type)
+      (doctype->html type port))
++    ;; Unescaped, raw HTML output.
++    (('raw html)
++     (display html port))
+     (((? symbol? tag) ('@ attrs ...) body ...)
+      (element->html tag attrs body port))
+     (((? symbol? tag) body ...)
