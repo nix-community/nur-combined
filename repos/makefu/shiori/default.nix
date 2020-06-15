@@ -1,6 +1,6 @@
-{ go_1_12, buildGoPackage, fetchFromGitHub }:
+{ go_1_14, buildGoPackage, fetchFromGitHub }:
 let
-  builder = buildGoPackage.override { go = go_1_12; };
+  builder = buildGoPackage.override { go = go_1_14; };
 in
 builder rec {
   name = "shiori-${version}";
