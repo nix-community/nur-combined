@@ -27,5 +27,5 @@ in
     sha256 = "055f3caj1y8v7sc2pz9q0dfyi2ij77d499pby4sjfvm5kjy9msdi";
   };
   propagatedBuildInputs = [ go-xlsx ];
-  meta.broken = true;
+  #meta.broken = true;
 })
