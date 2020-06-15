@@ -378,10 +378,10 @@
   },
   {
     "name": "bobmining",
-    "version": "0.18.2",
-    "file_name": "bobmining_0.18.2.zip",
-    "download_url": "/download/bobmining/5ee10283c00acd000ccdc254",
-    "sha1": "8ac2c17ab03afae8c24440604674ea7e8d297cfb",
+    "version": "0.18.3",
+    "file_name": "bobmining_0.18.3.zip",
+    "download_url": "/download/bobmining/5ee228dfa234ad000e8be140",
+    "sha1": "29d2512ecfcd7c35a35eb023331ec4e54f63b7ed",
     "dependencies": [
       "base >= 0.18.0",
       "boblibrary >= 0.18.0",
@@ -512,12 +512,12 @@
   },
   {
     "name": "Construction_Drones",
-    "version": "0.6.3",
-    "file_name": "Construction_Drones_0.6.3.zip",
-    "download_url": "/download/Construction_Drones/5ed2c31f32e410000b816b5a",
-    "sha1": "0bb1922bf3ddeae895613880bc44f6d192ea94d5",
+    "version": "0.6.6",
+    "file_name": "Construction_Drones_0.6.6.zip",
+    "download_url": "/download/Construction_Drones/5ee623a14108f3000dd660e6",
+    "sha1": "361b8f1e537531a95592cc0035d69fa791795aab",
     "dependencies": [
-      "base >= 0.18.28",
+      "base >= 0.18.31",
       "(?) Hovercraft",
       "(?) walls-block-spitters"
     ]
@@ -646,10 +646,10 @@
   },
   {
     "name": "RPGsystem",
-    "version": "0.18.46",
-    "file_name": "RPGsystem_0.18.46.zip",
-    "download_url": "/download/RPGsystem/5eabeeeee99b81000cbadd5c",
-    "sha1": "b13a731f03845b8725d3eb7307fcf4912691e7c5",
+    "version": "0.18.47",
+    "file_name": "RPGsystem_0.18.47.zip",
+    "download_url": "/download/RPGsystem/5ee4e1b5bfa2bf000bd8bfbf",
+    "sha1": "9d53dcfaeaf239672d31992915e6937e9861c630",
     "dependencies": [
       "base >= 0.18.22"
     ]
