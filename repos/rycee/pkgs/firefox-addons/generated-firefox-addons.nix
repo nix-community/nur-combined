@@ -104,10 +104,10 @@
       };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
-      version = "0.7.3";
+      version = "1.0.1";
       addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3580695/buster_captcha_solver_for_humans-0.7.3-an+fx.xpi?src=";
-      sha256 = "2682a344cc762ca99dad8b1118bb25e568722ee3ec64182eb32b68be027bf339";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3590337/buster_captcha_solver_for_humans-1.0.1-an+fx.xpi?src=";
+      sha256 = "62c111b1d362d10c049a24673adf584ae00286e60fd566f9aa4bbc78832e26c5";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/dessant/buster";
