@@ -2,10 +2,12 @@
 
 {
   stdenv, fetchFromGitHub, rofi-unwrapped-git, writeScript,
-  coreutils, gawk, systemd, i3,
+  coreutils, gawk, systemd,
   source-rofi ? import ../source-rofi.nix { inherit fetchFromGitHub; },
   theme ? "full_circle",
   colorscheme ? "nightly",
+  lockCommand ? "i3lock",
+  logoutCommand ? "i3-msg exit",
 }:
 
 # TODO: remove impurity on fonts
@@ -63,11 +65,11 @@ let
 in writeScript "powermenu" ''
   unset PATH
 
-  shutdown=""
-  reboot=""
-  lock=""
-  suspend=""
-  logout=""
+  shutdown=""
+  reboot=""
+  lock=""
+  suspend=""
+  logout=""
 
   options="$shutdown\n$reboot\n$lock\n$suspend\n$logout"
   uptime=$(${coreutils}/bin/uptime | ${gawk}/bin/awk '{ print $3 " " $4 }')
@@ -93,13 +95,13 @@ in writeScript "powermenu" ''
 		confirm ${systemctl} reboot
 		;;
 	$lock)
-		echo "Definitely locking..."
+                confirm ${lockCommand}
 		;;
 	$suspend)
 		confirm ${systemctl} suspend
 		;;
 	$logout)
-		confirm ${i3}/bin/i3-msg exit
+		confirm ${lockCommand}
 		;;
   esac
 ''
