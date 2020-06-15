@@ -467,6 +467,20 @@
         platforms = platforms.all;
         };
       };
+    "linkhints" = buildFirefoxXpiAddon {
+      pname = "linkhints";
+      version = "1.1.0";
+      addonId = "linkhints@lydell.github.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3576485/link_hints-1.1.0-fx.xpi?src=";
+      sha256 = "78badbb13d3ea46b6b1231abf1e778cd44b8ec9d87738f3503aed8bcdb7dd6f3";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://lydell.github.io/LinkHints";
+        description = "Click with your keyboard.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
       version = "6.2.5";
