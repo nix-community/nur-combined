@@ -32,5 +32,7 @@
 
   botamusique = pkgs.callPackage ./pkgs/botamusique { };
 
+  mesloNFp10k = pkgs.callPackage ./pkgs/fonts/MesloNFp10k.nix { };
+
 }
 
