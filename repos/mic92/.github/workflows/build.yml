@@ -14,7 +14,7 @@ jobs:
         cachixName:
           - mic92
         nixPath:
-          - nixpkgs=channel:nixos-unstable
+          - nixpkgs=channel:nixos-unstable-small
           - nixpkgs=https://github.com/Mic92/nixpkgs/archive/master.tar.gz
     runs-on: ubuntu-latest
     steps:
