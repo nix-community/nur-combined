@@ -1,7 +1,7 @@
 { stdenv, pkgs, fetchgit }:
 
 pkgs.perlPackages.buildPerlPackage rec {
-  name = "debmirror-${version}";
+  pname = "debmirror";
   version = "2.25";
 
   enableParallelBuilding = true;
