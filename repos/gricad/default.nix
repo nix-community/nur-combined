@@ -159,5 +159,14 @@ rec {
   # Suitesparse
   suitesparse = pkgs.callPackage ./pkgs/suitesparse  { };
 
+  # GTS snapshot-121130 (snapshot version dep for Gerris)
+  gts121130 = pkgs.callPackage ./pkgs/gts  { };
+
+  # Gerris
+  gerris = pkgs.callPackage ./pkgs/gerris { 
+    fftw3  = fftw3;
+    gts = gts121130;
+  };
+
 }
 

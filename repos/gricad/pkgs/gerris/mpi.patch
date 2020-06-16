@@ -1,0 +1,12 @@
+diff -r -u gerris-snapshot-131206.orig/src/init.c gerris-snapshot-131206/src/init.c
+--- gerris-snapshot-131206.orig/src/init.c	2013-12-06 16:51:21.000000000 +0100
++++ gerris-snapshot-131206/src/init.c	2020-06-16 14:35:21.679768807 +0200
+@@ -413,7 +413,7 @@
+     }
+     else
+       MPI_Init (argc, argv);
+-    MPI_Errhandler_set (MPI_COMM_WORLD, MPI_ERRORS_ARE_FATAL);
++      MPI_Comm_set_errhandler (MPI_COMM_WORLD, MPI_ERRORS_ARE_FATAL);
+   }
+   atexit ((AtExitFunc) MPI_Finalize);
+ #endif /* HAVE_MPI */
