@@ -400,10 +400,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.13.0";
+      version = "2.13.1";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3584891/ipfs_companion-2.13.0-an+fx.xpi?src=";
-      sha256 = "3219e45c21fcf2c362e64965e9f0679c598845c98f67949a9f87462dcc083a42";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3591288/ipfs_companion-2.13.1-an+fx.xpi?src=";
+      sha256 = "28ee4acffe4ebe824aff5ab649438c725bcd66512de4c8e6c2e6a0366547af9c";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -427,10 +427,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.6.3";
+      version = "1.6.4";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3558577/keepassxc_browser-1.6.3-fx.xpi?src=";
-      sha256 = "e7502d44b3fc83a2e0514bafec3227b55c8fb647055f2f28e5304cc8ad247019";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3591223/keepassxc_browser-1.6.4-fx.xpi?src=";
+      sha256 = "e89475ce646fedfa00168faa20b0e681ee70b9df40ccb4dc9eca8ff6d348e09e";
       meta = with stdenv.lib;
       {
         homepage = "https://keepassxc.org/";
