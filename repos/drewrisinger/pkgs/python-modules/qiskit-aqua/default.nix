@@ -111,6 +111,7 @@ buildPythonPackage rec {
     # TODO: broken for some reason on nixpkgs~19.09. Works on 20.03, just disabling it here for my NUR version.
     "test_pluggable_configuration"
     "test_pauli_expect_op_vector" # also broken on nixpkgs~19.09 (Travis only)
+    "test_pauli_expect_single"  # broken on nixpkgs~20.03 (Travis only)
 
     # Disabled due to missing pyscf
     "test_validate" # test/chemistry/test_inputparser.py
