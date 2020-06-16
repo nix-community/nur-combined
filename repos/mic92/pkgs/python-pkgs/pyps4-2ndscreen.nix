@@ -8,6 +8,7 @@
 , pytestCheckHook
 , asynctest
 , pytest-asyncio
+, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -27,6 +28,8 @@ buildPythonPackage rec {
     aiohttp
     click
   ];
+
+  doCheck = pythonOlder "3.8";
 
   checkInputs = [
     asynctest
