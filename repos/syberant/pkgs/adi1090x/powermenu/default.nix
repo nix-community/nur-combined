@@ -7,7 +7,7 @@
   theme ? "full_circle",
   colorscheme ? "nightly",
   lockCommand ? "i3lock",
-  logoutCommand ? "i3-msg exit",
+  logoutCommand ? "${i3}/bin/i3-msg exit", i3,
 }:
 
 # TODO: remove impurity on fonts
@@ -101,7 +101,7 @@ in writeScript "powermenu" ''
 		confirm ${systemctl} suspend
 		;;
 	$logout)
-		confirm ${lockCommand}
+		confirm ${logoutCommand}
 		;;
   esac
 ''
