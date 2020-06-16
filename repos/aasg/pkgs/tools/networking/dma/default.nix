@@ -20,10 +20,21 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=$(out)" "LEX=flex" ];
 
   meta = with lib; {
-    description = "Small mail transport agent (MTA) designed for home and office use";
+    description = "Small mail transport agent designed for home and office use";
+    longDescription = ''
+      The DragonFly Mail Agent is a small Mail Transport Agent (MTA),
+      designed for home and office use.  It accepts mails from locally
+      installed Mail User Agents (MUA) and delivers the mails either
+      locally or to a remote destination.  Remote delivery includes
+      several features like TLS/SSL support and SMTP authentication.
+
+      dma is not intended as a replacement for real, big MTAs like
+      sendmail(8) or postfix(1).  Consequently, dma does not listen
+      on port 25 for incoming connections.
+    '';
     homepage = "https://github.com/corecode/dma";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.AluisioASG ];
+    maintainers = with maintainers; [ AluisioASG ];
   };
 }

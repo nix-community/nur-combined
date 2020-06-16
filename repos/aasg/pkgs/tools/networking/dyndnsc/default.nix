@@ -30,9 +30,19 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Dynamic DNS update client with support for multiple protocols";
+    longDescription = ''
+      Dyndnsc is a command line client for sending updates to Dynamic
+      DNS (DDNS, DynDNS) services.  It supports multiple protocols and
+      services, and it has native support for IPv6.  The configuration
+      file allows using foreign, but compatible services.  Dyndnsc
+      ships many different IP detection mechanisms, support for
+      configuring multiple services in one place and it has a daemon
+      mode for running unattended.  It has a plugin system to provide
+      external notification services.
+    '';
     homepage = "https://github.com/infothrill/python-dyndnsc";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.AluisioASG ];
+    maintainers = with maintainers; [ AluisioASG ];
   };
 }

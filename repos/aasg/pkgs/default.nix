@@ -1,25 +1,37 @@
 { pkgs }:
 let
   callPackage = pkgs.lib.callPackageWith (pkgs // self);
+  callPackageWithMerged = attrName: f: extraArgs:
+    let
+      mergedSubset = pkgs.${attrName} // self.${attrName};
+      subsetArgs = builtins.listToAttrs [{ name = attrName; value = mergedSubset; }];
+    in
+    callPackage f (subsetArgs // extraArgs);
   self = rec {
 
     dma = callPackage ./tools/networking/dma { };
 
-    dyndnsc = callPackage ./tools/networking/dyndnsc { };
+    dyndnsc = callPackageWithMerged "python3Packages" ./tools/networking/dyndnsc { };
 
     guile-commonmark = callPackage ./development/guile-modules/guile-commonmark { };
 
     haunt = callPackage ./applications/misc/haunt { };
 
+    linuxPackages = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux);
+    linuxPackages_latest = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_latest);
     linuxPackagesFor = kernel:
-      (pkgs.linuxPackagesFor kernel).extend (import ./os-specific/linux/kernel-packages.nix);
+      let
+        ksuper = pkgs.linuxPackagesFor kernel;
+        kself = import ./os-specific/linux/kernel-packages.nix (ksuper // kself) ksuper;
+      in
+      pkgs.lib.makeExtensible (_: kself);
 
-    python3 = pkgs.python3.override { packageOverrides = import ./development/python-modules; };
-
-    # Package sets, copied from <nixpkgs>/pkgs/top-level/all-packages.nix.
-    linuxPackages = linuxPackagesFor pkgs.linux;
-    linuxPackages_latest = linuxPackagesFor pkgs.linux_latest;
-    python3Packages = python3.pkgs;
+    python3Packages =
+      let
+        pysuper = pkgs.python3Packages;
+        pyself = import ./development/python-modules (pysuper // pyself) pysuper;
+      in
+      pkgs.recurseIntoAttrs pyself;
 
   };
 in

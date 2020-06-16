@@ -35,9 +35,12 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Driver for RTL8723BU";
+    longDescription = ''
+      Kernel driver for Realtek RTL8723BU Wireless Adapter with hardware ID 0bda:b720.
+    '';
     homepage = "https://github.com/lwfinger/rtl8723bu";
     license = licenses.unfreeRedistributableFirmware;
     platforms = platforms.linux;
-    maintainers = [ maintainers.AluisioASG ];
+    maintainers = with maintainers; [ AluisioASG ];
   };
 }
