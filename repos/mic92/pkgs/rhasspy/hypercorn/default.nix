@@ -32,22 +32,6 @@ buildPythonPackage rec {
 
   checkInputs = [ pytest ];
 
-  # # Package conditions to handle
-  # # might have to sed setup.py and egg.info in patchPhase
-  # # sed -i "s/<package>.../<package>/"
-  # h2 (>=3.1.0)
-  # wsproto (>=0.14.0)
-  # # Extra packages (may not be necessary)
-  # aioquic (<1.0,>=0.8.1) ; extra == 'h3'
-  # asynctest ; extra == 'tests'
-  # hypothesis ; extra == 'tests'
-  # pytest ; extra == 'tests'
-  # pytest-asyncio ; extra == 'tests'
-  # pytest-cov ; extra == 'tests'
-  # pytest-trio ; extra == 'tests'
-  # trio ; extra == 'tests'
-  # trio (>=0.11.0) ; extra == 'trio'
-  # uvloop ; extra == 'uvloop'
   propagatedBuildInputs = [
     h11
     h2

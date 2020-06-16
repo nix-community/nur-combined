@@ -50,6 +50,9 @@ buildPythonPackage rec {
     }))
   ];
 
+  # asynctest is broken for newer python's
+  doCheck = pythonOlder "3.8";
+
   checkInputs = [
     pytest
     hypothesis
