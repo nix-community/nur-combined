@@ -81,7 +81,7 @@ rec {
       inherit qiskit-aer qiskit-terra;
     };
     qiskit-aqua = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-aqua {
-      inherit dlx docplex fastdtw qiskit-aer qiskit-ignis qiskit-terra;
+      inherit cvxpy dlx docplex fastdtw qiskit-aer qiskit-ignis qiskit-terra;
     };
     qiskit-ibmq-provider = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ibmq-provider {
       inherit ipyvuetify pproxy qiskit-terra;

@@ -3,7 +3,7 @@
 , buildPythonPackage
 , fetchFromGitHub
 # , cplex
-, cvxopt
+, cvxpy
 , dlx
 , docplex
 , fastdtw
@@ -24,7 +24,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-aqua";
-  version = "0.7.1";
+  version = "0.7.2";
 
   disabled = pythonOlder "3.5";
 
@@ -33,13 +33,13 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit-aqua";
     rev = version;
-    sha256 = "0fp8m01i1wysh1pn8pccis5c6rz7cx30zddbhg68zm9fwvav8r21";
+    sha256 = "01llv49ql2514pgf7j2r37p4y62ia7ss5322q5zf0h3ar7kngf86";
   };
 
   # Optional packages: pyscf (see below NOTE) & pytorch. Can install via pip/nix if needed.
   propagatedBuildInputs = [
     # cplex
-    cvxopt
+    cvxpy
     docplex
     dlx # Python Dancing Links package
     fastdtw
