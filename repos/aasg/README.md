@@ -1,8 +1,8 @@
 # ~aasg/nixexprs
 
-This is (or should be) a [NUR]-compatible repository of Nix packages
-and NixOS modules that I've written for personal use and not yet
-upstreamed to [Nixpkgs].
+[![builds.sr.ht status](https://builds.sr.ht/~aasg/nixexprs.svg)](https://builds.sr.ht/~aasg/nixexprs?)
+
+This is (or should be) a [NUR]-compatible repository of Nix packages and NixOS modules that I've written for personal use and not yet upstreamed to [Nixpkgs].
 
 # Contributing
 
