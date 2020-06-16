@@ -4,7 +4,7 @@ with python3.pkgs;
 
 buildPythonApplication rec {
   pname = "frida-tools";
-  version = "7.2.0";
+  version = "7.2.2";
 
   # building is somewhat complicated, described in https://nixos.wiki/wiki/Frida
 
@@ -12,7 +12,7 @@ buildPythonApplication rec {
     owner = "frida";
     repo = "frida-tools";
     rev = version;
-    sha256 = "0ypdnk2mk2rf4whbjcibwyksy1hn8nhyj9ax1b9rag9lxz2l7nqa";
+    sha256 = "173kcfi1v5p6cisj37abswj2kfkdv0a5ilfb685z1z74h5fd9xa7";
   };
 
   # attaching does not work in build sandbox

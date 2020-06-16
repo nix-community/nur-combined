@@ -56,6 +56,8 @@ rec {
 
   nixos-shell = pkgs.callPackage ./pkgs/nixos-shell { };
 
+  rspamd-learn-spam-ham = pkgs.python3.pkgs.callPackage ./pkgs/rspam-learn-spam-ham {};
+
   rnix-lsp-unstable = pkgs.callPackage ./pkgs/rnix-lsp { };
 
   sgx-lkl = pkgs.callPackage ./pkgs/sgx-lkl { };

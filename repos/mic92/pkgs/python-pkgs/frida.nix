@@ -2,22 +2,22 @@
 , buildPythonPackage
 , fetchurl
 , pip
-, isPy37
+, isPy38
 }:
 let
-  pythonVersion = "37";
+  pythonVersion = "38";
 in
 buildPythonPackage rec {
   pname = "frida";
-  version = "12.8.20";
-  disabled = !isPy37;
-  wheelName = "frida-${version}-cp${pythonVersion}-cp${pythonVersion}m-linux_x86_64.whl";
+  version = "12.9.8";
+  disabled = !isPy38;
+  wheelName = "frida-${version}-cp${pythonVersion}-cp${pythonVersion}-linux_x86_64.whl";
 
   # building is somewhat complicated, described in https://nixos.wiki/wiki/Frida
 
   src = fetchurl {
-    url = "https://dl.thalheim.io/kVPuNTRXw8nLfHVJBokbGg/${wheelName}";
-    sha256 = "1nksqf25x7s86i69vlpfhd0f4ag4ghdy3v8p6hv4xljxic4ab6fl";
+    url = "https://dl.thalheim.io/CvDYyyDGK1K6CSgRprSDYg/${wheelName}";
+    sha256 = "03kzbp7h89m92453wq6walf2mv79fzk6lz7d3blrsxxa94hj5pzi";
   };
 
   nativeBuildInputs = [ pip ];
