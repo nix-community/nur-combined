@@ -14,8 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  colors = pkgs.callPackage ./pkgs/colors { };
 
   rank_photos = pkgs.callPackage ./pkgs/rank_photos { };
   JAVMovieScraper = pkgs.callPackage ./pkgs/JAVMovieScraper { };
