@@ -1,23 +1,22 @@
 { config, pkgs, lib, ... }:
 
 with lib;
-
 let
-
   cfg = config.kampka.profiles.desktop;
   common = import ./common.nix { inherit config pkgs lib; };
 
-  neovim-overlay = self: super: let
-    vimConfigure = {
-      customRC = ''
-        let s:localVimConfig = $HOME . "/.config/nvim/init.vim"
-        if filereadable(expand(s:localVimConfig))
-          exe 'source' s:localVimConfig
-        endif
-      '';
-      packages.kampka-defaults.opt = with pkgs.vimPlugins; [ LanguageClient-neovim ];
-    };
-  in
+  neovim-overlay = self: super:
+    let
+      vimConfigure = {
+        customRC = ''
+          let s:localVimConfig = $HOME . "/.config/nvim/init.vim"
+          if filereadable(expand(s:localVimConfig))
+            exe 'source' s:localVimConfig
+          endif
+        '';
+        packages.kampka-defaults.opt = with pkgs.vimPlugins; [ LanguageClient-neovim ];
+      };
+    in
     {
       neovim = super.neovim.override {
         configure = vimConfigure;
@@ -85,7 +84,9 @@ in
       # Typically needed for wifi drivers and the like
       hardware.enableRedistributableFirmware = mkDefault true;
 
-      environment.systemPackages = common.environment.systemPackages ++ [] ++ (
+      kampka.programs.nix-search.enable = mkDefault true;
+
+      environment.systemPackages = common.environment.systemPackages ++ [ ] ++ (
         with pkgs; [
           alacritty
           bat
