@@ -1,6 +1,14 @@
 language: nix
 nix: 2.3
 
+env:
+- NIX_CHANNEL=20.03
+- NIX_CHANNEL=unstable
+
+before_script:
+    - nix-channel --add https://nixos.org/channels/nixos-$NIX_CHANNEL nixpkgs
+    - nix-channel --update
+
 script:
     #- nix-shell --run "find . -name '*.nix' -exec nixpkgs-fmt --check {} +;"
     - nix-build -E 'with import <nixpkgs>{}; (callPackage ./nur.nix {})'

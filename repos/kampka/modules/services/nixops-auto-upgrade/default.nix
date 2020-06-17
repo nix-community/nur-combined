@@ -1,9 +1,10 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-
 let
   cfg = config.kampka.services.nixops-auto-upgrade;
+
+  configurationPath = builtins.path { name = "nixos-configuration"; path = cfg.configurationPath; };
 in
 {
 
@@ -39,12 +40,11 @@ in
     };
   };
 
-  config = let
-
-    nixPathEntries = (filter (lib.strings.hasInfix "=") (strings.splitString ":" cfg.nixPath));
-    nixPathPaths = (flatten (map (tail) (map (strings.splitString "=") nixPathEntries)));
-
-  in
+  config =
+    let
+      nixPathEntries = (filter (lib.strings.hasInfix "=") (strings.splitString ":" cfg.nixPath));
+      nixPathPaths = (flatten (map (tail) (map (strings.splitString "=") nixPathEntries)));
+    in
     mkIf cfg.enable rec {
       assertions = [
         {
@@ -77,7 +77,7 @@ in
         configuration = ''
           mkdir -p /etc/nixos/current/
           rm -f /etc/nixos/current/*
-          ln -sf ${cfg.configurationPath}/* /etc/nixos/current
+          ln -sf ${configurationPath}/* /etc/nixos/current
         '';
       };
 
