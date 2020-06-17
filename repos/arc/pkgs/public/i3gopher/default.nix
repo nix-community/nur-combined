@@ -10,6 +10,7 @@
   };
 
   modSha256 = "1c4qx7ig59qqflmbkxi6bm97z38jcy9nsf6nj8j8w3fgc1f36r1g";
+  vendorSha256 = "0nbzm5j8vvdgddzd13qk87pamiw30i0a02sn6i1myx7rxcbi9vgm";
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ i3 ];
