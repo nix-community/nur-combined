@@ -1,7 +1,8 @@
-{ pkgs, system, nodejs, makeWrapper }:
+{ pkgs, system, nodejs_latest, makeWrapper }:
 let
   nodePackages = import ./composition.nix {
-    inherit pkgs system nodejs;
+    inherit pkgs system;
+    nodejs = nodejs_latest;
   };
 in
 (
@@ -12,7 +13,7 @@ in
         dontNpmInstall = true;
         buildInputs = [ makeWrapper ];
         postInstall = ''
-          makeWrapper ${nodejs}/bin/node $out/bin/backport \
+          makeWrapper ${nodejs_latest}/bin/node $out/bin/backport \
             --add-flags "$out/lib/node_modules/backport/dist/cli/index.js"
         '';
       }
