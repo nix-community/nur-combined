@@ -1,10 +1,10 @@
 [
   {
     "name": "aai-programmable-vehicles",
-    "version": "0.6.8",
-    "file_name": "aai-programmable-vehicles_0.6.8.zip",
-    "download_url": "/download/aai-programmable-vehicles/5edfd213ef27b4000b39838d",
-    "sha1": "ff2be73ea2f587cad794c4c59fa4b8eef57f79fe",
+    "version": "0.6.10",
+    "file_name": "aai-programmable-vehicles_0.6.10.zip",
+    "download_url": "/download/aai-programmable-vehicles/5ee798c158f42a000c4c876d",
+    "sha1": "848a9e7aca75266d91239f1ca5b976ac6f6b3b12",
     "dependencies": [
       "base >= 0.17.35",
       "aai-signals >= 0.4.1",
@@ -391,10 +391,10 @@
   },
   {
     "name": "bobmodules",
-    "version": "0.18.3",
-    "file_name": "bobmodules_0.18.3.zip",
-    "download_url": "/download/bobmodules/5ec96a713cf12a000e056513",
-    "sha1": "048695d08cd465bcade059ba2707b0490f8f6c4b",
+    "version": "0.18.5",
+    "file_name": "bobmodules_0.18.5.zip",
+    "download_url": "/download/bobmodules/5ee9477dd9921f000e04b5c3",
+    "sha1": "956e25a23dfbaaa0c26f4db6a9784306912d69c5",
     "dependencies": [
       "base >= 0.18.0",
       "boblibrary >= 0.18.0",
