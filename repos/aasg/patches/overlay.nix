@@ -2,8 +2,8 @@ self: super:
 
 {
 
-  haunt = super.callPackage ./haunt { };
+  haunt = import ./haunt { inherit (super) haunt; };
 
-  zoxide = super.callPackage ./zoxide { };
+  zoxide = import ./zoxide { inherit (super) fetchFromGitHub zoxide; };
 
 }
