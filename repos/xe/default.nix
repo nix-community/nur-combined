@@ -41,6 +41,7 @@ rec {
   minica = pkgs.callPackage ./pkgs/minica { };
   nix-simple-deploy = pkgs.callPackage ./pkgs/nix-simple-deploy { };
   orca = pkgs.callPackage ./pkgs/orca { };
+  pridecat = pkgs.callPackage ./pkgs/pridecat { };
   quickserv = pkgs.callPackage ./pkgs/quickserv { };
   sctd = pkgs.callPackage ./pkgs/sctd { };
   sm64pc = pkgs.callPackage ./pkgs/sm64pc { };
