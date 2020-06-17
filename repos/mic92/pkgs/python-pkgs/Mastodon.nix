@@ -17,10 +17,10 @@
 
 buildPythonPackage rec {
   pname = "Mastodon.py";
-  version = "1.5.0";
+  version = "1.5.1";
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0mypfz5k1phn7b2fk362w8zqh2wi3czf58g4zik64n17r8viww40";
+    sha256 = "1vikvkzcij2gd730cssigxi38vlmzqmwdy58r3y2cwsxifnxpz9a";
   };
   propagatedBuildInputs = [
     requests
