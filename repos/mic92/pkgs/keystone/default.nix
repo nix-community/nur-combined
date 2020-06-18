@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "keystone-engine-unstable";
-  version = "2020-02-15";
+  version = "0.9.2-rc1.post2";
   src = fetchFromGitHub {
     owner = "keystone-engine";
     repo = "keystone";
