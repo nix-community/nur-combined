@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "1x5i53y25mmnl8g3zq4bygv9lfcpc5fp49k0na1l35damvs2wi75";
   };
 
-  modSha256 = "1prn811pbl7fdxxyz98vkf2l4ph2dlv0cbrfygzlz2sbflkq148s";
+  vendorSha256 = "17nl0akfsz29a4dcwxnrcf4bzqkn4kbwxyxr04j8a4l4fbixr5zr";
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/kalbasit/swm";
