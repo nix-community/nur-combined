@@ -22,6 +22,8 @@
     nodejs = pkgs.nodejs-13_x;
   };
 
+  pridecat = pkgs.callPackage ./pkgs/tools/pridecat {};
+
   # applications
   rover = pkgs.callPackage ./pkgs/applications/rover {};
 
@@ -30,5 +32,9 @@
 
   # games
   githug = pkgs.callPackage ./pkgs/games/githug {};
+
+  aurora = pkgs.callPackage ./pkgs/games/aurora {
+    nodejs = pkgs.nodejs-13_x;
+  };
 }
 
