@@ -23,7 +23,7 @@ buildPythonPackage rec {
     owner = "SCOTT-HAMILTON";
     repo = "sync-database";
     rev = "master";
-    sha256 = "03cxn7nqgc3narbmk7c1914y0nz5ihzvc82j70qiwxiahkqgwggp";
+    sha256 = "0mflbr6mcwl2544scnhpjnyilxnhqbdfg97b10lmwkxhv2j2b9w6";
   };
 
   buildInputs = pyModuleDeps;
