@@ -31,6 +31,14 @@
 , openfst
 , opengrm-ngram
 , phonetisaurus
+, python
+, bash
+, gawk
+, getopt
+, coreutils
+, gnused
+, alsaUtils
+, curl
 }:
 
 buildPythonPackage rec {
@@ -89,6 +97,14 @@ buildPythonPackage rec {
         openfst
         opengrm-ngram
         phonetisaurus
+        bash
+        gawk
+        getopt
+        python
+        coreutils
+        gnused
+        alsaUtils
+        curl
       ]}" \
       --set PYTHONPATH "$PYTHONPATH"
      ln -s -t $out/share/rhasspy ${rhasspy-server-hermes}/share/rhasspy/{web,templates}
@@ -127,7 +143,6 @@ buildPythonPackage rec {
     rhasspy-server-hermes
     rhasspy-nlu-hermes
     rhasspy-supervisor
-    mosquitto
   ];
 
   meta = with lib; {
