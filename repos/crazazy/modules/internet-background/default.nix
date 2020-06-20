@@ -13,10 +13,9 @@ with lib;
       description = ''url to fetch background from'';
     };
   };
-   config = {
-     services.xserver.displayManager.sessionCommands = mkIf config.fetchBackground.enable ''
-        ${pkgs.feh}/bin/feh --bg-scale ${config.fetchBackground.url}
-       '';
-   };
- }
-
+  config = {
+    services.xserver.displayManager.sessionCommands = mkIf config.fetchBackground.enable ''
+      ${pkgs.feh}/bin/feh --bg-scale ${config.fetchBackground.url}
+    '';
+  };
+}

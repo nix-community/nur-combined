@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 let
   steam-config = pkgs.steam.override {
     nativeOnly = true;
@@ -16,5 +16,5 @@ in
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
   hardware.pulseaudio.support32Bit = true;
-  environment.systemPackages = [steam-config.run];
+  environment.systemPackages = [ steam-config.run ];
 }

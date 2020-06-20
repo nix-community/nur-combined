@@ -1,7 +1,7 @@
 defaultPackages: with defaultPackages.pkgs; {
   rMaker = import ./rMaker.nix;
-  python-personal = (import ./python-env.nix) python3;
-  
+  python-personal = (import ./python-env.nix) python37;
+
   rEnv = rMaker defaultPackages.rWrapper rPackages;
 
   crazazy = import ../../pkgs { inherit (defaultPackages) pkgs; };
@@ -23,7 +23,7 @@ defaultPackages: with defaultPackages.pkgs; {
       ffmpeg
       libreoffice
       evince
-      (wine.override {wineBuild = "wineWow";})
+      (wine.override { wineBuild = "wineWow"; })
     ];
   };
 
@@ -57,7 +57,6 @@ defaultPackages: with defaultPackages.pkgs; {
       multimc
       steam
       stuntrally
-      ];
+    ];
   };
 }
-

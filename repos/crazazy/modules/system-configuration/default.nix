@@ -7,7 +7,8 @@
 with lib;
 {
   imports =
-    [ # Include custom package environments
+    [
+      # Include custom package environments
       ../packages-configuration
       ../vim-configuration
     ];
@@ -55,7 +56,10 @@ with lib;
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
-      wget curl ntfs3g sshfs
+      wget
+      curl
+      ntfs3g
+      sshfs
     ];
 
     # Some programs need SUID wrappers, can be configured further or are
@@ -99,4 +103,3 @@ with lib;
     system.stateVersion = "20.09"; # Did you read the comment?
   };
 }
-

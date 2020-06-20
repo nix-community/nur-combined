@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 {
   imports = [
     ./hardware/elitebook840g5.nix

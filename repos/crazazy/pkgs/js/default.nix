@@ -9,7 +9,7 @@
   preact-cli = (import ./preact-cli { inherit pkgs; }).package;
   rollup = (import ./rollup { inherit pkgs; }).package;
   tldr = (import ./tldr { inherit pkgs; }).package;
-  typescript = (import ./typescript {inherit pkgs;}).package;
+  typescript = (import ./typescript { inherit pkgs; }).package;
   webpack = (import ./webpack-cli { inherit pkgs; }).package;
 
 }

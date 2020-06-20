@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 {
   imports = [
     ../steam-configuration
@@ -8,4 +8,3 @@
     packageOverrides = import ./packages.nix;
   };
 }
-

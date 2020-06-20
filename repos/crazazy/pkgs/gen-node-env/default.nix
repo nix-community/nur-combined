@@ -1,11 +1,11 @@
-{stdenv, fetchzip, jq, curl, node2nix, sources}:
+{ stdenv, fetchzip, jq, curl, node2nix, sources }:
 stdenv.mkDerivation {
   pname = "nix-gen-node-tools";
   version = "1.0.2";
 
   src = fetchzip { inherit (sources.nix-gen-node-tools) url sha256; };
 
-  buildInputs = [jq curl node2nix];
+  buildInputs = [ jq curl node2nix ];
 
   installPhase = ''
     install -m755 -D genNodeNix "$out/bin/nix-gen-node-tools"

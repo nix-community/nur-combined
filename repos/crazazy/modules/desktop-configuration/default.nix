@@ -5,7 +5,12 @@
     ../internet-background
   ];
   environment.systemPackages = with pkgs; [
-    albert lemonbar alock glava libnotify lxqt.lxqt-policykit
+    albert
+    lemonbar
+    alock
+    glava
+    libnotify
+    lxqt.lxqt-policykit
   ];
 
   fonts.fonts = with pkgs; [
