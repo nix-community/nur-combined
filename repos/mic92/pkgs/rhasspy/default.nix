@@ -59,6 +59,10 @@
     inherit rhasspy-hermes;
   };
 
+  rhasspy-wake-snowboy-hermes = callPackage ./rhasspy-wake-snowboy-hermes {
+    inherit rhasspy-hermes;
+  };
+
   rhasspy-dialogue-hermes = callPackage ./rhasspy-dialogue-hermes  {
     inherit rhasspy-hermes;
   };
@@ -115,6 +119,7 @@
       rhasspy-dialogue-hermes
       rhasspy-tts-cli-hermes
       rhasspy-wake-porcupine-hermes
+      rhasspy-wake-snowboy-hermes
       rhasspy-remote-http-hermes
       rhasspy-fuzzywuzzy-hermes
       rhasspy-speakers-cli-hermes

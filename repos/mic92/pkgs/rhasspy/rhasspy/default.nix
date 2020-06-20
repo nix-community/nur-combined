@@ -15,6 +15,7 @@
 , rhasspy-dialogue-hermes
 , rhasspy-tts-cli-hermes
 , rhasspy-wake-porcupine-hermes
+, rhasspy-wake-snowboy-hermes
 , rhasspy-remote-http-hermes
 , rhasspy-fuzzywuzzy-hermes
 , rhasspy-speakers-cli-hermes
@@ -39,6 +40,7 @@
 , gnused
 , alsaUtils
 , curl
+, gzip
 }:
 
 buildPythonPackage rec {
@@ -83,6 +85,7 @@ buildPythonPackage rec {
         rhasspy-asr-kaldi-hermes
         rhasspy-tts-cli-hermes
         rhasspy-wake-porcupine-hermes
+        rhasspy-wake-snowboy-hermes
         rhasspy-remote-http-hermes
         rhasspy-fuzzywuzzy-hermes
         rhasspy-speakers-cli-hermes
@@ -105,6 +108,7 @@ buildPythonPackage rec {
         gnused
         alsaUtils
         curl
+        gzip
       ]}" \
       --set PYTHONPATH "$PYTHONPATH"
      ln -s -t $out/share/rhasspy ${rhasspy-server-hermes}/share/rhasspy/{web,templates}
