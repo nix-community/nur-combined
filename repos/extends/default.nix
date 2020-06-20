@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   pscircle = pkgs.callPackage ./pkgs/pscircle {};
+  giph = pkgs.callPackage ./pkgs/giph {};
   
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
