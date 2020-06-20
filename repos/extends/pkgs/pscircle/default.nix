@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ cairo libX11 libpng cmake pkg-config ];
 
   meta = with stdenv.lib; {
-    description = "Allows you see to your linux processes as a tree";
+    description = "Allows you to see your linux processes as a tree";
     license = licenses.mit;
     homepage = "https://gitlab.com/mildlyparallel/pscircle";
     maintainers = [ "Extends <sharosari@gmail.com>" ];
