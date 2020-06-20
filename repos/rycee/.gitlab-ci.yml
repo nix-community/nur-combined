@@ -1,8 +1,8 @@
 image: nixos/nix:latest
 
 variables:
-  # Pinned 2019-08-10.
-  NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/bc8bc2c7cf3066f8a4e0c365651f968195338422.tar.gz"
+  # Pinned 2020-06-20.
+  NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/a84cbb60f0296210be03c08d243670dd18a3f6eb.tar.gz"
 
 stages:
   - build
@@ -26,9 +26,8 @@ pages:
 Build NUR:
   stage: build
   before_script:
-    - nix-env -f https://cachix.org/api/v1/install -iA cachix
+    - nix-env -f '<nixpkgs>' -iA cachix curl
     - cachix use rycee
-    - nix-env -f '<nixpkgs>' -iA curl
   script:
     - nix-build ci.nix -A buildOutputs
     - nix eval -f default.nix hmModules
@@ -53,7 +52,7 @@ Update Firefox addons:
     ADDONS_OUTPUT: pkgs/firefox-addons/generated-firefox-addons.nix
     REMOTE_URL: https://nur-updates:$RYBOT_TOKEN@gitlab.com/$CI_PROJECT_PATH.git
   before_script:
-    - nix-env -f https://cachix.org/api/v1/install -iA cachix
+    - nix-env -f '<nixpkgs>' -iA cachix
     - cachix use rycee
     - nix-env -f . -iA firefox-addons-generator
     - nix-env -f '<nixpkgs>' -iA gitMinimal
