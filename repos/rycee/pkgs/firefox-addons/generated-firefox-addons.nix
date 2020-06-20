@@ -407,7 +407,7 @@
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
-        description = "Official browser extension that simplifies access to IPFS resources";
+        description = "Harness the power of IPFS in your browser";
         license = licenses.cc0;
         platforms = platforms.all;
         };
