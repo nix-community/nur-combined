@@ -381,6 +381,12 @@
       {
         homepage = "https://www.eff.org/https-everywhere";
         description = "Encrypt the web! HTTPS Everywhere is a Firefox extension to protect your communications by enabling HTTPS encryption automatically on sites that are known to support it, even when you type URLs or follow links that omit the https: prefix.";
+        license = {
+          shortName = "https-everywhere-license";
+          fullName = "Multiple";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/https-everywhere/license/";
+          free = true;
+          };
         platforms = platforms.all;
         };
       };
@@ -505,6 +511,7 @@
       {
         homepage = "https://github.com/buunguyen/octotree/";
         description = "GitHub on steroids";
+        license = licenses.agpl3;
         platforms = platforms.all;
         };
       };
@@ -594,10 +601,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.18.14";
+      version = "5.20.0";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3556716/reddit_enhancement_suite-5.18.14-an+fx.xpi?src=";
-      sha256 = "66ac3f9f87f9f935e05421a5a1b2ff9abe649924995a0b66356f7d3bf8733ec9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3594160/reddit_enhancement_suite-5.20.0-an+fx.xpi?src=";
+      sha256 = "bcfa3f76be47f1b99038abfbba2cf51e6178614cb047deed8a1fc877a32cc68e";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
