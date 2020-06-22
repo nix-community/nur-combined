@@ -3,13 +3,13 @@
 
 mkDerivation {
   pname = "citra";
-  version = "unstable-2020-05-13";
+  version = "unstable-2020-06-21";
 
   # Submodules
   src = fetchgit {
     url = "https://github.com/citra-emu/citra";
-    rev = "213c956b7ce15a2ceabceef7539b881b1934467c";
-    sha256 = "0w72yybyfhfrmnkicwk2xmgl7nfmrvjvw02965rim9njzvy3cspg";
+    rev = "7444c95132e40098ea4a5166b717f7af813cc385";
+    sha256 = "0504g4fpc2azsb245x7r1p5llwjf0n0kr4hab32l4ylfh6phc3vs";
   };
 
   enableParallelBuilding = true;
