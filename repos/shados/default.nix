@@ -31,6 +31,8 @@ let repo = rec {
 
   json-yaml = pkgs.callPackage ./pkgs/json-yaml { };
 
+  loudgain = pkgs.callPackage ./pkgs/loudgain { };
+
   rxvt_unicode_24bit = pkgs.callPackage ./pkgs/rxvt_unicode_24bit {
     perlSupport = true;
     gdkPixbufSupport = true;
