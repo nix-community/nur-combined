@@ -643,10 +643,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "19.0";
+      version = "20.0";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3592329/save_page_we-19.0-fx.xpi?src=";
-      sha256 = "56a0be62a82fec0a37b51019516e36c7d36fe650b52e94d57575ef8d6feae745";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3594415/save_page_we-20.0-fx.xpi?src=";
+      sha256 = "d59b7442a834758fcf3541788a1621c82a0c89e1195088a8dc55874529f09d3c";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -738,10 +738,10 @@
       };
     "textern" = buildFirefoxXpiAddon {
       pname = "textern";
-      version = "0.6";
+      version = "0.7";
       addonId = "textern@jlebon.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3542716/textern-0.6-fx.xpi?src=";
-      sha256 = "d52066af80a2f7ed589af168909fafa694c6c4a22c105a1a2dcbb83e03d684f9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3594392/textern-0.7-fx.xpi?src=";
+      sha256 = "cf15dba57b32b24c2dbc79ea169fb53286c40a5c500a066ba81e67439021bb5a";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/jlebon/textern";
