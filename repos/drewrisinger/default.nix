@@ -68,7 +68,7 @@ rec {
     pproxy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pproxy { };
     python-constraint = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/python-constraint { };
     pylatexenc = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pylatexenc { };
-    retworkx = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/retworkx { isPy38 = false; };
+    retworkx = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/retworkx { };
 
     # Qiskit proper, build order
     qiskit-terra = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-terra {

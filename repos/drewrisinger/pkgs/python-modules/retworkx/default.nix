@@ -2,21 +2,24 @@
 , buildPythonPackage
 , pythonOlder
 , pythonAtLeast
-, isPy37
-, isPy38
+, python
 , fetchFromGitHub
 , fetchPypi
   # Check inputs
 , pytestCheckHook
 }:
-
 let
   rx-version = "0.3.4";
-  wheel-args = if isPy37 then
-      { python = "cp37"; sha256 = "1hfrdj8svkfdraa299gcj18a601l4zn646fkgq7m56brpagssf9l"; }
-    else if isPy38 then
-      { python = "cp38"; sha256 = "383ec97b7142858bb6442945d72ce5ca9601ceba015c764d210b"; }
-    else throw "python version & hash not included. Override attribute `wheel-args` with version & hash at https://pypi.org/project/retworkx";
+
+  wheel-hashes = {
+    "3.7" = { python = "cp37"; sha256 = "1hfrdj8svkfdraa299gcj18a601l4zn646fkgq7m56brpagssf9l"; };
+    "3.8" = { python = "cp38"; sha256 = "0jm10ywaqr0b456pcp01pb7035nawlndfi998jv8p1a2f5xwjgiq"; };
+  };
+  lookup = set: key: default: if (builtins.hasAttr key set) then (builtins.getAttr key set) else default;
+  wheel-args = lookup
+    wheel-hashes
+    python.pythonVersion
+    (throw "retworkx python version & hash not included. Override attribute `wheel-args` with version & hash at https://pypi.org/project/retworkx");
 
   github-source = fetchFromGitHub {
     owner = "Qiskit";
