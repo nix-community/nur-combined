@@ -17,14 +17,14 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "sm64pc";
-  version = "unstable-2020-05-19";
+  pname = "sm64ex";
+  version = "unstable-2020-06-19";
 
   src = fetchFromGitHub {
     owner = "sm64pc";
-    repo = "sm64pc";
-    rev = "c18e70f44eaf628f5795002c29166bbfc4835238";
-    sha256 = "1vjk5g3jkrv21hwv13c7qf1disdv486sx6inn073ijx7g63hyzag";
+    repo = "sm64ex";
+    rev = "f5005418348cf1a53bfa75ff415a513ef0b9b273";
+    sha256 = "0adyshkqk5c4lxhdxc3j6ax4svfka26486qpa5q2gl2nixwg9zxn";
   };
 
   nativeBuildInputs = [ python3 pkg-config ];
@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
 
   inherit baseRom;
 
-  makeFlags = [ "VERSION=${region}" ] ++ compileFlags;
+  makeFlags = [ "VERSION=${region}" ] ++ compileFlags
+  ++ stdenv.lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ];
 
   preBuild = ''
     patchShebangs extract_assets.py
@@ -41,15 +42,20 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp build/${region}_pc/sm64.${region}.f3dex2e $out/bin/sm64pc
+    cp build/${region}_pc/sm64.${region}.f3dex2e $out/bin/sm64ex
   '';
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/sm64pc/sm64pc";
     description = "Super Mario 64 port based off of decompilation";
-    longDescription = "Super Mario 64 port based off of decompilation. Note that you must supply a baserom yourself to extract assets from";
+    longDescription = ''
+      Super Mario 64 port based off of decompilation.
+      Note that you must supply a baserom yourself to extract assets from.
+      If you are not using an US baserom, you must overwrite the "region" attribute with either "eu" or "jp".
+      If you would like to use patches sm64pc distributes as makeflags, add them to the "compileFlags" attribute.
+    '';
     license = licenses.unfree;
     maintainers = with maintainers; [ ivar ];
-    platforms = platforms.linux;
+    platforms = platforms.unix;
   };
 }
