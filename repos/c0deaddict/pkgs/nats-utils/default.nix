@@ -12,6 +12,8 @@ buildGoModule rec {
   };
 
   vendorSha256 = "0cc43b5j4isd02i70x8wcav824zaj4a0azcnmg5d16l9817gy5n0";
+  # TODO: remove for NixOS >= 20.09
+  modSha256 = vendorSha256;
 
   buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
 
@@ -21,7 +23,7 @@ buildGoModule rec {
 
   overrideModAttrs = _: {
     postBuild = ''
-      sed -i '/## explicit/d' vendor/modules.txt
+      [ -e vendor/modules.txt ] && sed -i '/## explicit/d' vendor/modules.txt
     '';
   };
 
