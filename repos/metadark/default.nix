@@ -30,11 +30,11 @@ rec {
     inherit pygls;
   };
 
+  debugpy = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/debugpy {};
+
   lightdm-webkit2-greeter = pkgs.callPackage ./pkgs/applications/display-managers/lightdm-webkit2-greeter {
     inherit lightdm-webkit2-greeter;
   };
-
-  ptvsd = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/ptvsd {};
 
   pygls = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pygls {};
 
