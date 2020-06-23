@@ -6,10 +6,15 @@
 , ninja
 , pkg-config
 , qtbase
+, qtdeclarative
+, qtgraphicaleffects
 , qttranslations
 , qtquickcontrols2
-, FakeMicWavPlayer
 , pulseaudio
+, libfake
+, libvorbis
+, libogg
+, FakeMicWavPlayer
 }:
 mkDerivation {
 
@@ -20,16 +25,25 @@ mkDerivation {
     owner = "SCOTT-HAMILTON";
     repo = "ControlsForFake";
     rev = "master";
-    sha256 = "0ijcxid2kfp1pq8d1893vfrzrk0j6pgs73y1d5xyc7lc37qv8jr5";
+    sha256 = "058hjh0dbmj11b04zlzlg9pzaia0gaqfm5p3wbizsxjy0bgnys32";
   };
 
   nativeBuildInputs = [ qttranslations qtbase pkg-config ninja meson ];
 
-  buildInputs = [ qtquickcontrols2 qtbase pulseaudio FakeMicWavPlayer ];
+  buildInputs = 
+          [ qtquickcontrols2 qtbase ] # Qt Deps
+      ++  [ pulseaudio libfake libvorbis libogg FakeMicWavPlayer];
 
   postPatch = ''
     substituteInPlace controls-for-fake.desktop \
       --replace @Prefix@ "$out"
+  '';
+
+  postInstall = ''
+    mv $out/bin/ControlsForFake $out/bin/.ControlsForFake-wrapped
+    makeWrapper $out/bin/.ControlsForFake-wrapped $out/bin/ControlsForFake \
+      --set QML2_IMPORT_PATH "${lib.getBin qtquickcontrols2}/lib/qt-5.12.7/qml:${lib.getBin qtdeclarative}/lib/qt-5.12.7/qml:${qtgraphicaleffects}/lib/qt-5.12.7/qml" \
+      --set QT_PLUGIN_PATH "${lib.getBin qtbase}/lib/qt-5.12.7/plugins"
   '';
 
   meta = with lib; {

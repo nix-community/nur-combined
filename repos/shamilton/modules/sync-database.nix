@@ -1,4 +1,4 @@
-{ config, lib, pkgs, options,
+{ config, lib, options,
 home, modulesPath
 }:
 

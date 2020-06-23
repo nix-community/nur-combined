@@ -12,16 +12,20 @@ rec {
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-
+  
+  argparse = pkgs.callPackage ./pkgs/argparse { };
   baobab = pkgs.callPackage ./pkgs/baobab { };
   bomber = pkgs.kdeApplications.callPackage ./pkgs/Bomber { };
   controls-for-fake = pkgs.libsForQt5.callPackage ./pkgs/ControlsForFake  {
+    inherit libfake;
     FakeMicWavPlayer = fake-mic-wav-player;
   };
   day-night-plasma-wallpapers = pkgs.callPackage ./pkgs/day-night-plasma-wallpapers { 
     dbus-python = pkgs.python3Packages.dbus-python;
   };
-  fake-mic-wav-player = pkgs.libsForQt5.callPackage ./pkgs/FakeMicWavPlayer { };
+  fake-mic-wav-player = pkgs.libsForQt5.callPackage ./pkgs/FakeMicWavPlayer {
+    inherit libfake argparse;
+  };
   inkscape = pkgs.callPackage ./pkgs/inkscape-1.0 { 
     lcms = pkgs.lcms2;
   };
@@ -32,6 +36,7 @@ rec {
   killbots = pkgs.kdeApplications.callPackage ./pkgs/Killbots { };
   kirigami-gallery = pkgs.kdeApplications.callPackage ./pkgs/KirigamiGallery { };
   ksmoothdock = pkgs.libsForQt5.callPackage ./pkgs/ksmoothdock { };
+  libfake = pkgs.callPackage ./pkgs/FakeLib { };
   lokalize = pkgs.libsForQt5.callPackage ./pkgs/Lokalize { };
   merge-keepass = with pkgs.python3Packages; pkgs.callPackage ./pkgs/merge-keepass { 
     inherit buildPythonPackage pykeepass click;

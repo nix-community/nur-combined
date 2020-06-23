@@ -3,8 +3,13 @@
 , fetchFromGitHub
 , meson
 , ninja
-, pulseaudio
 , pkg-config
+, cmake
+, pulseaudio
+, libfake
+, libvorbis
+, libogg
+, argparse
 }:
 stdenv.mkDerivation rec {
 
@@ -15,16 +20,16 @@ stdenv.mkDerivation rec {
     owner = "SCOTT-HAMILTON";
     repo = "FakeMicWavPlayer";
     rev = "master";
-    sha256 = "176qhl0lmajf5a8w6rjsklrvab49mm74p38fga63n03999bmnx4h";
+    sha256 = "03afmiazpc3vakbkx57bx12mah1n2479nll5lp8ls2iy03mr79dr";
   };
 
-  nativeBuildInputs = [ pkg-config ninja meson ];
+  nativeBuildInputs = [ pkg-config ninja meson cmake ];
 
-  buildInputs = [ pulseaudio ];
+  buildInputs = [ argparse libogg libvorbis pulseaudio libfake ];
 
   postPatch = ''
-    substituteInPlace pkg-config/fake.pc \
-      --replace @FakeLibPrefix@ $out
+    substituteInPlace pkg-config/fakemicwavplayer.pc \
+      --replace @Prefix@ $out
   '';
 
   meta = with lib; {
