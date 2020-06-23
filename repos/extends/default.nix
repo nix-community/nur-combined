@@ -16,7 +16,7 @@
 
   pscircle = pkgs.callPackage ./pkgs/pscircle {};
   giph = pkgs.callPackage ./pkgs/giph {};
-  cordless = pkgs.callPackages ./pkgs/cordless {};
+  cordless = pkgs.callPackage ./pkgs/cordless {};
   
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
