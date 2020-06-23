@@ -131,10 +131,10 @@
       };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
-      version = "3.3.1";
+      version = "3.4.0";
       addonId = "CookieAutoDelete@kennydo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3576332/cookie_autodelete-3.3.1-an+fx.xpi?src=";
-      sha256 = "c9b3ae0504a32be2365965ba26d060e449d4e86446676063aa5477cc53311854";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3593707/cookie_autodelete-3.4.0-an+fx.xpi?src=";
+      sha256 = "11e52d054d37eacb204bafc93b1f954e7b798d088c86eb7f84062114c08cd04f";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mrdokenny/Cookie-AutoDelete";
@@ -270,10 +270,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.0.2";
+      version = "3.0.3";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3588765/gesturefy-3.0.2-fx.xpi?src=";
-      sha256 = "d14cc6ff846621b53e4bf0fec444023459d906ec37204f98f50c38c1dda445f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3592973/gesturefy-3.0.3-fx.xpi?src=";
+      sha256 = "e03e97e3d55902237b5b92eeba87f741037dae85d23dcbc373c43181ee2ba87e";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -863,10 +863,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "17.5";
+      version = "17.6";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3588392/zoom_page_we-17.5-fx.xpi?src=";
-      sha256 = "aa4cb4e4cff6f37b979c6eaa7757dfa15b62774bfd26239a190ad46c7ac6f056";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3594422/zoom_page_we-17.6-fx.xpi?src=";
+      sha256 = "5d00e3dec14aa86e0cca288464fc76726b7f9228f09722791597f4fee32599b4";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
