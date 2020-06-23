@@ -24,6 +24,8 @@
 
   pridecat = pkgs.callPackage ./pkgs/tools/pridecat {};
 
+  surfraw = pkgs.callPackage ./pkgs/tools/surfraw {};
+
   # applications
   rover = pkgs.callPackage ./pkgs/applications/rover {};
 
