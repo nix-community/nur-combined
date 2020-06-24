@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, flake8, setuptools }:
+{ stdenv, buildPythonPackage, fetchPypi, flake8, setuptools, importlib-metadata, pythonOlder }:
 buildPythonPackage rec {
   pname = "flake8-broken-line";
   version = "0.1.1";
@@ -8,7 +8,12 @@ buildPythonPackage rec {
     sha256 = "0drmmxdnw855wq99zf1zq2y3bgfbar0j00wy18yla7li94vqldrh";
   };
 
-  propagatedBuildInputs = [ flake8 setuptools ];
+  propagatedBuildInputs = [
+    flake8
+    setuptools
+  ] ++ stdenv.lib.optionals (pythonOlder "3.8") [
+    importlib-metadata
+  ];
   # Tests require poetry build from github distribution
   doCheck = false;
 
