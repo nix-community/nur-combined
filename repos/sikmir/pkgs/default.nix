@@ -61,7 +61,11 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / LIBRARIES
 
+    foma = callPackage ./development/libraries/foma {
+      libtool = if pkgs.stdenv.isDarwin then pkgs.darwin.cctools else null;
+    };
     geographiclib = callPackage ./development/libraries/geographiclib {};
+    hfst = callPackage ./development/libraries/hfst {};
     libgarmin = callPackage ./development/libraries/libgarmin {
       automake = pkgs.automake111x;
     };
@@ -87,8 +91,14 @@ lib.makeScope newScope (
     mercantile = python3Packages.callPackage ./development/python-modules/mercantile {
       inherit sources;
     };
+    mikatools = python3Packages.callPackage ./development/python-modules/mikatools {
+      inherit sources;
+    };
     pyephem = python3Packages.callPackage ./development/python-modules/pyephem {
       inherit sources;
+    };
+    python-hfst = python3Packages.callPackage ./development/python-modules/python-hfst {
+      inherit hfst;
     };
     pymbtiles = python3Packages.callPackage ./development/python-modules/pymbtiles {
       inherit sources;

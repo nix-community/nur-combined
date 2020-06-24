@@ -6,10 +6,10 @@
         "homepage": "https://github.com/mananapr/cfiles",
         "owner": "mananapr",
         "repo": "cfiles",
-        "rev": "eab68e44b5ec90395820eb4822fed1b95b6ad538",
-        "sha256": "0dmb62rkmbgzk9xna5447pffpl6jcbgy8k776gk3apprkmk96990",
+        "rev": "c225a0d5ef60d8ce3f3acb0a54951a5c90849644",
+        "sha256": "11qq002gq4xi6vzwgrsr2hf3aj3fcaqcic3hw33mbj27xxxpaah4",
         "type": "tarball",
-        "url": "https://github.com/mananapr/cfiles/archive/eab68e44b5ec90395820eb4822fed1b95b6ad538.tar.gz",
+        "url": "https://github.com/mananapr/cfiles/archive/c225a0d5ef60d8ce3f3acb0a54951a5c90849644.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "cheetah3": {
@@ -103,6 +103,19 @@
         "url": "https://github.com/embox/embox/archive/ad5ed2947ae7ad68e6b0b0400c1a12d1a5114fa2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "foma": {
+        "branch": "master",
+        "builtin": false,
+        "description": "xfst-compatible C++ finite-state transducer library",
+        "homepage": "https://github.com/mhulden/foma",
+        "owner": "mhulden",
+        "repo": "foma",
+        "rev": "7c9984b5ffc38a9a17300a8a64e80ce77356aa32",
+        "sha256": "0kqs7q600xad4dxxiy2jr4fhrb36nj0x7jk6yfyl4569msp7zw2r",
+        "type": "tarball",
+        "url": "https://github.com/mhulden/foma/archive/7c9984b5ffc38a9a17300a8a64e80ce77356aa32.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "gef": {
         "branch": "dev",
         "builtin": false,
@@ -118,27 +131,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "1i6qbxqlfmkb0977ij0aa4a57xp05b0cprs0p5k2b2061iwn6hpq",
+        "sha256": "09yx8p1r8xmdxxnwb6zyad8p1qmqkqmkdwib1021ckyrha18qk1s",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-200613.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-200622.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "200613"
+        "version": "200622"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "1jgfypzn5sjmjwi73zm42v8vmjb6r8i5sxy270h5al20ivlrzdp5",
+        "sha256": "05x347qid3hmr0rqmiagvzhgkk1qp93y8z30p2gj58gaz25v1wrv",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-200613.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-200622.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "200613"
+        "version": "200622"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "1ab9pflrnr382xl3fc6s6q099b587vp10gyqgwmzqvgvaida8dcp",
+        "sha256": "1jz47la92lwh7cyz6a998bjxmg9zgqzgbm6qh6i4p64qw7g14v7x",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200613.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200622.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "200613"
+        "version": "200622"
     },
     "gimgtools": {
         "branch": "master",
@@ -257,6 +270,19 @@
         "url": "https://github.com/OPHoperHPO/GT-bash-client/archive/28842d0fc5eb0aa86bc80dcdc9ef0df2ea43db38.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "hfst": {
+        "branch": "master",
+        "builtin": false,
+        "description": "Helsinki Finite-State Technology (library and application suite)",
+        "homepage": "https://hfst.github.io",
+        "owner": "hfst",
+        "repo": "hfst",
+        "rev": "265bc37a8fc61726f6665b31b82b0214d9b492e0",
+        "sha256": "0bdmnbwfc1zivw20n4s9ccjmzgfhi2v213dlc9d17fylwlx235fi",
+        "type": "tarball",
+        "url": "https://github.com/hfst/hfst/archive/265bc37a8fc61726f6665b31b82b0214d9b492e0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "libshell": {
         "branch": "master",
         "builtin": false,
@@ -316,10 +342,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "916b05a30930c093e30de067de84f5e0ed835bff",
-        "sha256": "0vpcicr9a6pj1qy8i0piapyblizq5sc438zypsja923r2jqihlhf",
+        "rev": "a35fba5201db8030b74e81c9096fe5f672f81e04",
+        "sha256": "05rjxpkhp3yiinir8s0c70hkacnzwwildrcwkxc1myzyiksbbz0q",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/916b05a30930c093e30de067de84f5e0ed835bff.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/a35fba5201db8030b74e81c9096fe5f672f81e04.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -340,11 +366,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "0fr87frypd600ip0rham945az1dvrc30928hcvl6kj8q40dd7lby",
+        "sha256": "05h6m81kkrg1r9wknr0kz43mapljd0rqsy172ibnf9mfwp3mh5fq",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-06-13.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-06-23.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-06-13"
+        "version": "2020-06-23"
     },
     "mbtileserver": {
         "branch": "master",
@@ -366,10 +392,23 @@
         "homepage": "https://github.com/mapbox/mercantile",
         "owner": "mapbox",
         "repo": "mercantile",
-        "rev": "4cd0c36df219496a897224242ad4d46ce2815c11",
-        "sha256": "0g2r3dwa04ih2f3yqayba07hn0i6z6109snfy2n99byibx2si87j",
+        "rev": "9e7b52f6a2019f904b2ceba3f5f9ca6ac8f02b80",
+        "sha256": "0nz18k9lcr3nm81s0xpgymhgkx3m3bhirczzpj2bqj0lpgh93bxr",
         "type": "tarball",
-        "url": "https://github.com/mapbox/mercantile/archive/4cd0c36df219496a897224242ad4d46ce2815c11.tar.gz",
+        "url": "https://github.com/mapbox/mercantile/archive/9e7b52f6a2019f904b2ceba3f5f9ca6ac8f02b80.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "mikatools": {
+        "branch": "master",
+        "builtin": false,
+        "description": "Mikatools provides fast and easy methods for common Python coding tasks",
+        "homepage": "https://github.com/mikahama/mikatools",
+        "owner": "mikahama",
+        "repo": "mikatools",
+        "rev": "64a21f2af5c22f0f6ea8bb895286f260bcf61d00",
+        "sha256": "17wbddjz2jggqbb10c67lns2ni632ixd1rjfxbgiyja1fckzgx2x",
+        "type": "tarball",
+        "url": "https://github.com/mikahama/mikatools/archive/64a21f2af5c22f0f6ea8bb895286f260bcf61d00.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "morse-talk": {
@@ -389,11 +428,11 @@
         "builtin": false,
         "description": "Maanmittauslaitoksen peruskartan tasoiset ja näköiset ilmaiset maastokartat",
         "homepage": "https://kartat.hylly.org/",
-        "sha256": "0kyj5l3g9vkkxb11lpzz4xczn4gz9cj2gap7xxmq4ijljalbm9pj",
+        "sha256": "1iwswyn60dhc92n7dhyx4smqqf9dqbjdijv49lakc3rckpwnccax",
         "type": "file",
-        "url": "https://kartat-dl.hylly.org/2020-05-26/mtk_suomi.img",
+        "url": "https://kartat-dl.hylly.org/2020-05-30/mtk_suomi.img",
         "url_template": "https://kartat-dl.hylly.org/<version>/mtk_suomi.img",
-        "version": "2020-05-26"
+        "version": "2020-05-30"
     },
     "nakarte": {
         "branch": "master",
@@ -415,10 +454,10 @@
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "c5f0a25e7e8bf09df7f495af907f8a7d4f967cbd",
-        "sha256": "1var56sssafz0vlji8xbqnvvnnhfms4i8rj70771zw7vv104k81m",
+        "rev": "306af787ca465eaf2b075bbc804603706f00b0fa",
+        "sha256": "1s5cz83j1gy4hrkr4kizblk9kh0049lpnc3id7baxqspb16vzc66",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/c5f0a25e7e8bf09df7f495af907f8a7d4f967cbd.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/306af787ca465eaf2b075bbc804603706f00b0fa.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "openmtbmap_openvelomap_linux": {

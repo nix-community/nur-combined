@@ -1,0 +1,28 @@
+{ stdenv, bison, flex, libtool, ncurses, readline, zlib, sources }:
+
+stdenv.mkDerivation rec {
+  pname = "foma";
+  version = stdenv.lib.substring 0 7 src.rev;
+  src = sources.foma;
+
+  nativeBuildInputs = [ bison flex libtool ];
+
+  buildInputs = [ ncurses readline zlib ];
+
+  postPatch = ''
+    substituteInPlace foma/Makefile \
+      --replace "CC = gcc" "#CC = gcc" \
+      --replace "-ltermcap" "-lncurses"
+  '';
+
+  preConfigure = "cd foma";
+
+  makeFlags = [ "prefix=$(out)" ];
+
+  meta = with stdenv.lib; {
+    inherit (src) description homepage;
+    license = licenses.asl20;
+    maintainers = with maintainers; [ sikmir ];
+    platforms = platforms.unix;
+  };
+}
