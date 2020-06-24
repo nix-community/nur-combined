@@ -3,7 +3,7 @@ let
   repo = "https://git.sr.ht/~sircmpwn/annotatego";
   rev = "bf211688254ff94c3221640925c4608e4738c9d1";
 in
-buildGoModule {
+buildGoModule rec {
   name = "annotatego";
 
   src = fetchzip {
@@ -11,7 +11,18 @@ buildGoModule {
     sha256 = "0phhi7qvfsw0yzpys6vaa3anbgziwwj3zz6c8yh6jak6ngky6b7k";
   };
 
-  modSha256 = "1qszxz7wpbb664h6a9imqyc3zasyigygb409r1lll741mk43ndrx";
+  getopt = fetchzip {
+    url = "https://git.sr.ht/~sircmpwn/getopt/archive/292febf82fd04108e41c3ddf8948669d073267da.tar.gz";
+    sha256 = "0jm50ja0pq1m3chhv21rp1mmwvadxinbyl1kdm73i7fyz3b1r2r6";
+  };
+
+  vendorSha256 = "0910zxyngi7cl9x51hhaw5wwlg2x1nmyf48anp7bmh9nryyb8bvy";
+
+  overrideModAttrs = (_: {
+    postBuild = ''
+      cp -r --reflink=auto ${getopt} vendor/git.sr.ht/~sircmpwn/getopt
+    '';
+  });
 
   nativeBuildInputs = [ makeWrapper ];
 

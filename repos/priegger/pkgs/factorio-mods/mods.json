@@ -54,10 +54,10 @@
   },
   {
     "name": "aai-vehicles-miner",
-    "version": "0.5.5",
-    "file_name": "aai-vehicles-miner_0.5.5.zip",
-    "download_url": "/download/aai-vehicles-miner/5ece9fb9cbd352000c89f017",
-    "sha1": "41b288a4e271257f04ad067fffd663c87d2950a7",
+    "version": "0.5.6",
+    "file_name": "aai-vehicles-miner_0.5.6.zip",
+    "download_url": "/download/aai-vehicles-miner/5ef0cd6d96a569000e4aae41",
+    "sha1": "4f0cc0dccaed36fa84a21a37d62b8cd35809bebc",
     "dependencies": [
       "base >= 0.18.27"
     ]
@@ -606,10 +606,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "7.0.3",
-    "file_name": "reverse-factory_7.0.3.zip",
-    "download_url": "/download/reverse-factory/5ed1b66fb7bb31000b019518",
-    "sha1": "459fe50bbe32faa08b5c068814ac7553097aec6b",
+    "version": "7.0.5",
+    "file_name": "reverse-factory_7.0.5.zip",
+    "download_url": "/download/reverse-factory/5ef1421a49b1d9000cae5730",
+    "sha1": "d12cd97f25d98e748817b181248c0344c3588d1f",
     "dependencies": [
       "base",
       "stdlib",
@@ -646,20 +646,20 @@
   },
   {
     "name": "RPGsystem",
-    "version": "0.18.47",
-    "file_name": "RPGsystem_0.18.47.zip",
-    "download_url": "/download/RPGsystem/5ee4e1b5bfa2bf000bd8bfbf",
-    "sha1": "9d53dcfaeaf239672d31992915e6937e9861c630",
+    "version": "0.18.49",
+    "file_name": "RPGsystem_0.18.49.zip",
+    "download_url": "/download/RPGsystem/5eee169e8bb9df000c967ff4",
+    "sha1": "3f31306e8fa7d7588b63678ac37104975c136c48",
     "dependencies": [
       "base >= 0.18.22"
     ]
   },
   {
     "name": "rso-mod",
-    "version": "6.0.9",
-    "file_name": "rso-mod_6.0.9.zip",
-    "download_url": "/download/rso-mod/5eaeb3374470bd000bcebfad",
-    "sha1": "6fc663a6b3fc05d04443bc878268bbce494458fe",
+    "version": "6.0.10",
+    "file_name": "rso-mod_6.0.10.zip",
+    "download_url": "/download/rso-mod/5eef528355f19e003737aeb5",
+    "sha1": "2f2965930ed35df5cd5fbc881ba1528291f0c0cd",
     "dependencies": [
       "base >= 0.17.33",
       "? bobenemies",
