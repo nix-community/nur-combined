@@ -238,10 +238,10 @@
         "homepage": "https://tumic0.github.io/GPXSee-maps",
         "owner": "tumic0",
         "repo": "GPXSee-maps",
-        "rev": "56d9887b1cf1057743fc9467dcb676b2c3f052ce",
-        "sha256": "0pa7lmkryf9dqpc6wfgsyx2cmawljq0b91glcfg69xjdg7dxv64c",
+        "rev": "64df79d7d6066b850039176182a52c528610badc",
+        "sha256": "1cbqj8h0s3l97w6ndhh2l1wp8w6v0l92j7zd69ghand50p2jnq8q",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee-maps/archive/56d9887b1cf1057743fc9467dcb676b2c3f052ce.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee-maps/archive/64df79d7d6066b850039176182a52c528610badc.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxtools": {
@@ -342,10 +342,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "a35fba5201db8030b74e81c9096fe5f672f81e04",
-        "sha256": "05rjxpkhp3yiinir8s0c70hkacnzwwildrcwkxc1myzyiksbbz0q",
+        "rev": "0e06e7beb9a60890d80eef9a2bf9c752eb393e04",
+        "sha256": "1s3206bfq36hc0iyd93lhc8x4prqrazj9rk9qw9jmjb8cxg0m5lf",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/a35fba5201db8030b74e81c9096fe5f672f81e04.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/0e06e7beb9a60890d80eef9a2bf9c752eb393e04.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -366,11 +366,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "05h6m81kkrg1r9wknr0kz43mapljd0rqsy172ibnf9mfwp3mh5fq",
+        "sha256": "0iq0z1ibr8sbilxxxzyais4fmzplyjq5ghzmmmgh3xlkm9yjpl59",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-06-23.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-06-26.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-06-23"
+        "version": "2020-06-26"
     },
     "mbtileserver": {
         "branch": "master",
@@ -458,6 +458,19 @@
         "sha256": "0b4yzslna9h2i14mnc05p9r9n3lwn82q3nan392w15bcv5am5zl7",
         "type": "tarball",
         "url": "https://github.com/jarun/nnn/archive/235eb296149ff1d16accadc37c52542b7f18ef2d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "odict": {
+        "branch": "master",
+        "builtin": false,
+        "description": "A blazingly-fast replacement for Apple Dictionaries, Babylon, StarDict, etc.",
+        "homepage": "https://odict.org",
+        "owner": "odict",
+        "repo": "odict",
+        "rev": "0a0a6e6a592ccca3f304fcb4bd4ab7c25e181185",
+        "sha256": "14422lg280rmsbgj1n9r013zbdjk210b9czr8p0pa09d70jx24dw",
+        "type": "tarball",
+        "url": "https://github.com/odict/odict/archive/0a0a6e6a592ccca3f304fcb4bd4ab7c25e181185.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "openmtbmap_openvelomap_linux": {

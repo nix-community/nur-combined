@@ -138,6 +138,7 @@ lib.makeScope newScope (
       inherit cgpsmapper ocad2mp;
     };
     ocad2mp = callPackage ./tools/geo/ocad2mp {};
+    odict = callPackage ./tools/dict/odict {};
     openmtbmap_openvelomap_linux = callPackage ./tools/geo/openmtbmap_openvelomap_linux {};
     osm2mp = perlPackages.callPackage ./tools/geo/osm2mp {
       inherit sources;
