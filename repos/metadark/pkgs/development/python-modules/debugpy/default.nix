@@ -59,8 +59,8 @@ buildPythonPackage rec {
                + stdenv.lib.optionalString isPy27 " -k 'not test_gevent'";
 
   meta = with stdenv.lib; {
+    description = "An implementation of the Debug Adapter Protocol for Python";
     homepage = "https://github.com/microsoft/debugpy";
-    description = "Python debugger package for use with Visual Studio and Visual Studio Code";
     license = licenses.mit;
     maintainers = with maintainers; [ metadark ];
     platforms = [ "x86_64-linux" "i686-linux" "x86_64-darwin" "i686-darwin" ];

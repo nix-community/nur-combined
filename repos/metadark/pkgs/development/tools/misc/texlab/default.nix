@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "An implementation of the Language Server Protocol for LaTeX";
-    homepage = "https://texlab.netlify.com/";
+    homepage = "https://texlab.netlify.app";
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar metadark ];
     platforms = platforms.all;

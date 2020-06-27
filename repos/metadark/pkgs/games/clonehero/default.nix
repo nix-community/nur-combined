@@ -54,8 +54,8 @@ in stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Clone of Guitar Hero and Rockband-style games";
     homepage = "https://clonehero.net";
-    maintainers = with maintainers; [ metadark ];
     license = licenses.unfree;
+    maintainers = with maintainers; [ metadark ];
     platforms = [ "x86_64-linux" ];
   };
 }

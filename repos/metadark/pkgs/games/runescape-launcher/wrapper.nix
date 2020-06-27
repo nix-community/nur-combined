@@ -26,7 +26,7 @@ in buildFHSUserEnv rec {
     # > patchelf --print-needed ~/Jagex/launcher/rs2client
     glibc
     libGL
-    openssl
+    openssl_1_0_2
     SDL2
     zlib
 

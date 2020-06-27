@@ -19,8 +19,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = "https://github.com/openlawlibrary/pygls";
     description = "Pythonic generic implementation of the Language Server Protocol";
+    homepage = "https://github.com/openlawlibrary/pygls";
     license = licenses.asl20;
     maintainers = with maintainers; [ metadark ];
   };

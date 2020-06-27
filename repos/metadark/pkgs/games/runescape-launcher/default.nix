@@ -34,12 +34,12 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "RuneScape Game Client (NXT)";
     homepage = "https://www.runescape.com";
-    maintainers = with maintainers; [ metadark ];
     license = {
       fullName = "RuneScape EULA";
       url = "http://content.runescape.com/downloads/LICENCE.txt";
       free = false;
     };
+    maintainers = with maintainers; [ metadark ];
     platforms = [ "x86_64-linux" ];
   };
 }

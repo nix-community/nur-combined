@@ -1,8 +1,8 @@
 diff --git a/desktop_version/CMakeLists.txt b/desktop_version/CMakeLists.txt
-index e1b64fa..439a041 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -168,19 +168,14 @@ if (DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)
+index 01dd28b..5608a9c 100644
+--- a/desktop_version/CMakeLists.txt
++++ b/desktop_version/CMakeLists.txt
+@@ -199,20 +199,14 @@ if (DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)
  	target_include_directories(VVVVVV PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
  	target_link_libraries(VVVVVV ${SDL2_LIBRARIES})
  else()
@@ -16,7 +16,8 @@ index e1b64fa..439a041 100644
 -		target_link_libraries(VVVVVV SDL2 SDL2_mixer)
 -	else()
 -		message(STATUS "No TARGET SDL2::SDL2, or SDL2, using variables")
--		target_include_directories(VVVVVV PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
+-		find_path(SDL2_MIXER_INCLUDE_DIRS NAMES SDL_mixer.h PATH_SUFFIXES SDL2)
+-		target_include_directories(VVVVVV PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>" ${SDL2_MIXER_INCLUDE_DIRS})
 -		target_link_libraries(VVVVVV ${SDL2_LIBRARIES} SDL2_mixer)
 -	endif()
 +	find_path(SDL2_INCLUDE_DIR SDL.h PATH_SUFFIXES SDL2)
