@@ -30,10 +30,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ python3 pkg-config ];
   buildInputs = [ audiofile SDL2 hexdump ];
 
-  inherit baseRom;
-
   makeFlags = [ "VERSION=${region}" ] ++ compileFlags
   ++ stdenv.lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ];
+
+  inherit baseRom;
 
   preBuild = ''
     patchShebangs extract_assets.py
