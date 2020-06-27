@@ -14,7 +14,6 @@
 , libgcrypt
 , gettext
 , python3
-, gcc9
 , wrapCCWith
 , wrapBintoolsWith
 , binutils-unwrapped
@@ -26,22 +25,23 @@
 , json_c
 , curl
 , openssl
+, gcc
 }:
 let
-  gcc9-nolibc = wrapCCWith {
-    inherit (gcc9) cc;
+  gcc-nolibc = wrapCCWith {
+    inherit (gcc) cc;
     bintools = wrapBintoolsWith {
       bintools = binutils-unwrapped;
       libc = null;
     };
     extraBuildCommands = ''
-      sed -i '2i if ! [[ $@ == *'musl-gcc.specs'* ]]; then exec ${gcc9}/bin/gcc -L${glibc}/lib -L${glibc.static}/lib "$@"; fi' \
+      sed -i '2i if ! [[ $@ == *'musl-gcc.specs'* ]]; then exec ${gcc}/bin/gcc -L${glibc}/lib -L${glibc.static}/lib "$@"; fi' \
         $out/bin/gcc
 
-      sed -i '2i if ! [[ $@ == *'musl-gcc.specs'* ]]; then exec ${gcc9}/bin/g++ -L${glibc}/lib -L${glibc.static}/lib "$@"; fi' \
+      sed -i '2i if ! [[ $@ == *'musl-gcc.specs'* ]]; then exec ${gcc}/bin/g++ -L${glibc}/lib -L${glibc.static}/lib "$@"; fi' \
         $out/bin/g++
 
-      sed -i '2i if ! [[ $@ == *'musl-gcc.spec'* ]]; then exec ${gcc9}/bin/cpp "$@"; fi' \
+      sed -i '2i if ! [[ $@ == *'musl-gcc.spec'* ]]; then exec ${gcc}/bin/cpp "$@"; fi' \
         $out/bin/cpp
     '';
   };
@@ -86,24 +86,51 @@ let
       url = "https://git.zx2c4.com/WireGuard/snapshot/WireGuard-0.0.20190227.tar.xz";
       sha256 = "0ybzycpjjidyiz88kkh67abvp3y30f34252dwpgf3ncj4vyjdnzw";
     };
+
+    host-musl = fetchFromGitHub {
+      owner = "lsds";
+      repo = "musl";
+      rev = "1691b23955590d1eb66a11158fdd91c86337e886";
+      sha256 = "0ffl7b9qi6jl5jr42230xsasbc49sxsy77lm2di90gqvl3gpydc8";
+    };
+
+    lkl = fetchFromGitHub {
+      owner = "lkl";
+      repo = "linux";
+      rev = "58dc2025bf469d880d76250e682dd8e4ed225a6b";
+      sha256 = "000m1965x8ns0fkmhln6598rrafib7sd373g7c1yfd8v1laxf443";
+    };
+
+    sgx-lkl-musl = fetchFromGitHub {
+      owner = "lsds";
+      repo = "sgx-lkl-musl";
+      rev = "22c91c211aaf4048a4f034084bb7fa202bd6071c";
+      sha256 = "16x02jv78mhysvl81px48mc1zjszjxjda8zqpzdk1937jy6yrqis";
+    };
   };
 in
 stdenv.mkDerivation {
   pname = "sgx-lkl";
   version = "2019-11-19";
 
+  # We don't fetch submodules here because downloading the linux repo as git takes too long; tarballs are much faster
   src = fetchFromGitHub {
     owner = "lsds";
     repo = "sgx-lkl";
     rev = "a4fc0cc6fea39f30d33783e55626afbff3c7a871";
-    sha256 = "16j5j32wk70b8j4ghw41f8fqwv7wgfkgayd0v7xhns162sqqprm1";
-    fetchSubmodules = true;
+    sha256 = "1d7dj7gdzyn3rp7achkr8ar29pg0lijh7m7yd1n26gkbvqljrahp";
   };
 
   KBUILD_BUILD_HOST = "nix";
 
   postPatch = ''
+    rm -r lkl sgx-lkl-musl host-musl
+    cp -r ${srcs.sgx-lkl-musl} sgx-lkl-musl && chmod -R u+w sgx-lkl-musl
+    cp -r ${srcs.lkl} lkl && chmod -R u+w lkl
+    cp -r ${srcs.host-musl} host-musl && chmod -R u+w host-musl
+
     patchShebangs lkl/arch/lkl/scripts/headers_install.py
+    patchShebangs host-musl/configure
     pushd third_party
     cp -r ${srcs.cryptsetup} cryptsetup && chmod -R u+w cryptsetup
     cp -r ${srcs.devicemapper} devicemapper && chmod -R u+w devicemapper
@@ -142,7 +169,7 @@ stdenv.mkDerivation {
     libtool
     libgcrypt
     gettext
-    gcc9-nolibc
+    gcc-nolibc
     pkgconfig
     bc
     bison
@@ -158,6 +185,5 @@ stdenv.mkDerivation {
     description = "SGX-LKL Library OS for running Linux applications inside of Intel SGX enclaves";
     homepage = "https://github.com/lsds/sgx-lkl";
     license = licenses.mit;
-    broken = true;
   };
 }

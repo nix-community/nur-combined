@@ -30,6 +30,8 @@ rec {
 
   gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard { };
 
+  graphene = pkgs.callPackage ./pkgs/graphene { };
+
   healthcheck = pkgs.callPackage ./pkgs/healthcheck { };
 
   hello-nur = pkgs.callPackage ./pkgs/hello-nur { };
@@ -58,6 +60,12 @@ rec {
 
   rspamd-learn-spam-ham = pkgs.python3.pkgs.callPackage ./pkgs/rspam-learn-spam-ham {};
 
+  rhasspyPackages = import ./pkgs/rhasspy {
+    inherit (pkgs.python3Packages) callPackage;
+  };
+
+  inherit (rhasspyPackages) rhasspy;
+
   rnix-lsp-unstable = pkgs.callPackage ./pkgs/rnix-lsp { };
 
   sgx-lkl = pkgs.callPackage ./pkgs/sgx-lkl { };
@@ -70,11 +78,13 @@ rec {
 
   threema-web = pkgs.callPackage ./pkgs/threema-web { };
 
-  xterm-24bit-terminfo = pkgs.callPackage ./pkgs/xterm-24bit-terminfo { };
-
   # smashing = pkgs.callPackage ./pkgs/smashing {};
 
   pandoc-bin = pkgs.callPackage ./pkgs/pandoc { };
+
+  patool = pkgs.python3.pkgs.callPackage ./pkgs/patool {
+    inherit (pkgs) libarchive;
+  };
 
   peep = pkgs.callPackage ./pkgs/peep { };
 
@@ -92,11 +102,9 @@ rec {
 
   pyps4-2ndscreen = pkgs.python3.pkgs.toPythonApplication python3Packages.pyps4-2ndscreen;
 
-  rhasspyPackages = import ./pkgs/rhasspy {
-    inherit (pkgs.python3Packages) callPackage;
-  };
+  mypyls = pkgs.python3.pkgs.callPackage ./pkgs/mypyls {};
 
-  inherit (rhasspyPackages) rhasspy;
+  term-24bit-terminfo = pkgs.callPackage ./pkgs/xterm-24bit-terminfo { };
 
   yubikey-touch-detector = pkgs.callPackage ./pkgs/yubikey-touch-detector { };
 
