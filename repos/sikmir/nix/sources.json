@@ -19,10 +19,10 @@
         "homepage": "https://cheetahtemplate.org/",
         "owner": "CheetahTemplate3",
         "repo": "cheetah3",
-        "rev": "5553d01ec405e06321c2e2a67a526499a28617d3",
-        "sha256": "18nz6wg55vklk8rbgdgw710gfba2bz95nk0dgg45haz3zry7rng0",
+        "rev": "a6fb302197444eb5bc42f74da5d272eeb97582d7",
+        "sha256": "18r8vj44v96ndiyqyfpmmb609b2102yq20hckmyp3bl450xbxpqy",
         "type": "tarball",
-        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/5553d01ec405e06321c2e2a67a526499a28617d3.tar.gz",
+        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/a6fb302197444eb5bc42f74da5d272eeb97582d7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "csvquote": {
@@ -123,10 +123,10 @@
         "homepage": "http://gef.rtfd.io",
         "owner": "hugsy",
         "repo": "gef",
-        "rev": "d09215a785591560a9310931d7316d98915ade67",
-        "sha256": "0hkxv8h18a1lxmvbgcxjbpw5ls0irkf1i0yvhd2var8gznhmlc7i",
+        "rev": "c206d371856e529d4eba0f6aefbfa8dcd1f7769c",
+        "sha256": "0z0lnrps4xnhhfr4ghwzc7ya26m8ncyz3fzw0j7vgy4k122hsjgf",
         "type": "tarball",
-        "url": "https://github.com/hugsy/gef/archive/d09215a785591560a9310931d7316d98915ade67.tar.gz",
+        "url": "https://github.com/hugsy/gef/archive/c206d371856e529d4eba0f6aefbfa8dcd1f7769c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geofabrik-estonia": {
@@ -264,10 +264,10 @@
         "homepage": "https://ophoperhpo.github.io/GT-bash-client/",
         "owner": "OPHoperHPO",
         "repo": "GT-bash-client",
-        "rev": "28842d0fc5eb0aa86bc80dcdc9ef0df2ea43db38",
-        "sha256": "1zsb2506apgqfl9zs8g33vh4ib3sb34xr55rk51q5zc3l4a149yq",
+        "rev": "215c1ce8b5a99c117e152300e32d0899cd63755c",
+        "sha256": "0j2xz9va6zhacjasck55yx1sc996iknm17d6x93lrx05kfwp0nvm",
         "type": "tarball",
-        "url": "https://github.com/OPHoperHPO/GT-bash-client/archive/28842d0fc5eb0aa86bc80dcdc9ef0df2ea43db38.tar.gz",
+        "url": "https://github.com/OPHoperHPO/GT-bash-client/archive/215c1ce8b5a99c117e152300e32d0899cd63755c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "hfst": {
@@ -441,10 +441,10 @@
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "50811c5d1a904d46bfb7afb6af46fd7c33e7ec67",
-        "sha256": "0f7bkph0950x77ynkxx6y6kqpavbm33znls58a7hnlsvxvnh9pzb",
+        "rev": "379c622bf117ed50d512d335de2263fa63e6fe0b",
+        "sha256": "1j529bv8w80lzqa91s9hasb39r1wfy1l7q0600bc3ik4zf7v0ivk",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/50811c5d1a904d46bfb7afb6af46fd7c33e7ec67.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/379c622bf117ed50d512d335de2263fa63e6fe0b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
@@ -454,10 +454,10 @@
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "306af787ca465eaf2b075bbc804603706f00b0fa",
-        "sha256": "1s5cz83j1gy4hrkr4kizblk9kh0049lpnc3id7baxqspb16vzc66",
+        "rev": "235eb296149ff1d16accadc37c52542b7f18ef2d",
+        "sha256": "0b4yzslna9h2i14mnc05p9r9n3lwn82q3nan392w15bcv5am5zl7",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/306af787ca465eaf2b075bbc804603706f00b0fa.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/235eb296149ff1d16accadc37c52542b7f18ef2d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "openmtbmap_openvelomap_linux": {
@@ -467,10 +467,10 @@
         "homepage": "https://github.com/btittelbach/openmtbmap_openvelomap_linux",
         "owner": "btittelbach",
         "repo": "openmtbmap_openvelomap_linux",
-        "rev": "6d00e273d7391fae72fb7fd21859483db3e26c1a",
-        "sha256": "17az6k4z71k85ibcabka6yig6bnpk6fknmgx9ilk1x74rifaz06s",
+        "rev": "de24cd5d4168d8571c544ac42c51883af957a01a",
+        "sha256": "1llhdxd9205cj2v0vxynxx9hwliw7pk7w1pac58dmsrwp5h54kr7",
         "type": "tarball",
-        "url": "https://github.com/btittelbach/openmtbmap_openvelomap_linux/archive/6d00e273d7391fae72fb7fd21859483db3e26c1a.tar.gz",
+        "url": "https://github.com/btittelbach/openmtbmap_openvelomap_linux/archive/de24cd5d4168d8571c544ac42c51883af957a01a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "osm2mp": {

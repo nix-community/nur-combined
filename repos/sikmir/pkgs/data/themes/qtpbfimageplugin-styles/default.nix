@@ -17,5 +17,6 @@ stdenv.mkDerivation rec {
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.all;
+    skip.ci = true;
   };
 }

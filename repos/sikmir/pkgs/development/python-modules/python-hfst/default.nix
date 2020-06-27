@@ -4,11 +4,11 @@ buildPythonPackage rec {
   pname = "python-hfst";
   inherit (hfst) src version;
 
+  sourceRoot = "source/python";
+
   buildInputs = [ hfst ];
 
   nativeBuildInputs = [ swig ];
-
-  preConfigure = "cd python";
 
   meta = with lib; {
     description = "Python bindings for HFST";

@@ -5,17 +5,17 @@ stdenv.mkDerivation rec {
   version = stdenv.lib.substring 0 7 src.rev;
   src = sources.foma;
 
+  sourceRoot = "source/foma";
+
   nativeBuildInputs = [ bison flex libtool ];
 
   buildInputs = [ ncurses readline zlib ];
 
   postPatch = ''
-    substituteInPlace foma/Makefile \
+    substituteInPlace Makefile \
       --replace "CC = gcc" "#CC = gcc" \
       --replace "-ltermcap" "-lncurses"
   '';
-
-  preConfigure = "cd foma";
 
   makeFlags = [ "prefix=$(out)" ];
 

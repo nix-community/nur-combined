@@ -165,6 +165,7 @@ lib.makeScope newScope (
 
     mbtileserver = callPackage ./servers/mbtileserver {};
     nakarte = callPackage ./servers/nakarte {};
+    shavit = callPackage ./servers/shavit {};
 
     ### MISC
 
