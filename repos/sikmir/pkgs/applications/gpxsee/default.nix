@@ -35,6 +35,8 @@ mkDerivation rec {
     mkdir -p $out/Applications
     mv GPXSee.app $out/Applications
     wrapQtApp $out/Applications/GPXSee.app/Contents/MacOS/GPXSee
+    mkdir -p $out/bin
+    ln -s $out/Applications/GPXSee.app/Contents/MacOS/GPXSee $out/bin/gpxsee
   '';
 
   enableParallelBuilding = true;

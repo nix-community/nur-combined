@@ -35,6 +35,8 @@ mkDerivation rec {
     mkdir -p $out/Applications
     mv GPXLab/GPXLab.app $out/Applications
     wrapQtApp $out/Applications/GPXLab.app/Contents/MacOS/GPXLab
+    mkdir -p $out/bin
+    ln -s $out/Applications/GPXLab.app/Contents/MacOS/GPXLab $out/bin/gpxlab
   '';
 
   enableParallelBuilding = true;

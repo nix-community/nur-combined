@@ -72,6 +72,8 @@ mkDerivation rec {
     # Fixes "This application failed to start because it could not find or load the Qt
     # platform plugin "cocoa"."
     wrapQtApp $out/Applications/Mapper.app/Contents/MacOS/Mapper
+    mkdir -p $out/bin
+    ln -s $out/Applications/Mapper.app/Contents/MacOS/Mapper $out/bin/mapper
   '';
 
   meta = with lib; {
