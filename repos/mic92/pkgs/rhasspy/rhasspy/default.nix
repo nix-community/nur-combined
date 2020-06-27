@@ -41,6 +41,8 @@
 , alsaUtils
 , curl
 , gzip
+, perl
+, diffutils
 }:
 
 buildPythonPackage rec {
@@ -109,6 +111,8 @@ buildPythonPackage rec {
         alsaUtils
         curl
         gzip
+        perl
+        diffutils
       ]}" \
       --set PYTHONPATH "$PYTHONPATH"
      ln -s -t $out/share/rhasspy ${rhasspy-server-hermes}/share/rhasspy/{web,templates}
