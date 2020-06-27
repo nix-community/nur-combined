@@ -1,8 +1,8 @@
 diff --git a/src/index.ts b/src/index.ts
-index 5901ab7..7fc0439 100644
+index 5d3c162..242f8eb 100644
 --- a/src/index.ts
 +++ b/src/index.ts
-@@ -17,19 +17,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
+@@ -17,20 +17,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
  
    const bin = ctx.resolveBin();
    if (!bin) {
@@ -12,6 +12,7 @@ index 5901ab7..7fc0439 100644
 -      try {
 -        await downloadServer(context, config.channel);
 -      } catch (e) {
+-        console.error(e);
 -        msg = 'Download rust-analyzer failed, you can get it from https://github.com/rust-analyzer/rust-analyzer';
 -        workspace.showMessage(msg, 'error');
 -        return;

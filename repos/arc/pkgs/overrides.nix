@@ -52,7 +52,7 @@ let
         super = notmuch;
       };
     });
-    vim_configurable-pynvim = { vim_configurable, python3 }: vim_configurable.override {
+    vim_configurable-pynvim = { vim_configurable, python3 }: (vim_configurable.override {
       # vim with python3
       python = python3.withPackages(ps: with ps; [ pynvim ]);
       wrapPythonDrv = true;
@@ -61,7 +61,12 @@ let
       multibyteSupport = true;
       ftNixSupport = false; # provided by "vim-nix" plugin
       # TODO: fully disable X11?
-    };
+    }).overrideAttrs (old: {
+      passthru = old.passthru or {} // {
+        # TODO: remove me when https://github.com/NixOS/nixpkgs/pull/91150 lands
+        ci.skip = true;
+      };
+    });
 
     rxvt-unicode-cvs-unwrapped = { rxvt-unicode-unwrapped ? null, fetchcvs, stdenv }: let
       drv = rxvt-unicode-unwrapped.overrideAttrs (old: rec {
@@ -116,12 +121,8 @@ let
       };
     });
 
-    buku = { buku }: buku.overrideAttrs (old: {
+    buku = { buku }: buku.overrideAttrs (_: {
       doInstallCheck = false;
-      passthru = old.passthru or {} // {
-        # TODO: remove me when flask-admin is fixed
-        ci.skip = true;
-      };
     });
 
     weechat-arc = { lib, wrapWeechat, weechat-unwrapped, weechatScripts, python3Packages }: let
