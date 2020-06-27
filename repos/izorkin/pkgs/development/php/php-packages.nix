@@ -388,10 +388,10 @@ let
   };
 
   pcs = buildPecl {
-    version = "1.3.5";
+    version = "1.3.7";
     pname = "pcs";
 
-    sha256 = "11vp2jc37awspnp76mdli48y0igwbynspxsqfm4nm835z1r40ssf";
+    sha256 = "097676akx2p6wvc58py2fjc3bv2x760z1g6mv0kh4wx5wr4n9zdx";
 
     meta.broken = isPhp80;
   };
@@ -523,12 +523,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.28";
+    version = "0.12.30";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "1qch7laxxhyq3adbcns0hwmzkafhzj8lhdkj82n3mlxjczq3b4n1";
+      sha256 = "0gr014b6y3ph6aa73ffhl76m5aig24vq59krzfmvbcs4p3skwwhb";
     };
 
     phases = [ "installPhase" ];
@@ -647,12 +647,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.11.5";
+    version = "3.12.1";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "005cziqkq54326w7rm4vscscnrz1gjp2gjk08dx9kwabpcykbhsz";
+      sha256 = "0m23hls8afmcdar9n8g1ygimn9928hfdik2mx92fays7vmmhnfxw";
     };
 
     phases = [ "installPhase" ];
@@ -787,6 +787,22 @@ let
     sha256 = "0c9a6ghch2537vi0274vx0mn6nb1xg2qv7nprnf3xdfqi5ww1i9r";
 
     buildInputs = with pkgs; [ unixODBC ];
+
+    meta.broken = (isPhp56 || isPhp80);
+  };
+
+  snuffleupagus = buildPecl rec {
+    version = "0.5.1";
+    pname = "snuffleupagus";
+
+    src = pkgs.fetchurl {
+      url = "https://github.com/jvoisin/snuffleupagus/archive/v${version}.tar.gz";
+      sha256 = "0bzkzhw2cc55l8l05bx2n7hizr5v4dig63ywckiriivdi2a2jsbl";
+    };
+
+    sourceRoot = "snuffleupagus-${version}/src";
+
+    buildInputs = with pkgs; [ pcre.dev pcre2.dev ];
 
     meta.broken = (isPhp56 || isPhp80);
   };

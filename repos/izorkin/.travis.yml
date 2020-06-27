@@ -1,7 +1,7 @@
 language: nix
 nix: 2.3.4
 
-sudo: false
+sudo: true
 
 env:
   global:
@@ -14,6 +14,7 @@ matrix:
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable-small
 
 install:
+ - travis_retry echo "trusted-users = root travis" | sudo tee -a /etc/nix/nix.conf && sudo pkill nix-daemon
  - nix --version
  - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
  - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
