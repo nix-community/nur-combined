@@ -52,9 +52,13 @@ rec {
   ssh2-python = with pkgs.python3Packages; pkgs.callPackage ./pkgs/ssh2-python {
     inherit buildPythonPackage fetchPypi cython setuptools pytest;
   };
+  super-tux-kart = pkgs.callPackage ./pkgs/SuperTuxKart {
+    inherit wiiuse;
+  };
   sync-database = with pkgs.python3Packages; pkgs.callPackage ./pkgs/sync-database {
     inherit buildPythonPackage parallel-ssh merge-keepass pykeepass;
   };
+  wiiuse = pkgs.callPackage ./pkgs/WiiUse { };
 
 }
 

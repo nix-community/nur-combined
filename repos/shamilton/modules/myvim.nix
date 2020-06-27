@@ -6,35 +6,6 @@ with lib;
 
 let
   cfg = config.myvim;
-  # MyVimConfig = pkgs.callPackage (import ./../pkgs/MyVimConfig )
-  # { lib = lib; };
-  # MyVimFtplugins = pkgs.callPackage (import ./../pkgs/vim-myftplugins )
-  # { lib = lib; };
-  # vim-async = pkgs.callPackage (import ./../pkgs/vim-async )
-  # { lib = lib; 
-  #   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
-  # };
-  # vim-lsp = pkgs.callPackage (import ./../pkgs/vim-lsp )
-  # { lib = lib; 
-  #   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
-  #   vim-async = vim-async;
-  # };
-  # vim-asyncomplete = pkgs.callPackage (import ./../pkgs/vim-asyncomplete )
-  # { lib = lib; 
-  #   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
-  # };
-  # vim-asyncomplete-lsp = pkgs.callPackage (import ./../pkgs/vim-asyncomplete-lsp )
-  # { lib = lib; 
-  #   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
-  # };
-  # vim-lsp-settings = pkgs.callPackage (import ./../pkgs/vim-lsp-settings )
-  # { lib = lib; 
-  #   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
-  #   vim-async = vim-async;
-  #   vim-lsp = vim-lsp;
-  #   vim-asyncomplete = vim-asyncomplete;
-  #   vim-asyncomplete-lsp = vim-asyncomplete-lsp;
-  # };
   MyVimConfig = pkgs.callPackage ./../pkgs/MyVimConfig { };
   vim-async = with pkgs.vimUtils; pkgs.callPackage ./../pkgs/vim-async {
     inherit buildVimPluginFrom2Nix;
@@ -55,7 +26,6 @@ let
     inherit buildVimPluginFrom2Nix;
   };
 in 
-
 {
 
   options.myvim = {
