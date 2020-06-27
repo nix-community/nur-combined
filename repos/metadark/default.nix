@@ -32,9 +32,13 @@ rec {
 
   debugpy = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/debugpy {};
 
+  gammaray = pkgs.libsForQt5.callPackage ./pkgs/development/tools/gammaray {};
+
   lightdm-webkit2-greeter = pkgs.callPackage ./pkgs/applications/display-managers/lightdm-webkit2-greeter {
     inherit lightdm-webkit2-greeter;
   };
+
+  lightdm-webkit2-themes = pkgs.callPackage ./pkgs/applications/display-managers/lightdm-webkit2-greeter/themes {};
 
   pygls = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pygls {};
 
@@ -50,5 +54,19 @@ rec {
 
   VVVVVV = pkgs.callPackage ./pkgs/games/VVVVVV/wrapper.nix {
     inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
+  };
+
+  zynaddsubfx = zynaddsubfx-ntk;
+
+  zynaddsubfx-fltk = pkgs.callPackage ./pkgs/applications/audio/zynaddsubfx {
+    guiModule = "fltk";
+  };
+
+  zynaddsubfx-ntk = pkgs.callPackage ./pkgs/applications/audio/zynaddsubfx {
+    guiModule = "ntk";
+  };
+
+  zyn-fusion = pkgs.callPackage ./pkgs/applications/audio/zynaddsubfx {
+    guiModule = "zest";
   };
 }
