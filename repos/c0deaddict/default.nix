@@ -18,6 +18,8 @@ rec {
 
   import-garmin-connect = pkgs.python3Packages.callPackage ./pkgs/import-garmin-connect {};
 
+  solaredge-influx = pkgs.python3Packages.callPackage ./pkgs/solaredge-influx {};
+
   # TODO: pyyaml_3 has been removed from nixpkgs, check if there is an
   # update for salt.
   # salt-py3 = pkgs.callPackage ./pkgs/salt-py3 {};
