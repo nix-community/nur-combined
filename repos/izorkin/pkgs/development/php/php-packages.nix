@@ -97,12 +97,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.7";
+    version = "1.10.8";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "0adffldp4fxlbkjc126s1m426aldb3zicbznzfsyb3b654kqfjxr";
+      sha256 = "1rbqa56bsc3wrhk8djxdzh755zx1qrqp3wrdid7x0djzbmzp6h2c";
     };
 
     dontUnpack = true;
@@ -408,12 +408,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "2.16.3";
+    version = "2.16.4";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "195j61qbgbdn5xi0l6030mklji8m7fan2kf3446a1m2n4df3f5hb";
+      sha256 = "05rdvypxc86hjs8b7id2csa7g1rf7dk2swzfvd5768abdgfasvr8";
     };
 
     phases = [ "installPhase" ];
@@ -523,12 +523,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.30";
+    version = "0.12.31";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0gr014b6y3ph6aa73ffhl76m5aig24vq59krzfmvbcs4p3skwwhb";
+      sha256 = "04fp3ffqy6a3xiafc3n6z1kqyj5cwv77nm8bvx780b67nz1jw4n3";
     };
 
     phases = [ "installPhase" ];

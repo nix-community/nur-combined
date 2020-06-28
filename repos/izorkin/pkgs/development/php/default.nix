@@ -332,36 +332,40 @@ in {
     sha256 = "0svjffwnwvvvsg5ja24v4kpfyycs5f8zqnc2bbmgm968a0vdixn2";
 
     extraPatches = [
-     ./patch/fix-paths-pkgconfig-php56.patch # PKG_CONFIG need not be a relative path
-     ./patch/php56/php5640-75457.patch # https://bugs.php.net/bug.php?id=75457
-     ./patch/php56/php5640-76846.patch # https://bugs.php.net/bug.php?id=76846
-     ./patch/php56/php5640-77540.patch # https://bugs.php.net/bug.php?id=77540
-     ./patch/php56/php5640-77563.patch # https://bugs.php.net/bug.php?id=77563
-     ./patch/php56/php5640-77630.patch # https://bugs.php.net/bug.php?id=77630
-     ./patch/php56/php5640-77753.patch # https://bugs.php.net/bug.php?id=77753
-     ./patch/php56/php5640-77831.patch # https://bugs.php.net/bug.php?id=77831
-     ./patch/php56/php5640-77919.patch # https://bugs.php.net/bug.php?id=77919
-     ./patch/php56/php5640-77950.patch # https://bugs.php.net/bug.php?id=77950
-     ./patch/php56/php5640-77967.patch # https://bugs.php.net/bug.php?id=77967
-     ./patch/php56/php5640-77988.patch # https://bugs.php.net/bug.php?id=77988
-     ./patch/php56/php5640-78069.patch # https://bugs.php.net/bug.php?id=78069
-     ./patch/php56/php5640-78222.patch # https://bugs.php.net/bug.php?id=78222
-     ./patch/php56/php5640-78256.patch # https://bugs.php.net/bug.php?id=78256
-     ./patch/php56/php5640-78380.patch # https://bugs.php.net/bug.php?id=78380
-     ./patch/php56/php5640-78599.patch # https://bugs.php.net/bug.php?id=78599
-     ./patch/php56/php5640-78793.patch # https://bugs.php.net/bug.php?id=78793
-     ./patch/php56/php5640-78862.patch # https://bugs.php.net/bug.php?id=78862
-     ./patch/php56/php5640-78863.patch # https://bugs.php.net/bug.php?id=78863
-     ./patch/php56/php5640-78878.patch # https://bugs.php.net/bug.php?id=78878
-     ./patch/php56/php5640-78910.patch # https://bugs.php.net/bug.php?id=78910
-     ./patch/php56/php5640-79037.patch # https://bugs.php.net/bug.php?id=79037
-     ./patch/php56/php5640-79082.patch # https://bugs.php.net/bug.php?id=79082
-     ./patch/php56/php5640-79099.patch # https://bugs.php.net/bug.php?id=79099
-     ./patch/php56/php5640-79221.patch # https://bugs.php.net/bug.php?id=79221
-     ./patch/php56/php5640-79282.patch # https://bugs.php.net/bug.php?id=79282
-     ./patch/php56/php5640-79329.patch # https://bugs.php.net/bug.php?id=79329
-     ./patch/php56/php5640-php-openssl-cert.patch # Openssl cert updates
-     ./patch/php56/php5640-sqlite3-defensive.patch # Added sqlite3.defensive INI directive
+      # PKG_CONFIG need not be a relative path
+      ./patch/fix-paths-pkgconfig-php56.patch
+      # Added sqlite3.defensive INI directive
+      ./patch/php56/php5640-sqlite3-defensive.patch
+      # Openssl cert updates
+      ./patch/php56/php5640-php-openssl-cert.patch
+      # Backport security bug patches
+      ./patch/php56/php5640-75457.patch
+      ./patch/php56/php5640-76846.patch
+      ./patch/php56/php5640-77540.patch
+      ./patch/php56/php5640-77563.patch
+      ./patch/php56/php5640-77630.patch
+      ./patch/php56/php5640-77753.patch
+      ./patch/php56/php5640-77831.patch
+      ./patch/php56/php5640-77919.patch
+      ./patch/php56/php5640-77950.patch
+      ./patch/php56/php5640-77967.patch
+      ./patch/php56/php5640-77988.patch
+      ./patch/php56/php5640-78069.patch
+      ./patch/php56/php5640-78222.patch
+      ./patch/php56/php5640-78256.patch
+      ./patch/php56/php5640-78380.patch
+      ./patch/php56/php5640-78599.patch
+      ./patch/php56/php5640-78793.patch
+      ./patch/php56/php5640-78862.patch
+      ./patch/php56/php5640-78863.patch
+      ./patch/php56/php5640-78878.patch
+      ./patch/php56/php5640-78910.patch
+      ./patch/php56/php5640-79037.patch
+      ./patch/php56/php5640-79082.patch
+      ./patch/php56/php5640-79099.patch
+      ./patch/php56/php5640-79221.patch
+      ./patch/php56/php5640-79282.patch
+      ./patch/php56/php5640-79329.patch
     ];
   };
 
@@ -371,21 +375,24 @@ in {
 
     # https://bugs.php.net/bug.php?id=76826
     extraPatches = [
-      ./patch/fix-paths-pkgconfig-php71.patch # PKG_CONFIG need not be a relative path
-      ./patch/php71/php7133-77569.patch # https://bugs.php.net/bug.php?id=77569
-      ./patch/php71/php7133-78793.patch # https://bugs.php.net/bug.php?id=78793
-      ./patch/php71/php7133-78862.patch # https://bugs.php.net/bug.php?id=78862
-      ./patch/php71/php7133-78863.patch # https://bugs.php.net/bug.php?id=78863
-      ./patch/php71/php7133-78878.patch # https://bugs.php.net/bug.php?id=78878
-      ./patch/php71/php7133-78910.patch # https://bugs.php.net/bug.php?id=78910
-      ./patch/php71/php7133-79037.patch # https://bugs.php.net/bug.php?id=79037
-      ./patch/php71/php7133-79082.patch # https://bugs.php.net/bug.php?id=79082
-      ./patch/php71/php7133-79091.patch # https://bugs.php.net/bug.php?id=79091
-      ./patch/php71/php7133-79099.patch # https://bugs.php.net/bug.php?id=79099
-      ./patch/php71/php7133-79221.patch # https://bugs.php.net/bug.php?id=79221
-      ./patch/php71/php7133-79282.patch # https://bugs.php.net/bug.php?id=79282
-      ./patch/php71/php7133-79329.patch # https://bugs.php.net/bug.php?id=79329
-      ./patch/php71/php7133-php-openssl-cert.patch # Openssl cert updates
+      # PKG_CONFIG need not be a relative path
+      ./patch/fix-paths-pkgconfig-php71.patch
+      # Openssl cert updates
+      ./patch/php71/php7133-php-openssl-cert.patch
+      # Backport security bug patches
+      ./patch/php71/php7133-77569.patch
+      ./patch/php71/php7133-78793.patch
+      ./patch/php71/php7133-78862.patch
+      ./patch/php71/php7133-78863.patch
+      ./patch/php71/php7133-78878.patch
+      ./patch/php71/php7133-78910.patch
+      ./patch/php71/php7133-79037.patch
+      ./patch/php71/php7133-79082.patch
+      ./patch/php71/php7133-79091.patch
+      ./patch/php71/php7133-79099.patch
+      ./patch/php71/php7133-79221.patch
+      ./patch/php71/php7133-79282.patch
+      ./patch/php71/php7133-79329.patch
     ] 
       # https://bugs.php.net/bug.php?id=76826
       ++ optional stdenv.isDarwin ./patch/php71-darwin-isfinite.patch;
@@ -396,7 +403,8 @@ in {
     sha256 = "1z7h3j343x0k2y5ji7vv6rmim98kgz950mvd6nys5rvcq2a89pj5";
 
     extraPatches = [
-      ./patch/fix-paths-pkgconfig-php72.patch # PKG_CONFIG need not be a relative path
+      # PKG_CONFIG need not be a relative path
+      ./patch/fix-paths-pkgconfig-php72.patch
     ]
       # https://bugs.php.net/bug.php?id=76826
       ++ optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
@@ -407,10 +415,11 @@ in {
     sha256 = "1vcx5as2wl1wz5hg1fg78l4ixfwhsf7znr7vrs0avljcibv843vc";
 
     extraPatches = [
-      ./patch/fix-paths-pkgconfig-php73.patch # PKG_CONFIG need not be a relative path
+      # PKG_CONFIG need not be a relative path
+      ./patch/fix-paths-pkgconfig-php73.patch
     ]
       # https://bugs.php.net/bug.php?id=76826
-      ++optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
+      ++ optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
   };
 
   php74 = generic {
