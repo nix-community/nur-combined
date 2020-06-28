@@ -24,6 +24,7 @@
   services.lorri.enable = true;
 
   home.file.".stack/config.yaml".source = ./stack-config.yaml;
+  home.file.".cabal/config.yaml".source = ./cabal-config;
 
   xdg.configFile."git/template".source = ./template;
   programs = {

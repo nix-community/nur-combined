@@ -15,7 +15,6 @@
     mbsync = {
       create = "both";
       enable = true;
-      expunge = "both";
     };
   };
 
