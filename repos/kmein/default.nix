@@ -2,6 +2,7 @@
 {
   depp = pkgs.callPackage ./depp {};
   devour = pkgs.callPackage ./devour {};
+  opustags = pkgs.callPackage ./opustags {};
   daybook = pkgs.callPackage ./daybook {};
   slide = pkgs.callPackage ./slide {};
   mahlzeit = pkgs.haskellPackages.callPackage ./mahlzeit {};
