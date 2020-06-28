@@ -1,10 +1,8 @@
 { config, lib, pkgs, ... }: {
-  home.packages = with pkgs; [ stack nixops python37Packages.editorconfig ];
+  home.packages = with pkgs; [ python37Packages.editorconfig ];
 
   programs.direnv.enable = true;
   programs.direnv.enableZshIntegration = true;
-
-  programs.jq.enable = true;
 
   programs.emacs.enable = true;
   services.emacs.enable = true;
@@ -24,7 +22,7 @@
   services.lorri.enable = true;
 
   home.file.".stack/config.yaml".source = ./stack-config.yaml;
-  home.file.".cabal/config.yaml".source = ./cabal-config;
+  home.file.".cabal/config".source = ./cabal-config;
 
   xdg.configFile."git/template".source = ./template;
   programs = {
