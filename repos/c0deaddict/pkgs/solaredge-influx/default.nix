@@ -7,13 +7,13 @@
 
 buildPythonApplication rec {
   pname = "solaredge-influx";
-  version = "0.0.1";
+  version = "0.0.2";
 
   src = fetchFromGitHub {
     owner = "c0deaddict";
     repo = "solaredge-influx";
     rev = "v${version}";
-    sha256 = "1i0zjxqzxmmy25bqjdymhs96w774sw07d5f7qd21lpnl3g9gky1p";
+    sha256 = "0s82ll8vys6wmh50vxxklnb66fnib5y6sd2bknkwi9smrv6ycfi0";
   };
 
   propagatedBuildInputs = [ influxdb requests ];
