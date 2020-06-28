@@ -11,12 +11,6 @@
     userName = "hey#samhatfield.me";
 
     notmuch.enable = true;
-    alot.contactCompletion = {
-      type = "shellcommand";
-      command = "abook --mutt-query";
-      regexp = "'^(?P<email>[^@]+@[^\t]+)\t+(?P<name>[^\t]+)'";
-      ignorecase = "True";
-    };
     msmtp.enable = true;
     mbsync = {
       create = "both";
@@ -32,7 +26,6 @@
     new.tags = [ "new" ];
   };
 
-  programs.abook.enable = true;
   programs.afew.enable = true;
   programs.alot.enable = true;
   home.file.".mailcap".text =
