@@ -29,5 +29,6 @@ rec {
   encpipe = pkgs.callPackage ./pkgs/tools/security/encpipe { lib = mylib; };
   encpipe-static = pkgs.callPackage ./pkgs/tools/security/encpipe { lib = mylib; static = true; dietlibc = dietlibc; };
 
+  genius-sf-600-firmware = pkgs.callPackage pkgs/misc/firmware/genius/sf600.nix { lib = mylib; };
 }
 
