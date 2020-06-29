@@ -11,6 +11,8 @@ let
 
     dma = callPackage ./tools/networking/dma { };
 
+    drep = callPackage ./tools/text/drep { };
+
     dyndnsc = callPackageWithMerged "python3Packages" ./tools/networking/dyndnsc { };
 
     guile-commonmark = callPackage ./development/guile-modules/guile-commonmark { };

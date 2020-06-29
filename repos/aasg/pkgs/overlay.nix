@@ -4,6 +4,8 @@ self: super:
 
   dma = super.callPackage ./tools/networking/dma { };
 
+  drep = super.callPackage ./tools/text/drep { };
+
   dyndnsc = super.callPackage ./tools/networking/dyndnsc { };
 
   guile-commonmark = super.callPackage ./development/guile-modules/guile-commonmark { };
