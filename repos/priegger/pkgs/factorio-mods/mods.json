@@ -266,10 +266,10 @@
   },
   {
     "name": "bobassembly",
-    "version": "0.18.5",
-    "file_name": "bobassembly_0.18.5.zip",
-    "download_url": "/download/bobassembly/5ec96a30c15abe000ba19cdf",
-    "sha1": "04786e5e5361b4b3ffb6e1200dccf8b85e758dbf",
+    "version": "0.18.6",
+    "file_name": "bobassembly_0.18.6.zip",
+    "download_url": "/download/bobassembly/5efa0144e8c1e37ec18f92ae",
+    "sha1": "36dad29e4d4fce8107eaeaf5538c32363a28f210",
     "dependencies": [
       "base >= 0.18.0",
       "boblibrary >= 0.18.0",
@@ -416,10 +416,10 @@
   },
   {
     "name": "bobplates",
-    "version": "0.18.8",
-    "file_name": "bobplates_0.18.8.zip",
-    "download_url": "/download/bobplates/5ec96a9bc15abe000c94659e",
-    "sha1": "b74832087bd54ad06d5108c7f8a2b98e1904a0df",
+    "version": "0.18.9",
+    "file_name": "bobplates_0.18.9.zip",
+    "download_url": "/download/bobplates/5efa016ef7934d45100f4eab",
+    "sha1": "92ca34f0ff8d82194804b1d08f1f1beb9cab5227",
     "dependencies": [
       "base >= 0.18.0",
       "boblibrary >= 0.18.4",
@@ -429,10 +429,10 @@
   },
   {
     "name": "bobpower",
-    "version": "0.18.6",
-    "file_name": "bobpower_0.18.6.zip",
-    "download_url": "/download/bobpower/5ec96ab3552ff2000b2edbfc",
-    "sha1": "3d6aba847a765142d431084744414b14d2ae0d7c",
+    "version": "0.18.7",
+    "file_name": "bobpower_0.18.7.zip",
+    "download_url": "/download/bobpower/5efa0188cb7dfcc528e119fb",
+    "sha1": "85813d533c8d1d7caaf92e15d14adc2b43c7eeac",
     "dependencies": [
       "base >= 0.18.0",
       "boblibrary >= 0.18.0",
@@ -441,10 +441,10 @@
   },
   {
     "name": "bobrevamp",
-    "version": "0.18.5",
-    "file_name": "bobrevamp_0.18.5.zip",
-    "download_url": "/download/bobrevamp/5ec96ac7552ff2000e291dea",
-    "sha1": "987956e0e8cd55f81b81495b4705631bf3eee6f6",
+    "version": "0.18.6",
+    "file_name": "bobrevamp_0.18.6.zip",
+    "download_url": "/download/bobrevamp/5efa019de8c1e37ec18f98c3",
+    "sha1": "8d889c4db4b923b2469c220a1eab24f5735fd8fa",
     "dependencies": [
       "base >= 0.18.0",
       "boblibrary >= 0.18.0",
@@ -532,10 +532,10 @@
   },
   {
     "name": "grappling-gun",
-    "version": "0.2.5",
-    "file_name": "grappling-gun_0.2.5.zip",
-    "download_url": "/download/grappling-gun/5ee0dc077c9370000b0aa314",
-    "sha1": "c785c9a38b0b64cc85ecf35f98457507ff413b96",
+    "version": "0.2.6",
+    "file_name": "grappling-gun_0.2.6.zip",
+    "download_url": "/download/grappling-gun/5ef7bd2f5f1b8d7813d62064",
+    "sha1": "69119d08ee7f60a154744c14937fc69463aa8585",
     "dependencies": [
       "base >= 0.17.35"
     ]
@@ -606,10 +606,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "7.0.5",
-    "file_name": "reverse-factory_7.0.5.zip",
-    "download_url": "/download/reverse-factory/5ef1421a49b1d9000cae5730",
-    "sha1": "d12cd97f25d98e748817b181248c0344c3588d1f",
+    "version": "7.0.7",
+    "file_name": "reverse-factory_7.0.7.zip",
+    "download_url": "/download/reverse-factory/5ef69ac259bd02585e711a78",
+    "sha1": "deb3408d795f6855bc90642092ddbee57a5cc37b",
     "dependencies": [
       "base",
       "stdlib",
