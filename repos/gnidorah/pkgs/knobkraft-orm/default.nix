@@ -6,19 +6,20 @@ let
   desktopItem = makeDesktopItem rec {
     name = "KnobKraft-orm";
     exec = "KnobKraftOrm";
+    icon = "icon_orm";
     desktopName = name;
     genericName = "KnobKraft Orm";
     categories = "Audio;AudioVideo;";
   };
 in stdenv.mkDerivation rec {
   pname = "KnobKraft-orm";
-  version = "1.6.1";
+  version = "1.6.2";
 
   src = fetchFromGitHub {
     owner = "christofmuc";
     repo = "KnobKraft-orm";
     rev = version;
-    sha256 = "04nk1amnj765fa3506zn77bdh602i9vjz5q44wy3vv0zpl5c0556";
+    sha256 = "1ql21jkgp6sa5ndfcszq2hln3ywrly6ahwq5bdrl4zglfjcj9h9z";
     fetchSubmodules = true;
   };
 
@@ -35,7 +36,9 @@ in stdenv.mkDerivation rec {
     wrapProgram $out/bin/KnobKraftOrm \
       --prefix PATH ":" ${gnome3.zenity}/bin
 
-    ln -s ${desktopItem}/share $out
+    mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps
+    ln -s ${desktopItem}/share/applications/* $out/share/applications
+    cp $src/The-Orm/resources/icon_orm.png $out/share/icons/hicolor/256x256/apps
   '';
 
   meta = with stdenv.lib; {
