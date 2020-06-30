@@ -25,7 +25,7 @@ mkDerivation {
     owner = "SCOTT-HAMILTON";
     repo = "ControlsForFake";
     rev = "master";
-    sha256 = "1pisdldgpr6mbzjkxfmxvc6ank5pyqq06myq8wbdgcmsis18dvkb";
+    sha256 = "0y9iy83hxsvjpkn0g5p2ldq88rnkf4jvpnizymryh7c9sbrm42f6";
   };
 
   nativeBuildInputs = [ qttranslations qtbase pkg-config ninja meson ];
