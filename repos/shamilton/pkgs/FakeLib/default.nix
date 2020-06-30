@@ -5,18 +5,24 @@
 , ninja
 , pulseaudio
 , pkg-config
+, enableDebugging
 }:
 stdenv.mkDerivation rec {
 
   pname = "libfake";
   version = "unstable";
+  debug = false;
 
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "FakeLib";
     rev = "master";
-    sha256 = "0qb1mg430524bs4d1h6s34amlaimvizdgkilg15rzvsjbba13kcf";
+    sha256 = "1mv68kr7ry8jzjjm8bfj5g677m5nlq5mn62l723a4vij4vy7qhg0";
   };
+
+  mesonFlags = [ (if debug then "--buildtype=debug" else "--buildtype=plain" ) ];
+
+  dontStrip = if debug then true else false;
 
   nativeBuildInputs = [ pkg-config ninja meson ];
 
