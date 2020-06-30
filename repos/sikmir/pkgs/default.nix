@@ -14,6 +14,7 @@ lib.makeScope newScope (
     gpxsee = libsForQt5.callPackage ./applications/gpxsee {
       inherit sources;
     };
+    librewolf = callPackage ./applications/librewolf {};
     macpass = callPackage ./applications/macpass {};
     mapsoft = callPackage ./applications/mapsoft {};
     mapsoft2 = callPackage ./applications/mapsoft/2.nix {};
@@ -134,6 +135,7 @@ lib.makeScope newScope (
     morse-talk = python3Packages.callPackage ./tools/morse-talk {
       inherit sources;
     };
+    musig = callPackage ./tools/audio/musig {};
     ocad2img = perlPackages.callPackage ./tools/geo/ocad2img {
       inherit cgpsmapper ocad2mp;
     };

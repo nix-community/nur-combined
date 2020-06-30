@@ -131,27 +131,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "09yx8p1r8xmdxxnwb6zyad8p1qmqkqmkdwib1021ckyrha18qk1s",
+        "sha256": "070hksxrx74c688vvah12hyvdds8rimwilwpma9w65yv2262k24z",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-200622.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-200629.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "200622"
+        "version": "200629"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "05x347qid3hmr0rqmiagvzhgkk1qp93y8z30p2gj58gaz25v1wrv",
+        "sha256": "1wxi1w0cifyl392f1wyvh36ai2pylcb6fjmng7q2mgbcnqnm5d1b",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-200622.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-200629.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "200622"
+        "version": "200629"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "1jz47la92lwh7cyz6a998bjxmg9zgqzgbm6qh6i4p64qw7g14v7x",
+        "sha256": "0ff5jbk3i74xanb81vvx8dcrwphr7dxhs2prvkdz04jsr9wd91si",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200622.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200629.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "200622"
+        "version": "200629"
     },
     "gimgtools": {
         "branch": "master",
@@ -225,10 +225,10 @@
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "1fc4dbbb7378e3d4df5497119f433b1eb01bd013",
-        "sha256": "09i8wm0zrggpircsvi2jzza1jyxar03frj12hjib6z0cf301a55q",
+        "rev": "14f4dead7653afd3b19b3531f153f744dcfccaf0",
+        "sha256": "0y60h66p8ydkinxk9x4sp4cm6gq66nc9jcavy135vmycsiq9gphn",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/1fc4dbbb7378e3d4df5497119f433b1eb01bd013.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/14f4dead7653afd3b19b3531f153f744dcfccaf0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -251,10 +251,10 @@
         "homepage": "https://notabug.org/irdvo/gpxtools",
         "owner": "irdvo",
         "repo": "gpxtools",
-        "rev": "f7d289ab9f42e492e6db800a073f4464db24dd56",
-        "sha256": "15smkw2izqml4y9knyi0ywnn7805v13gbdz09r9ygqk5z50xsv7b",
+        "rev": "919fb5953af8de1e71f61244eb70dd56b670a429",
+        "sha256": "06q9kyhjsp1sjgfdrd5chkr49d1dq0csh898hhzhpigb1jzxsjhs",
         "type": "tarball",
-        "url": "https://notabug.org/irdvo/gpxtools/archive/f7d289ab9f42e492e6db800a073f4464db24dd56.tar.gz",
+        "url": "https://notabug.org/irdvo/gpxtools/archive/919fb5953af8de1e71f61244eb70dd56b670a429.tar.gz",
         "url_template": "https://notabug.org/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gt-bash-client": {
@@ -342,10 +342,10 @@
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "0e06e7beb9a60890d80eef9a2bf9c752eb393e04",
-        "sha256": "1s3206bfq36hc0iyd93lhc8x4prqrazj9rk9qw9jmjb8cxg0m5lf",
+        "rev": "71f82013fa47fcd6a8933855d588231cf08b903a",
+        "sha256": "1qw7ghm4izbq25w9k7lrk6krfkwz4m9kidsp54b6fclgy1pqnaks",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/0e06e7beb9a60890d80eef9a2bf9c752eb393e04.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/71f82013fa47fcd6a8933855d588231cf08b903a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -366,11 +366,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "0iq0z1ibr8sbilxxxzyais4fmzplyjq5ghzmmmgh3xlkm9yjpl59",
+        "sha256": "12rrcnaqz2c88ls8n1709y0mjh33kxkpy7j7ky5qzacph3w279l9",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-06-26.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-06-30.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-06-26"
+        "version": "2020-06-30"
     },
     "mbtileserver": {
         "branch": "master",
@@ -434,6 +434,19 @@
         "url_template": "https://kartat-dl.hylly.org/<version>/mtk_suomi.img",
         "version": "2020-05-30"
     },
+    "musig": {
+        "branch": "master",
+        "builtin": false,
+        "description": "A shazam like tool to store musics fingerprints and retrieve them",
+        "homepage": "https://github.com/sfluor/musig",
+        "owner": "sfluor",
+        "repo": "musig",
+        "rev": "f445fa128b826c1cee527afdcc97e3e1e8433c32",
+        "sha256": "1h201rqn74hcspxjigq50vj4rl526x8s0sx18j5gbswisf84bgql",
+        "type": "tarball",
+        "url": "https://github.com/sfluor/musig/archive/f445fa128b826c1cee527afdcc97e3e1e8433c32.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nakarte": {
         "branch": "master",
         "builtin": false,
@@ -441,10 +454,10 @@
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "379c622bf117ed50d512d335de2263fa63e6fe0b",
-        "sha256": "1j529bv8w80lzqa91s9hasb39r1wfy1l7q0600bc3ik4zf7v0ivk",
+        "rev": "27befc0439550f4ea4da440355b2a37f4912abd5",
+        "sha256": "1j103jk56dl4jr5zpyag5f87j0sf8wf8s22rzsqj8wvjnzwcn2a0",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/379c622bf117ed50d512d335de2263fa63e6fe0b.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/27befc0439550f4ea4da440355b2a37f4912abd5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
@@ -454,10 +467,10 @@
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "235eb296149ff1d16accadc37c52542b7f18ef2d",
-        "sha256": "0b4yzslna9h2i14mnc05p9r9n3lwn82q3nan392w15bcv5am5zl7",
+        "rev": "1faf9f248080ee2acc704af5e948726a2f66fe55",
+        "sha256": "0g8ppf5hg97xvn00rjg65wrjjc8qkxm9vq6w72dil0804x4f2jff",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/235eb296149ff1d16accadc37c52542b7f18ef2d.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/1faf9f248080ee2acc704af5e948726a2f66fe55.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
