@@ -46,6 +46,7 @@ buildPythonPackage rec {
   disabledTests = [
     "OpenFermionPubChemTest"
     "test_can_run_examples_jupyter_notebooks"
+    "test_signal" # Fails when built on WSL, 1e-5 error in one value
   ];
 
   meta = with lib; {

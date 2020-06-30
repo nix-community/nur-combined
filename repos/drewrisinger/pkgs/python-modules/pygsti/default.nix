@@ -136,6 +136,31 @@ buildPythonPackage rec {
     "generate_germs_with_candidate_germ_counts" # runs especially slow on travis, probably due to random num generation
     "gauge_optimize_model_list"
     "test_final_slice"
+    # More slow tests 2020-06-29
+    "test_circuit_layer_by_co2Qgates"
+    "test_get_min_tree_size"
+    "test_get_sub_trees"
+    "test_chi2_fn"
+    "test_chi2_terms"
+    "test_bootstrap_utilities"
+    "test_do_mc2gst_CPTP_SPAM_penalty_factor"
+    "test_make_bootstrap_models_parametric"
+    "test_hprobs"
+    "test_log_diff_model_projection"
+    "test_contract_with_bad_effect"
+    "test_bulk_hprobs_by_block"
+    "test_do_iterative_mc2gst_check_jacobian"
+    "test_stdpractice_gst_file_args"
+    "test_logGTi_model_projection"
+    "test_logTiG_model_projection"
+    "test_direct_mlgst_models"
+    "test_do_mc2gst_SPAM_penalty_factor"
+    "test_stdpractice_gst_gaugeOptTarget"
+    "test_kcoverage"
+    "test_split_on_num_subtrees"
+    "test_stdpractice_gst_gaugeOptTarget_warns_on_target_override"
+    "test_make_bootstrap_models_nonparametric"
+    "test_direct_mc2gst_models"
   ];
 
   meta = with lib; {

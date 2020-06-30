@@ -11,7 +11,7 @@
 
 1. Install Cachix. This lets you use the pre-built binaries for these Nix expressions (built using Travis).
    1. ``$ nix-env -iA cachix -f https://cachix.org/api/v1/install``
-2. Use my cachix cache. 
+2. Use my cachix cache.
    1. ``$ cachix use drewrisinger``
 3. Choose one of the two options below:
 
@@ -29,7 +29,7 @@ let
   drew-nur-master = import (builtins.fetchTarball "https://github.com/drewrisinger/nur-packages/archive/master.tar.gz") {
     inherit pkgs;
   };
-  
+
   # Option 2: get a specific version
   drew-nur-at-commit = import (builtins.fetchTarball {
     # Get the revision by choosing a version from https://github.com/drewrisinger/nur-packages/commits/master
@@ -58,7 +58,7 @@ let
   pkgs = drew-nur-master.pkgs;
   my-python-package = pkgs.python3Packages.callPackage ./PATH/TO/PACKAGE {
     # following line may be optional, but included for demonstration
-    inherit (pkgs.python3Packages) scipy; inherit (drew-nur-master.python3Packages) qiskit; 
+    inherit (pkgs.python3Packages) scipy; inherit (drew-nur-master.python3Packages) qiskit;
   };
 in
   (pkgs.python3.withPackages(ps: [ my-python-package ] )).env

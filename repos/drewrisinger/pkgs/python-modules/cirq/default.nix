@@ -92,6 +92,7 @@ buildPythonPackage rec {
     "--ignore=dev_tools"  # Only needed when developing new code, which is out-of-scope
     "--disable-warnings"  # warnings take too many lines, mostly just warning that Qiskit isn't installed so can't cross-verify. Guards against travis build errors (too many log lines)
     "-rfE"
+    # "--durations=25"
   ];
   disabledTests = [
     "test_convert_to_ion_gates" # fails due to rounding error, 0.75 != 0.750...2
@@ -105,6 +106,25 @@ buildPythonPackage rec {
     # Seem to fail due to math issues on aarch64?
     "expectation_from_wavefunction"
     "test_single_qubit_op_to_framed_phase_form_output_on_example_case"
+  ] ++ [
+    # slow tests, for quicker travis building
+    "test_anneal_search_method_calls"
+    "test_density_matrix_from_state_tomography_is_correct"
+    "test_example_runs_qubit_characterizations"
+    "test_example_runs_hello_line_perf"
+    "test_example_runs_bc_mean_field_perf"
+    "test_main_loop"
+    "test_clifford_circuit_2"
+    "test_decompose_specific_matrices"
+    "test_two_qubit_randomized_benchmarking"
+    "test_kak_decomposition_perf"
+    "test_example_runs_simon"
+    "test_decompose_random_unitary"
+    "test_decompose_size_special_unitary"
+    "test_api_retry_5xx_errors"
+    "test_xeb_fidelity"
+    "test_example_runs_phase_estimator_perf"
+    "test_cross_entropy_benchmarking"
   ];
 
   meta = with lib; {

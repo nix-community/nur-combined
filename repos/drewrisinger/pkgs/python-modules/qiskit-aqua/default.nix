@@ -106,6 +106,7 @@ buildPythonPackage rec {
 
     # Disabled b/c taking too many log lines in Travis
     "--disable-warnings"
+    # "--durations=25"
   ];
   disabledTests = [
     # TODO: broken for some reason on nixpkgs~19.09. Works on 20.03, just disabling it here for my NUR version.
@@ -137,9 +138,15 @@ buildPythonPackage rec {
     "test_shor_no_factors_1_5"
     "test_shor_no_factors_2_7"
     "test_evolve_2___suzuki___1__3_"
-    "test_delta_4"
+    "test_delta"
     "test_swaprz"
     "test_deprecated_algo_result"
+    "test_unsorted_grouping"
+    "test_ad_hoc_data"
+    "test_nft"
+    "test_oh"
+    "test_confidence_intervals_00001"
+    "test_eoh"
   ];
 
   meta = with lib; {

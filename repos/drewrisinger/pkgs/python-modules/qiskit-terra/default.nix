@@ -99,6 +99,23 @@ buildPythonPackage rec {
 
     # Disabled b/c taking too many log lines in Travis
     "--disable-warnings"
+    # "--durations=25"
+  ];
+  # Disabling slow tests for Travis build constraints
+  disabledTests = [
+    "test_all_examples"
+    "test_controlled_random_unitary"
+    "test_controlled_standard_gates_1"
+    "test_jupyter_jobs_pbars"
+    "test_lookahead_swap_higher_depth_width_is_better"
+    "test_move_measurements"
+    "test_job_monitor"
+    "test_wait_for_final_state"
+    "test_multi_controlled_y_rotation_matrix_basic_mode"
+    "test_two_qubit_weyl_decomposition_abc"
+    "test_isometry"
+    "test_parallel"
+    "test_random_state"
   ];
 
   # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding
