@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "unknownshadow200",
         "repo": "classicube",
-        "rev": "ca361b7f0b806ec57daaf292d15e258ebdacdc1e",
-        "sha256": "17064xb43dxds03n276b43s6xmk3cgfnd73qywvb9jqwhcjk5fdb",
+        "rev": "d805d33d7d3e6237fa6b2237f66ead753ffb6c33",
+        "sha256": "1m70gf5zqc4hr6xxz41wpiz7i3y36q333bnfbah6dyhq48xiigkd",
         "type": "tarball",
-        "url": "https://github.com/unknownshadow200/classicube/archive/ca361b7f0b806ec57daaf292d15e258ebdacdc1e.tar.gz",
+        "url": "https://github.com/unknownshadow200/classicube/archive/d805d33d7d3e6237fa6b2237f66ead753ffb6c33.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "efm-langserver": {
@@ -17,10 +17,22 @@
         "homepage": "",
         "owner": "mattn",
         "repo": "efm-langserver",
-        "rev": "6e115193a190e5fa3450448db774e6e6da714489",
-        "sha256": "0b54rg0s3km8dqmsh28k3kn6phqdmsnc6hyn81zs19bsvfykcrss",
+        "rev": "7c4042b3fc4c37ea83b5337d90ea464b99bf9b8c",
+        "sha256": "1qhhykcg007hig3p4np4y9gljghcfb1rgl8712dhp52l5a43s58w",
         "type": "tarball",
-        "url": "https://github.com/mattn/efm-langserver/archive/6e115193a190e5fa3450448db774e6e6da714489.tar.gz",
+        "url": "https://github.com/mattn/efm-langserver/archive/7c4042b3fc4c37ea83b5337d90ea464b99bf9b8c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "napalm": {
+        "branch": "master",
+        "description": "Support for building npm packages in Nix and lightweight npm registry",
+        "homepage": "",
+        "owner": "nmattia",
+        "repo": "napalm",
+        "rev": "47e8d246cba57a346db15f6a33ba61c54d3b5c05",
+        "sha256": "1dxj8jqi0292s1xalis0mr1p3ck3zxqxx0xwlvx856kcnp317x8b",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/napalm/archive/47e8d246cba57a346db15f6a33ba61c54d3b5c05.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -53,10 +65,10 @@
         "homepage": "https://github.com/NixOS/nixpkgs",
         "owner": "nixos",
         "repo": "nixpkgs-channels",
-        "rev": "0a146054bdf6f70f66de4426f84c9358521be31e",
-        "sha256": "154ypjfhy9qqa0ww6xi7d8280h85kffqaqf6b6idymizga9ckjcd",
+        "rev": "22a81aa5fc15b2d41b12f7160a71cd4a9f3c3fa1",
+        "sha256": "14gx5fsqibdn2cxp7gymfrz2vcnwiwwjnxqlnysczz8dqihnrpa7",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs-channels/archive/0a146054bdf6f70f66de4426f84c9358521be31e.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs-channels/archive/22a81aa5fc15b2d41b12f7160a71cd4a9f3c3fa1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
