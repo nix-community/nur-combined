@@ -428,8 +428,8 @@ in {
   };
 
   php80 = generic {
-    version = "8.0.0-dev-2020.06.03";
-    rev = "698bd59fb53ac5132600f9df242c715d01002033";
-    sha256 = "15a8favlhzvr51pa0h94flnnw5rwiz82j0q027yaczdp69a1p95i";
+    version = "8.0.0-alpha-1";
+    rev = "3f95989a32c45ba2a25001de69673242e9efb52d";
+    sha256 = "190pyzzh3dbbgdzl87rlxrmgaikijwxx3mdxkmsk9gd2079hr22n";
   };
 }
