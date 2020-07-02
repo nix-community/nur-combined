@@ -53,7 +53,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Galera 3 wsrep provider library";
-    homepage = https://galeracluster.com/;
+    homepage = "https://galeracluster.com/";
     license = licenses.lgpl2;
     maintainers = with maintainers; [ izorkin ];
     platforms = platforms.all;

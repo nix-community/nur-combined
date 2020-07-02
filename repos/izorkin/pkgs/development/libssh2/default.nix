@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A client-side C library implementing the SSH2 protocol";
-    homepage = https://www.libssh2.org;
+    homepage = "https://www.libssh2.org/";
     platforms = stdenv.lib.platforms.all;
     maintainers = [ ];
   };

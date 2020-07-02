@@ -80,7 +80,7 @@ self = stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://www.mysql.com/;
+    homepage = "https://www.mysql.com/";
     description = "The world's most popular open source database";
     platforms = platforms.unix;
     # See https://downloads.mysql.com/docs/licenses/mysqld-5.5-gpl-en.pdf

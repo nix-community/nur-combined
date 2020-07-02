@@ -103,7 +103,7 @@ common = rec { # attributes common to both builds
 
   meta = {
     description = "An enhanced, drop-in replacement for MySQL";
-    homepage    = https://mariadb.org/;
+    homepage    = "https://mariadb.org/";
     license     = licenses.gpl2;
     maintainers = with maintainers; [ thoughtpolice ];
     platforms   = platforms.all;
@@ -166,6 +166,7 @@ server = stdenv.mkDerivation (common // {
     "-DWITH_INNODB_DISALLOW_WRITES=ON"
     "-DWITHOUT_EXAMPLE=1"
     "-DWITHOUT_FEDERATED=1"
+    "-DWITHOUT_TOKUDB=1"
   ] ++ optional (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) [
     "-DWITH_NUMA=ON"
   ] ++ optional (!withStorageMroonga) [
@@ -174,8 +175,6 @@ server = stdenv.mkDerivation (common // {
     "-DWITHOUT_ROCKSDB=1"
   ] ++ optional (!stdenv.hostPlatform.isDarwin && withStorageRocks) [
     "-DWITH_ROCKSDB_JEMALLOC=ON"
-  ] ++ optional (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isMusl) [
-    "-DWITHOUT_TOKUDB=1"
   ] ++ optional (!stdenv.hostPlatform.isDarwin) [
     "-DWITH_JEMALLOC=yes"
   ] ++ optional stdenv.hostPlatform.isDarwin [
