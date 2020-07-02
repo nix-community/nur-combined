@@ -29,7 +29,7 @@ common = rec { # attributes common to both builds
       "https://downloads.mariadb.org/f/mariadb-${version}/source/mariadb-${version}.tar.gz"
       "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz"
     ];
-    sha256 = "08hzlfbv6k2mvs4iq2yvsc6bp53fyzmivi320gn2y4z9z2md4x1v";
+    sha256 = "0wjc2lvqpxplb41i3kzr4675cx5a5syr0cz7ljcpxhyfr7n2pnr6";
     name   = "mariadb-${version}.tar.gz";
   };
 
