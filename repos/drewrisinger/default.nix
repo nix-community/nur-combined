@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ rawpkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {} }:
 
 rec {
   # The `lib`, `modules`, and `overlay` names are special
@@ -14,8 +14,8 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  # NOTE: default pkgs to updated versions as required by qiskit
-  pkgs = rawpkgs.appendOverlays [ overlays.python-updates ];
+  # NOTE: default pkgs to updated versions as required by packages
+  # pkgs = rawpkgs.appendOverlays [ overlays.python-updates ];
 
   # Packages/updates accepted to nixpkgs/master, but need the update
   lib-scs = pkgs.callPackage ./pkgs/libraries/scs { };
@@ -49,14 +49,14 @@ rec {
     pyvisa = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvisa { };
     pyvisa-py = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvisa-py { inherit pyvisa; };
 
-    # Following have been PR'd to Nixpkgs, just not made it to release yet.
+    # More recent version than in Nixpkgs
     cirq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cirq { pythonProtobuf = pkgs.python3.pkgs.protobuf; };
     cvxpy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cvxpy { inherit ecos osqp scs; };
     ecos = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ecos { };
     osqp = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/osqp { };
     scs = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/scs { scs = lib-scs; };
 
-    # Qiskit new packages or updates over what's in nixpkgs, in rough build order. All exist in nixpkgs, but only as of ~20.03
+    # Qiskit updates over what's in nixpkgs, in rough build order. All exist in nixpkgs, but only on > 20.03
     dlx = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/dlx { };
     docloud = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/docloud { };
     docplex = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/docplex { inherit docloud; };
