@@ -429,7 +429,7 @@ let
     meta = with pkgs.lib; {
       description = "A tool to automatically fix PHP coding standards issues";
       license = licenses.mit;
-      homepage = "https://cs.sensiolabs.org/";
+      homepage = "https://cs.symfony.com/";
       maintainers = with maintainers; [ jtojnar ];
     };
   };
@@ -463,7 +463,7 @@ let
     meta = with pkgs.lib; {
       description = "This tool check syntax of PHP files faster than serial check with fancier output";
       license = licenses.bsd2;
-      homepage = "https://github.com/JakubOnderka/PHP-Parallel-Lint/";
+      homepage = "https://github.com/JakubOnderka/PHP-Parallel-Lint";
       maintainers = with maintainers; [ jtojnar ];
     };
   };
@@ -490,7 +490,7 @@ let
     meta = with pkgs.lib; {
       description = "PHP coding standard beautifier and fixer";
       license = licenses.bsd3;
-      homepage = "https://squizlabs.github.io/PHP_CodeSniffer/";
+      homepage = "https://github.com/squizlabs/PHP_CodeSniffer";
       maintainers = with maintainers; [ cmcdragonkai etu ];
     };
   };
@@ -517,7 +517,7 @@ let
     meta = with pkgs.lib; {
       description = "PHP coding standard tool";
       license = licenses.bsd3;
-      homepage = "https://squizlabs.github.io/PHP_CodeSniffer/";
+      homepage = "https://github.com/squizlabs/PHP_CodeSniffer";
       maintainers = with maintainers; [ javaguirre etu ];
     };
   };
@@ -551,7 +551,7 @@ let
         actual line.
       '';
       license = licenses.mit;
-      homepage = "https://github.com/phpstan/phpstan/";
+      homepage = "https://github.com/phpstan/phpstan";
       maintainers = with maintainers; [ etu ];
     };
   };
@@ -640,7 +640,7 @@ let
         Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data.
       '';
       license = licenses.bsd3;
-      homepage = "https://developers.google.com/protocol-buffers/";
+      homepage = "https://developers.google.com/protocol-buffers";
 
       broken = isPhp80;
     };
@@ -668,7 +668,7 @@ let
     meta = with pkgs.lib; {
       description = "A static analysis tool for finding errors in PHP applications";
       license = licenses.mit;
-      homepage = "https://github.com/vimeo/psalm/";
+      homepage = "https://github.com/vimeo/psalm";
     };
   };
 
