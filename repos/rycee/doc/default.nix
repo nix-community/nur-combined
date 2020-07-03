@@ -17,20 +17,16 @@ let
   # Make sure the used package is scrubbed to avoid actually
   # instantiating derivations.
   scrubbedPkgsModule = {
-    imports = [
-      {
-        _module.args = {
-          pkgs = lib.mkForce (nmd.scrubDerivations "pkgs" pkgs);
-          pkgs_i686 = lib.mkForce { };
-        };
-      }
-    ];
+    imports = [{
+      _module.args = {
+        pkgs = lib.mkForce (nmd.scrubDerivations "pkgs" pkgs);
+        pkgs_i686 = lib.mkForce { };
+      };
+    }];
   };
 
   hmModulesDocs = nmd.buildModulesDocs {
-    modules =
-      [ ../hm-modules/emacs-init.nix ]
-      ++ [ scrubbedPkgsModule ];
+    modules = [ ../hm-modules/emacs-init.nix ] ++ [ scrubbedPkgsModule ];
     moduleRootPaths = [ ../hm-modules ];
     mkModuleUrl = path:
       "https://gitlab.com/rycee/nur-expressions/blob/master"
@@ -40,8 +36,7 @@ let
   };
 
   nixosModulesDocs = nmd.buildModulesDocs {
-    modules =
-      [ ../modules/containers-docker-support.nix ]
+    modules = [ ../modules/containers-docker-support.nix ]
       ++ [ scrubbedPkgsModule ];
     moduleRootPaths = [ ../modules ];
     mkModuleUrl = path:
@@ -65,28 +60,23 @@ let
     '';
   };
 
-in
-
-{
+in {
   options = {
-    json =
-      pkgs.symlinkJoin {
-        name = "nur-rycee-options-json";
-        paths = [
-          (hmModulesDocs.json.override {
-            path = "share/doc/nur-rycee/hm-options.json";
-          })
+    json = pkgs.symlinkJoin {
+      name = "nur-rycee-options-json";
+      paths = [
+        (hmModulesDocs.json.override {
+          path = "share/doc/nur-rycee/hm-options.json";
+        })
 
-          (nixosModulesDocs.json.override {
-            path = "share/doc/nur-rycee/nixos-options.json";
-          })
-        ];
-      };
+        (nixosModulesDocs.json.override {
+          path = "share/doc/nur-rycee/nixos-options.json";
+        })
+      ];
+    };
   };
 
   manPages = docs.manPages;
 
-  manual = {
-    inherit (docs) html htmlOpenTool;
-  };
+  manual = { inherit (docs) html htmlOpenTool; };
 }

@@ -20,12 +20,6 @@
       '';
     };
 
-    lsp-rust = {
-      config = ''
-        (setq lsp-rust-rls-server-command "${pkgs.rls}/bin/rls")
-      '';
-    };
-
     notmuch = {
       config = ''
         (setq notmuch-command "${pkgs.notmuch}/bin/notmuch")

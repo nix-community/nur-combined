@@ -15,39 +15,38 @@ let
   containerNames = attrNames cfgContainers;
 
   containerModule = { config, ... }: {
-    options.enableDockerSupport = mkEnableOption ""
-      // {
-        description = ''
-          Whether support for the Docker daemon should be added to
-          this declarative container. Note, this will disable a number
-          of important isolation features of this container and should
-          only be enabled if you fully trust the container to access
-          your system as a whole.
-        '';
-       };
+    options.enableDockerSupport = mkEnableOption "" // {
+      description = ''
+        Whether support for the Docker daemon should be added to
+        this declarative container. Note, this will disable a number
+        of important isolation features of this container and should
+        only be enabled if you fully trust the container to access
+        your system as a whole.
+      '';
+    };
 
     config = mkIf config.enableDockerSupport {
       bindMounts = {
-        "/sys/fs/cgroup" = { hostPath = "/sys/fs/cgroup"; isReadOnly = false; };
+        "/sys/fs/cgroup" = {
+          hostPath = "/sys/fs/cgroup";
+          isReadOnly = false;
+        };
       };
       additionalCapabilities = [ "all" "CAP_SYS_ADMIN" ];
-      extraFlags = map (sc: "--system-call-filter=${sc}") [ "add_key" "keyctl" ];
+      extraFlags =
+        map (sc: "--system-call-filter=${sc}") [ "add_key" "keyctl" ];
     };
   };
 
-in
-
-{
+in {
   options = {
-    containers = mkOption {
-      type = types.attrsOf (types.submodule containerModule);
-    };
+    containers =
+      mkOption { type = types.attrsOf (types.submodule containerModule); };
   };
 
-  config = mkIf (cfgContainers != []) {
-    environment.etc =
-      foldl' (a: b: a // b) {}
+  config = mkIf (cfgContainers != [ ]) {
+    environment.etc = foldl' (a: b: a // b) { }
       (map (n: { "containers/${n}.conf".text = "SYSTEMD_NSPAWN_USE_CGNS=0"; })
-      containerNames);
+        containerNames);
   };
 }

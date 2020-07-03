@@ -1,6 +1,5 @@
 { mkDerivation, aeson, base-noprelude, directory, fetchgit, hnix
-, microlens-aeson, microlens-platform, relude, stdenv, text, wreq
-}:
+, microlens-aeson, microlens-platform, relude, stdenv, text, wreq }:
 
 mkDerivation rec {
   pname = "nixpkgs-firefox-addons";
@@ -15,8 +14,15 @@ mkDerivation rec {
   isExecutable = true;
   enableSeparateDataOutput = true;
   executableHaskellDepends = [
-    aeson base-noprelude directory hnix microlens-aeson
-    microlens-platform relude text wreq
+    aeson
+    base-noprelude
+    directory
+    hnix
+    microlens-aeson
+    microlens-platform
+    relude
+    text
+    wreq
   ];
   homepage = "https://gitlab.com/rycee/nix-firefox-addons";
   description = "Tool generating a Nix package set of Firefox addons";

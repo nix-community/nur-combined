@@ -2,10 +2,10 @@
   {
     "1password-x-password-manager" = buildFirefoxXpiAddon {
       pname = "1password-x-password-manager";
-      version = "1.19.2";
+      version = "1.20.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3589872/1password_x_password_manager-1.19.2-fx.xpi?src=";
-      sha256 = "866b106203925c91d744323af4b5ecfd95c72f4a9f0169c16ef5596f7348a5c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3597753/1password_x_password_manager-1.20.0-fx.xpi?src=";
+      sha256 = "ec3c46d4c1f4a7a7be8055a7327e207cf037f8ca579af9cd9930499732632569";
       meta = with stdenv.lib;
       {
         homepage = "https://1password.com";
@@ -49,10 +49,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.3.5.2";
+      version = "0.3.6";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3464092/auto_tab_discard-0.3.5.2-an+fx.xpi?src=";
-      sha256 = "e45a372bb1f48c37d285ffd9794df41fe327e799d1b57ebdb9295e3e94e25311";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3596480/auto_tab_discard-0.3.6-an+fx.xpi?src=";
+      sha256 = "4e2bd3086a224bfbf1cecf862d3c8518f1a0183a6125d22ccc333e6c41dffef0";
       meta = with stdenv.lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -63,10 +63,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.44.3";
+      version = "1.45.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3582922/bitwarden_free_password_manager-1.44.3-an+fx.xpi?src=";
-      sha256 = "f2e2c08a1427b719d7d65219a7694f70da6764d4c065e9988e845bf7057ecaf0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3599242/bitwarden_free_password_manager-1.45.0-an+fx.xpi?src=";
+      sha256 = "038f9bf7e783fec16dfcbcaacdf0751f15d83fd140204e06a9bfff0912adee4a";
       meta = with stdenv.lib;
       {
         homepage = "https://bitwarden.com";
@@ -77,10 +77,10 @@
       };
     "browserpass" = buildFirefoxXpiAddon {
       pname = "browserpass";
-      version = "3.4.1";
+      version = "3.5.0";
       addonId = "browserpass@maximbaz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3427772/browserpass-3.4.1-fx.xpi?src=";
-      sha256 = "42038bdda96609400d09f54417e7899a9650c34d2bf6969e042c68a5c008c05b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3597896/browserpass-3.5.0-fx.xpi?src=";
+      sha256 = "1a53a9d941cba68e5b3131daebbd0c9a81dedf7de2f5a09eb0c09c7609e0f5ce";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/browserpass/browserpass-extension";
@@ -137,7 +137,7 @@
       sha256 = "11e52d054d37eacb204bafc93b1f954e7b798d088c86eb7f84062114c08cd04f";
       meta = with stdenv.lib;
       {
-        homepage = "https://github.com/mrdokenny/Cookie-AutoDelete";
+        homepage = "https://github.com/Cookie-AutoDelete/Cookie-AutoDelete";
         description = "Control your cookies! This WebExtension is inspired by Self Destructing Cookies. When a tab closes, any cookies not being used are automatically deleted. Whitelist the ones you trust while deleting the rest. Support for Container Tabs.";
         license = licenses.mit;
         platforms = platforms.all;
@@ -172,10 +172,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.9";
+      version = "4.9.13";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3577636/dark_reader-4.9.9-an+fx.xpi?src=";
-      sha256 = "a03a0b2e0daa571557b14570952e445bef75f8547b7c3a03a37fed1a96964b2e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3598887/dark_reader-4.9.13-an+fx.xpi?src=";
+      sha256 = "a83d628a38f743fac18ec52c625ffdadf71004dedb264cd7dc66e7f0860b5c7f";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -254,6 +254,20 @@
         platforms = platforms.all;
         };
       };
+    "foxyproxy-standard" = buildFirefoxXpiAddon {
+      pname = "foxyproxy-standard";
+      version = "7.4.3";
+      addonId = "foxyproxy@eric.h.jung";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3476518/foxyproxy_standard-7.4.3-an+fx.xpi?src=";
+      sha256 = "a8372bf0bda1afd27fd1300fdea49991c3bd25fd6a72225a680ba9d102c767a7";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://getfoxyproxy.org";
+        description = "FoxyProxy is an advanced proxy management tool that completely replaces Firefox's limited proxying capabilities. For a simpler tool and less advanced configuration options, please use FoxyProxy Basic.";
+        license = licenses.gpl2;
+        platforms = platforms.all;
+        };
+      };
     "fraidycat" = buildFirefoxXpiAddon {
       pname = "fraidycat";
       version = "1.1.5";
@@ -270,10 +284,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.0.3";
+      version = "3.0.4";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3592973/gesturefy-3.0.3-fx.xpi?src=";
-      sha256 = "e03e97e3d55902237b5b92eeba87f741037dae85d23dcbc373c43181ee2ba87e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3595651/gesturefy-3.0.4-fx.xpi?src=";
+      sha256 = "dcd5b2bbd1981577a7674ba8e44cb45bd8709561eabf786b12ca07c1247abc6b";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -447,10 +461,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.0.5";
+      version = "1.0.6";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3542788/leechblock_ng-1.0.5-an+fx.xpi?src=";
-      sha256 = "77c2b4bc3f8ba59f3198a07c8d7d528e3e204c734b2c2650003e0b4ffae95091";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3599550/leechblock_ng-1.0.6-an+fx.xpi?src=";
+      sha256 = "196c9353fdb841d3a6405a8559f3e68893d650cdb464d3e005ddd77212771c2c";
       meta = with stdenv.lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -503,10 +517,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "5.1.0";
+      version = "5.2.2";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3589864/octotree-5.1.0-fx.xpi?src=";
-      sha256 = "ae72c6c97594b3923a48248650dfbeb3b6db2e36ca5113bb5b58c799cb8d16e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3601814/octotree-5.2.2-fx.xpi?src=";
+      sha256 = "f219cb7f48c239206b9a8f54a8b23f3db04f7e5b78cc77370c762ba188d24030";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -559,10 +573,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2020.6.2";
+      version = "2020.6.29";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3583416/privacy_badger-2020.6.2-an+fx.xpi?src=";
-      sha256 = "4e56b0e1efaafd05f920de99c6b98a953fa5e3483c5e7f20978e5823bcb9bca1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3599198/privacy_badger-2020.6.29-an+fx.xpi?src=";
+      sha256 = "ac583ea0698fd32feb84c0eb8a58c2089b372767d834ed248d243c78af492a9d";
       meta = with stdenv.lib;
       {
         homepage = "https://privacybadger.org/";
@@ -629,10 +643,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.6.18";
+      version = "20.7.2";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3592876/refined_github-20.6.18-an+fx.xpi?src=";
-      sha256 = "992dfdb22c631fff369f4bf3036e8892af832c8229fe73706b2ff1f9196e73e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3601625/refined_github-20.7.2-an+fx.xpi?src=";
+      sha256 = "3e3168b231f55de3671db9bb99c016b41974bd3f116d41daffdea405f0a85de0";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -643,10 +657,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "20.0";
+      version = "20.1";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3594415/save_page_we-20.0-fx.xpi?src=";
-      sha256 = "d59b7442a834758fcf3541788a1621c82a0c89e1195088a8dc55874529f09d3c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3596863/save_page_we-20.1-fx.xpi?src=";
+      sha256 = "afe69f90d2996a455742b59b87c62dadaa3105ad2b949d11d86a816a24cfe066";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";

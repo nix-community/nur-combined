@@ -2,14 +2,16 @@
 
 let
 
-  hm = import ./src.nix { lib = pkgs.lib; };
+  inherit (pkgs) lib;
+  inherit (lib) optionalAttrs versionAtLeast;
+  pkgsVersion = lib.versions.majorMinor lib.version;
 
-  hmDocs = import "${hm}/doc" { inherit pkgs; };
+  hmSrc = import ./src.nix { lib = pkgs.lib; };
 
-in
+  hm = import "${hmSrc}" { inherit pkgs; };
 
-{
-  html-manual = hmDocs.manual.html;
-  json-options = hmDocs.options.json;
-  man-pages = hmDocs.manPages;
+in optionalAttrs (versionAtLeast pkgsVersion "20.09") {
+  htmlManual = hm.docs.html;
+  jsonOptions = hm.docs.json;
+  manPages = hm.docs.manPages;
 }

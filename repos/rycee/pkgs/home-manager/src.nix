@@ -12,21 +12,10 @@ let
   };
 
   getOrAbort = err: key: attrs:
-    if hasAttr key attrs
-    then getAttr key attrs
-    else abort err;
+    if hasAttr key attrs then getAttr key attrs else abort err;
 
-  branch =
-    let
-      err = "No Home Manager branch available for Nixpkgs ${version}";
-    in
-      getOrAbort err version branchMap;
+  branch = let err = "No Home Manager branch available for Nixpkgs ${version}";
+  in getOrAbort err version branchMap;
 
-in
-
-fetchTarball (
-  {
-    name = "home-manager-${version}";
-  }
-  // fromJSON (readFile branch)
-)
+in fetchTarball
+({ name = "home-manager-${version}"; } // fromJSON (readFile branch))
