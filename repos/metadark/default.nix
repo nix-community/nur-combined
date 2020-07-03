@@ -32,13 +32,9 @@ rec {
 
   debugpy = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/debugpy {};
 
-  gammaray = pkgs.libsForQt5.callPackage ./pkgs/development/tools/gammaray {};
-
   lightdm-webkit2-greeter = pkgs.callPackage ./pkgs/applications/display-managers/lightdm-webkit2-greeter {
     inherit lightdm-webkit2-greeter;
   };
-
-  lightdm-webkit2-themes = pkgs.callPackage ./pkgs/applications/display-managers/lightdm-webkit2-greeter/themes {};
 
   pygls = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pygls {};
 
