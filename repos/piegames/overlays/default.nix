@@ -1,4 +1,4 @@
 {
-  gnome-extensions = import ./gnome-extensions;
+  gnome-extensions = import ./gnome-extensions.nix;
 }
 

@@ -42,4 +42,6 @@ in
 			in
 				!(builtins.any matchesGnomeShellVersion metadata_json.shell-version);
 		} // meta;
+		# You don't need a remote machine for unzipping a bit of JavaScript
+		preferLocalBuild = true;
 	}
