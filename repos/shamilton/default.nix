@@ -16,6 +16,7 @@ rec {
   argparse = pkgs.callPackage ./pkgs/argparse { };
   baobab = pkgs.callPackage ./pkgs/baobab { };
   bomber = pkgs.kdeApplications.callPackage ./pkgs/Bomber { };
+  compton-fork = pkgs.callPackage ./pkgs/ComptonFork { };
   controls-for-fake = pkgs.libsForQt5.callPackage ./pkgs/ControlsForFake  {
     inherit libfake;
     FakeMicWavPlayer = fake-mic-wav-player;
@@ -29,6 +30,7 @@ rec {
   inkscape = pkgs.callPackage ./pkgs/inkscape-1.0 { 
     lcms = pkgs.lcms2;
   };
+  instantwm = pkgs.callPackage ./pkgs/InstantWM { };
   juk = pkgs.kdeApplications.callPackage ./pkgs/Juk { };
   kapptemplate = pkgs.kdeApplications.callPackage ./pkgs/KAppTemplate { };
   kbreakout = pkgs.kdeApplications.callPackage ./pkgs/KBreakOut { };
@@ -44,6 +46,8 @@ rec {
   parallel-ssh = with pkgs.python3Packages; pkgs.callPackage ./pkgs/parallel-ssh {
     inherit buildPythonPackage setuptools fetchPypi paramiko gevent ssh2-python;
   };
+  qtile = pkgs.callPackage ./pkgs/qtile { };
+  rofi = pkgs.callPackage ./pkgs/rofi { };
   scripts = with pkgs.python3Packages; pkgs.callPackage ./pkgs/Scripts {
     eom = pkgs.mate.eom;
     inherit sync-database buildPythonPackage parallel-ssh merge-keepass;

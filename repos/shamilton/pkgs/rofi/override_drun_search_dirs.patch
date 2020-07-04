@@ -1,0 +1,19 @@
+diff -ur a/source/dialogs/drun.c b/source/dialogs/drun.c
+--- a/source/dialogs/drun.c	2019-07-01 14:29:09.000000000 +0200
++++ b/source/dialogs/drun.c	2020-07-04 10:17:50.038004470 +0200
+@@ -590,10 +590,13 @@
+     TICK_N ( "Get Desktop apps (start)" );
+ 
+     gchar *dir;
+-    // First read the user directory.
+-    dir = g_build_filename ( g_get_user_data_dir (), "applications", NULL );
++    // First read user nix-profiles dir.
++    dir = g_build_filename ( g_get_user_data_dir (), "../../.nix-profile/share/applications", NULL );
+     walk_dir ( pd, dir, dir );
+     g_free ( dir );
++    // Second read system profile.
++	const gchar sys_dir[] = "/run/current-system/sw/share/applications";
++    walk_dir ( pd, sys_dir, sys_dir );
+     TICK_N ( "Get Desktop apps (user dir)" );
+     // Then read thee system data dirs.
+     const gchar * const * sys = g_get_system_data_dirs ();
