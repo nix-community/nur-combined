@@ -4,6 +4,7 @@
 {
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
+  hm-modules = import ./hm-modules; # Home-manager modules
   overlays = import ./overlays; # nixpkgs overlays
 
   # development
