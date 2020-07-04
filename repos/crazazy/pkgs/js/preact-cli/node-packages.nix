@@ -1192,13 +1192,13 @@ let
         sha512 = "Un7MIEDdUC5gNpcGDV97op1Ywk748MpHcFTHoYs6qnj1Z3j7I53VG3nwZhKzoBZmbdRNnb6WRdFlwl7tSDuZGw==";
       };
     };
-    "binary-extensions-2.0.0" = {
+    "binary-extensions-2.1.0" = {
       name = "binary-extensions";
       packageName = "binary-extensions";
-      version = "2.0.0";
+      version = "2.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.0.0.tgz";
-        sha512 = "Phlt0plgpIIBOGTT/ehfFnbNlfsDEiqmzE2KRXoX1bLIlir4X/MR+zSyBEkL05ffWgnRSf/DXv+WrUAVr93/ow==";
+        url = "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.1.0.tgz";
+        sha512 = "1Yj8h9Q+QDF5FzhMs/c9+6UntbD5MkRfRwac8DoEm9ZfUBZ7tZ55YcGVAzEe4bXsdQHEk+s9S5wsOKVdZrw0tQ==";
       };
     };
     "bindings-1.5.0" = {
@@ -1633,22 +1633,22 @@ let
         sha1 = "b534e7c734c4f81ec5fbe8aca2ad24354b962c6c";
       };
     };
-    "caniuse-db-1.0.30001088" = {
+    "caniuse-db-1.0.30001093" = {
       name = "caniuse-db";
       packageName = "caniuse-db";
-      version = "1.0.30001088";
+      version = "1.0.30001093";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30001088.tgz";
-        sha512 = "Sqkmd4oi1oiyOn2EkTauy1Bx1sVFv+drLtjkK6q4vTQpaI9wCjGGU/87MQXCiIh/SMU0FrdSnnA358yHkz8p/Q==";
+        url = "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30001093.tgz";
+        sha512 = "XqXxHR6Z9IN0BXLKMaTJ1NZ+US74cbKritholD6uaDLUWHiDj0QilpSb708wOcoGz0PmPRsXT/6zE+bjx+QSMw==";
       };
     };
-    "caniuse-lite-1.0.30001088" = {
+    "caniuse-lite-1.0.30001093" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001088";
+      version = "1.0.30001093";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001088.tgz";
-        sha512 = "6eYUrlShRYveyqKG58HcyOfPgh3zb2xqs7NvT2VVtP3hEUeeWvc3lqhpeMTxYWBBeeaT9A4bKsrtjATm66BTHg==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001093.tgz";
+        sha512 = "0+ODNoOjtWD5eS9aaIpf4K0gQqZfILNY4WSNuYzeT1sXni+lMrrVjc0odEobJt6wrODofDZUX8XYi/5y7+xl8g==";
       };
     };
     "capture-stack-trace-1.0.1" = {
@@ -2785,13 +2785,13 @@ let
         sha512 = "K1HBDWXQZkcIAnP5h65kWsD7o7NABvHswOH49rVHX7POGaTM2kYQfkFZVn4ZQeiRnzqbtf07LxSitOVRdR98GA==";
       };
     };
-    "electron-to-chromium-1.3.483" = {
+    "electron-to-chromium-1.3.488" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.483";
+      version = "1.3.488";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.483.tgz";
-        sha512 = "+05RF8S9rk8S0G8eBCqBRBaRq7+UN3lDs2DAvnG8SBSgQO3hjy0+qt4CmRk5eiuGbTcaicgXfPmBi31a+BD3lg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.488.tgz";
+        sha512 = "NReBdOugu1yl8ly+0VDtiQ6Yw/1sLjnvflWq0gvY1nfUXU2PbA+1XAVuEb7ModnwL/MfUPjby7e4pAFnSHiy6Q==";
       };
     };
     "elliptic-6.5.3" = {
@@ -9484,7 +9484,7 @@ let
           sources."pify-4.0.1"
         ];
       })
-      sources."binary-extensions-2.0.0"
+      sources."binary-extensions-2.1.0"
       sources."bindings-1.5.0"
       sources."bl-1.2.2"
       sources."bluebird-3.7.2"
@@ -9557,8 +9557,8 @@ let
           sources."browserslist-1.7.7"
         ];
       })
-      sources."caniuse-db-1.0.30001088"
-      sources."caniuse-lite-1.0.30001088"
+      sources."caniuse-db-1.0.30001093"
+      sources."caniuse-lite-1.0.30001093"
       sources."capture-stack-trace-1.0.1"
       sources."caw-2.0.1"
       sources."center-align-0.1.3"
@@ -9783,7 +9783,7 @@ let
           sources."loader-utils-0.2.17"
         ];
       })
-      sources."electron-to-chromium-1.3.483"
+      sources."electron-to-chromium-1.3.488"
       (sources."elliptic-6.5.3" // {
         dependencies = [
           sources."bn.js-4.11.9"
