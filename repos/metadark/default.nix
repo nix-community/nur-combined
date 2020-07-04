@@ -14,6 +14,10 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  caprine = pkgs.callPackage ./pkgs/applications/networking/instant-messengers/caprine {
+    electron = pkgs.electron_9;
+  };
+
   clonehero-unwrapped = pkgs.callPackage ./pkgs/games/clonehero {};
 
   clonehero-xdg-wrapper = pkgs.callPackage ./pkgs/games/clonehero/xdg-wrapper.nix {
@@ -38,13 +42,15 @@ rec {
 
   pygls = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pygls {};
 
+  runescape-launcher-unwrapped = pkgs.callPackage ./pkgs/games/runescape-launcher {};
+
   runescape-launcher = pkgs.callPackage ./pkgs/games/runescape-launcher/wrapper.nix {};
 
   texlab = pkgs.callPackage ./pkgs/development/tools/misc/texlab {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
 
-  VVVVVV-unwrapped = pkgs.callPackage ./pkgs/games/VVVVVV/default.nix {
+  VVVVVV-unwrapped = pkgs.callPackage ./pkgs/games/VVVVVV {
     inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
   };
 
