@@ -13,7 +13,7 @@
 }:
 stdenv.mkDerivation rec {
 
-  pname = "ComptonFork";
+  pname = "Compton";
   version = "0.1_beta2";
 
   src = fetchFromGitHub {
@@ -32,13 +32,13 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ gnumake pkg-config ];
-  buildInputs = with xlibs; map lib.getDev [ libX11 libXcomposite libXdamage libXrender libXext libXrandr libXinerama libconfig dbus libglvnd linuxHeaders libdrm pcre ];
+  buildInputs = with xlibs; map lib.getDev [ libX11 libXcomposite libXdamage libXrender libXext libXrandr libXinerama libconfig dbus libglvnd libdrm pcre ];
 
   meta = with lib; {
     description = "Compositor for X11";
     license = licenses.mit;
     homepage = "https://github.com/tryone144/compton";
-    maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
+    maintainers = with maintainers; [ shamilton ];
     platforms = platforms.linux;
   };
 }

@@ -13,7 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "1g1170zmh5v7slnm1sm2d08jgz6icikf8rm17apm1bjzzyw1lhk7";
   };
 
-  patches = [ ./override_drun_search_dirs.patch ];
+  patches = [ ./override_drun_search_dirs.patch ./add-icon-nix-profiles-paths.patch ];
+
+  # src = ./src.tar.gz;
 
   preConfigure = ''
     patchShebangs "script"

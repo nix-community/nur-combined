@@ -16,7 +16,7 @@ rec {
   argparse = pkgs.callPackage ./pkgs/argparse { };
   baobab = pkgs.callPackage ./pkgs/baobab { };
   bomber = pkgs.kdeApplications.callPackage ./pkgs/Bomber { };
-  compton-fork = pkgs.callPackage ./pkgs/ComptonFork { };
+  compton = pkgs.callPackage ./pkgs/Compton { };
   controls-for-fake = pkgs.libsForQt5.callPackage ./pkgs/ControlsForFake  {
     inherit libfake;
     FakeMicWavPlayer = fake-mic-wav-player;
