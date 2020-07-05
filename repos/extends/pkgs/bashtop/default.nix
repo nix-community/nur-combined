@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, gnumake, python3 }:
 stdenv.mkDerivation rec {
   pname = "bashtop";
-  version = "0.9.9";
+  version = "0.9.19";
   src = fetchFromGitHub {
     owner = "aristocratos";
     repo = pname;
