@@ -16,8 +16,11 @@ in {
 
   firefox-addons =
     pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { });
+
   firefox-addons-generator =
     pkgs.haskellPackages.callPackage ./pkgs/firefox-addons-generator { };
+
+  nix-stray-roots = pkgs.callPackage ./pkgs/nix-stray-roots { };
 
   terraform-provider-keycloak =
     pkgs.callPackage ./pkgs/terraform-provider-keycloak { };
