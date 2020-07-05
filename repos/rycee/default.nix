@@ -21,6 +21,9 @@ in {
 
   terraform-provider-keycloak =
     pkgs.callPackage ./pkgs/terraform-provider-keycloak { };
-} // optionalAttrs (versionOlder pkgsVersion "20.09") {
-  weylus = pkgs.callPackage ./pkgs/weylus { };
+
+  weylus = if versionOlder pkgsVersion "20.09" then
+    pkgs.callPackage ./pkgs/weylus { }
+  else
+    pkgs.writeShellScriptBin "unsupported" "echo unsupported Nixpkgs version";
 }
