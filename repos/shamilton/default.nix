@@ -30,6 +30,13 @@ rec {
   inkscape = pkgs.callPackage ./pkgs/inkscape-1.0 { 
     lcms = pkgs.lcms2;
   };
+  instantmenu = pkgs.callPackage ./pkgs/InstantMENU { };
+  instantlogo = pkgs.callPackage ./pkgs/InstantLOGO { };
+  instantprograms = pkgs.callPackage ./pkgs/InstantPrograms { };
+  instantwallpaper = pkgs.callPackage ./pkgs/InstantWALLPAPER {
+    InstantLOGO = instantlogo;
+    iconf = python-iconf;
+  };
   instantwm = pkgs.callPackage ./pkgs/InstantWM { };
   juk = pkgs.kdeApplications.callPackage ./pkgs/Juk { };
   kapptemplate = pkgs.kdeApplications.callPackage ./pkgs/KAppTemplate { };
@@ -45,6 +52,9 @@ rec {
   };
   parallel-ssh = with pkgs.python3Packages; pkgs.callPackage ./pkgs/parallel-ssh {
     inherit buildPythonPackage setuptools fetchPypi paramiko gevent ssh2-python;
+  };
+  python-iconf = with pkgs.python3Packages; pkgs.callPackage ./pkgs/python-iconf {
+    inherit buildPythonPackage fetchPypi pytest;
   };
   qtile = pkgs.callPackage ./pkgs/qtile { };
   rofi = pkgs.callPackage ./pkgs/rofi { };

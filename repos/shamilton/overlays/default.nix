@@ -2,6 +2,6 @@
   # Add your overlays here
   #
   # my-overlay = import ./my-overlay;
-  myvim = import ./myvim.nix;
+  tabbed = import ./tabbed;
 }
 
