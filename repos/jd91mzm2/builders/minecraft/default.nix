@@ -1,9 +1,16 @@
-{ runCommand, lib, callPackage, writeShellScript }:
+{ runCommand, lib, callPackage, writeShellScript, zip }:
 
 with callPackage ./utils.nix {};
 
 rec {
-  mkDatapack = callPackage ./datapack.nix {};
+  mkDatapackUncompressed = callPackage ./datapack.nix {};
+  mkDatapack = args:
+    let
+      unzipped = mkDatapackUncompressed args;
+    in runCommand "${(unzipped).name}.zip" {} ''
+      cd ${unzipped}
+      ${zip}/bin/zip -r $out *
+    '';
 
   installDatapack = datapack: name: writeShellScript "install.sh" ''
     ${./install.sh} ${escapeShellArg datapack} ${escapeShellArg name} "$@"
