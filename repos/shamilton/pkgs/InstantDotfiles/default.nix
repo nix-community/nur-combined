@@ -6,18 +6,21 @@
 }:
 stdenv.mkDerivation rec {
 
-  pname = "InstantPrograms";
+  pname = "InstantDotfiles";
   version = "unstable";
 
   src = fetchFromGitHub {
-    owner = "instantOS";
-    repo = "instantOS";
+    owner = "paperbenni";
+    repo = "dotfiles";
     rev = "master";
-    sha256 = "11d2hjjmamwxhicsxi9pdi9rds82hqf5hljbicclw1y745fygkx8";
+    sha256 = "19740rb6ypi3418fsncb2my53lzwjwxzc3giy6y2qzy8d86zxnyy";
   };
   
   installPhase = ''
-    install -Dm 555 programs/instantstartmenu $out/bin/instantstartmenu
+    mkdir -p $out/share/instantdotfiles
+    install -Dm 555 instantdotfiles $out/bin/instantdotfiles
+    rm instantdotfiles
+    mv * $out/share/instantdotfiles
   '';
 
   meta = with lib; {

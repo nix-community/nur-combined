@@ -30,14 +30,35 @@ rec {
   inkscape = pkgs.callPackage ./pkgs/inkscape-1.0 { 
     lcms = pkgs.lcms2;
   };
-  instantmenu = pkgs.callPackage ./pkgs/InstantMENU { };
+
+  # Instant WM and utils
+  paperbash = pkgs.callPackage ./pkgs/Paperbash { };
+  instantconf = pkgs.callPackage ./pkgs/InstantConf { };
+  instantdotfiles = pkgs.callPackage ./pkgs/InstantDotfiles { };
+  instantshell = pkgs.callPackage ./pkgs/InstantShell { };
+  instantthemes = pkgs.callPackage ./pkgs/InstantTHEMES {
+    Paperbash = paperbash;
+  };
+  instantutils = pkgs.callPackage ./pkgs/InstantUtils { 
+    InstantDotfiles = instantdotfiles;
+    InstantConf = instantconf;
+    InstantTHEMES = instantthemes;
+    InstantShell = instantshell;
+  };
   instantlogo = pkgs.callPackage ./pkgs/InstantLOGO { };
-  instantprograms = pkgs.callPackage ./pkgs/InstantPrograms { };
+  instantmenu = pkgs.callPackage ./pkgs/InstantMENU {
+    InstantUtils = instantutils;
+  };
   instantwallpaper = pkgs.callPackage ./pkgs/InstantWALLPAPER {
     InstantLOGO = instantlogo;
-    iconf = python-iconf;
+    InstantConf = instantconf;
+    InstantUtils = instantutils;
+    Paperbash = paperbash;
   };
-  instantwm = pkgs.callPackage ./pkgs/InstantWM { };
+  instantwm = pkgs.callPackage ./pkgs/InstantWM {
+    InstantUtils = instantutils;
+  };
+
   juk = pkgs.kdeApplications.callPackage ./pkgs/Juk { };
   kapptemplate = pkgs.kdeApplications.callPackage ./pkgs/KAppTemplate { };
   kbreakout = pkgs.kdeApplications.callPackage ./pkgs/KBreakOut { };

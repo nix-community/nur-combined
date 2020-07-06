@@ -4,16 +4,17 @@
 , gnumake
 , xlibs
 , rofi
+, InstantUtils
 }:
 stdenv.mkDerivation rec {
 
   pname = "InstantWM";
-  version = "";
+  version = "beta2";
 
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantWM";
-    rev = "beta2";
+    rev = "${version}";
     sha256 = "098s2gg526zzv9rpsc6d2ski8nscbrn3ngvlhkq6kmzs66d6pvb0";
   };
 
@@ -25,11 +26,13 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace config.mk \
       --replace "PREFIX = /usr/local" "PREFIX = $out"
+    substituteInPlace instantwm.c \
+      --replace "cd /usr/bin; ./instantautostart &" "${InstantUtils}/bin/instantautostart &"
   '';
 
   nativeBuildInputs = [ gnumake ];
   buildInputs = with xlibs; map lib.getDev [ libX11 libXft libXinerama ];
-  propagatedBuildInputs = [ rofi ];
+  propagatedBuildInputs = [ rofi InstantUtils ];
 
   configurePhase = ''
     ./theme.sh    

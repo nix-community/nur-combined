@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , gnumake
 , xlibs
+, InstantUtils
 }:
 stdenv.mkDerivation rec {
 
@@ -24,6 +25,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gnumake ];
   buildInputs = with xlibs; map lib.getDev [ libX11 libXft libXinerama ];
+  propagatedBuildInputs = [ InstantUtils ];
 
   configurePhase = ''
     ./theme.sh    
