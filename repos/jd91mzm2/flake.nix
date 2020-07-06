@@ -7,8 +7,13 @@
   in {
     # Packages
     # packages = forAllSystems (system: {
-
+    #
     # });
+
+    # Builders
+    builders = forAllSystems (system: {
+      minecraft = nixpkgs.legacyPackages."${system}".callPackage ./builders/minecraft {};
+    });
 
     # Library items
     lib = import ./lib { inherit (nixpkgs) lib; };
