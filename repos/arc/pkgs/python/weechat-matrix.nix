@@ -4,13 +4,13 @@ with pythonPackages;
 
 buildPythonPackage rec {
   pname = "weechat-matrix";
-  version = "2019-11-10";
+  version = "2020-07-02";
 
   src = fetchFromGitHub {
     owner = "poljar";
     repo = pname;
-    rev = "69ad2a9c03d516c212d3d0700dbb2bfe654f6365";
-    sha256 = "1mfbkag5np2lgv6f31nyfnvavyh67jrrx6gxhzb8m99dd43lgs8c";
+    rev = "439389db4d709fb069a49611173b62d67d3ad112";
+    sha256 = "0sp3hjjjrsdwnd38112xvcy2inbx92i9xg7xd0gx9i4jbh79ngnl";
   };
 
   propagatedBuildInputs = [
@@ -46,6 +46,8 @@ buildPythonPackage rec {
   postPatch = ''
     substituteInPlace matrix/uploads.py \
       --replace matrix_upload $weechatMatrixContrib/bin/matrix_upload
+    substituteInPlace matrix/server.py \
+      --replace matrix_sso_helper $weechatMatrixContrib/bin/matrix_sso_helper
     substituteAll $setupPath setup.py
   '' + lib.optionalString (!matrix-nio.enableOlm) ''
     substituteInPlace requirements.txt \

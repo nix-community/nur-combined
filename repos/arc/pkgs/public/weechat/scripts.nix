@@ -39,8 +39,8 @@
   };
   vimode = { buildWeechatScript }: buildWeechatScript {
     pname = "vimode.py";
-    version = "0.7";
-    sha256 = "1ypn5hkz9n7qjmk22h86lz8sikf7a4wql08cc0540a5lwd4m2qgz";
+    version = "0.8";
+    sha256 = "0xpa9v6xp3hipqamk8m8c884jkvm8hknmpk7p70w7ik9hzjpfrmi";
   };
   vimode-git = { fetchFromGitHub, stdenvNoCC, fetchurl }: stdenvNoCC.mkDerivation rec {
     pname = "vimode.py";

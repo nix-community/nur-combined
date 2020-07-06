@@ -6,13 +6,13 @@ with pythonPackages;
 
 buildPythonPackage rec {
   pname = "nio";
-  version = "0.6";
+  version = "0.14.1";
 
   src = fetchFromGitHub {
     owner = "poljar";
     repo = "matrix-nio";
     rev = version;
-    sha256 = "0pq5i6ks3pck2kq9m4p3pw9hbvkzs27xkyv68mjnfc6chp2g2mg9";
+    sha256 = "0mgb9m3298jvw3wa051zn7vp1m8qriys3ps0qn3sq54fndljgg5k";
   };
 
   postPatch = lib.optionalString (!enableOlm) ''
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     jsonschema
     unpaddedbase64
     cachetools
-  ] ++ lib.optional (!pythonPackages.python.isPy2) aiohttp
+  ] ++ lib.optionals (!pythonPackages.python.isPy2) [ aiohttp aiofiles ]
     ++ lib.optional enableOlm olm;
 
   passthru = {
