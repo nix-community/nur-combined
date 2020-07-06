@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=chos4
+Exec=chos4 install
+Type=Application
+Terminal=true
+Categories=System;

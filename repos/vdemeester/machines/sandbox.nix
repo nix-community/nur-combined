@@ -1,3 +1,0 @@
-{
-  imports = [ ./nixos-base.nix ];
-}

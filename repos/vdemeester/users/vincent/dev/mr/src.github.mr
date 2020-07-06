@@ -1,0 +1,24 @@
+include = cat ${HOME}/.config/mr
+
+[DEFAULT]
+lib =
+    export BASE_HOST="github.com"
+    export GIT_BASE="github.com:"
+
+[NixOS/nixpkgs]
+
+[openshift]
+chain = true
+skip = true
+
+[tektoncd/catalog]
+[tektoncd/cli]
+[tektoncd/community]
+[tektoncd/dashboard]
+[tektoncd/experimental]
+[tektoncd/friends]
+[tektoncd/homebrew-tools]
+[tektoncd/pipeline]
+[tektoncd/plumbing]
+[tektoncd/triggers]
+[tektoncd/website]

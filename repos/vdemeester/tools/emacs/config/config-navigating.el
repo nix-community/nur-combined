@@ -31,5 +31,54 @@
   :config
   (beginend-global-mode 1))
 
+(use-package dumb-jump
+  :bind (("M-g q"     . dumb-jump-quick-look) ;; Show me in a tooltip.
+         ("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g ."     . dumb-jump-go)
+         ("M-g b" . dumb-jump-back)
+         ("M-g p" . dumb-jump-go-prompt)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window)
+         ("M-g a"     . xref-find-apropos)) ;; aka C-M-.
+  :config
+  ;; If source file is visible, just shift focus to it.
+  (setq-default dumb-jump-use-visible-window t
+                dumb-jump-prefer-searcher 'rg))
+
+(use-package imenu
+  :config
+  (setq-default imenu-use-markers t
+                imenu-auto-rescan t
+                imenu-auto-rescan-maxout 600000
+                imenu-max-item-length 100
+                imenu-use-popup-menu nil
+                imenu-eager-completion-buffer t
+                imenu-space-replacement " "
+                imenu-level-separator "/")
+
+  (defun prot/imenu-vertical ()
+    "Use a vertical Icomplete layout for `imenu'.
+Also configure the value of `orderless-matching-styles' to avoid
+aggressive fuzzy-style matching for this particular command."
+    (interactive)
+    (let ((orderless-matching-styles    ; make sure to check `orderless'
+           '(orderless-literal
+             orderless-regexp
+             orderless-prefixes)))
+      (icomplete-vertical-do (:height (/ (frame-height) 4))
+        (call-interactively 'imenu))))
+
+  :hook ((imenu-after-jump-hook . (lambda ()
+                                    (when (and (eq major-mode 'org-mode)
+                                               (org-at-heading-p))
+                                      (org-show-entry)
+                                      (org-reveal t)))))
+  :bind ("C-'" . prot/imenu-vertical))
+
+(use-package flimenu
+  :config
+  (flimenu-global-mode 1))
+
 (provide 'config-navigating)
 ;;; config-navigating.el ends here

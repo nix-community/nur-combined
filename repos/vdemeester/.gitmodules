@@ -1,6 +1,3 @@
-[submodule "tools/emacs/lisp/modus-themes"]
-	path = tools/emacs/lisp/modus-themes
-	url = https://gitlab.com/protesilaos/modus-themes.git
 [submodule "tools/emacs/lisp/vorg"]
 	path = tools/emacs/lisp/vorg
 	url = https://gitlab.com/vdemeester/vorg.git

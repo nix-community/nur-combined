@@ -20,6 +20,12 @@
                    (window-height . 0.25)
                    (side . bottom)
                    (slot . -1))
+                  (".*\\*\\(Completions\\|Embark Live Occur\\).*"
+                   (display-buffer-in-side-window)
+                   (window-height . 0.16)
+                   (side . bottom)
+                   (slot . 0)
+                   (window-parameters . ((no-other-window . t))))
                   ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|[Hh]elp\\|Messages\\)\\*"
                    (display-buffer-in-side-window)
                    (window-height . 0.25)
@@ -71,7 +77,9 @@
                    (display-buffer-in-side-window)
                    (window-width . 0.20)
                    (side . right)
-                   (slot . 2))))
+                   (slot . 2))
+                  ("\\*Embark Occur.*"
+                   (display-buffer-at-bottom))))
   (setq window-sides-vertical nil)
   (setq window-combination-resize t) ; Size new windows proportionally
   :bind (("C-x +" . balance-windows-area)

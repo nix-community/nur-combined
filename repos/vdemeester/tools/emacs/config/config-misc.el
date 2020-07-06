@@ -15,15 +15,5 @@
          ("C-h C" . helpful-command)))
 ;; -UseHelpful
 
-;; UseSSHConfig
-(use-package ssh-config-mode
-  :commands (ssh-config-mode
-             ssh-authorized-keys-mode)
-  :mode ((".ssh/config\\'"       . ssh-config-mode)
-         ("sshd?_config\\'"      . ssh-config-mode)
-         ("known_hosts\\'"       . ssh-known-hosts-mode)
-         ("authorized_keys2?\\'" . ssh-authorized-keys-mode)))
-;; -UseSSHConfig
-
 (provide 'config-misc)
 ;;; config-misc.el ends here

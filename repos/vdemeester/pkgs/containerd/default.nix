@@ -72,7 +72,7 @@ rec {
   };
 
   containerd_1_4 = makeOverridable containerdGen {
-    version = "1.4.0-beta.0";
-    sha256 = "1mrkqkl0ywgq2g5f2j64mp2kazfgbwi37p3dp1fk6xa8ypfqjbl0";
+    version = "1.4.0-beta.1";
+    sha256 = "0q5cq42jkdpbxgikkzmvkkxpbjb3hjpv12i431b0z55cqqvc64mw";
   };
 }

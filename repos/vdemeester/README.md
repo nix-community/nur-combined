@@ -3,19 +3,18 @@
 
 1.  [What is `home`](#h:0272c5ac-0b7f-4ebb-91f0-defa66c2d285)
 2.  [Installation](#h:e289aa81-d0ec-49a0-ba94-933e85d4ee8c)
-    1.  [`home-manager` only](#h:62ee62f0-7e1a-4abc-b289-ac24d12e733c)
-    2.  [`nixos` only](#h:5529fb57-a55d-4b81-a164-e5d1104b7e0b)
 3.  [Organization of the repository](#h:b74304bf-e7e6-4425-9123-e50eca3eb8fa)
 4.  [References](#h:e5a95a68-f031-438b-831c-824803d0bc3e)
 5.  [COPYING](#h:716e598e-3b1a-4e48-a72b-608c3a970db9)
 
+![img](https://builds.sr.ht/~vdemeester/home.svg)
 
 
 <a id="h:0272c5ac-0b7f-4ebb-91f0-defa66c2d285"></a>
 
 # What is `home`
 
-Veritas is the declarative configuration of my servers, desktops and laptops. This project is based
+`home` is the declarative configuration of my servers, desktops and laptops. This project is based
 on the NixOS operating system and uses home-manager to manage my dotfiles, for both NixOS and
 non-NixOS hosts (like WSL).
 
@@ -38,28 +37,6 @@ dramatically or even not working anymore 😛.
 
 *todo: rework that part, link to the `docs` folder*
 
-You should be able to run the `bootstrap.sh` script as is. And if you feel adventurous,
-you can use `curl` for this.
-
-    curl https://gitlab.com/vdemeester/home/-/raw/master/bootstrap.sh | sh
-
-Otherwise, clone this repository somewhere, read the `bootstrap.sh` file and execute it if
-you feel safe
-
-
-<a id="h:62ee62f0-7e1a-4abc-b289-ac24d12e733c"></a>
-
-## TODO `home-manager` only
-
-*todo: rework that part*
-
-
-<a id="h:5529fb57-a55d-4b81-a164-e5d1104b7e0b"></a>
-
-## TODO `nixos` only
-
-*todo: rework that part*
-
 
 <a id="h:b74304bf-e7e6-4425-9123-e50eca3eb8fa"></a>
 
@@ -70,21 +47,19 @@ you feel safe
 This is probably gonna be a moving target, but this is how it looks (or should look
 soon-ish 👼):
 
--   `assets`: ignored folder where my *automation* puts some *secrets*.
-    Most of the `make` commands will try to populate this ahead of time. The assumption is :
-    have a `sync` folder where the assets are. *Note: how to bootstrap (as syncthing will
-    not be there, and the `sync` folder either)*
--   `docs`: holds documentation about this code, literate configuration, see [literate configuration](#org892ed15).
+-   `docs`: holds documentation about this code, literate configuration, see [literate configuration](#orgfbae953).
     `make publish` will publish the `README.org` and the `docs` folder to my website.
 -   `lib`: shared code used during configuration (mostly `nix` code).
 -   `machines`: configuration per machines
 -   `modules`: holds nix modules (services, programs, hardware, profiles, …)
 -   `overlays`: holds [nix overlays](https://nixos.wiki/wiki/Overlays)
 -   `pkgs`: holds nix packages (those should migrate under `overlays` or on `nur-packages`)
--   `private`: holds non-shareable code, like *secrets*.
+-   `secrets`: holds non-shareable code, this folder is ignored and `make` commands will try
+    to populate this. If it's empty, the rest of configuration is still meant to work but
+    will contain empty secrets (or random ones).
 -   `tmp`: things to… organize (e.g. where I import my other *legacy* configuration)
 
-<a id="org892ed15"></a>As I'm slowly, but <span class="underline">surely</span>, going to have `org-mode` files for
+<a id="orgfbae953"></a>As I'm slowly, but <span class="underline">surely</span>, going to have `org-mode` files for
 literate configuration files in this repository, I have to think of how to organize files
 in order to end up with one huge file. The goal of having those `org-mode` files, is
 mainly to document my configuration and publish it, most likely on [sbr.pm](https://sbr.pm).

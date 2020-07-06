@@ -63,7 +63,7 @@
 ;; UseDiff
 (use-package diff
   :config
-  (setq diff-default-read-only t)
+  (setq diff-default-read-only nil)
   (setq diff-advance-after-apply-hunk t)
   (setq diff-update-on-the-fly t)
   (setq diff-refine 'font-lock)

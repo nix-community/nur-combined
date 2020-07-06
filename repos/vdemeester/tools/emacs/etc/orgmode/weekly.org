@@ -1,4 +1,4 @@
-* weekly review                                               :weekly:review:
+* %(format-time-string org-journal-time-format) weekly review                                              :weekly:review:
 %U
 
 - [ ] review [[file:../projects/inbox.org][~inbox.org~]]

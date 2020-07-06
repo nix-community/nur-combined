@@ -7,20 +7,20 @@ rec {
     , sha256
     , bundle
     , oc
-    }:
+    , crc_driver_libvirt
+    , patches
+    }: buildGoPackage rec {
+      inherit patches;
 
-    buildGoPackage rec {
       pname = "crc";
       name = "${pname}-${version}";
 
       src = fetchFromGitHub {
+        inherit sha256;
         owner = "code-ready";
         repo = "crc";
         rev = "${version}";
-        sha256 = "${sha256}";
       };
-
-      patches = [ ./0001-checkLibvirtEnabled-support-linked-too.patch ];
 
       goPackagePath = "github.com/code-ready/crc";
       subPackages = [ "cmd/crc" ];
@@ -42,34 +42,64 @@ rec {
       };
     };
 
+  crc_driver_libvirtGen =
+    { version
+    , sha256
+    , vendorSha256
+    ,
+    }: buildGoModule rec {
+      inherit vendorSha256;
+      pname = "crc_driver_libvirt";
+      name = "${pname}-${version}";
+
+      nativeBuildInputs = [ pkg-config ];
+      buildInputs = [ libvirt ];
+
+      subPackages = [ "cmd/machine-driver-libvirt" ];
+      src = fetchFromGitHub {
+        inherit sha256;
+        owner = "code-ready";
+        repo = "machine-driver-libvirt";
+        rev = "${version}";
+      };
+      modSha256 = "${vendorSha256}";
+
+    };
+
+
   # bundle is https://storage.googleapis.com/crc-bundle-github-ci/crc_libvirt_4.4.3.zip
   crc_1_9 = makeOverridable crcGen {
     version = "1.9.0";
     sha256 = "1q2jdm847snjj7wqchsik7qpczvx4awgi5rgvw930mm2b635r3aq";
     bundle = "4.3.10";
     oc = oc_4_3;
+    patches = [ ./patches/1_9.patch ];
+    crc_driver_libvirt = crc_driver_libvirt_0_12_7;
   };
   crc_1_10 = makeOverridable crcGen {
     version = "1.10.0";
     sha256 = "11vy42zb2xzhwsgnz17894gfn03knvp2yr094k3zhly6wkxbwbk3";
     bundle = "4.4.3";
     oc = oc_4_4;
+    patches = [ ./patches/1_10.patch ];
+    crc_driver_libvirt = crc_driver_libvirt_0_12_7;
   };
-  crc_driver_libvirt = buildGoModule rec {
-    pname = "crc_driver_libvirt";
-    name = "${pname}-${version}";
-
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libvirt ];
-
-    subPackages = [ "cmd/machine-driver-libvirt" ];
-    src = fetchFromGitHub {
-      owner = "code-ready";
-      repo = "machine-driver-libvirt";
-      rev = "0.12.7";
-      sha256 = "1mv6wqyzsc24y2gnw0nxmiy52sf3lgfnqkq98v8jdvq3fn6lgacm";
-    };
-    modSha256 = "04nnmsvillavcq1wfjc38r7hgq1mx0zhp4anz6q1j78rdcd6aigy";
-
+  crc_1_11 = makeOverridable crcGen {
+    version = "1.11.0";
+    sha256 = "1r302qwpmh3wj9lb46fza3swksylm4zrq9jijz56qk9392yxj1v4";
+    bundle = "4.4.5";
+    oc = oc_4_4;
+    patches = [ ./patches/1_11.patch ];
+    crc_driver_libvirt = crc_driver_libvirt_0_12_8;
+  };
+  crc_driver_libvirt_0_12_7 = makeOverridable crc_driver_libvirtGen {
+    version = "0.12.7";
+    sha256 = "1mv6wqyzsc24y2gnw0nxmiy52sf3lgfnqkq98v8jdvq3fn6lgacm";
+    vendorSha256 = "04nnmsvillavcq1wfjc38r7hgq1mx0zhp4anz6q1j78rdcd6aigy";
+  };
+  crc_driver_libvirt_0_12_8 = makeOverridable crc_driver_libvirtGen {
+    version = "0.12.8";
+    sha256 = "1ks6vb7276xn4mr2f6d6cg4dhp3mrqgxwr36v0md0fbl6bai6ppk";
+    vendorSha256 = "04nnmsvillavcq1wfjc38r7hgq1mx0zhp4anz6q1j78rdcd6aigy";
   };
 }

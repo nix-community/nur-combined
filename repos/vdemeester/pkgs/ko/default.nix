@@ -3,7 +3,7 @@
 buildGoPackage rec {
   pname = "ko";
   name = "${pname}-${version}";
-  version = "0.5.0";
+  version = "0.5.1";
 
   goPackagePath = "github.com/google/ko";
 

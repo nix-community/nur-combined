@@ -9,4 +9,7 @@ rec {
   pkgs-unstable = import sources.nixos-unstable;
   nixpkgs = import sources.nixpkgs;
   emacs = import sources.emacs-overlay;
+  gitignore = import sources.gitignore;
+  nixos-hardware = import sources.nixos-hardware;
+  nur = import sources.NUR;
 }

@@ -8,7 +8,7 @@
 :CUSTOM_ID: h:0272c5ac-0b7f-4ebb-91f0-defa66c2d285
 :END:
 
-Veritas is the declarative configuration of my servers, desktops and laptops. This project is based
+~home~ is the declarative configuration of my servers, desktops and laptops. This project is based
 on the NixOS operating system and uses home-manager to manage my dotfiles, for both NixOS and
 non-NixOS hosts (like WSL).
 
@@ -31,30 +31,6 @@ dramatically or even not working anymore 😛.
 
 /todo: rework that part, link to the =docs= folder/
 
-You should be able to run the =bootstrap.sh= script as is. And if you feel adventurous,
-you can use ~curl~ for this.
-
-#+begin_src bash
-curl https://gitlab.com/vdemeester/home/-/raw/master/bootstrap.sh | sh
-#+end_src
-
-Otherwise, clone this repository somewhere, read the =bootstrap.sh= file and execute it if
-you feel safe
-
-** TODO ~home-manager~ only
-:PROPERTIES:
-:CUSTOM_ID: h:62ee62f0-7e1a-4abc-b289-ac24d12e733c
-:END:
-
-/todo: rework that part/
-
-** TODO ~nixos~ only
-:PROPERTIES:
-:CUSTOM_ID: h:5529fb57-a55d-4b81-a164-e5d1104b7e0b
-:END:
-
-/todo: rework that part/
-
 * Organization of the repository
 :PROPERTIES:
 :CUSTOM_ID: h:b74304bf-e7e6-4425-9123-e50eca3eb8fa
@@ -65,10 +41,6 @@ you feel safe
 This is probably gonna be a moving target, but this is how it looks (or should look
 soon-ish 👼):
 
-- ~assets~: ignored folder where my /automation/ puts some /secrets/.
-  Most of the =make= commands will try to populate this ahead of time. The assumption is :
-  have a ~sync~ folder where the assets are. /Note: how to bootstrap (as syncthing will
-  not be there, and the ~sync~ folder either)/
 - ~docs~: holds documentation about this code, literate configuration, see [[literate configuration][literate configuration]].
   =make publish= will publish the =README.org= and the =docs= folder to my website.
 - ~lib~: shared code used during configuration (mostly ~nix~ code).
@@ -76,7 +48,9 @@ soon-ish 👼):
 - ~modules~: holds nix modules (services, programs, hardware, profiles, …)
 - ~overlays~: holds [[https://nixos.wiki/wiki/Overlays][nix overlays]]
 - ~pkgs~: holds nix packages (those should migrate under ~overlays~ or on ~nur-packages~)
-- ~private~: holds non-shareable code, like /secrets/.
+- ~secrets~: holds non-shareable code, this folder is ignored and =make= commands will try
+  to populate this. If it's empty, the rest of configuration is still meant to work but
+  will contain empty secrets (or random ones).
 - ~tmp~: things to… organize (e.g. where I import my other /legacy/ configuration)
 
 <<literate configuration>>As I'm slowly, but _surely_, going to have =org-mode= files for

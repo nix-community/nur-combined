@@ -242,8 +242,19 @@ normally would when calling `yank' followed by `yank-pop'."
          ("C-v" . icomplete-vertical-toggle)))
 ;; -UseIcompleteVertical
 
+(use-package avy-embark-occur
+  :load-path "~/.config/emacs/lisp/embark/" ; in development
+  :bind
+  (:map minibuffer-local-completion-map
+        ("'" . avy-embark-occur-choose)
+        ("\"" . avy-embark-occur-act)))
+
 (use-package embark
   :load-path "~/.config/emacs/lisp/embark/" ; in development
+  :custom
+  (embark-occur-initial-view-alist '((t . grid)))
+  (embark-occur-minibuffer-completion t)
+  ;; (completing-read-function 'embark-completing-read)
   :config
   (defun vde/embark-insert-exit ()
     "Like `embark-insert' but exits current recursive minibuffer."
@@ -257,11 +268,41 @@ normally would when calling `yank' followed by `yank-pop'."
     (with-minibuffer-selected-window (insert (embark-target)))
     (top-level))
 
+  (setq embark-action-indicator
+        (propertize "[Act]" 'face
+                    '(:inherit modus-theme-intense-blue :weight bold)))
+  (setq embark-become-indicator
+        (propertize "[Become]" 'face
+                    '(:inherit modus-theme-intense-green :weight bold)))
+
   :bind (:map minibuffer-local-completion-map
               ("M-o" . embark-act)
-              :map embark-general-map
-              ("m" . vde/embark-insert-exit)
-              ("j" . vde/embark-insert-exit-all)))
+              ("C-c a" . embark-occur)
+              ("C-c x" . embark-export)
+              (:map minibuffer-local-map
+                    (">" . embark-become))
+              (:map minibuffer-local-completion-map
+                    ("M-;" . embark-act-noexit)
+                    ("M-:" . embark-act)
+                    ("C-o" . embark-occur)
+                    ("C-l" . embark-live-occur) ; only here for crm, really
+                    ("M-e" . embark-export)
+                    ("M-q" . embark-occur-toggle-view)
+                    ("M-v" . embark-switch-to-live-occur))
+              (:map completion-list-mode-map
+                    (";" . embark-act))
+              (:map embark-occur-mode-map
+                    ("a") ; I don't like my own default :)
+                    (";" . embark-act)
+                    ("'" . avy-embark-occur-choose)
+                    ("\"" . avy-embark-occur-act))
+              (:map embark-package-map
+                    ("g" . package-refresh-contents)
+                    ("a" . package-autoremove)
+                    ("t" . try))
+              (:map embark-general-map
+                    ("m" . vde/embark-insert-exit)
+                    ("j" . vde/embark-insert-exit-all))))
 
 ;; UseCompany
 (use-package company

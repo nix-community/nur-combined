@@ -26,10 +26,18 @@ let
         if cfg ? type && cfg.type == "unstable"
         then pkgs-unstable
         else pkgs;
+      # If vm == true, build a VM, otherwise build the system
       nixos = import (p.path + "/nixos") { inherit configuration system; };
+      main =
+        if cfg ? vm && cfg.vm
+        then nixos.vm
+        else nixos.config.system.build;
     in
-    nixos.config.system.build;
-  mkSystem = name: cfg: (mkNixOS name cfg).toplevel;
+    main;
+  mkSystem = name: cfg:
+    if cfg ? vm && cfg.vm
+    then (mkNixOS name cfg)
+    else (mkNixOS name cfg).toplevel;
   # mkDigitalOceanImage = name: arch: (mkNixOS name arch).digitalocean
 
   systemAttrs = (mapAttrs mkSystem (import ./hosts.nix));

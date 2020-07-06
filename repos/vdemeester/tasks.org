@@ -282,7 +282,11 @@ What is the flow I want ?
 - A way to list the kubernix profile and their status
 
 Use http://tmuxp.git-pull.com/en/latest/ or
-* TODO [#A] self-contained configuration (with pinned channel versions)
+* DONE [#A] self-contained configuration (with pinned channel versions)
+CLOSED: [2020-06-06 Sat 16:36]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-06-06 Sat 16:36]
+:END:
 
 Instead of relying on =nix-channel=, this should pin the version of all channel required
 (nixos, nixos-unstable, nixpkgs, nixpkgs-unstable, home-manager, nur, …).
@@ -380,16 +384,28 @@ CLOSED: [2020-05-26 Tue 10:36]
 - State "DONE"       from "TODO"       [2020-05-26 Tue 10:36]
 :END:
 
-** TODO [#B] home-manager on fedora situation
+** DONE [#B] home-manager on fedora situation
+CLOSED: [2020-06-06 Sat 16:36]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-06-06 Sat 16:36]
+:END:
 
-How to make it self contained too.
+How to make it self contained too. I think =home.nix= will work just fine.
 
-** TODO [#A] How to manage secrets
+** DONE [#A] How to manage secrets
+CLOSED: [2020-06-05 Fri 15:18]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-06-05 Fri 15:18]
+:END:
 
 Right now, I have a boolean to detect if I am on ci or not. It's not the best because I
 don't test all.
 
-** TODO Define CI (where, how)
+** DONE Define CI (where, how)
+CLOSED: [2020-06-05 Fri 15:19]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-06-05 Fri 15:19]
+:END:
 
 … and cache.
 
@@ -397,9 +413,19 @@ don't test all.
 - For systems, we can build it on builds.sr.ht *but* we could use a /local/ builder
   machine to build the systems and cache built things.
 
-** TODO Migrate other machines/systems to it
+So far it's on builds.sr.ht… we may want to move it to a local thingy but… wait and see
 
-* TODO [#A] Where should be the cloned ?
+** DONE Migrate other machines/systems to it
+CLOSED: [2020-06-05 Fri 15:19]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-06-05 Fri 15:19]
+:END:
+
+* DONE [#A] Where should be the cloned ?
+CLOSED: [2020-06-05 Fri 15:27]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-06-05 Fri 15:27]
+:END:
 
 That's a real interesting question.
 The next question is then, what do we do with the existing setup ?
@@ -419,6 +445,11 @@ The real question is :
 - =~/src/home= on fedora/ubuntu and =/etc/nixos= on nixos
 
 It could also be in =/etc/nixos= if it is writable for the user (=vincent= in most case)
+
+Final word on this:
+- on =NixOS=, cloned in =/etc/nixos= linked to =~/src/home= (or the opposite), with =1000=
+  rights (this can be ensured in the bootstrap/install script).
+- on =Fedora=, cloned in =~/src/home= :)
 
 * TODO [#B] Create a custom iso for easier insteall
 * TODO [#B] nur-package automatic -git package updates
@@ -490,7 +521,12 @@ even) and allow his modules to overwrite the defaults.
 This is very good because it allows to customize some small parts of the configuration
 only for specific host — this will reduce duplication.
 
-* TODO make modules-list automatic
+* CANCELED make modules-list automatic
+CLOSED: [2020-06-06 Sat 16:37]
+:LOGBOOK:
+- State "CANCELED"   from "TODO"       [2020-06-06 Sat 16:37] \\
+  No need for now, using default everywhere
+:END:
 
 Look at tazjin and other configurations, we can read tree and load/import all the nix
 files. This will simplify =module-list.nix= and easy my pain.
@@ -515,7 +551,11 @@ See https://github.com/google/nixery (layered, )…
 - support for creating key
 - support for importing keys
 
-* TODO Handle machines.nix better (somehow?)
+* DONE Handle machines.nix better (somehow?)
+CLOSED: [2020-06-06 Sat 16:37]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-06-06 Sat 16:37]
+:END:
 
 I should not need to have =with import ../assets/machines.nix= each time I need to access
 attributes from it. I need to load it as the other files instead.
@@ -529,7 +569,11 @@ Using sbr.systems
 - sbr.sytems/install sbr.systems/bootstrap
 - install.sbr.system
 
-* TODO Makefile executable from anywhere
+* DONE Makefile executable from anywhere
+CLOSED: [2020-06-06 Sat 16:37]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-06-06 Sat 16:37]
+:END:
 
 aka ~make -C ~/.config/nixpkgs~ should work
 
@@ -562,7 +606,119 @@ From: [[file:~/desktop/org/technical/tekton-dev.org::*Environments][Environments
 
 stdenv.lib.optionals stdenv.isLinux
 
-* TODO =private= folder for nix (instead of =assets=)
-* TODO add crc profile on nixos
+It is only require whenever I will target darwin :D
 
-Mainy for the dnsmasq configuration, …
+* DONE =private= folder for nix (instead of =assets=)
+CLOSED: [2020-06-06 Sat 16:38]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-06-06 Sat 16:38]
+:END:
+* DONE add crc profile on nixos
+CLOSED: [2020-06-05 Fri 15:40]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-06-05 Fri 15:40]
+:END:
+
+Mainly for the dnsmasq configuration, …
+
+* TODO migrate to enchant for spell checking
+
+This will allow to use hunspell, ispell, …
+
+- configure this is h-m and emacs
+
+* TODO git.sbr.systems
+
+Mirrors 👼
+cgit or custom
+
+* DONE Have a ./hack/home switch…
+CLOSED: [2020-06-06 Sat 16:38]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-06-06 Sat 16:38]
+:END:
+:PROPERTIES:
+:CREATED:[2020-06-05 Fri 11:45]
+:END:
+
+… or support home-manager alone on non-nixos systems in =./hack/systems=
+* CANCELED try =redo= on =src/home=
+CLOSED: [2020-06-29 Mon 18:11]
+:LOGBOOK:
+- State "CANCELED"   from "TODO"       [2020-06-29 Mon 18:11] \\
+  Because… I don't have time :D
+:END:
+:PROPERTIES:
+:CREATED:[2020-06-23 Tue 17:45]
+:END:
+
+It's easy to do with =nix-shell= anyway
+** [[https://apenwarr.ca/log/20101214][The only build system that might someday replace make... - apenwarr]]
+[2020-06-23 Tue 17:48]
+* TODO systems/hokkaido gnome
+:PROPERTIES:
+:CREATED:[2020-06-25 Thu 05:38]
+:END:
+
+- no desktop profile
+- gnome3
+  + how "sane" and stable is gnome on nixos ?
+- check how close to fedora we can get
+  + goal being : use nixos on naruhodo, have fedora as a lightweight VM
+  + need to identify requirements on naruhodo
+    - package list
+    - features (sharing, xorg/wayland,vpn, kerberos)
+
+I need naruhodo setup on hokkaido as much automated as possible.
+
+** DONE Initial gnome3 setup
+CLOSED: [2020-06-29 Mon 18:11]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-06-29 Mon 18:11]
+:END:
+
+** TODO Add gnome3 extensions
+
+- [ ] pomodoro (fixing it)
+- [ ] [[https://github.com/bjarosze/gnome-bluetooth-quick-connect][bluetooth quick connect]]
+- [ ] [[https://framagit.org/abakkk/DrawOnYourScreen][draw on you screen]]
+- [ ] [[https://github.com/mlutfy/hidetopbar][hide top bar]]
+- [ ] [[https://github.com/sindex/no-annoyance][noannoyance]]
+- [X] pop-os/shell
+- [X] sound-output-device-chooser
+- [X] paperwm ?
+- [-] transparent gnome panel
+
+** TODO gnome settings
+
+Check how to do this (dconf, gsettings/gconf)
+
+- [ ] keyboard shortcuts
+- [ ] other settings
+
+** TODO gnome3 modules
+
+Create a module (like desktop) or part of desktop
+
+** TODO redhat specifics
+
+VPN
+
+** TODO [#C] boxes and libvirt
+* TODO Reset systems at boot
+
+- Looking at https://github.com/nix-community/impermanence
+- Test on hokkaido, replicate on others
+- *Use encryption*
+
+** [[https://grahamc.com/blog/erase-your-darlings][Erase your darlings: immutable infrastructure for mutable systems - Graham Christensen]]
+[2020-06-29 Mon 18:13]
+
+** [[https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html][Encypted Btrfs Root with Opt-in State on NixOS]]
+[2020-06-29 Mon 17:44]
+
+** [[https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/][NixOS ❄: tmpfs as root]]
+[2020-06-29 Mon 17:46]
+
+** [[https://elis.nu/blog/2020/06/nixos-tmpfs-as-home/][NixOS ❄: tmpfs as home]]
+[2020-06-29 Mon 17:46]

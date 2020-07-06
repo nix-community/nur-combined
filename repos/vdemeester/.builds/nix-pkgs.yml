@@ -1,14 +1,13 @@
 image: nixos/20.03
 secrets:
-  - 67527e1f-d69c-4f8e-a26d-21685f4ed380
   - 0818d60d-b587-4d4e-81d8-dc15072ccb97
-sources:
-  - git@git.sr.ht:~vdemeester/secrets
 tasks:
 - setup: |
+    set -e
     nix-env -iA cachix -f https://cachix.org/api/v1/install
     cachix use shortbrain
 - cached: |
+    set -euo pipefail
     set +x
     export CACHIX_SIGNING_KEY=$(cat ~/.cachix.key)
     set -x

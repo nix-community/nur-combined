@@ -166,6 +166,24 @@
               ("C-M-^" . gnus-summary-refer-thread)))
 ;; -GnusSummary
 
+;; GnusWin
+(use-package gnus-win
+  :config
+  (gnus-add-configuration
+   '(article
+     (horizontal 1.0
+                 (vertical 40 (group 1.0))
+                 (vertical 1.0
+                           (summary 0.16 point)
+                           (article 1.0)))))
+
+  (gnus-add-configuration
+   '(summary
+     (horizontal 1.0
+                 (vertical 40 (group 1.0))
+                 (vertical 1.0 (summary 1.0 point))))))
+;; -GnusWin
+
 ;; GnusDired
 (use-package gnus-dired
   :after (gnus dired)

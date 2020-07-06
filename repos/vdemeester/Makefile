@@ -8,10 +8,10 @@ endif
 
 DOTEMACS = ~/.config/emacs
 DOTGNUS = ~/.config/gnus
-DOTNIXPKGS = ~/.config/nixpkgs
 ETCNIXOS = /etc/nixos
 SYNCDIR = /home/vincent/sync/nixos
 SRCWWW = ~/src/www
+SRCHOME = ~/src/home
 
 # Targets
 .PHONY: all
@@ -29,44 +29,47 @@ pull:
 emacs-dump:
 	emacs --batch -q -l ~/.config/emacs/dump.el
 
-# home-manager setup
+.PHONY: secrets
+secrets:
+	mkdir -p secrets
+	cp -Rv $(SYNCDIR)/* secrets/
+
 .PHONY: assets
 assets:
 	mkdir -p assets
 	cp -Rv $(SYNCDIR)/* assets/
 	chown -R vincent:users assets || true
 
-.PHONY: build
-build: assets setup
-	home-manager build
+.PHONY: home-build
+home-build: secrets
+	home-manager -f home.nix build
 
-.PHONY: nixos-build
-nixos-build: assets setup
-	nixos-rebuild build
+.PHONY: home-switch
+home-switch: secrets
+	home-manager -f home.nix switch
+
+.PHONY: build
+build: secrets setup
+	./hack/system build
 
 .PHONY: nixos-dry-build
-nixos-dry-build: assets setup
-	nixos-rebuild dry-build
+dry-build: secrets setup
+	./hack/system dry-build
 
 .PHONY: switch
-switch: assets setup
-	home-manager switch
-
-.PHONY: nixos-switch
-.PHONY: nixos-switch
-nixos-switch: assets setup
-	nixos-rebuild switch
+switch: secrets setup
+	./hack/system switch
 
 .PHONY: install-hooks
 install-hooks:
 	if [ -e .git ]; then nix-shell -p git --run 'git config core.hooksPath .githooks'; fi
 
 .PHONY: pre-commit
-pre-commit: README.md fmt update-docs
+pre-commit: README.md fmt
 
 .PHONY: fmt
 fmt:
-	nixpkgs-fmt *.nix lib machines modules overlays/*.nix overlays/emacs pkgs tmp tools
+	-nixpkgs-fmt *.nix nix lib overlays pkgs systems tools users
 
 # Cleaning
 .PHONY: clean
@@ -118,7 +121,7 @@ doctor:
 	@readlink $(DOTNIXPKGS) || $(error $(DOTNIXPKGS) is not correctly linked, you may need to run setup)
 
 .PHONY: setup
-setup: $(DOTEMACS) $(DOTGNUS) $(DOTNIXPKGS) $(SYNCDIR)
+setup: $(DOTEMACS) $(DOTGNUS) $(SYNCDIR) $(SRCHOME)
 
 $(DOTEMACS):
 	@echo "Link $(DOTEMACS) to $(CURDIR)/tools/emacs"
@@ -128,9 +131,9 @@ $(DOTGNUS):
 	@echo "Link $(DOTGNUs) to $(CURDIR)/tools/gnus"
 	@ln -s $(CURDIR)/tools/gnus $(DOTGNUS)
 
-$(DOTNIXPKGS):
-	@echo "Link $(DOTNIXPKGS) to $(CURDIR)"
-	@ln -s $(CURDIR) $(DOTNIXPKGS)
+$(SRCHOME):
+	@echo "Make sure $(SRCHOME) exists"
+	@-ln -s ${PWD} $(SRCHOME)
 
 $(SYNCDIR):
 	$(error $(SYNCDIR) is not present, you need to configure syncthing before running this command)

@@ -234,26 +234,26 @@ We can use this to our advantage and optimize the initial loading of emacs.
 - I never use the /menu-bar/, or the /tool-bar/ or even the /scroll-bar/, so we can safely
   disable those very very early.
 
-  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "DisableUI" :range-end "-DisableUI" :lines "11-15"
+  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "DisableUI" :range-end "-DisableUI" :lines "11-17"
 
 - Finally we can try to avoid garbage collection at startup. The garbage collector can
   easily double startup time, so we suppress it at startup by turning up ~gc-cons-threshold~
   (and perhaps ~gc-cons-percentage~) temporarily.
 
-  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "GarbageCollection" :range-end "-GarbageCollection" :lines "18-20"
+  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "GarbageCollection" :range-end "-GarbageCollection" :lines "20-22"
 
 - Another small optimization concerns on =file-name-handler-alist= : on every .el and .elc
   file loaded during start up, it has to runs those regexps against the filename ; setting
   it to ~nil~ and after initialization finished put the value back make the initialization
   process quicker.
 
-  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "FileNameHandler" :range-end "-FileNameHandler" :lines "23-25"
+  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "FileNameHandler" :range-end "-FileNameHandler" :lines "25-27"
 
   However, it is important to reset it eventually. Not doing so will cause garbage
   collection freezes during long-term interactive use. Conversely, a ~gc-cons-threshold~
   that is too small will cause stuttering.
 
-  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "AfterInitHook" :range-end "-AfterInitHook" :lines "61-67"
+  #+INCLUDE: "../tools/emacs/early-init.el" src emacs-lisp :range-begin "AfterInitHook" :range-end "-AfterInitHook" :lines "110-116"
 
 One thing though, I am currently not necessarily running Emacs 27, so I am going to need
 to have the same configuration in ~init.el~ for a little bit of time.
@@ -365,19 +365,19 @@ use those later on to skip some package or change some configuration accordingly
 Now, in order to load ~lisp~ and ~config~ files, it's just a matter of calling this
 function with the right argument.
 
-#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "CfgLoad" :range-end "-CfgLoad" :lines "190-195"
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "CfgLoad" :range-end "-CfgLoad" :lines "190-194"
 
 Finally, I want to be able to load files for a specific machine, in case I need it (not
 entirely sure why yet but…)
 
-#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "CfgHostLoad" :range-end "-CfgHostLoad" :lines "198-200"
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "CfgHostLoad" :range-end "-CfgHostLoad" :lines "197-199"
 
 *** Counting the time of loading
 :PROPERTIES:
 :CUSTOM_ID: h:2b645e95-6776-4f5b-a318-e5a915943881
 :END:
 
-#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "LastInit" :range-end "-LastInit" :lines "203-214"
+#+INCLUDE: "../tools/emacs/init.el" src emacs-lisp :range-begin "LastInit" :range-end "-LastInit" :lines "202-213"
 
 ** ~PATH~'s customization
 :PROPERTIES:
@@ -680,7 +680,7 @@ agenda is =C-c o a=, capture is =C-c o c=, …).
 
 First, let's define some basic constants, mainly on how my main =org= folder is organized.
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgConstants" :range-end "-OrgConstants" :lines "7-18"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgConstants" :range-end "-OrgConstants" :lines "7-17"
 
 In a nutshell, I am currently trying the following organization, with =~/desktop/org/= as
 the base of almost all =org-mode= things:
@@ -711,7 +711,7 @@ I want a way to quickly jump to certain =org-mode= files, like =next.org= or the
 =inbox.org=. For this, we can use the emacs [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Registers.html][registers]] and more accurately the [[https://www.gnu.org/software/emacs/manual/html_node/emacs/File-Registers.html#File-Registers][file
 registers]].
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgRegisters" :range-end "-OrgRegisters" :lines "21-26"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgRegisters" :range-end "-OrgRegisters" :lines "20-24"
 
 With this, I can jump to the inbox with ~C-x r j i~, to the journal using ~C-x r j j~, …
 
@@ -804,7 +804,7 @@ Let's setup the base of =org-mode=, with the following things in mind:
 /The =ensure org-plus-contrib= is there to make sure I am loading the =org= module from my
 nix configuration and not the built-in =org= module (that might lag in terms of version)/
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgMain" :range-end "-OrgMain" :lines "29-106"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgMain" :range-end "-OrgMain" :lines "27-102"
 
 I've set-up an =org-mode= hook to add few modes to the default setup.
 - I am really annoyed by trailing white-space so I want them to be shown
@@ -813,15 +813,15 @@ I've set-up an =org-mode= hook to add few modes to the default setup.
   + I turn on =auto-revert-mode= so that the buffer is always up-to-date.
   + I like to have header indented, so I'm enabling =org-indent-mode=.
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgHook" :range-end "-OrgHook" :lines "109-121"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgHook" :range-end "-OrgHook" :lines "105-117"
 
 Let's also use =org-id=…
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgId" :range-end "-OrgId" :lines "124-153"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgId" :range-end "-OrgId" :lines "120-149"
 
 … and =org-crypt= (for encrypted =org-mode= files).
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCrypt" :range-end "-OrgCrypt" :lines "156-161"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCrypt" :range-end "-OrgCrypt" :lines "152-157"
 
 **** TODO Refiling
 :PROPERTIES:
@@ -856,11 +856,11 @@ I am using [[https://github.com/alphapapa/org-super-agenda/][=org-super-agenda=]
 agenda views. This allows to group things and overall set-up the agenda view I want. This
 agenda view uses the =n= key.
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgAgenda" :range-end "-OrgAgenda" :lines "164-213"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgAgenda" :range-end "-OrgAgenda" :lines "160-209"
 
 Let's try to get my work calendar entries in my agenda too. It is a little bit tricky 👼.
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgGcal" :range-end "-OrgGcal" :lines "216-230"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgGcal" :range-end "-OrgGcal" :lines "212-226"
 
 *** Habits                                                         :ATTACH:
 :PROPERTIES:
@@ -892,14 +892,14 @@ This look as followed in the agenda.
 
 [[./images/2020-02-29-14-41-59.png]]
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgHabit" :range-end "-OrgHabit" :lines "233-238"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgHabit" :range-end "-OrgHabit" :lines "229-234"
 
 *** TODO Sources
 :PROPERTIES:
 :CUSTOM_ID: h:82c3b800-9d80-408d-b3b6-54dc15b0590c
 :END:
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgSrc" :range-end "-OrgSrc" :lines "241-248"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgSrc" :range-end "-OrgSrc" :lines "237-244"
 
 *** TODO Capture
 :PROPERTIES:
@@ -916,7 +916,7 @@ share a common initial key will produce a second selection list with the remaini
 options. This is very interesting when you want to group some capture template together
 (like templates related to /work/, …).
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureStart" :range-end "-OrgCaptureStart" :lines "251-255"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureStart" :range-end "-OrgCaptureStart" :lines "247-251"
 
 Some of my capture template are big and hard to read if embedded in the =emacs-lisp=
 code. The good thing is that =org-mode= is able to load the template from files too 💃.
@@ -924,44 +924,40 @@ code. The good thing is that =org-mode= is able to load the template from files 
 Here is a list of my templates:
 - Default :: Store a link (mainly used with =org-protocol=) and take a random note
 
-  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureOldTemplate" :range-end "-OrgCaptureOldTemplate" :lines "258-267"
+  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureOldTemplate" :range-end "-OrgCaptureOldTemplate" :lines "254-259"
 
 - Tasks :: /work/ task, like reviewing a PR, or cleaning a folder.
 
-  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureTask" :range-end "-OrgCaptureTask" :lines "270-282"
+  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureTask" :range-end "-OrgCaptureTask" :lines "262-274"
 
 - journaling :: As I use =org-mode= for my /journal/ too, I need capture entry for
   it. I currently have two types of journal entry :
 
-  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureJournalBase" :range-end "-OrgCaptureJournalBase" :lines "285-287"
+  *This changed, I am using =org-journal= now, this needs to be updated*
 
   + standard: one title and some text
 
     #+INCLUDE: "../tools/emacs/etc/orgmode/journal.org" src org
-
-    #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureJournalEntry" :range-end "-OrgCaptureJournalEntry" :lines "290-297"
 
   + worklog: related to work, to be able to say what I did, what I wanted to do, problems,
     … during the daily
 
     #+INCLUDE: "../tools/emacs/etc/orgmode/worklog.org" src org
 
-    #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureWorklog" :range-end "-OrgCaptureWorklog" :lines "300-305"
 
 - weekly review :: each and every week, I am going through this item to make my review of
   the week.
 
   #+INCLUDE: "../tools/emacs/etc/orgmode/weekly.org" src org
 
-  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureWeekly" :range-end "-OrgCaptureWeekly" :lines "308-313"
 
 - blog posts ::
 
-  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureBlog" :range-end "-OrgCaptureBlog" :lines "323-325"
+  #+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureBlog" :range-end "-OrgCaptureBlog" :lines "284-286"
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureEnd" :range-end "-OrgCaptureEnd" :lines "328-329"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgCaptureEnd" :range-end "-OrgCaptureEnd" :lines "289-290"
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgProtocol" :range-end "-OrgProtocol" :lines "332-334"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgProtocol" :range-end "-OrgProtocol" :lines "293-295"
 
 *** Clocking
 :PROPERTIES:
@@ -981,32 +977,30 @@ clocking is :
 In addition to that workflow, I want to switch the state of the task to =STARTED= when I
 am clocking-in, if it's not already =STARTED=.
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgClock" :range-end "-OrgClock" :lines "337-430"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgClock" :range-end "-OrgClock" :lines "298-391"
 
 *** TODO Links
 :PROPERTIES:
 :CUSTOM_ID: h:afc81fbb-f7a0-401c-8b56-19f51edebd88
 :END:
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgAttach" :range-end "-OrgAttach" :lines "433-437"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgAttach" :range-end "-OrgAttach" :lines "394-398"
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgLinks" :range-end "-OrgLinks" :lines "440-474"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgLinks" :range-end "-OrgLinks" :lines "401-435"
 
 *** TODO Litterate programming
 :PROPERTIES:
 :CUSTOM_ID: h:b5f6beba-6195-4ff0-a194-502ac2a9e3da
 :END:
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgBabel" :range-end "-OrgBabel" :lines "477-525"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgBabel" :range-end "-OrgBabel" :lines "438-486"
 
 *** TODO Exporting
 :PROPERTIES:
 :CUSTOM_ID: h:afad00e0-367c-4c7b-b191-e3ed72be754b
 :END:
 
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgExportConstants" :range-end "-OrgExportConstants" :lines "528-530"
-
-#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgExportCfg" :range-end "-OrgExportCfg" :lines "533-538"
+#+INCLUDE: "../tools/emacs/config/config-org.el" src emacs-lisp :range-begin "OrgExportCfg" :range-end "-OrgExportCfg" :lines "489-494"
 
 ** TODO Email and newsgroup
 :PROPERTIES:
@@ -1218,7 +1212,7 @@ Run =C-h m= inside of a Dired buffer that has =gnus-dired-mode= enabled and sear
 "gnus" to see all the relevant key bindings and the functions they call. I only ever use
 =C-c C-m C-a= (=C-m= is the same as =RET=).
 
-#+INCLUDE: "../tools/gnus/init.el" src emacs-lisp :range-begin "GnusDired" :range-end "-GnusDired" :lines "170-173"
+#+INCLUDE: "../tools/gnus/init.el" src emacs-lisp :range-begin "GnusDired" :range-end "-GnusDired" :lines "188-191"
 
 **** TODO Searching mails
 :PROPERTIES:
@@ -1295,7 +1289,6 @@ The other options in short:
 *** My own theme                                                   :ATTACH:
 :PROPERTIES:
 :CUSTOM_ID: h:1a7c1e91-d3c5-4395-b956-8001a1a1a393
-:ID:       83bc2073-0681-4fe9-bcf7-3070bd1ab695
 :END:
 
 I navigate between themes, but the more I use Emacs (or any editor really), the more I
@@ -1315,7 +1308,6 @@ I wrote two version, a dark one and a light one. I currently mainly use the ligh
 **** Light theme
 :PROPERTIES:
 :CUSTOM_ID: h:8997adc9-8681-4d3a-a118-616866895f93
-:ID:       83bc2073-0681-4fe9-bcf7-3070bd1ab695
 :END:
 
 [[./images/2020-03-03-21-57-41.png]]
@@ -1325,7 +1317,6 @@ I wrote two version, a dark one and a light one. I currently mainly use the ligh
 **** Dark theme
 :PROPERTIES:
 :CUSTOM_ID: h:e986baca-a7dc-463e-85ee-ea10fb69bf0f
-:ID:       83bc2073-0681-4fe9-bcf7-3070bd1ab695
 :END:
 
 [[./images/2020-03-03-21-59-22.png]]

@@ -1,0 +1,30 @@
+{
+  imports = [
+    # Remove "nixos" from here
+    ./avahi.nix
+    ./base.nix
+    ./buildkit.nix
+    ./containerd.nix
+    ./desktop.nix
+    ./dev.nix
+    ./docker.nix
+    ./gaming.nix
+    ./git.nix
+    ./home.nix
+    ./i18n.nix
+    ./ipfs.nix
+    ./laptop.nix
+    ./mail.nix
+    ./nix-auto-update.nix
+    ./printing.nix
+    ./pulseaudio.nix
+    ./qemu.nix
+    ./scanning.nix
+    ./ssh.nix
+    ./syncthing.nix
+    ./virtualization.nix
+    ./wireguard.server.nix
+    ./yubikey.nix
+    ./zsh.nix
+  ];
+}

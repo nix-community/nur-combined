@@ -21,6 +21,7 @@ rec {
         sha256 = "${sha256}";
       };
       modSha256 = "${modSha}";
+      vendorSha256 = "${modSha}";
 
       postInstall = ''
         # manpages
@@ -44,6 +45,11 @@ rec {
       };
     };
 
+  tkn_0_10 = makeOverridable tknGen {
+    version = "0.10.0";
+    sha256 = "1p0vjbfd8nrbdfh22g2yv8cljkzyamaphryf76i94cfi4245d9d7";
+    modSha = "1cdhs794habhhv1242ffv3lpkddx6rk2wjiyknf3lq6q47xlzz24";
+  };
   tkn_0_9 = makeOverridable tknGen {
     version = "0.9.0";
     sha256 = "11wcips37k1vfif2ckpdxgf1p5yh2zgccv3ngnl1jjm8kcqla40q";

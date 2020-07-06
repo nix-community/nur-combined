@@ -1,5 +1,5 @@
 *~
-result
+result*
 hostname
 *.retry
 assets/machines.nix
@@ -10,8 +10,8 @@ qemu
 accounts.nix
 assets/*
 private/*
+secrets/*
 networking.nix
-wireguard*.key
 .secrets
 hardware-configuration.nix
 /key.bin

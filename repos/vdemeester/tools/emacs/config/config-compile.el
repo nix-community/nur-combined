@@ -37,6 +37,31 @@
                 ;; Show three lines of context around the current message
                 compilation-context-lines 3
                 )
+  (add-hook 'comint-output-filter-functions
+            'comint-watch-for-password-prompt)
+  (setq-default comint-password-prompt-regexp
+                (concat
+                 "\\("
+                 "^Enter passphrase.*:"
+                 "\\|"
+                 "^Repeat passphrase.*:"
+                 "\\|"
+                 "[Pp]assword for '[a-z0-9_-.]+':"
+                 "\\|"
+                 "\\[sudo\\] [Pp]assword for [a-z0-9_-.]+:"
+                 "\\|"
+                 "[a-zA-Z0-9]'s password:"
+                 "\\|"
+                 "^[Pp]assword:"
+                 "\\|"
+                 "^[Pp]assword (again):"
+                 "\\|"
+                 ".*\\([Ww]ork\\|[Pp]ersonal\\).* password:"
+                 "\\|"
+                 "Password for '([^()]+)' GNOME keyring"
+                 "\\|"
+                 "Password for 'http.*github.*':"
+                 "\\)"))
   (add-hook 'compilation-filter-hook #'vde/colorize-compilation-buffer)
   (add-hook 'compilation-mode-hook #'vde/goto-address-mode))
 ;; -UseCompile

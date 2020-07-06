@@ -5,24 +5,22 @@
 
 ;; OrgConstants
 (defconst org-directory "~/desktop/org/" "org-mode directory, where most of the org-mode file lives")
-(defconst org-default-projects-dir (concat org-directory "projects") "Primary tasks directory.")
-(defconst org-default-technical-dir (concat org-directory "technical") "Directory of shareable, technical notes.")
-(defconst org-default-personal-dir (concat org-directory "personal") "Directory of un-shareable, personal notes.")
-(defconst org-default-completed-dir (concat org-directory "archive/projects") "Directory of completed project files.")
-(defconst org-default-inbox-file (concat org-directory "projects/inbox.org") "New stuff collected in this file.")
-(defconst org-default-next-file (concat org-directory "projects/next.org") "Todo *next* collected in this file.")
-(defconst org-default-incubate-file (concat org-directory "projects/incubate.org") "Ideas simmering on back burner.")
-(defconst org-default-notes-file (concat org-directory "personal/notes.org") "Non-actionable, personal notes.")
-(defconst org-default-journal-file (concat org-directory "personal/journal.org") "Journaling stuff.")
-(defconst org-default-meeting-notes-file (concat org-directory "projects/meetings.org") "Meeting notes stuff.")
+(defconst org-projects-dir (expand-file-name "projects" org-directory) "Primary tasks directory.")
+(defconst org-notes-dir (expand-file-name "notes" org-directory) "Directory of shareable, technical notes.")
+(defconst org-archive-dir (expand-file-name "archive" org-directory) "Directory of shareable, technical notes.")
+(defconst org-completed-dir (expand-file-name "projects" org-archive-dir) "Directory of completed project files.")
+(defconst org-inbox-file (expand-file-name "inbox.org" org-projects-dir) "New stuff collected in this file.")
+(defconst org-next-file (expand-file-name "next.org" org-projects-dir) "Todo *next* collected in this file.")
+(defconst org-incubate-file (expand-file-name "incubate.org" org-projects-dir) "Ideas simmering on back burner.")
+(defconst org-journal-file (expand-file-name "journal.private.org" org-notes-dir) "Journaling stuff.")
+(defconst org-meeting-notes-file (expand-file-name "meetings.org" org-projects-dir) "Meeting notes stuff.")
 ;; -OrgConstants
 
 ;; OrgRegisters
-(set-register ?i `(file . ,org-default-inbox-file))
-(set-register ?I `(file . ,org-default-incubate-file))
-(set-register ?N `(file . ,org-default-next-file))
-(set-register ?n `(file . ,org-default-notes-file))
-(set-register ?j `(file . ,org-default-journal-file))
+(set-register ?i `(file . ,org-inbox-file))
+(set-register ?I `(file . ,org-incubate-file))
+(set-register ?n `(file . ,org-next-file))
+(set-register ?j `(file . ,org-journal-file))
 ;; -OrgRegisters
 
 ;; OrgMain
@@ -36,13 +34,33 @@
          ("C-c o r r" . org-refile)
          ("C-c o a" . org-agenda)
          ("<f12>" . org-agenda)
-         ("C-c o c" . org-capture))
+         ("C-c o c" . org-capture)
+         ;; Skeletons
+         ("C-c o i p" . vde/org-project)
+         ("C-c o i n" . vde/org-www-post))
   :config
-  (setq org-agenda-files `(,org-default-projects-dir
+  (define-skeleton vde/org-project
+    "new org-mode project"
+    nil
+    > "#+TITLE: " (skeleton-read "Title: ") \n
+    > "#+FILETAGS: " (skeleton-read "Tags: ") \n
+    > _ \n
+    > "#+BEGIN: clocktable :scope file :maxlevel 2 :emphasize nil :link t" \n
+    > "#+END:" \n
+    > _ \n)
+  (define-skeleton vde/org-www-post
+    "new www post"
+    nil
+    > "#+title: " (skeleton-read "Title: ") \n
+    > "#+date: " (format-time-string "<%Y-%M-%d %a>") \n
+    > "#+filetags: " (skeleton-read "Tags: ") \n
+    > "#+setupfile: ../templates/post.org" \n
+    > _ \n
+    > "* Introduction"
+    )
+  (setq org-agenda-files `(,org-projects-dir
                            "~/src/home"
-                           "~/src/home/docs"
-                           "~/src/www/articles"
-                           "~/src/www/posts")
+                           "~/src/www/")
         org-agenda-file-regexp "^[a-zA-Z0-9-_]+.org$"
         org-use-speed-commands t
         org-special-ctrl-a/e t
@@ -71,11 +89,11 @@
         org-log-reschedule 'time
         org-log-into-drawer t
         org-enforce-todo-dependencies t
-        org-refile-targets (append '((org-default-inbox-file :level . 0))
+        org-refile-targets (append '((org-inbox-file :level . 0))
                                    (->>
-                                    (directory-files org-default-projects-dir nil ".org")
+                                    (directory-files org-projects-dir nil ".org")
                                     (--remove (s-starts-with? "." it))
-                                    (--map (format "%s/%s" org-default-projects-dir it))
+                                    (--map (format "%s/%s" org-projects-dir it))
                                     (--map `(,it :level . 1))))
         org-refile-use-outline-path 'file
         org-refile-allow-creating-parent-nodes 'confirm
@@ -84,9 +102,9 @@
         org-fontify-whole-heading-line t
         org-pretty-entities t
         org-ellipsis " ⤵"
-        org-archive-location (concat org-default-completed-dir "/%s::datetree/")
+        org-archive-location (concat org-completed-dir "/%s::datetree/")
         org-use-property-inheritance t
-        org-default-priority 67
+        org-priority 67
         org-priority-faces '((?A . "#ff2600")
                              (?B . "#ff5900")
                              (?C . "#ff9200")
@@ -257,13 +275,9 @@
   ;; OrgCaptureOldTemplate
   (add-to-list 'org-capture-templates
                `("l" "Link" entry
-                 (file ,org-default-inbox-file)
+                 (file ,org-inbox-file)
                  "* %a\n%U\n%?\n%i"
                  :empty-lines 1))
-  (add-to-list 'org-capture-templates
-               '("n" "Thought or Note"  entry
-                 (file org-default-notes-file)
-                 "* %?\n\n  %i\n\n  See: %a" :empty-lines 1))
   ;; -OrgCaptureOldTemplate
 
   ;; OrgCaptureTask
@@ -271,51 +285,20 @@
                `("t" "Tasks"))
   (add-to-list 'org-capture-templates
                `("tt" "New task" entry
-                 (file ,org-default-inbox-file)
+                 (file ,org-inbox-file)
                  "* %?\n:PROPERTIES:\n:CREATED:%U\n:END:\n\n%i\n\nFrom: %a"
                  :empty-lines 1))
   (add-to-list 'org-capture-templates
                `("tr" "PR Review" entry
-                 (file ,org-default-inbox-file)
+                 (file ,org-inbox-file)
                  "* TODO review gh:%^{issue} :review:\n:PROPERTIES:\n:CREATED:%U\n:END:\n\n%i\n%?\nFrom: %a"
                  :empty-lines 1))
   ;; -OrgCaptureTask
 
-  ;; OrgCaptureJournalBase
-  (add-to-list 'org-capture-templates
-               `("j" "Journal"))
-  ;; -OrgCaptureJournalBase
-
-  ;; OrgCaptureJournalEntry
-  (add-to-list 'org-capture-templates
-               `("j" "Journal entry"))
-  (add-to-list 'org-capture-templates
-               `("jj" "Journal entry" entry
-                 (file+datetree ,org-default-journal-file)
-                 (file ,(concat user-emacs-directory "/etc/orgmode/journal.org"))
-                 :empty-lines 1 :clock-in t :clock-resume t))
-  ;; -OrgCaptureJournalEntry
-
-  ;; OrgCaptureWorklog
-  (add-to-list 'org-capture-templates
-               `("jw" "Worklog (journal) entry" entry
-                 (file+datetree ,org-default-journal-file)
-                 (file ,(concat user-emacs-directory "/etc/orgmode/worklog.org"))
-                 :unnarrowed t))
-  ;; -OrgCaptureWorklog
-
-  ;; OrgCaptureWeekly
-  (add-to-list 'org-capture-templates
-               `("je" "Weekly review" entry
-                 (file+datetree,org-default-journal-file)
-                 (file ,(concat user-emacs-directory "/etc/orgmode/weekly.org"))
-                 :clock-in t :clock-resume t :unnarrowed t))
-  ;; -OrgCaptureWeekly
-
   ;; OrgCaptureMeetingNote
   (add-to-list 'org-capture-templates
                `("m" "Meeting notes" entry
-                 (file+datetree ,org-default-meeting-notes-file)
+                 (file+datetree ,org-meeting-notes-file)
                  (file ,(concat user-emacs-directory "/etc/orgmode/meeting-notes.org"))))
   ;; -OrgCaptureMeetingNote
 
@@ -522,12 +505,10 @@ Switch projects and subprojects from STARTED back to TODO"
              org-babel-execute:sh
              org-babel-execute:shell
              org-babel-execute:zsh))
+(use-package ob-doc-makefile
+  :after org
+  :commands (org-babel-execute:makefile))
 ;; -OrgBabel
-
-;; OrgExportConstants
-(defconst site-directory "~/desktop/sites/" "Website folder that holds exported orgmode files and more.")
-(defconst org-default-publish-technical (concat site-directory "sbr.pm/technical") "Publish directory for the technical orgmode files.")
-;; -OrgExportConstants
 
 ;; OrgExportCfg
 (use-package ox-publish
@@ -583,9 +564,100 @@ With prefix argument, also display headlines without a TODO keyword."
 (use-package org-capture-pop-frame
   :after org)
 
-
 (use-package orgit
   :after org)
+
+(use-package org-roam
+  :commands (org-roam org-roam-build-cache)
+  ;; :hook
+  ;; (after-init . org-roam-mode)
+  :bind (("C-c o n" . org-roam-mode)
+         :map org-roam-mode-map
+         (("C-c n l" . org-roam)
+          ("C-c n f" . org-roam-find-file)
+          ("C-c n g" . org-roam-show-graph)
+          ("C-c n b" . org-roam-switch-to-buffer))
+         :map org-mode-map
+         (("C-c n i" . org-roam-insert)))
+  :custom
+  (org-roam-directory org-notes-dir)
+  :custom-face
+  (org-roam-link ((t (:inherit org-link :foreground "#C991E1"))))
+  :config
+  (require 'org-roam-protocol)
+  ;; (defun jethro/conditional-hugo-enable ()
+  ;;     (save-excursion
+  ;;       (if (cdr (assoc "SETUPFILE" (org-roam--extract-global-props '("SETUPFILE"))))
+  ;;           (org-hugo-auto-export-mode +1)
+  ;;         (org-hugo-auto-export-mode -1))))
+  ;;
+  ;;   (with-eval-after-load 'org
+  ;;     (defun my/org-roam--backlinks-list (file)
+  ;;       (if (org-roam--org-roam-file-p file)
+  ;;           (--reduce-from
+  ;;            (concat acc (format "- [[file:%s][%s]]\n"
+  ;;                                (file-relative-name (car it) org-roam-directory)
+  ;;                                (org-roam--get-title-or-slug (car it))))
+  ;;            "" (org-roam-sql [:select [file-from]
+  ;;                                      :from file-links
+  ;;                                      :where (= file-to $s1)
+  ;;                                      :and file-from :not :like $s2] file "%private%"))
+  ;;         ""))
+  ;;     (defun my/org-export-preprocessor (_backend)
+  ;;       (let ((links (my/org-roam--backlinks-list (buffer-file-name))))
+  ;;         (unless (string= links "")
+  ;;           (save-excursion
+  ;;             (goto-char (point-max))
+  ;;             (insert (concat "\n* Backlinks\n" links))))))
+  ;;     (add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor))
+  (setq org-roam-capture-ref-templates
+        '(("r" "ref" plain #'org-roam-capture--get-point ""
+           :file-name "${slug}"
+           :head "#+title: ${title}\n#+roam_key: ${ref}\n\n${body}"
+           :unnarrowed t)))
+  (setq org-roam-capture-templates
+        '(("d" "default" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "${slug}"
+           :head "#+SETUPFILE:../templates/articles.org
+#+TITLE: ${title}\n"
+           :unnarrowed t)
+          ("p" "private" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "${slug}.private"
+           :head "#+TITLE: ${title}\n"
+           :unnarrowed t))))
+
+(use-package org-journal
+  :commands (org-journal-new-entry org-capture)
+  :after (org-capture)
+  :bind
+  (("C-c n j" . org-journal-new-entry)
+   ("C-c o j" . org-journal-new-entry))
+  :init
+  (defun org-journal-find-location ()
+    "Open today's journal, but inhibiting inserting the heading, leaving that to the template."
+    (org-journal-new-entry t)
+    ;; position pont on the journal's top-level heading so that org-capture will add the new entry as a child.
+    (goto-char (point-max)))
+  (add-to-list 'org-capture-templates
+               `("j" "Journal"))
+  (add-to-list 'org-capture-templates
+               `("jj" "Journal entry" entry (function org-journal-find-location)
+                 "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?"
+                 :empty-lines 1 :clock-in t :clock-resume t))
+  (add-to-list 'org-capture-templates
+               `("je" "Weekly review" entry (function org-journal-find-location)
+                 (file ,(expand-file-name "etc/orgmode/weekly.org" user-emacs-directory))
+                 :empty-lines 1 :clock-in t :clock-resume t))
+  :custom
+  (org-journal-date-prefix "* ")
+  (org-journal-file-header "#+TITLE: %Y-v%m Journal\n\n")
+  (org-journal-file-format "%Y-%m.private.org")
+  (org-journal-file-type 'monthly)
+  (org-journal-dir org-notes-dir)
+  (org-journal-date-format "%A, %d %B %Y")
+  (org-journal-enable-agenda-integration nil))
 
 (provide 'config-org)
 ;;; config-org.el ends here

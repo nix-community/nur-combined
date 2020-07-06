@@ -1,0 +1,193 @@
+From 8250d730f31f2ff995b06b7c404d2682dea62402 Mon Sep 17 00:00:00 2001
+From: Vincent Demeester <vincent@sbr.pm>
+Date: Fri, 5 Jun 2020 12:09:52 +0200
+Subject: [PATCH] crc: adapt for nixos
+
+Signed-off-by: Vincent Demeester <vincent@sbr.pm>
+---
+ pkg/crc/cache/cache.go                      |  3 +
+ pkg/crc/constants/constants_linux.go        |  2 +-
+ pkg/crc/machine/libvirt/constants.go        |  2 +-
+ pkg/crc/oc/oc.go                            |  6 +-
+ pkg/crc/preflight/preflight_checks_linux.go | 84 ++++++++++++---------
+ 5 files changed, 57 insertions(+), 40 deletions(-)
+
+diff --git a/pkg/crc/cache/cache.go b/pkg/crc/cache/cache.go
+index 72a5bab..e60aa05 100644
+--- a/pkg/crc/cache/cache.go
++++ b/pkg/crc/cache/cache.go
+@@ -37,6 +37,9 @@ func NewGoodhostsCache(destDir string) *Cache {
+ }
+ 
+ func (c *Cache) IsCached() bool {
++	if filepath.IsAbs(c.binaryName) {
++		return true
++	}
+ 	if _, err := os.Stat(filepath.Join(c.destDir, c.binaryName)); os.IsNotExist(err) {
+ 		return false
+ 	}
+diff --git a/pkg/crc/constants/constants_linux.go b/pkg/crc/constants/constants_linux.go
+index 0323d5e..0184239 100644
+--- a/pkg/crc/constants/constants_linux.go
++++ b/pkg/crc/constants/constants_linux.go
+@@ -1,6 +1,6 @@
+ package constants
+ 
+-const (
++var (
+ 	OcBinaryName        = "oc"
+ 	PodmanBinaryName    = "podman"
+ 	GoodhostsBinaryName = "goodhosts"
+diff --git a/pkg/crc/machine/libvirt/constants.go b/pkg/crc/machine/libvirt/constants.go
+index a3b5807..a95a020 100644
+--- a/pkg/crc/machine/libvirt/constants.go
++++ b/pkg/crc/machine/libvirt/constants.go
+@@ -16,10 +16,10 @@ const (
+ )
+ 
+ const (
+-	MachineDriverCommand = "crc-driver-libvirt"
+ 	MachineDriverVersion = "0.12.8"
+ )
+ 
+ var (
++	MachineDriverCommand     = "crc-driver-libvirt"
+ 	MachineDriverDownloadUrl = fmt.Sprintf("https://github.com/code-ready/machine-driver-libvirt/releases/download/%s/crc-driver-libvirt", MachineDriverVersion)
+ )
+diff --git a/pkg/crc/oc/oc.go b/pkg/crc/oc/oc.go
+index 9b688e9..cdfaf6f 100644
+--- a/pkg/crc/oc/oc.go
++++ b/pkg/crc/oc/oc.go
+@@ -43,8 +43,12 @@ func (oc OcLocalRunner) GetKubeconfigPath() string {
+ 
+ // UseOcWithConfig return the oc binary along with valid kubeconfig
+ func UseOCWithConfig(machineName string) OcConfig {
++	ocBinaryPath := filepath.Join(constants.CrcBinDir, constants.OcBinaryName)
++	if filepath.IsAbs(constants.OcBinaryName) {
++		ocBinaryPath = constants.OcBinaryName
++	}
+ 	localRunner := OcLocalRunner{
+-		OcBinaryPath:   filepath.Join(constants.CrcOcBinDir, constants.OcBinaryName),
++		OcBinaryPath:   ocBinaryPath,
+ 		KubeconfigPath: filepath.Join(constants.MachineInstanceDir, machineName, "kubeconfig"),
+ 	}
+ 	return NewOcConfig(localRunner, constants.DefaultContext, constants.DefaultName)
+diff --git a/pkg/crc/preflight/preflight_checks_linux.go b/pkg/crc/preflight/preflight_checks_linux.go
+index 14c987b..93bf418 100644
+--- a/pkg/crc/preflight/preflight_checks_linux.go
++++ b/pkg/crc/preflight/preflight_checks_linux.go
+@@ -116,18 +116,18 @@ func fixLibvirtInstalled() error {
+ func checkLibvirtEnabled() error {
+ 	logging.Debug("Checking if libvirtd.service is enabled")
+ 	// check if libvirt service is enabled
+-	path, err := exec.LookPath("systemctl")
+-	if err != nil {
+-		return fmt.Errorf("systemctl not found on path: %s", err.Error())
+-	}
+-	stdOut, _, err := crcos.RunWithDefaultLocale(path, "is-enabled", "libvirtd")
+-	if err != nil {
+-		return fmt.Errorf("Error checking if libvirtd service is enabled")
+-	}
+-	if strings.TrimSpace(stdOut) != "enabled" {
+-		return fmt.Errorf("libvirtd.service is not enabled")
+-	}
+-	logging.Debug("libvirtd.service is already enabled")
++	// path, err := exec.LookPath("systemctl")
++	// if err != nil {
++	// 	return fmt.Errorf("systemctl not found on path: %s", err.Error())
++	// }
++	// stdOut, _, err := crcos.RunWithDefaultLocale(path, "is-enabled", "libvirtd")
++	// if err != nil {
++	// 	return fmt.Errorf("Error checking if libvirtd service is enabled: %s", err)
++	// }
++	// if strings.TrimSpace(stdOut) != "enabled" && strings.TrimSpace(stdOut) != "linked" {
++	// 	return fmt.Errorf("libvirtd.service is not enabled")
++	// }
++	// logging.Debug("libvirtd.service is already enabled")
+ 	return nil
+ }
+ 
+@@ -212,17 +212,17 @@ func fixUserPartOfLibvirtGroup() error {
+ 
+ func checkLibvirtServiceRunning() error {
+ 	logging.Debug("Checking if libvirtd.service is running")
+-	path, err := exec.LookPath("systemctl")
+-	if err != nil {
+-		return err
+-	}
+-	stdOut, _, err := crcos.RunWithDefaultLocale(path, "is-active", "libvirtd")
+-	if err != nil {
+-		return fmt.Errorf("Failed to check if libvirtd service is active")
+-	}
+-	if strings.TrimSpace(stdOut) != "active" {
+-		return fmt.Errorf("libvirtd.service is not running")
+-	}
++	// path, err := exec.LookPath("systemctl")
++	// if err != nil {
++	// 	return err
++	// }
++	// stdOut, _, err := crcos.RunWithDefaultLocale(path, "is-active", "libvirtd")
++	// if err != nil {
++	// 	return fmt.Errorf("Failed to check if libvirtd service is active")
++	// }
++	// if strings.TrimSpace(stdOut) != "active" {
++	// 	return fmt.Errorf("libvirtd.service is not running")
++	// }
+ 	logging.Debug("libvirtd.service is already running")
+ 	return nil
+ }
+@@ -246,6 +246,16 @@ func checkMachineDriverLibvirtInstalled() error {
+ 
+ 	// Check if crc-driver-libvirt is available
+ 	libvirtDriverPath := filepath.Join(constants.CrcBinDir, libvirt.MachineDriverCommand)
++	if filepath.IsAbs(libvirt.MachineDriverCommand) {
++		libvirtDriverPath = filepath.Join(constants.CrcBinDir, "crc-driver-libvirt")
++
++		err := unix.Access(libvirtDriverPath, unix.X_OK)
++		if err != nil {
++			if _, _, err := crcos.RunWithDefaultLocale("ln", "-s", libvirt.MachineDriverCommand, libvirtDriverPath); err != nil {
++				return fmt.Errorf("%s symbolic link to %s failed", libvirt.MachineDriverCommand, libvirtDriverPath)
++			}
++		}
++	}
+ 	err := unix.Access(libvirtDriverPath, unix.X_OK)
+ 	if err != nil {
+ 		return fmt.Errorf("%s is not executable", libvirtDriverPath)
+@@ -552,20 +562,20 @@ func removeCrcDnsmasqConfigFile() error {
+ }
+ 
+ func checkCrcNetworkManagerConfig() error {
+-	logging.Debug("Checking NetworkManager configuration")
+-	c := []byte(crcNetworkManagerConfig)
+-	_, err := os.Stat(crcNetworkManagerConfigPath)
+-	if err != nil {
+-		return fmt.Errorf("File not found: %s: %s", crcNetworkManagerConfigPath, err.Error())
+-	}
+-	config, err := ioutil.ReadFile(filepath.Clean(crcNetworkManagerConfigPath))
+-	if err != nil {
+-		return fmt.Errorf("Error opening file: %s: %s", crcNetworkManagerConfigPath, err.Error())
+-	}
+-	if !bytes.Equal(config, c) {
+-		return fmt.Errorf("Config file contains changes: %s", crcNetworkManagerConfigPath)
+-	}
+-	logging.Debug("NetworkManager configuration is good")
++	// logging.Debug("Checking NetworkManager configuration")
++	// c := []byte(crcNetworkManagerConfig)
++	// _, err := os.Stat(crcNetworkManagerConfigPath)
++	// if err != nil {
++	// 	return fmt.Errorf("File not found: %s: %s", crcNetworkManagerConfigPath, err.Error())
++	// }
++	// config, err := ioutil.ReadFile(filepath.Clean(crcNetworkManagerConfigPath))
++	// if err != nil {
++	// 	return fmt.Errorf("Error opening file: %s: %s", crcNetworkManagerConfigPath, err.Error())
++	// }
++	// if !bytes.Equal(config, c) {
++	// 	return fmt.Errorf("Config file contains changes: %s", crcNetworkManagerConfigPath)
++	// }
++	// logging.Debug("NetworkManager configuration is good")
+ 	return nil
+ }
+ 
+-- 
+2.26.2
+

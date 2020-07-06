@@ -12,7 +12,8 @@ buildGoModule rec {
     repo = "protobuild";
     sha256 = "0v3biryf56hscg7s8mm9ds8zypajb976z6x4xlhx1852wz6vqfxh";
   };
-  modSha256 = "19wazsl2k8563k96w75lcfdvvz4k5l5kg8inbm1hkh1h0knnzh8r";
+  vendorSha256 = "19wazsl2k8563k96w75lcfdvvz4k5l5kg8inbm1hkh1h0knnzh8r";
+  modSha256 = "${vendorSha256}";
 
   meta = {
     description = "Build protobufs in Go, easily";

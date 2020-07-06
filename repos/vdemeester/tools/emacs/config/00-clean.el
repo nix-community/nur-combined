@@ -1,7 +1,3 @@
-;;; 00-clean.el --- -*- lexical-binding: t -*-
-;;; Commentary:
-;;; No littering and recentf configuration
-;;; Code:
 (use-package recentf
   :config
   (setq recentf-max-saved-items 200
@@ -58,4 +54,3 @@
    `((".*" . ,(no-littering-expand-var-file-name "backup/")))
    auto-save-file-name-transforms
    `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
-;;; 00-clean.el ends here

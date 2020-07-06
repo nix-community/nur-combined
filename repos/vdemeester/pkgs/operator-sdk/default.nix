@@ -5,11 +5,11 @@ rec {
   operatorSdkGen =
     { version
     , sha256
-    , modSha256
+    , vendorSha256
     }:
 
     buildGoModule rec {
-      inherit modSha256;
+      inherit vendorSha256;
       pname = "operator-sdk";
       name = "${pname}-${version}";
       rev = "v${version}";
@@ -31,6 +31,7 @@ rec {
         repo = "operator-sdk";
         sha256 = "${sha256}";
       };
+      modSha256 = "${vendorSha256}";
 
       postInstall = ''
         # completions
@@ -50,11 +51,11 @@ rec {
   operator-sdk_0_16 = makeOverridable operatorSdkGen {
     version = "0.16.0";
     sha256 = "1qdvnfxz81ij1y7qdk5xjq0nd3dqgbdjq0gmramxmkkz892cdaf3";
-    modSha256 = "11nz0fdxpsc9ifszprgp1l70myhadh90hcs94cilrpqwlci0i8c5";
+    vendorSha256 = "11nz0fdxpsc9ifszprgp1l70myhadh90hcs94cilrpqwlci0i8c5";
   };
   operator-sdk_0_17 = makeOverridable operatorSdkGen {
     version = "0.17.0";
     sha256 = "11mirwgmmhfccv1knxvf2pv51pisngw5lb8vpcbzi5v2lm192aqk";
-    modSha256 = "0mspbnw41c6r3p7kaafza1v10zi4jv0vrnzxwpyh7pkmx150xgvd";
+    vendorSha256 = "0mspbnw41c6r3p7kaafza1v10zi4jv0vrnzxwpyh7pkmx150xgvd";
   };
 }

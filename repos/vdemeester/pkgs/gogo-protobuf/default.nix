@@ -28,6 +28,7 @@ buildGoModule rec {
     repo = "protobuf";
     sha256 = "0x77x64sxjgfhmbijqfzmj8h4ar25l2w97h01q3cqs1wk7zfnkhp";
   };
-  modSha256 = "0vkpqdd4x97cl3dm79mh1vic1ir4i20wv9q52sn13vr0b3kja0qy";
+  vendorSha256 = "0vkpqdd4x97cl3dm79mh1vic1ir4i20wv9q52sn13vr0b3kja0qy";
+  modSha256 = "${vendorSha256}";
 
 }
