@@ -38,17 +38,21 @@ rec {
       '';
     };
 
+  oc_4_5 = makeOverridable ocGen {
+    version = "4.5.0-rc.6";
+    sha256 = "17f5j5rqrwcwp50r64qqnwdjl5alm7liwy07g9y0p6v13hx160jz";
+  };
   oc_4_4 = makeOverridable ocGen {
-    version = "4.4.5";
-    sha256 = "019jms70s87lrsn9qbr9khc1h0hgpw2f3kh2wvmx5jisb08nba7r";
+    version = "4.4.11";
+    sha256 = "19j5xwh4bv6sd60jbbx5fg063c0csgwp42dkcziqhwl4css1szad";
   };
   oc_4_3 = makeOverridable ocGen {
-    version = "4.3.24";
-    sha256 = "07gq6wkinsmysdwglpcpam3kdphyv9c9nqfbmfhlmy1k2y5cw536";
+    version = "4.3.28";
+    sha256 = "095sbvrh6wsc9fabppwy0mmg6zvgxzpfsv11w944d6ibxrpdhh4v";
   };
   oc_4_2 = makeOverridable ocGen {
-    version = "4.2.34";
-    sha256 = "199qm7hc8949ang45s7avs3vs6hm1ppb9q4jkvzqx1hgfyc2qzpl";
+    version = "4.2.36";
+    sha256 = "1f9h58mx0a3zhpx11gim13hd3m4yzwa6ipbp1gwlghmhjz1jh35v";
   };
   oc_4_1 = makeOverridable ocGen {
     version = "4.1.41";

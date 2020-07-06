@@ -72,6 +72,7 @@ rec {
     oc_4_2
     oc_4_3
     oc_4_4
+    oc_4_5
     ;
   oc = oc_4_4;
   openshift-install = pkgs.callPackage ./openshift-install { };
