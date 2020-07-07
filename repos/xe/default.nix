@@ -15,9 +15,7 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   # Libraries
-  girara = pkgs.callPackage ./pkgs/girara {
-    gtk = pkgs.gtk3;
-  };
+  girara = pkgs.callPackage ./pkgs/girara { gtk = pkgs.gtk3; };
   libutf = pkgs.callPackage ./pkgs/libutf { };
 
   # Programs
@@ -48,5 +46,13 @@ rec {
   st = pkgs.callPackage ./pkgs/st { };
   sw = pkgs.callPackage ./pkgs/sw { };
   zathura = pkgs.callPackage ./pkgs/zathura { inherit girara; };
+
+  # lua libraries
+  lua = {
+    dnd_dice = pkgs.callPackage ./pkgs/lua/dnd_dice { };
+    ln = pkgs.callPackage ./pkgs/lua/ln {
+      inherit (pkgs.lua53Packages) buildLuarocksPackage dkjson;
+    };
+  };
 }
 

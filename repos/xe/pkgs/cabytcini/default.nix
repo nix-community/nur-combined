@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ pkg-config xorg.libX11 openssl ];
 
   legacyCargoFetcher = true;
-  cargoSha256 = "1kwz2fz5n243j8zn7kw7r096h4hg4vkxcp0c2x5zksc71fkfpaa2";
+  cargoSha256 = "1cm64b079jgbakkcf3n5wfa97l3qq0fz4q10f43k4pv91pxy70y3";
 
   meta = with lib; {
     description = "lo mi cabytcini cankyuijde";

@@ -14,6 +14,7 @@ let
     version = version;
     src = repo;
     modSha256 = "1s3yj3b5zs9cqss2p2qdsk5yxmwna53nnk62zf78j6whan2kqags";
+    vendorSha256 = "1s3yj3b5zs9cqss2p2qdsk5yxmwna53nnk62zf78j6whan2kqag3";
 
     subPackages = [ "." ];
   };

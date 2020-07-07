@@ -12,7 +12,7 @@ matrix:
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
 
 install:
- - nix upgrade-nix
+ - echo "trusted-users = root travis" | sudo tee -a /etc/nix/nix.conf && sudo pkill nix-daemon
  - nix --version
  - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
  - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
