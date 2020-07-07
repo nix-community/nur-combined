@@ -24,6 +24,7 @@ mkDerivation rec {
     olm
     openjpeg
     pyotherside
+    qt5.qtgraphicaleffects
     qt5.qtimageformats
     qt5.qtquickcontrols2
     qt5.qtsvg
