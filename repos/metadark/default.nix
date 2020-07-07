@@ -60,6 +60,10 @@ rec {
     inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
   };
 
+  xpadneo = pkgs.callPackage ./pkgs/os-specific/linux/xpadneo {
+    kernel = pkgs.linux;
+  };
+
   zynaddsubfx = zynaddsubfx-ntk;
 
   zynaddsubfx-fltk = pkgs.callPackage ./pkgs/applications/audio/zynaddsubfx {
