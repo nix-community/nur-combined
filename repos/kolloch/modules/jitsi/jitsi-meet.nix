@@ -277,18 +277,20 @@ in
       enable = mkDefault true;
       virtualHosts.${cfg.hostName} = {
         root = pkgs.jitsi-meet;
-        locations."~ ^/([a-zA-Z0-9=\\?]+)$" = {
+        extraConfig = ''
+          ssi on;
+        '';
+        locations."@root_path" = {
+          priority = 2000;
           extraConfig = ''
             rewrite ^/(.*)$ / break;
           '';
         };
-        locations."/" = {
-          index = "index.html";
-          extraConfig = ''
-            ssi on;
-          '';
+        locations."~ ^/([^/\\?&:'\"]+)$" = {
+          priority = 2000;
+          tryFiles = "$uri @root_path";
         };
-        locations."/http-bind" = {
+        locations."=/http-bind" = {
           proxyPass = "http://localhost:5280/http-bind";
           extraConfig = ''
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
