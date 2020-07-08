@@ -36,6 +36,8 @@ rec {
 
   debugpy = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/debugpy {};
 
+  emacs-pure-gtk3 = pkgs.callPackage ./pkgs/applications/editors/emacs-pure-gtk3 {};
+
   lightdm-webkit2-greeter = pkgs.callPackage ./pkgs/applications/display-managers/lightdm-webkit2-greeter {
     inherit lightdm-webkit2-greeter;
   };
