@@ -11,8 +11,9 @@ rustPlatform.buildRustPackage rec {
   ];
 
   version = "0.1.2";
-  cargoSha256 = "1dxqzkv7y7h09drqcj2b0ds3bgkhgcc058r1fprhs76ic9h1z92q";
+  cargoSha256 = "00bbia9hdk60fpm4i71s5x419z0hfrjwlvys747mn58nnqwzr12h";
   verifyCargoDeps = true;
+  legacyCargoFetcher = true;
   meta = with stdenv.lib; {
     description = "set color temperature daemon ";
     homepage = "https://github.com/amir/${pname}";

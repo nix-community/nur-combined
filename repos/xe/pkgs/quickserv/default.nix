@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   legacyCargoFetcher = true;
-  cargoSha256 = "0k2fyzsvdsmphpmc8c0a53hd6dawyvmdrwdv2c1mz12sa5cpnlqy";
+  cargoSha256 = "07crv9wx0zg0fjga6alx3pks7cnkla9p6y9jy8wq13y3q7yrm8n9";
 
   meta = with lib; {
     description = "A quick HTTP server for when you've given up on life";
