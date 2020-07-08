@@ -37,7 +37,9 @@ let
     } ''
         for file in ${ lib.concatStringsSep " " filters }
         do
-          [ -f "$file" ] || (printf "File Not Found or not a File %s" "$file"; exit 1)
+          if [[ ! -f "$file" ]] \
+          && [[ ! $(PATH="${lib.makeBinPath buildInputs}" type -P "$file") ]]; \
+          then (printf "File Not Found or not a File %s" "$file"; exit 1) fi
         done
 
         makeWrapper ${pandoc}/bin/pandoc $out/bin/pandoc \
