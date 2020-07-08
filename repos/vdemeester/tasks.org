@@ -694,7 +694,10 @@ CLOSED: [2020-06-29 Mon 18:11]
 Check how to do this (dconf, gsettings/gconf)
 
 - [ ] keyboard shortcuts
+- [ ] terminal/tilix profiles (colors, …)
 - [ ] other settings
+
+** TODO fix GnuPG setup (with yubikey)
 
 ** TODO gnome3 modules
 
@@ -705,6 +708,9 @@ Create a module (like desktop) or part of desktop
 VPN
 
 ** TODO [#C] boxes and libvirt
+
+Have a fedora machine ready to run (setup and all, automated of course)
+
 * TODO Reset systems at boot
 
 - Looking at https://github.com/nix-community/impermanence

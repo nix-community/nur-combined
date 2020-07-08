@@ -39,16 +39,9 @@ in
   };
 
   services.xserver.enable = true;
-  services.xserver.layout = "fr(bepo),fr";
-  services.xserver.xkbVariant = "oss";
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome3.enable = true;
-
-  services.gnome3 = {
-    core-os-services.enable = true;
-    core-shell.enable = true;
-    core-utilities.enable = true;
-  };
+  services.xserver.displayManager.xpra.enable = true;
+  services.xserver.displayManager.xpra.bindTcp = "0.0.0.0:10000";
+  services.xserver.displayManager.xpra.pulseaudio = true;
 
   virtualisation.containers = {
     enable = true;

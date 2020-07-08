@@ -134,6 +134,6 @@ in
     name = "org";
     shell = pkgs.zsh + "/bin/zsh -i -c";
     # FIXME do this in the derivation :)
-    extraOptions = "--dump-file=${config.home.homeDirectory}/.config/emacs/emacs.pdmp";
+    # extraOptions = "--dump-file=${config.home.homeDirectory}/.config/emacs/emacs.pdmp";
   };
 }
