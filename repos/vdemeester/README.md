@@ -47,7 +47,7 @@ dramatically or even not working anymore 😛.
 This is probably gonna be a moving target, but this is how it looks (or should look
 soon-ish 👼):
 
--   `docs`: holds documentation about this code, literate configuration, see [literate configuration](#orgfbae953).
+-   `docs`: holds documentation about this code, literate configuration, see [literate configuration](#orgbc889c3).
     `make publish` will publish the `README.org` and the `docs` folder to my website.
 -   `lib`: shared code used during configuration (mostly `nix` code).
 -   `machines`: configuration per machines
@@ -59,7 +59,7 @@ soon-ish 👼):
     will contain empty secrets (or random ones).
 -   `tmp`: things to… organize (e.g. where I import my other *legacy* configuration)
 
-<a id="orgfbae953"></a>As I'm slowly, but <span class="underline">surely</span>, going to have `org-mode` files for
+<a id="orgbc889c3"></a>As I'm slowly, but <span class="underline">surely</span>, going to have `org-mode` files for
 literate configuration files in this repository, I have to think of how to organize files
 in order to end up with one huge file. The goal of having those `org-mode` files, is
 mainly to document my configuration and publish it, most likely on [sbr.pm](https://sbr.pm).

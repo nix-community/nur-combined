@@ -27,7 +27,7 @@
     gnome3.gnome-usage
 
     gnomeExtensions.sound-output-device-chooser
-    gnomeExtensions.paperwm
+    gnomeExtensions.tilingnome
     my.gnome-shell-extension-shell
     gnome3.gnome-shell-extensions
 

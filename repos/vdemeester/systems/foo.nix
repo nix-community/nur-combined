@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 
 with lib;
 let
@@ -39,9 +39,49 @@ in
   };
 
   services.xserver.enable = true;
+  services.xserver.layout = "fr";
+  services.xserver.xkbVariant = "bepo";
+  services.xserver.xkbOptions = "grp:menu_toggle,grp_led:caps,compose:caps";
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome3.enable = true;
+  services.gnome3.chrome-gnome-shell.enable = true;
+  services.gnome3.core-shell.enable = true;
+  services.gnome3.core-os-services.enable = true;
+  services.gnome3.core-utilities.enable = true;
+
+  fonts = {
+    enableFontDir = true;
+    enableGhostscriptFonts = true;
+    fonts = with pkgs; [
+      corefonts
+      dejavu_fonts
+      emojione
+      feh
+      fira
+      fira-code
+      fira-code-symbols
+      fira-mono
+      hasklig
+      inconsolata
+      iosevka
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      noto-fonts-extra
+      overpass
+      symbola
+      source-code-pro
+      twemoji-color-font
+      ubuntu_font_family
+      unifont
+    ];
+  };
+  /*
+  services.xserver.enable = true;
   services.xserver.displayManager.xpra.enable = true;
   services.xserver.displayManager.xpra.bindTcp = "0.0.0.0:10000";
   services.xserver.displayManager.xpra.pulseaudio = true;
+  */
 
   virtualisation.containers = {
     enable = true;
