@@ -1,16 +1,16 @@
 { stdenv, sources }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "docker-reg-tool";
-  version = stdenv.lib.substring 0 7 src.rev;
+  version = stdenv.lib.substring 0 7 sources.docker-reg-tool.rev;
   src = sources.docker-reg-tool;
 
   installPhase = ''
-    install -Dm755 docker_reg_tool "$out/bin/docker_reg_tool"
+    install -Dm755 docker_reg_tool -t $out/bin
   '';
 
   meta = with stdenv.lib; {
-    inherit (src) description homepage;
+    inherit (sources.docker-reg-tool) description homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.all;

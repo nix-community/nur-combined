@@ -1,11 +1,14 @@
 { stdenv, fetchzip }:
-
-stdenv.mkDerivation rec {
-  pname = "gmaptool";
+let
   version = "0.8.220";
+  filename = "lgmt${stdenv.lib.replaceStrings [ "." ] [ "" ] version}.zip";
+in
+stdenv.mkDerivation {
+  pname = "gmaptool";
+  inherit version;
 
   src = fetchzip {
-    url = "https://www.gmaptool.eu/sites/default/files/lgmt${stdenv.lib.replaceStrings [ "." ] [ "" ] version}.zip";
+    url = "https://www.gmaptool.eu/sites/default/files/${filename}";
     sha256 = "0wf9ys52slf2hzmfl81d8754alfqiylsk7g5af3lxsiivd5284gy";
     stripRoot = false;
   };

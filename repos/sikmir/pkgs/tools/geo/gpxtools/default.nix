@@ -1,8 +1,8 @@
 { stdenv, cmake, expat, exiv2, sources }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "gpxtools";
-  version = stdenv.lib.substring 0 7 src.rev;
+  version = stdenv.lib.substring 0 7 sources.gpxtools.rev;
   src = sources.gpxtools;
 
   nativeBuildInputs = [ cmake ];
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    inherit (src) description homepage;
+    inherit (sources.gpxtools) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = with platforms; linux ++ darwin;

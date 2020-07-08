@@ -1,8 +1,8 @@
 { stdenv, bison, flex, libtool, ncurses, readline, zlib, sources }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "foma";
-  version = stdenv.lib.substring 0 7 src.rev;
+  version = stdenv.lib.substring 0 7 sources.foma.rev;
   src = sources.foma;
 
   sourceRoot = "source/foma";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "prefix=$(out)" ];
 
   meta = with stdenv.lib; {
-    inherit (src) description homepage;
+    inherit (sources.foma) description homepage;
     license = licenses.asl20;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

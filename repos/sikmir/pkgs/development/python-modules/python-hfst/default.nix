@@ -1,6 +1,6 @@
 { lib, buildPythonPackage, hfst, swig }:
 
-buildPythonPackage rec {
+buildPythonPackage {
   pname = "python-hfst";
   inherit (hfst) src version;
 

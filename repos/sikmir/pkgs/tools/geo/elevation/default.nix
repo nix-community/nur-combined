@@ -14,9 +14,9 @@
 , sources
 }:
 
-buildPythonApplication rec {
+buildPythonApplication {
   pname = "elevation";
-  version = lib.substring 0 7 src.rev;
+  version = lib.substring 0 7 sources.elevation.rev;
   src = sources.elevation;
 
   propagatedBuildInputs = [ fasteners future appdirs click ];
@@ -40,7 +40,7 @@ buildPythonApplication rec {
   checkPhase = "pytest";
 
   meta = with lib; {
-    inherit (src) description homepage;
+    inherit (sources.elevation) description homepage;
     license = licenses.asl20;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

@@ -1,14 +1,20 @@
-{ stdenv, fetchzip, jre, makeWrapper }:
-
-stdenv.mkDerivation rec {
-  pname = "i18n-editor";
+{ stdenv, fetchfromgh, unzip, jre, makeWrapper }:
+let
   version = "2.0.0-beta.1";
+in
+stdenv.mkDerivation {
+  pname = "i18n-editor";
+  inherit version;
 
-  src = fetchzip {
-    url = "https://github.com/jcbvm/i18n-editor/releases/download/${version}/${pname}-${version}.zip";
-    sha256 = "0hkxgmna22qwm72rwaj4l1rxnx1x93z4v843sz58fdfiqmiqjfy3";
-    stripRoot = false;
+  src = fetchfromgh {
+    owner = "jcbvm";
+    repo = "i18n-editor";
+    name = "i18n-editor-${version}.zip";
+    sha256 = "19p9p6h4kfv468frdsl88w4x3z4bnhlcnll21zw63xhccw55v0lj";
+    inherit version;
   };
+
+  unpackPhase = "${unzip}/bin/unzip $src";
 
   buildInputs = [ jre makeWrapper ];
 

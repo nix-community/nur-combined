@@ -1,6 +1,6 @@
 { stdenv, sources }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "mtk-suomi";
   version = sources.mtk-suomi.version;
   src = sources.mtk-suomi;
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    inherit (src) description homepage;
+    inherit (sources.mtk-suomi) description homepage;
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.all;

@@ -17,9 +17,9 @@
 , YAML
 }:
 
-buildPerlPackage rec {
+buildPerlPackage {
   pname = "osm2mp";
-  version = lib.substring 0 7 src.rev;
+  version = lib.substring 0 7 sources.osm2mp.rev;
   src = sources.osm2mp;
 
   outputs = [ "out" ];
@@ -60,7 +60,7 @@ buildPerlPackage rec {
   '';
 
   meta = with lib; {
-    inherit (src) description homepage;
+    inherit (sources.osm2mp) description homepage;
     license = licenses.gpl2;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

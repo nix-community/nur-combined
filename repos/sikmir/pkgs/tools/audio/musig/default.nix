@@ -1,8 +1,10 @@
 { lib, buildGoModule, pkgconfig, portaudio, sources }:
-
-buildGoModule rec {
+let
+  version = lib.substring 0 7 sources.musig.rev;
+in
+buildGoModule {
   pname = "musig";
-  version = lib.substring 0 7 src.rev;
+  inherit version;
   src = sources.musig;
 
   vendorSha256 = "0ha1xjdwibm8543b4bx0xrbigngiiakksdc6mnp0mz5y6ai56pg5";
@@ -17,7 +19,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    inherit (src) description homepage;
+    inherit (sources.musig) description homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

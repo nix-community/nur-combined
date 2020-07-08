@@ -1,12 +1,17 @@
-{ stdenv, fetchurl, unzip }:
-
-stdenv.mkDerivation rec {
-  pname = "MacPass";
+{ stdenv, fetchfromgh, unzip }:
+let
   version = "0.7.12";
+  sha256 = "1gikixbrz1pvyjspp62msdmhjdy1rfkx8jhy7rajjr8bzm8pzpmc";
+in
+stdenv.mkDerivation {
+  pname = "MacPass";
+  inherit version;
 
-  src = fetchurl {
-    url = "https://github.com/MacPass/MacPass/releases/download/${version}/${pname}-${version}.zip";
-    sha256 = "1gikixbrz1pvyjspp62msdmhjdy1rfkx8jhy7rajjr8bzm8pzpmc";
+  src = fetchfromgh {
+    owner = "MacPass";
+    repo = "MacPass";
+    name = "MacPass-${version}.zip";
+    inherit version sha256;
   };
 
   unpackPhase = "${unzip}/bin/unzip $src";

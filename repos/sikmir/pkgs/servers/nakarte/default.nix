@@ -1,7 +1,9 @@
 { stdenv, mkYarnPackage, sources, secretsConfig ? null }:
-
-mkYarnPackage rec {
-  name = "nakarte-${stdenv.lib.substring 0 7 src.rev}";
+let
+  version = stdenv.lib.substring 0 7 sources.nakarte.rev;
+in
+mkYarnPackage {
+  name = "nakarte-${version}";
   src = sources.nakarte;
 
   postPatch =
@@ -20,7 +22,7 @@ mkYarnPackage rec {
   distPhase = "true";
 
   meta = with stdenv.lib; {
-    inherit (src) description homepage;
+    inherit (sources.nakarte) description homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.all;

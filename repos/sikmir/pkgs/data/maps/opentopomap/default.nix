@@ -1,6 +1,6 @@
 { stdenv, fetchurl, unzip }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "opentopomap";
   version = "2020-05-15";
 
@@ -9,9 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "130h349ja358qmdszq8lhfi0flskhrjcf65z1f9v4vmhf67wj719";
   };
 
-  nativeBuildInputs = [ unzip ];
-
-  unpackPhase = "unzip $src";
+  unpackPhase = "${unzip}/bin/unzip $src";
 
   dontConfigure = true;
   dontBuild = true;
@@ -19,7 +17,7 @@ stdenv.mkDerivation rec {
   preferLocalBuild = true;
 
   installPhase = ''
-    install -Dm644 *.img -t "$out/share/qmapshack/Maps"
+    install -Dm644 *.img -t $out/share/qmapshack/Maps
   '';
 
   meta = with stdenv.lib; {

@@ -1,6 +1,6 @@
 { stdenv, fetchurl, lang, version, sha256 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "wiktionary-${lang}";
   inherit version;
 
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   installPhase = ''
-    install -Dm644 *.{dict,idx,ifo} -t "$out/share/goldendict/dictionaries/wiktionary"
+    install -Dm644 *.{dict,idx,ifo} -t $out/share/goldendict/dictionaries/wiktionary
   '';
 
   preferLocalBuild = true;

@@ -1,8 +1,8 @@
 { lib, buildPythonApplication, python, requests, gpxpy, sources }:
 
-buildPythonApplication rec {
+buildPythonApplication {
   pname = "gpxelevations";
-  version = lib.substring 0 7 src.rev;
+  version = lib.substring 0 7 sources.gpxelevations.rev;
   src = sources.gpxelevations;
 
   propagatedBuildInputs = [ requests gpxpy ];
@@ -13,7 +13,7 @@ buildPythonApplication rec {
   #'';
 
   meta = with lib; {
-    inherit (src) description homepage;
+    inherit (sources.gpxelevations) description homepage;
     license = licenses.asl20;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

@@ -1,8 +1,8 @@
 { stdenv, pcre, openssl, sources }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "csvtools";
-  version = stdenv.lib.substring 0 7 src.rev;
+  version = stdenv.lib.substring 0 7 sources.csvtools.rev;
   src = sources.csvtools;
 
   buildInputs = [ pcre ];
@@ -13,16 +13,12 @@ stdenv.mkDerivation rec {
   doCheck = true;
   checkInputs = [ openssl ];
 
-  preCheck = ''
-    patchShebangs .
-  '';
+  preCheck = "patchShebangs .";
 
-  preInstall = ''
-    mkdir -p "$out/bin"
-  '';
+  preInstall = "mkdir -p $out/bin";
 
   meta = with stdenv.lib; {
-    inherit (src) description homepage;
+    inherit (sources.csvtools) description homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     platforms = with platforms; linux ++ darwin;

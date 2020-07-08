@@ -16,17 +16,19 @@
 , wrapQtAppsHook
 , qtimageformats
 , sources
+, substituteAll
 }:
 
-mkDerivation rec {
+mkDerivation {
   pname = "OpenOrienteering-Mapper";
-  version = lib.substring 0 7 src.rev;
+  version = lib.substring 0 7 sources.mapper.rev;
   src = sources.mapper;
 
-  patches = [
+  patches = (substituteAll {
     # See https://github.com/NixOS/nixpkgs/issues/86054
-    ./fix-qttranslations-path.diff
-  ];
+    src = ./fix-qttranslations-path.patch;
+    inherit qttranslations;
+  });
 
   buildInputs = [
     gdal
@@ -40,11 +42,6 @@ mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake doxygen ninja qttools ];
-
-  postPatch = ''
-    substituteInPlace src/util/translation_util.cpp \
-      --subst-var-by qttranslations ${qttranslations}
-  '';
 
   cmakeFlags = [
     # Building the manual and bundling licenses fails
@@ -77,7 +74,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    inherit (src) description homepage;
+    inherit (sources.mapper) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = with platforms; linux ++ darwin;

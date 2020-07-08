@@ -9,22 +9,7 @@
 , python3
 , gdb
 }:
-
-stdenv.mkDerivation rec {
-  pname = "gef";
-  version = stdenv.lib.substring 0 7 src.rev;
-  src = sources.gef;
-
-  postPatch = ''
-    substituteInPlace gef.py \
-      --replace "/bin/ps" "ps" \
-      --replace "/bin/bash" "${bash}/bin/bash" \
-      --replace "/usr/bin/python" "${python3.interpreter}"
-  '';
-
-  dontBuild = true;
-  doCheck = false;
-
+let
   initGef = writeScript "init-gef" ''
     source @out@/share/gef/gef.py
   '';
@@ -36,6 +21,21 @@ stdenv.mkDerivation rec {
       ${gdb}/bin/gdb -x @out@/share/gef/init-gef "$@"
     ''
   );
+in
+stdenv.mkDerivation {
+  pname = "gef";
+  version = stdenv.lib.substring 0 7 sources.gef.rev;
+  src = sources.gef;
+
+  postPatch = ''
+    substituteInPlace gef.py \
+      --replace "/bin/ps" "ps" \
+      --replace "/bin/bash" "${bash}/bin/bash" \
+      --replace "/usr/bin/python" "${python3.interpreter}"
+  '';
+
+  dontBuild = true;
+  doCheck = false;
 
   installPhase = ''
     install -Dm644 gef.py -t $out/share/gef
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    inherit (src) description homepage;
+    inherit (sources.gef) description homepage;
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ sikmir ];

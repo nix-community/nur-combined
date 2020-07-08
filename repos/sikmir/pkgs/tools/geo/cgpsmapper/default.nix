@@ -1,21 +1,22 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchwebarchive }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "cgpsmapper";
   version = "0093c";
 
-  src = fetchurl {
-    url = "https://web.archive.org/web/20160620102839if_/http://www.cgpsmapper.com/download/${pname}-static.gz";
+  src = fetchwebarchive {
+    url = "http://cgpsmapper.com/download/cgpsmapper-static.gz";
+    timestamp = "20160817191046";
     sha256 = "0h2xjkzkg566bgvg8gbl1hmjjimv2xbhv2csd54naq1vqphqjchx";
   };
 
   sourceRoot = ".";
-  unpackCmd = "gunzip -c $curSrc > ${pname}-static";
+  unpackCmd = "gunzip -c $curSrc > cgpsmapper-static";
 
   dontBuild = true;
   dontFixup = true;
 
-  installPhase = "install -Dm755 ${pname}-static -t $out/bin";
+  installPhase = "install -Dm755 cgpsmapper-static -t $out/bin";
 
   meta = with stdenv.lib; {
     description = "GIS converter into GARMIN compatible format maps";

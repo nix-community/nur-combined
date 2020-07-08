@@ -1,6 +1,6 @@
 { stdenv, fetchzip }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "qmapshack-onlinemaps";
   version = "2019-12-26";
 
@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   };
 
   installPhase = ''
-    install -dm755 "$out/share/qmapshack/Maps"
-    cp -r $src/* "$out/share/qmapshack/Maps"
+    install -dm755 $out/share/qmapshack/Maps
+    cp -r $src/* $out/share/qmapshack/Maps
   '';
 
   meta = with stdenv.lib; {

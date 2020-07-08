@@ -1,6 +1,6 @@
 { stdenv, fetchurl, unzip, country ? "FIN", lang ? "en" }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "freizeitkarte-osm";
   version = "2020-04-06";
 
@@ -9,9 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "0wnfxb02n7niaa4ma6w6gxkfqfg5w7achkq1l5cyjpnhgjzlsw94";
   };
 
-  nativeBuildInputs = [ unzip ];
-
-  unpackPhase = "unzip $src";
+  unpackPhase = "${unzip}/bin/unzip $src";
 
   dontConfigure = true;
   dontBuild = true;
@@ -19,7 +17,7 @@ stdenv.mkDerivation rec {
   preferLocalBuild = true;
 
   installPhase = ''
-    install -Dm644 *.img -t "$out/share/qmapshack/Maps"
+    install -Dm644 *.img -t $out/share/qmapshack/Maps
   '';
 
   meta = with stdenv.lib; {

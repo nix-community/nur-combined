@@ -8,9 +8,9 @@
 , scdoc
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "libshell";
-  version = stdenv.lib.substring 0 7 src.rev;
+  version = stdenv.lib.substring 0 7 sources.libshell.rev;
   src = sources.libshell;
 
   nativeBuildInputs = [ help2man ];
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    inherit (src) description homepage;
+    inherit (sources.libshell) description homepage;
     license = licenses.gpl2;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.all;

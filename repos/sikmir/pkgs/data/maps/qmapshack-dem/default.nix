@@ -1,6 +1,6 @@
 { stdenv, fetchurl, unzip, gdal }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "qmapshack-dem";
   version = "2014-05-25";
 

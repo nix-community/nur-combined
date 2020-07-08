@@ -1,6 +1,6 @@
 { stdenv, fetchgit }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "goldendict-dark-theme";
   version = "2018-11-08";
 
@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
   dontBuild = true;
 
   installPhase = ''
-    install -Dm644 article-style.css $out/share/goldendict/styles/dark-theme/article-style.css
-    install -Dm644 qt-style.css $out/share/goldendict/styles/dark-theme/qt-style.css
+    install -Dm644 article-style.css -t $out/share/goldendict/styles/dark-theme
+    install -Dm644 qt-style.css -t $out/share/goldendict/styles/dark-theme
   '';
 
   meta = with stdenv.lib; {

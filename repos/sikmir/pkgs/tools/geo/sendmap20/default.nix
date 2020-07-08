@@ -1,11 +1,12 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchwebarchive }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "sendmap20";
   version = "4.2";
 
-  src = fetchurl {
-    url = "https://web.archive.org/web/20160622234550if_/http://cgpsmapper.com/download/${pname}.gz";
+  src = fetchwebarchive {
+    url = "http://cgpsmapper.com/download/sendmap20.gz";
+    timestamp = "20160622234550";
     sha256 = "08fm3q3qpirxd2l6rwffs2h997vk04bl4jvq8fbjlymrsmdlqx4s";
   };
 

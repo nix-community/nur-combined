@@ -1,11 +1,11 @@
 { lib, buildPerlPackage, fetchzip, dos2unix, cgpsmapper, ocad2mp, ModulePluggable, Tk }:
 
-buildPerlPackage rec {
+buildPerlPackage {
   pname = "ocad2img";
-  version = "2009-10-11";
+  version = "unstable-2009-10-11";
 
   src = fetchzip {
-    url = "http://worldofo.com/div/${pname}.zip";
+    url = "http://worldofo.com/div/ocad2img.zip";
     sha256 = "0d5aryahl5662w65fpqa5camq1c0wlyrnxgsdqb7xsgmk1sivvmz";
     stripRoot = false;
   };

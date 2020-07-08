@@ -1,15 +1,15 @@
 { lib, buildPythonPackage, pytest, sources }:
 
-buildPythonPackage rec {
+buildPythonPackage {
   pname = "pymbtiles";
-  version = lib.substring 0 7 src.rev;
+  version = lib.substring 0 7 sources.pymbtiles.rev;
   src = sources.pymbtiles;
 
   checkInputs = [ pytest ];
   checkPhase = "pytest";
 
   meta = with lib; {
-    inherit (src) description homepage;
+    inherit (sources.pymbtiles) description homepage;
     license = licenses.isc;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

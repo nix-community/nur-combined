@@ -1,8 +1,8 @@
 { stdenv, sources }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "nnn-plugins";
-  version = stdenv.lib.substring 0 7 src.rev;
+  version = stdenv.lib.substring 0 7 sources.nnn.rev;
   src = sources.nnn;
 
   phases = [ "installPhase" "fixupPhase" ];

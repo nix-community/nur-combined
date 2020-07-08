@@ -15,9 +15,9 @@
 , withI18n ? true
 }:
 
-mkDerivation rec {
+mkDerivation {
   pname = "redict";
-  version = lib.substring 0 7 src.rev;
+  version = lib.substring 0 7 sources.redict.rev;
   src = sources.redict;
 
   nativeBuildInputs = [ qmake pkgconfig ] ++ (lib.optional withI18n qttools);
@@ -43,7 +43,7 @@ mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    inherit (src) description homepage;
+    inherit (sources.redict) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = with platforms; linux ++ darwin;

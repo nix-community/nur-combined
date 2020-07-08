@@ -1,8 +1,10 @@
 { stdenv, buildPythonPackage, fetchPypi, substituteAll, locale, pytest }:
-
-buildPythonPackage rec {
+let
   pname = "click";
   version = "6.7";
+in
+buildPythonPackage {
+  inherit pname version;
 
   src = fetchPypi {
     inherit pname version;
@@ -18,15 +20,13 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  checkPhase = ''
-    py.test tests
-  '';
+  checkPhase = "py.test tests";
 
   # https://github.com/pallets/click/issues/823
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = http://click.pocoo.org/;
+    homepage = "http://click.pocoo.org/";
     description = "Create beautiful command line interfaces in Python";
     license = licenses.bsd3;
   };

@@ -1,19 +1,21 @@
 { stdenv, fetchgit, fetchurl }:
-
-stdenv.mkDerivation rec {
-  pname = "librewolf";
+let
   version = "78.0";
-
-  src = fetchgit {
-    url = "https://gitlab.com/librewolf-community/browser/macos";
-    rev = "3fcf44663ff1fb4e180fb3cdb26620abe7284b53";
-    sha256 = "0p517ixkgp3sl7b26mdjr9mwv6155xx8ah85fgpwqnpryr64xs3d";
-  };
 
   firefox = fetchurl {
     url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}/mac/en-US/Firefox%20${version}.dmg";
     sha256 = "17pl2hm04mvcn0r7s3am2y2xxj8aks2x6gsy1i6k3k0lk09sx839";
     name = "Firefox.dmg";
+  };
+in
+stdenv.mkDerivation {
+  pname = "librewolf";
+  inherit version;
+
+  src = fetchgit {
+    url = "https://gitlab.com/librewolf-community/browser/macos";
+    rev = "3fcf44663ff1fb4e180fb3cdb26620abe7284b53";
+    sha256 = "0p517ixkgp3sl7b26mdjr9mwv6155xx8ah85fgpwqnpryr64xs3d";
   };
 
   postPatch = ''

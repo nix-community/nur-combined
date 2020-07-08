@@ -1,8 +1,8 @@
 { stdenv, curl, file, coreutils, sources }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "supload";
-  version = stdenv.lib.substring 0 7 src.rev;
+  version = stdenv.lib.substring 0 7 sources.supload.rev;
   src = sources.supload;
 
   buildInputs = [ curl file ];
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    inherit (src) description homepage;
+    inherit (sources.supload) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

@@ -1,8 +1,8 @@
 { lib, buildGoModule, fetchgit, sources }:
 
-buildGoModule rec {
+buildGoModule {
   pname = "shavit";
-  version = "2020-03-14";
+  version = "unstable-2020-03-14";
 
   src = fetchgit {
     url = "https://git.sr.ht/~yotam/shavit";

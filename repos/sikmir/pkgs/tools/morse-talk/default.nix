@@ -1,8 +1,8 @@
 { lib, buildPythonApplication, matplotlib, nose, sounddevice, sources }:
 
-buildPythonApplication rec {
+buildPythonApplication {
   pname = "morse-talk";
-  version = lib.substring 0 7 src.rev;
+  version = lib.substring 0 7 sources.morse-talk.rev;
   src = sources.morse-talk;
 
   propagatedBuildInputs = [ matplotlib sounddevice ];
@@ -11,7 +11,7 @@ buildPythonApplication rec {
   checkPhase = "nosetests";
 
   meta = with lib; {
-    inherit (src) description homepage;
+    inherit (sources.morse-talk) description homepage;
     license = licenses.gpl2;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

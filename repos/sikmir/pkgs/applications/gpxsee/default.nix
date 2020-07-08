@@ -6,26 +6,23 @@
 , qttools
 , qttranslations
 , sources
+, substituteAll
 , withI18n ? true
 }:
 
-mkDerivation rec {
+mkDerivation {
   pname = "gpxsee";
-  version = lib.substring 0 7 src.rev;
+  version = lib.substring 0 7 sources.gpxsee.rev;
   src = sources.gpxsee;
 
-  patches = [
+  patches = (substituteAll {
     # See https://github.com/NixOS/nixpkgs/issues/86054
-    ./fix-qttranslations-path.diff
-  ];
+    src = ./fix-qttranslations-path.patch;
+    inherit qttranslations;
+  });
 
   nativeBuildInputs = [ qmake ] ++ (lib.optional withI18n qttools);
   buildInputs = [ qtbase ];
-
-  postPatch = ''
-    substituteInPlace src/GUI/app.cpp \
-      --subst-var-by qttranslations ${qttranslations}
-  '';
 
   preConfigure = lib.optionalString withI18n ''
     lrelease gpxsee.pro
@@ -42,7 +39,7 @@ mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    inherit (src) description homepage;
+    inherit (sources.gpxsee) description homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = with platforms; linux ++ darwin;

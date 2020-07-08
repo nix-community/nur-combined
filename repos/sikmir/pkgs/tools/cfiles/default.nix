@@ -1,8 +1,8 @@
 { stdenv, pkg-config, ncurses, w3m, ueberzug, sources }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "cfiles";
-  version = stdenv.lib.substring 0 7 src.rev;
+  version = stdenv.lib.substring 0 7 sources.cfiles.rev;
   src = sources.cfiles;
 
   nativeBuildInputs = [ pkg-config ];
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    inherit (src) description homepage;
+    inherit (sources.cfiles) description homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     platforms = with platforms; linux ++ darwin;

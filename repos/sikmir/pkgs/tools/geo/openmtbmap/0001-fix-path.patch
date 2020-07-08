@@ -7,7 +7,7 @@ index 03a0ae6..143260d 100755
  fi
  
 -GMT_CMD=( ${ARGS_A[-g]}(.N,@-.) ${^path}/gmt(.N,@-.) )
-+GMT_CMD=( ${ARGS_A[-g]}(.N,@-.) %gmaptool%/bin/gmt(.N,@-.) )
++GMT_CMD=( ${ARGS_A[-g]}(.N,@-.) @gmaptool@/bin/gmt(.N,@-.) )
  GMT_CMD="${GMT_CMD[1]:a}"
  # if wine exists, this expands into e.g. /usr/bin/wine, otherwhise it will remain as string =wine
  # advantage over which wine is, that it outputs only one result, namely the executable that a call to wine on the CL would actually use
@@ -15,7 +15,7 @@ index 03a0ae6..143260d 100755
  
  # NB: If mkgmap is not found, we fall back to using gmt later.
 -MKGMAP=( ${ARGS_A[-m]}(.N,@-.) /usr/share/mkgmap/mkgmap.jar(.N,@-.) /usr/local/share/mkgmap/mkgmap.jar(.N,@-.) /usr/share/java/mkgmap.jar(.N,@-.) /usr/share/java/mkgmap/mkgmap.jar(.N,@-.) ${^path}/mkgmap.jar(.N,@-.) )
-+MKGMAP=( ${ARGS_A[-m]}(.N,@-.) %mkgmap%/bin/mkgmap(.N,@-.) )
++MKGMAP=( ${ARGS_A[-m]}(.N,@-.) @mkgmap@/bin/mkgmap(.N,@-.) )
  MKGMAP="${MKGMAP[1]:a}"
  
 -if ! [[ -x =7z ]]; then
@@ -43,7 +43,7 @@ index 03a0ae6..143260d 100755
  if [[ -z $FIMG_a ]] ; then
      print "Extracting $OMTB_EXE ..."
 -    7z e -y -o$TMPDIR ${OMTB_EXE} &>/dev/null || exit 1
-+    %7z% e -y -o$TMPDIR ${OMTB_EXE} &>/dev/null || exit 1
++    @p7zip@/bin/7z e -y -o$TMPDIR ${OMTB_EXE} &>/dev/null || exit 1
      #Check if extraction files are there
      FIMG_a=(${TMPDIR}/6<->.img(N[1]))
      [[ -z $FIMG_a ]] && {print "\nERROR: Could not find 6*.img file after extracting $OMTB_EXE" >/dev/stderr ; exit 1}

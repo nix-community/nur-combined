@@ -40,7 +40,7 @@ in
     };
 
     poiPackages = mkOption {
-      default = [];
+      default = [ ];
       description = "GPXSee POI packages to install.";
       type = types.listOf types.package;
     };
@@ -52,7 +52,7 @@ in
     };
 
     maps = mkOption {
-      default = [];
+      default = [ ];
       description = "";
       type = types.listOf types.str;
     };
@@ -83,7 +83,8 @@ in
             name = "${mapDir}/${map}";
             value.source = "${cfg.mapsPackage}/share/gpxsee/maps/${map}";
           };
-        in mkIf (cfg.mapsPackage != null && cfg.maps != []) {
+        in
+        mkIf (cfg.mapsPackage != null && cfg.maps != [ ]) {
           home.file = listToAttrs (map mapXml cfg.maps);
         }
       )
@@ -94,7 +95,8 @@ in
             name = "${poiDir}/${poi.name}";
             value.source = "${poi}/share/gpxsee/POI";
           };
-        in mkIf (cfg.poiPackages != []) {
+        in
+        mkIf (cfg.poiPackages != [ ]) {
           home.file = listToAttrs (map mapPoi cfg.poiPackages);
         }
       )

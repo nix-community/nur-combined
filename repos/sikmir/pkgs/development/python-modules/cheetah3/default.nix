@@ -1,14 +1,14 @@
 { lib, buildPythonPackage, sources }:
 
-buildPythonPackage rec {
+buildPythonPackage {
   pname = "cheetah3";
-  version = lib.substring 0 7 src.rev;
+  version = lib.substring 0 7 sources.cheetah3.rev;
   src = sources.cheetah3;
 
   doCheck = false;
 
   meta = with lib; {
-    inherit (src) description homepage;
+    inherit (sources.cheetah3) description homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;

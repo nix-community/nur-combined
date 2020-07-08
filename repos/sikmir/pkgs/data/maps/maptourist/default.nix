@@ -1,6 +1,6 @@
 { stdenv, sources, unzip }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "maptourist";
   version = sources.maptourist.version;
   src = sources.maptourist;
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    inherit (src) description homepage;
+    inherit (sources.maptourist) description homepage;
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.all;

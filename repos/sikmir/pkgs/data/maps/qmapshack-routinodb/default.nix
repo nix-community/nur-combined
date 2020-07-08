@@ -1,6 +1,6 @@
 { stdenv, sources, routino }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "qmapshack-routinodb";
   version = sources.geofabrik-russia-nwfd.version;
   srcs = [
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   dontUnpack = true;
 
   installPhase = ''
-    install -dm755 "$out/share/qmapshack/Routino"
+    install -dm755 $out/share/qmapshack/Routino
 
     for src in $srcs; do
       ${routino}/bin/planetsplitter \

@@ -1,6 +1,6 @@
 { stdenv, fetchurl, pname, version, filename, sha256, description }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
@@ -9,8 +9,8 @@ stdenv.mkDerivation rec {
   };
 
   installPhase = ''
-    install -dm755 "$out/share/goldendict/dictionaries/${pname}"
-    cp -a . "$out/share/goldendict/dictionaries/${pname}"
+    install -dm755 $out/share/goldendict/dictionaries/${pname}
+    cp -a . $out/share/goldendict/dictionaries/${pname}
   '';
 
   preferLocalBuild = true;

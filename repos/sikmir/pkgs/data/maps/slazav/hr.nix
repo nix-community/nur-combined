@@ -1,8 +1,8 @@
 { stdenv, cgpsmapper, gmaptool, imagemagick, mapsoft, netpbm, zip, sources }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "slazav-hr";
-  version = stdenv.lib.substring 0 7 src.rev;
+  version = stdenv.lib.substring 0 7 sources.map_hr.rev;
   src = sources.map_hr;
 
   patches = [ ./0001-fix-hr.patch ];
@@ -34,11 +34,11 @@ stdenv.mkDerivation rec {
   preferLocalBuild = true;
 
   installPhase = ''
-    install -Dm644 hr.img -t "$out/share/gpxsee/maps"
+    install -Dm644 hr.img -t $out/share/gpxsee/maps
   '';
 
   meta = with stdenv.lib; {
-    inherit (src) description homepage;
+    inherit (sources.map_hr) description homepage;
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.all;

@@ -1,11 +1,11 @@
 { stdenv, fetchsvn }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "ocad2mp";
-  version = "2011-01-26";
+  version = "unstable-2011-01-26";
 
   src = fetchsvn {
-    url = "svn://svn.code.sf.net/p/${pname}/code/trunk/${pname}";
+    url = "svn://svn.code.sf.net/p/ocad2mp/code/trunk/ocad2mp";
     rev = "269";
     sha256 = "1700apfsjd27q9jsvvr94mk7rd0x24ib3bkn4y8hak0zvknib563";
   };
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
-    install -Dm755 Release/ocad2mp -t "$out/bin"
+    install -Dm755 Release/ocad2mp -t $out/bin
     install -Dm644 SYM.TXT $out/share/ocad2mp/sym.txt
   '';
 
