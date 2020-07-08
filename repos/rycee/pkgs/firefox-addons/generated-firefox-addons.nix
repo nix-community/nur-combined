@@ -291,7 +291,7 @@
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
-        description = "Navigate, operate and browse faster with mouse gestures! A customizable mouse gesture add-on with a variety of different commands.";
+        description = "Navigate, operate, and browse faster with mouse gestures! A customizable mouse gesture add-on with a variety of different commands.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
@@ -657,10 +657,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "20.3";
+      version = "20.4";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3603798/save_page_we-20.3-fx.xpi?src=";
-      sha256 = "d02481a838ef31c18832a6fab466c039aeabfac5547c51db079257695754f4ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3604617/save_page_we-20.4-fx.xpi?src=";
+      sha256 = "f7df395452d05e0582631cd3f675981d4f7f58818708a6d80b008593a13fcfbb";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
