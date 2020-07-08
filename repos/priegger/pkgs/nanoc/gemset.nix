@@ -87,10 +87,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "0vdr4nldafz0138vc74lak7kzg5ljvya0x7w64jxb7aix9xsxzwb";
+      sha256 = "0m925b8xc6kbpnif9dldna24q1szg4mk0fvszrki837pfn46afmz";
       type = "gem";
     };
-    version = "1.4.3";
+    version = "1.4.4";
   };
   equatable = {
     groups = [ "default" ];

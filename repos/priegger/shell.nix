@@ -2,7 +2,7 @@
 , pkgs ? import ./nix { inherit sources; }
 }:
 let
-  pre-commit-hooks = import sources.pre-commit-hooks { };
+  pre-commit-hooks = import sources.pre-commit-hooks { inherit pkgs; };
 in
 pkgs.mkShell {
   name = "nur-packages";

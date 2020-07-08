@@ -266,10 +266,10 @@
   },
   {
     "name": "bobassembly",
-    "version": "0.18.6",
-    "file_name": "bobassembly_0.18.6.zip",
-    "download_url": "/download/bobassembly/5efa0144e8c1e37ec18f92ae",
-    "sha1": "36dad29e4d4fce8107eaeaf5538c32363a28f210",
+    "version": "0.18.7",
+    "file_name": "bobassembly_0.18.7.zip",
+    "download_url": "/download/bobassembly/5efa1bc1b215fd6bc8269268",
+    "sha1": "80cf21c773364245f055823b3659e7b4157f53e5",
     "dependencies": [
       "base >= 0.18.0",
       "boblibrary >= 0.18.0",
@@ -512,10 +512,10 @@
   },
   {
     "name": "Construction_Drones",
-    "version": "0.6.6",
-    "file_name": "Construction_Drones_0.6.6.zip",
-    "download_url": "/download/Construction_Drones/5ee623a14108f3000dd660e6",
-    "sha1": "361b8f1e537531a95592cc0035d69fa791795aab",
+    "version": "0.6.8",
+    "file_name": "Construction_Drones_0.6.8.zip",
+    "download_url": "/download/Construction_Drones/5f02eb0cd18374c90f110b15",
+    "sha1": "83837e5e10d228f70d3d4d485d67ae2543c60fc7",
     "dependencies": [
       "base >= 0.18.31",
       "(?) Hovercraft",

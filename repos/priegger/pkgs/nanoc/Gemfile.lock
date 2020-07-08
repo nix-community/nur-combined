@@ -13,7 +13,7 @@ GEM
       ref (~> 2.0)
     ddmetrics (1.0.1)
     ddplugin (1.0.2)
-    diff-lcs (1.4.3)
+    diff-lcs (1.4.4)
     equatable (0.6.1)
     hamster (3.0.0)
       concurrent-ruby (~> 1.0)
