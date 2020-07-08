@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     owner = "SCOTT-HAMILTON";
     repo = "FakeMicWavPlayer";
     rev = "master";
-    sha256 = "1pqgy0pljqqcqwy5f3p61n7d2pc857wsajwd0h42c2bhn8hbnqd6";
+    sha256 = "01lq5s0dv8lw0xbn5pyhrh5ycrwr53zpqhxvwrn4rpi9qy55c0xm";
   };
 
   nativeBuildInputs = [ pkg-config ninja meson cmake ];
@@ -34,7 +34,11 @@ stdenv.mkDerivation rec {
       --replace @Prefix@ $out
   '';
 
-  mesonFlags = [ ( if debug then "--buildtype=debug" else "--buildtype=plain")  "-DUSE_SYSTEM_ARGPARSE=true" ];
+  mesonFlags = [ 
+    ( if debug then "--buildtype=debug" else "--buildtype=plain")  "-DUSE_SYSTEM_ARGPARSE=true"
+    "-Dcpp_args=-Wall"
+    "-Dwerror=true"
+  ];
 
   dontStrip = if debug then true else false;
 

@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     owner = "SCOTT-HAMILTON";
     repo = "vimconfig";
     rev = "master";
-    sha256 = "0sm13yfa813y8p91v33iaf6px4y4b6zhwbqhwg05wjz09nrd3ggn";
+    sha256 = "1xg7kyh9r805y8948f7yvsj5fkaqx763v8rdnyf252k6cszpqi5v";
   };
 
   propagatedBuildInputs = [ coreutils ];

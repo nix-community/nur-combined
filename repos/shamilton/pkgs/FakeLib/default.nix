@@ -6,6 +6,7 @@
 , pulseaudio
 , pkg-config
 , enableDebugging
+, breakpointHook
 }:
 stdenv.mkDerivation rec {
 
@@ -17,14 +18,18 @@ stdenv.mkDerivation rec {
     owner = "SCOTT-HAMILTON";
     repo = "FakeLib";
     rev = "master";
-    sha256 = "1mv68kr7ry8jzjjm8bfj5g677m5nlq5mn62l723a4vij4vy7qhg0";
+    sha256 = "192jszlkhg96ik36mp117mgyb6ack1ilbxidx0y0fyxn12qjx7rk";
   };
 
-  mesonFlags = [ (if debug then "--buildtype=debug" else "--buildtype=plain" ) ];
+  mesonFlags = [ 
+    (if debug then "--buildtype=debug" else "--buildtype=plain" ) 
+    "-Dcpp_args=-Wall"
+    "-Dwerror=true"
+  ];
 
   dontStrip = if debug then true else false;
 
-  nativeBuildInputs = [ pkg-config ninja meson ];
+  nativeBuildInputs = [ breakpointHook pkg-config ninja meson ];
 
   buildInputs = [ pulseaudio ];
 
