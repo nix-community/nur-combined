@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Compositor for X11";
     license = licenses.mit;
     homepage = "https://github.com/tryone144/compton";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };
 }

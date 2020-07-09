@@ -31,7 +31,7 @@ mkDerivation rec {
     description = "OTP client for Plasma Mobile and Desktop";
     license = licenses.gpl3;
     homepage = "https://github.com/KDE/keysmith";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };
 }
