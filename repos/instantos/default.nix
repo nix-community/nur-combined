@@ -25,6 +25,9 @@ rec {
     Paperbash = paperbash;
     spotify-adblock = spotify-adblock;
   };
+  islide = pkgs.callPackage ./pkgs/islide {
+    InstantASSIST = instantassist;
+  };
   instantthemes = pkgs.callPackage ./pkgs/InstantTHEMES {
     Paperbash = paperbash;
   };
