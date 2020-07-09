@@ -33,5 +33,7 @@
 
   mesloNFp10k = pkgs.callPackage ./pkgs/fonts/MesloNFp10k.nix { };
 
+  wallpapers = pkgs.callPackage ./pkgs/wallpapers/monogatari { };
+
 }
 
