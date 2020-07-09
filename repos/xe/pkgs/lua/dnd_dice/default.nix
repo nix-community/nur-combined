@@ -9,7 +9,7 @@ let
 
     src = fetchgit (builtins.fromJSON (builtins.readFile ./source.json));
 
-    cargoSha256 = "0djglan754sh6d4rx76c1kwjzx0g1ifbx1xl94zazpsfx44m5nw0";
+    cargoSha256 = "1bw39pasam6nqwfc2x6slxirghc29y5iynm3dgv119x2vk1yjk4x";
     verifyCargoDeps = false;
   };
 in stdenv.mkDerivation {
