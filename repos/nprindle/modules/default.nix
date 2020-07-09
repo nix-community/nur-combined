@@ -1,4 +1,3 @@
 {
-  onedrive = ./onedrive;
 }
 
