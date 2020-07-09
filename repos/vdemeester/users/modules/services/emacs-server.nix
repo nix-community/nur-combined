@@ -44,8 +44,8 @@ in
 
       Service = {
         ExecStart =
-          "${cfg.shell} 'exec ${cfg.package}/bin/emacs --fg-daemon=${cfg.name} ${cfg.extraOptions}'";
-        ExecStop = "${cfg.package}/bin/emacsclient --eval '(kill-emacs)'";
+          "${cfg.shell} 'exec emacs --fg-daemon=${cfg.name} ${cfg.extraOptions}'";
+        ExecStop = "emacsclient --eval '(kill-emacs)'";
         Restart = "on-failure";
       };
 

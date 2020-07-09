@@ -72,6 +72,8 @@ in
       alias -g EEL=' 2>&1 | less'
       alias -g GB='`git rev-parse --abbrev-ref HEAD`'
       alias -g GR='`git rev-parse --show-toplevel`'
+      alias -s {ape,avi,flv,m4a,mkv,mov,mp3,mp4,mpeg,mpg,ogg,ogm,wav,webm}=mpv
+      alias -s org=emacs
       (( $+commands[jq] )) && alias -g MJ="| jq -C '.'"  || alias -g MJ="| ${pkgs.python3}/bin/python -mjson.tool"
     '';
     loginExtra = ''

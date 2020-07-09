@@ -33,6 +33,7 @@
   :bind (("C-c o l" . org-store-link)
          ("C-c o r r" . org-refile)
          ("C-c o a" . org-agenda)
+         ("C-c o s" . org-sort)
          ("<f12>" . org-agenda)
          ("C-c o c" . org-capture)
          ;; Skeletons
