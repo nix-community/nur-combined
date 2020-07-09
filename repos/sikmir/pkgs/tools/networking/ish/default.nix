@@ -27,5 +27,6 @@ stdenv.mkDerivation {
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 }

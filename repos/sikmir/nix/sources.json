@@ -476,7 +476,7 @@
     "odict": {
         "branch": "master",
         "builtin": false,
-        "description": "A blazingly-fast replacement for Apple Dictionaries, Babylon, StarDict, etc.",
+        "description": "A blazingly-fast replacement for Apple Dictionaries, Babylon, StarDict, etc",
         "homepage": "https://odict.org",
         "owner": "odict",
         "repo": "odict",
@@ -515,7 +515,7 @@
     "pg_tileserv": {
         "branch": "master",
         "builtin": false,
-        "description": "A very thin PostGIS-only tile server in Go. Takes in HTTP tile requests, executes SQL, returns MVT tiles.",
+        "description": "A very thin PostGIS-only tile server in Go. Takes in HTTP tile requests, executes SQL, returns MVT tiles",
         "homepage": "https://github.com/CrunchyData/pg_tileserv",
         "owner": "CrunchyData",
         "repo": "pg_tileserv",

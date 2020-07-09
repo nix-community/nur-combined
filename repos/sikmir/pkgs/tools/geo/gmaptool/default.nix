@@ -24,5 +24,6 @@ stdenv.mkDerivation {
     license = licenses.cc-by-sa-30;
     maintainers = with maintainers; [ sikmir ];
     platforms = [ "i686-linux" "x86_64-linux" ];
+    skip.ci = true;
   };
 }

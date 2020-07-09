@@ -9,8 +9,6 @@ stdenv.mkDerivation {
     sources.geofabrik-russia-nwfd
   ];
 
-  preferLocalBuild = true;
-
   dontUnpack = true;
 
   installPhase = ''

@@ -1,4 +1,4 @@
-{ lib, buildPerlPackage, fetchzip, dos2unix, cgpsmapper, ocad2mp, ModulePluggable, Tk }:
+{ stdenv, buildPerlPackage, fetchzip, dos2unix, cgpsmapper, ocad2mp, ModulePluggable, Tk }:
 
 buildPerlPackage {
   pname = "ocad2img";
@@ -38,11 +38,12 @@ buildPerlPackage {
     cp -r Convert $out/lib/perl5/site_perl
   '';
 
-  meta = with lib; {
+  meta = with stdenv.lib; {
     description = "Converter from OCAD map format to Garmin format";
     homepage = "http://news.worldofo.com/2009/10/11/howto-convert-any-orienteering-map-to-a-garmin-map/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 }

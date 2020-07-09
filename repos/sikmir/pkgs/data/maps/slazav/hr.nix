@@ -31,8 +31,6 @@ stdenv.mkDerivation {
 
   buildFlags = [ "out" "img" ];
 
-  preferLocalBuild = true;
-
   installPhase = ''
     install -Dm644 hr.img -t $out/share/gpxsee/maps
   '';

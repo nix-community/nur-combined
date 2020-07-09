@@ -29,8 +29,6 @@ stdenv.mkDerivation {
 
   buildFlags = [ "out" "img" ];
 
-  preferLocalBuild = true;
-
   installPhase = ''
     install -Dm644 podm.img -t $out/share/gpxsee/maps
   '';

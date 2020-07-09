@@ -50,8 +50,6 @@ stdenv.mkDerivation {
 
   configurePhase = "make confload-${template}";
 
-  preferLocalBuild = true;
-
   installPhase = ''
     mkdir -p $out/bin
     substitute ${runScript} $out/bin/run-embox --subst-var out
