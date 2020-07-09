@@ -512,6 +512,19 @@
         "url": "https://github.com/liosha/osm2mp/archive/748f93792ead174ad0e94a183a173ef3fcacf200.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "pg_tileserv": {
+        "branch": "master",
+        "builtin": false,
+        "description": "A very thin PostGIS-only tile server in Go. Takes in HTTP tile requests, executes SQL, returns MVT tiles.",
+        "homepage": "https://github.com/CrunchyData/pg_tileserv",
+        "owner": "CrunchyData",
+        "repo": "pg_tileserv",
+        "rev": "e668cc43f19fb5497b7283cfb1d6198fc9a5d2d6",
+        "sha256": "119y33cvk0mj9r7b3hz7n3q2qnf6qwj5mc6y2dgza20kahgbljji",
+        "type": "tarball",
+        "url": "https://github.com/CrunchyData/pg_tileserv/archive/e668cc43f19fb5497b7283cfb1d6198fc9a5d2d6.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "pyephem": {
         "branch": "master",
         "builtin": false,

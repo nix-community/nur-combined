@@ -171,6 +171,7 @@ lib.makeScope newScope (
 
     mbtileserver = callPackage ./servers/mbtileserver { };
     nakarte = callPackage ./servers/nakarte { };
+    pg_tileserv = callPackage ./servers/pg_tileserv { };
     shavit = callPackage ./servers/shavit { };
 
     ### MISC
