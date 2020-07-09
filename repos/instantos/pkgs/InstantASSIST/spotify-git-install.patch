@@ -1,0 +1,22 @@
+diff -ur a/install.sh b/install.sh
+--- a/install.sh	2020-07-09 15:54:55.802758810 +0200
++++ b/install.sh	2020-07-09 16:43:50.043310339 +0200
+@@ -28,17 +28,9 @@
+ 
+ rm -rf "${ASSISTPREFIX}"/opt/instantos/menus
+ mkdir -p "${ASSISTPREFIX}"/opt/instantos/menus &>/dev/null
+-mkdir /tmp/instantmenus &>/dev/null
+-cd /tmp/instantmenus
+ 
+ if ! [ -e "${ASSISTPREFIX}"/opt/instantos/spotify-adblock.so ]; then
+-    git clone --depth=1 "$dom/abba23/spotify-adblock-linux.git"
+-    cd spotify-adblock-linux
+-    sed -i '/\};/i    "audio4-fa.spotifycdn.com", //audio' whitelist.h
+-    make
+-    mv spotify-adblock.so "${ASSISTPREFIX}"/opt/instantos/spotify-adblock.so
+-    cd ..
+-    rm -rf spotify-adblock-linux
++    ln -s path/to/spotify-adblock.so "${ASSISTPREFIX}"/opt/instantos/spotify-adblock.so
+ fi
+ 
+ rm -rf instantASSIST

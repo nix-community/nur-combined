@@ -1,0 +1,78 @@
+these derivations will be built:
+  /nix/store/vjgh3gsf0p3a8fvxvx2hwh3c8brzxnfc-InstantMENU-unstable.drv
+building '/nix/store/vjgh3gsf0p3a8fvxvx2hwh3c8brzxnfc-InstantMENU-unstable.drv'...
+unpacking sources
+unpacking source archive /nix/store/ad73ann1sw1pk71mghyp17jf6crinvlv-source
+source root is source
+patching sources
+patching script interpreter paths in theme.sh
+theme.sh: interpreter directive changed from "/bin/bash" to "/nix/store/x7fr0bvnwvqvr3zg60di9jxvfwimcw7m-bash-4.4-p23/bin/bash"
+configuring
+themes/arc.theme
+building
+build flags: SHELL=/nix/store/x7fr0bvnwvqvr3zg60di9jxvfwimcw7m-bash-4.4-p23/bin/bash
+instantmenu build options:
+CFLAGS   = -std=c99 -pedantic -Wall -Os -I/usr/X11R6/include -I/usr/include/freetype2 -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION="4.9" -DXINERAMA
+LDFLAGS  = -L/usr/X11R6/lib -lX11 -lXinerama -lfontconfig -lXft -lm
+CC       = cc
+cp config.def.h config.h
+cc -c -std=c99 -pedantic -Wall -Os -I/usr/X11R6/include -I/usr/include/freetype2 -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"4.9\" -DXINERAMA instantmenu.c
+instantmenu.c: In function 'keyrelease':
+instantmenu.c:506:9: warning: unused variable 'status' [-Wunused-variable]
+  506 |  Status status;
+      |         ^~~~~~
+instantmenu.c:505:9: warning: unused variable 'ksym' [-Wunused-variable]
+  505 |  KeySym ksym;
+      |         ^~~~
+instantmenu.c:504:6: warning: unused variable 'len' [-Wunused-variable]
+  504 |  int len;
+      |      ^~~
+instantmenu.c:503:7: warning: unused variable 'buf' [-Wunused-variable]
+  503 |  char buf[32];
+      |       ^~~
+instantmenu.c: In function 'setup':
+instantmenu.c:25:30: warning: '*' in boolean context, suggest '&&' instead [-Wint-in-bool-context]
+   24 | #define INTERSECT(x,y,w,h,r)  (MAX(0, MIN((x)+(w),(r).x_org+(r).width)  - MAX((x),(r).x_org)) \
+      |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   25 |                              * MAX(0, MIN((y)+(h),(r).y_org+(r).height) - MAX((y),(r).y_org)))
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+instantmenu.c:1079:9: note: in expansion of macro 'INTERSECT'
+ 1079 |     if (INTERSECT(x, y, 1, 1, info[i]))
+      |         ^~~~~~~~~
+instantmenu.c:1122:15: warning: comparison between pointer and integer
+ 1122 |    if (x + mw > drw-w)
+      |               ^
+cc -c -std=c99 -pedantic -Wall -Os -I/usr/X11R6/include -I/usr/include/freetype2 -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"4.9\" -DXINERAMA drw.c
+cc -c -std=c99 -pedantic -Wall -Os -I/usr/X11R6/include -I/usr/include/freetype2 -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"4.9\" -DXINERAMA util.c
+cc -o instantmenu instantmenu.o drw.o util.o -L/usr/X11R6/lib -lX11 -lXinerama -lfontconfig -lXft -lm
+cc -c -std=c99 -pedantic -Wall -Os -I/usr/X11R6/include -I/usr/include/freetype2 -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"4.9\" -DXINERAMA itest.c
+cc -o itest itest.o -L/usr/X11R6/lib -lX11 -lXinerama -lfontconfig -lXft -lm
+installing
+install flags: SHELL=/nix/store/x7fr0bvnwvqvr3zg60di9jxvfwimcw7m-bash-4.4-p23/bin/bash install
+instantmenu build options:
+CFLAGS   = -std=c99 -pedantic -Wall -Os -I/usr/X11R6/include -I/usr/include/freetype2 -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION="4.9" -DXINERAMA
+LDFLAGS  = -L/usr/X11R6/lib -lX11 -lXinerama -lfontconfig -lXft -lm
+CC       = cc
+mkdir -p /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/bin
+cp -f instantmenu instantmenu_path instantmenu_run itest /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/bin
+chmod 755 /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/bin/instantmenu
+chmod 755 /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/bin/instantmenu_path
+chmod 755 /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/bin/instantmenu_run
+chmod 755 /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/bin/itest
+mkdir -p /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/share/man/man1
+sed "s/VERSION/4.9/g" < instantmenu.1 > /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/share/man/man1/instantmenu.1
+sed "s/VERSION/4.9/g" < itest.1 > /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/share/man/man1/itest.1
+chmod 644 /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/share/man/man1/instantmenu.1
+chmod 644 /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/share/man/man1/itest.1
+post-installation fixup
+shrinking RPATHs of ELF executables and libraries in /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable
+shrinking /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/bin/itest
+shrinking /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/bin/instantmenu
+gzipping man pages under /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/share/man/
+strip is /nix/store/1zf4cnaaidjajwb4gx4mnkqc5dypkcdy-binutils-2.31.1/bin/strip
+stripping (with command strip and flags -S) in /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/bin
+patching script interpreter paths in /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable
+/nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/bin/instantmenu_run: interpreter directive changed from "/bin/sh" to "/nix/store/x7fr0bvnwvqvr3zg60di9jxvfwimcw7m-bash-4.4-p23/bin/sh"
+/nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable/bin/instantmenu_path: interpreter directive changed from "/bin/sh" to "/nix/store/x7fr0bvnwvqvr3zg60di9jxvfwimcw7m-bash-4.4-p23/bin/sh"
+checking for references to /build/ in /nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable...
+/nix/store/grsyf5m1yg5dmn3q2dvq81p4wmrnv4ns-InstantMENU-unstable

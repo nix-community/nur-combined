@@ -1,0 +1,20 @@
+diff -ur a/instantdotfiles b/instantdotfiles
+--- a/instantdotfiles	2020-07-06 23:33:41.121127156 +0200
++++ b/instantdotfiles	2020-07-06 23:35:42.734591715 +0200
+@@ -41,14 +41,12 @@
+ }
+ 
+ rootdotfiles() {
+-    cd /usr/share/instantdotfiles
+-    sudo ./rootinstall.sh
++    /usr/share/instantdotfiles/rootinstall.sh
+     userrun /usr/share/instantdotfiles/userinstall.sh
+ }
+ 
+ userdotfiles() {
+-    cd /usr/share/instantdotfiles
+-    ./userinstall.sh
++    /usr/share/instantdotfiles/userinstall.sh
+ }
+ 
+ if [ -z "$1" ]; then
