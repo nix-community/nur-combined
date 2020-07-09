@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
   version = "unstable";
 
   src = fetchFromGitHub {
-    owner = "instantOS";
-    repo = "instantOS";
-    rev = "master";
+    owner = "instantos";
+    repo = "instantos";
+    rev = "06baba865d5cf3413eb210e057e46cccf84267f8";
     sha256 = "0awa0hrvslglrnmrl9jzag87kpa045lwx4527pzj0h5clhbq7x2s";
   };
 

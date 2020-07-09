@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ rofi InstantUtils ];
 
   configurePhase = ''
-    ./theme.sh    
+    ./theme.sh
   '';
 
   meta = with lib; {

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "InstantData";
-    rev = "master";
+    rev = "a3f766506ca38f57eac0a0b702525f48c0ac8443";
     sha256 = "08vxzvd5jxfxk98jh63h8rsn6mwsgxwskpfm8z0xiyqpshd1adsx";
   };
 

@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantwidgets";
-    rev = "master";
+    rev = "a050ab8cefd3bd334a3e60efa5ea479936717993";
     sha256 = "01g2yfw00ygvhb256yp6kvnxzk6y5z2qnk9qsakiac14f5ypf7ps";
   };
 

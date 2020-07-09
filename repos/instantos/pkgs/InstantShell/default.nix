@@ -9,32 +9,16 @@ stdenv.mkDerivation rec {
   pname = "InstantShell";
   version = "unstable";
 
-  # srcs = [ 
-  #   (fetchFromGitHub {
-  #     owner = "instantOS";
-  #     repo = "instantshell";
-  #     rev = "master";
-  #     sha256 = "0iagkp0xpm0bbf3ajngwc8azhw7g97qkwg5q4wii6y7xibj958f0";
-  #   })
-
-  #   (fetchFromGitHub {
-  #     owner = "ohmyzsh";
-  #     repo = "ohmyzsh";
-  #     rev = "master";
-  #     sha256 = "0qlwcyzrsrcmdi1fdd9a9niwf5sl8gg754l8r7p7cwzv0xq4jfpx";
-  #   })
-  # ];
-
   srcs = [ 
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantshell";
-      rev = "master";
+      rev = "2fcc83fea4c71b7537ca8b5ed3c0ea7147d79405";
       sha256 = "0iagkp0xpm0bbf3ajngwc8azhw7g97qkwg5q4wii6y7xibj958f0";
     })
     (fetchurl {
       url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz";
-      sha256 = "10vf22szmcgxj9wwiv0f4s54x0b2f0c4hbrhyifn1gs7w3nv2wpx";
+      sha256 = "17743dal38fvbja6r2xhvysc43h9s306iqcfcc23i601hzf2wa5i";
     })
   ];
 
