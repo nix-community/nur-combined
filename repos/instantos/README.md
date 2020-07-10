@@ -1,25 +1,39 @@
 # InstantOS Nix repository
 
-## Setup
+[InstantOS](https://instantos.github.io/) packages for Nix. **InstaNtixOS** is a sub-repository to the [Nix User Repository (NUR)](https://github.com/nix-community/NUR). It is a community-maintained meta repository. In contrast to [Nixpkgs](https://github.com/nixos/nixpkgs), packages are built from source (currently, by hand and not always on time). They are not reviewed by any Nixpkgs member.
 
-1. Fork this repo
-2. Add your packages to the [pkgs](./pkgs) directory and to
-   [default.nix](./default.nix)
-   * Remember to mark the broken packages as `broken = true;` in the `meta`
-     attribute, or travis (and consequently caching) will fail!
-   * Library functions, modules and overlays go in the respective directories
-3. Add your NUR repo name and your cachix repo name (optional) to
-   [.travis.yml](./.travis.yml)
-4. Enable travis for your repo
-   * You can add a cron job in the repository settings on travis to keep your
-     cachix cache fresh
-5. Change your travis and cachix names on the README template section and delete
-   the rest
-6. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
+![InsaNtixOS](https://user-images.githubusercontent.com/11145016/87154656-e2ead300-c2b9-11ea-941d-e743ade87910.png)
 
-## README template
+# Usage
+
+Accessing NUR can be done easily. Just add the following to `~/.config/nixpkgs/config.nix`:
+
+```nix
+{
+  packageOverrides = pkgs: {
+  # For nixos' `configuration.nix`, replace above line by:
+  #nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
+}
+```
+
+Then you can add `nur.repos.instantos.PACKAGE_NAME` to your `configuration.nix` or install **InstantOs** packages via:
+
+```console
+$ nix-env -f '<nixpkgs>' -iA nur.repos.instantos.PACKAGE_NAME
+```
+
+You may want to install cachix and take advante of the build artefact caching with:
+
+```console
+$ nix-env -iA cachix -f https://cachix.org/api/v1/install
+$ cachix use instantos
+```
 
 [![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
-[![Cachix Cache](https://img.shields.io/badge/cachix-<YOUR_CACHIX_CACHE_NAME>-blue.svg)](https://<YOUR_CACHIX_CACHE_NAME>.cachix.org)
+[![Cachix Cache](https://img.shields.io/badge/cachix-instantos-blue.svg)](https://instantos.cachix.org)
 
 

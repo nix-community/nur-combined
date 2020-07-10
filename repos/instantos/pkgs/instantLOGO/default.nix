@@ -6,7 +6,7 @@
 }:
 stdenv.mkDerivation rec {
 
-  pname = "InstantLOGO";
+  pname = "instantLOGO";
   version = "unstable";
 
   src = fetchFromGitHub {

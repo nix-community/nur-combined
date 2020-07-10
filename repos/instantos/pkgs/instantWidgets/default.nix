@@ -4,7 +4,7 @@
 }:
 stdenv.mkDerivation rec {
 
-  pname = "InstantWidgets";
+  pname = "instantWidgets";
   version = "unstable";
 
   src = fetchFromGitHub {
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "InstantOS widgets";
+    description = "instantOS widgets";
     license = licenses.mit;
     homepage = "https://github.com/instantOS/instantwidgets";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];

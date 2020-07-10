@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation rec {
 
-  pname = "InstantTHEMES";
+  pname = "instantTHEMES";
   version = "unstable";
 
   src = fetchFromGitHub {
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ Paperbash ];
 
   meta = with lib; {
-    description = "InstantOS Themes";
+    description = "instantOS Themes";
     license = licenses.mit;
     homepage = "https://github.com/instantOS/instantTHEMES";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];

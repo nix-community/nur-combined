@@ -13,7 +13,7 @@
 }:
 stdenv.mkDerivation rec {
 
-  pname = "InstantUtils";
+  pname = "instantUtils";
   version = "unstable";
 
   src = fetchFromGitHub {
@@ -66,11 +66,11 @@ stdenv.mkDerivation rec {
     install -Dm 644 desktop/st-luke.desktop $out/share/applications/st-luke.desktop
   '';
 
-  # propagatedBuildInputs = [ st InstantDotfiles neofetch firefox nitrogen InstantConf acpi InstantTHEMES dunst InstantShell rangerplugins ];
+  # propagatedBuildInputs = [ st instantDotfiles neofetch firefox nitrogen instantConf acpi instantTHEMES dunst instantShell rangerplugins ];
   propagatedBuildInputs = [ st neofetch firefox nitrogen acpi dunst rangerplugins ];
 
   meta = with lib; {
-    description = "InstantOS Utils";
+    description = "instantOS Utils";
     license = licenses.mit;
     homepage = "https://github.com/instantOS/instantWM";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];

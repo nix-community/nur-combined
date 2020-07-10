@@ -1,12 +1,12 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, InstantConf
-, InstantWALLPAPER
+, instantConf
+, instantWALLPAPER
 }:
 stdenv.mkDerivation rec {
 
-  pname = "InstantDotfiles";
+  pname = "instantDotfiles";
   version = "unstable";
 
   src = fetchFromGitHub {
@@ -20,14 +20,14 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace instantdotfiles \
-      --replace iconf "${InstantConf}/bin/iconf" \
+      --replace iconf "${instantConf}/bin/iconf" \
       --replace "/usr/share/instantdotfiles/versionhash" "$out/share/instantdotfiles/versionhash" \
       --replace "/usr/share/instantdotfiles" "$out/share/instantdotfiles"
     substituteInPlace userinstall.sh \
-      --replace iconf "${InstantConf}/bin/iconf" \
+      --replace iconf "${instantConf}/bin/iconf" \
       --replace "/usr/share/instantdotfiles" "$out/share/instantdotfiles"
     substituteInPlace neofetch.conf \
-      --replace "/usr/share/instantwallpaper" "${InstantWALLPAPER}/share/instantwallpaper"
+      --replace "/usr/share/instantwallpaper" "${instantWALLPAPER}/share/instantwallpaper"
   '';
   
   installPhase = ''
@@ -38,10 +38,10 @@ stdenv.mkDerivation rec {
     echo "6081b26" > $out/share/instantdotfiles/versionhash
   '';
 
-  propagatedBuildInputs = [ InstantConf InstantWALLPAPER ];
+  propagatedBuildInputs = [ instantConf instantWALLPAPER ];
 
   meta = with lib; {
-    description = "InstantOS dotfiles";
+    description = "instantOS dotfiles";
     license = licenses.mit;
     homepage = "https://github.com/paperbenni/dotfiles";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];

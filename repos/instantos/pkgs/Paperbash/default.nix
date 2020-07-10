@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   #   substituteInPlace programs/instantstartmenu \
   #     --replace "firefox" "${firefox}/bin/firefox"
   #   substituteInPlace programs/appmenu \
-  #     --replace "tmp_placeholder" "${InstantDotfiles}/share/instantdotfiles/rofi/appmenu.rasi"
+  #     --replace "tmp_placeholder" "${instantDotfiles}/share/instantdotfiles/rofi/appmenu.rasi"
   # '';
   
   installPhase = ''

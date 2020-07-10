@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchurl
+, fetchFromGitHub
 }:
 stdenv.mkDerivation rec {
 
@@ -8,30 +8,25 @@ stdenv.mkDerivation rec {
   version = "unstable";
 
   srcs = [ 
-    (fetchurl {
-      url = "https://github.com/alexanderjeurissen/ranger_devicons/archive/main.tar.gz";
-      sha256 = "1hsnk05128fapd4wvv9jij8cd614swzfkbf1j1snly6mz63ljdpj";
+    (fetchFromGitHub {
+      owner = "alexanderjeurissen";
+      repo = "ranger_devicons";
+      rev = "86a0810e744d33278d5dd74f57336c066a806c9d";
+      sha256 = "0vhnvmcv5qq8hnxpzvq47cls0pax84ar9rzw9pxzliabfs6fy3g2";
+      name = "ranger_devicons";
     })
-    (fetchurl {
-      url = "https://github.com/laggardkernel/ranger-fzf-marks/archive/master.tar.gz";
-      sha256 = "1z4pcwm3is5fphr3wcj82ipvy1id667rycww62pg9cdd0fa7crjg";
+    (fetchFromGitHub {
+      owner = "laggardkernel";
+      repo = "ranger-fzf-marks";
+      rev = "79106fd6d9b98966e2683a52d35c25858ecb084a";
+      sha256 = "0cz44lvbmn7jgw3p8slvkhmgfsnzcwky25j67ayp6igkv62wg79z";
+      name = "ranger-fzf-marks";
     })
   ];
-  
-  postUnpack = ''
-    mv ranger-fzf-marks-master ranger-fzf-marks
-    mv ranger_devicons-main ranger_devicons
-  '';
 
   sourceRoot = ".";
  
   installPhase = ''
-    # mkdir -p $out/share/instantdotfiles
-    # install -Dm 555 instantdotfiles $out/bin/instantdotfiles
-    # rm instantdotfiles
-    # mv * $out/share/instantdotfiles
-    # echo "6081b26" > $out/share/instantdotfiles/versionhash
-
     cleanPlugin () {
       mv $1/*.py .
       rm -rf "$1"
@@ -44,11 +39,10 @@ stdenv.mkDerivation rec {
     touch $out/share/rangerplugins/__init__.py
     mv * $out/share/rangerplugins
     mv $out/share/rangerplugins/ranger_devicons/* $out/share/rangerplugins
-    ls -lh
   '';
 
   meta = with lib; {
-    description = "InstantOS rangerplugins";
+    description = "instantOS rangerplugins";
     license = licenses.mit;
     homepage = "https://github.com/paperbenni/dotfiles";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];

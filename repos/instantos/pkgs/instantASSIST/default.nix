@@ -7,7 +7,7 @@
 }:
 stdenv.mkDerivation rec {
 
-  pname = "InstantASSIST";
+  pname = "instantASSIST";
   version = "unstable";
 
   src = fetchFromGitHub {
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ Paperbash spotify-adblock ];
 
   meta = with lib; {
-    description = "InstantOS Utils";
+    description = "instantOS Utils";
     license = licenses.mit;
     homepage = "https://github.com/instantOS/instantASSIST";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];

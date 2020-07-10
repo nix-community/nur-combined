@@ -13,54 +13,59 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
   
-  # Instant WM and utils
-  instantconf = pkgs.callPackage ./pkgs/InstantConf { };
-  instantlogo = pkgs.callPackage ./pkgs/InstantLOGO { };
-  instantshell = pkgs.callPackage ./pkgs/InstantShell { };
-  instantwidgets = pkgs.callPackage ./pkgs/InstantWidgets { };
+  # instant WM and utils
+  instantconf = pkgs.callPackage ./pkgs/instantConf { };
+  instantlogo = pkgs.callPackage ./pkgs/instantLOGO { };
+  instantshell = pkgs.callPackage ./pkgs/instantShell { };
+  instantwidgets = pkgs.callPackage ./pkgs/instantWidgets { };
   paperbash = pkgs.callPackage ./pkgs/Paperbash { };
   rangerplugins = pkgs.callPackage ./pkgs/rangerplugins { };
   spotify-adblock = pkgs.callPackage ./pkgs/spotify-adblock { };
-  instantassist = pkgs.callPackage ./pkgs/InstantASSIST {
+  instantassist = pkgs.callPackage ./pkgs/instantASSIST {
     Paperbash = paperbash;
     spotify-adblock = spotify-adblock;
   };
-  islide = pkgs.callPackage ./pkgs/islide {
-    InstantASSIST = instantassist;
+  instantsettings = pkgs.callPackage ./pkgs/instantSettings {
+    instantASSIST = instantassist;
+    instantConf = instantconf;
+    gtk = pkgs.gnome3.gtk;
   };
-  instantthemes = pkgs.callPackage ./pkgs/InstantTHEMES {
+  islide = pkgs.callPackage ./pkgs/islide {
+    instantASSIST = instantassist;
+  };
+  instantthemes = pkgs.callPackage ./pkgs/instantTHEMES {
     Paperbash = paperbash;
   };
-  instantutils = pkgs.callPackage ./pkgs/InstantUtils { 
+  instantutils = pkgs.callPackage ./pkgs/instantUtils { 
     rangerplugins = rangerplugins;
   };
-  instantmenu = pkgs.callPackage ./pkgs/InstantMENU {
-    InstantUtils = instantutils;
+  instantmenu = pkgs.callPackage ./pkgs/instantMENU {
+    instantUtils = instantutils;
   };
-  instantwallpaper = pkgs.callPackage ./pkgs/InstantWallpaper {
-    InstantLOGO = instantlogo;
-    InstantConf = instantconf;
-    InstantUtils = instantutils;
+  instantwallpaper = pkgs.callPackage ./pkgs/instantWallpaper {
+    instantLOGO = instantlogo;
+    instantConf = instantconf;
+    instantUtils = instantutils;
     Paperbash = paperbash;
   };
-  instantdotfiles = pkgs.callPackage ./pkgs/InstantDotfiles {
-    InstantConf = instantconf;
-    InstantWALLPAPER = instantwallpaper;
+  instantdotfiles = pkgs.callPackage ./pkgs/instantDotfiles {
+    instantConf = instantconf;
+    instantWALLPAPER = instantwallpaper;
   };
-  instantwm = pkgs.callPackage ./pkgs/InstantWM {
-    InstantUtils = instantutils;
+  instantwm = pkgs.callPackage ./pkgs/instantWM {
+    instantUtils = instantutils;
   };
-  instantdata = pkgs.callPackage ./pkgs/InstantData {
-    InstantConf = instantconf;
-    InstantDotfiles = instantdotfiles;
-    InstantLOGO  = instantlogo;
-    InstantMENU = instantmenu;
-    InstantShell = instantshell;
-    InstantTHEMES = instantthemes;
-    InstantUtils = instantutils;
-    InstantWALLPAPER = instantwallpaper;
-    InstantWidgets = instantwidgets;
-    InstantWM = instantwm;
+  instantdata = pkgs.callPackage ./pkgs/instantData {
+    instantConf = instantconf;
+    instantDotfiles = instantdotfiles;
+    instantLOGO  = instantlogo;
+    instantMENU = instantmenu;
+    instantShell = instantshell;
+    instantTHEMES = instantthemes;
+    instantUtils = instantutils;
+    instantWALLPAPER = instantwallpaper;
+    instantWidgets = instantwidgets;
+    instantWM = instantwm;
     Paperbash = paperbash;
     rangerplugins = rangerplugins;
   };

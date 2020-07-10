@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation rec {
 
-  pname = "InstantConf";
+  pname = "instantConf";
   version = "unstable";
 
   src = fetchFromGitHub {
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ sqlite ];
 
   meta = with lib; {
-    description = "InstantOS Conf";
+    description = "instantOS Conf";
     license = licenses.mit;
     homepage = "https://github.com/instantOS/instantWM";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
