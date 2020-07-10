@@ -8,6 +8,9 @@
 
 { pkgs ? import <nixos-unstable> {} }:
 
+let
+  wsgiserver = pkgs.callPackage ./pkgs/python-modules/wsgiserver { buildPythonPackage = pkgs.python3Packages.buildPythonPackage; fetchPypi = pkgs.python3Packages.fetchPypi; };
+in
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -28,12 +31,12 @@
   plotbitrate = pkgs.callPackage ./pkgs/plotbitrate { };
 
   mangohud = pkgs.callPackage ./pkgs/MangoHUD { };
+  grav1 = pkgs.callPackage ./pkgs/grav1/server.nix { wsgiserver = wsgiserver; setuptools = pkgs.python3Packages.setuptools; };
+  grav1c = pkgs.callPackage ./pkgs/grav1/client.nix { };
 
   botamusique = pkgs.callPackage ./pkgs/botamusique { };
 
   mesloNFp10k = pkgs.callPackage ./pkgs/fonts/MesloNFp10k.nix { };
 
   wallpapers = pkgs.callPackage ./pkgs/wallpapers/monogatari { };
-
 }
-
