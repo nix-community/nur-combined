@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   name = "prm-${version}";
-  version = "3.3.0";
+  version = "3.4.0";
   rev = "v${version}";
 
   goPackagePath = "github.com/ldez/prm";
@@ -18,9 +18,9 @@ buildGoModule rec {
     inherit rev;
     owner = "ldez";
     repo = "prm";
-    sha256 = "0biqr091yxpmq6z2pw6xnzilqa3cbkryj4rc7gqc7dvp24farr1h";
+    sha256 = "1vpii7046rq13ahjkbk7rmbqskk6x1mcsrzqx91nii7nzl32wdap";
   };
-  vendorSha256 = "1vdq07ml5s5anbkybwx08s1j3dssv4c1pdkp8dcbarlp07d5y7n1";
+  vendorSha256 = "1lsi02d0vm0z308brbxpwaywwa6jlpynh332fsfs6w4da448vmx9";
   modSha256 = "${vendorSha256}";
 
   meta = {

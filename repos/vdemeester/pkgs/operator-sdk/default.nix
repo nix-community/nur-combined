@@ -58,4 +58,14 @@ rec {
     sha256 = "11mirwgmmhfccv1knxvf2pv51pisngw5lb8vpcbzi5v2lm192aqk";
     vendorSha256 = "0mspbnw41c6r3p7kaafza1v10zi4jv0vrnzxwpyh7pkmx150xgvd";
   };
+  operator-sdk_0_18 = makeOverridable operatorSdkGen {
+    version = "0.18.0";
+    sha256 = "1jbi5v1kcni740znjxm6hbpjx3a1zlkgnbnpsqbiljfi6k7spn6p";
+    vendorSha256 = "19icxp39kvgh7v8sa190ym8i9ffyxgccf6mvqn48hdhq5sr95wm2";
+  };
+  operator-sdk_0_19 = makeOverridable operatorSdkGen {
+    version = "0.19.0";
+    sha256 = "0prwdsxm8sldzdn7r9k1yw2q4asz90n25g4zcfaq23vs6fkxch9b";
+    vendorSha256 = "1pz1k23a7jrisflx03jfp5a6xcw7x6pjkp9b6bma9y9w4jaklyqw";
+  };
 }

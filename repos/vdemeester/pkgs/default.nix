@@ -90,8 +90,10 @@ rec {
   inherit (pkgs.callPackage ./operator-sdk { })
     operator-sdk_0_16
     operator-sdk_0_17
+    operator-sdk_0_18
+    operator-sdk_0_19
     ;
-  operator-sdk = operator-sdk_0_17;
+  operator-sdk = operator-sdk_0_19;
 
   # Tekton
   inherit (pkgs.callPackage ./tkn { })

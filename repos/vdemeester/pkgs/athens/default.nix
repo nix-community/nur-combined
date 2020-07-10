@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   name = "athens-${version}";
-  version = "0.8.1";
+  version = "0.10.0";
   rev = "v${version}";
 
   goPackagePath = "github.com/gomods/athens";
@@ -12,9 +12,9 @@ buildGoModule rec {
     inherit rev;
     owner = "gomods";
     repo = "athens";
-    sha256 = "16ilzxmpwarf0c7195bfqn3ir3s6dkqma4bhjx57amswmkjjrqfp";
+    sha256 = "10l96v2ayz3bp7kzr3a2lwyb95hc3dymlvcanl4629dy087ap6zj";
   };
-  vendorSha256 = "0nad3k01a58xj21sj4m0ydv5m64w3klkgzbdvbx9szy298wq1w18";
+  vendorSha256 = "1xgyna4hwwxjpwcd4k4npkzjlmzzhkba4f46vgcn3qzv0xysvpdx";
   modSha256 = "${vendorSha256}";
 
   meta = {

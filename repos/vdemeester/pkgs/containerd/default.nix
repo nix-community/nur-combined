@@ -67,8 +67,8 @@ rec {
   };
 
   containerd_1_3 = makeOverridable containerdGen {
-    version = "1.3.4";
-    sha256 = "0gws6v35sw4xl0rj4wb07sqkw8f5h3zhliv0rrliipbx9mb23yyw";
+    version = "1.3.6";
+    sha256 = "1dd7kis8zfns0hc1q4xabwv07b4466wf8wh14c8sgx4rzw184fkw";
   };
 
   containerd_1_4 = makeOverridable containerdGen {
