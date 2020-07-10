@@ -56,6 +56,7 @@ rec {
     instantUtils = instantutils;
   };
   instantdata = pkgs.callPackage ./pkgs/instantData {
+    instantASSIST = instantassist;
     instantConf = instantconf;
     instantDotfiles = instantdotfiles;
     instantLOGO  = instantlogo;

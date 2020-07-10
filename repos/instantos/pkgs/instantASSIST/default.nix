@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchurl
 , Paperbash
 , spotify-adblock
 }:
@@ -25,9 +24,11 @@ stdenv.mkDerivation rec {
       --replace /usr/share/paperbash "${Paperbash}/share/paperbash" \
       --replace path/to/spotify-adblock.so "${spotify-adblock}/lib/spotify-adblock.so"
     substituteInPlace dm/b.sh \
-      --replace /usr/bin/dash /bin/sh
+      --replace /usr/bin/dash /bin/sh \
+      --replace /opt/instantos/menus "$out/opt/instantos/menus"
     substituteInPlace dm/p.sh \
-      --replace /usr/bin/dash /bin/sh
+      --replace /usr/bin/dash /bin/sh \
+      --replace /opt/instantos/menus "$out/opt/instantos/menus"
     substituteInPlace instantassist \
       --replace "/usr/bin/env dash" /bin/sh \
       --replace "/opt/instantos/menus" "$out/opt/instantos/menus"
@@ -65,7 +66,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ Paperbash spotify-adblock ];
 
   meta = with lib; {
-    description = "instantOS Utils";
+    description = "Handy menu to access lots of features of instantOS";
     license = licenses.mit;
     homepage = "https://github.com/instantOS/instantASSIST";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];

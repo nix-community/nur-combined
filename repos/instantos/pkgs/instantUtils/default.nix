@@ -1,15 +1,16 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, st
-, rofi
-, neofetch
-, firefox
-, nitrogen
 , acpi
-, pciutils
+, conky
 , dunst
+, firefox
+, neofetch
+, nitrogen
+, pciutils
 , rangerplugins
+, rofi
+, st
 }:
 stdenv.mkDerivation rec {
 
@@ -17,8 +18,8 @@ stdenv.mkDerivation rec {
   version = "unstable";
 
   src = fetchFromGitHub {
-    owner = "instantos";
-    repo = "instantos";
+    owner = "instantOS";
+    repo = "instantOS";
     rev = "06baba865d5cf3413eb210e057e46cccf84267f8";
     sha256 = "0awa0hrvslglrnmrl9jzag87kpa045lwx4527pzj0h5clhbq7x2s";
   };
@@ -37,14 +38,26 @@ stdenv.mkDerivation rec {
     substituteInPlace programs/ifeh \
       --replace "nitrogen" "${nitrogen}/bin/nitrogen"
     substituteInPlace autostart.sh \
-      --replace "iconf" "\$(instantdata -c)/bin/iconf" \
       --replace "instantthemes" "\$(instantdata -t)/bin/instantthemes" \
       --replace "dunst" "${dunst}/bin/dunst" \
       --replace "instantshell" "\$(instantdata -s)/bin/instantshell" \
-      --replace "instantdotfiles" "\$(instantdata -d)/bin/instantdotfiles"
+      --replace "instantdotfiles" "\$(instantdata -d)/bin/instantdotfiles" \
+      --replace "conky -c" "${conky}/bin/conky -c" \
+      --replace /usr/bin/instantstatus "$out/bin/instantstatus" \
+      --replace /usr/share/instantutils "$out/share/instantutils" \
+      --replace /usr/share/rangerplugins "${rangerplugins}/share/rangerplugins" \
+      --replace /usr/share/instantwidgets "\$(instantdata -wi)/share/instantwidgets" \
+      --replace /usr/share/instantwallpaper "\$(instantdata -wa)/share/instantwidgets" \
+      --replace /opt/instantos/menus "\$(instantdata -a)/opt/instantos/menus"
     substituteInPlace userinstall.sh \
       --replace "acpi" "${acpi}/bin/acpi" \
       --replace "lspci" "${pciutils}/bin/lspci"
+    substituteInPlace install.sh \
+      --replace /usr/share/instantutils "$out/share/instantutils"
+    substituteInPlace instantutils.sh \
+      --replace /usr/share/instantutils "$out/share/instantutils"
+    substituteInPlace installinstantos.sh \
+      --replace /usr/share/instantutils "$out/share/instantutils"
   '';
   
   installPhase = ''
@@ -66,13 +79,12 @@ stdenv.mkDerivation rec {
     install -Dm 644 desktop/st-luke.desktop $out/share/applications/st-luke.desktop
   '';
 
-  # propagatedBuildInputs = [ st instantDotfiles neofetch firefox nitrogen instantConf acpi instantTHEMES dunst instantShell rangerplugins ];
-  propagatedBuildInputs = [ st neofetch firefox nitrogen acpi dunst rangerplugins ];
+  propagatedBuildInputs = [ conky st neofetch firefox nitrogen acpi dunst rangerplugins ];
 
   meta = with lib; {
     description = "instantOS Utils";
     license = licenses.mit;
-    homepage = "https://github.com/instantOS/instantWM";
+    homepage = "https://github.com/instantOS/instantOS";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };
