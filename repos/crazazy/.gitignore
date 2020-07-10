@@ -1,2 +1,3 @@
 local/albert/core.db
-local/xfce4/xfce4-screenshooter
+local/xfce4/*
+!local/xfce4/terminal/
