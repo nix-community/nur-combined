@@ -1,8 +1,11 @@
 { lib, buildPerlPackage, XMLParser, sources }:
-
-buildPerlPackage {
+let
   pname = "gpx-layer";
-  version = lib.substring 0 7 sources.gpx-layer.rev;
+  date = lib.substring 0 10 sources.gpx-layer.date;
+  version = "unstable-" + date;
+in
+buildPerlPackage {
+  inherit pname version;
   src = sources.gpx-layer;
 
   outputs = [ "out" ];

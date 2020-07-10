@@ -1,8 +1,11 @@
 { stdenv, pkg-config, ncurses, w3m, ueberzug, sources }:
-
-stdenv.mkDerivation {
+let
   pname = "cfiles";
-  version = stdenv.lib.substring 0 7 sources.cfiles.rev;
+  date = stdenv.lib.substring 0 10 sources.cfiles.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.cfiles;
 
   nativeBuildInputs = [ pkg-config ];

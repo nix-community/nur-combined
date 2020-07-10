@@ -1,9 +1,11 @@
 { stdenv, mkYarnPackage, sources, secretsConfig ? null }:
 let
-  version = stdenv.lib.substring 0 7 sources.nakarte.rev;
+  pname = "nakarte";
+  date = stdenv.lib.substring 0 10 sources.nakarte.date;
+  version = "unstable-" + date;
 in
 mkYarnPackage {
-  name = "nakarte-${version}";
+  name = "${pname}-${version}";
   src = sources.nakarte;
 
   postPatch =

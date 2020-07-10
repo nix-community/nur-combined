@@ -1,8 +1,11 @@
 { lib, buildPythonPackage, sources }:
-
-buildPythonPackage {
+let
   pname = "pyephem";
-  version = lib.substring 0 7 sources.pyephem.rev;
+  date = lib.substring 0 10 sources.pyephem.date;
+  version = "unstable-" + date;
+in
+buildPythonPackage {
+  inherit pname version;
   src = sources.pyephem;
 
   meta = with lib; {

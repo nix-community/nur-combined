@@ -16,10 +16,13 @@
 , TreeR
 , YAML
 }:
-
-buildPerlPackage {
+let
   pname = "osm2mp";
-  version = lib.substring 0 7 sources.osm2mp.rev;
+  date = lib.substring 0 10 sources.osm2mp.date;
+  version = "unstable-" + date;
+in
+buildPerlPackage {
+  inherit pname version;
   src = sources.osm2mp;
 
   outputs = [ "out" ];

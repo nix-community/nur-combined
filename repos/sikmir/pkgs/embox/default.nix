@@ -10,6 +10,9 @@
 , which
 }:
 let
+  pname = "embox";
+  date = stdenv.lib.substring 0 10 sources.embox.date;
+  version = "unstable-" + date;
   template = "arm/qemu";
 
   cjson = fetchurl {
@@ -28,8 +31,7 @@ let
   '';
 in
 stdenv.mkDerivation {
-  pname = "embox";
-  version = stdenv.lib.substring 0 7 sources.embox.rev;
+  inherit pname version;
   src = sources.embox;
 
   patches = [ ./0001-fix-build.patch ];

@@ -1,9 +1,12 @@
 { stdenv, cgpsmapper, gmaptool, imagemagick, mapsoft, netpbm, zip, sources }:
-
-stdenv.mkDerivation {
+let
   pname = "slazav-podm";
-  version = stdenv.lib.substring 0 7 sources.map_podm.rev;
-  src = sources.map_podm;
+  date = stdenv.lib.substring 0 10 sources.map-podm.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
+  src = sources.map-podm;
 
   patches = [ ./0001-fix-podm.patch ];
 
@@ -34,7 +37,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    inherit (sources.map_podm) description homepage;
+    inherit (sources.map-podm) description homepage;
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.all;

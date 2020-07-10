@@ -3,10 +3,13 @@
 , maptilerApiKey ? ""
 , mapboxApiKey ? ""
 }:
-
-stdenv.mkDerivation {
+let
   pname = "gpxsee-maps";
-  version = stdenv.lib.substring 0 7 sources.gpxsee-maps.rev;
+  date = stdenv.lib.substring 0 10 sources.gpxsee-maps.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.gpxsee-maps;
 
   postPatch = ''

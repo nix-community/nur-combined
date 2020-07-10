@@ -1,8 +1,11 @@
 { stdenv, sources }:
-
-stdenv.mkDerivation {
+let
   pname = "docker-reg-tool";
-  version = stdenv.lib.substring 0 7 sources.docker-reg-tool.rev;
+  date = stdenv.lib.substring 0 10 sources.docker-reg-tool.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.docker-reg-tool;
 
   installPhase = ''

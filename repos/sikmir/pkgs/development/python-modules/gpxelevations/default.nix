@@ -1,8 +1,11 @@
 { lib, buildPythonApplication, python, requests, gpxpy, sources }:
-
-buildPythonApplication {
+let
   pname = "gpxelevations";
-  version = lib.substring 0 7 sources.gpxelevations.rev;
+  date = lib.substring 0 10 sources.gpxelevations.date;
+  version = "unstable-" + date;
+in
+buildPythonApplication {
+  inherit pname version;
   src = sources.gpxelevations;
 
   propagatedBuildInputs = [ requests gpxpy ];

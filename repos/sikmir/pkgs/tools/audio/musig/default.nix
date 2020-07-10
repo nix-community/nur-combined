@@ -1,10 +1,11 @@
 { lib, buildGoModule, pkgconfig, portaudio, sources }:
 let
-  version = lib.substring 0 7 sources.musig.rev;
+  pname = "musig";
+  date = lib.substring 0 10 sources.musig.date;
+  version = "unstable-" + date;
 in
 buildGoModule {
-  pname = "musig";
-  inherit version;
+  inherit pname version;
   src = sources.musig;
 
   vendorSha256 = "0ha1xjdwibm8543b4bx0xrbigngiiakksdc6mnp0mz5y6ai56pg5";

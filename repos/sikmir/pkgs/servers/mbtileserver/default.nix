@@ -1,8 +1,11 @@
 { lib, buildGoModule, sources }:
-
-buildGoModule {
+let
   pname = "mbtileserver";
-  version = lib.substring 0 7 sources.mbtileserver.rev;
+  date = lib.substring 0 10 sources.mbtileserver.date;
+  version = "unstable-" + date;
+in
+buildGoModule {
+  inherit pname version;
   src = sources.mbtileserver;
 
   vendorSha256 = null;

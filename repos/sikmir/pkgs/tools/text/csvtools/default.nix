@@ -1,8 +1,11 @@
 { stdenv, pcre, openssl, sources }:
-
-stdenv.mkDerivation {
+let
   pname = "csvtools";
-  version = stdenv.lib.substring 0 7 sources.csvtools.rev;
+  date = stdenv.lib.substring 0 10 sources.csvtools.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.csvtools;
 
   buildInputs = [ pcre ];

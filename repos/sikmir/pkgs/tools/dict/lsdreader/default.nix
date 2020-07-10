@@ -1,8 +1,11 @@
 { lib, buildPythonApplication, sources }:
-
-buildPythonApplication {
+let
   pname = "lsdreader";
-  version = lib.substring 0 7 sources.lsdreader.rev;
+  date = lib.substring 0 10 sources.lsdreader.date;
+  version = "unstable-" + date;
+in
+buildPythonApplication {
+  inherit pname version;
   src = sources.lsdreader;
 
   doCheck = false;

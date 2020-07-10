@@ -9,10 +9,13 @@
 , pcre
 , sources
 }:
-
-stdenv.mkDerivation {
+let
   pname = "stardict-tools";
-  version = stdenv.lib.substring 0 7 sources.stardict-3.rev;
+  date = stdenv.lib.substring 0 10 sources.stardict-3.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.stardict-3;
 
   nativeBuildInputs = [

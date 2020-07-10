@@ -1,8 +1,11 @@
 { stdenv, sources }:
-
-stdenv.mkDerivation {
+let
   pname = "nnn-plugins";
-  version = stdenv.lib.substring 0 7 sources.nnn.rev;
+  date = stdenv.lib.substring 0 10 sources.nnn.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.nnn;
 
   phases = [ "installPhase" "fixupPhase" ];

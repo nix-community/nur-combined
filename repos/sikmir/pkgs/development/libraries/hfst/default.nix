@@ -1,8 +1,11 @@
 { stdenv, autoreconfHook, bison, flex, sources }:
-
-stdenv.mkDerivation {
+let
   pname = "hfst";
-  version = stdenv.lib.substring 0 7 sources.hfst.rev;
+  date = stdenv.lib.substring 0 10 sources.hfst.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.hfst;
 
   nativeBuildInputs = [ autoreconfHook bison flex ];

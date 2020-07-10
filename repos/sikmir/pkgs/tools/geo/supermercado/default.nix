@@ -8,10 +8,13 @@
 , pytest
 , sources
 }:
-
-buildPythonApplication {
+let
   pname = "supermercado";
-  version = lib.substring 0 7 sources.supermercado.rev;
+  date = lib.substring 0 10 sources.supermercado.date;
+  version = "unstable-" + date;
+in
+buildPythonApplication {
+  inherit pname version;
   src = sources.supermercado;
 
   patches = [

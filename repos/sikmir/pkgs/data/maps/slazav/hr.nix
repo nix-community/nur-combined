@@ -1,9 +1,12 @@
 { stdenv, cgpsmapper, gmaptool, imagemagick, mapsoft, netpbm, zip, sources }:
-
-stdenv.mkDerivation {
+let
   pname = "slazav-hr";
-  version = stdenv.lib.substring 0 7 sources.map_hr.rev;
-  src = sources.map_hr;
+  date = stdenv.lib.substring 0 10 sources.map-hr.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
+  src = sources.map-hr;
 
   patches = [ ./0001-fix-hr.patch ];
 
@@ -36,7 +39,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    inherit (sources.map_hr) description homepage;
+    inherit (sources.map-hr) description homepage;
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.all;

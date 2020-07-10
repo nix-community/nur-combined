@@ -1,8 +1,11 @@
 { stdenv, bison, flex, libtool, ncurses, readline, zlib, sources }:
-
-stdenv.mkDerivation {
+let
   pname = "foma";
-  version = stdenv.lib.substring 0 7 sources.foma.rev;
+  date = stdenv.lib.substring 0 10 sources.foma.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.foma;
 
   sourceRoot = "source/foma";

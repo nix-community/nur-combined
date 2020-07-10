@@ -1,8 +1,11 @@
 { lib, buildPythonPackage, requests, clint, sources }:
-
-buildPythonPackage {
+let
   pname = "mikatools";
-  version = lib.substring 0 7 sources.mikatools.rev;
+  date = lib.substring 0 10 sources.mikatools.date;
+  version = "unstable-" + date;
+in
+buildPythonPackage {
+  inherit pname version;
   src = sources.mikatools;
 
   propagatedBuildInputs = [ requests clint ];

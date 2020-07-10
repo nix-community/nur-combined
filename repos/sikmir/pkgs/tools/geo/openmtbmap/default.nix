@@ -1,8 +1,11 @@
 { stdenv, gmaptool, mkgmap, p7zip, zsh, sources, substituteAll }:
-
-stdenv.mkDerivation {
+let
   pname = "openmtbmap";
-  version = stdenv.lib.substring 0 7 sources.openmtbmap.rev;
+  date = stdenv.lib.substring 0 10 sources.openmtbmap.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.openmtbmap;
 
   patches = (substituteAll {

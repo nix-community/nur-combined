@@ -9,10 +9,13 @@
 , substituteAll
 , withI18n ? true
 }:
-
-mkDerivation {
+let
   pname = "gpxlab";
-  version = lib.substring 0 7 sources.gpxlab.rev;
+  date = lib.substring 0 10 sources.gpxlab.date;
+  version = "unstable-" + date;
+in
+mkDerivation {
+  inherit pname version;
   src = sources.gpxlab;
 
   patches = (substituteAll {
@@ -20,6 +23,10 @@ mkDerivation {
     src = ./fix-qttranslations-path.patch;
     inherit qttranslations;
   });
+
+  postPatch = ''
+    sed -i "s/\(VERSION = \).*/\1${version}/" GPXLab/GPXLab.pro
+  '';
 
   nativeBuildInputs = [ qmake ] ++ (lib.optional withI18n qttools);
   buildInputs = [ qtbase ];

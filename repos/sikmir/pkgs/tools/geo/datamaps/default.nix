@@ -1,8 +1,11 @@
 { stdenv, libpng, pkg-config, sources }:
-
-stdenv.mkDerivation {
+let
   pname = "datamaps";
-  version = stdenv.lib.substring 0 7 sources.datamaps.rev;
+  date = stdenv.lib.substring 0 10 sources.datamaps.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.datamaps;
 
   nativeBuildInputs = [ pkg-config ];

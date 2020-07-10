@@ -18,10 +18,13 @@
 , sources
 , substituteAll
 }:
-
-mkDerivation {
+let
   pname = "OpenOrienteering-Mapper";
-  version = lib.substring 0 7 sources.mapper.rev;
+  date = lib.substring 0 10 sources.mapper.date;
+  version = "unstable-" + date;
+in
+mkDerivation {
+  inherit pname version;
   src = sources.mapper;
 
   patches = (substituteAll {
@@ -48,6 +51,7 @@ mkDerivation {
     # See https://github.com/NixOS/nixpkgs/issues/85306
     "-DLICENSING_PROVIDER:BOOL=OFF"
     "-DMapper_MANUAL_QTHELP:BOOL=OFF"
+    "-DMapper_VERSION_DISPLAY=${version}"
   ] ++ lib.optionals stdenv.isDarwin [
     # Usually enabled on Darwin
     "-DCMAKE_FIND_FRAMEWORK=never"

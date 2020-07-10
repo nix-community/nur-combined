@@ -1,8 +1,11 @@
 { lib, buildPythonPackage, click, pytest, hypothesis, sources }:
-
-buildPythonPackage {
+let
   pname = "mercantile";
-  version = lib.substring 0 7 sources.mercantile.rev;
+  date = lib.substring 0 10 sources.mercantile.date;
+  version = "unstable-" + date;
+in
+buildPythonPackage {
+  inherit pname version;
   src = sources.mercantile;
 
   propagatedBuildInputs = [ click ];

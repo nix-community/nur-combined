@@ -1,8 +1,11 @@
 { stdenv, sources }:
-
-stdenv.mkDerivation {
+let
   pname = "gt-bash-client";
-  version = stdenv.lib.substring 0 7 sources.gt-bash-client.rev;
+  date = stdenv.lib.substring 0 10 sources.gt-bash-client.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.gt-bash-client;
 
   installPhase = ''

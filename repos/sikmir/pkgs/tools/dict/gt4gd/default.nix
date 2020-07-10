@@ -5,10 +5,13 @@
 , withUI ? true
 , tkinter
 }:
-
-buildPythonApplication {
+let
   pname = "gt4gd";
-  version = lib.substring 0 7 sources.gt4gd.rev;
+  date = lib.substring 0 10 sources.gt4gd.date;
+  version = "unstable-" + date;
+in
+buildPythonApplication {
+  inherit pname version;
   src = sources.gt4gd;
 
   propagatedBuildInputs = [ requests ] ++ (lib.optional withUI tkinter);

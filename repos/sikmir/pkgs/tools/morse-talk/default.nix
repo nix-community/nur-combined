@@ -1,8 +1,11 @@
 { lib, buildPythonApplication, matplotlib, nose, sounddevice, sources }:
-
-buildPythonApplication {
+let
   pname = "morse-talk";
-  version = lib.substring 0 7 sources.morse-talk.rev;
+  date = lib.substring 0 10 sources.morse-talk.date;
+  version = "unstable-" + date;
+in
+buildPythonApplication {
+  inherit pname version;
   src = sources.morse-talk;
 
   propagatedBuildInputs = [ matplotlib sounddevice ];

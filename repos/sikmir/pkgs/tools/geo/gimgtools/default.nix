@@ -1,8 +1,11 @@
 { stdenv, sources, libiconv }:
-
-stdenv.mkDerivation {
+let
   pname = "gimgtools";
-  version = stdenv.lib.substring 0 7 sources.gimgtools.rev;
+  date = stdenv.lib.substring 0 10 sources.gimgtools.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.gimgtools;
 
   buildInputs = stdenv.lib.optional stdenv.isDarwin libiconv;

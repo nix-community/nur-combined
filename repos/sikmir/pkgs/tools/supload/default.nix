@@ -1,8 +1,11 @@
 { stdenv, curl, file, coreutils, sources }:
-
-stdenv.mkDerivation {
+let
   pname = "supload";
-  version = stdenv.lib.substring 0 7 sources.supload.rev;
+  date = stdenv.lib.substring 0 10 sources.supload.date;
+  version = "unstable-" + date;
+in
+stdenv.mkDerivation {
+  inherit pname version;
   src = sources.supload;
 
   buildInputs = [ curl file ];

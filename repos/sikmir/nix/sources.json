@@ -2,6 +2,7 @@
     "cfiles": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-06-09T05:17:34Z",
         "description": "A ncurses file manager written in C with vim like keybindings",
         "homepage": "https://github.com/mananapr/cfiles",
         "owner": "mananapr",
@@ -15,6 +16,7 @@
     "cheetah3": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-05-16T18:33:02Z",
         "description": "Cheetah3 is a free (MIT) and open source template engine for Python",
         "homepage": "https://cheetahtemplate.org/",
         "owner": "CheetahTemplate3",
@@ -28,6 +30,7 @@
     "csvquote": {
         "branch": "master",
         "builtin": false,
+        "date": "2018-05-28T13:43:50Z",
         "description": "Enables common unix utlities like cut, awk, wc, head to work correctly with csv data containing delimiters and newlines",
         "homepage": "https://github.com/dbro/csvquote",
         "owner": "dbro",
@@ -41,6 +44,7 @@
     "csvtools": {
         "branch": "master",
         "builtin": false,
+        "date": "2019-08-03T13:11:03Z",
         "description": "GNU-alike tools for parsing RFC 4180 CSVs at high speed",
         "homepage": "https://github.com/DavyLandman/csvtools",
         "owner": "DavyLandman",
@@ -54,6 +58,7 @@
     "datamaps": {
         "branch": "master",
         "builtin": false,
+        "date": "2014-08-19T19:28:16Z",
         "description": "Indexes points and lines and generates map tiles to display them",
         "homepage": "https://github.com/ericfischer/datamaps",
         "owner": "ericfischer",
@@ -67,6 +72,7 @@
     "docker-reg-tool": {
         "branch": "master",
         "builtin": false,
+        "date": "2019-10-13T09:07:48Z",
         "description": "Docker registry cli tool, primarily for deleting images",
         "homepage": "https://github.com/byrnedo/docker-reg-tool",
         "owner": "byrnedo",
@@ -80,6 +86,7 @@
     "elevation": {
         "branch": "master",
         "builtin": false,
+        "date": "2019-05-27T22:01:34Z",
         "description": "Python script to download global terrain digital elevation models, SRTM 30m DEM and SRTM 90m DEM",
         "homepage": "http://elevation.bopen.eu",
         "owner": "bopen",
@@ -93,6 +100,7 @@
     "embox": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-02-04T15:17:46Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
@@ -106,6 +114,7 @@
     "foma": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-06-10T20:12:35Z",
         "description": "xfst-compatible C++ finite-state transducer library",
         "homepage": "https://github.com/mhulden/foma",
         "owner": "mhulden",
@@ -119,6 +128,7 @@
     "gef": {
         "branch": "dev",
         "builtin": false,
+        "date": "2020-06-28T16:20:31Z",
         "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
         "homepage": "http://gef.rtfd.io",
         "owner": "hugsy",
@@ -156,6 +166,7 @@
     "gimgtools": {
         "branch": "master",
         "builtin": false,
+        "date": "2013-09-19T06:22:45Z",
         "description": "Garmin Image Tools",
         "homepage": "https://github.com/wuyongzheng/gimgtools",
         "owner": "wuyongzheng",
@@ -169,6 +180,7 @@
     "glauth": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-02-24T15:03:07Z",
         "description": "A lightweight LDAP server for development, home use, or CI",
         "homepage": "https://github.com/glauth/glauth",
         "owner": "glauth",
@@ -182,6 +194,7 @@
     "gpx-layer": {
         "branch": "master",
         "builtin": false,
+        "date": "2013-09-19T22:24:41Z",
         "description": "Tools to turn GPX files into a GPS map tracing layer",
         "homepage": "https://github.com/ericfischer/gpx-layer",
         "owner": "ericfischer",
@@ -195,6 +208,7 @@
     "gpxelevations": {
         "branch": "master",
         "builtin": false,
+        "date": "2019-12-18T15:16:42Z",
         "description": "Geo elevation data parser for \"The Shuttle Radar Topography Mission\" data",
         "homepage": "https://github.com/tkrajina/srtm.py",
         "owner": "tkrajina",
@@ -208,6 +222,7 @@
     "gpxlab": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-05-03T14:00:04Z",
         "description": "Program to show and manipulate GPS tracks",
         "homepage": "https://github.com/BourgeoisLab/GPXLab",
         "owner": "BourgeoisLab",
@@ -221,6 +236,7 @@
     "gpxsee": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-07-06T21:19:42Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
@@ -234,6 +250,7 @@
     "gpxsee-maps": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-06-26T17:18:06Z",
         "description": "GPXSee maps",
         "homepage": "https://tumic0.github.io/GPXSee-maps",
         "owner": "tumic0",
@@ -260,6 +277,7 @@
     "gt-bash-client": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-06-09T15:44:09Z",
         "description": "Get translated text from your terminal! Console Google Translate Script (bash+curl+sed)",
         "homepage": "https://ophoperhpo.github.io/GT-bash-client/",
         "owner": "OPHoperHPO",
@@ -273,6 +291,7 @@
     "gt4gd": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-05-04T07:12:12Z",
         "description": "Add Google translate to GoldenDict",
         "homepage": "https://github.com/xinebf/google-translate-for-goldendict",
         "owner": "xinebf",
@@ -286,6 +305,7 @@
     "hfst": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-07-04T20:30:59Z",
         "description": "Helsinki Finite-State Technology (library and application suite)",
         "homepage": "https://hfst.github.io",
         "owner": "hfst",
@@ -299,6 +319,7 @@
     "libshell": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-03-16T17:18:36Z",
         "description": "A library of shell functions",
         "homepage": "https://github.com/legionus/libshell",
         "owner": "legionus",
@@ -312,6 +333,7 @@
     "lsdreader": {
         "branch": "master",
         "builtin": false,
+        "date": "2018-12-28T12:22:11Z",
         "description": "decompile Lingvo LSD dictionary to DSL",
         "homepage": "https://github.com/sv99/lsdreader",
         "owner": "sv99",
@@ -322,9 +344,10 @@
         "url": "https://github.com/sv99/lsdreader/archive/c78ab22e794f1fbfbc93ffb3ee7ae481f54dd8c2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "map_hr": {
+    "map-hr": {
         "branch": "master",
         "builtin": false,
+        "date": "2019-07-14T23:28:27Z",
         "description": "Slazav mountains",
         "homepage": "http://slazav.mccme.ru/maps/",
         "owner": "slazav",
@@ -335,9 +358,10 @@
         "url": "https://github.com/slazav/map_hr/archive/1555f0e49e8b26b5991c6b8ce8ea1f0688b26047.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "map_podm": {
+    "map-podm": {
         "branch": "master",
         "builtin": false,
+        "date": "2019-12-08T17:24:57Z",
         "description": "Карты Подмосковья в виде номенклатурных листов 1:100000 - исходники в формате mapsoft vmap",
         "homepage": "http://slazav.mccme.ru/maps/",
         "owner": "slazav",
@@ -351,6 +375,7 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-07-03T07:52:55Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
@@ -364,6 +389,7 @@
     "mapsoft": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-01-15T22:56:03Z",
         "description": "Mapping software for linux",
         "homepage": "http://slazav.mccme.ru/prog/mapsoft.htm",
         "owner": "ushakov",
@@ -388,6 +414,7 @@
     "mbtileserver": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-05-11T18:18:31Z",
         "description": "Basic Go server for mbtiles",
         "homepage": "https://github.com/consbio/mbtileserver",
         "owner": "consbio",
@@ -401,6 +428,7 @@
     "mercantile": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-06-16T22:49:21Z",
         "description": "Spherical mercator tile and coordinate utilities",
         "homepage": "https://github.com/mapbox/mercantile",
         "owner": "mapbox",
@@ -414,6 +442,7 @@
     "mikatools": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-02-21T12:09:22Z",
         "description": "Mikatools provides fast and easy methods for common Python coding tasks",
         "homepage": "https://github.com/mikahama/mikatools",
         "owner": "mikahama",
@@ -427,6 +456,7 @@
     "morse-talk": {
         "branch": "master",
         "builtin": false,
+        "date": "2016-12-25T13:48:00Z",
         "description": "A Python library written for Morse Code",
         "homepage": "https://github.com/morse-talk/morse-talk",
         "owner": "morse-talk",
@@ -450,6 +480,7 @@
     "musig": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-02-22T23:15:04Z",
         "description": "A shazam like tool to store musics fingerprints and retrieve them",
         "homepage": "https://github.com/sfluor/musig",
         "owner": "sfluor",
@@ -463,6 +494,7 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-07-05T15:13:02Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
@@ -476,6 +508,7 @@
     "nnn": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-07-08T15:23:35Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
@@ -489,6 +522,7 @@
     "odict": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-06-27T00:03:02Z",
         "description": "A blazingly-fast replacement for Apple Dictionaries, Babylon, StarDict, etc",
         "homepage": "https://odict.org",
         "owner": "odict",
@@ -502,6 +536,7 @@
     "openmtbmap": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-06-10T11:16:05Z",
         "description": "Linux script to extract and compile garmin *.img map files from openmtbmap.org or openvelomap.org downloads",
         "homepage": "https://github.com/btittelbach/openmtbmap_openvelomap_linux",
         "owner": "btittelbach",
@@ -515,6 +550,7 @@
     "osm2mp": {
         "branch": "master",
         "builtin": false,
+        "date": "2018-08-31T10:45:18Z",
         "description": "Convert Openstreetmap data to MP format",
         "homepage": "https://github.com/liosha/osm2mp",
         "owner": "liosha",
@@ -525,9 +561,10 @@
         "url": "https://github.com/liosha/osm2mp/archive/748f93792ead174ad0e94a183a173ef3fcacf200.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "pg_tileserv": {
+    "pg-tileserv": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-06-12T14:56:48Z",
         "description": "A very thin PostGIS-only tile server in Go. Takes in HTTP tile requests, executes SQL, returns MVT tiles",
         "homepage": "https://github.com/CrunchyData/pg_tileserv",
         "owner": "CrunchyData",
@@ -541,6 +578,7 @@
     "pyephem": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-06-29T14:30:02Z",
         "description": "Scientific-grade astronomy routines for Python",
         "homepage": "https://rhodesmill.org/pyephem",
         "owner": "brandon-rhodes",
@@ -554,6 +592,7 @@
     "pymbtiles": {
         "branch": "master",
         "builtin": false,
+        "date": "2019-10-16T20:59:08Z",
         "description": "Python utilities for Mapbox mbtiles files",
         "homepage": "https://github.com/consbio/pymbtiles",
         "owner": "consbio",
@@ -567,6 +606,7 @@
     "qtpbfimageplugin-styles": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-04-10T11:06:10Z",
         "description": "QtPBFImagePlugin styles",
         "homepage": "https://github.com/tumic0/QtPBFImagePlugin-styles",
         "owner": "tumic0",
@@ -580,6 +620,7 @@
     "redict": {
         "branch": "master",
         "builtin": false,
+        "date": "2019-06-20T23:15:30Z",
         "description": "A dictionary for Linux, based on C++/Qt development",
         "homepage": "https://github.com/rekols/redict",
         "owner": "rekols",
@@ -593,6 +634,7 @@
     "stardict-3": {
         "branch": "master",
         "builtin": false,
+        "date": "2019-12-09T10:04:43Z",
         "description": "Automatically exported from code.google.com/p/stardict-3",
         "homepage": "https://github.com/huzheng001/stardict-3",
         "owner": "huzheng001",
@@ -606,6 +648,7 @@
     "supermercado": {
         "branch": "master",
         "builtin": false,
+        "date": "2019-01-02T15:10:23Z",
         "description": "Supercharger for mercantile",
         "homepage": "https://github.com/mapbox/supermercado",
         "owner": "mapbox",
@@ -619,6 +662,7 @@
     "supload": {
         "branch": "master",
         "builtin": false,
+        "date": "2015-08-04T11:30:01Z",
         "description": "Bash script for upload file to cloud storage based on OpenStack Swift API",
         "homepage": "https://github.com/selectel/supload",
         "owner": "selectel",
@@ -632,6 +676,7 @@
     "tpkutils": {
         "branch": "master",
         "builtin": false,
+        "date": "2019-10-31T03:05:49Z",
         "description": "ArcGIS Tile Package Utilities",
         "homepage": "https://github.com/consbio/tpkutils",
         "owner": "consbio",

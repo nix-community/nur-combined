@@ -13,10 +13,13 @@
 , pytest-mock
 , sources
 }:
-
-buildPythonApplication {
+let
   pname = "elevation";
-  version = lib.substring 0 7 sources.elevation.rev;
+  date = lib.substring 0 10 sources.elevation.date;
+  version = "unstable-" + date;
+in
+buildPythonApplication {
+  inherit pname version;
   src = sources.elevation;
 
   propagatedBuildInputs = [ fasteners future appdirs click ];

@@ -14,10 +14,13 @@
 , sources
 , withI18n ? true
 }:
-
-mkDerivation {
+let
   pname = "redict";
-  version = lib.substring 0 7 sources.redict.rev;
+  date = lib.substring 0 10 sources.redict.date;
+  version = "unstable-" + date;
+in
+mkDerivation {
+  inherit pname version;
   src = sources.redict;
 
   nativeBuildInputs = [ qmake pkgconfig ] ++ (lib.optional withI18n qttools);

@@ -1,8 +1,11 @@
 { lib, buildPythonApplication, mercantile, pymbtiles, pytest, setuptools, six, sources }:
-
-buildPythonApplication {
+let
   pname = "tpkutils";
-  version = lib.substring 0 7 sources.tpkutils.rev;
+  date = lib.substring 0 10 sources.tpkutils.date;
+  version = "unstable-" + date;
+in
+buildPythonApplication {
+  inherit pname version;
   src = sources.tpkutils;
 
   propagatedBuildInputs = [ mercantile pymbtiles setuptools six ];

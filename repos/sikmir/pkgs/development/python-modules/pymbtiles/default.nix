@@ -1,8 +1,11 @@
 { lib, buildPythonPackage, pytest, sources }:
-
-buildPythonPackage {
+let
   pname = "pymbtiles";
-  version = lib.substring 0 7 sources.pymbtiles.rev;
+  date = lib.substring 0 10 sources.pymbtiles.date;
+  version = "unstable-" + date;
+in
+buildPythonPackage {
+  inherit pname version;
   src = sources.pymbtiles;
 
   checkInputs = [ pytest ];
