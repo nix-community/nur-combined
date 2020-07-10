@@ -38,6 +38,7 @@ rec {
   };
   instantutils = pkgs.callPackage ./pkgs/instantUtils { 
     rangerplugins = rangerplugins;
+    xfce4-power-manager = pkgs.xfce.xfce4-power-manager;
   };
   instantmenu = pkgs.callPackage ./pkgs/instantMENU {
     instantUtils = instantutils;
@@ -47,6 +48,10 @@ rec {
     instantConf = instantconf;
     instantUtils = instantutils;
     Paperbash = paperbash;
+  };
+  instantwelcome = pkgs.callPackage ./pkgs/instantWELCOME {
+    gtk = pkgs.gnome3.gtk;
+    instantConf = instantconf;
   };
   instantdotfiles = pkgs.callPackage ./pkgs/instantDotfiles {
     instantConf = instantconf;

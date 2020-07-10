@@ -5,12 +5,14 @@
 , conky
 , dunst
 , firefox
+, libnotify
 , neofetch
 , nitrogen
 , pciutils
 , rangerplugins
 , rofi
 , st
+, xfce4-power-manager
 }:
 stdenv.mkDerivation rec {
 
@@ -48,7 +50,9 @@ stdenv.mkDerivation rec {
       --replace /usr/share/rangerplugins "${rangerplugins}/share/rangerplugins" \
       --replace /usr/share/instantwidgets "\$(instantdata -wi)/share/instantwidgets" \
       --replace /usr/share/instantwallpaper "\$(instantdata -wa)/share/instantwidgets" \
-      --replace /opt/instantos/menus "\$(instantdata -a)/opt/instantos/menus"
+      --replace /opt/instantos/menus "\$(instantdata -a)/opt/instantos/menus" \
+      --replace xfce4-power-manager "${xfce4-power-manager}/bin/xfce4-power-manager" \
+      --replace notify-send "${libnotify}/bin/notify-send"
     substituteInPlace userinstall.sh \
       --replace "acpi" "${acpi}/bin/acpi" \
       --replace "lspci" "${pciutils}/bin/lspci"
@@ -64,22 +68,22 @@ stdenv.mkDerivation rec {
     install -Dm 555 autostart.sh $out/bin/instantautostart
     install -Dm 555 status.sh $out/bin/instantstatus
     install -Dm 555 monitor.sh $out/bin/instantmonitor
+
+    install -Dm 555 instantutils.sh $out/bin/instantutils
+    install -Dm 555 installinstantos.sh $out/bin/installinstantos
     
     mkdir -p $out/share/instantutils
     mv *.sh $out/share/instantutils
+    mv programs/* $out/bin
 
-    install -Dm 555 programs/appmenu $out/bin/appmenu
-    install -Dm 555 programs/checkinternet $out/bin/checkinternet
-    install -Dm 555 programs/instantstartmenu $out/bin/instantstartmenu
-    install -Dm 555 programs/instantshutdown $out/bin/instantshutdown
-    install -Dm 555 programs/ifeh $out/bin/ifeh
+    mkdir -p $out/share/applications
+    mv desktop/* $out/share/applications
 
-    install -Dm 644 desktop/instantlock.desktop $out/share/applications/instantlock.desktop
-    install -Dm 644 desktop/instantshutdown.desktop $out/share/applications/instantshutdown.desktop
-    install -Dm 644 desktop/st-luke.desktop $out/share/applications/st-luke.desktop
+    mkdir -p "$out/etc/X11/xorg.conf.d"
+    mv xorg/* "$out/etc/X11/xorg.conf.d"
   '';
 
-  propagatedBuildInputs = [ conky st neofetch firefox nitrogen acpi dunst rangerplugins ];
+  propagatedBuildInputs = [ conky st neofetch firefox nitrogen acpi dunst rangerplugins xfce4-power-manager libnotify ];
 
   meta = with lib; {
     description = "instantOS Utils";

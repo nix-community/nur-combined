@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
       --replace /usr/share/instantwallpaper/wallutils.sh wallutils.sh \
       --replace "iconf" "${instantConf}/bin/iconf" \
       --replace "checkinternet" "${instantUtils}/bin/checkinternet" \
-      --replace "/usr/share/paperbash" "${Paperbash}/share/paperbash"
+      --replace "/usr/share/paperbash" "${Paperbash}/share/paperbash" \
+      --replace wallutils.sh "$out/share/instantwallpaper/wallutils.sh"
     substituteInPlace wallutils.sh \
       --replace "iconf" "${instantConf}/bin/iconf" \
       --replace "identify" "${imagemagick}/bin/identify" \
@@ -49,8 +50,8 @@ stdenv.mkDerivation rec {
   '';
   
   installPhase = ''
-    install -Dm 555 wallutils.sh $out/share/instantwallpaper/wallutils.sh
-    install -Dm 555 wall.sh $out/bin/instantwallpaper
+    install -Dm 555 wallutils.sh "$out/share/instantwallpaper/wallutils.sh"
+    install -Dm 555 wall.sh "$out/bin/instantwallpaper"
     install -Dm 644 ../instantLOGO/wallpaper/defaultwall.png "$out/share/backgrounds/instant.png"
     install -Dm 644 ../instantLOGO/wallpaper/readme.jpg "$out/share/backgrounds/readme.jpg"
     install -Dm 644 ../instantLOGO/ascii.txt "$out/share/instantwallpaper/ascii.txt"
