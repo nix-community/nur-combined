@@ -144,7 +144,28 @@ Have a fedora machine ready to run (setup and all, automated of course)
 ** [[https://elis.nu/blog/2020/06/nixos-tmpfs-as-home/][NixOS ❄: tmpfs as home]]
 [2020-06-29 Mon 17:46]
 
-* TODO nur-package automatic -git package updates
+* TODO pkgs, nur and overlay
+
+Take inspiration from there :
+- https://gitlab.com/rycee/nur-expressions/tree/master
+
+(versions, …)
+
+
+* TODO [#B] Automate =home= pkgs updates
+:PROPERTIES:
+:CREATED:[2020-01-19 Sun 12:32]
+:END:
+
+- Why :: It would require less manual work from me 👼
+- What :: Update the =-git= or =-unstable= packages *and* any package when there is a new
+  version tagged/released if possible
+- How :: Using a bot, like https://gitlab.com/rybot
+
+=nix-update= allows to bump release package (and doesn't work when having multiple version
+of the same).
+
+** TODO nur-package automatic -git package updates
 :PROPERTIES:
 :CREATED:[2020-04-30 Thu 20:58]
 :END:
@@ -152,20 +173,13 @@ Have a fedora machine ready to run (setup and all, automated of course)
 For packages that track master, create a =-git= version and have an automate that is able
 to update those daily (or weekly ?), using =nix-update= (and maybe more for modSha256)
 
-** TODO [[https://berfr.me/posts/watch-diff/][watch-diff: Watch command output and get notified on changes | berfr blog]]
+*** TODO [[https://berfr.me/posts/watch-diff/][watch-diff: Watch command output and get notified on changes | berfr blog]]
 [2020-05-07 Thu 16:42]
 
 
 
-** TODO [[https://www.nmattia.com/posts/2019-09-10-autoupdate.html][Nicolas Mattia – Triggered CI Builds: Automatically Update your Project's Dependencies]]
+*** TODO [[https://www.nmattia.com/posts/2019-09-10-autoupdate.html][Nicolas Mattia – Triggered CI Builds: Automatically Update your Project's Dependencies]]
 [2019-10-15 Tue 08:24]
-
-* TODO pkgs, nur and overlay
-
-Take inspiration from there :
-- https://gitlab.com/rycee/nur-expressions/tree/master
-
-(versions, …)
 
 * TODO Manage firefox in home-manager
 
@@ -196,9 +210,38 @@ even) and allow his modules to overwrite the defaults.
 This is very good because it allows to customize some small parts of the configuration
 only for specific host — this will reduce duplication.
 
+
+* TODO Add home-manager hook to update ~/etc/hosts~
+:PROPERTIES:
+:CREATED:[2019-07-05 Fri 16:23]
+:END:
+
+- Why :: on NixOS this is managed in =home= and applied easily. On non-NixOS systems,
+  there is no easy way to do that
+- What :: Append / Rewrite =/etc/hosts= with the content of a file (coming from h-m)
+- How :: See what tool do that, or write your own simple one (using special comments to
+  know where to overwrite the file). Use whatever language (lisp, haskell, go, rust,
+  python, …)
+* TODO install ~nixos-generate~ on machines
+:LOGBOOK:
+- Rescheduled from "[2019-07-11 Thu]" on [2019-07-11 Thu 16:09]
+- Rescheduled from "[2019-07-09 Tue]" on [2019-07-09 Tue 19:12]
+:END:
+:PROPERTIES:
+:CREATED:[2019-07-02 Tue 20:27]
+:END:
+
+- Why :: be able to easly create custom install isos and other outputs (oci images, do
+  droplet images, …)
+- How :: create a package
 * TODO Build and use more NixOS container
 
 See https://github.com/google/nixery (layered, )…
+* TODO [[https://github.com/Mic92/nixos-shell][Mic92/nixos-shell: Spawns lightweight nixos vms in a shell]]   :nixos:
+[2020-04-16 Thu 12:46]
+
+Very interesting concept :)
+
 * TODO [#C] =qemu=/=kvm= setup to tests things
 
 - start a system with nixos iso (cache and download)
