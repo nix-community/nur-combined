@@ -71,6 +71,14 @@ Things to test:
   + gpg setup
 - [ ] Red Hat VPN connection
 
+
+* TODO [#A] Experiment with Xpra on NixOS (wakasu)
+:PROPERTIES:
+:CREATED:[2020-06-22 Mon 18:39]
+:END:
+
+On wakasu, in addition to VMs :)
+
 * TODO [#B] Create a custom iso for easier install
 
 Embedding the install scripts and some helpers for secrets ?
@@ -152,6 +160,13 @@ to update those daily (or weekly ?), using =nix-update= (and maybe more for modS
 ** TODO [[https://www.nmattia.com/posts/2019-09-10-autoupdate.html][Nicolas Mattia – Triggered CI Builds: Automatically Update your Project's Dependencies]]
 [2019-10-15 Tue 08:24]
 
+* TODO pkgs, nur and overlay
+
+Take inspiration from there :
+- https://gitlab.com/rycee/nur-expressions/tree/master
+
+(versions, …)
+
 * TODO Manage firefox in home-manager
 
 - See [[https://cmacr.ae/post/2020-05-09-managing-firefox-on-macos-with-nix/][Managing Firefox on macOS with Nix - Calum MacRae]]
@@ -197,6 +212,16 @@ See https://github.com/google/nixery (layered, )…
 Can be using =virsh= and =libvirt=. Maybe the best thing will be to use the test
 capabilities of nixos itself.
 
+* TODO [#C] Experiment with deploy on remote machines
+
+** TODO [[https://github.com/misuzu/nix-simple-deploy][misuzu/nix-simple-deploy: A Rust rewrite of unmaintained nix-deploy.]]
+[2020-04-24 Fri 14:44]
+
+Try this out with a NixOS VM. Idea would then be:
+- Use this for okinawa, sakhalin, kerkouane, …
+
+** TODO [[https://github.com/DBCDK/morph][DBCDK/morph: NixOS deployment tool]]                           :nixos:
+[2020-05-04 Mon 11:40]
 * TODO [#C] migrate to enchant for spell checking
 
 This will allow to use hunspell, ispell, …

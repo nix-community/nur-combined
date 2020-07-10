@@ -32,7 +32,8 @@
   :commands (org-agenda org-capture)
   :bind (("C-c o l" . org-store-link)
          ("C-c o r r" . org-refile)
-         ("C-c o a" . org-agenda)
+         ("C-c o a a" . org-agenda)
+         ("C-c o a r" . my/reload-org-agenda-files)
          ("C-c o s" . org-sort)
          ("<f12>" . org-agenda)
          ("C-c o c" . org-capture)
@@ -59,9 +60,15 @@
     > _ \n
     > "* Introduction"
     )
-  (setq org-agenda-files `(,org-projects-dir
-                           "~/src/home"
-                           "~/src/www/")
+
+  (defun my/org-agenda-files ()
+    `(,org-projects-dir
+      "~/src/home"
+      "~/src/www/"))
+  (defun my/reload-org-agenda-files ()
+    (interactive)
+    (setq org-agenda-files (my/org-agenda-files)))
+  (setq org-agenda-files (my/org-agenda-files)
         org-agenda-file-regexp "^[a-zA-Z0-9-_]+.org$"
         org-use-speed-commands t
         org-special-ctrl-a/e t
@@ -183,7 +190,7 @@
 (use-package org-agenda
   :after org
   :commands (org-agenda)
-  :bind (("C-c o a" . org-agenda)
+  :bind (("C-c o a a" . org-agenda)
          ("<f12>" . org-agenda)
          ("C-c o r a" . org-agenda-refile))
   :config
