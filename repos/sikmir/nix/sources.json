@@ -166,6 +166,19 @@
         "url": "https://github.com/wuyongzheng/gimgtools/archive/92d015749e105c5fb8eb704ae503a5c7e51af2bd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "glauth": {
+        "branch": "master",
+        "builtin": false,
+        "description": "A lightweight LDAP server for development, home use, or CI",
+        "homepage": "https://github.com/glauth/glauth",
+        "owner": "glauth",
+        "repo": "glauth",
+        "rev": "a92f9a7028fdf68952ffbed4958167b928dbc483",
+        "sha256": "1aa01jz1aal4zrbjx6a5d8mspnbqq8nsjvshknc5dad0myc4nkyr",
+        "type": "tarball",
+        "url": "https://github.com/glauth/glauth/archive/a92f9a7028fdf68952ffbed4958167b928dbc483.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "gpx-layer": {
         "branch": "master",
         "builtin": false,

@@ -7,7 +7,6 @@
     sha256 = "0a0z8plfqml8z4z6bpkf8yrb7fcxj8xwsxzrfvmvix95vz58vdql";
     downloadToTemp = true;
     recursiveHash = true;
-    preferLocalBuild = true;
     postFetch = ''
       install -dm755 $out/share/gpxsee/POI
       cat $downloadedFile | \
@@ -31,7 +30,6 @@
     sha256 = "0y0wks3qs0rs112r2s0bncxya4l0q9svrhp5ykwk0w9mxqha67sf";
     downloadToTemp = true;
     recursiveHash = true;
-    preferLocalBuild = true;
     postFetch = ''
       install -Dm644 $downloadedFile $out/share/gpxsee/POI/Laavut-kodat.gpx
     '';
@@ -52,7 +50,6 @@
     sha256 = "02v4m5xpsnlmmsl549b9a2c7hidcfgi10g3mdb5bvi1jcf4xj50z";
     downloadToTemp = true;
     recursiveHash = true;
-    preferLocalBuild = true;
     postFetch = ''
       install -Dm644 $downloadedFile $out/share/gpxsee/POI/Autiotuvat.gpx
     '';
@@ -73,7 +70,6 @@
     sha256 = "19fj2f4rpmfglmj73dspsf6lmv67z5yaf1ck466l7ni1z3ka7rr1";
     downloadToTemp = true;
     recursiveHash = true;
-    preferLocalBuild = true;
     postFetch = ''
       install -dm755 $out/share/gpxsee/POI
       cat $downloadedFile | \
@@ -84,6 +80,31 @@
     meta = with lib; {
       homepage = "https://westra.ru/passes/";
       description = "Mountain passes (Westra)";
+      maintainers = with maintainers; [ sikmir ];
+      license = licenses.free;
+      platforms = platforms.all;
+      skip.ci = true;
+    };
+  };
+
+  strelki = fetchurl {
+    name = "strelki-2020-07-10";
+    url = "https://strelki.extremum.org/s/p/47p";
+    sha256 = "0xbl7n4zhj9nbfv30vqypyvrnqqfq5ffx56n8lmgffwbbzxphhy4";
+    downloadToTemp = true;
+    recursiveHash = true;
+    postFetch = ''
+      install -dm755 $out/share/gpxsee/POI
+      cat $downloadedFile | \
+        grep "L.marker" | tr ';' '\n' | sed '/^$/d' | \
+        sed 's/.*\[\(.*\), \(.*\)\].*bindTooltip(\(.*\), {.*bindPopup(\(.*\)).addTo.*/\2,\1,\3,\4/' | \
+        sed 's#href=#href=https://strelki.extremum.org#' | \
+        tr \' \" > $out/share/gpxsee/POI/strelki.csv
+    '';
+
+    meta = with lib; {
+      homepage = "https://strelki.extremum.org/s/p/47p";
+      description = "Стрелки-47";
       maintainers = with maintainers; [ sikmir ];
       license = licenses.free;
       platforms = platforms.all;

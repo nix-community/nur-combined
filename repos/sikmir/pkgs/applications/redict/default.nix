@@ -47,5 +47,6 @@ mkDerivation {
     license = licenses.gpl3;
     maintainers = with maintainers; [ sikmir ];
     platforms = with platforms; linux ++ darwin;
+    broken = stdenv.isDarwin;
   };
 }

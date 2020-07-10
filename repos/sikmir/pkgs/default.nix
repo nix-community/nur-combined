@@ -169,6 +169,7 @@ lib.makeScope newScope (
 
     ### SERVERS
 
+    glauth = callPackage ./servers/glauth { };
     mbtileserver = callPackage ./servers/mbtileserver { };
     nakarte = callPackage ./servers/nakarte { };
     pg_tileserv = callPackage ./servers/pg_tileserv { };
