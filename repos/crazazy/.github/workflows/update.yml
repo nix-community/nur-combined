@@ -30,6 +30,7 @@ jobs:
         nix-env -iA nix-gen-node-tools -f pkgs/default.nix
         cd pkgs
         mv js old-js
+        mkdir js
         mv old-js/default.nix js/
         for i in $(ls old-js/); do
           (cd js/ && nix-gen-node-tools $i)
