@@ -63,8 +63,8 @@
 
   (defun my/org-agenda-files ()
     `(,org-projects-dir
-      "~/src/home"
-      "~/src/www/"))
+      "~/src/home/tasks.org"
+      "~/src/www/tasks.org"))
   (defun my/reload-org-agenda-files ()
     (interactive)
     (setq org-agenda-files (my/org-agenda-files)))
