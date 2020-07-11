@@ -386,6 +386,11 @@
         <command>amixer sset Master 2%- unmute</command>
       </action>
     </keybind>
+    <keybind key="Print">
+        <action name="Execute">
+            <command>flameshot gui</command>
+        </action>
+    </keybind>
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>

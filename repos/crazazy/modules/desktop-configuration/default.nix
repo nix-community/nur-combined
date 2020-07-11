@@ -8,6 +8,7 @@
     albert
     lemonbar
     alock
+    flameshot
     glava
     libnotify
     lxqt.lxqt-policykit

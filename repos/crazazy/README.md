@@ -1,5 +1,7 @@
 # Crazazy's personal nixos configuration and package repository
 
+![CI](https://github.com/crazazy/nixos-config/workflows/CI/badge.svg)
+
 In this git repo you will find my personal configuration, and some packages I find useful to have
  
 ### folders:
