@@ -23,6 +23,11 @@ in
   JAVMovieScraper = pkgs.callPackage ./pkgs/JAVMovieScraper { };
   vcsi = pkgs.callPackage ./pkgs/vcsi {};
 
+  grav1 = pkgs.callPackage ./pkgs/grav1/server.nix { wsgiserver = wsgiserver; setuptools = pkgs.python3Packages.setuptools; };
+  grav1c = pkgs.callPackage ./pkgs/grav1/client.nix { };
+
+  av1client = pkgs.callPackage ./pkgs/av1master/client.nix { };
+
   janus = pkgs.libsForQt5.callPackage ./pkgs/JanusVR/client { };
 
   radical-native = pkgs.callPackage ./pkgs/radical-native { };
@@ -31,8 +36,6 @@ in
   plotbitrate = pkgs.callPackage ./pkgs/plotbitrate { };
 
   mangohud = pkgs.callPackage ./pkgs/MangoHUD { };
-  grav1 = pkgs.callPackage ./pkgs/grav1/server.nix { wsgiserver = wsgiserver; setuptools = pkgs.python3Packages.setuptools; };
-  grav1c = pkgs.callPackage ./pkgs/grav1/client.nix { };
 
   botamusique = pkgs.callPackage ./pkgs/botamusique { };
 

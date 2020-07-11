@@ -21,6 +21,8 @@ stdenv.mkDerivation {
     sha256 = "11vingnczwy7wxrzp0hqij0jwwzbwjjd8l35wk2zps28npazaly3";
   };
 
+#  src = ./grav1;
+
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ pythonEnv ];
 
@@ -36,8 +38,14 @@ stdenv.mkDerivation {
     cp actions.py $out/bin/actions.py
     chmod +x $out/bin/server
 
+    cp grav1c.py $out/bin/client
+    chmod +x $out/bin/client
+
     wrapProgram $out/bin/server \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg libaom libvpx dav1d ]}
+      --prefix PATH : ${lib.makeBinPath [ ffmpeg libaom libvpx (dav1d.override { withTools = true;}) ]}
+
+    wrapProgram $out/bin/client \
+      --prefix PATH : ${lib.makeBinPath [ ffmpeg libaom libvpx (dav1d.override { withTools = true;}) ]}
   '';
 
 }
