@@ -1,28 +1,67 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, buildPythonApplication
 , instantASSIST
 , instantConf
-, python3
-, gtk
+, instantWALLPAPER
+, arandr
+, atk
+, autorandr
+, blueman
+, gdk-pixbuf
+, gnome-disk-utility
+, gobject-introspection
+, lxappearance-gtk3
+, neovim
+, pango
+, pavucontrol
+, pygobject3
+, st
+, system-config-printer
+, wrapGAppsHook
+, xfce4-power-manager
 }:
-stdenv.mkDerivation {
+let
+  pyModuleDeps = [
+    pygobject3
+  ];
+  gnomeDeps = [
+    wrapGAppsHook 
+    gobject-introspection
+    pango
+    gdk-pixbuf
+    atk
+  ];
+in
+buildPythonApplication {
 
   pname = "instantSETTINGS";
   version = "unstable";
 
   src = fetchFromGitHub {
-    owner = "instantOS";
+    owner = "SCOTT-HAMILTON";
     repo = "instantSETTINGS";
-    rev = "0e40c6cbf1748b76658443ce9c5aca8e4ceebfe5";
-    sha256 = "19z508n3mc6i78c794ssxxmw8v9cx71yrzllpl7qk91dd157drxz";
+    rev = "d17718ff2d9eedfee093c3d7efa41f24ab13d861";
+    sha256 = "1n8lvz4jn4b0476rb45x5x8ps0041l3nsjvdvkxhkb3sv9s8scwp";
   };
 
   postPatch = ''
-    substituteInPlace mainsettings.py \
+    substituteInPlace instantSETTINGS/mainsettings.py \
       --replace /opt/instantos/menus "${instantASSIST}/opt/instantos/menus/dm/tk.sh" \
+      --replace iconf "${instantConf}/bin/iconf" \
+      --replace instantwallpaper "${instantWALLPAPER}/bin/instantwallpaper" \
       --replace /usr/share/instantsettings "$out/share/instantsettings" \
-      --replace iconf "${instantConf}/bin/iconf"
+      --replace "st " "${st}/bin/st \
+      --replace arandr "${arandr}/bin/arandr" \
+      --replace autorandr "${autorandr}/bin/autorandr" \
+      --replace blueman-assistant "${blueman}/bin/blueman-assistant \
+      --replace gnome-disks "${gnome-disk-utility}/bin/gnome-disks" \
+      --replace lxappearance "${lxappearance-gtk3}/bin/lxappearance" \
+      --replace nvim "${neovim}/bin/nvim" \
+      --replace pavucontrol "${pavucontrol}/bin/pavucontrol" \
+      --replace system-config-printer "${system-config-printer}/bin/system-config-printer" \
+      --replace xfce4-power-manager-settings "${xfce4-power-manager}/bin/xfce4-power-manager-settings"
     substituteInPlace modules/instantos/rox.sh \
       --replace /usr/share/applications "$out/share/applications"
     substituteInPlace modules/instantos/settings.py \
@@ -31,18 +70,38 @@ stdenv.mkDerivation {
       --replace iconf "${instantConf}/bin/iconf"
   '';
   
-  installPhase = ''
-    install -Dm 555 mainsettings.py $out/bin/instantsettings
-    ln -s $out/bin/instantsettings $out/bin/instantos-control-center
-    install -Dm 644 instantcontrolcenter.desktop $out/share/applications/instantcontrolcenter.desktop
-    install -Dm 644 instantsettings.desktop $out/share/applications/instantsettings.desktop
-    rm instantcontrolcenter.desktop instantsettings.desktop
-    mkdir -p $out/share/instantsettings
-    rm mainsettings.py
-    mv * $out/share/instantsettings
+  postInstall = ''
+    install -Dm 644 instantSETTINGS/mainsettings.glade "$out/share/instantsettings/mainsettings.glade"
+    mkdir -p "$out/share/applications"
+    cp instantSETTINGS/*.desktop "$out/share/applications"
+    ln -s "$out/bin/mainsettings" "$out/bin/instantsettings"
+    mv modules "$out/share/instantsettings"
   '';
 
-  propagatedBuildInputs = [ gtk python3 instantASSIST instantConf ];
+  nativeBuildInputs = gnomeDeps;
+  buildInputs = pyModuleDeps;
+  propagatedBuildInputs = pyModuleDeps ++
+  [ 
+    instantASSIST
+    instantConf
+    instantWALLPAPER
+    arandr
+    atk
+    autorandr
+    blueman
+    gdk-pixbuf
+    gnome-disk-utility
+    gobject-introspection
+    lxappearance-gtk3
+    neovim
+    pango
+    pavucontrol
+    pygobject3
+    st
+    system-config-printer
+    wrapGAppsHook
+    xfce4-power-manager
+  ];
 
   meta = with lib; {
     description = "Simple settings app for instant-OS";

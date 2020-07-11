@@ -26,11 +26,6 @@ rec {
     Paperbash = paperbash;
     spotify-adblock = spotify-adblock;
   };
-  instantsettings = pkgs.callPackage ./pkgs/instantSettings {
-    instantASSIST = instantassist;
-    instantConf = instantconf;
-    gtk = pkgs.gnome3.gtk;
-  };
   islide = pkgs.callPackage ./pkgs/islide {
     instantASSIST = instantassist;
   };
@@ -50,16 +45,26 @@ rec {
     instantUtils = instantutils;
     Paperbash = paperbash;
   };
-  instantwelcome = pkgs.callPackage ./pkgs/instantWELCOME {
+  instantsettings = with pkgs.python3Packages; pkgs.callPackage ./pkgs/instantSettings {
+    instantASSIST = instantassist;
     instantConf = instantconf;
-    buildPythonApplication = pkgs.python3Packages.buildPythonApplication;
-    pygobject3 = pkgs.python3Packages.pygobject3;
+    instantWALLPAPER = instantwallpaper;
+    buildPythonApplication = buildPythonApplication;
+    pygobject3 = pygobject3;
+    gnome-disk-utility = pkgs.gnome3.gnome-disk-utility;
+    xfce4-power-manager = pkgs.xfce.xfce4-power-manager;
+  };
+  instantwelcome = with pkgs.python3Packages; pkgs.callPackage ./pkgs/instantWELCOME {
+    instantConf = instantconf;
+    buildPythonApplication = buildPythonApplication;
+    pygobject3 = pygobject3;
   };
   instantdotfiles = pkgs.callPackage ./pkgs/instantDotfiles {
     instantConf = instantconf;
     instantWALLPAPER = instantwallpaper;
   };
   instantwm = pkgs.callPackage ./pkgs/instantWM {
+    instantASSIST = instantassist;
     instantUtils = instantutils;
   };
   instantdata = pkgs.callPackage ./pkgs/instantData {

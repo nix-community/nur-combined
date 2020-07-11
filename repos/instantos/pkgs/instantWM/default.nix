@@ -3,7 +3,11 @@
 , fetchFromGitHub
 , gnumake
 , xlibs
+, pavucontrol
 , rofi
+, rxvt_unicode
+, st
+, instantASSIST
 , instantUtils
 }:
 stdenv.mkDerivation rec {
@@ -28,11 +32,26 @@ stdenv.mkDerivation rec {
       --replace "PREFIX = /usr/local" "PREFIX = $out"
     substituteInPlace instantwm.c \
       --replace "cd /usr/bin; ./instantautostart &" "${instantUtils}/bin/instantautostart &"
+    substituteInPlace config.def.h \
+      --replace "\"pavucontrol\"" "\"${pavucontrol}/bin/pavucontrol\"" \
+      --replace "\"rofi\"" "\"${rofi}/bin/rofi\"" \
+      --replace "\"urxvt\"" "\"${rxvt_unicode}/bin/urxvt\"" \
+      --replace "\"st\"" "\"${st}/bin/st\"" \
+      --replace /opt/instantos/menus "${instantASSIST}/opt/instantos/menus"
   '';
 
   nativeBuildInputs = [ gnumake ];
   buildInputs = with xlibs; map lib.getDev [ libX11 libXft libXinerama ];
-  propagatedBuildInputs = [ rofi instantUtils ];
+  propagatedBuildInputs = [ 
+    pavucontrol
+    rofi
+    rxvt_unicode
+    st
+  ] ++
+  [
+    instantASSIST
+    instantUtils
+  ];
 
   configurePhase = ''
     ./theme.sh
