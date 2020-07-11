@@ -5,13 +5,13 @@
 
 stdenv.mkDerivation rec {
   pname = "VVVVVV-unwrapped";
-  version = "9804fbc";
+  version = "15319b9";
 
   src = fetchFromGitHub {
     owner = "TerryCavanagh";
     repo = "VVVVVV";
     rev = version;
-    sha256 = "0p74kv245bynmmlb7mn5nk5452f7r3ivh60b9hpgpzi7vr03zn9d";
+    sha256 = "03aibc5navdfvsxrc272fb8xjhk1bd22jjglq4pswiwpza0fxj7q";
   };
 
   sourceRoot = "source/desktop_version";

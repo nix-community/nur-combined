@@ -52,7 +52,9 @@ rec {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
 
-  vkbasalt = pkgs.callPackage ./pkgs/tools/graphics/vkbasalt { };
+  vkBasalt = pkgs.callPackage ./pkgs/tools/graphics/vkBasalt {
+    vkBasalt32 = vkBasalt.override { stdenv = pkgs.pkgsi686Linux.stdenv; };
+  };
 
   VVVVVV-unwrapped = pkgs.callPackage ./pkgs/games/VVVVVV {
     inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;

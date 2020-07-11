@@ -7,13 +7,13 @@
 
 buildPythonPackage rec {
   pname = "debugpy";
-  version = "1.0.0b11";
+  version = "1.0.0b12";
 
   src = fetchFromGitHub {
     owner = "Microsoft";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1zhar63wl05i15sgdkqmx4j7h6amjmmciz8q4ncyapkzipy9z6bq";
+    sha256 = "0sz33aq5qldl7kh4qjf5w3d08l9s77ipcj4i9wfklj8f6vf9w1wh";
   };
 
   patches = [
