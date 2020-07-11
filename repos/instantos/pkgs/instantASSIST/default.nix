@@ -12,8 +12,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantASSIST";
-    rev = "bfab219afae675db309d4e7a035a75abd5e103ea";
-    sha256 = "0syd4nm3msia2xlgxycwwmlml92r32fvmknqhaq1i0sscphbb55a";
+    rev = "3d1032b348ae09f4d480f22212354eb9025fe9de";
+    sha256 = "0z24afqsgsd0hp9sl2w48wp6mxhk65qbisrms1synkm15kw3fwp0";
   };
 
   patches = [ ./spotify-git-install.patch ];

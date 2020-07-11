@@ -9,6 +9,7 @@ stdenv.mkDerivation rec {
 
   srcs = [ 
     (fetchFromGitHub {
+      # branch: main
       owner = "alexanderjeurissen";
       repo = "ranger_devicons";
       rev = "86a0810e744d33278d5dd74f57336c066a806c9d";
