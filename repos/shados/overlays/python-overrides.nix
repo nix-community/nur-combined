@@ -1,7 +1,7 @@
 self: super:
 let
   pyNames = [
-    "python27" "python35" "python36" "python37"
+    "python27" "python35" "python36" "python37" "python38" "python39"
     "pypy"
   ];
   overriddenPython = name: [

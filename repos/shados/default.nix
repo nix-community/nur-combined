@@ -13,8 +13,7 @@ let repo = rec {
 
   firefox-common = opts: with pkgs; callPackage
     (import (nixpkgsPath + /pkgs/applications/networking/browsers/firefox/common.nix) opts)
-    { inherit (gnome2) libIDL;
-      libpng = libpng_apng;
+    { libpng = libpng_apng;
       gnused = gnused_422;
       icu = icu63;
       inherit (darwin.apple_sdk.frameworks) CoreMedia ExceptionHandling
