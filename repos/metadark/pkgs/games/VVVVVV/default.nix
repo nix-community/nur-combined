@@ -3,15 +3,20 @@
 , Foundation
 }:
 
-stdenv.mkDerivation rec {
+let
+  executableSuffix =
+    if stdenv.isDarwin then ".osx"
+    else if stdenv.is64bit then ".x86_64"
+    else ".x86";
+in stdenv.mkDerivation rec {
   pname = "VVVVVV-unwrapped";
-  version = "15319b9";
+  version = "2.2";
 
   src = fetchFromGitHub {
     owner = "TerryCavanagh";
     repo = "VVVVVV";
     rev = version;
-    sha256 = "03aibc5navdfvsxrc272fb8xjhk1bd22jjglq4pswiwpza0fxj7q";
+    sha256 = "191id9kgivhb54wccfi5bpjnjf7y97w4l832vpf288phjymyl2rj";
   };
 
   sourceRoot = "source/desktop_version";
@@ -30,7 +35,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p "$out/bin"
-    cp VVVVVV "$out/bin"
+    cp vvvvvv${executableSuffix} "$out/bin/VVVVVV"
   '';
 
   meta = with stdenv.lib; {

@@ -14,6 +14,8 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  bluetooth-autoconnect = pkgs.python3Packages.callPackage ./pkgs/tools/bluetooth/bluetooth-autoconnect {};
+
   caprine = pkgs.callPackage ./pkgs/applications/networking/instant-messengers/caprine {
     electron = pkgs.electron_9;
   };

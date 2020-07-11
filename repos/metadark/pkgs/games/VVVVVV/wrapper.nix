@@ -32,11 +32,12 @@ in stdenvNoCC.mkDerivation {
   unpackPhase = "unzip -q $src || true";
 
   installPhase = ''
-    mkdir -p "$out/bin" "$out/share/applications" "$out/share/pixmaps"
+    mkdir -p "$out/bin" "$out/share/VVVVVV" "$out/share/applications" "$out/share/pixmaps"
 
     makeWrapper ${VVVVVV}/bin/VVVVVV "$out/bin/VVVVVV" \
-      --add-flags "-assets $src"
+      --run "cd $out/share/VVVVVV"
 
+    cp $src "$out/share/VVVVVV/data.zip"
     cp ${desktopItem}/share/applications/* "$out/share/applications"
     cp VVVVVV.png "$out/share/pixmaps"
   '';
