@@ -9,6 +9,7 @@
 , neofetch
 , nitrogen
 , pciutils
+, picom
 , rangerplugins
 , rofi
 , st
@@ -62,6 +63,8 @@ stdenv.mkDerivation rec {
       --replace /usr/share/instantutils "$out/share/instantutils"
     substituteInPlace installinstantos.sh \
       --replace /usr/share/instantutils "$out/share/instantutils"
+    substituteInPlace programs/ipicom \
+      --replace "picom " "${picom}/bin/picom "
   '';
   
   installPhase = ''
@@ -73,7 +76,9 @@ stdenv.mkDerivation rec {
     install -Dm 555 installinstantos.sh $out/bin/installinstantos
     
     mkdir -p $out/share/instantutils
+    chmod +x *.sh
     mv *.sh $out/share/instantutils
+    chmod +x programs/*
     mv programs/* $out/bin
 
     mkdir -p $out/share/applications
@@ -83,7 +88,19 @@ stdenv.mkDerivation rec {
     mv xorg/* "$out/etc/X11/xorg.conf.d"
   '';
 
-  propagatedBuildInputs = [ conky st neofetch firefox nitrogen acpi dunst rangerplugins xfce4-power-manager libnotify ];
+  propagatedBuildInputs = [ 
+    acpi
+    conky
+    dunst
+    firefox
+    libnotify
+    neofetch
+    nitrogen
+    picom
+    rangerplugins
+    st
+    xfce4-power-manager
+  ];
 
   meta = with lib; {
     description = "instantOS Utils";

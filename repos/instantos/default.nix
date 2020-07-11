@@ -12,13 +12,14 @@ rec {
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-  
+
   # instant WM and utils
   instantconf = pkgs.callPackage ./pkgs/instantConf { };
   instantlogo = pkgs.callPackage ./pkgs/instantLOGO { };
   instantshell = pkgs.callPackage ./pkgs/instantShell { };
   instantwidgets = pkgs.callPackage ./pkgs/instantWidgets { };
   paperbash = pkgs.callPackage ./pkgs/Paperbash { };
+  imenu = pkgs.callPackage ./pkgs/imenu { instantMENU = instantmenu; };
   rangerplugins = pkgs.callPackage ./pkgs/rangerplugins { };
   spotify-adblock = pkgs.callPackage ./pkgs/spotify-adblock { };
   instantassist = pkgs.callPackage ./pkgs/instantASSIST {
@@ -50,8 +51,9 @@ rec {
     Paperbash = paperbash;
   };
   instantwelcome = pkgs.callPackage ./pkgs/instantWELCOME {
-    gtk = pkgs.gnome3.gtk;
     instantConf = instantconf;
+    buildPythonApplication = pkgs.python3Packages.buildPythonApplication;
+    pygobject3 = pkgs.python3Packages.pygobject3;
   };
   instantdotfiles = pkgs.callPackage ./pkgs/instantDotfiles {
     instantConf = instantconf;
