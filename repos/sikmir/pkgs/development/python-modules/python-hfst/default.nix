@@ -1,6 +1,6 @@
-{ lib, buildPythonPackage, hfst, swig }:
+{ lib, python3Packages, hfst, swig }:
 
-buildPythonPackage {
+python3Packages.buildPythonPackage {
   pname = "python-hfst";
   inherit (hfst) src version;
 

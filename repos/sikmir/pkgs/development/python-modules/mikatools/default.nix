@@ -1,14 +1,14 @@
-{ lib, buildPythonPackage, requests, clint, sources }:
+{ lib, python3Packages, sources }:
 let
   pname = "mikatools";
   date = lib.substring 0 10 sources.mikatools.date;
   version = "unstable-" + date;
 in
-buildPythonPackage {
+python3Packages.buildPythonPackage {
   inherit pname version;
   src = sources.mikatools;
 
-  propagatedBuildInputs = [ requests clint ];
+  propagatedBuildInputs = with python3Packages; [ requests clint ];
 
   meta = with lib; {
     inherit (sources.mikatools) description homepage;

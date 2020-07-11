@@ -1,16 +1,16 @@
-{ lib, buildPythonApplication, matplotlib, nose, sounddevice, sources }:
+{ lib, python3Packages, sources }:
 let
   pname = "morse-talk";
   date = lib.substring 0 10 sources.morse-talk.date;
   version = "unstable-" + date;
 in
-buildPythonApplication {
+python3Packages.buildPythonApplication {
   inherit pname version;
   src = sources.morse-talk;
 
-  propagatedBuildInputs = [ matplotlib sounddevice ];
+  propagatedBuildInputs = with python3Packages; [ matplotlib sounddevice tkinter ];
 
-  checkInputs = [ nose ];
+  checkInputs = with python3Packages; [ nose ];
   checkPhase = "nosetests";
 
   meta = with lib; {

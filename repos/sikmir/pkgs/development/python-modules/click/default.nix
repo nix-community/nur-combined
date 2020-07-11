@@ -1,31 +1,31 @@
-{ stdenv, buildPythonPackage, fetchPypi, substituteAll, locale, pytest }:
+{ lib, python3Packages, substituteAll, locale }:
 let
   pname = "click";
   version = "6.7";
 in
-buildPythonPackage {
+python3Packages.buildPythonPackage {
   inherit pname version;
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "02qkfpykbq35id8glfgwc38yc430427yd05z1wc5cnld8zgicmgi";
   };
 
-  patches = stdenv.lib.optional (stdenv.lib.versionAtLeast version "6.7") (
+  patches = lib.optional (lib.versionAtLeast version "6.7") (
     substituteAll {
       src = ./fix-paths.patch;
       locale = "${locale}/bin/locale";
     }
   );
 
-  buildInputs = [ pytest ];
+  checkInputs = with python3Packages; [ pytest ];
 
   checkPhase = "py.test tests";
 
   # https://github.com/pallets/click/issues/823
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://click.pocoo.org/";
     description = "Create beautiful command line interfaces in Python";
     license = licenses.bsd3;

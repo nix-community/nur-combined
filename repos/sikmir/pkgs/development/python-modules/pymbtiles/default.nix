@@ -1,14 +1,14 @@
-{ lib, buildPythonPackage, pytest, sources }:
+{ lib, python3Packages, sources }:
 let
   pname = "pymbtiles";
   date = lib.substring 0 10 sources.pymbtiles.date;
   version = "unstable-" + date;
 in
-buildPythonPackage {
+python3Packages.buildPythonPackage {
   inherit pname version;
   src = sources.pymbtiles;
 
-  checkInputs = [ pytest ];
+  checkInputs = with python3Packages; [ pytest ];
   checkPhase = "pytest";
 
   meta = with lib; {

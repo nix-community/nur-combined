@@ -1,16 +1,16 @@
-{ lib, buildPythonApplication, mercantile, pymbtiles, pytest, setuptools, six, sources }:
+{ lib, python3Packages, mercantile, pymbtiles, sources }:
 let
   pname = "tpkutils";
   date = lib.substring 0 10 sources.tpkutils.date;
   version = "unstable-" + date;
 in
-buildPythonApplication {
+python3Packages.buildPythonApplication {
   inherit pname version;
   src = sources.tpkutils;
 
-  propagatedBuildInputs = [ mercantile pymbtiles setuptools six ];
+  propagatedBuildInputs = with python3Packages; [ mercantile pymbtiles setuptools six ];
 
-  checkInputs = [ pytest ];
+  checkInputs = with python3Packages; [ pytest ];
   checkPhase = "pytest";
 
   meta = with lib; {

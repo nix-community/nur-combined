@@ -1,18 +1,18 @@
-{ lib, buildPythonApplication, python, requests, gpxpy, sources }:
+{ lib, python3Packages, sources }:
 let
   pname = "gpxelevations";
   date = lib.substring 0 10 sources.gpxelevations.date;
   version = "unstable-" + date;
 in
-buildPythonApplication {
+python3Packages.buildPythonApplication {
   inherit pname version;
   src = sources.gpxelevations;
 
-  propagatedBuildInputs = [ requests gpxpy ];
+  propagatedBuildInputs = with python3Packages; [ requests gpxpy ];
 
   doCheck = false;
   #checkPhase = ''
-  #  ${python.interpreter} -m unittest test
+  #  ${python3Packages.python.interpreter} -m unittest test
   #'';
 
   meta = with lib; {

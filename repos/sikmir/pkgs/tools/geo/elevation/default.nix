@@ -1,16 +1,11 @@
 { lib
-, buildPythonApplication
-, fasteners
-, future
-, appdirs
+, python3Packages
 , click
 , gnumake
 , curl
 , unzip
 , gzip
 , gdal
-, pytest
-, pytest-mock
 , sources
 }:
 let
@@ -18,11 +13,11 @@ let
   date = lib.substring 0 10 sources.elevation.date;
   version = "unstable-" + date;
 in
-buildPythonApplication {
+python3Packages.buildPythonApplication {
   inherit pname version;
   src = sources.elevation;
 
-  propagatedBuildInputs = [ fasteners future appdirs click ];
+  propagatedBuildInputs = with python3Packages; [ fasteners future appdirs click ];
 
   postPatch = ''
     for f in elevation/datasource.* \
@@ -39,7 +34,7 @@ buildPythonApplication {
     done
   '';
 
-  checkInputs = [ pytest pytest-mock ];
+  checkInputs = with python3Packages; [ pytest pytest-mock ];
   checkPhase = "pytest";
 
   meta = with lib; {

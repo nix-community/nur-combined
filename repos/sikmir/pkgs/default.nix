@@ -1,6 +1,6 @@
 { pkgs, sources }:
 let
-  inherit (pkgs) lib newScope recurseIntoAttrs python3Packages libsForQt5;
+  inherit (pkgs) lib newScope recurseIntoAttrs libsForQt5;
 in
 lib.makeScope newScope (
   self: with self; {
@@ -14,6 +14,7 @@ lib.makeScope newScope (
     gpxsee = libsForQt5.callPackage ./applications/gpxsee {
       inherit sources;
     };
+    keeweb = callPackage ./applications/keeweb { };
     librewolf = callPackage ./applications/librewolf { };
     macpass = callPackage ./applications/macpass { };
     mapsoft = callPackage ./applications/mapsoft { };
@@ -84,28 +85,15 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / PYTHON MODULES
 
-    cheetah3 = python3Packages.callPackage ./development/python-modules/cheetah3 {
-      inherit sources;
-    };
-    click-6-7 = python3Packages.callPackage ./development/python-modules/click { };
-    gpxelevations = python3Packages.callPackage ./development/python-modules/gpxelevations {
-      inherit sources;
-    };
-    mercantile = python3Packages.callPackage ./development/python-modules/mercantile {
-      inherit sources;
-    };
-    mikatools = python3Packages.callPackage ./development/python-modules/mikatools {
-      inherit sources;
-    };
-    pyephem = python3Packages.callPackage ./development/python-modules/pyephem {
-      inherit sources;
-    };
-    python-hfst = python3Packages.callPackage ./development/python-modules/python-hfst {
-      inherit hfst;
-    };
-    pymbtiles = python3Packages.callPackage ./development/python-modules/pymbtiles {
-      inherit sources;
-    };
+    cheetah3 = callPackage ./development/python-modules/cheetah3 { };
+    click-6-7 = callPackage ./development/python-modules/click { };
+    gpxelevations = callPackage ./development/python-modules/gpxelevations { };
+    jsonseq = callPackage ./development/python-modules/jsonseq { };
+    mercantile = callPackage ./development/python-modules/mercantile { };
+    mikatools = callPackage ./development/python-modules/mikatools { };
+    pyephem = callPackage ./development/python-modules/pyephem { };
+    python-hfst = callPackage ./development/python-modules/python-hfst { };
+    pymbtiles = callPackage ./development/python-modules/pymbtiles { };
 
     ### TOOLS
 
@@ -115,8 +103,7 @@ lib.makeScope newScope (
     csvtools = callPackage ./tools/text/csvtools { };
     datamaps = callPackage ./tools/geo/datamaps { };
     docker-reg-tool = callPackage ./tools/docker-reg-tool { };
-    elevation = python3Packages.callPackage ./tools/geo/elevation {
-      inherit sources;
+    elevation = callPackage ./tools/geo/elevation {
       click = click-6-7;
     };
     gimgtools = callPackage ./tools/geo/gimgtools { };
@@ -126,18 +113,12 @@ lib.makeScope newScope (
     };
     gpxtools = callPackage ./tools/geo/gpxtools { };
     gt-bash-client = callPackage ./tools/dict/gt-bash-client { };
-    gt4gd = python3Packages.callPackage ./tools/dict/gt4gd {
-      inherit sources;
-    };
+    gt4gd = callPackage ./tools/dict/gt4gd { };
     i18n-editor = callPackage ./tools/i18n-editor { jre = pkgs.jdk11; };
     imgdecode = callPackage ./tools/geo/imgdecode { };
     ish = callPackage ./tools/networking/ish { };
-    lsdreader = python3Packages.callPackage ./tools/dict/lsdreader {
-      inherit sources;
-    };
-    morse-talk = python3Packages.callPackage ./tools/morse-talk {
-      inherit sources;
-    };
+    lsdreader = callPackage ./tools/dict/lsdreader { };
+    morse-talk = callPackage ./tools/morse-talk { };
     musig = callPackage ./tools/audio/musig { };
     ocad2img = perlPackages.callPackage ./tools/geo/ocad2img {
       inherit cgpsmapper ocad2mp;
@@ -158,13 +139,10 @@ lib.makeScope newScope (
         libmysqlclient = libmysql;
       }
       else callPackage ./tools/dict/stardict-tools { };
-    supermercado = python3Packages.callPackage ./tools/geo/supermercado {
-      inherit sources mercantile;
-    };
+    supermercado = callPackage ./tools/geo/supermercado { };
     supload = callPackage ./tools/supload { };
-    tpkutils = python3Packages.callPackage ./tools/geo/tpkutils {
-      inherit sources mercantile pymbtiles;
-    };
+    tilesets-cli = callPackage ./tools/geo/tilesets-cli { };
+    tpkutils = callPackage ./tools/geo/tpkutils { };
     xfractint = callPackage ./tools/xfractint { };
 
     ### SERVERS

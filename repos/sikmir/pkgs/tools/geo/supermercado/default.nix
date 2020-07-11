@@ -1,11 +1,7 @@
 { lib
 , fetchpatch
-, buildPythonApplication
-, click-plugins
-, rasterio
+, python3Packages
 , mercantile
-, numpy
-, pytest
 , sources
 }:
 let
@@ -13,7 +9,7 @@ let
   date = lib.substring 0 10 sources.supermercado.date;
   version = "unstable-" + date;
 in
-buildPythonApplication {
+python3Packages.buildPythonApplication {
   inherit pname version;
   src = sources.supermercado;
 
@@ -27,9 +23,9 @@ buildPythonApplication {
     )
   ];
 
-  propagatedBuildInputs = [ click-plugins rasterio mercantile numpy ];
+  propagatedBuildInputs = with python3Packages; [ click-plugins rasterio mercantile numpy ];
 
-  checkInputs = [ pytest ];
+  checkInputs = with python3Packages; [ pytest ];
   checkPhase = "pytest";
 
   meta = with lib; {

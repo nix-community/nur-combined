@@ -1,10 +1,10 @@
-{ lib, buildPythonPackage, sources }:
+{ lib, python3Packages, sources }:
 let
   pname = "cheetah3";
   date = lib.substring 0 10 sources.cheetah3.date;
   version = "unstable-" + date;
 in
-buildPythonPackage {
+python3Packages.buildPythonPackage {
   inherit pname version;
   src = sources.cheetah3;
 

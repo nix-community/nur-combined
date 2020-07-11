@@ -241,10 +241,10 @@
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "d6e07573641f90b83a7474d499c8f967a5b63118",
-        "sha256": "1kmxmdmjrzjf4ddix0ajan4sgwpiv15ih2vkra4snaajx98yzns2",
+        "rev": "5343a1a922f35b4fb66b6a99d6d912247c20aec0",
+        "sha256": "0idzj43gc3hzs9f8z8mhz0wq06vrslbsjkrqcnhx7rpayv5rqzs8",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/d6e07573641f90b83a7474d499c8f967a5b63118.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/5343a1a922f35b4fb66b6a99d6d912247c20aec0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -314,6 +314,20 @@
         "sha256": "17875c0rbbqyy3jzmvcysayamf04xxmhpm7395fkvi0q3zrmd06s",
         "type": "tarball",
         "url": "https://github.com/hfst/hfst/archive/a140e2868c15e9987d651aa3e6b344ec20ef3a33.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "jsonseq": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2019-07-31T19:44:30Z",
+        "description": "Python implementation of RFC 7464",
+        "homepage": "https://github.com/sgillies/jsonseq",
+        "owner": "sgillies",
+        "repo": "jsonseq",
+        "rev": "d9a9c86c6c05abca1ed2bdbff248eb3cd9f214fd",
+        "sha256": "0a2ivyc4dbfxnwc8phzgxxnmg57n5iwk4sjcnarhib25qkwbi6v9",
+        "type": "tarball",
+        "url": "https://github.com/sgillies/jsonseq/archive/d9a9c86c6c05abca1ed2bdbff248eb3cd9f214fd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "libshell": {
@@ -405,11 +419,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "155j0j2mas7rhz6ycj4ycqfjyhid62s12d0gfy1jf51w9aj9y0m7",
+        "sha256": "0qfmdbvxcj7plq1b5gv5hh64s6xylyixzxdapph8r754nmkd8zsl",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-07-08.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-07-10.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-07-08"
+        "version": "2020-07-10"
     },
     "mbtileserver": {
         "branch": "master",
@@ -671,6 +685,20 @@
         "sha256": "0di1hr9j2wdicj6n2mlf9achfxd05rqwrfnymsnxhhy7sv50n2bm",
         "type": "tarball",
         "url": "https://github.com/selectel/supload/archive/70690682867713c68d7c6daa833a1013e79df407.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "tilesets-cli": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-06-22T23:59:51Z",
+        "description": "CLI for interacting with the Mapbox Tilesets API",
+        "homepage": "https://docs.mapbox.com/api/maps/#tilesets",
+        "owner": "mapbox",
+        "repo": "tilesets-cli",
+        "rev": "419f9f9227354ff81d5c5b7bf9d6636019d04916",
+        "sha256": "1q3xz91477il7qr3dx47f89gjb3n7lc1nd07jcvg802lrppiszzd",
+        "type": "tarball",
+        "url": "https://github.com/mapbox/tilesets-cli/archive/419f9f9227354ff81d5c5b7bf9d6636019d04916.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tpkutils": {
