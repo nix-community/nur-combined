@@ -53,7 +53,7 @@ rec {
   };
 
   vkBasalt = pkgs.callPackage ./pkgs/tools/graphics/vkBasalt {
-    vkBasalt32 = vkBasalt.override { stdenv = pkgs.pkgsi686Linux.stdenv; };
+    vkBasalt32 = pkgs.pkgsi686Linux.callPackage ./pkgs/tools/graphics/vkBasalt {};
   };
 
   VVVVVV-unwrapped = pkgs.callPackage ./pkgs/games/VVVVVV {

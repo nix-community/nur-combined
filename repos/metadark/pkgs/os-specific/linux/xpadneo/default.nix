@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "xpadneo";
-  version = "0.7.6";
+  version = "0.8";
 
   src = fetchFromGitHub {
     owner = "atar-axis";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0j2kjbbpn3vgh3vwvjy2cvcb0hi56vnf634vxm56m001y55a8p4q";
+    sha256 = "0dlcl771wc3zwnw70pxskx0yr9safjgiwps533z20gclw6v5zdpp";
   };
 
   setSourceRoot = ''
