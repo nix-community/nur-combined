@@ -16,10 +16,9 @@ Name | Attribute | Description
 [pygls](https://github.com/openlawlibrary/pygls)|[nur.repos.metadark.pygls](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/development/python-modules/pygls/default.nix#L22)|Pythonic generic implementation of the Language Server Protocol
 [runescape-launcher](https://www.runescape.com)|[nur.repos.metadark.runescape-launcher](https://github.com/nix-community/nur-combined/tree/master/repos/metadark/pkgs/games/runescape-launcher/default.nix#L35)|RuneScape Game Client (NXT)
 [texlab](https://texlab.netlify.app)|[nur.repos.metadark.texlab](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/development/tools/misc/texlab/default.nix#L30)|An implementation of the Language Server Protocol for LaTeX
-[vkBasalt](https://github.com/DadSchoorse/vkBasalt)|[nur.repos.metadark.vkBasalt](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/tools/graphics/vkBasalt/default.nix#L37)|A Vulkan post processing layer for Linuxe
+[vkBasalt](https://github.com/DadSchoorse/vkBasalt)|[nur.repos.metadark.vkBasalt](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/tools/graphics/vkBasalt/default.nix#L37)|A Vulkan post processing layer for Linux
 [VVVVVV](https://thelettervsixtim.es)|[nur.repos.metadark.VVVVVV](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/games/VVVVVV/default.nix#L37)|A retro-styled 2D platformer
-[zynaddsubfx](https://zynaddsubfx.sourceforge.io)|[nur.repos.metadark.zynaddsubfx](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/applications/audio/zynaddsubfx/default.nix#L91)|High quality software synthesizer
-[zyn-fusion](https://zynaddsubfx.sourceforge.io/zyn-fusion.html)|[nur.repos.metadark.zyn-fusion](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/applications/audio/zynaddsubfx/default.nix#L91)|ZynAddSubFX with a new interactive UI
+[zynaddsubfx](https://zynaddsubfx.sourceforge.io)|[nur.repos.metadark.zynaddsubfx](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/applications/audio/zynaddsubfx/default.nix#L87)|High quality software synthesizer
 
 # NixOS Modules
 

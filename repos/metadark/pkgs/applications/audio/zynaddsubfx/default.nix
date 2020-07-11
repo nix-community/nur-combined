@@ -10,7 +10,7 @@
 , alsaSupport ? true, alsaLib ? null
 , dssiSupport ? false, dssi ? null, ladspaH ? null
 , jackSupport ? true, libjack2 ? null
-, lashSupport ? true, lash ? null
+, lashSupport ? false, lash ? null
 , ossSupport ? true
 , portaudioSupport ? true, portaudio ? null
 
@@ -40,16 +40,12 @@ assert guiModule == "ntk" -> ntk != null && cairo != null && libXpm != null;
 assert guiModule == "zest" -> libGL != null && libX11 != null;
 
 stdenv.mkDerivation rec {
-  pname =
-    if guiModule == "zest" then "zyn-fusion"
-    else if guiModule != "off" then "zynaddsubfx-${guiModule}"
-    else "zynaddsubfx";
-
+  pname = "zynaddsubfx";
   version = "3.0.5";
 
   src = fetchFromGitHub {
-    owner = "zynaddsubfx";
-    repo = "zynaddsubfx";
+    owner = pname;
+    repo = pname;
     rev = version;
     sha256 = "1vh1gszgjxwn8m32rk5222z1j2cnjax0bqpag7b47v6i36p2q4x8";
     fetchSubmodules = true;
@@ -88,16 +84,8 @@ stdenv.mkDerivation rec {
   checkInputs = [ cxxtest ];
 
   meta = with lib; {
-    description =
-      if guiModule == "zest"
-      then "ZynAddSubFX with a new interactive UI"
-      else "High quality software synthesizer";
-
-    homepage =
-      if guiModule == "zest"
-      then "https://zynaddsubfx.sourceforge.io/zyn-fusion.html"
-      else "https://zynaddsubfx.sourceforge.io";
-
+    description = "High quality software synthesizer";
+    homepage = "https://zynaddsubfx.sourceforge.io";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ goibhniu metadark nico202 ];

@@ -70,7 +70,7 @@ rec {
     kernel = pkgs.linux;
   };
 
-  zynaddsubfx = zynaddsubfx-ntk;
+  zynaddsubfx = zyn-fusion;
 
   zynaddsubfx-fltk = pkgs.callPackage ./pkgs/applications/audio/zynaddsubfx {
     guiModule = "fltk";
