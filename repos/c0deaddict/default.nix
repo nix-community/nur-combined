@@ -46,4 +46,6 @@ rec {
 
   nats-utils = pkgs.callPackage ./pkgs/nats-utils {};
 
+  lock-gnome-keyring = pkgs.callPackage ./pkgs/lock-gnome-keyring {};
+
 }
