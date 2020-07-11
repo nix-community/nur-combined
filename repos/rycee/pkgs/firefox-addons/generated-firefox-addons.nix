@@ -172,10 +172,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.14";
+      version = "4.9.15";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3603831/dark_reader-4.9.14-an+fx.xpi?src=";
-      sha256 = "fd0f1a37eb5f1a647987548bf0eca1ccf4670e908452c21bf63d1d2f54443e7e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3606434/dark_reader-4.9.15-an+fx.xpi?src=";
+      sha256 = "6b65131cbe79321ba9f59f0ec0439f9b34f9f69dac79ee48e1205155fb9f3e9b";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -420,10 +420,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.13.1";
+      version = "2.14.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3591288/ipfs_companion-2.13.1-an+fx.xpi?src=";
-      sha256 = "28ee4acffe4ebe824aff5ab649438c725bcd66512de4c8e6c2e6a0366547af9c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3606711/ipfs_companion-2.14.0-an+fx.xpi?src=";
+      sha256 = "73c5bfce18755300fbefad33cb1963349b0f3fb070eee3d1176f13a0daf5278c";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -503,10 +503,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "6.2.5";
+      version = "7.0.0";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3548609/firefox_multi_account_containers-6.2.5-fx.xpi?src=";
-      sha256 = "4f7b981adc510005ba7fed566ced1f5a31fb383993cb292741fd6a5d6db7f001";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3606067/firefox_multi_account_containers-7.0.0-fx.xpi?src=";
+      sha256 = "207715a624d3ed7efc0029f2611f939695065ca1ef7e3afb1cc99e6d13d2ee1f";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -601,10 +601,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.8.0";
+      version = "4.8.1";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3605959/react_developer_tools-4.8.0-fx.xpi?src=";
-      sha256 = "eb144f5c95f933bf0a04b8c8ef7e1f24b9d72c67ba2e2c6ea4c8e2107dd095f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3606608/react_developer_tools-4.8.1-fx.xpi?src=";
+      sha256 = "ff01d41a7456265c5a6455fe92eca0ec6815d30236d845569ec14d7708e51fd1";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -657,10 +657,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "20.4";
+      version = "20.5";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3604617/save_page_we-20.4-fx.xpi?src=";
-      sha256 = "f7df395452d05e0582631cd3f675981d4f7f58818708a6d80b008593a13fcfbb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3606517/save_page_we-20.5-fx.xpi?src=";
+      sha256 = "7b66757b34a4576bc1d8a8b5e38e00405b1324caf6426e86f5f2d50c2ca25112";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -807,10 +807,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.27.10";
+      version = "1.28.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3579401/ublock_origin-1.27.10-an+fx.xpi?src=";
-      sha256 = "d40f84113e7d7fa6289bdb8192fd9477abc4ed6d5dd40de55ddc79bed1ea070c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3600118/ublock_origin-1.28.0-an+fx.xpi?src=";
+      sha256 = "10579fe9c86aaf7436b949a02f187460f8c3a724f9bd179acbda309470b1d54c";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
