@@ -77,5 +77,35 @@ rec {
     Paperbash = paperbash;
     rangerplugins = rangerplugins;
   };
+  instantixos = pkgs.buildEnv {
+    name = "instantixos";
+    meta = with pkgs.lib; {
+      description = "instantOS metapackage for Nix";
+      license = licenses.mit;
+      homepage = "https://github.com/instantOS/instantOS";
+      maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
+      platforms = platforms.linux;
+    };
+    paths = [
+        imenu
+        instantassist
+        instantconf
+        instantdata
+        instantdotfiles
+        instantlogo
+        instantmenu
+        instantsettings
+        instantshell
+        instantthemes
+        instantutils
+        instantwallpaper
+        instantwelcome
+        instantwidgets
+        instantwm
+        paperbash
+        rangerplugins
+        spotify-adblock
+    ];
+  };
 }
 
