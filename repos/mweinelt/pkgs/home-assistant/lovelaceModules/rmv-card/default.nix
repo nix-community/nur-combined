@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "rmv-card";
-  version = "unstable-2020-05-25";
+  version = "unstable-2020-07-08";
 
   src = fetchFromGitHub {
-    owner = "cgtobi";
+    owner = "custom-cards";
     repo = "rmv-card";
-    rev = "0e2bb1874fed596a8bf7871dcfcaf775c505e62e";
-    sha256 = "01cip9rvhb5hq960lx2ipxjh7hdj5jyl4b0vbq0588j1dz3bnrq2";
+    rev = "fcfae8e370b33216e0c257f9bc23cb9c10097d0e";
+    sha256 = "0ds82rrfw84ykbg42srihrvg53apfhfybl0z2d0g245bx0iamnq0";
   };
 
   installPhase = ''
