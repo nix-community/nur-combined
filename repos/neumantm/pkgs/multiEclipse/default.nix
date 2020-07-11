@@ -32,7 +32,7 @@ let
 
       ${executableSelector}
 
-      ${coreutils}/bin/nohup $executable >${logFile} &
+      HOME="$HOME/.eclipse-$variant"; ${coreutils}/bin/nohup $executable >${logFile} &
       
       sleep 0.1
     '';
