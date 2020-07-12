@@ -1,9 +1,0 @@
-diff -ur a/theme.sh b/theme.sh
---- a/theme.sh	2020-05-27 12:07:30.000000000 +0200
-+++ b/theme.sh	2020-07-03 14:20:23.270975074 +0200
-@@ -1,4 +1,4 @@
--#!/bin/bash
-+#!/bin/sh
- 
- THEME=themes/${1:-arc}.theme
- echo "$THEME"

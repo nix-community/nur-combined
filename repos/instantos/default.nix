@@ -35,6 +35,7 @@ rec {
   instantutils = pkgs.callPackage ./pkgs/instantUtils { 
     rangerplugins = rangerplugins;
     xfce4-power-manager = pkgs.xfce.xfce4-power-manager;
+    zenity = pkgs.gnome3.zenity;
   };
   instantmenu = pkgs.callPackage ./pkgs/instantMENU {
     instantUtils = instantutils;

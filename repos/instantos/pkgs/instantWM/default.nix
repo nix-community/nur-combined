@@ -23,7 +23,6 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    ./shebang-script.patch
     ./config_def_h.patch
   ];
 
@@ -53,8 +52,9 @@ stdenv.mkDerivation rec {
     instantUtils
   ];
 
-  configurePhase = ''
-    ./theme.sh
+  installPhase = ''
+    install -Dm 555 instantwm $out/bin/instantwm
+    #install -Dm 555 startinstantos $out/bin/startinstantos
   '';
 
   meta = with lib; {

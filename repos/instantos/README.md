@@ -6,6 +6,17 @@
 
 # Usage
 
+To install, clone the repository, then inside it run:
+
+```nix
+nix-env -iA instantixos -f default.nix
+```
+
+After that run `instantWM` as you would any other window manager, e.g. by putting it in your `~/.xinitrc`.
+In the future, there will be a `startinstantos` command to run instead.
+
+# Usage via NUR
+
 Accessing NUR can be done easily. Just add the following to `~/.config/nixpkgs/config.nix`:
 
 ```nix
@@ -25,6 +36,7 @@ Then you can add `nur.repos.instantos.PACKAGE_NAME` to your `configuration.nix` 
 ```console
 $ nix-env -f '<nixpkgs>' -iA nur.repos.instantos.PACKAGE_NAME
 ```
+# Faster installation wich cachix
 
 You may want to install cachix and take advante of the build artefact caching with:
 
@@ -35,5 +47,3 @@ $ cachix use instantos
 
 [![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
 [![Cachix Cache](https://img.shields.io/badge/cachix-instantos-blue.svg)](https://instantos.cachix.org)
-
-

@@ -14,6 +14,7 @@
 , rofi
 , st
 , xfce4-power-manager
+, zenity
 }:
 stdenv.mkDerivation rec {
 
@@ -66,7 +67,7 @@ stdenv.mkDerivation rec {
     substituteInPlace programs/ipicom \
       --replace "picom " "${picom}/bin/picom "
   '';
-  
+
   installPhase = ''
     install -Dm 555 autostart.sh $out/bin/instantautostart
     install -Dm 555 status.sh $out/bin/instantstatus
@@ -74,7 +75,7 @@ stdenv.mkDerivation rec {
 
     install -Dm 555 instantutils.sh $out/bin/instantutils
     install -Dm 555 installinstantos.sh $out/bin/installinstantos
-    
+
     mkdir -p $out/share/instantutils
     chmod +x *.sh
     mv *.sh $out/share/instantutils
@@ -100,6 +101,7 @@ stdenv.mkDerivation rec {
     rangerplugins
     st
     xfce4-power-manager
+    zenity
   ];
 
   meta = with lib; {
