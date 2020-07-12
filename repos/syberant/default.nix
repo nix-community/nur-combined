@@ -2,6 +2,7 @@
 
 rec {
 	rofi-unwrapped-git = pkgs.callPackage ./pkgs/rofi-unwrapped-git {};
+        emojipicker = pkgs.callPackage ./pkgs/emojipicker {};
         powermenu = pkgs.callPackage ./pkgs/adi1090x/powermenu {
           inherit rofi-unwrapped-git;
         };
