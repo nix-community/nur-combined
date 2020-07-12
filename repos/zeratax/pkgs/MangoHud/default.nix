@@ -1,7 +1,8 @@
 { stdenv, lib, fetchFromGitHub
 , pkgconfig, ninja, meson
 , python3Packages, glslang, libglvnd
-, xorg, git, vulkan-loader, vulkan-headers, vulkan-tools, mesa, dbus }:
+, xorg, git, vulkan-loader, vulkan-headers, vulkan-tools, mesa, dbus, libprefix ? "lib" }:
+
 
 stdenv.mkDerivation rec {
   pname = "mangohud";
@@ -17,10 +18,13 @@ stdenv.mkDerivation rec {
   };
 
   mesonFlags = [
+    # "-Dmangohud_prefix=${libprefix}-"
     "-Dappend_libdir_mangohud=false"
     "-Dwith_xnvctrl=disabled"
     "-Duse_system_vulkan=enabled"
+    "--libdir=${libprefix}"
   ];
+
 
   buildInputs = [
     libglvnd glslang python3Packages.Mako

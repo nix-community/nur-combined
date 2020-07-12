@@ -17,8 +17,9 @@ rec {
  
   # applications
 
-  mangohud-x86 = pkgs.pkgsi686Linux.callPackage ./pkgs/MangoHud { };
-  mangohud = pkgs.callPackage ./pkgs/MangoHud { };
+  mangohud_64 = pkgs.callPackage ./pkgs/MangoHud { };
+  mangohud_32 = pkgs.pkgsi686Linux.callPackage ./pkgs/MangoHud { };
+  mangohud = pkgs.callPackage ./pkgs/MangoHud/combined.nix { };
 
   mirage-im = pkgs.libsForQt5.callPackage ./pkgs/mirage { myPython3Packages = python3Packages; };
 
