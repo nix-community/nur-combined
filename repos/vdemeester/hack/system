@@ -22,7 +22,7 @@ function dry-build() {
     local machine
     machine="$(hostname)"
     unset NIX_PATH
-    nix-build --dry-run --out-link "$WORK_DIR" -A "$machine" ||
+    nix build systems.nix --dry-run --out-link "$WORK_DIR" "$machine" ||
         error "Failed to build system"
 }
 
@@ -31,7 +31,7 @@ function build() {
     local machine
     machine="$(hostname)"
     unset NIX_PATH
-    nix-build --out-link "$WORK_DIR" -A "$machine" ||
+    nix build -f systems.nix --out-link "$WORK_DIR" "$machine" ||
         error "Failed to build system"
 }
 

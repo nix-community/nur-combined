@@ -11,7 +11,7 @@ tasks:
     set +x
     export CACHIX_SIGNING_KEY=$(cat ~/.cachix.key)
     set -x
-    nix-build home/ci.nix -A cacheOutputs | cachix push shortbrain
+    nix build --verbose -f home/ci.nix cacheOutputs | cachix push shortbrain
 - nur-update: |
     curl -XPOST "https://nur-update.herokuapp.com/update?repo=vdemeester"
 triggers:
