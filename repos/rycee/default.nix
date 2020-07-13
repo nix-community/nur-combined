@@ -22,6 +22,8 @@ in {
 
   nix-stray-roots = pkgs.callPackage ./pkgs/nix-stray-roots { };
 
+  dbus-codegen-rust = pkgs.callPackage ./pkgs/dbus-codegen-rust { };
+
   terraform-provider-keycloak =
     pkgs.callPackage ./pkgs/terraform-provider-keycloak { };
 
