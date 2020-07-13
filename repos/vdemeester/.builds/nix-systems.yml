@@ -10,13 +10,13 @@ tasks:
     set +x
     export CACHIX_SIGNING_KEY=$(cat ~/.cachix.key)
     set -x
-    nix-shell --run "nix build -f home/systems.nix systems --dry-run"
+    nix-shell home/shell.nix --run "nix build -f home/systems.nix systems --dry-run"
 - build-servers: |
     set -euo pipefail
     set +x
     export CACHIX_SIGNING_KEY=$(cat ~/.cachix.key)
     set -x
-    nix-shell --run "nix build -f home/systems.nix sakhalin okinawa kerkouane"
+    nix-shell home/shell.nix --run "nix build -f home/systems.nix sakhalin okinawa kerkouane"
 triggers:
 - action: email
   condition: failure
