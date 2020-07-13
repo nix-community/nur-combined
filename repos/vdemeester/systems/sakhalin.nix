@@ -69,6 +69,26 @@ in
   fileSystems."/export/toshito" = { device = "/mnt/toshito"; options = [ "bind" ]; };
 
   services = {
+    tarsnap = {
+      enable = true;
+      archives = {
+        documents = {
+          directories = [ "/home/vincent/desktop/documents" ];
+          period = "daily";
+          keyfile = "/etc/nixos/assets/tarsnap.documents.key";
+        };
+        org = {
+          directories = [ "/home/vincent/desktop/org" ];
+          period = "daily";
+          keyfile = "/etc/nixos/assets/tarsnap.org.key";
+        };
+        sites = {
+          directories = [ "/home/vincent/desktop/sites" ];
+          period = "daily";
+          keyfile = "/etc/nixos/assets/tarsnap.sites.key";
+        };
+      };
+    };
     nfs.server = {
       enable = true;
       exports = ''
@@ -76,6 +96,11 @@ in
         /export/gaia                 192.168.1.0/24(rw,fsid=1,no_subtree_check) 10.100.0.0/24(rw,fsid=1,no_subtree_check)
         /export/toshito              192.168.1.0/24(rw,fsid=2,no_subtree_check) 10.100.0.0/24(rw,fsid=2,no_subtree_check)
       '';
+    };
+    nix-binary-cache = {
+      enable = true;
+      domain = "nix.cache.home";
+      aliases = [ "cache.sakhalin.home" ];
     };
     bind = {
       enable = true;

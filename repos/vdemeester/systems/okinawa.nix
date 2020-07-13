@@ -91,32 +91,7 @@ in
         }
       ];
     };
-    nix-binary-cache = {
-      enable = true;
-      domain = "nix.cache.home";
-      aliases = [ "cache.massimo.home" "nix.okinawa.home" ];
-    };
     syncthing.guiAddress = "0.0.0.0:8384";
-    tarsnap = {
-      enable = true;
-      archives = {
-        documents = {
-          directories = [ "/home/vincent/desktop/documents" ];
-          period = "daily";
-          keyfile = "/etc/nixos/assets/tarsnap.documents.key";
-        };
-        org = {
-          directories = [ "/home/vincent/desktop/org" ];
-          period = "daily";
-          keyfile = "/etc/nixos/assets/tarsnap.org.key";
-        };
-        sites = {
-          directories = [ "/home/vincent/desktop/sites" ];
-          period = "daily";
-          keyfile = "/etc/nixos/assets/tarsnap.sites.key";
-        };
-      };
-    };
     wireguard = {
       enable = true;
       ips = ips;
