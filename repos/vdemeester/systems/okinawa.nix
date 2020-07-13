@@ -60,6 +60,11 @@ in
   };
 
   services = {
+    nix-binary-cache = {
+      enable = true;
+      domain = "nix.cache.home";
+      aliases = [ "cache.sakhalin.home" ];
+    };
     bind = {
       enable = true;
       forwarders = [ "8.8.8.8" "8.8.4.4" ];

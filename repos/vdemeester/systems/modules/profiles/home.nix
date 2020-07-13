@@ -28,7 +28,7 @@ in
         "${wireguard.ips.sakhalin}" = [ "sakhalin.vpn" ];
         "${wireguard.ips.massimo}" = [ "massimo.vpn" ];
         "${home.ips.synodine}" = [ "synodine.home" ];
-        "${home.ips.okinawa}" = [ "okinawa.home" "cache.home" "svc.home" "nix.cache.home" "go.cache.home" ];
+        "${home.ips.okinawa}" = [ "okinawa.home" ];
         "${wireguard.ips.okinawa}" = [ "okinawa.vpn" ];
         "${wireguard.ips.carthage}" = [ "carthage.vpn" ];
         "${wireguard.ips.kerkouane}" = [ "kerkouane.vpn" ];
