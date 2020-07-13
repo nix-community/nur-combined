@@ -117,12 +117,12 @@
   },
   {
     "name": "angelsaddons-petrotrain",
-    "version": "0.5.8",
-    "file_name": "angelsaddons-petrotrain_0.5.8.zip",
-    "download_url": "/download/angelsaddons-petrotrain/5ed4d8fd196b49000e48994b",
-    "sha1": "f526310e3b3b358039cc6c283c35c9a68dc6f1df",
+    "version": "0.5.9",
+    "file_name": "angelsaddons-petrotrain_0.5.9.zip",
+    "download_url": "/download/angelsaddons-petrotrain/5f0834b370b3b6573af19669",
+    "sha1": "9850c341fc52540cea991cad7fe1211a8702f461",
     "dependencies": [
-      "base >= 0.18.27"
+      "base >= 0.18.33"
     ]
   },
   {
@@ -138,12 +138,12 @@
   },
   {
     "name": "angelsaddons-smeltingtrain",
-    "version": "0.3.7",
-    "file_name": "angelsaddons-smeltingtrain_0.3.7.zip",
-    "download_url": "/download/angelsaddons-smeltingtrain/5ed4d903196b49000d9754a9",
-    "sha1": "255e79bd89ee69fbb4be8e9f7d8e8305056ad3b6",
+    "version": "0.3.8",
+    "file_name": "angelsaddons-smeltingtrain_0.3.8.zip",
+    "download_url": "/download/angelsaddons-smeltingtrain/5f0834ad43437b0f1fd13547",
+    "sha1": "951be252a8e5ca3b632b5de407dd20f618b07fd4",
     "dependencies": [
-      "base >= 0.18.27"
+      "base >= 0.18.33"
     ]
   },
   {
@@ -159,13 +159,13 @@
   },
   {
     "name": "angelsbioprocessing",
-    "version": "0.7.11",
-    "file_name": "angelsbioprocessing_0.7.11.zip",
-    "download_url": "/download/angelsbioprocessing/5eda108545bf02000b33dd1a",
-    "sha1": "0be446ac53e4bd5494b045a6e7fa30229aea2ddd",
+    "version": "0.7.12",
+    "file_name": "angelsbioprocessing_0.7.12.zip",
+    "download_url": "/download/angelsbioprocessing/5f0834dfd6dc19faf1dc0d7a",
+    "sha1": "b929fce962207fc036cfab075f4270118976a401",
     "dependencies": [
       "base >= 0.18.27",
-      "angelsrefining >= 0.11.11",
+      "angelsrefining >= 0.11.14",
       "angelspetrochem >= 0.9.9",
       "angelssmelting >= 0.6.7",
       "? bobenemies >= 0.18.5"
@@ -173,31 +173,33 @@
   },
   {
     "name": "angelsexploration",
-    "version": "0.3.5",
-    "file_name": "angelsexploration_0.3.5.zip",
-    "download_url": "/download/angelsexploration/5ed0e270fc8151000c6319fb",
-    "sha1": "f3928fb66cd1a0c8c4a34a4baf1fa5f795ac76a6",
+    "version": "0.3.6",
+    "file_name": "angelsexploration_0.3.6.zip",
+    "download_url": "/download/angelsexploration/5f0834bfbcdfb2bf1060c903",
+    "sha1": "f164051b3834b939dccf4a04083d99a7cf7cc801",
     "dependencies": [
       "base >= 0.18.27",
-      "? angelsindustries >= 0.4.1",
-      "? bobenemies >= 0.18.5"
+      "angelsindustries >= 0.4.4",
+      "? bobenemies >= 0.18.5",
+      "? bobwarfare >= 0.18.6"
     ]
   },
   {
     "name": "angelsindustries",
-    "version": "0.4.3",
-    "file_name": "angelsindustries_0.4.3.zip",
-    "download_url": "/download/angelsindustries/5eda107c1d9958000bc09c3b",
-    "sha1": "05c0812a9f24afef46a900efca8c365246cac5a3",
+    "version": "0.4.4",
+    "file_name": "angelsindustries_0.4.4.zip",
+    "download_url": "/download/angelsindustries/5f0834cf93b329bf7800410c",
+    "sha1": "cc9c67c318975f84e43c6b44aa7017195dc73f94",
     "dependencies": [
-      "base >= 0.18.27",
-      "angelsrefining >= 0.11.13",
-      "angelspetrochem >= 0.9.9",
+      "base >= 0.18.33",
+      "angelsrefining >= 0.11.14",
+      "angelspetrochem >= 0.9.12",
       "angelsbioprocessing >= 0.7.9",
       "angelssmelting >= 0.6.7",
       "(?)bobtech >= 0.18.3",
       "(?)aai-industry >= 0.4.12",
-      "(?)bobrevamp >= 0.18.5"
+      "(?)bobrevamp >= 0.18.5",
+      "(?)bobassembly >= 0.18.6"
     ]
   },
   {
@@ -223,13 +225,13 @@
   },
   {
     "name": "angelspetrochem",
-    "version": "0.9.11",
-    "file_name": "angelspetrochem_0.9.11.zip",
-    "download_url": "/download/angelspetrochem/5eda109145bf02000d79b820",
-    "sha1": "a78a61bac002e272767538ef00f0e9369aaf174b",
+    "version": "0.9.12",
+    "file_name": "angelspetrochem_0.9.12.zip",
+    "download_url": "/download/angelspetrochem/5f0834f65ee9e93929e52d00",
+    "sha1": "9e550caa22c8fb8de233d2d231670c8fe528cef5",
     "dependencies": [
       "base >= 0.18.27",
-      "angelsrefining >= 0.11.11",
+      "angelsrefining >= 0.11.14",
       "? bobplates >= 0.18.8",
       "? bobassembly >= 0.18.5",
       "? bobrevamp >= 0.18.5"
@@ -237,10 +239,10 @@
   },
   {
     "name": "angelsrefining",
-    "version": "0.11.13",
-    "file_name": "angelsrefining_0.11.13.zip",
-    "download_url": "/download/angelsrefining/5eda10b31d9958000c071e0c",
-    "sha1": "4de6a07b573f035c73b6f10a3e14b25fb04c0d6f",
+    "version": "0.11.14",
+    "file_name": "angelsrefining_0.11.14.zip",
+    "download_url": "/download/angelsrefining/5f0835132cae516efb329850",
+    "sha1": "c487bfb7a292145f66bad6d743fb7026703ac21a",
     "dependencies": [
       "base >= 0.18.27",
       "? rso-mod >= 2.3.3",
@@ -253,14 +255,14 @@
   },
   {
     "name": "angelssmelting",
-    "version": "0.6.8",
-    "file_name": "angelssmelting_0.6.8.zip",
-    "download_url": "/download/angelssmelting/5ed4d934a7214d000c1907e4",
-    "sha1": "d1bd3e123fc92912f2e73e45e6a7e7fc42c55e94",
+    "version": "0.6.9",
+    "file_name": "angelssmelting_0.6.9.zip",
+    "download_url": "/download/angelssmelting/5f0834ec93b329bf78004277",
+    "sha1": "cc129103f33bc2b52b108da712689f75f25651b6",
     "dependencies": [
       "base >= 0.18.27",
       "angelspetrochem >= 0.9.9",
-      "angelsrefining >= 0.11.11",
+      "angelsrefining >= 0.11.14",
       "? bobplates >= 0.18.8"
     ]
   },

@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bundix nixpkgs-fmt
+#!nix-shell -i bash -I nixpkgs=https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz -p bundix nixpkgs-fmt
 
 set -o errexit
 set -o nounset
