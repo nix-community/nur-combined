@@ -399,8 +399,8 @@ in {
   };
 
   php72 = generic {
-    version = "7.2.31";
-    sha256 = "1z7h3j343x0k2y5ji7vv6rmim98kgz950mvd6nys5rvcq2a89pj5";
+    version = "7.2.32";
+    sha256 = "15zgk595x11h0ahapav31m3r0grr5cy20ji97lscxzp09acbrnf5";
 
     extraPatches = [
       # PKG_CONFIG need not be a relative path
@@ -411,8 +411,8 @@ in {
   };
 
   php73 = generic {
-    version = "7.3.19";
-    sha256 = "1vcx5as2wl1wz5hg1fg78l4ixfwhsf7znr7vrs0avljcibv843vc";
+    version = "7.3.20";
+    sha256 = "1qhk3ja94wa3z7jvwhcjjcvlhjrkbxy8p60pdlikqymc1skzc2kp";
 
     extraPatches = [
       # PKG_CONFIG need not be a relative path
@@ -423,13 +423,13 @@ in {
   };
 
   php74 = generic {
-    version = "7.4.7";
-    sha256 = "0hgf6671wlpm8l14l14dig5mp3kb3daraidds4pza2l4q7lvyb9b";
+    version = "7.4.8";
+    sha256 = "01zrk3m09fzh7cwq9v08lhw189g6dd69hclnh7x80md5nzbqv7p7";
   };
 
   php80 = generic {
-    version = "8.0.0-alpha-1";
-    rev = "3f95989a32c45ba2a25001de69673242e9efb52d";
-    sha256 = "190pyzzh3dbbgdzl87rlxrmgaikijwxx3mdxkmsk9gd2079hr22n";
+    version = "8.0.0-alpha-2";
+    rev = "2b6c80f22b1c5d90879eac185bfe58c4fa1c147b";
+    sha256 = "1hli547gjgg42s3ddziny7g2j1ndz3p922yrizdmapvw9d3yclqc";
   };
 }

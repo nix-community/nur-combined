@@ -61,12 +61,12 @@ let
   };
 
   ast = buildPecl {
-    version = "1.0.6";
+    version = "1.0.7";
     pname = "ast";
 
-    sha256 = "07k32p5nrmcmmr4ibm3z7qza42mcfhx4i65hdc826qmbsl27nd3h";
+    sha256 = "19ak7glrinhw7v1nc1mn9zjir3cfk1lz4gll9dl2g74jsr1limfb";
 
-    meta.broken = isPhp56;
+    meta.broken = (isPhp56 || isPhp80);
   };
 
   box = mkDerivation rec {
@@ -359,9 +359,9 @@ let
 
   mongodb = buildPecl {
     pname = "mongodb";
-    version = "1.7.4";
+    version = "1.7.5";
 
-    sha256 = "16l5ls45licfji3cv87n1rc9y7bvqh7hwnh7bgqczmnpc3l8pv0w";
+    sha256 = "0yf3h70iqdk3b8va4i15la8whq8q91gip6crh9ibxs0aiihhg2p4";
 
     nativeBuildInputs = with pkgs; [ pkgconfig ];
     buildInputs = with pkgs; [
@@ -647,12 +647,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.12.1";
+    version = "3.12.2";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "0m23hls8afmcdar9n8g1ygimn9928hfdik2mx92fays7vmmhnfxw";
+      sha256 = "1m82q5928gwii71bjcpxn1n524fwcgnwqy964a719n39hhwacqa4";
     };
 
     phases = [ "installPhase" ];
@@ -772,12 +772,12 @@ let
   };
 
   redis50 = buildPecl {
-    version = "5.3.0";
+    version = "5.3.1";
     pname = "redis";
 
-    sha256 = "19ahsi13jkscsx9w9dzzva7lz2qb1j4k4fc29mc0xzkm16g2slyd";
+    sha256 = "17c0m3fq2qmhlmicz3viwnarivfkqkx482y0rk658sxwbjff8abw";
 
-    meta.broken = isPhp56;
+    meta.broken = (isPhp56 || isPhp80);
   };
 
   sqlsrv = buildPecl {
