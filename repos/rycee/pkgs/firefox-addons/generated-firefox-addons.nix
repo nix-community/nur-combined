@@ -406,10 +406,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.1.8";
+      version = "3.1.9";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3588161/i_dont_care_about_cookies-3.1.8-an+fx.xpi?src=";
-      sha256 = "28fcc9da23bc6d1c416e17724f2b3bf02bdc09ee960dc107ba2bcd245dd885a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3607845/i_dont_care_about_cookies-3.1.9-an+fx.xpi?src=";
+      sha256 = "e0dd9e4709cf55046bd723efe6766db15adfd34d0dddee6a7cf246b02b2927bd";
       meta = with stdenv.lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -447,10 +447,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.6.5";
+      version = "1.6.6";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3606876/keepassxc_browser-1.6.5-fx.xpi?src=";
-      sha256 = "e3c530aec97c4faf7398133b2722529fc7370f1829cf241fe185408f0c3d928b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3607887/keepassxc_browser-1.6.6-fx.xpi?src=";
+      sha256 = "3930790042e467c3c48a81ce84cfc4e3a1687c198b63358118fa220ed2838c80";
       meta = with stdenv.lib;
       {
         homepage = "https://keepassxc.org/";
@@ -807,10 +807,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.28.0";
+      version = "1.28.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3600118/ublock_origin-1.28.0-an+fx.xpi?src=";
-      sha256 = "10579fe9c86aaf7436b949a02f187460f8c3a724f9bd179acbda309470b1d54c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3606998/ublock_origin-1.28.2-an+fx.xpi?src=";
+      sha256 = "09fc8886b1d91b5e006ff2482a0568ec457cd51183aa444bed2455d03f8ef5bd";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
