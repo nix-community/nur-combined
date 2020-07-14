@@ -48,4 +48,6 @@ rec {
 
   lock-gnome-keyring = pkgs.callPackage ./pkgs/lock-gnome-keyring {};
 
+  goreplay = pkgs.callPackage ./pkgs/goreplay {};
+
 }

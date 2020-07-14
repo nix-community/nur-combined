@@ -11,8 +11,7 @@ buildGoModule rec {
     sha256 = "1nfl44jc0wj48f6x6hsxbwb4hn7zah3vk7f2ilg322c432kwj6kg";
   };
 
-  vendorSha256 = "0cc43b5j4isd02i70x8wcav824zaj4a0azcnmg5d16l9817gy5n0";
-  # TODO: remove for NixOS >= 20.09
+  vendorSha256 = "1akmpvbr150l6dpf6f1r2yfql2kk2avcpqpqzmnx2x2yamy408ay";
   modSha256 = vendorSha256;
 
   buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
@@ -21,11 +20,11 @@ buildGoModule rec {
     mv examples utils
   '';
 
-  overrideModAttrs = _: {
-    postBuild = ''
-      [ -e vendor/modules.txt ] && sed -i '/## explicit/d' vendor/modules.txt
-    '';
-  };
+  # overrideModAttrs = _: {
+  #   postBuild = ''
+  #     [ -e vendor/modules.txt ] && sed -i '/## explicit/d' vendor/modules.txt
+  #   '';
+  # };
 
   goPackagePath = "github.com/nats-io/nats.go";
   subPackages = [
