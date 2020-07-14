@@ -459,6 +459,25 @@
         platforms = platforms.all;
         };
       };
+    "lastpass-password-manager" = buildFirefoxXpiAddon {
+      pname = "lastpass-password-manager";
+      version = "4.51.0.1";
+      addonId = "support@lastpass.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3601545/lastpass_password_manager-4.51.0.1-an+fx.xpi?src=";
+      sha256 = "5ab2106cc70b8dbf84a7f400ce97155e68d3c619a762da46cb462ccbb5ec507f";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://lastpass.com/";
+        description = "LastPass, an award-winning password manager, saves your passwords and gives you secure access from every computer and mobile device.";
+        license = {
+          shortName = "unfree";
+          fullName = "Unfree";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/lastpass-password-manager/license/";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
       version = "1.0.6";

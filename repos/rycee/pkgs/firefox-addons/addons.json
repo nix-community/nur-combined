@@ -125,6 +125,16 @@
     "slug": "keepassxc-browser"
   },
   {
+    "slug": "lastpass-password-manager",
+    "license": {
+      "tag": "custom",
+      "shortName": "unfree",
+      "fullName": "Unfree",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/lastpass-password-manager/license/",
+      "free": false
+    }
+  },
+  {
     "slug": "leechblock-ng"
   },
   {
