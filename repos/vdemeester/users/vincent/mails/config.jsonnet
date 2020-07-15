@@ -162,6 +162,7 @@ local google_groups(name, label = '') =
     label_archive({from: 'do-not-reply@trello.com'}, '_tracker/trello') +
     label_archive({from: 'help-ops@redhat.com'}, '_tracker/rh_service_now') +
     label_archive({from: 'hss-jira@redhat.com'}, '_tracker/jira') +
+    label_archive({from: 'issues@jboss.org'}, '_tracker/jira') +
     label_archive({from: 'jira@jira.prod.coreos.systems'}, '_tracker/jira') +
     label_archive({from: 'kundenservice@egencia.de'}, '_tracker/egencia') +
     label_archive({from: 'people-helpdesk@redhat.com'}, '_tracker/rh_service_now') +
