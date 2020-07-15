@@ -50,26 +50,10 @@ let
 
   manifest_v2_url = args: (manifest_v1_url args) + ".toml";
 
-  # Intersection of rustup-dist/src/dist.rs listed platforms and stdenv/default.nix.
-  hostTripleOf = system: { # switch
-    "i686-linux"      = "i686-unknown-linux-gnu";
-    "x86_64-linux"    = "x86_64-unknown-linux-gnu";
-    "armv5tel-linux"  = "arm-unknown-linux-gnueabi";
-    "armv6l-linux"    = "arm-unknown-linux-gnueabi";
-    "armv7a-android"  = "armv7-linux-androideabi";
-    "armv7l-linux"    = "armv7-unknown-linux-gnueabihf";
-    "aarch64-linux"   = "aarch64-unknown-linux-gnu";
-    "mips64el-linux"  = "mips64el-unknown-linux-gnuabi64";
-    "x86_64-darwin"   = "x86_64-apple-darwin";
-    "i686-cygwin"     = "i686-pc-windows-gnu"; # or msvc?
-    "x86_64-cygwin"   = "x86_64-pc-windows-gnu"; # or msvc?
-    "x86_64-freebsd"  = "x86_64-unknown-freebsd";
-  }.${system} or (throw "Rust overlay does not support ${system} yet.");
-
   getComponentsWithFixedPlatform = pkgs: pkgname: stdenv:
     let
       pkg = pkgs.${pkgname};
-      srcInfo = pkg.target.${hostTripleOf stdenv.system} or pkg.target."*";
+      srcInfo = pkg.target.${super.rust.toRustTarget stdenv.targetPlatform} or pkg.target."*";
       components = srcInfo.components or [];
       componentNamesList =
         builtins.map (pkg: pkg.pkg) (builtins.filter (pkg: (pkg.target != "*")) components);
@@ -80,7 +64,7 @@ let
     let
       inherit (super.lib) unique;
       pkg = pkgs.${pkgname};
-      srcInfo = pkg.target.${hostTripleOf stdenv.system} or pkg.target."*";
+      srcInfo = pkg.target.${super.rust.toRustTarget stdenv.targetPlatform} or pkg.target."*";
       extensions = srcInfo.extensions or [];
       extensionNamesList = unique (builtins.map (pkg: pkg.pkg) extensions);
     in
@@ -135,7 +119,7 @@ let
       inherit (super.lib) flatten remove subtractLists unique;
       targetExtensionsToInstall = checkMissingExtensions pkgs pkgname stdenv targetExtensions;
       extensionsToInstall = checkMissingExtensions pkgs pkgname stdenv extensions;
-      hostTargets = [ "*" (hostTripleOf stdenv.system)];
+      hostTargets = [ "*" (super.rust.toRustTarget stdenv.hostPlatform) (super.rust.toRustTarget stdenv.targetPlatform) ];
       pkgTuples = flatten (getTargetPkgTuples pkgs pkgname hostTargets targets stdenv);
       extensionTuples = flatten (map (name: getTargetPkgTuples pkgs name hostTargets targets stdenv) extensionsToInstall);
       targetExtensionTuples = flatten (map (name: getTargetPkgTuples pkgs name targets targets stdenv) targetExtensionsToInstall);
