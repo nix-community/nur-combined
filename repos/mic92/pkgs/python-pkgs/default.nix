@@ -5,6 +5,8 @@ in
 rec {
   blurhash = callPackage ./blurhash.nix { };
 
+  chump = callPackage ./chump.nix { };
+
   jupyterthemes = callPackage ./jupyterthemes.nix {
     inherit lesscpy;
   };
