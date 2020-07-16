@@ -522,10 +522,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "7.0.0";
+      version = "7.0.1";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3606067/firefox_multi_account_containers-7.0.0-fx.xpi?src=";
-      sha256 = "207715a624d3ed7efc0029f2611f939695065ca1ef7e3afb1cc99e6d13d2ee1f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3608701/firefox_multi_account_containers-7.0.1-fx.xpi?src=";
+      sha256 = "9079262062658deb1cdd590269b56d15a2c46a74d392d45b432948c29c533296";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -620,10 +620,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.8.1";
+      version = "4.8.2";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3606608/react_developer_tools-4.8.1-fx.xpi?src=";
-      sha256 = "ff01d41a7456265c5a6455fe92eca0ec6815d30236d845569ec14d7708e51fd1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3609068/react_developer_tools-4.8.2-fx.xpi?src=";
+      sha256 = "4b68a11676665e966a916f143f5c26adf6e567f5c0a57a82cca690fa93ad1b57";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -634,10 +634,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.20.1";
+      version = "5.20.2";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3595339/reddit_enhancement_suite-5.20.1-an+fx.xpi?src=";
-      sha256 = "f4493f72967353465b9b793c35dd21411cb9099fbdf13071a19204524d58e622";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3609017/reddit_enhancement_suite-5.20.2-an+fx.xpi?src=";
+      sha256 = "79b8032d349c6e8cfd81f9105309d9bfcec02ab18df58b47a747bf1a8ee7350f";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
