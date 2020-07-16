@@ -16,6 +16,13 @@ in
         The powerline-rs package to use. Defaults to the latest one in nixpkgs.
       '';
     };
+    args = mkOption {
+      type = types.listOf types.str;
+      default = [];
+      description = ''
+        Extra command line arguments passed to powerline-rs
+      '';
+    };
   };
   config = mkIf cfg.enable {
     programs.bash.promptInit = ''
@@ -24,7 +31,7 @@ in
         if [[ "$TERM" == eterm* ]]; then
           PS1="''${PWD/$HOME/\~} % "
         else
-          PS1="$(${powerline-rs} --shell bash "$exit_code")"
+          PS1="$(${powerline-rs} --shell bash ${escapeShellArgs cfg.args} "$exit_code")"
         fi
       }
       PROMPT_COMMAND=powerline
@@ -35,7 +42,7 @@ in
           if string match -q "eterm*" "$TERM"
             echo (string replace "$HOME" "~" (pwd))" % "
           else
-            ${powerline-rs} --shell bare $exit_code
+            ${powerline-rs} --shell bare ${escapeShellArgs cfg.args} $exit_code
           end
       end
     '';
@@ -45,7 +52,7 @@ in
         if [[ "$TERM" == eterm* ]]; then
           PS1="''${PWD/$HOME/~} %% "
         else
-          PS1="$(${powerline-rs} --shell zsh "$exit_code")"
+          PS1="$(${powerline-rs} --shell zsh ${escapeShellArgs cfg.args} "$exit_code")"
         fi
       }
       precmd_functions+=(powerline)
