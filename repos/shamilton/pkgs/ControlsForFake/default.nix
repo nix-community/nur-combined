@@ -1,5 +1,6 @@
 { pkgs
 , lib
+, stdenv
 , mkDerivation
 , fetchFromGitHub
 , meson
@@ -24,9 +25,11 @@ mkDerivation {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "ControlsForFake";
-    rev = "master";
-    sha256 = "1yv6mv3p77rg7xf4cpz4vxhdhzragg6lfaap2ksi5xp8zdibk8kb";
+    rev = "390813d95304106690394e70a7029241b688c5d2";
+    sha256 = "169k8gsfmgab67zi4r85pzw4z7cx3a779i5xmskll2kc3ja04j2a";
   };
+
+  # src = ./src.tar.gz;
 
   nativeBuildInputs = [ qttranslations qtbase pkg-config ninja meson ];
 
@@ -37,13 +40,6 @@ mkDerivation {
   postPatch = ''
     substituteInPlace controls-for-fake.desktop \
       --replace @Prefix@ "$out"
-  '';
-
-  postInstall = ''
-    mv $out/bin/ControlsForFake $out/bin/.ControlsForFake-wrapped
-    makeWrapper $out/bin/.ControlsForFake-wrapped $out/bin/ControlsForFake \
-      --set QML2_IMPORT_PATH "${lib.getBin qtquickcontrols2}/lib/qt-5.12.7/qml:${lib.getBin qtdeclarative}/lib/qt-5.12.7/qml:${qtgraphicaleffects}/lib/qt-5.12.7/qml" \
-      --set QT_PLUGIN_PATH "${lib.getBin qtbase}/lib/qt-5.12.7/plugins"
   '';
 
   meta = with lib; {

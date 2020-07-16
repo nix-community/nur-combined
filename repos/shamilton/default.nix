@@ -21,42 +21,17 @@ rec {
     inherit libfake;
     FakeMicWavPlayer = fake-mic-wav-player;
   };
-  day-night-plasma-wallpapers = pkgs.callPackage ./pkgs/day-night-plasma-wallpapers { 
-    dbus-python = pkgs.python3Packages.dbus-python;
+  day-night-plasma-wallpapers = with pkgs.python3Packages; pkgs.callPackage ./pkgs/day-night-plasma-wallpapers { 
+    dbus-python = dbus-python;
   };
   fake-mic-wav-player = pkgs.libsForQt5.callPackage ./pkgs/FakeMicWavPlayer {
     inherit libfake argparse;
   };
+  gufw = with pkgs.python3Packages; pkgs.callPackage ./pkgs/gufw {
+    inherit buildPythonPackage distutils_extra;
+  };
   inkscape = pkgs.callPackage ./pkgs/inkscape-1.0 { 
     lcms = pkgs.lcms2;
-  };
-
-  # Instant WM and utils
-  paperbash = pkgs.callPackage ./pkgs/Paperbash { };
-  instantconf = pkgs.callPackage ./pkgs/InstantConf { };
-  instantdotfiles = pkgs.callPackage ./pkgs/InstantDotfiles { };
-  instantshell = pkgs.callPackage ./pkgs/InstantShell { };
-  instantthemes = pkgs.callPackage ./pkgs/InstantTHEMES {
-    Paperbash = paperbash;
-  };
-  instantutils = pkgs.callPackage ./pkgs/InstantUtils { 
-    InstantDotfiles = instantdotfiles;
-    InstantConf = instantconf;
-    InstantTHEMES = instantthemes;
-    InstantShell = instantshell;
-  };
-  instantlogo = pkgs.callPackage ./pkgs/InstantLOGO { };
-  instantmenu = pkgs.callPackage ./pkgs/InstantMENU {
-    InstantUtils = instantutils;
-  };
-  instantwallpaper = pkgs.callPackage ./pkgs/InstantWALLPAPER {
-    InstantLOGO = instantlogo;
-    InstantConf = instantconf;
-    InstantUtils = instantutils;
-    Paperbash = paperbash;
-  };
-  instantwm = pkgs.callPackage ./pkgs/InstantWM {
-    InstantUtils = instantutils;
   };
 
   juk = pkgs.kdeApplications.callPackage ./pkgs/Juk { };

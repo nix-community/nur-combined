@@ -25,6 +25,9 @@ let
   vim-myftplugins = with pkgs.vimUtils; pkgs.callPackage ./../pkgs/vim-myftplugins {
     inherit buildVimPluginFrom2Nix;
   };
+  vim-vala = with pkgs.vimUtils; pkgs.callPackage ./../pkgs/vim-vala {
+    inherit buildVimPluginFrom2Nix;
+  };
 in 
 {
 
@@ -42,6 +45,7 @@ in
         vim-myftplugins
         vim-lsp
         vim-lsp-settings
+        vim-vala
       ];
     }
   ]));
