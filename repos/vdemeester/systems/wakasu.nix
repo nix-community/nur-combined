@@ -22,8 +22,16 @@ in
 
   networking = {
     hostName = hostname;
+    bridges.br1.interfaces = [ "enp0s31f6" ];
+    firewall.enable = false; # we are in safe territory :D
+    useDHCP = false;
+    interfaces.br1 = {
+      useDHCP = true;
+    };
   };
 
+  /*
+  Keep this for naruhodo.
   boot.initrd.luks.devices = {
     root = {
       device = "/dev/disk/by-uuid/49167ed2-8411-4fa3-94cf-2f3cce05c940";
@@ -35,6 +43,7 @@ in
       fallbackToPassword = true;
     };
   };
+  */
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/c44cdfec-b567-4059-8e66-1be8fec6342a";
@@ -50,9 +59,11 @@ in
   profiles = {
     home = true;
     dev.enable = true;
-    desktop.autoLogin = true;
-    docker.enable = true;
+    desktop.enable = lib.mkForce false;
     laptop.enable = true;
+    docker.enable = true;
+    avahi.enable = true;
+    syncthing.enable = true;
     ssh = { enable = true; forwardX11 = true; };
     virtualization = { enable = true; nested = true; listenTCP = true; };
     yubikey.enable = true;
@@ -68,6 +79,14 @@ in
     pam.u2f.enable = true;
   };
   services = {
+    xserver = {
+      enable = true;
+      displayManager.xpra = {
+        enable = true;
+        bindTcp = "0.0.0.0:10000";
+        pulseaudio = true;
+      };
+    };
     logind.extraConfig = ''
       HandleLidSwitch=ignore
       HandleLidSwitchExternalPower=ignore
