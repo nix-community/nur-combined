@@ -5,16 +5,17 @@
 , xlibs
 , instantUtils
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
 
-  pname = "instantMENU";
+  pname = "instantMenu";
   version = "unstable";
 
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantMENU";
-    rev = "0b97d4ce94715eec2e16108a4ff1aa7c48b43305";
-    sha256 = "1hxlf1k4vhg28qjfa97pqa2qsrn8dvmyz262737zc4ykv8100ghd";
+    rev = "a75fa3e9d4b0a81cba699fb1fdf02dfbefb7be72";
+    sha256 = "13aqxsiqh25bfrmq2cw42hgrghnxpii8zllxhhqf7r46s93ss5q0";
+    name = "instantOS_instantMenu";
   };
 
   postPatch = ''

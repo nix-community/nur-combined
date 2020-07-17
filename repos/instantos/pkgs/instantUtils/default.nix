@@ -16,7 +16,7 @@
 , xfce4-power-manager
 , zenity
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
 
   pname = "instantUtils";
   version = "unstable";
@@ -26,6 +26,7 @@ stdenv.mkDerivation rec {
     repo = "instantOS";
     rev = "3d8fc160698c099b79b14e748d7f73ee6db09e79";
     sha256 = "0l7w62mmxwbs4s3pb4v97q41bxrgxpvb6cfn2vvqmmbgx906inqh";
+    name = "instantOS_instantUtils";
   };
 
   postPatch = ''

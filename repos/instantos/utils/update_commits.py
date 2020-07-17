@@ -12,16 +12,21 @@ Usage:
     {__file__} [options] [file|directory]...
 
 Options:
-    -h  --help   Print this helptext
+    -h  --help       Print this helptext
+    -v  --verbose    Use more detailed output
+    -c  --clone      Clone the found repositories
+    --print-fetches  Instead of updating hases, just print current ones
 """
 
-import sys, os, shutil, tempfile
+import sys, os, subprocess, shutil, tempfile
 import re, json, logging
 import os.path
 from pathlib import Path as P
 
 import requests
 from nix_prefetch_github import nix_prefetch_github
+
+__filedir__ = os.path.dirname(__file__)
 
 fetch_rex = re.compile(
      # Find fetchFromGitHub lines in nix expressions (in lieu of a Nix AST)
@@ -75,13 +80,19 @@ def github_request(match, auth=None):
         return {}
 
 
-def print_only(file_, _):
+def print_fetches(file_, clone=False, **kwargs):
     text = file_.read_text()
-    if any(fetch_rex.finditer(text)):
-        print(file_)
+    for match in fetch_rex.finditer(text):
+        sys.stderr.write(str(file_) + "\n")
+        sys.stderr.flush()
+        print(f"\n# github: {match['owner']}/{match['repo']}")
+        print(match.group())
+        sys.stdout.flush()
+        if clone:
+            clone_repo(file_=file_, **match.groupdict())
 
 
-def process_file(file_, backup):
+def update_hashes(file_, backup=None, **kwargs):
     text = file_.read_text()
     update = False
 
@@ -112,7 +123,23 @@ def replace_with_backup(file_, backup, text):
     file_.write_text(text)
 
 
-def walk_dirs(dirs=None, processor=process_file):
+def clone_repo(file_, owner, repo, rev, **_):
+    cmd = f"git clone 'https://github.com/{owner}/{repo}' && cd '{repo}' && git checkout '{rev}'",
+    cloneroot = P(__filedir__).parent
+    sys.stderr.write(f"running command: '{cmd}'\n")
+    subprocess.Popen(cmd, shell=True, cwd=cloneroot, stdout=sys.stdout, stderr=sys.stderr)
+    try:
+        clonedir = cloneroot.joinpath(repo)
+        dst = file_.parent
+        src = P(os.path.relpath(clonedir, dst))
+        dst = dst.joinpath("sources")
+        dst.mkdir()
+        os.symlink(src, dst.joinpath(repo))
+    except Exception:
+        logging.exception(f"Could not create symlink for {owner}/{repo}")
+
+
+def walk_dirs(dirs=None, processor=update_hashes, **kwargs):
     if not dirs:
         dirs = ["./"]
 
@@ -120,8 +147,9 @@ def walk_dirs(dirs=None, processor=process_file):
 
     for dir_ in dirs:
         for file_ in P(dir_).rglob("*.nix"):
+            print(f"processing '{file_}'")
             if file_.is_file():
-                processor(file_, backup)
+                processor(file_, backup=backup, **kwargs)
 
 
 ### COMMAND LINE HANDLING
@@ -136,14 +164,24 @@ def main(args=None):
     verb = ['-v', '--verbose']
     if any(x in args for x in verb):
         logging.basicConfig(level=logging.DEBUG)
-        args = [x for x in args if args not in verb]
+        logging.debug("DEBUG set, logging will be verbose")
+        args = [x for x in args if x not in verb]
 
-    processor = process_file
-    if "--print-only" in args:
-        processor = print_only
-        args = [x for x in args if x != "--print-only"]
+    clone = ['-c', '--clone']
+    if any(x in args for x in clone):
+        args = [x for x in args if x not in clone]
+        processor=print_fetches
+        clone = True
+    else:
+        clone = False
 
-    walk_dirs(args, processor=processor)
+    processor = update_hashes
+    if "--print-fetches" in args:
+        processor = print_fetches
+        args = [x for x in args if x != "--print-fetches"]
+
+    logging.debug("clone: %s; processor: %s; args: %s;", clone, processor, args)
+    walk_dirs(args, processor=processor, clone=clone)
     return 0
 
 

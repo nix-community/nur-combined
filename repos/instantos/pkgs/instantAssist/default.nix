@@ -4,16 +4,17 @@
 , Paperbash
 , spotify-adblock
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
 
-  pname = "instantASSIST";
+  pname = "instantAssist";
   version = "unstable";
 
   src = fetchFromGitHub {
     owner = "instantOS";
-    repo = "instantASSIST";
-    rev = "3d1032b348ae09f4d480f22212354eb9025fe9de";
-    sha256 = "0z24afqsgsd0hp9sl2w48wp6mxhk65qbisrms1synkm15kw3fwp0";
+    repo = "instantAssist";
+    rev = "fedef3c241f76e76f29c6b291741453a26ca1ba6";
+    sha256 = "0mgrzmrqdhrlfzffwyn62hp8n5zmphs7q7glbllh2rbz6sg5xsmr";
+    name = "instantOS_instantAssist";
   };
 
   patches = [ ./spotify-git-install.patch ];

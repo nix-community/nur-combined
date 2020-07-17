@@ -7,24 +7,28 @@
 , rofi
 , rxvt_unicode
 , st
-, instantASSIST
+, instantAssist
 , instantUtils
+, instantDotfiles
+, extraPatches ? []
+, defaultTerminal ? st
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
 
-  pname = "instantWM";
-  version = "beta2";
+  pname = "instantWm";
+  version = "unstable";
 
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantWM";
-    rev = "${version}";
-    sha256 = "098s2gg526zzv9rpsc6d2ski8nscbrn3ngvlhkq6kmzs66d6pvb0";
+    rev = "ef3327f995ed44975806a0eb3f09a531925b2e0e";
+    sha256 = "0nsy9vgbbj6q17m1wzpgk2igbhhrgsg3z4wpi23lmkh8rlwwb0qc";
+    name = "instantOS_instantWm";
   };
 
   patches = [
     ./config_def_h.patch
-  ];
+  ] ++ extraPatches;
 
   postPatch = ''
     substituteInPlace config.mk \
@@ -35,8 +39,9 @@ stdenv.mkDerivation rec {
       --replace "\"pavucontrol\"" "\"${pavucontrol}/bin/pavucontrol\"" \
       --replace "\"rofi\"" "\"${rofi}/bin/rofi\"" \
       --replace "\"urxvt\"" "\"${rxvt_unicode}/bin/urxvt\"" \
-      --replace "\"st\"" "\"${st}/bin/st\"" \
-      --replace /opt/instantos/menus "${instantASSIST}/opt/instantos/menus"
+      --replace "\"st\"" "\"${defaultTerminal}/bin/${builtins.head (builtins.match "(.*)-.*" defaultTerminal.name)}\"" \
+      --replace /opt/instantos/menus "${instantAssist}/opt/instantos/menus" \
+      --replace /usr/share/instantdotfiles "${instantDotfiles}/share/instantdotfiles/"
   '';
 
   nativeBuildInputs = [ gnumake ];
@@ -48,13 +53,13 @@ stdenv.mkDerivation rec {
     st
   ] ++
   [
-    instantASSIST
+    instantAssist
     instantUtils
   ];
 
   installPhase = ''
     install -Dm 555 instantwm $out/bin/instantwm
-    #install -Dm 555 startinstantos $out/bin/startinstantos
+    install -Dm 555 startinstantos $out/bin/startinstantos
   '';
 
   meta = with lib; {

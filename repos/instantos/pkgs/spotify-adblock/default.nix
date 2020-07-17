@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
       --replace "PREFIX=/usr/local" "PREFIX=$out"
     sed -i '/\};/i    "audio4-fa.spotifycdn.com", //audio' whitelist.h
   '';
-  
+
   nativeBuildInputs = [ gnumake ];
   buildInputs = [ curl ];
 

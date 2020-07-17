@@ -4,16 +4,17 @@
 , gnumake
 , xlibs
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
 
-  pname = "instantLOGO";
+  pname = "instantLogo";
   version = "unstable";
 
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantLOGO";
-    rev = "86aaccaa62abef67f40c9717860bf01beb541767";
-    sha256 = "073jgqdwz01755awjx882w9i5lwwqcjzwklcwwc3kfa52rcpd9bh";
+    rev = "d0fd92af26138d6f2451787726b478b18f544ff3";
+    sha256 = "0x93yfri7wm2bw8bd83hj9zzk3q5yj3s35pix6rq7zcgcsbf94jr";
+    name = "instantOS_instantLogo";
   };
 
   installPhase = ''

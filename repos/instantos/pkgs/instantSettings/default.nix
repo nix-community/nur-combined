@@ -2,9 +2,9 @@
 , stdenv
 , fetchFromGitHub
 , buildPythonApplication
-, instantASSIST
+, instantAssist
 , instantConf
-, instantWALLPAPER
+, instantWallpaper
 , arandr
 , atk
 , autorandr
@@ -36,7 +36,7 @@ let
 in
 buildPythonApplication {
 
-  pname = "instantSETTINGS";
+  pname = "instantSettings";
   version = "unstable";
 
   src = fetchFromGitHub {
@@ -44,13 +44,14 @@ buildPythonApplication {
     repo = "instantSETTINGS";
     rev = "d17718ff2d9eedfee093c3d7efa41f24ab13d861";
     sha256 = "1n8lvz4jn4b0476rb45x5x8ps0041l3nsjvdvkxhkb3sv9s8scwp";
+    name = "instantOS_instantSettings";
   };
 
   postPatch = ''
     substituteInPlace instantSETTINGS/mainsettings.py \
-      --replace /opt/instantos/menus "${instantASSIST}/opt/instantos/menus/dm/tk.sh" \
-      --replace iconf "${instantConf}/bin/iconf" \
-      --replace instantwallpaper "${instantWALLPAPER}/bin/instantwallpaper" \
+      --replace /opt/instantos/menus "${instantAssist}/opt/instantos/menus/dm/tk.sh" \
+      --replace "\"iconf" "\"${instantConf}/bin/iconf" \
+      --replace instantwallpaper "${instantWallpaper}/bin/instantwallpaper" \
       --replace /usr/share/instantsettings "$out/share/instantsettings" \
       --replace "st " "${st}/bin/st \
       --replace arandr "${arandr}/bin/arandr" \
@@ -65,11 +66,11 @@ buildPythonApplication {
     substituteInPlace modules/instantos/rox.sh \
       --replace /usr/share/applications "$out/share/applications"
     substituteInPlace modules/instantos/settings.py \
-      --replace iconf "${instantConf}/bin/iconf"
+      --replace "\"iconf" "\"${instantConf}/bin/iconf"
     substituteInPlace modules/mouse/mousesettings.py \
-      --replace iconf "${instantConf}/bin/iconf"
+      --replace "\"iconf" "\"${instantConf}/bin/iconf"
   '';
-  
+
   postInstall = ''
     install -Dm 644 instantSETTINGS/mainsettings.glade "$out/share/instantsettings/mainsettings.glade"
     mkdir -p "$out/share/applications"
@@ -81,10 +82,10 @@ buildPythonApplication {
   nativeBuildInputs = gnomeDeps;
   buildInputs = pyModuleDeps;
   propagatedBuildInputs = pyModuleDeps ++
-  [ 
-    instantASSIST
+  [
+    instantAssist
     instantConf
-    instantWALLPAPER
+    instantWallpaper
     arandr
     atk
     autorandr

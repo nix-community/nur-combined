@@ -9,10 +9,16 @@
 To install, clone the repository, then inside it run:
 
 ```nix
-nix-env -iA instantixos -f default.nix
+nix-env -iA instantixos -f default.nix --arg pkgs 'import <nixpkgs> {}'
 ```
 
-After that run `instantWM` as you would any other window manager, e.g. by putting it in your `~/.xinitrc`.
+The last argument "`--arg`" causes the build to run from your version of [nixpkgs](https://github.com/nixos/nixpkgs)
+rather than the fixed commit of the last tagged stable version.
+If you want to take of a stable build that likely has a lot of its components cached, you should ommit the that
+last part.
+
+After installation, you can run `instantwm`, just as you would any other window manager.
+For many people that means putting `instantwm` in your `~/.xinitrc`.
 In the future, there will be a `startinstantos` command to run instead.
 
 # Usage via NUR

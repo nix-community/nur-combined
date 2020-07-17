@@ -2,7 +2,7 @@
 , stdenv
 , fetchFromGitHub
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
 
   pname = "Paperbash";
   version = "unstable";
@@ -12,6 +12,7 @@ stdenv.mkDerivation rec {
     repo = "bash";
     rev = "1f8a89136e427066ab61980be6d0d2cad4996e7f";
     sha256 = "022ywyar1vcwjvjnlrklsg6cyfl0l0jvvqprf3y7khs80y0i8a0a";
+    name = "paperbenni_bash";
   };
 
   # postPatch = ''
@@ -20,7 +21,7 @@ stdenv.mkDerivation rec {
   #   substituteInPlace programs/appmenu \
   #     --replace "tmp_placeholder" "${instantDotfiles}/share/instantdotfiles/rofi/appmenu.rasi"
   # '';
-  
+
   installPhase = ''
     mkdir -p $out/share/paperbash
     cp -r * $out/share/paperbash

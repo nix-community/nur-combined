@@ -2,7 +2,7 @@
 , stdenv
 , fetchFromGitHub
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
 
   pname = "rangerplugins";
   version = "unstable";

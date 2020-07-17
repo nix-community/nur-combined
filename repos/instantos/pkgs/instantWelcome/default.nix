@@ -9,7 +9,7 @@
 , gdk-pixbuf
 , atk
 }:
-let 
+let
   pyModuleDeps = [
     pygobject3
   ];
@@ -22,7 +22,7 @@ let
   ];
 in
 buildPythonApplication {
-  pname = "instantWELCOME";
+  pname = "instantWelcome";
   version = "unstable";
 
   src = fetchFromGitHub {
@@ -30,6 +30,7 @@ buildPythonApplication {
     repo = "instantWELCOME";
     rev = "2776c5ab66b436c747c35c06f03df667065c427e";
     sha256 = "1lrlwnc4n544i1w2z46irx6fvgz5i664d4kam15w2njfzz6wfhj3";
+    name = "instantOS_instantWelcome";
   };
 
   postPatch = ''
@@ -37,7 +38,7 @@ buildPythonApplication {
     substituteInPlace instantWELCOME/welcome.py \
       --replace welcome.glade  "$out/share/welcome.glade"
   '';
-  
+
   nativeBuildInputs = gnomeDeps;
   buildInputs = pyModuleDeps ;
   propagatedBuildInputs = pyModuleDeps;

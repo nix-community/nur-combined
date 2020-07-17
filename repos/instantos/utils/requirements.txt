@@ -1,0 +1,11 @@
+attrs==19.3.0
+certifi==2020.6.20
+chardet==3.0.4
+click==7.1.2
+effect==1.1.0
+idna==2.10
+Jinja2==2.11.2
+MarkupSafe==1.1.1
+nix-prefetch-github==2.4
+requests==2.24.0
+urllib3==1.25.9

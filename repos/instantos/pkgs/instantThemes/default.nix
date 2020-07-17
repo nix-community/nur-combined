@@ -3,9 +3,9 @@
 , fetchFromGitHub
 , Paperbash
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
 
-  pname = "instantTHEMES";
+  pname = "instantThemes";
   version = "unstable";
 
   src = fetchFromGitHub {
@@ -13,6 +13,7 @@ stdenv.mkDerivation rec {
     repo = "instantTHEMES";
     rev = "890109760f29055fa52102b23355d91db2b493b1";
     sha256 = "0bj786mihagg47y03j3q9hiha5gcr38akscvnp63az9bb4y61j8n";
+    name = "instantOS_instantThemes";
   };
 
   postPatch = ''

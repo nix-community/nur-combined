@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, instantMENU
+, instantMenu
 }:
 stdenv.mkDerivation {
 
@@ -11,12 +11,13 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "imenu";
-    rev = "18e35de1f6137180876be800d5ae749e40c5f7e9";
-    sha256 = "0mzwpyrr3q8yp5wccsggiybfxsw80q8j5plf964isakapbn86dhj";
+    rev = "b9d98c39b91d4f962614564f41bcee82ae81cff8";
+    sha256 = "03l6vn6wvg1d24gyw4z2w10ccsk307d3pg6ywz983cj0llcw4zl8";
+    name = "instantOS_imenu";
   };
 
   propagatedBuildInputs = [
-    instantMENU
+    instantMenu
   ];
 
   installPhase = ''
