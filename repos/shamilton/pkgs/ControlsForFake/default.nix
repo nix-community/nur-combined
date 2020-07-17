@@ -25,8 +25,8 @@ mkDerivation {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "ControlsForFake";
-    rev = "390813d95304106690394e70a7029241b688c5d2";
-    sha256 = "169k8gsfmgab67zi4r85pzw4z7cx3a779i5xmskll2kc3ja04j2a";
+    rev = "d8ac6d25963841692ce58b9a98ff25816135aed0";
+    sha256 = "1qr040ilakvcbjdpg9mci66dhhvy3fl9r0c5ssafsbjjlzcim9gm";
   };
 
   # src = ./src.tar.gz;

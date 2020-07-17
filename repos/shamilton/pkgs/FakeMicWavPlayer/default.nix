@@ -10,7 +10,6 @@
 , libvorbis
 , libogg
 , argparse
-, enableDebugging
 }:
 stdenv.mkDerivation rec {
 
@@ -21,9 +20,11 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "FakeMicWavPlayer";
-    rev = "master";
-    sha256 = "01lq5s0dv8lw0xbn5pyhrh5ycrwr53zpqhxvwrn4rpi9qy55c0xm";
+    rev = "6920a243eb876c0f75625a0017bb433a377aa244";
+    sha256 = "1q5bn7h28z0wzs115nql5arhbfap1vijx4h284jpfxj042xbzw6n";
   };
+
+  # src = ./src.tar.gz;
 
   nativeBuildInputs = [ pkg-config ninja meson cmake ];
 
@@ -33,14 +34,6 @@ stdenv.mkDerivation rec {
     substituteInPlace pkg-config/fakemicwavplayer.pc \
       --replace @Prefix@ $out
   '';
-
-  mesonFlags = [ 
-    ( if debug then "--buildtype=debug" else "--buildtype=plain")  "-DUSE_SYSTEM_ARGPARSE=true"
-    "-Dcpp_args=-Wall"
-    "-Dwerror=true"
-  ];
-
-  dontStrip = if debug then true else false;
 
   meta = with lib; {
     description = "A pulseaudio client to play wav in a simulated microphone";

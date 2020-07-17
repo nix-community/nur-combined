@@ -5,31 +5,22 @@
 , ninja
 , pulseaudio
 , pkg-config
-, enableDebugging
-, breakpointHook
 }:
 stdenv.mkDerivation rec {
 
   pname = "libfake";
   version = "unstable";
-  debug = false;
 
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "FakeLib";
-    rev = "master";
-    sha256 = "192jszlkhg96ik36mp117mgyb6ack1ilbxidx0y0fyxn12qjx7rk";
+    rev = "b4c0d3528325890e614cba90a6c2c12e304b5e71";
+    sha256 = "01659s1dky0gmjg0rbi8p0k1v9l774mqrlf89rx8m6czbdd5virb";
   };
 
-  mesonFlags = [ 
-    (if debug then "--buildtype=debug" else "--buildtype=plain" ) 
-    "-Dcpp_args=-Wall"
-    "-Dwerror=true"
-  ];
+  # src = ./src.tar.gz;
 
-  dontStrip = if debug then true else false;
-
-  nativeBuildInputs = [ breakpointHook pkg-config ninja meson ];
+  nativeBuildInputs = [ pkg-config ninja meson ];
 
   buildInputs = [ pulseaudio ];
 
