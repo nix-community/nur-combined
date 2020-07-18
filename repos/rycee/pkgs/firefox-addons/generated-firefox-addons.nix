@@ -522,10 +522,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "7.0.1";
+      version = "7.0.2";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3608701/firefox_multi_account_containers-7.0.1-fx.xpi?src=";
-      sha256 = "9079262062658deb1cdd590269b56d15a2c46a74d392d45b432948c29c533296";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3610087/firefox_multi_account_containers-7.0.2-fx.xpi?src=";
+      sha256 = "3d06978da5b7b5896897cfb7f9a7f169c326bea1db627ec75f206b3a1788e921";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -536,10 +536,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "5.2.2";
+      version = "5.4.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3601814/octotree-5.2.2-fx.xpi?src=";
-      sha256 = "f219cb7f48c239206b9a8f54a8b23f3db04f7e5b78cc77370c762ba188d24030";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3610363/octotree-5.4.0-fx.xpi?src=";
+      sha256 = "1801a1034dca9085a5c649abb0693b641e2a3dc4906f9a703c2b597183cb443c";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
