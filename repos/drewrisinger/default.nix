@@ -56,6 +56,10 @@ rec {
     osqp = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/osqp { };
     scs = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/scs { scs = lib-scs; };
 
+    # NOTE: remove once makes release version
+    algopy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/algopy { };
+    numdifftools = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/numdifftools { inherit algopy; };
+
     # Qiskit updates over what's in nixpkgs, in rough build order. All exist in nixpkgs, but only on > 20.03
     dlx = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/dlx { };
     docloud = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/docloud { };
