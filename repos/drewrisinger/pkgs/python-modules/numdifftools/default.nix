@@ -9,6 +9,7 @@
 , pytestrunner
   # test inputs
 , pytestCheckHook
+, pytestpep8
 , hypothesis
 }:
 
@@ -38,6 +39,7 @@ buildPythonPackage rec {
   checkInputs = [
     pytestCheckHook
     hypothesis
+    pytestpep8
   ];
 
   pytestFlagsArray = [
