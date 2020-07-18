@@ -17,8 +17,8 @@ stdenv.mkDerivation {
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantWALLPAPER";
-      rev = "39a212ed2a2560187c0125126640f0d0c06d9982";
-      sha256 = "1ril747fiwg0lzz4slc9ndzy5an3mwnmqk6fk58pp09z5g2wjhla";
+      rev = "517cae5636f23dee691b799dd56d11bfd2acc573";
+      sha256 = "1yqsy588fjqj07yill34w1mmcr6xjwhdmx6miv0mv0lwp8vxj2cx";
       name = "instantOS_instantWallpaper";
     }) 
     (fetchFromGitHub {

@@ -18,8 +18,9 @@ If you want to take of a stable build that likely has a lot of its components ca
 last part.
 
 After installation, you can run `instantwm`, just as you would any other window manager.
-For many people that means putting `instantwm` in your `~/.xinitrc`.
-In the future, there will be a `startinstantos` command to run instead.
+For many people that means putting `startinstantos` in your `~/.xinitrc`.
+See an example in `./utils/xinitrc`
+You can also find an example NixOS configuration in `./utils/configuration.nix`.
 
 # Usage via NUR
 

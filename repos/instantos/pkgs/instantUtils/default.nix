@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, makeWrapper
 , acpi
 , conky
 , dunst
@@ -30,46 +31,28 @@ stdenv.mkDerivation {
   };
 
   postPatch = ''
-    substituteInPlace programs/instantstartmenu \
-      --replace "st -e" "${st}/bin/st -e" \
-      --replace "st &" "${st}/bin/st &" \
-      --replace "neofetch" "${neofetch}/bin/neofetch" \
-      --replace "firefox" "${firefox}/bin/firefox"
     substituteInPlace programs/appmenu \
       --replace "#!/usr/bin/dash" "#!/bin/sh" \
       --replace "/usr/share/instantdotfiles/rofi/appmenu.rasi" "tmp_placeholder" \
-      --replace rofi "${rofi}/bin/rofi" \
       --replace "tmp_placeholder" "\$(instantdata -d)/share/instantdotfiles/rofi/appmenu.rasi"
-    substituteInPlace programs/ifeh \
-      --replace "nitrogen" "${nitrogen}/bin/nitrogen"
     substituteInPlace autostart.sh \
-      --replace "instantthemes" "\$(instantdata -t)/bin/instantthemes" \
-      --replace "dunst" "${dunst}/bin/dunst" \
-      --replace "instantshell" "\$(instantdata -s)/bin/instantshell" \
-      --replace "instantdotfiles" "\$(instantdata -d)/bin/instantdotfiles" \
-      --replace "conky -c" "${conky}/bin/conky -c" \
       --replace /usr/bin/instantstatus "$out/bin/instantstatus" \
       --replace /usr/share/instantutils "$out/share/instantutils" \
       --replace /usr/share/rangerplugins "${rangerplugins}/share/rangerplugins" \
       --replace /usr/share/instantwidgets "\$(instantdata -wi)/share/instantwidgets" \
       --replace /usr/share/instantwallpaper "\$(instantdata -wa)/share/instantwidgets" \
-      --replace /opt/instantos/menus "\$(instantdata -a)/opt/instantos/menus" \
-      --replace xfce4-power-manager "${xfce4-power-manager}/bin/xfce4-power-manager" \
-      --replace notify-send "${libnotify}/bin/notify-send"
-    substituteInPlace userinstall.sh \
-      --replace "acpi" "${acpi}/bin/acpi" \
-      --replace "lspci" "${pciutils}/bin/lspci"
+      --replace /opt/instantos/menus "\$(instantdata -a)/opt/instantos/menus"
     substituteInPlace install.sh \
       --replace /usr/share/instantutils "$out/share/instantutils"
     substituteInPlace instantutils.sh \
       --replace /usr/share/instantutils "$out/share/instantutils"
     substituteInPlace installinstantos.sh \
       --replace /usr/share/instantutils "$out/share/instantutils"
-    substituteInPlace programs/ipicom \
-      --replace "picom " "${picom}/bin/picom "
+
   '';
 
   installPhase = ''
+    runHook preInstall
     install -Dm 555 autostart.sh $out/bin/instantautostart
     install -Dm 555 status.sh $out/bin/instantstatus
     install -Dm 555 monitor.sh $out/bin/instantmonitor
@@ -88,7 +71,29 @@ stdenv.mkDerivation {
 
     mkdir -p "$out/etc/X11/xorg.conf.d"
     mv xorg/* "$out/etc/X11/xorg.conf.d"
+    runHook postInstall
   '';
+
+  postInstall = ''
+    # Wrapping PATHS
+    wrapProgram "$out/bin/instantautostart" \
+      --prefix PATH : ${lib.makeBinPath [ conky dunst libnotify xfce4-power-manager zenity ]} \
+      --run export\ PATH="\"\$(instantdata -d)/bin\""\$\{PATH:\+\':\'\}\$PATH \
+      --run export\ PATH="\"\$(instantdata -s)/bin\""\$\{PATH:\+\':\'\}\$PATH \
+      --run export\ PATH="\"\$(instantdata -t)/bin\""\$\{PATH:\+\':\'\}\$PATH
+    wrapProgram "$out/bin/instantstartmenu" \
+      --prefix PATH : ${lib.makeBinPath [ firefox neofetch st ]}
+    wrapProgram "$out/bin/appmenu" \
+      --prefix PATH : ${lib.makeBinPath [ rofi ]}
+    wrapProgram "$out/bin/ifeh" \
+      --prefix PATH : ${lib.makeBinPath [ nitrogen ]}
+    wrapProgram "$out/share/instantutils/userinstall.sh" \
+      --prefix PATH : ${lib.makeBinPath [ acpi pciutils ]}
+    wrapProgram "$out/bin/ipicom" \
+      --prefix PATH : ${lib.makeBinPath [ picom ]}
+    '';
+
+  nativeBuildInputs = [ makeWrapper ];
 
   propagatedBuildInputs = [ 
     acpi
