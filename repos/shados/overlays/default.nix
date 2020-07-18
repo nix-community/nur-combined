@@ -57,6 +57,9 @@
         nativeBuildInputs = oa.nativeBuildInputs or [] ++ [ super.qt5.wrapQtAppsHook ];
       });
     liblastfm5 = super.liblastfm5 or (super.libsForQt5.callPackage ./fixes/liblastfm5.nix { });
+    # Workaround for https://bugreports.qt.io/browse/PYSIDE-1140; can be removed
+    # once qt 5.14 is default in nixpkgsuper.s
+    syncplay = super.python37.pkgs.callPackage (super.path + /pkgs/applications/networking/syncplay) { };
   };
 
   # Pinned old flashplayer versions
