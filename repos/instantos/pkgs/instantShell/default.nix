@@ -2,6 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , sqlite
+, nerdfonts
 }:
 stdenv.mkDerivation {
 
@@ -19,11 +20,13 @@ stdenv.mkDerivation {
     (fetchFromGitHub {
       owner = "ohmyzsh";
       repo = "ohmyzsh";
-      rev = "ff7618cf744a289a9ba9c332be08ed5304d2f45f";
-      sha256 = "00yvf5rbv2fspv12h0jlda063fv0kj6zaannz0xcqknaj2d8pyqz";
+      rev = "db3d05fe7184a523fe4aba120bea962114424573";
+      sha256 = "1yicc8vwcp15p1g9rg9d6isnx4vv0w0wb8vw8hh6wpn20xf3rpji";
       name = "ohmyzsh";
     })
   ];
+
+  propagatedBuildInputs = [ nerdfonts ];
 
   sourceRoot = ".";
 

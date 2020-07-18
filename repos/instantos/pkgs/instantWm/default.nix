@@ -7,6 +7,8 @@
 , rofi
 , rxvt_unicode
 , st
+, cantarell-fonts
+, joypixels
 , instantAssist
 , instantUtils
 , instantDotfiles
@@ -21,8 +23,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantWM";
-    rev = "ef3327f995ed44975806a0eb3f09a531925b2e0e";
-    sha256 = "0nsy9vgbbj6q17m1wzpgk2igbhhrgsg3z4wpi23lmkh8rlwwb0qc";
+    rev = "92395c2362557a6c797c73e1166842b155c23fe2";
+    sha256 = "1933nkabgc3kv7v2y4d25wdxx5c5yzsgyyh91fq9lb327s6zh9kc";
     name = "instantOS_instantWm";
   };
 
@@ -46,11 +48,12 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ gnumake ];
   buildInputs = with xlibs; map lib.getDev [ libX11 libXft libXinerama ];
-  propagatedBuildInputs = [ 
+  propagatedBuildInputs = [
+    cantarell-fonts
+    joypixels
     pavucontrol
     rofi
     rxvt_unicode
-    st
   ] ++
   [
     instantAssist
