@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, makeWrapper, substituteAll, pkg-config
-, dbus }:
+{ stdenv, fetchFromGitHub, rustPlatform, pkg-config, dbus }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dbus-codegen-rust";
