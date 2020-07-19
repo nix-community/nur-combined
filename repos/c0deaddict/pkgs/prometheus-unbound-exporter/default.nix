@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "unbound_exporter";
-  version = "1739a339d3404a4164a5664dc38e328108c6a2a6";
+  version = "0.3";
 
   src = fetchFromGitHub {
     owner = "kumina";
     repo = pname;
-    rev = version;
-    sha256 = "194l4alsqpnli844slm8n41cmbk9f6d8r3x5w4dkq62xkp36sis5";
+    rev = "v${version}";
+    sha256 = "0v752z3k5vikikph1z19bx9s2iqf8sb32jlcas27hvz52h7d78g8";
   };
 
-  vendorSha256 = "10ibfivw5k76z5pbh0zm9x22rfxmcj709cd5fsyx6v7z4nx8yq5z";
+  vendorSha256 = "0zaj7gy0xbbsqm1zzqnk7pxyw80dy516fyx0j5b8wjqx34b5if2p";
   modSha256 = vendorSha256;
 
   buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];

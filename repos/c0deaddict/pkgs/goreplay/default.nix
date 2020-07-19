@@ -18,6 +18,10 @@ buildGoModule rec {
 
   buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
 
+  postInstall = ''
+    mv $out/bin/goreplay $out/bin/gor
+  '';
+
   meta = with lib; {
     description = "Open-source tool for capturing and replaying live HTTP traffic";
     homepage = "https://goreplay.org/";
