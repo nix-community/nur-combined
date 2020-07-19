@@ -8,8 +8,8 @@ buildLuarocksPackage rec {
 
   src = fetchFromGitHub {
     owner = "Shados"; repo = "moonpick-vim";
-    rev = "1800643a7fc7c3a7f9601915b0a4e1548bacb4eb";
-    sha256 = "1wkyf28d1daj24z310jpr0g3dh2igflfsiv8h3bh4lhb1mnfvili";
+    rev = "b9252660b44b270cc3bc933053fccb3788e12fd4";
+    sha256 = "06sg2najn14vg4wb2nl6pbswv224sznn3m8ba9lw9irlyg40f3iz";
   };
 
   propagatedBuildInputs = [
