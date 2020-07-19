@@ -20,7 +20,7 @@ rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+  overlays = pkgs.stdenv.lib.traceVal (import ./overlays); # nixpkgs overlays
 
   # instant WM and utils
   instantconf = pkgs.callPackage ./pkgs/instantConf { };
@@ -63,6 +63,7 @@ rec {
     pygobject3 = pygobject3;
     gnome-disk-utility = pkgs.gnome3.gnome-disk-utility;
     xfce4-power-manager = pkgs.xfce.xfce4-power-manager;
+    firaCodeNerd = firacodenerd;
   };
   instantwelcome = with pkgs.python3Packages; pkgs.callPackage ./pkgs/instantWelcome {
     instantConf = instantconf;
@@ -78,6 +79,7 @@ rec {
     instantUtils = instantutils;
     instantDotfiles = instantdotfiles;
   };
+  firacodenerd = pkgs.callPackage ./pkgs/firaCodeNerd {};
   instantdata = pkgs.callPackage ./pkgs/instantData {
     instantAssist = instantassist;
     instantConf = instantconf;
