@@ -52,7 +52,9 @@ rec {
   # compatibility
   nix-review-unstable = nixpkgs-review-unstable;
 
-  nix-build-uncached = pkgs.callPackage ./pkgs/nix-build-uncached { };
+  inherit (pkgs.callPackages ./pkgs/nix-build-uncached { })
+    nix-build-uncached
+    nix-build-uncached-flakes;
 
   nix-update = pkgs.python3.pkgs.callPackage ./pkgs/nix-update { };
 
