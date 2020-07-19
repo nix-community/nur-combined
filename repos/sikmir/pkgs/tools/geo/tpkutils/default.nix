@@ -10,8 +10,7 @@ python3Packages.buildPythonApplication {
 
   propagatedBuildInputs = with python3Packages; [ mercantile pymbtiles setuptools six ];
 
-  checkInputs = with python3Packages; [ pytest ];
-  checkPhase = "pytest";
+  checkInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     inherit (sources.tpkutils) description homepage;

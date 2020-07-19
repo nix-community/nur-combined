@@ -8,6 +8,12 @@ python3Packages.buildPythonPackage {
   inherit pname version;
   src = sources.cheetah3;
 
+  checkInputs = with python3Packages; [ pygments markdown ];
+
+  checkPhase = ''
+    ${python3Packages.python.interpreter} Cheetah/Tests/Test.py
+  '';
+
   doCheck = false;
 
   meta = with lib; {

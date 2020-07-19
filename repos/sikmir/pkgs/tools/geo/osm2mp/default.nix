@@ -1,5 +1,6 @@
-{ lib
+{ stdenv
 , buildPerlPackage
+, shortenPerlShebang
 , sources
 , ConfigStd
 , EncodeLocale
@@ -18,7 +19,7 @@
 }:
 let
   pname = "osm2mp";
-  date = lib.substring 0 10 sources.osm2mp.date;
+  date = stdenv.lib.substring 0 10 sources.osm2mp.date;
   version = "unstable-" + date;
 in
 buildPerlPackage {
@@ -26,6 +27,8 @@ buildPerlPackage {
   src = sources.osm2mp;
 
   outputs = [ "out" ];
+
+  nativeBuildInputs = stdenv.lib.optional stdenv.isDarwin shortenPerlShebang;
 
   propagatedBuildInputs = [
     ConfigStd
@@ -49,10 +52,7 @@ buildPerlPackage {
       --replace "\$Bin/cfg" "$out/share/osm2mp/cfg"
   '';
 
-  preConfigure = ''
-    patchShebangs .
-    touch Makefile.PL
-  '';
+  preConfigure = "touch Makefile.PL";
 
   installPhase = ''
     install -Dm755 osm2mp.pl $out/bin/osm2mp
@@ -60,9 +60,13 @@ buildPerlPackage {
     cp -r cfg/* $out/share/osm2mp/cfg
     install -dm755 $out/lib/perl5/site_perl
     cp -r lib/* $out/lib/perl5/site_perl
+  '' + stdenv.lib.optionalString stdenv.isLinux ''
+    patchShebangs $out/bin/osm2mp
+  '' + stdenv.lib.optionalString stdenv.isDarwin ''
+    shortenPerlShebang $out/bin/osm2mp
   '';
 
-  meta = with lib; {
+  meta = with stdenv.lib; {
     inherit (sources.osm2mp) description homepage;
     license = licenses.gpl2;
     maintainers = with maintainers; [ sikmir ];

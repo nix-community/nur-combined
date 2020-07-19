@@ -1,8 +1,12 @@
 { stdenv, sources, routino }:
-
+let
+  year = stdenv.lib.substring 0 2 sources.geofabrik-russia-nwfd.version;
+  month = stdenv.lib.substring 2 2 sources.geofabrik-russia-nwfd.version;
+  day = stdenv.lib.substring 4 2 sources.geofabrik-russia-nwfd.version;
+in
 stdenv.mkDerivation {
   pname = "qmapshack-routinodb";
-  version = sources.geofabrik-russia-nwfd.version;
+  version = "20${year}-${month}-${day}";
   srcs = [
     sources.geofabrik-finland
     sources.geofabrik-estonia

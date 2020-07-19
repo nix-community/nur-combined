@@ -1,7 +1,7 @@
-{ lib, buildPerlPackage, XMLParser, sources }:
+{ stdenv, buildPerlPackage, shortenPerlShebang, XMLParser, sources }:
 let
   pname = "gpx-layer";
-  date = lib.substring 0 10 sources.gpx-layer.date;
+  date = stdenv.lib.substring 0 10 sources.gpx-layer.date;
   version = "unstable-" + date;
 in
 buildPerlPackage {
@@ -10,18 +10,21 @@ buildPerlPackage {
 
   outputs = [ "out" ];
 
+  nativeBuildInputs = stdenv.lib.optional stdenv.isDarwin shortenPerlShebang;
+
   propagatedBuildInputs = [ XMLParser ];
 
-  preConfigure = ''
-    patchShebangs .
-    touch Makefile.PL
-  '';
+  preConfigure = "touch Makefile.PL";
 
   installPhase = ''
     install -Dm755 parse-gpx $out/bin/datamaps-parse-gpx
+  '' + stdenv.lib.optionalString stdenv.isLinux ''
+    patchShebangs $out/bin/datamaps-parse-gpx
+  '' + stdenv.lib.optionalString stdenv.isDarwin ''
+    shortenPerlShebang $out/bin/datamaps-parse-gpx
   '';
 
-  meta = with lib; {
+  meta = with stdenv.lib; {
     inherit (sources.gpx-layer) description homepage;
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];

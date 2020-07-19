@@ -34,8 +34,7 @@ python3Packages.buildPythonApplication {
     done
   '';
 
-  checkInputs = with python3Packages; [ pytest pytest-mock ];
-  checkPhase = "pytest";
+  checkInputs = with python3Packages; [ pytestCheckHook pytest-mock ];
 
   meta = with lib; {
     inherit (sources.elevation) description homepage;

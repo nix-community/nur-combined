@@ -10,8 +10,7 @@ python3Packages.buildPythonPackage {
 
   propagatedBuildInputs = with python3Packages; [ click ];
 
-  checkInputs = with python3Packages; [ pytest hypothesis ];
-  checkPhase = "pytest";
+  checkInputs = with python3Packages; [ pytestCheckHook hypothesis ];
 
   meta = with lib; {
     inherit (sources.mercantile) description homepage;

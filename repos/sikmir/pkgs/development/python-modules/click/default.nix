@@ -18,12 +18,12 @@ python3Packages.buildPythonPackage {
     }
   );
 
-  checkInputs = with python3Packages; [ pytest ];
+  checkInputs = with python3Packages; [ pytestCheckHook ];
 
-  checkPhase = "py.test tests";
-
-  # https://github.com/pallets/click/issues/823
-  doCheck = false;
+  disabledTests = [
+    # https://github.com/pallets/click/issues/823
+    "test_legacy_callbacks"
+  ];
 
   meta = with lib; {
     homepage = "http://click.pocoo.org/";

@@ -67,7 +67,7 @@ stdenv.mkDerivation {
     inherit (sources.embox) description homepage;
     license = licenses.bsd2;
     maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.linux;
+    platforms = with platforms; linux ++ darwin;
     skip.ci = true;
   };
 }

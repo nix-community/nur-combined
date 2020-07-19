@@ -8,8 +8,7 @@ python3Packages.buildPythonPackage {
   inherit pname version;
   src = sources.pymbtiles;
 
-  checkInputs = with python3Packages; [ pytest ];
-  checkPhase = "pytest";
+  checkInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     inherit (sources.pymbtiles) description homepage;
