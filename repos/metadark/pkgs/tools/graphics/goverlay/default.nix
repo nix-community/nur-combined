@@ -5,13 +5,13 @@
 
 stdenv.mkDerivation rec {
   pname = "goverlay";
-  version = "0.3.5";
+  version = "0.3.6";
 
   src = fetchFromGitHub {
     owner = "benjamimgois";
     repo = pname;
     rev = version;
-    sha256 = "1nbhi9nfx4gsy3r6cw5i1ypc32g82q1kx12kcvh4867p5njsfil6";
+    sha256 = "1shvgnjzjxd4fvxjbzs2zqvfj0bznja2c0sgahxlp2xjq65bxkgk";
   };
 
   nativeBuildInputs = [ fpc lazarus makeWrapper ];
