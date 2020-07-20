@@ -43,7 +43,7 @@ Then you can add `nur.repos.instantos.PACKAGE_NAME` to your `configuration.nix` 
 ```console
 $ nix-env -f '<nixpkgs>' -iA nur.repos.instantos.PACKAGE_NAME
 ```
-# Faster installation wich cachix
+# Faster installation with cachix
 
 You may want to install cachix and take advante of the build artefact caching with:
 

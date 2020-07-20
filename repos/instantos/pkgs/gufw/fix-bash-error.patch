@@ -1,0 +1,11 @@
+diff -ur a/bin/gufw b/bin/gufw
+--- a/bin/gufw	2020-07-20 12:30:58.001862521 +0200
++++ b/bin/gufw	2020-07-20 12:32:26.198269005 +0200
+@@ -1,6 +1,5 @@
+ #!/bin/bash
+-if [ $(loginctl show-session $(loginctl|grep $(whoami) |awk '{print $1}') -p Type) = "Type=wayland" ]; then
++[ $(loginctl show-session $(loginctl | grep $(whoami) | awk '{print $1}') -p Type | grep "Type=wayland") ] &&
+     xhost +si:localuser:root
+-fi
+ c_user=$(whoami)
+ pkexec gufw-pkexec $c_user

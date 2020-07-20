@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, makeWrapper
 , instantLogo
 , instantConf
 , instantUtils
@@ -17,8 +18,8 @@ stdenv.mkDerivation {
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantWALLPAPER";
-      rev = "517cae5636f23dee691b799dd56d11bfd2acc573";
-      sha256 = "1yqsy588fjqj07yill34w1mmcr6xjwhdmx6miv0mv0lwp8vxj2cx";
+      rev = "91e4f66edb01643c2a54eb1eb162b51a2883735c";
+      sha256 = "1pjc9p9g89w25z61bzqh9v2pzbc3py5ly4n7mrmma2sngq99rb5m";
       name = "instantOS_instantWallpaper";
     }) 
     (fetchFromGitHub {
@@ -32,21 +33,23 @@ stdenv.mkDerivation {
 
   sourceRoot = "instantOS_instantWallpaper";
 
+  nativeBuildInputs = [ makeWrapper ];
+
+  propagatedBuildInputs = [
+    instantConf
+    instantLogo
+    instantUtils
+    Paperbash
+    imagemagick
+    nitrogen
+  ];
+
   postPatch = ''
     substituteInPlace wall.sh \
       --replace /usr/share/backgrounds/readme.jpg ${instantLogo}/share/backgrounds/readme.jpg \
       --replace /usr/share/instantwallpaper/wallutils.sh wallutils.sh \
-      --replace "iconf" "${instantConf}/bin/iconf" \
-      --replace "checkinternet" "${instantUtils}/bin/checkinternet" \
       --replace "/usr/share/paperbash" "${Paperbash}/share/paperbash" \
       --replace wallutils.sh "$out/share/instantwallpaper/wallutils.sh"
-    substituteInPlace wallutils.sh \
-      --replace "iconf" "${instantConf}/bin/iconf" \
-      --replace "identify" "${imagemagick}/bin/identify" \
-      --replace "convert" "${imagemagick}/bin/convert" \
-      --replace "-composite" "__tmp_placeholder" \
-      --replace "composite" "${imagemagick}/bin/composite" \
-      --replace "__tmp_placeholder" "-composite"
   '';
 
   installPhase = ''
@@ -58,10 +61,15 @@ stdenv.mkDerivation {
     install -Dm 644 ../instantOS_instantLogo/wallpaper/defaultphoto.png "$out/share/instantwallpaper/defaultphoto.png"
   '';
 
-  propagatedBuildInputs = [ instantLogo instantConf Paperbash imagemagick nitrogen ];
+  postInstall = ''
+    wrapProgram "$out/bin/instantwallpaper" \
+      --prefix PATH : ${lib.makeBinPath [ instantConf instantUtils nitrogen ]}
+    wrapProgram "$out/share/instantwallpaper/wallutils.sh" \
+      --prefix PATH : ${lib.makeBinPath [ instantConf instantUtils imagemagick ]}
+  '';
 
   meta = with lib; {
-    description = "Wallpaper manager of instantOS.";
+    description = "Wallpaper manager of instantOS";
     license = licenses.mit;
     homepage = "https://github.com/instantOS/instantWM";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];

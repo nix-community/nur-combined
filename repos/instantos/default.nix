@@ -16,84 +16,87 @@
   #pkgs ? import <nixpkgs> {}
 }:
 
-rec {
+pkgs.lib.makeExtensible (self: rec {
+  inherit pkgs;
+
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = pkgs.stdenv.lib.traceVal (import ./overlays); # nixpkgs overlays
 
   # instant WM and utils
+  gufw = with pkgs.python3Packages; pkgs.callPackage ./pkgs/gufw { inherit buildPythonApplication distutils_extra; };
   instantconf = pkgs.callPackage ./pkgs/instantConf { };
   instantlogo = pkgs.callPackage ./pkgs/instantLogo { };
   instantshell = pkgs.callPackage ./pkgs/instantShell { };
   instantwidgets = pkgs.callPackage ./pkgs/instantWidgets { };
   paperbash = pkgs.callPackage ./pkgs/Paperbash { };
-  imenu = pkgs.callPackage ./pkgs/imenu { instantMenu = instantmenu; };
+  imenu = pkgs.callPackage ./pkgs/imenu { instantMenu = self.instantmenu; };
   rangerplugins = pkgs.callPackage ./pkgs/rangerplugins { };
   spotify-adblock = pkgs.callPackage ./pkgs/spotify-adblock { };
   instantassist = pkgs.callPackage ./pkgs/instantAssist {
-    Paperbash = paperbash;
-    spotify-adblock = spotify-adblock;
+    Paperbash = self.paperbash;
+    spotify-adblock = self.spotify-adblock;
   };
   islide = pkgs.callPackage ./pkgs/islide {
-    instantAssist = instantassist;
+    instantAssist = self.instantassist;
   };
   instantthemes = pkgs.callPackage ./pkgs/instantThemes {
-    Paperbash = paperbash;
+    Paperbash = self.paperbash;
   };
   instantutils = pkgs.callPackage ./pkgs/instantUtils { 
-    rangerplugins = rangerplugins;
+    rangerplugins = self.rangerplugins;
     xfce4-power-manager = pkgs.xfce.xfce4-power-manager;
     zenity = pkgs.gnome3.zenity;
   };
   instantmenu = pkgs.callPackage ./pkgs/instantMenu {
-    instantUtils = instantutils;
+    instantUtils = self.instantutils;
   };
   instantwallpaper = pkgs.callPackage ./pkgs/instantWallpaper {
-    instantLogo = instantlogo;
-    instantConf = instantconf;
-    instantUtils = instantutils;
-    Paperbash = paperbash;
+    instantLogo = self.instantlogo;
+    instantConf = self.instantconf;
+    instantUtils = self.instantutils;
+    Paperbash = self.paperbash;
   };
   instantsettings = with pkgs.python3Packages; pkgs.callPackage ./pkgs/instantSettings {
-    instantAssist = instantassist;
-    instantConf = instantconf;
-    instantWallpaper = instantwallpaper;
-    buildPythonApplication = buildPythonApplication;
-    pygobject3 = pygobject3;
+    instantAssist = self.instantassist;
+    instantConf = self.instantconf;
+    instantUtils = self.instantutils;
+    instantWallpaper = self.instantwallpaper;
+    gufw = self.gufw;
     gnome-disk-utility = pkgs.gnome3.gnome-disk-utility;
     xfce4-power-manager = pkgs.xfce.xfce4-power-manager;
-    firaCodeNerd = firacodenerd;
+    firaCodeNerd = self.firacodenerd;
   };
   instantwelcome = with pkgs.python3Packages; pkgs.callPackage ./pkgs/instantWelcome {
-    instantConf = instantconf;
+    instantConf = self.instantconf;
     buildPythonApplication = buildPythonApplication;
     pygobject3 = pygobject3;
   };
   instantdotfiles = pkgs.callPackage ./pkgs/instantDotfiles {
-    instantConf = instantconf;
-    instantWallpaper = instantwallpaper;
+    instantConf = self.instantconf;
+    instantWallpaper = self.instantwallpaper;
   };
   instantwm = pkgs.callPackage ./pkgs/instantWm {
-    instantAssist = instantassist;
-    instantUtils = instantutils;
-    instantDotfiles = instantdotfiles;
+    instantAssist = self.instantassist;
+    instantUtils = self.instantutils;
+    instantDotfiles = self.instantdotfiles;
   };
   firacodenerd = pkgs.callPackage ./pkgs/firaCodeNerd {};
   instantdata = pkgs.callPackage ./pkgs/instantData {
-    instantAssist = instantassist;
-    instantConf = instantconf;
-    instantDotfiles = instantdotfiles;
-    instantLogo  = instantlogo;
-    instantMenu = instantmenu;
-    instantShell = instantshell;
-    instantThemes = instantthemes;
-    instantUtils = instantutils;
-    instantWallpaper = instantwallpaper;
-    instantWidgets = instantwidgets;
-    instantWm = instantwm;
-    Paperbash = paperbash;
-    rangerplugins = rangerplugins;
+    instantAssist = self.instantassist;
+    instantConf = self.instantconf;
+    instantDotfiles = self.instantdotfiles;
+    instantLogo = self.instantlogo;
+    instantMenu = self.instantmenu;
+    instantShell = self.instantshell;
+    instantThemes = self.instantthemes;
+    instantUtils = self.instantutils;
+    instantWallpaper = self.instantwallpaper;
+    instantWidgets = self.instantwidgets;
+    instantWm = self.instantwm;
+    Paperbash = self.paperbash;
+    rangerplugins = self.rangerplugins;
   };
   instantixos = pkgs.buildEnv {
     name = "instantixos";
@@ -105,26 +108,26 @@ rec {
       platforms = platforms.linux;
     };
     paths = [
-        imenu
-        islide
-        instantassist
-        instantconf
-        instantdata
-        instantdotfiles
-        instantlogo
-        instantmenu
-        instantsettings
-        instantshell
-        instantthemes
-        instantutils
-        instantwallpaper
-        instantwelcome
-        instantwidgets
-        instantwm
-        paperbash
-        rangerplugins
-        spotify-adblock
+        self.imenu
+        self.islide
+        self.instantassist
+        self.instantconf
+        self.instantdata
+        self.instantdotfiles
+        self.instantlogo
+        self.instantmenu
+        self.instantsettings
+        self.instantshell
+        self.instantthemes
+        self.instantutils
+        self.instantwallpaper
+        self.instantwelcome
+        self.instantwidgets
+        self.instantwm
+        self.paperbash
+        self.rangerplugins
+        self.spotify-adblock
     ];
   };
-}
+} )
 

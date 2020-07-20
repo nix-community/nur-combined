@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , makeWrapper
 , acpi
+, autorandr
 , conky
 , dunst
 , firefox
@@ -13,7 +14,9 @@
 , picom
 , rangerplugins
 , rofi
+, rox-filer
 , st
+, wmctrl
 , xfce4-power-manager
 , zenity
 }:
@@ -25,10 +28,32 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantOS";
-    rev = "fffe7a74cc09f19aea6b65bd35ed22b47e17ff39";
-    sha256 = "1wm9wa66wzqjfh4wpk8i8ya2jy8x9xifzn8mds7k9y2q72mpc5gp";
+    rev = "1bb9b8ab63a37cbe87f6d95604f785ef55c52a87";
+    sha256 = "1rhzvp7y1jcswzcn5y1y4s2vi8kdkmr3k66pghlqxqjbxywfm8c0";
     name = "instantOS_instantUtils";
   };
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  propagatedBuildInputs = [
+    acpi
+    autorandr
+    conky
+    dunst
+    firefox
+    libnotify
+    neofetch
+    nitrogen
+    pciutils
+    picom
+    rangerplugins
+    rofi
+    rox-filer
+    st
+    wmctrl
+    xfce4-power-manager
+    zenity
+  ];
 
   postPatch = ''
     substituteInPlace programs/appmenu \
@@ -48,7 +73,6 @@ stdenv.mkDerivation {
       --replace /usr/share/instantutils "$out/share/instantutils"
     substituteInPlace installinstantos.sh \
       --replace /usr/share/instantutils "$out/share/instantutils"
-
   '';
 
   installPhase = ''
@@ -77,7 +101,7 @@ stdenv.mkDerivation {
   postInstall = ''
     # Wrapping PATHS
     wrapProgram "$out/bin/instantautostart" \
-      --prefix PATH : ${lib.makeBinPath [ conky dunst libnotify xfce4-power-manager zenity ]} \
+      --prefix PATH : ${lib.makeBinPath [ autorandr conky dunst libnotify rox-filer xfce4-power-manager zenity ]} \
       --run export\ PATH="\"\$(instantdata -d)/bin\""\$\{PATH:\+\':\'\}\$PATH \
       --run export\ PATH="\"\$(instantdata -s)/bin\""\$\{PATH:\+\':\'\}\$PATH \
       --run export\ PATH="\"\$(instantdata -t)/bin\""\$\{PATH:\+\':\'\}\$PATH
@@ -91,24 +115,9 @@ stdenv.mkDerivation {
       --prefix PATH : ${lib.makeBinPath [ acpi pciutils ]}
     wrapProgram "$out/bin/ipicom" \
       --prefix PATH : ${lib.makeBinPath [ picom ]}
-    '';
-
-  nativeBuildInputs = [ makeWrapper ];
-
-  propagatedBuildInputs = [ 
-    acpi
-    conky
-    dunst
-    firefox
-    libnotify
-    neofetch
-    nitrogen
-    picom
-    rangerplugins
-    st
-    xfce4-power-manager
-    zenity
-  ];
+    wrapProgram "$out/bin/iswitch" \
+      --prefix PATH : ${lib.makeBinPath [ wmctrl ]}
+  '';
 
   meta = with lib; {
     description = "instantOS Utils";

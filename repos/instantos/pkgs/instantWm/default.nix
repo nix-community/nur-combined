@@ -23,8 +23,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantWM";
-    rev = "92395c2362557a6c797c73e1166842b155c23fe2";
-    sha256 = "1933nkabgc3kv7v2y4d25wdxx5c5yzsgyyh91fq9lb327s6zh9kc";
+    rev = "44363679029428ff5a15719a3fe1fc2dbc485ab6";
+    sha256 = "0g72bjmmcdfanw7x19cpm8a067376afs24y2cbmgb10ydrlvi5qx";
     name = "instantOS_instantWm";
   };
 
@@ -54,6 +54,7 @@ stdenv.mkDerivation {
     pavucontrol
     rofi
     rxvt_unicode
+    defaultTerminal
   ] ++
   [
     instantAssist
@@ -63,6 +64,7 @@ stdenv.mkDerivation {
   installPhase = ''
     install -Dm 555 instantwm $out/bin/instantwm
     install -Dm 555 startinstantos $out/bin/startinstantos
+    cp config.def.h $out/
   '';
 
   meta = with lib; {
