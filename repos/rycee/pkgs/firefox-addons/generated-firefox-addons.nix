@@ -562,6 +562,20 @@
         platforms = platforms.all;
         };
       };
+    "org-capture" = buildFirefoxXpiAddon {
+      pname = "org-capture";
+      version = "0.2.1";
+      addonId = "{ddefd400-12ea-4264-8166-481f23abaa87}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1127481/org_capture-0.2.1-fx.xpi?src=";
+      sha256 = "5683ee1ebfafc24abc2d759c7180c4e839c24fa90764d8cf3285c5d72fc81f0a";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/sprig/org-capture-extension";
+        description = "A helper for capturing things via org-protocol in emacs: First, set up: <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/04ad17418f8d35ee0f3edf4599aed951b2a5ef88d4bc7e0e3237f6d86135e4fb/http%3A//orgmode.org/worg/org-contrib/org-protocol.html\">http://orgmode.org/worg/org-contrib/org-protocol.html</a> or <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/fb401af8127ccf82bc948b0a7af0543eec48d58100c0c46404f81aabeda442e6/https%3A//github.com/sprig/org-capture-extension\">https://github.com/sprig/org-capture-extension</a>\n\nSee <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/6aad51cc4e2f9476f9fff344e6554eade08347181aed05f8b61cda05073daecb/https%3A//youtu.be/zKDHto-4wsU\">https://youtu.be/zKDHto-4wsU</a> for example usage";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "peertubeify" = buildFirefoxXpiAddon {
       pname = "peertubeify";
       version = "0.6.0";
