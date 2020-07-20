@@ -33,7 +33,7 @@ rec {
   clonehero = clonehero-fhs-wrapper;
 
   cmake-language-server = pkgs.python3Packages.callPackage ./pkgs/development/tools/misc/cmake-language-server {
-    inherit pygls;
+    inherit pygls pytest-datadir;
   };
 
   debugpy = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/debugpy {};
@@ -46,7 +46,19 @@ rec {
     inherit lightdm-webkit2-greeter;
   };
 
+  newsflash = pkgs.callPackage ./pkgs/applications/networking/newsreaders/newsflash {};
+
+  protontricks = pkgs.python3Packages.callPackage ./pkgs/tools/package-management/protontricks {
+    inherit (pkgs.gnome3) zenity;
+    wine = pkgs.wineWowPackages.minimal;
+    winetricks = pkgs.winetricks.override {
+      wine = pkgs.wineWowPackages.minimal;
+    };
+  };
+
   pygls = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pygls {};
+
+  pytest-datadir = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pytest-datadir {};
 
   runescape-launcher-unwrapped = pkgs.callPackage ./pkgs/games/runescape-launcher {};
 
@@ -55,6 +67,8 @@ rec {
   texlab = pkgs.callPackage ./pkgs/development/tools/misc/texlab {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
+
+  vdf = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/vdf {};
 
   vkBasalt = pkgs.callPackage ./pkgs/tools/graphics/vkBasalt {
     vkBasalt32 = pkgs.pkgsi686Linux.callPackage ./pkgs/tools/graphics/vkBasalt {};
