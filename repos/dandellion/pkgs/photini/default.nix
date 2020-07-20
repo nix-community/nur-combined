@@ -1,6 +1,6 @@
 {
   fetchFromGitHub, python3, python3Packages, gexiv2, gobject-introspection, wrapGAppsHook, qtbase, qt5, ffmpeg,
-  enableSpellCheck ? false, enableFlickr ? false, enableGPhotos ? false
+  enableSpellCheck ? false
 }:
 
 let

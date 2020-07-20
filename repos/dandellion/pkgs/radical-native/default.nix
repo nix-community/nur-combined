@@ -4,7 +4,6 @@
 }:
 
 let
-
   host = 
     rustPlatform.buildRustPackage rec {
       pname = "radical-native";
@@ -35,13 +34,8 @@ let
       }
     '';
   };
-
 in
-
 buildEnv {
-
   name = "radical-nativeFull";
-
   paths = [ host manifest ];
-
 }

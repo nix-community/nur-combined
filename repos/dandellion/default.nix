@@ -18,9 +18,9 @@ in
   overlays = import ./overlays; # nixpkgs overlays
 
   colors = pkgs.callPackage ./pkgs/colors { };
+  eplot = pkgs.callPackage ./pkgs/eplot { };
 
   rank_photos = pkgs.callPackage ./pkgs/rank_photos { };
-  JAVMovieScraper = pkgs.callPackage ./pkgs/JAVMovieScraper { };
   vcsi = pkgs.callPackage ./pkgs/vcsi {};
 
   grav1 = pkgs.callPackage ./pkgs/grav1/server.nix { wsgiserver = wsgiserver; setuptools = pkgs.python3Packages.setuptools; };
@@ -28,16 +28,10 @@ in
 
   av1client = pkgs.callPackage ./pkgs/av1master/client.nix { };
 
-  janus = pkgs.libsForQt5.callPackage ./pkgs/JanusVR/client { };
-
   radical-native = pkgs.callPackage ./pkgs/radical-native { };
   photini = pkgs.libsForQt5.callPackage ./pkgs/photini { };
 
   plotbitrate = pkgs.callPackage ./pkgs/plotbitrate { };
-
-  mangohud = pkgs.callPackage ./pkgs/MangoHUD { };
-
-  botamusique = pkgs.callPackage ./pkgs/botamusique { };
 
   mesloNFp10k = pkgs.callPackage ./pkgs/fonts/MesloNFp10k.nix { };
 
