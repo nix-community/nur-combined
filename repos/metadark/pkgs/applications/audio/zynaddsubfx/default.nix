@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     description = "High quality software synthesizer";
     homepage = "https://zynaddsubfx.sourceforge.io";
     license = licenses.gpl2;
-    platforms = platforms.linux;
     maintainers = with maintainers; [ goibhniu metadark nico202 ];
+    platforms = platforms.linux;
   };
 }

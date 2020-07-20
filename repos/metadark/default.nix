@@ -82,6 +82,13 @@ rec {
     inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
   };
 
+  wine-Guy1524 = pkgs.callPackage ./pkgs/misc/emulators/wine-Guy1524 {
+    wineBuild =
+      if pkgs.stdenv.hostPlatform.system == "x86_64-linux"
+      then "wineWow"
+      else "wine32";
+  };
+
   xpadneo = pkgs.callPackage ./pkgs/os-specific/linux/xpadneo {
     kernel = pkgs.linux;
   };

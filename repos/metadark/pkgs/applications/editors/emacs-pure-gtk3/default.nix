@@ -22,8 +22,9 @@
 
   postInstall = builtins.replaceStrings [ attrs.version ] [ version ] attrs.postInstall;
 
-  meta = attrs.meta // {
+  meta = attrs.meta // (with lib; {
     description = "Emacs with pure GTK3 to support Wayland";
     homepage = "https://github.com/masm11/emacs";
-  };
+    maintainer = with maintainers; [ metadark ];
+  });
 })
