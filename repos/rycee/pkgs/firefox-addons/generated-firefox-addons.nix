@@ -550,10 +550,10 @@
       };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "1.1.4";
+      version = "1.2.0";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3522186/old_reddit_redirect-1.1.4-an+fx.xpi?src=";
-      sha256 = "e4d43fd993eab432f2cebf242b1f63821ad0e4f9a55cc0d08d146499fd609d48";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3611260/old_reddit_redirect-1.2.0-an+fx.xpi?src=";
+      sha256 = "581ceb8cd9cf9a90b66996b78ff1a2f7fa458a23c139cdf6c7aef80688a40e4e";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -662,10 +662,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.7.16";
+      version = "20.7.19";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3609753/refined_github-20.7.16-an+fx.xpi?src=";
-      sha256 = "db4372dd90d94b5ab809f4cf6ea5cc10c9ea07f180175ad4adf535a2b758830b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3611268/refined_github-20.7.19-an+fx.xpi?src=";
+      sha256 = "fd5d6f5fba5720b46dbe761e02e724f608ba42680b1141b7a2fe93a7edd3202b";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
