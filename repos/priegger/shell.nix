@@ -2,7 +2,7 @@
 , pkgs ? import ./nix { inherit sources; }
 }:
 let
-  pre-commit-hooks = import sources.pre-commit-hooks { inherit pkgs; };
+  #pre-commit-hooks = import sources.pre-commit-hooks { inherit pkgs; };
 in
 pkgs.mkShell {
   name = "nur-packages";
@@ -13,7 +13,7 @@ pkgs.mkShell {
     nixpkgs-fmt
   ];
 
-  shellHook = pre-commit-hooks.shellHook {
-    hooks = [ (pre-commit-hooks.hooks.mkNixpkgsFmt { nixpkgsFmtPkg = pkgs.nixpkgs-fmt; }) ];
-  };
+  #shellHook = pre-commit-hooks.shellHook {
+  #  hooks = [ (pre-commit-hooks.hooks.mkNixpkgsFmt { nixpkgsFmtPkg = pkgs.nixpkgs-fmt; }) ];
+  #};
 }
