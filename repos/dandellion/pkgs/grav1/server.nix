@@ -38,13 +38,7 @@ stdenv.mkDerivation {
     cp actions.py $out/bin/actions.py
     chmod +x $out/bin/server
 
-    cp grav1c.py $out/bin/client
-    chmod +x $out/bin/client
-
     wrapProgram $out/bin/server \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg libaom libvpx (dav1d.override { withTools = true;}) ]}
-
-    wrapProgram $out/bin/client \
       --prefix PATH : ${lib.makeBinPath [ ffmpeg libaom libvpx (dav1d.override { withTools = true;}) ]}
   '';
 
