@@ -4,22 +4,22 @@
 , webkitgtk
 }:
 
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage rec {
   pname = "newsflash";
-  version = "1.0.2";
+  version = "1.0.1";
 
   src = fetchFromGitLab {
     owner = "news-flash";
     repo = "news_flash_gtk";
-    rev = "3d3d24f6e57097cb99073c084178c35fc268f8f4";
-    sha256 = "00k11j7xq1lzfljwigmlygmzn5vys5rrggfc9r3hfnsfd425x129";
+    rev = version;
+    sha256 = "1y2jj3z08m29s6ggl8q270mqnvdwibs0f2kxybqhi8mya5pyw902";
   };
 
   cargoPatches = [
     ./cargo.lock.patch
   ];
 
-  cargoSha256 = "1x1l0267s012i8lc14652w7fcl8p92jvw9jbdj71k9pdy40jwwhy";
+  cargoSha256 = "0z3nhzpyckga112wn32zzwwlpqdgi6n53n8nwgggixvpbnh98112";
 
   patches = [
     ./no-post-install.patch
