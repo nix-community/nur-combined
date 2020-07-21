@@ -49,10 +49,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.3.6";
+      version = "0.3.7";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3596480/auto_tab_discard-0.3.6-an+fx.xpi?src=";
-      sha256 = "4e2bd3086a224bfbf1cecf862d3c8518f1a0183a6125d22ccc333e6c41dffef0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3610821/auto_tab_discard-0.3.7-an+fx.xpi?src=";
+      sha256 = "8d1d145d4063f14022576f91789d9cbb48fd9c1874c335a7b0c858ae9d404f6f";
       meta = with stdenv.lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -256,10 +256,10 @@
       };
     "foxyproxy-standard" = buildFirefoxXpiAddon {
       pname = "foxyproxy-standard";
-      version = "7.4.3";
+      version = "7.5";
       addonId = "foxyproxy@eric.h.jung";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3476518/foxyproxy_standard-7.4.3-an+fx.xpi?src=";
-      sha256 = "a8372bf0bda1afd27fd1300fdea49991c3bd25fd6a72225a680ba9d102c767a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3611407/foxyproxy_standard-7.5-an+fx.xpi?src=";
+      sha256 = "7d2c4bda2339f1d332e596f7d49903c60d2d5756a6489caf27feb86387c96451";
       meta = with stdenv.lib;
       {
         homepage = "https://getfoxyproxy.org";
