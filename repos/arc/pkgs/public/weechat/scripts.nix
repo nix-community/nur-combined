@@ -44,18 +44,18 @@
   };
   vimode-git = { fetchFromGitHub, stdenvNoCC, fetchurl }: stdenvNoCC.mkDerivation rec {
     pname = "vimode.py";
-    version = "2019-06-26";
-    rev = "6412084ae263a75790b8ea6fb36c75a7eb06c16b";
+    version = "2019-11-10";
+    rev = "4e926c39bd21de15c146e2a0bea1b85684ef08f2";
     src = fetchFromGitHub {
       owner = "GermainZ";
       repo = "weechat-vimode";
       rev = rev;
-      sha256 = "0ad06yd5lmpdvv10lm16fhp3z32c7ayvzx53gn654lzgy68y5ssi";
+      sha256 = "1h3r437vv5sg6f801praxm2prf4x8izkayi690qvfz2vsdzdxksv";
     };
 
     patches = let
-      fixrev = "7302f9e61bc78a2969b1df5e1ff0ae71eb9a05b1";
-      sha256 = "1wwkxglvkjpywscrywzjf70znm602dl6xwnl7r6n2ywm7miqrmvz";
+      fixrev = "bd3593834abc8f40f53c1bc8b68ab1e5d58241d9";
+      sha256 = "1930q1ngnhb4fl4isnfv2lz5vry3i6n91zdhjfrsywfrqna3y499";
     in [ (fetchurl {
       name = "weechat-vimode-arc.patch";
       url = "https://github.com/GermainZ/weechat-vimode/compare/GermainZ:${rev}...arcnmx:${fixrev}.diff";
