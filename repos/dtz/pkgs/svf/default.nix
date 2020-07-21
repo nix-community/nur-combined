@@ -2,10 +2,10 @@
 
 let
   svfs = rec {
-    "4" = {
-      path = ./4.nix;
-      llvmPackages = pkgs.llvmPackages_4;
-    };
+    #"4" = {
+    #  path = ./4.nix;
+    #  llvmPackages = pkgs.llvmPackages_4;
+    #};
     "6" = {
       path = ./6.nix;
       llvmPackages = pkgs.llvmPackages_6;

@@ -14,6 +14,7 @@ buildGoModule rec {
   };
 
   modSha256 = "126w3wda3655x1avnlcv2bpq0zvalcbvz66080nidwd6fk572zs6";
+  vendorSha256 = null;
 
   meta = with stdenv.lib; {
     description = "Detect when your YubiKey is waiting for a touch";

@@ -1,0 +1,37 @@
+From a06a2859574537fee791d540d4f2eff714da9a83 Mon Sep 17 00:00:00 2001
+From: Robert Martin <martinro@informatik.hu-berlin.de>
+Date: Sun, 12 Apr 2020 03:21:01 +0900
+Subject: [PATCH] changed order of device class setting
+
+(cherry picked from commit adfb907919e9e6ff16508f7a1c7b845ef5580f19)
+---
+ joycontrol/server.py | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/joycontrol/server.py b/joycontrol/server.py
+index 7d7a212..e53be14 100644
+--- a/joycontrol/server.py
++++ b/joycontrol/server.py
+@@ -77,9 +77,8 @@ async def create_hid_server(protocol_factory, ctl_psm=17, itr_psm=19, device_id=
+         hid.powered(True)
+         hid.pairable(True)
+ 
+-        # setting bluetooth adapter name and class to the device we wish to emulate
++        # setting bluetooth adapter name to the device we wish to emulate
+         await hid.set_name(protocol.controller.device_name())
+-        await hid.set_class()
+ 
+         logger.info('Advertising the Bluetooth SDP record...')
+         try:
+@@ -88,6 +87,8 @@ async def create_hid_server(protocol_factory, ctl_psm=17, itr_psm=19, device_id=
+             # Already registered (If multiple controllers are being emulated and this method is called consecutive times)
+             logger.debug(dbus_err)
+ 
++        await hid.set_class()
++
+         # start advertising
+         hid.discoverable()
+ 
+-- 
+2.27.0
+

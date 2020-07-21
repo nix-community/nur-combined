@@ -3,12 +3,12 @@
 
 stdenv.mkDerivation rec {
   pname = "iwinfo";
-  version = "2020-03-22";
+  version = "2020-06-03";
 
   src = fetchgit {
     url = "https://git.openwrt.org/project/${pname}.git";
-    rev = "9f5a7c4f9b78cb2de8fe5dd7af55bf0221706402";
-    sha256 = "12dkaffy0yhlryssg03mkwk36syhi3k63c5pmlaz0lp89550yc2f";
+    rev = "2faa20e5e9d107b97e393a4eb458370e80b4d720";
+    sha256 = "0aq48cw8ipwidcbi9n0b9yb8v10hnqyjsz6yiizq86agjrsr046f";
   };
 
   buildInputs = [
