@@ -20,7 +20,7 @@ in
       "ycomp"
       
       # Need LLVM versions removed in latest nixpkgs :(
-      "fcd4" "fcd4-tests"
+      "fcd4Pkgs"
       "llvm-dbas"
       "llvmslicer"
       "remill"
