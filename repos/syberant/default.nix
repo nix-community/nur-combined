@@ -13,4 +13,5 @@ rec {
         polybar-3 = pkgs.callPackage ./pkgs/adi1090x/polybar-themes/polybar-3 {};
 
         dwm-patches = pkgs.callPackage ./pkgs/dwm/patches.nix {};
+        dwm = pkgs.callPackage ./pkgs/dwm/dwm.nix {};
 }
