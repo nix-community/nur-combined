@@ -1,6 +1,18 @@
-{ lib, rustPlatform, fetchFromGitLab
-, gdk-pixbuf, glib, meson, ninja, pkg-config, wrapGAppsHook
-, gsettings-desktop-schemas, gtk3, libhandy, librsvg, openssl, sqlite
+{ lib
+, rustPlatform
+, fetchFromGitLab
+, gdk-pixbuf
+, glib
+, meson
+, ninja
+, pkg-config
+, wrapGAppsHook
+, gsettings-desktop-schemas
+, gtk3
+, libhandy
+, librsvg
+, openssl
+, sqlite
 , webkitgtk
 }:
 
@@ -59,7 +71,7 @@ rustPlatform.buildRustPackage rec {
   installCheckPhase = null;
 
   meta = with lib; {
-    description = "Modern feed reader";
+    description = "A modern feed reader designed for the GNOME desktop";
     homepage = "https://gitlab.com/news-flash/news_flash_gtk";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ metadark ];

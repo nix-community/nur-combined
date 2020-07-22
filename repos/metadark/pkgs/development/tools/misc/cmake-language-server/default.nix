@@ -1,6 +1,12 @@
-{ stdenv, buildPythonApplication, fetchFromGitHub
-, poetry, pygls, pyparsing
-, cmake, pytest, pytest-datadir
+{ stdenv
+, buildPythonApplication
+, fetchFromGitHub
+, poetry
+, pygls
+, pyparsing
+, cmake
+, pytest
+, pytest-datadir
 }:
 
 buildPythonApplication rec {

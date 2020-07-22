@@ -11,20 +11,19 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 with builtins;
-
 let
-
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) &&
-                   any (pkgs.stdenv.lib.meta.platformMatch pkgs.stdenv.hostPlatform)
-                     p.meta.hydraPlatforms or p.meta.platforms or [ "x86_64-linux" ];
-  isCacheable = p: !(p.preferLocalBuild or false) &&
-                   (p.meta.license.redistributable or p.meta.license.free or true);
+    any
+      (pkgs.stdenv.lib.meta.platformMatch pkgs.stdenv.hostPlatform)
+      p.meta.hydraPlatforms or p.meta.platforms or [ "x86_64-linux" ];
 
+  isCacheable = p: !(p.preferLocalBuild or false) &&
+    (p.meta.license.redistributable or p.meta.license.free or true);
 
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
@@ -36,10 +35,10 @@ let
     let
       f = p:
         if shouldRecurseForDerivations p then flattenPkgs p
-        else if isDerivation p then [p]
-        else [];
+        else if isDerivation p then [ p ]
+        else [ ];
     in
-      concatMap f (attrValues s);
+    concatMap f (attrValues s);
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
@@ -47,13 +46,13 @@ let
 
   nurPkgs =
     flattenPkgs
-    (listToAttrs
-    (map (n: nameValuePair n nurAttrs.${n})
-    (filter (n: !isReserved n)
-    (attrNames nurAttrs))));
-
+      (listToAttrs
+        (map
+          (n: nameValuePair n nurAttrs.${n})
+          (filter
+            (n: !isReserved n)
+            (attrNames nurAttrs))));
 in
-
 rec {
   buildPkgs = filter isBuildable nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;

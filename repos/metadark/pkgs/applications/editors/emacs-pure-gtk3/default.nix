@@ -14,10 +14,11 @@
     sha256 = "05xq46kb9l6yh1m3xrvb5y7kypij21a4w8dp105mmnmrb6272a86";
   };
 
-  patches = [];
+  patches = [ ];
 
   configureFlags = attrs.configureFlags ++ [
-    "--with-pgtk" "--with-cairo"
+    "--with-pgtk"
+    "--with-cairo"
   ];
 
   postInstall = builtins.replaceStrings [ attrs.version ] [ version ] attrs.postInstall;

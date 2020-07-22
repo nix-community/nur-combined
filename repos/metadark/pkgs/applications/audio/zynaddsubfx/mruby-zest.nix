@@ -1,6 +1,13 @@
-{ stdenv, fetchFromGitHub
-, bison, git, python2, rake, ruby
-, libGL, libuv, libX11,
+{ stdenv
+, fetchFromGitHub
+, bison
+, git
+, python2
+, rake
+, ruby
+, libGL
+, libuv
+, libX11
 }:
 
 let
@@ -45,7 +52,8 @@ let
     rev = "383a9c79e191d524a9a2b4107cc5043ecbf6190b";
     sha256 = "003glxgxifk4ixl12sy4gn9bhwvgb79b4wga549ic79isgv81w2d";
   };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "mruby-zest";
   version = "3.0.5";
 

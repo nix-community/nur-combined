@@ -1,5 +1,9 @@
-{ stdenv, fetchFromGitHub
-, glslang, meson, ninja, pkg-config
+{ stdenv
+, fetchFromGitHub
+, glslang
+, meson
+, ninja
+, pkg-config
 , libX11
 , vkBasalt32 ? null
 }:

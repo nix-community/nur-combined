@@ -21,7 +21,8 @@ let
     logo = ${cfg.branding.logo}
     user_image = ${cfg.branding.userImage}
   '';
-in {
+in
+{
   options = {
     services.xserver.displayManager.lightdm.greeters.webkit2 = {
       enable = mkOption {
@@ -86,7 +87,7 @@ in {
       };
 
       webkitTheme = mkOption {
-        type = types.either types.path (types.enum ["antergos" "simple"]);
+        type = types.either types.path (types.enum [ "antergos" "simple" ]);
         default = "antergos";
         example = ''
           fetchTarball {

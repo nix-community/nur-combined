@@ -1,5 +1,9 @@
-{ stdenv, buildPythonApplication, fetchFromGitHub
-, dbus-python, pygobject3, python
+{ stdenv
+, buildPythonApplication
+, fetchFromGitHub
+, dbus-python
+, pygobject3
+, python
 }:
 
 buildPythonApplication rec {

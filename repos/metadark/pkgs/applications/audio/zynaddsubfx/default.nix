@@ -1,20 +1,33 @@
-{ stdenv, lib, fetchFromGitHub, callPackage
+{ stdenv
+, lib
+, fetchFromGitHub
+, callPackage
 
-# Required build tools
-, cmake, pkgconfig
+  # Required build tools
+, cmake
+, pkgconfig
 
-# Required dependencies
-, fftw, liblo, minixml, zlib
+  # Required dependencies
+, fftw
+, liblo
+, minixml
+, zlib
 
-# Optional dependencies
-, alsaSupport ? true, alsaLib ? null
-, dssiSupport ? false, dssi ? null, ladspaH ? null
-, jackSupport ? true, libjack2 ? null
-, lashSupport ? false, lash ? null
+  # Optional dependencies
+, alsaSupport ? true
+, alsaLib ? null
+, dssiSupport ? false
+, dssi ? null
+, ladspaH ? null
+, jackSupport ? true
+, libjack2 ? null
+, lashSupport ? false
+, lash ? null
 , ossSupport ? true
-, portaudioSupport ? true, portaudio ? null
+, portaudioSupport ? true
+, portaudio ? null
 
-# Optional GUI dependencies
+  # Optional GUI dependencies
 , guiModule ? "off"
 , cairo ? null
 , fltk13 ? null
@@ -24,7 +37,7 @@
 , libXpm ? null
 , ntk ? null
 
-# Test dependencies
+  # Test dependencies
 , cxxtest
 }:
 
@@ -77,8 +90,8 @@ stdenv.mkDerivation rec {
     # ZynFusionDir is considered a "developer only" option, but mruby-zest
     # doesn't follow the FHS and this is the simplest way to depend on it.
     ++ lib.optional (guiModule == "zest") [
-      "-DZynFusionDir=${callPackage ./mruby-zest.nix {}}"
-    ];
+    "-DZynFusionDir=${callPackage ./mruby-zest.nix { }}"
+  ];
 
   doCheck = true;
   checkInputs = [ cxxtest ];

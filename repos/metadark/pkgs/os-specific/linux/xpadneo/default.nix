@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ bluez ];
 
   makeFlags = [
-    "-C" "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    "-C"
+    "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     "M=$(sourceRoot)"
   ];
 

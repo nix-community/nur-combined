@@ -4,11 +4,14 @@
   name = "wine-eac";
   version = "a50880e";
 
-  nativeBuildInputs =
-    attrs.nativeBuildInputs
-    ++ lib.optional (wineBuild == "wine32" || wineBuild == "wineWow")
+  nativeBuildInputs = attrs.nativeBuildInputs
+    ++
+    lib.optional
+      (wineBuild == "wine32" || wineBuild == "wineWow")
       pkgsCross.mingw32.windows.crossThreadsStdenv.cc
-    ++ lib.optional (wineBuild == "win64" || wineBuild == "wineWow")
+    ++
+    lib.optional
+      (wineBuild == "win64" || wineBuild == "wineWow")
       pkgsCross.mingwW64.windows.crossThreadsStdenv.cc;
 
   # Fixes "Compiler cannot create executables" building with wineWow

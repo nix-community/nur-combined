@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 rec {
   # The `lib`, `modules`, and `overlay` names are special
@@ -14,13 +14,13 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  bluetooth-autoconnect = pkgs.python3Packages.callPackage ./pkgs/tools/bluetooth/bluetooth-autoconnect {};
+  bluetooth-autoconnect = pkgs.python3Packages.callPackage ./pkgs/tools/bluetooth/bluetooth-autoconnect { };
 
   caprine = pkgs.callPackage ./pkgs/applications/networking/instant-messengers/caprine {
     electron = pkgs.electron_9;
   };
 
-  clonehero-unwrapped = pkgs.callPackage ./pkgs/games/clonehero {};
+  clonehero-unwrapped = pkgs.callPackage ./pkgs/games/clonehero { };
 
   clonehero-xdg-wrapper = pkgs.callPackage ./pkgs/games/clonehero/xdg-wrapper.nix {
     inherit clonehero-unwrapped;
@@ -36,17 +36,17 @@ rec {
     inherit pygls pytest-datadir;
   };
 
-  debugpy = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/debugpy {};
+  debugpy = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/debugpy { };
 
-  emacs-pure-gtk3 = pkgs.callPackage ./pkgs/applications/editors/emacs-pure-gtk3 {};
+  emacs-pure-gtk3 = pkgs.callPackage ./pkgs/applications/editors/emacs-pure-gtk3 { };
 
-  goverlay = pkgs.callPackage ./pkgs/tools/graphics/goverlay {};
+  goverlay = pkgs.callPackage ./pkgs/tools/graphics/goverlay { };
 
   lightdm-webkit2-greeter = pkgs.callPackage ./pkgs/applications/display-managers/lightdm-webkit2-greeter {
     inherit lightdm-webkit2-greeter;
   };
 
-  newsflash = pkgs.callPackage ./pkgs/applications/networking/newsreaders/newsflash {};
+  newsflash = pkgs.callPackage ./pkgs/applications/networking/newsreaders/newsflash { };
 
   protontricks = pkgs.python3Packages.callPackage ./pkgs/tools/package-management/protontricks {
     inherit (pkgs.gnome3) zenity;
@@ -56,22 +56,22 @@ rec {
     };
   };
 
-  pygls = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pygls {};
+  pygls = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pygls { };
 
-  pytest-datadir = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pytest-datadir {};
+  pytest-datadir = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pytest-datadir { };
 
-  runescape-launcher-unwrapped = pkgs.callPackage ./pkgs/games/runescape-launcher {};
+  runescape-launcher-unwrapped = pkgs.callPackage ./pkgs/games/runescape-launcher { };
 
-  runescape-launcher = pkgs.callPackage ./pkgs/games/runescape-launcher/wrapper.nix {};
+  runescape-launcher = pkgs.callPackage ./pkgs/games/runescape-launcher/wrapper.nix { };
 
   texlab = pkgs.callPackage ./pkgs/development/tools/misc/texlab {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
 
-  vdf = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/vdf {};
+  vdf = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/vdf { };
 
   vkBasalt = pkgs.callPackage ./pkgs/tools/graphics/vkBasalt {
-    vkBasalt32 = pkgs.pkgsi686Linux.callPackage ./pkgs/tools/graphics/vkBasalt {};
+    vkBasalt32 = pkgs.pkgsi686Linux.callPackage ./pkgs/tools/graphics/vkBasalt { };
   };
 
   VVVVVV-unwrapped = pkgs.callPackage ./pkgs/games/VVVVVV {

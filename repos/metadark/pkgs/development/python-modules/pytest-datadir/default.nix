@@ -1,5 +1,9 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub
-, setuptools_scm, pytest, cmake
+{ stdenv
+, buildPythonPackage
+, fetchFromGitHub
+, setuptools_scm
+, pytest
+, cmake
 }:
 
 buildPythonPackage rec {

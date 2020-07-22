@@ -1,7 +1,10 @@
 { stdenvNoCC
-, callPackage, makeDesktopItem, fetchurl
+, callPackage
+, makeDesktopItem
+, fetchurl
 , Foundation
-, makeWrapper, unzip
+, makeWrapper
+, unzip
 }:
 
 let
@@ -14,7 +17,8 @@ let
     exec = "VVVVVV";
     categories = "Game;";
   };
-in stdenvNoCC.mkDerivation {
+in
+stdenvNoCC.mkDerivation {
   pname = "VVVVVV";
   inherit (VVVVVV) version;
 

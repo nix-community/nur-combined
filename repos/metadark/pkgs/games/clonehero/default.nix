@@ -1,10 +1,18 @@
-{ stdenv, fetchurl, autoPatchelfHook
-, alsaLib, gtk2, libXrandr, libXScrnSaver, udev, zlib
+{ stdenv
+, fetchurl
+, autoPatchelfHook
+, alsaLib
+, gtk2
+, libXrandr
+, libXScrnSaver
+, udev
+, zlib
 }:
 
 let
   name = "clonehero";
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "${name}-unwrapped";
   version = "0.23.2.2";
 

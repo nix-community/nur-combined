@@ -24,7 +24,8 @@ let
     categories = "GTK;InstantMessaging;Network;";
     startupNotify = "true";
   };
-in nodePackages.${packageName}.override {
+in
+nodePackages.${packageName}.override {
   nativeBuildInputs = [ makeWrapper ];
 
   npmFlags = "--ignore-scripts";

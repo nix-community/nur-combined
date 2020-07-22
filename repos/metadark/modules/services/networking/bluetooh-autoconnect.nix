@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-
 let
   cfg = config.services.bluetooth-autoconnect;
   bluetooth-autoconnect = pkgs.nur.repos.metadark.bluetooth-autoconnect;
-in {
+in
+{
   options.services.bluetooth-autoconnect = {
     enable = mkEnableOption ''
       bluetooh autoconnect to automatically connect to all paired and
@@ -15,7 +15,8 @@ in {
 
   config = mkIf cfg.enable {
     assertions = [
-      { assertion = config.hardware.bluetooth.enable;
+      {
+        assertion = config.hardware.bluetooth.enable;
         message = ''
           Bluetooth autoconnect requires hardware.bluetooth.enable to be true
         '';
@@ -30,7 +31,7 @@ in {
           before = [ "bluetooth.service" ];
           serviceConfig = {
             Type = "simple";
-            ExecStart="${bluetooth-autoconnect}/bin/bluetooth-autoconnect -d";
+            ExecStart = "${bluetooth-autoconnect}/bin/bluetooth-autoconnect -d";
           };
         };
       };
@@ -42,7 +43,7 @@ in {
           after = [ "pulseaudio.service" ];
           serviceConfig = {
             Type = "simple";
-            ExecStart="${bluetooth-autoconnect}/bin/bluetooth-autoconnect";
+            ExecStart = "${bluetooth-autoconnect}/bin/bluetooth-autoconnect";
           };
         };
       };

@@ -1,7 +1,15 @@
-{ stdenv, fetchFromGitHub
-, meson, ninja, pkg-config, wrapGAppsHook
-, dbus-glib, gtk3, lightdm, webkitgtk
-, linkFarm, lightdm-webkit2-greeter
+{ stdenv
+, fetchFromGitHub
+, meson
+, ninja
+, pkg-config
+, wrapGAppsHook
+, dbus-glib
+, gtk3
+, lightdm
+, webkitgtk
+, linkFarm
+, lightdm-webkit2-greeter
 }:
 
 stdenv.mkDerivation rec {

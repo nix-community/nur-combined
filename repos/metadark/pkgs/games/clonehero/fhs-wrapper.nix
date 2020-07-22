@@ -1,5 +1,8 @@
-{ clonehero-unwrapped, clonehero-xdg-wrapper
-, makeDesktopItem, buildFHSUserEnv, liberation_ttf
+{ clonehero-unwrapped
+, clonehero-xdg-wrapper
+, makeDesktopItem
+, buildFHSUserEnv
+, liberation_ttf
 }:
 
 let
@@ -12,7 +15,8 @@ let
     icon = name;
     categories = "Game;";
   };
-in buildFHSUserEnv {
+in
+buildFHSUserEnv {
   inherit name;
   inherit (clonehero-unwrapped) meta;
 

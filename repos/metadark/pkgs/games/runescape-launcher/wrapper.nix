@@ -1,8 +1,9 @@
 { callPackage, buildFHSUserEnv }:
 
 let
-  runescape-launcher = callPackage ./default.nix {};
-in buildFHSUserEnv rec {
+  runescape-launcher = callPackage ./default.nix { };
+in
+buildFHSUserEnv rec {
   name = runescape-launcher.pname;
   inherit (runescape-launcher) meta;
 

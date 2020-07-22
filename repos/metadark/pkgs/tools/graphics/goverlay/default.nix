@@ -1,6 +1,15 @@
-{ stdenv, fetchFromGitHub
-, fpc, lazarus, makeWrapper
-, atk, cairo, gdk_pixbuf, glib, gtk2-x11, libX11, pango
+{ stdenv
+, fetchFromGitHub
+, fpc
+, lazarus
+, makeWrapper
+, atk
+, cairo
+, gdk_pixbuf
+, glib
+, gtk2-x11
+, libX11
+, pango
 }:
 
 stdenv.mkDerivation rec {

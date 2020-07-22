@@ -1,5 +1,10 @@
-{ stdenv, buildPythonPackage, isPy3k, fetchFromGitHub
-, mock, pytest, pytest-asyncio
+{ stdenv
+, buildPythonPackage
+, isPy3k
+, fetchFromGitHub
+, mock
+, pytest
+, pytest-asyncio
 }:
 
 buildPythonPackage rec {

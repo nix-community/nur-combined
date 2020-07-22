@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub
-, cmake, SDL2, SDL2_mixer
+{ stdenv
+, fetchFromGitHub
+, cmake
+, SDL2
+, SDL2_mixer
 , Foundation
 }:
 
@@ -8,7 +11,8 @@ let
     if stdenv.isDarwin then ".osx"
     else if stdenv.is64bit then ".x86_64"
     else ".x86";
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "VVVVVV-unwrapped";
   version = "2.2";
 
@@ -23,7 +27,8 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [
-    SDL2 SDL2_mixer
+    SDL2
+    SDL2_mixer
   ] ++ stdenv.lib.optionals stdenv.isDarwin [
     Foundation
   ];
