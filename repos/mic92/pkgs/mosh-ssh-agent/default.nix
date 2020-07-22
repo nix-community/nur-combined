@@ -1,13 +1,13 @@
 { stdenv, mosh, fetchFromGitHub, fetchpatch }:
 
 mosh.overrideAttrs (old: {
-  name = "mosh-ssh-agent-2020-04-29";
+  name = "mosh-ssh-agent-2020-07-22";
 
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "mosh";
-    rev = "89b08b4ce160d20e2a7f72e5b6995865ff920014";
-    sha256 = "0a11059r5030az086p5c3gilfm6cswsssjgz2xlv9sb7z2sblb7y";
+    rev = "48d106f832d207cce2f7ef6238204fc073dac02e";
+    sha256 = "0nyfz23nsk5pgmypwpyx35bc6j6b4ymxv7wwmrfzdrkml73n2c0m";
   };
 
   patches = [

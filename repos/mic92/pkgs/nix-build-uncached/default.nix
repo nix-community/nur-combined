@@ -3,12 +3,12 @@
 let
   unwrapped = buildGoModule rec {
     pname = "nix-build-uncached";
-    version = "1.0.0rc1";
+    version = "1.0.0";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-build-uncached";
       rev = "v${version}";
-      sha256 = "1br3vzjyrh1ncc8yri0mmxra58nv0y52bv6sspllwjrcmi64ymks";
+      sha256 = "106k4234gpi8mr0n0rfsgwk4z7v0b2gim0r5bhjvg2v566j67g02";
     };
 
     vendorSha256 = null;
