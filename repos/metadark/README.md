@@ -23,7 +23,7 @@ Name | Attribute | Description
 [vdf](https://github.com/ValvePython/vdf)|[nur.repos.metadark.vdf](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/development/python-modules/vdf/default.nix#L20)|Library for working with Valve's VDF text format
 [vkBasalt](https://github.com/DadSchoorse/vkBasalt)|[nur.repos.metadark.vkBasalt](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/tools/graphics/vkBasalt/default.nix#L37)|A Vulkan post processing layer for Linux
 [VVVVVV](https://thelettervsixtim.es)|[nur.repos.metadark.VVVVVV](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/games/VVVVVV/default.nix#L42)|A retro-styled 2D platformer
-[wine-Guy1524](https://github.com/Guy1524/wine)|[nur.repos.metadark.wine-Guy1524](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/misc/emulators/wine-Guy1524/default.nix#L28)|A custom fork of Wine to support games with anticheat
+[wine-eac](https://github.com/Guy1524/wine)|[nur.repos.metadark.wine-eac](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/misc/emulators/wine-Guy1524/default.nix#L28)|A custom fork of Wine to support games with Easy Anti-Cheat
 [zynaddsubfx](https://zynaddsubfx.sourceforge.io)|[nur.repos.metadark.zynaddsubfx](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/applications/audio/zynaddsubfx/default.nix#L87)|High quality software synthesizer
 
 # NixOS Modules

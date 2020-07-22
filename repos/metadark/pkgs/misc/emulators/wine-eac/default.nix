@@ -1,7 +1,7 @@
 { lib, wine, wineBuild, pkgsCross, fetchFromGitHub }:
 
 (wine.overrideAttrs (attrs: rec {
-  name = "wine-Guy1524";
+  name = "wine-eac";
   version = "a50880e";
 
   nativeBuildInputs =
@@ -25,8 +25,8 @@
   };
 
   meta = with lib; {
+    description = "A custom fork of Wine to support games with Easy Anti-Cheat";
     homepage = "https://github.com/Guy1524/wine";
-    description = "A custom fork of Wine to support games with anticheat";
     maintainer = with maintainers; [ metadark ];
   };
 })).override {

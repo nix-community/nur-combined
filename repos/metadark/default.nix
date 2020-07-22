@@ -82,7 +82,7 @@ rec {
     inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
   };
 
-  wine-Guy1524 = pkgs.callPackage ./pkgs/misc/emulators/wine-Guy1524 {
+  wine-eac = pkgs.callPackage ./pkgs/misc/emulators/wine-eac {
     wineBuild =
       if pkgs.stdenv.hostPlatform.system == "x86_64-linux"
       then "wineWow"
