@@ -44,6 +44,7 @@ rec {
     pubchempy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pubchempy { };
     openfermion = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/openfermion { inherit pubchempy; };
     openfermion-cirq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/openfermion-cirq { inherit cirq openfermion; };
+    setuptools-rust = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/setuptools-rust { };
 
     # VISA & Lab Instrument control
     pyvisa = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvisa { };
@@ -72,7 +73,7 @@ rec {
     pproxy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pproxy { };
     python-constraint = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/python-constraint { };
     pylatexenc = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pylatexenc { };
-    retworkx = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/retworkx { };
+    retworkx = pkgs.python3.pkgs.toPythonModule (pkgs.python3.pkgs.callPackage ./pkgs/python-modules/retworkx { });
 
     # Qiskit proper, build order
     qiskit-terra = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-terra {
