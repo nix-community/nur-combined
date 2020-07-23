@@ -28,7 +28,7 @@
 
 buildPythonPackage rec {
   pname = "cirq";
-  version = "0.8.1";
+  version = "0.8.2";
 
   disabled = pythonOlder "3.5";
 
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     owner = "quantumlib";
     repo = "cirq";
     rev = "v${version}";
-    sha256 = "12695042a75pzgqfqjb84n3qm25zgz74qh3cqifdbc9adasz5gr8";
+    sha256 = "0xs46s19idh8smf80zhgraxwh3lphcdbljdrhxwhi5xcc41dfsmf";
   };
 
   patches = [
@@ -47,16 +47,16 @@ buildPythonPackage rec {
     })
   ];
 
-  # Cirq locks protobuf==3.8.0, but tested working with default pythonPackages.protobuf (3.7). This avoids overrides/pythonPackages.protobuf conflicts
+  # Cirq locks protobuf~=3.12.0, but tested working with default pythonPackages.protobuf (3.7). This avoids overrides/pythonPackages.protobuf conflicts
   postPatch = ''
     substituteInPlace requirements.txt \
       --replace "networkx~=2.4" "networkx" \
-      --replace "protobuf==3.8.0" "protobuf" \
+      --replace "protobuf~=3.12.0" "protobuf" \
       --replace "freezegun~=0.3.15" "freezegun"
 
-    # Fix serialize_sympy_constants test (#2728) by allowing small errors in pi
+    # Fix serialize_sympy_constants test by allowing small errors in pi
     substituteInPlace cirq/google/arg_func_langs_test.py \
-      --replace "{'arg_value': {'float_value': float(np.float32(sympy.pi))}}" "{'arg_value': pytest.approx({'float_value': float(np.float32(sympy.pi))})}"
+      --replace "'float_value': float(str(np.float32(sympy.pi)))" "'float_value': pytest.approx(float(str(np.float32(sympy.pi))))"
   '';
 
   propagatedBuildInputs = [
@@ -95,10 +95,9 @@ buildPythonPackage rec {
     # "--durations=25"
   ];
   disabledTests = [
-    "test_convert_to_ion_gates" # fails due to rounding error, 0.75 != 0.750...2
+    "test_convert_to_ion_gates" # seems to fail due to rounding error on CI ONLY, 0.75 != 0.750...2
 
-    # Newly disabled tests on cirq 0.8
-    # TODO: test & figure out why failing
+    # Newly disabled tests on cirq 0.8. Think these fail due to old protobuf
     "engine_job_test"
     "test_health"
     "test_run_delegation"
@@ -107,7 +106,7 @@ buildPythonPackage rec {
     "expectation_from_wavefunction"
     "test_single_qubit_op_to_framed_phase_form_output_on_example_case"
   ] ++ [
-    # slow tests, for quicker travis building
+    # slow tests, for quicker building
     "test_anneal_search_method_calls"
     "test_density_matrix_from_state_tomography_is_correct"
     "test_example_runs_qubit_characterizations"
@@ -131,6 +130,6 @@ buildPythonPackage rec {
     description = "A framework for creating, editing, and invoking Noisy Intermediate Scale Quantum (NISQ) circuits.";
     homepage = "https://github.com/quantumlib/cirq";
     license = licenses.asl20;
-    # maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [ drewrisinger ];
   };
 }

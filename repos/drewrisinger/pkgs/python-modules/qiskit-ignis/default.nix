@@ -45,13 +45,13 @@ buildPythonPackage rec {
   '';
   postCheck = "popd";
   checkInputs = [
-    ddt
     pytestCheckHook
+    ddt
     qiskit-aer
   ];
-  # Test is in test/verification/test_entanglemet.py. test fails due to out-of-date calls & bad logic with this file since qiskit-ignis#328
-  # see qiskit-ignis#386 for all issues. Should be able to re-enable in future.
-  disabledTests = [ "TestEntanglement" ];
+  disabledTests = [
+    "test_tensored_meas_cal_on_circuit" # Flaky test, occasionally returns result outside bounds
+  ];
   pytestFlagsArray = [
     # Disabled b/c taking too many log lines in Travis
     "--disable-warnings"
