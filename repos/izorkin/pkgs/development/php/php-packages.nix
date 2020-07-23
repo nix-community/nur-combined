@@ -97,12 +97,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.8";
+    version = "1.10.9";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "1rbqa56bsc3wrhk8djxdzh755zx1qrqp3wrdid7x0djzbmzp6h2c";
+      sha256 = "0ddgrxjdv1kj4yzrxq76hicc4bz2vy4pzjrd6y53jjvpw31vkmkh";
     };
 
     dontUnpack = true;
@@ -523,12 +523,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.32";
+    version = "0.12.33";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0sb7yhjjh4wj8wbv4cdf0n1lvhx1ciz7ch8lr73maajj2xbvy1zk";
+      sha256 = "05qc1ybmfvbxp8yyx8br8wwcrjfqp98wpm4mv5jsn48ib2ihnlkg";
     };
 
     phases = [ "installPhase" ];
@@ -628,10 +628,10 @@ let
   };
 
   protobuf = buildPecl {
-    version = "3.12.2";
+    version = "3.12.3";
     pname = "protobuf";
 
-    sha256 = "1jqi9pxm895s74w9zv1qyv0f11vh3skha3zf48vfxsvv00kljk0z";
+    sha256 = "182pfmfv16hcp14npxj7v2fi4fbh6nr7jxrxzvwanrrhx9fq2sq5";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
