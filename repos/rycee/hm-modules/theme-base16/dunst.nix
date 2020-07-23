@@ -2,37 +2,39 @@
 
 let
 
+  inherit (lib) mkDefault mkIf mkOption types;
+
   colors = config.theme.base16.colors;
 
 in {
-  options.services.dunst.enableBase16Theme = lib.mkOption {
-    type = lib.types.bool;
+  options.services.dunst.enableBase16Theme = mkOption {
+    type = types.bool;
     default = true;
     example = false;
     description = "Enable Base16 theme.";
   };
 
-  config = lib.mkIf config.services.dunst.enableBase16Theme {
+  config = mkIf config.services.dunst.enableBase16Theme {
     # Adapted from https://github.com/khamer/base16-dunst/.
     services.dunst.settings = {
       global = {
-        frame_color = "#${colors.base05.hex.rgb}";
-        separator_color = "#${colors.base05.hex.rgb}";
+        frame_color = mkDefault "#${colors.base05.hex.rgb}";
+        separator_color = mkDefault "frame";
       };
 
       urgency_low = {
-        background = "#${colors.base01.hex.rgb}";
-        foreground = "#${colors.base03.hex.rgb}";
+        background = mkDefault "#${colors.base01.hex.rgb}";
+        foreground = mkDefault "#${colors.base03.hex.rgb}";
       };
 
       urgency_normal = {
-        background = "#${colors.base02.hex.rgb}";
-        foreground = "#${colors.base05.hex.rgb}";
+        background = mkDefault "#${colors.base02.hex.rgb}";
+        foreground = mkDefault "#${colors.base05.hex.rgb}";
       };
 
       urgency_critical = {
-        background = "#${colors.base08.hex.rgb}";
-        foreground = "#${colors.base06.hex.rgb}";
+        background = mkDefault "#${colors.base08.hex.rgb}";
+        foreground = mkDefault "#${colors.base06.hex.rgb}";
       };
     };
   };

@@ -2,30 +2,32 @@
 
 let
 
+  inherit (lib) mkDefault mkIf mkOption types;
+
   colors = config.theme.base16.colors;
 
 in {
-  options.programs.gnome-terminal.enableBase16Theme = lib.mkOption {
-    type = lib.types.bool;
+  options.programs.gnome-terminal.enableBase16Theme = mkOption {
+    type = types.bool;
     default = true;
     example = false;
     description = "Enable Base16 theme.";
   };
 
-  config = lib.mkIf config.programs.gnome-terminal.enableBase16Theme {
+  config = mkIf config.programs.gnome-terminal.enableBase16Theme {
     # Adapted from https://github.com/aaron-williamson/base16-gnome-terminal/.
     programs.gnome-terminal = {
       themeVariant = config.theme.base16.kind;
       profile."5ddfe964-7ee6-4131-b449-26bdd97518f7" = {
-        visibleName = "Home Manager - Base16";
+        visibleName = mkDefault "Home Manager - Base16";
         colors = {
-          backgroundColor = "#${colors.base00.hex.rgb}";
-          foregroundColor = "#${colors.base05.hex.rgb}";
+          backgroundColor = mkDefault "#${colors.base00.hex.rgb}";
+          foregroundColor = mkDefault "#${colors.base05.hex.rgb}";
           cursor = {
-            background = "#${colors.base05.hex.rgb}";
-            foreground = "#${colors.base00.hex.rgb}";
+            background = mkDefault "#${colors.base05.hex.rgb}";
+            foreground = mkDefault "#${colors.base00.hex.rgb}";
           };
-          palette = [
+          palette = mkDefault [
             "#${colors.base00.hex.rgb}"
             "#${colors.base08.hex.rgb}"
             "#${colors.base0B.hex.rgb}"

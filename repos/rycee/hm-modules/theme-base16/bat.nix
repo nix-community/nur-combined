@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+
+  inherit (lib) concatStrings mapAttrsToList mkDefault mkIf mkOption types;
 
   colors = config.theme.base16.colors;
 
@@ -29,7 +29,7 @@ in {
 
   config = mkIf config.programs.bat.enableBase16Theme {
     programs.bat = {
-      config.theme = "HmBase16";
+      config.theme = mkDefault "HmBase16";
       themes.HmBase16 = builtins.readFile themeFile;
     };
   };
