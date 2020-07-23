@@ -43,7 +43,7 @@ rec
     pythonPackages = pkgs.python2Packages;
   };
 
-  github-cli = _nixpkgs.callPackage ./development/tools/github/cli { };
+  helmfile = pkgs.callPackage ./applications/networking/cluster/helmfile {};
 
   icon-lang = _nixpkgs-stable.icon-lang.override {
     withGraphics = false;
