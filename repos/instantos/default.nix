@@ -26,16 +26,17 @@ pkgs.lib.makeExtensible (self: rec {
 
   # instant WM and utils
   gufw = with pkgs.python3Packages; pkgs.callPackage ./pkgs/gufw { inherit buildPythonApplication distutils_extra; };
+  imenu = pkgs.callPackage ./pkgs/imenu { instantMenu = self.instantmenu; };
   instantconf = pkgs.callPackage ./pkgs/instantConf { };
   instantlogo = pkgs.callPackage ./pkgs/instantLogo { };
   instantshell = pkgs.callPackage ./pkgs/instantShell { };
   instantwidgets = pkgs.callPackage ./pkgs/instantWidgets { };
+  lxsession = pkgs.callPackage ./pkgs/lxsession { };
   paperbash = pkgs.callPackage ./pkgs/Paperbash { };
-  imenu = pkgs.callPackage ./pkgs/imenu { instantMenu = self.instantmenu; };
   rangerplugins = pkgs.callPackage ./pkgs/rangerplugins { };
   spotify-adblock = pkgs.callPackage ./pkgs/spotify-adblock { };
   instantassist = pkgs.callPackage ./pkgs/instantAssist {
-    Paperbash = self.paperbash;
+    instantConf = instantconf;
     spotify-adblock = self.spotify-adblock;
   };
   islide = pkgs.callPackage ./pkgs/islide {
@@ -45,6 +46,7 @@ pkgs.lib.makeExtensible (self: rec {
     Paperbash = self.paperbash;
   };
   instantutils = pkgs.callPackage ./pkgs/instantUtils { 
+    lxsession = lxsession;
     rangerplugins = self.rangerplugins;
     xfce4-power-manager = pkgs.xfce.xfce4-power-manager;
     zenity = pkgs.gnome3.zenity;

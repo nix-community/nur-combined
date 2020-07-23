@@ -1,0 +1,33 @@
+diff -ur a/configure.ac b/configure.ac
+--- a/configure.ac	2020-07-22 13:59:19.802829863 +0200
++++ b/configure.ac	2020-07-22 14:22:54.827543726 +0200
+@@ -167,18 +167,18 @@
+ AM_GLIB_GNU_GETTEXT
+ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
+ 
+-if test x"$enable_man" = x"yes"; then
+-	AC_PATH_PROG([XSLTPROC], [xsltproc])
+-	if test -z "$XSLTPROC"; then
+-		enable_man=no
+-	fi
++# if test x"$enable_man" = x"yes"; then
++AC_PATH_PROG([XSLTPROC], [xsltproc])
++# 	if test -z "$XSLTPROC"; then
++# 		enable_man=no
++# 	fi
+ 
+-	dnl check for DocBook DTD and stylesheets in the local catalog.
+-	JH_CHECK_XML_CATALOG([-//OASIS//DTD DocBook XML V4.1.2//EN],
+-		[DocBook XML DTD V4.1.2], [], enable_man=no)
+-	JH_CHECK_XML_CATALOG([http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl],
+-		[DocBook XSL Stylesheets >= 1.70.1], [], enable_man=no)
+-fi
++# 	dnl check for DocBook DTD and stylesheets in the local catalog.
++# 	JH_CHECK_XML_CATALOG([-//OASIS//DTD DocBook XML V4.1.2//EN],
++# 		[DocBook XML DTD V4.1.2], [], enable_man=no)
++# 	JH_CHECK_XML_CATALOG([http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl],
++# 		[DocBook XSL Stylesheets >= 1.70.1], [], enable_man=no)
++# fi
+ 
+ AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test "x$enable_man" != "xno")
+ 

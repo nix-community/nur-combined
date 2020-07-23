@@ -44,7 +44,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace instantdata.sh \
-      --subst-var-by instantASSIT "${instantAssist}" \
+      --subst-var-by instantASSIST "${instantAssist}" \
       --subst-var-by instantConf "${instantConf}" \
       --subst-var-by instantDotfiles "${instantDotfiles}" \
       --subst-var-by instantLOGO "${instantLogo}" \

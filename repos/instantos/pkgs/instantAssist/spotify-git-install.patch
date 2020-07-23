@@ -1,22 +1,38 @@
 diff -ur a/install.sh b/install.sh
---- a/install.sh	2020-07-09 15:54:55.802758810 +0200
-+++ b/install.sh	2020-07-09 16:43:50.043310339 +0200
-@@ -28,17 +28,9 @@
+--- a/install.sh	2020-07-23 12:14:47.339088042 +0200
++++ b/install.sh	2020-07-23 12:30:46.374428540 +0200
+@@ -25,8 +25,6 @@
+ cp -r ./* /tmp/assistinstall
+ cd /tmp/assistinstall || die "failed to create tmp file"
  
- rm -rf "${ASSISTPREFIX}"/opt/instantos/menus
- mkdir -p "${ASSISTPREFIX}"/opt/instantos/menus &>/dev/null
--mkdir /tmp/instantmenus &>/dev/null
--cd /tmp/instantmenus
+-git pull
+-
+ [ -e "${ASSISTPREFIX}"/usr/bin ] || mkdir -p "${ASSISTPREFIX}"/usr/bin
+ [ -e "${ASSISTPREFIX}"/usr/share/instantassist ] || mkdir -p "${ASSISTPREFIX}"/usr/share/instantassist
  
- if ! [ -e "${ASSISTPREFIX}"/opt/instantos/spotify-adblock.so ]; then
--    git clone --depth=1 "$dom/abba23/spotify-adblock-linux.git"
--    cd spotify-adblock-linux
+@@ -42,17 +40,7 @@
+ chmod -R 755 cache
+ 
+ if ! [ -e "${ASSISTPREFIX}"/usr/share/instantassist/spotify-adblock.so ]; then
+-    pushd .
+-    mkdir /tmp/spotblock
+-    cd /tmp/spotblock || die "no spotblock"
+-    git clone --depth=1 "https://github.com/abba23/spotify-adblock-linux.git"
+-    cd spotify-adblock-linux || die "can't clone spotfiy"
 -    sed -i '/\};/i    "audio4-fa.spotifycdn.com", //audio' whitelist.h
 -    make
--    mv spotify-adblock.so "${ASSISTPREFIX}"/opt/instantos/spotify-adblock.so
+-    mv spotify-adblock.so "${ASSISTPREFIX}"/usr/share/instantassist/ || die "error moving stuff"
 -    cd ..
 -    rm -rf spotify-adblock-linux
-+    ln -s path/to/spotify-adblock.so "${ASSISTPREFIX}"/opt/instantos/spotify-adblock.so
+-    popd
++	ln -s path/to/spotify-adblock.so "${ASSISTPREFIX}/share/instantassist"
  fi
  
- rm -rf instantASSIST
+ echo "installing instantassist binary"
+@@ -86,4 +74,4 @@
+ 
+ [ -z "${ASSISTPREFIX}" ] && rm -rf /tmp/assistinstall
+ 
+-popd
+\ Pas de fin de ligne à la fin du fichier
++popd

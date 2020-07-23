@@ -4,10 +4,9 @@
 , makeWrapper
 , acpi
 , autorandr
-, conky
-, dunst
-, firefox
+, conky , dunst , firefox
 , libnotify
+, lxsession
 , neofetch
 , nitrogen
 , pciutils
@@ -28,8 +27,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantOS";
-    rev = "1bb9b8ab63a37cbe87f6d95604f785ef55c52a87";
-    sha256 = "1rhzvp7y1jcswzcn5y1y4s2vi8kdkmr3k66pghlqxqjbxywfm8c0";
+    rev = "df5320b0d203f670eb4914fd15ff90f5095c2765";
+    sha256 = "1a3rvmbb5w7rj189qxd5wqnviq32x4vvxmx3gcjvj1iavyldswwj";
     name = "instantOS_instantUtils";
   };
 
@@ -42,6 +41,7 @@ stdenv.mkDerivation {
     dunst
     firefox
     libnotify
+    lxsession
     neofetch
     nitrogen
     pciutils
@@ -66,7 +66,7 @@ stdenv.mkDerivation {
       --replace /usr/share/rangerplugins "${rangerplugins}/share/rangerplugins" \
       --replace /usr/share/instantwidgets "\$(instantdata -wi)/share/instantwidgets" \
       --replace /usr/share/instantwallpaper "\$(instantdata -wa)/share/instantwidgets" \
-      --replace /opt/instantos/menus "\$(instantdata -a)/opt/instantos/menus"
+      --replace /usr/share/instantassist/assists "\$(instantdata -a)/share/instantassist/assists"
     substituteInPlace install.sh \
       --replace /usr/share/instantutils "$out/share/instantutils"
     substituteInPlace instantutils.sh \
@@ -101,8 +101,8 @@ stdenv.mkDerivation {
   postInstall = ''
     # Wrapping PATHS
     wrapProgram "$out/bin/instantautostart" \
-      --prefix PATH : ${lib.makeBinPath [ autorandr conky dunst libnotify rox-filer xfce4-power-manager zenity ]} \
-      --run export\ PATH="\"\$(instantdata -d)/bin\""\$\{PATH:\+\':\'\}\$PATH \
+      --prefix PATH : ${lib.makeBinPath [ autorandr conky dunst libnotify lxsession rox-filer xfce4-power-manager zenity ]} \
+      --run export\ PATH="\$(instantdata -d)/bin"\$\{PATH:\+\':\'\}\$PATH \
       --run export\ PATH="\"\$(instantdata -s)/bin\""\$\{PATH:\+\':\'\}\$PATH \
       --run export\ PATH="\"\$(instantdata -t)/bin\""\$\{PATH:\+\':\'\}\$PATH
     wrapProgram "$out/bin/instantstartmenu" \

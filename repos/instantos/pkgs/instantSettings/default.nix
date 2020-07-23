@@ -7,22 +7,22 @@
 , instantUtils
 , instantWallpaper
 , arandr
+, arc-theme
 , autorandr
 , bc
 , blueman
+, firaCodeNerd
 , gnome-disk-utility
 , gufw
+, hicolor-icon-theme
 , lxappearance-gtk3
 , neovim
+, papirus-icon-theme
 , pavucontrol
 , st
 , system-config-printer
 , udiskie
 , xfce4-power-manager
-, papirus-icon-theme
-, firaCodeNerd
-, arc-theme
-, hicolor-icon-theme
 }:
 let
   utilities = [
@@ -55,11 +55,10 @@ stdenv.mkDerivation {
   version = "unstable";
 
   src = fetchFromGitHub {
-    owner = "SCOTT-HAMILTON";
+    owner = "instantOS";
     repo = "instantSETTINGS";
-    rev = "370535a376dc506f1c6cdf437e1d7f949b2a66eb";
-    sha256 = "0wyavqapvyg3imlyr3y768c999vx0xpwng3yzqs34si52zwxm734";
-    name = "scotthamilton_instantSettings";
+    rev = "278cea86bb1353b98f5665a820a0e947291b14bf";
+    sha256 = "1yjkr3k9kwds97y9lqakhl4pfxy97l3v28brzqvb594kqbx3402q";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -68,7 +67,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace settings.sh \
-      --replace /opt/instantos/menus "${instantAssist}/opt/instantos/menus"
+      --replace "/usr/share/instantassist" "$out/share/instantassist"
   '';
 
   installPhase = ''

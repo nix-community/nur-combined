@@ -18,8 +18,8 @@ stdenv.mkDerivation {
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantWALLPAPER";
-      rev = "91e4f66edb01643c2a54eb1eb162b51a2883735c";
-      sha256 = "1pjc9p9g89w25z61bzqh9v2pzbc3py5ly4n7mrmma2sngq99rb5m";
+      rev = "a7fa54b88de9885ed41365d519b67f7cad96dbc2";
+      sha256 = "1paz4pyscdf2z70yw0zl11wrkywr06x2m9jrxypapab97sghgxya";
       name = "instantOS_instantWallpaper";
     }) 
     (fetchFromGitHub {
@@ -59,13 +59,16 @@ stdenv.mkDerivation {
     install -Dm 644 ../instantOS_instantLogo/wallpaper/readme.jpg "$out/share/backgrounds/readme.jpg"
     install -Dm 644 ../instantOS_instantLogo/ascii.txt "$out/share/instantwallpaper/ascii.txt"
     install -Dm 644 ../instantOS_instantLogo/wallpaper/defaultphoto.png "$out/share/instantwallpaper/defaultphoto.png"
+    runHook postInstall
   '';
 
   postInstall = ''
     wrapProgram "$out/bin/instantwallpaper" \
       --prefix PATH : ${lib.makeBinPath [ instantConf instantUtils nitrogen ]}
-    wrapProgram "$out/share/instantwallpaper/wallutils.sh" \
-      --prefix PATH : ${lib.makeBinPath [ instantConf instantUtils imagemagick ]}
+    # wrapProgram "$out/share/instantwallpaper/wallutils.sh" \
+    #   --prefix PATH : ${lib.makeBinPath [ instantConf instantUtils imagemagick ]}
+    #   --prefix PATH : ${lib.makeBinPath [ instantConf instantUtils imagemagick ]}
+    sed -i '2s|^|export\ PATH="${lib.makeBinPath [ instantConf instantUtils imagemagick ]}"\$\{PATH:\+\":\"\}\$PATH|' "$out/share/instantwallpaper/wallutils.sh" 
   '';
 
   meta = with lib; {
