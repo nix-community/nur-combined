@@ -15,7 +15,7 @@
 , gnome-disk-utility
 , gufw
 , hicolor-icon-theme
-, lxappearance-gtk3
+, lxappearance
 , neovim
 , papirus-icon-theme
 , pavucontrol
@@ -36,7 +36,7 @@ let
     blueman
     gnome-disk-utility
     gufw
-    lxappearance-gtk3
+    lxappearance
     neovim
     pavucontrol
     st
