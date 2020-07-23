@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     description = "GUI for editing your i18n translation files";
     homepage = "https://github.com/jcbvm/i18n-editor";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
     skip.ci = true;
   };

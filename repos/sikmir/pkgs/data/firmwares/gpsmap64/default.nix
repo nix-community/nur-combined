@@ -18,7 +18,7 @@ fetchurl {
   meta = with lib; {
     homepage = "https://www8.garmin.com/support/download_details.jsp?id=6805";
     description = "GPSMAP 64 (WebUpdater)";
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     license = licenses.free;
     platforms = platforms.all;
     skip.ci = true;

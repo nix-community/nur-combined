@@ -38,7 +38,7 @@ stdenv.mkDerivation {
     description = "Converter from OCAD map format to Polish format";
     homepage = "https://sourceforge.net/projects/ocad2mp/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ sikmir ];
-    platforms = with platforms; linux ++ darwin;
+    maintainers = [ maintainers.sikmir ];
+    platforms = platforms.unix;
   };
 }

@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication {
   meta = with lib; {
     inherit (sources.gpxelevations) description homepage;
     license = licenses.asl20;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

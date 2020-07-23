@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     description = "Freizeitkarte map with DEM (Digital Elevation Model) and hillshading";
     homepage = "https://freizeitkarte-osm.de/";
     license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };

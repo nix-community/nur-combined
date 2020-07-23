@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage {
   meta = with lib; {
     inherit (sources.mercantile) description homepage;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

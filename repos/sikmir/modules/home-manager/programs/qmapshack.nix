@@ -5,7 +5,7 @@ let
   cfg = config.programs.qmapshack;
 in
 {
-  meta.maintainers = with maintainers; [ sikmir ];
+  meta.maintainers = [ maintainers.sikmir ];
 
   options.programs.qmapshack = {
     enable = mkEnableOption "Consumer grade GIS software";

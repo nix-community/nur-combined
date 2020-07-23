@@ -43,7 +43,7 @@ stdenv.mkDerivation {
     description = "A fork of Firefox, focused on privacy, security and freedom";
     homepage = "https://librewolf-community.gitlab.io/";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };

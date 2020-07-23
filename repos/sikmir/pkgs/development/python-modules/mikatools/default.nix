@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage {
   meta = with lib; {
     inherit (sources.mikatools) description homepage;
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

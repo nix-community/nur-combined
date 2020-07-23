@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication {
   meta = with lib; {
     inherit (sources.supermercado) description homepage;
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

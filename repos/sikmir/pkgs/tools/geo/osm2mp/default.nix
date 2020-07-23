@@ -69,7 +69,7 @@ buildPerlPackage {
   meta = with stdenv.lib; {
     inherit (sources.osm2mp) description homepage;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

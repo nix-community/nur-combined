@@ -26,7 +26,7 @@ stdenv.mkDerivation {
     description = "IMG Decoder";
     homepage = "https://sourceforge.net/projects/garmin-img/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };

@@ -100,15 +100,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-17T19:08:46Z",
+        "date": "2020-07-23T10:26:34Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "17ac0652b82f29eb0d71d3dae103c38e5c71fa6a",
-        "sha256": "19pifl5qg3blbh4shj68hmlzry8s49zy1762rp97jn224b18mhiv",
+        "rev": "6c5c1bdb3858a8350625f99be63ee4cc515643fa",
+        "sha256": "06841pm3qachiz8dwkanjkl3y5nxmsi0mnvb4mgf62wwax3fdjp7",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/17ac0652b82f29eb0d71d3dae103c38e5c71fa6a.tar.gz",
+        "url": "https://github.com/embox/embox/archive/6c5c1bdb3858a8350625f99be63ee4cc515643fa.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -128,40 +128,54 @@
     "gef": {
         "branch": "dev",
         "builtin": false,
-        "date": "2020-07-19T16:35:27Z",
+        "date": "2020-07-20T17:55:36Z",
         "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
         "homepage": "http://gef.rtfd.io",
         "owner": "hugsy",
         "repo": "gef",
-        "rev": "3c43a8345b866ac51a10e4456285236de28176c3",
-        "sha256": "1pa6llm5vrzf66wi51mvah2435ih46vvf4233j8pdjklf36qbnvh",
+        "rev": "c3082e5fe50a46f5632c431b4148575e7bc7f491",
+        "sha256": "1imb7gwrs9937sgq204xx7w50vdjz6q25bvabyn8s2b15nkv0f40",
         "type": "tarball",
-        "url": "https://github.com/hugsy/gef/archive/3c43a8345b866ac51a10e4456285236de28176c3.tar.gz",
+        "url": "https://github.com/hugsy/gef/archive/c3082e5fe50a46f5632c431b4148575e7bc7f491.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "geminid": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-07-11T06:32:59Z",
+        "description": "Gemini Server in C",
+        "homepage": "https://github.com/jovoro/geminid",
+        "owner": "jovoro",
+        "repo": "geminid",
+        "rev": "a0b2d654c0d57d7926711e38db7a41bf4a30e416",
+        "sha256": "1l1013hpa2k66hspywy88na7a9wfpbvw48mag60b3w7b3c8lxfjr",
+        "type": "tarball",
+        "url": "https://github.com/jovoro/geminid/archive/a0b2d654c0d57d7926711e38db7a41bf4a30e416.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "0gkihjaa0fj1p1j9sza0jhf7j46339m87yx50s9iwsqai5gddjgm",
+        "sha256": "1fzqwv65swa4452n276w1yklc3q05vhqfzl1nii619wka4hssnjw",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-200716.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-200722.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "200716"
+        "version": "200722"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "154ix2m4j7y8fhfpb0mflvb6nf02v5s5qnwhhmad221mrmxvyhhl",
+        "sha256": "0vza3dw7ynlf3y9iv12h2ff7xlp7gsl4i249nc4q7lwa2k5457xi",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-200716.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-200722.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "200716"
+        "version": "200722"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "1qaiyk2ypxd45ldfifd6parkvgdqqgaqbmbwsmz1lvwn44q1hkh1",
+        "sha256": "0vq2sl4gxsxz87bci8vig99f17binpfqhrdw13anynwq2nm6nay8",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200716.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200722.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "200716"
+        "version": "200722"
     },
     "gimgtools": {
         "branch": "master",
@@ -231,6 +245,20 @@
         "sha256": "1sg1lpvs2bsfw6nk4pdqdvf8p8yy24kvbd17d8pc2ydx9cw1zv3i",
         "type": "tarball",
         "url": "https://github.com/BourgeoisLab/GPXLab/archive/c9e2daf790ce7eb88c3bdcf17b98541d60c40894.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "gpxlib": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2019-11-27T18:32:49Z",
+        "description": "A c++ library for parsing, browsing, changing and writing of GPX files",
+        "homepage": "http://irdvo.nl/gpxlib/",
+        "owner": "irdvo",
+        "repo": "gpxlib",
+        "rev": "9c247c4892156af13a8c32c14121115c8ff934b2",
+        "sha256": "1g5j0bv4l3jh9wxjizx4im5hyl32jm7xrw03ysaxd29dpvwr07y2",
+        "type": "tarball",
+        "url": "https://github.com/irdvo/gpxlib/archive/9c247c4892156af13a8c32c14121115c8ff934b2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee": {
@@ -419,11 +447,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "031q5sj02ahdc6l8mayqjvls5ygx2as66cgcib5fxpi636l08fbc",
+        "sha256": "016cwrrjrc69l3ks19ficxp060mwl3rpf0s6p70mm1mrzdkz40ms",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-07-19.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-07-22.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-07-19"
+        "version": "2020-07-22"
     },
     "mbtileserver": {
         "branch": "master",
@@ -522,15 +550,15 @@
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-14T23:19:13Z",
+        "date": "2020-07-22T14:49:38Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "dacf7b08113afd6940bd70681ecb9b41737e3946",
-        "sha256": "1r90w8vhp1q8ypsaqxlbynndzv7j11b74k3zhhgir4ni5jjz15m3",
+        "rev": "defc1965eeb8586b9325aa73731f15c389109a76",
+        "sha256": "19qan3731316k06vj312fn4xlkin3mpzgb02bmc838vflp2jza5w",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/dacf7b08113afd6940bd70681ecb9b41737e3946.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/defc1965eeb8586b9325aa73731f15c389109a76.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {

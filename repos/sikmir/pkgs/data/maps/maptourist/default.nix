@@ -17,7 +17,7 @@ stdenv.mkDerivation {
   meta = with stdenv.lib; {
     inherit (sources.maptourist) description homepage;
     license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };

@@ -39,7 +39,7 @@ stdenv.mkDerivation {
   meta = with stdenv.lib; {
     inherit (sources.libshell) description homepage;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = stdenv.isDarwin;
   };

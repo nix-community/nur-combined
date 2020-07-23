@@ -2,9 +2,9 @@
 
 {
   geocachingSu = fetchurl {
-    name = "geocaching_su-2020-07-16";
+    name = "geocaching_su-2020-07-23";
     url = "https://nakarte.me/geocachingSu/geocaching_su2.json";
-    sha256 = "1xkh5k6awdcd787rh33fhz7b6nd8a8gfcd9lwsp0prfvlh1z9izj";
+    sha256 = "1x2qmzhp4g42yghahmkpm2smkw8d9wxglwl0c3gy88jf62y76hxc";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -17,7 +17,7 @@
     meta = with lib; {
       homepage = "https://geocaching.su/";
       description = "Geocaches";
-      maintainers = with maintainers; [ sikmir ];
+      maintainers = [ maintainers.sikmir ];
       license = licenses.free;
       platforms = platforms.all;
       skip.ci = true;
@@ -25,9 +25,9 @@
   };
 
   laavut = fetchurl {
-    name = "laavut-2020-06-08";
+    name = "laavut-2020-07-19";
     url = "http://www.laavu.org/lataa.php?paikkakunta=kaikki";
-    sha256 = "0y0wks3qs0rs112r2s0bncxya4l0q9svrhp5ykwk0w9mxqha67sf";
+    sha256 = "15870d4kngk6plkyyk0mhjqck17n3ypbyh2l5szmjpg7s5kidfx1";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -37,7 +37,7 @@
     meta = with lib; {
       homepage = "http://www.laavu.org/";
       description = "Laavut ja kodat kartalla";
-      maintainers = with maintainers; [ sikmir ];
+      maintainers = [ maintainers.sikmir ];
       license = licenses.free;
       platforms = platforms.all;
       skip.ci = true;
@@ -57,7 +57,7 @@
     meta = with lib; {
       homepage = "http://www.laavu.org/autiotuvat/";
       description = "Autiotuvat kartalla";
-      maintainers = with maintainers; [ sikmir ];
+      maintainers = [ maintainers.sikmir ];
       license = licenses.free;
       platforms = platforms.all;
       skip.ci = true;
@@ -80,7 +80,7 @@
     meta = with lib; {
       homepage = "https://westra.ru/passes/";
       description = "Mountain passes (Westra)";
-      maintainers = with maintainers; [ sikmir ];
+      maintainers = [ maintainers.sikmir ];
       license = licenses.free;
       platforms = platforms.all;
       skip.ci = true;
@@ -105,7 +105,28 @@
     meta = with lib; {
       homepage = "https://strelki.extremum.org/s/p/47p";
       description = "Стрелки-47";
-      maintainers = with maintainers; [ sikmir ];
+      maintainers = [ maintainers.sikmir ];
+      license = licenses.free;
+      platforms = platforms.all;
+      skip.ci = true;
+    };
+  };
+
+  nashipohody = fetchurl {
+    name = "nashipohody-2020-07-23";
+    url = "http://nashipohody.ru/wp-content/plugins/leaflet-maps-marker-pro/leaflet-kml.php?layer=1&name=show";
+    sha256 = "0i7i4wh9sxykgp88zj3nbns6iy17psqsyaqd77ryx7q78qvwzm36";
+    downloadToTemp = true;
+    recursiveHash = true;
+    postFetch = ''
+      install -dm755 $out/share/gpxsee/POI
+      cat $downloadedFile > $out/share/gpxsee/POI/nashipohody.kml
+    '';
+
+    meta = with lib; {
+      homepage = "http://nashipohody.ru";
+      description = "Карта Достопримечательностей";
+      maintainers = [ maintainers.sikmir ];
       license = licenses.free;
       platforms = platforms.all;
       skip.ci = true;

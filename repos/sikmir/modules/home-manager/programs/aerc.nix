@@ -30,7 +30,7 @@ let
   '';
 in
 {
-  meta.maintainers = with maintainers; [ sikmir ];
+  meta.maintainers = [ maintainers.sikmir ];
 
   options.programs.aerc = {
     enable = mkEnableOption "aerc is an email client for your terminal";

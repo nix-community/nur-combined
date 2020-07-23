@@ -27,7 +27,7 @@ stdenv.mkDerivation {
   meta = with stdenv.lib; {
     inherit (sources.supload) description homepage;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

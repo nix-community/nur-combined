@@ -24,7 +24,7 @@ buildGoModule {
   meta = with lib; {
     inherit (sources.glauth) description homepage;
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

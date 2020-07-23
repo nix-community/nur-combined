@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     description = "Wiktionary dictionaries for StarDict (${lang})";
     homepage = "http://libredict.org/en/info_${lang}.html";
     license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };

@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/jarun/nnn/tree/master/plugins";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     skip.ci = true;
   };
 }

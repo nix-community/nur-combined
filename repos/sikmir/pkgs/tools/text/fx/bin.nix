@@ -44,7 +44,7 @@ stdenv.mkDerivation {
     description = "Command-line tool and terminal JSON viewer";
     homepage = "https://github.com/antonmedv/fx";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-linux" "x86_64-darwin" ];
     skip.ci = true;
   };

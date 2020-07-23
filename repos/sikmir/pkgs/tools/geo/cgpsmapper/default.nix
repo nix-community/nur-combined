@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     description = "GIS converter into GARMIN compatible format maps";
     homepage = "https://web.archive.org/web/20160620061746if_/http://www.cgpsmapper.com";
     license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = [ "i686-linux" "x86_64-linux" ];
     skip.ci = true;
   };

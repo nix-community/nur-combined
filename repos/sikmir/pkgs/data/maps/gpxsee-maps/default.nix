@@ -28,7 +28,7 @@ stdenv.mkDerivation {
   meta = with stdenv.lib; {
     inherit (sources.gpxsee-maps) description homepage;
     license = licenses.unlicense;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };

@@ -5,7 +5,7 @@ let
   cfg = config.programs.goldendict;
 in
 {
-  meta.maintainers = with maintainers; [ sikmir ];
+  meta.maintainers = [ maintainers.sikmir ];
 
   options.programs.goldendict = {
     enable = mkEnableOption "A feature-rich dictionary lookup program";

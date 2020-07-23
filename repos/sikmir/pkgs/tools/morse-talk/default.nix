@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication {
   meta = with lib; {
     inherit (sources.morse-talk) description homepage;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

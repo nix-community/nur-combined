@@ -15,7 +15,7 @@ let
   styleDir = "${appDataLocation}/style";
 in
 {
-  meta.maintainers = with maintainers; [ sikmir ];
+  meta.maintainers = [ maintainers.sikmir ];
 
   options.programs.gpxsee = {
     enable = mkEnableOption "GPS log file viewer and analyzer";

@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication {
   meta = with lib; {
     inherit (sources.tpkutils) description homepage;
     license = licenses.isc;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

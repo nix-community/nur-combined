@@ -41,7 +41,7 @@ stdenv.mkDerivation {
   meta = with stdenv.lib; {
     inherit (sources.map-hr) description homepage;
     license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };

@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     description = "Routino Database";
     homepage = "https://download.geofabrik.de/index.html";
     license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };

@@ -5,7 +5,7 @@ let
   cfg = config.programs.nnn;
 in
 {
-  meta.maintainers = with maintainers; [ sikmir ];
+  meta.maintainers = [ maintainers.sikmir ];
 
   options.programs.nnn = {
     enable = mkEnableOption "The missing terminal file manager for X";

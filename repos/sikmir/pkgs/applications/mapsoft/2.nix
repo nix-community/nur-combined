@@ -81,7 +81,7 @@ stdenv.mkDerivation {
     description = "A collection of tools and libraries for working with maps and geo-data";
     homepage = "http://slazav.github.io/mapsoft2";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };

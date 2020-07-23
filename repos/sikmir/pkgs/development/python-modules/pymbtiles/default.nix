@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage {
   meta = with lib; {
     inherit (sources.pymbtiles) description homepage;
     license = licenses.isc;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

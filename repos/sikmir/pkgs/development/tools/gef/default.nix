@@ -55,6 +55,6 @@ stdenv.mkDerivation {
     inherit (sources.gef) description homepage;
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
   };
 }

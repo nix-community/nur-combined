@@ -57,7 +57,7 @@ stdenv.mkDerivation {
   meta = with stdenv.lib; {
     inherit (sources.stardict-3) description homepage;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ sikmir ];
-    platforms = with platforms; linux ++ darwin;
+    maintainers = [ maintainers.sikmir ];
+    platforms = platforms.unix;
   };
 }

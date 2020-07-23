@@ -5,7 +5,7 @@ let
   cfg = config.programs.slack-term;
 in
 {
-  meta.maintainers = with maintainers; [ sikmir ];
+  meta.maintainers = [ maintainers.sikmir ];
 
   options.programs.slack-term = {
     enable = mkEnableOption "Slack client for your terminal";

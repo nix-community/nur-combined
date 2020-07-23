@@ -16,7 +16,7 @@ buildGoModule {
     description = "Gemini server";
     homepage = "https://git.sr.ht/~yotam/shavit";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

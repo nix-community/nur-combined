@@ -28,7 +28,7 @@ stdenv.mkDerivation {
     description = "Detailed map of Khibins and Lovozero for GPS";
     homepage = "https://vk.com/hiblovgpsmap";
     license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };

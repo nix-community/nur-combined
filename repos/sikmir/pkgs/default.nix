@@ -14,15 +14,17 @@ lib.makeScope newScope (
     gpxsee = libsForQt5.callPackage ./applications/gpxsee {
       inherit sources;
     };
-    keeweb = callPackage ./applications/keeweb { };
+    keeweb-bin = callPackage ./applications/keeweb/bin.nix { };
     librewolf = callPackage ./applications/librewolf { };
-    macpass = callPackage ./applications/macpass { };
+    macpass-bin = callPackage ./applications/macpass/bin.nix { };
     mapsoft = callPackage ./applications/mapsoft { };
     mapsoft2 = callPackage ./applications/mapsoft/2.nix { };
     nnn-plugins = callPackage ./applications/nnn-plugins { };
     openorienteering-mapper = libsForQt5.callPackage ./applications/openorienteering-mapper {
       inherit sources;
     };
+    openorienteering-mapper-bin = callPackage ./applications/openorienteering-mapper/bin.nix { };
+    qmapshack-bin = callPackage ./applications/qmapshack/bin.nix { };
     redict = libsForQt5.callPackage ./applications/redict {
       inherit sources;
     };
@@ -70,6 +72,7 @@ lib.makeScope newScope (
       libtool = if pkgs.stdenv.isDarwin then pkgs.darwin.cctools else null;
     };
     geographiclib = callPackage ./development/libraries/geographiclib { };
+    gpxlib = callPackage ./development/libraries/gpxlib { };
     hfst = callPackage ./development/libraries/hfst { };
     libgarmin = callPackage ./development/libraries/libgarmin {
       automake = pkgs.automake111x;
@@ -107,7 +110,7 @@ lib.makeScope newScope (
     elevation = callPackage ./tools/geo/elevation {
       click = click-6-7;
     };
-    fx = callPackage ./tools/text/fx { };
+    fx-bin = callPackage ./tools/text/fx/bin.nix { };
     gimgtools = callPackage ./tools/geo/gimgtools { };
     gmaptool = callPackage ./tools/geo/gmaptool { };
     gpx-layer = perlPackages.callPackage ./tools/geo/gpx-layer {
@@ -149,6 +152,7 @@ lib.makeScope newScope (
 
     ### SERVERS
 
+    geminid = callPackage ./servers/geminid { };
     glauth = callPackage ./servers/glauth { };
     mbtileserver = callPackage ./servers/mbtileserver { };
     nakarte = callPackage ./servers/nakarte { };

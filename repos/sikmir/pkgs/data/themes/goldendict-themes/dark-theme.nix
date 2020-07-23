@@ -21,7 +21,7 @@ stdenv.mkDerivation {
     description = "GoldenDict Dark Theme";
     homepage = "https://gist.github.com/ilius/5a2f35c79775267fbdb249493c041453";
     license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };

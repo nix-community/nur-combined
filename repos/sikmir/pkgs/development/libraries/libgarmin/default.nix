@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     description = "Garmin IMG format library";
     homepage = "http://libgarmin.sourceforge.net/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };

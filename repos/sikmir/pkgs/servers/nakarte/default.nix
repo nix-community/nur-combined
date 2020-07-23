@@ -26,7 +26,7 @@ mkYarnPackage {
   meta = with stdenv.lib; {
     inherit (sources.nakarte) description homepage;
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     broken = true; # error while evaluating 'importJSON', only on NUR CI
   };

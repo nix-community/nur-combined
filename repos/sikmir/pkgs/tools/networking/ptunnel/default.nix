@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     description = "A tool for reliably tunneling TCP connections over ICMP echo request and reply packets";
     homepage = "https://www.cs.uit.no/~daniels/PingTunnel";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };

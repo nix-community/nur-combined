@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage {
     description = "Python bindings for HFST";
     homepage = "https://github.com/hfst/python/wiki";
     license = hfst.meta.license;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

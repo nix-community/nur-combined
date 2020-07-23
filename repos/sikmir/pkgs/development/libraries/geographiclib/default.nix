@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     description = "GeographicLib offers a C++ interfaces to a small (but important!) set of geographic transformations";
     homepage = "http://geographiclib.sourceforge.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };

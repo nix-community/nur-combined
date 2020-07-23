@@ -13,7 +13,7 @@ buildGoModule {
   meta = with lib; {
     inherit (sources.odict) description homepage;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

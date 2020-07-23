@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication {
   meta = with lib; {
     inherit (sources.gt4gd) description homepage;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

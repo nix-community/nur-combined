@@ -16,7 +16,7 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  buildInputs = [ undmg ];
+  nativeBuildInputs = [ undmg ];
 
   installPhase = ''
     mkdir -p $out/Applications/WireGuardStatusbar.app
@@ -27,7 +27,7 @@ stdenv.mkDerivation {
     description = "macOS menubar icon for WireGuard/wg-quick";
     homepage = "https://github.com/aequitas/macos-menubar-wireguard";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };

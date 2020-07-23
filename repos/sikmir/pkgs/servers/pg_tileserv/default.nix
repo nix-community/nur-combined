@@ -13,7 +13,7 @@ buildGoModule {
   meta = with lib; {
     inherit (sources.pg-tileserv) description homepage;
     license = licenses.asl20;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

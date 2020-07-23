@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     description = "Fractal generator";
     homepage = "https://fractint.org/";
     license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = true;
   };

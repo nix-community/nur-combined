@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication {
   meta = with lib; {
     inherit (sources.tilesets-cli) description homepage;
     license = licenses.bsd2;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

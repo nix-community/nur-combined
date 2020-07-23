@@ -25,7 +25,7 @@ stdenv.mkDerivation {
   meta = with stdenv.lib; {
     inherit (sources.foma) description homepage;
     license = licenses.asl20;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
 }

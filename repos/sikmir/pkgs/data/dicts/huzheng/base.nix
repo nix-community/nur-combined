@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     inherit description;
     homepage = "http://download.huzheng.org/bigdict/";
     license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };

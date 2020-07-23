@@ -53,7 +53,7 @@ stdenv.mkDerivation {
     description = "Digital Elevation Data";
     homepage = "http://www.viewfinderpanoramas.org/";
     license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };

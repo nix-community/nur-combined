@@ -5,7 +5,7 @@ let
   cfg = config.programs.josm;
 in
 {
-  meta.maintainers = with maintainers; [ sikmir ];
+  meta.maintainers = [ maintainers.sikmir ];
 
   options.programs.josm = {
     enable = mkEnableOption "An extensible editor for OpenStreetMap";

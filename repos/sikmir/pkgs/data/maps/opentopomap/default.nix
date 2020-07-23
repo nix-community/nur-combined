@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     description = "OpenTopoMap Garmin Edition";
     homepage = "http://garmin.opentopomap.org/";
     license = licenses.cc-by-nc-sa-40;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };

@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     description = "Program for splitting and merging maps in Garmin format";
     homepage = "https://www.gmaptool.eu";
     license = licenses.cc-by-sa-30;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = [ maintainers.sikmir ];
     platforms = [ "i686-linux" "x86_64-linux" ];
     skip.ci = true;
   };

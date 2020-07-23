@@ -1,0 +1,24 @@
+diff --git i/src/gui/georeferencing_dialog.cpp w/src/gui/georeferencing_dialog.cpp
+index bcec0943..b2d6ae70 100644
+--- i/src/gui/georeferencing_dialog.cpp
++++ w/src/gui/georeferencing_dialog.cpp
+@@ -394,15 +394,12 @@ void GeoreferencingDialog::projectionChanged()
+ 	double longitude = latlon.longitude();
+ 	setValueIfChanged(lat_edit, latitude);
+ 	setValueIfChanged(lon_edit, longitude);
+-	QString osm_link =
+-	  QString::fromLatin1("http://www.openstreetmap.org/?lat=%1&lon=%2&zoom=18&layers=M").
+-	  arg(latitude).arg(longitude);
+-	QString worldofo_link =
+-	  QString::fromLatin1("http://maps.worldofo.com/?zoom=15&lat=%1&lng=%2").
++	QString nakarte_link =
++	  QString::fromLatin1("https://nakarte.me/#m=18/%1/%2&l=O/U/R").
+ 	  arg(latitude).arg(longitude);
+ 	link_label->setText(
+-	  tr("<a href=\"%1\">OpenStreetMap</a> | <a href=\"%2\">World of O Maps</a>").
+-	  arg(osm_link, worldofo_link)
++	  tr("<a href=\"%1\">nakarte.me</a>").
++	  arg(nakarte_link)
+ 	);
+ 	
+ 	QString error = georef->getErrorText();

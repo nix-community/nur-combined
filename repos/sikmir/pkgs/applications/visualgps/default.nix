@@ -33,7 +33,7 @@ mkDerivation {
     description = "A QT application (GUI) that makes use of the VisualGPS/NMEAParser project";
     homepage = "https://github.com/VisualGPS/VisualGPSqt";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
-    platforms = with platforms; linux ++ darwin;
+    maintainers = [ maintainers.sikmir ];
+    platforms = platforms.unix;
   };
 }
