@@ -242,10 +242,10 @@
       };
     "firefox-color" = buildFirefoxXpiAddon {
       pname = "firefox-color";
-      version = "2.1.5";
+      version = "2.1.6";
       addonId = "FirefoxColor@mozilla.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3387078/firefox_color-2.1.5-fx.xpi?src=";
-      sha256 = "d7d86292a277bc22b7dd68e64c77ba4df52e6ae602f55b4af31e9c32ded6a65f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3610571/firefox_color-2.1.6-fx.xpi?src=";
+      sha256 = "f7e043d0aaeaa734070bc8f2a5539385b21f001364661c61a998db98676e3883";
       meta = with stdenv.lib;
       {
         homepage = "https://color.firefox.com";
@@ -270,10 +270,10 @@
       };
     "fraidycat" = buildFirefoxXpiAddon {
       pname = "fraidycat";
-      version = "1.1.5";
+      version = "1.1.6";
       addonId = "{94060031-effe-4b93-89b4-9cd570217a8d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3573031/fraidycat-1.1.5-fx.xpi?src=";
-      sha256 = "c6981a97c8fa6c83e42ca765ef2bfb1fdfd0cc6e1b0d89c3fc305c943eebfe72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3613214/fraidycat-1.1.6-fx.xpi?src=";
+      sha256 = "3519863cc00543b3c93cb1442828e525beb3323a7ec0742fb0032378e40b285a";
       meta = with stdenv.lib;
       {
         homepage = "https://fraidyc.at/";
@@ -480,10 +480,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.0.6";
+      version = "1.0.6.1";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3599550/leechblock_ng-1.0.6-an+fx.xpi?src=";
-      sha256 = "196c9353fdb841d3a6405a8559f3e68893d650cdb464d3e005ddd77212771c2c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3611372/leechblock_ng-1.0.6.1-an+fx.xpi?src=";
+      sha256 = "f78d167a7b8c7e78563f807e29b73bb91ddabd663b6e06df7daa0e71d9bb0df3";
       meta = with stdenv.lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -606,10 +606,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2020.6.29";
+      version = "2020.7.21";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3599198/privacy_badger-2020.6.29-an+fx.xpi?src=";
-      sha256 = "ac583ea0698fd32feb84c0eb8a58c2089b372767d834ed248d243c78af492a9d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3612462/privacy_badger-2020.7.21-an+fx.xpi?src=";
+      sha256 = "a20ba4642d135259843ec5d0cd8688405029b882459d6ca63984b2b73daa93a3";
       meta = with stdenv.lib;
       {
         homepage = "https://privacybadger.org/";
@@ -648,10 +648,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.20.2";
+      version = "5.20.3";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3609017/reddit_enhancement_suite-5.20.2-an+fx.xpi?src=";
-      sha256 = "79b8032d349c6e8cfd81f9105309d9bfcec02ab18df58b47a747bf1a8ee7350f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3613281/reddit_enhancement_suite-5.20.3-an+fx.xpi?src=";
+      sha256 = "14bfa212018582db85acb44b564586fd071412683940c3dbda56d1ea8c96b4cd";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -840,10 +840,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.28.2";
+      version = "1.28.4";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3606998/ublock_origin-1.28.2-an+fx.xpi?src=";
-      sha256 = "09fc8886b1d91b5e006ff2482a0568ec457cd51183aa444bed2455d03f8ef5bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3609157/ublock_origin-1.28.4-an+fx.xpi?src=";
+      sha256 = "5ec27092cff9dee0bef53834ae3681800c428b9de5adf623f47f5077337f74a6";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
