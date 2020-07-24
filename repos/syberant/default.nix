@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs ? import <nixpkgs> {} }:
 
 rec {
 	rofi-unwrapped-git = pkgs.callPackage ./pkgs/rofi-unwrapped-git {};
