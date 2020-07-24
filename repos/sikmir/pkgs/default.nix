@@ -67,6 +67,8 @@ lib.makeScope newScope (
     ### DEVELOPMENT / TOOLS
 
     gef = callPackage ./development/tools/gef { };
+    how-to-use-pvs-studio-free = callPackage ./development/tools/pvs-studio/how-to-use-pvs-studio-free.nix { };
+    pvs-studio = callPackage ./development/tools/pvs-studio { };
 
     ### DEVELOPMENT / LIBRARIES
 

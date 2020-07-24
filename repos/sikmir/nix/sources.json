@@ -344,6 +344,20 @@
         "url": "https://github.com/hfst/hfst/archive/a140e2868c15e9987d651aa3e6b344ec20ef3a33.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "how-to-use-pvs-studio-free": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-02-10T14:21:35Z",
+        "description": "How to use PVS-Studio for Free",
+        "homepage": "https://www.viva64.com/en/b/0457/",
+        "owner": "viva64",
+        "repo": "how-to-use-pvs-studio-free",
+        "rev": "182a5e730128755b12f44f39d8254e88397c9cce",
+        "sha256": "0rgpi6lrgka8s8xzx35qlgphp4z5449k7zs6hswl1q7w1kfh4flj",
+        "type": "tarball",
+        "url": "https://github.com/viva64/how-to-use-pvs-studio-free/archive/182a5e730128755b12f44f39d8254e88397c9cce.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "jsonseq": {
         "branch": "master",
         "builtin": false,
