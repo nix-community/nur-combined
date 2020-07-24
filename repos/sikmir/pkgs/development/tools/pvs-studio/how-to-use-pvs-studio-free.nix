@@ -10,7 +10,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  postPatch = stdenv.lib.optionalString stdenv.cc.isClang ''
+  postPatch = stdenv.lib.optionalString (!stdenv.isDarwin) ''
+    substituteInPlace CMakeLists.txt \
+      --replace "set(CMAKE_INSTALL_PREFIX \"/usr\")" ""
+  '' + stdenv.lib.optionalString stdenv.cc.isClang ''
     substituteInPlace CMakeLists.txt \
       --replace "stdc++fs" "c++fs"
   '';
