@@ -8,12 +8,14 @@ lib.makeScope newScope (
 
     ### APPLICATIONS
 
+    goldendict-bin = callPackage ./applications/goldendict/bin.nix { };
     gpxlab = libsForQt5.callPackage ./applications/gpxlab {
       inherit sources;
     };
     gpxsee = libsForQt5.callPackage ./applications/gpxsee {
       inherit sources;
     };
+    gpxsee-bin = callPackage ./applications/gpxsee/bin.nix { };
     keeweb-bin = callPackage ./applications/keeweb/bin.nix { };
     librewolf = callPackage ./applications/librewolf { };
     macpass-bin = callPackage ./applications/macpass/bin.nix { };
