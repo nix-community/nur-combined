@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -167,5 +167,24 @@ in {
         base0F = mkHexColorOption;
       };
     };
+  };
+
+  config = {
+    lib.theme.base16.fromYamlFile = yamlFile:
+      let
+        json = pkgs.runCommandLocal "base16-theme.json" {
+          nativeBuildInputs = [ pkgs.remarshal ];
+        } ''
+          remarshal --if yaml --of json \
+            < ${escapeShellArg yamlFile} \
+            > $out
+        '';
+        bases = filterAttrs (n: _: hasPrefix "base" n)
+          (builtins.fromJSON (builtins.readFile json));
+      in mapAttrs (_: v: {
+        hex.r = substring 0 2 v;
+        hex.g = substring 2 2 v;
+        hex.b = substring 4 2 v;
+      }) bases;
   };
 }
