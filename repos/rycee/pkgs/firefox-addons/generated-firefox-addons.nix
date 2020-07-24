@@ -648,10 +648,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.20.3";
+      version = "5.20.4";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3613281/reddit_enhancement_suite-5.20.3-an+fx.xpi?src=";
-      sha256 = "14bfa212018582db85acb44b564586fd071412683940c3dbda56d1ea8c96b4cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3613729/reddit_enhancement_suite-5.20.4-an+fx.xpi?src=";
+      sha256 = "95deeb31540bed30a8f4ccbfcdbf19a09c908b42525d3dfa4ee6a0c762d1a543";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -676,10 +676,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.7.19";
+      version = "20.7.23";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3611268/refined_github-20.7.19-an+fx.xpi?src=";
-      sha256 = "fd5d6f5fba5720b46dbe761e02e724f608ba42680b1141b7a2fe93a7edd3202b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3613600/refined_github-20.7.23-an+fx.xpi?src=";
+      sha256 = "0f2279cfda6a49d7490f45c899b1f94c9bd28b96a5164781a0241006d471cf71";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
