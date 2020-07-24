@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "pandoc-bin";
-  version = "2.9.2.1";
+  version = "2.10.1";
 
   src = fetchurl {
     url = "https://github.com/jgm/pandoc/releases/download/${version}/pandoc-${version}-linux-amd64.tar.gz";
-    sha256 = "1y0c9cdhk1w7l3qx3l265dzgjcb673qqhmxsnk0lhz9bpn0sjqav";
+    sha256 = "11mxhq0l3vjwzf91mmmm2c6k5yvq6kfznqsjxkbnhm9zsld4iax3";
   };
 
   installPhase = ''
