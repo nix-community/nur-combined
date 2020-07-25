@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation {
   pname = "qmapshack-onlinemaps";
-  version = "2019-12-26";
+  version = "2020-07-25";
 
   src = fetchzip {
     url = "http://www.mtb-touring.net/wordpress/wp-content/uploads/Onlinemaps.zip";
-    sha256 = "0rffdhxs76hfm4gipz63sc3b56gi36lfzrfz57bzpr6zshb5wxrd";
+    sha256 = "1khfmbrq85bb2gq2b0c22qsjqk3740x7lbsv2zwqnflfjckqlpgi";
     stripRoot = false;
   };
 

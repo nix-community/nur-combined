@@ -100,15 +100,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-23T10:26:34Z",
+        "date": "2020-07-24T11:44:44Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "6c5c1bdb3858a8350625f99be63ee4cc515643fa",
-        "sha256": "06841pm3qachiz8dwkanjkl3y5nxmsi0mnvb4mgf62wwax3fdjp7",
+        "rev": "c762f44fd16ad927f7f6198289b5496ffd383b99",
+        "sha256": "0q6dh2m5xl4d5wpdpx15ykgwr6cxd6cl43rdrkc7mxp5l502hywa",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/6c5c1bdb3858a8350625f99be63ee4cc515643fa.tar.gz",
+        "url": "https://github.com/embox/embox/archive/c762f44fd16ad927f7f6198289b5496ffd383b99.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -128,15 +128,15 @@
     "gef": {
         "branch": "dev",
         "builtin": false,
-        "date": "2020-07-20T17:55:36Z",
+        "date": "2020-07-23T22:04:22Z",
         "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
         "homepage": "http://gef.rtfd.io",
         "owner": "hugsy",
         "repo": "gef",
-        "rev": "c3082e5fe50a46f5632c431b4148575e7bc7f491",
-        "sha256": "1imb7gwrs9937sgq204xx7w50vdjz6q25bvabyn8s2b15nkv0f40",
+        "rev": "5636290a2f6cf8c47685690c282b96b1ba8e9f06",
+        "sha256": "1qlhfz8s3klf84mqnsqhp8z8w4rqv5075sxkrp2626076b3hzcgs",
         "type": "tarball",
-        "url": "https://github.com/hugsy/gef/archive/c3082e5fe50a46f5632c431b4148575e7bc7f491.tar.gz",
+        "url": "https://github.com/hugsy/gef/archive/5636290a2f6cf8c47685690c282b96b1ba8e9f06.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geminid": {
@@ -222,15 +222,15 @@
     "gpxelevations": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-13T06:17:28Z",
+        "date": "2020-07-24T19:48:45Z",
         "description": "Geo elevation data parser for \"The Shuttle Radar Topography Mission\" data",
         "homepage": "https://github.com/tkrajina/srtm.py",
         "owner": "tkrajina",
         "repo": "srtm.py",
-        "rev": "cf834394007276d4f9eb7f1b6e739636d0e03621",
-        "sha256": "13kryjksy32cr73zfhis6ys2jm3wxlbspxvj3avzdjskrjxic6cd",
+        "rev": "5ae49a6e55f633d3b262bdd1a6fbb5cc1d86126d",
+        "sha256": "1n23sbk6hfbl583yppb7p52kzv9mkndm2sigc75qki52gz8mcd5w",
         "type": "tarball",
-        "url": "https://github.com/tkrajina/srtm.py/archive/cf834394007276d4f9eb7f1b6e739636d0e03621.tar.gz",
+        "url": "https://github.com/tkrajina/srtm.py/archive/5ae49a6e55f633d3b262bdd1a6fbb5cc1d86126d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxlab": {
@@ -732,15 +732,15 @@
     "tilesets-cli": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-16T19:52:13Z",
+        "date": "2020-07-24T14:59:39Z",
         "description": "CLI for interacting with the Mapbox Tilesets API",
         "homepage": "https://docs.mapbox.com/api/maps/#tilesets",
         "owner": "mapbox",
         "repo": "tilesets-cli",
-        "rev": "b246fefa6b7ab1ff3310e4f65d0959fceea05c62",
-        "sha256": "0d5m0vm8s1l0d88drgpw86bsr2fdvkm7k6rj54h5s863339rwicy",
+        "rev": "c62ac000397cd459d5bc429e87edb8f28dd0fc52",
+        "sha256": "16hdp9mi48fd9r34abmvgcxd081iyxhlq4vwdjz1d7sahln9l747",
         "type": "tarball",
-        "url": "https://github.com/mapbox/tilesets-cli/archive/b246fefa6b7ab1ff3310e4f65d0959fceea05c62.tar.gz",
+        "url": "https://github.com/mapbox/tilesets-cli/archive/c62ac000397cd459d5bc429e87edb8f28dd0fc52.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tpkutils": {
