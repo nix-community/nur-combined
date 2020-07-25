@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   installFlags = [ "PREFIX=$(out)" ];
 
   nativeBuildInputs = [ gnumake ];
-  buildInputs = [ ffmpeg xdotool slop libnotify ];
+  propagatedBuildInputs = [ ffmpeg xdotool slop libnotify ];
 
   meta = with stdenv.lib; {
     description = "Captures your screen and saves it as a gif";
