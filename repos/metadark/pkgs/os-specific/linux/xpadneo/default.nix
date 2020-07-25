@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "xpadneo";
-  version = "0.8";
+  version = "0.8.2";
 
   src = fetchFromGitHub {
     owner = "atar-axis";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0dlcl771wc3zwnw70pxskx0yr9safjgiwps533z20gclw6v5zdpp";
+    sha256 = "0v688j7jx2b68zlwnrr5y63zxzhldygw1lcp8f3irayhcp8ikzzy";
   };
 
   setSourceRoot = ''
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildFlags = [ "modules" ];
-  installFlags = [ "INSTALL_MOD_PATH=$(out)" ];
+  installFlags = [ "INSTALL_MOD_PATH=${placeholder "out"}" ];
   installTargets = [ "modules_install" ];
 
   meta = with stdenv.lib; {
