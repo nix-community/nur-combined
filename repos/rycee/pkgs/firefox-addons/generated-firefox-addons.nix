@@ -284,10 +284,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.0.5";
+      version = "3.0.6";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3604392/gesturefy-3.0.5-fx.xpi?src=";
-      sha256 = "9d1afe7d9369f5b86047994fba991c7bd209fbdb7f4b9a46b051e06e6aaf8d88";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3613981/gesturefy-3.0.6-fx.xpi?src=";
+      sha256 = "ac6cd4405cc2d1096291e2b8d05baa3970d74a0991a7a71f9261f42ba2bf14ab";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -690,10 +690,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "20.6";
+      version = "20.7";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3607410/save_page_we-20.6-fx.xpi?src=";
-      sha256 = "0cd201423fd2c2fd50cf348fe62dee543936ee9d9202a4d4f81efe3a3b2fb667";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3614124/save_page_we-20.7-fx.xpi?src=";
+      sha256 = "ff8414032abfecb6fcf4e188cdfb2450d001e1dcb2410244586e63bdbb8b798e";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
