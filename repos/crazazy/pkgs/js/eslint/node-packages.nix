@@ -310,13 +310,13 @@ let
         sha512 = "6J72N8UNa462wa/KFODt/PJ3IU60SDpC3QXC1Hjc1BXXpfL2C9R5+AU7jhe0F6GREqVMh4Juu+NY7xn+6dipUQ==";
       };
     };
-    "espree-7.1.0" = {
+    "espree-7.2.0" = {
       name = "espree";
       packageName = "espree";
-      version = "7.1.0";
+      version = "7.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/espree/-/espree-7.1.0.tgz";
-        sha512 = "dcorZSyfmm4WTuTnE5Y7MEN1DyoPYy1ZR783QW1FJoenn7RailyWFsq/UL6ZAAA7uXurN9FIpYyUs3OfiIW+Qw==";
+        url = "https://registry.npmjs.org/espree/-/espree-7.2.0.tgz";
+        sha512 = "H+cQ3+3JYRMEIOl87e7QdHX70ocly5iW4+dttuR8iYSPr/hXKFb+7dBsZ7+u1adC4VrnPlTkv0+OwuPnDop19g==";
       };
     };
     "esprima-4.0.1" = {
@@ -962,8 +962,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.4.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.4.0.tgz"; sha1 = "4e35a2697e6c1972f9d6ef2b690ad319f80f206f"; };
+    version = "7.5.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.5.0.tgz"; sha1 = "9ecbfad62216d223b82ac9ffea7ef3444671d135"; };
     dependencies = [
       sources."@babel/code-frame-7.10.4"
       sources."@babel/helper-validator-identifier-7.10.4"
@@ -1006,7 +1006,7 @@ let
       sources."eslint-scope-5.1.0"
       sources."eslint-utils-2.1.0"
       sources."eslint-visitor-keys-1.3.0"
-      sources."espree-7.1.0"
+      sources."espree-7.2.0"
       sources."esprima-4.0.1"
       (sources."esquery-1.3.1" // {
         dependencies = [

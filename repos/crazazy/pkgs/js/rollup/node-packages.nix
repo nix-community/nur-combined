@@ -7,8 +7,8 @@ let
   args = {
     name = "rollup";
     packageName = "rollup";
-    version = "2.21.0";
-    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-2.21.0.tgz"; sha1 = "d2e114533812043d5c9b7b0a83f1b2a242e4e1d6"; };
+    version = "2.23.0";
+    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-2.23.0.tgz"; sha1 = "b7ab1fee0c0e60132fd0553c4df1e9cdacfada9d"; };
     buildInputs = globalBuildInputs;
     meta = {
       description = "Next-generation ES module bundler";
