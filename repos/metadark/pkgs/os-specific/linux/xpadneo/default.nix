@@ -15,6 +15,12 @@ stdenv.mkDerivation rec {
     export sourceRoot=$(pwd)/source/hid-xpadneo/src
   '';
 
+  postPatch = ''
+    # Set kernel module version
+    substituteInPlace hid-xpadneo.c \
+      --subst-var-by DO_NOT_CHANGE ${version}
+  '';
+
   nativeBuildInputs = kernel.moduleBuildDependencies;
   buildInputs = [ bluez ];
 
