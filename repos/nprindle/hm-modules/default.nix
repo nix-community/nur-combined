@@ -1,4 +1,3 @@
 {
-  nushell = ./nushell;
 }
 
