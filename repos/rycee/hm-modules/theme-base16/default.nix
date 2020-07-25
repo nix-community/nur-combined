@@ -100,6 +100,7 @@ in {
     ./gtk.nix
     ./polybar.nix
     ./rofi.nix
+    ./xscreensaver.nix
   ];
 
   options = {
