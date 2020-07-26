@@ -46,7 +46,9 @@ rec {
     inherit lightdm-webkit2-greeter;
   };
 
-  newsflash = pkgs.callPackage ./pkgs/applications/networking/newsreaders/newsflash { };
+  newsflash = pkgs.callPackage ./pkgs/applications/networking/newsreaders/newsflash {
+    inherit (pkgs.gst_all_1) gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad;
+  };
 
   protontricks = pkgs.python3Packages.callPackage ./pkgs/tools/package-management/protontricks {
     inherit (pkgs.gnome3) zenity;

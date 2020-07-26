@@ -1,20 +1,24 @@
 { lib
 , rustPlatform
 , fetchFromGitLab
-, gdk-pixbuf
-, glib
 , meson
 , ninja
 , pkg-config
 , wrapGAppsHook
-, glib-networking
-, gsettings-desktop-schemas
+, gdk-pixbuf
+, glib
 , gtk3
 , libhandy
-, librsvg
 , openssl
 , sqlite
 , webkitgtk
+, glib-networking
+, gsettings-desktop-schemas
+, gstreamer
+, gst-plugins-base
+, gst-plugins-good
+, gst-plugins-bad
+, librsvg
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -44,25 +48,41 @@ rustPlatform.buildRustPackage rec {
   '';
 
   nativeBuildInputs = [
-    gdk-pixbuf # provides setup hook to fix "Unrecognized image file format"
-    glib # provides glib-compile-resources to compile gresources
     meson
     ninja
     pkg-config
     wrapGAppsHook
+
+    # Provides setup hook to fix "Unrecognized image file format"
+    gdk-pixbuf
+
+    # Provides glib-compile-resources to compile gresources
+    glib
   ];
 
   buildInputs = [
     gdk-pixbuf
     glib
-    glib-networking # TLS support for loading external content in webkitgtk WebView (eg. images)
-    gsettings-desktop-schemas # used to get system default font in src/article_view/mod.rs
     gtk3
     libhandy
-    librsvg # used by gdk-pixbuf & wrapGAppsHook setup hooks to fix "Unrecognized image file format"
     openssl
     sqlite
     webkitgtk
+
+    # TLS support for loading external content in webkitgtk WebView
+    glib-networking
+
+    # Used to get system default font (src/article_view/mod.rs:824)
+    gsettings-desktop-schemas
+
+    # Video & audio support for webkitgtk WebView
+    gstreamer
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+
+    # SVG support for gdk-pixbuf
+    librsvg
   ];
 
   # Unset default rust phases to use meson & ninja instead
