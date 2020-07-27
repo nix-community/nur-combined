@@ -13,7 +13,6 @@
 , sqlite
 , webkitgtk
 , glib-networking
-, gsettings-desktop-schemas
 , gstreamer
 , gst-plugins-base
 , gst-plugins-good
@@ -23,20 +22,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "newsflash";
-  version = "1.0.1";
+  version = "1.0.2";
 
   src = fetchFromGitLab {
     owner = "news-flash";
     repo = "news_flash_gtk";
     rev = version;
-    sha256 = "1y2jj3z08m29s6ggl8q270mqnvdwibs0f2kxybqhi8mya5pyw902";
+    sha256 = "17a8fd5rhs56qrqlfj9ckv45hwfcjhdb8j4cxlnvy7s770s225gd";
   };
 
-  cargoPatches = [
-    ./cargo.lock.patch
-  ];
-
-  cargoSha256 = "0z3nhzpyckga112wn32zzwwlpqdgi6n53n8nwgggixvpbnh98112";
+  cargoSha256 = "1p0m7la59fn9r2rr26q9mfd1nvyvxb630qiwj96x91p77xv1i30i";
 
   patches = [
     ./no-post-install.patch
@@ -61,8 +56,6 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs = [
-    gdk-pixbuf
-    glib
     gtk3
     libhandy
     openssl
@@ -71,9 +64,6 @@ rustPlatform.buildRustPackage rec {
 
     # TLS support for loading external content in webkitgtk WebView
     glib-networking
-
-    # Used to get system default font (src/article_view/mod.rs:824)
-    gsettings-desktop-schemas
 
     # Video & audio support for webkitgtk WebView
     gstreamer

@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   # curl https://content.runescape.com/downloads/ubuntu/dists/trusty/non-free/binary-amd64/Packages
   src = fetchurl {
     url = "https://content.runescape.com/downloads/ubuntu/pool/non-free/r/${pname}/${pname}_${version}_amd64.deb";
-    sha256 = "0cbxrjbbm3j6flfn16x2iifj5dzvxg0a66yn1rhkdjjz567vzrn1";
+    sha256 = "0fv0hpl3rk6xp71azjq9nbg3nhx0qssxk6x7g635v72iglgrlxjn";
   };
 
   nativeBuildInputs = [ dpkg ];
