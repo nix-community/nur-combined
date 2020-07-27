@@ -662,10 +662,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.3.1";
+      version = "5.3.2";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3533421/moderator_toolbox_for_reddit-5.3.1-an+fx.xpi?src=";
-      sha256 = "a78134975fbfdd65b7c3d5a6ea28820ccf1b86235682f3a2f2098556d9cee46a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3614743/moderator_toolbox_for_reddit-5.3.2-an+fx.xpi?src=";
+      sha256 = "d0df1c74e69fc1f2df8a8a56b63c3551169a4970ea99d84dc75eba0fc230d21d";
       meta = with stdenv.lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -676,10 +676,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.7.23";
+      version = "20.7.26";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3613600/refined_github-20.7.23-an+fx.xpi?src=";
-      sha256 = "0f2279cfda6a49d7490f45c899b1f94c9bd28b96a5164781a0241006d471cf71";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3614790/refined_github-20.7.26-an+fx.xpi?src=";
+      sha256 = "19e08cee73498334f2b81d1627539ddd35ea29bc9df19b1ce327cc72cd08b1ac";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
