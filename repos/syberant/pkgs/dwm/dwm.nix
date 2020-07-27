@@ -49,7 +49,7 @@ callPatcher = { type ? "patch", file, ... } @ attrs: ''
   ${patchCmds."${type}" attrs}
 '';
 patch = arg:
-  callPatcher (if (builtins.isPath arg) || (builtins.hasAttr "type" arg && arg.type == "derivation") then { file = arg; } else arg);
+  callPatcher (if builtins.isPath arg || lib.isDerivation arg then { file = arg; } else arg);
 in dwm.overrideAttrs (old: {
   nativeBuildInputs = [ git ];
 

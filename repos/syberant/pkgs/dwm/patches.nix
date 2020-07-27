@@ -1,5 +1,6 @@
 {
-  callPackage
+  callPackage,
+  stdenv
 }:
 
 let pfetch = {
@@ -11,6 +12,20 @@ let pfetch = {
       name = "${name}.patch";
       url = "https://dwm.suckless.org/patches/${name}/${patchName}.diff";
       inherit sha256;
+    } // {
+      meta = with stdenv.lib; {
+        description = "A patch for dwm";
+        longDescription = ''
+          A patch for dwm.
+
+          Full url: https://dwm.suckless.org/patches/${name}/${patchName}.diff
+        '';
+        homepage = "https://dwm.suckless.org/patches/${name}";
+        # All patches should be licensed via MIT (I think) because dwm is
+        # and the website says all contributions are licensed according to the license of the original project.
+        license = licenses.mit;
+        platforms = platforms.all;
+      };
     }
   ) {};
 in {
@@ -42,5 +57,10 @@ in {
   cyclelayouts = pfetch {
     patchName = "dwm-cyclelayouts-20180524-6.2";
     sha256 = "1y87fgwfdgzycdbyqsmj737g89b2wf5illxpvp4pk4msn8i0w2l8";
+  };
+
+  anybar = pfetch {
+    patchName = "dwm-anybar-20200721-bb2e722";
+    sha256 = "15xccai630vzv7vpnzz4mlniyswn85wb65dmyjsq3xrdjfbb0rmj";
   };
 }
