@@ -45,7 +45,7 @@ pkgs.lib.makeExtensible (self: rec {
   instantthemes = pkgs.callPackage ./pkgs/instantThemes {
     Paperbash = self.paperbash;
   };
-  instantutils = pkgs.callPackage ./pkgs/instantUtils { 
+  instantutils = pkgs.callPackage ./pkgs/instantUtils {
     lxsession = lxsession;
     rangerplugins = self.rangerplugins;
     xfce4-power-manager = pkgs.xfce.xfce4-power-manager;
@@ -53,6 +53,9 @@ pkgs.lib.makeExtensible (self: rec {
   };
   instantmenu = pkgs.callPackage ./pkgs/instantMenu {
     instantUtils = self.instantutils;
+  };
+  instantnotify = pkgs.callPackage ./pkgs/instantNotify {
+    instantMenu = self.instantmenu;
   };
   instantwallpaper = pkgs.callPackage ./pkgs/instantWallpaper {
     instantLogo = self.instantlogo;
@@ -118,6 +121,7 @@ pkgs.lib.makeExtensible (self: rec {
         self.instantdotfiles
         self.instantlogo
         self.instantmenu
+        self.instantnotify
         self.instantsettings
         self.instantshell
         self.instantthemes

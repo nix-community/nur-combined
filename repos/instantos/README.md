@@ -56,5 +56,4 @@ $ nix-env -iA cachix -f https://cachix.org/api/v1/install
 $ cachix use instantos
 ```
 
-[![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
 [![Cachix Cache](https://img.shields.io/badge/cachix-instantos-blue.svg)](https://instantos.cachix.org)

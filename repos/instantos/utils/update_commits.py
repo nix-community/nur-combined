@@ -124,7 +124,7 @@ def replace_with_backup(file_, backup, text):
 
 
 def clone_repo(file_, owner, repo, rev, **_):
-    cmd = f"git clone 'https://github.com/{owner}/{repo}' && cd '{repo}' && git checkout '{rev}'",
+    cmd = f"git clone 'https://github.com/{owner}/{repo}'; cd '{repo}' && git checkout '{rev}'",
     cloneroot = P(__filedir__).parent
     sys.stderr.write(f"running command: '{cmd}'\n")
     subprocess.Popen(cmd, shell=True, cwd=cloneroot, stdout=sys.stdout, stderr=sys.stderr)
@@ -167,6 +167,11 @@ def main(args=None):
         logging.debug("DEBUG set, logging will be verbose")
         args = [x for x in args if x not in verb]
 
+    processor = update_hashes
+    if "--print-fetches" in args:
+        processor = print_fetches
+        args = [x for x in args if x != "--print-fetches"]
+
     clone = ['-c', '--clone']
     if any(x in args for x in clone):
         args = [x for x in args if x not in clone]
@@ -174,11 +179,6 @@ def main(args=None):
         clone = True
     else:
         clone = False
-
-    processor = update_hashes
-    if "--print-fetches" in args:
-        processor = print_fetches
-        args = [x for x in args if x != "--print-fetches"]
 
     logging.debug("clone: %s; processor: %s; args: %s;", clone, processor, args)
     walk_dirs(args, processor=processor, clone=clone)

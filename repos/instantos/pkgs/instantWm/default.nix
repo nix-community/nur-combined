@@ -23,8 +23,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantWM";
-    rev = "44e326d21b0c0f2ff0513e9e551a52d9b62a1472";
-    sha256 = "03cxagbv0y7df9irp787g3s1a7c1k85027dsyn79j2ph5lihz5v8";
+    rev = "78159564d714b63f43b5d910f938d5e2cea4feae";
+    sha256 = "0qvv6qccmf77bc34mk2c17l6v6nld2qilasrxqs583d3nw37r0nm";
     name = "instantOS_instantWm";
   };
 
@@ -40,8 +40,8 @@ stdenv.mkDerivation {
       --replace "\"rofi\"" "\"${rofi}/bin/rofi\"" \
       --replace "\"urxvt\"" "\"${rxvt_unicode}/bin/urxvt\"" \
       --replace "\"st\"" "\"${defaultTerminal}/bin/${builtins.head (builtins.match "(.*)-.*" defaultTerminal.name)}\"" \
-      --replace /usr/share/instantassist/utils "${instantAssist}/share/instantassist/assists" \
-      --replace /usr/share/instantdotfiles "${instantDotfiles}/share/instantdotfiles/"
+      --replace /usr/share/instantassist/ "${instantAssist}/share/instantassist/" \
+      --replace /usr/share/instantdotfiles/ "${instantDotfiles}/share/instantdotfiles/"
   '';
 
   nativeBuildInputs = [ gnumake ];
@@ -62,7 +62,7 @@ stdenv.mkDerivation {
   installPhase = ''
     install -Dm 555 instantwm $out/bin/instantwm
     install -Dm 555 startinstantos $out/bin/startinstantos
-    cp config.def.h $out/
+    cp config.def.h $out/  # not needed, makes debugging a bit easier
   '';
 
   meta = with lib; {
