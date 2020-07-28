@@ -13,11 +13,8 @@
 , sqlite
 , webkitgtk
 , glib-networking
-, gstreamer
-, gst-plugins-base
-, gst-plugins-good
-, gst-plugins-bad
 , librsvg
+, gst_all_1
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -65,15 +62,15 @@ rustPlatform.buildRustPackage rec {
     # TLS support for loading external content in webkitgtk WebView
     glib-networking
 
-    # Video & audio support for webkitgtk WebView
+    # SVG support for gdk-pixbuf
+    librsvg
+  ] ++ (with gst_all_1; [
+    # Audio & video support for webkitgtk WebView
     gstreamer
     gst-plugins-base
     gst-plugins-good
     gst-plugins-bad
-
-    # SVG support for gdk-pixbuf
-    librsvg
-  ];
+  ]);
 
   # Unset default rust phases to use meson & ninja instead
   configurePhase = null;
