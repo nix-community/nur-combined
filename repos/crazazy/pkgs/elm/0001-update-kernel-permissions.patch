@@ -1,0 +1,34 @@
+From 0a9cf08e46454dccc7aafb0ae58446ed49ab01d7 Mon Sep 17 00:00:00 2001
+From: Erik Oosting <erik99.oosting@gmail.com>
+Date: Tue, 28 Jul 2020 18:50:44 +0200
+Subject: [PATCH] update kernel permissions
+
+this patch allows all people to write in the Elm.Kernel module, which
+was normally beheld to only the core Elm team
+
+USE THIS PATCH AT YOUR OWN DISGRESSION. I AM NOT RESPONSIBLE FOR ANY BAD
+KERNEL CODE YOU MAKE WITH THIS PATCH. THIS SHIT IS ENTIRELY UNDOCUMENTED
+AND WILL TAKE SOME AMOUNT OF DIGGING TO SEE HOW THE JAVASCRIPT IS
+GENERATED SINCE I AM JUST AN OUTSIDER
+---
+ compiler/src/Elm/Package.hs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/compiler/src/Elm/Package.hs b/compiler/src/Elm/Package.hs
+index 406bb80f..250e17ef 100644
+--- a/compiler/src/Elm/Package.hs
++++ b/compiler/src/Elm/Package.hs
+@@ -81,8 +81,8 @@ data Canonical =
+ 
+ 
+ isKernel :: Name -> Bool
+-isKernel (Name author _) =
+-  author == elm || author == elm_explorations
++isKernel _ =
++    True
+ 
+ 
+ toChars :: Name -> String
+-- 
+2.27.0
+
