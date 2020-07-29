@@ -27,12 +27,6 @@ in {
 
   config = mkIf cfg.enable {
 
-    assertions = [
-      { assertion = (config.services.bitcoind.enable == true);
-        message = "To use Electrum Personal Server you must enable (and configure) Bitcoin Core with services.bitcoind.enable.";
-      }
-    ];
-
     systemd.user.services.electrum-personal-server = {
       description = "Electrum Personal Server";
       after = [ "bitcoind.service" "graphical-session.target" ];

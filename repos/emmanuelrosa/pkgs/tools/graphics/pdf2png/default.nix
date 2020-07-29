@@ -2,23 +2,25 @@
 
 stdenv.mkDerivation rec {
   pname = "pdf2png";
-  version = "0.1.0.0";
+  version = "0.2.0.0";
 
   src = fetchFromGitHub {
     owner = "emmanuelrosa";
     repo = pname;
     rev = version; 
-    sha256 = "1yq87vm30ylq4hrqwci6iy0q2yrxdb90fxf2mrh66azhf1w2y5g9";
+    sha256 = "039j7izz4c1gvgk2dbn37ai0xj0vfakhh7rn6nxg0fkbk53gkb9w";
   };
 
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     install -D pdf2png.sh $out/bin/pdf2png
+    install -D pdf2jpg.sh $out/bin/pdf2jpg
   '';
 
   postFixup = ''
     wrapProgram $out/bin/pdf2png --prefix PATH : ${lib.makeBinPath [ imagemagick ghostscript]}
+    wrapProgram $out/bin/pdf2jpg --prefix PATH : ${lib.makeBinPath [ imagemagick ghostscript]}
   '';
 
   meta = with stdenv.lib; {
