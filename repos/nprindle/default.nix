@@ -20,7 +20,7 @@
   butler = pkgs.callPackage ./pkgs/tools/butler {};
 
   carbon-now = pkgs.callPackage ./pkgs/tools/carbon-now {
-    nodejs = pkgs.nodejs-13_x;
+    nodejs = pkgs.nodejs-14_x;
   };
 
   pridecat = pkgs.callPackage ./pkgs/tools/pridecat {};
@@ -35,9 +35,5 @@
 
   # games
   githug = pkgs.callPackage ./pkgs/games/githug {};
-
-  aurora = pkgs.callPackage ./pkgs/games/aurora {
-    nodejs = pkgs.nodejs-13_x;
-  };
 }
 
