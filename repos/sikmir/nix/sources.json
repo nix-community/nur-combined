@@ -100,15 +100,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-24T11:44:44Z",
+        "date": "2020-07-28T12:25:28Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "c762f44fd16ad927f7f6198289b5496ffd383b99",
-        "sha256": "0q6dh2m5xl4d5wpdpx15ykgwr6cxd6cl43rdrkc7mxp5l502hywa",
+        "rev": "5c82a8cd7a544c98a2c7c7b699d4edd8b180602d",
+        "sha256": "13l5pvjc7i3wvri111jb5lz4p5f2mi60xfbp8pmz6fpcj5zyc0i3",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/c762f44fd16ad927f7f6198289b5496ffd383b99.tar.gz",
+        "url": "https://github.com/embox/embox/archive/5c82a8cd7a544c98a2c7c7b699d4edd8b180602d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -155,27 +155,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "1fzqwv65swa4452n276w1yklc3q05vhqfzl1nii619wka4hssnjw",
+        "sha256": "0jj5b9y8i2l0z59v8n5c6pj7q1sqcnrczhrva69c492aymjwnlar",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-200722.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-200728.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "200722"
+        "version": "200728"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "0vza3dw7ynlf3y9iv12h2ff7xlp7gsl4i249nc4q7lwa2k5457xi",
+        "sha256": "0nqkp42pr57hw8qlk4b258lp9lr652ggwdn0hys4m6ci0w93scf2",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-200722.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-200728.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "200722"
+        "version": "200728"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "0vq2sl4gxsxz87bci8vig99f17binpfqhrdw13anynwq2nm6nay8",
+        "sha256": "1551qvxchphkn2jg57ja7a893r97kmpz80r8xaw8yi47rxivld1p",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200722.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200728.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "200722"
+        "version": "200728"
     },
     "gimgtools": {
         "branch": "master",
@@ -222,15 +222,15 @@
     "gpxelevations": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-24T19:48:45Z",
+        "date": "2020-07-28T16:06:58Z",
         "description": "Geo elevation data parser for \"The Shuttle Radar Topography Mission\" data",
         "homepage": "https://github.com/tkrajina/srtm.py",
         "owner": "tkrajina",
         "repo": "srtm.py",
-        "rev": "5ae49a6e55f633d3b262bdd1a6fbb5cc1d86126d",
-        "sha256": "1n23sbk6hfbl583yppb7p52kzv9mkndm2sigc75qki52gz8mcd5w",
+        "rev": "65bbc1324ab942192bb817a25af1a85d65a87f46",
+        "sha256": "0ana5ya2q399arh6nzpjshgnpkbii6wzd9vn4x1x8353cpb2v1lj",
         "type": "tarball",
-        "url": "https://github.com/tkrajina/srtm.py/archive/5ae49a6e55f633d3b262bdd1a6fbb5cc1d86126d.tar.gz",
+        "url": "https://github.com/tkrajina/srtm.py/archive/65bbc1324ab942192bb817a25af1a85d65a87f46.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxlab": {
@@ -461,11 +461,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "016cwrrjrc69l3ks19ficxp060mwl3rpf0s6p70mm1mrzdkz40ms",
+        "sha256": "1m2lxc92r85z7qblbwb94lax9zjnvddg052vys22hbrr8v3ffk0d",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-07-22.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-07-28.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-07-22"
+        "version": "2020-07-28"
     },
     "mbtileserver": {
         "branch": "master",
@@ -493,6 +493,20 @@
         "sha256": "0nz18k9lcr3nm81s0xpgymhgkx3m3bhirczzpj2bqj0lpgh93bxr",
         "type": "tarball",
         "url": "https://github.com/mapbox/mercantile/archive/9e7b52f6a2019f904b2ceba3f5f9ca6ac8f02b80.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "microjson": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-07-04T11:11:24Z",
+        "description": "Tiny streaming json deserializer",
+        "homepage": "https://github.com/semlanik/microjson",
+        "owner": "semlanik",
+        "repo": "microjson",
+        "rev": "b1b37757a36f19399e38088609bc63312c50137f",
+        "sha256": "0byjiizzsgb742mvqrr513b22idkqsdrvvixyczkh25lkj3aqhga",
+        "type": "tarball",
+        "url": "https://github.com/semlanik/microjson/archive/b1b37757a36f19399e38088609bc63312c50137f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mikatools": {
@@ -550,15 +564,15 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-16T15:50:07Z",
+        "date": "2020-07-29T10:24:24Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "4c7626b248d1c9e6c247ab9f8d61b38cde48e21d",
-        "sha256": "16csv0ncmmxw6snfwn6q1a469niffy21ys2gysvzjg9zjnqjrf23",
+        "rev": "8a267804283822c5353150c5619324bae9665fa1",
+        "sha256": "1qi461bqd16yx855ij1apazdi8a502hld2mxqi8ik07868qrpb8x",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/4c7626b248d1c9e6c247ab9f8d61b38cde48e21d.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/8a267804283822c5353150c5619324bae9665fa1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
@@ -727,6 +741,20 @@
         "sha256": "0di1hr9j2wdicj6n2mlf9achfxd05rqwrfnymsnxhhy7sv50n2bm",
         "type": "tarball",
         "url": "https://github.com/selectel/supload/archive/70690682867713c68d7c6daa833a1013e79df407.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "taginfo-tools": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-07-28T18:52:53Z",
+        "description": "C++ tools used in taginfo processing",
+        "homepage": "https://wiki.openstreetmap.org/wiki/Taginfo",
+        "owner": "taginfo",
+        "repo": "taginfo-tools",
+        "rev": "62c6068e01ded3b121eebd6fb1f99a50c46e5138",
+        "sha256": "0rcckkv3s0cjhmi6g6q3zbg8y72cha5hixsfxa5gg1l7b7w3hf41",
+        "type": "tarball",
+        "url": "https://github.com/taginfo/taginfo-tools/archive/62c6068e01ded3b121eebd6fb1f99a50c46e5138.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tilesets-cli": {

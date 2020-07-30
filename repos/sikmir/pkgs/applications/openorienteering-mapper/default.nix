@@ -57,8 +57,6 @@ mkDerivation {
     "-DMapper_MANUAL_QTHELP:BOOL=OFF"
     "-DMapper_VERSION_DISPLAY=${version}"
   ] ++ lib.optionals stdenv.isDarwin [
-    # Usually enabled on Darwin
-    "-DCMAKE_FIND_FRAMEWORK=never"
     # FindGDAL is broken and always finds /Library/Framework unless this is
     # specified
     "-DGDAL_INCLUDE_DIR=${gdal}/include"
@@ -83,7 +81,7 @@ mkDerivation {
 
   meta = with lib; {
     inherit (sources.mapper) description homepage;
-    license = licenses.gpl3;
+    license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };

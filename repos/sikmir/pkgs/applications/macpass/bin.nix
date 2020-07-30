@@ -26,7 +26,7 @@ stdenv.mkDerivation {
   meta = with stdenv.lib; {
     description = "A native OS X KeePass client";
     homepage = "https://macpassapp.org/";
-    license = licenses.gpl3;
+    license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
