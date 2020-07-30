@@ -33,4 +33,4 @@ in {
       sha256 = "1jc2zr8q33ras5mkifg19kcxpb84vsqx01rj66w62hsjw1nsbidg";
     };
   };
-}.${branch}
+}
