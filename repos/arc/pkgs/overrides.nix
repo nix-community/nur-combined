@@ -329,6 +329,23 @@ let
       };
     });
 
+    scream-arc = { scream, fetchpatch, fetchFromGitHub }: let
+      drv = scream.override {
+        pulseSupport = true;
+      };
+    in drv.overrideAttrs (old: {
+      patches = old.patches or [] ++ [
+        (fetchpatch {
+          url = "https://github.com/duncanthrax/scream/pull/90.diff";
+          sha256 = "0xzwx86yswn59szicq4jbaa0p2dpnj94bbgwqa8776vn786phyan";
+        })
+        (fetchpatch {
+          url = "https://github.com/duncanthrax/scream/pull/91.patch";
+          sha256 = "0lk9b5abcz1fzg7b26awcfjb6gbv8d7mx6a989sa4k94p080x4dz";
+        })
+      ];
+    });
+
     awscli = { awscli, hostPlatform, lib }: awscli.overrideAttrs (old: {
       meta = old.meta // {
         broken = old.meta.broken or false || (hostPlatform.isDarwin && lib.isNixpkgsStable);
