@@ -1,10 +1,12 @@
-From d2d5db5ad5c5856968aeec1d13c96a18e6e68f5f Mon Sep 17 00:00:00 2001
+From 8205b55e9a61792ec28eeaaa8d098aabbe0d367f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?J=C3=B6rg=20Thalheim?= <joerg@thalheim.io>
 Date: Sat, 6 Jun 2020 23:41:03 +0100
-Subject: [PATCH] compile fixes for openfst 1.7.7
+Subject: [PATCH 1/2] fix compatiblity with openfst 1.7.7
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+
+using namespace std is now required
 
 Signed-off-by: Jörg Thalheim <joerg@thalheim.io>
 ---
@@ -100,5 +102,5 @@ index c83ebab..01e2a1f 100644
  using namespace fst;
  
 -- 
-2.26.2
+2.27.0
 

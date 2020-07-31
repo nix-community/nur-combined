@@ -1,0 +1,29 @@
+From 93c9ff71dac00f097c60b25efb08545c4fdaff22 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=B6rg=20Thalheim?= <joerg@thalheim.io>
+Date: Fri, 31 Jul 2020 12:17:22 +0100
+Subject: [PATCH 2/2] fix compilation with openfst 1.7.9
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Jörg Thalheim <joerg@thalheim.io>
+---
+ src/bin/phonetisaurus-align.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/bin/phonetisaurus-align.cc b/src/bin/phonetisaurus-align.cc
+index 51f4a96..8812671 100644
+--- a/src/bin/phonetisaurus-align.cc
++++ b/src/bin/phonetisaurus-align.cc
+@@ -164,7 +164,7 @@ void compileNBestFarArchive (M2MFstAligner* aligner,
+   bool   set_syms = false; //Have we set the isyms successfully yet??
+   //Build us a FarWriter to compile the archive
+   FarWriter<StdArc> *far_writer = \
+-    FarWriter<StdArc>::Create (far_name, FAR_DEFAULT);
++    FarWriter<StdArc>::Create (far_name);
+   //Build us a lattice pruner
+   LatticePruner pruner (aligner->penalties, threshold, nbest, fb, penalize);
+ 
+-- 
+2.27.0
+
