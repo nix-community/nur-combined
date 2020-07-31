@@ -256,10 +256,10 @@
       };
     "foxyproxy-standard" = buildFirefoxXpiAddon {
       pname = "foxyproxy-standard";
-      version = "7.5";
+      version = "7.5.1";
       addonId = "foxyproxy@eric.h.jung";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3611407/foxyproxy_standard-7.5-an+fx.xpi?src=";
-      sha256 = "7d2c4bda2339f1d332e596f7d49903c60d2d5756a6489caf27feb86387c96451";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3616824/foxyproxy_standard-7.5.1-an+fx.xpi?src=";
+      sha256 = "42109bc250e20aafd841183d09c7336008ab49574b5e8aa9206991bb306c3a65";
       meta = with stdenv.lib;
       {
         homepage = "https://getfoxyproxy.org";
@@ -676,10 +676,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.7.26";
+      version = "20.7.30";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3614790/refined_github-20.7.26-an+fx.xpi?src=";
-      sha256 = "19e08cee73498334f2b81d1627539ddd35ea29bc9df19b1ce327cc72cd08b1ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3617170/refined_github-20.7.30-an+fx.xpi?src=";
+      sha256 = "6bf85549e6f4da1b978f0c243a4ca51088d2e7ac668a02b0f2ad836e22ce2de3";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
