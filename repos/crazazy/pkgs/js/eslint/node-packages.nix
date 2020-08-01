@@ -962,8 +962,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.5.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.5.0.tgz"; sha1 = "9ecbfad62216d223b82ac9ffea7ef3444671d135"; };
+    version = "7.6.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.6.0.tgz"; sha1 = "522d67cfaea09724d96949c70e7a0550614d64d6"; };
     dependencies = [
       sources."@babel/code-frame-7.10.4"
       sources."@babel/helper-validator-identifier-7.10.4"
