@@ -1,9 +1,9 @@
 { lib, fetchFromGitHub, buildGoModule
-, version, rev, sha256, modSha256 }:
+, version, rev, sha256, vendorSha256 }:
 
 buildGoModule rec {
   pname = "dtn7-go";
-  inherit version modSha256;
+  inherit version vendorSha256;
 
   src = fetchFromGitHub {
     inherit rev sha256;

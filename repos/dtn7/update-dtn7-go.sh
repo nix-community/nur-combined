@@ -22,7 +22,7 @@ callPackage ./. {
   version = "${2}";
   rev = "${3}";
   sha256 = "${4}";
-  modSha256 = "${5}";
+  vendorSha256 = "${5}";
 }
 EOF
 }
@@ -53,10 +53,10 @@ function updateLastCommit {
   updatePackageFile $package_file $version $remote_commit $sha256 \
     "0000000000000000000000000000000000000000000000000000"
 
-  local mod_sha256=`calculateGoSha "${PACKAGE}-unstable"`
-  echo "[commit] updating modSha256 to ${mod_sha256}"
+  local vendor_sha256=`calculateGoSha "${PACKAGE}-unstable"`
+  echo "[commit] updating vendorSha256 to ${vendor_sha256}"
 
-  updatePackageFile $package_file $version $remote_commit $sha256 $mod_sha256
+  updatePackageFile $package_file $version $remote_commit $sha256 $vendor_sha256
 
   nix-build -A "${PACKAGE}-unstable"
 }
@@ -82,10 +82,10 @@ function updateLastTag {
   updatePackageFile $package_file $version $remote_rev $sha256 \
     "0000000000000000000000000000000000000000000000000000"
 
-  local mod_sha256=`calculateGoSha "$PACKAGE"`
-  echo "[tag] updating modSha256 to ${mod_sha256}"
+  local vendor_sha256=`calculateGoSha "$PACKAGE"`
+  echo "[tag] updating vendorSha256 to ${vendor_sha256}"
 
-  updatePackageFile $package_file $version $remote_rev $sha256 $mod_sha256
+  updatePackageFile $package_file $version $remote_rev $sha256 $vendor_sha256
 
   nix-build -A "$PACKAGE"
 }
