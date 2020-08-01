@@ -1,0 +1,3 @@
+{
+  passenv = import ./passenv.nix;
+}

@@ -5,6 +5,8 @@ rec {
   hmModules = import ./hm-modules;
   # A list of all modules in hmModules.
   allHmModules = builtins.attrValues hmModules;
+  # Overlays
+  overlays = import ./overlays;
 
   id3 = pkgs.callPackage ./pkgs/id3 { };
   mopidy-podcast = pkgs.callPackage ./pkgs/mopidy-podcast { };
