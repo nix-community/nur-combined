@@ -1,4 +1,4 @@
-{ stdenv, fetchfromgh, appimageTools }:
+{ stdenv, fetchfromgh, appimageTools, undmg }:
 let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
@@ -52,13 +52,15 @@ let
   darwin = stdenv.mkDerivation {
     inherit name src meta;
 
-    dontUnpack = true;
+    preferLocalBuild = true;
+
+    nativeBuildInputs = [ undmg ];
+
+    sourceRoot = "KeeWeb.app";
 
     installPhase = ''
-      /usr/bin/hdiutil mount -nobrowse -mountpoint keeweb-mnt $src
-      mkdir -p $out/Applications
-      cp -r ./keeweb-mnt/KeeWeb.app $out/Applications
-      /usr/bin/hdiutil unmount keeweb-mnt
+      mkdir -p $out/Applications/KeeWeb.app
+      cp -R . $out/Applications/KeeWeb.app
     '';
   };
 in

@@ -8,6 +8,7 @@ lib.makeScope newScope (
 
     ### APPLICATIONS
 
+    anki-bin = callPackage ./applications/anki/bin.nix { };
     goldendict-bin = callPackage ./applications/goldendict/bin.nix { };
     gpxlab = libsForQt5.callPackage ./applications/gpxlab {
       inherit sources;
@@ -27,6 +28,7 @@ lib.makeScope newScope (
     };
     openorienteering-mapper-bin = callPackage ./applications/openorienteering-mapper/bin.nix { };
     qmapshack-bin = callPackage ./applications/qmapshack/bin.nix { };
+    qutebrowser-bin = callPackage ./applications/qutebrowser/bin.nix { };
     redict = libsForQt5.callPackage ./applications/redict {
       inherit sources;
     };

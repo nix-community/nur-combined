@@ -100,15 +100,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-28T12:25:28Z",
+        "date": "2020-08-02T10:45:29Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "5c82a8cd7a544c98a2c7c7b699d4edd8b180602d",
-        "sha256": "13l5pvjc7i3wvri111jb5lz4p5f2mi60xfbp8pmz6fpcj5zyc0i3",
+        "rev": "269b9f3d4f72d046dce26e071a8845452d9d08a1",
+        "sha256": "0gqcsdj2dvd2p3lfqccwfryggxqa7a30igi7w835yhq7nfm0s6b9",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/5c82a8cd7a544c98a2c7c7b699d4edd8b180602d.tar.gz",
+        "url": "https://github.com/embox/embox/archive/269b9f3d4f72d046dce26e071a8845452d9d08a1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -128,15 +128,15 @@
     "gef": {
         "branch": "dev",
         "builtin": false,
-        "date": "2020-07-23T22:04:22Z",
+        "date": "2020-07-30T14:57:39Z",
         "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
         "homepage": "http://gef.rtfd.io",
         "owner": "hugsy",
         "repo": "gef",
-        "rev": "5636290a2f6cf8c47685690c282b96b1ba8e9f06",
-        "sha256": "1qlhfz8s3klf84mqnsqhp8z8w4rqv5075sxkrp2626076b3hzcgs",
+        "rev": "4d00eadf52086347c88d2b717d9ceeb5cf193a2b",
+        "sha256": "0kxjq027zvbcb6g4sl02jlcggqkyjw1014igprq7d5d9vjlwwyyv",
         "type": "tarball",
-        "url": "https://github.com/hugsy/gef/archive/5636290a2f6cf8c47685690c282b96b1ba8e9f06.tar.gz",
+        "url": "https://github.com/hugsy/gef/archive/4d00eadf52086347c88d2b717d9ceeb5cf193a2b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geminid": {
@@ -431,15 +431,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-18T18:51:23Z",
+        "date": "2020-08-01T10:39:14Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "8c31fe5866e5dcb488a8145ca0134a5c2f71ac83",
-        "sha256": "15ggfypgy7w0c6frxj51ww2filr8kr73n8j5lf2l725121rzlcpy",
+        "rev": "bd01a696a0d73ee19ad60b69e485ae568682c711",
+        "sha256": "1i2plmykamzrh13chnmknvafi3khj1wnqwl054hfw4vw9l5fgvyk",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/8c31fe5866e5dcb488a8145ca0134a5c2f71ac83.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/bd01a696a0d73ee19ad60b69e485ae568682c711.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -461,11 +461,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "1m2lxc92r85z7qblbwb94lax9zjnvddg052vys22hbrr8v3ffk0d",
+        "sha256": "1li7gd4bz6bgymkxn3gb5v32isrdavv37fqw4n88fdrw55f6m526",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-07-28.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-07-31.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-07-28"
+        "version": "2020-07-31"
     },
     "mbtileserver": {
         "branch": "master",
@@ -564,29 +564,29 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-29T10:24:24Z",
+        "date": "2020-08-01T13:00:22Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "8a267804283822c5353150c5619324bae9665fa1",
-        "sha256": "1qi461bqd16yx855ij1apazdi8a502hld2mxqi8ik07868qrpb8x",
+        "rev": "56467579e3365b61ff7c8480d197044d7f93662e",
+        "sha256": "1fsy0bycbhp1l3jc3kfax3mx3bsh80xi27zdiwkyf1rcbhaygby6",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/8a267804283822c5353150c5619324bae9665fa1.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/56467579e3365b61ff7c8480d197044d7f93662e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-22T14:49:38Z",
+        "date": "2020-08-02T13:46:15Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "defc1965eeb8586b9325aa73731f15c389109a76",
-        "sha256": "19qan3731316k06vj312fn4xlkin3mpzgb02bmc838vflp2jza5w",
+        "rev": "359b6f7a37292f3545da86fa3fb3866683227dfd",
+        "sha256": "0hhbsj6psb1dwash4dfqcbi7zv5wjxjkmzvgs57ffc8hb09gm76z",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/defc1965eeb8586b9325aa73731f15c389109a76.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/359b6f7a37292f3545da86fa3fb3866683227dfd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -760,15 +760,15 @@
     "tilesets-cli": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-24T14:59:39Z",
+        "date": "2020-07-31T20:08:01Z",
         "description": "CLI for interacting with the Mapbox Tilesets API",
         "homepage": "https://docs.mapbox.com/api/maps/#tilesets",
         "owner": "mapbox",
         "repo": "tilesets-cli",
-        "rev": "c62ac000397cd459d5bc429e87edb8f28dd0fc52",
-        "sha256": "16hdp9mi48fd9r34abmvgcxd081iyxhlq4vwdjz1d7sahln9l747",
+        "rev": "f074a946a23cbf31f9eadfb170a02384c1a2a1b6",
+        "sha256": "10z5dnldzf0786sz8cmd0ppxa0cp7fbviba7xas7k5vf770wq7nq",
         "type": "tarball",
-        "url": "https://github.com/mapbox/tilesets-cli/archive/c62ac000397cd459d5bc429e87edb8f28dd0fc52.tar.gz",
+        "url": "https://github.com/mapbox/tilesets-cli/archive/f074a946a23cbf31f9eadfb170a02384c1a2a1b6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tpkutils": {
