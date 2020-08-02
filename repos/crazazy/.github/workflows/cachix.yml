@@ -28,7 +28,7 @@ jobs:
       uses: cachix/cachix-action@v6
       with:
         name: crazazy
-        authToken: ${{ secrets.CACHIX_KEY }}
+        signingKey: ${{ secrets.CACHIX_KEY }}
       
     - name: Build packages
       run: nix-build pkgs/default.nix | cachix push crazazy
