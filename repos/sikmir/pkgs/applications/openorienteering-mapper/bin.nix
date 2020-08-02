@@ -18,6 +18,8 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ undmg ];
 
+  sourceRoot = "Mapper.app";
+
   installPhase = ''
     mkdir -p $out/Applications/Mapper.app
     cp -R . $out/Applications/Mapper.app

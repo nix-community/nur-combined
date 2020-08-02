@@ -18,6 +18,8 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ undmg ];
 
+  sourceRoot = "WireGuardStatusbar.app";
+
   installPhase = ''
     mkdir -p $out/Applications/WireGuardStatusbar.app
     cp -R . $out/Applications/WireGuardStatusbar.app
