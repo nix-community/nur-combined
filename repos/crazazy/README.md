@@ -35,3 +35,12 @@ in
 ```
 
 then run `createLinks.sh` do create symlinks to configurations managed in the repository
+
+### Installing packages faster
+
+This repository uses [cachix](https://cachix.org) to cache the build artifacts nix created. To use the built derivations just put the following in your command line:
+```sh
+nix-env -iA cachix -f https://cachix.org/api/v1/install
+cachix use crazazy
+```
+

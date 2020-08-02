@@ -12,4 +12,6 @@
   typescript = (import ./typescript { inherit pkgs; }).package;
   webpack = (import ./webpack-cli { inherit pkgs; }).package;
 
+  # expose this attribute set as a package set
+  recurseForDerivations = true;
 }
