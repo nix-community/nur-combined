@@ -31,4 +31,4 @@ jobs:
         authToken: ${{ secrets.CACHIX_KEY }}
       
     - name: Build packages
-      run: nix-build pkgs/default.nix | cachix push
+      run: nix-build pkgs/default.nix | cachix push crazazy
