@@ -517,13 +517,13 @@ let
         sha1 = "583b1aa775961d4b113ac17d9c50baef9dd76bd1";
       };
     };
-    "onetime-5.1.0" = {
+    "onetime-5.1.1" = {
       name = "onetime";
       packageName = "onetime";
-      version = "5.1.0";
+      version = "5.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/onetime/-/onetime-5.1.0.tgz";
-        sha512 = "5NcSkPHhwTVFIQN+TUqXoS5+dlElHXdpAWu9I0HP20YOtIi+aZ0Ct82jdlILDxjLEAWwvm+qj1m6aEtsDVmm6Q==";
+        url = "https://registry.npmjs.org/onetime/-/onetime-5.1.1.tgz";
+        sha512 = "ZpZpjcJeugQfWsfyQlshVoowIIQ1qBGSVll4rfDq6JJVO//fesjoX808hXWfBjY+ROZgpKDI5TRSRBSoJiZ8eg==";
       };
     };
     "os-tmpdir-1.0.2" = {
@@ -947,7 +947,7 @@ let
       sources."ms-2.0.0"
       sources."mute-stream-0.0.8"
       sources."once-1.4.0"
-      sources."onetime-5.1.0"
+      sources."onetime-5.1.1"
       sources."os-tmpdir-1.0.2"
       sources."path-is-absolute-1.0.1"
       sources."path-key-3.1.1"

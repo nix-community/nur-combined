@@ -6781,13 +6781,13 @@ let
         sha1 = "583b1aa775961d4b113ac17d9c50baef9dd76bd1";
       };
     };
-    "onetime-5.1.0" = {
+    "onetime-5.1.1" = {
       name = "onetime";
       packageName = "onetime";
-      version = "5.1.0";
+      version = "5.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/onetime/-/onetime-5.1.0.tgz";
-        sha512 = "5NcSkPHhwTVFIQN+TUqXoS5+dlElHXdpAWu9I0HP20YOtIi+aZ0Ct82jdlILDxjLEAWwvm+qj1m6aEtsDVmm6Q==";
+        url = "https://registry.npmjs.org/onetime/-/onetime-5.1.1.tgz";
+        sha512 = "ZpZpjcJeugQfWsfyQlshVoowIIQ1qBGSVll4rfDq6JJVO//fesjoX808hXWfBjY+ROZgpKDI5TRSRBSoJiZ8eg==";
       };
     };
     "opener-1.5.1" = {
@@ -11421,7 +11421,7 @@ let
       sources."on-finished-2.3.0"
       sources."on-headers-1.0.2"
       sources."once-1.4.0"
-      sources."onetime-5.1.0"
+      sources."onetime-5.1.1"
       sources."opener-1.5.1"
       sources."opn-5.5.0"
       sources."optimize-css-assets-webpack-plugin-5.0.3"
