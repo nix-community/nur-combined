@@ -35,7 +35,7 @@ in
         self.unzip
         self.vim_configurable
         self.wget
-        self.xmodmap
+        self.xorg.xmodmap
         self.xterm
         self.zsh
       ];
@@ -65,7 +65,6 @@ in
         self.gnupg
         self.gnutls
         self.graphviz
-        self.hydra-check
         self.icu
         self.imagemagick
         self.irssi
@@ -75,7 +74,7 @@ in
         self.nixpkgs-fmt
         self.nixpkgs-review
         self.nload
-        self.nofify-send
+        self.libnotify  # for nofify-send
         self.pandoc
         self.pdsh
         self.remmina
