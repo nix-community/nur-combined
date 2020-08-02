@@ -12,4 +12,8 @@ rec {
   mopidy-podcast = pkgs.callPackage ./pkgs/mopidy-podcast { };
   ocamlweb = pkgs.callPackage ./pkgs/ocamlweb { };
   onedrive = pkgs.callPackage ./pkgs/onedrive { };
+  # passenv = import ./pkgs/passenv {
+  #   inherit pkgs;
+  #   passenv-overlay = overlays.passenv;
+  # };
 }
