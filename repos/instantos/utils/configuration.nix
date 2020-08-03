@@ -70,7 +70,7 @@ in {
       gdm.enable = false;
       sddm.enable = false;
     };
-  servies.xserver.desktopManager = {
+  services.xserver.desktopManager = {
       gnome3.enable = false;
       plasma5.enable = false;
       xterm.enable = false;
@@ -99,6 +99,7 @@ in {
     st = status
     d = diff
     lg = log
+    fa = fetch --all
   '';
   fonts.fonts = with pkgs; [ dina-font ];
   environment.systemPackages = with pkgs; [
