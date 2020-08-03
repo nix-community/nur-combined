@@ -12,6 +12,8 @@ python3Packages.buildPythonApplication {
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
+  doCheck = false;
+
   meta = with lib; {
     inherit (sources.gupload) description homepage;
     license = licenses.gpl2;
