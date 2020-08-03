@@ -9,6 +9,7 @@ lib.makeScope newScope (
     ### APPLICATIONS
 
     anki-bin = callPackage ./applications/anki/bin.nix { };
+    basecamp = callPackage ./applications/basecamp { };
     goldendict-bin = callPackage ./applications/goldendict/bin.nix { };
     gpxlab = libsForQt5.callPackage ./applications/gpxlab {
       inherit sources;
@@ -120,6 +121,7 @@ lib.makeScope newScope (
       click = click-6-7;
     };
     fx-bin = callPackage ./tools/text/fx/bin.nix { };
+    garmin-uploader = callPackage ./tools/misc/garmin-uploader { };
     gimgtools = callPackage ./tools/geo/gimgtools { };
     gmaptool = callPackage ./tools/geo/gmaptool { };
     gpx-layer = perlPackages.callPackage ./tools/geo/gpx-layer {
@@ -154,7 +156,7 @@ lib.makeScope newScope (
       }
       else callPackage ./tools/dict/stardict-tools { };
     supermercado = callPackage ./tools/geo/supermercado { };
-    supload = callPackage ./tools/supload { };
+    supload = callPackage ./tools/misc/supload { };
     taginfo-tools = callPackage ./tools/geo/taginfo-tools { };
     tilesets-cli = callPackage ./tools/geo/tilesets-cli { };
     tpkutils = callPackage ./tools/geo/tpkutils { };

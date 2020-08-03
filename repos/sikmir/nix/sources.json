@@ -330,6 +330,20 @@
         "url": "https://github.com/xinebf/google-translate-for-goldendict/archive/31a1628136302f6fbedf9468f1dae3521a174731.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "gupload": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2019-12-19T08:44:39Z",
+        "description": "Garmin Connect Python Uploader",
+        "homepage": "https://github.com/La0/garmin-uploader",
+        "owner": "La0",
+        "repo": "garmin-uploader",
+        "rev": "f8c48a8e100530c5c7ad871bdb0a8cf96eeb8034",
+        "sha256": "105xfqgbjn87pg0fxqg50cl4r7m0hhmi6niknvgaxai531g3w4wd",
+        "type": "tarball",
+        "url": "https://github.com/La0/garmin-uploader/archive/f8c48a8e100530c5c7ad871bdb0a8cf96eeb8034.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "hfst": {
         "branch": "master",
         "builtin": false,

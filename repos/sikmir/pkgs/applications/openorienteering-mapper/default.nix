@@ -84,5 +84,6 @@ mkDerivation {
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    skip.ci = stdenv.isDarwin;
   };
 }
