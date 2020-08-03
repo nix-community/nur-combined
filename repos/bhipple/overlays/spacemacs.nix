@@ -19,24 +19,11 @@ self: super: let
       )
     )
 
-    # Marked as broken
-    # company-rtags
-    # flycheck-rtags
-    # helm-rtags
-
     # Not packaged
     # evil-unimpaired
     # git-gutter-plus
     # git-gutter-fringe-plus
     # hybrid-mode
-    # postframe
-
-    # Disable until we bump to a version w/ https://github.com/immerrr/lua-mode/pull/166 fixed
-    # lua-mode
-    # company-lua
-
-    # The owner deleted this off of their github!
-    # company-tern
 
     ac-ispell
     ace-jump-helm-line
@@ -85,6 +72,7 @@ self: super: let
     company-ghci
     company-go
     company-lsp
+    company-lua
     company-nixos-options
     company-php
     company-plsense
@@ -312,6 +300,7 @@ self: super: let
     lsp-python-ms
     lsp-treemacs
     lsp-ui
+    lua-mode
     macrostep
     magit
     magit-gitflow
@@ -359,6 +348,7 @@ self: super: let
     org-projectile
     org-re-reveal
     org-super-agenda
+    org-superstar
     orgit
     overseer
     ox-gfm

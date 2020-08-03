@@ -24,6 +24,7 @@ in
         self.par
         self.pass
         self.pinentry
+        self.python3
         self.ripgrep
         self.rlwrap
         self.tmux
@@ -82,6 +83,7 @@ in
         self.source-code-pro
         self.truecrypt
         self.vlc
+        self.wally-cli
         self.xclip
         self.xsel
         self.youtube-dl
