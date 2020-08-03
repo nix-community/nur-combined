@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 let
   steam-config = pkgs.steam.override {
-    nativeOnly = true;
+    # commented out for now, might not even need this tbh
+    # nativeOnly = true;
     extraPkgs = pkgs: with pkgs; [
       mono
       gtk3

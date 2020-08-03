@@ -17,7 +17,7 @@ defaultPackages: with defaultPackages.pkgs; {
       firefox-esr
       gparted
       xclip
-      riot-desktop
+      gomuks
       xbanish
       vlc
       ffmpeg
