@@ -6,13 +6,18 @@
     mapImport = nixpkgs.lib.mapAttrs (_: value: import value);
   in {
     # Packages
-    # packages = forAllSystems (system: {
-    #
+    # packages = forAllSystems (system: let
+    #   pkgs = nixpkgs.legacyPackages."${system}";
+    # in {
     # });
 
+    nixosConfigurations.cubik-studio = import ./containers/cubik-studio.nix nixpkgs "x86_64-linux";
+
     # Builders
-    builders = forAllSystems (system: {
-      minecraft = nixpkgs.legacyPackages."${system}".callPackage ./builders/minecraft {};
+    builders = forAllSystems (system: let
+      pkgs = nixpkgs.legacyPackages."${system}";
+    in {
+      minecraft = pkgs.callPackage ./builders/minecraft {};
     });
 
     # Library items
