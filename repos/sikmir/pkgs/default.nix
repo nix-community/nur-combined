@@ -18,6 +18,7 @@ lib.makeScope newScope (
       inherit sources;
     };
     gpxsee-bin = callPackage ./applications/gpxsee/bin.nix { };
+    iterm2-bin = callPackage ./applications/iterm2/bin.nix { };
     keeweb-bin = callPackage ./applications/keeweb/bin.nix { };
     librewolf = callPackage ./applications/librewolf { };
     macpass-bin = callPackage ./applications/macpass/bin.nix { };
@@ -161,6 +162,7 @@ lib.makeScope newScope (
     tilesets-cli = callPackage ./tools/geo/tilesets-cli { };
     tpkutils = callPackage ./tools/geo/tpkutils { };
     xfractint = callPackage ./tools/xfractint { };
+    zdict = callPackage ./tools/dict/zdict { };
 
     ### SERVERS
 

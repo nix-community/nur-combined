@@ -798,5 +798,19 @@
         "type": "tarball",
         "url": "https://github.com/consbio/tpkutils/archive/5aec5e5a996b16575812d90586a5cd1e865437bf.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "zdict": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-08-03T13:02:32Z",
+        "description": "The last online dictionary framework you need",
+        "homepage": "https://pypi.org/project/zdict/",
+        "owner": "zdict",
+        "repo": "zdict",
+        "rev": "dfeec3bf36da1ef201b8aa4334e76bfc8f8a4b7e",
+        "sha256": "009ampc6wnpd15yipmmw5pfmj2zsd4sb0dh132y7mgf3sscxp2sb",
+        "type": "tarball",
+        "url": "https://github.com/zdict/zdict/archive/dfeec3bf36da1ef201b8aa4334e76bfc8f8a4b7e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
