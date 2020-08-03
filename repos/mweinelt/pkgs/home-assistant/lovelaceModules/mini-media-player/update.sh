@@ -3,9 +3,11 @@
 
 set -e
 
-TAG=$(git ls-remote --tags git://github.com/kalkih/mini-media-player.git | tail -n1  | awk -F/ '{ print $3 }')
+OWNER=kalkih
+REPO=mini-media-player
+TAG=$(curl https://api.github.com/repos/$OWNER/$REPO/releases/latest | jq -r '.tag_name')
 
-sed -i "s/#.*\"/#${TAG}\"/" package.json 
+sed -i "s/#.*\"/#${TAG}\"/" package.json
 
 node2nix \
   --nodejs-12 \
