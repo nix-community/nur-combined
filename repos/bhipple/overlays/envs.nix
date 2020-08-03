@@ -75,7 +75,7 @@ in
         self.nixpkgs-fmt
         self.nixpkgs-review
         self.nload
-        self.libnotify  # for nofify-send
+        self.libnotify # for nofify-send
         self.pandoc
         self.pdsh
         self.remmina
