@@ -1,0 +1,6 @@
+= nur-packages
+
+My personal https://github.com/nix-community/NUR[NUR] repository
+
+image:https://travis-ci.org/mhuesch/nur-packages.svg?branch=master["Build Status", link="https://travis-ci.org/github/mhuesch/nur-packages"]
+image:https://img.shields.io/badge/cachix-mhueschen-blue.svg["Cachix Cache", link="https://mhueschen.cachix.org"]

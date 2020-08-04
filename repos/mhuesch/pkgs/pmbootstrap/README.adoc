@@ -1,0 +1,7 @@
+= notes
+
+== binfmt_misc
+
+https://wiki.postmarketos.org/wiki/Troubleshooting#sh:_can.27t_create_.2Fproc.2Fsys.2Ffs.2Fbinfmt_misc.2Fregister:_nonexistent_directory
+
+I found success by running the commands inside of `nix-shell -p proot`.
