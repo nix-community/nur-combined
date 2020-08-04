@@ -461,10 +461,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.51.0.1";
+      version = "4.53.0.5";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3601545/lastpass_password_manager-4.51.0.1-an+fx.xpi?src=";
-      sha256 = "5ab2106cc70b8dbf84a7f400ce97155e68d3c619a762da46cb462ccbb5ec507f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3617319/lastpass_password_manager-4.53.0.5-an+fx.xpi?src=";
+      sha256 = "f3580b3fe61c23595d9c3d807b9b479185b4133c29d03130b3f2dbe451fe9a3d";
       meta = with stdenv.lib;
       {
         homepage = "https://lastpass.com/";
@@ -592,10 +592,10 @@
       };
     "plasma-integration" = buildFirefoxXpiAddon {
       pname = "plasma-integration";
-      version = "1.7.5";
+      version = "1.7.6";
       addonId = "plasma-browser-integration@kde.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3550879/plasma_integration-1.7.5-fx.xpi?src=";
-      sha256 = "3119760badb3a849b51dcb4dd14a87ab742b5bba3b93041d84fb126db89f0cb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3619363/plasma_integration-1.7.6-fx.xpi?src=";
+      sha256 = "4603b20d884a472fc9eee538cf4aebf8e824b52cd537eaebdd4aa20c3a41ac70";
       meta = with stdenv.lib;
       {
         homepage = "http://kde.org";
@@ -662,10 +662,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.3.2";
+      version = "5.3.3";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3614743/moderator_toolbox_for_reddit-5.3.2-an+fx.xpi?src=";
-      sha256 = "d0df1c74e69fc1f2df8a8a56b63c3551169a4970ea99d84dc75eba0fc230d21d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3619404/moderator_toolbox_for_reddit-5.3.3-an+fx.xpi?src=";
+      sha256 = "734cff042c3b84024aa03505938de2dfa2afc211a1e536cb65ded84f932da81a";
       meta = with stdenv.lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -690,10 +690,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "20.8";
+      version = "20.9";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3617984/save_page_we-20.8-fx.xpi?src=";
-      sha256 = "68bbd39483c02eee31ee17e1dd7e4e3c9b4675d6e6ccb562940b86d44a28515b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3619602/save_page_we-20.9-fx.xpi?src=";
+      sha256 = "9a779f6c5623f4269fc6398d2d25f43cbc5519545fe1e9bca1153c1fc746f346";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
