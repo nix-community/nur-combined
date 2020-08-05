@@ -1,8 +1,14 @@
 { pkgs ? import <nixpkgs> {} }:
-rec {
+let
+  sources = pkgs.callPackage ./nix/sources.nix { };
+in
+let
+  hmModules = import ./hm-modules;
+in
+{
   lib = import ./lib { inherit (pkgs) lib; };
   # home-manager modules
-  hmModules = import ./hm-modules;
+  inherit hmModules;
   # A list of all modules in hmModules.
   allHmModules = builtins.attrValues hmModules;
   # Overlays
@@ -12,8 +18,8 @@ rec {
   mopidy-podcast = pkgs.callPackage ./pkgs/mopidy-podcast { };
   ocamlweb = pkgs.callPackage ./pkgs/ocamlweb { };
   onedrive = pkgs.callPackage ./pkgs/onedrive { };
-  # passenv = import ./pkgs/passenv {
-  #   inherit pkgs;
-  #   passenv-overlay = overlays.passenv;
-  # };
+
+  pkgs = {
+    passenv = import ./pkgs/passenv { inherit pkgs sources; };
+  };
 }
