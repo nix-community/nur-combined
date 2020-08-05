@@ -18,15 +18,15 @@ stdenv.mkDerivation {
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantWALLPAPER";
-      rev = "a7fa54b88de9885ed41365d519b67f7cad96dbc2";
-      sha256 = "1paz4pyscdf2z70yw0zl11wrkywr06x2m9jrxypapab97sghgxya";
+      rev = "17e5901a8713f3586569b49e2834901958784d8e";
+      sha256 = "174ww7c5hin8x0nignqywah742h6q2540ryh3hqx6rhs88p6c2l3";
       name = "instantOS_instantWallpaper";
     }) 
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantLOGO";
-      rev = "3b6ca11b8e5b794044473b0be6f6b098db971287";
-      sha256 = "1piggls4c6wl9zdszdjirww6r5gslxwil2dbxc3yyfl42xdnb970";
+      rev = "7224fd37aa7acbf9a8ddcb0f7b922d28ef24286c";
+      sha256 = "1mal98yyc10bs91jksa8ispjnqy8rjnl9mjij345r6h7y6asxq2k";
       name = "instantOS_instantLogo";
     })
   ];
@@ -50,6 +50,7 @@ stdenv.mkDerivation {
       --replace /usr/share/instantwallpaper/wallutils.sh wallutils.sh \
       --replace "/usr/share/paperbash" "${Paperbash}/share/paperbash" \
       --replace wallutils.sh "$out/share/instantwallpaper/wallutils.sh"
+    patchShebangs *.sh
   '';
 
   installPhase = ''

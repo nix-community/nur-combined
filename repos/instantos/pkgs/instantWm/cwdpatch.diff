@@ -1,0 +1,17 @@
+diff --git a/instantwm.c b/instantwm.c
+index 929ddee..0df2ae5 100644
+--- a/instantwm.c
++++ b/instantwm.c
+@@ -5161,7 +5161,11 @@ main(int argc, char *argv[])
+ 	if (!setlocale(LC_CTYPE, "") || !XSupportsLocale())
+ 		fputs("warning: no locale support\n", stderr);
+ 	if (!(dpy = XOpenDisplay(NULL)))
+-		die("instantwm: cannot open display");
++        die("instantwm: cannot open display");
++	char mycwd[250];
++    getcwd(mycwd, 250);
++    fputs(mycwd, stderr);
++    fputs(" <----------- cwd!", stderr);
+ 	checkotherwm();
+ 	XrmInitialize();
+ 	load_xresources();

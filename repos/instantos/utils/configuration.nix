@@ -109,7 +109,7 @@ in {
     wget curl w3m inetutils dnsutils nmap openssl mkpasswd sshfs
     gitAndTools.git git-lfs
     nix-prefetch-scripts
-    nur.repos.instantos.instantixos
+    nur.repos.instantos.instantnix
     (neovim.override {viAlias = true; vimAlias = true;})
   ];
 

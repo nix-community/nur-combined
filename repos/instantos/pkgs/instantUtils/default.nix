@@ -27,8 +27,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantOS";
-    rev = "0738b648b63d5c46f63dd5242be09dc3473cd5ae";
-    sha256 = "00qixjmldvaj8s2klw5r4wafcrx5k5q3qm02allaqdins9al0v5k";
+    rev = "6e6c2f25164934862c177d99dfb04c3a044e8208";
+    sha256 = "1m6j2gj5vc6j28pkwx4wp80jmg08qcagmfkj1r143cyr2f4x2lxn";
     name = "instantOS_instantUtils";
   };
 
@@ -56,6 +56,10 @@ stdenv.mkDerivation {
   ];
 
   postPatch = ''
+    for fl in *.sh programs/ifeh; do
+    substituteInPlace "$fl" \
+      --replace "#!/usr/bin/dash" "#!/bin/sh"
+    done
     substituteInPlace programs/appmenu \
       --replace "#!/usr/bin/dash" "#!/bin/sh" \
       --replace "/usr/share/instantdotfiles/rofi/appmenu.rasi" "tmp_placeholder" \
@@ -67,12 +71,11 @@ stdenv.mkDerivation {
       --replace /usr/share/instantwidgets "\$(instantdata -wi)/share/instantwidgets" \
       --replace /usr/share/instantwallpaper "\$(instantdata -wa)/share/instantwidgets" \
       --replace /usr/share/instantassist/assists "\$(instantdata -a)/share/instantassist/assists"
-    substituteInPlace install.sh \
-      --replace /usr/share/instantutils "$out/share/instantutils"
     substituteInPlace instantutils.sh \
       --replace /usr/share/instantutils "$out/share/instantutils"
     substituteInPlace installinstantos.sh \
       --replace /usr/share/instantutils "$out/share/instantutils"
+    patchShebangs *.sh
   '';
 
   installPhase = ''

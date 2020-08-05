@@ -12,6 +12,7 @@
 , instantAssist
 , instantUtils
 , instantDotfiles
+, wmconfig ? null
 , extraPatches ? []
 , defaultTerminal ? st
 }:
@@ -23,16 +24,16 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantWM";
-    rev = "78159564d714b63f43b5d910f938d5e2cea4feae";
-    sha256 = "0qvv6qccmf77bc34mk2c17l6v6nld2qilasrxqs583d3nw37r0nm";
+    rev = "3ebebcb5e98e51c7dc85756d16ed1e409b6871fe";
+    sha256 = "0pn8njkc141wp3y5aprbrb5pbkjmi74b4vy74hfndf4xlgahqafw";
     name = "instantOS_instantWm";
   };
 
-  patches = [
-    ./config_def_h.patch
-  ] ++ extraPatches;
+  patches = [ ] ++ extraPatches;
 
-  postPatch = ''
+  postPatch =  
+  ( if builtins.isPath wmconfig then "cp ${wmconfig} config.def.h\n" else "" ) + 
+  ''
     substituteInPlace config.mk \
       --replace "PREFIX = /usr/local" "PREFIX = $out"
     substituteInPlace config.def.h \
@@ -62,7 +63,7 @@ stdenv.mkDerivation {
   installPhase = ''
     install -Dm 555 instantwm $out/bin/instantwm
     install -Dm 555 startinstantos $out/bin/startinstantos
-    cp config.def.h $out/  # not needed, makes debugging a bit easier
+    mkdir $out/debug/ && cp config.def.h $out/debug/  # not needed, makes debugging a bit easier
   '';
 
   meta = with lib; {

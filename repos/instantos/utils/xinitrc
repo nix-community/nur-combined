@@ -26,6 +26,6 @@ fi
 
 #setxkbmap us &
 #xrandr --output DISPLAy --mode 1920x1080 &
-picom -f &
-nitrogen --restore &
+# picom -f &
+# nitrogen --restore &
 exec startinstantos

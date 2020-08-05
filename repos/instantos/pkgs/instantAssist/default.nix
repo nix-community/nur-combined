@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, dash
 , instantConf
 , slop
 , spotify-adblock
@@ -14,8 +15,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantAssist";
-    rev = "82b04b76ce5afc49d3701fd596fbc5b5239a2ccc";
-    sha256 = "012bdha1vkvd2zbz888fnaxigza4bi97db6sy1a043hwc900wn77";
+    rev = "8dfcd8ac09fda9f3e4a55db89c1240be30b84584";
+    sha256 = "1xgw9261g5x0g93g1imgm9prc2rrgafr5rp7a3qf13akh1c10byk";
     name = "instantOS_instantAssist";
   };
 
@@ -58,6 +59,7 @@ stdenv.mkDerivation {
   '';
 
   propagatedBuildInputs = [
+    dash
     instantConf
     slop
     spotify-adblock

@@ -1,0 +1,63 @@
+{ lib
+, stdenv
+, fetchFromGitHub
+, gnumake
+, xlibs
+, instantMenu
+, extraPatches ? []
+}:
+stdenv.mkDerivation {
+
+  pname = "instantLock";
+  version = "unstable";
+
+  src = fetchFromGitHub {
+    owner = "instantOS";
+    repo = "instantLOCK";
+    rev = "88fa0c04ab13b1d3a0fe2d565e4ee26c363269dc";
+    sha256 = "11cr991ygxx2qnldpq01b3qa87711171rwr142im695p3digxwz4";
+    name = "instantOS_instantLock";
+  };
+
+  patches = [
+  ] ++ extraPatches;
+
+  postPatch = ''
+    patchShebangs *.sh
+    ./theme.sh
+    substituteInPlace config.mk \
+      --replace "PREFIX = /usr" "PREFIX = $out"
+    substituteInPlace Makefile \
+      --replace "chmod " "true "
+   # substituteInPlace config.def.h \
+   #   --replace "\"pavucontrol\"" "\"{pavucontrol}/bin/pavucontrol\"" \
+   #   --replace "\"rofi\"" "\"{rofi}/bin/rofi\"" \
+   #   --replace "\"urxvt\"" "\"{rxvt_unicode}/bin/urxvt\"" \
+   #   --replace "\"st\"" "\"{defaultTerminal}/bin/{builtins.head (builtins.match "(.*)-.*" defaultTerminal.name)}\"" \
+   #   --replace /usr/share/instantassist/ "{instantAssist}/share/instantassist/" \
+   #   --replace /usr/share/instantdotfiles/ "{instantDotfiles}/share/instantdotfiles/"
+  '';
+
+  nativeBuildInputs = [ gnumake ];
+  buildInputs = with xlibs; map lib.getDev [ libXrandr libXext libXinerama ]; #libX11 libXft libXinerama ];
+  propagatedBuildInputs = [
+  ] ++ [
+    instantMenu
+  ];
+
+  installPhase = ''
+   # install -Dm 555 instantwm $out/bin/instantwm
+   # install -Dm 555 startinstantos $out/bin/startinstantos
+   make && make install
+   mkdir $out/debug/
+   cp config.def.h $out/debug/  # not needed, makes debugging a bit easier
+  '';
+
+  meta = with lib; {
+    description = "Window manager of instantOS.";
+    license = licenses.mit;
+    homepage = "https://github.com/instantOS/instantWM";
+    maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
+    platforms = platforms.linux;
+  };
+}

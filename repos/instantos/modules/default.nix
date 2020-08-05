@@ -1,3 +1,5 @@
 {
-
+  modules = {
+   instantlock = ./instantlock.nix;
+  };
 }
