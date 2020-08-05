@@ -2,7 +2,7 @@
 
 callPackage ./. {
   version = "unstable-2020-08-05";
-  rev = "c2a32a64627a0cc518d514b91a11bcc2dd5c6fa6";
-  sha256 = "19x0hyr07rgr4jqpirs9nj1fak806spsd1622f1q41rdyf4nsibg";
+  rev = "e94052f6989b4526a38d28d5812988ff370457bb";
+  sha256 = "0amgh95angjfhdsmig4jrybd7y5srvhp94rh8jis053vpr5aclfj";
   vendorSha256 = "0p2102x4hc9b62p4ayy4r2qxqgy6qfqvpar9vsirc387svvpxpph";
 }
