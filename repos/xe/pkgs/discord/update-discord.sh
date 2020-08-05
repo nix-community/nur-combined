@@ -33,4 +33,4 @@ for branch in "" ptb canary; do
     echo "  };"
 done
 
-echo "}.\${branch}"
+echo "}"
