@@ -15,6 +15,8 @@ python37Packages.buildPythonApplication {
     setuptools
   ];
 
+  postPatch = "sed -i 's/==.*//' requirements.txt";
+
   buildPhase = ''
     ${python37Packages.python.interpreter} setup.py build
   '';

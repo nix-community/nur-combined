@@ -5,7 +5,7 @@ let
   day = stdenv.lib.substring 4 2 sources.geofabrik-russia-nwfd.version;
 in
 stdenv.mkDerivation {
-  pname = "qmapshack-routinodb";
+  pname = "routinodb";
   version = "20${year}-${month}-${day}";
   srcs = [
     sources.geofabrik-finland
@@ -16,18 +16,18 @@ stdenv.mkDerivation {
   dontUnpack = true;
 
   installPhase = ''
-    install -dm755 $out/share/qmapshack/Routino
+    install -dm755 $out
 
     for src in $srcs; do
       ${routino}/bin/planetsplitter \
-        --dir="$out/share/qmapshack/Routino" \
+        --dir=$out \
         --prefix=RussiaNW \
         --tagging=${routino}/share/routino/tagging.xml \
         --parse-only --append $src
     done
 
     ${routino}/bin/planetsplitter \
-      --dir="$out/share/qmapshack/Routino" \
+      --dir=$out \
       --prefix=RussiaNW \
       --tagging=${routino}/share/routino/tagging.xml \
       --process-only

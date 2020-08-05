@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation {
   pname = "freizeitkarte-osm";
-  version = "2020-04-06";
+  version = "2020-06-26";
 
   src = fetchurl {
     url = "http://download.freizeitkarte-osm.de/garmin/latest/${country}_${lang}_gmapsupp.img.zip";
-    sha256 = "0wnfxb02n7niaa4ma6w6gxkfqfg5w7achkq1l5cyjpnhgjzlsw94";
+    sha256 = "0nbp7nw7yi8d4wd19ll33h0wbb7zmz6r4lnxcqzqlnkbvspz8qyb";
   };
 
   unpackPhase = "${unzip}/bin/unzip $src";

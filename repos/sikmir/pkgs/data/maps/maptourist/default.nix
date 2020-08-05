@@ -1,20 +1,17 @@
-{ stdenv, sources, unzip }:
+{ stdenvNoCC, lib, sources, unzip }:
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "maptourist";
   version = sources.maptourist.version;
   src = sources.maptourist;
 
-  preferLocalBuild = true;
-
   dontUnpack = true;
 
-  installPhase = ''
-    install -dm755 $out/share/gpxsee/maps
-    ${unzip}/bin/unzip -j $src -d $out/share/gpxsee/maps
-  '';
+  installPhase = "${unzip}/bin/unzip $src -d $out";
 
-  meta = with stdenv.lib; {
+  preferLocalBuild = true;
+
+  meta = with lib; {
     inherit (sources.maptourist) description homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];

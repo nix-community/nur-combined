@@ -33,7 +33,7 @@ stdenv.mkDerivation {
   buildFlags = [ "out" "img" ];
 
   installPhase = ''
-    install -Dm644 podm.img -t $out/share/gpxsee/maps
+    install -Dm644 podm.img -t $out
   '';
 
   meta = with stdenv.lib; {

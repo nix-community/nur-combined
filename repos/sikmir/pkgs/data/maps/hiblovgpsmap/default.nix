@@ -1,9 +1,9 @@
-{ stdenv, fetchgdrive, unzip }:
+{ stdenvNoCC, lib, fetchgdrive, unzip }:
 let
   version = "2019-10-28";
-  filename = "OV-Hib-Lov-${stdenv.lib.replaceStrings [ "-" ] [ "" ] version}-1.02.zip";
+  filename = "OV-Hib-Lov-${lib.replaceStrings [ "-" ] [ "" ] version}-1.02.zip";
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "hiblovgpsmap";
   inherit version;
 
@@ -15,16 +15,11 @@ stdenv.mkDerivation {
 
   unpackPhase = "${unzip}/bin/unzip $src";
 
-  dontConfigure = true;
-  dontBuild = true;
+  installPhase = "install -Dm644 *.img -t $out";
 
   preferLocalBuild = true;
 
-  installPhase = ''
-    install -Dm644 *.img -t $out/share/gpxsee/maps
-  '';
-
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Detailed map of Khibins and Lovozero for GPS";
     homepage = "https://vk.com/hiblovgpsmap";
     license = licenses.free;

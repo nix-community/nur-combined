@@ -1,0 +1,46 @@
+{
+  "R34": {
+    "url": "http://viewfinderpanoramas.org/dem1/R34.zip",
+    "sha256": "0bd57zdhj16yg4cxjicc353jh3vd61f994ciw1jd0nmm6856banz"
+  },
+  "R35": {
+    "url": "http://viewfinderpanoramas.org/dem1/R35.zip",
+    "sha256": "0zha36s96i5jbqvmfc4lgsbd8xs20ynqzydkanzb3rfygrnd6l5f"
+  },
+  "R36": {
+    "url": "http://viewfinderpanoramas.org/dem1/R36.zip",
+    "sha256": "0c7m3wl2crid7vmiz2zzj0j0b6vsh174mdnr3rkbjfwpnxhkil34"
+  },
+  "Q34": {
+    "url": "http://viewfinderpanoramas.org/dem1/Q34.zip",
+    "sha256": "0371kqy9k9g9118fcp1afs932w67drpxjwyrij8dsdns5bi6llls"
+  },
+  "Q35": {
+    "url": "http://viewfinderpanoramas.org/dem1/Q35.zip",
+    "sha256": "0lvm43v03i80v6b9phwbd3mdhqi6y2iklgp4cc0qx56pg7z6wdaa"
+  },
+  "Q36": {
+    "url": "http://viewfinderpanoramas.org/dem1/Q36.zip",
+    "sha256": "1l05ljhxdyh2lb5ydlr4xfjbx4lvg6g2a2fg097yqhw95n3xxqv1"
+  },
+  "P34": {
+    "url": "http://viewfinderpanoramas.org/dem1/P34.zip",
+    "sha256": "0njk4svh7gq6ashda1aqy55aj3x25xl1f3ykj1jmy0kl5k9zz8z1"
+  },
+  "P35": {
+    "url": "http://viewfinderpanoramas.org/dem1/P35.zip",
+    "sha256": "093zz7yx8kcykip83k8gzby9l6lx03nsvzjw21axjlbd48fl26ac"
+  },
+  "P36": {
+    "url": "http://viewfinderpanoramas.org/dem1/P36.zip",
+    "sha256": "15icmvc2md6g9a89ln4ckkclynfhcf21yabfcr7azp7ivy23f46i"
+  },
+  "O34": {
+    "url": "http://viewfinderpanoramas.org/dem1/O34.zip",
+    "sha256": "0gaxkfam9bf5my5i3ivvpm32y866cyd0lz2j6h535xqjza5w374n"
+  },
+  "O35": {
+    "url": "http://viewfinderpanoramas.org/dem1/O35.zip",
+    "sha256": "0wc5l7vcm33qkmbmjaij2mkxv59922150qjabjhhxqaf7xxv3q65"
+  }
+}
