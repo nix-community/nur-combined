@@ -15,6 +15,8 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   pash = pkgs.callPackage ./pkgs/pash { };
+
+  torque = pkgs.callPackage ./pkgs/torque { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
