@@ -61,11 +61,6 @@ let
       multibyteSupport = true;
       ftNixSupport = false; # provided by "vim-nix" plugin
       # TODO: fully disable X11?
-    }).overrideAttrs (old: {
-      passthru = old.passthru or {} // {
-        # TODO: remove me when https://github.com/NixOS/nixpkgs/pull/91150 lands
-        ci.skip = true;
-      };
     });
 
     rxvt-unicode-cvs-unwrapped = { rxvt-unicode-unwrapped ? null, fetchcvs, stdenv }: let

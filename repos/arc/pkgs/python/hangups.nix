@@ -1,14 +1,14 @@
-{ lib, fetchFromGitHub, fetchzip, pythonPackages }:
+{ lib, fetchFromGitHub, fetchzip, protobuf3_10 ? null, pythonPackages }:
 
 with pythonPackages;
 
 buildPythonPackage rec {
   pname = "hangups";
-  version = "0.4.9";
+  version = "0.4.10";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1jw4i58cd4j1ymsnhv9224xsi26w8y0qrj6z4nw50dnbl45b6aaa";
+    sha256 = "0ww9z9kcb02pwnr8q1ll31wkzspc1fci1ly8ifrwzxysp4rxy3j5";
   };
 
   propagatedBuildInputs = [
@@ -26,15 +26,15 @@ buildPythonPackage rec {
     readlike
     requests
     reparser
-    (protobuf.overrideAttrs (old: rec {
-      version = "3.6.1.2";
+    ((protobuf.overrideAttrs (old: rec {
+      version = "3.10.0";
       src = fetchFromGitHub {
         repo = "protobuf";
         owner = "protocolbuffers";
         rev = "v${version}";
-        sha256 = "16ppd6xz840d5sxii5y1h3y3i0j21hzcfvb9g950w3kj2qx7skqb";
+        sha256 = "0cjwfm9v2gv6skzrq4m7w28810p2h3m1jj4kw6df3x8vvg7q842c";
       };
-    }))
+    })).override { protobuf = protobuf3_10; })
     urwid1
     (MechanicalSoup.overrideAttrs (old: rec {
       version = "0.6.0";
@@ -53,5 +53,5 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  meta.broken = pythonPackages.python.isPy2;
+  meta.broken = pythonPackages.python.isPy2 || protobuf3_10 == null;
 }
