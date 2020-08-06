@@ -1,33 +1,30 @@
-{
-  callPackage,
-  stdenv
-}:
+{ callPackage, stdenv }:
 
-let pfetch = {
+let
+  pfetch = {
     # Pick name from pattern "dwm-nameofpatch-versionorgithash"
-    name ? builtins.elemAt (builtins.split "-" patchName) 2,
-    patchName, sha256
-  }: callPackage ({ fetchpatch }:
-    fetchpatch {
-      name = "${name}.patch";
-      url = "https://dwm.suckless.org/patches/${name}/${patchName}.diff";
-      inherit sha256;
-    } // {
-      meta = with stdenv.lib; {
-        description = "A patch for dwm";
-        longDescription = ''
-          A patch for dwm.
+    name ? builtins.elemAt (builtins.split "-" patchName) 2, patchName, sha256
+    }:
+    callPackage ({ fetchpatch }:
+      fetchpatch {
+        name = "${name}.patch";
+        url = "https://dwm.suckless.org/patches/${name}/${patchName}.diff";
+        inherit sha256;
+      } // {
+        meta = with stdenv.lib; {
+          description = "A patch for dwm";
+          longDescription = ''
+            A patch for dwm.
 
-          Full url: https://dwm.suckless.org/patches/${name}/${patchName}.diff
-        '';
-        homepage = "https://dwm.suckless.org/patches/${name}";
-        # All patches should be licensed via MIT (I think) because dwm is
-        # and the website says all contributions are licensed according to the license of the original project.
-        license = licenses.mit;
-        platforms = platforms.all;
-      };
-    }
-  ) {};
+            Full url: https://dwm.suckless.org/patches/${name}/${patchName}.diff
+          '';
+          homepage = "https://dwm.suckless.org/patches/${name}";
+          # All patches should be licensed via MIT (I think) because dwm is
+          # and the website says all contributions are licensed according to the license of the original project.
+          license = licenses.mit;
+          platforms = platforms.all;
+        };
+      }) { };
 in {
   swallow = pfetch {
     patchName = "dwm-swallow-20200707-8d1e703";
