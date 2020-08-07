@@ -32,7 +32,7 @@ buildPythonPackage rec {
   dontUseSetuptoolsCheck = true;  # running setup.py fails if false
   disabledTests = [
     "mkl_"
-    "update_matrices_tests" # TODO: not sure why breaking. Needs fixed. Broke ~7/18/2020
+    "update_matrices_tests" # TODO: not sure why breaking. Needs fixed. Broke ~7/18/2020 with nixos update to scipy 1.5.0. See https://github.com/oxfordcontrol/osqp-python/issues/44
   ];
   # preCheck = ''
   #   export LD_LIBRARY_PATH=${lib.strings.makeLibraryPath [ mkl ]}:$LD_LIBRARY_PATH;
