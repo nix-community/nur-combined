@@ -70,13 +70,14 @@ in
         self.imagemagick
         self.irssi
         self.ledger
+        self.libnotify # for nofify-send
         self.mupdf
         self.nixops
         self.nixpkgs-fmt
         self.nixpkgs-review
         self.nload
-        self.libnotify # for nofify-send
         self.pandoc
+        self.pavucontrol
         self.pdsh
         self.remmina
         self.shellcheck
