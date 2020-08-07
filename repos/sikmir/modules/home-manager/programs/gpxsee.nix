@@ -3,6 +3,9 @@
 with lib;
 let
   cfg = config.programs.gpxsee;
+  configDir = "${config.xdg.configHome}/gpxsee";
+  configFile = "${configDir}/gpxsee.conf";
+  domain = "com.gpxsee.GPXSee";
 
   appDataLocation =
     if pkgs.stdenv.isDarwin then
@@ -23,44 +26,43 @@ in
     package = mkOption {
       default = pkgs.gpxsee;
       defaultText = literalExample "pkgs.gpxsee";
+      example = "pkgs.nur.repos.sikmir.gpxsee-bin";
       description = "GPXSee package to install.";
       type = types.package;
     };
 
     demPackage = mkOption {
       default = null;
-      description = "GPXSee DEM package to install.";
+      example = "pkgs.nur.repos.sikmir.dem";
+      description = "DEM package to install.";
       type = types.nullOr types.package;
     };
 
-    mapsPackage = mkOption {
-      default = null;
-      description = "GPXSee maps package to install.";
-      type = types.nullOr types.package;
+    mapPackages = mkOption {
+      default = [ ];
+      example = [
+        "pkgs.nur.repos.sikmir.gpxsee-maps"
+        "pkgs.nur.repos.sikmir.maptourist"
+      ];
+      description = "Map packages to install.";
+      type = types.listOf types.package;
     };
 
     poiPackages = mkOption {
       default = [ ];
-      description = "GPXSee POI packages to install.";
+      example = [
+        "pkgs.nur.repos.sikmir.gpxsee-poi.geocachingSu"
+        "pkgs.nur.repos.sikmir.gpxsee-poi.westra"
+      ];
+      description = "POI packages to install.";
       type = types.listOf types.package;
     };
 
-    stylesPackage = mkOption {
+    stylePackage = mkOption {
       default = null;
-      description = "QtPBFImagePlugin styles package to install.";
+      example = "pkgs.nur.repos.sikmir.qtpbfimageplugin-styles";
+      description = "QtPBFImagePlugin style package to install.";
       type = types.nullOr types.package;
-    };
-
-    maps = mkOption {
-      default = [ ];
-      description = "";
-      type = types.listOf types.str;
-    };
-
-    style = mkOption {
-      default = "";
-      description = "Style for MVT usable with QtPBFImagePlugin";
-      type = types.str;
     };
   };
 
@@ -68,43 +70,61 @@ in
     mkMerge [
       {
         home.packages = [ cfg.package pkgs.qtpbfimageplugin ];
+
+        home.activation.hideToolbar =
+          config.lib.dag.entryAfter [ "writeBoundary" ]
+            (
+              if pkgs.stdenv.isDarwin then
+                "$DRY_RUN_CMD /usr/bin/defaults write ${domain} Settings.toolbar -bool false"
+              else
+                "$DRY_RUN_CMD ${pkgs.crudini}/bin/crudini $VERBOSE_ARG --set ${configFile} Settings toolbar 0"
+            );
       }
 
       (
+        mkIf pkgs.stdenv.isLinux {
+          home.activation.createConfigFile = config.lib.dag.entryBefore [ "writeBoundary" ] ''
+            $DRY_RUN_CMD mkdir -p ${configDir}
+            $DRY_RUN_CMD touch ${configFile}
+          '';
+        }
+      )
+
+      (
         mkIf (cfg.demPackage != null) {
-          home.file."${demDir}".source =
-            "${cfg.demPackage}/share/gpxsee/DEM";
+          home.file."${demDir}".source = "${cfg.demPackage}";
         }
       )
 
       (
-        let
-          mapXml = map: {
-            name = "${mapDir}/${map}";
-            value.source = "${cfg.mapsPackage}/share/gpxsee/maps/${map}";
-          };
-        in
-        mkIf (cfg.mapsPackage != null && cfg.maps != [ ]) {
-          home.file = listToAttrs (map mapXml cfg.maps);
+        mkIf (length cfg.mapPackages > 0) {
+          home.file = listToAttrs (
+            map
+              (m: {
+                name = "${mapDir}/${m.name}";
+                value.source = "${m}";
+              })
+              cfg.mapPackages
+          );
         }
       )
 
       (
-        let
-          mapPoi = poi: {
-            name = "${poiDir}/${poi.name}";
-            value.source = "${poi}/share/gpxsee/POI";
-          };
-        in
-        mkIf (cfg.poiPackages != [ ]) {
-          home.file = listToAttrs (map mapPoi cfg.poiPackages);
+        mkIf (length cfg.poiPackages > 0) {
+          home.file = listToAttrs (
+            map
+              (p: {
+                name = "${poiDir}/${p.name}";
+                value.source = "${p}";
+              })
+              cfg.poiPackages
+          );
         }
       )
 
       (
-        mkIf (cfg.stylesPackage != null && cfg.style != "") {
-          home.file."${styleDir}".source =
-            "${cfg.stylesPackage}/share/gpxsee/style/${cfg.style}";
+        mkIf (cfg.stylePackage != null) {
+          home.file."${styleDir}".source = "${cfg.stylePackage}";
         }
       )
     ]

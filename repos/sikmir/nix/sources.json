@@ -100,15 +100,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-05T17:24:02Z",
+        "date": "2020-08-05T19:27:35Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "40e2058b3295593b6d315f2ac9e13dc04563e4ed",
-        "sha256": "045shs1944k4v57kfcxfi35pqrafq3v823mznm7l3zyl5yh43y5s",
+        "rev": "e535357c666bc7cd28e21d03049954f7945393da",
+        "sha256": "1khn5gccq2349wr986h406fas0cvf59n0wcwqcbyyp2va993wg0a",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/40e2058b3295593b6d315f2ac9e13dc04563e4ed.tar.gz",
+        "url": "https://github.com/embox/embox/archive/e535357c666bc7cd28e21d03049954f7945393da.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -155,27 +155,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "004jq7amckm6zp8z0hjyi8ap5qdgncn1w7vxz2zjhmfm1myw562g",
+        "sha256": "10yxzdaslhz5scl72ahz8l8p0bmk9sksn2zlv33nklq128v0kaai",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-200803.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-200806.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "200803"
+        "version": "200806"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "02dkgvx82x98lsjaf67sna8xfv06ygjj9j6vybj9mj5pjrk6cj86",
+        "sha256": "1zysidh83vps1fy8z7xy76hzzwfjsagnm6pz3j9fr2aaw62kk6cy",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-200803.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-200806.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "200803"
+        "version": "200806"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "1s03411dyqmbm9lh5svw189q2lidrr0sy95lhbng223654p7j83r",
+        "sha256": "1szbfc9vfy49nqyb1763l8rxrsvy16iarxz020rssngy8rsylhbh",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200803.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200806.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "200803"
+        "version": "200806"
     },
     "gimgtools": {
         "branch": "master",
@@ -431,29 +431,29 @@
     "map-podm": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-05T11:47:55Z",
+        "date": "2020-08-06T11:51:50Z",
         "description": "Карты Подмосковья в виде номенклатурных листов 1:100000 - исходники в формате mapsoft vmap",
         "homepage": "http://slazav.mccme.ru/maps/",
         "owner": "slazav",
         "repo": "map_podm",
-        "rev": "3739110920155fb646df0b866a75bc97c5952660",
-        "sha256": "0dpig3zg93647g0dc96xvqf9l2v1r07gvdpiyq7vkqlfjbzkxs16",
+        "rev": "8b7994ba4a4bdc9673e982cf1f528cca1653d060",
+        "sha256": "1z7gfsj485aycmk4nzxh8mv3pl18n28i94f5bkmjpr1l4fwg2zjh",
         "type": "tarball",
-        "url": "https://github.com/slazav/map_podm/archive/3739110920155fb646df0b866a75bc97c5952660.tar.gz",
+        "url": "https://github.com/slazav/map_podm/archive/8b7994ba4a4bdc9673e982cf1f528cca1653d060.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-05T04:23:15Z",
+        "date": "2020-08-06T19:52:03Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "d5d4004f817228c88784141101ecd24a4bbaf067",
-        "sha256": "0nqa5gx8dnzs1j2ykb3g06fj95l8lkpiaxrjvi40gwrzf9xnaq7w",
+        "rev": "3492ecedee66c6af4b820f4bf03df0cb79c67855",
+        "sha256": "0h8mxsxbvcj82avxcgsw0v1iycp2f82b9vjh5kcc3yvggn0l3q86",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/d5d4004f817228c88784141101ecd24a4bbaf067.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/3492ecedee66c6af4b820f4bf03df0cb79c67855.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -475,11 +475,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "1ds1hxrvp9dqcx5c2n0nnig5arharfcb1mlmg506iwp728cdyscf",
+        "sha256": "0x29rc809xv6rp7qwvnrmr3vmx67iv0b1gdi0faf7i1amklzvhny",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-08-02.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-08-06.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-08-02"
+        "version": "2020-08-06"
     },
     "mbtileserver": {
         "branch": "master",
@@ -526,15 +526,15 @@
     "mikatools": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-05T17:18:04Z",
+        "date": "2020-08-06T12:59:55Z",
         "description": "Mikatools provides fast and easy methods for common Python coding tasks",
         "homepage": "https://github.com/mikahama/mikatools",
         "owner": "mikahama",
         "repo": "mikatools",
-        "rev": "e43ca815cde91db44efc956f888ad191de8f2bc9",
-        "sha256": "1wlwp19rj2ysaan2qzggwjf6zgrsvpf0hwb5sr9n8kgrxw5qr02c",
+        "rev": "6dc37ac415e741233e0ffc3d586278337072bab6",
+        "sha256": "09568v5a5n85lylvsmj6jqbw7a9qzcrlnyx5hbqnp9pjlbbd8q5a",
         "type": "tarball",
-        "url": "https://github.com/mikahama/mikatools/archive/e43ca815cde91db44efc956f888ad191de8f2bc9.tar.gz",
+        "url": "https://github.com/mikahama/mikatools/archive/6dc37ac415e741233e0ffc3d586278337072bab6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "morse-talk": {
@@ -592,15 +592,15 @@
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-05T15:06:50Z",
+        "date": "2020-08-06T04:52:17Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "f712441edab64c45e980da9910974af5364ff564",
-        "sha256": "0z6k7fly2prqsal8zg084ggn57qw837wxrawyc8bflsmv1vr3flp",
+        "rev": "7dbf1ca3b7b53bf72c6dc6d9a4959ac53fb791b6",
+        "sha256": "00ix8rrf8k5f5042mz0cz7ghpzzfazm98hh6q0w6893sac1r6vm4",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/f712441edab64c45e980da9910974af5364ff564.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/7dbf1ca3b7b53bf72c6dc6d9a4959ac53fb791b6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -774,15 +774,15 @@
     "tilesets-cli": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-04T21:41:30Z",
+        "date": "2020-08-06T22:26:30Z",
         "description": "CLI for interacting with the Mapbox Tilesets API",
         "homepage": "https://docs.mapbox.com/api/maps/#tilesets",
         "owner": "mapbox",
         "repo": "tilesets-cli",
-        "rev": "9ba2d4b2c9c024d503ecad814517cde99d83cbc3",
-        "sha256": "0v0j05v7wssafndpdzglnxgh9yrg6brbqclwl30nnq56h0flmj53",
+        "rev": "63a08db9f8abda1c3a8baeb833bd0074be4f20e4",
+        "sha256": "09vlipdzl6164gcxfkrj0ww5d8pf296hmkavhh5jcw53ni0ndbjd",
         "type": "tarball",
-        "url": "https://github.com/mapbox/tilesets-cli/archive/9ba2d4b2c9c024d503ecad814517cde99d83cbc3.tar.gz",
+        "url": "https://github.com/mapbox/tilesets-cli/archive/63a08db9f8abda1c3a8baeb833bd0074be4f20e4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tpkutils": {

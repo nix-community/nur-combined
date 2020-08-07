@@ -3,6 +3,7 @@
 with lib;
 let
   cfg = config.programs.aerc;
+  configDir = "${config.xdg.configHome}/aerc";
 
   accountConfFile = with cfg;
     generators.toINI
@@ -21,12 +22,12 @@ let
       };
     };
 
-  activationScript = with config.xdg; ''
-    $DRY_RUN_CMD install -Dm644 ${pkgs.aerc}/share/aerc/aerc.conf -t ${configHome}/aerc
-    $DRY_RUN_CMD install -Dm644 ${pkgs.aerc}/share/aerc/binds.conf -t ${configHome}/aerc
+  activationScript = ''
+    $DRY_RUN_CMD install -Dm644 ${pkgs.aerc}/share/aerc/aerc.conf -t ${configDir}
+    $DRY_RUN_CMD install -Dm644 ${pkgs.aerc}/share/aerc/binds.conf -t ${configDir}
   '' + optionalString (cfg.gUsername != "" && cfg.gPassword != "") ''
-    $DRY_RUN_CMD eval "echo '${accountConfFile}' > ${configHome}/aerc/accounts.conf"
-    $DRY_RUN_CMD chmod 600 ${configHome}/aerc/accounts.conf
+    $DRY_RUN_CMD eval "echo '${accountConfFile}' > ${configDir}/accounts.conf"
+    $DRY_RUN_CMD chmod 600 ${configDir}/accounts.conf
   '';
 in
 {

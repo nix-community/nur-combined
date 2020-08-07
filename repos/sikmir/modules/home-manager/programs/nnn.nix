@@ -3,6 +3,8 @@
 with lib;
 let
   cfg = config.programs.nnn;
+  configDir = "${config.xdg.configHome}/nnn";
+  pluginDir = "${configDir}/plugins";
 in
 {
   meta.maintainers = [ maintainers.sikmir ];
@@ -36,7 +38,7 @@ in
 
       (
         mkIf (cfg.pluginsPackage != null) {
-          xdg.configFile."nnn/plugins".source =
+          home.file."${pluginDir}".source =
             "${cfg.pluginsPackage}/share/nnn/plugins";
         }
       )
