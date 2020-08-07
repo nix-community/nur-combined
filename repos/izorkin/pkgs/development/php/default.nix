@@ -358,6 +358,7 @@ in {
       ./patch/php56/php5640-78793.patch
       ./patch/php56/php5640-78862.patch
       ./patch/php56/php5640-78863.patch
+      ./patch/php56/php5640-78875.patch
       ./patch/php56/php5640-78878.patch
       ./patch/php56/php5640-78910.patch
       ./patch/php56/php5640-79037.patch
@@ -366,6 +367,10 @@ in {
       ./patch/php56/php5640-79221.patch
       ./patch/php56/php5640-79282.patch
       ./patch/php56/php5640-79329.patch
+      ./patch/php56/php5640-79330.patch
+      ./patch/php56/php5640-79465.patch
+      ./patch/php56/php5640-79797.patch
+      ./patch/php56/php5640-79877.patch
     ];
   };
 
@@ -384,6 +389,8 @@ in {
       ./patch/php71/php7133-78793.patch
       ./patch/php71/php7133-78862.patch
       ./patch/php71/php7133-78863.patch
+      ./patch/php71/php7133-78875.patch
+      ./patch/php71/php7133-78876.patch
       ./patch/php71/php7133-78878.patch
       ./patch/php71/php7133-78910.patch
       ./patch/php71/php7133-79037.patch
@@ -393,14 +400,18 @@ in {
       ./patch/php71/php7133-79221.patch
       ./patch/php71/php7133-79282.patch
       ./patch/php71/php7133-79329.patch
+      ./patch/php71/php7133-79330.patch
+      ./patch/php71/php7133-79465.patch
+      ./patch/php71/php7133-79797.patch
+      ./patch/php71/php7133-79877.patch
     ] 
       # https://bugs.php.net/bug.php?id=76826
       ++ optional stdenv.isDarwin ./patch/php71-darwin-isfinite.patch;
   };
 
   php72 = generic {
-    version = "7.2.32";
-    sha256 = "15zgk595x11h0ahapav31m3r0grr5cy20ji97lscxzp09acbrnf5";
+    version = "7.2.33";
+    sha256 = "1jdds1x712xshfdq1g6j6xllzmwfg00kgshhanbv0hslf6s29aqk";
 
     extraPatches = [
       # PKG_CONFIG need not be a relative path
@@ -411,8 +422,8 @@ in {
   };
 
   php73 = generic {
-    version = "7.3.20";
-    sha256 = "1qhk3ja94wa3z7jvwhcjjcvlhjrkbxy8p60pdlikqymc1skzc2kp";
+    version = "7.3.21";
+    sha256 = "1xaxx3z9vfiz82d0l3s5ir46h03nlwlrnshrx7yal359pv9ms6wm";
 
     extraPatches = [
       # PKG_CONFIG need not be a relative path
@@ -423,13 +434,13 @@ in {
   };
 
   php74 = generic {
-    version = "7.4.8";
-    sha256 = "01zrk3m09fzh7cwq9v08lhw189g6dd69hclnh7x80md5nzbqv7p7";
+    version = "7.4.9";
+    sha256 = "1dycmq1fksxan47r7kpx3yzxq7d6cs37fc5saz6y610gfnwj9scm";
   };
 
   php80 = generic {
-    version = "8.0.0-alpha-3";
-    rev = "57e16009fe3c6789fe5579f29289065eb648feb4";
-    sha256 = "0apda51r9fakvgmzg0cxp73rd73qk4i9v8bqcb2vxvq65j9ql5jc";
+    version = "8.0.0-beta-1";
+    rev = "c93a94a55b40da8b4e338bdb95dfe419bddc6492";
+    sha256 = "0qd1ifb77cig5nkhd9f37z4pry4j18kbpirbqbq531m5b95drzga";
   };
 }

@@ -61,10 +61,10 @@ let
   };
 
   ast = buildPecl {
-    version = "1.0.7";
+    version = "1.0.8";
     pname = "ast";
 
-    sha256 = "19ak7glrinhw7v1nc1mn9zjir3cfk1lz4gll9dl2g74jsr1limfb";
+    sha256 = "1h12qnbjnzfzxbqizvm6nl6mdxdly1805xga7gv64nv206n8chik";
 
     meta.broken = isPhp56;
   };
@@ -97,12 +97,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.9";
+    version = "1.10.10";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "0ddgrxjdv1kj4yzrxq76hicc4bz2vy4pzjrd6y53jjvpw31vkmkh";
+      sha256 = "1fc1y42kzpga6agkzry876lhil9rm7043lfqal4d8vi3n5vsl5lg";
     };
 
     dontUnpack = true;
@@ -230,10 +230,10 @@ let
   };
 
   igbinary30 = buildPecl {
-    version = "3.1.2";
+    version = "3.1.4";
     pname = "igbinary";
 
-    sha256 = "02x93x0iqsfbcaavbf2aqb1yikfxgq0zximhyx1fv5skmmyk52z7";
+    sha256 = "05ghg20r21203sf385i82k3d9071ipng36ssh8lgcvpp5ma63gpl";
 
     configureFlags = [
       "--enable-igbinary"
@@ -359,9 +359,9 @@ let
 
   mongodb = buildPecl {
     pname = "mongodb";
-    version = "1.7.5";
+    version = "1.8.0";
 
-    sha256 = "0yf3h70iqdk3b8va4i15la8whq8q91gip6crh9ibxs0aiihhg2p4";
+    sha256 = "1c93k8a8ydnx5yn9kbssm341f19ywn9wvd69pf6i1izi83r04vq9";
 
     nativeBuildInputs = with pkgs; [ pkgconfig ];
     buildInputs = with pkgs; [
@@ -523,12 +523,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.33";
+    version = "0.12.36";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "05qc1ybmfvbxp8yyx8br8wwcrjfqp98wpm4mv5jsn48ib2ihnlkg";
+      sha256 = "0fyjdyr2yrvj6b7fxfp527p05963i58zh4ja7lzgpi1ab0a2iv3r";
     };
 
     phases = [ "installPhase" ];
@@ -605,14 +605,14 @@ let
   };
 
   pinba112 = buildPecl {
-    version = "1.1.2-dev";
+    version = "1.1.2";
     pname = "pinba";
 
     src = pkgs.fetchFromGitHub {
       owner = "tony2001";
       repo = "pinba_extension";
-      rev = "edbc313f1b4fb8407bf7d5acf63fbb0359c7fb2e";
-      sha256 = "02sljqm6griw8ccqavl23f7w1hp2zflcv24lpf00k6pyrn9cwx80";
+      rev = "98c01fb5cde068426aae61d239205db75c507cbf";
+      sha256 = "0wqcqq6sb51wiawa37hbd1h9dbvmyyndzdvz87xqji7lpr9vn8jy";
     };
 
     meta = with pkgs.lib; {
@@ -647,12 +647,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.12.2";
+    version = "3.13.1";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "1m82q5928gwii71bjcpxn1n524fwcgnwqy964a719n39hhwacqa4";
+      sha256 = "09ims21jzryr53zymr04ffgqqkl79ns613n6ad83c97hy86aj2da";
     };
 
     phases = [ "installPhase" ];
