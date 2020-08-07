@@ -676,10 +676,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.8.2";
+      version = "20.8.6";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3618623/refined_github-20.8.2-an+fx.xpi?src=";
-      sha256 = "00386d11eb22fa82518eac4f00b7fe44daf2831fc57e95097cbef11f9ddddcb6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3621259/refined_github-20.8.6-an+fx.xpi?src=";
+      sha256 = "faaa5b41a9bce279a3009230cf747ed665dd3cb01e1421d608fe6056862abfdc";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -690,10 +690,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "20.9";
+      version = "20.10";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3619602/save_page_we-20.9-fx.xpi?src=";
-      sha256 = "9a779f6c5623f4269fc6398d2d25f43cbc5519545fe1e9bca1153c1fc746f346";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3621405/save_page_we-20.10-fx.xpi?src=";
+      sha256 = "3e81b90cdd061f4998db4af88e934902c77f398895e89471d141afb8d659cda5";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -758,10 +758,10 @@
       };
     "temporary-containers" = buildFirefoxXpiAddon {
       pname = "temporary-containers";
-      version = "1.8";
+      version = "1.9";
       addonId = "{c607c8df-14a7-4f28-894f-29e8722976af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3511233/temporary_containers-1.8-fx.xpi?src=";
-      sha256 = "abd3cc36826e571a3779c112ebd3e18886e6d0708aad4936a3c82b6f5eab7a2b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3621098/temporary_containers-1.9-fx.xpi?src=";
+      sha256 = "65b9b0fb5af16aa1017b739bcaed515dbf8ff08fc95f63325aee22d1f1dfb56f";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/stoically/temporary-containers";
@@ -840,10 +840,10 @@
       };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
-      version = "1.19.1";
+      version = "1.20.0";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3581422/tridactyl-1.19.1-an+fx.xpi?src=";
-      sha256 = "e1ea49083efed530b29c47832dcd06fb0ebab292cdfeec35d744d52330964886";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3621275/tridactyl-1.20.0-an+fx.xpi?src=";
+      sha256 = "5a1390ec4b393887a608542f05d5ec223702c042d44829b629b5291b843f5ef4";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/cmcaine/tridactyl";
