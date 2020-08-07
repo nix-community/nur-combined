@@ -89,12 +89,6 @@ with lib;
     passwordAuthentication = mkDefault false;
   };
 
-  # This requires the kampka nur packages
-  kampka.services.dns-cache.enable = mkDefault true;
-
-  # - Loading NSS modules from system.nssModules (/nix/store/...-systemd-245.5/lib), requires services.nscd.enable being set to true.
-  system.nssModules = mkIf (! config.services.nscd.enable) (mkForce [ ]);
-
   kampka.services.ntp.enable = mkDefault true;
 
   # This requires the priegger nur packages

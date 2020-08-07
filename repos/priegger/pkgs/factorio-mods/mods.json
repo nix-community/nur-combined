@@ -555,12 +555,12 @@
   },
   {
     "name": "Logistic-Gun-Turret",
-    "version": "1.0.8",
-    "file_name": "Logistic-Gun-Turret_1.0.8.zip",
-    "download_url": "/download/Logistic-Gun-Turret/5edb44bd34a5c4000fc37a93",
-    "sha1": "8805a5fd3e0516579e854372d1d00dbcdcf40e29",
+    "version": "1.0.10",
+    "file_name": "Logistic-Gun-Turret_1.0.10.zip",
+    "download_url": "/download/Logistic-Gun-Turret/5f1bddb450cd1c1a3813d3b2",
+    "sha1": "61b7d20f4c11bb50c09eda76d367adf18196ecbf",
     "dependencies": [
-      "base >= 0.17.0"
+      "base >= 0.18.0"
     ]
   },
   {
@@ -638,10 +638,10 @@
   },
   {
     "name": "robot_attrition",
-    "version": "0.4.2",
-    "file_name": "robot_attrition_0.4.2.zip",
-    "download_url": "/download/robot_attrition/5e3cb3ce1901c3000b53c911",
-    "sha1": "3805195e79dfefe7a9df1f14940c1f7cdb863398",
+    "version": "0.4.4",
+    "file_name": "robot_attrition_0.4.4.zip",
+    "download_url": "/download/robot_attrition/5f1b7532bf0c22416227322b",
+    "sha1": "e2cee053298f6da4f53bdedd7caae8e723691932",
     "dependencies": [
       "base >= 0.18.4"
     ]

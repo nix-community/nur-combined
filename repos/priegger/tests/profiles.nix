@@ -68,9 +68,6 @@ import ./lib/make-test.nix (
 
             machine.require_unit_state("chronyd")
 
-            machine.require_unit_state("dnsmasq")
-            machine.require_unit_state("stubby")
-
             machine.require_unit_state("prometheus")
             machine.require_unit_state("prometheus-node-exporter")
 
