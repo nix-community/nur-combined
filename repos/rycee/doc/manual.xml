@@ -50,9 +50,21 @@ in
       </term>
       <listitem>
        <para>
-        for options under <varname>programs.emacs.init</varname>.
+        for options under <varname>programs.emacs.init</varname>, or
        </para>
       </listitem>
+     </varlistentry>
+     <varlistentry>
+       <term>
+         <varname>theme-base16</varname>
+       </term>
+       <listitem>
+         <para>
+           for options under <varname>theme.base16</varname> and
+           <varname>enableBase16Theme</varname> options for various
+           Home Manager modules.
+         </para>
+       </listitem>
      </varlistentry>
     </variablelist>
    </para>
