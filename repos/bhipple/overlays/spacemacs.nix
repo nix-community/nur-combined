@@ -476,6 +476,9 @@ self: super: let
     self.ripgrep # For helm
     self.sqlite # For dash-docsets
 
+    # C/C++ Tools
+    self.clang-tools
+
     # Python Tools
     self.autoflake
     self.python3Packages.pyflakes

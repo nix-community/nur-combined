@@ -1,5 +1,12 @@
 self: super: let
 
+  brh-python = self.python3.withPackages(ps: with ps; [
+    pyflakes
+    pyls-isort
+    python-language-server
+    yapf
+  ]);
+
 in
 {
 
@@ -8,6 +15,7 @@ in
     super.buildEnv {
       name = "minEnv";
       paths = [
+        brh-python
         self.bat
         self.bc
         self.coreutils
@@ -24,7 +32,6 @@ in
         self.par
         self.pass
         self.pinentry
-        self.python3
         self.ripgrep
         self.rlwrap
         self.tmux
@@ -38,6 +45,7 @@ in
         self.wget
         self.xorg.xmodmap
         self.xterm
+        self.zoxide
         self.zsh
       ];
     }
@@ -55,7 +63,7 @@ in
         self.bind
         self.cachix
         self.chromium
-        self.cmake
+        self.clang-tools
         self.dasht
         self.direnv
         self.discord
@@ -76,7 +84,6 @@ in
         self.nixpkgs-fmt
         self.nixpkgs-review
         self.nload
-        self.pandoc
         self.pavucontrol
         self.pdsh
         self.remmina
