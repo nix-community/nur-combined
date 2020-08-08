@@ -92,6 +92,15 @@ let
           awk -F: '/^pub:/ { print $5 }'
         )
 
+        ${store.preHook}
+
+        function post() {
+          :; # empty bash functions are invalid
+          ${store.postHook}
+        }
+
+        trap post EXIT
+
         duplicity \
           --asynchronous-upload \
           --volsize ${toString store.volSize} \
@@ -182,11 +191,6 @@ in {
             default = 3;
           };
 
-          logLevel = mkOption {
-            type = str;
-            default = "notice";
-          };
-
           numRetries = mkOption {
             type = int;
             default = 3;
@@ -200,6 +204,16 @@ in {
           extraArgs = mkOption {
             type = listOf str;
             default = [];
+          };
+
+          preHook = mkOption {
+            type = str;
+            default = "";
+          };
+
+          postHook = mkOption {
+            type = str;
+            default = "";
           };
         };
       }));

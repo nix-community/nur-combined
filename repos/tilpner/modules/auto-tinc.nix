@@ -28,27 +28,27 @@ in with lib; {
     default = {};
     type = with types; attrsOf (submodule (netArgs@{ name, config, ... }: {
       options = {
-        entry = mkOption { type = listOf string; };
+        entry = mkOption { type = listOf str; };
         trusted = mkOption { type = bool; default = false; };
-        ipv4Prefix = mkOption { type = nullOr string; default = null; };
-        ipv6Prefix = mkOption { type = nullOr string; default = "fd7f:8482:73b2::"; };
+        ipv4Prefix = mkOption { type = nullOr str; default = null; };
+        ipv6Prefix = mkOption { type = nullOr str; default = "fd7f:8482:73b2::"; };
         hosts = mkOption {
           default = {};
           type = attrsOf (submodule (hostArgs@{ name, ... }: {
             options = {
-              config = mkOption { type = string; default = ""; };
-              ipv4Suffix = mkOption { type = nullOr string; default = null; };
-              ipv6Suffix = mkOption { type = nullOr string; default = null; };
+              config = mkOption { type = str; default = ""; };
+              ipv4Suffix = mkOption { type = nullOr str; default = null; };
+              ipv6Suffix = mkOption { type = nullOr str; default = null; };
               ipv4 = mkOption {
                 internal = true;
-                type = nullOr string;
+                type = nullOr str;
                 default = if (all notNull [ netArgs.config.ipv4Prefix hostArgs.config.ipv4Suffix ])
                   then "${netArgs.config.ipv4Prefix}${hostArgs.config.ipv4Suffix}"
                   else null;
               };
               ipv6 = mkOption {
                 internal = true;
-                type = nullOr string;
+                type = nullOr str;
                 default = if (all notNull [ netArgs.config.ipv6Prefix hostArgs.config.ipv6Suffix ])
                   then "${netArgs.config.ipv6Prefix}${hostArgs.config.ipv6Suffix}"
                   else null;
@@ -150,14 +150,12 @@ in with lib; {
     # * A DNS server can be used on platforms where /etc/hosts can't be set (Android)
     # * A DNS server supports wildcard subdomains, which is useful for virtual hosts
 
-    /*
     networking.hosts =
       let forNet = netName: net:
         let forHost = hostName: host:
-              nameValuePair host.ipv6 "${hostName}.${netName}.tinc";
-        in  mapAttrs' forHost net.hosts;
+              nameValuePair host.ipv4 "${hostName}.${netName}.tinc";
+        in  mapAttrs' forHost (filterAttrs (_: host: notNull host.ipv4) net.hosts);
       in  zipAttrs (mapAttrsToList forNet cfg.networks);
-    */
 
     services.bind = mkIf (any (net: net.hostDNS) (attrValues cfg.networks)) {
       enable = true;

@@ -23,5 +23,5 @@ in writeShellScriptBin "slock" ''
   pid=$!
   wait $pid
 
-  [ -f "$screen" ] && rm $screen
+  [ -f "$screen" ] && rm -- "$screen"
 ''
