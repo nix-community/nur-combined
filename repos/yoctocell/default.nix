@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { }
+, sources ? import ./nix/sources.nix
+}:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -17,6 +19,9 @@
   pash = pkgs.callPackage ./pkgs/pash { };
 
   torque = pkgs.callPackage ./pkgs/torque { };
+  
+  tremc = pkgs.callPackage ./pkgs/tremc { inherit sources; };
+
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

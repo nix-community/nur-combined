@@ -1,0 +1,57 @@
+{
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "303f442c43f918bc43400ab4a0b662a82ca7748b",
+        "sha256": "19z1qypd6zd4qzhrhjm7j55v85fzf8wln8l9vslvn9dpspcwxv7c",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/303f442c43f918bc43400ab4a0b662a82ca7748b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "release-20.03",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5ac56e221fac62435ceabe174dfcb9a062d89d0d",
+        "sha256": "0jk7vbl59l19d2w2n46hgh2h1aiy4k8a8skh59sypgma42kmmrrb",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/5ac56e221fac62435ceabe174dfcb9a062d89d0d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "terminal-typeracer": {
+        "sha256": "187xrqxalk2gxa22ki5q092llvliddrsc68cg4dvvy2xzq254jfy",
+        "type": "tarball",
+        "url": "https://gitlab.com/ttyperacer/terminal-typeracer/-/archive/v2.0.2/terminal-typeracer-v2.0.2.tar.gz",
+        "url_template": "https://gitlab.com/ttyperacer/terminal-typeracer/-/archive/v<version>/terminal-typeracer-v<version>.tar.gz",
+        "version": "2.0.2"
+    },
+    "torque": {
+        "branch": "master",
+        "description": "🚂 A TUI client for transmission written in pure bash.",
+        "homepage": "",
+        "owner": "dylanaraps",
+        "repo": "torque",
+        "rev": "567a94bc4f483fb96b514190768a9e6012b94f0b",
+        "sha256": "1jwx6z0iwx7ii13wknylmjy58j645nvrmfasgr325cffwqx51j7f",
+        "type": "tarball",
+        "url": "https://github.com/dylanaraps/torque/archive/567a94bc4f483fb96b514190768a9e6012b94f0b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "tremc": {
+        "branch": "master",
+        "description": "Curses interface for transmission",
+        "homepage": "",
+        "owner": "tremc",
+        "repo": "tremc",
+        "rev": "e4c02f4bbf07474e2fe235beee93d7ce164e7efd",
+        "sha256": "1fqspp2ckafplahgba54xmx0sjidx1pdzyjaqjhz0ivh98dkx2n5",
+        "type": "tarball",
+        "url": "https://github.com/tremc/tremc/archive/e4c02f4bbf07474e2fe235beee93d7ce164e7efd.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
