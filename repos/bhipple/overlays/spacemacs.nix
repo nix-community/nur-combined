@@ -489,15 +489,19 @@ self: super: let
     self.rustfmt
   ];
 
+  # Build a spacemacs with the pinned overlay import, using the passed emacs
+  mkSpacemacs = package:
+    self.emacsWithPackagesFromUsePackage {
+      config = "";
+      inherit package;
+      extraEmacsPackages = ep: ((myEmacsPkgs ep) ++ myEmacsDeps);
+    };
+
+  spacemacsGcc = mkSpacemacs self.emacsGcc;
+  spacemacsGit = mkSpacemacs self.emacsGit;
+  spacemacs = spacemacsGcc;
+
 in
 {
-
-  # Build a spacemacs with the pinned overlay import
-  spacemacs = self.emacsWithPackagesFromUsePackage {
-    config = "";
-    # package = self.emacsGcc;
-    package = self.emacsGit;
-    extraEmacsPackages = ep: ((myEmacsPkgs ep) ++ myEmacsDeps);
-  };
-
+  inherit spacemacsGcc spacemacsGit spacemacs;
 }
