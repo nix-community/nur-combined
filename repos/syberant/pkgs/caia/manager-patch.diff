@@ -1,0 +1,67 @@
+From 2162762fce473f693e80bfc51a1ec166e9729622 Mon Sep 17 00:00:00 2001
+From: Your Name <you@example.com>
+Date: Fri, 7 Aug 2020 15:31:20 +0200
+Subject: [PATCH] Patched manager.cc
+
+---
+ games/zuniq/src/manager/manager.cc | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/games/zuniq/src/manager/manager.cc b/games/zuniq/src/manager/manager.cc
+index 7acd90a..e61e564 100644
+--- a/games/zuniq/src/manager/manager.cc
++++ b/games/zuniq/src/manager/manager.cc
+@@ -48,8 +48,8 @@ int main (int argc, char *argv[])
+   FILE *instr = NULL;
+   int i, ngames;
+   int answer1, answer2;
+-  char log1[80], log2[80], buf3[80], dummy[80];
+-  char player1[80], player2[80];
++  char logdir[80], log1[80], log2[80], buf3[80], dummy[80];
++  char player1[80], player2[80], referee[80];
+   
+ // Use the next line if your computer CPU speed is 3100 MHz:
+   
+@@ -74,6 +74,12 @@ int main (int argc, char *argv[])
+     return 1;
+   }
+ 
++// Read the referee to be used
++  fscanf(instr, "%s", referee);
++
++// Read the logdir
++  fscanf(instr, "%s", logdir);
++
+ // Read the number of games to be played:
+   
+   fscanf(instr, "%d", &ngames);
+@@ -99,7 +105,7 @@ int main (int argc, char *argv[])
+ // The playing time for player 1 is 30000 milliseconds:
+ 
+     LOCK(dummy);
+-    prflush("I player 1 %s 30000 ../playerlogs/%s\n", player1, log1);
++    prflush("I player 1 %s 30000 %s/playerlogs/%s\n", player1, logdir, log1);
+     UNLOCK;
+     
+ // It is under Linux possible to identify the player using the so called firsterror.
+@@ -129,7 +135,7 @@ int main (int argc, char *argv[])
+ // Repeat for player 2:
+     
+     LOCK(dummy);
+-    prflush("I player 2 %s 30000 ../playerlogs/%s\n", player2, log2);
++    prflush("I player 2 %s 30000 %s/playerlogs/%s\n", player2, logdir, log2);
+     UNLOCK;
+     
+ // After that, start the players:
+@@ -140,7 +146,7 @@ int main (int argc, char *argv[])
+ // Put the referee on a job and provide him a unique log file name:
+ // You must be unlocked before giving this command to the caiaio!    
+ 
+-    prflush("I referee referee ../refereelogs/%s-%s.%d.log\n", player1, player2, i+1);
++    prflush("I referee %s %s/refereelogs/%s-%s.%d.log\n", referee, logdir, player1, player2, i+1);
+ 
+ // The referee sends back: "report gamepoints1 gamepoints2 message\n":
+ // The referee must be written this way to do this!     
+-- 
+2.27.0
+

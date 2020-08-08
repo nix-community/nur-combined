@@ -13,4 +13,7 @@ rec {
 
   dwm-patches = pkgs.callPackage ./pkgs/dwm/patches.nix { };
   dwm = pkgs.callPackage ./pkgs/dwm/dwm.nix { };
+
+  caia = pkgs.callPackage ./pkgs/caia { inherit caia-unwrapped; };
+  caia-unwrapped = pkgs.callPackage ./pkgs/caia/unwrapped.nix { };
 }

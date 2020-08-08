@@ -1,0 +1,106 @@
+From 22c8a016410724d6f8e03244b6af0230983ccd26 Mon Sep 17 00:00:00 2001
+From: Your Name <you@example.com>
+Date: Sat, 8 Aug 2020 10:42:30 +0200
+Subject: [PATCH 2/2] Read CAIA_BIN_DIR
+
+---
+ games/zuniq/src/manager/manager.cc | 36 +++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 11 deletions(-)
+
+diff --git a/games/zuniq/src/manager/manager.cc b/games/zuniq/src/manager/manager.cc
+index e61e564..7b3ffec 100644
+--- a/games/zuniq/src/manager/manager.cc
++++ b/games/zuniq/src/manager/manager.cc
+@@ -11,6 +11,8 @@
+ #include <stdio.h>
+ #include <stdarg.h>
+ #include <string.h>
++#include <cstdlib>
++#include <string>
+ 
+ #define LOCK(x) printf("I lock\n"); fflush(stdout); do scanf("%s", (x)); while (strcmp((x), "lock_ok"))
+ #define UNLOCK printf("I unlock\n"); fflush(stdout)
+@@ -43,13 +45,27 @@ int fprflush(FILE *stream, const char *fmt, ...)
+   return r;
+ }
+ 
++std::string get_real(char* playerc, char* caia_bin_dirc) {
++    std::string player = playerc;
++    std::string caia_bin_dir = caia_bin_dirc;
++
++    if (player == "player1") return caia_bin_dir + "/player1";
++    if (player == "player2") return caia_bin_dir + "/player2";
++    if (player == "player3") return caia_bin_dir + "/player3";
++    else return player;
++}
++
+ int main (int argc, char *argv[])
+ {
+   FILE *instr = NULL;
+   int i, ngames;
+   int answer1, answer2;
+-  char logdir[80], log1[80], log2[80], buf3[80], dummy[80];
+-  char player1[80], player2[80], referee[80];
++  char log1[80], log2[80], buf3[80], dummy[80];
++  char player1[80], player2[80];
++  std::string realplayer1, realplayer2; // The actual path used for the binary
++
++  char* caia_bin_dir = std::getenv("CAIA_BIN_DIR");
++  const char* logdir = "/tmp/caia";
+   
+ // Use the next line if your computer CPU speed is 3100 MHz:
+   
+@@ -74,12 +90,6 @@ int main (int argc, char *argv[])
+     return 1;
+   }
+ 
+-// Read the referee to be used
+-  fscanf(instr, "%s", referee);
+-
+-// Read the logdir
+-  fscanf(instr, "%s", logdir);
+-
+ // Read the number of games to be played:
+   
+   fscanf(instr, "%d", &ngames);
+@@ -96,6 +106,10 @@ int main (int argc, char *argv[])
+ 
+     fprflush(stderr, "M: GAME %d = %s <> %s\n", i+1, player1, player2);
+ 
++// Get the real path names, yes I know this is diabolically bad but I suffered some errors and this works for now
++    realplayer1 = get_real(player1, caia_bin_dir);
++    realplayer2 = get_real(player2, caia_bin_dir);
++
+ // Inform the cacaio that there are 2 players:
+     
+     prflush("I number_players 2\n");
+@@ -105,7 +119,7 @@ int main (int argc, char *argv[])
+ // The playing time for player 1 is 30000 milliseconds:
+ 
+     LOCK(dummy);
+-    prflush("I player 1 %s 30000 %s/playerlogs/%s\n", player1, logdir, log1);
++    prflush("I player 1 %s 30000 %s/playerlogs/%s\n", realplayer1.c_str(), logdir, log1);
+     UNLOCK;
+     
+ // It is under Linux possible to identify the player using the so called firsterror.
+@@ -135,7 +149,7 @@ int main (int argc, char *argv[])
+ // Repeat for player 2:
+     
+     LOCK(dummy);
+-    prflush("I player 2 %s 30000 %s/playerlogs/%s\n", player2, logdir, log2);
++    prflush("I player 2 %s 30000 %s/playerlogs/%s\n", realplayer2.c_str(), logdir, log2);
+     UNLOCK;
+     
+ // After that, start the players:
+@@ -146,7 +160,7 @@ int main (int argc, char *argv[])
+ // Put the referee on a job and provide him a unique log file name:
+ // You must be unlocked before giving this command to the caiaio!    
+ 
+-    prflush("I referee %s %s/refereelogs/%s-%s.%d.log\n", referee, logdir, player1, player2, i+1);
++    prflush("I referee %s/referee %s/refereelogs/%s-%s.%d.log\n", caia_bin_dir, logdir, player1, player2, i+1);
+ 
+ // The referee sends back: "report gamepoints1 gamepoints2 message\n":
+ // The referee must be written this way to do this!     
+-- 
+2.27.0
+
