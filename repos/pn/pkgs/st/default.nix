@@ -15,6 +15,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libX11 libXft harfbuzzFull ];
 
   installPhase = ''
+    sed '/sed/d' Makefile > Makefile.new
+    mv Makefile.new Makefile
     TERMINFO=$out/share/terminfo make install PREFIX=$out
   '';
 
