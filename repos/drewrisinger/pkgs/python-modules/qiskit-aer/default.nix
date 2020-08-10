@@ -6,6 +6,9 @@
 , cmake
 , cvxpy
 , cython
+, muparserx
+, ninja
+, nlohmann_json
 , numpy
 , openblas
 , pybind11
@@ -19,7 +22,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-aer";
-  version = "0.5.2";
+  version = "0.6.1";
 
   disabled = pythonOlder "3.5";
 
@@ -27,18 +30,20 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit-aer";
     rev = version;
-    fetchSubmodules = true; # fetch muparserx and other required libraries
-    sha256 = "0vw6b69h8pvzxhaz3k8sg9ac792gz3kklfv0izs6ra83y1dfwhjz";
+    sha256 = "1fnv11diis0as8zcc57mamz0gbjd6vj7nw3arxzvwa77ja803sr4";
   };
 
   nativeBuildInputs = [
     cmake
+    ninja
     scikit-build
   ];
 
   buildInputs = [
     openblas
     spdlog
+    nlohmann_json
+    muparserx
   ];
 
   propagatedBuildInputs = [
@@ -48,22 +53,16 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  postPatch = ''
-    # remove dependency on PyPi cmake package, which isn't in Nixpkgs
-    substituteInPlace setup.py --replace "'cmake!=3.17,!=3.17.0'" ""
-  '';
+  patches = [
+    ./remove-conan-install.patch
+  ];
 
   dontUseCmakeConfigure = true;
 
-  cmakeFlags = [
-    "-DBUILD_TESTS=True"
-    "-DAER_THRUST_BACKEND=OMP"
-  ];
-
   # Needed to find qiskit.providers.aer modules in cython. This exists in GitHub, don't know why it isn't copied by default
-  postFixup = ''
-    touch $out/${python.sitePackages}/qiskit/__init__.pxd
-  '';
+  # postFixup = ''
+  #   touch $out/${python.sitePackages}/qiskit/__init__.pxd
+  # '';
 
   # *** Testing ***
 

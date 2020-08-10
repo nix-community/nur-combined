@@ -9,14 +9,15 @@
 , scikitlearn
 , scipy
   # Check Inputs
-, ddt
 , pytestCheckHook
+, ddt
+, pyfakefs
 , qiskit-aer
 }:
 
 buildPythonPackage rec {
   pname = "qiskit-ignis";
-  version = "0.3.3";
+  version = "0.4.0";
 
   disabled = pythonOlder "3.6";
 
@@ -25,7 +26,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit-ignis";
     rev = version;
-    sha256 = "0sy9qpw0jqirsk9y61j5kr18jrw1wa812n7y98fjj6w668rrv560";
+    sha256 = "07mxhaknkp121xm6mgrpcrbj9qw6j924ra3k0s6vr8qgvfcxvh0y";
   };
 
   propagatedBuildInputs = [
@@ -47,14 +48,12 @@ buildPythonPackage rec {
   checkInputs = [
     pytestCheckHook
     ddt
+    pyfakefs
     qiskit-aer
   ];
   disabledTests = [
     "test_tensored_meas_cal_on_circuit" # Flaky test, occasionally returns result outside bounds
-  ];
-  pytestFlagsArray = [
-    # Disabled b/c taking too many log lines in Travis
-    "--disable-warnings"
+    "test_qv_fitter"  # execution hangs, ran for several minutes
   ];
 
   meta = with lib; {

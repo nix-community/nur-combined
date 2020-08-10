@@ -23,6 +23,7 @@ rec {
   # New/unstable packages below
   # libcint = pkgs.callPackage ./pkgs/libraries/libcint { };
   # xcfun = pkgs.callPackage ./pkgs/libraries/xcfun { };
+  muparserx = pkgs.callPackage ./pkgs/libraries/muparserx { };
 
   python3Packages = pkgs.recurseIntoAttrs rec {
     # New packages NOT in NixOS/nixpkgs (and likely never will be)
@@ -75,18 +76,22 @@ rec {
     pylatexenc = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pylatexenc { };
     retworkx = pkgs.python3.pkgs.toPythonModule (pkgs.python3.pkgs.callPackage ./pkgs/python-modules/retworkx { });
 
+    # Needs added to nixpkgs
+    multitasking = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/multitasking { };
+    yfinance = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/yfinance { inherit multitasking; };
+
     # Qiskit proper, build order
     qiskit-terra = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-terra {
       inherit fastjsonschema marshmallow-polyfield python-constraint pylatexenc retworkx;
     };
     qiskit-aer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-aer {
-      inherit cvxpy qiskit-terra;
+      inherit cvxpy qiskit-terra muparserx;
     };
     qiskit-ignis = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ignis {
       inherit qiskit-aer qiskit-terra;
     };
     qiskit-aqua = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-aqua {
-      inherit cvxpy dlx docplex fastdtw qiskit-aer qiskit-ignis qiskit-terra;
+      inherit cvxpy dlx docplex fastdtw qiskit-aer qiskit-ignis qiskit-terra yfinance;
     };
     qiskit-ibmq-provider = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ibmq-provider {
       inherit ipyvuetify pproxy qiskit-terra;
