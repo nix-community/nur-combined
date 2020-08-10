@@ -16,5 +16,6 @@
 
   pythonWithPipenv = pkgs.callPackage ./pkgs/pythonWithPipenv { };
   multiEclipse = pkgs.callPackage ./pkgs/multiEclipse { };
+  prusa-slicer-2_3-alpha = pkgs.callPackage ./pkgs/prusa-slicer-2_3-alpha { };
 }
 
