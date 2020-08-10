@@ -19,7 +19,7 @@ env:
     #
     # The repo name as used in
     # https://github.com/nix-community/NUR/blob/master/repos.json
-    - NUR_REPO=<YOUR_NUR_REPO_NAME_HERE>
+    - NUR_REPO=pn
 
 matrix:
   include:

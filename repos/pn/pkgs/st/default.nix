@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, writeText, libX11, ncurses, libXft }:
+{ stdenv, fetchgit, pkgconfig, writeText, libX11, ncurses, libXft, harfbuzzFull }:
 
 with stdenv.lib;
 
@@ -12,17 +12,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ncurses ];
-  buildInputs = [ libX11 libXft ];
+  buildInputs = [ libX11 libXft harfbuzzFull ];
 
   installPhase = ''
     TERMINFO=$out/share/terminfo make install PREFIX=$out
   '';
 
   meta = {
-    homepage = "https://st.suckless.org/";
-    description = "Simple Terminal for X from Suckless.org Community";
+    homepage = "https://github.com/LukeSmithXYZ/st";
+    description = "Luke's fork of the suckless simple terminal (st) with vim bindings and Xresource compatibility.";
     license = licenses.mit;
-    maintainers = with maintainers; [ pniedzwiedzinski ];
     platforms = platforms.linux;
   };
 }
