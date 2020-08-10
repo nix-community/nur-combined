@@ -12,6 +12,7 @@ rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
+  hmModules = import ./hm-modules; # Home-manager modules
   overlays = import ./overlays; # nixpkgs overlays
 
   keyhub-cli = pkgs.callPackage ./pkgs/keyhub-cli {};
