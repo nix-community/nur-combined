@@ -8,9 +8,19 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-{
+let
 	# The `lib`, `modules`, and `overlay` names are special
 	lib = import ./lib { inherit pkgs; }; # functions
 	modules = import ./modules; # NixOS modules
 	overlays = import ./overlays; # nixpkgs overlays
+
+	# Locally apply overlay on to pkgs
+	pkgsGnomeExtensions = pkgs.lib.fix (self: pkgs // (overlays.gnome-extensions self pkgs));
+in
+{
+	inherit lib modules overlays;
+	inherit (pkgsGnomeExtensions.gnomeExtensions)
+		buildShellExtension;
+		# emoji-selector cpu-power-manager
+		# lock-screen-blur extension-reloader tray-icons;
 }

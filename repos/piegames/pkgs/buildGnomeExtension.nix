@@ -8,7 +8,7 @@
 	# and can always be found in the metadata.json of every extension.
 	uuid,
 	sha256,
-	# Additional meta attributes, the most imporant ones are generated from the metadata.json
+	# Additional meta attributes, the most important ones are generated from the metadata.json
 	meta ? {}
 }:
 
@@ -28,8 +28,7 @@ in
 		inherit pname;
 		version = versionStr;
 		inherit src;
-		builder = builtins.toFile "build-gnome-shell-extension" ''
-			source $stdenv/setup
+		buildCommand = ''
 			mkdir -p $out/share/gnome-shell/extensions/
 			cp -r $src $out/share/gnome-shell/extensions/${uuid}
 		'';
