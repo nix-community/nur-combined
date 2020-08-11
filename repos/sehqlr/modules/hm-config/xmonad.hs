@@ -10,5 +10,5 @@ main = xmonad $
        -- pagerHints
        xfceConfig
          { modMask = mod4Mask
-         , terminal = "xfce4-terminal"
+         , terminal = "term-256color"
          }

@@ -9,6 +9,7 @@
     nixfmt
     pandoc
     ripgrep
+    tmux
     w3m
     xclip
 
@@ -67,7 +68,7 @@
 
   xsession.windowManager.xmonad.enable = true;
   xsession.windowManager.xmonad.enableContribAndExtras = true;
-  xesssion.windowManager.xmonad.config = ./xmonad.hs;
+  xsession.windowManager.xmonad.config = ./xmonad.hs;
 
   programs.direnv.enable = true;
   programs.direnv.enableZshIntegration = true;
