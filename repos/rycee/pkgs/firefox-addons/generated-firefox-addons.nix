@@ -676,10 +676,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.8.6";
+      version = "20.8.10";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3621259/refined_github-20.8.6-an+fx.xpi?src=";
-      sha256 = "faaa5b41a9bce279a3009230cf747ed665dd3cb01e1421d608fe6056862abfdc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3623537/refined_github-20.8.10-an+fx.xpi?src=";
+      sha256 = "2a9637df5bfb5c3ad8d658159d8f9df440c84035299588b1aadb982209db1cdc";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -717,10 +717,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.11";
+      version = "1.5.13";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3553643/stylus-1.5.11-fx.xpi?src=";
-      sha256 = "f665c05183486d91f0d76d7685350483b9404d175b20627f256d4073a682c106";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3614089/stylus-1.5.13-fx.xpi?src=";
+      sha256 = "2bb379e655144e030ec931bab3ca01f11ee8710b4ff788a19977ed94f778a159";
       meta = with stdenv.lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -758,10 +758,10 @@
       };
     "temporary-containers" = buildFirefoxXpiAddon {
       pname = "temporary-containers";
-      version = "1.9";
+      version = "1.9.1";
       addonId = "{c607c8df-14a7-4f28-894f-29e8722976af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3621098/temporary_containers-1.9-fx.xpi?src=";
-      sha256 = "65b9b0fb5af16aa1017b739bcaed515dbf8ff08fc95f63325aee22d1f1dfb56f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3623550/temporary_containers-1.9.1-fx.xpi?src=";
+      sha256 = "392ef6ff878f4969bf753801a4e99f19ff2108e2d9c978e2d5570c8b13e0a2ac";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/stoically/temporary-containers";
@@ -799,10 +799,10 @@
       };
     "tomato-clock" = buildFirefoxXpiAddon {
       pname = "tomato-clock";
-      version = "5.2.0";
+      version = "6.0.0";
       addonId = "jid1-Kt2kYYgi32zPuw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3601284/tomato_clock-5.2.0-an+fx.xpi?src=";
-      sha256 = "95ffdf5d9bef0e9ea960c89325b14d8e7de756508338e428cf795fd3843b6d28";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3622546/tomato_clock-6.0.0-an+fx.xpi?src=";
+      sha256 = "03aae6f6d75e042cbf204042aa61ddd8aa8dcc23f08482c34fadc04931c80e58";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/samueljun/tomato-clock";
@@ -854,10 +854,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.28.4";
+      version = "1.29.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3609157/ublock_origin-1.28.4-an+fx.xpi?src=";
-      sha256 = "5ec27092cff9dee0bef53834ae3681800c428b9de5adf623f47f5077337f74a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3622833/ublock_origin-1.29.0-an+fx.xpi?src=";
+      sha256 = "17405c1b88b431306e7c54aeeac1c9a6a6654ea627c439d0e7131bcda12cf71d";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
