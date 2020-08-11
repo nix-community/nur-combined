@@ -2,10 +2,9 @@
   imports = [ ./email ];
 
   home.packages = with pkgs; [
+    file
     gnupg
     gpa
-
-    file
     httpie
     nixfmt
     pandoc
@@ -69,8 +68,6 @@
   xsession.windowManager.xmonad.enable = true;
   xsession.windowManager.xmonad.enableContribAndExtras = true;
   xesssion.windowManager.xmonad.config = ./xmonad.hs;
-
-  home.packages = with pkgs; [ python37Packages.editorconfig ];
 
   programs.direnv.enable = true;
   programs.direnv.enableZshIntegration = true;
