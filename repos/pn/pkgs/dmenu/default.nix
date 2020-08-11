@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''
     sed -i "s@PREFIX = /usr/local@PREFIX = $out@g" config.mk
-    sed 's/static const unsigned int \(.*alpha\) = \(.*\);/#define \1 \2/' config.h
+    sed -i 's/static const unsigned int \(.*alpha\) = \(.*\);/#define \1 \2/' config.h
   '';
 
   makeFlags = [ "CC:=$(CC)" ];
