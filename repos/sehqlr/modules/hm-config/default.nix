@@ -1,125 +1,100 @@
 { config, pkgs, ... }: {
-  imports = [ ./email ];
-
+  accounts.email.accounts.fastmail.address = "hey@samhatfield.me";
+  accounts.email.accounts.fastmail.imap.host = "imap.fastmail.com";
+  accounts.email.accounts.fastmail.passwordCommand = "pass email/fastmail.com/home-manager";
+  accounts.email.accounts.fastmail.primary = true;
+  accounts.email.accounts.fastmail.realName = "Sam Hatfield";
+  accounts.email.accounts.fastmail.smtp.host = "smtp.fastmail.com";
+  accounts.email.accounts.fastmail.userName = "hey#samhatfield.me";
+  accounts.email.accounts.fastmail.notmuch.enable = true;
+  accounts.email.accounts.fastmail.msmtp.enable = true;
+  accounts.email.accounts.fastmail.mbsync.enable = true;
+  accounts.email.accounts.fastmail.mbsync.create = "both";
+  home.file.".mailcap".text =
+    "text/html;  w3m -dump -o document_charset=%{charset} '%s'; nametemplate=%s.html; copiousoutput";
   home.packages = with pkgs; [
     file
-    gnupg
     gpa
     httpie
     nixfmt
     pandoc
+    python37Packages.editorconfig
     ripgrep
-    tmux
     w3m
     xclip
-
-    python37Packages.editorconfig
   ];
-
   nixpkgs.config.allowUnfree = true;
-
+  programs.afew.enable = true;
+  programs.alot.enable = true;
   programs.bat.enable = true;
-
   programs.command-not-found.enable = true;
-
-  programs.fzf.enable = true;
-  programs.fzf.enableZshIntegration = true;
-
-  programs.feh.enable = true;
-  programs.zathura.enable = true;
-
-  programs.htop.enable = true;
-
-  programs.rofi = {
-    enable = true;
-    # package = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji pkgs.rofi-pass ]; };
-    theme = "lb"; # rofi-theme-selector
-  };
-
-  programs.password-store.enable = true;
-
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
-    settings = {
-      add_newline = false;
-      character.symbol = "λ";
-    };
-  };
-  programs.termite.enable = true;
-
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    oh-my-zsh.enable = true;
-    oh-my-zsh.plugins =
-      [ "copyfile" "extract" "httpie" "pass" "sudo" "systemd" ];
-    oh-my-zsh.theme = "af-magic";
-    shellAliases.nixos = "sudo nixos-rebuild";
-  };
-
-  services.flameshot.enable = true;
-
-  services.gpg-agent = {
-    enable = true;
-    enableSshSupport = true;
-    sshKeys = [ "3759E9087871E845B0621E00F6BE8F0DE65D9666" ];
-  };
-
-  xsession.windowManager.xmonad.enable = true;
-  xsession.windowManager.xmonad.enableContribAndExtras = true;
-  xsession.windowManager.xmonad.config = ./xmonad.hs;
-
   programs.direnv.enable = true;
   programs.direnv.enableZshIntegration = true;
-
+  programs.feh.enable = true;
+  programs.fzf.enable = true;
+  programs.fzf.enableZshIntegration = true;
+  programs.git.aliases.graph = "log --graph --oneline --decorate";
+  programs.git.aliases.staged = "diff --cached";
+  programs.git.enable = true;
+  programs.git.extraConfig.init.defaultBranch = "main";
+  programs.git.ignores = [ "result" "*~" ".#*" ];
+  programs.git.signing.key = "hey@samhatfield.me";
+  programs.git.signing.signByDefault = true;
+  programs.git.userEmail = "hey@samhatfield.me";
+  programs.git.userName = "sehqlr";
+  programs.gpg.enable = true;
+  programs.htop.enable = true;
+  programs.kakoune.config.colorScheme = "solarized-dark";
+  programs.kakoune.config.hooks = [{
+    name = "WinCreate";
+    option = "^[^*]+$";
+    commands = "editorconfig-load";
+  }];
+  programs.kakoune.config.numberLines.enable = true;
+  programs.kakoune.config.showWhitespace.enable = true;
+  programs.kakoune.config.ui.enableMouse = true;
   programs.kakoune.enable = true;
-  programs.kakoune.config = {
-    colorScheme = "solarized-dark";
-    hooks = [{
-      name = "WinCreate";
-      option = "^[^*]+$";
-      commands = "editorconfig-load";
-    }];
-    numberLines.enable = true;
-    showWhitespace.enable = true;
-    ui.enableMouse = true;
-  };
-
-  programs = {
-    git = {
-      enable = true;
-      aliases = {
-        graph = "log --graph --oneline --decorate";
-        staged = "diff --cached";
-      };
-      ignores = [ "result" "*~" ".#*" ];
-      signing.key = "hey@samhatfield.me";
-      signing.signByDefault = true;
-      userEmail = "hey@samhatfield.me";
-      userName = "sehqlr";
-      extraConfig = { init = { defaultBranch = "main"; }; };
-    };
-    ssh = {
-      enable = true;
-      matchBlocks = {
-        "github" = {
-          host = "github.com";
-          user = "git";
-        };
-        "gitlab" = {
-          host = "gitlab.com";
-          user = "git";
-        };
-        "sr.ht" = { host = "*sr.ht"; };
-        "bytes.zone" = {
-          host = "git.bytes.zone";
-          user = "git";
-          port = 2222;
-        };
-      };
-    };
-  };
+  programs.mbsync.enable = true;
+  programs.msmtp.enable = true;
+  programs.notmuch.enable = true;
+  programs.notmuch.hooks.postNew = "afew -tn";
+  programs.notmuch.hooks.preNew = "mbsync -a";
+  programs.notmuch.new.tags = [ "new" ];
+  programs.password-store.enable = true;
+  programs.rofi.enable = true;
+  programs.rofi.package = pkgs.rofi.override { plugins = with pkgs; [rofi-emoji rofi-pass]; };
+  programs.rofi.theme = "lb"; # rofi-theme-selector
+  programs.ssh.enable = true;
+  programs.ssh.matchBlocks."bytes.zone".host = "git.bytes.zone";
+  programs.ssh.matchBlocks."bytes.zone".port = 2222;
+  programs.ssh.matchBlocks."bytes.zone".user = "git";
+  programs.ssh.matchBlocks."github".host = "github.com";
+  programs.ssh.matchBlocks."github".user = "git";
+  programs.ssh.matchBlocks."gitlab".host = "gitlab.com";
+  programs.ssh.matchBlocks."gitlab".user = "git";
+  programs.ssh.matchBlocks."sr.ht".host = "*sr.ht";
+  programs.starship.enable = true;
+  programs.starship.enableZshIntegration = true;
+  programs.starship.settings.add_newline = false;
+  programs.starship.settings.character.symbol = "λ";
+  programs.termite.enable = true;
+  programs.tmux.enable = true;
+  programs.tmux.clock24 = true;
+  programs.zathura.enable = true;
+  programs.zsh.enableCompletion = true;
+  programs.zsh.enable = true;
+  programs.zsh.oh-my-zsh.enable = true;
+  programs.zsh.oh-my-zsh.plugins = [ "copyfile" "extract" "httpie" "pass" "sudo" "systemd" ];
+  programs.zsh.oh-my-zsh.theme = "af-magic";
+  programs.zsh.shellAliases.nixos = "sudo nixos-rebuild";
+  services.flameshot.enable = true;
+  services.gpg-agent.enableSshSupport = true;
+  services.gpg-agent.enable = true;
+  services.gpg-agent.sshKeys = [ "3759E9087871E845B0621E00F6BE8F0DE65D9666" ];
   services.lorri.enable = true;
+  xdg.configFile."afew/lobsters.py".source = ./lobsters.py;
+  xsession.windowManager.xmonad.config = ./xmonad.hs;
+  xsession.windowManager.xmonad.enableContribAndExtras = true;
+  xsession.windowManager.xmonad.enable = true;
 }
 
