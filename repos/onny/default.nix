@@ -14,6 +14,21 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  # applications/audio
+  ocenaudio = pkgs.callPackage ./pkgs/applications/audio/ocenaudio { };
+
+  # applications/misc
+  passwordsafe = pkgs.callPackage ./pkgs/applications/misc/passwordsafe { };
+
+  # applications/networking/p2p
+  fragments = pkgs.callPackage ./pkgs/applications/networking/p2p/fragments { };
+
+  # applications/office
+  foliate = pkgs.callPackage ./pkgs/applications/office/foliate { };
+
+  # services/security
+  inherit (pkgs.callPackage ./pkgs/services/security/opensnitch {}) opensnitchd opensnitch-ui;
+
   inherit (pkgs.callPackages ./pkgs/node-packages {}) hyperpotamus;
 
 }
