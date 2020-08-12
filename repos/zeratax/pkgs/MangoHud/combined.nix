@@ -1,25 +1,19 @@
-{ pkgs, lib }:
-
+{ stdenv, pkgs, lib }:
 let
-
   mangohud_64 = pkgs.callPackage ./default.nix { };
-  mangohud_32 = pkgs.pkgsi686Linux.callPackage ./default.nix { libprefix="lib32"; };
+  mangohud_32 = pkgs.pkgsi686Linux.callPackage ./default.nix { };
 
 in
-
 pkgs.buildEnv rec {
-  name = "mangohud";
+  name = "mangohud-${mangohud_64.version}";
 
   paths = [
-    mangohud_64
     mangohud_32
-  ];
+  ] ++
+  lib.lists.optionals
+    stdenv.is64bit
+    [ mangohud_64 ]
+  ;
 
-  # ignoreCollisions = true;
-
-  meta = with lib; {
-    description = "A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more.";
-    homepage = "https://github.com/flightlessmango/MangoHud";
-    # maintainers = with maintainers; [ zeratax ];
-  };
+  meta = mangohud_64.meta;
 }
