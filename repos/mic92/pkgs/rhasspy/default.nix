@@ -89,8 +89,6 @@
 
   pydash = callPackage ./pydash {};
 
-  opengrm-ngram = callPackage ./opengrm-ngram {};
-
   json5 = callPackage ./json5 {};
 
   rhasspy-profile = callPackage ./rhasspy-profile {
@@ -113,7 +111,6 @@
 
   rhasspy = callPackage ./rhasspy {
     inherit kaldi
-      opengrm-ngram
       phonetisaurus
       rhasspy-asr-kaldi-hermes
       rhasspy-dialogue-hermes

@@ -36,6 +36,8 @@ rec {
 
   hello-nur = pkgs.callPackage ./pkgs/hello-nur { };
 
+  irc-announce = pkgs.callPackage ./pkgs/irc-announce { };
+
   keystone = pkgs.callPackage ./pkgs/keystone { };
 
   kvmtool = pkgs.callPackage ./pkgs/kvmtool { };
@@ -45,6 +47,8 @@ rec {
   mastodon-hnbot = pkgs.python3Packages.callPackage ./pkgs/mastodon-hnbot {
     inherit (python3Packages) Mastodon;
   };
+
+  mypyls = pkgs.python3.pkgs.callPackage ./pkgs/mypyls {};
 
   mosh-ssh-agent = pkgs.callPackage ./pkgs/mosh-ssh-agent { };
 
@@ -59,28 +63,6 @@ rec {
   nix-update = pkgs.python3.pkgs.callPackage ./pkgs/nix-update { };
 
   nixos-shell = pkgs.callPackage ./pkgs/nixos-shell { };
-
-  rspamd-learn-spam-ham = pkgs.python3.pkgs.callPackage ./pkgs/rspam-learn-spam-ham {};
-
-  rhasspyPackages = import ./pkgs/rhasspy {
-    inherit (pkgs.python3Packages) callPackage;
-  };
-
-  inherit (rhasspyPackages) rhasspy;
-
-  rnix-lsp-unstable = pkgs.callPackage ./pkgs/rnix-lsp { };
-
-  sgx-lkl = pkgs.callPackage ./pkgs/sgx-lkl { };
-
-  source-code-pro-nerdfonts = pkgs.nerdfonts.override {
-    fonts = [ "SourceCodePro" ];
-  };
-
-  traceshark = pkgs.qt5.callPackage ./pkgs/traceshark { };
-
-  threema-web = pkgs.callPackage ./pkgs/threema-web { };
-
-  # smashing = pkgs.callPackage ./pkgs/smashing {};
 
   pandoc-bin = pkgs.callPackage ./pkgs/pandoc { };
 
@@ -104,13 +86,33 @@ rec {
 
   pyps4-2ndscreen = pkgs.python3.pkgs.toPythonApplication python3Packages.pyps4-2ndscreen;
 
-  mypyls = pkgs.python3.pkgs.callPackage ./pkgs/mypyls {};
+  rspamd-learn-spam-ham = pkgs.python3.pkgs.callPackage ./pkgs/rspam-learn-spam-ham {};
+
+  rhasspyPackages = import ./pkgs/rhasspy {
+    inherit (pkgs.python3Packages) callPackage;
+  };
+
+  inherit (rhasspyPackages) rhasspy;
+
+  rnix-lsp-unstable = pkgs.callPackage ./pkgs/rnix-lsp { };
+
+  inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope;
+
+  sgx-lkl = pkgs.callPackage ./pkgs/sgx-lkl { };
+
+  source-code-pro-nerdfonts = pkgs.nerdfonts.override {
+    fonts = [ "SourceCodePro" ];
+  };
+
+  traceshark = pkgs.qt5.callPackage ./pkgs/traceshark { };
+
+  threema-web = pkgs.callPackage ./pkgs/threema-web { };
+
+  untilport = pkgs.callPackage ./pkgs/untilport { };
 
   term-24bit-terminfo = pkgs.callPackage ./pkgs/xterm-24bit-terminfo { };
 
   yubikey-touch-detector = pkgs.callPackage ./pkgs/yubikey-touch-detector { };
 
   modules = import ./modules;
-
-  inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope;
 }

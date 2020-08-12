@@ -13,6 +13,9 @@ let
 
     vendorSha256 = null;
 
+    # cannot use nix-build in nix build
+    doCheck = false;
+
     goPackagePath = "github.com/Mic92/nix-build-uncached";
 
     meta = with stdenv.lib; {
