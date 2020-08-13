@@ -1,7 +1,15 @@
-{ config, pkgs, ... }: {
+let
+  hm-secrets = builtins.fetchGit {
+    url = "ssh://git@git.bytes.zone:2222/sehqlr/hm-secrets.nix.git";
+    ref = "main";
+  };
+in { config, pkgs, ... }: {
+  imports = [ (import hm-secrets) ];
+
   accounts.email.accounts.fastmail.address = "hey@samhatfield.me";
   accounts.email.accounts.fastmail.imap.host = "imap.fastmail.com";
-  accounts.email.accounts.fastmail.passwordCommand = "pass email/fastmail.com/home-manager";
+  accounts.email.accounts.fastmail.passwordCommand =
+    "pass email/fastmail.com/home-manager";
   accounts.email.accounts.fastmail.primary = true;
   accounts.email.accounts.fastmail.realName = "Sam Hatfield";
   accounts.email.accounts.fastmail.smtp.host = "smtp.fastmail.com";
@@ -64,7 +72,8 @@
   programs.notmuch.new.tags = [ "new" ];
   programs.password-store.enable = true;
   programs.rofi.enable = true;
-  programs.rofi.package = pkgs.rofi.override { plugins = with pkgs; [rofi-emoji rofi-pass]; };
+  programs.rofi.package =
+    pkgs.rofi.override { plugins = with pkgs; [ rofi-emoji rofi-pass ]; };
   programs.rofi.theme = "lb"; # rofi-theme-selector
   programs.ssh.enable = true;
   programs.ssh.matchBlocks."bytes.zone".host = "git.bytes.zone";
@@ -86,7 +95,8 @@
   programs.zsh.enableCompletion = true;
   programs.zsh.enable = true;
   programs.zsh.oh-my-zsh.enable = true;
-  programs.zsh.oh-my-zsh.plugins = [ "copyfile" "extract" "httpie" "pass" "sudo" "systemd" ];
+  programs.zsh.oh-my-zsh.plugins =
+    [ "copyfile" "extract" "httpie" "pass" "sudo" "systemd" ];
   programs.zsh.oh-my-zsh.theme = "af-magic";
   programs.zsh.shellAliases.nixos = "sudo nixos-rebuild";
   services.emacs.enable = true;
