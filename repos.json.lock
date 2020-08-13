@@ -465,11 +465,6 @@
             "sha256": "0j4r5qv0g7zjhqapj64n3603pgk01wkvijn6gn2lf82vscppy10r",
             "url": "https://github.com/Shados/nur-packages"
         },
-        "shamilton": {
-            "rev": "8bd103d902d2ce3eb22aa525b09b6d447eb2fc3f",
-            "sha256": "1va2f6qf1h0228q2svjfxx180hck9hwgn96aipg6ziqbd9w3ssj7",
-            "url": "https://github.com/SCOTT-HAMILTON/nur-packages-template"
-        },
         "sikmir": {
             "rev": "95163bab9103d7c6f62dd5545540edd73adebe14",
             "sha256": "0jpgga5zgx3rlg9gxw2904yv4bp1dnzhw6j73sm8n23z0241n7bn",
