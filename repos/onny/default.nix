@@ -27,7 +27,7 @@
   foliate = pkgs.callPackage ./pkgs/applications/office/foliate { };
 
   # services/security
-  inherit (pkgs.callPackage ./pkgs/services/security/opensnitch {}) opensnitchd opensnitch-ui;
+  # inherit (pkgs.callPackage ./pkgs/services/security/opensnitch {}) opensnitchd opensnitch-ui; # FIXME
 
   inherit (pkgs.callPackages ./pkgs/node-packages {}) hyperpotamus;
 
