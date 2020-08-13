@@ -17,6 +17,7 @@
     gpa
     httpie
     nixfmt
+    nix-prefetch-scripts
     pandoc
     python37Packages.editorconfig
     ripgrep
@@ -30,6 +31,7 @@
   programs.command-not-found.enable = true;
   programs.direnv.enable = true;
   programs.direnv.enableZshIntegration = true;
+  programs.emacs.enable = true;
   programs.feh.enable = true;
   programs.fzf.enable = true;
   programs.fzf.enableZshIntegration = true;
@@ -87,6 +89,7 @@
   programs.zsh.oh-my-zsh.plugins = [ "copyfile" "extract" "httpie" "pass" "sudo" "systemd" ];
   programs.zsh.oh-my-zsh.theme = "af-magic";
   programs.zsh.shellAliases.nixos = "sudo nixos-rebuild";
+  services.emacs.enable = true;
   services.flameshot.enable = true;
   services.gpg-agent.enableSshSupport = true;
   services.gpg-agent.enable = true;
