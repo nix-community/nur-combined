@@ -2,7 +2,7 @@
   # Add your NixOS modules here
   #
   # my-module = ./my-module;
-  system = ./system;
-  hm-config = ./hm-config;
+  nixos = ./nixos;
+  home-manager = ./home-manager;
 }
 
