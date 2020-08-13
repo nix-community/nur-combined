@@ -1,0 +1,11 @@
+diff -ur a/vimrc b/vimrc
+--- a/vimrc	2020-05-30 15:01:56.786166700 +0200
++++ b/vimrc	2020-05-30 15:02:36.114761363 +0200
+@@ -5,7 +5,6 @@
+ set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
+ " let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+ 
+-execute pathogen#infect()
+ syntax on
+ filetype plugin indent on
+ 
