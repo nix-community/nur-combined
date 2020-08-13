@@ -446,8 +446,8 @@
             "url": "https://gitlab.com/rummik/nixos/nur-packages"
         },
         "rycee": {
-            "rev": "8ccf26dca73fcdeac23127753207112e463952ca",
-            "sha256": "1kw5issac4a4a7hnqi339j4phs4f5s0kdlqrcwq0p5imcnv2wv3q",
+            "rev": "267ed64bed73cd5f05cdeddbe9eae10526739783",
+            "sha256": "16rddzfzsr9sk4lhccq5nnpqn0397my3sf7wnrdj7z9b75nsrhl9",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "sehqlr": {
