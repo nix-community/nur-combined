@@ -70,7 +70,6 @@ rec {
     fastjsonschema = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/fastjsonschema { };
     ipyvue = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ipyvue { };
     ipyvuetify = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ipyvuetify { inherit ipyvue; };
-    marshmallow-polyfield = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/marshmallow-polyfield { };
     pproxy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pproxy { };
     python-constraint = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/python-constraint { };
     pylatexenc = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pylatexenc { };
@@ -82,7 +81,7 @@ rec {
 
     # Qiskit proper, build order
     qiskit-terra = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-terra {
-      inherit fastjsonschema marshmallow-polyfield python-constraint pylatexenc retworkx;
+      inherit fastjsonschema python-constraint pylatexenc retworkx;
     };
     qiskit-aer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-aer {
       inherit cvxpy qiskit-terra muparserx;

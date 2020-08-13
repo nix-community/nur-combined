@@ -8,12 +8,11 @@
 , fastjsonschema
 , jsonschema
 , numpy
-, marshmallow
-, marshmallow-polyfield
 , networkx
 , ply
 , psutil
 , python-constraint
+, python-dateutil
 , retworkx
 , scipy
 , sympy
@@ -54,13 +53,12 @@ buildPythonPackage rec {
     fastjsonschema
     jsonschema
     numpy
-    marshmallow
-    marshmallow-polyfield
     matplotlib
     networkx
     ply
     psutil
     python-constraint
+    python-dateutil
     retworkx
     scipy
     sympy
