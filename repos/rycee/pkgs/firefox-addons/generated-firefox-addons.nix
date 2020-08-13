@@ -882,10 +882,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "0.29";
+      version = "0.30";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3562130/vim_vixen-0.29-an+fx.xpi?src=";
-      sha256 = "bdd8fed2ce3db98aad28cfc8ed2fc12d5bd05f4612fbd3850e99f4f292de6857";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3625022/vim_vixen-0.30-an+fx.xpi?src=";
+      sha256 = "024435c46b3129609afef1b95df59c93102a2f9b537575602b9c63bdf4115aaf";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
