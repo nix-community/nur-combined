@@ -380,7 +380,7 @@ in {
             optional (isString v && hasAttr v epkgs) epkgs.${v};
 
         packages = concatMap (v: getPkg (v.package))
-          (builtins.attrValues cfg.usePackage);
+          (filter (getAttr "enable") (builtins.attrValues cfg.usePackage));
       in [
         (epkgs.trivialBuild {
           pname = "hm-init";
