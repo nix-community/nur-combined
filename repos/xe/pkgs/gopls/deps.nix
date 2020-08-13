@@ -19,6 +19,15 @@
     };
   }
   {
+    goPackagePath = "github.com/google/go-cmp";
+    fetch = {
+      type = "git";
+      url = "https://github.com/google/go-cmp";
+      rev = "v0.5.0";
+      sha256 = "04pzp583p6b32y34c6jygfxarff9qjs39rarvfh6467z24sdd9k4";
+    };
+  }
+  {
     goPackagePath = "github.com/google/renameio";
     fetch = {
       type = "git";
@@ -77,8 +86,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/rogpeppe/go-internal";
-      rev = "v1.3.0";
-      sha256 = "0mcdh1licgnnahwml9y2iq6xy5x9xmjw5frcnds2s3wpjyqrl216";
+      rev = "v1.6.0";
+      sha256 = "1gdgwk8237xqdl9q8yp3pi6bfbbswvq5q3l13xclnxwrr3r58gc2";
     };
   }
   {
@@ -113,8 +122,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/yuin/goldmark";
-      rev = "v1.1.27";
-      sha256 = "1872cqnii0kwiqcy81yin0idvjy5mdy4zlzz0csb319lcjs3b923";
+      rev = "v1.1.32";
+      sha256 = "03i9yq6n3yvn5v70xi6x3pn49ndy8zm4217ihwwhlw2nkwhny7a5";
     };
   }
   {
@@ -122,8 +131,8 @@
     fetch = {
       type = "git";
       url = "https://go.googlesource.com/crypto";
-      rev = "87dc89f01550";
-      sha256 = "0z4i1m2yn3f31ci7wvcm2rxkx2yiv7a78mfzklncmsz2k97rlh2g";
+      rev = "75b288015ac9";
+      sha256 = "18vlncvvs11ds3zaaziqjlg5s2vcwi3496nn6qv7p0dp94j5pwa2";
     };
   }
   {
@@ -131,8 +140,8 @@
     fetch = {
       type = "git";
       url = "https://go.googlesource.com/mod";
-      rev = "v0.2.0";
-      sha256 = "1fp6885dclq77mh73v7i54v2b9llpv4di193zc8vmsbbkkc483cl";
+      rev = "v0.3.0";
+      sha256 = "0ldgbx2zpprbsfn6p8pfgs4nn87gwbfcv2z0fa7n8alwsq2yw78q";
     };
   }
   {
@@ -140,8 +149,8 @@
     fetch = {
       type = "git";
       url = "https://go.googlesource.com/net";
-      rev = "0de0cce0169b";
-      sha256 = "1db7s5kbzyh2zd5lpv05n7hp8wbwdvgk0wpiwrlnig94mkr0y5aq";
+      rev = "4c5254603344";
+      sha256 = "1da0a1m488d95vggpi52dkag98n5671ml6sn80nwv6lgbmdx8qbq";
     };
   }
   {
@@ -149,8 +158,8 @@
     fetch = {
       type = "git";
       url = "https://go.googlesource.com/sync";
-      rev = "cd5d95a43a6e";
-      sha256 = "1nqkyz2y1qvqcma52ijh02s8aiqmkfb95j08f6zcjhbga3ds6hds";
+      rev = "6e8e738ad208";
+      sha256 = "1avk27pszd5l5df6ff7j78wgla46ir1hhy2jwfl9a3c0ys602yx9";
     };
   }
   {
@@ -158,8 +167,8 @@
     fetch = {
       type = "git";
       url = "https://go.googlesource.com/sys";
-      rev = "97732733099d";
-      sha256 = "118hkp01i4z1f5h6hcjm0ff2ngqhrzj1f7731n0kw8dr6hvbx0sw";
+      rev = "85ca7c5b95cd";
+      sha256 = "1504qkgbhhm4f0bhk77v2r1lj6x171ay5m79alkg78wjb5cign5l";
     };
   }
   {
@@ -176,8 +185,8 @@
     fetch = {
       type = "git";
       url = "https://go.googlesource.com/tools";
-      rev = "6e064ea0cf2d";
-      sha256 = "1nbki367xspsa37j6276f5q2gv31vfjpb52axn3p3ymz548my75d";
+      rev = "aa94e735be7f";
+      sha256 = "156qswkqaac9j6jp2pzgvajny5xxv81wv0nhc2i221wrqi2xppcz";
     };
   }
   {
@@ -221,8 +230,17 @@
     fetch = {
       type = "git";
       url = "https://github.com/dominikh/go-tools";
-      rev = "v0.0.1-2020.1.3";
-      sha256 = "0pvi1mzhy6zgx4zfgdypbl4zhvgg11hl5qv7blf2qs0a96j2djhf";
+      rev = "v0.0.1-2020.1.4";
+      sha256 = "182j3zzx1bj4j4jiamqn49v9nd3vcrx727f7i9zgcrgmiscvw3mh";
+    };
+  }
+  {
+    goPackagePath = "mvdan.cc/gofumpt";
+    fetch = {
+      type = "git";
+      url = "https://github.com/mvdan/gofumpt";
+      rev = "4fd085cb6d5f";
+      sha256 = "1z21s8p4h55pc2h4jcd1dbafvhngfinxqlifdq7gpz80l8gz7mpy";
     };
   }
   {
@@ -230,8 +248,8 @@
     fetch = {
       type = "git";
       url = "https://github.com/mvdan/xurls";
-      rev = "v2.1.0";
-      sha256 = "1cwl52vcmhxnnx33pqd3cprw6yjv988qhyf42d4sblw7l2gqgilc";
+      rev = "v2.2.0";
+      sha256 = "0w7i1yfl5q24wvmsfb3fz1zcqsdh4c6qikjnmswxbjc7wva8rngg";
     };
   }
 ]
