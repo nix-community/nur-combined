@@ -514,10 +514,10 @@
   },
   {
     "name": "Construction_Drones",
-    "version": "0.6.8",
-    "file_name": "Construction_Drones_0.6.8.zip",
-    "download_url": "/download/Construction_Drones/5f02eb0cd18374c90f110b15",
-    "sha1": "83837e5e10d228f70d3d4d485d67ae2543c60fc7",
+    "version": "0.6.10",
+    "file_name": "Construction_Drones_0.6.10.zip",
+    "download_url": "/download/Construction_Drones/5f2ebbd730a692f6f0387199",
+    "sha1": "fe366df3b5afc9f86b78fe6bf8f3e021007a4232",
     "dependencies": [
       "base >= 0.18.31",
       "(?) Hovercraft",
@@ -591,12 +591,12 @@
   },
   {
     "name": "Rampant",
-    "version": "0.18.16",
-    "file_name": "Rampant_0.18.16.zip",
-    "download_url": "/download/Rampant/5ecf22de4833f6000d4de675",
-    "sha1": "6267537ca3b0b2bbfdc1e60b26a9d5db9adc9d98",
+    "version": "0.18.17",
+    "file_name": "Rampant_0.18.17.zip",
+    "download_url": "/download/Rampant/5f2f0e90686200cd0e5fbf3b",
+    "sha1": "ddc4276c0028fb7a63809cf0f128d74a2195b3a1",
     "dependencies": [
-      "base >= 0.18.26",
+      "base >= 0.18.45",
       "? bobenemies",
       "? Natural_Evolution_Enemies >= 0.17.0",
       "? Clockwork",

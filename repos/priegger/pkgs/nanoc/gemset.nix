@@ -36,10 +36,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "094387x4yasb797mv07cs3g6f08y56virc2rjcpb1k79rzaj3nhl";
+      sha256 = "1vnxrbhi7cq3p4y2v9iwd10v1c7l15is4var14hwnb2jip4fyjzz";
       type = "gem";
     };
-    version = "1.1.6";
+    version = "1.1.7";
   };
   cri = {
     groups = [ "default" ];
@@ -275,10 +275,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "0czbnp19cfnf5zwdd22payhqjv57mgi3gj5n726s20vyq3br6bsp";
+      sha256 = "12vcxmn3lj405rs0fxcki7jwpkrx8y55x8jwjf9v6yvnx2y5kga3";
       type = "gem";
     };
-    version = "0.5.1";
+    version = "0.5.2";
   };
   tty-command = {
     dependencies = [ "pastel" ];
