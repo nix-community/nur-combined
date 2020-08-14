@@ -8,7 +8,10 @@ let
     options = {
       name = mkOption { type = types.str; };
 
-      package = mkOption { type = types.package; };
+      package = mkOption {
+        default = null;
+        type = with types; nullOr package;
+      };
 
       mimeTypes = mkOption { type = with types; listOf str; };
     };
@@ -27,7 +30,8 @@ let
     cp ${mimeAppsList} $out/share/applications/mimeapps.list
   '';
 
-  xdgPackages = (map (getAttr "package") (attrValues config.xdg.apps));
+  xdgPackages =
+    (filter (x: x != null) (map (getAttr "package") (attrValues config.xdg.apps)));
 
 in {
 
