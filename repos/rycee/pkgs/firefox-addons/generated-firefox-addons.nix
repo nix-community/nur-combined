@@ -676,10 +676,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.8.10";
+      version = "20.8.13";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3623537/refined_github-20.8.10-an+fx.xpi?src=";
-      sha256 = "2a9637df5bfb5c3ad8d658159d8f9df440c84035299588b1aadb982209db1cdc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3625244/refined_github-20.8.13-an+fx.xpi?src=";
+      sha256 = "a660f5d70ef7ca963bd2bf8f1671312dce7573601e3b85c58849d6b5b680f824";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -690,10 +690,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "20.10";
+      version = "21.0";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3621405/save_page_we-20.10-fx.xpi?src=";
-      sha256 = "3e81b90cdd061f4998db4af88e934902c77f398895e89471d141afb8d659cda5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3625354/save_page_we-21.0-fx.xpi?src=";
+      sha256 = "8d458560ea21dc46148e538374e3febc1e1fdb515d5659969d78427ea29aa943";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
