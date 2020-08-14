@@ -10,7 +10,7 @@ static const int systraypinningfailfirst = 0;   /* 1: if pinning fails, display 
                                                    the last monitor*/
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 0;        /* 0 means bottom bar */
+static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Hack:size=10" };
 static const char dmenufont[]       = "Hack:size=10";
 static const char col_gray1[]       = "#222222";
