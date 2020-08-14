@@ -8,7 +8,7 @@ let
   src = fetchFromGitHub {
     owner = "gustavo-iniguez-goya";
     repo = "opensnitch";
-    rev = "f9bb823e65c0391dbdb2e78e263af2859ac1ac6c";
+    rev = "v${version}";
     sha256 = "03xlzj2mwh5vckvi0fq33x60p9g28aplilk8r44q65ia88g1dwkf";
   };
   meta = {

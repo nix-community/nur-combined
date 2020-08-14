@@ -23,7 +23,6 @@ stdenv.mkDerivation rec {
   pname = "foliate";
   version = "2.4.2";
 
-  # Fetch this from gnome mirror if/when available there instead!
   src = fetchFromGitHub {
     owner = "johnfactotum";
     repo = pname;

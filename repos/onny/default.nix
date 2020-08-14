@@ -16,6 +16,9 @@
 
   # applications/audio
   ocenaudio = pkgs.callPackage ./pkgs/applications/audio/ocenaudio { }; # FIXME
+  
+  # applications/audio
+  # popcorntime = pkgs.callPackage ./pkgs/applications/video/popcorntime { }; # FIXME
 
   # applications/misc
   passwordsafe = pkgs.callPackage ./pkgs/applications/misc/passwordsafe { };
@@ -27,7 +30,7 @@
   foliate = pkgs.callPackage ./pkgs/applications/office/foliate { };
 
   # services/security
-  inherit (pkgs.callPackage ./pkgs/services/security/opensnitch {}) opensnitchd opensnitch-ui; # FIXME
+  inherit (pkgs.callPackage ./pkgs/services/security/opensnitch {}) opensnitchd opensnitch-ui;
 
   inherit (pkgs.callPackages ./pkgs/node-packages {}) hyperpotamus;
 
