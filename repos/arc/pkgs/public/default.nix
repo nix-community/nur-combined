@@ -11,6 +11,7 @@
   nvidia-vbios-vfio-patcher = import ./nvidia-vbios-vfio-patcher;
   edfbrowser = import ./edfbrowser;
   scream = import ./scream.nix;
+  mdloader = import ./mdloader.nix;
 } // (import ./nixos.nix)
 // (import ./droid.nix)
 // (import ./weechat)
