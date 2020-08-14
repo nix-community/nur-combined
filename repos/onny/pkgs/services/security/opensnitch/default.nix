@@ -8,8 +8,8 @@ let
   src = fetchFromGitHub {
     owner = "gustavo-iniguez-goya";
     repo = "opensnitch";
-    rev = "2b49871a2d1b8346eba169343b29d099a9e5c355";
-    sha256 = "00zgy40crlcx2h42wibg5m6pxjyfaxpkhxyq523i70q7dh4aj2jm";
+    rev = "f9bb823e65c0391dbdb2e78e263af2859ac1ac6c";
+    sha256 = "03xlzj2mwh5vckvi0fq33x60p9g28aplilk8r44q65ia88g1dwkf";
   };
   meta = {
     description = "GNU/Linux port of the Little Snitch application firewall";

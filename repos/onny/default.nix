@@ -15,7 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   # applications/audio
-  ocenaudio = pkgs.callPackage ./pkgs/applications/audio/ocenaudio { };
+  ocenaudio = pkgs.callPackage ./pkgs/applications/audio/ocenaudio { }; # FIXME
 
   # applications/misc
   passwordsafe = pkgs.callPackage ./pkgs/applications/misc/passwordsafe { };
@@ -27,7 +27,7 @@
   foliate = pkgs.callPackage ./pkgs/applications/office/foliate { };
 
   # services/security
-  # inherit (pkgs.callPackage ./pkgs/services/security/opensnitch {}) opensnitchd opensnitch-ui; # FIXME
+  inherit (pkgs.callPackage ./pkgs/services/security/opensnitch {}) opensnitchd opensnitch-ui; # FIXME
 
   inherit (pkgs.callPackages ./pkgs/node-packages {}) hyperpotamus;
 
