@@ -1,8 +1,6 @@
 { pkgs ? import <nixpkgs> {} }:
 let
-  sources = pkgs.callPackage ./nix/sources.nix { };
-in
-let
+  sources = import ./nix/sources.nix;
   hmModules = import ./hm-modules;
 in
 {
@@ -14,6 +12,7 @@ in
   # Overlays
   overlays = import ./overlays;
 
+  "hideIt.sh" = pkgs.callPackage ./pkgs/hideIt.sh { };
   id3 = pkgs.callPackage ./pkgs/id3 { };
   mopidy-podcast = pkgs.callPackage ./pkgs/mopidy-podcast { };
   ocamlweb = pkgs.callPackage ./pkgs/ocamlweb { };

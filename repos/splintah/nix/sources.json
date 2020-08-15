@@ -1,0 +1,26 @@
+{
+    "hideIt.sh": {
+        "branch": "master",
+        "description": "Automagically hide/show a window by its name when the cursor is within a defined region or you mouse over it.",
+        "homepage": null,
+        "owner": "Tadly",
+        "repo": "hideIt.sh",
+        "rev": "5b1180559ffaa53a5b5622960aaf7bbb178cce4a",
+        "sha256": "15l2xg6c844vyfs5chfyigbvqdssqzcjfzrk2jgyw0r2vcbssj5y",
+        "type": "tarball",
+        "url": "https://github.com/Tadly/hideIt.sh/archive/5b1180559ffaa53a5b5622960aaf7bbb178cce4a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "passenv": {
+        "branch": "master",
+        "description": "Fetches secrets from your password store and adds them to your environment.",
+        "homepage": "https://splintah.github.io/passenv/",
+        "owner": "splintah",
+        "repo": "passenv",
+        "rev": "00f6d61f741a6928984477b7da07c421be77ec85",
+        "sha256": "0qizkg5rhiiyj9hxd6iby18nypwxas0ypfzd5hm7b6djj8nnv7zc",
+        "type": "tarball",
+        "url": "https://github.com/splintah/passenv/archive/00f6d61f741a6928984477b7da07c421be77ec85.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
