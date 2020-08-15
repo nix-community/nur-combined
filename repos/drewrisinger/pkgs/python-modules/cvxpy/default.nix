@@ -1,7 +1,7 @@
 { lib
 , pythonOlder
 , buildPythonPackage
-, fetchPypi
+, fetchFromGitHub
 , cvxopt
 , ecos
 , multiprocess
@@ -16,13 +16,15 @@
 
 buildPythonPackage rec {
   pname = "cvxpy";
-  version = "1.0.25";
+  version = "1.1.4";
 
   disabled = pythonOlder "3.5";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "04zalvc8lckjfzm3i2ir32ib5pd6v7hxqqcnsnq6fw40vffm4dc5";
+  src = fetchFromGitHub {
+    owner = "cvxgrp";
+    repo = "cvxpy";
+    rev = "v${version}";
+    sha256 = "1mhcg3w4zbxq458yv1pc90x5xwmbmwx2h7a2j9nm7r1ylaakjk5r";
   };
 
   propagatedBuildInputs = [
@@ -36,7 +38,7 @@ buildPythonPackage rec {
 
   checkInputs = [ nose ];
   checkPhase = ''
-    nosetests
+    nosetests cvxpy
   '';
 
   meta = with lib; {
