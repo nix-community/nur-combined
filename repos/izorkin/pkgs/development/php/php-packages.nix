@@ -490,12 +490,12 @@ let
   };
 
   phpcbf = mkDerivation rec {
-    version = "3.5.4";
+    version = "3.5.6";
     pname = "phpcbf";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcbf.phar";
-      sha256 = "18x7fk59l821pivw1i2r868y78qgs0qk47b9il1smwi6plwyyflr";
+      sha256 = "0a0vi8mzbv73p59y3ygqx6dj2c7awlpahx3v9jqr317q1l0fd4gr";
     };
 
     phases = [ "installPhase" ];
@@ -517,12 +517,12 @@ let
   };
 
   phpcs = mkDerivation rec {
-    version = "3.5.5";
+    version = "3.5.6";
     pname = "phpcs";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
-      sha256 = "0jl038l55cmzn5ml61qkv4z1w4ri0h3v7h00pcb04xhz3gznlbsa";
+      sha256 = "151x3fck72r1vw4899n1niqqmbsfr8z31isvr2922kj8ldc32jb0";
     };
 
     phases = [ "installPhase" ];
@@ -544,12 +544,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.36";
+    version = "0.12.37";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0fyjdyr2yrvj6b7fxfp527p05963i58zh4ja7lzgpi1ab0a2iv3r";
+      sha256 = "1ap2mja9wks7frv5vysn5p1z8p13j5jksm30p0jc1pi5s8zh5x7g";
     };
 
     phases = [ "installPhase" ];
@@ -648,11 +648,32 @@ let
     };
   };
 
-  protobuf = buildPecl {
+  protobuf = if isPhp56 then protobuf312 else protobuf313;
+
+  protobuf312 = buildPecl {
     version = "3.12.4";
     pname = "protobuf";
 
     sha256 = "109nyjym1c9x5f462wr1ilzv37bs57vridn9plq0vzam0drnp0mq";
+
+    buildInputs = with pkgs; [ pcre.dev ];
+
+    meta = with pkgs.lib; {
+      description = ''
+        Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data.
+      '';
+      license = licenses.bsd3;
+      homepage = "https://developers.google.com/protocol-buffers";
+
+      broken = !isPhp56;
+    };
+  };
+
+  protobuf313 = buildPecl {
+    version = "3.13.0";
+    pname = "protobuf";
+
+    sha256 = "1fmlsblk660b8jgzflvvyxkh1a9s1b2cf961bs9frmba7mqw5q0q";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -663,7 +684,7 @@ let
       license = licenses.bsd3;
       homepage = "https://developers.google.com/protocol-buffers";
 
-      broken = isPhp80;
+      broken = isPhp56;
     };
   };
 

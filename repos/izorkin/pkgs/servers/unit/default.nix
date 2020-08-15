@@ -16,28 +16,20 @@
 , withSSL ? true, openssl ? null
 , withIPv6 ? true
 , withDebug ? false
-, fetchpatch
 }:
 
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  version = "1.18.0";
+  version = "1.19.0";
   pname = "unit";
 
   src = fetchFromGitHub {
     owner = "nginx";
     repo = "unit";
     rev = "${version}";
-    sha256 = "0r2l3ra63qjjbpjzrmx75jp9fvz83yis4j3qxqdnmxm77psykwy8";
+    sha256 = "0k3q42q198sb0w6hyyymw92dbhz67axn6w6vnzr0d883xw3sva7k";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/remicollet/unit/commit/cecd5e36a067dda5365f7a4439b72bc5a061400d.patch";
-      sha256 = "1y68m8p2kfn0dkqdp6pyxgzpwd3ncyngfj2qmzw1wjqwcgpy9xvl";
-    })
-  ];
 
   nativeBuildInputs = [ which ];
 
