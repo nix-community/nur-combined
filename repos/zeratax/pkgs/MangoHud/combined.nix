@@ -1,7 +1,7 @@
 { stdenv, pkgs, lib }:
 let
-  mangohud_64 = pkgs.callPackage ./default.nix { };
-  mangohud_32 = pkgs.pkgsi686Linux.callPackage ./default.nix { };
+  mangohud_64 = pkgs.callPackage ./default.nix { libXNVCtrl = pkgs.linuxPackages.nvidia_x11.settings.libXNVCtrl; };
+  mangohud_32 = pkgs.pkgsi686Linux.callPackage ./default.nix { libXNVCtrl = pkgs.linuxPackages.nvidia_x11.settings.libXNVCtrl; };
 
 in
 pkgs.buildEnv rec {
