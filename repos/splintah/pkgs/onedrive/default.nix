@@ -8,12 +8,12 @@
 
 stdenv.mkDerivation rec {
   name = "onedrive-${version}";
-  version = "2.3.11";
+  version = "2.4.5";
   src = fetchFromGitHub {
     owner = "abraunegg";
     repo = "onedrive";
     rev = "v${version}";
-    sha256 = "08k5b3izqzk9mjjny5y47i3q5sl0w37xdqrhaacjxwm0jib9w0mh";
+    sha256 = "129hk2pl7xwsykzlady2b4ww3kc3vawfssvh53i7423jbzp95906";
   };
   buildInputs = [ dmd sqlite curl pkgconfig ];
 }
