@@ -1,6 +1,10 @@
 { pkgs ? import <nixpkgs> { } }:
 
 rec {
+  # Custom lib, modules and other stuff
+  modules = import ./modules/default.nix;
+
+  # Custom packages
   rofi-unwrapped-git = pkgs.callPackage ./pkgs/rofi-unwrapped-git { };
   emojipicker = pkgs.callPackage ./pkgs/emojipicker { };
   powermenu =
@@ -16,4 +20,7 @@ rec {
 
   caia = pkgs.callPackage ./pkgs/caia { inherit caia-unwrapped; };
   caia-unwrapped = pkgs.callPackage ./pkgs/caia/unwrapped.nix { };
+
+  # build-support
+  makeDevEnv = pkgs.callPackage ./pkgs/build-support/makeDevEnv { };
 }
