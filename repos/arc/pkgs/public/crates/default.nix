@@ -278,7 +278,9 @@
     nativeBuildInputs = [ pkg-config python3 ];
     buildInputs = [ libxcb udev ];
 
-    cargoSha256 = "17m95jmhvwp4gblwpxqh932bzsbdzdc2mpp2cl5g6pid8nplyncr";
+    cargoSha256 = if lib.isNixpkgsStable
+      then "100nhrjhb339iaqncbp59kgzv2r0m7wzpx09c0b05fj5bdx5yfmx"
+      else "17m95jmhvwp4gblwpxqh932bzsbdzdc2mpp2cl5g6pid8nplyncr";
 
     doCheck = false;
   };
