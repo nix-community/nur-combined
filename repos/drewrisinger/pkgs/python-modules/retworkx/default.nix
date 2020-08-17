@@ -58,6 +58,7 @@ rustPlatform.buildRustPackage rec {
     description = "A python graph library implemented in Rust.";
     homepage = "https://retworkx.readthedocs.io/en/latest/index.html";
     downloadPage = "https://github.com/Qiskit/retworkx/releases";
+    changelog = "https://github.com/Qiskit/retworkx/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];
   };

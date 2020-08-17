@@ -90,10 +90,6 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [
     "--ignore=test/randomized/test_transpiler_equivalence.py" # collection requires qiskit-aer, which would cause circular dependency
-
-    # Disabled b/c taking too many log lines in Travis
-    "--disable-warnings"
-    # "--durations=25"
   ];
   disabledTests = [
     # Flaky tests
@@ -142,6 +138,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://qiskit.org/terra";
     downloadPage = "https://github.com/QISKit/qiskit-terra/releases";
+    changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];
   };

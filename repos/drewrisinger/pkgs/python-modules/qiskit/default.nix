@@ -37,19 +37,22 @@ buildPythonPackage rec {
   checkInputs = [ pytestCheckHook ];
   dontUseSetuptoolsCheck = true;
 
-  pytestFlagsArray = [
-    # Disabled b/c taking too many log lines in Travis
-    "--disable-warnings"
-  ];
   # following doesn't work b/c they are distributed across different nix sitePackages dirs. Tested with pytest though.
-  pythonImportsCheck = [ "qiskit" "qiskit.circuit" "qiskit.ignis" "qiskit.providers.aer" "qiskit.aqua" ];
-  preCheck = "pushd $TMP/$sourceRoot";  # Required when using importsCheck + pytestCheckHook on Nixpkgs 19.09
+  pythonImportsCheck = [
+    "qiskit"
+    "qiskit.aqua"
+    "qiskit.circuit"
+    "qiskit.ignis"
+    "qiskit.providers.aer"
+  ];
+  preCheck = "pushd $TMP/$sourceRoot";
   postCheck = "popd";
 
   meta = {
     description = "Software for developing quantum computing programs";
     homepage = "https://qiskit.org";
     downloadPage = "https://github.com/QISKit/qiskit/releases";
+    changelog = "https://qiskit.org/documentation/release_notes.html";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ drewrisinger pandaman ];
   };

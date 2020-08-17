@@ -83,7 +83,6 @@ buildPythonPackage rec {
         "You must install it yourself via pip or add it to your environment from the Nix User Repository." \
         "', ImportWarning)\n" \
       >> qiskit/optimization/__init__.py
-
   '';
 
   postInstall = "rm -rf $out/${python.sitePackages}/docs";
@@ -107,11 +106,6 @@ buildPythonPackage rec {
     "--ignore=test/chemistry/test_vqe_uccsd_adapt.py"
   ];
   disabledTests = [
-    # TODO: broken for some reason on nixpkgs~19.09. Works on 20.03, just disabling it here for my NUR version.
-    "test_pluggable_configuration"
-    "test_pauli_expect_op_vector" # also broken on nixpkgs~19.09 (Travis only)
-    "test_pauli_expect_single"  # broken on nixpkgs~20.03 (Travis only)
-
     # Disabled due to missing pyscf
     "test_validate" # test/chemistry/test_inputparser.py
 
@@ -154,6 +148,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "An extensible library of quantum computing algorithms";
     homepage = "https://github.com/QISKit/qiskit-aqua";
+    changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];
   };

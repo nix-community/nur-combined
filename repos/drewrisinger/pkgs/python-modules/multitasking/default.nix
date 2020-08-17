@@ -1,8 +1,6 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-  # Check Inputs
-, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -15,15 +13,12 @@ buildPythonPackage rec {
     sha256 = "b59d99f709d2e17d60ccaa2be09771b6e9ed9391c63f083c0701e724f624d2e0";
   };
 
-  propagatedBuildInputs = [ ];
-
-  # Tests
-  doCheck = false;
+  doCheck = false;  # No tests included
   pythonImportsCheck = [ "multitasking" ];
 
   meta = with lib; {
-    description = "Yahoo! Finance market data downloader (+faster Pandas Datareader)";
-    homepage = "https://aroussi.com/post/python-yahoo-finance";
+    description = "Non-blocking Python methods using decorators";
+    homepage = "https://github.com/ranaroussi/multitasking";
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];
   };

@@ -59,11 +59,6 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  # Needed to find qiskit.providers.aer modules in cython. This exists in GitHub, don't know why it isn't copied by default
-  # postFixup = ''
-  #   touch $out/${python.sitePackages}/qiskit/__init__.pxd
-  # '';
-
   # *** Testing ***
 
   pythonImportsCheck = [
@@ -76,11 +71,6 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
   dontUseSetuptoolsCheck = true;  # Otherwise runs tests twice
-
-  pytestFlagsArray = [
-    # Disabled b/c taking too many log lines in Travis
-    "--disable-warnings"
-  ];
 
   preCheck = ''
     # Tests include a compiled "circuit" which is auto-built in $HOME
@@ -99,11 +89,8 @@ buildPythonPackage rec {
     description = "High performance simulators for Qiskit";
     homepage = "https://qiskit.org/aer";
     downloadPage = "https://github.com/QISKit/qiskit-aer/releases";
+    changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;
-    # maintainers = with maintainers; [ drewrisinger ];
-    # Doesn't build on aarch64 (libmuparserx issue).
-    # Can fix by building muparserx from source (https://github.com/beltoforion/muparserx)
-    # or in future updates (e.g. Raspberry Pi enabled via https://github.com/Qiskit/qiskit-aer/pull/651 & https://github.com/Qiskit/qiskit-aer/pull/660)
-    platforms = platforms.x86_64;
+    maintainers = with maintainers; [ drewrisinger ];
   };
 }

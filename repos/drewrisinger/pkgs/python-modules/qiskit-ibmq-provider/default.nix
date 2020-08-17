@@ -77,10 +77,6 @@ buildPythonPackage rec {
     "test_non_auth_url"
     "test_non_auth_url_with_hub"
   ];
-  pytestFlagsArray = [
-    # Disabled b/c taking too many log lines in Travis
-    "--disable-warnings"
-  ];
   # Ensure run from source dir, not all versions of pytestcheckhook run from proper dir
   preCheck = "pushd $TMP/$sourceRoot";
   postCheck = "popd";
@@ -92,6 +88,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Qiskit provider for accessing the quantum devices and simulators at IBMQ";
     homepage = "https://github.com/Qiskit/qiskit-ibmq-provider";
+    changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];
   };
