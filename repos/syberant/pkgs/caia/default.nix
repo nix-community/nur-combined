@@ -8,6 +8,7 @@ symlinkJoin {
   postBuild = let bindir = "${caia-unwrapped}/caia/zuniq/bin";
   in ''
     wrapProgram "$out/bin/caiaio" \
+      --set PATH "${coreutils}/bin" \
       --run "mkdir -p /tmp/caia/{player,referee}logs" \
       --add-flags "-m ${bindir}/manager" \
       --set CAIA_BIN_DIR "${bindir}"
