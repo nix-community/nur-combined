@@ -116,8 +116,14 @@ let
       };
     });
 
-    buku = { buku }: buku.overrideAttrs (_: {
+    buku = { buku }: buku.overrideAttrs (old: {
       doInstallCheck = false;
+
+      passthru = old.passthru or {} // {
+        ci = old.passthru.ci or {} // {
+          warn = true;
+        };
+      };
     });
 
     weechat-arc = { lib, wrapWeechat, weechat-unwrapped, weechatScripts, python3Packages }: let

@@ -260,49 +260,25 @@
   screenstub = {
     fetchFromGitHub
   , rustPlatform
+  , pkg-config
   , lib
-  , makeWrapper
-  , qemucomm ? arc'private.qemucomm, arc'private ? null
   , libxcb
+  , udev
   , python3
-  , ddcutil
-  }: let
-    ddcutil_0_8 = ddcutil.overrideAttrs (old: rec {
-      version = "0.8.6";
-      src = fetchFromGitHub {
-        owner = "rockowitz";
-        repo = "ddcutil";
-        rev = "v${version}";
-        sha256 = "1c4cl9cac90xf9rap6ss2d4yshcmhdq8pdfjz3g4cns789fs1vcf";
-      };
-      NIX_CFLAGS_COMPILE = toString [
-        "-Wno-error=format-truncation"
-        "-Wno-error=format-overflow"
-        "-Wno-error=stringop-truncation"
-      ];
-      enableParallelBuilding = true;
-    });
-  in rustPlatform.buildRustPackage rec {
+  }: rustPlatform.buildRustPackage rec {
     pname = "screenstub";
-    version = "2018-03-13";
+    version = "2020-08-17";
     src = fetchFromGitHub {
       owner = "arcnmx";
       repo = pname;
-      rev = "4fb8b12";
-      sha256 = "0d5vvj7dyp664c302n9jh5rcwlfwnlnshdj1k4jb83pfx91dlvh8";
+      rev = "dff767b3e37fbae2c588afb8a71ca4faf3a092a8";
+      sha256 = "0q5wza1pp11i0486i1cix26akbsgm1aqhnxas2fdy67iqsfmxcfl";
     };
 
-    nativeBuildInputs = [ python3 makeWrapper ];
-    buildInputs = [ libxcb ddcutil_0_8 ];
-    depsPath = lib.makeBinPath [ qemucomm ];
+    nativeBuildInputs = [ pkg-config python3 ];
+    buildInputs = [ libxcb udev ];
 
-    cargoSha256 = if lib.isNixpkgsStable
-      then "047nwakmz01yvz92wyfvz6w1867j9279njj75kjsanajm7nybdw1"
-      else "0f9rv1935ldfzh87hg9k7r1krc01j2v89z9vnrrav53rb2py51nw";
-
-    postInstall = ''
-      wrapProgram $out/bin/screenstub --prefix PATH : $depsPath
-    '';
+    cargoSha256 = "17m95jmhvwp4gblwpxqh932bzsbdzdc2mpp2cl5g6pid8nplyncr";
 
     doCheck = false;
   };

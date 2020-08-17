@@ -22,7 +22,6 @@ self: super: with super.lib; let
     packages = builtins.removeAttrs packages'' [ "shells" "pythonInterpreters" "fetchurl" "mkShell" ];
     build = filtered filterBuildSupportKeys self;
     lib = filtered filterLibKeys self.lib;
-    path = ./.;
     inherit (packages'') shells;
   } // import ./static.nix;
 in {
