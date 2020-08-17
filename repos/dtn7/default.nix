@@ -19,9 +19,5 @@ rec {
 
   dtn7-rs = pkgs.callPackage ./pkgs/dtn7-rs { };
 
-  tinycbor = pkgs.callPackage ./pkgs/tinycbor { };
-
-  upcn = pkgs.callPackage ./pkgs/upcn {
-    inherit tinycbor;
-  };
+  upcn = pkgs.callPackage ./pkgs/upcn { };
 }

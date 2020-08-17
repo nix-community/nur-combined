@@ -15,6 +15,6 @@ buildGoModule rec {
     description = "Delay-tolerant networking software suite, Bundle Protocol Version 7";
     homepage = "https://github.com/dtn7/dtn7-go";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ geistesk ];
+    maintainers = with maintainers; [ oxzi ];
   };
 }

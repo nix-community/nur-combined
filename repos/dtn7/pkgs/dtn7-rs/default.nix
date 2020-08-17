@@ -18,6 +18,6 @@ rustPlatform.buildRustPackage rec {
     description = "Rust implementation of DTN7";
     homepage = "https://github.com/dtn7/dtn7-rs";
     license = with licenses; [ asl20 mit ];
-    maintainers = with maintainers; [ geistesk ];
+    maintainers = with maintainers; [ oxzi ];
   };
 }

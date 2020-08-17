@@ -18,6 +18,6 @@ stdenv.mkDerivation rec {
     description = "Micro Planetary Communication Network is an implementation of Delay-tolerant Networking protocols";
     homepage = "https://upcn.eu/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ geistesk ];
+    maintainers = with maintainers; [ oxzi ];
   };
 }
