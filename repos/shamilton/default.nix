@@ -51,6 +51,7 @@ rec {
   };
   qtile = pkgs.callPackage ./pkgs/qtile { };
   rofi = pkgs.callPackage ./pkgs/rofi { };
+  semantik = pkgs.libsForQt5.callPackage ./pkgs/semantik { };
   scripts = with pkgs.python3Packages; pkgs.callPackage ./pkgs/Scripts {
     eom = pkgs.mate.eom;
     inherit sync-database buildPythonPackage parallel-ssh merge-keepass;

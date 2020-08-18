@@ -23,7 +23,6 @@ stdenv.mkDerivation {
     sha256 = "1q5bn7h28z0wzs115nql5arhbfap1vijx4h284jpfxj042xbzw6n";
   };
 
-
   nativeBuildInputs = [ pkg-config ninja meson cmake ];
 
   buildInputs = [ argparse libogg libvorbis pulseaudio libfake ];

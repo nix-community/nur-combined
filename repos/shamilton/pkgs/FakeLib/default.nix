@@ -11,14 +11,12 @@ stdenv.mkDerivation rec {
   pname = "libfake";
   version = "unstable";
 
-  # src = fetchFromGitHub {
-  #   owner = "SCOTT-HAMILTON";
-  #   repo = "FakeLib";
-  #   rev = "b4c0d3528325890e614cba90a6c2c12e304b5e71";
-  #   sha256 = "01659s1dky0gmjg0rbi8p0k1v9l774mqrlf89rx8m6czbdd5virb";
-  # };
-
-  src = ./src.tar.gz;
+  src = fetchFromGitHub {
+    owner = "SCOTT-HAMILTON";
+    repo = "FakeLib";
+    rev = "76f36bd48414ad87d2f17a60bd4c15596a5c2bf9";
+    sha256 = "1a334w4hifk3b38904w9zyh52axbjj8w90zfn01fz4wnvzg7dkmx";
+  };
 
   nativeBuildInputs = [ pkg-config ninja meson ];
 
