@@ -25,6 +25,10 @@ let
   vim-myftplugins = with pkgs.vimUtils; pkgs.callPackage ./../pkgs/vim-myftplugins {
     inherit buildVimPluginFrom2Nix;
   };
+  vim-super-retab = with pkgs.vimUtils; pkgs.callPackage ./../pkgs/vim-super-retab {
+    inherit buildVimPluginFrom2Nix;
+  };
+
   vim-vala = with pkgs.vimUtils; pkgs.callPackage ./../pkgs/vim-vala {
     inherit buildVimPluginFrom2Nix;
   };
@@ -46,6 +50,7 @@ in
         vim-lsp
         vim-lsp-settings
         vim-myftplugins
+        vim-super-retab
         vim-vala
       ];
     }

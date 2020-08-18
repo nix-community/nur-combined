@@ -57,10 +57,10 @@ mkDerivation rec {
       --replace /usr/include/KF5/KDELibs4Support "${lib.getDev kdelibs4support}/include/KF5/KDELibs4Support"
   '';
 
-  nativeBuildInputs = [ qtbase (lib.getDev qtsvg) (lib.getLib qtsvg) python3 pkg-config wafHook cmake ];
+  nativeBuildInputs = [ (lib.getDev qtsvg) (lib.getLib qtsvg) python3 pkg-config wafHook cmake ];
 
   buildInputs = [ 
-    qtbase 
+    qtbase
     qtwebengine
     qtsvg
     ncurses6
@@ -75,6 +75,10 @@ mkDerivation rec {
     ki18n
     sonnet
     kdelibs4support
+  ];
+
+  wafConfigureFlags = [
+    "--qtlibs=${lib.getLib qtbase}/lib"
   ];
 
   meta = with lib; {

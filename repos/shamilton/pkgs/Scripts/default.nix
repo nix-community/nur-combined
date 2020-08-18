@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "Scripts";
-    rev = "master";
-    sha256 = "110k1zpa7h4sgdpchpp9003agair68fa0alv03qr3lpmiadzyyc6";
+    rev = "6ef955b774abacf21dfe46b240d5a485380228e2";
+    sha256 = "067qggvp5mlnzpxvcm32jgxycikgp7bdmw3q29901cn54gi7jd32";
   };
 
   propagatedBuildInputs = [
