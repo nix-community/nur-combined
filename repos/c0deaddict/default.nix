@@ -51,4 +51,6 @@ rec {
 
   goreplay = pkgs.callPackage ./pkgs/goreplay {};
 
+  nsc = pkgs.callPackage ./pkgs/nats-nsc {};
+
 }
