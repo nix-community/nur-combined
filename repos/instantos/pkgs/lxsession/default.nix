@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchgit
+, fetchFromGitHub
 , libtool
 , automake
 , autoconf
@@ -25,8 +25,9 @@ stdenv.mkDerivation {
   pname = "lxsession";
   inherit version;
 
-  src = fetchgit {
-    url = "git://git.lxde.org/git/lxde/lxsession";
+  src = fetchFromGitHub {
+    owner = "lxde";
+    repo = "lxsession";
     rev = version;
     sha256 = "17sqsx57ymrimm5jfmcyrp7b0nzi41bcvpxsqckmwbhl19g6c17d";
   };

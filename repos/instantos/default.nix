@@ -25,10 +25,14 @@ pkgs.lib.makeExtensible (self: rec {
   overlays = pkgs.stdenv.lib.traceVal (import ./overlays); # nixpkgs overlays
 
   # instant WM and utils
+  argtable3 = pkgs.callPackage ./pkgs/argtable3 { };
   gufw = with pkgs.python3Packages; pkgs.callPackage ./pkgs/gufw { inherit buildPythonApplication distutils_extra; };
   imenu = pkgs.callPackage ./pkgs/imenu { instantMenu = self.instantmenu; };
   instantconf = pkgs.callPackage ./pkgs/instantConf { };
-  instantlock = pkgs.callPackage ./pkgs/instantLock { instantMenu = self.instantmenu; };
+  instantlock = pkgs.callPackage ./pkgs/instantLock {
+    instantMenu = self.instantmenu;
+    argtable3 = argtable3;
+  };
   instantlogo = pkgs.callPackage ./pkgs/instantLogo { };
   instantshell = pkgs.callPackage ./pkgs/instantShell { };
   instantwidgets = pkgs.callPackage ./pkgs/instantWidgets { };
@@ -87,6 +91,12 @@ pkgs.lib.makeExtensible (self: rec {
     instantAssist = self.instantassist;
     instantUtils = self.instantutils;
     instantDotfiles = self.instantdotfiles;
+  };
+  instantwm-fr = pkgs.callPackage ./pkgs/instantWm {
+    instantAssist = self.instantassist;
+    instantUtils = self.instantutils;
+    instantDotfiles = self.instantdotfiles;
+    extraPatches = [ ./pkgs/instantWm/french-keybindings.patch ];
   };
   firacodenerd = pkgs.callPackage ./pkgs/firaCodeNerd {};
   instantdata = pkgs.callPackage ./pkgs/instantData {

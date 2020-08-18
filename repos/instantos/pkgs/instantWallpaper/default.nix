@@ -18,20 +18,22 @@ stdenv.mkDerivation {
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantWALLPAPER";
-      rev = "17e5901a8713f3586569b49e2834901958784d8e";
-      sha256 = "174ww7c5hin8x0nignqywah742h6q2540ryh3hqx6rhs88p6c2l3";
+      rev = "2ff6eb814227b183a38a9784d681895625618c65";
+      sha256 = "1xcn1iicfyq365qm5mrb3236gm6d2vxy9dkjdl9j0d89adgjf26b";
       name = "instantOS_instantWallpaper";
     }) 
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantLOGO";
-      rev = "7224fd37aa7acbf9a8ddcb0f7b922d28ef24286c";
-      sha256 = "1mal98yyc10bs91jksa8ispjnqy8rjnl9mjij345r6h7y6asxq2k";
+      rev = "4eb5c48053f5d27cd0a3db6b624e4960f86d93c1";
+      sha256 = "0ga5j7xhx97fk0chnvv3k5r4qy8r5c0a9zi3c7hs0gyd1d6p9npq";
       name = "instantOS_instantLogo";
     })
   ];
 
   sourceRoot = "instantOS_instantWallpaper";
+
+  patches = [ ./set-instantix-overlay.patch ];
 
   nativeBuildInputs = [ makeWrapper ];
 

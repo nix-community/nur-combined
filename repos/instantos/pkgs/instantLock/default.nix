@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, writeText
+{ stdenv, lib, fetchurl, writeText
 , fetchFromGitHub
+, argtable3, glib, wrapGAppsHook, pkg-config
 , xorgproto, libX11, libXext, libXrandr, libXinerama
 , instantMenu
 , conf ? null }:
@@ -10,19 +11,25 @@ stdenv.mkDerivation rec {
   version = "unstable";
 
   src = fetchFromGitHub {
-    owner = "instantOS";
+    owner = "SCOTT-HAMILTON";
     repo = "instantLOCK";
-    rev = "88fa0c04ab13b1d3a0fe2d565e4ee26c363269dc";
-    sha256 = "11cr991ygxx2qnldpq01b3qa87711171rwr142im695p3digxwz4";
-    name = "instantOS_instantLock";
+    rev = "ae4f32f4ee281f6926ae9efe3b6593fb32139638";
+    sha256 = "07r7d1xhs82cdslsqb05zhzn29hi8j32x478nbvjyplwsdxzv9b0";
   };
 
-  buildInputs = [ xorgproto libX11 libXext libXrandr libXinerama ];
+  nativeBuildInputs = [ wrapGAppsHook pkg-config ];
+  buildInputs = [ argtable3 glib xorgproto libX11 libXext libXrandr libXinerama ];
   propagatedBuildInputs = [ instantMenu ];
 
   installFlags = [ "DESTDIR=\${out}" "PREFIX=" ];
 
-  postPatch = "sed -i '/chmod u+s/d' Makefile";
+  postPatch = ''
+    sed -i '/chmod u+s/d' Makefile
+    substituteInPlace config.def.h \
+      --replace 'group = "nobody"' 'group = "nogroup"'
+    sed -n "5,6p"
+  ''
+  ;
 
   preBuild = optionalString (conf != null) ''
     cp ${writeText "config.def.h" conf} config.def.h

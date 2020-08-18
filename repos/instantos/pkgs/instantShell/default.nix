@@ -19,8 +19,8 @@ stdenv.mkDerivation {
     (fetchFromGitHub {
       owner = "ohmyzsh";
       repo = "ohmyzsh";
-      rev = "f2c8b970eed3e5ddf071c25177da44ea5061a279";
-      sha256 = "0x71pr1fyvkj87xky2fzb2v87pqbrh60y87sb0yz4bd8xccf4fpc";
+      rev = "89400f156a6e1d64acaeab9ec265f54cdab91817";
+      sha256 = "1k659480dv7wi9rz1zdq8w0nysgjsm58jy2kzp3rnxaxm7fkzivm";
       name = "ohmyzsh";
     })
   ];
@@ -29,6 +29,8 @@ stdenv.mkDerivation {
 
   postPatch = ''
     ls -lh
+    substituteInPlace instantOS_instantShell/install.sh \
+      --replace "/usr/share/" "$out/share/"
     cat instantOS_instantShell/zshrc >> ohmyzsh/templates/zshrc.zsh-template
     rm instantOS_instantShell/zshrc
   '';

@@ -1,0 +1,19 @@
+diff --git a/wallutils.sh b/wallutils.sh
+ --- a/wallutils.sh
+ +++ b/wallutils.sh
+@@ -46,7 +46,14 @@
+             return
+         else
+             [ -e overlay.png ] && rm overlay.png
+-            wget -q "https://media.githubusercontent.com/media/instantOS/instantLOGO/master/wallpaper/overlay.png"
++            wget -q "https://media.githubusercontent.com/media/instantOS/instantLOGO/master/png/nix.png" -O overlay.png
++            # Logowidth = floor(0.31 * resolution.width)
++            imgwidth=$(echo $RESOLUTION | cut -d'x' -f1)
++            echo "imgwidth : $imgwidth"
++            overlaywidth=$((imgwidth*31/100))
++            echo "overlaywidth : $overlaywidth"
++            imgresize overlay.png "$overlaywidth"x"$overlaywidth"
++            convert overlay.png -gravity center -background transparent -extent $RESOLUTION overlay.png
+         fi
+     fi
+ }

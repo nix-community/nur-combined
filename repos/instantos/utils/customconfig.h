@@ -271,7 +271,7 @@ static Key keys[] = {
 	{Mod1Mask, XK_Tab, spawn, {.v = iswitchcmd}},
 	{MODKEY|Mod1Mask|ControlMask|ShiftMask, XK_Tab, alttabfree, {0}},
 	{MODKEY, XK_dead_circumflex, spawn, {.v = caretinstantswitchcmd}},
-	{MODKEY | ControlMask, XK_l, spawn, {.v = slockcmd}},
+	{MODKEY | ControlMask, XK_l, spawn, SHCMD("slock & systemctl suspend")},
 	{MODKEY | ControlMask, XK_h, hidewin, {0}},
 	{MODKEY | Mod1Mask | ControlMask, XK_h, unhideall, {0}},
 	{MODKEY | Mod1Mask | ControlMask, XK_l, spawn, {.v = langswitchcmd}},

@@ -12,7 +12,7 @@ stdenv.mkDerivation {
       # branch: main
       owner = "alexanderjeurissen";
       repo = "ranger_devicons";
-      rev = "b7fac3b130c9baa9cd8b65cd678bef4efeeb35a3";
+      rev = "9fb94fb9a1258acaebe0e91d969a45ca4d1899a3";
       sha256 = "0apc8s1lsz2rqazsyw63mzpwfm5nfz13h6mbs06kf13d0jq7vzp1";
       name = "ranger_devicons";
     })
