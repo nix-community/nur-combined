@@ -1,9 +1,10 @@
 { lib
 , rustPlatform
-, python3
+, python
 , fetchFromGitHub
 , pipInstallHook
 , maturin
+, pip
   # Check inputs
 , pytest
 , numpy
@@ -28,9 +29,9 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1xqp6d39apkjvd0ad9vw81cp2iqzhpagfa4p171xqm3bwfn2imdc";
   };
 
-  propagatedBuildInputs = [ python3 ];
+  propagatedBuildInputs = [ python ];
 
-  nativeBuildInputs = [ pipInstallHook maturin ];
+  nativeBuildInputs = [ pipInstallHook maturin pip ];
 
   # Needed b/c need to check AFTER python wheel is installed (using Rust Build, not buildPythonPackage)
   doCheck = false;
@@ -50,7 +51,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   # Called checkPhase for compatibility, but must be run after install (as installCheckPhase)
-  checkPhase = ''
+  installCheckPhase = ''
     pytest --import-mode=append
   '';
 

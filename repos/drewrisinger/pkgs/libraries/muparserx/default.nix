@@ -22,6 +22,19 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
+  doCheck = true;
+  checkPhase = ''
+    echo "***Muparserx self-test***"
+    echo "quit" | ./example > test_result.log
+    cat test_result.log
+    if grep -Fqi "failed" test_result.log; then
+      echo ">=1 muparserx tests failed"
+      exit 1
+    else
+      echo -e "\nmuparserx tests succeeded"
+    fi
+  '';
+
   meta = with stdenv.lib; {
     description = "A C++ Library for Parsing Expressions with Strings, Complex Numbers, Vectors, Matrices and more.";
     homepage = "https://beltoforion.de/en/muparserx/";

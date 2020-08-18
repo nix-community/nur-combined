@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   # Tests
   doCheck = false;
-  pythonImportsCheck = ["yfinance"];
+  pythonImportsCheck = [ "yfinance" ];
 
   meta = with lib; {
     description = "Yahoo! Finance market data downloader (+faster Pandas Datareader)";
