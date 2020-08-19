@@ -60,6 +60,8 @@ rec {
 
   pytest-datadir = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pytest-datadir { };
 
+  rofi-wayland = pkgs.callPackage ./pkgs/applications/misc/rofi-wayland { };
+
   runescape-launcher-unwrapped = pkgs.callPackage ./pkgs/games/runescape-launcher { };
 
   runescape-launcher = pkgs.callPackage ./pkgs/games/runescape-launcher/wrapper.nix { };
