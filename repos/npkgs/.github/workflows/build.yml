@@ -1,0 +1,56 @@
+name: "Build and populate cache"
+on:
+  pull_request:
+  push:
+  schedule:
+    # rebuild everyday at 2:51
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron:  '51 2 * * *'
+jobs:
+  tests:
+    strategy:
+      matrix:
+        # Set this to notify the global nur package registry that changes are
+        # available.
+        #
+        # The repo name as used in
+        # https://github.com/nix-community/NUR/blob/master/repos.json
+        nurRepo:
+          - <YOUR_REPO_NAME>
+        # Set this to cache your build results in cachix for faster builds
+        # in CI and for everyone who uses your cache.
+        #
+        # Format: Your cachix cache host name without the ".cachix.org" suffix.
+        # Example: mycache (for mycache.cachix.org)
+        #
+        # For this to work, you also need to set the CACHIX_SIGNING_KEY secret
+        # in your repository settings in Github found at https://github.com/<your_githubname>/nur-packages/settings/secrets
+        cachixName:
+          - <YOUR_CACHIX_NAME>
+        nixPath:
+          - nixpkgs=channel:nixos-unstable
+          - nixpkgs=channel:nixpkgs-unstable
+          - nixpkgs=channel:nixos-20.03
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2.3.2
+    - name: Install nix
+      uses: cachix/install-nix-action@v10
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Setup cachix
+      uses: cachix/cachix-action@v6
+      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
+      with:
+        name: ${{ matrix.cachixName }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+    - name: Build nix packages
+      # TODO switch to default nixpkgs channel once nix-build-uncached 1.0.0 is in stable
+      run: nix run -I 'nixpkgs=channel:nixos-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+    - name: Trigger NUR update
+      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
