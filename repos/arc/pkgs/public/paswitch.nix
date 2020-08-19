@@ -1,4 +1,4 @@
-{ stdenv, libpulseaudio, fetchgit, lib }: lib.drvExec "bin/paswitch" (stdenv.mkDerivation rec {
+{ stdenv, libpulseaudio, fetchgit, lib, hostPlatform }: lib.drvExec "bin/paswitch" (stdenv.mkDerivation rec {
   pname = "paswitch";
   version = "1b900dae95068be5f72cf679c889c0c12b01091b";
   buildInputs = [ libpulseaudio ];
@@ -15,4 +15,6 @@
   installPhase = ''
     install -Dm0755 $pname $out/bin/$pname
   '';
+
+  passthru.ci.skip = hostPlatform.isDarwin;
 })

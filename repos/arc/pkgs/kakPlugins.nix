@@ -67,6 +67,8 @@
     postInstall = ''
       install -Dm0644 rc/tree.kak $out/$kakrc
     '';
+
+    passthru.ci.skip = hostPlatform.isDarwin;
   };
   kak-lsp = { fetchFromGitHub, rustPlatform, buildKakPluginFrom2Nix, lib, darwin, hostPlatform }: buildKakPluginFrom2Nix rec {
     mkDerivation = rustPlatform.buildRustPackage;
@@ -98,5 +100,7 @@
       EOF
       install -Dm0644 kakrc $out/$kakrc
     '';
+
+    passthru.ci.skip = hostPlatform.isDarwin;
   };
 }

@@ -267,12 +267,12 @@
   , python3
   }: rustPlatform.buildRustPackage rec {
     pname = "screenstub";
-    version = "2020-08-17";
+    version = "2020-08-19";
     src = fetchFromGitHub {
       owner = "arcnmx";
       repo = pname;
-      rev = "dff767b3e37fbae2c588afb8a71ca4faf3a092a8";
-      sha256 = "0q5wza1pp11i0486i1cix26akbsgm1aqhnxas2fdy67iqsfmxcfl";
+      rev = "b8383b74096eccb9c63126db8c0176f856cf5a0f";
+      sha256 = "0w93ijs8dkifxn1mcpvpb789di2jb8xlf09vgp2g00jjw1bmck5m";
     };
 
     nativeBuildInputs = [ pkg-config python3 ];

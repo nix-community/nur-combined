@@ -80,8 +80,8 @@ in {
     stable = {
       system = "x86_64-linux";
       channels = {
-        nixpkgs.version = "19.09";
-        home-manager = "release-19.09";
+        nixpkgs.version = "20.03";
+        home-manager = "release-20.03";
       };
     };
     unstable = {
@@ -101,8 +101,8 @@ in {
     stable-mac = {
       system = "x86_64-darwin";
       channels = {
-        nixpkgs.version = "19.09";
-        home-manager = "release-19.09";
+        nixpkgs.version = "20.03";
+        home-manager = "release-20.03";
       };
       warn = true;
     };
