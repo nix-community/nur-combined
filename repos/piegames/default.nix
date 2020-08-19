@@ -23,4 +23,6 @@ in
 		buildShellExtension;
 		# emoji-selector cpu-power-manager
 		# lock-screen-blur extension-reloader tray-icons;
+	
+	matrix-conduit = pkgs.callPackage ./pkgs/matrix-conduit.nix {};
 }
