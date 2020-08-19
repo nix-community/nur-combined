@@ -18,8 +18,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "merge-keepass";
-    rev = "829834fd4de1feb301db8e8d16a0effe10c5c293";
-    sha256 = "0n63k5f4rj26b3z0ybw7w61aqp5hdma4n3ginmnrn2sy8v334rgs";
+    rev = "32dbbe7c6db5d3c0c5a43b7d7b8b97abda45c6a7";
+    sha256 = "0van65l37374v9r14rhl9aqw4lfp27kkns8a6b32al4hijw80lvb";
   };
 
   buildInputs = pyModuleDeps;

@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace scripts.desktop \
-      --replace @Scripts@ $out
+      --replace @Scripts@ $out \
+      --replace "Exec=surf" "Exec=${surf}/bin/surf"
   '';
 
   installPhase = ''
