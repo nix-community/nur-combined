@@ -20,6 +20,10 @@ in {
               type = str;
               default = "";
             };
+            include = mkOption {
+              type = listOf str;
+              default = [ ];
+            };
           };
         });
       default = { };
@@ -42,6 +46,10 @@ in {
         listOf (submodule {
           options = {
             name = mkOption { type = str; };
+            excludeBase = mkOption {
+              type = bool;
+              default = false;
+            };
             extraPackages = mkOption {
               type = listOf package;
               default = [ ];
@@ -73,49 +81,72 @@ in {
   };
 
   config = let
-    getModulePackages = id: cfg.modules.${id}.extraPackages;
-    getModuleBashrc = id: cfg.modules.${id}.bashrc;
-    setEnv = { name, extraPackages, bashrc, include }:
-      makeDevEnv {
+    # Get a set with all `include`d modules.
+    # It should look like this:
+    # {
+    #   base = { bashrc = ...; extraPackages = ...; include = ...; };
+    #   ...
+    # }
+    getIncludes = start: finished:
+      foldl (acc: id:
+        if hasAttr id acc then
+          acc
+        else
+          getIncludes cfg.modules.${id}.include
+          (acc // { ${id} = cfg.modules.${id}; })) finished start;
+    setEnv = { name, excludeBase, extraPackages, bashrc, include }:
+      let
+        # Recursively get all modules that should be included.
+        # Data structure explained at `getIncludes`.
+        includes =
+          getIncludes (optionals (!excludeBase) [ "base" ] ++ include) { };
+
+        includePackagesList =
+          mapAttrsToList (id: content: content.extraPackages) includes;
+        allPackages = extraPackages ++ concatLists includePackagesList;
+
+        includeBashrcList =
+          mapAttrsToList (id: content: content.bashrc) includes;
+        allBashrc = (concatStringsSep "\n" includeBashrcList) + bashrc;
+      in makeDevEnv {
         inherit name;
-        packages = extraPackages ++ cfg.modules.base.extraPackages
-          ++ (concatLists (map getModulePackages include));
-        bashrc = bashrc + cfg.modules.base.bashrc
-          + (concatStringsSep "\n" (map getModuleBashrc include));
+        packages = allPackages;
+        bashrc = allBashrc;
       };
   in {
-    programs.shell-environments.modules.base = mkDefault {
+    programs.shell-environments.modules.base = {
       # Loosely based on https://www.archlinux.org/packages/core/any/base/
-      extraPackages = with pkgs; [
-        # Collections of utilities
-        coreutils
-        utillinux
-        procps
-        psmisc
+      extraPackages = with pkgs;
+        mkDefault [
+          # Collections of utilities
+          coreutils
+          utillinux
+          procps
+          psmisc
 
-        # Gnu programs
-        findutils
-        gnugrep
-        gnused
-        gawk
+          # Gnu programs
+          findutils
+          gnugrep
+          gnused
+          gawk
 
-        # Compression libraries
-        bzip2
-        gzip
-        gnutar
-        xz
+          # Compression libraries
+          bzip2
+          gzip
+          gnutar
+          xz
 
-        # Other
-        file
+          # Other
+          file
 
-        # Not based on arch linux base group
-        less
-        vim
-        which
-        sudo
-        man
-      ];
-      bashrc = ''
+          # Not based on arch linux base group
+          less
+          vim
+          which
+          sudo
+          man
+        ];
+      bashrc = mkDefault ''
         export PAGER=less
       '';
     };

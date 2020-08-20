@@ -3,6 +3,10 @@
 # Recommended base packages are [ coreutils gnugrep gnused gawk less ]
 { name, binName ? "env-${name}", packages, bashrc ? "" }:
 
+assert lib.isString name;
+assert lib.isString binName;
+assert lib.isString bashrc;
+
 # TODO: find a less ugly way
 # TODO: pass through HOME and TERM
 let
