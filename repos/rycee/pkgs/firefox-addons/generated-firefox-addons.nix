@@ -131,10 +131,10 @@
       };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
-      version = "3.4.0";
+      version = "3.5.0";
       addonId = "CookieAutoDelete@kennydo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3593707/cookie_autodelete-3.4.0-an+fx.xpi?src=";
-      sha256 = "11e52d054d37eacb204bafc93b1f954e7b798d088c86eb7f84062114c08cd04f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3628240/cookie_autodelete-3.5.0-an+fx.xpi?src=";
+      sha256 = "1fb3251643ea5837bf8f5a1a9e29278c3eeb60ccf649f2a201436a1d0acf90ef";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Cookie-AutoDelete/Cookie-AutoDelete";
@@ -298,10 +298,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.5.1";
+      version = "8.5.2";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3583441/ghostery_privacy_ad_blocker-8.5.1-an+fx.xpi?src=";
-      sha256 = "3b185a39933e544726a93dcb74bce36328b4dd19904aeef844f8e1b59c78f3bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3617940/ghostery_privacy_ad_blocker-8.5.2-an+fx.xpi?src=";
+      sha256 = "26525e85817af5fe90624dfea9f0df9a41f5f30ecb12cfa9045b5de427775d4d";
       meta = with stdenv.lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -387,10 +387,10 @@
       };
     "https-everywhere" = buildFirefoxXpiAddon {
       pname = "https-everywhere";
-      version = "2020.5.20";
+      version = "2020.8.13";
       addonId = "https-everywhere@eff.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3574076/https_everywhere-2020.5.20-an+fx.xpi?src=";
-      sha256 = "ec94fcb5d481d3bf09e4519f8b06a232ac7a4fbdf78ee38c92ae659e668d9283";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3625427/https_everywhere-2020.8.13-an+fx.xpi?src=";
+      sha256 = "47034cf750c305a328e59de104cf7a5710dbffc9f2dc183283e2f770f2e74241";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/https-everywhere";
@@ -690,10 +690,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "22.0";
+      version = "22.1";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3628113/save_page_we-22.0-fx.xpi?src=";
-      sha256 = "82af855e2132a1fc1371ba2d1850ebf9b5cfe98bb150b4d91f6aab57b01e7336";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3628721/save_page_we-22.1-fx.xpi?src=";
+      sha256 = "af1ca98b971eb629602bd0c3cffd187127cfb4e98ee37ba26404b3ebb4592a6b";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
