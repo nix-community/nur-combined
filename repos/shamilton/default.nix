@@ -56,6 +56,9 @@ rec {
     eom = pkgs.mate.eom;
     inherit sync-database buildPythonPackage parallel-ssh merge-keepass;
   };
+  slick-greeter = with pkgs.gnome3; pkgs.callPackage ./pkgs/slick-greeter {
+    inherit gnome-common gtk slick-greeter;
+  };
   spectacle-clipboard = pkgs.libsForQt5.callPackage ./pkgs/spectacle-clipboard { };
   ssh2-python = with pkgs.python3Packages; pkgs.callPackage ./pkgs/ssh2-python {
     inherit buildPythonPackage fetchPypi cython setuptools pytest;
