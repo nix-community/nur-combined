@@ -3,14 +3,13 @@
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages = with pkgs; [
     android-file-transfer
+    commonsCompress
     gimp
     inkscape
     libreoffice
-    networkmanagerapplet
     vlc
   ];
   fonts.enableDefaultFonts = true;
-  networking.networkmanager.enable = true;
   nix.gc.automatic = true;
   services.flatpak.enable = true;
   services.ipfs.enable = true;
