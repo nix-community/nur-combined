@@ -18,6 +18,7 @@
   pista = pkgs.callPackage ./pkgs/pista { };
   xcursorlocate = pkgs.callPackage ./pkgs/xcursorlocate { };
   delta = pkgs.callPackage ./pkgs/delta { };
+  motd = pkgs.callPackage ./pkgs/motd { };
   shlide = pkgs.callPackage ./pkgs/shlide { };
 }
 

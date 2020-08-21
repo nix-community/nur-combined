@@ -1,0 +1,45 @@
+#! /usr/bin/env bash
+
+bar() {
+    # $1 percentage
+    # $2 length
+    ((elapsed=$1*$2/100))
+
+    # Create the bar with spaces.
+    printf -v prog  "%${elapsed}s"
+    printf -v total "%$(($2-elapsed))s"
+
+    printf '%s\n' "[${prog// /=}${total// /-}]"
+}
+
+fs_usage() {
+    # $1 - type
+    disk="$(df -hlt $1 --output=source,size,used,avail | tail -n1)"
+    pcent="$(df -hlt $1 --output=pcent | awk 'FNR==2 {print $1}' | tr -d '%')"
+    printf '    %s\n' "$disk"
+    printf '    %s %s\n' "$pcent%" "$(bar pcent 40)"
+}
+
+USER=`whoami`
+HOSTNAME=`uname -n`
+LINUX=`uname -rs`
+
+#System uptime
+uptime=`cat /proc/uptime | cut -f1 -d.`
+upDays=$((uptime/60/60/24))
+upHours=$((uptime/60/60%24))
+upMins=$((uptime/60%60))
+
+IP=`dig +short myip.opendns.com @resolver1.opendns.com`
+
+echo "
+    Hostname        $HOSTNAME
+    IPv4            $IP
+    Release         `nixos-version`
+    Kernel          $LINUX
+    Current user    $USER
+    System uptime   $upDays days $upHours hours $upMins minutes 
+    Generation      `nix-env --list-generations | awk 'END{print $1}'`
+"
+
+fs_usage ext4
