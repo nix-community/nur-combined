@@ -53,4 +53,6 @@ rec {
 
   nsc = pkgs.callPackage ./pkgs/nats-nsc {};
 
+  fira-code_206 = pkgs.callPackage ./pkgs/fira-code {};
+
 }
