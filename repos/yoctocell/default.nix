@@ -20,6 +20,8 @@
 
   pash = pkgs.callPackage ./pkgs/pash { inherit sources; };
 
+  org-pretty-table = pkgs.callPackage ./pkgs/emacs-packages/org-pretty-table {inherit sources; };
+
   terminal-typeracer = pkgs.callPackage ./pkgs/terminal-typeracer { inherit sources; };
   
   torque = pkgs.callPackage ./pkgs/torque { inherit sources; };

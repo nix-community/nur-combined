@@ -35,6 +35,18 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/a3aae2271925e8f110dfdf3c9e5fde77e80663a0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "org-pretty-table": {
+        "branch": "master",
+        "description": "Replace org-table characters with box-drawing unicode glyphs.",
+        "homepage": null,
+        "owner": "Fuco1",
+        "repo": "org-pretty-table",
+        "rev": "88380f865a79bba49e4f501b7fe73a7bfb03bd1a",
+        "sha256": "0kynnja58r9cwfrxxyycg6z4hz9s5rzgn47i9yki7rlr80nyn2bf",
+        "type": "tarball",
+        "url": "https://github.com/Fuco1/org-pretty-table/archive/88380f865a79bba49e4f501b7fe73a7bfb03bd1a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "pash": {
         "branch": "master",
         "description": "🔒 A simple password manager using GPG written in POSIX sh.",
