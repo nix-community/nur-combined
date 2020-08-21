@@ -1,5 +1,6 @@
 { stdenv
 , fetchFromGitLab
+, sources
 , rustPlatform
 , pkg-config
 , openssl
@@ -8,25 +9,25 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "terminal-typeracer";
-  version = "2.0.2";
+  version = "git";
 
   src = fetchFromGitLab {
     owner = "ttyperacer";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "187xrqxalk2gxa22ki5q092llvliddrsc68cg4dvvy2xzq254jfy";
+    repo = "terminal-typeracer";
+    rev = sources.terminal-typeracer.rev;
+    sha256 = sources.terminal-typeracer.sha256;
   };
-
-  cargoSha256 = "0ky8m23fjjbv7fr9776fjczpg0d43jxwnjxjpwz56jpynwnihfkl";
+  
+  cargoSha256 = "16zs3rvb76vqafrljzabvylvp0b7jmr23p4r8p1v1z63q6b96kk7";
 
   buildInputs = [ openssl sqlite ];
   nativeBuildInputs = [ pkg-config ];
 
   meta = with stdenv.lib; {
-      description = "An open source terminal based version of Typeracer written in rust";
-      homepage = "https://gitlab.com/ttyperacer/terminal-typeracer";
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ yoctocell ];
-      platforms = platforms.x86_64;
+    description = "An open source terminal based version of Typeracer written in rust";
+    homepage = "https://gitlab.com/ttyperacer/terminal-typeracer";
+    license = licenses.gpl3Plus;
+    # maintainers = with maintainers; [ yoctocell ];
+    platforms = platforms.x86_64;
   };
 }

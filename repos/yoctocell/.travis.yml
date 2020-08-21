@@ -13,13 +13,13 @@ env:
     #
     # For this to work, you also need to set the  CACHIX_SIGNING_KEY
     # in your repository settings in Travis.
-    - CACHIX_CACHE=
+    - CACHIX_CACHE=yoctocell
     # Set this to notify the global nur package registry that changes are
     # available.
     #
     # The repo name as used in
     # https://github.com/nix-community/NUR/blob/master/repos.json
-    - NUR_REPO=<YOUR_NUR_REPO_NAME_HERE>
+    - NUR_REPO=yoctocell
 
 matrix:
   include:

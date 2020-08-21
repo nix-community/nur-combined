@@ -6,8 +6,8 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { }
-, sources ? import ./nix/sources.nix
+{ sources ? import ./nix/sources.nix
+, pkgs ? import sources.nixpkgs {}
 }:
 
 {
@@ -16,13 +16,14 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  pash = pkgs.callPackage ./pkgs/pash { };
+  gralc = pkgs.callPackage ./pkgs/gralc { inherit sources; };
 
-  torque = pkgs.callPackage ./pkgs/torque { };
+  pash = pkgs.callPackage ./pkgs/pash { inherit sources; };
+
+  terminal-typeracer = pkgs.callPackage ./pkgs/terminal-typeracer { inherit sources; };
+  
+  torque = pkgs.callPackage ./pkgs/torque { inherit sources; };
   
   tremc = pkgs.callPackage ./pkgs/tremc { inherit sources; };
-
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }
 

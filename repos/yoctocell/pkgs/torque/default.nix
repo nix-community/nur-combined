@@ -1,31 +1,31 @@
 { stdenv
-, lib
 , fetchFromGitHub
+, sources
 , bash
 , transmission
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "torque";
   version = "git";
 
-  src =fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "dylanaraps";
-    repo = pname;
-    rev = "567a94b";
-    sha256 = "1jwx6z0iwx7ii13wknylmjy58j645nvrmfasgr325cffwqx51j7f";
+    repo = "torque";
+    rev = sources.torque.rev;
+    sha256 = sources.torque.sha256;
   };
-
+  
   dontBuild = true;
 
   installPhase = ''
-  install -Dm755 -t $out/bin torque
+    install -Dm755 -t $out/bin torque
   '';
   
-  meta = with lib; {
-    description = "A TUI client for transmission written in pure bash";
-    homepage = "https://github.com/dylanaraps/torque";
-     license = licenses.mit;
+  meta = with stdenv.lib; {
+    inherit (sources.torque) description homepage;
+    license = licenses.mit;
+    # maintainers = with maintainers; [ yoctocell ];
     platforms = platforms.all;
   };
 }

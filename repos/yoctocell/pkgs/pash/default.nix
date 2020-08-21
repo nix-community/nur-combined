@@ -1,14 +1,17 @@
-{ stdenv, lib, fetchFromGitHub }:
+{ stdenv
+, fetchFromGitHub
+, sources
+}:
 
 stdenv.mkDerivation rec {
   pname = "pash";
-  version = "2.3.0";
+  version = "git";
 
-  src =fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "dylanaraps";
-    repo = pname;
-    rev = version;
-    sha256 = "11ax08ira6d467v6rl3qmk7hbbanxac6ain0rl5q5ad8yj1li349";
+    repo = "pash";
+    rev = sources.pash.rev;
+    sha256 = sources.pash.sha256;
   };
 
   dontBuild = true;
@@ -17,11 +20,10 @@ stdenv.mkDerivation rec {
   install -Dm755 -t $out/bin pash
   '';
   
-  meta = with lib; {
-    description = "A simple password manager using GPG written in POSIX sh";
-    homepage = "https://github.com/dylanaraps/pash";
-     license = licenses.mit;
+  meta = with stdenv.lib; {
+    inherit (sources.pash) description homepage;
+    license = licenses.mit;
+    # maintainers = with maintainers; [ yoctocell ];
     platforms = platforms.all;
   };
 }
-    

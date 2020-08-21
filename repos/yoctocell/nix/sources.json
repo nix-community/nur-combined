@@ -1,34 +1,58 @@
 {
+    "gralc": {
+        "branch": "master",
+        "description": "A preprocessor for Groff that lets you do arithmetic in Python.",
+        "homepage": "",
+        "owner": "yoctocell",
+        "repo": "gralc",
+        "rev": "f7ff3c0a75bae76f574fed5b80e570c14185304f",
+        "sha256": "0vwyp68kwx8lz3psmalqgf0xdpglbnzd7hy6nzpqiwnk6w4lnf5g",
+        "type": "tarball",
+        "url": "https://github.com/yoctocell/gralc/archive/f7ff3c0a75bae76f574fed5b80e570c14185304f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",
         "homepage": "https://github.com/nmattia/niv",
         "owner": "nmattia",
         "repo": "niv",
-        "rev": "303f442c43f918bc43400ab4a0b662a82ca7748b",
-        "sha256": "19z1qypd6zd4qzhrhjm7j55v85fzf8wln8l9vslvn9dpspcwxv7c",
+        "rev": "e82eb322ea32a747a51c431d7787221bcc6d9038",
+        "sha256": "1fy4dcr05d80diwlxmh42xnjm5ki1pkbky38smvlqjaky2y2f71f",
         "type": "tarball",
-        "url": "https://github.com/nmattia/niv/archive/303f442c43f918bc43400ab4a0b662a82ca7748b.tar.gz",
+        "url": "https://github.com/nmattia/niv/archive/e82eb322ea32a747a51c431d7787221bcc6d9038.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
-        "branch": "release-20.03",
+        "branch": "nixpkgs-unstable",
         "description": "Nix Packages collection",
         "homepage": null,
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5ac56e221fac62435ceabe174dfcb9a062d89d0d",
-        "sha256": "0jk7vbl59l19d2w2n46hgh2h1aiy4k8a8skh59sypgma42kmmrrb",
+        "rev": "a3aae2271925e8f110dfdf3c9e5fde77e80663a0",
+        "sha256": "1b2fsica8nm2azd5k781bryqnsm39r2g1l90j2f0j3mqav008ya7",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/5ac56e221fac62435ceabe174dfcb9a062d89d0d.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/a3aae2271925e8f110dfdf3c9e5fde77e80663a0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "pash": {
+        "branch": "master",
+        "description": "🔒 A simple password manager using GPG written in POSIX sh.",
+        "homepage": "",
+        "owner": "dylanaraps",
+        "repo": "pash",
+        "rev": "49b70878909166abb53f86431079d807fbb72f68",
+        "sha256": "13zy78qasx796vk7jfkssd9gprhyby4ypcvcdhghcv381k06j328",
+        "type": "tarball",
+        "url": "https://github.com/dylanaraps/pash/archive/49b70878909166abb53f86431079d807fbb72f68.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "terminal-typeracer": {
+        "rev": "820cb50e137c7afb6b62addf991c5e9886151cc4",
         "sha256": "187xrqxalk2gxa22ki5q092llvliddrsc68cg4dvvy2xzq254jfy",
-        "type": "tarball",
-        "url": "https://gitlab.com/ttyperacer/terminal-typeracer/-/archive/v2.0.2/terminal-typeracer-v2.0.2.tar.gz",
-        "url_template": "https://gitlab.com/ttyperacer/terminal-typeracer/-/archive/v<version>/terminal-typeracer-v<version>.tar.gz",
-        "version": "2.0.2"
+        "type": "file",
+        "url": "https://gitlab.com/api/v4/projects/ttyperacer%2Fterminal-typeracer/repository/archive.tar.gz?sha=820cb50e137c7afb6b62addf991c5e9886151cc4",
+        "url_template": "https://gitlab.com/api/v4/projects/ttyperacer%2Fterminal-typeracer/repository/archive.tar.gz?sha=<rev>"
     },
     "torque": {
         "branch": "master",

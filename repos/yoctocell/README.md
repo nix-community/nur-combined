@@ -1,3 +1,12 @@
-# nur-packages-template
+# NUR packages
+[![Build Status](https://travis-ci.org/yoctocell/nur-packages.svg?branch=master)](https://travis-ci.org/yoctocell/nur-packages)
+[![Cachix Cache](https://img.shields.io/badge/cachix-yoctocell-blue.svg)](https://yoctocell.cachix.org)
 
-My NUR packages.
+Yoctocell's [NUR](https://github.com/nix-community/NUR) packages.
+
+# Packages
+- gralc
+- terminal-typeracer
+- pash
+- torque
+- tremc
