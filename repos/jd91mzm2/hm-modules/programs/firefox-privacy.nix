@@ -58,14 +58,28 @@ in
             privacy = mkOption {
               type = types.submodule {
                 options = {
-                  enableSettings = mkOption {
-                    type = types.bool;
-                    default = false;
-                    description = ''
-                      Enables various privacy settings for Firefox, as
-                      recommended by
-                      https://www.privacytools.io/browsers/#about_config
-                    '';
+                  settings = {
+                    enable = mkOption {
+                      type = types.bool;
+                      default = false;
+                      description = ''
+                        Enables various privacy settings for Firefox, as
+                        recommended by
+                        https://www.privacytools.io/browsers/#about_config
+                      '';
+                    };
+                    exceptions = mkOption {
+                      type = types.listOf types.str;
+                      default = [];
+                      example = [
+                        "webgl.disabled"
+                      ];
+                      description = ''
+                        A list of settings to not touch. This can be used, for
+                        example, to override this module's attempt to disable
+                        WebGL.
+                      '';
+                    };
                   };
                 };
               };
@@ -76,7 +90,7 @@ in
             };
           };
           config = {
-            settings = mkIf config.privacy.enableSettings {
+            settings = mkIf config.privacy.settings.enable (builtins.removeAttrs {
               # Privacy recommendations from https://www.privacytools.io/browsers/#about_config
               "privacy.firstparty.isolate"                        = true;
               "privacy.resistFingerprinting"                      = true;
@@ -95,7 +109,7 @@ in
               "webgl.disabled"                                    = true;
               "browser.sessionstore.privacy_level"                = 2;
               "network.IDN_show_punycode"                         = true;
-            };
+            } config.privacy.settings.exceptions);
           };
         }));
       };
