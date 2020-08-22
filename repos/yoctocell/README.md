@@ -6,8 +6,12 @@
 Yoctocell's [NUR](https://github.com/nix-community/NUR) packages.
 
 # Packages
+## Applications
 - gralc
 - pash
 - terminal-typeracer
 - torque
 - tremc
+
+## Emacs packages
+- org-pretty-table
