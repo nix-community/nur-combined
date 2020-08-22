@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "154f99lpzvs4bm8r2l0dzkn82f7sf4g0qxdhzljrmzbssrfhbaiy";
   };
   nativeBuildInputs = [ gnumake ];
-  buildInputs = [ python3 ];
+  propagatedBuildInputs = [ python3 ];
 
   installFlags = ["PREFIX=$(out)"];
 
