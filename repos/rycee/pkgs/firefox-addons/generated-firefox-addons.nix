@@ -406,10 +406,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.1.9";
+      version = "3.2.0";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3607845/i_dont_care_about_cookies-3.1.9-an+fx.xpi?src=";
-      sha256 = "e0dd9e4709cf55046bd723efe6766db15adfd34d0dddee6a7cf246b02b2927bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3629604/i_dont_care_about_cookies-3.2.0-an+fx.xpi?src=";
+      sha256 = "ceb45189b808455f07d484a26c4d78e4ee903c46a99654ae3b9881779aa2a980";
       meta = with stdenv.lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -854,10 +854,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.29.0";
+      version = "1.29.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3622833/ublock_origin-1.29.0-an+fx.xpi?src=";
-      sha256 = "17405c1b88b431306e7c54aeeac1c9a6a6654ea627c439d0e7131bcda12cf71d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3629683/ublock_origin-1.29.2-an+fx.xpi?src=";
+      sha256 = "e9d2fa95b5323cec0e56e439b995326203d13c2fc781927741270ea34d244d30";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
