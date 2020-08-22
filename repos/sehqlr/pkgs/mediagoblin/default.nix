@@ -1,4 +1,4 @@
-{ autoreconfHook, fetchgit, python37, stdenv }:
+{ autoreconfHook, fetchgit, python3, stdenv }:
 let
   my-python-packages = python-packages: with python-packages; [
     alembic
@@ -28,7 +28,6 @@ let
     six
     sphinx
     sqlalchemy
-    TurboCheetah
     unidecode
     virtualenv
     waitress
@@ -36,7 +35,7 @@ let
     werkzeug
     wtforms
   ];
-  python-with-my-packages = python37.withPackages my-python-packages;
+  python-with-my-packages = python3.withPackages my-python-packages;
 in stdenv.mkDerivation rec {
   name = "mediagoblin-${version}";
   version = "v0.10.0";
@@ -67,7 +66,7 @@ in stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sehqlr ];
     platforms = platforms.linux;
-    # broken = true;
+    broken = true;
   };
 }
 
