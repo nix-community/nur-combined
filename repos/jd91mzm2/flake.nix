@@ -11,8 +11,6 @@
     # in {
     # });
 
-    nixosConfigurations.cubik-studio = import ./containers/cubik-studio.nix nixpkgs "x86_64-linux";
-
     # Builders
     builders = forAllSystems (system: let
       pkgs = nixpkgs.legacyPackages."${system}";
