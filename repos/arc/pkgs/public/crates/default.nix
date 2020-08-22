@@ -280,7 +280,7 @@
 
     cargoSha256 = if lib.isNixpkgsStable
       then "100nhrjhb339iaqncbp59kgzv2r0m7wzpx09c0b05fj5bdx5yfmx"
-      else "17m95jmhvwp4gblwpxqh932bzsbdzdc2mpp2cl5g6pid8nplyncr";
+      else "06nlzqk8f0ihl48lg99px863hqrrybd9ajz3aazy71avc1ygw1lg";
 
     doCheck = false;
   };
