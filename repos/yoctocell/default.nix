@@ -15,17 +15,7 @@
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
+  pkgs = import ./pkgs { inherit sources pkgs; }; # packages
 
-  gralc = pkgs.callPackage ./pkgs/gralc { inherit sources; };
-
-  pash = pkgs.callPackage ./pkgs/pash { inherit sources; };
-
-  org-pretty-table = pkgs.callPackage ./pkgs/emacs-packages/org-pretty-table {inherit sources; };
-
-  terminal-typeracer = pkgs.callPackage ./pkgs/terminal-typeracer { inherit sources; };
-  
-  torque = pkgs.callPackage ./pkgs/torque { inherit sources; };
-  
-  tremc = pkgs.callPackage ./pkgs/tremc { inherit sources; };
 }
 
