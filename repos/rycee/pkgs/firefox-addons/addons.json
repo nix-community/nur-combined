@@ -19,6 +19,16 @@
     "slug": "auto-tab-discard"
   },
   {
+    "slug": "betterttv",
+    "license": {
+      "tag": "custom",
+      "shortName": "betterttv",
+      "fullName": "BetterTTV Terms of Service",
+      "url": "https://betterttv.com/terms",
+      "free": false
+    }
+  },
+  {
     "slug": "bitwarden-password-manager",
     "pname": "bitwarden"
   },

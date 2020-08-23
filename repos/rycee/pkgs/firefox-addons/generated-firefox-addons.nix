@@ -61,6 +61,25 @@
         platforms = platforms.all;
         };
       };
+    "betterttv" = buildFirefoxXpiAddon {
+      pname = "betterttv";
+      version = "7.2.85";
+      addonId = "firefox@betterttv.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3618439/betterttv-7.2.85-fx.xpi?src=";
+      sha256 = "56b1fcc568d6cf1876584be093f2e9767e1ed6f7bbe370929d68eff84bb2877f";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://betterttv.com";
+        description = "Enhances Twitch with new features, emotes, and more.";
+        license = {
+          shortName = "betterttv";
+          fullName = "BetterTTV Terms of Service";
+          url = "https://betterttv.com/terms";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
       version = "1.45.0";
