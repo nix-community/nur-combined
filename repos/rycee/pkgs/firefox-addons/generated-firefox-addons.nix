@@ -539,6 +539,20 @@
         platforms = platforms.all;
         };
       };
+    "matte-black-red" = buildFirefoxXpiAddon {
+      pname = "matte-black-red";
+      version = "2020.6.25";
+      addonId = "{a7589411-c5f6-41cf-8bdc-f66527d9d930}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3596768/matte_black_red-2020.6.25-an+fx.xpi?src=";
+      sha256 = "75a18a25969c1d539429fbc848b7667c7af692a7ae22448dd9bad8d5ac132713";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://elijahlopez.herokuapp.com/";
+        description = "A modern dark / Matte Black theme with a red accent color.\nOther accents available (request if not available).\nNOTE: ONLY WORKS ON FIREFOX DESKTOP.";
+        license = licenses.cc-by-nc-sa-30;
+        platforms = platforms.all;
+        };
+      };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
       version = "7.0.2";
