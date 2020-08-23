@@ -2,10 +2,10 @@
 
 let
   nur = pkgs.callPackage ./../.. {};
-  inherit (nur) mkMcDatapack;
+  inherit (nur) minecraft;
 in
 
-mkMcDatapack {
+minecraft.mkDatapack {
   meta = {
     name = "minimal";
     description = "A test datapack";

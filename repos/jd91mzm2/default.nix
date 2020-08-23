@@ -8,17 +8,21 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-{
-  # The `lib`, `modules`, and `overlay` names are special
-  lib        = import ./lib { inherit (pkgs) lib; };  # functions
-  modules    = import ./modules;                      # NixOS modules
-  hm-modules = import ./hm-modules;                   # home-manager modules
-  # overlays = import ./overlays; # nixpkgs overlays
+let
+  self = {
+    # The `lib`, `modules`, and `overlay` names are special
+    lib        = import ./lib { inherit (pkgs) lib; };  # functions
+    modules    = import ./modules;                      # NixOS modules
+    hm-modules = import ./hm-modules;                   # home-manager modules
+    # overlays = import ./overlays; # nixpkgs overlays
 
-  # example-package = pkgs.callPackage ./pkgs/example-package {};
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package {};
-  # ...
+    # example-package = pkgs.callPackage ./pkgs/example-package {};
+    # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package {};
+    # ...
 
-  minecraft = pkgs.callPackage ./builders/minecraft {};
-}
-
+    minecraft = pkgs.callPackage ./builders/minecraft {};
+    dnd = pkgs.callPackage ./builders/dnd {
+      selfLib = self.lib;
+    };
+  };
+in self

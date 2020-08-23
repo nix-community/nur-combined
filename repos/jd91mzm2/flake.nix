@@ -15,6 +15,9 @@
     builders = forAllSystems (system: let
       pkgs = nixpkgs.legacyPackages."${system}";
     in {
+      dnd = pkgs.callPackage ./builders/dnd {
+        selfLib = self.lib;
+      };
       minecraft = pkgs.callPackage ./builders/minecraft {};
     });
 
@@ -23,6 +26,15 @@
 
     # NixOS modules
     nixosModules = mapImport (import ./modules);
+
+    devShell = forAllSystems (system: let
+      pkgs = nixpkgs.legacyPackages."${system}";
+    in pkgs.mkShell {
+      # Things to be put in $PATH
+      nativeBuildInputs = with pkgs; [
+        jq
+      ];
+    });
 
     # Home-manager modules
     hmModules = mapImport (import ./hm-modules);
