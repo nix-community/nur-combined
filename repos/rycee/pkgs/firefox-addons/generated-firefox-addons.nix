@@ -345,10 +345,10 @@
       };
     "gopass-bridge" = buildFirefoxXpiAddon {
       pname = "gopass-bridge";
-      version = "0.7.0";
+      version = "0.8.0";
       addonId = "{eec37db0-22ad-4bf1-9068-5ae08df8c7e9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3534506/gopass_bridge-0.7.0-fx.xpi?src=";
-      sha256 = "9831b89377fac7805046b1410c734a5ad671ebea68a62ece36cec6e9b3e30104";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3630534/gopass_bridge-0.8.0-fx.xpi?src=";
+      sha256 = "cd314f07b72d82e52b2f52b274ef751cf85d872b42a96560167ee1df7fcd4db0";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gopasspw/gopassbridge";
@@ -709,10 +709,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.8.20";
+      version = "20.8.23";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3629203/refined_github-20.8.20-an+fx.xpi?src=";
-      sha256 = "bf457e5780d6a4ee86e6ba02786915729fe3b306ee315d0979512267a8ad9876";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3630388/refined_github-20.8.23-an+fx.xpi?src=";
+      sha256 = "4c7dda1fcc5daef092f9bbf8ef6ed04c3da79de51500e772b0d5ea04a4383840";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
