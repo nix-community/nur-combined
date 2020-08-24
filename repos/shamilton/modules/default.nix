@@ -1,9 +1,6 @@
 {
-  # Add your NixOS modules here
-  #
-  modules = {
-    day-night-plasma-wallpapers = ./day-night-plasma-wallpapers-nixos.nix;
-  };
+  day-night-plasma-wallpapers = ./day-night-plasma-wallpapers-nixos.nix;
+  slick-greeter = ./slick-greeter.nix;
   hmModules = {
     day-night-plasma-wallpapers = ./day-night-plasma-wallpapers-home-manager.nix;
     myvim = ./myvim.nix;

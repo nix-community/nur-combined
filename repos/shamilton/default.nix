@@ -13,6 +13,7 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
   
+  anystyle-cli = pkgs.callPackage ./pkgs/anystyle-cli { };
   argparse = pkgs.callPackage ./pkgs/argparse { };
   baobab = pkgs.callPackage ./pkgs/baobab { };
   bomber = pkgs.kdeApplications.callPackage ./pkgs/Bomber { };
