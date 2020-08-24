@@ -514,12 +514,12 @@
   },
   {
     "name": "Construction_Drones",
-    "version": "0.6.10",
-    "file_name": "Construction_Drones_0.6.10.zip",
-    "download_url": "/download/Construction_Drones/5f2ebbd730a692f6f0387199",
-    "sha1": "fe366df3b5afc9f86b78fe6bf8f3e021007a4232",
+    "version": "0.6.11",
+    "file_name": "Construction_Drones_0.6.11.zip",
+    "download_url": "/download/Construction_Drones/5f40e186f0020b835a39e5c5",
+    "sha1": "9b730161b6bd16308ac13ae4abe19d67cb453a3b",
     "dependencies": [
-      "base >= 0.18.31",
+      "base >= 1.0.0",
       "(?) Hovercraft",
       "(?) walls-block-spitters"
     ]
@@ -671,10 +671,10 @@
   },
   {
     "name": "stdlib",
-    "version": "1.4.3",
-    "file_name": "stdlib_1.4.3.zip",
-    "download_url": "/download/stdlib/5ecad713b7d53d000effdf0e",
-    "sha1": "d9a902d6fb9b876f0467314884e29ffed0da5f43",
+    "version": "1.4.4",
+    "file_name": "stdlib_1.4.4.zip",
+    "download_url": "/download/stdlib/5f41ba105f1d08cb8d13d073",
+    "sha1": "0f6bd1bb1c52ecb860fbdde4455d314fc719fd6c",
     "dependencies": [
       "base >= 0.18.0"
     ]
