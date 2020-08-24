@@ -11,7 +11,7 @@
 
 # Usage
 
-To install, clone the repository, then inside it run:
+To install, clone the repository and [isntall Nix](https://nixos.org/nix/manual/#chap-installation) (`curl -L https://nixos.org/nix/install | sh`), then inside it run:
 
 ```nix
 nix-env -iA instantnix -f default.nix --arg pkgs 'import <nixpkgs> {}'
@@ -26,6 +26,8 @@ After installation, you can run `instantwm`, just as you would any other window 
 For many people that means putting `startinstantos` in your `~/.xinitrc`.
 See an example in `./utils/xinitrc`
 You can also find an example NixOS configuration in `./utils/configuration.nix`.
+
+Note: Some additional configuration steps such as setting the correct UID for instantLOCK might be required.
 
 # Usage via NUR
 
