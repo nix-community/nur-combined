@@ -1,9 +1,7 @@
 { config, lib, pkgs, wrapFirefox, ... }:
 
 with lib;
-
 let
-
   cfg = config.kampka.programs.firefox;
 
   userSettings = { "foo" = "bar"; };
@@ -16,7 +14,7 @@ in
 
     userSettings = mkOption {
       type = types.attrs;
-      default = {};
+      default = { };
       description = ''
         Setting to be applied to firefox as hard defaults.
         These settings cannot be changed via UI, about:config or remote sync/API.
@@ -33,7 +31,7 @@ in
 
     userPolicies = mkOption {
       type = types.attrs;
-      default = {};
+      default = { };
       description = ''
         Policies allow additional control over Firefox settings in addition or sometimes beyond the scope of userSettings.
         The set defined here must serialize to a key/value pair where keys are always strings and values are the Nix representations of the JSON value valid for the given key.

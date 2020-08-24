@@ -1,9 +1,8 @@
 { config, pkgs, lib, makeWrapper, ... }:
 
 with lib;
-
 let
-  mailqueue = pkgs.callPackage ./pkg.nix {};
+  mailqueue = pkgs.callPackage ./pkg.nix { };
 
   cfg = config.kampka.services.msmtp-mailqueue;
 
@@ -69,27 +68,29 @@ let
   '';
 
   msmtprc = pkgs.writeText "msmtprc" ''
-    defaults
-    auth           on
-    tls            on
-    tls_trust_file /etc/ssl/certs/ca-certificates.crt
-    syslog         on
-    aliases        ${aliasesFile}
+        defaults
+        auth           on
+        tls            on
+        tls_trust_file /etc/ssl/certs/ca-certificates.crt
+        syslog         on
+        aliases        ${aliasesFile}
 
-    ${concatStringsSep "\n\n" (
-    map (
-      account: ''
-        account        ${account.name}
-        host           ${account.host}
-        port           ${toString account.port}
-        from           ${account.from}
-        user           ${account.user}
-        passwordeval   "cat ${account.password-file}"
-      ''
-    ) cfg.accounts
-  )}
+        ${concatStringsSep "\n\n" (
+        map
+    (
+          account: ''
+            account        ${account.name}
+            host           ${account.host}
+            port           ${toString account.port}
+            from           ${account.from}
+            user           ${account.user}
+            passwordeval   "cat ${account.password-file}"
+          ''
+        )
+    cfg.accounts
+      )}
 
-    account default : ${cfg.accountDefault}
+        account default : ${cfg.accountDefault}
   '';
 in
 {
@@ -118,7 +119,7 @@ in
     gpgKeys = mkOption {
       type = types.listOf types.path;
       description = "PGP public keys used for encrypting the mail.";
-      default = [];
+      default = [ ];
     };
 
     interval = mkOption {
@@ -133,7 +134,7 @@ in
 
   config = mkIf cfg.enable {
     users.groups = {
-      msmtpq = {};
+      msmtpq = { };
     };
 
     users.users = {

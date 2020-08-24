@@ -9,7 +9,6 @@
 , nix
 , vim
 }:
-
 let
   path = [
     bash

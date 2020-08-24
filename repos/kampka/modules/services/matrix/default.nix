@@ -1,7 +1,6 @@
 { pkgs, lib, config, ... }:
 
 with lib;
-
 let
   cfg = config.kampka.services.matrix;
 
@@ -173,20 +172,22 @@ in
     services.nginx.virtualHosts."${cfg.riot.hostName}" = lib.mkIf (config.services.nginx.enable && cfg.riot.enable) {
       forceSSL = true;
       enableACME = true;
-      root = let
-        config = let
-          sample = builtins.fromJSON (builtins.readFile "${pkgs.riot-web}/config.sample.json");
-        in
-          lib.recursiveUpdate sample {
-            piwik = false;
-            default_server_config."m.homeserver" = {
-              base_url = "https://${cfg.matrix.hostName}";
-              server_name = cfg.matrix.serverName;
+      root =
+        let
+          config =
+            let
+              sample = builtins.fromJSON (builtins.readFile "${pkgs.riot-web}/config.sample.json");
+            in
+            lib.recursiveUpdate sample {
+              piwik = false;
+              default_server_config."m.homeserver" = {
+                base_url = "https://${cfg.matrix.hostName}";
+                server_name = cfg.matrix.serverName;
+              };
+              disable_custom_urls = true;
+              disable_guests = true;
             };
-            disable_custom_urls = true;
-            disable_guests = true;
-          };
-      in
+        in
         pkgs.riot-web.override { conf = config; };
     };
 

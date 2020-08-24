@@ -1,9 +1,7 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-
 let
-
   cfg = config.kampka.services.msmtp-relay;
 
   accountOptions = { name, config, ... }: {
@@ -61,27 +59,29 @@ let
   '';
 
   msmtprc = pkgs.writeText "msmtprc" ''
-    defaults
-    auth           on
-    tls            on
-    tls_trust_file /etc/ssl/certs/ca-certificates.crt
-    syslog         on
-    aliases        ${aliasesFile}
+        defaults
+        auth           on
+        tls            on
+        tls_trust_file /etc/ssl/certs/ca-certificates.crt
+        syslog         on
+        aliases        ${aliasesFile}
 
-    ${concatStringsSep "\n\n" (
-    map (
-      account: ''
-        account        ${account.name}
-        host           ${account.host}
-        port           ${toString account.port}
-        from           ${account.from}
-        user           ${account.user}
-        passwordeval   "cat ${account.password-file}"
-      ''
-    ) cfg.accounts
-  )}
+        ${concatStringsSep "\n\n" (
+        map
+    (
+          account: ''
+            account        ${account.name}
+            host           ${account.host}
+            port           ${toString account.port}
+            from           ${account.from}
+            user           ${account.user}
+            passwordeval   "cat ${account.password-file}"
+          ''
+        )
+    cfg.accounts
+      )}
 
-    account default : ${cfg.accountDefault}
+        account default : ${cfg.accountDefault}
   '';
 
 in

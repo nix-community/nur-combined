@@ -9,10 +9,9 @@
 , makeWrapper
 , wrapGAppsHook
 , makeDesktopItem
-, userSettings ? {}
-, userPolicies ? {}
+, userSettings ? { }
+, userPolicies ? { }
 }:
-
 let
   version = firefox.unwrapped.version;
 
@@ -66,6 +65,6 @@ let
     meta = firefox.unwrapped.meta;
   };
 
-  userfox = wrapFirefox userFoxUnwrapped {};
+  userfox = wrapFirefox userFoxUnwrapped { };
 in
 userfox

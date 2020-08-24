@@ -44,6 +44,7 @@ in
     let
       nixPathEntries = (filter (lib.strings.hasInfix "=") (strings.splitString ":" cfg.nixPath));
       nixPathPaths = (flatten (map (tail) (map (strings.splitString "=") nixPathEntries)));
+
     in
     mkIf cfg.enable rec {
       assertions = [

@@ -118,7 +118,7 @@ in
     upstreamServers = mkOption {
       description = "List of upstream dns servers";
       default = [
-        # Nameserver run by digitalcourage                                                                                        
+        # Nameserver run by digitalcourage
         {
           address = "46.182.19.48";
           tlsAuthName = "dns2.digitalcourage.de";
@@ -282,58 +282,71 @@ in
       servers = [ "127.0.0.1#5353" ];
       resolveLocalQueries = false;
       extraConfig = ''
-        ${optionalString (cfg.dnsmasq.validateDnsSec) "
-dnssec
-dnssec-check-unsigned
-conf-file=${pkgs.dnsmasq}/share/dnsmasq/trust-anchors.conf
-"}
+                  ${optionalString (cfg.dnsmasq.validateDnsSec) "
+        dnssec
+        dnssec-check-unsigned
+        conf-file=${pkgs.dnsmasq}/share/dnsmasq/trust-anchors.conf
+        "}
+                  ${optionalString (cfg.dnsmasq.noNegCache) "
+        # Disable negative caching. Negative caching allows dnsmasq to remember 'no such domain' answers from upstream nameservers and answer identical queries without forwarding them again.
+        no-negcache
+        "}
+                  ${optionalString (cfg.dnsmasq.allServers) "
+        # Query all configured server for a successful dns resolve
+        all-servers
+        "}
 
-        ${optionalString (cfg.dnsmasq.noNegCache) "
-# Disable negative caching. Negative caching allows dnsmasq to remember 'no such domain' answers from upstream nameservers and answer identical queries without forwarding them again.
-no-negcache
-"}
+                ${optionalString (cfg.dnsmasq.bogusPriv) ''
+                # Prevent queries for local networks from being sent upstream
+                bogus-priv
+              ''}
 
-        ${optionalString (cfg.dnsmasq.allServers) "
-# Query all configured server for a successful dns resolve
-all-servers
-"}
+                ${concatStringsSep "\n" (map (interface: "interface=${interface}") cfg.dnsmasq.interfaces)}
 
-        ${optionalString (cfg.dnsmasq.bogusPriv) ''
-          # Prevent queries for local networks from being sent upstream
-          bogus-priv
-        ''}
+                ${optionalString (cfg.dnsmasq.dhcp != [ ]) "
+        no-dhcp-interface=lo
+        dhcp-ttl=180
+        "}
 
-        ${concatStringsSep "\n" (map (interface: "interface=${interface}") cfg.dnsmasq.interfaces)}
+                ${concatStringsSep "\n" (
+                map
+        (
+                  dhcp: ''
 
-        ${optionalString (cfg.dnsmasq.dhcp != [ ]) "
-no-dhcp-interface=lo
-dhcp-ttl=180
-"}
+        domain=${dhcp.domain.name}${optionalString (dhcp.domain.network != "") ",${dhcp.domain.network}${optionalString (dhcp.domain.local) ",local" }"}
 
-        ${concatStringsSep "\n" (map (dhcp: ''
-          domain=${dhcp.domain.name}${optionalString (dhcp.domain.network != "") ",${dhcp.domain.network}${optionalString (dhcp.domain.local) ",local" }"}
+        ${concatStringsSep "\n" (
+                    map
+        (
+                      range: "dhcp-range=set:${range.interface},${range.startAddr},${range.endAddr},${range.leaseTime}
+        "
+                    )
+        dhcp.range
+                  )}
 
-          ${concatStringsSep "\n" (map (range: ''
-            dhcp-range=set:${range.interface},${range.startAddr},${range.endAddr},${range.leaseTime}
-          '') dhcp.range
-            )}
+        ${concatStringsSep "\n" (
+                    map
+        (
+                      host: ''
+                        dhcp-host=${host.hardwareAddress},${host.name},${host.ipAddress},${host.leaseTime},set:${host.name}
+                        ${optionalString (host.staticRecord) "host-record=${host.name},${host.name}.${dhcp.domain.name},${host.ipAddress},120" }
+                      ''
+                    )
+        dhcp.host
+                  )}
 
-          ${concatStringsSep "\n" (map (host: ''
-            dhcp-host=${host.hardwareAddress},${host.name},${host.ipAddress},${host.leaseTime},set:${host.name}
-            ${optionalString (host.staticRecord) "host-record=${host.name},${host.name}.${dhcp.domain.name},${host.ipAddress},120" }
-          '') dhcp.host
-            )}
+        ''
+                )
+        cfg.dnsmasq.dhcp
+              )}
 
-        '') cfg.dnsmasq.dhcp
-          )}
-
-        ${optionalString (cfg.dnsmasq.logQueries) "
-log-queries
-"}
+                ${optionalString (cfg.dnsmasq.logQueries) "
+        log-queries
+        "}
 
         cache-size=${toString cfg.dnsmasq.cache-size}
 
-        ${cfg.dnsmasq.extraConfig}
+                ${cfg.dnsmasq.extraConfig}
       '';
     };
 

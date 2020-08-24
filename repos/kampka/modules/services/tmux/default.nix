@@ -1,34 +1,32 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-
 let
-
   cfg = config.kampka.services.tmux;
 
   tmuxConfig = pkgs.writeText "tmux.conf" ''
-    ${optionalString (cfg.configurePowerline) ''
-    # Source the powerline shell configuration
-    source "${cfg.powerlinePackage}/share/tmux/powerline.conf"
-  '' }
+      ${optionalString (cfg.configurePowerline) ''
+      # Source the powerline shell configuration
+      source "${cfg.powerlinePackage}/share/tmux/powerline.conf"
+    '' }
 
-    # Keep tmux alive even if there is no active session left
-    set -g exit-empty off
-    set -g exit-unattached off
-    set -g destroy-unattached off
+      # Keep tmux alive even if there is no active session left
+      set -g exit-empty off
+      set -g exit-unattached off
+      set -g destroy-unattached off
 
-    # Update the PATH to prevent the daemon path from leaking through
-    set -g update-environment ' ${concatStringsSep " " cfg.updateEnvironment}'
+      # Update the PATH to prevent the daemon path from leaking through
+      set -g update-environment ' ${concatStringsSep " " cfg.updateEnvironment}'
 
-    ${optionalString (cfg.zshAutoConfigure) ''
-    # Configure zsh as default shell
-    set-option -g default-shell ${pkgs.zsh}/bin/zsh
-    set-option -g default-command ${pkgs.zsh}/bin/zsh
-  ''}
+      ${optionalString (cfg.zshAutoConfigure) ''
+      # Configure zsh as default shell
+      set-option -g default-shell ${pkgs.zsh}/bin/zsh
+      set-option -g default-command ${pkgs.zsh}/bin/zsh
+    ''}
 
 
-    # Source users tmux.conf
-    if-shell "test -e $HOME/.tmux.conf" 'source "$HOME/.tmux.conf"'
+      # Source users tmux.conf
+      if-shell "test -e $HOME/.tmux.conf" 'source "$HOME/.tmux.conf"'
   '';
 
   tmuxStarter = "${lib.readFile ./tmux-starter}";

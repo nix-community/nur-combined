@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-
 let
 
   cfg = config.kampka.services.ntp;
@@ -13,7 +12,7 @@ in
 
     allowAddress = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "10.10.0.1" "10.20.0.0/16" ];
       description = "IP addresses or ranges that are allowed to synchronize from this service";
     };
@@ -44,7 +43,7 @@ in
 
       dumponexit
 
-      ${optionalString (cfg.allowAddress != []) "local stratum 10" }
+      ${optionalString (cfg.allowAddress != [ ]) "local stratum 10" }
       ${concatStringsSep "\n" (map (address: "allow ${address}") cfg.allowAddress)}
 
     '';

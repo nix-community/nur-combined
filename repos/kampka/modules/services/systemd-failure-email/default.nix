@@ -1,9 +1,7 @@
 { config, pkgs, lib, ... }:
 
 with lib;
-
 let
-
   cfg = config.kampka.services.systemd-failure-email;
 
   systemdSendmail = pkgs.writeScriptBin "systemd-email" ''
@@ -36,35 +34,39 @@ in
 
     services = mkOption {
       type = types.listOf (types.str);
-      default = [];
+      default = [ ];
       description = "A list of services that should generate emails on failure";
     };
   };
 
-  config = mkIf (cfg.enable && cfg.services != []) {
+  config = mkIf (cfg.enable && cfg.services != [ ]) {
 
     systemd.services = listToAttrs (
       (
-        map (
-          service: nameValuePair "systemd-email-${cfg.receipient}-${service}" {
-            description = "status email for ${service} to ${cfg.receipient}";
+        map
+          (
+            service: nameValuePair "systemd-email-${cfg.receipient}-${service}" {
+              description = "status email for ${service} to ${cfg.receipient}";
 
-            serviceConfig = {
-              ExecStart = "${systemdSendmail}/bin/systemd-email '${cfg.receipient}' '${service}'";
-              Type = "oneshot";
-              User = "nobody";
-              Group = "systemd-journal";
-            };
-          }
-        ) cfg.services
+              serviceConfig = {
+                ExecStart = "${systemdSendmail}/bin/systemd-email '${cfg.receipient}' '${service}'";
+                Type = "oneshot";
+                User = "nobody";
+                Group = "systemd-journal";
+              };
+            }
+          )
+          cfg.services
       ) ++ (
-        map (
-          service: nameValuePair "${service}" {
-            unitConfig = {
-              OnFailure = "systemd-email-${cfg.receipient}-${service}.service";
-            };
-          }
-        ) cfg.services
+        map
+          (
+            service: nameValuePair "${service}" {
+              unitConfig = {
+                OnFailure = "systemd-email-${cfg.receipient}-${service}.service";
+              };
+            }
+          )
+          cfg.services
       )
     );
 

@@ -5,6 +5,7 @@
   zsh-history = ./programs/zsh-history;
 
   dns-cache = ./services/dns-cache;
+  luksopen = ./services/luksopen;
   matrix = ./services/matrix;
   msmtp-mailqueue = ./services/msmtp-mailqueue;
   nginx = ./services/nginx;
