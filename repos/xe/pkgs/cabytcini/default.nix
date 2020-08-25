@@ -4,12 +4,12 @@ with pkgs;
 
 rustPlatform.buildRustPackage rec {
   name = "cabytcini-${version}";
-  version = "0.2.1";
+  version = "0.2.2";
 
   src = fetchgit {
     url = "https://tulpa.dev/cadey/cabytcini";
-    rev = "3de2d10f905b9fd5781fc5dc374fbd1df982716c";
-    sha256 = "1bkfqyphdk2z7zhwp75xma93hi9fkgqg97a6wps0hvkwl1ar7c5f";
+    rev = "c78fb3dcb50120d34637dd66d08944d1dffa41e4";
+    sha256 = "1b2m7y9al62ihpyjg1jjplwbkgw74189rkvp0llr5pd9rwg9vpfj";
   };
 
   buildInputs = [ pkg-config xorg.libX11 openssl ];
