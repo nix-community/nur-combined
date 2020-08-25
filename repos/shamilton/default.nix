@@ -70,6 +70,9 @@ rec {
   sync-database = with pkgs.python3Packages; pkgs.callPackage ./pkgs/sync-database {
     inherit buildPythonPackage parallel-ssh merge-keepass pykeepass;
   };
+  vokoscreen-ng = with pkgs; libsForQt5.callPackage ./pkgs/vokoscreenNG {
+    gstreamer = gst_all_1.gstreamer;
+  };
   wiiuse = pkgs.callPackage ./pkgs/WiiUse { };
 
 }
