@@ -11,21 +11,24 @@
 
 # Usage
 
-To install, clone the repository and [isntall Nix](https://nixos.org/nix/manual/#chap-installation) (`curl -L https://nixos.org/nix/install | sh`), then inside it run:
+[Isntall Nix](https://nixos.org/nix/manual/#chap-installation) (`curl -L https://nixos.org/nix/install | sh`), 
+then clone this repository and inside it run:
 
 ```nix
 nix-env -iA instantnix -f default.nix --arg pkgs 'import <nixpkgs> {}'
 ```
 
 The last argument "`--arg`" causes the build to run from your version of [nixpkgs](https://github.com/nixos/nixpkgs)
-rather than the fixed commit of the last tagged stable version.
-If you want to take of a stable build that likely has a lot of its components cached, you should ommit the that
-last part.
+rather than the fixed commit of the last tagged stable version, which can be up to six month old.
 
-After installation, you can run `instantwm`, just as you would any other window manager.
+After installation, you can run `instantwm`, just as you would run [dwm](https://dwm.suckless.org) on any other window manager.
 For many people that means putting `startinstantos` in your `~/.xinitrc`.
-See an example in `./utils/xinitrc`
-You can also find an example NixOS configuration in `./utils/configuration.nix`.
+See an example in `./utils/xinitrc`.
+
+Some related resources:
+ - [dwm on ubuntu](https://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/)
+ - [dwm on lightdm](https://blkct.wordpress.com/2017/06/16/how-to-start-dwm-from-lightdm/)
+ - An example [NixOS configuration](https://github.com/instantOS/instantNIX/blob/master/utils/configuration.nix) ([without NUR](https://github.com/instantOS/instantNIX/blob/master/utils/configuration.nix))
 
 Note: Some additional configuration steps such as setting the correct UID for instantLOCK might be required.
 
