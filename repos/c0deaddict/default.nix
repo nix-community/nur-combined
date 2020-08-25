@@ -55,4 +55,6 @@ rec {
 
   fira-code_206 = pkgs.callPackage ./pkgs/fira-code {};
 
+  zpool_prometheus = pkgs.callPackage ./pkgs/zpool_prometheus {};
+
 }
