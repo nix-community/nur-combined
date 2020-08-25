@@ -2,10 +2,10 @@
   {
     "1password-x-password-manager" = buildFirefoxXpiAddon {
       pname = "1password-x-password-manager";
-      version = "1.20.0";
+      version = "1.21.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3597753/1password_x_password_manager-1.20.0-fx.xpi?src=";
-      sha256 = "ec3c46d4c1f4a7a7be8055a7327e207cf037f8ca579af9cd9930499732632569";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3631301/1password_x_password_manager-1.21.0-fx.xpi?src=";
+      sha256 = "84c7a604b9f811c89323e35c65bd8658966d299ed271b500e533622554810e55";
       meta = with stdenv.lib;
       {
         homepage = "https://1password.com";
@@ -150,10 +150,10 @@
       };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
-      version = "3.5.0";
+      version = "3.5.1";
       addonId = "CookieAutoDelete@kennydo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3628240/cookie_autodelete-3.5.0-an+fx.xpi?src=";
-      sha256 = "1fb3251643ea5837bf8f5a1a9e29278c3eeb60ccf649f2a201436a1d0acf90ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3630305/cookie_autodelete-3.5.1-an+fx.xpi?src=";
+      sha256 = "7aa3dde448c0e573a9882781482e7fb6952cbeb5152c3919799d2138d149abec";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Cookie-AutoDelete/Cookie-AutoDelete";
