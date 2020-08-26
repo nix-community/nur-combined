@@ -10,6 +10,9 @@
         "aasg": {
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
+        "andersontorres": {
+            "url": "https://github.com/AndersonTorres/nur-packages"
+        },
         "angr": {
             "url": "https://github.com/angr/nixpkgs"
         },
