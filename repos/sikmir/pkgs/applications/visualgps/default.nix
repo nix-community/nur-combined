@@ -23,10 +23,12 @@ mkDerivation {
 
   qmakeFlags = [ "Software/VisualGPSqt/Source/VisualGPSqt.pro" ];
 
-  postInstall = stdenv.lib.optionalString stdenv.isDarwin ''
+  postInstall = if stdenv.isDarwin then ''
     mkdir -p $out/Applications
     mv VisualGPSqt.app $out/Applications
     wrapQtApp $out/Applications/VisualGPSqt.app/Contents/MacOS/VisualGPSqt
+  '' else ''
+    install -Dm755 VisualGPSqt -t $out/bin
   '';
 
   meta = with stdenv.lib; {
