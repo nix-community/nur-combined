@@ -544,12 +544,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.37";
+    version = "0.12.39";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "1ap2mja9wks7frv5vysn5p1z8p13j5jksm30p0jc1pi5s8zh5x7g";
+      sha256 = "04752xwjz56pn8dsanqg4frxqgdzpfymdvfrd17iih1m8habw16x";
     };
 
     phases = [ "installPhase" ];
@@ -689,12 +689,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.13.1";
+    version = "3.14.2";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "09ims21jzryr53zymr04ffgqqkl79ns613n6ad83c97hy86aj2da";
+      sha256 = "12nz8g39rf0b5q5aj6cnvsqxd88ws4iyx34f9kvj5jqzmk092v0s";
     };
 
     phases = [ "installPhase" ];
