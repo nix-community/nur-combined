@@ -30,8 +30,8 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "Computer-aided translation system that focuses on productivity and quality assurance";
-    license = licenses.mit;
     homepage = "https://dangvd.github.io/ksmoothdock/";
+    license = licenses.mit;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };

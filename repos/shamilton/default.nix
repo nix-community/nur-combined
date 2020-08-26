@@ -47,6 +47,7 @@ rec {
   merge-keepass = with pkgs.python3Packages; pkgs.callPackage ./pkgs/merge-keepass { 
     inherit buildPythonPackage pykeepass click pytest;
   };
+  ncgopher = pkgs.callPackage ./pkgs/ncgopher { };
   parallel-ssh = with pkgs.python3Packages; pkgs.callPackage ./pkgs/parallel-ssh {
     inherit buildPythonPackage setuptools fetchPypi paramiko gevent ssh2-python;
   };
