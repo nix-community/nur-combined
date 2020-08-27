@@ -21,6 +21,8 @@ buildGoModule {
     go-bindata -pkg=assets -o=pkg/assets/bindata.go assets
   '';
 
+  doCheck = false;
+
   meta = with lib; {
     inherit (sources.glauth) description homepage;
     license = licenses.mit;
