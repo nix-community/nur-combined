@@ -43,6 +43,12 @@
     "slug": "buster-captcha-solver"
   },
   {
+    "slug": "canvasblocker"
+  },
+  {
+    "slug": "clearurls"
+  },
+  {
     "slug": "close-other-windows"
   },
   {
@@ -215,6 +221,13 @@
     "slug": "temporary-containers"
   },
   {
+    "slug": "terms-of-service-didnt-read",
+    "license": {
+      "tag": "predefined",
+      "shortName": "agpl3Plus"
+    }
+  },
+  {
     "slug": "text-contrast-for-dark-themes"
   },
   {
@@ -222,6 +235,14 @@
   },
   {
     "slug": "tomato-clock"
+  },
+  {
+    "slug": "torproject-snowflake",
+    "pname": "snowflake",
+    "license": {
+      "tag": "predefined",
+      "shortName": "bsd3"
+    }
   },
   {
     "slug": "torswitch"

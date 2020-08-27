@@ -135,6 +135,34 @@
         platforms = platforms.all;
         };
       };
+    "canvasblocker" = buildFirefoxXpiAddon {
+      pname = "canvasblocker";
+      version = "1.3";
+      addonId = "CanvasBlocker@kkapsner.de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3586373/canvasblocker-1.3-an+fx.xpi?src=";
+      sha256 = "dfb8aa888cf3b4671710861a65f0fe29810210f6a37c3d0c1a9bf3d112af4bb6";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/kkapsner/CanvasBlocker/";
+        description = "Alters some JS APIs to prevent fingerprinting.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "clearurls" = buildFirefoxXpiAddon {
+      pname = "clearurls";
+      version = "1.19.0";
+      addonId = "{74145f27-f039-47ce-a470-a662b129930a}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3612592/clearurls-1.19.0-an+fx.xpi?src=";
+      sha256 = "378204ec10b7560966b757c4b24937073ee3cc98b147b61fbdabd5669ed99c21";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://clearurls.xyz/";
+        description = "Removes tracking elements from URLs";
+        license = licenses.lgpl3;
+        platforms = platforms.all;
+        };
+      };
     "close-other-windows" = buildFirefoxXpiAddon {
       pname = "close-other-windows";
       version = "0.1";
@@ -748,6 +776,20 @@
         platforms = platforms.all;
         };
       };
+    "snowflake" = buildFirefoxXpiAddon {
+      pname = "snowflake";
+      version = "0.4.1";
+      addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3625468/snowflake-0.4.1-fx.xpi?src=";
+      sha256 = "8ccab22915b90217b8537e7fd69b939791a8592d0306ebad054884c97dd2e79e";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://snowflake.torproject.org/";
+        description = "Snowflake is a WebRTC pluggable transport for Tor.\n\nEnabling this extension turns your browser into a proxy that connects Tor users in censored regions to the Tor network.";
+        license = licenses.bsd3;
+        platforms = platforms.all;
+        };
+      };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
       version = "1.5.13";
@@ -800,6 +842,20 @@
         homepage = "https://github.com/stoically/temporary-containers";
         description = "Open tabs, websites, and links in automatically managed disposable containers. Containers isolate data websites store (cookies, storage, and more) from each other, enhancing your privacy and security while you browse.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
+      pname = "terms-of-service-didnt-read";
+      version = "2.0.0";
+      addonId = "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1050617/terms_of_service_didnt_read-2.0.0-an+fx.xpi?src=";
+      sha256 = "e247194fae504ff039c50b9737be7248bf9a15fc133c08d0c001dc6743149cd3";
+      meta = with stdenv.lib;
+      {
+        homepage = "http://www.tosdr.org";
+        description = "“I have read and agree to the Terms” is the biggest lie on the web. We aim to fix that. Get informed instantly about websites' terms &amp; privacy policies, with ratings and summaries from the <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/782d4bf373fdb0bc94e6bd037af1bf988ce2274e2210205e7e5b8bbd291b0997/http%3A//www.tosdr.org\">www.tosdr.org</a> initiative.";
+        license = licenses.agpl3Plus;
         platforms = platforms.all;
         };
       };
