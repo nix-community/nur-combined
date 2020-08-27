@@ -21,8 +21,8 @@ rec {
   lib-scs = pkgs.callPackage ./pkgs/libraries/scs { };
 
   # New/unstable packages below
-  # libcint = pkgs.callPackage ./pkgs/libraries/libcint { };
-  # xcfun = pkgs.callPackage ./pkgs/libraries/xcfun { };
+  libcint = pkgs.callPackage ./pkgs/libraries/libcint { };
+  xcfun = pkgs.callPackage ./pkgs/libraries/xcfun { };
   muparserx = pkgs.callPackage ./pkgs/libraries/muparserx { };
 
   python3Packages = pkgs.recurseIntoAttrs rec {
@@ -30,7 +30,7 @@ rec {
     # asteval = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/asteval { };
     # nose-timer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/nose-timer { };
     oitg = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/oitg { };
-    # pyscf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyscf { inherit libcint xcfun; };
+    pyscf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyscf { inherit libcint xcfun; };
     pygsti = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pygsti { inherit cvxpy; };
     pygsti-cirq = pygsti.overridePythonAttrs (oldAttrs: {
       version = "unstable-2020-04-20";

@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "libcint";
-  version = "3.0.20";
+  version = "3.1.1";
 
   src = fetchFromGitHub {
     owner = "sunqm";
     repo = "libcint";
     rev = "v${version}";
-    sha256 = "0iqqq568q9sxppr08rvmpyjq0n82pm04x9rxhh3mf20x1ds7ngj5";
+    sha256 = "0z1gavi7aacx68fmyzy90vzv5kff844lnxc6habs6y377dr3rwwy";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://wiki.sunqm.net/libcint";
     downloadPage = "https://github.com/sunqm/libcint";
+    changelog = "https://github.com/sunqm/libcint/releases/tag/v${version}";
     license = licenses.bsd2;
-    # maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [ drewrisinger ];
   };
 }
