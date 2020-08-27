@@ -11,6 +11,8 @@ let
 in
 nodePackages."${packageName}".override {
   postInstall = ''
+    # fixes the shebang in webpack
+    patchShebangs --build "$out/lib/node_modules/mini-media-player/node_modules/"
     npm run build
     cp -v dist/*.js $out/
     rm -rf $out/lib

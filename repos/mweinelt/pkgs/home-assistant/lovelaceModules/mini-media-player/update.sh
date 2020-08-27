@@ -14,5 +14,5 @@ node2nix \
   --development \
   --input package.json \
   --output node-packages.nix \
-  --composition node-composition.nix
-
+  --composition node-composition.nix \
+  --supplement-input supplement.json
