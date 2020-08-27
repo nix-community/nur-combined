@@ -30,14 +30,14 @@ assert gssSupport -> libkrb5 != null;
 
 stdenv.mkDerivation rec {
   pname = "curl";
-  version = "7.71.1";
+  version = "7.72.0";
 
   src = fetchurl {
     urls = [
       "https://curl.haxx.se/download/curl-${version}.tar.bz2"
       "https://github.com/curl/curl/releases/download/curl-${lib.replaceStrings ["."] ["_"] version}/curl--${version}.tar.bz2"
     ];
-    sha256 = "097jnkbayscifgzgl7v8kwd7m2crpvbyaazac3ab1yal0pca8llx";
+    sha256 = "1vq3ay87vayfrv67l7s7h79nm7gwdqhidki0brv5jahhch49g4dd";
   };
 
   outputs = [ "bin" "dev" "out" "man" "devdoc" ];
