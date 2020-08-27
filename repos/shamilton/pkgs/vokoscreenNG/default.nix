@@ -10,6 +10,11 @@
 , qtbase
 , qtmultimedia
 , qtx11extras
+
+, gst-plugins-base
+, gst-plugins-good
+, gst-plugins-bad
+, gst-plugins-ugly
 }:
 mkDerivation rec {
 
@@ -40,11 +45,20 @@ mkDerivation rec {
     qtbase
     qtmultimedia
     qtx11extras
+
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+    gst-plugins-ugly
   ];
 
   postPatch = ''
     substituteInPlace src/vokoscreenNG.pro \
       --replace lrelease-qt5 lrelease
+  '';
+
+  postInstall = ''
+    qtWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")
   '';
 
   meta = with lib; {

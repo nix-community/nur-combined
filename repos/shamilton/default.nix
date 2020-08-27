@@ -21,10 +21,10 @@ rec {
     inherit buildRustPackage;
   };
   compton = pkgs.callPackage ./pkgs/Compton { };
-  # controls-for-fake = pkgs.libsForQt5.callPackage ./pkgs/ControlsForFake  {
-  #   inherit libfake;
-  #   FakeMicWavPlayer = fake-mic-wav-player;
-  # };
+  controls-for-fake = pkgs.libsForQt5.callPackage ./pkgs/ControlsForFake  {
+    inherit libfake;
+    FakeMicWavPlayer = fake-mic-wav-player;
+  };
   day-night-plasma-wallpapers = with pkgs.python3Packages; pkgs.callPackage ./pkgs/day-night-plasma-wallpapers { 
     dbus-python = dbus-python;
   };
@@ -76,6 +76,10 @@ rec {
   };
   vokoscreen-ng = with pkgs; libsForQt5.callPackage ./pkgs/vokoscreenNG {
     gstreamer = gst_all_1.gstreamer;
+    gst-plugins-base = gst_all_1.gst-plugins-base;
+    gst-plugins-good = gst_all_1.gst-plugins-good;
+    gst-plugins-bad = gst_all_1.gst-plugins-bad;
+    gst-plugins-ugly = gst_all_1.gst-plugins-ugly;
   };
   wiiuse = pkgs.callPackage ./pkgs/WiiUse { };
 
