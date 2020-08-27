@@ -96,10 +96,10 @@
       };
     "browserpass" = buildFirefoxXpiAddon {
       pname = "browserpass";
-      version = "3.5.0";
+      version = "3.6.0";
       addonId = "browserpass@maximbaz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3597896/browserpass-3.5.0-fx.xpi?src=";
-      sha256 = "1a53a9d941cba68e5b3131daebbd0c9a81dedf7de2f5a09eb0c09c7609e0f5ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3632396/browserpass-3.6.0-fx.xpi?src=";
+      sha256 = "8daa6bc1e674639a613906504d45636e15a39cf8f380da3d40802fa8d3e0c25c";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/browserpass/browserpass-extension";
@@ -723,10 +723,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "22.1";
+      version = "22.2";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3628721/save_page_we-22.1-fx.xpi?src=";
-      sha256 = "af1ca98b971eb629602bd0c3cffd187127cfb4e98ee37ba26404b3ebb4592a6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3632461/save_page_we-22.2-fx.xpi?src=";
+      sha256 = "aff2b0afb4a6f8f576f2225c7875d7daa2faa5be1a3c8e9cd1f27cef8df7516e";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
