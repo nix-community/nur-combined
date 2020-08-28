@@ -24,7 +24,7 @@ in
     };
   };
 
-  config = mkIf.cfg.enable {
+  config = mkIf cfg.enable {
     home.packages = [ pkgs.gitAndTools.gita ];
     home.file.".config/gita/repos_path".text = concatStringsSep "\n"
       collect (mapAttrs (name: value: value + "," + name) repos);
