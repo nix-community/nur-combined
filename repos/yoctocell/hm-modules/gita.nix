@@ -26,13 +26,15 @@ in
 
   config = mkIf.cfg.enable {
     home.packages = [ pkgs.gitAndTools.gita ];
-    home.file.".config/gita/repos_path".text = let
-      line = repos:
-        let
-          paths = collect (mapAttrs (name: value: value + "," + name) repos);
-        in
-          concatStringsSep "\n" paths;
-    in
-      line cfg.repos;
+    home.file.".config/gita/repos_path".text = concatStringsSep "\n"
+      collect (mapAttrs (name: value: value + "," + name) repos);
+    # home.file.".config/gita/repos_path".text = let
+    #   line = repos:
+    #     let
+    #       paths = collect (mapAttrs (name: value: value + "," + name) repos);
+    #     in
+    #       concatStringsSep "\n" paths;
+    # in
+    #   line cfg.repos;
   };
 }
