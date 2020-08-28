@@ -15,3 +15,7 @@ Yoctocell's [NUR](https://github.com/nix-community/NUR) packages.
 
 ## Emacs packages
 - org-pretty-table
+
+# Modules
+## Home-manager
+- gita

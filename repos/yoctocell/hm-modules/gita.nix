@@ -7,8 +7,6 @@
 with lib;
 
 let
-  sources = import ../nix/sources.nix;
-  pkgs = import sources.nixpkgs {};
   cfg = config.programs.gita;
 in
 
@@ -26,8 +24,6 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [ pkgs.gitAndTools.gita ];
-    # home.file.".config/gita/repos_path".text = (concatStringsSep "\n"
-    #   collect builtins.isString (mapAttrs (name: value: value + "," + name) repos)) + "\n";
     home.file.".config/gita/repo_path".text = let
       line = repos:
         let

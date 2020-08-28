@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "yoctocell",
         "repo": "gralc",
-        "rev": "f7ff3c0a75bae76f574fed5b80e570c14185304f",
-        "sha256": "0vwyp68kwx8lz3psmalqgf0xdpglbnzd7hy6nzpqiwnk6w4lnf5g",
+        "rev": "d63b28cfd61e51c3460caeee60c32495492c4e00",
+        "sha256": "05qbi74qmpz40fiyji12by9077d952zkg8n7rjl2x3jpdha1bczz",
         "type": "tarball",
-        "url": "https://github.com/yoctocell/gralc/archive/f7ff3c0a75bae76f574fed5b80e570c14185304f.tar.gz",
+        "url": "https://github.com/yoctocell/gralc/archive/d63b28cfd61e51c3460caeee60c32495492c4e00.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -17,10 +17,10 @@
         "homepage": "https://github.com/nmattia/niv",
         "owner": "nmattia",
         "repo": "niv",
-        "rev": "e82eb322ea32a747a51c431d7787221bcc6d9038",
-        "sha256": "1fy4dcr05d80diwlxmh42xnjm5ki1pkbky38smvlqjaky2y2f71f",
+        "rev": "89ae775e9dfc2571f912156dd2f8627e14d4d507",
+        "sha256": "0ssw6byyn79fpyzswi28s5b85x66xh4xsfhmcfl5mkdxxpmyy0ns",
         "type": "tarball",
-        "url": "https://github.com/nmattia/niv/archive/e82eb322ea32a747a51c431d7787221bcc6d9038.tar.gz",
+        "url": "https://github.com/nmattia/niv/archive/89ae775e9dfc2571f912156dd2f8627e14d4d507.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
@@ -29,10 +29,10 @@
         "homepage": null,
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a3aae2271925e8f110dfdf3c9e5fde77e80663a0",
-        "sha256": "1b2fsica8nm2azd5k781bryqnsm39r2g1l90j2f0j3mqav008ya7",
+        "rev": "f9567594d5af2926a9d5b96ae3bada707280bec6",
+        "sha256": "0vr2di6z31c5ng73f0cxj7rj9vqvlvx3wpqdmzl0bx3yl3wr39y6",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/a3aae2271925e8f110dfdf3c9e5fde77e80663a0.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/f9567594d5af2926a9d5b96ae3bada707280bec6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "org-pretty-table": {
