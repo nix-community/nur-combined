@@ -32,10 +32,10 @@ rec {
   fake-mic-wav-player = pkgs.libsForQt5.callPackage ./pkgs/FakeMicWavPlayer {
     inherit libfake argparse;
   };
+  haste-client = pkgs.callPackage ./pkgs/haste-client { };
   inkscape = pkgs.callPackage ./pkgs/inkscape-1.0 { 
     lcms = pkgs.lcms2;
   };
-
   juk = pkgs.kdeApplications.callPackage ./pkgs/Juk { };
   kapptemplate = pkgs.kdeApplications.callPackage ./pkgs/KAppTemplate { };
   kbreakout = pkgs.kdeApplications.callPackage ./pkgs/KBreakOut { };
