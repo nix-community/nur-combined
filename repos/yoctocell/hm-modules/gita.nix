@@ -28,7 +28,7 @@ in
     home.packages = [ pkgs.gitAndTools.gita ];
     # home.file.".config/gita/repos_path".text = (concatStringsSep "\n"
     #   collect builtins.isString (mapAttrs (name: value: value + "," + name) repos)) + "\n";
-    home.file.".config/gita/repos_path".text = let
+    home.file.".config/gita/repo_path".text = let
       line = repos:
         let
           paths = collect builtins.isString (mapAttrs (name: value: value + "," + name) repos);
