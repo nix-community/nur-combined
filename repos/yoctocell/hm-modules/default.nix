@@ -1,0 +1,3 @@
+{
+  gita = ./gita.nix;
+}
