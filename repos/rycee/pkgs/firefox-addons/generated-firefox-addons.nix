@@ -453,10 +453,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.2.0";
+      version = "3.2.1";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3629604/i_dont_care_about_cookies-3.2.0-an+fx.xpi?src=";
-      sha256 = "ceb45189b808455f07d484a26c4d78e4ee903c46a99654ae3b9881779aa2a980";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3633489/i_dont_care_about_cookies-3.2.1-an+fx.xpi?src=";
+      sha256 = "710f26a2a79e08e5e9e3140e5f6417ee945087a08ac2f751008d30a4dd5f6fd0";
       meta = with stdenv.lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -508,10 +508,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.54.0.2";
+      version = "4.55.0.5";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3624737/lastpass_password_manager-4.54.0.2-an+fx.xpi?src=";
-      sha256 = "1f2138d5b7e368d54a20ef43cd1db98c5c55c8fee3cfc4b52d25c8972c09274b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3632898/lastpass_password_manager-4.55.0.5-an+fx.xpi?src=";
+      sha256 = "808c83875bb08c0798712a50e5b8471dcaf29ffb12ef12e80b37fd0264d65fa8";
       meta = with stdenv.lib;
       {
         homepage = "https://lastpass.com/";
