@@ -14,7 +14,7 @@ buildRustPackage rec {
     sha256 = "0l2wg0xr8ahprdcxnw7b1afml9z6arqfj9bn0fq9vfpnm14b3j80";
   };
 
-  cargoSha256 = "1w50b5vrs6x4djnsfd1ddhjn692q8fvdmkawrnxazvc32hpdkd33";
+  cargoSha256 = "05m7k5nmzxl6a93rjz320lqc74ljyh2jvrkh5g4c4gpj4966smpv";
   verifyCargoDeps = true;
 
   meta = with lib; {

@@ -10,13 +10,13 @@
 # which this is possible.
 
 { pkgs ? import (builtins.fetchTarball {
-          # Descriptive name to make the store path easier to identify
-          name = "nixos-20.03.2839.0c59c1296b2";
-          # Commit hash for nixos-unstable as of 2018-09-12
-          url = "https://github.com/nixos/nixpkgs/archive/0c59c1296b23abc25a6383ff26db2eeb17ad8a81.tar.gz";
-          # Hash obtained using `nix-prefetch-url --unpack <url>`
-          sha256 = "03sifcpkc3prszaycd6snvpxam66phmj0b7m4723l5dmmsyq4bkw";
-        }) {}
+    # Descriptive name to make the store path easier to identify
+    name = "nixpkgs-20.08.20";
+    # Commit hash for nixos-unstable as of 2018-09-12
+    url = "https://github.com/nixos/nixpkgs/archive/c59ea8b8a0e7f927e7291c14ea6cd1bd3a16ff38.tar.gz";
+    # Hash obtained using `nix-prefetch-url --unpack <url>`
+    sha256 = "1ak7jqx94fjhc68xh1lh35kh3w3ndbadprrb762qgvcfb8351x8v";
+  }) {}
 }:
 
 with builtins;
