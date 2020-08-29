@@ -8,7 +8,7 @@ buildGoModule rec {
     owner = "nats-io";
     repo = pname;
     rev = version;
-    sha256 = "0zlnc2ppzwdddsiiwjdsi32z8mdcsm9hphgwijyhg59a9f1ajh8b";
+    sha256 = "0lbgivrpibz5kbiy658hbp6jpfcqp96gahc56gwsj7ff67y4a10i";
   };
 
   vendorSha256 = null;

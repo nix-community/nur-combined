@@ -57,4 +57,7 @@ rec {
 
   zpool_prometheus = pkgs.callPackage ./pkgs/zpool_prometheus {};
 
+
+  rds_exporter = pkgs.callPackage ./pkgs/rds_exporter {};
+
 }
