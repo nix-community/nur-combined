@@ -37,6 +37,8 @@ stdenv.mkDerivation {
   installPhase = ''
   install -d $out/share/emacs/site-lisp
   install *.el *.elc $out/share/emacs/site-lisp
+  install -d $out/bin/matrix-client-standalone.el.sh
+  install *.sh $out/bin/matrix-client-standalone.el.sh
   '';
 
   meta = with stdenv.lib; {
