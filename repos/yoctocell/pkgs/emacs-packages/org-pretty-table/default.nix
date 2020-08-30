@@ -1,7 +1,7 @@
 { stdenv
 , fetchFromGitHub
 , sources
-, emacs
+, pkgs
 }:
 
 stdenv.mkDerivation {
@@ -15,7 +15,10 @@ stdenv.mkDerivation {
     sha256 = sources.org-pretty-table.sha256;
   };
 
-  buildInputs = [ emacs ];
+  buildInputs = with pkgs; [
+    emacs
+    emacsPackages.org
+  ];
 
   buildPhase = ''
   emacs -L $src --batch -f batch-byte-compile *.el

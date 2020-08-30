@@ -3,6 +3,6 @@
 }:
 
 {
-  org-pretty-table = pkgs.callPackage ./org-pretty-table { inherit sources; };
+  org-pretty-table = pkgs.callPackage ./org-pretty-table { inherit sources pkgs; };
   matrix-client = pkgs.callPackage ./matrix-client { inherit sources pkgs; };
 }
