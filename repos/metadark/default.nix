@@ -42,6 +42,8 @@ rec {
 
   goverlay = pkgs.callPackage ./pkgs/tools/graphics/goverlay { };
 
+  libhandy1 = pkgs.callPackage ./pkgs/development/libraries/libhandy1 { };
+
   lightdm-webkit2-greeter = pkgs.callPackage ./pkgs/applications/display-managers/lightdm-webkit2-greeter {
     inherit lightdm-webkit2-greeter;
   };
