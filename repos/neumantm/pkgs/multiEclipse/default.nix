@@ -1,4 +1,4 @@
-{ stdenv, writeShellScriptBin, symlinkJoin, coreutils, eclipses, 
+{ stdenv, makeDesktopItem, writeShellScriptBin, symlinkJoin, coreutils, eclipses, 
 myEclipsePackages ? [ eclipses.eclipse-platform ],
 logFile ? "/dev/null"
 }:
@@ -36,6 +36,16 @@ let
       
       sleep 0.1
     '';
+  desktopItem = makeDesktopItem {
+    name = "Eclipse";
+    exec = "eclipse";
+    icon = "eclipse";
+    comment = "Integrated Development Environment";
+    desktopName = "Eclipse IDE";
+    genericName = "Integrated Development Environment";
+    categories = "Development;";
+    terminal = "true";
+  };
 in symlinkJoin {
   name = "multiEclipse";
   paths = [ startEclipse ];
@@ -43,9 +53,7 @@ in symlinkJoin {
   postBuild = 
     ''
       mkdir -p $out/share/applications
-      cp ${builtins.elemAt myEclipsePackages 0}/share/applications/* $out/share/applications
-      mkdir -p $out/share/pixmaps
-      ln -s ${builtins.elemAt myEclipsePackages 0}/share/pixmaps/eclipse.xpm $out/share/pixmaps/eclipse.xpm
+      cp ${desktopItem}/share/applications/* $out/share/applications
     '';
 
   meta = with stdenv.lib; {
