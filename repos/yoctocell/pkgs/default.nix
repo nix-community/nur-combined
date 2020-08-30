@@ -11,7 +11,7 @@
   tremc = pkgs.callPackage ./tremc { inherit sources; };
 
   # Emacs packages
-  epkgs = import ./emacs-packages { inherit sources pkgs; };
+  emacsPackages = import ./emacs-packages { inherit sources pkgs; };
 
   # TeX packages
 
