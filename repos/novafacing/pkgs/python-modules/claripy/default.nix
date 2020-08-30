@@ -18,7 +18,7 @@ buildPythonPackage rec {
     owner = "angr";
     repo = "claripy";
     rev = "ae67818b5af72ecec1d77d1fbc7336d98fc4b5e5";
-    sha256 = "0abfxswqfn822j46dxs0ga738mg1sgyf0kkr12hk44n95vpfzz7f";
+    sha256 = "11pk885ifaw3zpd8id5wp1zslfbqz11fwmjnlfa2csab6gkva8gq";
   };
 
   # Tests are non-deterministically failing.

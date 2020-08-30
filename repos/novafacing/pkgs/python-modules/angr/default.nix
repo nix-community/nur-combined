@@ -3,9 +3,9 @@
 , buildPythonPackage
 , cachetools
 , capstone
-, cffi
 , claripy
 , cle
+, cffi
 , cooldict
 , dpkt
 , fetchFromGitHub
@@ -22,6 +22,7 @@
 , pyvex
 , rpyc
 , unicorn
+, cppheaderparser
 , sortedcontainers
 }:
 
@@ -38,7 +39,7 @@ buildPythonPackage rec {
     cffi
     claripy
     cle
-		cooldict
+	cooldict
     dpkt
     GitPython
     itanium_demangler
@@ -48,6 +49,7 @@ buildPythonPackage rec {
     protobuf
     psutil
     pycparser
+    cppheaderparser
     pyvex
     rpyc
     unicorn
@@ -58,12 +60,13 @@ buildPythonPackage rec {
     owner = "angr";
     repo = pname;
     rev = "4c28f99a4d39fe26223d1963cf8c31f766b384aa";
-    sha256 = "14596i2ivnp8jqrsah45igsya9g4cyrxfxz8x7sqdvkl08mhwjjw";
+    sha256 = "18x1q233jfmlyy06av0axskz9kbawps4alzkknkf9kabwpj2yhg8";
   };
 
   setupPyBuildFlags = [
     "--plat-name x86_64-linux"
   ];
+
 
   # Many tests are broken.
   doCheck = false;

@@ -18,20 +18,24 @@
     ailment = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/ailment { inherit pyvex; };
 
     angr = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/angr {
-      inherit archinfo ailment claripy cle cooldict mulpyplexer pyvex unicorn;
+      inherit archinfo ailment claripy cle cooldict mulpyplexer pyvex unicorn cppheaderparser;
     };
 
     archinfo = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/archinfo {};
 
+    # cffi-114 = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/cffi {};
+
     claripy = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/claripy { inherit PySMT z3-solver; };
 
-    cle = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/cle { inherit archinfo minidump pyelftools pyvex pyxbe; };
+    cle = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/cle { inherit archinfo minidump pyelftools pyvex pyxbe unicorn; };
 
     cooldict = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/cooldict {};
 
     minidump = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/minidump {};
 
     mulpyplexer = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/mulpyplexer {};
+
+    cppheaderparser = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/cppheaderparser {};
 
     pyelftools = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/pyelftools {};
 
