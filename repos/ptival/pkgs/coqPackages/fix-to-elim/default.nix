@@ -1,13 +1,13 @@
 { stdenv, fetchFromGitHub, coq, coq-plugin-lib }:
+let
+  sources = import ../nix/sources.nix;
+in
 stdenv.mkDerivation rec {
   name = "coq${coq.coq-version}-fix-to-elim";
 
   src = fetchFromGitHub {
+    inherit (sources.fix-to-elim) owner repo rev sha256;
     fetchSubmodules = true;
-    owner = "uwplse";
-    repo = "fix-to-elim";
-    rev = "6da6656912be659a27e877e628db4297b6ac3565";
-    sha256 = "10l9k3457nvahvigs37nvgk3syr8fqpics74a7h52j8xvf639i7a";
   };
 
   buildInputs = [

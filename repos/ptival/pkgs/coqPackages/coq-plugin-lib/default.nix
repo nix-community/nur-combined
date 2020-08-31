@@ -1,12 +1,12 @@
 { stdenv, fetchFromGitHub, coq }:
+let
+  sources = import ../nix/sources.nix;
+in
 stdenv.mkDerivation rec {
   name = "coq${coq.coq-version}-coq-plugin-lib";
 
   src = fetchFromGitHub {
-    owner = "uwplse";
-    repo = "coq-plugin-lib";
-    rev = "9ef820a05b779d69d5f175dd7840444012267db6";
-    sha256 = "1s20zwq2j3ar3kkp48jjgm1dp5x8vf32fm7qwmajqgkllhg6pj4h";
+    inherit (sources.coq-plugin-lib) owner repo rev sha256;
   };
 
   buildInputs = [ coq ];

@@ -1,18 +1,21 @@
-{ stdenv, fetchFromGitHub, coq, fix-to-elim }:
+{ stdenv, fetchFromGitHub, coq, coq-plugin-lib, fix-to-elim, ornamental-search
+}:
+let
+  sources = import ../nix/sources.nix;
+in
 stdenv.mkDerivation rec {
-  name = "coq${coq.coq-version}-ornamental-search";
+  name = "coq${coq.coq-version}-PUMPKIN-PATCH";
 
   src = fetchFromGitHub {
+    inherit (sources.PUMPKIN-PATCH) owner repo rev sha256;
     fetchSubmodules = true;
-    owner = "uwplse";
-    repo = "ornamental-search";
-    rev = "2086a53f06bfa11dcaa133b5c5b9dadc7f02941a";
-    sha256 = "13hwnhnbliba23qznivf76nqa0ri7rvzsfl83mk1d8d4mp003dp4";
   };
 
   buildInputs = [
     coq
+    coq-plugin-lib
     fix-to-elim
+    ornamental-search
   ];
 
   propagatedBuildInputs = with coq.ocamlPackages;

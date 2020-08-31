@@ -5,7 +5,7 @@ sudo: false
 env:
   global:
     - CACHIX_CACHE=
-    - NUR_REPO=<YOUR_NUR_REPO_NAME_HERE>
+    - NUR_REPO="ptival"
 
 matrix:
   include:

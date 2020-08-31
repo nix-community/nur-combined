@@ -12,7 +12,7 @@ fetchurl {
   postFetch = ''
     install -D $downloadedFile "$out/share/fonts/truetype/MesloLGS NF Regular.ttf"
   '';
-  sha256 = "0gbzvpqpcmdnh12glyscqp2spj5p2vbxqnag9gmcx41cagx653qn";
+  sha256 = "055xd88sw0xfpy8mgmdvp7057bksbf1mn1nbxk710j0dw9dzahmg";
 
   meta = {
     description = "A version of Apple’s Menlo-Regular font patched for Powerlevel10k";

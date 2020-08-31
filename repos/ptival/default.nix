@@ -14,5 +14,12 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  abc                      = pkgs.callPackage ./pkgs/abc                      {};
+  opensmt2                 = pkgs.callPackage ./pkgs/opensmt2                 {};
   meslo-nerd-powerlevel10k = pkgs.callPackage ./pkgs/meslo-nerd-powerlevel10k {};
+  sally                    = pkgs.callPackage ./pkgs/sally                    { inherit opensmt2; };
+
+  coqPackages = {
+    coq-plugin-lib = pkgs.callPackage ./pkgs/coqPackages/coq-plugin-lib {};
+  };
 }
