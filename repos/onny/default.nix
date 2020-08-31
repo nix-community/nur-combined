@@ -20,6 +20,7 @@
   # applications/audio
   popcorntime = pkgs.callPackage ./pkgs/applications/video/popcorntime { }; # FIXME
 
+  librewolf-bin = pkgs.callPackage ./pkgs/librewolf-bin { };
   # applications/misc
   passwordsafe = pkgs.callPackage ./pkgs/applications/misc/passwordsafe { };
 
@@ -41,6 +42,10 @@
 
   # node-packages
   inherit (pkgs.callPackages ./pkgs/node-packages {}) hyperpotamus;
+
+  iwd-autocaptiveauth = pkgs.callPackage ./pkgs/iwd-autocaptiveauth { }; # FIXME
+  snipping_tool = pkgs.callPackage ./pkgs/snipping_tool { };
+  xerox6000-6010 = pkgs.callPackage ./pkgs/xerox6000-6010 { };
 
 }
 
