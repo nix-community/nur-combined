@@ -1,0 +1,51 @@
+name: "Test"
+on:
+  pull_request:
+  push:
+  schedule:
+  - cron: '9 6 * * *'
+jobs:
+  tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        nix_path:
+        - 'nixpkgs=channel:nixpkgs-unstable'
+        - 'nixpkgs=https://github.com/bb010g/nixpkgs/archive/bb010g-nixos-unstable.tar.gz'
+        - 'nixpkgs=channel:nixos-20.03'
+        - 'nixpkgs=channel:nixos-19.09'
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v2.3.2
+    - uses: cachix/install-nix-action@v10
+      with:
+        nix_path: ${{ matrix.nix_path }}
+    - uses: cachix/cachix-action@v6
+      with:
+        name: bb010g
+        signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+    - name: 'Build CI outputs'
+      run: >-
+        nix-build --show-trace --keep-going ./ci.nix -A buildOutputs
+          --arg flattened true --arg buildUnfree true
+    - name: 'Evaluate lib'
+      run: nix eval -f ./default.nix 'lib'
+    - name: 'Evaluate modules'
+      run: nix eval -f ./default.nix 'modules'
+    - name: 'Evaluate overlays'
+      run: nix eval -f ./default.nix 'overlays'
+  notify-nur:
+    name: 'Notify NUR'
+    needs: tests
+    if: >-
+      needs.tests.result == 'success' &&
+        github.event_name == 'push' && github.ref == 'refs/heads/master'
+    steps:
+    - name: 'Notify NUR'
+      if: ${{ success() }}
+      uses: CamiloGarciaLaRotta/watermelon-http-client@v1.4
+      with:
+        url: 'https://nur-update.herokuapp.com/update?repo=bb010g'
+        method: POST
+
+# vim:et:sw=2
