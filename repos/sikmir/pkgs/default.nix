@@ -107,8 +107,9 @@ lib.makeScope newScope (
     mercantile = callPackage ./development/python-modules/mercantile { };
     mikatools = callPackage ./development/python-modules/mikatools { };
     pyephem = callPackage ./development/python-modules/pyephem { };
-    python-hfst = callPackage ./development/python-modules/python-hfst { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
+    python-hfst = callPackage ./development/python-modules/python-hfst { };
+    s2sphere = callPackage ./development/python-modules/s2sphere { };
 
     ### TOOLS
 
@@ -129,6 +130,7 @@ lib.makeScope newScope (
       inherit sources;
     };
     gpxtools = callPackage ./tools/geo/gpxtools { };
+    gpxtrackposter = callPackage ./tools/geo/gpxtrackposter { };
     gt-bash-client = callPackage ./tools/dict/gt-bash-client { };
     gt4gd = callPackage ./tools/dict/gt4gd { };
     i18n-editor = callPackage ./tools/i18n-editor { jre = pkgs.jdk11; };

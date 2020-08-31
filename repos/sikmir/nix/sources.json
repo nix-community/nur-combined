@@ -302,6 +302,20 @@
         "url": "https://notabug.org/irdvo/gpxtools/archive/919fb5953af8de1e71f61244eb70dd56b670a429.tar.gz",
         "url_template": "https://notabug.org/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "gpxtrackposter": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-08-21T10:20:21Z",
+        "description": "Create a visually appealing poster from your GPX tracks",
+        "homepage": "https://github.com/flopp/GpxTrackPoster",
+        "owner": "flopp",
+        "repo": "GpxTrackPoster",
+        "rev": "b1611ce45da8162e112ee75ca788214f891e2ea4",
+        "sha256": "0vxdvay0yz85bak835159zjrhmic1f9iy38r1f8nnss10ryvz0z7",
+        "type": "tarball",
+        "url": "https://github.com/flopp/GpxTrackPoster/archive/b1611ce45da8162e112ee75ca788214f891e2ea4.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "gt-bash-client": {
         "branch": "master",
         "builtin": false,
@@ -713,6 +727,20 @@
         "sha256": "1zlad1bmlyy4hirm93f0744c98y9hg11b32ym06rsax719qj2rjl",
         "type": "tarball",
         "url": "https://github.com/rekols/redict/archive/525aac01ed5fc0f74f8393dc5b5b3bb57c9b0c5f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "s2sphere": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2017-11-16T17:47:11Z",
+        "description": "Python implementation of the S2 geometry library.",
+        "homepage": "http://s2sphere.sidewalklabs.com/",
+        "owner": "sidewalklabs",
+        "repo": "s2sphere",
+        "rev": "d1d067e8c06e5fbaf0cc0158bade947b4a03a438",
+        "sha256": "0jidg5bg6qpiji8j2r8s8abxxs08ldkc7rdplhbnfw6k4axlh4za",
+        "type": "tarball",
+        "url": "https://github.com/sidewalklabs/s2sphere/archive/d1d067e8c06e5fbaf0cc0158bade947b4a03a438.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "stardict-3": {
