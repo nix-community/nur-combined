@@ -203,6 +203,19 @@ in {
       };
     };
 
+  edb-debugger-unstable = self.edb-debugger.overrideAttrs (o: rec {
+    pname = "${o.pname}-unstable";
+    version = "2020-07-16";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "eteran";
+      repo = "edb-debugger";
+      rev = "354e9f75018baec780a471d70c2ad97bed42f884";
+      sha256 = "09qnh4wv4hqiiqcfdiv4dywf14h6v5xqvccpp0ssljqr6rw32r35";
+      fetchSubmodules = true;
+    };
+  });
+
   # pince = callPackage ../development/tools/misc/pince { };
 
   # servers {{{1

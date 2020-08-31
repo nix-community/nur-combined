@@ -1,5 +1,5 @@
-language: nix
-nix: 2.3
+version: ~> 1.0
+import: nix-community/nix-travis-ci:nix.yml@main
 
 sudo: false
 
@@ -9,7 +9,7 @@ env:
   - NUR_REPO=bb010g
   - BUILD_UNFREE=true
 
-install:
+before_script:
 - >
   mkdir -p "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs" &&
   echo "{ allowUnfree = ${BUILD_UNFREE}; sandbox = true; }" > "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs/config.nix"
@@ -63,14 +63,19 @@ script:
 jobs:
   include:
   - name: 'nixpkgs-unstable'
+    <<: *use_nix
     env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
   - name: 'nixos-unstable (bb010g)'
+    <<: *use_nix
     env: NIX_CHANNEL=https://github.com/bb010g/nixpkgs/archive/bb010g-nixos-unstable.tar.gz
   - name: 'nixos-unstable'
+    <<: *use_nix
     env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
   - name: 'nixos-20.03'
+    <<: *use_nix
     env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
   - name: 'nixos-19.09'
+    <<: *use_nix
     env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
   - stage: deploy
     name: "Notify NUR"

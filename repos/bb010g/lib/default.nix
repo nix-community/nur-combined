@@ -1,6 +1,7 @@
 import ./boilerplate-default.nix {
   modules = { #{{{1
     attrsets = import ./attrsets.nix;
+    customisation = import ./customisation.nix;
     # edn = import ./edn;
     fixedPoints = import ./fixed-points.nix;
     licenses = import ./licenses.nix;
@@ -15,6 +16,10 @@ import ./boilerplate-default.nix {
       mapAttr'
       mapAttrOr mapAttrOrElse
       mapOptionalAttr
+    ;
+
+    inherit (lib.customisation) #{{{2
+      makeScope
     ;
 
     inherit (lib.fixedPoints) #{{{2
