@@ -84,6 +84,7 @@ rec {
     inherit buildPythonPackage pykeepass click pytest;
   };
   ncgopher = pkgs.callPackage ./pkgs/ncgopher { };
+  numworks-udev-rules = pkgs.callPackage ./pkgs/numworks-udev-rules { };
   oslo-config = with python37-importlib-metadata_1_7.pkgs; pkgs.callPackage ./pkgs/oslo-config { 
     inherit
       buildPythonPackage
