@@ -13,14 +13,11 @@ buildPythonPackage rec {
     owner = "mborgerson";
     repo = pname;
     rev = "a41649a32fd77f949b07a8c174feef9fa9bc089b";
-    sha256 = "0ww5kbfqmj4m3fbcmp8rx22php7hargykclja7spjbqjs303hxhv";
+    sha256 = "1slkcd2p2k3aydkqspbz8cmn99chxk6swnrgy98s5kclz1aj70lb";
   };
 
   preCheck = ''
-    ls -lahR
-    # sed -i "s/'xbefiles'/'tests', 'xbefiles'/g" tests/test_load.py
-    echo "HELLO"
-    ls -lahR
+    sed -i "s/'xbefiles'/'tests', 'xbefiles'/g" tests/test_load.py
   '';
 
   meta = with pkgs.lib; {

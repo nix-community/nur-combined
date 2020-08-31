@@ -1,7 +1,6 @@
-{ ANGR_NIXPKGS_PATH
-}:
+{ ANGR_NIXPKGS_PATH }:
 
-with import <nixpkgs> { };
+with import <nixpkgs> {};
 
 let
   angr-pkgs = import ANGR_NIXPKGS_PATH { inherit pkgs; };

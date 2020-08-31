@@ -21,7 +21,7 @@
       inherit archinfo ailment claripy cle cooldict mulpyplexer pyvex unicorn cppheaderparser;
     };
 
-    archinfo = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/archinfo {};
+    archinfo = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/archinfo { inherit; };
 
     # cffi-114 = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/cffi {};
 
@@ -29,25 +29,25 @@
 
     cle = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/cle { inherit archinfo minidump pyelftools pyvex pyxbe unicorn; };
 
-    cooldict = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/cooldict {};
+    cooldict = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/cooldict { inherit; };
 
-    minidump = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/minidump {};
+    minidump = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/minidump { inherit; };
 
-    mulpyplexer = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/mulpyplexer {};
+    mulpyplexer = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/mulpyplexer { inherit; };
 
-    cppheaderparser = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/cppheaderparser {};
+    cppheaderparser = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/cppheaderparser { inherit; };
 
-    pyelftools = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/pyelftools {};
+    pyelftools = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/pyelftools { inherit; };
 
-    pyxbe = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/pyxbe {};
+    pyxbe = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/pyxbe { inherit; };
 
     pyvex = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/pyvex { inherit archinfo unicorn; };
 
-    PySMT = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/pysmt {};
+    PySMT = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/pysmt { inherit; };
 
-    unicorn = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/unicorn {};
+    unicorn = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/unicorn { inherit; };
 
     # TODO: Remove once NixOS/nixpkgs#75125 is resolved: This is here for `claripy` to work.
-    z3-solver = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/z3-solver {};
+    z3-solver = pkgs.python37.pkgs.callPackage ./pkgs/python-modules/z3-solver { inherit; };
   };
 }
