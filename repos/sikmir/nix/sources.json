@@ -205,6 +205,20 @@
         "url": "https://github.com/glauth/glauth/archive/a92f9a7028fdf68952ffbed4958167b928dbc483.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "go-staticmaps": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-08-29T09:01:08Z",
+        "description": "A go (golang) library and command line tool to render static map images using OpenStreetMap tiles",
+        "homepage": "https://github.com/flopp/go-staticmaps",
+        "owner": "flopp",
+        "repo": "go-staticmaps",
+        "rev": "3465b33495460ac1e01854598dde81cd606addd5",
+        "sha256": "0g7px1rrqwpvnyvmmq3ia6da4lwyzjyf1a0fhjpgcjyy1g1z915s",
+        "type": "tarball",
+        "url": "https://github.com/flopp/go-staticmaps/archive/3465b33495460ac1e01854598dde81cd606addd5.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "gpx-layer": {
         "branch": "master",
         "builtin": false,

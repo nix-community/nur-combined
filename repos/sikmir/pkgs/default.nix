@@ -126,6 +126,7 @@ lib.makeScope newScope (
     garmin-uploader = callPackage ./tools/misc/garmin-uploader { };
     gimgtools = callPackage ./tools/geo/gimgtools { };
     gmaptool = callPackage ./tools/geo/gmaptool { };
+    go-staticmaps = callPackage ./tools/geo/go-staticmaps { };
     gpx-layer = perlPackages.callPackage ./tools/geo/gpx-layer {
       inherit sources;
     };
