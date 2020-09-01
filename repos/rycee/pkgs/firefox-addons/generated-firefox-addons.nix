@@ -63,10 +63,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.2.85";
+      version = "7.2.86";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3618439/betterttv-7.2.85-fx.xpi?src=";
-      sha256 = "56b1fcc568d6cf1876584be093f2e9767e1ed6f7bbe370929d68eff84bb2877f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3634851/betterttv-7.2.86-fx.xpi?src=";
+      sha256 = "8ff028dde5f02d06d9a2d009ac0389c45729f0874e175eaa9b8dd9d0de27b001";
       meta = with stdenv.lib;
       {
         homepage = "https://betterttv.com";
@@ -723,10 +723,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.3.3";
+      version = "5.4.0";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3619404/moderator_toolbox_for_reddit-5.3.3-an+fx.xpi?src=";
-      sha256 = "734cff042c3b84024aa03505938de2dfa2afc211a1e536cb65ded84f932da81a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3635102/moderator_toolbox_for_reddit-5.4.0-an+fx.xpi?src=";
+      sha256 = "bc12b5e1ffaa32c6853869e8082f02872a22cb766a6b156868225d3a5c0ddba6";
       meta = with stdenv.lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
