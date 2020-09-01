@@ -89,7 +89,12 @@ static const Rule rules[] = {
 	{"Onboard", NULL,     NULL,       0,                1,           -1},
 	{"floatmenu", NULL,     NULL,        0,            1,           -1},
 	{"Welcome.py", NULL,     NULL,        0,            1,           -1},
+	{"Pamac-installer", NULL,     NULL,        0,            1,           -1},
 	{"xpad", NULL,     NULL,        0,            1,           -1},
+	{"instantfloat", NULL,     NULL,        0,            2,           -1},
+	{"kdeconnect.daemon", NULL,     NULL,        0,            3,           -1},
+	{"org-wellkord-globonote-Main", NULL,     NULL,        0,            1,           -1},
+	{"Peek", NULL,     NULL,        0,            1,           -1},
 	{"ROX-Filer", NULL,     NULL,        0,            0,           -1},
 };
 
@@ -131,11 +136,13 @@ static const Layout layouts[] = {
 /* commands */
 static char instantmenumon[2] = "0"; /* component of instantmenucmd, manipulated in spawn() */
 static const char *instantmenucmd[] = {"instantmenu_run", NULL};
+static const char *clipmenucmd[] = {"instantclipmenu", NULL};
 static const char *smartcmd[] = {"instantmenu_smartrun", NULL};
 static const char *instantmenustcmd[] = {"instantmenu_run_st", NULL};
 static const char *termcmd[] = {".config/instantos/default/terminal", NULL};
 static const char *quickmenucmd[] = {"quickmenu", NULL};
 static const char *instantassistcmd[] = {"instantassist", NULL};
+static const char *instantpacmancmd[] = {"instantpacman", NULL};
 static const char *nautiluscmd[] = {".config/instantos/default/filemanager", NULL};
 static const char *slockcmd[] = {"ilock", NULL};
 static const char *langswitchcmd[] = {"ilayout", NULL};
@@ -165,6 +172,7 @@ static const char  *fclipscrotcmd[] = { "/usr/share/instantassist/assists/s/f.sh
 static const char  *flamescrot[] = { "flameshot", "gui", NULL };
 
 static const char  *firefoxcmd[] = { ".config/instantos/default/browser", NULL };
+static const char  *editorcmd[] = { ".config/instantos/default/editor", NULL };
 
 static const char *playernext[] = { "playerctl", "next", NULL};
 static const char *playerprevious[] = { "playerctl", "previous", NULL};
@@ -208,6 +216,7 @@ ResourcePref resources[] = {
 static Key dkeys[] = {
 	/* modifier                     key        function        argument */
 	{0, XK_r, spawn, {.v = rangercmd } },
+	{0, XK_e, spawn, {.v = editorcmd } },
 	{0, XK_n, spawn, {.v = nautiluscmd } },
 	{0, XK_space, spawn, {.v = panther} },
 	{0, XK_f, spawn, {.v = firefoxcmd} },
@@ -261,10 +270,12 @@ static Key keys[] = {
 	{MODKEY | ControlMask, XK_q, spawn, {.v = instantshutdowncmd } },
 	{MODKEY, XK_y, spawn, {.v = panther} },
 	{MODKEY, XK_a, spawn, {.v = instantassistcmd} },
+	{MODKEY|ControlMask, XK_i, spawn, {.v = instantpacmancmd} },
 	{MODKEY, XK_w, setoverlay, {0} },
 	{MODKEY | ControlMask, XK_w, createoverlay, {0} },
 	{MODKEY, XK_g, spawn, {.v = notifycmd} },
 	{MODKEY | ControlMask, XK_space, spawn, {.v = instantmenucmd}},
+	{MODKEY | ShiftMask, XK_v, spawn, {.v = clipmenucmd}},
 	{MODKEY, XK_space, spawn, {.v = smartcmd}},
 	{MODKEY, XK_minus, spawn, {.v = instantmenustcmd}},
 	{MODKEY, XK_x, spawn, {.v = instantswitchcmd}},
@@ -282,8 +293,10 @@ static Key keys[] = {
 	{MODKEY, XK_b, togglebar, {0}},
 	{MODKEY, XK_j, focusstack, {.i = +1}},
 	{MODKEY, XK_Down, downkey, {.i = +1}},
+	{MODKEY|ShiftMask, XK_Down, downpress, {0}},
 	{MODKEY, XK_k, focusstack, {.i = -1}},
 	{MODKEY, XK_Up, upkey, {.i = -1}},
+	{MODKEY|ShiftMask, XK_Up, uppress, {0}},
 	{MODKEY|ControlMask, XK_j, pushdown, {0} },
 	{MODKEY|ControlMask, XK_k, pushup, {0} },
 	{MODKEY|Mod1Mask, XK_s, togglealttag, {0} },
@@ -305,7 +318,6 @@ static Key keys[] = {
 	{MODKEY|ShiftMask, XK_Tab, focuslastclient, {0}},
 	{MODKEY|Mod1Mask, XK_Tab, followview, {0}},
 	{MODKEY, XK_q, shutkill, {0}},
-	{MODKEY|ShiftMask, XK_c, killclient, {0}},
 	{Mod1Mask, XK_F4, killclient, {0}},
 	{MODKEY, XK_F1, spawn, {.v = helpcmd}},
 	{MODKEY, XK_F2, toggleprefix, {0}},
