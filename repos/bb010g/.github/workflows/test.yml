@@ -9,6 +9,7 @@ env:
   BUILD_UNFREE: 'true'
 jobs:
   tests:
+    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
@@ -18,7 +19,6 @@ jobs:
         - 'nixpkgs=https://github.com/bb010g/nixpkgs/archive/bb010g-nixos-unstable.tar.gz'
         - 'nixpkgs=channel:nixos-unstable'
         - 'nixpkgs=channel:nixos-20.03'
-        - 'nixpkgs=channel:nixos-19.09'
     runs-on: ${{ matrix.os }}
     outputs:
       should-notify-nur: ${{ steps.recommend-notify-nur.outputs.should-notify-nur }}
@@ -46,7 +46,7 @@ jobs:
       run: nix eval -f ./default.nix 'modules'
     - name: 'Evaluate overlays'
       run: nix eval -f ./default.nix 'overlays'
-    - name: 'Recommend notifying NUR'
+    - name: 'Notify NUR'
       id: recommend-notify-nur
       if: ${{ success() && matrix.nix_path == 'nixpkgs=channel:nixos-unstable' }}
       run: echo '::set-output name=should-notify-nur::true'
