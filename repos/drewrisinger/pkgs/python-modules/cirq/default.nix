@@ -10,7 +10,7 @@
 , networkx
 , numpy
 , pandas
-, pythonProtobuf  # pythonPackages.protobuf
+, protobuf
 , requests
 , scipy
 , sortedcontainers
@@ -47,12 +47,13 @@ buildPythonPackage rec {
     })
   ];
 
-  # Cirq locks protobuf~=3.12.0, but tested working with default pythonPackages.protobuf (3.7). This avoids overrides/pythonPackages.protobuf conflicts
   postPatch = ''
     substituteInPlace requirements.txt \
+      --replace "freezegun~=0.3.15" "freezegun" \
+      --replace "matplotlib~=3.0" "matplotlib" \
       --replace "networkx~=2.4" "networkx" \
-      --replace "protobuf~=3.12.0" "protobuf" \
-      --replace "freezegun~=0.3.15" "freezegun"
+      --replace "numpy~=1.16, < 1.19" "numpy" \
+      --replace "protobuf~=3.12.0" "protobuf"
 
     # Fix serialize_sympy_constants test by allowing small errors in pi
     substituteInPlace cirq/google/arg_func_langs_test.py \
@@ -66,7 +67,7 @@ buildPythonPackage rec {
     matplotlib
     networkx
     pandas
-    pythonProtobuf
+    protobuf
     requests
     scipy
     sortedcontainers
@@ -75,7 +76,7 @@ buildPythonPackage rec {
   ];
 
   doCheck = true;
-  # pythonImportsCheck = [ "cirq" "cirq.Ciruit" ];  # cirq's importlib hook doesn't work here
+  # pythonImportsCheck = [ "cirq" "cirq.Circuit" ];  # cirq's importlib hook doesn't work here
   dontUseSetuptoolsCheck = true;
   checkInputs = [
     pytestCheckHook
@@ -87,13 +88,12 @@ buildPythonPackage rec {
     pygraphviz
   ];
 
-  # TODO: enable op_serializer_test. Error is type checking, for some reason wants bool instead of numpy.bool_. Not sure if protobuf or internal issue
   pytestFlagsArray = [
     "--ignore=dev_tools"  # Only needed when developing new code, which is out-of-scope
-    "--disable-warnings"  # warnings take too many lines, mostly just warning that Qiskit isn't installed so can't cross-verify. Guards against travis build errors (too many log lines)
     "-rfE"
     # "--durations=25"
   ];
+  # TODO: remove disables before aarch64 on NixOS 20.09+, working protobuf version.
   disabledTests = [
     "test_convert_to_ion_gates" # seems to fail due to rounding error on CI ONLY, 0.75 != 0.750...2
 
@@ -129,6 +129,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A framework for creating, editing, and invoking Noisy Intermediate Scale Quantum (NISQ) circuits.";
     homepage = "https://github.com/quantumlib/cirq";
+    changelog = "https://github.com/quantumlib/Cirq/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];
   };
