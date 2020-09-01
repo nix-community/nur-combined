@@ -1,7 +1,7 @@
 # nur-packages [![Build Status][build-status-shield]][build-status] [![Cachix Cache][cachix-cache-shield]][cachix-cache]
 
-[build-status]: https://github.com/bb010g/nur-packages/actions?query=workflow%3ATest+branch%3Amaster
-[build-status-shield]: https://github.com/bb010g/nur-packages/workflows/Test/badge.svg?branch=master
+[build-status]: https://github.com/bb010g/nur-packages/actions?query=workflow%3ABuild+branch%3Amaster
+[build-status-shield]: https://github.com/bb010g/nur-packages/workflows/Build/badge.svg?branch=master
 [cachix-cache]: https://bb010g.cachix.org/
 [cachix-cache-shield]: https://img.shields.io/badge/cachix-bb010g-blue.svg
 

@@ -1,0 +1,51 @@
+name: "Build"
+on:
+  pull_request:
+  push:
+  schedule: [ { cron: '9 6 * * *' } ]
+env:
+  NUR_REPO: 'bb010g'
+  CACHIX_NAME: 'bb010g'
+  BUILD_UNFREE: 'true'
+jobs:
+  builds:
+    name: ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - { name: 'Build with nixpkgs-unstable', os: 'ubuntu-latest', nix-path: 'nixpkgs=channel:nixpkgs-unstable' }
+        - { name: 'Build with bb010g-nixos-unstable', os: 'ubuntu-latest', nix-path: 'nixpkgs=https://github.com/bb010g/nixpkgs/archive/bb010g-nixos-unstable.tar.gz' }
+        - { name: 'Build with nixos-unstable', os: 'ubuntu-latest', nix-path: 'nixpkgs=channel:nixos-unstable' }
+        - { name: 'Build with nixos-20.03', os: 'ubuntu-latest', nix-path: 'nixpkgs=channel:nixos-20.03' }
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v2.3.2
+    - uses: cachix/install-nix-action@v10
+      with: { nix_path: '${{ matrix.nix-path }}' }
+    - uses: cachix/cachix-action@v6
+      with:
+        name: ${{ env.CACHIX_NAME }}
+        signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+    - name: 'Configure nixpkgs'
+      run: 'mkdir -p "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs" &&
+        > "${XDG_CONFIG_DIR:-$HOME/.config}/nixpkgs/config.nix" printf "%s\n"
+          "{ allowUnfree = ${BUILD_UNFREE}; sandbox = true; }"'
+    - name: 'Show nixpkgs version'
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: 'Build CI outputs'
+      run: 'nix run -f channel:nixos-unstable nix-build-uncached -c
+        nix-build-uncached --show-trace --keep-going ./ci.nix -A buildOutputs
+          --arg flattened true --arg buildUnfree ${BUILD_UNFREE}'
+    - { name: 'Evaluate lib', run: 'nix eval -f ./default.nix lib' }
+    - { name: 'Evaluate modules', run: 'nix eval -f ./default.nix modules' }
+    - { name: 'Evaluate overlays', run: 'nix eval -f ./default.nix overlays' }
+    - name: 'Notify NUR'
+      if: "success() && matrix.nix-path == 'nixpkgs=channel:nixos-unstable' &&
+        github.event_type == 'push' && github.ref == 'refs/heads/master'"
+      uses: CamiloGarciaLaRotta/watermelon-http-client@v1.4
+      with:
+        url: https://nur-update.herokuapp.com/update?repo=${{ env.NUR_REPO }}
+        method: POST
+
+# vim:et:sw=2
