@@ -21,10 +21,10 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkgconfig python3 ];
   buildInputs = [ libxcb ];
 
-  postPatch = let makefileSedScript = ''
-    /^install:/{s#target/release/[^ ]\+##g};
-    #install .* -- target/release/\([^ ]\+\) ".*bin/\1"$#{d}
-  ''; in ''
+  postPatch = let makefileSedScript =
+    ''/^install:/{s/ \+target\/release\/[^ ]\+//g}; '' +
+    ''/install .* -- target\/release\/\([^ ]\+\) ".*bin\/\1"$/{d}'';
+  in ''
     # don't make install binaries or libraries
     sed -i ${lib.escapeShellArg makefileSedScript} Makefile
   '';
