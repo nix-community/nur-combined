@@ -1,4 +1,4 @@
-{ coreutils, fetchFromGitHub, makeWrapper, xdotool, stdenv, ... }:
+{ coreutils, fetchFromGitHub, makeWrapper, xclip, libnotify, stdenv, ... }:
 
 stdenv.mkDerivation rec {
   name = "chapter-marker-${version}";
@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "makefu";
     repo = "chapter-marker";
-    rev = "7602b611fb3d67fdb8a86db23220074dfa9dfa1e";
-    sha256 = "0cwh650c3qhdrcvrqfzgrwpsnj4lbq64fw2sfwvnbxz94b4q36av";
+    rev = "71b9bb8bc4d6fa87de6bea8f42d5486d05cf5443";
+    sha256 = "13cvk24pwwyv9i21h57690s5niwkcrcvn8l24zfxwbgq0wwzw38x";
   };
 
   buildInputs = [ makeWrapper ];
@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
     let
       path = stdenv.lib.makeBinPath [
         coreutils
-        xdotool
+        libnotify
+        xclip
       ];
     in
     ''
