@@ -527,10 +527,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.0.6.1";
+      version = "1.0.6.2";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3611372/leechblock_ng-1.0.6.1-an+fx.xpi?src=";
-      sha256 = "f78d167a7b8c7e78563f807e29b73bb91ddabd663b6e06df7daa0e71d9bb0df3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3635114/leechblock_ng-1.0.6.2-an+fx.xpi?src=";
+      sha256 = "0e658a97c89f608b7d17a43cdfeca5f7c3c368d7f783ab6ef9fae6c5a20a080f";
       meta = with stdenv.lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
