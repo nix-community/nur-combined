@@ -400,6 +400,20 @@
         "url": "https://github.com/viva64/how-to-use-pvs-studio-free/archive/182a5e730128755b12f44f39d8254e88397c9cce.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "it-sanasto": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-02-27T16:11:28Z",
+        "description": "IT-alan englanti-suomi -sanasto",
+        "homepage": "https://github.com/HankiDesign/IT-sanasto",
+        "owner": "HankiDesign",
+        "repo": "IT-sanasto",
+        "rev": "e31974edd50a50db6ef1b95aab81a18f33800e67",
+        "sha256": "0knd2mw97wjc7d9zvfb9wsb1f5hr7d04gi6s8nj5aziai4dwm0pr",
+        "type": "tarball",
+        "url": "https://github.com/HankiDesign/IT-sanasto/archive/e31974edd50a50db6ef1b95aab81a18f33800e67.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "jsonseq": {
         "branch": "master",
         "builtin": false,
