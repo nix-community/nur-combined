@@ -30,21 +30,6 @@ stdenv.mkDerivation {
     emacsPackages.frame-purpose
   ];
 
-  packageRequires = with pkgs.emacsPackages; [
-    ov                 
-    tracking           
-    dash               
-    anaphora           
-    f                  
-    a                  
-    request            
-    esxml              
-    ht                 
-    rainbow-identifiers
-    frame-purpose      
-  ];
-    
-
   buildPhase = ''
   emacs -L $src --batch -f batch-byte-compile *.el
   '';

@@ -1,4 +1,16 @@
 {
+    "eshell-syntax-highlighting": {
+        "branch": "master",
+        "description": "Syntax highlighting for Eshell",
+        "homepage": "",
+        "owner": "akreisher",
+        "repo": "eshell-syntax-highlighting",
+        "rev": "e574cf20ac8b4f0372a08950a85daff111ee61f3",
+        "sha256": "1s17m2s17y5r7y3nmk39ngh0k1kmix26h45vw4qrh34060qf7gpl",
+        "type": "tarball",
+        "url": "https://github.com/akreisher/eshell-syntax-highlighting/archive/e574cf20ac8b4f0372a08950a85daff111ee61f3.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "gralc": {
         "branch": "master",
         "description": "A preprocessor for Groff that lets you do arithmetic in Python.",
