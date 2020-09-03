@@ -4,7 +4,7 @@ let
   throwSystem = throw "Unsupported system: ${system}";
 
   pname = "pvs-studio";
-  version = "7.08.39765.52";
+  version = "7.09.41189.57";
 
   suffix = {
     x86_64-linux = "x86_64";
@@ -17,8 +17,8 @@ stdenv.mkDerivation {
   src = fetchurl {
     url = "https://files.viva64.com/pvs-studio-${version}-${suffix}.tgz";
     sha256 = {
-      x86_64-linux = "04las9ykgrvmjnwnnyfz1m2mlnwf73r8kf8d7igdjqmffih5kxdi";
-      x86_64-darwin = "01850inmxi30v9cz94ja0vyb12hq2f1kkfw231qzskhm3h92snfx";
+      x86_64-linux = "1zmdw0yldh9jmb5q901w3jfx0dw79qw5hw991yds0r2ys6wx0az9";
+      x86_64-darwin = "09ak7ima1a6jka0rkmaqpk7sv423jdffgwjxby5gccphzh209xr1";
     }.${system} or throwSystem;
   };
 

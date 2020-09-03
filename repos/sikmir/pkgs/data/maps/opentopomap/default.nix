@@ -1,8 +1,8 @@
-{ stdenv, fetchurl, unzip }:
+{ stdenvNoCC, fetchurl, unzip }:
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "opentopomap";
-  version = "2020-05-15";
+  version = "2020-08-28";
 
   src = fetchurl {
     url = "http://garmin.opentopomap.org/data/russia-european-part/russia-european-part_garmin.zip";
@@ -16,11 +16,9 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  installPhase = ''
-    install -Dm644 *.img -t $out/share/qmapshack/Maps
-  '';
+  installPhase = "install -Dm644 *.img -t $out";
 
-  meta = with stdenv.lib; {
+  meta = with stdenvNoCC.lib; {
     description = "OpenTopoMap Garmin Edition";
     homepage = "http://garmin.opentopomap.org/";
     license = licenses.cc-by-nc-sa-40;

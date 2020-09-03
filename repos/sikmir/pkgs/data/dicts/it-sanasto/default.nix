@@ -1,8 +1,7 @@
 { stdenvNoCC, lib, pandoc, stardict-tools, sources }:
 let
   pname = "it-sanasto";
-  date = lib.substring 0 10 sources.it-sanasto.date;
-  version = "unstable-" + date;
+  version = lib.substring 0 10 sources.it-sanasto.date;
 in
 stdenvNoCC.mkDerivation {
   inherit pname version;
@@ -27,5 +26,6 @@ stdenvNoCC.mkDerivation {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
+    skip.ci = stdenvNoCC.isDarwin;
   };
 }

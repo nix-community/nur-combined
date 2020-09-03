@@ -1,10 +1,10 @@
 { lib, fetchzip }:
 
 fetchzip {
-  name = "qmapshack-onlinemaps-2020-07-25";
+  name = "qmapshack-onlinemaps-2020-08-09";
 
-  url = "http://www.mtb-touring.net/wordpress/wp-content/uploads/Onlinemaps.zip";
-  sha256 = "1khfmbrq85bb2gq2b0c22qsjqk3740x7lbsv2zwqnflfjckqlpgi";
+  url = "http://www.mtb-touring.net/wp-content/uploads/Onlinemaps.zip";
+  sha256 = "06pwn8l2wr3h0m70pn1ngzs5fvabps1wiqilgdxiw43dhiy94rv9";
   stripRoot = false;
 
   meta = with lib; {

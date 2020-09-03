@@ -100,15 +100,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-24T14:42:26Z",
+        "date": "2020-09-01T12:16:33Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "41adb6771cca924f680eeffb2992f6d60fa34d6d",
-        "sha256": "10zf763kmzigymd05l50r386xljjxmh27lhwnga7kpfqcdliw530",
+        "rev": "6734215ff57407b57a4c4bf6bf26e90196ef3c75",
+        "sha256": "1dd0j3q02cj686hhjc427107867rbjsv0xlf78szwqkakqin5zid",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/41adb6771cca924f680eeffb2992f6d60fa34d6d.tar.gz",
+        "url": "https://github.com/embox/embox/archive/6734215ff57407b57a4c4bf6bf26e90196ef3c75.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -155,27 +155,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "0xza6fanqi1sf6szfcmvvxv4q63gi5d12flwqqpifh67ffh47gjd",
+        "sha256": "1s786cbhm6cijh3fs6dvpcchqg3bi3jz8fyq2y0pmwxdafij8r1a",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-200825.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-200901.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "200825"
+        "version": "200901"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "0a2mdr0kci3x4ccl7qkf3xb98lj5m0rcvss042a85201qxrjy414",
+        "sha256": "1ffn9ipbmpzzg6i5xynpdzs8czjs9x8lw2zyx9gdm1nld1ckg74j",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-200825.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-200901.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "200825"
+        "version": "200901"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "0cilkdw6csr73135x0nb0wi2n72c6484dhfn7yza7rpb28kzqis3",
+        "sha256": "15hwci1yyqi0mh59qpqmlc529vkf3gfwd64g9b4q8x76dfmpjxb9",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200825.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200901.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "200825"
+        "version": "200901"
     },
     "gimgtools": {
         "branch": "master",
@@ -278,29 +278,29 @@
     "gpxsee": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-09T22:57:31Z",
+        "date": "2020-08-26T16:20:15Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "5343a1a922f35b4fb66b6a99d6d912247c20aec0",
-        "sha256": "0idzj43gc3hzs9f8z8mhz0wq06vrslbsjkrqcnhx7rpayv5rqzs8",
+        "rev": "03e7d092c41c53b4b3ae14731eb7fd6c661af994",
+        "sha256": "1x295v2f2z3b24s8vh37l7d4js3rbaqcwki3262syirjvqv780xy",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/5343a1a922f35b4fb66b6a99d6d912247c20aec0.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/03e7d092c41c53b4b3ae14731eb7fd6c661af994.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-06-26T17:18:06Z",
+        "date": "2020-09-01T20:41:10Z",
         "description": "GPXSee maps",
         "homepage": "https://tumic0.github.io/GPXSee-maps",
         "owner": "tumic0",
         "repo": "GPXSee-maps",
-        "rev": "64df79d7d6066b850039176182a52c528610badc",
-        "sha256": "1cbqj8h0s3l97w6ndhh2l1wp8w6v0l92j7zd69ghand50p2jnq8q",
+        "rev": "eca78160133f96c6c66295861761e2f0401312f1",
+        "sha256": "0vlssp8z6v6g711fkifdkq2pn9mp4sbiynks9p6j8nj9kxazcwv2",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee-maps/archive/64df79d7d6066b850039176182a52c528610badc.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee-maps/archive/eca78160133f96c6c66295861761e2f0401312f1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxtools": {
@@ -319,15 +319,15 @@
     "gpxtrackposter": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-21T10:20:21Z",
+        "date": "2020-09-02T20:10:09Z",
         "description": "Create a visually appealing poster from your GPX tracks",
         "homepage": "https://github.com/flopp/GpxTrackPoster",
         "owner": "flopp",
         "repo": "GpxTrackPoster",
-        "rev": "b1611ce45da8162e112ee75ca788214f891e2ea4",
-        "sha256": "0vxdvay0yz85bak835159zjrhmic1f9iy38r1f8nnss10ryvz0z7",
+        "rev": "f7a9e7ec8a4cdc9f5c350d0ff600b8095c335b2d",
+        "sha256": "0m914ipdnfbi6v9bz557x7jszn321d8igrkq0dxch44fxacy90xa",
         "type": "tarball",
-        "url": "https://github.com/flopp/GpxTrackPoster/archive/b1611ce45da8162e112ee75ca788214f891e2ea4.tar.gz",
+        "url": "https://github.com/flopp/GpxTrackPoster/archive/f7a9e7ec8a4cdc9f5c350d0ff600b8095c335b2d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gt-bash-client": {
@@ -389,15 +389,15 @@
     "how-to-use-pvs-studio-free": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-02-10T14:21:35Z",
+        "date": "2020-09-02T11:28:30Z",
         "description": "How to use PVS-Studio for Free",
         "homepage": "https://www.viva64.com/en/b/0457/",
         "owner": "viva64",
         "repo": "how-to-use-pvs-studio-free",
-        "rev": "182a5e730128755b12f44f39d8254e88397c9cce",
-        "sha256": "0rgpi6lrgka8s8xzx35qlgphp4z5449k7zs6hswl1q7w1kfh4flj",
+        "rev": "20687aa5a3e3ab7e48e796f25cbb25ade52633cc",
+        "sha256": "1lg1iirfv3p8bfb7x79pvwm0fiz0qvk02ing731d5l3klzmsgbjd",
         "type": "tarball",
-        "url": "https://github.com/viva64/how-to-use-pvs-studio-free/archive/182a5e730128755b12f44f39d8254e88397c9cce.tar.gz",
+        "url": "https://github.com/viva64/how-to-use-pvs-studio-free/archive/20687aa5a3e3ab7e48e796f25cbb25ade52633cc.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "it-sanasto": {
@@ -487,15 +487,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-24T18:49:38Z",
+        "date": "2020-09-02T04:02:41Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "70359b027045cfbc630e6d8e6518397ead4f1c3d",
-        "sha256": "12kmrc6p779pm1il1b93yrgaw20h34fybym6qkgbh8zm913gvzs9",
+        "rev": "1fff7f5b1654a827da206f8954cb1daf5063e2e7",
+        "sha256": "1dxvc52jbj2ir7z1whwz0gshbpz5ym35pq5i5ayryfa7rbpp0xcg",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/70359b027045cfbc630e6d8e6518397ead4f1c3d.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/1fff7f5b1654a827da206f8954cb1daf5063e2e7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -597,11 +597,11 @@
         "builtin": false,
         "description": "Maanmittauslaitoksen peruskartan tasoiset ja näköiset ilmaiset maastokartat",
         "homepage": "https://kartat.hylly.org/",
-        "sha256": "1iwswyn60dhc92n7dhyx4smqqf9dqbjdijv49lakc3rckpwnccax",
+        "sha256": "0mrkd69yn49l1p77z5w3i6mz2mn4dm2kd8i534f976phg7pn536r",
         "type": "file",
-        "url": "https://kartat-dl.hylly.org/2020-05-30/mtk_suomi.img",
+        "url": "https://kartat-dl.hylly.org/2020-07-30/mtk_suomi.img",
         "url_template": "https://kartat-dl.hylly.org/<version>/mtk_suomi.img",
-        "version": "2020-05-30"
+        "version": "2020-07-30"
     },
     "musig": {
         "branch": "master",
@@ -620,29 +620,29 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-24T08:31:29Z",
+        "date": "2020-09-01T16:04:00Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "80d5c77c1d29dc4c6e747edbbdd40d6917ab7da1",
-        "sha256": "16i1mkpdcrsb9am8cspqk1zfw5z5qwxkijn045wq5rsg9mc3z8wr",
+        "rev": "616b911e4472ee7eeca5039db5091789f09ac799",
+        "sha256": "0h5rmikc883k98ylwqkh8c8q6i5vs0r4ngzf3jkc0dnn5jpri40p",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/80d5c77c1d29dc4c6e747edbbdd40d6917ab7da1.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/616b911e4472ee7eeca5039db5091789f09ac799.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-23T16:42:12Z",
+        "date": "2020-09-02T16:31:30Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "df264fa6cd44d3d280c1b4be5813461a4f2506c8",
-        "sha256": "18ycv8az9p3b4d2llqjanz4ny98dp2249a2s5rjk0zw494ibhrmc",
+        "rev": "f21ed23273c771df74834d479aa58bdab8b4c946",
+        "sha256": "1y8w87ilzgj8ii07y3kh6vpdyvmblc57mzsvkw1s3gdc955shaq2",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/df264fa6cd44d3d280c1b4be5813461a4f2506c8.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/f21ed23273c771df74834d479aa58bdab8b4c946.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -690,15 +690,15 @@
     "pg-tileserv": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-24T22:01:02Z",
+        "date": "2020-08-28T17:27:44Z",
         "description": "A very thin PostGIS-only tile server in Go. Takes in HTTP tile requests, executes SQL, returns MVT tiles",
         "homepage": "https://github.com/CrunchyData/pg_tileserv",
         "owner": "CrunchyData",
         "repo": "pg_tileserv",
-        "rev": "858c299bc83c1c7fbcdc363b3ce6d958b1438b67",
-        "sha256": "0ap3cw6gsr5xviq9643szq4plfff615xhvdl5s2g6aj7d8x2jhnl",
+        "rev": "31929fb9b3a16832c69d0a2602e6fe28ad2333ba",
+        "sha256": "1zi96fbxm9jmpnmzzsffdasi56hymfpzhnwn3nf8w273h5zv3yqy",
         "type": "tarball",
-        "url": "https://github.com/CrunchyData/pg_tileserv/archive/858c299bc83c1c7fbcdc363b3ce6d958b1438b67.tar.gz",
+        "url": "https://github.com/CrunchyData/pg_tileserv/archive/31929fb9b3a16832c69d0a2602e6fe28ad2333ba.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pyephem": {
@@ -816,15 +816,15 @@
     "taginfo-tools": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-28T18:52:53Z",
+        "date": "2020-08-27T15:48:22Z",
         "description": "C++ tools used in taginfo processing",
         "homepage": "https://wiki.openstreetmap.org/wiki/Taginfo",
         "owner": "taginfo",
         "repo": "taginfo-tools",
-        "rev": "62c6068e01ded3b121eebd6fb1f99a50c46e5138",
-        "sha256": "0rcckkv3s0cjhmi6g6q3zbg8y72cha5hixsfxa5gg1l7b7w3hf41",
+        "rev": "794d5edc272efaaf5381e7ef513a630ddd4a13ec",
+        "sha256": "0wjkxg2wqbh7vzq9nzmvaq2h2zkm3khnj5dlyglvn4wkn4xw5fp6",
         "type": "tarball",
-        "url": "https://github.com/taginfo/taginfo-tools/archive/62c6068e01ded3b121eebd6fb1f99a50c46e5138.tar.gz",
+        "url": "https://github.com/taginfo/taginfo-tools/archive/794d5edc272efaaf5381e7ef513a630ddd4a13ec.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tilesets-cli": {

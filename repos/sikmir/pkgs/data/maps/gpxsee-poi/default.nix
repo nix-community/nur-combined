@@ -2,9 +2,9 @@
 
 {
   geocachingSu = fetchurl {
-    name = "geocaching_su-2020-08-06";
+    name = "geocaching_su-2020-09-02";
     url = "https://nakarte.me/geocachingSu/geocaching_su2.json";
-    sha256 = "09340q9klw7bwkya0w1l2bsk8sxdy72qbiak66r7wxcr6l3vb867";
+    sha256 = "16w882qxka02haldym09381r5icqyz5prhhj3l6zqgkpzbiyniaa";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -25,9 +25,9 @@
   };
 
   laavut = fetchurl {
-    name = "laavut-2020-07-29";
+    name = "laavut-2020-09-02";
     url = "http://www.laavu.org/lataa.php?paikkakunta=kaikki";
-    sha256 = "06kc7dilyg4s9vlas56nhrldn556miw25qllkhpjg4xm4imqm15v";
+    sha256 = "1jlff8qdibhqcppwx6x2j9vcbn1gm6395z885r1awjawc81zwrf3";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = "install -Dm644 $downloadedFile $out/Laavut-kodat.gpx";
@@ -61,9 +61,9 @@
   };
 
   westra = fetchurl {
-    name = "westra-2020-07-16";
+    name = "westra-2020-09-02";
     url = "https://nakarte.me/westraPasses/westra_passes.json";
-    sha256 = "0ma276h6axiv58qk6il6daj3lc9v3lbx72450ba5dfv3kz822hcl";
+    sha256 = "1q9fn7jrbrpn30hwagkq3yva81v8b6zvhkzjngqvkr08zkarh6bm";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''

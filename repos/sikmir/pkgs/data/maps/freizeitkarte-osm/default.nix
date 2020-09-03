@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, unzip, country ? "FIN", lang ? "en" }:
+{ stdenvNoCC, fetchurl, unzip, country ? "FIN", lang ? "en" }:
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "freizeitkarte-osm";
   version = "2020-06-26";
 
@@ -16,11 +16,9 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  installPhase = ''
-    install -Dm644 *.img -t $out/share/qmapshack/Maps
-  '';
+  installPhase = "install -Dm644 *.img -t $out";
 
-  meta = with stdenv.lib; {
+  meta = with stdenvNoCC.lib; {
     description = "Freizeitkarte map with DEM (Digital Elevation Model) and hillshading";
     homepage = "https://freizeitkarte-osm.de/";
     license = licenses.free;
