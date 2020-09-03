@@ -92,6 +92,7 @@ buildPythonPackage rec {
     "--ignore=dev_tools"  # Only needed when developing new code, which is out-of-scope
     "-rfE"
     # "--durations=25"
+    "--benchmark-disable"
   ];
   # TODO: remove disables before aarch64 on NixOS 20.09+, working protobuf version.
   disabledTests = [
