@@ -14,7 +14,7 @@ in
         description = "kakoune color schemes";
       };
 
-      plugins = mkOption {
+      pluginsExt = mkOption {
         type = types.listOf types.package;
         default = [];
         description = "kakoune plugins";
@@ -29,9 +29,9 @@ in
 
     programs.kakoune.extraConfig = let
       sourceString = s: if s ? kakrc then "source ${s.kakrc}" else "source ${s}";
-    in lib.optionalString (cfg.plugins != []) ''
+    in lib.optionalString (cfg.pluginsExt != []) ''
       # Plugins
-      ${concatStringsSep "\n" (map sourceString cfg.plugins)}
+      ${concatStringsSep "\n" (map sourceString cfg.pluginsExt)}
     '';
   };
 }

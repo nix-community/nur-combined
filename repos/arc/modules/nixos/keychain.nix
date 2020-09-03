@@ -93,11 +93,11 @@ in {
       default = if isNixos then "keys" else "users";
     };
     files = mkOption {
-      type = types.loaOf fileType;
+      type = types.attrsOf fileType;
       default = { };
     };
     keys = mkOption {
-      type = types.loaOf keyType;
+      type = types.attrsOf keyType;
       default = { };
     };
     root = mkOption {

@@ -52,7 +52,7 @@ in {
 
     bindings = mkOption {
       default = { };
-      type = types.loaOf (types.submodule ({ config, ... }: {
+      type = types.listOf (types.submodule ({ config, ... }: {
         options = {
           urlPattern = mkOption {
             type = types.nullOr types.str;
@@ -102,7 +102,7 @@ in {
 
     urlSettings = mkOption {
       default = { };
-      type = types.attrsOf (types.loaOf (types.submodule ({ name, ... }: {
+      type = types.attrsOf (types.attrsOf (types.submodule ({ name, ... }: {
         options = {
           urlPattern = mkOption {
             type = types.str;
@@ -141,7 +141,7 @@ in {
     autocontain = mkOption {
       description = "Automatically open a domain in a specified container";
       default = { };
-      type = types.loaOf (types.submodule ({ name, ... }: {
+      type = types.attrsOf (types.submodule ({ name, ... }: {
         options = {
           urlPattern = mkOption {
             type = types.str;
@@ -238,7 +238,7 @@ in {
       (mkIf (cfg.autocontain != { }) (concatStringsSep "\n" (mapAttrsToList (_: configStrs.autocontain) cfg.autocontain)))
       (mkIf (cfg.settings != { }) (concatStringsSep "\n" (mapAttrsToList configStrs.setting (builtins.removeAttrs cfg.settings ["storageloc"]))))
       (mkIf (cfg.urlSettings != { }) (concatStringsSep "\n" (mapAttrsToList configStrs.urlSettings cfg.urlSettings)))
-      (mkIf (cfg.bindings != { }) (concatStringsSep "\n" (mapAttrsToList (_: configStrs.binding) cfg.bindings)))
+      (mkIf (cfg.bindings != { }) (concatStringsSep "\n" (map configStrs.binding cfg.bindings)))
     ];
     # TODO: programs.firefox.enableTridactylNative = true;
     # TODO: implement fixamo and guiset via firefox module's profile settings
