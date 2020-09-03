@@ -219,10 +219,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.16";
+      version = "4.9.17";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3615260/dark_reader-4.9.16-an+fx.xpi?src=";
-      sha256 = "6027a82e9133aabb4536f9f182d27307156d00c05e891623ded5107c28542e55";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3636192/dark_reader-4.9.17-an+fx.xpi?src=";
+      sha256 = "348348672c447647113cfec600c1c2eac939c8c994de52f0139bd7ee2f9b9d8c";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -494,10 +494,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.6.6";
+      version = "1.7.0";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3607887/keepassxc_browser-1.6.6-fx.xpi?src=";
-      sha256 = "3930790042e467c3c48a81ce84cfc4e3a1687c198b63358118fa220ed2838c80";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3636180/keepassxc_browser-1.7.0-fx.xpi?src=";
+      sha256 = "28a2f9a2caad9840bbc4d5b683f153d532b4d06ed2712b5467d89c6bc92140dc";
       meta = with stdenv.lib;
       {
         homepage = "https://keepassxc.org/";
@@ -1013,10 +1013,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "17.7";
+      version = "17.8";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3603800/zoom_page_we-17.7-fx.xpi?src=";
-      sha256 = "63c970ac2ed4c1592ffb46166da2efbe5c964f91a661208091aed1a633faab82";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3635741/zoom_page_we-17.8-fx.xpi?src=";
+      sha256 = "f64f31ae1beb53e775a17c94c94c27e6ee857f85a4ac8e521ae8f3e24b6fecf7";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
