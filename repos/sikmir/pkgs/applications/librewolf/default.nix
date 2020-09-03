@@ -1,10 +1,10 @@
-{ stdenv, fetchgit, fetchurl }:
+{ stdenv, fetchgit, fetchurl, lang ? "en-US" }:
 let
-  version = "79.0";
+  version = "80.0.1";
 
   firefox = fetchurl {
-    url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}/mac/en-US/Firefox%20${version}.dmg";
-    sha256 = "1gnsbbbx995nmi6xg1qw6dsgcip27yb92vixv1f60l98ycpzcxlx";
+    url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}/mac/${lang}/Firefox%20${version}.dmg";
+    sha256 = "1l3gkkmxbgzjn72ncvbpk2br2j08sgvzrmlgcvv0hdn9rwnbnb18";
     name = "Firefox.dmg";
   };
 in
