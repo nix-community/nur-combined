@@ -3,7 +3,7 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  name = "st";
+  name = "mutt-wizard";
 
   src = fetchgit {
     url = "https://github.com/LukeSmithXYZ/mutt-wizard";
