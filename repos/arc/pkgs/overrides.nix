@@ -298,8 +298,8 @@ let
 
       patches = old.patches or [] ++ [ (fetchpatch {
         name = "mpd-youtube-dl.diff";
-        url = "https://github.com/MusicPlayerDaemon/MPD/compare/v0.21.16...arcnmx:ytdl-0.21.16.diff";
-        sha256 = "1hmchq2wyjpwsry1jb33j3zd1ar7gf57b2vyirgfv15zl5wxvi59";
+        url = "https://github.com/MusicPlayerDaemon/MPD/compare/v0.21.25...arcnmx:ytdl-0.21.25.diff";
+        sha256 = "049g6djjaf30ciw7gmkhm12r4h2yv1f3vg58jdiscb36cq9ai42s";
       }) ];
 
       mesonFlags = old.mesonFlags ++ [ "-Dyoutube-dl=enabled" ];
@@ -312,6 +312,15 @@ let
       meta = old.meta or {} // {
         broken = old.meta.broken or false || lib.versionOlder old.version "0.21" || mpd.stdenv.isDarwin;
       };
+    });
+
+    ncmpcpp = { ncmpcpp, fetchpatch }: ncmpcpp.overrideAttrs (old: {
+      patches = old.patches or [] ++ [ (fetchpatch {
+        name = "ncmpcpp-load-playlist.diff";
+        url = "https://github.com/arcnmx/ncmpcpp/commit/8a5738c333407c7aa4dd775e30ab50591728ce17.patch";
+        sha256 = "0bahn6ng8h30g36q2ji1cx4shyr4qimnc8vz246xschw6mr3271b";
+      }) ];
+      enableParallelBuilding = true;
     });
 
     qemu-vfio = { qemu, fetchpatch, lib }: (qemu.override {
