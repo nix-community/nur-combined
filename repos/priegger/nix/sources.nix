@@ -115,8 +115,9 @@ let
       (
         name: spec:
           if builtins.hasAttr "outPath" spec
-          then abort
-            "The values in sources.json should not have an 'outPath' attribute"
+          then
+            abort
+              "The values in sources.json should not have an 'outPath' attribute"
           else
             spec // { outPath = fetch config.pkgs name spec; }
       )

@@ -57,7 +57,7 @@ GEM
     pastel (0.7.4)
       equatable (~> 0.6)
       tty-color (~> 0.5)
-    public_suffix (4.0.5)
+    public_suffix (4.0.6)
     rack (2.2.3)
     ref (2.0.0)
     rexml (3.2.4)

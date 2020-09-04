@@ -1,10 +1,10 @@
 [
   {
     "name": "aai-programmable-vehicles",
-    "version": "0.6.13",
-    "file_name": "aai-programmable-vehicles_0.6.13.zip",
-    "download_url": "/download/aai-programmable-vehicles/5f3939fa474a043dfaa655fd",
-    "sha1": "10b99a0b2ff7ae99069757add4fd0538f5fbe625",
+    "version": "0.6.14",
+    "file_name": "aai-programmable-vehicles_0.6.14.zip",
+    "download_url": "/download/aai-programmable-vehicles/5f49aa43d8a5e62636b8a7cb",
+    "sha1": "10a3a5291fa840d0892d9eac2868d8bf268362fa",
     "dependencies": [
       "base >= 1.0.0",
       "aai-signals >= 0.4.1",
@@ -565,10 +565,10 @@
   },
   {
     "name": "MegaBotStart",
-    "version": "0.20.1",
-    "file_name": "MegaBotStart_0.20.1.zip",
-    "download_url": "/download/MegaBotStart/5f3c1eba5096f4ef87f17d32",
-    "sha1": "a2c1a29b4679a5664152e67a65703b1bb6e0ca3f",
+    "version": "0.20.2",
+    "file_name": "MegaBotStart_0.20.2.zip",
+    "download_url": "/download/MegaBotStart/5f445be0faa443ddc79d7428",
+    "sha1": "fd228bc49c041bba8e27c18153c2cb653a0d914a",
     "dependencies": [
       "base >= 1.0",
       "? Krastorio2",

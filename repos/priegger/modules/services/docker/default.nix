@@ -38,12 +38,13 @@ in
       }
       (
         mkIf
-          config.services.cadvisor.enable {
-          job_name = "cadvisor";
-          static_configs = [
-            { targets = [ "127.0.0.1:${toString config.services.cadvisor.port}" ]; }
-          ];
-        }
+          config.services.cadvisor.enable
+          {
+            job_name = "cadvisor";
+            static_configs = [
+              { targets = [ "127.0.0.1:${toString config.services.cadvisor.port}" ]; }
+            ];
+          }
       )
     ];
   };

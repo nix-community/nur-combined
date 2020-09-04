@@ -8,4 +8,5 @@ with
     };
 };
 import
-  sources.nixpkgs { overlays = [ overlay ]; config = { }; }
+  sources.nixpkgs
+{ overlays = [ overlay ]; config = { }; }
