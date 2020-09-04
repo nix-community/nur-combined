@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, pkgconfig, isync, pass, neomutt, msmtp }:
+{ stdenv, fetchgit, isync, pass, neomutt, msmtp }:
 
 with stdenv.lib;
 
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1bb9429wabv85zja2y89vhj15qcd10acbg5k6ylilw067wzs9ks5";
   };
 
-  #nativeBuildInputs = [ pkgconfig ];
+  buildInputs = [ isync pass neomutt msmtp ];
 
   buildPhase = ''
     sed -i 's/(PREFIX)/(out)/g' Makefile
