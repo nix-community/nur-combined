@@ -10,8 +10,8 @@
   src = fetchFromGitHub {
     owner = "masm11";
     repo = "emacs";
-    rev = "b9f4df42330ca687cf7b18b42acc5f5d254220d9";
-    sha256 = "05xq46kb9l6yh1m3xrvb5y7kypij21a4w8dp105mmnmrb6272a86";
+    rev = "fad3ca10df03582e30307a84a9ee8a94a07b2182";
+    sha256 = "08vxvjwly35clrb2jbdqdp9kshm1338f98knk24fg38dh0c1mpcf";
   };
 
   patches = [ ];
@@ -20,8 +20,6 @@
     "--with-pgtk"
     "--with-cairo"
   ];
-
-  postInstall = builtins.replaceStrings [ attrs.version ] [ version ] attrs.postInstall;
 
   meta = attrs.meta // (with lib; {
     description = "Emacs with pure GTK3 to support Wayland";
