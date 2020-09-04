@@ -12,8 +12,8 @@ stdenv.mkDerivation {
       # branch: main
       owner = "alexanderjeurissen";
       repo = "ranger_devicons";
-      rev = "9fb94fb9a1258acaebe0e91d969a45ca4d1899a3";
-      sha256 = "0apc8s1lsz2rqazsyw63mzpwfm5nfz13h6mbs06kf13d0jq7vzp1";
+      rev = "68ffbffd086b0e9bb98c74705abe891b756b9e11";
+      sha256 = "150xczhxs9n3xgrwivgp02xwbpqn0xwz65g91n4pl1g2bj3dbp1p";
       name = "ranger_devicons";
     })
     (fetchFromGitHub {

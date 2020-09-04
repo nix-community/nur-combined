@@ -182,6 +182,7 @@ def main(args=None):
 
     logging.debug("clone: %s; processor: %s; args: %s;", clone, processor, args)
     walk_dirs(args, processor=processor, clone=clone)
+    print("Do not forget to update URLs in fetchurl calls:\n  grep -RIF fetchurl pkgs/\n(may be nedessry if e.g. instantUTILS was updated)")
     return 0
 
 

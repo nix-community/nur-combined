@@ -11,6 +11,8 @@
 
 # Usage
 
+Detailed instructions on how to install and use instantOS tools with Nix or NixOS can be found in the [instantNix Wiki](https://github.com/instantOS/instantNIX/wiki). In this Readme we only give you a very quick overview.
+
 [Isntall Nix](https://nixos.org/nix/manual/#chap-installation) (`curl -L https://nixos.org/nix/install | sh`), 
 then clone this repository and inside it run:
 
@@ -55,7 +57,7 @@ $ nix-env -f '<nixpkgs>' -iA nur.repos.instantos.PACKAGE_NAME
 ```
 # Faster installation with cachix
 
-You may want to install cachix and take advante of the build artefact caching with:
+You may want to install cachix and take advantage of the build artefact caching with:
 
 ```console
 $ nix-env -iA cachix -f https://cachix.org/api/v1/install

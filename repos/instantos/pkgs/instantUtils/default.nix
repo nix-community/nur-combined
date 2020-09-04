@@ -27,8 +27,8 @@ let
     version = "unstable";
 
     src = fetchurl {
-      url = "https://raw.githubusercontent.com/instantOS/instantLOGO/master/description/thanks.txt";
-      sha256 = "13wrnsas1ji8pfvzsphb6jpjhfhg1w1cfg94z0a55xx6bcrnsffp";
+      url = "https://raw.githubusercontent.com/instantOS/instantLOGO/ae4626d6e67d078657389c290db8c29d234f8250/description/thanks.txt";
+      sha256 = "0h65x0g4wglkrw457sid0ycjc09pq1knicx9fzn35q9wr77yqkki";
     };
     sourceRoot = ".";
     unpackCmd =  "cp $curSrc thanks.txt";
@@ -49,8 +49,8 @@ let
     version = "unstable";
 
     src = fetchurl {
-      url = "https://raw.githubusercontent.com/instantOS/instantos.github.io/master/youtube/hotkeys.md";
-      sha256 = "0cx64y8yhammd1h2bhr31gg6y0081s1xhkya2vp49ipmsdb4wr04";
+      url = "https://raw.githubusercontent.com/instantOS/instantos.github.io/0c6a883a2ac019e9d4b3973db1e71b1d43a161a6/youtube/hotkeys.md";
+      sha256 = "1qi0qxs1s7g3461al6r45nm8x7kavlzqgpfhcd6j7y8pn8pgy6ha";
     };
     sourceRoot = ".";
     unpackCmd =  "cp $curSrc hotkeys.md";
