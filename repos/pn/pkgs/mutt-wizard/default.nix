@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   buildPhase = ''
     sed -i 's/(PREFIX)/(out)/g' Makefile
-    make PREFIX=$out install
+    make PREFIX=$out SHELL=$SHELL install
   '';
 
   meta = {
