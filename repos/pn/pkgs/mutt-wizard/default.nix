@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
 
   installPhase = ''
-    make install PREFIX=$out
+    make PREFIX=$out install
   '';
 
   meta = {

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     sed -i '/man/d' Makefile
     sed -i '/tic/d' Makefile
-    TERMINFO=$out/share/terminfo make install PREFIX=$out
+    TERMINFO=$out/share/terminfo make PREFIX=$out install
   '';
 
   meta = {
