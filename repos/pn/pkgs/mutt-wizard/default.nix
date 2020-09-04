@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   #nativeBuildInputs = [ pkgconfig ];
 
-  installPhase = ''
+  buildPhase = ''
     sed -i 's/(PREFIX)/(out)/g' Makefile
     make PREFIX=$out install
   '';
