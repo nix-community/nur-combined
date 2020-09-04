@@ -1,4 +1,4 @@
-{ callPackage, stdenv, pkgs, erlang, lib, util, mainOnly }:
+{ callPackage, stdenv, pkgs, erlang, rebar, rebar3, lib, util, mainOnly }:
 
 with lib.attrsets;
 let
@@ -7,29 +7,35 @@ let
   packages = self:
     let
       callPackageWithSelf = lib.callPackageWith (pkgs // self);
-      annotateErlangInVersion = drv:
+
+      annotateDep = drv: dep:
         drv.overrideAttrs (o:
           let drvName = if o ? name then o.name else "${o.pname}-${o.version}";
-          in { name = "${drvName}_${erlang.name}"; });
+          in { name = "${drvName}_${dep.name}"; });
+      annotateErlangInVersion = drv: annotateDep drv erlang;
 
       callAndAnnotate = drv: args:
         annotateErlangInVersion (callPackageWithSelf drv args);
+      callAndAnnotateElixir = drv:
+        { elixir }@args:
+        annotateDep (callPackageWithSelf drv args) elixir;
+
     in rec {
       # Functions
       fetchHex = callPackageWithSelf ./fetch-hex.nix { };
-      fetchRebar3Deps = callPackageWithSelf ./fetch-rebar-deps.nix { };
-      rebar3Relx = callPackageWithSelf ./rebar3-release.nix { };
+      fetchRebar3Deps =
+        callPackageWithSelf ./fetch-rebar-deps.nix { inherit rebar3; };
+      rebar3Relx =
+        callPackageWithSelf ./rebar3-release.nix { inherit erlang rebar3; };
 
-      buildRebar3 = callPackageWithSelf ./build-rebar3.nix { };
-      buildHex = callPackageWithSelf ./build-hex.nix { };
-      buildErlangMk = callPackageWithSelf ./build-erlang-mk.nix { };
-      buildMix = callPackageWithSelf ./build-mix.nix { };
+      buildRebar3 =
+        callPackageWithSelf ./build-rebar3.nix { inherit erlang rebar3 pc; };
+      buildHex = callPackageWithSelf ./build-hex.nix { inherit buildRebar3; };
+      buildErlangMk =
+        callPackageWithSelf ./build-erlang-mk.nix { inherit erlang; };
 
-      # Derivations
-      rebar = callAndAnnotate ../tools/build-managers/rebar { };
-      rebar3 = callAndAnnotate ../tools/build-managers/rebar3 { };
       # rebar3 port compiler plugin is required by buildRebar3
-      pc = callAndAnnotate ./pc { };
+      pc = callAndAnnotate ./pc { inherit buildHex; };
 
       elixirs = util.recurseIntoAttrs
         (callPackageWithSelf ../interpreters/elixir/all-versions.nix {
@@ -46,17 +52,22 @@ let
 
       # Non hex packages. Examples how to build Rebar/Mix packages with and
       # without helper functions buildRebar3 and buildMix.
-      hex = callAndAnnotate ./hex { };
-      webdriver = annotateErlangInVersion
-        ((callPackageWithSelf ./webdriver { }).overrideAttrs
-          (o: { name = "${o.name}-${o.version}"; }));
-      relxExe = callAndAnnotate ../tools/erlang/relx-exe { };
+      # hex = callAndAnnotate ./hex { };
+      # buildMixes = util.recurseIntoAttrs (mapAttrs (_: elixir:
+      #   (callPackageWithSelf ./build-mix.nix { inherit hex elixir erlang; }))
+      #   (util.filterDerivations elixirs));
+      # webdriver = annotateDep
+      #   ((callPackageWithSelf ./webdriver { inherit erlang; }).overrideAttrs
+      #     (o: { name = "${o.name}-${o.version}"; })) erlang;
+      # relxExe = callAndAnnotate ../tools/erlang/relx-exe {
+      #   inherit fetchRebar3Deps rebar3Relx;
+      # };
 
       # An example of Erlang/C++ package.
-      cuter = callAndAnnotate ../tools/erlang/cuter { };
+      cuter = callAndAnnotate ../tools/erlang/cuter { inherit erlang; };
     };
 
   allPackages = lib.makeExtensible packages;
-  mainPackages = (with allPackages; { inherit rebar rebar3 hex elixirs; });
+  mainPackages = (with allPackages; { inherit elixirs lfes; });
 
 in if mainOnly then mainPackages else allPackages

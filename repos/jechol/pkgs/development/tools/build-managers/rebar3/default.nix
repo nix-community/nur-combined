@@ -85,7 +85,6 @@ stdenv.mkDerivation rec {
   postPatch = ''
     mkdir -p _checkouts
     mkdir -p _build/default/lib/
-
     cp --no-preserve=mode -R ${erlware_commons} _checkouts/erlware_commons
     cp --no-preserve=mode -R ${providers} _checkouts/providers
     cp --no-preserve=mode -R ${getopt} _checkouts/getopt
@@ -98,7 +97,6 @@ stdenv.mkDerivation rec {
     cp --no-preserve=mode -R ${ssl_verify_fun} _checkouts/ssl_verify_fun
     cp --no-preserve=mode -R ${hex_core} _checkouts/hex_core
     cp --no-preserve=mode -R ${parse_trans} _checkouts/parse_trans
-
     # Bootstrap script expects the dependencies in _build/default/lib
     # TODO: Make it accept checkouts?
     for i in _checkouts/* ; do

@@ -24,6 +24,7 @@ let
   majorVersions = if mainOnly then [
     ./R23
     ./R22
+    ./R21
   ] else [
     ./R23
     ./R22
