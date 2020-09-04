@@ -26,9 +26,15 @@ Include NUR(Nix User Repository) to `~/.config/nixpkgs/config.nix`:
 ```nix
 {
   packageOverrides = pkgs: {
-    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-      inherit pkgs;
-    };
+    nur = import (builtins.fetchTarball
+      "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+        inherit pkgs;
+
+        repoOverrides = {
+          jechol = import (builtins.fetchTarball
+            "https://github.com/jechol/nur-packages/archive/master.tar.gz") { };
+        };
+      };
   };
 }
 ```
@@ -74,3 +80,8 @@ nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_odbc
 nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac_nox_odbc
 nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac_odbc
 ```
+
+# TODO (Contributions are welcome)
+- [ ] Include all Erlang releases
+- [ ] Include all Elixir releases
+- [ ] Automate above tasks with scripts or Github actions
