@@ -1,4 +1,16 @@
 {
+    "NUR": {
+        "branch": "master",
+        "description": "Nix User Repository: User contributed nix packages [maintainer=@Mic92]",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "0a79bbb62f63ad02ea17b9f8c5f7c9b7b22ce1d7",
+        "sha256": "0vblx9g2rrbk5s606cj824lgszpmzcvd5z539bpcgmzkqscfpkal",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/NUR/archive/0a79bbb62f63ad02ea17b9f8c5f7c9b7b22ce1d7.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "classicube": {
         "branch": "master",
         "description": "Custom Minecraft Classic / ClassiCube client written in C (formerly ClassicalSharp in C#) from scratch.",
@@ -21,6 +33,18 @@
         "sha256": "1yqndim2xs7y2rv6mwr1mwgl7gs584v3aafxkcmmsi3g16fg8sxx",
         "type": "tarball",
         "url": "https://github.com/mattn/efm-langserver/archive/88b33ad6d18d532757a0b77df961a5fc9926ad9d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "home-manager": {
+        "branch": "master",
+        "description": "Manage a user environment using Nix",
+        "homepage": "https://rycee.gitlab.io/home-manager/",
+        "owner": "rycee",
+        "repo": "home-manager",
+        "rev": "41b1af808f1de69c31f3fd164d5274154ee782e4",
+        "sha256": "1m3nww8fq4874jcpkgni1vy5zzhpg9wvbqp04x76x0dwahbkx8l6",
+        "type": "tarball",
+        "url": "https://github.com/rycee/home-manager/archive/41b1af808f1de69c31f3fd164d5274154ee782e4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "napalm": {
