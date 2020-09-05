@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {}, sources ? import ./nix/sources.nix }:
+{ pkgs ? import <nixpkgs> {} }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -15,10 +15,10 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   gospider = pkgs.callPackage ./pkgs/gospider { };
-  # ffuf = pkgs.callPackage ./pkgs/ffuf { inherit sources; };
-  # httpstat = pkgs.callPackage ./pkgs/httpstat { inherit sources; };
-  # easy-novnc = pkgs.callPackage ./pkgs/easy-novnc { inherit sources; };
-  # idafree = pkgs.callPackage ./pkgs/idafree { };
-  # burpsuite = pkgs.callPackage ./pkgs/burpsuite { };
+  ffuf = pkgs.callPackage ./pkgs/ffuf { };
+  httpstat = pkgs.callPackage ./pkgs/httpstat { };
+  easy-novnc = pkgs.callPackage ./pkgs/easy-novnc { };
+  idafree = pkgs.callPackage ./pkgs/idafree { };
+  burpsuite = pkgs.callPackage ./pkgs/burpsuite { };
 }
 

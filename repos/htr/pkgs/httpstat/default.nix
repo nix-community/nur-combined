@@ -1,13 +1,18 @@
 { lib
 , stdenv
-, sources
+, fetchFromGitHub
 }:
 
 
 stdenv.mkDerivation {
   name = "httpstat";
 
-  src = sources.httpstat;
+  src = fetchFromGitHub {
+    owner = "htr";
+    repo = "httpstat";
+    rev = "13a98068213cc32c177bcea0b89a740deec89ed9";
+    sha256 = "08hdvx5wr03d26rdbmbk0i1myrqsdrxbimskaz5w7wqria2zp0n3";
+  };
 
   installPhase = ''
       mkdir -p $out/bin
