@@ -61,10 +61,10 @@ let
   };
 
   ast = buildPecl {
-    version = "1.0.8";
+    version = "1.0.9";
     pname = "ast";
 
-    sha256 = "1h12qnbjnzfzxbqizvm6nl6mdxdly1805xga7gv64nv206n8chik";
+    sha256 = "0ayjf9s0px5558i8xrdsp7j94jcr4gprziz8krh4ksr8h9wkzsg6";
 
     meta.broken = isPhp56;
   };
@@ -230,10 +230,10 @@ let
   };
 
   igbinary30 = buildPecl {
-    version = "3.1.4";
+    version = "3.1.5";
     pname = "igbinary";
 
-    sha256 = "05ghg20r21203sf385i82k3d9071ipng36ssh8lgcvpp5ma63gpl";
+    sha256 = "14kdb7d98085748ygxfd0qjdw44ii2ahxh2is9jfnlih4dsdrxz1";
 
     configureFlags = [
       "--enable-igbinary"
@@ -544,12 +544,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.39";
+    version = "0.12.42";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "04752xwjz56pn8dsanqg4frxqgdzpfymdvfrd17iih1m8habw16x";
+      sha256 = "0n2ih59f50gzf3jfi2kx2h8qm4xa9wwwri4j4j2qywgd162cd9wv";
     };
 
     phases = [ "installPhase" ];
@@ -689,12 +689,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.14.2";
+    version = "3.15";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "12nz8g39rf0b5q5aj6cnvsqxd88ws4iyx34f9kvj5jqzmk092v0s";
+      sha256 = "00a11slg1fxbnzk0j14c6gsp9d27f074lya8p1hhnik3ql23bxla";
     };
 
     phases = [ "installPhase" ];
