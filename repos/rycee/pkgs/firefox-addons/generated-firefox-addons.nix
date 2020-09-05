@@ -219,10 +219,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.17";
+      version = "4.9.18";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3636192/dark_reader-4.9.17-an+fx.xpi?src=";
-      sha256 = "348348672c447647113cfec600c1c2eac939c8c994de52f0139bd7ee2f9b9d8c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3637542/dark_reader-4.9.18-an+fx.xpi?src=";
+      sha256 = "0e71beda9e75086cac2a120ed96e30549e41a2a4a77664d003c8671375526f7c";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -709,10 +709,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.20.5";
+      version = "5.20.6";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3626144/reddit_enhancement_suite-5.20.5-an+fx.xpi?src=";
-      sha256 = "02f77b9b04d65a98eb5980ba364b7b870bac6340e94594e07f0e308da4525d38";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3637767/reddit_enhancement_suite-5.20.6-an+fx.xpi?src=";
+      sha256 = "a5e3f5b996b440eabc59bc0ba641ef7d6eb5a6a7dd9b373c75ab66855c6d27a5";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -737,10 +737,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.9.3";
+      version = "20.9.4.1817";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3636896/refined_github-20.9.3-an+fx.xpi?src=";
-      sha256 = "be788eab76e2d425793cf5966ab4f133a77d584e8556c62cc359b55d9d09c2fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3637712/refined_github-20.9.4.1817-an+fx.xpi?src=";
+      sha256 = "d62b7997775839dc8bb9a594885c47f618f056d2e13eee87b398b2e69679378a";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
