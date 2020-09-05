@@ -55,14 +55,18 @@ Erlang/OTP 22 [erts-10.4] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads
 Elixir 1.10.0 (compiled with Erlang/OTP 22)
 ```
 
+See? You can use Erlang 23 and Elixir 1.10 on Erlang 22 at the same time!
+
+### Included packages
+
 `beam.main` includes major combinations of Erlang/Elixir and pre-built packcages are cached by **Cachix**.
 
 On the other hands, `beam.all` includes every combinations, but not cached. 
 
 For example,
 
-- `beam.main.packages.erlang_23_0.elixirs.elixir_1_10_0` : Elixir 1.10.0 compiled with Erlang 23.0 (cached)
-- `beam.all.packages.erlang_22_3.elixirs.elixir_1_10_4` : Elixir 1.10.4 running on Erlang 22.3 (not cached)
+- `beam.main.packages.erlang_23_0.elixirs.elixir_1_10_0` : Elixir 1.10.0 on Erlang 23.0 (cached)
+- `beam.all.packages.erlang_22_3.elixirs.elixir_1_10_4` : Elixir 1.10.4 on 22.3 (not cached)
 - `beam.all.erlangs.erlang_22_3_javac_odbc` : Erlang 22.3 with support for Java and ODBC (not cached)
 
 You can navigate through packages with `nix repl`:
