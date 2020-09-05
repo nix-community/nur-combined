@@ -14,7 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  # gospider = pkgs.callPackage ./pkgs/gospider { inherit sources; };
+  gospider = pkgs.callPackage ./pkgs/gospider { };
   # ffuf = pkgs.callPackage ./pkgs/ffuf { inherit sources; };
   # httpstat = pkgs.callPackage ./pkgs/httpstat { inherit sources; };
   # easy-novnc = pkgs.callPackage ./pkgs/easy-novnc { inherit sources; };
