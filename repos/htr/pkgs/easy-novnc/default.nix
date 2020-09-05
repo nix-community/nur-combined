@@ -23,6 +23,5 @@ buildGoModule rec {
     homepage = "https://github.com/pgaskin/easy-novnc";
     license = licenses.mit;
     maintainers = with maintainers; [ htr ];
-    broken = true;
   };
 }
