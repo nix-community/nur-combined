@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "unknownshadow200",
         "repo": "classicube",
-        "rev": "d1542c4db8a3f2289561c9016cdd39ee585d8553",
-        "sha256": "18hx0xiylm416p91cpfyqywzdhsklibiybkcphbbd0qg61bllxf0",
+        "rev": "0877f017750c25c02276a0a770404c2ff1369fc7",
+        "sha256": "01w0ylj23xrfka4w0vi5sffv3dyyjc5fgvygha28rj6hz6njj5ij",
         "type": "tarball",
-        "url": "https://github.com/unknownshadow200/classicube/archive/d1542c4db8a3f2289561c9016cdd39ee585d8553.tar.gz",
+        "url": "https://github.com/unknownshadow200/classicube/archive/0877f017750c25c02276a0a770404c2ff1369fc7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "efm-langserver": {
@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "nmattia",
         "repo": "napalm",
-        "rev": "47e8d246cba57a346db15f6a33ba61c54d3b5c05",
-        "sha256": "1dxj8jqi0292s1xalis0mr1p3ck3zxqxx0xwlvx856kcnp317x8b",
+        "rev": "3b687c6b0190559d484d0602e7a28ab00eb6e212",
+        "sha256": "0c85v8cjb4x3xfizywv8087ch9f5b9bw2ykc819zf6b0d9zjvviw",
         "type": "tarball",
-        "url": "https://github.com/nmattia/napalm/archive/47e8d246cba57a346db15f6a33ba61c54d3b5c05.tar.gz",
+        "url": "https://github.com/nmattia/napalm/archive/3b687c6b0190559d484d0602e7a28ab00eb6e212.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
