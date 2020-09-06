@@ -19,7 +19,8 @@
   dwm = pkgs.callPackage ./pkgs/dwm { };
   dwmblocks = pkgs.callPackage ./pkgs/dwmblocks { };
   dmenu = pkgs.callPackage ./pkgs/dmenu { };
-  mutt-wizzard = pkgs.callPackage ./pkgs/mutt-wizard { };
+  mutt-wizard = pkgs.callPackage ./pkgs/mutt-wizard { };
+  xwallpaper = pkgs.callPackage ./pkgs/xwallpaper { };
   # amfora = pkgs.callPackage ./pkgs/amfora { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
