@@ -723,10 +723,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.4.0";
+      version = "5.4.1";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3635102/moderator_toolbox_for_reddit-5.4.0-an+fx.xpi?src=";
-      sha256 = "bc12b5e1ffaa32c6853869e8082f02872a22cb766a6b156868225d3a5c0ddba6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3638036/moderator_toolbox_for_reddit-5.4.1-an+fx.xpi?src=";
+      sha256 = "403b7b6aff2770bf15312ac883db1ae4096e1a0eeb3a72391e9322dc55c016e0";
       meta = with stdenv.lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
