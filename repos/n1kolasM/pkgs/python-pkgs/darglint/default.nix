@@ -8,6 +8,7 @@ buildPythonPackage rec {
     sha256 = "1hf0z15mdd7f4f0746v5jya9zh365flb4ryh05ljwlg40gjgf4c5";
   };
 
+  doCheck = false;
   checkInputs = [ pytest tox ];
   checkPhase = ''
     tox
