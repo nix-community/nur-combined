@@ -1,5 +1,11 @@
-{ stdenv, gnumake, fetchFromGitHub, ffmpeg, xdotool, slop, libnotify }:
-stdenv.mkDerivation rec {
+{ makeWrapper, stdenv, gnumake, fetchFromGitHub, ffmpeg, xdotool, slop, libnotify }:
+let
+  binPath = [
+    slop
+    ffmpeg
+    xdotool
+  ];
+in stdenv.mkDerivation rec {
   pname = "giph";
   version = "1.0";
 
@@ -12,8 +18,12 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  nativeBuildInputs = [ gnumake ];
-  propagatedBuildInputs = [ ffmpeg xdotool slop libnotify ];
+  nativeBuildInputs = [ gnumake makeWrapper ];
+  buildInputs = [ libnotify ];
+
+  postFixup = ''
+    wrapProgram $out/bin/giph --prefix PATH : ${stdenv.lib.makeBinPath binPath}
+  '';
 
   meta = with stdenv.lib; {
     description = "Captures your screen and saves it as a gif";
