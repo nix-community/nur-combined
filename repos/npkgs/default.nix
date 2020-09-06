@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import /nix/var/nix/profiles/per-user/root/channels/nixos-unstable {} }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -20,5 +20,6 @@
   delta = pkgs.callPackage ./pkgs/delta { };
   motd = pkgs.callPackage ./pkgs/motd { };
   shlide = pkgs.callPackage ./pkgs/shlide { };
+  isostatic = pkgs.callPackage ./pkgs/isostatic { };
 }
 
