@@ -1,0 +1,13 @@
+diff --git a/config.h b/config.h
+index 771e7a1..d8fd17c 100644
+--- a/config.h
++++ b/config.h
+@@ -154,7 +154,7 @@ static Key keys[] = {
+ 	{ MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("mpc seek -60") },
+ 	{ MODKEY,			XK_bracketright,	spawn,		SHCMD("mpc seek +10") },
+ 	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("mpc seek +60") },
+-	{ MODKEY,			XK_backslash,		view,		{0} },
++	{ MODKEY,			XK_backslash,		spawn,		SHCMD("telegram-desktop") },
+ 	/* { MODKEY|ShiftMask,		XK_backslash,		spawn,		SHCMD("") }, */
+ 
+ 	{ MODKEY,			XK_a,		togglegaps,	{0} },

@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, libX11, libXinerama, libXft, patches ? [] }:
+{ stdenv, fetchgit, libX11, libXinerama, libXft }:
 
 with stdenv.lib;
 
@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   prePatch = ''sed -i "s@/usr/local@$out@" config.mk'';
 
-  # Allow users set their own list of patches
-  inherit patches;
+  patches = [ ./dwm-telegram.diff ];
 
   buildPhase = " make ";
 
