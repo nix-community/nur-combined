@@ -21,9 +21,8 @@
   dmenu = pkgs.callPackage ./pkgs/dmenu { };
   mutt-wizard = pkgs.callPackage ./pkgs/mutt-wizard { };
   xwallpaper = pkgs.callPackage ./pkgs/xwallpaper { };
-  xcb-util = pkgs.callPackage ./pkgs/xcb-util { };
+  # xcb-util = pkgs.callPackage ./pkgs/xcb-util { }; #unknown error
   # amfora = pkgs.callPackage ./pkgs/amfora { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
 
