@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "terminal-typeracer";
-  version = "git";
+  version = "0249e6279e85c9040e800422539bf6d166c3664f";
 
   src = fetchFromGitLab {
     owner = "ttyperacer";
     repo = "terminal-typeracer";
-    rev = sources.terminal-typeracer.rev;
-    sha256 = sources.terminal-typeracer.sha256;
+    rev = "0249e6279e85c9040e800422539bf6d166c3664f";
+    sha256 = "12406l6jflhn7wy8i5sv848389fh7db3gnc6di412f57sxj2p16s";
   };
   
-  cargoSha256 = "16zs3rvb76vqafrljzabvylvp0b7jmr23p4r8p1v1z63q6b96kk7";
+  cargoSha256 = "1i2i5hlqh60sdsklrjybkly2dhm0fd79h8p3argyl0r9yfv00qvi";
 
   buildInputs = [ openssl sqlite ];
   nativeBuildInputs = [ pkg-config ];
