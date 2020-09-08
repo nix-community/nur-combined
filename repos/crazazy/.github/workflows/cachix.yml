@@ -32,3 +32,6 @@ jobs:
       
     - name: Build packages
       run: nix-build pkgs/default.nix | cachix push crazazy
+
+    - name: Build system
+      run: nix-build '<nixpkgs/nixos>' -A system -I nixos-config=$PWD/configuration.nix
