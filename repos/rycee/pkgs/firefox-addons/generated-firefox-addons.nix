@@ -110,10 +110,10 @@
       };
     "browserpass-otp" = buildFirefoxXpiAddon {
       pname = "browserpass-otp";
-      version = "0.2.3";
+      version = "0.2.4";
       addonId = "browserpass-otp@maximbaz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3494833/browserpass_otp-0.2.3-fx.xpi?src=";
-      sha256 = "02e7e8fe3139b4862c8eaaa46a4c6773d6a2fbd2d6b9995d467d002aba5276d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3640060/browserpass_otp-0.2.4-fx.xpi?src=";
+      sha256 = "58182dc99bae72d3b9bc1ab84889b04e1d3ba3e7331c32eae876a441a4422fe7";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/browserpass/browserpass-otp";
@@ -219,10 +219,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.18";
+      version = "4.9.19";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3637542/dark_reader-4.9.18-an+fx.xpi?src=";
-      sha256 = "0e71beda9e75086cac2a120ed96e30549e41a2a4a77664d003c8671375526f7c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3638904/dark_reader-4.9.19-an+fx.xpi?src=";
+      sha256 = "75c236a65e8a378b20c683167c0d838d88c8683e93508213e6d60f666288bbfe";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -331,10 +331,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.0.6";
+      version = "3.0.7";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3613981/gesturefy-3.0.6-fx.xpi?src=";
-      sha256 = "ac6cd4405cc2d1096291e2b8d05baa3970d74a0991a7a71f9261f42ba2bf14ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3639516/gesturefy-3.0.7-fx.xpi?src=";
+      sha256 = "d874656e9900d31575a90ab848f66483d3836cb6b2f814470c438c5aa1879dc3";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
