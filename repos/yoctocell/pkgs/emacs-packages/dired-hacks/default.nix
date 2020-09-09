@@ -5,23 +5,26 @@
 }:
 
 stdenv.mkDerivation {
-  pname = "org-pretty-table";
-  version = sources.org-pretty-table.rev;
+  pname = "dired-hacks";
+  version = sources.dired-hacks.rev;
 
   src = fetchFromGitHub {
     owner = "Fuco1";
-    repo = "org-pretty-table";
-    rev = sources.org-pretty-table.rev;
-    sha256 = sources.org-pretty-table.sha256;
+    repo = "dired-hacks";
+    rev = sources.dired-hacks.rev;
+    sha256 = sources.dired-hacks.sha256;
   };
 
   buildInputs = with pkgs; [
     emacs
     emacsPackages.org
+    emacsPackages.dash
+    emacsPackages.f
+    emacsPackages.s
   ];
 
   buildPhase = ''
-    emacs -L $src --batch -f batch-byte-compile *.el
+    # emacs -L $src --batch -f batch-byte-compile *.el
   '';
 
   installPhase = ''
@@ -30,9 +33,10 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    inherit (sources.org-pretty-table) description homepage;
+    inherit (sources.dired-hacks) description homepage;
     license = licenses.free;
     # maintainers = with maintainers; [ yoctocell ];
     platforms = platforms.all;
+    broken = true;
   };
 }

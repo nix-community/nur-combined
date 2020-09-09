@@ -6,7 +6,7 @@
 
 stdenv.mkDerivation {
   pname = "matrix-client";
-  version = "git";
+  version = sources.matrix-client.rev;
 
   src = fetchFromGitHub {
     owner = "alphapapa";
@@ -31,14 +31,14 @@ stdenv.mkDerivation {
   ];
 
   buildPhase = ''
-  emacs -L $src --batch -f batch-byte-compile *.el
+    emacs -L $src --batch -f batch-byte-compile *.el
   '';
-  
+
   installPhase = ''
-  install -d $out/share/emacs/site-lisp
-  install *.el *.elc $out/share/emacs/site-lisp
-  install -d $out/bin/matrix-client-standalone.el.sh
-  install *.sh $out/bin/matrix-client-standalone.el.sh
+    install -d $out/share/emacs/site-lisp
+    install *.el *.elc $out/share/emacs/site-lisp
+    install -d $out/bin/matrix-client-standalone.el.sh
+    install *.sh $out/bin/matrix-client-standalone.el.sh
   '';
 
   meta = with stdenv.lib; {
@@ -48,5 +48,3 @@ stdenv.mkDerivation {
     platforms = platforms.all;
   };
 }
-    
-

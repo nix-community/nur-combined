@@ -6,7 +6,7 @@
 
 stdenv.mkDerivation {
   pname = "eshell-syntax-highlighting";
-  version = "git";
+  version = sources.eshell-syntax-highlighting.rev;
 
   src = fetchFromGitHub {
     owner = "akreisher";
@@ -18,14 +18,14 @@ stdenv.mkDerivation {
   buildInputs = with pkgs; [ emacs ];
 
   buildPhase = ''
-  emacs -L $src --batch -f batch-byte-compile *.el
+    emacs -L $src --batch -f batch-byte-compile *.el
   '';
-  
+
   installPhase = ''
-  install -d $out/share/emacs/site-lisp
-  install *.el *.elc $out/share/emacs/site-lisp
+    install -d $out/share/emacs/site-lisp
+    install *.el *.elc $out/share/emacs/site-lisp
   '';
-  
+
   meta = with stdenv.lib; {
     inherit (sources.eshell-syntax-highlighting) description homepage;
     license = licenses.gpl3Plus;

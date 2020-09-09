@@ -2,7 +2,7 @@
 
 with pkgs;
 mkShell {
-  buildInputs = [ nixpkgs-fmt zsh ];
+  buildInputs = [ nixpkgs-fmt ];
   shellHook = ''
     zsh
   '';

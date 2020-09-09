@@ -1,14 +1,26 @@
 {
+    "dired-hacks": {
+        "branch": "master",
+        "description": "Collection of useful dired additions",
+        "homepage": null,
+        "owner": "Fuco1",
+        "repo": "dired-hacks",
+        "rev": "f49a8bbf95f70671a74a24f7f4de453b2686be46",
+        "sha256": "0b5mk501sy3b2ak46yyy8qcl5f5fsc9py750n962qfh2zs1amrbs",
+        "type": "tarball",
+        "url": "https://github.com/Fuco1/dired-hacks/archive/f49a8bbf95f70671a74a24f7f4de453b2686be46.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "eshell-syntax-highlighting": {
         "branch": "master",
         "description": "Syntax highlighting for Eshell",
         "homepage": "",
         "owner": "akreisher",
         "repo": "eshell-syntax-highlighting",
-        "rev": "e574cf20ac8b4f0372a08950a85daff111ee61f3",
-        "sha256": "1s17m2s17y5r7y3nmk39ngh0k1kmix26h45vw4qrh34060qf7gpl",
+        "rev": "fe7943487035476a6aac3d72ee2c10fdc3ffd1e0",
+        "sha256": "0c34vql6glfs4n0h8zlvhr61yvb79wqm0m8cqsziv2s697bl8flb",
         "type": "tarball",
-        "url": "https://github.com/akreisher/eshell-syntax-highlighting/archive/e574cf20ac8b4f0372a08950a85daff111ee61f3.tar.gz",
+        "url": "https://github.com/akreisher/eshell-syntax-highlighting/archive/fe7943487035476a6aac3d72ee2c10fdc3ffd1e0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gralc": {
@@ -41,10 +53,10 @@
         "homepage": "https://github.com/nmattia/niv",
         "owner": "nmattia",
         "repo": "niv",
-        "rev": "fad2a6cbfb2e7cdebb7cb0ad2f5cc91e2c9bc06b",
-        "sha256": "0mghc1j0rd15spdjx81bayjqr0khc062cs25y5dcfzlxk4ynyc6m",
+        "rev": "dd13098d01eaa6be68237e7e38f96782b0480755",
+        "sha256": "1cfjdbsn0219fjzam1k7nqzkz8fb1ypab50rhyj026qbklqq2kvq",
         "type": "tarball",
-        "url": "https://github.com/nmattia/niv/archive/fad2a6cbfb2e7cdebb7cb0ad2f5cc91e2c9bc06b.tar.gz",
+        "url": "https://github.com/nmattia/niv/archive/dd13098d01eaa6be68237e7e38f96782b0480755.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
@@ -53,10 +65,10 @@
         "homepage": null,
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "7bc3a08d3a4c700b53a3b27f5acd149f24b931ec",
-        "sha256": "1kiz37052zsgvw7a378zg08mpbi1wk8dkgm5j6dy0x4mxvcg8ws3",
+        "rev": "3c0e3697520cbe7d9eb3a64bfd87de840bf4aa77",
+        "sha256": "1vx7kyaq0i287dragjgfdj94ggwr3ky2b7bq32l8rkd2k3vc3gl5",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/7bc3a08d3a4c700b53a3b27f5acd149f24b931ec.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/3c0e3697520cbe7d9eb3a64bfd87de840bf4aa77.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "org-pretty-table": {
@@ -84,9 +96,9 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "terminal-typeracer": {
-        "rev": "820cb50e137c7afb6b62addf991c5e9886151cc4",
+        "rev": "0249e6279e85c9040e800422539bf6d166c3664f",
         "sha256": "187xrqxalk2gxa22ki5q092llvliddrsc68cg4dvvy2xzq254jfy",
-        "type": "file",
+        "type": "tarball",
         "url": "https://gitlab.com/api/v4/projects/ttyperacer%2Fterminal-typeracer/repository/archive.tar.gz?sha=820cb50e137c7afb6b62addf991c5e9886151cc4",
         "url_template": "https://gitlab.com/api/v4/projects/ttyperacer%2Fterminal-typeracer/repository/archive.tar.gz?sha=<rev>"
     },

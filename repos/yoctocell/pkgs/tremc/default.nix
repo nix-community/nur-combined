@@ -6,7 +6,7 @@
 
 stdenv.mkDerivation {
   pname = "tremc";
-  version = "git";
+  version = sources.tremc.rev;
 
   src = fetchFromGitHub {
     owner = "tremc";
@@ -14,7 +14,7 @@ stdenv.mkDerivation {
     rev = sources.tremc.rev;
     sha256 = sources.tremc.sha256;
   };
-  
+
   buildInputs = with pythonPackages; [ python pygeoip pyperclip ];
 
   dontBuild = true;

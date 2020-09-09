@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation {
   pname = "torque";
-  version = "git";
+  version = sources.torque.rev;
 
   src = fetchFromGitHub {
     owner = "dylanaraps";
@@ -15,13 +15,13 @@ stdenv.mkDerivation {
     rev = sources.torque.rev;
     sha256 = sources.torque.sha256;
   };
-  
+
   dontBuild = true;
 
   installPhase = ''
     install -Dm755 -t $out/bin torque
   '';
-  
+
   meta = with stdenv.lib; {
     inherit (sources.torque) description homepage;
     license = licenses.mit;
@@ -29,6 +29,3 @@ stdenv.mkDerivation {
     platforms = platforms.all;
   };
 }
-    
-
-
