@@ -44,11 +44,11 @@ Include NUR(Nix User Repository) to `~/.config/nixpkgs/config.nix`:
 Packages can be installed from the `nur` namespace:
 
 ```console
-$ nix-env -f '<nixpkgs>' -iA nur.repos.jechol.beam.main.erlangs.erlang_23_0
+$ nix-env -iA nixpkgs.nur.repos.jechol.beam.main.erlangs.erlang_23_0
 $ erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().'  -noshell
 "23"
 
-$ nix-env -f '<nixpkgs>' -iA nur.repos.jechol.beam.main.packages.erlang_22_0.elixirs.elixir_1_10_0
+$ nix-env -iA nixpkgs.nur.repos.jechol.beam.main.packages.erlang_22_0.elixirs.elixir_1_10_0
 $ elixir --version
 Erlang/OTP 22 [erts-10.4] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1] [hipe]
 
@@ -61,7 +61,7 @@ See? You can use Erlang 23 and Elixir 1.10 on Erlang 22 at the same time!
 
 `beam.main` includes major combinations of Erlang/Elixir and pre-built packcages are cached by **Cachix**.
 
-On the other hands, `beam.all` includes every combinations, but not cached. 
+On the other hands, `beam.all` includes every combinations, but not cached.
 
 For example,
 
@@ -75,17 +75,18 @@ You can navigate through packages with `nix repl`:
 $ nix repl '<nixpkgs>'
 
 nix-repl> nur.repos.jechol.beam.all.packages.erlang_20_3_8_9<TAB>
-nur.repos.jechol.beam.all.packages.erlang_20_3_8_9                 
+nur.repos.jechol.beam.all.packages.erlang_20_3_8_9
 nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_nox
-nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac           
+nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac
 nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_nox_odbc
-nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac_nox       
+nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac_nox
 nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_odbc
 nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac_nox_odbc
 nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac_odbc
 ```
 
 # TODO (Contributions are welcome)
+
 - [ ] Include all Erlang releases
 - [ ] Include all Elixir releases
 - [ ] Automate above tasks with scripts or Github actions
