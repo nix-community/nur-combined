@@ -1,3 +1,3 @@
 {
-  programs = ./programs;
+  gita = ./gita.nix;
 }
