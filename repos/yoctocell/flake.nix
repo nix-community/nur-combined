@@ -5,8 +5,6 @@
 
   outputs = { self, nixpkgs }:
     let
-      mapImport = nixpkgs.lib.mapAttrs (_: value: import value);
-
       systems = [
         "x86_64-linux"
         "i686-linux"
@@ -20,7 +18,7 @@
 
     in {
       # Functions
-      lib = mapImport (import ./lib { inherit nixpkgs; });
+      lib = import ./lib { inherit nixpkgs; };
 
       # NixOS modules
       modules = import ./modules;
