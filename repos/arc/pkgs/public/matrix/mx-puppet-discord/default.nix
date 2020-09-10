@@ -4,8 +4,8 @@ let
   src = fetchFromGitHub {
     owner = "matrix-discord";
     repo = "mx-puppet-discord";
-    rev = "f2a2eb8013e3026212cecf79dcb8a7953233c74d";
-    sha256 = "1zaya00qd1ccbihxn32n6i91bxsp3i5c77vh541xgz9299234fj0";
+    rev = "28e7da75136771139b3ee3b5fdac92949cc4d561";
+    sha256 = "190jldvka1ym1crwcgaq4hcsh40906rwiw5dljpxvvs1hvj5p1xy";
   };
 
   nodePackages = import ./node-composition.nix {
@@ -19,7 +19,7 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "mx-puppet-discord";
-  version = "2020-04-10";
+  version = "2020-09-05";
   inherit src;
 
   buildInputs = [ nodejs makeWrapper ];

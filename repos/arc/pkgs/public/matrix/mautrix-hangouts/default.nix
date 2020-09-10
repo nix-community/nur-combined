@@ -1,27 +1,38 @@
-{ fetchFromGitHub, lib, python3Packages }: with python3Packages; let
+{ fetchFromGitHub, fetchpatch, lib, python3Packages, e2be ? true }: with python3Packages; let
   drv = buildPythonApplication rec {
     pname = "mautrix-hangouts";
-    version = "2019-10-24";
+    version = "0.1.1";
 
     src = fetchFromGitHub {
       owner = "tulir";
       repo = pname;
-      rev = "b0c0a99ef3b49911eb360df075f5f7a21149dc2c";
-      sha256 = "1n1jghz9waz5zrd7xwij18jw7qal42p593kpz5qi90mnygf614xl";
+      rev = "v${version}";
+      sha256 = "0xj5ykfixy58dsqyky6ds8fh84chbywlnq8khmwkz4m9bx2vr2fy";
     };
 
+    patches = [ (fetchpatch {
+      url = "https://github.com/tulir/mautrix-hangouts/commit/184937965ee28dd8b8a823015f48e6fc3ec341ee.patch";
+      sha256 = "1fbg7ykchf4akkb62f0ngwayzvvihww4hqddfbc574qm49r8rc4h";
+    }) ];
+
     postPatch = ''
-      sed -i -e '/alembic>/d' setup.py
+      sed -i -e '/alembic>/d' requirements.txt
     '';
 
     propagatedBuildInputs = [
       aiohttp
       sqlalchemy
       ruamel_yaml
+      CommonMark
       python_magic
       hangups
       mautrix-python
       setuptools
+    ] ++ lib.optionals e2be [
+      asyncpg
+      olm
+      pycryptodome
+      unpaddedbase64
     ];
 
     doCheck = false;

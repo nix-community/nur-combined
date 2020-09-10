@@ -4,11 +4,11 @@ with pythonPackages;
 
 buildPythonPackage rec {
   pname = "hangups";
-  version = "0.4.10";
+  version = "0.4.11";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0ww9z9kcb02pwnr8q1ll31wkzspc1fci1ly8ifrwzxysp4rxy3j5";
+    sha256 = "165lravvlsgkv6pp3vgg785ihycvs43qzqxw2d2yygrc6pbhqlyv";
   };
 
   propagatedBuildInputs = [

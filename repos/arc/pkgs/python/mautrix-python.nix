@@ -4,12 +4,12 @@ with pythonPackages;
 
 buildPythonPackage rec {
   pname = "mautrix-python";
-  version = "0.4.0.dev77";
+  version = "0.7.1";
   src = fetchFromGitHub {
     owner = "tulir";
     repo = "mautrix-python";
-    rev = "4bcea1732a0f836773d15b9c10f7d999001ec658";
-    sha256 = "0qgdbwyg26y6hi06i8r70s285bvkdil15va7fx8bc3n87g464kkn";
+    rev = "v${version}";
+    sha256 = "0pd5hpfjc4habgp6qnyd3icl476552pxgxg3ajn7fv3xl98rbckj";
   };
 
   propagatedBuildInputs = [
