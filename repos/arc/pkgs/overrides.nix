@@ -299,7 +299,7 @@ let
       patches = old.patches or [] ++ [ (fetchpatch {
         name = "mpd-youtube-dl.diff";
         url = "https://github.com/MusicPlayerDaemon/MPD/compare/v0.21.25...arcnmx:ytdl-0.21.25.diff";
-        sha256 = "049g6djjaf30ciw7gmkhm12r4h2yv1f3vg58jdiscb36cq9ai42s";
+        sha256 = "16n1fx505k6pprf753j6xzwh25ka4azwx49sz02wy68qdx8wa586";
       }) ];
 
       mesonFlags = old.mesonFlags ++ [ "-Dyoutube-dl=enabled" ];
