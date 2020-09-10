@@ -34,5 +34,6 @@ rec {
   burpsuite = pkgs.callPackage ./pkgs/burpsuite { };
   pwnPythonEnv = pkgs.python3.withPackages pwnPackages;
   pwnGdb = pkgs.gdb.override { python3 = pwnPythonEnv; };
+  radare2 = pkgs.callPackage ./pkgs/radare2 { python3 = pwnPythonEnv; pythonBindings = true; };
 }
 
