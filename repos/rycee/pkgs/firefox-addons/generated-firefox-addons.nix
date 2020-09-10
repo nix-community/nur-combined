@@ -110,10 +110,10 @@
       };
     "browserpass-otp" = buildFirefoxXpiAddon {
       pname = "browserpass-otp";
-      version = "0.2.4";
+      version = "0.2.5";
       addonId = "browserpass-otp@maximbaz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3640060/browserpass_otp-0.2.4-fx.xpi?src=";
-      sha256 = "58182dc99bae72d3b9bc1ab84889b04e1d3ba3e7331c32eae876a441a4422fe7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3640263/browserpass_otp-0.2.5-fx.xpi?src=";
+      sha256 = "00151e6b2a8c7e8601ab33284920e48a9eba8ac297e9056cc77e89962be02b1f";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/browserpass/browserpass-otp";
