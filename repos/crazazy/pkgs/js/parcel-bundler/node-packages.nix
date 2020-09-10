@@ -1462,13 +1462,13 @@ let
         sha512 = "Z942RysHXmJrhqk88FmKBVq/v5tqmSkDz7p54G/MGyjMnCFFnC79XWNbg+Vta8W6Wb2qtSZTSxIGkJrRpCFEiA==";
       };
     };
-    "browserslist-4.14.1" = {
+    "browserslist-4.14.2" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.14.1";
+      version = "4.14.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.14.1.tgz";
-        sha512 = "zyBTIHydW37pnb63c7fHFXUG6EcqWOqoMdDx6cdyaDFriZ20EoVxcE95S54N+heRqY8m8IUgB5zYta/gCwSaaA==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.14.2.tgz";
+        sha512 = "HI4lPveGKUR0x2StIz+2FXfDk9SfVMrxn6PLh1JeGUwcuoDkdKZebWiyLRJ68iIPDpMI4JLVDf7S7XzslgWOhw==";
       };
     };
     "buffer-4.9.2" = {
@@ -1570,13 +1570,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001124" = {
+    "caniuse-lite-1.0.30001125" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001124";
+      version = "1.0.30001125";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001124.tgz";
-        sha512 = "zQW8V3CdND7GHRH6rxm6s59Ww4g/qGWTheoboW9nfeMg7sUoopIfKCcNZUjwYRCOrvereh3kwDpZj4VLQ7zGtA==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001125.tgz";
+        sha512 = "9f+r7BW8Qli917mU3j0fUaTweT3f3vnX/Lcs+1C73V+RADmFme+Ih0Br8vONQi3X0lseOe6ZHfsZLCA8MSjxUA==";
       };
     };
     "caseless-0.12.0" = {
@@ -3226,13 +3226,13 @@ let
         sha512 = "NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==";
       };
     };
-    "is-callable-1.2.0" = {
+    "is-callable-1.2.1" = {
       name = "is-callable";
       packageName = "is-callable";
-      version = "1.2.0";
+      version = "1.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-callable/-/is-callable-1.2.0.tgz";
-        sha512 = "pyVD9AaGLxtg6srb2Ng6ynWJqkHU9bEM087AKck0w8QwDarTfNcpIYoU8x8Hv2Icm8u6kFJM18Dag8lyqGkviw==";
+        url = "https://registry.npmjs.org/is-callable/-/is-callable-1.2.1.tgz";
+        sha512 = "wliAfSzx6V+6WfMOmus1xy0XvSgf/dlStkvTfq7F0g4bOIW0PSUbnyse3NhDwdyYS1ozfUtAAySqTws3z9Eqgg==";
       };
     };
     "is-color-stop-1.1.0" = {
@@ -4009,13 +4009,13 @@ let
         sha512 = "h/zcD8H9kaDZ9ALUWwlBUDo6TKF8a7qBSCSEGfjTVIYeqsioSKaAX+BN7NgiMGp6iSIXZ3PxgCu8KS3b71YK5Q==";
       };
     };
-    "node-releases-1.1.60" = {
+    "node-releases-1.1.61" = {
       name = "node-releases";
       packageName = "node-releases";
-      version = "1.1.60";
+      version = "1.1.61";
       src = fetchurl {
-        url = "https://registry.npmjs.org/node-releases/-/node-releases-1.1.60.tgz";
-        sha512 = "gsO4vjEdQaTusZAEebUWp2a5d7dF5DYoIpDG7WySnk7BuZDW+GPpHXoXXuYawRBr/9t5q54tirPz79kFIWg4dA==";
+        url = "https://registry.npmjs.org/node-releases/-/node-releases-1.1.61.tgz";
+        sha512 = "DD5vebQLg8jLCOzwupn954fbIiZht05DAZs0k2u8NStSe6h9XdsuIQL8hSRKYiU8WUQRznmSDrKGbv3ObOmC7g==";
       };
     };
     "normalize-html-whitespace-1.0.0" = {
@@ -6394,7 +6394,7 @@ let
           sources."pako-1.0.11"
         ];
       })
-      sources."browserslist-4.14.1"
+      sources."browserslist-4.14.2"
       (sources."buffer-4.9.2" // {
         dependencies = [
           sources."isarray-1.0.0"
@@ -6410,7 +6410,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001124"
+      sources."caniuse-lite-1.0.30001125"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-2.1.8"
@@ -6678,7 +6678,7 @@ let
       sources."is-arrayish-0.2.1"
       sources."is-binary-path-1.0.1"
       sources."is-buffer-1.1.6"
-      sources."is-callable-1.2.0"
+      sources."is-callable-1.2.1"
       sources."is-color-stop-1.1.0"
       (sources."is-data-descriptor-1.0.0" // {
         dependencies = [
@@ -6800,7 +6800,7 @@ let
           sources."punycode-1.4.1"
         ];
       })
-      sources."node-releases-1.1.60"
+      sources."node-releases-1.1.61"
       sources."normalize-html-whitespace-1.0.0"
       sources."normalize-path-3.0.0"
       sources."normalize-url-3.3.0"

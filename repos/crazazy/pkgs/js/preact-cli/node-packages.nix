@@ -2128,13 +2128,13 @@ let
         sha512 = "Z942RysHXmJrhqk88FmKBVq/v5tqmSkDz7p54G/MGyjMnCFFnC79XWNbg+Vta8W6Wb2qtSZTSxIGkJrRpCFEiA==";
       };
     };
-    "browserslist-4.14.1" = {
+    "browserslist-4.14.2" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.14.1";
+      version = "4.14.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.14.1.tgz";
-        sha512 = "zyBTIHydW37pnb63c7fHFXUG6EcqWOqoMdDx6cdyaDFriZ20EoVxcE95S54N+heRqY8m8IUgB5zYta/gCwSaaA==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.14.2.tgz";
+        sha512 = "HI4lPveGKUR0x2StIz+2FXfDk9SfVMrxn6PLh1JeGUwcuoDkdKZebWiyLRJ68iIPDpMI4JLVDf7S7XzslgWOhw==";
       };
     };
     "buffer-4.9.2" = {
@@ -2317,13 +2317,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001124" = {
+    "caniuse-lite-1.0.30001125" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001124";
+      version = "1.0.30001125";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001124.tgz";
-        sha512 = "zQW8V3CdND7GHRH6rxm6s59Ww4g/qGWTheoboW9nfeMg7sUoopIfKCcNZUjwYRCOrvereh3kwDpZj4VLQ7zGtA==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001125.tgz";
+        sha512 = "9f+r7BW8Qli917mU3j0fUaTweT3f3vnX/Lcs+1C73V+RADmFme+Ih0Br8vONQi3X0lseOe6ZHfsZLCA8MSjxUA==";
       };
     };
     "caseless-0.12.0" = {
@@ -5107,13 +5107,13 @@ let
         sha512 = "NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==";
       };
     };
-    "is-callable-1.2.0" = {
+    "is-callable-1.2.1" = {
       name = "is-callable";
       packageName = "is-callable";
-      version = "1.2.0";
+      version = "1.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-callable/-/is-callable-1.2.0.tgz";
-        sha512 = "pyVD9AaGLxtg6srb2Ng6ynWJqkHU9bEM087AKck0w8QwDarTfNcpIYoU8x8Hv2Icm8u6kFJM18Dag8lyqGkviw==";
+        url = "https://registry.npmjs.org/is-callable/-/is-callable-1.2.1.tgz";
+        sha512 = "wliAfSzx6V+6WfMOmus1xy0XvSgf/dlStkvTfq7F0g4bOIW0PSUbnyse3NhDwdyYS1ozfUtAAySqTws3z9Eqgg==";
       };
     };
     "is-ci-2.0.0" = {
@@ -6538,13 +6538,13 @@ let
         sha512 = "h/zcD8H9kaDZ9ALUWwlBUDo6TKF8a7qBSCSEGfjTVIYeqsioSKaAX+BN7NgiMGp6iSIXZ3PxgCu8KS3b71YK5Q==";
       };
     };
-    "node-releases-1.1.60" = {
+    "node-releases-1.1.61" = {
       name = "node-releases";
       packageName = "node-releases";
-      version = "1.1.60";
+      version = "1.1.61";
       src = fetchurl {
-        url = "https://registry.npmjs.org/node-releases/-/node-releases-1.1.60.tgz";
-        sha512 = "gsO4vjEdQaTusZAEebUWp2a5d7dF5DYoIpDG7WySnk7BuZDW+GPpHXoXXuYawRBr/9t5q54tirPz79kFIWg4dA==";
+        url = "https://registry.npmjs.org/node-releases/-/node-releases-1.1.61.tgz";
+        sha512 = "DD5vebQLg8jLCOzwupn954fbIiZht05DAZs0k2u8NStSe6h9XdsuIQL8hSRKYiU8WUQRznmSDrKGbv3ObOmC7g==";
       };
     };
     "nodent-compiler-3.2.13" = {
@@ -10057,148 +10057,148 @@ let
         sha512 = "Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==";
       };
     };
-    "workbox-background-sync-5.1.3" = {
+    "workbox-background-sync-5.1.4" = {
       name = "workbox-background-sync";
       packageName = "workbox-background-sync";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-background-sync/-/workbox-background-sync-5.1.3.tgz";
-        sha512 = "V/R95aPxYjbKCaVzUTihrZ9ObGOnzoA5n60r0DQ747p8Pj15/dDTYixonKhhlvavTiNezUrp+wTQBvZvcd/ETA==";
+        url = "https://registry.npmjs.org/workbox-background-sync/-/workbox-background-sync-5.1.4.tgz";
+        sha512 = "AH6x5pYq4vwQvfRDWH+vfOePfPIYQ00nCEB7dJRU1e0n9+9HMRyvI63FlDvtFT2AvXVRsXvUt7DNMEToyJLpSA==";
       };
     };
-    "workbox-broadcast-update-5.1.3" = {
+    "workbox-broadcast-update-5.1.4" = {
       name = "workbox-broadcast-update";
       packageName = "workbox-broadcast-update";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-broadcast-update/-/workbox-broadcast-update-5.1.3.tgz";
-        sha512 = "HJ7FDmgweRcYp8fMiFbkmhaTjMYhMByURe5+TempnCi7cT5NNbyaG4T+rg8NWYxAeumSAB3JQF6XD/z34vRRHA==";
+        url = "https://registry.npmjs.org/workbox-broadcast-update/-/workbox-broadcast-update-5.1.4.tgz";
+        sha512 = "HTyTWkqXvHRuqY73XrwvXPud/FN6x3ROzkfFPsRjtw/kGZuZkPzfeH531qdUGfhtwjmtO/ZzXcWErqVzJNdXaA==";
       };
     };
-    "workbox-build-5.1.3" = {
+    "workbox-build-5.1.4" = {
       name = "workbox-build";
       packageName = "workbox-build";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-build/-/workbox-build-5.1.3.tgz";
-        sha512 = "cssa2cKAi/FNp2P2m2DjF/UsXlVX6b1HgkXOjBTraFkIeyZEKxN1F1DnxOpGkdM/bPPRa7y5OmUvjOpgOd9apA==";
+        url = "https://registry.npmjs.org/workbox-build/-/workbox-build-5.1.4.tgz";
+        sha512 = "xUcZn6SYU8usjOlfLb9Y2/f86Gdo+fy1fXgH8tJHjxgpo53VVsqRX0lUDw8/JuyzNmXuo8vXX14pXX2oIm9Bow==";
       };
     };
-    "workbox-cacheable-response-5.1.3" = {
+    "workbox-cacheable-response-5.1.4" = {
       name = "workbox-cacheable-response";
       packageName = "workbox-cacheable-response";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-cacheable-response/-/workbox-cacheable-response-5.1.3.tgz";
-        sha512 = "lOJEwK2T4KWFNdhRFUKxTPBIO5hIYm9E/nYgMq5h/IH3iHPHlBPuFwRMaQy+TTCGWWTA85NomQOjVw1bj65RLw==";
+        url = "https://registry.npmjs.org/workbox-cacheable-response/-/workbox-cacheable-response-5.1.4.tgz";
+        sha512 = "0bfvMZs0Of1S5cdswfQK0BXt6ulU5kVD4lwer2CeI+03czHprXR3V4Y8lPTooamn7eHP8Iywi5QjyAMjw0qauA==";
       };
     };
-    "workbox-core-5.1.3" = {
+    "workbox-core-5.1.4" = {
       name = "workbox-core";
       packageName = "workbox-core";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-core/-/workbox-core-5.1.3.tgz";
-        sha512 = "TFSIPxxciX9sFaj0FDiohBeIKpwMcCyNduydi9i3LChItcndDS6TJpErxybv8aBWeCMraXt33TWtF6kKuIObNw==";
+        url = "https://registry.npmjs.org/workbox-core/-/workbox-core-5.1.4.tgz";
+        sha512 = "+4iRQan/1D8I81nR2L5vcbaaFskZC2CL17TLbvWVzQ4qiF/ytOGF6XeV54pVxAvKUtkLANhk8TyIUMtiMw2oDg==";
       };
     };
-    "workbox-expiration-5.1.3" = {
+    "workbox-expiration-5.1.4" = {
       name = "workbox-expiration";
       packageName = "workbox-expiration";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-expiration/-/workbox-expiration-5.1.3.tgz";
-        sha512 = "8YhpmIHqIx+xmtxONADc+di4a3zzCsvVHLiKq6T3vJZUPnqV2jzx+51+UHMUh3T5w5Z5SFC14l0V/jesRbuMKg==";
+        url = "https://registry.npmjs.org/workbox-expiration/-/workbox-expiration-5.1.4.tgz";
+        sha512 = "oDO/5iC65h2Eq7jctAv858W2+CeRW5e0jZBMNRXpzp0ZPvuT6GblUiHnAsC5W5lANs1QS9atVOm4ifrBiYY7AQ==";
       };
     };
-    "workbox-google-analytics-5.1.3" = {
+    "workbox-google-analytics-5.1.4" = {
       name = "workbox-google-analytics";
       packageName = "workbox-google-analytics";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-google-analytics/-/workbox-google-analytics-5.1.3.tgz";
-        sha512 = "ouK6xIJa+raFcO29TgwKFU/Hv1ejqSYzCzH9lI2B/4z/Wdnb8maL6mMIojQ8j5SohwKswMZmLDl0Az2PCmX11w==";
+        url = "https://registry.npmjs.org/workbox-google-analytics/-/workbox-google-analytics-5.1.4.tgz";
+        sha512 = "0IFhKoEVrreHpKgcOoddV+oIaVXBFKXUzJVBI+nb0bxmcwYuZMdteBTp8AEDJacENtc9xbR0wa9RDCnYsCDLjA==";
       };
     };
-    "workbox-navigation-preload-5.1.3" = {
+    "workbox-navigation-preload-5.1.4" = {
       name = "workbox-navigation-preload";
       packageName = "workbox-navigation-preload";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-navigation-preload/-/workbox-navigation-preload-5.1.3.tgz";
-        sha512 = "29SPQMAccOgbq3BT9Gz7k+ydy0mcKKR0Rmkmd46tnujutiL4ooE57fBhwsA+c6OlLcYdisvilKlV2YWEtKWfgQ==";
+        url = "https://registry.npmjs.org/workbox-navigation-preload/-/workbox-navigation-preload-5.1.4.tgz";
+        sha512 = "Wf03osvK0wTflAfKXba//QmWC5BIaIZARU03JIhAEO2wSB2BDROWI8Q/zmianf54kdV7e1eLaIEZhth4K4MyfQ==";
       };
     };
-    "workbox-precaching-5.1.3" = {
+    "workbox-precaching-5.1.4" = {
       name = "workbox-precaching";
       packageName = "workbox-precaching";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-precaching/-/workbox-precaching-5.1.3.tgz";
-        sha512 = "9jjBiB00AOI0NnI320ddnhvlL3bjMrDoI3211kEaxcRWh0N2fX25uVn0O8N8u1gWY4tIfwZAn/DgtAU13cFhYA==";
+        url = "https://registry.npmjs.org/workbox-precaching/-/workbox-precaching-5.1.4.tgz";
+        sha512 = "gCIFrBXmVQLFwvAzuGLCmkUYGVhBb7D1k/IL7pUJUO5xacjLcFUaLnnsoVepBGAiKw34HU1y/YuqvTKim9qAZA==";
       };
     };
-    "workbox-range-requests-5.1.3" = {
+    "workbox-range-requests-5.1.4" = {
       name = "workbox-range-requests";
       packageName = "workbox-range-requests";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-range-requests/-/workbox-range-requests-5.1.3.tgz";
-        sha512 = "uUvEoyEUx86LJc7mtmy/6U8xuK0guXU2FnPimt17zDbsC8FSOaPxc92rxtD6xmDSYrI4FqIebypBCjgIe+sfxA==";
+        url = "https://registry.npmjs.org/workbox-range-requests/-/workbox-range-requests-5.1.4.tgz";
+        sha512 = "1HSujLjgTeoxHrMR2muDW2dKdxqCGMc1KbeyGcmjZZAizJTFwu7CWLDmLv6O1ceWYrhfuLFJO+umYMddk2XMhw==";
       };
     };
-    "workbox-routing-5.1.3" = {
+    "workbox-routing-5.1.4" = {
       name = "workbox-routing";
       packageName = "workbox-routing";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-routing/-/workbox-routing-5.1.3.tgz";
-        sha512 = "F+sAp9Iy3lVl3BEG+pzXWVq4AftzjiFpHDaZ4Kf4vLoBoKQE0hIHet4zE5DpHqYdyw+Udhp4wrfHamX6PN6z1Q==";
+        url = "https://registry.npmjs.org/workbox-routing/-/workbox-routing-5.1.4.tgz";
+        sha512 = "8ljknRfqE1vEQtnMtzfksL+UXO822jJlHTIR7+BtJuxQ17+WPZfsHqvk1ynR/v0EHik4x2+826Hkwpgh4GKDCw==";
       };
     };
-    "workbox-strategies-5.1.3" = {
+    "workbox-strategies-5.1.4" = {
       name = "workbox-strategies";
       packageName = "workbox-strategies";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-strategies/-/workbox-strategies-5.1.3.tgz";
-        sha512 = "wiXHfmOKnWABeIVW+/ye0e00+2CcS5y7SIj2f9zcdy2ZLEbcOf7B+yOl5OrWpBGlTUwRjIYhV++ZqiKm3Dc+8w==";
+        url = "https://registry.npmjs.org/workbox-strategies/-/workbox-strategies-5.1.4.tgz";
+        sha512 = "VVS57LpaJTdjW3RgZvPwX0NlhNmscR7OQ9bP+N/34cYMDzXLyA6kqWffP6QKXSkca1OFo/v6v7hW7zrrguo6EA==";
       };
     };
-    "workbox-streams-5.1.3" = {
+    "workbox-streams-5.1.4" = {
       name = "workbox-streams";
       packageName = "workbox-streams";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-streams/-/workbox-streams-5.1.3.tgz";
-        sha512 = "8kt70eBd1RXL0qenxEnch3Cd7VyW3O0CkeGBN4Bikt307nIV5Q0JciLA5o0CRteijawYOiTq0/px4GDBv1obgQ==";
+        url = "https://registry.npmjs.org/workbox-streams/-/workbox-streams-5.1.4.tgz";
+        sha512 = "xU8yuF1hI/XcVhJUAfbQLa1guQUhdLMPQJkdT0kn6HP5CwiPOGiXnSFq80rAG4b1kJUChQQIGPrq439FQUNVrw==";
       };
     };
-    "workbox-sw-5.1.3" = {
+    "workbox-sw-5.1.4" = {
       name = "workbox-sw";
       packageName = "workbox-sw";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-sw/-/workbox-sw-5.1.3.tgz";
-        sha512 = "Syk6RhYr/8VdFwXrxo5IpVz8Og2xapHTWJhqsZRF+TbxSvlaJs8hrvVPd7edn5ZiiVdPhE9NTeOTOg1+D+FGoA==";
+        url = "https://registry.npmjs.org/workbox-sw/-/workbox-sw-5.1.4.tgz";
+        sha512 = "9xKnKw95aXwSNc8kk8gki4HU0g0W6KXu+xks7wFuC7h0sembFnTrKtckqZxbSod41TDaGh+gWUA5IRXrL0ECRA==";
       };
     };
-    "workbox-webpack-plugin-5.1.3" = {
+    "workbox-webpack-plugin-5.1.4" = {
       name = "workbox-webpack-plugin";
       packageName = "workbox-webpack-plugin";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-webpack-plugin/-/workbox-webpack-plugin-5.1.3.tgz";
-        sha512 = "gxSkZ9GFLrMNC/8DGNRjcMhrt8iu+MMXhH/Fpo3wo9rKaSMsI7esGq0klTH/UloP9pNvBizVydysrB52eRhI7w==";
+        url = "https://registry.npmjs.org/workbox-webpack-plugin/-/workbox-webpack-plugin-5.1.4.tgz";
+        sha512 = "PZafF4HpugZndqISi3rZ4ZK4A4DxO8rAqt2FwRptgsDx7NF8TVKP86/huHquUsRjMGQllsNdn4FNl8CD/UvKmQ==";
       };
     };
-    "workbox-window-5.1.3" = {
+    "workbox-window-5.1.4" = {
       name = "workbox-window";
       packageName = "workbox-window";
-      version = "5.1.3";
+      version = "5.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/workbox-window/-/workbox-window-5.1.3.tgz";
-        sha512 = "oYvfVtPLET7FUrhOzbk0R+aATVmpdQBkmDqwyFH4W2dfVqJXTvTXzuGP5Pn9oZ8jMTB3AYW43yhYBlLYM3mYyg==";
+        url = "https://registry.npmjs.org/workbox-window/-/workbox-window-5.1.4.tgz";
+        sha512 = "vXQtgTeMCUq/4pBWMfQX8Ee7N2wVC4Q7XYFqLnfbXJ2hqew/cU1uMTD2KqGEgEpE4/30luxIxgE+LkIa8glBYw==";
       };
     };
     "worker-farm-1.7.0" = {
@@ -10661,7 +10661,7 @@ let
         ];
       })
       sources."browserify-zlib-0.2.0"
-      sources."browserslist-4.14.1"
+      sources."browserslist-4.14.2"
       sources."buffer-4.9.2"
       sources."buffer-from-1.1.1"
       sources."buffer-indexof-1.1.1"
@@ -10693,7 +10693,7 @@ let
       sources."camel-case-3.0.0"
       sources."camelcase-5.3.1"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001124"
+      sources."caniuse-lite-1.0.30001125"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."check-types-8.0.3"
@@ -11215,7 +11215,7 @@ let
       sources."is-arrayish-0.2.1"
       sources."is-binary-path-2.1.0"
       sources."is-buffer-1.1.6"
-      sources."is-callable-1.2.0"
+      sources."is-callable-1.2.1"
       sources."is-ci-2.0.0"
       sources."is-color-stop-1.1.0"
       sources."is-data-descriptor-1.0.0"
@@ -11382,7 +11382,7 @@ let
           sources."punycode-1.4.1"
         ];
       })
-      sources."node-releases-1.1.60"
+      sources."node-releases-1.1.61"
       (sources."nodent-compiler-3.2.13" // {
         dependencies = [
           sources."acorn-5.7.4"
@@ -12132,26 +12132,26 @@ let
       sources."which-module-2.0.0"
       sources."widest-line-3.1.0"
       sources."word-wrap-1.2.3"
-      sources."workbox-background-sync-5.1.3"
-      sources."workbox-broadcast-update-5.1.3"
-      (sources."workbox-build-5.1.3" // {
+      sources."workbox-background-sync-5.1.4"
+      sources."workbox-broadcast-update-5.1.4"
+      (sources."workbox-build-5.1.4" // {
         dependencies = [
           sources."pretty-bytes-5.4.1"
         ];
       })
-      sources."workbox-cacheable-response-5.1.3"
-      sources."workbox-core-5.1.3"
-      sources."workbox-expiration-5.1.3"
-      sources."workbox-google-analytics-5.1.3"
-      sources."workbox-navigation-preload-5.1.3"
-      sources."workbox-precaching-5.1.3"
-      sources."workbox-range-requests-5.1.3"
-      sources."workbox-routing-5.1.3"
-      sources."workbox-strategies-5.1.3"
-      sources."workbox-streams-5.1.3"
-      sources."workbox-sw-5.1.3"
-      sources."workbox-webpack-plugin-5.1.3"
-      sources."workbox-window-5.1.3"
+      sources."workbox-cacheable-response-5.1.4"
+      sources."workbox-core-5.1.4"
+      sources."workbox-expiration-5.1.4"
+      sources."workbox-google-analytics-5.1.4"
+      sources."workbox-navigation-preload-5.1.4"
+      sources."workbox-precaching-5.1.4"
+      sources."workbox-range-requests-5.1.4"
+      sources."workbox-routing-5.1.4"
+      sources."workbox-strategies-5.1.4"
+      sources."workbox-streams-5.1.4"
+      sources."workbox-sw-5.1.4"
+      sources."workbox-webpack-plugin-5.1.4"
+      sources."workbox-window-5.1.4"
       sources."worker-farm-1.7.0"
       sources."worker-rpc-0.1.1"
       (sources."wrap-ansi-5.1.0" // {
