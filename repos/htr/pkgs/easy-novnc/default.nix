@@ -11,7 +11,7 @@ buildGoModule rec {
     owner = "pgaskin";
     repo = "easy-novnc";
     rev = "v${version}";
-    sha256 = "15ypsa47xakndb9is17x965wggnff9vvzjr6g2nkzylxbpcwaf5z";
+    sha256 = "0y7ia3z6mv4wr1jqnhd4pnw2zdwr5r5prm3ybffnx8y1hr2x13m2";
   };
 
   vendorSha256 = "06jdjjymva4pv75kc4yzgldvfgkb67d6jj8xapwca3z33gmvc7pb";

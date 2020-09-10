@@ -8,7 +8,19 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-{
+let
+  pwnPackages = with pkgs; python-packages: with python-packages; [
+    pwntools
+    ipython
+    ROPGadget
+    r2pipe
+    ropper
+    unicorn
+    z3
+    capstone
+  ];
+in
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -20,5 +32,7 @@
   easy-novnc = pkgs.callPackage ./pkgs/easy-novnc { };
   idafree = pkgs.callPackage ./pkgs/idafree { };
   burpsuite = pkgs.callPackage ./pkgs/burpsuite { };
+  pwnPythonEnv = pkgs.python3.withPackages pwnPackages;
+  pwnGdb = pkgs.gdb.override { python3 = pwnPythonEnv; };
 }
 
