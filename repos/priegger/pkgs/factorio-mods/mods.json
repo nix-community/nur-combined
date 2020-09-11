@@ -565,10 +565,10 @@
   },
   {
     "name": "MegaBotStart",
-    "version": "0.20.2",
-    "file_name": "MegaBotStart_0.20.2.zip",
-    "download_url": "/download/MegaBotStart/5f445be0faa443ddc79d7428",
-    "sha1": "fd228bc49c041bba8e27c18153c2cb653a0d914a",
+    "version": "0.20.4",
+    "file_name": "MegaBotStart_0.20.4.zip",
+    "download_url": "/download/MegaBotStart/5f5956fdc68a36292a1aaa65",
+    "sha1": "24496d57421666adc1959762f618eb970ab3aaa8",
     "dependencies": [
       "base >= 1.0",
       "? Krastorio2",
