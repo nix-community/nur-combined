@@ -22,6 +22,7 @@
   mutt-wizard = pkgs.callPackage ./pkgs/mutt-wizard { };
   xwallpaper = pkgs.callPackage ./pkgs/xwallpaper { };
   libthinkpad = pkgs.callPackage ./pkgs/libthinkpad { };
+  dockd = pkgs.callPackage ./pkgs/dockd { };
   # xcb-util = pkgs.callPackage ./pkgs/xcb-util { }; #unknown error
   # amfora = pkgs.callPackage ./pkgs/amfora { };
   # ...
