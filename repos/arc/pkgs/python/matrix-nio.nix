@@ -33,7 +33,7 @@ buildPythonPackage rec {
     jsonschema
     unpaddedbase64
   ] ++ lib.optionals (!pythonPackages.python.isPy2) [ aiohttp aiofiles ]
-    ++ lib.optional enableOlm [ olm peewee atomicwrites cachetools ];
+    ++ lib.optionals enableOlm [ olm peewee atomicwrites cachetools ];
 
   passthru = {
     inherit enableOlm;
