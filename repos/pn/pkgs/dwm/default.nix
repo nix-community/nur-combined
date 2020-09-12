@@ -16,6 +16,7 @@ stdenv.mkDerivation rec {
   prePatch = ''sed -i "s@/usr/local@$out@" config.mk'';
 
   patches = [
+    ./dwm-systray.diff
     ./dwm-center.diff
     ./dwm-telegram.diff
   ];
