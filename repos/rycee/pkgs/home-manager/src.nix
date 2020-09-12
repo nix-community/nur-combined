@@ -9,6 +9,7 @@ let
     "19.09" = ./release-19.09.json;
     "20.03" = ./release-20.03.json;
     "20.09" = ./master.json;
+    "21.03" = ./master.json;
   };
 
   getOrAbort = err: key: attrs:
