@@ -97,12 +97,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.10";
+    version = "1.10.13";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "1fc1y42kzpga6agkzry876lhil9rm7043lfqal4d8vi3n5vsl5lg";
+      sha256 = "13vhfdlkmpvmk1h30f1i688xk7sdgfj0b82am32jgpa8zmf499sw";
     };
 
     dontUnpack = true;
@@ -184,10 +184,10 @@ let
   };
 
   event = buildPecl {
-    version = "2.5.6";
+    version = "2.5.7";
     pname = "event";
 
-    sha256 = "16qxdpm55birp7vpwjcbx35a5c1rfz1bcvqg4jm2k5y85vdjnwfz";
+    sha256 = "0jkzcm5mmbg101jc7p3aws9qb6l6xbxkfff82mrf7s5fn7xd44im";
 
     configureFlags = with pkgs; [
       "--with-event-libevent-dir=${libevent.dev}"
