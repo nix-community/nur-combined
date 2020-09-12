@@ -1,8 +1,16 @@
 diff --git a/config.h b/config.h
-index 771e7a1..d8fd17c 100644
+index 6c880c2..0d9eaf8 100644
 --- a/config.h
 +++ b/config.h
-@@ -154,7 +154,7 @@ static Key keys[] = {
+@@ -51,6 +51,7 @@ static const Rule rules[] = {
+ 	{ NULL,       NULL,       "Event Tester",   0,            0,          0,           0,         1,        -1 },
+ 	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     0,          1,           1,         0,        -1 },
+ 	{ NULL,      "spcalc",    NULL,       	    SPTAG(1),     0,          1,           1,         0,        -1 },
++  { NULL,      "telegram-desktop",  NULL,     0,            1,          1,           0,         0,        -1 },
+ };
+ 
+ /* layout(s) */
+@@ -154,7 +155,7 @@ static Key keys[] = {
  	{ MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("mpc seek -60") },
  	{ MODKEY,			XK_bracketright,	spawn,		SHCMD("mpc seek +10") },
  	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("mpc seek +60") },

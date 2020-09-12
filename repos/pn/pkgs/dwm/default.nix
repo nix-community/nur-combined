@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
 
   prePatch = ''sed -i "s@/usr/local@$out@" config.mk'';
 
-  patches = [ ./dwm-telegram.diff ];
+  patches = [
+    ./dwm-center.diff
+    ./dwm-telegram.diff
+  ];
 
   buildPhase = " make ";
 
