@@ -2,8 +2,7 @@
 , mainOnly }:
 
 let
-  releases =
-    if mainOnly then [ ./R18.0.nix ] else [ ./R18.0.nix ./R18.3.4.8.nix ];
+  releases = if mainOnly then [ ./R18.0.nix ] else [ ./R18.0.nix ];
 
   buildOpts = {
     wxGTK = wxGTK30;

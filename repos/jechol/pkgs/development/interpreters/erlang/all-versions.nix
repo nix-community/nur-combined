@@ -33,7 +33,6 @@ let
     ./R20
     ./R19
     ./R18
-    ./R16
   ];
 
   releasesPerMajorVersion = map (r:

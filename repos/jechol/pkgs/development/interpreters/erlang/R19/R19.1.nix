@@ -3,8 +3,8 @@
 # How to obtain `sha256`:
 # nix-prefetch-url --unpack https://github.com/erlang/otp/archive/OTP-${version}.tar.gz
 mkDerivation {
-  version = "19.3.6.11";
-  sha256 = "0b02iv8dly1vkc2xnqqi030sdj34h4gji2h4qgilllajr1f868vm";
+  version = "19.1";
+  sha256 = "0nnjj069d5pjhgcd8vvqbrkjdac3p1v4s3zb59i4h73vg7f5p736";
 
   patches = [
     # macOS 10.13 crypto fix from OTP-20.1.2
