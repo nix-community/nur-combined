@@ -1,4 +1,4 @@
-name: "AutoPR"
+name: "Auto fetch Erlang"
 on:
   push:
     paths-ignore:
@@ -27,16 +27,16 @@ jobs:
 
       - run: |
           bundle
-          bundle exec ruby update_releases.rb
+          bundle exec ruby fetch_erlang_releases.rb
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Add new releases
+          commit-message: New Erlang releases
           author: Jechol Lee <mr.jechol@gmail.com>
-          branch: auto-pr
-          title: "New releases"
+          branch: auto-erlang
+          title: "New Erlang releases"
           body: |
             New releases added.
 
