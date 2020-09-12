@@ -66,7 +66,6 @@ On the other hands, `beam.all` includes every combinations, but not cached.
 For example,
 
 - `beam.main.packages.erlang_23_0.elixirs.elixir_1_10_0` : Elixir 1.10.0 on Erlang 23.0 (cached)
-- `beam.all.packages.erlang_22_3.elixirs.elixir_1_10_4` : Elixir 1.10.4 on 22.3 (not cached)
 - `beam.all.erlangs.erlang_22_3_javac_odbc` : Erlang 22.3 with support for Java and ODBC (not cached)
 
 You can navigate through packages with `nix repl`:
@@ -74,15 +73,15 @@ You can navigate through packages with `nix repl`:
 ```
 $ nix repl '<nixpkgs>'
 
-nix-repl> nur.repos.jechol.beam.all.packages.erlang_20_3_8_9<TAB>
-nur.repos.jechol.beam.all.packages.erlang_20_3_8_9
-nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_nox
-nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac
-nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_nox_odbc
-nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac_nox
-nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_odbc
-nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac_nox_odbc
-nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac_odbc
+nix-repl> nur.repos.jechol.beam.all.packages.erlang_20_3<TAB>
+nur.repos.jechol.beam.all.packages.erlang_20_3
+nur.repos.jechol.beam.all.packages.erlang_20_3_nox
+nur.repos.jechol.beam.all.packages.erlang_20_3_javac
+nur.repos.jechol.beam.all.packages.erlang_20_3_nox_odbc
+nur.repos.jechol.beam.all.packages.erlang_20_3_javac_nox
+nur.repos.jechol.beam.all.packages.erlang_20_3_odbc
+nur.repos.jechol.beam.all.packages.erlang_20_3_javac_nox_odbc
+nur.repos.jechol.beam.all.packages.erlang_20_3_javac_odbc
 ```
 
 # TODO (Contributions are welcome)

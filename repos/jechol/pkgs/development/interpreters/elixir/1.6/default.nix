@@ -1,9 +1,7 @@
 { deriveElixirs, mainOnly }:
 
 let
-  releases = if mainOnly then
-    [ ./1.6.0.nix ]
-  else [
+  releases = [
     ./1.6.0.nix
     ./1.6.1.nix
     ./1.6.2.nix
