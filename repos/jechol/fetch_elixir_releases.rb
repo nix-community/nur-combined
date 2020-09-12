@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'octokit'
+require 'semantic'
 
 def get_tarball_url(version)
   "https://github.com/elixir-lang/elixir/archive/v#{version}.tar.gz"
@@ -25,6 +26,11 @@ end
 
 def not_rc_or_patch?(version)
   version.match(/\A\d+\.\d+\.\d+(?:\.0)?\Z/)
+end
+
+def version_in_range?(version)
+  v = Semantic::Version.new(version)
+  (v.major >= 2) || ((v.major == 1) && (v.minor >= 6) && v.pre.nil?)
 end
 
 def nix_prefetch_sha256(url)
@@ -69,7 +75,7 @@ end
 def fetch_new_releases
   fetch_releases.filter do |r|
     v = get_version(r)
-    new_version?(v) && not_rc_or_patch?(v)
+    new_version?(v) && not_rc_or_patch?(v) && version_in_range?(v)
   end
 end
 

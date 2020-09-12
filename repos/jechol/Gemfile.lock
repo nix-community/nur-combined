@@ -18,6 +18,7 @@ GEM
     sawyer (0.8.2)
       addressable (>= 2.3.5)
       faraday (> 0.8, < 2.0)
+    semantic (1.6.1)
 
 PLATFORMS
   ruby
@@ -25,6 +26,7 @@ PLATFORMS
 DEPENDENCIES
   octokit
   pry
+  semantic
 
 BUNDLED WITH
    2.1.4
