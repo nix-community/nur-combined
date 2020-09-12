@@ -87,6 +87,6 @@ nur.repos.jechol.beam.all.packages.erlang_20_3_8_9_javac_odbc
 
 # TODO (Contributions are welcome)
 
-- [ ] Include all Erlang releases
-- [ ] Include all Elixir releases
-- [ ] Automate above tasks with scripts or Github actions
+- [x] Include all Erlang releases
+- [x] Include all Elixir releases
+- [x] Automate above tasks with scripts or Github actions
