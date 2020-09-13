@@ -49,8 +49,10 @@ rec {
       kernelPatches.export_kernel_fpu_functions."5.3"
     ];
   };
+  linux_ayufan = linux_ayufan_5_6;
 
   linuxPackages_ayufan_5_6 = pkgs.linuxPackagesFor linux_ayufan_5_6;
+  linuxPackages_ayufan = linuxPackages_ayufan_5_6;
 
   lualdap = pkgs.callPackage ./pkgs/lualdap { };
 
