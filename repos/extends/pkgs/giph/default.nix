@@ -13,7 +13,7 @@ in stdenv.mkDerivation rec {
     owner = "phisch";
     repo = "giph";
     rev = "${version}";
-    sha256 = "1kd42dz4qvzks8dwljnhlnh9j5rgdkdc8zp67igv57yfsfrwl91b";
+    sha256 = "lkoBmDh+NggDF1ehFuSA/mWwmBUIsy1pAN7DJWWYL1Y=";
   };
 
   installFlags = [ "PREFIX=$(out)" ];

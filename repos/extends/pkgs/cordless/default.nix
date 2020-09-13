@@ -7,10 +7,10 @@ buildGoModule rec {
     owner = "Bios-Marcel";
     repo = "cordless";
     rev = "${version}";
-    sha256 = "0x57czyr5cgwk7bjg42qyiffq848fnczm3jii5pn7ixkz5hv09dx";
+    sha256 = "CwOI7Ah4+sxD9We+Va5a6jYat5mjOeBk2EsOfwskz6k=";
   };
 
-  vendorSha256 = "16g3arpfmm169lxjy14xf6yqrxpaldkh8y6jd2mfzjk5594m5kgj";
+  vendorSha256 = "01I7GrZkaskuz20kVK2YwqvP7ViPMlQ3BFaoLHwgvOE=";
 
   meta = with stdenv.lib; {
     description = "Discord client for terminals";
