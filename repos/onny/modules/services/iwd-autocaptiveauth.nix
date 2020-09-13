@@ -29,7 +29,7 @@ in
         ExecStart = let
             python = pkgs.python3.withPackages (ps: with ps; [ pygobject3 dbus-python ]);
           in
-            ''${python.interpreter} ${pkgs.nur-onny.iwd-autocaptiveauth}/iwd-autocaptiveauth.py'';
+            ''${python.interpreter} -u ${pkgs.nur-onny.iwd-autocaptiveauth}/iwd-autocaptiveauth.py'';
         Restart = "on-failure";
         User = "iwd-autocaptiveauth";
         RestartSec = 30;
