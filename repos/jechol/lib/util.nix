@@ -56,4 +56,11 @@ with lib; rec {
 
   # This helper not exists nixpkgs-20.03
   recurseIntoAttrs = attrs: attrs // { recurseForDerivations = true; };
+
+  findByPrefix = root: prefix:
+    let
+      basenames = lib.attrsets.attrNames (lib.attrsets.filterAttrs
+        (path: type: (lib.strings.hasPrefix prefix path))
+        (builtins.readDir root));
+    in builtins.map (path: root + ("/" + path)) basenames;
 }

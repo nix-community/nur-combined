@@ -4,7 +4,10 @@
 let
   beamLib = callPackage ../../beam-modules/lib.nix { };
 
-  majorVersions = [ ./1.10 ./1.9 ./1.8 ./1.7 ./1.6 ];
+  folders = builtins.attrNames
+    (lib.attrsets.filterAttrs (_: type: type == "directory")
+      (builtins.readDir ./.));
+  majorVersions = map (f: ./. + ("/" + f)) folders;
 
   deriveElixirs = releases: minOtp: maxOtp:
     let
@@ -27,6 +30,7 @@ let
       { };
 
   releasesPerMajorVersion =
-    map (r: callPackage r { inherit deriveElixirs mainOnly; }) majorVersions;
+    map (r: callPackage r { inherit util deriveElixirs mainOnly; })
+    majorVersions;
 
 in util.mergeListOfAttrs releasesPerMajorVersion

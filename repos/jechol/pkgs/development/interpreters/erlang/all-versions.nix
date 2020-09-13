@@ -21,19 +21,10 @@ let
       featureStringToFlags = util.combineFeatures featureOpts "_";
     in lib.attrsets.mapAttrs' (overrideFeature basePkg) featureStringToFlags;
 
-  majorVersions = if mainOnly then [
-    ./R23
-    ./R22
-    ./R21
-    ./R20
-  ] else [
-    ./R23
-    ./R22
-    ./R21
-    ./R20
-    ./R19
-    ./R18
-  ];
+  folders = builtins.attrNames
+    (lib.attrsets.filterAttrs (_: type: type == "directory")
+      (builtins.readDir ./.));
+  majorVersions = map (f: ./. + ("/" + f)) folders;
 
   releasesPerMajorVersion = map (r:
     callPackage r {

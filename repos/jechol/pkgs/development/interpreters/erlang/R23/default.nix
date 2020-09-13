@@ -2,7 +2,7 @@
 , mainOnly }:
 
 let
-  releases = if mainOnly then [ ./R23.0.nix ] else [ ./R23.0.nix ];
+  releases = util.findByPrefix ./. (baseNameOf ./.);
 
   buildOpts = {
     wxGTK = wxGTK30;

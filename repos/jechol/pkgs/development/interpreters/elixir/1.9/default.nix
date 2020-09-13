@@ -1,5 +1,4 @@
-{ deriveElixirs, mainOnly }:
+{ util, deriveElixirs, mainOnly }:
 
-let releases = [ ./1.9.0.nix ./1.9.1.nix ./1.9.2.nix ./1.9.3.nix ./1.9.4.nix ];
-
+let releases = util.findByPrefix ./. (baseNameOf ./.);
 in deriveElixirs releases "20" "22"

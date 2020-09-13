@@ -40,7 +40,7 @@ jobs:
           body: |
             New releases added.
 
-            Update default.nix manually before merge.
+            Add default.nix if new folder is created.
           labels: |
             auto-pr
           assignees: jechol
