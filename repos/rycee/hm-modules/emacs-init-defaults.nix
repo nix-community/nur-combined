@@ -1,12 +1,22 @@
+# A collection of "uncontroversial" configurations for selected packages.
+
 { pkgs, ... }:
 
 {
   programs.emacs.init.usePackage = {
+    csharp-mode = { mode = [ ''"\\.cs\\'"'' ]; };
+
     deadgrep = {
       config = ''
         (setq deadgrep-executable "${pkgs.ripgrep}/bin/rg")
       '';
     };
+
+    dhall-mode = { mode = [ ''"\\.dhall\\'"'' ]; };
+
+    dockerfile-mode = { mode = [ ''"Dockerfile\\'"'' ]; };
+
+    elm-mode = { mode = [ ''"\\.elm\\'"'' ]; };
 
     ggtags = {
       config = ''
@@ -20,11 +30,19 @@
       '';
     };
 
+    markdown-mode = {
+      mode = [ ''"\\.mdwn\\'"'' ''"\\.markdown\\'"'' ''"\\.md\\'"'' ];
+    };
+
+    nix-mode = { mode = [ ''"\\.nix\\'"'' ]; };
+
     notmuch = {
       config = ''
         (setq notmuch-command "${pkgs.notmuch}/bin/notmuch")
       '';
     };
+
+    octave = { mode = [ ''("\\.m\\'" . octave-mode)'' ]; };
 
     ob-plantuml = {
       config = ''
@@ -44,10 +62,16 @@
       '';
     };
 
+    protobuf-mode = { mode = [ ''"'\\.proto\\'"'' ]; };
+
     ripgrep = {
       config = ''
         (setq ripgrep-executable "${pkgs.ripgrep}/bin/rg")
       '';
     };
+
+    rust-mode = { mode = [ ''"\\.rs\\'"'' ]; };
+
+    terraform-mode = { mode = [ ''"\\.tf\\'"'' ]; };
   };
 }
