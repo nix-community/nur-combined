@@ -19,5 +19,5 @@
   pcem = pkgs.callPackage ./pkgs/pcem { };
   ciao = pkgs.callPackage ./pkgs/ciao { };
   v4l2loopback-dc = pkgs.linuxPackages.callPackage ./pkgs/v4l2loopback-dc { };
-  droidcam = pkgs.callPackage ./pkgs/droidcam { };
+  carla = pkgs.qt5.callPackage ./pkgs/carla { };
 }
