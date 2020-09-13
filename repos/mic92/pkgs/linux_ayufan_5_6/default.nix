@@ -11,7 +11,7 @@ let
     owner = "ayufan-rock64";
     repo = "linux-mainline-kernel";
     rev = version;
-    sha256 = "1qcw7h8kkj6kv8vzfrnhih0854h1iss65grjc8p8npff1397l480";
+    sha256 = "1ylw469d78cyhmbwyw3vpjaay400xlka7mj2xybg3w6iia6k1xam";
   };
 
   extraOptions = {
