@@ -1,4 +1,4 @@
-{ appimageTools, makeDesktopItem, fetchurl, wrapGAppsHook }:
+{ appimageTools, makeDesktopItem, fetchurl, gsettings-desktop-schemas, gtk3 }:
 
 let
   pname = "librewolf-bin";
@@ -10,11 +10,15 @@ let
     sha256 = "0xd7mjwz28yzr4i5p6da6n0wc922fjsiziprqfrdqbvz3wpz454d";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook ];
-
   appimageContents = appimageTools.extractType2 { inherit name src; };
   in appimageTools.wrapType2 {
     inherit name src;
+
+    profile = ''
+      export LC_ALL=C.UTF-8
+      export XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS
+    '';
+
     extraInstallCommands = ''
       mv $out/bin/${name} $out/bin/${pname}
   '';
