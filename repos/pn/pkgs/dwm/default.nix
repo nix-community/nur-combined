@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   patches = [
     ./dwm-systray.diff
     ./dwm-center.diff
-    ./dwm-telegram.diff
+    ./dwm-apps.diff
   ];
 
   buildPhase = " make ";

@@ -8,8 +8,17 @@ index 6c880c2..0d9eaf8 100644
  	{ NULL,      "spcalc",    NULL,       	    SPTAG(1),     0,          1,           1,         0,        -1 },
 +  { NULL,      "telegram-desktop",  NULL,     0,            1,          1,           0,         0,        -1 },
  };
- 
+
  /* layout(s) */
+@@ -102,7 +103,7 @@ static const Layout layouts[] = {
+
+ /* commands */
+ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
++static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-c", "bw", "2", "-l", "15", NULL };
+ static const char *termcmd[]  = { "st", NULL };
+
+ #include <X11/XF86keysym.h>
 @@ -154,7 +155,7 @@ static Key keys[] = {
  	{ MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("mpc seek -60") },
  	{ MODKEY,			XK_bracketright,	spawn,		SHCMD("mpc seek +10") },
@@ -17,5 +26,5 @@ index 6c880c2..0d9eaf8 100644
 -	{ MODKEY,			XK_backslash,		view,		{0} },
 +	{ MODKEY,			XK_backslash,		spawn,		SHCMD("telegram-desktop") },
  	/* { MODKEY|ShiftMask,		XK_backslash,		spawn,		SHCMD("") }, */
- 
+
  	{ MODKEY,			XK_a,		togglegaps,	{0} },
