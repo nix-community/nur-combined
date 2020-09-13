@@ -35,6 +35,8 @@ in
     '';
 
     meta = with stdenv.lib; {
+      broken = true;
+
       description = "Linux client for DroidCam app";
       homepage = "https://github.com/aramg/droidcam";
       license = licenses.gpl2;

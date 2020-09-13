@@ -30,6 +30,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
+    broken = true;
+
     description = "V4L2 loopback device module for DroidCam";
     homepage = "https://github.com/aramg/droidcam";
     license = licenses.gpl2;
