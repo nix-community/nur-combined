@@ -47,7 +47,7 @@ let
     inherit src;
 
     inherit version;
-    modDirVersion = "4.4.190";
+    modDirVersion = "4.4.202";
 
     inherit configfile;
 
