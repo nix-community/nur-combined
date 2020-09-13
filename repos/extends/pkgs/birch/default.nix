@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "IRC Client.";
-    homepage = "github.com/dylanaraps/birch";
+    homepage = "https://github.com/dylanaraps/birch";
     maintainers = with maintainers; [ extends ];
     license = licenses.mit;
     platform = platforms.all;
