@@ -1,15 +1,20 @@
-{ stdenv, python, fetchurl, makeWrapper }:
+{ stdenv, python, fetchgit, makeWrapper, iwd, python3Packages }:
 
 stdenv.mkDerivation rec {
   pname = "iwd-autocaptiveauth";
-  version = "0.2";
-
-  src = fetchurl {
-    url = "https://git.project-insanity.org/onny/py-iwd-autocaptiveauth/-/archive/master/py-iwd-autocaptiveauth-master.tar.gz";
-    sha256 = "1k32w626g18phw2xpig1spr41zhzrk3clsw4nz2iv2jc2smvlyh0";
+  version = "0.4";
+  src = fetchgit {
+    url = "https://git.project-insanity.org/onny/py-iwd-autocaptiveauth.git";
+    rev = "45523620596b4a28e6d269cead690031774d23cf";
+    sha256 = "02w7zgglk8siyybji3gwv43fy2s00vqd2vzkw1hx07qiq842vjy4";
   };
 
   buildInputs  = [ makeWrapper ];
+
+  propagatedBuildInputs = with python3Packages; [
+    dbus-python
+    pygobject3
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
