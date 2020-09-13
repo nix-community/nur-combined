@@ -1,6 +1,7 @@
 { stdenv, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   name = "birch";
+  version = "unstable";
 
   src = fetchFromGitHub {
     owner = "dylanaraps";
