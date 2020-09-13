@@ -10,5 +10,6 @@
   giph = pkgs.callPackage ./pkgs/giph {};
   cordless = pkgs.callPackage ./pkgs/cordless {};
   bashtop = pkgs.callPackage ./pkgs/bashtop {};
+  birch = pkgs.callPackage ./pkgs/birch {};
 }
 
