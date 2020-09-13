@@ -53,12 +53,9 @@ jobs:
           name: ${{ matrix.cachixName }}
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
       - name: Build nix packages
-        # TODO switch to default nixpkgs channel once nix-build-uncached 1.0.0 is in stable
-        # run: NIXPKGS_ALLOW_INSECURE=1 nix run -I 'nixpkgs=channel:nixos-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-        # Above failed in mac with error "failed setting rlimit: invalid argument"
-        run: NIXPKGS_ALLOW_INSECURE=1 nix-build | cachix push ${{ matrix.cachixName }}
-      - name: Stop if build failed
-        run: NIXPKGS_ALLOW_INSECURE=1 nix-build
+        run: nix-build
+        env:
+          NIXPKGS_ALLOW_INSECURE: 1
       - name: Trigger NUR update
         if: ${{ matrix.nurRepo != '' }}
         run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
