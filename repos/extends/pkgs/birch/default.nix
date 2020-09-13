@@ -13,4 +13,11 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp $src/birch $out/bin
   '';
+
+  meta = with stdenv.lib; {
+    description = "IRC Client.";
+    maintainers = with maintainers; [ extends ];
+    license = licenses.mit;
+    platform = platforms.all;
+  };
 }
