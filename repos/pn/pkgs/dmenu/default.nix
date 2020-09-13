@@ -13,7 +13,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libX11 libXinerama zlib libXft ];
 
-  inherit patches;
+  patches = [
+    ./mac-like.diff
+  ];
 
   postPatch = ''
     sed -ri -e 's!\<(dmenu|dmenu_path|stest)\>!'"$out/bin"'/&!g' dmenu_run
