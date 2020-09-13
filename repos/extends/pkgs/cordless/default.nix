@@ -1,12 +1,12 @@
 { stdenv, fetchFromGitHub, buildGoModule }:
 buildGoModule rec {
   pname = "cordless";
-  version = "2020-06-26";
+  version = "2020-08-30";
 
   src = fetchFromGitHub {
     owner = "Bios-Marcel";
     repo = "cordless";
-    rev = "daa4e6a1889acfd5393ea8695c86da724412ae1d";
+    rev = "${version}";
     sha256 = "0x57czyr5cgwk7bjg42qyiffq848fnczm3jii5pn7ixkz5hv09dx";
   };
 
@@ -15,8 +15,8 @@ buildGoModule rec {
   meta = with stdenv.lib; {
     description = "Discord client for terminals";
     homepage = https://github.com/Bios-Marcel/cordless;
-    license = licenses.mit;
-    maintainers = [ "Extends <sharosari@gmail.com>" ];
+    license = licenses.bsd3;
+    maintainers = with maintainers; [ extends ];
     platforms = platforms.all;
   };
 }

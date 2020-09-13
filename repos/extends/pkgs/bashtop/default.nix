@@ -1,11 +1,11 @@
 { stdenv, fetchFromGitHub, gnumake, python3 }:
 stdenv.mkDerivation rec {
   pname = "bashtop";
-  version = "0.9.19";
+  version = "0.9.25";
   src = fetchFromGitHub {
     owner = "aristocratos";
     repo = pname;
-    rev = "bb7643d43c1819021ab7a67b93d323a58ff94b4e";
+    rev = "v${version}";
     sha256 = "154f99lpzvs4bm8r2l0dzkn82f7sf4g0qxdhzljrmzbssrfhbaiy";
   };
   nativeBuildInputs = [ gnumake ];
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     description = "Resource monitor that shows usage and stats for processor, memory, disks, network and processes.";
     homepage = https://github.com/aristocratos/bashtop;
     license = licenses.mit;
-    maintainers = [ "Extends <sharosari@gmail.com>" ];
+    maintainers = with maintainers; [ extends ];
     platforms = platforms.all;
   };
 }

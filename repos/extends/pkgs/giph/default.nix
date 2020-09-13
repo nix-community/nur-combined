@@ -7,12 +7,12 @@ let
   ];
 in stdenv.mkDerivation rec {
   pname = "giph";
-  version = "1.0";
+  version = "1.1";
 
   src = fetchFromGitHub {
     owner = "phisch";
     repo = "giph";
-    rev = "e34d55f61b094403521222eaec3c85bf45d3a4c0";
+    rev = "${version}";
     sha256 = "1kd42dz4qvzks8dwljnhlnh9j5rgdkdc8zp67igv57yfsfrwl91b";
   };
 
@@ -29,7 +29,7 @@ in stdenv.mkDerivation rec {
     description = "Captures your screen and saves it as a gif";
     license = licenses.mit;
     homepage = "https://github.com/phisch/giph";
-    maintainers = [ "Extends <sharosari@gmail.com> "];
+    maintainers = with maintainers; [ extends ];
     platforms = platforms.all;
   };
 }

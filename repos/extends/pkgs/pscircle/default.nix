@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Allows you to see your linux processes as a tree";
-    license = licenses.mit;
+    license = licenses.gpl2;
     homepage = "https://gitlab.com/mildlyparallel/pscircle";
-    maintainers = [ "Extends <sharosari@gmail.com>" ];
+    maintainers = with maintainers; [ extends ];
     platforms = platforms.linux;
   };
 }
