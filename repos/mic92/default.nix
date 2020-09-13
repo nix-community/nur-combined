@@ -43,19 +43,15 @@ rec {
   kvmtool = pkgs.callPackage ./pkgs/kvmtool { };
 
   rock64 = rec {
-    linux_ayufan_4_4 = pkgs.callPackage ./pkgs/linux_ayufan_4_4 {
+    linux_ayufan_5_6 = pkgs.callPackage ./pkgs/linux_ayufan_5_6 {
       kernelPatches = with pkgs; [
         kernelPatches.bridge_stp_helper
         kernelPatches.cpu-cgroup-v2."4.4"
         kernelPatches.modinst_arg_list_too_long
-        {
-          name = "linux-nixos-toolchain-compat";
-          patch = ./pkgs/linux_ayufan_4_4/linux-nixos-toolchain-compat.patch;
-        }
       ];
     };
 
-    linuxPackages_ayufan_4_4 = pkgs.linuxPackagesFor linux_ayufan_4_4;
+    linuxPackages_ayufan_5_6 = pkgs.linuxPackagesFor linux_ayufan_5_6;
   };
 
   lualdap = pkgs.callPackage ./pkgs/lualdap { };
