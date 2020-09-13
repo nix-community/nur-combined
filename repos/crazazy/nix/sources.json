@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "4b75dbb1cc0379d1af7c75ee7bedd7a16dfe641b",
-        "sha256": "09az273qxivl0932v2b2cxancgs010jhwj1nr0ah53ix4bxz9nh2",
+        "rev": "786d470e367b35aa6dffce2ae76d89f165b32dbc",
+        "sha256": "0354j841wac4v6xla5awpjcg31vb0cnvp24lk4c0cilsprsbyad1",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/4b75dbb1cc0379d1af7c75ee7bedd7a16dfe641b.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/786d470e367b35aa6dffce2ae76d89f165b32dbc.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "classicube": {
@@ -17,10 +17,10 @@
         "homepage": "",
         "owner": "unknownshadow200",
         "repo": "classicube",
-        "rev": "521a40f47159e01310dbf199b7b34414e84683dc",
-        "sha256": "0bb8snb836q5jwj1hwhss4fgn8a0brnzsxxbj0dwmcaspvxjwbjj",
+        "rev": "5c8c13f80f9b9e03f16964651e72fdeeac8a2b14",
+        "sha256": "0f7kj0jxp0593qn00awzbd0s392dgkrdj9y4l9dvwmcnbcy4shlw",
         "type": "tarball",
-        "url": "https://github.com/unknownshadow200/classicube/archive/521a40f47159e01310dbf199b7b34414e84683dc.tar.gz",
+        "url": "https://github.com/unknownshadow200/classicube/archive/5c8c13f80f9b9e03f16964651e72fdeeac8a2b14.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "efm-langserver": {
@@ -41,10 +41,10 @@
         "homepage": "https://rycee.gitlab.io/home-manager/",
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "249650a07ee2d949fa599f3177a8c234adbd1bee",
-        "sha256": "0x858b7i15kx74aqwgi2n5ls7zjhcky95z9vbxfdlawmaz371dma",
+        "rev": "605a8fc92e2bb346b17d102d94d37af23c9b7d4e",
+        "sha256": "1cjxmhwn5vmb26x4zzmh1kgiv6xngb7ra61wgdlai6afw454v6ww",
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/249650a07ee2d949fa599f3177a8c234adbd1bee.tar.gz",
+        "url": "https://github.com/rycee/home-manager/archive/605a8fc92e2bb346b17d102d94d37af23c9b7d4e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "napalm": {
