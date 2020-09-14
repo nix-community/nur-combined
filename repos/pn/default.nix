@@ -23,6 +23,7 @@
   xwallpaper = pkgs.callPackage ./pkgs/xwallpaper { };
   libthinkpad = pkgs.callPackage ./pkgs/libthinkpad { };
   dockd = pkgs.callPackage ./pkgs/dockd { };
+  larbs-mail = pkgs.callPackage ./pkgs/larbs-mail { };
   # xcb-util = pkgs.callPackage ./pkgs/xcb-util { }; #unknown error
   # amfora = pkgs.callPackage ./pkgs/amfora { };
   # ...

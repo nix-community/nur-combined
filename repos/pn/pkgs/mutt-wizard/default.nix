@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, isync, pass, neomutt, msmtp }:
+{ stdenv, fetchgit }:
 
 with stdenv.lib;
 
@@ -11,7 +11,6 @@ stdenv.mkDerivation rec {
     sha256 = "1bb9429wabv85zja2y89vhj15qcd10acbg5k6ylilw067wzs9ks5";
   };
 
-  buildInputs = [ isync pass neomutt msmtp ];
 
   buildPhase = ''
     sed -i 's/(PREFIX)/(out)/g' Makefile
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://github.com/LukeSmithXYZ/mutt-wizard";
-    description = "A system for automatically configuring mutt and isync with a simple interface and safe passwords";
+    description = "A script for automatically configuring mutt";
     license = licenses.gpl3;
     platforms = platforms.linux;
   };
