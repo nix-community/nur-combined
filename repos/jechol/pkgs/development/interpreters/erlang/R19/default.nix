@@ -2,11 +2,11 @@
 , mainOnly }:
 
 let
-  compile_fails = if builtins.currentSystem == "x86_64-linux" then
-  # ../bin/diameterc: /usr/bin/env: bad interpreter: No such file or directory
-    [ ./R19.0.nix ]
-  else
-    [ ];
+  compile_fails = [
+    # R19.0 failed on linux with error:
+    # ../bin/diameterc: /usr/bin/env: bad interpreter: No such file or directory
+    ./R19.0.nix
+  ];
 
   releases = lib.lists.subtractLists compile_fails
     (util.findByPrefix ./. (baseNameOf ./.));
