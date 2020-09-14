@@ -2,9 +2,9 @@
 
 {
   geocachingSu = fetchurl {
-    name = "geocaching_su-2020-09-02";
+    name = "geocaching_su-2020-09-07";
     url = "https://nakarte.me/geocachingSu/geocaching_su2.json";
-    sha256 = "16w882qxka02haldym09381r5icqyz5prhhj3l6zqgkpzbiyniaa";
+    sha256 = "1v93vdvxbarqbd4hy6kig0y9h58q1z55zzwf2v7pc1fi6af1carx";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''

@@ -27,8 +27,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "mapsoft2";
-    rev = "3966f2bcb48fdb3a6b17af82dcd89276ee38f6d9";
-    sha256 = "0fk41wvpv7z99j0s7lh4aja8gn1wfm8qnmdwjh4592iz0009pjh3";
+    rev = "3b9c7a0e016a807e096fc7cee49ac70e0e796490";
+    sha256 = "1yzl23z5xlwi5kh8abjvvra3yswzjkzcnab25spbzd9g1hr8nwjh";
     fetchSubmodules = true;
   };
 

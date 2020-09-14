@@ -69,6 +69,20 @@
         "url": "https://github.com/ericfischer/datamaps/archive/76e620adabbedabd6866b23b30c145b53bae751e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "dict2rest": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2016-12-05T08:16:58Z",
+        "description": "A simple proxy service providing an HTTP interface to a Dict protocol (RFC 2229) server",
+        "homepage": "https://github.com/felix/go-dict2rest",
+        "owner": "felix",
+        "repo": "go-dict2rest",
+        "rev": "b049991a46a2f619344bd6e915745703864d0134",
+        "sha256": "0d3fbqyyzy1rxpv76phkbfzrx9ianckq30a87k982rchs6qw36xz",
+        "type": "tarball",
+        "url": "https://github.com/felix/go-dict2rest/archive/b049991a46a2f619344bd6e915745703864d0134.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "docker-reg-tool": {
         "branch": "master",
         "builtin": false,
@@ -100,15 +114,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-01T12:16:33Z",
+        "date": "2020-09-03T13:10:24Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "6734215ff57407b57a4c4bf6bf26e90196ef3c75",
-        "sha256": "1dd0j3q02cj686hhjc427107867rbjsv0xlf78szwqkakqin5zid",
+        "rev": "e250f1564e833673b47a79d5dfde96e33f9057c6",
+        "sha256": "0wnvpwbydxnp425bdxpi4lik4m8mavrf2c5xpaxf0fm4kpm5c64a",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/6734215ff57407b57a4c4bf6bf26e90196ef3c75.tar.gz",
+        "url": "https://github.com/embox/embox/archive/e250f1564e833673b47a79d5dfde96e33f9057c6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -155,27 +169,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "1s786cbhm6cijh3fs6dvpcchqg3bi3jz8fyq2y0pmwxdafij8r1a",
+        "sha256": "1yxkb571vh5migqwbxq1dj1zvp7a79jldjvnifwzi089bj5rc9xl",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-200901.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-200907.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "200901"
+        "version": "200907"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "1ffn9ipbmpzzg6i5xynpdzs8czjs9x8lw2zyx9gdm1nld1ckg74j",
+        "sha256": "0fx9dnsjh40ic0xgsy59czh569g7q9p17pvq6c8gxy40q3qirpyb",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-200901.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-200907.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "200901"
+        "version": "200907"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "15hwci1yyqi0mh59qpqmlc529vkf3gfwd64g9b4q8x76dfmpjxb9",
+        "sha256": "1l69s3vl726vadb8kyzxm13ihxb30q9qghszd2jaha4xism496dx",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200901.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-200907.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "200901"
+        "version": "200907"
     },
     "gimgtools": {
         "branch": "master",
@@ -319,15 +333,15 @@
     "gpxtrackposter": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-02T20:10:09Z",
+        "date": "2020-09-10T12:34:04Z",
         "description": "Create a visually appealing poster from your GPX tracks",
         "homepage": "https://github.com/flopp/GpxTrackPoster",
         "owner": "flopp",
         "repo": "GpxTrackPoster",
-        "rev": "f7a9e7ec8a4cdc9f5c350d0ff600b8095c335b2d",
-        "sha256": "0m914ipdnfbi6v9bz557x7jszn321d8igrkq0dxch44fxacy90xa",
+        "rev": "7731d0faa2348eb207492f587c595cc65a520e11",
+        "sha256": "0cvjw397wf9bfqjh3v850kg27hf8lg8z3n363c3riwvcl5qwaszk",
         "type": "tarball",
-        "url": "https://github.com/flopp/GpxTrackPoster/archive/f7a9e7ec8a4cdc9f5c350d0ff600b8095c335b2d.tar.gz",
+        "url": "https://github.com/flopp/GpxTrackPoster/archive/7731d0faa2348eb207492f587c595cc65a520e11.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gt-bash-client": {
@@ -375,15 +389,15 @@
     "hfst": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-21T12:43:04Z",
+        "date": "2020-09-06T13:55:58Z",
         "description": "Helsinki Finite-State Technology (library and application suite)",
         "homepage": "https://hfst.github.io",
         "owner": "hfst",
         "repo": "hfst",
-        "rev": "1d19c46daa44447996a95d4d6d218ee6522ff6f7",
-        "sha256": "1bxlnfz1xhlwkmmws5fsj5isn7ml07sjszzppwar0y7y0z01wb0c",
+        "rev": "a40be44f9205df89b2f7b9cc0051466413933690",
+        "sha256": "1riz9x58yhmzass8wcnyxsxd3nbk1cdfp7a72qd3gy6iv9bw2b26",
         "type": "tarball",
-        "url": "https://github.com/hfst/hfst/archive/1d19c46daa44447996a95d4d6d218ee6522ff6f7.tar.gz",
+        "url": "https://github.com/hfst/hfst/archive/a40be44f9205df89b2f7b9cc0051466413933690.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "how-to-use-pvs-studio-free": {
@@ -487,15 +501,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-02T04:02:41Z",
+        "date": "2020-09-09T07:48:58Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "1fff7f5b1654a827da206f8954cb1daf5063e2e7",
-        "sha256": "1dxvc52jbj2ir7z1whwz0gshbpz5ym35pq5i5ayryfa7rbpp0xcg",
+        "rev": "1004cd09cccd920d80e70905981f529755c36af7",
+        "sha256": "0sfs51cz0ppb5mdknj7awrmc1qwmg89z743v351n7l1zyhg3xqj9",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/1fff7f5b1654a827da206f8954cb1daf5063e2e7.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/1004cd09cccd920d80e70905981f529755c36af7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -517,11 +531,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "0909023pjwfvqx0nlyd70zf6ibps5c6n0i7vjq2r8wvlihvwd3vn",
+        "sha256": "120ksa182g7wbq61i2g76h3yxl7issmrvgn918w90v1kyyb3qvbj",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-08-25.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-09-07.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-08-25"
+        "version": "2020-09-07"
     },
     "mbtileserver": {
         "branch": "master",
@@ -620,29 +634,29 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-01T16:04:00Z",
+        "date": "2020-09-07T20:59:37Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "616b911e4472ee7eeca5039db5091789f09ac799",
-        "sha256": "0h5rmikc883k98ylwqkh8c8q6i5vs0r4ngzf3jkc0dnn5jpri40p",
+        "rev": "b7a4cd586cde083456ee95fd3e6f29a27a1c55b7",
+        "sha256": "0vq6dzgdf4ckyj0q5r193kfxqhminmv0kzxz75n6wca90l8c4gy0",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/616b911e4472ee7eeca5039db5091789f09ac799.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/b7a4cd586cde083456ee95fd3e6f29a27a1c55b7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-02T16:31:30Z",
+        "date": "2020-09-06T09:11:09Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "f21ed23273c771df74834d479aa58bdab8b4c946",
-        "sha256": "1y8w87ilzgj8ii07y3kh6vpdyvmblc57mzsvkw1s3gdc955shaq2",
+        "rev": "d11b07fd01cffe5901ba1cfca148224f1e7f16f0",
+        "sha256": "1f6qqfxg30v6l41g4fxry0pc7416snp9q574b88xq6jh0mjrfd90",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/f21ed23273c771df74834d479aa58bdab8b4c946.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/d11b07fd01cffe5901ba1cfca148224f1e7f16f0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {

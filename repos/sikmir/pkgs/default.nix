@@ -170,6 +170,7 @@ lib.makeScope newScope (
 
     ### SERVERS
 
+    dict2rest = callPackage ./servers/dict2rest { };
     geminid = callPackage ./servers/geminid { };
     glauth = callPackage ./servers/glauth { };
     mbtileserver = callPackage ./servers/mbtileserver { };
