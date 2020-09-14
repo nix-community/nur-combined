@@ -19,7 +19,7 @@
 
 stdenv.mkDerivation rec {
   pname = "libhandy1";
-  version = "0.90.0";
+  version = "1.0.0";
 
   outputs = [ "out" "dev" "devdoc" "glade" ];
   outputBin = "dev";
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     owner = "GNOME";
     repo = "libhandy";
     rev = version;
-    sha256 = "1bl2gsx364ahz48j5srzn6c5znlv1v1syk4svqlfzqi1ax4lsrqq";
+    sha256 = "0gsjrwsmdijrr71hd4nqz0f84ii4xpybh769v56phjlkszsdbi83";
   };
 
   nativeBuildInputs = [
