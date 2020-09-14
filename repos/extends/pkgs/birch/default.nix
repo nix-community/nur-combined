@@ -1,5 +1,10 @@
-{ stdenv, fetchFromGitHub }:
-stdenv.mkDerivation rec {
+{ stdenv, fetchFromGitHub, bash, coreutils, makeWrapper }:
+let
+  binPath = [ 
+    coreutils
+    bash
+  ];
+in stdenv.mkDerivation rec {
   name = "birch";
   version = "unstable";
 
@@ -10,9 +15,17 @@ stdenv.mkDerivation rec {
     sha256 = "8TBsrRmpMl0z9e2gbPpj0ZR0zt1Kn+A4xRAq89Ww4og=";
   };
 
+  phases = [ "installPhase" "postFixup" ];
+
   installPhase = ''
     mkdir -p $out/bin
     cp $src/birch $out/bin
+  '';
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  postFixup = ''
+    wrapProgram $out/bin/${name} --prefix PATH : ${stdenv.lib.makeBinPath binPath}
   '';
 
   meta = with stdenv.lib; {
