@@ -1,6 +1,7 @@
 { stdenv, makeDesktopItem, writeShellScriptBin, symlinkJoin, coreutils, eclipses, 
 myEclipsePackages ? [ eclipses.eclipse-platform ],
-logFile ? "/dev/null"
+logFile ? "/dev/null",
+additionalJREs ? [],
 }:
 
 let
@@ -18,6 +19,20 @@ let
 
   executableSelector = builtins.concatStringsSep "\n" conditionalCommands;
 
+  printJRELines = map(package:
+    ''
+      echo "${package.name} : ${package}"
+    ''
+  ) additionalJREs;
+  
+  printJRELinesWithDescription = [ 
+    ''
+     echo "These are the additional JREs and their base path for configuring them in eclipse:"
+    '' 
+    ] ++ printJRELines;
+  
+  additionalJREInfo = builtins.concatStringsSep "\n" printJRELinesWithDescription;
+
   startEclipse = writeShellScriptBin "eclipse"
     ''
       PS3="Choose (1-${toString numberEclipses}):"
@@ -31,6 +46,8 @@ let
       echo "You chose $variant"
 
       ${executableSelector}
+
+      ${additionalJREInfo}
 
       ${coreutils}/bin/nohup $executable -configuration $HOME/.eclipse/eclipse-$variant/configuration >${logFile} &
       
@@ -54,6 +71,8 @@ in symlinkJoin {
     ''
       mkdir -p $out/share/applications
       cp ${desktopItem}/share/applications/* $out/share/applications
+      mkdir -p $out/share/pixmaps
+      ln -s ${builtins.elemAt myEclipsePackages 0}/share/pixmaps/eclipse.xpm $out/share/pixmaps/eclipse.xpm
     '';
 
   meta = with stdenv.lib; {
