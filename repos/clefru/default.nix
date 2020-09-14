@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> {} }:
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -20,8 +20,7 @@
   noise-suppression-for-voice = pkgs.callPackage ./pkgs/noise-suppression-for-voice {};
   scanbuttond = pkgs.callPackage ./pkgs/scanbuttond {};
   minionpro = pkgs.callPackage ./pkgs/minionpro {};
-  omnicore = pkgs.callPackage ./pkgs/omnicore { withGui = true; };
   zsh-nix-shell = pkgs.callPackage ./pkgs/zsh-nix-shell { };
-  #qemu = pkgs.qemu.overrideDerivation (old: { configureFlags = old.configureFlags ++ ["--enable-vhost-user-fs"] ; });
-  virtiofsd = pkgs.callPackage ./pkgs/virtiofsd { };
+  usbreset = pkgs.callPackage ./pkgs/usbreset { };
+  gtk-v4l = pkgs.callPackage ./pkgs/gtk-v4l { };
 }

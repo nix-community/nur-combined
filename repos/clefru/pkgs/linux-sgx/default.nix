@@ -41,5 +41,6 @@ stdenv.mkDerivation {
   meta = {
     description = "Intel SGX for Linux";
     homepage = https://01.org/intel-softwareguard-extensions;
+    broken = true; # Fails because of some compiler warnings. Should be easy to fix.
   };
 }

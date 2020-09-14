@@ -15,5 +15,6 @@ stdenv.mkDerivation {
   meta = {
     description = "Daemon to respond to scanner button presses";
     license = stdenv.lib.licenses.gpl2;
+    broken = true;
   };
 }

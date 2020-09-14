@@ -1,0 +1,11 @@
+--- gtk-v4l-0.4/configure.ac.orig   2020-02-24 18:38:30.952141512 +0100
++++ gtk-v4l-0.4/configure.ac        2020-02-24 18:38:36.090303097 +0100
+@@ -10,6 +10,7 @@
+ # Checks for programs.
+ #AC_PROG_CC
+ AM_PROG_CC_C_O
++AM_PROG_AR
+ # Checks for libraries.
+ AM_PROG_LIBTOOL
+ 
+
