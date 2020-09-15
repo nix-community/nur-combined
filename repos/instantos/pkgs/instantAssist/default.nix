@@ -15,8 +15,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantAssist";
-    rev = "79eabffd8062373ab3a9fe2f8264e76a81803fbd";
-    sha256 = "0jhcr4skh46f5ms6c29pihnrlqfjwwi58rkjynk6ca6zgp2z7f7j";
+    rev = "1d562c6163ac94d9a28f0ad108058dd5f2798992";
+    sha256 = "1j613q96hx6628f0hr0d8x5cdwhll7fdjk65ga8ydvmk1y1kvjw9";
     name = "instantOS_instantAssist";
   };
 
@@ -65,7 +65,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Handy menu to access lots of features of instantOS";
-    license = licenses.mit;
+    license = licenses.gpl2;
     homepage = "https://github.com/instantOS/instantASSIST";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

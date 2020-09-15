@@ -43,7 +43,8 @@ in {
 
   # Below this line, it gets technical, if in doubt, leave alone
 
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ ./hardware-configuration.nix ] 
+    ++ (if builtins.pathExists ./cachix.nix then [ ./cachix.nix ] else []);
 
   nixpkgs.config.packageOverrides = pkgs: {
     nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
@@ -110,7 +111,7 @@ in {
     fasd fzf direnv
     wget curl w3m inetutils dnsutils nmap openssl mkpasswd
     gitAndTools.git git-lfs
-    nix-prefetch-scripts
+    nix-prefetch-scripts cachix
     nur.repos.instantos.instantnix
     (neovim.override {viAlias = true; vimAlias = true;})
   ];

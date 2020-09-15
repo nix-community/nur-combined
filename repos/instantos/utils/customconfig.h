@@ -142,6 +142,7 @@ static const char *instantmenustcmd[] = {"instantmenu_run_st", NULL};
 static const char *termcmd[] = {".config/instantos/default/terminal", NULL};
 static const char *quickmenucmd[] = {"quickmenu", NULL};
 static const char *instantassistcmd[] = {"instantassist", NULL};
+static const char *instantrepeatcmd[] = {"instantrepeat", NULL};
 static const char *instantpacmancmd[] = {"instantpacman", NULL};
 static const char *nautiluscmd[] = {".config/instantos/default/filemanager", NULL};
 static const char *slockcmd[] = {"ilock", NULL};
@@ -155,7 +156,7 @@ static const char *onboardcmd[] = {"onboard", NULL};
 static const char *instantshutdowncmd[] = {"instantshutdown", NULL};
 static const char *systemmonitorcmd[] = {".config/instantos/default/systemmonitor", NULL};
 static const char *notifycmd[] = {"instantnotify", NULL};
-static const char *rangercmd[] = { "urxvt", "-e", "ranger", NULL };
+static const char *rangercmd[] = { "st", "-e", "ranger", NULL };
 static const char *panther[] = { ".config/instantos/default/appmenu", NULL};
 static const char *controlcentercmd[] = { "instantsettings", NULL};
 static const char *displaycmd[] = { "instantdisper", NULL};
@@ -270,6 +271,7 @@ static Key keys[] = {
 	{MODKEY | ControlMask, XK_q, spawn, {.v = instantshutdowncmd } },
 	{MODKEY, XK_y, spawn, {.v = panther} },
 	{MODKEY, XK_a, spawn, {.v = instantassistcmd} },
+	{MODKEY|ShiftMask, XK_a, spawn, {.v = instantrepeatcmd} },
 	{MODKEY|ControlMask, XK_i, spawn, {.v = instantpacmancmd} },
 	{MODKEY, XK_w, setoverlay, {0} },
 	{MODKEY | ControlMask, XK_w, createoverlay, {0} },

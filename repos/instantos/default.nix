@@ -77,6 +77,10 @@ pkgs.lib.makeExtensible (self: rec {
     gnome-disk-utility = pkgs.gnome3.gnome-disk-utility;
     xfce4-power-manager = pkgs.xfce.xfce4-power-manager;
     firaCodeNerd = self.firacodenerd;
+    #firaCodeNerd = (pkgs.nerdfonts.override { withFont = "FiraCode"; });
+    # In unstable and 20.09 this does not download a 2GB+ file anymore, and needs fonts = [ "FiraCode" ]
+    #firaCodeNerd = (pkgs.nerdfonts.override { Fons = [ "FiraCode" ]; });
+    # So we replace everything by the above line and delete pkgs/firaCodeNerd/
   };
   instantwelcome = with pkgs.python3Packages; pkgs.callPackage ./pkgs/instantWelcome {
     instantConf = self.instantconf;
@@ -99,6 +103,7 @@ pkgs.lib.makeExtensible (self: rec {
     extraPatches = [ ./pkgs/instantWm/french-keybindings.patch ];
   };
   firacodenerd = pkgs.callPackage ./pkgs/firaCodeNerd {};
+  instantst = pkgs.callPackage ./pkgs/instantSt { firacodenerd = self.firacodenerd; };
   instantdata = pkgs.callPackage ./pkgs/instantData {
     instantAssist = self.instantassist;
     instantConf = self.instantconf;
@@ -142,6 +147,7 @@ pkgs.lib.makeExtensible (self: rec {
         self.instantwelcome
         self.instantwidgets
         self.instantwm
+        self.instantst
         self.paperbash
         self.rangerplugins
         self.spotify-adblock

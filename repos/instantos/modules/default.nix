@@ -1,5 +1,6 @@
 {
   modules = {
-   instantlock = ./instantlock.nix;
+      instantlock = ./instantlock.nix;
+      instantwm = ./instantwm.nix;
   };
 }

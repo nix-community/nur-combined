@@ -24,8 +24,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantWM";
-    rev = "db6cc3692c898e3c7f253989e6cd51e991155eef";
-    sha256 = "0vh0rcxqbx0fdvsybarsi7v4bwmi9dp3g66jmh3iqcfyiahp3nn1";
+    rev = "a45d31cb9c30a10758f7d330c4108e6d76b89c76";
+    sha256 = "0hkf0p8lf2z3mys6r0d81sa3q6lf2g4cifcgg1h7vi8bx3xh8jrx";
     name = "instantOS_instantWm";
   };
 
@@ -63,14 +63,17 @@ stdenv.mkDerivation {
   installPhase = ''
     install -Dm 555 instantwm $out/bin/instantwm
     install -Dm 555 startinstantos $out/bin/startinstantos
-    mkdir $out/debug/ && cp config.def.h $out/debug/  # not needed, makes debugging a bit easier
   '';
 
   meta = with lib; {
     description = "Window manager of instantOS.";
     license = licenses.mit;
     homepage = "https://github.com/instantOS/instantWM";
-    maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
+    maintainers = [ 
+        stdenv.lib.maintainers.shamilton
+        "con-f-use <con-f-use@gmx.net>"
+        "paperbenni <instantos@paperbenni.xyz>"
+    ];
     platforms = platforms.linux;
   };
 }

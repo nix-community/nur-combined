@@ -11,8 +11,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantconf";
-    rev = "4b48e308b2bdb995e016999aa5e6bc74190067eb";
-    sha256 = "0ys7dxp7cnr8lgfyar012rr53p8qmrv7a4l2jpk61bih5i9gxlha";
+    rev = "f09f9c4120135fdafa880aeecc555e3e69a77a58";
+    sha256 = "07w4m2bhrdar0lmk236hffpg99aq12v68c2ig0s8lr60zfzjpzym";
     name = "instantOS_instantConf";
   };
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "instantOS Conf";
-    license = licenses.mit;
+    license = licenses.gpl2;
     homepage = "https://github.com/instantOS/instantWM";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

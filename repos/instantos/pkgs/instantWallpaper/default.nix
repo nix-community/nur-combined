@@ -18,15 +18,15 @@ stdenv.mkDerivation {
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantWALLPAPER";
-      rev = "2ff6eb814227b183a38a9784d681895625618c65";
-      sha256 = "1xcn1iicfyq365qm5mrb3236gm6d2vxy9dkjdl9j0d89adgjf26b";
+      rev = "5dd53285fbc7c2c8c0ceeee726d1d3e081f4a2ff";
+      sha256 = "1pkx4zc5vykym06l00svwsxnlqm5mgh41kzr32zk967lrirjjabd";
       name = "instantOS_instantWallpaper";
     }) 
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantLOGO";
-      rev = "ae4626d6e67d078657389c290db8c29d234f8250";
-      sha256 = "1909ikrkzg3wp4g8868c0m03bg1r3rnyzz2n4rd6kkr7s9vwz2ac";
+      rev = "41acb9cb8c4a9e9b7d70289997988acfc23518f1";
+      sha256 = "0b6fifvv319akz1n4jiv514cr4g6qqixh8lfiw091cd8rpvyc0bz";
       name = "instantOS_instantLogo";
     })
   ];
@@ -76,7 +76,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Wallpaper manager of instantOS";
-    license = licenses.mit;
+    license = licenses.gpl2;
     homepage = "https://github.com/instantOS/instantWM";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
