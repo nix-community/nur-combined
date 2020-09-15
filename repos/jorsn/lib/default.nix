@@ -1,10 +1,10 @@
 { lib }: # nixpkgs lib
 
 let
-  lib' = lib // libD;
+  lib' = lib.recursiveUpdate lib libD;
   callLibs = file: import file { lib = lib'; };
 
-  libD = { inherit namespaced; } // {
+  libD = lib.recursiveUpdate namespaced {
     inherit (namespaced.attrsets) setAttrs;
 
     inherit (namespaced.bool) is;
