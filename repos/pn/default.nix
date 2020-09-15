@@ -8,22 +8,25 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
+let
+  wrapNeomutt = pkgs.callPackage ./pkgs/neomutt_configurable/wrapper.nix { };
+in
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
   st = pkgs.callPackage ./pkgs/st { };
   dwm = pkgs.callPackage ./pkgs/dwm { };
   dwmblocks = pkgs.callPackage ./pkgs/dwmblocks { };
   dmenu = pkgs.callPackage ./pkgs/dmenu { };
-  mutt-wizard = pkgs.callPackage ./pkgs/mutt-wizard { };
   xwallpaper = pkgs.callPackage ./pkgs/xwallpaper { };
   libthinkpad = pkgs.callPackage ./pkgs/libthinkpad { };
   dockd = pkgs.callPackage ./pkgs/dockd { };
   larbs-mail = pkgs.callPackage ./pkgs/larbs-mail { };
+
+  #fx = (pkgs.callPackage ./pkgs/fx { }).package;
   # xcb-util = pkgs.callPackage ./pkgs/xcb-util { }; #unknown error
   # amfora = pkgs.callPackage ./pkgs/amfora { };
   # ...
