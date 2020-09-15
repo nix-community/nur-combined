@@ -1,5 +1,4 @@
-{ lib
-, stdenv
+{ stdenv
 , fetchFromGitLab
 , makeWrapper
 , coreutils
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram "$out/bin/${pname}" \
-      --prefix PATH : ${lib.makeBinPath [
+      --prefix PATH : ${stdenv.lib.makeBinPath [
         coreutils
         findutils
         gnugrep
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
         xprop
         zenity
       ]} \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
+      --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [
         libpulseaudio
       ]}
   '';
@@ -60,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = "https://pokemmo.eu";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ metadark ];
-    platforms = platforms.all;
+    platforms = platforms.linux;
   };
 }
