@@ -33,7 +33,7 @@ index 6c880c2..0d9eaf8 100644
  	/* J and K are automatically bound above in STACKEYS */
  	{ MODKEY,			XK_l,		setmfact,      	{.f = +0.05} },
 -	{ MODKEY,			XK_semicolon,	shiftview,	{ .i = 1 } },
-+	{ MODKEY,			XK_semicolon,	spawn,	SHCMD("alacritty -e emacs -ng") },
++	{ MODKEY,			XK_semicolon,	spawn,	SHCMD("alacritty -e emacs -nw") },
  	{ MODKEY|ShiftMask,		XK_semicolon,	shifttag,	{ .i = 1 } },
  	{ MODKEY,			XK_apostrophe,	togglescratch,	{.ui = 1} },
  	/* { MODKEY|ShiftMask,		XK_apostrophe,	spawn,		SHCMD("") }, */
