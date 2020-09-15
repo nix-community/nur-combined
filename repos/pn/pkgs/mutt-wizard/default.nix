@@ -11,9 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "1bb9429wabv85zja2y89vhj15qcd10acbg5k6ylilw067wzs9ks5";
   };
 
-
   buildPhase = ''
     sed -i 's/(PREFIX)/(out)/g' Makefile
+    sed -i 's:mwconfig="\$muttshare/mutt-wizard.muttrc":mwconfig=/etc/neomuttrc:' bin/mw
     make PREFIX=$out SHELL=$SHELL install
   '';
 
