@@ -50,6 +50,11 @@ rec {
 
   newsflash = pkgs.callPackage ./pkgs/applications/networking/newsreaders/newsflash { };
 
+  pokemmo-installer = pkgs.callPackage ./pkgs/games/pokemmo-installer {
+    inherit (pkgs.gnome3) zenity;
+    jre = pkgs.jdk11;
+  };
+
   protontricks = pkgs.python3Packages.callPackage ./pkgs/tools/package-management/protontricks {
     inherit (pkgs.gnome3) zenity;
     wine = pkgs.wineWowPackages.minimal;
