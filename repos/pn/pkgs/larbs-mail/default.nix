@@ -12,6 +12,7 @@ buildEnv {
     msmtp
     notmuch
     libnotify
+    mutt-wizard
   ];
 
   meta = {
