@@ -1,0 +1,93 @@
+From f7a43f08ba607b8ab3b2f897899815300b755d99 Mon Sep 17 00:00:00 2001
+From: Dusk Banks <me@bb010g.com>
+Date: Mon, 14 Sep 2020 13:50:17 -0700
+Subject: [PATCH 09/10] config: Unbind key Ctrl-c from stop
+
+It's used for clipboard copy. Please let it be used for clipboard copy.
+---
+ config.def.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/config.def.h b/config.def.h
+index 76eee1d..97b22bd 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -136,7 +136,6 @@ static Key keys[] = {
+ 	{ MODKEY,                GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
+ 
+ 	{ 0,                     GDK_KEY_Escape, stop,       { 0 } },
+-	{ MODKEY,                GDK_KEY_c,      stop,       { 0 } },
+ 
+ 	{ MODKEY,                GDK_KEY_r,      reload,     { .i = 0 } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_r,      reload,     { .i = 1 } },
+-- 
+2.25.4
+
+
+From de36ee43f6c1eddc5cfd55f9d8b4a20d437c52de Mon Sep 17 00:00:00 2001
+From: Dusk Banks <me@bb010g.com>
+Date: Mon, 14 Sep 2020 14:07:11 -0700
+Subject: [PATCH 10/10] config: Bind some common function keys
+
+Bind key F6 to spawn.
+Bind key F5 to reload.
+Bind key Shift-F5 to reload (override cache).
+Bind key F3 to find (next).
+Bind key Shift-F3 to find (previous).
+Bind key F7 to toggle caret browsing.
+Bind key F12 to toggle inspector.
+---
+ config.def.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/config.def.h b/config.def.h
+index 97b22bd..507f272 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -132,6 +132,7 @@ static SiteSpecific certs[] = {
+ static Key keys[] = {
+ 	/* modifier              keyval          function    arg */
+ 	{ MODKEY,                GDK_KEY_g,      spawn,      SETPROP("_SURF_URI", "_SURF_GO", PROMPT_GO) },
++	{ 0,                     GDK_KEY_F6,     spawn,      SETPROP("_SURF_URI", "_SURF_GO", PROMPT_GO) },
+ 	{ MODKEY,                GDK_KEY_f,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
+ 	{ MODKEY,                GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
+ 
+@@ -139,6 +140,8 @@ static Key keys[] = {
+ 
+ 	{ MODKEY,                GDK_KEY_r,      reload,     { .i = 0 } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_r,      reload,     { .i = 1 } },
++	{ 0,                     GDK_KEY_F5,     reload,     { .i = 0 } },
++	{ MODKEY,                GDK_KEY_F5,     reload,     { .i = 1 } },
+ 
+ 	{ MODKEY,                GDK_KEY_l,      navigate,   { .i = +1 } },
+ 	{ MODKEY,                GDK_KEY_h,      navigate,   { .i = -1 } },
+@@ -163,6 +166,8 @@ static Key keys[] = {
+ 
+ 	{ MODKEY,                GDK_KEY_n,      find,       { .i = +1 } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_n,      find,       { .i = -1 } },
++	{ 0,                     GDK_KEY_F3,     find,       { .i = +1 } },
++	{ GDK_SHIFT_MASK,        GDK_KEY_F3,     find,       { .i = -1 } },
+ 
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_p,      print,      { 0 } },
+ 	{ MODKEY,                GDK_KEY_t,      showcert,   { 0 } },
+@@ -170,6 +175,7 @@ static Key keys[] = {
+ 	/* togglestats toggles */
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_a,      toggle,     { .i = CookiePolicyIx } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_c,      toggle,     { .i = CaretBrowsing } },
++	{ 0,                     GDK_KEY_F7,     toggle,     { .i = CaretBrowsing } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_g,      toggle,     { .i = Geolocation } },
+ 	/* { MODKEY|GDK_SHIFT_MASK, GDK_KEY_d,      toggle,     { .i = DiskCache } }, */
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_i,      toggle,     { .i = LoadImages } },
+@@ -183,6 +189,7 @@ static Key keys[] = {
+ 	/* other toggles */
+ 	{ 0,                     GDK_KEY_F11,    togglefullscreen, { 0 } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_o,      toggleinspector, { 0 } },
++	{ 0,                     GDK_KEY_F12,    toggleinspector, { 0 } },
+ };
+ 
+ /* button definitions */
+-- 
+2.25.4
+
+
+

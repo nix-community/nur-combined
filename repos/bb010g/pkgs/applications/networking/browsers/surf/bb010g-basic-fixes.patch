@@ -1,0 +1,583 @@
+From b14d0d8d58a83cf5774dd585493d5e0bac41c561 Mon Sep 17 00:00:00 2001
+From: Dusk Banks <me@bb010g.com>
+Date: Mon, 14 Sep 2020 16:18:48 -0700
+Subject: [PATCH 01/10] Create a gitignore file
+
+---
+ .gitignore | 4 ++++
+ 1 file changed, 4 insertions(+)
+ create mode 100644 .gitignore
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..8b7389f
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,4 @@
++*.o
++*.so
++/config.h
++/surf
+-- 
+2.25.4
+
+
+From ce1205027d1096638cc1807ced6cedf697a6d0be Mon Sep 17 00:00:00 2001
+From: Dusk Banks <me@bb010g.com>
+Date: Mon, 14 Sep 2020 11:53:44 -0700
+Subject: [PATCH 02/10] Update URI upon loadcommitted
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+From the documentation of `WebKitWebView`'s `webkit_web_view_get_uri()`:
+
+> When the signal “load-changed” is emitted with `WEBKIT_LOAD_COMMITTED`
+> event, the active URI is the final one and it will not change unless a
+> new load operation is started or a navigation action within the same
+> page is performed.
+---
+ surf.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/surf.c b/surf.c
+index 2b54e3c..cedf273 100644
+--- a/surf.c
++++ b/surf.c
+@@ -1513,6 +1513,8 @@ loadchanged(WebKitWebView *v, WebKitLoadEvent e, Client *c)
+ 		seturiparameters(c, uri, loadtransient);
+ 		break;
+ 	case WEBKIT_LOAD_COMMITTED:
++		// uri isn't necessarily updated until now
++		setatom(c, AtomUri, uri);
+ 		seturiparameters(c, uri, loadcommitted);
+ 		c->https = webkit_web_view_get_tls_info(c->view, &c->cert,
+ 		                                        &c->tlserr);
+-- 
+2.25.4
+
+
+From ddf49f6355236f06369f4f257d22c4000a450600 Mon Sep 17 00:00:00 2001
+From: Dusk Banks <me@bb010g.com>
+Date: Mon, 14 Sep 2020 17:50:27 -0700
+Subject: [PATCH 03/10] config: Reenable the inspector by default.
+
+This was lost in 75e3fe5b95bc94d5309bd78d9cc98f0034595c3e, when
+switching to the new config style.
+---
+ config.def.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/config.def.h b/config.def.h
+index 34265f6..169f3a9 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -29,7 +29,7 @@ static Parameter defconfig[ParameterLast] = {
+ 	[FrameFlattening]     =       { { .i = 0 },     },
+ 	[Geolocation]         =       { { .i = 0 },     },
+ 	[HideBackground]      =       { { .i = 0 },     },
+-	[Inspector]           =       { { .i = 0 },     },
++	[Inspector]           =       { { .i = 1 },     },
+ 	[Java]                =       { { .i = 1 },     },
+ 	[JavaScript]          =       { { .i = 1 },     },
+ 	[KioskMode]           =       { { .i = 0 },     },
+-- 
+2.25.4
+
+
+From c4830eda73e377e73a82455c73bafd237a79c721 Mon Sep 17 00:00:00 2001
+From: Dusk Banks <me@bb010g.com>
+Date: Mon, 14 Sep 2020 16:59:17 -0700
+Subject: [PATCH 04/10] Resolve -Wformat warnings
+
+---
+ libsurf-webext.c | 23 ++++++++++++++++++++++-
+ surf.c           | 10 +++++++++-
+ 2 files changed, 31 insertions(+), 2 deletions(-)
+
+diff --git a/libsurf-webext.c b/libsurf-webext.c
+index ec9a235..5f88649 100644
+--- a/libsurf-webext.c
++++ b/libsurf-webext.c
+@@ -1,5 +1,6 @@
+ #include <sys/stat.h>
+ #include <fcntl.h>
++#include <inttypes.h>
+ #include <limits.h>
+ #include <stdlib.h>
+ 
+@@ -45,8 +46,28 @@ msgsurf(Page *p, const char *s)
+ 	size_t sln = strlen(s);
+ 	int ret;
+ 
++	size_t msgln = sln;
++#if SIZE_MAX >= CHAR_MAX
++	if (msgln > (size_t)CHAR_MAX - 2) {
++#else
++	if ((char)msgln > CHAR_MAX - 2) {
++#endif
++		fprintf(stderr, "webext: message too long: %zu\n", msgln);
++		return;
++	}
++	msgln += 2;
++	char msglnc = (char)msgln;
++
++#if UINT64_MAX >= CHAR_MAX
++	if (p && p->id > (uint64_t)CHAR_MAX) {
++		fprintf(stderr, "webext: id too large: %"PRIu64"\n", p->id);
++		return;
++	}
++#endif
++	char idc = p ? (char)p->id : 0;
++
+ 	if ((ret = snprintf(msg, sizeof(msg), "%c%c%s",
+-	                    2 + sln, p ? p->id : 0, s))
++	                    msglnc, idc, s))
+ 	    >= sizeof(msg)) {
+ 		fprintf(stderr, "webext: message too long: %d\n", ret);
+ 		return;
+diff --git a/surf.c b/surf.c
+index cedf273..97fe29b 100644
+--- a/surf.c
++++ b/surf.c
+@@ -1850,8 +1850,16 @@ msgext(Client *c, char type, const Arg *a)
+ 	static char msg[MSGBUFSZ];
+ 	int ret;
+ 
++#if ULONG_MAX >= CHAR_MAX
++	if (c->pageid > (unsigned long)CHAR_MAX) {
++		fprintf(stderr, "surf: page id too large: %lu", c->pageid);
++		return;
++	}
++#endif
++	char pageidc = (char)c->pageid;
++
+ 	if ((ret = snprintf(msg, sizeof(msg), "%c%c%c%c",
+-	                    4, c->pageid, type, a->i))
++	                    4, pageidc, type, a->i))
+ 	    >= sizeof(msg)) {
+ 		fprintf(stderr, "surf: message too long: %d\n", ret);
+ 		return;
+-- 
+2.25.4
+
+
+From a88c45a640f11cddb215d36008f557bf42acf951 Mon Sep 17 00:00:00 2001
+From: Dusk Banks <me@bb010g.com>
+Date: Mon, 14 Sep 2020 13:47:46 -0700
+Subject: [PATCH 05/10] config: Reorganize keys
+
+---
+ config.def.h | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 169f3a9..5c8c101 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -137,8 +137,8 @@ static Key keys[] = {
+ 	{ 0,                     GDK_KEY_Escape, stop,       { 0 } },
+ 	{ MODKEY,                GDK_KEY_c,      stop,       { 0 } },
+ 
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_r,      reload,     { .i = 1 } },
+ 	{ MODKEY,                GDK_KEY_r,      reload,     { .i = 0 } },
++	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_r,      reload,     { .i = 1 } },
+ 
+ 	{ MODKEY,                GDK_KEY_l,      navigate,   { .i = +1 } },
+ 	{ MODKEY,                GDK_KEY_h,      navigate,   { .i = -1 } },
+@@ -152,14 +152,14 @@ static Key keys[] = {
+ 	{ MODKEY,                GDK_KEY_u,      scrollh,    { .i = -10 } },
+ 
+ 
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_j,      zoom,       { .i = -1 } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_k,      zoom,       { .i = +1 } },
++	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_j,      zoom,       { .i = -1 } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_q,      zoom,       { .i = 0  } },
+-	{ MODKEY,                GDK_KEY_minus,  zoom,       { .i = -1 } },
+ 	{ MODKEY,                GDK_KEY_plus,   zoom,       { .i = +1 } },
++	{ MODKEY,                GDK_KEY_minus,  zoom,       { .i = -1 } },
+ 
+-	{ MODKEY,                GDK_KEY_p,      clipboard,  { .i = 1 } },
+ 	{ MODKEY,                GDK_KEY_y,      clipboard,  { .i = 0 } },
++	{ MODKEY,                GDK_KEY_p,      clipboard,  { .i = 1 } },
+ 
+ 	{ MODKEY,                GDK_KEY_n,      find,       { .i = +1 } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_n,      find,       { .i = -1 } },
+@@ -167,19 +167,22 @@ static Key keys[] = {
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_p,      print,      { 0 } },
+ 	{ MODKEY,                GDK_KEY_t,      showcert,   { 0 } },
+ 
++	/* togglestats toggles */
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_a,      togglecookiepolicy, { 0 } },
+-	{ 0,                     GDK_KEY_F11,    togglefullscreen, { 0 } },
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_o,      toggleinspector, { 0 } },
+-
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_c,      toggle,     { .i = CaretBrowsing } },
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_f,      toggle,     { .i = FrameFlattening } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_g,      toggle,     { .i = Geolocation } },
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_s,      toggle,     { .i = JavaScript } },
++	/* { MODKEY|GDK_SHIFT_MASK, GDK_KEY_d,      toggle,     { .i = DiskCache } }, */
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_i,      toggle,     { .i = LoadImages } },
++	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_s,      toggle,     { .i = JavaScript } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_v,      toggle,     { .i = Plugins } },
++	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_m,      toggle,     { .i = Style } },
++	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_f,      toggle,     { .i = FrameFlattening } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_b,      toggle,     { .i = ScrollBars } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_t,      toggle,     { .i = StrictTLS } },
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_m,      toggle,     { .i = Style } },
++
++	/* other toggles */
++	{ 0,                     GDK_KEY_F11,    togglefullscreen, { 0 } },
++	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_o,      toggleinspector, { 0 } },
+ };
+ 
+ /* button definitions */
+-- 
+2.25.4
+
+
+From b8e440424735b37ee29866088d170337adfb60d7 Mon Sep 17 00:00:00 2001
+From: Dusk Banks <me@bb010g.com>
+Date: Mon, 14 Sep 2020 16:18:35 -0700
+Subject: [PATCH 06/10] Merge togglecookiepolicy() into toggle()
+
+Introduces CookiePolicyIx to represent the difference in configuration
+between CookiePolicies & the current cookie policy.
+
+cookiepolicy_get() & cookiepolicy_set() are renamed to
+cookiepolicy_decode() & cookiepolicy_encode(), respectively.
+(cookiepolicy_set() didn't mutate anything.)
+
+cookiepolicy_decode() now takes a `char p` policy, leaving the new
+cookiepolicy_get() to perform curconfig accesses followed by decoding.
+
+toggle() now deals with a ParamName-adjusted modulus instead of a
+hardcoded modulus of 2, and the refresh for setparameter()'s is also now
+computed from ParamName.
+---
+ config.def.h |  3 ++-
+ surf.c       | 60 ++++++++++++++++++++++++++++++++++------------------
+ 2 files changed, 41 insertions(+), 22 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 5c8c101..76eee1d 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -21,6 +21,7 @@ static Parameter defconfig[ParameterLast] = {
+ 	[Certificate]         =       { { .i = 0 },     },
+ 	[CaretBrowsing]       =       { { .i = 0 },     },
+ 	[CookiePolicies]      =       { { .v = "@Aa" }, },
++	[CookiePolicyIx]      =       { { .i = 0 },     },
+ 	[DefaultCharset]      =       { { .v = "UTF-8" }, },
+ 	[DiskCache]           =       { { .i = 1 },     },
+ 	[DNSPrefetch]         =       { { .i = 0 },     },
+@@ -168,7 +169,7 @@ static Key keys[] = {
+ 	{ MODKEY,                GDK_KEY_t,      showcert,   { 0 } },
+ 
+ 	/* togglestats toggles */
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_a,      togglecookiepolicy, { 0 } },
++	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_a,      toggle,     { .i = CookiePolicyIx } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_c,      toggle,     { .i = CaretBrowsing } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_g,      toggle,     { .i = Geolocation } },
+ 	/* { MODKEY|GDK_SHIFT_MASK, GDK_KEY_d,      toggle,     { .i = DiskCache } }, */
+diff --git a/surf.c b/surf.c
+index 97fe29b..8a33a4c 100644
+--- a/surf.c
++++ b/surf.c
+@@ -55,8 +55,9 @@ typedef enum {
+ 	CaretBrowsing,
+ 	Certificate,
+ 	CookiePolicies,
+-	DiskCache,
++	CookiePolicyIx,
+ 	DefaultCharset,
++	DiskCache,
+ 	DNSPrefetch,
+ 	FileURLsCrossAccess,
+ 	FontSize,
+@@ -158,8 +159,9 @@ static const char *getatom(Client *c, int a);
+ static void updatetitle(Client *c);
+ static void gettogglestats(Client *c);
+ static void getpagestats(Client *c);
++static WebKitCookieAcceptPolicy cookiepolicy_decode(const char p);
++static char cookiepolicy_encode(const WebKitCookieAcceptPolicy p);
+ static WebKitCookieAcceptPolicy cookiepolicy_get(void);
+-static char cookiepolicy_set(const WebKitCookieAcceptPolicy p);
+ static void seturiparameters(Client *c, const char *uri, ParamName *params);
+ static void setparameter(Client *c, int refresh, ParamName p, const Arg *a);
+ static const char *getcert(const char *uri);
+@@ -228,7 +230,6 @@ static void navigate(Client *c, const Arg *a);
+ static void stop(Client *c, const Arg *a);
+ static void toggle(Client *c, const Arg *a);
+ static void togglefullscreen(Client *c, const Arg *a);
+-static void togglecookiepolicy(Client *c, const Arg *a);
+ static void toggleinspector(Client *c, const Arg *a);
+ static void find(Client *c, const Arg *a);
+ 
+@@ -243,7 +244,6 @@ static char pagestats[2];
+ static Atom atoms[AtomLast];
+ static Window embed;
+ static int showxid;
+-static int cookiepolicy;
+ static Display *dpy;
+ static Client *clients;
+ static GdkDevice *gdkkb;
+@@ -645,7 +645,7 @@ updatetitle(Client *c)
+ void
+ gettogglestats(Client *c)
+ {
+-	togglestats[0] = cookiepolicy_set(cookiepolicy_get());
++	togglestats[0] = cookiepolicy_encode(cookiepolicy_get());
+ 	togglestats[1] = curconfig[CaretBrowsing].val.i ?   'C' : 'c';
+ 	togglestats[2] = curconfig[Geolocation].val.i ?     'G' : 'g';
+ 	togglestats[3] = curconfig[DiskCache].val.i ?       'D' : 'd';
+@@ -670,9 +670,9 @@ getpagestats(Client *c)
+ }
+ 
+ WebKitCookieAcceptPolicy
+-cookiepolicy_get(void)
++cookiepolicy_decode(const char p)
+ {
+-	switch (((char *)curconfig[CookiePolicies].val.v)[cookiepolicy]) {
++	switch (p) {
+ 	case 'a':
+ 		return WEBKIT_COOKIE_POLICY_ACCEPT_NEVER;
+ 	case '@':
+@@ -684,7 +684,7 @@ cookiepolicy_get(void)
+ }
+ 
+ char
+-cookiepolicy_set(const WebKitCookieAcceptPolicy p)
++cookiepolicy_encode(const WebKitCookieAcceptPolicy p)
+ {
+ 	switch (p) {
+ 	case WEBKIT_COOKIE_POLICY_ACCEPT_NEVER:
+@@ -697,6 +697,14 @@ cookiepolicy_set(const WebKitCookieAcceptPolicy p)
+ 	}
+ }
+ 
++WebKitCookieAcceptPolicy
++cookiepolicy_get(void)
++{
++	Arg *a = &curconfig[CookiePolicies].val;
++	Arg *ixa = &curconfig[CookiePolicyIx].val;
++	return cookiepolicy_decode(((char *)a->v)[ixa->i]);
++}
++
+ void
+ seturiparameters(Client *c, const char *uri, ParamName *params)
+ {
+@@ -751,11 +759,22 @@ setparameter(Client *c, int refresh, ParamName p, const Arg *a)
+ 		if (a->i)
+ 			setcert(c, geturi(c));
+ 		return; /* do not update */
+-	case CookiePolicies:
++	case CookiePolicies: {
++		Arg *ixa = &curconfig[CookiePolicyIx].val;
++		ixa->i = (ixa->i + 1) % strlen((char *)a->v);
++
+ 		webkit_cookie_manager_set_accept_policy(
+ 		    webkit_web_context_get_cookie_manager(
+ 		    webkit_web_view_get_context(c->view)),
+-		    cookiepolicy_get());
++		    cookiepolicy_decode(((char *)a->v)[ixa->i]));
++		refresh = 0;
++		break;
++	}
++	case CookiePolicyIx:
++		webkit_cookie_manager_set_accept_policy(
++		    webkit_web_context_get_cookie_manager(
++		    webkit_web_view_get_context(c->view)),
++		    cookiepolicy_decode(((char *)curconfig[CookiePolicies].val.v)[a->i]));
+ 		refresh = 0;
+ 		break;
+ 	case DiskCache:
+@@ -1899,8 +1918,16 @@ stop(Client *c, const Arg *a)
+ void
+ toggle(Client *c, const Arg *a)
+ {
+-	curconfig[a->i].val.i ^= 1;
+-	setparameter(c, 1, (ParamName)a->i, &curconfig[a->i].val);
++	int modulus = 2;
++	int refresh = 0;
++	switch (a->i) {
++	case CookiePolicyIx:
++		modulus = strlen(curconfig[CookiePolicies].val.v);
++		refresh = 1;
++		break;
++	}
++	curconfig[a->i].val.i = (curconfig[a->i].val.i + 1) % modulus;
++	setparameter(c, refresh, (ParamName)a->i, &curconfig[a->i].val);
+ }
+ 
+ void
+@@ -1913,15 +1940,6 @@ togglefullscreen(Client *c, const Arg *a)
+ 		gtk_window_fullscreen(GTK_WINDOW(c->win));
+ }
+ 
+-void
+-togglecookiepolicy(Client *c, const Arg *a)
+-{
+-	++cookiepolicy;
+-	cookiepolicy %= strlen(curconfig[CookiePolicies].val.v);
+-
+-	setparameter(c, 0, CookiePolicies, NULL);
+-}
+-
+ void
+ toggleinspector(Client *c, const Arg *a)
+ {
+-- 
+2.25.4
+
+
+From d04d022290eea74b513657c8dc51f407b258941e Mon Sep 17 00:00:00 2001
+From: Dusk Banks <me@bb010g.com>
+Date: Mon, 14 Sep 2020 19:15:45 -0700
+Subject: [PATCH 07/10] Add GCC-friendly UNUSED macro
+
+---
+ common.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/common.h b/common.h
+index 2778029..92bebde 100644
+--- a/common.h
++++ b/common.h
+@@ -1,3 +1,10 @@
++/* Wheee, GCC. https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66425 */
++#if 3 < __GNUC__ + (4 <= __GNUC_MINOR__)
++#define UNUSED(x) (__extension__ ({ __typeof__ (x) __x = (x); (void) __x; }))
++#else
++#define UNUSED(x) ((void) (x))
++#endif
++
+ #define MSGBUFSZ 8
+ 
+ void die(char *, ...);
+-- 
+2.25.4
+
+
+From eaa7f943d5a79b0342f5d6f525e0793f911ebcdc Mon Sep 17 00:00:00 2001
+From: Dusk Banks <me@bb010g.com>
+Date: Mon, 14 Sep 2020 19:19:13 -0700
+Subject: [PATCH 08/10] webext: Use JavaScriptCore API when available.
+
+Every function on WebKitDOMDocument & WebKitDOMDOMWindow was deprecated
+in WebKitGtk 2.22.
+---
+ libsurf-webext.c | 51 ++++++++++++++++++++++++++++++++++++++----------
+ surf.c           |  1 +
+ 2 files changed, 42 insertions(+), 10 deletions(-)
+
+diff --git a/libsurf-webext.c b/libsurf-webext.c
+index 5f88649..162dfa6 100644
+--- a/libsurf-webext.c
++++ b/libsurf-webext.c
+@@ -4,6 +4,7 @@
+ #include <limits.h>
+ #include <stdlib.h>
+ 
++#include <glib-object.h>
+ #include <gio/gio.h>
+ #include <webkit2/webkit-web-extension.h>
+ #include <webkitdom/webkitdom.h>
+@@ -12,6 +13,7 @@
+ #include "common.h"
+ 
+ #define LENGTH(x)   (sizeof(x) / sizeof(x[0]))
++#define SURF_WEBKIT_JSC WEBKIT_MAJOR_VERSION >= 2 && WEBKIT_MINOR_VERSION >= 22
+ 
+ typedef struct Page {
+ 	guint64 id;
+@@ -81,9 +83,19 @@ static gboolean
+ readpipe(GIOChannel *s, GIOCondition c, gpointer unused)
+ {
+ 	static char msg[MSGBUFSZ], msgsz;
++#if SURF_WEBKIT_JSC
++	JSCContext *context;
++	JSCValue *view;
++#else
+ 	WebKitDOMDOMWindow *view;
++#endif
+ 	GError *gerr = NULL;
++#if SURF_WEBKIT_JSC
++	gint32 wh, ww;
++	gint32 sv = 0, sh = 0;
++#else
+ 	glong wh, ww;
++#endif
+ 	Page *p;
+ 
+ 	if (g_io_channel_read_chars(s, msg, LENGTH(msg), NULL, &gerr) !=
+@@ -102,24 +114,43 @@ readpipe(GIOChannel *s, GIOCondition c, gpointer unused)
+ 		if (p->id == msg[1])
+ 			break;
+ 	}
++#if SURF_WEBKIT_JSC
++	if (!p || !(context = webkit_frame_get_js_context(
++	            webkit_web_page_get_main_frame(p->webpage)))
++	        || !(view = jsc_context_get_global_object(context))
++	        || jsc_value_is_undefined(view) || jsc_value_is_null(view))
++#else
+ 	if (!p || !(view = webkit_dom_document_get_default_view(
+ 	            webkit_web_page_get_dom_document(p->webpage))))
++#endif
+ 		return TRUE;
+ 
+ 	switch (msg[2]) {
+-	case 'h':
+-		if (msgsz != 4)
+-			return TRUE;
+-		ww = webkit_dom_dom_window_get_inner_width(view);
+-		webkit_dom_dom_window_scroll_by(view,
+-		                                (ww / 100) * msg[3], 0);
+-		break;
++	case 'h': /* fallthrough */
+ 	case 'v':
+ 		if (msgsz != 4)
+ 			return TRUE;
+-		wh = webkit_dom_dom_window_get_inner_height(view);
+-		webkit_dom_dom_window_scroll_by(view,
+-		                                0, (wh / 100) * msg[3]);
++		if (msg[2] == 'h') {
++#if SURF_WEBKIT_JSC
++			ww = jsc_value_to_int32(jsc_value_object_get_property(view, "innerWidth"));
++#else
++			ww = webkit_dom_dom_window_get_inner_width(view);
++#endif
++			sh = (ww / 100) * msg[3];
++		} else if (msg[2] == 'v') {
++#if SURF_WEBKIT_JSC
++			wh = jsc_value_to_int32(jsc_value_object_get_property(view, "innerHeight"));
++#else
++			wh = webkit_dom_dom_window_get_inner_width(view);
++#endif
++			sv = (wh / 100) * msg[3];
++		}
++#if SURF_WEBKIT_JSC
++		UNUSED(jsc_value_object_invoke_method(view, "scrollBy", G_TYPE_INT, sh,
++		                                G_TYPE_INT, sv, G_TYPE_NONE));
++#else
++		webkit_dom_dom_window_scroll_by(view, sh, sv);
++#endif
+ 		break;
+ 	}
+ 
+diff --git a/surf.c b/surf.c
+index 8a33a4c..80016fd 100644
+--- a/surf.c
++++ b/surf.c
+@@ -1439,6 +1439,7 @@ createwindow(Client *c)
+ 		wmstr = g_path_get_basename(argv0);
+ 		gtk_window_set_wmclass(GTK_WINDOW(w), wmstr, "Surf");
+ 		g_free(wmstr);
++		gtk_window_set_role(GTK_WINDOW(w), "Surf");
+ 
+ 		wmstr = g_strdup_printf("%s[%lu]", "Surf", c->pageid);
+ 		gtk_window_set_role(GTK_WINDOW(w), wmstr);
+-- 
+2.25.4
+
+
