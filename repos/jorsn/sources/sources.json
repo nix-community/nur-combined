@@ -1,0 +1,15 @@
+{
+    "patoline": {
+        "branch": "master",
+        "builtin": false,
+        "description": "Patoline typesetting system",
+        "homepage": "http://patoline.org",
+        "owner": "patoline",
+        "repo": "patoline",
+        "rev": "2120d8af704d462ced9650aaabb837a9687eef05",
+        "sha256": "1isryjyl08h9kh5c0sf4wwv41lair6c0xiyzxigsnf8rw0nh4zd5",
+        "type": "tarball",
+        "url": "https://github.com/patoline/patoline/archive/2120d8af704d462ced9650aaabb837a9687eef05.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}

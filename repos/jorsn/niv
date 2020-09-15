@@ -1,0 +1,5 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -p niv -i sh
+
+cd "$(dirname "$0")"
+niv --sources-file ./sources/sources.json "$@"

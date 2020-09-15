@@ -1,26 +1,25 @@
-{ pkgs }:
+{ lib }: # nixpkgs lib
 
 let
-  inherit (pkgs) lib;
   lib' = lib // libD;
   callLibs = file: import file { lib = lib'; };
 
-  libD = { inherit jorsn; } // {
-    inherit (jorsn.attrsets) setAttrs;
+  libD = { inherit namespaced; } // {
+    inherit (namespaced.attrsets) setAttrs;
 
-    inherit (jorsn.bool) is;
-    inherit (jorsn.functional) compose;
+    inherit (namespaced.bool) is;
+    inherit (namespaced.functions) compose;
 
-    inherit (jorsn.filesystem)
+    inherit (namespaced.filesystem)
       isRegular isDir isHidden isSymlink isNixFile fileName dirName
       dirPaths listDir fileType listNixDirTrees listNixDirTree listNixDirTree';
 
-    inherit (jorsn.lists) cons;
+    inherit (namespaced.lists) cons;
 
-    inherit (jorsn.strings) strip;
+    inherit (namespaced.strings) strip;
   };
 
-  jorsn = {
+  namespaced = {
     attrsets = {
       setAttrs = names: b: lib.genAttrs names (a: b);
     };
@@ -29,7 +28,7 @@ let
       is = a: b: a == b; # apply partially
     };
 
-    functional = {
+    functions = {
       compose = f: g: x: f (g x);
     };
 
@@ -49,4 +48,4 @@ let
       in s: headSafe "" (fromNullOr [] match s);
     };
   };
-in lib'
+in libD

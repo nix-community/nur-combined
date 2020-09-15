@@ -1,0 +1,141 @@
+From 03631a130ea5955a98105e359897f591aade0638 Mon Sep 17 00:00:00 2001
+From: Vincent Laporte <Vincent.Laporte@gmail.com>
+Date: Thu, 17 Oct 2019 06:44:27 +0000
+Subject: [PATCH 1/2] =?UTF-8?q?Port=20to=20imagelib=20=E2=89=A5=2020191011?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+A few high-level functions from the “imagelib” library now
+belong to a new “imagelib-unix” library.
+---
+ drivers/DriverGL/DriverGL.ml       | 2 +-
+ drivers/DriverImage/DriverImage.ml | 2 +-
+ drivers/Pdf/Pdf.ml                 | 2 +-
+ patobook/patobook.txp              | 2 +-
+ patoraw/RawContent.ml              | 2 +-
+ patoraw/dune                       | 2 +-
+ typography/Document.ml             | 2 +-
+ 7 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/DriverGL/DriverGL.ml b/drivers/DriverGL/DriverGL.ml
+index 3ac60f14..1836828c 100644
+--- a/drivers/DriverGL/DriverGL.ml
++++ b/drivers/DriverGL/DriverGL.ml
+@@ -728,7 +728,7 @@ let output' ?(structure:structure={name="";raw_name=[];metadata=[];tags=[];
+         try GlTex.bind_texture ~target:`texture_2d
+               (Hashtbl.find win.imageCache i)
+         with Not_found ->
+-          let image = ImageLib.openfile i.image_file in
++          let image = ImageLib_unix.openfile i.image_file in
+           let w =Image.(image.width) in
+           let h =Image.(image.height) in
+           let raw = Raw.create `ubyte ~len:(4*w*h) in
+diff --git a/drivers/DriverImage/DriverImage.ml b/drivers/DriverImage/DriverImage.ml
+index be86fe30..1cbb7d35 100644
+--- a/drivers/DriverImage/DriverImage.ml
++++ b/drivers/DriverImage/DriverImage.ml
+@@ -85,7 +85,7 @@ let output ?(structure:structure=empty_structure) pages fileName=
+         done;
+         let fname = Filename.concat dirname (filename' fileName page state) in
+         Printf.fprintf stderr "Writing %s\n" fname;
+-        ImageLib.writefile fname image) states) pages;
++        ImageLib_unix.writefile fname image) states) pages;
+     ()
+   in
+ 
+diff --git a/drivers/Pdf/Pdf.ml b/drivers/Pdf/Pdf.ml
+index 302e7f4b..a9dfe5fc 100644
+--- a/drivers/Pdf/Pdf.ml
++++ b/drivers/Pdf/Pdf.ml
+@@ -601,7 +601,7 @@ let output ?(structure:structure=empty_structure) pages fname =
+ 
+             if !pageImages<>[] then (
+               List.iter Image.(fun (obj,_,i)->
+-                let image=ImageLib.openfile i.image_file in
++                let image = ImageLib_unix.openfile i.image_file in
+                 let w=image.width and h=image.height in
+                 let bits_per_component =
+                   if image.max_val <= 255 then 8 else 16 in
+diff --git a/patobook/patobook.txp b/patobook/patobook.txp
+index 0c79822e..842e59a2 100644
+--- a/patobook/patobook.txp
++++ b/patobook/patobook.txp
+@@ -43,7 +43,7 @@ Pierre-Etienne Meunier
+     bB (fun env0->
+       let w4,h4=Util.a4 in
+       let img="titlepato.png" in
+-      let wesci,hesci = ImageLib.size img in
++      let wesci, hesci = ImageLib_unix.size img in
+       let wesc = float_of_int wesci and hesc = float_of_int hesci in
+       let alpha=0.2 in
+ 
+diff --git a/patoraw/RawContent.ml b/patoraw/RawContent.ml
+index b60f3ae3..d67138fe 100644
+--- a/patoraw/RawContent.ml
++++ b/patoraw/RawContent.ml
+@@ -48,7 +48,7 @@ type image =
+   ; image_pixel_height : int }
+ 
+ let image filename =
+-  let (w,h) = ImageLib.size filename in
++  let (w,h) = ImageLib_unix.size filename in
+   { image_file   = filename
+   ; image_x      = 0.0
+   ; image_y      = 0.0
+diff --git a/patoraw/dune b/patoraw/dune
+index 6e142a0a..c7ea2537 100644
+--- a/patoraw/dune
++++ b/patoraw/dune
+@@ -2,4 +2,4 @@
+   (name patoraw)
+   (public_name patoline.patoraw)
+   (modules :standard)
+-  (libraries dynlink imagelib patutil patfonts))
++  (libraries dynlink imagelib-unix patutil patfonts))
+diff --git a/typography/Document.ml b/typography/Document.ml
+index f2bf3472..0577c359 100644
+--- a/typography/Document.ml
++++ b/typography/Document.ml
+@@ -1167,7 +1167,7 @@ let video ?scale:(scale=0.) ?width:(width=0.) ?height:(height=0.) ?offset:(offse
+       let _=Sys.command (Printf.sprintf "ffmpeg -i %s -t 1 -r 1 %s-%%d.png" imageFile tmp) in
+       ()
+     );
+-  let w,h = ImageLib.size (tmp^"-1.png") in
++  let w,h = ImageLib_unix.size (tmp^"-1.png") in
+   let fw,fh=
+     if width=0. then
+       if height=0. then
+-- 
+2.25.4
+
+
+From 7882b0b09900bb2971ceac0d84c93e269780318f Mon Sep 17 00:00:00 2001
+From: Johannes Rosenberger <johannes@jorsn.eu>
+Date: Thu, 10 Sep 2020 11:43:12 +0200
+Subject: [PATCH 2/2] =?UTF-8?q?update=20dependencies=20for=20imagelib=20?=
+ =?UTF-8?q?=E2=89=A5=2020191011?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ patoline.opam | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/patoline.opam b/patoline.opam
+index cea414f1..ca36a72c 100644
+--- a/patoline.opam
++++ b/patoline.opam
+@@ -31,7 +31,7 @@ depends: [
+   "earley"  { >= "2.0.0"  }
+   "camlzip"
+   "sqlite3"
+-  "imagelib" { = "20180522" }
++  "imagelib" { >= "20191011" }
+ ]
+ 
+ depopts: [
+-- 
+2.25.4
+

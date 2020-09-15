@@ -9,13 +9,31 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-  inherit (pkgs) callPackage;
+  pkgs' = pkgs.extend (self: super: {
+    config = (super.config or {}) // {
+      sources = (super.config.sources or {}) // import ./sources;
+    };
+  });
+
+  haskell = pkgs: import ./pkgs/haskell { inherit (pkgs) lib haskell; };
+  ocaml-ng = import ./pkgs/ocaml { inherit (pkgs') lib ocaml-ng; };
+  pkgsh = pkgs'.extend (_: pkgs: { haskell = haskell pkgs; });
+
+  inherit (pkgs') callPackage;
 in {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = import ./lib { inherit (pkgs') lib; }; # functions
   modules = import ./modules/nixos; # NixOS modules
   hmModules = import ./modules/home-manager;
   overlays = import ./overlays; # nixpkgs overlays
+
+  haskell = haskell pkgs';
+  inherit (pkgsh.haskellPackages) bibi;
+
+  inherit ocaml-ng;
+  inherit (ocaml-ng.ocamlPackages_4_07) patoline;
+
+  shellFileBin =  callPackage ./pkgs/build-support/shellFileBin {};
 
   zsh-prompt-gentoo = callPackage ./pkgs/zsh-prompt-gentoo {};
 }
