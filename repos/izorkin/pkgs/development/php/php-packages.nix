@@ -61,12 +61,12 @@ let
   };
 
   ast = buildPecl {
-    version = "1.0.9";
+    version = "1.0.10";
     pname = "ast";
 
-    sha256 = "0ayjf9s0px5558i8xrdsp7j94jcr4gprziz8krh4ksr8h9wkzsg6";
+    sha256 = "13s5r1szd80g1mqickghdd38mvjkwss221322mmbrykcfgp4fs30";
 
-    meta.broken = isPhp56;
+    meta.broken = (isPhp56 || isPhp80);
   };
 
   box = mkDerivation rec {
@@ -689,12 +689,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.15";
+    version = "3.16";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "00a11slg1fxbnzk0j14c6gsp9d27f074lya8p1hhnik3ql23bxla";
+      sha256 = "0gkz6mpbxgg8rsqw2s4nr0s7dkaf018r1dkf5m55ikcwmy4grqqq";
     };
 
     phases = [ "installPhase" ];
