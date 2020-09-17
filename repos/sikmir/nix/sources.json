@@ -219,6 +219,20 @@
         "url": "https://github.com/glauth/glauth/archive/a92f9a7028fdf68952ffbed4958167b928dbc483.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "gloggery": {
+        "branch": "main",
+        "builtin": false,
+        "date": "2020-08-26T01:08:55Z",
+        "description": "Gemtext blog static site generator",
+        "homepage": "https://github.com/kconner/gloggery",
+        "owner": "kconner",
+        "repo": "gloggery",
+        "rev": "72e142f98d02f015d38dc92346376ce5b0aee2d8",
+        "sha256": "05h431xw6fw9yn148vvyhr6dfssrz96lzl6q2sjbhq5h6yy0czyi",
+        "type": "tarball",
+        "url": "https://github.com/kconner/gloggery/archive/72e142f98d02f015d38dc92346376ce5b0aee2d8.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "go-staticmaps": {
         "branch": "master",
         "builtin": false,

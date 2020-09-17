@@ -126,6 +126,7 @@ lib.makeScope newScope (
     fx-bin = callPackage ./tools/text/fx/bin.nix { };
     garmin-uploader = callPackage ./tools/misc/garmin-uploader { };
     gimgtools = callPackage ./tools/geo/gimgtools { };
+    gloggery = callPackage ./tools/misc/gloggery { };
     gmaptool = callPackage ./tools/geo/gmaptool { };
     go-staticmaps = callPackage ./tools/geo/go-staticmaps { };
     gpx-layer = perlPackages.callPackage ./tools/geo/gpx-layer {
