@@ -19,6 +19,7 @@ in
 
   st = pkgs.callPackage ./pkgs/st { };
   dwm = pkgs.callPackage ./pkgs/dwm { };
+  pndwm = pkgs.callPackage ./pkgs/dwm/pndwm.nix { };
   dwmblocks = pkgs.callPackage ./pkgs/dwmblocks { };
   dmenu = pkgs.callPackage ./pkgs/dmenu { };
   xwallpaper = pkgs.callPackage ./pkgs/xwallpaper { };

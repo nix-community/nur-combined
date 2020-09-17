@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, libX11, libXinerama, libXft }:
+{ stdenv, fetchgit, libX11, libXinerama, libXft, patches ? [] }:
 
 with stdenv.lib;
 
@@ -15,11 +15,7 @@ stdenv.mkDerivation rec {
 
   prePatch = ''sed -i "s@/usr/local@$out@" config.mk'';
 
-  patches = [
-    ./dwm-systray.diff
-    ./dwm-center.diff
-    ./dwm-apps.diff
-  ];
+  inherit patches;
 
   buildPhase = " make ";
 
