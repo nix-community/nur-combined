@@ -13,6 +13,9 @@
 , # Emacs config
   config
 
+, # Load emacs with -Q
+  quick ? false
+
 , # POSIX-compatible files to source before Emacs.app starts
   sourceFiles ? []
 }:
@@ -27,6 +30,9 @@ let
     else if builtins.isString config
       then writeText "init.el" config
     else builtins.throw ("config cannot be of type " + builtins.typeOf config);
+  flags = if quick
+          then "-Q --load ${configFile}"
+          else "-q --load ${configFile}";
 in runCommand "emacs-with-config" {
   nativeBuildInputs = [ makeWrapper emacs ];
 } ''
@@ -38,7 +44,7 @@ for prog in ${emacs}/bin/{emacs,emacs-*}; do
   local progname=$(basename "$prog")
   rm -f "$out/bin/$progname"
   makeWrapper "$prog" "$out/bin/$progname" \
-    --add-flags "-q --load ${configFile}"
+    --add-flags "${flags}"
 done
 
 # Wrap the MacOS Application, if it exists
@@ -50,7 +56,7 @@ if [ -d "${emacs}/Applications/Emacs.app" ]; then
         $out/Applications/Emacs.app/Contents
   makeWrapper "${emacs}/Applications/Emacs.app/Contents/MacOS/Emacs" \
               "$out/Applications/Emacs.app/Contents/MacOS/Emacs" \
-    --add-flags "-q --load ${configFile}" \
+    --add-flags "${flags}" \
     ${builtins.concatStringsSep " "
        (map (str: ''--run "source '' + str + ''"'') sourceFiles)}
 fi
