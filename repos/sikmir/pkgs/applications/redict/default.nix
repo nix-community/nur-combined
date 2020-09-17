@@ -30,6 +30,7 @@ mkDerivation {
   postPatch = ''
     substituteInPlace redict.pro \
       --replace "unix " "unix:!mac "
+    sed -i '1i#include <QPainterPath>' src/widgets/spinner.cpp
   '';
 
   preConfigure = lib.optionalString withI18n ''

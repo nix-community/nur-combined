@@ -1,0 +1,12 @@
+diff --git i/gpxtrackposter/cli.py w/gpxtrackposter/cli.py
+index 3de36cf..7ff0818 100755
+--- i/gpxtrackposter/cli.py
++++ w/gpxtrackposter/cli.py
+@@ -62,6 +62,7 @@ def main() -> None:
+         "--localedir",
+         metavar="DIR",
+         type=str,
++        default="@out@/share/locale",
+         help="The directory where the translation files can be found (default: the system's locale directory).",
+     )
+     args_parser.add_argument(

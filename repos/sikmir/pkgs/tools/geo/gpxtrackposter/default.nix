@@ -8,14 +8,33 @@ python3Packages.buildPythonApplication {
   inherit pname version;
   src = sources.gpxtrackposter;
 
+  patches = [ ./fix-localedir.patch ];
+
   postPatch = ''
     substituteInPlace gpxtrackposter/poster.py \
-      --replace "ATHLETE" ""
+      --replace "self.translate(\"ATHLETE\")" "\"\""
+    substituteInPlace gpxtrackposter/cli.py \
+      --subst-var out
   '';
 
-  propagatedBuildInputs = with python3Packages; [ appdirs gpxpy svgwrite colour s2sphere ];
+  propagatedBuildInputs = with python3Packages; [
+    appdirs
+    dateutil
+    gpxpy
+    svgwrite
+    colour
+    s2sphere
+    pint
+    pytz
+    setuptools
+    timezonefinder
+  ];
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
+
+  postInstall = ''
+    rm -fr $out/requirements*.txt
+  '';
 
   meta = with lib; {
     inherit (sources.gpxtrackposter) description homepage;
