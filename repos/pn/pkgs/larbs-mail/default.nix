@@ -6,6 +6,7 @@ let
 
   mutt-wizard = callPackage ./mutt-wizard.nix { };
   neomutt = callPackage ./neomutt_wrapped.nix { };
+  mailbox = callPackage ./mailbox-script.nix { };
   icon = ./icon.png;
 
   desktopItem = makeDesktopItem {
@@ -31,6 +32,7 @@ buildEnv {
     notmuch
     libnotify
     mutt-wizard
+    mailbox
   ];
 
   postBuild = ''
