@@ -19,6 +19,5 @@
   # ...
   k380-function-keys-conf = pkgs.callPackage ./pkgs/k380-function-keys-conf { };
   knobkraft-orm = pkgs.callPackage ./pkgs/knobkraft-orm { };
-  munt-jack = pkgs.libsForQt5.callPackage ./pkgs/munt-jack { };
 }
 
