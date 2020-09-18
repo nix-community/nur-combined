@@ -18,14 +18,7 @@
         "armv7l-linux"
       ];
 
-      # forAllSystems = nixpkgs.lib.genAttrs systems;
-
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
-
-      # forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f {
-      #   inherit system;
-      #   # pkgs = pkgsForSystem system;
-      # });
 
       pkgsFor = system: import nixpkgs {
         inherit system;
@@ -41,16 +34,12 @@
       # Overlays
       overlay = import ./pkgs;
 
-      # # Packages
-      # packages =
-      #   forAllSystems (system: import ./pkgs {
-      #     sources = import ./nix/sources.nix;
-      #     pkgs = pkgsFor system;
-      #   });
-
-      # packages = forAllSystems (system: import ./pkgs { });
-
-      legacyPackages = forAllSystems (system: import ./. { inherit system; });
+      # Packages
+      # FIXME only works locally
+      packages = forAllSystems (system: import ./pkgs {
+        sources = import nix/sources.nix;
+        pkgs = pkgsFor system;
+      });
 
       # Home-manager modules
       hmModules = import ./hm-modules;
