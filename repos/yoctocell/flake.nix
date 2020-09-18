@@ -20,6 +20,9 @@
 
       forAllSystems = nixpkgs.lib.genAttrs systems;
 
+      pkgsFor = system: import nixpkgs {
+        inherit system;
+      };
     in
     {
       # Functions
@@ -32,7 +35,11 @@
       overlay = import ./pkgs;
 
       # Packages
-      pkgs = import ./pkgs;
+      legacyPackages =
+        forAllSystems (system: import ./pkgs {
+          sources = import ./nix/sources.nix;
+          pkgs = pkgsFor system;
+        });
 
       # Home-manager modules
       hmModules = import ./hm-modules;
