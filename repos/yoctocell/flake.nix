@@ -1,7 +1,11 @@
 {
   description = "Yoctocell's NUR packages";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs =
+    {
+      nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    };
+
 
   outputs = { self, nixpkgs }:
     let
@@ -16,12 +20,16 @@
 
       forAllSystems = nixpkgs.lib.genAttrs systems;
 
-    in {
+    in
+    {
       # Functions
       lib = import ./lib { inherit nixpkgs; };
 
       # NixOS modules
       modules = import ./modules;
+
+      # Overlays
+      overlay = import ./pkgs;
 
       # Packages
       pkgs = import ./pkgs;

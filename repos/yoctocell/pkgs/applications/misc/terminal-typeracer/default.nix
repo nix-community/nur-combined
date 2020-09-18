@@ -9,7 +9,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "terminal-typeracer";
-  version = "0249e6279e85c9040e800422539bf6d166c3664f";
+  version = builtins.substring 7 0 src.rev;
 
   src = fetchFromGitLab {
     owner = "ttyperacer";

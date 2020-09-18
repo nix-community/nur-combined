@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
   dontBuild = true;
 
   installPhase = ''
-  install -Dm755 -t $out/bin pash
+    install -Dm755 -t $out/bin pash
   '';
-  
+
   meta = with stdenv.lib; {
     inherit (sources.pash) description homepage;
     license = licenses.mit;

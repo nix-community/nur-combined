@@ -1,9 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, sources
-, bash
-, transmission
-}:
+{ stdenv, fetchFromGitHub, sources, bash, transmission }:
 
 stdenv.mkDerivation {
   pname = "torque";

@@ -7,4 +7,3 @@ mkShell {
     zsh
   '';
 }
-

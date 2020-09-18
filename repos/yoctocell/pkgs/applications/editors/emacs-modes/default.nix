@@ -1,0 +1,44 @@
+{ sources, lib, writeText, fetchFromGitHub, emacsPackages, libffi, libtool, ... }:
+let
+  inherit (emacsPackages) trivialBuild emacs;
+in
+lib.recurseIntoAttrs rec {
+
+  org-pretty-table = trivialBuild rec {
+    pname = "org-pretty-table";
+    version = builtins.substring 0 7 src.rev;
+    src = fetchFromGitHub {
+      owner = "Fuco1";
+      repo = "org-pretty-table";
+      rev = sources.org-pretty-table.rev;
+      sha256 = sources.org-pretty-table.sha256;
+    };
+    buildInputs = with emacsPackages; [
+      org
+    ];
+  };
+
+  matrix-client = trivialBuild rec {
+    pname = "matrix-client";
+    version = builtins.substring 0 7 src.rev;
+    src = fetchFromGitHub {
+      owner = "alphapapa";
+      repo = "matrix-client.el";
+      rev = sources.matrix-client.rev;
+      sha256 = sources.matrix-client.sha256;
+    };
+    buildInputs = with emacsPackages; [
+      ov
+      tracking
+      dash
+      anaphora
+      f
+      a
+      request
+      esxml
+      ht
+      rainbow-identifiers
+      frame-purpose
+    ];
+  };
+}

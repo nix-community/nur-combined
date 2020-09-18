@@ -14,7 +14,7 @@ stdenv.mkDerivation {
     rev = sources.gralc.rev;
     sha256 = sources.gralc.sha256;
   };
-  
+
   buildInputs = with pythonPackages; [ python ];
 
   dontBuild = true;
