@@ -6,27 +6,26 @@
 , maturin
 , pip
   # Check inputs
-, pytest
+, pytestCheckHook
 , numpy
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "retworkx";
-  version = "0.4.0";
+  version = "0.5.0";
 
   # TODO: remove when 20.09 released, needed to build on CI.
   cargoSha256 = if
     lib.versionOlder lib.trivial.release "20.09"
-    then "17zx3zl8aq9ga5xzgg6llszha4hchcwafg5nfgw0pzqn4pasvj8d"
-    else "0axj6gxfc61nlbp9wzbragkhrxckbr1mjsny3ll8w0fl9j5p49fi";
-  cargoPatches = [ ./cargo-lock.patch ];  # TODO: remove on next retworkx release, PR'd in PR#104
+    then "0ymb1w74j6bss9sgn5nmm63lj0p1j6zwhdp4f81c7fd3l80jg036"
+    else "12ab7z4mbn71ffqkifkbphg0ga9j8zic5pz9160z7xf1xvd6831d";
   legacyCargoFetcher = true;  # TODO: Remove on next nixos release. Cargo SHA mismatch b/w unstable & release.
 
   src = fetchFromGitHub {
     owner = "Qiskit";
     repo = "retworkx";
     rev = version;
-    sha256 = "1xqp6d39apkjvd0ad9vw81cp2iqzhpagfa4p171xqm3bwfn2imdc";
+    sha256 = "0gk3cl3vpmkhngi1s1ki5akvqqixd926c902s7x8w73hc5lwdwq7";
   };
 
   propagatedBuildInputs = [ python ];
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
   doInstallCheck = true;
 
-  installCheckInputs = [ pytest numpy ];
+  installCheckInputs = [ pytestCheckHook numpy ];
 
   buildPhase = ''
     runHook preBuild
@@ -50,10 +49,13 @@ rustPlatform.buildRustPackage rec {
     pipInstallPhase
   '';
 
-  # Called checkPhase for compatibility, but must be run after install (as installCheckPhase)
-  installCheckPhase = ''
-    pytest --import-mode=append
+  preCheck = ''
+    export TESTDIR=$(mktemp -d)
+    cp -r tests/ $TESTDIR
+    pushd $TESTDIR
   '';
+  postCheck = "popd";
+
 
   meta = with lib; {
     description = "A python graph library implemented in Rust.";
