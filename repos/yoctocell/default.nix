@@ -7,7 +7,8 @@
 #     nix-build -A mypackage
 
 { sources ? import ./nix/sources.nix
-, pkgs ? import sources.nixpkgs {}
+, system ? builtins.currentSystem
+, pkgs ? import sources.nixpkgs { inherit system; }
 }:
 
 {
@@ -19,4 +20,3 @@
   pkgs = import ./pkgs { inherit sources pkgs; }; # packages
 
 }
-

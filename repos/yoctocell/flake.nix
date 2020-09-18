@@ -48,10 +48,9 @@
       #     pkgs = pkgsFor system;
       #   });
 
-      packages = forAllSystems (system: import ./pkgs {
-        sources = import ./nix/sources.nix;
-        pkgs = pkgsFor system;
-      });
+      # packages = forAllSystems (system: import ./pkgs { });
+
+      legacyPackages = forAllSystems (system: import ./. { inherit system; });
 
       # Home-manager modules
       hmModules = import ./hm-modules;

@@ -1,5 +1,4 @@
 { sources ? import ./nix/sources.nix
-, lockFile ? builtins.fromJSON (builtins.readFile ../flake.lock)
 , pkgs ? import sources.nixpkgs { }
 }:
 {
