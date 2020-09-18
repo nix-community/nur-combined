@@ -27,7 +27,7 @@ lib.recurseIntoAttrs rec {
       rev = sources.matrix-client.rev;
       sha256 = sources.matrix-client.sha256;
     };
-    buildInputs = with emacsPackages; [
+    packageRequires = with emacsPackages; [
       ov
       tracking
       dash
