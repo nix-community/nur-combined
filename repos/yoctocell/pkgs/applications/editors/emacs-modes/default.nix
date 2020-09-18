@@ -13,7 +13,7 @@ lib.recurseIntoAttrs rec {
       rev = sources.org-pretty-table.rev;
       sha256 = sources.org-pretty-table.sha256;
     };
-    buildInputs = with emacsPackages; [
+    packageRequires = with emacsPackages; [
       org
     ];
   };

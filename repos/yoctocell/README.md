@@ -14,6 +14,7 @@ Yoctocell's [NUR](https://github.com/nix-community/NUR) packages.
 - tremc
 
 ## Emacs packages
+- matrix-client
 - org-pretty-table
 
 # Modules
