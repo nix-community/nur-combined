@@ -21,13 +21,7 @@ rec {
 
   solaredge-influx = pkgs.python3Packages.callPackage ./pkgs/solaredge-influx {};
 
-  # TODO: pyyaml_3 has been removed from nixpkgs, check if there is an
-  # update for salt.
-  # salt-py3 = pkgs.callPackage ./pkgs/salt-py3 {};
-
-  # salt-lint = pkgs.callPackage ./pkgs/salt-lint {
-  #   salt = salt-py3;
-  # };
+  salt-lint = pkgs.callPackage ./pkgs/salt-lint {};
 
   prometheus-unbound-exporter = pkgs.callPackage ./pkgs/prometheus-unbound-exporter {};
 
@@ -45,7 +39,8 @@ rec {
 
   oversteer = pkgs.callPackage ./pkgs/oversteer {};
 
-  nats-utils = pkgs.callPackage ./pkgs/nats-utils {};
+  # broken
+  # nats-utils = pkgs.callPackage ./pkgs/nats-utils {};
 
   lock-gnome-keyring = pkgs.callPackage ./pkgs/lock-gnome-keyring {};
 

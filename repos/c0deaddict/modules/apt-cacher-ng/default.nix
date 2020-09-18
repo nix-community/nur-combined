@@ -51,18 +51,17 @@ let
 
   testString = re: x: builtins.match re x != null;
 
-  shell.escape = let isSafeChar = testString "[-+./0-9:=A-Z_a-z]";
-  in x:
-  if x == "" then
-    "''"
-  else
-    stringAsChars (c:
-      if isSafeChar c then
-        c
-      else if c == "\n" then ''
-        '
-        ''' else
-        "\\${c}") x;
+  shell.escape =
+    let
+      isSafeChar = testString "[-+./0-9:=A-Z_a-z]";
+    in
+      x:
+        if x == "" then "''"
+        else stringAsChars (c:
+          if isSafeChar c then c
+          else if c == "\n" then "'\n'"
+          else "\\${c}"
+        ) x;
 
   acng-home = "/var/cache/acng";
   cfg = config.services.apt-cacher-ng;

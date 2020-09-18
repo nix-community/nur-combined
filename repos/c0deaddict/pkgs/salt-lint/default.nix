@@ -2,11 +2,11 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "salt-lint";
-  version = "0.2.0";
+  version = "0.4.1";
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "1c1qlkcx78w7pdis7qi7hldiy9lzasyy9f29zgrgd1fmdpqi3078";
+    sha256 = "1h5wyn74glyiz377qwcg1y75l6mkh24bxjld4svifmx1v952fj2a";
   };
 
   buildInputs = with python3Packages; [ setuptools ];
