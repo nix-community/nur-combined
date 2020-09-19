@@ -18,5 +18,6 @@
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   clash-premium = pkgs.callPackage ./pkgs/clash-premium { };
+  godns = pkgs.callPackage ./pkgs/godns { };
 }
 
