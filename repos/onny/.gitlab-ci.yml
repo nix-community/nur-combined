@@ -7,7 +7,7 @@ before_script:
   - nix-channel --add https://nixos.org/channels/nixos-20.03 nixos
   - nix-channel --update
 
-compile:
+build:
   stage: build
   script:
   - nix-build
