@@ -17,16 +17,6 @@
   # applications/audio
   ocenaudio = pkgs.callPackage ./pkgs/applications/audio/ocenaudio { }; # FIXME
   
-  # applications/audio
-  popcorntime = pkgs.callPackage ./pkgs/applications/video/popcorntime { }; # FIXME
-
-  librewolf-bin = pkgs.callPackage ./pkgs/librewolf-bin { };
-  # applications/misc
-  passwordsafe = pkgs.callPackage ./pkgs/applications/misc/passwordsafe { };
-
-  # applications/networking/p2p
-  fragments = pkgs.callPackage ./pkgs/applications/networking/p2p/fragments { };
-
   # applications/office
   foliate = pkgs.callPackage ./pkgs/applications/office/foliate { };
   onlyoffice-desktopeditors = pkgs.callPackage ./pkgs/applications/office/onlyoffice-desktopeditors { };
@@ -34,11 +24,8 @@
   # services/security
   inherit (pkgs.callPackage ./pkgs/services/security/opensnitch {}) opensnitchd opensnitch-ui;
 
-  # tools/misc
-  smloadr = pkgs.callPackage ./pkgs/tools/misc/smloadr { };
-
   # tools/security
-  appvm = pkgs.callPackage ./pkgs/tools/security/appvm { }; # FIXME
+  # appvm = pkgs.callPackage ./pkgs/tools/security/appvm { }; # FIXME
 
   # node-packages
   inherit (pkgs.callPackages ./pkgs/node-packages {}) hyperpotamus;
@@ -46,6 +33,12 @@
   iwd-autocaptiveauth = pkgs.callPackage ./pkgs/iwd-autocaptiveauth { }; # FIXME
   snipping_tool = pkgs.callPackage ./pkgs/snipping_tool { };
   xerox6000-6010 = pkgs.callPackage ./pkgs/xerox6000-6010 { };
+  libtransmission = pkgs.callPackage ./pkgs/libtransmission { };
+  #fragments = pkgs.callPackage ./pkgs/fragments { };
+  passwordsafe = pkgs.callPackage ./pkgs/passwordsafe { };
+  smloadr = pkgs.callPackage ./pkgs/smloadr { };
+  #popcorntime = pkgs.callPackage ./pkgs/popcorntime { }; # FIXME
+  librewolf-bin = pkgs.callPackage ./pkgs/librewolf-bin { };
 
 }
 

@@ -61,12 +61,14 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux/meson/postinstall.py
   '';
 
-  # Kludge so gjs can find resources by using the unwrapped name
-  # Improvements/alternatives welcome, but this seems to work for now :/.
-  # See: https://github.com/NixOS/nixpkgs/issues/31168#issuecomment-341793501
-  postInstall = ''
+  dontWrapGApps = true;
+
+  # Fixes https://github.com/NixOS/nixpkgs/issues/31168
+  # postInstall = ''
+  postFixup = ''
     sed -e $'2iimports.package._findEffectiveEntryPointName = () => \'com.github.johnfactotum.Foliate\' ' \
       -i $out/bin/com.github.johnfactotum.Foliate
+    wrapGApp $out/bin/com.github.johnfactotum.Foliate
   '';
 
   meta = with stdenv.lib; {

@@ -1,14 +1,14 @@
-{ stdenv, fetchgit, meson, ninja, cmake, desktop-file-utils, automake, autoconf, libtool, libevent, openssl, zlib, pkgconfig, libgee, curl, vala, glib, python3, gtk3, libhandy, hicolor-icon-theme, wrapGAppsHook }:
+{ stdenv, fetchgit, meson, ninja, cmake, desktop-file-utils, automake, autoconf, libtool, libevent, openssl, zlib, pkgconfig, libgee, curl, vala, glib, python3, gtk3, libhandy, hicolor-icon-theme, libtransmission, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "fragments";
-  version = "1.4";
+  version = "1.5";
 
   src = fetchgit {
     url = "https://gitlab.gnome.org/World/Fragments";
     rev = version;
     fetchSubmodules = true;
-    sha256 = "1zmdm4rfvmsx03gcxaxv7j8chayi0h375ksb4mn3qzzqdi06qc7v";
+    sha256 = "0x1kafhlgyi65l4w67c24r8mpvasg3q3c4wlgnjc9sxvp6ki7xbn";
   };
 
   nativeBuildInputs = [
@@ -35,6 +35,7 @@ stdenv.mkDerivation rec {
     libhandy
     openssl
     zlib
+    libtransmission
   ];
 
   patches = [ ./find_library.patch ];

@@ -1,0 +1,17 @@
+image: nixos/nix
+
+stages:
+  - build
+
+before_script:
+  - nix-channel --add https://nixos.org/channels/nixos-20.03 nixos
+  - nix-channel --update
+
+compile:
+  stage: build
+  script:
+  - nix-build
+  - cp result/* .
+  - rm result
+  artifacts:
+    untracked: true
