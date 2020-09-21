@@ -5,6 +5,7 @@ let
       ./dwm-systray.diff
       ./dwm-center.diff
       ./dwm-apps.diff
+      ./dwm-autostart.diff
     ];
   };
 in
