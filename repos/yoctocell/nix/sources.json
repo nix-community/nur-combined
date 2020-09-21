@@ -1,4 +1,16 @@
 {
+    "bottom": {
+        "branch": "master",
+        "description": "Yet another cross-platform graphical process/system monitor.",
+        "homepage": "",
+        "owner": "ClementTsang",
+        "repo": "bottom",
+        "rev": "b0b174eb9843e9af55f5c3f2d37cae96f1744a6b",
+        "sha256": "0g52ggrf0898l6z8g13if8c5w3agl7svyl9s7mhsr1ywkpxcipjy",
+        "type": "tarball",
+        "url": "https://github.com/ClementTsang/bottom/archive/b0b174eb9843e9af55f5c3f2d37cae96f1744a6b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "dired-hacks": {
         "branch": "master",
         "description": "Collection of useful dired additions",
@@ -47,6 +59,18 @@
         "url": "https://github.com/alphapapa/matrix-client.el/archive/59c792423fd0503f1375f356bec56130e65d3b51.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "naersk": {
+        "branch": "master",
+        "description": "Build rust crates in Nix. No configuration, no code generation, no IFD. Sandbox friendly.",
+        "homepage": "",
+        "owner": "nmattia",
+        "repo": "naersk",
+        "rev": "529e910a3f423a8211f8739290014b754b2555b6",
+        "sha256": "0bcy9nmyaan5jvp0wg80wkizc9j166ns685rdr1kbhkvdpywv46y",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/naersk/archive/529e910a3f423a8211f8739290014b754b2555b6.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",
@@ -69,6 +93,18 @@
         "sha256": "1vx7kyaq0i287dragjgfdj94ggwr3ky2b7bq32l8rkd2k3vc3gl5",
         "type": "tarball",
         "url": "https://github.com/NixOS/nixpkgs/archive/3c0e3697520cbe7d9eb3a64bfd87de840bf4aa77.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nyxt": {
+        "branch": "master",
+        "description": "Nyxt - Be productive.",
+        "homepage": "https://nyxt.atlas.engineer",
+        "owner": "atlas-engineer",
+        "repo": "nyxt",
+        "rev": "93033a03752abc2b4ace7b92b249d9bff55cd066",
+        "sha256": "1f4y1s0pwdm4kwhq5n98jc3427fsi2m1cz0b8bndlq7fbl9sx1k7",
+        "type": "tarball",
+        "url": "https://github.com/atlas-engineer/nyxt/archive/93033a03752abc2b4ace7b92b249d9bff55cd066.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "org-pretty-table": {
