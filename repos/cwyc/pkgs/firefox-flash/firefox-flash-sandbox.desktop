@@ -1,0 +1,10 @@
+Desktop Entry]
+Type=Application
+Exec=firefox-flash-sandbox
+Terminal=false
+Name=Firefox (Flash)
+Categories=Application;Network;WebBrowser;
+Icon=firefox
+Comment=
+GenericName=Web Browser
+MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp
