@@ -1,0 +1,53 @@
+diff --git i/src/app.pri w/src/app.pri
+index 83ef422..3658b52 100644
+--- i/src/app.pri
++++ w/src/app.pri
+@@ -27,7 +27,7 @@ USE_LOCAL_OGDF{
+ }
+ 
+ USE_EXTERNAL_OGDF{
+-	LIBS += -l$$OGDF_LIB_NAME -L$$OGDF_LIB_PATH
++	LIBS += $$OGDF_LIB_PATH/libOGDF.a $$OGDF_LIB_PATH/libCOIN.a
+ 	INCLUDEPATH += $$OGDF_INCLUDE_PATH
+ }
+ 
+diff --git i/src/config.pri w/src/config.pri
+index 64e585f..d506d84 100644
+--- i/src/config.pri
++++ w/src/config.pri
+@@ -5,9 +5,9 @@
+ #
+ # It can be used freely, maintaining the information above.
+ 
+-CONFIG += BUILD_OGDF
++#CONFIG += BUILD_OGDF
+ #CONFIG += USE_LOCAL_OGDF
+-#CONFIG += USE_EXTERNAL_OGDF
++CONFIG += USE_EXTERNAL_OGDF
+ 
+ BUILD_OGDF{
+ 	CONFIG += USE_LOCAL_OGDF
+@@ -31,8 +31,8 @@ USE_EXTERNAL_OGDF{
+ 	
+ 	# system-specific OGDF setup
+ 	OGDF_LIB_NAME = ogdf
+-	OGDF_LIB_PATH =
+-	OGDF_INCLUDE_PATH = /usr/share/ogdf/include
++	OGDF_LIB_PATH = @ogdf@/lib
++	OGDF_INCLUDE_PATH = @ogdf@/include
+ }
+ 
+ USE_OGDF{
+diff --git i/src/qvgeapp/qvgeapp.pro w/src/qvgeapp/qvgeapp.pro
+index 86135f6..dbce621 100644
+--- i/src/qvgeapp/qvgeapp.pro
++++ w/src/qvgeapp/qvgeapp.pro
+@@ -55,7 +55,7 @@ unix{
+     desktop.files = $$PWD/linux/qvge.desktop
+     INSTALLS += desktop
+ 
+-    icon.path = $PREFIX_DIR/share/pixmaps
++    icon.path = $$PREFIX_DIR/share/pixmaps
+     icon.files = $$PWD/linux/qvge.png
+     INSTALLS += icon
+ 

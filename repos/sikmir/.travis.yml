@@ -1,5 +1,5 @@
 language: nix
-nix: 2.3.6
+nix: 2.3.7
 
 env:
   global:
@@ -12,7 +12,7 @@ jobs:
       os: linux
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
       os: linux
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.09
       os: linux
     - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
       os: osx
