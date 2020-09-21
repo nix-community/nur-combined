@@ -26,6 +26,7 @@ in
   libthinkpad = pkgs.callPackage ./pkgs/libthinkpad { };
   dockd = pkgs.callPackage ./pkgs/dockd { };
   larbs-mail = pkgs.callPackage ./pkgs/larbs-mail { };
+  dmenuunicode = pkgs.callPackage ./pkgs/dmenuunicode { };
 
   #fx = (pkgs.callPackage ./pkgs/fx { }).package;
   # xcb-util = pkgs.callPackage ./pkgs/xcb-util { }; #unknown error
