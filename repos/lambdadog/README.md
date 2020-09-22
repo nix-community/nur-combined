@@ -2,7 +2,34 @@
 
 My personal nix helpers. Also a NUR repository.
 
-## `user-environment`
+See my [nix-config](https://github.com/lambdadog/nix-config)
+repository for my personal usage.
+
+## Usage
+
+Can be accessed at `nur.repos.lambdadog` in the
+[NUR](https://github.com/nix-community/NUR), or used as an overlay
+with something along the lines of:
+
+```nix
+import <nixpkgs> {
+  overlays = [
+    ((import <nixpkgs> {}).callPackage (fetchTarball {
+      url = "https://github.com/lambdadog/nix-extra/archive/master.tar.gz";
+    }) {}).overlay
+  ];
+}
+```
+
+Note that since we're pulling from master and not using an integrity
+hash (like `sha256`), this breaks reproducibility and every build
+longer than an hour separated (by default, can be configured with
+`tarball-ttl`) will fetch the tarball anew. I personally recommend you
+grab a specific revision of `nix-extra` to avoid these issues.
+
+## Utilities
+
+### `pkgs.userEnv`
 
 A trivial-style builder that takes a list of packages and builds a
 derivation containing the script `install-user-environment` which will
@@ -15,15 +42,10 @@ taking things quite as far as `home-manager`.
 Usage:
 
 ```nix
-{ pkgs ? import <nixpkgs> {} }:
-
-with pkgs; with (callPackage (fetchgit {
-  url    = "https://github.com/transitracer/nix-extra";
-  rev    = ...;
-  sha256 = ...;
-}) {}).pkgs;
-
 userEnv {
+  # Disallows using nix-env imperatively
+  static = true;
+
   packages = [
     hello
   ];
@@ -31,21 +53,10 @@ userEnv {
 ```
 
 ```sh
-$ nix-build
 $ result/bin/install-user-environment
 ```
 
-Notes/Tips:
-
-  - If you want your user-environment to not be editable imperatively,
-    you can pass `static = true;` to `userEnv`.
-
-    To escape this setting, however, and go back to managing
-    imperatively, you'll need to install a user-environment without it
-    set, or set an arbitrary directory as your user-environment using
-    `nix-env --set $directory`
-
-## `emacs-with-config`
+## `pkgs.emacsWithConfig`
 
 A wrapper for `emacsWithPackages` that uses the `-Q` and `--load`
 flags to load a config without looking at `~/.emacs.d`.
@@ -55,14 +66,6 @@ Introduces some jank. Notably, ruins emacs start profiling.
 Usage:
 
 ```nix
-{ pkgs ? import <nixpkgs> {} }:
-
-with pkgs; with (callPackage (fetchgit {
-  url    = "https://github.com/transitracer/nix-extra";
-  rev    = ...;
-  sha256 = ...;
-}) {}).pkgs;
-
 emacsWithConfig {
   packages = ep: with ep; [ magit ];
   config = ''
@@ -96,4 +99,6 @@ Notes/Tips:
   - On MacOS, Emacs.app never inherits information from your shell
     env. The `sourceFiles` argument is an optional argument to
     `emacsWithPackages` that allows you to list (bash-compatible)
-    files to source so Emacs is able to inherit your shell enviroment.
+    files to source so Emacs is able to inherit your shell
+    enviroment. This is arguably an unrelated hack, but works and I
+    couldn't find anywhere else to put it.
