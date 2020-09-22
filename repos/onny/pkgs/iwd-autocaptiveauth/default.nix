@@ -3,11 +3,11 @@
 with python.pkgs;
 stdenv.mkDerivation rec {
   pname = "iwd-autocaptiveauth";
-  version = "0.5";
+  version = "0.6";
   src = fetchgit {
     url = "https://git.project-insanity.org/onny/py-iwd-autocaptiveauth.git";
-    rev = "e60a9f6210b6f0827ba01c31e653672f049cd3ce";
-    sha256 = "0xarb5pd45qwxaz2ilv88i9byysvzd95ij8356nr2yj383xngvsg";
+    rev = "ee9a8f671bbbba1f8bb2e7bab51af430d980d130";
+    sha256 = "05xjaci0cwq65iv56mvhapv0z2683wkdwas0hhs6mxhmvnpyzm3m";
   };
 
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
 
   installPhase = "
-    cp -av profiles $out/
+    cp -rav profiles $out/
     install -D iwd-autocaptiveauth.py $out/bin/iwd-autocaptiveauth
   ";
 
