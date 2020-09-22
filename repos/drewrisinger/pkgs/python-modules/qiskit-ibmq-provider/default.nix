@@ -9,7 +9,8 @@
 , requests_ntlm
 , websockets
   # Visualization inputs
-, ipykernel
+, withVisualization ? true
+, ipython
 , ipyvuetify
 , ipywidgets
 , matplotlib
@@ -24,6 +25,19 @@
 , vcrpy
 }:
 
+let
+  visualizationPackages = [
+    ipython
+    ipyvuetify
+    ipywidgets
+    matplotlib
+    nbconvert
+    nbformat
+    plotly
+    pyperclip
+    seaborn
+  ];
+in
 buildPythonPackage rec {
   pname = "qiskit-ibmq-provider";
   version = "0.9.0";
@@ -44,30 +58,16 @@ buildPythonPackage rec {
     requests
     requests_ntlm
     websockets
-    # Visualization/Jupyter inputs
-    ipykernel
-    ipyvuetify
-    ipywidgets
-    matplotlib
-    nbconvert
-    nbformat
-    plotly
-    pyperclip
-    seaborn
-  ];
-
-  # websockets seems to be pinned b/c in v8+ it drops py3.5 support. Not an issue here (usually py3.7+, and disabled for older py3.6)
-  postPatch = ''
-    substituteInPlace requirements.txt --replace "websockets>=7,<8" "websockets"
-    substituteInPlace setup.py --replace "websockets>=7,<8" "websockets"
-  '';
+  ] ++ lib.optional withVisualization visualizationPackages;
 
   # Most tests require credentials to run on IBMQ
   checkInputs = [
     pytestCheckHook
+    nbconvert
+    nbformat
     pproxy
     vcrpy
-  ];
+  ] ++ visualizationPackages;
   dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [ "qiskit.providers.ibmq" ];

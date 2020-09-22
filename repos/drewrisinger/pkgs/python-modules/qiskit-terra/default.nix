@@ -16,6 +16,7 @@
 , retworkx
 , scipy
 , sympy
+, withVisualization ? true
   # Python visualization requirements, semi-optional
 , ipywidgets
 , matplotlib
@@ -24,6 +25,9 @@
 , pygments
 , pylatexenc
 , seaborn
+  # Crosstalk-adaptive layout pass
+, withCrosstalkPass ? false
+, z3
   # test requirements
 , ddt
 , hypothesis
@@ -32,6 +36,19 @@
 , pytestCheckHook
 , python
 }:
+
+let
+  visualizationPackages = [
+    ipywidgets
+    matplotlib
+    pillow
+    pydot
+    pygments
+    pylatexenc
+    seaborn
+  ];
+  crosstalkPackages = [ z3 ];
+in
 
 buildPythonPackage rec {
   pname = "qiskit-terra";
@@ -53,7 +70,6 @@ buildPythonPackage rec {
     fastjsonschema
     jsonschema
     numpy
-    matplotlib
     networkx
     ply
     psutil
@@ -62,25 +78,18 @@ buildPythonPackage rec {
     retworkx
     scipy
     sympy
-    # Optional/visualization inputs
-    ipywidgets
-    matplotlib
-    pillow
-    pydot
-    pygments
-    pylatexenc
-    seaborn
-  ];
+  ] ++ lib.optional withVisualization visualizationPackages
+  ++ lib.optional withCrosstalkPass crosstalkPackages;
 
 
   # *** Tests ***
   checkInputs = [
+    pytestCheckHook
     ddt
     hypothesis
     nbformat
     nbconvert
-    pytestCheckHook
-  ];
+  ] ++ visualizationPackages;
   dontUseSetuptoolsCheck = true;  # can't find setup.py, so fails. tested by pytest
 
   pythonImportsCheck = [

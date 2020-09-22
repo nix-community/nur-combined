@@ -24,6 +24,7 @@ rec {
   libcint = pkgs.callPackage ./pkgs/libraries/libcint { };
   xcfun = pkgs.callPackage ./pkgs/libraries/xcfun { };
   muparserx = pkgs.callPackage ./pkgs/libraries/muparserx { };
+  tuna = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/tuna { };
 
   python3Packages = pkgs.recurseIntoAttrs rec {
     # New packages NOT in NixOS/nixpkgs (and likely never will be)
@@ -99,6 +100,8 @@ rec {
     qiskit = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit {
       inherit qiskit-aer qiskit-terra qiskit-ignis qiskit-aqua qiskit-ibmq-provider;
     };
+    qiskit-terraNoVisual = qiskit-terra.override { withVisualization = false; };
+    qiskit-ibmq-providerNoVisual = qiskit-ibmq-provider.override { withVisualization = false; qiskit-terra = qiskit-terraNoVisual; matplotlib = null; };
   };
 
 }
