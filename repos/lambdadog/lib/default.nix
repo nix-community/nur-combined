@@ -1,3 +1,3 @@
 { pkgs }:
 
-with pkgs.lib; {}
+{}
