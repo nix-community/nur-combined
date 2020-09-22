@@ -1,27 +1,33 @@
-{ stdenv, python, fetchgit, makeWrapper, iwd, python3Packages }:
+{ stdenv, python, fetchgit, iwd }:
 
+with python.pkgs;
 stdenv.mkDerivation rec {
   pname = "iwd-autocaptiveauth";
-  version = "0.4";
+  version = "0.5";
   src = fetchgit {
     url = "https://git.project-insanity.org/onny/py-iwd-autocaptiveauth.git";
-    rev = "45523620596b4a28e6d269cead690031774d23cf";
-    sha256 = "02w7zgglk8siyybji3gwv43fy2s00vqd2vzkw1hx07qiq842vjy4";
+    rev = "e60a9f6210b6f0827ba01c31e653672f049cd3ce";
+    sha256 = "0xarb5pd45qwxaz2ilv88i9byysvzd95ij8356nr2yj383xngvsg";
   };
 
-  buildInputs  = [ makeWrapper ];
 
-  propagatedBuildInputs = with python3Packages; [
+  pythonPath = [ 
     dbus-python
     pygobject3
   ];
 
-  installPhase = ''
-    mkdir -p $out/bin
-    cp -av iwd-autocaptiveauth.py profiles $out/
-    chmod 555 $out/iwd-autocaptiveauth.py
-    makeWrapper $out/iwd-autocaptiveauth.py $out/bin/iwd-autocaptiveauth
-  '';
+  nativeBuildInputs = [
+    wrapPython
+  ];
+
+  dontBuild = true;
+
+  installPhase = "
+    cp -av profiles $out/
+    install -D iwd-autocaptiveauth.py $out/bin/iwd-autocaptiveauth
+  ";
+
+  postFixup = "wrapPythonPrograms";
 
   meta = with stdenv.lib; {
     description = "iwd automatic authentication to captive portals";
