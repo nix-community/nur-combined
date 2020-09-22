@@ -2,21 +2,21 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "dbus-codegen-rust";
-  version = "0.5.0";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "diwic";
     repo = "dbus-rs";
     rev = "dbus-codegen-v${version}";
-    sha256 = "0phs7rvrrr07qd502fhsrydfh5qmqrp72r067c26qkgh27imjdkp";
+    sha256 = "1p041b72wk5axsl5hfcfcn1x6gxmsafqsy64hi45m1b67p62g6yc";
   };
 
   cargoPatches = [ ./cargo-lock.patch ];
   cargoSha256 = with stdenv;
     if lib.versionAtLeast lib.version "20.09pre" then
-      "1va3yxw2x45jlwhw9c05cjhdl0siq0aiyk2bxdrfagzbhq25sl4x"
+      "0hwsw3m5hb9ig1dyhnr5w1fi83a4h4drvrqi3c53409bhb6mkyhb"
     else
-      "0igxchs84h6clnfavq0601wk37jk3kmqxwdmgy61fr9hwm335xxq";
+      "1zswkz6zfys4n1crjzfldds17l9w6sjxafk17sddi3q3v7ghfxpc";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ dbus ];

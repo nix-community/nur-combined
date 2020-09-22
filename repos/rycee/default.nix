@@ -24,9 +24,6 @@ in {
 
   dbus-codegen-rust = pkgs.callPackage ./pkgs/dbus-codegen-rust { };
 
-  terraform-provider-keycloak =
-    pkgs.callPackage ./pkgs/terraform-provider-keycloak { };
-
   weylus = if versionOlder pkgsVersion "20.09" then
     pkgs.callPackage ./pkgs/weylus { }
   else

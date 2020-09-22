@@ -900,20 +900,6 @@
         platforms = platforms.all;
         };
       };
-    "torswitch" = buildFirefoxXpiAddon {
-      pname = "torswitch";
-      version = "1.0";
-      addonId = "{34fab4dc-77cc-4631-be8b-7a85a1e9fc09}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1020346/torswitch-1.0-an+fx.xpi";
-      sha256 = "3c50bd5c8890628a7260a742099293b6e752e7826e0643e3f515105ec3d9b85e";
-      meta = with stdenv.lib;
-      {
-        homepage = "https://gitlab.com/faridb/TorSwitch";
-        description = "Browse through Tor's SOCKS5 proxy.\n\nThis extension allows you to set Firefox proxy settings to use Tor's SOCKS5 proxy and quickly enable/disable Tor's proxy with just a click.";
-        license = licenses.gpl3;
-        platforms = platforms.all;
-        };
-      };
     "transparent-standalone-image" = buildFirefoxXpiAddon {
       pname = "transparent-standalone-image";
       version = "2.1";
