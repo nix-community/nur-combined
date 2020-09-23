@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, pname, version, filename, sha256, description }:
+{ stdenvNoCC, fetchurl, pname, version, filename, sha256, description }:
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
@@ -8,14 +8,11 @@ stdenv.mkDerivation {
     inherit sha256;
   };
 
-  installPhase = ''
-    install -dm755 $out/share/goldendict/dictionaries/${pname}
-    cp -a . $out/share/goldendict/dictionaries/${pname}
-  '';
+  installPhase = "cp -a . $out";
 
   preferLocalBuild = true;
 
-  meta = with stdenv.lib; {
+  meta = with stdenvNoCC.lib; {
     inherit description;
     homepage = "http://download.huzheng.org/bigdict/";
     license = licenses.free;

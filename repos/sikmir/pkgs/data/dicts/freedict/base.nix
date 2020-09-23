@@ -1,21 +1,23 @@
 { stdenvNoCC, fetchurl, lang, version, sha256 }:
 
 stdenvNoCC.mkDerivation {
-  pname = "wiktionary-${lang}";
+  pname = "freedict-${lang}";
   inherit version;
 
   src = fetchurl {
-    url = "http://libredict.org/dictionaries/${lang}/wiktionary_${lang}_stardict_${version}.tgz";
+    url = "https://download.freedict.org/dictionaries/${lang}/${version}/freedict-${lang}-${version}.dictd.tar.xz";
     inherit sha256;
   };
 
-  installPhase = "install -Dm644 *.{dict,idx,ifo} -t $out";
+  installPhase = ''
+    install -Dm644 **.{dict.dz,index} -t $out
+  '';
 
   preferLocalBuild = true;
 
   meta = with stdenvNoCC.lib; {
-    description = "Wiktionary dictionaries for StarDict (${lang})";
-    homepage = "http://libredict.org/en/info_${lang}.html";
+    description = "FreeDict (${lang})";
+    homepage = "https://freedict.org";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
