@@ -813,6 +813,16 @@
         "url": "https://github.com/sidewalklabs/s2sphere/archive/d1d067e8c06e5fbaf0cc0158bade947b4a03a438.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "sasplanet": {
+        "builtin": false,
+        "description": "SAS.Planet is a program designed for viewing and downloading high-resolution satellite imagery and conventional maps",
+        "homepage": "http://www.sasgis.org/sasplaneta/",
+        "sha256": "05pi0vr75y9yggya0bvf3bkyn3q3j9alriipy4lm9lsih4r7q09l",
+        "type": "file",
+        "url": "http://www.sasgis.org/programs/sasplanet/SASPlanet_200606.zip",
+        "url_template": "http://www.sasgis.org/programs/sasplanet/SASPlanet_<version>.zip",
+        "version": "200606"
+    },
     "stardict-3": {
         "branch": "master",
         "builtin": false,
