@@ -1,0 +1,98 @@
+{
+    "gnatcoll-bindings": {
+        "branch": "master",
+        "description": "GNAT Components Collection – Bindings to C libraries",
+        "homepage": "",
+        "owner": "AdaCore",
+        "repo": "gnatcoll-bindings",
+        "rev": "c8425159d5c4c276dddab4a9c2e239738531b92d",
+        "sha256": "1c31jk7acwg20i0s8ji5cwsv5ndsrlk1vhm6xkpyf8lgd3s26zp2",
+        "type": "tarball",
+        "url": "https://github.com/AdaCore/gnatcoll-bindings/archive/c8425159d5c4c276dddab4a9c2e239738531b92d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "gnatcoll-core": {
+        "branch": "master",
+        "description": "GNAT Components Collection – Core packages",
+        "homepage": "",
+        "owner": "AdaCore",
+        "repo": "gnatcoll-core",
+        "rev": "ab46d43daf614b5123a0b789eb209eb4e0847918",
+        "sha256": "0nraqirgxxfb53mvkpyipq9qv3jh1ssbdzl8q885xh192h7vw5i4",
+        "type": "tarball",
+        "url": "https://github.com/AdaCore/gnatcoll-core/archive/ab46d43daf614b5123a0b789eb209eb4e0847918.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "gprbuild": {
+        "branch": "master",
+        "description": "GPRbuild is an advanced build system designed to help automate the construction of multi-language systems.",
+        "homepage": null,
+        "owner": "AdaCore",
+        "repo": "gprbuild",
+        "rev": "4c3d0e9c9e080a7d67fce031b19edbb8f582e76a",
+        "sha256": "1mf4v8iq987nzw16q5gw25q5gh3hy4ylirr73am2qrzxp8n46whg",
+        "type": "tarball",
+        "url": "https://github.com/AdaCore/gprbuild/archive/4c3d0e9c9e080a7d67fce031b19edbb8f582e76a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "gprconfig_kb": {
+        "branch": "master",
+        "description": "GPR configuration knowledge base",
+        "homepage": "",
+        "owner": "AdaCore",
+        "repo": "gprconfig_kb",
+        "rev": "51a7999e436584a707abb2441972f054b38a1754",
+        "sha256": "1r2a4hxihxikzv1gijf2i432lz9m1b6igwynh27l1shaw27lxz5w",
+        "type": "tarball",
+        "url": "https://github.com/AdaCore/gprconfig_kb/archive/51a7999e436584a707abb2441972f054b38a1754.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "libadalang": {
+        "branch": "master",
+        "description": "Ada semantic analysis library.",
+        "homepage": "https://www.adacore.com",
+        "owner": "AdaCore",
+        "repo": "libadalang",
+        "rev": "95ba688b5bed9037264484f72d4f481c46c2714b",
+        "sha256": "127bzhvdy1n8rl5q1wrkkm6qhvzbn41xzs6bjd8pw57f28ag9v6q",
+        "type": "tarball",
+        "url": "https://github.com/AdaCore/libadalang/archive/95ba688b5bed9037264484f72d4f481c46c2714b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "29ddaaf4e099c3ac0647f5b652469dfc79cd3b53",
+        "sha256": "1va6myp07gkspgxfch8z3rs9nyvys6jmgzkys6a2c4j09qxp1bs0",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/29ddaaf4e099c3ac0647f5b652469dfc79cd3b53.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "da59984d367f499a00b8533e795cd958cb7c5002",
+        "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
+        "homepage": "https://github.com/NixOS/nixpkgs",
+        "owner": "NixOS",
+        "repo": "nixpkgs-channels",
+        "rev": "da59984d367f499a00b8533e795cd958cb7c5002",
+        "sha256": "1y7qi1f6nj20j1fszylnf2qw8rjmfczbj9d4r39amhzkj7zdjd0r",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs-channels/archive/da59984d367f499a00b8533e795cd958cb7c5002.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "xmlada": {
+        "branch": "master",
+        "description": "The XML/Ada toolkit.",
+        "homepage": null,
+        "owner": "AdaCore",
+        "repo": "xmlada",
+        "rev": "512a7fc92de8506037f034ca91fed775b0d184f7",
+        "sha256": "0ymq64n5amcap8km4lks7q8my487ldazqpnv9va6yagmywa8a1l9",
+        "type": "tarball",
+        "url": "https://github.com/AdaCore/xmlada/archive/512a7fc92de8506037f034ca91fed775b0d184f7.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
