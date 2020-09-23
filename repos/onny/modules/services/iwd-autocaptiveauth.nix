@@ -26,10 +26,11 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = let
-            python = pkgs.python3.withPackages (ps: with ps; [ pygobject3 dbus-python ]);
-          in
-            ''${python.interpreter} -u ${pkgs.nur-onny.iwd-autocaptiveauth}/iwd-autocaptiveauth.py'';
+        #ExecStart = let
+        #    python = pkgs.python3.withPackages (ps: with ps; [ pygobject3 dbus-python ]);
+        #  in
+        #    ''${python.interpreter} -u ${pkgs.nur-onny.iwd-autocaptiveauth}/iwd-autocaptiveauth.py'';
+        ExecStart = "${pkgs.nur-onny.iwd-autocaptiveauth}/bin/iwd-autocaptiveauth --profileDir ${pkgs.nur-onny.iwd-autocaptiveauth}/profiles";
         Restart = "on-failure";
         User = "iwd-autocaptiveauth";
         RestartSec = 30;
