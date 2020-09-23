@@ -2,10 +2,10 @@
   {
     "1password-x-password-manager" = buildFirefoxXpiAddon {
       pname = "1password-x-password-manager";
-      version = "1.21.0";
+      version = "1.22.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3631301/1password_x_password_manager-1.21.0-fx.xpi";
-      sha256 = "84c7a604b9f811c89323e35c65bd8658966d299ed271b500e533622554810e55";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3647140/1password_x_password_manager-1.22.1-fx.xpi";
+      sha256 = "4eade3d69d0bab01c8d1f65479042e8ba7c7a5d3c6d4f333705f4648b533825b";
       meta = with stdenv.lib;
       {
         homepage = "https://1password.com";
