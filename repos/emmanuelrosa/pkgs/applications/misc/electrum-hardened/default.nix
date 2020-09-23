@@ -29,6 +29,7 @@ let
         --ro-bind ${containerScript} ${containerScript} \
         --ro-bind $HOME/.local/share $HOME/.local/share \
         --bind-try $HOME/tnxs $HOME/tnxs \
+        --bind-try $HOME/.cache/matplotlib $HOME/.cache/matplotlib \
         --unshare-net \
         -- ${containerScript} "$@")
     
