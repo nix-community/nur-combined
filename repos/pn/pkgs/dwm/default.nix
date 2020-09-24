@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://github.com/LukeSmithXYZ/dwm";
-    rev = "484720bbba3e2b175b71dba283c3a84b13e71eea";
-    sha256 = "1w19zy3c9nckrh9jwj30ijv7gl0miyiw4m287n5bxmm98zly264p";
+    rev = "28d87d439359096e2f03f2e8582a481269de06be";
+    sha256 = "1fi0q68zqcmnx4spvjaqlv0k43ij96bz3545qdlc077qhzw2lxxh";
   };
 
   buildInputs = [ libX11 libXinerama libXft ];

@@ -4,8 +4,8 @@ stdenv.mkDerivation {
 
   src = fetchgit {
     url = "https://github.com/LukeSmithxyz/voidrice";
-    rev = "3936ffe5e2b494e65fc5a44927fe67311c8c51ae";
-    sha256 = "1casynk0fvjfz9jv8hdgi7dpmq26cz6hmsr028w65rj993m33cfx";
+    rev = "b768fc601e9b587aa800cd0656a8eee170bd1c93";
+    sha256 = "1i35n0qfh0llfg1b8la9yj7qsycwlmipgfp6k1yz9r27gjll768z";
   };
 
   installPhase = ''

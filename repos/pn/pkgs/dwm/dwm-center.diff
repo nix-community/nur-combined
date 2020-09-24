@@ -1,23 +1,23 @@
 diff --git a/config.h b/config.h
-index 771e7a1..6c880c2 100644
+index 747d9a0..780550a 100644
 --- a/config.h
 +++ b/config.h
-@@ -45,12 +45,12 @@ static const Rule rules[] = {
+@@ -49,12 +49,12 @@ static const Rule rules[] = {
  	 *	WM_CLASS(STRING) = instance, class
  	 *	WM_NAME(STRING) = title
  	*/
 -	/* class    instance      title       	 tags mask    isfloating   isterminal  noswallow  monitor */
 -	{ "Gimp",     NULL,       NULL,       	    1 << 8,       0,           0,         0,        -1 },
--	{ "St",       NULL,       NULL,       	    0,            0,           1,         0,        -1 },
+-	{ TERMCLASS,   NULL,       NULL,       	    0,            0,           1,         0,        -1 },
 -	{ NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
 -	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     1,           1,         0,        -1 },
 -	{ NULL,      "spcalc",    NULL,       	    SPTAG(1),     1,           1,         0,        -1 },
-+	/* class    instance      title       	 tags mask    iscentered  isfloating   isterminal  noswallow  monitor */
-+	{ "Gimp",     NULL,       NULL,       	    1 << 8,       0,          0,           0,         0,        -1 },
-+	{ "St",       NULL,       NULL,       	    0,            0,          0,           1,         0,        -1 },
-+	{ NULL,       NULL,       "Event Tester",   0,            0,          0,           0,         1,        -1 },
-+	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     0,          1,           1,         0,        -1 },
-+	{ NULL,      "spcalc",    NULL,       	    SPTAG(1),     0,          1,           1,         0,        -1 },
++	/* class    instance      title       	 tags mask    iscentered	isfloating   isterminal  noswallow  monitor */
++	{ "Gimp",     NULL,       NULL,       	    1 << 8,       0,  		  0,           0,         0,        -1 },
++	{ TERMCLASS,   NULL,       NULL,       	    0,            0,  		  0,           1,         0,        -1 },
++	{ NULL,       NULL,       "Event Tester",   0,            0,  		  0,           0,         1,        -1 },
++	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     0,  		  1,           1,         0,        -1 },
++	{ NULL,      "spcalc",    NULL,       	    SPTAG(1),     0,  		  1,           1,         0,        -1 },
  };
  
  /* layout(s) */
