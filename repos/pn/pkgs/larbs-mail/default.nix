@@ -47,6 +47,6 @@ buildEnv {
     homepage = "https://github.com/LukeSmithXYZ/mutt-wizard";
     description = "Neomutt + Mutt-Wizard: A system for automatically configuring mutt and isync with a simple interface and safe passwords";
     license = licenses.gpl3;
-    platforms = platforms.linux;
+    platforms = [ platforms.linux "x86_64-darwin" ];
   };
 }

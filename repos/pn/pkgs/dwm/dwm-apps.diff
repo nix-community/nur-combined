@@ -1,5 +1,5 @@
 diff --git a/config.h b/config.h
-index 780550a..e4d4716 100644
+index 780550a..e8d3805 100644
 --- a/config.h
 +++ b/config.h
 @@ -55,6 +55,7 @@ static const Rule rules[] = {
@@ -19,3 +19,12 @@ index 780550a..e4d4716 100644
  static const char *termcmd[]  = { TERMINAL, NULL };
  
  #include <X11/XF86keysym.h>
+@@ -158,7 +159,7 @@ static Key keys[] = {
+ 	{ MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("mpc seek -60") },
+ 	{ MODKEY,			XK_bracketright,	spawn,		SHCMD("mpc seek +10") },
+ 	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("mpc seek +60") },
+-	{ MODKEY,			XK_backslash,		view,		{0} },
++	{ MODKEY,			XK_backslash,		spawn,		SHCMD("telegram-desktop") },
+ 	/* { MODKEY|ShiftMask,		XK_backslash,		spawn,		SHCMD("") }, */
+ 
+ 	{ MODKEY,			XK_a,		togglegaps,	{0} },

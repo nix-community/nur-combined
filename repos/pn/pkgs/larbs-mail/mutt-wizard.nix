@@ -21,6 +21,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/LukeSmithXYZ/mutt-wizard";
     description = "A script for automatically configuring mutt";
     license = licenses.gpl3;
-    platforms = platforms.linux;
+    platforms = [ platforms.linux "x86_64-darwin" ];
   };
 }
