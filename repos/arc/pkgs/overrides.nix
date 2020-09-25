@@ -303,13 +303,20 @@ let
       };
     });
 
-    mpd-youtube-dl = { lib, mpd, fetchpatch, makeWrapper, youtube-dl }: mpd.overrideAttrs (old: {
+    mpd-youtube-dl = { lib, mpd, fetchpatch, makeWrapper, youtube-dl }: mpd.overrideAttrs (old: let
+      patchVersion =
+        if lib.versionOlder old.version "0.22" then "0.21.25"
+        else "0.22";
+    in {
       pname = "${mpd.pname}-youtube-dl";
 
       patches = old.patches or [] ++ [ (fetchpatch {
         name = "mpd-youtube-dl.diff";
-        url = "https://github.com/MusicPlayerDaemon/MPD/compare/v0.21.25...arcnmx:ytdl-0.21.25.diff";
-        sha256 = "16n1fx505k6pprf753j6xzwh25ka4azwx49sz02wy68qdx8wa586";
+        url = "https://github.com/MusicPlayerDaemon/MPD/compare/v${patchVersion}...arcnmx:ytdl-${patchVersion}.diff";
+        sha256 =
+          if patchVersion == "0.21.25" then "16n1fx505k6pprf753j6xzwh25ka4azwx49sz02wy68qdx8wa586"
+          else if patchVersion == "0.22" then "048xf5h2cv7q4xxizvxvfirqfavkvf9bd83vx87qxa2zhddqjzgk"
+          else lib.fakeSha256;
       }) ];
 
       mesonFlags = old.mesonFlags ++ [ "-Dyoutube-dl=enabled" ];
