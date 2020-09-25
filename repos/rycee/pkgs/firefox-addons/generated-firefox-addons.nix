@@ -289,10 +289,10 @@
       };
     "firefox-color" = buildFirefoxXpiAddon {
       pname = "firefox-color";
-      version = "2.1.6";
+      version = "2.1.7";
       addonId = "FirefoxColor@mozilla.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3610571/firefox_color-2.1.6-fx.xpi";
-      sha256 = "f7e043d0aaeaa734070bc8f2a5539385b21f001364661c61a998db98676e3883";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3643624/firefox_color-2.1.7-fx.xpi";
+      sha256 = "b7fb07b6788f7233dd6223e780e189b4c7b956c25c40493c28d7020493249292";
       meta = with stdenv.lib;
       {
         homepage = "https://color.firefox.com";
@@ -737,10 +737,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.9.17";
+      version = "20.9.24";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3644964/refined_github-20.9.17-an+fx.xpi";
-      sha256 = "e057b3a2c20be431f9e6c4b6706bb2a02d6aeeff5afec7c7859a5e7367d32db7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3648560/refined_github-20.9.24-an+fx.xpi";
+      sha256 = "683e9a0fbf182a6bcbd82f21a5b2725fb58437062c7cc43b1d6646abc200ce77";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -957,10 +957,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "0.30";
+      version = "0.31";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3625022/vim_vixen-0.30-an+fx.xpi";
-      sha256 = "024435c46b3129609afef1b95df59c93102a2f9b537575602b9c63bdf4115aaf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3648399/vim_vixen-0.31-an+fx.xpi";
+      sha256 = "4f87d60db049b39a66fd132ffea360e17063e788edf9af523e291dd075fcdf8d";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
