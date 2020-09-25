@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, libX11, libXinerama, libXft, patches ? [] }:
+{ stdenv, fetchgit, libX11, libXinerama, libXft, libXext, patches ? [] }:
 
 with stdenv.lib;
 
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1fi0q68zqcmnx4spvjaqlv0k43ij96bz3545qdlc077qhzw2lxxh";
   };
 
-  buildInputs = [ libX11 libXinerama libXft ];
+  buildInputs = [ libX11 libXinerama libXft libXext ];
 
   prePatch = ''sed -i "s@/usr/local@$out@" config.mk'';
 

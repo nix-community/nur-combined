@@ -6,6 +6,7 @@ let
       ./dwm-center.diff
       ./dwm-apps.diff
       ./dwm-autostart.diff
+      # ./dwm-rounded.diff
     ];
   };
 in
