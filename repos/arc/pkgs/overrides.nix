@@ -12,14 +12,24 @@ let
 
     nix-readline = { nix, readline, fetchurl, lib }: nix.overrideAttrs (old: {
       buildInputs = old.buildInputs ++ [ readline ];
-      patches = old.patches or [] ++ lib.optional (lib.versionAtLeast lib.version "19.09") (fetchurl {
-        name = "readline-completion.patch";
-        url = "https://github.com/arcnmx/nix/commit/f4d1453c2b86aa576f1a707d47eb2174fd7e4a90.patch";
-        sha256 = "18b3bv0wjkx5hmrmhbzf6rl6swcx8ibk29c5pk4fysjd71rfd5d0";
-      });
+      patches = old.patches or [] ++ [
+        (fetchurl {
+          name = "readline-completion.patch";
+          url = "https://github.com/arcnmx/nix/commit/f4d1453c2b86aa576f1a707d47eb2174fd7e4a90.patch";
+          sha256 = "18b3bv0wjkx5hmrmhbzf6rl6swcx8ibk29c5pk4fysjd71rfd5d0";
+        }) (fetchurl {
+          name = "readline-sigint.patch";
+          url = "https://github.com/arcnmx/nix/commit/ac61a78a5471fd781ff7c165e8697c6b24a38d56.patch";
+          sha256 = "066dfalcjw38px9qr12p83s0zdacrw3a7n581apgq0rx8yxdp1vn";
+        }) (fetchurl {
+          name = "readline-history.patch";
+          url = "https://github.com/arcnmx/nix/commit/67789e9ff237d0e61de3fb8b05c8424c84493f12.patch";
+          sha256 = "11w4bm5ica2czdiank10mrmli78n9lh694zi3zpb4nrkzjlc02kd";
+        })
+      ];
       EDITLINE_LIBS = "${readline}/lib/libreadline${nix.stdenv.hostPlatform.extensions.sharedLibrary}";
       EDITLINE_CFLAGS = "-DREADLINE";
-      doInstallCheck = old.doInstallCheck or false && !nix.stdenv.isDarwin;
+      doInstallCheck = false; # old.doInstallCheck or false && !nix.stdenv.isDarwin;
     });
 
     notmuch = { lib, notmuch, coreutils }@args: let
