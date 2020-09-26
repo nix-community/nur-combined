@@ -35,6 +35,18 @@
         "url": "https://github.com/akreisher/eshell-syntax-highlighting/archive/fe7943487035476a6aac3d72ee2c10fdc3ffd1e0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "git-get": {
+        "branch": "master",
+        "description": "A better way to clone, organize and manage multiple git repositories",
+        "homepage": "",
+        "owner": "grdl",
+        "repo": "git-get",
+        "rev": "f678f4f9d98e45215debd7ff1e5dba9d736376bf",
+        "sha256": "0d13s5kh4r99g0wwiqy7g0bb4jr3jlxc5nrv79n1azjklsl54j9s",
+        "type": "tarball",
+        "url": "https://github.com/grdl/git-get/archive/f678f4f9d98e45215debd7ff1e5dba9d736376bf.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "gralc": {
         "branch": "master",
         "description": "A preprocessor for Groff that lets you do arithmetic in Python.",
