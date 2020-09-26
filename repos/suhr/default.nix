@@ -20,4 +20,7 @@
   ciao = pkgs.callPackage ./pkgs/ciao { };
   v4l2loopback-dc = pkgs.linuxPackages.callPackage ./pkgs/v4l2loopback-dc { };
   carla = pkgs.qt5.callPackage ./pkgs/carla { };
+  libcyaml = pkgs.callPackage ./pkgs/libcyaml { };
+  reproc = pkgs.callPackage ./pkgs/reproc { };
+  libaudec = pkgs.callPackage ./pkgs/libaudec { };
 }
