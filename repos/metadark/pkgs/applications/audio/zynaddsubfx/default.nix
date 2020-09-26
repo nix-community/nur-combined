@@ -5,6 +5,7 @@
 
   # Required build tools
 , cmake
+, makeWrapper
 , pkgconfig
 
   # Required dependencies
@@ -52,7 +53,9 @@ assert guiModule == "fltk" -> fltk13 != null && libjpeg != null && libXpm != nul
 assert guiModule == "ntk" -> ntk != null && cairo != null && libXpm != null;
 assert guiModule == "zest" -> libGL != null && libX11 != null;
 
-stdenv.mkDerivation rec {
+let
+  mruby-zest = callPackage ./mruby-zest.nix { };
+in stdenv.mkDerivation rec {
   pname = "zynaddsubfx";
   version = "3.0.5";
 
@@ -68,7 +71,8 @@ stdenv.mkDerivation rec {
     substituteInPlace src/Misc/Config.cpp --replace /usr $out
   '';
 
-  nativeBuildInputs = [ cmake pkgconfig ];
+  nativeBuildInputs = [ cmake makeWrapper pkgconfig ];
+
   buildInputs = [ fftw liblo minixml zlib ]
     ++ lib.optional alsaSupport alsaLib
     ++ lib.optionals dssiSupport [ dssi ladspaH ]
@@ -85,16 +89,24 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!ossSupport) "-DOssEnable=OFF"
 
     # Find FLTK without requiring an OpenGL library in buildInputs
-    ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON"
-
-    # ZynFusionDir is considered a "developer only" option, but mruby-zest
-    # doesn't follow the FHS and this is the simplest way to depend on it.
-    ++ lib.optional (guiModule == "zest") [
-    "-DZynFusionDir=${callPackage ./mruby-zest.nix { }}"
-  ];
+    ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON";
 
   doCheck = true;
   checkInputs = [ cxxtest ];
+
+  # When building with zest GUI, patch plugins
+  # and standalone executable to properly locate zest
+  postFixup = lib.optional (guiModule == "zest") ''
+    rp=$(patchelf --print-rpath "$out/lib/lv2/ZynAddSubFX.lv2/ZynAddSubFX_ui.so")
+    patchelf --set-rpath "${mruby-zest}:$rp" "$out/lib/lv2/ZynAddSubFX.lv2/ZynAddSubFX_ui.so"
+
+    rp=$(patchelf --print-rpath "$out/lib/vst/ZynAddSubFX.so")
+    patchelf --set-rpath "${mruby-zest}:$rp" "$out/lib/vst/ZynAddSubFX.so"
+
+    wrapProgram "$out/bin/zynaddsubfx" \
+      --prefix PATH : ${mruby-zest} \
+      --prefix LD_LIBRARY_PATH : ${mruby-zest}
+  '';
 
   meta = with lib; {
     description = "High quality software synthesizer";

@@ -93,6 +93,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p "$out"
     make pack
+    ln -s "$out/zest" "$out/zyn-fusion"
     cp -a package/{font,libzest.so,schema,zest} "$out"
 
     # mruby-widget-lib/src/api.c requires MainWindow.qml as part of a

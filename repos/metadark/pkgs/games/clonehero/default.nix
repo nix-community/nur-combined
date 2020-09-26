@@ -26,13 +26,16 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoPatchelfHook ];
 
   buildInputs = [
-    alsaLib # ALSA sound
+    # Load-time libraries (loaded from DT_NEEDED section in ELF binary)
     gtk2
+    stdenv.cc.cc.lib
+    zlib
+
+    # Run-time libraries (loaded with dlopen)
+    alsaLib # ALSA sound
     libXrandr # X11 resolution detection
     libXScrnSaver # X11 screensaver prevention
-    stdenv.cc.cc.lib
     udev # udev input drivers
-    zlib
   ];
 
   installPhase = ''
