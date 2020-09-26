@@ -1,0 +1,17 @@
+8,21c8
+<     // check if it's unix
+<     if(File.exists("/usr/bin/find")){
+<         return "/usr/bin/find";
+<     }
+< 
+<     // else msys2, search unix find command
+<     var cygpath = new Process();
+< 
+<     if( cygpath.exec("cygpath", ['-lw','/usr/bin/find'])== -1 ){
+<         throw("error: Could not detect 'find' command. May be there is a problem in the MSYS2 installation.\n"+
+<         "Please check that <MSYS2 dir>\\usr\\bin is in your PATH or in your Kit PATH configuration\n"+
+<         "current PATH = " + cygpath.getEnv("PATH"));
+<     }
+<     return cygpath.readLine();
+---
+> 	return __FIND_HERE__

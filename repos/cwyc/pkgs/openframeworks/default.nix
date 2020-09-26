@@ -3,7 +3,8 @@ pkg-config, bash,
 opencv, gcc, openal, glew, freeglut, freeimage, gst_all_1,  
 cairo, libudev0-shim, freetype, fontconfig, libsndfile, curl, libcardiacarrest, alsaLib, udev,
 boost, uriparser, rtaudio, xorg, libraw1394, libdrm, openssl, libusb1, gtk3, assimp, glfw, pugixml,
-poco,
+poco, mpg123,
+findutils,
 ...}:
 let
   version = "v0.11.0";
@@ -21,7 +22,7 @@ stdenv.mkDerivation {
   	gst_all_1.gstreamer gst_all_1.gst-plugins-base gst_all_1.gst-plugins-bad gst_all_1.gst-plugins-good gst_all_1.gst-plugins-ugly gst_all_1.gst-libav opencv gcc openal glew freeglut freeimage
   	cairo libudev0-shim freetype fontconfig libsndfile curl libcardiacarrest alsaLib udev
   	boost uriparser rtaudio xorg.libXmu xorg.libXxf86vm libraw1394 libdrm openssl libusb1 gtk3 assimp glfw pugixml
-  	poco
+  	poco mpg123
   ];
   
   unpackPhase = ''
@@ -30,13 +31,19 @@ stdenv.mkDerivation {
   '';
   
   patchPhase = ''
-  	sed -i -E 's/ADDON_PKG_CONFIG_LIBRARIES =(.*)opencv\s/ADDON_PKG_CONFIG_LIBRARIES =\1opencv4 /g' $out/addons/ofxOpenCv/addon_config.mk;
-  	sed -i -E 's/ADDON_PKG_CONFIG_LIBRARIES =(.*)opencv$/ADDON_PKG_CONFIG_LIBRARIES =\1opencv4/g' $out/addons/ofxOpenCv/addon_config.mk;
-  	
   	sed -i -E 's/#include "RtAudio\.h"/#include "rtaudio\/RtAudio\.h"/' $out/libs/openFrameworks/sound/ofRtAudioSoundStream.cpp;
   	
   	substituteInPlace $out/scripts/linux/compileOF.sh --replace "/usr/bin/env bash" "${bash}/bin/bash"
-  	${if buildProjectGenerator then "" else "#"}substituteInPlace $out/scripts/linux/compilePG.sh --replace "/bin/bash" "${bash}/bin/bash"
+  	substituteInPlace $out/scripts/linux/compilePG.sh --replace "/bin/bash" "${bash}/bin/bash"
+
+    patch $out/libs/openFrameworksCompiled/project/qtcreator/modules/of/helpers.js ${./qtcreator-find.diff}
+    substituteInPlace $out/libs/openFrameworksCompiled/project/qtcreator/modules/of/helpers.js --replace "__FIND_HERE__" "${findutils}/bin/find"
+
+    patch $out/scripts/qtcreator/templates/wizards/openFrameworks/wizard.json ${./qtcreator-folder.diff}
+    substituteInPlace $out/scripts/qtcreator/templates/wizards/openFrameworks/wizard.json --replace "__SELF_HERE__" $out
+
+    patch $out/scripts/qtcreator/templates/wizards/openFrameworksUpdate/wizard.json ${./qtcreator-folder.diff}
+    substituteInPlace $out/scripts/qtcreator/templates/wizards/openFrameworksUpdate/wizard.json --replace "__SELF_HERE__" $out
   '';
   
   dontConfigure = true;
@@ -52,7 +59,7 @@ stdenv.mkDerivation {
   meta = {
     description = "A toolkit for graphics and computational art.";
     longDescription = ''
-      Don't install it to your nix profile; it *just can't* be installed.
+      Don't install it to your nix profile; it doesn't work like that.
       To set it up for development use:
       - nix-build it to a safe place in your home folder: 
         mkdir -p ~/opt/; nix-build '<nixpkgs>' -A nur.repos.cwyc.openframeworks -o ~/opt/openframeworks

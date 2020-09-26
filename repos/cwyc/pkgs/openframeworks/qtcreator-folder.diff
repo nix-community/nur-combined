@@ -1,0 +1,4 @@
+19c19
+<         { "key": "InitialOFPath", "value": "%{JS: Util.absoluteFilePath('%{ProjectDirectory}/../../..')}" },
+---
+>         { "key": "InitialOFPath", "value": "__SELF_HERE__" },
