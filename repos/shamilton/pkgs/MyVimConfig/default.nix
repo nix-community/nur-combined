@@ -8,12 +8,14 @@ stdenv.mkDerivation rec {
   pname = "Myvimconfig";
   version = "unstable";
 
-  src = fetchFromGitHub {
-    owner = "SCOTT-HAMILTON";
-    repo = "vimconfig";
-    rev = "master";
-    sha256 = "1xg7kyh9r805y8948f7yvsj5fkaqx763v8rdnyf252k6cszpqi5v";
-  };
+  # src = fetchFromGitHub {
+  #   owner = "SCOTT-HAMILTON";
+  #   repo = "vimconfig";
+  #   rev = "master";
+  #   sha256 = "1xg7kyh9r805y8948f7yvsj5fkaqx763v8rdnyf252k6cszpqi5v";
+  # };
+
+  src = ../../../vimconfig.tar.gz;
 
   propagatedBuildInputs = [ coreutils ];
 
