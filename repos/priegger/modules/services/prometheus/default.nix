@@ -3,7 +3,11 @@
 with lib;
 let
   hostName = config.networking.hostName;
-  prometheusPort = builtins.elemAt (lib.strings.splitString ":" config.services.prometheus.listenAddress) 1;
+  prometheusPort =
+    if builtins.hasAttr "port" config.services.prometheus then
+      toString config.services.prometheus.port
+    else
+      builtins.elemAt (lib.strings.splitString ":" config.services.prometheus.listenAddress) 1;
 
   nodeTextfileDirectory = "/var/lib/prometheus-node-exporter-text-files";
   nodeExporterPort = toString config.services.prometheus.exporters.node.port;
