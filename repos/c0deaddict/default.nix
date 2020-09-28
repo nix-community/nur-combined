@@ -55,4 +55,7 @@ rec {
 
   rds_exporter = pkgs.callPackage ./pkgs/rds_exporter {};
 
+
+  zsh-kubectl-prompt = pkgs.callPackage ./pkgs/zsh-kubectl-prompt {};
+
 }
