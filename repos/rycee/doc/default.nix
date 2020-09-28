@@ -14,20 +14,23 @@ let
 
   nmd = import nmdSrc { inherit pkgs; };
 
-  # Make sure the used package is scrubbed to avoid actually
-  # instantiating derivations.
-  scrubbedPkgsModule = {
+  # Make sure the used package is scrubbed to avoid actually instantiating
+  # derivations.
+  #
+  # Also disable checking since we'll be referring to undefined options.
+  setupModule = {
     imports = [{
       _module.args = {
         pkgs = lib.mkForce (nmd.scrubDerivations "pkgs" pkgs);
         pkgs_i686 = lib.mkForce { };
       };
+      _module.check = false;
     }];
   };
 
   hmModulesDocs = nmd.buildModulesDocs {
-    modules = [ ../hm-modules/emacs-init.nix ../hm-modules/theme-base16 ]
-      ++ [ scrubbedPkgsModule ];
+    modules =
+      [ ../hm-modules/emacs-init.nix ../hm-modules/theme-base16 setupModule ];
     moduleRootPaths = [ ../hm-modules ];
     mkModuleUrl = path:
       "https://gitlab.com/rycee/nur-expressions/blob/master"
@@ -37,8 +40,7 @@ let
   };
 
   nixosModulesDocs = nmd.buildModulesDocs {
-    modules = [ ../modules/containers-docker-support.nix ]
-      ++ [ scrubbedPkgsModule ];
+    modules = [ ../modules/containers-docker-support.nix setupModule ];
     moduleRootPaths = [ ../modules ];
     mkModuleUrl = path:
       "https://gitlab.com/rycee/nur-expressions/blob/master"

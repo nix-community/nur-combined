@@ -10,6 +10,8 @@ with lib;
 
 let
 
+  moduleCheck = config._module.check;
+
   cfgContainers = filterAttrs (n: v: v.enableDockerSupport) config.containers;
 
   containerNames = attrNames cfgContainers;
@@ -25,17 +27,20 @@ let
       '';
     };
 
-    config = mkIf config.enableDockerSupport {
-      bindMounts = {
-        "/sys/fs/cgroup" = {
-          hostPath = "/sys/fs/cgroup";
-          isReadOnly = false;
+    config = mkMerge [
+      { _module.check = moduleCheck; }
+      (mkIf config.enableDockerSupport {
+        bindMounts = {
+          "/sys/fs/cgroup" = {
+            hostPath = "/sys/fs/cgroup";
+            isReadOnly = false;
+          };
         };
-      };
-      additionalCapabilities = [ "all" "CAP_SYS_ADMIN" ];
-      extraFlags =
-        map (sc: "--system-call-filter=${sc}") [ "add_key" "keyctl" ];
-    };
+        additionalCapabilities = [ "all" "CAP_SYS_ADMIN" ];
+        extraFlags =
+          map (sc: "--system-call-filter=${sc}") [ "add_key" "keyctl" ];
+      })
+    ];
   };
 
 in {
