@@ -915,10 +915,10 @@
       };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
-      version = "1.20.1";
+      version = "1.20.2";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3627525/tridactyl-1.20.1-an+fx.xpi";
-      sha256 = "984d7ea7437b913d3f25e3ca7017d0c3b5b2f175b8af7a374e3cc9685460e844";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3650027/tridactyl-1.20.2-an+fx.xpi";
+      sha256 = "fbefa0fe4149113485ff6a2f9fb9df458c21102beb4fc8941ac0ae0ebaba384c";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/cmcaine/tridactyl";
