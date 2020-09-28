@@ -8,7 +8,7 @@ let
     "19.03" = ./release-19.03.json;
     "19.09" = ./release-19.09.json;
     "20.03" = ./release-20.03.json;
-    "20.09" = ./master.json;
+    "20.09" = ./release-20.09.json;
     "21.03" = ./master.json;
   };
 
