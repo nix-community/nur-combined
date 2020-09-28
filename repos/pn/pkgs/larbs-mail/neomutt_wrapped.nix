@@ -23,6 +23,6 @@ in
       homepage = "https://github.com/LukeSmithXYZ/mutt-wizard";
       description = "A system for automatically configuring mutt and isync with a simple interface and safe passwords";
       license = licenses.gpl3;
-      platforms = [ "x86_64-darwin" "x86_64-darwin" ];
+      platforms = [ "x86_64-linux" "x86_64-darwin" ];
     };
   }

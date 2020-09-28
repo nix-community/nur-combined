@@ -1,3 +1,15 @@
+diff --git a/config.h b/config.h
+index dffae22..ed83f31 100644
+--- a/config.h
++++ b/config.h
+@@ -32,6 +32,7 @@ static char *colors[][3] = {
+        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+ };
++#define CORNER_RADIUS 5
+ 
+ typedef struct {
+ 	const char *name;
 diff --git a/dwm.c b/dwm.c
 index 290dc2d..f3e70c9 100644
 --- a/dwm.c

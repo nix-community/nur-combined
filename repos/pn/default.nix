@@ -26,6 +26,7 @@ in
   libthinkpad = pkgs.callPackage ./pkgs/libthinkpad { };
   dockd = pkgs.callPackage ./pkgs/dockd { };
   larbs-mail = pkgs.callPackage ./pkgs/larbs-mail { };
+  larbs-news = pkgs.callPackage ./pkgs/larbs-news { };
   dmenuunicode = pkgs.callPackage ./pkgs/dmenuunicode { };
 
   #fx = (pkgs.callPackage ./pkgs/fx { }).package;
