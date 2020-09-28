@@ -54,17 +54,20 @@
   programs.gpg.enable = true;
   programs.htop.enable = true;
   programs.kakoune.config.colorScheme = "solarized-dark";
-  programs.kakoune.config.hooks = [{
-    name = "WinCreate";
-    option = "^[^*]+$";
-    commands = "editorconfig-load";
-  }];
-  programs.kakoune.config.keyMappings = [{
-    docstring = "wc";
-    effect = ''%{:echo %sh{wc -w "\${kak_selection}"}<ret>}'';
-    key = "w";
-    mode = "user";
-  }];
+  programs.kakoune.config.hooks = [
+    {
+      name = "WinCreate";
+      option = "^[^*]+$";
+      commands = "editorconfig-load";
+    }
+    {
+      name = "BufCreate";
+      option = "^.*md$";
+      commands = ''
+        set-option buffer modelinefmt 'wc:%sh{ cat "$kak_buffile" | wc -w} - %val{bufname} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]'
+      '';
+    }
+  ];
   programs.kakoune.config.numberLines.enable = true;
   programs.kakoune.config.showWhitespace.enable = true;
   programs.kakoune.config.ui.enableMouse = true;
