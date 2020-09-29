@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> {} }:
 
-{
+rec {
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
@@ -18,7 +18,8 @@
   rosie = pkgs.luaPackages.callPackage ./pkgs/rosie { };
   pcem = pkgs.callPackage ./pkgs/pcem { };
   ciao = pkgs.callPackage ./pkgs/ciao { };
-  v4l2loopback-dc = pkgs.linuxPackages.callPackage ./pkgs/v4l2loopback-dc { };
+  v4l2loopback-dc = pkgs.linuxPackages.callPackage ./pkgs/v4l2loopback-dc { inherit droidcam; };
+  droidcam = pkgs.callPackage ./pkgs/droidcam { };
   carla = pkgs.qt5.callPackage ./pkgs/carla { };
   libcyaml = pkgs.callPackage ./pkgs/libcyaml { };
   reproc = pkgs.callPackage ./pkgs/reproc { };

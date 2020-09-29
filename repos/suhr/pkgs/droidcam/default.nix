@@ -1,46 +1,56 @@
 { stdenv, fetchFromGitHub
-, ffmpeg, libjpeg_turbo, gnome3, alsaLib, speex
-, pkgconfig
+, ffmpeg, libjpeg_turbo, gtk3, alsaLib, speex, libusbmuxd, libappindicator-gtk3
+, pkg-config
 }:
 
-let
-  jpeg = libjpeg_turbo.override { enableStatic = true; };
-in
-  stdenv.mkDerivation rec {
-    pname = "droidcam";
-    version = "1.3";
+stdenv.mkDerivation rec {
+  pname = "droidcam";
+  version = "1.5";
 
-    src = fetchFromGitHub {
-      owner = "aramg";
-      repo = "droidcam";
-      rev = "v${version}";
-      sha256 = "06ly609szf87va3pjchwivrnp9g93brgzpwfnb2aa97qllam8lbn";
-    };
+  src = fetchFromGitHub {
+    owner = "aramg";
+    repo = "droidcam";
+    rev = "v${version}";
+    sha256 = "tIb7wqzAjSHoT9169NiUO+z6w5DrJVYvkQ3OxDqI1DA=";
+  };
 
-    buildInputs = [ ffmpeg jpeg gnome3.gtk alsaLib speex ];
-    nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [
+    pkg-config
+  ];
 
-    preBuild = ''
-      cd linux
-    '';
+  buildInputs = [
+    ffmpeg
+    libjpeg_turbo
+    gtk3
+    alsaLib
+    speex
+    libusbmuxd
+    libappindicator-gtk3
+  ];
 
-    makeFlags = [
-      "JPEG_INCLUDE=${jpeg.dev}/include"
-      "JPEG_LIB=${jpeg.out}/lib"
-    ];
+  postPatch = ''
+    substituteInPlace linux/src/droidcam.c --replace "/opt/droidcam-icon.png" "$out/share/icons/hicolor/droidcam.png"
+  '';
 
-    installPhase = ''
-      mkdir -p $out/bin
-      cp droidcam droidcam-cli $out/bin
-    '';
+  preBuild = ''
+    cd linux
+    makeFlagsArray+=("JPEG=$(pkg-config --libs --cflags libturbojpeg)")
+  '';
 
-    meta = with stdenv.lib; {
-      broken = true;
+  installPhase = ''
+    runHook preInstall
 
-      description = "Linux client for DroidCam app";
-      homepage = "https://github.com/aramg/droidcam";
-      license = licenses.gpl2;
-      maintainers = [ maintainers.suhr ];
-      platforms = platforms.linux;
-    };
-  }
+    install -Dt $out/bin droidcam droidcam-cli
+    install -D icon2.png $out/share/icons/hicolor/droidcam.png
+
+    runHook postInstall
+  '';
+
+  meta = with stdenv.lib; {
+    description = "Linux client for DroidCam app";
+    homepage = "https://github.com/aramg/droidcam";
+    license = licenses.gpl2;
+    maintainers = [ maintainers.suhr ];
+    platforms = platforms.linux;
+  };
+}

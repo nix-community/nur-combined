@@ -1,17 +1,13 @@
 { stdenv, writeText, fetchFromGitHub
+, droidcam
 , kernel, kmod
 }:
 
 stdenv.mkDerivation rec {
   name = "v4l2loopback-dc-${version}-${kernel.version}";
-  version = "1.3";
+  inherit (droidcam) version;
 
-  src = fetchFromGitHub {
-    owner = "aramg";
-    repo = "droidcam";
-    rev = "v${version}";
-    sha256 = "06ly609szf87va3pjchwivrnp9g93brgzpwfnb2aa97qllam8lbn";
-  };
+  inherit (droidcam) src;
 
   hardeningDisable = [ "format" "pic" ];
 
@@ -20,22 +16,19 @@ stdenv.mkDerivation rec {
 
   preBuild = ''
     cd linux/v4l2loopback
-    substituteInPlace Makefile --replace "modules_install" "INSTALL_MOD_PATH=$out modules_install"
-    export PATH=${kmod}/sbin:$PATH
   '';
 
   makeFlags = [
     "KERNELRELEASE=${kernel.modDirVersion}"
+    "INSTALL_MOD_PATH=${placeholder "out"}"
     "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
   ];
 
   meta = with stdenv.lib; {
-    broken = true;
-
     description = "V4L2 loopback device module for DroidCam";
     homepage = "https://github.com/aramg/droidcam";
     license = licenses.gpl2;
-    maintainers = [ maintainers.suhr ];
+    maintainers = with maintainers; [ jtojnar suhr ];
     platforms = platforms.linux;
   };
 }
