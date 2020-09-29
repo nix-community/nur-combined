@@ -8,7 +8,7 @@ def get_tarball_url(version)
 end
 
 def get_version(r)
-  r[:tag_name].gsub('v', '')
+  r[:name].gsub('v', '')
 end
 
 def dir(version)
@@ -69,7 +69,7 @@ end
 def fetch_releases
   client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
   client.auto_paginate = true
-  client.releases 'elixir-lang/elixir'
+  client.tags 'elixir-lang/elixir'
 end
 
 def fetch_new_releases
