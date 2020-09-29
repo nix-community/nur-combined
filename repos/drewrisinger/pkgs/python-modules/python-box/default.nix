@@ -11,7 +11,7 @@
 
 buildPythonPackage rec {
   pname = "python-box";
-  version = "4.2.3";
+  version = "5.1.1";
 
   disabled = pythonOlder "3.6";
 
@@ -19,16 +19,22 @@ buildPythonPackage rec {
     owner = "cdgriffith";
     repo = "box";
     rev = version;
-    sha256 = "1rqc5zbbdbz5fhxbrhh84bzw7lbkck0jnas0wqdnmkj7ya3810nb";
+    sha256 = "1rsn12g0hc4bp72r1ixlnks0wabn85nkvq4gx9varq84ksn5n7ji";
   };
 
   propagatedBuildInputs = [
+    msgpack
     ruamel_yaml
     toml
   ];
 
   dontUseSetuptoolsCheck = true;
   checkInputs = [ pytestCheckHook ];
+  # TODO: remove when I drop nixpkgs 20.03; these error on msgpack 0.6.3
+  disabledTests = lib.optionals (lib.versionOlder msgpack.version "1.0.0") [
+    "test_msgpack_strings"
+    "test_msgpack_files"
+  ];
 
   meta = with lib; {
     description = "Python dictionaries with advanced dot notation access";
