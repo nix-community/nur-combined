@@ -508,10 +508,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.56.1.3";
+      version = "4.57.2.5";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3644149/lastpass_password_manager-4.56.1.3-an+fx.xpi";
-      sha256 = "33f4b618a8fbd3c6a09ead72039fcbea573ff5f69731ea3c214dd3b933a72f8f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3649331/lastpass_password_manager-4.57.2.5-an+fx.xpi";
+      sha256 = "9397f85e2206b0ed5e931ab27d25f204aba423c52571650e1ffa417220d303bf";
       meta = with stdenv.lib;
       {
         homepage = "https://lastpass.com/";
@@ -583,10 +583,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "7.0.2";
+      version = "7.1.0";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3610087/firefox_multi_account_containers-7.0.2-fx.xpi";
-      sha256 = "3d06978da5b7b5896897cfb7f9a7f169c326bea1db627ec75f206b3a1788e921";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3650825/firefox_multi_account_containers-7.1.0-fx.xpi";
+      sha256 = "aa7b608c3783199de0549087ab044deae083cfc8734b7f631befef1c5ffa0c47";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
