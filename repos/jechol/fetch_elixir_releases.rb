@@ -30,7 +30,7 @@ end
 
 def version_in_range?(version)
   v = Semantic::Version.new(version)
-  (v.major >= 2) || ((v.major == 1) && (v.minor >= 6) && v.pre.nil?)
+  (v.major >= 2) || ((v.major == 1) && (v.minor >= 5) && v.pre.nil?)
 end
 
 def nix_prefetch_sha256(url)
