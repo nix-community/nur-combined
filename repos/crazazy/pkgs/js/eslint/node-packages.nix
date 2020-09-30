@@ -67,13 +67,13 @@ let
         sha512 = "K0Ptm/47OKfQRpNQ2J/oIN/3QYiK6FwW+eJbILhsdxh2WTLdl+30o8aGdTbm5JbffpFFAg/g+zi1E+jvJha5ng==";
       };
     };
-    "ajv-6.12.4" = {
+    "ajv-6.12.5" = {
       name = "ajv";
       packageName = "ajv";
-      version = "6.12.4";
+      version = "6.12.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ajv/-/ajv-6.12.4.tgz";
-        sha512 = "eienB2c9qVQs2KWexhkrdMLVDoIQCz5KSeLxwg9Lzk4DOfBtIK9PQwwufcsn1jjGuf9WZmqPMbGxOzfcuphJCQ==";
+        url = "https://registry.npmjs.org/ajv/-/ajv-6.12.5.tgz";
+        sha512 = "lRF8RORchjpKG50/WFf8xmg7sgCLFiYNNnqdKflk63whMQcWR5ngGjiSXkL9bjxy6B2npOK2HSMN49jEBMSkag==";
       };
     };
     "ansi-colors-4.1.1" = {
@@ -238,13 +238,13 @@ let
         sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
       };
     };
-    "debug-4.2.0" = {
+    "debug-4.3.0" = {
       name = "debug";
       packageName = "debug";
-      version = "4.2.0";
+      version = "4.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/debug/-/debug-4.2.0.tgz";
-        sha512 = "IX2ncY78vDTjZMFUdmsvIRFY2Cf4FnD0wRs+nQwJU8Lu99/tPFdb0VybiiMTPe3I6rQmwsqQqRBvxU+bZ/I8sg==";
+        url = "https://registry.npmjs.org/debug/-/debug-4.3.0.tgz";
+        sha512 = "jjO6JD2rKfiZQnBoRzhRTbXjHLGLfH+UtGkWLc/UXAh/rzZMyjbgn0NcfFpqT8nd1kTtFnDiJcrIFkq4UKeJVg==";
       };
     };
     "deep-is-0.1.3" = {
@@ -971,8 +971,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.9.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.9.0.tgz"; sha1 = "522aeccc5c3a19017cf0cb46ebfd660a79acf337"; };
+    version = "7.10.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.10.0.tgz"; sha1 = "494edb3e4750fb791133ca379e786a8f648c72b9"; };
     dependencies = [
       sources."@babel/code-frame-7.10.4"
       sources."@babel/helper-validator-identifier-7.10.4"
@@ -985,7 +985,7 @@ let
       sources."@types/color-name-1.1.1"
       sources."acorn-7.4.0"
       sources."acorn-jsx-5.3.1"
-      sources."ajv-6.12.4"
+      sources."ajv-6.12.5"
       sources."ansi-colors-4.1.1"
       sources."ansi-regex-5.0.0"
       sources."ansi-styles-3.2.1"
@@ -1007,7 +1007,7 @@ let
       sources."color-name-1.1.3"
       sources."concat-map-0.0.1"
       sources."cross-spawn-7.0.3"
-      sources."debug-4.2.0"
+      sources."debug-4.3.0"
       sources."deep-is-0.1.3"
       sources."doctrine-3.0.0"
       sources."emoji-regex-7.0.3"

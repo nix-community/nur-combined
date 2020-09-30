@@ -7,8 +7,8 @@ let
   args = {
     name = "typescript";
     packageName = "typescript";
-    version = "4.0.2";
-    src = fetchurl { url = "https://registry.npmjs.org/typescript/-/typescript-4.0.2.tgz"; sha1 = "7ea7c88777c723c681e33bf7988be5d008d05ac2"; };
+    version = "4.0.3";
+    src = fetchurl { url = "https://registry.npmjs.org/typescript/-/typescript-4.0.3.tgz"; sha1 = "153bbd468ef07725c1df9c77e8b453f8d36abba5"; };
     buildInputs = globalBuildInputs;
     meta = {
       description = "TypeScript is a language for application scale JavaScript development";
