@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "amfora";
-  version = "1.4.0";
+  version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "makeworld-the-better-one";
@@ -13,6 +13,8 @@ buildGoModule rec {
 
   # doCheck = false;
 
+  vendorSha256 = "0xj2s14dq10fwqqxjn4d8x6zljd5d15gjbja2gb75rfv09s4fdgv";
+
   buildFlags = [ ];
 
   subPackages = [ "." ];
@@ -20,6 +22,6 @@ buildGoModule rec {
   meta = with stdenv.lib; {
     description = "A fancy terminal browser for the Gemini protocol.";
     homepage = "https://github.com/makeworld-the-better-one/amfora";
-    license = licenses.gpl30;
+    license = licenses.gpl3;
   };
 }
