@@ -275,10 +275,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.1.1";
+      version = "2.1.2";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3548655/facebook_container-2.1.1-fx.xpi";
-      sha256 = "b8cca6d366bf1aa601cd8f0e4e6c51443e067e32c62900293aebea58ff11825d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3650887/facebook_container-2.1.2-fx.xpi";
+      sha256 = "86c75e90ae6f3f59999406c34229f05d563e024e293dfcabcfea10c75ce76cf7";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -597,10 +597,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.0.1";
+      version = "6.0.2";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3645512/octotree-6.0.1-fx.xpi";
-      sha256 = "0b76c242e88dffdd3f3a11d4c3e92a771a489665f60d13b7c965709da019b796";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3651578/octotree-6.0.2-fx.xpi";
+      sha256 = "b6938aaaa3102a8223792baf73cbf70bb9fde33e1e5dffd15e23779096f8d333";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -709,10 +709,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.20.7";
+      version = "5.20.8";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3644907/reddit_enhancement_suite-5.20.7-an+fx.xpi";
-      sha256 = "d79bb922c1ddad78a8598ce52f27938915c423471981d5e7a3ad80db9b5d04e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3651437/reddit_enhancement_suite-5.20.8-an+fx.xpi";
+      sha256 = "402b1d49edfdba408304d3d49cc7e3c03166cb86db8c4734af09314570dc46c8";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -929,10 +929,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.29.2";
+      version = "1.30.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3629683/ublock_origin-1.29.2-an+fx.xpi";
-      sha256 = "e9d2fa95b5323cec0e56e439b995326203d13c2fc781927741270ea34d244d30";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3649606/ublock_origin-1.30.0-an+fx.xpi";
+      sha256 = "91df6736d2ca905358cb013daac3f8408851ca029501359668a0eb4a68e47cc8";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
