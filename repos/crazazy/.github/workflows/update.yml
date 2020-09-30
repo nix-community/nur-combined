@@ -26,7 +26,7 @@ jobs:
       uses: cachix/install-nix-action@v10
    # updates niv and javascript dependencies
     - name: Update niv dependencies
-      run:  nix run nixpkgs.niv -c niv update
+      run:  GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} nix run nixpkgs.niv -c niv update
       
     - name: Update JavaScript packages
       run: |
