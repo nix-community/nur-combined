@@ -63,10 +63,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.2.86";
+      version = "7.2.87";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3634851/betterttv-7.2.86-fx.xpi";
-      sha256 = "8ff028dde5f02d06d9a2d009ac0389c45729f0874e175eaa9b8dd9d0de27b001";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3652031/betterttv-7.2.87-fx.xpi";
+      sha256 = "9e1a4007f18ec706d9cf52ee6479e0636102cfd3ffbabd45a7248104592a9965";
       meta = with stdenv.lib;
       {
         homepage = "https://betterttv.com";
@@ -82,10 +82,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.46.1";
+      version = "1.46.2";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3643785/bitwarden_free_password_manager-1.46.1-an+fx.xpi";
-      sha256 = "fc2a32cc9c20d7493a4ac07b0f74d243acff708fd3412e241d4f8f5e24666ac7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3651545/bitwarden_free_password_manager-1.46.2-an+fx.xpi";
+      sha256 = "957507e73c9a14b6d08978c2cf09c235c6a8fb681beff4e18ace7080ba8ed8a7";
       meta = with stdenv.lib;
       {
         homepage = "https://bitwarden.com";
@@ -453,10 +453,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.2.1";
+      version = "3.2.2";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3633489/i_dont_care_about_cookies-3.2.1-an+fx.xpi";
-      sha256 = "710f26a2a79e08e5e9e3140e5f6417ee945087a08ac2f751008d30a4dd5f6fd0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3652023/i_dont_care_about_cookies-3.2.2-an+fx.xpi";
+      sha256 = "b4189634db46f5b642ff81b9b2ba06803309649589bfa50061244f52432f728e";
       meta = with stdenv.lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -597,10 +597,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.0.2";
+      version = "6.0.4";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3651578/octotree-6.0.2-fx.xpi";
-      sha256 = "b6938aaaa3102a8223792baf73cbf70bb9fde33e1e5dffd15e23779096f8d333";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3652639/octotree_github_code_tree-6.0.4-fx.xpi";
+      sha256 = "85c15934106c12cb2899b52bed3480e25b9640ff9c9d3651ab294f989b1d45da";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -709,10 +709,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.20.8";
+      version = "5.20.9";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3651437/reddit_enhancement_suite-5.20.8-an+fx.xpi";
-      sha256 = "402b1d49edfdba408304d3d49cc7e3c03166cb86db8c4734af09314570dc46c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3652562/reddit_enhancement_suite-5.20.9-an+fx.xpi";
+      sha256 = "115b010ceadaf5ddcb77739f557c2a4f59e73b668149ddc01b51b03633e3e9a0";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
