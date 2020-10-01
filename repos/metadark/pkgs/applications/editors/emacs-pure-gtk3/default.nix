@@ -10,8 +10,8 @@
   src = fetchFromGitHub {
     owner = "masm11";
     repo = "emacs";
-    rev = "0b06fbaeb8f9cad185a452e44943a411d9bdedda";
-    sha256 = "0jx4qzbfgzdlzy65wbb77byhqya7i027wlvnd12p50pkc6aqn1qx";
+    rev = "2d5e81ce9487217f87c954af0c501a9515b67413";
+    sha256 = "18kd82h1ib1ldar2ikcf9w1jdqhjmwbak8yccbbga4yk3szymyja";
   };
 
   patches = [ ];

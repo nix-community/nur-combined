@@ -9,14 +9,14 @@
 
 buildPythonPackage rec {
   pname = "pygls";
-  version = "0.9.0";
+  version = "0.9.1";
   disabled = !isPy3k;
 
   src = fetchFromGitHub {
     owner = "openlawlibrary";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1wfp4hjin1mb6nkzhpfh5v8q8rwvn9zh0mwwj4dlxkqx5lp272hl";
+    sha256 = "1v7x5598d6jg8ya0spqjma56y062rznwimsrp8nq6fkskqgfm0ds";
   };
 
   postPatch = ''
