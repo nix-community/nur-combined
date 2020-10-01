@@ -16,25 +16,25 @@
 
 buildPythonPackage rec {
   pname = "cle";
-  version = "8.20.6.1";
+  version = "9.0.4446";
 
   propagatedBuildInputs = [ archinfo cffi minidump pefile pyelftools pyvex pyxbe sortedcontainers ];
 
   src = fetchFromGitHub {
     owner = "angr";
     repo = pname;
-    rev = "d12e604bdb45f6d962378e2134292a80a1c05f1d";
-    sha256 = "0lbxm9ciqn5wpfvv25k8df0sgpjxwmmy2g7mgxj3i5r7pfqb2skn";
+    rev = "v${version}";
+    sha256 = "sha256-t5xZr60e62M2imRhnsR3mWFF8x06k8gfktg3VvULhbI=";
   };
 
   binaries = fetchFromGitHub {
     owner = "angr";
     repo = "binaries";
-    rev = "c0e1f221c608243165603c2359555a7c0b7c4f08";
-    sha256 = "0pvw4fclb0swgkc81pax79ms62fj6xcpckvl033vl86gc27v5iwz";
+    rev = "9bf9c59002c2fb751ae2357f08fb9f4f8171a4ff";
+    sha256 = "sha256-geb78Go9zL3PsfNcPW41WBz3V8Phq9GPOqYlfF1JCDA=";
   };
 
-  checkInputs = [ binaries nose nose2 ];
+  checkInputs = [ nose nose2 ];
 
   checkPhase = ''
     cp -r ${binaries} /build/binaries

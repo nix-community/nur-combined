@@ -5,11 +5,11 @@
 
 buildPythonPackage rec {
   pname = "minidump";
-  version = "0.0.10";
+  version = "0.0.13";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0v4racmwag3rdpq0yy7ri6q0gplm0wxxcczyr12b6vgz7brncs7i";
+    sha256 = "sha256-uoqYj5FeUwBfi0dHUVJp56t8k3vHSrCf7JSe3wT0I/E=";
   };
 
   # No tests.

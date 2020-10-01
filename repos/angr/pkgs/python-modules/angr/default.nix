@@ -7,6 +7,7 @@
 , claripy
 , cle
 , cooldict
+, cppheaderparser
 , dpkt
 , fetchFromGitHub
 , GitPython
@@ -27,7 +28,7 @@
 
 buildPythonPackage rec {
   pname = "angr";
-  version = "8.20.6.1";
+  version = "9.0.4446";
   disabled = !isPy3k;
 
   propagatedBuildInputs = [
@@ -38,7 +39,8 @@ buildPythonPackage rec {
     cffi
     claripy
     cle
-		cooldict
+    cooldict
+    cppheaderparser
     dpkt
     GitPython
     itanium_demangler
@@ -57,9 +59,16 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "angr";
     repo = pname;
-    rev = "3b598e514fccb2931c7cb7ba844cf732190459cc";
-    sha256 = "14596i2ivnp8jqrsah45igsya9g4cyrxfxz8x7sqdvkl08mhwjjw";
+    rev = "v${version}";
+    sha256 = "sha256-hnudNauAXBDPBCo06bKwi1mD2uNe0Mp45VVUDA25GKU=";
   };
+
+  # Version 9.0.4446 of `archinfo` is broken: see angr/archinfo#94 ;
+  # Allow the use of the unstable version present in the repo;
+  # Could probably be removed on the next release of `angr` (and its dependencies).
+  patchPhase = ''
+    sed -i "s/archinfo==${version}/archinfo/" setup.py
+  '';
 
   setupPyBuildFlags = [
     "--plat-name x86_64-linux"

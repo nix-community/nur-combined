@@ -8,14 +8,14 @@
 
 buildPythonPackage rec {
   pname = "archinfo";
-  version = "8.20.6.1";
+  version = "unstable-2020-09-29";
   disabled = !isPy3k;
 
   src = fetchFromGitHub {
     owner = "angr";
     repo = pname;
-    rev = "ad017e5d782c6a7d23bfdbec4c7d73d6899565d5";
-    sha256 = "1nsm1vhc8pk8kxdq0p0sgd19sgg0p8zfk6pcq0czds9i1hdhgca4";
+    rev = "0f2a5311b22deb93e944baa31dbb5c1c0b23360f";
+    sha256 = "sha256-gxZYtw0mLZohSleTQFZfXRVwY6QKsXLZc7P9RMcz3xo=";
   };
 
   checkInputs = [ nose nose2 ];

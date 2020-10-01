@@ -6,7 +6,7 @@
 
 buildPythonPackage rec {
   pname = "pyxbe";
-  version = "unstable-2020-05-28";
+  version = "unstable-2020-04-26";
   disabled = !isPy3k;
 
   src = fetchFromGitHub {

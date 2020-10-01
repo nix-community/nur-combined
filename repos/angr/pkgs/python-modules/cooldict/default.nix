@@ -5,13 +5,13 @@
 
 buildPythonPackage rec {
   pname = "cooldict";
-  version = "unstable-2019-10-29";
+  version = "unstable-2019-10-30";
 
   src = fetchFromGitHub {
     owner = "zardus";
     repo = pname;
-    rev = "32d56888b555f4513a0e41193bfa49e0e5497a7b";
-    sha256 = "1nwf2gd6mx9nm0s9bg0xd5a7b286ph0789fnadri5yd8qqfwr50i";
+    rev = "f4eac5d4fbabbec452f45415615f64c6e3d71a35";
+    sha256 = "sha256-G3Y4wNASL3n1UZKy6V9W8Fx4hegZ3cqWG5XIit2ahXM=";
   };
 
   # No tests in repo.

@@ -5,22 +5,30 @@
 , future
 , fetchPypi
 , pkgs
+, setuptools
 }:
 
 buildPythonPackage rec {
   pname = "pyvex";
-  version = "8.20.6.1";
+  version = "9.0.4446";
 
-  propagatedBuildInputs = [ archinfo bitstring cffi future ];
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-aE3mo8717xotDsjP8n9XDq+/6BX0xX4R2X91kpnVZrA=";
+  };
+
+  propagatedBuildInputs = [ archinfo bitstring cffi future setuptools ];
+
+  # Version 9.0.4446 of `archinfo` is broken: see angr/archinfo#94 ;
+  # Allow the use of the unstable version present in the repo;
+  # Could probably be removed on the next release of `angr` (and its dependencies).
+  patchPhase = ''
+    sed -i "s/archinfo==${version}/archinfo/" setup.py
+  '';
 
   setupPyBuildFlags = [
     "--plat-name x86_64-linux"
   ];
-
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "17jz05s2950rv18vc6m23qp99hizdhl3z5i919dabhb1z5fpql7l";
-  };
 
   # Very long tests.
   doCheck = false;

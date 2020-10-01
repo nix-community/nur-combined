@@ -1,18 +1,21 @@
 { buildPythonPackage
-, fetchPypi
+, fetchFromGitHub
+, lib
 , pkgs
 , six
 }:
 
 buildPythonPackage rec {
   pname = "PySMT";
-  version = "0.8.0";
+  version = "0.9.0";
 
   propagatedBuildInputs = [ six ];
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "6ccac89f22052f0b12f3847382efe94d0fbda95f33978af29f4f3aee5ef0e270";
+  src = fetchFromGitHub {
+    owner = "pysmt";
+    repo = lib.toLower pname;
+    rev = "v${version}";
+    sha256 = "sha256-Q+UPLMhLeS5h07q4GyIK7sDBfn+y3A1XmjGEf6cZMhQ=";
   };
 
   # very long tests
