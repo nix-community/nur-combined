@@ -291,7 +291,9 @@
   , makeWrapper
   , pkg-config
   , openssl
-  , gnupg
+  , gnupg, enableGpg ? true
+  , lib
+  , hostPlatform, darwin
   }: rustPlatform.buildRustPackage rec {
     pname = "rbw-bitw";
     version = "2020-09-20";
@@ -303,15 +305,16 @@
     };
 
     nativeBuildInputs = [ pkg-config makeWrapper ];
-    buildInputs = [ openssl gnupg ];
-    inherit gnupg;
+    buildInputs = [ openssl ]
+      ++ lib.optional enableGpg gnupg
+      ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
 
     cargoBuildFlags = ["--bin" "bitw" ];
     cargoSha256 = "17m9y5ymidjmkngkjyr6pxfpy05989bkfkl25z421wn0xx0dhsvl";
 
-    postInstallPhase = ''
+    postInstall = lib.optionalString enableGpg ''
         wrapProgram $out/bin/bitw \
-          --prefix PATH : $gnupg/bin
+          --prefix PATH : ${gnupg}/bin
     '';
 
     doCheck = false;

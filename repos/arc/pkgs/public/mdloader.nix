@@ -1,12 +1,12 @@
 { stdenv, writeText, fetchFromGitHub }: stdenv.mkDerivation rec {
   pname = "mdloader";
-  version = "1.0.4";
+  version = "1.05";
 
   src = fetchFromGitHub {
     owner = "Massdrop";
     repo = "mdloader";
     rev = version;
-    sha256 = "1d2z0wcc6xi8gc5hggrms6wcdc4jgdc46q6q9am282i2llpscazd";
+    sha256 = "0m2rwd5dyljdhrabqlna5fsgy879bz9606bk1122rzckx3n8wg8q";
   };
 
   patches = [ (writeText "mdloader.patch" ''
@@ -29,4 +29,8 @@
     install -Dm0755 -t $out/bin build/mdloader
     install -Dm0644 -t $out/lib/mdloader applet-flash-*.bin
   '';
+
+  meta = {
+    platforms = stdenv.lib.platforms.linux;
+  };
 }

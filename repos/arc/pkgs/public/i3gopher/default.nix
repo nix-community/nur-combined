@@ -20,7 +20,6 @@
   '';
 
   meta = {
-    platforms = i3.meta.platforms;
-    broken = lib.isNixpkgsStable;
+    platforms = lib.platforms.linux;
   };
 })
