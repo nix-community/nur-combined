@@ -25,11 +25,10 @@ in
       description = "iwd auto authenticate to captive portals";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
+      environment = {
+        PYTHONUNBUFFERED = "1";
+      };
       serviceConfig = {
-        #ExecStart = let
-        #    python = pkgs.python3.withPackages (ps: with ps; [ pygobject3 dbus-python ]);
-        #  in
-        #    ''${python.interpreter} -u ${pkgs.nur-onny.iwd-autocaptiveauth}/iwd-autocaptiveauth.py'';
         ExecStart = "${pkgs.nur-onny.iwd-autocaptiveauth}/bin/iwd-autocaptiveauth --profileDir ${pkgs.nur-onny.iwd-autocaptiveauth}/profiles";
         Restart = "on-failure";
         User = "iwd-autocaptiveauth";

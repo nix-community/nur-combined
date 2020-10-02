@@ -1,17 +1,34 @@
 image: nixos/nix
 
+variables:
+  # The repo name as used in
+  # https://github.com/nix-community/NUR/blob/master/repos.json
+  NUR_REPO: "onny"
+  NIXOS_VERSION: "20.03"
+  NIXPKGS_ALLOW_UNFREE: "1"
+  NIXPKGS_ALLOW_INSECURE: "1"
+
 stages:
   - build
+  - deploy
 
 before_script:
-  - nix-channel --add https://nixos.org/channels/nixos-20.03 nixos
+  - nix-channel --add https://nixos.org/channels/nixos-${NIXOS_VERSION} nixos
   - nix-channel --update
 
 build:
   stage: build
   script:
-  - nix-build
-  - cp result/* .
-  - rm result
+    - nix-build
+    - cp result/* .
+    - rm result
+  #cache:
+  #  paths: /nix/store
   artifacts:
     untracked: true
+
+deploy:
+  stage: deploy
+  script:
+    - curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"
+  when: on_success

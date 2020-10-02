@@ -36,8 +36,8 @@
   libtransmission = pkgs.callPackage ./pkgs/libtransmission { };
   #fragments = pkgs.callPackage ./pkgs/fragments { };
   passwordsafe = pkgs.callPackage ./pkgs/passwordsafe { };
-  smloadr = pkgs.callPackage ./pkgs/smloadr { };
-  #popcorntime = pkgs.callPackage ./pkgs/popcorntime { }; # FIXME
+  # smloadr = pkgs.callPackage ./pkgs/smloadr { }; # FIXME repo down
+  popcorntime = pkgs.callPackage ./pkgs/popcorntime { }; # FIXME
   librewolf-bin = pkgs.callPackage ./pkgs/librewolf-bin { };
 
 }

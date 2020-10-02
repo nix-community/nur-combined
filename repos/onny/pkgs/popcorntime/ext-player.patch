@@ -1,0 +1,12 @@
+diff --git a/src/app/lib/device/ext-player.js b/src/app/lib/device/ext-player.js
+index 62964bd4..e85837b7 100644
+--- a/src/app/lib/device/ext-player.js
++++ b/src/app/lib/device/ext-player.js
+@@ -200,6 +200,7 @@
+     addPath('/usr/bin');
+     addPath('/usr/local/bin');
+     addPath('/snap/bin');
++    addPath(process.env.HOME + '/.nix-profile/bin');
+     // darwin
+     addPath('/Applications');
+     addPath(process.env.HOME + '/Applications');
