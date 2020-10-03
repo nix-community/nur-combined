@@ -15,14 +15,15 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   # applications/audio
-  ocenaudio = pkgs.callPackage ./pkgs/applications/audio/ocenaudio { }; # FIXME
+  # ocenaudio = pkgs.callPackage ./pkgs/applications/audio/ocenaudio { }; # FIXME
   
   # applications/office
   foliate = pkgs.callPackage ./pkgs/applications/office/foliate { };
   onlyoffice-desktopeditors = pkgs.callPackage ./pkgs/applications/office/onlyoffice-desktopeditors { };
 
   # services/security
-  inherit (pkgs.callPackage ./pkgs/services/security/opensnitch {}) opensnitchd opensnitch-ui;
+  # inherit (pkgs.callPackage ./pkgs/services/security/opensnitch {}) opensnitchd opensnitch-ui;
+  # FIXME
 
   # tools/security
   # appvm = pkgs.callPackage ./pkgs/tools/security/appvm { }; # FIXME
@@ -37,7 +38,7 @@
   #fragments = pkgs.callPackage ./pkgs/fragments { };
   passwordsafe = pkgs.callPackage ./pkgs/passwordsafe { };
   # smloadr = pkgs.callPackage ./pkgs/smloadr { }; # FIXME repo down
-  popcorntime = pkgs.callPackage ./pkgs/popcorntime { }; # FIXME
+  # popcorntime = pkgs.callPackage ./pkgs/popcorntime { }; # FIXME
   librewolf-bin = pkgs.callPackage ./pkgs/librewolf-bin { };
 
 }
