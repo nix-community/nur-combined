@@ -47,6 +47,7 @@ in
         WorkingDirectory = /tmp;
         User = "unbound";
         Group = "nogroup";
+        Environment = "GODEBUG=x509ignoreCN=0";
         ExecStart = ''
           ${pkgs.prometheus-unbound-exporter}/bin/unbound_exporter \
             -web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
