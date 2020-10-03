@@ -59,6 +59,18 @@
         "url": "https://github.com/yoctocell/gralc/archive/d63b28cfd61e51c3460caeee60c32495492c4e00.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "ivy-exwm": {
+        "branch": "master",
+        "description": "Ivy completion for EXWM",
+        "homepage": null,
+        "owner": "pjones",
+        "repo": "ivy-exwm",
+        "rev": "32f107374aef01b9ae00f1647233d50b4ea659e0",
+        "sha256": "1shs1zh8nr2lwxlvrhnhxxjn5g0p21vkjxnjgha1sn07pg7v3iqq",
+        "type": "tarball",
+        "url": "https://github.com/pjones/ivy-exwm/archive/32f107374aef01b9ae00f1647233d50b4ea659e0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "matrix-client": {
         "branch": "master",
         "description": "A Matrix client for Emacs!",
