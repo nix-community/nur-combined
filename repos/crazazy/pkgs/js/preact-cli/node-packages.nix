@@ -2317,13 +2317,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001140" = {
+    "caniuse-lite-1.0.30001142" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001140";
+      version = "1.0.30001142";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001140.tgz";
-        sha512 = "xFtvBtfGrpjTOxTpjP5F2LmN04/ZGfYV8EQzUIC/RmKpdrmzJrjqlJ4ho7sGuAMPko2/Jl08h7x9uObCfBFaAA==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001142.tgz";
+        sha512 = "pDPpn9ankEpBFZXyCv2I4lh1v/ju+bqb78QfKf+w9XgDAFWBwSYPswXqprRdrgQWK0wQnpIbfwRjNHO1HWqvoQ==";
       };
     };
     "caseless-0.12.0" = {
@@ -3055,13 +3055,13 @@ let
         sha512 = "a+EPoD+uZiNfh+5fxw2nO9QwFa6nJe2Or35fGY6Ipw1R3R4AGz1d1TEZrCegvw2YTmZ0jXirGYlzxxpYSHwpEg==";
       };
     };
-    "css-what-3.3.0" = {
+    "css-what-3.4.1" = {
       name = "css-what";
       packageName = "css-what";
-      version = "3.3.0";
+      version = "3.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/css-what/-/css-what-3.3.0.tgz";
-        sha512 = "pv9JPyatiPaQ6pf4OvD/dbfm0o5LviWmwxNWzblYf/1u9QZd0ihV+PMwy5jdQWQ3349kZmKEx9WXuSka2dM4cg==";
+        url = "https://registry.npmjs.org/css-what/-/css-what-3.4.1.tgz";
+        sha512 = "wHOppVDKl4vTAOWzJt5Ek37Sgd9qq1Bmj/T1OjvicWbU5W7ru7Pqbn0Jdqii3Drx/h+dixHKXNhZYx7blthL7g==";
       };
     };
     "cssesc-3.0.0" = {
@@ -3721,22 +3721,22 @@ let
         sha512 = "7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==";
       };
     };
-    "es-abstract-1.17.6" = {
+    "es-abstract-1.17.7" = {
       name = "es-abstract";
       packageName = "es-abstract";
-      version = "1.17.6";
+      version = "1.17.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/es-abstract/-/es-abstract-1.17.6.tgz";
-        sha512 = "Fr89bON3WFyUi5EvAeI48QTWX0AyekGgLA8H+c+7fbfCkJwRWRMLd8CQedNEyJuoYYhmtEqY92pgte1FAhBlhw==";
+        url = "https://registry.npmjs.org/es-abstract/-/es-abstract-1.17.7.tgz";
+        sha512 = "VBl/gnfcJ7OercKA9MVaegWsBHFjV492syMudcnQZvt/Dw8ezpcOHYZXa/J96O8vx+g4x65YKhxOwDUh63aS5g==";
       };
     };
-    "es-abstract-1.18.0-next.0" = {
+    "es-abstract-1.18.0-next.1" = {
       name = "es-abstract";
       packageName = "es-abstract";
-      version = "1.18.0-next.0";
+      version = "1.18.0-next.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/es-abstract/-/es-abstract-1.18.0-next.0.tgz";
-        sha512 = "elZXTZXKn51hUBdJjSZGYRujuzilgXo8vSPQzjGYXLvSlGiCo8VO8ZGV3kjo9a0WNJJ57hENagwbtlRuHuzkcQ==";
+        url = "https://registry.npmjs.org/es-abstract/-/es-abstract-1.18.0-next.1.tgz";
+        sha512 = "I4UGspA0wpZXWENrdA0uHbnhte683t3qT/1VFH9aX2dA5PPSf6QW5HHXf5HImaqPmjXaVeVk4RGWnaylmV7uAA==";
       };
     };
     "es-to-primitive-1.2.1" = {
@@ -6718,13 +6718,13 @@ let
         sha512 = "jLdtEOB112fORuypAyl/50VRVIBIdVQOSUUGQHzJ4xBSbit81zRarz7GThkEFZy1RceYrWYcPcBFPQwHyAc1gA==";
       };
     };
-    "object-is-1.1.2" = {
+    "object-is-1.1.3" = {
       name = "object-is";
       packageName = "object-is";
-      version = "1.1.2";
+      version = "1.1.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/object-is/-/object-is-1.1.2.tgz";
-        sha512 = "5lHCz+0uufF6wZ7CRFWJN3hp8Jqblpgve06U5CMQ3f//6iDjPr2PEo9MWCjEssDsa+UZEL4PkFpr+BMop6aKzQ==";
+        url = "https://registry.npmjs.org/object-is/-/object-is-1.1.3.tgz";
+        sha512 = "teyqLvFWzLkq5B9ki8FVWA902UER2qkxmdA4nLf+wjOLAWgxzCWZNCxpDq9MvE8MmhWNr+I8w3BN49Vx36Y6Xg==";
       };
     };
     "object-keys-1.1.1" = {
@@ -10385,8 +10385,8 @@ let
   args = {
     name = "preact-cli";
     packageName = "preact-cli";
-    version = "3.0.2";
-    src = fetchurl { url = "https://registry.npmjs.org/preact-cli/-/preact-cli-3.0.2.tgz"; sha1 = "aca9e5dbf5690a3fd6008e027442738bbd210c49"; };
+    version = "3.0.3";
+    src = fetchurl { url = "https://registry.npmjs.org/preact-cli/-/preact-cli-3.0.3.tgz"; sha1 = "b3cb0a229a5226e0983ef12dbf2ece97502b3938"; };
     dependencies = [
       sources."@babel/code-frame-7.10.4"
       sources."@babel/compat-data-7.11.0"
@@ -10720,7 +10720,7 @@ let
       sources."camel-case-3.0.0"
       sources."camelcase-5.3.1"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001140"
+      sources."caniuse-lite-1.0.30001142"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."check-types-8.0.3"
@@ -10888,7 +10888,7 @@ let
           sources."source-map-0.6.1"
         ];
       })
-      sources."css-what-3.3.0"
+      sources."css-what-3.4.1"
       sources."cssesc-3.0.0"
       (sources."cssnano-4.1.10" // {
         dependencies = [
@@ -11003,7 +11003,7 @@ let
       sources."envinfo-7.7.3"
       sources."errno-0.1.7"
       sources."error-ex-1.3.2"
-      sources."es-abstract-1.18.0-next.0"
+      sources."es-abstract-1.18.0-next.1"
       sources."es-to-primitive-1.2.1"
       sources."escalade-3.1.0"
       sources."escape-goat-2.1.1"
@@ -11446,23 +11446,19 @@ let
         ];
       })
       sources."object-inspect-1.8.0"
-      (sources."object-is-1.1.2" // {
-        dependencies = [
-          sources."es-abstract-1.17.6"
-        ];
-      })
+      sources."object-is-1.1.3"
       sources."object-keys-1.1.1"
       sources."object-visit-1.0.1"
       sources."object.assign-4.1.1"
       (sources."object.getownpropertydescriptors-2.1.0" // {
         dependencies = [
-          sources."es-abstract-1.17.6"
+          sources."es-abstract-1.17.7"
         ];
       })
       sources."object.pick-1.3.0"
       (sources."object.values-1.1.1" // {
         dependencies = [
-          sources."es-abstract-1.17.6"
+          sources."es-abstract-1.17.7"
         ];
       })
       sources."obuf-1.1.2"
@@ -11725,7 +11721,7 @@ let
       sources."regex-not-1.0.2"
       (sources."regexp.prototype.flags-1.3.0" // {
         dependencies = [
-          sources."es-abstract-1.17.6"
+          sources."es-abstract-1.17.7"
         ];
       })
       sources."regexpu-core-4.7.1"
@@ -11944,12 +11940,12 @@ let
       })
       (sources."string.prototype.trimend-1.0.1" // {
         dependencies = [
-          sources."es-abstract-1.17.6"
+          sources."es-abstract-1.17.7"
         ];
       })
       (sources."string.prototype.trimstart-1.0.1" // {
         dependencies = [
-          sources."es-abstract-1.17.6"
+          sources."es-abstract-1.17.7"
         ];
       })
       sources."string_decoder-1.1.1"
@@ -12105,7 +12101,7 @@ let
       sources."util-deprecate-1.0.2"
       (sources."util.promisify-1.0.1" // {
         dependencies = [
-          sources."es-abstract-1.17.6"
+          sources."es-abstract-1.17.7"
         ];
       })
       sources."utila-0.4.0"
