@@ -544,12 +544,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.42";
+    version = "0.12.48";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0n2ih59f50gzf3jfi2kx2h8qm4xa9wwwri4j4j2qywgd162cd9wv";
+      sha256 = "170yzz23lyipyckv8y2x9masv5qdmbskwwlbfc8750xb3g2q7pzl";
     };
 
     phases = [ "installPhase" ];
@@ -905,10 +905,10 @@ let
   };
 
   xdebug29 = buildPecl {
-    version = "2.9.6";
+    version = "2.9.8";
     pname = "xdebug";
 
-    sha256 = "0m748qkfy5i95dvsf4mwy6i3arxgpnsj1md878winj868w0vc0xb";
+    sha256 = "12igfrdfisqfmfqpc321g93pm2w1y7h24bclmxjrjv6rb36bcmgm";
 
     doCheck = true;
     checkTarget = "test";

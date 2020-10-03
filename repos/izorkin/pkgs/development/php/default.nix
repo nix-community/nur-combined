@@ -369,6 +369,7 @@ in {
       ./patch/php56/php5640-79329.patch
       ./patch/php56/php5640-79330.patch
       ./patch/php56/php5640-79465.patch
+      ./patch/php56/php5640-79699.patch
       ./patch/php56/php5640-79797.patch
       ./patch/php56/php5640-79877.patch
     ];
@@ -402,6 +403,8 @@ in {
       ./patch/php71/php7133-79329.patch
       ./patch/php71/php7133-79330.patch
       ./patch/php71/php7133-79465.patch
+      ./patch/php71/php7133-79601.patch
+      ./patch/php71/php7133-79699.patch
       ./patch/php71/php7133-79797.patch
       ./patch/php71/php7133-79877.patch
     ] 
@@ -410,8 +413,8 @@ in {
   };
 
   php72 = generic {
-    version = "7.2.33";
-    sha256 = "1jdds1x712xshfdq1g6j6xllzmwfg00kgshhanbv0hslf6s29aqk";
+    version = "7.2.34";
+    sha256 = "1v3m0krif0f4146hrn3cra78g1pagwmcwmg4lfdvm9rfynf4qkjj";
 
     extraPatches = [
       # PKG_CONFIG need not be a relative path
@@ -422,8 +425,8 @@ in {
   };
 
   php73 = generic {
-    version = "7.3.22";
-    sha256 = "1zglw7jq01kwynimz4qfz1xw3gkr3shnlaa0wdi1mlwa2j2zhb92";
+    version = "7.3.23";
+    sha256 = "1qm1rq5m8i7dkds2yb9psal8bj8zl63wnj9wzivbcdqb3ckpgqhr";
 
     extraPatches = [
       # PKG_CONFIG need not be a relative path
@@ -434,13 +437,13 @@ in {
   };
 
   php74 = generic {
-    version = "7.4.10";
-    sha256 = "15rj4ckyrr82cy6nc5883n927146gj40417h3kh8synlqx77pr2i";
+    version = "7.4.11";
+    sha256 = "0f5ggq0mb9zh121ndlsrrpish848l6w0fh2avrr81zi435p3kg90";
   };
 
   php80 = generic {
-    version = "8.0.0-beta-3";
-    rev = "4c0c7f1fd8fc4270703d0badff151115fda9f015";
-    sha256 = "1n91qd5rj6nzlklgskg8s1ap5qcxwxf8qx82a21qg8nnr659bjhs";
+    version = "8.0.0-rc-1";
+    rev = "ae944503c34d7c89433eaefe607fc0d631d6f9ac";
+    sha256 = "18km6ff20h54bfmv9bih6cp72vsjk82v11jzam70jn88hm684pjn";
   };
 }
