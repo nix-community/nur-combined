@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitHub
 , meson
 , ninja
@@ -68,7 +69,7 @@ stdenv.mkDerivation rec {
     name = "lightdm-webkit2-greeter.desktop";
   }];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A modern, visually appealing greeter for LightDM";
     homepage = "http://antergos.github.io/web-greeter";
     license = licenses.gpl3;

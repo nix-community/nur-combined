@@ -1,18 +1,19 @@
-{ stdenv
+{ lib
+, stdenv
 , buildPythonPackage
 , fetchFromGitHub
 , substituteAll
 , gdb
 , colorama
 , flask
-, gevent
 , psutil
-, pytest
 , pytest-timeout
 , pytest_xdist
+, pytestCheckHook
 , requests
 , isPy27
 , django
+, gevent
 }:
 
 buildPythonPackage rec {
@@ -61,23 +62,29 @@ buildPythonPackage rec {
   checkInputs = [
     colorama
     flask
-    gevent
     psutil
-    pytest
     pytest-timeout
     pytest_xdist
+    pytestCheckHook
     requests
-  ] ++ stdenv.lib.optional (!isPy27) [
+  ] ++ lib.optionals (!isPy27) [
     django
+    gevent
   ];
 
   # Override default arguments in pytest.ini
-  checkPhase = "pytest --timeout 0 -n $NIX_BUILD_CORES"
-    # django 1.11 is no longer supported (last version to support Python 2.7) &
-    # gevent fails to import zope.interface with Python 2.7
-    + stdenv.lib.optionalString isPy27 " -k 'not test_django and not test_gevent'";
+  pytestFlagsArray = [ "--timeout=0" "-n=$NIX_BUILD_CORES" ];
 
-  meta = with stdenv.lib; {
+  disabledTests = lib.optionals isPy27 [
+    # django 1.11 is the last version to support Python 2.7
+    # and is no longer built in nixpkgs
+    "django"
+
+    # gevent fails to import zope.interface with Python 2.7
+    "gevent"
+  ];
+
+  meta = with lib; {
     description = "An implementation of the Debug Adapter Protocol for Python";
     homepage = "https://github.com/microsoft/debugpy";
     license = licenses.mit;

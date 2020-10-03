@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, dpkg }:
+{ lib, stdenv, fetchurl, dpkg }:
 
 stdenv.mkDerivation rec {
   pname = "runescape-launcher";
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       --replace /usr/bin/${pname} ${pname}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "RuneScape Game Client (NXT)";
     homepage = "https://www.runescape.com";
     license = {

@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitLab
 , docbook_xml_dtd_43
 , docbook_xsl
@@ -65,7 +66,7 @@ stdenv.mkDerivation rec {
       meson test --print-errorlogs
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Building blocks for modern adaptive GNOME apps";
     homepage = "https://gitlab.gnome.org/GNOME/libhandy";
     license = licenses.lgpl21Plus;

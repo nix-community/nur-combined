@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , buildPythonApplication
 , fetchFromGitHub
 , dbus-python
@@ -30,7 +30,7 @@ buildPythonApplication rec {
       --replace '#!/usr/bin/env -S python3 -u' '#!${python}/bin/python'
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A linux command line tool to automatically connect to all paired and trusted bluetooth devices";
     homepage = "https://github.com/jrouleau/bluetooth-autoconnect";
     license = licenses.mit;

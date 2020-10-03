@@ -1,10 +1,10 @@
-{ stdenv
+{ lib
 , buildPythonPackage
 , isPy3k
 , fetchFromGitHub
 , mock
-, pytest
 , pytest-asyncio
+, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -19,15 +19,9 @@ buildPythonPackage rec {
     sha256 = "1v7x5598d6jg8ya0spqjma56y062rznwimsrp8nq6fkskqgfm0ds";
   };
 
-  postPatch = ''
-    substituteInPlace setup.py \
-      --replace "pytest==4.5.0" "pytest"
-  '';
+  checkInputs = [ mock pytest-asyncio pytestCheckHook ];
 
-  checkInputs = [ mock pytest pytest-asyncio ];
-  checkPhase = "pytest";
-
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Pythonic generic implementation of the Language Server Protocol";
     homepage = "https://github.com/openlawlibrary/pygls";
     license = licenses.asl20;

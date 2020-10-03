@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitHub
 , glslang
 , meson
@@ -32,12 +33,12 @@ stdenv.mkDerivation rec {
   buildInputs = [ libX11 ];
 
   # Link 32bit manifest to 64bit package to support both 32bit & 64bit Vulkan applications
-  postInstall = stdenv.lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
+  postInstall = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
     ln -s ${vkBasalt32}/share/vulkan/implicit_layer.d/vkBasalt.json \
       "$out/share/vulkan/implicit_layer.d/vkBasalt32.json"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A Vulkan post processing layer for Linux";
     homepage = "https://github.com/DadSchoorse/vkBasalt";
     license = licenses.zlib;

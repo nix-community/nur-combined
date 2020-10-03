@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitHub
 , bison
 , git
@@ -104,7 +105,7 @@ stdenv.mkDerivation rec {
     touch "$out/qml/MainWindow.qml"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The Zest Framework used in ZynAddSubFX's UI";
     homepage = "https://github.com/mruby-zest";
     license = licenses.lgpl21;

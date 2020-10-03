@@ -1,12 +1,12 @@
-{ stdenv
+{ lib
 , buildPythonApplication
 , fetchFromGitHub
 , poetry
 , pygls
 , pyparsing
 , cmake
-, pytest
 , pytest-datadir
+, pytestCheckHook
 }:
 
 buildPythonApplication rec {
@@ -29,11 +29,10 @@ buildPythonApplication rec {
   nativeBuildInputs = [ poetry ];
   propagatedBuildInputs = [ pygls pyparsing ];
 
-  checkInputs = [ cmake pytest pytest-datadir ];
+  checkInputs = [ cmake pytest-datadir pytestCheckHook ];
   dontUseCmakeConfigure = true;
-  checkPhase = "pytest";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "CMake LSP Implementation";
     homepage = "https://github.com/regen100/cmake-language-server";
     license = licenses.mit;

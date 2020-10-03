@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, kernel, bluez }:
+{ lib, stdenv, fetchFromGitHub, kernel, bluez }:
 
 stdenv.mkDerivation rec {
   pname = "xpadneo";
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   installFlags = [ "INSTALL_MOD_PATH=${placeholder "out"}" ];
   installTargets = [ "modules_install" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Advanced Linux driver for Xbox One wireless controllers";
     homepage = "https://atar-axis.github.io/xpadneo";
     license = licenses.gpl3Plus;

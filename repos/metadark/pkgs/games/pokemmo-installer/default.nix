@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitLab
 , makeWrapper
 , coreutils
@@ -37,7 +38,7 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram "$out/bin/${pname}" \
-      --prefix PATH : ${stdenv.lib.makeBinPath [
+      --prefix PATH : ${lib.makeBinPath [
         coreutils
         findutils
         gnugrep
@@ -49,12 +50,12 @@ stdenv.mkDerivation rec {
         xprop
         zenity
       ]} \
-      --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
         libpulseaudio
       ]}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Installer and Launcher for the PokeMMO emulator";
     homepage = "https://pokemmo.eu";
     license = licenses.gpl3Plus;

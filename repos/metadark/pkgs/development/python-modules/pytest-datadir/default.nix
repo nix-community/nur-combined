@@ -1,8 +1,8 @@
-{ stdenv
+{ lib
 , buildPythonPackage
 , fetchFromGitHub
 , setuptools_scm
-, pytest
+, pytestCheckHook
 , cmake
 }:
 
@@ -24,10 +24,9 @@ buildPythonPackage rec {
     export SETUPTOOLS_SCM_PRETEND_VERSION="${version}"
   '';
 
-  checkInputs = [ pytest ];
-  checkPhase = "pytest";
+  checkInputs = [ pytestCheckHook ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "pytest plugin for manipulating test data directories and files";
     homepage = "https://github.com/gabrielcnr/pytest-datadir";
     license = licenses.mit;

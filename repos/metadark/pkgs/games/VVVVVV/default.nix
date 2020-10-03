@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitHub
 , cmake
 , SDL2
@@ -29,7 +30,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     SDL2
     SDL2_mixer
-  ] ++ stdenv.lib.optionals stdenv.isDarwin [
+  ] ++ lib.optionals stdenv.isDarwin [
     Foundation
   ];
 
@@ -43,7 +44,7 @@ stdenv.mkDerivation rec {
     cp vvvvvv${executableSuffix} "$out/bin/VVVVVV"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A retro-styled 2D platformer";
     homepage = "https://thelettervsixtim.es";
     license = {

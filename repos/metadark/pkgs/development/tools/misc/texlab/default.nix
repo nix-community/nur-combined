@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , rustPlatform
 , fetchFromGitHub
 , installShellFiles
@@ -20,13 +21,13 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = stdenv.lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
   postInstall = ''
     installManPage texlab.1
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "An implementation of the Language Server Protocol for LaTeX";
     homepage = "https://texlab.netlify.app";
     license = licenses.mit;

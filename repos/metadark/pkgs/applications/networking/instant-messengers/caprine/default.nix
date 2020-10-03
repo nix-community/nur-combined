@@ -1,7 +1,7 @@
-{ stdenv, pkgs, nodejs, makeDesktopItem, makeWrapper, electron }:
+{ lib, stdenv, pkgs, nodejs, makeDesktopItem, makeWrapper, electron }:
 
 let
-  packageName = with stdenv.lib;
+  packageName = with lib;
     head
       (map
         (entry: "caprine-${entry.caprine}")
@@ -47,7 +47,7 @@ nodePackages.${packageName}.override {
       --add-flags "$out/lib/node_modules/caprine"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://sindresorhus.com/caprine";
     maintainers = with maintainers; [ metadark ];
   };

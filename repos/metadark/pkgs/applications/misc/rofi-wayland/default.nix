@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , rofi
 , fetchFromGitHub
 , meson
@@ -56,7 +57,7 @@ rofi.override {
 
     doCheck = true;
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "Window switcher, run dialog and dmenu replacement (built for Wayland)";
       homepage = "https://github.com/lbonn/rofi";
       license = licenses.mit;
