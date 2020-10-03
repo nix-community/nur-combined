@@ -2,10 +2,10 @@
   {
     "1password-x-password-manager" = buildFirefoxXpiAddon {
       pname = "1password-x-password-manager";
-      version = "1.22.1";
+      version = "1.22.2";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3647140/1password_x_password_manager-1.22.1-fx.xpi";
-      sha256 = "4eade3d69d0bab01c8d1f65479042e8ba7c7a5d3c6d4f333705f4648b533825b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3653115/1password_x_password_manager-1.22.2-fx.xpi";
+      sha256 = "8d2e740a4767863e4ce0605918e29bdbd0130437ed417d959c57dff5b2a2394c";
       meta = with stdenv.lib;
       {
         homepage = "https://1password.com";
@@ -415,10 +415,10 @@
       };
     "honey" = buildFirefoxXpiAddon {
       pname = "honey";
-      version = "12.1.1";
+      version = "12.4.4";
       addonId = "jid1-93CWPmRbVPjRQA@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3549544/honey-12.1.1-fx.xpi";
-      sha256 = "adbf160d5f843ff8b4d7b6b734aaf36e02b48ed639329fefc40515483579045f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3653333/honey-12.4.4-fx.xpi";
+      sha256 = "25ad45e6b4bd93a31919e8ae64162cc83072542dc4fc71335c7b4d7866af078a";
       meta = with stdenv.lib;
       {
         homepage = "https://www.joinhoney.com";
@@ -723,10 +723,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.4.1";
+      version = "5.4.2";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3638036/moderator_toolbox_for_reddit-5.4.1-an+fx.xpi";
-      sha256 = "403b7b6aff2770bf15312ac883db1ae4096e1a0eeb3a72391e9322dc55c016e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3653478/moderator_toolbox_for_reddit-5.4.2-an+fx.xpi";
+      sha256 = "4ef321a8a134dd88faa8d655c044cd4832ffceaa867fc2b8b56231865f567cc2";
       meta = with stdenv.lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
