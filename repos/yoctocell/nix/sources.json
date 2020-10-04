@@ -71,6 +71,18 @@
         "url": "https://github.com/pjones/ivy-exwm/archive/32f107374aef01b9ae00f1647233d50b4ea659e0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "ivy-hoogle": {
+        "branch": "master",
+        "description": "Hoogle integration for ivy in emacs",
+        "homepage": null,
+        "owner": "sjsch",
+        "repo": "ivy-hoogle",
+        "rev": "ea6c89512c7fc1d0252bf1d36c9dc9fbaf805d3d",
+        "sha256": "15p8j48q2vnyvn38ga1vxyy900iipwqmrqg2g18l6939hynkrkrm",
+        "type": "tarball",
+        "url": "https://github.com/sjsch/ivy-hoogle/archive/ea6c89512c7fc1d0252bf1d36c9dc9fbaf805d3d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "matrix-client": {
         "branch": "master",
         "description": "A Matrix client for Emacs!",
