@@ -27,8 +27,10 @@ in
   dockd = pkgs.callPackage ./pkgs/dockd { };
   larbs-mail = pkgs.callPackage ./pkgs/larbs-mail { };
   larbs-news = pkgs.callPackage ./pkgs/larbs-news { };
-  dmenuunicode = pkgs.callPackage ./pkgs/dmenuunicode { };
   larbs-nvim = pkgs.callPackage ./pkgs/larbs-nvim { };
+  dmenuunicode = pkgs.callPackage ./pkgs/dmenuunicode { };
+  larbs-scripts = pkgs.callPackage ./pkgs/larbs-scripts { };
+  displayselect = pkgs.callPackage ./pkgs/larbs-scripts/displayselect { };
 
   #fx = (pkgs.callPackage ./pkgs/fx { }).package;
   # xcb-util = pkgs.callPackage ./pkgs/xcb-util { }; #unknown error
