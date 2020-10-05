@@ -88,7 +88,8 @@ lib.recurseIntoAttrs rec {
     ];
     installPhase = ''
       mkdir -p $out/share/emacs/site-lisp/resources
-      cp resources/template.kra $out/share/emacs/site-lisp/resources/template.kra
+      cp *.el *.elc $out/share/emacs/site-lisp/
+      cp resources/template.kra $out/share/emacs/site-lisp/resources
     '';
 
   };
