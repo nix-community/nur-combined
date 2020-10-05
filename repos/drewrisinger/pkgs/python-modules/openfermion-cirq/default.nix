@@ -45,9 +45,11 @@ buildPythonPackage rec {
   disabledTests = [
     "test_deprecated_test"
     "tutorial_1_basis_change" # see openfermion-cirq #401. Issue is cirq 0.8 deprecated cirq.Rz -> cirq.rz
+    "test_hamiltonian_objective_value" # fails on cirq 0.9+ b/c simulation result type changed
   ];
   pytestFlagsArray = [
     "--ignore=dev_tools"
+    "--disable-warnings"
   ];
 
   meta = with lib; {

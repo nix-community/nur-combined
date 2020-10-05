@@ -28,31 +28,23 @@
 
 buildPythonPackage rec {
   pname = "cirq";
-  version = "0.8.2";
+  version = "0.9.1";
 
-  disabled = pythonOlder "3.5";
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "quantumlib";
     repo = "cirq";
     rev = "v${version}";
-    sha256 = "0xs46s19idh8smf80zhgraxwh3lphcdbljdrhxwhi5xcc41dfsmf";
+    sha256 = "0mygvpq7kzga8l1w2jvwv9a2n3akpss45hrx250gdrnqjp6xrw64";
   };
-
-  patches = [
-    (fetchpatch {
-      name = "cirq-pr-2986-protobuf-bools.patch";
-      url = "https://github.com/quantumlib/Cirq/commit/78ddfb574c0f3936f713613bf4ba102163efb7b3.patch";
-      sha256 = "0hmad9ndsqf5ci7shvd924d2rv4k9pzx2r2cl1bm5w91arzz9m18";
-    })
-  ];
 
   postPatch = ''
     substituteInPlace requirements.txt \
       --replace "freezegun~=0.3.15" "freezegun" \
       --replace "matplotlib~=3.0" "matplotlib" \
       --replace "networkx~=2.4" "networkx" \
-      --replace "numpy~=1.16, < 1.19" "numpy" \
+      --replace "numpy~=1.16" "numpy" \
       --replace "protobuf~=3.12.0" "protobuf"
 
     # Fix serialize_sympy_constants test by allowing small errors in pi
@@ -90,6 +82,7 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [
     "--ignore=dev_tools"  # Only needed when developing new code, which is out-of-scope
+    "--ignore=cirq/contrib/"  # requires external (unpackaged) libraries, so untested.
     "-rfE"
     # "--durations=25"
     "--benchmark-disable"
