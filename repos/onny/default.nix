@@ -28,7 +28,6 @@
   # node-packages
   #inherit (pkgs.callPackages ./pkgs/node-packages {}) hyperpotamus;
 
-  #iwd-autocaptiveauth = pkgs.callPackage ./pkgs/iwd-autocaptiveauth { }; # FIXME
   #snipping_tool = pkgs.callPackage ./pkgs/snipping_tool { };
   #xerox6000-6010 = pkgs.callPackage ./pkgs/xerox6000-6010 { };
   libtransmission = pkgs.callPackage ./pkgs/libtransmission { };
@@ -36,8 +35,9 @@
   passwordsafe = pkgs.callPackage ./pkgs/passwordsafe { };
   # smloadr = pkgs.callPackage ./pkgs/smloadr { }; # FIXME repo down
   # popcorntime = pkgs.callPackage ./pkgs/popcorntime { }; # FIXME
+  iwd-autocaptiveauth = pkgs.callPackage ./pkgs/iwd-autocaptiveauth { }; # FIXME upstream hyperpotamus dependency
   librewolf-bin = pkgs.callPackage ./pkgs/librewolf-bin { };
-  #ocenaudio = pkgs.callPackage ./pkgs/ocenaudio { };
+  ocenaudio = pkgs.callPackage ./pkgs/ocenaudio { };
 
 }
 
