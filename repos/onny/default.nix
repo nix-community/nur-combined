@@ -28,7 +28,6 @@
   # node-packages
   #inherit (pkgs.callPackages ./pkgs/node-packages {}) hyperpotamus;
 
-  #snipping_tool = pkgs.callPackage ./pkgs/snipping_tool { };
   #xerox6000-6010 = pkgs.callPackage ./pkgs/xerox6000-6010 { };
   libtransmission = pkgs.callPackage ./pkgs/libtransmission { };
   #fragments = pkgs.callPackage ./pkgs/fragments { };
@@ -38,6 +37,7 @@
   iwd-autocaptiveauth = pkgs.callPackage ./pkgs/iwd-autocaptiveauth { }; # FIXME upstream hyperpotamus dependency
   librewolf-bin = pkgs.callPackage ./pkgs/librewolf-bin { };
   ocenaudio = pkgs.callPackage ./pkgs/ocenaudio { };
+  snipping_tool = pkgs.callPackage ./pkgs/snipping_tool { };
 
 }
 
