@@ -15,13 +15,14 @@ stages:
 before_script:
   - nix-channel --add https://nixos.org/channels/nixos-${NIXOS_VERSION} nixos
   - nix-channel --update
+  - nix-env -iA nixos.curl
 
 build:
   stage: build
   script:
     - nix-build
-    - cp result/* .
-    - rm result
+      #- cp result/* . FIXME
+    - rm -r result
   #cache:
   #  paths: /nix/store
   artifacts:
