@@ -4,6 +4,7 @@
 
 [![Build Status](https://travis-ci.org/wamserma/nur-packages.svg?branch=master)](https://travis-ci.org/wamserma/nur-packages)
 [![Cachix Cache](https://img.shields.io/badge/cachix-wamserma-blue.svg)](https://wamserma.cachix.org)
+![Build and populate cache](https://github.com/nix-community/wamserma/workflows/Build%20and%20populate%20cache/badge.svg)
 
 Want your own? I used [this template](https://github.com/nix-community/nur-packages-template).
 
