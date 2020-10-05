@@ -296,12 +296,12 @@
   , hostPlatform, darwin
   }: rustPlatform.buildRustPackage rec {
     pname = "rbw-bitw";
-    version = "2020-09-20";
+    version = "2020-10-05";
     src = fetchFromGitHub {
       owner = "arcnmx";
       repo = "rbw";
-      rev = "721cfe6ab9b24be1781ab7473edf7c68ca862f2e";
-      sha256 = "11bfq6s0svhi0c6bj16spj5khdaj93zgpls3s143x5632lfb70q9";
+      rev = "d34a3347b5b3184d163111e1c925e687c7cbabc1";
+      sha256 = "058wda5z2zwxn4xxqqxi8ms49v2bx7hxqh2hpxs59ypx676x61b6";
     };
 
     nativeBuildInputs = [ pkg-config makeWrapper ];
@@ -310,7 +310,7 @@
       ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
 
     cargoBuildFlags = ["--bin" "bitw" ];
-    cargoSha256 = "17m9y5ymidjmkngkjyr6pxfpy05989bkfkl25z421wn0xx0dhsvl";
+    cargoSha256 = "1byz66ral9ir9k7dwnvq2x9s7wrab6q0siq88vmlmijdw82sacjp";
 
     postInstall = lib.optionalString enableGpg ''
         wrapProgram $out/bin/bitw \
