@@ -86,5 +86,10 @@ lib.recurseIntoAttrs rec {
       org
       f
     ];
+    installPhase = ''
+      mkdir -p $out/share/emacs/site-lisp/resources
+      cp resources/template.kra $out/share/emacs/site-lisp/resources/template.kra
+    '';
+
   };
 }
