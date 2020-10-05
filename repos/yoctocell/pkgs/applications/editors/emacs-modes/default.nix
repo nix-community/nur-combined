@@ -72,4 +72,19 @@ lib.recurseIntoAttrs rec {
       s
     ];
   };
+
+  org-krita = trivialBuild rec {
+    pname = "org-krita";
+    version = builtins.substring 0 7 src.rev;
+    src = fetchFromGitHub {
+      owner = "lepisma";
+      repo = "org-krita";
+      rev = sources.org-krita.rev;
+      sha256 = sources.org-krita.sha256;
+    };
+    packageRequires = with emacsPackages; [
+      org
+      f
+    ];
+  };
 }

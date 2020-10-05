@@ -143,6 +143,18 @@
         "url": "https://github.com/atlas-engineer/nyxt/archive/93033a03752abc2b4ace7b92b249d9bff55cd066.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "org-krita": {
+        "branch": "master",
+        "description": "Krita sketches in Org",
+        "homepage": "",
+        "owner": "lepisma",
+        "repo": "org-krita",
+        "rev": "91d00cea8b5720108a915291c4ed402a9e645a92",
+        "sha256": "065gk4bjsq6ak2r5rjx91nh0vsyicb883b8f16s91x0xak7gmjv0",
+        "type": "tarball",
+        "url": "https://github.com/lepisma/org-krita/archive/91d00cea8b5720108a915291c4ed402a9e645a92.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "org-pretty-table": {
         "branch": "master",
         "description": "Replace org-table characters with box-drawing unicode glyphs.",
