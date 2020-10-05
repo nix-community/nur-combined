@@ -12,7 +12,7 @@ let
 
   wrapper = { moreOptions ? {} }:
   let
-    dmenu = callPackage ../../dmenu { };
+    dmenu = callPackage ../../larbs/dmenu { };
   in
   buildEnv {
     name = "displayselect-env";
