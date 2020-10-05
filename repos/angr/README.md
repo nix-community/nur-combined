@@ -7,6 +7,15 @@ Set of expressions to run [`angr`](https://angr.io) on Nix/NixOS.
 
 ## Installation
 
+#### Pre-requisites
+
+Many packages in `angr`'s dependency tree are not available in past releases.
+In consequence, it is necessary to use the `unstable` channel ([more info about channels](https://nixos.wiki/wiki/Nix_channels#The_official_channels)).
+
+Note that `unstable` may lag behind the `master` branch of NixOS/nixpkgs (see [status.nixos.org](https://status.nixos.org/));
+In that case, if you cannot wait for it, you can always use a local fork of `nixpkgs`...
+
+
 ### Via NUR
 
 This repository has been made part of the Nix User Repository ([see details, documentation, and installation guide](https://github.com/nix-community/NUR#nur)).
