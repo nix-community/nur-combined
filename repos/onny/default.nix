@@ -32,12 +32,12 @@
   libtransmission = pkgs.callPackage ./pkgs/libtransmission { };
   #fragments = pkgs.callPackage ./pkgs/fragments { };
   passwordsafe = pkgs.callPackage ./pkgs/passwordsafe { };
-  # smloadr = pkgs.callPackage ./pkgs/smloadr { }; # FIXME repo down
   # popcorntime = pkgs.callPackage ./pkgs/popcorntime { }; # FIXME
   iwd-autocaptiveauth = pkgs.callPackage ./pkgs/iwd-autocaptiveauth { }; # FIXME upstream hyperpotamus dependency
   librewolf-bin = pkgs.callPackage ./pkgs/librewolf-bin { };
   ocenaudio = pkgs.callPackage ./pkgs/ocenaudio { };
   snipping_tool = pkgs.callPackage ./pkgs/snipping_tool { };
+  smloadr = pkgs.callPackage ./pkgs/smloadr { };
 
 }
 
