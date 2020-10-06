@@ -63,10 +63,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.2.87";
+      version = "7.2.89";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3652031/betterttv-7.2.87-fx.xpi";
-      sha256 = "9e1a4007f18ec706d9cf52ee6479e0636102cfd3ffbabd45a7248104592a9965";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3655144/betterttv-7.2.89-fx.xpi";
+      sha256 = "df3948af1fddc74a08b090ed9f3a3b531f7eba78a66703b77f32087429ed7cee";
       meta = with stdenv.lib;
       {
         homepage = "https://betterttv.com";
@@ -527,10 +527,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.0.6.2";
+      version = "1.0.7";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3635114/leechblock_ng-1.0.6.2-an+fx.xpi";
-      sha256 = "0e658a97c89f608b7d17a43cdfeca5f7c3c368d7f783ab6ef9fae6c5a20a080f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3654682/leechblock_ng-1.0.7-an+fx.xpi";
+      sha256 = "47fbb4a4c491338b50973c37de818b141612ae8015648762e03bbd8404ba5ea7";
       meta = with stdenv.lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -751,10 +751,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "22.2";
+      version = "23.0";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3632461/save_page_we-22.2-fx.xpi";
-      sha256 = "aff2b0afb4a6f8f576f2225c7875d7daa2faa5be1a3c8e9cd1f27cef8df7516e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3655061/save_page_we-23.0-fx.xpi";
+      sha256 = "e35a14247d09dfaf2d1449f187530cb20422abeb656d649a957b0ad0db008eaa";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -778,10 +778,10 @@
       };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.4.1";
+      version = "0.4.2";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3625468/snowflake-0.4.1-fx.xpi";
-      sha256 = "8ccab22915b90217b8537e7fd69b939791a8592d0306ebad054884c97dd2e79e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3655123/snowflake-0.4.2-fx.xpi";
+      sha256 = "d3430a99343350dff3409999b738c03e103055e8a59145ccb19108429b9c3c8e";
       meta = with stdenv.lib;
       {
         homepage = "https://snowflake.torproject.org/";
