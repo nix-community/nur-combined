@@ -8,7 +8,7 @@ buildGoModule {
   inherit pname version;
   src = sources.pg-tileserv;
 
-  vendorSha256 = "1wpzj6par25z7cyyz6p41cxdll4nzb0jjdl1pffgawiy9z7j17vb";
+  vendorSha256 = "1zim7h6nqz61rwzv4qf5hd26w9zk91cqx8b50i3bbd01iv4nd9g6";
 
   doCheck = false;
 

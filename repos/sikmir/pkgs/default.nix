@@ -157,6 +157,7 @@ lib.makeScope newScope (
       inherit sources;
       inherit (perlPackages) GeoOpenstreetmapParser MatchSimple MathPolygon MathPolygonTree TreeR;
     };
+    phyghtmap = callPackage ./tools/geo/phyghtmap { };
     ptunnel = callPackage ./tools/networking/ptunnel { };
     sendmap20 = callPackage ./tools/geo/sendmap20 { };
     stardict-tools =
