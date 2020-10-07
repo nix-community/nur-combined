@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p nix-update nix-prefetch-github
+#! nix-shell -i bash -p nix-update nix-prefetch nix-prefetch-github
 
 # number-versioned packages. Use nix-update
 while read -r i; do
@@ -11,7 +11,9 @@ EOF
 
 # other. Run their update.sh
 while read -r i; do
-  pkgs/"$i"/update.sh
+  pushd pkgs/"$i"/
+  ./update.sh
+  popd
 done << EOF
   artwiz-lemon
 EOF
