@@ -53,4 +53,12 @@ stdenv.mkDerivation rec {
 
     ln -s $out/bin/, $out/bin/comma
   '';
+
+  meta = {
+    description = "Comma runs software without installing it.";
+    homepage = "https://github.com/Shopify/comma/pull/7";
+    license = stdenv.lib.licenses.mit;
+  };
+
 }
+
