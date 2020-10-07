@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   artwiz-lemon = pkgs.callPackage ./pkgs/artwiz-lemon { };
+  comma = pkgs.callPackage ./pkgs/comma { }; # From https://github.com/Shopify/comma/pull/7
   ix = pkgs.callPackage ./pkgs/ix { };
   r2mod_cli = pkgs.callPackage ./pkgs/r2mod_cli { };
   scientifica = pkgs.callPackage ./pkgs/scientifica { };
