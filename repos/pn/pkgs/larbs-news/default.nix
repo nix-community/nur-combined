@@ -52,6 +52,8 @@ in
       cp ${voidrice}/.local/bin/queueandnotify $out/bin/queueandnotify
       cp ${voidrice}/.local/bin/podentr $out/bin/podentr
       cp -r ${desktopItem}/share/applications $out/share/applications
+
+      sed -i 's:/usr/bin/::g' $out/bin/newsup
     '';
 
     meta = {
