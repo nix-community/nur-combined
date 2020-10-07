@@ -18,6 +18,10 @@ fonts.fonts = with pkgs; [
 
 A Wingdings font.
 
+### trace-font
+
+A font designed to be traced on paper.
+
 ### electrum-personal-server
 
 See the corresponding module in the NixOS Modules section below.

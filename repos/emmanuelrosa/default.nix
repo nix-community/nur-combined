@@ -19,6 +19,7 @@
   # ...
   century-gothic = pkgs.callPackage ./pkgs/century-gothic { };
   wingdings = pkgs.callPackage ./pkgs/wingdings { };
+  trace-font = pkgs.callPackage ./pkgs/data/fonts/trace { };
   electrum-personal-server = pkgs.callPackage ./pkgs/electrum-personal-server { };
   er-wallpaper = pkgs.haskellPackages.callPackage ./pkgs/er-wallpaper { };
   electrum-hardened = pkgs.callPackage ./pkgs/applications/misc/electrum-hardened { };
