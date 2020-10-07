@@ -1,14 +1,18 @@
 { stdenv, callPackage, buildEnv }:
 with stdenv.lib;
 let
-  setbg = callPackage ./setbg.nix { };
-  displayselect = callPackage ./displayselect.nix { };
+  bare = callPackage ./bare.nix { };
+  cron = callPackage ./cron.nix { };
+  i3cmds = callPackage ./i3cmds.nix { };
+  statusbar = callPackage ./statusbar.nix { };
 in
   buildEnv {
     name = "larbs-scripts";
     paths = [
-      setbg
-      displayselect
+      bare
+      cron
+      i3cmds
+      statusbar
     ];
 
     meta = {

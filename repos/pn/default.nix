@@ -17,6 +17,8 @@
 
   libthinkpad = pkgs.callPackage ./pkgs/libthinkpad { };
   dockd = pkgs.callPackage ./pkgs/dockd { };
+  simple-mtpfs = pkgs.callPackage ./pkgs/simple-mtpfs { };
+  task-spooler = pkgs.callPackage ./pkgs/task-spooler { };
 
   st = pkgs.callPackage ./pkgs/larbs/st { };
   dwm = pkgs.callPackage ./pkgs/larbs/dwm { };
