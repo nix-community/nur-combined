@@ -58,4 +58,6 @@ rec {
 
   zsh-kubectl-prompt = pkgs.callPackage ./pkgs/zsh-kubectl-prompt {};
 
+  stolon = pkgs.callPackage ./pkgs/stolon {};
+
 }
