@@ -1,5 +1,6 @@
 { stdenv
 , fetchFromGitHub
+, fetchpatch
 , cmake
 , gfortran
 , perl
@@ -8,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "xcfun";
-  version = "1.0.X";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "dftlibs";
     repo = pname;
-    rev = "355f42497a9cd17d16ae91da1f1aaaf93756ae8b"; # rev recommended by pythonPackages.pyscf: https://sunqm.github.io/pyscf/install.html#installation-without-network
-    sha256 = "09hs8lxks2d98a5q2xky9dz5sfsrxaww3kyryksi9b6l1f1m3hxp";
+    rev = "v${version}";
+    sha256 = "1gnc3x7x7w0qigyr6h8m877bwrkjfd7b300f6cq535pr98ksmpx2";
   };
 
   nativeBuildInputs = [
@@ -27,24 +28,32 @@ stdenv.mkDerivation rec {
     perl
   ];
 
+  # TODO: Remove on next release,
+  patches = [
+    (fetchpatch {
+      name = "xcfun-fix-header-file-install.patch";
+      url = "https://github.com/dftlibs/xcfun/commit/8eb400ee160e9ba013fa9a4fb23d55bb2a1d2f8f.patch";
+      sha256 = "17rb0sy93yz61v0hk2a1qd81ljscvw6j7jhnw8zvypdpfkc6qysl";
+    })
+  ];
+
   cmakeFlags = [
     "-DBUILD_TESTING=1"
     "-DBUILD_SHARED_LIBS=1"
-    "-DXC_MAX_ORDER=3"
+    "-DXCFUN_MAX_ORDER=3"
+    "-H.."
   ];
 
-  # TODO: tests are very quick. check it actually does something.
   doCheck = true;
-  checkPhase = ''
-    # set path for finding libxcfun.so for tests
-    LD_LIBRARY_PATH=$out/lib:$LD_LIBRARY_PATH ctest --progress ctest --progress
-  '';
+  # Add xcfun library in build dir to library path for ctest to find
+  preCheck = "export LD_LIBRARY_PATH=$(pwd)/$out/lib:$LD_LIBRARY_PATH";
 
   meta = with stdenv.lib; {
     description = "Exchange-correlation functionals with arbitrary order derivatives";
     homepage = "https://xcfun.readthedocs.io/en/latest/";
     downloadPage = "https://github.com/dftlibs/xcfun/releases";
+    changelog = "https://xcfun.readthedocs.io/en/latest/changelog.html";
     license = licenses.mpl20;
-    # maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [ drewrisinger ];
   };
 }

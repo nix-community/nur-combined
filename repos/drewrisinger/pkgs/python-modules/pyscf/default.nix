@@ -10,6 +10,7 @@
 , xcfun
 # Python dependencies
 , h5py
+, numba
 , numpy
 , scipy
   # Check Inputs
@@ -19,14 +20,14 @@
 
 buildPythonPackage rec {
   pname = "pyscf";
-  version = "1.7.4";
+  version = "1.7.5";
 
   # must download from GitHub to get the Cmake & C source files
   src = fetchFromGitHub {
     owner = "pyscf";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1hagkx0g4hpr9xgi95pz446x8jifvkin1yvbwyd1hq219nnvwwqf";
+    sha256 = "10275pxkz76xl3bxgxy445s03xn8grik7djsn4qlh00dp8f6sdf6";
   };
 
   disabled = isPy27;
@@ -69,6 +70,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     h5py
+    numba
     numpy
     scipy
   ];
@@ -216,22 +218,22 @@ buildPythonPackage rec {
     "test_race_condition_skip"
   ];
   NOSE_IGNORE_FILES = [
-    ".*_slow.*\.py"
-    ".*_kproxy_.*\.py"
-    "test_proxy\.py"
-    "test_krhf_slow_gamma\.py"
-    "test_krhf_slow\.py"
-    "test_krhf_slow_supercell\.py"
-    "test_ddcosmo_grad\.py"
-    "test_kuccsd_supercell_vs_kpts\.py"
-    "test_kccsd_ghf\.py"
-    "test_h_.*\.py"
-    "test_P_uadc_ip\.py"
-    "test_P_uadc_ea\.py"
-    "test_ksproxy_ks\.py"
-    "test_kproxy_ks\.py"
-    "test_kproxy_hf\.py"
-    "test_kgw_slow\.py"
+    ".*_slow.*.py"
+    ".*_kproxy_.*.py"
+    "test_proxy.py"
+    "test_krhf_slow_gamma.py"
+    "test_krhf_slow.py"
+    "test_krhf_slow_supercell.py"
+    "test_ddcosmo_grad.py"
+    "test_kuccsd_supercell_vs_kpts.py"
+    "test_kccsd_ghf.py"
+    "test_h_.*.py"
+    "test_P_uadc_ip.py"
+    "test_P_uadc_ea.py"
+    "test_ksproxy_ks.py"
+    "test_kproxy_ks.py"
+    "test_kproxy_hf.py"
+    "test_kgw_slow.py"
   ];
   NOSE_EXCLUDE_DIRS = [
     "pyscf/geomopt"
