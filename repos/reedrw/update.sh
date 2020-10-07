@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p nix-update nix-prefetch nix-prefetch-github
+#! nix-shell -i bash
 
 # number-versioned packages. Use nix-update
 while read -r i; do
