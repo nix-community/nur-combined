@@ -1,0 +1,33 @@
+name: Update sources
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Nix
+      uses: cachix/install-nix-action@v11
+
+    - name: Checkout
+      uses: actions/checkout@v2.3.3
+
+    - name: Update packages
+      run: ./update.sh
+
+    - name: Commit and Push
+      uses: EndBug/add-and-commit@v5
+      with:
+        author_name: GitHub Action
+        author_email: action@github.com
+        message: "automated update"
+        add: "--all"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Update NUR
+      run: curl -XPOST https://nur-update.herokuapp.com/update?repo=reedrw
+
