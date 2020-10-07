@@ -3,7 +3,7 @@
 
 # number-versioned packages. Use nix-update
 while read -r i; do
-  nix-update "$i"
+  nix-update "$i" || exit 1
 done << EOF
   r2mod_cli
   scientifica
