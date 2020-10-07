@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -19,5 +19,5 @@
   # ...
   clash-premium = pkgs.callPackage ./pkgs/clash-premium { };
   godns = pkgs.callPackage ./pkgs/godns { };
+  dpt-rp1-py = pkgs.callPackage ./pkgs/dpt-rp1-py { };
 }
-
