@@ -21,6 +21,7 @@ in
     '';
 
     meta = {
+      homepage = "http://vicerveza.homeunix.net/~viric/soft/ts/";
       description = "Queue up tasks from the shell for batch execution";
       license = licenses.gpl3;
     };

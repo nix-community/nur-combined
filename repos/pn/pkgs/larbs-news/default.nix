@@ -26,7 +26,7 @@ let
     name = pname;
     genericName = "RSS Reader";
     comment = "Newsboat configuration by Luke Smith";
-    exec = "${newsboatWrapped}/bin/neomutt";
+    exec = "${newsboatWrapped}/bin/newsboat";
     # icon =
     desktopName = pname;
     mimeType = "application/rss+xml";
@@ -51,6 +51,7 @@ in
       cp ${voidrice}/.local/bin/qndl $out/bin/qndl
       cp ${voidrice}/.local/bin/queueandnotify $out/bin/queueandnotify
       cp ${voidrice}/.local/bin/podentr $out/bin/podentr
+      cp -r ${desktopItem}/share/applications $out/share/applications
     '';
 
     meta = {
