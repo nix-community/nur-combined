@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 with lib;
 {
+  # IMPORTANT: make sure you have internet connection before you log 
+  # into your computer, otherwise the background fetching process will fail. 
+  # of course if you are using a file path instead of a URL, you don't have 
+  # to worry about that
   options.fetchBackground = {
     enable = mkOption {
       type = types.bool;
