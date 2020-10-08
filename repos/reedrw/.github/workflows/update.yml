@@ -10,13 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install Nix
+    - name: Install nix
       uses: cachix/install-nix-action@v11
       with:
         nix_path: nixpkgs=channel:nixos-unstable
 
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v2.3.3
+
+    - name: Setup cachix
+      uses: cachix/cachix-action@v6
+      with:
+        name: reedrw
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+
 
     - name: Setup nix-shell
       run: nix-shell shell.nix --run 'exit'
@@ -24,7 +31,7 @@ jobs:
     - name: Update packages
       run: ./update.sh
 
-    - name: Commit and Push
+    - name: Commit and push
       uses: EndBug/add-and-commit@v5
       with:
         author_name: GitHub Action
