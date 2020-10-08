@@ -58,7 +58,7 @@ buildPythonPackage rec {
     requests
     requests_ntlm
     websockets
-  ] ++ lib.optional withVisualization visualizationPackages;
+  ] ++ lib.optionals withVisualization visualizationPackages;
 
   # Most tests require credentials to run on IBMQ
   checkInputs = [
@@ -67,7 +67,7 @@ buildPythonPackage rec {
     nbformat
     pproxy
     vcrpy
-  ] ++ visualizationPackages;
+  ] ++ lib.optionals (!withVisualization) visualizationPackages;
   dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [ "qiskit.providers.ibmq" ];

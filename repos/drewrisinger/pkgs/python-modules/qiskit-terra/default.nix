@@ -78,8 +78,8 @@ buildPythonPackage rec {
     retworkx
     scipy
     sympy
-  ] ++ lib.optional withVisualization visualizationPackages
-  ++ lib.optional withCrosstalkPass crosstalkPackages;
+  ] ++ lib.optionals withVisualization visualizationPackages
+  ++ lib.optionals withCrosstalkPass crosstalkPackages;
 
 
   # *** Tests ***
@@ -89,7 +89,7 @@ buildPythonPackage rec {
     hypothesis
     nbformat
     nbconvert
-  ] ++ visualizationPackages;
+  ] ++ lib.optionals (!withVisualization) visualizationPackages;
   dontUseSetuptoolsCheck = true;  # can't find setup.py, so fails. tested by pytest
 
   pythonImportsCheck = [
