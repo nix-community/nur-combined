@@ -18,6 +18,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2.3.3
 
+    - name: Setup nix-shell
+      run: nix-shell shell.nix --run 'exit'
+
     - name: Update packages
       run: ./update.sh
 
