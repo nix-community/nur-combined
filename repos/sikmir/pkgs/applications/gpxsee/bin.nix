@@ -1,14 +1,14 @@
 { stdenv, fetchurl, undmg, sources }:
 let
   pname = "gpxsee";
-  version = "7.31";
+  version = "7.33";
 in
 stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
     url = "mirror://sourceforge/gpxsee/GPXSee-${version}.dmg";
-    sha256 = "0gjpk89q5c1y9anmm26jv18i54dadn7q7r1djfsmsx77ibsbk8dm";
+    sha256 = "175n5gabkzaq5bfwgwvizh65axpfz2x76s7w3x9fk51wdb424wph";
   };
 
   preferLocalBuild = true;

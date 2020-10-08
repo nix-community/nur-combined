@@ -1,7 +1,7 @@
 { stdenv, fetchfromgh, undmg, sources }:
 let
   pname = "Openorienteering-Mapper";
-  version = "0.9.3";
+  version = "0.9.4";
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -11,7 +11,7 @@ stdenv.mkDerivation {
     repo = "mapper";
     version = "v${version}";
     name = "OpenOrienteering-Mapper-${version}-macOS.dmg";
-    sha256 = "18fpspa7sjl6xig12g7zm6106wzllj2g1p0ls3h5x3az2rl4ww12";
+    sha256 = "18khck9jghk6sdyg5r8i9yg6sb29dq560zq82icj8blrf4jj0aba";
   };
 
   preferLocalBuild = true;

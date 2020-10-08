@@ -4,8 +4,8 @@ assert releaseType == "pr" || releaseType == "ltr";
 let
   pname = "qgis";
   version = {
-    pr = "3.14.1";
-    ltr = "3.10.8";
+    pr = "3.14.16";
+    ltr = "3.10.10";
   }.${releaseType};
 in
 stdenv.mkDerivation {
@@ -14,8 +14,8 @@ stdenv.mkDerivation {
   src = fetchurl {
     url = "https://qgis.org/downloads/macos/qgis-macos-${releaseType}.dmg";
     sha256 = {
-      pr = "09c62yxaj0nc64djjxvk5irm0604phir4bfk1wclimvxqc9dvxwz";
-      ltr = "1bwj98rzsh3mlv330wkhv51hx2iywcw4r4vbn80z4cyc6dd6k274";
+      pr = "103rrzzpd79klaqjja7cydrwhvpqwdn04wp6ggavnxcgigb7z7z8";
+      ltr = "0w41bi1lz7c7c9pylnaqp2r50frzq3fdpqznrq7wzq0hkkf49wzg";
     }.${releaseType};
     name = "QGIS-macOS-${version}.dmg";
   };
@@ -24,7 +24,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ undmg ];
 
-  sourceRoot = if releaseType == "pr" then "QGIS$3.14.app" else "QGIS3.app";
+  sourceRoot = if releaseType == "pr" then "QGIS3.14.app" else "QGIS3.10.app";
 
   installPhase = ''
     mkdir -p $out/Applications/QGIS.app

@@ -4,7 +4,7 @@ let
   throwSystem = throw "Unsupported system: ${system}";
 
   pname = "keeweb";
-  version = "1.15.6";
+  version = "1.15.7";
   name = "${pname}-${version}";
 
   suffix = {
@@ -18,8 +18,8 @@ let
     version = "v${version}";
     name = "KeeWeb-${version}.${suffix}";
     sha256 = {
-      x86_64-linux = "1jz61k745dygr1c0imv411xq4i4hajqiph97bmm78v1x02753ama";
-      x86_64-darwin = "029zmh83mrf9qqk5yjplshv3nlba71l4h21xywmp6dkb4vr676xr";
+      x86_64-linux = "0cy0avl0m07xs523xm0rzsmifl28sv4rjb2jj3x492qmr2v64ckk";
+      x86_64-darwin = "0r8c3zi0ibj0bb0gfc1axfn0y4qpjqfr0xpcxf810d65kaz6wic4";
     }.${system} or throwSystem;
   };
 

@@ -1,7 +1,7 @@
 { stdenv, fetchfromgh, undmg }:
 let
   pname = "anki";
-  version = "2.1.33";
+  version = "2.1.35";
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -10,7 +10,7 @@ stdenv.mkDerivation {
     owner = "ankitects";
     repo = "anki";
     name = "anki-${version}-mac.dmg";
-    sha256 = "0a5wxmxzjn23w3c0jd3sk5mrsiapzfvjqz2sb0q2nmn62c7l2df5";
+    sha256 = "0xs4jyi9sl6q7101c5ca02yaihm796mpjbscqkna9hj47qj2dxak";
     inherit version;
   };
 

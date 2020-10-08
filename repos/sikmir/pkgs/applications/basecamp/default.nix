@@ -1,14 +1,14 @@
 { stdenv, fetchurl, undmg, xar, cpio }:
 let
   pname = "basecamp";
-  version = "4.8.9";
+  version = "4.8.10";
 in
 stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
     url = "https://download.garmin.com/software/BaseCampforMac_${stdenv.lib.replaceStrings [ "." ] [ "" ] version}.dmg";
-    sha256 = "1bg0hpqhs6bqg6ihvn0ffi442xzsg7ym2slqxvsg4lqsrxirkp3x";
+    sha256 = "09jrbix42a6aqv8vd4hcrvhfnj9y7l17xm7hdyc6p1nmb859y5ri";
   };
 
   preferLocalBuild = true;
