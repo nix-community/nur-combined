@@ -33,7 +33,7 @@ def not_rc_or_patch?(version)
 end
 
 def version_in_range?(version)
-  version.split('.').first.to_i >= 18
+  version.split('.').first.to_i >= 16
 end
 
 def nix_prefetch_sha256(url)

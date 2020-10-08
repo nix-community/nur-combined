@@ -44,11 +44,11 @@ let
           debugInfo = true;
         });
 
-      lfes = util.recurseIntoAttrs
-        (callPackageWithSelf ../interpreters/lfe/all-versions.nix {
-          inherit util beamLib annotateErlangInVersion mainOnly;
-          inherit erlang buildRebar3 buildHex;
-        });
+      # lfes = util.recurseIntoAttrs
+      #   (callPackageWithSelf ../interpreters/lfe/all-versions.nix {
+      #     inherit util beamLib annotateErlangInVersion mainOnly;
+      #     inherit erlang buildRebar3 buildHex;
+      #   });
 
       # Non hex packages. Examples how to build Rebar/Mix packages with and
       # without helper functions buildRebar3 and buildMix.
@@ -68,6 +68,7 @@ let
     };
 
   allPackages = lib.makeExtensible packages;
-  mainPackages = (with allPackages; { inherit elixirs lfes; });
+  # mainPackages = (with allPackages; { inherit elixirs lfes; });
+  mainPackages = (with allPackages; { inherit elixirs; });
 
 in if mainOnly then mainPackages else allPackages
