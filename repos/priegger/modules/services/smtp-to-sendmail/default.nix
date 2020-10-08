@@ -23,7 +23,7 @@ in
   config = mkIf cfg.enable {
     services.opensmtpd = {
       enable = true;
-      addSendmailToSystemPath = mkForce false; # This would lead to an endless loop.
+      setSendmail = mkForce false; # This would lead to an endless loop.
       extraServerArgs = [ "-v" ];
       serverConfiguration = configuration;
     };

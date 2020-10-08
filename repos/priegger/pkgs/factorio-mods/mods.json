@@ -468,10 +468,10 @@
   },
   {
     "name": "bobvehicleequipment",
-    "version": "1.0.0",
-    "file_name": "bobvehicleequipment_1.0.0.zip",
-    "download_url": "/download/bobvehicleequipment/5f39ad2492825d5c6246da85",
-    "sha1": "63be9ffd2dac03809d1e8185a9216c7ec917d0c1",
+    "version": "1.0.1",
+    "file_name": "bobvehicleequipment_1.0.1.zip",
+    "download_url": "/download/bobvehicleequipment/5f751ad989fd05e6e9f027ac",
+    "sha1": "534a411bdf396050701d3934d018fc16741cfac6",
     "dependencies": [
       "base >= 1.0.0",
       "boblibrary >= 0.18.0",
@@ -579,10 +579,10 @@
   },
   {
     "name": "Nanobots",
-    "version": "3.2.8",
-    "file_name": "Nanobots_3.2.8.zip",
-    "download_url": "/download/Nanobots/5ed489b1196b49000e432d7e",
-    "sha1": "beeb7c4d3d0b0bc29990aadf7fb355113064bf39",
+    "version": "3.2.10",
+    "file_name": "Nanobots_3.2.10.zip",
+    "download_url": "/download/Nanobots/5f7045c678691ca7cc2107a6",
+    "sha1": "6cbb9189cd9f2307621b37dc35d1f0786d83a9f4",
     "dependencies": [
       "base >= 0.18.0",
       "stdlib >= 1.0.0",
@@ -608,10 +608,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "7.0.7",
-    "file_name": "reverse-factory_7.0.7.zip",
-    "download_url": "/download/reverse-factory/5ef69ac259bd02585e711a78",
-    "sha1": "deb3408d795f6855bc90642092ddbee57a5cc37b",
+    "version": "7.0.9",
+    "file_name": "reverse-factory_7.0.9.zip",
+    "download_url": "/download/reverse-factory/5f72668150c365592627ac12",
+    "sha1": "5423e705cb2c85068990951ce674f1e0085d84f2",
     "dependencies": [
       "base",
       "stdlib",
@@ -648,20 +648,20 @@
   },
   {
     "name": "RPGsystem",
-    "version": "0.18.49",
-    "file_name": "RPGsystem_0.18.49.zip",
-    "download_url": "/download/RPGsystem/5eee169e8bb9df000c967ff4",
-    "sha1": "3f31306e8fa7d7588b63678ac37104975c136c48",
+    "version": "1.0.50",
+    "file_name": "RPGsystem_1.0.50.zip",
+    "download_url": "/download/RPGsystem/5f64e8aba5e9b44326055ea7",
+    "sha1": "7c64bab293efeb2c81a59e74062b097fc01d604d",
     "dependencies": [
       "base >= 0.18.22"
     ]
   },
   {
     "name": "rso-mod",
-    "version": "6.1.1",
-    "file_name": "rso-mod_6.1.1.zip",
-    "download_url": "/download/rso-mod/5f39615694a84ec7946f344c",
-    "sha1": "0088f531144d3f4f59a4b5fab5186b49c41c6f8c",
+    "version": "6.1.2",
+    "file_name": "rso-mod_6.1.2.zip",
+    "download_url": "/download/rso-mod/5f6dd806985a0a3fbce796ff",
+    "sha1": "31aae98f07e3fd4b59c89a19ba1f5b326ea2ef07",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
@@ -671,10 +671,10 @@
   },
   {
     "name": "stdlib",
-    "version": "1.4.4",
-    "file_name": "stdlib_1.4.4.zip",
-    "download_url": "/download/stdlib/5f41ba105f1d08cb8d13d073",
-    "sha1": "0f6bd1bb1c52ecb860fbdde4455d314fc719fd6c",
+    "version": "1.4.5",
+    "file_name": "stdlib_1.4.5.zip",
+    "download_url": "/download/stdlib/5f695961abe0699eb2692a0a",
+    "sha1": "01264ae265f386d3fd9ec1db3f045495526dff2f",
     "dependencies": [
       "base >= 0.18.0"
     ]
