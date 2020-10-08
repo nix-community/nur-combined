@@ -20,8 +20,6 @@ jobs:
 
     - name: Update packages
       run: ./update.sh
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Commit and Push
       uses: EndBug/add-and-commit@v5
@@ -35,4 +33,3 @@ jobs:
 
     - name: Update NUR
       run: curl -XPOST https://nur-update.herokuapp.com/update?repo=reedrw
-
