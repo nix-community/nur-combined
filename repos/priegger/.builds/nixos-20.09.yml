@@ -1,6 +1,6 @@
-image: nixos/latest
+image: nixos/20.03
 repositories:
-  nixpkgs: https://nixos.org/channels/nixos-unstable
+  nixpkgs: https://nixos.org/channels/nixos-20.09
 packages:
   - nixpkgs.cachix
 sources:
@@ -9,7 +9,6 @@ secrets:
   -  979bc696-35ff-421b-a46e-99f04e657a87 # cachix-priegger
 environment:
   CACHIX_CACHE: priegger
-  NUR_REPO: priegger
 tasks:
   - setup: |
       cachix use "${CACHIX_CACHE}" --mode user-nixconf
@@ -32,4 +31,3 @@ tasks:
       cd nur-packages
       [ "$(git rev-parse HEAD)" == "$(git rev-parse master)" ] || complete-build
       nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"
-      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"
