@@ -17,6 +17,7 @@
   artwiz-lemon = pkgs.callPackage ./pkgs/artwiz-lemon { };
   comma = pkgs.callPackage ./pkgs/comma { }; # From https://github.com/Shopify/comma/pull/7
   ix = pkgs.callPackage ./pkgs/ix { };
+  noisetorch = pkgs.callPackage ./pkgs/noisetorch { };
   r2mod_cli = pkgs.callPackage ./pkgs/r2mod_cli { };
   scientifica = pkgs.callPackage ./pkgs/scientifica { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
