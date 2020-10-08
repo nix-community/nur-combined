@@ -175,6 +175,10 @@ lib.makeScope newScope (
     xfractint = callPackage ./tools/xfractint { };
     zdict = callPackage ./tools/dict/zdict { };
 
+    ### GAMES
+
+    ascii-dash = callPackage ./games/ascii-dash { };
+
     ### SERVERS
 
     dict2rest = callPackage ./servers/dict2rest { };
@@ -183,6 +187,7 @@ lib.makeScope newScope (
     mbtileserver = callPackage ./servers/mbtileserver { };
     nakarte = callPackage ./servers/nakarte { };
     pg_tileserv = callPackage ./servers/pg_tileserv { };
+    quark = callPackage ./servers/quark { };
     shavit = callPackage ./servers/shavit { };
 
     ### MISC
