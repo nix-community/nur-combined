@@ -25,8 +25,10 @@ python3Packages.buildPythonApplication {
     colour
     s2sphere
     pint
+    polyline
     pytz
     setuptools
+    stravalib
     timezonefinder
   ];
 

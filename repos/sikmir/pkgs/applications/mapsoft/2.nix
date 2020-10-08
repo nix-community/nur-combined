@@ -18,17 +18,18 @@
 , proj
 , shapelib
 , unzip
+, wrapGAppsHook
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "mapsoft2";
-  version = "unstable-2020-06-22";
+  version = "1.3";
 
   src = fetchFromGitHub {
     owner = "slazav";
-    repo = "mapsoft2";
-    rev = "3b9c7a0e016a807e096fc7cee49ac70e0e796490";
-    sha256 = "1yzl23z5xlwi5kh8abjvvra3yswzjkzcnab25spbzd9g1hr8nwjh";
+    repo = pname;
+    rev = "${version}-alt1";
+    sha256 = "1jal7k2wm7b3mjkd8r68bp0bh8gqyzlwbdkyhxpx5gm8mqv2fnxx";
     fetchSubmodules = true;
   };
 
@@ -54,6 +55,7 @@ stdenv.mkDerivation {
     perlPackages.perl
     pkgconfig
     unzip
+    wrapGAppsHook
   ];
   buildInputs = [
     db

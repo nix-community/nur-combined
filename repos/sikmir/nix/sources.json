@@ -16,7 +16,7 @@
     "cheetah3": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-29T19:31:44Z",
+        "date": "2020-10-01T13:57:25Z",
         "description": "Cheetah3 is a free (MIT) and open source template engine for Python",
         "homepage": "https://cheetahtemplate.org/",
         "owner": "CheetahTemplate3",
@@ -114,15 +114,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-28T17:30:59Z",
+        "date": "2020-10-07T08:25:16Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "c8a704e48b0ad894ca0d67e774d998952b2d9312",
-        "sha256": "1bp2jyxn76sj1029a1jjb79mrj970k5kdcnbwmshap38zkpl03dw",
+        "rev": "83ad34e36377680924a9aa52ec87aac8cac73b26",
+        "sha256": "1zgsjbqbzgpvr1cqw18jyfsns45dd40022hpwdkgh4ccq4647gl3",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/c8a704e48b0ad894ca0d67e774d998952b2d9312.tar.gz",
+        "url": "https://github.com/embox/embox/archive/83ad34e36377680924a9aa52ec87aac8cac73b26.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -169,27 +169,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "0lyijrx1gvgclmmphd4s67x5wb8y6wx4wm6yw5iy3vvlinxpwyrf",
+        "sha256": "1p03480g9wcd5jzxgj9dya0lqccqdhmp9vhar984v1qn67s0iwd8",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-201005.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-201007.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "201005"
+        "version": "201007"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "1xr7g500pv90q6g1b0nsk2cmxsimwgprrwh0j4lvmdfg4h1mdsxm",
+        "sha256": "1saapdyw3v1gibx4fp2bf700dgpgynzjy1xgbzzg7d50ac7icqw6",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-201005.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-201007.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "201005"
+        "version": "201007"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "02cn341lidzij6m2nnv85hxfqwcjl64vbh84wsfl7i5a13jyyvag",
+        "sha256": "0ygw42lri0xdm08837gnljn77rfm0d1drirzc95s59fmqwi9n0n6",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201005.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201007.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "201005"
+        "version": "201007"
     },
     "gimgtools": {
         "branch": "master",
@@ -278,7 +278,7 @@
     "gpxlab": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-25T23:17:43Z",
+        "date": "2020-10-04T08:40:18Z",
         "description": "Program to show and manipulate GPS tracks",
         "homepage": "https://github.com/BourgeoisLab/GPXLab",
         "owner": "BourgeoisLab",
@@ -306,15 +306,15 @@
     "gpxsee": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-29T20:03:26Z",
+        "date": "2020-10-07T20:57:53Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "a1be73fbbad8c3f1a96d0745e7470cf81c814851",
-        "sha256": "0hw15gr8g6r34qqihzs1fgv8qs9skdmkyc935h414s8fi9rz8q2g",
+        "rev": "9d6a2cce45844f9a5b500bb52aeac9950423a1f9",
+        "sha256": "1k4zl7knlpwxrpqk1axkmy8x12915z15h3q2sjnx3jcnx6qw73ja",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/a1be73fbbad8c3f1a96d0745e7470cf81c814851.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/9d6a2cce45844f9a5b500bb52aeac9950423a1f9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -347,15 +347,15 @@
     "gpxtrackposter": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-19T08:42:32Z",
+        "date": "2020-09-27T10:57:07Z",
         "description": "Create a visually appealing poster from your GPX tracks",
         "homepage": "https://github.com/flopp/GpxTrackPoster",
         "owner": "flopp",
         "repo": "GpxTrackPoster",
-        "rev": "351bdbc54f25fc844f451abe2aa68e035c5256ca",
-        "sha256": "1k1hdxa0hlc34n68zjs412bj2jzica0c89qwyn17fynnl3h089b6",
+        "rev": "3809299c42d4410bfb8be9537c93a9a922106db3",
+        "sha256": "197wd834dsscwh8an2dcca3pwmy4b24hq56f424b5ys1ylpl5xr3",
         "type": "tarball",
-        "url": "https://github.com/flopp/GpxTrackPoster/archive/351bdbc54f25fc844f451abe2aa68e035c5256ca.tar.gz",
+        "url": "https://github.com/flopp/GpxTrackPoster/archive/3809299c42d4410bfb8be9537c93a9a922106db3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gt-bash-client": {
@@ -515,15 +515,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-30T05:22:24Z",
+        "date": "2020-10-07T18:20:25Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "0696834391f0f961510e9f47f1ef7a29e77bcd06",
-        "sha256": "1jri999gspi3qihnfixijp93va13pxqnyk6jvqcb9n023k6b9a6p",
+        "rev": "c6168807ab776cb050f296070b20441fdaa568aa",
+        "sha256": "19ldslyr064vs84lc2ly92n3c2xzpbv4dak6lrwzynra5pxas5xc",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/0696834391f0f961510e9f47f1ef7a29e77bcd06.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/c6168807ab776cb050f296070b20441fdaa568aa.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -545,11 +545,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "0r6m3pmjymync85cvpsphagcs2nwd6k2qa6gvy12qk2mcp6zvqr8",
+        "sha256": "04cyjw1j23dvkmdpxlxz9dazdisp3bmx7wakmyb7lqgnm1a0jaj0",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-10-05.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-10-07.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-10-05"
+        "version": "2020-10-07"
     },
     "mbtileserver": {
         "branch": "master",
@@ -648,7 +648,7 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-18T13:35:11Z",
+        "date": "2020-10-04T20:02:08Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
@@ -662,15 +662,15 @@
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-29T18:59:27Z",
+        "date": "2020-10-08T00:03:43Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "8bbe7e9896fb6eb5b92b7b91d2d63f4de7996b29",
-        "sha256": "14p38694blsp6knk23jr04mfpycnyl3i820572mnb99c13rca3fd",
+        "rev": "881ea36f111831ad0cce3c1399affde1c4484ba5",
+        "sha256": "0c85lvizk9bv5lm41r8ibwl614kafap0dfd2yhq2ayx24lis7018",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/8bbe7e9896fb6eb5b92b7b91d2d63f4de7996b29.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/881ea36f111831ad0cce3c1399affde1c4484ba5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -718,7 +718,7 @@
     "pg-tileserv": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-28T17:27:44Z",
+        "date": "2020-10-02T15:32:46Z",
         "description": "A very thin PostGIS-only tile server in Go. Takes in HTTP tile requests, executes SQL, returns MVT tiles",
         "homepage": "https://github.com/CrunchyData/pg_tileserv",
         "owner": "CrunchyData",
@@ -840,15 +840,15 @@
     "supermercado": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-10T07:11:27Z",
+        "date": "2020-10-07T22:09:06Z",
         "description": "Supercharger for mercantile",
         "homepage": "https://github.com/mapbox/supermercado",
         "owner": "mapbox",
         "repo": "supermercado",
-        "rev": "8714c1e56c7017a214fcf41d359bd4e7da29849f",
-        "sha256": "0lm1fpyqf5fp43rc6h42r80f3p8r7sgg0gf1qaz60w0y09gfm1n3",
+        "rev": "6ce4e22f0eeb7801e5c700139b501fce56dac565",
+        "sha256": "1v4q2fmraawaqm4dd26zsrxx2y5473h924jfrklaj7cx9rpsx4c5",
         "type": "tarball",
-        "url": "https://github.com/mapbox/supermercado/archive/8714c1e56c7017a214fcf41d359bd4e7da29849f.tar.gz",
+        "url": "https://github.com/mapbox/supermercado/archive/6ce4e22f0eeb7801e5c700139b501fce56dac565.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "supload": {
@@ -896,7 +896,7 @@
     "zdict": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-29T07:27:25Z",
+        "date": "2020-10-06T08:10:20Z",
         "description": "The last online dictionary framework you need",
         "homepage": "https://pypi.org/project/zdict/",
         "owner": "zdict",

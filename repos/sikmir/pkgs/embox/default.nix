@@ -26,7 +26,7 @@ let
       -kernel @out@/share/embox/images/embox.img \
       -m 256 \
       -net nic,netdev=n0,model=smc91c111,macaddr=AA:BB:CC:DD:EE:02 \
-      -netdev tap,script=@out@/share/embox/scripts/qemu_start,downscript=@out@/share/embox/scripts/qemu_stop,,id=n0 \
+      -netdev tap,script=@out@/share/embox/scripts/qemu_start,downscript=@out@/share/embox/scripts/qemu_stop,id=n0 \
       -nographic
   '';
 in
