@@ -247,10 +247,10 @@
       };
     "disconnect" = buildFirefoxXpiAddon {
       pname = "disconnect";
-      version = "5.19.3";
+      version = "20.3.1.1";
       addonId = "2.0@disconnect.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3363084/disconnect-5.19.3-fx.xpi";
-      sha256 = "0c3c632fd997de1459d21e757c6ceeaa90e533d1bb434014b63bbac797894a3d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3655554/disconnect-20.3.1.1-fx.xpi";
+      sha256 = "f1e98b4b1189975753c5c806234de70cbd7f09ae3925ab65ef834da5915ac64d";
       meta = with stdenv.lib;
       {
         homepage = "https://disconnect.me/";
@@ -597,10 +597,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.0.4";
+      version = "6.1.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3652639/octotree_github_code_tree-6.0.4-fx.xpi";
-      sha256 = "85c15934106c12cb2899b52bed3480e25b9640ff9c9d3651ab294f989b1d45da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3656466/octotree_github_code_tree-6.1.0-fx.xpi";
+      sha256 = "591ecd33b70b255de39301b761a0551ab116b23df7e58fa489d27a0e55dde2ba";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -929,10 +929,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.30.0";
+      version = "1.30.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3649606/ublock_origin-1.30.0-an+fx.xpi";
-      sha256 = "91df6736d2ca905358cb013daac3f8408851ca029501359668a0eb4a68e47cc8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3656237/ublock_origin-1.30.2-an+fx.xpi";
+      sha256 = "85c66d69826b8c0b8d8498307744c26f61aef5ebfbe6f03fd37f917fd84f035e";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
