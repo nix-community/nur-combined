@@ -80,6 +80,9 @@ in
       ];
     };
 
+    /*
+    TODO: There is some rate limiting/cpu usage issue, so this is disabled for now.
+
     systemd =
       let
         onionServiceNames =
@@ -115,5 +118,6 @@ in
           };
         };
       };
+    */
   };
 }
