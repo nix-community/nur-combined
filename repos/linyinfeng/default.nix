@@ -20,4 +20,5 @@
   clash-premium = pkgs.callPackage ./pkgs/clash-premium { };
   godns = pkgs.callPackage ./pkgs/godns { };
   dpt-rp1-py = pkgs.callPackage ./pkgs/dpt-rp1-py { };
+  musicbox = pkgs.callPackage ./pkgs/musicbox { };
 }
