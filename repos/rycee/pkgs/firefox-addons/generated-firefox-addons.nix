@@ -667,10 +667,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2020.8.25";
+      version = "2020.10.7";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3631723/privacy_badger-2020.8.25-an+fx.xpi";
-      sha256 = "ac8b5c4a9763998eec09c99388db9e7637b66a6f3cfee297a6623eee878aba19";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3656444/privacy_badger-2020.10.7-an+fx.xpi";
+      sha256 = "da9d488a9ee75347b73931a7d0136540292cd3db8aa0bfe4c273503291f7019e";
       meta = with stdenv.lib;
       {
         homepage = "https://privacybadger.org/";
@@ -723,10 +723,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.4.2";
+      version = "5.4.3";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3653478/moderator_toolbox_for_reddit-5.4.2-an+fx.xpi";
-      sha256 = "4ef321a8a134dd88faa8d655c044cd4832ffceaa867fc2b8b56231865f567cc2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3657059/moderator_toolbox_for_reddit-5.4.3-an+fx.xpi";
+      sha256 = "112a7bc40bf188aba02345f7aaeb41581ea31867e6bbfe752ea117ca276d6d9b";
       meta = with stdenv.lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -737,10 +737,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.10.1";
+      version = "20.10.8";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3653059/refined_github-20.10.1-an+fx.xpi";
-      sha256 = "e1c74a02c1025367d494c1b2bfac6be2e3b203f9e6fa992a1737ce4993c61184";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3657171/refined_github-20.10.8-an+fx.xpi";
+      sha256 = "b279c4422f9d9c8b1326622463cba888a554879185e1fdeac0a92eb5e4a3267a";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
