@@ -13,6 +13,13 @@ let
     match for any action "local"
   '';
 
+  # This would lead to an endless loop.
+  disableSetSendmail = (if versionAtLeast config.system.nixos.version "20.09" then {
+    setSendmail = mkForce false;
+  } else {
+    addSendmailToSystemPath = mkForce false;
+  });
+
   cfg = config.priegger.services.smtp-to-sendmail;
 in
 {
@@ -25,10 +32,6 @@ in
       enable = true;
       extraServerArgs = [ "-v" ];
       serverConfiguration = configuration;
-    } // (if versionAtLeast config.system.stateVersion "20.09" then {
-      setSendmail = mkForce false; # This would lead to an endless loop.
-    } else {
-      addSendmailToSystemPath = mkForce false; # This would lead to an endless loop.
-    });
+    } // disableSetSendmail;
   };
 }
