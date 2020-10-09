@@ -19,6 +19,7 @@
   dockd = pkgs.callPackage ./pkgs/dockd { };
   simple-mtpfs = pkgs.callPackage ./pkgs/simple-mtpfs { };
   task-spooler = pkgs.callPackage ./pkgs/task-spooler { };
+  wywozik-todo = pkgs.callPackage ./pkgs/wywozik-todo { };
 
   st = pkgs.callPackage ./pkgs/larbs/st { };
   dwm = pkgs.callPackage ./pkgs/larbs/dwm { };
