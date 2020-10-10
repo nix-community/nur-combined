@@ -42,22 +42,6 @@ lib.recurseIntoAttrs rec {
     ];
   };
 
-  ivy-exwm = trivialBuild rec {
-    pname = "ivy-exwm";
-    version = builtins.substring 0 7 src.rev;
-    src = fetchFromGitHub {
-      owner = "pjones";
-      repo = "ivy-exwm";
-      rev = sources.ivy-exwm.rev;
-      sha256 = sources.ivy-exwm.sha256;
-    };
-    packageRequires = with emacsPackages; [
-      ivy
-      exwm
-      ivy-rich
-    ];
-  };
-
   ivy-hoogle = trivialBuild rec {
     pname = "ivy-hoogle";
     version = builtins.substring 0 7 src.rev;
