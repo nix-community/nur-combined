@@ -209,5 +209,17 @@
         "type": "tarball",
         "url": "https://github.com/tremc/tremc/archive/e4c02f4bbf07474e2fe235beee93d7ce164e7efd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "tridactyl-mode": {
+        "branch": "master",
+        "description": "Major mode for tridactyl configuration file",
+        "homepage": null,
+        "owner": "Fuco1",
+        "repo": "tridactyl-mode",
+        "rev": "0bbe8d94aef9faaf6d3a7e2955c1222fe96ea2e7",
+        "sha256": "0jd1mg2k4hsfg30fg484br9g8ml10y8n0cljxkx3g6qb20aqdnqf",
+        "type": "tarball",
+        "url": "https://github.com/Fuco1/tridactyl-mode/archive/0bbe8d94aef9faaf6d3a7e2955c1222fe96ea2e7.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

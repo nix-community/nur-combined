@@ -91,6 +91,19 @@ lib.recurseIntoAttrs rec {
       cp *.el *.elc $out/share/emacs/site-lisp/
       cp resources/template.kra $out/share/emacs/site-lisp/resources
     '';
+  };
 
+  tridactyl-mode = trivialBuild rec {
+    pname = "tridactyl-mode";
+    version = builtins.substring 0 7 src.rev;
+    src = fetchFromGitHub {
+      owner = "Fuco1";
+      repo = "tridactyl-mode";
+      rev = sources.tridactyl-mode.rev;
+      sha256 = sources.tridactyl-mode.sha256;
+    };
+    packageRequires = with emacsPackages; [
+      dash
+    ];
   };
 }
