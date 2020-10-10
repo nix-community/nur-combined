@@ -22,7 +22,6 @@
   nix-path = ./nix-path.nix;
   offlineimap = ./offlineimap.nix;
   weechat = ./weechat.nix;
-  keychain = import ../nixos/keychain.nix false;
 
   __functionArgs = { };
   __functor = self: { ... }: {
@@ -45,7 +44,6 @@
       nix-path
       offlineimap
       weechat
-      keychain
     ];
   };
 }

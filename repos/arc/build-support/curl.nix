@@ -40,24 +40,5 @@
       };
     } // env');
   in package;
-  fetchGitHubApi = { fetchCurlJson, lib }: { gitHubEndpoint, gitHubOAuth2Token ? null, gitHubPostData ? null, sha256, jqFilter ? null, name ? "fetch-github-json", env ? {} }@args: with lib; let
-    curlHeaders = optionalAttrs (gitHubOAuth2Token != null) { Authorization = "token ${gitHubOAuth2Token}"; };
-    curlUrl = "https://api.github.com/${gitHubEndpoint}";
-    curlOptions = if gitHubPostData != null then ["-d" (builtins.toJSON gitHubPostData)] else [];
-    env = args.env or {} // {
-      inherit gitHubOAuth2Token;
-      impureEnvVars = ["GITHUB_TOKEN"];
-      configurePhase = ''
-        if [[ -z $gitHubOAuth2Token && -n $GITHUB_TOKEN ]]; then
-          CURL_OPTS+=(-H "Authorization: token $GITHUB_TOKEN")
-        fi
-      '';
-      passthru = args.env.passthru or {} // {
-        ci = args.env.passthru.ci or {} // {
-          skip = if gitHubOAuth2Token == null && builtins.getEnv "GITHUB_TOKEN" == "" then "no token" else false;
-        };
-      };
-    };
-  in fetchCurlJson { inherit curlHeaders curlUrl jqFilter sha256 name env; };
 };
 in builtins.mapAttrs (_: p: self.callPackage p { }) builders

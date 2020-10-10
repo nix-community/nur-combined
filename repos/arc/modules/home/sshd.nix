@@ -1,18 +1,14 @@
 { config, pkgs, lib, ... }:
 with lib; let
   cfg = config.services.sshd;
-  authorizedKeysFile = { runCommand }: runCommand "authorized_keys" {
-    source = map (pkgs.lib.asFile "authorized_key") cfg.authorizedKeys;
-  } ''
-    sed -s '$G' $source > $out
-  '';
+  authorizedKeysFile = pkgs.writeText "authorized_keys" (concatStringsSep "\n" cfg.authorizedKeys);
   activationScript = ''
-    $DRY_RUN_CMD install -Dm0644 ${pkgs.callPackage authorizedKeysFile { }} ~/.ssh/authorized_keys
+    $DRY_RUN_CMD install -Dm0644 ${authorizedKeysFile} ~/.ssh/authorized_keys
   '';
 in {
   options.services.sshd = {
     authorizedKeys = mkOption {
-      type = types.listOf (types.either types.path types.str);
+      type = types.listOf types.str;
       description = "SSH public keys to allow logins from";
       default = [];
     };

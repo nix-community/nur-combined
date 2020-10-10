@@ -29,18 +29,13 @@ in {
           description = "GPG signing key";
           default = null;
         };
-        oauth2Token = mkOption {
-          type = types.nullOr types.str;
-          description = "GitHub OAuth2 token";
-          default = null;
-        };
         sshKeyPrivate = mkOption {
-          type = types.nullOr (types.either types.path types.str);
+          type = types.nullOr types.path;
           description = "SSH Key";
           default = null;
         };
         sshKeyPublic = mkOption {
-          type = types.nullOr (types.either types.path types.str);
+          type = types.nullOr types.path;
           description = "SSH Key";
           default = null;
         };
@@ -88,27 +83,13 @@ in {
     programs.git.extraConfig.url = pkgs.lib.foldAttrList urls;
     programs.ssh.matchBlocks = mapAttrs' (name: user:
       nameValuePair "github-${name}" (let
-        publicKeys = (pkgs.fetchGitHubApi {
-          name = "github-getkeys-${name}";
-          gitHubEndpoint = if user.oauth2Token != null then "user/keys" else "users/${name}/keys";
-          gitHubOAuth2Token = user.oauth2Token;
-          jqFilter = "[.[] | { id, key, title }]";
-          sha256 = user.keysHash;
-        }).json;
-        uploadKey = (title: publicKey: pkgs.fetchGitHubApi {
-          gitHubEndpoint = "user/keys";
-          gitHubOAuth2Token = user.oauth2Token;
-          gitHubPostData = { title = "${name}@${hostname}"; key = publicKey; };
-          jqFilter = "{ key, title }";
-        });
-        identities = map ({ id, key, title }: pkgs.arc.lib.asFile "github-${name}-key-${toString id}" key) publicKeys;
-        privateKey = optional (user.sshKeyPrivate != null) (pkgs.arc.lib.asFile "github-${name}-key" user.sshKeyPrivate);
+        privateKey = optional (user.sshKeyPrivate != null) user.sshKeyPrivate;
       in {
         hostname = "github.com";
         user = "git";
         identitiesOnly = true;
         compression = false;
-        identityFile = map toString (privateKey ++ identities);
+        identityFile = map toString privateKey;
       })
     ) cfg.users;
   };

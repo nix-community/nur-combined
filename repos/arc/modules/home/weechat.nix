@@ -131,7 +131,7 @@ in {
       onChange = ''
         if [[ -p "${cfg.homeDirectory}/weechat_fifo" ]]; then
           echo "Refreshing weechat settings..." >&2
-          sed "s-^/-*/-" "${weechatrc}" > "${cfg.homeDirectory}/weechat_fifo"
+          timeout 3 sed "s-^/-*/-" "${weechatrc}" > "${cfg.homeDirectory}/weechat_fifo" || true
         fi
       '';
     };

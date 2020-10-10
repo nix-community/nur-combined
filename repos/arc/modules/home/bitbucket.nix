@@ -40,12 +40,12 @@ in {
           default = null;
         };
         sshKeyPrivate = mkOption {
-          type = types.nullOr (types.either types.path types.str);
+          type = types.nullOr types.path;
           description = "SSH Key";
           default = null;
         };
         sshKeyPublic = mkOption {
-          type = types.nullOr (types.either types.path types.str);
+          type = types.nullOr types.path;
           description = "SSH Key";
           default = null;
         };
@@ -89,7 +89,7 @@ in {
     programs.git.extraConfig.url = pkgs.lib.foldAttrList urls;
     programs.ssh.matchBlocks = mapAttrs' (name: user:
       nameValuePair "bitbucket-${name}" (let
-        privateKey = optional (user.sshKeyPrivate != null) (pkgs.arc.lib.asFile "bitbucket-${name}-key" user.sshKeyPrivate);
+        privateKey = optional (user.sshKeyPrivate != null) user.sshKeyPrivate;
       in {
         hostname = "bitbucket.org";
         user = "git";
