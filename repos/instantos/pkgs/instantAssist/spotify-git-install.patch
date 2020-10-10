@@ -9,25 +9,4 @@
  [ -e "${ASSISTPREFIX}"/usr/bin ] || mkdir -p "${ASSISTPREFIX}"/usr/bin
  [ -e "${ASSISTPREFIX}"/usr/share/instantassist ] || mkdir -p "${ASSISTPREFIX}"/usr/share/instantassist
  
-@@ -42,20 +40,7 @@
- chmod -R 755 cache
- 
- if ! [ -e "${ASSISTPREFIX}"/usr/share/instantassist/spotify-adblock.so ]; then
--    pushd .
--    
--    [ -e /tmp/spotblock ] && rm -rf /tmp/spotblock
--    mkdir /tmp/spotblock
--
--    cd /tmp/spotblock || die "no spotblock"
--    git clone --depth=1 "https://github.com/abba23/spotify-adblock-linux.git"
--    cd spotify-adblock-linux || die "can't clone spotfiy"
--    sed -i '/\};/i    "audio4-fa.spotifycdn.com", //audio' whitelist.h
--    make
--    mv spotify-adblock.so "${ASSISTPREFIX}"/usr/share/instantassist/ || die "error moving stuff"
--    cd ..
--    rm -rf spotify-adblock-linux
--    popd
-+    ln -s path/to/spotify-adblock.so "${ASSISTPREFIX}/share/instantassist"
- fi
- 
  echo "installing instantassist binary"
