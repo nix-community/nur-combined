@@ -35,11 +35,11 @@ install:
  - mkdir -p ~/.config/nixpkgs
  - echo "{ allowUnfree = true; }" > ~/.config/nixpkgs/config.nix
  - sudo systemctl restart nix-daemon
- - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
+ # if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
  - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
  - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
  - nix-channel --add "${NIX_CHANNEL}" nixpkgs
- - travis_retry nix-channel --update
+ # travis_retry nix-channel --update
 
 script:
  - nix-build -A pkgs
