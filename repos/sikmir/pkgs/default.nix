@@ -40,6 +40,7 @@ lib.makeScope newScope (
       inherit sources;
     };
     sasplanet = callPackage ./applications/sasplanet { };
+    tdh = callPackage ./applications/tdh { };
     visualgps = libsForQt5.callPackage ./applications/visualgps { };
     wireguard-statusbar = callPackage ./applications/wireguard-statusbar { };
 

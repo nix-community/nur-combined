@@ -893,6 +893,20 @@
         "url": "https://github.com/consbio/tpkutils/archive/f4a6799722c61708c6c3a09c981e1d91669ba2d3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "xtr": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-04-17T09:49:07Z",
+        "description": "Translation tools for rust",
+        "homepage": "https://github.com/woboq/tr",
+        "owner": "woboq",
+        "repo": "tr",
+        "rev": "d8e4517fb38f617b23cb050955ad8038342d6f31",
+        "sha256": "0qa7jc42n796yjxg17mm4jw1r8zrnjhwiya6q84zxxw609cvhbjl",
+        "type": "tarball",
+        "url": "https://github.com/woboq/tr/archive/d8e4517fb38f617b23cb050955ad8038342d6f31.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "zdict": {
         "branch": "master",
         "builtin": false,

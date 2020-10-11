@@ -8,6 +8,8 @@ buildGoModule {
   inherit pname version;
   src = sources.pg-tileserv;
 
+  patches = [ ./go-mod.patch ];
+
   vendorSha256 = "1zim7h6nqz61rwzv4qf5hd26w9zk91cqx8b50i3bbd01iv4nd9g6";
 
   doCheck = false;
