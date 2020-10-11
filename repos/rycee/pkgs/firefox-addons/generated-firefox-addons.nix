@@ -506,6 +506,25 @@
         platforms = platforms.all;
         };
       };
+    "languagetool" = buildFirefoxXpiAddon {
+      pname = "languagetool";
+      version = "3.1.13";
+      addonId = "languagetool-webextension@languagetool.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3652190/grammatik_und_rechtschreibprufung_languagetool-3.1.13-fx.xpi";
+      sha256 = "1dbc0e2589b4559135b63851d437572fe2e3f9d190c25eee74c05b95c730805d";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://languagetool.org";
+        description = "With this extension you can check text with the free style and grammar checker LanguageTool. It finds many errors that a simple spell checker cannot detect, like mixing up there/their, a/an, or repeating a word.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://languagetool.org/legal/";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
       version = "4.57.2.5";

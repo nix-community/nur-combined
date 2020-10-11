@@ -141,6 +141,16 @@
     "slug": "keepassxc-browser"
   },
   {
+    "slug": "languagetool",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://languagetool.org/legal/",
+      "free": false
+    }
+  },
+  {
     "slug": "lastpass-password-manager",
     "license": {
       "tag": "custom",
