@@ -73,5 +73,7 @@
     rust-mode = { mode = [ ''"\\.rs\\'"'' ]; };
 
     terraform-mode = { mode = [ ''"\\.tf\\'"'' ]; };
+
+    yaml-mode = { mode = [ ''"\\.\\(e?ya?\\|ra\\)ml\\'"'' ]; };
   };
 }
