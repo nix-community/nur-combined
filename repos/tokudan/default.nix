@@ -20,9 +20,11 @@ rec {
   disk-utilities = pkgs.callPackage ./pkgs/disk-utilities { };
   opencbm = pkgs.callPackage ./pkgs/opencbm { inherit cc65; };
   nibtools = pkgs.callPackage ./pkgs/nibtools { inherit cc65 opencbm; };
+  superdiskindex = pkgs.callPackage ./pkgs/superdiskindex { };
   vice = pkgs.callPackage ./pkgs/vice { inherit xa; };
   xa = pkgs.callPackage ./pkgs/xa { };
 
-  superdiskindex = pkgs.callPackage ./pkgs/superdiskindex { };
+  # Web apps
+  freshrss = pkgs.callPackage ./pkgs/freshrss {  };
   writefreely = pkgs.callPackage ./pkgs/writefreely { };
 }
