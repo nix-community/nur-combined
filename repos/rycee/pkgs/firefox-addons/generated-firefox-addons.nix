@@ -600,6 +600,19 @@
         platforms = platforms.all;
         };
       };
+    "metamask" = buildFirefoxXpiAddon {
+      pname = "metamask";
+      version = "8.0.10";
+      addonId = "webextension@metamask.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3644951/metamask-8.0.10-an+fx.xpi";
+      sha256 = "6dfb611ea62edf4e3c7a09c3dd59a27bdd42fee3218f54bdfbcde5f68d3870d3";
+      meta = with stdenv.lib;
+      {
+        description = "Ethereum Browser Extension";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
       version = "7.1.0";
