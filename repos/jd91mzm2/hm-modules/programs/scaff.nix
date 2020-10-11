@@ -23,9 +23,9 @@ in
         default = {};
         example = literalExample ''
         {
-          my-local-template                  = ./my-local-template.tar.gz;
-          my-remote-template                 = "https://example.org/my-remote-template.tar.gz";
-          my-remote-template-built-using-nix = builtins.fetchurl https://example.org/my-remote-template-built-using-nix.tar.gz;
+          my-local-template          = ./my-local-template.tar.gz;
+          my-remote-template         = "https://example.org/my-remote-template.tar.gz";
+          my-remote-template-fetched = builtins.fetchurl https://example.org/my-remote-template-built-using-nix.tar.gz;
         }
         '';
         description = ''
