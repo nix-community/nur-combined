@@ -67,6 +67,13 @@
         set-option buffer modelinefmt 'wc:%sh{ cat "$kak_buffile" | wc -w} - %val{bufname} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]'
       '';
     }
+    {
+      name = "BufCreate";
+      option = "^.*lhs$";
+      commands = ''
+        set-option buffer filetype markdown
+      '';
+    }
   ];
   programs.kakoune.config.numberLines.enable = true;
   programs.kakoune.config.showWhitespace.enable = true;
