@@ -19,9 +19,11 @@ buildGoModule rec {
 
   buildInputs = [ go-bindata ];
 
-  modSha256 = "1wrs4hddp30h46lhvrf9zd9gqhl65j8fbivzrql888vgnh8q4532";
+  vendorSha256 = "0kza5w0zykxklkdi5gcfwvgp1mbhw5j8px20624g7bshqa8c0pjk";
+  subPackages = [ "cmd/writefreely/" ];
+
   preBuild = ''
-    go-bindata -pkg writefreely -ignore=\\.gitignore -tags="!wflib" schema.sql sqlite.sql
+    ${go-bindata}/bin/go-bindata -pkg writefreely -ignore=\\.gitignore -tags="!wflib" schema.sql sqlite.sql
     '';
   buildFlagsArray = [ "-tags='sqlite'" ];
   postInstall = ''

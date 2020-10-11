@@ -15,6 +15,7 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   # Retro tools
+  cbmbasic = pkgs.callPackage ./pkgs/cbmbasic { };
   cc65 = pkgs.callPackage ./pkgs/cc65 { };
   disk-utilities = pkgs.callPackage ./pkgs/disk-utilities { };
   opencbm = pkgs.callPackage ./pkgs/opencbm { inherit cc65; };
