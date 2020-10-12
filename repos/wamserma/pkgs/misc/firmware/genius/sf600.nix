@@ -35,6 +35,8 @@ EOF'';
 
   doCheck = true;
 
+  preferLocalBuild = true;
+
   installPhase = ''
     mkdir -p $out
     cp DRV_U_GT6816/cism216.fw $out/cism216.fw

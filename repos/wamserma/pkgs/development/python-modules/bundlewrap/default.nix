@@ -33,7 +33,7 @@ buildPythonPackage rec {
     # only unit tests as integration tests need a OpenSSH client/server setup
     py.test tests/unit
   '';
-  
+
   meta = with lib; {
     homepage = "https://bundlewrap.org/";
     description = "Easy, Concise and Decentralized Config management with Python";

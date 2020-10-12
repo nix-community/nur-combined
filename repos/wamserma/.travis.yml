@@ -26,9 +26,10 @@ matrix:
     - env: NIX_PATH=nixpkgs=channel:nixpkgs-unstable
     - env: NIX_PATH=nixpkgs=channel:nixos-unstable
     - env: NIX_PATH=nixpkgs=channel:nixos-20.03
+    - env: NIX_PATH=nixpkgs=channel:nixos-20.09
 
 script:
- - nix-build ci.nix -A buildOutputs
+ - NIXPKGS_ALLOW_UNFREE=1 nix-build ci.nix -A buildOutputs
  - nix eval -f default.nix 'lib'
  - nix eval -f default.nix 'modules'
  - nix eval -f default.nix 'overlays'

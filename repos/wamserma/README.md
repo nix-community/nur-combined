@@ -32,6 +32,8 @@ Search: <https://nix-community.github.io/nur-search/repos/wamserma/>
 
 + [Genius SF-600 Firmware](http://download.geniusnet.com/2012/Scanner/CP-SF600_Win8_V5.3.1.zip) Firmware blob for the Genius ColorPage SF-600 Scanner, to be used with SANE
 
++ Master PDF Editor 4.3.89, older version, last version that allowed for free text editing. Build with `NIXPKGS_ALLOW_UNFREE=1 nix-build -A masterpdfeditor4`. For current version, see [NIXPKGS](https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/misc/masterpdfeditor/default.nix).
+
 ## How to use?
 
 Launch directly:  
