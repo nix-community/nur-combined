@@ -10,7 +10,6 @@
   rustfmt = ./rustfmt.nix;
   base16 = import ./base16.nix false;
   base16-shell = ./base16-shell.nix;
-  symlink = ./symlink.nix;
   filebin = ./filebin.nix;
   buku = ./buku.nix;
   i3 = ./i3.nix;
@@ -33,7 +32,6 @@
       kakoune
       rustfmt
       base16 base16-shell
-      symlink
       filebin
       buku
       i3 i3gopher

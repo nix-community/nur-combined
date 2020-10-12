@@ -50,23 +50,24 @@ in {
       default = { };
     };
   };
-  config.home = mkIf cfg.enable {
-    nix.nixPath = {
-      default = mkOptionDefault {
-        type = "explicit";
-        path = ".";
+  config = mkIf cfg.enable {
+    home = {
+      nix.nixPath = {
+        default = mkOptionDefault {
+          type = "explicit";
+          path = ".";
+        };
+        release = mkOptionDefault {
+          type = "explicit";
+          path = "./release.nix";
+        };
       };
-      release = mkOptionDefault {
-        type = "explicit";
-        path = "./release.nix";
-      };
+      inherit sessionVariables;
     };
-    inherit sessionVariables;
     # TODO: bash, zsh, systemd.user?
     # TODO: also set nixos settings?
-    symlink = mapAttrs' (k: v: nameValuePair ".config/nix/path/${k}" {
-      target = v.path;
-      create = false;
+    xdg.configFile = mapAttrs' (k: v: nameValuePair "nix/path/${k}" {
+      source = config.lib.file.mkOutOfStoreSymlink v.path;
     }) nixPathDirs;
   };
 }

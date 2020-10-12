@@ -116,9 +116,9 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    home.symlink = if !cfg.mutable then {
-      ".local/share/buku/bookmarks.db".target = toString cfg.database.outPath;
-    } else { };
+    xdg.dataFile = mkIf (!cfg.mutable) {
+      "buku/bookmarks.db".source = config.lib.file.mkOutOfStoreSymlink cfg.database.outPath;
+    };
     # TODO: if mutable, activation script should run buku -i ${cfg.database}?
     programs.firefox.tridactyl.autocontain = mapAttrs' (k: c: nameValuePair "buku-${k}" {
       urlPattern = "^https?://.*${convertKey k}";
