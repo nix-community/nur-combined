@@ -1,6 +1,7 @@
 { lib
 , fetchFromGitHub
 , buildPythonPackage
+, pythonOlder
 , cryptography
 , jinja2
 , Mako
@@ -9,22 +10,24 @@
 , pyyaml
 , requests
 , setuptools
-, six
+, tomlkit
 }:
 
 buildPythonPackage rec {
   pname = "bundlewrap";
-  version = "3.8.0";
+  version = "4.2.0";
+
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "bundlewrap";
     repo = "bundlewrap";
     rev = "${version}";
-    sha256 = "0hi57k59hfbva8jbljwmld7r1g2qa96sk7c0b1c39dm6j5sx1dfi";
+    sha256 = "1w3c17rkb12qixkbsx6lija3b8qv9s7pr5ayk03xj2nb4ll6r3zf";
   };
 
   propagatedBuildInputs = [
-    cryptography jinja2 Mako passlib pyyaml requests setuptools six
+    cryptography jinja2 Mako passlib pyyaml requests setuptools tomlkit
   ];
 
   checkInputs = [ pytest ];
