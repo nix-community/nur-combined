@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, fetchurl, appimageTools, lang ? "en-US" }:
+{ stdenv, fetchgit, fetchurl, appimageTools, undmg, lang ? "en-US" }:
 let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
@@ -78,10 +78,9 @@ let
     '';
 
     installPhase = ''
-      /usr/bin/hdiutil mount -nobrowse -mountpoint librewolf-mnt LibreWolf.dmg
+      ${undmg}/bin/undmg LibreWolf.dmg
       mkdir -p $out/Applications
-      cp -r ./librewolf-mnt/LibreWolf.app $out/Applications
-      /usr/bin/hdiutil unmount librewolf-mnt
+      cp -R LibreWolf.app $out/Applications
     '';
   };
 in
