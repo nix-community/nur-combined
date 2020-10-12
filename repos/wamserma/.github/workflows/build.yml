@@ -3,10 +3,10 @@ on:
   pull_request:
   push:
   schedule:
-    # rebuild everyday at 2:51
+    # rebuild everyday at 4:23
     # TIP: Choose a random time here so not all repositories are build at once:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '51 2 * * *'
+    - cron:  '23 4 * * *'
 jobs:
   tests:
     strategy:
@@ -17,7 +17,7 @@ jobs:
         # The repo name as used in
         # https://github.com/nix-community/NUR/blob/master/repos.json
         nurRepo:
-          - <YOUR_REPO_NAME>
+          - wamserma
         # Set this to cache your build results in cachix for faster builds
         # in CI and for everyone who uses your cache.
         #
@@ -27,11 +27,12 @@ jobs:
         # For this to work, you also need to set the CACHIX_SIGNING_KEY secret
         # in your repository settings in Github found at https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
-          - <YOUR_CACHIX_NAME>
+          - wamserma
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
           - nixpkgs=channel:nixos-20.03
+          - nixpkgs=channel:nixos-20.09
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
