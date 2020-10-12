@@ -169,27 +169,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "1p03480g9wcd5jzxgj9dya0lqccqdhmp9vhar984v1qn67s0iwd8",
+        "sha256": "1c01vvdx9acyz91jbggwpwxz2c5g57f3zk2pvifixj68757q2hxg",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-201007.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-201011.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "201007"
+        "version": "201011"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "1saapdyw3v1gibx4fp2bf700dgpgynzjy1xgbzzg7d50ac7icqw6",
+        "sha256": "030wgg2vkpndany4p1f4lqg8xpr58z9vwk8nc7s914wggqqzspkq",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-201007.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-201011.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "201007"
+        "version": "201011"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "0ygw42lri0xdm08837gnljn77rfm0d1drirzc95s59fmqwi9n0n6",
+        "sha256": "0sy2gqabhwf1j0j26c8jxkacadwp5mysikqxkdj4f6d5zsw3i5z0",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201007.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201011.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "201007"
+        "version": "201011"
     },
     "gimgtools": {
         "branch": "master",
@@ -306,29 +306,29 @@
     "gpxsee": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-07T20:57:53Z",
+        "date": "2020-10-11T19:33:19Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "9d6a2cce45844f9a5b500bb52aeac9950423a1f9",
-        "sha256": "1k4zl7knlpwxrpqk1axkmy8x12915z15h3q2sjnx3jcnx6qw73ja",
+        "rev": "5a4de1cef0645d9007ec01b5f45704fe97aa4fb4",
+        "sha256": "1vk5qmnfjf0zcgyr7zyp1px9dx0233rg8scpnw7ycm3zk4x68zyg",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/9d6a2cce45844f9a5b500bb52aeac9950423a1f9.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/5a4de1cef0645d9007ec01b5f45704fe97aa4fb4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-01T20:41:10Z",
+        "date": "2020-10-09T04:10:44Z",
         "description": "GPXSee maps",
         "homepage": "https://tumic0.github.io/GPXSee-maps",
         "owner": "tumic0",
         "repo": "GPXSee-maps",
-        "rev": "eca78160133f96c6c66295861761e2f0401312f1",
-        "sha256": "0vlssp8z6v6g711fkifdkq2pn9mp4sbiynks9p6j8nj9kxazcwv2",
+        "rev": "250e84371a2eac7b1ccbf50a28b3ffe06945693f",
+        "sha256": "1cjmkglzc6xmf7yxc0c0a4z2qn58d1ywywp757n0zi2a91y1pk7k",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee-maps/archive/eca78160133f96c6c66295861761e2f0401312f1.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee-maps/archive/250e84371a2eac7b1ccbf50a28b3ffe06945693f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxtools": {
@@ -515,15 +515,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-07T18:20:25Z",
+        "date": "2020-10-09T06:36:18Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "c6168807ab776cb050f296070b20441fdaa568aa",
-        "sha256": "19ldslyr064vs84lc2ly92n3c2xzpbv4dak6lrwzynra5pxas5xc",
+        "rev": "dde0c70b2cd1e6db84ab6f2f38061f139bcab921",
+        "sha256": "1bmnr9rdkjip74laszg4l8a9jrh014plr81q5wa0w3883n7987b9",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/c6168807ab776cb050f296070b20441fdaa568aa.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/dde0c70b2cd1e6db84ab6f2f38061f139bcab921.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -545,11 +545,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "04cyjw1j23dvkmdpxlxz9dazdisp3bmx7wakmyb7lqgnm1a0jaj0",
+        "sha256": "1h9w72qyk67jxbk6f3158ksljyp3224bf9ikyp198z8nsdi3wl21",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-10-07.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-10-11.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-10-07"
+        "version": "2020-10-11"
     },
     "mbtileserver": {
         "branch": "master",
@@ -648,29 +648,29 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-04T20:02:08Z",
+        "date": "2020-10-11T19:25:04Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "e71d67667adc041f66e972f1de8a35d8df92c6e2",
-        "sha256": "1yvq4n9pfrllh60z1vp8dn7zhk51p181lnyx27jna6br80llma2d",
+        "rev": "fd2dd1c0a8399be9043eb306a2ee7647c02cc404",
+        "sha256": "1ngs2sf12h2nfsg78m3v4pvgvh3l3bcq5770x3rya4z6crdb31ps",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/e71d67667adc041f66e972f1de8a35d8df92c6e2.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/fd2dd1c0a8399be9043eb306a2ee7647c02cc404.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-08T00:03:43Z",
+        "date": "2020-10-11T14:44:37Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "881ea36f111831ad0cce3c1399affde1c4484ba5",
-        "sha256": "0c85lvizk9bv5lm41r8ibwl614kafap0dfd2yhq2ayx24lis7018",
+        "rev": "d15b47ab86f46bffb73df2363354e2e0c5fc4789",
+        "sha256": "19cwmxcgp2cxhl3v0rv7grnpih21f5524q6b77cv0sa8lih8wk71",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/881ea36f111831ad0cce3c1399affde1c4484ba5.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/d15b47ab86f46bffb73df2363354e2e0c5fc4789.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -882,15 +882,15 @@
     "tilesets-cli": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-08-18T21:27:48Z",
+        "date": "2020-10-08T18:12:46Z",
         "description": "CLI for interacting with the Mapbox Tilesets API",
         "homepage": "https://docs.mapbox.com/api/maps/#tilesets",
         "owner": "mapbox",
         "repo": "tilesets-cli",
-        "rev": "90192c47caf5d7d7af5e8df82f6651c2ea8ce215",
-        "sha256": "1crav3z4621jcag8k2463cnz6mwyn8pzj8ig5jrwlv3iz2bih12j",
+        "rev": "362ae5e2d182a0d2a01a604f83dc565d4aadb98d",
+        "sha256": "023j3pbwzyjhwk1jc44fny3dmdyfyav0gjyqx841w895mrdjzkbp",
         "type": "tarball",
-        "url": "https://github.com/mapbox/tilesets-cli/archive/90192c47caf5d7d7af5e8df82f6651c2ea8ce215.tar.gz",
+        "url": "https://github.com/mapbox/tilesets-cli/archive/362ae5e2d182a0d2a01a604f83dc565d4aadb98d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tpkutils": {
@@ -924,15 +924,15 @@
     "zdict": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-06T08:10:20Z",
+        "date": "2020-10-11T18:12:07Z",
         "description": "The last online dictionary framework you need",
         "homepage": "https://pypi.org/project/zdict/",
         "owner": "zdict",
         "repo": "zdict",
-        "rev": "e33e7f640ab8f813fc9a2ba88d6fa4920032c2b2",
-        "sha256": "19xpxxc5qw8wf05nzfx85ms1j9z27c5815qcbbs26yx2gwv0k9zg",
+        "rev": "010b749afe7fc0f357cff23de505c3ac0130a2bb",
+        "sha256": "00isw0p6x1mb55x5pdlp6rq0rk03nyzg71bx7a5aimlvlip4h7dw",
         "type": "tarball",
-        "url": "https://github.com/zdict/zdict/archive/e33e7f640ab8f813fc9a2ba88d6fa4920032c2b2.tar.gz",
+        "url": "https://github.com/zdict/zdict/archive/010b749afe7fc0f357cff23de505c3ac0130a2bb.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

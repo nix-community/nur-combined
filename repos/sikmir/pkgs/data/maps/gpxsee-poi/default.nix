@@ -2,9 +2,9 @@
 
 {
   geocachingSu = fetchurl {
-    name = "geocaching_su-2020-09-20";
+    name = "geocaching_su-2020-10-12";
     url = "https://nakarte.me/geocachingSu/geocaching_su2.json";
-    sha256 = "0ww6rknjdgpvazkdy4cvc6sav8yvn0khkfvpg79l7w9kskf65n3p";
+    sha256 = "01r72aqhaajl8rnhq4qb99drpgi7png8jp5vs2llsvdjvg5xm9wa";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -25,9 +25,9 @@
   };
 
   laavut = fetchurl {
-    name = "laavut-2020-09-20";
+    name = "laavut-2020-10-04";
     url = "http://www.laavu.org/lataa.php?paikkakunta=kaikki";
-    sha256 = "1zksz3fdapmc7vqfsxl8dy2w4lb1ckprv8qjx49fb5fdgv96ww87";
+    sha256 = "1b6qzb5jiljnnmhyi64amymnnac5j7n56da9cl1pvjlidba6sacv";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = "install -Dm644 $downloadedFile $out/Laavut-kodat.gpx";
@@ -43,9 +43,9 @@
   };
 
   autiotuvat = fetchurl {
-    name = "autiotuvat-2020-01-13";
+    name = "autiotuvat-2020-09-29";
     url = "http://www.laavu.org/autiotuvat/lataa.php?paikkakunta=kaikki";
-    sha256 = "13dpdqp3vs33q05w9ii1ygd5ijs1bmqghzzylabkykc247x3n1bv";
+    sha256 = "1my36s3a20il2bziylg3f2bw0r43axsnqq6zr9wv5513h6z4axqc";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = "install -Dm644 $downloadedFile $out/Autiotuvat.gpx";
@@ -61,9 +61,9 @@
   };
 
   westra = fetchurl {
-    name = "westra-2020-09-20";
+    name = "westra-2020-10-12";
     url = "https://nakarte.me/westraPasses/westra_passes.json";
-    sha256 = "1ry3dbv3qv5qi94fqani9gdqn53x4xm6y59h6ysi8f42ip106l63";
+    sha256 = "1s8sg3n74kppi8hylpm2w257ahbbsrz8sah2mqzc75d94xsda6jz";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -84,9 +84,9 @@
   };
 
   strelki = fetchurl {
-    name = "strelki-2020-07-10";
+    name = "strelki-2020-10-12";
     url = "https://strelki.extremum.org/s/p/47p";
-    sha256 = "1px8q8ka5vavalz8kbai8n274469prwif00ymfqf7415g8mhwi24";
+    sha256 = "0bdq6xh50rlpcg2bzvbcf98ay814hm4569zjnw3pi7mqy09pydiy";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
