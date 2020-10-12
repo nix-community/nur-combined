@@ -3,17 +3,19 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  name = "mutt-wizard";
+  pname = "mutt-wizard";
+  version = "3.0";
 
   src = fetchgit {
     url = "https://github.com/LukeSmithXYZ/mutt-wizard";
-    rev = "289533279b21f0fc6ecbdf03ebde2a67741e3ded";
-    sha256 = "1bb9429wabv85zja2y89vhj15qcd10acbg5k6ylilw067wzs9ks5";
+    rev = "ad5ca516439adce1e9be4eb50f8bbb1dc7bfcc03";
+    sha256 = "0g9r8rcvlr4z6ynm2dqgj87fgqaivxvwncch26nqbv3fix9c3yr3";
   };
 
   buildPhase = ''
     sed -i 's/(PREFIX)/(out)/g' Makefile
-    sed -i 's:mwconfig="\$muttshare/mutt-wizard.muttrc":mwconfig=/etc/neomuttrc:' bin/mw
+    sed -i '/mwconfig=/d' bin/mw
+    sed -i '/mwconfig\ \$MARKER/d' bin/mw
     make PREFIX=$out SHELL=$SHELL install
   '';
 
