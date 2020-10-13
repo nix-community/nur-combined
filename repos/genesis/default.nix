@@ -21,7 +21,9 @@
   hdl-dump = pkgs.callPackage ./pkgs/hdl_dump {}; #79182
 
   magick2cpc = pkgs.callPackage ./pkgs/magick2cpc {};
-  navit = pkgs.libsForQt5.callPackage  ./pkgs/navit {};
+  mkpsxiso = pkgs.callPackage ./pkgs/mkpsxiso {};
+  mymcplus = pkgs.python3Packages.callPackage ./pkgs/mymcplus {};
+  navit = pkgs.libsForQt5.callPackage ./pkgs/navit {};
   pfsshell = pkgs.callPackage ./pkgs/pfsshell {}; #79142
 
   #pysolfc = pkgs.callPackage ./pkgs/pysolfc
