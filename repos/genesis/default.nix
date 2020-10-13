@@ -20,10 +20,7 @@
   gbdk-n = pkgs.callPackage ./pkgs/gbdk-n {}; #61709
   hdl-dump = pkgs.callPackage ./pkgs/hdl_dump {}; #79182
 
-  # failed on nixpkgs :
-  #   [ 18%] Generating country_GD.png
-  #Error reading SVG:XML parse error: error code=201 (3) in (null):19:20: Namespace prefix rdf on RDF is not defined
-  #navit = pkgs.libsForQt5.callPackage  ./pkgs/navit {};
+  navit = pkgs.libsForQt5.callPackage  ./pkgs/navit {};
   pfsshell = pkgs.callPackage ./pkgs/pfsshell {}; #79142
 
   #pysolfc = pkgs.callPackage ./pkgs/pysolfc

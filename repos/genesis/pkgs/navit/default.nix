@@ -1,6 +1,7 @@
 { stdenv, fetchFromGitHub, pkgconfig, fontconfig, freetype, imlib2
 , SDL_image, libXmu, dbus, dbus-glib, glib
-, librsvg, libxslt, cairo, gdk_pixbuf, pango
+, librsvg #inkscape
+, libxslt, cairo, gdk_pixbuf, pango
 , atk, patchelf, fetchurl, bzip2, python, gettext
 , libpng, zlib, nsis, gpsd, shapelib
 , gd, cmake, fribidi, makeWrapper, pcre
@@ -25,13 +26,13 @@ assert speechdSupport -> speechd != null;
 with stdenv.lib;
 stdenv.mkDerivation rec {
   pname = "navit";
-  version = "0.5.4";
+  version = "unstable-2020-07-09";
 
   src = fetchFromGitHub {
     owner = "navit-gps";
     repo = "navit";
-    rev = "v${version}";
-    sha256 = "1fl6l1i55zmf2j2a9lw6msni9bvbdn6g8lkwi35mp2bhi9d10w2g";
+    rev = "903a7e589243d6ce3b920cc7ad9398a5c41d5726";
+    sha256 = "0kv09cfrwi0fk41qny4c17p2r2x3s2d39dh0m9asn0l1fxkzg3l1";
   };
 
   # avoid dynamic fetching by cmake
