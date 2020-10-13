@@ -1,4 +1,4 @@
-{ stdenv, fetchfromgh, appimageTools, undmg }:
+{ stdenv, fetchfromgh, appimageTools, undmg, libsecret }:
 let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
@@ -23,7 +23,7 @@ let
     }.${system} or throwSystem;
   };
 
-  appimageContents = appimageTools.extractType2 {
+  appimageContents = appimageTools.extract {
     inherit name src;
   };
 
@@ -38,6 +38,8 @@ let
 
   linux = appimageTools.wrapType2 rec {
     inherit name src meta;
+
+    extraPkgs = pkgs: with pkgs; [ libsecret ];
 
     extraInstallCommands = ''
       mv $out/bin/{${name},${pname}}
