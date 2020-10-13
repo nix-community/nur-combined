@@ -17,11 +17,13 @@
   assaultcube = pkgs.callPackage ./pkgs/assaultcube {};
   #beremiz = pkgs.callPackage ./pkgs/beremiz {};
   caprice32 = pkgs.callPackage ./pkgs/caprice32 {};
+  clocktimer = pkgs.callPackage ./pkgs/clocktimer {};
   freediag = pkgs.callPackage ./pkgs/freediag {};
   gbdk-n = pkgs.callPackage ./pkgs/gbdk-n {};
   hdl-dump = pkgs.callPackage ./pkgs/hdl_dump {};
   magick2cpc = pkgs.callPackage ./pkgs/magick2cpc {};
   matiec = pkgs.callPackage ./pkgs/matiec {};
+  microwindows = pkgs.callPackage ./pkgs/microwindows {};
   mkpsxiso = pkgs.callPackage ./pkgs/mkpsxiso {};
   mymcplus = pkgs.python3Packages.callPackage ./pkgs/mymcplus {};
   navit = pkgs.libsForQt5.callPackage ./pkgs/navit {};
