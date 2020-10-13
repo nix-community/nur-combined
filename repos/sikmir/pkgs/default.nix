@@ -189,7 +189,6 @@ lib.makeScope newScope (
     mbtileserver = callPackage ./servers/mbtileserver { };
     nakarte = callPackage ./servers/nakarte { };
     pg_featureserv = callPackage ./servers/pg_featureserv { };
-    pg_tileserv = callPackage ./servers/pg_tileserv { };
     quark = callPackage ./servers/quark { };
     shavit = callPackage ./servers/shavit { };
 

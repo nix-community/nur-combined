@@ -729,20 +729,6 @@
         "url": "https://github.com/CrunchyData/pg_featureserv/archive/c04ee5400383a3226706bfff33af66cb97e1ae76.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "pg-tileserv": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-10-02T15:32:46Z",
-        "description": "A very thin PostGIS-only tile server in Go. Takes in HTTP tile requests, executes SQL, returns MVT tiles",
-        "homepage": "https://github.com/CrunchyData/pg_tileserv",
-        "owner": "CrunchyData",
-        "repo": "pg_tileserv",
-        "rev": "92456fd4f7142573d618262e10cd2163debb6550",
-        "sha256": "06r0p418z149awhbnrhgn1mm30zarzykcgm46ff25dr7jhqqa0rv",
-        "type": "tarball",
-        "url": "https://github.com/CrunchyData/pg_tileserv/archive/92456fd4f7142573d618262e10cd2163debb6550.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "pyephem": {
         "branch": "master",
         "builtin": false,

@@ -1,34 +1,64 @@
-{ stdenv, fetchfromgh, undmg }:
+{ stdenv, fetchfromgh, appimageTools, undmg }:
 let
+  inherit (stdenv.hostPlatform) system;
+  throwSystem = throw "Unsupported system: ${system}";
+
   pname = "goldencheetah";
   version = "3.5";
-in
-stdenv.mkDerivation {
-  inherit pname version;
+  name = "${pname}-${version}";
+
+  suffix = {
+    x86_64-linux = "amd64_Linux.AppImage";
+    x86_64-darwin = "64bit_MacOS.dmg";
+  }.${system} or throwSystem;
 
   src = fetchfromgh {
     owner = "GoldenCheetah";
     repo = "GoldenCheetah";
     version = "V${version}";
-    name = "GoldenCheetah_v${version}_64bit_MacOS.dmg";
-    sha256 = "0alg0a071lpkx0v3qqkqbb93vh1nsb3d7czxl9m15v17akp8nl82";
+    name = "GoldenCheetah_v${version}_${suffix}";
+    sha256 = {
+      x86_64-linux = "07ixivsp5j05a3zsbqx5jf11x7m3rcqaw095qjqrwd0nq0nmmhg8";
+      x86_64-darwin = "0alg0a071lpkx0v3qqkqbb93vh1nsb3d7czxl9m15v17akp8nl82";
+    }.${system} or throwSystem;
   };
 
-  preferLocalBuild = true;
-
-  nativeBuildInputs = [ undmg ];
-
-  installPhase = ''
-    mkdir -p $out/Applications/GoldenCheetah.app
-    cp -R . $out/Applications/GoldenCheetah.app
-  '';
+  appimageContents = appimageTools.extract {
+    inherit name src;
+  };
 
   meta = with stdenv.lib; {
     description = "Performance software for cyclists, runners and triathletes";
     homepage = "https://www.goldencheetah.org/";
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
-    platforms = [ "x86_64-darwin" ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
     skip.ci = true;
   };
-}
+
+  linux = appimageTools.wrapType2 rec {
+    inherit name src meta;
+
+    extraInstallCommands = ''
+      mv $out/bin/{${name},${pname}}
+      install -Dm644 ${appimageContents}/GoldenCheetah.desktop -t $out/share/applications
+      install -Dm644 ${appimageContents}/gc.png -t $out/share/icons/hicolor/256x256/apps
+    '';
+  };
+
+  darwin = stdenv.mkDerivation {
+    inherit pname version meta;
+
+    preferLocalBuild = true;
+
+    nativeBuildInputs = [ undmg ];
+
+    installPhase = ''
+      mkdir -p $out/Applications/GoldenCheetah.app
+      cp -R . $out/Applications/GoldenCheetah.app
+    '';
+  };
+in
+if stdenv.isDarwin
+then darwin
+else linux
