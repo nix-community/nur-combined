@@ -15,21 +15,23 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   assaultcube = pkgs.callPackage ./pkgs/assaultcube {};
+  #beremiz = pkgs.callPackage ./pkgs/beremiz {};
   caprice32 = pkgs.callPackage ./pkgs/caprice32 {};
-  freediag = pkgs.callPackage ./pkgs/freediag {}; #58594
-  gbdk-n = pkgs.callPackage ./pkgs/gbdk-n {}; #61709
-  hdl-dump = pkgs.callPackage ./pkgs/hdl_dump {}; #79182
-
+  freediag = pkgs.callPackage ./pkgs/freediag {};
+  gbdk-n = pkgs.callPackage ./pkgs/gbdk-n {};
+  hdl-dump = pkgs.callPackage ./pkgs/hdl_dump {};
   magick2cpc = pkgs.callPackage ./pkgs/magick2cpc {};
+  matiec = pkgs.callPackage ./pkgs/matiec {};
   mkpsxiso = pkgs.callPackage ./pkgs/mkpsxiso {};
   mymcplus = pkgs.python3Packages.callPackage ./pkgs/mymcplus {};
   navit = pkgs.libsForQt5.callPackage ./pkgs/navit {};
-  pfsshell = pkgs.callPackage ./pkgs/pfsshell {}; #79142
+  ntpbclient = pkgs.callPackage ./pkgs/ntpbclient {};
+  pfsshell = pkgs.callPackage ./pkgs/pfsshell {};
 
   #pysolfc = pkgs.callPackage ./pkgs/pysolfc
   #  {
       # myPython3Packages = python3Packages;
-  #  }; #82183
+  #  };
 
   python3Packages = pkgs.recurseIntoAttrs (
     pkgs.python3Packages.callPackage ./pkgs/development/python-modules {}
@@ -39,7 +41,7 @@
   rasm = pkgs.callPackage ./pkgs/rasm {};
 
   # qt.qpa.plugin issue, test later.
-  #scriptcommunicator = pkgs.libsForQt5.callPackage ./pkgs/scriptcommunicator {}; #36747
+  #scriptcommunicator = pkgs.libsForQt5.callPackage ./pkgs/scriptcommunicator {};
 
   xlinkkai = pkgs.callPackage ./pkgs/xlinkkai {};
 }
