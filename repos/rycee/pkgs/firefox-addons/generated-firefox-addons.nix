@@ -123,10 +123,10 @@
       };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
-      version = "1.0.1";
+      version = "1.1.0";
       addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3590337/buster_captcha_solver_for_humans-1.0.1-an+fx.xpi";
-      sha256 = "62c111b1d362d10c049a24673adf584ae00286e60fd566f9aa4bbc78832e26c5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3659047/buster_captcha_solver_for_humans-1.1.0-an+fx.xpi";
+      sha256 = "80b2f7c211862f4bd4e18df3cf1af3d0b4d31de6d7d5c387dfad79eb37feddba";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/dessant/buster";
@@ -527,10 +527,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.57.2.5";
+      version = "4.58.0.4";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3649331/lastpass_password_manager-4.57.2.5-an+fx.xpi";
-      sha256 = "9397f85e2206b0ed5e931ab27d25f204aba423c52571650e1ffa417220d303bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3657084/lastpass_password_manager-4.58.0.4-an+fx.xpi";
+      sha256 = "6e339d83998fce0c1e6e4e1bbcaa0dfbd3eb74372635ab35bcedd2a23cac7335";
       meta = with stdenv.lib;
       {
         homepage = "https://lastpass.com/";
@@ -783,10 +783,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "23.0";
+      version = "23.1";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3655061/save_page_we-23.0-fx.xpi";
-      sha256 = "e35a14247d09dfaf2d1449f187530cb20422abeb656d649a957b0ad0db008eaa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3659203/save_page_we-23.1-fx.xpi";
+      sha256 = "902092492d2be5cbc9e57d7b9150a6dcf9910ee69bcbabd84956f8f9c66c144d";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
