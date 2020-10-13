@@ -40,4 +40,6 @@
 
   # qt.qpa.plugin issue, test later.
   #scriptcommunicator = pkgs.libsForQt5.callPackage ./pkgs/scriptcommunicator {}; #36747
+
+  xlinkkai = pkgs.callPackage ./pkgs/xlinkkai {};
 }
