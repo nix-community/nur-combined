@@ -40,7 +40,9 @@ rec {
     pkgs.python3Packages.callPackage ./pkgs/development/python-modules {}
   );
 
-  #quickbms = pkgs.callPackage ./pkgs/quickbms {}; #81023
+  # from the makefile
+  # -m32 because QuickBMS has been tested only on 32bit systems and gives problems using 64bit native code
+  quickbms = pkgs.pkgsi686Linux.callPackage ./pkgs/quickbms {};
   rasm = pkgs.callPackage ./pkgs/rasm {};
 
   # qt.qpa.plugin issue, test later.

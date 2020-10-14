@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ lzo bzip2 zlib openssl ];
+  buildInputs = [ lzo bzip2 zlib openssl  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
