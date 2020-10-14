@@ -17,6 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "1kfm5vi96ivcqmhdqyz7wrv6cj438shqc5crl1lawxwlay1qkahn";
   };
 
+  # was useless before someone broke SDL_image, see https://github.com/NixOS/nixpkgs/pull/97919/
+  NIX_LDFLAGS = "-lpng -ljpeg";
+
   nativeBuildInputs = [ makeWrapper pkgconfig ];
 
   buildInputs = [ file zlib ]
@@ -61,13 +64,13 @@ stdenv.mkDerivation rec {
       makeWrapper $out/bin/ac_server $out/bin/${pname}-server \
         --run "cd $out/$gamedatadir" --add-flags "-Cconfig/servercmdline.txt"
     fi
-    '';
+  '';
 
   meta = {
     description = "Fast and fun first-person-shooter based on the Cube fps";
     homepage = "https://assault.cubers.net";
     maintainers = [ maintainers.genesis ];
     platforms = platforms.linux; # should work on darwin with a little effort.
-    license = stdenv.lib.licenses.zlib;
+    license = stdenv.lib.licenses.free;
   };
 }
