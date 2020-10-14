@@ -1,7 +1,7 @@
-{ stdenv, fetchzip, buildPythonApplication, myPython3Packages, python3Packages
+{ stdenv, fetchzip, myPython3Packages, python3Packages
 , freecell-solver }:
 
-buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "PySolFC";
   version = "2.10.1";
 

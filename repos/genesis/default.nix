@@ -8,7 +8,8 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-{
+# rec is pretty convinient...
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -30,10 +31,10 @@
   ntpbclient = pkgs.callPackage ./pkgs/ntpbclient {};
   pfsshell = pkgs.callPackage ./pkgs/pfsshell {};
 
-  #pysolfc = pkgs.callPackage ./pkgs/pysolfc
-  #  {
-      # myPython3Packages = python3Packages;
-  #  };
+  pysolfc = pkgs.callPackage ./pkgs/pysolfc
+  {
+      myPython3Packages = python3Packages;
+  };
 
   python3Packages = pkgs.recurseIntoAttrs (
     pkgs.python3Packages.callPackage ./pkgs/development/python-modules {}
