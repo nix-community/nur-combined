@@ -602,10 +602,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "8.0.10";
+      version = "8.1.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3644951/metamask-8.0.10-an+fx.xpi";
-      sha256 = "6dfb611ea62edf4e3c7a09c3dd59a27bdd42fee3218f54bdfbcde5f68d3870d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3659802/metamask-8.1.0-an+fx.xpi";
+      sha256 = "a11af4a3a732c9577556af362f3e2a459849bc0fae6fa0666b17082179fa01f6";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
@@ -629,10 +629,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.1.1";
+      version = "6.1.2";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3657577/octotree_github_code_tree-6.1.1-fx.xpi";
-      sha256 = "a025d986c5ae11dfef029ff0eede1d7d55d36938bb4c29fe3c02b4f699c4ee23";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3659847/octotree_github_code_tree-6.1.2-fx.xpi";
+      sha256 = "97c83a4be13204cb8bfe5a3af52c8097d591de457f5c06e959c92f81f026f429";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -961,10 +961,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.30.2";
+      version = "1.30.4";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3656237/ublock_origin-1.30.2-an+fx.xpi";
-      sha256 = "85c66d69826b8c0b8d8498307744c26f61aef5ebfbe6f03fd37f917fd84f035e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3659222/ublock_origin-1.30.4-an+fx.xpi";
+      sha256 = "585167ff9a83e8941d35318c2ff4090c385119221e342e4b4795bfdfd7729e93";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
