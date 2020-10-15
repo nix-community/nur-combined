@@ -1,0 +1,7 @@
+result
+result-*
+
+all-packages.nix
+recurse.nix
+
+source
