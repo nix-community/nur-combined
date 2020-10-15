@@ -18,8 +18,9 @@ in
 
     prePatch = ''
       sed -i "s@/usr/local@$out@" config.mk
-    ''
-    + customConfig;
+    '';
+
+    postPatch = customConfig;
 
     inherit patches;
 
