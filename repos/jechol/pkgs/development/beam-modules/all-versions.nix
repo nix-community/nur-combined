@@ -1,4 +1,4 @@
-{ callPackage, stdenv, pkgs, erlang, rebar, rebar3, lib, util, mainOnly }:
+{ callPackage, stdenv, pkgs, erlang, lib, util, mainOnly }:
 
 with lib.attrsets;
 let
@@ -21,6 +21,9 @@ let
         annotateDep (callPackageWithSelf drv args) elixir;
 
     in rec {
+      rebar = callPackage ../tools/build-managers/rebar { inherit erlang; };
+      rebar3 = callPackage ../tools/build-managers/rebar3 { inherit erlang; };
+
       # Functions
       fetchHex = callPackageWithSelf ./fetch-hex.nix { };
       fetchRebar3Deps =
@@ -69,6 +72,6 @@ let
 
   allPackages = lib.makeExtensible packages;
   # mainPackages = (with allPackages; { inherit elixirs lfes; });
-  mainPackages = (with allPackages; { inherit elixirs; });
+  mainPackages = (with allPackages; { inherit rebar rebar3 elixirs; });
 
 in if mainOnly then mainPackages else allPackages
