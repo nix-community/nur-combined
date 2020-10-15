@@ -28,6 +28,7 @@ rec {
   mkpsxiso = pkgs.callPackage ./pkgs/mkpsxiso {};
   mymcplus = pkgs.python3Packages.callPackage ./pkgs/mymcplus {};
   navit = pkgs.libsForQt5.callPackage ./pkgs/navit {};
+  nsntrace = pkgs.callPackage ./pkgs/nsntrace {};
   ntpbclient = pkgs.callPackage ./pkgs/ntpbclient {};
   pfsshell = pkgs.callPackage ./pkgs/pfsshell {};
 

@@ -13,6 +13,9 @@ in stdenv.mkDerivation rec{
     sha256 = "0k2b7g3vm81dpr08kjsv7g85l4brljywv1gy7dm41v0z87vzi52r";
   };
 
+  # url = "https://client.teamxlink.co.uk/binary/webui_0.9978-38.zip";
+  # sha256 = "625662901391a70213680c5e59baffc495f8d95596cb620ac5e9eb42a833dd51";
+
   nativeBuildInputs = [ patchelf ];
 
   phases = [ "unpackPhase" "installPhase" ];
@@ -26,8 +29,12 @@ in stdenv.mkDerivation rec{
 
   #dontStrip = true;
 
+  # This doesn't work out of the box, but for strange reason, it works
+  # when running in the debugger mode of cutter, after File->set mode write,
+  # forcing continue 4 times
+  # where normal execution makes it segfault before "Kai Engine: The engine has started".
   meta = with stdenv.lib; {
-    broken = true;
+    #broken = true;
     description = "tunneling program that allows the play LAN games online";
     homepage = https://www.teamxlink.co.uk;
     license = licenses.unfree;
