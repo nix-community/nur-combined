@@ -345,10 +345,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.5.2";
+      version = "8.5.3";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3617940/ghostery_privacy_ad_blocker-8.5.2-an+fx.xpi";
-      sha256 = "26525e85817af5fe90624dfea9f0df9a41f5f30ecb12cfa9045b5de427775d4d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3659830/ghostery_privacy_ad_blocker-8.5.3-an+fx.xpi";
+      sha256 = "f356e8ac94b95a04d4c02d41e28ef35aa94fdfcaa7bbaa72959de19ecc151a29";
       meta = with stdenv.lib;
       {
         homepage = "http://www.ghostery.com/";
