@@ -1,7 +1,7 @@
 { stdenv, fetchfromgh, undmg }:
 let
   pname = "qutebrowser";
-  version = "1.13.1";
+  version = "1.14.0";
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -11,7 +11,7 @@ stdenv.mkDerivation {
     repo = "qutebrowser";
     version = "v${version}";
     name = "qutebrowser-${version}.dmg";
-    sha256 = "0ddm15ps896q70av3ndyd75vdqz7hvgpn07nbrniwrmfsd4nmm8f";
+    sha256 = "03d5bf5lpxyphi0ri6ykh7dr6izsikk22ivh6mh09q0a2y0kdf44";
   };
 
   preferLocalBuild = true;

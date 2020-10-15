@@ -114,15 +114,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-07T08:25:16Z",
+        "date": "2020-10-15T17:53:10Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "83ad34e36377680924a9aa52ec87aac8cac73b26",
-        "sha256": "1zgsjbqbzgpvr1cqw18jyfsns45dd40022hpwdkgh4ccq4647gl3",
+        "rev": "d06b533043e00a8c983690610ebe81de013f2416",
+        "sha256": "1g5kchz80mnmhgm3vzpdc02iyp61z0iam1yrr24g0fs07vyblh69",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/83ad34e36377680924a9aa52ec87aac8cac73b26.tar.gz",
+        "url": "https://github.com/embox/embox/archive/d06b533043e00a8c983690610ebe81de013f2416.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -142,15 +142,15 @@
     "gef": {
         "branch": "dev",
         "builtin": false,
-        "date": "2020-09-18T18:13:49Z",
+        "date": "2020-10-13T11:41:25Z",
         "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
         "homepage": "http://gef.rtfd.io",
         "owner": "hugsy",
         "repo": "gef",
-        "rev": "9ac0173ad744673fc29b3c96a1abaf0189c5156f",
-        "sha256": "0197lj8imi5fwk6m8ji0xvvjh3lrrvgz3c8qncaqv8qdss6050bf",
+        "rev": "6dd16eb2fb1ebf7412f994622c95e446b99bf3dc",
+        "sha256": "03dpd40wrhsxzqpqlmlrmkgzr8hg0kc911ivpvscv7z63ryhd50m",
         "type": "tarball",
-        "url": "https://github.com/hugsy/gef/archive/9ac0173ad744673fc29b3c96a1abaf0189c5156f.tar.gz",
+        "url": "https://github.com/hugsy/gef/archive/6dd16eb2fb1ebf7412f994622c95e446b99bf3dc.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geminid": {
@@ -222,15 +222,15 @@
     "gloggery": {
         "branch": "main",
         "builtin": false,
-        "date": "2020-08-26T01:08:55Z",
+        "date": "2020-10-11T15:09:39Z",
         "description": "Gemtext blog static site generator",
         "homepage": "https://github.com/kconner/gloggery",
         "owner": "kconner",
         "repo": "gloggery",
-        "rev": "72e142f98d02f015d38dc92346376ce5b0aee2d8",
-        "sha256": "05h431xw6fw9yn148vvyhr6dfssrz96lzl6q2sjbhq5h6yy0czyi",
+        "rev": "49707b008cd6e3fb3ecb453a472051644fb319eb",
+        "sha256": "1kd3saxlzclm2n0l02za1zvs0lrxppwd3f5j249cgzv63dfwjr5m",
         "type": "tarball",
-        "url": "https://github.com/kconner/gloggery/archive/72e142f98d02f015d38dc92346376ce5b0aee2d8.tar.gz",
+        "url": "https://github.com/kconner/gloggery/archive/49707b008cd6e3fb3ecb453a472051644fb319eb.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "go-staticmaps": {
@@ -306,15 +306,15 @@
     "gpxsee": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-11T19:33:19Z",
+        "date": "2020-10-14T20:05:48Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "5a4de1cef0645d9007ec01b5f45704fe97aa4fb4",
-        "sha256": "1vk5qmnfjf0zcgyr7zyp1px9dx0233rg8scpnw7ycm3zk4x68zyg",
+        "rev": "52a8b1de5b7552a8f6fcb80c4a54e6f714f688ca",
+        "sha256": "0v7wcxabk5hq13zh4zs7djar743gfp2bnzqcs0yj0q8qs0rxcdgx",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/5a4de1cef0645d9007ec01b5f45704fe97aa4fb4.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/52a8b1de5b7552a8f6fcb80c4a54e6f714f688ca.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -662,15 +662,15 @@
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-11T14:44:37Z",
+        "date": "2020-10-15T17:36:36Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "d15b47ab86f46bffb73df2363354e2e0c5fc4789",
-        "sha256": "19cwmxcgp2cxhl3v0rv7grnpih21f5524q6b77cv0sa8lih8wk71",
+        "rev": "d38bed58b26a23de86f47b4d63a6f30572a0bd38",
+        "sha256": "1y40695gisl4cc9fpc81k1sh578ri339srl1qsdvkx8nhggrln2d",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/d15b47ab86f46bffb73df2363354e2e0c5fc4789.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/d38bed58b26a23de86f47b4d63a6f30572a0bd38.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -840,15 +840,15 @@
     "supermercado": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-07T22:09:06Z",
+        "date": "2020-10-14T18:25:52Z",
         "description": "Supercharger for mercantile",
         "homepage": "https://github.com/mapbox/supermercado",
         "owner": "mapbox",
         "repo": "supermercado",
-        "rev": "6ce4e22f0eeb7801e5c700139b501fce56dac565",
-        "sha256": "1v4q2fmraawaqm4dd26zsrxx2y5473h924jfrklaj7cx9rpsx4c5",
+        "rev": "ecc9f5a36c1c8d13872df5bdcbd01621e5f3ab48",
+        "sha256": "1b5kyxz8n1ysrv0kdf49ma60k5448sg5k7c9zyzrl46hw5lbar4k",
         "type": "tarball",
-        "url": "https://github.com/mapbox/supermercado/archive/6ce4e22f0eeb7801e5c700139b501fce56dac565.tar.gz",
+        "url": "https://github.com/mapbox/supermercado/archive/ecc9f5a36c1c8d13872df5bdcbd01621e5f3ab48.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "supload": {
