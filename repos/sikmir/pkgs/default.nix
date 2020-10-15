@@ -81,6 +81,7 @@ lib.makeScope newScope (
     ### DEVELOPMENT / TOOLS
 
     gef = callPackage ./development/tools/gef { };
+    kiln = callPackage ./development/tools/kiln { };
     how-to-use-pvs-studio-free = callPackage ./development/tools/pvs-studio/how-to-use-pvs-studio-free.nix { };
     pvs-studio = callPackage ./development/tools/pvs-studio { };
 
