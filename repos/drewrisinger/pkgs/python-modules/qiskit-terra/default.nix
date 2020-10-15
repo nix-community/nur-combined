@@ -126,9 +126,9 @@ buildPythonPackage rec {
   preCheck = ''
     export PACKAGEDIR=$out/${python.sitePackages}
     echo "Moving Qiskit test files to package directory"
-    cp -r $TMP/source/test $PACKAGEDIR
-    cp -r $TMP/source/examples $PACKAGEDIR
-    cp -r $TMP/source/qiskit/schemas/examples $PACKAGEDIR/qiskit/schemas/
+    cp -r $TMP/$sourceRoot/test $PACKAGEDIR
+    cp -r $TMP/$sourceRoot/examples $PACKAGEDIR
+    cp -r $TMP/$sourceRoot/qiskit/schemas/examples $PACKAGEDIR/qiskit/schemas/
 
     # run pytest from Nix's $out path
     pushd $PACKAGEDIR

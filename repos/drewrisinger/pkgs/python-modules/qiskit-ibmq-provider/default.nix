@@ -14,13 +14,13 @@
 , ipyvuetify
 , ipywidgets
 , matplotlib
-, nbconvert
-, nbformat
 , plotly
 , pyperclip
 , seaborn
   # check inputs
 , pytestCheckHook
+, nbconvert
+, nbformat
 , pproxy
 , vcrpy
 }:
@@ -31,8 +31,6 @@ let
     ipyvuetify
     ipywidgets
     matplotlib
-    nbconvert
-    nbformat
     plotly
     pyperclip
     seaborn

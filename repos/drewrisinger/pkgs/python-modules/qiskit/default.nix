@@ -44,6 +44,7 @@ buildPythonPackage rec {
     "qiskit.circuit"
     "qiskit.ignis"
     "qiskit.providers.aer"
+    "qiskit.providers.ibmq"
   ];
   preCheck = "pushd $TMP/$sourceRoot";
   postCheck = "popd";
