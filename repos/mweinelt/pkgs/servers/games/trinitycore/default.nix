@@ -2,13 +2,13 @@
 
 clangStdenv.mkDerivation rec {
   pname = "TrinityCore";
-  version = "TDB335.20051";
+  version = "TDB335.20081";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = version;
-    sha256 = "1s64abhjimf5bbry98rxhkyflglrczzfqw6i28ay76d6aci7k16a";
+    sha256 = "1pciyvvcbf9dxwd368807m9pvii6lnpfpjpy41m79xvmwdqjsajf";
   };
 
   nativeBuildInputs = [ cmake git ];
