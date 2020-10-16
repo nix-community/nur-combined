@@ -20,6 +20,7 @@
   noisetorch = pkgs.callPackage ./pkgs/noisetorch { };
   r2mod_cli = pkgs.callPackage ./pkgs/r2mod_cli { };
   scientifica = pkgs.callPackage ./pkgs/scientifica { };
+  teletype = pkgs.callPackage ./pkgs/teletype { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
