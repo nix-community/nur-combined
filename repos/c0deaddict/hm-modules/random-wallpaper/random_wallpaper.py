@@ -9,19 +9,36 @@ import subprocess
 import sys
 
 CONFIG = "@jsonConfig@"
-FEH = "@feh@/bin/feh"
-XRANDR = "@xrandr@/bin/xrandr"
 
 # example: '0: +*DP1 3840/600x2160/340+1920+0  DP1'
-MONITOR_RE = re.compile(r'^\d+: \+\*?(?P<id>[\w-]+) (?P<w>\d+)\/\d+x(?P<h>\d+)\/\d+\+(?P<x>\d+)\+(?P<y>\d+) \s*[\w-]+$')
+XRANDR_MONITOR_RE = re.compile(r'^\d+: \+\*?(?P<id>[\w-]+) (?P<w>\d+)\/\d+x(?P<h>\d+)\/\d+\+(?P<x>\d+)\+(?P<y>\d+) \s*[\w-]+$')
 
 
-def get_monitors():
-    p = subprocess.run([XRANDR, '--listmonitors'], capture_output=True, check=True)
+def fatal(message):
+    print(message)
+    sys.exit(1)
+
+
+def xorg_get_monitors():
+    p = subprocess.run(['xrandr', '--listmonitors'], capture_output=True, check=True)
     for line in p.stdout.decode('utf-8').split('\n'):
-        match = MONITOR_RE.match(line.strip())
+        match = XRANDR_MONITOR_RE.match(line.strip())
         if match:
             yield match.groupdict()
+
+
+def sway_get_monitors():
+    outputs = subprocess.check_output(['swaymsg', '-rt', 'get_outputs'])
+    return [
+        dict(
+            id=output['name'],
+            w=output['rect']['width'],
+            h=output['rect']['height'],
+            x=output['rect']['x'],
+            y=output['rect']['y'],
+        )
+        for output in json.loads(outputs)
+    ]
 
 
 def scan_dir(dir):
@@ -53,27 +70,47 @@ def get_choices_for_monitor(index, mon, alt_mapping):
     return list(itertools.chain(*[index.get(k, []) for k in keys]))
 
 
+def xorg_set_wallpapers(wallpapers):
+    feh_args = []
+    for w in wallpapers:
+        feh_args.extend(['--bg-fill', w['path']])
+    subprocess.call(['feh'] + feh_args)
+
+
+def sway_set_wallpapers(wallpapers):
+    for w in wallpapers:
+        subprocess.call(['swaymsg', 'output', w['monitor']['id'], 'bg', w['path'], 'fill'])
+
+
 def main():
     with open(CONFIG, 'r') as f:
         config = json.loads(f.read())
 
     directories = [os.path.expandvars(d) for d in config["directories"]]
     alt_mapping = config["altMapping"]
+    backend = config["backend"]
+
+    if backend == 'xorg':
+        get_monitors = xorg_get_monitors
+        set_wallpapers = xorg_set_wallpapers
+    elif backend == 'sway':
+        get_monitors = sway_get_monitors
+        set_wallpapers = sway_set_wallpapers
+    else:
+        fatal('undefined backend: {}'.format(backend))
 
     index = create_index(directories)
-    feh_args = []
-    for mon in get_monitors():
-        choices = get_choices_for_monitor(index, mon, alt_mapping)
+    wallpapers = []
+    for monitor in get_monitors():
+        choices = get_choices_for_monitor(index, monitor, alt_mapping)
         path = random.choice(choices) if choices else 'undefined'
-        print('{id} ({w}x{h}): {path}'.format(path=path, **mon))
-        feh_args.extend(['--bg-fill', path])
+        print('{id} ({w}x{h}): {path}'.format(path=path, **monitor))
+        wallpapers.append(dict(monitor=monitor, path=path))
 
-    if feh_args:
-        subprocess.call([FEH] + feh_args)
+    if wallpapers:
+        set_wallpapers(wallpapers)
     else:
-        print('error: no monitors detected')
-        sys.exit(1)
-    subprocess.call([FEH] + feh_args)
+        fatal('error: no monitors detected')
 
 
 if __name__ == '__main__':
