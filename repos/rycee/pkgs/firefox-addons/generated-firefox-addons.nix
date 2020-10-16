@@ -602,10 +602,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "8.1.0";
+      version = "8.1.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3659802/metamask-8.1.0-an+fx.xpi";
-      sha256 = "a11af4a3a732c9577556af362f3e2a459849bc0fae6fa0666b17082179fa01f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3661005/metamask-8.1.1-an+fx.xpi";
+      sha256 = "ca0bd685e0d259a888b177abe1c732af7a83fb1e31e2384affd2e34d756645e6";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
@@ -769,10 +769,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.10.8";
+      version = "20.10.15";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3657171/refined_github-20.10.8-an+fx.xpi";
-      sha256 = "b279c4422f9d9c8b1326622463cba888a554879185e1fdeac0a92eb5e4a3267a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3661037/refined_github-20.10.15-an+fx.xpi";
+      sha256 = "8b5e0e5055624260f5931c46d135c8ea7551624eb15cb78b5329c1c302abf55c";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
