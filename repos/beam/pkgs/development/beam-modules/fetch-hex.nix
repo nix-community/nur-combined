@@ -1,8 +1,6 @@
 { stdenv, fetchurl }:
 
-{ pkg, version, sha256
-, meta ? {}
-}:
+{ pkg, version, sha256, meta ? { } }:
 
 with stdenv.lib;
 
@@ -17,9 +15,10 @@ stdenv.mkDerivation ({
   phases = [ "unpackPhase" "installPhase" ];
 
   unpackCmd = ''
-    tar -xf $curSrc contents.tar.gz
+    tar -xf $curSrc contents.tar.gz metadata.config
     mkdir contents
     tar -C contents -xzf contents.tar.gz
+    mv metadata.config contents/hex_metadata.config
   '';
 
   installPhase = ''

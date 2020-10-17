@@ -22,23 +22,28 @@ let
 
     in rec {
       rebar = callPackage ../tools/build-managers/rebar { inherit erlang; };
-      rebar3 = callPackage ../tools/build-managers/rebar3 { inherit erlang; };
+
+      # Caution: rebar3 built without plugins... 
+      # Seems complex to resolve this issue.
+      # Let's just use old-fashioned way. ie. download from website
+      # rebar3 =
+      #   callPackage ../tools/build-managers/rebar3 { inherit erlang fetchHex; };
 
       # Functions
-      fetchHex = callPackageWithSelf ./fetch-hex.nix { };
-      fetchRebar3Deps =
-        callPackageWithSelf ./fetch-rebar-deps.nix { inherit rebar3; };
-      rebar3Relx =
-        callPackageWithSelf ./rebar3-release.nix { inherit erlang rebar3; };
+      # fetchHex = callPackageWithSelf ./fetch-hex.nix { };
+      # fetchRebar3Deps =
+      #   callPackageWithSelf ./fetch-rebar-deps.nix { inherit rebar3; };
+      # rebar3Relx =
+      #   callPackageWithSelf ./rebar3-release.nix { inherit erlang rebar3; };
 
-      buildRebar3 =
-        callPackageWithSelf ./build-rebar3.nix { inherit erlang rebar3 pc; };
-      buildHex = callPackageWithSelf ./build-hex.nix { inherit buildRebar3; };
-      buildErlangMk =
-        callPackageWithSelf ./build-erlang-mk.nix { inherit erlang; };
+      # buildRebar3 =
+      #   callPackageWithSelf ./build-rebar3.nix { inherit erlang rebar3 pc; };
+      # buildHex = callPackageWithSelf ./build-hex.nix { inherit buildRebar3; };
+      # buildErlangMk =
+      #   callPackageWithSelf ./build-erlang-mk.nix { inherit erlang; };
 
       # rebar3 port compiler plugin is required by buildRebar3
-      pc = callAndAnnotate ./pc { inherit buildHex; };
+      # pc = callAndAnnotate ./pc { inherit buildHex; };
 
       elixirs = util.recurseIntoAttrs
         (callPackageWithSelf ../interpreters/elixir/all-versions.nix {
@@ -67,11 +72,11 @@ let
       # };
 
       # An example of Erlang/C++ package.
-      cuter = callAndAnnotate ../tools/erlang/cuter { inherit erlang; };
+      # cuter = callAndAnnotate ../tools/erlang/cuter { inherit erlang; };
     };
 
   allPackages = lib.makeExtensible packages;
   # mainPackages = (with allPackages; { inherit elixirs lfes; });
-  mainPackages = (with allPackages; { inherit rebar rebar3 elixirs; });
+  mainPackages = (with allPackages; { inherit elixirs; });
 
 in if mainOnly then mainPackages else allPackages
