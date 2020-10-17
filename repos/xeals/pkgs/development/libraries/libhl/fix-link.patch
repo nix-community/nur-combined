@@ -1,0 +1,13 @@
+diff --git a/Makefile.in b/Makefile.in
+index 97b3901..4191da6 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -69,7 +69,7 @@ static: objects
+ 
+ .PHONY: shared
+ shared: objects
+-	./libtool --mode=link $(CC) $(LIBS) $(LDFLAGS) -Wc,$(SHAREDFLAGS) -o $(builddir)/libhl.$(SHAREDEXT) $(builddir)/*.o
++	./libtool --mode=link $(CC) $(LIBS) $(LDFLAGS) -Wc,$(SHAREDFLAGS) -o $(builddir)/libhl.$(SHAREDEXT) .libs/*.o
+ 
+ %.o : $(srcdir)/src/%.c
+ 	./libtool --mode=compile $(CC) -c $(CFLAGS) $< -o $(builddir)/$@

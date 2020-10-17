@@ -1,0 +1,28 @@
+diff --git a/setup.py b/setup.py
+index a800b3b..8967921 100755
+--- a/setup.py
++++ b/setup.py
+@@ -22,14 +22,13 @@ setup(
+     name='spotify-ripper',
+     version='2.9.1',
+     packages=find_packages(exclude=["tests"]),
+-    scripts=['spotify_ripper/main.py'],
+     include_package_data=True,
+     zip_safe=False,
+ 
+     # Executable
+     entry_points={
+         'console_scripts': [
+-            'spotify-ripper = main:main',
++            'spotify-ripper = spotify_ripper.main:main',
+         ],
+     },
+ 
+@@ -67,7 +66,5 @@ setup(
+         'Programming Language :: Python :: 3',
+         'Programming Language :: Python :: 3.4',
+     ],
+-    long_description=_read('README.rst'),
+ )
+ 
+-create_default_dir()
