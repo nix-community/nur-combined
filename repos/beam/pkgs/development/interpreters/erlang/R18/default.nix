@@ -2,7 +2,9 @@
 , mainOnly }:
 
 let
-  releases = util.findByPrefix ./. (baseNameOf ./.);
+  # Remove R18 because rebar3 support R19+
+  releases = [ ];
+  # releases = util.findByPrefix ./. (baseNameOf ./.);
 
   buildOpts = {
     wxGTK = wxGTK30;
