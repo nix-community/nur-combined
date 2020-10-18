@@ -13,6 +13,12 @@ in
   options.services.amdgpu.fan = {
     enable = mkEnableOption "amdgpu-fan";
 
+    package = mkOption {
+      type = types.package;
+      default = pkgs.amdgpu-fan or (import ../../.. { inherit pkgs; }).amdgpu-fan;
+      defaultText = "pkgs.amdgpu-fan";
+    };
+
     speedMatrix = mkOption {
       type = with types; listOf (listOf int);
       # Translated from upstream default config. Since it tries to write the
@@ -45,7 +51,7 @@ in
   config = mkIf cfg.enable {
     assertions = singleton {
       assertion = all (speeds: length speeds == 2) cfg.speedMatrix;
-      message = "services.amdgpu-fan.speedMatrix must be a list of paired lists";
+      message = "services.amdgpu.fan.speedMatrix must be a list of paired lists";
     };
 
     environment.etc."amdgpu-fan.yml".text = builtins.toJSON {
@@ -60,9 +66,9 @@ in
       amdgpu-fan = {
         description = "amdgpu fan controller";
         wantedBy = [ "default.target" ];
-        after = [ "enable-manual-amdgpu-fan.service" ];
+        after = [ "amdgpu-pwm.service" ];
         serviceConfig = {
-          ExecStart = "${pkgs.amdgpu-fan}/bin/amdgpu-fan";
+          ExecStart = "${cfg.package}/bin/amdgpu-fan";
           Restart = "always";
         };
       };

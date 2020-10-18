@@ -11,6 +11,12 @@ in
 {
   options.services.radeon-profile-daemon = {
     enable = mkEnableOption "radeon-profile-daemon";
+
+    package = mkOption {
+      type = types.package;
+      default = pkgs.radeon-profile-daemon or (import ../../.. { inherit pkgs; }).radeon-profile-daemon;
+      defaultText = "pkgs.radeon-profile-daemon";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -18,10 +24,10 @@ in
       radeon-profile-daemon = {
         description = "radeon-profile daemon";
         wantedBy = [ "multi-user.target" ];
-        after = [ "enable-manual-amdgpu-fan.service" ];
+        after = [ "amdgpu-pwm.service" ];
         serviceConfig = {
           Type = "simple";
-          ExecStart = "${pkgs.radeon-profile-daemon}/bin/radeon-profile-daemon";
+          ExecStart = "${package}/bin/radeon-profile-daemon";
         };
       };
     };
