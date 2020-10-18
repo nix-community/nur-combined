@@ -51,10 +51,10 @@ in stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
+    description = "Wrapper for Bitwarden and Rofi";
+    homepage = "https://github.com/mattydebie/bitwarden-rofi";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    homepage = https://github.com/mattydebie/bitwarden-rofi;
-    maintainers = with maintainers; [ kylesferrazza ];
   };
 
 }
