@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchHex, erlang, tree }:
+{ stdenv, fetchFromGitHub, fetchHex, fetchpatch, erlang, tree }:
 
 let
   version = "3.14.1";
@@ -59,6 +59,12 @@ let
     sha256 = "bdb0d2471f453c88ff3908e7686f86f9be327d065cc1ec16fa4540197ea04680";
   };
 
+  support_prefetched_deps = fetchpatch {
+    url =
+      "https://github.com/jechol/rebar3/commit/f9a7ab9cd18aab2c1952cc1adc81af5fd916fde9.patch";
+    sha256 = "027xdvbf317rfvmvnf864412nqvm3y73gygwasx6r9d05ix1aqkz";
+  };
+
 in stdenv.mkDerivation rec {
   pname = "rebar3";
   inherit version erlang;
@@ -69,6 +75,8 @@ in stdenv.mkDerivation rec {
     rev = version;
     sha256 = "113yy3scj6dxf0mr1y7jivrh4gdcyhp2wr91j9gc53v9q2jxc8ly";
   };
+
+  patches = [ support_prefetched_deps ];
 
   bootstrapper = ./rebar3-nix-bootstrap;
 

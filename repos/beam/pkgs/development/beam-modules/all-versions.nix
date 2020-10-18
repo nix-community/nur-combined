@@ -20,17 +20,14 @@ let
         { elixir }@args:
         annotateDep (callPackageWithSelf drv args) elixir;
 
+      # Functions
+      fetchHex = callPackageWithSelf ./fetch-hex.nix { };
+
     in rec {
       rebar = callPackage ../tools/build-managers/rebar { inherit erlang; };
+      rebar3 =
+        callPackage ../tools/build-managers/rebar3 { inherit erlang fetchHex; };
 
-      # Caution: rebar3 built without plugins... 
-      # Seems complex to resolve this issue.
-      # Let's just use old-fashioned way. ie. download from website
-      # rebar3 =
-      #   callPackage ../tools/build-managers/rebar3 { inherit erlang fetchHex; };
-
-      # Functions
-      # fetchHex = callPackageWithSelf ./fetch-hex.nix { };
       # fetchRebar3Deps =
       #   callPackageWithSelf ./fetch-rebar-deps.nix { inherit rebar3; };
       # rebar3Relx =
@@ -77,6 +74,6 @@ let
 
   allPackages = lib.makeExtensible packages;
   # mainPackages = (with allPackages; { inherit elixirs lfes; });
-  mainPackages = (with allPackages; { inherit elixirs; });
+  mainPackages = (with allPackages; { inherit rebar rebar3 elixirs; });
 
 in if mainOnly then mainPackages else allPackages
