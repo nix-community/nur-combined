@@ -15,7 +15,7 @@
   services.ipfs.enable = true;
   services.openssh.enable = true;
   services.xserver.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
+  services.xserver.windowManager.xmonad.enable = true;
   system.autoUpgrade.enable = true;
   system.copySystemConfiguration = true;
   users.users.guest.isNormalUser = true;
