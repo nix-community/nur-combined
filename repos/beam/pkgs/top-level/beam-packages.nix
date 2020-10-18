@@ -4,7 +4,7 @@ with lib.attrsets;
 let
   erlang = (callPackage ../development/interpreters/erlang/all-versions.nix {
     inherit util;
-    mainOnly = true;
+    mainOnly = false;
   });
 
   # rebar and rebar3 is self contained so that doesn't need to be compiled with every erlang versions,
@@ -20,7 +20,7 @@ let
     util.recurseIntoAttrs
     (callPackage ../development/beam-modules/all-versions.nix {
       inherit erlang util;
-      mainOnly = true;
+      mainOnly = false;
     })) (util.filterDerivations erlang));
 
   # main_erlang = util.recurseIntoAttrs (erlang.override { mainOnly = true; });

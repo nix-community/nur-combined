@@ -11,15 +11,15 @@ let
     openssl = openssl_1_0_2;
   };
 
-  featureOpts = if mainOnly then
-    { }
-  else {
-    odbc = { odbcSupport = true; };
-    javac = { javacSupport = true; };
-    nox = { wxSupport = false; };
+  variantOpts = {
+    "" = {
+      odbcSupport = true;
+      javacSupport = true;
+      wxSupport = true;
+    };
   };
 
   variantsPerReleases =
-    map (r: deriveErlangFeatureVariants r buildOpts featureOpts) releases;
+    map (r: deriveErlangFeatureVariants r buildOpts variantOpts) releases;
 
 in util.mergeListOfAttrs variantsPerReleases

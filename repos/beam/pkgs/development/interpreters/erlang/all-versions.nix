@@ -15,11 +15,9 @@ let
       value = namedPkg;
     };
 
-  deriveErlangFeatureVariants = release: buildOpts: featureOpts:
-    let
-      basePkg = beamLib.callErlang release buildOpts;
-      featureStringToFlags = util.combineFeatures featureOpts "_";
-    in lib.attrsets.mapAttrs' (overrideFeature basePkg) featureStringToFlags;
+  deriveErlangFeatureVariants = release: buildOpts: variantOpts:
+    let basePkg = beamLib.callErlang release buildOpts;
+    in lib.attrsets.mapAttrs' (overrideFeature basePkg) variantOpts;
 
   folders = builtins.attrNames
     (lib.attrsets.filterAttrs (_: type: type == "directory")
