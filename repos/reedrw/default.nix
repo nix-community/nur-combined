@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   artwiz-lemon = pkgs.callPackage ./pkgs/artwiz-lemon { };
+  bitwarden-rofi-patched = pkgs.callPackage ./pkgs/bitwarden-rofi { };
   comma = pkgs.callPackage ./pkgs/comma { }; # From https://github.com/Shopify/comma/pull/7
   ix = pkgs.callPackage ./pkgs/ix { };
   noisetorch = pkgs.callPackage ./pkgs/noisetorch { };
