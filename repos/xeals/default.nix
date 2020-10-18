@@ -63,37 +63,24 @@ rec {
   };
 
   # A functional Jetbrains IDE-with-plugins package set.
-  jetbrains =
-    let
-      mkJetbrainsPlugins = import ./pkgs/applications/editors/jetbrains/common-plugins.nix {
-        inherit (pkgs) callPackage;
-      };
-      mkIdeaPlugins = import ./pkgs/applications/editors/jetbrains/idea-plugins.nix {
-        inherit (pkgs) callPackage;
-      };
-
-      builder = import ./pkgs/applications/editors/jetbrains/builder.nix {
-        inherit (pkgs) lib;
-      };
-
-      jbScope = pkgs.lib.makeScope pkgs.newScope (self: pkgs.lib.makeOverridable
-        ({ jetbrainsPlugins ? mkJetbrainsPlugins
-         , ideaPlugins ? mkIdeaPlugins
-         }: ({ }
-          // jetbrainsPlugins // { inherit jetbrainsPlugins; }
-          // ideaPlugins // { inherit ideaPlugins; }
-          // {
-          jetbrainsWithPlugins = builder self;
-        }))
-        { });
-    in
-    rec {
-      inherit (jbScope) jetbrainsWithPlugins;
-      clionWithPlugins = jetbrainsWithPlugins pkgs.jetbrains.clion;
-      ideaCommunityWithPlugins = jetbrainsWithPlugins pkgs.jetbrains.idea-community;
-      ideaUltimateWithPlugins = jetbrainsWithPlugins pkgs.jetbrains.idea-ultimate;
-      plugins = jbScope;
+  jetbrains = pkgs.dontRecurseIntoAttrs rec {
+    jetbrainsPluginsFor = variant: import ./pkgs/top-level/jetbrains-plugins.nix {
+      inherit (pkgs) lib newScope stdenv fetchzip;
+      inherit variant;
     };
+
+    pluginBuild = jetbrainsPlatforms: pkgs.callPackage ./pkgs/build-support/jetbrains/plugin.nix {
+      inherit jetbrains jetbrainsPlatforms;
+    };
+
+    clionPlugins = pkgs.dontRecurseIntoAttrs (jetbrainsPluginsFor pkgs.jetbrains.clion);
+    ideaCommunityPlugins = pkgs.dontRecurseIntoAttrs (jetbrainsPluginsFor pkgs.jetbrains.idea-community);
+    ideaUltimatePlugins = pkgs.dontRecurseIntoAttrs (jetbrainsPluginsFor pkgs.jetbrains.idea-ultimate);
+
+    clionWithPlugins = clionPlugins.jetbrainsWithPlugins;
+    ideaCommunityWithPlugins = ideaCommunityPlugins.jetbrainsWithPlugins;
+    ideaUltimateWithPlugins = ideaUltimatePlugins.jetbrainsWithPlugins;
+  };
 
   libhl = pkgs.callPackage ./pkgs/development/libraries/libhl { };
 

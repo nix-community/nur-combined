@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchzip
 , jetbrainsPlatforms
 }:
@@ -12,12 +13,14 @@
 }:
 
 stdenv.mkDerivation {
-  inherit pname version jetbrainsPlatforms;
+  inherit pname version;
 
   src = fetchzip {
     inherit sha256;
     url = "https://plugins.jetbrains.com/files/${toString pluginId}/${toString versionId}/${filename}";
   };
+
+  passthru = { inherit jetbrainsPlatforms; };
 
   installPhase = ''
     mkdir $out
@@ -25,6 +28,6 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = "https://plugins.jetbrains.com/plugin/${pluginId}-${stdenv.lib.toLower pname}";
+    homepage = "https://plugins.jetbrains.com/plugin/${pluginId}-${lib.toLower pname}";
   };
 }
