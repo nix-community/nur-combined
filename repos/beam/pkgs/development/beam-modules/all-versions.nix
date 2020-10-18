@@ -1,4 +1,4 @@
-{ callPackage, stdenv, pkgs, erlang, lib, util, mainOnly }:
+{ callPackage, stdenv, pkgs, erlang, lib, util }:
 
 with lib.attrsets;
 let
@@ -44,14 +44,14 @@ let
 
       elixir = util.recurseIntoAttrs
         (callPackageWithSelf ../interpreters/elixir/all-versions.nix {
-          inherit util annotateErlangInVersion mainOnly;
+          inherit util annotateErlangInVersion;
           inherit rebar erlang;
           debugInfo = true;
         });
 
       # lfes = util.recurseIntoAttrs
       #   (callPackageWithSelf ../interpreters/lfe/all-versions.nix {
-      #     inherit util beamLib annotateErlangInVersion mainOnly;
+      #     inherit util beamLib annotateErlangInVersion;
       #     inherit erlang buildRebar3 buildHex;
       #   });
 
@@ -72,8 +72,4 @@ let
       # cuter = callAndAnnotate ../tools/erlang/cuter { inherit erlang; };
     };
 
-  allPackages = lib.makeExtensible packages;
-  # mainPackages = (with allPackages; { inherit elixir lfes; });
-  mainPackages = (with allPackages; { inherit rebar rebar3 elixir; });
-
-in if mainOnly then mainPackages else allPackages
+in lib.makeExtensible packages

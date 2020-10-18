@@ -1,5 +1,4 @@
-{ lib, callPackage, rebar, erlang, debugInfo, annotateErlangInVersion, util
-, mainOnly }:
+{ lib, callPackage, rebar, erlang, debugInfo, annotateErlangInVersion, util }:
 
 let
   beamLib = callPackage ../../beam-modules/lib.nix { };
@@ -30,7 +29,6 @@ let
       { };
 
   releasesPerMajorVersion =
-    map (r: callPackage r { inherit util deriveElixirs mainOnly; })
-    majorVersions;
+    map (r: callPackage r { inherit util deriveElixirs; }) majorVersions;
 
 in util.mergeListOfAttrs releasesPerMajorVersion

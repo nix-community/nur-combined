@@ -1,5 +1,4 @@
-{ lib, openssl_1_0_2, wxGTK30, beamLib, util, deriveErlangFeatureVariants
-, mainOnly }:
+{ lib, openssl_1_0_2, wxGTK30, beamLib, util, deriveErlangFeatureVariants }:
 
 let
   compile_fails = [

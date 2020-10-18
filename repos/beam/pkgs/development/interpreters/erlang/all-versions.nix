@@ -1,4 +1,4 @@
-{ pkgs, fetchpatch, callPackage, wxGTK30, openssl_1_0_2, lib, util, mainOnly }:
+{ pkgs, fetchpatch, callPackage, wxGTK30, openssl_1_0_2, lib, util }:
 
 let
   beamLib = callPackage ../../beam-modules/lib.nix { };
@@ -24,9 +24,8 @@ let
       (builtins.readDir ./.));
   majorVersions = map (f: ./. + ("/" + f)) folders;
 
-  releasesPerMajorVersion = map (r:
-    callPackage r {
-      inherit beamLib util mainOnly deriveErlangFeatureVariants;
-    }) majorVersions;
+  releasesPerMajorVersion =
+    map (r: callPackage r { inherit beamLib util deriveErlangFeatureVariants; })
+    majorVersions;
 
 in util.mergeListOfAttrs releasesPerMajorVersion
