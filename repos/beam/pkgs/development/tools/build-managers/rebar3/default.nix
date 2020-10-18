@@ -48,10 +48,14 @@ let
     version = "1.8.1";
     sha256 = "e45745ade9c476a9a469ea0840e418ab19360dc44f01a233304e118a44486ba0";
   };
-  relx = fetchHex {
-    pkg = "relx";
-    version = "4.0.2";
-    sha256 = "21b5d01c78d832b2ed62f9796c77718270ba35432c2845059919fad990c09e17";
+  relx = fetchFromGitHub {
+    # Forked from erlware/relx tag v4.0.2 to fix file permission issue that happens when
+    # executing `rebar3 as prod compile,tar`.
+    # TODO: Change back to hex when back-port is done.
+    owner = "jechol";
+    repo = "relx";
+    rev = "5804d73057d86306aa17c6db3fd553aa07d4b790";
+    sha256 = "0jvvs1d4qjw3d08ljqj28kajvf8ip34lbna47i4fyvx0x06z41w5";
   };
   ssl_verify_fun = fetchHex {
     pkg = "ssl_verify_fun";
