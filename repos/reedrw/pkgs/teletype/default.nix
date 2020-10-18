@@ -13,5 +13,9 @@ nodePackages.oorja.override {
     pkgs.nodePackages.node-gyp-build
   ];
 
-  meta.license = with lib; licenses.asl20;
+  meta = with lib; {
+    description = "stream terminals to the web and more.";
+    homepage = https://teletype.oorja.io/;
+    license = licenses.asl20;
+  };
 }
