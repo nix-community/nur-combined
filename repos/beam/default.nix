@@ -10,6 +10,4 @@
   (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/20.03.tar.gz")
     { }) }:
 let util = pkgs.callPackage ./lib/util.nix { };
-in {
-  beam = pkgs.callPackage ./pkgs/top-level/beam-packages.nix { inherit util; };
-}
+in pkgs.callPackage ./pkgs/top-level/beam-packages.nix { inherit util; }

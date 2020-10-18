@@ -42,7 +42,7 @@ let
       # rebar3 port compiler plugin is required by buildRebar3
       # pc = callAndAnnotate ./pc { inherit buildHex; };
 
-      elixirs = util.recurseIntoAttrs
+      elixir = util.recurseIntoAttrs
         (callPackageWithSelf ../interpreters/elixir/all-versions.nix {
           inherit util annotateErlangInVersion mainOnly;
           inherit rebar erlang;
@@ -60,7 +60,7 @@ let
       # hex = callAndAnnotate ./hex { };
       # buildMixes = util.recurseIntoAttrs (mapAttrs (_: elixir:
       #   (callPackageWithSelf ./build-mix.nix { inherit hex elixir erlang; }))
-      #   (util.filterDerivations elixirs));
+      #   (util.filterDerivations elixir));
       # webdriver = annotateDep
       #   ((callPackageWithSelf ./webdriver { inherit erlang; }).overrideAttrs
       #     (o: { name = "${o.name}-${o.version}"; })) erlang;
@@ -73,7 +73,7 @@ let
     };
 
   allPackages = lib.makeExtensible packages;
-  # mainPackages = (with allPackages; { inherit elixirs lfes; });
-  mainPackages = (with allPackages; { inherit rebar rebar3 elixirs; });
+  # mainPackages = (with allPackages; { inherit elixir lfes; });
+  mainPackages = (with allPackages; { inherit rebar rebar3 elixir; });
 
 in if mainOnly then mainPackages else allPackages

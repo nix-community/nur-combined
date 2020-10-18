@@ -5,8 +5,8 @@ let
 
   overrideFeature = basePkg: featureString: featureFlag:
     let
-      pkgPath = util.makePkgPath "erlang" basePkg.version featureString;
-      pkgName = util.makePkgName "erlang" basePkg.version featureString;
+      pkgPath = util.makePkgPath "v" basePkg.version featureString;
+      pkgName = util.makePkgName "erlang-" basePkg.version featureString;
 
       featurePkg = basePkg.override featureFlag;
       namedPkg = featurePkg.overrideAttrs (o: { name = pkgName; });

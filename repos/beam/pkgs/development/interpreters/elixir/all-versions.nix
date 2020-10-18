@@ -21,7 +21,7 @@ let
           releases;
 
         pairs = map (pkg: {
-          name = util.snakeVersion pkg.name;
+          name = "v${util.snakeVersion pkg.version}";
           value = annotateErlangInVersion pkg;
         }) pkgs;
 

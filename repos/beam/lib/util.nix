@@ -42,11 +42,11 @@ with lib; rec {
     else
       "${sep}${builtins.replaceStrings [ "_" ] [ sep ] features}";
 
-  makePkgPath = name: version: features:
-    "${name}_${snakeVersion version}${makeFeatureString features "_"}";
+  makePkgPath = prefix: version: features:
+    "${prefix}${snakeVersion version}${makeFeatureString features "_"}";
 
-  makePkgName = name: version: features:
-    "${name}-${version}${makeFeatureString features "-"}";
+  makePkgName = prefix: version: features:
+    "${prefix}${version}${makeFeatureString features "-"}";
 
   filterDerivations = attrs:
     attrsets.filterAttrs (k: v: attrsets.isDerivation v) attrs;
