@@ -1,5 +1,5 @@
-[![Linux](https://github.com/jechol/nur-pkg/workflows/Linux/badge.svg)](https://github.com/jechol/nur-pkg/actions?query=workflow%3A%22Linux%22)
-[![macOS](https://github.com/jechol/nur-pkg/workflows/macOS/badge.svg)](https://github.com/jechol/nur-pkg/actions?query=workflow%3A%22macOS%22)
+[![Linux](https://github.com/jechol/nix-beam/workflows/Linux/badge.svg)](https://github.com/jechol/nix-beam/actions?query=workflow%3A%22Linux%22)
+[![macOS](https://github.com/jechol/nix-beam/workflows/macOS/badge.svg)](https://github.com/jechol/nix-beam/actions?query=workflow%3A%22macOS%22)
 [![Cachix Cache](https://img.shields.io/badge/cachix-jechol-blue.svg)](https://jechol.cachix.org)
 
 # Nix Packages for Erlang, Elixir

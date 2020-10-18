@@ -2,11 +2,12 @@
 
 with lib.attrsets;
 let
-  erlang = (callPackage ../development/interpreters/erlang/all-versions.nix {
-    inherit util;
-  });
+  erlang = util.recurseIntoAttrs
+    (callPackage ../development/interpreters/erlang/all-versions.nix {
+      inherit util;
+    });
 
-  pkg = (mapAttrs (_: erlang:
+  pkg = util.recurseIntoAttrs (mapAttrs (_: erlang:
     util.recurseIntoAttrs
     (callPackage ../development/beam-modules/all-versions.nix {
       inherit erlang util;
