@@ -104,7 +104,7 @@ in stdenv.mkDerivation rec {
   '';
 
   buildPhase = ''
-    HOME=. ./bootstrap
+    HOME=. escript bootstrap
   '';
 
   installPhase = ''
