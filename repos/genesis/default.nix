@@ -49,5 +49,5 @@ rec {
   # qt.qpa.plugin issue, test later.
   #scriptcommunicator = pkgs.libsForQt5.callPackage ./pkgs/scriptcommunicator {};
 
-  xlinkkai = pkgs.callPackage ./pkgs/xlinkkai {};
+  xlink-kai = pkgs.callPackage ./pkgs/xlink-kai {};
 }
