@@ -90,4 +90,15 @@ lib.recurseIntoAttrs rec {
       dash
     ];
   };
+
+  awesome-tray = trivialBuild rec {
+    pname = "awesome-tray";
+    version = builtins.substring 0 7 src.rev;
+    src = fetchFromGitHub {
+      owner = "manateelazycat";
+      repo = "awesome-tray";
+      rev = sources.awesome-tray.rev;
+      sha256 = sources.awesome-tray.sha256;
+    };
+  };
 }

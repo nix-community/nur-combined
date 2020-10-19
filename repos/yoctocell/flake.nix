@@ -35,7 +35,6 @@
       overlay = import ./pkgs;
 
       # Packages
-      # FIXME only works locally
       packages = forAllSystems (system: import ./pkgs {
         sources = import nix/sources.nix;
         pkgs = pkgsFor system;

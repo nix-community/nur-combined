@@ -1,4 +1,16 @@
 {
+    "awesome-tray": {
+        "branch": "master",
+        "description": "Hide mode-line, display necessary information at right of minibuffer.",
+        "homepage": null,
+        "owner": "manateelazycat",
+        "repo": "awesome-tray",
+        "rev": "11f8f59938398da86edcc3defeed5b16afe2853c",
+        "sha256": "0d7d5haynlsc45j4gkij3h4pm8642yz3bgqx3xd2gavyz8akbv1g",
+        "type": "tarball",
+        "url": "https://github.com/manateelazycat/awesome-tray/archive/11f8f59938398da86edcc3defeed5b16afe2853c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "bottom": {
         "branch": "master",
         "description": "Yet another cross-platform graphical process/system monitor.",
