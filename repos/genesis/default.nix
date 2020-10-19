@@ -25,7 +25,7 @@ rec {
   freediag = pkgs.callPackage ./pkgs/freediag {};
   gbdk-n = pkgs.callPackage ./pkgs/gbdk-n {};
   hdl-dump = pkgs.callPackage ./pkgs/hdl_dump {};
-  #hospital-hero = pkgs.callPackage ./pkgs/hospital-hero {};
+  hospital-hero = pkgs.callPackage ./pkgs/hospital-hero {};
   magick2cpc = pkgs.callPackage ./pkgs/magick2cpc {};
   matiec = pkgs.callPackage ./pkgs/matiec {};
   microwindows = pkgs.callPackage ./pkgs/microwindows {};
