@@ -18,6 +18,9 @@
 
 , # POSIX-compatible files to source before Emacs.app starts
   sourceFiles ? []
+
+, # Extra executables used at runtime by emacs
+  extraDependencies ? []
 }:
 
 let
@@ -44,7 +47,8 @@ for prog in ${emacs}/bin/{emacs,emacs-*}; do
   local progname=$(basename "$prog")
   rm -f "$out/bin/$progname"
   makeWrapper "$prog" "$out/bin/$progname" \
-    --add-flags "${flags}"
+    --add-flags "${flags}" \
+    --prefix PATH : "${lib.makeBinPath extraDependencies}"
 done
 
 # Wrap the MacOS Application, if it exists
@@ -57,6 +61,7 @@ if [ -d "${emacs}/Applications/Emacs.app" ]; then
   makeWrapper "${emacs}/Applications/Emacs.app/Contents/MacOS/Emacs" \
               "$out/Applications/Emacs.app/Contents/MacOS/Emacs" \
     --add-flags "${flags}" \
+    --prefix PATH : "${lib.makeBinPath extraDependencies}" \
     ${builtins.concatStringsSep " "
        (map (str: ''--run "source '' + str + ''"'') sourceFiles)}
 fi
