@@ -15,6 +15,9 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  appimage-run = pkgs.callPackage ./pkgs/tools/package-management/appimage-run {}; #82266
+  appimageTools = pkgs.callPackage ./pkgs/build-support/appimage {}; #82266
+
   assaultcube = pkgs.callPackage ./pkgs/assaultcube {};
   #beremiz = pkgs.callPackage ./pkgs/beremiz {};
   caprice32 = pkgs.callPackage ./pkgs/caprice32 {};
@@ -22,6 +25,7 @@ rec {
   freediag = pkgs.callPackage ./pkgs/freediag {};
   gbdk-n = pkgs.callPackage ./pkgs/gbdk-n {};
   hdl-dump = pkgs.callPackage ./pkgs/hdl_dump {};
+  #hospital-hero = pkgs.callPackage ./pkgs/hospital-hero {};
   magick2cpc = pkgs.callPackage ./pkgs/magick2cpc {};
   matiec = pkgs.callPackage ./pkgs/matiec {};
   microwindows = pkgs.callPackage ./pkgs/microwindows {};
@@ -48,6 +52,6 @@ rec {
 
   # qt.qpa.plugin issue, test later.
   #scriptcommunicator = pkgs.libsForQt5.callPackage ./pkgs/scriptcommunicator {};
-
+  soulseekqt = pkgs.libsForQt5.callPackage ./pkgs/soulseekqt {};
   xlink-kai = pkgs.callPackage ./pkgs/xlink-kai {};
 }
