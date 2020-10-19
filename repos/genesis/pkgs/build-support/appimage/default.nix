@@ -5,7 +5,7 @@
 
 rec {
   appimage-exec = with pkgs; substituteAll {
-    src = ./appimage-exec.sh;
+    src = "./appimage-exec.sh";
     isExecutable = true;
     dir = "bin";
     path = lib.makeBinPath [ shellcheck pv ripgrep file radare2 libarchive jq squashfsTools coreutils bash ];
