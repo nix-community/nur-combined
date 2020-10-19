@@ -34,10 +34,10 @@ let
   };
 
   apcu51 = buildPecl {
-    version = "5.1.18";
+    version = "5.1.19";
     pname = "apcu";
 
-    sha256 = "0ayykd4hfvdzk7qnr5k6yq5scwf6rb2i05xscfv76q5dmkkynvfl";
+    sha256 = "1q3c4y9jqh1yz5vps2iiz2x04vn0y1g5ibxg1x8zp7n7sncvqzw3";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
     doCheck = true;
@@ -46,7 +46,7 @@ let
     makeFlags = [ "phpincludedir=$(dev)/include" ];
     outputs = [ "out" "dev" ];
 
-    meta.broken = (isPhp56 || isPhp80);
+    meta.broken = isPhp56;
   };
 
   apcu_bc = buildPecl {
@@ -97,12 +97,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.13";
+    version = "1.10.15";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "13vhfdlkmpvmk1h30f1i688xk7sdgfj0b82am32jgpa8zmf499sw";
+      sha256 = "1shsxsrc2kq74s1jbq3njn9wzidcz7ak66n9vyz8z8d0hqpg37d6";
     };
 
     dontUnpack = true;
@@ -230,10 +230,10 @@ let
   };
 
   igbinary30 = buildPecl {
-    version = "3.1.5";
+    version = "3.1.6";
     pname = "igbinary";
 
-    sha256 = "14kdb7d98085748ygxfd0qjdw44ii2ahxh2is9jfnlih4dsdrxz1";
+    sha256 = "1spx6581ly2r8pn9b632bi8429sy762v04ramrlnf7469pf8ggxr";
 
     configureFlags = [
       "--enable-igbinary"
@@ -380,9 +380,9 @@ let
 
   mongodb18 = buildPecl {
     pname = "mongodb";
-    version = "1.8.0";
+    version = "1.8.1";
 
-    sha256 = "1c93k8a8ydnx5yn9kbssm341f19ywn9wvd69pf6i1izi83r04vq9";
+    sha256 = "0xxrll17c7nz146g9gww4cg41xc3qg41n73syb06546q9skqabyl";
 
     nativeBuildInputs = with pkgs; [ pkgconfig ];
     buildInputs = with pkgs; [
@@ -544,12 +544,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.48";
+    version = "0.12.50";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "170yzz23lyipyckv8y2x9masv5qdmbskwwlbfc8750xb3g2q7pzl";
+      sha256 = "0kralhafvwsni1drnc7hv33dia8p6kzscv976hvjyl8lmh2phdl3";
     };
 
     phases = [ "installPhase" ];
@@ -670,10 +670,10 @@ let
   };
 
   protobuf313 = buildPecl {
-    version = "3.13.0";
+    version = "3.13.0.1";
     pname = "protobuf";
 
-    sha256 = "1fmlsblk660b8jgzflvvyxkh1a9s1b2cf961bs9frmba7mqw5q0q";
+    sha256 = "0vzxwisa8g3xgzcwa5b6cx6nyf41gkm71rxiisnnz1axz4q0hzqf";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -689,12 +689,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.16";
+    version = "3.17.2";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "0gkz6mpbxgg8rsqw2s4nr0s7dkaf018r1dkf5m55ikcwmy4grqqq";
+      sha256 = "1rxbi46f1iszkj6nd0ggr4gjr5c5pibkq4cf8s2alrvm1ji3c1gl";
     };
 
     phases = [ "installPhase" ];

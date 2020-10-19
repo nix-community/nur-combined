@@ -16,28 +16,20 @@
 , withSSL ? true, openssl ? null
 , withIPv6 ? true
 , withDebug ? false
-, fetchpatch
 }:
 
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  version = "1.19.0";
+  version = "1.20.0";
   pname = "unit";
 
   src = fetchFromGitHub {
     owner = "nginx";
     repo = "unit";
     rev = "${version}";
-    sha256 = "0k3q42q198sb0w6hyyymw92dbhz67axn6w6vnzr0d883xw3sva7k";
+    sha256 = "1qmcz01ifmd80qgpvf1y8nhad6yk56772xdhqvwfxn3mdjfqvcs8";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/nginx/unit/pull/474/commits/01ad74d272a2d408b58e16946979ac5d9e127ab5.patch";
-      sha256 = "1yhhwzfkw61bhvlkj707g4w37xfvv05khbr1zpdyw09w0j4sshj5";
-    })
-  ];
 
   nativeBuildInputs = [ which ];
 
