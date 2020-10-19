@@ -9,15 +9,15 @@ let
 in
 buildPythonPackage rec {
   pname = "frida";
-  version = "12.9.8";
+  version = "12.10.4";
   disabled = !isPy38;
   wheelName = "frida-${version}-cp${pythonVersion}-cp${pythonVersion}-linux_x86_64.whl";
 
   # building is somewhat complicated, described in https://nixos.wiki/wiki/Frida
 
   src = fetchurl {
-    url = "https://dl.thalheim.io/CvDYyyDGK1K6CSgRprSDYg/${wheelName}";
-    sha256 = "03kzbp7h89m92453wq6walf2mv79fzk6lz7d3blrsxxa94hj5pzi";
+    url = "https://dl.thalheim.io/FTyZDZ4fVNGJzc_kEuiclQ/${wheelName}";
+    sha256 = "1gzfkpn1j2gf616q615k3z7n10isnbvc8j3xb9s11ddrspwmxl81";
   };
 
   nativeBuildInputs = [ pip ];
