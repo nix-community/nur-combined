@@ -121,6 +121,11 @@
   services.gpg-agent.sshKeys = [ "87F5686AC11C5D0AE1C7D66B7AE4D820B34CF744" ];
   services.lorri.enable = true;
   xdg.configFile."afew/lobsters.py".source = ./lobsters.py;
+  xsession.windowManager.command = let
+    xmonad = pkgs.xmonad-with-packages.override {
+      packages = self: [ self.xmonad-contrib self.xmonad-extras ];
+    };
+  in "${xmonad}/bin/xmonad";
   xsession.windowManager.xmonad.config = ./xmonad.hs;
   xsession.windowManager.xmonad.enableContribAndExtras = true;
   xsession.windowManager.xmonad.enable = true;

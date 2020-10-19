@@ -7,15 +7,16 @@
     gimp
     inkscape
     libreoffice
+    networkmanagerapplet
     vlc
   ];
   fonts.enableDefaultFonts = true;
+  networking.networkmanager.enable = true;
   nix.gc.automatic = true;
   services.flatpak.enable = true;
   services.ipfs.enable = true;
-  services.openssh.enable = true;
   services.xserver.enable = true;
-  services.xserver.windowManager.xmonad.enable = true;
+  services.xserver.desktopManager.plasma5.enable = true;
   system.autoUpgrade.enable = true;
   system.copySystemConfiguration = true;
   users.users.guest.isNormalUser = true;
