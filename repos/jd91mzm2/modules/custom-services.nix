@@ -31,6 +31,15 @@ in
             Whether or not to auto-start the service on boot.
           '';
         };
+        group = mkOption {
+          type = types.str;
+          default = "nogroup";
+          example = "keys";
+          description = ''
+            Which group the user should be in. The default is "nogroup", but you
+            can use "keys" in order to grant the user access to secrets.
+          '';
+        };
         script = mkOption {
           type = types.str;
           example = "sleep 1000";
@@ -47,6 +56,7 @@ in
         (cfg: nameValuePair cfg.name {
           createHome = true;
           home = "/var/lib/${cfg.name}";
+          inherit (cfg) group;
         })
         (builtins.attrValues cfgs)
     );
