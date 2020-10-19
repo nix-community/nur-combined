@@ -1,10 +1,10 @@
 { stdenv, buildFHSUserEnv, writeScript, pkgs
 , bash, radare2, jq, squashfsTools, ripgrep
 , coreutils, libarchive, file, runtimeShell, pv
-, lib, runCommand, substituteAll, shellcheck }:
+, lib, runCommand, shellcheck }:
 
 rec {
-  appimage-exec = substituteAll {
+  appimage-exec = with pkgs; substituteAll {
     src = ./appimage-exec.sh;
     isExecutable = true;
     dir = "bin";
