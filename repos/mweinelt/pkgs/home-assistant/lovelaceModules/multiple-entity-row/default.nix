@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "multiple-entity-row";
-  version = "3.5.0";
+  version = "3.5.1";
 
   src = fetchFromGitHub {
     owner = "benct";
     repo = "lovelace-multiple-entity-row";
     rev = "v${version}";
-    sha256 = "0f6drgixglmd9db0ccbcd0bxbvla1vjv94zvrycmf1nzgrnfl8f7";
+    sha256 = "0iw3w6rrx5z5b6284wpiy87qvad2qa3m1j9nnnxaajsjpsjpn8pc";
   };
 
   installPhase = ''

@@ -8,7 +8,7 @@ llvmPackages_11.stdenv.mkDerivation rec {
     owner = pname;
     repo = pname;
     rev = version;
-    sha256 = "1pciyvvcbf9dxwd368807m9pvii6lnpfpjpy41m79xvmwdqjsajf";
+    sha256 = "16121ghywhrnsr8vdpa6vp77r2iw9hh9p79vp5ixsgi6x9yadfx2";
   };
 
   nativeBuildInputs = [ cmake git ];
