@@ -123,7 +123,8 @@ lib.recurseIntoAttrs rec {
     installPhase = ''
       mkdir -p $out/share/emacs/site-lisp/{app,core}
       cp *.el *.py $out/share/emacs/site-lisp/
-      cp -r {app,core} $out/share/emacs/site-lisp/{app,core}
+      cp -r app/* $out/share/emacs/site-lisp/app/
+      cp -r core/* $out/share/emacs/site-lisp/core/
     '';
 
   };
