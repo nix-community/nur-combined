@@ -121,9 +121,10 @@ lib.recurseIntoAttrs rec {
     ];
 
     installPhase = ''
-      mkdir -p $out/share/emacs/site-lisp/app/mindmap/
+      mkdir -p $out/share/emacs/site-lisp/app/{mindmap,interleave}
       cp *.el $out/share/emacs/site-lisp/
       cp app/mindmap/eaf-mindmap.el $out/share/emacs/site-lisp/app/mindmap/eaf-mindmap.el
+      cp app/interleave/eaf-interleave.el $out/share/emacs/site-lisp/app/interleave/eaf-interleave.el
     '';
 
   };
