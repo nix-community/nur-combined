@@ -102,7 +102,7 @@ lib.recurseIntoAttrs rec {
     };
   };
 
-  emacs-application-framework = stdenv.mkDerivation rec {
+  eaf = stdenv.mkDerivation rec {
     pname = "emacs-application-framework";
     version = builtins.substring 0 7 src.rev;
     src = fetchFromGitHub {
@@ -121,10 +121,9 @@ lib.recurseIntoAttrs rec {
     ];
 
     installPhase = ''
-      mkdir -p $out/share/emacs/site-lisp/app/{mindmap,interleave}
-      cp *.el $out/share/emacs/site-lisp/
-      cp app/mindmap/eaf-mindmap.el $out/share/emacs/site-lisp/app/mindmap/eaf-mindmap.el
-      cp app/interleave/eaf-interleave.el $out/share/emacs/site-lisp/app/interleave/eaf-interleave.el
+      mkdir -p $out/share/emacs/site-lisp/{app,core}
+      cp *.el *.py $out/share/emacs/site-lisp/
+      cp -r {app,core} $out/share/emacs/site-lisp/{app,core}
     '';
 
   };
