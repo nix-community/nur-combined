@@ -114,7 +114,7 @@ lib.recurseIntoAttrs rec {
 
     nativeBuildInputs = [ emacs ];
 
-    buildInputs = [ (python38.withPackages (ps: with ps; [ pyqt5 sip dbus-python pyqtwebengine pymupdf ])) ];
+    buildInputs = [ (python38.withPackages (ps: with ps; [ pyqt5 dbus-python pyqtwebengine pymupdf ])) ];
     # buildInputs = with python3Packages; [
     #   pyqt5
     #   sip
