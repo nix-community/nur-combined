@@ -12,6 +12,7 @@
   accounts.email.accounts.fastmail.mbsync.create = "both";
   home.file.".mailcap".text =
     "text/html;  w3m -dump -o document_charset=%{charset} '%s'; nametemplate=%s.html; copiousoutput";
+  home.file.".xmobarrc".source = ./xmobarrc.hs;
   home.packages = with pkgs; [
     file
     gpa
@@ -23,6 +24,7 @@
     ripgrep
     w3m
     xclip
+    xmobar
   ];
   nixpkgs.config.allowUnfree = true;
   programs.afew.enable = true;
@@ -121,4 +123,7 @@
   services.gpg-agent.sshKeys = [ "87F5686AC11C5D0AE1C7D66B7AE4D820B34CF744" ];
   services.lorri.enable = true;
   xdg.configFile."afew/lobsters.py".source = ./lobsters.py;
+  xsession.windowManager.xmonad.config = ./xmonad.hs;
+  xsession.windowManager.xmonad.enable = true;
+  xsession.windowManager.xmonad.enableContribAndExtras = true;
 }
