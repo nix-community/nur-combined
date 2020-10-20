@@ -629,10 +629,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.1.2";
+      version = "6.1.3";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3659847/octotree_github_code_tree-6.1.2-fx.xpi";
-      sha256 = "97c83a4be13204cb8bfe5a3af52c8097d591de457f5c06e959c92f81f026f429";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3663017/octotree_github_code_tree-6.1.3-fx.xpi";
+      sha256 = "c128ab46604cfa1ac59ef531cf8030e33f97a99b99e5b7466570d77e3518fc63";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -727,10 +727,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.8.2";
+      version = "4.9.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3609068/react_developer_tools-4.8.2-fx.xpi";
-      sha256 = "4b68a11676665e966a916f143f5c26adf6e567f5c0a57a82cca690fa93ad1b57";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3663013/react_developer_tools-4.9.0-fx.xpi";
+      sha256 = "85e44a4ee4f0a2629c21cd37e8781acf6649f8265202459200899e80d8f58753";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/facebook/react";
