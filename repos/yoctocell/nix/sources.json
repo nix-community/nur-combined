@@ -35,6 +35,18 @@
         "url": "https://github.com/Fuco1/dired-hacks/archive/d6d4d1930969bbc22fd0551d5195887bf92cab3e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "emacs-application-framework": {
+        "branch": "master",
+        "description": "Emacs application framework",
+        "homepage": "",
+        "owner": "manateelazycat",
+        "repo": "emacs-application-framework",
+        "rev": "2bf07d71eeac548276addb50eb8c5c37380117d0",
+        "sha256": "0kazcfy8v2qkwjzd0aams03qwamncigqyank7cb42hqqv4rhxpd0",
+        "type": "tarball",
+        "url": "https://github.com/manateelazycat/emacs-application-framework/archive/2bf07d71eeac548276addb50eb8c5c37380117d0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "eshell-syntax-highlighting": {
         "branch": "master",
         "description": "Syntax highlighting for Eshell",

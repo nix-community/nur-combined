@@ -1,4 +1,4 @@
-{ sources, lib, writeText, fetchFromGitHub, emacsPackages, libffi, libtool, ... }:
+{ sources, lib, stdenv, writeText, fetchFromGitHub, emacsPackages, libffi, libtool, python3Packages, emacs, ... }:
 let
   inherit (emacsPackages) trivialBuild emacs;
 in
@@ -100,5 +100,30 @@ lib.recurseIntoAttrs rec {
       rev = sources.awesome-tray.rev;
       sha256 = sources.awesome-tray.sha256;
     };
+  };
+
+  emacs-application-framework = stdenv.mkDerivation rec {
+    pname = "emacs-application-framework";
+    version = builtins.substring 0 7 src.rev;
+    src = fetchFromGitHub {
+      owner = "manateelazycat";
+      repo = "emacs-application-framework";
+      rev = sources.emacs-application-framework.rev;
+      sha256 = sources.emacs-application-framework.sha256;
+    };
+
+    nativeBuildInputs = [ emacs ];
+    buildInputs = with python3Packages; [
+      pyqt5
+      dbus-python
+      pyqtwebengine
+      pymupdf
+    ];
+
+    installPhase = ''
+      mkdir -p $out/share/emacs/site-lisp
+      cp *.el app/mindmap/eaf-mindmap.el $out/share/emacs/site-lisp/
+    '';
+
   };
 }
