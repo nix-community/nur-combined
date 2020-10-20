@@ -1,4 +1,4 @@
-{ sources, lib, stdenv, writeText, fetchFromGitHub, emacsPackages, libffi, libtool, python3Packages, emacs, ... }:
+{ sources, lib, stdenv, writeText, fetchFromGitHub, emacsPackages, libffi, libtool, python38, emacs, ... }:
 let
   inherit (emacsPackages) trivialBuild emacs;
 in
@@ -113,12 +113,17 @@ lib.recurseIntoAttrs rec {
     };
 
     nativeBuildInputs = [ emacs ];
-    buildInputs = with python3Packages; [
-      pyqt5
-      dbus-python
-      pyqtwebengine
-      pymupdf
-    ];
+
+    buildInputs = [ (python38.withPackages (ps: with ps; [ pyqt5 sip dbus-python pyqtwebengine pymupdf ])) ];
+    # buildInputs = with python3Packages; [
+    #   pyqt5
+    #   sip
+    #   # pyqt5_with_qtwebkit
+    #   # pyqt5_with_qtmultimedia
+    #   dbus-python
+    #   pyqtwebengine
+    #   pymupdf
+    # ];
 
     installPhase = ''
       mkdir -p $out/share/emacs/site-lisp/{app,core}
