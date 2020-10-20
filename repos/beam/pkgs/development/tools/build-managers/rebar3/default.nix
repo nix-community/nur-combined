@@ -65,8 +65,8 @@ let
 
   support_prefetched_deps = fetchpatch {
     url =
-      "https://github.com/jechol/rebar3/commit/f9a7ab9cd18aab2c1952cc1adc81af5fd916fde9.patch";
-    sha256 = "027xdvbf317rfvmvnf864412nqvm3y73gygwasx6r9d05ix1aqkz";
+      "https://github.com/jechol/rebar3/commit/b54fad92cda396936ab1e8f5b6d5138f7ed8a8e7.patch";
+    sha256 = "1nk8ifkr1yyrxrkvx8hmjib2whn0lvvsz109ml15niqiv5wpbqrr";
   };
 
 in stdenv.mkDerivation rec {
