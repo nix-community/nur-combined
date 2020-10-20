@@ -14,6 +14,8 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  kotlin-language-server = pkgs.callPackage ./pkgs/kotlin-language-server { };
+
   mas = pkgs.callPackage ./pkgs/mas { };
 
   xcodeproj = pkgs.callPackage ./pkgs/xcodeproj { };
