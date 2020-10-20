@@ -3,12 +3,25 @@
 {nodeEnv, fetchurl, fetchgit, globalBuildInputs ? []}:
 
 let
-  sources = {};
+  sources = {
+    "fsevents-2.1.3" = {
+      name = "fsevents";
+      packageName = "fsevents";
+      version = "2.1.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/fsevents/-/fsevents-2.1.3.tgz";
+        sha512 = "Auw9a4AxqWpa9GUfj370BMPzzyncfBABW8Mab7BGWBYDj4Isgq+cDKtx0i6u9jcX9pQDnswsaaOTgTmA5pEjuQ==";
+      };
+    };
+  };
   args = {
     name = "rollup";
     packageName = "rollup";
-    version = "2.29.0";
-    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-2.29.0.tgz"; sha1 = "0c5c5968530b21ca0e32f8b94b7cd9346cfb0eec"; };
+    version = "2.32.0";
+    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-2.32.0.tgz"; sha1 = "ac58c8e85782bea8aa2d440fc05aba345013582a"; };
+    dependencies = [
+      sources."fsevents-2.1.3"
+    ];
     buildInputs = globalBuildInputs;
     meta = {
       description = "Next-generation ES module bundler";
