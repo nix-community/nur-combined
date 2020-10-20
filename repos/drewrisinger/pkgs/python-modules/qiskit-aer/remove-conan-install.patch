@@ -1,8 +1,8 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index efeacfc..77bd6bd 100755
+index 60728b4..da31e9d 100755
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -121,7 +121,11 @@ endif()
+@@ -125,7 +125,11 @@ endif()
  # Looking for external libraries
  #
  
@@ -15,7 +15,7 @@ index efeacfc..77bd6bd 100755
  
  # If we do not set them with a space CMake fails afterwards if nothing is set for this vars!
  set(AER_LINKER_FLAGS " ")
-@@ -269,16 +273,16 @@ endif()
+@@ -268,16 +272,16 @@ endif()
  set(AER_LIBRARIES
  	${AER_LIBRARIES}
  	${BLAS_LIBRARIES}
@@ -36,12 +36,12 @@ index efeacfc..77bd6bd 100755
  	add_subdirectory(qiskit/providers/aer/backends/wrappers)
  	add_subdirectory(src/open_pulse)
 diff --git a/setup.py b/setup.py
-index fd71e9f..1561cc4 100644
+index e0d5ad6..f22c241 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -11,12 +11,6 @@ import inspect
- 
- PACKAGE_NAME = os.getenv('QISKIT_AER_PACKAGE_NAME', 'qiskit-aer')
+@@ -18,12 +18,6 @@ except ImportError:
+     subprocess.call([sys.executable, '-m', 'pip', 'install', 'Cython>=0.27.1'])
+     from Cython.Build import cythonize
  
 -try:
 -    from conans import client
@@ -52,7 +52,7 @@ index fd71e9f..1561cc4 100644
  try:
      from skbuild import setup
  except ImportError:
-@@ -46,8 +40,6 @@ common_requirements = [
+@@ -51,8 +45,6 @@ common_requirements = [
  
  setup_requirements = common_requirements + [
      'scikit-build',

@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
-, fetchPypi
+, fetchFromGitHub
+, lxml
 , multitasking
 , numpy
 , pandas
@@ -11,20 +12,27 @@
 
 buildPythonPackage rec {
   pname = "yfinance";
-  version = "0.1.54";
+  version = "0.1.55";
 
-  # GitHub source releases aren't tagged
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "cee223cbd31e14955869f7978bcf83776d644345c7dea31ba5d41c309bfb0d3d";
+  src = fetchFromGitHub {
+    owner = "ranaroussi";
+    repo = pname;
+    rev = version;
+    sha256 = "0484jsi526gdas0k1i50fapl4wi272jfgskw480h6m78xs8asz4q";
   };
 
   propagatedBuildInputs = [
+    lxml
     multitasking
     numpy
     pandas
     requests
   ];
+
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace "lxml>=4.5.1" "lxml"
+  '';
 
   # Tests
   doCheck = false;

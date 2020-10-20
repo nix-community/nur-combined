@@ -28,6 +28,9 @@
   # Crosstalk-adaptive layout pass
 , withCrosstalkPass ? false
 , z3
+  # Classical function -> Quantum Circuit compiler
+, withClassicalFunctionCompiler ? false
+, tweedledum
   # test requirements
 , ddt
 , hypothesis
@@ -48,19 +51,20 @@ let
     seaborn
   ];
   crosstalkPackages = [ z3 ];
+  classicalCompilerPackages = [ tweedledum ];
 in
 
 buildPythonPackage rec {
   pname = "qiskit-terra";
-  version = "0.15.2";
+  version = "0.16.0";
 
-  disabled = pythonOlder "3.5";
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "12a3x5gz66mrqxm3lwhv0zfzhzyazz0xfgsgbbhffw5pvmy52fs8";
+    sha256 = "150sfxgnasd6kn7jjdsh7f41g1vqb8azk6q8yw37ydxlly882kl6";
   };
 
   nativeBuildInputs = [ cython ];
@@ -79,7 +83,8 @@ buildPythonPackage rec {
     scipy
     sympy
   ] ++ lib.optionals withVisualization visualizationPackages
-  ++ lib.optionals withCrosstalkPass crosstalkPackages;
+  ++ lib.optionals withCrosstalkPass crosstalkPackages
+  ++ lib.optionals withClassicalFunctionCompiler classicalCompilerPackages;
 
 
   # *** Tests ***
@@ -99,10 +104,14 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [
     "--ignore=test/randomized/test_transpiler_equivalence.py" # collection requires qiskit-aer, which would cause circular dependency
+  ] ++ lib.optionals (!withClassicalFunctionCompiler) [
+    # Fail with ImportError because tweedledum isn't installed
+    "--ignore=test/python/classical_function_compiler/"
   ];
   disabledTests = [
     # Flaky tests
     "test_pulse_limits" # Fails on GitHub Actions, probably due to minor floating point arithmetic error.
+    "test_cx_equivalence"  # Fails due to flaky test
   ]
   # Disabling slow tests for Travis build constraints
   ++ [
@@ -119,6 +128,11 @@ buildPythonPackage rec {
     "test_isometry"
     "test_parallel"
     "test_random_state"
+    "test_random_clifford_valid"
+    "test_to_matrix"
+    "test_block_collection_reduces_1q_gate"
+    "test_multi_controlled_rotation_gate_matrices"
+    "test_block_collection_runs_for_non_cx_bases"
   ];
 
   # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding

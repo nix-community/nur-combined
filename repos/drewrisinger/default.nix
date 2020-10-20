@@ -48,6 +48,7 @@ rec {
     openfermion = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/openfermion { inherit pubchempy; };
     openfermion-cirq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/openfermion-cirq { inherit cirq openfermion; };
     setuptools-rust = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/setuptools-rust { };
+    tweedledum = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/tweedledum { };
 
     # VISA & Lab Instrument control
     pyvisa = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvisa { };
@@ -85,7 +86,7 @@ rec {
 
     # Qiskit proper, build order
     qiskit-terra = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-terra {
-      inherit fastjsonschema python-constraint pylatexenc retworkx;
+      inherit fastjsonschema python-constraint pylatexenc retworkx tweedledum;
     };
     qiskit-aer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-aer {
       inherit cvxpy qiskit-terra muparserx;
@@ -94,7 +95,7 @@ rec {
       inherit qiskit-aer qiskit-terra;
     };
     qiskit-aqua = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-aqua {
-      inherit cvxpy dlx docplex fastdtw qiskit-aer qiskit-ignis qiskit-terra yfinance;
+      inherit cvxpy dlx docplex fastdtw pyscf qiskit-aer qiskit-ignis qiskit-terra yfinance;
     };
     qiskit-ibmq-provider = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ibmq-provider {
       inherit ipyvuetify pproxy qiskit-terra;

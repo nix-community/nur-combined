@@ -38,7 +38,7 @@ let
 in
 buildPythonPackage rec {
   pname = "qiskit-ibmq-provider";
-  version = "0.10.0";
+  version = "0.11.0";
 
   disabled = pythonOlder "3.6";
 
@@ -46,7 +46,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "0f7gijvwid6sbi8qccxqxj00jq048nji55sfzr908483qiyk8d6n";
+    sha256 = "1pz3vs63v288kxz2qfm9dwhplk0d5x7x8nd7ynbj4n8ycbm0ahks";
   };
 
   propagatedBuildInputs = [
@@ -74,6 +74,10 @@ buildPythonPackage rec {
     "test_old_api_url"
     "test_non_auth_url"
     "test_non_auth_url_with_hub"
+
+    # slow tests
+    "test_websocket_retry_failure"
+    "test_invalid_url"
   ];
   # Ensure run from source dir, not all versions of pytestcheckhook run from proper dir
   preCheck = "pushd $TMP/$sourceRoot";

@@ -3,34 +3,39 @@
 , buildPythonPackage
 , fetchFromGitHub
 , fetchpatch
+  # C Inputs
+, blas
+, openblas
+, catch2
 , cmake
-, cvxpy
 , cython
 , muparserx
 , ninja
 , nlohmann_json
+, spdlog
+  # Python Inputs
+, cvxpy
 , numpy
-, openblas
 , pybind11
 , scikit-build
-, spdlog
   # Check Inputs
-, qiskit-terra
 , pytestCheckHook
-, python
+, ddt
+, fixtures
+, qiskit-terra
 }:
 
 buildPythonPackage rec {
   pname = "qiskit-aer";
-  version = "0.6.1";
+  version = "0.7.0";
 
-  disabled = pythonOlder "3.5";
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "Qiskit";
     repo = "qiskit-aer";
     rev = version;
-    sha256 = "1fnv11diis0as8zcc57mamz0gbjd6vj7nw3arxzvwa77ja803sr4";
+    sha256 = "03bj44g3dzsaw05nd2rf1jawyalw9xqbc481qcahv8ms6jw889sy";
   };
 
   nativeBuildInputs = [
@@ -40,7 +45,8 @@ buildPythonPackage rec {
   ];
 
   buildInputs = [
-    openblas
+    (if (lib.versionAtLeast lib.version "20.09") then blas else openblas )
+    catch2
     spdlog
     nlohmann_json
     muparserx
@@ -66,9 +72,16 @@ buildPythonPackage rec {
     "qiskit.providers.aer.backends.qasm_simulator"
     "qiskit.providers.aer.backends.controller_wrappers" # Checks C++ files built correctly. Only exists if built & moved to output
   ];
+  # Slow tests
+  disabledTests = [
+    "test_paulis_1_and_2_qubits"
+    "test_3d_oscillator"
+  ];
   checkInputs = [
-    qiskit-terra
     pytestCheckHook
+    ddt
+    fixtures
+    qiskit-terra
   ];
   dontUseSetuptoolsCheck = true;  # Otherwise runs tests twice
 
@@ -81,9 +94,7 @@ buildPythonPackage rec {
     # Add qiskit-aer compiled files to cython include search
     pushd $HOME
   '';
-  postCheck = ''
-    popd
-  '';
+  postCheck = "popd";
 
   meta = with lib; {
     description = "High performance simulators for Qiskit";
