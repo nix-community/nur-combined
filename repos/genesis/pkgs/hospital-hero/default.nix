@@ -37,7 +37,6 @@ in stdenv.mkDerivation rec {
   '';
 
 meta = with stdenv.lib; {
-    broken = true;
     description = "You are a 101% systemically relevant janitor-hero!";
     homepage = https://hackefuffel.itch.io/hospital-hero;
     license = licenses.unfree;

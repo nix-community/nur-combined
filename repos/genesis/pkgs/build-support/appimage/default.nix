@@ -1,44 +1,57 @@
-{ stdenv, buildFHSUserEnv, writeScript, pkgs
-, bash, radare2, jq, squashfsTools, ripgrep
-, coreutils, libarchive, file, runtimeShell, pv
-, lib, runCommand, shellcheck }:
+{ stdenv
+, bash
+, binutils-unwrapped
+, coreutils
+, gawk
+, libarchive
+, pv
+, squashfsTools
+, buildFHSUserEnv
+, pkgs
+}:
 
 rec {
-  appimage-exec = with pkgs; substituteAll {
-    src = "./appimage-exec.sh";
+  appimage-exec = pkgs.substituteAll {
+    src = ./appimage-exec.sh;
     isExecutable = true;
     dir = "bin";
-    path = lib.makeBinPath [ shellcheck pv ripgrep file radare2 libarchive jq squashfsTools coreutils bash ];
-    #checkPhase is not enabled in substituteAll
-    postInstall = ''
-      ${shellcheck}/bin/shellcheck $out/bin/appimage-exec.sh
-    '';
+    path = with pkgs; stdenv.lib.makeBinPath [
+      bash
+      binutils-unwrapped
+      coreutils
+      gawk
+      libarchive
+      pv
+      squashfsTools
+    ];
   };
 
-  extract = { name, src }: runCommand "${name}-extracted" {
-    buildInputs = [ appimage-exec ];
-  } ''
-    appimage-exec.sh -x $out ${src}
-  '';
+  extract = { name, src }: pkgs.runCommand "${name}-extracted" {
+      buildInputs = [ appimage-exec ];
+    } ''
+      appimage-exec.sh -x $out ${src}
+    '';
 
   # for compatibility, deprecated
   extractType1 = extract;
   extractType2 = extract;
-  wrapType1 = wrap;
-  wrapType2 = wrap;
+  wrapType1 = wrapType2;
 
-  wrapAppImage = args@{ name, src, extraPkgs ? pkgs: [], ... }: buildFHSUserEnv (defaultFhsEnvArgs // {
-    inherit name;
+  wrapAppImage = args@{ name, src, extraPkgs, ... }: buildFHSUserEnv
+    (defaultFhsEnvArgs // {
+      inherit name;
 
-    targetPkgs = pkgs: [ appimage-exec ]
-      ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs;
+      targetPkgs = pkgs: [ appimage-exec ]
+        ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs;
 
-    runScript = "appimage-exec.sh ${src}";
-  } // (removeAttrs args (builtins.attrNames (builtins.functionArgs wrapAppImage))));
+      runScript = "appimage-exec.sh -w ${src}";
+    } // (removeAttrs args (builtins.attrNames (builtins.functionArgs wrapAppImage))));
 
-  wrap = args@{ name, src, ... }: wrapAppImage (args // {
-    src = extract { inherit name src; };
-  });
+  wrapType2 = args@{ name, src, extraPkgs ? pkgs: [ ], ... }: wrapAppImage
+    (args // {
+      inherit name extraPkgs;
+      src = extract { inherit name src; };
+    });
 
   defaultFhsEnvArgs = {
     name = "appimage-env";
@@ -71,6 +84,7 @@ rec {
 
       gst_all_1.gstreamer
       gst_all_1.gst-plugins-ugly
+      gst_all_1.gst-plugins-base
       libdrm
       xorg.xkeyboardconfig
       xorg.libpciaccess
@@ -149,8 +163,6 @@ rec {
       SDL_mixer
       SDL2_ttf
       SDL2_mixer
-      gstreamer
-      gst-plugins-base
       libappindicator-gtk2
       libcaca
       libcanberra
