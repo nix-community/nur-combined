@@ -25,4 +25,12 @@ stdenv.mkDerivation rec {
   '';
 
   propagatedBuildInputs = [ jre8 ];
+
+  meta = with lib; {
+    description = "Intelligent Kotlin support for any editor/IDE using the Language Server Protocol";
+    homepage = "https://github.com/fwcd/kotlin-language-server";
+    license = licenses.mit;
+    maintainers = with maintainers; [ zachcoyle ];
+    platforms = platforms.linux ++ platforms.darwin;
+  };
 }
