@@ -29,10 +29,7 @@ in stdenv.mkDerivation rec {
   installPhase = ''
     # file header are not good for appimageTools, use binwalk to get the offset
     unsquashfs -q -d . -f -o 188392 Hospital_Hero-x86_64.AppImage
-
-    install -Dm755 ./usr/bin/hospital_hero $out/bin/hospital-hero
     install -Dm755 ./hospital_hero.love $out/share/games/lovegames/${pname}.love
-
     makeWrapper ${love_11}/bin/love $out/bin/${pname} --add-flags $out/share/games/lovegames/${pname}.love
   '';
 
@@ -41,6 +38,6 @@ meta = with stdenv.lib; {
     homepage = https://hackefuffel.itch.io/hospital-hero;
     license = licenses.unfree;
     maintainers = with maintainers; [ genesis ];
-    platforms = [ "x86_64-linux" ];
+    platforms = [ love_11.meta.platforms ];
   };
 }

@@ -1,4 +1,4 @@
-{ pkgs, stdenv, fetchurl, autoPatchelfHook, writeScript }:
+{ stdenv, pkgs, fetchurl, autoPatchelfHook, makeWrapper }:
 
 let
   nur = import (builtins.fetchTarball
@@ -25,32 +25,32 @@ in stdenv.mkDerivation rec {
     sha256 = "625662901391a70213680c5e59baffc495f8d95596cb620ac5e9eb42a833dd51";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook stdenv.cc.cc ];
+  nativeBuildInputs = [ autoPatchelfHook stdenv.cc.cc makeWrapper ];
   buildInputs = [ nur.repos.mic92.frida-tools ];
 
   dontStrip = true;
   phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
 
   #TODO : fix nur.repos.mic92.frida-tools since segfault on frida-agent-64.so
-  kaiengineWrapper = writeScript "kaiengine" ''
-#!${stdenv.shell}
-mkdir -p $XDG_CONFIG_HOME/xlink-kai
-exec ${nur.repos.mic92.frida-tools}/bin/frida \
-  -l @out@/lib/agent.js --no-pause -- \
-  @out@/bin/.kaiengine-wrapped \
-  --appdata @out@/data/ \
-  --configfile $XDG_CONFIG_HOME/xlink-kai/kaiengine.conf
-  '';
+
+
+  fridaOptions = "--no-pause -q";
+  #TODO turn this to a list
+  fridaScripts = "$out/lib/agent.js";
 
   installPhase = ''
     # To run without root/sudo grant cap_net_admin capability to the engine with:
     # TODO : write wrapper with libcap
     # setcap cap_net_admin=eip kaiengine
-    install -Dm755 kaiengine $out/bin/.kaiengine-wrapped
-    install -Dm755 ${kaiengineWrapper} $out/bin/kaiengine
-    install -Dm644 "${webui}" $out/data/webui.zip
+    install -Dm755 kaiengine $out/lib/kaiengine
     install -Dm755 ${./agent.js} $out/lib/agent.js
-    substituteInPlace $out/bin/kaiengine --replace @out@ $out
+    install -Dm644 "${webui}" $out/data/webui.zip
+
+    makeWrapper ${nur.repos.mic92.frida-tools}/bin/frida $out/bin/${pname} \
+     --add-flags "$out/lib/kaiengine -l ${fridaScripts} $fridaOptions -- \
+       --appdata $out/data/ \
+       --configfile \$XDG_CONFIG_HOME/xlink-kai/kaiengine.conf" \
+     --run "mkdir -p \$XDG_CONFIG_HOME/xlink-kai"
   '';
 
 meta = with stdenv.lib; {

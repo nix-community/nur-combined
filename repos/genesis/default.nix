@@ -15,8 +15,8 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  appimage-run = pkgs.callPackage ./pkgs/tools/package-management/appimage-run {}; #82266 #89122
-  appimageTools = pkgs.callPackage ./pkgs/build-support/appimage {}; #82266
+  #appimage-run = pkgs.callPackage ./pkgs/tools/package-management/appimage-run {}; #82266 #89122
+  #appimageTools = pkgs.callPackage ./pkgs/build-support/appimage {}; #82266
 
   assaultcube = pkgs.callPackage ./pkgs/assaultcube {};
   #beremiz = pkgs.callPackage ./pkgs/beremiz {};
