@@ -319,7 +319,7 @@ let
         url = "https://github.com/MusicPlayerDaemon/MPD/compare/v${patchVersion}...arcnmx:ytdl-${patchVersion}.diff";
         sha256 =
           if patchVersion == "0.21.25" then "16n1fx505k6pprf753j6xzwh25ka4azwx49sz02wy68qdx8wa586"
-          else if patchVersion == "0.22" then "048xf5h2cv7q4xxizvxvfirqfavkvf9bd83vx87qxa2zhddqjzgk"
+          else if patchVersion == "0.22" then "07vladkk80mnc23ybi80wn17cfxwl8pvv5cg0rl17avyymljspax"
           else lib.fakeSha256;
       }) ];
 

@@ -17,7 +17,7 @@
   autosort = { buildWeechatScript }: buildWeechatScript {
     pname = "autosort.py";
     version = "3.8";
-    sha256 = "14b2alm4440222qbygavj9a8pv0whw66cqsfx8z5lrrcwxlw0vyq";
+    sha256 = "1y0xrblzlygggn05l95zb195w9pd85rig4y1mfqca2f922izcccp";
   };
   colorize_nicks = { buildWeechatScript }: buildWeechatScript {
     pname = "colorize_nicks.py";
