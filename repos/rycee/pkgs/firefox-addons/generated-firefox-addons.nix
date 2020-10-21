@@ -467,10 +467,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.14.0";
+      version = "2.15.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3606711/ipfs_companion-2.14.0-an+fx.xpi";
-      sha256 = "73c5bfce18755300fbefad33cb1963349b0f3fb070eee3d1176f13a0daf5278c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3663596/ipfs_companion-2.15.0-an+fx.xpi";
+      sha256 = "59b6ab817b912c5e242d024c8dd3eedff3ebf3786c0c3ea8770ce9598b53a5f4";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -546,10 +546,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.0.7";
+      version = "1.0.7.1";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3654682/leechblock_ng-1.0.7-an+fx.xpi";
-      sha256 = "47fbb4a4c491338b50973c37de818b141612ae8015648762e03bbd8404ba5ea7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3663105/leechblock_ng-1.0.7.1-an+fx.xpi";
+      sha256 = "89768a8ca4f61c88160acb7ccaaa17cdb9a04efc22be0e4dba77db13b2962fe4";
       meta = with stdenv.lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -588,10 +588,10 @@
       };
     "matte-black-red" = buildFirefoxXpiAddon {
       pname = "matte-black-red";
-      version = "2020.6.25";
+      version = "2020.10.20";
       addonId = "{a7589411-c5f6-41cf-8bdc-f66527d9d930}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3596768/matte_black_red-2020.6.25-an+fx.xpi";
-      sha256 = "75a18a25969c1d539429fbc848b7667c7af692a7ae22448dd9bad8d5ac132713";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3664064/matte_black_red-2020.10.20-an+fx.xpi";
+      sha256 = "bc5e662440d345bcab60664c2213bd949f970b7de6e8dd927bd8d7e3c50f9715";
       meta = with stdenv.lib;
       {
         homepage = "https://elijahlopez.herokuapp.com/";
@@ -602,10 +602,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "8.1.1";
+      version = "8.1.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3661005/metamask-8.1.1-an+fx.xpi";
-      sha256 = "ca0bd685e0d259a888b177abe1c732af7a83fb1e31e2384affd2e34d756645e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3663669/metamask-8.1.2-an+fx.xpi";
+      sha256 = "156d36c57e5773370c80b44e7ebdcc52133570bbfffa66acd87baefc94b46ba6";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
@@ -961,10 +961,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.30.4";
+      version = "1.30.6";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3659222/ublock_origin-1.30.4-an+fx.xpi";
-      sha256 = "585167ff9a83e8941d35318c2ff4090c385119221e342e4b4795bfdfd7729e93";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3663488/ublock_origin-1.30.6-an+fx.xpi";
+      sha256 = "500ecb79d9e65ff1c4d7cb3a34763c1dc2edc2b5a3f56b6c8ca225494a4535d6";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
