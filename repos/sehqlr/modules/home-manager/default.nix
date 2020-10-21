@@ -122,6 +122,8 @@
   services.gpg-agent.enable = true;
   services.gpg-agent.sshKeys = [ "87F5686AC11C5D0AE1C7D66B7AE4D820B34CF744" ];
   services.lorri.enable = true;
+  services.network-manager-applet.enable = true;
+  services.stalonetray.enable = true;
   xdg.configFile."afew/lobsters.py".source = ./lobsters.py;
   xsession.windowManager.xmonad.config = ./xmonad.hs;
   xsession.windowManager.xmonad.enable = true;

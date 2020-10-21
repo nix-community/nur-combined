@@ -4,6 +4,7 @@ Config
 , fgColor = "white"
 , border = BottomB
 , borderColor = "black"
+, position = Bottom
 , commands =
     [ Run DynNetwork [] 10
     , Run Memory ["-t", "RAM: <usedratio>%"] 10

@@ -7,7 +7,6 @@
     gimp
     inkscape
     libreoffice
-    networkmanagerapplet
     vlc
   ];
   fonts.enableDefaultFonts = true;
