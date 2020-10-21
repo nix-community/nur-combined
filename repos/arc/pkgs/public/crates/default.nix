@@ -1,12 +1,12 @@
 {
   rust-analyzer = { fetchFromGitHub, rustPlatform, lib, darwin, hostPlatform }: rustPlatform.buildRustPackage rec {
     pname = "rust-analyzer";
-    version = "2020-08-10";
+    version = "2020-10-19";
     src = fetchFromGitHub {
       owner = "rust-analyzer";
       repo = pname;
       rev = version;
-      sha256 = "0hf9gpvgq7whrc5gnfhc0wjqddp3xpi3azvdccb4yql2pcznz3rh";
+      sha256 = "1xvyk1d26zn1d9i42h78qsm6bg57nhn1rgr46jwa46gsb31nabjh";
     };
     #cargoBuildFlags = ["--features" "jemalloc" ]; # why removed :(
     preBuild = "pushd crates/rust-analyzer";
@@ -15,7 +15,7 @@
     buildInputs = lib.optionals hostPlatform.isDarwin [ darwin.cf-private darwin.apple_sdk.frameworks.CoreServices ];
     # darwin undefined symbol _CFURLResourceIsReachable: https://discourse.nixos.org/t/help-with-rust-linker-error-on-darwin-cfurlresourceisreachable/2657
 
-    cargoSha256 = "1p0ig8qpgdjgxdnlznq99ayc1y8rijad5lcp3gc1b94bxlgvy6ck";
+    cargoSha256 = "0q33jrx1w0r2j4wf8gmxlssv01zgqppcxyl2ikcx6dw8d4cjh8j0";
     meta.broken = lib.isNixpkgsStable;
 
     doCheck = false;
@@ -144,19 +144,19 @@
     lib, fetchFromGitHub, rustPlatform
   }: rustPlatform.buildRustPackage rec {
     pname = "cargo-binutils";
-    version = "3d1d4a83a49f890a604c1c75d712402e6f457bff";
+    version = "0.3.2";
     src = fetchFromGitHub {
       owner = "rust-embedded";
       repo = pname;
-      rev = version;
-      sha256 = "14fkgfx9jbadm119f962yy46lbln7c42myrpapxw94nhrlw71h7n";
+      rev = "v${version}";
+      sha256 = "0h7lrqrgmmm3qdgn0l45kh1rpdvb24q8fl49ji5ynadfk188mkf3";
     };
     cargoPatches = [ ./cargo-binutils-lock.patch ];
     patches = [ ./cargo-binutils-path.patch ];
 
     cargoSha256 = if lib.isNixpkgsStable
-      then "0cvsw06r174xc5zn04glcvlc2ckjj32y7bs8qk1wicm28nkq71qp"
-      else "08hidjsz7kk93kx5mix84g3zr98y7j9wg55l4c74069690gc5ch7";
+      then "14li3s86nkhafm45za4wn86x3vc0np7lmakcpv3w0dh4gdgpzya2"
+      else "0z13mlgnl0rs6a6yczdkwxym1iss2jmz85cf7g0yah4z44ff74a4";
 
     doCheck = false;
 
@@ -194,13 +194,13 @@
     lib, fetchFromGitHub, rustPlatform
   }: rustPlatform.buildRustPackage rec {
     pname = "cargo-call-stack";
-    version = "0.1.4";
+    version = "2020-07-07";
 
     src = fetchFromGitHub {
       owner = "japaric";
       repo = pname;
-      rev = "v${version}";
-      sha256 = "0ccskajkikkkmxc6bd60kj5mxwdfyw5wbrnvc35y9r0g2k7r5f9m";
+      rev = "d8f4338adb4c8cc3dfaeba22b1a4d5d22168cb17";
+      sha256 = "1sdskiykx9bvnr8dny1dg138cm6m8zhvs8n25lksg2s34xdjzh3c";
     };
 
     cargoPatches = [ ./cargo-call-stack-lock.patch ];
@@ -208,8 +208,8 @@
       ./cargo-call-stack-udf.patch # https://github.com/japaric/cargo-call-stack/issues/20
     ];
     cargoSha256 = if lib.isNixpkgsStable
-      then "0ih8z2jkvjs9krsqkpc353charqymlz65kf78n7x304p2i9jbwxx"
-      else "09ajy6d510av4qa7q32m14d8x0rm1z4h4cawkn20j4wzx9sx21a4";
+      then "0ksk4zyxbb3x9cgkh1wng50l4dslnya3b35k5cc1035brqc5686h"
+      else "14x1m7mm4bhndp9ifgzkv7ri25vj7xfjqc85k67p841rsbncwkw3";
 
     # Only because of the cargo lockfile version...
     meta.broken = !lib.rustVersionAtLeast rustPlatform "1.41";
@@ -241,20 +241,18 @@
     lib, fetchFromGitHub, rustPlatform
   }: rustPlatform.buildRustPackage rec {
     pname = "cargo-llvm-lines";
-    version = "0.1.6";
+    version = "0.4.9";
 
     src = fetchFromGitHub {
       owner = "dtolnay";
       repo = pname;
       rev = "${version}";
-      sha256 = "0g3vb8zicz8ib6ydjl5vn5lijfx6z61ips60x1zfhyx8h44xp7v5";
+      sha256 = "0lkg1xfabb1psxizbis7rymr70yz5l5rjsn6k7w5wpzqqsni0qyv";
     };
 
-    cargoPatches = [ ./cargo-llvm-lines-lock.patch ];
-    patches = [ ./cargo-llvm-lines-features.patch ./cargo-llvm-lines-fix-filter.patch ];
     cargoSha256 = if lib.isNixpkgsStable
-      then "0arjrs67z9rqbkrs77drj068614kg2n3y4f1wyf103bsad0vy783"
-      else "1smv1s00sw23zzap95p89hi09riadr753rywkhskm9sgabzxj54y";
+      then "1cvwmsbz9hn73gr3rs01f80byrfl9p0g0av620b78pawn1x5v5nq"
+      else "04s2lv0idlfssmsavyac1jy57x8f14nqlr1n552cn1pi78d4wnfr";
   };
 
   screenstub = {
@@ -267,20 +265,20 @@
   , python3
   }: rustPlatform.buildRustPackage rec {
     pname = "screenstub";
-    version = "2020-08-19";
+    version = "2020-10-21";
     src = fetchFromGitHub {
       owner = "arcnmx";
       repo = pname;
-      rev = "b8383b74096eccb9c63126db8c0176f856cf5a0f";
-      sha256 = "0w93ijs8dkifxn1mcpvpb789di2jb8xlf09vgp2g00jjw1bmck5m";
+      rev = "8380633d98695bb7890f8308c0c6066849295692";
+      sha256 = "0zkj9dzahkd32ii43n5pm2qmhm0djqinsdcj8cc3lbsz4nb197if";
     };
 
     nativeBuildInputs = [ pkg-config python3 ];
     buildInputs = [ libxcb udev ];
 
     cargoSha256 = if lib.isNixpkgsStable
-      then "100nhrjhb339iaqncbp59kgzv2r0m7wzpx09c0b05fj5bdx5yfmx"
-      else "06nlzqk8f0ihl48lg99px863hqrrybd9ajz3aazy71avc1ygw1lg";
+      then "18w91vg04a1jxql5m9frddv3w11474z4zclkm59hpy8088lnnrwb"
+      else "0dlijicrmkhh7hyx0r5m89wjvrnxwqgf6awkk4l7a1v68v0kz3lv";
 
     doCheck = false;
   };
@@ -339,18 +337,18 @@
   , libGL
   }: rustPlatform.buildRustPackage rec {
     pname = "wezterm";
-    version = "2020-01-29";
+    version = "20200909-002054-4c9af461";
     src = fetchFromGitHub {
       owner = "wez";
       repo = pname;
-      rev = "5f2f359";
-      sha256 = "174kvxyc5jbhhapd6pvkc9mvvrjy5kdg165wvnnb8hzgfxjyjqqf";
+      rev = version;
+      sha256 = "1csgk2380dji1jh4mn83gvdh3hp0q9j4i51vlj55klj2mr24hazh";
       fetchSubmodules = true;
     };
 
     cargoSha256 = if lib.isNixpkgsStable
-      then "1z2gqlg2pdfq9hlj4p7ngv29ijxfcld41v44g08jf6lwz81lh1bs"
-      else "1irmx4rm6mvf9b0nzss2j6mvwivvabpj692wsvnvh6a57cqy9q6r";
+      then "1lys5n8b16ny1ahfnpwky1ijmragdwiwg1fq45sp483vyd69k8bw"
+      else "1mjykamqpvjvj72m5j2x5fvkkwqmw10wld7q1y9h16vms1j5whnb";
     cargoPatches = [
       # full of hacks around optional/platform-specific dependencies, split this up to fix the macos build
       ./wezterm-lock.patch
