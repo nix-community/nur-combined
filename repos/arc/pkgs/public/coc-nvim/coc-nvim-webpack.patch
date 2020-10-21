@@ -1,0 +1,16 @@
+diff --git a/webpack.config.js b/webpack.config.js
+index 0b4ec686..eed12d06 100644
+--- a/webpack.config.js
++++ b/webpack.config.js
+@@ -1,9 +1,7 @@
+ const path = require('path')
+ const cp = require('child_process')
+-let res = cp.execSync('git rev-parse HEAD', {encoding: 'utf8'})
+-let revision = res.slice(0, 10)
+-let globalDir = cp.execSync('yarn global dir', {encoding: 'utf8'}).trim()
+-const webpack = require(path.join(globalDir, 'node_modules/webpack'))
++let revision = process.env.version
++const webpack = require('webpack')
+ 
+ module.exports = {
+   entry: './bin/server',
