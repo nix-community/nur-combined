@@ -54,8 +54,8 @@ let
     # TODO: Change back to hex when back-port is done.
     owner = "jechol";
     repo = "relx";
-    rev = "5804d73057d86306aa17c6db3fd553aa07d4b790";
-    sha256 = "0jvvs1d4qjw3d08ljqj28kajvf8ip34lbna47i4fyvx0x06z41w5";
+    rev = "a58c6902271540217f4256a758d3ecbc4a1410c8";
+    sha256 = "0prpfv3q4pibyk59mn25z8yv2h14r4hwbs7dpmlmmpiz92lmmrg8";
   };
   ssl_verify_fun = fetchHex {
     pkg = "ssl_verify_fun";
