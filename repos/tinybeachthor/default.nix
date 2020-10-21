@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{
+  pkgs ? import <nixpkgs> {}
+}:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -16,9 +18,8 @@
 
   vimPlugins = import ./pkgs/vimPlugins { inherit pkgs; };
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
   cabbage = pkgs.callPackage ./pkgs/cabbage { };
   spotify-authenticate = pkgs.callPackage ./pkgs/spotify-authenticate { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  jlink = pkgs.callPackage ./pkgs/jlink { };
+  operator-sdk = pkgs.callPackage ./pkgs/operator-sdk { };
 }
