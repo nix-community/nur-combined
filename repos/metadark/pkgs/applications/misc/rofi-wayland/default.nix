@@ -21,13 +21,13 @@
 rofi.override {
   rofi-unwrapped = stdenv.mkDerivation rec {
     pname = "rofi-wayland";
-    version = "unstable-2020-09-29";
+    version = "unstable-2020-10-18";
 
     src = fetchFromGitHub {
       owner = "lbonn";
       repo = "rofi";
-      rev = "cef94af6e1397be6bb66d123599520378cc9366f";
-      sha256 = "0dj7k4lvsj62l9vg01rmklhjfgvnms00vich9dgzmfwr64wxn1l9";
+      rev = "87b48ce7550d8875aaa0b4ea28d69c898755e8fc";
+      sha256 = "11qr3b826r53jdqq8p0bkngk4srmv8ld3j3zrc2s3g7c9h57wdix";
       fetchSubmodules = true;
     };
 
@@ -54,6 +54,10 @@ rofi.override {
     mesonFlags = [
       "-Dwayland=enabled"
     ];
+
+    # Fixes:
+    # ../source/rofi-icon-fetcher.c:190:17: error: format not a string literal and no format arguments [-Werror=format-security]
+    hardeningDisable = [ "format" ];
 
     doCheck = true;
 

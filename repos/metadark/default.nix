@@ -40,8 +40,6 @@ rec {
 
   emacs-pgtk-nativecomp = pkgs.callPackage ./pkgs/applications/editors/emacs-pgtk-nativecomp { };
 
-  emacs-pure-gtk3 = emacs-pgtk-nativecomp;
-
   goverlay = pkgs.callPackage ./pkgs/tools/graphics/goverlay { };
 
   libhandy1 = pkgs.callPackage ./pkgs/development/libraries/libhandy1 { };
