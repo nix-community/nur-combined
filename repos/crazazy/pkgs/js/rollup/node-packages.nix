@@ -17,8 +17,8 @@ let
   args = {
     name = "rollup";
     packageName = "rollup";
-    version = "2.32.0";
-    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-2.32.0.tgz"; sha1 = "ac58c8e85782bea8aa2d440fc05aba345013582a"; };
+    version = "2.32.1";
+    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-2.32.1.tgz"; sha1 = "625a92c54f5b4d28ada12d618641491d4dbb548c"; };
     dependencies = [
       sources."fsevents-2.1.3"
     ];

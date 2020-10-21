@@ -40,8 +40,8 @@
     enableXfwm = false;
   };
   # samba client
-  services.gvfs.enable = true;
-  services.gvfs.package = lib.mkForce pkgs.gvfs;
+  # services.gvfs.enable = true;
+  # services.gvfs.package = lib.mkForce pkgs.gvfs;
   # openbox wm
   services.xserver.windowManager.openbox.enable = true;
   # fixes the edges issue with ulauncher
