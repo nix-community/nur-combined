@@ -184,13 +184,13 @@ let
         sha512 = "tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==";
       };
     };
-    "@types/node-10.17.40" = {
+    "@types/node-10.17.41" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "10.17.40";
+      version = "10.17.41";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-10.17.40.tgz";
-        sha512 = "3hZT2z2/531A5pc8hYhn1gU5Qb1SIRSgMLQ6zuHA5xtt16lWAxUGprtr8lJuc9zNJMXEIIBWfSnzqBP/4mglpA==";
+        url = "https://registry.npmjs.org/@types/node/-/node-10.17.41.tgz";
+        sha512 = "nKJyZS0+HGPXNAKPh2egQbsXHZvDbeQEb7JT667+4cTO6n+VSZ9kl9AqL0XxRhL9YP4HWfw/EGTA9ajOWMzL3A==";
       };
     };
     "ajv-6.12.6" = {
@@ -2699,7 +2699,7 @@ in
       sources."@oclif/screen-1.0.4"
       sources."@types/glob-7.1.3"
       sources."@types/minimatch-3.0.3"
-      sources."@types/node-10.17.40"
+      sources."@types/node-10.17.41"
       sources."ajv-6.12.6"
       sources."ansi-colors-4.1.1"
       sources."ansi-escapes-4.3.1"
