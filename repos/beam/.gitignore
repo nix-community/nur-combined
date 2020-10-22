@@ -5,3 +5,4 @@ all-packages.nix
 recurse.nix
 
 source
+shell.nix
