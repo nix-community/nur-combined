@@ -52,6 +52,23 @@ in with self; {
     if sh == 0 then v
     else bitShr (sh - 1) (v / 2);
 
+  # https://stackoverflow.com/a/42936293
+  # example: (parseTime builtins.currentTime).y
+  parseTime = s: let
+    z = s / 86400 + 719468;
+    era = (if z >= 0 then z else z - 146096) / 146097;
+    doe = z - era * 146097;
+    yoe = (doe - doe / 1460 + doe / 36524 - doe / 146096) / 365;
+    y = yoe + era * 400;
+    doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    mp = (5 * doy + 2) / 153;
+    d = doy - (153 * mp + 2) / 5 + 1;
+    m = mp + (if mp < 10 then 3 else -9);
+  in {
+    inherit doy d m;
+    y = y + (if m <= 2 then 1 else 0);
+  };
+
   # hexadecimal
   hexChars = [ "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "a" "b" "c" "d" "e" "f" ];
   hexCharToInt = char: let
