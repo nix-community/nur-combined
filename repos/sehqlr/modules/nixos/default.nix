@@ -10,6 +10,7 @@
     vlc
   ];
   fonts.enableDefaultFonts = true;
+  fonts.fonts = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
   networking.networkmanager.enable = true;
   nix.gc.automatic = true;
   services.flatpak.enable = true;
@@ -17,6 +18,7 @@
   services.xserver.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.displayManager.defaultSession = "none+xmonad";
+  services.xserver.windowManager.xmonad.enable = true;
   system.autoUpgrade.enable = true;
   system.copySystemConfiguration = true;
   users.users.guest.isNormalUser = true;

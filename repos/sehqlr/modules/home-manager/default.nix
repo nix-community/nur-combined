@@ -106,6 +106,7 @@
   programs.starship.settings.add_newline = false;
   programs.starship.settings.character.symbol = "λ";
   programs.termite.enable = true;
+  programs.termite.font = "FiraCode 14";
   programs.tmux.enable = true;
   programs.tmux.clock24 = true;
   programs.zathura.enable = true;
