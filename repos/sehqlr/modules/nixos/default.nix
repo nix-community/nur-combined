@@ -12,6 +12,7 @@
   fonts.enableDefaultFonts = true;
   fonts.fonts = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.powersave = false;
   nix.gc.automatic = true;
   services.flatpak.enable = true;
   services.ipfs.enable = true;
