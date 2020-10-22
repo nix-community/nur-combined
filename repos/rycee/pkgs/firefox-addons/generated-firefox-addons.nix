@@ -629,10 +629,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.1.3";
+      version = "6.1.4";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3663017/octotree_github_code_tree-6.1.3-fx.xpi";
-      sha256 = "c128ab46604cfa1ac59ef531cf8030e33f97a99b99e5b7466570d77e3518fc63";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3664638/octotree_github_code_tree-6.1.4-fx.xpi";
+      sha256 = "6aa9d03c0e418e54856c0912b3384aec9d0d6632d8bcd542c6bbc8af1542a18b";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -783,10 +783,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "23.1";
+      version = "23.2";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3659203/save_page_we-23.1-fx.xpi";
-      sha256 = "902092492d2be5cbc9e57d7b9150a6dcf9910ee69bcbabd84956f8f9c66c144d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3664487/save_page_we-23.2-fx.xpi";
+      sha256 = "c8c2099b19492a3d30c4972c6d5d4741fba9206d6f270601fc221b46896b630a";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -1031,10 +1031,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "17.8";
+      version = "17.9";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3635741/zoom_page_we-17.8-fx.xpi";
-      sha256 = "f64f31ae1beb53e775a17c94c94c27e6ee857f85a4ac8e521ae8f3e24b6fecf7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3664497/zoom_page_we-17.9-fx.xpi";
+      sha256 = "10c0c7137cf128baaf4c970956bc7fefbcf4cea41313b93a5708f8267e5127b7";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
