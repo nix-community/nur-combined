@@ -1,6 +1,3 @@
 {
-  # Add your overlays here
-  #
-  # my-overlay = import ./my-overlay;
+  darwin-enable = import ./darwin-enable.nix;
 }
-
