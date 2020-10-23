@@ -373,13 +373,13 @@ let
         sha512 = "b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==";
       };
     };
-    "buffer-5.6.0" = {
+    "buffer-5.6.1" = {
       name = "buffer";
       packageName = "buffer";
-      version = "5.6.0";
+      version = "5.6.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/buffer/-/buffer-5.6.0.tgz";
-        sha512 = "/gDYp/UtU0eA1ys8bOs9J6a+E/KWIY+DZ+Q2WESNUA0jFRsJOc0SNUO6xJ5SGA1xueg3NL65W6s+NY5l9cunuw==";
+        url = "https://registry.npmjs.org/buffer/-/buffer-5.6.1.tgz";
+        sha512 = "2z15UUHpS9/3tk9mY/q+Rl3rydOi7yMp5XWNQnRvoz+mJwiv8brqYwp9a+nOCtma6dwuEIxljD8W3ysVBZ05Vg==";
       };
     };
     "buffer-from-1.1.1" = {
@@ -1660,13 +1660,13 @@ let
         sha1 = "35a9232dfa35d7067b4cb2ddf2357b1871536c5f";
       };
     };
-    "object-treeify-1.1.28" = {
+    "object-treeify-1.1.29" = {
       name = "object-treeify";
       packageName = "object-treeify";
-      version = "1.1.28";
+      version = "1.1.29";
       src = fetchurl {
-        url = "https://registry.npmjs.org/object-treeify/-/object-treeify-1.1.28.tgz";
-        sha512 = "FoBGZexpq9jJr6mDgV8wv711vreKyzRcw65TKeXzHh98+TNmPZfGYznpel3WceM869WsnSCyUuK46rPUG9+Rpg==";
+        url = "https://registry.npmjs.org/object-treeify/-/object-treeify-1.1.29.tgz";
+        sha512 = "XnPIMyiv6fJeb/z3Bz+u43Fcw3C9fs1uoRITd8x3mau/rsSAUhx7qpIO10Q/dzJeMleJesccUSMiFx8FF+ruBA==";
       };
     };
     "once-1.4.0" = {
@@ -2716,7 +2716,7 @@ in
       sources."bl-4.0.3"
       sources."brace-expansion-1.1.11"
       sources."braces-3.0.2"
-      sources."buffer-5.6.0"
+      sources."buffer-5.6.1"
       sources."buffer-from-1.1.1"
       sources."bufferutil-4.0.1"
       sources."builtin-modules-1.1.1"
@@ -2921,7 +2921,7 @@ in
         ];
       })
       sources."npm-run-path-2.0.2"
-      sources."object-treeify-1.1.28"
+      sources."object-treeify-1.1.29"
       sources."once-1.4.0"
       sources."onetime-5.1.2"
       (sources."ora-4.1.1" // {
