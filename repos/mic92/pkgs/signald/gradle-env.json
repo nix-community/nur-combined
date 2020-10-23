@@ -1,0 +1,1282 @@
+{
+  "": {
+    "name": "signald",
+    "version": "unspecified",
+    "path": "",
+    "gradle": {
+      "version": "6.6.1",
+      "type": "bin",
+      "url": "https://services.gradle.org/distributions/gradle-6.6.1-bin.zip",
+      "sha256": "7873ed5287f47ca03549ab8dcb6dc877ac7f0e3d7b1eb12685161d10080910ac",
+      "nativeVersion": "0.22-milestone-4"
+    },
+    "dependencies": {
+      "plugin": [
+        {
+          "id": {
+            "group": "de.fuerstenau.buildconfig",
+            "name": "de.fuerstenau.buildconfig.gradle.plugin",
+            "version": "1.1.8",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "de.fuerstenau.buildconfig.gradle.plugin-1.1.8.pom",
+          "path": "de/fuerstenau/buildconfig/de.fuerstenau.buildconfig.gradle.plugin/1.1.8",
+          "urls": [
+            "https://plugins.gradle.org/m2/de/fuerstenau/buildconfig/de.fuerstenau.buildconfig.gradle.plugin/1.1.8/de.fuerstenau.buildconfig.gradle.plugin-1.1.8.pom"
+          ],
+          "sha256": "414fd4de046b58e88ca39ff4f1d3f39bf35c40de46e4561635dd289544966427"
+        },
+        {
+          "id": {
+            "group": "gradle.plugin.de.fuerstenau",
+            "name": "BuildConfigPlugin",
+            "version": "1.1.8",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "BuildConfigPlugin-1.1.8.jar",
+          "path": "gradle/plugin/de/fuerstenau/BuildConfigPlugin/1.1.8",
+          "urls": [
+            "https://plugins.gradle.org/m2/gradle/plugin/de/fuerstenau/BuildConfigPlugin/1.1.8/BuildConfigPlugin-1.1.8.jar"
+          ],
+          "sha256": "99b5256936af67431a8a92902f253f525837ac3639a5ff05ed2225febaa710af"
+        },
+        {
+          "id": {
+            "group": "gradle.plugin.de.fuerstenau",
+            "name": "BuildConfigPlugin",
+            "version": "1.1.8",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "BuildConfigPlugin-1.1.8.pom",
+          "path": "gradle/plugin/de/fuerstenau/BuildConfigPlugin/1.1.8",
+          "urls": [
+            "https://plugins.gradle.org/m2/gradle/plugin/de/fuerstenau/BuildConfigPlugin/1.1.8/BuildConfigPlugin-1.1.8.pom"
+          ],
+          "sha256": "9136acb35b53e817bdca766d5a3b8457341a5549cfa0d18b95e0f456ea14a187"
+        }
+      ],
+      "buildscript": [],
+      "project": [
+        {
+          "id": {
+            "group": "com.fasterxml",
+            "name": "oss-parent",
+            "version": "28",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "oss-parent-28.pom",
+          "path": "com/fasterxml/oss-parent/28",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/fasterxml/oss-parent/28/oss-parent-28.pom",
+            "https://repo.maven.apache.org/maven2/com/fasterxml/oss-parent/28/oss-parent-28.pom"
+          ],
+          "sha256": "c4c369e36b8820ad26d2e6c70ff44ad99efafe19399a5d1178e9ea82f4d2fd38"
+        },
+        {
+          "id": {
+            "group": "com.fasterxml",
+            "name": "oss-parent",
+            "version": "34",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "oss-parent-34.pom",
+          "path": "com/fasterxml/oss-parent/34",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/fasterxml/oss-parent/34/oss-parent-34.pom",
+            "https://repo.maven.apache.org/maven2/com/fasterxml/oss-parent/34/oss-parent-34.pom"
+          ],
+          "sha256": "9a75f3e32bf9d6e00678d9447ace4de8596a2d221af5cf5bbc7f571cac795006"
+        },
+        {
+          "id": {
+            "group": "com.fasterxml.jackson",
+            "name": "jackson-base",
+            "version": "2.9.9",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "jackson-base-2.9.9.pom",
+          "path": "com/fasterxml/jackson/jackson-base/2.9.9",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/fasterxml/jackson/jackson-base/2.9.9/jackson-base-2.9.9.pom",
+            "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/jackson-base/2.9.9/jackson-base-2.9.9.pom"
+          ],
+          "sha256": "43368867d2d8c30dc46f0cde6cb5a320bfb9fd7463728be501de61545265975d"
+        },
+        {
+          "id": {
+            "group": "com.fasterxml.jackson",
+            "name": "jackson-bom",
+            "version": "2.9.9",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "jackson-bom-2.9.9.pom",
+          "path": "com/fasterxml/jackson/jackson-bom/2.9.9",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/fasterxml/jackson/jackson-bom/2.9.9/jackson-bom-2.9.9.pom",
+            "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/jackson-bom/2.9.9/jackson-bom-2.9.9.pom"
+          ],
+          "sha256": "237f58930ab02d7d52e9afcc825b2e2d8a0abdd0e86d1d5da1b579dc65809c91"
+        },
+        {
+          "id": {
+            "group": "com.fasterxml.jackson",
+            "name": "jackson-parent",
+            "version": "2.9.1.2",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "jackson-parent-2.9.1.2.pom",
+          "path": "com/fasterxml/jackson/jackson-parent/2.9.1.2",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/fasterxml/jackson/jackson-parent/2.9.1.2/jackson-parent-2.9.1.2.pom",
+            "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/jackson-parent/2.9.1.2/jackson-parent-2.9.1.2.pom"
+          ],
+          "sha256": "9517e405c6b3b8a035215ad5727013a3519eb7591743fe1dcc04df6635683cf9"
+        },
+        {
+          "id": {
+            "group": "com.fasterxml.jackson",
+            "name": "jackson-parent",
+            "version": "2.9.0",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "jackson-parent-2.9.0.pom",
+          "path": "com/fasterxml/jackson/jackson-parent/2.9.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/fasterxml/jackson/jackson-parent/2.9.0/jackson-parent-2.9.0.pom",
+            "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/jackson-parent/2.9.0/jackson-parent-2.9.0.pom"
+          ],
+          "sha256": "000508b61dd124387e58199fb9e2113c1b5d8b386c5bf7a891b2de6041eb1d52"
+        },
+        {
+          "id": {
+            "group": "com.fasterxml.jackson.core",
+            "name": "jackson-annotations",
+            "version": "2.9.0",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "jackson-annotations-2.9.0.jar",
+          "path": "com/fasterxml/jackson/core/jackson-annotations/2.9.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.jar",
+            "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.jar"
+          ],
+          "sha256": "45d32ac61ef8a744b464c54c2b3414be571016dd46bfc2bec226761cf7ae457a"
+        },
+        {
+          "id": {
+            "group": "com.fasterxml.jackson.core",
+            "name": "jackson-annotations",
+            "version": "2.9.0",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "jackson-annotations-2.9.0.pom",
+          "path": "com/fasterxml/jackson/core/jackson-annotations/2.9.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.pom",
+            "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.pom"
+          ],
+          "sha256": "edeb9d9bfca726b441bfae09b69d94b5db99cd5a9da5f4a061b90e72b640905c"
+        },
+        {
+          "id": {
+            "group": "com.fasterxml.jackson.core",
+            "name": "jackson-core",
+            "version": "2.9.9",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "jackson-core-2.9.9.jar",
+          "path": "com/fasterxml/jackson/core/jackson-core/2.9.9",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/fasterxml/jackson/core/jackson-core/2.9.9/jackson-core-2.9.9.jar",
+            "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.9.9/jackson-core-2.9.9.jar"
+          ],
+          "sha256": "3083079be6088db2ed0a0c6ff92204e0aa48fa1de9db5b59c468f35acf882c2c"
+        },
+        {
+          "id": {
+            "group": "com.fasterxml.jackson.core",
+            "name": "jackson-core",
+            "version": "2.9.9",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "jackson-core-2.9.9.pom",
+          "path": "com/fasterxml/jackson/core/jackson-core/2.9.9",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/fasterxml/jackson/core/jackson-core/2.9.9/jackson-core-2.9.9.pom",
+            "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.9.9/jackson-core-2.9.9.pom"
+          ],
+          "sha256": "c56ab2829b653cc7ca648106095f06038566d8095c01f2181355dc907b244f61"
+        },
+        {
+          "id": {
+            "group": "com.fasterxml.jackson.core",
+            "name": "jackson-databind",
+            "version": "2.9.9.2",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "jackson-databind-2.9.9.2.jar",
+          "path": "com/fasterxml/jackson/core/jackson-databind/2.9.9.2",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/fasterxml/jackson/core/jackson-databind/2.9.9.2/jackson-databind-2.9.9.2.jar",
+            "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.9.9.2/jackson-databind-2.9.9.2.jar"
+          ],
+          "sha256": "fb262d42ea2de98044b62d393950a5aa050435fec38bbcadf2325cf7dc41b848"
+        },
+        {
+          "id": {
+            "group": "com.fasterxml.jackson.core",
+            "name": "jackson-databind",
+            "version": "2.9.9.2",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "jackson-databind-2.9.9.2.pom",
+          "path": "com/fasterxml/jackson/core/jackson-databind/2.9.9.2",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/fasterxml/jackson/core/jackson-databind/2.9.9.2/jackson-databind-2.9.9.2.pom",
+            "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.9.9.2/jackson-databind-2.9.9.2.pom"
+          ],
+          "sha256": "21b479edb9c1f2be8ab84fd25eaa3010c795f4de2b546a9a4fa920f11012ecd8"
+        },
+        {
+          "id": {
+            "group": "com.github.turasa",
+            "name": "signal-service-java",
+            "version": "2.15.3_unofficial_12",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "signal-service-java-2.15.3_unofficial_12.jar",
+          "path": "com/github/turasa/signal-service-java/2.15.3_unofficial_12",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/github/turasa/signal-service-java/2.15.3_unofficial_12/signal-service-java-2.15.3_unofficial_12.jar",
+            "https://repo.maven.apache.org/maven2/com/github/turasa/signal-service-java/2.15.3_unofficial_12/signal-service-java-2.15.3_unofficial_12.jar"
+          ],
+          "sha256": "a7fdf1fd9823cc9f6c892b5ed906dd8bffc1f61a70e942334d9f772d22248524"
+        },
+        {
+          "id": {
+            "group": "com.github.turasa",
+            "name": "signal-service-java",
+            "version": "2.15.3_unofficial_12",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "signal-service-java-2.15.3_unofficial_12.pom",
+          "path": "com/github/turasa/signal-service-java/2.15.3_unofficial_12",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/github/turasa/signal-service-java/2.15.3_unofficial_12/signal-service-java-2.15.3_unofficial_12.pom",
+            "https://repo.maven.apache.org/maven2/com/github/turasa/signal-service-java/2.15.3_unofficial_12/signal-service-java-2.15.3_unofficial_12.pom"
+          ],
+          "sha256": "674fb81ff875f47a5177180f8af718502166c12b2abf0bd945758475a059a3bd"
+        },
+        {
+          "id": {
+            "group": "com.google.protobuf",
+            "name": "protobuf-javalite",
+            "version": "3.10.0",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "protobuf-javalite-3.10.0.jar",
+          "path": "com/google/protobuf/protobuf-javalite/3.10.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/protobuf/protobuf-javalite/3.10.0/protobuf-javalite-3.10.0.jar",
+            "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-javalite/3.10.0/protobuf-javalite-3.10.0.jar"
+          ],
+          "sha256": "215a94dbe100130295906b531bb72a26965c7ac8fcd9a75bf8054a8ac2abf4b4"
+        },
+        {
+          "id": {
+            "group": "com.google.protobuf",
+            "name": "protobuf-javalite",
+            "version": "3.10.0",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "protobuf-javalite-3.10.0.pom",
+          "path": "com/google/protobuf/protobuf-javalite/3.10.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/protobuf/protobuf-javalite/3.10.0/protobuf-javalite-3.10.0.pom",
+            "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-javalite/3.10.0/protobuf-javalite-3.10.0.pom"
+          ],
+          "sha256": "a508f00cbe01382342b4abec494aa37ae9377b3713fa8a120297091d0e85a35b"
+        },
+        {
+          "id": {
+            "group": "com.google.protobuf",
+            "name": "protobuf-parent",
+            "version": "3.10.0",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "protobuf-parent-3.10.0.pom",
+          "path": "com/google/protobuf/protobuf-parent/3.10.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/google/protobuf/protobuf-parent/3.10.0/protobuf-parent-3.10.0.pom",
+            "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-parent/3.10.0/protobuf-parent-3.10.0.pom"
+          ],
+          "sha256": "6dd84a508125fffdefbd583fae12bf166aa902511b570ca54fa9efa45f6dfe80"
+        },
+        {
+          "id": {
+            "group": "com.googlecode.libphonenumber",
+            "name": "libphonenumber",
+            "version": "8.12.6",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "libphonenumber-8.12.6.jar",
+          "path": "com/googlecode/libphonenumber/libphonenumber/8.12.6",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/googlecode/libphonenumber/libphonenumber/8.12.6/libphonenumber-8.12.6.jar",
+            "https://repo.maven.apache.org/maven2/com/googlecode/libphonenumber/libphonenumber/8.12.6/libphonenumber-8.12.6.jar"
+          ],
+          "sha256": "c118abe8954172149c98e727c8630eda4954e048582a9e5007e3479681453e94"
+        },
+        {
+          "id": {
+            "group": "com.googlecode.libphonenumber",
+            "name": "libphonenumber",
+            "version": "8.12.6",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "libphonenumber-8.12.6.pom",
+          "path": "com/googlecode/libphonenumber/libphonenumber/8.12.6",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/googlecode/libphonenumber/libphonenumber/8.12.6/libphonenumber-8.12.6.pom",
+            "https://repo.maven.apache.org/maven2/com/googlecode/libphonenumber/libphonenumber/8.12.6/libphonenumber-8.12.6.pom"
+          ],
+          "sha256": "1762c4f74551f6bf59a244f9aa771dfd7e8b1c94746aeeaaa6a37544f2f85d03"
+        },
+        {
+          "id": {
+            "group": "com.googlecode.libphonenumber",
+            "name": "libphonenumber-parent",
+            "version": "8.12.6",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "libphonenumber-parent-8.12.6.pom",
+          "path": "com/googlecode/libphonenumber/libphonenumber-parent/8.12.6",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/googlecode/libphonenumber/libphonenumber-parent/8.12.6/libphonenumber-parent-8.12.6.pom",
+            "https://repo.maven.apache.org/maven2/com/googlecode/libphonenumber/libphonenumber-parent/8.12.6/libphonenumber-parent-8.12.6.pom"
+          ],
+          "sha256": "2be6ca5b0d8593179e88e3df89639c64fcf65ae79f2bd653070ca879d3576d85"
+        },
+        {
+          "id": {
+            "group": "com.kohlschutter",
+            "name": "kohlschutter-parent",
+            "version": "1.3.4",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "kohlschutter-parent-1.3.4.pom",
+          "path": "com/kohlschutter/kohlschutter-parent/1.3.4",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/kohlschutter/kohlschutter-parent/1.3.4/kohlschutter-parent-1.3.4.pom",
+            "https://repo.maven.apache.org/maven2/com/kohlschutter/kohlschutter-parent/1.3.4/kohlschutter-parent-1.3.4.pom"
+          ],
+          "sha256": "5d69874b86af761a65c1040565507d854bd79782b294fee1fe46563666e36b9c"
+        },
+        {
+          "id": {
+            "group": "com.kohlschutter.junixsocket",
+            "name": "junixsocket-common",
+            "version": "2.3.2",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "junixsocket-common-2.3.2.jar",
+          "path": "com/kohlschutter/junixsocket/junixsocket-common/2.3.2",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/kohlschutter/junixsocket/junixsocket-common/2.3.2/junixsocket-common-2.3.2.jar",
+            "https://repo.maven.apache.org/maven2/com/kohlschutter/junixsocket/junixsocket-common/2.3.2/junixsocket-common-2.3.2.jar"
+          ],
+          "sha256": "2b501ae7e230b8dbcae0991a10b99bb22b752c583919d6db8e017de53415db0e"
+        },
+        {
+          "id": {
+            "group": "com.kohlschutter.junixsocket",
+            "name": "junixsocket-common",
+            "version": "2.3.2",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "junixsocket-common-2.3.2.pom",
+          "path": "com/kohlschutter/junixsocket/junixsocket-common/2.3.2",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/kohlschutter/junixsocket/junixsocket-common/2.3.2/junixsocket-common-2.3.2.pom",
+            "https://repo.maven.apache.org/maven2/com/kohlschutter/junixsocket/junixsocket-common/2.3.2/junixsocket-common-2.3.2.pom"
+          ],
+          "sha256": "06f9b8a3af573eeec30df43dc6b1de5e4bd3022ca073051362cda5812ca81e15"
+        },
+        {
+          "id": {
+            "group": "com.kohlschutter.junixsocket",
+            "name": "junixsocket-native-common",
+            "version": "2.3.2",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "junixsocket-native-common-2.3.2.jar",
+          "path": "com/kohlschutter/junixsocket/junixsocket-native-common/2.3.2",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/kohlschutter/junixsocket/junixsocket-native-common/2.3.2/junixsocket-native-common-2.3.2.jar",
+            "https://repo.maven.apache.org/maven2/com/kohlschutter/junixsocket/junixsocket-native-common/2.3.2/junixsocket-native-common-2.3.2.jar"
+          ],
+          "sha256": "6a090697071ae30a29c263ffd5999778dd560779974ee15b9586a0aa3dc3e0d2"
+        },
+        {
+          "id": {
+            "group": "com.kohlschutter.junixsocket",
+            "name": "junixsocket-native-common",
+            "version": "2.3.2",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "junixsocket-native-common-2.3.2.pom",
+          "path": "com/kohlschutter/junixsocket/junixsocket-native-common/2.3.2",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/kohlschutter/junixsocket/junixsocket-native-common/2.3.2/junixsocket-native-common-2.3.2.pom",
+            "https://repo.maven.apache.org/maven2/com/kohlschutter/junixsocket/junixsocket-native-common/2.3.2/junixsocket-native-common-2.3.2.pom"
+          ],
+          "sha256": "66a91378eb95242fedb911aaf3ad5eaf08098073a7207330106f2ee8c2861855"
+        },
+        {
+          "id": {
+            "group": "com.kohlschutter.junixsocket",
+            "name": "junixsocket-parent",
+            "version": "2.3.2",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "junixsocket-parent-2.3.2.pom",
+          "path": "com/kohlschutter/junixsocket/junixsocket-parent/2.3.2",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/kohlschutter/junixsocket/junixsocket-parent/2.3.2/junixsocket-parent-2.3.2.pom",
+            "https://repo.maven.apache.org/maven2/com/kohlschutter/junixsocket/junixsocket-parent/2.3.2/junixsocket-parent-2.3.2.pom"
+          ],
+          "sha256": "eb150cfb011ca26ef10345afb2f748454b344cf5a9812550b50c00c774b9995f"
+        },
+        {
+          "id": {
+            "group": "com.squareup.okhttp3",
+            "name": "okhttp",
+            "version": "4.6.0",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "okhttp-4.6.0.jar",
+          "path": "com/squareup/okhttp3/okhttp/4.6.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/squareup/okhttp3/okhttp/4.6.0/okhttp-4.6.0.jar",
+            "https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/4.6.0/okhttp-4.6.0.jar"
+          ],
+          "sha256": "0480d35187423f2fca923c91511a279eb01f27f703afcef40780ae8af460a857"
+        },
+        {
+          "id": {
+            "group": "com.squareup.okhttp3",
+            "name": "okhttp",
+            "version": "4.6.0",
+            "type": "module",
+            "extension": "module"
+          },
+          "name": "okhttp-4.6.0.module",
+          "path": "com/squareup/okhttp3/okhttp/4.6.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/squareup/okhttp3/okhttp/4.6.0/okhttp-4.6.0.module",
+            "https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/4.6.0/okhttp-4.6.0.module"
+          ],
+          "sha256": "48a968e07ed068879d412b8817358862d64a6810f4e37fad165b49fc28910f1d"
+        },
+        {
+          "id": {
+            "group": "com.squareup.okhttp3",
+            "name": "okhttp",
+            "version": "4.6.0",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "okhttp-4.6.0.pom",
+          "path": "com/squareup/okhttp3/okhttp/4.6.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/squareup/okhttp3/okhttp/4.6.0/okhttp-4.6.0.pom",
+            "https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/4.6.0/okhttp-4.6.0.pom"
+          ],
+          "sha256": "e1ac95260868482e08db5f55066ebdd88e595a699c59bfcc39c300be9c95467f"
+        },
+        {
+          "id": {
+            "group": "com.squareup.okio",
+            "name": "okio",
+            "version": "2.6.0",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "okio-2.6.0.jar",
+          "path": "com/squareup/okio/okio/2.6.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/squareup/okio/okio/2.6.0/okio-2.6.0.jar",
+            "https://repo.maven.apache.org/maven2/com/squareup/okio/okio/2.6.0/okio-2.6.0.jar"
+          ],
+          "sha256": "4d84ef686277b58eb05691ac19cd3befa3429a27274982ee65ea0f07044bcc00"
+        },
+        {
+          "id": {
+            "group": "com.squareup.okio",
+            "name": "okio",
+            "version": "2.6.0",
+            "type": "module",
+            "extension": "module"
+          },
+          "name": "okio-2.6.0.module",
+          "path": "com/squareup/okio/okio/2.6.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/squareup/okio/okio/2.6.0/okio-2.6.0.module",
+            "https://repo.maven.apache.org/maven2/com/squareup/okio/okio/2.6.0/okio-2.6.0.module"
+          ],
+          "sha256": "838d6962acdeb636c245bf0f24bbdf3ae46ffa35a12f0312d750efd14868fec3"
+        },
+        {
+          "id": {
+            "group": "com.squareup.okio",
+            "name": "okio",
+            "version": "2.6.0",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "okio-2.6.0.pom",
+          "path": "com/squareup/okio/okio/2.6.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/com/squareup/okio/okio/2.6.0/okio-2.6.0.pom",
+            "https://repo.maven.apache.org/maven2/com/squareup/okio/okio/2.6.0/okio-2.6.0.pom"
+          ],
+          "sha256": "859900ea8e80e9811856d571d16397545a4410bbed8c1b67a2cb80994350e765"
+        },
+        {
+          "id": {
+            "group": "info.picocli",
+            "name": "picocli",
+            "version": "4.5.0",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "picocli-4.5.0.jar",
+          "path": "info/picocli/picocli/4.5.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/info/picocli/picocli/4.5.0/picocli-4.5.0.jar",
+            "https://repo.maven.apache.org/maven2/info/picocli/picocli/4.5.0/picocli-4.5.0.jar"
+          ],
+          "sha256": "9058d90167d293f1379f49129f94424bc4c8c6cdc6a33e31bd6e4886a77733c1"
+        },
+        {
+          "id": {
+            "group": "info.picocli",
+            "name": "picocli",
+            "version": "4.5.0",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "picocli-4.5.0.pom",
+          "path": "info/picocli/picocli/4.5.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/info/picocli/picocli/4.5.0/picocli-4.5.0.pom",
+            "https://repo.maven.apache.org/maven2/info/picocli/picocli/4.5.0/picocli-4.5.0.pom"
+          ],
+          "sha256": "1a934b0302eaf46f2fedac08c11267301d2fc4cdf6abc8d932258b976723662d"
+        },
+        {
+          "id": {
+            "group": "org.apache",
+            "name": "apache",
+            "version": "21",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "apache-21.pom",
+          "path": "org/apache/apache/21",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/apache/apache/21/apache-21.pom",
+            "https://repo.maven.apache.org/maven2/org/apache/apache/21/apache-21.pom"
+          ],
+          "sha256": "af10c108da014f17cafac7b52b2b4b5a3a1c18265fa2af97a325d9143537b380"
+        },
+        {
+          "id": {
+            "group": "org.apache.logging.log4j",
+            "name": "log4j",
+            "version": "2.13.3",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "log4j-2.13.3.pom",
+          "path": "org/apache/logging/log4j/log4j/2.13.3",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j/2.13.3/log4j-2.13.3.pom",
+            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j/2.13.3/log4j-2.13.3.pom"
+          ],
+          "sha256": "674f1fa5165b9d48935f4103d9316fe5b161dff6f9be904a6edb9baa33da4480"
+        },
+        {
+          "id": {
+            "group": "org.apache.logging.log4j",
+            "name": "log4j-api",
+            "version": "2.13.3",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "log4j-api-2.13.3.jar",
+          "path": "org/apache/logging/log4j/log4j-api/2.13.3",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.jar",
+            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.jar"
+          ],
+          "sha256": "2b4b1965c9dce7f3732a0fbf5c8493199c1e6bf8cf65c3e235b57d98da5f36af"
+        },
+        {
+          "id": {
+            "group": "org.apache.logging.log4j",
+            "name": "log4j-api",
+            "version": "2.13.3",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "log4j-api-2.13.3.pom",
+          "path": "org/apache/logging/log4j/log4j-api/2.13.3",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.pom",
+            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.pom"
+          ],
+          "sha256": "5953807d4e4fd4d7ae8087b5a76660236e55e718fcad62cf8a7adedc2ddc5a6e"
+        },
+        {
+          "id": {
+            "group": "org.apache.logging.log4j",
+            "name": "log4j-core",
+            "version": "2.13.3",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "log4j-core-2.13.3.jar",
+          "path": "org/apache/logging/log4j/log4j-core/2.13.3",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j-core/2.13.3/log4j-core-2.13.3.jar",
+            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.13.3/log4j-core-2.13.3.jar"
+          ],
+          "sha256": "9529c55814264ab96b0eeba2920ac0805170969c994cc479bd3d4d7eb24a35a8"
+        },
+        {
+          "id": {
+            "group": "org.apache.logging.log4j",
+            "name": "log4j-core",
+            "version": "2.13.3",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "log4j-core-2.13.3.pom",
+          "path": "org/apache/logging/log4j/log4j-core/2.13.3",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j-core/2.13.3/log4j-core-2.13.3.pom",
+            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.13.3/log4j-core-2.13.3.pom"
+          ],
+          "sha256": "ec5592381a9b37e5054a91fcaf79e3c2c4582eee3574d9ad8a022afbd5b5a3fb"
+        },
+        {
+          "id": {
+            "group": "org.apiguardian",
+            "name": "apiguardian-api",
+            "version": "1.0.0",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "apiguardian-api-1.0.0.jar",
+          "path": "org/apiguardian/apiguardian-api/1.0.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar",
+            "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar"
+          ],
+          "sha256": "1f58b77470d8d147a0538d515347dd322f49a83b9e884b8970051160464b65b3"
+        },
+        {
+          "id": {
+            "group": "org.apiguardian",
+            "name": "apiguardian-api",
+            "version": "1.0.0",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "apiguardian-api-1.0.0.pom",
+          "path": "org/apiguardian/apiguardian-api/1.0.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.pom",
+            "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.pom"
+          ],
+          "sha256": "2ecc15d2614124cb9630c7173efcae1776cf43588a8f3ab1b04684b8dbe02489"
+        },
+        {
+          "id": {
+            "group": "org.bouncycastle",
+            "name": "bcprov-jdk15on",
+            "version": "1.66",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "bcprov-jdk15on-1.66.jar",
+          "path": "org/bouncycastle/bcprov-jdk15on/1.66",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/bouncycastle/bcprov-jdk15on/1.66/bcprov-jdk15on-1.66.jar",
+            "https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.66/bcprov-jdk15on-1.66.jar"
+          ],
+          "sha256": "1b861dba1c5445de9b38a1789c211ef28b9d07e26d1fa38bee717e5b51162ffe"
+        },
+        {
+          "id": {
+            "group": "org.bouncycastle",
+            "name": "bcprov-jdk15on",
+            "version": "1.66",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "bcprov-jdk15on-1.66.pom",
+          "path": "org/bouncycastle/bcprov-jdk15on/1.66",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/bouncycastle/bcprov-jdk15on/1.66/bcprov-jdk15on-1.66.pom",
+            "https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.66/bcprov-jdk15on-1.66.pom"
+          ],
+          "sha256": "aa4d16a19b2dfaceab94c6436c6404eae5b0fb75349f9fe061036465b420f270"
+        },
+        {
+          "id": {
+            "group": "org.jetbrains",
+            "name": "annotations",
+            "version": "13.0",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "annotations-13.0.jar",
+          "path": "org/jetbrains/annotations/13.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/jetbrains/annotations/13.0/annotations-13.0.jar",
+            "https://repo.maven.apache.org/maven2/org/jetbrains/annotations/13.0/annotations-13.0.jar"
+          ],
+          "sha256": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478"
+        },
+        {
+          "id": {
+            "group": "org.jetbrains",
+            "name": "annotations",
+            "version": "13.0",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "annotations-13.0.pom",
+          "path": "org/jetbrains/annotations/13.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/jetbrains/annotations/13.0/annotations-13.0.pom",
+            "https://repo.maven.apache.org/maven2/org/jetbrains/annotations/13.0/annotations-13.0.pom"
+          ],
+          "sha256": "965aeb2bedff369819bdde1bf7a0b3b89b8247dd69c88b86375d76163bb8c397"
+        },
+        {
+          "id": {
+            "group": "org.jetbrains.kotlin",
+            "name": "kotlin-stdlib",
+            "version": "1.3.71",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "kotlin-stdlib-1.3.71.jar",
+          "path": "org/jetbrains/kotlin/kotlin-stdlib/1.3.71",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/jetbrains/kotlin/kotlin-stdlib/1.3.71/kotlin-stdlib-1.3.71.jar",
+            "https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib/1.3.71/kotlin-stdlib-1.3.71.jar"
+          ],
+          "sha256": "5ace22b102a96425e4ac44e0558b927f3857b56a33cbc289cf1b70aee645e6a7"
+        },
+        {
+          "id": {
+            "group": "org.jetbrains.kotlin",
+            "name": "kotlin-stdlib",
+            "version": "1.3.71",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "kotlin-stdlib-1.3.71.pom",
+          "path": "org/jetbrains/kotlin/kotlin-stdlib/1.3.71",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/jetbrains/kotlin/kotlin-stdlib/1.3.71/kotlin-stdlib-1.3.71.pom",
+            "https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib/1.3.71/kotlin-stdlib-1.3.71.pom"
+          ],
+          "sha256": "ff03e9989faa2d40fa4a9098aaad71e247f27ea4d24b0754da642eb0924bd8c5"
+        },
+        {
+          "id": {
+            "group": "org.jetbrains.kotlin",
+            "name": "kotlin-stdlib-common",
+            "version": "1.3.71",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "kotlin-stdlib-common-1.3.71.jar",
+          "path": "org/jetbrains/kotlin/kotlin-stdlib-common/1.3.71",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/jetbrains/kotlin/kotlin-stdlib-common/1.3.71/kotlin-stdlib-common-1.3.71.jar",
+            "https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-common/1.3.71/kotlin-stdlib-common-1.3.71.jar"
+          ],
+          "sha256": "974f8a9b7bfce3d730a86efe0eab219a72621e8530f91e30c89f400ba98092ec"
+        },
+        {
+          "id": {
+            "group": "org.jetbrains.kotlin",
+            "name": "kotlin-stdlib-common",
+            "version": "1.3.71",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "kotlin-stdlib-common-1.3.71.pom",
+          "path": "org/jetbrains/kotlin/kotlin-stdlib-common/1.3.71",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/jetbrains/kotlin/kotlin-stdlib-common/1.3.71/kotlin-stdlib-common-1.3.71.pom",
+            "https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-common/1.3.71/kotlin-stdlib-common-1.3.71.pom"
+          ],
+          "sha256": "93f5cb50148dee7da746ed487e6278ee8d94da9a99b670f9f5248456c2f66341"
+        },
+        {
+          "id": {
+            "group": "org.junit.jupiter",
+            "name": "junit-jupiter-api",
+            "version": "5.3.1",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "junit-jupiter-api-5.3.1.jar",
+          "path": "org/junit/jupiter/junit-jupiter-api/5.3.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-api/5.3.1/junit-jupiter-api-5.3.1.jar",
+            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.3.1/junit-jupiter-api-5.3.1.jar"
+          ],
+          "sha256": "7923e21f030a9964d70a0e48007ca873280c66ddf0f0620b2d969852c23d5653"
+        },
+        {
+          "id": {
+            "group": "org.junit.jupiter",
+            "name": "junit-jupiter-api",
+            "version": "5.3.1",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "junit-jupiter-api-5.3.1.pom",
+          "path": "org/junit/jupiter/junit-jupiter-api/5.3.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-api/5.3.1/junit-jupiter-api-5.3.1.pom",
+            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.3.1/junit-jupiter-api-5.3.1.pom"
+          ],
+          "sha256": "53868d7bd7f4fb77850b81f29cb63e9403d6a485a6a40b86f1edbc04ad3e53cd"
+        },
+        {
+          "id": {
+            "group": "org.junit.jupiter",
+            "name": "junit-jupiter-engine",
+            "version": "5.3.1",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "junit-jupiter-engine-5.3.1.jar",
+          "path": "org/junit/jupiter/junit-jupiter-engine/5.3.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-engine/5.3.1/junit-jupiter-engine-5.3.1.jar",
+            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.3.1/junit-jupiter-engine-5.3.1.jar"
+          ],
+          "sha256": "04f4354548a30827e126bdf6fcbe3640789ad8335a6f3f0762bf7f9f74e51fbf"
+        },
+        {
+          "id": {
+            "group": "org.junit.jupiter",
+            "name": "junit-jupiter-engine",
+            "version": "5.3.1",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "junit-jupiter-engine-5.3.1.pom",
+          "path": "org/junit/jupiter/junit-jupiter-engine/5.3.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-engine/5.3.1/junit-jupiter-engine-5.3.1.pom",
+            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.3.1/junit-jupiter-engine-5.3.1.pom"
+          ],
+          "sha256": "4f846c02106be29b0005e0c519789964e2344ca1d4e2d3e28a8f99d5df96a443"
+        },
+        {
+          "id": {
+            "group": "org.junit.platform",
+            "name": "junit-platform-commons",
+            "version": "1.3.1",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "junit-platform-commons-1.3.1.jar",
+          "path": "org/junit/platform/junit-platform-commons/1.3.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.jar",
+            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.jar"
+          ],
+          "sha256": "457d8e1c0c80d1e320a792ec35e7c180694ba05182d7ecf7dabdb4e5a8a12fe2"
+        },
+        {
+          "id": {
+            "group": "org.junit.platform",
+            "name": "junit-platform-commons",
+            "version": "1.3.1",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "junit-platform-commons-1.3.1.pom",
+          "path": "org/junit/platform/junit-platform-commons/1.3.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.pom",
+            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.pom"
+          ],
+          "sha256": "50c8567c1c1afb4204e8c96a54daecbb8c40b1054b9b9cbb2a8f30d8eb86449e"
+        },
+        {
+          "id": {
+            "group": "org.junit.platform",
+            "name": "junit-platform-engine",
+            "version": "1.3.1",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "junit-platform-engine-1.3.1.jar",
+          "path": "org/junit/platform/junit-platform-engine/1.3.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.jar",
+            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.jar"
+          ],
+          "sha256": "303d0546c3e950cc3beaca00dfcbf2632d4eca530e4e446391bf193cbc2a71a3"
+        },
+        {
+          "id": {
+            "group": "org.junit.platform",
+            "name": "junit-platform-engine",
+            "version": "1.3.1",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "junit-platform-engine-1.3.1.pom",
+          "path": "org/junit/platform/junit-platform-engine/1.3.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.pom",
+            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.pom"
+          ],
+          "sha256": "3cbdbb4fefa6033dd14befe346b9ccd92d3d128201c210e794ee8514110954d6"
+        },
+        {
+          "id": {
+            "group": "org.opentest4j",
+            "name": "opentest4j",
+            "version": "1.1.1",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "opentest4j-1.1.1.jar",
+          "path": "org/opentest4j/opentest4j/1.1.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar",
+            "https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar"
+          ],
+          "sha256": "f106351abd941110226745ed103c85863b3f04e9fa82ddea1084639ae0c5336c"
+        },
+        {
+          "id": {
+            "group": "org.opentest4j",
+            "name": "opentest4j",
+            "version": "1.1.1",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "opentest4j-1.1.1.pom",
+          "path": "org/opentest4j/opentest4j/1.1.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.pom",
+            "https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.pom"
+          ],
+          "sha256": "d9ddb3babfbfc0a7b5b3a76e7ebd0e8f35854af9f6db0e949919b6f85b7dfd68"
+        },
+        {
+          "id": {
+            "group": "org.signal",
+            "name": "signal-metadata-java",
+            "version": "0.1.2",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "signal-metadata-java-0.1.2.jar",
+          "path": "org/signal/signal-metadata-java/0.1.2",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/signal/signal-metadata-java/0.1.2/signal-metadata-java-0.1.2.jar",
+            "https://repo.maven.apache.org/maven2/org/signal/signal-metadata-java/0.1.2/signal-metadata-java-0.1.2.jar"
+          ],
+          "sha256": "6aaeb6a33bf3161a3e6ac9db7678277f7a4cf5a2c96b84342e4007ee49bab1bd"
+        },
+        {
+          "id": {
+            "group": "org.signal",
+            "name": "signal-metadata-java",
+            "version": "0.1.2",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "signal-metadata-java-0.1.2.pom",
+          "path": "org/signal/signal-metadata-java/0.1.2",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/signal/signal-metadata-java/0.1.2/signal-metadata-java-0.1.2.pom",
+            "https://repo.maven.apache.org/maven2/org/signal/signal-metadata-java/0.1.2/signal-metadata-java-0.1.2.pom"
+          ],
+          "sha256": "87a56cdc5f754df3e38d2bb23f6b241aca9db3620c1ab70e25cf1eb00b6381e0"
+        },
+        {
+          "id": {
+            "group": "org.signal",
+            "name": "zkgroup-java",
+            "version": "0.7.0",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "zkgroup-java-0.7.0.jar",
+          "path": "org/signal/zkgroup-java/0.7.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/signal/zkgroup-java/0.7.0/zkgroup-java-0.7.0.jar",
+            "https://repo.maven.apache.org/maven2/org/signal/zkgroup-java/0.7.0/zkgroup-java-0.7.0.jar"
+          ],
+          "sha256": "d0099eedd60d6f7d4df5b288175e5d585228ed8897789926bdab69bf8c05659f"
+        },
+        {
+          "id": {
+            "group": "org.signal",
+            "name": "zkgroup-java",
+            "version": "0.7.0",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "zkgroup-java-0.7.0.pom",
+          "path": "org/signal/zkgroup-java/0.7.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/signal/zkgroup-java/0.7.0/zkgroup-java-0.7.0.pom",
+            "https://repo.maven.apache.org/maven2/org/signal/zkgroup-java/0.7.0/zkgroup-java-0.7.0.pom"
+          ],
+          "sha256": "e9011b4259202fd04f420a796aef0093a454df2da6f4c3eba63f92b045921618"
+        },
+        {
+          "id": {
+            "group": "org.slf4j",
+            "name": "slf4j-api",
+            "version": "1.8.0-beta4",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "slf4j-api-1.8.0-beta4.jar",
+          "path": "org/slf4j/slf4j-api/1.8.0-beta4",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/slf4j/slf4j-api/1.8.0-beta4/slf4j-api-1.8.0-beta4.jar",
+            "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.8.0-beta4/slf4j-api-1.8.0-beta4.jar"
+          ],
+          "sha256": "602b712329c84b4a83c40464f4fdfd0fe4238c53ef397139a867064739dbf4e0"
+        },
+        {
+          "id": {
+            "group": "org.slf4j",
+            "name": "slf4j-api",
+            "version": "1.8.0-beta4",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "slf4j-api-1.8.0-beta4.pom",
+          "path": "org/slf4j/slf4j-api/1.8.0-beta4",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/slf4j/slf4j-api/1.8.0-beta4/slf4j-api-1.8.0-beta4.pom",
+            "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.8.0-beta4/slf4j-api-1.8.0-beta4.pom"
+          ],
+          "sha256": "f8316d28acf252b21b1e9e8eed9a84c2afbdc8e040f69d3a10bab813d3d85a85"
+        },
+        {
+          "id": {
+            "group": "org.slf4j",
+            "name": "slf4j-nop",
+            "version": "1.8.0-beta4",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "slf4j-nop-1.8.0-beta4.jar",
+          "path": "org/slf4j/slf4j-nop/1.8.0-beta4",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/slf4j/slf4j-nop/1.8.0-beta4/slf4j-nop-1.8.0-beta4.jar",
+            "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-nop/1.8.0-beta4/slf4j-nop-1.8.0-beta4.jar"
+          ],
+          "sha256": "c833140c2c210678d4aea0d689696ae0b0bdbdc69d36b565ddf357bacacce052"
+        },
+        {
+          "id": {
+            "group": "org.slf4j",
+            "name": "slf4j-nop",
+            "version": "1.8.0-beta4",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "slf4j-nop-1.8.0-beta4.pom",
+          "path": "org/slf4j/slf4j-nop/1.8.0-beta4",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/slf4j/slf4j-nop/1.8.0-beta4/slf4j-nop-1.8.0-beta4.pom",
+            "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-nop/1.8.0-beta4/slf4j-nop-1.8.0-beta4.pom"
+          ],
+          "sha256": "e39c5f3daff09814f1ddd7f72db24a0325250a52774bb36ac90f3f66c7144893"
+        },
+        {
+          "id": {
+            "group": "org.slf4j",
+            "name": "slf4j-parent",
+            "version": "1.8.0-beta4",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "slf4j-parent-1.8.0-beta4.pom",
+          "path": "org/slf4j/slf4j-parent/1.8.0-beta4",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/slf4j/slf4j-parent/1.8.0-beta4/slf4j-parent-1.8.0-beta4.pom",
+            "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/1.8.0-beta4/slf4j-parent-1.8.0-beta4.pom"
+          ],
+          "sha256": "bafba30a83d53a94550196447562aa8cdad145615c28932c6a4bb441c3553101"
+        },
+        {
+          "id": {
+            "group": "org.sonatype.oss",
+            "name": "oss-parent",
+            "version": "7",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "oss-parent-7.pom",
+          "path": "org/sonatype/oss/oss-parent/7",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom",
+            "https://repo.maven.apache.org/maven2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom"
+          ],
+          "sha256": "b51f8867c92b6a722499557fc3a1fdea77bdf9ef574722fe90ce436a29559454"
+        },
+        {
+          "id": {
+            "group": "org.threeten",
+            "name": "threetenbp",
+            "version": "1.3.6",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "threetenbp-1.3.6.jar",
+          "path": "org/threeten/threetenbp/1.3.6",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/threeten/threetenbp/1.3.6/threetenbp-1.3.6.jar",
+            "https://repo.maven.apache.org/maven2/org/threeten/threetenbp/1.3.6/threetenbp-1.3.6.jar"
+          ],
+          "sha256": "f4c23ffaaed717c3b99c003e0ee02d6d66377fd47d866fec7d971bd8644fc1a7"
+        },
+        {
+          "id": {
+            "group": "org.threeten",
+            "name": "threetenbp",
+            "version": "1.3.6",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "threetenbp-1.3.6.pom",
+          "path": "org/threeten/threetenbp/1.3.6",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/threeten/threetenbp/1.3.6/threetenbp-1.3.6.pom",
+            "https://repo.maven.apache.org/maven2/org/threeten/threetenbp/1.3.6/threetenbp-1.3.6.pom"
+          ],
+          "sha256": "80fb638c216cfe5b7b14854f68fe6372127e21b4f40a3a4249744fab062b8fb9"
+        },
+        {
+          "id": {
+            "group": "org.whispersystems",
+            "name": "curve25519-java",
+            "version": "0.5.0",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "curve25519-java-0.5.0.jar",
+          "path": "org/whispersystems/curve25519-java/0.5.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/whispersystems/curve25519-java/0.5.0/curve25519-java-0.5.0.jar",
+            "https://repo.maven.apache.org/maven2/org/whispersystems/curve25519-java/0.5.0/curve25519-java-0.5.0.jar"
+          ],
+          "sha256": "0aadd43cf01d11e9b58f867b3c4f25c3194e8b0623d1953d32dfbfbee009e38d"
+        },
+        {
+          "id": {
+            "group": "org.whispersystems",
+            "name": "curve25519-java",
+            "version": "0.5.0",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "curve25519-java-0.5.0.pom",
+          "path": "org/whispersystems/curve25519-java/0.5.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/whispersystems/curve25519-java/0.5.0/curve25519-java-0.5.0.pom",
+            "https://repo.maven.apache.org/maven2/org/whispersystems/curve25519-java/0.5.0/curve25519-java-0.5.0.pom"
+          ],
+          "sha256": "c947f3e580ba15042d44ae77752f8aaae2592788251ab1bc41ea4ae95dad93f3"
+        },
+        {
+          "id": {
+            "group": "org.whispersystems",
+            "name": "signal-protocol-java",
+            "version": "2.8.1",
+            "type": "jar",
+            "extension": "jar"
+          },
+          "name": "signal-protocol-java-2.8.1.jar",
+          "path": "org/whispersystems/signal-protocol-java/2.8.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/whispersystems/signal-protocol-java/2.8.1/signal-protocol-java-2.8.1.jar",
+            "https://repo.maven.apache.org/maven2/org/whispersystems/signal-protocol-java/2.8.1/signal-protocol-java-2.8.1.jar"
+          ],
+          "sha256": "b19db36839ab008fdccefc7f8c005f2ea43dc7c7298a209bc424e6f9b6d5617b"
+        },
+        {
+          "id": {
+            "group": "org.whispersystems",
+            "name": "signal-protocol-java",
+            "version": "2.8.1",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "signal-protocol-java-2.8.1.pom",
+          "path": "org/whispersystems/signal-protocol-java/2.8.1",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/whispersystems/signal-protocol-java/2.8.1/signal-protocol-java-2.8.1.pom",
+            "https://repo.maven.apache.org/maven2/org/whispersystems/signal-protocol-java/2.8.1/signal-protocol-java-2.8.1.pom"
+          ],
+          "sha256": "18101d4c1f99a0f4a5fe23fdf911513af45e424a118bf95e636ccd272f8f5f2a"
+        }
+      ]
+    }
+  }
+}

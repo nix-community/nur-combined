@@ -108,9 +108,11 @@ rec {
 
   rnix-lsp-unstable = pkgs.callPackage ./pkgs/rnix-lsp { };
 
-  inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope;
-
   sgx-lkl = pkgs.callPackage ./pkgs/sgx-lkl { };
+
+  signald = pkgs.callPackage ./pkgs/signald { };
+
+  inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope;
 
   source-code-pro-nerdfonts = pkgs.nerdfonts.override {
     fonts = [ "SourceCodePro" ];
