@@ -26,6 +26,8 @@ rec {
   frida-tools = pkgs.callPackage ./pkgs/frida-tools { myPython3Packages = python3Packages; };
   gbdk-n = pkgs.callPackage ./pkgs/gbdk-n {};
   hdl-dump = pkgs.callPackage ./pkgs/hdl_dump {};
+
+  # find a lot of games on https://itch.io/games/free/platform-linux
   hospital-hero = pkgs.callPackage ./pkgs/hospital-hero {};
   magick2cpc = pkgs.callPackage ./pkgs/magick2cpc {};
   matiec = pkgs.callPackage ./pkgs/matiec {};

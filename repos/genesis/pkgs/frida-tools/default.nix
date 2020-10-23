@@ -4,13 +4,13 @@ with python3.pkgs;
 
 buildPythonApplication rec {
   pname = "frida-tools";
-  version = "8.2.0";
+  version = "9.0.0";
 
   # building is somewhat complicated, described in https://nixos.wiki/wiki/Frida
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "e336e29ec6d82bf8d3994dfe4000ad88c0f10f00221dc85b8fea7724aa93b1b0";
+    sha256 = "164bbpdif94f69aag1d21cm3ymabyv7dl9fnvbhp0pihg1807f9k";
   };
 
   propagatedBuildInputs = [

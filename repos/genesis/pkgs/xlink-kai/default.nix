@@ -1,16 +1,11 @@
 { stdenv, pkgs, fetchurl, autoPatchelfHook, makeWrapper, frida-tools }:
 
 let
-  /* nur = import (builtins.fetchTarball
-    "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-      inherit pkgs;
-    }; */
 
   version = "7.4.38";
 
 in stdenv.mkDerivation rec {
   pname = "xlink-kai";
-  #packages = with pkgs; [ frida-tools ];
   inherit version;
 
   src = fetchurl {
@@ -31,12 +26,9 @@ in stdenv.mkDerivation rec {
   dontStrip = true;
   phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
 
-  #TODO : fix nur.repos.mic92.frida-tools since segfault on frida-agent-64.so
-
-
-  fridaOptions = "--no-pause";
-  #TODO turn this to a list
-  fridaScripts = "$out/lib/agent.js";
+  fridaOptions = "--runtime=v8 "; #--no-pause
+  #TODO frida accept only one script
+  fridaScript = "$out/lib/agent.js ";
 
   installPhase = ''
     # To run without root/sudo grant cap_net_admin capability to the engine with:
@@ -47,8 +39,8 @@ in stdenv.mkDerivation rec {
     install -Dm644 "${webui}" $out/data/webui.zip
 
     makeWrapper ${frida-tools}/bin/frida $out/bin/${pname} \
-     --add-flags "-l ${fridaScripts} $fridaOptions -- \
-       $out/bin/kaiengine --appdata $out/data/ \
+     --add-flags "-l ${fridaScript} $fridaOptions -f \
+       $out/bin/kaiengine -- --appdata $out/data/ \
        --configfile \$XDG_CONFIG_HOME/xlink-kai/kaiengine.conf" \
      --run "mkdir -p \$XDG_CONFIG_HOME/xlink-kai"
   '';

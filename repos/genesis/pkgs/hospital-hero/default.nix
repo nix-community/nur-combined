@@ -1,6 +1,4 @@
-{ pkgs, stdenv, requireFile, autoPatchelfHook, squashfsTools, makeWrapper, zip
-  , love_11 , luajit, mpg123
-  , openal, libogg, freetype , libtheora, libvorbis, libmodplug }:
+{ pkgs, stdenv, requireFile, squashfsTools, makeWrapper, love_11 }:
 
 let
 
@@ -14,17 +12,16 @@ in stdenv.mkDerivation rec {
     name = "hospital_hero-linux-x86_64.tar.gz";
     message = ''
       This nix expression requires that hospital_hero-linux-x86_64.tar.gz is
-      already part of the store. Find the file on the website
+      already part of the store. Find the file on ${meta.downloadPage}
       and add it to the nix store with nix-store --add-fixed sha256 <FILE>.
     '';
     sha256 = "1efc782bc07b0ec939b375ccca8472d0ce6cf6c36b8e35f2847e8adb3225a819";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook stdenv.cc.cc makeWrapper squashfsTools zip ];
-  buildInputs = [ love_11 luajit mpg123 openal libogg freetype libtheora libvorbis libmodplug ];
+  nativeBuildInputs = [ makeWrapper squashfsTools ];
+  buildInputs = [ love_11 ];
 
-  dontStrip = true;
-  phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
+  phases = [ "unpackPhase" "installPhase" ];
   sourceRoot = ".";
   installPhase = ''
     # file header are not good for appimageTools, use binwalk to get the offset
@@ -36,6 +33,7 @@ in stdenv.mkDerivation rec {
 meta = with stdenv.lib; {
     description = "You are a 101% systemically relevant janitor-hero!";
     homepage = https://hackefuffel.itch.io/hospital-hero;
+    downloadPage = meta.homepage;
     license = licenses.unfree;
     maintainers = with maintainers; [ genesis ];
     platforms = [ love_11.meta.platforms ];

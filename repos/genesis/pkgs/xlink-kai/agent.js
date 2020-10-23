@@ -1,3 +1,6 @@
+'esversion: 6';
+
+console.log(Script.runtime);
 
 // with this, we can join the chat without segfault
 // and get the faulty access-violation context.
@@ -73,8 +76,7 @@ Interceptor.attach(ptr("0x00572a40"), {
 
 // TODO : write example how deal with software open/close stuff in /nix/store
 // using Interceptor.replace()
-// getExportByName('libc.so',...) doesnt work ?
-Interceptor.attach(Module.findExportByName(null, 'open'), {
+Interceptor.attach(Module.findExportByName('libc-2.31.so', 'open'), {
   onEnter: function(args) {
     this.flag = false;
     // var filename = Memory.readCString(ptr(args[0]));
@@ -92,6 +94,25 @@ Interceptor.attach(Module.findExportByName(null, 'open'), {
       console.warn("\nretval: " + retval);
   }
 });
+
+Process
+  .getModuleByName({ linux: 'libc-2.31.so', darwin: 'libSystem.B.dylib', windows: 'ws2_32.dll' }[Process.platform])
+  .enumerateExports().filter(ex => ex.type === 'function' && ['connect', 'recv', 'send', 'read', 'write'].some(prefix => ex.name.indexOf(prefix) === 0))
+  .forEach(ex => {
+    Interceptor.attach(ex.address, {
+      onEnter: function (args) {
+        var fd = args[0].toInt32();
+        if (Socket.type(fd) !== 'tcp')
+          return;
+        var address = Socket.peerAddress(fd);
+        if (address === null)
+          return;
+        console.log(fd, ex.name, address.ip + ':' + address.port);
+      }
+    });
+  });
+
+
 
 
 // download configuration
