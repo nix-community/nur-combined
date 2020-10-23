@@ -11,7 +11,10 @@ in
       enable = mkEnableOption "scaff";
       package = mkOption {
         type = types.package;
-        default = pkgs.callPackage (builtins.fetchTarball https://gitlab.com/jD91mZM2/scaff/-/archive/6da3176029d167e48c2854ff93987451eb564407.tar.gz) {};
+        default = pkgs.callPackage (builtins.fetchTarball {
+          url = "https://gitlab.com/jD91mZM2/scaff/-/archive/6da3176029d167e48c2854ff93987451eb564407.tar.gz";
+          sha256 = "08fskkcni78pll31q15p0a1knnmxlzd7cc4pig55pcmzqcc27akn";
+        }) {};
         description = ''
           Which scaff package to use. Defaults to the latest one,
           because as I'm writing this no scaff version is in nixpkgs.
