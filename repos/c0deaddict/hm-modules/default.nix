@@ -4,4 +4,5 @@
   random-wallpaper = ./random-wallpaper;
   xdg-apps = ./xdg-apps;
   swayidle = ./swayidle;
+  mako = ./mako;
 }
