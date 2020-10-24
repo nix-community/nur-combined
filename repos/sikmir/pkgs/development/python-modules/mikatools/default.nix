@@ -10,6 +10,8 @@ python3Packages.buildPythonPackage {
 
   propagatedBuildInputs = with python3Packages; [ requests clint ];
 
+  checkInputs = with python3Packages; [ pytestCheckHook ];
+
   meta = with lib; {
     inherit (sources.mikatools) description homepage;
     license = licenses.mit;

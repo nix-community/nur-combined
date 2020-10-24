@@ -456,6 +456,20 @@
         "url": "https://github.com/sgillies/jsonseq/archive/d9a9c86c6c05abca1ed2bdbff248eb3cd9f214fd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "klogg": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-10-23T10:09:03Z",
+        "description": "A fast, advanced log explorer based on glogg project",
+        "homepage": "https://github.com/variar/klogg",
+        "owner": "variar",
+        "repo": "klogg",
+        "rev": "49f67f908ed5d0a076912cb48673f4ddb6c890d2",
+        "sha256": "0qj4n02jpxgl9d0nz4w6cim035x4blk68lxi3nw00d8xczw39nmf",
+        "type": "tarball",
+        "url": "https://github.com/variar/klogg/archive/49f67f908ed5d0a076912cb48673f4ddb6c890d2.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "libshell": {
         "branch": "master",
         "builtin": false,

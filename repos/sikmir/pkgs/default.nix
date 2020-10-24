@@ -9,7 +9,7 @@ lib.makeScope newScope (
     ### APPLICATIONS
 
     anki-bin = callPackage ./applications/anki/bin.nix { };
-    basecamp = callPackage ./applications/basecamp { };
+    basecamp = callPackage ./applications/gis/basecamp { };
     goldencheetah-bin = callPackage ./applications/goldencheetah/bin.nix { };
     goldendict-bin = callPackage ./applications/goldendict/bin.nix { };
     gpxlab = libsForQt5.callPackage ./applications/gpxlab {
@@ -19,28 +19,32 @@ lib.makeScope newScope (
       inherit sources;
     };
     gpxsee-bin = callPackage ./applications/gpxsee/bin.nix { };
+    i18n-editor = callPackage ./applications/i18n-editor { jre = pkgs.jdk11; };
     iterm2-bin = callPackage ./applications/iterm2/bin.nix { };
-    librewolf = callPackage ./applications/librewolf { };
+    klogg = libsForQt5.callPackage ./applications/misc/klogg {
+      inherit sources;
+    };
+    librewolf = callPackage ./applications/networking/librewolf { };
     macpass-bin = callPackage ./applications/macpass/bin.nix { };
-    mapsoft = callPackage ./applications/mapsoft { };
-    mapsoft2 = callPackage ./applications/mapsoft/2.nix { };
+    mapsoft = callPackage ./applications/gis/mapsoft { };
+    mapsoft2 = callPackage ./applications/gis/mapsoft/2.nix { };
     nnn-plugins = callPackage ./applications/nnn-plugins { };
     openorienteering-mapper = libsForQt5.callPackage ./applications/openorienteering-mapper {
       inherit sources;
     };
     openorienteering-mapper-bin = callPackage ./applications/openorienteering-mapper/bin.nix { };
-    qgis-bin = callPackage ./applications/qgis/bin.nix { };
+    qgis-bin = callPackage ./applications/gis/qgis/bin.nix { };
     qgis-ltr-bin = qgis-bin.override { releaseType = "ltr"; };
-    qmapshack-bin = callPackage ./applications/qmapshack/bin.nix { };
-    qutebrowser-bin = callPackage ./applications/qutebrowser/bin.nix { };
+    qmapshack-bin = callPackage ./applications/gis/qmapshack/bin.nix { };
+    qutebrowser-bin = callPackage ./applications/networking/qutebrowser/bin.nix { };
     qvge = libsForQt5.callPackage ./applications/qvge {
       inherit sources;
     };
     redict = libsForQt5.callPackage ./applications/redict {
       inherit sources;
     };
-    sasplanet = callPackage ./applications/sasplanet { };
-    tdh = callPackage ./applications/tdh { };
+    sasplanet = callPackage ./applications/gis/sasplanet { };
+    tdh = callPackage ./applications/gis/tdh { };
     visualgps = libsForQt5.callPackage ./applications/visualgps { };
     wireguard-statusbar = callPackage ./applications/wireguard-statusbar { };
 
@@ -143,7 +147,6 @@ lib.makeScope newScope (
     gpxtrackposter = callPackage ./tools/geo/gpxtrackposter { };
     gt-bash-client = callPackage ./tools/dict/gt-bash-client { };
     gt4gd = callPackage ./tools/dict/gt4gd { };
-    i18n-editor = callPackage ./tools/i18n-editor { jre = pkgs.jdk11; };
     imgdecode = callPackage ./tools/geo/imgdecode { };
     ish = callPackage ./tools/networking/ish { };
     lsdreader = callPackage ./tools/dict/lsdreader { };
