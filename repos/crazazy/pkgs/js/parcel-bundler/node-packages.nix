@@ -2353,13 +2353,13 @@ let
         sha1 = "590c61156b0ae2f4f0255732a158b266bc56b21d";
       };
     };
-    "electron-to-chromium-1.3.582" = {
+    "electron-to-chromium-1.3.583" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.582";
+      version = "1.3.583";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.582.tgz";
-        sha512 = "0nCJ7cSqnkMC+kUuPs0YgklFHraWGl/xHqtZWWtOeVtyi+YqkoAOMGuZQad43DscXCQI/yizcTa3u6B5r+BLww==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.583.tgz";
+        sha512 = "L9BwLwJohjZW9mQESI79HRzhicPk1DFgM+8hOCfGgGCFEcA3Otpv7QK6SGtYoZvfQfE3wKLh0Hd5ptqUFv3gvQ==";
       };
     };
     "elliptic-6.5.3" = {
@@ -6563,7 +6563,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.3.582"
+      sources."electron-to-chromium-1.3.583"
       (sources."elliptic-6.5.3" // {
         dependencies = [
           sources."bn.js-4.11.9"

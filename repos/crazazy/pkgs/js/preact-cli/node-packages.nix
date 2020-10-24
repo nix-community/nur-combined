@@ -1120,13 +1120,13 @@ let
         sha512 = "tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==";
       };
     };
-    "@types/node-14.14.0" = {
+    "@types/node-14.14.2" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "14.14.0";
+      version = "14.14.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-14.14.0.tgz";
-        sha512 = "BfbIHP9IapdupGhq/hc+jT5dyiBVZ2DdeC5WwJWQWDb0GijQlzUFAeIQn/2GtvZcd2HVUU7An8felIICFTC2qg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-14.14.2.tgz";
+        sha512 = "jeYJU2kl7hL9U5xuI/BhKPZ4vqGM/OmK6whiFAXVhlstzZhVamWhDSmHyGLIp+RVyuF9/d0dqr2P85aFj4BvJg==";
       };
     };
     "@types/parse-json-4.0.0" = {
@@ -3595,13 +3595,13 @@ let
         sha512 = "K1HBDWXQZkcIAnP5h65kWsD7o7NABvHswOH49rVHX7POGaTM2kYQfkFZVn4ZQeiRnzqbtf07LxSitOVRdR98GA==";
       };
     };
-    "electron-to-chromium-1.3.582" = {
+    "electron-to-chromium-1.3.583" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.582";
+      version = "1.3.583";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.582.tgz";
-        sha512 = "0nCJ7cSqnkMC+kUuPs0YgklFHraWGl/xHqtZWWtOeVtyi+YqkoAOMGuZQad43DscXCQI/yizcTa3u6B5r+BLww==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.583.tgz";
+        sha512 = "L9BwLwJohjZW9mQESI79HRzhicPk1DFgM+8hOCfGgGCFEcA3Otpv7QK6SGtYoZvfQfE3wKLh0Hd5ptqUFv3gvQ==";
       };
     };
     "elliptic-6.5.3" = {
@@ -5548,13 +5548,13 @@ let
         sha512 = "51PE4haMSXcHohnSMdM42anbvZANYTqMrr52tVKPqqsPJMzoP6FYYDVqahX/HrAoKEKz3uUPzSvKs9A3qR4iVw==";
       };
     };
-    "jest-worker-26.5.0" = {
+    "jest-worker-26.6.1" = {
       name = "jest-worker";
       packageName = "jest-worker";
-      version = "26.5.0";
+      version = "26.6.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/jest-worker/-/jest-worker-26.5.0.tgz";
-        sha512 = "kTw66Dn4ZX7WpjZ7T/SUDgRhapFRKWmisVAF0Rv4Fu8SLFD7eLbqpLvbxVqYhSgaWa7I+bW7pHnbyfNsH6stug==";
+        url = "https://registry.npmjs.org/jest-worker/-/jest-worker-26.6.1.tgz";
+        sha512 = "R5IE3qSGz+QynJx8y+ICEkdI2OJ3RJjRQVEyCcFAd3yVhQSEtquziPO29Mlzgn07LOVE8u8jhJ1FqcwegiXWOw==";
       };
     };
     "js-tokens-4.0.0" = {
@@ -7717,13 +7717,13 @@ let
         sha1 = "98472870bf228132fcbdd868129bad12c3c029e3";
       };
     };
-    "promise-polyfill-8.1.3" = {
+    "promise-polyfill-8.2.0" = {
       name = "promise-polyfill";
       packageName = "promise-polyfill";
-      version = "8.1.3";
+      version = "8.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/promise-polyfill/-/promise-polyfill-8.1.3.tgz";
-        sha512 = "MG5r82wBzh7pSKDRa9y+vllNHz3e3d4CNj1PQE4BQYxLme0gKYYBm9YENq+UkEikyZ0XbiGWxYlVw3Rl9O/U8g==";
+        url = "https://registry.npmjs.org/promise-polyfill/-/promise-polyfill-8.2.0.tgz";
+        sha512 = "k/TC0mIcPVF6yHhUvwAp7cvL6I2fFV7TzF1DuGPI8mBh4QQazf36xCKEHKTZKRysEoTQoQdKyP25J8MPJp7j5g==";
       };
     };
     "prompts-2.3.2" = {
@@ -7834,13 +7834,13 @@ let
         sha512 = "XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==";
       };
     };
-    "pupa-2.0.1" = {
+    "pupa-2.1.0" = {
       name = "pupa";
       packageName = "pupa";
-      version = "2.0.1";
+      version = "2.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/pupa/-/pupa-2.0.1.tgz";
-        sha512 = "hEJH0s8PXLY/cdXh66tNEQGndDrIKNqNC5xmrysZy3i5C3oEoLna7YAOad+7u125+zH1HNXUmGEkrhb3c2VriA==";
+        url = "https://registry.npmjs.org/pupa/-/pupa-2.1.0.tgz";
+        sha512 = "Pj8EhJzFiPwnf4dEXpuUWwH8M/Yl4vpl4cN2RX1i3R77DWvbY5ZPKni7CCKkOYxz+XKt2fieemsV+WTZbIlYzg==";
       };
     };
     "q-1.5.1" = {
@@ -10506,7 +10506,7 @@ let
       sources."@types/glob-7.1.3"
       sources."@types/json-schema-7.0.6"
       sources."@types/minimatch-3.0.3"
-      sources."@types/node-14.14.0"
+      sources."@types/node-14.14.2"
       sources."@types/parse-json-4.0.0"
       sources."@types/q-1.5.4"
       sources."@types/resolve-0.0.8"
@@ -10966,7 +10966,7 @@ let
           sources."loader-utils-0.2.17"
         ];
       })
-      sources."electron-to-chromium-1.3.582"
+      sources."electron-to-chromium-1.3.583"
       (sources."elliptic-6.5.3" // {
         dependencies = [
           sources."bn.js-4.11.9"
@@ -11278,7 +11278,7 @@ let
       sources."isobject-3.0.1"
       sources."isomorphic-unfetch-3.1.0"
       sources."isstream-0.1.2"
-      (sources."jest-worker-26.5.0" // {
+      (sources."jest-worker-26.6.1" // {
         dependencies = [
           sources."has-flag-4.0.0"
           sources."supports-color-7.2.0"
@@ -11659,7 +11659,7 @@ let
         ];
       })
       sources."promise-inflight-1.0.1"
-      sources."promise-polyfill-8.1.3"
+      sources."promise-polyfill-8.2.0"
       (sources."prompts-2.3.2" // {
         dependencies = [
           sources."kleur-3.0.3"
@@ -11681,7 +11681,7 @@ let
         ];
       })
       sources."punycode-2.1.1"
-      sources."pupa-2.0.1"
+      sources."pupa-2.1.0"
       sources."q-1.5.1"
       sources."qs-6.5.2"
       sources."query-string-4.3.4"

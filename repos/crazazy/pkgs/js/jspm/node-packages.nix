@@ -220,13 +220,13 @@ let
         sha512 = "jnqIUKDUqJbDIUxm0Uj7bnlMnRm1T/eZ9N+AVMqhPgzrba2GhGG5o/jCTwmdPK709nEZsGoMzXEDUjcXHa3W0g==";
       };
     };
-    "@types/node-14.14.0" = {
+    "@types/node-14.14.2" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "14.14.0";
+      version = "14.14.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-14.14.0.tgz";
-        sha512 = "BfbIHP9IapdupGhq/hc+jT5dyiBVZ2DdeC5WwJWQWDb0GijQlzUFAeIQn/2GtvZcd2HVUU7An8felIICFTC2qg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-14.14.2.tgz";
+        sha512 = "jeYJU2kl7hL9U5xuI/BhKPZ4vqGM/OmK6whiFAXVhlstzZhVamWhDSmHyGLIp+RVyuF9/d0dqr2P85aFj4BvJg==";
       };
     };
     "abbrev-1.1.1" = {
@@ -490,13 +490,13 @@ let
         sha512 = "aNdbnj9P8PjdXU4ybaWLK2IF3jc/EoDYbC7AazW6to3TRsfXxscC9UXOB5iDiEQrkyIbWp2SLQda4+QAa7nc3w==";
       };
     };
-    "buffer-5.6.0" = {
+    "buffer-5.6.1" = {
       name = "buffer";
       packageName = "buffer";
-      version = "5.6.0";
+      version = "5.6.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/buffer/-/buffer-5.6.0.tgz";
-        sha512 = "/gDYp/UtU0eA1ys8bOs9J6a+E/KWIY+DZ+Q2WESNUA0jFRsJOc0SNUO6xJ5SGA1xueg3NL65W6s+NY5l9cunuw==";
+        url = "https://registry.npmjs.org/buffer/-/buffer-5.6.1.tgz";
+        sha512 = "2z15UUHpS9/3tk9mY/q+Rl3rydOi7yMp5XWNQnRvoz+mJwiv8brqYwp9a+nOCtma6dwuEIxljD8W3ysVBZ05Vg==";
       };
     };
     "buffer-from-1.1.1" = {
@@ -3068,7 +3068,7 @@ let
       sources."@jspm/npm-1.0.1"
       sources."@jspm/resolve-1.0.0"
       sources."@types/estree-0.0.45"
-      sources."@types/node-14.14.0"
+      sources."@types/node-14.14.2"
       sources."abbrev-1.1.1"
       sources."acorn-7.4.1"
       sources."agent-base-4.3.0"
@@ -3110,7 +3110,7 @@ let
           sources."extend-shallow-2.0.1"
         ];
       })
-      sources."buffer-5.6.0"
+      sources."buffer-5.6.1"
       sources."buffer-from-1.1.1"
       sources."buffer-peek-stream-1.1.0"
       sources."cache-base-1.0.1"
