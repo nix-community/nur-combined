@@ -172,6 +172,7 @@ lib.makeScope newScope (
     supermercado = callPackage ./tools/geo/supermercado { };
     supload = callPackage ./tools/misc/supload { };
     taginfo-tools = callPackage ./tools/geo/taginfo-tools { };
+    tatoebatools = callPackage ./tools/dict/tatoebatools { };
     tilesets-cli = callPackage ./tools/geo/tilesets-cli { };
     tpkutils = callPackage ./tools/geo/tpkutils { };
     xfractint = callPackage ./tools/xfractint { };

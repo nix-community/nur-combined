@@ -851,6 +851,20 @@
         "url": "https://github.com/selectel/supload/archive/70690682867713c68d7c6daa833a1013e79df407.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "tatoebatools": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2015-08-04T11:30:01Z",
+        "description": "A library for downloading, updating and iterating over monolingual data files from Tatoeba",
+        "homepage": "https://github.com/LBeaudoux/tatoebatools",
+        "owner": "LBeaudoux",
+        "repo": "tatoebatools",
+        "rev": "94669e5007ba225a792631668a81bc45476dd57a",
+        "sha256": "0lg2mnnxqj492h8r9fcf8z6yriv779z5562gmr9k10p60ha73api",
+        "type": "tarball",
+        "url": "https://github.com/LBeaudoux/tatoebatools/archive/94669e5007ba225a792631668a81bc45476dd57a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "tilesets-cli": {
         "branch": "master",
         "builtin": false,
