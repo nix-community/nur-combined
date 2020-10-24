@@ -219,7 +219,7 @@ let
   gcSettings = ''
     (defun hm/reduce-gc ()
       "Reduce the frequency of garbage collection."
-      (setq gc-cons-threshold 402653184
+      (setq gc-cons-threshold most-positive-fixnum
             gc-cons-percentage 0.6))
 
     (defun hm/restore-gc ()
