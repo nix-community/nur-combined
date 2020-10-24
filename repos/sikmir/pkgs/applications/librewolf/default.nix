@@ -4,28 +4,28 @@ let
   throwSystem = throw "Unsupported system: ${system}";
 
   pname = "librewolf";
-  version = if stdenv.isDarwin then "81.0.1" else "81.0";
+  version = if stdenv.isDarwin then "82.0" else "81.0.2";
   name = "${pname}-${version}";
 
   firefox = fetchurl {
     url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}/mac/${lang}/Firefox%20${version}.dmg";
     sha256 = {
-      en-US = "0a54913nsclfzswsxmwglwrwzsv3zpn0g646wpp6vr3wfwg1j8xb";
-      eo = "14pl1hxr51cc5cnrqk2y3qyw6k1yn3s1fp60kpz9x82hx32qfipz";
-      fi = "053apj2j77l8fabxdmf20xcqh3qw6bb3p5sxcyk5zpy0n7b6bqmq";
-      ru = "0qg0smnazir70y68ynicybd0z6gbz6fb8fk12hk9r1d81nlhk9nn";
+      en-US = "0nwd9vcjhcgjrrp433hnfl2jkbrpc9p9pll46716gln2lcpiyrav";
+      eo = "04ydlxpfqns9yyh59p9j37fnm10fkdx3vy5xz40vhyad673jhg3w";
+      fi = "0xzs9lcyi85p0rkx2nvhjmm03rnk491hv5r5k1shjs49aif8kzg0";
+      ru = "1syiwnh6501rp0f18k91hl61ihczm23rvxy3dmcl9krpfp5148gz";
     }.${lang};
     name = "Firefox.dmg";
   };
 
   librewolf = fetchurl {
     url = {
-      x86_64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/67555130893f500860494fa70a0bd17e/LibreWolf-${version}-2.x86_64.AppImage";
-      aarch64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/525ff30464370d3adc8bf468f9066c83/LibreWolf-${version}-2.aarch64.AppImage";
+      x86_64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/7172a87315e9118745a73f45b1736931/LibreWolf-${version}-1.x86_64.AppImage";
+      aarch64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/aade76902983c173de1ddffe57daaec3/LibreWolf-${version}-1.aarch64.AppImage";
     }.${system} or throwSystem;
     sha256 = {
-      x86_64-linux = "0iykwzshia6nhw9ksxqd7d2x2p6bn8l8wvg8mr9zppia1vilp7pn";
-      aarch64-linux = "19v93qx7r0kk8dx29g1n2c68bbdr32bxqczx9bbmcbm7m52n8w6w";
+      x86_64-linux = "1jnnydivj673wjvyhnqvxrbj6a04cmci8hg7pdqv6978f81wyxnr";
+      aarch64-linux = "134w38qk4wb4iz0gddj4ngd0q7qdyfgvrhafw29dnrzz6b8viyxi";
     }.${system} or throwSystem;
   };
 
@@ -38,7 +38,7 @@ let
     skip.ci = true;
   };
 
-  appimageContents = appimageTools.extractType2 {
+  appimageContents = appimageTools.extract {
     inherit name;
     src = librewolf;
   };
@@ -55,7 +55,7 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit name meta;
+    inherit pname version meta;
 
     src = fetchgit {
       url = "https://gitlab.com/librewolf-community/browser/macos";

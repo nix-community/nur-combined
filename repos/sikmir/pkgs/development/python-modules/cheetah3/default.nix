@@ -16,6 +16,8 @@ python3Packages.buildPythonPackage {
 
   doCheck = false;
 
+  pythonImportsCheck = [ "Cheetah" ];
+
   meta = with lib; {
     inherit (sources.cheetah3) description homepage;
     license = licenses.mit;

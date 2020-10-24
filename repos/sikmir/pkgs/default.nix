@@ -186,7 +186,6 @@ lib.makeScope newScope (
     dict2rest = callPackage ./servers/dict2rest { };
     geminid = callPackage ./servers/geminid { };
     glauth = callPackage ./servers/glauth { };
-    mbtileserver = callPackage ./servers/mbtileserver { };
     nakarte = callPackage ./servers/nakarte { };
     pg_featureserv = callPackage ./servers/pg_featureserv { };
     quark = callPackage ./servers/quark { };

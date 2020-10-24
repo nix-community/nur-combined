@@ -12,6 +12,8 @@ python3Packages.buildPythonPackage {
 
   doCheck = false;
 
+  pythonImportCheck = [ "s2sphere" ];
+
   meta = with lib; {
     inherit (sources.s2sphere) description homepage;
     license = licenses.mit;
