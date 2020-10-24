@@ -23,9 +23,4 @@ in {
   nix-stray-roots = pkgs.callPackage ./pkgs/nix-stray-roots { };
 
   dbus-codegen-rust = pkgs.callPackage ./pkgs/dbus-codegen-rust { };
-
-  weylus = if versionOlder pkgsVersion "20.09" then
-    pkgs.callPackage ./pkgs/weylus { }
-  else
-    pkgs.writeShellScriptBin "unsupported" "echo unsupported Nixpkgs version";
 }
