@@ -36,6 +36,7 @@ self: super: let
     all-the-icons
     alsamixer
     anaconda-mode
+    anaphora
     ansible
     ansible-doc
     anzu
@@ -112,6 +113,7 @@ self: super: let
     dumb-jump
     eclim
     editorconfig
+    ein
     eldoc-eval
     elfeed
     elfeed-goodies
@@ -162,6 +164,7 @@ self: super: let
     evil-tutor
     evil-visual-mark-mode
     evil-visualstar
+    exec-path-from-shell
     expand-region
     eyebrowse
     f
@@ -297,6 +300,8 @@ self: super: let
     lsp-haskell
     lsp-java
     lsp-mode
+    lsp-origami
+    lsp-pyright
     lsp-python-ms
     lsp-treemacs
     lsp-ui
@@ -347,9 +352,11 @@ self: super: let
     org-present
     org-projectile
     org-re-reveal
+    org-rich-yank
     org-super-agenda
     org-superstar
     orgit
+    origami
     overseer
     ox-gfm
     ox-jira
@@ -372,6 +379,7 @@ self: super: let
     pipenv
     pippel
     pkg-info
+    polymode
     popup
     popwin
     pos-tip
@@ -395,6 +403,7 @@ self: super: let
     restclient-helm
     ripgrep
     robe
+    ron-mode
     rpm-spec-mode
     rspec-mode
     rubocop
@@ -421,6 +430,7 @@ self: super: let
     solarized-theme
     spaceline
     spaceline-all-the-icons
+    sphinx-doc
     string-inflection
     swiper
     symbol-overlay
@@ -450,6 +460,7 @@ self: super: let
     web-beautify
     web-completion-data
     web-mode
+    websocket
     which-key
     window-purpose
     winum
