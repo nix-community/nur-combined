@@ -2,9 +2,15 @@ self: super: let
 
   brh-python = self.python3.withPackages(ps: with ps; [
     pyflakes
-    pyls-isort
-    python-language-server
+    # pyls-isort
+    # python-language-server
     yapf
+
+    matplotlib
+    notebook
+    numpy
+    pandas
+    scipy
   ]);
 
 in
