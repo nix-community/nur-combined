@@ -1,19 +1,19 @@
-{ lib, stdenv, fetchzip }:
+{ lib, stdenv, variant }:
 
 self:
 
 let
 
   ideaBuild = import ../../../build-support/jetbrains/plugin.nix {
-    inherit lib stdenv fetchzip;
+    inherit lib stdenv variant;
     jetbrainsPlatforms = [ "idea-community" "idea-ultimate" ];
   };
 
   generateIdea = lib.makeOverridable ({
-    idea ? ./manual-idea-packages.nix
+    generated ? ./idea-generated.nix
   }: let
 
-    imported = import idea {
+    imported = import generated {
       inherit (self) callPackage;
     };
 
@@ -26,4 +26,3 @@ let
   in ideaPlugins // { inherit ideaBuild; });
 
 in generateIdea { }
-

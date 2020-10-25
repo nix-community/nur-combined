@@ -21,11 +21,13 @@ in
 assert assertMsg (length badPlugins == 0) errorMsg;
 
 appendToName "with-plugins" (package.overrideAttrs (oldAttrs: {
-  passthru = { inherit plugins; };
-  # TODO: Purely aesthetics, but link the plugin to its name instead of hash-name-version
+  inherit plugins;
+  # TODO: Remove version from directory name
   installPhase = oldAttrs.installPhase + ''
     for plugin in $plugins; do
-      ln -s "$plugin" "$out/$name/plugins/$(basename $plugin)"
+      local dirname=$(basename "$plugin")
+      dirname=''${dirname:33}
+      ln -s "$plugin" "$out/$name/plugins/$dirname"
     done
   '';
 }))

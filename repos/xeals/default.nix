@@ -16,25 +16,23 @@ rec {
 
   # Alacritty with the unmerged ligature patches applied.
   alacritty-ligatures = (pkgs.alacritty.override {
-    # 0.6.0 requires a minimum of 1.43, and this is the only version on both
-    # stable and unstable channels right now.
-    inherit (pkgs.rustPackages_1_44) rustPlatform;
+    inherit (pkgs.rustPackages_1_45) rustPlatform;
   }).overrideAttrs (oldAttrs: rec {
     pname = "${oldAttrs.pname}-ligatures";
-    version = "0.6.0.20201015";
+    version = "0.6.0.20201022";
 
     src = pkgs.fetchFromGitHub {
       owner = "zenixls2";
       repo = "alacritty";
       fetchSubmodules = true;
-      rev = "30ebb4303229acbfdbbf00a84a9c46973c4e0334";
-      sha256 = "1c0951zs1h2d6fjnxixfms3913m1c6yvgmcizgd9gfgx59ghpafi";
+      rev = "525fe0ea174354db7ba28de65328a0db18fd7f70";
+      sha256 = "1j8mrslii7bw721bkgaqxm9ldrm5f01cil55dfjn7ziwz3xjvqvx";
     };
 
     cargoDeps = oldAttrs.cargoDeps.overrideAttrs (pkgs.lib.const {
       name = "${pname}-${version}-vendor.tar.gz";
       inherit src;
-      outputHash = "1gi3bvcra56maxcz1a6i1nmzdrfa4mhx6pn1xjbrifv7c6jlxard";
+      outputHash = "11kj2hr9wkq1zq13ml561i0i0h40d34iwqy0b8apn9ij8pdp0b37";
     });
 
     ligatureInputs = [

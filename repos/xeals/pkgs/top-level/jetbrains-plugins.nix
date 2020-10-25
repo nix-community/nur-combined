@@ -13,7 +13,7 @@ let
   };
 
   mkIdeaPlugins = import ../applications/editors/jetbrains/idea-plugins.nix {
-    inherit lib stdenv fetchzip;
+    inherit lib stdenv variant;
   };
 
   jetbrainsWithPlugins = import ../applications/editors/jetbrains/wrapper.nix {
