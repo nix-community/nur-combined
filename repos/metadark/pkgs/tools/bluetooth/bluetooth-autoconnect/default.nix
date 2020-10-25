@@ -3,22 +3,23 @@
 , fetchFromGitHub
 , dbus-python
 , pygobject3
+, python-prctl
 , python
 }:
 
 buildPythonApplication rec {
   pname = "bluetooth-autoconnect";
-  version = "1.1";
+  version = "1.2";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "jrouleau";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1d7y1afqhhkhpfw2b1bf5nm5ybkxql2kbp4091xwjhb9dcd9mcph";
+    sha256 = "18yqwrkxxl60haixyjl6sajfx8pjrq6m6xv5qy2022sfqhlwzs7m";
   };
 
-  propagatedBuildInputs = [ dbus-python pygobject3 ];
+  propagatedBuildInputs = [ dbus-python pygobject3 python-prctl ];
 
   installPhase = ''
     mkdir -p "$out/bin"
