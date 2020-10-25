@@ -347,10 +347,10 @@
   },
   {
     "name": "bobinserters",
-    "version": "1.0.0",
-    "file_name": "bobinserters_1.0.0.zip",
-    "download_url": "/download/bobinserters/5f3a7a2efa3ed68f46ac85ca",
-    "sha1": "b641dcb3828e519c321f063552e07e6c28a942ec",
+    "version": "1.0.1",
+    "file_name": "bobinserters_1.0.1.zip",
+    "download_url": "/download/bobinserters/5f861b1ecfe631b89799b659",
+    "sha1": "d63d1a8eb7a69fca220e23c60de676708b169855",
     "dependencies": [
       "base >= 1.0.0"
     ]
@@ -591,12 +591,12 @@
   },
   {
     "name": "Rampant",
-    "version": "0.18.17",
-    "file_name": "Rampant_0.18.17.zip",
-    "download_url": "/download/Rampant/5f2f0e90686200cd0e5fbf3b",
-    "sha1": "ddc4276c0028fb7a63809cf0f128d74a2195b3a1",
+    "version": "1.0.0",
+    "file_name": "Rampant_1.0.0.zip",
+    "download_url": "/download/Rampant/5f8d09798efc75526e6edd6a",
+    "sha1": "846311a6057c3d04627e93c8ee184aba1144c1b1",
     "dependencies": [
-      "base >= 0.18.45",
+      "base >= 1.0.0",
       "? bobenemies",
       "? Natural_Evolution_Enemies >= 0.17.0",
       "? Clockwork",

@@ -7,4 +7,6 @@ pkgs.mkShell {
     niv
     nixpkgs-fmt
   ];
+
+  NIX_PATH = "nixpkgs=https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
 }

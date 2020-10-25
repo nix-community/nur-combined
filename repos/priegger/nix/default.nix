@@ -4,7 +4,6 @@ with
   overlay = _: pkgs:
     {
       inherit (import sources.niv { }) niv;
-      inherit (import sources.unstable { }) nixpkgs-fmt;
     };
 };
 import
