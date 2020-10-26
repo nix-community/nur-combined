@@ -11,12 +11,10 @@
 Mostly Wayland related stuff.
 
 - [mpvpaper](https://github.com/GhostNaN/mpvpaper)
-- [waylock](https://github.com/ifreund/waylock) - Requires `security.pam.services.waylock` to authenticate the user
+- [waylock](https://github.com/ifreund/waylock) - Requires `security.pam.services.waylock = {};` to authenticate the user
 - [wlclock](https://github.com/Leon-Plickat/wlclock)
 - [wlr-sunclock](https://github.com/sentriz/wlr-sunclock)
 
 ## TODOs
 
-1. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
-
-
+- [x] [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
