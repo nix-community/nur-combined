@@ -21,6 +21,7 @@
   task-spooler = pkgs.callPackage ./pkgs/task-spooler { };
   wywozik-todo = pkgs.callPackage ./pkgs/wywozik-todo { };
   agate = pkgs.callPackage ./pkgs/agate { };
+  hyperion-rpi3 = pkgs.callPackage ./pkgs/hyperion-rpi3 { };
 
   st = pkgs.callPackage ./pkgs/larbs/st { };
   dwm = pkgs.callPackage ./pkgs/larbs/dwm { };
