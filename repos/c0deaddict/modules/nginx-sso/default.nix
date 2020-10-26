@@ -9,7 +9,7 @@ let
     pkgs.writeText "nginx-sso.yml" (builtins.toJSON cfg.configuration);
 in {
   # Override existing module.
-  disabledModules = [ "services/security/nginx-sso.nix" ];  
+  disabledModules = [ "services/security/nginx-sso.nix" ];
 
   options.services.nginx.sso = {
     enable = mkEnableOption "nginx-sso service";

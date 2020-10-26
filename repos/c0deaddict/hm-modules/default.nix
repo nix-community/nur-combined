@@ -5,4 +5,5 @@
   xdg-apps = ./xdg-apps;
   swayidle = ./swayidle;
   mako = ./mako;
+  gnome-keyring-daemon = ./gnome-keyring-daemon;
 }
