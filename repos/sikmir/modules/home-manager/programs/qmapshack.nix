@@ -54,7 +54,7 @@ in
 
       (
         mkIf pkgs.stdenv.isLinux {
-          home.activation.createConfigFile = config.lib.dag.entryBefore [ "writeBoundary" ] ''
+          home.activation.createConfigFile = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
             $DRY_RUN_CMD mkdir -p ${configDir}
             $DRY_RUN_CMD touch ${configFile}
           '';
@@ -64,7 +64,7 @@ in
       (
         mkIf (length cfg.demPackages > 0) {
           home.activation.setupDemPaths =
-            config.lib.dag.entryAfter [ "writeBoundary" ]
+            lib.hm.dag.entryAfter [ "writeBoundary" ]
               (
                 if pkgs.stdenv.isDarwin then
                   "$DRY_RUN_CMD /usr/bin/defaults write ${domain} Canvas.demPaths -array ${toString cfg.demPackages}"
@@ -77,7 +77,7 @@ in
       (
         mkIf (length cfg.mapPackages > 0) {
           home.activation.setupMapPaths =
-            config.lib.dag.entryAfter [ "writeBoundary" ]
+            lib.hm.dag.entryAfter [ "writeBoundary" ]
               (
                 if pkgs.stdenv.isDarwin then
                   "$DRY_RUN_CMD /usr/bin/defaults write ${domain} Canvas.mapPath -array ${toString cfg.mapPackages}"
@@ -90,7 +90,7 @@ in
       (
         mkIf (length cfg.routinoPackages > 0) {
           home.activation.setupRoutinoPaths =
-            config.lib.dag.entryAfter [ "writeBoundary" ]
+            lib.hm.dag.entryAfter [ "writeBoundary" ]
               (
                 if pkgs.stdenv.isDarwin then
                   "$DRY_RUN_CMD /usr/bin/defaults write ${domain} Route.routino.paths -array ${toString cfg.routinoPackages}"

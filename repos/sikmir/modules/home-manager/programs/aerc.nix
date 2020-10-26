@@ -66,7 +66,7 @@ in
     home.packages = [ cfg.package ];
 
     home.activation = {
-      accountsConf = config.lib.dag.entryAfter [ "writeBoundary" ] activationScript;
+      accountsConf = lib.hm.dag.entryAfter [ "writeBoundary" ] activationScript;
     };
   };
 }

@@ -69,10 +69,10 @@ in
   config = mkIf cfg.enable (
     mkMerge [
       {
-        home.packages = [ cfg.package pkgs.qtpbfimageplugin ];
+        home.packages = [ cfg.package ];
 
         home.activation.hideToolbar =
-          config.lib.dag.entryAfter [ "writeBoundary" ]
+          lib.hm.dag.entryAfter [ "writeBoundary" ]
             (
               if pkgs.stdenv.isDarwin then
                 "$DRY_RUN_CMD /usr/bin/defaults write ${domain} Settings.toolbar -bool false"
@@ -83,7 +83,7 @@ in
 
       (
         mkIf pkgs.stdenv.isLinux {
-          home.activation.createConfigFile = config.lib.dag.entryBefore [ "writeBoundary" ] ''
+          home.activation.createConfigFile = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
             $DRY_RUN_CMD mkdir -p ${configDir}
             $DRY_RUN_CMD touch ${configFile}
           '';
