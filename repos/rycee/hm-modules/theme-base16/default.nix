@@ -105,6 +105,14 @@ in {
 
   options = {
     theme.base16 = {
+      name = mkOption {
+        type = types.str;
+        example = "My-Fine-Theme";
+        description = ''
+          The theme name.
+        '';
+      };
+
       kind = mkOption {
         type = types.enum [ "dark" "light" ];
         example = "dark";
@@ -180,12 +188,15 @@ in {
             < ${escapeShellArg yamlFile} \
             > $out
         '';
-        bases = filterAttrs (n: _: hasPrefix "base" n)
-          (builtins.fromJSON (builtins.readFile json));
-      in mapAttrs (_: v: {
-        hex.r = substring 0 2 v;
-        hex.g = substring 2 2 v;
-        hex.b = substring 4 2 v;
-      }) bases;
+        theme = builtins.fromJSON (builtins.readFile json);
+        bases = filterAttrs (n: _: hasPrefix "base" n) theme;
+      in {
+        name = lib.replaceStrings [ " " ] [ "-" ] theme.scheme;
+        colors = mapAttrs (_: v: {
+          hex.r = substring 0 2 v;
+          hex.g = substring 2 2 v;
+          hex.b = substring 4 2 v;
+        }) bases;
+      };
   };
 }

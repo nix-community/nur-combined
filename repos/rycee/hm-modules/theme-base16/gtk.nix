@@ -4,7 +4,10 @@ let
 
   inherit (lib) mkDefault mkIf mkOption types;
 
-  cfgBase16 = config.theme.base16;
+  configBase16 = config.theme.base16;
+
+  themePkg =
+    pkgs.callPackage ../../pkgs/materia-theme { inherit configBase16; };
 
 in {
   options.gtk.enableBase16Theme = mkOption {
@@ -16,11 +19,9 @@ in {
 
   config = mkIf config.gtk.enableBase16Theme {
     gtk = {
-      # Not really using the theme colors but at least chooses a light or dark
-      # theme.
       theme = mkDefault {
-        package = pkgs.theme-vertex;
-        name = if cfgBase16.kind == "light" then "Vertex" else "Vertex-Dark";
+        package = themePkg;
+        name = configBase16.name;
       };
     };
   };

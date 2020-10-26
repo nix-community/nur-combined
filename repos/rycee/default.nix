@@ -20,6 +20,8 @@ in {
   firefox-addons-generator =
     pkgs.haskellPackages.callPackage ./pkgs/firefox-addons-generator { };
 
+  materia-theme = pkgs.callPackage ./pkgs/materia-theme { };
+
   nix-stray-roots = pkgs.callPackage ./pkgs/nix-stray-roots { };
 
   dbus-codegen-rust = pkgs.callPackage ./pkgs/dbus-codegen-rust { };
