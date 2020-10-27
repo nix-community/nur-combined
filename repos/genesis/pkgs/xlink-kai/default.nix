@@ -1,7 +1,7 @@
 { stdenv, pkgs, fetchurl, autoPatchelfHook, makeWrapper, frida-tools }:
 
 let
-
+  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc ];
   version = "7.4.38";
 
 in stdenv.mkDerivation rec {
@@ -24,25 +24,37 @@ in stdenv.mkDerivation rec {
   buildInputs = [ frida-tools ];
 
   dontStrip = true;
+  #
   phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
 
-  fridaOptions = "--runtime=v8 "; #--no-pause
+  fridaOptions = "--runtime=v8 --no-pause";
   #TODO frida accept only one script
-  fridaScript = "$out/lib/agent.js ";
+  fridaScript = "_agent.js";
 
   installPhase = ''
     # To run without root/sudo grant cap_net_admin capability to the engine with:
     # TODO : write wrapper with libcap
     # setcap cap_net_admin=eip kaiengine
     install -Dm755 kaiengine $out/bin/kaiengine
-    install -Dm755 ${./agent.js} $out/lib/agent.js
     install -Dm644 "${webui}" $out/data/webui.zip
 
+    # could be compiled using frida-compile
+    # see https://github.com/oleavr/frida-agent-example
+    # frida-compile agent/index.ts -o _agent.js -w
+    # nix-shell -p nodejs --run "npm install"
+    # nix-shell -p nodejs --run "npm run watch"
+    install -Dm644 ${./agent.js} $out/lib/_agent.js
+
+    # this trick doesn't work there (-why?)
+    # --suffix-each LD_LIBRARY_PATH : ${libPath} \
+
     makeWrapper ${frida-tools}/bin/frida $out/bin/${pname} \
-     --add-flags "-l ${fridaScript} $fridaOptions -f \
+     --add-flags "-l \$SCRIPT_DIR/${fridaScript} $fridaOptions -f \
        $out/bin/kaiengine -- --appdata $out/data/ \
        --configfile \$XDG_CONFIG_HOME/xlink-kai/kaiengine.conf" \
-     --run "mkdir -p \$XDG_CONFIG_HOME/xlink-kai"
+     --run "mkdir -p \$XDG_CONFIG_HOME/xlink-kai" \
+     --run "ldd $out/bin/kaiengine" \
+     --run "if [ -f _agent.js ]; then export SCRIPT_DIR=\$(pwd) ;else export SCRIPT_DIR=$out/lib/;fi"
   '';
 
 meta = with stdenv.lib; {

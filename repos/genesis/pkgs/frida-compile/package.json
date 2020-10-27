@@ -1,0 +1,3 @@
+[
+  { "frida-compile": "git+https://github.com/frida/frida-compile.git#v10.0.0" }
+]

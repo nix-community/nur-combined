@@ -26,13 +26,18 @@ assert speechdSupport -> speechd != null;
 with stdenv.lib;
 stdenv.mkDerivation rec {
   pname = "navit";
-  version = "unstable-2020-07-09";
+  version = "unstable-2020-14-10";
 
   src = fetchFromGitHub {
     owner = "navit-gps";
     repo = "navit";
-    rev = "903a7e589243d6ce3b920cc7ad9398a5c41d5726";
-    sha256 = "0kv09cfrwi0fk41qny4c17p2r2x3s2d39dh0m9asn0l1fxkzg3l1";
+
+    # #1061
+    /* rev = "0a74d8a5134bf3478f09841e632e4e81ed34f15e";
+    sha256 = "0n5j2g6iyb212b4g8419gnhj6py07c9a7blpsdi4bkc8v8c48z5n"; */
+
+    rev = "55d64dd5476a9f8cca0db1c93f345ae1defccab3";
+    sha256 = "0znvqbpb6wzx8fhz9ddrxa49k2pmps6rd8hfjca8p75wrw653mkv";
   };
 
   # avoid dynamic fetching by cmake
@@ -46,12 +51,7 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt \
       --replace 'libspeechd.h' 'speech-dispatcher/libspeechd.h'
 
-    # Since libpng-1.4.0 the function png_set_gray_1_2_4_to_8() was
-    # removed, the replacement function is called
-    # png_set_expand_gray_1_2_4_to_8()
-    # https://github.com/navit-gps/navit/issues/984
-    substituteInPlace ./navit/graphics/win32/graphics_win32.c \
-      --replace	png_set_gray_1_2_4_to_8 png_set_expand_gray_1_2_4_to_8
+    #rm cmake/FindProtobuf-c.cmake
   '';
 
   NIX_CFLAGS_COMPILE = optional speechdSupport "-I${speechd}/include/speech-dispatcher";

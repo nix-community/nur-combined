@@ -33,7 +33,7 @@ buildPythonPackage rec {
   postPatch = ''
    # sed -i "s/'build_ext': FridaPrebuiltExt//" setup.py
    export HOME=.
-   cp ${egg} ./${egg.name}
+   ln -s ${egg} ./${egg.name}
   '';
 
   meta = with stdenv.lib; {

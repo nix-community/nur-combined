@@ -25,7 +25,7 @@ Process.setExceptionHandler(function (details) {
       case 0x572a58:
         // occurs after kai engine started.
         // cmp qword [rbx + 0x40], 0
-        console.log('Known access-violation 0x572a58');
+        // console.log('Known access-violation 0x572a58');
         // if (! Memory.protect(details.memory.address, 64, 'r--'))
         //   console.log("Unable to fix memory at : " + details.memory.address);
         // else console.log("Fixed memory at : " + details.memory.address);
@@ -96,23 +96,43 @@ Interceptor.attach(Module.findExportByName('libc-2.31.so', 'open'), {
 });
 
 Process
-  .getModuleByName({ linux: 'libc-2.31.so', darwin: 'libSystem.B.dylib', windows: 'ws2_32.dll' }[Process.platform])
-  .enumerateExports().filter(ex => ex.type === 'function' && ['connect', 'recv', 'send', 'read', 'write'].some(prefix => ex.name.indexOf(prefix) === 0))
+  .getModuleByName('libc-2.31.so')
+  .enumerateExports().filter(ex => ex.type === 'function' &&
+    ['bind', 'sendmsg' , 'recvmsg','connect', 'recvfrom', 'recv', 'send', 'sendto', 'read', 'write'].some(prefix => ex.name.indexOf(prefix) === 0))
   .forEach(ex => {
     Interceptor.attach(ex.address, {
       onEnter: function (args) {
         var fd = args[0].toInt32();
-        if (Socket.type(fd) !== 'tcp')
+        var socketype = Socket.type(fd);
+        if ( socketype === null)
           return;
-        var address = Socket.peerAddress(fd);
-        if (address === null)
-          return;
-        console.log(fd, ex.name, address.ip + ':' + address.port);
+        // console.log(socketype);
+        var address;
+
+        switch (socketype) {
+          case 'unix:stream':
+            address = Socket.localAddress(fd);
+            if ( address === null )
+              console.log("address is null");
+            else if ( address.path === null )
+              console.log("address.path is null");
+            else console.log(JSON.stringify(address));
+
+            console.log(fd, ex.name, "unix:stream" );
+            break;
+          case 'tcp':
+            address = Socket.peerAddress(fd);
+            if ( address !== null )
+            console.log(fd, ex.name, "tcp");
+          // case null:
+          //   return;
+            break;
+          default:
+            return;
+        }
       }
     });
   });
-
-
 
 
 // download configuration
