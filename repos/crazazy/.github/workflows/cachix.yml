@@ -31,7 +31,11 @@ jobs:
         signingKey: '${{ secrets.CACHIX_KEY }}'
       
     - name: Build packages
-      run: nix-build pkgs/default.nix | cachix push crazazy
+      run: |
+        nix-build pkgs/default.nix
+        # the emacs distribution is hidden from the package set as nur can't evaluate
+        # the package repository without it
+        nix-build pkgs/default.nix -A hidden.emacs
 
     - name: Build system
       run: nix-build ./nix/default.nix -A nixos
