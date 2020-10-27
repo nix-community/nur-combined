@@ -30,8 +30,8 @@ jobs:
           - gnidorah
         nixPath:
           - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-20.03
+          #- nixpkgs=channel:nixpkgs-unstable
+          #- nixpkgs=channel:nixos-20.03
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
