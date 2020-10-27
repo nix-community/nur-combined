@@ -219,10 +219,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.21";
+      version = "4.9.22";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3649499/dark_reader-4.9.21-an+fx.xpi";
-      sha256 = "6b4b9ac88e660028682cb990ff2c2c573b65de72c0bca70564eefaeaf5179ea4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3667101/dark_reader-4.9.22-an+fx.xpi";
+      sha256 = "891b90a2c8cca4cd142bdf07c093bea0d4cf803115c2ac4b799968062a1f3fd3";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -508,10 +508,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "3.1.13";
+      version = "3.1.14";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3652190/grammatik_und_rechtschreibprufung_languagetool-3.1.13-fx.xpi";
-      sha256 = "1dbc0e2589b4559135b63851d437572fe2e3f9d190c25eee74c05b95c730805d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3665826/grammatik_und_rechtschreibprufung_languagetool-3.1.14-fx.xpi";
+      sha256 = "fab9753df0c91fa0fee299c416f1b109889ec73d361f7565ec27df6d5c2d2c67";
       meta = with stdenv.lib;
       {
         homepage = "https://languagetool.org";
