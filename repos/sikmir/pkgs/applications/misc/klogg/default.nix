@@ -16,6 +16,9 @@ mkDerivation {
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
       --set-rpath "$out/lib:${lib.makeLibraryPath [ stdenv.cc.cc.lib ]}" \
       3rdparty/sentry/dump_syms/linux/dump_syms
+    patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
+      --set-rpath "$out/lib:${lib.makeLibraryPath [ stdenv.cc.cc.lib ]}" \
+      3rdparty/sentry/dump_syms/linux/minidump_dump
   '';
 
   meta = with lib; {
