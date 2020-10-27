@@ -13,13 +13,13 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "KnobKraft-orm";
-  version = "1.7.1";
+  version = "1.7.5";
 
   src = fetchFromGitHub {
     owner = "christofmuc";
     repo = "KnobKraft-orm";
     rev = version;
-    sha256 = "0gg6nzif8kiflfvrrr4y0qdqj4cx7g62bx9hwddk71dn51rbmsi3";
+    sha256 = "0h293hpfx0y64nfkgy22zgj12fgc927xcbgpcrjl8j6i53zwcz66";
     fetchSubmodules = true;
   };
 
