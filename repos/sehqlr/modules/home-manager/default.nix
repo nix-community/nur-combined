@@ -26,7 +26,7 @@
     xclip
     xmobar
   ];
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = import ./nixpkgs-config.nix;
   programs.afew.enable = true;
   programs.afew.extraConfig = import ./afew-config.nix;
   programs.alot.enable = true;
@@ -106,7 +106,6 @@
   programs.starship.settings.add_newline = false;
   programs.starship.settings.character.symbol = "λ";
   programs.termite.enable = true;
-  programs.termite.font = "FiraCode 14";
   programs.tmux.enable = true;
   programs.tmux.clock24 = true;
   programs.zathura.enable = true;
@@ -126,6 +125,7 @@
   services.network-manager-applet.enable = true;
   services.stalonetray.enable = true;
   xdg.configFile."afew/lobsters.py".source = ./lobsters.py;
+  xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
   xsession.windowManager.xmonad.config = ./xmonad.hs;
   xsession.windowManager.xmonad.enable = true;
   xsession.windowManager.xmonad.enableContribAndExtras = true;
