@@ -45,6 +45,13 @@ buildPythonPackage rec {
     ./fix-test-pythonpath.patch
   ];
 
+  postPatch = ''
+    # Use nixpkgs version instead of versioneer
+    substituteInPlace setup.py \
+      --replace "cmds = versioneer.get_cmdclass()" "cmds = {}" \
+      --replace "version=versioneer.get_version()" "version='${version}'"
+  '';
+
   # Remove pre-compiled "attach" libraries and recompile for host platform
   # Compile flags taken from linux_and_mac/compile_linux.sh & linux_and_mac/compile_mac.sh
   preBuild = ''(
