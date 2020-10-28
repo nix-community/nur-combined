@@ -17,6 +17,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "1ilpw4pzm8fqim29jzwlfgz1jyblragalm50vqyj1n14piapxzlk";
 
   meta = with lib; {
+    broken = true;
     description = "A Matrix homeserver written in Rust";
     homepage = "https://conduit.rs";
     license = licenses.agpl3Only;

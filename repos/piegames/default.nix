@@ -20,9 +20,11 @@ in
 {
 	inherit lib modules overlays;
 	inherit (pkgsGnomeExtensions.gnomeExtensions)
-		buildShellExtension;
+		buildShellExtension
 		# emoji-selector cpu-power-manager
-		# lock-screen-blur extension-reloader tray-icons;
+		# lock-screen-blur extension-reloader tray-icons
+		# dash-to-panel
+		;
 	
 	matrix-conduit = pkgs.callPackage ./pkgs/matrix-conduit.nix {};
 }

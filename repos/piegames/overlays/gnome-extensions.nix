@@ -2,11 +2,21 @@ self: super: {
 	gnomeExtensions = (super.gnomeExtensions // rec {
 		buildShellExtension = self.callPackage ../pkgs/buildGnomeExtension.nix {};
 
+		dash-to-panel = super.gnomeExtensions.dash-to-panel.overrideAttrs (old: {
+			version = "40";
+
+			src = self.fetchFromGitHub {
+				owner = "home-sweet-gnome";
+				repo = "dash-to-panel";
+				rev = "v40";
+				sha256 = "07jq8d16nn62ikis896nyfn3q02f5srj754fmiblhz472q4ljc3p";
+			};
+		});
 		emoji-selector = self.gnomeExtensions.buildShellExtension {
 			pname = "gnome-shell-extension-emoji-selector";
 			uuid = "emoji-selector@maestroschan.fr";
-			version = 19;
-			sha256 = "10l32mzrsdbfifd201pqiy7795rmnylvi3qh89l7d8cki1d0xxv1";
+			version = 20;
+			sha256 = "1i6py149m46xig5a0ry7y5v887nlzw644mw72gcr2hkfsn8b0gnd";
 		};
 		cpu-power-manager = self.gnomeExtensions.buildShellExtension {
 			pname = "gnome-shell-extension-cpu-power-manager";
