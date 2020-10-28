@@ -23,7 +23,8 @@ rec {
   caprice32 = pkgs.callPackage ./pkgs/caprice32 {};
   clocktimer = pkgs.callPackage ./pkgs/clocktimer {};
   freediag = pkgs.callPackage ./pkgs/freediag {};
-  frida-compile = pkgs.callPackage ./pkgs/frida-compile {};
+  frida-agent-example = pkgs.callPackage ./pkgs/frida-agent-example {};
+  #frida-compile = pkgs.callPackage ./pkgs/frida-compile {};
   frida-tools = pkgs.callPackage ./pkgs/frida-tools { myPython3Packages = python3Packages; };
   gbdk-n = pkgs.callPackage ./pkgs/gbdk-n {};
   hdl-dump = pkgs.callPackage ./pkgs/hdl_dump {};
@@ -53,5 +54,5 @@ rec {
   # qt.qpa.plugin issue, test later.
   #scriptcommunicator = pkgs.libsForQt5.callPackage ./pkgs/scriptcommunicator {};
   soulseekqt = pkgs.libsForQt5.callPackage ./pkgs/soulseekqt {};
-  xlink-kai = pkgs.callPackage ./pkgs/xlink-kai { inherit frida-compile frida-tools; };
+  xlink-kai = pkgs.callPackage ./pkgs/xlink-kai { inherit frida-agent-example frida-tools; };
 }

@@ -1,0 +1,3 @@
+[
+  { "frida-agent-example": "git+https://github.com/oleavr/frida-agent-example.git#8f80635" }
+]
