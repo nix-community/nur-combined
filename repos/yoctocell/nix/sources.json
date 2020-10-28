@@ -143,6 +143,18 @@
         "url": "https://github.com/alphapapa/matrix-client.el/archive/59c792423fd0503f1375f356bec56130e65d3b51.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "mpv-webtorrent-hook": {
+        "branch": "master",
+        "description": "Stream torrents in mpv using webtorrent-cli",
+        "homepage": null,
+        "owner": "noctuid",
+        "repo": "mpv-webtorrent-hook",
+        "rev": "755c6348e10279cb6049264c319e86afc1f830f3",
+        "sha256": "10nxvl9fzifpr2amrjmdbpjzdrhp8pn2bs6nqydh7j3naq5h8a6s",
+        "type": "tarball",
+        "url": "https://github.com/noctuid/mpv-webtorrent-hook/archive/755c6348e10279cb6049264c319e86afc1f830f3.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "naersk": {
         "branch": "master",
         "description": "Build rust crates in Nix. No configuration, no code generation, no IFD. Sandbox friendly.",

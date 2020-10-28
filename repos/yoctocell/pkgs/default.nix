@@ -17,6 +17,11 @@ rec
     inherit git-filter-repo;
   };
 
+  mpvScripts = pkgs.lib.recurseIntoAttrs {
+    webtorrent-hook = pkgs.callPackage ./applications/video/mpv/scripts/webtorrent-hook.nix { inherit sources; };
+  };
+
+
   # Emacs packages
   emacsPackages = pkgs.lib.recurseIntoAttrs (pkgs.callPackage ./applications/editors/emacs-modes {
     inherit sources;
