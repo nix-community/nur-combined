@@ -20,6 +20,8 @@ stdenv.mkDerivation rec {
     cp webtorrent-hook.lua $out/share/mpv/scripts/
   '';
 
+  passthru.scriptName = "webtorrent-hook.lua";
+
   meta = with stdenv.lib; {
     description = "Stream torrents in mpv using webtorrent-cli";
     homepage = "https://github.com/noctuid/mpv-webtorrent-hook";
