@@ -138,6 +138,7 @@
   services.gpg-agent.enable = true;
   services.gpg-agent.sshKeys = [ "87F5686AC11C5D0AE1C7D66B7AE4D820B34CF744" ];
   services.lorri.enable = true;
+  services.udiskie.enable = true;
   wayland.windowManager.sway.config.bars =
     [{ command = "${pkgs.waybar}/bin/waybar"; }];
   wayland.windowManager.sway.config.input."type:touchpad".tap = "enabled";
