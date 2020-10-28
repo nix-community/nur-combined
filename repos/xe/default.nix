@@ -19,7 +19,6 @@ rec {
   libutf = pkgs.callPackage ./pkgs/libutf { };
 
   # Programs
-
   cabytcini = pkgs.callPackage ./pkgs/cabytcini { };
   comma = pkgs.callPackage ./pkgs/comma { };
   deno = pkgs.callPackage ./pkgs/deno { };
@@ -42,8 +41,8 @@ rec {
   pridecat = pkgs.callPackage ./pkgs/pridecat { };
   quickserv = pkgs.callPackage ./pkgs/quickserv { };
   sctd = pkgs.callPackage ./pkgs/sctd { };
-  sm64pc = pkgs.callPackage ./pkgs/sm64pc { };
   st = pkgs.callPackage ./pkgs/st { };
+  steno-lookup = pkgs.callPackage ./pkgs/steno-lookup { };
   sw = pkgs.callPackage ./pkgs/sw { };
   zathura = pkgs.callPackage ./pkgs/zathura { inherit girara; };
 
@@ -54,5 +53,11 @@ rec {
       inherit (pkgs.lua53Packages) buildLuarocksPackage dkjson;
     };
   };
+
+  # binary programs
+  microsoft-edge-dev = pkgs.callPackage ./pkgs/microsoft-edge-dev { };
+
+  # "fun" programs
+  sm64pc = pkgs.callPackage ./pkgs/sm64pc { };
 }
 

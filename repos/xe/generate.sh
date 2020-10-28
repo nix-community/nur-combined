@@ -11,6 +11,7 @@ nix-prefetch-github amir sctd > "./pkgs/sctd/source.json"
 nix-prefetch-github jroimartin sw > "./pkgs/sw/source.json"
 nix-prefetch-github cls libutf > "./pkgs/libutf/source.json"
 nix-prefetch-github lunasorcery pridecat > "./pkgs/pridecat/source.json"
+nix-prefetch-github wezm steno-lookup > "./pkgs/steno-lookup/source.json"
 
 # git repos
 nix-prefetch-git https://tulpa.dev/cadey/dwm.git | jq 'del(.date)' > "./pkgs/dwm/source.json"
