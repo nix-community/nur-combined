@@ -29,11 +29,11 @@ let
   mopidyEnv = pkgs.buildEnv {
     name = "mopidy-with-extensions-${cfg.package.version}";
     paths = closePropagation cfg.extraPackages;
-    pathsToLink = [ "/${pkgs.python.sitePackages}" ];
+    pathsToLink = [ "/${pkgs.mopidyPackages.python.sitePackages}" ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       makeWrapper ${cfg.package}/bin/mopidy $out/bin/mopidy \
-        --prefix PYTHONPATH : $out/${pkgs.python.sitePackages}
+        --prefix PYTHONPATH : $out/${pkgs.mopidyPackages.python.sitePackages}
     '';
   };
 
