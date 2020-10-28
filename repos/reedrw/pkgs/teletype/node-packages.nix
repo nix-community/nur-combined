@@ -859,13 +859,13 @@ let
         sha512 = "lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==";
       };
     };
-    "fastq-1.8.0" = {
+    "fastq-1.9.0" = {
       name = "fastq";
       packageName = "fastq";
-      version = "1.8.0";
+      version = "1.9.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fastq/-/fastq-1.8.0.tgz";
-        sha512 = "SMIZoZdLh/fgofivvIkmknUXyPnvxRE3DhtZ5Me3Mrsk5gyPL42F0xr51TdRXskBxHfMp+07bcYzfsYEsSQA9Q==";
+        url = "https://registry.npmjs.org/fastq/-/fastq-1.9.0.tgz";
+        sha512 = "i7FVWL8HhVY+CTkwFxkN2mk3h+787ixS5S63eb78diVRc1MCssarHq3W5cj0av7YDSwmaV928RNag+U1etRQ7w==";
       };
     };
     "fill-range-7.0.1" = {
@@ -2809,7 +2809,7 @@ in
       sources."fast-diff-1.2.0"
       sources."fast-glob-3.2.4"
       sources."fast-json-stable-stringify-2.1.0"
-      sources."fastq-1.8.0"
+      sources."fastq-1.9.0"
       sources."fill-range-7.0.1"
       sources."find-up-3.0.0"
       (sources."follow-redirects-1.5.10" // {
