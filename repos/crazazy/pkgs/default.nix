@@ -1,5 +1,5 @@
 { sources ? import ../nix/sources.nix
-, pkgs ? import sources.nixpkgs-channels { }
+, pkgs ? import sources.nixpkgs{ }
 }:
 {
   # package sets

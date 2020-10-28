@@ -2,7 +2,7 @@ let
   sources = import ./sources.nix;
   hmNixos = import sources.home-manager { inherit pkgs; };
   NUR = import sources.NUR { inherit pkgs; };
-  pkgs = import sources.nixpkgs-channels {
+  pkgs = import sources.nixpkgs {
     overlays = [
       overlay
     ];

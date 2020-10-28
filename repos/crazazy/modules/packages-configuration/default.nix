@@ -8,7 +8,7 @@ in
   ];
   nix = {
     nixPath = [
-      "nixpkgs=${sources.nixpkgs-channels}"
+      "nixpkgs=${sources.nixpkgs}"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
     binaryCaches = [
