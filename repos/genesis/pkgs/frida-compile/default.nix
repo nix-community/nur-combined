@@ -2,7 +2,7 @@
 
 let
 
-  packageName = with pkgs.lib; concatStrings (map (entry: (concatStrings (mapAttrsToList (key: value: "${key}-${value}") entry))) (importJSON ./package.json));
+  packageName = with lib; concatStrings (map (entry: (concatStrings (mapAttrsToList (key: value: "${key}-${value}") entry))) (importJSON ./package.json));
   nodePackages = import ./node-composition.nix {
     inherit pkgs nodejs;
     inherit (stdenv.hostPlatform) system;
@@ -11,11 +11,17 @@ in
 nodePackages."${packageName}".override {
   nativeBuildInputs = [ pkgs.makeWrapper ];
 
+  /* # Patch shebangs in node_modules, otherwise the webpack build fails with interpreter problems
+  patchShebangs --build "$out/lib/node_modules/frida-compile/node_modules/"
+  # compile Typescript sources
+  #npm run build
+  makeWrapper '${nodejs}/bin/node' "$out/bin/frida-compile" \
+    --add-flags "$out/lib/node_modules/frida-compile/bin/compile.js"
+     */
   /* postInstall = ''
-    # Patch shebangs in node_modules, otherwise the webpack build fails with interpreter problems
-    patchShebangs --build "$out/lib/node_modules/spacegun/node_modules/"
-    # compile Typescript sources
-    npm run build
+
+    wrapProgram $out/bin/frida-compile \
+      --set NODE_PATH "$out/lib/node_modules"
   ''; */
 
   meta = with lib; {

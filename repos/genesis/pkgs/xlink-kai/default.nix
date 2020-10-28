@@ -1,4 +1,4 @@
-{ stdenv, pkgs, fetchurl, autoPatchelfHook, makeWrapper, frida-tools }:
+{ stdenv, pkgs, fetchurl, autoPatchelfHook, makeWrapper, frida-tools, frida-compile }:
 
 let
   libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc ];
@@ -21,7 +21,7 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoPatchelfHook stdenv.cc.cc makeWrapper ];
-  buildInputs = [ frida-tools ];
+  buildInputs = [ frida-tools frida-compile ];
 
   dontStrip = true;
   #
@@ -32,6 +32,7 @@ in stdenv.mkDerivation rec {
   fridaScript = "_agent.js";
 
   installPhase = ''
+    set -x
     # To run without root/sudo grant cap_net_admin capability to the engine with:
     # TODO : write wrapper with libcap
     # setcap cap_net_admin=eip kaiengine
@@ -40,9 +41,11 @@ in stdenv.mkDerivation rec {
 
     # could be compiled using frida-compile
     # see https://github.com/oleavr/frida-agent-example
-    # frida-compile agent/index.ts -o _agent.js -w
+
+    #frida-compile ${./index.ts} -o _agent.js -c
     # nix-shell -p nodejs --run "npm install"
     # nix-shell -p nodejs --run "npm run watch"
+    i#nstall -Dm644 _agent.js $out/lib/_agent.js
     install -Dm644 ${./agent.js} $out/lib/_agent.js
 
     # this trick doesn't work there (-why?)
