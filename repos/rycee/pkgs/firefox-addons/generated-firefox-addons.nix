@@ -219,10 +219,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.22";
+      version = "4.9.23";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3667101/dark_reader-4.9.22-an+fx.xpi";
-      sha256 = "891b90a2c8cca4cd142bdf07c093bea0d4cf803115c2ac4b799968062a1f3fd3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3667405/dark_reader-4.9.23-an+fx.xpi";
+      sha256 = "bb063bbc1c098a1629711bf1d4c7cd96851c7fce14c327dcef296807f25f2c32";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -629,15 +629,14 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.1.5";
+      version = "6.1.6";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3666300/octotree_github_code_tree-6.1.5-fx.xpi";
-      sha256 = "d0f2fd55c007a5cd269227d12d0b0d808001b293f3d30334d4f63e3b9ce25a27";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3667954/octotree_github_code_tree-6.1.6-fx.xpi";
+      sha256 = "b26e69e1c6966b6eb8f8cae96323a726f4cd9a15ea10acd10a386ce4f0f19698";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
         description = "GitHub on steroids";
-        license = licenses.agpl3;
         platforms = platforms.all;
         };
       };
