@@ -1,4 +1,16 @@
 {
+    "async-completing-read": {
+        "branch": "master",
+        "description": "An async-capable completing read function",
+        "homepage": null,
+        "owner": "oantolin",
+        "repo": "async-completing-read",
+        "rev": "9efa7165250f7d781b73d84fe2fa80510fff2b03",
+        "sha256": "1zfyailra837mjhfa213ri3ccwq2g7r62wvf55mmhlyzlinj99bm",
+        "type": "tarball",
+        "url": "https://github.com/oantolin/async-completing-read/archive/9efa7165250f7d781b73d84fe2fa80510fff2b03.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "awesome-tray": {
         "branch": "master",
         "description": "Hide mode-line, display necessary information at right of minibuffer.",
@@ -45,6 +57,18 @@
         "sha256": "0kazcfy8v2qkwjzd0aams03qwamncigqyank7cb42hqqv4rhxpd0",
         "type": "tarball",
         "url": "https://github.com/manateelazycat/emacs-application-framework/archive/2bf07d71eeac548276addb50eb8c5c37380117d0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "embark": {
+        "branch": "master",
+        "description": "Emacs Mini-Buffer Actions Rooted in Keymaps",
+        "homepage": null,
+        "owner": "oantolin",
+        "repo": "embark",
+        "rev": "4c474c0ed03abed12f3f1ff7eca4894bedc86967",
+        "sha256": "0ml3d4v9wwnccdddwg1jh3fv0f0i3h37ssm9i480d4n61gljrp2p",
+        "type": "tarball",
+        "url": "https://github.com/oantolin/embark/archive/4c474c0ed03abed12f3f1ff7eca4894bedc86967.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "eshell-syntax-highlighting": {
@@ -201,6 +225,18 @@
         "sha256": "13zy78qasx796vk7jfkssd9gprhyby4ypcvcdhghcv381k06j328",
         "type": "tarball",
         "url": "https://github.com/dylanaraps/pash/archive/49b70878909166abb53f86431079d807fbb72f68.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "restricto": {
+        "branch": "master",
+        "description": "Restrict to current completion candidates",
+        "homepage": null,
+        "owner": "oantolin",
+        "repo": "restricto",
+        "rev": "f1f19fcb2bf4470450dc42a2bc9f19828f7ca045",
+        "sha256": "06z7l8jx6h1kf7jd82p0qj3v6zh4md0pqy901bcgsxjf5rvqjv6h",
+        "type": "tarball",
+        "url": "https://github.com/oantolin/restricto/archive/f1f19fcb2bf4470450dc42a2bc9f19828f7ca045.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "terminal-typeracer": {

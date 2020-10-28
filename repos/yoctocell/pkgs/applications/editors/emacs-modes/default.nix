@@ -131,6 +131,41 @@ lib.recurseIntoAttrs rec {
       cp -r app/* $out/share/emacs/site-lisp/app/
       cp -r core/* $out/share/emacs/site-lisp/core/
     '';
+  };
 
+  async-completing-read = trivialBuild rec {
+    pname = "async-completing-read";
+    version = builtins.substring 0 7 src.rev;
+    src = fetchFromGitHub {
+      owner = "oantolin";
+      repo = "async-completing-read";
+      rev = sources.async-completing-read.rev;
+      sha256 = sources.async-completing-read.sha256;
+    };
+  };
+
+  restricto = trivialBuild rec {
+    pname = "restricto";
+    version = builtins.substring 0 7 src.rev;
+    src = fetchFromGitHub {
+      owner = "oantolin";
+      repo = "restricto";
+      rev = sources.restricto.rev;
+      sha256 = sources.restricto.sha256;
+    };
+  };
+
+  embark = trivialBuild rec {
+    pname = "embark";
+    version = builtins.substring 0 7 src.rev;
+    src = fetchFromGitHub {
+      owner = "oantolin";
+      repo = "embark";
+      rev = sources.embark.rev;
+      sha256 = sources.embark.sha256;
+    };
+    packageRequires = with emacsPackages; [
+      avy
+    ];
   };
 }
