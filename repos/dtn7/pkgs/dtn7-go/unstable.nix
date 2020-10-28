@@ -1,8 +1,8 @@
 { callPackage }:
 
 callPackage ./. {
-  version = "unstable-2020-10-21";
-  rev = "34d1e3b5800a97993aa874cd9f79c0b7ee76fbd6";
-  sha256 = "1g6w73kcl5pdspx1k5bdsn5j8czah7g6lypb57zjls8gxych2b70";
+  version = "unstable-2020-10-28";
+  rev = "c8134370058361b1a5308a544c60418703c7bc4a";
+  sha256 = "09x6nj6sp0fb9jfy296yd6p8plx24xf7vrlfwaqp7was6a3l1bk1";
   vendorSha256 = "0s7s79qcp6pn740sk100b2qpdr588syzx5jfpj7kxwdp867c9fy1";
 }
