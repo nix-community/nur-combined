@@ -309,6 +309,7 @@
         "date": "2020-10-22T18:32:12Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
+        "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
         "owner": "tumic0",
         "repo": "GPXSee",
         "rev": "d291e55bdb4dce840f082a7c884f8b3b79950126",

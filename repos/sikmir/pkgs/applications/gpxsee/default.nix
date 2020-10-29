@@ -46,7 +46,7 @@ mkDerivation {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    inherit (sources.gpxsee) description homepage;
+    inherit (sources.gpxsee) description homepage changelog;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
