@@ -53,7 +53,7 @@
   programs.git.userName = "sehqlr";
   programs.gpg.enable = true;
   programs.htop.enable = true;
-  programs.kakoune.config.colorScheme = "solarized-dark";
+  programs.kakoune.config.colorScheme = "red-phoenix";
   programs.kakoune.config.hooks = [
     {
       name = "WinCreate";
@@ -72,6 +72,16 @@
       option = "^.*lhs$";
       commands = ''
         set-option buffer filetype markdown
+      '';
+    }
+    {
+      name = "InsertChar";
+      option = "j";
+      commands = ''
+        try %{
+            exec -draft hH <a-k>jj<ret> d
+            exec <esc>
+        }
       '';
     }
   ];
@@ -101,11 +111,11 @@
   programs.starship.settings.character.symbol = "λ";
   programs.termite.enable = true;
   programs.tmux.clock24 = true;
+  programs.tmux.enable = true;
   programs.tmux.extraConfig = ''
     set -g mouse on
   '';
-  programs.tmux.enable = true;
-  programs.tmux.terminal = "xterm-termite";
+  programs.tmux.terminal = "tmux-256color";
   programs.tmux.shortcut = "a";
   programs.waybar.enable = true;
   programs.waybar.settings = [
@@ -120,7 +130,7 @@
       layer = "top";
       position = "bottom";
       modules-left = [ "sway/window" ];
-      modules-center = [];
+      modules-center = [ ];
       modules-right = [ "network" "cpu" "memory" "battery" ];
     }
   ];
