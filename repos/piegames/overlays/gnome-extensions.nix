@@ -12,6 +12,12 @@ self: super: {
 				sha256 = "07jq8d16nn62ikis896nyfn3q02f5srj754fmiblhz472q4ljc3p";
 			};
 		});
+		custom-hot-corners = self.gnomeExtensions.buildShellExtension {
+			pname = "gnome-shell-extension-custom-hot-corners";
+			uuid = "custom-hot-corners@janrunx.gmail.com";
+			version = 7;
+			sha256 = "1azcs4c44v4vrnzr81q5zfsx8hjch8rm0f3axwxd46yg142kli3z";
+		};
 		emoji-selector = self.gnomeExtensions.buildShellExtension {
 			pname = "gnome-shell-extension-emoji-selector";
 			uuid = "emoji-selector@maestroschan.fr";
