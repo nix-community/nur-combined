@@ -108,7 +108,8 @@
   programs.starship.enable = true;
   programs.starship.enableZshIntegration = true;
   programs.starship.settings.add_newline = false;
-  programs.starship.settings.character.symbol = "λ";
+  programs.starship.settings.character.success_symbol = "[λ](bold green)";
+  programs.starship.settings.character.error_symbol = "[λ](bold red)";
   programs.termite.enable = true;
   programs.tmux.clock24 = true;
   programs.tmux.enable = true;
@@ -125,6 +126,14 @@
       modules-left = [ "sway/workspaces" ];
       modules-center = [ "clock" ];
       modules-right = [ "tray" ];
+      modules = {
+          "clock" = {
+              tooltip = true;
+              tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+              today-format = "<b><u>{}</u></b>";
+              format = "{:%H:%M (%a)}";
+          };
+      };
     }
     {
       layer = "top";
@@ -132,6 +141,16 @@
       modules-left = [ "sway/window" ];
       modules-center = [ ];
       modules-right = [ "network" "cpu" "memory" "battery" ];
+      modules = {
+          "network" = {
+              format = "{ifname}";
+              format-wifi = "{essid} ({signalStrength}%) ";
+              format-ethernet = "{ifname} ";
+              format-disconnected = "";
+              tooltip-format = "{bandwidthUpBits} | {bandwidthDownBits}";
+              tooltop-format-disconnected = "OFFLINE";
+          };
+      };
     }
   ];
   programs.waybar.systemd.enable = true;
