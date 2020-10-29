@@ -22,4 +22,5 @@
   spotify-authenticate = pkgs.callPackage ./pkgs/spotify-authenticate { };
   jlink = pkgs.callPackage ./pkgs/jlink { };
   operator-sdk = pkgs.callPackage ./pkgs/operator-sdk { };
+  i3status-rust = pkgs.callPackage ./pkgs/i3status-rust { };
 }
