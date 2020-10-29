@@ -415,10 +415,10 @@
       };
     "honey" = buildFirefoxXpiAddon {
       pname = "honey";
-      version = "12.4.4";
+      version = "12.4.5";
       addonId = "jid1-93CWPmRbVPjRQA@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3653333/honey-12.4.4-fx.xpi";
-      sha256 = "25ad45e6b4bd93a31919e8ae64162cc83072542dc4fc71335c7b4d7866af078a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3665480/honey-12.4.5-fx.xpi";
+      sha256 = "d3589e96335235a7500db2c0059501f67cadcc0ebe0b2230bed85a6d16b4f288";
       meta = with stdenv.lib;
       {
         homepage = "https://www.joinhoney.com";
@@ -546,10 +546,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.0.7.1";
+      version = "1.0.7.2";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3663105/leechblock_ng-1.0.7.1-an+fx.xpi";
-      sha256 = "89768a8ca4f61c88160acb7ccaaa17cdb9a04efc22be0e4dba77db13b2962fe4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3668602/leechblock_ng-1.0.7.2-an+fx.xpi";
+      sha256 = "1d0fbb747b24746f04fa62c15b282ad4aadcceda30c434f1f4ae219f852ffe61";
       meta = with stdenv.lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -629,10 +629,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.1.6";
+      version = "6.1.7";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3667954/octotree_github_code_tree-6.1.6-fx.xpi";
-      sha256 = "b26e69e1c6966b6eb8f8cae96323a726f4cd9a15ea10acd10a386ce4f0f19698";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3668731/octotree_github_code_tree-6.1.7-fx.xpi";
+      sha256 = "5443cdea0d9c3acd2c5c34dbc48cf44dba9ae7b733115b0f15b76df62ca16d93";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
