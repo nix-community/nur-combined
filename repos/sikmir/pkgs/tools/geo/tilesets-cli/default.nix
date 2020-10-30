@@ -1,4 +1,4 @@
-{ lib, python3Packages, jsonseq, sources }:
+{ lib, python3Packages, jsonseq, mercantile, supermercado, sources }:
 let
   pname = "tilesets-cli";
   date = lib.substring 0 10 sources.tilesets-cli.date;
@@ -8,7 +8,14 @@ python3Packages.buildPythonApplication {
   inherit pname version;
   src = sources.tilesets-cli;
 
-  propagatedBuildInputs = with python3Packages; [ boto3 click cligj requests requests-toolbelt jsonschema jsonseq ];
+  propagatedBuildInputs = with python3Packages; [
+    boto3 click cligj
+    requests requests-toolbelt
+    jsonschema jsonseq
+    mercantile supermercado
+  ];
+
+  checkInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     inherit (sources.tilesets-cli) description homepage;
