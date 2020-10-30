@@ -25,7 +25,9 @@
     };
   };
 
-  programs.termite.enable = true;
+  programs.termite = {
+      enable = true;
+  };
 
   programs.tmux = {
     enable = true;
@@ -33,6 +35,12 @@
     extraConfig = ''
       set -g mouse on
     '';
+    plugins = with pkgs; [{
+      plugin = tmuxPlugins.tmux-colors-solarized;
+      extraConfig = ''
+        set -g @colors-solarized 'dark'
+      '';
+    }];
     terminal = "tmux-256color";
     shortcut = "a";
   };

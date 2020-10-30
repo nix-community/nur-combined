@@ -4,7 +4,7 @@
   programs.kakoune = {
     enable = true;
     config = {
-      colorScheme = "red-phoenix";
+      colorScheme = "solarized-dark";
       hooks = [
         {
           name = "WinCreate";
