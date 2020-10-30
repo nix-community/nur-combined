@@ -7,10 +7,7 @@
   networking.interfaces.wlp3s0.useDHCP = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "us";
-  };
+  console.keyMap = "us";
 
   time.timeZone = "America/Chicago";
 
@@ -25,5 +22,5 @@
 
   services.xserver.libinput.enable = true;
 
+  programs.light.enable = true;
 }
-

@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: {
 
-  home.packages = with pkgs; [ wofi ];
+  home.packages = with pkgs; [ sway-contrib.grimshot wl-clipboard wofi ];
 
   programs.firefox = {
       enable = true;
@@ -65,6 +65,8 @@
           "${modifier}+f" = "exec firefox";
           "${modifier}+p" =
             "exec ${pkgs.wofi}/bin/wofi -S run,drun | ${pkgs.findutils}/bin/xargs swaymsg exec --";
+          "XF86MonBrightnessUp" = "exec light -A 5";
+          "XF86MonBrightnessDown" = "exec light -U 5";
         };
       modifier = "Mod4";
       terminal = "${pkgs.termite}/bin/termite -e tmux";
