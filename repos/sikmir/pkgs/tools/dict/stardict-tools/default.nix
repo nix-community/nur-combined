@@ -31,8 +31,6 @@ stdenv.mkDerivation {
     pcre
   ];
 
-  NIX_CFLAGS_COMPILE = [ "-std=c++03" ];
-
   hardeningDisable = [ "format" ];
 
   postPatch = ''

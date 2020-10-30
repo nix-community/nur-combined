@@ -114,15 +114,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-27T12:29:30Z",
+        "date": "2020-10-30T17:02:36Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "50485ffe3782ff8ec312516e98c599104365efcc",
-        "sha256": "1bk2a5g42k2q11bxy5i4921l85d2d4gmpxd0cbj31qn1cnwgp4vq",
+        "rev": "55a40ff57c69369fac7e8f836c6356be45294f6a",
+        "sha256": "1pikjp2s4x0ffrf7vfai6gqd3miv6h65l8w9gnsh3rp9lxjz8sj2",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/50485ffe3782ff8ec312516e98c599104365efcc.tar.gz",
+        "url": "https://github.com/embox/embox/archive/55a40ff57c69369fac7e8f836c6356be45294f6a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -137,6 +137,20 @@
         "sha256": "0bcgrnfl693dmg6yd5bnhmfikdqvv61d2l3mkbg524h0l38xv6ym",
         "type": "tarball",
         "url": "https://github.com/mhulden/foma/archive/b44022c7d9d347dc7392aabbf72c82e558767675.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "gdcv": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-05-14T16:41:01Z",
+        "description": "GoldenDict console version and emacs dynamic module",
+        "homepage": "https://github.com/konstare/gdcv",
+        "owner": "konstare",
+        "repo": "gdcv",
+        "rev": "39fd2667362710f69c13dd596e112b0391e0a57e",
+        "sha256": "1v9micdr6fml1lbhxndbynghrajix5vgp8qg7b7bdsa2wngzlr16",
+        "type": "tarball",
+        "url": "https://github.com/konstare/gdcv/archive/39fd2667362710f69c13dd596e112b0391e0a57e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gef": {
@@ -169,27 +183,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "0rgkv6qh2b8yzfa3hb86l0w1ha4m6ws5ga15ikzv4y2418whk926",
+        "sha256": "0n6glsa0dhxbf3xjdcgq5qgmsb4n9ywlkyh16yr3zcl51k6h2wzp",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-201022.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-201029.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "201022"
+        "version": "201029"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "0fj7g6pxqcv4029azkxn7igdq5s2jq5arzf1j0gc4fbhx0ih71f5",
+        "sha256": "0mgary2fnigrijaj87crc2jrzfi0nj9lxblydm08099rnzzv49rw",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-201022.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-201029.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "201022"
+        "version": "201029"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "06lxbqrnz4cknx99jq7hrbpwb7n589szg6i2bwnf8zcgmlcd3hwm",
+        "sha256": "09039rnw04350dl8dpdgjcjnbrgds3rnlzf8jyfsmrdvflzzz5w3",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201022.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201029.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "201022"
+        "version": "201029"
     },
     "gimgtools": {
         "branch": "master",
@@ -307,29 +321,29 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2020-10-27T19:52:29Z",
+        "date": "2020-10-28T11:15:46Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "9bd79a4104f918dea4c6e1362d619065db78ad8f",
-        "sha256": "1schmymcsd8s0r26qwyx56z107ql8pgrk1pnqy19mc7fyirdwmp5",
+        "rev": "de7664ccc78a145a8bfe5d8c8c94f9993d355b8e",
+        "sha256": "02baylvmzl9fzd3r73dki17hn0mkxzlsxqzglgzwsxswc97jf5p2",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/9bd79a4104f918dea4c6e1362d619065db78ad8f.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/de7664ccc78a145a8bfe5d8c8c94f9993d355b8e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-09T04:10:44Z",
+        "date": "2020-10-28T16:06:20Z",
         "description": "GPXSee maps",
         "homepage": "https://tumic0.github.io/GPXSee-maps",
         "owner": "tumic0",
         "repo": "GPXSee-maps",
-        "rev": "250e84371a2eac7b1ccbf50a28b3ffe06945693f",
-        "sha256": "1cjmkglzc6xmf7yxc0c0a4z2qn58d1ywywp757n0zi2a91y1pk7k",
+        "rev": "134184af60b910095ee511ad820f1b06f779526d",
+        "sha256": "1slld34ljkmldng4rkm0ij75sn9gwi1y9gw9vlaj5sd05zybdhyc",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee-maps/archive/250e84371a2eac7b1ccbf50a28b3ffe06945693f.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee-maps/archive/134184af60b910095ee511ad820f1b06f779526d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxtools": {
@@ -348,15 +362,15 @@
     "gpxtrackposter": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-27T10:57:07Z",
+        "date": "2020-10-30T17:31:41Z",
         "description": "Create a visually appealing poster from your GPX tracks",
         "homepage": "https://github.com/flopp/GpxTrackPoster",
         "owner": "flopp",
         "repo": "GpxTrackPoster",
-        "rev": "3809299c42d4410bfb8be9537c93a9a922106db3",
-        "sha256": "197wd834dsscwh8an2dcca3pwmy4b24hq56f424b5ys1ylpl5xr3",
+        "rev": "0e5b6d9b7680b532e880c7457389d4f2d3135042",
+        "sha256": "014qhlq8hy7j33nvd2amnyb913qpl60i3fwx2k2b05v0w87w4cp0",
         "type": "tarball",
-        "url": "https://github.com/flopp/GpxTrackPoster/archive/3809299c42d4410bfb8be9537c93a9a922106db3.tar.gz",
+        "url": "https://github.com/flopp/GpxTrackPoster/archive/0e5b6d9b7680b532e880c7457389d4f2d3135042.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gt-bash-client": {
@@ -460,15 +474,15 @@
     "klogg": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-27T20:43:15Z",
+        "date": "2020-10-30T13:55:18Z",
         "description": "A fast, advanced log explorer based on glogg project",
         "homepage": "https://klogg.filimonov.dev/",
         "owner": "variar",
         "repo": "klogg",
-        "rev": "c10b30ed0c30873187082edfa11dc01c8bb895d0",
-        "sha256": "0vn6v3msnmzdxhcgmlkqv33849mfiflbzwaspiafws7f6bzx3khz",
+        "rev": "0e3f74d1a3f928a6d2d6fd83b05b5866ff3236a4",
+        "sha256": "1zfq0xxl3b6kklqhawyk1v849qm1dfa3xf9f01frkhbsb6kfipp9",
         "type": "tarball",
-        "url": "https://github.com/variar/klogg/archive/c10b30ed0c30873187082edfa11dc01c8bb895d0.tar.gz",
+        "url": "https://github.com/variar/klogg/archive/0e3f74d1a3f928a6d2d6fd83b05b5866ff3236a4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "libshell": {
@@ -560,11 +574,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "1x8mxwxdbx4yxafl65hp0i8jpnbls8z403p2hdaycvx9dn1j35i5",
+        "sha256": "10z24lqhwmkpg1rmgkyw8pn25jknyqw0a4q299jfh8qs46l9nc85",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-10-27.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-10-30.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-10-27"
+        "version": "2020-10-30"
     },
     "mercantile": {
         "branch": "master",
@@ -827,15 +841,15 @@
     "stardict-3": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-27T09:30:32Z",
+        "date": "2020-10-29T10:35:04Z",
         "description": "Automatically exported from code.google.com/p/stardict-3",
         "homepage": "https://github.com/huzheng001/stardict-3",
         "owner": "huzheng001",
         "repo": "stardict-3",
-        "rev": "3f6485a1b343215d56f03ff8582c4c878fa5c826",
-        "sha256": "06vrk0i9yc38d050lb4vvr1yr61h0a3zf2nnmacccnkyimnxbsi4",
+        "rev": "0e1e163e8a1c8e3080d4787bebb22bd9b4b7dfed",
+        "sha256": "10j5baxiw9rkm4ic831c9bcl987c1rwykj6r0dyh495ds7z4qvkm",
         "type": "tarball",
-        "url": "https://github.com/huzheng001/stardict-3/archive/3f6485a1b343215d56f03ff8582c4c878fa5c826.tar.gz",
+        "url": "https://github.com/huzheng001/stardict-3/archive/0e1e163e8a1c8e3080d4787bebb22bd9b4b7dfed.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "supermercado": {
@@ -925,15 +939,15 @@
     "zdict": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-11T18:12:07Z",
+        "date": "2020-10-30T03:22:02Z",
         "description": "The last online dictionary framework you need",
         "homepage": "https://pypi.org/project/zdict/",
         "owner": "zdict",
         "repo": "zdict",
-        "rev": "010b749afe7fc0f357cff23de505c3ac0130a2bb",
-        "sha256": "00isw0p6x1mb55x5pdlp6rq0rk03nyzg71bx7a5aimlvlip4h7dw",
+        "rev": "26989ca4bb7dcf24332499978b86f234b3ce8cd8",
+        "sha256": "0g569jif13zfgvnp1x35kmrndbn4sh26zcqkrxw78kkjnm8ng8q2",
         "type": "tarball",
-        "url": "https://github.com/zdict/zdict/archive/010b749afe7fc0f357cff23de505c3ac0130a2bb.tar.gz",
+        "url": "https://github.com/zdict/zdict/archive/26989ca4bb7dcf24332499978b86f234b3ce8cd8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

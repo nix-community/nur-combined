@@ -1,4 +1,11 @@
-{ stdenv, lib, mkDerivation, cmake, ninja, sources }:
+{ stdenv
+, lib
+, mkDerivation
+, cmake
+, ninja
+, sources
+, useSentry ? stdenv.isLinux
+}:
 let
   pname = "klogg";
   date = lib.substring 0 10 sources.klogg.date;
@@ -12,7 +19,7 @@ mkDerivation {
 
   enableParallelBuilding = true;
 
-  postPatch = lib.optionalString stdenv.isLinux ''
+  postPatch = lib.optionalString useSentry ''
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
       --set-rpath "$out/lib:${lib.makeLibraryPath [ stdenv.cc.cc.lib ]}" \
       3rdparty/sentry/dump_syms/linux/dump_syms
@@ -20,6 +27,10 @@ mkDerivation {
       --set-rpath "$out/lib:${lib.makeLibraryPath [ stdenv.cc.cc.lib ]}" \
       3rdparty/sentry/dump_syms/linux/minidump_dump
   '';
+
+  preConfigure = "export KLOGG_VERSION=${version}";
+
+  cmakeFlags = lib.optional (!useSentry) "-DKLOGG_USE_SENTRY:BOOL=OFF";
 
   meta = with lib; {
     inherit (sources.klogg) description homepage;
