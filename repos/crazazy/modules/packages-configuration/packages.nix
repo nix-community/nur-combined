@@ -17,7 +17,7 @@ defaultPackages: with defaultPackages.pkgs; {
       firefox-esr
       gparted
       xclip
-      gomuks
+      spectral
       xbanish
       vlc
       ffmpeg
@@ -32,6 +32,7 @@ defaultPackages: with defaultPackages.pkgs; {
     paths = [
       git
       jq
+      crazazy.hidden.emacs
       python-personal
       nodejs_latest
       racket

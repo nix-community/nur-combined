@@ -3,7 +3,7 @@ let
   python-personal-packages = python-packages: with python-packages; [
     pygame
     ConfigArgParse
-    django_2_2
+    django
     matplotlib
     virtualenvwrapper
     pip
