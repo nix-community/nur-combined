@@ -602,10 +602,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "8.1.2";
+      version = "8.1.3";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3663669/metamask-8.1.2-an+fx.xpi";
-      sha256 = "156d36c57e5773370c80b44e7ebdcc52133570bbfffa66acd87baefc94b46ba6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3669168/metamask-8.1.3-an+fx.xpi";
+      sha256 = "e3183550d9df4449d161ac7adda1a485654e9daaa35c2048356eddb94bffdbc5";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
@@ -782,10 +782,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "23.2";
+      version = "23.3";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3664487/save_page_we-23.2-fx.xpi";
-      sha256 = "c8c2099b19492a3d30c4972c6d5d4741fba9206d6f270601fc221b46896b630a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3669179/save_page_we-23.3-fx.xpi";
+      sha256 = "3e4583970dfae2dcaf3fad67f989952392411567e4186a11ff730ccb2507709e";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -809,10 +809,10 @@
       };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.4.2";
+      version = "0.5.1";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3655123/snowflake-0.4.2-fx.xpi";
-      sha256 = "d3430a99343350dff3409999b738c03e103055e8a59145ccb19108429b9c3c8e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3669183/snowflake-0.5.1-fx.xpi";
+      sha256 = "552952cf63e81d29b5bcde821a38aa924a78d573f07a7b531b3a499700d364e9";
       meta = with stdenv.lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -1030,10 +1030,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "17.9";
+      version = "17.10";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3664497/zoom_page_we-17.9-fx.xpi";
-      sha256 = "10c0c7137cf128baaf4c970956bc7fefbcf4cea41313b93a5708f8267e5127b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3669172/zoom_page_we-17.10-fx.xpi";
+      sha256 = "1f6b07d5b0c76c12edd1e6c1a0d5d10895da334f29936355254bcc5d3185ae74";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
