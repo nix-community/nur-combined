@@ -40,6 +40,8 @@ rec {
 
   emacs-pgtk-nativecomp = pkgs.callPackage ./pkgs/applications/editors/emacs-pgtk-nativecomp { };
 
+  git-review = pkgs.python3Packages.callPackage ./pkgs/applications/version-management/git-review { };
+
   goverlay = pkgs.callPackage ./pkgs/tools/graphics/goverlay { };
 
   libhandy1 = pkgs.callPackage ./pkgs/development/libraries/libhandy1 { };
