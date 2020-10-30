@@ -31,10 +31,9 @@ stdenv.mkDerivation {
     pcre
   ];
 
-  NIX_CFLAGS_COMPILE = [
-    "-std=c++03"
-    "-Wno-error=format-security"
-  ];
+  NIX_CFLAGS_COMPILE = [ "-std=c++03" ];
+
+  hardeningDisable = [ "format" ];
 
   postPatch = ''
     substituteInPlace tools/src/wikipediaImage.cpp \

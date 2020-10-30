@@ -114,15 +114,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-23T20:14:16Z",
+        "date": "2020-10-27T12:29:30Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "27d7035a77ff7e766b40ec6facf8b5d5a2eac39e",
-        "sha256": "0w9l2hhp2ndjrc0mj39wfhryvyz5f5wam67wznfsl9hdq00vwhh1",
+        "rev": "50485ffe3782ff8ec312516e98c599104365efcc",
+        "sha256": "1bk2a5g42k2q11bxy5i4921l85d2d4gmpxd0cbj31qn1cnwgp4vq",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/27d7035a77ff7e766b40ec6facf8b5d5a2eac39e.tar.gz",
+        "url": "https://github.com/embox/embox/archive/50485ffe3782ff8ec312516e98c599104365efcc.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -306,16 +306,16 @@
     "gpxsee": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-22T18:32:12Z",
+        "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
+        "date": "2020-10-27T19:52:29Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
-        "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "d291e55bdb4dce840f082a7c884f8b3b79950126",
-        "sha256": "0g2bafhfd7vsybbdqcxj4sxdrjgl2031lx9ivpy802xxbv0dxihg",
+        "rev": "9bd79a4104f918dea4c6e1362d619065db78ad8f",
+        "sha256": "1schmymcsd8s0r26qwyx56z107ql8pgrk1pnqy19mc7fyirdwmp5",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/d291e55bdb4dce840f082a7c884f8b3b79950126.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/9bd79a4104f918dea4c6e1362d619065db78ad8f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -460,15 +460,15 @@
     "klogg": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-23T10:09:03Z",
+        "date": "2020-10-27T20:43:15Z",
         "description": "A fast, advanced log explorer based on glogg project",
-        "homepage": "https://github.com/variar/klogg",
+        "homepage": "https://klogg.filimonov.dev/",
         "owner": "variar",
         "repo": "klogg",
-        "rev": "49f67f908ed5d0a076912cb48673f4ddb6c890d2",
-        "sha256": "0qj4n02jpxgl9d0nz4w6cim035x4blk68lxi3nw00d8xczw39nmf",
+        "rev": "c10b30ed0c30873187082edfa11dc01c8bb895d0",
+        "sha256": "0vn6v3msnmzdxhcgmlkqv33849mfiflbzwaspiafws7f6bzx3khz",
         "type": "tarball",
-        "url": "https://github.com/variar/klogg/archive/49f67f908ed5d0a076912cb48673f4ddb6c890d2.tar.gz",
+        "url": "https://github.com/variar/klogg/archive/c10b30ed0c30873187082edfa11dc01c8bb895d0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "libshell": {
@@ -530,15 +530,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-23T20:02:27Z",
+        "date": "2020-10-26T14:52:10Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "12d7a4448bf6a9f6d345414bba5ae2a2392b4922",
-        "sha256": "08bzjnn6f6kc8659fnbdia01b4y4fv9vzygr7bml5m8z73gpwhhc",
+        "rev": "4b1ba0ce696465e86b65fa138931312a3f992878",
+        "sha256": "0di00lv3bgj6a0pydwsbsr0ifdwlrwp623axd06kwmjggy7lc5b0",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/12d7a4448bf6a9f6d345414bba5ae2a2392b4922.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/4b1ba0ce696465e86b65fa138931312a3f992878.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -560,11 +560,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "18716piawghmwfzb668z5sq20bmrvjgpzn8xvmxci2prgd71h77d",
+        "sha256": "1x8mxwxdbx4yxafl65hp0i8jpnbls8z403p2hdaycvx9dn1j35i5",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-10-23.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-10-27.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-10-23"
+        "version": "2020-10-27"
     },
     "mercantile": {
         "branch": "master",
@@ -827,15 +827,15 @@
     "stardict-3": {
         "branch": "master",
         "builtin": false,
-        "date": "2019-12-09T10:04:43Z",
+        "date": "2020-10-27T09:30:32Z",
         "description": "Automatically exported from code.google.com/p/stardict-3",
         "homepage": "https://github.com/huzheng001/stardict-3",
         "owner": "huzheng001",
         "repo": "stardict-3",
-        "rev": "8c5c26996dca52d6bda0aedb5da0381db930a733",
-        "sha256": "0vmvhr1qlh0zih1v3xg7nnrfajrcy877cfphi5p249pyw3hsv0av",
+        "rev": "3f6485a1b343215d56f03ff8582c4c878fa5c826",
+        "sha256": "06vrk0i9yc38d050lb4vvr1yr61h0a3zf2nnmacccnkyimnxbsi4",
         "type": "tarball",
-        "url": "https://github.com/huzheng001/stardict-3/archive/8c5c26996dca52d6bda0aedb5da0381db930a733.tar.gz",
+        "url": "https://github.com/huzheng001/stardict-3/archive/3f6485a1b343215d56f03ff8582c4c878fa5c826.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "supermercado": {
@@ -869,15 +869,15 @@
     "tatoebatools": {
         "branch": "master",
         "builtin": false,
-        "date": "2015-08-04T11:30:01Z",
+        "date": "2020-10-29T09:23:17Z",
         "description": "A library for downloading, updating and iterating over monolingual data files from Tatoeba",
         "homepage": "https://github.com/LBeaudoux/tatoebatools",
         "owner": "LBeaudoux",
         "repo": "tatoebatools",
-        "rev": "94669e5007ba225a792631668a81bc45476dd57a",
-        "sha256": "0lg2mnnxqj492h8r9fcf8z6yriv779z5562gmr9k10p60ha73api",
+        "rev": "c2c223a60a32cc79c4b4f741b8b21db75c04b3c9",
+        "sha256": "1698j8vmjbv6ifjfvrm6w2c25s27d7hcw65lvgr5vmszwxs2jgkz",
         "type": "tarball",
-        "url": "https://github.com/LBeaudoux/tatoebatools/archive/94669e5007ba225a792631668a81bc45476dd57a.tar.gz",
+        "url": "https://github.com/LBeaudoux/tatoebatools/archive/c2c223a60a32cc79c4b4f741b8b21db75c04b3c9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tilesets-cli": {

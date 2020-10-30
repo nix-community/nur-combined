@@ -20,7 +20,6 @@ stdenv.mkDerivation {
   NIX_CFLAGS_COMPILE = [
     "-std=c++03"
     "-include stddef.h"
-    "-Wno-error=format-security"
   ];
 
   makeFlags = [
@@ -28,6 +27,8 @@ stdenv.mkDerivation {
     "CFG=Release"
     "TARGET_ARCH_BITS=64"
   ];
+
+  hardeningDisable = [ "format" ];
 
   installPhase = ''
     install -Dm755 Release/ocad2mp -t $out/bin

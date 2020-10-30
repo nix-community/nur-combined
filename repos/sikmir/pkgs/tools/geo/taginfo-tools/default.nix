@@ -2,17 +2,15 @@
 
 stdenv.mkDerivation {
   pname = "taginfo-tools";
-  version = "unstable-2020-08-27";
+  version = "unstable-2020-10-28";
 
   src = fetchFromGitHub {
     owner = "taginfo";
     repo = "taginfo-tools";
-    rev = "794d5edc272efaaf5381e7ef513a630ddd4a13ec";
-    sha256 = "05xcqrmm8hzhgbjlyiakzggqjnzbhkdz6qhr7m81mkz3gp0wxffp";
+    rev = "088602ac10d8707d94589c4a0b9d6eff48edf9f2";
+    sha256 = "0yx4bh2gmxsmk8jz8qsxv73h3hi5v3hcpzlaaszjixc88aqa3zz3";
     fetchSubmodules = true;
   };
-
-  cmakeFlags = stdenv.lib.optional stdenv.isDarwin "-DCMAKE_FIND_FRAMEWORK=LAST";
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ bzip2 expat gd icu libosmium protozero sqlite zlib ];
