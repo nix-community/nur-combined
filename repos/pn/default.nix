@@ -22,6 +22,7 @@
   wywozik-todo = pkgs.callPackage ./pkgs/wywozik-todo { };
   agate = pkgs.callPackage ./pkgs/agate { };
   hyperion-rpi3 = pkgs.callPackage ./pkgs/hyperion-rpi3 { };
+  gemget = pkgs.callPackage ./pkgs/gemget { };
 
   st = pkgs.callPackage ./pkgs/larbs/st { };
   dwm = pkgs.callPackage ./pkgs/larbs/dwm { };
