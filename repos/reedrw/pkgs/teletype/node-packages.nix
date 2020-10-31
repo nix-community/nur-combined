@@ -1624,15 +1624,6 @@ let
         sha512 = "1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==";
       };
     };
-    "node-gyp-build-3.7.0" = {
-      name = "node-gyp-build";
-      packageName = "node-gyp-build";
-      version = "3.7.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-3.7.0.tgz";
-        sha512 = "L/Eg02Epx6Si2NXmedx+Okg+4UHqmaf3TNcxd50SF9NQGcJaON3AtU++kax69XV7YWz4tUspqZSAsVofhFKG2w==";
-      };
-    };
     "node-gyp-build-4.2.3" = {
       name = "node-gyp-build";
       packageName = "node-gyp-build";
@@ -2479,13 +2470,13 @@ let
         sha512 = "B0yRTzYdUCCn9n+F4+Gh4yIDtMQcaJsmYBDsTSG8g/OejKBodLQ2IHfN3bM7jUsRXndopT7OIXWdYqc1fjmV6g==";
       };
     };
-    "utf-8-validate-5.0.2" = {
+    "utf-8-validate-5.0.3" = {
       name = "utf-8-validate";
       packageName = "utf-8-validate";
-      version = "5.0.2";
+      version = "5.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/utf-8-validate/-/utf-8-validate-5.0.2.tgz";
-        sha512 = "SwV++i2gTD5qh2XqaPzBnNX88N6HdyhQrNNRykvcS0QKvItV9u3vPEJr+X5Hhfb1JC0r0e1alL0iB09rY8+nmw==";
+        url = "https://registry.npmjs.org/utf-8-validate/-/utf-8-validate-5.0.3.tgz";
+        sha512 = "jtJM6fpGv8C1SoH4PtG22pGto6x+Y8uPprW0tw3//gGFhDDTiuksgradgFN6yRayDP4SyZZa6ZMGHLIa17+M8A==";
       };
     };
     "util-deprecate-1.0.2" = {
@@ -3059,11 +3050,7 @@ in
       sources."typescript-3.9.7"
       sources."universalify-1.0.0"
       sources."uri-js-4.4.0"
-      (sources."utf-8-validate-5.0.2" // {
-        dependencies = [
-          sources."node-gyp-build-3.7.0"
-        ];
-      })
+      sources."utf-8-validate-5.0.3"
       sources."util-deprecate-1.0.2"
       sources."validate-npm-package-license-3.0.4"
       sources."wcwidth-1.0.1"
