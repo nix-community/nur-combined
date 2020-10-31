@@ -1,6 +1,15 @@
 { config, lib, pkgs, ... }: {
-  imports = [ ./email.nix ./git.nix ./gpg.nix ./kakoune.nix ./lorri.nix ./sway.nix ./terminal.nix ];
-  
+  imports = [
+    ./email.nix
+    ./git.nix
+    ./gpg.nix
+    ./kakoune.nix
+    ./lorri.nix
+    ./sway.nix
+    ./streaming.nix
+    ./terminal.nix
+  ];
+
   programs.home-manager.enable = true;
 
   home.username = "sam";
