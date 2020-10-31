@@ -5,10 +5,11 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "feb54e4490f7af6527f648f1d47e1d9379959f3a",
-        "sha256": "1g6msq8v1f7yhsgrwqxw62pa4icry5mm7zrkizagq3izqgsvpbb0",
+
+        "rev": "451d32b1497af5c8ed7ccf74a9726430065b687e",
+        "sha256": "1hhfifk5krr6zxxk9s305w62g6lsy82441rkmb9gn35lwvfk5cfl",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/feb54e4490f7af6527f648f1d47e1d9379959f3a.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/451d32b1497af5c8ed7ccf74a9726430065b687e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "classicube": {
@@ -17,10 +18,11 @@
         "homepage": "",
         "owner": "unknownshadow200",
         "repo": "classicube",
-        "rev": "e3b9f5b531c4a77cbc51be96d98ee2826ffb3e9e",
-        "sha256": "0dcrgw9xy22gy7b0v39x5qb30ljgil1x7s8bsrq38c5y8whks81v",
+
+        "rev": "a4e08431b231f775e746e9c59213c19276839e76",
+        "sha256": "1m4ghz9lq1gc4f4f0qzcb6rh44qk19my6jhpwpqbbj8hjbs3y74j",
         "type": "tarball",
-        "url": "https://github.com/unknownshadow200/classicube/archive/e3b9f5b531c4a77cbc51be96d98ee2826ffb3e9e.tar.gz",
+        "url": "https://github.com/unknownshadow200/classicube/archive/a4e08431b231f775e746e9c59213c19276839e76.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "efm-langserver": {

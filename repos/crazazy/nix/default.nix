@@ -13,5 +13,5 @@ let
 in
 {
   inherit sources pkgs overlay;
-  nixos = (import "${sources.nixpkgs-channels}/nixos" { configuration = ../configuration.nix; }).system;
+  nixos = (import "${sources.nixpkgs}/nixos" { configuration = ../configuration.nix; }).system;
 }
