@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }: {
   imports = [
+    ./apps.nix
     ./email.nix
     ./git.nix
     ./gpg.nix
     ./kakoune.nix
     ./lorri.nix
     ./sway.nix
-    ./streaming.nix
     ./terminal.nix
   ];
 

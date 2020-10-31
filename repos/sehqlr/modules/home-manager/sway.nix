@@ -2,11 +2,6 @@
 
   home.packages = with pkgs; [ sway-contrib.grimshot wl-clipboard wofi ];
 
-  programs.firefox = {
-      enable = true;
-      package = pkgs.firefox-wayland;
-  };
-
   programs.mako.enable = true;
 
   programs.waybar = {

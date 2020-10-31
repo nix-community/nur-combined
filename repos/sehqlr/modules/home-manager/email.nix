@@ -45,4 +45,9 @@
     };
     new.tags = [ "new" ];
   };
+
+  programs.password-store = {
+    enable = true;
+    package = pkgs.pass-wayland;
+  };
 }

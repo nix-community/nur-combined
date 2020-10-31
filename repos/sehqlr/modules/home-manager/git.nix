@@ -1,4 +1,6 @@
 { config, lib, pkgs, ... }: {
+  programs.gh.enable = true;
+
   programs.git = {
     enable = true;
     aliases = {
