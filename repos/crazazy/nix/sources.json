@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "f69d23d1f698b220dcbe8c9ef7112e2c12a342b1",
-        "sha256": "15883106p8lr45d21xk7r21cj90zglyhh44rr8xzrph61smjgssz",
+        "rev": "feb54e4490f7af6527f648f1d47e1d9379959f3a",
+        "sha256": "1g6msq8v1f7yhsgrwqxw62pa4icry5mm7zrkizagq3izqgsvpbb0",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/f69d23d1f698b220dcbe8c9ef7112e2c12a342b1.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/feb54e4490f7af6527f648f1d47e1d9379959f3a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "classicube": {
@@ -17,10 +17,10 @@
         "homepage": "",
         "owner": "unknownshadow200",
         "repo": "classicube",
-        "rev": "04f4818e5371cd46e76dd823a38dc5054f239f08",
-        "sha256": "1hwspl4fpxm5n29fpsvj8wykj98jscx27z8440g1y2642snbczc8",
+        "rev": "e3b9f5b531c4a77cbc51be96d98ee2826ffb3e9e",
+        "sha256": "0dcrgw9xy22gy7b0v39x5qb30ljgil1x7s8bsrq38c5y8whks81v",
         "type": "tarball",
-        "url": "https://github.com/unknownshadow200/classicube/archive/04f4818e5371cd46e76dd823a38dc5054f239f08.tar.gz",
+        "url": "https://github.com/unknownshadow200/classicube/archive/e3b9f5b531c4a77cbc51be96d98ee2826ffb3e9e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "efm-langserver": {
@@ -41,10 +41,10 @@
         "homepage": null,
         "owner": "crazazy",
         "repo": "emacs",
-        "rev": "b3a96ee512dd2abc1e6af84250f2026e62444425",
-        "sha256": "1mxya6xsndagv3xvzp30kr72hh85nqxg0jm5f9qi73x3b9b5k43k",
+        "rev": "9df46dbf846b8d195dfa68a6b5716eee548712de",
+        "sha256": "0ds755zgqzvxfax6kr0ndsswz5jy7y29j698akkcc4plhyv54gw8",
         "type": "tarball",
-        "url": "https://github.com/crazazy/emacs/archive/b3a96ee512dd2abc1e6af84250f2026e62444425.tar.gz",
+        "url": "https://github.com/crazazy/emacs/archive/9df46dbf846b8d195dfa68a6b5716eee548712de.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "home-manager": {
@@ -53,10 +53,10 @@
         "homepage": "https://rycee.gitlab.io/home-manager/",
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "28eb093a1e6999d52e60811008b4bfc7e20cc591",
-        "sha256": "0nfpby733q96vnmp2cbz25bnp3d7vkgmramn4hs1sn5xavhb1mbp",
+        "rev": "a98ec6ec158686387d66654ea96153ec06be33d7",
+        "sha256": "05yvpywhpnnsr55asp6m1chrfd6yf0njy49j3wc9d6qm3dipgwmc",
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/28eb093a1e6999d52e60811008b4bfc7e20cc591.tar.gz",
+        "url": "https://github.com/rycee/home-manager/archive/a98ec6ec158686387d66654ea96153ec06be33d7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "impermanence": {

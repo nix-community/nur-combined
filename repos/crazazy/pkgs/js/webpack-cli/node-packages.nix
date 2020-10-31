@@ -103,13 +103,13 @@ let
         sha512 = "Ew1clU4pkUeo6AFVDFxCbnN7GIZfXl48HIOQeFQnkO3oOqvpI7wdqtLRwv9iOCZ/7A+z4csVZeiDdEcj8g6Wiw==";
       };
     };
-    "commander-6.1.0" = {
+    "commander-6.2.0" = {
       name = "commander";
       packageName = "commander";
-      version = "6.1.0";
+      version = "6.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/commander/-/commander-6.1.0.tgz";
-        sha512 = "wl7PNrYWd2y5mp1OK/LhTlv8Ff4kQJQRXXAvF+uU/TPNiVJUxZLRYGj/B0y/lPGAVcSbJqH2Za/cvHmrPMC8mA==";
+        url = "https://registry.npmjs.org/commander/-/commander-6.2.0.tgz";
+        sha512 = "zP4jEKbe8SHzKJYQmq8Y9gYjtO/POJLgIdKgV7B9qNmABVFVc+ctqSX6iXh4mCpJfRBOabiZ2YKPg8ciDw6C+Q==";
       };
     };
     "cross-spawn-7.0.3" = {
@@ -166,13 +166,13 @@ let
         sha1 = "1b61c0562190a8dff6ae3bb2cf0200ca130b86d4";
       };
     };
-    "execa-4.0.3" = {
+    "execa-4.1.0" = {
       name = "execa";
       packageName = "execa";
-      version = "4.0.3";
+      version = "4.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/execa/-/execa-4.0.3.tgz";
-        sha512 = "WFDXGHckXPWZX19t1kCsXzOpqX9LWYNqn4C+HqZlk/V0imTkzJZqf87ZBhvpHaftERYknpk0fjSylnXVlVgI0A==";
+        url = "https://registry.npmjs.org/execa/-/execa-4.1.0.tgz";
+        sha512 = "j5W0//W7f8UxAn8hXVnwG8tLwdiUy4FJLcSupCg6maBYZDpyBvTApK7KyuI4bKj8KOh1r2YH+6ucuYtJv1bTZA==";
       };
     };
     "find-up-4.1.0" = {
@@ -526,13 +526,13 @@ let
         sha512 = "dvdQgNDNJo+8B2uBQoqdb11eUCE1JQXhvjC/CZtgvZseVd5TYMXnq0+vuUemXbd/Se29cTaUuPX3YIc2xgbvIg==";
       };
     };
-    "v8-compile-cache-2.1.1" = {
+    "v8-compile-cache-2.2.0" = {
       name = "v8-compile-cache";
       packageName = "v8-compile-cache";
-      version = "2.1.1";
+      version = "2.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.1.1.tgz";
-        sha512 = "8OQ9CL+VWyt3JStj7HX7/ciTL2V3Rl1Wf5OL+SNTm0yK1KvtReVulksyeRnCANHHuUxHlQig+JJDlUhBt1NQDQ==";
+        url = "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.2.0.tgz";
+        sha512 = "gTpR5XQNKFwOd4clxfnhaqvfqMpqEwr4tOtCyz4MtYZX2JYhfr1JvBFKdS+7K/9rfpZR3VLX+YWBbKoxCgS43Q==";
       };
     };
     "webpack-merge-4.2.2" = {
@@ -589,14 +589,14 @@ let
       sources."color-name-1.1.3"
       sources."colorette-1.2.1"
       sources."command-line-usage-6.1.0"
-      sources."commander-6.1.0"
+      sources."commander-6.2.0"
       sources."cross-spawn-7.0.3"
       sources."deep-extend-0.6.0"
       sources."end-of-stream-1.4.4"
       sources."enquirer-2.3.6"
       sources."envinfo-7.7.3"
       sources."escape-string-regexp-1.0.5"
-      sources."execa-4.0.3"
+      sources."execa-4.1.0"
       sources."find-up-4.1.0"
       sources."function-bind-1.1.1"
       sources."get-stream-5.2.0"
@@ -636,7 +636,7 @@ let
       sources."table-layout-1.0.1"
       sources."type-fest-0.11.0"
       sources."typical-5.2.0"
-      sources."v8-compile-cache-2.1.1"
+      sources."v8-compile-cache-2.2.0"
       sources."webpack-merge-4.2.2"
       sources."which-2.0.2"
       sources."wordwrapjs-4.0.0"

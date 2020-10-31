@@ -220,13 +220,13 @@ let
         sha512 = "jnqIUKDUqJbDIUxm0Uj7bnlMnRm1T/eZ9N+AVMqhPgzrba2GhGG5o/jCTwmdPK709nEZsGoMzXEDUjcXHa3W0g==";
       };
     };
-    "@types/node-14.14.2" = {
+    "@types/node-14.14.6" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "14.14.2";
+      version = "14.14.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-14.14.2.tgz";
-        sha512 = "jeYJU2kl7hL9U5xuI/BhKPZ4vqGM/OmK6whiFAXVhlstzZhVamWhDSmHyGLIp+RVyuF9/d0dqr2P85aFj4BvJg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-14.14.6.tgz";
+        sha512 = "6QlRuqsQ/Ox/aJEQWBEJG7A9+u7oSYl3mem/K8IzxXG/kAGbV1YPD9Bg9Zw3vyxC/YP+zONKwy8hGkSt1jxFMw==";
       };
     };
     "abbrev-1.1.1" = {
@@ -490,13 +490,13 @@ let
         sha512 = "aNdbnj9P8PjdXU4ybaWLK2IF3jc/EoDYbC7AazW6to3TRsfXxscC9UXOB5iDiEQrkyIbWp2SLQda4+QAa7nc3w==";
       };
     };
-    "buffer-5.6.1" = {
+    "buffer-5.7.0" = {
       name = "buffer";
       packageName = "buffer";
-      version = "5.6.1";
+      version = "5.7.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/buffer/-/buffer-5.6.1.tgz";
-        sha512 = "2z15UUHpS9/3tk9mY/q+Rl3rydOi7yMp5XWNQnRvoz+mJwiv8brqYwp9a+nOCtma6dwuEIxljD8W3ysVBZ05Vg==";
+        url = "https://registry.npmjs.org/buffer/-/buffer-5.7.0.tgz";
+        sha512 = "cd+5r1VLBwUqTrmnzW+D7ABkJUM6mr7uv1dv+6jRw4Rcl7tFIFHDqHPL98LhpGFn3dbAt3gtLxtrWp4m1kFrqg==";
       };
     };
     "buffer-from-1.1.1" = {
@@ -1102,13 +1102,13 @@ let
         sha1 = "2c03405c7538c39d7eb37b317022e325fb018bf7";
       };
     };
-    "gensync-1.0.0-beta.1" = {
+    "gensync-1.0.0-beta.2" = {
       name = "gensync";
       packageName = "gensync";
-      version = "1.0.0-beta.1";
+      version = "1.0.0-beta.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/gensync/-/gensync-1.0.0-beta.1.tgz";
-        sha512 = "r8EC6NO1sngH/zdD9fiRDLdcgnbayXah+mLgManTaIZJqEC1MZstmnox8KpnI2/fxQwrp5OpCOYWLp4rBl4Jcg==";
+        url = "https://registry.npmjs.org/gensync/-/gensync-1.0.0-beta.2.tgz";
+        sha512 = "3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==";
       };
     };
     "get-stream-3.0.0" = {
@@ -1309,13 +1309,13 @@ let
         sha512 = "v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==";
       };
     };
-    "ieee754-1.1.13" = {
+    "ieee754-1.2.1" = {
       name = "ieee754";
       packageName = "ieee754";
-      version = "1.1.13";
+      version = "1.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ieee754/-/ieee754-1.1.13.tgz";
-        sha512 = "4vf7I2LYV/HaWerSo3XmlMkp5eZ83i+/CDluXi/IGTs/O1sejBNhTtnxzmRZfvOUqj7lZjqHkeTvpgSFDlWZTg==";
+        url = "https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz";
+        sha512 = "dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==";
       };
     };
     "ignore-walk-3.0.3" = {
@@ -3068,7 +3068,7 @@ let
       sources."@jspm/npm-1.0.1"
       sources."@jspm/resolve-1.0.0"
       sources."@types/estree-0.0.45"
-      sources."@types/node-14.14.2"
+      sources."@types/node-14.14.6"
       sources."abbrev-1.1.1"
       sources."acorn-7.4.1"
       sources."agent-base-4.3.0"
@@ -3110,7 +3110,7 @@ let
           sources."extend-shallow-2.0.1"
         ];
       })
-      sources."buffer-5.6.1"
+      sources."buffer-5.7.0"
       sources."buffer-from-1.1.1"
       sources."buffer-peek-stream-1.1.0"
       sources."cache-base-1.0.1"
@@ -3221,7 +3221,7 @@ let
       sources."fs.realpath-1.0.0"
       sources."function-bind-1.1.1"
       sources."gauge-2.7.4"
-      sources."gensync-1.0.0-beta.1"
+      sources."gensync-1.0.0-beta.2"
       sources."get-stream-3.0.0"
       sources."get-value-2.0.6"
       sources."getpass-0.1.7"
@@ -3250,7 +3250,7 @@ let
         ];
       })
       sources."iconv-lite-0.4.24"
-      sources."ieee754-1.1.13"
+      sources."ieee754-1.2.1"
       sources."ignore-walk-3.0.3"
       sources."inflight-1.0.6"
       sources."inherits-2.0.4"
