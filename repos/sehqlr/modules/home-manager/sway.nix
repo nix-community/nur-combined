@@ -62,7 +62,7 @@
       keybindings =
         let modifier = config.wayland.windowManager.sway.config.modifier;
         in lib.mkOptionDefault {
-          "${modifier}+f" = "exec firefox";
+          "${modifier}+b" = "exec firefox";
           "${modifier}+p" =
             "exec ${pkgs.wofi}/bin/wofi -S run,drun | ${pkgs.findutils}/bin/xargs swaymsg exec --";
           "XF86MonBrightnessUp" = "exec light -A 5";

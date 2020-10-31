@@ -25,9 +25,7 @@
     };
   };
 
-  programs.termite = {
-      enable = true;
-  };
+  programs.termite = { enable = true; };
 
   programs.tmux = {
     enable = true;
@@ -39,6 +37,7 @@
       plugin = tmuxPlugins.tmux-colors-solarized;
       extraConfig = ''
         set -g @colors-solarized 'dark'
+        set -g status-right ""
       '';
     }];
     terminal = "tmux-256color";
@@ -50,9 +49,12 @@
     enableCompletion = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "copyfile" "extract" "httpie" "pass" "sudo" "systemd" ];
+      plugins = [ "git" "httpie" "ipfs" "ripgrep" "sudo" "systemd" "tmux" ];
       theme = "af-magic";
     };
-    shellAliases = { nixos = "sudo nixos-rebuild"; };
+    shellAliases = {
+      cat = "bat";
+      nixos = "sudo nixos-rebuild";
+    };
   };
 }

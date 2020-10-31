@@ -1,6 +1,11 @@
 { config, lib, pkgs, ... }: {
   home.packages = with pkgs; [ nixfmt python37Packages.editorconfig ];
 
+  programs.zsh.sessionVariables = { EDITOR = "kak"; };
+  home.sessionVariables = { EDITOR = "kak"; };
+  systemd.user.sessionVariables = { EDITOR = "kak"; };
+
+
   programs.kakoune = {
     enable = true;
     config = {
