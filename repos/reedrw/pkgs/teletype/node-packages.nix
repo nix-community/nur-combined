@@ -391,13 +391,13 @@ let
         sha512 = "MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==";
       };
     };
-    "bufferutil-4.0.1" = {
+    "bufferutil-4.0.2" = {
       name = "bufferutil";
       packageName = "bufferutil";
-      version = "4.0.1";
+      version = "4.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/bufferutil/-/bufferutil-4.0.1.tgz";
-        sha512 = "xowrxvpxojqkagPcWRQVXZl0YXhRhAtBEIq3VoER1NH5Mw1n1o0ojdspp+GS2J//2gCVyrzQDApQ4unGF+QOoA==";
+        url = "https://registry.npmjs.org/bufferutil/-/bufferutil-4.0.2.tgz";
+        sha512 = "AtnG3W6M8B2n4xDQ5R+70EXvOpnXsFYg/AK2yTZd+HQ/oxAdz+GI+DvjmhBw3L0ole+LJ0ngqY4JMbDzkfNzhA==";
       };
     };
     "builtin-modules-1.1.1" = {
@@ -1633,6 +1633,15 @@ let
         sha512 = "L/Eg02Epx6Si2NXmedx+Okg+4UHqmaf3TNcxd50SF9NQGcJaON3AtU++kax69XV7YWz4tUspqZSAsVofhFKG2w==";
       };
     };
+    "node-gyp-build-4.2.3" = {
+      name = "node-gyp-build";
+      packageName = "node-gyp-build";
+      version = "4.2.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.2.3.tgz";
+        sha512 = "MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==";
+      };
+    };
     "node-pty-0.9.0" = {
       name = "node-pty";
       packageName = "node-pty";
@@ -2718,7 +2727,7 @@ in
       sources."braces-3.0.2"
       sources."buffer-5.7.0"
       sources."buffer-from-1.1.1"
-      sources."bufferutil-4.0.1"
+      sources."bufferutil-4.0.2"
       sources."builtin-modules-1.1.1"
       sources."camelcase-5.3.1"
       sources."camelcase-keys-6.2.2"
@@ -2913,7 +2922,7 @@ in
       sources."nan-2.14.2"
       sources."natural-orderby-2.0.3"
       sources."nice-try-1.0.5"
-      sources."node-gyp-build-3.7.0"
+      sources."node-gyp-build-4.2.3"
       sources."node-pty-0.9.0"
       (sources."normalize-package-data-2.5.0" // {
         dependencies = [
@@ -3050,7 +3059,11 @@ in
       sources."typescript-3.9.7"
       sources."universalify-1.0.0"
       sources."uri-js-4.4.0"
-      sources."utf-8-validate-5.0.2"
+      (sources."utf-8-validate-5.0.2" // {
+        dependencies = [
+          sources."node-gyp-build-3.7.0"
+        ];
+      })
       sources."util-deprecate-1.0.2"
       sources."validate-npm-package-license-3.0.4"
       sources."wcwidth-1.0.1"
