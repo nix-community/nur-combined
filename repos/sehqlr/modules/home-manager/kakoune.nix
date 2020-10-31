@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }: {
   home.packages = with pkgs; [
     nixfmt
+    nix-linter
     pandoc
     proselint
     python37Packages.editorconfig
@@ -51,6 +52,7 @@
           option = "^.*nix$";
           commands = ''
             set-option buffer formatcmd 'nixfmt'
+            set-option buffer lintcmd 'nix-linter'
           '';
         }
       ];
