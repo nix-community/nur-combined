@@ -1,0 +1,13 @@
+diff --git a/bcml/__main__.py b/bcml/__main__.py
+index b7775a7..fe2cee6 100644
+--- a/bcml/__main__.py
++++ b/bcml/__main__.py
+@@ -85,7 +85,7 @@ def main(debug: bool = False):
+ 
+     api = Api(host)
+ 
+-    gui = "cef" if SYSTEM == "Windows" else "qt"
++    gui = "cef" if SYSTEM == "Windows" else "gtk"
+ 
+     if (util.get_data_dir() / "settings.json").exists():
+         url = f"{host}/index.html"

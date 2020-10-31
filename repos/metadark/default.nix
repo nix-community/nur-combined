@@ -8,56 +8,65 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-rec {
+with pkgs.lib;
+let
+  packages = (self:
+let
+  mergedPkgs = pkgs // self // { lib = pkgs.lib // self.lib; };
+  callPackage = pkgs.newScope mergedPkgs;
+in
+with self; {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  bluetooth-autoconnect = pkgs.python3Packages.callPackage ./pkgs/tools/bluetooth/bluetooth-autoconnect { };
+  bcml = bcml-qt;
 
-  caprine = pkgs.callPackage ./pkgs/applications/networking/instant-messengers/caprine {
+  bcml-gtk = python3Packages.callPackage ./pkgs/games/bcml {
+    gui = "gtk";
+    inherit msjt;
+  };
+
+  bcml-qt = python3Packages.callPackage ./pkgs/games/bcml {
+    gui = "qt";
+    inherit msjt;
+    inherit (pkgs.qt5) wrapQtAppsHook;
+  };
+
+  bluetooth-autoconnect = python3Packages.callPackage ./pkgs/tools/bluetooth/bluetooth-autoconnect { };
+
+  caprine = callPackage ./pkgs/applications/networking/instant-messengers/caprine {
     electron = pkgs.electron_9;
   };
 
-  clonehero-unwrapped = pkgs.callPackage ./pkgs/games/clonehero { };
-
-  clonehero-xdg-wrapper = pkgs.callPackage ./pkgs/games/clonehero/xdg-wrapper.nix {
-    inherit clonehero-unwrapped;
-  };
-
-  clonehero-fhs-wrapper = pkgs.callPackage ./pkgs/games/clonehero/fhs-wrapper.nix {
-    inherit clonehero-unwrapped clonehero-xdg-wrapper;
-  };
-
   clonehero = clonehero-fhs-wrapper;
+  clonehero-fhs-wrapper = callPackage ./pkgs/games/clonehero/fhs-wrapper.nix { };
+  clonehero-unwrapped = callPackage ./pkgs/games/clonehero { };
+  clonehero-xdg-wrapper = callPackage ./pkgs/games/clonehero/xdg-wrapper.nix { };
 
-  cmake-language-server = pkgs.python3Packages.callPackage ./pkgs/development/tools/misc/cmake-language-server {
-    inherit pygls pytest-datadir;
-  };
+  cmake-language-server = python3Packages.callPackage ./pkgs/development/tools/misc/cmake-language-server { };
 
-  debugpy = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/debugpy { };
-
-  emacs-pgtk-nativecomp = pkgs.callPackage ./pkgs/applications/editors/emacs-pgtk-nativecomp { };
+  emacs-pgtk-nativecomp = callPackage ./pkgs/applications/editors/emacs-pgtk-nativecomp { };
 
   git-review = pkgs.python3Packages.callPackage ./pkgs/applications/version-management/git-review { };
 
-  goverlay = pkgs.callPackage ./pkgs/tools/graphics/goverlay { };
+  goverlay = callPackage ./pkgs/tools/graphics/goverlay { };
 
-  libhandy1 = pkgs.callPackage ./pkgs/development/libraries/libhandy1 { };
+  libhandy1 = callPackage ./pkgs/development/libraries/libhandy1 { };
 
-  lightdm-webkit2-greeter = pkgs.callPackage ./pkgs/applications/display-managers/lightdm-webkit2-greeter {
-    inherit lightdm-webkit2-greeter;
-  };
+  lightdm-webkit2-greeter = callPackage ./pkgs/applications/display-managers/lightdm-webkit2-greeter { };
 
-  newsflash = pkgs.callPackage ./pkgs/applications/networking/newsreaders/newsflash { };
+  msjt = callPackage ./pkgs/tools/misc/msjt { };
 
-  pokemmo-installer = pkgs.callPackage ./pkgs/games/pokemmo-installer {
+  newsflash = callPackage ./pkgs/applications/networking/newsreaders/newsflash { };
+
+  pokemmo-installer = callPackage ./pkgs/games/pokemmo-installer {
     inherit (pkgs.gnome3) zenity;
     jre = pkgs.jdk11;
   };
 
-  protontricks = pkgs.python3Packages.callPackage ./pkgs/tools/package-management/protontricks {
+  protontricks = python3Packages.callPackage ./pkgs/tools/package-management/protontricks {
     inherit (pkgs.gnome3) zenity;
     wine = pkgs.wineWowPackages.minimal;
     winetricks = pkgs.winetricks.override {
@@ -65,56 +74,76 @@ rec {
     };
   };
 
-  pygls = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pygls { };
+  pythonPackages = recurseIntoAttrs (pkgs.makeOverridable (import ./pkgs/development/python-modules) {
+    pkgs = mergedPkgs;
+    pythonPackages = pkgs.pythonPackages;
+  });
 
-  pytest-datadir = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/pytest-datadir { };
+  python2Packages = recurseIntoAttrs (pythonPackages.override {
+    pythonPackages = pkgs.python2Packages;
+  });
 
-  rofi-wayland = pkgs.callPackage ./pkgs/applications/misc/rofi-wayland { };
+  python3Packages = recurseIntoAttrs (pythonPackages.override {
+    pythonPackages = pkgs.python3Packages;
+  });
 
-  runescape-launcher-unwrapped = pkgs.callPackage ./pkgs/games/runescape-launcher { };
+  python27Packages = recurseIntoAttrs (pythonPackages.override {
+    pythonPackages = pkgs.python27Packages;
+  });
 
-  runescape-launcher = pkgs.callPackage ./pkgs/games/runescape-launcher/wrapper.nix { };
+  python37Packages = recurseIntoAttrs (pythonPackages.override {
+    pythonPackages = pkgs.python37Packages;
+  });
 
-  texlab = pkgs.callPackage ./pkgs/development/tools/misc/texlab {
+  python38Packages = recurseIntoAttrs (pythonPackages.override {
+    pythonPackages = pkgs.python38Packages;
+  });
+
+  rofi-wayland = callPackage ./pkgs/applications/misc/rofi-wayland { };
+
+  runescape-launcher-unwrapped = callPackage ./pkgs/games/runescape-launcher { };
+  runescape-launcher = callPackage ./pkgs/games/runescape-launcher/wrapper.nix { };
+
+  texlab = callPackage ./pkgs/development/tools/misc/texlab {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
 
-  vdf = pkgs.python3Packages.callPackage ./pkgs/development/python-modules/vdf { };
-
-  vkBasalt = pkgs.callPackage ./pkgs/tools/graphics/vkBasalt {
+  vkBasalt = callPackage ./pkgs/tools/graphics/vkBasalt {
     vkBasalt32 = pkgs.pkgsi686Linux.callPackage ./pkgs/tools/graphics/vkBasalt { };
   };
 
-  VVVVVV-unwrapped = pkgs.callPackage ./pkgs/games/VVVVVV {
+  VVVVVV-unwrapped = callPackage ./pkgs/games/VVVVVV {
     inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
   };
 
-  VVVVVV = pkgs.callPackage ./pkgs/games/VVVVVV/wrapper.nix {
+  VVVVVV = callPackage ./pkgs/games/VVVVVV/wrapper.nix {
     inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
   };
 
-  wine-eac = pkgs.callPackage ./pkgs/misc/emulators/wine-eac {
+  wine-eac = callPackage ./pkgs/misc/emulators/wine-eac {
     wineBuild =
       if pkgs.stdenv.hostPlatform.system == "x86_64-linux"
       then "wineWow"
       else "wine32";
   };
 
-  xpadneo = pkgs.callPackage ./pkgs/os-specific/linux/xpadneo {
+  xpadneo = callPackage ./pkgs/os-specific/linux/xpadneo {
     kernel = pkgs.linux;
   };
 
   zynaddsubfx = zyn-fusion;
 
-  zynaddsubfx-fltk = pkgs.callPackage ./pkgs/applications/audio/zynaddsubfx {
+  zynaddsubfx-fltk = callPackage ./pkgs/applications/audio/zynaddsubfx {
     guiModule = "fltk";
   };
 
-  zynaddsubfx-ntk = pkgs.callPackage ./pkgs/applications/audio/zynaddsubfx {
+  zynaddsubfx-ntk = callPackage ./pkgs/applications/audio/zynaddsubfx {
     guiModule = "ntk";
   };
 
-  zyn-fusion = pkgs.callPackage ./pkgs/applications/audio/zynaddsubfx {
+  zyn-fusion = callPackage ./pkgs/applications/audio/zynaddsubfx {
     guiModule = "zest";
   };
-}
+});
+in
+fix packages

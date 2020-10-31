@@ -54,6 +54,11 @@ assert guiModule == "ntk" -> ntk != null && cairo != null && libXpm != null;
 assert guiModule == "zest" -> libGL != null && libX11 != null;
 
 let
+  guiName = {
+    "fltk" = "FLTK";
+    "ntk" = "NTK";
+    "zest" = "Zyn-Fusion";
+  }.${guiModule};
   mruby-zest = callPackage ./mruby-zest.nix { };
 in stdenv.mkDerivation rec {
   pname = "zynaddsubfx";
@@ -109,8 +114,12 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "High quality software synthesizer";
-    homepage = "https://zynaddsubfx.sourceforge.io";
+    description = "High quality software synthesizer (${guiName} GUI)";
+    homepage =
+      if guiModule == "zest"
+      then "https://zynaddsubfx.sourceforge.io/zyn-fusion.html"
+      else "https://zynaddsubfx.sourceforge.io";
+
     license = licenses.gpl2;
     maintainers = with maintainers; [ goibhniu metadark nico202 ];
     platforms = platforms.linux;
