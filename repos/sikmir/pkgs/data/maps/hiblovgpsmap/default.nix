@@ -1,15 +1,15 @@
 { stdenvNoCC, lib, fetchgdrive, unzip }:
 let
-  version = "2020-09-06";
-  filename = "OV-Hib-Lov-${lib.replaceStrings [ "-" ] [ "" ] version}-1.01.zip";
+  version = "2020-10-17";
+  filename = "OV-Hib-Lov-${lib.replaceStrings [ "-" ] [ "" ] version}-1.03.zip";
 in
 stdenvNoCC.mkDerivation {
   pname = "hiblovgpsmap";
   inherit version;
 
   src = fetchgdrive {
-    id = "1KVgabpxNVbH_xsaCsEAsbRP8XkHHPj78";
-    sha256 = "087h1chr7z936lhkxhp8p46f7wynh0zmjp0sr97v802hz3k7h232";
+    id = "17DUaRG_qj_qgIZ5EuHOflaDCobO0pWlv";
+    sha256 = "1dmc02jg6pgqz05s61qwym4dgwx1qb43j0capzsaiyzbq9m4z99d";
     name = filename;
   };
 
