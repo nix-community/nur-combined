@@ -10,10 +10,19 @@
 
 Mostly Wayland related stuff.
 
+- [deadd-notification-center](https://github.com/phuhl/linux_notification_center)
 - [mpvpaper](https://github.com/GhostNaN/mpvpaper)
 - [waylock](https://github.com/ifreund/waylock) - Requires `security.pam.services.waylock = {};` to authenticate the user
 - [wlclock](https://github.com/Leon-Plickat/wlclock)
 - [wlr-sunclock](https://github.com/sentriz/wlr-sunclock)
+
+## My modules
+
+### nixos
+
+### home-manager
+
+- `modules.home-manager.deadd-notification-center`: notification daemon and notification center
 
 ## TODOs
 
