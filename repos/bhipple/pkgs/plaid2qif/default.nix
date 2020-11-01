@@ -16,7 +16,13 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  propagatedBuildInputs = with python3Packages; [ plaid-python wheel twine docopt python-dateutil ];
+  propagatedBuildInputs = with python3Packages; [
+    docopt
+    plaid-python
+    python-dateutil
+    twine
+    wheel
+  ];
 
   # No tests in archive
   doCheck = false;
