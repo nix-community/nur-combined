@@ -227,9 +227,12 @@ let
       (setq gc-cons-threshold 16777216
             gc-cons-percentage 0.1))
 
-    ;; Make GC more rare during init and while minibuffer is active.
-    (eval-and-compile #'hm/reduce-gc)
-    (add-hook 'minibuffer-setup-hook #'hm/reduce-gc)
+    ;; Make GC more rare during init, while minibuffer is active, and
+    ;; when shutting down. In the latter two cases we try doing the
+    ;; reduction early in the hook.
+    (hm/reduce-gc)
+    (add-hook 'minibuffer-setup-hook #'hm/reduce-gc -50)
+    (add-hook 'kill-emacs-hook #'hm/reduce-gc -50)
 
     ;; But make it more regular after startup and after closing minibuffer.
     (add-hook 'emacs-startup-hook #'hm/restore-gc)
@@ -257,35 +260,45 @@ let
   hasChords = any (p: p.chords != { }) (attrValues cfg.usePackage);
 
   usePackageSetup = ''
+    (setq package-enable-at-startup nil)
+
     (eval-when-compile
-      (require 'package)
+      (require 'use-package))
 
-      (setq package-archives nil
-            package-enable-at-startup nil
-            package--init-file-ensured t)
-
-      (require 'use-package)
-
-      ;; To help fixing issues during startup.
-      (setq use-package-verbose ${
-        if cfg.usePackageVerbose then "t" else "nil"
-      }))
+    ;; To help fixing issues during startup.
+    (setq use-package-verbose ${if cfg.usePackageVerbose then "t" else "nil"})
   '' + optionalString hasDiminish ''
     ;; For :diminish in (use-package).
     (require 'diminish)
   '' + optionalString hasBind ''
     ;; For :bind in (use-package).
     (require 'bind-key)
+
+    ;; Fixes "Symbol’s function definition is void: use-package-autoload-keymap".
+    (autoload #'use-package-autoload-keymap "use-package-bind-key")
   '' + optionalString hasChords ''
     ;; For :chords in (use-package).
     (use-package use-package-chords
       :config (key-chord-mode 1))
   '';
 
-  initFile = ''
-    ;;; hm-init.el --- Emacs configuration à la Home Manager.
+  earlyInitFile = ''
+    ;;; hm-early-init.el --- Emacs configuration à la Home Manager -*- lexical-binding: t; -*-
     ;;
-    ;; -*- lexical-binding: t; -*-
+    ;;; Commentary:
+    ;;
+    ;; The early init component of the Home Manager Emacs configuration.
+    ;;
+    ;;; Code:
+
+    ${cfg.earlyInit}
+
+    (provide 'hm-early-init)
+    ;; hm-early-init.el ends here
+  '';
+
+  initFile = ''
+    ;;; hm-init.el --- Emacs configuration à la Home Manager -*- lexical-binding: t; -*-
     ;;
     ;;; Commentary:
     ;;
@@ -295,12 +308,13 @@ let
     ;;; Code:
 
     ${optionalString cfg.startupTimer ''
-      ;; Remember when configuration started. See bottom for rest of this.
-      ;; Idea taken from http://writequit.org/org/settings.html.
-      (defconst emacs-start-time (current-time))
+      (defun hm/print-startup-stats ()
+        "Prints some basic startup statistics."
+        (let ((elapsed (float-time (time-subtract after-init-time
+                                                  before-init-time))))
+          (message "Startup took %.2fs with %d GCs" elapsed gcs-done)))
+      (add-hook 'emacs-startup-hook #'hm/print-startup-stats)
     ''}
-
-    ${optionalString cfg.recommendedGcSettings gcSettings}
 
     ${cfg.prelude}
 
@@ -309,13 +323,6 @@ let
     (filter (getAttr "enable") (attrValues cfg.usePackage))) + ''
 
       ${cfg.postlude}
-
-      ${optionalString cfg.startupTimer ''
-        ;; Make a note of how long the configuration part of the start took.
-        (let ((elapsed (float-time (time-subtract (current-time)
-                                                  emacs-start-time))))
-          (message "Loading settings...done (%.3fs)" elapsed))
-      ''}
 
       (provide 'hm-init)
       ;; hm-init.el ends here
@@ -333,6 +340,14 @@ in {
     '';
 
     startupTimer = mkEnableOption "Emacs startup duration timer";
+
+    earlyInit = mkOption {
+      type = types.lines;
+      default = "";
+      description = ''
+        Configuration lines to add in <filename>early-init.el</filename>.
+      '';
+    };
 
     prelude = mkOption {
       type = types.lines;
@@ -371,6 +386,17 @@ in {
   };
 
   config = mkIf (config.programs.emacs.enable && cfg.enable) {
+    programs.emacs.init = {
+      earlyInit = mkBefore ''
+        ${optionalString cfg.recommendedGcSettings gcSettings}
+
+        (setq package-enable-at-startup nil)
+
+        ;; Avoid expensive frame resizing. Inspired by Doom Emacs.
+        (setq frame-inhibit-implied-resize t)
+      '';
+    };
+
     programs.emacs.extraPackages = epkgs:
       let
         getPkg = v:
@@ -382,6 +408,14 @@ in {
         packages = concatMap (v: getPkg (v.package))
           (filter (getAttr "enable") (builtins.attrValues cfg.usePackage));
       in [
+        (epkgs.trivialBuild {
+          pname = "hm-early-init";
+          version = "0";
+          src = pkgs.writeText "hm-early-init.el" earlyInitFile;
+          preferLocalBuild = true;
+          allowSubstitutes = false;
+        })
+
         (epkgs.trivialBuild {
           pname = "hm-init";
           version = "0";
@@ -395,9 +429,16 @@ in {
         })
       ];
 
-    home.file.".emacs.d/init.el".text = ''
-      (require 'hm-init)
-      (provide 'init)
-    '';
+    home.file = {
+      ".emacs.d/early-init.el".text = ''
+        (require 'hm-early-init)
+        (provide 'early-init)
+      '';
+
+      ".emacs.d/init.el".text = ''
+        (require 'hm-init)
+        (provide 'init)
+      '';
+    };
   };
 }
