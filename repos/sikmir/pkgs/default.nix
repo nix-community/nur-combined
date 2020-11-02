@@ -151,6 +151,7 @@ lib.makeScope newScope (
     gpxtrackposter = callPackage ./tools/geo/gpxtrackposter { };
     gt-bash-client = callPackage ./tools/dict/gt-bash-client { };
     gt4gd = callPackage ./tools/dict/gt4gd { };
+    gurl = callPackage ./tools/networking/gurl { };
     imgdecode = callPackage ./tools/geo/imgdecode { };
     ish = callPackage ./tools/networking/ish { };
     lsdreader = callPackage ./tools/dict/lsdreader { };

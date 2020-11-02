@@ -44,8 +44,6 @@ mkDerivation {
     "APPDIR=${placeholder "out"}/share/applications"
   ];
 
-  enableParallelBuilding = true;
-
   meta = with lib; {
     inherit (sources.redict) description homepage;
     license = licenses.gpl3;

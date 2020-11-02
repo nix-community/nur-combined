@@ -1,16 +1,16 @@
 { lib, buildGoModule, fetchgit, sources }:
 
 buildGoModule {
-  pname = "shavit";
-  version = "unstable-2020-10-14";
+  pname = "kiln";
+  version = "unstable-2020-11-02";
 
   src = fetchgit {
     url = "https://git.sr.ht/~adnano/kiln";
-    rev = "fa7c320822e1a0abb86100ad47d067538b6b4f34";
-    sha256 = "0sd7plm820z3dwvfsr2cs4rq5kkqf0ykg2gpsrwqr9604l41sklg";
+    rev = "fbe8122ebde2043de743d189402fa717fbfe0a90";
+    sha256 = "121i7fqds8q15bwyld76p0n7rlpspj8kqvfd8pb62hi7897qm4zy";
   };
 
-  vendorSha256 = "0misd11hb9qrd8q668ms12lhk9ijx7nnjxy7qyr9lydnv8v8hz6i";
+  vendorSha256 = "01axixmq1w9k3fh63105z4pxcxjan7l031yj62a9lz4cjlax743i";
 
   meta = with lib; {
     description = "A simple static site generator for Gemini";

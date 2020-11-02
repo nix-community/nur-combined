@@ -43,8 +43,6 @@ mkDerivation {
     ln -s $out/Applications/GPXLab.app/Contents/MacOS/GPXLab $out/bin/gpxlab
   '';
 
-  enableParallelBuilding = true;
-
   meta = with lib; {
     inherit (sources.gpxlab) description homepage;
     license = licenses.gpl3;

@@ -17,8 +17,6 @@ mkDerivation {
 
   nativeBuildInputs = [ cmake ninja ];
 
-  enableParallelBuilding = true;
-
   postPatch = lib.optionalString useSentry ''
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
       --set-rpath "$out/lib:${lib.makeLibraryPath [ stdenv.cc.cc.lib ]}" \

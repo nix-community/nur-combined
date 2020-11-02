@@ -43,8 +43,6 @@ mkDerivation {
     ln -s $out/Applications/GPXSee.app/Contents/MacOS/GPXSee $out/bin/gpxsee
   '';
 
-  enableParallelBuilding = true;
-
   meta = with lib; {
     inherit (sources.gpxsee) description homepage changelog;
     license = licenses.gpl3;
