@@ -17,6 +17,7 @@
   drinklist-cli = pkgs.callPackage ./pkgs/drinklist-cli { };
   frams-shell-tools = pkgs.callPackage ./pkgs/frams-shell-tools { };
   sync3c = pkgs.callPackage ./pkgs/sync3c { };
+  kodiPlugins = import ./pkgs/kodi-plugins { inherit pkgs; };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
