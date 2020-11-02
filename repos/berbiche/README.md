@@ -12,7 +12,8 @@ Mostly Wayland related stuff.
 
 - [deadd-notification-center](https://github.com/phuhl/linux_notification_center)
 - [mpvpaper](https://github.com/GhostNaN/mpvpaper)
-- [waylock](https://github.com/ifreund/waylock) - Requires `security.pam.services.waylock = {};` to authenticate the user
+- [waylock](https://github.com/ifreund/waylock) - Requires `security.pam.services.waylock = {};`
+  or `security.pam.services.waylock.unixAuth = true;` to authenticate the user
 - [wlclock](https://github.com/Leon-Plickat/wlclock)
 - [wlr-sunclock](https://github.com/sentriz/wlr-sunclock)
 

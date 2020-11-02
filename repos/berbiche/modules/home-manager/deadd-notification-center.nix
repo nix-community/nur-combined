@@ -3,11 +3,11 @@
 with lib;
 
 let
-  cfg = config.services.deadd-notification-center;
+  cfg = config.programs.deadd-notification-center;
 
   generator = pkgs.formats.toml { };
 
-  config = generator.generate cfg.settings;
+  config = generator.generate "deadd.conf" cfg.settings;
 in
 {
   options.programs.deadd-notification-center = {
