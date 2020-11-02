@@ -43,10 +43,10 @@
         "homepage": null,
         "owner": "crazazy",
         "repo": "emacs",
-        "rev": "9df46dbf846b8d195dfa68a6b5716eee548712de",
-        "sha256": "0ds755zgqzvxfax6kr0ndsswz5jy7y29j698akkcc4plhyv54gw8",
+        "rev": "4c1b9a395cf5d923464dc679ac312ee05c74ec88",
+        "sha256": "1fqvvxm434m395d42z4gd776i3qfk1w3097qs87129mm46lpmzs0",
         "type": "tarball",
-        "url": "https://github.com/crazazy/emacs/archive/9df46dbf846b8d195dfa68a6b5716eee548712de.tar.gz",
+        "url": "https://github.com/crazazy/emacs/archive/4c1b9a395cf5d923464dc679ac312ee05c74ec88.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "home-manager": {
