@@ -11,7 +11,7 @@ kodiPlugins.mkKodiPlugin rec {
     owner = "CastagnaIT";
     repo = "plugin.video.netflix";
     rev = "${version}";
-    sha256 = "1a8jrv1wp4jjl5sgv39n00crr8i34j1xvamaza1mabl0001mpcxc";
+    sha256 = "1b7pry6cmajg4swl01z5q1azajlsxsp881pq8mdk31kc48q37xzm";
   };
 
   meta = {
