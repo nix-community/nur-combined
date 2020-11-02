@@ -19,7 +19,10 @@
         {
           name = "WinCreate";
           option = "^[^*]+$";
-          commands = "editorconfig-load";
+          commands = ''
+            editorconfig-load
+            autowrap-enable
+          '';
         }
         {
           name = "BufCreate";
