@@ -270,6 +270,16 @@
     }
   },
   {
+    "slug": "tree-style-tab",
+    "license": {
+      "tag": "custom",
+      "shortName": "tree-style-tab",
+      "fullName": "Tree Style Tab License, primarily MPL 2.0",
+      "url": "https://github.com/piroor/treestyletab/blob/trunk/COPYING.txt",
+      "free": true
+    }
+  },
+  {
     "slug": "ublock-origin"
   },
   {
