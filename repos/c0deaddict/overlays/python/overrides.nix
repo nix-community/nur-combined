@@ -18,4 +18,7 @@ self: super: rec {
 
   # pyps4-2ndscreen
   pyps4-2ndscreen = super.callPackage ./pyps4-2ndscreen {};
+
+  # flake8-docstrings
+  flake8-docstrings = super.callPackage ./flake8-docstrings {};
 }

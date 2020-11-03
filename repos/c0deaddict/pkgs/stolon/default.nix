@@ -18,6 +18,9 @@ buildGoModule rec {
 
   checkInputs = [ postgresql ];
 
+  # Travis CI is too slow for the integration test.
+  doCheck = false;
+
   preCheck = ''
     export STOLON_TEST_STORE_BACKEND=etcdv3
     export ETCD_BIN=${etcd}/bin/etcd
