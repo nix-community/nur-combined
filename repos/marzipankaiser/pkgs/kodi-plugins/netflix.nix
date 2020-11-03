@@ -2,7 +2,7 @@
   ...
 }:
 with pkgs;
-kodiPlugins.mkKodiPlugin rec {
+kodiPlugins.kodi.pythonPackages.toPythonModule (kodiPlugins.mkKodiPlugin rec {
   plugin = "netflix";
   namespace = "plugin.video.netflix";
   version = "v1.10.0";
@@ -18,5 +18,6 @@ kodiPlugins.mkKodiPlugin rec {
     description = "Inofficial Netflix plugin for Kodi";
   };
 
-  extraBuildInputs = [ pythonPackages.pycryptodomex ];
-}
+  requiredPythonModules = [ kodiPlugins.kodi.pythonPackages.pycryptodomex ];
+  propagatedBuildInputs = [ kodiPlugins.kodi.pythonPackages.pycryptodomex ];
+})
