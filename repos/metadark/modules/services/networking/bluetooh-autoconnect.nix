@@ -2,8 +2,9 @@
 
 with lib;
 let
+  nur = import ../../.. { inherit pkgs; };
   cfg = config.services.bluetooth-autoconnect;
-  bluetooth-autoconnect = pkgs.nur.repos.metadark.bluetooth-autoconnect;
+  bluetooth-autoconnect = nur.bluetooth-autoconnect;
 in
 {
   options.services.bluetooth-autoconnect = {
