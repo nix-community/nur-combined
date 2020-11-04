@@ -92,13 +92,6 @@ with mergedPkgs; {
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
 
-  # wine-eac = callPackage ./misc/emulators/wine-eac {
-  #   wineBuild =
-  #     if stdenv.hostPlatform.system == "x86_64-linux"
-  #     then "wineWow"
-  #     else "wine32";
-  # };
-
   xpadneo = callPackage ./os-specific/linux/xpadneo {
     kernel = linux;
   };
