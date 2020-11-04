@@ -1,5 +1,8 @@
 { config, lib, pkgs, ... }: {
   home.packages = with pkgs; [
+    aspell
+    aspellDicts.en
+    aspellDicts.en-computers
     nixfmt
     nix-linter
     pandoc

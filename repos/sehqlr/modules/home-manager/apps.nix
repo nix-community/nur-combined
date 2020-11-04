@@ -19,4 +19,6 @@
     enable = true;
     plugins = [ pkgs.obs-wlrobs ];
   };
+
+  programs.zathura.enable = true;
 }
