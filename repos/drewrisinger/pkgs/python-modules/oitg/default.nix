@@ -12,13 +12,13 @@
 
 buildPythonPackage {
   pname = "oitg";
-  version = "unstable-2019-12-18";
+  version = "unstable-2020-11-02";
 
   src = fetchFromGitHub {
     owner = "OxfordIonTrapGroup";
     repo = "oitg";
-    rev = "644d0311c75b0624c4eebfc9d227c5b067ff3d0e";
-    sha256 = "1prcirxir043prb6w9ydn14kfjgnhd13ksnx0df4lm790rbqf04q";
+    rev = "718ea5bf7dca4e8ff3c60271cac052df818274fa";
+    sha256 = "1zs5w5fb10xshzqa0gkngpq174jw7s4rls8j5l3dnvgxicl850z8";
   };
 
   propagatedBuildInputs = [
