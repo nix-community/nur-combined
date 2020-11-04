@@ -1,5 +1,5 @@
 { stdenv, buildEnv, makeWrapper, makeDesktopItem, callPackage,
-newsboat, libnotify, entr }:
+newsboat, libnotify, entr, mpv, sxiv }:
 with stdenv.lib;
 
 let
@@ -43,6 +43,8 @@ in
       task-spooler
       libnotify
       entr
+      mpv
+      sxiv
     ];
 
     postBuild = ''
@@ -51,6 +53,7 @@ in
       cp ${voidrice}/.local/bin/qndl $out/bin/qndl
       cp ${voidrice}/.local/bin/queueandnotify $out/bin/queueandnotify
       cp ${voidrice}/.local/bin/podentr $out/bin/podentr
+      cp ${voidrice}/.local/bin/linkhandler $out/bin/linkhandler
       cp -r ${desktopItem}/share/applications $out/share/applications
 
       sed -i 's:/usr/bin/::g' $out/bin/newsup
