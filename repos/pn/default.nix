@@ -33,6 +33,7 @@
   larbs-news = pkgs.callPackage ./pkgs/larbs-news { };
   larbs-nvim = pkgs.callPackage ./pkgs/larbs-nvim { };
   larbs-scripts = pkgs.callPackage ./pkgs/larbs-scripts { };
+  larbs-music = pkgs.callPackage ./pkgs/larbs-music { };
 
   #fx = (pkgs.callPackage ./pkgs/fx { }).package;
   # xcb-util = pkgs.callPackage ./pkgs/xcb-util { }; #unknown error
