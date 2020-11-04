@@ -25,7 +25,7 @@ Process.setExceptionHandler(function (details) {
       case 0x572a58:
         // occurs after kai engine started.
         // cmp qword [rbx + 0x40], 0
-        // console.log('Known access-violation 0x572a58');
+        console.log('Known access-violation 0x572a58');
         // if (! Memory.protect(details.memory.address, 64, 'r--'))
         //   console.log("Unable to fix memory at : " + details.memory.address);
         // else console.log("Fixed memory at : " + details.memory.address);
