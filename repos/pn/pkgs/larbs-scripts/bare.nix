@@ -11,6 +11,7 @@ in
       for f in `ls -p ${voidrice}/.local/bin | grep -v /`; do
         cp ${voidrice}/.local/bin/$f $out/bin
       done
+      rm $out/bin/slider
     '';
 
     meta = {

@@ -5,6 +5,7 @@ let
   cron = callPackage ./cron.nix { };
   i3cmds = callPackage ./i3cmds.nix { };
   statusbar = callPackage ./statusbar.nix { };
+  slider = callPackage ./slider.nix { };
 in
   buildEnv {
     name = "larbs-scripts";
@@ -13,6 +14,9 @@ in
       cron
       i3cmds
       statusbar
+
+      ## Movie creation
+      slider
     ];
 
     meta = {
