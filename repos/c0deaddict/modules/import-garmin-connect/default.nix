@@ -71,13 +71,6 @@ in
       default = "hourly";
       description = "OnCalendar specification";
     };
-
-    onFailure = mkOption {
-      type = with types; nullOr str;
-      default = null;
-      description = "Start this service if an import fails.";
-      example = "notify-failed@%n";
-    };
   };
 
   config = mkIf cfg.enable {
@@ -85,7 +78,6 @@ in
     systemd.services = flip mapAttrs' cfg.profiles (name: profile:
       nameValuePair "import-garmin-connect-${name}" {
         description = "Import Garmin Connect for profile ${name}";
-        onFailure = if isNull cfg.onFailure  then [] else [cfg.onFailure];
 
         serviceConfig = {
           Type = "oneshot";

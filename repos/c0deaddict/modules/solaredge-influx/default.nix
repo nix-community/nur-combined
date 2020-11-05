@@ -119,20 +119,12 @@ in
       type = types.str;
       description = "File path to the API key";
     };
-
-    onFailure = mkOption {
-      type = with types; nullOr str;
-      default = null;
-      description = "Start this service if an import fails.";
-      example = "notify-failed@%n";
-    };
   };
 
   config = mkIf cfg.enable {
     systemd.services = {
       solaredge-version-check = {
         description = "Solaredge monitoring API version check";
-        onFailure = if isNull cfg.onFailure  then [] else [cfg.onFailure];
 
         serviceConfig = {
           Type = "oneshot";
@@ -142,7 +134,6 @@ in
 
       solaredge-import-power = {
         description = "Solaredge import power data to InfluxDB";
-        onFailure = if isNull cfg.onFailure  then [] else [cfg.onFailure];
 
         serviceConfig = {
           Type = "oneshot";
@@ -152,7 +143,6 @@ in
 
       solaredge-import-inverter = {
         description = "Solaredge import inverter data to InfluxDB";
-        onFailure = if isNull cfg.onFailure  then [] else [cfg.onFailure];
 
         serviceConfig = {
           Type = "oneshot";
@@ -162,7 +152,6 @@ in
 
       solaredge-import-energy = {
         description = "Solaredge import energy data to InfluxDB";
-        onFailure = if isNull cfg.onFailure  then [] else [cfg.onFailure];
 
         serviceConfig = {
           Type = "oneshot";
