@@ -62,6 +62,12 @@
           '';
         }
       ];
+      keyMappings = [{
+        docstring = "wc -w on a selection";
+        mode = "user";
+        key = "w";
+        effect = ":echo %sh{ wc -w <lt><lt><lt> \"$kak_selection\" }<ret>";
+      }];
       numberLines.enable = true;
       showWhitespace.enable = true;
       ui.enableMouse = true;
