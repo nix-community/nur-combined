@@ -16,7 +16,8 @@ while read -r i; do
   ./update.sh
   popd
 done << EOF
-  teletype
   artwiz-lemon
+  picom-next-ibhagwan
+  teletype
 EOF
 

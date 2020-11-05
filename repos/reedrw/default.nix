@@ -19,6 +19,7 @@
   comma = pkgs.callPackage ./pkgs/comma { }; # From https://github.com/Shopify/comma/pull/7
   ix = pkgs.callPackage ./pkgs/ix { };
   noisetorch = pkgs.callPackage ./pkgs/noisetorch { };
+  picom-next-ibhagwan = pkgs.callPackage ./pkgs/picom-next-ibhagwan { };
   r2mod_cli = pkgs.callPackage ./pkgs/r2mod_cli { };
   scientifica = pkgs.callPackage ./pkgs/scientifica { };
   teletype = pkgs.callPackage ./pkgs/teletype { };
