@@ -1,7 +1,7 @@
 {
     "owner": "cmvnd",
     "repo": "fonts",
-    "rev": "11bf70d9ed4d791acd5364ccbf52e7a7f6e22784",
-    "sha256": "0yhncxy9s7ngfrvl0cn48k0xsxss2qvsk9a1j0qqdjnmwzhski17",
+    "rev": "aeb7822c02775ff67b17f1760651d5518ff936fe",
+    "sha256": "119ng21q9z6rikm4ci6y6i6njh51ra2h3picyf33a7jq7b5iahvg",
     "fetchSubmodules": true
 }
