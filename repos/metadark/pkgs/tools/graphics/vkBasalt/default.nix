@@ -11,32 +11,25 @@
 
 stdenv.mkDerivation rec {
   pname = "vkBasalt";
-  version = "0.3.2.2";
+  version = "0.3.2.3";
 
   src = fetchFromGitHub {
     owner = "DadSchoorse";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0xh6y831lf2rfwbpq82nh8ra9a745xrqrp7qd7hczw2pgwaqh44v";
+    sha256 = "1jm7z3dm5m7i50yifyx418l8g50hmczdy43zc68kig41vnrxlqgn";
   };
-
-  # Patch library_path to use absolute paths to libvkbasalt.so
-  # and patch name to be unique per platform for multilib support
-  postPatch = ''
-    substituteInPlace config/vkBasalt.json \
-      --replace libvkbasalt.so "$out/lib/libvkbasalt.so" \
-      --replace VK_LAYER_VKBASALT_post_processing \
-                VK_LAYER_VKBASALT_post_processing_${stdenv.hostPlatform.system}
-  '';
 
   nativeBuildInputs = [ glslang meson ninja pkg-config ];
   buildInputs = [ libX11 ];
+  mesonFlags = [ "-Dappend_libdir_vkbasalt=true" ];
 
-  # Link 32bit manifest to 64bit package to support both 32bit & 64bit Vulkan applications
-  postInstall = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
-    ln -s ${vkBasalt32}/share/vulkan/implicit_layer.d/vkBasalt.json \
-      "$out/share/vulkan/implicit_layer.d/vkBasalt32.json"
-  '';
+  # TODO: Link 32bit library to 64bit package to support 32bit Vulkan applications
+  # Depends on https://github.com/NixOS/nixpkgs/issues/101597
+  # postInstall = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
+  #   mkdir -p "$out/lib32/vkbasalt"
+  #   ln -s ${vkBasalt32}/lib/vkbasalt/libvkbasalt.so "$out/lib32/vkbasalt"
+  # '';
 
   meta = with lib; {
     description = "A Vulkan post processing layer for Linux";
