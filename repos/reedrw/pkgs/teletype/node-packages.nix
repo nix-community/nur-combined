@@ -2218,13 +2218,13 @@ let
         sha512 = "zoE5/e+dnEijk6ASB6/qrK+oYdm2do1hjoLWrqUC/8WEIW1gbxFcKuBof7sW8ArN6e+AYvsE8HBGiVRWL/F5CA==";
       };
     };
-    "tar-fs-2.1.0" = {
+    "tar-fs-2.1.1" = {
       name = "tar-fs";
       packageName = "tar-fs";
-      version = "2.1.0";
+      version = "2.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/tar-fs/-/tar-fs-2.1.0.tgz";
-        sha512 = "9uW5iDvrIMCVpvasdFHW0wJPez0K4JnMZtsuIeDI7HyMGJNxmDZDOCQROr7lXyS+iL/QMpj07qcjGYTSdRFXUg==";
+        url = "https://registry.npmjs.org/tar-fs/-/tar-fs-2.1.1.tgz";
+        sha512 = "V0r2Y9scmbDRLCNex/+hYzvp/zyYjvFbHPNgVTKfQvVrb6guiE/fxP+XblDNR011utopbkex2nM4dHNV6GDsng==";
       };
     };
     "tar-stream-2.1.4" = {
@@ -3019,7 +3019,7 @@ in
           sources."supports-color-7.2.0"
         ];
       })
-      sources."tar-fs-2.1.0"
+      sources."tar-fs-2.1.1"
       sources."tar-stream-2.1.4"
       sources."term-size-2.2.1"
       sources."tmp-0.1.0"
