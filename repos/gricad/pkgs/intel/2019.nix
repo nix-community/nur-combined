@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   name = "intel-compilers-${version}";
   sourceRoot = "/home/scratch/intel/2019";
 
-  buildInputs = [ glibc gcc ];
+  propagatedBuildInputs = [ glibc gcc ];
 
   phases = [ "installPhase" "fixupPhase" "installCheckPhase" "distPhase" ];
 

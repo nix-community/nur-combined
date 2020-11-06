@@ -104,8 +104,8 @@ rec {
 
   # Singularity
   singularity = pkgs.callPackage ./pkgs/singularity { 
-    buildGoModule = pkgs.buildGo113Module;
-    go = pkgs.go_1_13;
+    buildGoModule = pkgs.buildGo114Module;
+    go = pkgs.go_1_14;
   };
 
   # PLPlot
@@ -124,34 +124,34 @@ rec {
   bagel = pkgs.callPackage ./pkgs/bagel { };
 
   # stacks
-  stacks = pkgs.callPackages ./pkgs/stacks { };
+  stacks = pkgs.callPackage ./pkgs/stacks { };
 
   # messer-slim
-  messer-slim = pkgs.callPackages ./pkgs/messer-slim { };
+  messer-slim = pkgs.callPackage ./pkgs/messer-slim { };
 
   # Fate
-  fate = pkgs.callPackages ./pkgs/fate { gdal = gdal; };
+  fate = pkgs.callPackage ./pkgs/fate { gdal = gdal; };
 
   # Migrate
-  migrate = pkgs.callPackages ./pkgs/migrate { };
+  migrate = pkgs.callPackage ./pkgs/migrate { };
 
   # GDL
-  gdl = pkgs.callPackages ./pkgs/gdl {
+  gdl = pkgs.callPackage ./pkgs/gdl {
     plplot = plplot;
     fftw3 = fftw3;
   };
 
   # CSA
-  #csa = pkgs.callPackages ./pkgs/csa { };
+  #csa = pkgs.callPackage ./pkgs/csa { };
 
   # FFTW
-  fftw3 = pkgs.callPackages ./pkgs/fftw { };
+  fftw3 = pkgs.callPackage ./pkgs/fftw { };
 
   # Zonation
-  zonation-core = pkgs.callPackages ./pkgs/zonation-core { gdal = gdal ; };
+  zonation-core = pkgs.callPackage ./pkgs/zonation-core { gdal = gdal ; };
 
   # Scotch 6.0.5a with mumps libraries
-  scotch-mumps = pkgs.callPackages ./pkgs/scotch-mumps { };
+  scotch-mumps = pkgs.callPackage ./pkgs/scotch-mumps { };
 
   # Obitools3
   obitools3 = pkgs.callPackage ./pkgs/obitools/obitools3.nix { };
