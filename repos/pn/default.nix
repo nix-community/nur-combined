@@ -23,6 +23,8 @@
   agate = pkgs.callPackage ./pkgs/agate { };
   #hyperion-rpi3 = pkgs.callPackage ./pkgs/hyperion-rpi3 { };
   gemget = pkgs.callPackage ./pkgs/gemget { };
+  kaiosrt = pkgs.callPackage ./pkgs/kaiosrt { };
+  kaios-devenv = pkgs.callPackage ./pkgs/kaiosrt/devenv.nix { };
 
   st = pkgs.callPackage ./pkgs/larbs/st { };
   dwm = pkgs.callPackage ./pkgs/larbs/dwm { };
