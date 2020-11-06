@@ -10,13 +10,13 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "mariadb-galera";
-  version = "25.3.30";
+  version = "25.3.31";
 
   src = fetchFromGitHub {
     owner = "codership";
     repo = "galera";
     rev = "release_${version}";
-    sha256 = "13mgbnwlpcv2ci401wzn3yph2gn62ysq8mp6ga8bl7annkl3dpd6";
+    sha256 = "0z6l8skvb4j35q4ibdz49kw2k95ni065kmmkbfbsf0aaifgi7qww";
     fetchSubmodules = true;
   };
 
@@ -47,7 +47,6 @@ in stdenv.mkDerivation rec {
     install -m 444 "scripts/packages/freebsd/LICENSE" "$out/$GALERA_LICENSE_DIR"
     install -m 444 "LICENSE"                          "$out/$GALERA_LICENSE_DIR/GPLv2"
     install -m 444 "asio/LICENSE_1_0.txt"             "$out/$GALERA_LICENSE_DIR/LICENSE.asio"
-    install -m 444 "www.evanjones.ca/LICENSE"         "$out/$GALERA_LICENSE_DIR/LICENSE.crc32c"
     install -m 444 "chromium/LICENSE"                 "$out/$GALERA_LICENSE_DIR/LICENSE.chromium"
   '';
 

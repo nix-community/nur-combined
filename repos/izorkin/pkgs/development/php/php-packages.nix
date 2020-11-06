@@ -97,12 +97,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.15";
+    version = "2.0.4";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "1shsxsrc2kq74s1jbq3njn9wzidcz7ak66n9vyz8z8d0hqpg37d6";
+      sha256 = "03bnaifywh8pmpzl0b8r3rm3radj0rz176vzkz327j99fi3vrcn3";
     };
 
     dontUnpack = true;
@@ -184,10 +184,10 @@ let
   };
 
   event = buildPecl {
-    version = "2.5.7";
+    version = "3.0.0";
     pname = "event";
 
-    sha256 = "0jkzcm5mmbg101jc7p3aws9qb6l6xbxkfff82mrf7s5fn7xd44im";
+    sha256 = "1k35qwcf4qz8617b4riy7bp0vna1j3ds0k9j52hlm7qrhww2yxqn";
 
     configureFlags = with pkgs; [
       "--with-event-libevent-dir=${libevent.dev}"
@@ -206,8 +206,6 @@ let
       '';
       license = licenses.php301;
       homepage = "https://bitbucket.org/osmanov/pecl-event/";
-
-      broken = isPhp80;
     };
   };
 
@@ -380,9 +378,9 @@ let
 
   mongodb18 = buildPecl {
     pname = "mongodb";
-    version = "1.8.1";
+    version = "1.8.2";
 
-    sha256 = "0xxrll17c7nz146g9gww4cg41xc3qg41n73syb06546q9skqabyl";
+    sha256 = "01l300204ph9nd7khd9qazpdbi1biqvmjqbxbngdfjk9n5d8vvzw";
 
     nativeBuildInputs = with pkgs; [ pkgconfig ];
     buildInputs = with pkgs; [
@@ -429,12 +427,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "2.16.4";
+    version = "2.16.7";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "05rdvypxc86hjs8b7id2csa7g1rf7dk2swzfvd5768abdgfasvr8";
+      sha256 = "1azivqvgqy224g2ch9v9qgi31w4ml7fph3bsk8c304yvbvvfv5nh";
     };
 
     phases = [ "installPhase" ];
@@ -490,12 +488,12 @@ let
   };
 
   phpcbf = mkDerivation rec {
-    version = "3.5.6";
+    version = "3.5.8";
     pname = "phpcbf";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcbf.phar";
-      sha256 = "0a0vi8mzbv73p59y3ygqx6dj2c7awlpahx3v9jqr317q1l0fd4gr";
+      sha256 = "15ci30yvw3p9zlmzsk9s4mxzb3wax3gl9p55slhf1bzwn1xxwyb0";
     };
 
     phases = [ "installPhase" ];
@@ -517,12 +515,12 @@ let
   };
 
   phpcs = mkDerivation rec {
-    version = "3.5.6";
+    version = "3.5.8";
     pname = "phpcs";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
-      sha256 = "151x3fck72r1vw4899n1niqqmbsfr8z31isvr2922kj8ldc32jb0";
+      sha256 = "037mdnpbgd9xaj556pf14h02a4a6f5zzdg58p2z1sivxcygf8aka";
     };
 
     phases = [ "installPhase" ];
@@ -544,12 +542,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.50";
+    version = "0.12.54";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0kralhafvwsni1drnc7hv33dia8p6kzscv976hvjyl8lmh2phdl3";
+      sha256 = "0j6hcmnqm94yn057r1iajjxkmpzmqkp9hk17mgs0fj8gp2ls6qg3";
     };
 
     phases = [ "installPhase" ];
@@ -689,12 +687,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "3.17.2";
+    version = "4.1.1";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "1rxbi46f1iszkj6nd0ggr4gjr5c5pibkq4cf8s2alrvm1ji3c1gl";
+      sha256 = "05qjrg8wxlqxihv7xl31n73ygx7ykvcpbh2gq958iin4rr1bcy88";
     };
 
     phases = [ "installPhase" ];
@@ -814,12 +812,12 @@ let
   };
 
   redis50 = buildPecl {
-    version = "5.3.1";
+    version = "5.3.2";
     pname = "redis";
 
-    sha256 = "17c0m3fq2qmhlmicz3viwnarivfkqkx482y0rk658sxwbjff8abw";
+    sha256 = "1cfsbxf3q3im0cmalgk76jpz581zr92z03c1viy93jxb53k2vsgl";
 
-    meta.broken = (isPhp56 || isPhp80);
+    meta.broken = isPhp56;
   };
 
   sqlsrv = buildPecl {
