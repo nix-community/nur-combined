@@ -233,10 +233,10 @@
       };
     "decentraleyes" = buildFirefoxXpiAddon {
       pname = "decentraleyes";
-      version = "2.0.14";
+      version = "2.0.15";
       addonId = "jid1-BoFifL9Vbdl2zQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3539177/decentraleyes-2.0.14-an+fx.xpi";
-      sha256 = "71a55834ee991605d461f304271f989aa1147e1cf772e25787cbada19ab0ba51";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3672658/decentraleyes-2.0.15-an+fx.xpi";
+      sha256 = "2554069168458cc1351e5d37ee995de044e514ec72369829ff0bcbf31d586ddf";
       meta = with stdenv.lib;
       {
         homepage = "https://decentraleyes.org";
