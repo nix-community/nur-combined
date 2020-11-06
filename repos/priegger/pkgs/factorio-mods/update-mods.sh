@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i bash -I nixpkgs=https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz -p jq nix coreutils curl
+#! nix-shell -i bash -I nixpkgs=https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz -p jq coreutils curl
 set -eu -o pipefail
 
 # Lint: shellcheck -s bash update-mods.sh
