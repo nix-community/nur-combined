@@ -170,7 +170,7 @@ let
       ++ optional argon2Support "--with-password-argon2=${libargon2}"
       ++ optional cgotoSupport "--enable-re2c-cgoto"
       ++ optional (!ipv6Support) "--disable-ipv6"
-      ++ optional (pearSupport && libxml2Support) "--with-pear=$(out)/lib/php/pear"
+      ++ optional (pearSupport && libxml2Support) "--with-pear"
       ++ optional systemdSupport "--with-fpm-systemd"
       ++ optional valgrindSupport "--with-valgrind=${valgrind.dev}"
       ++ optional (ztsSupport && (versionOlder version "8.0")) "--enable-maintainer-zts"
