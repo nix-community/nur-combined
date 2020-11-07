@@ -114,15 +114,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-02T10:39:38Z",
+        "date": "2020-11-07T08:24:14Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "d9dc7a8c9d413e0326024563f832acbad72fab62",
-        "sha256": "1ipzf2c1k1kyxig9bb14rgy4qrjascyv88m2grqy6ws4yph76zb7",
+        "rev": "9b70183bcdeda1059fc5561ab0072e916fe1afc6",
+        "sha256": "1rap2gchixb385lviwmrlx8wvx8wxxwfrgw55f1grh7sx6pgmacg",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/d9dc7a8c9d413e0326024563f832acbad72fab62.tar.gz",
+        "url": "https://github.com/embox/embox/archive/9b70183bcdeda1059fc5561ab0072e916fe1afc6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -183,27 +183,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "0n6glsa0dhxbf3xjdcgq5qgmsb4n9ywlkyh16yr3zcl51k6h2wzp",
+        "sha256": "1dqp1n3p93ilnrvw1jsc5d3404szp1vqvp0z0i78y5s61ch19s3m",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-201029.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-201106.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "201029"
+        "version": "201106"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "0mgary2fnigrijaj87crc2jrzfi0nj9lxblydm08099rnzzv49rw",
+        "sha256": "0bjms1app3jr84i8vhvhrkb9kxwjc5zx5ia597fzb5m9ma1hyz7h",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-201029.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-201106.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "201029"
+        "version": "201106"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "09039rnw04350dl8dpdgjcjnbrgds3rnlzf8jyfsmrdvflzzz5w3",
+        "sha256": "1jpfknqr0rsdcgrcazzcr5bw1galbf4n5x53rm59lyjq4rwahsmw",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201029.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201106.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "201029"
+        "version": "201106"
     },
     "gimgtools": {
         "branch": "master",
@@ -418,15 +418,15 @@
     "hfst": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-06T13:55:58Z",
+        "date": "2020-11-06T09:20:36Z",
         "description": "Helsinki Finite-State Technology (library and application suite)",
         "homepage": "https://hfst.github.io",
         "owner": "hfst",
         "repo": "hfst",
-        "rev": "a40be44f9205df89b2f7b9cc0051466413933690",
-        "sha256": "1riz9x58yhmzass8wcnyxsxd3nbk1cdfp7a72qd3gy6iv9bw2b26",
+        "rev": "b7fef31f7ec5e5b3fb5695186fcad7ca8ff2c1b5",
+        "sha256": "0f2fv5rbgzcb9wnzhnmjyfl27spxb00ii4xffvp572x2mazy376c",
         "type": "tarball",
-        "url": "https://github.com/hfst/hfst/archive/a40be44f9205df89b2f7b9cc0051466413933690.tar.gz",
+        "url": "https://github.com/hfst/hfst/archive/b7fef31f7ec5e5b3fb5695186fcad7ca8ff2c1b5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "how-to-use-pvs-studio-free": {
@@ -544,15 +544,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-01T08:51:36Z",
+        "date": "2020-11-07T05:03:44Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "34b8890065d93943274aaacf18c638ce57c67000",
-        "sha256": "0g3cl4dw6fkw5wwhbdqab4rjlj3kvivmzxqx1bjpaydf569gyb22",
+        "rev": "0977dce62ed6f5400527e609c8aca2b6c648adec",
+        "sha256": "06qn2ndsjz18crb3sda4i2ldax2bnw1cb2d5f9bkh04id2968jbd",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/34b8890065d93943274aaacf18c638ce57c67000.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/0977dce62ed6f5400527e609c8aca2b6c648adec.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -574,11 +574,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "10z24lqhwmkpg1rmgkyw8pn25jknyqw0a4q299jfh8qs46l9nc85",
+        "sha256": "1fcfs86n3742b36gps4l3a4mjgdjdrcvrds5d16yjazsw762isy6",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-10-30.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-11-06.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-10-30"
+        "version": "2020-11-06"
     },
     "mercantile": {
         "branch": "master",
@@ -663,29 +663,29 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-02T18:21:51Z",
+        "date": "2020-11-02T20:15:16Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "a3f091ec6dafa32b0c0d5d00020a03e03686ba38",
-        "sha256": "1xp6807c258224villrxs6lfzv9nygz2ir429pprfbm7x9b5zqmq",
+        "rev": "0a3410bee4c3e0a7f7a6d13cdccf92465aebf344",
+        "sha256": "0h6gq8ky6mcn3xxv5q2fwc2mj5v0wgagn6xh5lll8xl9x064l027",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/a3f091ec6dafa32b0c0d5d00020a03e03686ba38.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/0a3410bee4c3e0a7f7a6d13cdccf92465aebf344.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-01T18:32:47Z",
+        "date": "2020-11-06T02:32:13Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "9f6808a35a91a0919c59432c6127394b737e1b9c",
-        "sha256": "1709lzdgwf98dc7xgayb8jkgnilw9ibkkqbqx81i8dh96f1bc8qk",
+        "rev": "75a4123f5a57a07b1d6bc1d35c770b68dcb9c79e",
+        "sha256": "017pc6ib18p3dcj64g6qvki9mk04jc0cz64q6jc322gb9f0j7hh9",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/9f6808a35a91a0919c59432c6127394b737e1b9c.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/75a4123f5a57a07b1d6bc1d35c770b68dcb9c79e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -841,15 +841,15 @@
     "stardict-3": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-31T03:06:36Z",
+        "date": "2020-11-07T10:10:47Z",
         "description": "Automatically exported from code.google.com/p/stardict-3",
         "homepage": "https://github.com/huzheng001/stardict-3",
         "owner": "huzheng001",
         "repo": "stardict-3",
-        "rev": "2eb5de006f84745cf7c9b2addfb057ff371ad73c",
-        "sha256": "12572npyyky00ij0fcvy6cvlb0lgj000skn8fyrrbiamh0dkm3ng",
+        "rev": "8dc32be156efc44481389a7198c00db627debf3c",
+        "sha256": "002hjiva0x6r3iw7nffms4fzfibb82nkq8nd3gr04bf03g1vyn4r",
         "type": "tarball",
-        "url": "https://github.com/huzheng001/stardict-3/archive/2eb5de006f84745cf7c9b2addfb057ff371ad73c.tar.gz",
+        "url": "https://github.com/huzheng001/stardict-3/archive/8dc32be156efc44481389a7198c00db627debf3c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "supermercado": {
@@ -883,15 +883,15 @@
     "tatoebatools": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-29T09:23:17Z",
+        "date": "2020-11-07T08:36:24Z",
         "description": "A library for downloading, updating and iterating over monolingual data files from Tatoeba",
         "homepage": "https://github.com/LBeaudoux/tatoebatools",
         "owner": "LBeaudoux",
         "repo": "tatoebatools",
-        "rev": "c2c223a60a32cc79c4b4f741b8b21db75c04b3c9",
-        "sha256": "1698j8vmjbv6ifjfvrm6w2c25s27d7hcw65lvgr5vmszwxs2jgkz",
+        "rev": "6e3fc073fe4d9d7bea9afe65d5db39213b5ca586",
+        "sha256": "0vc2yv46pfvbb4wxsr0w1py3kar1i02xmb477ilbg1vdhbr0d2vb",
         "type": "tarball",
-        "url": "https://github.com/LBeaudoux/tatoebatools/archive/c2c223a60a32cc79c4b4f741b8b21db75c04b3c9.tar.gz",
+        "url": "https://github.com/LBeaudoux/tatoebatools/archive/6e3fc073fe4d9d7bea9afe65d5db39213b5ca586.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tilesets-cli": {
