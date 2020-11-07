@@ -16,7 +16,7 @@ mkDerivation {
     rev = "a55f3bc10f9617e54312976e1c3c65e30ea30c06";
     sha256 = "sha256-TyXQcZD5SV/dl212P+iFUTLtLoDSV81CviFT9lYz+Rc=";
   };
-  buildInputs = [ qtbase stdenv.cc.cc.lib ];
+  buildInputs = [ qtbase ];
   nativeBuildInputs = [ qmake qttools autoPatchelfHook ];
   patches = [ ./0001-remove-deploy.patch ];
   installPhase = ''
