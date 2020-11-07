@@ -4,22 +4,22 @@
 
 let
   sources = {
-    "@webpack-cli/info-1.0.2" = {
+    "@webpack-cli/info-1.1.0" = {
       name = "_at_webpack-cli_slash_info";
       packageName = "@webpack-cli/info";
-      version = "1.0.2";
+      version = "1.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/info/-/info-1.0.2.tgz";
-        sha512 = "FEfLQwmN4pXZSYSrtp+KC84rFanoCIxXFpS2wUvviDCE2fnajwxw2GXzbj83IlH4Dl8Wq8kJjavVwvxv3YJmnw==";
+        url = "https://registry.npmjs.org/@webpack-cli/info/-/info-1.1.0.tgz";
+        sha512 = "uNWSdaYHc+f3LdIZNwhdhkjjLDDl3jP2+XBqAq9H8DjrJUvlOKdP8TNruy1yEaDfgpAIgbSAN7pye4FEHg9tYQ==";
       };
     };
-    "@webpack-cli/serve-1.0.1" = {
+    "@webpack-cli/serve-1.1.0" = {
       name = "_at_webpack-cli_slash_serve";
       packageName = "@webpack-cli/serve";
-      version = "1.0.1";
+      version = "1.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.0.1.tgz";
-        sha512 = "WGMaTMTK6NOe29Hw1WBEok9vGLfKg5C6jWzNOS/6HH1YadR+RL+TRWRcSyc81Dzulljhk/Ree9mrDM4Np9GGOQ==";
+        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.1.0.tgz";
+        sha512 = "7RfnMXCpJ/NThrhq4gYQYILB18xWyoQcBey81oIyVbmgbc6m5ZHHyFK+DyH7pLHJf0p14MxL4mTsoPAgBSTpIg==";
       };
     };
     "ansi-colors-4.1.1" = {
@@ -29,15 +29,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/ansi-colors/-/ansi-colors-4.1.1.tgz";
         sha512 = "JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==";
-      };
-    };
-    "ansi-escapes-4.3.1" = {
-      name = "ansi-escapes";
-      packageName = "ansi-escapes";
-      version = "4.3.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/ansi-escapes/-/ansi-escapes-4.3.1.tgz";
-        sha512 = "JWF7ocqNrp8u9oqpgV+wH5ftbt+cfvv+PTjOvKLT3AdYly/LmORARfEVT1iyjwN+4MqE5UmVKoAdIBqeoCHgLA==";
       };
     };
     "ansi-styles-3.2.1" = {
@@ -247,13 +238,13 @@ let
         sha512 = "Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==";
       };
     };
-    "is-core-module-2.0.0" = {
+    "is-core-module-2.1.0" = {
       name = "is-core-module";
       packageName = "is-core-module";
-      version = "2.0.0";
+      version = "2.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.0.0.tgz";
-        sha512 = "jq1AH6C8MuteOoBPwkxHafmByhL9j5q4OaPGdbuD+ZtQJVzH+i6E3BJDQcBA09k57i2Hh2yQbEG8yObZ0jdlWw==";
+        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.1.0.tgz";
+        sha512 = "YcV7BgVMRFRua2FqQzKtTDMz8iCuLEyGKjr70q8Zm1yy2qKcurbFEd79PAdHV77oL3NrAaOVQIbMmiHQCHB7ZA==";
       };
     };
     "is-stream-2.0.0" = {
@@ -272,6 +263,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz";
         sha1 = "e8fbf374dc556ff8947a10dcb0572d633f2cfa10";
+      };
+    };
+    "leven-3.1.0" = {
+      name = "leven";
+      packageName = "leven";
+      version = "3.1.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/leven/-/leven-3.1.0.tgz";
+        sha512 = "qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==";
       };
     };
     "locate-path-5.0.0" = {
@@ -508,15 +508,6 @@ let
         sha512 = "dEquqYNJiGwY7iPfZ3wbXDI944iqanTSchrACLL2nOB+1r+h1Nzu2eH+DuPPvWvm5Ry7iAPeFlgEtP5bIp5U7Q==";
       };
     };
-    "type-fest-0.11.0" = {
-      name = "type-fest";
-      packageName = "type-fest";
-      version = "0.11.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/type-fest/-/type-fest-0.11.0.tgz";
-        sha512 = "OdjXJxnCN1AvyLSzeKIgXTXxV+99ZuXl3Hpo9XpJAv9MBcHrrJOQ5kV7ypXOuQie+AmWG25hLbiKdwYTifzcfQ==";
-      };
-    };
     "typical-5.2.0" = {
       name = "typical";
       packageName = "typical";
@@ -575,13 +566,12 @@ let
   args = {
     name = "webpack-cli";
     packageName = "webpack-cli";
-    version = "4.1.0";
-    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.1.0.tgz"; sha1 = "3a8fe05326015cc92b67abea68e3c320d418b16e"; };
+    version = "4.2.0";
+    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.2.0.tgz"; sha1 = "10a09030ad2bd4d8b0f78322fba6ea43ec56aaaa"; };
     dependencies = [
-      sources."@webpack-cli/info-1.0.2"
-      sources."@webpack-cli/serve-1.0.1"
+      sources."@webpack-cli/info-1.1.0"
+      sources."@webpack-cli/serve-1.1.0"
       sources."ansi-colors-4.1.1"
-      sources."ansi-escapes-4.3.1"
       sources."ansi-styles-3.2.1"
       sources."array-back-4.0.1"
       sources."chalk-2.4.2"
@@ -605,9 +595,10 @@ let
       sources."human-signals-1.1.1"
       sources."import-local-3.0.2"
       sources."interpret-2.2.0"
-      sources."is-core-module-2.0.0"
+      sources."is-core-module-2.1.0"
       sources."is-stream-2.0.0"
       sources."isexe-2.0.0"
+      sources."leven-3.1.0"
       sources."locate-path-5.0.0"
       sources."lodash-4.17.20"
       sources."merge-stream-2.0.0"
@@ -634,7 +625,6 @@ let
       sources."strip-final-newline-2.0.0"
       sources."supports-color-5.5.0"
       sources."table-layout-1.0.1"
-      sources."type-fest-0.11.0"
       sources."typical-5.2.0"
       sources."v8-compile-cache-2.2.0"
       sources."webpack-merge-4.2.2"
