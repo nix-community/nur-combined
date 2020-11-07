@@ -25,6 +25,7 @@ rec {
   );
 
   python3Packages = python37Packages;
+  SpriteSheetPacker = pkgs.qt5.callPackage ./pkgs/SpriteSheetPacker { };
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
