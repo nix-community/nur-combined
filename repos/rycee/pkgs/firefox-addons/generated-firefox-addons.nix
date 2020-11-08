@@ -453,10 +453,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.2.3";
+      version = "3.2.4";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3661963/i_dont_care_about_cookies-3.2.3-an+fx.xpi";
-      sha256 = "a9214edca579984133d0a2cc010029e4c39421f6e1961c7857d968aa1c952706";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3673902/i_dont_care_about_cookies-3.2.4-an+fx.xpi";
+      sha256 = "b7fa2fdbff245ca3080d3a6d82e08effb904e0909a33198141fefc7742faafeb";
       meta = with stdenv.lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -494,10 +494,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.7.2";
+      version = "1.7.3";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3670944/keepassxc_browser-1.7.2-fx.xpi";
-      sha256 = "9df3edcc5f1e0b974174ace33a3160c2b709f41d80c6fd58fcae80fec55b7231";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3673941/keepassxc_browser-1.7.3-fx.xpi";
+      sha256 = "e838f3d95a7e0fb1736382acfb017fa90ae51ace0b9880d604882110704e7981";
       meta = with stdenv.lib;
       {
         homepage = "https://keepassxc.org/";
