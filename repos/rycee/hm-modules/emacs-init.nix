@@ -263,10 +263,12 @@ let
     (setq package-enable-at-startup nil)
 
     (eval-when-compile
-      (require 'use-package))
+      (require 'use-package)
+      ;; To help fixing issues during startup.
+      (setq use-package-verbose ${
+        if cfg.usePackageVerbose then "t" else "nil"
+      }))
 
-    ;; To help fixing issues during startup.
-    (setq use-package-verbose ${if cfg.usePackageVerbose then "t" else "nil"})
   '' + optionalString hasDiminish ''
     ;; For :diminish in (use-package).
     (require 'diminish)
