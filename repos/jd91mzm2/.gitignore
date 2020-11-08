@@ -1,6 +1,0 @@
-result
-result-*
-
-# Having a lock file will cause users of nur-packages to always include a
-# potentially outdated nixpkgs
-/flake.lock
