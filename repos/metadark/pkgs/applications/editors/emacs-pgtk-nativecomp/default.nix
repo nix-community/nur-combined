@@ -11,8 +11,8 @@
   src = fetchFromGitHub {
     owner = "fejfighter";
     repo = "emacs";
-    rev = "bca518d77b2ad51f577035e5b82b407117434c25";
-    sha256 = "1hq0vx98smsay1ycrspp4rykq9yqb3746kgnl06c4dd02djlnhjh";
+    rev = "47bb269a201a2b42564e36acc360a70096409366";
+    sha256 = "0y5s3wzgcx3rd73l7h8nxcj0gw9xdfmmfaahbq14a392c7i6bgjw";
   };
 
   patches = [ ];
