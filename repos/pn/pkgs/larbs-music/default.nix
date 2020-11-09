@@ -6,7 +6,7 @@ let
   version = "1.0";
   voidrice = callPackage ../voidrice.nix { };
   config = "${voidrice}/.config/ncmpcpp/config";
-  bindings = "${voidrice}/.config/ncmpcpp/config";
+  bindings = "${voidrice}/.config/ncmpcpp/bindings";
   vizNcmpcpp = ncmpcpp.override {
     visualizerSupport = true;
   };
