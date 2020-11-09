@@ -16,6 +16,8 @@ rec {
 
   clearsans = pkgs.callPackage ./pkgs/clearsans { };
 
+  dog = pkgs.callPackage ./pkgs/dog { };
+
   eapol_test = pkgs.callPackage ./pkgs/eapol_test { };
 
   ferdi = pkgs.callPackage ./pkgs/ferdi { };
