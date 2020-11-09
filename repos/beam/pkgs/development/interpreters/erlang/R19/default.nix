@@ -10,7 +10,7 @@ let
   # releases = lib.lists.subtractLists compile_fails
   #   (util.findByPrefix ./. (baseNameOf ./.));
 
-  releases = [ ];
+  releases = [ ./R19.1.nix ];
 
   buildOpts = {
     wxGTK = wxGTK30;
