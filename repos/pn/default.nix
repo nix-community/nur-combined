@@ -25,6 +25,7 @@
   gemget = pkgs.callPackage ./pkgs/gemget { };
   kaiosrt = pkgs.callPackage ./pkgs/kaiosrt { };
   kaios-devenv = pkgs.callPackage ./pkgs/kaiosrt/devenv.nix { };
+  gurl = pkgs.callPackage ./pkgs/gurl { };
 
   st = pkgs.callPackage ./pkgs/larbs/st { };
   dwm = pkgs.callPackage ./pkgs/larbs/dwm { };
