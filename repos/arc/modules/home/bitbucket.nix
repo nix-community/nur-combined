@@ -72,7 +72,7 @@ in {
   };
 
   config = let
-    userRepos = mapAttrs (name: _: { user = name; }) cfg.users;
+    userRepos = mapAttrs' (name: user: nameValuePair user.username { user = name; }) cfg.users;
     repos = cfg.sharedRepos // cfg.teams // userRepos;
     urlInsteadOf = name: config: let
       host = "bitbucket-${config.user}";
