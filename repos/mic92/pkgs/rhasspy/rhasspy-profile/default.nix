@@ -6,24 +6,31 @@
 , aiofiles
 , aiohttp
 , json5
+, python3
+, dataclasses-json
 }:
 
 buildPythonPackage rec {
   pname = "rhasspy-profile";
-  version = "0.1.4";
+  version = "0.3.1";
 
   disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = "rhasspy-profile";
-    rev = "b7f939818fb72dd4a9acb7cc074c95daa48b1aa3";
-    sha256 = "016fy67w0q1c2nwzbb6i0hyfhkmn88z8wg9zf8mwaywwjkm4dm6q";
+    rev = "v${version}";
+    sha256 = "sha256-T0rb2UByL8+WEsK9CyGFwl+XTyttX4uVSfmRk7CNaXE=";
   };
 
   postPatch = ''
+    patchShebangs ./configure
     sed -i "s/aiofiles==.*/aiofiles/" requirements.txt
     sed -i "s/json5==.*/json5/" requirements.txt
+  '';
+
+  postInstall = ''
+    cp -r rhasspyprofile/profiles $out/${python3.sitePackages}/rhasspyprofile
   '';
 
   propagatedBuildInputs = [
@@ -31,6 +38,7 @@ buildPythonPackage rec {
     aiofiles
     aiohttp
     json5
+    dataclasses-json
   ];
 
   meta = with lib; {

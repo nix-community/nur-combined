@@ -7,13 +7,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-speakers-cli-hermes";
-  version = "0.1.1";
+  version = "0.2.0";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "ec2b0615bd46d536d2a87d97ad606de1138906013ad1151b7434a0c205f57c9b";
+    sha256 = "sha256-QqiMvpWxC9h38AhzC2mi3exVfXtDKODt+nBALXUsJgg=";
   };
 
   propagatedBuildInputs = [

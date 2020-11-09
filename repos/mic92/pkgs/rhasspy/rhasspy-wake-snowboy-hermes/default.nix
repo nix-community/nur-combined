@@ -3,18 +3,22 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-wake-snowboy-hermes";
-  version = "2020-06-03";
+  version = "2020-10-10";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "ce3c729523c34d116ba83833982f9d800849fb20";
-    sha256 = "1z8sqhn7nx4kcprngidx1d4vjvg65nyils6cj3air44mm7829ipb";
+    rev = "8c39d6f68c0ccdbcfedfc67f183d217cb2006abc";
+    sha256 = "sha256-7lLYN8f/ZbnC4Qd73/Az0lokLvqqjCi6LdSWdU7Pex4=";
   };
 
   propagatedBuildInputs = [
     rhasspy-hermes
   ];
+
+  postPatch = ''
+    patchShebangs configure
+  '';
 
   meta = with stdenv.lib; {
     description = "MQTT service for wake word detection with snowboy using Hermes protocol";

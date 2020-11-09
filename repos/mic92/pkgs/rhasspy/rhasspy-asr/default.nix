@@ -6,13 +6,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-asr";
-  version = "0.1.5";
+  version = "0.2.0";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "8624657c8389e8cd0318efce30b80d5e64c3c0ffb75140458eaf037f989a207b";
+    sha256 = "sha256-kq1J87Z0k6t9GNTf2Ue82OtUSAlB4XBtsJBJVRWTYXc=";
   };
 
   meta = with lib; {

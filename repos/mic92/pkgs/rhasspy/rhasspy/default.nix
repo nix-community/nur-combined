@@ -15,6 +15,7 @@
 , rhasspy-dialogue-hermes
 , rhasspy-tts-cli-hermes
 , rhasspy-wake-porcupine-hermes
+, rhasspy-wake-raven-hermes
 , rhasspy-wake-snowboy-hermes
 , rhasspy-remote-http-hermes
 , rhasspy-fuzzywuzzy-hermes
@@ -47,7 +48,7 @@
 
 buildPythonPackage rec {
   pname = "rhasspy";
-  version = "2.5.0";
+  version = "2.5.7";
 
   disabled = pythonOlder "3.7";
 
@@ -55,7 +56,7 @@ buildPythonPackage rec {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "0k03f43fii9sgn3chv0h6432p9965di2d35032nazzd1h0n8vgpj";
+    sha256 = "sha256-pdVxilipC4OfMeQj2i1RRdIF80+jsCtNTMmy1TmNOd8=";
   };
 
   configureFlags = [
@@ -73,6 +74,9 @@ buildPythonPackage rec {
 
   postPatch = ''
     sed -i -e 's/is_virtualenv_enabled=yes/is_virtualenv_enabled=no/' configure.ac
+    # not packaged yet
+    sed -i -e '/rhasspy-tts-larynx-hermes/d' RHASSPY_DIRS
+    sed -i -e '/rhasspy-tts-wavenet-hermes/d' RHASSPY_DIRS
   '';
 
   postInstall = ''
@@ -87,6 +91,7 @@ buildPythonPackage rec {
         rhasspy-asr-kaldi-hermes
         rhasspy-tts-cli-hermes
         rhasspy-wake-porcupine-hermes
+        rhasspy-wake-raven-hermes
         rhasspy-wake-snowboy-hermes
         rhasspy-remote-http-hermes
         rhasspy-fuzzywuzzy-hermes
@@ -140,6 +145,7 @@ buildPythonPackage rec {
     rhasspy-dialogue-hermes
     rhasspy-asr-kaldi-hermes
     rhasspy-tts-cli-hermes
+    rhasspy-wake-raven-hermes
     rhasspy-wake-porcupine-hermes
     rhasspy-remote-http-hermes
     rhasspy-fuzzywuzzy-hermes

@@ -7,13 +7,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-tts-cli-hermes";
-  version = "0.1.1";
+  version = "0.2.0";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "8581bf633be439835be1c73c8e58f1e7868ffa45801d5886503e6a9d17bdecd1";
+    sha256 = "sha256-3eqL03ydybX8ygd7oFWwDuyHzQZiNBBC+ocCk0Ov5TI=";
   };
 
   propagatedBuildInputs = [

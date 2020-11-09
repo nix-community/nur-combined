@@ -8,13 +8,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-nlu";
-  version = "0.1.10";
+  version = "0.3.3";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "d9b5eead55b4ae458bbd3c2eb1c7f0c36f59cafcf8d3df39a2ab592a94416028";
+    sha256 = "sha256-VjS/jnSGzCAfcPAVWsDa7JD5Kl1dbQLtTEnOrlAXdpg=";
   };
 
   propagatedBuildInputs = [

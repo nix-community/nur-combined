@@ -59,6 +59,14 @@
     inherit rhasspy-hermes;
   };
 
+  rhasspy-wake-raven = callPackage ./rhasspy-wake-raven {
+    inherit rhasspy-silence python_speech_features;
+  };
+
+  rhasspy-wake-raven-hermes = callPackage ./rhasspy-wake-raven-hermes {
+    inherit rhasspy-wake-raven rhasspy-hermes;
+  };
+
   rhasspy-wake-snowboy-hermes = callPackage ./rhasspy-wake-snowboy-hermes {
     inherit rhasspy-hermes;
   };
@@ -89,10 +97,12 @@
 
   pydash = callPackage ./pydash {};
 
+  python_speech_features = callPackage ./python_speech_features {};
+
   json5 = callPackage ./json5 {};
 
   rhasspy-profile = callPackage ./rhasspy-profile {
-    inherit pydash json5;
+    inherit pydash json5 dataclasses-json;
   };
 
   rhasspy-supervisor = callPackage ./rhasspy-supervisor {
@@ -116,6 +126,7 @@
       rhasspy-dialogue-hermes
       rhasspy-tts-cli-hermes
       rhasspy-wake-porcupine-hermes
+      rhasspy-wake-raven-hermes
       rhasspy-wake-snowboy-hermes
       rhasspy-remote-http-hermes
       rhasspy-fuzzywuzzy-hermes

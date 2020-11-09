@@ -1,19 +1,19 @@
 { stdenv, buildPythonPackage, fetchFromGitHub
-, paho-mqtt, rhasspy-hermes, attrs }:
+, rhasspy-hermes, rhasspy-wake-raven }:
 
 buildPythonPackage rec {
-  pname = "rhasspy-wake-porcupine-hermes";
-  version = "0.2.0";
+  pname = "rhasspy-wake-raven-hermes";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "027l7lwixb8jw67249p1rzh6v825kksinpnwyvl34cnky0vqmq8v";
+    rev = "d183c625681b48f9471e8e1bb16c8bcd388c26da";
+    sha256 = "sha256-dycSNNs/ThmxP12XsZYDDa2gMErtuLQvb7iXwgWoKz8=";
   };
 
   propagatedBuildInputs = [
-    rhasspy-hermes attrs
+    rhasspy-hermes rhasspy-wake-raven
   ];
 
   postPatch = ''
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Hotword detection for Rhasspy using Porcupine";
+    description = "Hotword detection for Rhasspy using Raven";
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ mic92 ];

@@ -10,21 +10,14 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-rasa-nlu-hermes";
-  version = "0.1.1";
+  version = "0.3.1";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "71a4331221f566390b709cffc59d7ac474b35a05180bf7a5b94cdad5d689772f";
+    sha256 = "sha256-gffZ94wHSghNbEOsvnOc6LquPmm4VXSm5YRuFBJqaug=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/rhasspy/rhasspy-rasa-nlu-hermes/commit/738d43950d8df6d4ca15a16f579b3ec1d7ba82de.patch";
-      sha256 = "01vkkim6d7vhv2a0cvyf2d51rz9akprxwxp635jsz4j8vbnxczwq";
-    })
-  ];
 
   propagatedBuildInputs = [
     aiohttp

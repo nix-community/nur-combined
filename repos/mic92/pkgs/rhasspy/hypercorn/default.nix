@@ -13,14 +13,14 @@
 
 buildPythonPackage rec {
   pname = "hypercorn";
-  version = "0.9.5";
+  version = "0.10.1";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     pname = "Hypercorn";
     inherit version;
-    sha256 = "d94fa535e238ce1cd9c9b5f4cb77cb785d53069a5dc57a017e7c2fc51104ad5e";
+    sha256 = "sha256-40c+seQYeyRovXHv9Zc3NvyHqb9Jl02gWSXrTr7Vqv8=";
   };
 
   postPatch = ''

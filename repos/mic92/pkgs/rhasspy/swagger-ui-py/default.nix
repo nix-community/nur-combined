@@ -13,7 +13,7 @@ buildPythonPackage rec {
     owner = "PWZER";
     repo = "swagger-ui-py";
     rev = "v${version}";
-    sha256 = "1910zvkp2613s4ysb61k2gkaw3m1hdg2433kbqil80mqm915i1ix";
+    sha256 = "sha256-PYZYQqq4AkQjXnMMIl6DoQ6u5hMzmKU90SMYcef+IKQ=";
   };
 
   propagatedBuildInputs = [

@@ -8,13 +8,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-microphone-cli-hermes";
-  version = "0.1.2";
+  version = "0.2.0";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "dca8ff242d505d77faeadaed3246567a41f066195a3004ea7ab36de806b598c0";
+    sha256 = "sha256-4+bujodWZ4WjG8iEHgN+qS02PFuuzetNdKJu+QgTDyA=";
   };
 
   propagatedBuildInputs = [

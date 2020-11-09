@@ -8,17 +8,18 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-hermes";
-  version = "0.2.1";
+  version = "0.3.2";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "cb9a6251e731755ab3a905a184dafb64ccd4f92adff6cdd774411e098ebe0b59";
+    sha256 = "sha256-IMeTXVqp7E9BQQ0yIXt/+9PCWfEfzC6hYuNN05Hyl7I=";
   };
 
   postPatch = ''
     sed -i "s/dataclasses-json==.*/dataclasses-json/" requirements.txt
+    sed -i -e "s/paho-mqtt==.*/paho-mqtt/" requirements.txt
   '';
 
   propagatedBuildInputs = [

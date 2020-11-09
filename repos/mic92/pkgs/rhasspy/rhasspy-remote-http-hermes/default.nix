@@ -11,21 +11,14 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-remote-http-hermes";
-  version = "0.1.2";
+  version = "0.3.1";
 
   disabled = pythonOlder "3.7"; # requires python version >=3.7
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "63ca297f3a663dd894c4e9beb3c0ff9b6449efff4f441730044e2dfaabf1892a";
+    sha256 = "sha256-FnbfCsJGQRdCo96lz/l3pORoFiQGYj46XtnVY3SsHyI=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/rhasspy/rhasspy-remote-http-hermes/commit/7054ff1986bef56f21423d0d10463f1a185aa87e.patch";
-      sha256 = "1rqgyrzmwrg373fsldwy16mvv7drhjmisq2351wlcdvi7anr3m3d";
-    })
-  ];
 
   propagatedBuildInputs = [
     aiohttp

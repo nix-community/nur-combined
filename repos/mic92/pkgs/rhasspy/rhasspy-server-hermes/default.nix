@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, fetchPypi
 , fetchpatch
 , pythonOlder
 , rhasspy-hermes
@@ -14,18 +15,19 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-server-hermes";
-  version = "2.5.0";
+  version = "2.5.3";
 
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "a731c2602f87f3ebdc843edcc51d457fde3d4b59";
-    sha256 = "09rz75jyzsxgphry2z1vbsq46dzlyccij90d20bvrrjkmfvcmwz2";
+    rev = "v${version}";
+    sha256 = "sha256-Toec8lVTdlx+aJhomENcB1vMKaf8M207as9U7c4265w=";
   };
 
   postPatch = ''
+    patchShebangs configure
     sed -i "s/swagger-ui-py==.*/swagger-ui-py/" requirements.txt
     sed -i "s/quart==.*/quart/" requirements.txt
   '';

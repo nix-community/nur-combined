@@ -6,19 +6,14 @@
 
 stdenv.mkDerivation rec {
   pname = "phonetisaurus";
-  version = "2020-07-09";
+  version = "2020-06-31";
 
   src = fetchFromGitHub {
     owner = "AdolfVonKleist";
     repo = pname;
-    rev = "d295f5f746717a697aceb07321b686b9d4130437";
-    sha256 = "0sfi7mcs338r39c6mp183rh359wa9ih96s3zl2m7gkhgqgqxl13h";
+    rev = "2831870697de5b4fbcb56a6e1b975e0e1ea10deb";
+    sha256 = "sha256-O2aPR1W1rvhFUKVD4z7P90Px5atWJpsghg5Q8H/RKKw=";
   };
-
-  patches = [
-    ./0001-fix-compatiblity-with-openfst-1.7.7.patch
-    ./0002-fix-compilation-with-openfst-1.7.9.patch
-  ];
 
   enableParallelBuilding = true;
 

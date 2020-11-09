@@ -1,17 +1,19 @@
 { lib
 , buildPythonPackage
-, fetchPypi
+, fetchFromGitHub
 , rhasspy-profile
 , pyyaml
 }:
 
 buildPythonPackage rec {
   pname = "rhasspy-supervisor";
-  version = "0.1.5";
+  version = "0.3.1";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "1904cb2ee16a3bba785e5a78669836f7ac31f565b2aa17d75196647624e409da";
+  src = fetchFromGitHub {
+    owner = "rhasspy";
+    repo = "rhasspy-supervisor";
+    rev = "v${version}";
+    sha256 = "sha256-zTh6PnfRDoKoCheksq2FcbuoxPWM/HcWHjwskB0WCh8=";
   };
 
   propagatedBuildInputs = [
@@ -20,6 +22,7 @@ buildPythonPackage rec {
   ];
 
   postPatch = ''
+    patchShebangs ./configure
     sed -i "s/pyyaml==.*/pyyaml/" requirements.txt
   '';
 
