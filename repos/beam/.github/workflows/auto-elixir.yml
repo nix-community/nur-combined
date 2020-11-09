@@ -12,7 +12,7 @@ on:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron: "05 3 * * *"
 jobs:
-  tests:
+  fetch:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
