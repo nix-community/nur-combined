@@ -38,6 +38,9 @@
   larbs-scripts = pkgs.callPackage ./pkgs/larbs-scripts { };
   larbs-music = pkgs.callPackage ./pkgs/larbs-music { };
 
+  ## VIM PLUGINS
+  gemini-vim-syntax = pkgs.callPackage ./pkgs/vim-plugins/gemini-syntax.nix { };
+
   #fx = (pkgs.callPackage ./pkgs/fx { }).package;
   # xcb-util = pkgs.callPackage ./pkgs/xcb-util { }; #unknown error
   # ...
