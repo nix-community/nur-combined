@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2.3.3
+      uses: actions/checkout@v2.3.4
     - name: Install nix
       uses: cachix/install-nix-action@v11
       with:
