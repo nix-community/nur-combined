@@ -1,3 +1,5 @@
+**Deprecated:** See [lambdadog/nix-profile-declarative](https://github.com/lambdadog/nix-profile-declarative) for the continuation of my work here. Some of the interesting techniques used in `nix-profile-declarative` are present on a much more basic level in this repo however, so it may still be useful to read through some of my code here, especially [my `user-environment` implementation](./pkgs/user-environment/default.nix).
+
 # `nix-extra`
 
 My personal nix helpers. Also a NUR repository.
