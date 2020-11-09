@@ -1,4 +1,4 @@
-{ buildEnv, writeShellScriptBin, writeTextDir, writeText, system }:
+{ writeShellScriptBin, writeText, system }:
 
 { name ? "user-environment"
 
