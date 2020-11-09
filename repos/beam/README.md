@@ -44,7 +44,7 @@ Include NUR(Nix User Repository) to `~/.config/nixpkgs/config.nix`:
 Packages can be installed from the `nur` namespace:
 
 ```console
-$ nix-env -iA nur.repos.beam.erlang.v23_1
+$ nix-env -iA nur.repos.beam.erlang.v23_0
 $ erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().'  -noshell
 "23"
 
@@ -59,18 +59,7 @@ See? You can use Erlang 23 and Elixir 1.11 on Erlang 22 at the same time!
 
 ### Included packages
 
-* Erlang: every minor versions. i.e. includes 23.1, but not 23.1.1
-* Elixir: every patch versions for each Erlang. i.e. includes 1.11.1 for every compatible Erlang versions.
-* Rebar3: only latest version for 5 latest major Erlang versions. i.e. include Rebar 3.14.1 for Erlang 19 ~ 23.
-
-You can navigate through pkg with `nix repl`:
-
-```
-$ nix repl '<nixpkgs>'
-
-nix-repl> nur.repos.beam.pkg.v23_1<TAB>
-nur.repos.beam.pkg.v23_1.elixir.v1_11_1
-nur.repos.beam.pkg.v23_1.elixir.v1_11_0
-nur.repos.beam.pkg.v23_1.rebar3
-```
-
+* Erlang: Latest 3 major versions. i.e. includes 23.0, but not 23.1 or 23.0.1
+* Elixir: Latest 5 minor versions for each Erlang. i.e. includes 1.11.0, but not 1.11.1
+* Rebar3: Latest Rebar3 for each Erlang.
+* Rebar: Rebar 2.6.4 for each Erlang. 
