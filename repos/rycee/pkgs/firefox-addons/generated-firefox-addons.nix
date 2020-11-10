@@ -137,10 +137,10 @@
       };
     "canvasblocker" = buildFirefoxXpiAddon {
       pname = "canvasblocker";
-      version = "1.3";
+      version = "1.4";
       addonId = "CanvasBlocker@kkapsner.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3586373/canvasblocker-1.3-an+fx.xpi";
-      sha256 = "dfb8aa888cf3b4671710861a65f0fe29810210f6a37c3d0c1a9bf3d112af4bb6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3674884/canvasblocker-1.4-an+fx.xpi";
+      sha256 = "5b93c2371ba680c97b151bd0e63be4eddfad6d6ff0ed2c6b14940614b20d7115";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/kkapsner/CanvasBlocker/";
@@ -629,10 +629,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.1.7";
+      version = "6.1.8";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3668731/octotree_github_code_tree-6.1.7-fx.xpi";
-      sha256 = "5443cdea0d9c3acd2c5c34dbc48cf44dba9ae7b733115b0f15b76df62ca16d93";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3675283/octotree_github_code_tree-6.1.8-fx.xpi";
+      sha256 = "e5bf9b0f5bdaa513f3af457703f5d7dd3f6ce639b80aff7f9abd053459e25ab5";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -768,10 +768,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.10.22";
+      version = "20.11.6";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3665183/refined_github-20.10.22-an+fx.xpi";
-      sha256 = "f6949b58a28113a5e5221376973a924d07a941521179679420918b756e859805";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3673754/refined_github-20.11.6-an+fx.xpi";
+      sha256 = "2af8c497420614a326ccbf4c11a7fbc5958f3e43d2297951800108621444f076";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -946,10 +946,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.5.34";
+      version = "3.6.0";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3664524/tree_style_tab_-3.5.34-fx.xpi";
-      sha256 = "5533ce0fd1060b7a289e666e77af8a6aa8a0c4df1e0c3ce8bf0297ff65bff066";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3673408/tree_style_tab_-3.6.0-fx.xpi";
+      sha256 = "5fa88d4e31ba3e2e8b4fc70431e213280ead179ea758e683122e6b8e0cb6f203";
       meta = with stdenv.lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
