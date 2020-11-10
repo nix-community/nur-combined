@@ -10,7 +10,7 @@
 
 You must have installed `nix`. See [NixOS install](https://nixos.org/manual/nix/stable/#chap-installation) for more information.
 
-### Cachix (optional)
+### Cachix (recommended)
 
 Save compile time with binary cache:
 
