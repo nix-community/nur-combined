@@ -1,0 +1,183 @@
+{ stdenv, pkgs, fetchFromGitHub, which, openssh, gcc, gfortran, perl
+, mpi ? pkgs.openmpi, openblas, python, tcsh, bash
+, automake, autoconf, libtool, makeWrapper
+} :
+
+let
+  version = "7.0.0";
+  versionGA = "5.7.1"; # Fixed by nwchem
+
+  ga_src = fetchFromGitHub {
+    owner = "GlobalArrays";
+    repo = "ga";
+    rev = "v${versionGA}";
+    sha256 = "1b2vqklfwqhkfy1zrdnc40aiakpnm1hnlwbllm8a5v9wv3qav08d";
+  };
+
+in stdenv.mkDerivation {
+  pname = "nwchem";
+  inherit version;
+
+  src = fetchFromGitHub {
+    owner = "nwchemgit";
+    repo = "nwchem";
+    rev = "v${version}-release";
+    sha256 = "1hfvk8cdn93cfnw88gyswp2dbw3cfx23660zy9cgvqjnhr5qkbrq";
+  };
+
+  nativeBuildInputs = [ perl automake autoconf libtool makeWrapper ];
+  buildInputs = [ tcsh openssh which gfortran mpi openblas which python ];
+  propagatedUserEnvPkgs = [ mpi ];
+
+  postUnpack = ''
+    cp -r ${ga_src}/ source/src/tools/ga-${versionGA}
+    chmod -R u+w source/src/tools/ga-${versionGA}
+  '';
+
+  postPatch = ''
+
+    find -type f -executable -exec sed -i "s:/bin/csh:${tcsh}/bin/tcsh:" \{} \;
+    find -type f -name "GNUmakefile" -exec sed -i "s:/usr/bin/gcc:${gcc}/bin/gcc:" \{} \;
+    find -type f -name "GNUmakefile" -exec sed -i "s:/bin/rm:rm:" \{} \;
+    find -type f -executable -exec sed -i "s:/bin/rm:rm:" \{} \;
+    find -type f -name "makelib.h" -exec sed -i "s:/bin/rm:rm:" \{} \;
+
+
+    # Overwrite script, skipping the download
+    echo -e '#!/bin/sh\n cd ga-${versionGA};autoreconf -ivf' > src/tools/get-tools-github
+
+    patchShebangs ./
+
+  '';
+
+  enableParallelBuilding = true;
+
+  # config parameters
+  NWCHEM_TARGET="LINUX64";
+
+  ARMCI_NETWORK="MPI-MT";
+  USE_MPI="y";
+  USE_MPIF="y";
+
+  NWCHEM_MODULES="all python";
+
+  USE_PYTHONCONFIG="y";
+  USE_PYTHON64="n";
+  PYTHONLIBTYPE="so";
+  PYTHONHOME="${python}";
+  PYTHONVERSION="2.7";
+
+  BLASOPT="-L${openblas}/lib -lopenblas";
+  LAPACK_LIB="-lopenblas";
+
+  BLAS_SIZE="8";
+
+  # extra TCE releated options
+  MRCC_METHODS="y";
+  EACCSD="y";
+  IPCCSD="y";
+
+  preBuild = ''
+    ln -s ${ga_src} src/tools/ga-${versionGA}.tar.gz
+
+    export LIBMPI=$(mpif90 -showme:link)
+    export NWCHEM_TOP="$PWD"
+
+
+    cd src
+
+    echo "ROOT: $NWCHEM_TOP"
+    make nwchem_config
+    #make 64_to_32
+  '';
+
+  postBuild = ''
+    cd $NWCHEM_TOP/src/util
+    make version
+    make
+    cd $NWCHEM_TOP/src
+    make link
+  '';
+
+  installPhase = ''
+    mkdir -p $out/bin $out/share/nwchem
+
+    cp $NWCHEM_TOP/bin/LINUX64/nwchem $out/bin/.nwchem-wrapped
+    cp -r $NWCHEM_TOP/src/data $out/share/nwchem/
+    cp -r $NWCHEM_TOP/src/basis/libraries $out/share/nwchem/data
+    cp -r $NWCHEM_TOP/src/nwpw/libraryps $out/share/nwchem/data
+    cp -r $NWCHEM_TOP/QA $out/share/nwchem
+
+    # create wrapper
+    cat << EOF > $out/bin/nwchem
+    #!/bin/sh
+
+    if [ \$# == 0 ]; then
+    echo
+    echo "Usage: nwchem [number of procs] <input file name>"
+    echo
+    exit
+    fi
+
+    if [ -z "\$NWCHEM_BASIS_LIBRARY" ]; then
+    export NWCHEM_BASIS_LIBRARY=$out/share/nwchem/data/libraries/
+    fi
+
+    if [ \$# -gt 1 ]; then
+    np=\$1; shift;
+    if [ \$np == 0 ]; then
+    ${mpi}/bin/mpirun $out/bin/.nwchem-wrapped \$@
+    else
+    ${mpi}/bin/mpirun -np \$np $out/bin/.nwchem-wrapped \$@
+    fi
+    else
+    $out/bin/.nwchem-wrapped \$@
+    fi
+    EOF
+
+    chmod 755 $out/bin/nwchem
+
+
+    cat > $out/share/nwchem/nwchemrc << EOF
+    nwchem_basis_library $out/share/nwchem/data/libraries/
+    nwchem_nwpw_library $out/share/nwchem//data/libraryps/
+    ffield amber
+    amber_1 $out/share/nwchem/data/amber_s/
+    amber_2 $out/share/nwchem/data/amber_q/
+    amber_3 $out/share/nwchem/data/amber_x/
+    amber_4 $out/share/nwchem/data/amber_u/
+    spce    $out/share/nwchem/data/solvents/spce.rst
+    charmm_s $out/share/nwchem/data/charmm_s/
+    charmm_x $out/share/nwchem/data/charmm_x/
+    EOF
+  '';
+
+  checkPhase = ''
+    cd $NWCHEM_TOP/QA
+    ./doqmtests.mpi 1 fast
+  '';
+
+  doCheck=false;
+
+  doInstallCheck = true;
+
+  installCheckPhase = ''
+    # run a simple water test
+    $out/bin/nwchem $out/share/nwchem/QA/tests/h2o/h2o.nw > h2o.out
+    grep "Total SCF energy" h2o.out  | grep 76.010538
+  '';
+
+  meta = with stdenv.lib; {
+    description = "Open Source High-Performance Computational Chemistry";
+    platforms = [ "x86_64-linux" ];
+    maintainers = [ maintainers.markuskowa ];
+    homepage = "http://www.nwchem-sw.org";
+    license = {
+      fullName = "Educational Community License, Version 2.0";
+      url = "https://opensource.org/licenses/ECL-2.0";
+      shortName = "ECL 2.0";
+    };
+  };
+}
+
+
