@@ -14,6 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  actions-cli = pkgs.callPackage ./pkgs/actions-cli { };
   artwiz-lemon = pkgs.callPackage ./pkgs/artwiz-lemon { };
   bitwarden-rofi-patched = pkgs.callPackage ./pkgs/bitwarden-rofi { };
   comma = pkgs.callPackage ./pkgs/comma { }; # From https://github.com/Shopify/comma/pull/7
