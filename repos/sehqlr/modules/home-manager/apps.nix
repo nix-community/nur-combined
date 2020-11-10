@@ -4,6 +4,7 @@
     chatterino2
     discord
     element-desktop
+    imv
     paperwork
     slack
     spotify
