@@ -1,7 +1,6 @@
 { pkgs }:
 
 {
-  metals = pkgs.callPackage ./development/tools/metals {};
   scripts = pkgs.callPackage ./misc/scripts {
     inherit pkgs; inherit (pkgs) stdenv;
   };
