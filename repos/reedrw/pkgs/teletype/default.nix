@@ -15,7 +15,7 @@ nodePackages.oorja.override {
 
   meta = with lib; {
     description = "stream terminals to the web and more.";
-    homepage = https://teletype.oorja.io/;
+    homepage = "https://teletype.oorja.io/";
     license = licenses.asl20;
   };
 }
