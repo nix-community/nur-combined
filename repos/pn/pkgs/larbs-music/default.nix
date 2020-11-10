@@ -1,4 +1,6 @@
-{ stdenv, buildEnv, makeWrapper, makeDesktopItem, callPackage, ncmpcpp, libnotify }:
+{ stdenv, buildEnv, makeWrapper, makeDesktopItem, callPackage, ncmpcpp, libnotify,
+musicDir ? "~/Music",
+configPath ? "$out/share/ncmpcpp/config" }:
 with stdenv.lib;
 
 let
@@ -18,8 +20,10 @@ let
     buildInputs = [ makeWrapper ];
 
     installPhase = ''
+      mkdir -p $out/share/ncmpcpp
+      sed 's:mpd_music_dir.*:mpd_music_dir = "${musicDir}":' ${config} > $out/share/ncmpcpp/config
       makeWrapper ${vizNcmpcpp}/bin/ncmpcpp $out/bin/ncmpcpp \
-      --add-flags "-c ${config}" \
+      --add-flags "-c ${configPath}" \
       --add-flags "-b ${bindings}"
     '';
 
