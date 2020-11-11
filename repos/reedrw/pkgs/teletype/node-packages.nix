@@ -337,13 +337,13 @@ let
         sha1 = "89b4d199ab2bee49de164ea02b89ce462d71b767";
       };
     };
-    "base64-js-1.5.0" = {
+    "base64-js-1.5.1" = {
       name = "base64-js";
       packageName = "base64-js";
-      version = "1.5.0";
+      version = "1.5.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/base64-js/-/base64-js-1.5.0.tgz";
-        sha512 = "Jrdy04F2EKcNggUDfubMUPNAZg2vMquLQSm8sKLYJvz40ClFL1S8GKyDshGkNsbNNE5Z+fQavzU7nSK1I9JUGA==";
+        url = "https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz";
+        sha512 = "AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==";
       };
     };
     "bl-4.0.3" = {
@@ -2721,7 +2721,7 @@ in
       sources."at-least-node-1.0.0"
       sources."axios-0.19.2"
       sources."balanced-match-1.0.0"
-      sources."base64-js-1.5.0"
+      sources."base64-js-1.5.1"
       sources."bl-4.0.3"
       sources."brace-expansion-1.1.11"
       sources."braces-3.0.2"

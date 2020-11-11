@@ -904,13 +904,13 @@ let
         sha1 = "89b4d199ab2bee49de164ea02b89ce462d71b767";
       };
     };
-    "base64-js-1.5.0" = {
+    "base64-js-1.5.1" = {
       name = "base64-js";
       packageName = "base64-js";
-      version = "1.5.0";
+      version = "1.5.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/base64-js/-/base64-js-1.5.0.tgz";
-        sha512 = "Jrdy04F2EKcNggUDfubMUPNAZg2vMquLQSm8sKLYJvz40ClFL1S8GKyDshGkNsbNNE5Z+fQavzU7nSK1I9JUGA==";
+        url = "https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz";
+        sha512 = "AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==";
       };
     };
     "before-after-hook-2.1.0" = {
@@ -4200,7 +4200,7 @@ in
       sources."asynckit-0.4.0"
       sources."await-to-js-2.1.1"
       sources."balanced-match-1.0.0"
-      sources."base64-js-1.5.0"
+      sources."base64-js-1.5.1"
       sources."before-after-hook-2.1.0"
       sources."bignumber.js-9.0.1"
       (sources."body-parser-1.19.0" // {
