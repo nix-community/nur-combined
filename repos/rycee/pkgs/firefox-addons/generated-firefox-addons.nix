@@ -782,10 +782,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "23.5";
+      version = "23.6";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3671648/save_page_we-23.5-fx.xpi";
-      sha256 = "35d3f12b5c4a82e1708e9f02b34e41a293178fb2080459f0903ce54b0d2596e1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3675717/save_page_we-23.6-fx.xpi";
+      sha256 = "28c772ff2a14a0c988d8ef32ecf9301afb8fa0f605e1d95ec06b4899fbcfc4f1";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -946,10 +946,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.6.0";
+      version = "3.6.1";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3673408/tree_style_tab_-3.6.0-fx.xpi";
-      sha256 = "5fa88d4e31ba3e2e8b4fc70431e213280ead179ea758e683122e6b8e0cb6f203";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3675202/tree_style_tab_-3.6.1-fx.xpi";
+      sha256 = "c24394d5a77cdaba923777b89649bb6e4909d32061e013dfe5af88c231e1d6ca";
       meta = with stdenv.lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
