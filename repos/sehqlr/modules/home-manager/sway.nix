@@ -1,6 +1,12 @@
 { config, lib, pkgs, ... }: {
 
-  home.packages = with pkgs; [ sway-contrib.grimshot wl-clipboard wofi ];
+  home.packages = with pkgs; [
+    pamixer
+    sway-contrib.grimshot
+    wl-clipboard
+    wofi
+    wob
+  ];
 
   programs.mako.enable = true;
 
@@ -59,11 +65,25 @@
         in lib.mkOptionDefault {
           "${modifier}+b" = "exec firefox";
           "${modifier}+p" =
-            "exec ${pkgs.wofi}/bin/wofi -S run,drun | ${pkgs.findutils}/bin/xargs swaymsg exec --";
-          "XF86MonBrightnessUp" = "exec light -A 5";
-          "XF86MonBrightnessDown" = "exec light -U 5";
+            "exec ${pkgs.wofi}/bin/wofi -S drun | ${pkgs.findutils}/bin/xargs swaymsg exec --";
+          "XF86AudioRaiseVolume" =
+            "exec ${pkgs.pamixer}/bin/pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob";
+          "XF86AudioLowerVolume" =
+            "exec ${pkgs.pamixer}/bin/pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob";
+          "XF86AudioMute" =
+            "exec ${pkgs.pamixer}/bin/pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > $SWAYSOCK.wob || pamixer --get-volume > $SWAYSOCK.wob";
+          "XF86MonBrightnessUp" =
+            "exec light -A 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob";
+          "XF86MonBrightnessDown" =
+            "exec light -U 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob";
         };
+      menu =
+        "exec ${pkgs.wofi}/bin/wofi -S run | ${pkgs.findutils}/bin/xargs swaymsg exec --";
       modifier = "Mod4";
+      startup = [
+        { command = "${pkgs.firefox}/bin/firefox"; }
+        { command = "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob"; }
+      ];
       terminal = "${pkgs.termite}/bin/termite -e tmux";
     };
   };
