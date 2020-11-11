@@ -114,15 +114,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-07T08:24:14Z",
+        "date": "2020-11-10T18:32:12Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "9b70183bcdeda1059fc5561ab0072e916fe1afc6",
-        "sha256": "1rap2gchixb385lviwmrlx8wvx8wxxwfrgw55f1grh7sx6pgmacg",
+        "rev": "dbe35bccba0df38129d5bc0a316e1c140f51c447",
+        "sha256": "0z0l99ydi3pac2ndivw7y3f3vi0d4r91ky4ifjmrir8agk1w8prv",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/9b70183bcdeda1059fc5561ab0072e916fe1afc6.tar.gz",
+        "url": "https://github.com/embox/embox/archive/dbe35bccba0df38129d5bc0a316e1c140f51c447.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -474,15 +474,15 @@
     "klogg": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-30T13:55:18Z",
+        "date": "2020-11-07T20:44:46Z",
         "description": "A fast, advanced log explorer based on glogg project",
         "homepage": "https://klogg.filimonov.dev/",
         "owner": "variar",
         "repo": "klogg",
-        "rev": "0e3f74d1a3f928a6d2d6fd83b05b5866ff3236a4",
-        "sha256": "1zfq0xxl3b6kklqhawyk1v849qm1dfa3xf9f01frkhbsb6kfipp9",
+        "rev": "d8ee6b3c9fa33bac527799795bc89d1e3f8a8c2a",
+        "sha256": "1apmk6cski0z5fkimj728jnnj39p7hl3wa4ab5rw5mcv5sjij77k",
         "type": "tarball",
-        "url": "https://github.com/variar/klogg/archive/0e3f74d1a3f928a6d2d6fd83b05b5866ff3236a4.tar.gz",
+        "url": "https://github.com/variar/klogg/archive/d8ee6b3c9fa33bac527799795bc89d1e3f8a8c2a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "libshell": {
@@ -544,15 +544,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-07T05:03:44Z",
+        "date": "2020-11-10T19:15:10Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "0977dce62ed6f5400527e609c8aca2b6c648adec",
-        "sha256": "06qn2ndsjz18crb3sda4i2ldax2bnw1cb2d5f9bkh04id2968jbd",
+        "rev": "84e9ecb447e717253eab93878286f4de8dc4b575",
+        "sha256": "1vg1xx3wsvlz43b7h0ksnq60svjnc6xn4dvv7kdvbi14sid19xs2",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/0977dce62ed6f5400527e609c8aca2b6c648adec.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/84e9ecb447e717253eab93878286f4de8dc4b575.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -574,11 +574,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "1fcfs86n3742b36gps4l3a4mjgdjdrcvrds5d16yjazsw762isy6",
+        "sha256": "00m465vvqxz27x4yz8ssxjbx8n0fcfp9ap9x2w9bhd3nryw3xdq7",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-11-06.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-11-10.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-11-06"
+        "version": "2020-11-10"
     },
     "mercantile": {
         "branch": "master",
@@ -677,15 +677,15 @@
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-06T02:32:13Z",
+        "date": "2020-11-10T14:42:49Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "75a4123f5a57a07b1d6bc1d35c770b68dcb9c79e",
-        "sha256": "017pc6ib18p3dcj64g6qvki9mk04jc0cz64q6jc322gb9f0j7hh9",
+        "rev": "52b87a24925708aaa0ab57821386358136db48bd",
+        "sha256": "1mdqwi7y1lj5q7a7kjv692zkrfcsbcawzxkibk1g3cdbw5f2w9vn",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/75a4123f5a57a07b1d6bc1d35c770b68dcb9c79e.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/52b87a24925708aaa0ab57821386358136db48bd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -841,15 +841,15 @@
     "stardict-3": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-07T10:10:47Z",
+        "date": "2020-11-10T15:16:33Z",
         "description": "Automatically exported from code.google.com/p/stardict-3",
         "homepage": "https://github.com/huzheng001/stardict-3",
         "owner": "huzheng001",
         "repo": "stardict-3",
-        "rev": "8dc32be156efc44481389a7198c00db627debf3c",
-        "sha256": "002hjiva0x6r3iw7nffms4fzfibb82nkq8nd3gr04bf03g1vyn4r",
+        "rev": "31e97b5d14826ffc800a64cbf38f0b2973839acf",
+        "sha256": "07qvybkimgz4s3pd07xyl2lhvxld5365dphw0jz8hlk8j8y6glkq",
         "type": "tarball",
-        "url": "https://github.com/huzheng001/stardict-3/archive/8dc32be156efc44481389a7198c00db627debf3c.tar.gz",
+        "url": "https://github.com/huzheng001/stardict-3/archive/31e97b5d14826ffc800a64cbf38f0b2973839acf.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "supermercado": {
@@ -883,15 +883,15 @@
     "tatoebatools": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-07T08:36:24Z",
+        "date": "2020-11-09T08:56:50Z",
         "description": "A library for downloading, updating and iterating over monolingual data files from Tatoeba",
         "homepage": "https://github.com/LBeaudoux/tatoebatools",
         "owner": "LBeaudoux",
         "repo": "tatoebatools",
-        "rev": "6e3fc073fe4d9d7bea9afe65d5db39213b5ca586",
-        "sha256": "0vc2yv46pfvbb4wxsr0w1py3kar1i02xmb477ilbg1vdhbr0d2vb",
+        "rev": "da5613145db5080c89ff5a49d13e9d92c0017b2d",
+        "sha256": "0l7knxjal97w1rg3qplf021ad8rr3wjw0y8mk3091gd7yzkhixri",
         "type": "tarball",
-        "url": "https://github.com/LBeaudoux/tatoebatools/archive/6e3fc073fe4d9d7bea9afe65d5db39213b5ca586.tar.gz",
+        "url": "https://github.com/LBeaudoux/tatoebatools/archive/da5613145db5080c89ff5a49d13e9d92c0017b2d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tilesets-cli": {
@@ -939,15 +939,15 @@
     "zdict": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-30T03:22:02Z",
+        "date": "2020-11-09T05:08:39Z",
         "description": "The last online dictionary framework you need",
         "homepage": "https://pypi.org/project/zdict/",
         "owner": "zdict",
         "repo": "zdict",
-        "rev": "26989ca4bb7dcf24332499978b86f234b3ce8cd8",
-        "sha256": "0g569jif13zfgvnp1x35kmrndbn4sh26zcqkrxw78kkjnm8ng8q2",
+        "rev": "4b693fd7782441db8ef7ba12eecfa3f67a97a9e9",
+        "sha256": "1h5yp8qcg4z589mkmagjghqbxb3jacbc5riqrpac596ds90ah8hg",
         "type": "tarball",
-        "url": "https://github.com/zdict/zdict/archive/26989ca4bb7dcf24332499978b86f234b3ce8cd8.tar.gz",
+        "url": "https://github.com/zdict/zdict/archive/4b693fd7782441db8ef7ba12eecfa3f67a97a9e9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

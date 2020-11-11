@@ -25,6 +25,7 @@ lib.makeScope newScope (
     klogg = libsForQt5.callPackage ./applications/misc/klogg {
       inherit sources;
     };
+    klogg-bin = callPackage ./applications/misc/klogg/bin.nix { };
     librewolf = callPackage ./applications/networking/librewolf { };
     macpass-bin = callPackage ./applications/macpass/bin.nix { };
     mapsoft = callPackage ./applications/gis/mapsoft { };
@@ -71,7 +72,7 @@ lib.makeScope newScope (
     freizeitkarte-osm = callPackage ./data/maps/freizeitkarte-osm { };
     gpxsee-maps = callPackage ./data/maps/gpxsee-maps { };
     gpxsee-poi = callPackage ./data/maps/gpxsee-poi { };
-    hiblovgpsmap = callPackage ./data/maps/hiblovgpsmap { };
+    vlasenko-maps = callPackage ./data/maps/vlasenko-maps { };
     maptourist = callPackage ./data/maps/maptourist { };
     mtk-suomi = callPackage ./data/maps/mtk-suomi { };
     opentopomap = callPackage ./data/maps/opentopomap { };
