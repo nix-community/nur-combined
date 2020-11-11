@@ -66,17 +66,18 @@ in {
     programs.emacs.init.usePackage = {
       message = {
         enable = true;
-        defer = true;
         hook = [ "(message-send . hm--message-send)" ];
         config = ''
           ${messageSendHookFunction}
 
           (setq message-directory "${cfgEmail.maildirBasePath}")
         '';
+        extraConfig = ''
+          :functions message-field-value
+        '';
       };
 
       notmuch = {
-        after = [ "message" ];
         config = ''
           ; See https://github.com/Schnouki/dotfiles/blob/0d6716a041e1db95a27fc393baa8f38b850c5a25/emacs/init-50-mail.el#L243
           ${notmuchDraftSaveAdviceFunction}
