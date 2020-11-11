@@ -535,13 +535,13 @@ let
         sha512 = "2+FrkXY4zllzTNfJth7jOqEHC+enpLeGslEhpnTAkg21GkRrWV4SsAtqchtT4YS9/nODBU2/ZfsBY2X4J/dX7A==";
       };
     };
-    "@types/express-4.17.8" = {
+    "@types/express-4.17.9" = {
       name = "_at_types_slash_express";
       packageName = "@types/express";
-      version = "4.17.8";
+      version = "4.17.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/express/-/express-4.17.8.tgz";
-        sha512 = "wLhcKh3PMlyA2cNAB9sjM1BntnhPMiM0JOBwPBqttjHev2428MLEB4AYVN+d8s2iyCVZac+o41Pflm/ZH5vLXQ==";
+        url = "https://registry.npmjs.org/@types/express/-/express-4.17.9.tgz";
+        sha512 = "SDzEIZInC4sivGIFY4Sz1GG6J9UObPwCInYJjko2jzOf/Imx/dlpume6Xxwj1ORL82tBbmN4cPDIDkLbWHk9hw==";
       };
     };
     "@types/express-serve-static-core-4.17.13" = {
@@ -661,13 +661,13 @@ let
         sha512 = "ewFXqrQHlFsgc09MK5jP5iR7vumV/BYayNC6PgJO2LPe8vrnNFyjQjSppfEngITi0qvfKtzFvgKymGheFM9UOA==";
       };
     };
-    "@types/serve-static-1.13.6" = {
+    "@types/serve-static-1.13.7" = {
       name = "_at_types_slash_serve-static";
       packageName = "@types/serve-static";
-      version = "1.13.6";
+      version = "1.13.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/serve-static/-/serve-static-1.13.6.tgz";
-        sha512 = "nuRJmv7jW7VmCVTn+IgYDkkbbDGyIINOeu/G0d74X3lm6E5KfMeQPJhxIt1ayQeQB3cSxvYs1RA/wipYoFB4EA==";
+        url = "https://registry.npmjs.org/@types/serve-static/-/serve-static-1.13.7.tgz";
+        sha512 = "3diZWucbR+xTmbDlU+FRRxBf+31OhFew7cJXML/zh9NmvSPTNoFecAwHB66BUqFgENJtqMiyl7JAwUE/siqdLw==";
       };
     };
     "@types/yargs-15.0.9" = {
@@ -4162,7 +4162,7 @@ in
       sources."@types/body-parser-1.19.0"
       sources."@types/chalk-2.2.0"
       sources."@types/connect-3.4.33"
-      sources."@types/express-4.17.8"
+      sources."@types/express-4.17.9"
       sources."@types/express-serve-static-core-4.17.13"
       sources."@types/firebase-3.2.1"
       sources."@types/http-terminator-2.0.1"
@@ -4175,7 +4175,7 @@ in
       sources."@types/node-fetch-2.5.7"
       sources."@types/qs-6.9.5"
       sources."@types/range-parser-1.2.3"
-      sources."@types/serve-static-1.13.6"
+      sources."@types/serve-static-1.13.7"
       sources."@types/yargs-15.0.9"
       sources."@types/yargs-parser-15.0.0"
       sources."abort-controller-3.0.0"
