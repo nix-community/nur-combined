@@ -4,6 +4,16 @@
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
+## Cachix
+
+You can speed up your build time by using my cache (which is built on travis).
+
+```
+cachix use pn
+```
+
+For more instructions check up [cachix site](https://cachix.org/).
+
 ## `larbs-mail`
 
 Larbs-mail is a system for automatically configuring mutt and isync with a simple interface and safe passwords. The package contains:
