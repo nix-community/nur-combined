@@ -2,8 +2,10 @@
 
 **Drew Risinger's personal [NUR](https://github.com/nix-community/NUR) repository**
 
-[![Build Status](https://travis-ci.org/drewrisinger/nur-packages.svg?branch=master)](https://travis-ci.com/drewrisinger/nur-packages)
 [![Cachix Cache](https://img.shields.io/badge/cachix-drewrisinger-blue.svg)](https://drewrisinger.cachix.org)
+![Build and populate cache](https://github.com/nix-community/<YOUR-GITHUB-USER>/workflows/Build%20and%20populate%20cache/badge.svg)
+<!-- OLD: from Travis -->
+<!-- [![Build Status](https://travis-ci.org/drewrisinger/nur-packages.svg?branch=master)](https://travis-ci.com/drewrisinger/nur-packages) -->
 
 ## Using this repo
 
