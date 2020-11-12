@@ -265,13 +265,13 @@ let
         sha512 = "8cUA/mg0S+BxIZ72TdZRsXKBP5n5uRcE3k29TZhZw6oIiHBt9JA7CTb/4pE1uKtE/q5NeTY2tBDcagoZ+1zjXQ==";
       };
     };
-    "@grpc/grpc-js-1.1.8" = {
+    "@grpc/grpc-js-1.2.0" = {
       name = "_at_grpc_slash_grpc-js";
       packageName = "@grpc/grpc-js";
-      version = "1.1.8";
+      version = "1.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.1.8.tgz";
-        sha512 = "64hg5rmEm6F/NvlWERhHmmgxbWU8nD2TMWE+9TvG7/WcOrFT3fzg/Uu631pXRFwmJ4aWO/kp9vVSlr8FUjBDLA==";
+        url = "https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.2.0.tgz";
+        sha512 = "09H50V7rmz0gFrGz6IbP49z9A8+2p4yZYcNDEb7bytr90vWn52VBQE1a+LMBlrucmNN0wSsiCr3TJx+dStHTng==";
       };
     };
     "@grpc/proto-loader-0.5.5" = {
@@ -281,15 +281,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@grpc/proto-loader/-/proto-loader-0.5.5.tgz";
         sha512 = "WwN9jVNdHRQoOBo9FDH7qU+mgfjPc8GygPYms3M+y3fbQLfnCe/Kv/E01t7JRgnrsOHH8euvSbed3mIalXhwqQ==";
-      };
-    };
-    "@grpc/proto-loader-0.6.0-pre9" = {
-      name = "_at_grpc_slash_proto-loader";
-      packageName = "@grpc/proto-loader";
-      version = "0.6.0-pre9";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@grpc/proto-loader/-/proto-loader-0.6.0-pre9.tgz";
-        sha512 = "oM+LjpEjNzW5pNJjt4/hq1HYayNeQT+eGrOPABJnYHv7TyNPDNzkQ76rDYZF86X5swJOa4EujEMzQ9iiTdPgww==";
       };
     };
     "@kwsites/file-exists-1.1.1" = {
@@ -4113,9 +4104,8 @@ in
       sources."@firebase/storage-types-0.3.13"
       sources."@firebase/util-0.3.4"
       sources."@firebase/webchannel-wrapper-0.4.0"
-      (sources."@grpc/grpc-js-1.1.8" // {
+      (sources."@grpc/grpc-js-1.2.0" // {
         dependencies = [
-          sources."@grpc/proto-loader-0.6.0-pre9"
           sources."semver-6.3.0"
         ];
       })
