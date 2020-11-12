@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "xcfun";
-  version = "2.1.0";
+  version = "2.1.1";
 
   src = fetchFromGitHub {
     owner = "dftlibs";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1gnc3x7x7w0qigyr6h8m877bwrkjfd7b300f6cq535pr98ksmpx2";
+    sha256 = "1bj70cnhbh6ziy02x988wwl7cbwaq17ld7qwhswqkgnnx8rpgxid";
   };
 
   nativeBuildInputs = [
@@ -26,15 +26,6 @@ stdenv.mkDerivation rec {
     bzip2
     gfortran
     perl
-  ];
-
-  # TODO: Remove on next release,
-  patches = [
-    (fetchpatch {
-      name = "xcfun-fix-header-file-install.patch";
-      url = "https://github.com/dftlibs/xcfun/commit/8eb400ee160e9ba013fa9a4fb23d55bb2a1d2f8f.patch";
-      sha256 = "17rb0sy93yz61v0hk2a1qd81ljscvw6j7jhnw8zvypdpfkc6qysl";
-    })
   ];
 
   cmakeFlags = [
