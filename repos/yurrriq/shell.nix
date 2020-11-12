@@ -1,4 +1,4 @@
-{ pkgs ? import ./nix/nixpkgs.nix }:
+{ pkgs ? import ./nix }:
 
 pkgs.mkShell {
   buildInputs =
@@ -10,6 +10,7 @@ pkgs.mkShell {
         gnupg
         python3
         niv
+        nixpkgs-fmt
         stow
       ]
       ++ (

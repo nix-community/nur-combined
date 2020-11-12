@@ -21,10 +21,10 @@ in
 filterSet
   (
     p: (builtins.isAttrs p)
-    && !(
+      && !(
       (builtins.hasAttr "meta" p)
-      && (builtins.hasAttr "broken" p.meta)
-      && (p.meta.broken)
+        && (builtins.hasAttr "broken" p.meta)
+        && (p.meta.broken)
     )
   )
   (import ./default.nix { inherit pkgs; }).pkgs
