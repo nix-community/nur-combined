@@ -33,7 +33,7 @@ jobs:
     - name: Create diff
       run: |
         mkdir -p ~/artifact
-        git diff --oneline --graph > ~/artifact/update.diff
+        git diff --oneline --graph | tee ~/artifact/update.diff | nix run nixpkgs.python38Packages.pygments -c pygmentize
 
     - name: Upload diff artifact
       uses: actions/upload-artifact@v2
