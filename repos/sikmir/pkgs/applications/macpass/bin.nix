@@ -1,24 +1,26 @@
 { stdenv, fetchfromgh, unzip }:
 let
+  pname = "MacPass";
   version = "0.7.12";
   sha256 = "1gikixbrz1pvyjspp62msdmhjdy1rfkx8jhy7rajjr8bzm8pzpmc";
 in
 stdenv.mkDerivation {
-  pname = "MacPass";
-  inherit version;
+  inherit pname version;
 
   src = fetchfromgh {
     owner = "MacPass";
-    repo = "MacPass";
+    repo = pname;
     name = "MacPass-${version}.zip";
     inherit version sha256;
   };
 
-  unpackPhase = "${unzip}/bin/unzip $src";
+  sourceRoot = ".";
+
+  nativeBuildInputs = [ unzip ];
 
   installPhase = ''
     mkdir -p $out/Applications
-    cp -r MacPass.app $out/Applications
+    cp -r *.app $out/Applications
   '';
 
   preferLocalBuild = true;

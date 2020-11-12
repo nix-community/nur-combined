@@ -5,9 +5,11 @@ stdenvNoCC.mkDerivation {
   version = sources.maptourist.version;
   src = sources.maptourist;
 
-  dontUnpack = true;
+  sourceRoot = ".";
 
-  installPhase = "${unzip}/bin/unzip $src -d $out";
+  nativeBuildInputs = [ unzip ];
+
+  installPhase = "install -Dm644 *.img -t $out";
 
   preferLocalBuild = true;
 

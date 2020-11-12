@@ -2,23 +2,26 @@
 let
   pname = "qmapshack";
   version = "1.15.0";
+  sha256 = "0dhl2km0xbv77xabjwdiv3y1psbjwjlyqs5222ji5d33wxl8m07n";
 in
 stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchfromgh {
     owner = "Maproom";
-    repo = "qmapshack";
+    repo = pname;
     version = "V_${version}";
     name = "QMapShack_OSX.${stdenv.appleSdkVersion}_${version}.zip";
-    sha256 = "0dhl2km0xbv77xabjwdiv3y1psbjwjlyqs5222ji5d33wxl8m07n";
+    inherit sha256;
   };
 
-  unpackPhase = "${unzip}/bin/unzip $src";
+  sourceRoot = ".";
+
+  nativeBuildInputs = [ unzip ];
 
   installPhase = ''
     mkdir -p $out/Applications
-    cp -r QMapShack.app QMapTool.app $out/Applications
+    cp -r *.app $out/Applications
   '';
 
   meta = with stdenv.lib; {

@@ -11,7 +11,9 @@
       name = "OV-Hib-Lov-${lib.replaceStrings [ "-" ] [ "" ] version}-1.03.zip";
     };
 
-    unpackPhase = "${unzip}/bin/unzip $src";
+    sourceRoot = ".";
+
+    nativeBuildInputs = [ unzip ];
 
     installPhase = "install -Dm644 *.img -t $out";
 
@@ -37,7 +39,9 @@
       name = "OV-Kamch-${lib.replaceStrings [ "-" ] [ "" ] version}-1.05.zip";
     };
 
-    unpackPhase = "${unzip}/bin/unzip $src";
+    sourceRoot = ".";
+
+    nativeBuildInputs = [ unzip ];
 
     installPhase = "install -Dm644 *.img -t $out";
 

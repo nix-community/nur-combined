@@ -15,11 +15,13 @@ stdenv.mkDerivation {
     inherit sha256;
   };
 
-  unpackPhase = "${unzip}/bin/unzip $src";
+  sourceRoot = ".";
+
+  nativeBuildInputs = [ unzip ];
 
   installPhase = ''
     mkdir -p $out/Applications
-    cp -r Amethyst.app $out/Applications
+    cp -r *.app $out/Applications
   '';
 
   preferLocalBuild = true;
