@@ -3,11 +3,12 @@ name: Update sources
 on:
   schedule:
     - cron: '0 */2 * * *'
+  workflow_dispatch:
 
 jobs:
-  build:
+  update:
+    name: Update versions
     runs-on: ubuntu-latest
-
     steps:
     - name: Install nix
       uses: cachix/install-nix-action@v12
@@ -23,12 +24,84 @@ jobs:
         name: reedrw
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
 
-
     - name: Setup nix-shell
       run: nix-shell shell.nix --run 'exit'
 
     - name: Update packages
       run: ./update.sh
+
+    - name: Create diff
+      run: |
+        mkdir -p ~/artifact
+        git diff --oneline --graph > ~/artifact/update.diff
+
+    - name: Upload diff artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: update.diff
+        path: ~/artifact/update.diff
+
+  build:
+    name: Build updated packages
+    needs: update
+    strategy:
+      matrix:
+        cachixName:
+          - reedrw
+        nixPath:
+          - nixpkgs=channel:nixos-unstable
+          - nixpkgs=channel:nixpkgs-unstable
+          - nixpkgs=channel:nixos-20.09
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install nix
+      uses: cachix/install-nix-action@v12
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+
+    - name: Setup cachix
+      uses: cachix/cachix-action@v7
+      with:
+        name: ${{ matrix.cachixName }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+
+    - name: Checkout repository
+      uses: actions/checkout@v2.3.4
+
+    - name: Download diff artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: update.diff
+        path: ~/artifact/update.diff
+
+    - name: Apply diff
+      run: |
+        git apply ~/artifact/update.diff/update.diff
+
+    - name: Build nix packages
+      run: nix run nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+
+  push:
+    name: Push and update NUR
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        nurRepo:
+          - reedrw
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2.3.4
+
+    - name: Download diff artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: update.diff
+        path: ~/artifact/update.diff
+
+    - name: Apply diff
+      run: |
+        git apply ~/artifact/update.diff/update.diff
 
     - name: Commit and push
       uses: EndBug/add-and-commit@v5
@@ -41,4 +114,19 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Update NUR
-      run: curl -XPOST https://nur-update.herokuapp.com/update?repo=reedrw
+      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
+
+  telegram:
+    name: Telegram
+    needs: push
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: technote-space/workflow-conclusion-action@v2.0.1
+      - uses: yanzay/notify-telegram@v0.1.0
+        with:
+          chat: ${{ secrets.NOTIFICATION_CHAT_ID }}
+          token: ${{ secrets.NOTIFICATION_TOKEN }}
+          status: ${{ env.WORKFLOW_CONCLUSION }}
+        if: env.WORKFLOW_CONCLUSION != 'success'
+
