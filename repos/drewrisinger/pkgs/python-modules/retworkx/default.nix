@@ -12,20 +12,20 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "retworkx";
-  version = "0.5.0";
+  version = "0.6.0";
 
   # TODO: remove when 20.09 released, needed to build on CI.
   cargoSha256 = if
     lib.versionOlder lib.trivial.release "20.09"
-    then "0ymb1w74j6bss9sgn5nmm63lj0p1j6zwhdp4f81c7fd3l80jg036"
-    else "12ab7z4mbn71ffqkifkbphg0ga9j8zic5pz9160z7xf1xvd6831d";
+    then "0bnkwp6ggcjd1j273hhww2ikgx9y62182pl55ijiijr963fq7bif"
+    else "1vg4yf0k6yypqf9z46zz818mz7fdrgxj7zl6zjf7pnm2r8mq3qw5";
   legacyCargoFetcher = true;  # TODO: Remove on next nixos release. Cargo SHA mismatch b/w unstable & release.
 
   src = fetchFromGitHub {
     owner = "Qiskit";
     repo = "retworkx";
     rev = version;
-    sha256 = "0gk3cl3vpmkhngi1s1ki5akvqqixd926c902s7x8w73hc5lwdwq7";
+    sha256 = "11n30ldg3y3y6qxg3hbj837pnbwjkqw3nxq6frds647mmmprrd20";
   };
 
   propagatedBuildInputs = [ python ];

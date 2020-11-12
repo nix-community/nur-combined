@@ -27,7 +27,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-aer";
-  version = "0.7.0";
+  version = "0.7.1";
 
   disabled = pythonOlder "3.6";
 
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit-aer";
     rev = version;
-    sha256 = "03bj44g3dzsaw05nd2rf1jawyalw9xqbc481qcahv8ms6jw889sy";
+    sha256 = "07l0wavdknx0y4vy0hwgw24365sg4nb6ygl3lpa098np85qgyn4y";
   };
 
   nativeBuildInputs = [

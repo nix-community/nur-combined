@@ -17,7 +17,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-ignis";
-  version = "0.5.0";
+  version = "0.5.1";
 
   disabled = pythonOlder "3.6";
 
@@ -26,7 +26,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit-ignis";
     rev = version;
-    sha256 = "01xsfxw0c699abshpcsajnmvj24l986s4pi48icizxnxl41apjk7";
+    sha256 = "17kplmi17axcbbgw35dzfr3d5bzfymxfni9sf6v14223c5674p4y";
   };
 
   propagatedBuildInputs = [
