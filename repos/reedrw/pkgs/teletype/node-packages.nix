@@ -508,13 +508,13 @@ let
         sha512 = "PC+AmIuK04E6aeSs/pUccSujsTzBhu4HzC2dL+CfJB/Jcc2qTRbEwZQDfIUpt2Xl8BodYBEq8w4fc0kU2I9DjQ==";
       };
     };
-    "cli-ux-5.5.0" = {
+    "cli-ux-5.5.1" = {
       name = "cli-ux";
       packageName = "cli-ux";
-      version = "5.5.0";
+      version = "5.5.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/cli-ux/-/cli-ux-5.5.0.tgz";
-        sha512 = "aXoHgEOtkem8sJmQrU/jXsojCq8uOp8++9lybCbt9mFDyPouSNawSdoPjuM00PPaSPCJThvY0VNYOQNd6gGQCA==";
+        url = "https://registry.npmjs.org/cli-ux/-/cli-ux-5.5.1.tgz";
+        sha512 = "t3DT1U1C3rArLGYLpKa3m9dr/8uKZRI8HRm/rXKL7UTjm4c+Yd9zHNWg1tP8uaJkUbhmvx5SQHwb3VWpPUVdHQ==";
       };
     };
     "clone-1.0.4" = {
@@ -2747,18 +2747,11 @@ in
       sources."cli-cursor-3.1.0"
       sources."cli-progress-3.8.2"
       sources."cli-spinners-2.5.0"
-      (sources."cli-ux-5.5.0" // {
+      (sources."cli-ux-5.5.1" // {
         dependencies = [
-          sources."fs-extra-9.0.1"
           sources."has-flag-4.0.0"
-          (sources."jsonfile-6.1.0" // {
-            dependencies = [
-              sources."universalify-2.0.0"
-            ];
-          })
           sources."supports-color-7.2.0"
           sources."tslib-2.0.3"
-          sources."universalify-1.0.0"
         ];
       })
       sources."clone-1.0.4"
