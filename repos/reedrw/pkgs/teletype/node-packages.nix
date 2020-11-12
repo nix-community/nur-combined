@@ -112,13 +112,13 @@ let
         sha512 = "c7633R37RxrQIpwqPKxjNRm6/jb1yuG8fd16hmNz9Nw+/MUhEtQtKHSCe9ScH8n5M06l6LEo4ldk9LEGtpaWwA==";
       };
     };
-    "@oclif/errors-1.3.3" = {
+    "@oclif/errors-1.3.4" = {
       name = "_at_oclif_slash_errors";
       packageName = "@oclif/errors";
-      version = "1.3.3";
+      version = "1.3.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@oclif/errors/-/errors-1.3.3.tgz";
-        sha512 = "EJR6AIOEkt/NnARNIVAskPDVtdhtO5TTNXmhDrGqMoWVsr0R6DkkLrMyq95BmHvlVWM1nduoq4fQPuCyuF2jaA==";
+        url = "https://registry.npmjs.org/@oclif/errors/-/errors-1.3.4.tgz";
+        sha512 = "pJKXyEqwdfRTUdM8n5FIHiQQHg5ETM0Wlso8bF9GodczO40mF5Z3HufnYWJE7z8sGKxOeJCdbAVZbS8Y+d5GCw==";
       };
     };
     "@oclif/linewrap-1.0.0" = {
@@ -929,6 +929,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/fs-extra/-/fs-extra-7.0.1.tgz";
         sha512 = "YJDaCJZEnBmcbw13fvdAM9AwNOJwOzrE4pqMqBq5nFiEqXUqHwlK4B+3pUw6JNvfSPtX05xFHtYy/1ni01eGCw==";
+      };
+    };
+    "fs-extra-8.1.0" = {
+      name = "fs-extra";
+      packageName = "fs-extra";
+      version = "8.1.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/fs-extra/-/fs-extra-8.1.0.tgz";
+        sha512 = "yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==";
       };
     };
     "fs-extra-9.0.1" = {
@@ -2657,10 +2666,8 @@ in
           sources."escape-string-regexp-1.0.5"
           sources."fs-extra-7.0.1"
           sources."is-fullwidth-code-point-2.0.0"
-          sources."jsonfile-4.0.0"
           sources."string-width-3.1.0"
           sources."strip-ansi-5.2.0"
-          sources."universalify-0.1.2"
           (sources."widest-line-2.0.1" // {
             dependencies = [
               sources."ansi-regex-3.0.0"
@@ -2677,7 +2684,7 @@ in
           })
         ];
       })
-      sources."@oclif/errors-1.3.3"
+      sources."@oclif/errors-1.3.4"
       sources."@oclif/linewrap-1.0.0"
       (sources."@oclif/parser-3.8.5" // {
         dependencies = [
@@ -2745,9 +2752,16 @@ in
       sources."cli-spinners-2.5.0"
       (sources."cli-ux-5.5.0" // {
         dependencies = [
+          sources."fs-extra-9.0.1"
           sources."has-flag-4.0.0"
+          (sources."jsonfile-6.1.0" // {
+            dependencies = [
+              sources."universalify-2.0.0"
+            ];
+          })
           sources."supports-color-7.2.0"
           sources."tslib-2.0.3"
+          sources."universalify-1.0.0"
         ];
       })
       sources."clone-1.0.4"
@@ -2828,7 +2842,7 @@ in
         ];
       })
       sources."fs-constants-1.0.0"
-      sources."fs-extra-9.0.1"
+      sources."fs-extra-8.1.0"
       sources."fs.realpath-1.0.0"
       sources."function-bind-1.1.1"
       sources."get-caller-file-2.0.5"
@@ -2881,11 +2895,7 @@ in
       sources."json-parse-even-better-errors-2.3.1"
       sources."json-schema-traverse-0.4.1"
       sources."json-schema-typed-7.0.3"
-      (sources."jsonfile-6.1.0" // {
-        dependencies = [
-          sources."universalify-2.0.0"
-        ];
-      })
+      sources."jsonfile-4.0.0"
       sources."lines-and-columns-1.1.6"
       (sources."load-json-file-6.2.0" // {
         dependencies = [
@@ -2980,8 +2990,6 @@ in
           sources."color-name-1.1.3"
           sources."escape-string-regexp-1.0.5"
           sources."fs-extra-6.0.1"
-          sources."jsonfile-4.0.0"
-          sources."universalify-0.1.2"
         ];
       })
       sources."quick-lru-4.0.1"
@@ -3061,7 +3069,7 @@ in
       sources."type-fest-0.11.0"
       sources."typedarray-to-buffer-3.1.5"
       sources."typescript-3.9.7"
-      sources."universalify-1.0.0"
+      sources."universalify-0.1.2"
       sources."uri-js-4.4.0"
       sources."utf-8-validate-5.0.3"
       sources."util-deprecate-1.0.2"
