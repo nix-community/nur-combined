@@ -122,11 +122,24 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
-      - uses: technote-space/workflow-conclusion-action@v2.0.1
-      - uses: yanzay/notify-telegram@v0.1.0
-        with:
-          chat: ${{ secrets.NOTIFICATION_CHAT_ID }}
-          token: ${{ secrets.NOTIFICATION_TOKEN }}
-          status: ${{ env.WORKFLOW_CONCLUSION }}
-        if: env.WORKFLOW_CONCLUSION != 'success'
+
+    - name: Download diff artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: update.diff
+        path: ~/artifact/update.diff
+
+    - name: Check if anything was updated
+      run: "[ -s ~/artifact/update.diff/update.diff ]"
+
+    - name: Get workflow conclusion
+      uses: technote-space/workflow-conclusion-action@v2.0.1
+
+    - name: Send notification
+      uses: yanzay/notify-telegram@v0.1.0
+      with:
+        chat: ${{ secrets.NOTIFICATION_CHAT_ID }}
+        token: ${{ secrets.NOTIFICATION_TOKEN }}
+        status: ${{ env.WORKFLOW_CONCLUSION }}
+      if: env.WORKFLOW_CONCLUSION != 'success'
 
