@@ -103,13 +103,13 @@ let
         sha512 = "Lmfuf6ubjQ4ifC/9bz1fSCHc6F6E653oyaRXxg+lgT4+bYf9bk+nqrUpAbrXyABkCqgIBiFr3J4zR/kiFdE1PA==";
       };
     };
-    "@oclif/dev-cli-1.22.2" = {
+    "@oclif/dev-cli-1.23.0" = {
       name = "_at_oclif_slash_dev-cli";
       packageName = "@oclif/dev-cli";
-      version = "1.22.2";
+      version = "1.23.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@oclif/dev-cli/-/dev-cli-1.22.2.tgz";
-        sha512 = "c7633R37RxrQIpwqPKxjNRm6/jb1yuG8fd16hmNz9Nw+/MUhEtQtKHSCe9ScH8n5M06l6LEo4ldk9LEGtpaWwA==";
+        url = "https://registry.npmjs.org/@oclif/dev-cli/-/dev-cli-1.23.0.tgz";
+        sha512 = "oao7e2gmCQsF5X0NRdrCmtQkcbCErtvAIYM3tpnfT9dvyUdyGU+plPx9q0iCV5C5qRNB5qh6JbVFqfjJP+djxg==";
       };
     };
     "@oclif/errors-1.3.4" = {
@@ -920,15 +920,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/fs-extra/-/fs-extra-6.0.1.tgz";
         sha512 = "GnyIkKhhzXZUWFCaJzvyDLEEgDkPfb4/TPvJCJVuS8MWZgoSsErf++QpiAlDnKFcqhRlm+tIOcencCjyJE6ZCA==";
-      };
-    };
-    "fs-extra-7.0.1" = {
-      name = "fs-extra";
-      packageName = "fs-extra";
-      version = "7.0.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/fs-extra/-/fs-extra-7.0.1.tgz";
-        sha512 = "YJDaCJZEnBmcbw13fvdAM9AwNOJwOzrE4pqMqBq5nFiEqXUqHwlK4B+3pUw6JNvfSPtX05xFHtYy/1ni01eGCw==";
       };
     };
     "fs-extra-8.1.0" = {
@@ -2654,7 +2645,7 @@ in
           sources."tslib-2.0.3"
         ];
       })
-      (sources."@oclif/dev-cli-1.22.2" // {
+      (sources."@oclif/dev-cli-1.23.0" // {
         dependencies = [
           sources."@oclif/plugin-help-2.2.3"
           sources."ansi-regex-4.1.0"
@@ -2664,10 +2655,16 @@ in
           sources."color-name-1.1.3"
           sources."emoji-regex-7.0.3"
           sources."escape-string-regexp-1.0.5"
-          sources."fs-extra-7.0.1"
+          sources."fs-extra-9.0.1"
           sources."is-fullwidth-code-point-2.0.0"
+          (sources."jsonfile-6.1.0" // {
+            dependencies = [
+              sources."universalify-2.0.0"
+            ];
+          })
           sources."string-width-3.1.0"
           sources."strip-ansi-5.2.0"
+          sources."universalify-1.0.0"
           (sources."widest-line-2.0.1" // {
             dependencies = [
               sources."ansi-regex-3.0.0"
