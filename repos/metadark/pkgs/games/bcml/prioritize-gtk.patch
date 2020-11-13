@@ -1,0 +1,13 @@
+diff --git a/bcml/__main__.py b/bcml/__main__.py
+index 0d82d3c..0d005b3 100644
+--- a/bcml/__main__.py
++++ b/bcml/__main__.py
+@@ -96,7 +96,7 @@ def main(debug: bool = False):
+ 
+     api = Api(host)
+ 
+-    gui = "cef" if SYSTEM == "Windows" else "qt"
++    gui = "cef" if SYSTEM == "Windows" else "gtk"
+ 
+     if not debug:
+         debug = DEBUG or "bcml-debug" in sys.argv

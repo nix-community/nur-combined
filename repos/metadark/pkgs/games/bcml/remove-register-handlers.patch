@@ -1,0 +1,12 @@
+diff --git a/bcml/__main__.py b/bcml/__main__.py
+index 0d82d3c..e64ce42 100644
+--- a/bcml/__main__.py
++++ b/bcml/__main__.py
+@@ -83,7 +83,6 @@ def main(debug: bool = False):
+     except (FileNotFoundError, OSError, PermissionError):
+         pass
+ 
+-    _oneclick.register_handlers()
+     oneclick = Thread(target=_oneclick.listen)
+     oneclick.daemon = True
+     oneclick.start()

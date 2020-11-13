@@ -1,0 +1,205 @@
+diff --git a/bcml/_api.py b/bcml/_api.py
+index 07d85e7..8473412 100644
+--- a/bcml/_api.py
++++ b/bcml/_api.py
+@@ -77,7 +77,7 @@ class Api:
+         self.tmp_files = []
+ 
+     def get_ver(self, params=None):
+-        return {"version": USER_VERSION, "update": util.get_latest_bcml() > VERSION}
++        return {"version": USER_VERSION}
+ 
+     @win_or_lose
+     def sanity_check(self, kwargs=None):
+@@ -649,52 +649,6 @@ class Api:
+         help_thread = Thread(target=help_window, args=(self.host,))
+         help_thread.start()
+ 
+-    @win_or_lose
+-    def update_bcml(self):
+-        if util.get_latest_bcml() <= VERSION:
+-            return
+-        exe = util.get_python_exe().replace("pythonw", "python")
+-        args = [
+-            exe,
+-            "-m",
+-            "pip",
+-            "install",
+-            "--disable-pip-version-check",
+-            "--no-warn-script-location",
+-            "--upgrade",
+-            "bcml",
+-        ]
+-        if DEBUG:
+-            args.insert(-2, "--pre")
+-        parent = util.get_exec_dir().parent
+-        if parent.name == "pkgs":
+-            try:
+-                (parent / "bcml").rename(parent / "bcml.bak")
+-            except:
+-                pass
+-        if SYSTEM == "Windows":
+-            result = run(
+-                args,
+-                creationflags=util.CREATE_NO_WINDOW,
+-                capture_output=True,
+-                check=False,
+-                text=True,
+-            )
+-        else:
+-            result = run(
+-                args,
+-                capture_output=True,
+-                check=False,
+-                text=True,
+-            )
+-        if result.stderr:
+-            if parent.name == "pkgs":
+-                try:
+-                    (parent / "bcml.bak").rename(parent / "bcml")
+-                except:
+-                    pass
+-            raise RuntimeError(result.stderr)
+-
+     def restart(self):
+         opener = Thread(target=start_new_instance)
+         opener.start()
+diff --git a/bcml/assets/src/js/App.jsx b/bcml/assets/src/js/App.jsx
+index b59eb48..1db904d 100644
+--- a/bcml/assets/src/js/App.jsx
++++ b/bcml/assets/src/js/App.jsx
+@@ -35,7 +35,6 @@ class App extends React.Component {
+             confirmText: "",
+             confirmCallback: () => {},
+             showAbout: false,
+-            update: false,
+             version: "3.0"
+         };
+         this.selects = null;
+@@ -278,33 +277,6 @@ class App extends React.Component {
+             .catch(this.props.onError);
+     };
+ 
+-    updateBcml = () => {
+-        this.setState(
+-            {
+-                progressTitle: "Upgrading BCML",
+-                progressStatus: "Please wait while BCML upgrades...",
+-                showProgress: true
+-            },
+-            () => {
+-                pywebview.api
+-                    .update_bcml()
+-                    .then(res => {
+-                        if (res.error) {
+-                            throw res.error;
+-                        }
+-                        this.setState({
+-                            showProgress: false,
+-                            showConfirm: true,
+-                            confirmText:
+-                                "BCML has been updated successfully. You must restart the program for changes to take effect. Restart now?",
+-                            confirmCallback: () => pywebview.api.restart()
+-                        });
+-                    })
+-                    .catch(this.showError);
+-            }
+-        );
+-    };
+-
+     setProgress = (title, msg) => {
+         this.setState({
+             progressTitle: title,
+@@ -329,9 +301,6 @@ class App extends React.Component {
+                             onClick={() => pywebview.api.open_help()}>
+                             Help
+                         </Dropdown.Item>
+-                        <Dropdown.Item onClick={this.updateBcml}>
+-                            Update BCML
+-                        </Dropdown.Item>
+                         <Dropdown.Item as="a" href="/index.html?firstrun">
+                             Run Setup Wizard
+                         </Dropdown.Item>
+@@ -446,14 +415,6 @@ class App extends React.Component {
+                     message={this.state.confirmText}
+                     onClose={this.state.confirmCallback.bind(this)}
+                 />
+-                <UpdateDialog
+-                    show={this.state.update}
+-                    onClose={confirmed =>
+-                        this.setState({ update: false }, () =>
+-                            confirmed ? this.updateBcml() : null
+-                        )
+-                    }
+-                />
+                 <BackupModal
+                     show={this.state.showBackups}
+                     ref={this.backupRef}
+@@ -577,26 +538,4 @@ const ConfirmDialog = props => {
+     );
+ };
+ 
+-const UpdateDialog = props => {
+-    return (
+-        <Modal show={props.show}>
+-            <Modal.Header>
+-                <Modal.Title>Update Available</Modal.Title>
+-            </Modal.Header>
+-            <Modal.Body>
+-                There is a new update available for BCML. Would you like to
+-                install it?
+-            </Modal.Body>
+-            <Modal.Footer>
+-                <Button onClick={() => props.onClose(true)}>OK</Button>
+-                <Button
+-                    variant="secondary"
+-                    onClick={() => props.onClose(false)}>
+-                    Close
+-                </Button>
+-            </Modal.Footer>
+-        </Modal>
+-    );
+-};
+-
+ export default App;
+diff --git a/bcml/util.py b/bcml/util.py
+index 4bd39fc..f3ab77f 100644
+--- a/bcml/util.py
++++ b/bcml/util.py
+@@ -1264,36 +1264,6 @@ def get_open_port():
+     return port
+ 
+ 
+-@lru_cache(1)
+-def get_latest_bcml() -> str:
+-    args = [
+-        get_python_exe().replace("pythonw", "python"),
+-        "-m",
+-        "pip",
+-        "--disable-pip-version-check",
+-        "install",
+-        "bcml==checkver",
+-    ]
+-    if SYSTEM == "Windows":
+-        result = run(
+-            args,
+-            creationflags=CREATE_NO_WINDOW,
+-            capture_output=True,
+-            universal_newlines=True,
+-        )
+-    else:
+-        result = run(
+-            args,
+-            capture_output=True,
+-            universal_newlines=True,
+-        )
+-    vers = sorted(re.findall(r"[0-9]\.[0-9]+\.[0-9a-z]+", result.stderr))
+-    try:
+-        return vers[-1]
+-    except IndexError:
+-        return "0.0.0"
+-
+-
+ class RulesParser(ConfigParser):
+     # pylint: disable=arguments-differ,too-many-ancestors
+     def __init__(self):

@@ -8,6 +8,17 @@ in
 with mergedPkgs; {
   inherit callPackage;
 
+  bcml = bcml-qt;
+
+  bcml-gtk = python3Packages.callPackage ./games/bcml {
+    gui = "gtk";
+  };
+
+  bcml-qt = python3Packages.callPackage ./games/bcml {
+    gui = "qt";
+    inherit (qt5) wrapQtAppsHook;
+  };
+
   bluetooth-autoconnect = python3Packages.callPackage ./tools/bluetooth/bluetooth-autoconnect { };
 
   caprine = callPackage ./applications/networking/instant-messengers/caprine {

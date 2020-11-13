@@ -1,0 +1,59 @@
+diff --git a/pymdownx/highlight.py b/pymdownx/highlight.py
+index 8b5a14c..2492a4a 100644
+--- a/pymdownx/highlight.py
++++ b/pymdownx/highlight.py
+@@ -124,7 +124,7 @@ if pygments:
+         """Adds ability to output line numbers in a new way."""
+ 
+         # Capture `<span class="lineno">   1 </span>`
+-        RE_SPAN_NUMS = re.compile(r'(<span[^>]*?)(class="[^"]*\blinenos?\b[^"]*)"([^>]*)>([^<]+)(</span>)')
++        RE_SPAN_NUMS = re.compile(r'(<span[^>]*?)(class="[^"]*\blineno\b[^"]*)"([^>]*)>([^<]+)(</span>)')
+         # Capture `<pre>` that is not followed by `<span></span>`
+         RE_TABLE_NUMS = re.compile(r'(<pre[^>]*>)(?!<span></span>)')
+ 
+@@ -148,7 +148,7 @@ if pygments:
+                 m.group(2) +
+                 '"' +
+                 m.group(3) +
+-                ' data-linenos="' + m.group(4).rstrip() + ' ">' +
++                ' data-linenos="' + m.group(4) + '">' +
+                 m.group(5)
+             )
+ 
+diff --git a/tests/test_extensions/test_highlight.py b/tests/test_extensions/test_highlight.py
+index da158dc..e9f8623 100644
+--- a/tests/test_extensions/test_highlight.py
++++ b/tests/test_extensions/test_highlight.py
+@@ -23,8 +23,8 @@ class TestHighlightInline(util.MdCase):
+             ```
+             ''',
+             r'''
+-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">import</span> <span class="nn">test</span>
+-            <span class="linenos" data-linenos="2 "></span><span class="n">test</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
++            <div class="highlight"><pre><span></span><code><span class="lineno" data-linenos="1 "></span><span class="kn">import</span> <span class="nn">test</span>
++            <span class="lineno" data-linenos="2 "></span><span class="n">test</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+             </code></pre></div>
+             ''',  # noqa: E501
+             True
+@@ -285,8 +285,8 @@ class TestHighlightSpecial(util.MdCase):
+             ```
+             ''',
+             r'''
+-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">import</span> <span class="nn">test</span>
+-            <span class="linenos special" data-linenos="2 "></span><span class="n">test</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
++            <div class="highlight"><pre><span></span><code><span class="lineno" data-linenos="1 "></span><span class="kn">import</span> <span class="nn">test</span>
++            <span class="lineno special" data-linenos="2 "></span><span class="n">test</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+             </code></pre></div>
+             ''',  # noqa: E501
+             True
+@@ -303,8 +303,8 @@ class TestHighlightSpecial(util.MdCase):
+             ```
+             ''',
+             r'''
+-            <div class="highlight"><pre><span></span><code><span class="linenos special" data-linenos="1 "></span><span class="kn">import</span> <span class="nn">test</span>
+-            <span class="linenos special" data-linenos="2 "></span><span class="n">test</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
++            <div class="highlight"><pre><span></span><code><span class="lineno special" data-linenos="1 "></span><span class="kn">import</span> <span class="nn">test</span>
++            <span class="lineno special" data-linenos="2 "></span><span class="n">test</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+             </code></pre></div>
+             ''',  # noqa: E501
+             True
