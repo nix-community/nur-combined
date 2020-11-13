@@ -15,6 +15,7 @@ tasks:
   - lint: |
       cd nur-packages
       nix-shell -p nixpkgs-fmt -I nixpkgs=./nix --run "find . -name '*.nix' -exec nixpkgs-fmt --check {} +"
+      nix-shell -p shellcheck -I nixpkgs=./nix --run "find . -name '*.sh' -exec shellcheck --shell bash {} +"
   - build: |
       cd nur-packages
 
@@ -31,3 +32,7 @@ tasks:
       cd nur-packages
       [ "$(git rev-parse HEAD)" == "$(git rev-parse master)" ] || complete-build
       nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"
+triggers:
+  - action: email
+    condition: failure
+    to: Philipp Riegger <philipp@riegger.name>

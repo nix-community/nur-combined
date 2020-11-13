@@ -184,10 +184,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "17b127xxmm2yqdz146qwbs57046kn0js1h8synv01dwqz2z1kp2l";
+      sha256 = "1wci3dimgrap91nw5vnq4qa2vfmxga27m6sfmn8caskhzwxwv1dg";
       type = "gem";
     };
-    version = "1.19.2";
+    version = "1.20.0";
   };
   pastel = {
     dependencies = [ "tty-color" ];
@@ -265,10 +265,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "12vcxmn3lj405rs0fxcki7jwpkrx8y55x8jwjf9v6yvnx2y5kga3";
+      sha256 = "0aik4kmhwwrmkysha7qibi2nyzb4c8kp42bd5vxnf8sf7b53g73g";
       type = "gem";
     };
-    version = "0.5.2";
+    version = "0.6.0";
   };
   tty-command = {
     dependencies = [ "pastel" ];
