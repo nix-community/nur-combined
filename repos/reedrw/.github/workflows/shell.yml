@@ -1,0 +1,39 @@
+name: "GitHub Actions Shell"
+on:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: 'The command to run'
+        required: true
+jobs:
+  run:
+    strategy:
+      matrix:
+        cachixName:
+          - reedrw
+
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install nix
+      uses: cachix/install-nix-action@v12
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+
+    - name: Setup cachix
+      uses: cachix/cachix-action@v7
+      with:
+        name: ${{ matrix.cachixName }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+
+    - name: Checkout repository
+      uses: actions/checkout@v2.3.4
+      with:
+        fetch-depth: 0
+
+    - name: Run command
+      run: ${{ github.event.inputs.command }}
+    env:
+      EMAIL: action@github.com
+      GIT_AUTHOR_NAME: GitHub Action
+      GIT_COMMITOR_NAME: GitHub Action
+
