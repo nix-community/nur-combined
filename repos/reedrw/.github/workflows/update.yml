@@ -2,7 +2,7 @@ name: Update sources
 
 on:
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: '59 */2 * * *'
   workflow_dispatch:
 
 jobs:
