@@ -3451,13 +3451,13 @@ let
         sha512 = "VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==";
       };
     };
-    "simple-git-2.21.0" = {
+    "simple-git-2.22.0" = {
       name = "simple-git";
       packageName = "simple-git";
-      version = "2.21.0";
+      version = "2.22.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/simple-git/-/simple-git-2.21.0.tgz";
-        sha512 = "rohCHmEjD/ESXFLxF4bVeqgdb4Awc65ZyyuCKl3f7BvgMbZOBa/Ye3HN/GFnvruiUOAWWNupxhz3Rz5/3vJLTg==";
+        url = "https://registry.npmjs.org/simple-git/-/simple-git-2.22.0.tgz";
+        sha512 = "/8WMNrQ5slYl05jYOpeh4BIyMQc84PkEvk9YAcBHVJaPoAgoxzLzdRzUzWDZJ9U6Z2pUjLxkGcQC0kU4pbRN5Q==";
       };
     };
     "simple-swizzle-0.2.2" = {
@@ -4567,7 +4567,7 @@ in
       sources."shebang-command-1.2.0"
       sources."shebang-regex-1.0.0"
       sources."signal-exit-3.0.3"
-      sources."simple-git-2.21.0"
+      sources."simple-git-2.22.0"
       sources."simple-swizzle-0.2.2"
       sources."slice-ansi-4.0.0"
       sources."sprintf-js-1.1.2"
