@@ -24,14 +24,12 @@
           option = "^[^*]+$";
           commands = ''
             editorconfig-load
-            autowrap-enable
           '';
         }
         {
           name = "BufCreate";
           option = "^.*md$";
           commands = ''
-            set-option buffer modelinefmt 'wc:%sh{ cat "$kak_buffile" | wc -w} - %val{bufname} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]'
             set-option buffer lintcmd 'proselint'
             set-option buffer formatcmd 'pandoc -f commonmark -t commonmark'
           '';
@@ -66,7 +64,7 @@
         docstring = "wc -w on a selection";
         mode = "user";
         key = "w";
-        effect = ":echo %sh{ wc -w <lt><lt><lt> \"$kak_selection\" }<ret>";
+        effect = '':echo %sh{ wc -w <lt><lt><lt> "$kak_selection" }<ret>'';
       }];
       numberLines.enable = true;
       showWhitespace.enable = true;

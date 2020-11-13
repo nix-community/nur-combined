@@ -21,8 +21,6 @@
 
   programs.jq.enable = true;
 
-  programs.lf.enable = true;
-
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
