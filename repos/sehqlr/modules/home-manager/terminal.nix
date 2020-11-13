@@ -1,8 +1,14 @@
 { config, lib, pkgs, ... }: {
 
-  home.packages = with pkgs; [ httpie nix-prefetch-scripts ripgrep ];
+  home.packages = with pkgs; [
+    httpie
+    nix-prefetch-scripts
+    ripgrep
+  ];
 
   programs.bat.enable = true;
+
+  programs.broot.enable = true;
 
   programs.command-not-found.enable = true;
 
@@ -12,6 +18,10 @@
   };
 
   programs.htop.enable = true;
+
+  programs.jq.enable = true;
+
+  programs.lf.enable = true;
 
   programs.starship = {
     enable = true;
