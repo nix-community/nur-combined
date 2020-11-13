@@ -49,13 +49,13 @@ let
         sha512 = "L/ZnJRAq7F++utfuoTKX4CLBG5YR7tFO3PLzG1/oXXKEezJ0kRL3CMRoueBEmTCzVb/6SIs2Qlaw++uDgi5Xyg==";
       };
     };
-    "@firebase/auth-0.15.1" = {
+    "@firebase/auth-0.15.2" = {
       name = "_at_firebase_slash_auth";
       packageName = "@firebase/auth";
-      version = "0.15.1";
+      version = "0.15.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@firebase/auth/-/auth-0.15.1.tgz";
-        sha512 = "qVJTmq/6l3/o6V93nAD+n1ExTywbKEFYbuuI1TZIUryy5KSXOFnxilmZI4yJeQSZ3ee06YiJsIRYRaYUeg6JQQ==";
+        url = "https://registry.npmjs.org/@firebase/auth/-/auth-0.15.2.tgz";
+        sha512 = "2n32PBi6x9jVhc0E/ewKLUCYYTzFEXL4PNkvrrlGKbzeTBEkkyzfgUX7OV9UF5wUOG+gurtUthuur1zspZ/9hg==";
       };
     };
     "@firebase/auth-interop-types-0.1.5" = {
@@ -103,13 +103,13 @@ let
         sha512 = "ljpU7/uboCGqFSe9CNgwd3+Xu5N8YCunzfPpeueuj2vjnmmypUi4QWxgC3UKtGbuv1q+crjeudZGLxnUoO0h7w==";
       };
     };
-    "@firebase/firestore-2.0.1" = {
+    "@firebase/firestore-2.0.2" = {
       name = "_at_firebase_slash_firestore";
       packageName = "@firebase/firestore";
-      version = "2.0.1";
+      version = "2.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@firebase/firestore/-/firestore-2.0.1.tgz";
-        sha512 = "7WMv3b+2P/6SOE0RxPB+S6k75/vYTDhOpPBp6JH6nPQjS9mGtR9m0adKtXjOBBugcbK6sBgPMzxmQGwQl8lW4w==";
+        url = "https://registry.npmjs.org/@firebase/firestore/-/firestore-2.0.2.tgz";
+        sha512 = "6kO/vWUmTOANA/ql+i16DFMc63gamU76Nycyt7k0r8QfcdXu93Cwizw4ff4DNMnpnkAJkTk36fPAxBxEvBXkzw==";
       };
     };
     "@firebase/firestore-types-2.0.0" = {
@@ -229,13 +229,13 @@ let
         sha512 = "G96qnF3RYGbZsTRut7NBX0sxyczxt1uyCgXQuH/eAfUCngxjEGcZQnBdy6mvSdqdJh5mC31rWPO4v9/s7HwtzA==";
       };
     };
-    "@firebase/storage-0.4.1" = {
+    "@firebase/storage-0.4.2" = {
       name = "_at_firebase_slash_storage";
       packageName = "@firebase/storage";
-      version = "0.4.1";
+      version = "0.4.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@firebase/storage/-/storage-0.4.1.tgz";
-        sha512 = "/l05Dn3UYynPELt0ZFJz24H49sQ8c8KnOEGR/Pk1AOjLmc71vjjobVEkgkHyy1eyfmYuAZtsc6ePOwc89YnBTg==";
+        url = "https://registry.npmjs.org/@firebase/storage/-/storage-0.4.2.tgz";
+        sha512 = "87CrvKrf8kijVekRBmUs8htsNz7N5X/pDhv3BvJBqw8K65GsUolpyjx0f4QJRkCRUYmh3MSkpa5P08lpVbC6nQ==";
       };
     };
     "@firebase/storage-types-0.3.13" = {
@@ -1759,13 +1759,13 @@ let
         sha512 = "PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==";
       };
     };
-    "firebase-8.0.1" = {
+    "firebase-8.0.2" = {
       name = "firebase";
       packageName = "firebase";
-      version = "8.0.1";
+      version = "8.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/firebase/-/firebase-8.0.1.tgz";
-        sha512 = "7QQKw+ycoR3LhMlxhPM+ND1F2Fx1eDlf3E55xYbmooxFW1t0p94HNENBc3JZytR1H0VoG9nSm2QEHsdr/Ca1Rg==";
+        url = "https://registry.npmjs.org/firebase/-/firebase-8.0.2.tgz";
+        sha512 = "tPtXQ8sifo82f7bOxYcR/yEdJ4IbL4/fpQrophRHFAaYCsYGp2Q/c1zz0voX9cLap8MH2uwh5LIVBqZ8nyT5ZQ==";
       };
     };
     "flat-4.1.1" = {
@@ -4080,13 +4080,13 @@ in
       sources."@firebase/analytics-types-0.4.0"
       sources."@firebase/app-0.6.13"
       sources."@firebase/app-types-0.6.1"
-      sources."@firebase/auth-0.15.1"
+      sources."@firebase/auth-0.15.2"
       sources."@firebase/auth-interop-types-0.1.5"
       sources."@firebase/auth-types-0.10.1"
       sources."@firebase/component-0.1.21"
       sources."@firebase/database-0.7.1"
       sources."@firebase/database-types-0.6.0"
-      sources."@firebase/firestore-2.0.1"
+      sources."@firebase/firestore-2.0.2"
       sources."@firebase/firestore-types-2.0.0"
       sources."@firebase/functions-0.6.1"
       sources."@firebase/functions-types-0.4.0"
@@ -4100,7 +4100,7 @@ in
       sources."@firebase/polyfill-0.3.36"
       sources."@firebase/remote-config-0.1.30"
       sources."@firebase/remote-config-types-0.1.9"
-      sources."@firebase/storage-0.4.1"
+      sources."@firebase/storage-0.4.2"
       sources."@firebase/storage-types-0.3.13"
       sources."@firebase/util-0.3.4"
       sources."@firebase/webchannel-wrapper-0.4.0"
@@ -4319,7 +4319,7 @@ in
         ];
       })
       sources."find-up-3.0.0"
-      sources."firebase-8.0.1"
+      sources."firebase-8.0.2"
       (sources."flat-4.1.1" // {
         dependencies = [
           sources."is-buffer-2.0.5"
