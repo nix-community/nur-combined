@@ -15,7 +15,7 @@ buildGoModule {
   meta = with lib; {
     description = "Gemini server";
     homepage = "https://git.sr.ht/~yotam/shavit";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };

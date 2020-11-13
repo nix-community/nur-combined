@@ -14,7 +14,9 @@ stdenv.mkDerivation {
     inherit version;
   };
 
-  unpackPhase = "${unzip}/bin/unzip $src";
+  sourceRoot = ".";
+
+  nativeBuildInputs = [ unzip ];
 
   buildInputs = [ jre makeWrapper ];
 

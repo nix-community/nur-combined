@@ -114,15 +114,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-10T18:32:12Z",
+        "date": "2020-11-12T10:56:59Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "dbe35bccba0df38129d5bc0a316e1c140f51c447",
-        "sha256": "0z0l99ydi3pac2ndivw7y3f3vi0d4r91ky4ifjmrir8agk1w8prv",
+        "rev": "56f5c90745645c3dfe55324354cab41bb451cac2",
+        "sha256": "1avf0a22qkj67w6hglk6hlfh5h9n3k06g97dzrvhng0d1hhk4ng0",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/dbe35bccba0df38129d5bc0a316e1c140f51c447.tar.gz",
+        "url": "https://github.com/embox/embox/archive/56f5c90745645c3dfe55324354cab41bb451cac2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -321,15 +321,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2020-11-02T19:16:02Z",
+        "date": "2020-11-11T22:15:12Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "0644bb72a0af60583f4b440502d2dd89711226ab",
-        "sha256": "1mrp3i43x4ban93njcr1l6bq4jcfkgcvgcn393spd1sipqrf6xrh",
+        "rev": "ed9ebfffac6c7c2202741cff25e4762b7178ff83",
+        "sha256": "1r3icp5fqcbwpg57qzl1gr8lcjhnwdhhmz2r61b4mqg8vg0qy9pr",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/0644bb72a0af60583f4b440502d2dd89711226ab.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/ed9ebfffac6c7c2202741cff25e4762b7178ff83.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -574,11 +574,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "00m465vvqxz27x4yz8ssxjbx8n0fcfp9ap9x2w9bhd3nryw3xdq7",
+        "sha256": "1n56xaz4v87aaahfdl653ckw381fbf7jx3m2ri531c8sha5m3idg",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-11-10.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-11-12.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-11-10"
+        "version": "2020-11-12"
     },
     "mercantile": {
         "branch": "master",
@@ -677,15 +677,15 @@
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-10T14:42:49Z",
+        "date": "2020-11-12T02:47:14Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "52b87a24925708aaa0ab57821386358136db48bd",
-        "sha256": "1mdqwi7y1lj5q7a7kjv692zkrfcsbcawzxkibk1g3cdbw5f2w9vn",
+        "rev": "1c4bc318f50f259c368f15e37dbf4b5246eade77",
+        "sha256": "0fkn9xp5z1wfpgg9p87kgc6i20znziqqrns7jpx7jzaf5s3kl8y2",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/52b87a24925708aaa0ab57821386358136db48bd.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/1c4bc318f50f259c368f15e37dbf4b5246eade77.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -841,15 +841,15 @@
     "stardict-3": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-10T15:16:33Z",
+        "date": "2020-11-12T11:36:10Z",
         "description": "Automatically exported from code.google.com/p/stardict-3",
         "homepage": "https://github.com/huzheng001/stardict-3",
         "owner": "huzheng001",
         "repo": "stardict-3",
-        "rev": "31e97b5d14826ffc800a64cbf38f0b2973839acf",
-        "sha256": "07qvybkimgz4s3pd07xyl2lhvxld5365dphw0jz8hlk8j8y6glkq",
+        "rev": "18da33e85db9ec55cc728e434a40685950fcf6ae",
+        "sha256": "0sx3rknycwv3i4yi2hjxn81sw5ywmhrw2dhivkmk4wjar5x6m0wz",
         "type": "tarball",
-        "url": "https://github.com/huzheng001/stardict-3/archive/31e97b5d14826ffc800a64cbf38f0b2973839acf.tar.gz",
+        "url": "https://github.com/huzheng001/stardict-3/archive/18da33e85db9ec55cc728e434a40685950fcf6ae.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "supermercado": {
