@@ -11,6 +11,7 @@
   base16 = import ./base16.nix false;
   base16-shell = ./base16-shell.nix;
   filebin = ./filebin.nix;
+  display = ./display.nix;
   buku = ./buku.nix;
   i3 = ./i3.nix;
   i3gopher = ./i3gopher.nix;
@@ -33,6 +34,7 @@
       rustfmt
       base16 base16-shell
       filebin
+      display
       buku
       i3 i3gopher
       lorri

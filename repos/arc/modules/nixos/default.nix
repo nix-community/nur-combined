@@ -1,5 +1,6 @@
 {
   yggdrasil = ./yggdrasil.nix;
+  display = ./display.nix;
   filebin = ./filebin.nix;
   mosh = ./mosh.nix;
   base16 = ./base16.nix;
@@ -9,6 +10,7 @@
   __functor = self: { ... }: {
     imports = with self; [
       yggdrasil
+      display
       filebin
       mosh
       base16 base16-shared
