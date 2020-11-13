@@ -1,14 +1,13 @@
 { config, lib, pkgs, ... }: {
 
-  home.packages = with pkgs; [
-    httpie
-    nix-prefetch-scripts
-    ripgrep
-  ];
+  home.packages = with pkgs; [ httpie nix-prefetch-scripts ripgrep ];
 
   programs.bat.enable = true;
 
-  programs.broot.enable = true;
+  programs.broot = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   programs.command-not-found.enable = true;
 
@@ -33,7 +32,7 @@
     };
   };
 
-  programs.termite = { enable = true; };
+  programs.termite.enable = true;
 
   programs.tmux = {
     enable = true;
@@ -61,6 +60,7 @@
       theme = "af-magic";
     };
     shellAliases = {
+      br = "broot";
       cat = "bat";
       nixos = "sudo nixos-rebuild";
     };
