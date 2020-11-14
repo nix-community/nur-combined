@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "n2n";
-  version = "2.6";
+  version = "2.8";
 
   src = fetchFromGitHub {
     owner = "ntop";
     repo = pname;
     rev = version;
-    hash = "sha256:16xsrgp7wa5p0i780vaz9cl4wkqab46z35w50pj2abahg1msb6l9";
+    hash = "sha256:1ph2npvnqh1xnmkp96pdzpxm033jkb8zznd3nc59l9arhn0pq4nv";
   };
 
   nativeBuildInputs = [ autoconf automake ];
