@@ -68,5 +68,9 @@ let g:echodoc#type = "virtual"
 " Commentary:
 " Nix:
 
+" Markdown
+au! BufRead,BufNewFile *.markdown set filetype=mkd
+au! BufRead,BufNewFile *.md       set filetype=mkd
+
 " Disable conceallevel
 autocmd VimEnter * set conceallevel=0

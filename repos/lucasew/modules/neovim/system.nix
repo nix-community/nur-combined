@@ -36,6 +36,7 @@ let
         zig-vim
         emmet-vim
         pluginEmbark
+        vim-markdown
       ];
       customRC = ''
       let g:LanguageClient_serverCommands = ${builtins.toJSON (import ./langservers.nix {inherit pkgs;})}
