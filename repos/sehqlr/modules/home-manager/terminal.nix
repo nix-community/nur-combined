@@ -60,8 +60,8 @@
       theme = "af-magic";
     };
     shellAliases = {
-      br = "broot";
       cat = "bat";
+      hms = "home-manager switch";
       nixos = "sudo nixos-rebuild";
     };
   };

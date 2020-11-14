@@ -27,11 +27,18 @@
           '';
         }
         {
-          name = "BufCreate";
-          option = "^.*md$";
+          name = "WinCreate";
+          option = "^.*zettelkasten.*$";
+          commands = ''
+            set-option window filetype zettel
+          '';
+        }
+        {
+          name = "WinSetOption";
+          option = "filetype=markdown";
           commands = ''
             set-option buffer lintcmd 'proselint'
-            set-option buffer formatcmd 'pandoc -f commonmark -t commonmark'
+            set-option buffer formatcmd 'pandoc -f markdown -t markdown -s'
           '';
         }
         {
@@ -60,15 +67,29 @@
           '';
         }
       ];
-      keyMappings = [{
-        docstring = "wc -w on a selection";
-        mode = "user";
-        key = "w";
-        effect = '':echo %sh{ wc -w <lt><lt><lt> "$kak_selection" }<ret>'';
-      }];
+      keyMappings = [
+        {
+          docstring = "wc -w on a selection; will not work on large selections";
+          mode = "user";
+          key = "w";
+          effect = '':echo %sh{ echo "$kak_selection" | wc -w }<ret>'';
+        }
+        {
+          docstring =
+            "wc -w on the whole buffile; will not work on scratch buffers";
+          mode = "user";
+          key = "W";
+          effect = '':echo %sh{ cat "$kak_buffile" | wc -w }<ret>'';
+        }
+      ];
       numberLines.enable = true;
       showWhitespace.enable = true;
       ui.enableMouse = true;
+      wrapLines = {
+        enable = true;
+        marker = "⏎";
+        word = true;
+      };
     };
   };
 }
