@@ -26,6 +26,7 @@
   kaiosrt = pkgs.callPackage ./pkgs/kaiosrt { };
   kaios-devenv = pkgs.callPackage ./pkgs/kaiosrt/devenv.nix { };
   gurl = pkgs.callPackage ./pkgs/gurl { };
+  sfg = pkgs.callPackage ./pkgs/sfg { };
 
   st = pkgs.callPackage ./pkgs/larbs/st { };
   dwm = pkgs.callPackage ./pkgs/larbs/dwm { };
