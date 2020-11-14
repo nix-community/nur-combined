@@ -3,7 +3,7 @@ with stdenv.lib;
 
 let
   pname = "sfg";
-  version = "0.1";
+  version = "0.2";
 in
 buildGoModule {
   inherit pname version;
@@ -12,7 +12,7 @@ buildGoModule {
     owner = "pniedzwiedzinski";
     repo = "simple-feed-gen";
     rev = "v${version}";
-    sha256 = "0l7sgwg2aa4vdbz0zpx9n9zaxrh7mcm3xyagn01fbnpk9s9mmhh8";
+    sha256 = "0h0wfq9fwls08kf8gyhxmzmrb77kkmbn6hp17q8lqcr810f9dk90";
   };
 
   vendorSha256 = "1b3ra7p666vjnf7hm1pjm1y852i89jpzyf6j9id19js1133jqz3p";

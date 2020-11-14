@@ -9,9 +9,7 @@ let
   voidrice = callPackage ../voidrice.nix { };
   config = "${voidrice}/.config/ncmpcpp/config";
   bindings = "${voidrice}/.config/ncmpcpp/bindings";
-  vizNcmpcpp = ncmpcpp.override {
-    visualizerSupport = true;
-  };
+  vizNcmpcpp = callPackage ./ncmpcpp-vis.nix { };
 
   ncmpcppWrapped = stdenv.mkDerivation {
     inherit pname version;
