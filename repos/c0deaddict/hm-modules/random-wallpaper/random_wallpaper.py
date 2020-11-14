@@ -32,8 +32,8 @@ def sway_get_monitors():
     return [
         dict(
             id=output['name'],
-            w=output['rect']['width'],
-            h=output['rect']['height'],
+            w=output['current_mode']['width'],
+            h=output['current_mode']['height'],
             x=output['rect']['x'],
             y=output['rect']['y'],
         )
