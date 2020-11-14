@@ -28,6 +28,7 @@
   gurl = pkgs.callPackage ./pkgs/gurl { };
   sfg = pkgs.callPackage ./pkgs/sfg { };
   ncmpcpp = pkgs.callPackage ./pkgs/larbs-music/ncmpcpp-vis.nix { };
+  duckling-proxy = pkgs.callPackage ./pkgs/duckling-proxy { };
 
   st = pkgs.callPackage ./pkgs/larbs/st { };
   dwm = pkgs.callPackage ./pkgs/larbs/dwm { };
