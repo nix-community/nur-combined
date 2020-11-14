@@ -1,7 +1,9 @@
 { pkgs ? import <nixpkgs> {} }:
 
-{
-  n2n = pkgs.callPackage ./n2n {};
+rec {
+  n2n = pkgs.callPackage ./pkgs/n2n {};
+  mcstatus = pkgs.python3Packages.callPackage ./pkgs/mcstatus {};
 
-  mcstatus = pkgs.python3Packages.callPackage ./mcstatus {};
+  cpptoml = pkgs.callPackage ./pkgs/cpptoml {};
+  wireplumber = pkgs.callPackage ./pkgs/wireplumber { inherit cpptoml; };
 }
