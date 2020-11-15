@@ -22,7 +22,7 @@ index be2fa80..a2c5f21 100755
 +  fi
    exit "$code"
  }
- 
+
 @@ -225,6 +226,7 @@ auto_type() {
          type_word "$(echo "$2" | jq -r '.[0].login.username')"
          type_tab

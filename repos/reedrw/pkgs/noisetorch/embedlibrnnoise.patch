@@ -4,7 +4,7 @@ index 43daf80..0b3004b 100644
 +++ b/scripts/embedlibrnnoise.go
 @@ -8,7 +8,7 @@ import (
  )
- 
+
  func main() {
 -	b, err := ioutil.ReadFile("librnnoise_ladspa/bin/ladspa/librnnoise_ladspa.so")
 +	b, err := ioutil.ReadFile(os.Getenv("RNNOISE_LADSPA_PLUGIN"))

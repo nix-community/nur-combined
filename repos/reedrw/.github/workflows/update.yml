@@ -142,4 +142,3 @@ jobs:
         token: ${{ secrets.NOTIFICATION_TOKEN }}
         status: ${{ env.WORKFLOW_CONCLUSION }}
       if: env.WORKFLOW_CONCLUSION != 'success'
-

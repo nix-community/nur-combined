@@ -20,4 +20,3 @@ stdenv.mkDerivation rec {
     license = stdenv.lib.licenses.ofl;
   };
 }
-

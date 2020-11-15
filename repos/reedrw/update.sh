@@ -12,13 +12,12 @@ EOF
 
 # other. Run their update.sh
 while read -r i; do
-  pushd pkgs/"$i"/
+  pushd pkgs/"$i"/ || exit 1
   ./update.sh
-  popd
+  popd || exit 1
 done << EOF
   actions-cli
   artwiz-lemon
   picom-next-ibhagwan
   teletype
 EOF
-

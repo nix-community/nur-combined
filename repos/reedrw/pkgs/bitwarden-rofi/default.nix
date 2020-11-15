@@ -1,8 +1,20 @@
 # source: https://github.com/kylesferrazza/nix/blob/288edcd1d34884b9b7083c6d718fbe10febe0623/overlay/bitwarden-rofi.nix
 # TODO https://github.com/mattydebie/bitwarden-rofi/issues/34
 
-{ stdenv, fetchFromGitHub, makeWrapper, unixtools,
-xsel, xclip, wl-clipboard, xdotool, bitwarden-cli, rofi, jq, keyutils, libnotify }:
+{ stdenv
+, fetchFromGitHub
+, makeWrapper
+, unixtools
+, xsel
+, xclip
+, wl-clipboard
+, xdotool
+, bitwarden-cli
+, rofi
+, jq
+, keyutils
+, libnotify
+}:
 let
   bins = [
     jq
@@ -16,7 +28,8 @@ let
     keyutils
     libnotify
   ];
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "bitwarden-rofi";
   version = "git-2020-03-27";
 

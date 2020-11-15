@@ -1,7 +1,5 @@
-with import <nixpkgs> {};
-
+with import <nixpkgs> { };
 let
-
   sources = import ./nix/sources.nix;
 
   devshell = import "${sources.devshell}/overlay.nix";
@@ -10,14 +8,17 @@ let
     nix-prefetch = super.nix-prefetch.overrideAttrs (
       old: rec {
         src = sources.nix-prefetch;
-        patches = [];
+        patches = [ ];
       }
     );
 
     nix-update = super.nix-update.overrideAttrs (
       old: rec {
         makeWrapperArgs = [
-          "--prefix" "PATH" ":" (lib.makeBinPath [nix self.nix-prefetch])
+          "--prefix"
+          "PATH"
+          ":"
+          (lib.makeBinPath [ nix self.nix-prefetch ])
         ];
       }
     );
@@ -34,4 +35,3 @@ let
 
 in
 pkgs.mkDevShell.fromTOML ./devshell.toml
-

@@ -21,4 +21,3 @@ stdenv.mkDerivation {
     description = "command line pastebin";
   };
 }
-

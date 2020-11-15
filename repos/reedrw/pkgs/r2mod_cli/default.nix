@@ -1,9 +1,8 @@
-{
-fetchFromGitHub,
-jq,
-makeWrapper,
-p7zip,
-stdenv
+{ fetchFromGitHub
+, jq
+, makeWrapper
+, p7zip
+, stdenv
 }:
 
 stdenv.mkDerivation rec {
@@ -45,4 +44,3 @@ stdenv.mkDerivation rec {
   };
 
 }
-
