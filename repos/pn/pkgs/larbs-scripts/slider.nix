@@ -1,12 +1,12 @@
-{ stdenv, callPackage, buildEnv, ffmpeg, imagemagick }:
+{ stdenv, callPackage, buildEnv, lowPrio, ffmpeg, imagemagick }:
 let
   voidrice = callPackage ../voidrice.nix { };
 in
   buildEnv {
     name = "slider";
     paths = [
-      ffmpeg
-      imagemagick
+      (lowPrio ffmpeg)
+      (lowPrio imagemagick)
     ];
     postBuild = ''
       cp  ${voidrice}/.local/bin/slider $out/bin/slider
