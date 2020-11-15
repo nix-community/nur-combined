@@ -1,0 +1,26 @@
+{
+    "devshell": {
+        "branch": "master",
+        "description": "Per project developer environments",
+        "homepage": "",
+        "owner": "numtide",
+        "repo": "devshell",
+        "rev": "3a5bfcfc43cf1cfc9143b97691fa02cbebc504c7",
+        "sha256": "1z7k7p5g9fsza2qycyyndcwdgp2iz006ayjcizdr85nzdazzsvid",
+        "type": "tarball",
+        "url": "https://github.com/numtide/devshell/archive/3a5bfcfc43cf1cfc9143b97691fa02cbebc504c7.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nix-prefetch": {
+        "branch": "master",
+        "description": "Prefetch any fetcher function call, e.g. a package source",
+        "homepage": null,
+        "owner": "msteen",
+        "repo": "nix-prefetch",
+        "rev": "6bda3ef3862173b3dabff3c2668add795f982572",
+        "sha256": "1qw7ifc4syh8xprfcnj4kc7brx4x7bd0584sskgc1b3cpjnq5qs2",
+        "type": "tarball",
+        "url": "https://github.com/msteen/nix-prefetch/archive/6bda3ef3862173b3dabff3c2668add795f982572.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
