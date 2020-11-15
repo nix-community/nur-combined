@@ -2,14 +2,19 @@
 let
   voidrice = callPackage ../voidrice.nix { };
 in
-  buildEnv {
+  stdenv.mkDerivation {
     name = "slider";
-    paths = [
-      (lowPrio ffmpeg)
-      (lowPrio imagemagick)
-    ];
-    postBuild = ''
-      cp  ${voidrice}/.local/bin/slider $out/bin/slider
+
+    src = voidrice;
+
+    buildPhase = ''
+      sed -i 's:ffmpeg:${ffmpeg}/bin/ffmpeg:g' .local/bin/slider
+      sed -i 's:convert:${imagemagick}/bin/convert:g' .local/bin/slider
+    '';
+
+    installPhase = ''
+      mkdir -p $out/bin
+      cp  .local/bin/slider $out/bin/slider
     '';
 
     meta = {
