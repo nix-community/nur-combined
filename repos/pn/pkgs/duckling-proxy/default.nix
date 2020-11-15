@@ -12,7 +12,6 @@ buildGoModule {
   };
 
   vendorSha256 = "0wxk1a5gn9a7q2kgq11a783rl5cziipzhndgp71i365y3p1ssqyf";
-  # vendorSha256 = lib.fakeSha256;
 
   meta = {
     description = "Duckling proxy is a Gemini proxy to access the Small Web";
