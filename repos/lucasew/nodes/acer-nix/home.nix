@@ -21,8 +21,6 @@ in
   ]
   ++ import <dotfiles/lib/listModules.nix> "home";
 
-  manual.manpages.enable = false;
-
   home.packages = with pkgs; [
     # ------------ pacotes do nixpkgs ---------------
     p7zip unzip xarchiver # archiving

@@ -150,6 +150,9 @@ in
     kbfs.enable = true;
   };
 
+  # cachix
+  cachix.enable = true;
+
   # não deixar explodir
   nix.maxJobs = 3;
   # kernel
