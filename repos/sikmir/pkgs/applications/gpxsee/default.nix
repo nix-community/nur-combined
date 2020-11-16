@@ -45,7 +45,7 @@ mkDerivation {
 
   meta = with lib; {
     inherit (sources.gpxsee) description homepage changelog;
-    license = licenses.gpl3;
+    license = licenses.gpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
