@@ -32,7 +32,7 @@ jobs:
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
     - name: Setup cachix
-      uses: cachix/cachix-action@v7
+      uses: cachix/cachix-action@v8
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
         name: ${{ matrix.cachixName }}
