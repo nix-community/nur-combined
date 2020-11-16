@@ -6,16 +6,6 @@ let
       # selectedDesktopEnvironment = "xfce_i3";
       selectedDesktopEnvironment = "gnome";
       hostname = "acer-nix";
-      wallpaper = builtins.fetchurl {
-        url = "http://wallpaperswide.com/download/armenia_syunik_khustup_hayk_k13-wallpaper-1366x768.jpg";
-        sha256 = "1z2439f0d8hpqwjp07xhwkcp7svzvbhljayhdfssmvi619chlc0p";
-      };
-      # wallpaper = builtins.fetchurl {
-      #   url = "http://wallpaperswide.com/download/aurora_sky-wallpaper-1366x768.jpg";
-      #   sha256 = "1gk4bw5mj6qgk054w4g0g1zjcnss843afq5h5k0qpsq9sh28g41a";
-      # };
-
-
       dotfileRootPath = 
       let
         env = builtins.getEnv "DOTFILES";

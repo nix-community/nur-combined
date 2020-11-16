@@ -1,6 +1,12 @@
 { pkgs, config, lib, ... }:
 with import <dotfiles/globalConfig.nix>;
 let
+  wallpaper = builtins.fetchurl {
+    url = "http://wallpaperswide.com/download/aurora_sky-wallpaper-1366x768.jpg";
+    sha256 = "1gk4bw5mj6qgk054w4g0g1zjcnss843afq5h5k0qpsq9sh28g41a";
+    # url = "http://wallpaperswide.com/download/armenia_syunik_khustup_hayk_k13-wallpaper-1366x768.jpg";
+    # sha256 = "1z2439f0d8hpqwjp07xhwkcp7svzvbhljayhdfssmvi619chlc0p";
+  };
   tuple = lib.hm.gvariant.mkTuple;
 in
 {
@@ -119,6 +125,13 @@ in
       '';
     };
   };
+
+  # wallpaper
+  wallpaper = {
+    enable = true;
+    wallpaperFile = wallpaper;
+  };
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
