@@ -1,7 +1,7 @@
 { config, lib, stdenv, fetchFromGitHub
 , autoconf, automake, file, flex, libtool, pkgconfig, re2c
 , bison2, bison, php-pearweb-phars
-, apacheHttpd, libargon2, systemd, valgrind
+, apacheHttpd, libargon2, systemd, system-sendmail, valgrind
 , freetds, bzip2, curl, openssl
 , gd, freetype, libXpm, libjpeg, libpng, libwebp
 , gettext, gmp, libiconv, uwimap, pam, icu60, icu
@@ -175,6 +175,9 @@ let
       ++ optional valgrindSupport "--with-valgrind=${valgrind.dev}"
       ++ optional (ztsSupport && (versionOlder version "8.0")) "--enable-maintainer-zts"
       ++ optional (ztsSupport && (versionAtLeast version "8.0")) "--enable-zts"
+
+      # Sendmail
+      ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ]
 
       # Enable extensions only in 5.6
       ++ optional (mssqlSupport && !stdenv.isDarwin) "--with-mssql=${freetds}"
