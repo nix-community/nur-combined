@@ -4,8 +4,13 @@ let
   customYoutube = pkgs.callPackage ./package.nix {};
 in
 {
-  config = {
-    systemd.user.services.ytmd-adblock = import ./adskip_service.nix {inherit pkgs;};
+  options = {
+    programs.adskipped-youtube-music = {
+      enable = mkEnableOption "enable youtube music with adskipper";
+    };
+  };
+  config = mkIf config.programs.adskipped-youtube-music.enable {
+    systemd.user.services.ytmd-adblock = import ./service.nix {inherit pkgs;};
     home.packages = [
       customYoutube
     ];

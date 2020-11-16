@@ -48,10 +48,6 @@ in
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # melhor editor ever
-  environment.variables.EDITOR = "nvim";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "pt_BR.UTF-8";
   # console = {
@@ -71,7 +67,13 @@ in
     kde-gtk-config # Custom
     dasel # manipulação de json, toml, yaml, xml, csv e tal
     rclone rclone-browser restic # cloud storage
+    p7zip unzip xarchiver # archiving
+    (pkgs.callPackage <dotfiles/modules/neovim/package.nix> {})
+    (pkgs.callPackage <dotfiles/modules/dotenv/package.nix> {})
   ];
+
+  # melhor editor ever
+  environment.variables.EDITOR = "nvim";
 
   programs.dconf.enable = true;
   services.dbus.packages = with pkgs; [ gnome3.dconf ];

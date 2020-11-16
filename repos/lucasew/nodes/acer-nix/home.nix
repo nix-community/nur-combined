@@ -22,8 +22,8 @@ in
   ++ import <dotfiles/lib/listModules.nix> "home";
 
   home.packages = with pkgs; [
-    # ------------ pacotes do nixpkgs ---------------
-    p7zip unzip xarchiver # archiving
+   # ------------ pacotes do nixpkgs ---------------
+    minecraft pinball mspaint stremio my_rofi # custom
     gimp kdeApplications.kdenlive vlc youtube-dl # media
     discord tdesktop # social
     google-chrome # browser (extra)
@@ -43,6 +43,8 @@ in
     # pkgs.jetbrains.clion
   ];
   programs = {
+    adskipped-spotify.enable = true;
+    adskipped-youtube-music.enable = true;
     command-not-found.enable = true;
     jq.enable = true;
     obs-studio = {
@@ -65,6 +67,8 @@ in
       hideThreads = true;
       treeView = true;
     };
+    tmux.enable = true;
+    vscode.enable = true;
   };
 
   # Git
