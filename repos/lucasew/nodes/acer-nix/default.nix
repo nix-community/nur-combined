@@ -13,6 +13,7 @@ in
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       "${home-manager}/nixos"
+      ./modules/virt-manager/system.nix
     ]
     ++ import <dotfiles/lib/listModules.nix> "system"
   ;
@@ -45,6 +46,9 @@ in
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  # melhor editor ever
+  environment.variables.EDITOR = "nvim";
+
   # Select internationalisation properties.
   i18n.defaultLocale = "pt_BR.UTF-8";
   # console = {
@@ -62,10 +66,8 @@ in
     gparted
     paper-icon-theme
     kde-gtk-config # Custom
-  ];
-
-  services.udev.packages = with pkgs; [
-    gnome3.gnome-settings-daemon
+    dasel # manipulação de json, toml, yaml, xml, csv e tal
+    rclone rclone-browser restic # cloud storage
   ];
 
   programs.dconf.enable = true;
@@ -81,10 +83,6 @@ in
   # };
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
-
-  virtualisation.docker.enable = true;
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -102,7 +100,7 @@ in
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
-    # services.xserver.layout = "us";
+  # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable touchpad support.
@@ -111,18 +109,22 @@ in
   # Tailscale
   services.tailscale.enable = true;
 
-  #themes
+  # Themes
   programs.qt5ct.enable = true;
 
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Users
   users.users = {
     ${globalConfig.username} = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+      extraGroups = [
+        "wheel" # sudo
+        "docker" # docker
+        "adbusers" # adb
+      ]; 
       description = "Lucas Eduardo";
     };
   };
+  # Home manager
   home-manager = {
     users = {
       ${globalConfig.username} = import ./home.nix;
@@ -130,6 +132,25 @@ in
     useUserPackages = true;
 #    useGlobalPkgs = true;
   };
+  # ADB
+  programs.adb.enable = true;
+  services.udev.packages = with pkgs; [
+    gnome3.gnome-settings-daemon
+    android-udev-rules
+  ];
+  # docker
+  virtualisation.docker.enable = true;
+
+  # keybase
+  services = {
+    keybase.enable = true;
+    kbfs.enable = true;
+  };
+
+  # não deixar explodir
+  nix.maxJobs = 3;
+  # kernel
+  boot.kernelPackages = pkgs.linuxPackages_5_8;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -138,9 +159,4 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.03"; # Did you read the comment?
-
-  environment.variables.EDITOR = "nvim";
-
-  nix.maxJobs = 3;
-  boot.kernelPackages = pkgs.linuxPackages_5_8;
 }

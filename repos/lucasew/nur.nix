@@ -1,7 +1,6 @@
 {pkgs ? import <nixpkgs> {}, ...}:
 {
   hmModules = {
-    compression = ./modules/compression/home.nix;
     customRofi = ./modules/custom_rofi/home.nix;
     htop = ./modules/htop/home.nix;
     kdeconnect = ./modules/kdeconnect/home.nix;

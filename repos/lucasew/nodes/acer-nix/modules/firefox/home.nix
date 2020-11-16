@@ -1,7 +1,7 @@
 {pkgs, ...}: 
 let 
   globalConfig = import <dotfiles/globalConfig.nix>;
-  nur = pkgs.callPackage ../nur/package.nix {};
+  nur = pkgs.nur;
 in
 {
   programs.firefox = {
