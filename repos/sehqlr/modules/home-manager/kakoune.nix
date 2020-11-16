@@ -27,13 +27,6 @@
           '';
         }
         {
-          name = "WinCreate";
-          option = "^.*zettelkasten.*$";
-          commands = ''
-            set-option window filetype zettel
-          '';
-        }
-        {
           name = "WinSetOption";
           option = "filetype=markdown";
           commands = ''
