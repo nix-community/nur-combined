@@ -16,6 +16,8 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  libraries = import ./pkgs/libraries { inherit pkgs; };
+
   vimPlugins = import ./pkgs/vimPlugins { inherit pkgs; };
 
   cabbage = pkgs.callPackage ./pkgs/cabbage { };
