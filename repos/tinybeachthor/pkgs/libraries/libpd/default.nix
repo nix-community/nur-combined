@@ -1,4 +1,7 @@
-{ stdenv, fetchFromGitHub, pkgconfig, ... }:
+{ stdenv
+, fetchFromGitHub
+, autoPatchelfHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "libpd";
@@ -12,14 +15,14 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
   buildPhase = ''
     make libpd
 
     mkdir $out
-    cp libs/libpd.so $out/
+    mkdir $out/lib
+    cp libs/libpd.so $out/lib/
   '';
 
   dontInstall = true;
