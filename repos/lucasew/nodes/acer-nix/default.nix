@@ -32,6 +32,9 @@ in
     };
   };
 
+  # limpar tmp no boot
+  boot.cleanTmpDir = true;
+
   networking.hostName = globalConfig.hostname; # Define your hostname.
   networking.networkmanager.enable = true;
 

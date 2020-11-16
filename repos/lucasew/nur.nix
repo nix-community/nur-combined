@@ -4,7 +4,6 @@
     customRofi = ./modules/custom_rofi/home.nix;
     htop = ./modules/htop/home.nix;
     kdeconnect = ./modules/kdeconnect/home.nix;
-    nixgram-service = ./modules/nixgram/home.nix;
     spotify-adskip = ./modules/spotify/home.nix;
     youtubemusic-adskip = ./modules/youtube/home.nix;
     tmux = ./modules/tmux/home.nix;
