@@ -106,6 +106,17 @@ in
       tap-to-click = true;
     };
   };
+
+  # nixgram
+  services.nixgram = {
+    enable = true;
+    customCommands = {
+      echo = "echo $*";
+      speak = ''
+        ${pkgs.espeak}/bin/espeak -v mb/mb-br1 "$*"
+      '';
+    };
+  };
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
