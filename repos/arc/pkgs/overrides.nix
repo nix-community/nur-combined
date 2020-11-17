@@ -393,12 +393,6 @@ let
       ];
     });
 
-    awscli = { awscli, hostPlatform, lib }: awscli.overrideAttrs (old: {
-      meta = old.meta // {
-        broken = old.meta.broken or false || (hostPlatform.isDarwin && lib.isNixpkgsStable);
-      };
-    });
-
     git-revise = { git-revise }: git-revise.overrideAttrs (old: {
       doInstallCheck = false;
     });
