@@ -85,13 +85,13 @@ let
         sha512 = "puCDz0CzydiSYOrnXpz/PKd69zRrribezjtE9yd4zvytoRc8+RY/KJPvtPFKZS3E3wP6neGyMe0vOTlHO5L3Pw==";
       };
     };
-    "command-line-usage-6.1.0" = {
+    "command-line-usage-6.1.1" = {
       name = "command-line-usage";
       packageName = "command-line-usage";
-      version = "6.1.0";
+      version = "6.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/command-line-usage/-/command-line-usage-6.1.0.tgz";
-        sha512 = "Ew1clU4pkUeo6AFVDFxCbnN7GIZfXl48HIOQeFQnkO3oOqvpI7wdqtLRwv9iOCZ/7A+z4csVZeiDdEcj8g6Wiw==";
+        url = "https://registry.npmjs.org/command-line-usage/-/command-line-usage-6.1.1.tgz";
+        sha512 = "F59pEuAR9o1SF/bD0dQBDluhpT4jJQNWUHEuVBqpDmCUo6gPjCi+m9fCWnWZVR/oG6cMTUms4h+3NPl74wGXvA==";
       };
     };
     "commander-6.2.0" = {
@@ -427,13 +427,13 @@ let
         sha512 = "EJ4UNY/U1t2P/2k6oqotuX2Cc3T6nxJwsM0N0asT7dhrtH1ltUxDn4NalSYmPE2rCkVpcf/X6R0wDwcFpzhd4w==";
       };
     };
-    "resolve-1.18.1" = {
+    "resolve-1.19.0" = {
       name = "resolve";
       packageName = "resolve";
-      version = "1.18.1";
+      version = "1.19.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/resolve/-/resolve-1.18.1.tgz";
-        sha512 = "lDfCPaMKfOJXjy0dPayzPdF1phampNWr3qFCjAu+rw/qbQmr5jWH5xN2hwh9QKfw9E5v4hwV7A+jrCmL8yjjqA==";
+        url = "https://registry.npmjs.org/resolve/-/resolve-1.19.0.tgz";
+        sha512 = "rArEXAgsBG4UgRGcynxWIWKFvh/XZCcS8UJdHhwy91zwAvCZIbcs+vAbflgBnNjYMs/i/i+/Ux6IZhML1yPvxg==";
       };
     };
     "resolve-cwd-3.0.0" = {
@@ -578,7 +578,7 @@ let
       sources."color-convert-1.9.3"
       sources."color-name-1.1.3"
       sources."colorette-1.2.1"
-      sources."command-line-usage-6.1.0"
+      sources."command-line-usage-6.1.1"
       sources."commander-6.2.0"
       sources."cross-spawn-7.0.3"
       sources."deep-extend-0.6.0"
@@ -616,7 +616,7 @@ let
       sources."pump-3.0.0"
       sources."rechoir-0.7.0"
       sources."reduce-flatten-2.0.0"
-      sources."resolve-1.18.1"
+      sources."resolve-1.19.0"
       sources."resolve-cwd-3.0.0"
       sources."resolve-from-5.0.0"
       sources."shebang-command-2.0.0"
