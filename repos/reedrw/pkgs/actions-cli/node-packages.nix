@@ -1948,13 +1948,13 @@ let
         sha512 = "qBr4OuELkhPenW6goKVXiv47US3clb3/IbuWF9KNKEijAy9oeHxU9IgzjvJhHkUzhaj7rOUD7+YGWqUjLp5oSA==";
       };
     };
-    "gtoken-5.0.5" = {
+    "gtoken-5.1.0" = {
       name = "gtoken";
       packageName = "gtoken";
-      version = "5.0.5";
+      version = "5.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/gtoken/-/gtoken-5.0.5.tgz";
-        sha512 = "wvjkecutFh8kVfbcdBdUWqDRrXb+WrgD79DBDEYf1Om8S1FluhylhtFjrL7Tx69vNhh259qA3Q1P4sPtb+kUYw==";
+        url = "https://registry.npmjs.org/gtoken/-/gtoken-5.1.0.tgz";
+        sha512 = "4d8N6Lk8TEAHl9vVoRVMh9BNOKWVgl2DdNtr3428O75r3QFrF/a5MMu851VmK0AA8+iSvbwRv69k5XnMLURGhg==";
       };
     };
     "has-1.0.3" = {
@@ -4347,7 +4347,7 @@ in
       sources."google-auth-library-6.1.3"
       sources."google-p12-pem-3.0.3"
       sources."growl-1.10.5"
-      sources."gtoken-5.0.5"
+      sources."gtoken-5.1.0"
       sources."has-1.0.3"
       (sources."has-ansi-2.0.0" // {
         dependencies = [
