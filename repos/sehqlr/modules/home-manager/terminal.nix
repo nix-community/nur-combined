@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: {
 
-  home.packages = with pkgs; [ httpie nix-prefetch-scripts ripgrep ];
+  home.packages = with pkgs; [ cachix httpie nix-prefetch-scripts ripgrep ];
 
   programs.bat.enable = true;
 
