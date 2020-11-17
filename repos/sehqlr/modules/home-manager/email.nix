@@ -7,7 +7,7 @@
     imap.host = "imap.fastmail.com";
     smtp.host = " smtp.fastmail.com";
     userName = "hey#samhatfield.me";
-    passwordCommand = "pass fastmail";
+    passwordCommand = "op get item fastmail --fields password";
 
     notmuch.enable = true;
     msmtp.enable = true;
@@ -33,7 +33,7 @@
   };
   home.file.".mailcap".text =
     "text/html;  w3m -dump -o document_charset=%{charset} '%s'; nametemplate=%s.html; copiousoutput";
-  home.packages = with pkgs; [ pandoc w3m ];
+  home.packages = with pkgs; [ _1password pandoc w3m ];
 
   programs.mbsync.enable = true;
   programs.msmtp.enable = true;
@@ -45,9 +45,6 @@
     };
     new.tags = [ "new" ];
   };
-
-  programs.password-store = {
-    enable = true;
-    package = pkgs.pass-wayland;
-  };
+  
+  programs.zsh.shellAliases = { ops = "eval $(op signin my)"; };
 }

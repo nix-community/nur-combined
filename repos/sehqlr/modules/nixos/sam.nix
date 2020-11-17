@@ -1,6 +1,7 @@
 { config, pkgs, ... }: {
   environment.pathsToLink = [ "/share/zsh" ];
   programs.sway.enable = true;
+  services.xserver.enable = true;
   services.xserver.displayManager = {
       defaultSession = "sway";
       lightdm.enable = true;

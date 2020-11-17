@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+let neuronSrc = builtins.fetchTarball "https://github.com/srid/neuron/archive/master.tar.gz";
+    neuronPkg = import neuronSrc {};
+in {
 
-  home.packages = with pkgs; [ neuron-notes ];
+  home.packages = with pkgs; [ neuronPkg ];
 
   systemd.user.services.neuron =
     let notesDir = "${config.home.homeDirectory}/zettelkasten";
@@ -9,7 +12,7 @@
       Install.WantedBy = [ "graphical-session.target" ];
       Service = {
         ExecStart =
-          "${pkgs.neuron-notes}/bin/neuron -d ${notesDir} rib -ws localhost:8081";
+          "${neuronPkg}/bin/neuron -d ${notesDir} rib -ws localhost:8081";
       };
     };
 }
