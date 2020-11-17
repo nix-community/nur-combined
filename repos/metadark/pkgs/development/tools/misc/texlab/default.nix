@@ -32,6 +32,5 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://texlab.netlify.app";
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar metadark ];
-    platforms = platforms.all;
   };
 }

@@ -22,6 +22,5 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://gitlab.com/jkcclemens/msyt";
     license = licenses.mit;
     maintainers = with maintainers; [ metadark ];
-    platforms = platforms.all;
   };
 }
