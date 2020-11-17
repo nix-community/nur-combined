@@ -38,14 +38,10 @@ let
 
     notmuch = { lib, notmuch, coreutils }@args: let
       notmuch = args.notmuch.super or args.notmuch;
-      drvargs = if lib.isNixpkgsStable
-        then { emacs = coreutils; }
-        else { withEmacs = false; };
-      drv = notmuch.override drvargs;
+      drv = notmuch.override {
+        withEmacs = false;
+      };
     in drv.overrideAttrs (old: {
-      configureFlags = old.configureFlags or []
-        ++ lib.optional lib.isNixpkgsStable "--without-emacs";
-
       doCheck = false;
 
       postInstall = ''
@@ -155,7 +151,7 @@ let
       };
     in weechat-wrapped.overrideAttrs (old: {
         meta = old.meta // {
-          broken = old.meta.broken or false || weechat-unwrapped.stdenv.isDarwin || lib.isNixpkgsStable;
+          broken = old.meta.broken or false || weechat-unwrapped.stdenv.isDarwin;
         };
     });
 
@@ -173,10 +169,6 @@ let
       };
       enableParallelBuilding = true;
       patches = old.patches or [] ++ [ ./public/luakit/nodoc.patch ];
-
-      meta = old.meta or {} // {
-        broken = old.meta.broken or false || lib.isNixpkgsStable;
-      };
     });
 
     electrum-cli = { lib, electrum }: let

@@ -20,6 +20,5 @@
       install -Dm0755 contrib/matrix_decrypt.py $out/bin/matrix_decrypt
       install -Dm0755 contrib/matrix_sso_helper.py $out/bin/matrix_sso_helper
     '';
-    meta.broken = lib.isNixpkgsStable;
   };
 }

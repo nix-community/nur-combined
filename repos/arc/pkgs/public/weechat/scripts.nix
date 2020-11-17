@@ -83,6 +83,5 @@
     '';
 
     passthru.scripts = [ "matrix.py" ];
-    meta.broken = lib.isNixpkgsStable;
   };
 }

@@ -215,8 +215,8 @@ in with self; {
     then check pkgs
     else imp channel pkgs;
 
-  nixpkgsVersionStable = "20.03";
-  nixpkgsVersionUnstable = "20.09";
+  nixpkgsVersionStable = "20.09";
+  nixpkgsVersionUnstable = "21.03";
   isNixpkgsStable = versionOlder version "${nixpkgsVersionUnstable}pre";
   isNixpkgsUnstable = !isNixpkgsStable;
 }

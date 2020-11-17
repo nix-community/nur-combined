@@ -1,16 +1,14 @@
 { lib, stdenv, fetchurl, rustPlatform, darwin }: let
   pname = "LanguageClient-neovim";
-  version = "0.1.156";
+  version = "0.1.160";
   src = fetchurl {
     url = "https://github.com/autozimu/LanguageClient-neovim/archive/${version}.tar.gz";
-    sha256 = "0bf2va6lpgw7wqpwpfidijbzphhvw48hyc2b529qv12vwgnd1shq";
+    sha256 = "0l01pjaclsy7lyc8a8y517fnqgxmhf9kccjnbjrx6l6p36p0jbig";
   };
 in rustPlatform.buildRustPackage {
   inherit pname src version;
 
-  cargoSha256 = if lib.isNixpkgsStable
-    then "1w8g7pxwnjqp9zi47h4lz2mcg5daldsk5z72h8cjj750wng8a82c"
-    else "0rp4zic2bgb781v92zzdch9wazrc9j8a44b1wxsqjbpqazy0izcw";
+  cargoSha256 = "12b0clhdms3wbwp27d9n43y0v568i2lns9v3ygg8n8n312rg17aw";
   buildInputs = with darwin.apple_sdk.frameworks; lib.optionals stdenv.isDarwin [ CoreFoundation CoreServices ];
   meta.broken = lib.versionAtLeast "1.40.0" rustPlatform.rust.rustc.version;
 }
