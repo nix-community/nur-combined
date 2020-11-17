@@ -1,6 +1,7 @@
 { pkgs, sources }:
 pkgs.vimUtils.buildVimPluginFrom2Nix {
-  name = "neovim-treesitter";
+  pname = "nvim-treesitter";
+  version = "master";
   src = pkgs.fetchFromGitHub {
     inherit (sources.nvim-treesitter) owner repo rev sha256;
   };
