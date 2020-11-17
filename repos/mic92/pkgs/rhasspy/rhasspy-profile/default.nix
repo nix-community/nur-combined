@@ -25,6 +25,7 @@ buildPythonPackage rec {
 
   postPatch = ''
     patchShebangs ./configure
+    sed -i "s/aiohttp==.*/aiohttp/" requirements.txt
     sed -i "s/aiofiles==.*/aiofiles/" requirements.txt
     sed -i "s/json5==.*/json5/" requirements.txt
   '';
