@@ -12,10 +12,10 @@ in
 builtins.listToAttrs
   (map (n: nameValuePair n nurAttrs.${n})
     (builtins.filter (n: !isReserved n)
-    (builtins.attrNames nurAttrs)))
-    // {
-      vimPlugins = (super.vimPlugins or {} ) // nurAttrs.vimPlugins;
-      fishPlugins = (super.fishPlugins or {} ) // nurAttrs.fishPlugins;
-      firefoxPlugins = (super.firefoxPlugins or {} ) // nurAttrs.firefoxPlugins;
-      sddmThemes = (super.sddmThemes or {} ) // nurAttrs.sddmThemes;
-    }
+      (builtins.attrNames nurAttrs)))
+  // {
+  vimPlugins = (super.vimPlugins or { }) // nurAttrs.vimPlugins;
+  fishPlugins = (super.fishPlugins or { }) // nurAttrs.fishPlugins;
+  firefoxPlugins = (super.firefoxPlugins or { }) // nurAttrs.firefoxPlugins;
+  sddmThemes = (super.sddmThemes or { }) // nurAttrs.sddmThemes;
+}

@@ -17,10 +17,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "19ac6859213e4096fe4c5efffc15dd8199c18b83",
-        "sha256": "18ngckpjwc3hg8b2rag4b3ik1vhp1ypqxvrmx82bvyzhri5r3l6x",
+        "rev": "e3d25495da3f4a057b5cb0e62bc917596936177c",
+        "sha256": "1lk5q93qks5zzsh6p28qlv498fl99kddhnnf0bpqakipmasss7xn",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/19ac6859213e4096fe4c5efffc15dd8199c18b83.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/e3d25495da3f4a057b5cb0e62bc917596936177c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "bass": {
@@ -101,10 +101,10 @@
         "homepage": null,
         "owner": "orf",
         "repo": "gping",
-        "rev": "92c1c509694d8c80e1d7501c4529692b7cc9b610",
-        "sha256": "03q0d4bw88ag231zx1mrhxn54ha6xqbnzzbm0lljhwip1qx0p0j7",
+        "rev": "03678b9397795b4d706c0e2ef0de037b5b43dd0b",
+        "sha256": "0sdv6mf7mrgsdinv94mhai5jaw04s6r9cq0wxkph9b4hhywi0lys",
         "type": "tarball",
-        "url": "https://github.com/orf/gping/archive/92c1c509694d8c80e1d7501c4529692b7cc9b610.tar.gz",
+        "url": "https://github.com/orf/gping/archive/03678b9397795b4d706c0e2ef0de037b5b43dd0b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lfs": {
@@ -149,10 +149,10 @@
         "homepage": "https://neovim.io",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "6169167f90ba316b01cc64046ca46774bb1a22d7",
-        "sha256": "1w2mqph7fv15g1c82bvwkwzsb34kf9k9z6jb0mzfdfmhgfz6yqzf",
+        "rev": "ce70edb80e965c90fadafea72d758b4d2d531077",
+        "sha256": "1hkd409kvb403vpsq0ckzf8fr5g16f5w7smiagm6i81vzqlfz34j",
         "type": "tarball",
-        "url": "https://github.com/neovim/neovim/archive/6169167f90ba316b01cc64046ca46774bb1a22d7.tar.gz",
+        "url": "https://github.com/neovim/neovim/archive/ce70edb80e965c90fadafea72d758b4d2d531077.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -185,10 +185,10 @@
         "homepage": null,
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "300846f3c982ffc3e54775fa99b4ec01d56adf65",
-        "sha256": "01pv2sdf1x15p4pcl344lpjb3fgf83zq53kbw20hsqyxspp26676",
+        "rev": "4180533bbfaee6e802c35fe34cf7803acf8beae3",
+        "sha256": "00zjlflxbz7j0pv7d1bvj6fg9chkal587c0g6mcf38a1rwaccyb7",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/300846f3c982ffc3e54775fa99b4ec01d56adf65.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/4180533bbfaee6e802c35fe34cf7803acf8beae3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-lspconfig": {
@@ -209,10 +209,10 @@
         "homepage": "",
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter",
-        "rev": "1058c11f4686529a5a3f02897597977bc67725c8",
-        "sha256": "1lz88zr2qr09dn3wapc1npxg0wirwrnqjjwx77kq59zlj5w60f9i",
+        "rev": "00d5408527ffff3deffc750a8f46c1e916e730b8",
+        "sha256": "1fdpvq0613j0sdadw3nng895vhvhj4x504nd0x255qdn7k8l7pl8",
         "type": "tarball",
-        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/1058c11f4686529a5a3f02897597977bc67725c8.tar.gz",
+        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/00d5408527ffff3deffc750a8f46c1e916e730b8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-web-devicons": {
@@ -285,18 +285,6 @@
         "sha256": "0i2d88yyfjv4gn3zn7jzv5pf94vzllvxmnmi3hdjddrhl2xppsza",
         "type": "tarball",
         "url": "https://github.com/francoiscabrol/ranger.vim/archive/91e82debdf566dfaf47df3aef0a5fd823cedf41c.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "ranger_devicons": {
-        "branch": "main",
-        "description": "Ranger plugin that adds file glyphs / icon support to Ranger",
-        "homepage": "",
-        "owner": "alexanderjeurissen",
-        "repo": "ranger_devicons",
-        "rev": "68ffbffd086b0e9bb98c74705abe891b756b9e11",
-        "sha256": "150xczhxs9n3xgrwivgp02xwbpqn0xwz65g91n4pl1g2bj3dbp1p",
-        "type": "tarball",
-        "url": "https://github.com/alexanderjeurissen/ranger_devicons/archive/68ffbffd086b0e9bb98c74705abe891b756b9e11.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "sddm-chili": {
