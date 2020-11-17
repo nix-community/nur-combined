@@ -602,10 +602,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "8.1.3";
+      version = "8.1.4";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3669168/metamask-8.1.3-an+fx.xpi";
-      sha256 = "e3183550d9df4449d161ac7adda1a485654e9daaa35c2048356eddb94bffdbc5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3679248/metamask-8.1.4-an+fx.xpi";
+      sha256 = "80261b3b93733592e390905b2ba894d511d61232d6b5cedd3bc3ff6aed00755b";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
@@ -809,10 +809,10 @@
       };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.5.1";
+      version = "0.5.2";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3669183/snowflake-0.5.1-fx.xpi";
-      sha256 = "552952cf63e81d29b5bcde821a38aa924a78d573f07a7b531b3a499700d364e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3679527/snowflake-0.5.2-fx.xpi";
+      sha256 = "1db00d00f5a0857e70871fac9e7ce34b1b6298a2c479e63c0195c8304aceee83";
       meta = with stdenv.lib;
       {
         homepage = "https://snowflake.torproject.org/";
