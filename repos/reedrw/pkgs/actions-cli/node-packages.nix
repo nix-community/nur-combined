@@ -3208,13 +3208,13 @@ let
         sha512 = "MG5r82wBzh7pSKDRa9y+vllNHz3e3d4CNj1PQE4BQYxLme0gKYYBm9YENq+UkEikyZ0XbiGWxYlVw3Rl9O/U8g==";
       };
     };
-    "protobufjs-6.10.1" = {
+    "protobufjs-6.10.2" = {
       name = "protobufjs";
       packageName = "protobufjs";
-      version = "6.10.1";
+      version = "6.10.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/protobufjs/-/protobufjs-6.10.1.tgz";
-        sha512 = "pb8kTchL+1Ceg4lFd5XUpK8PdWacbvV5SK2ULH2ebrYtl4GjJmS24m6CKME67jzV53tbJxHlnNOSqQHbTsR9JQ==";
+        url = "https://registry.npmjs.org/protobufjs/-/protobufjs-6.10.2.tgz";
+        sha512 = "27yj+04uF6ya9l+qfpH187aqEzfCF4+Uit0I9ZBQVqK09hk/SQzKa2MUqUpXaVa7LOFRg1TSSr3lVxGOk6c0SQ==";
       };
     };
     "proxy-addr-2.0.6" = {
@@ -4530,7 +4530,7 @@ in
       sources."pkg-up-3.1.0"
       sources."process-nextick-args-2.0.1"
       sources."promise-polyfill-8.1.3"
-      (sources."protobufjs-6.10.1" // {
+      (sources."protobufjs-6.10.2" // {
         dependencies = [
           sources."@types/node-13.13.30"
         ];
