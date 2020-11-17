@@ -4,7 +4,7 @@
 assert token != null;
 
 let
-  version = "2020.1.1";
+  version = "2020.1.2";
 
 in stdenv.mkDerivation {
   pname = "molpro";
@@ -13,7 +13,7 @@ in stdenv.mkDerivation {
   src = requireFile {
     url = http://www.molpro.net;
     name = "molpro-mpp-${version}.linux_x86_64_openmp.sh.gz";
-    sha256 = "0kgfgj2nkn4nbjncfp6v1hjzqb5m75j1x98a8dqfg4a4id5wxxzj";
+    sha256 = "1i6k0rfwfghizlhflzcdr7rb7w3cw1i172a1s60qkih1iipvmd9p";
   };
 
   nativeBuildInputs = [ patchelf ];
