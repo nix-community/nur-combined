@@ -434,10 +434,10 @@
       };
     "https-everywhere" = buildFirefoxXpiAddon {
       pname = "https-everywhere";
-      version = "2020.8.13";
+      version = "2020.11.17";
       addonId = "https-everywhere@eff.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3625427/https_everywhere-2020.8.13-an+fx.xpi";
-      sha256 = "47034cf750c305a328e59de104cf7a5710dbffc9f2dc183283e2f770f2e74241";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3679479/https_everywhere-2020.11.17-an+fx.xpi";
+      sha256 = "a6ebcb0a05607e54e7a9fc0b5b3832eda6f13f8dce2ee802164a455919e385c9";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/https-everywhere";
@@ -508,10 +508,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "3.1.14";
+      version = "3.1.15";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3665826/grammatik_und_rechtschreibprufung_languagetool-3.1.14-fx.xpi";
-      sha256 = "fab9753df0c91fa0fee299c416f1b109889ec73d361f7565ec27df6d5c2d2c67";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3678405/grammatik_und_rechtschreibprufung_languagetool-3.1.15-fx.xpi";
+      sha256 = "44c2fcefcccc987d1d271fcb5d558c4b693e9d0d9c01bbe337bff5ce7cf89b12";
       meta = with stdenv.lib;
       {
         homepage = "https://languagetool.org";
