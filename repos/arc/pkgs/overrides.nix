@@ -211,11 +211,6 @@ let
     cargo-download = { lib, hostPlatform, cargo-download, cargo-download-arc }: let
       isBroken = hostPlatform.isDarwin || cargo-download.meta.broken or false == true || !lib.isNixpkgsStable;
     in if isBroken then cargo-download-arc else cargo-download;
-    cargo-release = { cargo-release, hostPlatform }: cargo-release.overrideAttrs (old: {
-      meta = old.meta // {
-        broken = old.meta.broken or false || hostPlatform.isDarwin;
-      };
-    });
 
     libjaylink = { stdenv, fetchgit, autoreconfHook, pkgconfig, libusb1 }: stdenv.mkDerivation {
       pname = "libjaylink";

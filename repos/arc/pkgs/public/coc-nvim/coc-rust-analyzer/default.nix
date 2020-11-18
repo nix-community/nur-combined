@@ -1,11 +1,11 @@
 { fetchFromGitHub, yarn2nix, yarn, vimUtils, nodePackages, fetchpatch }: let
   pname = "coc-rust-analyzer";
-  version = "0.10.1";
+  version = "0.15.0";
   src = fetchFromGitHub {
     owner = "fannheyward";
     repo = pname;
-    rev = "8a1ec55558f201b85536ca572d89ef486676f2ed";
-    sha256 = "0gbr08r86xh3yx6vrqwzips0c0j6w3ssa0hnqb0y8a96728q5sfk";
+    rev = "c7899dd3901c2202516f9c70f97a7531bcf56aa0";
+    sha256 = "1yb1mmcnwrwfy8lz3wkg94wcxhd4px8xvwhgyk286s73p1mwv4p8";
   };
   deps = yarn2nix.mkYarnModules rec {
     inherit pname version;

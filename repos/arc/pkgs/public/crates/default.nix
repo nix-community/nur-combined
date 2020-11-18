@@ -16,7 +16,7 @@
     # darwin undefined symbol _CFURLResourceIsReachable: https://discourse.nixos.org/t/help-with-rust-linker-error-on-darwin-cfurlresourceisreachable/2657
 
     cargoSha256 = "0v2sbx3maj5r7sd9hka4zvsvk697mdbx3hzy66l1vbcdkx0nil3m";
-    #meta.broken = lib.isNixpkgsStable; # sometimes requires the latest rust
+    meta.broken = ! lib.versionAtLeast rustPlatform.rust.rustc.version "1.46.0";
 
     doCheck = false;
   };
@@ -342,7 +342,7 @@
     doCheck = false;
 
     meta = {
-      broken = lib.versionAtLeast "1.38.0" rustPlatform.rust.rustc.version;
+      broken = ! lib.versionAtLeast rustPlatform.rust.rustc.version "1.46.0";
       platforms = lib.platforms.linux;
     };
   };

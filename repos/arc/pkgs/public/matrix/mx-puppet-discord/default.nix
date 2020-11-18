@@ -1,31 +1,36 @@
-{ stdenv, pkgs, fetchFromGitHub, nodejs, makeWrapper }:
+{ stdenv, pkgs, fetchFromGitHub, nodejs, nodePackages, pkg-config, cairo, pango, libpng, libjpeg, giflib, librsvg, makeWrapper }:
 
 let
   src = fetchFromGitHub {
     owner = "matrix-discord";
     repo = "mx-puppet-discord";
-    rev = "28e7da75136771139b3ee3b5fdac92949cc4d561";
-    sha256 = "190jldvka1ym1crwcgaq4hcsh40906rwiw5dljpxvvs1hvj5p1xy";
+    rev = "47336e183ba832aeb0be6109576d2848b7794a1e";
+    sha256 = "06vhjz3xsmhkv5hxf97kfjni0fxrpcp10q6lan56hpj2n7511sxz";
   };
 
-  nodePackages = import ./node-composition.nix {
+  nodeComposition = import ./node-composition.nix {
     inherit pkgs;
     inherit (stdenv.hostPlatform) system;
     inherit nodejs;
   };
 
-  shell = nodePackages.shell.override {
+  package = nodeComposition.shell.override {
     inherit src;
+
+    buildInputs = [ cairo pango libpng libjpeg giflib librsvg ];
+    nativeBuildInputs = [ nodePackages.node-pre-gyp nodePackages.node-gyp pkg-config ];
   };
 in stdenv.mkDerivation rec {
   pname = "mx-puppet-discord";
-  version = "2020-09-05";
+  version = "2020-11-14";
   inherit src;
 
   buildInputs = [ nodejs makeWrapper ];
 
+  inherit (package) nodeDependencies;
+
   buildPhase = ''
-    ln -s ${shell.nodeDependencies}/lib/node_modules
+    ln -s $nodeDependencies/lib/node_modules
     npm run-script build
     sed -i '1i #!${nodejs}/bin/node\n' build/index.js
   '';

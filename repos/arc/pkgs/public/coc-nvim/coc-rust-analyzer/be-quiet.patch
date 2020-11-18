@@ -1,13 +1,16 @@
 diff --git a/src/index.ts b/src/index.ts
-index 5d3c162..242f8eb 100644
+index d116755..8beae33 100644
 --- a/src/index.ts
 +++ b/src/index.ts
-@@ -17,20 +17,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
+@@ -17,23 +17,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
  
    const bin = ctx.resolveBin();
    if (!bin) {
 -    let msg = 'Rust Analyzer is not found, download from GitHub release?';
--    const ret = await workspace.showQuickpick(['Yes', 'Cancel'], msg);
+-    let ret = 0;
+-    if (config.prompt) {
+-      ret = await workspace.showQuickpick(['Yes', 'Cancel'], msg);
+-    }
 -    if (ret === 0) {
 -      try {
 -        await downloadServer(context, config.channel);
@@ -23,4 +26,4 @@ index 5d3c162..242f8eb 100644
 +    return;
    }
  
-   await ctx.startServer();
+   ctx.registerCommand('analyzerStatus', cmds.analyzerStatus);
