@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: {
-  imports = [ ./ipfs.nix ./networking.nix ./sam.nix ];
+  imports = [ ./ipfs.nix ./sam.nix ];
   environment.systemPackages = with pkgs; [
     android-file-transfer
     commonsCompress

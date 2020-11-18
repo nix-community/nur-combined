@@ -12,7 +12,7 @@
   };
   users.users.sam = {
       description = "Sam Hatfield <hey@samhatfield.me>";
-      extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
+      extraGroups = [ "wheel" "audio" "video" ];
       isNormalUser = true;
       shell = pkgs.zsh;
   };

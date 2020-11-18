@@ -1,10 +1,17 @@
 { config, pkgs, ... }: {
   boot.loader.systemd-boot.enable = true;
 
-  networking.hostName = "T420"; # Define your hostname.
-
-  networking.interfaces.enp0s25.useDHCP = true;
-  networking.interfaces.wlp3s0.useDHCP = true;
+  networking = {
+      hostName = "T420";
+      interfaces = {
+          enp0s25.useDHCP = true;
+          wlp3s0.useDHCP = true;
+      }
+      networkmanager = {
+          enable = true;
+          wifi.powersave = false;
+      }
+  };
 
   i18n.defaultLocale = "en_US.UTF-8";
   console.keyMap = "us";
@@ -20,4 +27,6 @@
   services.xserver.libinput.enable = true;
 
   programs.light.enable = true;
+
+  users.users.sam.extraGroups = [ "networkmanager" ];
 }
