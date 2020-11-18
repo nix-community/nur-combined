@@ -8,7 +8,9 @@ jobs:
 
     steps:
     - name: Install Nix
-      uses: cachix/install-nix-action@70742d22d932888bb199587f910c72183e62c6da # v6
+      uses: cachix/install-nix-action@07da2520eebede906fbeefa9dd0a2b635323909d # v12
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
 
     - name: Checkout
       uses: actions/checkout@v1
