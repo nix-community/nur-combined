@@ -463,13 +463,13 @@ let
         sha512 = "jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==";
       };
     };
-    "clean-stack-3.0.0" = {
+    "clean-stack-3.0.1" = {
       name = "clean-stack";
       packageName = "clean-stack";
-      version = "3.0.0";
+      version = "3.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/clean-stack/-/clean-stack-3.0.0.tgz";
-        sha512 = "RHxtgFvXsRQ+1AM7dlozLDY7ssmvUUh0XEnfnyhYgJTO6beNZHBogiaCwGM9Q3rFrUkYxOtsZRC0zAturg5bjg==";
+        url = "https://registry.npmjs.org/clean-stack/-/clean-stack-3.0.1.tgz";
+        sha512 = "lR9wNiMRcVQjSB3a7xXGLuz4cr4wJuuXlaAEbRutGowQTmlp7R72/DOgN21e8jdwblMWl9UOJMJXarX94pzKdg==";
       };
     };
     "cli-cursor-3.1.0" = {
@@ -2690,7 +2690,7 @@ in
         ];
       })
       sources."chownr-1.1.4"
-      sources."clean-stack-3.0.0"
+      sources."clean-stack-3.0.1"
       sources."cli-cursor-3.1.0"
       sources."cli-progress-3.8.2"
       sources."cli-spinners-2.5.0"
