@@ -30,6 +30,7 @@ buildPythonPackage rec {
     patchShebangs configure
     sed -i "s/swagger-ui-py==.*/swagger-ui-py/" requirements.txt
     sed -i "s/quart==.*/quart/" requirements.txt
+    sed -i "s/aiohttp==.*/aiohttp/" requirements.txt
   '';
 
   propagatedBuildInputs = [

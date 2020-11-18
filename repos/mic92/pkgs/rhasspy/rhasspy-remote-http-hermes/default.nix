@@ -20,6 +20,10 @@ buildPythonPackage rec {
     sha256 = "sha256-FnbfCsJGQRdCo96lz/l3pORoFiQGYj46XtnVY3SsHyI=";
   };
 
+  postPatch = ''
+    sed -i "s/aiohttp==.*/aiohttp/" requirements.txt
+  '';
+
   propagatedBuildInputs = [
     aiohttp
     rhasspy-hermes
