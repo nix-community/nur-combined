@@ -14,6 +14,7 @@
   time.timeZone = "America/Chicago";
 
   services.vnstat.enable = true;
+  environment.systemPackages = [ pkgs.vnstat ];
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
