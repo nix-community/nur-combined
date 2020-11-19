@@ -1,4 +1,9 @@
 { config, pkgs, ... }:
+let
+  locker = pkgs.writeShellScript "locker" ''
+    ${pkgs.i3lock-color}/bin/i3lock-color --image ~/.background-image --tiling --ignore-empty-password --show-failed-attempts --clock --pass-media-keys --pass-screen-keys --pass-volume-keys --veriftext="vou ver e te aviso" --wrongtext="errou!" --noinputtext="já entendi que você quer apagar tudo" --locktext="ajeitando os esquema..."
+  '';
+in
 {
   services.xserver = {
     enable = true;
@@ -16,6 +21,7 @@
       enable = true;
       time = 10;
       killtime = 24 * 60;
+      locker = "${locker}";
     };
   };
   environment.systemPackages = [
