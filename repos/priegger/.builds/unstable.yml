@@ -1,8 +1,6 @@
 image: nixos/latest
-repositories:
-  nixpkgs: https://nixos.org/channels/nixos-unstable
 packages:
-  - nixpkgs.cachix
+  - nixos.cachix
 sources:
   - https://git.sr.ht/~priegger/nur-packages
 secrets:

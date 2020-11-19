@@ -1,8 +1,6 @@
 image: nixos/20.09
-repositories:
-  nixpkgs: https://nixos.org/channels/nixos-20.09
 packages:
-  - nixpkgs.cachix
+  - nixos.cachix
 sources:
   - https://git.sr.ht/~priegger/nur-packages
 secrets:
