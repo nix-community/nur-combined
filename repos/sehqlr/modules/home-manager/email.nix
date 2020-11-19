@@ -41,10 +41,8 @@
     enable = true;
     hooks = {
       postNew = "afew -tn";
-      preNew = "mbsync -a";
+      preNew = "eval $(op signin my) && mbsync -a";
     };
     new.tags = [ "new" ];
   };
-  
-  programs.zsh.shellAliases = { ops = "eval $(op signin my)"; };
 }
