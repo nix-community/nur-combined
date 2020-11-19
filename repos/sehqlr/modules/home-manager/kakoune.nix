@@ -31,7 +31,7 @@
           option = "filetype=markdown";
           commands = ''
             set-option buffer lintcmd 'proselint'
-            set-option buffer formatcmd 'pandoc -f markdown -t markdown -s'
+            set-option buffer formatcmd 'pandoc -f markdown -t markdown-smart -s'
           '';
         }
         {
