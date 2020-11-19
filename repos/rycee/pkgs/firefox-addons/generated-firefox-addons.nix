@@ -82,10 +82,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.46.2";
+      version = "1.47.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3651545/bitwarden_free_password_manager-1.46.2-an+fx.xpi";
-      sha256 = "957507e73c9a14b6d08978c2cf09c235c6a8fb681beff4e18ace7080ba8ed8a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3677817/bitwarden_free_password_manager-1.47.0-an+fx.xpi";
+      sha256 = "8580571d340c60db808d974710ce296c40155ca15e528ccaf1580788eecf98ea";
       meta = with stdenv.lib;
       {
         homepage = "https://bitwarden.com";
@@ -467,10 +467,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.15.0";
+      version = "2.16.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3663596/ipfs_companion-2.15.0-an+fx.xpi";
-      sha256 = "59b6ab817b912c5e242d024c8dd3eedff3ebf3786c0c3ea8770ce9598b53a5f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3680755/ipfs_companion-2.16.0-an+fx.xpi";
+      sha256 = "09bfa148630418441cccd576a96d7e098368448ca8e6fa3f4699fc6c604d6a51";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
