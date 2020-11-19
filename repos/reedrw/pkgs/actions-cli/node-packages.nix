@@ -265,13 +265,13 @@ let
         sha512 = "8cUA/mg0S+BxIZ72TdZRsXKBP5n5uRcE3k29TZhZw6oIiHBt9JA7CTb/4pE1uKtE/q5NeTY2tBDcagoZ+1zjXQ==";
       };
     };
-    "@grpc/grpc-js-1.2.0" = {
+    "@grpc/grpc-js-1.2.1" = {
       name = "_at_grpc_slash_grpc-js";
       packageName = "@grpc/grpc-js";
-      version = "1.2.0";
+      version = "1.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.2.0.tgz";
-        sha512 = "09H50V7rmz0gFrGz6IbP49z9A8+2p4yZYcNDEb7bytr90vWn52VBQE1a+LMBlrucmNN0wSsiCr3TJx+dStHTng==";
+        url = "https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.2.1.tgz";
+        sha512 = "JpGh2CgqnwVII0S9TMEX3HY+PkLJnb7HSAar3Md1Y3aWxTZqAGb7gTrNyBWn/zueaGFsMYRm2u/oYufWFYVoIQ==";
       };
     };
     "@grpc/proto-loader-0.5.5" = {
@@ -1300,13 +1300,13 @@ let
         sha512 = "mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==";
       };
     };
-    "debug-4.3.0" = {
+    "debug-4.3.1" = {
       name = "debug";
       packageName = "debug";
-      version = "4.3.0";
+      version = "4.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/debug/-/debug-4.3.0.tgz";
-        sha512 = "jjO6JD2rKfiZQnBoRzhRTbXjHLGLfH+UtGkWLc/UXAh/rzZMyjbgn0NcfFpqT8nd1kTtFnDiJcrIFkq4UKeJVg==";
+        url = "https://registry.npmjs.org/debug/-/debug-4.3.1.tgz";
+        sha512 = "doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==";
       };
     };
     "decamelize-1.2.0" = {
@@ -4104,7 +4104,7 @@ in
       sources."@firebase/storage-types-0.3.13"
       sources."@firebase/util-0.3.4"
       sources."@firebase/webchannel-wrapper-0.4.0"
-      (sources."@grpc/grpc-js-1.2.0" // {
+      (sources."@grpc/grpc-js-1.2.1" // {
         dependencies = [
           sources."semver-6.3.0"
         ];
@@ -4244,7 +4244,7 @@ in
       sources."cross-spawn-6.0.5"
       sources."d-1.0.1"
       sources."debounce-fn-3.0.1"
-      sources."debug-4.3.0"
+      sources."debug-4.3.1"
       sources."decamelize-1.2.0"
       sources."defaults-1.0.3"
       sources."define-properties-1.1.3"

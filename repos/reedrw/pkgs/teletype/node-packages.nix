@@ -625,13 +625,13 @@ let
         sha512 = "OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==";
       };
     };
-    "debug-4.3.0" = {
+    "debug-4.3.1" = {
       name = "debug";
       packageName = "debug";
-      version = "4.3.0";
+      version = "4.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/debug/-/debug-4.3.0.tgz";
-        sha512 = "jjO6JD2rKfiZQnBoRzhRTbXjHLGLfH+UtGkWLc/UXAh/rzZMyjbgn0NcfFpqT8nd1kTtFnDiJcrIFkq4UKeJVg==";
+        url = "https://registry.npmjs.org/debug/-/debug-4.3.1.tgz";
+        sha512 = "doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==";
       };
     };
     "defaults-1.0.3" = {
@@ -2743,7 +2743,7 @@ in
           sources."semver-5.7.1"
         ];
       })
-      sources."debug-4.3.0"
+      sources."debug-4.3.1"
       sources."defaults-1.0.3"
       sources."detect-indent-6.0.0"
       sources."diff-4.0.2"
