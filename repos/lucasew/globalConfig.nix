@@ -4,7 +4,7 @@ let
       username = "lucasew";
       email = "lucas59356@gmail.com";
       # selectedDesktopEnvironment = "xfce_i3";
-      selectedDesktopEnvironment = "gnome";
+      selectedDesktopEnvironment = "xfce_i3";
       hostname = "acer-nix";
       dotfileRootPath = 
       let
@@ -20,8 +20,8 @@ let
         # };
         nixpkgs = builtins.fetchTarball {
           name = "nixpkgs-unstable";
-          url = "https://github.com/NixOS/nixpkgs/archive/a52e974cff8fb80c427e0d55c01b3b8c770ccec4.tar.gz";
-          sha256 = "0yhcnn435j9wfi1idxr57c990aihg0n8605566f2l8vfdrz7hl7d";
+          url = "https://github.com/NixOS/nixpkgs/archive/4f3475b113c93d204992838aecafa89b1b3ccfde.tar.gz";
+          sha256 = "158iik656ds6i6pc672w54cnph4d44d0a218dkq6npzrbhd3vvbg";
         };
         home-manager = builtins.fetchTarball {
           # master

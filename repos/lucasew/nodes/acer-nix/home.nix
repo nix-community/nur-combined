@@ -23,7 +23,8 @@ in
 
   home.packages = with pkgs; [
    # ------------ pacotes do nixpkgs ---------------
-    minecraft pinball mspaint stremio my_rofi # custom
+    # minecraft  # custom (excluded)
+    pinball mspaint stremio my_rofi # custom
     gimp kdeApplications.kdenlive vlc youtube-dl # media
     discord tdesktop # social
     google-chrome # browser (extra)

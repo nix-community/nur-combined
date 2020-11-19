@@ -19,6 +19,7 @@ bindsym XF86AudioLowerVolume exec ${pactl} set-sink-volume @DEFAULT_SINK@ -10%
 bindsym XF86AudioMute exec ${pactl} set-sink-volume @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec ${pactl} set-sink-volume @DEFAULT_SOURCE@ toggle
 bindsym ${mod}+l exec ${pkgs.xautolock}/bin/xautolock -locknow
+bindsym ${mod}+m move workspace to output left
 
 bindsym XF86AudioNext exec ${playerctl} next
 bindsym XF86AudioPrev exec ${playerctl} previous
