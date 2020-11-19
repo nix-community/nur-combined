@@ -51,7 +51,7 @@ let
   , gettextSupport ? config.php.gettext or true
   , gmpSupport ? config.php.gmp or true
   , mhashSupport ? config.php.mhash or true
-  , iconvSupport ? (config.php.iconv or true) && (versionOlder version "8.0")
+  , iconvSupport ? config.php.iconv or true
   , imapSupport ? config.php.imap or (!stdenv.isDarwin)
   , intlSupport ? config.php.intl or true
   , ldapSupport ? config.php.ldap or true
@@ -258,10 +258,7 @@ let
       ++ optional zlibSupport "--with-zlib=${zlib.dev}"
 
       # Enable extensions in 7.2 and higher
-      ++ optional sodiumSupport "--with-sodium=${libsodium.dev}"
-
-      # Disable extensions in 8.0
-      ++ optional (versionAtLeast version "8.0") "--without-iconv";
+      ++ optional sodiumSupport "--with-sodium=${libsodium.dev}";
 
       hardeningDisable = [ "bindnow" ];
 
@@ -445,8 +442,12 @@ in {
   };
 
   php80 = generic {
-    version = "8.0.0-rc-2";
-    rev = "52123e79e7eda9a5faf4cb029d256ad2105af3cf";
-    sha256 = "11gpqhl5252xa3sfdnxpk4c4s3gyh4pjqp21lf0svri16yf723lj";
+    version = "8.0.0-rc-5";
+    rev = "php-8.0.0RC5";
+    sha256 = "1y1s61c7zryy85sipqa42xl5f8v2qal65pcdcz07zqkd8aqgi8yg";
+    extraPatches = [
+      # Fix build with LibreSSL
+      ./patch/php80-revert-support-for-OCB-mode-in-OpenSSL.patch
+    ];
   };
 }

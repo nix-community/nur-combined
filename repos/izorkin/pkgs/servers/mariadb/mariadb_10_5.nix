@@ -14,7 +14,7 @@ let # in mariadb # spans the whole file
 
 libExt = stdenv.hostPlatform.extensions.sharedLibrary;
 
-mytopEnv = perl.withPackages (p: with p; [ DataDumper DBDmysql DBI TermReadKey ]);
+mytopEnv = perl.withPackages (p: with p; [ DBDmysql DBI TermReadKey ]);
 
 mariadb = server // {
   inherit client; # MariaDB Client
@@ -33,12 +33,13 @@ common = rec { # attributes common to both builds
     name   = "mariadb-${version}.tar.gz";
   };
 
-  nativeBuildInputs = [ cmake pkgconfig ];
+  nativeBuildInputs = [ cmake pkgconfig ]
+    ++ optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = [
     ncurses openssl zlib pcre2 libiconv curl
   ] ++ optionals stdenv.hostPlatform.isLinux [ libaio systemd libkrb5 ]
-    ++ optionals stdenv.hostPlatform.isDarwin [ perl fixDarwinDylibNames cctools CoreServices ]
+    ++ optionals stdenv.hostPlatform.isDarwin [ perl cctools CoreServices ]
     ++ optional (!stdenv.hostPlatform.isDarwin) [ jemalloc ];
 
   prePatch = ''
