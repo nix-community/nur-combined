@@ -4,7 +4,7 @@
     inherit system;
   }
 , system ? builtins.currentSystem
-, nodejs ? pkgs."nodejs-10_x"
+, nodejs ? pkgs."nodejs-12_x"
 }:
 let
   nodeEnv = import ./node-env.nix {

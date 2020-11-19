@@ -3,13 +3,13 @@
 { nodeEnv, fetchurl, fetchgit, globalBuildInputs ? [ ] }:
 let
   sources = {
-    "@types/node-14.14.7" = {
+    "@types/node-14.14.8" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "14.14.7";
+      version = "14.14.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-14.14.7.tgz";
-        sha512 = "Zw1vhUSQZYw+7u5dAwNbIA9TuTotpzY/OF7sJM9FqPOF3SPjKnxrjoTktXDZgUjybf4cWVBP7O8wvKdSaGHweg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-14.14.8.tgz";
+        sha512 = "z/5Yd59dCKI5kbxauAJgw6dLPzW+TNOItNE00PkpzNwUIEwdj/Lsqwq94H5DdYBX7C13aRA0CY32BK76+neEUA==";
       };
     };
     "@types/yauzl-2.9.1" = {
@@ -84,13 +84,13 @@ let
         sha512 = "O0yuUDnZeQDL+ncNGlJ78BiO4jnYI3bvMsD5prT0/nsgijG/LpNBIr63gTjVTNsiGkgQhiyCShTgxt8oXOrklA==";
       };
     };
-    "aws-sdk-2.790.0" = {
+    "aws-sdk-2.795.0" = {
       name = "aws-sdk";
       packageName = "aws-sdk";
-      version = "2.790.0";
+      version = "2.795.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.790.0.tgz";
-        sha512 = "L278KsE+g/LsXIjLhpdtbvMcEZzZ/5dTBLIh6VIcNF0z63xlnDJQ4IWTDZ3Op5fK9B6vwQxlPT7XD5+egu+qoA==";
+        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.795.0.tgz";
+        sha512 = "cqMposguHdiZOgS3HpAvA8iP3vfrlPQCCn5RllpzU3gPIP5RKtcACu6qzwIAZGcMvC0qt49EzAzyIfN+qdzikQ==";
       };
     };
     "balanced-match-1.0.0" = {
@@ -381,13 +381,13 @@ let
         sha1 = "9bcd52e14c097763e749b274c4346ed2e560b5a9";
       };
     };
-    "devtools-protocol-0.0.809251" = {
+    "devtools-protocol-0.0.818844" = {
       name = "devtools-protocol";
       packageName = "devtools-protocol";
-      version = "0.0.809251";
+      version = "0.0.818844";
       src = fetchurl {
-        url = "https://registry.npmjs.org/devtools-protocol/-/devtools-protocol-0.0.809251.tgz";
-        sha512 = "pf+2OY6ghMDPjKkzSWxHMq+McD+9Ojmq5XVRYpv/kPd9sTMQxzEt21592a31API8qRjro0iYYOc3ag46qF/1FA==";
+        url = "https://registry.npmjs.org/devtools-protocol/-/devtools-protocol-0.0.818844.tgz";
+        sha512 = "AD1hi7iVJ8OD0aMLQU5VK0XH9LDlA1+BcPIgrAxPfaibx2DbWucuyOhc4oyQCbnvDDO68nN6/LcKfqTP343Jjg==";
       };
     };
     "dom-serializer-0.1.1" = {
@@ -1227,13 +1227,13 @@ let
         sha1 = "9653a036fb7c1ee42342f2325cceefea3926c48d";
       };
     };
-    "puppeteer-5.4.1" = {
+    "puppeteer-5.5.0" = {
       name = "puppeteer";
       packageName = "puppeteer";
-      version = "5.4.1";
+      version = "5.5.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/puppeteer/-/puppeteer-5.4.1.tgz";
-        sha512 = "8u6r9tFm3gtMylU4uCry1W/CeAA8uczKMONvGvivkTsGqKA7iB7DWO2CBFYlB9GY6/IEoq9vkI5slJWzUBkwNw==";
+        url = "https://registry.npmjs.org/puppeteer/-/puppeteer-5.5.0.tgz";
+        sha512 = "OM8ZvTXAhfgFA7wBIIGlPQzvyEETzDjeRa4mZRCRHxYL+GNH5WAuYUQdja3rpWZvkX/JKqmuVgbsxDNsDFjMEg==";
       };
     };
     "querystring-0.2.0" = {
@@ -1707,31 +1707,34 @@ in
       sha512 = "AYDrZm9lbDkzkMFvSuJ1TUUjjmhKKZmNcNtEdGfSEaKnRL5JxVwbyCq6sye2iiJXkHMjrOSjBmIJ4g//guVfAw==";
     };
     dependencies = [
-      sources."@types/node-14.14.7"
+      sources."@types/node-14.14.8"
       sources."@types/yauzl-2.9.1"
       sources."agent-base-4.3.0"
       sources."ansi-escapes-4.3.1"
       sources."ansi-regex-5.0.0"
       sources."ansi-styles-4.3.0"
-      (sources."ast-types-0.14.2" // {
-        dependencies = [
-          sources."tslib-2.0.3"
-        ];
-      }
+      (
+        sources."ast-types-0.14.2" // {
+          dependencies = [
+            sources."tslib-2.0.3"
+          ];
+        }
       )
-      (sources."aws-sdk-2.790.0" // {
-        dependencies = [
-          sources."uuid-3.3.2"
-        ];
-      }
+      (
+        sources."aws-sdk-2.795.0" // {
+          dependencies = [
+            sources."uuid-3.3.2"
+          ];
+        }
       )
       sources."balanced-match-1.0.0"
       sources."base64-js-1.5.1"
-      (sources."bl-4.0.3" // {
-        dependencies = [
-          sources."buffer-5.7.1"
-        ];
-      }
+      (
+        sources."bl-4.0.3" // {
+          dependencies = [
+            sources."buffer-5.7.1"
+          ];
+        }
       )
       sources."bluebird-3.7.2"
       sources."boolbase-1.0.0"
@@ -1758,7 +1761,7 @@ in
       sources."deep-is-0.1.3"
       sources."degenerator-1.0.4"
       sources."depd-1.1.2"
-      sources."devtools-protocol-0.0.809251"
+      sources."devtools-protocol-0.0.818844"
       sources."dom-serializer-0.1.1"
       sources."domelementtype-1.3.1"
       sources."domhandler-2.4.2"
@@ -1769,11 +1772,12 @@ in
       sources."es6-promise-4.2.8"
       sources."es6-promisify-5.0.0"
       sources."escape-string-regexp-1.0.5"
-      (sources."escodegen-1.14.3" // {
-        dependencies = [
-          sources."esprima-4.0.1"
-        ];
-      }
+      (
+        sources."escodegen-1.14.3" // {
+          dependencies = [
+            sources."esprima-4.0.1"
+          ];
+        }
       )
       sources."esprima-3.1.3"
       sources."estraverse-4.3.0"
@@ -1789,41 +1793,45 @@ in
       sources."find-up-4.1.0"
       sources."fs-constants-1.0.0"
       sources."fs.realpath-1.0.0"
-      (sources."ftp-0.3.10" // {
-        dependencies = [
-          sources."isarray-0.0.1"
-          sources."readable-stream-1.1.14"
-          sources."string_decoder-0.10.31"
-        ];
-      }
+      (
+        sources."ftp-0.3.10" // {
+          dependencies = [
+            sources."isarray-0.0.1"
+            sources."readable-stream-1.1.14"
+            sources."string_decoder-0.10.31"
+          ];
+        }
       )
       sources."get-stream-5.2.0"
-      (sources."get-uri-2.0.4" // {
-        dependencies = [
-          sources."debug-2.6.9"
-          sources."ms-2.0.0"
-          sources."readable-stream-2.3.7"
-          sources."safe-buffer-5.1.2"
-          sources."string_decoder-1.1.1"
-        ];
-      }
+      (
+        sources."get-uri-2.0.4" // {
+          dependencies = [
+            sources."debug-2.6.9"
+            sources."ms-2.0.0"
+            sources."readable-stream-2.3.7"
+            sources."safe-buffer-5.1.2"
+            sources."string_decoder-1.1.1"
+          ];
+        }
       )
       sources."glob-7.1.6"
       sources."has-flag-4.0.0"
       sources."htmlparser2-3.10.1"
       sources."http-errors-1.7.3"
-      (sources."http-proxy-agent-2.1.0" // {
-        dependencies = [
-          sources."debug-3.1.0"
-          sources."ms-2.0.0"
-        ];
-      }
+      (
+        sources."http-proxy-agent-2.1.0" // {
+          dependencies = [
+            sources."debug-3.1.0"
+            sources."ms-2.0.0"
+          ];
+        }
       )
-      (sources."https-proxy-agent-3.0.1" // {
-        dependencies = [
-          sources."debug-3.2.6"
-        ];
-      }
+      (
+        sources."https-proxy-agent-3.0.1" // {
+          dependencies = [
+            sources."debug-3.2.6"
+          ];
+        }
       )
       sources."iconv-lite-0.4.24"
       sources."ieee754-1.1.13"
@@ -1869,12 +1877,13 @@ in
       sources."proxy-from-env-1.1.0"
       sources."pump-3.0.0"
       sources."punycode-1.3.2"
-      (sources."puppeteer-5.4.1" // {
-        dependencies = [
-          sources."agent-base-5.1.1"
-          sources."https-proxy-agent-4.0.0"
-        ];
-      }
+      (
+        sources."puppeteer-5.5.0" // {
+          dependencies = [
+            sources."agent-base-5.1.1"
+            sources."https-proxy-agent-4.0.0"
+          ];
+        }
       )
       sources."querystring-0.2.0"
       sources."raw-body-2.4.1"
@@ -1890,11 +1899,12 @@ in
       sources."signal-exit-3.0.3"
       sources."smart-buffer-4.1.0"
       sources."socks-2.3.3"
-      (sources."socks-proxy-agent-4.0.2" // {
-        dependencies = [
-          sources."agent-base-4.2.1"
-        ];
-      }
+      (
+        sources."socks-proxy-agent-4.0.2" // {
+          dependencies = [
+            sources."agent-base-4.2.1"
+          ];
+        }
       )
       sources."source-map-0.6.1"
       sources."statuses-1.5.0"
@@ -1911,11 +1921,12 @@ in
       sources."tslib-1.14.1"
       sources."type-check-0.3.2"
       sources."type-fest-0.11.0"
-      (sources."unbzip2-stream-1.4.3" // {
-        dependencies = [
-          sources."buffer-5.7.1"
-        ];
-      }
+      (
+        sources."unbzip2-stream-1.4.3" // {
+          dependencies = [
+            sources."buffer-5.7.1"
+          ];
+        }
       )
       sources."unpipe-1.0.0"
       sources."url-0.10.3"

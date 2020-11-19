@@ -11,7 +11,7 @@ rec
     browserpass
     conftest
     eksctl
-    firefox
+    # firefox
     kubelogin
     # TODO: next
     pass
@@ -19,7 +19,7 @@ rec
     ripgrep
     scc
     sops
-    thunderbird
+    # thunderbird
     tomb
     yq
     ;
