@@ -6,9 +6,10 @@
   };
 
   networking = {
-    hostName = "workstation";
-    nameservers = [ "8.8.8.8" ];
-    wireless.enable = true;
+      hostName = "workstation";
+      interfaces = {
+          wlp2s0.useDHCP = true;
+      };
   };
 
   time.timeZone = "America/Chicago";

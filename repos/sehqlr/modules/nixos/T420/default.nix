@@ -7,13 +7,8 @@
           enp0s25.useDHCP = true;
           wlp3s0.useDHCP = true;
       }
-      networkmanager = {
-          enable = true;
-          wifi.powersave = false;
-      }
+      networkmanager.wifi.powersave = false;
   };
-
-  console.keyMap = "us";
 
   time.timeZone = "America/Chicago";
 
@@ -26,6 +21,4 @@
   services.xserver.libinput.enable = true;
 
   programs.light.enable = true;
-
-  users.users.sam.extraGroups = [ "networkmanager" ];
 }

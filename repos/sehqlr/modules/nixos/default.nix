@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: {
-  imports = [ ./sam.nix ];
+  imports = [ ./networking.nix ./sam.nix ];
 
   environment.systemPackages = with pkgs; [
     android-file-transfer
@@ -15,7 +15,7 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  nix.autoOptimizeStore = true;
+  nix.autoOptimiseStore = true;
   nix.gc.automatic = true;
 
   services.ipfs.enable = true;
