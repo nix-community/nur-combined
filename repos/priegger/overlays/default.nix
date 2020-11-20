@@ -1,5 +1,3 @@
 {
-  # Add your overlays here
-  #
-  # my-overlay = import ./my-overlay;
+  nix-unstable = import ./nix-unstable.nix;
 }
