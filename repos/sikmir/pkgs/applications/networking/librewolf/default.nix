@@ -4,28 +4,28 @@ let
   throwSystem = throw "Unsupported system: ${system}";
 
   pname = "librewolf";
-  version = if stdenv.isDarwin then "82.0" else "81.0.2";
+  version = "82.0.3";
   name = "${pname}-${version}";
 
   firefox = fetchurl {
     url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}/mac/${lang}/Firefox%20${version}.dmg";
     sha256 = {
-      en-US = "0nwd9vcjhcgjrrp433hnfl2jkbrpc9p9pll46716gln2lcpiyrav";
-      eo = "04ydlxpfqns9yyh59p9j37fnm10fkdx3vy5xz40vhyad673jhg3w";
-      fi = "0xzs9lcyi85p0rkx2nvhjmm03rnk491hv5r5k1shjs49aif8kzg0";
-      ru = "1syiwnh6501rp0f18k91hl61ihczm23rvxy3dmcl9krpfp5148gz";
+      en-US = "10srb6pjy729zl71gsammp294kg531m3fgghd8lrw05pbm9lxxy1";
+      eo = "0fqvqkv6sa7gz42c9gddv3axy61acdjzwrmdn8xbpzidr18lg66x";
+      fi = "06500lkijcsfhvqji64705mii621hva676zvhln9hyq51dys4hyl";
+      ru = "1ibv4kdjqhl0a056dgnr470dl7n4wfpq9m06caapyx59vfq182zh";
     }.${lang};
     name = "Firefox.dmg";
   };
 
   librewolf = fetchurl {
     url = {
-      x86_64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/7172a87315e9118745a73f45b1736931/LibreWolf-${version}-1.x86_64.AppImage";
-      aarch64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/aade76902983c173de1ddffe57daaec3/LibreWolf-${version}-1.aarch64.AppImage";
+      x86_64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/40d177f7132a991fd7249219f3f442d0/LibreWolf-${version}-1.x86_64.AppImage";
+      aarch64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/c3fdaa5529f412d8f867e5b1393e26ba/LibreWolf-${version}-1.aarch64.AppImage";
     }.${system} or throwSystem;
     sha256 = {
-      x86_64-linux = "1jnnydivj673wjvyhnqvxrbj6a04cmci8hg7pdqv6978f81wyxnr";
-      aarch64-linux = "134w38qk4wb4iz0gddj4ngd0q7qdyfgvrhafw29dnrzz6b8viyxi";
+      x86_64-linux = "1nwc90bs0v5wkkviaw056nm8zyiryi2f41zvwhp5b2c50a8zvsk4";
+      aarch64-linux = "0jrdwplw4r0mqr6ddr9lzgxlfk8m7krl9fimzv184wjhjkgbxxnk";
     }.${system} or throwSystem;
   };
 

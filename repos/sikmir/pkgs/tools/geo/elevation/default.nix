@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication {
   inherit pname version;
   src = sources.elevation;
 
-  propagatedBuildInputs = with python3Packages; [ fasteners future appdirs click ];
+  propagatedBuildInputs = with python3Packages; [ fasteners appdirs click setuptools ];
 
   postPatch = ''
     for f in elevation/datasource.* \

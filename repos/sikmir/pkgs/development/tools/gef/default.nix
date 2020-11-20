@@ -5,8 +5,6 @@
 , writeScript
 , procps
 , binutils-unwrapped
-, bash
-, python3
 , gdb
 }:
 let
@@ -29,13 +27,6 @@ in
 stdenv.mkDerivation {
   inherit pname version;
   src = sources.gef;
-
-  postPatch = ''
-    substituteInPlace gef.py \
-      --replace "/bin/ps" "ps" \
-      --replace "/bin/bash" "${bash}/bin/bash" \
-      --replace "/usr/bin/python" "${python3.interpreter}"
-  '';
 
   dontBuild = true;
   doCheck = false;
