@@ -1,4 +1,5 @@
 { stdenv, fetchFromGitHub, which
+, pcre2
 , withPython2 ? false, python2
 , withPython3 ? true, python3, ncurses
 , withPHP56 ? false, php56
@@ -21,19 +22,19 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  version = "1.20.0";
+  version = "1.21.0";
   pname = "unit";
 
   src = fetchFromGitHub {
     owner = "nginx";
     repo = "unit";
     rev = "${version}";
-    sha256 = "1qmcz01ifmd80qgpvf1y8nhad6yk56772xdhqvwfxn3mdjfqvcs8";
+    sha256 = "1jczdxixxyj16w10pkcplchbqvx3m32nkmcl0hqap5ffqj08mmf7";
   };
 
   nativeBuildInputs = [ which ];
 
-  buildInputs = [ ]
+  buildInputs = [ pcre2.dev ]
     ++ optional withPython2 python2
     ++ optionals withPython3 [ python3 ncurses ]
     ++ optional withPHP56 php56
