@@ -25,6 +25,10 @@ with mergedPkgs; {
     electron = electron_9;
   };
 
+  ccache = callPackage ./tools/misc/ccache {
+    asciidoc = asciidoc-full;
+  };
+
   clonehero = clonehero-fhs-wrapper;
   clonehero-fhs-wrapper = callPackage ./games/clonehero/fhs-wrapper.nix { };
   clonehero-unwrapped = callPackage ./games/clonehero { };
