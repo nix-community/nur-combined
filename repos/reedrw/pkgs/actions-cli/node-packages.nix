@@ -85,31 +85,31 @@ let
         sha512 = "kd5sVmCLB95EK81Pj+yDTea8pzN2qo/1yr0ua9yVi6UgMzm6zAeih73iVUkaat96MAHy26yosMufkvd3zC4IKg==";
       };
     };
-    "@firebase/database-0.7.1" = {
+    "@firebase/database-0.8.1" = {
       name = "_at_firebase_slash_database";
       packageName = "@firebase/database";
-      version = "0.7.1";
+      version = "0.8.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@firebase/database/-/database-0.7.1.tgz";
-        sha512 = "8j3KwksaYMSbIsEjOIarZD3vj4jGJjIlLGIAiO/4P4XyOtrlnxIiH7G0UdIZlcvKU4Gsgg0nthT2+EapROmHWA==";
+        url = "https://registry.npmjs.org/@firebase/database/-/database-0.8.1.tgz";
+        sha512 = "/1HhR4ejpqUaM9Cn3KSeNdQvdlehWIhdfTVWFxS73ZlLYf7ayk9jITwH10H3ZOIm5yNzxF67p/U7Z/0IPhgWaQ==";
       };
     };
-    "@firebase/database-types-0.6.0" = {
+    "@firebase/database-types-0.6.1" = {
       name = "_at_firebase_slash_database-types";
       packageName = "@firebase/database-types";
-      version = "0.6.0";
+      version = "0.6.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@firebase/database-types/-/database-types-0.6.0.tgz";
-        sha512 = "ljpU7/uboCGqFSe9CNgwd3+Xu5N8YCunzfPpeueuj2vjnmmypUi4QWxgC3UKtGbuv1q+crjeudZGLxnUoO0h7w==";
+        url = "https://registry.npmjs.org/@firebase/database-types/-/database-types-0.6.1.tgz";
+        sha512 = "JtL3FUbWG+bM59iYuphfx9WOu2Mzf0OZNaqWiQ7lJR8wBe7bS9rIm9jlBFtksB7xcya1lZSQPA/GAy2jIlMIkA==";
       };
     };
-    "@firebase/firestore-2.0.2" = {
+    "@firebase/firestore-2.0.4" = {
       name = "_at_firebase_slash_firestore";
       packageName = "@firebase/firestore";
-      version = "2.0.2";
+      version = "2.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@firebase/firestore/-/firestore-2.0.2.tgz";
-        sha512 = "6kO/vWUmTOANA/ql+i16DFMc63gamU76Nycyt7k0r8QfcdXu93Cwizw4ff4DNMnpnkAJkTk36fPAxBxEvBXkzw==";
+        url = "https://registry.npmjs.org/@firebase/firestore/-/firestore-2.0.4.tgz";
+        sha512 = "fzJKj/4h4jOwPSfHB42XBJIC0zsPsepU6FcBO+8nSx7G2IPfTw8cMgSNin2gPqX6tR1w1NQtHiSlXiRKsbMZdA==";
       };
     };
     "@firebase/firestore-types-2.0.0" = {
@@ -256,13 +256,13 @@ let
         sha512 = "VwjJUE2Vgr2UMfH63ZtIX9Hd7x+6gayi6RUXaTqEYxSbf/JmehLmAEYSuxS/NckfzAXWeGnKclvnXVibDgpjQQ==";
       };
     };
-    "@firebase/webchannel-wrapper-0.4.0" = {
+    "@firebase/webchannel-wrapper-0.4.1" = {
       name = "_at_firebase_slash_webchannel-wrapper";
       packageName = "@firebase/webchannel-wrapper";
-      version = "0.4.0";
+      version = "0.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.4.0.tgz";
-        sha512 = "8cUA/mg0S+BxIZ72TdZRsXKBP5n5uRcE3k29TZhZw6oIiHBt9JA7CTb/4pE1uKtE/q5NeTY2tBDcagoZ+1zjXQ==";
+        url = "https://registry.npmjs.org/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.4.1.tgz";
+        sha512 = "0yPjzuzGMkW1GkrC8yWsiN7vt1OzkMIi9HgxRmKREZl2wnNPOKo/yScTjXf/O57HM8dltqxPF6jlNLFVtc2qdw==";
       };
     };
     "@grpc/grpc-js-1.2.1" = {
@@ -607,22 +607,22 @@ let
         sha512 = "NYrtPht0wGzhwe9+/idPaBB+TqkY9AhTvOLMkThm0IoEfLaiVQZwBwyJ5puCkO3AUCWrmcoePjp2mbFocKy4SQ==";
       };
     };
-    "@types/node-12.19.5" = {
+    "@types/node-12.19.6" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "12.19.5";
+      version = "12.19.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-12.19.5.tgz";
-        sha512 = "Wgdl27uw/jUYUFyajUGKSjDNGxmJrZi9sjeG6UJImgUtKbJoO9aldx+1XODN1EpNDX9DirvbvHHmTsNlb8GwMA==";
+        url = "https://registry.npmjs.org/@types/node/-/node-12.19.6.tgz";
+        sha512 = "U2VopDdmBoYBmtm8Rz340mvvSz34VgX/K9+XCuckvcLGMkt3rbMX8soqFOikIPlPBc5lmw8By9NUK7bEFSBFlQ==";
       };
     };
-    "@types/node-13.13.31" = {
+    "@types/node-13.13.32" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "13.13.31";
+      version = "13.13.32";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-13.13.31.tgz";
-        sha512 = "gBk54XbcRj8EKTi7Syo4JU4purbRJaZpkvMVs7+t+b9JaOtwsGo7vCbXdVJN3gH/wu/GyZGD8lAKo0qpQuNjOw==";
+        url = "https://registry.npmjs.org/@types/node/-/node-13.13.32.tgz";
+        sha512 = "sPBvDnrwZE1uePhkCEyI/qQlgZM5kePPAhHIFDWNsOrWBFRBOk3LKJYmVCLeLZlL9Ub/FzMJb31OTWCg2F+06g==";
       };
     };
     "@types/node-fetch-2.5.7" = {
@@ -1759,13 +1759,13 @@ let
         sha512 = "PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==";
       };
     };
-    "firebase-8.0.2" = {
+    "firebase-8.1.1" = {
       name = "firebase";
       packageName = "firebase";
-      version = "8.0.2";
+      version = "8.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/firebase/-/firebase-8.0.2.tgz";
-        sha512 = "tPtXQ8sifo82f7bOxYcR/yEdJ4IbL4/fpQrophRHFAaYCsYGp2Q/c1zz0voX9cLap8MH2uwh5LIVBqZ8nyT5ZQ==";
+        url = "https://registry.npmjs.org/firebase/-/firebase-8.1.1.tgz";
+        sha512 = "w1plr2jYvzBkx/rHE6A0EJf9318ufA5omShLuGocPlQtrvphel+KJcd+R02outE5E2lSDhyM0l3EoiA0YCD4hA==";
       };
     };
     "flat-4.1.1" = {
@@ -3451,13 +3451,13 @@ let
         sha512 = "VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==";
       };
     };
-    "simple-git-2.22.0" = {
+    "simple-git-2.23.0" = {
       name = "simple-git";
       packageName = "simple-git";
-      version = "2.22.0";
+      version = "2.23.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/simple-git/-/simple-git-2.22.0.tgz";
-        sha512 = "/8WMNrQ5slYl05jYOpeh4BIyMQc84PkEvk9YAcBHVJaPoAgoxzLzdRzUzWDZJ9U6Z2pUjLxkGcQC0kU4pbRN5Q==";
+        url = "https://registry.npmjs.org/simple-git/-/simple-git-2.23.0.tgz";
+        sha512 = "s/gEkxFV2WGTN4kO1uQoA4cE4rq0FRzQPR5Yhgg8JUuA4IhOeccjlKSFhwF3rrpo7797ZvQc7L6hJJNA4szHCw==";
       };
     };
     "simple-swizzle-0.2.2" = {
@@ -4084,9 +4084,9 @@ in
       sources."@firebase/auth-interop-types-0.1.5"
       sources."@firebase/auth-types-0.10.1"
       sources."@firebase/component-0.1.21"
-      sources."@firebase/database-0.7.1"
-      sources."@firebase/database-types-0.6.0"
-      sources."@firebase/firestore-2.0.2"
+      sources."@firebase/database-0.8.1"
+      sources."@firebase/database-types-0.6.1"
+      sources."@firebase/firestore-2.0.4"
       sources."@firebase/firestore-types-2.0.0"
       sources."@firebase/functions-0.6.1"
       sources."@firebase/functions-types-0.4.0"
@@ -4103,7 +4103,7 @@ in
       sources."@firebase/storage-0.4.2"
       sources."@firebase/storage-types-0.3.13"
       sources."@firebase/util-0.3.4"
-      sources."@firebase/webchannel-wrapper-0.4.0"
+      sources."@firebase/webchannel-wrapper-0.4.1"
       (sources."@grpc/grpc-js-1.2.1" // {
         dependencies = [
           sources."semver-6.3.0"
@@ -4161,7 +4161,7 @@ in
       sources."@types/memoizee-0.4.5"
       sources."@types/mime-2.0.3"
       sources."@types/mocha-5.2.7"
-      sources."@types/node-12.19.5"
+      sources."@types/node-12.19.6"
       sources."@types/node-fetch-2.5.7"
       sources."@types/qs-6.9.5"
       sources."@types/range-parser-1.2.3"
@@ -4319,7 +4319,7 @@ in
         ];
       })
       sources."find-up-3.0.0"
-      sources."firebase-8.0.2"
+      sources."firebase-8.1.1"
       (sources."flat-4.1.1" // {
         dependencies = [
           sources."is-buffer-2.0.5"
@@ -4532,7 +4532,7 @@ in
       sources."promise-polyfill-8.1.3"
       (sources."protobufjs-6.10.2" // {
         dependencies = [
-          sources."@types/node-13.13.31"
+          sources."@types/node-13.13.32"
         ];
       })
       sources."proxy-addr-2.0.6"
@@ -4567,7 +4567,7 @@ in
       sources."shebang-command-1.2.0"
       sources."shebang-regex-1.0.0"
       sources."signal-exit-3.0.3"
-      sources."simple-git-2.22.0"
+      sources."simple-git-2.23.0"
       sources."simple-swizzle-0.2.2"
       sources."slice-ansi-4.0.0"
       sources."sprintf-js-1.1.2"
