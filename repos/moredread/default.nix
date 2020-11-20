@@ -32,7 +32,10 @@ rec {
   extplane-panel = pkgs.libsForQt5.callPackage ./pkgs/extplane-panel {};
   implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad {};
   ipbt = pkgs.callPackage ./pkgs/ipbt {};
-  joplin-desktop = pkgs.callPackage ./pkgs/joplin-desktop {};
+  joplin-desktop = ( pkgs.callPackage ./pkgs/joplin-desktop {} ).overrideAttrs( _: {
+      preferLocalBuild = true;
+    }
+  );
   nix-search = pkgs.callPackage ./pkgs/nix-search {};
   prusa-slicer-latest = with deps; pkgs.callPackage ./pkgs/prusa-slicer-latest { inherit cereal cgal_5; };
   sc3-plugins = pkgs.callPackage ./pkgs/sc3-plugins {};
