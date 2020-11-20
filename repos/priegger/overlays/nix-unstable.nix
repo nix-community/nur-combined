@@ -8,7 +8,7 @@ let
           owner = "hercules-ci";
           repo = "nixpkgs";
           rev = "update-nixUnstable-2020-11-19";
-          sha256 = "sha256-QfBMusvXlTwLHaUvHckSDrBOwlTGCEp2gcofnFys8mg=";
+          sha256 = "sha256-IrKUZ1UzN7wXRv3bFlLS/svNGIeT8d0n/F7woad29Io=";
         }
       )
       { };

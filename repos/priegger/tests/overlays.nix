@@ -20,7 +20,7 @@ import ./lib/make-test.nix (
     testScript =
       ''
         nix_unstable.wait_for_unit("multi-user.target")
-        nix_unstable.succeed("nix --version | tee /dev/stderr | grep 2.4pre20201119_79aa7d9")
+        nix_unstable.succeed("nix --version | tee /dev/stderr | grep 2.4pre20201118_79aa7d9")
       '';
   }
 )
