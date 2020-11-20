@@ -1,12 +1,19 @@
 import ./lib/make-test.nix (
   { pkgs, ... }: {
     name = "overlays";
-    nodes = {
-      nix_unstable = { pkgs, ... }:
-        let
-          priegger-overlays = import ../overlays;
-        in
-        {
+    nodes =
+      let
+        priegger-overlays = import ../overlays;
+      in
+      {
+        bees = { pkgs, ... }: {
+          nixpkgs.overlays = [
+            priegger-overlays.bees
+          ];
+
+          environment.systemPackages = [ pkgs.bees ];
+        };
+        nix_unstable = { pkgs, ... }: {
           nixpkgs.overlays = [
             priegger-overlays.nix-unstable
           ];
@@ -15,12 +22,13 @@ import ./lib/make-test.nix (
             package = pkgs.nixUnstable;
           };
         };
-    };
+      };
 
     testScript =
       ''
-        nix_unstable.wait_for_unit("multi-user.target")
         nix_unstable.succeed("nix --version | tee /dev/stderr | grep 2.4pre20201118_79aa7d9")
+
+        bees.succeed("beesd --help 2>&1 | tee /dev/stderr | grep 'bees version 0.6.3'")
       '';
   }
 )

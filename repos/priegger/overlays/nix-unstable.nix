@@ -1,7 +1,7 @@
 self: super:
 let
   # https://github.com/NixOS/nixpkgs/pull/104289
-  pkgsNixUnstable =
+  pkgs =
     import
       (
         super.fetchFromGitHub {
@@ -14,5 +14,5 @@ let
       { };
 in
 {
-  nixUnstable = pkgsNixUnstable.nixUnstable;
+  nixUnstable = pkgs.nixUnstable;
 }
