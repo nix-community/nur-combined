@@ -219,10 +219,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.23";
+      version = "4.9.24";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3667405/dark_reader-4.9.23-an+fx.xpi";
-      sha256 = "bb063bbc1c098a1629711bf1d4c7cd96851c7fce14c327dcef296807f25f2c32";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3680957/dark_reader-4.9.24-an+fx.xpi";
+      sha256 = "4d8c220167819e21347213635930c1b866dc73d8943cf1cef94d6aa2eaf0ddf1";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -602,10 +602,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "8.1.4";
+      version = "8.1.5";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3679248/metamask-8.1.4-an+fx.xpi";
-      sha256 = "80261b3b93733592e390905b2ba894d511d61232d6b5cedd3bc3ff6aed00755b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3681492/metamask-8.1.5-an+fx.xpi";
+      sha256 = "559b2a76d887b6a1165037391b65531821c94d9359fb6070adbefe32baf82868";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
@@ -768,10 +768,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.11.12";
+      version = "20.11.19";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3677142/refined_github-20.11.12-an+fx.xpi";
-      sha256 = "7e80da1f4cd52eefbc3f5e201f67497ec2f3a08348aa2dab4a22cfee21764fbd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3681160/refined_github-20.11.19-an+fx.xpi";
+      sha256 = "9a99302fd1c8037ce81b0095ecf264ee8b45751ac028c51026c7dcda23643073";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -782,10 +782,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "23.6";
+      version = "23.7";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3675717/save_page_we-23.6-fx.xpi";
-      sha256 = "28c772ff2a14a0c988d8ef32ecf9301afb8fa0f605e1d95ec06b4899fbcfc4f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3680987/save_page_we-23.7-fx.xpi";
+      sha256 = "1613015d08a801c70fe77e7d5ba028c87cf70e1adc11f393aaf5dcd090c99fa5";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -946,10 +946,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.6.1";
+      version = "3.6.2";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3675202/tree_style_tab_-3.6.1-fx.xpi";
-      sha256 = "c24394d5a77cdaba923777b89649bb6e4909d32061e013dfe5af88c231e1d6ca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3680618/tree_style_tab_-3.6.2-fx.xpi";
+      sha256 = "1200e00dcc7a0a79c848ee667e364df5a6465302b2613f631886aec316deedcb";
       meta = with stdenv.lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -979,10 +979,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.30.6";
+      version = "1.31.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3663488/ublock_origin-1.30.6-an+fx.xpi";
-      sha256 = "500ecb79d9e65ff1c4d7cb3a34763c1dc2edc2b5a3f56b6c8ca225494a4535d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3679754/ublock_origin-1.31.0-an+fx.xpi";
+      sha256 = "d9eef701b99866565708fe69b5855c1634187630e9e223e810f10e482545e6c0";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
