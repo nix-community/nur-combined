@@ -152,6 +152,14 @@ let
         '';
       };
 
+      extraPackages = mkOption {
+        type = types.listOf types.package;
+        default = [ ];
+        description = ''
+          Extra packages to add to <option>home.packages</option>.
+        '';
+      };
+
       assembly = mkOption {
         type = types.lines;
         readOnly = true;
@@ -388,6 +396,9 @@ in {
   };
 
   config = mkIf (config.programs.emacs.enable && cfg.enable) {
+    home.packages = concatMap (v: v.extraPackages)
+      (filter (getAttr "enable") (builtins.attrValues cfg.usePackage));
+
     programs.emacs.init = {
       earlyInit = mkBefore ''
         ${optionalString cfg.recommendedGcSettings gcSettings}
