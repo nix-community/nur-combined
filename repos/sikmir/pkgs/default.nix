@@ -79,6 +79,8 @@ lib.makeScope newScope (
     slazav-podm = callPackage ./data/maps/slazav/podm.nix { };
     slazav-podm-bin = callPackage ./data/maps/slazav/podm-bin.nix { };
 
+    goldendict-arc-dark-theme =
+      callPackage ./data/themes/goldendict-themes/arc-dark-theme.nix { };
     goldendict-dark-theme =
       callPackage ./data/themes/goldendict-themes/dark-theme.nix { };
     qtpbfimageplugin-styles = callPackage ./data/themes/qtpbfimageplugin-styles { };
