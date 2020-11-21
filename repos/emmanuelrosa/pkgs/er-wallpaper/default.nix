@@ -1,13 +1,13 @@
 { mkDerivation, fetchFromGitHub, base, stdenv, turtle, pywal, betterlockscreen }:
 mkDerivation rec {
   pname = "er-wallpaper";
-  version = "0.1.0.0";
+  version = "0.2.0.0";
 
   src = fetchFromGitHub {
     owner = "emmanuelrosa";
     repo = pname;
-    rev = "d7b6a907bf009da1ecb379877f523c40a33d2e8d";
-    sha256 = "0nypg1b8xhxar059bbnw1ii57jvm8my4rlpjaw55mysvyrjsn44x";
+    rev = "0.2.0.0";
+    sha256 = "11bi3850cl3k4c9rc4k924dzx220g5zfd81mg68jrws8jrf4vxfm";
   };
 
   isLibrary = false;
