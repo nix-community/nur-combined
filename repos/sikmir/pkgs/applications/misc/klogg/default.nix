@@ -6,13 +6,11 @@
 , sources
 , useSentry ? stdenv.isLinux
 }:
-let
-  pname = "klogg";
-  date = lib.substring 0 10 sources.klogg.date;
-  version = "unstable-" + date;
-in
-mkDerivation {
-  inherit pname version;
+
+mkDerivation rec {
+  pname = "klogg-unstable";
+  version = lib.substring 0 10 sources.klogg.date;
+
   src = sources.klogg;
 
   nativeBuildInputs = [ cmake ninja ];

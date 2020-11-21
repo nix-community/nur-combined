@@ -1,14 +1,12 @@
 { stdenv, fetchFromGitHub, zig }:
-let
-  pname = "gurl";
-  version = "unstable-2020-09-19";
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "gurl-unstable";
+  version = "2020-09-19";
 
   src = fetchFromGitHub {
     owner = "MasterQ32";
-    repo = pname;
+    repo = "gurl";
     rev = "e5a61b2db685a53cdbdfb1c6ac160e938683d4ec";
     sha256 = "1y738ip0b6ck0ibybibqw8dlx37mrqamygvm81jv9wqp1sxsi7gb";
     fetchSubmodules = true;

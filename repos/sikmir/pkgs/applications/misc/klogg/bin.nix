@@ -1,10 +1,8 @@
 { stdenv, fetchfromgh, undmg, sources }:
-let
+
+stdenv.mkDerivation rec {
   pname = "klogg";
   version = "20.4";
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
   src = fetchfromgh {
     owner = "variar";

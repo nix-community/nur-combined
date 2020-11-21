@@ -1,11 +1,9 @@
 { lib, python3Packages, sources }:
-let
-  pname = "mercantile";
-  date = lib.substring 0 10 sources.mercantile.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonPackage {
-  inherit pname version;
+  pname = "mercantile-unstable";
+  version = lib.substring 0 10 sources.mercantile.date;
+
   src = sources.mercantile;
 
   propagatedBuildInputs = with python3Packages; [ click ];

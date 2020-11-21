@@ -18,13 +18,11 @@
 , sources
 , substituteAll
 }:
-let
-  pname = "OpenOrienteering-Mapper";
-  date = lib.substring 0 10 sources.mapper.date;
-  version = "unstable-" + date;
-in
-mkDerivation {
-  inherit pname version;
+
+mkDerivation rec {
+  pname = "OpenOrienteering-Mapper-unstable";
+  version = lib.substring 0 10 sources.mapper.date;
+
   src = sources.mapper;
 
   patches = [

@@ -1,11 +1,9 @@
 { stdenv, cmake, sources }:
-let
-  pname = "how-to-use-pvs-studio-free";
-  date = stdenv.lib.substring 0 10 sources.how-to-use-pvs-studio-free.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "how-to-use-pvs-studio-free-unstable";
+  version = stdenv.lib.substring 0 10 sources.how-to-use-pvs-studio-free.date;
+
   src = sources.how-to-use-pvs-studio-free;
 
   nativeBuildInputs = [ cmake ];

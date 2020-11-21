@@ -1,10 +1,8 @@
 { stdenv, fetchurl, undmg, xar, cpio }:
-let
+
+stdenv.mkDerivation rec {
   pname = "basecamp";
   version = "4.8.10";
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
   src = fetchurl {
     url = "https://download.garmin.com/software/BaseCampforMac_${stdenv.lib.replaceStrings [ "." ] [ "" ] version}.dmg";

@@ -1,11 +1,9 @@
 { stdenv, sources }:
-let
-  pname = "qtpbfimageplugin-styles";
-  date = stdenv.lib.substring 0 10 sources.qtpbfimageplugin-styles.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "qtpbfimageplugin-styles";
+  version = stdenv.lib.substring 0 10 sources.qtpbfimageplugin-styles.date;
+
   src = sources.qtpbfimageplugin-styles;
 
   dontBuild = true;

@@ -1,14 +1,13 @@
 { lib, python3Packages, sources, withUI ? true }:
-let
-  pname = "gt4gd";
-  date = lib.substring 0 10 sources.gt4gd.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonApplication {
-  inherit pname version;
+  pname = "gt4gd-unstable";
+  version = lib.substring 0 10 sources.gt4gd.date;
+
   src = sources.gt4gd;
 
-  propagatedBuildInputs = with python3Packages; [ requests ] ++ (lib.optional withUI tkinter);
+  propagatedBuildInputs = with python3Packages; [ requests ]
+    ++ lib.optional withUI tkinter;
 
   postInstall = lib.optionalString withUI ''
     install -Dm755 googletranslateui.py $out/bin/googletranslateui

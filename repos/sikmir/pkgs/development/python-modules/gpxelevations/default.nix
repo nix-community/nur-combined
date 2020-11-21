@@ -1,13 +1,11 @@
 { lib, python3Packages, fetchurl, sources }:
 let
-  pname = "gpxelevations";
-  date = lib.substring 0 10 sources.gpxelevations.date;
-  version = "unstable-" + date;
-
   testdata = import ./testdata.nix { inherit fetchurl; };
 in
 python3Packages.buildPythonApplication {
-  inherit pname version;
+  pname = "gpxelevations-unstable";
+  version = lib.substring 0 10 sources.gpxelevations.date;
+
   src = sources.gpxelevations;
 
   propagatedBuildInputs = with python3Packages; [ requests gpxpy ];

@@ -1,10 +1,8 @@
 { lib, python3Packages, substituteAll, locale }:
-let
+
+python3Packages.buildPythonPackage rec {
   pname = "click";
   version = "6.7";
-in
-python3Packages.buildPythonPackage {
-  inherit pname version;
 
   src = python3Packages.fetchPypi {
     inherit pname version;

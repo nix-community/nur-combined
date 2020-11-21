@@ -1,11 +1,9 @@
 { lib, python3Packages, sources }:
-let
-  pname = "cheetah3";
-  date = lib.substring 0 10 sources.cheetah3.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonPackage {
-  inherit pname version;
+  pname = "cheetah3-unstable";
+  version = lib.substring 0 10 sources.cheetah3.date;
+
   src = sources.cheetah3;
 
   checkInputs = with python3Packages; [ pygments markdown ];

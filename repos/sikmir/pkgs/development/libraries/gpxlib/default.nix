@@ -1,11 +1,9 @@
 { stdenv, cmake, expat, sources }:
-let
-  pname = "gpxlib";
-  date = stdenv.lib.substring 0 10 sources.gpxlib.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "gpxlib-unstable";
+  version = stdenv.lib.substring 0 10 sources.gpxlib.date;
+
   src = sources.gpxlib;
 
   nativeBuildInputs = [ cmake ];

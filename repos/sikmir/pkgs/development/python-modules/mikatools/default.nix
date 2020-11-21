@@ -1,11 +1,9 @@
 { lib, python3Packages, sources }:
-let
-  pname = "mikatools";
-  date = lib.substring 0 10 sources.mikatools.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonPackage {
-  inherit pname version;
+  pname = "mikatools-unstable";
+  version = lib.substring 0 10 sources.mikatools.date;
+
   src = sources.mikatools;
 
   propagatedBuildInputs = with python3Packages; [ requests clint ];

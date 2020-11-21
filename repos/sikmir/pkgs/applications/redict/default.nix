@@ -14,18 +14,17 @@
 , sources
 , withI18n ? true
 }:
-let
-  pname = "redict";
-  date = lib.substring 0 10 sources.redict.date;
-  version = "unstable-" + date;
-in
+
 mkDerivation {
-  inherit pname version;
+  pname = "redict-unstable";
+  version = lib.substring 0 10 sources.redict.date;
+
   src = sources.redict;
 
-  nativeBuildInputs = [ qmake pkgconfig ] ++ (lib.optional withI18n qttools);
-  buildInputs =
-    [ qtbase qtmultimedia qtsvg ] ++ (lib.optionals stdenv.isLinux [ qtx11extras libX11 libXext libXtst ]);
+  nativeBuildInputs = [ qmake pkgconfig ]
+    ++ lib.optional withI18n qttools;
+  buildInputs = [ qtmultimedia qtsvg ]
+    ++ lib.optionals stdenv.isLinux [ qtx11extras libX11 libXext libXtst ];
 
   postPatch = ''
     substituteInPlace redict.pro \

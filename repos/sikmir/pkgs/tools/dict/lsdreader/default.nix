@@ -1,11 +1,9 @@
 { lib, python3Packages, sources }:
-let
-  pname = "lsdreader";
-  date = lib.substring 0 10 sources.lsdreader.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonApplication {
-  inherit pname version;
+  pname = "lsdreader-unstable";
+  version = lib.substring 0 10 sources.lsdreader.date;
+
   src = sources.lsdreader;
 
   doCheck = false;

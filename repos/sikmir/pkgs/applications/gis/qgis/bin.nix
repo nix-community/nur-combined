@@ -1,15 +1,13 @@
 { stdenv, fetchurl, undmg, releaseType ? "pr" }:
 
-assert releaseType == "pr" || releaseType == "ltr";
-let
+assert stdenv.lib.assertOneOf "releaseType" releaseType [ "pr" "ltr" ];
+
+stdenv.mkDerivation rec {
   pname = "qgis";
   version = {
     pr = "3.14.16";
     ltr = "3.10.10";
   }.${releaseType};
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
   src = fetchurl {
     url = "https://qgis.org/downloads/macos/qgis-macos-${releaseType}.dmg";

@@ -8,13 +8,11 @@
 , gdal
 , sources
 }:
-let
-  pname = "elevation";
-  date = lib.substring 0 10 sources.elevation.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonApplication {
-  inherit pname version;
+  pname = "elevation-unstable";
+  version = lib.substring 0 10 sources.elevation.date;
+
   src = sources.elevation;
 
   propagatedBuildInputs = with python3Packages; [ fasteners appdirs click setuptools ];

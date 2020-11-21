@@ -1,11 +1,9 @@
 { lib, python3Packages, mercantile, pymbtiles, sources }:
-let
-  pname = "garmin-uploader";
-  date = lib.substring 0 10 sources.gupload.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonApplication {
-  inherit pname version;
+  pname = "garmin-uploader-unstable";
+  version = lib.substring 0 10 sources.gupload.date;
+
   src = sources.gupload;
 
   propagatedBuildInputs = with python3Packages; [ requests ];

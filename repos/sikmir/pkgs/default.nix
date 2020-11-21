@@ -138,6 +138,7 @@ lib.makeScope newScope (
     };
     fx-bin = callPackage ./tools/text/fx/bin.nix { };
     garmin-uploader = callPackage ./tools/misc/garmin-uploader { };
+    gdcv = callPackage ./tools/dict/gdcv { };
     gimgtools = callPackage ./tools/geo/gimgtools { };
     gloggery = callPackage ./tools/misc/gloggery { };
     gmaptool = callPackage ./tools/geo/gmaptool { };
@@ -194,7 +195,6 @@ lib.makeScope newScope (
     geminid = callPackage ./servers/geminid { };
     glauth = callPackage ./servers/glauth { };
     nakarte = callPackage ./servers/nakarte { };
-    pg_featureserv = callPackage ./servers/pg_featureserv { };
     quark = callPackage ./servers/quark { };
     shavit = callPackage ./servers/shavit { };
 

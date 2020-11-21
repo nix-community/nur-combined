@@ -1,8 +1,7 @@
 { stdenv, mkYarnPackage, sources, secretsConfig ? null }:
 let
   pname = "nakarte";
-  date = stdenv.lib.substring 0 10 sources.nakarte.date;
-  version = "unstable-" + date;
+  version = stdenv.lib.substring 0 10 sources.nakarte.date;
 in
 mkYarnPackage {
   name = "${pname}-${version}";

@@ -1,11 +1,9 @@
 { lib, python37Packages, sources }:
-let
-  pname = "zdict";
-  date = lib.substring 0 10 sources.zdict.date;
-  version = "unstable-" + date;
-in
+
 python37Packages.buildPythonApplication {
-  inherit pname version;
+  pname = "zdict-unstable";
+  version = lib.substring 0 10 sources.zdict.date;
+
   src = sources.zdict;
 
   propagatedBuildInputs = with python37Packages; [

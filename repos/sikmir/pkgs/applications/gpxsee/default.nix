@@ -9,13 +9,11 @@
 , substituteAll
 , withI18n ? true
 }:
-let
-  pname = "gpxsee";
-  date = lib.substring 0 10 sources.gpxsee.date;
-  version = "unstable-" + date;
-in
-mkDerivation {
-  inherit pname version;
+
+mkDerivation rec {
+  pname = "gpxsee-unstable";
+  version = lib.substring 0 10 sources.gpxsee.date;
+
   src = sources.gpxsee;
 
   patches = (substituteAll {

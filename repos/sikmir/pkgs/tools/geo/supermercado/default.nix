@@ -3,13 +3,11 @@
 , mercantile
 , sources
 }:
-let
-  pname = "supermercado";
-  date = lib.substring 0 10 sources.supermercado.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonApplication {
-  inherit pname version;
+  pname = "supermercado-unstable";
+  version = lib.substring 0 10 sources.supermercado.date;
+
   src = sources.supermercado;
 
   propagatedBuildInputs = with python3Packages; [ click-plugins rasterio mercantile numpy ];

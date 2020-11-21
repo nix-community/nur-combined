@@ -1,11 +1,9 @@
 { stdenv, libpng, pkg-config, sources }:
-let
-  pname = "datamaps";
-  date = stdenv.lib.substring 0 10 sources.datamaps.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "datamaps";
+  version = stdenv.lib.substring 0 10 sources.datamaps.date;
+
   src = sources.datamaps;
 
   nativeBuildInputs = [ pkg-config ];
@@ -16,7 +14,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     for tool in encode enumerate merge render; do
-      install -Dm755 $tool $out/bin/$pname-$tool
+      install -Dm755 $tool $out/bin/datamaps-$tool
     done
   '';
 

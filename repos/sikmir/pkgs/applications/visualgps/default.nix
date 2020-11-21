@@ -6,8 +6,8 @@
 }:
 
 mkDerivation {
-  pname = "visualgps";
-  version = "unstable-2020-03-29";
+  pname = "visualgps-unstable";
+  version = "2020-03-29";
 
   src = fetchFromGitHub {
     owner = "VisualGPS";

@@ -1,11 +1,9 @@
 { lib, python3Packages, sources }:
-let
-  pname = "jsonseq";
-  date = lib.substring 0 10 sources.jsonseq.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonPackage {
-  inherit pname version;
+  pname = "jsonseq-unstable";
+  version = lib.substring 0 10 sources.jsonseq.date;
+
   src = sources.jsonseq;
 
   checkInputs = with python3Packages; [ pytestCheckHook ];

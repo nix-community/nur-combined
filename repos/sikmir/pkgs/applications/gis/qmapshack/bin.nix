@@ -1,18 +1,15 @@
 { stdenv, fetchfromgh, unzip }:
-let
+
+stdenv.mkDerivation rec {
   pname = "qmapshack";
   version = "1.15.0";
-  sha256 = "0dhl2km0xbv77xabjwdiv3y1psbjwjlyqs5222ji5d33wxl8m07n";
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
   src = fetchfromgh {
     owner = "Maproom";
     repo = pname;
     version = "V_${version}";
     name = "QMapShack_OSX.${stdenv.appleSdkVersion}_${version}.zip";
-    inherit sha256;
+    sha256 = "0dhl2km0xbv77xabjwdiv3y1psbjwjlyqs5222ji5d33wxl8m07n";
   };
 
   sourceRoot = ".";

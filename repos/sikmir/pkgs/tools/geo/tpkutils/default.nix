@@ -1,11 +1,9 @@
 { lib, python3Packages, mercantile, pymbtiles, sources }:
-let
-  pname = "tpkutils";
-  date = lib.substring 0 10 sources.tpkutils.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonApplication {
-  inherit pname version;
+  pname = "tpkutils-unstable";
+  version = lib.substring 0 10 sources.tpkutils.date;
+
   src = sources.tpkutils;
 
   propagatedBuildInputs = with python3Packages; [ mercantile pymbtiles setuptools six ];

@@ -1,11 +1,9 @@
 { lib, rustPlatform, sources }:
-let
-  pname = "xtr";
-  date = lib.substring 0 10 sources.xtr.date;
-  version = "unstable-" + date;
-in
+
 rustPlatform.buildRustPackage {
-  inherit pname version;
+  pname = "xtr-unstable";
+  version = lib.substring 0 10 sources.xtr.date;
+
   src = sources.xtr;
 
   cargoPatches = [ ./cargo-lock.patch ];

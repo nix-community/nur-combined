@@ -1,11 +1,9 @@
-{ lib, python3Packages, sources }:
-let
-  pname = "tatoebatools";
-  date = lib.substring 0 10 sources.tatoebatools.date;
-  version = "unstable-" + date;
-in
+{ lib, python3Packages, sources, withCli ? true }:
+
 python3Packages.buildPythonApplication {
-  inherit pname version;
+  pname = "tatoebatools-unstable";
+  version = lib.substring 0 10 sources.tatoebatools.date;
+
   src = sources.tatoebatools;
 
   propagatedBuildInputs = with python3Packages; [ beautifulsoup4 pandas requests tqdm ];

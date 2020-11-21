@@ -1,11 +1,9 @@
 { stdenv, curl, file, coreutils, sources }:
-let
-  pname = "supload";
-  date = stdenv.lib.substring 0 10 sources.supload.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "supload-unstable";
+  version = stdenv.lib.substring 0 10 sources.supload.date;
+
   src = sources.supload;
 
   buildInputs = [ curl file ];
@@ -20,9 +18,7 @@ stdenv.mkDerivation {
       --replace '`which md5sum`' '${coreutils}/bin/md5sum'
   '';
 
-  installPhase = ''
-    install -Dm755 supload.sh $out/bin/supload
-  '';
+  installPhase = "install -Dm755 supload.sh $out/bin/supload";
 
   meta = with stdenv.lib; {
     inherit (sources.supload) description homepage;

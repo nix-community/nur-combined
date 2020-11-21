@@ -9,13 +9,11 @@
 , substituteAll
 , withI18n ? true
 }:
-let
-  pname = "gpxlab";
-  date = lib.substring 0 10 sources.gpxlab.date;
-  version = "unstable-" + date;
-in
-mkDerivation {
-  inherit pname version;
+
+mkDerivation rec {
+  pname = "gpxlab-unstable";
+  version = lib.substring 0 10 sources.gpxlab.date;
+
   src = sources.gpxlab;
 
   patches = (substituteAll {
@@ -29,7 +27,6 @@ mkDerivation {
   '';
 
   nativeBuildInputs = [ qmake ] ++ (lib.optional withI18n qttools);
-  buildInputs = [ qtbase ];
 
   preConfigure = lib.optionalString withI18n ''
     lrelease GPXLab/locale/*.ts

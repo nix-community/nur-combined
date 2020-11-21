@@ -1,10 +1,8 @@
 { stdenv, fetchurl, unzip }:
-let
+
+stdenv.mkDerivation rec {
   pname = "iterm2";
   version = "3.3.12";
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
   src = fetchurl {
     url = "https://iterm2.com/downloads/stable/iTerm2-${stdenv.lib.replaceStrings [ "." ] [ "_" ] version}.zip";

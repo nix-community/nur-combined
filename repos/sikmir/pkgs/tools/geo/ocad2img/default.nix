@@ -2,7 +2,7 @@
 
 buildPerlPackage {
   pname = "ocad2img";
-  version = "unstable-2009-10-11";
+  version = "2009-10-11";
 
   src = fetchwebarchive {
     url = "http://worldofo.com/div/ocad2img.zip";

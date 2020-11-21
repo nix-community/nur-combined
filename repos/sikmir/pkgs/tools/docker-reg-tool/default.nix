@@ -1,16 +1,12 @@
 { stdenv, sources }:
-let
-  pname = "docker-reg-tool";
-  date = stdenv.lib.substring 0 10 sources.docker-reg-tool.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "docker-reg-tool";
+  version = stdenv.lib.substring 0 10 sources.docker-reg-tool.date;
+
   src = sources.docker-reg-tool;
 
-  installPhase = ''
-    install -Dm755 docker_reg_tool -t $out/bin
-  '';
+  installPhase = "install -Dm755 docker_reg_tool -t $out/bin";
 
   meta = with stdenv.lib; {
     inherit (sources.docker-reg-tool) description homepage;

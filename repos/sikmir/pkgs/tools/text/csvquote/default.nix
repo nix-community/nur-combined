@@ -1,11 +1,9 @@
 { stdenv, sources }:
-let
-  pname = "csvquote";
-  date = stdenv.lib.substring 0 10 sources.csvquote.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "csvquote";
+  version = stdenv.lib.substring 0 10 sources.csvquote.date;
+
   src = sources.csvquote;
 
   makeFlags = [ "BINDIR=$(out)/bin" ];

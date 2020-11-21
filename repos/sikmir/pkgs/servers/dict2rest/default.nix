@@ -1,11 +1,9 @@
 { lib, buildGoPackage, sources }:
-let
-  pname = "dict2rest";
-  date = lib.substring 0 10 sources.dict2rest.date;
-  version = "unstable-" + date;
-in
+
 buildGoPackage {
-  inherit pname version;
+  pname = "dict2rest";
+  version = lib.substring 0 10 sources.dict2rest.date;
+
   src = sources.dict2rest;
 
   goPackagePath = "github.com/felix/go-dict2rest";

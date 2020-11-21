@@ -1,11 +1,9 @@
 { stdenv, cgpsmapper, gmaptool, imagemagick, mapsoft, netpbm, zip, sources }:
-let
-  pname = "slazav-hr";
-  date = stdenv.lib.substring 0 10 sources.map-hr.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "slazav-hr-unstable";
+  version = stdenv.lib.substring 0 10 sources.map-hr.date;
+
   src = sources.map-hr;
 
   patches = [ ./0001-fix-hr.patch ];

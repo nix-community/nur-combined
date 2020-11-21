@@ -1,10 +1,8 @@
 { stdenv, fetchFromGitHub, Cocoa, ScriptingBridge, xxd }:
-let
+
+stdenv.mkDerivation rec {
   pname = "yabai";
   version = "3.3.0";
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
   src = fetchFromGitHub {
     owner = "koekeishiya";

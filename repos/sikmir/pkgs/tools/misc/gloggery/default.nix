@@ -1,11 +1,9 @@
 { stdenv, go, sources }:
-let
-  pname = "gloggery";
-  date = stdenv.lib.substring 0 10 sources.gloggery.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "gloggery-unstable";
+  version = stdenv.lib.substring 0 10 sources.gloggery.date;
+
   src = sources.gloggery;
 
   nativeBuildInputs = [ go ];

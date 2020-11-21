@@ -1,10 +1,8 @@
 { stdenv, fetchfromgh, undmg }:
-let
+
+stdenv.mkDerivation rec {
   pname = "anki";
   version = "2.1.35";
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
   src = fetchfromgh {
     owner = "ankitects";

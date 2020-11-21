@@ -1,11 +1,9 @@
 { lib, python3Packages, sources }:
-let
-  pname = "pymbtiles";
-  date = lib.substring 0 10 sources.pymbtiles.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonPackage {
-  inherit pname version;
+  pname = "pymbtiles-unstable";
+  version = lib.substring 0 10 sources.pymbtiles.date;
+
   src = sources.pymbtiles;
 
   checkInputs = with python3Packages; [ pytestCheckHook ];

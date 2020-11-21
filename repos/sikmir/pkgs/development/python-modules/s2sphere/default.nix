@@ -1,11 +1,9 @@
 { lib, python3Packages, sources }:
-let
-  pname = "s2sphere";
-  date = lib.substring 0 10 sources.s2sphere.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonPackage {
-  inherit pname version;
+  pname = "s2sphere-unstable";
+  version = lib.substring 0 10 sources.s2sphere.date;
+
   src = sources.s2sphere;
 
   propagatedBuildInputs = with python3Packages; [ future ];

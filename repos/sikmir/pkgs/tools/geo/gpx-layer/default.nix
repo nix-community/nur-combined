@@ -1,11 +1,9 @@
 { stdenv, buildPerlPackage, shortenPerlShebang, XMLParser, sources }:
-let
-  pname = "gpx-layer";
-  date = stdenv.lib.substring 0 10 sources.gpx-layer.date;
-  version = "unstable-" + date;
-in
+
 buildPerlPackage {
-  inherit pname version;
+  pname = "gpx-layer";
+  version = stdenv.lib.substring 0 10 sources.gpx-layer.date;
+
   src = sources.gpx-layer;
 
   outputs = [ "out" ];

@@ -7,13 +7,11 @@
 , withDoc ? false
 , scdoc
 }:
-let
-  pname = "libshell";
-  date = stdenv.lib.substring 0 10 sources.libshell.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "libshell-unstable";
+  version = stdenv.lib.substring 0 10 sources.libshell.date;
+
   src = sources.libshell;
 
   nativeBuildInputs = [ help2man ];

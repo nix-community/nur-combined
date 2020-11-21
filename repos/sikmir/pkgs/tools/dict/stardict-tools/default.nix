@@ -9,13 +9,11 @@
 , pcre
 , sources
 }:
-let
-  pname = "stardict-tools";
-  date = stdenv.lib.substring 0 10 sources.stardict-3.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "stardict-tools";
+  version = stdenv.lib.substring 0 10 sources.stardict-3.date;
+
   src = sources.stardict-3;
 
   nativeBuildInputs = [
@@ -53,7 +51,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     inherit (sources.stardict-3) description homepage;
-    license = licenses.gpl3;
+    license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;

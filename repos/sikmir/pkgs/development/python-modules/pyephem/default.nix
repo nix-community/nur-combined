@@ -1,11 +1,9 @@
 { lib, python3Packages, sources }:
-let
-  pname = "pyephem";
-  date = lib.substring 0 10 sources.pyephem.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonPackage {
-  inherit pname version;
+  pname = "pyephem-unstable";
+  version = lib.substring 0 10 sources.pyephem.date;
+
   src = sources.pyephem;
 
   meta = with lib; {

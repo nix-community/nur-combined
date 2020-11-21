@@ -1,10 +1,8 @@
 { stdenv, fetchurl, undmg }:
-let
+
+stdenv.mkDerivation rec {
   pname = "goldendict";
   version = "1.5.0-RC2-372-gc3ff15f";
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
   src = fetchurl {
     url = "https://downloads.sourceforge.net/project/goldendict/early%20access%20builds/MacOS/GoldenDict-${version}%28Qt_5121%29.dmg";

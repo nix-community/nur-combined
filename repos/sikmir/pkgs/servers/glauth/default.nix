@@ -1,11 +1,9 @@
 { lib, buildGoModule, go-bindata, sources }:
-let
-  pname = "glauth";
-  date = lib.substring 0 10 sources.glauth.date;
-  version = "unstable-" + date;
-in
+
 buildGoModule {
-  inherit pname version;
+  pname = "glauth-unstable";
+  version = lib.substring 0 10 sources.glauth.date;
+
   src = sources.glauth;
 
   vendorSha256 = "18inm0s9mww7c19z9alnvy0g80d3laxh4lwbgzkcc8kf9zg25149";

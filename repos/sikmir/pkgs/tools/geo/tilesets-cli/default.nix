@@ -1,11 +1,9 @@
 { lib, python3Packages, jsonseq, mercantile, supermercado, sources }:
-let
-  pname = "tilesets-cli";
-  date = lib.substring 0 10 sources.tilesets-cli.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonApplication {
-  inherit pname version;
+  pname = "tilesets-cli-unstable";
+  version = lib.substring 0 10 sources.tilesets-cli.date;
+
   src = sources.tilesets-cli;
 
   propagatedBuildInputs = with python3Packages; [

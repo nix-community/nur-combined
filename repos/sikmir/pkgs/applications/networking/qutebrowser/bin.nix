@@ -1,10 +1,8 @@
 { stdenv, fetchfromgh, undmg }:
-let
+
+stdenv.mkDerivation rec {
   pname = "qutebrowser";
   version = "1.14.0";
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
   src = fetchfromgh {
     owner = "qutebrowser";

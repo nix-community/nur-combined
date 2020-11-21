@@ -1,11 +1,9 @@
 { stdenv, cmake, gtest, sources }:
-let
-  pname = "microjson";
-  date = stdenv.lib.substring 0 10 sources.microjson.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "microjson-unstable";
+  version = stdenv.lib.substring 0 10 sources.microjson.date;
+
   src = sources.microjson;
 
   postPatch = ''

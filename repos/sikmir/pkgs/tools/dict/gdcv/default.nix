@@ -1,11 +1,9 @@
 { stdenv, pkgconfig, emacs, zlib, sources }:
-let
-  pname = "gdcv";
-  date = stdenv.lib.substring 0 10 sources.gdcv.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "gdcv";
+  version = stdenv.lib.substring 0 10 sources.gdcv.date;
+
   src = sources.gdcv;
 
   nativeBuildInputs = [ pkgconfig ];

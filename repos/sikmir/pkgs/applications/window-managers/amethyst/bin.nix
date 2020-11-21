@@ -1,18 +1,15 @@
 { stdenv, fetchfromgh, unzip }:
-let
+
+stdenv.mkDerivation rec {
   pname = "Amethyst";
   version = "0.15.4";
-  sha256 = "16n5vdyjs6m4saqibv3fb420w6x83lsiw182qm3prnilh4q9qld3";
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
   src = fetchfromgh {
     owner = "ianyh";
     repo = pname;
     version = "v${version}";
     name = "Amethyst.zip";
-    inherit sha256;
+    sha256 = "16n5vdyjs6m4saqibv3fb420w6x83lsiw182qm3prnilh4q9qld3";
   };
 
   sourceRoot = ".";

@@ -1,10 +1,8 @@
 { stdenv, fetchfromgh, undmg, sources }:
-let
+
+stdenv.mkDerivation rec {
   pname = "Openorienteering-Mapper";
   version = "20201026.1";
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
   src = fetchfromgh {
     owner = "OpenOrienteering";

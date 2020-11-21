@@ -11,9 +11,7 @@ fetchurl {
   downloadToTemp = true;
   recursiveHash = true;
   preferLocalBuild = true;
-  postFetch = ''
-    install -Dm644 $downloadedFile $out/garmin/${filename}
-  '';
+  postFetch = "install -Dm644 $downloadedFile $out/${filename}";
 
   meta = with lib; {
     homepage = "https://www8.garmin.com/support/download_details.jsp?id=6805";

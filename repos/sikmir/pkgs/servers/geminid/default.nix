@@ -1,11 +1,9 @@
 { stdenv, libconfig, file, openssl, flex, sources }:
-let
-  pname = "geminid";
-  date = stdenv.lib.substring 0 10 sources.geminid.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "geminid";
+  version = stdenv.lib.substring 0 10 sources.geminid.date;
+
   src = sources.geminid;
 
   nativeBuildInputs = [ flex ];
@@ -14,9 +12,7 @@ stdenv.mkDerivation {
 
   makeFlags = [ "geminid" "CC=cc" "LEX=flex" ];
 
-  installPhase = ''
-    install -Dm755 geminid -t $out/bin
-  '';
+  installPhase = "install -Dm755 geminid -t $out/bin";
 
   meta = with stdenv.lib; {
     inherit (sources.geminid) description homepage;

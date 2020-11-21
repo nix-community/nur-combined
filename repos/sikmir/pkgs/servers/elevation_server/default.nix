@@ -1,11 +1,9 @@
 { lib, buildGoPackage, lz4, sources }:
-let
-  pname = "elevation-server";
-  date = lib.substring 0 10 sources.elevation-server.date;
-  version = "unstable-" + date;
-in
+
 buildGoPackage rec {
-  inherit pname version;
+  pname = "elevation-server-unstable";
+  version = lib.substring 0 10 sources.elevation-server.date;
+
   src = sources.elevation-server;
 
   goPackagePath = "github.com/wladich/elevation_server";

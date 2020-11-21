@@ -1,11 +1,9 @@
 { stdenv, cgpsmapper, gmaptool, imagemagick, mapsoft, netpbm, zip, sources }:
-let
-  pname = "slazav-podm";
-  date = stdenv.lib.substring 0 10 sources.map-podm.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "slazav-podm-unstable";
+  version = stdenv.lib.substring 0 10 sources.map-podm.date;
+
   src = sources.map-podm;
 
   patches = [ ./0001-fix-podm.patch ];
@@ -32,9 +30,7 @@ stdenv.mkDerivation {
 
   buildFlags = [ "out" "img" ];
 
-  installPhase = ''
-    install -Dm644 podm.img -t $out
-  '';
+  installPhase = "install -Dm644 podm.img -t $out";
 
   meta = with stdenv.lib; {
     inherit (sources.map-podm) description homepage;

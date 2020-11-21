@@ -19,13 +19,11 @@
     "World/marshruty.ru.xml"
   ]
 }:
-let
-  pname = "gpxsee-maps";
-  date = lib.substring 0 10 sources.gpxsee-maps.date;
-  version = "unstable-" + date;
-in
+
 stdenvNoCC.mkDerivation {
-  inherit pname version;
+  pname = "gpxsee-maps";
+  version = lib.substring 0 10 sources.gpxsee-maps.date;
+
   src = sources.gpxsee-maps;
 
   postPatch = ''

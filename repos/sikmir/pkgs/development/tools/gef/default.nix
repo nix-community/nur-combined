@@ -8,10 +8,6 @@
 , gdb
 }:
 let
-  pname = "gef";
-  date = stdenv.lib.substring 0 10 sources.gef.date;
-  version = "unstable-" + date;
-
   initGef = writeScript "init-gef" ''
     source @out@/share/gef/gef.py
   '';
@@ -25,7 +21,9 @@ let
   );
 in
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "gef-unstable";
+  version = stdenv.lib.substring 0 10 sources.gef.date;
+
   src = sources.gef;
 
   dontBuild = true;

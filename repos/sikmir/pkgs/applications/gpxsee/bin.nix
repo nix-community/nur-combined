@@ -1,10 +1,8 @@
 { stdenv, fetchurl, undmg, sources }:
-let
+
+stdenv.mkDerivation rec {
   pname = "gpxsee";
   version = "7.36";
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
   src = fetchurl {
     url = "mirror://sourceforge/gpxsee/GPXSee-${version}.dmg";

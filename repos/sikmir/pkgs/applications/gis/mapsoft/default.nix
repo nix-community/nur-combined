@@ -28,13 +28,11 @@
 , zlib
 , getopt
 }:
-let
-  pname = "mapsoft";
-  date = stdenv.lib.substring 0 10 sources.mapsoft.date;
-  version = "unstable-" + date;
-in
+
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "mapsoft-unstable";
+  version = stdenv.lib.substring 0 10 sources.mapsoft.date;
+
   src = sources.mapsoft;
 
   patches = [ ./0001-fix-build.patch ];

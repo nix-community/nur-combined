@@ -1,10 +1,9 @@
 { stdenvNoCC, lib, pandoc, stardict-tools, sources }:
-let
+
+stdenvNoCC.mkDerivation {
   pname = "it-sanasto";
   version = lib.substring 0 10 sources.it-sanasto.date;
-in
-stdenvNoCC.mkDerivation {
-  inherit pname version;
+
   src = sources.it-sanasto;
 
   nativeBuildInputs = [ pandoc stardict-tools ];
@@ -12,13 +11,13 @@ stdenvNoCC.mkDerivation {
   buildPhase = ''
     for i in *.md; do
       pandoc -f markdown -t html -s $i | awk -F "</*td>" '/<\/*td>.*/ {print $2}'
-    done | paste -d"#" - - - | sed 's/#/\t/;s/#/\\n/' > ${pname}.tab
+    done | paste -d"#" - - - | sed 's/#/\t/;s/#/\\n/' > it-sanasto.tab
 
-    stardict-tabfile ${pname}.tab
+    stardict-tabfile it-sanasto.tab
   '';
 
   installPhase = ''
-    install -Dm644 ${pname}.{dict,idx,ifo} -t $out
+    install -Dm644 it-sanasto.{dict,idx,ifo} -t $out
   '';
 
   meta = with lib; {

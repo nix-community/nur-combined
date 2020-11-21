@@ -2,7 +2,7 @@
 
 buildGoModule {
   pname = "shavit";
-  version = "unstable-2020-03-14";
+  version = "2020-03-14";
 
   src = fetchgit {
     url = "https://git.sr.ht/~yotam/shavit";

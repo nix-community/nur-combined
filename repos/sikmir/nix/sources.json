@@ -744,20 +744,6 @@
         "url": "https://github.com/liosha/osm2mp/archive/748f93792ead174ad0e94a183a173ef3fcacf200.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "pg-featureserv": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-08-31T21:37:46Z",
-        "description": "Lightweight RESTful Geospatial Feature Server for PostGIS in Go",
-        "homepage": "https://github.com/CrunchyData/pg_featureserv",
-        "owner": "CrunchyData",
-        "repo": "pg_featureserv",
-        "rev": "c04ee5400383a3226706bfff33af66cb97e1ae76",
-        "sha256": "0z5wigb3l8q00dhzy0pjfgv9w4k9d3lqrdlazif843dgchd3jb8q",
-        "type": "tarball",
-        "url": "https://github.com/CrunchyData/pg_featureserv/archive/c04ee5400383a3226706bfff33af66cb97e1ae76.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "pyephem": {
         "branch": "master",
         "builtin": false,

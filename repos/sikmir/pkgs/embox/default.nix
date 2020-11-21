@@ -8,13 +8,9 @@
 , qemu
 , unzip
 , which
+, template ? "arm/qemu"
 }:
 let
-  pname = "embox";
-  date = stdenv.lib.substring 0 10 sources.embox.date;
-  version = "unstable-" + date;
-  template = "arm/qemu";
-
   cjson = fetchurl {
     url = "mirror://sourceforge/cjson/cJSONFiles.zip";
     sha256 = "19qdsfq4r7gjr39lkjplz418gkl2xg5j5fpdz9phlxlbggnklqhd";
@@ -31,7 +27,9 @@ let
   '';
 in
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "embox-unstable";
+  version = stdenv.lib.substring 0 10 sources.embox.date;
+
   src = sources.embox;
 
   patches = [ ./0001-fix-build.patch ];

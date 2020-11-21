@@ -1,11 +1,9 @@
 { lib, python3Packages, s2sphere, sources }:
-let
-  pname = "gpxtrackposter";
-  date = lib.substring 0 10 sources.gpxtrackposter.date;
-  version = "unstable-" + date;
-in
+
 python3Packages.buildPythonApplication {
-  inherit pname version;
+  pname = "gpxtrackposter-unstable";
+  version = lib.substring 0 10 sources.gpxtrackposter.date;
+
   src = sources.gpxtrackposter;
 
   patches = [ ./fix-localedir.patch ];

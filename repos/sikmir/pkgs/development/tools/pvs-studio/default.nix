@@ -3,16 +3,14 @@ let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
-  pname = "pvs-studio";
-  version = "7.09.42228.74";
-
   suffix = {
     x86_64-linux = "x86_64";
     x86_64-darwin = "macos";
   }.${system} or throwSystem;
 in
-stdenv.mkDerivation {
-  inherit pname version;
+stdenv.mkDerivation rec {
+  pname = "pvs-studio";
+  version = "7.09.42228.74";
 
   src = fetchurl {
     url = "https://files.viva64.com/pvs-studio-${version}-${suffix}.tgz";
