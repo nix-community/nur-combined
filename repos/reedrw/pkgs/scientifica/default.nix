@@ -1,17 +1,39 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchurl, fetchFromGitHub, fontforge, jre, lib }:
+let
 
+  BNP = fetchFromGitHub {
+    owner = "kreativekorp";
+    repo = "bitsnpicas";
+    rev = "8c786648986198263f24e651be0859711984f983";
+    sha256 = "0ik1nk0gwjw3vyk8n8zpwsgnxjzv8jcpca7l5q4mw67f7phsjhdn";
+  };
+
+in
 stdenv.mkDerivation rec {
   pname = "scientifica";
   version = "2.1";
 
-  src = fetchurl {
-    url = "https://github.com/NerdyPepper/scientifica/releases/download/v${version}/scientifica-v${version}.tar";
-    sha256 = "1djsgv6sgfw4kay6wbks3yqgrmbyyxq4i21aqg1hj0w5ww4wwn9i";
+  src = fetchFromGitHub {
+    owner = "NerdyPepper";
+    repo = "scientifica";
+    rev = "v${version}";
+    sha256 = "0x1qhh35gw5wvndk8szjwx9ad2rccdficcvkix9gs535lyja5z4j";
   };
+
+  nativeBuildInputs = [ fontforge jre ];
+
+  patchPhase = ''
+    patchShebangs ./build.sh
+  '';
+
+  buildPhase = ''
+    export BNP="${BNP}/downloads/BitsNPicas.jar"
+    ./build.sh
+  '';
 
   installPhase = ''
     mkdir -p "$out/share/fonts/"
-    install -D -m644 ttf/* "$out/share/fonts/"
+    install -D -m644 build/scientifica/ttf/* "$out/share/fonts/"
   '';
 
   meta = {
