@@ -111,6 +111,20 @@
         "url": "https://github.com/bopen/elevation/archive/1930e479d0fceee86351f33226ab0cac411492e2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "elevation-server": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-06-22T13:35:45Z",
+        "description": "The server providing elevation data for https://nakarte.me written in go",
+        "homepage": "https://github.com/wladich/elevation_server",
+        "owner": "wladich",
+        "repo": "elevation_server",
+        "rev": "f8f944b4fb7190782aa57b5eeb467bdff8b349bd",
+        "sha256": "0619jxchha0iy8x7g5k5pfyw7x62iwjd19m29b69w53y3dsiswbc",
+        "type": "tarball",
+        "url": "https://github.com/wladich/elevation_server/archive/f8f944b4fb7190782aa57b5eeb467bdff8b349bd.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "embox": {
         "branch": "master",
         "builtin": false,
