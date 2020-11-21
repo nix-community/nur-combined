@@ -1,18 +1,20 @@
-{ stdenv, buildPerlPackage, fetchzip, dos2unix, cgpsmapper, ocad2mp, ModulePluggable, Tk }:
+{ stdenv, buildPerlPackage, fetchwebarchive, unzip, dos2unix, cgpsmapper, ocad2mp, ModulePluggable, Tk }:
 
 buildPerlPackage {
   pname = "ocad2img";
   version = "unstable-2009-10-11";
 
-  src = fetchzip {
+  src = fetchwebarchive {
     url = "http://worldofo.com/div/ocad2img.zip";
-    sha256 = "0d5aryahl5662w65fpqa5camq1c0wlyrnxgsdqb7xsgmk1sivvmz";
-    stripRoot = false;
+    timestamp = "20150326063156";
+    sha256 = "1w68jww1kyy2cdzc8b69pca5w05gxj8q3ap5q0ff10ix0sfcm0mn";
   };
+
+  sourceRoot = ".";
 
   outputs = [ "out" ];
 
-  nativeBuildInputs = [ dos2unix ];
+  nativeBuildInputs = [ unzip dos2unix ];
 
   propagatedBuildInputs = [ ModulePluggable Tk ];
 
@@ -41,7 +43,7 @@ buildPerlPackage {
   meta = with stdenv.lib; {
     description = "Converter from OCAD map format to Garmin format";
     homepage = "http://news.worldofo.com/2009/10/11/howto-convert-any-orienteering-map-to-a-garmin-map/";
-    license = licenses.gpl3;
+    license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;

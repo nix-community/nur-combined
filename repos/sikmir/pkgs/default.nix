@@ -156,7 +156,7 @@ lib.makeScope newScope (
     morse-talk = callPackage ./tools/morse-talk { };
     musig = callPackage ./tools/audio/musig { };
     ocad2img = perlPackages.callPackage ./tools/geo/ocad2img {
-      inherit cgpsmapper ocad2mp;
+      inherit cgpsmapper ocad2mp fetchwebarchive;
     };
     ocad2mp = callPackage ./tools/geo/ocad2mp { };
     odict = callPackage ./tools/dict/odict { };
