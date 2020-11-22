@@ -9,14 +9,8 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ pkgs ? import (builtins.fetchTarball {
-    # Descriptive name to make the store path easier to identify
-    name = "nixpkgs-20.08.20";
-    # Commit hash for nixos-unstable as of 2018-09-12
-    url = "https://github.com/nixos/nixpkgs/archive/c59ea8b8a0e7f927e7291c14ea6cd1bd3a16ff38.tar.gz";
-    # Hash obtained using `nix-prefetch-url --unpack <url>`
-    sha256 = "1ak7jqx94fjhc68xh1lh35kh3w3ndbadprrb762qgvcfb8351x8v";
-  }) {}
+# Use nixpkgs channel provided by travice
+{ pkgs ? <nixpkgs>
 }:
 
 with builtins;

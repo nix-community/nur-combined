@@ -11,12 +11,11 @@
 mkDerivation {
 
   pname = "juk";
-  version = "19.12.3";
+  version = "20.08.2";
 
   src = fetchurl {
-    url = "mirror://kde/stable/release-service/19.12.3/src/juk-19.12.3.tar.xz";
-    sha256 = "4bc4210d223afc23cb6edc9262eceee038ecc6243a550698e676230168943611";
-    name = "juk-19.12.3.tar.xz";
+    url = "mirror://kde/stable/release-service/20.08.2/src/juk-20.08.2.tar.xz";
+    sha256 = "0q7cqwkdi8rrmd79d68ndcl2w4cjvgkdvgcz8qsw7i40ijnmk7xi";
   };
 
   nativeBuildInputs = [ extra-cmake-modules cmake  ];

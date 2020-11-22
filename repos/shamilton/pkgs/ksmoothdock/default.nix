@@ -27,6 +27,12 @@ mkDerivation rec {
     })
   ];
 
+  postPatch = ''
+    # Disable -Werror, needed since Qt 15.5 depreciation warnings
+    substituteInPlace src/CMakeLists.txt \
+      --replace "-Werror" ""
+  '';
+
   nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   buildInputs = [ kactivities qtbase ];

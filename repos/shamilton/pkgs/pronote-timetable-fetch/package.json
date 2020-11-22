@@ -1,0 +1,32 @@
+{
+	"name": "pronote-timetable-fetch",
+	"version": "1.0.0",
+	"description": "Pronote timetable fetcher, using Pronote-API",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SCOTT-HAMILTON/pronote-timetable-fetch.git"
+	},
+	"bin": {
+		"pronote-timeline-fetch": "./index.js"
+	},
+	"keywords": [
+		"pronote",
+		"timetable",
+		"fetch",
+		"pronote-api"
+	],
+	"author": "Scott HAMILTON",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/SCOTT-HAMILTON/pronote-timetable-fetch/issues"
+	},
+	"homepage": "https://github.com/SCOTT-HAMILTON/pronote-timetable-fetch",
+	"dependencies": {
+		"pronote-api": "^2.2.0",
+		"yargs": "^16.1.0"
+	}
+}

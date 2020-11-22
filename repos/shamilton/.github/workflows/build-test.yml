@@ -1,0 +1,68 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches:
+       - master
+       - nixpkgs-unstable
+       - nixos-unstable
+  workflow_dispatch:
+env:
+  NUR_REPO: shamilton
+  CACHIX_CACHE: scott-hamilton
+  NIXPKGS_ALLOW_BROKEN: 1
+  CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+  DEFAULT_NIX_CHANNEL: nixos-20.09
+  # Allows you to run this workflow manually from the Actions tab
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    name: ${{ matrix.channel-branch }} 
+    strategy: 
+      matrix:
+        channel-branch:
+            - master
+            - nixpkgs-unstable
+            - nixos-unstable
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ matrix.channel-branch }}
+      - uses: cachix/install-nix-action@v12
+      - uses: cachix/cachix-action@v8
+        with:
+          name: '${{ env.CACHIX_CACHE }}'
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      # Runs a set of commands using the runners shell
+      - name: Nix Version
+        run: nix --version
+      - name: Build
+        run: |
+          if [ "${{ matrix.channel-branch }}" = "master" ]; then
+            export NIX_PATH=nixpkgs=channel:${{ env.DEFAULT_NIX_CHANNEL }}
+          else
+            export NIX_PATH=nixpkgs=channel:${{ matrix.channel-branch }}
+          fi
+          nix-build
+          nix eval -f default.nix 'lib'
+          nix eval -f default.nix 'modules'
+          nix eval -f default.nix 'overlays'
+      - name: Push
+        run: |
+          if [ "${{ matrix.channel-branch }}" = "master" ]; then
+            export NIX_PATH=nixpkgs=channel:${{ env.DEFAULT_NIX_CHANNEL }}
+          else
+            export NIX_PATH=nixpkgs=channel:${{ matrix.channel-branch }}
+          fi
+          nix-build | cachix push "${CACHIX_CACHE}"
+          curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"

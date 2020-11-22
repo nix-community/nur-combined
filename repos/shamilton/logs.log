@@ -1,0 +1,183 @@
+warning: unknown setting 'experimental-features'
+these derivations will be built:
+  /nix/store/1a5qjcmkrmrsmh9m6p0x3dyjcyp6x0wb-supertuxkart-1.2.drv
+building '/nix/store/1a5qjcmkrmrsmh9m6p0x3dyjcyp6x0wb-supertuxkart-1.2.drv'...
+unpacking sources
+unpacking source archive /nix/store/a77i4rdvllqy7lkdfigi5jbgbzz4wb4w-stk-code
+source root is stk-code
+patching sources
+configuring
+fixing cmake files...
+cmake flags: -DCMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY=OFF -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_BUILD_RPATH=ON -DBUILD_TESTING=OFF -DCMAKE_INSTALL_LOCALEDIR=/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2/share/locale -DCMAKE_INSTALL_LIBEXECDIR=/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2/libexec -DCMAKE_INSTALL_LIBDIR=/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2/lib -DCMAKE_INSTALL_DOCDIR=/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2/share/doc/SuperTuxKart -DCMAKE_INSTALL_INFODIR=/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2/share/info -DCMAKE_INSTALL_MANDIR=/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2/share/man -DCMAKE_INSTALL_OLDINCLUDEDIR=/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2/include -DCMAKE_INSTALL_INCLUDEDIR=/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2/include -DCMAKE_INSTALL_SBINDIR=/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2/sbin -DCMAKE_INSTALL_BINDIR=/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2/bin -DCMAKE_INSTALL_NAME_DIR=/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2/lib -DCMAKE_POLICY_DEFAULT_CMP0025=NEW -DCMAKE_OSX_SYSROOT= -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_FIND_FRAMEWORK=LAST -DCMAKE_STRIP=/nix/store/s59zibwwm8vy5ymbg5c3d0aksl8lz4h2-binutils-2.31.1/bin/strip -DCMAKE_RANLIB=/nix/store/s59zibwwm8vy5ymbg5c3d0aksl8lz4h2-binutils-2.31.1/bin/ranlib -DCMAKE_AR=/nix/store/s59zibwwm8vy5ymbg5c3d0aksl8lz4h2-binutils-2.31.1/bin/ar -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_INSTALL_PREFIX=/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2 -Wno-dev --debug-output -DBUILD_RECORDER=OFF -DUSE_SYSTEM_ANGELSCRIPT=OFF -DCHECK_ASSETS=OFF -DUSE_SYSTEM_ENET=ON -DUSE_SYSTEM_WIIUSE=ON -DUSE_SYSTEM_ANGELSCRIPT=ON
+Running with debug output on.
+-- The C compiler identification is GNU 9.3.0
+   Called from: [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeDetermineCompilerId.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeDetermineCCompiler.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- The CXX compiler identification is GNU 9.3.0
+   Called from: [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeDetermineCompilerId.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeDetermineCXXCompiler.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Detecting C compiler ABI info
+   Called from: [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeDetermineCompilerABI.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeTestCCompiler.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Detecting C compiler ABI info - done
+   Called from: [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeDetermineCompilerABI.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeTestCCompiler.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Check for working C compiler: /nix/store/lfl1davviy5mai3g80mpy2gkb97rh9j5-gcc-wrapper-9.3.0/bin/gcc - skipped
+   Called from: [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeTestCCompiler.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Detecting C compile features
+   Called from: [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeDetermineCompileFeatures.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeTestCCompiler.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Detecting C compile features - done
+   Called from: [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeDetermineCompileFeatures.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeTestCCompiler.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Detecting CXX compiler ABI info
+   Called from: [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeDetermineCompilerABI.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeTestCXXCompiler.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Detecting CXX compiler ABI info - done
+   Called from: [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeDetermineCompilerABI.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeTestCXXCompiler.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Check for working CXX compiler: /nix/store/lfl1davviy5mai3g80mpy2gkb97rh9j5-gcc-wrapper-9.3.0/bin/g++ - skipped
+   Called from: [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeTestCXXCompiler.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Detecting CXX compile features
+   Called from: [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeDetermineCompileFeatures.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeTestCXXCompiler.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Detecting CXX compile features - done
+   Called from: [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeDetermineCompileFeatures.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CMakeTestCXXCompiler.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Found PkgConfig: pkg-config (found version "0.29.2")
+   Called from: [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageMessage.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPkgConfig.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+   Entering             /build/stk-code/lib/bullet
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+   Returning to         /build/stk-code
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+CMake Error at CMakeLists.txt:200 (add_subdirectory):
+  add_subdirectory given source "/build/stk-code/lib/enet" which is not an
+  existing directory.
+
+
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+-- Checking for module 'glew>=2.1'
+   Called from: [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPkgConfig.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPkgConfig.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+--   Found glew, version 2.2.0
+   Called from: [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPkgConfig.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPkgConfig.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Found JPEG: /nix/store/rw19jz88i1hcqvrv77d0j7s8dzp5mbzg-libjpeg-turbo-2.0.5/lib/libjpeg.so (found version "62")
+   Called from: [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageMessage.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindJPEG.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+   Entering             /build/stk-code/lib/graphics_utils
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+   Returning to         /build/stk-code
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+-- Use system libmcpp: /nix/store/nbm4q88nbp6qcxs6d2dl6vw6imkfjckx-mcpp-2.7.2/lib/libmcpp.so
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+   Entering             /build/stk-code/lib/libsquish
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+   Returning to         /build/stk-code
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+-- Use system SDL2: /nix/store/6iysnkll6rp4l43yn1v8l8yfbxmnw1mc-SDL2-2.0.12/lib/libSDL2.so
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+   Entering             /build/stk-code/lib/irrlicht
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+-- Found ZLIB: /nix/store/ghrisqgvmz8blq4i9g0cqas1s3p0glx7-zlib-1.2.11/lib/libz.so (found version "1.2.11")
+   Called from: [5]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageMessage.cmake
+                [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindZLIB.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPNG.cmake
+                [1]     /build/stk-code/lib/irrlicht/CMakeLists.txt
+-- Found PNG: /nix/store/mz4lrsj37b8xh21v5fa87z174hdr8364-libpng-apng-1.6.37/lib/libpng.so (found version "1.6.37")
+   Called from: [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageMessage.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPNG.cmake
+                [1]     /build/stk-code/lib/irrlicht/CMakeLists.txt
+-- Found OpenGL: /nix/store/mbnlc0hh1kb8aqfjv5andg0xi8avys1q-libGL-1.3.2/lib/libOpenGL.so
+   Called from: [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageMessage.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindOpenGL.cmake
+                [1]     /build/stk-code/lib/irrlicht/CMakeLists.txt
+   Returning to         /build/stk-code
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+-- Found WiiUse: /nix/store/937pplxidkhvczj31asr1hv9347vk8bb-WiiUse-0.15.5/lib/libwiiuse.so
+   Called from: [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageMessage.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+                [2]     /build/stk-code/cmake/FindWiiUse.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Found Angelscript: /nix/store/bk9103waqxjl1qfnv4hkgl0b21v5zzwc-angelscript-2.34.0/lib/libangelscript.so
+   Called from: [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageMessage.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+                [2]     /build/stk-code/cmake/FindAngelscript.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Found OpenAL: /nix/store/8hg5d9jr1ghbx3s0fqxbrccdk52x27jf-openal-soft-1.19.1/lib/libopenal.so
+   Called from: [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageMessage.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindOpenAL.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Found OggVorbis: /nix/store/z7rf60qm3rl3xbrp0rb5i4n6i2yw9hvc-libogg-1.3.4-dev/include
+   Called from: [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageMessage.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+                [2]     /build/stk-code/cmake/FindOggVorbis.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+   Entering             /build/stk-code/lib/sheenbidi
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+   Returning to         /build/stk-code
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+-- Checking for module 'freetype2'
+   Called from: [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPkgConfig.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPkgConfig.cmake
+                [2]     /build/stk-code/cmake/FindFreetype.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+--   Found freetype2, version 23.4.17
+   Called from: [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPkgConfig.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPkgConfig.cmake
+                [2]     /build/stk-code/cmake/FindFreetype.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Use system harfbuzz: /nix/store/jlw1wg9d8ndkwgpcppp760hl2v1p7sg0-harfbuzz-2.7.2/lib/libharfbuzz.so
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+CMake Warning at CMakeLists.txt:426 (message):
+  Sqlite3 not found, disable advanced server management.
+
+
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+-- Performing Test NO_LIBATOMIC_NEEDED
+   Called from: [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CheckCXXSourceCompiles.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Performing Test NO_LIBATOMIC_NEEDED - Success
+   Called from: [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/CheckCXXSourceCompiles.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Found CURL: /nix/store/mrkch665vqn6hs5xzhfja6nrb56wz5mi-curl-7.73.0/lib/libcurl.so (found version "7.73.0")
+   Called from: [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageMessage.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindCURL.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- Found OpenSSL: /nix/store/lgcr2hnww96958vnw8dymqy17x0klmwf-openssl-1.1.1h/lib/libcrypto.so (found version "1.1.1h")
+   Called from: [4]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageMessage.cmake
+                [3]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+                [2]     /nix/store/4fiibyqiq5y0dc1ma3far935r2sn58ak-cmake-3.18.2/share/cmake-3.18/Modules/FindOpenSSL.cmake
+                [1]     /build/stk-code/CMakeLists.txt
+-- OpenSSL will be used for cryptography in STK.
+   Called from: [1]     /build/stk-code/CMakeLists.txt
+-- Configuring incomplete, errors occurred!
+See also "/build/stk-code/build/CMakeFiles/CMakeOutput.log".
+build failed in configurePhase with exit code 1
+To attach install cntr and run the following command as root:
+
+   cntr attach -t command cntr-/nix/store/pnhwwwsip1wkk4xsnyjl4a6156jvaibf-supertuxkart-1.2

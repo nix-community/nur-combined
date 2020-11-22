@@ -1,7 +1,37 @@
-{ lib, stdenv, fetchFromGitHub, fetchsvn, cmake, pkgconfig, makeWrapper
-, openal, freealut, libGLU, libGL, libvorbis, libogg, gettext, curl, freetype, glew
-, fribidi, libtool, bluez, libjpeg, libpng, zlib, libX11, libXrandr, enet, harfbuzz 
-, mcpp, wiiuse, angelscript
+{ lib
+, stdenv
+, fetchFromGitHub
+, fetchsvn
+, fetchpatch
+, cmake
+, pkgconfig
+, makeWrapper
+
+, openal
+, freealut
+, libGLU
+, libGL
+, libvorbis
+, libogg
+, gettext
+, curl
+, freetype
+, glew
+
+, fribidi
+, libtool
+, bluez
+, libjpeg
+, libpng
+, zlib
+, libX11
+, libXrandr
+, enet
+, harfbuzz
+
+, mcpp
+, wiiuse
+, angelscript
 }:
 let
   dir = "stk-code";
@@ -43,8 +73,13 @@ in stdenv.mkDerivation rec {
     name   = dir;
   };
 
-  # Patches CMakeLists.txt to use system libs
-  patches = [ ./CMakeLists-system-libs.patch ];
+  patches = [
+    # Patches CMakeLists.txt to use system libs
+    ./CMakeLists-system-libs.patch
+    # Patches irrlicht including using sys/sysctl.h
+    # instead of linux/sysctl.h
+    ./fix-irrlicht-sys-sysctl.patch
+  ];
 
   # Deletes all bundled libs in stk-code/lib except those
   # That couldn't be replaced in bundledLibraries
