@@ -1,6 +1,7 @@
 { stdenv
 , fetchFromGitHub
 , autoPatchelfHook
+, multiInstances ? true
 }:
 
 stdenv.mkDerivation rec {
@@ -18,7 +19,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoPatchelfHook ];
 
   buildPhase = ''
-    make libpd
+    make libpd MULTI=${stdenv.lib.boolToString multiInstances}
 
     mkdir $out
     mkdir $out/lib
