@@ -22,22 +22,20 @@ jobs:
     - name: Checkout repository 
       uses: actions/checkout@v2
     - name: Install nix
-      uses: cachix/install-nix-action@v9
+      uses: cachix/install-nix-action@v12
       with:
-        skip_adding_nixpkgs_channel: true
-    - name: Setup NIX_PATH
-      run: echo "::set-env name=NIX_PATH::${{ matrix.nixPath }}"
+        nix_path: ${{ matrix.nixPath }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
-      uses: cachix/cachix-action@v6
+      uses: cachix/cachix-action@v8
       with:
         name: nikolasm
         skipPush: true
     - name: Build and test all attributes
       run: nix-build ci.nix -A buildOutputs
     - name: Setup cachix push
-      uses: cachix/cachix-action@v6
+      uses: cachix/cachix-action@v8
       with:
         name: nikolasm
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
