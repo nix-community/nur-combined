@@ -37,7 +37,6 @@ in {
     systemd.packages = [ brokerPkg ];
 
     services.dbus.enable = true;
-    services.dbus.socketActivated = true;
 
     systemd.services.dbus-broker = {
       # Don't restart dbus-broker. Bad things tend to happen if we do.

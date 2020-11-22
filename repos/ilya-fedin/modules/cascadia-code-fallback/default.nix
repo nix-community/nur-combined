@@ -23,14 +23,10 @@ let
     preferLocalBuild = true;
   } ''
     support_folder=$out/etc/fonts/conf.d
-    latest_folder=$out/etc/fonts/${pkgs.fontconfig.configVersion}/conf.d
-
     mkdir -p $support_folder
-    mkdir -p $latest_folder
 
     # 30-cascadia-code-fallback.conf
     ln -s ${preferConf}       $support_folder/30-cascadia-code-fallback.conf
-    ln -s ${preferConf}       $latest_folder/30-cascadia-code-fallback.conf
   '';
 in {
   options = {

@@ -7,4 +7,5 @@
   iris-driver = import ./iris-driver;
   io-scheduler = import ./io-scheduler;
   nixpkgs-niv = import ./nixpkgs-niv;
+  vscode = import ./vscode;
 }

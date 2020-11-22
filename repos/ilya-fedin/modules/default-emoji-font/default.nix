@@ -188,15 +188,12 @@ let
     preferLocalBuild = true;
   } ''
     support_folder=$out/etc/fonts/conf.d
-    latest_folder=$out/etc/fonts/${pkgs.fontconfig.configVersion}/conf.d
 
     mkdir -p $support_folder
-    mkdir -p $latest_folder
 
     ${concatStrings (mapAttrsToList (emojiName: emojiConf: ''
       # 75-${emojiConf}.conf
       ln -s ${emojiConf}       $support_folder/75-${replaceStrings [ " " ] [ "" ] emojiName}.conf
-      ln -s ${emojiConf}       $latest_folder/75-${replaceStrings [ " " ] [ "" ] emojiName}.conf
     '') emojiConfs)}
   '';
 in {
