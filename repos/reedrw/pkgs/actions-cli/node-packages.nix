@@ -1516,15 +1516,6 @@ let
         sha512 = "VBl/gnfcJ7OercKA9MVaegWsBHFjV492syMudcnQZvt/Dw8ezpcOHYZXa/J96O8vx+g4x65YKhxOwDUh63aS5g==";
       };
     };
-    "es-abstract-1.18.0-next.1" = {
-      name = "es-abstract";
-      packageName = "es-abstract";
-      version = "1.18.0-next.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/es-abstract/-/es-abstract-1.18.0-next.1.tgz";
-        sha512 = "I4UGspA0wpZXWENrdA0uHbnhte683t3qT/1VFH9aX2dA5PPSf6QW5HHXf5HImaqPmjXaVeVk4RGWnaylmV7uAA==";
-      };
-    };
     "es-to-primitive-1.2.1" = {
       name = "es-to-primitive";
       packageName = "es-to-primitive";
@@ -2189,15 +2180,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/is-interactive/-/is-interactive-1.0.0.tgz";
         sha512 = "2HvIEKRoqS62guEC+qBjpvRubdX910WCMuJTZ+I9yvqKU2/12eSL549HMwtabb4oupdj2sMP50k+XJfB/8JE6w==";
-      };
-    };
-    "is-negative-zero-2.0.0" = {
-      name = "is-negative-zero";
-      packageName = "is-negative-zero";
-      version = "2.0.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/is-negative-zero/-/is-negative-zero-2.0.0.tgz";
-        sha1 = "9553b121b0fac28869da9ed459e20c7543788461";
       };
     };
     "is-obj-2.0.0" = {
@@ -3541,22 +3523,22 @@ let
         sha512 = "zUz5JD+tgqtuDjMhwIg5uFVV3dtqZ9yQJlZVfq4I01/K5Paj5UHj7VyrQOJvzawSVlKpObApbfD0Ed6yJc+1eg==";
       };
     };
-    "string.prototype.trimend-1.0.2" = {
+    "string.prototype.trimend-1.0.3" = {
       name = "string.prototype.trimend";
       packageName = "string.prototype.trimend";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/string.prototype.trimend/-/string.prototype.trimend-1.0.2.tgz";
-        sha512 = "8oAG/hi14Z4nOVP0z6mdiVZ/wqjDtWSLygMigTzAb+7aPEDTleeFf+WrF+alzecxIRkckkJVn+dTlwzJXORATw==";
+        url = "https://registry.npmjs.org/string.prototype.trimend/-/string.prototype.trimend-1.0.3.tgz";
+        sha512 = "ayH0pB+uf0U28CtjlLvL7NaohvR1amUvVZk+y3DYb0Ey2PUV5zPkkKy9+U1ndVEIXO8hNg18eIv9Jntbii+dKw==";
       };
     };
-    "string.prototype.trimstart-1.0.2" = {
+    "string.prototype.trimstart-1.0.3" = {
       name = "string.prototype.trimstart";
       packageName = "string.prototype.trimstart";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/string.prototype.trimstart/-/string.prototype.trimstart-1.0.2.tgz";
-        sha512 = "7F6CdBTl5zyu30BJFdzSTlSlLPwODC23Od+iLoVH8X6+3fvDPPuBVVj9iaB1GOsSTSIgVfsfm27R2FGrAPznWg==";
+        url = "https://registry.npmjs.org/string.prototype.trimstart/-/string.prototype.trimstart-1.0.3.tgz";
+        sha512 = "oBIBUy5lea5tt0ovtOFiEQaBkoBBkyJhZXzJYrSmDo5IUUqbOPvVezuRs/agBIdZ2p2Eo1FD6bD9USyBLfl3xg==";
       };
     };
     "string_decoder-1.1.1" = {
@@ -4374,7 +4356,6 @@ in
       sources."is-date-object-1.0.2"
       sources."is-fullwidth-code-point-3.0.0"
       sources."is-interactive-1.0.0"
-      sources."is-negative-zero-2.0.0"
       sources."is-obj-2.0.0"
       sources."is-plain-object-5.0.0"
       sources."is-promise-2.2.2"
@@ -4574,18 +4555,8 @@ in
       sources."stack-trace-0.0.10"
       sources."statuses-1.5.0"
       sources."string-width-4.2.0"
-      (sources."string.prototype.trimend-1.0.2" // {
-        dependencies = [
-          sources."es-abstract-1.18.0-next.1"
-          sources."object.assign-4.1.2"
-        ];
-      })
-      (sources."string.prototype.trimstart-1.0.2" // {
-        dependencies = [
-          sources."es-abstract-1.18.0-next.1"
-          sources."object.assign-4.1.2"
-        ];
-      })
+      sources."string.prototype.trimend-1.0.3"
+      sources."string.prototype.trimstart-1.0.3"
       sources."string_decoder-1.3.0"
       sources."strip-ansi-6.0.0"
       sources."strip-eof-1.0.0"

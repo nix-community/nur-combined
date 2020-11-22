@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "r2mod_cli";
-  version = "1.0.4";
+  version = "1.0.5";
 
   src = fetchFromGitHub {
     owner = "Foldex";
     repo = "r2mod_cli";
     rev = "v${version}";
-    sha256 = "1y9kafslgvm7cpdak5k0hkmi1i3z1h345msdmrmy3642sdk5wizl";
+    sha256 = "1g64f8ms7yz4rzm6xb93agc08kh9sbwkhvq35dpfhvi6v59j3n5m";
 
   };
 
