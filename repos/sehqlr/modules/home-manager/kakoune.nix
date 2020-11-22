@@ -32,6 +32,7 @@
           commands = ''
             set-option buffer lintcmd 'proselint'
             set-option buffer formatcmd 'pandoc -f markdown -t markdown-smart -s'
+            ghwiki-enable
           '';
         }
         {
@@ -62,12 +63,6 @@
       ];
       keyMappings = [
         {
-          docstring = "wc -w on a selection; will not work on large selections";
-          mode = "user";
-          key = "w";
-          effect = '':echo %sh{ echo "$kak_selection" | wc -w }<ret>'';
-        }
-        {
           docstring =
             "wc -w on the whole buffile; will not work on scratch buffers";
           mode = "user";
@@ -84,5 +79,8 @@
         word = true;
       };
     };
+    plugins = [
+        (import ../../default.nix {}).kakoune-ghwiki
+    ];
   };
 }
