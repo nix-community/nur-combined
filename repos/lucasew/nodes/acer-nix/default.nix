@@ -18,6 +18,17 @@ in
     ++ import <dotfiles/lib/listModules.nix> "system"
   ;
 
+  nix = {
+    autoOptimiseStore = true;
+    gc = {
+      options = "--delete-older-than 15d";
+    };
+    extraOptions = ''
+      min-free = ${toString (1  *1024*1024*1024)}
+      max-free = ${toString (10 *1024*1024*1024)}
+    '';
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.supportedFilesystems = [ "ntfs" ];
   boot.loader = {
