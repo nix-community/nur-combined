@@ -10,6 +10,9 @@ on:
        - master
        - nixpkgs-unstable
        - nixos-unstable
+  schedule:
+       # Once a week
+       - cron: '* * 7 * *' 
   workflow_dispatch:
 env:
   NUR_REPO: shamilton
