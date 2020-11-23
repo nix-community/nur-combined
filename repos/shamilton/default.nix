@@ -25,6 +25,7 @@ rec {
   anystyle-cli = pkgs.callPackage ./pkgs/anystyle-cli { };
   argparse = pkgs.callPackage ./pkgs/argparse { };
   baobab = pkgs.callPackage ./pkgs/baobab { };
+  boca = pkgs.callPackage ./pkgs/boca { inherit smooth; };
   bomber = pkgs.kdeApplications.callPackage ./pkgs/Bomber { };
   cargo-sort-ck = with pkgs.rustPlatform; pkgs.callPackage ./pkgs/cargo-sort-ck {
     inherit buildRustPackage;
@@ -40,6 +41,7 @@ rec {
   fake-mic-wav-player = pkgs.libsForQt5.callPackage ./pkgs/FakeMicWavPlayer {
     inherit libfake argparse;
   };
+  freac = pkgs.callPackage ./pkgs/freac { inherit boca smooth; };
   haste-client = pkgs.callPackage ./pkgs/haste-client { };
   inkscape = pkgs.callPackage ./pkgs/inkscape-1.0 { 
     lcms = pkgs.lcms2;
@@ -115,6 +117,7 @@ rec {
   slick-greeter = with pkgs.gnome3; pkgs.callPackage ./pkgs/slick-greeter {
     inherit gnome-common gtk slick-greeter;
   };
+  smooth = with pkgs.gnome3; pkgs.callPackage ./pkgs/smooth { inherit gtk; };
   spectacle-clipboard = pkgs.libsForQt5.callPackage ./pkgs/spectacle-clipboard { };
   ssh2-python = with pkgs.python3Packages; pkgs.callPackage ./pkgs/ssh2-python {
     inherit buildPythonPackage fetchPypi cython setuptools pytest;
