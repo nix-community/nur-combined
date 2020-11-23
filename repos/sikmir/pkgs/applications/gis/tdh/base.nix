@@ -1,4 +1,5 @@
 { stdenv, fetchgdrive, unzip, wxGTK30
+, makeWrapper, libredirect
 , pname, version, id, sha256, description, homepage }:
 
 stdenv.mkDerivation {
@@ -9,10 +10,10 @@ stdenv.mkDerivation {
     name = "${pname}_linux64.zip";
   };
 
-  unpackPhase = "${unzip}/bin/unzip $src";
+  sourceRoot = ".";
 
-  dontConfigure = true;
-  dontBuild = true;
+  nativeBuildInputs = [ makeWrapper unzip ];
+
   dontStrip = true;
   dontPatchELF = true;
 
@@ -31,6 +32,10 @@ stdenv.mkDerivation {
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
       --set-rpath "$out/lib:${makeLibraryPath [ stdenv.cc.cc.lib wxGTK30 ]}" \
       $out/bin/${pname}
+
+    wrapProgram $out/bin/${pname} \
+      --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \
+      --set NIX_REDIRECTS "$out/bin/${pname}_Structure=$out/share/${pname}/${pname}_Structure"
   '';
 
   preferLocalBuild = true;

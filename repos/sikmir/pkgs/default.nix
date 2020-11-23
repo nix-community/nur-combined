@@ -91,6 +91,7 @@ lib.makeScope newScope (
     kiln = callPackage ./development/tools/kiln { };
     how-to-use-pvs-studio-free = callPackage ./development/tools/pvs-studio/how-to-use-pvs-studio-free.nix { };
     pvs-studio = callPackage ./development/tools/pvs-studio { };
+    xtr = callPackage ./development/tools/xtr { };
 
     ### DEVELOPMENT / LIBRARIES
 
@@ -199,6 +200,7 @@ lib.makeScope newScope (
     ### SERVERS
 
     dict2rest = callPackage ./servers/dict2rest { };
+    elevation_server = callPackage ./servers/elevation_server { };
     geminid = callPackage ./servers/geminid { };
     glauth = callPackage ./servers/glauth { };
     nakarte = callPackage ./servers/nakarte { };
