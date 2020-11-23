@@ -1,10 +1,8 @@
 { stdenv, fetchurl, xlibsWrapper }:
-let
-  version = "20.04p14";
-in
-stdenv.mkDerivation {
+
+stdenv.mkDerivation rec {
   pname = "xfractint";
-  inherit version;
+  version = "20.04p14";
 
   src = fetchurl {
     url = "https://fractint.org/ftp/current/linux/xfractint-${version}.tar.gz";

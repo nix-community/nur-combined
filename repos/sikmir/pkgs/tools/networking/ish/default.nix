@@ -1,10 +1,8 @@
 { stdenv, fetchurl }:
-let
-  version = "0.2";
-in
-stdenv.mkDerivation {
+
+stdenv.mkDerivation rec {
   pname = "ish";
-  inherit version;
+  version = "0.2";
 
   src = fetchurl {
     url = "mirror://sourceforge/icmpshell/ish-v${version}.tar.gz";

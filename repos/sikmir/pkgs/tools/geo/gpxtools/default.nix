@@ -2,7 +2,8 @@
 
 stdenv.mkDerivation {
   pname = "gpxtools";
-  version = stdenv.lib.substring 0 7 sources.gpxtools.rev;
+  version = stdenv.lib.substring 0 10 sources.gpxtools.date;
+
   src = sources.gpxtools;
 
   nativeBuildInputs = [ cmake ];
@@ -13,9 +14,7 @@ stdenv.mkDerivation {
       --replace "exiv2" "${exiv2}/bin/exiv2"
   '';
 
-  installPhase = ''
-    install -Dm755 gpx* -t $out/bin
-  '';
+  installPhase = "install -Dm755 gpx* -t $out/bin";
 
   meta = with stdenv.lib; {
     inherit (sources.gpxtools) description homepage;

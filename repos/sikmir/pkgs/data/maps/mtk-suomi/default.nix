@@ -3,6 +3,7 @@
 stdenvNoCC.mkDerivation {
   pname = "mtk-suomi";
   version = sources.mtk-suomi.version;
+
   src = sources.mtk-suomi;
 
   preferLocalBuild = true;

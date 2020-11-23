@@ -363,6 +363,7 @@
     "gpxtools": {
         "branch": "master",
         "builtin": false,
+        "date": "2020-05-10T10:24:49Z",
         "description": "A collection of c++ tools for using GPX files",
         "homepage": "https://notabug.org/irdvo/gpxtools",
         "owner": "irdvo",
@@ -555,6 +556,20 @@
         "url": "https://github.com/slazav/map_podm/archive/8b7994ba4a4bdc9673e982cf1f528cca1653d060.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "map-tiler": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2019-10-24T19:20:49Z",
+        "description": "Raster maps to map tiles",
+        "homepage": "https://github.com/wladich/map-tiler",
+        "owner": "wladich",
+        "repo": "map-tiler",
+        "rev": "1dc5be65e58638f5899cd6cdc2010e00ce5e62d4",
+        "sha256": "0y0ww7qsbgbc7xyh2dfp9xgvjqjah10ms44504023gqvbi9y206v",
+        "type": "tarball",
+        "url": "https://github.com/wladich/map-tiler/archive/1dc5be65e58638f5899cd6cdc2010e00ce5e62d4.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "mapper": {
         "branch": "master",
         "builtin": false,
@@ -567,6 +582,20 @@
         "sha256": "1k6jkgy49jbmlfkp92vzsy4nkylp5hpnk7mh89ddzl3bjzn4lyml",
         "type": "tarball",
         "url": "https://github.com/OpenOrienteering/mapper/archive/d17d1e46232f1e481be86bc5d9b6ecebcd4fd81b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "maprec": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2019-10-24T18:36:24Z",
+        "description": null,
+        "homepage": "https://github.com/wladich/maprec",
+        "owner": "wladich",
+        "repo": "maprec",
+        "rev": "20f5177cae7454455b21cd5f7178f5639c02d385",
+        "sha256": "1zy49sbpxjg5dvkvxxxy2fh1vq26q0cnjdszb5zpwnxqmk7c4lpj",
+        "type": "tarball",
+        "url": "https://github.com/wladich/maprec/archive/20f5177cae7454455b21cd5f7178f5639c02d385.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mapsoft": {
@@ -744,6 +773,20 @@
         "url": "https://github.com/liosha/osm2mp/archive/748f93792ead174ad0e94a183a173ef3fcacf200.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "ozi-map": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2019-10-24T18:44:05Z",
+        "description": "python module for reading OziExplorer .map files",
+        "homepage": "https://github.com/wladich/ozi_map",
+        "owner": "wladich",
+        "repo": "ozi_map",
+        "rev": "4d6bd3f234960ba90d82e6d58da9c1bf4677eb16",
+        "sha256": "1ap6r38n5dvvi6n8s0fps9afs7sa5rgdwsjk4fdzj44rs65hmc5i",
+        "type": "tarball",
+        "url": "https://github.com/wladich/ozi_map/archive/4d6bd3f234960ba90d82e6d58da9c1bf4677eb16.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "pyephem": {
         "branch": "master",
         "builtin": false,
@@ -878,6 +921,20 @@
         "sha256": "0l7knxjal97w1rg3qplf021ad8rr3wjw0y8mk3091gd7yzkhixri",
         "type": "tarball",
         "url": "https://github.com/LBeaudoux/tatoebatools/archive/da5613145db5080c89ff5a49d13e9d92c0017b2d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "thinplatespline": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2013-01-23T09:17:04Z",
+        "description": "Python library for thin plate spline calculations",
+        "homepage": "https://github.com/wladich/thinplatespline",
+        "owner": "wladich",
+        "repo": "thinplatespline",
+        "rev": "55fecd22c7160577b925e03169e74bd488a41cf3",
+        "sha256": "0xj00z0glaz4hgijdd47ck3xj4p1hf0n46i48v7ajr6lxlxn4pmp",
+        "type": "tarball",
+        "url": "https://github.com/wladich/thinplatespline/archive/55fecd22c7160577b925e03169e74bd488a41cf3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tilesets-cli": {

@@ -1,10 +1,8 @@
 { stdenv, fetchurl }:
-let
-  version = "1.1";
-in
-stdenv.mkDerivation {
+
+stdenv.mkDerivation rec {
   pname = "imgdecode";
-  inherit version;
+  version = "1.1";
 
   src = fetchurl {
     url = "mirror://sourceforge/garmin-img/imgdecode-${version}.tar.gz";
@@ -18,9 +16,7 @@ stdenv.mkDerivation {
 
   configurePhase = "./configure || true";
 
-  installPhase = ''
-    install -Dm755 imgdecode -t $out/bin
-  '';
+  installPhase = "install -Dm755 imgdecode -t $out/bin";
 
   meta = with stdenv.lib; {
     description = "IMG Decoder";

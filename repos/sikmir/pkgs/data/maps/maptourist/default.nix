@@ -3,6 +3,7 @@
 stdenvNoCC.mkDerivation {
   pname = "maptourist";
   version = sources.maptourist.version;
+
   src = sources.maptourist;
 
   sourceRoot = ".";

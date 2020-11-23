@@ -1,10 +1,8 @@
 { stdenv, fetchurl, libpcap }:
-let
-  version = "0.72";
-in
-stdenv.mkDerivation {
+
+stdenv.mkDerivation rec {
   pname = "ptunnel";
-  inherit version;
+  version = "0.72";
 
   src = fetchurl {
     url = "https://www.cs.uit.no/~daniels/PingTunnel/PingTunnel-${version}.tar.gz";

@@ -1,10 +1,8 @@
 { stdenv, fetchfromgh, unzip, jre, makeWrapper }:
-let
-  version = "2.0.0-beta.1";
-in
-stdenv.mkDerivation {
+
+stdenv.mkDerivation rec {
   pname = "i18n-editor";
-  inherit version;
+  version = "2.0.0-beta.1";
 
   src = fetchfromgh {
     owner = "jcbvm";

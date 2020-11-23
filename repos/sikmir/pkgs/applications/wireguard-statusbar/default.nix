@@ -1,10 +1,8 @@
 { stdenv, fetchfromgh, undmg }:
-let
-  version = "1.24";
-in
-stdenv.mkDerivation {
+
+stdenv.mkDerivation rec {
   pname = "wireguard-statusbar";
-  inherit version;
+  version = "1.24";
 
   src = fetchfromgh {
     owner = "aequitas";

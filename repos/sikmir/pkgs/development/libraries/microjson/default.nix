@@ -13,9 +13,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake gtest ];
 
-  cmakeFlags = [
-    "-DMICROJSON_MAKE_TESTS=ON"
-  ];
+  cmakeFlags = [ "-DMICROJSON_MAKE_TESTS=ON" ];
 
   doCheck = true;
 

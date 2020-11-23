@@ -120,12 +120,16 @@ lib.makeScope newScope (
     click-6-7 = callPackage ./development/python-modules/click { };
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
+    maprec = callPackage ./development/python-modules/maprec { };
     mercantile = callPackage ./development/python-modules/mercantile { };
     mikatools = callPackage ./development/python-modules/mikatools { };
+    ozi_map = callPackage ./development/python-modules/ozi_map { };
     pyephem = callPackage ./development/python-modules/pyephem { };
+    pyimagequant = callPackage ./development/python-modules/pyimagequant { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
     python-hfst = callPackage ./development/python-modules/python-hfst { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
+    thinplatespline = callPackage ./development/python-modules/thinplatespline { };
 
     ### TOOLS
 
@@ -156,6 +160,7 @@ lib.makeScope newScope (
     imgdecode = callPackage ./tools/geo/imgdecode { };
     ish = callPackage ./tools/networking/ish { };
     lsdreader = callPackage ./tools/dict/lsdreader { };
+    map-tiler = callPackage ./tools/geo/map-tiler { };
     morse-talk = callPackage ./tools/morse-talk { };
     musig = callPackage ./tools/audio/musig { };
     ocad2img = perlPackages.callPackage ./tools/geo/ocad2img {
