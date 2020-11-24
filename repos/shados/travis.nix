@@ -37,7 +37,7 @@ let
   in flattenPkgs
      (listToAttrs (map (n: nameValuePair n fixedNixpkgs.${n}) fixedPkgNames));
 in rec {
-  # TODO build the lua packages?
+  # TODO build the overlayed lua & python packages?
   buildPkgs = filter isBuildable (nurPkgs ++ fixedPkgs);
   cachePkgs = filter isCacheable buildPkgs;
 
