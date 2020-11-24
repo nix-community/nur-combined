@@ -6,6 +6,7 @@ pkgs.mkShell {
     cachix
     niv
     nixpkgs-fmt
+    shellcheck
   ];
 
   NIX_PATH = "nixpkgs=https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";

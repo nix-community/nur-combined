@@ -1,12 +1,12 @@
 [
   {
     "name": "aai-programmable-vehicles",
-    "version": "0.6.14",
-    "file_name": "aai-programmable-vehicles_0.6.14.zip",
-    "download_url": "/download/aai-programmable-vehicles/5f49aa43d8a5e62636b8a7cb",
-    "sha1": "10a3a5291fa840d0892d9eac2868d8bf268362fa",
+    "version": "0.7.1",
+    "file_name": "aai-programmable-vehicles_0.7.1.zip",
+    "download_url": "/download/aai-programmable-vehicles/5fbd44edf6658f34bf6f30d4",
+    "sha1": "2190b34073efa6b829053ded69a8d4bffb15b96f",
     "dependencies": [
-      "base >= 1.0.0",
+      "base >= 1.1.0",
       "aai-signals >= 0.4.1",
       "?aai-zones >= 0.4.1",
       "?aai-programmable-structures >= 0.5.11",
@@ -24,73 +24,73 @@
   },
   {
     "name": "aai-signals",
-    "version": "0.5.2",
-    "file_name": "aai-signals_0.5.2.zip",
-    "download_url": "/download/aai-signals/5ecd6251588410000b679a31",
-    "sha1": "263d7ac8149c06b50c8c172e290d232b6bb905be",
+    "version": "0.6.1",
+    "file_name": "aai-signals_0.6.1.zip",
+    "download_url": "/download/aai-signals/5fbcf7d5c23c61e3df653001",
+    "sha1": "635008f85c3fb2dcd21537867cc4aaf421ab1946",
     "dependencies": [
-      "base >= 0.16.0"
+      "base >= 1.1.0"
     ]
   },
   {
     "name": "aai-vehicles-chaingunner",
-    "version": "0.5.2",
-    "file_name": "aai-vehicles-chaingunner_0.5.2.zip",
-    "download_url": "/download/aai-vehicles-chaingunner/5e34130578fa0a000b76103f",
-    "sha1": "74e1f1df7dada96e026ed55d0aebd8eaa5ce4d3d",
+    "version": "0.6.1",
+    "file_name": "aai-vehicles-chaingunner_0.6.1.zip",
+    "download_url": "/download/aai-vehicles-chaingunner/5fbd1d71c23c61e3df71c933",
+    "sha1": "9680262f0991580c7136db34664b46f890f86d7a",
     "dependencies": [
-      "base >= 0.18.3"
+      "base >= 1.1.0"
     ]
   },
   {
     "name": "aai-vehicles-flame-tumbler",
-    "version": "0.5.1",
-    "file_name": "aai-vehicles-flame-tumbler_0.5.1.zip",
-    "download_url": "/download/aai-vehicles-flame-tumbler/5e30265b5a9e76000d7e9712",
-    "sha1": "a29fe17e9f1ebe94d7992f687b5af4a501fc9ed1",
+    "version": "0.6.1",
+    "file_name": "aai-vehicles-flame-tumbler_0.6.1.zip",
+    "download_url": "/download/aai-vehicles-flame-tumbler/5fbd1da73588979cf9fd95a0",
+    "sha1": "871ece8e56ec50347fdf44ac8bc10dbc6e178aa0",
     "dependencies": [
-      "base >= 0.16.0"
+      "base >= 1.1.0"
     ]
   },
   {
     "name": "aai-vehicles-miner",
-    "version": "0.5.9",
-    "file_name": "aai-vehicles-miner_0.5.9.zip",
-    "download_url": "/download/aai-vehicles-miner/5f39d9e278a7ff557a681974",
-    "sha1": "7cfb523f0fff54a2bc4a4b4f74d01d624efc6169",
+    "version": "0.6.1",
+    "file_name": "aai-vehicles-miner_0.6.1.zip",
+    "download_url": "/download/aai-vehicles-miner/5fbd2281d0e33c92e4c33e4b",
+    "sha1": "6ddc932123ea53b75ac4a4241eb3e83f74cf0dcc",
     "dependencies": [
-      "base >= 1.0.0"
+      "base >= 1.1.0"
     ]
   },
   {
     "name": "aai-vehicles-warden",
-    "version": "0.4.2",
-    "file_name": "aai-vehicles-warden_0.4.2.zip",
-    "download_url": "/download/aai-vehicles-warden/5e7f6e5246ebf8000c7d0d23",
-    "sha1": "c9797d7f5a51f0f206a7d69aa6e83428e3b72ad3",
+    "version": "0.5.1",
+    "file_name": "aai-vehicles-warden_0.5.1.zip",
+    "download_url": "/download/aai-vehicles-warden/5fbd1f16d0e33c92e4c2149a",
+    "sha1": "7164c8620c97f515ed1c5ff1b79ea9051364a266",
     "dependencies": [
-      "base >= 0.16.0"
+      "base >= 1.1.0"
     ]
   },
   {
     "name": "alien-biomes",
-    "version": "0.5.8",
-    "file_name": "alien-biomes_0.5.8.zip",
-    "download_url": "/download/alien-biomes/5f3895372d9022e3a99e9206",
-    "sha1": "e4c673de7fc56eb7f2cae9425d89cb5388ecbcd8",
+    "version": "0.6.1",
+    "file_name": "alien-biomes_0.6.1.zip",
+    "download_url": "/download/alien-biomes/5fbc7df53588979cf9d87aaf",
+    "sha1": "5c9b9233ddfa33f8b4b166b255bb1b30458f2b67",
     "dependencies": [
-      "base >= 1.0.0",
+      "base >= 1.1.0",
       "?alien-biomes-hr-terrain >= 0.3.1"
     ]
   },
   {
     "name": "alien-biomes-hr-terrain",
-    "version": "0.5.1",
-    "file_name": "alien-biomes-hr-terrain_0.5.1.zip",
-    "download_url": "/download/alien-biomes-hr-terrain/5e2f89405afc7a000b08c840",
-    "sha1": "41b1426b6a8d47e346135a5a27b67b8ae55891a1",
+    "version": "0.6.1",
+    "file_name": "alien-biomes-hr-terrain_0.6.1.zip",
+    "download_url": "/download/alien-biomes-hr-terrain/5fbc7815c23c61e3df49f225",
+    "sha1": "6bbb6735d6e501043f8121b855e4b32f385d16d3",
     "dependencies": [
-      "base >= 0.16.0"
+      "base >= 1.1.0"
     ]
   },
   {
@@ -499,12 +499,12 @@
   },
   {
     "name": "bullet-trails",
-    "version": "0.5.1",
-    "file_name": "bullet-trails_0.5.1.zip",
-    "download_url": "/download/bullet-trails/5e2f8a905a9e76000cde85eb",
-    "sha1": "bd35c031dc29a59224529af917859e4a1bf7c022",
+    "version": "0.6.1",
+    "file_name": "bullet-trails_0.6.1.zip",
+    "download_url": "/download/bullet-trails/5fbc45a7d0e33c92e48f857d",
+    "sha1": "f18620b7d86dd6eed96a1c6f3d2b6784da44a5bd",
     "dependencies": [
-      "base >= 0.16.0"
+      "base >= 1.1.0"
     ]
   },
   {
@@ -539,20 +539,20 @@
   },
   {
     "name": "grappling-gun",
-    "version": "0.2.6",
-    "file_name": "grappling-gun_0.2.6.zip",
-    "download_url": "/download/grappling-gun/5ef7bd2f5f1b8d7813d62064",
-    "sha1": "69119d08ee7f60a154744c14937fc69463aa8585",
+    "version": "0.3.1",
+    "file_name": "grappling-gun_0.3.1.zip",
+    "download_url": "/download/grappling-gun/5fbc4a1c3588979cf9ce4edb",
+    "sha1": "97c6a92a9e8301a05324a6dd80cad058087eeff9",
     "dependencies": [
-      "base >= 0.17.35"
+      "base >= 1.1.0"
     ]
   },
   {
     "name": "ixuBottleneck",
-    "version": "0.2.0",
-    "file_name": "ixuBottleneck_0.2.0.zip",
-    "download_url": "/download/ixuBottleneck/5ea592cd7ed351000b853311",
-    "sha1": "10d7ccef57dd478a571528a6244aa3343254b44f",
+    "version": "0.2.1",
+    "file_name": "ixuBottleneck_0.2.1.zip",
+    "download_url": "/download/ixuBottleneck/5fbd1fd4c23c61e3df7293cf",
+    "sha1": "ddebb73e7e5d3b6fcb2172b89c94e2c2d06c5646",
     "dependencies": [
       "base >= 0.18.0",
       "! Bottleneck"
@@ -643,30 +643,30 @@
   },
   {
     "name": "robot_attrition",
-    "version": "0.4.4",
-    "file_name": "robot_attrition_0.4.4.zip",
-    "download_url": "/download/robot_attrition/5f1b7532bf0c22416227322b",
-    "sha1": "e2cee053298f6da4f53bdedd7caae8e723691932",
+    "version": "0.4.5",
+    "file_name": "robot_attrition_0.4.5.zip",
+    "download_url": "/download/robot_attrition/5fb9b8a96552126b62c6f967",
+    "sha1": "14990dc577c5f37a3c67145d7a16a6eed02015e2",
     "dependencies": [
-      "base >= 0.18.4"
+      "base >= 1.0.0"
     ]
   },
   {
     "name": "RPGsystem",
-    "version": "1.0.51",
-    "file_name": "RPGsystem_1.0.51.zip",
-    "download_url": "/download/RPGsystem/5fa597a146d0c775767ce6cd",
-    "sha1": "fe130bdb03885b6fa15cc9fde298c43c0b34415c",
+    "version": "1.0.52",
+    "file_name": "RPGsystem_1.0.52.zip",
+    "download_url": "/download/RPGsystem/5fbc6e733588979cf9d591d8",
+    "sha1": "0d8a2cc3c79ef7c373cb3a08f93abc3254c774e1",
     "dependencies": [
-      "base >= 0.18.22"
+      "base >= 1.1.0"
     ]
   },
   {
     "name": "rso-mod",
-    "version": "6.1.2",
-    "file_name": "rso-mod_6.1.2.zip",
-    "download_url": "/download/rso-mod/5f6dd806985a0a3fbce796ff",
-    "sha1": "31aae98f07e3fd4b59c89a19ba1f5b326ea2ef07",
+    "version": "6.2.0",
+    "file_name": "rso-mod_6.2.0.zip",
+    "download_url": "/download/rso-mod/5fbc6a20c23c61e3df46e715",
+    "sha1": "083eac699e084d30f2384da9cf81685a9d58db4b",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",

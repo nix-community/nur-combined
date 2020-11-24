@@ -52,7 +52,7 @@ GEM
       nanoc-checking (~> 1.0)
       nanoc-cli (~> 4.11, >= 4.11.15)
       nanoc-core (~> 4.11, >= 4.11.15)
-    parallel (1.20.0)
+    parallel (1.20.1)
     pastel (0.8.0)
       tty-color (~> 0.5)
     public_suffix (4.0.6)
