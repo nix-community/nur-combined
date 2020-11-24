@@ -151,10 +151,10 @@
       };
     "clearurls" = buildFirefoxXpiAddon {
       pname = "clearurls";
-      version = "1.19.0";
+      version = "1.20.0";
       addonId = "{74145f27-f039-47ce-a470-a662b129930a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3612592/clearurls-1.19.0-an+fx.xpi";
-      sha256 = "378204ec10b7560966b757c4b24937073ee3cc98b147b61fbdabd5669ed99c21";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3682334/clearurls-1.20.0-an+fx.xpi";
+      sha256 = "2d4bdd6c702999f2d76c97cbd6a0bb80cbdef4665c3c104b38824e9dc0616df2";
       meta = with stdenv.lib;
       {
         homepage = "https://clearurls.xyz/";
