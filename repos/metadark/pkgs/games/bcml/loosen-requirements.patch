@@ -1,9 +1,13 @@
 diff --git a/setup.py b/setup.py
-index ef03abc..b590b5b 100644
+index f06decb..4da6026 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -52,15 +52,15 @@ setup(
+@@ -48,18 +48,18 @@ setup(
+     ],
+     python_requires=">=3.7",
      install_requires=[
+-        "numpy==1.19.2",
++        "numpy>=1.19.2,<2",
          "aamp>=1.4.1",
          "byml>=2.3.1",
 -        "botw-utils==0.2.3",

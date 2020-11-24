@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "xpadneo";
-  version = "0.8.5";
+  version = "0.9";
 
   src = fetchFromGitHub {
     owner = "atar-axis";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1icgqwh3z0bkijla0kai95xxmy8igy7awx2hqf9lww3fg4v9bx5a";
+    sha256 = "1f146snbjkr3dgg3g1dav4q2621560zg5ixsip2wsvp7wfvahnhy";
   };
 
   setSourceRoot = ''
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     # Set kernel module version
-    substituteInPlace hid-xpadneo.c \
+    substituteInPlace version.h \
       --subst-var-by DO_NOT_CHANGE ${version}
   '';
 
