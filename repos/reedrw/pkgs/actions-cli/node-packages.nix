@@ -535,13 +535,13 @@ let
         sha512 = "SDzEIZInC4sivGIFY4Sz1GG6J9UObPwCInYJjko2jzOf/Imx/dlpume6Xxwj1ORL82tBbmN4cPDIDkLbWHk9hw==";
       };
     };
-    "@types/express-serve-static-core-4.17.13" = {
+    "@types/express-serve-static-core-4.17.14" = {
       name = "_at_types_slash_express-serve-static-core";
       packageName = "@types/express-serve-static-core";
-      version = "4.17.13";
+      version = "4.17.14";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/express-serve-static-core/-/express-serve-static-core-4.17.13.tgz";
-        sha512 = "RgDi5a4nuzam073lRGKTUIaL3eF2+H7LJvJ8eUnCI0wA6SNjXc44DCmWNiTLs/AZ7QlsFWZiw/gTG3nSQGL0fA==";
+        url = "https://registry.npmjs.org/@types/express-serve-static-core/-/express-serve-static-core-4.17.14.tgz";
+        sha512 = "uFTLwu94TfUFMToXNgRZikwPuZdOtDgs3syBtAIr/OXorL1kJqUJT9qCLnRZ5KBOWfZQikQ2xKgR2tnDj1OgDA==";
       };
     };
     "@types/firebase-3.2.1" = {
@@ -4135,7 +4135,7 @@ in
       sources."@types/chalk-2.2.0"
       sources."@types/connect-3.4.33"
       sources."@types/express-4.17.9"
-      sources."@types/express-serve-static-core-4.17.13"
+      sources."@types/express-serve-static-core-4.17.14"
       sources."@types/firebase-3.2.1"
       sources."@types/http-terminator-2.0.1"
       sources."@types/lodash-4.14.165"
