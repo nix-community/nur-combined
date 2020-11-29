@@ -46,6 +46,6 @@ in stdenv.mkDerivation rec {
     homepage = src.meta.homepage;
     license = licenses.agpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ gnidorah ];
+    maintainers = with maintainers; [ ];
   };
 }

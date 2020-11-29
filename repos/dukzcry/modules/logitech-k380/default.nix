@@ -15,7 +15,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.nur.repos.gnidorah.k380-function-keys-conf ];
+    services.udev.packages = [ pkgs.nur.repos.dukzcry.k380-function-keys-conf ];
   };
-  meta.maintainers = [ maintainers.gnidorah ];
 }
