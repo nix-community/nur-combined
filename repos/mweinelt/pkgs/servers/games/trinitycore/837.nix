@@ -2,17 +2,22 @@
 
 llvmPackages_11.stdenv.mkDerivation rec {
   pname = "TrinityCore";
-  version = "TDB837.20081";
+  version = "TDB837.20101";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = version;
-    sha256 = "1y456346wdlyyizsj8wzlzdcc0j0p2rgf94hsqib2brbqc5zyyv8";
+    sha256 = "0ji9jz4pn9jfl2mhy6ijzrkkfznzl8j7cbzdpzwkgdnla47xis9h";
   };
 
   nativeBuildInputs = [ cmake git ];
   buildInputs = [ libmysqlclient boost readline bzip2 ];
+
+  cmakeFlags = [
+    "-DMYSQL_HOME=${libmysqlclient}/lib/mysql"
+    "-DMYSQL_INCLUDE_DIR=${libmysqlclient.dev}/include/mysql"
+  ];
 
   meta = with lib; {
     description = "TrinityCore Open Source MMO Framework";

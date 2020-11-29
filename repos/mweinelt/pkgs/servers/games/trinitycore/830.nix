@@ -14,6 +14,11 @@ llvmPackages_11.stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake git ];
   buildInputs = [ libmysqlclient boost readline bzip2 ];
 
+  cmakeFlags = [
+    "-DMYSQL_HOME=${libmysqlclient}/lib/mysql"
+    "-DMYSQL_INCLUDE_DIR=${libmysqlclient.dev}/include/mysql"
+  ];
+
   meta = with lib; {
     description = "TrinityCore Open Source MMO Framework";
     homepage = "https://www.trinitycore.org";
