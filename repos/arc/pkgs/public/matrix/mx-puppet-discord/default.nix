@@ -1,4 +1,4 @@
-{ stdenv, pkgs, fetchFromGitHub, nodejs, nodePackages, pkg-config, cairo, pango, libpng, libjpeg, giflib, librsvg, makeWrapper }:
+{ stdenv, pkgs, fetchFromGitHub, nodejs, nodePackages, pkg-config, cairo, pango, libpng, libjpeg, giflib, librsvg, makeWrapper, callPackage }:
 
 let
   src = fetchFromGitHub {
@@ -8,11 +8,7 @@ let
     sha256 = "06vhjz3xsmhkv5hxf97kfjni0fxrpcp10q6lan56hpj2n7511sxz";
   };
 
-  nodeComposition = import ./node-composition.nix {
-    inherit pkgs;
-    inherit (stdenv.hostPlatform) system;
-    inherit nodejs;
-  };
+  nodeComposition = callPackage ./node-packages.nix { };
 
   package = nodeComposition.shell.override {
     inherit src;
