@@ -29,8 +29,6 @@ rec {
 
   pg_flame = pkgs.callPackage ./pkgs/pg_flame {};
 
-  goreleaser = pkgs.callPackage ./pkgs/goreleaser {};
-
   rofi-pulse = pkgs.callPackage ./pkgs/rofi-pulse { my-lib = lib; };
 
   bitwarden-rofi = pkgs.callPackage ./pkgs/bitwarden-rofi {};
@@ -59,5 +57,8 @@ rec {
   zsh-kubectl-prompt = pkgs.callPackage ./pkgs/zsh-kubectl-prompt {};
 
   stolon = pkgs.callPackage ./pkgs/stolon {};
+
+
+  zsh-histdb = pkgs.callPackage ./pkgs/zsh-histdb {};
 
 }
