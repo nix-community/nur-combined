@@ -219,10 +219,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.24";
+      version = "4.9.26";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3680957/dark_reader-4.9.24-an+fx.xpi";
-      sha256 = "4d8c220167819e21347213635930c1b866dc73d8943cf1cef94d6aa2eaf0ddf1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3684946/dark_reader-4.9.26-an+fx.xpi";
+      sha256 = "5f2a2449524f5ab05c2e8568d2678c6b25795e87ce77ebc9448e13e8184e3c5f";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -768,10 +768,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.11.19";
+      version = "20.11.26";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3681160/refined_github-20.11.19-an+fx.xpi";
-      sha256 = "9a99302fd1c8037ce81b0095ecf264ee8b45751ac028c51026c7dcda23643073";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3684919/refined_github-20.11.26-an+fx.xpi";
+      sha256 = "003ecbbcce7a2b1c5b5cddf4458ca003c488780019a4e630c7c3f14f125195eb";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -965,10 +965,10 @@
       };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
-      version = "1.20.2";
+      version = "1.20.3";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3650027/tridactyl-1.20.2-an+fx.xpi";
-      sha256 = "fbefa0fe4149113485ff6a2f9fb9df458c21102beb4fc8941ac0ae0ebaba384c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3685852/tridactyl-1.20.3-an+fx.xpi";
+      sha256 = "29085de712555df454f22e219403fc52d1e0c47acfeecfaa2910de1b242f8486";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/cmcaine/tridactyl";
