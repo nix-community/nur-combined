@@ -21,13 +21,13 @@
 rofi.override {
   rofi-unwrapped = stdenv.mkDerivation rec {
     pname = "rofi-wayland";
-    version = "unstable-2020-10-18";
+    version = "1.6.1";
 
     src = fetchFromGitHub {
       owner = "lbonn";
       repo = "rofi";
-      rev = "87b48ce7550d8875aaa0b4ea28d69c898755e8fc";
-      sha256 = "11qr3b826r53jdqq8p0bkngk4srmv8ld3j3zrc2s3g7c9h57wdix";
+      rev = "${version}-wayland";
+      sha256 = "1n1hkv14qfcqfc15h4qswjxiagd9xps9n0zcrwmkrkmd6bi0w3ra";
       fetchSubmodules = true;
     };
 
