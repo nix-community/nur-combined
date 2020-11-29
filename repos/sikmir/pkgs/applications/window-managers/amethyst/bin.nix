@@ -1,7 +1,7 @@
 { stdenv, fetchfromgh, unzip }:
 
 stdenv.mkDerivation rec {
-  pname = "Amethyst";
+  pname = "Amethyst-bin";
   version = "0.15.4";
 
   src = fetchfromgh {

@@ -1,7 +1,7 @@
 { stdenv, fetchfromgh, undmg, sources }:
 
 stdenv.mkDerivation rec {
-  pname = "Openorienteering-Mapper";
+  pname = "Openorienteering-Mapper-bin";
   version = "20201026.1";
 
   src = fetchfromgh {
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/Applications/Mapper.app
-    cp -R . $out/Applications/Mapper.app
+    cp -r . $out/Applications/Mapper.app
   '';
 
   meta = with stdenv.lib; {

@@ -1,7 +1,7 @@
 { stdenv, fetchfromgh, undmg, sources }:
 
 stdenv.mkDerivation rec {
-  pname = "klogg";
+  pname = "klogg-bin";
   version = "20.4";
 
   src = fetchfromgh {
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/Applications/klogg.app
-    cp -R . $out/Applications/klogg.app
+    cp -r . $out/Applications/klogg.app
   '';
 
   meta = with stdenv.lib; {

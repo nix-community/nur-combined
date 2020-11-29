@@ -3,7 +3,7 @@ let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
-  pname = "goldencheetah";
+  pname = "goldencheetah-bin";
   version = "3.5";
   name = "${pname}-${version}";
 
@@ -55,7 +55,7 @@ let
 
     installPhase = ''
       mkdir -p $out/Applications/GoldenCheetah.app
-      cp -R . $out/Applications/GoldenCheetah.app
+      cp -r . $out/Applications/GoldenCheetah.app
     '';
   };
 in

@@ -1,4 +1,32 @@
 {
+    "apibackuper": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-11-03T14:35:02Z",
+        "description": "Python library and cmd tool to backup API calls",
+        "homepage": "https://github.com/ruarxive/apibackuper",
+        "owner": "ruarxive",
+        "repo": "apibackuper",
+        "rev": "1ff139f688d59b899ff041ccc282e224110ddc76",
+        "sha256": "01lwd958byqh3ly9f1n4rk8sq3mdjgydsw2il4mvblsmcid7pg84",
+        "type": "tarball",
+        "url": "https://github.com/ruarxive/apibackuper/archive/1ff139f688d59b899ff041ccc282e224110ddc76.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "bson": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-05-26T11:13:32Z",
+        "description": "Independent BSON codec for Python that doesn't depend on MongoDB",
+        "homepage": "https://github.com/py-bson/bson",
+        "owner": "py-bson",
+        "repo": "bson",
+        "rev": "a68073661c637051985f3d0c24b8c7828a4c3ff4",
+        "sha256": "0gh0kbblmxnidr9xp05d8nlfjna7461bxx82l82mwwz1a7i7x36d",
+        "type": "tarball",
+        "url": "https://github.com/py-bson/bson/archive/a68073661c637051985f3d0c24b8c7828a4c3ff4.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "cfiles": {
         "branch": "master",
         "builtin": false,
@@ -97,6 +125,20 @@
         "url": "https://github.com/byrnedo/docker-reg-tool/archive/c5e7ff63fa476cac1eed717d0aef238beb50c21c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "docx2csv": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-05-05T21:11:02Z",
+        "description": "Extracts tables from .docx files and saves them as .csv or .xls files",
+        "homepage": "https://github.com/ivbeg/docx2csv",
+        "owner": "ivbeg",
+        "repo": "docx2csv",
+        "rev": "e397b6bd17c73d76b21404ce3422496b8da262db",
+        "sha256": "0n0h9wc8jqaqpi7cdv8692af5mwy9djgmrhwicb2f8917idj0pzf",
+        "type": "tarball",
+        "url": "https://github.com/ivbeg/docx2csv/archive/e397b6bd17c73d76b21404ce3422496b8da262db.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "elevation": {
         "branch": "master",
         "builtin": false,
@@ -128,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-23T10:25:13Z",
+        "date": "2020-11-28T11:17:07Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "c9b8d24d5606177badcc682b75c0bae4416facf7",
-        "sha256": "1ky8kyh1pl33kfywkh3bmvcnlcny0h70vpb11q08wc26vcg15y06",
+        "rev": "41ae5bb81454a2de9aab89eeb98c8412562bc7f0",
+        "sha256": "13g253l70fifpblmi7dsyk3xm584k7lb4cji4znk32zgsp87hhi5",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/c9b8d24d5606177badcc682b75c0bae4416facf7.tar.gz",
+        "url": "https://github.com/embox/embox/archive/41ae5bb81454a2de9aab89eeb98c8412562bc7f0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -170,15 +212,15 @@
     "gef": {
         "branch": "dev",
         "builtin": false,
-        "date": "2020-11-23T19:38:57Z",
+        "date": "2020-11-25T04:24:40Z",
         "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
         "homepage": "http://gef.rtfd.io",
         "owner": "hugsy",
         "repo": "gef",
-        "rev": "f5b10c07c53b16c9ce3cadda99101e70b340299b",
-        "sha256": "1vx1ihgz7aska3fj18jawb4w1jppfq0qj5z31m9ss8f050xdi0zm",
+        "rev": "7d2ae1d61df5bcaf6d29e3b5fad8f76e6f649728",
+        "sha256": "01f1a9ckf2y97avkbsacw0nzlcd1hmv0d3rvzbklp1fq6j0zvhap",
         "type": "tarball",
-        "url": "https://github.com/hugsy/gef/archive/f5b10c07c53b16c9ce3cadda99101e70b340299b.tar.gz",
+        "url": "https://github.com/hugsy/gef/archive/7d2ae1d61df5bcaf6d29e3b5fad8f76e6f649728.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geminid": {
@@ -264,15 +306,15 @@
     "go-staticmaps": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-14T15:21:59Z",
+        "date": "2020-11-28T12:44:46Z",
         "description": "A go (golang) library and command line tool to render static map images using OpenStreetMap tiles",
         "homepage": "https://github.com/flopp/go-staticmaps",
         "owner": "flopp",
         "repo": "go-staticmaps",
-        "rev": "717fee3c304c381f2c363a743adebe968c3b5660",
-        "sha256": "04np6ckr9hy947j25bcwliv5gpg78fzqcka008rk6w13gwpmdx72",
+        "rev": "32fe2092006f5202775424b0db29a9ed9110ddbf",
+        "sha256": "1zk1v6amjym04fz4n2n4418sx6p85n8nxqi3z5z70pjsh7q1f0xn",
         "type": "tarball",
-        "url": "https://github.com/flopp/go-staticmaps/archive/717fee3c304c381f2c363a743adebe968c3b5660.tar.gz",
+        "url": "https://github.com/flopp/go-staticmaps/archive/32fe2092006f5202775424b0db29a9ed9110ddbf.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpx-layer": {
@@ -335,15 +377,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2020-11-23T21:28:18Z",
+        "date": "2020-11-28T19:34:25Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "50c43dc0b76adca615da2c828345e900aba9909b",
-        "sha256": "1clvqqc76jr2ccz4kqcb0siv5n5hy9i1iwyxskrszqhwriizd53s",
+        "rev": "8423fc1230380e6bb39b863faa1c7fbdce448198",
+        "sha256": "0mqfjf558kffngk8x8z4yhdafz1nkh6z3b89vhp30gvrfh7yp63y",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/50c43dc0b76adca615da2c828345e900aba9909b.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/8423fc1230380e6bb39b863faa1c7fbdce448198.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -500,6 +542,20 @@
         "url": "https://github.com/variar/klogg/archive/adb1eafb92bdbf27da53c1579239988b26e6882a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "lazyscraper": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-05-19T11:50:13Z",
+        "description": "Lazy helper tool to make easier scraping with simple tasks",
+        "homepage": "https://github.com/ivbeg/lazyscraper",
+        "owner": "ivbeg",
+        "repo": "lazyscraper",
+        "rev": "2e14bd829311cde19ef32d7f0e11c3c4a3c08e1b",
+        "sha256": "02pix53f5j6g4vv2w7vj93jk6a10wld7kk6ichc04aacwq3ljy42",
+        "type": "tarball",
+        "url": "https://github.com/ivbeg/lazyscraper/archive/2e14bd829311cde19ef32d7f0e11c3c4a3c08e1b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "libshell": {
         "branch": "master",
         "builtin": false,
@@ -573,15 +629,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-16T08:25:16Z",
+        "date": "2020-11-28T07:39:08Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "d17d1e46232f1e481be86bc5d9b6ecebcd4fd81b",
-        "sha256": "1k6jkgy49jbmlfkp92vzsy4nkylp5hpnk7mh89ddzl3bjzn4lyml",
+        "rev": "cb23db3f080965fd906508392e7c7a610d97b4b7",
+        "sha256": "0amp81gp87432zq3mxymk4jmbm3w1qxgk4klcirrg088w07r3077",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/d17d1e46232f1e481be86bc5d9b6ecebcd4fd81b.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/cb23db3f080965fd906508392e7c7a610d97b4b7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maprec": {
@@ -683,11 +739,11 @@
         "builtin": false,
         "description": "Maanmittauslaitoksen peruskartan tasoiset ja näköiset ilmaiset maastokartat",
         "homepage": "https://kartat.hylly.org/",
-        "sha256": "0mrkd69yn49l1p77z5w3i6mz2mn4dm2kd8i534f976phg7pn536r",
+        "sha256": "13azgwh1j802w8zr08q9f5r3zw92wnn5b9hpqawpgcgkkxm5sl9a",
         "type": "file",
-        "url": "https://kartat-dl.hylly.org/2020-07-30/mtk_suomi.img",
+        "url": "https://kartat-dl.hylly.org/2020-11-24/mtk_suomi.img",
         "url_template": "https://kartat-dl.hylly.org/<version>/mtk_suomi.img",
-        "version": "2020-07-30"
+        "version": "2020-11-24"
     },
     "musig": {
         "branch": "master",
@@ -720,15 +776,15 @@
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-19T04:08:17Z",
+        "date": "2020-11-24T21:21:01Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "a443a321efb2f5435b9a352fe29be5bda5f5636b",
-        "sha256": "0fll63z4316y7b6b4m3hha4mvin6r4py8g7fh9ajvycmgclg1y8r",
+        "rev": "59669270083bb69608064c14ab265c253b418792",
+        "sha256": "1v3iadhbf9z19f2x20b8lhj38584h6x1xdckjmq1x27z9pjkyqbk",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/a443a321efb2f5435b9a352fe29be5bda5f5636b.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/59669270083bb69608064c14ab265c253b418792.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -870,15 +926,15 @@
     "stardict-3": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-23T07:15:10Z",
+        "date": "2020-11-29T06:47:31Z",
         "description": "Automatically exported from code.google.com/p/stardict-3",
         "homepage": "https://github.com/huzheng001/stardict-3",
         "owner": "huzheng001",
         "repo": "stardict-3",
-        "rev": "2e5601b7a56ba586a0aba64d779176f7b063a358",
-        "sha256": "0z4cxmx0bdnjm8a305740dv9ykf7m26l6nx2fi563rqn82h599yx",
+        "rev": "e51e6656e6b693554853d37a4b36b92fb39b9f82",
+        "sha256": "1giiaxgraqd34iaa9y2d1j5w57a71jm5fliv1vrj2zqsdbv6llfa",
         "type": "tarball",
-        "url": "https://github.com/huzheng001/stardict-3/archive/2e5601b7a56ba586a0aba64d779176f7b063a358.tar.gz",
+        "url": "https://github.com/huzheng001/stardict-3/archive/e51e6656e6b693554853d37a4b36b92fb39b9f82.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "supermercado": {

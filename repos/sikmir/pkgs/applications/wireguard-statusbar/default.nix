@@ -1,7 +1,7 @@
 { stdenv, fetchfromgh, undmg }:
 
 stdenv.mkDerivation rec {
-  pname = "wireguard-statusbar";
+  pname = "wireguard-statusbar-bin";
   version = "1.24";
 
   src = fetchfromgh {
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/Applications/WireGuardStatusbar.app
-    cp -R . $out/Applications/WireGuardStatusbar.app
+    cp -r . $out/Applications/WireGuardStatusbar.app
   '';
 
   meta = with stdenv.lib; {

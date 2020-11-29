@@ -3,55 +3,55 @@
 {
   en-ru = callPackage ./base.nix {
     lang = "en-ru";
-    version = "2020-09-02";
-    sha256 = "0vqnxb4cs81b5wkhmkwxsyg85mi23sym0dkmxxwky53aksrd14m6";
+    version = "2020-11-25";
+    sha256 = "0rznkaxfqx5ympb6k2nisa4r9siw7gvmzq208pr46ya0qsz5if7h";
   };
 
   de-ru = callPackage ./base.nix {
     lang = "de-ru";
-    version = "2020-08-28";
-    sha256 = "1pnq7ip4yvcdam2ayvwjqaggb0dfiqdby421q0awm9cfa1pgm6dc";
+    version = "2020-11-27";
+    sha256 = "1m40ac8mrvsb7ksm08c0nip1abnjy8jfaj5qad9pm18fpp68b494";
   };
 
   fi-ru = callPackage ./base.nix {
     lang = "fi-ru";
-    version = "2020-08-31";
-    sha256 = "0qxwnw8k97cyffdnh01295niqk6yz4db1gh8izl4mf7y6rapm2r3";
+    version = "2020-11-23";
+    sha256 = "0mac6gs437inn3b0q8prq3vm2qw0wnhbyhmlq2g40kxh033hjzc1";
   };
 
   ru-en = callPackage ./base.nix {
     lang = "ru-en";
-    version = "2020-08-21";
-    sha256 = "0hzpv0mw03yqz9f8ckx8qhvy6pyzsw6rm42ix36q6f19i1h4qj0g";
+    version = "2020-11-21";
+    sha256 = "1dw76ak0rcqpb508wqzfsv9xfmjipx07zb212fnj1nhyrvmw388y";
   };
 
   ru-de = callPackage ./base.nix {
     lang = "ru-de";
-    version = "2020-08-21";
-    sha256 = "0bixh9hky66v7w3xd724k4amzw8p7kgpy1xr7a31126l4mk1dzwl";
+    version = "2020-11-21";
+    sha256 = "1kw726vq5ghjb17a28m6bqp8jca2pqj5s72g1da00288wy3ccx02";
   };
 
   ru-uk = callPackage ./base.nix {
     lang = "ru-uk";
-    version = "2020-08-21";
-    sha256 = "02rl69iqnvplh1zkdnpq9x12y533c0kzd7869irg1qxw4cwr8pm2";
+    version = "2020-11-21";
+    sha256 = "0gx1pjyi24vk02kwmxygb252qgqnw2vqwjaasxlq2s7825nhr8rm";
   };
 
   ru-eo = callPackage ./base.nix {
     lang = "ru-eo";
-    version = "2020-08-21";
-    sha256 = "0qhwh8f9qfdgsqrvcpb5n3g20lh9w2k2paqhv4z3lmapsv1f1njb";
+    version = "2020-11-21";
+    sha256 = "0bfbygk8pflahjil7r4gfdcimp306wx4bbccz92hp2dvdy83sngg";
   };
 
   ru-fi = callPackage ./base.nix {
     lang = "ru-fi";
-    version = "2020-08-21";
-    sha256 = "063hyng3xj1gqjy9fyc7fffs33g0kpwr35y1gqa8kkmb2sfdhwka";
+    version = "2020-11-21";
+    sha256 = "0z6r2mgq9rzlr7rnfxch6h17nj6dj7wbpj2p4hyjd0awnvzc85s2";
   };
 
   ru-sv = callPackage ./base.nix {
     lang = "ru-sv";
-    version = "2020-08-21";
-    sha256 = "0bmd8wlrxs3a3gxwhr6cpxz7rprdy92lppg7rjxn8hixfyc69akj";
+    version = "2020-11-21";
+    sha256 = "0123a26xi37wfp5b012v6634mxfdjyxa110bfxsjcpm379slbcnb";
   };
 }

@@ -13,7 +13,7 @@
   };
   fin-eng = callPackage ./base.nix {
     lang = "fin-eng";
-    version = "2020.02.08";
-    sha256 = "036ai6avh5xq5f0bi8rzykc44rrqir71xw40w44fwknfd814jjh7";
+    version = "2020.10.04";
+    sha256 = "0zyy01qp2d934s8l02zkb25iszvkj5dq3ac9rmygsxcigpzcg5dh";
   };
 }

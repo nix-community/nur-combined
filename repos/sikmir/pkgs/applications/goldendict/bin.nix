@@ -1,7 +1,7 @@
 { stdenv, fetchurl, undmg }:
 
 stdenv.mkDerivation rec {
-  pname = "goldendict";
+  pname = "goldendict-bin";
   version = "1.5.0-RC2-372-gc3ff15f";
 
   src = fetchurl {
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/Applications/GoldenDict.app
-    cp -R . $out/Applications/GoldenDict.app
+    cp -r . $out/Applications/GoldenDict.app
   '';
 
   meta = with stdenv.lib; {

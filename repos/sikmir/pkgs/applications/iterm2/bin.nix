@@ -1,7 +1,7 @@
 { stdenv, fetchurl, unzip }:
 
 stdenv.mkDerivation rec {
-  pname = "iterm2";
+  pname = "iterm2-bin";
   version = "3.3.12";
 
   src = fetchurl {

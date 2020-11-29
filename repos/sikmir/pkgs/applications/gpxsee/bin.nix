@@ -1,12 +1,12 @@
 { stdenv, fetchurl, undmg, sources }:
 
 stdenv.mkDerivation rec {
-  pname = "gpxsee";
-  version = "7.36";
+  pname = "gpxsee-bin";
+  version = "7.37";
 
   src = fetchurl {
     url = "mirror://sourceforge/gpxsee/GPXSee-${version}.dmg";
-    sha256 = "1s60xd3nv2y68khn02a39nang91ybl3425622803srs41is1ygrw";
+    sha256 = "0rq443dxmz5i0znhgy8x9x2jv45qv1r021630kw4w2bcilv3fz27";
   };
 
   preferLocalBuild = true;
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/Applications/GPXSee.app
-    cp -R . $out/Applications/GPXSee.app
+    cp -r . $out/Applications/GPXSee.app
   '';
 
   meta = with stdenv.lib; {

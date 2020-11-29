@@ -1,7 +1,7 @@
 { stdenv, fetchfromgh, undmg }:
 
 stdenv.mkDerivation rec {
-  pname = "qutebrowser";
+  pname = "qutebrowser-bin";
   version = "1.14.0";
 
   src = fetchfromgh {
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/Applications/qutebrowser.app
-    cp -R . $out/Applications/qutebrowser.app
+    cp -r . $out/Applications/qutebrowser.app
   '';
 
   meta = with stdenv.lib; {

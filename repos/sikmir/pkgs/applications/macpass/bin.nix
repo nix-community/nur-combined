@@ -1,7 +1,7 @@
 { stdenv, fetchfromgh, unzip }:
 
 stdenv.mkDerivation rec {
-  pname = "MacPass";
+  pname = "MacPass-bin";
   version = "0.7.12";
 
   src = fetchfromgh {

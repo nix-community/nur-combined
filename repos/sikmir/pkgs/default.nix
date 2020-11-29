@@ -20,7 +20,7 @@ lib.makeScope newScope (
       inherit sources;
     };
     gpxsee-bin = callPackage ./applications/gpxsee/bin.nix { };
-    i18n-editor = callPackage ./applications/i18n-editor { jre = pkgs.jdk11; };
+    i18n-editor-bin = callPackage ./applications/i18n-editor { jre = pkgs.jdk11; };
     iterm2-bin = callPackage ./applications/iterm2/bin.nix { };
     klogg = libsForQt5.callPackage ./applications/misc/klogg {
       inherit sources;
@@ -31,10 +31,10 @@ lib.makeScope newScope (
     mapsoft = callPackage ./applications/gis/mapsoft { };
     mapsoft2 = callPackage ./applications/gis/mapsoft/2.nix { };
     nnn-plugins = callPackage ./applications/nnn-plugins { };
-    openorienteering-mapper = libsForQt5.callPackage ./applications/openorienteering-mapper {
+    openorienteering-mapper = libsForQt5.callPackage ./applications/gis/openorienteering-mapper {
       inherit sources;
     };
-    openorienteering-mapper-bin = callPackage ./applications/openorienteering-mapper/bin.nix { };
+    openorienteering-mapper-bin = callPackage ./applications/gis/openorienteering-mapper/bin.nix { };
     qgis-bin = callPackage ./applications/gis/qgis/bin.nix { };
     qgis-ltr-bin = qgis-bin.override { releaseType = "ltr"; };
     qmapshack-bin = callPackage ./applications/gis/qmapshack/bin.nix { };
@@ -45,7 +45,7 @@ lib.makeScope newScope (
     sasplanet = callPackage ./applications/gis/sasplanet { };
     tdh = callPackage ./applications/gis/tdh { };
     visualgps = libsForQt5.callPackage ./applications/visualgps { };
-    wireguard-statusbar = callPackage ./applications/wireguard-statusbar { };
+    wireguard-statusbar-bin = callPackage ./applications/wireguard-statusbar { };
     yabai = callPackage ./applications/window-managers/yabai {
       inherit (darwin.apple_sdk.frameworks) Cocoa ScriptingBridge;
     };
@@ -78,6 +78,7 @@ lib.makeScope newScope (
     slazav-hr = callPackage ./data/maps/slazav/hr.nix { };
     slazav-podm = callPackage ./data/maps/slazav/podm.nix { };
     slazav-podm-bin = callPackage ./data/maps/slazav/podm-bin.nix { };
+    usa-osm-topo-routable = callPackage ./data/maps/usa-osm-topo-routable { };
 
     goldendict-arc-dark-theme =
       callPackage ./data/themes/goldendict-themes/arc-dark-theme.nix { };
@@ -117,6 +118,7 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / PYTHON MODULES
 
+    bson = callPackage ./development/python-modules/bson { };
     cheetah3 = callPackage ./development/python-modules/cheetah3 { };
     click-6-7 = callPackage ./development/python-modules/click { };
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
@@ -134,12 +136,14 @@ lib.makeScope newScope (
 
     ### TOOLS
 
+    apibackuper = callPackage ./tools/networking/apibackuper { };
     cfiles = callPackage ./tools/cfiles { };
     cgpsmapper = callPackage ./tools/geo/cgpsmapper { };
     csvquote = callPackage ./tools/text/csvquote { };
     csvtools = callPackage ./tools/text/csvtools { };
     datamaps = callPackage ./tools/geo/datamaps { };
     docker-reg-tool = callPackage ./tools/docker-reg-tool { };
+    docx2csv = callPackage ./tools/text/docx2csv { };
     elevation = callPackage ./tools/geo/elevation {
       click = click-6-7;
     };
@@ -160,6 +164,7 @@ lib.makeScope newScope (
     gurl = callPackage ./tools/networking/gurl { };
     imgdecode = callPackage ./tools/geo/imgdecode { };
     ish = callPackage ./tools/networking/ish { };
+    lazyscraper = callPackage ./tools/text/lazyscraper { };
     lsdreader = callPackage ./tools/dict/lsdreader { };
     map-tiler = callPackage ./tools/geo/map-tiler { };
     morse-talk = callPackage ./tools/morse-talk { };

@@ -3,7 +3,7 @@
 assert stdenv.lib.assertOneOf "releaseType" releaseType [ "pr" "ltr" ];
 
 stdenv.mkDerivation rec {
-  pname = "qgis";
+  pname = "qgis-bin";
   version = {
     pr = "3.14.16";
     ltr = "3.10.10";
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/Applications/QGIS.app
-    cp -R . $out/Applications/QGIS.app
+    cp -r . $out/Applications/QGIS.app
   '';
 
   meta = with stdenv.lib; {

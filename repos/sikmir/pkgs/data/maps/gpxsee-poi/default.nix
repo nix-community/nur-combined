@@ -2,9 +2,9 @@
 
 {
   geocachingSu = fetchurl {
-    name = "geocaching_su-2020-10-24";
+    name = "geocaching_su-2020-11-29";
     url = "https://nakarte.me/geocachingSu/geocaching_su2.json";
-    sha256 = "17mc1yisf7dshld75bvr5sir3dylps01a9p0bk5ks9r8dba9q77p";
+    sha256 = "15rmw6ajlnybrm55vrbfg1xg76ya42465nkikhy40bivy98w5zm2";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -25,15 +25,15 @@
   };
 
   laavut = fetchurl {
-    name = "laavut-2020-10-18";
-    url = "http://www.laavu.org/lataa.php?paikkakunta=kaikki";
-    sha256 = "0cvsfxlnibx1s9fh6v0kk77n0yg497znyiwj1n4ih77w1q8jxpw0";
+    name = "laavut-2020-11-16";
+    url = "http://laavu.org/lataa.php?paikkakunta=kaikki";
+    sha256 = "11b8ipd6whdiwb1vx6580b9syjgrcf573kr80zpwl5nx1k3rxm95";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = "install -Dm644 $downloadedFile $out/Laavut-kodat.gpx";
 
     meta = with lib; {
-      homepage = "http://www.laavu.org/";
+      homepage = "http://laavu.org/";
       description = "Laavut ja kodat kartalla";
       maintainers = [ maintainers.sikmir ];
       license = licenses.free;
@@ -61,9 +61,9 @@
   };
 
   westra = fetchurl {
-    name = "westra-2020-10-12";
+    name = "westra-2020-11-25";
     url = "https://nakarte.me/westraPasses/westra_passes.json";
-    sha256 = "1s8sg3n74kppi8hylpm2w257ahbbsrz8sah2mqzc75d94xsda6jz";
+    sha256 = "0si4cdiiayqlk9cxv6m4a03fwyfj7gf20p14vq8yavg89daamiad";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -84,9 +84,9 @@
   };
 
   strelki = fetchurl {
-    name = "strelki-2020-10-12";
+    name = "strelki-2020-11-25";
     url = "https://strelki.extremum.org/s/p/47p";
-    sha256 = "0bdq6xh50rlpcg2bzvbcf98ay814hm4569zjnw3pi7mqy09pydiy";
+    sha256 = "0i1b7pvmxvlbp76nrjaghd0fyv1lj6z8wy8hbvzcjclh1d3fm5xa";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''

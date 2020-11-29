@@ -1,7 +1,7 @@
 { stdenv, fetchfromgh, undmg }:
 
 stdenv.mkDerivation rec {
-  pname = "anki";
+  pname = "anki-bin";
   version = "2.1.35";
 
   src = fetchfromgh {
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/Applications/Anki.app
-    cp -R . $out/Applications/Anki.app
+    cp -r . $out/Applications/Anki.app
   '';
 
   meta = with stdenv.lib; {

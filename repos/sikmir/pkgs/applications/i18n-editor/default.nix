@@ -1,7 +1,7 @@
 { stdenv, fetchfromgh, unzip, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
-  pname = "i18n-editor";
+  pname = "i18n-editor-bin";
   version = "2.0.0-beta.1";
 
   src = fetchfromgh {
