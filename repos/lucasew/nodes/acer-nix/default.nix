@@ -14,6 +14,7 @@ in
       ./hardware-configuration.nix
       "${home-manager}/nixos"
       ./modules/virt-manager/system.nix
+      "${globalConfig.repos.nix-ld}/modules/nix-ld.nix"
     ]
     ++ import <dotfiles/lib/listModules.nix> "system"
   ;

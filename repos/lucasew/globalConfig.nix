@@ -34,6 +34,11 @@ let
           url = "https://github.com/nix-community/NUR/archive/28fa0f70b53d00d33880645a3ec91301e715ba24.tar.gz";
           sha256 = "1xjrmlcry3yanm21cg0i1a2afdiqllynak539hl1n3nlm24kprmk";
         };
+        nix-ld = builtins.fetchTarball {
+          name = "nix-ld";
+          url = "https://github.com/Mic92/nix-ld/archive/ce25b3e5b6817d48af6b886d8fcbbb8d5522d2ae.tar.gz";
+          sha256 = "0288dd68sw88m1fx9z2v5l36g9k51hma18jbj208a6bla87bcf51";
+        };
       };
       setupScript = import ./lib/generateDotfilerc.nix cfg;
   };
