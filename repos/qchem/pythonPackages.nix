@@ -1,7 +1,7 @@
 self: super:
 
 let
-  callPackage = super.callPackage;
+  callPackage = self.callPackage;
 
 in {
   pyscf = callPackage ./pyscf { };
