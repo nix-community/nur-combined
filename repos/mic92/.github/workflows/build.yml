@@ -2,6 +2,7 @@ name: "Build and populate cache"
 on:
   pull_request:
   push:
+  workflow_dispatch:
   schedule:
     # everyday at 2:51
     - cron:  '51 2 * * *'

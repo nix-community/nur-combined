@@ -20,8 +20,6 @@ rec {
 
   eapol_test = pkgs.callPackage ./pkgs/eapol_test { };
 
-  ferdi = pkgs.callPackage ./pkgs/ferdi { };
-
   fira-code-pro-nerdfonts = pkgs.nerdfonts.override {
     fonts = [ "FiraCode" ];
   };
