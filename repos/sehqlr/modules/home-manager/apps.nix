@@ -12,7 +12,7 @@
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-wayland;
+    package = pkgs.firefox;
   };
 
   programs.obs-studio = {

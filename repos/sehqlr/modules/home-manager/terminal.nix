@@ -4,11 +4,6 @@
 
   programs.bat.enable = true;
 
-  programs.broot = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
   programs.command-not-found.enable = true;
 
   programs.fzf = {
@@ -49,6 +44,11 @@
     }];
     terminal = "tmux-256color";
     shortcut = "a";
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   programs.zsh = {

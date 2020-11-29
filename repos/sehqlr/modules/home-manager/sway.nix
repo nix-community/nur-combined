@@ -63,7 +63,6 @@
       keybindings =
         let modifier = config.wayland.windowManager.sway.config.modifier;
         in lib.mkOptionDefault {
-          "${modifier}+b" = "exec firefox";
           "${modifier}+p" =
             "exec ${pkgs.wofi}/bin/wofi -S drun | ${pkgs.findutils}/bin/xargs swaymsg exec --";
           "XF86AudioRaiseVolume" =

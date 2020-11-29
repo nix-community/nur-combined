@@ -61,15 +61,13 @@
           '';
         }
       ];
-      keyMappings = [
-        {
-          docstring =
-            "wc -w on the whole buffile; will not work on scratch buffers";
-          mode = "user";
-          key = "W";
-          effect = '':echo %sh{ cat "$kak_buffile" | wc -w }<ret>'';
-        }
-      ];
+      keyMappings = [{
+        docstring =
+          "wc -w on the whole buffile; will not work on scratch buffers";
+        mode = "user";
+        key = "W";
+        effect = '':echo %sh{ cat "$kak_buffile" | wc -w }<ret>'';
+      }];
       numberLines.enable = true;
       showWhitespace.enable = true;
       ui.enableMouse = true;
@@ -79,8 +77,6 @@
         word = true;
       };
     };
-    plugins = [
-        (import ../../default.nix {}).kakoune-ghwiki
-    ];
+    plugins = [ (import ../../default.nix { }).kakoune-ghwiki ];
   };
 }
