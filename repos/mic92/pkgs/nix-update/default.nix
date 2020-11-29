@@ -11,7 +11,7 @@
 
 buildPythonApplication rec {
   pname = "nix-update";
-  version = "2020-04-25";
+  version = "0.2";
 
   src = fetchFromGitHub {
     owner = "Mic92";
