@@ -355,7 +355,7 @@ let
     meta.broken = isPhp56;
   };
 
-  mongodb = if isPhp56 then mongodb17 else mongodb18;
+  mongodb = if isPhp56 then mongodb17 else mongodb19;
 
   mongodb17 = buildPecl {
     pname = "mongodb";
@@ -376,11 +376,11 @@ let
     meta.broken = isPhp71;
   };
 
-  mongodb18 = buildPecl {
+  mongodb19 = buildPecl {
     pname = "mongodb";
-    version = "1.8.2";
+    version = "1.9.0";
 
-    sha256 = "01l300204ph9nd7khd9qazpdbi1biqvmjqbxbngdfjk9n5d8vvzw";
+    sha256 = "16mbw3p80qxsj86nmjbfch8wv6jaq8wbz4rlpmixvhj9nwbp37hs";
 
     nativeBuildInputs = with pkgs; [ pkgconfig ];
     buildInputs = with pkgs; [
@@ -392,7 +392,7 @@ let
       (if isPhp73 then pcre2.dev else pcre.dev)
     ] ++ lib.optional (stdenv.isDarwin) darwin.apple_sdk.frameworks.Security;
 
-    meta.broken = (isPhp56 || isPhp80);
+    meta.broken = isPhp56;
   };
 
   pcov = buildPecl {
@@ -542,12 +542,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.55";
+    version = "0.12.57";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "1qyywsivfal1d8485v2iyg5x3f9krnviv5nidgfv53ywrm9k4lgp";
+      sha256 = "0i1ycfmi638myl9840k4rl0z9klk0q25l8ykkkfg20kx5mdidvgc";
     };
 
     phases = [ "installPhase" ];
@@ -687,12 +687,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "4.1.1";
+    version = "4.2.1";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "05qjrg8wxlqxihv7xl31n73ygx7ykvcpbh2gq958iin4rr1bcy88";
+      sha256 = "0g6s3bn8aaggpqjgr0bqchgkgb4my5ksfycyyqy7nrly2bgn1kbz";
     };
 
     phases = [ "installPhase" ];
@@ -888,7 +888,7 @@ let
     meta.broken = !isPhp56;
   };
 
-  xdebug = if isPhp56 then xdebug25 else xdebug29;
+  xdebug = if isPhp56 then xdebug25 else (if isPhp72 then xdebug30 else xdebug29);
 
   xdebug25 = buildPecl {
     version = "2.5.5";
@@ -911,7 +911,19 @@ let
     doCheck = true;
     checkTarget = "test";
 
-    meta.broken = (isPhp56 || isPhp80);
+    meta.broken = (isPhp56 || isPhp72);
+  };
+
+  xdebug30 = buildPecl {
+    version = "3.0.0";
+    pname = "xdebug";
+
+    sha256 = "0qnaqgn2rdjxc70lyrm3nmy7cfma69c7zn6if23hhkhx5kl0fl44";
+
+    doCheck = true;
+    checkTarget = "test";
+
+    meta.broken = !isPhp72;
   };
 
   yaml = if isPhp56 then yaml13 else yaml20;

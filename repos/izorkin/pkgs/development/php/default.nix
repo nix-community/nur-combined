@@ -425,8 +425,8 @@ in {
   };
 
   php73 = generic {
-    version = "7.3.24";
-    sha256 = "1khnv5znxgvhwl7fbh2238nwmcdk5nyjg8b5m9xk3xdzxi1pvbyk";
+    version = "7.3.25";
+    sha256 = "039r41zdi97jsxk4chgc87f7rj8ndzg48l2rqj9dpkwly7s16idh";
 
     extraPatches = [
       # PKG_CONFIG need not be a relative path
@@ -437,14 +437,18 @@ in {
   };
 
   php74 = generic {
-    version = "7.4.12";
-    sha256 = "0nwhl62vbcyamfsnw8xrmal0qpz8lxkq6iicbnl2z9qkv67ilfjh";
+    version = "7.4.13";
+    sha256 = "1fs7mm8ipjsgr8x29vswk65wh5nlc8i0y0gvm0lvh495c9gdkjxf";
+    extraPatches = [
+      # Fix build with LibreSSL
+      ./patch/php80-revert-support-for-OCB-mode-in-OpenSSL.patch
+    ];
   };
 
   php80 = generic {
-    version = "8.0.0-rc-5";
-    rev = "php-8.0.0RC5";
-    sha256 = "1y1s61c7zryy85sipqa42xl5f8v2qal65pcdcz07zqkd8aqgi8yg";
+    version = "8.0.0";
+    rev = "php-8.0.0";
+    sha256 = "0fhn9dfgczf4g8p3ilw3c38nwdvkbnvz6sa92k8z7gszyjvd5rzv";
     extraPatches = [
       # Fix build with LibreSSL
       ./patch/php80-revert-support-for-OCB-mode-in-OpenSSL.patch
