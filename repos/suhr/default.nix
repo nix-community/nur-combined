@@ -24,4 +24,5 @@ rec {
   libcyaml = pkgs.callPackage ./pkgs/libcyaml { };
   reproc = pkgs.callPackage ./pkgs/reproc { };
   libaudec = pkgs.callPackage ./pkgs/libaudec { };
+  qjackctl = pkgs.qt5.callPackage ./pkgs/qjackctl { };
 }
