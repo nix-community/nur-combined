@@ -26,14 +26,15 @@ jobs:
         nix_path: "${{ matrix.nixPath }}"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    # Currently I dont need this
-    # - name: Setup cachix
-      # uses: cachix/cachix-action@v8
-      # with:
-        # name: ${{ matrix.cachixName }}
-        # signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+    - name: Setup cachix
+      uses: cachix/cachix-action@v8
+      if: ${{ matrix.cachixName != 'stu' }}
+      with:
+        name: ${{ matrix.cachixName }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Build nix packages
       # TODO switch to default nixpkgs channel once nix-build-uncached 1.0.0 is in stable
       run: nix run -I 'nixpkgs=channel:nixos-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
+      if: ${{ matrix.nurRepo != 'stupremee' }}
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"

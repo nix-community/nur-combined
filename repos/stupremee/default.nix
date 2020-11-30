@@ -12,7 +12,8 @@ rec {
     (pkgs.callPackage ./pkgs/vimPlugins { inherit pkgs; });
   neovim = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/neovim { });
 
-  veloren = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/veloren { });
+  # Currently broken
+  #veloren = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/veloren { });
 
   # Somehow the build currently hangs
   # ddlog = pkgs.callPackage ./pkgs/ddlog { };
