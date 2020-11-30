@@ -43,6 +43,7 @@
 
   ## VIM PLUGINS
   gemini-vim-syntax = pkgs.callPackage ./pkgs/vim-plugins/gemini-syntax.nix { };
+  vim-zettel = pkgs.callPackage ./pkgs/vim-plugins/vim-zettel.nix { };
 
   #fx = (pkgs.callPackage ./pkgs/fx { }).package;
   # xcb-util = pkgs.callPackage ./pkgs/xcb-util { }; #unknown error
