@@ -6,16 +6,12 @@ import ./lib/make-test.nix (
         priegger-overlays = import ../overlays;
       in
       {
-        bees = { pkgs, ... }: {
-          nixpkgs.overlays = [
-            priegger-overlays.bees
-          ];
+        default = { pkgs, ... }: {
+          nixpkgs.overlays = builtins.attrValues priegger-overlays;
 
-          environment.systemPackages = [ pkgs.bees ];
-        };
-        nix_unstable = { pkgs, ... }: {
-          nixpkgs.overlays = [
-            priegger-overlays.nix-unstable
+          environment.systemPackages = with pkgs; [
+            bees
+            prometheus-nginx-exporter
           ];
 
           nix = {
@@ -26,9 +22,11 @@ import ./lib/make-test.nix (
 
     testScript =
       ''
-        nix_unstable.succeed("nix --version | tee /dev/stderr | grep 2.4pre20201118_79aa7d9")
-
-        bees.succeed("beesd --help 2>&1 | tee /dev/stderr | grep 'bees version 0.6.3'")
+        default.succeed("beesd --help 2>&1 | tee /dev/stderr | grep 'bees version 0.6.3'")
+        default.succeed("nix --version | tee /dev/stderr | grep 2.4pre20201118_79aa7d9")
+        default.succeed(
+            "(nginx-prometheus-exporter || true) 2>&1 | head -n1 | tee /dev/stderr | grep ' Version=0.8.0 '"
+        )
       '';
   }
 )
