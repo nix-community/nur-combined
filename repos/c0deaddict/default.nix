@@ -37,8 +37,8 @@ rec {
 
   oversteer = pkgs.callPackage ./pkgs/oversteer {};
 
-  # broken
-  # nats-utils = pkgs.callPackage ./pkgs/nats-utils {};
+  nats-utils = pkgs.callPackage ./pkgs/nats-utils {};
+
 
   lock-gnome-keyring = pkgs.callPackage ./pkgs/lock-gnome-keyring {};
 
@@ -50,9 +50,7 @@ rec {
 
   zpool_prometheus = pkgs.callPackage ./pkgs/zpool_prometheus {};
 
-
   rds_exporter = pkgs.callPackage ./pkgs/rds_exporter {};
-
 
   zsh-kubectl-prompt = pkgs.callPackage ./pkgs/zsh-kubectl-prompt {};
 

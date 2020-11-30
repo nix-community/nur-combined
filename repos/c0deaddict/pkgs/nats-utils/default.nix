@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "nats-utils";
-  version = "1.10.0";
+  version = "master";
 
   src = fetchFromGitHub {
     owner = "nats-io";
     repo = "nats.go";
-    rev = "v${version}";
-    sha256 = "1nfl44jc0wj48f6x6hsxbwb4hn7zah3vk7f2ilg322c432kwj6kg";
+    rev = "93be3c8e717bc8d9b7cb4208c273ccd82748a38e";
+    sha256 = "1h10khcgwcqafgsc7cb818qpcnn4ra2nb0ik8vlvirdds64kfbv5";
   };
 
-  vendorSha256 = "13v3nzrxanhaf7la9h2m4p8yjqbypalj4d1qkq982l3wxrypq8c2";
+  vendorSha256 = "09jhqhvji2zsp37cqljgdmg4slriri9f38w6ys3wzci7x2xrdpjv";
   modSha256 = vendorSha256;
 
   buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
