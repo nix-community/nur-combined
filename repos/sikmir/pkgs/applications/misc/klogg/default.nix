@@ -26,6 +26,8 @@ mkDerivation rec {
 
   preConfigure = "export KLOGG_VERSION=${version}";
 
+  NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=missing-braces";
+
   cmakeFlags = lib.optional (!useSentry) "-DKLOGG_USE_SENTRY:BOOL=OFF";
 
   meta = with lib; {

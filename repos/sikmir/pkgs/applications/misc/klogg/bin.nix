@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchfromgh {
     owner = "variar";
-    repo = pname;
+    repo = "klogg";
     version = "v${version}";
     name = "klogg-${version}.0-r589-OSX.dmg";
     sha256 = "1z4jl43iny218wid5s8i11l16db6hfnynkh7hrdna81abd9gfq9n";
