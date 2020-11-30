@@ -542,12 +542,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.57";
+    version = "0.12.58";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0i1ycfmi638myl9840k4rl0z9klk0q25l8ykkkfg20kx5mdidvgc";
+      sha256 = "1509z783rhrnlx32a3yg58sy81971dv1sf8nzs8am2m9qnpmdcll";
     };
 
     phases = [ "installPhase" ];
@@ -926,7 +926,7 @@ let
     meta.broken = !isPhp72;
   };
 
-  yaml = if isPhp56 then yaml13 else yaml20;
+  yaml = if isPhp56 then yaml13 else yaml22;
 
   yaml13 = buildPecl {
     version = "1.3.2";
@@ -943,11 +943,11 @@ let
     meta.broken = !isPhp56;
   };
 
-  yaml20 = buildPecl {
-    version = "2.1.0";
+  yaml22 = buildPecl {
+    version = "2.2.0";
     pname = "yaml";
 
-    sha256 = "0rmn2irzny24ivzc09ss46s2s48i0zy2cww7ikphljqbfx6zdjss";
+    sha256 = "1d65cf5vnr7brhxmy1pi2axjiyvdhmpcnq0qlx5spwlgkv6hnyml";
 
     configureFlags = with pkgs; [
       "--with-yaml=${libyaml}"
