@@ -3,12 +3,6 @@
 with lib;
 let
   cfg = config.services.dbus-broker;
-  dbusCfg = config.services.dbus;
-
-  configDir = pkgs.makeDBusConf {
-    suidHelper = "${config.security.wrapperDir}/dbus-daemon-launch-helper";
-    serviceDirectories = dbusCfg.packages;
-  };
 
   brokerPkg = pkgs.dbus-broker.overrideAttrs(_: {
     patches = [ ./use-right-paths.patch ];
@@ -41,7 +35,7 @@ in {
     systemd.services.dbus-broker = {
       # Don't restart dbus-broker. Bad things tend to happen if we do.
       reloadIfChanged = true;
-      restartTriggers = [ configDir ];
+      restartTriggers = [ config.environment.etc."dbus-1".source ];
       environment = { LD_LIBRARY_PATH = config.system.nssModules.path; };
       aliases = [ "dbus.service" ];
     };
@@ -49,7 +43,7 @@ in {
     systemd.user.services.dbus-broker = {
       # Don't restart dbus-broker. Bad things tend to happen if we do.
       reloadIfChanged = true;
-      restartTriggers = [ configDir ];
+      restartTriggers = [ config.environment.etc."dbus-1".source ];
       aliases = [ "dbus.service" ];
     };
   };
