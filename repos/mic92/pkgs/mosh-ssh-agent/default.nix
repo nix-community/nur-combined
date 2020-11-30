@@ -3,6 +3,7 @@
 mosh.overrideAttrs (old: {
   name = "mosh-ssh-agent-2020-07-22";
 
+  # TODO: incoperate https://github.com/mobile-shell/mosh/pull/1104
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "mosh";

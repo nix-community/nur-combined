@@ -1,5 +1,9 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub
-, paho-mqtt, rhasspy-hermes }:
+{ stdenv
+, buildPythonPackage
+, fetchFromGitHub
+, paho-mqtt
+, rhasspy-hermes
+}:
 
 buildPythonPackage rec {
   pname = "rhasspy-wake-snowboy-hermes";

@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
         postfix
         lvm2
       ] ++ extraPackages);
-    in ''
+    in
+    ''
       install -D -m744 agents/check_mk_agent.linux $out/bin/check_mk_agent
       wrapProgram "$out/bin/check_mk_agent" \
         --prefix PATH ":" ${path}

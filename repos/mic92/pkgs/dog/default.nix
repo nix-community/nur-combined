@@ -1,5 +1,9 @@
-{ stdenv, rustPlatform, fetchFromGitHub
-, openssl, pkg-config }:
+{ stdenv
+, rustPlatform
+, fetchFromGitHub
+, openssl
+, pkg-config
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "dog";

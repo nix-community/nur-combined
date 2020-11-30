@@ -1,5 +1,10 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub
-, paho-mqtt, rhasspy-hermes, attrs }:
+{ stdenv
+, buildPythonPackage
+, fetchFromGitHub
+, paho-mqtt
+, rhasspy-hermes
+, attrs
+}:
 
 buildPythonPackage rec {
   pname = "rhasspy-wake-porcupine-hermes";
@@ -13,7 +18,8 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    rhasspy-hermes attrs
+    rhasspy-hermes
+    attrs
   ];
 
   postPatch = ''

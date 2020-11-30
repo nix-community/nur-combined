@@ -6,7 +6,6 @@
 , perl
 , makeWrapper
 }:
-
 let
   mbedtlsVersion = "2.21.0";
   mbedtls = fetchurl {
@@ -24,7 +23,8 @@ let
     url = "https://mirrors.ocf.berkeley.edu/gnu/glibc/glibc-${glibcVersion}.tar.gz";
     sha256 = "19xxlbz6q3ahyjdfjjmcrg17v9iakpg8b6m9v0qgzzwah3xn8bfb";
   };
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   name = "graphene";
 
   src = fetchFromGitHub {

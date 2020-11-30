@@ -3,9 +3,9 @@
     inherit typing-inspect;
   };
 
-  hypercorn = callPackage ./hypercorn {};
+  hypercorn = callPackage ./hypercorn { };
 
-  kaldi = callPackage ./kaldi {};
+  kaldi = callPackage ./kaldi { };
 
   quart = callPackage ./quart {
     inherit hypercorn;
@@ -15,13 +15,13 @@
     inherit quart;
   };
 
-  rapidfuzz = callPackage ./rapidfuzz {};
+  rapidfuzz = callPackage ./rapidfuzz { };
 
   rhasspy-hermes = callPackage ./rhasspy-hermes {
     inherit dataclasses-json;
   };
 
-  rhasspy-asr = callPackage ./rhasspy-asr {};
+  rhasspy-asr = callPackage ./rhasspy-asr { };
 
   rhasspy-asr-kaldi = callPackage ./rhasspy-asr-kaldi {
     inherit rhasspy-asr rhasspy-nlu;
@@ -43,13 +43,13 @@
     inherit rhasspy-hermes;
   };
 
-  rhasspy-nlu = callPackage ./rhasspy-nlu {};
+  rhasspy-nlu = callPackage ./rhasspy-nlu { };
 
   rhasspy-remote-http-hermes = callPackage ./rhasspy-remote-http-hermes {
     inherit rhasspy-hermes rhasspy-nlu rhasspy-silence;
   };
 
-  rhasspy-silence = callPackage ./rhasspy-silence {};
+  rhasspy-silence = callPackage ./rhasspy-silence { };
 
   rhasspy-tts-cli-hermes = callPackage ./rhasspy-tts-cli-hermes {
     inherit rhasspy-hermes;
@@ -71,23 +71,23 @@
     inherit rhasspy-hermes;
   };
 
-  rhasspy-dialogue-hermes = callPackage ./rhasspy-dialogue-hermes  {
+  rhasspy-dialogue-hermes = callPackage ./rhasspy-dialogue-hermes {
     inherit rhasspy-hermes;
   };
 
-  rhasspy-speakers-cli-hermes = callPackage ./rhasspy-speakers-cli-hermes  {
+  rhasspy-speakers-cli-hermes = callPackage ./rhasspy-speakers-cli-hermes {
     inherit rhasspy-hermes;
   };
 
-  rhasspy-microphone-cli-hermes = callPackage ./rhasspy-microphone-cli-hermes  {
+  rhasspy-microphone-cli-hermes = callPackage ./rhasspy-microphone-cli-hermes {
     inherit rhasspy-hermes;
   };
 
-  rhasspy-rasa-nlu-hermes = callPackage ./rhasspy-rasa-nlu-hermes  {
+  rhasspy-rasa-nlu-hermes = callPackage ./rhasspy-rasa-nlu-hermes {
     inherit rhasspy-hermes rhasspy-nlu;
   };
 
-  rhasspy-nlu-hermes = callPackage ./rhasspy-nlu-hermes  {
+  rhasspy-nlu-hermes = callPackage ./rhasspy-nlu-hermes {
     inherit rhasspy-hermes rhasspy-nlu;
   };
 
@@ -95,11 +95,11 @@
     inherit rhasspy-hermes;
   };
 
-  pydash = callPackage ./pydash {};
+  pydash = callPackage ./pydash { };
 
-  python_speech_features = callPackage ./python_speech_features {};
+  python_speech_features = callPackage ./python_speech_features { };
 
-  json5 = callPackage ./json5 {};
+  json5 = callPackage ./json5 { };
 
   rhasspy-profile = callPackage ./rhasspy-profile {
     inherit pydash json5 dataclasses-json;
@@ -138,12 +138,12 @@
       rhasspy-homeassistant-hermes
       rhasspy-supervisor
       rhasspy-server-hermes
-    ;
+      ;
   };
 
-  swagger-ui-py = callPackage ./swagger-ui-py {};
+  swagger-ui-py = callPackage ./swagger-ui-py { };
 
-  phonetisaurus = callPackage ./phonetisaurus {};
+  phonetisaurus = callPackage ./phonetisaurus { };
 
-  typing-inspect = callPackage ./typing-inspect {};
+  typing-inspect = callPackage ./typing-inspect { };
 }

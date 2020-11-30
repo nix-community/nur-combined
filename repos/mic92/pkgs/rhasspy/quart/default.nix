@@ -43,10 +43,10 @@ buildPythonPackage rec {
     toml
     (werkzeug.overrideAttrs (old: rec {
       version = "1.0.1";
-        src = old.src.override {
-          inherit version;
-          sha256 = "0z74sa1xw5h20yin9faj0vvdbq713cgbj84klc72jr9nmpjv303c";
-        };
+      src = old.src.override {
+        inherit version;
+        sha256 = "0z74sa1xw5h20yin9faj0vvdbq713cgbj84klc72jr9nmpjv303c";
+      };
     }))
   ];
 

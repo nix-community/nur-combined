@@ -1,5 +1,4 @@
 { stdenv, fetchFromGitHub, buildGoModule, makeWrapper, nix, nixFlakes, runCommandNoCC }:
-
 let
   unwrapped = buildGoModule rec {
     pname = "nix-build-uncached";
@@ -25,7 +24,8 @@ let
       platforms = platforms.unix;
     };
   };
-in {
+in
+{
   nix-build-uncached = runCommandNoCC "nix-build-uncached" { nativeBuildInputs = [ makeWrapper ]; } ''
     mkdir -p $out/bin
     makeWrapper ${unwrapped}/bin/nix-build-uncached $out/bin/nix-build-uncached \

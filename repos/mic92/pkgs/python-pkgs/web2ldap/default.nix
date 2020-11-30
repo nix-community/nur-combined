@@ -24,8 +24,13 @@ buildPythonPackage rec {
   };
 
   makeWrapperArgs = [
-    "--prefix" "PYTHONPATH" ":" "${placeholder "out"}/etc/web2ldap"
-    "--set" "WEB2LDAP_HOME" "${placeholder "out"}"
+    "--prefix"
+    "PYTHONPATH"
+    ":"
+    "${placeholder "out"}/etc/web2ldap"
+    "--set"
+    "WEB2LDAP_HOME"
+    "${placeholder "out"}"
   ];
 
   meta = with stdenv.lib; {
@@ -35,4 +40,3 @@ buildPythonPackage rec {
     platforms = platforms.unix;
   };
 }
-

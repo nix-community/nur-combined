@@ -1,6 +1,6 @@
 { stdenv, jre, callPackage, makeWrapper, fetchFromGitHub }:
 let
-  buildGradle = callPackage ./gradle-env.nix {};
+  buildGradle = callPackage ./gradle-env.nix { };
 in
 buildGradle rec {
   envSpec = ./gradle-env.json;

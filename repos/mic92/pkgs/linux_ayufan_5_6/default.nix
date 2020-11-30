@@ -12,4 +12,4 @@ buildLinux (args // rec {
   };
   extraMeta.platforms = [ "aarch64-linux" ];
   extraMeta.branch = "5.6";
-} // (args.argsOverride or {}))
+} // (args.argsOverride or { }))

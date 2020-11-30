@@ -20,8 +20,14 @@ buildPythonApplication rec {
   doCheck = false;
 
   makeWrapperArgs = [
-    "--prefix" "PATH" ":" (lib.makeBinPath [
-      libarchive pbzip2 pigz cpio
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
+      libarchive
+      pbzip2
+      pigz
+      cpio
     ])
   ];
 

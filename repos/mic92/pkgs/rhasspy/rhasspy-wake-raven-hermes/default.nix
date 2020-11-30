@@ -1,5 +1,9 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub
-, rhasspy-hermes, rhasspy-wake-raven }:
+{ stdenv
+, buildPythonPackage
+, fetchFromGitHub
+, rhasspy-hermes
+, rhasspy-wake-raven
+}:
 
 buildPythonPackage rec {
   pname = "rhasspy-wake-raven-hermes";
@@ -13,7 +17,8 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    rhasspy-hermes rhasspy-wake-raven
+    rhasspy-hermes
+    rhasspy-wake-raven
   ];
 
   postPatch = ''

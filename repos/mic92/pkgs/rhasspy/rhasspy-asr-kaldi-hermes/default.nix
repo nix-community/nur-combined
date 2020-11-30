@@ -1,7 +1,12 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub
-, paho-mqtt, rhasspy-hermes, attrs
+{ stdenv
+, buildPythonPackage
+, fetchFromGitHub
+, paho-mqtt
+, rhasspy-hermes
+, attrs
 , rhasspy-asr-kaldi
-, rhasspy-silence }:
+, rhasspy-silence
+}:
 
 buildPythonPackage rec {
   pname = "rhasspy-asr-kaldi-hermes";

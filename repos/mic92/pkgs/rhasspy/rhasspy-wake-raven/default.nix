@@ -1,5 +1,9 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, scipy, rhasspy-silence, python_speech_features
+{ stdenv
+, buildPythonPackage
+, fetchPypi
+, scipy
+, rhasspy-silence
+, python_speech_features
 }:
 
 buildPythonPackage rec {

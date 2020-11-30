@@ -13,7 +13,6 @@
 }:
 
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";
-
 let
   # rev from https://github.com/kaldi-asr/kaldi/blob/master/cmake/third_party/openfst.cmake
   openfst = fetchFromGitHub {
@@ -22,7 +21,8 @@ let
     rev = "0bca6e76d24647427356dc242b0adbf3b5f1a8d9";
     sha256 = "1802rr14a03zl1wa5a0x1fa412kcvbgprgkadfj5s6s3agnn11rx";
   };
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "kaldi";
   version = "2020-06-06";
 

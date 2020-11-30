@@ -22,7 +22,8 @@ buildPythonPackage rec {
   checkInputs = [ pytest mock ];
 
   propagatedBuildInputs = [
-    numpy scipy
+    numpy
+    scipy
   ];
 
   meta = with lib; {
