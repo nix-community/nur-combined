@@ -63,10 +63,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.2.89";
+      version = "7.2.90";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3655144/betterttv-7.2.89-fx.xpi";
-      sha256 = "df3948af1fddc74a08b090ed9f3a3b531f7eba78a66703b77f32087429ed7cee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3686147/betterttv-7.2.90-fx.xpi";
+      sha256 = "7d04a2e670e2c9180197737a1df0e7ec7a65188ab6d321fd3b85ad25363735ce";
       meta = with stdenv.lib;
       {
         homepage = "https://betterttv.com";
