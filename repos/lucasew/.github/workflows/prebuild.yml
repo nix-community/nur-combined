@@ -23,7 +23,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
       - uses: cachix/cachix-action@v8
         with:
-          name: poc
+          name: lucasew-personal
           authToken: '${{ secrets.CACHIX_TOKEN }}'
       - run: DOTFILES=$(pwd) nix-shell --run 'nix-build build.nix --show-trace'
 

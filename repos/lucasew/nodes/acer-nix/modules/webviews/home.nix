@@ -37,7 +37,7 @@ let
     url = "https://www.remnote.io/";
     icon = builtins.fetchurl {
       url = "https://www.remnote.io/favicon.ico";
-      sha256 = "032bvkzdwysb7fd10w2xa4dgyf08jvvz1gjfgbj33mhd7zc9ry9y";
+      sha256 = "1iwy8ggwyjjvsd8fpqjji7d10fnvb5w742ccv5q7h5nly0npspmn";
     };
   };
   notion = mkNativefier {
