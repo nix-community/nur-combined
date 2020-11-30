@@ -11,6 +11,7 @@ rec {
   vimPlugins = pkgs.recurseIntoAttrs
     (pkgs.callPackage ./pkgs/vimPlugins { inherit pkgs; });
   neovim = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/neovim { });
+  blastradius = pkgs.callPackage ./pkgs/blastradius { };
 
   # Currently broken
   #veloren = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/veloren { });
