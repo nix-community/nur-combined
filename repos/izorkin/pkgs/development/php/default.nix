@@ -334,6 +334,8 @@ in {
     extraPatches = [
       # PKG_CONFIG need not be a relative path
       ./patch/fix-paths-pkgconfig-php56.patch
+      # mysqlnd fix patch for MariaDB
+      ./patch/php56/php5640-mysqlnd-fix.patch
       # Added sqlite3.defensive INI directive
       ./patch/php56/php5640-sqlite3-defensive.patch
       # Openssl cert updates
@@ -383,6 +385,8 @@ in {
     extraPatches = [
       # PKG_CONFIG need not be a relative path
       ./patch/fix-paths-pkgconfig-php71.patch
+      # mysqlnd fix patch for MariaDB
+      ./patch/php71/php7133-mysqlnd-fix.patch
       # Openssl cert updates
       ./patch/php71/php7133-php-openssl-cert.patch
       # Backport security bug patches
@@ -441,7 +445,7 @@ in {
     sha256 = "1fs7mm8ipjsgr8x29vswk65wh5nlc8i0y0gvm0lvh495c9gdkjxf";
     extraPatches = [
       # Fix build with LibreSSL
-      ./patch/php80-revert-support-for-OCB-mode-in-OpenSSL.patch
+      ./patch/php80-fix-check-OCB-mode.patch
     ];
   };
 
@@ -451,7 +455,7 @@ in {
     sha256 = "0fhn9dfgczf4g8p3ilw3c38nwdvkbnvz6sa92k8z7gszyjvd5rzv";
     extraPatches = [
       # Fix build with LibreSSL
-      ./patch/php80-revert-support-for-OCB-mode-in-OpenSSL.patch
+      ./patch/php80-fix-check-OCB-mode.patch
     ];
   };
 }
