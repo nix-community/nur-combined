@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+nur: { config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -15,6 +15,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.nur.repos.dukzcry.k380-function-keys-conf ];
+    services.udev.packages = with nur; [ k380-function-keys-conf ];
   };
 }
