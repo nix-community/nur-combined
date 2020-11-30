@@ -1,14 +1,27 @@
-{ llvmPackages_11, lib, fetchFromGitHub, cmake, libmysqlclient, git, boost, readline, bzip2 }:
+{ llvmPackages_11
+, lib
+, fetchFromGitHub
+, cmake
+, libmysqlclient
+, git
+, boost
+, readline
+, bzip2
+# version specifics
+, version
+, owner ? "TrinityCore"
+, repo ? "TrinityCore"
+, rev ? version
+, sha256
+, ...
+}:
 
 llvmPackages_11.stdenv.mkDerivation rec {
   pname = "TrinityCore";
-  version = "TDB335.20111";
+  inherit version;
 
   src = fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = version;
-    sha256 = "1i8gs2samas9d57xk9gslcxm2aadzqkk4s3aiyzd6q9b0w0spg1b";
+    inherit owner repo rev sha256;
   };
 
   nativeBuildInputs = [ cmake git ];
