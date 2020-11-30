@@ -27,7 +27,6 @@ import ./lib/make-test.nix (
         def checkCommonProperties(machine):
             # programs that should be there
             for program in [
-                "autojump",
                 "bash",
                 "cryptsetup",
                 "curl",
