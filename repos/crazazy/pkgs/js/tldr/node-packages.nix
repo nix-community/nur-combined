@@ -3055,13 +3055,13 @@ let
         sha1 = "867ac74e3864187b1d3d47d996a78ec5c8830777";
       };
     };
-    "underscore-1.11.0" = {
+    "underscore-1.12.0" = {
       name = "underscore";
       packageName = "underscore";
-      version = "1.11.0";
+      version = "1.12.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/underscore/-/underscore-1.11.0.tgz";
-        sha512 = "xY96SsN3NA461qIRKZ/+qox37YXPtSBswMGfiNptr+wrt6ds4HaMw23TP612fEyGekRE6LNRiLYr/aqbHXNedw==";
+        url = "https://registry.npmjs.org/underscore/-/underscore-1.12.0.tgz";
+        sha512 = "21rQzss/XPMjolTiIezSu3JAjgagXKROtNrYFEOWK109qY1Uv2tVjPTZ1ci2HgvQDA16gHYSthQIJfB+XId/rQ==";
       };
     };
     "union-value-1.0.1" = {
@@ -3836,7 +3836,7 @@ let
       sources."tslib-1.14.1"
       sources."tty-browserify-0.0.0"
       sources."typedarray-0.0.6"
-      sources."underscore-1.11.0"
+      sources."underscore-1.12.0"
       sources."union-value-1.0.1"
       sources."unique-filename-1.1.1"
       sources."unique-slug-2.0.2"
