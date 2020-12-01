@@ -17,14 +17,13 @@
 
 stdenv.mkDerivation rec {
   pname = "pokemmo-installer";
-  version = "1.4.7";
+  version = "1.4.8";
 
   src = fetchFromGitLab {
-    domain = "salsa.debian.org";
-    owner = "games-team";
+    owner = "coringao";
     repo = pname;
     rev = version;
-    sha256 = "13i50y1d97inbnp4wdnm9b4chijfjwd3lgk8yb9spjp9hy880kc3";
+    sha256 = "0fpiq4bynrk7p3bv7sxfx7yldf2glh4frm50bwyn6y3439fff9mr";
   };
 
   nativeBuildInputs = [ makeWrapper ];
