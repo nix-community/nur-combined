@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     ./json.patch
   ];
 
-  cargoSha256 = "0715f67q7yprkma2qlx1vnwna0ny974jysv4gh4f96rrk3vy5zlr";
+  cargoSha256 = "1gki7rssaxfqx79bfhvx02jwzp8a8bhv4cinxw2ch304dv0bqn4z";
 
   meta = with lib; {
     description = "A human readable and editable format for msbt files (patched to use serde_json for BCML)";
