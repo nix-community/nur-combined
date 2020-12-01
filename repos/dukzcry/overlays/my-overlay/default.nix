@@ -1,4 +1,4 @@
-nur: self: super:
+self: super:
 {
   # https://github.com/NixOS/nixpkgs/pull/103485
   zoom-us = super.zoom-us.overrideAttrs (oldAttrs: rec {
