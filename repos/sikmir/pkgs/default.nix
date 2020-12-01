@@ -58,6 +58,7 @@ lib.makeScope newScope (
 
     ### DATA
 
+    dadako = callPackage ./data/dicts/dadako { };
     freedict = callPackage ./data/dicts/freedict { };
     huzheng = callPackage ./data/dicts/huzheng { };
     it-sanasto = callPackage ./data/dicts/it-sanasto { };
@@ -68,17 +69,18 @@ lib.makeScope newScope (
     dem = callPackage ./data/maps/dem { };
     freizeitkarte-osm = callPackage ./data/maps/freizeitkarte-osm { };
     gpxsee-maps = callPackage ./data/maps/gpxsee-maps { };
-    gpxsee-poi = callPackage ./data/maps/gpxsee-poi { };
     vlasenko-maps = callPackage ./data/maps/vlasenko-maps { };
     maptourist = callPackage ./data/maps/maptourist { };
     mtk-suomi = callPackage ./data/maps/mtk-suomi { };
     opentopomap = callPackage ./data/maps/opentopomap { };
     qmapshack-onlinemaps = callPackage ./data/maps/qmapshack-onlinemaps { };
-    routinodb = callPackage ./data/maps/routinodb { };
     slazav-hr = callPackage ./data/maps/slazav/hr.nix { };
     slazav-podm = callPackage ./data/maps/slazav/podm.nix { };
     slazav-podm-bin = callPackage ./data/maps/slazav/podm-bin.nix { };
     usa-osm-topo-routable = callPackage ./data/maps/usa-osm-topo-routable { };
+
+    gpxsee-poi = callPackage ./data/misc/gpxsee-poi { };
+    routinodb = callPackage ./data/misc/routinodb { };
 
     goldendict-arc-dark-theme =
       callPackage ./data/themes/goldendict-themes/arc-dark-theme.nix { };

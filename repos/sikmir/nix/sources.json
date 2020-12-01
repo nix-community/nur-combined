@@ -44,15 +44,15 @@
     "cheetah3": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-10-17T16:02:55Z",
+        "date": "2020-11-29T00:20:47Z",
         "description": "Cheetah3 is a free (MIT) and open source template engine for Python",
         "homepage": "https://cheetahtemplate.org/",
         "owner": "CheetahTemplate3",
         "repo": "cheetah3",
-        "rev": "a753630d29f39c41247d48a373ed1cf7c77b17f1",
-        "sha256": "099mmnq1qyfpkm8jr0m843scwwap6lbafdngkpnmjsj84pzixlb1",
+        "rev": "341f3d72dd8499354ce3d3a600edc15260bbb565",
+        "sha256": "1vc9jvmkbdqjhn9ymah6vdp4fhf84mbjz2q0x04cy9a1xpspg347",
         "type": "tarball",
-        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/a753630d29f39c41247d48a373ed1cf7c77b17f1.tar.gz",
+        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/341f3d72dd8499354ce3d3a600edc15260bbb565.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "csvquote": {
@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-28T11:17:07Z",
+        "date": "2020-12-01T16:46:09Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "41ae5bb81454a2de9aab89eeb98c8412562bc7f0",
-        "sha256": "13g253l70fifpblmi7dsyk3xm584k7lb4cji4znk32zgsp87hhi5",
+        "rev": "60bd189b8f7eec66a7204f30fc6dfb7b6e08fb28",
+        "sha256": "1xnaa1lin8zxikv55z5c4ffjrn4k95znaig6rbkaivw92qk02jqd",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/41ae5bb81454a2de9aab89eeb98c8412562bc7f0.tar.gz",
+        "url": "https://github.com/embox/embox/archive/60bd189b8f7eec66a7204f30fc6dfb7b6e08fb28.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -239,27 +239,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "0amws51p3yp93s1kdyc8ggzrn6fwq6lkj1ypc4py79v10rjx19mj",
+        "sha256": "0vfi4s90zplmjp0x6wmaky911q45f60psj9y5fd32dwh9vbwr5cx",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-201118.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-201130.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "201118"
+        "version": "201130"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "0cdrc1c59c4ijcb658yc63h743ls9b5lkwqcvwmxpjsi48657ymw",
+        "sha256": "03qlzxs9m8vdx3ybl8f0x12sfgk09xbzrhkrwxwjjdnsmkyjcvx8",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-201118.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-201130.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "201118"
+        "version": "201130"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "0drb9zl912w3lf8k2j5wa840975hzk7myvgrrbayj8d5i8sq4k7c",
+        "sha256": "0k34a6047jnmn1mkci92axliz48m377949nqbhh0dpqjqns0kwhl",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201118.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201130.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "201118"
+        "version": "201130"
     },
     "gimgtools": {
         "branch": "master",
@@ -377,15 +377,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2020-11-28T19:34:25Z",
+        "date": "2020-12-01T19:17:19Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "8423fc1230380e6bb39b863faa1c7fbdce448198",
-        "sha256": "0mqfjf558kffngk8x8z4yhdafz1nkh6z3b89vhp30gvrfh7yp63y",
+        "rev": "af6082425eed6c8edec6cde8e930372acbb6f12b",
+        "sha256": "091syl5cr7ahgs77vq3x7g8xqmvjx715xrbvqbj45jmsnjfyksw2",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/8423fc1230380e6bb39b863faa1c7fbdce448198.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/af6082425eed6c8edec6cde8e930372acbb6f12b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -475,15 +475,15 @@
     "hfst": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-18T22:27:12Z",
+        "date": "2020-12-01T13:51:17Z",
         "description": "Helsinki Finite-State Technology (library and application suite)",
         "homepage": "https://hfst.github.io",
         "owner": "hfst",
         "repo": "hfst",
-        "rev": "5dadce489bb1dd22103ba917eb38d20e61e5ffa4",
-        "sha256": "0bplcaakn8brbq6pq0jwlmr4m8wya6k3ismy4y6d61wqypa4ajiw",
+        "rev": "c78084b3b8dedacd17d8ee731ba7e107c015cdce",
+        "sha256": "12vhrigv2idkbk12ca39gmlxcq9k290ysx8cwaj4nb80j6k5cy3l",
         "type": "tarball",
-        "url": "https://github.com/hfst/hfst/archive/5dadce489bb1dd22103ba917eb38d20e61e5ffa4.tar.gz",
+        "url": "https://github.com/hfst/hfst/archive/c78084b3b8dedacd17d8ee731ba7e107c015cdce.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "how-to-use-pvs-studio-free": {
@@ -696,15 +696,15 @@
     "microjson": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-04T11:11:24Z",
+        "date": "2020-11-30T15:22:10Z",
         "description": "Tiny streaming json deserializer",
         "homepage": "https://github.com/semlanik/microjson",
         "owner": "semlanik",
         "repo": "microjson",
-        "rev": "b1b37757a36f19399e38088609bc63312c50137f",
-        "sha256": "0byjiizzsgb742mvqrr513b22idkqsdrvvixyczkh25lkj3aqhga",
+        "rev": "0d9f50e407cd117e56582faf0d99bfececc1b6ea",
+        "sha256": "15nhvkrdq9mi8np1s3k65w92aksm3937v27cxhiws7ab35wqhh41",
         "type": "tarball",
-        "url": "https://github.com/semlanik/microjson/archive/b1b37757a36f19399e38088609bc63312c50137f.tar.gz",
+        "url": "https://github.com/semlanik/microjson/archive/0d9f50e407cd117e56582faf0d99bfececc1b6ea.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mikatools": {
@@ -968,15 +968,15 @@
     "tatoebatools": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-09T08:56:50Z",
+        "date": "2020-12-01T13:06:20Z",
         "description": "A library for downloading, updating and iterating over monolingual data files from Tatoeba",
         "homepage": "https://github.com/LBeaudoux/tatoebatools",
         "owner": "LBeaudoux",
         "repo": "tatoebatools",
-        "rev": "da5613145db5080c89ff5a49d13e9d92c0017b2d",
-        "sha256": "0l7knxjal97w1rg3qplf021ad8rr3wjw0y8mk3091gd7yzkhixri",
+        "rev": "97a50b9aa4d7a66550aa338ab595cb10eb7f799d",
+        "sha256": "0a482kirbv3hnlgfgz75kdq52mbaazawg40cy5vq079kqd3m8v09",
         "type": "tarball",
-        "url": "https://github.com/LBeaudoux/tatoebatools/archive/da5613145db5080c89ff5a49d13e9d92c0017b2d.tar.gz",
+        "url": "https://github.com/LBeaudoux/tatoebatools/archive/97a50b9aa4d7a66550aa338ab595cb10eb7f799d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "thinplatespline": {
