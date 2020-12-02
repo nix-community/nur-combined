@@ -304,9 +304,6 @@
         "ptival": {
             "url": "https://github.com/Ptival/nur-packages"
         },
-        "pwnytail": {
-            "url": "https://gitlab01.bsd.services/pwnytail/nur-packages"
-        },
         "qchem": {
             "file": "nur.nix",
             "url": "https://github.com/markuskowa/NixOS-QChem"
