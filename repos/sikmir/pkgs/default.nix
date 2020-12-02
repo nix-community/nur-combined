@@ -79,7 +79,9 @@ lib.makeScope newScope (
     slazav-podm-bin = callPackage ./data/maps/slazav/podm-bin.nix { };
     usa-osm-topo-routable = callPackage ./data/maps/usa-osm-topo-routable { };
 
+    gadm = callPackage ./data/misc/gadm { };
     gpxsee-poi = callPackage ./data/misc/gpxsee-poi { };
+    osm-extracts = callPackage ./data/misc/osm-extracts { };
     routinodb = callPackage ./data/misc/routinodb { };
 
     goldendict-arc-dark-theme =
