@@ -42,17 +42,17 @@ rec {
 
   kvmtool = pkgs.callPackage ./pkgs/kvmtool { };
 
-  linux_ayufan_5_6 = pkgs.callPackage ./pkgs/linux_ayufan_5_6 {
+  linux_ayufan_5_9 = pkgs.callPackage ./pkgs/linux_ayufan_5_9 {
     kernelPatches = with pkgs; [
       kernelPatches.bridge_stp_helper
       kernelPatches.request_key_helper
       kernelPatches.export_kernel_fpu_functions."5.3"
     ];
   };
-  linux_ayufan = linux_ayufan_5_6;
+  linux_ayufan = linux_ayufan_5_9;
 
-  linuxPackages_ayufan_5_6 = pkgs.linuxPackagesFor linux_ayufan_5_6;
-  linuxPackages_ayufan = linuxPackages_ayufan_5_6;
+  linuxPackages_ayufan_5_9 = pkgs.linuxPackagesFor linux_ayufan_5_9;
+  linuxPackages_ayufan = linuxPackages_ayufan_5_9;
 
   lualdap = pkgs.callPackage ./pkgs/lualdap { };
 
