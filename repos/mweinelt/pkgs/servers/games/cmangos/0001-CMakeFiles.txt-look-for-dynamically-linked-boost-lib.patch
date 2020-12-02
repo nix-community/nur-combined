@@ -1,0 +1,25 @@
+From e0c0f83fbd764165a342dc99c94f9f4585c81f58 Mon Sep 17 00:00:00 2001
+From: Martin Weinelt <hexa@darmstadt.ccc.de>
+Date: Tue, 1 Dec 2020 02:59:19 +0100
+Subject: [PATCH] CMakeFiles.txt: look for dynamically linked boost library
+
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index de6f3bb5b..b43464b60 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -192,7 +192,7 @@ endif()
+ 
+ # Be sure to search only static lib
+ add_definitions(-DBOOST_ALL_NO_LIB)
+-set(Boost_USE_STATIC_LIBS ON)
++set(Boost_USE_STATIC_LIBS OFF)
+ set(Boost_NO_BOOST_CMAKE ON)   # should fix build for boost 1.71
+ #set(Boost_DEBUG ON)
+ 
+-- 
+2.29.2
+

@@ -27,7 +27,7 @@ jobs:
         # For this to work, you also need to set the CACHIX_SIGNING_KEY secret
         # in your repository settings in Github found at https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
-          - <YOUR_CACHIX_NAME>
+          - mweinelt
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
