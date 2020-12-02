@@ -1,15 +1,15 @@
 { stdenv, buildLinux, fetchFromGitHub, ... } @ args:
 
 buildLinux (args // rec {
-  version = "5.9.0-1145-ayufan";
-  modDirVersion = "5.9.0";
+  version = "5.6.0-1138-ayufan";
+  modDirVersion = "5.6.0";
 
   src = fetchFromGitHub {
     owner = "ayufan-rock64";
     repo = "linux-mainline-kernel";
     rev = version;
-    sha256 = "sha256-EwlGzFuZT7M5RgUYgz8o8NEJsFlkVP5UVaXi/K/tjNE=";
+    sha256 = "sha256-vmUHdTkR9OblNbMr8MP3STwThihoB0heJhp1q1CEdkI=";
   };
   extraMeta.platforms = [ "aarch64-linux" ];
-  extraMeta.branch = "5.9";
+  extraMeta.branch = "5.6";
 } // (args.argsOverride or { }))
