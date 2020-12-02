@@ -7,3 +7,10 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 indent_style = spaces
 indent_size = 2
+
+[*.py]
+indent_style = spaces
+indent_size = 4
+
+[*.sh]
+indent_style = tab

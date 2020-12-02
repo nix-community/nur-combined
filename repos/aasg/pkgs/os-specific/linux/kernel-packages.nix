@@ -1,5 +1,5 @@
-kself: ksuper:
+final: prev:
 
 {
-  rtl8723bu = ksuper.callPackage ./rtl8723bu { };
+  rtl8723bu = final.callPackage ./rtl8723bu { };
 }

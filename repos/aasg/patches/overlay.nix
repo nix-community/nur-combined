@@ -1,9 +1,9 @@
-self: super:
+final: prev:
 
 {
 
-  haunt = import ./haunt { inherit (super) haunt; };
+  haunt = final.callPackage ./haunt { inherit (prev) haunt; };
 
-  zoxide = import ./zoxide { inherit (super) fetchFromGitHub zoxide; };
+  ipfs-cluster = final.callPackage ./ipfs-cluster { inherit (prev) ipfs-cluster; };
 
 }

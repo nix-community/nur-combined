@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, kernel, concurrentMode ? false }:
 
 stdenv.mkDerivation rec {
-  name = "rtl8723bu-${kernel.version}-${version}";
-  version = "2020-04-05";
+  pname = "rtl8723bu-unstable";
+  version = "2020-09-04";
 
   src = fetchFromGitHub {
     owner = "lwfinger";
     repo = "rtl8723bu";
-    rev = "c9549d172a4f9d6ccf6d528682640246a41c2f0c";
-    sha256 = "1j5ijp9721nrh5g4gkpxchc6z2dhajhq63a0vwkbz1rmifkbzzmy";
+    rev = "ce4490b1e0dcedec30659dc20b945b90d9c3d83c";
+    sha256 = "18x3x9jx6mc22cgc8rf2fsa0crwq55iapry9ymdn1rw4dclyahjk";
   };
 
   postPatch = stdenv.lib.optionalString (!concurrentMode) ''
@@ -29,6 +29,9 @@ stdenv.mkDerivation rec {
     "KVER=${kernel.version}"
     "DEPMOD=true"
     "INSTALL_MOD_PATH=$(out)"
+    # Fix build for Linux 5.8(+?) on Nixpkgs 20.09.
+    # https://wiki.gentoo.org/wiki/Binutils_2.32_upgrade_notes/elfutils_0.175:_unable_to_initialize_decompress_status_for_section_.debug_info
+    "USER_EXTRA_CFLAGS=-gz=none"
   ];
 
   enableParallelBuilding = true;

@@ -1,0 +1,10 @@
+{
+  "sources": {
+    "trust-dns": {
+      "type": "CratesIo",
+      "name": "trust-dns",
+      "version": "0.19.5",
+      "sha256": "1fklaamqizzlrs1nzanbg6ldgb8cw12g7f2v7sshdsw19x5k0skn"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+image: nixos/20.09
+packages:
+  - nixos.cachix
+sources:
+  - https://git.sr.ht/~aasg/nixexprs
+secrets:
+  - 06d44cfd-6ded-45c4-9ef4-8e1433f9054e
+tasks:
+  - prepare: |
+      cachix use aasg-nixexprs
+      nix path-info --all | grep -v '\.drv$' | sort >pre-build-paths
+  - build: |
+      nix-build --no-out-link --keep-going --keep-failed --show-trace ./nixexprs/ci.nix || touch FAILED
+  - cache: |
+      nix path-info --all | grep -v '\.drv$' | sort >post-build-paths
+      comm -13 pre-build-paths post-build-paths | cachix push aasg-nixexprs
+  - finish: |
+      if [[ -f FAILED ]]; then
+        echo "Build failed. See logs of the build task for details."
+        exit 1
+      fi

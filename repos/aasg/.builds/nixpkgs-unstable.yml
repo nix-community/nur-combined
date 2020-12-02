@@ -3,6 +3,7 @@ repositories:
   nixpkgs: https://nixos.org/channels/nixpkgs-unstable
 packages:
   - nixpkgs.cachix
+  - nixpkgs.nixUnstable
 sources:
   - https://git.sr.ht/~aasg/nixexprs
 secrets:
@@ -10,8 +11,17 @@ secrets:
 tasks:
   - prepare: |
       cachix use aasg-nixexprs
+      printf 'experimental-features = nix-command flakes\n' >>~/.config/nix/nix.conf
+  - check-flake: |
+      nix flake check --log-format raw ./nixexprs
   - build: |
-      set -o pipefail
-      nix-build --no-out-link --keep-going --keep-failed nixexprs | tee built-paths
+      nix path-info --all | grep -v '\.drv$' | sort >pre-build-paths
+      nix-build --no-out-link --keep-going --keep-failed --show-trace ./nixexprs/ci.nix || touch FAILED
+      nix path-info --all | grep -v '\.drv$' | sort >post-build-paths
   - cache: |
-      cachix push aasg-nixexprs <built-paths
+      comm -13 pre-build-paths post-build-paths | cachix push aasg-nixexprs
+  - finish: |
+      if [[ -f FAILED ]]; then
+        echo "Build failed. See logs of the build task for details."
+        exit 1
+      fi

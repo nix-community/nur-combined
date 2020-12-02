@@ -12,19 +12,22 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper pkgconfig ];
   buildInputs = [ guile guile-commonmark guile-reader ];
 
-  makeFlags = [
-    "moddir=$(out)/share/guile/site"
-    "godir=$(out)/share/guile/site/site-ccache"
-  ];
-
   doCheck = true;
 
-  # Not sure this is the right way, shouldn't it be covered by Guile's
-  # setup hook?  Anyway, copied it from skribilo and it works.
   postInstall = ''
+    # There doesn't seem to be a way to query the right version suffix.
+    loadPath=$(echo $out/share/guile/site/*)
+    compiledLoadPath=$(echo $out/lib/guile/*/site-ccache)
     wrapProgram $out/bin/haunt \
-      --prefix GUILE_LOAD_PATH : "$out/share/guile/site:${guile-reader}/share/guile/site:${guile-commonmark}/share/guile/site" \
-      --prefix GUILE_LOAD_COMPILED_PATH : "$out/share/guile/site:${guile-reader}/share/guile/site:${guile-commonmark}/share/guile/site"
+      --prefix GUILE_LOAD_PATH : "$loadPath:$GUILE_LOAD_PATH" \
+      --prefix GUILE_LOAD_COMPILED_PATH : "$compiledLoadPath:$GUILE_LOAD_COMPILED_PATH"
+  '';
+
+  doInstallCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
+    $out/bin/haunt --version
+    runHook postInstallCheck
   '';
 
   meta = with lib; {

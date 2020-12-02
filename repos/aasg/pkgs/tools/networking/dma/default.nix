@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/corecode/dma";
     license = licenses.bsd3;
-    platforms = platforms.unix;
+    platforms = with platforms; linux ++ freebsd ++ netbsd ++ openbsd;
     maintainers = with maintainers; [ AluisioASG ];
   };
 }

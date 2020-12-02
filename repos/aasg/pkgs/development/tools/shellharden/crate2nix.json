@@ -1,0 +1,10 @@
+{
+  "sources": {
+    "shellharden": {
+      "type": "CratesIo",
+      "name": "shellharden",
+      "version": "4.1.2",
+      "sha256": "06hlzg4xkd13k8nrwqmir8azlkgm6k4bz7lr25nmk1f120ayird7"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{ stdenv, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "dyndnsc";
@@ -23,12 +23,32 @@ python3Packages.buildPythonApplication rec {
     substituteInPlace setup.py --replace "bottle==" "bottle>="
   '';
 
-  # Disable tests not supported in the sandbox.
-  checkPhase = ''
-    py.test -k 'not dnswanip'
-  '';
+  checkPhase =
+    let
+      inherit (stdenv.lib) concatStringsSep optional;
+      # dnswanip connects to an external server to discover the
+      # machine's IP address.
+      #
+      # The tests that spawn a server using Bottle cannot be run on
+      # macOS or Windows as the default multiprocessing start method
+      # on those platforms is 'spawn', which requires the code to be
+      # run to be picklable, which this code isn't.
+      # Additionaly, other start methods are unsafe and prone to failure
+      # on macOS; see https://bugs.python.org/issue33725.
+      testsToDisable = [ "dnswanip" ]
+        ++ optional stdenv.isDarwin "BottleServer";
+    in
+    ''
+      runHook preCheck
 
-  meta = with lib; {
+      python -m pytest -k '${concatStringsSep " and " (map (test: "not ${test}") testsToDisable)}'
+
+      runHook postCheck
+    '';
+  # Allow tests involving localhost on macOS.
+  __darwinAllowLocalNetworking = true;
+
+  meta = with stdenv.lib; {
     description = "Dynamic DNS update client with support for multiple protocols";
     longDescription = ''
       Dyndnsc is a command line client for sending updates to Dynamic

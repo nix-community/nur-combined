@@ -1,5 +1,5 @@
-pyself: pysuper:
+final: prev:
 
 {
-  daemonocle = pysuper.callPackage ./daemonocle { };
+  daemonocle = final.callPackage ./daemonocle { };
 }

@@ -34,7 +34,7 @@ in
       enable = mkEnableOption "dyndnsc Dynamic DNS client";
 
       package = mkOption {
-        default = pkgs.dyndnsc or (import ../../../pkgs { inherit pkgs; }).dyndnsc;
+        default = pkgs.dyndnsc;
         defaultText = "pkgs.dyndnsc";
         type = types.package;
         description = "dyndnsc package to use.";

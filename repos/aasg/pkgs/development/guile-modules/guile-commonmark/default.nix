@@ -14,10 +14,20 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
   buildInputs = [ guile ];
 
-  makeFlags = [
-    "moddir=$(out)/share/guile/site"
-    "godir=$(out)/share/guile/site/site-ccache"
-  ];
+  # Needed for tests.
+  LANG = "C.UTF-8";
+  postPatch = ''
+    # Some tests hardcode a call to setlocale for en_US.UTF-8, but that isn't
+    # included in the default build environment.  And other test files that do
+    # need a Unicode locale (e.g. tests/inlines/emphasis.scm) don't call
+    # setlocale.  Thankfully, Guile automatically loads the locale set in the
+    # environment by default (see the GUILE_INSTALL_LOCALE environment
+    # variable), so these calls are actually unnecessary as long as the
+    # environment is set up properly (which we do in the derivation).
+    sed -i '/setlocale/d' tests/inlines/*.scm
+  '';
+
+  doCheck = true;
 
   meta = with lib; {
     description = "CommonMark parser for Guile";

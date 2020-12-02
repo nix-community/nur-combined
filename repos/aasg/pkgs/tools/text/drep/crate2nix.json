@@ -1,0 +1,10 @@
+{
+  "sources": {
+    "drep": {
+      "type": "Git",
+      "url": "https://github.com/maxpert/drep",
+      "rev": "v0.1.2",
+      "sha256": "002f6bfr0k60x9k1md3jjf7h21d76xyjdrr3gskr0x86043gcw3h"
+    }
+  }
+}
