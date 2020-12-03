@@ -184,10 +184,10 @@ let
   };
 
   event = buildPecl {
-    version = "3.0.0";
+    version = "3.0.1";
     pname = "event";
 
-    sha256 = "1k35qwcf4qz8617b4riy7bp0vna1j3ds0k9j52hlm7qrhww2yxqn";
+    sha256 = "12629hi2ddyavzgl5ala53fi8m55l0xsmqsywy040f0grzp9r6rc";
 
     configureFlags = with pkgs; [
       "--with-event-libevent-dir=${libevent.dev}"
@@ -269,10 +269,10 @@ let
   };
 
   mcrypt = buildPecl {
-    version = "1.0.3";
+    version = "1.0.4";
     pname = "mcrypt";
 
-    sha256 = "0d5hmmgdspmfw99sl5b3j6qbrmbd50izghlsskpyjyd08dc6gzdg";
+    sha256 = "03d09rzfx06jfg1dgchc3898gjbfq71izznws3f4hyldjmw3w5cq";
 
     configureFlags = with pkgs; [
       "--with-mcrypt=${libmcrypt}"
@@ -280,7 +280,7 @@ let
 
     buildInputs = with pkgs; [ libmcrypt ];
 
-    meta.broken = (!isPhp72 || isPhp80);
+    meta.broken = !isPhp72;
   };
 
   memcache = if isPhp56 then memcache30 else memcache40;
@@ -687,12 +687,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "4.2.1";
+    version = "4.3.0";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "0g6s3bn8aaggpqjgr0bqchgkgb4my5ksfycyyqy7nrly2bgn1kbz";
+      sha256 = "1aixsickm5mvr1mcval46j9ix1x89j8bbap5bjmq40d30h4yy163";
     };
 
     phases = [ "installPhase" ];
