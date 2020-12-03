@@ -20,5 +20,7 @@
 
   gobi_loader = pkgs.callPackage ./pkgs/gobi_loader { };
 
+  routinator = pkgs.callPackage ./pkgs/routinator { };
+
 }
 
