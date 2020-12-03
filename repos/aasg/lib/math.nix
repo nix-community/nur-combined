@@ -25,4 +25,12 @@ rec {
     assert e >= 0;
     assert e > 0 -> (abs result) >= (abs n);
     result;
+
+  /* rem :: int -> int -> int
+   *
+   * Computes the remainder of the division of `n` by `d`, such that
+   * `rem n d == n - (n / d) * d`.  The sign of the result is that of
+   * the dividend `n`.
+   */
+  rem = n: d: n - d * (n / d);
 }

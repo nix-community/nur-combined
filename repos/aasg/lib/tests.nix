@@ -228,6 +228,31 @@ runTestsOrDieTrying {
     expected = -243;
   };
 
+  testRem1 = {
+    expr = rem 120 9;
+    expected = 3;
+  };
+
+  testRem2 = {
+    expr = rem (-120) 9;
+    expected = -3;
+  };
+
+  testRem3 = {
+    expr = rem 120 (-9);
+    expected = 3;
+  };
+
+  testRem4 = {
+    expr = rem 688258375 8765;
+    expected = 688258375 - (688258375 / 8765) * 8765;
+  };
+
+  testRem5 = {
+    expr = rem 688258375 (-620);
+    expected = 688258375 - (688258375 / (-620)) * (-620);
+  };
+
   ###########
   # strings #
   ###########

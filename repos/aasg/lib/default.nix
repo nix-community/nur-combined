@@ -20,7 +20,7 @@ let
     inherit (lists) indexOf isSubsetOf;
 
     math = callLibs ./math.nix;
-    inherit (math) abs pow;
+    inherit (math) abs pow rem;
 
     strings = callLibs ./strings.nix;
     inherit (strings) capitalize parseHex;
