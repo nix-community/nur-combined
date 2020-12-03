@@ -579,10 +579,10 @@
   },
   {
     "name": "Nanobots",
-    "version": "3.2.12",
-    "file_name": "Nanobots_3.2.12.zip",
-    "download_url": "/download/Nanobots/5fc1b8e1d3d1bb6fd86ebdc2",
-    "sha1": "de49bbf43ba507135148116a214f5edf118cf820",
+    "version": "3.2.13",
+    "file_name": "Nanobots_3.2.13.zip",
+    "download_url": "/download/Nanobots/5fc8763164e5e76b1d2f8094",
+    "sha1": "75c11f975b23d260bcd0689f980d0a7188f9f778",
     "dependencies": [
       "base >= 1.1.0",
       "stdlib >= 1.4.6",
