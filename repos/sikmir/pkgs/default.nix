@@ -28,6 +28,7 @@ lib.makeScope newScope (
     klogg-bin = callPackage ./applications/misc/klogg/bin.nix { };
     librewolf = callPackage ./applications/networking/librewolf { };
     macpass-bin = callPackage ./applications/macpass/bin.nix { };
+    maperitive-bin = callPackage ./applications/gis/maperitive/bin.nix { };
     mapsoft = callPackage ./applications/gis/mapsoft { };
     mapsoft2 = callPackage ./applications/gis/mapsoft/2.nix { };
     nnn-plugins = callPackage ./applications/nnn-plugins { };
@@ -42,7 +43,7 @@ lib.makeScope newScope (
     redict = libsForQt5.callPackage ./applications/redict {
       inherit sources;
     };
-    sasplanet = callPackage ./applications/gis/sasplanet { };
+    sasplanet-bin = callPackage ./applications/gis/sasplanet/bin.nix { };
     tdh = callPackage ./applications/gis/tdh { };
     visualgps = libsForQt5.callPackage ./applications/visualgps { };
     wireguard-statusbar-bin = callPackage ./applications/wireguard-statusbar { };
