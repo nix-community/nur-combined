@@ -453,10 +453,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.2.5";
+      version = "3.2.6";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3681713/i_dont_care_about_cookies-3.2.5-an+fx.xpi";
-      sha256 = "06098e6558f70a74daa1f6d31428625f5a2790b066601b242a73aaed7d4d6a81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3687963/i_dont_care_about_cookies-3.2.6-an+fx.xpi";
+      sha256 = "70b125bb4dffdbd9bfbd30d8dea106b58f1349e67863b1c481932d5126cca87c";
       meta = with stdenv.lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -782,10 +782,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "23.7";
+      version = "23.8";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3680987/save_page_we-23.7-fx.xpi";
-      sha256 = "1613015d08a801c70fe77e7d5ba028c87cf70e1adc11f393aaf5dcd090c99fa5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3687995/save_page_we-23.8-fx.xpi";
+      sha256 = "4acd5bf6b6fbeccfb580fc64be7d982f162205cd1cc8a5b1477d1571f8797e3d";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -946,10 +946,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.6.2";
+      version = "3.6.3";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3680618/tree_style_tab_-3.6.2-fx.xpi";
-      sha256 = "1200e00dcc7a0a79c848ee667e364df5a6465302b2613f631886aec316deedcb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3687872/tree_style_tab_-3.6.3-fx.xpi";
+      sha256 = "5f09829d99955a59022d5dc247716dfcfbf49ef1f02037e4c25a1f929fcb271b";
       meta = with stdenv.lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
