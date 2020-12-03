@@ -55,10 +55,23 @@ in
         description = "Directory where cluster management data lives.";
       };
 
+      secretEnvFile = mkOption {
+        type = with types; nullOr str;
+        default = null;
+        description = ''
+          File containing the cluster secret as an assignment to the CLUSTER_SECRET variable.
+          If none is given, a secret is generated during cluster creation.
+        '';
+      };
+
       secretFile = mkOption {
         type = with types; nullOr str;
         default = null;
-        description = "File containing the cluster secret. If none is given, a secret is generated during cluster creation.";
+        description = ''
+          File containing the cluster secret.
+          If none is given, a secret is generated during cluster creation.
+          Deprecated: use `services.ipfs-cluster-secretEnvFile` instead.
+        '';
       };
 
       consensus = mkOption {
@@ -106,10 +119,14 @@ in
         ProtectSystem = "full";
         ReadWriteDirectories = cfg.dataDir;
         TimeoutStopSec = "5s";
+        EnvironmentFile = optional (cfg.secretEnvFile != null) cfg.secretEnvFile;
+        StateDirectory = optional (cfg.dataDir == "/var/lib/ipfs-cluster") "ipfs-cluster";
+        StateDirectoryMode = "0700";
       };
       preStart = ''
         ${optionalString (cfg.secretFile != null) ''
-          read -r CLUSTER_SECRET <${cfg.secretFile}
+        read -r CLUSTER_SECRET <${cfg.secretFile}
+        export CLUSTER_SECRET
         ''}
         if [[ ! -f ${cfg.dataDir}/service.json ]]; then
           ${cfg.package}/bin/ipfs-cluster-service init \
@@ -119,7 +136,8 @@ in
       '';
       script = ''
         ${optionalString (cfg.secretFile != null) ''
-          read -r CLUSTER_SECRET <${cfg.secretFile}
+        read -r CLUSTER_SECRET <${cfg.secretFile}
+        export CLUSTER_SECRET
         ''}
         exec ${cfg.package}/bin/ipfs-cluster-service daemon
       '';
