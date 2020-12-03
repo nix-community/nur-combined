@@ -22,5 +22,4 @@ self: super:
       mkDerivation = stdenv.mkDerivation;
     };
   };
-  pipewire = super.callPackage <nixos-unstable/pkgs/development/libraries/pipewire> { };
 }
