@@ -1,10 +1,22 @@
-{ pkgs, forceWayland ? false, extraExtension ? [ ], ... }:
+{ pkgs, forceWayland ? false, extraExtensions ? [ ], ... }:
 let
-  wrapper = pkgs.wrapFirefox.override { fx_cast_bridge = pkgs.fx_cast_bridge; };
+  wrapper = pkgs.wrapFirefox.override {
+    fx_cast_bridge =
+      let
+        version = "0.1.0";
+        pname = "fx_cast_bridge";
+      in
+      pkgs.fx_cast_bridge.overrideAttrs (_: {
+        version = "0.1.0";
+        src = pkgs.fetchurl {
+          url = "https://github.com/hensm/fx_cast/releases/download/v${version}/${pname}-${version}-x64.deb";
+          sha256 = "0hr7pf8vr154bjkzi4ys8zs8siipx4vb5r1n6cyjj2qili7l562n";
+        };
+      });
+  };
 in
 wrapper pkgs.firefox-unwrapped {
-  inherit forceWayland;
-  extraExtensions = extraExtension;
+  inherit forceWayland extraExtensions;
   extraPolicies = {
     CaptivePortal = false;
     DisableFirefoxStudies = true;
