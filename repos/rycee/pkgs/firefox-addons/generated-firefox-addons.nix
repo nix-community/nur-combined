@@ -508,10 +508,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "3.1.15";
+      version = "3.2.0";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3678405/grammatik_und_rechtschreibprufung_languagetool-3.1.15-fx.xpi";
-      sha256 = "44c2fcefcccc987d1d271fcb5d558c4b693e9d0d9c01bbe337bff5ce7cf89b12";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3687301/grammatik_und_rechtschreibprufung_languagetool-3.2.0-fx.xpi";
+      sha256 = "197343c1e5e9a2e9658b8dcc6a90226b0eca96870070b653f17fce32123f6b3b";
       meta = with stdenv.lib;
       {
         homepage = "https://languagetool.org";
@@ -768,10 +768,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.11.26";
+      version = "20.12.3";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3684919/refined_github-20.11.26-an+fx.xpi";
-      sha256 = "003ecbbcce7a2b1c5b5cddf4458ca003c488780019a4e630c7c3f14f125195eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3688699/refined_github-20.12.3-an+fx.xpi";
+      sha256 = "df7ca20f428a8dc13ea6dbbd13f7566d74fc44180a334275b52b22ab7c596a7e";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
