@@ -14,7 +14,7 @@ nix-prefetch-github lunasorcery pridecat > "./pkgs/pridecat/source.json"
 nix-prefetch-github wezm steno-lookup > "./pkgs/steno-lookup/source.json"
 
 # git repos
-nix-prefetch-git https://tulpa.dev/cadey/dwm.git | jq 'del(.date)' > "./pkgs/dwm/source.json"
-nix-prefetch-git https://tulpa.dev/lua/dnd_dice.git | jq 'del(.date)' > "./pkgs/lua/dnd_dice/source.json"
-nix-prefetch-git https://git.sr.ht/~rabbits/orca | jq 'del(.date)' > "./pkgs/orca/source.json"
-nix-prefetch-git git://git.suckless.org/lchat | jq 'del(.date)' > "./pkgs/lchat/source.json"
+nix-prefetch-git https://tulpa.dev/cadey/dwm.git | jq 'del(.date)' | jq 'del(.path)' > "./pkgs/dwm/source.json"
+nix-prefetch-git https://tulpa.dev/lua/dnd_dice.git | jq 'del(.date)' | jq 'del(.path)' > "./pkgs/lua/dnd_dice/source.json"
+nix-prefetch-git https://git.sr.ht/~rabbits/orca | jq 'del(.date)' | jq 'del(.path)' > "./pkgs/orca/source.json"
+nix-prefetch-git git://git.suckless.org/lchat | jq 'del(.date)' | jq 'del(.path)' > "./pkgs/lchat/source.json"

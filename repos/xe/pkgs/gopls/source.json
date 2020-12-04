@@ -1,6 +1,7 @@
 {
     "owner": "golang",
     "repo": "tools",
-    "rev": "5d1fdd8fa3469142b9369713b23d8413d6d83189",
-    "sha256": "0xp5ggnjnl1gqwi2ks042zimgkfv2qda9a57ar198xpyzdn1bv5s"
+    "rev": "654352759326a83ade56ef0d49787dedaa16078e",
+    "sha256": "0pq7vqvy8ay4pd7ii84c4v264mld0aiqysjk91ysfbl0zm00js1w",
+    "fetchSubmodules": true
 }

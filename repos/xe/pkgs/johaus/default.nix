@@ -13,8 +13,7 @@ let
     pname = "johaus";
     version = version;
     src = repo;
-    modSha256 = "1s3yj3b5zs9cqss2p2qdsk5yxmwna53nnk62zf78j6whan2kqags";
-    vendorSha256 = "1s3yj3b5zs9cqss2p2qdsk5yxmwna53nnk62zf78j6whan2kqag3";
+    vendorSha256 = "10l9rlsqkksnwjac7hwgjzrx5n4maad4nbdsa2zrjmnjsh09224j";
 
     subPackages = [ "." ];
   };

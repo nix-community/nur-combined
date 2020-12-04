@@ -1,6 +1,7 @@
 {
     "owner": "luakit",
     "repo": "luakit",
-    "rev": "53ed76fb7ce8fdfc86264e7b250dff0d9f0b5997",
-    "sha256": "04vw60j73yfq1av5hfvss12jr5b15zbsmnsm0l3qcpwjgvxng953"
+    "rev": "9dfaeb8d1f97369722f0cd1cda4d661236e55905",
+    "sha256": "0lxr0z5ifigjhamw89w6cpchz57riivddb7la1ix2ak9p6lvvlzd",
+    "fetchSubmodules": true
 }

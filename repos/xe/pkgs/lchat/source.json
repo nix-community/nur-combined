@@ -2,5 +2,7 @@
   "url": "git://git.suckless.org/lchat",
   "rev": "e3b64e67b9b9d832462382246474ce1e7d92217c",
   "sha256": "1qcjqbgmsskc04j2r6xl3amkwj05n520sq1wv2mqyqncz42qrxm0",
-  "fetchSubmodules": false
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
 }

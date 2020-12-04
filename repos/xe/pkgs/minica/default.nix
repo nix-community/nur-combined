@@ -13,8 +13,7 @@ let
     pname = "minica";
     version = version;
     src = repo;
-    modSha256 = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
-    vendorSha256 = "1s3yj3b5zs9cqss2p2qdsk5yxmwna53nnk62zf78j6whan2kqag3";
+    vendorSha256 = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
 
     subPackages = [ "." ];
   };

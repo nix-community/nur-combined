@@ -1,6 +1,7 @@
 {
     "owner": "pigpigyyy",
     "repo": "MoonPlus",
-    "rev": "5b656d2913e4f9f0017698ec835ce4ddda1dc81f",
-    "sha256": "0nqd5ks633c796shfcwk793zfd22l5qym16lflr6j3737jq31i58"
+    "rev": "f641df51ecec17dbd24b476e271a4ee49ed6aded",
+    "sha256": "131fi7ljp69p18ncplc25b8xz7kyxqs5bg40268wgxbybx98m8bp",
+    "fetchSubmodules": true
 }
