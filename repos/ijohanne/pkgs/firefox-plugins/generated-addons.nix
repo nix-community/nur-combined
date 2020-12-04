@@ -1,5 +1,18 @@
 { buildFirefoxXpiAddon, fetchurl, stdenv }:
 {
+  "certificate-pinner" = buildFirefoxXpiAddon {
+    pname = "certificate-pinner";
+    version = "0.17.10";
+    addonId = "{9550e8a6-7884-43d1-ba9c-2c2928ab0a26}";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3599612/certificate_pinner-0.17.10-an+fx.xpi";
+    sha256 = "54b77a89a94156ce4cbdf372bfac1df222a13c776698bd91705714a118961e97";
+    meta = with stdenv.lib;
+      {
+        description = "Pins TLS certificates of configured web pages and interrupts/alerts when a new certificate is presented. Adds a button to the browser's toolbar for pinning and unpinning.";
+        license = licenses.gpl2;
+        platforms = platforms.all;
+      };
+  };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
     version = "4.9.26";
@@ -24,6 +37,74 @@
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
         description = "Tons of features to improve your user experience on YouTube™.";
+        platforms = platforms.all;
+      };
+  };
+  "facebook-container" = buildFirefoxXpiAddon {
+    pname = "facebook-container";
+    version = "2.1.2";
+    addonId = "@contain-facebook";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3650887/facebook_container-2.1.2-fx.xpi";
+    sha256 = "86c75e90ae6f3f59999406c34229f05d563e024e293dfcabcfea10c75ce76cf7";
+    meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/mozilla/contain-facebook";
+        description = "Prevent Facebook from tracking you around the web. The Facebook Container extension for Firefox helps you take control and isolate your web activity from Facebook.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+      };
+  };
+  "https-everywhere" = buildFirefoxXpiAddon {
+    pname = "https-everywhere";
+    version = "2020.11.17";
+    addonId = "https-everywhere@eff.org";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3679479/https_everywhere-2020.11.17-an+fx.xpi";
+    sha256 = "a6ebcb0a05607e54e7a9fc0b5b3832eda6f13f8dce2ee802164a455919e385c9";
+    meta = with stdenv.lib;
+      {
+        homepage = "https://www.eff.org/https-everywhere";
+        description = "Encrypt the web! HTTPS Everywhere is a Firefox extension to protect your communications by enabling HTTPS encryption automatically on sites that are known to support it, even when you type URLs or follow links that omit the https: prefix.";
+        platforms = platforms.all;
+      };
+  };
+  "lastpass-password-manager" = buildFirefoxXpiAddon {
+    pname = "lastpass-password-manager";
+    version = "4.58.0.4";
+    addonId = "support@lastpass.com";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3657084/lastpass_password_manager-4.58.0.4-an+fx.xpi";
+    sha256 = "6e339d83998fce0c1e6e4e1bbcaa0dfbd3eb74372635ab35bcedd2a23cac7335";
+    meta = with stdenv.lib;
+      {
+        homepage = "https://lastpass.com/";
+        description = "LastPass, an award-winning password manager, saves your passwords and gives you secure access from every computer and mobile device.";
+        platforms = platforms.all;
+      };
+  };
+  "reddit-enhancement-suite" = buildFirefoxXpiAddon {
+    pname = "reddit-enhancement-suite";
+    version = "5.20.9";
+    addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3652562/reddit_enhancement_suite-5.20.9-an+fx.xpi";
+    sha256 = "115b010ceadaf5ddcb77739f557c2a4f59e73b668149ddc01b51b03633e3e9a0";
+    meta = with stdenv.lib;
+      {
+        homepage = "https://redditenhancementsuite.com/";
+        description = "Reddit Enhancement Suite (RES) is a suite of tools to enhance your Reddit browsing experience.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+      };
+  };
+  "ublock-origin" = buildFirefoxXpiAddon {
+    pname = "ublock-origin";
+    version = "1.31.0";
+    addonId = "uBlock0@raymondhill.net";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3679754/ublock_origin-1.31.0-an+fx.xpi";
+    sha256 = "d9eef701b99866565708fe69b5855c1634187630e9e223e810f10e482545e6c0";
+    meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/gorhill/uBlock#ublock-origin";
+        description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
+        license = licenses.gpl3;
         platforms = platforms.all;
       };
   };

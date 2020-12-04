@@ -11,4 +11,6 @@
   vimPlugins = pkgs.recurseIntoAttrs (pkgs.callPackage ./vim-plugins { inherit pkgs sources; });
   neovim-nightly = pkgs.callPackage ./neovim-nightly { inherit pkgs sources; };
   firefoxPlugins = pkgs.recurseIntoAttrs (pkgs.callPackage ./firefox-plugins { });
+  firefox-hardened = pkgs.callPackage ./firefox-hardened { inherit pkgs; };
+  firefox-hardened-wayland = pkgs.callPackage ./firefox-hardened { inherit pkgs; forceWayland = true; };
 }
