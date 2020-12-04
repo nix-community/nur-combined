@@ -1,19 +1,22 @@
-image: nixos/20.09
+image: nixos/unstable
 packages:
   - nixos.cachix
+  - nixos.nixpkgs-fmt
+  - nixos.shellcheck
 sources:
   - https://git.sr.ht/~priegger/nur-packages
 secrets:
   -  979bc696-35ff-421b-a46e-99f04e657a87 # cachix-priegger
 environment:
   CACHIX_CACHE: priegger
+  NUR_REPO: priegger
 tasks:
   - setup: |
       cachix use "${CACHIX_CACHE}" --mode user-nixconf
   - lint: |
       cd nur-packages
-      nix-shell -p nixpkgs-fmt -I nixpkgs=./nix --run "find . -name '*.nix' -exec nixpkgs-fmt --check {} +"
-      nix-shell -p shellcheck -I nixpkgs=./nix --run "find . -name '*.sh' -exec shellcheck --shell bash {} +"
+      find . -name '*.nix' -exec nixpkgs-fmt --check {} +
+      find . -name '*.sh' -exec shellcheck --shell bash {} +
   - build: |
       cd nur-packages
 
@@ -31,6 +34,7 @@ tasks:
   - deploy: |
       cd nur-packages
       [ "$(git rev-parse HEAD)" == "$(git rev-parse master)" ] || complete-build
+      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"
 triggers:
   - action: email
     condition: failure

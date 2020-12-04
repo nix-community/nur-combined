@@ -6,13 +6,6 @@ import ./lib/make-test.nix (
   {
     name = "profiles";
     nodes = {
-      desktop = {
-        imports = [
-          ../modules/profiles/desktop.nix
-        ]
-        ++ lib.attrValues nur-no-pkgs.repos.kampka.modules
-        ;
-      };
       headless = {
         imports = [
           ../modules/profiles/headless.nix
@@ -75,37 +68,6 @@ import ./lib/make-test.nix (
 
 
         start_all()
-
-        with subtest("desktop starts"):
-            # programs that should be there
-            for program in ["gnome-tweaks"]:
-                desktop.succeed("type -p {} 1>&2".format(program))
-
-            # programs that should NOT be there
-            for program in [
-                "cheese",
-                "epiphany",
-                "evolution",
-                "geary",
-                "gnome-software",
-                "rygel",
-                "totem",
-                "tracker",
-            ]:
-                desktop.fail("type -p {} 1>&2".format(program))
-
-            # nix store paths that should not be there
-            for pattern in ["flatpak"]:
-                path = desktop.succeed(
-                    "find /nix/store -maxdepth 1 -name '*-{}-*' -print -quit".format(pattern)
-                )
-                assert not path, "Found unexpected nix store path {}".format(path)
-
-            checkCommonProperties(desktop)
-
-            # services that should be running
-            desktop.require_unit_state("display-manager.service")
-            desktop.require_unit_state("NetworkManager.service")
 
         with subtest("headless starts"):
             # programs that should be there
