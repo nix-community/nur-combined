@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-01T16:46:09Z",
+        "date": "2020-12-02T15:17:42Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "60bd189b8f7eec66a7204f30fc6dfb7b6e08fb28",
-        "sha256": "1xnaa1lin8zxikv55z5c4ffjrn4k95znaig6rbkaivw92qk02jqd",
+        "rev": "1b09f5d9d56e1d475c2153372e7a3fd21892f17b",
+        "sha256": "0a4a6dgw04w4a4zaz5194ip6nkjnyf3js63qa8hr7jj9i6315kw5",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/60bd189b8f7eec66a7204f30fc6dfb7b6e08fb28.tar.gz",
+        "url": "https://github.com/embox/embox/archive/1b09f5d9d56e1d475c2153372e7a3fd21892f17b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -377,15 +377,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2020-12-01T19:17:19Z",
+        "date": "2020-12-02T23:11:49Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "af6082425eed6c8edec6cde8e930372acbb6f12b",
-        "sha256": "091syl5cr7ahgs77vq3x7g8xqmvjx715xrbvqbj45jmsnjfyksw2",
+        "rev": "41c8a4d935cad0d41535397cb1d2ebcf1b61c4d7",
+        "sha256": "0lmd4g7lvgab41f0kd76ra2nihcsyiv7lqq29pazh6ws663cgz6w",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/af6082425eed6c8edec6cde8e930372acbb6f12b.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/41c8a4d935cad0d41535397cb1d2ebcf1b61c4d7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -673,11 +673,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "0sk6jb2nif8py01xq2spjycy2pnph6yvp33mjc1a277flzi8cs6r",
+        "sha256": "05wjqnxsylj039chlqp76pfniw1z79sbnls6qq16pvz35qms5q63",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-11-18.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-12-01.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-11-18"
+        "version": "2020-12-01"
     },
     "mercantile": {
         "branch": "master",
@@ -762,15 +762,15 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-02T20:15:16Z",
+        "date": "2020-12-03T18:01:18Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "0a3410bee4c3e0a7f7a6d13cdccf92465aebf344",
-        "sha256": "0h6gq8ky6mcn3xxv5q2fwc2mj5v0wgagn6xh5lll8xl9x064l027",
+        "rev": "55016c9e71ff35f762db59e267a377c270face3d",
+        "sha256": "1008c4hb80jbx016pvc4cz2wygh3zswvdpan8gy833yl9diqf9qw",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/0a3410bee4c3e0a7f7a6d13cdccf92465aebf344.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/55016c9e71ff35f762db59e267a377c270face3d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {

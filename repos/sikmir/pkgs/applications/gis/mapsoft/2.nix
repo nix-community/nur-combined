@@ -23,31 +23,27 @@
 
 stdenv.mkDerivation rec {
   pname = "mapsoft2";
-  version = "1.4";
+  version = "1.5";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = pname;
     rev = "${version}-alt1";
-    sha256 = "092n7hivdn4qk3bdinxszxgs2r79smxnkwgjw867yrh1h89n0bnd";
+    sha256 = "18h2w8s4s7xg630bq5ixv6qxsr8i32nfnqz74cn108drrqf5l5ks";
     fetchSubmodules = true;
   };
 
-  patches = [
-    (
-      substituteAll {
-        src = ./0002-fix-build.patch;
-        db = db.dev;
-        giflib = giflib;
-      }
-    )
-  ];
+  patches = (substituteAll {
+    src = ./0002-fix-build.patch;
+    db = db.dev;
+    giflib = giflib;
+  });
 
   postPatch = ''
     substituteInPlace modules/get_deps \
       --replace "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
     substituteInPlace modules/mapview/mapview.cpp \
-      --replace "/usr/share" "${placeholder "out"}/share"
+      --replace "/usr/share" "$(out)/share"
     patchShebangs .
   '';
 
@@ -57,6 +53,7 @@ stdenv.mkDerivation rec {
     unzip
     wrapGAppsHook
   ];
+
   buildInputs = [
     db
     gsettings-desktop-schemas
@@ -73,11 +70,9 @@ stdenv.mkDerivation rec {
     shapelib
   ];
 
-  dontConfigure = true;
-
   preBuild = "export SKIP_IMG_DIFFS=1";
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = [ "prefix=$(out)" ];
 
   meta = with stdenv.lib; {
     description = "A collection of tools and libraries for working with maps and geo-data";

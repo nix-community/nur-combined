@@ -81,7 +81,7 @@ stdenv.mkDerivation {
     export LINKFLAGS="-L${giflib}/lib -lgif"
   '';
 
-  sconsFlags = [ "minimal=1" "prefix=${placeholder "out"}" ];
+  sconsFlags = [ "minimal=1" "prefix=$(out)" ];
 
   postInstall = ''
     wrapPythonProgramsIn $out/lib/gimp/${stdenv.lib.versions.major gimp.version}.0/plug-ins/
