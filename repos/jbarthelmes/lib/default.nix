@@ -1,8 +1,10 @@
 { pkgs }:
 
 with pkgs.lib; {
-  # Add your library functions here
-  #
-  # hexint = x: hexvals.${toLower x};
+  normalUser = description: extraGroups: extraConfig:
+    {
+      isNormalUser = true;
+      inherit description extraGroups;
+    } // extraConfig;
 }
 

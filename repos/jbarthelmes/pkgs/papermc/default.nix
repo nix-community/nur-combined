@@ -4,7 +4,7 @@ stdenv.mkDerivation {
   version = "1.15.2";
 
   src = fetchurl {
-    url    = "https://papermc.io/api/v1/paper/1.15.2/126/download";
+    url = "https://papermc.io/api/v1/paper/1.15.2/126/download";
     sha256 = "138qaqkacn3dz16qy13vd0pj6x2xj89xswyd8ap3ra0hm9amalvv";
   };
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation {
 
   meta = {
     description = "PaperMC Minecraft Server";
-    homepage    = "https://papermc.io/";
-    license     = stdenv.lib.licenses.gpl3;
+    homepage = "https://papermc.io/";
+    license = stdenv.lib.licenses.gpl3;
   };
 }
