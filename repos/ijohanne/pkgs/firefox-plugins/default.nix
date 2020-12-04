@@ -7,5 +7,13 @@ let
     inherit buildFirefoxXpiAddon fetchurl stdenv;
   };
 
+  others = {
+    "fx-cast" = pkgs.fetchFirefoxAddon {
+      name = "fx_cast";
+      url = "https://github.com/hensm/fx_cast/releases/download/v0.1.2/fx_cast-0.1.2-fx.xpi";
+      sha256 = "1ibigm166b84p64vfs2kijs8g5y3y3dgbh54ifcg5lcbksjmmd1f";
+    };
+  };
+
 in
-packages // { inherit buildFirefoxXpiAddon; }
+others // packages // { inherit buildFirefoxXpiAddon; }
