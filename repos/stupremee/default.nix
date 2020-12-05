@@ -10,11 +10,11 @@ rec {
   ghidra = pkgs.callPackage ./pkgs/ghidra { };
   vimPlugins = pkgs.recurseIntoAttrs
     (pkgs.callPackage ./pkgs/vimPlugins { inherit pkgs; });
-  neovim = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/neovim { });
   blastradius = pkgs.callPackage ./pkgs/blastradius { };
+  rust-analyzer = pkgs.callPackage ./pkgs/rust-analyzer { };
 
   # Currently broken
-  #veloren = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/veloren { });
+  # veloren = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/veloren { });
 
   # Somehow the build currently hangs
   # ddlog = pkgs.callPackage ./pkgs/ddlog { };
