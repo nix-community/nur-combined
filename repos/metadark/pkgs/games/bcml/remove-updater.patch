@@ -1,17 +1,21 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index c1a2948..3a7ebf3 100644
+index 6f55dc5..0523a21 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
-@@ -77,7 +77,7 @@ class Api:
+@@ -60,11 +60,7 @@ class Api:
          self.tmp_files = []
  
      def get_ver(self, params=None):
--        return {"version": USER_VERSION, "update": util.get_latest_bcml() > VERSION}
+-        return {
+-            "version": USER_VERSION,
+-            "update": util.get_latest_bcml() > VERSION
+-            and not util.get_settings("suppress_update"),
+-        }
 +        return {"version": USER_VERSION}
  
      @win_or_lose
      def sanity_check(self, kwargs=None):
-@@ -691,52 +691,6 @@ class Api:
+@@ -697,47 +693,6 @@ class Api:
          help_thread = Thread(target=help_window, args=(self.host,))
          help_thread.start()
  
@@ -36,7 +40,7 @@ index c1a2948..3a7ebf3 100644
 -        if parent.name == "pkgs":
 -            try:
 -                (parent / "bcml").rename(parent / "bcml.bak")
--            except:
+-            except (OSError, PermissionError, FileExistsError, FileNotFoundError):
 -                pass
 -        if SYSTEM == "Windows":
 -            result = run(
@@ -47,17 +51,12 @@ index c1a2948..3a7ebf3 100644
 -                text=True,
 -            )
 -        else:
--            result = run(
--                args,
--                capture_output=True,
--                check=False,
--                text=True,
--            )
+-            result = run(args, capture_output=True, check=False, text=True,)
 -        if result.stderr:
 -            if parent.name == "pkgs":
 -                try:
 -                    (parent / "bcml.bak").rename(parent / "bcml")
--                except:
+-                except (OSError, PermissionError, FileExistsError, FileNotFoundError):
 -                    pass
 -            raise RuntimeError(result.stderr)
 -
@@ -65,7 +64,7 @@ index c1a2948..3a7ebf3 100644
          opener = Thread(target=start_new_instance)
          opener.start()
 diff --git a/bcml/assets/src/js/App.jsx b/bcml/assets/src/js/App.jsx
-index 8673919..c5f4330 100644
+index 365874b..6950b00 100644
 --- a/bcml/assets/src/js/App.jsx
 +++ b/bcml/assets/src/js/App.jsx
 @@ -35,7 +35,6 @@ class App extends React.Component {
@@ -76,7 +75,7 @@ index 8673919..c5f4330 100644
              version: "3.0"
          };
          this.selects = null;
-@@ -278,33 +277,6 @@ class App extends React.Component {
+@@ -275,33 +274,6 @@ class App extends React.Component {
              .catch(this.props.onError);
      };
  
@@ -110,8 +109,8 @@ index 8673919..c5f4330 100644
      setProgress = (title, msg) => {
          this.setState({
              progressTitle: title,
-@@ -329,9 +301,6 @@ class App extends React.Component {
-                             onClick={() => pywebview.api.open_help()}>
+@@ -325,9 +297,6 @@ class App extends React.Component {
+                         <Dropdown.Item onClick={() => pywebview.api.open_help()}>
                              Help
                          </Dropdown.Item>
 -                        <Dropdown.Item onClick={this.updateBcml}>
@@ -120,7 +119,7 @@ index 8673919..c5f4330 100644
                          <Dropdown.Item as="a" href="/index.html?firstrun">
                              Run Setup Wizard
                          </Dropdown.Item>
-@@ -450,14 +419,6 @@ class App extends React.Component {
+@@ -435,14 +404,6 @@ class App extends React.Component {
                      message={this.state.confirmText}
                      onClose={this.state.confirmCallback.bind(this)}
                  />
@@ -135,7 +134,7 @@ index 8673919..c5f4330 100644
                  <BackupModal
                      show={this.state.showBackups}
                      busy={this.state.showProgress}
-@@ -582,26 +543,4 @@ const ConfirmDialog = props => {
+@@ -563,23 +524,4 @@ const ConfirmDialog = props => {
      );
  };
  
@@ -146,14 +145,11 @@ index 8673919..c5f4330 100644
 -                <Modal.Title>Update Available</Modal.Title>
 -            </Modal.Header>
 -            <Modal.Body>
--                There is a new update available for BCML. Would you like to
--                install it?
+-                There is a new update available for BCML. Would you like to install it?
 -            </Modal.Body>
 -            <Modal.Footer>
 -                <Button onClick={() => props.onClose(true)}>OK</Button>
--                <Button
--                    variant="secondary"
--                    onClick={() => props.onClose(false)}>
+-                <Button variant="secondary" onClick={() => props.onClose(false)}>
 -                    Close
 -                </Button>
 -            </Modal.Footer>
@@ -162,11 +158,54 @@ index 8673919..c5f4330 100644
 -};
 -
  export default App;
+diff --git a/bcml/assets/src/js/Settings.jsx b/bcml/assets/src/js/Settings.jsx
+index a535822..1731ac1 100644
+--- a/bcml/assets/src/js/Settings.jsx
++++ b/bcml/assets/src/js/Settings.jsx
+@@ -22,7 +22,6 @@ class Settings extends React.Component {
+             wiiu: true,
+             no_hardlinks: false,
+             force_7z: false,
+-            suppress_update: false,
+             valid: false
+         };
+         this.handleChange = this.handleChange.bind(this);
+@@ -464,22 +463,6 @@ class Settings extends React.Component {
+                                 />
+                             </OverlayTrigger>
+                         </Form.Group>
+-                        <Form.Group controlId="suppress_update">
+-                            <OverlayTrigger
+-                                overlay={
+-                                    <Tooltip>
+-                                        By default, BCML will notify you when it detects an updated version is available. Check this to turn that off.
+-                                    </Tooltip>
+-                                }
+-                                placement={"left"}>
+-                                <Form.Check
+-                                    type="checkbox"
+-                                    label="Disable BCML update notification"
+-                                    checked={this.state.suppress_update}
+-                                    onChange={this.handleChange}
+-                                />
+-                            </OverlayTrigger>
+-                        </Form.Group>
+                         {window.navigator.platform.includes("inux") && (
+                             <Form.Group controlId="force_7z">
+                                 <OverlayTrigger
 diff --git a/bcml/util.py b/bcml/util.py
-index 3e3bcea..4ee4ee5 100644
+index dba74f2..c505bae 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
-@@ -1238,32 +1238,6 @@ def get_open_port():
+@@ -555,7 +555,6 @@ DEFAULT_SETTINGS = {
+     "wiiu": True,
+     "no_hardlinks": False,
+     "force_7z": False,
+-    "suppress_update": False,
+ }
+ 
+ 
+@@ -1240,35 +1239,6 @@ def get_open_port():
      return port
  
  
@@ -186,10 +225,13 @@ index 3e3bcea..4ee4ee5 100644
 -            creationflags=CREATE_NO_WINDOW,
 -            capture_output=True,
 -            universal_newlines=True,
+-            check=False,
 -        )
 -    else:
--        result = run(args, capture_output=True, universal_newlines=True,)
+-        result = run(args, capture_output=True, universal_newlines=True, check=False)
 -    vers = sorted(re.findall(r"[0-9]\.[0-9]+\.[0-9a-z]+", result.stderr))
+-    if not DEBUG:
+-        vers = [v for v in vers if ".a" not in v and ".b" not in v]
 -    try:
 -        return vers[-1]
 -    except IndexError:
