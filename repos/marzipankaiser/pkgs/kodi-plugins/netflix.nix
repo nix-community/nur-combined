@@ -11,7 +11,7 @@ kodiPlugins.kodi.pythonPackages.toPythonModule (kodiPlugins.mkKodiPlugin rec {
     owner = "CastagnaIT";
     repo = "plugin.video.netflix";
     rev = "${version}";
-    sha256 = "1ssc8ca3dk76z9qkcvnv7dga72ffhqn7jac1j4x3x8im292givip";
+    sha256 = "0wjjdbfjfarfgigr6cb8p7lmrikaz782rfaw7yid9qqwx4rcyv7a";
   };
 
   meta = {
