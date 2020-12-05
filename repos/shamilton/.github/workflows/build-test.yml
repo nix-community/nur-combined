@@ -11,8 +11,8 @@ on:
        - nixpkgs-unstable
        - nixos-unstable
   schedule:
-       # Once a week
-       - cron: '* * 7 * *' 
+       # Once a week on saturday
+       - cron: '* * * * 5' 
   workflow_dispatch:
 env:
   NUR_REPO: shamilton
