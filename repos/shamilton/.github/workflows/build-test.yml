@@ -12,7 +12,7 @@ on:
        - nixos-unstable
   schedule:
        # Once a week on saturday
-       - cron: '* * * * 5' 
+       - cron: '7 13 * * 6' 
   workflow_dispatch:
 env:
   NUR_REPO: shamilton
