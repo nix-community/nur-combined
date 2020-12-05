@@ -508,10 +508,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "3.2.0";
+      version = "3.2.2";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3687301/grammatik_und_rechtschreibprufung_languagetool-3.2.0-fx.xpi";
-      sha256 = "197343c1e5e9a2e9658b8dcc6a90226b0eca96870070b653f17fce32123f6b3b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3689217/grammatik_und_rechtschreibprufung_languagetool-3.2.2-fx.xpi";
+      sha256 = "6a368329f38b6cadd32795cba4b738b97358238dae809e6437d57492fc48d2e9";
       meta = with stdenv.lib;
       {
         homepage = "https://languagetool.org";
@@ -726,10 +726,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.10.0";
+      version = "4.10.1";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3676999/react_developer_tools-4.10.0-fx.xpi";
-      sha256 = "cce7d1701b68939236c24056cf7f789783f37db5d19fbb8c8708917d6eb0f268";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3689412/react_developer_tools-4.10.1-fx.xpi";
+      sha256 = "f089d5d4f82782b34d4bad9483bcc12d06cbcdfa8369e6ea516a736c07767a16";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/facebook/react";
