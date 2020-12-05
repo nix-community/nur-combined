@@ -5,4 +5,5 @@
   apt-cacher-ng = ./apt-cacher-ng;
   nginx-sso = ./nginx-sso;
   duplicity = ./duplicity;
+  wordpress = ./wordpress;
 }
