@@ -3,6 +3,7 @@
     ./apps.nix
     ./git.nix
     ./gpg.nix
+    ./haskell.nix
     ./kakoune.nix
     ./lorri.nix
     ./neuron.nix
