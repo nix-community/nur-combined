@@ -1,5 +1,6 @@
 { config, pkgs, ... }: {
   environment.pathsToLink = [ "/share/zsh" ];
+  nix.trustedUsers = [ "root" "sam" ];
   programs.sway.enable = true;
   services.xserver.enable = true;
   services.xserver.displayManager = {
