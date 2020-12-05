@@ -28,6 +28,10 @@ Search: <https://nix-community.github.io/nur-search/repos/wamserma/>
 
 + [dietlibc](https://www.fefe.de/dietlibc/) a libc optimized for small size, useful for small statically linked binaries
 
+### Games
+
++ [friidump](https://github.com/bradenmcd/friidump) a command-line tool to backup Gamecube and Wii game discs
+
 ### Misc
 
 + [Genius SF-600 Firmware](http://download.geniusnet.com/2012/Scanner/CP-SF600_Win8_V5.3.1.zip) Firmware blob for the Genius ColorPage SF-600 Scanner, to be used with SANE
@@ -36,12 +40,12 @@ Search: <https://nix-community.github.io/nur-search/repos/wamserma/>
 
 ## How to use?
 
-Launch directly:  
+Launch directly:
 ```
 nix run -f "https://github.com/wamserma/nur-packages/archive/master.tar.gz" bundlewrap --command bw --version
 ```
 
-One-off install (example):  
+One-off install (example):
 ```
 nix-env -f "https://github.com/wamserma/nur-packages/archive/master.tar.gz" -iA bundlewrap
 ```
