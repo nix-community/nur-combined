@@ -5,13 +5,13 @@ with pkgs;
 kodiPlugins.kodi.pythonPackages.toPythonModule (kodiPlugins.mkKodiPlugin rec {
   plugin = "netflix";
   namespace = "plugin.video.netflix";
-  version = "v1.10.0";
+  version = "v1.11.0";
 
   src = fetchFromGitHub {
     owner = "CastagnaIT";
     repo = "plugin.video.netflix";
     rev = "${version}";
-    sha256 = "1b7pry6cmajg4swl01z5q1azajlsxsp881pq8mdk31kc48q37xzm";
+    sha256 = "1ssc8ca3dk76z9qkcvnv7dga72ffhqn7jac1j4x3x8im292givip";
   };
 
   meta = {
