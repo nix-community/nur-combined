@@ -50,6 +50,12 @@
       '';
     };
 
+    org-roam = {
+      config = ''
+        (setq org-roam-graph-executable "${pkgs.graphviz}/bin/dot")
+      '';
+    };
+
     pandoc-mode = {
       config = ''
         (setq pandoc-binary "${pkgs.pandoc}/bin/pandoc")
