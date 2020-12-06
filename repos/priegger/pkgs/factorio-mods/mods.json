@@ -1,10 +1,10 @@
 [
   {
     "name": "aai-programmable-vehicles",
-    "version": "0.7.3",
-    "file_name": "aai-programmable-vehicles_0.7.3.zip",
-    "download_url": "/download/aai-programmable-vehicles/5fbef98d064e5b290e3f37a7",
-    "sha1": "19d6191f1d88ebda3ab3ea089ddaf668ba0b4cc8",
+    "version": "0.7.5",
+    "file_name": "aai-programmable-vehicles_0.7.5.zip",
+    "download_url": "/download/aai-programmable-vehicles/5fcb59857d2188fa4933df9a",
+    "sha1": "ce9aebd5c301e14423ef8b1e35209edcd04b1ec8",
     "dependencies": [
       "base >= 1.1.0",
       "aai-signals >= 0.4.1",
@@ -579,10 +579,10 @@
   },
   {
     "name": "Nanobots",
-    "version": "3.2.13",
-    "file_name": "Nanobots_3.2.13.zip",
-    "download_url": "/download/Nanobots/5fc8763164e5e76b1d2f8094",
-    "sha1": "75c11f975b23d260bcd0689f980d0a7188f9f778",
+    "version": "3.2.14",
+    "file_name": "Nanobots_3.2.14.zip",
+    "download_url": "/download/Nanobots/5fcbe8f77d2188fa4962e953",
+    "sha1": "ab1c5adecc614f87f31647600da93a8904e93263",
     "dependencies": [
       "base >= 1.1.0",
       "stdlib >= 1.4.6",
@@ -591,19 +591,18 @@
   },
   {
     "name": "Rampant",
-    "version": "1.0.0",
-    "file_name": "Rampant_1.0.0.zip",
-    "download_url": "/download/Rampant/5f8d09798efc75526e6edd6a",
-    "sha1": "846311a6057c3d04627e93c8ee184aba1144c1b1",
+    "version": "1.0.1",
+    "file_name": "Rampant_1.0.1.zip",
+    "download_url": "/download/Rampant/5fcc7cd02aa122d089ab4731",
+    "sha1": "42275b9527a2e57b2faa0b18c692492111e467c3",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
       "? Natural_Evolution_Enemies >= 0.17.0",
       "? Clockwork",
       "? Orbital Ion Cannon",
-      "? RampantArsenal",
-      "? RampantResources",
-      "? ArmouredBiters"
+      "? ArmouredBiters",
+      "? Krastorio2"
     ]
   },
   {
