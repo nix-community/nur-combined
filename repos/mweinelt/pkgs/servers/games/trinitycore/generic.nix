@@ -13,6 +13,9 @@
 , repo ? "TrinityCore"
 , rev ? version
 , sha256
+# genrev
+, branch ? "master"
+, commit
 , ...
 }:
 
@@ -23,6 +26,12 @@ llvmPackages_11.stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     inherit owner repo rev sha256;
   };
+
+  postPatch = ''
+    substituteInPlace cmake/genrev.cmake \
+      --replace "set(rev_hash \"unknown\")" "set(rev_hash \"${commit}\")" \
+      --replace "set(rev_branch \"Archived\")" "set(rev_branch \"${branch}\")"
+  '';
 
   nativeBuildInputs = [ cmake git ];
   buildInputs = [ libmysqlclient boost readline bzip2 ];

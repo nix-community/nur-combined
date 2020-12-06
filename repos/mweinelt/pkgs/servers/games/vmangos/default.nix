@@ -20,6 +20,11 @@ llvmPackages_11.stdenv.mkDerivation rec {
     sha256 = "124dvalsw7iy13042dfjmjzcrwkg18z5q95h9hp9njf0d0l3khgd";
   };
 
+  postPatch = ''
+    substituteInPlace cmake/revision.h.cmake \
+      --replace "@rev_hash@" "${src.rev}"
+  '';
+
   nativeBuildInputs = [ cmake git ];
   buildInputs = [ ace libmysqlclient openssl.dev tbb ];
 

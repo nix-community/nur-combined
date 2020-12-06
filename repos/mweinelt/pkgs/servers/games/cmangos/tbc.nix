@@ -22,6 +22,11 @@ llvmPackages_11.stdenv.mkDerivation rec {
     ./0001-CMakeFiles.txt-look-for-dynamically-linked-boost-lib.patch
   ];
 
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace "set(REVISION_ID \"Git repository not found\")" "set(REVISION_ID \"${src.rev}\")"
+  '';
+
   nativeBuildInputs = [ cmake git ];
   buildInputs = [ boost libmysqlclient ];
 
