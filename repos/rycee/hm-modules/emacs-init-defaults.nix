@@ -6,6 +6,12 @@
   programs.emacs.init.usePackage = {
     csharp-mode = { mode = [ ''"\\.cs\\'"'' ]; };
 
+    dap-lldb = {
+      config = ''
+        (setq dap-lldb-debug-program "${pkgs.lldb}/bin/lldb-vscode")
+      '';
+    };
+
     deadgrep = {
       config = ''
         (setq deadgrep-executable "${pkgs.ripgrep}/bin/rg")
