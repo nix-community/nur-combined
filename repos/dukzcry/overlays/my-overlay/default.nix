@@ -22,4 +22,9 @@ self: super:
       mkDerivation = stdenv.mkDerivation;
     };
   };
+  haskellPackages = super.haskellPackages.override {
+    overrides = hsSelf: hsSuper: {
+      hakyll-images = self.haskell.lib.unmarkBroken hsSuper.hakyll-images;
+    };
+  };
 }
