@@ -399,6 +399,19 @@
         platforms = platforms.all;
         };
       };
+    "h264ify" = buildFirefoxXpiAddon {
+      pname = "h264ify";
+      version = "1.1.0";
+      addonId = "jid1-TSgSxBhncsPBWQ@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3398929/h264ify-1.1.0-an+fx.xpi";
+      sha256 = "87bd3c4ab1a2359c01a1d854d7db8428b44316fef5b2ac09e228c5318c57a515";
+      meta = with stdenv.lib;
+      {
+        description = "Makes YouTube stream H.264 videos instead of VP8/VP9 videos";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "header-editor" = buildFirefoxXpiAddon {
       pname = "header-editor";
       version = "4.1.1";
@@ -804,6 +817,20 @@
         homepage = "https://github.com/mbnuqw/sidebery";
         description = "Tabs tree and bookmarks in sidebar with advanced containers configuration.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "simple-tab-groups" = buildFirefoxXpiAddon {
+      pname = "simple-tab-groups";
+      version = "4.7";
+      addonId = "simple-tab-groups@drive4ik";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3683240/simple_tab_groups-4.7-fx.xpi";
+      sha256 = "51f8aaec37c27eb31fd1f210dbcf3a5ad35c190e90b5a59c0d7573cca480f470";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/drive4ik/simple-tab-groups";
+        description = "Create, modify, and quickly change tab groups";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };

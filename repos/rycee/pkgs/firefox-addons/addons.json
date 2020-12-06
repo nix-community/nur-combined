@@ -109,6 +109,9 @@
     "pname": "swedish-dictionary"
   },
   {
+    "slug": "h264ify"
+  },
+  {
     "slug": "header-editor"
   },
   {
@@ -223,6 +226,9 @@
   },
   {
     "slug": "sidebery"
+  },
+  {
+    "slug": "simple-tab-groups"
   },
   {
     "slug": "styl-us",
