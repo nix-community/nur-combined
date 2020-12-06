@@ -13,10 +13,12 @@ stdenv.mkDerivation {
   sourceRoot = ".";
   unpackCmd = "gunzip -c $curSrc > cgpsmapper-static";
 
-  dontBuild = true;
   dontFixup = true;
+  doInstallCheck = true;
 
   installPhase = "install -Dm755 cgpsmapper-static -t $out/bin";
+
+  installCheckPhase = "$out/bin/cgpsmapper-static -h";
 
   meta = with stdenv.lib; {
     description = "GIS converter into GARMIN compatible format maps";

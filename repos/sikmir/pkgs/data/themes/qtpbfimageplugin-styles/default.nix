@@ -6,8 +6,6 @@ stdenv.mkDerivation {
 
   src = sources.qtpbfimageplugin-styles;
 
-  dontBuild = true;
-
   installPhase = ''
     install -dm755 $out/share/gpxsee/style
     cp -r Mapbox OpenMapTiles Tilezen $out/share/gpxsee/style

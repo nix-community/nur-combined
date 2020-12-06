@@ -13,10 +13,12 @@ stdenv.mkDerivation {
   sourceRoot = ".";
   unpackCmd = "gunzip -c $curSrc > sendmap20";
 
-  dontBuild = true;
   dontFixup = true;
+  doInstallCheck = true;
 
   installPhase = "install -Dm755 sendmap20 -t $out/bin";
+
+  installCheckPhase = "$out/bin/sendmap20 -h";
 
   meta = with stdenv.lib; {
     description = "Software for uploading maps to your GPS";

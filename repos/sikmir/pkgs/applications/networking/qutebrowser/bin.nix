@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "qutebrowser-bin";
-  version = "1.14.0";
+  version = "1.14.1";
 
   src = fetchfromgh {
     owner = "qutebrowser";
     repo = "qutebrowser";
     version = "v${version}";
     name = "qutebrowser-${version}.dmg";
-    sha256 = "03d5bf5lpxyphi0ri6ykh7dr6izsikk22ivh6mh09q0a2y0kdf44";
+    sha256 = "1a4pakpn39pq72bgkqd1f1rik139c0shjfszxh1iqn7fb3dqrqmj";
   };
 
   preferLocalBuild = true;

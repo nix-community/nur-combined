@@ -1,24 +1,18 @@
-{ stdenvNoCC, fetchurl, unzip, country ? "FIN", lang ? "en" }:
-
-stdenvNoCC.mkDerivation {
+{ lib, fetchurl, unzip, country ? "FIN", lang ? "en" }:
+let
   pname = "freizeitkarte-osm";
-  version = "2020-06-26";
-
-  src = fetchurl {
-    url = "http://download.freizeitkarte-osm.de/garmin/latest/${country}_${lang}_gmapsupp.img.zip";
-    sha256 = "0nbp7nw7yi8d4wd19ll33h0wbb7zmz6r4lnxcqzqlnkbvspz8qyb";
-  };
-
-  unpackPhase = "${unzip}/bin/unzip $src";
-
-  dontConfigure = true;
-  dontBuild = true;
-
+  version = "2020-09-09";
+in
+fetchurl {
+  name = "${pname}-${version}";
+  url = "http://download.freizeitkarte-osm.de/garmin/latest/${country}_${lang}_gmapsupp.img.zip";
+  sha256 = "09g28v8vrw98kskpf8w8cgdzz7lp6bp6zb6xyz7r9b4ndiyzbip7";
+  downloadToTemp = true;
+  recursiveHash = true;
   preferLocalBuild = true;
+  postFetch = "${unzip}/bin/unzip $downloadedFile -d $out";
 
-  installPhase = "install -Dm644 *.img -t $out";
-
-  meta = with stdenvNoCC.lib; {
+  meta = with lib; {
     description = "Freizeitkarte map with DEM (Digital Elevation Model) and hillshading";
     homepage = "https://freizeitkarte-osm.de/";
     license = licenses.free;

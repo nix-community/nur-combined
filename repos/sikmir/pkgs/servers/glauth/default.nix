@@ -10,14 +10,9 @@ buildGoModule {
 
   nativeBuildInputs = [ go-bindata ];
 
-  buildFlagsArray = ''
-    -ldflags=
-      -X main.GitCommit=${sources.glauth.rev}
-  '';
+  buildFlagsArray = [ "-ldflags=-X main.GitCommit=${sources.glauth.rev}" ];
 
-  preBuild = ''
-    go-bindata -pkg=assets -o=pkg/assets/bindata.go assets
-  '';
+  preBuild = "go-bindata -pkg=assets -o=pkg/assets/bindata.go assets";
 
   doCheck = false;
 

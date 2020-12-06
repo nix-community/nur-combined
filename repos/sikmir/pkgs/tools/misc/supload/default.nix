@@ -8,8 +8,6 @@ stdenv.mkDerivation {
 
   buildInputs = [ curl file ];
 
-  dontBuild = true;
-  dontConfigure = true;
 
   prePatch = ''
     substituteInPlace supload.sh \

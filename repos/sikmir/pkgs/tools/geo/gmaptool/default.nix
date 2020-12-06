@@ -13,7 +13,6 @@ stdenv.mkDerivation {
     stripRoot = false;
   };
 
-  dontBuild = true;
   dontFixup = true;
 
   installPhase = "install -Dm755 gmt -t $out/bin";
