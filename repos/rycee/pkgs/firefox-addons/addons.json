@@ -70,6 +70,14 @@
     "slug": "disconnect"
   },
   {
+    "slug": "duckduckgo-for-firefox",
+    "pname": "duckduckgo-privacy-essentials",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
+  },
+  {
     "slug": "ecosia-the-green-search",
     "pname": "ecosia"
   },
@@ -175,6 +183,9 @@
   },
   {
     "slug": "linkhints"
+  },
+  {
+    "slug": "mailvelope"
   },
   {
     "slug": "matte-black-red",
@@ -290,6 +301,9 @@
   },
   {
     "slug": "umatrix"
+  },
+  {
+    "slug": "unpaywall"
   },
   {
     "slug": "vim-vixen"

@@ -259,6 +259,20 @@
         platforms = platforms.all;
         };
       };
+    "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
+      pname = "duckduckgo-privacy-essentials";
+      version = "2020.10.21";
+      addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3664669/duckduckgo_privacy_essentials-2020.10.21-an+fx.xpi";
+      sha256 = "d94db19005bd837b8e0a1b15964fa04acde120ee3ab33a4974ae4ffb4d814ef6";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://duckduckgo.com/app";
+        description = "Privacy, simplified. Our add-on provides the privacy essentials you need to seamlessly take control of your personal information, no matter where the internet takes you: tracker blocking, smarter encryption, DuckDuckGo private search, and more.";
+        license = licenses.asl20;
+        platforms = platforms.all;
+        };
+      };
     "ecosia" = buildFirefoxXpiAddon {
       pname = "ecosia";
       version = "4.0.4";
@@ -596,6 +610,20 @@
         homepage = "https://lydell.github.io/LinkHints";
         description = "Click with your keyboard.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "mailvelope" = buildFirefoxXpiAddon {
+      pname = "mailvelope";
+      version = "4.4.0";
+      addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3666219/mailvelope-4.4.0-fx.xpi";
+      sha256 = "03945eb7a4949f9429a3416ff46a791dafdcbd7943dc825c60ed39d996a1f03b";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://www.mailvelope.com/";
+        description = "Enhance your webmail provider with end-to-end encryption. Secure email communication based on the OpenPGP standard.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };
@@ -1029,6 +1057,20 @@
         homepage = "https://github.com/gorhill/uMatrix";
         description = "Point &amp; click to forbid/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "unpaywall" = buildFirefoxXpiAddon {
+      pname = "unpaywall";
+      version = "3.92";
+      addonId = "{f209234a-76f0-4735-9920-eb62507a54cd}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3669962/unpaywall-3.92-fx.xpi";
+      sha256 = "d702c157890adbec6cd6b0f4c978759c91c24b9c16f635055ffee0f0696b6cf5";
+      meta = with stdenv.lib;
+      {
+        homepage = "http://unpaywall.org/products/extension";
+        description = "Get free text of research papers as you browse, using Unpaywall's index of ten million legal, open-access articles.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
