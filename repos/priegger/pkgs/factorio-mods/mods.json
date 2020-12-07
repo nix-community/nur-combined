@@ -268,10 +268,10 @@
   },
   {
     "name": "bobassembly",
-    "version": "1.1.1",
-    "file_name": "bobassembly_1.1.1.zip",
-    "download_url": "/download/bobassembly/5fbfe3024d167703aa18204e",
-    "sha1": "6d17d4ed188f2780973888624a1d15abba0428c4",
+    "version": "1.1.2",
+    "file_name": "bobassembly_1.1.2.zip",
+    "download_url": "/download/bobassembly/5fcd52780d257a3d1e87d6d0",
+    "sha1": "d6c62636312064d5413f1073215a6a12dd3659a8",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -302,10 +302,10 @@
   },
   {
     "name": "bobelectronics",
-    "version": "1.1.1",
-    "file_name": "bobelectronics_1.1.1.zip",
-    "download_url": "/download/bobelectronics/5fbfe31f3e5a8fb3b48a4ccd",
-    "sha1": "82e6c38d500c63083011a8e04ad4caea4363df8a",
+    "version": "1.1.2",
+    "file_name": "bobelectronics_1.1.2.zip",
+    "download_url": "/download/bobelectronics/5fcd528b0d257a3d1e87dbc4",
+    "sha1": "27dd8734f5b914c23ee539b761811101d2abae09",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -324,10 +324,10 @@
   },
   {
     "name": "bobequipment",
-    "version": "1.1.0",
-    "file_name": "bobequipment_1.1.0.zip",
-    "download_url": "/download/bobequipment/5fbe8e3258f14815ece5ca77",
-    "sha1": "fac982ff4214e4a2662eceaa32d350942aaaf487",
+    "version": "1.1.2",
+    "file_name": "bobequipment_1.1.2.zip",
+    "download_url": "/download/bobequipment/5fcd52a5c9e3e3813aff14cb",
+    "sha1": "fda1d86faf62851489400815d4d0e829d99695cd",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0"
@@ -357,20 +357,20 @@
   },
   {
     "name": "boblibrary",
-    "version": "1.1.0",
-    "file_name": "boblibrary_1.1.0.zip",
-    "download_url": "/download/boblibrary/5fbe8d7abdbc78df5117ea95",
-    "sha1": "667a2cf14bb4e90a691fa1c36a0022f1e7022406",
+    "version": "1.1.2",
+    "file_name": "boblibrary_1.1.2.zip",
+    "download_url": "/download/boblibrary/5fcd5257acab3495a6597bbd",
+    "sha1": "8d16114faf969567f9ffdf28ea63bb27e227c5b3",
     "dependencies": [
       "base >= 1.1.0"
     ]
   },
   {
     "name": "boblogistics",
-    "version": "1.1.1",
-    "file_name": "boblogistics_1.1.1.zip",
-    "download_url": "/download/boblogistics/5fbfe35e064e5b290e831273",
-    "sha1": "6b241816b1ca9c3c0c6385fa20ea4731fd40ffaa",
+    "version": "1.1.2",
+    "file_name": "boblogistics_1.1.2.zip",
+    "download_url": "/download/boblogistics/5fcd52d1c9e3e3813aff23b0",
+    "sha1": "1f70d68927c877d7260105d4288d71ee99b73e18",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -393,10 +393,10 @@
   },
   {
     "name": "bobmodules",
-    "version": "1.1.0",
-    "file_name": "bobmodules_1.1.0.zip",
-    "download_url": "/download/bobmodules/5fbe8eaaf6658f34bfce3c31",
-    "sha1": "9333bccc35fa4b58a60ffc1a8d6f49993cd8e0e7",
+    "version": "1.1.2",
+    "file_name": "bobmodules_1.1.2.zip",
+    "download_url": "/download/bobmodules/5fcd52eec9e3e3813aff2c98",
+    "sha1": "901f59666bc42bb87514c3919aaf1478458edfe6",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -418,10 +418,10 @@
   },
   {
     "name": "bobplates",
-    "version": "1.1.1",
-    "file_name": "bobplates_1.1.1.zip",
-    "download_url": "/download/bobplates/5fbfe394064e5b290e832a0b",
-    "sha1": "417921d75c2d2da48cb303ecdb18c59b57bb722f",
+    "version": "1.1.2",
+    "file_name": "bobplates_1.1.2.zip",
+    "download_url": "/download/bobplates/5fcd530ec9e3e3813aff3113",
+    "sha1": "6f9c9ee445038ba1181a4799d40cc0c50efe4622",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -443,10 +443,10 @@
   },
   {
     "name": "bobrevamp",
-    "version": "1.1.1",
-    "file_name": "bobrevamp_1.1.1.zip",
-    "download_url": "/download/bobrevamp/5fbfe3f9064e5b290e8359d9",
-    "sha1": "b51f31f459183718f8b741cd5091b365a48bd01b",
+    "version": "1.1.2",
+    "file_name": "bobrevamp_1.1.2.zip",
+    "download_url": "/download/bobrevamp/5fcd5326acab3495a659bc9d",
+    "sha1": "646bb486b7780a6e917c2f7208fc4fb70eded3ee",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -455,10 +455,10 @@
   },
   {
     "name": "bobtech",
-    "version": "1.1.1",
-    "file_name": "bobtech_1.1.1.zip",
-    "download_url": "/download/bobtech/5fbfe413064e5b290e8361a6",
-    "sha1": "86942a9d5ced12aef590098408c529c975f4713c",
+    "version": "1.1.2",
+    "file_name": "bobtech_1.1.2.zip",
+    "download_url": "/download/bobtech/5fcd533f0d257a3d1e882af6",
+    "sha1": "a9065fd379bbd48617fccbe503e6d1e646f137bb",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -468,10 +468,10 @@
   },
   {
     "name": "bobvehicleequipment",
-    "version": "1.1.1",
-    "file_name": "bobvehicleequipment_1.1.1.zip",
-    "download_url": "/download/bobvehicleequipment/5fbfe4294d167703aa189561",
-    "sha1": "1e953ee265e2b59364c2c01b66a908566b67800c",
+    "version": "1.1.2",
+    "file_name": "bobvehicleequipment_1.1.2.zip",
+    "download_url": "/download/bobvehicleequipment/5fcd53520d257a3d1e883552",
+    "sha1": "c5acbeb54d407459adc94f3972590e572e50d577",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -481,13 +481,13 @@
   },
   {
     "name": "bobwarfare",
-    "version": "1.1.1",
-    "file_name": "bobwarfare_1.1.1.zip",
-    "download_url": "/download/bobwarfare/5fbfe43e0c08bc5a17e2128b",
-    "sha1": "a4312024e4610af2ee395d32aa0ba87cc3ba0b9d",
+    "version": "1.1.2",
+    "file_name": "bobwarfare_1.1.2.zip",
+    "download_url": "/download/bobwarfare/5fcd53610d257a3d1e883661",
+    "sha1": "17860cc71bec8cb47c16386ed977ff2c1cd2c3a2",
     "dependencies": [
       "base >= 1.1.0",
-      "boblibrary >= 1.1.0",
+      "boblibrary >= 1.1.2",
       "? bobplates >= 1.1.0",
       "? bobenemies >= 1.1.0"
     ]
@@ -637,20 +637,20 @@
   },
   {
     "name": "robot_attrition",
-    "version": "0.5.1",
-    "file_name": "robot_attrition_0.5.1.zip",
-    "download_url": "/download/robot_attrition/5fbda18af6658f34bf8aa94d",
-    "sha1": "95e8820d73faccbbfee1b55f75f1b9b0b6273bd4",
+    "version": "0.5.2",
+    "file_name": "robot_attrition_0.5.2.zip",
+    "download_url": "/download/robot_attrition/5fce34890e353939812c4642",
+    "sha1": "c12905393dbe3d2af8125ff862064690248a40c2",
     "dependencies": [
       "base >= 1.1.0"
     ]
   },
   {
     "name": "RPGsystem",
-    "version": "1.0.52",
-    "file_name": "RPGsystem_1.0.52.zip",
-    "download_url": "/download/RPGsystem/5fbc6e733588979cf9d591d8",
-    "sha1": "0d8a2cc3c79ef7c373cb3a08f93abc3254c774e1",
+    "version": "1.0.53",
+    "file_name": "RPGsystem_1.0.53.zip",
+    "download_url": "/download/RPGsystem/5fce44e00e35393981311f89",
+    "sha1": "7ddd4a11d6ca382601014388830dea442345bbb0",
     "dependencies": [
       "base >= 1.1.0"
     ]
