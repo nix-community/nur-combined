@@ -1,71 +1,33 @@
 { lib
 , stdenv
-, variant
+, fetchzip
 , jetbrainsPlatforms
 }:
 
-with lib;
-
-{ pname
+{ pluginId
+, pname
 , version
+, versionId
+, sha256
+, filename ? "${pname}-${version}.zip"
+}:
 
-, plugname
-, plugid
-
-, buildInputs ? []
-, packageRequires ? []
-, meta ? {}
-
-, ...
-}@args:
-
-let
-
-  defaultMeta = {
-    broken = false;
-    platforms = variant.meta.platforms;
-  } // optionalAttrs ((args.src.meta.homepage or "") != "") {
-    homepage = args.src.meta.homepage;
-  } // optionalAttrs ((args.src.meta.description or "") != "") {
-    description = args.src.meta.description;
-  };
-
-in
-
-stdenv.mkDerivation ({
+stdenv.mkDerivation {
   inherit pname version;
 
-  unpackCmd = ''
-    case "$curSrc" in
-      *.jar)
-        # don't unpack; keep original source filename without the hash
-        local filename=$(basename "$curSrc")
-        filename="''${filename:33}"
-        cp $curSrc $filename
-        chmod +w $filename
-        sourceRoot="."
-        ;;
-      *)
-        _defaultUnpack "$curSrc"
-        ;;
-    esac
-  '';
+  src = fetchzip {
+    inherit sha256;
+    url = "https://plugins.jetbrains.com/files/${toString pluginId}/${toString versionId}/${filename}";
+  };
 
-  # FIXME: Entirely possible this isn't correct for niche plugins;
-  # at the very least there are some plugins that come with JS
+  passthru = { inherit jetbrainsPlatforms; };
+
   installPhase = ''
-    mkdir -p "$out/lib"
-    find -iname '*.jar' -exec cp {} "$out/lib/" \;
+    mkdir $out
+    cp -r * $out/
   '';
 
-  buildInputs = [ ] ++ packageRequires ++ buildInputs;
-  propagatedBuildInputs = packageRequires;
-
-  passthru = { inherit jetbrainsPlatforms plugid plugname; };
-
-  doCheck = false;
-
-  meta = defaultMeta // meta;
+  meta = {
+    homepage = "https://plugins.jetbrains.com/plugin/${pluginId}-${lib.toLower pname}";
+  };
 }
-
-// removeAttrs args [ "buildInputs" "packageRequires" "meta" ])

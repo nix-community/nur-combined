@@ -4,7 +4,7 @@ self:
 
 let
 
-  commonBuild = import ../../../build-support/jetbrains/plugin-old.nix {
+  commonBuild = import ../../../build-support/jetbrains/plugin.nix {
     inherit lib stdenv fetchzip;
     jetbrainsPlatforms = [
       "clion"
