@@ -44,6 +44,6 @@ jobs:
           -I $PWD
     - name: Build nix packages
       run: nix run -I 'nixpkgs=channel:nixos-20.09' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-    # - name: Trigger NUR update
-    #   if: ${{ matrix.nurRepo != 'j-k' }}
-    #   run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
+    - name: Trigger NUR update
+      if: ${{ matrix.nurRepo != 'j-k' }}
+      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
