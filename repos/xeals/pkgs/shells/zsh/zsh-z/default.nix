@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation {
   pname = "zsh-z";
-  version = "2020.06.30.ae71aab";
+  version = "2020.09.19.09209db";
 
   src = fetchFromGitHub {
     owner = "agkozak";
     repo = "zsh-z";
-    rev = "ae71aabec5472095b01d25b4c341adb349c277f4";
-    sha256 = "1b3ad39l90jqzvfym6xl7lxsmab0anmjs7viiz8ldxddad9106b0";
+    rev = "09209db2daf4b0e7f180cea04d1344fcc06a9410";
+    sha256 = "06z96v3w998hcws13lj6332154aqg1qg3ignv2x835frq677yfzm";
   };
 
   nativeBuildInputs = [ installShellFiles ];

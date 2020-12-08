@@ -9,13 +9,13 @@
 
 buildGoModule rec {
   pname = "go-qt";
-  version = "20200701";
+  version = "20200904";
 
   src = fetchFromGitHub {
     owner = "therecipe";
     repo = "qt";
-    rev = "7f61353ee73e225efd0b08dacf0ef32f41285c71";
-    sha256 = "1qwyi3rr6x49w2cbxhsyg3sbyxib7l08g6j6z1mb5w22bdgmcy7c";
+    rev = "c0c124a5770d357908f16fa57e0aa0ec6ccd3f91";
+    sha256 = "197wdh2v0g5g2dpb1gcd5gp0g4wqzip34cawisvy6z7mygmsc8rd";
   };
 
   vendorSha256 = "00wghn93xz240ddj47b8mkbx3cg7c0486igp6vv0x9r6ylhywsm6";
@@ -55,5 +55,6 @@ buildGoModule rec {
     homepage = "https://github.com/therecipe/qt";
     description = "Qt bindings for Go";
     license = licenses.lgpl3;
+    broken = true; # -mod=vendor -trimpath not supported (can be '', 'mod', 'readonly', or 'vendor'); not sure what's changed in nixpkgs
   };
 }

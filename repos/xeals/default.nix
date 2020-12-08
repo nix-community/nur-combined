@@ -19,20 +19,20 @@ rec {
     inherit (pkgs.rustPackages_1_45) rustPlatform;
   }).overrideAttrs (oldAttrs: rec {
     pname = "${oldAttrs.pname}-ligatures";
-    version = "0.6.0.20201022";
+    version = "0.7.0.20201204";
 
     src = pkgs.fetchFromGitHub {
       owner = "zenixls2";
       repo = "alacritty";
       fetchSubmodules = true;
-      rev = "525fe0ea174354db7ba28de65328a0db18fd7f70";
-      sha256 = "1j8mrslii7bw721bkgaqxm9ldrm5f01cil55dfjn7ziwz3xjvqvx";
+      rev = "9adfaeb01bffb902eb305ed9de376d2032ba994e";
+      sha256 = "0lvynwgjrcrpvywpmqniw27268m0m9lw0lpwnfrbhipyp24c7pnx";
     };
 
     cargoDeps = oldAttrs.cargoDeps.overrideAttrs (pkgs.lib.const {
       name = "${pname}-${version}-vendor.tar.gz";
       inherit src;
-      outputHash = "11kj2hr9wkq1zq13ml561i0i0h40d34iwqy0b8apn9ij8pdp0b37";
+      outputHash = "1jjyqxpqk5k3kdjb4hmff562j2jncjmpq6wyyi7i3f3v1qc3xsb9";
     });
 
     ligatureInputs = [
