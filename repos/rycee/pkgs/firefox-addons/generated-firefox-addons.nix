@@ -82,10 +82,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.47.0";
+      version = "1.47.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3677817/bitwarden_free_password_manager-1.47.0-an+fx.xpi";
-      sha256 = "8580571d340c60db808d974710ce296c40155ca15e528ccaf1580788eecf98ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3688243/bitwarden_free_password_manager-1.47.1-an+fx.xpi";
+      sha256 = "f83c15496e19ae795581b8fbce52183c5ce31e729d31463fb76bed883dfead84";
       meta = with stdenv.lib;
       {
         homepage = "https://bitwarden.com";
@@ -359,10 +359,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.5.3";
+      version = "8.5.4";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3659830/ghostery_privacy_ad_blocker-8.5.3-an+fx.xpi";
-      sha256 = "f356e8ac94b95a04d4c02d41e28ef35aa94fdfcaa7bbaa72959de19ecc151a29";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3687087/ghostery_privacy_ad_blocker-8.5.4-an+fx.xpi";
+      sha256 = "79d2a7732cb7aa127824348658eb95ea685b9992d156c534a2825fedb9f8f420";
       meta = with stdenv.lib;
       {
         homepage = "http://www.ghostery.com/";
