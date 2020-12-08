@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/vmware/differential-datalog/releases/download/v0.31.0/ddlog-v0.31.0-20201124092921-linux.tar.gz";
-    sha256 = "sha256-EjLlByWq7GKih9dAKbK3XOetfMg1v8dd2ymeDxvz7A8=";
+      "https://github.com/vmware/differential-datalog/releases/download/v${version}/ddlog-v0.31.0-20201124092921-linux.tar.gz";
+    sha256 = "sha256-zzFM6kLS70hWY+yBVFY7UaKXxEYjCXa/kPZ7UyXpwMk==";
   };
 
   nativeBuildInputs = [ gnutar ];

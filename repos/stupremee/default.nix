@@ -11,11 +11,10 @@ rec {
   vimPlugins = pkgs.recurseIntoAttrs
     (pkgs.callPackage ./pkgs/vimPlugins { inherit pkgs; });
   blastradius = pkgs.callPackage ./pkgs/blastradius { };
-  rust-analyzer = pkgs.callPackage ./pkgs/rust-analyzer { };
+  # rust-analyzer = pkgs.callPackage ./pkgs/rust-analyzer { };
 
   # Currently broken
   # veloren = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/veloren { });
 
-  # Somehow the build currently hangs
-  # ddlog = pkgs.callPackage ./pkgs/ddlog { };
+  ddlog = pkgs.callPackage ./pkgs/ddlog { };
 }
