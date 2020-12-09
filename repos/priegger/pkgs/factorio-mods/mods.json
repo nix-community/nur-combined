@@ -1,10 +1,10 @@
 [
   {
     "name": "aai-programmable-vehicles",
-    "version": "0.7.5",
-    "file_name": "aai-programmable-vehicles_0.7.5.zip",
-    "download_url": "/download/aai-programmable-vehicles/5fcb59857d2188fa4933df9a",
-    "sha1": "ce9aebd5c301e14423ef8b1e35209edcd04b1ec8",
+    "version": "0.7.8",
+    "file_name": "aai-programmable-vehicles_0.7.8.zip",
+    "download_url": "/download/aai-programmable-vehicles/5fcf6dae0a6c82f9a1ed1d60",
+    "sha1": "cd49cac46125510807576f54e47b6ccbab0476a7",
     "dependencies": [
       "base >= 1.1.0",
       "aai-signals >= 0.4.1",
@@ -206,10 +206,10 @@
   },
   {
     "name": "angelsinfiniteores",
-    "version": "0.9.7",
-    "file_name": "angelsinfiniteores_0.9.7.zip",
-    "download_url": "/download/angelsinfiniteores/5fc06b9b56ce8e2645350245",
-    "sha1": "c7c22159709d236134e24df07a450efd64d1ecb8",
+    "version": "0.9.8",
+    "file_name": "angelsinfiniteores_0.9.8.zip",
+    "download_url": "/download/angelsinfiniteores/5fd0655ac20909359e6dc8e1",
+    "sha1": "ecc728174d7442628afa526d110542c580b94cae",
     "dependencies": [
       "base >= 1.1.0",
       "? angelsrefining >= 0.11.19",
@@ -637,10 +637,10 @@
   },
   {
     "name": "robot_attrition",
-    "version": "0.5.2",
-    "file_name": "robot_attrition_0.5.2.zip",
-    "download_url": "/download/robot_attrition/5fce34890e353939812c4642",
-    "sha1": "c12905393dbe3d2af8125ff862064690248a40c2",
+    "version": "0.5.5",
+    "file_name": "robot_attrition_0.5.5.zip",
+    "download_url": "/download/robot_attrition/5fcf711e50f6d708aef27b37",
+    "sha1": "f522b3f3c5712d2cb3c3e6a93e5fab2b3e30dd0d",
     "dependencies": [
       "base >= 1.1.0"
     ]
