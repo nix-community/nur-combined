@@ -18,6 +18,8 @@ rec {
 
   dog = pkgs.callPackage ./pkgs/dog { };
 
+  drone-exec-runner = pkgs.callPackage ./pkgs/drone-exec-runner { };
+
   eapol_test = pkgs.callPackage ./pkgs/eapol_test { };
 
   fira-code-pro-nerdfonts = pkgs.nerdfonts.override {
