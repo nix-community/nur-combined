@@ -2,18 +2,18 @@
 , lib
 , fetchFromGitHub
 , fetchpatch
-, pkgconfig
-, ninja
-, meson
-, python3Packages
+, dbus
 , glslang
 , libglvnd
+, libX11
 , libXNVCtrl
-, xorg
-, vulkan-loader
-, vulkan-headers
 , mesa
-, dbus
+, meson
+, ninja
+, pkgconfig
+, python3Packages
+, vulkan-headers
+, vulkan-loader
 }:
 
 
@@ -37,24 +37,23 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    libglvnd
-    libXNVCtrl
-    glslang
-    python3Packages.Mako
-    xorg.libX11
-    vulkan-loader
-    vulkan-headers
-    mesa
     dbus
+    glslang
+    libglvnd
+    libX11
+    libXNVCtrl
+    mesa
+    python3Packages.Mako
+    vulkan-headers
+    vulkan-loader
   ];
 
   nativeBuildInputs = [
-    pkgconfig
     meson
     ninja
-    python3Packages.python
+    pkgconfig
     python3Packages.Mako
-    dbus
+    python3Packages.python
   ];
 
   preConfigure = ''

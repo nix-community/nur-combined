@@ -16,11 +16,14 @@ rec {
 
  
   # applications
-  mangohud = pkgs.callPackage ./pkgs/MangoHud/combined.nix { };
+  mangohud = pkgs.callPackage ./pkgs/MangoHud/combined.nix { libXNVCtrl = pkgs.linuxPackages.nvidia_x11.settings.libXNVCtrl; };
 
   mirage-im = pkgs.libsForQt5.callPackage ./pkgs/mirage { myPython3Packages = python3Packages; };
 
-   # python modules
+  # games
+  srb2 = pkgs.callPackage ./pkgs/srb2 {  };
+
+  # python modules
 
   python3Packages = pkgs.recurseIntoAttrs (
     (pkgs.python3Packages.callPackage ./pkgs/development/python-modules {
