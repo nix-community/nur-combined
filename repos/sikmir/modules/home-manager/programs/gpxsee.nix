@@ -51,8 +51,8 @@ in
     poiPackages = mkOption {
       default = [ ];
       example = [
-        "pkgs.nur.repos.sikmir.gpxsee-poi.geocachingSu"
-        "pkgs.nur.repos.sikmir.gpxsee-poi.westra"
+        "pkgs.nur.repos.sikmir.poi.geocachingSu"
+        "pkgs.nur.repos.sikmir.poi.westra"
       ];
       description = "POI packages to install.";
       type = types.listOf types.package;

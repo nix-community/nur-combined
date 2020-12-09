@@ -1,0 +1,13 @@
+diff --git i/tatoebatools/table.py w/tatoebatools/table.py
+index f900fd4..fd445fb 100644
+--- i/tatoebatools/table.py
++++ w/tatoebatools/table.py
+@@ -74,7 +74,7 @@ class Table:
+ 
+         # check validity of arguments
+         self._check_table_name_validity()
+-        self._check_language_codes_validity()
++        #self._check_language_codes_validity()
+ 
+         # unlike other cases, the links from sentences in one language to
+         # sentences in every language are not loaded from a bilingual

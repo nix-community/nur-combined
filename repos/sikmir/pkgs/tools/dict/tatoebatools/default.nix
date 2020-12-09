@@ -1,4 +1,4 @@
-{ lib, python3Packages, sources, withCli ? true }:
+{ lib, python3Packages, sources, withCli ? true, checkLang ? false }:
 
 python3Packages.buildPythonApplication {
   pname = "tatoebatools-unstable";
@@ -6,17 +6,17 @@ python3Packages.buildPythonApplication {
 
   src = sources.tatoebatools;
 
-  propagatedBuildInputs = with python3Packages; [ beautifulsoup4 pandas requests tqdm ];
+  patches = lib.optional checkLang ./dont-check-lang-validity.patch
+    ++ lib.optional withCli ./cli.patch;
+
+  propagatedBuildInputs = with python3Packages; [ beautifulsoup4 pandas requests setuptools tqdm ]
+    ++ lib.optionals withCli [ click xdg ];
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
-  disabledTests = [
-    "test_iter_with_file"
-    "test_update_sentences_detailed"
-    "test_update_links"
-    "test_update_queries"
-    "test_update_up_to_date"
-    "test_update_with_not_language_pair"
+  disabledTests = lib.optionals checkLang [
+    "test_init_with_not_language_1"
+    "test_init_with_not_language_2"
   ];
 
   meta = with lib; {
