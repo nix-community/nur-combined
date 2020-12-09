@@ -18,7 +18,7 @@ rec {
 
   dog = pkgs.callPackage ./pkgs/dog { };
 
-  drone-exec-runner = pkgs.callPackage ./pkgs/drone-exec-runner { };
+  drone-runner-exec = pkgs.callPackage ./pkgs/drone-runner-exec { };
 
   eapol_test = pkgs.callPackage ./pkgs/eapol_test { };
 
