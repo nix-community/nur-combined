@@ -18,6 +18,9 @@ buildGoModule rec {
     sha256 = "197wdh2v0g5g2dpb1gcd5gp0g4wqzip34cawisvy6z7mygmsc8rd";
   };
 
+  # fails with `GOFLAGS=-vendor=mod -trimpath`
+  allowGoReference = true;
+
   vendorSha256 = "00wghn93xz240ddj47b8mkbx3cg7c0486igp6vv0x9r6ylhywsm6";
   subPackages = [ "cmd/..." ];
 
@@ -55,6 +58,5 @@ buildGoModule rec {
     homepage = "https://github.com/therecipe/qt";
     description = "Qt bindings for Go";
     license = licenses.lgpl3;
-    broken = true; # -mod=vendor -trimpath not supported (can be '', 'mod', 'readonly', or 'vendor'); not sure what's changed in nixpkgs
   };
 }
