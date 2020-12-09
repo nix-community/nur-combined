@@ -3,8 +3,10 @@
 , buildGoModule
 , makeWrapper
 
+, go
 , pkg-config
 , qmake
+, removeReferencesTo
 }:
 
 buildGoModule rec {
@@ -20,6 +22,9 @@ buildGoModule rec {
 
   # fails with `GOFLAGS=-vendor=mod -trimpath`
   allowGoReference = true;
+  preFixup = ''
+    find $out -type f -exec ${removeReferencesTo}/bin/remove-references-to -t ${go} '{}' +
+  '';
 
   vendorSha256 = "00wghn93xz240ddj47b8mkbx3cg7c0486igp6vv0x9r6ylhywsm6";
   subPackages = [ "cmd/..." ];
