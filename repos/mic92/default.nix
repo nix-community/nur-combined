@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ system ? builtins.currentSystem,  pkgs ? import <nixpkgs> { inherit system; } }:
 
 rec {
   bitwarden_rs_ldap = pkgs.callPackage ./pkgs/bitwarden_rs_ldap { };

@@ -4,6 +4,7 @@
 , scipy
 , rhasspy-silence
 , python_speech_features
+, setuptools
 }:
 
 buildPythonPackage rec {
@@ -19,6 +20,7 @@ buildPythonPackage rec {
     scipy
     rhasspy-silence
     python_speech_features
+    setuptools
   ];
 
   # require files not distributed on pypi

@@ -17,6 +17,11 @@ buildPythonPackage rec {
     sha256 = "sha256-VjS/jnSGzCAfcPAVWsDa7JD5Kl1dbQLtTEnOrlAXdpg=";
   };
 
+  postPatch = ''
+    substituteInPlace requirements.txt \
+      --replace "networkx==2.4" "networkx~=2.4"
+  '';
+
   propagatedBuildInputs = [
     num2words
     networkx
