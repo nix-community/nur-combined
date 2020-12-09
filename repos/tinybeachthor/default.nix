@@ -25,4 +25,8 @@
   jlink = pkgs.callPackage ./pkgs/jlink { };
   operator-sdk = pkgs.callPackage ./pkgs/operator-sdk { };
   i3status-rust = pkgs.callPackage ./pkgs/i3status-rust { };
+  fluidsynth = pkgs.callPackage ./pkgs/fluidsynth {
+    inherit (pkgs.stdenv.darwin.apple_sdk.frameworks)
+    AudioUnit CoreAudio CoreMIDI CoreServices;
+  };
 }
