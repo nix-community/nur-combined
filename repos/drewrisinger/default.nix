@@ -45,6 +45,7 @@ rec {
     });
     pubchempy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pubchempy { };
     python-box = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/python-box { };
+    qutip = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qutip { };  # removed from nixpkgs b/c it was broken (presumably unused)
     openfermion = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/openfermion { inherit pubchempy; };
     openfermion-cirq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/openfermion-cirq { inherit cirq openfermion; };
     setuptools-rust = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/setuptools-rust { };

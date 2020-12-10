@@ -9,7 +9,6 @@
 , pytestrunner
   # test inputs
 , pytestCheckHook
-, pytestpep8
 , hypothesis
 }:
 
@@ -33,13 +32,15 @@ buildPythonPackage rec {
     statsmodels
   ];
 
+  # disable deprecated pytest-pep8 plugin which is not updated for pytest v6.0
+  postPatch = "substituteInPlace setup.cfg --replace '--pep8' ''";
+
   doCheck = true;
   pythonImportsCheck = [ "numdifftools" ];
   dontUseSetuptoolsCheck = true;
   checkInputs = [
     pytestCheckHook
     hypothesis
-    pytestpep8
   ];
 
   pytestFlagsArray = [
