@@ -13,4 +13,5 @@
   firefoxPlugins = pkgs.recurseIntoAttrs (pkgs.callPackage ./firefox-plugins { });
   firefox-hardened = pkgs.callPackage ./firefox-hardened { inherit pkgs; };
   firefox-hardened-wayland = pkgs.callPackage ./firefox-hardened { inherit pkgs; forceWayland = true; };
+  hexokinase = pkgs.callPackage ./hexokinase { inherit pkgs sources; };
 }

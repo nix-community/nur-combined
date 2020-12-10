@@ -131,6 +131,18 @@
         "url": "https://github.com/orf/gping/archive/f512611dc893152d878f8d09012ec3cec1974b8e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "hexokinase": {
+        "branch": "master",
+        "description": "Fast text scraper to find and convert colours (hex, rgb, rgb, hsl, web colours, custom patterns, etc.) into hex values",
+        "homepage": "",
+        "owner": "RRethy",
+        "repo": "hexokinase",
+        "rev": "11fc3efc6752b580083ea7891db8216377571b6d",
+        "sha256": "1361l4f4hvvp7gnvsmsa9l4c8jiqhrcwbw20b35hbk44hpdhdvwv",
+        "type": "tarball",
+        "url": "https://github.com/RRethy/hexokinase/archive/11fc3efc6752b580083ea7891db8216377571b6d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "lfs": {
         "branch": "master",
         "description": "A thing to get information on your mounted disks",
