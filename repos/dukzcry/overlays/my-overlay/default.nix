@@ -27,5 +27,4 @@ self: super:
       hakyll-images = self.haskell.lib.unmarkBroken hsSuper.hakyll-images;
     };
   };
-  pipewire = super.callPackage <nixos-unstable/pkgs/development/libraries/pipewire> {};
 }
