@@ -1,23 +1,50 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{ lib
+, buildGoModule
+, fetchFromGitHub
+, makeWrapper
+, buildkit
+, cni-plugins
+, extraPackages ? []
+}:
 
+let
+  commitSha = "da2ffa5cb5c9920a6d86a4c7466cce02780b774a";
+  binPath = lib.makeBinPath ([
+    buildkit
+  ] ++ extraPackages);
+in
 buildGoModule rec {
   pname = "nerdctl";
-  version = "0.0.1";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "AkihiroSuda";
     repo = pname;
     rev = "v${version}";
-    sha256 = "010kyzanhlnwsc322l2xmmhn7mf4pgk4m14gid1w669nj0ikzhrj";
+    sha256 = "181qapqgp7zd0imk0zkn4wzpsw292ai2yz9pbiirpjcjx9h26w5h";
   };
 
-  vendorSha256 = "0j374wvz1jv1b9w5qk4jy5djrcs2sbswjgaj9xz8vqhvqdf3vbbn";
+  vendorSha256 = "0scywhllxk1m6456wggdmn7sgvy5x3gz2xnyfq9jnvvzap8byr2v";
 
-  buildFlagsArray = [ "-ldflags=" "-w" "-s" ];
+  nativeBuildInputs = [ makeWrapper ];
+
+  buildFlagsArray = [
+    "-ldflags="
+    "-w"
+    "-s"
+    "-X github.com/AkihiroSuda/nerdctl/pkg/version.Version=v${version}"
+    "-X github.com/AkihiroSuda/nerdctl/pkg/version.Revision=${commitSha}"
+  ];
+
+  postInstall = ''
+    wrapProgram $out/bin/nerdctl \
+      --prefix PATH : "${binPath}" \
+      --prefix CNI_PATH : "${cni-plugins}/bin"
+  '';
 
   meta = with lib; {
-    homepage = src.meta.homepage;
     description = "A Docker-compatible CLI for containerd";
+    homepage = src.meta.homepage;
     license = licenses.asl20;
     platforms = platforms.linux;
     maintainers = with maintainers; [ jk ];
