@@ -383,6 +383,18 @@
         "url": "https://github.com/MarianArlt/sddm-sugar-dark/archive/9fc363cc3f6b3f70df948c88cbe26989386ee20d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "vim-hexokinase": {
+        "branch": "master",
+        "description": "hexokinase.vim - The fastest (Neo)Vim plugin for asynchronously displaying the colours in the file (#rrggbb, #rgb, rgb(a)? functions, hsl(a)? functions, web colours, custom patterns)",
+        "homepage": "",
+        "owner": "RRethy",
+        "repo": "vim-hexokinase",
+        "rev": "776f1b2a5df00249e89112655dcda6f9a8492bdb",
+        "sha256": "0031mmjxpqradbjr43zah76j91x7yb4l308h9hhi89vd7g2yn4ns",
+        "type": "tarball",
+        "url": "https://github.com/RRethy/vim-hexokinase/archive/776f1b2a5df00249e89112655dcda6f9a8492bdb.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "vim-signify": {
         "branch": "master",
         "description": ":heavy_plus_sign: Show a diff using Vim its sign column.",

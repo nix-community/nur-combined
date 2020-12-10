@@ -14,4 +14,5 @@
   bubbly-nvim = import ./bubbly-nvim { inherit pkgs sources; };
   vim-signify = import ./vim-signify { inherit pkgs sources; };
   edge = import ./edge { inherit pkgs sources; };
+  vim-hexokinase = import ./vim-hexokinase { inherit pkgs sources; };
 }
