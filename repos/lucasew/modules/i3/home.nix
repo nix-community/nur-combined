@@ -1,12 +1,22 @@
 {pkgs, config, ... }:
+with pkgs.lib;
 let
   mod = "Mod4";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${pkgs.playerctl}/bin/playerctl";
-in
-  {
+  colors = {
+    background = "#00ffffff";
+    background-alt = "#aa111111";
+    foreground = "#dfdfdf";
+    foreground-alt = "#555";
+    primary = "#ffb52a";
+    secondary = "#e60053";
+    alert = "#bd2c40";
+    transparent = "#00000000";
+  };
+in {
+    services.picom.enable = true;
     xsession.windowManager.i3 = {
-      enable = true;
       config = {
         terminal = "${pkgs.xfce.xfce4-terminal}/bin/xfce4-terminal";
         menu = "my-rofi";

@@ -59,7 +59,7 @@ in
         export PATH="$PATH:~/.yarn/bin/"
         source ~/.dotfilerc
         alias la="ls -a"
-        alias ncdu="rclone ncdu . 2> /dev/null"
+        alias ncdu='${pkgs.ncdu}/bin/ncdu --confirm-quit -x'
         alias sqlite3="${pkgs.rlwrap}/bin/rlwrap sqlite3"
       '';
     };
@@ -84,6 +84,10 @@ in
     enable = true;
     indicator = true;
   };
+
+  # Polybar
+  services.polybar.enable = true;
+  xsession.windowManager.i3.enable = true;
 
   # Dconf
   dconf.settings = {
