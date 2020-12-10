@@ -13,4 +13,5 @@
   nvim-tree-docs = import ./nvim-tree-docs { inherit pkgs sources; };
   bubbly-nvim = import ./bubbly-nvim { inherit pkgs sources; };
   vim-signify = import ./vim-signify { inherit pkgs sources; };
+  edge = import ./edge { inherit pkgs sources; };
 }

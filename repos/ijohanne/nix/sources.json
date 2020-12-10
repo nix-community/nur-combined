@@ -59,6 +59,18 @@
         "url": "https://github.com/datwaft/bubbly.nvim/archive/6d8c38574e1fecf7a46a2fe94ac350eef82810e3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "edge": {
+        "branch": "master",
+        "description": "Clean & Elegant Color Scheme inspired by Atom One and Material",
+        "homepage": "https://www.vim.org/scripts/script.php?script_id=5852",
+        "owner": "sainnhe",
+        "repo": "edge",
+        "rev": "e40571b69c78f60b6acf0e7b3f1b008b5c72778a",
+        "sha256": "0s3pbkwwbi1y64d6gykb457s9zx2m1j97x1wr59212id9pxqj9iz",
+        "type": "tarball",
+        "url": "https://github.com/sainnhe/edge/archive/e40571b69c78f60b6acf0e7b3f1b008b5c72778a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "fish-exa": {
         "branch": "master",
         "description": "fish exa plugin",
