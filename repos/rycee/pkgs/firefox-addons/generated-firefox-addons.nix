@@ -261,10 +261,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2020.10.21";
+      version = "2020.12.7";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3664669/duckduckgo_privacy_essentials-2020.10.21-an+fx.xpi";
-      sha256 = "d94db19005bd837b8e0a1b15964fa04acde120ee3ab33a4974ae4ffb4d814ef6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3691208/duckduckgo_privacy_essentials-2020.12.7-an+fx.xpi";
+      sha256 = "cabe8d3ff44b3bbcfac212dea804b76013ab0fe20551017e0505a96569856c1e";
       meta = with stdenv.lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -643,10 +643,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "8.1.6";
+      version = "8.1.8";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3691282/metamask-8.1.6-an+fx.xpi";
-      sha256 = "1fa4f90656fd1d64d9778e4bd3eb29ad4a1b59cc3a846d55e5ec91213bf2aa97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3691773/metamask-8.1.8-an+fx.xpi";
+      sha256 = "b9d2b4afc923e000072d4379b50809e9813b8b8ec3e58575c7dd71dfbd395373";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
@@ -809,10 +809,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.12.3";
+      version = "20.12.9";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3688699/refined_github-20.12.3-an+fx.xpi";
-      sha256 = "df7ca20f428a8dc13ea6dbbd13f7566d74fc44180a334275b52b22ab7c596a7e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3691330/refined_github-20.12.9-an+fx.xpi";
+      sha256 = "d1346a9c50d3190314c2bfed6c33db766d1dc5534c1deab584d4818ee79cf35d";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
