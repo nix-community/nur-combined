@@ -1,4 +1,4 @@
-{ pkgs, forceWayland ? false, extraExtensions ? [ ], ... }:
+{ pkgs, forceWayland ? false, nixExtensions ? [ ], ... }:
 let
   wrapper = pkgs.wrapFirefox.override {
     fx_cast_bridge =
@@ -16,7 +16,7 @@ let
   };
 in
 wrapper pkgs.firefox-unwrapped {
-  inherit forceWayland extraExtensions;
+  inherit forceWayland nixExtensions;
   extraPolicies = {
     CaptivePortal = false;
     DisableFirefoxStudies = true;

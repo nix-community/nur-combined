@@ -4,7 +4,7 @@ rustPlatform.buildRustPackage rec {
   version = "master";
   src = fetchFromGitHub { inherit (sources.pueue) owner repo rev sha256; };
 
-  cargoSha256 = "19x9p9ksv6wsdk7xn2nsw1bvd3xh0y59ssr1470xrs5m1cj44abj";
+  cargoSha256 = "19vd34hwrlm40078n95yx4gnagv55ww97v87jhm60372ladxg1ba";
 
   nativeBuildInputs = [ installShellFiles ];
 

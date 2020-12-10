@@ -11,4 +11,6 @@
   nvim-treesitter-refactor = import ./nvim-treesitter-refactor { inherit pkgs sources; };
   nvim-treesitter-angular = import ./nvim-treesitter-angular { inherit pkgs sources; };
   nvim-tree-docs = import ./nvim-tree-docs { inherit pkgs sources; };
+  bubbly-nvim = import ./bubbly-nvim { inherit pkgs sources; };
+  vim-signify = import ./vim-signify { inherit pkgs sources; };
 }
