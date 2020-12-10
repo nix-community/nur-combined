@@ -25,6 +25,10 @@ buildPythonPackage rec {
     rhasspy-nlu
   ];
 
+  postPatch = ''
+    sed -i "s/networkx==.*/networkx/" requirements.txt
+  '';
+
   # misses files
   doCheck = false;
 

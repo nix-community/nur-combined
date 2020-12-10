@@ -28,6 +28,10 @@ buildPythonPackage rec {
     rhasspy-silence
   ];
 
+  postPatch = ''
+    sed -i "s/networkx==.*/networkx/" requirements.txt
+  '';
+
   # misses files
   doCheck = false;
 

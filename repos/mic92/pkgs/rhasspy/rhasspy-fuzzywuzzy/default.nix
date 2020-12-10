@@ -17,6 +17,7 @@ buildPythonPackage rec {
 
   postPatch = ''
     sed -i -e 's/rapidfuzz==.*/rapidfuzz/' requirements.txt
+    sed -i "s/networkx==.*/networkx/" requirements.txt
   '';
 
   propagatedBuildInputs = [

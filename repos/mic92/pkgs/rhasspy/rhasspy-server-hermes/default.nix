@@ -31,6 +31,7 @@ buildPythonPackage rec {
     sed -i "s/swagger-ui-py==.*/swagger-ui-py/" requirements.txt
     sed -i "s/quart==.*/quart/" requirements.txt
     sed -i "s/aiohttp==.*/aiohttp/" requirements.txt
+    sed -i "s/networkx==.*/networkx/" requirements.txt
   '';
 
   propagatedBuildInputs = [
