@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub, cmake, python3, pkgconfig, gtk3
 , glew, webkitgtk, icu, boost, curl, alsaLib, makeWrapper
-, gnome3, makeDesktopItem }:
+, gnome3, makeDesktopItem, gcc-unwrapped }:
 
 let
   desktopItem = makeDesktopItem rec {
@@ -13,15 +13,17 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "KnobKraft-orm";
-  version = "1.7.5";
+  version = "1.8.1";
 
   src = fetchFromGitHub {
     owner = "christofmuc";
     repo = "KnobKraft-orm";
     rev = version;
-    sha256 = "0h293hpfx0y64nfkgy22zgj12fgc927xcbgpcrjl8j6i53zwcz66";
+    sha256 = "1mw8mzixdflkl78dm5d3l0xbwhbbb59y5qd5xaxnpb8mzqab7yww"; # 1.8.1
     fetchSubmodules = true;
   };
+
+  cmakeFlags = [ "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar" "-DCMAKE_RANLIB=${gcc-unwrapped}/bin/gcc-ranlib" ];
 
   buildInputs = [
     gtk3 glew webkitgtk icu boost curl alsaLib
