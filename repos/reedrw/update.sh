@@ -5,7 +5,6 @@
 while read -r i; do
   nix-update "$i" || exit 1
 done << EOF
-  noisetorch
   r2mod_cli
   scientifica
 EOF
