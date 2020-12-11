@@ -7,7 +7,7 @@ in
     src = voidrice;
 
     installPhase = ''
-      mkdir -p $out/bin
+      mkdir -p $out
       cp -r ${voidrice}/.local/bin/statusbar $out/bin
     '';
 
