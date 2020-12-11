@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://github.com/LukeSmithXYZ/dwmblocks";
-    rev = "6bbb413fd7fb31b052945061305bf9ac87f0f6fd";
-    sha256 = "0h62avawlkbxjkhjsbzp5afrd5jbjjvnzq73nh3p53p1zpjc18wb";
+    rev = "5af44b7751814a3eee7ce55f8dc52913e11b0240";
+    sha256 = "sha256:00cspmrm6j7w1rakkakv26r501wbczb8admxqn4dmqzg87s6581d";
   };
 
   inherit patches;
