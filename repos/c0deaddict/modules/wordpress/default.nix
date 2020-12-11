@@ -31,13 +31,22 @@ let
         # requests that look like: https://example.com/wp-content//nix/store/...plugin/path/some-file.js
         # Since hard linking directories is not allowed, copying is the next best thing.
 
-        # copy additional plugin(s) and theme(s)
-        ${concatMapStringsSep "\n" (theme:
-          "cp -r ${theme} $out/share/wordpress/wp-content/themes/${theme.name}")
-        cfg.themes}
-        ${concatMapStringsSep "\n" (plugin:
-          "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${plugin.name}")
-        cfg.plugins}
+        # copy or link themes and plugins.
+        ${if cfg.themesPath == null then
+          flip concatMapStringsSep (cfg.themes "\n" (theme:
+            "cp -r ${theme} $out/share/wordpress/wp-content/themes/${theme.name}"))
+        else ''
+          rm -fr $out/share/wordpress/wp-content/themes
+          ln -sf ${cfg.themesPath} $out/share/wordpress/wp-content/themes
+        ''}
+
+        ${if cfg.pluginsPath == null then
+          flip (concatMapStringsSep cfg.plugins "\n" (plugin:
+            "cp -r ${theme} $out/share/wordpress/wp-content/plugins/${plugin.name}"))
+        else ''
+          rm -fr $out/share/wordpress/wp-content/plugins
+          ln -sf ${cfg.pluginsPath} $out/share/wordpress/wp-content/plugins
+        ''}
       '';
     };
 
@@ -131,6 +140,15 @@ let
         '';
       };
 
+      pluginsPath = mkOption {
+        type = types.nullOr types.path;
+        default = null;
+        description = ''
+          Path to the directory containing the plugins.
+          This option can't be used together with 'plugins'.
+        '';
+      };
+
       plugins = mkOption {
         type = types.listOf types.path;
         default = [ ];
@@ -155,6 +173,15 @@ let
 
           And then pass this theme to the themes list like this:
             plugins = [ embedPdfViewerPlugin ];
+        '';
+      };
+
+      themesPath = mkOption {
+        type = types.nullOr types.path;
+        default = null;
+        description = ''
+          Path to the directory containing the themes.
+          This option can't be used together with 'themes'.
         '';
       };
 
@@ -336,11 +363,23 @@ in {
   # implementation
   config = mkIf (eachSite != { }) {
 
-    assertions = mapAttrsToList (hostName: cfg: {
-      assertion = cfg.database.createLocally -> cfg.database.user == user;
-      message =
-        "services.wordpress.${hostName}.database.user must be ${user} if the database is to be automatically provisioned";
-    }) eachSite;
+    assertions = concatLists (mapAttrsToList (hostName: cfg: [
+      {
+        assertion = cfg.database.createLocally -> cfg.database.user == user;
+        message =
+          "services.wordpress.${hostName}.database.user must be ${user} if the database is to be automatically provisioned";
+      }
+      {
+        assertion = cfg.pluginsPath != null -> cfg.plugins == [ ];
+        message =
+          "services.wordpress.${hostName}.pluginsPath and plugins can't both be set.";
+      }
+      {
+        assertion = cfg.themesPath != null -> cfg.themes == [ ];
+        message =
+          "services.wordpress.${hostName}.themesPath and themes can't both be set.";
+      }
+    ]) eachSite);
 
     services.mysql =
       mkIf (any (v: v.database.createLocally) (attrValues eachSite)) {
@@ -396,7 +435,7 @@ in {
                 try_files $uri $uri/ /index.php?$args;
               '';
             };
-            "~ \.php$" = {
+            "~ .php$" = {
               priority = 100;
               extraConfig = ''
                 include ${config.services.nginx.package}/conf/fastcgi.conf;
@@ -419,12 +458,12 @@ in {
               '';
             };
             # Hardening
-            "~* /(xmlrpc|wp-config)\.php$" = {
+            "~* /(xmlrpc|wp-config).php$" = {
               priority = 900;
               extraConfig = "deny all;";
             };
             # Deny access to any files with a .php extension in the uploads directory.
-            "~* /(?:uploads|files)/.*\.php\$" = {
+            "~* /(?:uploads|files)/.*.php$" = {
               priority = 900;
               extraConfig = "deny all;";
             };
