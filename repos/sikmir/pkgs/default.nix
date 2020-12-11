@@ -56,6 +56,7 @@ lib.makeScope newScope (
     fetchfromgh = callPackage ./build-support/fetchfromgh { };
     fetchgdrive = callPackage ./build-support/fetchgdrive { };
     fetchwebarchive = callPackage ./build-support/fetchwebarchive { };
+    fetchymaps = callPackage ./build-support/fetchymaps { };
 
     ### DATA
 

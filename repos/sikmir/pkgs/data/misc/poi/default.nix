@@ -1,4 +1,4 @@
-{ lib, fetchurl, gzip, jq }:
+{ lib, fetchurl, fetchymaps, gzip, jq, gdal }:
 
 {
   geocachingSu = fetchurl {
@@ -119,6 +119,27 @@
     meta = with lib; {
       homepage = "http://nashipohody.ru";
       description = "Карта Достопримечательностей";
+      maintainers = [ maintainers.sikmir ];
+      license = licenses.free;
+      platforms = platforms.all;
+      skip.ci = true;
+    };
+  };
+
+  novgorod-roads = fetchymaps {
+    name = "novgorod-roads-2013-06-05";
+    um = "_WjokOS8OVNds5FVsSPwRN_dXQFBv99B";
+    sha256 = "1hyilj5h24rdfnhmks3zk4z76zi3y6mn5qc47w9wd2yv2vzjdp53";
+    downloadToTemp = true;
+    recursiveHash = true;
+    postFetch = ''
+      ${gdal}/bin/ogr2ogr novgorod-roads.geojson $downloadedFile
+      install -Dm644 novgorod-roads.geojson -t $out
+    '';
+
+    meta = with lib; {
+      homepage = "https://yandex.ru/maps/-/CCUER2fZpD";
+      description = "Магистральные дороги Северо-Запада Новгородской земли";
       maintainers = [ maintainers.sikmir ];
       license = licenses.free;
       platforms = platforms.all;
