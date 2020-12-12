@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication {
 
   src = sources.tatoebatools;
 
-  patches = lib.optional checkLang ./dont-check-lang-validity.patch
+  patches = lib.optional (!checkLang) ./dont-check-lang-validity.patch
     ++ lib.optional withCli ./cli.patch;
 
   propagatedBuildInputs = with python3Packages; [ beautifulsoup4 pandas requests setuptools tqdm ]
@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication {
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
-  disabledTests = lib.optionals checkLang [
+  disabledTests = lib.optionals (!checkLang) [
     "test_init_with_not_language_1"
     "test_init_with_not_language_2"
   ];

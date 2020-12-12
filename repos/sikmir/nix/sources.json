@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-09T16:12:15Z",
+        "date": "2020-12-10T19:23:06Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "ebb33b9eac8ed5e0ec53874b5dba30cfa1731a79",
-        "sha256": "14a4019q5mjv2vwgiqjvawabpi0kmf6fa94dz0bxmwwpkm2y02vi",
+        "rev": "a35cf2071a5b18103deb533ec92d255413a4db2c",
+        "sha256": "0b22zygblcdkdzd7qk843r7xgfwjzvvpfncinhq37xa63dahv01m",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/ebb33b9eac8ed5e0ec53874b5dba30cfa1731a79.tar.gz",
+        "url": "https://github.com/embox/embox/archive/a35cf2071a5b18103deb533ec92d255413a4db2c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -212,15 +212,15 @@
     "gef": {
         "branch": "dev",
         "builtin": false,
-        "date": "2020-12-09T00:45:30Z",
+        "date": "2020-12-10T22:24:36Z",
         "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
         "homepage": "http://gef.rtfd.io",
         "owner": "hugsy",
         "repo": "gef",
-        "rev": "8ad352252bdbabdcb08719d5c19de0c05b471e09",
-        "sha256": "0rmzz39wm04s4nzkr2r20jl48wfjhvwf217qyp492wnsigk0pkpi",
+        "rev": "885c7508f62baa6e4b18dee16f066b729c86ab3c",
+        "sha256": "1cx3y91fxbzkxm83ja54d1328spclx8g2jsrp4lm5yqh0zla0jq9",
         "type": "tarball",
-        "url": "https://github.com/hugsy/gef/archive/8ad352252bdbabdcb08719d5c19de0c05b471e09.tar.gz",
+        "url": "https://github.com/hugsy/gef/archive/885c7508f62baa6e4b18dee16f066b729c86ab3c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geminid": {
@@ -239,27 +239,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "0vfi4s90zplmjp0x6wmaky911q45f60psj9y5fd32dwh9vbwr5cx",
+        "sha256": "1wxmfqan0pgp91bq3bgzvz1vbxjslxn1icvrz22qvvqixmj5zzdl",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-201130.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-201211.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "201130"
+        "version": "201211"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "03qlzxs9m8vdx3ybl8f0x12sfgk09xbzrhkrwxwjjdnsmkyjcvx8",
+        "sha256": "103mm9yng85cvbwpk3xdyngqzxw2jq3yv32lnpks4mkiq2n0n8ji",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-201130.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-201211.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "201130"
+        "version": "201211"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "0k34a6047jnmn1mkci92axliz48m377949nqbhh0dpqjqns0kwhl",
+        "sha256": "1xmd25dxd4cns4z8zi48bfxpy2wrash20kff9gspkqchp0pvc5gx",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201130.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201211.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "201130"
+        "version": "201211"
     },
     "gimgtools": {
         "branch": "master",
@@ -377,29 +377,29 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2020-12-09T22:07:05Z",
+        "date": "2020-12-12T09:19:48Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "743a937f41be324e320b54ebcdaf2c0e96732d3d",
-        "sha256": "0ny0yn4s9qsf8yd0bj4hpil2f5mjbhhzna05sp7sxxq4sykp59hg",
+        "rev": "4cef089c812984f73c2f84006482e9b1ccf49b13",
+        "sha256": "1gbynys4pjx5457xz4qjh3fvfs8qycmdy9rf9pxp5iih33azch8q",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/743a937f41be324e320b54ebcdaf2c0e96732d3d.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/4cef089c812984f73c2f84006482e9b1ccf49b13.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-09T22:36:13Z",
+        "date": "2020-12-11T20:24:13Z",
         "description": "GPXSee maps",
         "homepage": "https://tumic0.github.io/GPXSee-maps",
         "owner": "tumic0",
         "repo": "GPXSee-maps",
-        "rev": "4abfac031497a57d2132623517a5289017fdc9ac",
-        "sha256": "1lsak0ylvb9hd728qy3a0lb0jxbhkxm8pxc2fzz73r27zpijid7v",
+        "rev": "51639ce14dcc147338e0a0ac3819ecef1c311228",
+        "sha256": "1vpbpwi9a996dn5vps8pgil26v0z3vrfpphb686prq52sf6hl0yc",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee-maps/archive/4abfac031497a57d2132623517a5289017fdc9ac.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee-maps/archive/51639ce14dcc147338e0a0ac3819ecef1c311228.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxtools": {
@@ -475,15 +475,15 @@
     "hfst": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-09T20:59:25Z",
+        "date": "2020-12-10T07:15:45Z",
         "description": "Helsinki Finite-State Technology (library and application suite)",
         "homepage": "https://hfst.github.io",
         "owner": "hfst",
         "repo": "hfst",
-        "rev": "94b48cb563bbde99691679a755f11030d6a52b4c",
-        "sha256": "03k0fh3spnbkr015bsb1hwapr4w7hvbw89d5a55786mk5mmqxp9w",
+        "rev": "6128b1c8fdb62b94b52edc7f6af95c2e8dbbc4dc",
+        "sha256": "0m2fwmmk8ss2jw5ryr50ygdd2avhwmap87kpv7q07dpmc8hwasw5",
         "type": "tarball",
-        "url": "https://github.com/hfst/hfst/archive/94b48cb563bbde99691679a755f11030d6a52b4c.tar.gz",
+        "url": "https://github.com/hfst/hfst/archive/6128b1c8fdb62b94b52edc7f6af95c2e8dbbc4dc.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "how-to-use-pvs-studio-free": {
@@ -673,11 +673,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "05wjqnxsylj039chlqp76pfniw1z79sbnls6qq16pvz35qms5q63",
+        "sha256": "0k1bpvyq1pw7z1vbdjh3iwrly7mpgsl6hy6jlz4wi6xwkjvbgdfi",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-12-01.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-12-12.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-12-01"
+        "version": "2020-12-12"
     },
     "mercantile": {
         "branch": "master",
@@ -762,29 +762,29 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-03T18:01:18Z",
+        "date": "2020-12-11T23:31:55Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "55016c9e71ff35f762db59e267a377c270face3d",
-        "sha256": "1008c4hb80jbx016pvc4cz2wygh3zswvdpan8gy833yl9diqf9qw",
+        "rev": "5cf7f791036495e26f584b63ad4da05ba7bbb820",
+        "sha256": "1v47rw601mj7wrnf6bvjlb2nilgdw5wy9gybzq8hkny9lgrzzx8q",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/55016c9e71ff35f762db59e267a377c270face3d.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/5cf7f791036495e26f584b63ad4da05ba7bbb820.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-24T21:21:01Z",
+        "date": "2020-12-12T05:32:36Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "59669270083bb69608064c14ab265c253b418792",
-        "sha256": "1v3iadhbf9z19f2x20b8lhj38584h6x1xdckjmq1x27z9pjkyqbk",
+        "rev": "a984b6a9e87807b9fc13055bcc6e0a55522bc1d5",
+        "sha256": "1z2hlxdpfwjr1brywzfpckgj4jj1blaighbygcz05kh4cl8vf4kw",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/59669270083bb69608064c14ab265c253b418792.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/a984b6a9e87807b9fc13055bcc6e0a55522bc1d5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {

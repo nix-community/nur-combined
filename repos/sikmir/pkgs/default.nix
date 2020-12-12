@@ -64,6 +64,7 @@ lib.makeScope newScope (
     freedict = callPackage ./data/dicts/freedict { };
     huzheng = callPackage ./data/dicts/huzheng { };
     it-sanasto = callPackage ./data/dicts/it-sanasto { };
+    tatoeba = callPackage ./data/dicts/tatoeba { };
     wiktionary = callPackage ./data/dicts/wiktionary { };
 
     gpsmap64 = callPackage ./data/firmwares/gpsmap64 { };
