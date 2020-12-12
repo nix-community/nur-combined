@@ -23,7 +23,7 @@ rec {
 	buildShellExtension = pkgsGnomeExtensions.gnomeExtensions.buildShellExtension;
 	buildShellExtension2 = pkgsGnomeExtensions.gnomeExtensions.buildShellExtension2;
 
-	gnomeExtensions = (let
+	gnomeExtensions = pkgs.recurseIntoAttrs (let
 		extensions-index = builtins.fromJSON (builtins.readFile ./lib/extensions.json);
 		extensions = builtins.map buildShellExtension2 extensions-index;
 	in
