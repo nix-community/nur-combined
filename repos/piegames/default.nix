@@ -25,7 +25,13 @@ in
 	# 	# lock-screen-blur extension-reloader tray-icons
 	# 	# dash-to-panel
 	# 	;
-	buildShellExtension = pkgsGnomeExtensions.gnomeExtensions.buildShellExtension;
+	# buildShellExtension = pkgsGnomeExtensions.gnomeExtensions.buildShellExtension;
 	
 	matrix-conduit = pkgs.callPackage ./pkgs/matrix-conduit.nix {};
-}
+} // (let
+	buildShellExtension2 = pkgs.callPackage ./pkgs/buildGnomeExtension2.nix {};
+	extensions-index = builtins.fromJSON (builtins.readFile ./lib/extensions.json);
+	extensions = builtins.map buildShellExtension2 extensions-index;
+in
+	(builtins.listToAttrs (builtins.map (e: {name = e.pname; value = e;}) extensions))
+)
