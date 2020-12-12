@@ -54,11 +54,9 @@ with mergedPkgs; {
   };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
+    inherit steam-run;
+    inherit winetricks;
     inherit (gnome3) zenity;
-    wine = wineWowPackages.minimal;
-    winetricks = winetricks.override {
-      wine = wineWowPackages.minimal;
-    };
   };
 
   pythonPackages = makeOverridable (import ./development/python-modules) {

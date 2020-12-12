@@ -1,10 +1,9 @@
 { lib
 , buildPythonApplication
 , fetchFromGitHub
-, bash
 , setuptools_scm
 , vdf
-, wine
+, steam-run
 , winetricks
 , zenity
 , pytestCheckHook
@@ -12,20 +11,19 @@
 
 buildPythonApplication rec {
   pname = "protontricks";
-  version = "1.4.2";
+  version = "1.4.3";
 
   src = fetchFromGitHub {
     owner = "Matoking";
     repo = pname;
     rev = version;
-    sha256 = "0ri4phi1rna9snrxa6gl23walyack09mgax7zpjqfpxivwls3ach";
+    sha256 = "0a5727igwafwvj8rr5lv0lx8rlfji3qkzmrbp0d15w5dc4fhknp0";
   };
 
-  # Fix interpreter in mock run.sh for tests
-  postPatch = ''
-    substituteInPlace tests/conftest.py \
-      --replace '#!/bin/bash' '#!${bash}/bin/bash' \
-  '';
+  patches = [
+    # Use steam-run to run Proton binaries
+    ./steam-run.patch
+  ];
 
   preBuild = ''
     export SETUPTOOLS_SCM_PRETEND_VERSION="${version}"
@@ -34,19 +32,24 @@ buildPythonApplication rec {
   nativeBuildInputs = [ setuptools_scm ];
   propagatedBuildInputs = [ vdf ];
 
-  # The wine install shipped with Proton must run under steam's
-  # chrootenv, but winetricks and zenity break when running under
-  # it. See https://github.com/NixOS/nix/issues/902.
-  #
-  # The current workaround is to use wine from nixpkgs
   makeWrapperArgs = [
-    "--set STEAM_RUNTIME 0"
-    "--set-default WINE ${wine}/bin/wine"
-    "--set-default WINESERVER ${wine}/bin/wineserver"
-    "--prefix PATH : ${lib.makeBinPath [ winetricks zenity ]}"
+    "--prefix PATH : ${lib.makeBinPath [
+      steam-run
+      winetricks
+      zenity
+    ]}"
   ];
 
   checkInputs = [ pytestCheckHook ];
+  disabledTests = [
+    # Steam runtime is hard-coded with steam-run.patch and can't be configured
+    "test_run_steam_runtime_not_found"
+    "test_unknown_steam_runtime_detected"
+
+    # Steam runtime 2 currently isn't supported
+    # See https://github.com/NixOS/nixpkgs/issues/100655
+    "test_run_winetricks_steam_runtime_v2"
+  ];
 
   meta = with lib; {
     description = "A simple wrapper for running Winetricks commands for Proton-enabled games";
