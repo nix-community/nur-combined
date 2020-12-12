@@ -12,7 +12,11 @@ environment:
   NUR_REPO: priegger
 tasks:
   - setup: |
+      set -o pipefail
       cachix use "${CACHIX_CACHE}" --mode user-nixconf
+      nix path-info --all | grep -v '\.drv$' >store-path-pre-build
+      nohup cachix push --watch-store "${CACHIX_CACHE}" </dev/null >cachix.out 2>cachix.err &
+      sleep 1
   - lint: |
       cd nur-packages
       find . -name '*.nix' -exec nixpkgs-fmt --check {} +
@@ -21,7 +25,6 @@ tasks:
       cd nur-packages
 
       nix-build ci.nix -A buildOutputs
-      nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"
 
       nix eval -f nur.nix 'lib'
       nix eval -f nur.nix 'modules'
@@ -30,11 +33,17 @@ tasks:
       nix-build -E 'with import <nixpkgs>{}; (callPackage ./default.nix {})'
   - test: |
       cd nur-packages
-      for test in tests/*.nix; do nix-build --no-out-link "${test}" | cachix push "${CACHIX_CACHE}"; done
+      for test in tests/*.nix; do nix-build --no-out-link "${test}"; done
+  - teardown: |
+      set -o pipefail
+      comm -13 <(sort store-path-pre-build) <(nix path-info --all | grep -v '\.drv$' | sort) | cachix push -j2 "${CACHIX_CACHE}"
   - deploy: |
       cd nur-packages
       [ "$(git rev-parse HEAD)" == "$(git rev-parse master)" ] || complete-build
       curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"
+artifacts:
+  - cachix.out
+  - cachix.err
 triggers:
   - action: email
     condition: failure

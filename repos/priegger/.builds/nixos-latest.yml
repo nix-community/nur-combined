@@ -17,6 +17,7 @@ tasks:
       find . -name '*.nix' -exec nixpkgs-fmt --check {} +
       find . -name '*.sh' -exec shellcheck --shell bash {} +
   - build: |
+      set -o pipefail
       cd nur-packages
 
       nix-build ci.nix -A buildOutputs
@@ -28,6 +29,7 @@ tasks:
 
       nix-build -E 'with import <nixpkgs>{}; (callPackage ./default.nix {})'
   - test: |
+      set -o pipefail
       cd nur-packages
       for test in tests/*.nix; do nix-build --no-out-link "${test}" | cachix push "${CACHIX_CACHE}"; done
   - deploy: |

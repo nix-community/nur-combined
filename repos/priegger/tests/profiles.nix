@@ -72,7 +72,7 @@ import ./lib/make-test.nix (
         with subtest("headless starts"):
             # programs that should be there
             for program in ["mosh-server"]:
-                desktop.succeed("type -p {} 1>&2".format(program))
+                headless.succeed("type -p {} 1>&2".format(program))
 
             checkCommonProperties(headless)
       '';
