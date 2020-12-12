@@ -192,7 +192,7 @@ let
         url = "https://github.com/fulhax/ncpamixer/pull/49.diff";
         sha256 = "0bnh9xii3j7kvj46hwl87y6fa4x6mi7q7p2fd0rg814i0s9b682s";
       };
-    in if lib.versionOlder ncpamixer.version "1.3.3.2" then ncpamixer.overrideAttrs (old: {
+    in if ncpamixer.version == "1.3.3.1" then ncpamixer.overrideAttrs (old: {
       patches = old.patches or [] ++ lib.singleton segfaultLoopback;
       enableParallelBuilding = true;
       buildPhase = null;
