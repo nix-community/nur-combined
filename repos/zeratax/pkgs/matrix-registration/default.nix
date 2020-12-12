@@ -47,7 +47,7 @@ in buildPythonPackage rec {
     parameterized
   ];
 
-   # `alembic` (a database migration tool) is only needed for the initial setup,
+  # `alembic` (a database migration tool) is only needed for the initial setup,
   # and not needed during the actual runtime. However `alembic` requires `matrix-registration`
   # in its environment to create a database schema from all models.
   #
@@ -55,7 +55,7 @@ in buildPythonPackage rec {
   # which has `matrix-registration` in its environment.
   passthru.alembic = alembic.overrideAttrs (old: {
     propagatedBuildInputs = old.propagatedBuildInputs ++ dbDrivers ++ [
-      matrix-registration
+      pkgs.matrix-registration
     ];
   });
 

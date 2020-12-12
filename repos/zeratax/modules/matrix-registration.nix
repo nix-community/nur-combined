@@ -18,12 +18,13 @@ in {
         type = types.attrs;
         apply = recursiveUpdate default;
         default = {
-          server_location = mkIf config.services.matrix-synapse.enable "localhost:8008";
-          server_name = mkIf config.services.matrix-synapse.enable config.services.matrix-synapse.server_name;
-          shared_secret = mkIf config.services.matrix-synapse.enable config.services.matrix-synapse.registration_shared_secret;
-          admin_secret =  "APIAdminPassword";
+          server_location = "";
+          server_name = optionalString config.services.matrix-synapse.enable config.services.matrix-synapse.server_name;
+          shared_secret = optionalString config.services.matrix-synapse.enable config.services.matrix-synapse.registration_shared_secret;
+          admin_secret = "APIAdminPassword";
+          base_url = "";
           riot_instance = "https://riot.home.server.de";
-          db = "sqlite:///{cwd}db.sqlite3";
+          db = "sqlite:///${dataDir}/db.sqlite3";
           host = "localhost";
           port = 5000;
           rate_limit = ["100 per day" "10 per minute"];
@@ -31,8 +32,9 @@ in {
           password = {
             min_length = 8;
           };
+          ip_logging = false;
           logging = {
-            disable_existing_loggersa = false;
+            disable_existing_loggers = false;
             version = 1;
             root = {
               level = "DEBUG";
@@ -57,7 +59,7 @@ in {
                  class = "logging.handlers.RotatingFileHandler";
                   formatter = "precise";
                   level = "INFO";
-                  filename = "m_reg.log";
+                  filename = "${dataDir}/m_reg.log";
                   maxBytes = 10485760;
                   backupCount = 3;
                   encoding = "utf8";
@@ -100,7 +102,7 @@ in {
 
       preStart = ''
         # run automatic database init and migration scripts
-        ${pkgs.matrix-registration.alembic}/bin/alembic -x config='${settingsFile}' upgrade head
+        ${pkgs.matrix-registration.alembic}/bin/alembic -x dbname='${settingsFile}' upgrade head
       '';
 
       serviceConfig = {
@@ -121,7 +123,7 @@ in {
 
         ExecStart = ''
           ${pkgs.matrix-registration}/bin/matrix-registration \
-            --config='${settingsFile} serve'
+            --config-path='${settingsFile}' serve
         '';
       };
     };
