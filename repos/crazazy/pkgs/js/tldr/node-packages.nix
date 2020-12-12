@@ -1885,13 +1885,13 @@ let
         sha1 = "ecdca8f13144e660f1b5bd41f12f3479d98dfb8f";
       };
     };
-    "marked-1.2.5" = {
+    "marked-1.2.6" = {
       name = "marked";
       packageName = "marked";
-      version = "1.2.5";
+      version = "1.2.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/marked/-/marked-1.2.5.tgz";
-        sha512 = "2AlqgYnVPOc9WDyWu7S5DJaEZsfk6dNh/neatQ3IHUW4QLutM/VPSH9lG7bif+XjFWc9K9XR3QvR+fXuECmfdA==";
+        url = "https://registry.npmjs.org/marked/-/marked-1.2.6.tgz";
+        sha512 = "7vVuSEZ8g/HH3hK/BH/+7u/NJj7x9VY4EHzujLDcqAQLiOUeFJYAsfSAyoWtR17lKrx7b08qyIno4lffwrzTaA==";
       };
     };
     "match-stream-0.0.2" = {
@@ -2038,13 +2038,13 @@ let
         sha1 = "5608aeadfc00be6c2901df5f9861788de0d597c8";
       };
     };
-    "ms-2.1.2" = {
+    "ms-2.1.3" = {
       name = "ms";
       packageName = "ms";
-      version = "2.1.2";
+      version = "2.1.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz";
-        sha512 = "sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==";
+        url = "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz";
+        sha512 = "6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==";
       };
     };
     "mute-stream-0.0.8" = {
@@ -3601,7 +3601,7 @@ let
       sources."make-dir-2.1.0"
       sources."map-cache-0.2.2"
       sources."map-visit-1.0.0"
-      sources."marked-1.2.5"
+      sources."marked-1.2.6"
       (sources."match-stream-0.0.2" // {
         dependencies = [
           sources."isarray-0.0.1"
@@ -3630,7 +3630,7 @@ let
       })
       sources."mkdirp-0.5.5"
       sources."move-concurrently-1.0.1"
-      sources."ms-2.1.2"
+      sources."ms-2.1.3"
       sources."mute-stream-0.0.8"
       sources."nan-2.14.2"
       sources."nanomatch-1.2.13"
