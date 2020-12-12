@@ -1,6 +1,15 @@
 self: super: {
-	gnomeExtensions = (super.gnomeExtensions // rec {
+	gnomeExtensions = (super.gnomeExtensions // (let
+		buildShellExtension2 = self.callPackage ../pkgs/buildGnomeExtension2.nix {};
+		extensions-index = builtins.fromJSON (builtins.readFile ./../lib/extensions.json);
+		extensions = builtins.map buildShellExtension2 extensions-index;
+	in
+		(builtins.listToAttrs (builtins.map (e: {name = e.pname; value = e;}) extensions))
+	)) // {
 		buildShellExtension = self.callPackage ../pkgs/buildGnomeExtension.nix {};
+		buildShellExtension2 = self.callPackage ../pkgs/buildGnomeExtension2.nix {};
+
+		# #### LEGACY ####
 
 		dash-to-panel = super.gnomeExtensions.dash-to-panel.overrideAttrs (old: {
 			version = "40";
@@ -48,5 +57,5 @@ self: super: {
 			version = 4;
 			sha256 = "0viq0wwhhcszsybk2jxhla1chinj552xcc5pbyn55j061aql514r";
 		};
-	});
+	};
 }
