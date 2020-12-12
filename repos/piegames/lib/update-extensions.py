@@ -7,21 +7,6 @@ supported_versions = {
     "3.38", "3.38.0", "3.38.1"
 }
 
-# https://github.com/NixOS/nix/blob/master/src/libutil/hash.cc#L83-L84
-def argh_i_hate_this(bytes) -> str:
-    base32Chars = "0123456789abcdfghijklmnpqrsvwxyz"
-    base32len = int((len(bytes) * 8 - 1) / 5 + 1);
-    s = ""
-
-    for n in range(base32len - 1, -1, -1):
-        b = n * 5;
-        i = int(b / 8);
-        j = b % 8;
-        c = (bytes[i] >> j) | (0 if i >= len(bytes) - 1 else bytes[i + 1] << (8 - j))
-        s += base32Chars[c & 0x1f]
-
-    return s
-
 def process_extension(extension) -> bool:
     # Yeah, there are some extensions without any releases
     if not extension["shell_version_map"]:
@@ -58,8 +43,7 @@ def process_extension(extension) -> bool:
             if not data:
                 break
             hasher.update(data)
-        digest = hasher.digest();
-        return argh_i_hate_this(digest)
+        return hasher.hexdigest()
 
     extension["sha256"] = fetch_sha256sum(extension["uuid"], str(extension["version"]))
 
