@@ -2,10 +2,10 @@
 import urllib.request, json, types
 
 # We don't want all those deprecated legacy extensions
-supported_versions = [
+supported_versions = {
     "3.36", "3.36.0", "3.36.1", "3.36.2", "3.36.3", "3.36.4", "3.36.5", "3.36.6",
     "3.38", "3.38.0", "3.38.1"
-]
+}
 
 # https://github.com/NixOS/nix/blob/master/src/libutil/hash.cc#L83-L84
 def argh_i_hate_this(bytes) -> str:
