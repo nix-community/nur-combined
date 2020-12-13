@@ -2,25 +2,23 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "matrix-conduit";
-  version = "unstable-2020-08-25";
+  version = "unstable-2020-11-06";
 
   src = fetchgit {
-    url = "https://git.koesters.xyz/timo/conduit.git";
-    rev = "6343eea4178336e50b77b5113d020516405b4dc6";
-    sha256 = "0q21c4f0v3k6fp1kpbs4zjhcly2mna3pwf74b5fq7q0p5371458w";
+    url = "https://gitlab.com/famedly/conduit";
+    rev = "18f33b1ece291797f22b27e186f93b21a423341c";
+    sha256 = "16d6sy6l66dq902wq63wv793a1zf6dzfvi5njhc4xf2lxwrsm4wv";
   };
 
   nativeBuildInputs = [ pkgconfig ];
-
   buildInputs = [ openssl ];
 
-  cargoSha256 = "1ilpw4pzm8fqim29jzwlfgz1jyblragalm50vqyj1n14piapxzlk";
+  cargoSha256 = "1lg38aw2chpfpif7sic634jxdp2mrb0gxbm2l1zkzw63g1c6xylm";
 
   meta = with lib; {
-    broken = true;
     description = "A Matrix homeserver written in Rust";
     homepage = "https://conduit.rs";
-    license = licenses.agpl3Only;
+    license = licenses.asl20;
     maintainers = with maintainers; [ ];
     platforms = platforms.all;
   };
