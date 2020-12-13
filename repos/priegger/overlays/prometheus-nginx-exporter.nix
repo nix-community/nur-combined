@@ -4,7 +4,7 @@ let
   pkgs =
     import
       (
-        super.fetchFromGitHub {
+        self.fetchFromGitHub {
           owner = "priegger";
           repo = "nixpkgs";
           rev = "fix/prometheus-nginx-exporter";

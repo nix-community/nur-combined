@@ -39,7 +39,7 @@ tasks:
       comm -13 <(sort store-path-pre-build) <(nix path-info --all | grep -v '\.drv$' | sort) | cachix push -j2 "${CACHIX_CACHE}"
   - deploy: |
       cd nur-packages
-      [ "$(git rev-parse HEAD)" == "$(git rev-parse master)" ] || complete-build
+      [ "$(git rev-parse HEAD)" = "$(git rev-parse master)" ] || complete-build
       curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"
 artifacts:
   - cachix.out
