@@ -11,13 +11,13 @@
 
 llvmPackages_11.stdenv.mkDerivation rec {
   pname = "vmangos";
-  version = "unstable-2020-11-30";
+  version = "unstable-2020-12-13";
 
   src = fetchFromGitHub {
     owner = "vmangos";
     repo = "core";
-    rev = "bd974eb24f4899f73b6a7e63a74ba057f649bd79";
-    sha256 = "124dvalsw7iy13042dfjmjzcrwkg18z5q95h9hp9njf0d0l3khgd";
+    rev = "241c75348882ac28e6612015b7556ca70c4b8031";
+    sha256 = "0qcs2niaa2nrgkzry1c6spaixds0iwycxbllhgj0xy5ig16fzg4a";
   };
 
   postPatch = ''
@@ -36,6 +36,11 @@ llvmPackages_11.stdenv.mkDerivation rec {
     "-DUSE_LIBCURL=1"
     "-DUSE_EXTRACTORS=1"
   ];
+
+  postInstall = ''
+    cp -Rv ../sql $out/sql
+  '';
+
 
   meta = with lib; {
     description = "Progressive Vanilla Core aimed at all versions from 1.2 to 1.12";
