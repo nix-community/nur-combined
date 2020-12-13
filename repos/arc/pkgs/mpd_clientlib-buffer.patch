@@ -1,0 +1,12 @@
+--- a/src/buffer.h
++++ b/src/buffer.h
+@@ -45,7 +45,7 @@ struct mpd_buffer {
+ 	unsigned read;
+ 
+ 	/** the actual buffer */
+-	unsigned char data[4096];
++	unsigned char data[32768];
+ };
+ 
+ /**
+

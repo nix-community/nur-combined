@@ -169,6 +169,9 @@ let
       };
       enableParallelBuilding = true;
       patches = old.patches or [] ++ [ ./public/luakit/nodoc.patch ];
+      meta = old.meta // {
+        broken = old.meta.broken or false || luakit.stdenv.isDarwin;
+      };
     });
 
     electrum-cli = { lib, electrum }: let
@@ -333,6 +336,11 @@ let
       meta = old.meta or {} // {
         broken = old.meta.broken or false || lib.versionOlder old.version "0.21" || mpd.stdenv.isDarwin;
       };
+    });
+
+    mpd_clientlib = { mpd_clientlib }: mpd_clientlib.overrideAttrs (old: {
+      # raise mpd line length limit from 4KB to 32KB
+      patches = old.patches or [ ] ++ [ ./mpd_clientlib-buffer.patch ];
     });
 
     ncmpcpp = { ncmpcpp, fetchpatch }: ncmpcpp.overrideAttrs (old: {
