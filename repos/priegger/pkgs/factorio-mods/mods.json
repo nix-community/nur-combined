@@ -1,10 +1,10 @@
 [
   {
     "name": "aai-programmable-vehicles",
-    "version": "0.7.8",
-    "file_name": "aai-programmable-vehicles_0.7.8.zip",
-    "download_url": "/download/aai-programmable-vehicles/5fcf6dae0a6c82f9a1ed1d60",
-    "sha1": "cd49cac46125510807576f54e47b6ccbab0476a7",
+    "version": "0.7.9",
+    "file_name": "aai-programmable-vehicles_0.7.9.zip",
+    "download_url": "/download/aai-programmable-vehicles/5fd63ff465308f55c5c8efe2",
+    "sha1": "f39e1b1c2173fb5f5b3d43f5458913d33e4fd4a3",
     "dependencies": [
       "base >= 1.1.0",
       "aai-signals >= 0.4.1",
@@ -74,10 +74,10 @@
   },
   {
     "name": "alien-biomes",
-    "version": "0.6.1",
-    "file_name": "alien-biomes_0.6.1.zip",
-    "download_url": "/download/alien-biomes/5fbc7df53588979cf9d87aaf",
-    "sha1": "5c9b9233ddfa33f8b4b166b255bb1b30458f2b67",
+    "version": "0.6.2",
+    "file_name": "alien-biomes_0.6.2.zip",
+    "download_url": "/download/alien-biomes/5fd568e623f0ba39a61c7de0",
+    "sha1": "11ff70b9d53af80657c2076a033d418487696a44",
     "dependencies": [
       "base >= 1.1.0",
       "?alien-biomes-hr-terrain >= 0.3.1"
@@ -637,10 +637,10 @@
   },
   {
     "name": "robot_attrition",
-    "version": "0.5.5",
-    "file_name": "robot_attrition_0.5.5.zip",
-    "download_url": "/download/robot_attrition/5fcf711e50f6d708aef27b37",
-    "sha1": "f522b3f3c5712d2cb3c3e6a93e5fab2b3e30dd0d",
+    "version": "0.5.6",
+    "file_name": "robot_attrition_0.5.6.zip",
+    "download_url": "/download/robot_attrition/5fd659f565308f55c5d29cae",
+    "sha1": "669a473d3f029b757bbc952d2658783872402dd4",
     "dependencies": [
       "base >= 1.1.0"
     ]
