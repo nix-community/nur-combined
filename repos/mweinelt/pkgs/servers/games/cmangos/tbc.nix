@@ -9,13 +9,13 @@
 
 llvmPackages_11.stdenv.mkDerivation rec {
   pname = "mangos-tbc";
-  version = "unstable-2020-11-30";
+  version = "unstable-2020-12-13";
 
   src = fetchFromGitHub {
     owner = "cmangos";
     repo = pname;
-    rev = "553211071970bc02956ef6fac74c31d2f461b7e9";
-    sha256 = "0jq6c4hvv8fcclm4q4lhzwaz8bg18nm3hpmcnd1746lqjzhvr9ck";
+    rev = "ed2cf172a13909ed47cd49269096347687eb8747";
+    sha256 = "1w993qc8zfpii9ahmlv4ldhxf1mwmvcjfja3j7kd26v62i4qkapr";
   };
 
   patches = [
