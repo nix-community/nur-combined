@@ -69,10 +69,10 @@
   };
   "lastpass-password-manager" = buildFirefoxXpiAddon {
     pname = "lastpass-password-manager";
-    version = "4.58.0.4";
+    version = "4.62.0.6";
     addonId = "support@lastpass.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3657084/lastpass_password_manager-4.58.0.4-an+fx.xpi";
-    sha256 = "6e339d83998fce0c1e6e4e1bbcaa0dfbd3eb74372635ab35bcedd2a23cac7335";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3693247/lastpass_password_manager-4.62.0.6-an+fx.xpi";
+    sha256 = "4e4cc6061fe44442de7e91c35d6b2cfd2d2b0c2365cfb84dcba5d4e0fae5138c";
     meta = with stdenv.lib;
       {
         homepage = "https://lastpass.com/";
