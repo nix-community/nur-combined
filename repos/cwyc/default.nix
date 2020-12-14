@@ -19,5 +19,6 @@
   # ... */
   firefox-flash-sandbox = pkgs.callPackage ./pkgs/firefox-flash {};
   openframeworks = pkgs.callPackage ./pkgs/openframeworks {};
+  antimony = pkgs.callPackage ./pkgs/antimony {};
 }
 
