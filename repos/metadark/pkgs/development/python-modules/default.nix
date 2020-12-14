@@ -1,8 +1,7 @@
 { mergedPkgs, pythonPackages }:
 
-mergedPkgs.lib.fix (self:
+let nurPythonPackages = (mergedPythonPackages:
 let
-  mergedPythonPackages = pythonPackages // self;
   callPackage = mergedPkgs.newScope mergedPythonPackages;
 in
 with mergedPythonPackages; {
@@ -45,4 +44,6 @@ with mergedPythonPackages; {
   rstb = callPackage ./rstb { };
 
   vdf = callPackage ./vdf { };
-})
+}) (pythonPackages // nurPythonPackages);
+in
+nurPythonPackages

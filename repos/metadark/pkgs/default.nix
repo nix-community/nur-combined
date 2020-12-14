@@ -1,9 +1,8 @@
 { pkgs }:
 
-pkgs.lib.fix (self:
+let nurPkgs = (mergedPkgs:
 let
-  mergedPkgs = pkgs // self;
-  callPackage = pkgs.newScope self;
+  callPackage = pkgs.newScope mergedPkgs;
 in
 with mergedPkgs; {
   inherit callPackage;
@@ -122,4 +121,6 @@ with mergedPkgs; {
   zyn-fusion = callPackage ./applications/audio/zynaddsubfx {
     guiModule = "zest";
   };
-})
+}) (pkgs // nurPkgs);
+in
+nurPkgs
