@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip, runtimeShell, openjdk, writeScriptBin, python3 }:
+{ stdenv, fetchurl, unzip, runtimeShell, openjdk, writeScriptBin, python3, autoPatchelfHook, zlib }:
 
 let
 
@@ -11,18 +11,29 @@ in
 
 stdenv.mkDerivation rec {
   name = "keyhub-cli-${version}";
-  version = "15.0";
+  version = "17.0";
 
   src = fetchurl {
     url = "https://files.topicus-keyhub.com/manual/keyhub-cli-${version}.zip";
-    sha256 = "1x88n8ryxdyisikybplninyrbcgyq3653gyf79xxj1l11w8nsyj8";
+    sha256 = "0n07yb7psjlwckpam44fxvmwj5fdnnp49dahzfkzf3d5p5hj062p";
   };
 
+  buildInputs = [ autoPatchelfHook stdenv.glibc stdenv.cc.cc zlib ];
   nativeBuildInputs = [ unzip ];
 
   unpackPhase = ''
     unzip $src
   '';
+
+  # TODO: Keyhub ships with a self-contained binary, that is much faster than
+  # the JVM version. It gives this error on `keyhub list`:
+  #
+  # InvalidAlgorithmParameterException:the trustAnchors parameter must be non-empty
+  #
+  # installPhase = ''
+  #   mkdir -p $out/bin
+  #   cp linux/keyhub $out/bin
+  # '';
 
   installPhase = ''
     mkdir -p "$out"/{bin,lib/java/keyhub}
