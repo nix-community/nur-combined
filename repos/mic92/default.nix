@@ -40,8 +40,6 @@ rec {
 
   irc-announce = pkgs.callPackage ./pkgs/irc-announce { };
 
-  keystone = pkgs.callPackage ./pkgs/keystone { };
-
   kvmtool = pkgs.callPackage ./pkgs/kvmtool { };
 
   linux_ayufan_5_6 = pkgs.callPackage ./pkgs/linux_ayufan_5_6 {
@@ -93,9 +91,7 @@ rec {
   phpldapadmin = pkgs.callPackage ./pkgs/phpldapadmin { };
 
   python3Packages = pkgs.recurseIntoAttrs (
-    (pkgs.python3Packages.callPackage ./pkgs/python-pkgs {
-      inherit keystone;
-    })
+    pkgs.python3Packages.callPackage ./pkgs/python-pkgs {}
   );
 
   pyps4-2ndscreen = pkgs.python3.pkgs.toPythonApplication python3Packages.pyps4-2ndscreen;
