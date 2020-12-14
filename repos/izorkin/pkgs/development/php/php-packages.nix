@@ -471,12 +471,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "2.17.0";
+    version = "2.17.1";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "163wz5y5ik7g1p7n0v3ckyawqjhg8d18cwx8a5c6fr1fkwb4mb12";
+      sha256 = "04zbrsvizifb13vrgsy8znl8px1clnpcmbb1qb673bl9cg1a1na7";
     };
 
     phases = [ "installPhase" ];
@@ -586,12 +586,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.59";
+    version = "0.12.62";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0lp25d9b7w8lk4ffrd17mjw93i234qnfpwz42k8lww1lrk5abnfa";
+      sha256 = "05mj3bp6xrcqy05vxnhf37bgh1i1mjcqn3q3lc5gl1b7qv49qb2r";
     };
 
     phases = [ "installPhase" ];
