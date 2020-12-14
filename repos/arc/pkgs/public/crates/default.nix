@@ -251,14 +251,14 @@
     src = fetchFromGitHub {
       owner = "arcnmx";
       repo = pname;
-      rev = "0169a3ed1ee01e74014f3c6ad12801bf6cae9bcd";
-      sha256 = "13plxibs287iy5pl53ifnidsrl6hm0zpd26p5aa66h6jihd9i1vk";
+      rev = "b0655764e0a015623004ef0d1e820bd8672dde26";
+      sha256 = "1cyjbsxg7i6bd84zpcgi6krk8kz652z397ay61gmx07v4nn27dpx";
     };
 
     nativeBuildInputs = [ pkg-config python3 ];
     buildInputs = [ libxcb udev ];
 
-    cargoSha256 = "0zb4k508i61p0ivgd994fzipqz8y7ijrlc19d1s4zcdq5arfcblq";
+    cargoSha256 = "10a7xwk12awhk1079l5n33nj7gq2g8lcfy3vzl26p21qrr73bbji";
 
     doCheck = false;
   };
