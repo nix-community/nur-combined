@@ -167,6 +167,9 @@ in
   # cachix
   cachix.enable = true;
 
+  # singularity
+  programs.singularity.enable = true;
+
   # não deixar explodir
   nix.maxJobs = 3;
   # kernel

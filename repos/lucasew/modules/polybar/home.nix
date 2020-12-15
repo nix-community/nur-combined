@@ -15,6 +15,11 @@ in {
   xsession.windowManager.i3.config.bars = [];
   services.polybar = {
     script = "polybar bar -r &";
+    package = pkgs.polybar.override {
+      alsaSupport = true;
+      pulseSupport = true;
+      i3Support = true;
+    };
     config = {
       "bar/bar" = {
         "monitor" = "eDP-1";
@@ -46,8 +51,8 @@ in {
       "module-margin-right" = 1;
 
       "modules-left" = [
-        "xwindow"
         "i3"
+        "xwindow"
       ];
       "modules-center" = [
         "pulseaudio"

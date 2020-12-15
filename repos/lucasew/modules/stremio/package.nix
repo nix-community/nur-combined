@@ -3,7 +3,7 @@ with pkgs;
 let
   serverJS = builtins.fetchurl {
     url = "https://s3-eu-west-1.amazonaws.com/stremio-artifacts/four/master/server.js";
-    sha256 = "1xgjcwqn0va3p65iwrrgq7h8kbb68ll2hgab918nf21nni4j4yfa";
+    sha256 = "1q7fkgd5cnnbwn84vwq5yy1qy4si456jchc7dxswlffl9k98p35l";
   };
   pkg = qt5.mkDerivation rec {
     name = "stremio";
