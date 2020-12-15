@@ -279,14 +279,6 @@
     "slug": "transparent-standalone-image"
   },
   {
-    "slug": "tridactyl-vim",
-    "pname": "tridactyl",
-    "license": {
-      "tag": "predefined",
-      "shortName": "asl20"
-    }
-  },
-  {
     "slug": "tree-style-tab",
     "license": {
       "tag": "custom",
@@ -294,6 +286,14 @@
       "fullName": "Tree Style Tab License, primarily MPL 2.0",
       "url": "https://github.com/piroor/treestyletab/blob/trunk/COPYING.txt",
       "free": true
+    }
+  },
+  {
+    "slug": "tridactyl-vim",
+    "pname": "tridactyl",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
     }
   },
   {
