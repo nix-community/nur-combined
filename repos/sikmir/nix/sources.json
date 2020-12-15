@@ -44,15 +44,15 @@
     "cheetah3": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-29T00:20:47Z",
+        "date": "2020-12-14T17:50:07Z",
         "description": "Cheetah3 is a free (MIT) and open source template engine for Python",
         "homepage": "https://cheetahtemplate.org/",
         "owner": "CheetahTemplate3",
         "repo": "cheetah3",
-        "rev": "341f3d72dd8499354ce3d3a600edc15260bbb565",
-        "sha256": "1vc9jvmkbdqjhn9ymah6vdp4fhf84mbjz2q0x04cy9a1xpspg347",
+        "rev": "089e45aadb92d6cd24ccdc8e9a2accac1f7223ba",
+        "sha256": "1aq1qkfyx1kdra8a8xysv11frwzis2yfa5y9li90rqg48p80izxi",
         "type": "tarball",
-        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/341f3d72dd8499354ce3d3a600edc15260bbb565.tar.gz",
+        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/089e45aadb92d6cd24ccdc8e9a2accac1f7223ba.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "csvquote": {
@@ -212,15 +212,15 @@
     "gef": {
         "branch": "dev",
         "builtin": false,
-        "date": "2020-12-10T22:24:36Z",
+        "date": "2020-12-14T04:33:11Z",
         "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
         "homepage": "http://gef.rtfd.io",
         "owner": "hugsy",
         "repo": "gef",
-        "rev": "885c7508f62baa6e4b18dee16f066b729c86ab3c",
-        "sha256": "1cx3y91fxbzkxm83ja54d1328spclx8g2jsrp4lm5yqh0zla0jq9",
+        "rev": "6846e50221189d50244885d3684514a97f9469ee",
+        "sha256": "1bj0fs5rakygddln7kzn5wnpr8gsq4vr8hqylv5fpl08f35gg3hs",
         "type": "tarball",
-        "url": "https://github.com/hugsy/gef/archive/885c7508f62baa6e4b18dee16f066b729c86ab3c.tar.gz",
+        "url": "https://github.com/hugsy/gef/archive/6846e50221189d50244885d3684514a97f9469ee.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geminid": {
@@ -377,15 +377,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2020-12-12T09:19:48Z",
+        "date": "2020-12-15T20:51:38Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "4cef089c812984f73c2f84006482e9b1ccf49b13",
-        "sha256": "1gbynys4pjx5457xz4qjh3fvfs8qycmdy9rf9pxp5iih33azch8q",
+        "rev": "84d5673e17b93875082dea1e98d84793c72d8e3b",
+        "sha256": "1xg2ziwiz5s87ywyasyr7m3j01fz221n1w9gdgvyf0x50frsswsw",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/4cef089c812984f73c2f84006482e9b1ccf49b13.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/84d5673e17b93875082dea1e98d84793c72d8e3b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -629,15 +629,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-04T05:24:44Z",
+        "date": "2020-12-12T14:27:40Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "d52eda577cbd57166b2bf09313544f9b36bcbf67",
-        "sha256": "119mfkwn0aw8914ggx8vrppn90xqvxq4lga8r740534a88pwr3h7",
+        "rev": "626878cce58dfda72a0d23f7650457ff354a0a71",
+        "sha256": "1b00zgnynigzvag08f6052jb3yvh929ginpqj0x3bynmmd9jzndh",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/d52eda577cbd57166b2bf09313544f9b36bcbf67.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/626878cce58dfda72a0d23f7650457ff354a0a71.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maprec": {
@@ -673,11 +673,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "0k1bpvyq1pw7z1vbdjh3iwrly7mpgsl6hy6jlz4wi6xwkjvbgdfi",
+        "sha256": "148q037rnl7paxyxjpd1pic9jjk5l3y8ixzl7c503bvh90ldqn6d",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-12-12.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-12-15.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-12-12"
+        "version": "2020-12-15"
     },
     "mercantile": {
         "branch": "master",
@@ -762,15 +762,15 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-11T23:31:55Z",
+        "date": "2020-12-14T16:02:04Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "5cf7f791036495e26f584b63ad4da05ba7bbb820",
-        "sha256": "1v47rw601mj7wrnf6bvjlb2nilgdw5wy9gybzq8hkny9lgrzzx8q",
+        "rev": "ce79aca304b2ada02577253f239eaf284b2b3c53",
+        "sha256": "04a8zik7inpj5d81ay7lky58lr05l6m13gx58al32isy77bxwbf3",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/5cf7f791036495e26f584b63ad4da05ba7bbb820.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/ce79aca304b2ada02577253f239eaf284b2b3c53.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
@@ -1038,15 +1038,15 @@
     "zdict": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-09T05:08:39Z",
+        "date": "2020-12-15T18:05:35Z",
         "description": "The last online dictionary framework you need",
         "homepage": "https://pypi.org/project/zdict/",
         "owner": "zdict",
         "repo": "zdict",
-        "rev": "4b693fd7782441db8ef7ba12eecfa3f67a97a9e9",
-        "sha256": "1h5yp8qcg4z589mkmagjghqbxb3jacbc5riqrpac596ds90ah8hg",
+        "rev": "cede4221bcadeda12867d74bcc2cbe326c23ea4b",
+        "sha256": "1p1wsm1ary4d2khavbzq004yjz8n8cwaakj2b2ik91k7i950l5sz",
         "type": "tarball",
-        "url": "https://github.com/zdict/zdict/archive/4b693fd7782441db8ef7ba12eecfa3f67a97a9e9.tar.gz",
+        "url": "https://github.com/zdict/zdict/archive/cede4221bcadeda12867d74bcc2cbe326c23ea4b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
