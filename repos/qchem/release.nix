@@ -43,8 +43,6 @@ jobs = rec {
       siesta-mpi
       siesta
       octopus
-      gromacsDoubleMpi
-      gromacsDouble
       libxsmm
       openblas
       openblasCompat
@@ -69,6 +67,10 @@ jobs = rec {
     molcasUnstable
     mt-dgemm
     nwchem
+    gromacs
+    gromacsDouble
+    gromacsMpi
+    gromacsDoubleMpi
     octave
     sharcV1
     sharc

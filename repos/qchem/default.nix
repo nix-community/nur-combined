@@ -35,6 +35,20 @@ let
       optAVX = cfg.optAVX;
     };
 
+    gromacs = super.gromacs.override {
+      openmpi = pkg;
+      cpuAcceleration = if cfg.optAVX then "AVX2_256" else "SSE4.1";
+      mpiEnabled = true;
+    };
+
+    gromacsDouble = super.gromacs.override {
+      openmpi = pkg;
+      cpuAcceleration = if cfg.optAVX then "AVX2_256" else "SSE4.1";
+      mpiEnabled = true;
+      singlePrec = false;
+      fftw =  if cfg.optAVX then self.fftwOpt else fftw;
+    };
+
     # MKL is the default. Relativistic methods are broken with non-MKL libs
     bagel-mkl = callPackage ./bagel { blas = self.mkl; mpi=pkg; boost=boost165; scalapack=null; withScalapack=true; };
     bagel-openblas = callPackage ./bagel { blas = self.openblas; mpi=pkg; };
@@ -93,6 +107,20 @@ in with super;
   gaussian = callPackage ./gaussian { inherit (cfg) optpath; };
 
   gaussview = callPackage ./gaussview { };
+
+  gromacs = super.gromacs.override {
+    cpuAcceleration = if cfg.optAVX then "AVX2_256" else "SSE4.1";
+  };
+
+  gromacsDouble = super.gromacs.override {
+    cpuAcceleration = if cfg.optAVX then "AVX2_256" else "SSE4.1";
+    singlePrec = false;
+    fftw = if cfg.optAVX then self.fftwOpt else fftw;
+  };
+
+  gromacsMpi = self.openmpiPkgs.gromacs;
+
+  gromacsDoubleMpi = self.openmpiPkgs.gromacsDouble;
 
   ergoscf = callPackage ./ergoscf { };
 
