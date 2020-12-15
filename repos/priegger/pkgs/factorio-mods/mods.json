@@ -74,10 +74,10 @@
   },
   {
     "name": "alien-biomes",
-    "version": "0.6.2",
-    "file_name": "alien-biomes_0.6.2.zip",
-    "download_url": "/download/alien-biomes/5fd568e623f0ba39a61c7de0",
-    "sha1": "11ff70b9d53af80657c2076a033d418487696a44",
+    "version": "0.6.3",
+    "file_name": "alien-biomes_0.6.3.zip",
+    "download_url": "/download/alien-biomes/5fd75f4cf41eb1ecc8108b50",
+    "sha1": "6a1b1e14d7c8c360414052ce8b0c0936c689e9b5",
     "dependencies": [
       "base >= 1.1.0",
       "?alien-biomes-hr-terrain >= 0.3.1"
@@ -637,10 +637,10 @@
   },
   {
     "name": "robot_attrition",
-    "version": "0.5.6",
-    "file_name": "robot_attrition_0.5.6.zip",
-    "download_url": "/download/robot_attrition/5fd659f565308f55c5d29cae",
-    "sha1": "669a473d3f029b757bbc952d2658783872402dd4",
+    "version": "0.5.7",
+    "file_name": "robot_attrition_0.5.7.zip",
+    "download_url": "/download/robot_attrition/5fd8198cdd1123db68f3a64e",
+    "sha1": "b7b4f67fe21000eee43abd41a84a3221a38f00c2",
     "dependencies": [
       "base >= 1.1.0"
     ]
