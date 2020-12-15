@@ -315,6 +315,20 @@
         platforms = platforms.all;
         };
       };
+    "floccus" = buildFirefoxXpiAddon {
+      pname = "floccus";
+      version = "4.4.6";
+      addonId = "floccus@handmadeideas.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3672374/floccus-4.4.6-fx.xpi";
+      sha256 = "34e3c42d4a5bfafa3eecb18868160cc98af19d0edab21c3bf2563de817997fdd";
+      meta = with stdenv.lib;
+      {
+        homepage = "https://github.com/marcelklehr/floccus#readme";
+        description = "Sync your bookmarks across browsers via Nextcloud, WebDAV or a local file (and thus any file sync solution)";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "foxyproxy-standard" = buildFirefoxXpiAddon {
       pname = "foxyproxy-standard";
       version = "7.5.1";

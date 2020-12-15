@@ -4,9 +4,7 @@
 
 {
   programs.emacs.init.usePackage = {
-    all-the-icons = {
-      extraPackages = [ pkgs.emacs-all-the-icons-fonts ];
-    };
+    all-the-icons = { extraPackages = [ pkgs.emacs-all-the-icons-fonts ]; };
 
     csharp-mode = { mode = [ ''"\\.cs\\'"'' ]; };
 
