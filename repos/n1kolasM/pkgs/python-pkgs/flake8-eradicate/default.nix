@@ -12,6 +12,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ flake8 eradicate attrs setuptools ];
   
   meta = with stdenv.lib; {
+    broken = true;
     description = "Flake8 plugin to find commented out code";
     homepage = https://pypi.org/project/flake8-eradicate;
     license = licenses.mit;

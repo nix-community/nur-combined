@@ -51,6 +51,7 @@ buildPythonPackage rec {
     darglint
   ];
   meta = with stdenv.lib; {
+    broken = true;
     description = "The strictest and most opinionated python linter ever";
     homepage = https://wemake-python-stylegui.de;
     license = with licenses; [ mit ];
