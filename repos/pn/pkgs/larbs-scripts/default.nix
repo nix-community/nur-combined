@@ -3,7 +3,6 @@ with stdenv.lib;
 let
   bare = callPackage ./bare.nix { };
   cron = callPackage ./cron.nix { };
-  i3cmds = callPackage ./i3cmds.nix { };
   statusbar = callPackage ./statusbar.nix { };
   slider = callPackage ./slider.nix { };
 in
@@ -12,7 +11,6 @@ in
     paths = [
       bare
       cron
-      i3cmds
       statusbar
 
       opustags
