@@ -26,6 +26,7 @@ rec {
 
   python3Packages = python37Packages;
   SpriteSheetPacker = pkgs.qt5.callPackage ./pkgs/SpriteSheetPacker { };
+  obsidian = pkgs.callPackage ./pkgs/obsidian {};
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
