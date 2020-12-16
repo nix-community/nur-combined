@@ -12,6 +12,7 @@
     instaloader = pkgs.python3Packages.callPackage ./instaloader {};
     pygtrie = pkgs.python3Packages.callPackage ./pygtrie {};
     betacode = pkgs.python3Packages.callPackage ./betacode { inherit pygtrie; };
+    indic-transliteration = pkgs.python3Packages.callPackage ./indic-transliteration {};
   };
   text2pdf = pkgs.callPackage ./text2pdf {};
   vimv = pkgs.callPackage ./vimv {};
