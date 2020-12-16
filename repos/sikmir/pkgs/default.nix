@@ -44,6 +44,7 @@ lib.makeScope newScope (
       inherit sources;
     };
     sasplanet-bin = callPackage ./applications/gis/sasplanet/bin.nix { };
+    taskcoach = callPackage ./applications/misc/taskcoach { };
     tdh = callPackage ./applications/gis/tdh { };
     visualgps = libsForQt5.callPackage ./applications/visualgps { };
     wireguard-statusbar-bin = callPackage ./applications/wireguard-statusbar { };
