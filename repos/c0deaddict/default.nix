@@ -56,6 +56,7 @@ rec {
 
   stolon = pkgs.callPackage ./pkgs/stolon {};
 
+  yarn2 = pkgs.callPackage ./pkgs/yarn2 {};
 
   zsh-histdb = pkgs.callPackage ./pkgs/zsh-histdb {};
 
