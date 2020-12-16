@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash
+#! nix-shell -I channel:nixos-20.09 -i bash
 
 # number-versioned packages. Use nix-update
 while read -r i; do
