@@ -19,6 +19,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
+    broken = true;
     description = "Automated security testing with bandit and flake8.";
     homepage = https://github.com/tylerwince/flake8-bandit;
     license = licenses.mit;
