@@ -4,28 +4,28 @@ let
   throwSystem = throw "Unsupported system: ${system}";
 
   pname = "librewolf";
-  version = "82.0.3";
+  version = "83.0";
   name = "${pname}-${version}";
 
   firefox = fetchurl {
     url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}/mac/${lang}/Firefox%20${version}.dmg";
     sha256 = {
-      en-US = "10srb6pjy729zl71gsammp294kg531m3fgghd8lrw05pbm9lxxy1";
-      eo = "0fqvqkv6sa7gz42c9gddv3axy61acdjzwrmdn8xbpzidr18lg66x";
-      fi = "06500lkijcsfhvqji64705mii621hva676zvhln9hyq51dys4hyl";
-      ru = "1ibv4kdjqhl0a056dgnr470dl7n4wfpq9m06caapyx59vfq182zh";
+      en-US = "1ikfcdsz0pgaiwal47fnbybam513p5a1fn99g74wcf80wj27hlky";
+      eo = "0vj93igq98rdib5fv6l362mn8mqknq2nsacaki4wxg4r7z0yji0r";
+      fi = "0gi96mylj3wh3kyhw8mhdlzai64cr8g9g36jxi6ydca9aj134vwm";
+      ru = "0qjhdxwiwn9hqz5fsw2x6yw2qbh0054fkbsk915gwqamlfi1x31j";
     }.${lang};
     name = "Firefox.dmg";
   };
 
   librewolf = fetchurl {
     url = {
-      x86_64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/40d177f7132a991fd7249219f3f442d0/LibreWolf-${version}-1.x86_64.AppImage";
-      aarch64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/c3fdaa5529f412d8f867e5b1393e26ba/LibreWolf-${version}-1.aarch64.AppImage";
+      x86_64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/91420360aa0b7a059bd855e20d1b8a8a/LibreWolf-${version}-1.x86_64.AppImage";
+      aarch64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/c24cfeea0298499fa755536fadb27ab5/LibreWolf-${version}-1.aarch64.AppImage";
     }.${system} or throwSystem;
     sha256 = {
-      x86_64-linux = "1nwc90bs0v5wkkviaw056nm8zyiryi2f41zvwhp5b2c50a8zvsk4";
-      aarch64-linux = "0jrdwplw4r0mqr6ddr9lzgxlfk8m7krl9fimzv184wjhjkgbxxnk";
+      x86_64-linux = "1alrplhj4yx4svl8rnkyw844aybicx1zyp5aap32rvmmg0blga1n";
+      aarch64-linux = "0s7x4xm7iv9d2k018m0azk2s2gk5w2n7xg6bqba4qg2pdnx39hyp";
     }.${system} or throwSystem;
   };
 
@@ -80,7 +80,7 @@ let
     installPhase = ''
       ${undmg}/bin/undmg LibreWolf.dmg
       mkdir -p $out/Applications
-      cp -R LibreWolf.app $out/Applications
+      cp -r LibreWolf.app $out/Applications
     '';
   };
 in

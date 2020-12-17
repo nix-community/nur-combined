@@ -2,9 +2,9 @@
 
 {
   geocachingSu = fetchurl {
-    name = "geocaching_su-2020-12-09";
+    name = "geocaching_su-2020-12-16";
     url = "https://nakarte.me/geocachingSu/geocaching_su2.json";
-    sha256 = "1a01xgbffi54d9gm2nvvrhmcssndysjdxr76zdcx3jy03a12cbrr";
+    sha256 = "1ahq3q3c1s9r7xd2mlnws98v3p1my7lilsq0hdccinqhmzsi798d";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -61,9 +61,9 @@
   };
 
   westra = fetchurl {
-    name = "westra-2020-12-09";
+    name = "westra-2020-12-16";
     url = "https://nakarte.me/westraPasses/westra_passes.json";
-    sha256 = "1hggcsdlkzbxydm1rrmda510wdp4a2jmb8711bka712ym9pk34vx";
+    sha256 = "1k8snxg95jfcmjqzx81s0r751pmx5pakq5kd2lq01zrvss725mpz";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''

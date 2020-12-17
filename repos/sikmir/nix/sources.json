@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-10T19:23:06Z",
+        "date": "2020-12-16T11:12:59Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "a35cf2071a5b18103deb533ec92d255413a4db2c",
-        "sha256": "0b22zygblcdkdzd7qk843r7xgfwjzvvpfncinhq37xa63dahv01m",
+        "rev": "710dab2646437b7b4d993b267a401ae705db44a5",
+        "sha256": "0gjsx43rg0gm39ssv188v5arc7zcnzb151g7dlxgcnj7wvkwzyz2",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/a35cf2071a5b18103deb533ec92d255413a4db2c.tar.gz",
+        "url": "https://github.com/embox/embox/archive/710dab2646437b7b4d993b267a401ae705db44a5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -377,15 +377,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2020-12-15T20:51:38Z",
+        "date": "2020-12-15T23:25:31Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "84d5673e17b93875082dea1e98d84793c72d8e3b",
-        "sha256": "1xg2ziwiz5s87ywyasyr7m3j01fz221n1w9gdgvyf0x50frsswsw",
+        "rev": "b5972c832883c35b333d6cb0eefc642e070ef064",
+        "sha256": "107bvjl7n343iqqxdpb06m0rw2wm8h9vm6xp7q9z0lagay6g89cv",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/84d5673e17b93875082dea1e98d84793c72d8e3b.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/b5972c832883c35b333d6cb0eefc642e070ef064.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -531,15 +531,15 @@
     "klogg": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-16T13:38:48Z",
+        "date": "2020-12-16T23:49:21Z",
         "description": "A fast, advanced log explorer based on glogg project",
         "homepage": "https://klogg.filimonov.dev/",
         "owner": "variar",
         "repo": "klogg",
-        "rev": "adb1eafb92bdbf27da53c1579239988b26e6882a",
-        "sha256": "0b74wmf11rdwfq81wsn5j10bqpdb38j6kcihcibgw5wqgndfwlp6",
+        "rev": "e501a1e6d6e33437ae4c1643de65be6c9f8edc46",
+        "sha256": "1wmvnq8vsbj5dnrhypqc1as6yi6c40qidgvf3ikil8hgxncda5dn",
         "type": "tarball",
-        "url": "https://github.com/variar/klogg/archive/adb1eafb92bdbf27da53c1579239988b26e6882a.tar.gz",
+        "url": "https://github.com/variar/klogg/archive/e501a1e6d6e33437ae4c1643de65be6c9f8edc46.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lazyscraper": {
@@ -629,15 +629,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-12T14:27:40Z",
+        "date": "2020-12-16T18:06:24Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "626878cce58dfda72a0d23f7650457ff354a0a71",
-        "sha256": "1b00zgnynigzvag08f6052jb3yvh929ginpqj0x3bynmmd9jzndh",
+        "rev": "69d612c6dea1252d347769d07343672ed519c514",
+        "sha256": "06qkv34nvfjlg6mmbw1nfnyaxnigk72234ldx3wm5y8g1crpcair",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/626878cce58dfda72a0d23f7650457ff354a0a71.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/69d612c6dea1252d347769d07343672ed519c514.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maprec": {
@@ -673,11 +673,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "148q037rnl7paxyxjpd1pic9jjk5l3y8ixzl7c503bvh90ldqn6d",
+        "sha256": "0c03cyfayl0z0a6hyq0azyp8dgvimx6gjph8ys665887idgpa6jn",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-12-15.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-12-16.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-12-15"
+        "version": "2020-12-16"
     },
     "mercantile": {
         "branch": "master",
@@ -762,15 +762,15 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-14T16:02:04Z",
+        "date": "2020-12-16T16:42:10Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "ce79aca304b2ada02577253f239eaf284b2b3c53",
-        "sha256": "04a8zik7inpj5d81ay7lky58lr05l6m13gx58al32isy77bxwbf3",
+        "rev": "1574a87d9748948a095b128e5e6637d35c570c60",
+        "sha256": "1xz45xfywl69j2w7ly66mhr1j21xcll2wshmi45i8z5997wpx8ly",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/ce79aca304b2ada02577253f239eaf284b2b3c53.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/1574a87d9748948a095b128e5e6637d35c570c60.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
