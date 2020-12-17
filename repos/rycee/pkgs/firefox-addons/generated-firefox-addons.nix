@@ -917,16 +917,16 @@
         platforms = platforms.all;
         };
       };
-    "tab-center-redux" = buildFirefoxXpiAddon {
-      pname = "tab-center-redux";
-      version = "0.7.1";
-      addonId = "{0ad88674-2b41-4cfb-99e3-e206c74a0076}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1015844/tab_center_redux-0.7.1-an+fx-linux.xpi";
-      sha256 = "b710917f86da1968fcba3f159750006550305d36222e1fa0f069b3868378163c";
+    "tabcenter-reborn" = buildFirefoxXpiAddon {
+      pname = "tabcenter-reborn";
+      version = "2.2.0";
+      addonId = "tabcenter-reborn@ariasuni";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3662128/tab_center_reborn-2.2.0-fx.xpi";
+      sha256 = "d2f06e663318298249e867f4b955ab490980f833d3b7b5fadc64f088518ee236";
       meta = with stdenv.lib;
       {
-        homepage = "https://github.com/eoger/tabcenter-redux";
-        description = "Move your tabs to the side of your browser window.";
+        homepage = "https://framagit.org/ariasuni/tabcenter-reborn";
+        description = "Simple and powerful vertical tab bar";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
