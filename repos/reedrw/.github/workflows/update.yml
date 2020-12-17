@@ -40,7 +40,7 @@ jobs:
       uses: actions/checkout@v2.3.4
 
     - name: Setup nix-shell
-      run: nix-shell shell.nix --run 'exit'
+      run: nix-shell -I channel:nixos-20.09 shell.nix --run 'exit'
 
     - name: Update packages
       run: ./update.sh
