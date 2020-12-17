@@ -7,6 +7,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -D -m644 lemon.bdf "$out/share/fonts/lemon.bdf"
+    install -D -m644 spectrum-fonts/berry.bdf "$out/share/fonts/berry.bdf"
   '';
 
   meta = {
