@@ -45,6 +45,8 @@ with mergedPkgs; {
 
   newsflash = callPackage ./applications/networking/newsreaders/newsflash { };
 
+  poke = callPackage ./tools/misc/poke { };
+
   pokemmo-installer = callPackage ./games/pokemmo-installer {
     inherit (gnome3) zenity;
     jre = jdk11;
