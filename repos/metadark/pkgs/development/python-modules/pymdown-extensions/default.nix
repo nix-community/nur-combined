@@ -14,15 +14,10 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "facelessuser";
     repo = pname;
-    rev = version;
-    sha256 = "1j14r9r1zxf6c58phimlygcjzbqxk53axdfpak398ghxl4ch4nmv";
+    # Use commit that fixes tests after pygments 2.6.1 -> 2.7.2 upgrade
+    rev = "e022398f86efd15d2f04de8bf954364a2b6395b7";
+    sha256 = "0kk9f8kfwm53hfc9a5q56ys0v2a5f0nsy7x8kb4vr7vj8fcp5qfa";
   };
-
-  patches = [
-    # Reverts https://github.com/facelessuser/pymdown-extensions/pull/1103
-    # This fix was for Pygments 2.7, but we still use pygments 2.6.1
-    ./fix-tests.patch
-  ];
 
   propagatedBuildInputs = [ markdown ];
 
