@@ -32,6 +32,7 @@ function help()
 
 chromium="@chromium_bin@"
 firefox="@firefox_bin@"
+brave="@brave_bin@"
 
 log_depth="0"
 args=""
@@ -69,6 +70,7 @@ while [[ $# -ge 1 ]]; do
 done
 
 # the profile paths per browser
+BRAVE_PROFILES_PATH="${HOME}/.config/brave/profiles"
 CHROMIUM_PROFILES_PATH="${HOME}/.config/chromium/profiles"
 FIREFOX_PROFILES_PATH="${HOME}/.mozilla/firefox/profiles"
 
@@ -81,6 +83,14 @@ fi
 if [[ -z "${profile}" ]]; then
 	items=""
 	sep=""
+	if [[ -d "$BRAVE_PROFILES_PATH" ]]; then
+		for i in $BRAVE_PROFILES_PATH/*; do;
+			if [[ -d "${i}" ]]; then
+				items="${items}${sep}brave@$(basename "${i}")"
+				sep="\n"
+			fi
+		done
+	fi
 	if [[ -d "$CHROMIUM_PROFILES_PATH" ]]; then
 		for i in $CHROMIUM_PROFILES_PATH/*; do;
 			if [[ -d "${i}" ]]; then
@@ -106,6 +116,9 @@ if [[ -z "${profile}" ]]; then
 fi
 
 case "${browser}" in
+	"brave")
+		PROFILES_PATH="${BRAVE_PROFILES_PATH}"
+		;;
 	"chromium")
 		PROFILES_PATH="${CHROMIUM_PROFILES_PATH}"
 		;;
@@ -133,6 +146,9 @@ if [[ -f "${PROFILES_PATH}/${profile}/.cmdline_args" ]]; then
 fi
 
 case "${browser}" in
+	"brave")
+		(exec "${brave}" --user-data-dir="${PROFILES_PATH}/${profile}" "${args[@]}" &>/dev/null)&
+		;;
 	"chromium")
 		(exec "${chromium}" --user-data-dir="${PROFILES_PATH}/${profile}" "${args[@]}" &>/dev/null)&
 		;;

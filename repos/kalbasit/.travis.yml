@@ -11,10 +11,12 @@ matrix:
   include:
     # - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.09
 
 install:
  - nix --version
+ - echo "trusted-users = root travis" | sudo tee -a /etc/nix/nix.conf
+ - sudo pkill nix-daemon
  - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
  - if [ -n "${CACHIX_CACHE}" ]; then nix-env -i cachix; fi
  - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi

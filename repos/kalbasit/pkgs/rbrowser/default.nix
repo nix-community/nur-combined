@@ -16,6 +16,8 @@ in stdenv.mkDerivation rec {
 
   phases = [ "installPhase" "fixupPhase" ];
 
+  preferLocalBuild = true;
+
   src = ./.;
 
   installPhase = ''
@@ -23,6 +25,7 @@ in stdenv.mkDerivation rec {
     substituteInPlace $out/bin/rbrowser \
       --subst-var-by chromium_bin ${pkgs.chromium}/bin/chromium \
       --subst-var-by firefox_bin ${pkgs.firefox}/bin/firefox \
+      --subst-var-by brave_bin ${pkgs.brave}/bin/brave \
       --subst-var-by rofi_bin ${pkgs.rofi}/bin/rofi \
       --subst-var-by zsh_bin ${pkgs.zsh}/bin/zsh
 
