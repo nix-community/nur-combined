@@ -43,9 +43,7 @@ with mergedPkgs; {
 
   lightdm-webkit2-greeter = callPackage ./applications/display-managers/lightdm-webkit2-greeter { };
 
-  newsflash = callPackage ./applications/networking/newsreaders/newsflash {
-    libhandy = libhandy_0;
-  };
+  newsflash = callPackage ./applications/networking/newsreaders/newsflash { };
 
   pokemmo-installer = callPackage ./games/pokemmo-installer {
     inherit (gnome3) zenity;
