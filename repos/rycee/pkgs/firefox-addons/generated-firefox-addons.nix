@@ -261,10 +261,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2020.12.7";
+      version = "2020.12.16";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3691208/duckduckgo_privacy_essentials-2020.12.7-an+fx.xpi";
-      sha256 = "cabe8d3ff44b3bbcfac212dea804b76013ab0fe20551017e0505a96569856c1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3695557/duckduckgo_privacy_essentials-2020.12.16-an+fx.xpi";
+      sha256 = "a3d064b072dbb5391c5805793c7720821e1427b6b8343e73b0fe6d8723e7356e";
       meta = with stdenv.lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -657,10 +657,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "8.1.8";
+      version = "8.1.9";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3691773/metamask-8.1.8-an+fx.xpi";
-      sha256 = "b9d2b4afc923e000072d4379b50809e9813b8b8ec3e58575c7dd71dfbd395373";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3695543/metamask-8.1.9-an+fx.xpi";
+      sha256 = "339ee433ba66f449cf6a9366d6f41ee3ca8189a269a16e871a6b448db0f41eb5";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
@@ -1118,10 +1118,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.12.7";
+      version = "2.12.8";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3505281/violentmonkey-2.12.7-an+fx.xpi";
-      sha256 = "351235d7bc488b79e495d99d667dbc07587c231b28ec529f14ffcfee010125fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3694624/violentmonkey-2.12.8-an+fx.xpi";
+      sha256 = "159ea25020420250a0124b49eaadb2e7f67615bac80a1d2b0e2e13f7d0da5e35";
       meta = with stdenv.lib;
       {
         homepage = "https://violentmonkey.github.io/";
