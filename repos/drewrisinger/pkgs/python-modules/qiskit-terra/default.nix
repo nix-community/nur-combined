@@ -104,6 +104,9 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [
     "--ignore=test/randomized/test_transpiler_equivalence.py" # collection requires qiskit-aer, which would cause circular dependency
+    # These tests are nondeterministic and can randomly fail.
+    # We ignore them here for deterministic building.
+    "--ignore=test/randomized/"
   ] ++ lib.optionals (!withClassicalFunctionCompiler) [
     # Fail with ImportError because tweedledum isn't installed
     "--ignore=test/python/classical_function_compiler/"

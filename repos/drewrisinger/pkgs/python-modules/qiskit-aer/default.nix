@@ -9,6 +9,7 @@
 , catch2
 , cmake
 , cython
+, fmt
 , muparserx
 , ninja
 , nlohmann_json
@@ -27,7 +28,8 @@
 
 buildPythonPackage rec {
   pname = "qiskit-aer";
-  version = "0.7.1";
+  version = "0.7.2";
+  format = "setuptools";
 
   disabled = pythonOlder "3.6";
 
@@ -35,8 +37,25 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit-aer";
     rev = version;
-    sha256 = "07l0wavdknx0y4vy0hwgw24365sg4nb6ygl3lpa098np85qgyn4y";
+    sha256 = "1xc660vh8bhx64v2w52yypyrjqyazp1g16j6bfbwyx504spxaik2";
   };
+
+  patches = [
+    # from https://github.com/Qiskit/qiskit-aer/pull/1080
+    (fetchpatch {
+      name = "qiskit-aer-pr-1080-disable-conan.patch";
+      url = "https://github.com/Qiskit/qiskit-aer/commit/955d24777e57d7841f9c831c4e2a4a3f369e7477.patch";
+      sha256 = "15lndgkz5qmh1khar6hl9llsbfqmpwaciwj9jq3s5wwmihrwcmz6";
+    })
+  ];
+  # The default check for the dl library will erroneously fail (and building with it w/ buildInputs = [... glibc ] fails too).
+  # So we use the standard ${CMAKE_DL_LIBS}, which they should have used in the first place...
+  # Builds fine with this.
+  postPatch = ''
+    substituteInPlace CMakeLists.txt --replace "find_library(DL_LIB NAMES dl)" ""
+    substituteInPlace CMakeLists.txt --replace "''${DL_LIB}" "''${CMAKE_DL_LIBS}"
+    substituteInPlace setup.py --replace "'cmake!=3.17,!=3.17.0'," ""
+  '';
 
   nativeBuildInputs = [
     cmake
@@ -47,9 +66,10 @@ buildPythonPackage rec {
   buildInputs = [
     (if (lib.versionAtLeast lib.version "20.09") then blas else openblas )
     catch2
-    spdlog
     nlohmann_json
+    fmt
     muparserx
+    spdlog
   ];
 
   propagatedBuildInputs = [
@@ -59,9 +79,7 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  patches = [
-    ./remove-conan-install.patch
-  ];
+  DISABLE_CONAN=1;
 
   dontUseCmakeConfigure = true;
 
