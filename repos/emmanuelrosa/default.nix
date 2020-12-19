@@ -25,5 +25,6 @@
   electrum-hardened = pkgs.callPackage ./pkgs/applications/misc/electrum-hardened { };
   pdf2png = pkgs.callPackage ./pkgs/tools/graphics/pdf2png { };
   rofi-menu = pkgs.callPackage ./pkgs/applications/misc/rofi-menu { };
+  electrumx = pkgs.callPackage ./pkgs/applications/blockchains/electrumx { };
 }
 

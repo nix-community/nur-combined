@@ -46,6 +46,10 @@ A simple script I wrote to convert a PDF into PNGs.
 
 Misc. rofi menus (aka. modi).
 
+### electrumx
+
+A reimplementation of electrum-server. This is the most commonly used electrum server implementation for the electrum bitcoin wallet. See https://electrumx-spesmilo.readthedocs.io
+
 ## NixOS Modules
 
 ### btrbk
