@@ -4,6 +4,7 @@ let
     overlays = [
       (import ./nodes/acer-nix/modules/webviews/overlay.nix)
       (import ./modules/zig/overlay.nix)
+      (import ./modules/nur/overlay.nix)
     ];
   };
   callPkg = path: nixpkgs.callPackage path {};
@@ -30,3 +31,4 @@ with builtins;
   nodePackages.ts-node
   zls
 ])
+++ (callPkg ./nodes/acer-nix/modules/firefox/home.nix).programs.firefox.extensions
