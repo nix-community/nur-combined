@@ -15,11 +15,7 @@ in {
   xsession.windowManager.i3.config.bars = [];
   services.polybar = {
     script = "polybar bar -r &";
-    package = pkgs.polybar.override {
-      alsaSupport = true;
-      pulseSupport = true;
-      i3Support = true;
-    };
+    package = pkgs.callPackage ./customPolybar.nix {};
     config = {
       "bar/bar" = {
         "monitor" = "eDP-1";

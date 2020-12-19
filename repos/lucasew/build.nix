@@ -22,6 +22,7 @@ with builtins;
   among_us = callPkg ./nodes/acer-nix/modules/among_us/package.nix;
   ets2 = callPkg ./nodes/acer-nix/modules/ets2/package.nix;
   usb_tixati = callPkg ./nodes/acer-nix/modules/usb_tixati/package.nix;
+  polybar = callPkg ./modules/polybar/customPolybar.nix;
 })
 ++ (import ./modules/vscode/extensions.nix {pkgs = nixpkgs;})
 ++ (with nixpkgs; [

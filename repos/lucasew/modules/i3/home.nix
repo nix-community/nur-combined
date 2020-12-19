@@ -4,6 +4,13 @@ let
   mod = "Mod4";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${pkgs.playerctl}/bin/playerctl";
+  modn = pkgs.writeShellScript "modn" ''
+goto_ws=$(i3-msg i3-msg -t get_workspaces | jq '.[] | select(.focused == true) | "i3-msg workspace number " + .name' | sed s/\"//g)
+
+i3-msg -t get_outputs | jq '.[] | select(.current_workspace != null) |  "i3-msg workspace number " + .current_workspace + ";i3-msg move workspace to output left"' | sed s/\"//g | bash
+
+echo $goto_ws | bash
+  '';
   colors = {
     background = "#00ffffff";
     background-alt = "#aa111111";
@@ -75,6 +82,7 @@ in {
           "XF86AudioMicMute" = "exec ${pactl} set-sink-volume @DEFAULT_SOURCE@ toggle";
           "${mod}+l" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
           "${mod}+m" = "move workspace to output left";
+          "${mod}+n" = "exec ${modn}";
           "XF86AudioNext" = "exec ${playerctl} next";
           "XF86AudioPrev" = "exec ${playerctl} previous";
           "XF86AudioPlay" = "exec ${playerctl} play-pause";
