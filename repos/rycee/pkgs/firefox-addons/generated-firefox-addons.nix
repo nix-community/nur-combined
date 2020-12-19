@@ -63,10 +63,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.2.90";
+      version = "7.2.91";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3686147/betterttv-7.2.90-fx.xpi";
-      sha256 = "7d04a2e670e2c9180197737a1df0e7ec7a65188ab6d321fd3b85ad25363735ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3696386/betterttv-7.2.91-fx.xpi";
+      sha256 = "6f9b0c1fb8a1da106d9a0acc63e730e4f6d1a34e16acd8fd1f828db5710a74e9";
       meta = with stdenv.lib;
       {
         homepage = "https://betterttv.com";
@@ -549,10 +549,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "3.2.2";
+      version = "3.2.3";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3689217/grammatik_und_rechtschreibprufung_languagetool-3.2.2-fx.xpi";
-      sha256 = "6a368329f38b6cadd32795cba4b738b97358238dae809e6437d57492fc48d2e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3696634/grammatik_und_rechtschreibprufung_languagetool-3.2.3-fx.xpi";
+      sha256 = "c2db358d72ceaf6264ce7655bf27ba16bb6182e311b827acdbddc96ac841e827";
       meta = with stdenv.lib;
       {
         homepage = "https://languagetool.org";
