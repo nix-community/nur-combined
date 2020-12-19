@@ -9,14 +9,14 @@
 
 buildPythonPackage rec {
   pname = "botw-havok";
-  version = "0.3.17";
+  version = "0.3.18";
   disabled = !isPy3k;
 
   src = fetchFromGitHub {
     owner = "krenyy";
     repo = "botw_havok";
-    rev = "bec027faa2cc25d9bbc9af45cb30cf705d1c2d9e";
-    sha256 = "03aad8cgzmhn8mgva77flhfna45pncacd4kb4s8x6bib70ksyp98";
+    rev = "dc7966c7780ef8c8a35e061cd3aacc20020fa2d7";
+    sha256 = "1llnczbxl10l4crp1gjkbw096nvpz502zrh635f2vnbzibqfqikr";
   };
 
   patches = [
