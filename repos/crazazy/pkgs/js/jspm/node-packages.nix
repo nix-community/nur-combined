@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@babel/code-frame-7.10.4" = {
+    "@babel/code-frame-7.12.11" = {
       name = "_at_babel_slash_code-frame";
       packageName = "@babel/code-frame";
-      version = "7.10.4";
+      version = "7.12.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.10.4.tgz";
-        sha512 = "vG6SvB6oYEhvgisZNFRmRCUkLz11c7rp+tbNTynGqc6mS1d5ATd/sGyV6W0KZZnXRKMTzZDRgQT3Ou9jhpAfUg==";
+        url = "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.12.11.tgz";
+        sha512 = "Zt1yodBx1UcyiePMSkWnU4hPqhwq7hGi2nFL1LeA3EUl+q2LQx16MISgJ0+z7dnmgvP9QtIleuETGOiOH1RcIw==";
       };
     };
     "@babel/core-7.12.10" = {
@@ -22,22 +22,22 @@ let
         sha512 = "eTAlQKq65zHfkHZV0sIVODCPGVgoo1HdBlbSLi9CqOzuZanMv2ihzY+4paiKr1mH+XmYESMAmJ/dpZ68eN6d8w==";
       };
     };
-    "@babel/generator-7.12.10" = {
+    "@babel/generator-7.12.11" = {
       name = "_at_babel_slash_generator";
       packageName = "@babel/generator";
-      version = "7.12.10";
+      version = "7.12.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/generator/-/generator-7.12.10.tgz";
-        sha512 = "6mCdfhWgmqLdtTkhXjnIz0LcdVCd26wS2JXRtj2XY0u5klDsXBREA/pG5NVOuVnF2LUrBGNFtQkIqqTbblg0ww==";
+        url = "https://registry.npmjs.org/@babel/generator/-/generator-7.12.11.tgz";
+        sha512 = "Ggg6WPOJtSi8yYQvLVjG8F/TlpWDlKx0OpS4Kt+xMQPs5OaGYWy+v1A+1TvxI6sAMGZpKWWoAQ1DaeQbImlItA==";
       };
     };
-    "@babel/helper-function-name-7.10.4" = {
+    "@babel/helper-function-name-7.12.11" = {
       name = "_at_babel_slash_helper-function-name";
       packageName = "@babel/helper-function-name";
-      version = "7.10.4";
+      version = "7.12.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helper-function-name/-/helper-function-name-7.10.4.tgz";
-        sha512 = "YdaSyz1n8gY44EmN7x44zBn9zQ1Ry2Y+3GTA+3vH6Mizke1Vw0aWDM66FOYEPw8//qKkmqOckrGgTYa+6sceqQ==";
+        url = "https://registry.npmjs.org/@babel/helper-function-name/-/helper-function-name-7.12.11.tgz";
+        sha512 = "AtQKjtYNolKNi6nNNVLQ27CP6D9oFR6bq/HPYSizlzbp7uC1M59XJe8L+0uXjbIaZaUJF99ruHqVGiKXU/7ybA==";
       };
     };
     "@babel/helper-get-function-arity-7.12.10" = {
@@ -85,13 +85,13 @@ let
         sha512 = "4tpbU0SrSTjjt65UMWSrUOPZTsgvPgGG4S8QSTNHacKzpS51IVWGDj0yCwyeZND/i+LSN2g/O63jEXEWm49sYQ==";
       };
     };
-    "@babel/helper-replace-supers-7.12.5" = {
+    "@babel/helper-replace-supers-7.12.11" = {
       name = "_at_babel_slash_helper-replace-supers";
       packageName = "@babel/helper-replace-supers";
-      version = "7.12.5";
+      version = "7.12.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helper-replace-supers/-/helper-replace-supers-7.12.5.tgz";
-        sha512 = "5YILoed0ZyIpF4gKcpZitEnXEJ9UoDRki1Ey6xz46rxOzfNMAhVIJMoune1hmPVxh40LRv1+oafz7UsWX+vyWA==";
+        url = "https://registry.npmjs.org/@babel/helper-replace-supers/-/helper-replace-supers-7.12.11.tgz";
+        sha512 = "q+w1cqmhL7R0FNzth/PLLp2N+scXEK/L2AHbXUyydxp828F4FEa5WcVoqui9vFRiHDQErj9Zof8azP32uGVTRA==";
       };
     };
     "@babel/helper-simple-access-7.12.1" = {
@@ -103,22 +103,22 @@ let
         sha512 = "OxBp7pMrjVewSSC8fXDFrHrBcJATOOFssZwv16F3/6Xtc138GHybBfPbm9kfiqQHKhYQrlamWILwlDCeyMFEaA==";
       };
     };
-    "@babel/helper-split-export-declaration-7.11.0" = {
+    "@babel/helper-split-export-declaration-7.12.11" = {
       name = "_at_babel_slash_helper-split-export-declaration";
       packageName = "@babel/helper-split-export-declaration";
-      version = "7.11.0";
+      version = "7.12.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helper-split-export-declaration/-/helper-split-export-declaration-7.11.0.tgz";
-        sha512 = "74Vejvp6mHkGE+m+k5vHY93FX2cAtrw1zXrZXRlG4l410Nm9PxfEiVTn1PjDPV5SnmieiueY4AFg2xqhNFuuZg==";
+        url = "https://registry.npmjs.org/@babel/helper-split-export-declaration/-/helper-split-export-declaration-7.12.11.tgz";
+        sha512 = "LsIVN8j48gHgwzfocYUSkO/hjYAOJqlpJEc7tGXcIm4cubjVUf8LGW6eWRyxEu7gA25q02p0rQUWoCI33HNS5g==";
       };
     };
-    "@babel/helper-validator-identifier-7.10.4" = {
+    "@babel/helper-validator-identifier-7.12.11" = {
       name = "_at_babel_slash_helper-validator-identifier";
       packageName = "@babel/helper-validator-identifier";
-      version = "7.10.4";
+      version = "7.12.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.10.4.tgz";
-        sha512 = "3U9y+43hz7ZM+rzG24Qe2mufW5KhvFg/NhnNph+i9mgCtdTCtMJuI1TMkrIUiK7Ix4PYlRF9I5dhqaLYA/ADXw==";
+        url = "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.12.11.tgz";
+        sha512 = "np/lG3uARFybkoHokJUmf1QfEvRVCPbmQeUQpKow5cQ3xWrV9i3rUHodKDJPQfTVX61qKi+UdYk8kik84n7XOw==";
       };
     };
     "@babel/helpers-7.12.5" = {
@@ -139,13 +139,13 @@ let
         sha512 = "i6rgnR/YgPEQzZZnbTHHuZdlE8qyoBNalD6F+q4vAFlcMEcqmkoG+mPqJYJCo63qPf74+Y1UZsl3l6f7/RIkmA==";
       };
     };
-    "@babel/parser-7.12.10" = {
+    "@babel/parser-7.12.11" = {
       name = "_at_babel_slash_parser";
       packageName = "@babel/parser";
-      version = "7.12.10";
+      version = "7.12.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/parser/-/parser-7.12.10.tgz";
-        sha512 = "PJdRPwyoOqFAWfLytxrWwGrAxghCgh/yTNCYciOz8QgjflA7aZhECPZAa2VUedKg2+QMWkI0L9lynh2SNmNEgA==";
+        url = "https://registry.npmjs.org/@babel/parser/-/parser-7.12.11.tgz";
+        sha512 = "N3UxG+uuF4CMYoNj8AhnbAcJF0PiuJ9KHuy1lQmkYsxTer/MAH9UBNHsBoAX/4s6NvlDD047No8mYVGGzLL4hg==";
       };
     };
     "@babel/template-7.12.7" = {
@@ -166,13 +166,13 @@ let
         sha512 = "6aEtf0IeRgbYWzta29lePeYSk+YAFIC3kyqESeft8o5CkFlYIMX+EQDDWEiAQ9LHOA3d0oHdgrSsID/CKqXJlg==";
       };
     };
-    "@babel/types-7.12.10" = {
+    "@babel/types-7.12.11" = {
       name = "_at_babel_slash_types";
       packageName = "@babel/types";
-      version = "7.12.10";
+      version = "7.12.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/types/-/types-7.12.10.tgz";
-        sha512 = "sf6wboJV5mGyip2hIpDSKsr80RszPinEFjsHTalMxZAZkoQ2/2yQzxlcFN52SJqsyPfLtPmenL4g2KB3KJXPDw==";
+        url = "https://registry.npmjs.org/@babel/types/-/types-7.12.11.tgz";
+        sha512 = "ukA9SQtKThINm++CX1CwmliMrE54J6nIYB5XTwL5f/CLFW9owfls+YSU8tVW15RQ2w+a3fSbPjC6HdQNtWZkiA==";
       };
     };
     "@jspm/core-1.1.1" = {
@@ -220,13 +220,13 @@ let
         sha512 = "jnqIUKDUqJbDIUxm0Uj7bnlMnRm1T/eZ9N+AVMqhPgzrba2GhGG5o/jCTwmdPK709nEZsGoMzXEDUjcXHa3W0g==";
       };
     };
-    "@types/node-14.14.12" = {
+    "@types/node-14.14.14" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "14.14.12";
+      version = "14.14.14";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-14.14.12.tgz";
-        sha512 = "ASH8OPHMNlkdjrEdmoILmzFfsJICvhBsFfAum4aKZ/9U4B6M6tTmTPh+f3ttWdD74CEGV5XvXWkbyfSdXaTd7g==";
+        url = "https://registry.npmjs.org/@types/node/-/node-14.14.14.tgz";
+        sha512 = "UHnOPWVWV1z+VV8k6L1HhG7UbGBgIdghqF3l9Ny9ApPghbjICXkUJSd/b9gOgQfjM1r+37cipdw/HJ3F6ICEnQ==";
       };
     };
     "abbrev-1.1.1" = {
@@ -841,13 +841,13 @@ let
         sha1 = "06e0116d3028f6aef4806849eb0ea6a748ae6960";
       };
     };
-    "errno-0.1.7" = {
+    "errno-0.1.8" = {
       name = "errno";
       packageName = "errno";
-      version = "0.1.7";
+      version = "0.1.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/errno/-/errno-0.1.7.tgz";
-        sha512 = "MfrRBDWzIWifgq6tJj60gkAwtLNb6sQPlcFrSOflcP1aFmmruKQ2wRnze/8V6kgyz7H3FF8Npzv78mZ7XLLflg==";
+        url = "https://registry.npmjs.org/errno/-/errno-0.1.8.tgz";
+        sha512 = "dJ6oBr5SQ1VSd9qkk7ByRgb/1SH4JZjCHSW/mr63/QcXO9zLVxvJ6Oy13nio03rxpSnVDDjFor75SjVeZWPW/A==";
       };
     };
     "es6-promise-4.2.8" = {
@@ -3044,31 +3044,31 @@ let
     version = "2.0.0-beta.7";
     src = fetchurl { url = "https://registry.npmjs.org/jspm/-/jspm-2.0.0-beta.7.tgz"; sha1 = "53763dbdf98075798dfa8859ca9e1f273e03ca45"; };
     dependencies = [
-      sources."@babel/code-frame-7.10.4"
+      sources."@babel/code-frame-7.12.11"
       sources."@babel/core-7.12.10"
-      sources."@babel/generator-7.12.10"
-      sources."@babel/helper-function-name-7.10.4"
+      sources."@babel/generator-7.12.11"
+      sources."@babel/helper-function-name-7.12.11"
       sources."@babel/helper-get-function-arity-7.12.10"
       sources."@babel/helper-member-expression-to-functions-7.12.7"
       sources."@babel/helper-module-imports-7.12.5"
       sources."@babel/helper-module-transforms-7.12.1"
       sources."@babel/helper-optimise-call-expression-7.12.10"
-      sources."@babel/helper-replace-supers-7.12.5"
+      sources."@babel/helper-replace-supers-7.12.11"
       sources."@babel/helper-simple-access-7.12.1"
-      sources."@babel/helper-split-export-declaration-7.11.0"
-      sources."@babel/helper-validator-identifier-7.10.4"
+      sources."@babel/helper-split-export-declaration-7.12.11"
+      sources."@babel/helper-validator-identifier-7.12.11"
       sources."@babel/helpers-7.12.5"
       sources."@babel/highlight-7.10.4"
-      sources."@babel/parser-7.12.10"
+      sources."@babel/parser-7.12.11"
       sources."@babel/template-7.12.7"
       sources."@babel/traverse-7.12.10"
-      sources."@babel/types-7.12.10"
+      sources."@babel/types-7.12.11"
       sources."@jspm/core-1.1.1"
       sources."@jspm/github-1.0.4"
       sources."@jspm/npm-1.0.1"
       sources."@jspm/resolve-1.0.0"
       sources."@types/estree-0.0.45"
-      sources."@types/node-14.14.12"
+      sources."@types/node-14.14.14"
       sources."abbrev-1.1.1"
       sources."acorn-7.4.1"
       sources."agent-base-4.3.0"
@@ -3161,7 +3161,7 @@ let
       sources."ecc-jsbn-0.1.2"
       sources."end-of-stream-1.4.4"
       sources."err-code-1.1.2"
-      sources."errno-0.1.7"
+      sources."errno-0.1.8"
       sources."es6-promise-4.2.8"
       sources."es6-promisify-5.0.0"
       sources."escape-string-regexp-1.0.5"

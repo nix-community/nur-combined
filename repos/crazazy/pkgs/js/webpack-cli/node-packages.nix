@@ -94,13 +94,13 @@ let
         sha512 = "F59pEuAR9o1SF/bD0dQBDluhpT4jJQNWUHEuVBqpDmCUo6gPjCi+m9fCWnWZVR/oG6cMTUms4h+3NPl74wGXvA==";
       };
     };
-    "commander-6.2.0" = {
+    "commander-6.2.1" = {
       name = "commander";
       packageName = "commander";
-      version = "6.2.0";
+      version = "6.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/commander/-/commander-6.2.0.tgz";
-        sha512 = "zP4jEKbe8SHzKJYQmq8Y9gYjtO/POJLgIdKgV7B9qNmABVFVc+ctqSX6iXh4mCpJfRBOabiZ2YKPg8ciDw6C+Q==";
+        url = "https://registry.npmjs.org/commander/-/commander-6.2.1.tgz";
+        sha512 = "U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==";
       };
     };
     "cross-spawn-7.0.3" = {
@@ -579,7 +579,7 @@ let
       sources."color-name-1.1.3"
       sources."colorette-1.2.1"
       sources."command-line-usage-6.1.1"
-      sources."commander-6.2.0"
+      sources."commander-6.2.1"
       sources."cross-spawn-7.0.3"
       sources."deep-extend-0.6.0"
       sources."end-of-stream-1.4.4"

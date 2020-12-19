@@ -769,13 +769,13 @@ let
         sha512 = "GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==";
       };
     };
-    "commander-6.2.0" = {
+    "commander-6.2.1" = {
       name = "commander";
       packageName = "commander";
-      version = "6.2.0";
+      version = "6.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/commander/-/commander-6.2.0.tgz";
-        sha512 = "zP4jEKbe8SHzKJYQmq8Y9gYjtO/POJLgIdKgV7B9qNmABVFVc+ctqSX6iXh4mCpJfRBOabiZ2YKPg8ciDw6C+Q==";
+        url = "https://registry.npmjs.org/commander/-/commander-6.2.1.tgz";
+        sha512 = "U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==";
       };
     };
     "commondir-1.0.1" = {
@@ -1030,13 +1030,13 @@ let
         sha512 = "3e87LvavsdxyoCfGusJnrZ5G8SLPOFeHSNpZI/ATL9a5leXo2k0w6MKnbqhdBad9qTobSfB20Ld7UmgoNbAZkQ==";
       };
     };
-    "errno-0.1.7" = {
+    "errno-0.1.8" = {
       name = "errno";
       packageName = "errno";
-      version = "0.1.7";
+      version = "0.1.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/errno/-/errno-0.1.7.tgz";
-        sha512 = "MfrRBDWzIWifgq6tJj60gkAwtLNb6sQPlcFrSOflcP1aFmmruKQ2wRnze/8V6kgyz7H3FF8Npzv78mZ7XLLflg==";
+        url = "https://registry.npmjs.org/errno/-/errno-0.1.8.tgz";
+        sha512 = "dJ6oBr5SQ1VSd9qkk7ByRgb/1SH4JZjCHSW/mr63/QcXO9zLVxvJ6Oy13nio03rxpSnVDDjFor75SjVeZWPW/A==";
       };
     };
     "eslint-scope-4.0.3" = {
@@ -1210,13 +1210,13 @@ let
         sha512 = "3Z4XhFZ3992uIq0XOqb9AreonueSYphE6oYbpt5+3u06JWklbsPkNv3ZKkP9Bz/r+1MWCaMoSQ28P85+1Yc77w==";
       };
     };
-    "follow-redirects-1.13.0" = {
+    "follow-redirects-1.13.1" = {
       name = "follow-redirects";
       packageName = "follow-redirects";
-      version = "1.13.0";
+      version = "1.13.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.0.tgz";
-        sha512 = "aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==";
+        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.1.tgz";
+        sha512 = "SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==";
       };
     };
     "for-in-1.0.2" = {
@@ -1885,13 +1885,13 @@ let
         sha1 = "ecdca8f13144e660f1b5bd41f12f3479d98dfb8f";
       };
     };
-    "marked-1.2.6" = {
+    "marked-1.2.7" = {
       name = "marked";
       packageName = "marked";
-      version = "1.2.6";
+      version = "1.2.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/marked/-/marked-1.2.6.tgz";
-        sha512 = "7vVuSEZ8g/HH3hK/BH/+7u/NJj7x9VY4EHzujLDcqAQLiOUeFJYAsfSAyoWtR17lKrx7b08qyIno4lffwrzTaA==";
+        url = "https://registry.npmjs.org/marked/-/marked-1.2.7.tgz";
+        sha512 = "No11hFYcXr/zkBvL6qFmAp1z6BKY3zqLMHny/JN/ey+al7qwCM2+CMBL9BOgqMxZU36fz4cCWfn2poWIf7QRXA==";
       };
     };
     "match-stream-0.0.2" = {
@@ -3302,8 +3302,8 @@ let
   args = {
     name = "tldr";
     packageName = "tldr";
-    version = "3.3.5";
-    src = fetchurl { url = "https://registry.npmjs.org/tldr/-/tldr-3.3.5.tgz"; sha1 = "1a08fe009ac0106080d0dfbdbafbfa953c86b3fe"; };
+    version = "3.3.6";
+    src = fetchurl { url = "https://registry.npmjs.org/tldr/-/tldr-3.3.6.tgz"; sha1 = "e75ecd4497d15ee636fbc1a493f61c12605ea3cf"; };
     dependencies = [
       sources."@webassemblyjs/ast-1.9.0"
       sources."@webassemblyjs/floating-point-hex-parser-1.9.0"
@@ -3429,7 +3429,7 @@ let
       sources."collection-visit-1.0.0"
       sources."color-convert-2.0.1"
       sources."color-name-1.1.4"
-      sources."commander-6.2.0"
+      sources."commander-6.2.1"
       sources."commondir-1.0.1"
       sources."component-emitter-1.3.0"
       sources."concat-map-0.0.1"
@@ -3476,7 +3476,7 @@ let
           sources."memory-fs-0.5.0"
         ];
       })
-      sources."errno-0.1.7"
+      sources."errno-0.1.8"
       sources."eslint-scope-4.0.3"
       (sources."esrecurse-4.3.0" // {
         dependencies = [
@@ -3527,7 +3527,7 @@ let
       sources."find-cache-dir-2.1.0"
       sources."find-up-3.0.0"
       sources."flush-write-stream-1.1.1"
-      sources."follow-redirects-1.13.0"
+      sources."follow-redirects-1.13.1"
       sources."for-in-1.0.2"
       sources."fragment-cache-0.2.1"
       sources."from2-2.3.0"
@@ -3601,7 +3601,7 @@ let
       sources."make-dir-2.1.0"
       sources."map-cache-0.2.2"
       sources."map-visit-1.0.0"
-      sources."marked-1.2.6"
+      sources."marked-1.2.7"
       (sources."match-stream-0.0.2" // {
         dependencies = [
           sources."isarray-0.0.1"
