@@ -9,6 +9,12 @@ let
   group = "wordpress";
   stateDir = name: "/var/lib/wordpress/${name}";
 
+  robots = pkgs.writeText "robots.txt" ''
+    User-agent: *
+    Disallow: /wp-admin/
+    Disallow: /wp-login.php
+  '';
+
   pkg = name: cfg:
     pkgs.stdenv.mkDerivation rec {
       pname = "wordpress-${cfg.hostName}";
@@ -19,8 +25,12 @@ let
         mkdir -p $out
         cp -r * $out/
 
+        # symlink robots.txt
+        ln -s ${robots} $out/share/wordpress/robots.txt
+
         # symlink the wordpress config
         ln -s ${wpConfig name cfg} $out/share/wordpress/wp-config.php
+
         # symlink uploads directory
         ln -s ${cfg.uploadsDir} $out/share/wordpress/wp-content/uploads
 
