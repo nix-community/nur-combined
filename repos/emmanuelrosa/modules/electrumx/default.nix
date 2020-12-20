@@ -10,6 +10,8 @@ let cfg = config.services.electrumx;
       DAEMON_URL = ${builtins.concatStringsSep "," cfg.daemonUrl}
       SERVICES = ${builtins.concatStringsSep "," cfg.services}
       ${optionalString (cfg.reportServices != []) "REPORT_SERVICES = ${builtins.concatStringsSep "," cfg.reportServices}"}
+      SSL_CERTFILE = ${cfg.ssl.certfile}
+      SSL_KEYFILE = ${cfg.ssl.keyfile}
       ${optionalString (cfg.eventLoopPolicy != "asyncio") "EVENT_LOOP_POLICY = ${cfg.eventLoopPolicy}"}
       PEER_DISCOVERY = ${cfg.peer.discovery}
       ${optionalString (! cfg.peer.announce) "PEER_ANNOUNCE ="}
@@ -105,6 +107,20 @@ in {
         type = types.enum [ "asyncio" "uvloop" ];
         default = "asyncio";
         description = "The name of an event loop policy to replace the default asyncio policy.";
+      };
+
+      ssl = {
+        certfile = mkOption {
+          type = types.path;
+          example = "/etc/electrumx/server.crt";
+          description = "The filesystem path to your SSL certificate file.";
+        };
+
+        keyfile = mkOption {
+          type = types.path;
+          example = "/etc/electrumx/server.key";
+          description = "The filesystem path to your SSL keu file.";
+        };
       };
 
       peer = {
