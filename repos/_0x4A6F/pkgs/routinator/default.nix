@@ -13,6 +13,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "1nmvdn4lizqwxsf320h1vh5cc8a56h6fp55fnkqpihjz2nh5y467";
 
+  doInstallCheck = true;
+  installCheckPhase = ''
+    if [[ "$("$out/bin/${pname}" --version)" == "Routinator ${version}" ]]; then
+      $out/bin/${pname} config | grep -q log
+      echo '${pname} smoke check passed'
+    else
+      echo '${pname} smoke check failed'
+      return 1
+    fi
+  '';
+
   meta = with stdenv.lib; {
     description = "An RPKI Validator written in Rust";
     homepage = "https://github.com/NLnetLabs/routinator";
