@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "Openorienteering-Mapper-bin";
-  version = "20201026.1";
+  version = "20201220.7";
 
   src = fetchfromgh {
     owner = "OpenOrienteering";
     repo = "mapper";
     version = "master-v${version}";
     name = "OpenOrienteering-Mapper-master_v${version}-macOS.dmg";
-    sha256 = "19z4bip7x2jzrr4q5qammwkarq81ymqnhf8l93r6hms0sln1gafn";
+    sha256 = "1ndh9pq51ga09p31pl7ysd9y6y7w714i2q3rhqz2hjnaq4lgvz5m";
   };
 
   preferLocalBuild = true;

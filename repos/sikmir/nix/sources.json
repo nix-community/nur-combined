@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-16T11:12:59Z",
+        "date": "2020-12-18T19:44:21Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "710dab2646437b7b4d993b267a401ae705db44a5",
-        "sha256": "0gjsx43rg0gm39ssv188v5arc7zcnzb151g7dlxgcnj7wvkwzyz2",
+        "rev": "9908deac8a53f000e7244bdeb0fcc9df7a9cb104",
+        "sha256": "1pzlyh7dxsv0mp2w007l6w0z349zl1vfwbar0fsskmln715xnr6p",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/710dab2646437b7b4d993b267a401ae705db44a5.tar.gz",
+        "url": "https://github.com/embox/embox/archive/9908deac8a53f000e7244bdeb0fcc9df7a9cb104.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -239,27 +239,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "1wxmfqan0pgp91bq3bgzvz1vbxjslxn1icvrz22qvvqixmj5zzdl",
+        "sha256": "04pmpw95bh17r4ydzghd4xfv3lr5r758df47r8a0n0f1py34bj7c",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-201211.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-201217.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "201211"
+        "version": "201217"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "103mm9yng85cvbwpk3xdyngqzxw2jq3yv32lnpks4mkiq2n0n8ji",
+        "sha256": "0abpg7k32lwz5xr8yjvslfns8qq5nz097dy2a2vaag1rfm1smh7w",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-201211.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-201217.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "201211"
+        "version": "201217"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "1xmd25dxd4cns4z8zi48bfxpy2wrash20kff9gspkqchp0pvc5gx",
+        "sha256": "07lcp32vr01jj6cm3wfq8da9qn4vz0yahzn7315xvgfwapcgq4qp",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201211.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201217.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "201211"
+        "version": "201217"
     },
     "gimgtools": {
         "branch": "master",
@@ -447,15 +447,15 @@
     "gt4gd": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-05-04T07:12:12Z",
+        "date": "2020-12-19T11:14:20Z",
         "description": "Add Google translate to GoldenDict",
         "homepage": "https://github.com/xinebf/google-translate-for-goldendict",
         "owner": "xinebf",
         "repo": "google-translate-for-goldendict",
-        "rev": "31a1628136302f6fbedf9468f1dae3521a174731",
-        "sha256": "1w8h2wibwgi7z03fqj0pkh5p0s9czi0ymj2v8ra5xvb2hrdw2g3j",
+        "rev": "978d31bb56e135b326caac6284390a38654465c3",
+        "sha256": "06ln2svhacs583a33j76i44c2pkwavypmvs3p9ghqdcppwj88nd8",
         "type": "tarball",
-        "url": "https://github.com/xinebf/google-translate-for-goldendict/archive/31a1628136302f6fbedf9468f1dae3521a174731.tar.gz",
+        "url": "https://github.com/xinebf/google-translate-for-goldendict/archive/978d31bb56e135b326caac6284390a38654465c3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gupload": {
@@ -531,15 +531,15 @@
     "klogg": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-16T23:49:21Z",
+        "date": "2020-12-20T11:30:37Z",
         "description": "A fast, advanced log explorer based on glogg project",
         "homepage": "https://klogg.filimonov.dev/",
         "owner": "variar",
         "repo": "klogg",
-        "rev": "e501a1e6d6e33437ae4c1643de65be6c9f8edc46",
-        "sha256": "1wmvnq8vsbj5dnrhypqc1as6yi6c40qidgvf3ikil8hgxncda5dn",
+        "rev": "2a696ebe23325d70cb173cb47ad3d5cf974e1024",
+        "sha256": "0bll0hsc1hklcvfa02fzv13jk4zbc09dcdswlwiggj69lyqzcr21",
         "type": "tarball",
-        "url": "https://github.com/variar/klogg/archive/e501a1e6d6e33437ae4c1643de65be6c9f8edc46.tar.gz",
+        "url": "https://github.com/variar/klogg/archive/2a696ebe23325d70cb173cb47ad3d5cf974e1024.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lazyscraper": {
@@ -629,15 +629,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-16T18:06:24Z",
+        "date": "2020-12-20T16:35:30Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "69d612c6dea1252d347769d07343672ed519c514",
-        "sha256": "06qkv34nvfjlg6mmbw1nfnyaxnigk72234ldx3wm5y8g1crpcair",
+        "rev": "657f4dfeeb57063b8ec1be81605ba266ca08febd",
+        "sha256": "0dww2xaigard2hd6skbwl963ybczsq7dlwd91qy5bqw6853ss189",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/69d612c6dea1252d347769d07343672ed519c514.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/657f4dfeeb57063b8ec1be81605ba266ca08febd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maprec": {
@@ -673,11 +673,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "0c03cyfayl0z0a6hyq0azyp8dgvimx6gjph8ys665887idgpa6jn",
+        "sha256": "1sa4zm2lxcl8227nnqskp2qaka0rivhqx711yng27l9kmynjppbl",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-12-16.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-12-20.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-12-16"
+        "version": "2020-12-20"
     },
     "mercantile": {
         "branch": "master",
@@ -846,15 +846,15 @@
     "pyephem": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-06-29T14:30:02Z",
+        "date": "2020-12-17T14:54:38Z",
         "description": "Scientific-grade astronomy routines for Python",
         "homepage": "https://rhodesmill.org/pyephem",
         "owner": "brandon-rhodes",
         "repo": "pyephem",
-        "rev": "1bb605c6c6fd99b55521953e02229e3fa43baa88",
-        "sha256": "0fljr4jyw3xfljvh9lwnzzdz7gwr0rczah3cikf2hdzh0m7rnmfa",
+        "rev": "83bf57100a6be06bbaeefdf7ca18586ae0e65b09",
+        "sha256": "0ih6ypz14gq6apgsi11daf4wprmvlxjiwqdv84kfvj140zfiizgn",
         "type": "tarball",
-        "url": "https://github.com/brandon-rhodes/pyephem/archive/1bb605c6c6fd99b55521953e02229e3fa43baa88.tar.gz",
+        "url": "https://github.com/brandon-rhodes/pyephem/archive/83bf57100a6be06bbaeefdf7ca18586ae0e65b09.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pymbtiles": {
@@ -1038,15 +1038,15 @@
     "zdict": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-15T18:05:35Z",
+        "date": "2020-12-17T12:52:59Z",
         "description": "The last online dictionary framework you need",
         "homepage": "https://pypi.org/project/zdict/",
         "owner": "zdict",
         "repo": "zdict",
-        "rev": "cede4221bcadeda12867d74bcc2cbe326c23ea4b",
-        "sha256": "1p1wsm1ary4d2khavbzq004yjz8n8cwaakj2b2ik91k7i950l5sz",
+        "rev": "a42d769ff520265abbb390cf7e18ea0b50f37333",
+        "sha256": "1r98lj7yl66zljnc7lbmhzz8xzx049251ynm6wz99a1xdh4c1hvz",
         "type": "tarball",
-        "url": "https://github.com/zdict/zdict/archive/cede4221bcadeda12867d74bcc2cbe326c23ea4b.tar.gz",
+        "url": "https://github.com/zdict/zdict/archive/a42d769ff520265abbb390cf7e18ea0b50f37333.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
