@@ -23,6 +23,7 @@
   nix-path = ./nix-path.nix;
   offlineimap = ./offlineimap.nix;
   weechat = ./weechat.nix;
+  systemd = ./systemd.nix;
 
   __functionArgs = { };
   __functor = self: { ... }: {
@@ -46,6 +47,7 @@
       nix-path
       offlineimap
       weechat
+      systemd
     ];
   };
 }

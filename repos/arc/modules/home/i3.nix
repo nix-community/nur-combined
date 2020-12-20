@@ -1,8 +1,8 @@
 { config, pkgs, lib, ... }: let
   sessionStart = pkgs.writeShellScriptBin "i3-session" ''
     set -eu
-    ${pkgs.systemd}/bin/systemctl --user set-environment I3SOCK=$(${config.xsession.windowManager.i3.package}/bin/i3 --get-socketpath)
-    ${pkgs.systemd}/bin/systemctl --user start graphical-session-i3.target
+    ${config.systemd.package}/bin/systemctl --user set-environment I3SOCK=$(${config.xsession.windowManager.i3.package}/bin/i3 --get-socketpath)
+    ${config.systemd.package}/bin/systemctl --user start graphical-session-i3.target
   '';
 in {
   config = lib.mkIf config.xsession.windowManager.i3.enable {

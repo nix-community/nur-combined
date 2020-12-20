@@ -322,7 +322,7 @@ let
         sha256 =
           if patchVersion == "0.21.25" then "16n1fx505k6pprf753j6xzwh25ka4azwx49sz02wy68qdx8wa586"
           else if patchVersion == "0.22" then "07vladkk80mnc23ybi80wn17cfxwl8pvv5cg0rl17avyymljspax"
-          else if patchVersion == "0.22.2" then "0bzw0j0n8f5388ward8kn2bwjkdd5aqp4vyqgf5yrbqxizw16whj"
+          else if patchVersion == "0.22.2" then "19ia0my2id84arxzzdgccp8r50jyi6z8355qpi3sn8i77phdbihh"
           else lib.fakeSha256;
       }) ];
 
@@ -366,11 +366,15 @@ let
         name = "qemu-cpu-pinning.patch";
         url = "https://github.com/saveriomiroddi/qemu-pinning/commit/76241abfe8c5c71bc02a7e268ff3d3ca0734308c.patch";
         sha256 = "1h4rm68vr4b2lpj7vi3wr5692kx4w4iccjasl86ldjsl40yfmc47";
-      }) ++ lib.optional (lib.versionAtLeast qemu.version "5.1") (fetchpatch {
+      }) ++ lib.optional (lib.versionAtLeast qemu.version "5.1" && lib.versionOlder qemu.version "5.2") (fetchpatch {
         name = "qemu-cpu-pinning.patch";
         url = "https://github.com/saveriomiroddi/qemu-pinning/commit/d166e4040f016fb6aa6ffa67abd12d9b33ac23c5.patch";
         sha256 = "0mylj1h81s160hzmk0bmfwmdgdlca0wvxl36734s4z966b6ni8jn";
         excludes = [ "roms/seabios" ];
+      }) ++ lib.optional (lib.versionAtLeast qemu.version "5.2") (fetchpatch {
+        name = "qemu-cpu-pinning.patch";
+        url = "https://github.com/saveriomiroddi/qemu-pinning/commit/fc8e850f53be9766056d90274cef04c8bc878131.patch";
+        sha256 = "13g5rxrrr60vpprkcfgslkxgcyb83qh0wwqr1kycaqbfwjz958h8";
       }) ++ lib.singleton (fetchpatch {
         name = "qemu-smb-symlinks.patch";
         url = "https://github.com/saveriomiroddi/qemu-pinning/commit/646a58799e0791c4074148a21d57786f100b7076.patch";
