@@ -18,6 +18,8 @@
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 
+  bpf-linker = pkgs.callPackage ./pkgs/bpf-linker { };
+
   gobi_loader = pkgs.callPackage ./pkgs/gobi_loader { };
 
   routinator = pkgs.callPackage ./pkgs/routinator { };
