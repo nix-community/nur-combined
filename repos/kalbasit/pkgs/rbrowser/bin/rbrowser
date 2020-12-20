@@ -103,6 +103,7 @@ if [[ -z "${profile}" ]]; then
 		for i in $FIREFOX_PROFILES_PATH/*; do;
 			if [[ -d "${i}" ]]; then
 				items="${items}${sep}firefox@$(basename "${i}")"
+				sep="\n"
 			fi
 		done
 	fi
