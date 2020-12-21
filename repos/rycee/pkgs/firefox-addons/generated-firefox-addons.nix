@@ -684,10 +684,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.2.2";
+      version = "6.2.3";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3693110/octotree_github_code_tree-6.2.2-fx.xpi";
-      sha256 = "16dfc478b10f34b186d40292ff7f6b3ed6c41893872715732bf5028a0c3e02b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3697117/octotree_github_code_tree-6.2.3-fx.xpi";
+      sha256 = "73b40cde0d3599ee99187631357921f766eea3d3592b8fd5abaceb0b7400e09e";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -823,10 +823,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.12.9";
+      version = "20.12.19";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3691330/refined_github-20.12.9-an+fx.xpi";
-      sha256 = "d1346a9c50d3190314c2bfed6c33db766d1dc5534c1deab584d4818ee79cf35d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3696932/refined_github-20.12.19-an+fx.xpi";
+      sha256 = "84825737d1bea1ec0b9d7e5175004e3795254104594bca96b381580a06ca0747";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
