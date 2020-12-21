@@ -26,11 +26,11 @@ jobs:
         nix_path: "${{ matrix.nixPath }}"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup cachix
-      uses: cachix/cachix-action@v8
-      with:
-        name: ${{ matrix.cachixName }}
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+    #- name: Setup cachix
+      #uses: cachix/cachix-action@v8
+      #with:
+        #name: ${{ matrix.cachixName }}
+        #signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
