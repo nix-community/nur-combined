@@ -15,5 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   nerdctl = pkgs.callPackage ./pkgs/nerdctl { };
+  scorecard = pkgs.callPackage ./pkgs/scorecard { };
 }
 
