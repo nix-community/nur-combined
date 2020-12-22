@@ -49,13 +49,13 @@ let
         sha512 = "L/ZnJRAq7F++utfuoTKX4CLBG5YR7tFO3PLzG1/oXXKEezJ0kRL3CMRoueBEmTCzVb/6SIs2Qlaw++uDgi5Xyg==";
       };
     };
-    "@firebase/auth-0.16.0" = {
+    "@firebase/auth-0.16.1" = {
       name = "_at_firebase_slash_auth";
       packageName = "@firebase/auth";
-      version = "0.16.0";
+      version = "0.16.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@firebase/auth/-/auth-0.16.0.tgz";
-        sha512 = "1d8WvbGCCaTMZXqevjrkrFzP6FFvFORHBUByQc5xVpDty+kQxIayeWxUqyEuwGm57BrQ1fUwveH2G9a4DGarCQ==";
+        url = "https://registry.npmjs.org/@firebase/auth/-/auth-0.16.1.tgz";
+        sha512 = "7juD7D/kaxNti/xa5G+ZGJJs+bdJUWOW0MlNBtXwiG+TjMh69EDmwJnQmmc9h/32QVvXt1qo1OGWOoMMpF/2Gg==";
       };
     };
     "@firebase/auth-interop-types-0.1.5" = {
@@ -103,13 +103,13 @@ let
         sha512 = "JtL3FUbWG+bM59iYuphfx9WOu2Mzf0OZNaqWiQ7lJR8wBe7bS9rIm9jlBFtksB7xcya1lZSQPA/GAy2jIlMIkA==";
       };
     };
-    "@firebase/firestore-2.1.0" = {
+    "@firebase/firestore-2.1.1" = {
       name = "_at_firebase_slash_firestore";
       packageName = "@firebase/firestore";
-      version = "2.1.0";
+      version = "2.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@firebase/firestore/-/firestore-2.1.0.tgz";
-        sha512 = "CKzZdht5ECpOGsfxOfeea7rXFTeR/wR7Lbh12TQI7Ru4CfhfdMBQPw9gs4wBX+WyKifp18Fz/bjP8Lly5RgNMg==";
+        url = "https://registry.npmjs.org/@firebase/firestore/-/firestore-2.1.1.tgz";
+        sha512 = "mcKp8psdKSxujaGjyfmt/thlTG5Gk+gFdJbkx4DnGO1PsJG4H5mE0wG//7tOH7DGeRCAmiagjKhA8nQlf/UNCg==";
       };
     };
     "@firebase/firestore-types-2.1.0" = {
@@ -337,13 +337,13 @@ let
         sha512 = "WnCtNXWOrupfPJgXe+vSmprZJUr0VIu14G58PMlkWGj3cH+KLZEfKMmbUQ6C3Wwx6fdhzVW1CD5RTnBdUHxhhA==";
       };
     };
-    "@octokit/openapi-types-2.0.0" = {
+    "@octokit/openapi-types-2.0.1" = {
       name = "_at_octokit_slash_openapi-types";
       packageName = "@octokit/openapi-types";
-      version = "2.0.0";
+      version = "2.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@octokit/openapi-types/-/openapi-types-2.0.0.tgz";
-        sha512 = "J4bfM7lf8oZvEAdpS71oTvC1ofKxfEZgU5vKVwzZKi4QPiL82udjpseJwxPid9Pu2FNmyRQOX4iEj6W1iOSnPw==";
+        url = "https://registry.npmjs.org/@octokit/openapi-types/-/openapi-types-2.0.1.tgz";
+        sha512 = "9AuC04PUnZrjoLiw3uPtwGh9FE4Q3rTqs51oNlQ0rkwgE8ftYsOC+lsrQyvCvWm85smBbSc0FNRKKumvGyb44Q==";
       };
     };
     "@octokit/plugin-paginate-rest-2.6.2" = {
@@ -418,13 +418,13 @@ let
         sha512 = "UZ1pErDue6bZNjYOotCNveTXArOMZQFG6hKJfOnGnulVCMcVVi7YIIuuR4WfBhjo7zgpmzn/BkPDnUXtNx+PcQ==";
       };
     };
-    "@octokit/types-6.1.1" = {
+    "@octokit/types-6.1.2" = {
       name = "_at_octokit_slash_types";
       packageName = "@octokit/types";
-      version = "6.1.1";
+      version = "6.1.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@octokit/types/-/types-6.1.1.tgz";
-        sha512 = "btm3D6S7VkRrgyYF31etUtVY/eQ1KzrNRqhFt25KSe2mKlXuLXJilglRC6eDA2P6ou94BUnk/Kz5MPEolXgoiw==";
+        url = "https://registry.npmjs.org/@octokit/types/-/types-6.1.2.tgz";
+        sha512 = "LPCpcLbcky7fWfHCTuc7tMiSHFpFlrThJqVdaHgowBTMS0ijlZFfonQC/C1PrZOjD4xRCYgBqH9yttEATGE/nw==";
       };
     };
     "@protobufjs/aspromise-1.1.2" = {
@@ -1768,13 +1768,13 @@ let
         sha512 = "PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==";
       };
     };
-    "firebase-8.2.0" = {
+    "firebase-8.2.1" = {
       name = "firebase";
       packageName = "firebase";
-      version = "8.2.0";
+      version = "8.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/firebase/-/firebase-8.2.0.tgz";
-        sha512 = "+xmFd6/E9dZC3OC16lPll5ql5tCi/CHu/iu66OAqZZwriwnxZTp48uQp5Rk/YiOkl19iyf9jzPx5NX3NXpXXbA==";
+        url = "https://registry.npmjs.org/firebase/-/firebase-8.2.1.tgz";
+        sha512 = "u2dvRIbyHZ2g0dziHKwXvMBubTSf+fgJcijXyy7fXcFFPd3wbDaGlHz7Sc6saOnlJtzZAYmvZUXaIxnStKOOXg==";
       };
     };
     "flat-4.1.1" = {
@@ -1867,13 +1867,13 @@ let
         sha512 = "DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==";
       };
     };
-    "get-intrinsic-1.0.1" = {
+    "get-intrinsic-1.0.2" = {
       name = "get-intrinsic";
       packageName = "get-intrinsic";
-      version = "1.0.1";
+      version = "1.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.0.1.tgz";
-        sha512 = "ZnWP+AmS1VUaLgTRy47+zKtjTxz+0xMpx3I52i+aalBK1QP19ggLF3Db89KJX7kjfOfP2eoa01qc++GwPgufPg==";
+        url = "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.0.2.tgz";
+        sha512 = "aeX0vrFm21ILl3+JpFFRNe9aUvp6VFZb2/CTbgLb8j75kOhvoNYjt9d8KA/tJG4gSo8nzEDedRl0h7vDmBYRVg==";
       };
     };
     "get-stream-4.1.0" = {
@@ -3460,13 +3460,13 @@ let
         sha512 = "VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==";
       };
     };
-    "simple-git-2.30.0" = {
+    "simple-git-2.31.0" = {
       name = "simple-git";
       packageName = "simple-git";
-      version = "2.30.0";
+      version = "2.31.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/simple-git/-/simple-git-2.30.0.tgz";
-        sha512 = "R4CCSf6wS+IjmDgekzJ9fv5ZmsAaDEYxx4lQ1/W4ZDolLQ9NosXL4dqiYQd//Y0w858DaTz6+7MSBVTtpfO3eA==";
+        url = "https://registry.npmjs.org/simple-git/-/simple-git-2.31.0.tgz";
+        sha512 = "/+rmE7dYZMbRAfEmn8EUIOwlM2G7UdzpkC60KF86YAfXGnmGtsPrKsym0hKvLBdFLLW019C+aZld1+6iIVy5xA==";
       };
     };
     "simple-swizzle-0.2.2" = {
@@ -4089,13 +4089,13 @@ in
       sources."@firebase/analytics-types-0.4.0"
       sources."@firebase/app-0.6.13"
       sources."@firebase/app-types-0.6.1"
-      sources."@firebase/auth-0.16.0"
+      sources."@firebase/auth-0.16.1"
       sources."@firebase/auth-interop-types-0.1.5"
       sources."@firebase/auth-types-0.10.1"
       sources."@firebase/component-0.1.21"
       sources."@firebase/database-0.8.1"
       sources."@firebase/database-types-0.6.1"
-      sources."@firebase/firestore-2.1.0"
+      sources."@firebase/firestore-2.1.1"
       sources."@firebase/firestore-types-2.1.0"
       sources."@firebase/functions-0.6.1"
       sources."@firebase/functions-types-0.4.0"
@@ -4123,26 +4123,26 @@ in
       sources."@kwsites/promise-deferred-1.1.1"
       (sources."@octokit/auth-token-2.4.4" // {
         dependencies = [
-          sources."@octokit/types-6.1.1"
+          sources."@octokit/types-6.1.2"
         ];
       })
       sources."@octokit/core-2.5.4"
       (sources."@octokit/endpoint-6.0.10" // {
         dependencies = [
-          sources."@octokit/types-6.1.1"
+          sources."@octokit/types-6.1.2"
           sources."universal-user-agent-6.0.0"
         ];
       })
       (sources."@octokit/graphql-4.5.8" // {
         dependencies = [
-          sources."@octokit/types-6.1.1"
+          sources."@octokit/types-6.1.2"
           sources."universal-user-agent-6.0.0"
         ];
       })
-      sources."@octokit/openapi-types-2.0.0"
+      sources."@octokit/openapi-types-2.0.1"
       (sources."@octokit/plugin-paginate-rest-2.6.2" // {
         dependencies = [
-          sources."@octokit/types-6.1.1"
+          sources."@octokit/types-6.1.2"
         ];
       })
       sources."@octokit/plugin-request-log-1.0.2"
@@ -4153,13 +4153,13 @@ in
       })
       (sources."@octokit/request-5.4.12" // {
         dependencies = [
-          sources."@octokit/types-6.1.1"
+          sources."@octokit/types-6.1.2"
           sources."universal-user-agent-6.0.0"
         ];
       })
       (sources."@octokit/request-error-2.0.4" // {
         dependencies = [
-          sources."@octokit/types-6.1.1"
+          sources."@octokit/types-6.1.2"
         ];
       })
       sources."@octokit/rest-17.11.2"
@@ -4344,7 +4344,7 @@ in
         ];
       })
       sources."find-up-3.0.0"
-      sources."firebase-8.2.0"
+      sources."firebase-8.2.1"
       (sources."flat-4.1.1" // {
         dependencies = [
           sources."is-buffer-2.0.5"
@@ -4363,7 +4363,7 @@ in
       })
       sources."gcp-metadata-4.2.1"
       sources."get-caller-file-2.0.5"
-      sources."get-intrinsic-1.0.1"
+      sources."get-intrinsic-1.0.2"
       sources."get-stream-4.1.0"
       sources."git-remote-origin-url-3.1.0"
       sources."gitconfiglocal-2.1.0"
@@ -4592,7 +4592,7 @@ in
       sources."shebang-command-1.2.0"
       sources."shebang-regex-1.0.0"
       sources."signal-exit-3.0.3"
-      sources."simple-git-2.30.0"
+      sources."simple-git-2.31.0"
       sources."simple-swizzle-0.2.2"
       sources."slice-ansi-4.0.0"
       sources."sprintf-js-1.1.2"
