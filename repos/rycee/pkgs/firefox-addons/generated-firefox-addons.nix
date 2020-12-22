@@ -535,10 +535,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.7.3";
+      version = "1.7.4";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3673941/keepassxc_browser-1.7.3-fx.xpi";
-      sha256 = "e838f3d95a7e0fb1736382acfb017fa90ae51ace0b9880d604882110704e7981";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3698051/keepassxc_browser-1.7.4-fx.xpi";
+      sha256 = "bbca53599b8379b1138730a8dcab44f4aeba8fa783e3d04f014f25de93a2b205";
       meta = with stdenv.lib;
       {
         homepage = "https://keepassxc.org/";
@@ -1015,10 +1015,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.6.3";
+      version = "3.6.4";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3687872/tree_style_tab_-3.6.3-fx.xpi";
-      sha256 = "5f09829d99955a59022d5dc247716dfcfbf49ef1f02037e4c25a1f929fcb271b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3697790/tree_style_tab_-3.6.4-fx.xpi";
+      sha256 = "708e7063c98819beec627f83c707260aae8b1d2f30d549e798d66457d2bb807d";
       meta = with stdenv.lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -1034,10 +1034,10 @@
       };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
-      version = "1.20.3";
+      version = "1.20.4";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3685852/tridactyl-1.20.3-an+fx.xpi";
-      sha256 = "29085de712555df454f22e219403fc52d1e0c47acfeecfaa2910de1b242f8486";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3697894/tridactyl-1.20.4-an+fx.xpi";
+      sha256 = "9e2aba45307612923cbad7a4d4ff8c056883cfd7dc72b4244599ac3bb51e738b";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/cmcaine/tridactyl";
