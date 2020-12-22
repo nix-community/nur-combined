@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchfromgh {
     owner = "ianyh";
-    repo = pname;
+    repo = "Amethyst";
     version = "v${version}";
     name = "Amethyst.zip";
     sha256 = "16n5vdyjs6m4saqibv3fb420w6x83lsiw182qm3prnilh4q9qld3";

@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "anki-bin";
-  version = "2.1.35";
+  version = "2.1.37";
 
   src = fetchfromgh {
     owner = "ankitects";
     repo = "anki";
     name = "anki-${version}-mac.dmg";
-    sha256 = "0xs4jyi9sl6q7101c5ca02yaihm796mpjbscqkna9hj47qj2dxak";
+    sha256 = "1f1ac6bwsw5vy08i5jr9xs14vhvja42ww7yv7gd96l4k7ij789rh";
     inherit version;
   };
 

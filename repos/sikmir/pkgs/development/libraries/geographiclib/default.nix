@@ -1,14 +1,12 @@
 { stdenv, fetchurl }:
-let
-  version = "1.50.1";
-in
-stdenv.mkDerivation {
+
+stdenv.mkDerivation rec {
   pname = "geographiclib";
-  inherit version;
+  version = "1.51";
 
   src = fetchurl {
     url = "mirror://sourceforge/geographiclib/GeographicLib-${version}.tar.gz";
-    sha256 = "1wc58csjhjp8jmcqxbaaikqczrjwwimmszlmfrgcrf38w04m0xni";
+    sha256 = "046k49h52n2qxclqdzjmqj6pbvqsb28hn7lnsrdi1xbxc54hjdrl";
   };
 
   meta = with stdenv.lib; {
