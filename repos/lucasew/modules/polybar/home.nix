@@ -48,7 +48,7 @@ in {
 
       "modules-left" = [
         "i3"
-        "xwindow"
+        # "xwindow"
       ];
       "modules-center" = [
         "pulseaudio"
