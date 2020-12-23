@@ -19,7 +19,7 @@ in
 
     configureZsh = mkOption {
       type = types.bool;
-      default = programs.zsh.enable;
+      default = config.programs.zsh.enable;
       description = "Whether or not to enable zsh configuration.";
     };
   };
