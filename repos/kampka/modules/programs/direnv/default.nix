@@ -13,13 +13,13 @@ in
 
     configureBash = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = "Whether or not to enable bash configuration.";
     };
 
     configureZsh = mkOption {
       type = types.bool;
-      default = true;
+      default = programs.zsh.enable;
       description = "Whether or not to enable zsh configuration.";
     };
   };
