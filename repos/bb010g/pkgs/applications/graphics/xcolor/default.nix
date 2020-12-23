@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "16l41q2aprh36bz6zz8y1x8d5kmbzz8pfh73jsw9y0p0ra5ssx3s";
 
-  outputs = [ "bin" "man" "out" ];
+  outputs = [ "out" "man" ];
 
   nativeBuildInputs = [ pkgconfig python3 ];
   buildInputs = [ libxcb ];
@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     sed -i ${lib.escapeShellArg makefileSedScript} Makefile
   '';
 
-  makeFlags = [ "PREFIX=$(bin)" ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   postInstall = ''
     # fix buildRustPackage installPhase locations

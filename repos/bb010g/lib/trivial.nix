@@ -97,7 +97,7 @@ in {
     f:
     # Function to transform argument metadata of
     fun:
-    setFunctionArgs' (f (functionArgs fun));
+    setFunctionArgs' fun (f (functionArgs fun));
 
   # mapIf {{{2
   /* Apply function if the second argument is true.
@@ -175,13 +175,13 @@ in {
   */
   wrapFunction =
     # Function to call with original function and then call
-    wrapperFunFun:
+    wrapperFnFn:
     # Function to wrap
-    origFun:
+    origFn:
     let
-      wrapperFun = wrapperFunFun origFun;
-      origArgs = functionArgs origFun;
-    in mapFunctionArgs wrapperFun (wrapperArgs: origArgs // wrapperArgs);
+      wrapperFn = wrapperFnFn origFn;
+      origArgs = functionArgs origFn;
+    in mapFunctionArgs (wrapperArgs: origArgs // wrapperArgs) wrapperFn;
 
   #}}}1
 
