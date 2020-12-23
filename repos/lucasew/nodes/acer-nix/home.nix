@@ -130,6 +130,38 @@ in
       speak = ''
         ${pkgs.espeak}/bin/espeak -v mb/mb-br1 "$*"
       '';
+      p2k = pkgs.wrapDotenv "p2k-actions.env" ''
+      export AMOUNT=1
+
+      if [ -n "$DEFAULT_AMOUNT" ]; then
+          AMOUNT=$DEFAULT_AMOUNT
+      fi
+
+      if [ -n "$1" ]; then
+          AMOUNT=$1
+      fi
+
+      PAYLOAD="
+      {
+          \"ref\": \"main\",
+          \"inputs\": {
+              \"amount\": \"$AMOUNT\"
+          }
+      }
+      "
+
+      echo "Amount: $AMOUNT"
+      echo "Sent payload: $PAYLOAD"
+      if [ -n "$TESTING" ]; then
+          exit 0
+      fi
+      curl \
+        -X POST \
+        -H "Accept: application/vnd.github.v3+json" \
+        -H "Authorization: Bearer $GITHUB_TOKEN" \
+        "https://api.github.com/repos/lucasew/flows/actions/workflows/4330248/dispatches" \
+        -d "$PAYLOAD"
+      '';
     };
   };
 
