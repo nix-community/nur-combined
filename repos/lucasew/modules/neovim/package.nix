@@ -18,6 +18,15 @@ let
       sha256 = "02wxjg8ygx7viirphdjlpqr26mdbzcpajnijlchjafy1gms0gryc";
     };
   };
+  themeStarrynight = pkgs.vimUtils.buildVimPlugin {
+    name = "starrynight";
+    src = pkgs.fetchFromGitHub {
+      owner = "josegamez82";
+      repo = "starrynight";
+      rev = "fcc8776f64061251a73158515a0ce82304fe4518";
+      sha256 = "0zspnzgn5aixwcp7klj5vaijmj4ca6hjj58jrz5aqn10dv41s02p";
+    };
+  };
 in pkgs.neovim.override {
   viAlias = true;
   vimAlias = true;
@@ -37,6 +46,8 @@ in pkgs.neovim.override {
       emmet-vim
       pluginEmbark
       vim-markdown
+      themeStarrynight
+      vim-jsx-typescript
     ];
     customRC = ''
     let g:LanguageClient_serverCommands = ${builtins.toJSON (import ./langservers.nix {inherit pkgs;})}

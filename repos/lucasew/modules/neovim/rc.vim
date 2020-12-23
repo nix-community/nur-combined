@@ -71,6 +71,13 @@ let g:echodoc#type = "virtual"
 " Markdown
 au! BufRead,BufNewFile *.markdown set filetype=mkd
 au! BufRead,BufNewFile *.md       set filetype=mkd
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_fenced_languages = ['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini']
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_strikethrough = 1
+let g:vim_markdown_new_list_item_indent = 1
+let g:vim_markdown_no_extensions_in_markdown = 1
 
 " Disable conceallevel
 autocmd VimEnter * set conceallevel=0
