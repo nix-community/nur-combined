@@ -20,6 +20,8 @@
 
   bpf-linker = pkgs.callPackage ./pkgs/bpf-linker { };
 
+  freenukum = pkgs.callPackage ./pkgs/freenukum { };
+
   gobi_loader = pkgs.callPackage ./pkgs/gobi_loader { };
 
   routinator = pkgs.callPackage ./pkgs/routinator { };
