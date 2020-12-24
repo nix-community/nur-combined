@@ -20,24 +20,24 @@ let
         # };
         nixpkgs = builtins.fetchTarball {
           name = "nixpkgs-unstable";
-          url = "https://github.com/NixOS/nixpkgs/archive/e9158eca70ae59e73fae23be5d13d3fa0cfc78b4.tar.gz";
-          sha256 = "0cnmvnvin9ixzl98fmlm3g17l6w95gifqfb3rfxs55c0wj2ddy53";
+          url = "https://github.com/NixOS/nixpkgs/archive/57a787c9fa91f149c86a1ce83d57e07cfa589e07.tar.gz";
+          sha256 = "1g759bvi0cb8yvwbmdlmix6b0qy1k2xpzpv4y43nczx9d3gyh7wz";
         };
         home-manager = builtins.fetchTarball {
           # master
           name = "home-manager";
-          url = "https://github.com/nix-community/home-manager/archive/4cc1b77c3fc4f4b3bc61921dda72663eea962fa3.tar.gz";
-          sha256 = "02y6bjakcbfc0wvf9b5qky792y9abyf1kgnk8r30f1advn3x69nc";
+          url = "https://github.com/nix-community/home-manager/archive/3627ec4de58d7fbda13c82dfec94eace10198f23.tar.gz";
+          sha256 = "1dxhgsg7081c50h8z146lrhx6aj6f4h905f45im7ilj6c3q4z0z9";
         };
         nur = builtins.fetchTarball {
           name = "NUR";
-          url = "https://github.com/nix-community/NUR/archive/28fa0f70b53d00d33880645a3ec91301e715ba24.tar.gz";
-          sha256 = "1xjrmlcry3yanm21cg0i1a2afdiqllynak539hl1n3nlm24kprmk";
+          url = "https://github.com/nix-community/NUR/archive/ab31a663d0b28bdea14d51d744f37771597a6d7e.tar.gz";
+          sha256 = "0bb6rw4n1xdj2km6m2j65j1bn7qszx0wsilklfp0vwy9y89i6kw1";
         };
         nix-ld = builtins.fetchTarball {
           name = "nix-ld";
-          url = "https://github.com/Mic92/nix-ld/archive/ce25b3e5b6817d48af6b886d8fcbbb8d5522d2ae.tar.gz";
-          sha256 = "0288dd68sw88m1fx9z2v5l36g9k51hma18jbj208a6bla87bcf51";
+          url = "https://github.com/Mic92/nix-ld/archive/60158bbc2afcbb0ece3183c5e01872d04773b9d0.tar.gz";
+          sha256 = "086ls5mmhcyrkwgqjnzwa9ny0z2rixqb4rdpqk239i3jjaxpys5m";
         };
       };
       setupScript = import ./lib/generateDotfilerc.nix cfg;
