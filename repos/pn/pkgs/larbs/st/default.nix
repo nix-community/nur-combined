@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://github.com/LukeSmithXYZ/st";
-    rev = "de6fd85eeb544548ed5ad23a639eedd6af510036";
-    sha256 = "1xyrbi857435dln7i6qb9ys2jizv43a2zq6fx4dr8z52ramxzyky";
+    rev = "13b3c631be13849cd80bef76ada7ead93ad48dc6";
+    sha256 = "009za6dv8cr2brs31sjqixnkk3jwm8k62qk38sz4ggby3ps9dzf4";
   };
 
   nativeBuildInputs = [ pkgconfig ncurses ];
