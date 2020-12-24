@@ -6,13 +6,13 @@
 
 buildPythonPackage rec {
   pname = "oead";
-  version = "1.2.0";
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     owner = "zeldamods";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1lf5i3ij756znw1hr74gps8hfdd98x8ncxc1p8hxvfjx0wazmg3g";
+    sha256 = "1fnwc0jbg4xylzcg9apmxdxh6xsn6a2iyr17fv67qddi4x28lvjx";
     fetchSubmodules = true;
   };
 

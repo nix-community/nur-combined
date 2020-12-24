@@ -83,6 +83,14 @@ with mergedPkgs; {
     pythonPackages = pkgs.python38Packages;
   };
 
+  python39Packages = pythonPackages.override {
+    pythonPackages = pkgs.python39Packages;
+  };
+
+  python310Packages = pythonPackages.override {
+    pythonPackages = pkgs.python310Packages;
+  };
+
   rofi-wayland = callPackage ./applications/misc/rofi-wayland { };
 
   runescape-launcher-unwrapped = callPackage ./games/runescape-launcher { };
