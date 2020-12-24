@@ -21,6 +21,7 @@
   outputs = { self, nixpkgs, nixgram, nix-ld, home-manager, dotenv, nur, ... }:
   let
     userSettings = import ./globalConfig.nix;
+    system = "x86_64-linux";
     overlays = [
       # dotenv
       (self: super: {
@@ -49,14 +50,20 @@
       (import ./modules/stremio/overlay.nix)
       (import ./modules/zig/overlay.nix)
     ];
+    pkgs = import nixpkgs {
+      inherit overlays;
+      inherit system;
+    };
   in {
     nixosConfigurations.acer-nix = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+      inherit system;
       modules = [
         "${home-manager}/nixos"
         "${nix-ld}/modules/nix-ld.nix"
         ({...}: {
-            nixpkgs.overlays = overlays;
+            nixpkgs = {
+              inherit overlays;
+            };
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
@@ -72,6 +79,16 @@
         )
         ./nodes/acer-nix/default.nix
       ];
+    };
+    shell =
+    let
+      rootPath = (import ./globalConfig.nix).rootPath;
+    in pkgs.mkShell {
+      name = "nixcfg-shell";
+      shellHook = ''
+        alias nixos-rebuild="sudo -E nixos-rebuild --flake '${rootPath}#acer-nix'"
+        echo Shell setup complete!
+      '';
     };
   };
 }
