@@ -1,5 +1,5 @@
 diff --git a/requirements.txt b/requirements.txt
-index 73730ef..a2e3497 100644
+index afb11ac..48376e0 100644
 --- a/requirements.txt
 +++ b/requirements.txt
 @@ -1,12 +1,12 @@
@@ -9,10 +9,10 @@ index 73730ef..a2e3497 100644
  byml>=2.3.1
 -botw-utils==0.2.3
 +botw-utils~=0.2.3
- botw-havok~=0.3.17
--cefpython3~=66.0
-+cefpython3>=66.0,<67; platform_system == 'Windows'
- oead>=1.1.4
+ botw-havok~=0.3.18
+ cefpython3~=66.0; platform_system == 'Windows'
+-oead~=1.2.0
++oead>=1.2.0,<2
  pythonnet>=2.5.0rc2; platform_system == 'Windows'
 -PyYAML~=5.3.1
 -requests~=2.23.0

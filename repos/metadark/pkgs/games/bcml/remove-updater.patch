@@ -1,5 +1,5 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index 6f55dc5..0523a21 100644
+index 1a1d8ed..5291e94 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
 @@ -60,11 +60,7 @@ class Api:
@@ -15,7 +15,7 @@ index 6f55dc5..0523a21 100644
  
      @win_or_lose
      def sanity_check(self, kwargs=None):
-@@ -697,47 +693,6 @@ class Api:
+@@ -722,52 +718,6 @@ class Api:
          help_thread = Thread(target=help_window, args=(self.host,))
          help_thread.start()
  
@@ -51,7 +51,12 @@ index 6f55dc5..0523a21 100644
 -                text=True,
 -            )
 -        else:
--            result = run(args, capture_output=True, check=False, text=True,)
+-            result = run(
+-                args,
+-                capture_output=True,
+-                check=False,
+-                text=True,
+-            )
 -        if result.stderr:
 -            if parent.name == "pkgs":
 -                try:
@@ -64,7 +69,7 @@ index 6f55dc5..0523a21 100644
          opener = Thread(target=start_new_instance)
          opener.start()
 diff --git a/bcml/assets/src/js/App.jsx b/bcml/assets/src/js/App.jsx
-index 365874b..6950b00 100644
+index 2d0d965..1979059 100644
 --- a/bcml/assets/src/js/App.jsx
 +++ b/bcml/assets/src/js/App.jsx
 @@ -35,7 +35,6 @@ class App extends React.Component {
@@ -109,9 +114,9 @@ index 365874b..6950b00 100644
      setProgress = (title, msg) => {
          this.setState({
              progressTitle: title,
-@@ -325,9 +297,6 @@ class App extends React.Component {
-                         <Dropdown.Item onClick={() => pywebview.api.open_help()}>
-                             Help
+@@ -328,9 +300,6 @@ class App extends React.Component {
+                         <Dropdown.Item onClick={() => pywebview.api.save_mod_list()}>
+                             Save Mod List
                          </Dropdown.Item>
 -                        <Dropdown.Item onClick={this.updateBcml}>
 -                            Update BCML
@@ -119,7 +124,7 @@ index 365874b..6950b00 100644
                          <Dropdown.Item as="a" href="/index.html?firstrun">
                              Run Setup Wizard
                          </Dropdown.Item>
-@@ -435,14 +404,6 @@ class App extends React.Component {
+@@ -441,14 +410,6 @@ class App extends React.Component {
                      message={this.state.confirmText}
                      onClose={this.state.confirmCallback.bind(this)}
                  />
@@ -134,7 +139,7 @@ index 365874b..6950b00 100644
                  <BackupModal
                      show={this.state.showBackups}
                      busy={this.state.showProgress}
-@@ -563,23 +524,4 @@ const ConfirmDialog = props => {
+@@ -569,23 +530,4 @@ const ConfirmDialog = props => {
      );
  };
  
@@ -159,7 +164,7 @@ index 365874b..6950b00 100644
 -
  export default App;
 diff --git a/bcml/assets/src/js/Settings.jsx b/bcml/assets/src/js/Settings.jsx
-index a535822..1731ac1 100644
+index e442b9b..eccfbdf 100644
 --- a/bcml/assets/src/js/Settings.jsx
 +++ b/bcml/assets/src/js/Settings.jsx
 @@ -22,7 +22,6 @@ class Settings extends React.Component {
@@ -167,10 +172,10 @@ index a535822..1731ac1 100644
              no_hardlinks: false,
              force_7z: false,
 -            suppress_update: false,
-             valid: false
+             valid: false,
+             loaded: false
          };
-         this.handleChange = this.handleChange.bind(this);
-@@ -464,22 +463,6 @@ class Settings extends React.Component {
+@@ -460,24 +459,6 @@ class Settings extends React.Component {
                                  />
                              </OverlayTrigger>
                          </Form.Group>
@@ -178,7 +183,9 @@ index a535822..1731ac1 100644
 -                            <OverlayTrigger
 -                                overlay={
 -                                    <Tooltip>
--                                        By default, BCML will notify you when it detects an updated version is available. Check this to turn that off.
+-                                        By default, BCML will notify you when it detects
+-                                        an updated version is available. Check this to
+-                                        turn that off.
 -                                    </Tooltip>
 -                                }
 -                                placement={"left"}>
@@ -194,10 +201,10 @@ index a535822..1731ac1 100644
                              <Form.Group controlId="force_7z">
                                  <OverlayTrigger
 diff --git a/bcml/util.py b/bcml/util.py
-index dba74f2..c505bae 100644
+index d418530..30c7d6d 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
-@@ -555,7 +555,6 @@ DEFAULT_SETTINGS = {
+@@ -565,7 +565,6 @@ DEFAULT_SETTINGS = {
      "wiiu": True,
      "no_hardlinks": False,
      "force_7z": False,
@@ -205,36 +212,26 @@ index dba74f2..c505bae 100644
  }
  
  
-@@ -1240,35 +1239,6 @@ def get_open_port():
+@@ -1255,25 +1254,6 @@ def get_open_port():
      return port
  
  
 -@lru_cache(1)
 -def get_latest_bcml() -> str:
--    args = [
--        get_python_exe().replace("pythonw", "python"),
--        "-m",
--        "pip",
--        "--disable-pip-version-check",
--        "install",
--        "bcml==checkver",
--    ]
--    if SYSTEM == "Windows":
--        result = run(
--            args,
--            creationflags=CREATE_NO_WINDOW,
--            capture_output=True,
--            universal_newlines=True,
--            check=False,
--        )
--    else:
--        result = run(args, capture_output=True, universal_newlines=True, check=False)
--    vers = sorted(re.findall(r"[0-9]\.[0-9]+\.[0-9a-z]+", result.stderr))
--    if not DEBUG:
--        vers = [v for v in vers if ".a" not in v and ".b" not in v]
 -    try:
--        return vers[-1]
--    except IndexError:
+-        res = requests.get("https://pypi.org/rss/project/bcml/releases.xml")
+-        doc = minidom.parseString(res.text)
+-        versions = sorted(
+-            (
+-                item.getElementsByTagName("title")[0].childNodes[0].data
+-                for item in doc.getElementsByTagName("item")
+-            ),
+-            reverse=True,
+-        )
+-        if DEBUG:
+-            return versions[0]
+-        return next(v for v in versions if "a" not in v and "b" not in v)
+-    except:  # pylint: disable=bare-except
 -        return "0.0.0"
 -
 -
