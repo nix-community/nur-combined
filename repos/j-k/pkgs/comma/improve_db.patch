@@ -1,0 +1,24 @@
+diff --git a/, b/,
+index 875fa30..fa07d83 100755
+--- a/,
++++ b/,
+@@ -6,11 +6,19 @@
+ # If there are multiple candidates, the user chooses one using `fzy`.
+ set -euo pipefail
+ 
++DEFAULT_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/nix-index"
++NIX_INDEX_DB="${NIX_INDEX_DB:-$DEFAULT_CACHE}"
++
+ if [[ $# -lt 1 ]]; then
+   >&2 echo "usage: , <program> [arguments]"
+   exit 1
+ fi
+ 
++if [[ ! -f "${NIX_INDEX_DB}/files" ]]; then
++  >&2 echo "no nix-index cache in '$NIX_INDEX_DB', run nix-index"
++  exit 1
++fi
++
+ if [[ "$1" == "--install" ]] || [[ "$1" == "-i" ]]; then
+   install=1
+   shift

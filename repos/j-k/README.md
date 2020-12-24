@@ -11,3 +11,9 @@ To use it add the following line to your nix.conf
 ```
 trusted-public-keys = j-k-nur.cachix.org-1:mRQf8TcRLbjJtIvdZWmnUDQ2jRlw1WE3zQuWBh9+iT8=
 ```
+
+---
+
+Packages in this repo will be ones I think don't fit in https://github.com/nixos/nixpkgs or aren't merged in yet.
+They will generally be versioned but some will be on commit SHAs where there hasn't been a tag in a while.
+Once a package is merged into nixpkgs I'll update it here until it's in NixOS unstable.
