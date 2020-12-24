@@ -1,7 +1,6 @@
 {pkgs, ...}:
 with pkgs;
 let
-  fetch = import <dotfiles/lib/fetch.nix>;
   paint = fetchzip {
     url = "https://archive.org/download/MSPaintWinXP/mspaint%20WinXP%20English.zip";
     sha256 = "119c7304szbky9n0d7761qvl09fmg9wh4ilna7fzcj691igly562";
@@ -29,7 +28,10 @@ let
 in pkgs.makeDesktopItem {
   name = "paint";
   desktopName = "Paint WindowsXP";
-  icon = fetch "http://vignette3.wikia.nocookie.net/logopedia/images/4/45/Ms_paint_windows_xp_logo.png/revision/latest?cb=20160414044336";
+  icon = builtins.fetchurl {
+    url = "http://vignette3.wikia.nocookie.net/logopedia/images/4/45/Ms_paint_windows_xp_logo.png/revision/latest?cb=20160414044336";
+    sha256 = "0sd85ix37l379l1cqszc1sfgin7cc1j21rhj3mdd0rm64ifa8znr";
+  };
   type = "Application";
   exec = "${bin}/bin/mspaint $*";
 }

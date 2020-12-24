@@ -1,6 +1,5 @@
 {pkgs, ...}:
 let
-  fetch = import <dotfiles/lib/fetch.nix>;
   launcherZip = pkgs.requireFile {
     name = "ShiginimaSE_v4400.zip";
     sha1 = "61cb768106e6e449158ebb2608ad1327402d9fec";
@@ -53,6 +52,9 @@ in pkgs.makeDesktopItem {
   name = "minecraft";
   desktopName = "Shiginima Minecraft";
   type = "Application";
-  icon = fetch "https://icons.iconarchive.com/icons/blackvariant/button-ui-requests-2/1024/Minecraft-2-icon.png";
+  icon = builtins.fetchurl {
+    url = "https://icons.iconarchive.com/icons/blackvariant/button-ui-requests-2/1024/Minecraft-2-icon.png";
+    sha256 = "3cc5dfd914c2ac41b03f006c7ccbb59d6f9e4c32ecfd1906e718c8e47f130f4a";
+  };
   exec = "${drv}/bin/minecraft $*";
 }

@@ -1,5 +1,4 @@
-{ pkgs, config, lib, ... }:
-with import <dotfiles/globalConfig.nix>;
+{ pkgs, config, lib, nixgram, ... }:
 let
   wallpaper = builtins.fetchurl {
     url = "http://wallpaperswide.com/download/aurora_sky-wallpaper-1366x768.jpg";
@@ -9,6 +8,7 @@ let
   };
   tuple = lib.hm.gvariant.mkTuple;
 in
+with (import ../../globalConfig.nix);
 {
   imports = [
     ./modules/among_us/home.nix
@@ -16,10 +16,18 @@ in
     ./modules/ets2/home.nix
     ./modules/firefox/home.nix
     ./modules/usb_tixati/home.nix
-    ./modules/webviews/home.nix
-    "${builtins.fetchGit { url = "https://github.com/lucasew/nixgram"; rev = "1b2c48fae75f9a2dbebff1930d3b8c34a74a4580";}}/hmModule.nix"
+   ./modules/webviews/home.nix
   ]
-  ++ import <dotfiles/lib/listModules.nix> "home";
+  ++ [
+    ../../modules/i3/home.nix
+    ../../modules/polybar/home.nix
+    ../../modules/spotify/home.nix
+    ../../modules/tmux/home.nix
+    ../../modules/vscode/home.nix
+    ../../modules/wallpaper/home.nix
+    ../../modules/youtube/home.nix
+  ]
+  ;
 
   home.packages = with pkgs; [
    # ------------ pacotes do nixpkgs ---------------

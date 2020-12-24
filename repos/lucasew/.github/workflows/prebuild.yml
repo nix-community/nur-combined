@@ -25,7 +25,5 @@ jobs:
         with:
           name: lucasew-personal
           authToken: '${{ secrets.CACHIX_TOKEN }}'
-      - run: DOTFILES=$(pwd) nix-shell --run 'nix-build build.nix --show-trace'
-        env:
-          NIXPKGS_ALLOW_UNFREE: 1
+      - run: nix-shell -p nixFlakes --run 'nix build .#nixosConfigurations.acer-nix.config.system.build.toplevel --experimental-features "nix-command flakes"'
 

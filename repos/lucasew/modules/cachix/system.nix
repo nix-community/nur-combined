@@ -1,7 +1,7 @@
 {pkgs, config, lib, ...}:
 with lib;
 let
-  pathIfExists = import <dotfiles/lib/pathListIfExist.nix>;
+  pathIfExists = import ../../lib/pathListIfExist.nix;
 in
 {
   imports = pathIfExists /etc/nixos/cachix.nix;

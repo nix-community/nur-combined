@@ -1,3 +1,4 @@
 let
-  globalConfig = import <dotfiles/globalConfig.nix>;
-in import (./engine + "/${globalConfig.selectedDesktopEnvironment}.nix")
+  cfg = import ../../globalConfig.nix;
+  selectedDe = cfg.selectedDesktopEnvironment;
+in import (./engine + "/${selectedDe}.nix")

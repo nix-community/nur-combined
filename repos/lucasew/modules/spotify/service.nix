@@ -1,6 +1,6 @@
 {pkgs, ...}:
 let 
-  systemdUserService = import <dotfiles/lib/systemdUserService.nix>;
+  systemdUserService = import ../../lib/systemdUserService.nix;
   adskipper = pkgs.writeShellScriptBin "spotify-adskip" ''
     PLAYERCTL=${pkgs.playerctl}/bin/playerctl
     echo Executando...

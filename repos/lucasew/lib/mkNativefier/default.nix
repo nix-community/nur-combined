@@ -6,7 +6,7 @@ pkgs: {
     props ? {}
   }:
 let
-  nativefier = (import ./package_data {}).nativefier;
+  nativefier = (import ./package_data {pkgs = pkgs;}).nativefier;
   processedProps = {
     name = name;
     targetUrl = url;

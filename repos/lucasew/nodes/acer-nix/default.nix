@@ -2,24 +2,32 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{pkgs, config, ... }:
+{pkgs, config, nix-ld, ... }:
 let
-  globalConfig = import <dotfiles/globalConfig.nix>;
-  home-manager = globalConfig.repos.home-manager;
+  username = "lucasew";
+  hostname = "acer-nix";
 in
 {
   imports =
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      "${home-manager}/nixos"
-      ./modules/virt-manager/system.nix
-      "${globalConfig.repos.nix-ld}/modules/nix-ld.nix"
     ]
-    ++ import <dotfiles/lib/listModules.nix> "system"
+    ++ [
+      ./modules/virt-manager/system.nix
+      ../../modules/cachix/system.nix
+      ../../modules/gui/system.nix
+      ../../modules/polybar/system.nix
+    ]
   ;
+  # gui = {
+  #   enable = true;
+  #   selected = "xfce_i3";
+  # };
 
+  nixpkgs.config.allowUnfree = true;
   nix = {
+    package = pkgs.nixFlakes;
     autoOptimiseStore = true;
     gc = {
       options = "--delete-older-than 15d";
@@ -27,6 +35,7 @@ in
     extraOptions = ''
       min-free = ${toString (1  *1024*1024*1024)}
       max-free = ${toString (10 *1024*1024*1024)}
+      experimental-features = nix-command flakes
     '';
   };
 
@@ -47,7 +56,7 @@ in
   # limpar tmp no boot
   boot.cleanTmpDir = true;
 
-  networking.hostName = globalConfig.hostname; # Define your hostname.
+  networking.hostName = hostname; # Define your hostname.
   networking.networkmanager.enable = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -80,8 +89,7 @@ in
     dasel # manipulação de json, toml, yaml, xml, csv e tal
     rclone rclone-browser restic # cloud storage
     p7zip unzip xarchiver # archiving
-    (pkgs.callPackage <dotfiles/modules/neovim/package.nix> {})
-    (pkgs.callPackage <dotfiles/modules/dotenv/package.nix> {})
+    (pkgs.callPackage ../../modules/neovim/package.nix {})
     # Extra
     gitAndTools.gitui
   ];
@@ -133,7 +141,7 @@ in
 
   # Users
   users.users = {
-    ${globalConfig.username} = {
+    ${username} = {
       isNormalUser = true;
       extraGroups = [
         "wheel" # sudo
@@ -146,7 +154,7 @@ in
   # Home manager
   home-manager = {
     users = {
-      ${globalConfig.username} = import ./home.nix;
+      "${username}" = import ./home.nix;
     };
     useUserPackages = true;
 #    useGlobalPkgs = true;
@@ -175,7 +183,7 @@ in
   # não deixar explodir
   nix.maxJobs = 3;
   # kernel
-  boot.kernelPackages = pkgs.linuxPackages_5_8;
+  boot.kernelPackages = pkgs.linuxPackages_5_10;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

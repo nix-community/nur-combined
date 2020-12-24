@@ -1,7 +1,6 @@
 {pkgs, ...}:
 # FIXME: Can't hear that lovely music and the sound effects
 let
-  fetch = import <dotfiles/lib/fetch.nix>;
   pinball = pkgs.stdenv.mkDerivation rec {
     name = "mspinball";
     version = "1.0";
@@ -25,7 +24,10 @@ let
 in pkgs.makeDesktopItem {
   name = "Pinball";
   desktopName = "Pinbal - Space Cadet";
-  icon = fetch "https://www.chip.de/ii/1/8/8/0/2/9/2/3/028c4582789e6c07.jpg";
+  icon = builtins.fetchurl {
+    url = "https://www.chip.de/ii/1/8/8/0/2/9/2/3/028c4582789e6c07.jpg";
+    sha256 = "1lwsnsp4hxwqwprjidgmxksaz13ib98w34r6nxkhcip1z0bk1ilz";
+  };
   type = "Application";
   exec = "${pinball}/bin/pinball";
 }

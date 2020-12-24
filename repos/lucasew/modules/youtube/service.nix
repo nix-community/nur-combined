@@ -1,6 +1,6 @@
 {pkgs, ...}:
 let 
-  systemdUserService = import <dotfiles/lib/systemdUserService.nix>;
+  systemdUserService = import ../../lib/systemdUserService.nix;
   adskipper = 
     pkgs.writeShellScriptBin "ytmd-adskip" ''
       PLAYERCTL=${pkgs.playerctl}/bin/playerctl

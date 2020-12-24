@@ -1,6 +1,6 @@
 {pkgs, ...}:
 let
-  systemdUserService = import <dotfiles/lib/systemdUserService.nix>;
+  systemdUserService = import ../../../lib/systemdUserService.nix;
   dlnaify = {path, name, extraFlags ? ""}: 
   let
     drv = pkgs.writeShellScript "dlna" ''

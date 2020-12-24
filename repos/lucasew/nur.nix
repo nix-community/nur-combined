@@ -22,7 +22,6 @@ in
     stremio = p ./modules/stremio/package.nix;
   };
   lib = {
-    fetch = import ./lib/fetch.nix;
     filter = import ./lib/filter.nix;
     image2color = import ./lib/image2color.nix;
     importAllIn = import ./lib/importAllIn.nix;

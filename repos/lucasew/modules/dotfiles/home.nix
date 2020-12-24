@@ -1,11 +1,10 @@
 { pkgs, ...}:
 let
-  globalConfig = import <dotfiles/globalConfig.nix>;
-  generator = import <dotfiles/lib/generateDotfilerc.nix>;
+  globalConfig = import ../../globalConfig.nix;
 in
 {
   home.file.".dotfilerc".text = ''
     #!/usr/bin/env bash
-    ${generator globalConfig}
+    alias nixos-rebuild="sudo -E nixos-rebuild --flake '${globalConfig.rootPath}#acer-nix'"
   '';
 }

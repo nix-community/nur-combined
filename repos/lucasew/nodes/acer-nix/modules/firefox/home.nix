@@ -1,6 +1,6 @@
 {pkgs, ...}: 
 let 
-  globalConfig = import <dotfiles/globalConfig.nix>;
+  globalConfig = import ../../../../globalConfig.nix;
   nur = pkgs.nur;
 in
 {

@@ -1,0 +1,77 @@
+{
+  description = "nixcfg";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgsLatest.url = "github:NixOS/nixpkgs/master";
+    home-manager.url = "github:nix-community/home-manager";
+    nur.url = "github:nix-community/NUR/master";
+    nix-ld.url = "github:Mic92/nix-ld";
+    nixgram = {
+      url = "github:lucasew/nixgram/master";
+      flake = false;
+    };
+    dotenv = {
+      url = "github:lucasew/dotenv";
+      flake = false;
+    };
+    # dotfiles.url = "#self";
+  };
+
+  outputs = { self, nixpkgs, nixgram, nix-ld, home-manager, dotenv, nur, ... }:
+  let
+    userSettings = import ./globalConfig.nix;
+    overlays = [
+      # dotenv
+      (self: super: {
+        dotenv = super.callPackage dotenv {};
+        wrapDotenv = (file: script:
+        let
+            dotenvFile = builtins.toString (./secrets + "/${file}");
+            command = super.writeShellScript "dotenv-wrapper" script;
+        in "${dotenv}/bin/dotenv @${dotenvFile} -- ${command} $*");
+      })
+      # nur
+      (self: super: {
+        nur = import nur {
+          nurpkgs = self.pkgs;
+          inherit (super) pkgs;
+        };
+      })
+      (import ./modules/neovim/overlay.nix)
+      (import ./modules/comby/overlay.nix)
+      (import ./modules/custom_rofi/overlay.nix)
+      (import ./modules/latest/overlay.nix)
+      (import ./modules/minecraft/overlay.nix)
+      (import ./modules/mspaint/overlay.nix)
+      (import ./modules/node_clis/overlay.nix)
+      (import ./modules/pinball/overlay.nix)
+      (import ./modules/stremio/overlay.nix)
+      (import ./modules/zig/overlay.nix)
+    ];
+  in {
+    nixosConfigurations.acer-nix = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        "${home-manager}/nixos"
+        "${nix-ld}/modules/nix-ld.nix"
+        ({...}: {
+            nixpkgs.overlays = overlays;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.${userSettings.username} = {...}: {
+                imports = [
+                  ./nodes/acer-nix/home.nix
+                  "${nixgram}/hmModule.nix"
+                  ./modules/dotfiles/home.nix
+                ];
+              };
+            };
+          }
+        )
+        ./nodes/acer-nix/default.nix
+      ];
+    };
+  };
+}
