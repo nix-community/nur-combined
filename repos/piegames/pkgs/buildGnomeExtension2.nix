@@ -11,7 +11,6 @@
 	link,
 	version,
 	sha256,
-	shell-versions
 }:
 
 stdenv.mkDerivation {
@@ -30,11 +29,6 @@ stdenv.mkDerivation {
 		description = builtins.head (lib.splitString "\n" description);
 		longDescription = description;
 		homepage = link;
-			# Mark as broken if not compatible with current Gnome installation
-			broken = let
-				matchesGnomeShellVersion = version: (builtins.compareVersions (lib.versions.majorMinor version) (lib.versions.majorMinor gnome3.gnome-shell.version)) == 0;
-			in
-				!(builtins.any matchesGnomeShellVersion shell-versions);
 	};
 	# You don't need a remote machine for unzipping a bit of JavaScript
 	preferLocalBuild = true;

@@ -1,13 +1,27 @@
-self: super: {
-	gnomeExtensions = (super.gnomeExtensions // (let
-		buildShellExtension2 = self.callPackage ../pkgs/buildGnomeExtension2.nix {};
-		extensions-index = builtins.fromJSON (builtins.readFile ./../lib/extensions.json);
-		extensions = builtins.map buildShellExtension2 extensions-index;
-	in
-		(builtins.listToAttrs (builtins.map (e: {name = e.pname; value = e;}) extensions))
-	)) // {
+self: super: let
+	# Index of all scraped extensions (with supported versions)
+	extensionsIndex = builtins.fromJSON (builtins.readFile ./../lib/extensions.json);
+	# Filter the extensions index to the matching Gnome shell version.
+	filterShellVersion = shell-version: extensions-index:
+		(builtins.map
+			(e: {
+				inherit (e) uuid name description link pname;
+				inherit (e.shell_version_map.${shell-version}) version sha256;
+			})
+			(builtins.filter
+				(e: (builtins.hasAttr shell-version e."shell_version_map"))
+				extensions-index
+			));
+	# Map a list of derivations to an attribute set with their pname as key
+	derivationsToAttrset = derivations: (builtins.listToAttrs (builtins.map (e: {name = e.pname; value = e;}) derivations));
+in rec {
+	buildShellExtension = self.callPackage ../pkgs/buildGnomeExtension2.nix {};
+
+	gnome36Extensions = derivationsToAttrset (builtins.map buildShellExtension (filterShellVersion "36" extensionsIndex));
+	gnome38Extensions = derivationsToAttrset (builtins.map buildShellExtension (filterShellVersion "38" extensionsIndex));
+
+	gnomeExtensions = super.gnomeExtensions // {
 		buildShellExtension = self.callPackage ../pkgs/buildGnomeExtension.nix {};
-		buildShellExtension2 = self.callPackage ../pkgs/buildGnomeExtension2.nix {};
 
 		# #### LEGACY ####
 

@@ -21,13 +21,14 @@ rec {
 	inherit lib modules overlays;
 
 	buildShellExtension = pkgsGnomeExtensions.gnomeExtensions.buildShellExtension;
-	buildShellExtension2 = pkgsGnomeExtensions.gnomeExtensions.buildShellExtension2;
+	buildShellExtension2 = pkgsGnomeExtensions.buildShellExtension;
 
-	gnomeExtensions = pkgs.recurseIntoAttrs (let
-		extensions-index = builtins.fromJSON (builtins.readFile ./lib/extensions.json);
-		extensions = builtins.map buildShellExtension2 extensions-index;
-	in
-		(builtins.listToAttrs (builtins.map (e: {name = e.pname; value = e;}) extensions))
+	gnome36Extensions = pkgs.recurseIntoAttrs (
+		pkgsGnomeExtensions.gnome36Extensions
+	);
+
+	gnome38Extensions = pkgs.recurseIntoAttrs (
+		pkgsGnomeExtensions.gnome38Extensions
 	);
 
 	matrix-conduit = pkgs.callPackage ./pkgs/matrix-conduit.nix {};

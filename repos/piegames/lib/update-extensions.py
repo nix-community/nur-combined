@@ -1,65 +1,67 @@
-#!python
-import urllib.request, json, types
+#!/usr/bin/env python3
+
+import urllib.request, urllib.error, json, types
+from typing import List, Set, Dict, Optional
 
 # We don't want all those deprecated legacy extensions
+# Group extensions by Gnome version for compatibility reasons
 supported_versions = {
-    "3.36", "3.36.0", "3.36.1", "3.36.2", "3.36.3", "3.36.4", "3.36.5", "3.36.6",
-    "3.38", "3.38.0", "3.38.1"
+    "36": {
+        "3.36",
+        "3.36.0",
+        "3.36.1",
+        "3.36.2",
+        "3.36.3",
+        "3.36.4",
+        "3.36.5",
+        "3.36.6",
+    },
+    "38": {"3.38", "3.38.0", "3.38.1"},
 }
 
-def process_extension(extension) -> bool:
-    # Yeah, there are some extensions without any releases
-    if not extension["shell_version_map"]:
-        return False
-    # Throw away that 'pk' key. What is it for?
-    extension["shell_version_map"] = {k: v["version"] for k, v in extension["shell_version_map"].items()}
-    # Extract newest extension version
-    extension["version"] = max (ver for ver in extension["shell_version_map"].values())
-    # Extract matching shell versions. We only provide those compatible with the latest extension release
-    extension["shell-versions"] = list(k for k,v in extension["shell_version_map"].items() if (v is extension["version"] and k in supported_versions))
-    if not extension["shell-versions"]:
-        return False
 
-    print("Processing " + extension["uuid"])
-
-    # Parse something like "/extension/1475/battery-time/" and output "battery-time-1475"
-    def pname_from_url(url: str) -> str:
-        url = url.split("/")
-        return url[3] + "-" + url[2]
-
-    extension["pname"] = pname_from_url(extension["link"])
-    extension["link"] = "https://extensions.gnome.org" + extension["link"]
-
-    # Download the extension and hash it
-    def fetch_sha256sum(uuid: str, version: str) -> str:
-        import hashlib, base64
-        remote = urllib.request.urlopen(
-            "https://extensions.gnome.org/extension-data/" + uuid.replace("@", "") + ".v" + version + ".shell-extension.zip"
+def generate_extension_versions(
+    extension_version_map: Dict[str, str], uuid: str
+) -> Dict[str, Dict[str, str]]:
+    extension_versions: Dict[str, Dict[str, str]] = {}
+    for shell_version, sub_versions in supported_versions.items():
+        # Newest compatible extension version
+        extension_version: Optional[int] = max(
+            (
+                int(ext_ver)
+                for shell_ver, ext_ver in extension_version_map.items()
+                if (shell_ver in sub_versions)
+            ),
+            default=None,
         )
-        hasher = hashlib.sha256()
+        # Extension is not compatible with this Gnome version
+        if not extension_version:
+            continue
+        print(f"[{shell_version}] Downloading {uuid}, {str(extension_version)}")
+        sha256 = fetch_sha256sum(uuid, str(extension_version))
+        extension_versions[shell_version] = {
+            "version": str(extension_version),
+            "sha256": sha256,
+        }
+    return extension_versions
 
-        while True:
-            data = remote.read(4096)
-            if not data:
-                break
-            hasher.update(data)
-        return hasher.hexdigest()
 
-    extension["sha256"] = fetch_sha256sum(extension["uuid"], str(extension["version"]))
+# Download the extension and hash it
+def fetch_sha256sum(uuid: str, version: str) -> str:
+    import hashlib, base64
 
-    # Replace \u0123 in strings
-    # TODO remove that unicode un-escaping once <https://github.com/NixOS/nix/pull/3305> made it into a release
-    extension["name"] = extension["name"].encode('unicode-escape').decode()
-    extension["description"] = extension["description"].encode('unicode-escape').decode()
+    uuid = uuid.replace("@", "")
+    url: str = f"https://extensions.gnome.org/extension-data/{uuid}.v{version}.shell-extension.zip"
+    remote = urllib.request.urlopen(url)
+    hasher = hashlib.sha256()
 
-    # Remove unused keys
-    del extension["shell_version_map"]
-    del extension["screenshot"]
-    del extension["icon"]
-    del extension["creator"]
-    del extension["creator_url"]
-    del extension["pk"]
-    return True
+    while True:
+        data = remote.read(4096)
+        if not data:
+            break
+        hasher.update(data)
+    return hasher.hexdigest()
+
 
 # Fetching extensions
 page = 0
@@ -68,45 +70,69 @@ while True:
     page += 1
     print("Scraping page " + str(page))
     try:
-        with urllib.request.urlopen("https://extensions.gnome.org/extension-query/?n_per_page=25&page=" + str(page)) as url:
+        with urllib.request.urlopen(
+            f"https://extensions.gnome.org/extension-query/?n_per_page=25&page={page}"
+        ) as url:
             data = json.loads(url.read().decode())["extensions"]
             responseLength = len(data)
-            print("Found " + str(responseLength) + " extensions")
-            data = list(filter(process_extension, data))
+            print(f"Found {responseLength} extensions")
 
-            extensions += data
+            for extension in data:
+                # Yeah, there are some extensions without any releases
+                if not extension["shell_version_map"]:
+                    continue
+
+                print("Processing " + extension["uuid"])
+
+                # Throw away that 'pk' key. What is it for?
+                extension["shell_version_map"] = {
+                    k: v["version"] for k, v in extension["shell_version_map"].items()
+                }
+                # Transform shell_version_map to be more useful for us. Also throw away unwanted versions
+                extension["shell_version_map"] = generate_extension_versions(
+                    extension["shell_version_map"], extension["uuid"]
+                )
+                if not extension["shell_version_map"]:
+                    # No compatible versions found
+                    continue
+
+                # Parse something like "/extension/1475/battery-time/" and output "battery-time-1475"
+                def pname_from_url(url: str) -> str:
+                    url = url.split("/")  # type: ignore
+                    return url[3] + "-" + url[2]
+
+                extension["pname"] = pname_from_url(extension["link"])
+                extension["link"] = "https://extensions.gnome.org" + extension["link"]
+
+                # Replace \u0123 in strings. This is required for nix < 2.3.10
+                # extension["name"] = extension["name"].encode('unicode-escape').decode()
+                # extension["description"] = extension["description"].encode('unicode-escape').decode()
+
+                # Remove unused keys
+                del extension["screenshot"]
+                del extension["icon"]
+                del extension["creator"]
+                del extension["creator_url"]
+                del extension["pk"]
+
+                extensions += [extension]
+
             if responseLength < 25:
                 break
     except urllib.error.HTTPError as e:
         print("Got error. We're done. (This should be a 404)\n" + str(e))
         break
 
-# The most pythonic way to do things is to copy pre-made solutions from StackOverflow, I guess?
-def lookahead(iterable):
-    """Pass through all values from the given iterable, augmented by the
-    information if there are more values to come after the current one
-    (True), or if it is the last value (False).
-    """
-    # Get an iterator and pull the first value.
-    it = iter(iterable)
-    last = next(it)
-    # Run the iterator to exhaustion (starting from the second value).
-    for val in it:
-        # Report the *previous* value (more to come).
-        yield last, True
-        last = val
-    # Report the last value.
-    yield last, False
-
-print("Writing results (" + str(len(extensions)) + " extensions in total)")
-with open('extensions.json', 'w') as out:
+print(f"Writing results ({len(extensions)} extensions in total)")
+with open("extensions.json", "w") as out:
     # Manually pretty-print the outer level, but then do one compact line per extension
     out.write("[\n")
-    for extension, is_not_last in lookahead(extensions):
-        out.write("    ")
-        json.dump(extension, out)
-        if is_not_last:
-            out.write(",\n")
+    for index, extension in enumerate(extensions):
+        out.write("  ")
+        if index != 0:
+            out.write(", ")
         else:
-            out.write("\n")
+            out.write("  ")
+        json.dump(extension, out)
+        out.write("\n")
     out.write("]\n")
