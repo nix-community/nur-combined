@@ -837,10 +837,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "23.8";
+      version = "24.0";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3687995/save_page_we-23.8-fx.xpi";
-      sha256 = "4acd5bf6b6fbeccfb580fc64be7d982f162205cd1cc8a5b1477d1571f8797e3d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3699083/save_page_we-24.0-fx.xpi";
+      sha256 = "e3c43a6a3ca9244a05710cda76ee0b5dc96ff4aba9e837a9886769431749b60c";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -1048,10 +1048,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.31.0";
+      version = "1.32.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3679754/ublock_origin-1.31.0-an+fx.xpi";
-      sha256 = "d9eef701b99866565708fe69b5855c1634187630e9e223e810f10e482545e6c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3698525/ublock_origin-1.32.0-an+fx.xpi";
+      sha256 = "2182c7b4d0e143dd77a524be6ad7ce9ab6de8497417aab5d35c0ba8671653e46";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
