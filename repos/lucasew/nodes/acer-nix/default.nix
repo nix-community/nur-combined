@@ -82,6 +82,8 @@ in
     p7zip unzip xarchiver # archiving
     (pkgs.callPackage <dotfiles/modules/neovim/package.nix> {})
     (pkgs.callPackage <dotfiles/modules/dotenv/package.nix> {})
+    # Extra
+    gitAndTools.gitui
   ];
 
   # melhor editor ever
