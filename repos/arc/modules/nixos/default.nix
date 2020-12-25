@@ -1,4 +1,5 @@
 {
+  modprobe = ./modprobe.nix;
   yggdrasil = ./yggdrasil.nix;
   display = ./display.nix;
   filebin = ./filebin.nix;
@@ -9,6 +10,7 @@
   __functionArgs = { };
   __functor = self: { ... }: {
     imports = with self; [
+      modprobe
       yggdrasil
       display
       filebin

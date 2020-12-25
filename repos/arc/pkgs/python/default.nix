@@ -6,6 +6,6 @@ psuper: {
   matrix-nio = import ./matrix-nio.nix;
   olm = import ./olm.nix;
   weechat-matrix = import ./weechat-matrix.nix;
-  vit = import ./vit.nix;
   urwid1 = import ./urwid1.nix;
+  svdtools = import ./svdtools.nix;
 }

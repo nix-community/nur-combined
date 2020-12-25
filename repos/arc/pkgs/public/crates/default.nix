@@ -247,18 +247,18 @@
   , python3
   }: rustPlatform.buildRustPackage rec {
     pname = "screenstub";
-    version = "2020-12-13";
+    version = "2020-12-24";
     src = fetchFromGitHub {
       owner = "arcnmx";
       repo = pname;
-      rev = "b0655764e0a015623004ef0d1e820bd8672dde26";
-      sha256 = "1cyjbsxg7i6bd84zpcgi6krk8kz652z397ay61gmx07v4nn27dpx";
+      rev = "c47e7f386b723ff627185efa8b5c64e601ff54e7";
+      sha256 = "1qrsjf03rywjv42l7ynik9b0xw7s380jiba3j8vvyfqm2ah3j9nx";
     };
 
     nativeBuildInputs = [ pkg-config python3 ];
     buildInputs = [ libxcb udev ];
 
-    cargoSha256 = "10a7xwk12awhk1079l5n33nj7gq2g8lcfy3vzl26p21qrr73bbji";
+    cargoSha256 = "0jyhm7kkhwi7cdsgcg9chbshy8amkx52c812idgs7r486r483ww0";
 
     doCheck = false;
   };
