@@ -27,4 +27,6 @@ self: super:
       hakyll-images = self.haskell.lib.unmarkBroken hsSuper.hakyll-images;
     };
   };
+  # fix for shadowrun
+  steam = (import <nixos-unstable> { config.allowUnfree = true; }).steam;
 }

@@ -1,6 +1,7 @@
 { stdenv, fetchFromGitHub, cmake, python3, pkgconfig, gtk3
 , glew, webkitgtk, icu, boost, curl, alsaLib, makeWrapper
-, gnome3, makeDesktopItem, gcc-unwrapped }:
+, gnome3, makeDesktopItem, gcc-unwrapped
+, debug ? false }:
 
 let
   desktopItem = makeDesktopItem rec {
@@ -11,19 +12,26 @@ let
     genericName = "KnobKraft Orm";
     categories = "Audio;AudioVideo;";
   };
+  inherit (stdenv.lib) optional optionalString;
 in stdenv.mkDerivation rec {
   pname = "KnobKraft-orm";
-  version = "1.8.1";
+  version = "1.9.0";
 
   src = fetchFromGitHub {
     owner = "christofmuc";
     repo = "KnobKraft-orm";
     rev = version;
-    sha256 = "1mw8mzixdflkl78dm5d3l0xbwhbbb59y5qd5xaxnpb8mzqab7yww"; # 1.8.1
+    sha256 = "0g32313b8xsv3jya7f4qcidd8nqkjl74z15s274daax6m46vrqns";
     fetchSubmodules = true;
   };
 
-  cmakeFlags = [ "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar" "-DCMAKE_RANLIB=${gcc-unwrapped}/bin/gcc-ranlib" ];
+  dontStrip = debug;
+  makeFlags = optional (debug) [ "CFLAGS+=-Og" "CFLAGS+=-ggdb" ];
+
+  cmakeFlags = [
+    "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar"
+    "-DCMAKE_RANLIB=${gcc-unwrapped}/bin/gcc-ranlib"
+  ] ++ optional debug [ "-DCMAKE_BUILD_TYPE=Debug" ];
 
   buildInputs = [
     gtk3 glew webkitgtk icu boost curl alsaLib
@@ -35,8 +43,9 @@ in stdenv.mkDerivation rec {
   installPhase = ''
     install -Dm755 ./The-Orm/KnobKraftOrm $out/bin/KnobKraftOrm
     # make file dialogs work under JUCE
-    wrapProgram $out/bin/KnobKraftOrm \
-      --prefix PATH ":" ${gnome3.zenity}/bin
+    ${optionalString (!debug) ''
+      wrapProgram $out/bin/KnobKraftOrm --prefix PATH ":" ${gnome3.zenity}/bin
+    ''}
 
     mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps
     ln -s ${desktopItem}/share/applications/* $out/share/applications
