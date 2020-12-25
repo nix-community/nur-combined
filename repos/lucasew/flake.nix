@@ -15,7 +15,6 @@
       url = "github:lucasew/dotenv";
       flake = false;
     };
-    # dotfiles.url = "#self";
   };
 
   outputs = { self, nixpkgs, nixgram, nix-ld, home-manager, dotenv, nur, ... }:
@@ -24,18 +23,22 @@
     system = "x86_64-linux";
     overlays = [
       # dotenv
-      (self: super: {
-        dotenv = super.callPackage dotenv {};
+      (self: super: 
+      let
+        dotenvBin = super.callPackage dotenv {};
         wrapDotenv = (file: script:
         let
-            dotenvFile = builtins.toString (./secrets + "/${file}");
-            command = super.writeShellScript "dotenv-wrapper" script;
-        in "${dotenv}/bin/dotenv @${dotenvFile} -- ${command} $*");
-      })
+          dotenvFile = (builtins.toString userSettings.rootPath + "/secrets/" + (builtins.toString file));
+          command = super.writeShellScript "dotenv-wrapper" script;
+        in ''
+          ${dotenvBin}/bin/dotenv "@${builtins.toString dotenvFile}" -- ${command} $*
+        '');
+      in 
+      {dotenv = dotenvBin; inherit wrapDotenv;})
       # nur
       (self: super: {
         nur = import nur {
-          nurpkgs = self.pkgs;
+          nurpkgs = super.pkgs;
           inherit (super) pkgs;
         };
       })

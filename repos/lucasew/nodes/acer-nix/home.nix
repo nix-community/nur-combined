@@ -132,13 +132,26 @@ with (import ../../globalConfig.nix);
   # nixgram
   services.nixgram = {
     enable = true;
-    dotenvFile = ../../secrets/nixgram.env;
+    dotenvFile = rootPath + "/secrets/nixgram.env";
     customCommands = {
       echo = "echo $*";
       speak = ''
         ${pkgs.espeak}/bin/espeak -v mb/mb-br1 "$*"
       '';
-      p2k = pkgs.wrapDotenv "p2k-actions.env" ''
+      flow = pkgs.wrapDotenv "flows.env" ''
+      PAYLOAD="
+      {
+          \"ref\": \"main\"
+      }
+      "
+      curl \
+        -X POST \
+        -H "Accept: application/vnd.github.v3+json" \
+        -H "Authorization: Bearer $GITHUB_TOKEN" \
+        "https://api.github.com/repos/lucasew/flows/actions/workflows/2929078/dispatches" \
+        -d "$PAYLOAD" || echo "Fail" && echo "Ok"
+      '';
+      p2k = pkgs.wrapDotenv "flows.env" ''
       export AMOUNT=1
 
       if [ -n "$DEFAULT_AMOUNT" ]; then
@@ -168,7 +181,8 @@ with (import ../../globalConfig.nix);
         -H "Accept: application/vnd.github.v3+json" \
         -H "Authorization: Bearer $GITHUB_TOKEN" \
         "https://api.github.com/repos/lucasew/flows/actions/workflows/4330248/dispatches" \
-        -d "$PAYLOAD"
+        -d "$PAYLOAD" || echo "Fail" && echo "Ok"
+
       '';
     };
   };
