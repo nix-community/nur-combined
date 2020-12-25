@@ -11,6 +11,11 @@ i3-msg -t get_outputs | jq '.[] | select(.current_workspace != null) |  "i3-msg 
 
 echo $goto_ws | bash
   '';
+  sendToPQP = pkgs.writeShellScript "sendToPQP" ''
+    ws=$[ $RANDOM % 100 + 11 ]
+    i3-msg move container to workspace number $ws
+    i3-msg workspace number $ws
+  '';
   colors = {
     background = "#00ffffff";
     background-alt = "#aa111111";
@@ -83,6 +88,7 @@ in {
           "${mod}+l" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
           "${mod}+m" = "move workspace to output left";
           "${mod}+n" = "exec ${modn}";
+          "${mod}+Shift+z" = "exec ${sendToPQP}";
           "XF86AudioNext" = "exec ${playerctl} next";
           "XF86AudioPrev" = "exec ${playerctl} previous";
           "XF86AudioPlay" = "exec ${playerctl} play-pause";
