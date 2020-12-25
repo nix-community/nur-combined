@@ -3,7 +3,7 @@
 with lib;
 
 let cfg = config.services.electrumx;
-    conf = pkgs.writeScript "electrumx.conf" ''
+    conf = pkgs.writeText "electrumx.conf" ''
       COIN = ${cfg.coin}
       NET = ${cfg.net}
       DB_DIRECTORY = ${cfg.dbDirectory}
@@ -188,7 +188,8 @@ in {
   config = mkIf cfg.enable {
     systemd.services.electrumx = {
       description = "Electrum server daemon";
-      after = [ "network.target" ];
+      after = [ "bitcoind-mainnet.service" ];
+      wants = [ "bitcoind-mainnet.service" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         EnvironmentFile = "${conf}";
@@ -197,6 +198,16 @@ in {
         Group = cfg.group;
         LimitNOFILE = 8192;
         TimeoutStopSec = "30min";
+
+        ExecStartPre = pkgs.writeScript "electrumx-exec-start-pre.sh" ''
+          #!${pkgs.bash}/bin/bash
+
+          # Yes, the following is a hack.
+          # It's to give bitcoind some time to start up
+          # before trying to connect to it. Otherwise,
+          # electrumx gets stuck in a retry loop.
+          ${pkgs.coreutils}/bin/sleep 10          
+        ''; 
       };
     };
 
