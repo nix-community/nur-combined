@@ -170,6 +170,7 @@ lib.makeScope newScope (
     gt-bash-client = callPackage ./tools/dict/gt-bash-client { };
     gt4gd = callPackage ./tools/dict/gt4gd { };
     gurl = callPackage ./tools/networking/gurl { };
+    hurl = callPackage ./tools/networking/hurl { };
     imgdecode = callPackage ./tools/geo/imgdecode { };
     ish = callPackage ./tools/networking/ish { };
     lazyscraper = callPackage ./tools/text/lazyscraper { };
