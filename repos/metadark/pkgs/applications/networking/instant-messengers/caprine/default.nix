@@ -7,9 +7,9 @@ let
         (entry: "caprine-${entry.caprine}")
         (filter
           (entry: hasAttr "caprine" entry)
-          (importJSON ./node-packages.json)));
+          (importJSON ./node2nix/node-packages.json)));
 
-  nodePackages = import ./node-composition.nix {
+  nodePackages = import ./node2nix/node-composition.nix {
     inherit pkgs nodejs;
     inherit (stdenv.hostPlatform) system;
   };
