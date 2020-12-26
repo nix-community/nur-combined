@@ -21,8 +21,8 @@ in
       name = "sxmo";
       desktopNames = [ "sxmo" ];
       start = ''
-        source ${sxmo-xdm-config}/etc/profile.d/profilesxmo.sh
-        ${sxmo-utils}/bin/sxmo_xinit.sh &
+        source ${sxmo-xdm-config}/etc/profile.d/sxmo.sh
+        ${pkgs.runtimeShell} ${sxmo-utils}/bin/sxmo_xinit.sh &
         waitPID=$!
       '';
     }];
@@ -37,7 +37,11 @@ in
       sxmo-utils
       sxmo-xdm-config
     ] ++ (with pkgs; [
+      autocutsel
       alsaUtils # alsactl
+      bc
+      coreutils
+      findutils
       xorg.xmodmap
       xorg.xf86inputsynaptics # synclient
       dbus # dbus-run-session
@@ -56,6 +60,7 @@ in
       v4l-utils
       vis
       libnotify
+      libxml2
 
       foxtrotgps
       keynav
@@ -63,7 +68,10 @@ in
       sxiv
       sacc
       htop
-      # TODO: package codemadness-frontends, sfeed
+
+      nur.repos.noneucat.sfeed
+      nur.repos.noneucat.codemadness-frontends
+      nur.repos.noneucat.pinephone.megapixels
     ]);
 
     services.xserver.libinput.enable = mkDefault true; # used in lisgd 
