@@ -9,14 +9,13 @@
 
 buildPythonPackage rec {
   pname = "pymdown-extensions";
-  version = "8.0.1";
+  version = "8.1";
 
   src = fetchFromGitHub {
     owner = "facelessuser";
     repo = pname;
-    # Use commit that fixes tests after pygments 2.6.1 -> 2.7.2 upgrade
-    rev = "e022398f86efd15d2f04de8bf954364a2b6395b7";
-    sha256 = "0kk9f8kfwm53hfc9a5q56ys0v2a5f0nsy7x8kb4vr7vj8fcp5qfa";
+    rev = version;
+    sha256 = "1zczq8r1famz951l6m4y6hq0sv4g59jcy0xc2prbil367d02y8r5";
   };
 
   propagatedBuildInputs = [ markdown ];
