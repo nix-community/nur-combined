@@ -17,7 +17,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixgram, nix-ld, home-manager, dotenv, nur, ... }:
+  outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, ... }:
   let
     userSettings = import ./globalConfig.nix;
     system = "x86_64-linux";
@@ -70,11 +70,15 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.${userSettings.username} = {...}: {
+              users.${userSettings.username} = {config, ...}: {
+                home.file.".dotfilerc".text = ''
+                #!/usr/bin/env bash
+                alias nixos-rebuild="sudo -E nixos-rebuild --flake '${userSettings.rootPath}#acer-nix'"
+                export NIX_PATH="nixpkgs=${nixpkgs}:dotfiles=${builtins.toString userSettings.rootPath}:nixpkgsLatest=${nixpkgsLatest} home-manager=${home-manager}:nur=${nur}"
+                '';
                 imports = [
                   ./nodes/acer-nix/home.nix
                   "${nixgram}/hmModule.nix"
-                  ./modules/dotfiles/home.nix
                 ];
               };
             };
