@@ -1,4 +1,4 @@
-{ stdenv, callPackage, buildEnv, opustags }:
+{ stdenv, callPackage, buildEnv }:
 with stdenv.lib;
 let
   bare = callPackage ./bare.nix { };
@@ -13,7 +13,7 @@ in
       cron
       statusbar
 
-      opustags
+      # opustags
 
       ## Movie creation
       slider
