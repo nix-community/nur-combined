@@ -1,13 +1,12 @@
 { config, pkgs, lib, ... }:
 
 with lib;
-
 let
   dataDir = "/var/lib/matrix-registration";
   cfg = config.services.matrix-registration;
   format = pkgs.formats.yaml { };
   matrix-registration-config =
-    format.generate "matrix-registration-config.yaml" cfg.settings;
+    format.generate "config.yaml" cfg.settings;
   matrix-registration-cli-wrapper = pkgs.stdenv.mkDerivation {
     name = "matrix-registration-cli-wrapper";
     buildInputs = [ pkgs.makeWrapper ];
@@ -18,79 +17,95 @@ let
     '';
   };
 
-in {
+in
+{
   options.services.matrix-registration = {
-    enable = lib.mkEnableOption "Start Matrix Registration";
+    enable = mkEnableOption "Start Matrix Registration";
 
-    settings = lib.mkOption {
+    settings = mkOption {
       default = { };
-      type = lib.types.submodule {
+      type = types.submodule {
         freeformType = format.type;
 
         options = {
-          server_location = lib.mkOption {
-            type = lib.types.str;
-            description = "The client baseurl";
-            example = "https://matrix.org";
+          server_location = mkOption {
+            type = types.str;
+            description = "The client base URL";
+            example = "https://matrix.example.tld";
           };
-          server_name = lib.mkOption {
-            type = lib.types.str;
+          server_name = mkOption {
+            type = types.str;
             description = "The server_name";
-            example = "matrix.org";
+            example = "example.tld";
             default = optionalString config.services.matrix-synapse.enable
               config.services.matrix-synapse.server_name;
           };
-          shared_secret = lib.mkOption {
-            type = lib.types.str;
-            description = "The shared secret with the synapse configuration";
+          registration_shared_secret = mkOption {
+            type = types.str;
+            description =
+              "The registration shared secret with the synapse configuration";
             example = "RegistrationSharedSecret";
             default = optionalString config.services.matrix-synapse.enable
               config.services.matrix-synapse.registration_shared_secret;
           };
-          admin_secret = lib.mkOption {
-            type = lib.types.str;
+          admin_secret = mkOption {
+            type = types.str;
             description = "The admin secret to access the API";
             example = "APIAdminPassword";
           };
-          base_url = lib.mkOption {
-            type = lib.types.str;
+          base_url = mkOption {
+            type = types.str;
             description = "A prefix for all endpoints";
             default = "";
           };
-          riot_instance = lib.mkOption {
-            type = lib.types.str;
-            description = "The element instaince to redirect to";
-            default = "https://app.element.io/";
+          client_redirect = mkOption {
+            type = types.str;
+            description =
+              "The client instance to redirect after succesful registration";
+            default = "https://app.element.io/#/login";
           };
-          db = lib.mkOption {
-            type = lib.types.str;
+          client_logo = mkOption {
+            type = types.path;
+            description = "The client logo to display";
+            default =
+              "${pkgs.matrix-registration}/matrix_registration/static/images/element-logo.png";
+          };
+          db = mkOption {
+            type = types.str;
             default = "sqlite:///${dataDir}/db.sqlite3";
             description = "Where to store the database";
           };
-          host = lib.mkOption {
-            type = lib.types.str;
+          host = mkOption {
+            type = types.str;
             default = "localhost";
             description = "What host to listen on";
           };
-          port = lib.mkOption {
-            type = lib.types.port;
+          port = mkOption {
+            type = types.port;
             default = 5000;
+            description = "What port to listen on";
           };
-          rate_limit = lib.mkOption {
-            type = lib.types.listOf lib.types.str;
+          rate_limit = mkOption {
+            type = types.listOf types.str;
             default = [ "100 per day" "10 per minute" ];
+            description =
+              "How often is one IP allowed to access matrix-registration";
           };
-          allow_cors = lib.mkOption {
-            type = lib.types.bool;
+          allow_cors = mkOption {
+            type = types.bool;
             default = false;
+            description = "Allow Cross Origin Resource Sharing";
           };
-          ip_logging = lib.mkOption {
-            type = lib.types.bool;
+          ip_logging = mkOption {
+            type = types.bool;
             default = false;
             description = "Save IPs in the database";
           };
-          logging = lib.mkOption {
-            type = lib.types.attrs;
+          logging = mkOption {
+            type = types.attrs;
+            description = ''
+              Python logging config, see <link xlink:href="https://docs.python.org/3/library/logging.config.html#configuration-dictionary-schema>python docs</link>
+            '';
             default = {
               disable_existing_loggers = false;
               version = 1;
@@ -116,7 +131,7 @@ in {
                   class = "logging.handlers.RotatingFileHandler";
                   formatter = "precise";
                   level = "INFO";
-                  filename = "${dataDir}/m_reg.log";
+                  filename = "${dataDir}/matrix-registration.log";
                   maxBytes = 10485760;
                   backupCount = 3;
                   encoding = "utf8";
@@ -124,13 +139,24 @@ in {
               };
             };
           };
-          password.min_length = lib.mkOption {
-            type = lib.types.ints.positive;
+          password.min_length = mkOption {
+            type = types.ints.positive;
             default = 8;
             description = "Minimum password length for the registered user";
           };
         };
       };
+    };
+
+    credentialsFile = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      description = ''
+        File containing variables to be passed to the matrix-registration service,
+        in which secret tokens can be specified securely by defining values for
+        <literal>REGISTRATION_SHARED_SECRET</literal>,
+        <literal>ADMIN_SECRET</literal>
+      '';
     };
 
     serviceDependencies = mkOption {
@@ -154,7 +180,7 @@ in {
 
       preStart = ''
         # run automatic database init and migration scripts
-        ${pkgs.matrix-registration.alembic}/bin/alembic -x dbname='${matrix-registration-config}' upgrade head
+        ${pkgs.matrix-registration.alembic}/bin/alembic -x config='${matrix-registration-config}' upgrade head
       '';
 
       serviceConfig = {
@@ -174,10 +200,15 @@ in {
         StateDirectory = baseNameOf dataDir;
         UMask = 27;
 
+        LoadCredential = (if cfg.credentialsFile != null then "secrets:${cfg.credentialsFile}" else null);
+
         ExecStart = ''
           ${pkgs.matrix-registration}/bin/matrix-registration \
-              --config-path='${matrix-registration-config}' serve
-        '';
+            --config-path="${matrix-registration-config}" \
+        '' + strings.optionalString (cfg.credentialsFile != null) ''
+            --secrets-path="$CREDENTIALS_DIRECTORY/secrets" \
+        '' + "serve"
+        ;
       };
     };
 

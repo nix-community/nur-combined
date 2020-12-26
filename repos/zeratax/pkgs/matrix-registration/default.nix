@@ -11,14 +11,14 @@ let
 
 in buildPythonPackage rec {
   pname = "matrix-registration";
-  version = "1.0.0.dev1";
+  version = "1.0.0.dev3";
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "ZerataX";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1ihf8ir6d63xmgmpafwc4jidp2haai4blyvkm4vidhsgn5nrjja1";
+    sha256 = "0dz60qv32dn0ci4c696c12rlqamd00m19rn8c6dxbza23r7a952n";
   };
 
   postPatch = ''
@@ -29,6 +29,7 @@ in buildPythonPackage rec {
     pkgs.libsndfile
     appdirs
     flask
+    flask-babel
     flask-cors
     flask-httpauth
     flask-limiter

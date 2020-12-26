@@ -1,4 +1,4 @@
-# nur-packages gestalt
+# nur-packages zeratax
 
 **My personal [NUR](https://github.com/ZerataX/nur-packages) repository**
 
