@@ -1,9 +1,7 @@
 self: super:
-{
-  # https://github.com/NixOS/nixpkgs/pull/103485
-  zoom-us = super.zoom-us.overrideAttrs (oldAttrs: rec {
-    runtimeDependencies = oldAttrs.runtimeDependencies ++ [ super.alsaLib ];
-  });
+let
+  unstable = import <nixos-unstable> { config.allowUnfree = true; };
+in {
   # https://github.com/NixOS/nixpkgs/issues/98009
   qt515 = super.qt515.overrideScope' (selfx: superx: {
     qtbase = superx.qtbase.overrideAttrs (old: {
@@ -28,5 +26,6 @@ self: super:
     };
   };
   # fix for shadowrun
-  steam = (import <nixos-unstable> { config.allowUnfree = true; }).steam;
+  # https://github.com/NixOS/nixpkgs/pull/103485
+  inherit (unstable) steam zoom-us;
 }
