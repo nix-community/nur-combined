@@ -1,0 +1,25 @@
+From 22eb8289c97ed9bf0c30077334198db29d1c565c Mon Sep 17 00:00:00 2001
+From: "Andy Chun @noneucat" <andy@lolc.at>
+Date: Fri, 25 Dec 2020 07:07:28 -0800
+Subject: [PATCH] Default to PinePhone touchscreen evdev device
+
+---
+ config.def.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/config.def.h b/config.def.h
+index 2ce9c44..43617be 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -19,7 +19,7 @@ double edgesizeleft = 50.0;
+ double edgesizetop = 50.0;
+ double edgesizeright = 50.0;
+ double edgesizebottom = 50.0;
+-char *device = "/dev/input/event1";
++char *device = "/dev/input/by-path/platform-1c2ac00.i2c-event";
+ 
+ Gesture gestures[] = {
+ 	/* nfingers  gesturetype  command */
+-- 
+2.29.2
+

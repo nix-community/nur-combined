@@ -1,0 +1,52 @@
+From 3251c452f7d495922594eadac09cba3769d95240 Mon Sep 17 00:00:00 2001
+From: "Andy Chun @noneucat" <andy@lolc.at>
+Date: Fri, 25 Dec 2020 05:34:15 -0800
+Subject: [PATCH sxmo-dwm] Keep track of whether the multikey timer is set
+
+---
+ dwm.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/dwm.c b/dwm.c
+index c837dc8..f076b12 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -305,6 +305,7 @@ static Window root, wmcheckwin;
+ #define KEYPRESS_MS_THRESHOLD 200
+ #define KEYHOLD_MS_THRESHOLD 700
+ static int multikeypendingindex = -1;
++static int multikeypendingtimerset = 0;
+ timer_t multikeypendingtimer;
+ static int multikeyup = 1;
+ 
+@@ -1286,14 +1287,18 @@ void keypresstimerdone(union sigval timer_data)
+ 	ev.xclient.data.s[0] = ((short) timer_data.sival_int);
+ 	XSendEvent(dpy, root, False, SubstructureRedirectMask, &ev);
+ 	XSync(dpy, False);
++        multikeypendingtimerset = 0; // mark timer as unset
+ }
+ 
+ void keypresstimerdispatch(int msduration, int data)
+ {
+ 	struct sigevent timer_signal_event;
+ 	struct itimerspec timer_period;
++
+ 	// Clear out the old timer if any set,and dispatch new timer
+-	timer_delete(multikeypendingtimer);
++        if (multikeypendingtimerset)
++	    timer_delete(multikeypendingtimer);
++
+ 	timer_signal_event.sigev_notify = SIGEV_THREAD;
+ 	timer_signal_event.sigev_notify_function = keypresstimerdone;
+ 	timer_signal_event.sigev_value.sival_int = data;
+@@ -1304,6 +1309,7 @@ void keypresstimerdispatch(int msduration, int data)
+ 	timer_period.it_interval.tv_sec = 0;
+ 	timer_period.it_interval.tv_nsec =  0;
+ 	timer_settime(multikeypendingtimer, 0, &timer_period, NULL);
++        multikeypendingtimerset = 1;
+ }
+ 
+ void
+-- 
+2.29.2
+

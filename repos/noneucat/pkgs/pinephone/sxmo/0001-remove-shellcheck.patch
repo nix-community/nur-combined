@@ -1,0 +1,36 @@
+From 480a002239ffbd5cbecebf118a7d4943bcbd7cc7 Mon Sep 17 00:00:00 2001
+From: "Andy Chun @noneucat" <andy@lolc.at>
+Date: Tue, 22 Dec 2020 18:53:53 -0800
+Subject: [PATCH] remove shellcheck
+
+---
+ Makefile | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 7d78732..f48b111 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,6 @@
+ PREFIX:=/
+ 
+-.PHONY: install shellcheck
++.PHONY: install 
+ 
+ PROGRAMS = \
+ 	programs/sxmo_setpineled \
+@@ -9,10 +9,7 @@ PROGRAMS = \
+ 	programs/sxmo_megiaudioroute \
+ 	programs/sxmo_vibratepine
+ 
+-all: shellcheck $(PROGRAMS)
+-
+-shellcheck:
+-	shellcheck scripts/*/*
++all: $(PROGRAMS)
+ 
+ programs/sxmo_setpineled: programs/sxmo_setpineled.c
+ 	gcc -o programs/sxmo_setpineled programs/sxmo_setpineled.c
+-- 
+2.29.2
+

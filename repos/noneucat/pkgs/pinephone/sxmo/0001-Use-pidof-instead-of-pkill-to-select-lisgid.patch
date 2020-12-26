@@ -1,0 +1,23 @@
+From 6b352edaadc0f690baf1e933a52936c82411c843 Mon Sep 17 00:00:00 2001
+From: "Andy Chun @noneucat" <andy@lolc.at>
+Date: Fri, 25 Dec 2020 07:10:25 -0800
+Subject: [PATCH] Use pidof instead of pkill to select lisgid
+
+---
+ scripts/core/sxmo_lisgdstart.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/core/sxmo_lisgdstart.sh b/scripts/core/sxmo_lisgdstart.sh
+index b531dd6..42d8f10 100755
+--- a/scripts/core/sxmo_lisgdstart.sh
++++ b/scripts/core/sxmo_lisgdstart.sh
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env sh
+-pkill -9 lisgd
++kill -9 $(pidof lisgd)
+ 
+ if [ -x "$XDG_CONFIG_HOME"/sxmo/hooks/lisgdstart ]; then
+ 	"$XDG_CONFIG_HOME"/sxmo/hooks/lisgdstart &
+-- 
+2.29.2
+
