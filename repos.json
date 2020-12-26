@@ -270,6 +270,9 @@
         "nexromancers": {
             "url": "https://github.com/neXromancers/nixromancers"
         },
+        "noneucat": {
+            "url": "https://git.sr.ht/~noneucat/nur-packages"
+        },
         "novafacing": {
             "url": "https://github.com/novafacing/nur-packages"
         },
