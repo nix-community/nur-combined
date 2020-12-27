@@ -18,12 +18,9 @@ in
       ../../modules/cachix/system.nix
       ../../modules/gui/system.nix
       ../../modules/polybar/system.nix
+      ../../modules/steam/system.nix
     ]
   ;
-  # gui = {
-  #   enable = true;
-  #   selected = "xfce_i3";
-  # };
 
   nixpkgs.config.allowUnfree = true;
   nix = {
