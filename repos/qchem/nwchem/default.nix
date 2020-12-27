@@ -70,7 +70,7 @@ in stdenv.mkDerivation {
   PYTHONVERSION="2.7";
 
   BLASOPT="-L${blas}/lib -lblas";
-  LAPACK_LIB="-L${lapack}/lib -lapack";
+  LAPACK_LIB="-L${lapack}/lib -llapack";
 
   BLAS_SIZE=if blas.isILP64 then "8" else "4";
 
