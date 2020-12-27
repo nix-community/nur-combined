@@ -1,17 +1,19 @@
 { stdenv, pkgs, fetchFromGitHub, which, openssh, gcc, gfortran, perl
-, mpi ? pkgs.openmpi, openblas, python, tcsh, bash
+, mpi, blas, lapack, python, tcsh, bash
 , automake, autoconf, libtool, makeWrapper
 } :
 
+assert blas.isILP64 == blas.isILP64;
+
 let
-  version = "7.0.0";
-  versionGA = "5.7.1"; # Fixed by nwchem
+  version = "7.0.2";
+  versionGA = "5.7.2"; # Fixed by nwchem
 
   ga_src = fetchFromGitHub {
     owner = "GlobalArrays";
     repo = "ga";
     rev = "v${versionGA}";
-    sha256 = "1b2vqklfwqhkfy1zrdnc40aiakpnm1hnlwbllm8a5v9wv3qav08d";
+    sha256 = "0c1y9a5jpdw9nafzfmvjcln1xc2gklskaly0r1alm18ng9zng33i";
   };
 
 in stdenv.mkDerivation {
@@ -22,11 +24,11 @@ in stdenv.mkDerivation {
     owner = "nwchemgit";
     repo = "nwchem";
     rev = "v${version}-release";
-    sha256 = "1hfvk8cdn93cfnw88gyswp2dbw3cfx23660zy9cgvqjnhr5qkbrq";
+    sha256 = "1ckhcjaw1hzdsmm1x2fva27c4rs3r0h82qivg72v53idz880hbp3";
   };
 
   nativeBuildInputs = [ perl automake autoconf libtool makeWrapper ];
-  buildInputs = [ tcsh openssh which gfortran mpi openblas which python ];
+  buildInputs = [ tcsh openssh which gfortran mpi blas lapack which python ];
   propagatedUserEnvPkgs = [ mpi ];
 
   postUnpack = ''
@@ -67,10 +69,10 @@ in stdenv.mkDerivation {
   PYTHONHOME="${python}";
   PYTHONVERSION="2.7";
 
-  BLASOPT="-L${openblas}/lib -lopenblas";
-  LAPACK_LIB="-lopenblas";
+  BLASOPT="-L${blas}/lib -lblas";
+  LAPACK_LIB="-L${lapack}/lib -lapack";
 
-  BLAS_SIZE="8";
+  BLAS_SIZE=if blas.isILP64 then "8" else "4";
 
   # extra TCE releated options
   MRCC_METHODS="y";
@@ -88,7 +90,7 @@ in stdenv.mkDerivation {
 
     echo "ROOT: $NWCHEM_TOP"
     make nwchem_config
-    #make 64_to_32
+    ${stdenv.lib.optionalString (!blas.isILP64) "make 64_to_32"}
   '';
 
   postBuild = ''

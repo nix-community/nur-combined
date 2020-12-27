@@ -1,8 +1,10 @@
-{ stdenv, fetchFromGitHub, python, gfortran, openblasCompat
+{ stdenv, fetchFromGitHub, python, gfortran, blas, lapack
 , fftw, libint2, libxc, mpi, gsl, scalapack, openssh, makeWrapper
 , libxsmm, spglib, which
 , optAVX ? false
 } :
+
+assert (!blas.isILP64) && (!lapack.isILP64);
 
 let
   version = "7.1.0";
@@ -22,7 +24,7 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ python which openssh makeWrapper ];
-  buildInputs = [ gfortran fftw gsl libint2 libxc libxsmm  spglib openblasCompat mpi scalapack ];
+  buildInputs = [ gfortran fftw gsl libint2 libxc libxsmm  spglib blas lapack mpi scalapack ];
 
   makeFlags = [
     "ARCH=${arch}"
@@ -55,7 +57,7 @@ in stdenv.mkDerivation rec {
                  -fopenmp -ftree-vectorize -funroll-loops \
                  -I${libxc}/include -I${libxsmm}/include \
                  -I${libint2}/include
-    LIBS       = -lfftw3 -lfftw3_threads -lscalapack -lopenblas \
+    LIBS       = -lfftw3 -lfftw3_threads -lscalapack -lblas -llapack \
                  -lxcf03 -lxc -lxsmmf -lxsmm -lsymspg \
                  -lint2 -lstdc++ \
                  -fopenmp

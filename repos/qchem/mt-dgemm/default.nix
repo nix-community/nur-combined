@@ -1,4 +1,6 @@
-{ stdenv, fetchurl, openblasCompat } :
+{ stdenv, fetchurl, blas } :
+
+assert (!blas.isILP64);
 
 stdenv.mkDerivation {
   pname = "mt-dgeem";
@@ -9,10 +11,10 @@ stdenv.mkDerivation {
     sha256 = "04bcjw3if1fms321rpy3mxsnli0xmj5czz71xxamxa71j4yy30k3";
   };
 
-  buildInputs = [ openblasCompat ];
+  buildInputs = [ blas ];
 
   preBuild = ''
-    makeFlagsArray+=("LIBS=-lopenblas")
+    makeFlagsArray+=("LIBS=-lblas")
     makeFlagsArray+=("CFLAGS=-DUSE_CBLAS")
   '';
 

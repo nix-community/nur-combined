@@ -19,7 +19,7 @@ let
 
     osu-benchmark = callPackage ./osu-benchmark { mpi=pkg; };
 
-    # scalapack is only valid with ILP32
+    # scalapack can't be built with ILP64
     scalapack = (super.scalapack.override { mpi=pkg; }).overrideAttrs
     ( x: {
       CFLAGS = super.lib.optionalString cfg.optAVX  "-O3 -mavx2 -mavx -msse2";
@@ -59,7 +59,7 @@ let
 
     mctdh = callPackage ./mctdh { useMPI=true; mpi=pkg; scalapack=MPI.scalapack; };
 
-    nwchem = callPackage ./nwchem { mpi=pkg; };
+    nwchem = callPackage ./nwchem { mpi=pkg; blas=self.blas-i8; lapack=self.lapack-i8; };
 
     openmolcasUnstable = callPackage ./openmolcas/unstable.nix {
       texLive = texlive.combine { inherit (texlive) scheme-basic epsf cm-super; };
@@ -250,6 +250,11 @@ in with super;
     cpp = true;
     inherit gfortran;
   };
+
+  # Define an ILP64 blas/lapack
+  # This is still missing upstream
+  blas-i8 = super.blas.override { isILP64 = true; };
+  lapack-i8 = super.lapack.override { isILP64 = true; };
 
   ### HPC libs and Tools
 
