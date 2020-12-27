@@ -24,5 +24,6 @@ stdenv.mkDerivation {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = true; # https://github.com/MasterQ32/gurl/issues/4
   };
 }
