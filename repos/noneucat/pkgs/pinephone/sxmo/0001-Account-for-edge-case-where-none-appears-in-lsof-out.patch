@@ -1,0 +1,27 @@
+From 0fd2e8520ea454d21914c5728b783dc3e4c0c085 Mon Sep 17 00:00:00 2001
+From: "Andy Chun @noneucat" <andy@lolc.at>
+Date: Sat, 26 Dec 2020 19:13:05 -0800
+Subject: [PATCH] Account for edge case where 'none' appears in lsof output
+
+---
+ scripts/notifications/sxmo_notificationwrite.sh | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/scripts/notifications/sxmo_notificationwrite.sh b/scripts/notifications/sxmo_notificationwrite.sh
+index 62f05f9..e676d18 100755
+--- a/scripts/notifications/sxmo_notificationwrite.sh
++++ b/scripts/notifications/sxmo_notificationwrite.sh
+@@ -12,7 +12,9 @@ WATCHFILE="$3"
+ NOTIFMSG="$4"
+ 
+ writenotification() {
+-	lsof | grep "$WATCHFILE" && exit 0 # Already viewing watchfile, nops
++	if [ "$WATCHFILE" != "none" ] && (lsof | grep "$WATCHFILE"); then
++		exit 0 # Already viewing watchfile, nops
++	fi
+ 	mkdir -p "$NOTIFDIR"
+ 	if [ "$NOTIFFILEPATHTOWRITE" = "random" ]; then
+ 		NOTIFFILEPATHTOWRITE="$NOTIFDIR/$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 10)"
+-- 
+2.29.2
+

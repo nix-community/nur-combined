@@ -61,6 +61,7 @@ in
       vis
       libnotify
       libxml2
+      lsof
 
       foxtrotgps
       keynav

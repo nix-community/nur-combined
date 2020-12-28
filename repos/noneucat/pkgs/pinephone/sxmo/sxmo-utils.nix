@@ -13,6 +13,7 @@ stdenv.mkDerivation rec {
   patches = [
     ./0001-remove-shellcheck.patch
     ./0001-Use-pidof-instead-of-pkill-to-select-lisgid.patch
+    ./0001-Account-for-edge-case-where-none-appears-in-lsof-out.patch
   ];
 
   postPatch = ''
