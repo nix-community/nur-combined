@@ -1,4 +1,5 @@
-{ stdenv, rustPlatform, fetchFromGitHub, pkg-config, alsaLib, xorg, python3, openssl }:
+{ stdenv, rustPlatform, fetchFromGitHub, pkg-config, alsaLib, xorg, python3
+, openssl }:
 rustPlatform.buildRustPackage rec {
   pname = "ruffle";
   version = "nightly-2020-11-29";
@@ -18,10 +19,10 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     description = "A Flash Player emulator written in Rust";
-    homepage = https://github.com/ruffle-rs/ruffle;
+    homepage = "https://github.com/ruffle-rs/ruffle";
 
     license = stdenv.lib.licenses.asl20;
-    maintainers = [];
+    maintainers = [ ];
     platforms = stdenv.lib.platforms.linux;
   };
 }

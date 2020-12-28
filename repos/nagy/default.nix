@@ -1,23 +1,28 @@
 { pkgs ? import <nixpkgs> {}  }:
-{
+rec {
   hyperspec = pkgs.callPackage ./pkgs/hyperspec { } ;
 
-  luaPackages.fennel = pkgs.callPackage ./pkgs/fennel.nix { } ;
+  luaPackages = pkgs.recurseIntoAttrs {
 
-  luaPackages.tl = pkgs.callPackage ./pkgs/teal.nix { } ;
+    fennel = pkgs.callPackage ./pkgs/fennel { } ;
+    tl = pkgs.callPackage ./pkgs/teal { } ;
+
+  };
 
   schemaorg = pkgs.callPackage ./pkgs/schemaorg { } ;
 
-  passphrase2pgp = pkgs.callPackage ./pkgs/passphrase2pgp.nix {};
+  passphrase2pgp = pkgs.callPackage ./pkgs/passphrase2pgp {};
 
-  apertium = pkgs.callPackage ./pkgs/apertium.nix {};
+  lttoolbox = pkgs.callPackage ./pkgs/lttoolbox {};
 
-  lttoolbox = pkgs.callPackage ./pkgs/lttoolbox.nix {};
+  apertium = pkgs.callPackage ./pkgs/apertium { inherit lttoolbox; };
 
   ruffle = pkgs.callPackage ./pkgs/ruffle {};
 
-  lunasvg = pkgs.callPackage ./pkgs/lunasvg.nix {};
+  lunasvg = pkgs.callPackage ./pkgs/lunasvg {};
 
-  lispPackages.vacietis = pkgs.callPackage ./pkgs/vacietis {};
+  lispPackages = pkgs.recurseIntoAttrs {
+    vacietis = pkgs.callPackage ./pkgs/vacietis {};
+  };
 
 }

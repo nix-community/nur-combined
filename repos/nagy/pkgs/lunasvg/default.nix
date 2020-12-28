@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ ];
 
   meta = {
-    description = "lunasvg is a standalone c++ library to create, animate, manipulate and render SVG files.";
+    description = "A standalone c++ library to create, animate, manipulate and render SVG files";
     homepage = https://github.com/sammycage/lunasvg;
 
     license = stdenv.lib.licenses.mit;

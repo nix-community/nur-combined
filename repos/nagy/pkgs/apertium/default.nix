@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, callPackage, autoconf, automake, libtool, libxml2
-, libxslt, pkg-config, flex, pcre, pcre-cpp, icu }:
+, libxslt, pkg-config, flex, pcre, pcre-cpp, icu, lttoolbox }:
 stdenv.mkDerivation rec {
   pname = "apertium";
   version = "3.7.1";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ autoconf automake libtool libxml2 libxslt flex pkg-config pcre pcre-cpp icu
-                  (callPackage (import ./lttoolbox.nix) {} )];
+                  lttoolbox ];
 
   preConfigure= ''
     patchShebangs autogen.sh
