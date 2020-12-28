@@ -56,11 +56,11 @@
     "nixgram": {
       "flake": false,
       "locked": {
-        "lastModified": 1608832460,
-        "narHash": "sha256-ZWR/FPDsyee3RkaGyG886QBk3AqRAnwAcTGRu1gu4NE=",
+        "lastModified": 1609157821,
+        "narHash": "sha256-2Xs7CSJMy5htkLASXaX1WnVy6m4chsxl1WUPgsnpess=",
         "owner": "lucasew",
         "repo": "nixgram",
-        "rev": "6bec92335c1110bcb2310aa1ba12d9734494d48e",
+        "rev": "b20df2c25f330e651e5e6095d937148d4ef6704a",
         "type": "github"
       },
       "original": {
@@ -147,6 +147,22 @@
         "type": "github"
       }
     },
+    "pocket2kindle": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1609156448,
+        "narHash": "sha256-LnkAjTC1gZx01XNWUxSiTy2ibMkxJPkuf00sqKjX7Dc=",
+        "owner": "lucasew",
+        "repo": "pocket2kindle",
+        "rev": "9f23dffaabe47da8b911fda336c88437d3c4695c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lucasew",
+        "repo": "pocket2kindle",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "dotenv": "dotenv",
@@ -155,7 +171,8 @@
         "nixgram": "nixgram",
         "nixpkgs": "nixpkgs_3",
         "nixpkgsLatest": "nixpkgsLatest",
-        "nur": "nur"
+        "nur": "nur",
+        "pocket2kindle": "pocket2kindle"
       }
     },
     "utils": {

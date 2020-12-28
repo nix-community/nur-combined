@@ -151,7 +151,7 @@ with (import ../../globalConfig.nix);
         "https://api.github.com/repos/lucasew/flows/actions/workflows/2929078/dispatches" \
         -d "$PAYLOAD" || echo "Fail" && echo "Ok"
       '';
-      p2k = pkgs.wrapDotenv "flows.env" ''
+      p2k = pkgs.wrapDotenv "p2k.env" ''
       export AMOUNT=1
 
       if [ -n "$DEFAULT_AMOUNT" ]; then
@@ -162,27 +162,10 @@ with (import ../../globalConfig.nix);
           AMOUNT=$1
       fi
 
-      PAYLOAD="
-      {
-          \"ref\": \"main\",
-          \"inputs\": {
-              \"amount\": \"$AMOUNT\"
-          }
-      }
-      "
-
-      echo "Amount: $AMOUNT"
-      echo "Sent payload: $PAYLOAD"
       if [ -n "$TESTING" ]; then
           exit 0
       fi
-      curl \
-        -X POST \
-        -H "Accept: application/vnd.github.v3+json" \
-        -H "Authorization: Bearer $GITHUB_TOKEN" \
-        "https://api.github.com/repos/lucasew/flows/actions/workflows/4330248/dispatches" \
-        -d "$PAYLOAD" || echo "Fail" && echo "Ok"
-
+      ${pkgs.p2k}/bin/p2k -k $KINDLE_EMAIL-c $AMOUNT -t 30 -a
       '';
     };
   };

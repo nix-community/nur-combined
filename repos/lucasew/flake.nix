@@ -7,6 +7,10 @@
     home-manager.url = "github:nix-community/home-manager";
     nur.url = "github:nix-community/NUR/master";
     nix-ld.url = "github:Mic92/nix-ld";
+    pocket2kindle = {
+      url = "github:lucasew/pocket2kindle";
+      flake = false;
+    };
     nixgram = {
       url = "github:lucasew/nixgram/master";
       flake = false;
@@ -17,7 +21,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, ... }:
+  outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, ... }:
   let
     userSettings = import ./globalConfig.nix;
     system = "x86_64-linux";
@@ -41,6 +45,9 @@
           nurpkgs = super.pkgs;
           inherit (super) pkgs;
         };
+      })
+      (self: super: {
+        p2k = super.callPackage pocket2kindle {};
       })
       (import ./modules/neovim/overlay.nix)
       (import ./modules/comby/overlay.nix)
@@ -74,6 +81,7 @@
                 home.file.".dotfilerc".text = ''
                 #!/usr/bin/env bash
                 alias nixos-rebuild="sudo -E nixos-rebuild --flake '${userSettings.rootPath}#acer-nix'"
+                export NIXPKGS_ALLOW_UNFREE=1
                 export NIX_PATH="nixpkgs=${nixpkgs}:dotfiles=${builtins.toString userSettings.rootPath}:nixpkgsLatest=${nixpkgsLatest} home-manager=${home-manager}:nur=${nur}"
                 '';
                 imports = [
