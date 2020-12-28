@@ -27,6 +27,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_PRESET=everything"
     "-DENABLE_SIMD=On"
     "-DHYBRID_SDL=On"
+    "-DHYBRID_HEADLESS=On"
   ];
 
   NIX_CFLAGS_COMPILE="-O2 -Wformat";
