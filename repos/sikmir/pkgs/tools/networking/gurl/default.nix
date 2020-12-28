@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation {
   pname = "gurl-unstable";
-  version = "2020-09-19";
+  version = "2020-12-28";
 
   src = fetchFromGitHub {
     owner = "MasterQ32";
     repo = "gurl";
-    rev = "e5a61b2db685a53cdbdfb1c6ac160e938683d4ec";
-    sha256 = "1y738ip0b6ck0ibybibqw8dlx37mrqamygvm81jv9wqp1sxsi7gb";
+    rev = "13e2999a8c86a84ed9b3054f1f7ef9613387b778";
+    sha256 = "0yyxgl9kj25frz1m2wwvbrpl83r7w1pkqp52zfm2qhrv6qzjqic7";
     fetchSubmodules = true;
   };
 

@@ -7,6 +7,7 @@ let
     "eng deu"
     "eng fin"
     "eng rus"
+    "eng ukr"
     "epo eng"
     "epo rus"
     "fin eng"
@@ -15,12 +16,15 @@ let
     "rus eng"
     "rus epo"
     "rus fin"
+    "rus ukr"
+    "ukr eng"
+    "ukr rus"
   ];
   tatoeba = builtins.fromJSON (builtins.readFile ./tatoeba.json);
 in
 stdenvNoCC.mkDerivation rec {
   pname = "tatoeba";
-  version = "2020-12-19";
+  version = "2020-12-26";
 
   srcs = lib.mapAttrsToList (name: spec: fetchurl spec) tatoeba;
 

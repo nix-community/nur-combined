@@ -1,4 +1,4 @@
-{ stdenv, fetchgit }:
+{ stdenv, fetchgit, patches ? [] }:
 
 stdenv.mkDerivation {
   pname = "quark";
@@ -9,6 +9,8 @@ stdenv.mkDerivation {
     rev = "7d26fc695d548b5a73305a97dce274a313e0f602";
     sha256 = "0308pfbyvbl5gfpl9lq62siz4kf7ki2zkk47p3b9r3j33dlpiszl";
   };
+
+  inherit patches;
 
   makeFlags = [ "PREFIX=$(out)" ];
 

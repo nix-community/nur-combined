@@ -17,8 +17,8 @@ mkYarnPackage {
   buildPhase = "yarn build";
 
   installPhase = ''
-    install -dm755 $out/share/nginx
-    mv deps/nakarte/build $out/share/nginx/html
+    install -dm755 $out
+    cp -r deps/nakarte/build/* $out
   '';
 
   distPhase = "true";

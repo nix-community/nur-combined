@@ -142,15 +142,15 @@
     "elevation": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-18T14:56:35Z",
+        "date": "2020-12-27T22:12:39Z",
         "description": "Python script to download global terrain digital elevation models, SRTM 30m DEM and SRTM 90m DEM",
         "homepage": "http://elevation.bopen.eu",
         "owner": "bopen",
         "repo": "elevation",
-        "rev": "1930e479d0fceee86351f33226ab0cac411492e2",
-        "sha256": "0ylywznl8bla8vaf7kqcaszh5jvrpdl0pa20pps5r0238nqb88fv",
+        "rev": "6819b2931f5de412bd6b18bd07f1674f71fa35e5",
+        "sha256": "16sywbifg0xb0fx1sscqsrbrj0phc91p4vvlsaj2h5mswd5x3bfj",
         "type": "tarball",
-        "url": "https://github.com/bopen/elevation/archive/1930e479d0fceee86351f33226ab0cac411492e2.tar.gz",
+        "url": "https://github.com/bopen/elevation/archive/6819b2931f5de412bd6b18bd07f1674f71fa35e5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "elevation-server": {
@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-26T10:51:40Z",
+        "date": "2020-12-28T09:57:43Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "ad5db3cb9cfb98795d7a88d871fcc1cc9c273c91",
-        "sha256": "1l2sidv1n4ln6k7wpfy4yxs61lvhbj4zsl9067rhgzb45yvkssbm",
+        "rev": "44e12595d87032daa6276e24e3728ecd8ec27c1a",
+        "sha256": "1cl3f19dx5cm1gj54c30bq386wg4cd279nn9nmv6rb6yfldyxqh2",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/ad5db3cb9cfb98795d7a88d871fcc1cc9c273c91.tar.gz",
+        "url": "https://github.com/embox/embox/archive/44e12595d87032daa6276e24e3728ecd8ec27c1a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -239,27 +239,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "0xhjcvii2pq8dhg0ar3ppazm8b8mpf9a96qadqzv22l1wkq3fjf5",
+        "sha256": "1ihna8j77miznn5i2v508nmx1ljw03r4illjrwqp9p3x167hh1bc",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-201221.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-201226.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "201221"
+        "version": "201226"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "00912cwyb52bvgl297si8x0jz8dwv8z91naabbijcgjb4jvx9dkh",
+        "sha256": "18cfksbx8yjzw6g82s88jg0a94179nv2pv3lndfb13jkqks7k048",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-201221.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-201226.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "201221"
+        "version": "201226"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "12ack4y6bh3knkqqsdgdrbmm99bpd9fz5v5r8pajdii6pb1i989f",
+        "sha256": "1z9j3jncm2fp8i084fa7d9x74r4f40wdc89sis47qwglpcs9ks4k",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201221.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201226.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "201221"
+        "version": "201226"
     },
     "gimgtools": {
         "branch": "master",
@@ -377,15 +377,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2020-12-27T01:48:47Z",
+        "date": "2020-12-28T10:19:44Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "73aab4484818e6242a32d166dbbda2f873c18aaa",
-        "sha256": "0cwhzdf17r3p83hi1paqrw9r8kfik8nb80a6pgh6rwkcxv2s2vif",
+        "rev": "26cbbee1351c43539f5040a260d1cda4763b43b0",
+        "sha256": "0m12dg9jy5s1d7jgpqy3a9qj0mr30w6bymgg0xsfc44q9i1l3vh9",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/73aab4484818e6242a32d166dbbda2f873c18aaa.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/26cbbee1351c43539f5040a260d1cda4763b43b0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -629,15 +629,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-27T15:14:46Z",
+        "date": "2020-12-28T05:35:12Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "a645fc2e0a09f8d6ad482880ddf6e04b9af2f3cd",
-        "sha256": "1xf7d13m45hmb0pwas6xy8y2pj1dv06iy065p0132gik8w4khx6n",
+        "rev": "36d6fb179fe2ffdf0cb63ac39bbe25f215a524f5",
+        "sha256": "1vpa6yk33zlx95brrssba3wjlb2d45s6z7il11glkhs575by25sc",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/a645fc2e0a09f8d6ad482880ddf6e04b9af2f3cd.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/36d6fb179fe2ffdf0cb63ac39bbe25f215a524f5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maprec": {
@@ -739,11 +739,11 @@
         "builtin": false,
         "description": "Maanmittauslaitoksen peruskartan tasoiset ja näköiset ilmaiset maastokartat",
         "homepage": "https://kartat.hylly.org/",
-        "sha256": "13azgwh1j802w8zr08q9f5r3zw92wnn5b9hpqawpgcgkkxm5sl9a",
+        "sha256": "07rfp4mgglazm93q1p217f3f14js4ddifg1060zn61l5rcmwsm3b",
         "type": "file",
-        "url": "https://kartat-dl.hylly.org/2020-11-24/mtk_suomi.img",
+        "url": "https://kartat-dl.hylly.org/2020-12-26/mtk_suomi.img",
         "url_template": "https://kartat-dl.hylly.org/<version>/mtk_suomi.img",
-        "version": "2020-11-24"
+        "version": "2020-12-26"
     },
     "musig": {
         "branch": "master",
@@ -776,15 +776,15 @@
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-18T14:12:51Z",
+        "date": "2020-12-28T01:47:11Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "66a8b69426984ada9c9a3e1a8fd7d1d356e2ac49",
-        "sha256": "1nw5k6dln5mni8a3ff0fv5nqgxkarifb16wray63xav4827dmvac",
+        "rev": "057c88a1e9e74c3b136239d3a8508b72c31a2d5f",
+        "sha256": "1j43wqwfrmlyxfvb9l94spxgm3hxq7lcx5jin2rnf4iz7wb343a8",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/66a8b69426984ada9c9a3e1a8fd7d1d356e2ac49.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/057c88a1e9e74c3b136239d3a8508b72c31a2d5f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
