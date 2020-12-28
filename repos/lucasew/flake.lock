@@ -56,11 +56,11 @@
     "nixgram": {
       "flake": false,
       "locked": {
-        "lastModified": 1609157821,
-        "narHash": "sha256-2Xs7CSJMy5htkLASXaX1WnVy6m4chsxl1WUPgsnpess=",
+        "lastModified": 1609159665,
+        "narHash": "sha256-pF3/wL4gSAK1i9JkRdoyWDL9SdJKdnMLR0MuoLXdgjY=",
         "owner": "lucasew",
         "repo": "nixgram",
-        "rev": "b20df2c25f330e651e5e6095d937148d4ef6704a",
+        "rev": "6c975ac84a3eac83928c558abd86c9d752acb14c",
         "type": "github"
       },
       "original": {
@@ -150,11 +150,11 @@
     "pocket2kindle": {
       "flake": false,
       "locked": {
-        "lastModified": 1609156448,
-        "narHash": "sha256-LnkAjTC1gZx01XNWUxSiTy2ibMkxJPkuf00sqKjX7Dc=",
+        "lastModified": 1609166719,
+        "narHash": "sha256-r1IYWaPtsD/KmgxnQch8fuWR4AxdbYL8oVU2JSuqVuM=",
         "owner": "lucasew",
         "repo": "pocket2kindle",
-        "rev": "9f23dffaabe47da8b911fda336c88437d3c4695c",
+        "rev": "ca5be7ce3983212e6cf209c8eafb0d873149747d",
         "type": "github"
       },
       "original": {

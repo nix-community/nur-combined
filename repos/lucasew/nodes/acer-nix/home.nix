@@ -165,7 +165,7 @@ with (import ../../globalConfig.nix);
       if [ -n "$TESTING" ]; then
           exit 0
       fi
-      ${pkgs.p2k}/bin/p2k -k $KINDLE_EMAIL-c $AMOUNT -t 30 -a
+      ${pkgs.p2k}/bin/p2k -k $KINDLE_EMAIL -c $AMOUNT -t 30 -a 
       '';
     };
   };
