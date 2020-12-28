@@ -16,7 +16,7 @@ buildLuarocksPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Fennel (formerly fnl) is a lisp that compiles to Lua";
+    description = "A lisp that compiles to Lua";
     homepage = "https://fennel-lang.org/";
     license = licenses.mit;
   };

@@ -12,8 +12,8 @@ in buildLuarocksPackage rec {
   propagatedBuildInputs = with lua53Packages ; [ compat53 argparse luafilesystem ];
 
   meta = with stdenv.lib; {
-    description = "teal is a lua that compiles to Lua";
-    homepage = https://github.com/teal-language/tl/;
+    description = "A typed Lua that compiles to Lua";
+    homepage = "https://github.com/teal-language/tl/";
     license = licenses.mit;
   };
 }
