@@ -823,10 +823,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.12.24";
+      version = "20.12.27";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3699493/refined_github-20.12.24-an+fx.xpi";
-      sha256 = "72025cabc745eab0118f8e6c24c9a6a5da885769b9e47d8201b5ab30dc8d1fc1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3700226/refined_github-20.12.27-an+fx.xpi";
+      sha256 = "e2da2bacc4153dd3fedd36192372ee38a2549463a1e79a7a07282e898864a44b";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -837,10 +837,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "24.0";
+      version = "24.1";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3699083/save_page_we-24.0-fx.xpi";
-      sha256 = "e3c43a6a3ca9244a05710cda76ee0b5dc96ff4aba9e837a9886769431749b60c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3700246/save_page_we-24.1-fx.xpi";
+      sha256 = "c6e9bf509e88b8d618679de285138cb1bbc598527a4fd3c6ad620d3825b1306e";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -1090,10 +1090,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "0.31";
+      version = "0.32";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3648399/vim_vixen-0.31-an+fx.xpi";
-      sha256 = "4f87d60db049b39a66fd132ffea360e17063e788edf9af523e291dd075fcdf8d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3700427/vim_vixen-0.32-an+fx.xpi";
+      sha256 = "99c6c8e785a0796a12a2d2e59dd1b539cb1edc00e1d81cd993eac43926eb91e2";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
