@@ -26,9 +26,11 @@ rec {
   srb2 = pkgs.callPackage ./pkgs/srb2 { };
 
   # python modules
-
   python3Packages = pkgs.recurseIntoAttrs (
     (pkgs.python3Packages.callPackage ./pkgs/development/python-modules {
     })
   );
+
+  # vscode-extensions
+  vscode-extensions = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/vscode-extensions {});
 }

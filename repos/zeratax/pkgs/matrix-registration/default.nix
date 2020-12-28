@@ -1,4 +1,4 @@
-{ stdenv, pkgs, fetchFromGitHub, python3Packages }:
+{ pkgs, lib, fetchFromGitHub, python3Packages }:
 
 with python3Packages;
 
@@ -9,7 +9,8 @@ let
     # sqlite driver is already shipped with python by default
   ];
 
-in buildPythonPackage rec {
+in
+buildPythonPackage rec {
   pname = "matrix-registration";
   version = "1.0.0.dev3";
   disabled = pythonOlder "3.7";
@@ -26,7 +27,6 @@ in buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-    pkgs.libsndfile
     appdirs
     flask
     flask-babel
@@ -35,12 +35,10 @@ in buildPythonPackage rec {
     flask-limiter
     flask_sqlalchemy
     python-dateutil
-    pytest
     pyyaml
     requests
     waitress
     wtforms
-    setuptools
   ] ++ dbDrivers;
 
   checkInputs = [
@@ -60,12 +58,10 @@ in buildPythonPackage rec {
     ];
   });
 
-
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = https://github.com/ZerataX/matrix-registration/;
     description = "a token based matrix registration api";
     # license = licenses.mit;
     # maintainers = with maintainers; [ zeratax ];
   };
-
 }
