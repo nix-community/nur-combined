@@ -15,13 +15,13 @@ let
   inherit (stdenv.lib) optional optionalString;
 in stdenv.mkDerivation rec {
   pname = "KnobKraft-orm";
-  version = "1.10.0";
+  version = "1.10.1";
 
   src = fetchFromGitHub {
     owner = "christofmuc";
     repo = "KnobKraft-orm";
     rev = version;
-    sha256 = "0zhmfvzxxf5z3vkqgankz5k3bzji13pzbhy4fbys54g3wap0xnkx";
+    sha256 = "1ykqywrwpiavh1syavs2bv959ifjqlqgn8lq1w6msjy10pf6g106";
     fetchSubmodules = true;
   };
 
