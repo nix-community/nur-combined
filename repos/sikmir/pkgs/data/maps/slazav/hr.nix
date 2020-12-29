@@ -1,4 +1,4 @@
-{ stdenv, cgpsmapper, gmaptool, imagemagick, mapsoft, netpbm, zip, sources }:
+{ stdenv, bc, cgpsmapper, gmaptool, mapsoft2, sources }:
 
 stdenv.mkDerivation {
   pname = "slazav-hr-unstable";
@@ -6,35 +6,11 @@ stdenv.mkDerivation {
 
   src = sources.map-hr;
 
-  patches = [ ./0001-fix-hr.patch ];
+  nativeBuildInputs = [ bc cgpsmapper gmaptool mapsoft2 ];
 
-  nativeBuildInputs = [
-    cgpsmapper
-    gmaptool
-    imagemagick
-    mapsoft
-    netpbm
-    zip
-  ];
+  buildFlags = [ "directories" "reg_img" ];
 
-  postPatch = ''
-    substituteInPlace Makefile \
-      --replace "/usr/share/mapsoft" "${mapsoft}/share/mapsoft"
-    substituteInPlace bin/map_update_index.sh \
-      --replace "/usr/share/mapsoft" "${mapsoft}/share/mapsoft"
-
-    patchShebangs ./bin
-  '';
-
-  dontConfigure = true;
-
-  preBuild = "mkdir -p OUT";
-
-  buildFlags = [ "out" "img" ];
-
-  installPhase = ''
-    install -Dm644 hr.img -t $out
-  '';
+  installPhase = "install -Dm644 OUT/all_*.img -t $out";
 
   meta = with stdenv.lib; {
     inherit (sources.map-hr) description homepage;

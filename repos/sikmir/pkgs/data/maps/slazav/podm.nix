@@ -1,4 +1,4 @@
-{ stdenv, cgpsmapper, gmaptool, imagemagick, mapsoft, netpbm, zip, sources }:
+{ stdenv, bc, cgpsmapper, gmaptool, mapsoft2, sources }:
 
 stdenv.mkDerivation {
   pname = "slazav-podm-unstable";
@@ -6,31 +6,11 @@ stdenv.mkDerivation {
 
   src = sources.map-podm;
 
-  patches = [ ./0001-fix-podm.patch ];
+  nativeBuildInputs = [ bc cgpsmapper gmaptool mapsoft2 ];
 
-  nativeBuildInputs = [
-    cgpsmapper
-    gmaptool
-    imagemagick
-    mapsoft
-    netpbm
-    zip
-  ];
+  buildFlags = [ "directories" "reg_img" ];
 
-  postPatch = ''
-    substituteInPlace Makefile \
-      --replace "/usr/share/mapsoft" "${mapsoft}/share/mapsoft"
-
-    patchShebangs ./bin
-  '';
-
-  dontConfigure = true;
-
-  preBuild = "mkdir -p OUT";
-
-  buildFlags = [ "out" "img" ];
-
-  installPhase = "install -Dm644 podm.img -t $out";
+  installPhase = "install -Dm644 OUT/all_*.img -t $out";
 
   meta = with stdenv.lib; {
     inherit (sources.map-podm) description homepage;
