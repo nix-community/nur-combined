@@ -25,7 +25,6 @@ in {
       hakyll-images = self.haskell.lib.unmarkBroken hsSuper.hakyll-images;
     };
   };
-  # fix for shadowrun
   # https://github.com/NixOS/nixpkgs/pull/103485
-  inherit (unstable) steam zoom-us;
+  inherit (unstable) zoom-us;
 }
