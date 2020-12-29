@@ -27,4 +27,12 @@ in {
   };
   # https://github.com/NixOS/nixpkgs/pull/103485
   inherit (unstable) zoom-us;
+  steam-wrapper = with super; writeShellScriptBin "steam-wrapper" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    export LANG=en_US.UTF8
+    export LC_ALL=en_US.UTF8
+    ${apulse}/bin/apulse "$@"
+  '';
 }
