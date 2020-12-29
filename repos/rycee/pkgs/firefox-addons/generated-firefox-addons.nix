@@ -587,10 +587,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.0.7.2";
+      version = "1.0.8";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3668602/leechblock_ng-1.0.7.2-an+fx.xpi";
-      sha256 = "1d0fbb747b24746f04fa62c15b282ad4aadcceda30c434f1f4ae219f852ffe61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3700075/leechblock_ng-1.0.8-an+fx.xpi";
+      sha256 = "a4e6b71d2f7cc3a63f2ac1dfe32fb6aaf15fc375682e378870fd812a8100b475";
       meta = with stdenv.lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -1048,10 +1048,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.32.0";
+      version = "1.32.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3698525/ublock_origin-1.32.0-an+fx.xpi";
-      sha256 = "2182c7b4d0e143dd77a524be6ad7ce9ab6de8497417aab5d35c0ba8671653e46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3699732/ublock_origin-1.32.2-an+fx.xpi";
+      sha256 = "f48960b40661a529796ae75f1c1222c3321d29aa30a94bca6ea77275378f6494";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -1132,10 +1132,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "17.10";
+      version = "17.11";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3669172/zoom_page_we-17.10-fx.xpi";
-      sha256 = "1f6b07d5b0c76c12edd1e6c1a0d5d10895da334f29936355254bcc5d3185ae74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3699353/zoom_page_we-17.11-fx.xpi";
+      sha256 = "98313ead65e5fc66dc16a4674fd389ca57d4af8d759e5b7147cd16904ae9ef1d";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
