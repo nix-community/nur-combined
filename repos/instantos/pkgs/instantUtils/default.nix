@@ -5,7 +5,9 @@
 , makeWrapper
 , acpi
 , autorandr
-, conky , dunst , firefox
+, conky
+, dunst
+, firefox
 , libnotify
 , lxsession
 , neofetch
@@ -16,19 +18,36 @@
 , rangerplugins
 , rofi
 , rox-filer
+, disper
 , st
+, slock
 , wmctrl
 , xfce4-power-manager
 , zenity
+, extraPatches ? []
+, defaultApps ? {}
 }:
 let
+
+  defaults = {
+   terminal = "st";
+   graphicaleditor = "'st -e nvim'";
+   appmenu = "appmenu";
+   browser = "firefox";
+   filemanager = "nautilus";
+   systemmonitor = "'st -e htop'";
+   editor = "'st -e nvim'";
+   termeditor = "nvim";
+   lockscreen = "${slock}/bin/slock";
+  } // defaultApps;
+
   thanks = stdenv.mkDerivation {
     pname = "instantOS-thanks";
     version = "unstable";
 
     src = fetchurl {
-      url = "https://raw.githubusercontent.com/instantOS/instantLOGO/ae4626d6e67d078657389c290db8c29d234f8250/description/thanks.txt";
-      sha256 = "0h65x0g4wglkrw457sid0ycjc09pq1knicx9fzn35q9wr77yqkki";
+      url = "https://raw.githubusercontent.com/instantOS/instantLOGO/master/description/thanks.txt";
+      sha256 = "0ivzww8pfc1ck7l7fizz48slfdpyx0lryqa3csaml8f2qxdrlrbi";
     };
     sourceRoot = ".";
     unpackCmd =  "cp $curSrc thanks.txt";
@@ -49,8 +68,8 @@ let
     version = "unstable";
 
     src = fetchurl {
-      url = "https://raw.githubusercontent.com/instantOS/instantos.github.io/0c6a883a2ac019e9d4b3973db1e71b1d43a161a6/youtube/hotkeys.md";
-      sha256 = "1qi0qxs1s7g3461al6r45nm8x7kavlzqgpfhcd6j7y8pn8pgy6ha";
+      url = "https://raw.githubusercontent.com/instantOS/instantos.github.io/master/youtube/hotkeys.md";
+      sha256 = "sha256-QiB4RZn2Gdz9gJvOOoKPQsdwcmVBgjz3XTj/3Sv8j+g=";
     };
     sourceRoot = ".";
     unpackCmd =  "cp $curSrc hotkeys.md";
@@ -81,10 +100,12 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantOS";
-    rev = "9f6b37b59effbf8583f354efcd9d99d68ef74106";
-    sha256 = "0svwcvrlldqwyljnbfslvhkbh4pdjpxnj9czwvlyy4ws1vszkh20";
+    rev = "15aaccf7946e4879263a13880dc1f9e9b8641a24";
+    sha256 = "sha256-k58S+vxP7wGghzFas97WUdoSetRl2woMFJKLayrBGY0=";
     name = "instantOS_instantUtils";
   };
+
+  patches = extraPatches;
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -93,6 +114,7 @@ stdenv.mkDerivation rec {
     autorandr
     conky
     dunst
+    disper
     firefox
     libnotify
     lxsession
@@ -128,11 +150,23 @@ stdenv.mkDerivation rec {
       --replace /usr/share/rangerplugins "${rangerplugins}/share/rangerplugins" \
       --replace /usr/share/instantwidgets "\$(instantdata -wi)/share/instantwidgets" \
       --replace /usr/share/instantwallpaper "\$(instantdata -wa)/share/instantwidgets" \
-      --replace /usr/share/instantassist/assists "\$(instantdata -a)/share/instantassist/assists"
+      --replace /usr/share/instantassist/assists "\$(instantdata -a)/share/instantassist/assists" \
+      --replace /opt/instantos/rootinstall "$out/share/instantutils"
+    sed -i 's/^\s*setxkbmap\s\+-layout.*$/:;/' autostart.sh
     substituteInPlace instantutils.sh \
       --replace /usr/share/instantutils "$out/share/instantutils"
     substituteInPlace installinstantos.sh \
       --replace /usr/share/instantutils "$out/share/instantutils"
+    substituteInPlace setup/defaultapps \
+      --replace "setprogram terminal st" "setprogram terminal ${defaults.terminal}" \
+      --replace "setprogram graphicaleditor code" "setprogram graphicaleditor ${defaults.graphicaleditor}" \
+      --replace "setprogram editor nvim-qt" "setprogram editor ${defaults.editor}" \
+      --replace "setprogram termeditor nvim" "setprogram termeditor ${defaults.termeditor}" \
+      --replace "setprogram appmenu appmenu" "setprogram appmenu ${defaults.appmenu}" \
+      --replace "setprogram browser firefox" "setprogram browser ${defaults.browser}" \
+      --replace "setprogram filemanager nautilus" "setprogram filemanager ${defaults.filemanager}" \
+      --replace "setprogram systemmonitor mate-system-monitor" "setprogram systemmonitor ${defaults.systemmonitor}" \
+      --replace "setprogram lockscreen ilock" "setprogram lockscreen ${defaults.lockscreen}"
     patchShebangs *.sh
   '';
 
@@ -199,6 +233,8 @@ stdenv.mkDerivation rec {
       --prefix PATH : ${lib.makeBinPath [ wmctrl ]}
     wrapProgram "$out/bin/instantstatus" \
       --prefix PATH : ${lib.makeBinPath [ acpi ]}
+    wrapProgram "$out/bin/instantdisper" \
+      --prefix PATH : ${lib.makeBinPath [ disper dunst ]}
   '';
 
   meta = with lib; {

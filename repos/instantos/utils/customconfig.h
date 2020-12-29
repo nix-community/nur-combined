@@ -155,6 +155,8 @@ static const char *slockcmd[] = {"ilock", NULL};
 static const char *langswitchcmd[] = {"ilayout", NULL};
 static const char *oslockcmd[] = {"instantlock", "-o", NULL};
 static const char *helpcmd[] = {"instanthotkeys", "gui", NULL};
+static const char *searchcmd[] = {"instantsearch", NULL};
+static const char *keylayoutswitchcmd[] = {"instantkeyswitch", NULL};
 static const char *iswitchcmd[] = {"iswitch", NULL};
 static const char *instantswitchcmd[] = {"rofi", "-show", "window", "-kb-row-down", "Alt+Tab,Down", "-kb-row-up", "Alt+Ctrl+Tab,Up", "-kb-accept-entry", "!Alt_L,!Alt+Tab,Return", "-me-select-entry", "", "-me-accept-entry", "MousePrimary", NULL};
 static const char *caretinstantswitchcmd[] = {"rofi", "-show", "window", "-kb-row-down", "Alt+Tab,Down", "-kb-row-up", "Alt+Ctrl+Tab,Up", "-kb-accept-entry", "!Alt_L,!Alt+Tab,Return", "-me-select-entry", "", "-me-accept-entry", "MousePrimary", "-theme", "/usr/share/instantdotfiles/rofi/appmenu.rasi", NULL};
@@ -221,7 +223,7 @@ ResourcePref resources[] = {
 };
 
 static Xcommand commands[] = {
-	/* signum       function        argument  */
+	/* signum       function        default argument  arg handler*/
 	{ "overlay",    setoverlay,      {0}, 0 },
 	{ "tag",        view,      { .ui = 2 }, 3 },
 	{ "animated",   toggleanimated,      { .ui = 2 }, 1 },
@@ -230,6 +232,7 @@ static Xcommand commands[] = {
 	{ "prefix",   commandprefix,      { .ui = 1 }, 1 },
 	{ "alttag",   togglealttag,      { .ui = 0 }, 1 },
 	{ "hidetags",   toggleshowtags,      { .ui = 0 }, 1 },
+	{ "specialnext",   setspecialnext,      { .ui = 0 }, 3 },
 };
 
 static Key dkeys[] = {
@@ -309,6 +312,7 @@ static Key keys[] = {
 	{MODKEY | Mod1Mask | ControlMask, XK_l, spawn, {.v = langswitchcmd}},
 	{MODKEY, XK_Return, spawn, {.v = termcmd}},
 	{ControlMask|Mod1Mask, XK_t, spawn, {.v = termcmd}},
+	{ControlMask|Mod1Mask, XK_l, spawn, SHCMD("slock")},
 	{MODKEY, XK_f, spawn, {.v = firefoxcmd} },
 	{MODKEY, XK_v, spawn, {.v = quickmenucmd}},
 	{MODKEY, XK_b, togglebar, {0}},
@@ -327,6 +331,8 @@ static Key keys[] = {
 	{MODKEY,                    XK_s, togglescratchpad, {0}},
 	{MODKEY|ShiftMask, XK_f, togglefakefullscreen, {0} },
 	{MODKEY|ControlMask, XK_f, tempfullscreen, {0} },
+	{MODKEY|Mod1Mask, XK_f, spawn, { .v = searchcmd } },
+	{MODKEY|Mod1Mask, XK_space, spawn, { .v = keylayoutswitchcmd } },
 	{MODKEY | ShiftMask | Mod1Mask, XK_d, toggledoubledraw, {0} },
 	{MODKEY|ShiftMask, XK_w, warpfocus, {0} },
 	{MODKEY|Mod1Mask, XK_w, centerwindow, {0} },
@@ -343,9 +349,10 @@ static Key keys[] = {
 	{Mod1Mask, XK_F4, killclient, {0}},
 	{MODKEY, XK_F1, spawn, {.v = helpcmd}},
 	{MODKEY, XK_F2, toggleprefix, {0}},
-	{MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
-	{MODKEY, XK_f, setlayout, {.v = &layouts[2]}},
-	{MODKEY, XK_m, setlayout, {.v = &layouts[3]}},
+	{MODKEY, XK_t, setlayout, {.v = &layouts[0]}}, // tiling
+	{MODKEY, XK_f, setlayout, {.v = &layouts[2]}}, // floating
+	{MODKEY, XK_m, setlayout, {.v = &layouts[3]}}, // monocle
+	{MODKEY, XK_minus, setlayout, {.v = &layouts[4]}}, // tcl
 	{MODKEY|ShiftMask, XK_m, movemouse, {0}},
 	{MODKEY|Mod1Mask, XK_m, resizemouse, {0}},
 	{MODKEY, XK_c, setlayout, {.v = &layouts[1]}},

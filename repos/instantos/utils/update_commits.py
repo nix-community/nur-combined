@@ -39,7 +39,7 @@ fetch_rex = re.compile(
           ((?P<fullname>    name   \s* = \s* "(?P<name>[\w=]+)")              \s* ; \s* )|
           ((?P<fullmodules> fetchSubmodules \s* = \s* "(?P<fetchSubmodules>[\w=]+)")  \s* ; \s* )|
           ((?P<fullrev>     rev    \s* = \s* "(?P<rev>[\w-]+)")               \s* ; \s* )|
-          ((?P<fullsha256>  sha256 \s* = \s* "(?P<sha256>[\w=]+)")            \s* ; \s* )
+          ((?P<fullsha256>  sha256 \s* = \s* "(?P<sha256>(sha256-)?[\w=+_/,-]+)")   \s* ; \s* )
         )+}
     """,
     re.MULTILINE | re.VERBOSE
@@ -53,8 +53,13 @@ def handle_match(match, commit, text):
     logging.debug(fdict)
 
     # Dangerous if same sha or commit is used in other context in the same fale
-    text = text.replace(match["fullrev"],    f'rev = "{fdict["rev"]}"')
-    text = text.replace(match["fullsha256"], f'sha256 = "{fdict["sha256"]}"')
+    try:
+        text = text.replace(match["fullrev"],    f'rev = "{fdict.rev}"')
+        text = text.replace(match["fullsha256"], f'sha256 = "{fdict.sha256}"')
+    except TypeError:
+        logging.exception("You might be using an old version of nix_prefetch_github")
+        text = text.replace(match["fullrev"],    f'rev = "{fdict["rev"]}"')
+        text = text.replace(match["fullsha256"], f'sha256 = "{fdict["sha256"]}"')
     return text
 
 
@@ -182,7 +187,7 @@ def main(args=None):
 
     logging.debug("clone: %s; processor: %s; args: %s;", clone, processor, args)
     walk_dirs(args, processor=processor, clone=clone)
-    print("Do not forget to update URLs in fetchurl calls:\n  grep -RIF fetchurl pkgs/\n(may be nedessry if e.g. instantUTILS was updated)")
+    print("Do not forget to update URLs in fetchurl calls:\n  grep -RIF fetchurl pkgs/\n(e.g. if instantUTILS was updated)")
     return 0
 
 

@@ -1,8 +1,6 @@
 # SAMPLE NixOs configuration for a minimal instantOS system
 # - Boot live medium
 # - Follow the install instructions from the NixOS manual
-# - Before running nixos-install command, copy this to /mnt/etc/nixos/configuration.nix
-# You will have to create an ~/.xinitrc on the new system (see sample in this folder)
 
 { config, pkgs, ... }:
 let
@@ -28,11 +26,8 @@ in {
   boot.tmpOnTmpfs = true;
   networking = {
     hostName = hostname;
-    wireless.enable = true;
     useDHCP = false;  # should be disabled
     # ...instead enable for individual interfaces:
-    interfaces."${physical_interface}".useDHCP = true;
-    interfaces."${wifi_interface}".useDHCP = true;
   };
   services.xserver = {
     layout = "us";
@@ -40,6 +35,10 @@ in {
     libinput.enable = true;  # Enable touchpad support.
     autorun = true;
   };
+  # virtualisation.vmware.guest.enable = true;  # instantOS is a guest of VMWare host
+  # virtualisation.virtualbox.guest.enable = true;  # instantOS is a guest of VirtualBox
+
+  #services.printing.enable = true;
 
   # Below this line, it gets technical, if in doubt, leave alone
 
@@ -55,6 +54,8 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   hardware.opengl.driSupport32Bit = true;
+  networking.networkmanager.enable = true;
+  programs.nm-applet.enable = true;
 
   programs.ssh.extraConfig = ''
     Host gh
@@ -68,16 +69,31 @@ in {
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  programs.slock.enable = true;
+  services.clipmenu.enable = true;
+  services.xserver.exportConfiguration = true;
+  services.dconf.enable = true;
+  services.gvfs.enable = true;
   services.xserver.displayManager = {
-      startx.enable = true;
-      gdm.enable = false;
-      sddm.enable = false;
-    };
+    defaultSession = "none+instantwm";
+    #startx.enable = true;
+    gdm.enable = false;
+    sddm.enable = false;
+  };
   services.xserver.desktopManager = {
-      gnome3.enable = false;
-      plasma5.enable = false;
-      xterm.enable = false;
+    gnome3.enable = false;
+    plasma5.enable = false;
+    xterm.enable = false;
+  };
+  services.xserver.windowManager = {
+    session = pkgs.lib.singleton {
+      name = "instantwm";
+      start = ''
+        startinstantos &
+        waitPID=$!
+      '';
     };
+  };
 
   users.users."${main_user}" = {
     isNormalUser = true;
@@ -104,15 +120,32 @@ in {
     lg = log
     fa = fetch --all
   '';
-  fonts.fonts = with pkgs; [ dina-font ];
+  security.sudo = {
+   enable = true;
+   extraConfig = ''
+     Defaults    insults
+      Cmnd_Alias BOOTCMDS = /sbin/shutdown,/usr/sbin/pm-suspend,/sbin/reboot
+      ${main_user} ALL=(root)NOPASSWD:BOOTCMDS
+   '';
+  };
+  fonts.fonts = with pkgs; [ 
+    cantarell-fonts
+    fira-code
+    fira-code-symbols
+    dina-font
+    joypixels
+    (nerdfonts.override { fonts = [ "FiraCode" "FiraMono" ]; })
+  ];
   environment.systemPackages = with pkgs; [
-    #open-vm-tools-headless
     htop gnupg screen tree file
     fasd fzf direnv
     wget curl w3m inetutils dnsutils nmap openssl mkpasswd
+    flameshot 
     gitAndTools.git git-lfs
-    nix-prefetch-scripts cachix
+    nix-prefetch-scripts nix-update nixpkgs-review cachix
     nur.repos.instantos.instantnix
+    papirus-icon-theme arc-theme
+    #gnome3.nautilus gsettings-desktop-schemas gnome3.dconf-editor
     (neovim.override {viAlias = true; vimAlias = true;})
   ];
 
@@ -122,5 +155,5 @@ in {
     automatic = true;
     options = "--delete-older-than 14d";
   };
-  system.stateVersion = "20.03";
+  system.stateVersion = "20.09";
 }

@@ -8,7 +8,7 @@
 , rxvt_unicode
 , st
 , cantarell-fonts
-, joypixels
+#, joypixels
 , instantAssist
 , instantUtils
 , instantDotfiles
@@ -24,10 +24,11 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantWM";
-    rev = "28c0e2cf67300927a9879872a2aa8098e2c19f0e";
-    sha256 = "08xa4cbl132936qqrk03p4n22rmbvfdjwrkaq3paz6mzn7g13p9x";
+    rev = "ee0867cd919d1b5e010c9563aabcba024a335f20";
+    sha256 = "sha256-T6EtJO5P5qfHV0gaZA9BHFnm+33OLlkwdGeNqvOBocU=";
     name = "instantOS_instantWm";
   };
+  #src = ../../src/instantwm;
 
   patches = [ ] ++ extraPatches;
 
@@ -49,7 +50,7 @@ stdenv.mkDerivation {
   buildInputs = with xlibs; map lib.getDev [ libX11 libXft libXinerama ];
   propagatedBuildInputs = [
     cantarell-fonts
-    joypixels
+    #joypixels
     pavucontrol
     rofi
     rxvt_unicode
@@ -63,6 +64,11 @@ stdenv.mkDerivation {
   installPhase = ''
     install -Dm 555 instantwm $out/bin/instantwm
     install -Dm 555 startinstantos $out/bin/startinstantos
+    install -Dm 555 instantwmctrl.sh $out/bin/instantwmctrl
+  '';
+
+  checkPhase = ''
+    $out/bin/instantwm -V > /dev/null
   '';
 
   meta = with lib; {

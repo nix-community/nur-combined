@@ -8,6 +8,7 @@
 , Paperbash
 , imagemagick
 , nitrogen
+, xdg-user-dirs
 }:
 stdenv.mkDerivation {
 
@@ -18,8 +19,8 @@ stdenv.mkDerivation {
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantWALLPAPER";
-      rev = "63e496e2bfdd6d43f1c1a7e14dfb337cfdf1a660";
-      sha256 = "1dfja0i739kljyk4ncncrvs7d23nhr2hvvb5j9y5wdj3p30wmr9s";
+      rev = "d2f301fc8a239c888331aff6204916a9ea541f11";
+      sha256 = "1iqha0q4m1qwgrcynnr2fz3hyhns0fcm76iyf0zvw92n90i7pqmi";
       name = "instantOS_instantWallpaper";
     }) 
     (fetchFromGitHub {
@@ -44,6 +45,7 @@ stdenv.mkDerivation {
     Paperbash
     imagemagick
     nitrogen
+    xdg-user-dirs
   ];
 
   postPatch = ''

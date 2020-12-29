@@ -1,0 +1,22 @@
+! Example on what instantwm and instant tools recognize
+! Run this after changes: xrdb ~/.Xresources
+
+instantwm.font: FiraCode:size=11
+! barheight default is 12 plus font height
+instantwm.barheight: 12
+
+instantwm.bgcolor: #212337
+instantwm.hovershadowcolor: #5c669b
+instantwm.hoverbgcolor: #7a88cf
+
+instantwm.minimize: #7a88cf
+instantwm.darkminimize: #5c669b
+
+instantwm.darkactivetag: #FF79Ce
+instantwm.activetag: #FF92Da
+
+instantwm.hoverfocus: #7a64a0
+instantwm.darkhoverfocus: #6e5991
+
+instantwm.darkfocus: #5c669b
+instantwm.focus: #7a88cf

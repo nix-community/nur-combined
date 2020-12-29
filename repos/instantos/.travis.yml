@@ -25,7 +25,7 @@ matrix:
   include:
     - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable NIXPKGS_ALLOW_UNFREE=1
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable NIXPKGS_ALLOW_UNFREE=1
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03 NIXPKGS_ALLOW_UNFREE=1
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.09 NIXPKGS_ALLOW_UNFREE=1
 
 install:
  - nix --version

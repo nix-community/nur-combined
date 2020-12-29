@@ -1,0 +1,13 @@
+diff --git a/status.sh b/status.sh
+index 87915da..fd8f6d5 100755
+--- a/status.sh
++++ b/status.sh
+@@ -97,7 +97,7 @@ while :; do
+     done
+ 
+     # date time
+-    date="$date^d^  $(date +'%d-%m')  ^c$DARKBACK^  $(date +'%H:%M')  "
++    date="$date^d^  $(date +'%a, %b %d')  ^c$DARKBACK^  $(date +'%H:%M.%S')  "
+     # volume
+     date="$date^c$LIGHTBACK^  A$(
+         {

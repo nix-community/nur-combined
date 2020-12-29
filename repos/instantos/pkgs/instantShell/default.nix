@@ -12,15 +12,15 @@ stdenv.mkDerivation {
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantshell";
-      rev = "0ec33beea7efbdbfaf5865d629276bd6f8603ddb";
-      sha256 = "0wh96fpk37ndkmjkf578fvh9c0bmxiwlamq57l5078vic8hmi9n2";
+      rev = "482d900c4e18a1dab2f8893ff10687fb3c8d016a";
+      sha256 = "sha256-9sDDwp0SxLbTtC53hrR5uKoHiBmFjTDTLHdMaXXft6Y=";
       name = "instantOS_instantShell";
     })
     (fetchFromGitHub {
       owner = "ohmyzsh";
       repo = "ohmyzsh";
-      rev = "f9f45ca222a0ec6fa867ab3733f15911d1b894e6";
-      sha256 = "0nmvyay7mr3zf7hg4qx1wf37778s3sfmrrwkaqvcn15krzzfr13k";
+      rev = "90ffda7ed28dd8273b80bd262c6a28be65e4da71";
+      sha256 = "sha256-lYf+NmSgY0WFBMWxVBrh/f2cSJ0WqnaTktQNA0nYZNE=";
       name = "ohmyzsh";
     })
   ];
