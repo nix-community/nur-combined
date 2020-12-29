@@ -1,5 +1,4 @@
 { lib, python3Packages, runCommand, makeWrapper, avahi }:
-
 let
   pname = "activate-dpt";
   version = "0.1";
@@ -12,8 +11,8 @@ let
     ];
   };
 in
-
-runCommand "${name}" {
+runCommand "${name}"
+{
   buildInputs = [
     makeWrapper
   ];
