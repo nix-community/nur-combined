@@ -580,13 +580,13 @@ let
         sha512 = "lJNXa+BH+HCoutDKbPOoW51LcBmzh9WcFcbOQYqHsSp9C1jPuFxH6QD68HLtrueZs+GEdkmQorMP4f15/WBQOw==";
       };
     };
-    "@types/lodash-4.14.165" = {
+    "@types/lodash-4.14.166" = {
       name = "_at_types_slash_lodash";
       packageName = "@types/lodash";
-      version = "4.14.165";
+      version = "4.14.166";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.165.tgz";
-        sha512 = "tjSSOTHhI5mCHTy/OOXYIhi2Wt1qcbHmuXD1Ha7q70CgI/I71afO4XtLb/cVexki1oVYchpul/TOuu3Arcdxrg==";
+        url = "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.166.tgz";
+        sha512 = "A3YT/c1oTlyvvW/GQqG86EyqWNrT/tisOIh2mW3YCgcx71TNjiTZA3zYZWA5BCmtsOTXjhliy4c4yEkErw6njA==";
       };
     };
     "@types/long-4.0.1" = {
@@ -625,22 +625,22 @@ let
         sha512 = "NYrtPht0wGzhwe9+/idPaBB+TqkY9AhTvOLMkThm0IoEfLaiVQZwBwyJ5puCkO3AUCWrmcoePjp2mbFocKy4SQ==";
       };
     };
-    "@types/node-12.19.9" = {
+    "@types/node-12.19.11" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "12.19.9";
+      version = "12.19.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-12.19.9.tgz";
-        sha512 = "yj0DOaQeUrk3nJ0bd3Y5PeDRJ6W0r+kilosLA+dzF3dola/o9hxhMSg2sFvVcA2UHS5JSOsZp4S0c1OEXc4m1Q==";
+        url = "https://registry.npmjs.org/@types/node/-/node-12.19.11.tgz";
+        sha512 = "bwVfNTFZOrGXyiQ6t4B9sZerMSShWNsGRw8tC5DY1qImUNczS9SjT4G6PnzjCnxsu5Ubj6xjL2lgwddkxtQl5w==";
       };
     };
-    "@types/node-13.13.36" = {
+    "@types/node-13.13.38" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "13.13.36";
+      version = "13.13.38";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-13.13.36.tgz";
-        sha512 = "ctzZJ+XsmHQwe3xp07gFUq4JxBaRSYzKHPgblR76//UanGST7vfFNF0+ty5eEbgTqsENopzoDK090xlha9dccQ==";
+        url = "https://registry.npmjs.org/@types/node/-/node-13.13.38.tgz";
+        sha512 = "oxo8j9doh7ab9NwDA9bCeFfjHRF/uzk+fTljCy8lMjZ3YzZGAXNDKhTE3Byso/oy32UTUQIXB3HCVHu3d2T3xg==";
       };
     };
     "@types/node-fetch-2.5.7" = {
@@ -688,13 +688,13 @@ let
         sha512 = "f+fD/fQAo3BCbCDlrUpznF1A5Zp9rB0noS5vnoormHSIPFKL0Z2DcUJ3Gxp5ytH4uLRNxy7AwYUC9exZzqGMAw==";
       };
     };
-    "@types/yargs-parser-15.0.0" = {
+    "@types/yargs-parser-20.2.0" = {
       name = "_at_types_slash_yargs-parser";
       packageName = "@types/yargs-parser";
-      version = "15.0.0";
+      version = "20.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/yargs-parser/-/yargs-parser-15.0.0.tgz";
-        sha512 = "FA/BWv8t8ZWJ+gEOnLLd8ygxH/2UFbAvgEonyfN6yWGLKc7zVjbpl2Y4CTjid9h2RfgPP6SEt6uHwEOply00yw==";
+        url = "https://registry.npmjs.org/@types/yargs-parser/-/yargs-parser-20.2.0.tgz";
+        sha512 = "37RSHht+gzzgYeobbG+KWryeAW8J33Nhr69cjTqSYymXVZEN9NbRYWoYlRtDhHKPVT1FyNKwaTPC1NynKZpzRA==";
       };
     };
     "abort-controller-3.0.0" = {
@@ -4181,18 +4181,18 @@ in
       sources."@types/express-serve-static-core-4.17.17"
       sources."@types/firebase-3.2.1"
       sources."@types/http-terminator-2.0.1"
-      sources."@types/lodash-4.14.165"
+      sources."@types/lodash-4.14.166"
       sources."@types/long-4.0.1"
       sources."@types/memoizee-0.4.5"
       sources."@types/mime-2.0.3"
       sources."@types/mocha-5.2.7"
-      sources."@types/node-12.19.9"
+      sources."@types/node-12.19.11"
       sources."@types/node-fetch-2.5.7"
       sources."@types/qs-6.9.5"
       sources."@types/range-parser-1.2.3"
       sources."@types/serve-static-1.13.8"
       sources."@types/yargs-15.0.12"
-      sources."@types/yargs-parser-15.0.0"
+      sources."@types/yargs-parser-20.2.0"
       sources."abort-controller-3.0.0"
       sources."accepts-1.3.7"
       sources."agent-base-6.0.2"
@@ -4557,7 +4557,7 @@ in
       sources."promise-polyfill-8.1.3"
       (sources."protobufjs-6.10.2" // {
         dependencies = [
-          sources."@types/node-13.13.36"
+          sources."@types/node-13.13.38"
         ];
       })
       sources."proxy-addr-2.0.6"
