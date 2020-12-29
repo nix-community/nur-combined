@@ -1,6 +1,7 @@
-self: super: let
+self: super:
+let
 
-  brh-python = self.python3.withPackages(ps: with ps; [
+  brh-python = self.python3.withPackages (ps: with ps; [
     pyflakes
     # pyls-isort
     # python-language-server
@@ -90,6 +91,8 @@ in
         self.nixpkgs-fmt
         self.nixpkgs-review
         self.nload
+        self.nodePackages.pyright
+        self.nodePackages.vscode-json-languageserver
         self.pavucontrol
         self.pdsh
         self.remmina

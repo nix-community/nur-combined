@@ -2,15 +2,16 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "plaid2qif";
-  version = "1.3.2";
+  version = "1.3.4";
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "0h92g397y9d7qb5hi6gdnhq077q80v0kkcicbyglal4fiihyp2c4";
+    sha256 = "07f76bhhlj4zdv68i4nk1pvx745r9i6qgzkwv029d97djw4mj9gf";
   };
 
   # TODO: See if we can fix setup.py instead.
   patchPhase = ''
+    rm -f requirements.txt
     for dep in plaid-python wheel twine docopt python-dateutil; do
       echo $dep >> requirements.txt
     done
