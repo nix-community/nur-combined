@@ -27,6 +27,15 @@ let
       sha256 = "0zspnzgn5aixwcp7klj5vaijmj4ca6hjj58jrz5aqn10dv41s02p";
     };
   };
+  themePaper = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-paper";
+    src = pkgs.fetchFromGitHub {
+      owner = "YorickPeterse";
+      repo = "vim-paper";
+      rev = "67763e10371beb56f9059efe257ec2db2fec2848";
+      sha256 = "CEPT2LtDc5hKnA7wrdEX6nzik29o6ewUgGvif5j5l+c=";
+    };
+  };
 in pkgs.neovim.override {
   viAlias = true;
   vimAlias = true;
@@ -36,7 +45,6 @@ in pkgs.neovim.override {
       auto-pairs
       echodoc
       indentLine
-      lightline-vim
       onedark-vim
       pluginNocapsquit
       vim-commentary
@@ -47,6 +55,7 @@ in pkgs.neovim.override {
       pluginEmbark
       vim-markdown
       themeStarrynight
+      themePaper
       vim-jsx-typescript
     ];
     customRC = ''

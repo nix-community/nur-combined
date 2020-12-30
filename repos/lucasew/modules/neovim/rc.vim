@@ -1,8 +1,3 @@
-let g:lightline = {}
-let g:lightline.active = {}
-let g:lightline.active.left = [ ['mode', 'paste'], ['readonly', 'filename', 'modified'] ]
-let g:lightline.component = {}
-
 com! Dosify set ff=dos
 
 " Clipboard:
@@ -52,10 +47,22 @@ tab ball " Deixa menos bagunçado colocando um arquivo por aba
 
 
 " Colorscheme:
-" autocmd VimEnter * colorscheme onedark
-" let g:lightline.colorscheme = 'wombat'
-autocmd VimEnter * colorscheme embark
-let g:lightline.colorscheme = 'embark'
+let g:dark_mode = 1
+function HandleTheming()
+    if g:dark_mode
+        colorscheme embark
+    else
+        colorscheme paper
+    endif
+endfunction
+
+function! ToggleTheme()
+    let g:dark_mode = !g:dark_mode
+    call HandleTheming()
+endfunction
+autocmd VimEnter * call HandleTheming()
+command ThemeToggle call ToggleTheme()
+
 
 
 " Echodoc: 

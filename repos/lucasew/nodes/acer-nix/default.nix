@@ -130,8 +130,14 @@ in
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
 
-  # Tailscale
-  services.tailscale.enable = true;
+  # Zerotier
+  services.zerotierone = {
+    enable = true;
+    port = 6970;
+    joinNetworks = [
+      "e5cd7a9e1c857f07"
+    ];
+  };
 
   # Themes
   programs.qt5ct.enable = true;
