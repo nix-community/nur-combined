@@ -1,16 +1,16 @@
-{ lib, fetchurl, fetchymaps, gzip, jq, gdal }:
+{ lib, fetchurl, fetchymaps, fetchwebarchive, jq, gdal }:
 
 {
-  geocachingSu = fetchurl {
-    name = "geocaching_su-2020-12-28";
+  geocachingSu = fetchwebarchive {
+    name = "geocaching_su-2020-12-30";
     url = "https://nakarte.me/geocachingSu/geocaching_su2.json";
-    sha256 = "0mdvkrlhkyigy1iznnd6c1xa1qxg1yv0np7ljfmkry4x8ysgnc3p";
+    timestamp = "20201230114828";
+    sha256 = "1lnx664iax9imww669hgpg5vr4rl8bpz5nq5hbvfknjyc6kbyyqj";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
       install -dm755 $out
       cat $downloadedFile | \
-        ${gzip}/bin/gzip -d | \
         ${jq}/bin/jq -r '.[]|[.[3],.[2],.[0]]|@csv' > $out/geocaching.su.csv
     '';
 
@@ -20,7 +20,6 @@
       maintainers = [ maintainers.sikmir ];
       license = licenses.free;
       platforms = platforms.all;
-      skip.ci = true;
     };
   };
 
@@ -60,16 +59,16 @@
     };
   };
 
-  westra = fetchurl {
-    name = "westra-2020-12-28";
+  westra = fetchwebarchive {
+    name = "westra-2020-12-30";
     url = "https://nakarte.me/westraPasses/westra_passes.json";
-    sha256 = "1hszh54q22dbhrz9rldrg59yxsivhw4hfdrjf7y74y2nv4770l26";
+    timestamp = "20201230113603";
+    sha256 = "1r8s5zywl2i2cx22rbh9srhf8pyl2hwg3wvaipjc5km2rl0y0vf9";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
       install -dm755 $out
       cat $downloadedFile | \
-        ${gzip}/bin/gzip -d | \
         ${jq}/bin/jq -r '.[]|[.latlon[1],.latlon[0],.name]|@csv' > $out/westra_passes.csv
     '';
 
@@ -79,7 +78,6 @@
       maintainers = [ maintainers.sikmir ];
       license = licenses.free;
       platforms = platforms.all;
-      skip.ci = true;
     };
   };
 
@@ -104,7 +102,6 @@
       maintainers = [ maintainers.sikmir ];
       license = licenses.free;
       platforms = platforms.all;
-      skip.ci = true;
     };
   };
 
@@ -122,7 +119,6 @@
       maintainers = [ maintainers.sikmir ];
       license = licenses.free;
       platforms = platforms.all;
-      skip.ci = true;
     };
   };
 

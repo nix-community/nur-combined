@@ -1,17 +1,18 @@
-{ stdenvNoCC, fetchurl, jq, stardict-tools }:
+{ stdenvNoCC, fetchwebarchive, dict, jq, stardict-tools }:
 
 stdenvNoCC.mkDerivation {
   pname = "komputeko";
-  version = "2020-06-23";
+  version = "2020-10-18";
 
-  src = fetchurl {
+  src = fetchwebarchive {
     url = "https://komputeko.net/data.json";
-    sha256 = "11yjhp1pii74zs1i7lcih8spw447999mv0y3jzyglak2xdc293cs";
+    timestamp = "20201018194034";
+    sha256 = "1bwzpxdk221cdya2sdc9cjvkl7qw1mk4yiy8mbdx8nmcm9m4adwc";
   };
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ jq stardict-tools ];
+  nativeBuildInputs = [ dict jq stardict-tools ];
 
   buildPhase = ''
     cat $src | \
@@ -19,7 +20,7 @@ stdenvNoCC.mkDerivation {
     stardict-tabfile komputeko.tsv
   '';
 
-  installPhase = "install -Dm644 *.{dict,idx,ifo} -t $out";
+  installPhase = "install -Dm644 *.{dict*,idx,ifo} -t $out";
 
   meta = with stdenvNoCC.lib; {
     homepage = "https://komputeko.net/";

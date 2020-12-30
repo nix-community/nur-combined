@@ -1,4 +1,4 @@
-{ stdenvNoCC, lib, pandoc, stardict-tools, sources }:
+{ stdenvNoCC, lib, dict, pandoc, stardict-tools, sources }:
 
 stdenvNoCC.mkDerivation {
   pname = "it-sanasto";
@@ -6,7 +6,7 @@ stdenvNoCC.mkDerivation {
 
   src = sources.it-sanasto;
 
-  nativeBuildInputs = [ pandoc stardict-tools ];
+  nativeBuildInputs = [ dict pandoc stardict-tools ];
 
   buildPhase = ''
     for i in *.md; do
@@ -16,15 +16,12 @@ stdenvNoCC.mkDerivation {
     stardict-tabfile it-sanasto.tab
   '';
 
-  installPhase = ''
-    install -Dm644 it-sanasto.{dict,idx,ifo} -t $out
-  '';
+  installPhase = "install -Dm644 *.{dict*,idx,ifo} -t $out";
 
   meta = with lib; {
     inherit (sources.it-sanasto) description homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
-    skip.ci = stdenvNoCC.isDarwin;
   };
 }

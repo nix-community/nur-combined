@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation rec {
       sponge versions.json
   '') srcs;
 
-  nativeBuildInputs = [ jq moreutils stardict-tools dict tatoebatools ];
+  nativeBuildInputs = [ dict jq moreutils stardict-tools tatoebatools ];
 
   buildPhase = let
     makeDict = lang: with lib; ''
@@ -52,7 +52,7 @@ stdenvNoCC.mkDerivation rec {
     ${lib.concatMapStringsSep "\n" makeDict langs}
   '';
 
-  installPhase = "install -Dm644 *.{dict.dz,idx,ifo} -t $out";
+  installPhase = "install -Dm644 *.{dict*,idx,ifo} -t $out";
 
   meta = with lib; {
     description = "Tatoeba is a collection of sentences and translations";

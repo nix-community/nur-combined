@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-28T09:57:43Z",
+        "date": "2020-12-29T17:58:24Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "44e12595d87032daa6276e24e3728ecd8ec27c1a",
-        "sha256": "1cl3f19dx5cm1gj54c30bq386wg4cd279nn9nmv6rb6yfldyxqh2",
+        "rev": "68eb38c57473eaa12a295bffe15115cea2cb363e",
+        "sha256": "0d1c4sv9jfwivxbp29b7szrp5jirb4hsp118ssxngbvkvbhdm60c",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/44e12595d87032daa6276e24e3728ecd8ec27c1a.tar.gz",
+        "url": "https://github.com/embox/embox/archive/68eb38c57473eaa12a295bffe15115cea2cb363e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -239,27 +239,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "1ihna8j77miznn5i2v508nmx1ljw03r4illjrwqp9p3x167hh1bc",
+        "sha256": "16l4n89fzh6g8rcjn1n6g18xjvycbvsmvcvbfnhhz7sbsg3drfi3",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-201226.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-201228.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "201226"
+        "version": "201228"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "18cfksbx8yjzw6g82s88jg0a94179nv2pv3lndfb13jkqks7k048",
+        "sha256": "10jzcc551f5p8gvmnp2vyb9kql4vxmcifkpzvpkvw1vdx3xhb782",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-201226.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-201228.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "201226"
+        "version": "201228"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "1z9j3jncm2fp8i084fa7d9x74r4f40wdc89sis47qwglpcs9ks4k",
+        "sha256": "18rc0413v1p67wzphp0v92hr3dvdfkmclyjkgh7bsxhc3dajfh78",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201226.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201228.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "201226"
+        "version": "201228"
     },
     "gimgtools": {
         "branch": "master",
@@ -377,15 +377,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2020-12-28T10:19:44Z",
+        "date": "2020-12-30T08:26:26Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "26cbbee1351c43539f5040a260d1cda4763b43b0",
-        "sha256": "0m12dg9jy5s1d7jgpqy3a9qj0mr30w6bymgg0xsfc44q9i1l3vh9",
+        "rev": "7e39a34d0ea189bfd1220b981632f14c0b63741f",
+        "sha256": "08lyc99c2ipigmmyg2ag5ka378xlakbggq2359910wz5pyyidv13",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/26cbbee1351c43539f5040a260d1cda4763b43b0.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/7e39a34d0ea189bfd1220b981632f14c0b63741f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -589,7 +589,7 @@
         "builtin": false,
         "date": "2020-12-28T23:38:07Z",
         "description": "Slazav mountains",
-        "homepage": "http://slazav.mccme.ru/maps/",
+        "homepage": "http://slazav.xyz/maps/",
         "owner": "slazav",
         "repo": "map_hr",
         "rev": "8137e566160a8d2076a68ec758d3fc80e28b9c6d",
@@ -603,7 +603,7 @@
         "builtin": false,
         "date": "2020-12-28T23:38:24Z",
         "description": "Карты Подмосковья в виде номенклатурных листов 1:100000 - исходники в формате mapsoft vmap",
-        "homepage": "http://slazav.mccme.ru/maps/",
+        "homepage": "http://slazav.xyz/maps/",
         "owner": "slazav",
         "repo": "map_podm",
         "rev": "3081d5f95d5870213b9fa877fabeadd58d01e4b8",
@@ -629,15 +629,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-28T05:35:12Z",
+        "date": "2020-12-30T05:53:02Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "36d6fb179fe2ffdf0cb63ac39bbe25f215a524f5",
-        "sha256": "1vpa6yk33zlx95brrssba3wjlb2d45s6z7il11glkhs575by25sc",
+        "rev": "ca4f2946603862af3a9c5cc211a15ee4058a980b",
+        "sha256": "0hh9rmy27d1l9v78h6kss2gacc1x3mkv80fsdx6dc2zgjyxwi7nh",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/36d6fb179fe2ffdf0cb63ac39bbe25f215a524f5.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/ca4f2946603862af3a9c5cc211a15ee4058a980b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maprec": {
@@ -659,7 +659,7 @@
         "builtin": false,
         "date": "2020-01-15T22:56:03Z",
         "description": "Mapping software for linux",
-        "homepage": "http://slazav.mccme.ru/prog/mapsoft.htm",
+        "homepage": "https://github.com/ushakov/mapsoft",
         "owner": "ushakov",
         "repo": "mapsoft",
         "rev": "904e2da8a55e8426a56de7e41b06cb92e1656005",
@@ -673,11 +673,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "0gs5bkhj6c8cxg59x6i3qmz3slws2y4b2q5kixhlcqwghzy2smhl",
+        "sha256": "15rkvzpd5h6v9nh0b8n39f8qs6i4a6hiq3jz96as3x8rwkngg04q",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-12-27.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-12-29.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-12-27"
+        "version": "2020-12-29"
     },
     "mercantile": {
         "branch": "master",
@@ -776,15 +776,15 @@
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-28T01:47:11Z",
+        "date": "2020-12-28T21:04:23Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "057c88a1e9e74c3b136239d3a8508b72c31a2d5f",
-        "sha256": "1j43wqwfrmlyxfvb9l94spxgm3hxq7lcx5jin2rnf4iz7wb343a8",
+        "rev": "8e92ea8ad639f99f2bb0c041e8940c00fb11fcd3",
+        "sha256": "1whqfckrdrb9apl4wg11ascr9lr1lp7ba38d8m5cjs1msfjqqqsn",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/057c88a1e9e74c3b136239d3a8508b72c31a2d5f.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/8e92ea8ad639f99f2bb0c041e8940c00fb11fcd3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -940,15 +940,15 @@
     "stardict-3": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-27T00:28:53Z",
+        "date": "2020-12-30T03:44:21Z",
         "description": "Automatically exported from code.google.com/p/stardict-3",
         "homepage": "https://github.com/huzheng001/stardict-3",
         "owner": "huzheng001",
         "repo": "stardict-3",
-        "rev": "59b09e64bed22c8a8cce61f4232845c30475a34b",
-        "sha256": "1b8pp4ym7j45v978nf063727dkf35fac3zw8b83iwr2fdmbzbli0",
+        "rev": "68f8453fd2c5826a7fa6b02b549e28cc69221ab8",
+        "sha256": "03qs3dvdnq3hmjmfddv9qki5l5ar6fx914rzgifhn18f2kfxmw6q",
         "type": "tarball",
-        "url": "https://github.com/huzheng001/stardict-3/archive/59b09e64bed22c8a8cce61f4232845c30475a34b.tar.gz",
+        "url": "https://github.com/huzheng001/stardict-3/archive/68f8453fd2c5826a7fa6b02b549e28cc69221ab8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "supermercado": {
