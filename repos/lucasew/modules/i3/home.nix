@@ -16,6 +16,10 @@ echo $goto_ws | bash
     i3-msg move container to workspace number $ws
     i3-msg workspace number $ws
   '';
+  gotoNewWs = pkgs.writeShellScript "gotoNewWs" ''
+    ws=$[ $RANDOM % 100 + 11 ]
+    i3-msg workspace number $ws
+  '';
   colors = {
     background = "#00ffffff";
     background-alt = "#aa111111";
@@ -88,6 +92,7 @@ in {
           "${mod}+l" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
           "${mod}+m" = "move workspace to output left";
           "${mod}+n" = "exec ${modn}";
+          "${mod}+b" = "exec ${gotoNewWs}";
           "${mod}+Shift+z" = "exec ${sendToPQP}";
           "XF86AudioNext" = "exec ${playerctl} next";
           "XF86AudioPrev" = "exec ${playerctl} previous";
