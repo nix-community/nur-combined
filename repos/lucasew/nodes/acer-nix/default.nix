@@ -105,8 +105,21 @@ in
   #   enableSSHSupport = true;
   #   pinentryFlavor = "gnome3";
   # };
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
+  hardware = {
+    opengl = {
+      enable = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [
+        vaapiIntel
+      ];
+    };
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
