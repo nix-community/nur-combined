@@ -1,9 +1,10 @@
 { sources ? import ../nix/sources.nix
-, pkgs ? import sources.nixpkgs{ }
+, pkgs ? import sources.nixpkgs { }
 }:
 {
   # package sets
   js = import ./js { inherit pkgs; };
+  firefox-addons = import ./firefox-addons { inherit pkgs; };
 
   # standalone packages
   nix-gen-node-tools = pkgs.callPackage ./gen-node-env { inherit (pkgs.nodePackages) node2nix;inherit sources; };
