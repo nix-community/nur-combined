@@ -14,9 +14,50 @@ let
 in {
   xsession.windowManager.i3.config.bars = [];
   services.polybar = {
-    script = "polybar bar -r &";
+    script = ''
+      polybar bar -r &
+      polybar hdmi -r &
+    '';
     package = pkgs.callPackage ./customPolybar.nix {};
     config = {
+      "bar/hdmi" = {
+        "monitor" = "HDMI-1";
+        "enable-ipc" = true;
+        "width" = "100%";
+        "height" = 20;
+      # ;offset-x = 1%;
+      # ;offset-y = 1%;
+      "radius" = 0;
+      "fixed-center" = true;
+
+      "font-0" = "Noto:pixelsize=10;1";
+      "font-1" = "pango:Roboto, Light 7";
+      "font-2" = "siji:pixelsize=10;1";
+
+      "background" = colors.background;
+      "foreground" = colors.foreground;
+
+      "line-size" = 2;
+      "line-color" = "#f00";
+
+      "border-size" = 0;
+      "border-color" = colors.transparent;
+
+      "padding-left" = 0;
+      "padding-right" = 0;
+
+      "module-margin-left" = 1;
+      "module-margin-right" = 1;
+
+      "modules-center" = [
+        "i3"
+        "date"
+        # "xwindow"
+      ];
+      "cursor-click" = "pointer";
+      "cursor-scroll" = "ns-resize";
+
+    };
       "bar/bar" = {
         "monitor" = "eDP-1";
         "enable-ipc" = true;
@@ -46,11 +87,8 @@ in {
       "module-margin-left" = 1;
       "module-margin-right" = 1;
 
-      "modules-left" = [
-        "i3"
-        # "xwindow"
-      ];
       "modules-center" = [
+        "i3"
         "pulseaudio"
         "xkeyboard"
         "memory"
