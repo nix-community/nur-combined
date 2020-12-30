@@ -4,4 +4,3 @@
   # my-module = ./my-module;
   matrix-registration = ./matrix-registration.nix;
 }
-
