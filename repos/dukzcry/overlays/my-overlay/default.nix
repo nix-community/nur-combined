@@ -35,4 +35,15 @@ in {
     export LC_ALL=en_US.UTF8
     ${apulse}/bin/apulse "$@"
   '';
+  ArchiSteamFarm = with super; (ArchiSteamFarm.override {
+    dotnetCorePackages = dotnetCorePackages // {
+      aspnetcore_3_1 = unstable.dotnetCorePackages.aspnetcore_5_0;
+    };
+  }).overrideAttrs (oldAttrs: rec {
+    version = "5.0.1.2";
+    src = fetchurl {
+      url = "https://github.com/JustArchiNET/ArchiSteamFarm/releases/download/${version}/ASF-generic.zip";
+      sha256 = "0wczibyv8pwjcd4bxpw70w99ayyii0brfc180cdxp8cznn7p8vxh";
+    };
+  });
 }
