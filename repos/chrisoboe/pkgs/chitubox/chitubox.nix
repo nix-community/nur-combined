@@ -17,6 +17,8 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     cp -r ./ $out
+    mkdir $out/bin
+    ln -s $out/CHITUBOX $out/bin/chitubox
   '';
 
   meta = with stdenv.lib; {
