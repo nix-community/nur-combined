@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-}:
-
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation {
   name = "httpstat";
@@ -15,9 +11,9 @@ stdenv.mkDerivation {
   };
 
   installPhase = ''
-      mkdir -p $out/bin
-      cp httpstat.sh $out/bin/httpstat
-      chmod +x $out/bin/httpstat
+    mkdir -p $out/bin
+    cp httpstat.sh $out/bin/httpstat
+    chmod +x $out/bin/httpstat
   '';
 
   meta = with lib; {

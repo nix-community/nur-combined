@@ -1,7 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "easy-novnc";
@@ -20,7 +17,8 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "An easy way to run a noVNC instance and proxy with a single binary";
+    description =
+      "An easy way to run a noVNC instance and proxy with a single binary";
     homepage = "https://github.com/pgaskin/easy-novnc";
     license = licenses.mit;
     maintainers = with maintainers; [ htr ];
