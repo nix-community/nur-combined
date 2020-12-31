@@ -150,11 +150,11 @@
     "pocket2kindle": {
       "flake": false,
       "locked": {
-        "lastModified": 1609166719,
-        "narHash": "sha256-r1IYWaPtsD/KmgxnQch8fuWR4AxdbYL8oVU2JSuqVuM=",
+        "lastModified": 1609428261,
+        "narHash": "sha256-9QQlunxCPfgABJjpU6wDjWJgWVZyaAo5hWuyjNnSu5g=",
         "owner": "lucasew",
         "repo": "pocket2kindle",
-        "rev": "ca5be7ce3983212e6cf209c8eafb0d873149747d",
+        "rev": "8f91417f6d52b44a2fc8948b6fd2d9cd695bcab7",
         "type": "github"
       },
       "original": {
