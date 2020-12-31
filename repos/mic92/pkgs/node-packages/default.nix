@@ -8,6 +8,9 @@ in
 (
   nodePackages
   // {
+    reveal-md = nodePackages.reveal-md.override {
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = true;
+    };
     backport = nodePackages.backport.override (
       oldAttrs: {
         dontNpmInstall = true;

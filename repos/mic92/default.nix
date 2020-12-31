@@ -110,7 +110,7 @@ rec {
 
   signald = pkgs.callPackage ./pkgs/signald { };
 
-  inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope;
+  inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope reveal-md;
 
   source-code-pro-nerdfonts = pkgs.nerdfonts.override {
     fonts = [ "SourceCodePro" ];
