@@ -6,6 +6,7 @@ rec {
 
   codemadness-frontends = pkgs.callPackage ./pkgs/codemadness-frontends/default.nix { };
   ffmpeg-full-cuda = pkgs.callPackage ./pkgs/ffmpeg-full-cuda/default.nix { };
+  geoclue2-demos = pkgs.callPackage ./pkgs/geoclue2-demos/default.nix { };
   immersed = pkgs.callPackage ./pkgs/immersed/default.nix { };
   immersed-cuda = pkgs.callPackage ./pkgs/immersed/default.nix { 
     ffmpeg-full = ffmpeg-full-cuda;

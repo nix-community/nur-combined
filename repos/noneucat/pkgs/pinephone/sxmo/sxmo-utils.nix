@@ -29,6 +29,9 @@ stdenv.mkDerivation rec {
     find . -type f -exec sed -i "s@/usr/share/sxmo@$out/share/sxmo@g" {} +
     find . -type f -exec sed -i "s@/usr/share/applications@$out/share/applications@g" {} +
     find . -type f -exec sed -i "s@/usr/share/zoneinfo@/etc/zoneinfo@g" {} +
+    sed -i "s@/usr/libexec/geoclue-2.0/demos/where-am-i@where-am-i@g" scripts/core/sxmo_gpsutil.sh
+    sed -i "s@/usr/bin@@g" configs/appcfg/dunst.conf
+    sed -i "s@/usr/bin@@g" configs/udev/50-sxmo.rules
   '';
 
   buildInputs = [
