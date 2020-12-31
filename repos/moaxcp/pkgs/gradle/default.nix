@@ -57,6 +57,16 @@ in rec {
     };
   };
 
+  gradle-6_7_1 = gradleGen rec {
+    version = "6.7.1";
+    nativeVersion = "0.22-milestone-9";
+
+    src = fetchurl {
+      url = "https://services.gradle.org/distributions/gradle-${version}-bin.zip";
+      sha256 = "0789xjsjk5azza4nrsz1v0ziyk7nfc2i1b43v4vqm0y3hvnvaf9j";
+    };
+  };
+
   gradle-6_4 = gradleGen rec {
     version = "6.4";
     nativeVersion = "0.22-milestone-2";

@@ -6,8 +6,8 @@ import re
 import requests
 import sys
 
-releases = ("openjdk8", "openjdk11", "openjdk13", "openjdk14")
-nightlys = ('openjdk15',)
+releases = ("openjdk8", "openjdk9", "openjdk10", "openjdk11", "openjdk12", "openjdk13", "openjdk14", "openjdk15")
+nightlys = ('openjdk16',)
 oses = ("mac", "linux")
 types = ("jre", "jdk")
 impls = ("hotspot", "openj9")
@@ -73,7 +73,7 @@ def request(builds, type):
         out[build] = generate_sources(build, resp.json())
 
 request(releases, "releases")
-#request(nightlys, "nightly")
+request(nightlys, "nightly")
 
 with open("sources.json", "w") as f:
     json.dump(out, f, indent=2, sort_keys=True)

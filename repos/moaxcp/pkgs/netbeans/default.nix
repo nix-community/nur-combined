@@ -29,13 +29,15 @@ in releaseTools.antBuild rec {
     {"name" = "ext.binaries.downloaded"; "value" = "true";}
   ];
 
+/*
+from nixpkgs build
   buildCommand = ''
     # Unpack and perform some path patching.
     unzip $src
     patchShebangs .
 
     # Copy to installation directory and create a wrapper capable of starting it.
-    mkdir $out
+    mkdir -pv $out/bin
     cp -a netbeans $out
     makeWrapper $out/netbeans/bin/netbeans $out/bin/netbeans \
       --prefix PATH : ${stdenv.lib.makeBinPath [ jdk which ]} \
@@ -59,6 +61,7 @@ in releaseTools.antBuild rec {
     mkdir -pv $out/share/applications
     ln -s ${desktopItem}/share/applications/* $out/share/applications
   '';
+  */
 
   meta = {
     broken = true;

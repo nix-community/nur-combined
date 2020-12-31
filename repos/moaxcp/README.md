@@ -23,10 +23,6 @@ https://ci.adoptopenjdk.net produces artifacts with metadata.
 https://ci.adoptopenjdk.net/job/build-scripts/job/jobs/
 https://api.adoptopenjdk.net/
 
-## micronaut
-
-Need to add other versions and standard way to support multiple versions.
-
 ## install checks
 
 These should be added. jmeter is a good example.

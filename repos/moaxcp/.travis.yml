@@ -1,35 +1,26 @@
-language: nix
+version: ~> 1.0
+import: nix-community/nix-travis-ci:nix.yml@main
 sudo: false
 env:
   global:
   - CACHIX_CACHE=moaxcp
   - NUR_REPO=moaxcp
   - secure: PI5IJKV4Y1R9h4Zm9x+5mIHK8oJW1C6wqsdBWYjpjYm8z3CXoFzGFmNWWotpABf1PgF6fES2bOjdMPUR88H4OKp86HHYF9CzPgsLmO5OzosNZo1MEtGixyfMQhnGPBNdxL5356pVLaYwJmd+8iLc6P7OOV1zCfSSQzqeJZtJg55xnKreis5UxqCRGGlEkDM73CVZkb6gKB8OcHsGYRD1SAqPTONTLLc+8gjmXasbl3VNoznfy32B/uH0fWwnZ/MnjxxWvx4mAZC3rPiA1taixbSssNxuM/de7BrHRJdCjmdMekwKrRt6H+PMobg+KTMCCUnLXZUoC5nB+2/2sPOCPuRiF3ER7ysXcnW3NbYU1fSvLtT1s5YykOXonpiADwUOTLQdzOwRKWL0PZyswsXjtyqvTqed06M0n7QKa6G8j+z5BclWZxKnrSdw/N5DjUUoEsDIPh/TH0X0uXREkmWYshwQQtZvm5del9rMRlnqOdB01lJ6NT/hQpykaM8KLa1ZbUPn1QWkq1LDa1Nx5uQfbXK6FQEUymzZhSb9VuGvZ3quhP98AM4VI5+ORl4Aw8CnzVh2++HeUf3QY6pFRnrBa8UUWCrcAxQ/nmvSMa8uCLBl+7aQ+2aYvwhCgadb09qjvV5s6S00EXJVn+WQJ2sBVXeT3nV8d7Qckk1ywc4muKw=
+  - secure: IQbLFwGJzd74SFBOmjmUF0b5PwNnL9/15TuH1TCVF31LSxq08wDNG97AVfzKcja/cbQL3uANsJPkl8DdKx7Zb+EBgtCJLdBC/IfZXUlBAhZegE6AwsMiZgzOK8vMMlcs9ArU0B51Y1PBU5LeVlP0KHmknzGbHdNhRORzdOZd6ejNi5lLA8VTrpGeh8rLxnvbkpZH5k8VbQTzZQjIq9OihkODKloW7rJIKKKuqN4tgBUuqpPi9oJ63W+1B4q1dXrjIOdbDaeZA3ykXbxEMMJZ2CCoeIOICPD6d3XXEwaiLeYQVs94Gyet3ClPnn36FmiVdn0rQZUJo0scWsq6ou0AgBRqhqJCamOMcDkqQ2waKauUzDDOOD7Cv2IwhsZ3jJcg1NqOBALJ3vNs1tzodTMzVYB5aa09D+Rx1qp/p/lp+RvP6730gFE8k4Jq4JkTrSxKsAB1UxEysRNFLMBXPEdmPnJk67PeGr1JHrLCnjFJlkgZOt6TmK1QTu35fNlRQXvfCTRl6b0fIf3TI6dACAEXYWHxslP7KQfjVsKh51+qkiAPxMBYdZzT+BgZ0SAmGe7+vNYqPPE2I+Y827yfwEnErI3xSXliyVigSXrOMTk79GCpayH0GAKu1XFn4lQIHb24bseuGmw9OhL0+Wmp3czqOkV7DHnePJQQHq2v8ADob8o=
 
 matrix:
   include:
-  - name: nixpkgs-unstable
-    env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
-  - name: nixos-unstable
-    env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
-  - name: nixos-19.09
-    env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.09
-
-install:
-- nix --version
-- if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
-- if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
-- if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
-- nix-channel --add "${NIX_CHANNEL}" nixpkgs
-- travis_retry nix-channel --update
+    - env: NIX_PATH=nixpkgs=channel:nixpkgs-unstable
+    - env: NIX_PATH=nixpkgs=channel:nixos-unstable
+    - env: NIX_PATH=nixpkgs=channel:nixos-20.03
 
 script:
-- nix-build ci.nix -A buildOutputs
-- nix eval -f default.nix 'lib'
-- nix eval -f default.nix 'modules'
-- nix eval -f default.nix 'overlays'
+  - nix-build ci.nix -A buildOutputs
+  - nix eval -f default.nix 'lib'
+  - nix eval -f default.nix 'modules'
+  - nix eval -f default.nix 'overlays'
 
 after_success:
-- if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
-- if [ "cron" != "${TRAVIS_EVENT_TYPE}" -a "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
+  - if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
+  - if [[ NUR_REPO != "<YOUR_NUR_REPO_NAME_HERE>" && "cron" != "${TRAVIS_EVENT_TYPE}" && "false" = "${TRAVIS_PULL_REQUEST}" && "master" = "${TRAVIS_BRANCH}" ]]; then
     curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
