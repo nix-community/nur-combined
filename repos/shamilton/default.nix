@@ -134,6 +134,7 @@ rec {
   timetable2header = with pkgs.python3Packages; pkgs.callPackage ./pkgs/TimeTable2Header {
     inherit buildPythonPackage click pandas numpy odfpy;
   };
+  unoconvui = pkgs.libsForQt5.callPackage ./pkgs/UnoconvUI  { };
   vokoscreen-ng = with pkgs; libsForQt5.callPackage ./pkgs/vokoscreenNG {
     gstreamer = gst_all_1.gstreamer;
     gst-plugins-base = gst_all_1.gst-plugins-base;

@@ -12,8 +12,8 @@ buildVimPluginFrom2Nix {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "vimconfig";
-    rev = "79551006cc65b9fffab9971e98695fd26af010ed";
-    sha256 = "180vwpk3cmx33wjjnkzkv7js9bxsqm12djrabn47h86fcc1jp3pw";
+    rev = "77fbc4befaea0654fdfcf7d6bf0f2f7f9f87904d";
+    sha256 = "0cdrc72342ys7p9mxvdsw57wvl9l2x64k3gs298yx3f4j4kpx2ja";
   };
 
   patches = [ ~/GIT/vimconfig/patch.patch ];
