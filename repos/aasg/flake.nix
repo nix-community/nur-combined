@@ -12,7 +12,7 @@
       inherit (nixpkgs.lib.trivial) id flip pipe;
     in
     {
-      #lib = import ./lib { inherit (nixpkgs) lib; };
+      lib = import ./lib { inherit (nixpkgs) lib; };
       packages = genAttrs defaultSystems
         (system: pipe (import ./. { pkgs = nixpkgs.legacyPackages.${system}; }) [
           # Remove non–package attributes.
