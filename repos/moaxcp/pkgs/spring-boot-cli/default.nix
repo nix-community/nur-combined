@@ -61,4 +61,12 @@ in rec {
       sha256 = "18ddyn07fir2bckaigis0518jr0g3g2kiqhhy56v8wbyg15vimhm";
     };
   };
+
+  spring-boot-cli-2_4_1 = springGen rec {
+    version = "2.4.1";
+    src = fetchzip {
+      url = "https://repo.spring.io/release/org/springframework/boot/${pname}/${version}/${pname}-${version}-bin.zip";
+      sha256 = "05dyw3ysrwgyvv5p5c3hhmxs0hapxmzcqvb27cv11kj081wxili8";
+    };
+  };
 }
