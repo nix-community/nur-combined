@@ -13,7 +13,20 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = "Enable sxmo as a window manager.";
+        description = "Enable Sxmo as a window manager.";
+      };
+
+      wallpaperImage = mkOption {
+        default = pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/766f10e0c93cb1236a85925a089d861b52ed2905/wallpapers/nix-wallpaper-mosaic-blue.png";
+          sha256 = "1cbcssa8qi0giza0k240w5yy4yb2bhc1p1r7pw8qmziprcmwv5n5";
+        };
+
+        description = ''
+          The default image to set as Sxmo's wallpaper.
+
+          This setting will be ignored if ~/.config/sxmo/xinit exists in the user's directory.
+        '';
       };
 
       enablePinePhoneGps = mkOption {
@@ -34,10 +47,17 @@ in
         # needed for sxmo_gpsutil.sh to make use of gsettings
         FOXTROT_SCHEMAS_PATTERN="${pkgs.foxtrotgps}/share/gsettings-schemas/*"
         FOXTROT_SCHEMAS=( $FOXTROT_SCHEMAS_PATTERN )
+
+
         export XDG_DATA_DIRS=$XDG_DATA_DIRS:$FOXTROT_SCHEMAS
 
         ${pkgs.runtimeShell} ${sxmo-utils}/bin/sxmo_xinit.sh &
         waitPID=$!
+
+        # draw our wallpaper only if xinit is not set
+        if [ ! -f $XDG_CONFIG_HOME/sxmo/xinit ]; then
+          ${pkgs.feh}/bin/feh --bg-fill -z ${cfg.wallpaperImage}
+        fi
       '';
     }];
 
