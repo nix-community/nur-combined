@@ -16,10 +16,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "0gh5a9g3bkgf61ci53vqfaysd9s6c8m8inlsk0pkksyfyjrihf62";
+      sha256 = "1w56jzrx2z1dd74qj3x641b3ar6i4c170xqfq51gja3fq35flkas";
       type = "gem";
     };
-    version = "1.4.4";
+    version = "1.4.5";
   };
   colored = {
     groups = [ "default" ];
@@ -46,10 +46,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1h45kw2s4bjwgbfsrncs30av0j4zjync3wmcc6lpdnzbcxs7yms2";
+      sha256 = "1bhsgnjav94mz5vf3305gxz1g34gm9kxvnrn1dkz530r8bpj0hr5";
       type = "gem";
     };
-    version = "2.15.10";
+    version = "2.15.11";
   };
   ddmemoize = {
     dependencies = [ "ddmetrics" "ref" ];
