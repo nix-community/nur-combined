@@ -189,9 +189,12 @@ lib.makeScope newScope (
       inherit sources;
       inherit (perlPackages) GeoOpenstreetmapParser MatchSimple MathPolygon MathPolygonTree TreeR;
     };
-    py-staticmaps = callPackage ./tools/geo/py-staticmaps { };
     phyghtmap = callPackage ./tools/geo/phyghtmap { };
+    polyvectorization = libsForQt5.callPackage ./tools/graphics/polyvectorization {
+      inherit sources;
+    };
     ptunnel = callPackage ./tools/networking/ptunnel { };
+    py-staticmaps = callPackage ./tools/geo/py-staticmaps { };
     saait = callPackage ./tools/misc/saait { };
     sendmap20 = callPackage ./tools/geo/sendmap20 { };
     stagit = callPackage ./tools/misc/stagit { };

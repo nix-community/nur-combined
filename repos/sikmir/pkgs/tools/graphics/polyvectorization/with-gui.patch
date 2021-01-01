@@ -1,0 +1,39 @@
+diff --git i/src/main.cpp w/src/main.cpp
+index 5ccdfa9..1d04516 100644
+--- i/src/main.cpp
++++ w/src/main.cpp
+@@ -1,6 +1,6 @@
+ #include "stdafx.h"
+ #define WITH_GUI 1
+-#ifdef _WIN32
++#if 1
+ #include <QtCore/QCoreApplication>
+ #include "mainwindow.h"
+ #include <QElapsedTimer>
+@@ -263,7 +263,7 @@ std::string type2str(int type) {
+ 
+ int main(int argc, char *argv[])
+ {
+-#ifdef _WIN32
++#if 1
+ 	QApplication a(argc, argv);
+ #endif
+ 	using namespace cv;
+@@ -292,7 +292,7 @@ int main(int argc, char *argv[])
+ 	bwImg = Scalar(255) - bwImg;
+ 	m = bwImg.rows; n = bwImg.cols; //m: height, n: width
+ 
+-#ifdef _WIN32
++#if 1
+ 	QElapsedTimer timer;
+ 	timer.start();
+ #else
+@@ -548,7 +548,7 @@ int main(int argc, char *argv[])
+ #ifdef WITH_GUI
+ 	mw.setVectorization("Final", newVectorization);
+ #endif
+-#ifdef _WIN32
++#if 1
+ 	std::cout << "Total time: " << timer.elapsed()/1000 << " s" << std::endl;
+ #endif
+ 	svg::Image bgImg(filename, n, m, -0.5, 0, 0.6);

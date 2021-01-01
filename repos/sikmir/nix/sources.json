@@ -44,15 +44,15 @@
     "cheetah3": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-14T17:50:07Z",
+        "date": "2021-01-01T22:01:06Z",
         "description": "Cheetah3 is a free (MIT) and open source template engine for Python",
         "homepage": "https://cheetahtemplate.org/",
         "owner": "CheetahTemplate3",
         "repo": "cheetah3",
-        "rev": "089e45aadb92d6cd24ccdc8e9a2accac1f7223ba",
-        "sha256": "1aq1qkfyx1kdra8a8xysv11frwzis2yfa5y9li90rqg48p80izxi",
+        "rev": "50804e70261bc9476c8a498985fd93b931b18ae6",
+        "sha256": "0fq6inzr04zbsqmbzj8khr1l8whab61xpzvdp3lchz0lkwms8ppn",
         "type": "tarball",
-        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/089e45aadb92d6cd24ccdc8e9a2accac1f7223ba.tar.gz",
+        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/50804e70261bc9476c8a498985fd93b931b18ae6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "csvquote": {
@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-29T17:58:24Z",
+        "date": "2020-12-31T08:57:22Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "68eb38c57473eaa12a295bffe15115cea2cb363e",
-        "sha256": "0d1c4sv9jfwivxbp29b7szrp5jirb4hsp118ssxngbvkvbhdm60c",
+        "rev": "df47a5a853928315904670fd8e03c88e97602823",
+        "sha256": "0lvlmw60ab3n48cqb857phsvw9mpc5qfva4dw7wyilgs635x567c",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/68eb38c57473eaa12a295bffe15115cea2cb363e.tar.gz",
+        "url": "https://github.com/embox/embox/archive/df47a5a853928315904670fd8e03c88e97602823.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -239,27 +239,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "16l4n89fzh6g8rcjn1n6g18xjvycbvsmvcvbfnhhz7sbsg3drfi3",
+        "sha256": "0xhb0yg6hf09zdyhw59gsky6fdx5x7jfch3i6gp66vqzmxc951wr",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-201228.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-201231.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "201228"
+        "version": "201231"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "10jzcc551f5p8gvmnp2vyb9kql4vxmcifkpzvpkvw1vdx3xhb782",
+        "sha256": "0s3wvndspnl0p918j8qgnihr4y61ylb2zs7cznmghrwd6kk0ic3d",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-201228.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-201231.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "201228"
+        "version": "201231"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "18rc0413v1p67wzphp0v92hr3dvdfkmclyjkgh7bsxhc3dajfh78",
+        "sha256": "06jicr6xix1dgmbvy39ijly3sqnq7xhbq81ja066cm0jlwf31na6",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201228.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201231.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "201228"
+        "version": "201231"
     },
     "gimgtools": {
         "branch": "master",
@@ -377,15 +377,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2020-12-30T08:26:26Z",
+        "date": "2021-01-01T11:52:00Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "7e39a34d0ea189bfd1220b981632f14c0b63741f",
-        "sha256": "08lyc99c2ipigmmyg2ag5ka378xlakbggq2359910wz5pyyidv13",
+        "rev": "4cb369d2f3528c7ddff3f079393b0d2c18518bb0",
+        "sha256": "0qm46am1kxd664rvdx52cqmqf3a35dhb7lagfy77mhb71nnpvhj1",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/7e39a34d0ea189bfd1220b981632f14c0b63741f.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/4cb369d2f3528c7ddff3f079393b0d2c18518bb0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -629,15 +629,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-30T05:53:02Z",
+        "date": "2021-01-01T15:37:39Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "ca4f2946603862af3a9c5cc211a15ee4058a980b",
-        "sha256": "0hh9rmy27d1l9v78h6kss2gacc1x3mkv80fsdx6dc2zgjyxwi7nh",
+        "rev": "d6ed6b3f0bb60836b5a73eb41b5ec8dfd0707094",
+        "sha256": "1vx7ii87qrn9m3mx72xzs90l0xqzrhwgipdb7z4zdvvwlfgkjly9",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/ca4f2946603862af3a9c5cc211a15ee4058a980b.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/d6ed6b3f0bb60836b5a73eb41b5ec8dfd0707094.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maprec": {
@@ -673,11 +673,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "15rkvzpd5h6v9nh0b8n39f8qs6i4a6hiq3jz96as3x8rwkngg04q",
+        "sha256": "1glvaqkrfsrdj84nca1wkvdpw5n02fry7fr4ixijzwr2xxkscq0l",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2020-12-29.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-01-01.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2020-12-29"
+        "version": "2021-01-01"
     },
     "mercantile": {
         "branch": "master",
@@ -843,18 +843,32 @@
         "url": "https://github.com/wladich/ozi_map/archive/4d6bd3f234960ba90d82e6d58da9c1bf4677eb16.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "polyvectorization": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2019-08-23T14:52:46Z",
+        "description": "Reference implementation of Vectorization of Line Drawings via PolyVector Fields",
+        "homepage": "https://github.com/bmpix/PolyVectorization",
+        "owner": "bmpix",
+        "repo": "PolyVectorization",
+        "rev": "bceb8e2a08cca29cef1df074eb1a1f6450cc163f",
+        "sha256": "0d8281q3rdxzrxr5y9bxjkq2s2sfl8fgkk9kqpmpp3z5hxg893jq",
+        "type": "tarball",
+        "url": "https://github.com/bmpix/PolyVectorization/archive/bceb8e2a08cca29cef1df074eb1a1f6450cc163f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "py-staticmaps": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-11-28T13:45:19Z",
+        "date": "2020-12-31T10:49:07Z",
         "description": "A python module to create static map images with markers, geodesic lines, etc.",
         "homepage": "https://github.com/flopp/py-staticmaps",
         "owner": "flopp",
         "repo": "py-staticmaps",
-        "rev": "cbe706fd266137cdf8a412f6ca54c02e4bc89fa6",
-        "sha256": "0ff5wnrw7pfs80092r2iddacb3vi9a64s7j9im177897s55204fq",
+        "rev": "49d2a81d7a7a778eca4527868cf27e9298c5e7c8",
+        "sha256": "17707jc35xbbgn7bnmbfizpcn46hc51nbcz3rjvsizabl8bj8bk5",
         "type": "tarball",
-        "url": "https://github.com/flopp/py-staticmaps/archive/cbe706fd266137cdf8a412f6ca54c02e4bc89fa6.tar.gz",
+        "url": "https://github.com/flopp/py-staticmaps/archive/49d2a81d7a7a778eca4527868cf27e9298c5e7c8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pyephem": {
