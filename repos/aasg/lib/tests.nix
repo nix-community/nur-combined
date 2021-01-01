@@ -40,11 +40,21 @@ runTestsOrDieTrying {
   };
 
   testConcatMapAttrs1 = {
-    expr = concatMapAttrs' (n: v: singleton nameValuePair v n) { };
+    expr = concatMapAttrs (n: v: { ${v} = n; }) { };
     expected = { };
   };
 
   testConcatMapAttrs2 = {
+    expr = concatMapAttrs (n: v: { ${toString v} = n; "f${toString v}" = v; }) { x = 1; y = 2; };
+    expected = { "1" = "x"; "2" = "y"; "f1" = 1; "f2" = 2; };
+  };
+
+  testConcatMapAttrs'1 = {
+    expr = concatMapAttrs' (n: v: singleton nameValuePair v n) { };
+    expected = { };
+  };
+
+  testConcatMapAttrs'2 = {
     expr = concatMapAttrs' (n: v: singleton (nameValuePair (toString v) n)) { x = 1; y = 2; };
     expected = { "1" = "x"; "2" = "y"; };
   };
@@ -54,6 +64,11 @@ runTestsOrDieTrying {
   #  expr = concatMapAttrs' (n: v: singleton (nameValuePair (toString v) n)) { z = 1; y = 1; };
   #  expected = { "1" = "x"; };
   #};
+
+  testConcatMapAttrsToList1 = {
+    expr = concatMapAttrsToList (n: v: [ n v ]) { x = 1; y = 2; };
+    expected = [ "x" 1 "y" 2 ];
+  };
 
   testUpdateNew1 = {
     expr = updateNew { } { };

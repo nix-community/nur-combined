@@ -1,7 +1,7 @@
 { lib, aasgLib }:
 let
-  inherit (builtins) attrNames concatMap concatStringsSep intersectAttrs isAttrs listToAttrs;
-  inherit (lib) isDerivation;
+  inherit (builtins) attrNames concatLists concatMap concatStringsSep foldl' intersectAttrs isAttrs listToAttrs;
+  inherit (lib) isDerivation mapAttrsToList;
 in
 rec {
   /*
@@ -12,14 +12,34 @@ rec {
   capitalizeAttrNames = /*attrs:*/
     lib.mapAttrs' (name: value: lib.nameValuePair (aasgLib.capitalize name) value);
 
+  /* concatMapAttrs :: set -> (string -> any -> set) -> set
+   *
+   * What `concatMap` is to `map`, this is to `mapAttrs`.  Namely, call
+   * a function that produces a set for each attribute in the passed set
+   * and merge the resulting sets using the update operator //.
+   */
+  concatMapAttrs = mapper: attrs:
+    foldl' (prev: name: prev // (mapper name attrs.${name})) { } (builtins.attrNames attrs);
+
   /* concatMapAttrs' :: set -> (string -> any -> [NameValuePair]) -> set
    *
-   * What `concatMap` is to `map`, this is to `mapAttrs'`.  Namely,
-   * call a function to produce multiple attributes for each attribute
-   * in the passed set.
+   * What `concatMap` is to `map`, this is to `mapAttrs'`.  Namely, call
+   * a function to produce multiple attributes for each attribute in the
+   * passed set.
+   *
+   * This function differs from `concatMapAttrs'` by expecting a list of
+   * name-value pairs as result of the mapping function, instead of a
+   * set.
    */
   concatMapAttrs' = mapper: attrs:
     listToAttrs (concatMap (name: mapper name attrs.${name}) (attrNames attrs));
+
+  /* concatMapAttrsToList :: (string -> any -> [any]) -> set -> [any]
+   *
+   * Like mapAttrsToList, but allows multiple values to be returned
+   * from the mapping function as a list.
+   */
+  concatMapAttrsToList = mapper: attrs: concatLists (mapAttrsToList mapper attrs);
 
   /* copyAttrsByPath :: [string] -> set -> set
    *

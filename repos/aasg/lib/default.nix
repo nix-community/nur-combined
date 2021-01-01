@@ -5,7 +5,9 @@ let
     attrsets = callLibs ./attrsets.nix;
     inherit (attrsets)
       capitalizeAttrNames
+      concatMapAttrs
       concatMapAttrs'
+      concatMapAttrsToList
       copyAttrsByPath
       recurseIntoAttrsRecursive
       updateNew
