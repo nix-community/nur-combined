@@ -580,13 +580,13 @@ let
         sha512 = "lJNXa+BH+HCoutDKbPOoW51LcBmzh9WcFcbOQYqHsSp9C1jPuFxH6QD68HLtrueZs+GEdkmQorMP4f15/WBQOw==";
       };
     };
-    "@types/lodash-4.14.166" = {
+    "@types/lodash-4.14.167" = {
       name = "_at_types_slash_lodash";
       packageName = "@types/lodash";
-      version = "4.14.166";
+      version = "4.14.167";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.166.tgz";
-        sha512 = "A3YT/c1oTlyvvW/GQqG86EyqWNrT/tisOIh2mW3YCgcx71TNjiTZA3zYZWA5BCmtsOTXjhliy4c4yEkErw6njA==";
+        url = "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.167.tgz";
+        sha512 = "w7tQPjARrvdeBkX/Rwg95S592JwxqOjmms3zWQ0XZgSyxSLdzWaYH3vErBhdVS/lRBX7F8aBYcYJYTr5TMGOzw==";
       };
     };
     "@types/long-4.0.1" = {
@@ -2029,13 +2029,13 @@ let
         sha512 = "uUQBt3H/cSIVfch6i1EuPNy/YsRSOUBXTVfZ+yR7Zjez3qjBz6i9+i4zjNaoqcoFVI4lQJ5plg63TvGfRSDCRg==";
       };
     };
-    "http-parser-js-0.5.2" = {
+    "http-parser-js-0.5.3" = {
       name = "http-parser-js";
       packageName = "http-parser-js";
-      version = "0.5.2";
+      version = "0.5.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/http-parser-js/-/http-parser-js-0.5.2.tgz";
-        sha512 = "opCO9ASqg5Wy2FNo7A0sxy71yGbbkJJXLdgMK04Tcypw9jr2MgWbyubb0+WdmDmGnFflO7fRbqbaihh/ENDlRQ==";
+        url = "https://registry.npmjs.org/http-parser-js/-/http-parser-js-0.5.3.tgz";
+        sha512 = "t7hjvef/5HEK7RWTdUzVUhl8zkEu+LlaE0IYzdMuvbSDipxBRpOn4Uhw8ZyECEa808iVT8XCjzo6xmYt4CiLZg==";
       };
     };
     "http-terminator-2.0.3" = {
@@ -3640,13 +3640,13 @@ let
         sha1 = "3c531942e908c2697c0ec344858c286c7ca0a60a";
       };
     };
-    "sucrase-3.16.0" = {
+    "sucrase-3.17.0" = {
       name = "sucrase";
       packageName = "sucrase";
-      version = "3.16.0";
+      version = "3.17.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/sucrase/-/sucrase-3.16.0.tgz";
-        sha512 = "ovVuswxV5TayCPXfTk8bgBgk6uNRvsinIkEpq0J6zS1xXCx5N/LLGcbsKdRhqn/ToZylMX6+yXaR1LSn1I42Pg==";
+        url = "https://registry.npmjs.org/sucrase/-/sucrase-3.17.0.tgz";
+        sha512 = "wtiqaokYRjFSSrv8fQu7pThKTIZSLwiffW+PHQG52hlI8eJO47v1tXbKt6fYb8Z1kCyuCkNH9etpTUebb7g+pA==";
       };
     };
     "supports-color-2.0.0" = {
@@ -4181,7 +4181,7 @@ in
       sources."@types/express-serve-static-core-4.17.17"
       sources."@types/firebase-3.2.1"
       sources."@types/http-terminator-2.0.1"
-      sources."@types/lodash-4.14.166"
+      sources."@types/lodash-4.14.167"
       sources."@types/long-4.0.1"
       sources."@types/memoizee-0.4.5"
       sources."@types/mime-2.0.3"
@@ -4383,7 +4383,7 @@ in
       sources."has-symbols-1.0.1"
       sources."he-1.2.0"
       sources."http-errors-1.7.2"
-      sources."http-parser-js-0.5.2"
+      sources."http-parser-js-0.5.3"
       sources."http-terminator-2.0.3"
       sources."https-proxy-agent-5.0.0"
       sources."iconv-lite-0.4.24"
@@ -4605,7 +4605,7 @@ in
       sources."strip-ansi-6.0.0"
       sources."strip-eof-1.0.0"
       sources."strip-json-comments-2.0.1"
-      (sources."sucrase-3.16.0" // {
+      (sources."sucrase-3.17.0" // {
         dependencies = [
           sources."glob-7.1.6"
         ];

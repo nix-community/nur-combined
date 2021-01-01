@@ -2029,13 +2029,13 @@ let
         sha512 = "g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==";
       };
     };
-    "sort-keys-4.1.0" = {
+    "sort-keys-4.2.0" = {
       name = "sort-keys";
       packageName = "sort-keys";
-      version = "4.1.0";
+      version = "4.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/sort-keys/-/sort-keys-4.1.0.tgz";
-        sha512 = "/sRdxzkkPFUYiCrTr/2t+104nDc9AgDmEpeVYuvOWYQe3Djk1GWO6lVw3Vx2jfh1SsR0eehhd1nvFYlzt5e99w==";
+        url = "https://registry.npmjs.org/sort-keys/-/sort-keys-4.2.0.tgz";
+        sha512 = "aUYIEU/UviqPgc8mHR6IW1EGxkAXpeRETYcrzg8cLAvUPZcpAlleSXHV2mY7G12GphSH6Gzv+4MMVSSkbdteHg==";
       };
     };
     "source-map-0.6.1" = {
@@ -2218,13 +2218,13 @@ let
         sha512 = "V0r2Y9scmbDRLCNex/+hYzvp/zyYjvFbHPNgVTKfQvVrb6guiE/fxP+XblDNR011utopbkex2nM4dHNV6GDsng==";
       };
     };
-    "tar-stream-2.1.4" = {
+    "tar-stream-2.2.0" = {
       name = "tar-stream";
       packageName = "tar-stream";
-      version = "2.1.4";
+      version = "2.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/tar-stream/-/tar-stream-2.1.4.tgz";
-        sha512 = "o3pS2zlG4gxr67GmFYBLlq+dM8gyRGUOvsrHclSkvtVtQbjV0s/+ZE8OpICbaj8clrX3tjeHngYGP7rweaBnuw==";
+        url = "https://registry.npmjs.org/tar-stream/-/tar-stream-2.2.0.tgz";
+        sha512 = "ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ==";
       };
     };
     "term-size-2.2.1" = {
@@ -2560,13 +2560,13 @@ let
         sha512 = "PxiShnxf0IlnQuMYOPPhPkhExoCQuTUNPOa/2JWCYTmBquU9njyyDuwRKN26IZBlp4yn1nt+Agh2HOOBl+55HQ==";
       };
     };
-    "ws-7.4.1" = {
+    "ws-7.4.2" = {
       name = "ws";
       packageName = "ws";
-      version = "7.4.1";
+      version = "7.4.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ws/-/ws-7.4.1.tgz";
-        sha512 = "pTsP8UAfhy3sk1lSk/O/s4tjD0CRwvMnzvwr4OKGX7ZvqZtUyx4KIJB5JWbkykPoc55tixMGgTNoh3k4FkNGFQ==";
+        url = "https://registry.npmjs.org/ws/-/ws-7.4.2.tgz";
+        sha512 = "T4tewALS3+qsrpGI/8dqNMLIVdq/g/85U98HPMa6F0m6xTbvhXU6RCQLqPH3+SlomNV/LdY6RXEbBpMH6EOJnA==";
       };
     };
     "yallist-4.0.0" = {
@@ -2945,7 +2945,7 @@ in
       sources."shebang-regex-1.0.0"
       sources."signal-exit-3.0.3"
       sources."slash-3.0.0"
-      sources."sort-keys-4.1.0"
+      sources."sort-keys-4.2.0"
       sources."source-map-0.6.1"
       sources."source-map-support-0.5.19"
       sources."spdx-correct-3.1.1"
@@ -2966,7 +2966,7 @@ in
         ];
       })
       sources."tar-fs-2.1.1"
-      sources."tar-stream-2.1.4"
+      sources."tar-stream-2.2.0"
       sources."term-size-2.2.1"
       sources."tmp-0.1.0"
       sources."to-regex-range-5.0.1"
@@ -3019,7 +3019,7 @@ in
       sources."wrappy-1.0.2"
       sources."write-file-atomic-3.0.3"
       sources."write-json-file-4.3.0"
-      sources."ws-7.4.1"
+      sources."ws-7.4.2"
       sources."yallist-4.0.0"
       sources."yn-3.1.1"
     ];
