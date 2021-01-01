@@ -18,4 +18,17 @@ rec {
       # maintainers = [ maintainers.zeratax ];
     };
   };
+
+  eamodio.gitlens = buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "gitlens";
+      publisher = "eamodio";
+      version = "11.1.0";
+      sha256 = "1g8ayhsfq6yzbbrvffsdqgms3nsijd5x0x13vdldfqsp6yfkh0f1";
+    };
+    meta = with lib; {
+      # license = licenses.mit;
+      # maintainers = [ maintainers.zeratax ];
+    };
+  };
 }
