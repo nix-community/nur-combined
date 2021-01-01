@@ -13,6 +13,7 @@ let
 
   gradlePkgs = pkgs.callPackage ./pkgs/gradle { };
   groovyPkgs = pkgs.callPackage ./pkgs/groovy { };
+  groovy4Pkgs = pkgs.callPackage ./pkgs/groovy4 { };
   springBootCliPkgs = pkgs.callPackage ./pkgs/spring-boot-cli { };
   micronautPkgs = pkgs.callPackage ./pkgs/micronaut { };
 
@@ -140,10 +141,14 @@ in rec {
   gradle-6_7_1 = gradlePkgs.gradle-6_7_1;
 
   groovy-2_4_19 = groovyPkgs.groovy-2_4_19;
+  groovy-2_4_21 = groovyPkgs.groovy-2_4_21;
   groovy-2_5_10 = groovyPkgs.groovy-2_5_10;
   groovy-2_5_11 = groovyPkgs.groovy-2_5_11;
+  groovy-2_5_14 = groovyPkgs.groovy-2_5_14;
   groovy-3_0_2 = groovyPkgs.groovy-3_0_2;
   groovy-3_0_3 = groovyPkgs.groovy-3_0_3;
+  groovy-3_0_7 = groovyPkgs.groovy-3_0_7;
+  groovy-4_0_0-alpha-2 = groovy4Pkgs.groovy-4_0_0-alpha-2;
 
   micronaut-1_3_4 = micronautPkgs.micronaut-1_3_4;
   micronaut-1_3_5 = micronautPkgs.micronaut-1_3_5;
@@ -155,7 +160,7 @@ in rec {
 
   jdk = adoptopenjdk-hotspot-bin-15;
   gradle = gradle-6_7_1;
-  groovy = groovy-3_0_3;
+  groovy = groovy-3_0_7;
   micronaut = micronaut-1_3_5;
   spring-boot-cli = spring-boot-cli-2_2_7;
 }

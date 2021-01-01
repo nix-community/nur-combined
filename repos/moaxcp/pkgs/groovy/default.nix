@@ -37,6 +37,22 @@ rec {
       };
     };
 
+    groovy-4_0_0-alpha-2 = groovyGen rec {
+        version = "4.0.0-alpha-2";
+        src = fetchurl {
+            url = "https://dl.bintray.com/groovy/maven/apache-groovy-binary-${version}.zip";
+            sha256 = "1qwgsz5dvggrwhxm30l81pzv6h0swf5k35rhqicbkrmm2im19nd6";
+        };
+    };
+
+    groovy-3_0_7 = groovyGen rec {
+        version = "3.0.7";
+        src = fetchurl {
+            url = "https://dl.bintray.com/groovy/maven/apache-groovy-binary-${version}.zip";
+            sha256 = "1xdpjqx7qaq0syw448b32q36g12pgh1hn6knyqi3k5isp0f09qmr";
+        };
+    };
+
     groovy-3_0_3 = groovyGen rec {
         version = "3.0.3";
         src = fetchurl {
@@ -53,6 +69,14 @@ rec {
         };
     };
 
+    groovy-2_5_14 = groovyGen rec {
+        version = "2.5.14";
+        src = fetchurl {
+            url = "https://dl.bintray.com/groovy/maven/apache-groovy-binary-${version}.zip";
+            sha256 = "16cn3knsykc3rpjr6pli4f5ljhklzk9yr2y41k8jm3sfkalpda3i";
+        };
+    };
+
     groovy-2_5_11 = groovyGen rec {
         version = "2.5.11";
         src = fetchurl {
@@ -66,6 +90,14 @@ rec {
         src = fetchurl {
             url = "https://dl.bintray.com/groovy/maven/apache-groovy-binary-${version}.zip";
             sha256 = "0zqcvi423gkkns7jksna0pvkjihp79wnagyn5v3k76g5pkzzx3bk";
+        };
+    };
+
+    groovy-2_4_21 = groovyGen rec {
+        version = "2.4.21";
+        src = fetchurl {
+            url = "https://dl.bintray.com/groovy/maven/apache-groovy-binary-${version}.zip";
+            sha256 = "0h4g0l3nklp2nddnq2l41zp1jg425ld120mi0lbj8jh5map5j3rg";
         };
     };
 
