@@ -823,10 +823,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "20.12.27";
+      version = "21.1.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3700226/refined_github-20.12.27-an+fx.xpi";
-      sha256 = "e2da2bacc4153dd3fedd36192372ee38a2549463a1e79a7a07282e898864a44b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3701992/refined_github-21.1.1-an+fx.xpi";
+      sha256 = "53a56283a6d5a895aaacfe9043cb8c0156bd69377aaf902716e165de5a274819";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
