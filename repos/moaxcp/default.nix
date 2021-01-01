@@ -16,6 +16,7 @@ let
   groovy4Pkgs = pkgs.callPackage ./pkgs/groovy4 { };
   springBootCliPkgs = pkgs.callPackage ./pkgs/spring-boot-cli { };
   micronautPkgs = pkgs.callPackage ./pkgs/micronaut { };
+  micronautCliPkgs = pkgs.callPackage ./pkgs/micronaut-cli { };
 
   adoptopenjdk-bin-8-packages-linux = import ./pkgs/adoptopenjdk-bin/jdk8-linux.nix;
   adoptopenjdk-bin-8-packages-darwin = import ./pkgs/adoptopenjdk-bin/jdk8-darwin.nix;
@@ -152,7 +153,8 @@ in rec {
 
   micronaut-1_3_4 = micronautPkgs.micronaut-1_3_4;
   micronaut-1_3_5 = micronautPkgs.micronaut-1_3_5;
-  micronaut-2_2_2 = micronautPkgs.micronaut-2_2_2;
+
+  micronaut-cli-2_2_2 = micronautCliPkgs.micronaut-cli-2_2_2;
 
   netbeans-11_3 = callPackage ./pkgs/netbeans { };
 
@@ -164,6 +166,7 @@ in rec {
   gradle = gradle-6_7_1;
   groovy = groovy-3_0_7;
   micronaut = micronaut-1_3_5;
+  micronaut-cli = micronaut-cli-2_2_2;
   spring-boot-cli = spring-boot-cli-2_4_1;
 }
 
