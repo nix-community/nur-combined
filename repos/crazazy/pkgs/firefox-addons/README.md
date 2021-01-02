@@ -12,7 +12,7 @@ Nix has been making a transition into slowly hardening firefox profiles, startin
 
 ### Generating addons
 
-To get your own addons list, copy `generate-addons.sh` and `findSlugs.jq` into an empty directory, then exectute `generate-addons.sh` in the new directory.
+To get your own addons list, copy `generate-addons.sh` and execute it.
 
 ## Usage
 
