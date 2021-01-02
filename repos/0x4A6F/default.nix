@@ -20,6 +20,8 @@
 
   bpf-linker = pkgs.callPackage ./pkgs/bpf-linker { };
 
+  deploy-rs = pkgs.callPackage ./pkgs/deploy-rs { };
+
   freenukum = pkgs.callPackage ./pkgs/freenukum { };
 
   gobi_loader = pkgs.callPackage ./pkgs/gobi_loader { };
