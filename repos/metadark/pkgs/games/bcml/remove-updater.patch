@@ -1,5 +1,5 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index 1a1d8ed..5291e94 100644
+index 5183ae2..be0ec82 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
 @@ -60,11 +60,7 @@ class Api:
@@ -15,7 +15,7 @@ index 1a1d8ed..5291e94 100644
  
      @win_or_lose
      def sanity_check(self, kwargs=None):
-@@ -722,52 +718,6 @@ class Api:
+@@ -712,47 +708,6 @@ class Api:
          help_thread = Thread(target=help_window, args=(self.host,))
          help_thread.start()
  
@@ -51,12 +51,7 @@ index 1a1d8ed..5291e94 100644
 -                text=True,
 -            )
 -        else:
--            result = run(
--                args,
--                capture_output=True,
--                check=False,
--                text=True,
--            )
+-            result = run(args, capture_output=True, check=False, text=True,)
 -        if result.stderr:
 -            if parent.name == "pkgs":
 -                try:
@@ -69,7 +64,7 @@ index 1a1d8ed..5291e94 100644
          opener = Thread(target=start_new_instance)
          opener.start()
 diff --git a/bcml/assets/src/js/App.jsx b/bcml/assets/src/js/App.jsx
-index 2d0d965..1979059 100644
+index 64ec5fd..1979059 100644
 --- a/bcml/assets/src/js/App.jsx
 +++ b/bcml/assets/src/js/App.jsx
 @@ -35,7 +35,6 @@ class App extends React.Component {
@@ -114,17 +109,20 @@ index 2d0d965..1979059 100644
      setProgress = (title, msg) => {
          this.setState({
              progressTitle: title,
-@@ -328,9 +300,6 @@ class App extends React.Component {
+@@ -328,12 +300,6 @@ class App extends React.Component {
                          <Dropdown.Item onClick={() => pywebview.api.save_mod_list()}>
                              Save Mod List
                          </Dropdown.Item>
--                        <Dropdown.Item onClick={this.updateBcml}>
+-                        <Dropdown.Item
+-                            as="a"
+-                            href="https://github.com/NiceneNerd/BCML/releases/latest"
+-                            target="_blank">
 -                            Update BCML
 -                        </Dropdown.Item>
                          <Dropdown.Item as="a" href="/index.html?firstrun">
                              Run Setup Wizard
                          </Dropdown.Item>
-@@ -441,14 +410,6 @@ class App extends React.Component {
+@@ -444,14 +410,6 @@ class App extends React.Component {
                      message={this.state.confirmText}
                      onClose={this.state.confirmCallback.bind(this)}
                  />
@@ -139,7 +137,7 @@ index 2d0d965..1979059 100644
                  <BackupModal
                      show={this.state.showBackups}
                      busy={this.state.showProgress}
-@@ -569,23 +530,4 @@ const ConfirmDialog = props => {
+@@ -572,29 +530,4 @@ const ConfirmDialog = props => {
      );
  };
  
@@ -150,10 +148,16 @@ index 2d0d965..1979059 100644
 -                <Modal.Title>Update Available</Modal.Title>
 -            </Modal.Header>
 -            <Modal.Body>
--                There is a new update available for BCML. Would you like to install it?
+-                There is a new update available for BCML. Would you like to update? (OK
+-                will open a new window to the latest download.)
 -            </Modal.Body>
 -            <Modal.Footer>
--                <Button onClick={() => props.onClose(true)}>OK</Button>
+-                <Button
+-                    as="a"
+-                    href="https://github.com/NiceneNerd/BCML/releases/latest"
+-                    target="_blank">
+-                    OK
+-                </Button>
 -                <Button variant="secondary" onClick={() => props.onClose(false)}>
 -                    Close
 -                </Button>
@@ -201,10 +205,10 @@ index e442b9b..eccfbdf 100644
                              <Form.Group controlId="force_7z">
                                  <OverlayTrigger
 diff --git a/bcml/util.py b/bcml/util.py
-index d418530..30c7d6d 100644
+index fd3c2d3..cc1df2f 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
-@@ -565,7 +565,6 @@ DEFAULT_SETTINGS = {
+@@ -563,7 +563,6 @@ DEFAULT_SETTINGS = {
      "wiiu": True,
      "no_hardlinks": False,
      "force_7z": False,
@@ -212,7 +216,7 @@ index d418530..30c7d6d 100644
  }
  
  
-@@ -1255,25 +1254,6 @@ def get_open_port():
+@@ -1253,25 +1252,6 @@ def get_open_port():
      return port
  
  
