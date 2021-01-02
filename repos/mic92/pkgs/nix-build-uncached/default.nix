@@ -15,8 +15,6 @@ let
     # cannot use nix-build in nix build
     doCheck = false;
 
-    goPackagePath = "github.com/Mic92/nix-build-uncached";
-
     meta = with stdenv.lib; {
       description = "A CI friendly wrapper around nix-build.";
       homepage = "https://github.com/Mic92/nix-build-uncached";

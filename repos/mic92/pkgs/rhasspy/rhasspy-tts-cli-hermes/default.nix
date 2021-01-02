@@ -15,6 +15,9 @@ buildPythonPackage rec {
     inherit pname version;
     sha256 = "sha256-3eqL03ydybX8ygd7oFWwDuyHzQZiNBBC+ocCk0Ov5TI=";
   };
+  postPatch = ''
+    sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
+  '';
 
   propagatedBuildInputs = [
     rhasspy-hermes

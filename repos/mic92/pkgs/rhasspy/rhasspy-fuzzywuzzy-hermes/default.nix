@@ -27,6 +27,7 @@ buildPythonPackage rec {
 
   postPatch = ''
     sed -i "s/networkx==.*/networkx/" requirements.txt
+    sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
   '';
 
   doCheck = false;

@@ -23,6 +23,7 @@ buildPythonPackage rec {
   postPatch = ''
     sed -i "s/aiohttp==.*/aiohttp/" requirements.txt
     sed -i "s/networkx==.*/networkx/" requirements.txt
+    sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
   '';
 
   propagatedBuildInputs = [

@@ -17,6 +17,10 @@ buildPythonPackage rec {
     sha256 = "sha256-4+bujodWZ4WjG8iEHgN+qS02PFuuzetNdKJu+QgTDyA=";
   };
 
+  postPatch = ''
+    sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
+  '';
+
   propagatedBuildInputs = [
     webrtcvad
     rhasspy-hermes

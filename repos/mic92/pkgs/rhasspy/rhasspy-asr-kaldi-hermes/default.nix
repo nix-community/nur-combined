@@ -1,7 +1,6 @@
 { stdenv
 , buildPythonPackage
 , fetchFromGitHub
-, paho-mqtt
 , rhasspy-hermes
 , attrs
 , rhasspy-asr-kaldi
@@ -29,7 +28,8 @@ buildPythonPackage rec {
   ];
 
   postPatch = ''
-    sed -i "s/networkx==.*/networkx/" requirements.txt
+    sed -i 's/networkx==.*/networkx/' requirements.txt
+    sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
   '';
 
   # misses files

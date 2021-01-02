@@ -23,6 +23,7 @@ buildPythonPackage rec {
 
   postPatch = ''
     patchShebangs configure
+    sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
   '';
 
   meta = with stdenv.lib; {
