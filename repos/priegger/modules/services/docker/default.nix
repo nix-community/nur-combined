@@ -25,7 +25,7 @@ in
 
     services.cadvisor = mkIf config.services.prometheus.enable {
       enable = mkDefault true;
-      extraOptions = [ "-housekeeping_interval=15s" "-max_procs=1" ];
+      extraOptions = [ "-housekeeping_interval=300s" "-max_procs=1" ];
       port = mkDefault 18080;
     };
 
@@ -41,6 +41,9 @@ in
           config.services.cadvisor.enable
           {
             job_name = "cadvisor";
+            params = {
+              max_age = [ "1s" ];
+            };
             static_configs = [
               { targets = [ "127.0.0.1:${toString config.services.cadvisor.port}" ]; }
             ];
