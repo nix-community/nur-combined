@@ -162,7 +162,6 @@ in rec {
   spring-boot-cli-2_2_7 = springBootCliPkgs.spring-boot-cli-2_2_7;
   spring-boot-cli-2_4_1 = springBootCliPkgs.spring-boot-cli-2_4_1;
 
-  jdk = adoptopenjdk-hotspot-bin-15;
   gradle = gradle-6_7_1;
   groovy = groovy-3_0_7;
   micronaut = micronaut-1_3_5;
