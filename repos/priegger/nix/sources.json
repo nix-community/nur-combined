@@ -1,4 +1,16 @@
 {
+    "cadvisor": {
+        "branch": "cadvisor",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "SuperSandro2000",
+        "repo": "nixpkgs",
+        "rev": "a0c61e1fe97ebee0e7102514e7536f6d8b0f5e0f",
+        "sha256": "1lav7jy696s86pkrybwvq4i9pldjs702qq4c89nlai62sv1nm4l6",
+        "type": "tarball",
+        "url": "https://github.com/SuperSandro2000/nixpkgs/archive/a0c61e1fe97ebee0e7102514e7536f6d8b0f5e0f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",
