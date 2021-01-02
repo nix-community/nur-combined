@@ -4,7 +4,7 @@ python3Packages.buildPythonPackage {
   pname = "python-hfst";
   inherit (hfst) src version;
 
-  sourceRoot = "source/python";
+  sourceRoot = "hfst-src/python";
 
   buildInputs = [ hfst ];
 

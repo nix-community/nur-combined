@@ -6,7 +6,7 @@ stdenv.mkDerivation {
 
   src = sources.foma;
 
-  sourceRoot = "source/foma";
+  sourceRoot = "foma-src/foma";
 
   nativeBuildInputs = [ bison flex libtool ];
 
