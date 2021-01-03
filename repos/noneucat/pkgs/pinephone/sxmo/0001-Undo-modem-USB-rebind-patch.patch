@@ -1,0 +1,29 @@
+From 4609f871deb19a3e4763fbb2e3aca7264cf59106 Mon Sep 17 00:00:00 2001
+From: "Andy Chun @noneucat" <andy@lolc.at>
+Date: Sun, 3 Jan 2021 09:40:04 -0800
+Subject: [PATCH] Undo modem USB rebind patch
+
+---
+ programs/sxmo_screenlock.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/programs/sxmo_screenlock.c b/programs/sxmo_screenlock.c
+index 0948a4d..faf479f 100644
+--- a/programs/sxmo_screenlock.c
++++ b/programs/sxmo_screenlock.c
+@@ -375,9 +375,9 @@ syncstate()
+ 			writefile(powerstatefile, "mem");
+ 			//---- program blocks here due to sleep ----- //
+ 			// Just woke up again
+-			fprintf(stderr, "Resetting usb connection to the modem\n");
+-			writefile("/sys/bus/usb/drivers/usb/unbind", "3-1");
+-			writefile("/sys/bus/usb/drivers/usb/bind", "3-1");
++			//fprintf(stderr, "Resetting usb connection to the modem\n");
++			//writefile("/sys/bus/usb/drivers/usb/unbind", "3-1");
++			//writefile("/sys/bus/usb/drivers/usb/bind", "3-1");
+ 			fprintf(stderr, "Woke up\n");
+ 			if (waketime > 0) {
+ 				rtcresult = checkrtcwake();
+-- 
+2.29.2
+

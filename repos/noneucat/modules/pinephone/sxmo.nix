@@ -16,6 +16,12 @@ in
         description = "Enable Sxmo as a window manager.";
       };
 
+      suspendTimeout = mkOption {
+        type = types.int;
+        default = 70;
+        description = "The default suspend timeout for sxmo_screenlock.";
+      };
+
       wallpaperImage = mkOption {
         default = pkgs.fetchurl {
           url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/766f10e0c93cb1236a85925a089d861b52ed2905/wallpapers/nix-wallpaper-mosaic-blue.png";
@@ -50,6 +56,7 @@ in
 
 
         export XDG_DATA_DIRS=$XDG_DATA_DIRS:$FOXTROT_SCHEMAS
+        export SXMO_SUSPENDTIMEOUTS=${toString cfg.suspendTimeout}
 
         ${pkgs.runtimeShell} ${sxmo-utils}/bin/sxmo_xinit.sh &
         waitPID=$!
@@ -129,28 +136,39 @@ in
     services.geoclue2.enableDemoAgent = false; # we would use this, but it doesn't build for me
 
     # PinePhone: enable modem
-    systemd.services.modem-control.enable = true;
+    #systemd.services.modem-control.enable = true;
+
+    # HACK: https://todo.sr.ht/~mil/sxmo-tickets/116 does not play well with
+    # the modem-control service
+    # we've disabled it for now and power the modem up manually in the gps setup!!
+    systemd.services.modem-control = lib.mkForce {};
 
     # PinePhone: GPS
     systemd.services.gps-modem-setup = mkIf cfg.enablePinePhoneGps {
       description = "Set modem up for GPS";
       enable = true;
-      path = with pkgs; [ systemd atinout ];
+      path = with pkgs; [ coreutils systemd modemmanager atinout ];
+      script = ''
+echo "Powering modem on..."
+echo 1 > /sys/class/modem-power/modem-power/device/powered
+sleep 1
+
+systemctl restart ModemManager.service
+sleep 1
+
+# enable GPS
+# https://www.quectel.com/UploadImage/Downlad/Quectel_LTE_Standard_GNSS_Application_Note_V1.2.pdf
+echo "AT+QGPS=1,30,50,0,2" | atinout - /dev/ttyUSB3 -
+
+# mmcli -m 0 --location-enable-gps-raw --location-enable-gps-nmea # not sure if needed...
+      '';
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = ''
-          systemctl start ModemManager.service
-
-          # https://www.quectel.com/UploadImage/Downlad/Quectel_LTE_Standard_GNSS_Application_Note_V1.2.pdf
-          echo "AT+QGPS=1,30,50,0,2" | atinout - /dev/ttyUSB3 -
-
-          mmcli -m 0 --location-enable-gps-raw --location-enable-gps-nmea # not sure if needed...
-        '';
         User = "root";
       };
       wantedBy = [ "multi-user.target" ];
       before = [ "gpsd.service" ];
-      after = [ "modem-control.service" ];
+      # after = [ "modem-control.service" ];
     };
 
     # sxmo-utils: utilities that need setuid
