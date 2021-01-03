@@ -18,12 +18,16 @@ stdenv.mkDerivation rec {
     sed -i "s,/usr/share/,$out/share/,g" ./distr/durden
   '';
 
+  # TODO: this is pretty ugly. propably there are nice nix tools for this stuff
+  # this relies on having arcan configured as suid binary so /run/wrappers/bin/arcan exists
   installPhase = ''
-    mkdir -p $out/share
+    mkdir -p $out/share/wayland-sessions
     mkdir -p $out/bin
     cp -r ./durden $out/share/
     echo -e "#!${bash}/bin/bash\nexec /run/wrappers/bin/arcan $out/share/durden" > $out/bin/durden
     chmod +x $out/bin/durden
+    echo -e "[Desktop Entry]\nName=durden\nComment=Next Generation Window Manager\nExec=$out/bin/durden\nType=Application" > $out/share/wayland-sessions/durden.desktop
+    chmod +x $out/share/wayland-sessions/durden.desktop
   '';
 
   meta = with stdenv.lib; {
