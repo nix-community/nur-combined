@@ -76,6 +76,7 @@ in
       bc
       coreutils
       findutils
+      feh
       xorg.xmodmap
       xorg.xf86inputsynaptics # synclient
       xorg.xwininfo
