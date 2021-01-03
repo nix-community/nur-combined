@@ -63,6 +63,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description = "Clone of the original Duke Nukum 1 Jump'n Run game";
+    homepage = "https://gitlab.com/silwol/freenukum";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ _0x4A6F ];
     platforms = platforms.unix;
