@@ -161,11 +161,5 @@ in rec {
   spring-boot-cli-2_2_6 = springBootCliPkgs.spring-boot-cli-2_2_6;
   spring-boot-cli-2_2_7 = springBootCliPkgs.spring-boot-cli-2_2_7;
   spring-boot-cli-2_4_1 = springBootCliPkgs.spring-boot-cli-2_4_1;
-
-  gradle = gradle-6_7_1;
-  groovy = groovy-3_0_7;
-  micronaut = micronaut-1_3_5;
-  micronaut-cli = micronaut-cli-2_2_2;
-  spring-boot-cli = spring-boot-cli-2_4_1;
 }
 

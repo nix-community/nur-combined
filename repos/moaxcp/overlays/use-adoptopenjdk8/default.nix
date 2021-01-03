@@ -20,7 +20,15 @@ self: super: {
         jdk = self.adoptopenjdk-hotspot-bin-8;
     };
 
+    gradle-6_7_1 = super.gradle-6_7_1.override {
+        jdk = self.adoptopenjdk-hotspot-bin-8;
+    };
+
     groovy-2_4_19 = super.groovy-2_4_19.override {
+        jdk = self.adoptopenjdk-hotspot-bin-8;
+    };
+
+    groovy-2_4_21 = super.groovy-2_4_21.override {
         jdk = self.adoptopenjdk-hotspot-bin-8;
     };
 
@@ -32,11 +40,19 @@ self: super: {
         jdk = self.adoptopenjdk-hotspot-bin-8;
     };
 
+    groovy-2_5_14 = super.groovy-2_5_14.override {
+        jdk = self.adoptopenjdk-hotspot-bin-8;
+    };
+
     groovy-3_0_2 = super.groovy-3_0_2.override {
         jdk = self.adoptopenjdk-hotspot-bin-8;
     };
 
     groovy-3_0_3 = super.groovy-3_0_3.override {
+        jdk = self.adoptopenjdk-hotspot-bin-8;
+    };
+
+    groovy-3_0_7 = super.groovy-3_0_7.override {
         jdk = self.adoptopenjdk-hotspot-bin-8;
     };
 
@@ -48,11 +64,19 @@ self: super: {
         jdk = self.adoptopenjdk-hotspot-bin-8;
     };
 
+    micronaut-cli-2_2_2 = super.micronaut-cli-2_2_2.override {
+        jdk = self.adoptopenjdk-hotspot-bin-8;
+    };
+
     spring-boot-cli-2_2_6 = super.spring-boot-cli-2_2_6.override {
         jdk = self.adoptopenjdk-hotspot-bin-8;
     };
 
     spring-boot-cli-2_2_7 = super.spring-boot-cli-2_2_7.override {
+        jdk = self.adoptopenjdk-hotspot-bin-8;
+    };
+
+    spring-boot-cli-2_4_1 = super.spring-boot-cli-2_4_1.override {
         jdk = self.adoptopenjdk-hotspot-bin-8;
     };
 }
