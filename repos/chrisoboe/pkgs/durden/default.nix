@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, arcan }:
+{ stdenv, fetchFromGitHub, bash}:
 
 stdenv.mkDerivation rec {
   pname = "durden";
@@ -11,16 +11,19 @@ stdenv.mkDerivation rec {
     sha256 = "03ry8ypsvpjydb9s4c28y3iffz9375pfgwq9q9y68hmj4d89bjvz";
   };
 
-  buildInputs = [ arcan ];
-
   dontConfigure = true;
   dontBuild = true;
 
+  patchPhase = ''
+    sed -i "s,/usr/share/,$out/share/,g" ./distr/durden
+  '';
+
   installPhase = ''
-    mkdir -p $out/share/arcan/appl
+    mkdir -p $out/share
     mkdir -p $out/bin
-    cp -r ./durden $out/share/arcan/appl/
-    cp ./distr/durden $out/bin/durden
+    cp -r ./durden $out/share/
+    echo -e "#!${bash}/bin/bash\nexec /run/wrappers/bin/arcan $out/share/durden" > $out/bin/durden
+    chmod +x $out/bin/durden
   '';
 
   meta = with stdenv.lib; {
@@ -29,5 +32,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = [ "chris@oboe.email" ];
   };
+
+  passthru.providedSessions = [ "durden" ];
 }
 

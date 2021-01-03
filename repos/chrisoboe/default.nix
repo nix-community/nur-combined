@@ -17,6 +17,6 @@ rec {
   #example-package = pkgs.callPackage ./pkgs/example-package { };
   chitubox = pkgs.callPackage ./pkgs/chitubox/chitubox.nix {} ;
   arcan = pkgs.callPackage ./pkgs/arcan/default.nix {};
-  durden = pkgs.callPackage ./pkgs/durden/default.nix { arcan = arcan; };
+  durden = pkgs.callPackage ./pkgs/durden/default.nix {};
 }
 
