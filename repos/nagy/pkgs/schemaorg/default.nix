@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub }:
-stdenv.mkDerivation rec {
+{ stdenvNoCC, fetchFromGitHub }:
+stdenvNoCC.mkDerivation rec {
   pname = "schemaorg";
   version = "11.0";
 
@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
     cp -r "data/releases/${version}/." "$out/share/schema.org/"
   '';
 
-  meta = {
+  meta = with stdenvNoCC.lib ; {
     description = "schema.org";
     homepage = "schema.org";
-    license = stdenv.lib.licenses.asl20;
+    license = licenses.asl20;
     changelog = "https://schema.org/docs/releases.html";
   };
 }

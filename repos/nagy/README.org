@@ -1,16 +1,15 @@
 * Nur-packages
 
-My personal [[https://github.com/nix-community/NUR][NUR]] repository.
+My personal [[https://github.com/nix-community/NUR][NUR]] repository. You can see an overview site [[https://nur.nix-community.org/repos/nagy/][here]].
 
 It contains packages/attributes for:
   - hyperspec ([[http://www.lispworks.com/documentation/HyperSpec/Front/index.htm][Common Lisp HyperSpec]])
   - schemaorg (https://schema.org)
   - luaPackages.fennel (https://fennel-lang.org/)
-  - luaPackages.teal (https://github.com/teal-language/tl)
+  - luaPackages.tl (https://github.com/teal-language/tl)
   - passphrase2pgp (https://github.com/skeeto/passphrase2pgp)
   - apertium (https://github.com/apertium/apertium)
   - lttoolbox (https://github.com/apertium/lttoolbox)
-  - ruffle (https://ruffle.rs/)
   - lunasvg (https://github.com/sammycage/lunasvg/)
   - lispPackages.vacietis (https://github.com/vsedach/Vacietis)
 

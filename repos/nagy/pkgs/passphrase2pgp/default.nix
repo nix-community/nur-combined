@@ -1,5 +1,4 @@
-{ stdenv, buildGoModule, fetchFromGitHub, buildPackages, installShellFiles }:
-
+{ stdenv, buildGoModule, fetchFromGitHub }:
 buildGoModule rec {
   pname = "passphrase2pgp";
   version = "1.1.0";

@@ -17,8 +17,6 @@ rec {
 
   apertium = pkgs.callPackage ./pkgs/apertium { inherit lttoolbox; };
 
-  ruffle = pkgs.callPackage ./pkgs/ruffle {};
-
   lunasvg = pkgs.callPackage ./pkgs/lunasvg {};
 
   lispPackages = pkgs.recurseIntoAttrs {

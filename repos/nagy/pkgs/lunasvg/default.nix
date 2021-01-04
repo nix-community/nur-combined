@@ -17,11 +17,9 @@ stdenv.mkDerivation rec {
     "-DBUILD_SHARED_LIBS=TRUE"
   ];
 
-  buildInputs = [ ];
-
   meta = {
     description = "A standalone c++ library to create, animate, manipulate and render SVG files";
-    homepage = https://github.com/sammycage/lunasvg;
+    homepage = "https://github.com/sammycage/lunasvg";
 
     license = stdenv.lib.licenses.mit;
     maintainers = [  ];
