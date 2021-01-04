@@ -41,6 +41,10 @@ llvmPackages_11.stdenv.mkDerivation rec {
     "-DMYSQL_INCLUDE_DIR=${libmysqlclient.dev}/include/mysql"
   ];
 
+  postInstall = ''
+    cp -Rv ../sql $out/sql
+  '';
+
   meta = with lib; {
     description = "TrinityCore Open Source MMO Framework";
     homepage = "https://www.trinitycore.org";
