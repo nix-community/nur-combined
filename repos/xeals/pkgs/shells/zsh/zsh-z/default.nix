@@ -30,5 +30,6 @@ stdenv.mkDerivation {
     description = ''Jump quickly to directories that you have visited "frecently." A native ZSH port of z.sh.'';
     homepage = "https://github.com/agkozak/zsh-z";
     license = stdenv.lib.licenses.mit;
+    platforms = zsh.meta.platforms;
   };
 }

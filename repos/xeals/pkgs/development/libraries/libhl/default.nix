@@ -26,9 +26,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out/include $out/lib
   '';
 
-  meta = {
+  meta = with stdenv.lib; {
     homepage = "https://github.com/xant/libhl";
     description = "Simple and fast C library implementing a thread-safe API to manage hash-tables, linked lists, lock-free ring buffers and queues ";
-    license = stdenv.lib.licenses.lgpl3;
+    license = licenses.lgpl3;
+    platforms = platforms.all;
   };
 }

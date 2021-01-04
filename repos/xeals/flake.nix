@@ -40,6 +40,7 @@
             cli = mkApp { program = "${packages.psst}/bin/psst-cli"; };
             gui = mkApp { program = "${packages.psst}/bin/psst-gui"; };
           };
+          samrewritten = mkApp { program = "${packages.samrewritten}/bin/samrewritten"; };
           spotify-ripper = mkApp { program = "${packages.spotify-ripper}/bin/spotify-ripper"; };
         };
       });
