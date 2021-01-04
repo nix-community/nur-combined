@@ -1,19 +1,17 @@
-{ stdenv, multiStdenv, lib, fetchFromGitHub, fetchpatch,
+{
+  # Things which aren't really dependencies
+  stdenv, multiStdenv, lib, fetchFromGitHub, fetchpatch,
 
-  # nativeBuildInputs
-  wrapQtAppsHook, # Because multiarch + qt5 is hard
+  # build-time dependencies
+  wrapQtAppsHook,
   autoreconfHook, pkgconfig,
   git, # Used in configure to generate a version string or something like that
 
-  # buildInputs
+  # runtime dependencies
   xcbutilcursor, SDL2, alsaLib, ffmpeg,
 
-  # Even more dependencies
+  # Even more runtime dependencies
   file, # Used to get information about the architecture of a file
-  glibc, gcc-unwrapped, qtbase,
-  libX11, libxcb, xcbutilkeysyms,
-  fontconfig, freetype,
-  libGL,
 
   # Multiarch is enabled whenever possible
   multiArch ? stdenv.hostPlatform.isx86_64, pkgsi686Linux
@@ -23,14 +21,14 @@ let
   relevantStdenv = if multiArch then multiStdenv else stdenv;
 
 in relevantStdenv.mkDerivation rec {
-  pname = "libtas-unstable";
-  version = "2020-12-24";
+  pname = "libtas";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "clementgallet";
     repo = "libTAS";
-    rev = "5d8f3fda5aaef804fe9a32f6695434b955684eab";
-    hash = "sha256:0r3y071hsgfd24z2b26k8n8cpwrq39sswc00yjh3bv4a05kx7kb5";
+    rev = "v${version}";
+    hash = "sha256:17apyhaivc74nlsaq84q48l6by1njjk6c24x0j012lcjjzvq3nca";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig wrapQtAppsHook git ];
@@ -41,19 +39,17 @@ in relevantStdenv.mkDerivation rec {
     pkgsi686Linux.SDL2
     pkgsi686Linux.alsaLib
     pkgsi686Linux.ffmpeg
-    # Why are these required here but not above?
     pkgsi686Linux.fontconfig
     pkgsi686Linux.freetype
   ];
 
   dontStrip = true; # Segfaults, bug in patchelf
-  #dontPatchELF = true; # We'll do this ourselves
 
   patches = [
     ./libtaspath.patch
     (fetchpatch {
-      url = "https://github.com/jakobrs/libTAS/commit/d5bcaca2e67691ec96e430228e6138e2a56f06c0.patch";
-      sha256 = "1w93xp8l2m437a3s25qifhxfk9cqdamvpj5q99vawv2s3xw3zsjw";
+      url = "https://github.com/clementgallet/libTAS/commit/f12b1080c177e3281419c6e1c8e45dbd7b3544fb.patch";
+      sha256 = "121qqvb77zxrmbkzfcbfh7jzjsr116nsnip0l4vk5v1bqmng0xkk";
     })
   ];
 
@@ -61,7 +57,7 @@ in relevantStdenv.mkDerivation rec {
   # Ideally the library and executable might be split into separate derivations,
   # but this is easier for now
   configureFlags = [
-    "--enable-reproducible"
+    "--disable-build-date"
   ] ++ lib.optional multiArch "--with-i386";
 
   postPatch = ''
@@ -75,22 +71,6 @@ in relevantStdenv.mkDerivation rec {
   '';
 
   enableParallelBuilding = true;
-
-  /*
-  preFixup = ''
-    for file in $out/{bin/libTAS,lib/libtas.so}; do
-      patchelf \
-        --set-rpath ${lib.makeLibraryPath [
-          glibc gcc-unwrapped.lib qtbase
-          libX11 libxcb xcbutilkeysyms xcbutilcursor
-          ffmpeg alsaLib
-          fontconfig.lib freetype
-          libGL
-        ]} \
-        $file
-    done
-  '';
-  */
 
   postFixup = ''
     wrapProgram $out/bin/libTAS --suffix PATH : ${lib.makeBinPath [ file ]}
