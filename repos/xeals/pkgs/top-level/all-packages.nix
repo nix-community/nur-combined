@@ -91,6 +91,8 @@ rec {
     patches = (oldAttrs.patches or [ ]) ++ [ ../applications/misc/polybar/9button.patch ];
   });
 
+  psst = pkgs.callPackage ../applications/audio/psst { };
+
   python2Packages =
     let
       fixVersion =

@@ -8,27 +8,39 @@
 
   outputs = { self, nixpkgs, flake-utils }:
     let
-      inherit (flake-utils.lib) defaultSystems flattenTree;
-      inherit (nixpkgs.lib.attrsets) filterAttrs genAttrs mapAttrs;
+      inherit (flake-utils.lib) eachDefaultSystem flattenTree;
+      inherit (nixpkgs.lib.attrsets) filterAttrs mapAttrs;
     in
     {
       nixosModules = mapAttrs (_: path: import path) (import ./modules);
-      overlay = final: prev: {
-        xeals = nixpkgs.lib.composeExtensions self.overlays.pkgs;
-      };
+
       overlays = import ./overlays // {
         pkgs = final: prev: import ./pkgs/top-level/all-packages.nix { pkgs = prev; };
       };
-      packages = genAttrs defaultSystems
-        (system:
-          let
-            pkgs = nixpkgs.legacyPackages.${system};
-            xPkgs = import ./pkgs/top-level/all-packages.nix { inherit pkgs; };
-          in
-          filterAttrs
-            (attr: drv:
-              builtins.elem system drv.meta.platforms or [ ])
-            xPkgs
-        );
-    };
+
+      overlay = final: prev: {
+        xeals = nixpkgs.lib.composeExtensions self.overlays.pkgs;
+      };
+    } // eachDefaultSystem (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+        xPkgs = import ./pkgs/top-level/all-packages.nix { inherit pkgs; };
+        mkApp = opts: { type = "app"; } // opts;
+      in
+      rec {
+        packages = filterAttrs
+          (attr: drv: builtins.elem system (drv.meta.platforms or [ ]))
+          (flattenTree xPkgs);
+
+        apps = flattenTree {
+          alacritty = mkApp { program = "${packages.alacritty-ligatures}/bin/alacritty"; };
+          protonmail-bridge = mkApp { program = "${packages.protonmail-bridge}/bin/protonmail-bridge"; };
+          protonmail-bridge-headless = mkApp { program = "${packages.protonmail-bridge}/bin/protonmail-bridge"; };
+          psst = {
+            cli = mkApp { program = "${packages.psst}/bin/psst-cli"; };
+            gui = mkApp { program = "${packages.psst}/bin/psst-gui"; };
+          };
+          spotify-ripper = mkApp { program = "${packages.spotify-ripper}/bin/spotify-ripper"; };
+        };
+      });
 }
