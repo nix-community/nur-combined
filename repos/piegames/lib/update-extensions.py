@@ -126,13 +126,11 @@ while True:
 print(f"Writing results ({len(extensions)} extensions in total)")
 with open("extensions.json", "w") as out:
     # Manually pretty-print the outer level, but then do one compact line per extension
-    out.write("[\n")
     for index, extension in enumerate(extensions):
-        out.write("  ")
-        if index != 0:
-            out.write(", ")
+        if index == 0:
+            out.write("[   ")
         else:
-            out.write("  ")
+            out.write(",   ")
         json.dump(extension, out)
         out.write("\n")
     out.write("]\n")
