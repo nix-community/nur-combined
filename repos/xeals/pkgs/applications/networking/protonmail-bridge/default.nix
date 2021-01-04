@@ -20,16 +20,16 @@ let
 
     buildGoModule (stdenv.lib.recursiveUpdate args rec {
       inherit pname;
-      version = "1.5.2";
+      version = "1.5.4";
 
       src = fetchFromGitHub {
         owner = "ProtonMail";
         repo = "proton-bridge";
         rev = "br-${version}";
-        sha256 = "1mv7fwapcarii43nnsgk7ifqlah07k54zk6vxxxmrp04gy0mzki6";
+        sha256 = "1398d13skn6as9carxiws500rp5j9b33r0j2blpxrff856a8v0bp";
       };
 
-      vendorSha256 = "01d6by8xj9py72lpfns08zqnsym98v8imb7d6hgmnzp4hfqzbz3c";
+      vendorSha256 = "1a83kh096pkyklqgdip112fps6ia90vg7zxv0nvivxmdyik2vcvz";
 
       nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
         pkg-config
