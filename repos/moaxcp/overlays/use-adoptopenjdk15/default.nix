@@ -56,6 +56,14 @@ self: super: {
         jdk = self.adoptopenjdk-hotspot-bin-15;
     };
 
+    apache-maven-3_5_4 = super.apache-maven-3_5_4.override {
+        jdk = self.adoptopenjdk-hotspot-bin-15;
+    };
+
+    apache-maven-3_6_3 = super.apache-maven-3_6_3.override {
+        jdk = self.adoptopenjdk-hotspot-bin-15;
+    };
+
     micronaut-1_3_5 = super.micronaut-1_3_5.override {
         jdk = self.adoptopenjdk-hotspot-bin-15;
     };
