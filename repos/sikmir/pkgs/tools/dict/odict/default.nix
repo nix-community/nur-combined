@@ -6,7 +6,7 @@ buildGoModule {
 
   src = sources.odict;
 
-  vendorSha256 = "083mvrgpv9hyfmi26sankv940qp0bmyr55jm33dx1ivhd2xhkg78";
+  vendorSha256 = "1n07b9dclsyc0m50lifigm90k3l6s1kbx6fln4gzp4crn0axh0gs";
 
   meta = with lib; {
     inherit (sources.odict) description homepage;
