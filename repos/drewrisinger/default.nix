@@ -57,8 +57,6 @@ rec {
 
     # More recent version than in Nixpkgs
     cirq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cirq { };
-    # temporary cirq package, meant for transition from python3.5 -> py3.7 (Nix)
-    cirq_0_5 = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cirq/0.5.nix { };
     cvxpy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cvxpy { inherit ecos osqp scs; };
     ecos = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ecos { };
     osqp = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/osqp { };
