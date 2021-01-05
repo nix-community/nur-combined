@@ -18,3 +18,10 @@ security.wrappers = {
   };
 };
 ```
+
+## todo
+
+* arcan shouln't be executed as root, but as an own user with only the nesesary permissions.
+* we should add a nixos module for doing the setup via something like ``programs.arcan.enable = true;`` 
+  * creating the arcan user with the nessesarcy permissions (/dev/input, /dev/drm)
+  * creating the security wrapper so arcan gets always executed with the arcan user
