@@ -1,5 +1,5 @@
 diff --git i/SConstruct w/SConstruct
-index ddcf739d..f98e338c 100644
+index 67f5f276..919005ac 100644
 --- i/SConstruct
 +++ w/SConstruct
 @@ -16,7 +16,7 @@ else:
@@ -11,8 +11,8 @@ index ddcf739d..f98e338c 100644
  Export('env')
  
  # UseLibs -- use pkg-config libraries
-@@ -50,10 +50,13 @@ env.Append (CCFLAGS=['-Werror=return-type'])
- env.Append (CCFLAGS=['-O2'])
+@@ -52,10 +52,13 @@ env.Append (CCFLAGS=['-DACCEPT_USE_OF_DEPRECATED_PROJ_API_H=1'])
+ env.Append (CCFLAGS=['-Werror=return-type', '-Wall'])
  env.Append (CCFLAGS='-std=gnu++11')
  
 -env.Append (ENV = {'PKG_CONFIG_PATH': os.getcwd()+'/core/pc'})
@@ -28,7 +28,7 @@ index ddcf739d..f98e338c 100644
  
  env.Append (CPPPATH = "#core")
  env.Append (LIBPATH = "#core")
-@@ -62,13 +65,13 @@ env.Append (LIBS    = "mapsoft")
+@@ -64,13 +67,13 @@ env.Append (LIBS    = "mapsoft")
  ######################################
  ## Parse command-line arguments:
  
@@ -62,3 +62,14 @@ index fe5f1802..7238c176 100644
  env.UseLibs('glibmm-2.4 gtkmm-2.4 gthread-2.0')
  env.UseLibs('cairomm-1.0 pixman-1 freetype2 libusb-1.0')
  
+diff --git i/vector/vmap3/SConscript w/vector/vmap3/SConscript
+index 6ef77d1b..1f0caff5 100644
+--- i/vector/vmap3/SConscript
++++ w/vector/vmap3/SConscript
+@@ -13,4 +13,6 @@ env.Install(env.bindir, Split("""
+   vmap_mmb_filter
+   vmap_1km_filter
+   vmap_fix_diff
++  vmap_get_track
++  vmap_put_track
+ """))

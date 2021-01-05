@@ -44,15 +44,15 @@
     "cheetah3": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-01T22:01:06Z",
+        "date": "2021-01-02T13:07:39Z",
         "description": "Cheetah3 is a free (MIT) and open source template engine for Python",
         "homepage": "https://cheetahtemplate.org/",
         "owner": "CheetahTemplate3",
         "repo": "cheetah3",
-        "rev": "50804e70261bc9476c8a498985fd93b931b18ae6",
-        "sha256": "0fq6inzr04zbsqmbzj8khr1l8whab61xpzvdp3lchz0lkwms8ppn",
+        "rev": "03ba9afea9118a6adb15116a3b71c807779338e9",
+        "sha256": "11ahqszli4fnidkwca79kwc5lmblb7xg4j5nj1sxd04ris8zqr8y",
         "type": "tarball",
-        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/50804e70261bc9476c8a498985fd93b931b18ae6.tar.gz",
+        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/03ba9afea9118a6adb15116a3b71c807779338e9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "csvquote": {
@@ -239,27 +239,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "0xhb0yg6hf09zdyhw59gsky6fdx5x7jfch3i6gp66vqzmxc951wr",
+        "sha256": "1fapbc8j7kvh15p9qfg6d0ylj2bw6ccmkyjryd1li5knkpbczafs",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-201231.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-210103.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "201231"
+        "version": "210103"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "0s3wvndspnl0p918j8qgnihr4y61ylb2zs7cznmghrwd6kk0ic3d",
+        "sha256": "1v8izmyxi7j1wkmn9r7ijp63pzrip6wz3pw5bcp4mk4kdnsv9fdg",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-201231.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-210103.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "201231"
+        "version": "210103"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "06jicr6xix1dgmbvy39ijly3sqnq7xhbq81ja066cm0jlwf31na6",
+        "sha256": "0xjpz7pksz5l6lfrr14k069kh7p4l6l61jn8rmachx6asfdk016c",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-201231.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210103.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "201231"
+        "version": "210103"
     },
     "gimgtools": {
         "branch": "master",
@@ -377,15 +377,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2021-01-01T11:52:00Z",
+        "date": "2021-01-02T21:37:56Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "4cb369d2f3528c7ddff3f079393b0d2c18518bb0",
-        "sha256": "0qm46am1kxd664rvdx52cqmqf3a35dhb7lagfy77mhb71nnpvhj1",
+        "rev": "0ac6b697bb9d7c0facb7c4ea863b0079c02c497c",
+        "sha256": "0xhzm7zgjfmqdlnvhrjb290np2yys5fk87lysg82jf7ivrcg8w8k",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/4cb369d2f3528c7ddff3f079393b0d2c18518bb0.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/0ac6b697bb9d7c0facb7c4ea863b0079c02c497c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -475,15 +475,15 @@
     "hfst": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-10T07:15:45Z",
+        "date": "2021-01-04T14:57:53Z",
         "description": "Helsinki Finite-State Technology (library and application suite)",
         "homepage": "https://hfst.github.io",
         "owner": "hfst",
         "repo": "hfst",
-        "rev": "6128b1c8fdb62b94b52edc7f6af95c2e8dbbc4dc",
-        "sha256": "0m2fwmmk8ss2jw5ryr50ygdd2avhwmap87kpv7q07dpmc8hwasw5",
+        "rev": "be76d456201632e5af0a11252f6730a1735b4864",
+        "sha256": "1z43rc1f8nqaxv1zpiaxnpjxhminjw9fpvq652h1yx22y21nd06v",
         "type": "tarball",
-        "url": "https://github.com/hfst/hfst/archive/6128b1c8fdb62b94b52edc7f6af95c2e8dbbc4dc.tar.gz",
+        "url": "https://github.com/hfst/hfst/archive/be76d456201632e5af0a11252f6730a1735b4864.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "how-to-use-pvs-studio-free": {
@@ -657,15 +657,15 @@
     "mapsoft": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-01-15T22:56:03Z",
+        "date": "2021-01-05T11:51:50Z",
         "description": "Mapping software for linux",
         "homepage": "https://github.com/ushakov/mapsoft",
         "owner": "ushakov",
         "repo": "mapsoft",
-        "rev": "904e2da8a55e8426a56de7e41b06cb92e1656005",
-        "sha256": "1hs5nlb6jrvfjvwi34wzxqrm8bix365q7f169wix1nw0ngfcpjw3",
+        "rev": "05565091d6636161a0d5c2a593266a16fe5ff887",
+        "sha256": "08l8krp1sajj04p85dhm5xwbypr6xrnhgp9h5fxylfyxwaaiwlvy",
         "type": "tarball",
-        "url": "https://github.com/ushakov/mapsoft/archive/904e2da8a55e8426a56de7e41b06cb92e1656005.tar.gz",
+        "url": "https://github.com/ushakov/mapsoft/archive/05565091d6636161a0d5c2a593266a16fe5ff887.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maptourist": {
@@ -673,11 +673,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "1glvaqkrfsrdj84nca1wkvdpw5n02fry7fr4ixijzwr2xxkscq0l",
+        "sha256": "10i0b1f31nlwhhd87xwl3h1kb1d33628k8wljhab9agl426aw43l",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-01-01.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-01-03.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2021-01-01"
+        "version": "2021-01-03"
     },
     "mercantile": {
         "branch": "master",
@@ -762,15 +762,15 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-26T20:55:21Z",
+        "date": "2021-01-02T11:53:55Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "85fa40a5fade5bce9255a2584568c95ba6e5b371",
-        "sha256": "080msw0gfypi8b4b08syzj74wn0w73is1kxfwcr887kx9c8gcmva",
+        "rev": "1619271a51c563eb9d953e5dfa747b12cc7ecd4c",
+        "sha256": "0af4ixhchbim6455jll1nimp7y4339pph87xbsaipwpsnny99yy5",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/85fa40a5fade5bce9255a2584568c95ba6e5b371.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/1619271a51c563eb9d953e5dfa747b12cc7ecd4c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
@@ -790,15 +790,15 @@
     "odict": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-07-10T02:56:55Z",
+        "date": "2021-01-04T23:16:35Z",
         "description": "A blazingly-fast replacement for Apple Dictionaries, Babylon, StarDict, etc",
         "homepage": "https://odict.org",
         "owner": "odict",
         "repo": "odict",
-        "rev": "c830674b583204e200f5530f9274c76f04e647b9",
-        "sha256": "1zbw2irnm0bcxf1njh8cvi0hpwnb8i6lka8jiq4cj19k55xpr79c",
+        "rev": "80ca45c3af148fdc7b68f3851ee91614b84081ea",
+        "sha256": "03l9drlgab3jg1jrmvmb3khkb193vhrqb8w7mvn5nqp338xpbzhl",
         "type": "tarball",
-        "url": "https://github.com/odict/odict/archive/c830674b583204e200f5530f9274c76f04e647b9.tar.gz",
+        "url": "https://github.com/odict/odict/archive/80ca45c3af148fdc7b68f3851ee91614b84081ea.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "openmtbmap": {

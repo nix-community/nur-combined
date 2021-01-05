@@ -1,5 +1,5 @@
 # This file provides all the buildable and cacheable packages and
-# package outputs in you package set. These are what gets built by CI,
+# package outputs in your package set. These are what gets built by CI,
 # so if you correctly mark packages as
 #
 # - broken (using `meta.broken`),

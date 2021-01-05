@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "gpxsee-bin";
-  version = "8.0";
+  version = "8.1";
 
   src = fetchurl {
     url = "mirror://sourceforge/gpxsee/GPXSee-${version}.dmg";
-    sha256 = "00b2spxbc05jsv87l5z6z0smjv58rm2mzrybkg9hk3yh58aa4ic0";
+    sha256 = "15zdw4004gqxkga3fmxfj64yh0bzjcw4m6qv6dl4j3pmbw2x2qls";
   };
 
   preferLocalBuild = true;
