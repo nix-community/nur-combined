@@ -6,7 +6,7 @@ in
   bees = self: super: { bees = nixpkgs.bees; };
 
   # https://github.com/NixOS/nixpkgs/pull/108148
-  cadvisor = self: super: { inherit (import sources.cadvisor { }) cadvisor; };
+  cadvisor = self: super: { inherit (import sources.nixpkgs { }) cadvisor; };
 
   # https://github.com/NixOS/nixpkgs/pull/105892
   prometheus-nginx-exporter = self: super: { inherit (import sources.nixpkgs { }) prometheus-nginx-exporter; };
