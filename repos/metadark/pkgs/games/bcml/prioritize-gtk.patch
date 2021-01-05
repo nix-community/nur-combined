@@ -1,8 +1,8 @@
 diff --git a/bcml/__main__.py b/bcml/__main__.py
-index cf8677b..e457915 100644
+index a536de0..faf6675 100644
 --- a/bcml/__main__.py
 +++ b/bcml/__main__.py
-@@ -82,7 +82,7 @@ def main(debug: bool = False):
+@@ -80,7 +80,7 @@ def main(debug: bool = False):
  
      api = Api(host)
  

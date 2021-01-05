@@ -14,6 +14,7 @@
 , python
 , buildPythonApplication
 , fetchFromGitHub
+, autoPatchelfHook
 , mkdocs
 , mkdocs-material
 
@@ -92,6 +93,7 @@ buildPythonApplication rec {
   };
 
   patches = [
+    ./dont-modify-helpers.patch
     ./loosen-requirements.patch
     ./remove-register-handlers.patch
     ./remove-updater.patch
@@ -103,12 +105,10 @@ buildPythonApplication rec {
   postPatch = ''
     # Patch in node_modules for building JS assets
     ln -s ${js}/lib/node_modules/js/node_modules bcml/assets
-
-    # Remove prebuilt helper executables
-    rm -rf bcml/helpers
   '';
 
   nativeBuildInputs = [
+    autoPatchelfHook
     mkdocs
     mkdocs-material
     nodejs
@@ -121,7 +121,9 @@ buildPythonApplication rec {
   ];
 
   # Libraries for loading tutorial video in help
-  buildInputs = lib.optionals (gui == "gtk") ([
+  buildInputs = [
+    stdenv.cc.cc
+  ] ++ lib.optionals (gui == "gtk") ([
     # TLS support for loading external HTTPS content in WebKitWebView
     glib-networking
   ] ++ (with gst_all_1; [
@@ -172,14 +174,6 @@ buildPythonApplication rec {
     # Link icon
     mkdir -p "$out/share/pixmaps"
     ln -s "$out/lib/python3.8/site-packages/bcml/data/logo.png" "$out/share/pixmaps/bcml.png"
-  '';
-
-  # Replace helper executables with nix-built equivalents
-  preFixup = ''
-    cd "$out/lib/${python.libPrefix}/site-packages/bcml"
-    mkdir helpers && cd helpers
-    ln -s ${msyt}/bin/msyt .
-    ln -s ${p7zip.override { inherit enableUnfree; }}/bin/7z .
   '';
 
   meta = with lib; {

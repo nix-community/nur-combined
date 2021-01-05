@@ -1,0 +1,25 @@
+diff --git a/bcml/__main__.py b/bcml/__main__.py
+index f781840..bc79ad1 100644
+--- a/bcml/__main__.py
++++ b/bcml/__main__.py
+@@ -60,8 +60,6 @@ def main(debug: bool = False):
+ 
+     try:
+         if SYSTEM != "Windows":
+-            chmod(util.get_exec_dir() / "helpers/msyt", int("755", 8))
+-            chmod(util.get_exec_dir() / "helpers/7z", int("755", 8))
+             os.setpgrp()
+         LOG.parent.mkdir(parents=True, exist_ok=True)
+         for folder in util.get_work_dir().glob("*"):
+diff --git a/bcml/util.py b/bcml/util.py
+index fd3c2d3..4859128 100644
+--- a/bcml/util.py
++++ b/bcml/util.py
+@@ -1343,7 +1343,6 @@ def get_7z_path():
+     if system() == "Windows":
+         return str(get_exec_dir() / "helpers" / "7z.exe")
+     bundle_path = get_exec_dir() / "helpers" / "7z"
+-    os.chmod(bundle_path, 0o755)
+     if get_settings("force_7z"):
+         return str(bundle_path)
+     return shutil.which("7z") or str(bundle_path)
