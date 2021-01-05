@@ -24,7 +24,10 @@ recursiveUpdate base {
   programs.screen.screenrc = readFile ./files/.screenrc;
 
   # This requires the kampka nur packages
-  kampka.programs.direnv.enable = mkDefault true;
+  kampka.programs.direnv = {
+    enable = mkDefault true;
+    configureBash = mkDefault true;
+  };
 
 
   # --- Service options ---
