@@ -161,5 +161,7 @@ in rec {
   spring-boot-cli-2_2_6 = springBootCliPkgs.spring-boot-cli-2_2_6;
   spring-boot-cli-2_2_7 = springBootCliPkgs.spring-boot-cli-2_2_7;
   spring-boot-cli-2_4_1 = springBootCliPkgs.spring-boot-cli-2_4_1;
+
+  stm32cubemx-4_27_0 = callPackage ./pkgs/stm32cubemx {};
 }
 

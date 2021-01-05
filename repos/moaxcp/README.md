@@ -21,13 +21,60 @@ Supported packages:
 * Provided latest packages available and other major versions
 * Support overlays with nixpkgs
 
+# Users
+
+Add the channel
+
+```
+nix-channel --add http://github.com/nix-community/NUR/archive/master.tar.gz nur
+```
+
+Add the overlay
+
+```
+nixpkgs.overlays = [                                                        
+  nur.repos.moaxcp.overlays.use-moaxcp-nur-packages
+];
+```
+
+declare the package to install.
+
+```
+environment.systemPackages = with pkgs; [
+  adoptopenjdk-hotspot-bin-15
+  gradle-6_7_1
+  groovy-4_0_0-alpha-2
+  micronaut-cli-2_2_2
+];
+```
+
+There are "use" overlays which can switch the jdk used for the tools. For 
+example to switch the tools to adoptopenjdk-15:
+
+```
+nixpkgs.overlays = [                                                        
+  nur.repos.moaxcp.overlays.use-moaxcp-nur-packages
+  nur.repos.moaxcp.overlays.use-adoptopenjdk15
+];
+```
+
+There is also an overlay that will update everything in nixpkgs to the latest
+version.
+
+```
+nixpkgs.overlays = [                                                        
+  nur.repos.moaxcp.overlays.use-moaxcp-nur-packages
+  nur.repos.moaxcp.overlays.use-latest
+];
+```
+
 # Conventions
 
 `overlays` directory contains overlays for different combinations 
 adoptopenjdk-bin. For instance to use adoptopenjdk-bin-11 with all of the
 packages within this repo use the `use-adoptopenjdk11` overlay.
 
-There is a `use-latest` overlay which will upgrade all of the packages in
+There is a `use-latest` overlay which will upgrade all the packages in
  nixpkgs to the latest versions in this repo.
  
 The overlays do not change the `jdk` package since that can cause a rebuild of 
@@ -37,9 +84,11 @@ libreoffice and VirtualBox which takes a long time.
 
 ### Gradle
 
-Gradle doesn't seem to have pname in unstable which I believe is a required convention in nixpkgs
+Gradle doesn't seem to have pname in unstable which I believe is a required 
+convention in nixpkgs
 
-gradle doesn't have a darwin build. I may not need to but there is a platform native jar for it
+gradle doesn't have a darwin build. I may not need to but there is a platform 
+native jar for it
 
 native-platform-osx-amd64-0.21.jar
 
@@ -67,8 +116,8 @@ These should be added. jmeter is a good example.
 
 ### pkgs/adoptopenjdk-bin/generate-sources.py
 
-updates sources.json with latest versions from adoptopenjdk. Update variables in top of file for versions to add. 
-nightly builds can also be added.
+updates sources.json with latest versions from adoptopenjdk. Update variables 
+in top of file for versions to add. nightly builds can also be added.
 
 ### nix-prefetch-url
 
