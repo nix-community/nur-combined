@@ -657,10 +657,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "8.1.9";
+      version = "8.1.10";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3695543/metamask-8.1.9-an+fx.xpi";
-      sha256 = "339ee433ba66f449cf6a9366d6f41ee3ca8189a269a16e871a6b448db0f41eb5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3703246/metamask-8.1.10-an+fx.xpi";
+      sha256 = "e00d48ea806a17928e2c0477882136e75d1c837709c2706d65bde8363437e840";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
@@ -795,10 +795,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.20.9";
+      version = "5.20.12";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3652562/reddit_enhancement_suite-5.20.9-an+fx.xpi";
-      sha256 = "115b010ceadaf5ddcb77739f557c2a4f59e73b668149ddc01b51b03633e3e9a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3703195/reddit_enhancement_suite-5.20.12-an+fx.xpi";
+      sha256 = "8c4ee11c701a916ef7d53611bd237882ae0130d77c64bdccef4e33297c317599";
       meta = with stdenv.lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -1048,10 +1048,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.32.2";
+      version = "1.32.4";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3699732/ublock_origin-1.32.2-an+fx.xpi";
-      sha256 = "f48960b40661a529796ae75f1c1222c3321d29aa30a94bca6ea77275378f6494";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3701081/ublock_origin-1.32.4-an+fx.xpi";
+      sha256 = "5b94fd7f749319a6ff6d83dd20b05b29e733446465aff2ab7669499a3e8fb9cc";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
