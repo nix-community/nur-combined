@@ -317,13 +317,13 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.4.6";
+      version = "4.4.7";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3672374/floccus-4.4.6-fx.xpi";
-      sha256 = "34e3c42d4a5bfafa3eecb18868160cc98af19d0edab21c3bf2563de817997fdd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3703622/floccus-4.4.7-fx.xpi";
+      sha256 = "7ed0823e2037467b52b4fddb0b0ac302fe9079714c2dce0bdcdb48da5400cc3a";
       meta = with stdenv.lib;
       {
-        homepage = "https://github.com/marcelklehr/floccus#readme";
+        homepage = "https://floccus.org";
         description = "Sync your bookmarks across browsers via Nextcloud, WebDAV or a local file (and thus any file sync solution)";
         license = licenses.mpl20;
         platforms = platforms.all;
@@ -947,10 +947,10 @@
       };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
-      version = "2.0.0";
+      version = "2.0.1";
       addonId = "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1050617/terms_of_service_didnt_read-2.0.0-an+fx.xpi";
-      sha256 = "e247194fae504ff039c50b9737be7248bf9a15fc133c08d0c001dc6743149cd3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3703554/terms_of_service_didnt_read-2.0.1-an+fx.xpi";
+      sha256 = "08c433c81d08135c8622f3eda3c6cd9bbaea3b68ed4073adced698b42b4c4d46";
       meta = with stdenv.lib;
       {
         homepage = "http://www.tosdr.org";
@@ -1132,10 +1132,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "17.11";
+      version = "17.12";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3699353/zoom_page_we-17.11-fx.xpi";
-      sha256 = "98313ead65e5fc66dc16a4674fd389ca57d4af8d759e5b7147cd16904ae9ef1d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3702199/zoom_page_we-17.12-fx.xpi";
+      sha256 = "51ee355f33d9f08fd0d4a0f79a146df81e0a818cc368836f1d4ab6c1176f32fc";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
