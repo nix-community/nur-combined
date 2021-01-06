@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "kvmtool";
-  version = "0.20200424";
+  version = "2020-08-21";
 
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/linux/kernel/git/will/${pname}.git";
-    rev = "c0c45eed4f3fb799764979dec5cfb399071d6916";
-    sha256 = "0ir6aqvipss145r85324nw84k4ilzxa2rsa1wr5303p1h6gs0qkk";
+    rev = "90b2d3adadf218dfc6bdfdfcefe269843360223c";
+    sha256 = "sha256-ojuw9fjzQTHmI4fjoVIRAifw6k4FIHLIcKBq4Pi0Awg=";
   };
 
   makeFlags = [ "prefix=${placeholder "out"}" ];
