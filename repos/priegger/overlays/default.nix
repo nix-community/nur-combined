@@ -3,13 +3,13 @@ let
   nixpkgs = import sources.nixpkgs { };
 in
 {
-  bees = self: super: { bees = nixpkgs.bees; };
+  bees = self: super: { inherit (nixpkgs) bees; };
 
   # https://github.com/NixOS/nixpkgs/pull/108148
-  cadvisor = self: super: { inherit (import sources.nixpkgs { }) cadvisor; };
+  cadvisor = self: super: { inherit (nixpkgs) cadvisor; };
 
   deno = self: super: { inherit (nixpkgs) deno; };
 
   # https://github.com/NixOS/nixpkgs/pull/105892
-  prometheus-nginx-exporter = self: super: { inherit (import sources.nixpkgs { }) prometheus-nginx-exporter; };
+  prometheus-nginx-exporter = self: super: { inherit (nixpkgs) prometheus-nginx-exporter; };
 }
