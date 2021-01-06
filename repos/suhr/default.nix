@@ -6,8 +6,6 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   cadabra2 = pkgs.callPackage ./pkgs/cadabra2 { };
-  worksnaps-client = pkgs.callPackage ./pkgs/worksnaps-client { };
-  mathics = pkgs.callPackage ./pkgs/mathics { };
   minimal-sddm-theme = pkgs.callPackage ./pkgs/minimal-sddm-theme { };
   _31key = pkgs.callPackage ./pkgs/31key { };
   mimi = pkgs.callPackage ./pkgs/mimi { };
@@ -18,11 +16,7 @@ rec {
   rosie = pkgs.luaPackages.callPackage ./pkgs/rosie { };
   pcem = pkgs.callPackage ./pkgs/pcem { };
   ciao = pkgs.callPackage ./pkgs/ciao { };
-  v4l2loopback-dc = pkgs.linuxPackages.callPackage ./pkgs/v4l2loopback-dc { inherit droidcam; };
-  droidcam = pkgs.callPackage ./pkgs/droidcam { };
-  carla = pkgs.qt5.callPackage ./pkgs/carla { };
   libcyaml = pkgs.callPackage ./pkgs/libcyaml { };
   reproc = pkgs.callPackage ./pkgs/reproc { };
   libaudec = pkgs.callPackage ./pkgs/libaudec { };
-  qjackctl = pkgs.qt5.callPackage ./pkgs/qjackctl { };
 }
