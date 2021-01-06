@@ -565,12 +565,12 @@
   },
   {
     "name": "MegaBotStart",
-    "version": "0.20.4",
-    "file_name": "MegaBotStart_0.20.4.zip",
-    "download_url": "/download/MegaBotStart/5f5956fdc68a36292a1aaa65",
-    "sha1": "24496d57421666adc1959762f618eb970ab3aaa8",
+    "version": "0.21.0",
+    "file_name": "MegaBotStart_0.21.0.zip",
+    "download_url": "/download/MegaBotStart/5ff5d7f4cb9b46c96c4b6eb1",
+    "sha1": "1b674f57c9c29d9f6e9bcd45c42368bcc9b07f73",
     "dependencies": [
-      "base >= 1.0",
+      "base >= 1.1",
       "? Krastorio2",
       "? bobwarfare",
       "? bobequipment",
@@ -607,10 +607,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "8.0.0",
-    "file_name": "reverse-factory_8.0.0.zip",
-    "download_url": "/download/reverse-factory/5fbfe8360c08bc5a17e42058",
-    "sha1": "d8336b5212d8e0e1aede9d6ec0b49430217f1a5a",
+    "version": "8.0.1",
+    "file_name": "reverse-factory_8.0.1.zip",
+    "download_url": "/download/reverse-factory/5ff51c3631fbb7de16e5b626",
+    "sha1": "5a8581bf5decca654d9824d94ddb34a42cbcc745",
     "dependencies": [
       "base",
       "stdlib",
@@ -630,7 +630,7 @@
       "? pyhightech",
       "? pyindustry",
       "? pypetroleumhandling",
-      "? IndustrialRevolution",
+      "? IndustrialRevolution >= 2.0.2",
       "(?) anarchy",
       "(?) randotorio"
     ]
