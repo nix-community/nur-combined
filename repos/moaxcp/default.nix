@@ -11,11 +11,12 @@ let
   callPackage = pkgs.callPackage;
   stdenv = pkgs.stdenv;
 
-  mavenPkgs = pkgs.callPackage ./pkgs/apache-maven { };
   gradlePkgs = pkgs.callPackage ./pkgs/gradle { };
   groovyPkgs = pkgs.callPackage ./pkgs/groovy { };
   groovy4Pkgs = pkgs.callPackage ./pkgs/groovy4 { };
   springBootCliPkgs = pkgs.callPackage ./pkgs/spring-boot-cli { };
+  jbangPkgs = pkgs.callPackage ./pkgs/jbang { };
+  mavenPkgs = pkgs.callPackage ./pkgs/apache-maven { };
   micronautPkgs = pkgs.callPackage ./pkgs/micronaut { };
   micronautCliPkgs = pkgs.callPackage ./pkgs/micronaut-cli { };
 
@@ -151,6 +152,8 @@ in rec {
   groovy-3_0_3 = groovyPkgs.groovy-3_0_3;
   groovy-3_0_7 = groovyPkgs.groovy-3_0_7;
   groovy-4_0_0-alpha-2 = groovy4Pkgs.groovy-4_0_0-alpha-2;
+
+  jbang-0_58_0 = jbangPkgs.jbang-0_58_0;
 
   apache-maven-3_5_4 = mavenPkgs.apache-maven-3_5_4;
   apache-maven-3_6_3 = mavenPkgs.apache-maven-3_6_3;

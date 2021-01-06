@@ -41,7 +41,7 @@ in rec {
         $out/bin/gradle --version 2>&1 | grep -q "Gradle ${version}"
       '';
 
-    meta = {
+    meta = with stdenv.lib; {
       description = "Enterprise-grade build system";
       longDescription = ''
         Gradle is a build system which offers you ease, power and freedom.
@@ -52,8 +52,9 @@ in rec {
         build-by-convention behavior.
       '';
       homepage = http://www.gradle.org/;
-      license = stdenv.lib.licenses.asl20;
-      platforms = stdenv.lib.platforms.unix;
+      license = licenses.asl20;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [ moaxcp ];
     };
   };
 

@@ -54,12 +54,4 @@ in rec {
       sha256 = "16n1dk9jgy78mrkvr78m4x772kn09y5aa4d06wl4sdgn6apcq2mc";
     };
   };
-
-  micronaut-2_2_2 = micronautGen rec {
-    version = "2.2.2";
-    src = fetchzip {
-      url = "https://github.com/micronaut-projects/micronaut-starter/releases/download/v${version}/micronaut-cli-${version}.zip";
-      sha256 = "1jmasmf0hwra68x2dnw8mbdqsb0bll0ph8si7n6n5rd7kzihjjk0";
-    };
-  };
 }

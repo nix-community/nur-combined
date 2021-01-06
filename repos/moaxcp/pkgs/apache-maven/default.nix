@@ -21,6 +21,10 @@ in rec {
         --set PATH ${lib.makeBinPath [ coreutils jdk ]}
     '';
 
+    installCheckPhase = ''
+      $out/bin/mvn --version 2>&1 | grep -q "Apache Maven ${version}"
+    '';
+
     meta = with stdenv.lib; {
       description = "Build automation tool (used primarily for Java projects)";
       homepage = "http://maven.apache.org/";
