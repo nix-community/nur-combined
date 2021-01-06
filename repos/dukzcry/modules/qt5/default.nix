@@ -12,7 +12,7 @@ let
   isQtStyle = cfg.platformTheme == "gtk2" && !(builtins.elem cfg.style ["adwaita" "adwaita-dark"]);
 
   # https://github.com/NixOS/nixpkgs/issues/98009
-  packages = if isQGnome then with pkgs; [ libsForQt512.adwaita-qt libsForQt514.adwaita-qt adwaita-qt ]
+  packages = if isQGnome then with pkgs; [ adwaita-qt ]
     else if isQtStyle then [ pkgs.libsForQt5.qtstyleplugins ]
     else throw "`qt5.platformTheme` ${cfg.platformTheme} and `qt5.style` ${cfg.style} are not compatible.";
 

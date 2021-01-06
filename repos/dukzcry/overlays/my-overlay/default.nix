@@ -2,24 +2,6 @@ self: super:
 let
   unstable = import <nixos-unstable> { config.allowUnfree = true; };
 in {
-  # https://github.com/NixOS/nixpkgs/issues/98009
-  #qt515 = super.qt515.overrideScope' (selfx: superx: {
-  #  qtbase = superx.qtbase.overrideAttrs (old: {
-  #    patches = (old.patches or []) ++ super.lib.optional (builtins.compareVersions super.qt515.qtbase.version "5.15.0" == 0) [
-  #      ./7218665.diff
-  #    ];
-  #  });
-  #});
-  libsForQt512 = super.libsForQt512 // {
-    adwaita-qt = with super; libsForQt512.callPackage <nixpkgs/pkgs/data/themes/adwaita-qt> {
-      mkDerivation = stdenv.mkDerivation;
-    };
-  };
-  libsForQt514 = super.libsForQt514 // {
-    adwaita-qt = with super; libsForQt514.callPackage <nixpkgs/pkgs/data/themes/adwaita-qt> {
-      mkDerivation = stdenv.mkDerivation;
-    };
-  };
   haskellPackages = super.haskellPackages.override {
     overrides = hsSelf: hsSuper: {
       hakyll-images = self.haskell.lib.unmarkBroken hsSuper.hakyll-images;
@@ -46,4 +28,18 @@ in {
       sha256 = "0wczibyv8pwjcd4bxpw70w99ayyii0brfc180cdxp8cznn7p8vxh";
     };
   });
+  # https://github.com/qutebrowser/qutebrowser/pull/5917
+  qutebrowser = unstable.qutebrowser.override {
+    python3 = super.python3.override {
+      packageOverrides = selfx: superx: {
+        pyqtwebengine = superx.pyqtwebengine.overridePythonAttrs (oldAttrs: rec {
+          src = superx.pythonPackages.fetchPypi {
+            pname = "PyQtWebEngine";
+            version = "5.15.2";
+            sha256 = "0d56ak71r14w4f9r96vaj34qcn2rbln3s6ildvvyc707fjkzwwjd";
+          };
+        });
+      };
+    };
+  };
 }
