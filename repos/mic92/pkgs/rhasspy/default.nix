@@ -5,8 +5,6 @@
 
   hypercorn = callPackage ./hypercorn { };
 
-  kaldi = callPackage ./kaldi { };
-
   quart = callPackage ./quart {
     inherit hypercorn;
   };
@@ -120,7 +118,7 @@
   };
 
   rhasspy = callPackage ./rhasspy {
-    inherit kaldi
+    inherit
       phonetisaurus
       rhasspy-asr-kaldi-hermes
       rhasspy-dialogue-hermes
