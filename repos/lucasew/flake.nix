@@ -19,12 +19,22 @@
       url = "github:lucasew/dotenv";
       flake = false;
     };
+    redial_proxy = {
+      url = "github:lucasew/redial_proxy";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, ... }:
+  outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, redial_proxy, ... }:
   let
     userSettings = import ./globalConfig.nix;
     system = "x86_64-linux";
+    environmentShell = ''
+      alias nixos-rebuild="sudo -E nixos-rebuild --flake '${userSettings.rootPath}#acer-nix'"
+      export NIXPKGS_ALLOW_UNFREE=1
+      export NIX_PATH="nixos-config=${(builtins.toString userSettings.rootPath) + "/nodes/acer-nix"}:nixpkgs=${nixpkgs}:dotfiles=${builtins.toString userSettings.rootPath}:nixpkgsLatest=${nixpkgsLatest} home-manager=${home-manager}:nur=${nur}"
+
+  '';
     overlays = [
       # dotenv
       (self: super: 
@@ -37,17 +47,15 @@
         in ''
           ${dotenvBin}/bin/dotenv "@${builtins.toString dotenvFile}" -- ${command} $*
         '');
-      in 
-      {dotenv = dotenvBin; inherit wrapDotenv;})
-      # nur
-      (self: super: {
+      in {
+        dotenv = dotenvBin;
+        inherit wrapDotenv;
+        p2k = super.callPackage pocket2kindle {};
+        redial_proxy = super.callPackage redial_proxy {};
         nur = import nur {
           nurpkgs = super.pkgs;
           inherit (super) pkgs;
         };
-      })
-      (self: super: {
-        p2k = super.callPackage pocket2kindle {};
       })
       (import ./modules/neovim/overlay.nix)
       (import ./modules/comby/overlay.nix)
@@ -70,7 +78,7 @@
       modules = [
         "${home-manager}/nixos"
         "${nix-ld}/modules/nix-ld.nix"
-        ({...}: {
+        ({pkgs, ...}: {
             nixpkgs = {
               inherit overlays;
             };
@@ -78,11 +86,13 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               users.${userSettings.username} = {config, ...}: {
+                systemd.user.services.redial_proxy = import ./lib/systemdUserService.nix {
+                  description = "Redial proxy";
+                  command = "${pkgs.callPackage redial_proxy {}}/bin/redial_proxy";
+                };
                 home.file.".dotfilerc".text = ''
                 #!/usr/bin/env bash
-                alias nixos-rebuild="sudo -E nixos-rebuild --flake '${userSettings.rootPath}#acer-nix'"
-                export NIXPKGS_ALLOW_UNFREE=1
-                export NIX_PATH="nixpkgs=${nixpkgs}:dotfiles=${builtins.toString userSettings.rootPath}:nixpkgsLatest=${nixpkgsLatest} home-manager=${home-manager}:nur=${nur}"
+                ${environmentShell}
                 '';
                 imports = [
                   ./nodes/acer-nix/home.nix
@@ -95,13 +105,12 @@
         ./nodes/acer-nix/default.nix
       ];
     };
-    shell =
-    let
-      rootPath = (import ./globalConfig.nix).rootPath;
-    in pkgs.mkShell {
+    devShell = pkgs.mkShell {
       name = "nixcfg-shell";
+      buildInputs = [];
       shellHook = ''
-        alias nixos-rebuild="sudo -E nixos-rebuild --flake '${rootPath}#acer-nix'"
+        ${environmentShell}
+        echo '${environmentShell}'
         echo Shell setup complete!
       '';
     };

@@ -33,10 +33,9 @@ with (import ../../globalConfig.nix);
    # ------------ pacotes do nixpkgs ---------------
     # minecraft  # custom (excluded)
     pinball mspaint stremio my_rofi # custom
-    gimp kdeApplications.kdenlive vlc youtube-dl # media
+    vlc youtube-dl # media
     discord tdesktop # social
     google-chrome # browser (extra)
-    haskellPackages.git-annex # git
     calibre
     file
     fortune
@@ -48,8 +47,6 @@ with (import ../../globalConfig.nix);
     scrcpy
     sqlite
     typora
-    # jetbrains
-    # pkgs.jetbrains.clion
   ];
   programs = {
     adskipped-spotify.enable = true;
@@ -152,7 +149,7 @@ with (import ../../globalConfig.nix);
         -d "$PAYLOAD" || echo "Fail" && echo "Ok"
       '';
       p2k = pkgs.wrapDotenv "p2k.env" ''
-      export AMOUNT=1
+      export AMOUNT=10
 
       if [ -n "$DEFAULT_AMOUNT" ]; then
           AMOUNT=$DEFAULT_AMOUNT

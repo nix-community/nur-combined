@@ -163,6 +163,22 @@
         "type": "github"
       }
     },
+    "redial_proxy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1610041010,
+        "narHash": "sha256-S2mHbuNewG8fD+lWKArhSBco6fXFN8E18LCT9SNHHYo=",
+        "owner": "lucasew",
+        "repo": "redial_proxy",
+        "rev": "cb2ca218172ba10ad4009823b15733cd256c72b8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lucasew",
+        "repo": "redial_proxy",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "dotenv": "dotenv",
@@ -172,7 +188,8 @@
         "nixpkgs": "nixpkgs_3",
         "nixpkgsLatest": "nixpkgsLatest",
         "nur": "nur",
-        "pocket2kindle": "pocket2kindle"
+        "pocket2kindle": "pocket2kindle",
+        "redial_proxy": "redial_proxy"
       }
     },
     "utils": {
