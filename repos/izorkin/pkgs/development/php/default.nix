@@ -446,12 +446,8 @@ in {
   };
 
   php80 = generic {
-    version = "8.0.0";
-    rev = "php-8.0.0";
-    sha256 = "0fhn9dfgczf4g8p3ilw3c38nwdvkbnvz6sa92k8z7gszyjvd5rzv";
-    extraPatches = [
-      # Fix build with LibreSSL
-      ./patch/php80-fix-check-OCB-mode.patch
-    ];
+    version = "8.0.1";
+    rev = "php-8.0.1";
+    sha256 = "1w6xd1bl1mp82nzjlihsvs5a5zv3a9mc1p91wm76qnirn5hqr884";
   };
 }
