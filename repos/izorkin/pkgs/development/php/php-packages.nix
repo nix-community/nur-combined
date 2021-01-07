@@ -586,12 +586,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.64";
+    version = "0.12.65";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0q9s6ng7jk69iia1ihri5mhcwig69kbdmphwz8hbw5z8768x9fms";
+      sha256 = "00s0s2vybji5vayxfwvzrzqxha751q6xa50hj6mxixabk8gickl1";
     };
 
     phases = [ "installPhase" ];
@@ -876,12 +876,12 @@ let
   };
 
   snuffleupagus = buildPecl rec {
-    version = "0.6.0";
+    version = "0.7.0";
     pname = "snuffleupagus";
 
     src = pkgs.fetchurl {
       url = "https://github.com/jvoisin/snuffleupagus/archive/v${version}.tar.gz";
-      sha256 = "0x5ba48y4d6l17w0wkkncsdkdamp7qhf6gsr1m6kvd577m8335fp";
+      sha256 = "17qiy2c9bqrb0fk236mawd1vy47n3z8jv7iz031366nvb032y49a";
     };
 
     sourceRoot = "snuffleupagus-${version}/src";
@@ -959,10 +959,10 @@ let
   };
 
   xdebug30 = buildPecl {
-    version = "3.0.1";
+    version = "3.0.2";
     pname = "xdebug";
 
-    sha256 = "1da983crnk7ci3hfvqrb4gn9w364zzyi147wl4yly9d2adqk358b";
+    sha256 = "05sfgkw55ym7mg0b54l9x3i9598kf2bkp4z3sdl1hd31q3g4cv89";
 
     doCheck = true;
     checkTarget = "test";

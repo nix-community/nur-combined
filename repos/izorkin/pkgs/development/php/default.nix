@@ -429,8 +429,8 @@ in {
   };
 
   php73 = generic {
-    version = "7.3.25";
-    sha256 = "039r41zdi97jsxk4chgc87f7rj8ndzg48l2rqj9dpkwly7s16idh";
+    version = "7.3.26";
+    sha256 = "1936vh7h6s5faymhs571ifyvrhdzbagjf3f5msbgh7irsyifchfd";
 
     extraPatches = [
       # PKG_CONFIG need not be a relative path
@@ -441,12 +441,8 @@ in {
   };
 
   php74 = generic {
-    version = "7.4.13";
-    sha256 = "1fs7mm8ipjsgr8x29vswk65wh5nlc8i0y0gvm0lvh495c9gdkjxf";
-    extraPatches = [
-      # Fix build with LibreSSL
-      ./patch/php80-fix-check-OCB-mode.patch
-    ];
+    version = "7.4.14";
+    sha256 = "1gcys9jh8cs87d0a51sxgvq30x5dkrh4n571cswnpam2lbjbrj54";
   };
 
   php80 = generic {
