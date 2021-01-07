@@ -6,7 +6,7 @@
   # Required build tools
 , cmake
 , makeWrapper
-, pkgconfig
+, pkg-config
 
   # Required dependencies
 , fftw
@@ -16,42 +16,33 @@
 
   # Optional dependencies
 , alsaSupport ? true
-, alsaLib ? null
+, alsaLib
 , dssiSupport ? false
-, dssi ? null
-, ladspaH ? null
+, dssi
+, ladspaH
 , jackSupport ? true
-, libjack2 ? null
+, libjack2
 , lashSupport ? false
-, lash ? null
+, lash
 , ossSupport ? true
 , portaudioSupport ? true
-, portaudio ? null
+, portaudio
 
   # Optional GUI dependencies
 , guiModule ? "off"
-, cairo ? null
-, fltk13 ? null
-, libGL ? null
-, libjpeg ? null
-, libX11 ? null
-, libXpm ? null
-, ntk ? null
+, cairo
+, fltk13
+, libGL
+, libjpeg
+, libX11
+, libXpm
+, ntk
 
   # Test dependencies
 , cxxtest
 }:
 
-assert alsaSupport -> alsaLib != null;
-assert dssiSupport -> dssi != null && ladspaH != null;
-assert jackSupport -> libjack2 != null;
-assert lashSupport -> lash != null;
-assert portaudioSupport -> portaudio != null;
-
 assert builtins.any (g: guiModule == g) [ "fltk" "ntk" "zest" "off" ];
-assert guiModule == "fltk" -> fltk13 != null && libjpeg != null && libXpm != null;
-assert guiModule == "ntk" -> ntk != null && cairo != null && libXpm != null;
-assert guiModule == "zest" -> libGL != null && libX11 != null;
 
 let
   guiName = {
@@ -59,7 +50,7 @@ let
     "ntk" = "NTK";
     "zest" = "Zyn-Fusion";
   }.${guiModule};
-  mruby-zest = callPackage ./mruby-zest.nix { };
+  mruby-zest = callPackage ./mruby-zest { };
 in stdenv.mkDerivation rec {
   pname = "zynaddsubfx";
   version = "3.0.5";
@@ -72,18 +63,18 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patchPhase = ''
+  postPatch = ''
     substituteInPlace src/Misc/Config.cpp --replace /usr $out
   '';
 
-  nativeBuildInputs = [ cmake makeWrapper pkgconfig ];
+  nativeBuildInputs = [ cmake makeWrapper pkg-config ];
 
   buildInputs = [ fftw liblo minixml zlib ]
-    ++ lib.optional alsaSupport alsaLib
+    ++ lib.optionals alsaSupport [ alsaLib ]
     ++ lib.optionals dssiSupport [ dssi ladspaH ]
-    ++ lib.optional jackSupport libjack2
-    ++ lib.optional lashSupport lash
-    ++ lib.optional portaudioSupport portaudio
+    ++ lib.optionals jackSupport [ libjack2 ]
+    ++ lib.optionals lashSupport [ lash ]
+    ++ lib.optionals portaudioSupport [ portaudio ]
     ++ lib.optionals (guiModule == "fltk") [ fltk13 libjpeg libXpm ]
     ++ lib.optionals (guiModule == "ntk") [ ntk cairo libXpm ]
     ++ lib.optionals (guiModule == "zest") [ libGL libX11 ];
@@ -92,7 +83,6 @@ in stdenv.mkDerivation rec {
     # OSS library is included in glibc.
     # Must explicitly disable if support is not wanted.
     ++ lib.optional (!ossSupport) "-DOssEnable=OFF"
-
     # Find FLTK without requiring an OpenGL library in buildInputs
     ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON";
 
@@ -102,11 +92,11 @@ in stdenv.mkDerivation rec {
   # When building with zest GUI, patch plugins
   # and standalone executable to properly locate zest
   postFixup = lib.optional (guiModule == "zest") ''
-    rp=$(patchelf --print-rpath "$out/lib/lv2/ZynAddSubFX.lv2/ZynAddSubFX_ui.so")
-    patchelf --set-rpath "${mruby-zest}:$rp" "$out/lib/lv2/ZynAddSubFX.lv2/ZynAddSubFX_ui.so"
+    patchelf --set-rpath "${mruby-zest}:$(patchelf --print-rpath "$out/lib/lv2/ZynAddSubFX.lv2/ZynAddSubFX_ui.so")" \
+      "$out/lib/lv2/ZynAddSubFX.lv2/ZynAddSubFX_ui.so"
 
-    rp=$(patchelf --print-rpath "$out/lib/vst/ZynAddSubFX.so")
-    patchelf --set-rpath "${mruby-zest}:$rp" "$out/lib/vst/ZynAddSubFX.so"
+    patchelf --set-rpath "${mruby-zest}:$(patchelf --print-rpath "$out/lib/vst/ZynAddSubFX.so")" \
+      "$out/lib/vst/ZynAddSubFX.so"
 
     wrapProgram "$out/bin/zynaddsubfx" \
       --prefix PATH : ${mruby-zest} \
@@ -121,7 +111,7 @@ in stdenv.mkDerivation rec {
       else "https://zynaddsubfx.sourceforge.io";
 
     license = licenses.gpl2;
-    maintainers = with maintainers; [ goibhniu metadark nico202 ];
+    maintainers = with maintainers; [ goibhniu metadark ];
     platforms = platforms.linux;
   };
 }

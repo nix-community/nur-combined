@@ -70,6 +70,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ libGL libuv libX11 ];
 
   patches = [
+    ./force-gcc-as-linker.patch
     ./system-libuv.patch
   ];
 
@@ -85,15 +86,9 @@ stdenv.mkDerivation rec {
     ln -s ${mruby-pack} mruby/build/mrbgems/mruby-pack
   '';
 
-  # Necessary so mruby uses `gcc` instead of `ld` for linking.
-  # https://github.com/mruby/mruby/blob/e5b61d34f65cabfbe88f3f1709a1f9cff86585de/tasks/toolchains/gcc.rake#L25
-  preBuild = if stdenv.isLinux then "unset LD" else null;
+  installTargets = [ "pack" ];
 
-  hardeningDisable = [ "fortify" ];
-
-  installPhase = ''
-    mkdir -p "$out"
-    make pack
+  postInstall = ''
     ln -s "$out/zest" "$out/zyn-fusion"
     cp -a package/{font,libzest.so,schema,zest} "$out"
 
