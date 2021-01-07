@@ -1,8 +1,16 @@
 diff --git a/bcml/__main__.py b/bcml/__main__.py
-index f781840..bc79ad1 100644
+index f781840..2370b8a 100644
 --- a/bcml/__main__.py
 +++ b/bcml/__main__.py
-@@ -60,8 +60,6 @@ def main(debug: bool = False):
+@@ -2,7 +2,6 @@ import os
+ import sys
+ from contextlib import redirect_stderr, redirect_stdout
+ from multiprocessing import set_start_method, Process
+-from os import chmod  # pylint: disable=ungrouped-imports
+ from pathlib import Path
+ from subprocess import Popen, DEVNULL
+ from shutil import rmtree
+@@ -60,8 +59,6 @@ def main(debug: bool = False):
  
      try:
          if SYSTEM != "Windows":
@@ -12,10 +20,10 @@ index f781840..bc79ad1 100644
          LOG.parent.mkdir(parents=True, exist_ok=True)
          for folder in util.get_work_dir().glob("*"):
 diff --git a/bcml/util.py b/bcml/util.py
-index fd3c2d3..4859128 100644
+index 34510a9..123ac22 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
-@@ -1343,7 +1343,6 @@ def get_7z_path():
+@@ -1344,7 +1344,6 @@ def get_7z_path():
      if system() == "Windows":
          return str(get_exec_dir() / "helpers" / "7z.exe")
      bundle_path = get_exec_dir() / "helpers" / "7z"

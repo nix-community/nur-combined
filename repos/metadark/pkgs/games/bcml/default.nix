@@ -2,7 +2,6 @@
 # js: Uncaught TypeError: channel.execCallbacks[message.id] is not a function
 
 { gui
-, enableUnfree ? false
 
   # Build dependencies
 , lib
@@ -83,13 +82,13 @@ let
 in
 buildPythonApplication rec {
   pname = "bcml";
-  version = "3.3.0";
+  version = "3.3.1";
 
   src = fetchFromGitHub {
     owner = "NiceneNerd";
     repo = pname;
     rev = "v${version}";
-    sha256 = "00ij4zz3hgpxwmk6wnfj2gji1k8ps79vi5v523zwlaswyb4wcdl9";
+    sha256 = "0qz2a352vhjmz7vs016ysv9cm14rl0f0h359vra1x48pqd0vvwfi";
   };
 
   patches = [

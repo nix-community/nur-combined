@@ -1,5 +1,5 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index 5183ae2..be0ec82 100644
+index 612dbcb..1fd4d4d 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
 @@ -60,11 +60,7 @@ class Api:
@@ -15,7 +15,7 @@ index 5183ae2..be0ec82 100644
  
      @win_or_lose
      def sanity_check(self, kwargs=None):
-@@ -712,47 +708,6 @@ class Api:
+@@ -718,52 +714,6 @@ class Api:
          help_thread = Thread(target=help_window, args=(self.host,))
          help_thread.start()
  
@@ -51,7 +51,12 @@ index 5183ae2..be0ec82 100644
 -                text=True,
 -            )
 -        else:
--            result = run(args, capture_output=True, check=False, text=True,)
+-            result = run(
+-                args,
+-                capture_output=True,
+-                check=False,
+-                text=True,
+-            )
 -        if result.stderr:
 -            if parent.name == "pkgs":
 -                try:
@@ -168,7 +173,7 @@ index 64ec5fd..1979059 100644
 -
  export default App;
 diff --git a/bcml/assets/src/js/Settings.jsx b/bcml/assets/src/js/Settings.jsx
-index e442b9b..eccfbdf 100644
+index 1748411..f3b5e12 100644
 --- a/bcml/assets/src/js/Settings.jsx
 +++ b/bcml/assets/src/js/Settings.jsx
 @@ -22,7 +22,6 @@ class Settings extends React.Component {
@@ -177,9 +182,9 @@ index e442b9b..eccfbdf 100644
              force_7z: false,
 -            suppress_update: false,
              valid: false,
-             loaded: false
-         };
-@@ -460,24 +459,6 @@ class Settings extends React.Component {
+             loaded: false,
+             nsfw: false
+@@ -461,24 +460,6 @@ class Settings extends React.Component {
                                  />
                              </OverlayTrigger>
                          </Form.Group>
@@ -201,11 +206,11 @@ index e442b9b..eccfbdf 100644
 -                                />
 -                            </OverlayTrigger>
 -                        </Form.Group>
-                         {window.navigator.platform.includes("inux") && (
-                             <Form.Group controlId="force_7z">
-                                 <OverlayTrigger
+                         <Form.Group controlId="nsfw">
+                             <OverlayTrigger
+                                 overlay={
 diff --git a/bcml/util.py b/bcml/util.py
-index fd3c2d3..cc1df2f 100644
+index 123ac22..8bf5941 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
 @@ -563,7 +563,6 @@ DEFAULT_SETTINGS = {
@@ -213,10 +218,10 @@ index fd3c2d3..cc1df2f 100644
      "no_hardlinks": False,
      "force_7z": False,
 -    "suppress_update": False,
+     "nsfw": False,
  }
  
- 
-@@ -1253,25 +1252,6 @@ def get_open_port():
+@@ -1254,25 +1253,6 @@ def get_open_port():
      return port
  
  

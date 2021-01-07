@@ -1,8 +1,8 @@
 diff --git a/bcml/__main__.py b/bcml/__main__.py
-index bc79ad1..a536de0 100644
+index 2370b8a..629f7ad 100644
 --- a/bcml/__main__.py
 +++ b/bcml/__main__.py
-@@ -68,7 +68,6 @@ def main(debug: bool = False):
+@@ -67,7 +67,6 @@ def main(debug: bool = False):
      except (FileNotFoundError, OSError, PermissionError):
          pass
  
