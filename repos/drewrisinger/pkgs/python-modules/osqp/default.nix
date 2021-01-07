@@ -1,22 +1,26 @@
 { lib
 , buildPythonPackage
-, fetchPypi
+, fetchFromGitHub
 , cmake
 , future
+, qdldl
 , numpy
   # check inputs
-, scipy
 , pytestCheckHook
-# , mkl
+, scipy
 }:
 
 buildPythonPackage rec {
   pname = "osqp";
-  version = "0.6.1";
+  version = "0.6.2";
+  format = "pyproject";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "130frig5bznfacqp9jwbshmbqd2xw3ixdspsbkrwsvkdaab7kca7";
+  src = fetchFromGitHub {
+    owner = "oxfordcontrol";
+    repo = "osqp-python";
+    rev = "v${version}";
+    sha256 = "1ix9wf7sfxzfaqwfqry6clpvfxqsfkxarv5h0h0gm0mw6rr9gbg8";
+    fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ cmake ];
@@ -24,19 +28,26 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     numpy
+    qdldl
     future
   ];
 
-  checkInputs = [ scipy pytestCheckHook ];
+  checkInputs = [ pytestCheckHook scipy ];
   pythonImportsCheck = [ "osqp" ];
   dontUseSetuptoolsCheck = true;  # running setup.py fails if false
+  preCheck = "pushd $TMP/$sourceRoot";  # needed on nixos-20.03, run tests from raw source
+  postCheck = "popd";
   disabledTests = [
     "mkl_"
-    "update_matrices_tests" # TODO: not sure why breaking. Needs fixed. Broke ~7/18/2020 with nixos update to scipy 1.5.0. See https://github.com/oxfordcontrol/osqp-python/issues/44
   ];
-  # preCheck = ''
-  #   export LD_LIBRARY_PATH=${lib.strings.makeLibraryPath [ mkl ]}:$LD_LIBRARY_PATH;
-  # '';
+  pytestFlagsArray = [
+    # These cannot collect b/c of circular dependency on cvxpy: https://github.com/oxfordcontrol/osqp-python/issues/50
+    "--ignore=module/tests/basic_test.py"
+    "--ignore=module/tests/feasibility_test.py"
+    "--ignore=module/tests/polishing_test.py"
+    "--ignore=module/tests/unconstrained_test.py"
+    "--ignore=module/tests/update_matrices_test.py"
+  ];
 
   meta = with lib; {
     description = "The Operator Splitting QP Solver";

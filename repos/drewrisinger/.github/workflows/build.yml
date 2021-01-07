@@ -60,6 +60,8 @@ jobs:
           -I $PWD
     - name: Build nix packages
       id: build_uncached
+      # if this errors, continue to verbose build.
+      continue-on-error: true
       run: NIXPKGS_ALLOW_UNFREE=1 nix run -I 'nixpkgs=channel:nixos-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     # nix-build-uncached uses "nix build" internally, which only outputs last 10 lines of failure.
     # To get more verbose error that we can debug, reruns any failed derivations to get full output
