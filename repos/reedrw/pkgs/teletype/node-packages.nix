@@ -382,13 +382,13 @@ let
         sha512 = "MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==";
       };
     };
-    "bufferutil-4.0.2" = {
+    "bufferutil-4.0.3" = {
       name = "bufferutil";
       packageName = "bufferutil";
-      version = "4.0.2";
+      version = "4.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/bufferutil/-/bufferutil-4.0.2.tgz";
-        sha512 = "AtnG3W6M8B2n4xDQ5R+70EXvOpnXsFYg/AK2yTZd+HQ/oxAdz+GI+DvjmhBw3L0ole+LJ0ngqY4JMbDzkfNzhA==";
+        url = "https://registry.npmjs.org/bufferutil/-/bufferutil-4.0.3.tgz";
+        sha512 = "yEYTwGndELGvfXsImMBLop58eaGW+YdONi1fNjTINSY98tmMmFijBG6WXgdkfuLNt4imzQNtIE+eBp1PVpMCSw==";
       };
     };
     "builtin-modules-1.1.1" = {
@@ -1012,13 +1012,13 @@ let
         sha512 = "7dUi7RvCoT/xast/o/dLN53oqND4yk0nsHkhRgn9w65C4PofCLOoJ39iSOg+qVDdWQPIEj+eszMHQ+aLVwwQSg==";
       };
     };
-    "globby-11.0.1" = {
+    "globby-11.0.2" = {
       name = "globby";
       packageName = "globby";
-      version = "11.0.1";
+      version = "11.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/globby/-/globby-11.0.1.tgz";
-        sha512 = "iH9RmgwCmUJHi2z5o2l3eTtGBtXek1OYlHrbcxOYugyHLmAsZrPj43OtHThd62Buh/Vv6VyCBD2bdyWcGNQqoQ==";
+        url = "https://registry.npmjs.org/globby/-/globby-11.0.2.tgz";
+        sha512 = "2ZThXDvvV8fYFRVIxnrMQBipZQDr7MxKAmQK1vujaj9/7eF0efG7BPUKJ7jP7G5SLF37xKDXvO4S/KKLj/Z0og==";
       };
     };
     "graceful-fs-4.2.4" = {
@@ -2281,13 +2281,13 @@ let
         sha512 = "f/qGG2tUkrISBlQZEjEqoZ3B2+npJjIf04H1wuAv9iA8i04Icp+61KRXxFdha22670NJopsZCIjhC3SnjPRKrQ==";
       };
     };
-    "tslib-2.0.3" = {
+    "tslib-2.1.0" = {
       name = "tslib";
       packageName = "tslib";
-      version = "2.0.3";
+      version = "2.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/tslib/-/tslib-2.0.3.tgz";
-        sha512 = "uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ==";
+        url = "https://registry.npmjs.org/tslib/-/tslib-2.1.0.tgz";
+        sha512 = "hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==";
       };
     };
     "tslint-6.1.3" = {
@@ -2380,13 +2380,13 @@ let
         sha512 = "g5JVHCIJwzfISaXpXE1qvNalca5Jwob6FjI4AoPlqMusJ6ftFE7IkkFoMhVLRgK+4Kx3gkzb8UZK5t5yTTvEmA==";
       };
     };
-    "tsutils-3.17.1" = {
+    "tsutils-3.19.0" = {
       name = "tsutils";
       packageName = "tsutils";
-      version = "3.17.1";
+      version = "3.19.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/tsutils/-/tsutils-3.17.1.tgz";
-        sha512 = "kzeQ5B8H3w60nFY2g8cJIuH7JDpsALXySGtwGJ0p2LSjLgay3NdIpqq5SoOBe46bKDW2iq25irHCr8wjomUS2g==";
+        url = "https://registry.npmjs.org/tsutils/-/tsutils-3.19.0.tgz";
+        sha512 = "A7BaLUPvcQ1cxVu72YfD+UMI3SQPTDv/w4ol6TOwLyI0hwfG9EC+cYlhdflJTmtYTgZ3KqdPSe/otxU4K3kArg==";
       };
     };
     "tunnel-agent-0.6.0" = {
@@ -2452,13 +2452,13 @@ let
         sha512 = "B0yRTzYdUCCn9n+F4+Gh4yIDtMQcaJsmYBDsTSG8g/OejKBodLQ2IHfN3bM7jUsRXndopT7OIXWdYqc1fjmV6g==";
       };
     };
-    "utf-8-validate-5.0.3" = {
+    "utf-8-validate-5.0.4" = {
       name = "utf-8-validate";
       packageName = "utf-8-validate";
-      version = "5.0.3";
+      version = "5.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/utf-8-validate/-/utf-8-validate-5.0.3.tgz";
-        sha512 = "jtJM6fpGv8C1SoH4PtG22pGto6x+Y8uPprW0tw3//gGFhDDTiuksgradgFN6yRayDP4SyZZa6ZMGHLIa17+M8A==";
+        url = "https://registry.npmjs.org/utf-8-validate/-/utf-8-validate-5.0.4.tgz";
+        sha512 = "MEF05cPSq3AwJ2C7B7sHAA6i53vONoZbMGX8My5auEVm6W+dJ2Jd/TZPyGJ5CH42V2XtbI5FD28HeHeqlPzZ3Q==";
       };
     };
     "util-deprecate-1.0.2" = {
@@ -2612,7 +2612,7 @@ in
       })
       (sources."@fimbul/bifrost-0.21.0" // {
         dependencies = [
-          sources."tsutils-3.17.1"
+          sources."tsutils-3.19.0"
         ];
       })
       sources."@fimbul/ymir-0.21.0"
@@ -2623,13 +2623,13 @@ in
       sources."@oclif/command-1.8.0"
       (sources."@oclif/config-1.17.0" // {
         dependencies = [
-          sources."globby-11.0.1"
-          sources."tslib-2.0.3"
+          sources."globby-11.0.2"
+          sources."tslib-2.1.0"
         ];
       })
       (sources."@oclif/dev-cli-1.26.0" // {
         dependencies = [
-          sources."tslib-2.0.3"
+          sources."tslib-2.1.0"
         ];
       })
       sources."@oclif/errors-1.3.4"
@@ -2681,7 +2681,7 @@ in
       sources."braces-3.0.2"
       sources."buffer-5.7.1"
       sources."buffer-from-1.1.1"
-      sources."bufferutil-4.0.2"
+      sources."bufferutil-4.0.3"
       sources."builtin-modules-1.1.1"
       sources."camelcase-5.3.1"
       sources."camelcase-keys-6.2.2"
@@ -2701,7 +2701,7 @@ in
         dependencies = [
           sources."has-flag-4.0.0"
           sources."supports-color-7.2.0"
-          sources."tslib-2.0.3"
+          sources."tslib-2.1.0"
         ];
       })
       sources."clone-1.0.4"
@@ -2988,7 +2988,7 @@ in
       (sources."tslint-eslint-rules-5.4.0" // {
         dependencies = [
           sources."tslib-1.9.0"
-          sources."tsutils-3.17.1"
+          sources."tsutils-3.19.0"
         ];
       })
       (sources."tslint-microsoft-contrib-5.2.1" // {
@@ -2999,7 +2999,7 @@ in
       sources."tslint-plugin-prettier-2.3.0"
       (sources."tslint-react-4.2.0" // {
         dependencies = [
-          sources."tsutils-3.17.1"
+          sources."tsutils-3.19.0"
         ];
       })
       sources."tsutils-2.29.0"
@@ -3009,7 +3009,7 @@ in
       sources."typescript-3.9.7"
       sources."universalify-0.1.2"
       sources."uri-js-4.4.0"
-      sources."utf-8-validate-5.0.3"
+      sources."utf-8-validate-5.0.4"
       sources."util-deprecate-1.0.2"
       sources."validate-npm-package-license-3.0.4"
       sources."wcwidth-1.0.1"
