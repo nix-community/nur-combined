@@ -1,15 +1,17 @@
 let
   sources = import ../nix/sources.nix { };
-  nixpkgs = import sources.nixpkgs { };
+  nixpkgsMaster = import sources.nixpkgs-unstable { };
+  nixpkgsUnstable = import sources.nixpkgs-unstable { };
 in
 {
-  bees = self: super: { inherit (nixpkgs) bees; };
+  bees = self: super: { inherit (nixpkgsUnstable) bees; };
 
   # https://github.com/NixOS/nixpkgs/pull/108148
-  cadvisor = self: super: { inherit (nixpkgs) cadvisor; };
+  cadvisor = self: super: { inherit (nixpkgsUnstable) cadvisor; };
 
-  deno = self: super: { inherit (nixpkgs) deno; };
+  deno = self: super: { inherit (nixpkgsUnstable) deno; };
+  factorio = self: super: { inherit (nixpkgsMaster) factorio-experimental factorio-headless-experimental; };
 
   # https://github.com/NixOS/nixpkgs/pull/105892
-  prometheus-nginx-exporter = self: super: { inherit (nixpkgs) prometheus-nginx-exporter; };
+  prometheus-nginx-exporter = self: super: { inherit (nixpkgsUnstable) prometheus-nginx-exporter; };
 }
