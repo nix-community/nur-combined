@@ -42,10 +42,22 @@ in
   config = mkIf cfg.enable {
     services.tor = {
       enable = mkDefault true;
-      controlPort = mkDefault 9051;
-
       client.enable = mkDefault true;
+    } // (if builtins.hasAttr "settings" config.services.tor then {
+      settings.ControlPort = mkDefault 9051;
+    } else {
+      controlPort = mkDefault 9051;
+    }) // (if builtins.hasAttr "onionServices" config.services.tor.relay then {
+      relay.onionServices = mkIf config.services.openssh.enable {
+        "ssh" = {
+          map = [
+            { port = 22; }
+          ];
+          version = 3;
+        };
+      };
 
+    } else {
       hiddenServices = mkIf config.services.openssh.enable {
         "ssh" = {
           map = [
@@ -54,12 +66,15 @@ in
           version = 3;
         };
       };
-    };
+    });
 
-    programs.ssh.extraConfig = mkIf config.services.tor.enable ''
+    programs.ssh.extraConfig = mkIf config.services.tor.enable (if builtins.hasAttr "addr" config.services.tor.client.socksListenAddress then ''
+      Host *.onion
+      ProxyCommand ${pkgs.netcat}/bin/nc -x${config.services.tor.client.socksListenAddress.addr}:${toString config.services.tor.client.socksListenAddress.port} -X5 %h %p
+    '' else ''
       Host *.onion
       ProxyCommand ${pkgs.netcat}/bin/nc -x${config.services.tor.client.socksListenAddress} -X5 %h %p
-    '';
+    '');
 
     services.prometheus = mkIf config.services.prometheus.enable {
       exporters = {
