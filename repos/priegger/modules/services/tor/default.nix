@@ -68,7 +68,7 @@ in
       };
     });
 
-    programs.ssh.extraConfig = mkIf config.services.tor.enable (if builtins.hasAttr "addr" config.services.tor.client.socksListenAddress then ''
+    programs.ssh.extraConfig = mkIf config.services.tor.enable (if builtins.isAttrs config.services.tor.client.socksListenAddress then ''
       Host *.onion
       ProxyCommand ${pkgs.netcat}/bin/nc -x${config.services.tor.client.socksListenAddress.addr}:${toString config.services.tor.client.socksListenAddress.port} -X5 %h %p
     '' else ''
