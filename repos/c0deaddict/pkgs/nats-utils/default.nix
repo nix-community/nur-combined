@@ -26,7 +26,6 @@ buildGoModule rec {
   #   '';
   # };
 
-  goPackagePath = "github.com/nats-io/nats.go";
   subPackages = [
     "utils/nats-bench"
     "utils/nats-echo"

@@ -6,4 +6,5 @@
   nginx-sso = ./nginx-sso;
   duplicity = ./duplicity;
   wordpress = ./wordpress;
+  etlegacy = ./etlegacy;
 }

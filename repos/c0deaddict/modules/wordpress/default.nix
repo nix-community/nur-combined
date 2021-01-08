@@ -502,7 +502,7 @@ in {
       "Z '${cfg.uploadsDir}' 0750 ${user} ${group} - -"
     ]) eachSite);
 
-    systemd.services = mapAttrs' (name: cfg:
+    systemd.services = listToAttrs (concatLists (mapAttrsToList (name: cfg: [
       (nameValuePair "wordpress-init-${name}" {
         wantedBy = [ "multi-user.target" ];
         before = [ "phpfpm-wordpress-${name}.service" ];
@@ -514,7 +514,12 @@ in {
           User = user;
           Group = group;
         };
-      })) eachSite;
+      })
+      (nameValuePair "phpfpm-wordpress-${name}" {
+        # Restart phpfpm if the wordpress package or config changes.
+        restartTriggers = [ (pkg name cfg) ];
+      })
+    ]) eachSite));
 
     users.users.${user} = {
       group = group;
