@@ -1,6 +1,6 @@
 let
   sources = import ../nix/sources.nix { };
-  nixpkgsMaster = import sources.nixpkgs-unstable { };
+  nixpkgsMaster = import sources.nixpkgs-master { };
   nixpkgsUnstable = import sources.nixpkgs-unstable { };
 in
 {
