@@ -1,0 +1,58 @@
+diff --git c/main.py i/main.py
+index 5164746..6a2398e 100644
+--- c/main.py
++++ i/main.py
+@@ -31,13 +31,13 @@ if __name__ == '__main__':
+ 
+     # Ensure we create the necesary folders if they don't exist
+     if not os.path.exists(c.FOLDER_DATA):
+-        os.mkdir(c.FOLDER_DATA)
++        os.makedirs(c.FOLDER_DATA)
+     if not os.path.exists(c.FOLDER_OUTPUT):
+-        os.mkdir(c.FOLDER_OUTPUT)
++        os.makedirs(c.FOLDER_OUTPUT)
+     if not os.path.exists(c.FOLDER_CONFIGS):
+-        os.mkdir(c.FOLDER_CONFIGS)
++        os.makedirs(c.FOLDER_CONFIGS)
+     if not os.path.exists(c.FOLDER_USER_CONFIGS):
+-        os.mkdir(c.FOLDER_USER_CONFIGS)
++        os.makedirs(c.FOLDER_USER_CONFIGS)
+ 
+     # Start the program
+     window = MainWindowHandlers()
+diff --git c/src/core/constants.py i/src/core/constants.py
+index 69e53c8..1fae240 100644
+--- c/src/core/constants.py
++++ i/src/core/constants.py
+@@ -19,13 +19,14 @@ connect the VAL and CONFIG_STYLE in the DATA_GROUPS dictionary
+ """
+ 
+ from PyQt5.QtCore import Qt
++from os.path import expanduser
+ 
+ 
+ # Resource Strings
+-FOLDER_DATA = 'data'
+-FOLDER_OUTPUT = 'output'
+-FOLDER_CONFIGS = 'configs'
+-FOLDER_USER_CONFIGS = 'configs/user'
++FOLDER_DATA = expanduser('~/.local/share/map-stylizer/data')
++FOLDER_OUTPUT = expanduser('~/.local/share/map-stylizer/output')
++FOLDER_CONFIGS = expanduser('~/.config/map-stylizer/configs')
++FOLDER_USER_CONFIGS = expanduser('~/.config/map-stylizer/configs/user')
+ FILE_ICON = 'src/resources/icon.png'
+ FILE_CONFIG = 'user.config'
+ 
+diff --git c/src/gui/MainWindow/MainWindowHandlers.py i/src/gui/MainWindow/MainWindowHandlers.py
+index 2e491d6..c2223bc 100644
+--- c/src/gui/MainWindow/MainWindowHandlers.py
++++ i/src/gui/MainWindow/MainWindowHandlers.py
+@@ -228,7 +228,7 @@ class MainWindowHandlers(QMainWindow):
+         The user has clicked the button to save the map as an image
+         """
+         fileName, _ = QFileDialog.getSaveFileName(
+-                           self, 'Save Image', 'output', 'Image Files (*.jpg)')
++                           self, 'Save Image', 'output', 'Image Files (*.png)')
+ 
+         if fileName:
+             self._map.saveImage(self._box_max_dim.value(), fileName)
