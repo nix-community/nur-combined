@@ -190,10 +190,12 @@ lib.makeScope newScope (
     ocad2mp = callPackage ./tools/geo/ocad2mp { };
     odict = callPackage ./tools/dict/odict { };
     openmtbmap = callPackage ./tools/geo/openmtbmap { };
+    osm-area-tools = callPackage ./tools/geo/osm-area-tools { };
     osm2mp = perlPackages.callPackage ./tools/geo/osm2mp {
       inherit sources;
       inherit (perlPackages) GeoOpenstreetmapParser MatchSimple MathPolygon MathPolygonTree TreeR;
     };
+    osmcoastline = callPackage ./tools/geo/osmcoastline { };
     phyghtmap = callPackage ./tools/geo/phyghtmap { };
     polyvectorization = libsForQt5.callPackage ./tools/graphics/polyvectorization {
       inherit sources;
