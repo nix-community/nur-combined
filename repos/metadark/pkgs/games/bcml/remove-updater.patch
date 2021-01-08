@@ -1,8 +1,8 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index 612dbcb..1fd4d4d 100644
+index 2edb7c7..b2a447c 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
-@@ -60,11 +60,7 @@ class Api:
+@@ -64,11 +64,7 @@ class Api:
          self.tmp_files = []
  
      def get_ver(self, params=None):
@@ -15,17 +15,14 @@ index 612dbcb..1fd4d4d 100644
  
      @win_or_lose
      def sanity_check(self, kwargs=None):
-@@ -718,52 +714,6 @@ class Api:
+@@ -716,45 +712,6 @@ class Api:
          help_thread = Thread(target=help_window, args=(self.host,))
          help_thread.start()
  
 -    @win_or_lose
 -    def update_bcml(self):
--        if util.get_latest_bcml() <= VERSION:
--            return
--        exe = util.get_python_exe().replace("pythonw", "python")
+-        exe = str(util.get_python_exe(False))
 -        args = [
--            exe,
 -            "-m",
 -            "pip",
 -            "install",
@@ -36,40 +33,36 @@ index 612dbcb..1fd4d4d 100644
 -        ]
 -        if DEBUG:
 -            args.insert(-2, "--pre")
--        parent = util.get_exec_dir().parent
--        if parent.name == "pkgs":
--            try:
--                (parent / "bcml").rename(parent / "bcml.bak")
--            except (OSError, PermissionError, FileExistsError, FileNotFoundError):
--                pass
 -        if SYSTEM == "Windows":
--            result = run(
--                args,
--                creationflags=util.CREATE_NO_WINDOW,
--                capture_output=True,
--                check=False,
--                text=True,
--            )
+-            with NamedTemporaryFile("w", suffix=".bat", delete=False) as updater:
+-                updater.write(
+-                    "@echo off\n"
+-                    f"\"{exe}\" {' '.join(args)}\n"
+-                    "echo Finished updating, will launch BCML in a moment!\n"
+-                    "timeout 2 >nul 2>&1\n"
+-                    f'start "" "{str(util.get_python_exe(True))}" -m bcml\n'
+-                )
+-                file = updater.name
+-            os.system(f"timeout 2 >nul 2>&1 && start cmd /c {file}")
 -        else:
--            result = run(
--                args,
--                capture_output=True,
--                check=False,
--                text=True,
--            )
--        if result.stderr:
--            if parent.name == "pkgs":
--                try:
--                    (parent / "bcml.bak").rename(parent / "bcml")
--                except (OSError, PermissionError, FileExistsError, FileNotFoundError):
--                    pass
--            raise RuntimeError(result.stderr)
+-            with NamedTemporaryFile("w", suffix=".sh", delete=False) as updater:
+-                updater.write(
+-                    "#!/usr/bin/bash\n"
+-                    "sleep 2\n"
+-                    f"\"{exe}\" {' '.join(args)}\n"
+-                    "echo Finished updating, will launch BCML in a moment!\n"
+-                    f"{exe} -m bcml"
+-                )
+-                file = updater.name
+-            Popen(["/bin/sh", file], start_new_session=True)
+-        for win in webviewb.windows:
+-            win.destroy()
 -
      def restart(self):
          opener = Thread(target=start_new_instance)
          opener.start()
 diff --git a/bcml/assets/src/js/App.jsx b/bcml/assets/src/js/App.jsx
-index 64ec5fd..1979059 100644
+index 8832b09..1979059 100644
 --- a/bcml/assets/src/js/App.jsx
 +++ b/bcml/assets/src/js/App.jsx
 @@ -35,7 +35,6 @@ class App extends React.Component {
@@ -80,33 +73,16 @@ index 64ec5fd..1979059 100644
              version: "3.0"
          };
          this.selects = null;
-@@ -275,33 +274,6 @@ class App extends React.Component {
+@@ -275,16 +274,6 @@ class App extends React.Component {
              .catch(this.props.onError);
      };
  
 -    updateBcml = () => {
--        this.setState(
--            {
--                progressTitle: "Upgrading BCML",
--                progressStatus: "Please wait while BCML upgrades...",
--                showProgress: true
--            },
+-        this.confirm(
+-            "Are you sure you want to update BCML? " +
+-                "Updating will close the program, run the update, and attempt to lauch it again.",
 -            () => {
--                pywebview.api
--                    .update_bcml()
--                    .then(res => {
--                        if (res.error) {
--                            throw res.error;
--                        }
--                        this.setState({
--                            showProgress: false,
--                            showConfirm: true,
--                            confirmText:
--                                "BCML has been updated successfully. You must restart the program for changes to take effect. Restart now?",
--                            confirmCallback: () => pywebview.api.restart()
--                        });
--                    })
--                    .catch(this.showError);
+-                pywebview.api.update_bcml();
 -            }
 -        );
 -    };
@@ -114,20 +90,17 @@ index 64ec5fd..1979059 100644
      setProgress = (title, msg) => {
          this.setState({
              progressTitle: title,
-@@ -328,12 +300,6 @@ class App extends React.Component {
+@@ -311,9 +300,6 @@ class App extends React.Component {
                          <Dropdown.Item onClick={() => pywebview.api.save_mod_list()}>
                              Save Mod List
                          </Dropdown.Item>
--                        <Dropdown.Item
--                            as="a"
--                            href="https://github.com/NiceneNerd/BCML/releases/latest"
--                            target="_blank">
+-                        <Dropdown.Item onClick={this.updateBcml}>
 -                            Update BCML
 -                        </Dropdown.Item>
                          <Dropdown.Item as="a" href="/index.html?firstrun">
                              Run Setup Wizard
                          </Dropdown.Item>
-@@ -444,14 +410,6 @@ class App extends React.Component {
+@@ -424,14 +410,6 @@ class App extends React.Component {
                      message={this.state.confirmText}
                      onClose={this.state.confirmCallback.bind(this)}
                  />
@@ -142,7 +115,7 @@ index 64ec5fd..1979059 100644
                  <BackupModal
                      show={this.state.showBackups}
                      busy={this.state.showProgress}
-@@ -572,29 +530,4 @@ const ConfirmDialog = props => {
+@@ -552,23 +530,4 @@ const ConfirmDialog = props => {
      );
  };
  
@@ -153,16 +126,10 @@ index 64ec5fd..1979059 100644
 -                <Modal.Title>Update Available</Modal.Title>
 -            </Modal.Header>
 -            <Modal.Body>
--                There is a new update available for BCML. Would you like to update? (OK
--                will open a new window to the latest download.)
+-                There is a new update available for BCML. Would you like to install it?
 -            </Modal.Body>
 -            <Modal.Footer>
--                <Button
--                    as="a"
--                    href="https://github.com/NiceneNerd/BCML/releases/latest"
--                    target="_blank">
--                    OK
--                </Button>
+-                <Button onClick={() => props.onClose(true)}>OK</Button>
 -                <Button variant="secondary" onClick={() => props.onClose(false)}>
 -                    Close
 -                </Button>
@@ -210,10 +177,10 @@ index 1748411..f3b5e12 100644
                              <OverlayTrigger
                                  overlay={
 diff --git a/bcml/util.py b/bcml/util.py
-index 123ac22..8bf5941 100644
+index a992bcd..5119ad8 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
-@@ -563,7 +563,6 @@ DEFAULT_SETTINGS = {
+@@ -576,7 +576,6 @@ DEFAULT_SETTINGS = {
      "wiiu": True,
      "no_hardlinks": False,
      "force_7z": False,
@@ -221,7 +188,7 @@ index 123ac22..8bf5941 100644
      "nsfw": False,
  }
  
-@@ -1254,25 +1253,6 @@ def get_open_port():
+@@ -1274,25 +1273,6 @@ def get_open_port():
      return port
  
  
