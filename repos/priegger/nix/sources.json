@@ -1,4 +1,16 @@
 {
+    "factorio": {
+        "branch": "factorio",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "lukegb",
+        "repo": "nixpkgs",
+        "rev": "cf58429db8dcd6a5541581ad4784402ef46c96f4",
+        "sha256": "16qj3gdcq2zl23hfzni49xdg6bp2gpil0djm2h955ia3i22yr1yy",
+        "type": "tarball",
+        "url": "https://github.com/lukegb/nixpkgs/archive/cf58429db8dcd6a5541581ad4784402ef46c96f4.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",
