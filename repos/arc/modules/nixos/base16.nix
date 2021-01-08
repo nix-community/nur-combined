@@ -3,7 +3,7 @@
   consoleShell = (config.lib.arc.base16.schemeFor cfg.console.scheme).shell.override { inherit (cfg.console) ansiCompatibility; };
   makeColorCS = n: value: "\\e]P${toHexUpper n}${value}";
 in {
-  options.services.mingetty = {
+  options.console.mingetty = {
     greetingPrefix = mkOption {
       type = types.separatedString "";
       default = "";
@@ -31,11 +31,13 @@ in {
   config = {
     console = mkIf cfg.console.enable {
       colors = map (v: v.hex.rgb) consoleShell.colours16;
+      mingetty = mkIf cfg.console.mingetty.enable {
+        greetingPrefix = mkBefore (concatImap0Strings makeColorCS config.console.colors);
+        greeting = mkDefault ''<<< Welcome to NixOS ${config.system.nixos.label} (\m) - \l >>>'';
+      };
     };
     services.mingetty = mkIf cfg.console.mingetty.enable {
-      greetingPrefix = mkBefore (concatImap0Strings makeColorCS config.console.colors);
-      greeting = mkDefault ''<<< Welcome to NixOS ${config.system.nixos.label} (\m) - \l >>>'';
-      greetingLine = "${config.services.mingetty.greetingPrefix}${config.services.mingetty.greeting}";
+      greetingLine = "${config.console.mingetty.greetingPrefix}${config.console.mingetty.greeting}";
     };
   };
 }
