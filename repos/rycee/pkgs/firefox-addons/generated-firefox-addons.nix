@@ -1015,10 +1015,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.6.4";
+      version = "3.6.5";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3697790/tree_style_tab_-3.6.4-fx.xpi";
-      sha256 = "708e7063c98819beec627f83c707260aae8b1d2f30d549e798d66457d2bb807d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3705500/tree_style_tab_-3.6.5-fx.xpi";
+      sha256 = "86fa603dde05569f954e4281ef96cefb5313953671be7dd8bedaaa80c0912684";
       meta = with stdenv.lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
