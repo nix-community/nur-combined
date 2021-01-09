@@ -16,4 +16,6 @@
 
   linx-client = pkgs.callPackage ./pkgs/linx-client { };
   linx-server = pkgs.callPackage ./pkgs/linx-server { go-rice=pkgs.callPackage ./pkgs/go-rice { }; };
+
+  hbs = pkgs.callPackage ./pkgs/hbs { };
 }
