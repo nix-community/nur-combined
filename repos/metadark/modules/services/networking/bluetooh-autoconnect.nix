@@ -47,6 +47,17 @@ in
             ExecStart = "${bluetooth-autoconnect}/bin/bluetooth-autoconnect";
           };
         };
+      } // mkIf config.services.pipewire.enable {
+        pipewire-bluetooth-autoconnect = {
+          description = "Bluetooth autoconnect service for pipewire";
+          wantedBy = [ "pipewire.service" ];
+          after = [ "pipewire.service" ];
+          serviceConfig = {
+            Type = "simple";
+            ExecStartPre = "${pkgs.coreutils}/bin/sleep 0.1";
+            ExecStart = "${bluetooth-autoconnect}/bin/bluetooth-autoconnect";
+          };
+        };
       };
     };
   };
