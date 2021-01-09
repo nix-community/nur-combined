@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub}:
 
 stdenv.mkDerivation rec {
-  version = "1.0.32";
+  version = "1.0.37";
   pname = "php-simple-benchmark-script";
 
   src = fetchFromGitHub {
     owner = "rusoft";
     repo = "php-simple-benchmark-script";
     rev = "v${version}";
-    sha256 = "1ncngkgrzsa5nsj1zskqm34xx14kgmjgmlhlidys3nchslsjkza6";
+    sha256 = "0675llxr8hgrn4mggr9s10j17k63scspd5cgcqhgykzvz9560mnn";
   };
 
   phases = [ "installPhase" ];
