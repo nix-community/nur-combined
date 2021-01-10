@@ -32,7 +32,7 @@ with (import ../../globalConfig.nix);
   home.packages = with pkgs; [
    # ------------ pacotes do nixpkgs ---------------
     # minecraft  # custom (excluded)
-    pinball mspaint stremio my_rofi # custom
+    pinball mspaint stremio my_rofi peazip # custom
     vlc youtube-dl # media
     discord tdesktop # social
     google-chrome # browser (extra)
