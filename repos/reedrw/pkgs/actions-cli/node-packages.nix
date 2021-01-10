@@ -994,13 +994,13 @@ let
         sha512 = "zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==";
       };
     };
-    "call-bind-1.0.0" = {
+    "call-bind-1.0.1" = {
       name = "call-bind";
       packageName = "call-bind";
-      version = "1.0.0";
+      version = "1.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/call-bind/-/call-bind-1.0.0.tgz";
-        sha512 = "AEXsYIyyDY3MCzbwdhzG3Jx1R0J2wetQyUynn6dYHAO+bg8l1k7jwZtRv4ryryFs7EP+NDlikJlVe59jr0cM2w==";
+        url = "https://registry.npmjs.org/call-bind/-/call-bind-1.0.1.tgz";
+        sha512 = "tvAvUwNcRikl3RVF20X9lsYmmepsovzTWeJiXjO0PkJp15uy/6xKFZOQtuiSULwYW+6ToZBprphCgWXC2dSgcQ==";
       };
     };
     "camelcase-5.3.1" = {
@@ -2713,13 +2713,13 @@ let
         sha1 = "8710d7af0aa626f8fffa1ce00168545263255748";
       };
     };
-    "memoizee-0.4.14" = {
+    "memoizee-0.4.15" = {
       name = "memoizee";
       packageName = "memoizee";
-      version = "0.4.14";
+      version = "0.4.15";
       src = fetchurl {
-        url = "https://registry.npmjs.org/memoizee/-/memoizee-0.4.14.tgz";
-        sha512 = "/SWFvWegAIYAO4NQMpcX+gcra0yEZu4OntmUdrBaWrJncxOqAziGFlHxc7yjKVK2uu3lpPW27P27wkR82wA8mg==";
+        url = "https://registry.npmjs.org/memoizee/-/memoizee-0.4.15.tgz";
+        sha512 = "UBWmJpLZd5STPm7PMUlOw/TSy972M+z8gcyQ5veOnSDRREz/0bmpyTfKt3/51DhEBqCZQn1udM/5flcSPYhkdQ==";
       };
     };
     "merge-descriptors-1.0.1" = {
@@ -3838,13 +3838,13 @@ let
         sha1 = "b2bf4ee8514aae6165b4817829d21b2ef49904ec";
       };
     };
-    "uri-js-4.4.0" = {
+    "uri-js-4.4.1" = {
       name = "uri-js";
       packageName = "uri-js";
-      version = "4.4.0";
+      version = "4.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/uri-js/-/uri-js-4.4.0.tgz";
-        sha512 = "B0yRTzYdUCCn9n+F4+Gh4yIDtMQcaJsmYBDsTSG8g/OejKBodLQ2IHfN3bM7jUsRXndopT7OIXWdYqc1fjmV6g==";
+        url = "https://registry.npmjs.org/uri-js/-/uri-js-4.4.1.tgz";
+        sha512 = "7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==";
       };
     };
     "util-deprecate-1.0.2" = {
@@ -4229,7 +4229,7 @@ in
       sources."browser-stdout-1.3.1"
       sources."buffer-equal-constant-time-1.0.1"
       sources."bytes-3.1.0"
-      sources."call-bind-1.0.0"
+      sources."call-bind-1.0.1"
       sources."camelcase-5.3.1"
       sources."chalk-4.1.0"
       sources."cli-cursor-3.1.0"
@@ -4455,7 +4455,7 @@ in
         ];
       })
       sources."media-typer-0.3.0"
-      sources."memoizee-0.4.14"
+      sources."memoizee-0.4.15"
       sources."merge-descriptors-1.0.1"
       sources."methods-1.1.2"
       sources."mime-2.4.7"
@@ -4626,7 +4626,7 @@ in
       sources."typescript-3.9.7"
       sources."universal-user-agent-5.0.0"
       sources."unpipe-1.0.0"
-      sources."uri-js-4.4.0"
+      sources."uri-js-4.4.1"
       sources."util-deprecate-1.0.2"
       sources."utils-merge-1.0.1"
       sources."vary-1.1.2"

@@ -2380,13 +2380,13 @@ let
         sha512 = "g5JVHCIJwzfISaXpXE1qvNalca5Jwob6FjI4AoPlqMusJ6ftFE7IkkFoMhVLRgK+4Kx3gkzb8UZK5t5yTTvEmA==";
       };
     };
-    "tsutils-3.19.0" = {
+    "tsutils-3.19.1" = {
       name = "tsutils";
       packageName = "tsutils";
-      version = "3.19.0";
+      version = "3.19.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/tsutils/-/tsutils-3.19.0.tgz";
-        sha512 = "A7BaLUPvcQ1cxVu72YfD+UMI3SQPTDv/w4ol6TOwLyI0hwfG9EC+cYlhdflJTmtYTgZ3KqdPSe/otxU4K3kArg==";
+        url = "https://registry.npmjs.org/tsutils/-/tsutils-3.19.1.tgz";
+        sha512 = "GEdoBf5XI324lu7ycad7s6laADfnAqCw6wLGI+knxvw9vsIYBaJfYdmeCEG3FMMUiSm3OGgNb+m6utsWf5h9Vw==";
       };
     };
     "tunnel-agent-0.6.0" = {
@@ -2443,13 +2443,13 @@ let
         sha512 = "rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==";
       };
     };
-    "uri-js-4.4.0" = {
+    "uri-js-4.4.1" = {
       name = "uri-js";
       packageName = "uri-js";
-      version = "4.4.0";
+      version = "4.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/uri-js/-/uri-js-4.4.0.tgz";
-        sha512 = "B0yRTzYdUCCn9n+F4+Gh4yIDtMQcaJsmYBDsTSG8g/OejKBodLQ2IHfN3bM7jUsRXndopT7OIXWdYqc1fjmV6g==";
+        url = "https://registry.npmjs.org/uri-js/-/uri-js-4.4.1.tgz";
+        sha512 = "7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==";
       };
     };
     "utf-8-validate-5.0.4" = {
@@ -2612,7 +2612,7 @@ in
       })
       (sources."@fimbul/bifrost-0.21.0" // {
         dependencies = [
-          sources."tsutils-3.19.0"
+          sources."tsutils-3.19.1"
         ];
       })
       sources."@fimbul/ymir-0.21.0"
@@ -2988,7 +2988,7 @@ in
       (sources."tslint-eslint-rules-5.4.0" // {
         dependencies = [
           sources."tslib-1.9.0"
-          sources."tsutils-3.19.0"
+          sources."tsutils-3.19.1"
         ];
       })
       (sources."tslint-microsoft-contrib-5.2.1" // {
@@ -2999,7 +2999,7 @@ in
       sources."tslint-plugin-prettier-2.3.0"
       (sources."tslint-react-4.2.0" // {
         dependencies = [
-          sources."tsutils-3.19.0"
+          sources."tsutils-3.19.1"
         ];
       })
       sources."tsutils-2.29.0"
@@ -3008,7 +3008,7 @@ in
       sources."typedarray-to-buffer-3.1.5"
       sources."typescript-3.9.7"
       sources."universalify-0.1.2"
-      sources."uri-js-4.4.0"
+      sources."uri-js-4.4.1"
       sources."utf-8-validate-5.0.4"
       sources."util-deprecate-1.0.2"
       sources."validate-npm-package-license-3.0.4"
