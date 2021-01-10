@@ -1,4 +1,4 @@
-{ stdenv, lua53Packages, fetchurl }:
+{ lib, lua53Packages, fetchurl }:
 
 with lua53Packages;
 buildLuarocksPackage rec {
@@ -15,7 +15,7 @@ buildLuarocksPackage rec {
     install -D fennel.1 $out/share/man/man1/fennel.1
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A lisp that compiles to Lua";
     homepage = "https://fennel-lang.org/";
     license = licenses.mit;

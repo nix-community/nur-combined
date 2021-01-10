@@ -1,4 +1,4 @@
-{ stdenv, buildGoModule, fetchFromGitHub }:
+{ lib, buildGoModule, fetchFromGitHub }:
 buildGoModule rec {
   pname = "passphrase2pgp";
   version = "1.1.0";
@@ -16,7 +16,7 @@ buildGoModule rec {
 
   outputs = [ "out" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Generate a PGP key from a passphrase";
     homepage = "https://github.com/skeeto/passphrase2pgp";
     license = licenses.unlicense;

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, callPackage, autoconf, automake, libtool, libxml2
+{ stdenv, lib, fetchFromGitHub, callPackage, autoconf, automake, libtool, libxml2
 , libxslt, pkg-config, flex, pcre, pcre-cpp, icu, lttoolbox }:
 stdenv.mkDerivation rec {
   pname = "apertium";
@@ -19,12 +19,12 @@ stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  meta = {
+  meta = with lib; {
     description = "A free/open-source machine translation platform";
     homepage = "https://github.com/apertium/apertium";
 
-    license = stdenv.lib.licenses.gpl2;
+    license = licenses.gpl2;
     maintainers = [  ];
-    platforms = stdenv.lib.platforms.linux;
+    platforms = platforms.linux;
   };
 }

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake }:
+{ stdenv, lib, fetchFromGitHub, cmake }:
 stdenv.mkDerivation rec {
   pname = "lunasvg";
   version = "1.4.1";
@@ -17,12 +17,12 @@ stdenv.mkDerivation rec {
     "-DBUILD_SHARED_LIBS=TRUE"
   ];
 
-  meta = {
+  meta = with lib; {
     description = "A standalone c++ library to create, animate, manipulate and render SVG files";
     homepage = "https://github.com/sammycage/lunasvg";
 
-    license = stdenv.lib.licenses.mit;
+    license = licenses.mit;
     maintainers = [  ];
-    platforms = stdenv.lib.platforms.linux;
+    platforms = platforms.linux;
   };
 }
