@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-07T12:32:35Z",
+        "date": "2021-01-08T11:13:00Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "dfdfe52fcad9e33c5d242b0d5780b26759d5c94d",
-        "sha256": "0paqf2vrl2mpzm7sy9ywb3b2lsx5llj4h5g3l6yi50fi5gm0ny0m",
+        "rev": "40ffe36bc5d53e40316eca5ff34b809cb70e0195",
+        "sha256": "1p616p9v6dp34m1nc8c56qg2lwnpqkb1kljw2k2b8cn67vbzrxcb",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/dfdfe52fcad9e33c5d242b0d5780b26759d5c94d.tar.gz",
+        "url": "https://github.com/embox/embox/archive/40ffe36bc5d53e40316eca5ff34b809cb70e0195.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -226,15 +226,15 @@
     "gef": {
         "branch": "dev",
         "builtin": false,
-        "date": "2020-12-24T21:42:50Z",
+        "date": "2021-01-08T21:16:06Z",
         "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
         "homepage": "http://gef.rtfd.io",
         "owner": "hugsy",
         "repo": "gef",
-        "rev": "528db47d7e735f67a7d93bafb53d49079f88afaa",
-        "sha256": "07rwdpfi7g4k03sdl6nkjfiz3c63wcsvxv85l2fkskj872sp8y4w",
+        "rev": "fc025c908cf345a80934ecc338b1143b370f8e7f",
+        "sha256": "140ypci0myxd8v2pphajvm0c28zff52srbyaz3349g20d75l44q0",
         "type": "tarball",
-        "url": "https://github.com/hugsy/gef/archive/528db47d7e735f67a7d93bafb53d49079f88afaa.tar.gz",
+        "url": "https://github.com/hugsy/gef/archive/fc025c908cf345a80934ecc338b1143b370f8e7f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geminid": {
@@ -253,27 +253,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "0s9gq7mi86rszhqhhjqaw1hbvfrw5z5jsxzlhpy7lbp4cs4nlriy",
+        "sha256": "1m2j925ynjinsm2psfg6ck906w8j5dazr3s3qw1rdscvfmib6djx",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-210106.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-210108.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "210106"
+        "version": "210108"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "0lxx266bh6sx74s8dns2m8fms9252cn24lsdbdjhvir001kxklmr",
+        "sha256": "17cfzzal7cmxqv8la38swj76l3w1ry1jaw770ng6bbf79vix6i2h",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-210106.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-210108.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "210106"
+        "version": "210108"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "063yv722irsmf19q47xphx2qi4ywbj9ri6bjjxvzd35vq42y210x",
+        "sha256": "0rmi9q3m2wq3ngyxy7ndxxrl4jz93y4jks5rf7v6nllhckcyqf3z",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210106.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210108.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "210106"
+        "version": "210108"
     },
     "gimgtools": {
         "branch": "master",
@@ -391,15 +391,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2021-01-06T18:27:28Z",
+        "date": "2021-01-09T12:30:54Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "cec8946d864ccf1cb71557a033a8bb4932ef2619",
-        "sha256": "1l9azgz9v3diarqy9yas8aggsv9j0ikx79gwcildxsylcwvrlk6z",
+        "rev": "7a664342b6b12eddaccb1dbcebbd787fd8f12f3f",
+        "sha256": "089rs9xswwkyd687m75wa818vmgslajvcwmh16gssbvr23r14b70",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/cec8946d864ccf1cb71557a033a8bb4932ef2619.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/7a664342b6b12eddaccb1dbcebbd787fd8f12f3f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -601,29 +601,29 @@
     "map-hr": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-07T14:05:16Z",
+        "date": "2021-01-09T15:17:39Z",
         "description": "Slazav mountains",
         "homepage": "http://slazav.xyz/maps/",
         "owner": "slazav",
         "repo": "map_hr",
-        "rev": "52f68d9c4b76da59dcd0e22cbd8aa9f458833f88",
-        "sha256": "0rw5l2c822bb4k3f4v4z4f1in2445y0x1a0ca2gjgip0dl5hjm5b",
+        "rev": "0fb496bb31a3edd118d5e4997fb7712bfbba5d4b",
+        "sha256": "1jacz7jqlpf4mwqgcda5h4jz47jk6bsyzn53ncdxdpq107hrlh70",
         "type": "tarball",
-        "url": "https://github.com/slazav/map_hr/archive/52f68d9c4b76da59dcd0e22cbd8aa9f458833f88.tar.gz",
+        "url": "https://github.com/slazav/map_hr/archive/0fb496bb31a3edd118d5e4997fb7712bfbba5d4b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "map-podm": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-07T14:22:15Z",
+        "date": "2021-01-09T15:19:59Z",
         "description": "Карты Подмосковья в виде номенклатурных листов 1:100000 - исходники в формате mapsoft vmap",
         "homepage": "http://slazav.xyz/maps/",
         "owner": "slazav",
         "repo": "map_podm",
-        "rev": "59a6035fa5bd1d1a8d6544881c1d0aad4a91f315",
-        "sha256": "0y8jlq7ziks57fv6d449rpljc8vy41b6jq7k4979d4ayjn6krsgw",
+        "rev": "c95a381155986f9f621e5d26b21bda041ad8c24f",
+        "sha256": "0jsrjzmg23rp3ay5149llqrq6pnr66wf7siphwn7gisz5g60pgpf",
         "type": "tarball",
-        "url": "https://github.com/slazav/map_podm/archive/59a6035fa5bd1d1a8d6544881c1d0aad4a91f315.tar.gz",
+        "url": "https://github.com/slazav/map_podm/archive/c95a381155986f9f621e5d26b21bda041ad8c24f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "map-stylizer": {
@@ -657,15 +657,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-01T15:37:39Z",
+        "date": "2021-01-09T13:07:38Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "d6ed6b3f0bb60836b5a73eb41b5ec8dfd0707094",
-        "sha256": "1vx7ii87qrn9m3mx72xzs90l0xqzrhwgipdb7z4zdvvwlfgkjly9",
+        "rev": "cb863b439811ddb7fcbca5014d1153fb736ff60a",
+        "sha256": "140mqb27y9ynfdgkyhni26bbibqx8vqx9vnix4a4nywcjcr2pfzx",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/d6ed6b3f0bb60836b5a73eb41b5ec8dfd0707094.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/cb863b439811ddb7fcbca5014d1153fb736ff60a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maprec": {
@@ -701,11 +701,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "1xlm0wifc8gdhiqyj9j3lc5cd78kyh7pbf03x1yfbcbpz1g6irp0",
+        "sha256": "0v1krqj1wyw6l57yy4cr0qc1mh1qg9cvqdfmhwbz4n8cgq6qqh2c",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-01-06.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-01-08.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2021-01-06"
+        "version": "2021-01-08"
     },
     "mercantile": {
         "branch": "master",
@@ -790,15 +790,15 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-07T17:25:42Z",
+        "date": "2021-01-09T18:17:16Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "ce998a1a7a0844fe9f552c03da34ee2f901e1489",
-        "sha256": "0fk3996bnd0fyn3bpmiip6ls9zhc3cb5vz62shsm46kb7szcvjc8",
+        "rev": "042b807c79e683b00956cad0e2b58bfc2f113afd",
+        "sha256": "18zij4kkb47r82pnhgqrlvsp27733i24r11kfv9ndns5fcngj91a",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/ce998a1a7a0844fe9f552c03da34ee2f901e1489.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/042b807c79e683b00956cad0e2b58bfc2f113afd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
@@ -818,15 +818,15 @@
     "odict": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-04T23:16:35Z",
+        "date": "2021-01-08T22:22:26Z",
         "description": "A blazingly-fast replacement for Apple Dictionaries, Babylon, StarDict, etc",
         "homepage": "https://odict.org",
         "owner": "odict",
         "repo": "odict",
-        "rev": "80ca45c3af148fdc7b68f3851ee91614b84081ea",
-        "sha256": "03l9drlgab3jg1jrmvmb3khkb193vhrqb8w7mvn5nqp338xpbzhl",
+        "rev": "639dbab4feac15c4f69049bfb9b7bcfecaf68b47",
+        "sha256": "1ffkj7ry1rcljkilfnwffpqz3mb9ci9y9z9z6z6yhwakq4g5dj3j",
         "type": "tarball",
-        "url": "https://github.com/odict/odict/archive/80ca45c3af148fdc7b68f3851ee91614b84081ea.tar.gz",
+        "url": "https://github.com/odict/odict/archive/639dbab4feac15c4f69049bfb9b7bcfecaf68b47.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "openmtbmap": {
@@ -930,15 +930,15 @@
     "pyephem": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-05T14:03:35Z",
+        "date": "2021-01-08T22:13:33Z",
         "description": "Scientific-grade astronomy routines for Python",
         "homepage": "https://rhodesmill.org/pyephem",
         "owner": "brandon-rhodes",
         "repo": "pyephem",
-        "rev": "6f50eaea46495553e4a155066791744868a8e59c",
-        "sha256": "1cwvyqa7ng3wcky3d3058z1wwdqsvg1676jx048ym2csgnsb2iqb",
+        "rev": "e4c591d988d429afae232e12f9002f2e8f9ec1ed",
+        "sha256": "1i5hh9r6jj4hv6rxcb91ha8dp7fsblxrw24vih0bg5cljgx25spr",
         "type": "tarball",
-        "url": "https://github.com/brandon-rhodes/pyephem/archive/6f50eaea46495553e4a155066791744868a8e59c.tar.gz",
+        "url": "https://github.com/brandon-rhodes/pyephem/archive/e4c591d988d429afae232e12f9002f2e8f9ec1ed.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pymbtiles": {
