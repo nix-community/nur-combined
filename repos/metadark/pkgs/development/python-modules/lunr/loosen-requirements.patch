@@ -1,0 +1,16 @@
+diff --git a/setup.py b/setup.py
+index 12cb7c2..8ae71ef 100644
+--- a/setup.py
++++ b/setup.py
+@@ -40,10 +40,7 @@ setup(
+     python_requires=">=3.6",
+     install_requires=[],
+     extras_require={
+-        # NLTK 3.5 requires regex which does not ship with all types of wheels
+-        # and causes installation issues in mkdocs upstream
+-        # https://github.com/mkdocs/mkdocs/issues/2062
+-        "languages": ["nltk>=3.2.5,<3.5"]
++        "languages": ["nltk>=3.2.5,<4"]
+     },
+     keywords="lunr full text search",
+     classifiers=[

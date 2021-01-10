@@ -1,4 +1,5 @@
-{ stdenvNoCC
+{ lib
+, stdenvNoCC
 , callPackage
 , makeDesktopItem
 , fetchurl
@@ -26,7 +27,7 @@ stdenvNoCC.mkDerivation {
   src = fetchurl {
     url = "https://thelettervsixtim.es/makeandplay/data.zip";
     sha256 = "1q2pzscrglmwfgdl8yj300wymwskh51iq66l4xcd0qk0q3g3rbkg";
-    meta.licence = stdenvNoCC.lib.licenses.unfree;
+    meta.licence = lib.licenses.unfree;
   };
 
   nativeBuildInputs = [ makeWrapper unzip ];
@@ -46,7 +47,7 @@ stdenvNoCC.mkDerivation {
     cp VVVVVV.png "$out/share/pixmaps"
   '';
 
-  meta = VVVVVV.meta // {
-    license = stdenvNoCC.lib.licenses.unfree;
-  };
+  meta = VVVVVV.meta // (with lib; {
+    license = licenses.unfree;
+  });
 }

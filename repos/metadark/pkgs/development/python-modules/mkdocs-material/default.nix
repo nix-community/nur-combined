@@ -32,6 +32,9 @@ buildPythonPackage rec {
   # No tests
   doCheck = false;
 
+  # Strip adds unnecessary overhead with no binary files to strip
+  dontStrip = true;
+
   meta = with lib; {
     description = "A Material Design theme for MkDocs";
     homepage = "https://squidfunk.github.io/mkdocs-material";

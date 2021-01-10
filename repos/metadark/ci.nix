@@ -19,7 +19,7 @@ let
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) &&
     any
-      (pkgs.stdenv.lib.meta.platformMatch pkgs.stdenv.hostPlatform)
+      (pkgs.lib.meta.platformMatch pkgs.stdenv.hostPlatform)
       p.meta.hydraPlatforms or p.meta.platforms or [ "x86_64-linux" ];
 
   isCacheable = p: !(p.preferLocalBuild or false) &&

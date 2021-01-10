@@ -23,6 +23,10 @@ buildPythonPackage rec {
     sha256 = "1ngrm2w0fw89ckd9606bvqvxcjs6fna93n26cckqzwjsf7kwfhvp";
   };
 
+  patches = [
+    ./loosen-requirements.patch
+  ];
+
   propagatedBuildInputs = [
     click
     jinja2

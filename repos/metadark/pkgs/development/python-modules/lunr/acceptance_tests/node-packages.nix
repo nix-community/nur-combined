@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "lunr-2.3.8" = {
+    "lunr-2.3.9" = {
       name = "lunr";
       packageName = "lunr";
-      version = "2.3.8";
+      version = "2.3.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/lunr/-/lunr-2.3.8.tgz";
-        sha512 = "oxMeX/Y35PNFuZoHp+jUj5OSEmLCaIH4KTFJh7a93cHBoFmpw2IoPs22VIz7vyO2YUnx2Tn9dzIwO2P/4quIRg==";
+        url = "https://registry.npmjs.org/lunr/-/lunr-2.3.9.tgz";
+        sha512 = "zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==";
       };
     };
     "lunr-languages-1.0.0" = {
@@ -47,7 +47,7 @@ let
     version = "1.0.0";
     src = ./.;
     dependencies = [
-      sources."lunr-2.3.8"
+      sources."lunr-2.3.9"
       sources."lunr-languages-1.0.0"
       sources."os-tmpdir-1.0.2"
       sources."tmp-0.0.33"

@@ -6,9 +6,7 @@
 , fetchzip
 , buildPythonPackage
 , fetchFromGitHub
-, future
 , nltk
-, six
 , mock
 , pytestCheckHook
 }:
@@ -31,19 +29,21 @@ let
   ];
 in buildPythonPackage rec {
   pname = "lunr.py";
-  version = "0.5.8";
+  version = "0.5.9";
 
   src = fetchFromGitHub {
     owner = "yeraydiazdiaz";
     repo = pname;
     rev = version;
-    sha256 = "1r5f242iw4yja6c2kybrym61gmrq2j0zv7xf6378asjpqp2lbc33";
+    sha256 = "1410rnyjs0z48rd4k6bwjmr51y7kfcylpka5k5faqf2in74wb0lx";
   };
 
+  patches = [
+    ./loosen-requirements.patch
+  ];
+
   propagatedBuildInputs = [
-    future
     nltk
-    six
   ];
 
   checkInputs = [
