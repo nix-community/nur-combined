@@ -188,10 +188,10 @@
   },
   {
     "name": "angelsindustries",
-    "version": "0.4.10",
-    "file_name": "angelsindustries_0.4.10.zip",
-    "download_url": "/download/angelsindustries/5fbf470d3e5a8fb3b45a7813",
-    "sha1": "e3e62df481acbbd6ea09fc03e760696dea6f5bd3",
+    "version": "0.4.11",
+    "file_name": "angelsindustries_0.4.11.zip",
+    "download_url": "/download/angelsindustries/5ffbaa2cad61e87371ef3e12",
+    "sha1": "b8a5ec45aaefb3852eb8864572b3656dd4dfb7fd",
     "dependencies": [
       "angelsrefining >= 0.11.19",
       "angelspetrochem >= 0.9.17",
