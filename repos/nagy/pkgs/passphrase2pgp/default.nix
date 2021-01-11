@@ -14,8 +14,6 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  outputs = [ "out" ];
-
   meta = with lib; {
     description = "Generate a PGP key from a passphrase";
     homepage = "https://github.com/skeeto/passphrase2pgp";
