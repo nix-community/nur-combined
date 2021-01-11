@@ -20,7 +20,6 @@
 
   vimPlugins = import ./pkgs/vimPlugins { inherit pkgs; };
 
-  cabbage = pkgs.callPackage ./pkgs/cabbage { };
   spotify-authenticate = pkgs.callPackage ./pkgs/spotify-authenticate { };
   jlink = pkgs.callPackage ./pkgs/jlink { };
   operator-sdk = pkgs.callPackage ./pkgs/operator-sdk { };

@@ -1,18 +1,15 @@
 { stdenv, lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
-  name = "operator-sdk-${version}";
+  pname = "operator-sdk";
   version = "0.16.0";
-  rev = "v${version}";
-
-  goPackagePath = "github.com/operator-framework/operator-sdk";
 
   subPackages = [ "cmd/operator-sdk" ];
 
   src = fetchFromGitHub {
-    inherit rev;
     owner = "operator-framework";
     repo = "operator-sdk";
+    rev = "v${version}";
     sha256 = "1qdvnfxz81ij1y7qdk5xjq0nd3dqgbdjq0gmramxmkkz892cdaf3";
   };
 
