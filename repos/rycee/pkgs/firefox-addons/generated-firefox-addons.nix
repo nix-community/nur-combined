@@ -953,7 +953,7 @@
       sha256 = "08c433c81d08135c8622f3eda3c6cd9bbaea3b68ed4073adced698b42b4c4d46";
       meta = with stdenv.lib;
       {
-        homepage = "http://www.tosdr.org";
+        homepage = "http://tosdr.org";
         description = "“I have read and agree to the Terms” is the biggest lie on the web. We aim to fix that. Get informed instantly about websites' terms &amp; privacy policies, with ratings and summaries from the <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/782d4bf373fdb0bc94e6bd037af1bf988ce2274e2210205e7e5b8bbd291b0997/http%3A//www.tosdr.org\">www.tosdr.org</a> initiative.";
         license = licenses.agpl3Plus;
         platforms = platforms.all;
