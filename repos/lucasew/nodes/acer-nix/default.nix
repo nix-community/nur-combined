@@ -90,6 +90,7 @@ in
     (pkgs.callPackage ../../modules/neovim/package.nix {})
     # Extra
     gitAndTools.gitui
+    python3Packages.pipx
   ];
 
   # melhor editor ever
