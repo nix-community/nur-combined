@@ -3,10 +3,8 @@ on:
   pull_request:
   push:
   schedule:
-    # rebuild everyday at 2:51
-    # TIP: Choose a random time here so not all repositories are build at once:
-    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '25 3 * * *'
+    # rebuild every Sunday at 3:25
+    - cron:  '25 3 * * SUN'
 jobs:
   tests:
     strategy:
