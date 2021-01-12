@@ -5,7 +5,10 @@
 , fetchFromGitHub
 , fetchpatch
 , freezegun
-, google_api_core
+# nixpkgs <= 20.09
+, google_api_core ? null
+# nixpkgs >= 20.09
+, google-api-core ? null
 , matplotlib
 , networkx
 , numpy
@@ -26,6 +29,8 @@
 , pygraphviz
 }:
 
+assert (lib.versionOlder lib.trivial.release "21.03") -> google_api_core != null && google-api-core == null;
+assert (lib.versionAtLeast lib.trivial.release "21.03") -> google-api-core != null && google_api_core == null;
 buildPythonPackage rec {
   pname = "cirq";
   version = "0.9.1";
@@ -54,7 +59,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     freezegun
+    # google-api-core == google_api_core, just renamed on nixpkgs >= 20.03
     google_api_core
+    google-api-core
     numpy
     matplotlib
     networkx
