@@ -1,8 +1,10 @@
 image: nixos/latest
 packages:
-  - nixos.cachix
+  - unstable.cachix
   - nixos.nixpkgs-fmt
   - nixos.shellcheck
+repositories:
+  unstable: https://nixos.org/channels/nixpkgs-unstable
 sources:
   - https://git.sr.ht/~priegger/nur-packages
 secrets:
