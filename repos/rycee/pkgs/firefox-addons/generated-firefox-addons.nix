@@ -261,10 +261,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2020.12.16";
+      version = "2021.1.8";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3695557/duckduckgo_privacy_essentials-2020.12.16-an+fx.xpi";
-      sha256 = "a3d064b072dbb5391c5805793c7720821e1427b6b8343e73b0fe6d8723e7356e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3705801/duckduckgo_privacy_essentials-2021.1.8-an+fx.xpi";
+      sha256 = "963633dc361669f0e6aee6944368c4bcbcbcad018d6802fb278e3679836b5b44";
       meta = with stdenv.lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -508,10 +508,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.16.0";
+      version = "2.17.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3680755/ipfs_companion-2.16.0-an+fx.xpi";
-      sha256 = "09bfa148630418441cccd576a96d7e098368448ca8e6fa3f4699fc6c604d6a51";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3707088/ipfs_companion-2.17.0-an+fx.xpi";
+      sha256 = "09b1ed78453576aa3f7563f9da814005bb14b5206f19f6551e9bb930f60c91e3";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
