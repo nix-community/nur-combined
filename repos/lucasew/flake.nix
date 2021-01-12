@@ -53,6 +53,9 @@
         p2k = super.callPackage pocket2kindle {};
         redial_proxy = super.callPackage redial_proxy {};
         peazip = super.callPackage ./modules/peazip/package.nix {};
+        custom_vlc = super.callPackage ./modules/custom_vlc/package.nix {
+          qt = super.qt515;
+        };
         nur = import nur {
           nurpkgs = super.pkgs;
           inherit (super) pkgs;
