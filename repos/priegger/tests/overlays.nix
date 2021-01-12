@@ -10,6 +10,7 @@ import ./lib/make-test.nix (
           nixpkgs.overlays = builtins.attrValues priegger-overlays;
 
           environment.systemPackages = with pkgs; [
+            brlaser
             cadvisor
             prometheus-nginx-exporter
           ];
