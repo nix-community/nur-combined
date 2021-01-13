@@ -19,6 +19,7 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/bin"
     cp -r * "$out"
     ln -s "$out/adb" "$out/bin"
+    ln -s "$out/fastboot" "$out/bin"
   '';
 
   meta = with lib; {
