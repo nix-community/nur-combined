@@ -6,11 +6,11 @@
 
 buildPythonPackage rec {
   pname = "z3-solver";
-  version = "4.8.8.0";
+  version = "4.8.9.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "03xsxy6pw09vzlm9hv9l501zdw5p7fn4l4ih8v0agzdrdm399ncl";
+    sha256 = "sha256-UE1BVOvThTP8F1Gg4Eh4SCdXBEzr9RIkP22oYk9IS3A=";
   };
 
   setupPyBuildFlags = [

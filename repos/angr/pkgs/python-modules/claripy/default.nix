@@ -11,7 +11,7 @@
 
 buildPythonPackage rec {
   pname = "claripy";
-  version = "9.0.4446";
+  version = "9.0.5405";
 
   propagatedBuildInputs = [ cachetools decorator future PySMT setuptools z3-solver ];
 
@@ -19,7 +19,7 @@ buildPythonPackage rec {
     owner = "angr";
     repo = "claripy";
     rev = "v${version}";
-    sha256 = "sha256-6AP11c4NgbXbS3XVWIW3T8gwdog1nktrrf+KfNqrIz4=";
+    sha256 = "sha256-22DkLbIzQCd9pM3ABiYmossRadCRAsi/90655xKRG6g=";
   };
 
   # Tests are non-deterministically failing.

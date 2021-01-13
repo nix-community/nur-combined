@@ -1,7 +1,9 @@
 /*
 * DISCLAIMER
 * `angr` is so cutting-edge that it's dependent on unstable `unicorn` features;
-* Probably this expression could be deleted once `unicorn` 1.0.2 will be released.
+* Probably this expression could be deleted once `angr` depends on another version.
+* As per discussion with `angr` developpers, `unicorn 1.0.2rc4` is known to be compatible, but
+* other release candidates broke it, so "stable" might not be safe to use.
 */
 
 { buildPythonPackage

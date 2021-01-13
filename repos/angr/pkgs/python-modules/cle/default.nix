@@ -16,7 +16,7 @@
 
 buildPythonPackage rec {
   pname = "cle";
-  version = "9.0.4446";
+  version = "9.0.5405";
 
   propagatedBuildInputs = [ archinfo cffi minidump pefile pyelftools pyvex pyxbe sortedcontainers ];
 
@@ -24,14 +24,14 @@ buildPythonPackage rec {
     owner = "angr";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-t5xZr60e62M2imRhnsR3mWFF8x06k8gfktg3VvULhbI=";
+    sha256 = "sha256-G6ERkVlQkdHCEurg/pamGg8gXWa+u492snzF3ZURCnQ=";
   };
 
   binaries = fetchFromGitHub {
     owner = "angr";
     repo = "binaries";
-    rev = "9bf9c59002c2fb751ae2357f08fb9f4f8171a4ff";
-    sha256 = "sha256-geb78Go9zL3PsfNcPW41WBz3V8Phq9GPOqYlfF1JCDA=";
+    rev = "v${version}";
+    sha256 = "sha256-q5Wi+q8YWhhKws7LagKxZ7a1Cni/qgTzANb6msPzWWg=";
   };
 
   checkInputs = [ nose nose2 ];

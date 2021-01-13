@@ -18,7 +18,7 @@
     ailment = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ailment { inherit pyvex; };
 
     angr = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/angr {
-      inherit archinfo ailment claripy cle cooldict mulpyplexer pyvex unicorn;
+      inherit archinfo ailment claripy cle mulpyplexer pyvex unicorn;
     };
 
     archinfo = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/archinfo {};
@@ -26,8 +26,6 @@
     claripy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/claripy { inherit PySMT z3-solver; };
 
     cle = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cle { inherit archinfo minidump pyvex pyxbe; };
-
-    cooldict = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cooldict {};
 
     minidump = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/minidump {};
 

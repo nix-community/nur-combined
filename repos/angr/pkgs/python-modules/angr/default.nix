@@ -6,7 +6,6 @@
 , cffi
 , claripy
 , cle
-, cooldict
 , cppheaderparser
 , dpkt
 , fetchFromGitHub
@@ -28,7 +27,7 @@
 
 buildPythonPackage rec {
   pname = "angr";
-  version = "9.0.4446";
+  version = "9.0.5405";
   disabled = !isPy3k;
 
   propagatedBuildInputs = [
@@ -39,7 +38,6 @@ buildPythonPackage rec {
     cffi
     claripy
     cle
-    cooldict
     cppheaderparser
     dpkt
     GitPython
@@ -60,7 +58,7 @@ buildPythonPackage rec {
     owner = "angr";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-hnudNauAXBDPBCo06bKwi1mD2uNe0Mp45VVUDA25GKU=";
+    sha256 = "sha256-ZsIP4MBDGHurLh+BkZG+x6WLvkYpshZQEmzL/G4id28=";
   };
 
   # Version 9.0.4446 of `archinfo` is broken: see angr/archinfo#94 ;
