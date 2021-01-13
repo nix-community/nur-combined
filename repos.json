@@ -101,6 +101,9 @@
         "dywedir": {
             "url": "https://github.com/dywedir/nur-packages"
         },
+        "eduardosm": {
+            "url": "https://github.com/eduardosm/nur-packages"
+        },
         "eeva": {
             "type": "gitea",
             "url": "https://git.marvid.fr/eeva/nur-packages"
