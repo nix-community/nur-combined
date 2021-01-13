@@ -494,10 +494,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.2.6";
+      version = "3.2.7";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3687963/i_dont_care_about_cookies-3.2.6-an+fx.xpi";
-      sha256 = "70b125bb4dffdbd9bfbd30d8dea106b58f1349e67863b1c481932d5126cca87c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3707490/i_dont_care_about_cookies-3.2.7-an+fx.xpi";
+      sha256 = "d5f917408c64a254694d34ffa14c48edd5c3fc9f9d2ab45459cf7236acc9352d";
       meta = with stdenv.lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -657,10 +657,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "8.1.11";
+      version = "9.0.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3705453/metamask-8.1.11-an+fx.xpi";
-      sha256 = "81eea225ed23f2d88f62886a4309d837a765ff8401f476c569783944ebc746a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3707757/metamask-9.0.0-an+fx.xpi";
+      sha256 = "07d02f8df9b3598638a0b574d020698c8f1b115e336ab858168e3552c204d563";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
@@ -670,10 +670,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "7.1.0";
+      version = "7.2.0";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3650825/firefox_multi_account_containers-7.1.0-fx.xpi";
-      sha256 = "aa7b608c3783199de0549087ab044deae083cfc8734b7f631befef1c5ffa0c47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3707218/firefox_multi_account_containers-7.2.0-fx.xpi";
+      sha256 = "7d591651cb241c1ec49568dfba7442763052b2cac8ab4bc7d29d2230ef7115ec";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
