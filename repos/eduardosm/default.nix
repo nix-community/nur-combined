@@ -16,4 +16,5 @@
 
   autofirma = pkgs.callPackage ./pkgs/autofirma { };
   configuradorfnmt = pkgs.callPackage ./pkgs/configuradorfnmt { };
+  subtitleedit = pkgs.callPackage ./pkgs/subtitleedit { };
 }
