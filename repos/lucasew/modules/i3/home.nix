@@ -1,7 +1,7 @@
 {pkgs, config, ... }:
 with pkgs.lib;
 let
-  mod = "Mod1";
+  mod = "Mod4";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   modn = pkgs.writeShellScript "modn" ''
