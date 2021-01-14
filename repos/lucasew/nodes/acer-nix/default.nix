@@ -15,6 +15,8 @@ in
       ./hardware-configuration.nix
     ]
     ++ [
+      "${flake.inputs.home-manager}/nixos"
+      "${flake.inputs.nix-ld}/modules/nix-ld.nix"
       ./modules/virt-manager/system.nix
       ../../modules/cachix/system.nix
       ../../modules/gui/system.nix

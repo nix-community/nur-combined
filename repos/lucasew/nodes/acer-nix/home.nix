@@ -5,12 +5,14 @@ let
 in
 {
   imports = [
+    "${flake.inputs.nixgram}/hmModule.nix"
+    "${flake.inputs.redial_proxy}/hmModule.nix"
     ./modules/among_us/home.nix
     ./modules/dlna.nix
     ./modules/ets2/home.nix
     ./modules/firefox/home.nix
     ./modules/usb_tixati/home.nix
-   ./modules/webviews/home.nix
+    ./modules/webviews/home.nix
   ]
   ++ [
     ../../modules/i3/home.nix
@@ -42,6 +44,11 @@ in
     sqlite
     typora
   ];
+
+  services.redial_proxy = {
+    enable = true;
+  };
+
   programs = {
     adskipped-spotify.enable = true;
     adskipped-youtube-music.enable = true;
@@ -167,6 +174,7 @@ in
     wallpaperFile = wallpaper;
   };
 
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
@@ -184,4 +192,5 @@ in
     platformTheme = "gtk";
   };
   home.stateVersion = "20.03";
+
 }

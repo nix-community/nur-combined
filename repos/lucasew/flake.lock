@@ -166,11 +166,11 @@
     "redial_proxy": {
       "flake": false,
       "locked": {
-        "lastModified": 1610041010,
-        "narHash": "sha256-S2mHbuNewG8fD+lWKArhSBco6fXFN8E18LCT9SNHHYo=",
+        "lastModified": 1610661010,
+        "narHash": "sha256-nWGbj6uNjPMP/HhvP6k9bnjI9ktBYt6sfD2LsC7mTgA=",
         "owner": "lucasew",
         "repo": "redial_proxy",
-        "rev": "cb2ca218172ba10ad4009823b15733cd256c72b8",
+        "rev": "82fdf673d8e800e9ecacaeb9a9a1e873f80c5355",
         "type": "github"
       },
       "original": {

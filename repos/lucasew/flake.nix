@@ -47,8 +47,7 @@
     nixosConfigurations.acer-nix = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
-        "${home-manager}/nixos"
-        "${nix-ld}/modules/nix-ld.nix"
+        ./nodes/acer-nix/default.nix
         ({pkgs, ...}: {
             nixpkgs = {
               inherit overlays;
@@ -57,23 +56,17 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               users.${userSettings.username} = {config, ...}: {
-                systemd.user.services.redial_proxy = import ./lib/systemdUserService.nix {
-                  description = "Redial proxy";
-                  command = "${pkgs.callPackage redial_proxy {}}/bin/redial_proxy";
-                };
                 home.file.".dotfilerc".text = ''
                 #!/usr/bin/env bash
                 ${environmentShell}
                 '';
                 imports = [
                   ./nodes/acer-nix/home.nix
-                  "${nixgram}/hmModule.nix"
                 ];
               };
             };
           }
         )
-        ./nodes/acer-nix/default.nix
       ];
     };
     packages = pkgs;
