@@ -657,10 +657,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.0.0";
+      version = "9.0.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3707757/metamask-9.0.0-an+fx.xpi";
-      sha256 = "07d02f8df9b3598638a0b574d020698c8f1b115e336ab858168e3552c204d563";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3708469/metamask-9.0.1-an+fx.xpi";
+      sha256 = "dbf9443085451e7081d8f9ab765f2648c4ce9a8925aed868a72205764b1be49f";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
