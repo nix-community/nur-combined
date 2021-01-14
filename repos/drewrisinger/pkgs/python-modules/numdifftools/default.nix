@@ -52,6 +52,10 @@ buildPythonPackage rec {
     "test_high_order_derivative"
     "TestDoProfile"
     "test_derivative_of_cos_x"
+
+    # Fails due to small numerical error on GitHub Actions (1.4e-14 vs expected < 1e-14)
+    "test_derivative_with_step_options"
+    "test_fun_with_additional_parameters"
   ];
 
   meta = with lib; {

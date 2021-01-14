@@ -38,7 +38,10 @@ buildPythonPackage rec {
   preCheck = "pushd $TMP/$sourceRoot";  # needed on nixos-20.03, run tests from raw source
   postCheck = "popd";
   disabledTests = [
+    # Disabled b/c mkl support not enabled
     "mkl_"
+    # Disabled b/c test failing on GitHub Actions, not locally.
+    "test_primal_infeasible_problem"
   ];
   pytestFlagsArray = [
     # These cannot collect b/c of circular dependency on cvxpy: https://github.com/oxfordcontrol/osqp-python/issues/50
