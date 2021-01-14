@@ -16,5 +16,6 @@
 
   autofirma = pkgs.callPackage ./pkgs/autofirma { };
   configuradorfnmt = pkgs.callPackage ./pkgs/configuradorfnmt { };
+  pothos = pkgs.libsForQt5.callPackage ./pkgs/pothos { };
   subtitleedit = pkgs.callPackage ./pkgs/subtitleedit { };
 }
