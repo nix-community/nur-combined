@@ -18,6 +18,8 @@
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 
+  acmed = pkgs.callPackage ./pkgs/acmed { };
+
   #bpf-linker = pkgs.callPackage ./pkgs/bpf-linker { };
 
   deploy-rs = pkgs.callPackage ./pkgs/deploy-rs { };
