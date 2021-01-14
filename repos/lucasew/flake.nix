@@ -29,15 +29,13 @@
   let
     userSettings = import ./globalConfig.nix;
     system = "x86_64-linux";
-    environmentShell = ''
-      alias nixos-rebuild="sudo -E nixos-rebuild --flake '${userSettings.rootPath}#acer-nix'"
+    environmentShell = with userSettings; ''
+      alias nixos-rebuild="sudo -E nixos-rebuild --flake '${rootPath}#acer-nix'"
       export NIXPKGS_ALLOW_UNFREE=1
-      export NIX_PATH="nixos-config=${(builtins.toString userSettings.rootPath) + "/nodes/acer-nix"}:nixpkgs=${nixpkgs}:dotfiles=${builtins.toString userSettings.rootPath}:nixpkgsLatest=${nixpkgsLatest} home-manager=${home-manager}:nur=${nur}"
+      export NIX_PATH="nixos-config=${(builtins.toString rootPath) + "/nodes/acer-nix"}:nixpkgs=${nixpkgs}:dotfiles=${builtins.toString rootPath}:nixpkgsLatest=${nixpkgsLatest} home-manager=${home-manager}:nur=${nur}"
 
   '';
     overlays = [
-      # dotenv
-      (import ./modules/node_clis/overlay.nix)
       (import ./modules/zig/overlay.nix)
       (import ./overlay.nix)
     ];
@@ -78,6 +76,7 @@
         ./nodes/acer-nix/default.nix
       ];
     };
+    packages = pkgs;
     devShell = pkgs.mkShell {
       name = "nixcfg-shell";
       buildInputs = [];

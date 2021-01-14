@@ -18,6 +18,4 @@ let
   node = nodes.${inputs.${k}};
   type = node.locked.type;
   handler = flakeHandler.${type} node.locked;
-in
-handler) inputs
-# in builtins.mapAttrs (k: v: flakeHandler.${v.locked.type} v.locked) nodes
+in handler) inputs

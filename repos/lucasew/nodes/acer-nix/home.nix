@@ -26,8 +26,8 @@ in
   home.packages = with pkgs; [
    # ------------ pacotes do nixpkgs ---------------
     # minecraft  # custom (excluded)
-    pinball mspaint stremio my_rofi peazip # custom
-    custom_vlc youtube-dl # media
+    pinball mspaint stremio custom_rofi peazip # custom
+    vlc youtube-dl # media
     discord tdesktop # social
     google-chrome # browser (extra)
     calibre
