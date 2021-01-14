@@ -1,7 +1,7 @@
 {pkgs, config, ... }:
 with pkgs.lib;
 let
-  mod = "Mod4";
+  mod = "Mod1";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   modn = pkgs.writeShellScript "modn" ''
@@ -68,10 +68,10 @@ in {
           "${mod}+Shift+Up" = "move up";
           "${mod}+Shift+c" = "reload";
           "${mod}+Shift+e" = "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'xfce4-session-logout'";
+          "${mod}+Shift+f" = "floating toggle";
           "${mod}+Shift+minus" = "move scratchpad";
           "${mod}+Shift+q" = "kill";
           "${mod}+Shift+r" = "restart";
-          "${mod}+Shift+space" = "floating toggle";
           "${mod}+Up" = "focus up";
           "${mod}+a" = "focus parent";
           "${mod}+d" = "exec my-rofi";

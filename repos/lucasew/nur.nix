@@ -30,5 +30,6 @@ in
     systemdUserService = import ./lib/systemdUserService.nix;
     tail = import ./lib/tail.nix;
     mkNativefier = import ./lib/mkNativefier;
+    flake = import ./lib/flake;
   };
 }

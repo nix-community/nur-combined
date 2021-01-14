@@ -3,6 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {pkgs, config, nix-ld, ... }:
+with (import ../../globalConfig.nix);
 let
   username = "lucasew";
   hostname = "acer-nix";
@@ -53,6 +54,8 @@ in
   # limpar tmp no boot
   boot.cleanTmpDir = true;
 
+  services.xserver.displayManager.lightdm.background = wallpaper;
+
   networking.hostName = hostname; # Define your hostname.
   networking.networkmanager.enable = true;
 
@@ -84,7 +87,7 @@ in
     gparted
     paper-icon-theme
     kde-gtk-config # Custom
-    dasel # manipulação de json, toml, yaml, xml, csv e tal
+    # dasel # manipulação de json, toml, yaml, xml, csv e tal
     rclone rclone-browser restic # cloud storage
     p7zip unzip xarchiver # archiving
     (pkgs.callPackage ../../modules/neovim/package.nix {})

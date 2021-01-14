@@ -37,40 +37,9 @@
   '';
     overlays = [
       # dotenv
-      (self: super: 
-      let
-        dotenvBin = super.callPackage dotenv {};
-        wrapDotenv = (file: script:
-        let
-          dotenvFile = (builtins.toString userSettings.rootPath + "/secrets/" + (builtins.toString file));
-          command = super.writeShellScript "dotenv-wrapper" script;
-        in ''
-          ${dotenvBin}/bin/dotenv "@${builtins.toString dotenvFile}" -- ${command} $*
-        '');
-      in {
-        dotenv = dotenvBin;
-        inherit wrapDotenv;
-        p2k = super.callPackage pocket2kindle {};
-        redial_proxy = super.callPackage redial_proxy {};
-        peazip = super.callPackage ./modules/peazip/package.nix {};
-        custom_vlc = super.callPackage ./modules/custom_vlc/package.nix {
-          qt = super.qt515;
-        };
-        nur = import nur {
-          nurpkgs = super.pkgs;
-          inherit (super) pkgs;
-        };
-      })
-      (import ./modules/neovim/overlay.nix)
-      (import ./modules/comby/overlay.nix)
-      (import ./modules/custom_rofi/overlay.nix)
-      (import ./modules/latest/overlay.nix)
-      (import ./modules/minecraft/overlay.nix)
-      (import ./modules/mspaint/overlay.nix)
       (import ./modules/node_clis/overlay.nix)
-      (import ./modules/pinball/overlay.nix)
-      (import ./modules/stremio/overlay.nix)
       (import ./modules/zig/overlay.nix)
+      (import ./overlay.nix)
     ];
     pkgs = import nixpkgs {
       inherit overlays;

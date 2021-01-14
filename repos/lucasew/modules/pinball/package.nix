@@ -1,6 +1,12 @@
 {pkgs, ...}:
 # FIXME: Can't hear that lovely music and the sound effects
 let
+  wine = pkgs.wine.override {
+    alsaSupport = true;
+    faudioSupport = true;
+    wineRelease = "staging";
+    wineBuild = "wine32";
+  };
   pinball = pkgs.stdenv.mkDerivation rec {
     name = "mspinball";
     version = "1.0";
@@ -16,7 +22,7 @@ let
       cd $out/share/mspinball && ${pkgs.unrar}/bin/unrar x ${src}
     '';
     installPhase = ''
-      makeWrapper ${pkgs.wineWowPackages.stable}/bin/wine $out/bin/pinball \
+      makeWrapper ${wine}/bin/wine $out/bin/pinball \
       --add-flags "$out/share/mspinball/PINBALL.exe" \
       # sed -i 's/WaveOutDevice=0/WaveOutDevice=1/' $out/share/mspinball/WAVEMIX.INF
     '';

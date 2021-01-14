@@ -1,14 +1,8 @@
 { pkgs, config, lib, nixgram, ... }:
+with (import ../../globalConfig.nix);
 let
-  wallpaper = builtins.fetchurl {
-    url = "http://wallpaperswide.com/download/aurora_sky-wallpaper-1366x768.jpg";
-    sha256 = "1gk4bw5mj6qgk054w4g0g1zjcnss843afq5h5k0qpsq9sh28g41a";
-    # url = "http://wallpaperswide.com/download/armenia_syunik_khustup_hayk_k13-wallpaper-1366x768.jpg";
-    # sha256 = "1z2439f0d8hpqwjp07xhwkcp7svzvbhljayhdfssmvi619chlc0p";
-  };
   tuple = lib.hm.gvariant.mkTuple;
 in
-with (import ../../globalConfig.nix);
 {
   imports = [
     ./modules/among_us/home.nix
@@ -41,7 +35,7 @@ with (import ../../globalConfig.nix);
     fortune
     lazydocker
     libnotify
-    manix
+    # manix
     neofetch
     nix-index
     scrcpy
