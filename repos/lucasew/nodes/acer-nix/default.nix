@@ -17,13 +17,14 @@ in
     ++ [
       "${flake.inputs.home-manager}/nixos"
       "${flake.inputs.nix-ld}/modules/nix-ld.nix"
-      ./modules/virt-manager/system.nix
       ../../modules/cachix/system.nix
       ../../modules/gui/system.nix
       ../../modules/polybar/system.nix
-      ../../modules/steam/system.nix
     ]
   ;
+  
+  programs.steam.enable = true;
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -109,6 +110,7 @@ in
     rclone rclone-browser restic # cloud storage
     p7zip unzip xarchiver # archiving
     custom_neovim dotenv # custom
+    virt-manager
     # Extra
     gitAndTools.gitui
     python3Packages.pipx
@@ -197,8 +199,11 @@ in
     gnome3.gnome-settings-daemon
     android-udev-rules
   ];
-  # docker
-  virtualisation.docker.enable = true;
+
+  virtualisation = {
+    docker.enable = true;
+    libvirtd.enable = true;
+  };
 
   # keybase
   services = {
