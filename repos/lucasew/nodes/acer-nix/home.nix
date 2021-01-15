@@ -7,7 +7,6 @@ in
   imports = [
     "${flake.inputs.nixgram}/hmModule.nix"
     "${flake.inputs.redial_proxy}/hmModule.nix"
-    ./modules/among_us/home.nix
     ./modules/dlna.nix
     ./modules/ets2/home.nix
     ./modules/firefox/home.nix
@@ -28,7 +27,7 @@ in
   home.packages = with pkgs; [
    # ------------ pacotes do nixpkgs ---------------
     # minecraft  # custom (excluded)
-    pinball mspaint stremio custom_rofi peazip # custom
+    among_us pinball mspaint stremio custom_rofi peazip # custom
     vlc youtube-dl # media
     discord tdesktop # social
     google-chrome # browser (extra)

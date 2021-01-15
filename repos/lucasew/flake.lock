@@ -189,7 +189,8 @@
         "nixpkgsLatest": "nixpkgsLatest",
         "nur": "nur",
         "pocket2kindle": "pocket2kindle",
-        "redial_proxy": "redial_proxy"
+        "redial_proxy": "redial_proxy",
+        "zls": "zls"
       }
     },
     "utils": {
@@ -204,6 +205,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "zls": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1610702818,
+        "narHash": "sha256-rO9pEbLictJuo8BdRTkHBl2zGSc4YbBDWStikZkz9zo=",
+        "owner": "zigtools",
+        "repo": "zls",
+        "rev": "2a968f51d71ba9ba0b519c526ffd1c59f33c222c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zigtools",
+        "repo": "zls",
         "type": "github"
       }
     }

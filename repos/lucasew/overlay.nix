@@ -25,6 +25,8 @@ in
     pinball = cp ./modules/pinball/package.nix;
     redial_proxy = cp flake.inputs.redial_proxy;
     stremio = cp ./modules/stremio/package.nix;
+    among_us = cp ./nodes/acer-nix/modules/among_us/package.nix;
+    zls = cp flake.inputs.zls;
     inherit dotenv;
     inherit wrapDotenv;
     nodePackages = super.nodePackages

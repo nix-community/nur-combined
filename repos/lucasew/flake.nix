@@ -23,6 +23,10 @@
       url = "github:lucasew/redial_proxy";
       flake = false;
     };
+    zls = {
+      url = "github:zigtools/zls";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, redial_proxy, ... }:
