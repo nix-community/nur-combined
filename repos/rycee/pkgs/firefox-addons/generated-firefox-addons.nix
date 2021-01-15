@@ -1076,10 +1076,10 @@
       };
     "unpaywall" = buildFirefoxXpiAddon {
       pname = "unpaywall";
-      version = "3.92";
+      version = "3.93";
       addonId = "{f209234a-76f0-4735-9920-eb62507a54cd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3669962/unpaywall-3.92-fx.xpi";
-      sha256 = "d702c157890adbec6cd6b0f4c978759c91c24b9c16f635055ffee0f0696b6cf5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3709278/unpaywall-3.93-fx.xpi";
+      sha256 = "a1de4838bcb4d28339ff87fa47c69b3d8381026ba673c1303ec53a8778f422c5";
       meta = with stdenv.lib;
       {
         homepage = "http://unpaywall.org/products/extension";
