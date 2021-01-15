@@ -36,11 +36,10 @@
     environmentShell = with userSettings; ''
       alias nixos-rebuild="sudo -E nixos-rebuild --flake '${rootPath}#acer-nix'"
       export NIXPKGS_ALLOW_UNFREE=1
-      export NIX_PATH="nixos-config=${(builtins.toString rootPath) + "/nodes/acer-nix"}:nixpkgs=${nixpkgs}:dotfiles=${builtins.toString rootPath}:nixpkgsLatest=${nixpkgsLatest} home-manager=${home-manager}:nur=${nur}"
+      export NIX_PATH="nixos-config=${(builtins.toString rootPath) + "/nodes/acer-nix"}:nixpkgs=${nixpkgs}:dotfiles=${builtins.toString rootPath}:nixpkgsLatest=${nixpkgsLatest}:home-manager=${home-manager}:nur=${nur}:nixpkgs-overlays=${(builtins.toString rootPath) + "/compat/overlay.nix"}"
 
   '';
     overlays = [
-      (import ./modules/zig/overlay.nix)
       (import ./overlay.nix)
     ];
     pkgs = import nixpkgs {
@@ -48,29 +47,12 @@
       inherit system;
     };
   in {
+    inherit overlays;
+    inherit environmentShell;
     nixosConfigurations.acer-nix = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
         ./nodes/acer-nix/default.nix
-        ({pkgs, ...}: {
-            nixpkgs = {
-              inherit overlays;
-            };
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.${userSettings.username} = {config, ...}: {
-                home.file.".dotfilerc".text = ''
-                #!/usr/bin/env bash
-                ${environmentShell}
-                '';
-                imports = [
-                  ./nodes/acer-nix/home.nix
-                ];
-              };
-            };
-          }
-        )
       ];
     };
     packages = pkgs;

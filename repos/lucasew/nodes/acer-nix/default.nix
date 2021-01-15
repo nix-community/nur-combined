@@ -24,9 +24,26 @@ in
       ../../modules/steam/system.nix
     ]
   ;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.${username} = {config, ...}: {
+      home.file.".dotfilerc".text = ''
+      #!/usr/bin/env bash
+      ${flake.outputs.environmentShell}
+      '';
+      imports = [
+        ./home.nix
+      ];
+    };
+  };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = flake.outputs.overlays;
+  };
   nix = {
+    trustedUsers = ["root" "@wheel"];
     package = pkgs.nixFlakes;
     autoOptimiseStore = true;
     gc = {
@@ -84,7 +101,6 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    dotenv
     wget
     gparted
     paper-icon-theme
@@ -92,7 +108,7 @@ in
     # dasel # manipulação de json, toml, yaml, xml, csv e tal
     rclone rclone-browser restic # cloud storage
     p7zip unzip xarchiver # archiving
-    (pkgs.callPackage ../../modules/neovim/package.nix {})
+    custom_neovim dotenv # custom
     # Extra
     gitAndTools.gitui
     python3Packages.pipx
@@ -174,14 +190,7 @@ in
       description = "Lucas Eduardo";
     };
   };
-  # Home manager
-  home-manager = {
-    users = {
-      "${username}" = import ./home.nix;
-    };
-    useUserPackages = true;
-#    useGlobalPkgs = true;
-  };
+
   # ADB
   programs.adb.enable = true;
   services.udev.packages = with pkgs; [
