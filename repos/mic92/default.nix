@@ -72,8 +72,6 @@ rec {
     nix-build-uncached
     nix-build-uncached-flakes;
 
-  nix-update = pkgs.python3.pkgs.callPackage ./pkgs/nix-update { };
-
   nixos-shell = pkgs.callPackage ./pkgs/nixos-shell { };
 
   pandoc-bin = pkgs.callPackage ./pkgs/pandoc { };
