@@ -3,12 +3,12 @@
         "branch": "factorio",
         "description": "Nix Packages collection",
         "homepage": null,
-        "owner": "lukegb",
+        "owner": "priegger",
         "repo": "nixpkgs",
-        "rev": "ab2b6f212fa2dc78129cdad6c55b3038bf078b17",
-        "sha256": "1s9dzyyi7gch0p435birqw4pb853xcs0mvckrm5h9wzxpypi874c",
+        "rev": "b87f18e92c9691a615cae98a9afb28de71dde8b3",
+        "sha256": "0qfc5bgrx460kfvjajfkp448m1z7d7j9pa0sxsrbfh4sk41h01nb",
         "type": "tarball",
-        "url": "https://github.com/lukegb/nixpkgs/archive/ab2b6f212fa2dc78129cdad6c55b3038bf078b17.tar.gz",
+        "url": "https://github.com/priegger/nixpkgs/archive/b87f18e92c9691a615cae98a9afb28de71dde8b3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
