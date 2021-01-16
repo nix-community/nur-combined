@@ -27,6 +27,8 @@
     };
   };
 
+  programs.taskwarrior.enable = true;
+
   programs.termite.enable = true;
 
   programs.tmux = {
