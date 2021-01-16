@@ -837,10 +837,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "25.0";
+      version = "25.1";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3706010/save_page_we-25.0-fx.xpi";
-      sha256 = "33da8a4143494b2820c7afa8f03a151147cb6fa53626d93011dabbf49ce44d5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3709729/save_page_we-25.1-fx.xpi";
+      sha256 = "bae812bbcb1879ab6afe62a9860dd339e1290d9f871e74b6d6a1377073281595";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -947,10 +947,10 @@
       };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
-      version = "2.0.1";
+      version = "3.2.1";
       addonId = "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3703554/terms_of_service_didnt_read-2.0.1-an+fx.xpi";
-      sha256 = "08c433c81d08135c8622f3eda3c6cd9bbaea3b68ed4073adced698b42b4c4d46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3709867/terms_of_service_didnt_read-3.2.1-an+fx.xpi";
+      sha256 = "3dc18da4c0ec61660c35d65cfac630c59b6c152dea02441a4759aa0d3f90716c";
       meta = with stdenv.lib;
       {
         homepage = "http://tosdr.org";
