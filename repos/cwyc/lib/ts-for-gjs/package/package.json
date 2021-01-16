@@ -1,0 +1,66 @@
+{
+  "name": "ts-for-gir",
+  "version": "1.0.1",
+  "description": "Typescript .d.ts generator from GIR for gjs or node-gtk",
+  "main": "lib/index.js",
+  "bin": "./bin/run",
+  "typings": "@types",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sammydre/ts-for-gjs.git"
+  },
+  "author": "",
+  "files": [
+    "src",
+    "bin",
+    "lib",
+    "templates"
+  ],
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "ts-for-gir",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/sammydre/ts-for-gjs/issues"
+  },
+  "homepage": "https://github.com/sammydre/ts-for-gjs#readme",
+  "devDependencies": {
+    "@types/change-case": "^2.3.1",
+    "@types/commander": "^2.12.2",
+    "@types/ejs": "^3.0.1",
+    "@types/inquirer": "^7.3.1",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^14.11.8",
+    "@types/xml2js": "0.4.5",
+    "@typescript-eslint/eslint-plugin": "^4.4.0",
+    "@typescript-eslint/parser": "^4.4.0",
+    "ava": "^3.3.0",
+    "ejs": "^3.0.1",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "@oclif/command": "^1.5.19",
+    "@oclif/config": "^1.15.1",
+    "@oclif/errors": "^1.2.2",
+    "@types/eslint": "^7.2.4",
+    "chalk": "^4.1.0",
+    "cosmiconfig": "^7.0.0",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "events": "^3.1.0",
+    "globby": "^11.0.0",
+    "inquirer": "^7.0.4",
+    "lodash": "^4.17.15",
+    "prettier": "^2.1.2",
+    "segfault-handler": "^1.3.0",
+    "source-map-support": "^0.5.19",
+    "tiny-glob": "^0.2.6",
+    "xml2js": "^0.4.23"
+  }
+}
