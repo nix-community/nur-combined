@@ -1,4 +1,4 @@
-{stdenv, nodejs, python3, automake, fetchFromGitHub, callPackage}:
+{stdenv, nodejs, python3, automake, fetchFromGitHub, callPackage, lib}:
 {
 	name ? "ts-for-gjs", #name of the derivation
 	sources, #derivations containing /share/gir-1.0/ files, usually the .dev output of most gobject libraries
@@ -7,7 +7,6 @@
 	prettify ? true, #whether to prettify the output typescript files
 	type ? "gjs" #"gjs" for gjs runtime, "node" for node-gtk runtime, or "gjs,node" for both
 }:
-assert type == "gjs" || type == "node" || type == "gjs,node" || type == "node,gjs";
 let
 	nodeDependencies = (callPackage ./package/default.nix {}).shell.nodeDependencies;
 	librariesString = 
@@ -21,7 +20,7 @@ let
 			then "\"*\""
 			else builtins.concatStringsSep " " names;
 in 
-stdenv.mkDerivation{
+lib.makeOverridable stdenv.mkDerivation {
 	name = name;
 	src = fetchFromGitHub {
 		owner="sammydre";
