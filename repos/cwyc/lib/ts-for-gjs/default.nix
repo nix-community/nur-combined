@@ -11,9 +11,15 @@ let
 	nodeDependencies = (callPackage ./package/default.nix {}).shell.nodeDependencies;
 	librariesString = 
 		builtins.concatStringsSep 
-			" "
+			" " 
 			(map 
 				(path: "-g " + path + "/share/gir-1.0/") 
+				sources);
+	checkPaths = 
+		builtins.concatStringsSep 
+			"\n"
+			(map 
+				(path: "echo Checking ${path}; [ -e ${path}/share/gir-1.0 ]") 
 				sources);
 	namesString = 
 		if (names == null)
@@ -30,7 +36,8 @@ lib.makeOverridable stdenv.mkDerivation {
 		fetchSubmodules=false;
 	};
 	buildInputs = [nodejs python3 automake];
-	buildPhase = ''
+	buildPhase = checkPaths + ''
+
 		ln -s ${nodeDependencies}/lib/node_modules ./node_modules
 		export PATH="${nodeDependencies}/bin:$PATH"
 

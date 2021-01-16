@@ -3,11 +3,8 @@
 	name = "gtk-typescript-defs";
 	sources = [
 		atk.dev
-		glib.dev
 		gtk3.dev
 		gdk-pixbuf.dev
-		pango.dev
-		cairo.dev
 	];
 	ignore = [];
 	prettify = false;
