@@ -47,7 +47,7 @@ lib.makeOverridable stdenv.mkDerivation {
 		export PATH="${nodeDependencies}/bin:$PATH"
 
 		mkdir -p $out
-		npm run start -- generate ${namesString} ${librariesString} -o $out ${if prettify then "--pretty" else ""} ${environmentString}
+		npm run start -- generate ${namesString} ${librariesString} -o $out ${if prettify then "--pretty" else ""} ${environmentString} --ignoreConflicts
 	'';
 	dontInstall = true;
 	dontFixup = true;
