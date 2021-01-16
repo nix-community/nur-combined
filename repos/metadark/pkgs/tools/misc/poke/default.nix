@@ -34,14 +34,14 @@ assert miSupport -> json_c != null;
 
 stdenv.mkDerivation rec {
   pname = "poke";
-  version = "unstable-2020-12-17";
-  jitter-version = "0.9.241";
+  version = "unstable-2021-01-03";
+  jitter-version = "0.9.251";
 
   src = fetchgit {
     url = "git://git.savannah.gnu.org/poke.git";
-    rev = "613453823b51ac836b4407717f513b48378aaebe";
+    rev = "011d904fe39ef526dc9b0fe1553b643b4bdbcc5c";
     fetchSubmodules = true;
-    sha256 = "14d5415ifijn0gi142n57bi81y6chql18kr1g4fj7277hjvc2b7n";
+    sha256 = "005h516cab8rrfir2kiydvn9hpxffgwr8z7888nfqymwjx2ck6j4";
   };
 
   patches = [
