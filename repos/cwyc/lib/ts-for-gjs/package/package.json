@@ -1,33 +1,6 @@
 {
   "name": "ts-for-gir",
   "version": "1.0.1",
-  "description": "Typescript .d.ts generator from GIR for gjs or node-gtk",
-  "main": "lib/index.js",
-  "bin": "./bin/run",
-  "typings": "@types",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sammydre/ts-for-gjs.git"
-  },
-  "author": "",
-  "files": [
-    "src",
-    "bin",
-    "lib",
-    "templates"
-  ],
-  "oclif": {
-    "commands": "./lib/commands",
-    "bin": "ts-for-gir",
-    "plugins": [
-      "@oclif/plugin-help"
-    ]
-  },
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/sammydre/ts-for-gjs/issues"
-  },
-  "homepage": "https://github.com/sammydre/ts-for-gjs#readme",
   "devDependencies": {
     "@types/change-case": "^2.3.1",
     "@types/commander": "^2.12.2",

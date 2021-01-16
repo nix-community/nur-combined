@@ -1,11 +1,11 @@
 {stdenv, nodejs, python3, automake, fetchFromGitHub, callPackage, lib}:
 {
 	name ? "ts-for-gjs", #name of the derivation
-	sources, #derivations containing /share/gir-1.0/ files, usually the .dev output of most gobject libraries
-	names ? null, #names of the modules (i.e. Gtk-3.0 for Gtk-3.0.gir) to generate definitions for, or null to generate definitions for all available libraries
+	sources, #derivations containing gir files
+	modules ? null, #names of the modules (i.e. Gtk-3.0 for Gtk-3.0.gir) to generate definitions for, or null to generate definitions for all available libraries
 	ignore ? [], #names of the modules not to generate
 	prettify ? true, #whether to prettify the output typescript files
-	type ? "gjs" #"gjs" for gjs runtime, "node" for node-gtk runtime, or "gjs,node" for both
+	environment ? "gjs,node" #"gjs" for gjs runtime, "node" for node-gtk runtime, or "gjs,node" for both
 }:
 let
 	nodeDependencies = (callPackage ./package/default.nix {}).shell.nodeDependencies;
@@ -13,18 +13,18 @@ let
 		builtins.concatStringsSep 
 			" " 
 			(map 
-				(path: "-g " + path + "/share/gir-1.0/") 
-				sources);
-	checkPaths = 
-		builtins.concatStringsSep 
-			"\n"
-			(map 
-				(path: "echo Checking ${path}; [ -e ${path}/share/gir-1.0 ]") 
+				(path: "-g " + path) 
 				sources);
 	namesString = 
-		if (names == null)
+		if (modules == null)
 			then "\"*\""
-			else builtins.concatStringsSep " " names;
+			else builtins.concatStringsSep " " modules;
+	ignoreString =
+		builtins.concatStringsSep 
+			" " 
+			(map 
+				(name: "-i " + name) 
+				ignore);
 in 
 lib.makeOverridable stdenv.mkDerivation {
 	name = name;
@@ -36,13 +36,13 @@ lib.makeOverridable stdenv.mkDerivation {
 		fetchSubmodules=false;
 	};
 	buildInputs = [nodejs python3 automake];
-	buildPhase = checkPaths + ''
+	buildPhase = ''
 
 		ln -s ${nodeDependencies}/lib/node_modules ./node_modules
 		export PATH="${nodeDependencies}/bin:$PATH"
 
 		mkdir -p $out
-		npm run start -- generate ${namesString} ${librariesString} -o $out
+		npm run start -- generate ${namesString} ${librariesString} -o $out ${if prettify then "--pretty" else ""} -e ${environment}
 	'';
 	dontInstall = true;
 	dontFixup = true;
