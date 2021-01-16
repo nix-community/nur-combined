@@ -1,19 +1,28 @@
 with import ./globalConfig.nix;
 with builtins;
-self: super:
 let
-  cp = f: (super.callPackage f) {};
-  dotenv = cp flake.inputs.dotenv;
-  wrapDotenv = (file: script:
+  composeOverlay = items: self: super:
+  with super.lib;
+  foldl' (flip extends) (_: super) items self;
+in composeOverlay [
+  # (import "${flake.inputs.rust-overlay}/rust-overlay.nix")
+  (self: super:
   let
-    dotenvFile = ((toString rootPath) + "/secrets/" + (toString file));
-    command = super.writeShellScript "dotenv-wrapper" script;
-  in ''
-    ${dotenv}/bin/dotenv "@${toString dotenvFile}" -- ${command} $*
-  '');
+    cp = f: (super.callPackage f) {};
+    dotenv = cp flake.inputs.dotenv;
+    wrapDotenv = (file: script:
+    let
+      dotenvFile = ((toString rootPath) + "/secrets/" + (toString file));
+      command = super.writeShellScript "dotenv-wrapper" script;
+    in ''
+      ${dotenv}/bin/dotenv "@${toString dotenvFile}" -- ${command} $*
+    '');
 
-in
+  in
   rec {
+    lib = (super.lib or {}) // {
+      inherit composeOverlay;
+    };
     comby = cp ./modules/comby/package.nix;
     custom_rofi = cp ./modules/custom_rofi/package.nix;
     custom_neovim = cp ./modules/neovim/package.nix;
@@ -35,4 +44,5 @@ in
       inherit (super) pkgs;
       nurpkgs = super.pkgs;
     };
-  }
+  })
+]

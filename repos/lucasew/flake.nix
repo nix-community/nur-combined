@@ -7,6 +7,7 @@
     home-manager.url = "github:nix-community/home-manager";
     nur.url = "github:nix-community/NUR/master";
     nix-ld.url = "github:Mic92/nix-ld";
+    rust-overlay.url = "github:oxalica/rust-overlay";
     pocket2kindle = {
       url = "github:lucasew/pocket2kindle";
       flake = false;
