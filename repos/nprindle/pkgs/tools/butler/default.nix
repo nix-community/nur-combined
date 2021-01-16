@@ -5,14 +5,14 @@
 
 buildGoPackage rec {
   pname = "butler";
-  version = "15.17.0";
+  version = "15.20.0";
   goPackagePath = "github.com/itchio/butler";
 
   src = fetchFromGitHub rec {
     owner = "itchio";
     repo = pname;
     rev = "v${version}";
-    sha256 = "02cp5wlsp46fifqjy8bqdvh8ad41897qhgajq4qi3jr13vlym7wy";
+    sha256 = "14pmbmyb4p3v4v1zy1w19da0wlayj6m8288c4mn5p0nrj8258c5i";
   };
 
   goDeps = ./deps.nix;
