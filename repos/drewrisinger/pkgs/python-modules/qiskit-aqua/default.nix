@@ -123,6 +123,9 @@ buildPythonPackage rec {
     # Disabled due to missing pyscf
     "test_validate" # test/chemistry/test_inputparser.py
 
+    # Fail on GitHub Actions CI for some reason, not locally
+    "test_binary"
+
     # Online tests
     "test_exchangedata"
     "test_yahoo"

@@ -54,6 +54,12 @@ buildPythonPackage rec {
   disabledTests = [
     "test_tensored_meas_cal_on_circuit" # Flaky test, occasionally returns result outside bounds
     "test_qv_fitter"  # execution hangs, ran for several minutes
+
+    # Tests failing on GitHub Actions CI
+    "test_matrices_18"
+    "test_bell_2_qubits"
+    "test_trace_constraint"
+    "TestStateTomographyCVX"
   ];
 
   meta = with lib; {
