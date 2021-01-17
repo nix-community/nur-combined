@@ -29,6 +29,7 @@
   sfg = pkgs.callPackage ./pkgs/sfg { };
   ncmpcpp = pkgs.callPackage ./pkgs/larbs-music/ncmpcpp-vis.nix { };
   duckling-proxy = pkgs.callPackage ./pkgs/duckling-proxy { };
+  saait = pkgs.callPackage ./pkgs/saait { };
 
   st = pkgs.callPackage ./pkgs/larbs/st { };
   dwm = pkgs.callPackage ./pkgs/larbs/dwm { };
