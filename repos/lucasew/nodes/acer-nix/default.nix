@@ -211,6 +211,9 @@ in
     kbfs.enable = true;
   };
 
+  # irqbalance
+  services.irqbalance.enable = true;
+
   # cachix
   cachix.enable = true;
 
