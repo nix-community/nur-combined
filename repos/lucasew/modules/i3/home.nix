@@ -103,6 +103,7 @@ in {
       extraConfig = ''
           exec --no-startup-id ${pkgs.networkmanagerapplet}/bin/nm-applet
           exec --no-startup-id ${pkgs.feh}/bin/feh --bg-center ~/.background-image
+          exec_always systemctl restart --user polybar.service
 
           new_window 1pixel
       '';

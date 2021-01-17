@@ -23,6 +23,7 @@ in composeOverlay [
     lib = (super.lib or {}) // {
       inherit composeOverlay;
     };
+    funcoeszz = cp /home/lucasew/WORKSPACE/funcoeszz;
     comby = cp ./modules/comby/package.nix;
     custom_rofi = cp ./modules/custom_rofi/package.nix;
     custom_neovim = cp ./modules/neovim/package.nix;
