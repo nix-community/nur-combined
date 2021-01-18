@@ -113,8 +113,16 @@ buildPythonPackage rec {
     # "--durations=25"
     "--disable-warnings"  # reduce garbage lines from many tests throwing same warning
   ];
-  # Disable slow tests
   disabledTests = [
+    # Tests seem broken on CI, but build locally
+    "test_diamonddist"
+    "test_build_cloud_crosstalk_model_with_nonstd_gate_unitary_factory"
+    "GateSetTomographyTester"
+    "StandardGSTTester"
+    "test_err_gen"
+    "test_diamond_distance"
+
+    # Disable slow tests
     "CPTPGaugeOpt"
     "test_squeeze"
     "test_find_sufficient_fiducial_pairs"

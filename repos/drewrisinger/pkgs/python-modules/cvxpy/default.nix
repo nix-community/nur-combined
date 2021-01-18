@@ -47,6 +47,10 @@ buildPythonPackage rec {
   disabledTests = [
     "test_tv_inpainting"
     "test_diffcp_sdp_example"
+    # Tests work locally, but fail consistently on GitHub Actions
+    "test_cvxopt_sdp"
+    "test_psd_nsd_parameters"
+    "test_all_solvers"
   ];
 
   meta = with lib; {

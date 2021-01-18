@@ -7,19 +7,20 @@
 , numpy
   # check inputs
 , pytestCheckHook
+, cvxopt
 , scipy
 }:
 
 buildPythonPackage rec {
   pname = "osqp";
-  version = "0.6.2";
+  version = "0.6.2.post0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "oxfordcontrol";
     repo = "osqp-python";
     rev = "v${version}";
-    sha256 = "1ix9wf7sfxzfaqwfqry6clpvfxqsfkxarv5h0h0gm0mw6rr9gbg8";
+    sha256 = "1mq5lln4mp4mfckc1ymac1nm2xbh3f904qc4p488r2zr22gqnamr";
     fetchSubmodules = true;
   };
 
@@ -27,12 +28,13 @@ buildPythonPackage rec {
   dontUseCmakeConfigure = true;
 
   propagatedBuildInputs = [
+    future
     numpy
     qdldl
-    future
+    scipy
   ];
 
-  checkInputs = [ pytestCheckHook scipy ];
+  checkInputs = [ pytestCheckHook cvxopt ];
   pythonImportsCheck = [ "osqp" ];
   dontUseSetuptoolsCheck = true;  # running setup.py fails if false
   preCheck = "pushd $TMP/$sourceRoot";  # needed on nixos-20.03, run tests from raw source
@@ -40,16 +42,9 @@ buildPythonPackage rec {
   disabledTests = [
     # Disabled b/c mkl support not enabled
     "mkl_"
-    # Disabled b/c test failing on GitHub Actions, not locally.
+    # Disabled b/c tests failing on GitHub Actions, not locally.
     "test_primal_infeasible_problem"
-  ];
-  pytestFlagsArray = [
-    # These cannot collect b/c of circular dependency on cvxpy: https://github.com/oxfordcontrol/osqp-python/issues/50
-    "--ignore=module/tests/basic_test.py"
-    "--ignore=module/tests/feasibility_test.py"
-    "--ignore=module/tests/polishing_test.py"
-    "--ignore=module/tests/unconstrained_test.py"
-    "--ignore=module/tests/update_matrices_test.py"
+    "test_feasibility_problem"
   ];
 
   meta = with lib; {
@@ -64,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://osqp.org/";
     downloadPage = "https://github.com/oxfordcontrol/osqp-python/";
     license = licenses.asl20;
-    maintainers = with lib.maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [ drewrisinger ];
   };
 }
