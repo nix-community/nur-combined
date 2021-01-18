@@ -8,9 +8,7 @@ in
     "${flake.inputs.nixgram}/hmModule.nix"
     "${flake.inputs.redial_proxy}/hmModule.nix"
     ./modules/dlna.nix
-    ./modules/ets2/home.nix
     ./modules/firefox/home.nix
-    ./modules/usb_tixati/home.nix
     ./modules/webviews/home.nix
   ]
   ++ [
@@ -27,7 +25,7 @@ in
   home.packages = with pkgs; [
    # ------------ pacotes do nixpkgs ---------------
     # minecraft  # custom (excluded)
-    among_us pinball mspaint stremio custom_rofi peazip # custom
+    ets2 usb_tixati among_us pinball mspaint stremio custom_rofi peazip # custom
     vlc youtube-dl # media
     discord tdesktop # social
     google-chrome # browser (extra)

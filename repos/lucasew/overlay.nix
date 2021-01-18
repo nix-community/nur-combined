@@ -23,24 +23,26 @@ in composeOverlay [
     lib = (super.lib or {}) // {
       inherit composeOverlay;
     };
-    funcoeszz = cp /home/lucasew/WORKSPACE/funcoeszz;
-    comby = cp ./modules/comby/package.nix;
-    custom_rofi = cp ./modules/custom_rofi/package.nix;
-    custom_neovim = cp ./modules/neovim/package.nix;
     latest = cp flake.inputs.nixpkgsLatest;
-    minecraft = cp ./modules/minecraft/package.nix;
-    mspaint = cp ./modules/mspaint/package.nix;
     p2k = cp flake.inputs.pocket2kindle;
-    peazip = cp ./modules/peazip/package.nix;
-    pinball = cp ./modules/pinball/package.nix;
     redial_proxy = cp flake.inputs.redial_proxy;
-    stremio = cp ./modules/stremio/package.nix;
-    among_us = cp ./nodes/acer-nix/modules/among_us/package.nix;
     zls = cp flake.inputs.zls;
-    inherit dotenv;
-    inherit wrapDotenv;
+    custom_neovim = cp ./modules/neovim/package.nix;
+    among_us = cp ./packages/among_us.nix;
+    comby = cp ./packages/comby.nix;
+    custom_rofi = cp ./packages/custom_rofi.nix;
+    ets2 = cp ./packages/ets2.nix;
+    funcoeszz = cp /home/lucasew/WORKSPACE/funcoeszz;
+    minecraft = cp ./packages/minecraft.nix;
+    mspaint = cp ./packages/mspaint.nix;
+    peazip = cp ./packages/peazip.nix;
+    pinball = cp ./packages/pinball.nix;
+    stremio = cp ./packages/stremio.nix;
+    usb_tixati = cp ./packages/usb_tixati.nix;
     nodePackages = super.nodePackages
     // cp ./modules/node_clis/package_data/default.nix;
+    inherit dotenv;
+    inherit wrapDotenv;
     nur = import flake.inputs.nur {
       inherit (super) pkgs;
       nurpkgs = super.pkgs;

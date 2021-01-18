@@ -13,13 +13,13 @@ in
     cachix = ./modules/cachix/system.nix;
   };
   packages = {
-    custom_rofi = p ./modules/custom_rofi/package.nix;
-    dotenv = p ./modules/dotenv/package.nix;
-    shiginima = p ./modules/minecraft/package.nix;
-    mspaint = p ./modules/mspaint/package.nix;
+    custom_rofi = p ./packages/custom_rofi.nix;
+    shiginima = p ./packages/minecraft.nix;
+    mspaint = p ./packages/mspaint.nix;
     custom_neovim = p ./modules/neovim/package.nix;
-    pinball = p ./modules/pinball/package.nix;
-    stremio = p ./modules/stremio/package.nix;
+    pinball = p ./packages/pinball.nix;
+    stremio = p ./packages/stremio.nix;
+    peazip = p ./packages/peazip.nix;
   };
   lib = {
     filter = import ./lib/filter.nix;
