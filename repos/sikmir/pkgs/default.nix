@@ -10,7 +10,6 @@ lib.makeScope newScope (
 
     amethyst-bin = callPackage ./applications/window-managers/amethyst/bin.nix { };
     anki-bin = callPackage ./applications/anki/bin.nix { };
-    basecamp = callPackage ./applications/gis/basecamp { };
     goldencheetah-bin = callPackage ./applications/goldencheetah/bin.nix { };
     goldendict-bin = callPackage ./applications/goldendict/bin.nix { };
     gpxlab = libsForQt5.callPackage ./applications/gpxlab {
@@ -99,7 +98,6 @@ lib.makeScope newScope (
     ### DEVELOPMENT / TOOLS
 
     gef = callPackage ./development/tools/gef { };
-    kiln = callPackage ./development/tools/kiln { };
     how-to-use-pvs-studio-free = callPackage ./development/tools/pvs-studio/how-to-use-pvs-studio-free.nix { };
     pvs-studio = callPackage ./development/tools/pvs-studio { };
     xtr = callPackage ./development/tools/xtr { };
@@ -128,6 +126,7 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / PYTHON MODULES
 
+    cjkwrap = callPackage ./development/python-modules/cjkwrap { };
     bson = callPackage ./development/python-modules/bson { };
     cheetah3 = callPackage ./development/python-modules/cheetah3 { };
     click-6-7 = callPackage ./development/python-modules/click { };
@@ -147,9 +146,7 @@ lib.makeScope newScope (
     ### TOOLS
 
     apibackuper = callPackage ./tools/networking/apibackuper { };
-    blind = callPackage ./tools/video/blind { };
     cfiles = callPackage ./tools/cfiles { };
-    cgpsmapper = callPackage ./tools/geo/cgpsmapper { };
     csvquote = callPackage ./tools/text/csvquote { };
     csvtools = callPackage ./tools/text/csvtools { };
     datamaps = callPackage ./tools/geo/datamaps { };
@@ -158,17 +155,8 @@ lib.makeScope newScope (
     elevation = callPackage ./tools/geo/elevation {
       click = click-6-7;
     };
-    farbfeld-utils = callPackage ./tools/graphics/farbfeld-utils { };
     fx-bin = callPackage ./tools/text/fx/bin.nix { };
-    garmin-uploader = callPackage ./tools/misc/garmin-uploader { };
-    garminimg = libsForQt5.callPackage ./tools/geo/garminimg {
-      inherit sources;
-    };
     gdcv = callPackage ./tools/dict/gdcv { };
-    gimgtools = callPackage ./tools/geo/gimgtools { };
-    gloggery = callPackage ./tools/misc/gloggery { };
-    gmaptool = callPackage ./tools/geo/gmaptool { };
-    gmni = callPackage ./tools/networking/gmni { };
     go-staticmaps = callPackage ./tools/geo/go-staticmaps { };
     gpx-layer = perlPackages.callPackage ./tools/geo/gpx-layer {
       inherit sources;
@@ -177,28 +165,14 @@ lib.makeScope newScope (
     gpxtrackposter = callPackage ./tools/geo/gpxtrackposter { };
     gt-bash-client = callPackage ./tools/dict/gt-bash-client { };
     gt4gd = callPackage ./tools/dict/gt4gd { };
-    gurl = callPackage ./tools/networking/gurl { };
-    hurl = callPackage ./tools/networking/hurl { };
-    imgdecode = callPackage ./tools/geo/imgdecode { };
-    imscript = callPackage ./tools/graphics/imscript { };
     ish = callPackage ./tools/networking/ish { };
     lazyscraper = callPackage ./tools/text/lazyscraper { };
-    lel = callPackage ./tools/graphics/lel { };
     lsdreader = callPackage ./tools/dict/lsdreader { };
     map-tiler = callPackage ./tools/geo/map-tiler { };
     morse-talk = callPackage ./tools/morse-talk { };
     musig = callPackage ./tools/audio/musig { };
-    ocad2img = perlPackages.callPackage ./tools/geo/ocad2img {
-      inherit cgpsmapper ocad2mp fetchwebarchive;
-    };
-    ocad2mp = callPackage ./tools/geo/ocad2mp { };
     odict = callPackage ./tools/dict/odict { };
-    openmtbmap = callPackage ./tools/geo/openmtbmap { };
     osm-area-tools = callPackage ./tools/geo/osm-area-tools { };
-    osm2mp = perlPackages.callPackage ./tools/geo/osm2mp {
-      inherit sources;
-      inherit (perlPackages) GeoOpenstreetmapParser MatchSimple MathPolygon MathPolygonTree TreeR;
-    };
     osmcoastline = callPackage ./tools/geo/osmcoastline { };
     phyghtmap = callPackage ./tools/geo/phyghtmap { };
     polyvectorization = libsForQt5.callPackage ./tools/graphics/polyvectorization {
@@ -206,9 +180,6 @@ lib.makeScope newScope (
     };
     ptunnel = callPackage ./tools/networking/ptunnel { };
     py-staticmaps = callPackage ./tools/geo/py-staticmaps { };
-    saait = callPackage ./tools/misc/saait { };
-    sendmap20 = callPackage ./tools/geo/sendmap20 { };
-    stagit = callPackage ./tools/misc/stagit { };
     stardict-tools =
       # Needed for nixos-19.09
       if pkgs ? libmysql
@@ -229,16 +200,56 @@ lib.makeScope newScope (
 
     ascii-dash = callPackage ./games/ascii-dash { };
 
+    ### GARMIN
+
+    basecamp = callPackage ./garmin/basecamp { };
+    cgpsmapper = callPackage ./garmin/cgpsmapper { };
+    garmin-uploader = callPackage ./garmin/garmin-uploader { };
+    garminimg = libsForQt5.callPackage ./garmin/garminimg {
+      inherit sources;
+    };
+    gimgtools = callPackage ./garmin/gimgtools { };
+    gmaptool = callPackage ./garmin/gmaptool { };
+    imgdecode = callPackage ./garmin/imgdecode { };
+    ocad2img = perlPackages.callPackage ./garmin/ocad2img {
+      inherit cgpsmapper ocad2mp fetchwebarchive;
+    };
+    ocad2mp = callPackage ./garmin/ocad2mp { };
+    openmtbmap = callPackage ./garmin/openmtbmap { };
+    osm2mp = perlPackages.callPackage ./garmin/osm2mp {
+      inherit sources;
+      inherit (perlPackages) GeoOpenstreetmapParser MatchSimple MathPolygon MathPolygonTree TreeR;
+    };
+    sendmap20 = callPackage ./garmin/sendmap20 { };
+
+    ### GEMINI
+
+    geminid = callPackage ./gemini/geminid { };
+    gloggery = callPackage ./gemini/gloggery { };
+    gmni = callPackage ./gemini/gmni { };
+    gmnisrv = callPackage ./gemini/gmnisrv { };
+    gurl = callPackage ./gemini/gurl { };
+    kiln = callPackage ./gemini/kiln { };
+    md2gemini = callPackage ./gemini/md2gemini { };
+    shavit = callPackage ./gemini/shavit { };
+
     ### SERVERS
 
     dict2rest = callPackage ./servers/dict2rest { };
     elevation_server = callPackage ./servers/elevation_server { };
-    geminid = callPackage ./servers/geminid { };
     glauth = callPackage ./servers/glauth { };
-    gmnisrv = callPackage ./servers/gmnisrv { };
     nakarte = callPackage ./servers/nakarte { };
-    quark = callPackage ./servers/quark { };
-    shavit = callPackage ./servers/shavit { };
+
+    ### SUCKLESS
+
+    blind = callPackage ./suckless/blind { };
+    farbfeld-utils = callPackage ./suckless/farbfeld-utils { };
+    hurl = callPackage ./suckless/hurl { };
+    imscript = callPackage ./suckless/imscript { };
+    lel = callPackage ./suckless/lel { };
+    quark = callPackage ./suckless/quark { };
+    saait = callPackage ./suckless/saait { };
+    stagit = callPackage ./suckless/stagit { };
 
     ### MISC
 

@@ -707,6 +707,20 @@
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
         "version": "2021-01-15"
     },
+    "md2gemini": {
+        "branch": "master",
+        "builtin": false,
+        "date": "2020-12-14T20:05:33Z",
+        "description": "File converter from Markdown to Gemini",
+        "homepage": "https://github.com/makeworld-the-better-one/md2gemini",
+        "owner": "makeworld-the-better-one",
+        "repo": "md2gemini",
+        "rev": "c83ad7f9b22407154556625ea2d1c3b89890f04a",
+        "sha256": "156k0caqmmsypqiirmxsn22ddk6rz8wcxzkw0jrdwszv78ai750y",
+        "type": "tarball",
+        "url": "https://github.com/makeworld-the-better-one/md2gemini/archive/c83ad7f9b22407154556625ea2d1c3b89890f04a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "mercantile": {
         "branch": "master",
         "builtin": false,
