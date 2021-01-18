@@ -823,10 +823,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.1.10";
+      version = "21.1.17";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3706272/refined_github-21.1.10-an+fx.xpi";
-      sha256 = "fd064c033bf096b917676d187dbc1e920e18bd78088488a2982b7e787fa2ca53";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3710316/refined_github-21.1.17-an+fx.xpi";
+      sha256 = "b161b06d68e07f98a5b6e2b194c410df23f7406d07e8b55d94d15e005db3165d";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -947,10 +947,10 @@
       };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
-      version = "3.3.5";
+      version = "3.3.6";
       addonId = "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3710159/terms_of_service_didnt_read-3.3.5-fx.xpi";
-      sha256 = "867427f9b73dce69bdf16b9348779ac541efdd1c6accf7720897fbb506efd4c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3710506/terms_of_service_didnt_read-3.3.6-fx.xpi";
+      sha256 = "4a1a2287f51ada39f0b60baa8094138c9a20c461c387f327d7bec0ea10a85323";
       meta = with stdenv.lib;
       {
         homepage = "http://tosdr.org";
