@@ -19,6 +19,6 @@ stdenv.mkDerivation {
     homepage = "http://zzo38computer.org/fossil/farbfeld.ui/home";
     license = licenses.publicDomain;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    platforms = platforms.unix;
   };
 }

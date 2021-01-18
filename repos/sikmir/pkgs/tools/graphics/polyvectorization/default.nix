@@ -25,6 +25,6 @@ mkDerivation {
     inherit (sources.polyvectorization) description homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }

@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.codemadness.org/lel/file/README.html";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    platforms = platforms.unix;
   };
 }

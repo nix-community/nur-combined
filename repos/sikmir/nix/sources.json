@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-08T11:13:00Z",
+        "date": "2021-01-15T10:09:06Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "40ffe36bc5d53e40316eca5ff34b809cb70e0195",
-        "sha256": "1p616p9v6dp34m1nc8c56qg2lwnpqkb1kljw2k2b8cn67vbzrxcb",
+        "rev": "9381c9b200e0a4dae8905c397a47033e61e4a91f",
+        "sha256": "151fidln7sgfygzc02gxyqj2x6s7q8ib9i8322sxwf33k8axr224",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/40ffe36bc5d53e40316eca5ff34b809cb70e0195.tar.gz",
+        "url": "https://github.com/embox/embox/archive/9381c9b200e0a4dae8905c397a47033e61e4a91f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -253,27 +253,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "1m2j925ynjinsm2psfg6ck906w8j5dazr3s3qw1rdscvfmib6djx",
+        "sha256": "0w1l5ijps6lj20yhnx0w058sh29rk95zxx43fd52rdk4kz8349rc",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-210108.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-210115.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "210108"
+        "version": "210115"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "17cfzzal7cmxqv8la38swj76l3w1ry1jaw770ng6bbf79vix6i2h",
+        "sha256": "15av78mdbfzlbl2s00fgsb8xykvswwil10p9ap485f0jf4j2fk3s",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-210108.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-210115.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "210108"
+        "version": "210115"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "0rmi9q3m2wq3ngyxy7ndxxrl4jz93y4jks5rf7v6nllhckcyqf3z",
+        "sha256": "02p69226n9ay2fywimrab7lrdyk04knhsq2rnl4p6h2r5r27j4g8",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210108.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210115.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "210108"
+        "version": "210115"
     },
     "gimgtools": {
         "branch": "master",
@@ -391,15 +391,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2021-01-09T12:30:54Z",
+        "date": "2021-01-15T05:44:31Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "7a664342b6b12eddaccb1dbcebbd787fd8f12f3f",
-        "sha256": "089rs9xswwkyd687m75wa818vmgslajvcwmh16gssbvr23r14b70",
+        "rev": "7217f9acfcd38aa59186d8c55c200f82a2d1fd39",
+        "sha256": "17iq74p72v0mqkjxxmcji2lrn1x0c9r3j28qcarkk1ahxdrkja9f",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/7a664342b6b12eddaccb1dbcebbd787fd8f12f3f.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/7217f9acfcd38aa59186d8c55c200f82a2d1fd39.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -489,29 +489,29 @@
     "hfst": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-06T18:57:54Z",
+        "date": "2021-01-11T10:09:31Z",
         "description": "Helsinki Finite-State Technology (library and application suite)",
         "homepage": "https://hfst.github.io",
         "owner": "hfst",
         "repo": "hfst",
-        "rev": "4a10952eb2fe4c223d502fa3e9742776078354c3",
-        "sha256": "1dg5mdk2ccng9kh75a3j9jzy8dnsknasmxra3gwrzns6jdx6zyg5",
+        "rev": "1a29cf310df3a42ee4000da2d0f987c513111407",
+        "sha256": "0x6m1hvhc8gj7wp2d2fw6l9yvy4iq19fqpqrig7ydg4qa8is4qz9",
         "type": "tarball",
-        "url": "https://github.com/hfst/hfst/archive/4a10952eb2fe4c223d502fa3e9742776078354c3.tar.gz",
+        "url": "https://github.com/hfst/hfst/archive/1a29cf310df3a42ee4000da2d0f987c513111407.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "how-to-use-pvs-studio-free": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-09-02T11:28:30Z",
+        "date": "2021-01-14T06:43:24Z",
         "description": "How to use PVS-Studio for Free",
         "homepage": "https://www.viva64.com/en/b/0457/",
         "owner": "viva64",
         "repo": "how-to-use-pvs-studio-free",
-        "rev": "20687aa5a3e3ab7e48e796f25cbb25ade52633cc",
-        "sha256": "1lg1iirfv3p8bfb7x79pvwm0fiz0qvk02ing731d5l3klzmsgbjd",
+        "rev": "75e1fe92a6a675c51814ea1f8172198ea9fd018a",
+        "sha256": "1bnj33dp52cj7arddmbhzdic94w4flv1d892gsxs4k0bd89ksvad",
         "type": "tarball",
-        "url": "https://github.com/viva64/how-to-use-pvs-studio-free/archive/20687aa5a3e3ab7e48e796f25cbb25ade52633cc.tar.gz",
+        "url": "https://github.com/viva64/how-to-use-pvs-studio-free/archive/75e1fe92a6a675c51814ea1f8172198ea9fd018a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "it-sanasto": {
@@ -601,15 +601,15 @@
     "map-hr": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-09T15:17:39Z",
+        "date": "2021-01-13T00:32:44Z",
         "description": "Slazav mountains",
         "homepage": "http://slazav.xyz/maps/",
         "owner": "slazav",
         "repo": "map_hr",
-        "rev": "0fb496bb31a3edd118d5e4997fb7712bfbba5d4b",
-        "sha256": "1jacz7jqlpf4mwqgcda5h4jz47jk6bsyzn53ncdxdpq107hrlh70",
+        "rev": "1253cc898e7f34c1c07f470db0e0a374868ba4f0",
+        "sha256": "0knq4l8qcabbxlb73sj9jhyix9f7fda7ns51hqw1wgjn903hn7gw",
         "type": "tarball",
-        "url": "https://github.com/slazav/map_hr/archive/0fb496bb31a3edd118d5e4997fb7712bfbba5d4b.tar.gz",
+        "url": "https://github.com/slazav/map_hr/archive/1253cc898e7f34c1c07f470db0e0a374868ba4f0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "map-podm": {
@@ -701,11 +701,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "0v1krqj1wyw6l57yy4cr0qc1mh1qg9cvqdfmhwbz4n8cgq6qqh2c",
+        "sha256": "1af257m8jjr6bhl0llg86f55851zd7j5ppn6s41jgwwqc07a31aj",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-01-08.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-01-15.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2021-01-08"
+        "version": "2021-01-15"
     },
     "mercantile": {
         "branch": "master",
@@ -916,15 +916,15 @@
     "py-staticmaps": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-12-31T10:49:07Z",
+        "date": "2021-01-16T16:11:35Z",
         "description": "A python module to create static map images with markers, geodesic lines, etc.",
         "homepage": "https://github.com/flopp/py-staticmaps",
         "owner": "flopp",
         "repo": "py-staticmaps",
-        "rev": "49d2a81d7a7a778eca4527868cf27e9298c5e7c8",
-        "sha256": "17707jc35xbbgn7bnmbfizpcn46hc51nbcz3rjvsizabl8bj8bk5",
+        "rev": "1d0a2623117858001fcf79f60385865949d00e9f",
+        "sha256": "0jnpkwzrih7wl8mkg7a448kxm0l8m84a1gpvv5if0kld04sr6j7y",
         "type": "tarball",
-        "url": "https://github.com/flopp/py-staticmaps/archive/49d2a81d7a7a778eca4527868cf27e9298c5e7c8.tar.gz",
+        "url": "https://github.com/flopp/py-staticmaps/archive/1d0a2623117858001fcf79f60385865949d00e9f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pyephem": {

@@ -168,6 +168,7 @@ lib.makeScope newScope (
     gimgtools = callPackage ./tools/geo/gimgtools { };
     gloggery = callPackage ./tools/misc/gloggery { };
     gmaptool = callPackage ./tools/geo/gmaptool { };
+    gmni = callPackage ./tools/networking/gmni { };
     go-staticmaps = callPackage ./tools/geo/go-staticmaps { };
     gpx-layer = perlPackages.callPackage ./tools/geo/gpx-layer {
       inherit sources;
@@ -179,6 +180,7 @@ lib.makeScope newScope (
     gurl = callPackage ./tools/networking/gurl { };
     hurl = callPackage ./tools/networking/hurl { };
     imgdecode = callPackage ./tools/geo/imgdecode { };
+    imscript = callPackage ./tools/graphics/imscript { };
     ish = callPackage ./tools/networking/ish { };
     lazyscraper = callPackage ./tools/text/lazyscraper { };
     lel = callPackage ./tools/graphics/lel { };
@@ -233,6 +235,7 @@ lib.makeScope newScope (
     elevation_server = callPackage ./servers/elevation_server { };
     geminid = callPackage ./servers/geminid { };
     glauth = callPackage ./servers/glauth { };
+    gmnisrv = callPackage ./servers/gmnisrv { };
     nakarte = callPackage ./servers/nakarte { };
     quark = callPackage ./servers/quark { };
     shavit = callPackage ./servers/shavit { };
