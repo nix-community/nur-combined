@@ -62,7 +62,7 @@ rec {
     ecos = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ecos { };
     qdldl = pkgs.python3Packages.callPackage ./pkgs/python-modules/qdldl { };
     osqp = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/osqp { inherit qdldl; };
-    scs = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/scs { scs = lib-scs; };
+    scs = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/scs { };
 
     # NOTE: remove once makes release version
     algopy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/algopy { };

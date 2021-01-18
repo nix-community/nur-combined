@@ -5,25 +5,23 @@
 , liblapack
 , numpy
 , scipy
-, scs
+# , scs
   # check inputs
 , nose
 }:
 
 buildPythonPackage rec {
-  inherit (scs) pname version;
+  pname = "scs";
+  version = "2.1.2";
 
+  # Uses specific version of lib-scs, doesn't work with newer. Just use version that's a submodule.
   src = fetchFromGitHub {
     owner = "bodono";
     repo = "scs-python";
     rev = "f02abdc0e2e0a5851464e30f6766ccdbb19d73f0"; # need to choose commit manually, untagged
-    sha256 = "174b5s7cwgrn1m55jlrszdl403zhpzc4yl9acs6kjv9slmg1mmjr";
+    sha256 = "01ghvyylxql7jvdcwy65wf7y5qykqyqkbysy402zfhgmm9dxizgv";
+    fetchSubmodules = true;
   };
-
-  preConfigure = ''
-    rm -r scs
-    ln -s ${scs.src} scs
-  '';
 
   buildInputs = [
     liblapack
@@ -37,7 +35,7 @@ buildPythonPackage rec {
 
   checkInputs = [ nose ];
   checkPhase = ''
-    nosetests
+    nosetests -v
   '';
   pythonImportsCheck = [ "scs" ];
 
