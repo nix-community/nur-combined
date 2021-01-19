@@ -1,4 +1,4 @@
-{ stdenv, fetchpatch, fetchurl, cmake, bison, ncurses, openssl
+{ lib, stdenv, fetchpatch, fetchurl, cmake, bison, ncurses, openssl
 , readline, zlib, perl, cctools, CoreServices }:
 
 # Note: zlib is not required; MySQL can use an internal zlib.
@@ -15,23 +15,23 @@ self = stdenv.mkDerivation rec {
 
   patches =
     # Minor type error that is a build failure as of clang 6.
-    stdenv.lib.optional stdenv.cc.isClang (fetchpatch {
+    lib.optional stdenv.cc.isClang (fetchpatch {
       url = "https://svn.freebsd.org/ports/head/databases/mysql55-server/files/patch-sql_sql_partition.cc?rev=469888";
       extraPrefix = "";
       sha256 = "09sya27z3ir3xy5mrv3x68hm274594y381n0i6r5s627x71jyszf";
     }) ++
-    stdenv.lib.optionals stdenv.isCygwin [
+    lib.optionals stdenv.isCygwin [
       ./5.5.17-cygwin.patch
       ./5.5.17-export-symbols.patch
     ];
 
-  preConfigure = stdenv.lib.optional stdenv.isDarwin ''
+  preConfigure = lib.optional stdenv.isDarwin ''
     ln -s /bin/ps $TMPDIR/ps
     export PATH=$PATH:$TMPDIR
   '';
 
   buildInputs = [ cmake bison ncurses openssl readline zlib ]
-     ++ stdenv.lib.optionals stdenv.isDarwin [ perl cctools CoreServices ];
+     ++ lib.optionals stdenv.isDarwin [ perl cctools CoreServices ];
 
   enableParallelBuilding = true;
 
@@ -59,10 +59,10 @@ self = stdenv.mkDerivation rec {
   ];
 
   NIX_CFLAGS_COMPILE =
-    stdenv.lib.optionals stdenv.cc.isGNU [ "-fpermissive" ] # since gcc-7
-    ++ stdenv.lib.optionals stdenv.cc.isClang [ "-Wno-c++11-narrowing" ]; # since clang 6
+    lib.optionals stdenv.cc.isGNU [ "-fpermissive" ] # since gcc-7
+    ++ lib.optionals stdenv.cc.isClang [ "-Wno-c++11-narrowing" ]; # since clang 6
 
-  NIX_LDFLAGS = stdenv.lib.optionalString stdenv.isLinux "-lgcc_s";
+  NIX_LDFLAGS = lib.optionalString stdenv.isLinux "-lgcc_s";
 
   prePatch = ''
     sed -i -e "s|/usr/bin/libtool|libtool|" cmake/libutils.cmake
@@ -79,7 +79,7 @@ self = stdenv.mkDerivation rec {
     mysqlVersion = "5.5";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://www.mysql.com/";
     description = "The world's most popular open source database";
     platforms = platforms.unix;

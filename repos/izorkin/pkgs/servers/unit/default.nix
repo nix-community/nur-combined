@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, which
+{ lib, stdenv, fetchFromGitHub, which
 , pcre2
 , withPython2 ? false, python2
 , withPython3 ? true, python3, ncurses
@@ -19,7 +19,7 @@
 , withDebug ? false
 }:
 
-with stdenv.lib;
+with lib;
 
 stdenv.mkDerivation rec {
   version = "1.21.0";

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python3 }:
+{ lib, stdenv, fetchFromGitHub, python3 }:
 
 let version = "0.11.1"; in
 
@@ -14,7 +14,7 @@ python3.pkgs.buildPythonApplication {
   };
 
   pythonPath = with python3.pkgs;
-    stdenv.lib.optionals stdenv.isLinux [
+    lib.optionals stdenv.isLinux [
       systemd
     ];
 
@@ -52,7 +52,7 @@ python3.pkgs.buildPythonApplication {
     cd ${./filter.d} && cp * $out/etc/fail2ban/filter.d
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage    = "https://www.fail2ban.org/";
     description = "A program that scans log files for repeated failing login attempts and bans IP addresses";
     license     = licenses.gpl2Plus;
