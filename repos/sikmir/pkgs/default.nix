@@ -249,6 +249,7 @@ lib.makeScope newScope (
     lel = callPackage ./suckless/lel { };
     quark = callPackage ./suckless/quark { };
     saait = callPackage ./suckless/saait { };
+    scroll = callPackage ./suckless/scroll { };
     stagit = callPackage ./suckless/stagit { };
 
     ### MISC
