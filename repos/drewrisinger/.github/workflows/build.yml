@@ -62,13 +62,21 @@ jobs:
       id: build_uncached
       # if this errors, continue to verbose build.
       continue-on-error: true
-      run: NIXPKGS_ALLOW_UNFREE=1 nix run -I 'nixpkgs=channel:nixos-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      env:
+        # Allow building unfree packages & unsupported systems for CI purposes
+        NIXPKGS_ALLOW_UNFREE: 1
+        NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
+      run: nix run -I 'nixpkgs=channel:nixos-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     # nix-build-uncached uses "nix build" internally, which only outputs last 10 lines of failure.
     # To get more verbose error that we can debug, reruns any failed derivations to get full output
     # Is this nice to the builder? No, but it's better than wasting time guessing at failed builds.
     - name: Verbose Build on Previous Failure (full log available)
       if: ${{ steps.build_uncached.outcome == 'failure' }}
-      run: NIXPKGS_ALLOW_UNFREE=1 nix-build ci.nix -A cacheOutputs
+      env:
+        # Allow building unfree packages & unsupported systems for CI purposes
+        NIXPKGS_ALLOW_UNFREE: 1
+        NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
+      run: nix-build ci.nix -A cacheOutputs
     - name: Trigger NUR update
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"

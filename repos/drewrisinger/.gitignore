@@ -1,3 +1,6 @@
+# Nix build files
 result
 result-*
 
+# Direnv files
+.envrc.local

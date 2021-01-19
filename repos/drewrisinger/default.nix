@@ -26,6 +26,14 @@ rec {
   muparserx = pkgs.callPackage ./pkgs/libraries/muparserx { };
   tuna = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/tuna { };
 
+  # Raspberry Pi Packages
+  raspberryPi = pkgs.recurseIntoAttrs {
+    argonone-rpi4 = pkgs.callPackage ./pkgs/raspberrypi/argonone-rpi4 { inherit (python3Packages) rpi-gpio smbus2; };
+    pigpio-c = pkgs.callPackage ./pkgs/raspberrypi/pigpio { };
+    steamlink = pkgs.callPackage ./pkgs/raspberrypi/steamlink {};
+    vc-log = pkgs.callPackage ./pkgs/raspberrypi/vc-log { };
+  };
+
   python3Packages = pkgs.recurseIntoAttrs rec {
     # New packages NOT in NixOS/nixpkgs (and likely never will be)
     # asteval = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/asteval { };
@@ -106,6 +114,16 @@ rec {
     };
     qiskit-terraNoVisual = qiskit-terra.override { withVisualization = false; };
     qiskit-ibmq-providerNoVisual = qiskit-ibmq-provider.override { withVisualization = false; qiskit-terra = qiskit-terraNoVisual; matplotlib = null; };
+
+    # Raspberry Pi Packages
+    colorzero = pkgs.python3Packages.callPackage ./pkgs/raspberrypi/colorzero { };
+    gpiozero = pkgs.python3Packages.callPackage ./pkgs/raspberrypi/gpiozero {
+      inherit colorzero pigpio-py rpi-gpio;
+    };
+    pigpio-py = pkgs.python3.pkgs.callPackage ./pkgs/raspberrypi/pigpio/python.nix { inherit (raspberryPi) pigpio-c; };
+    rpi-gpio = pkgs.python3Packages.callPackage ./pkgs/raspberrypi/rpi-gpio { };
+    rpi-gpio2 = pkgs.python3Packages.callPackage ./pkgs/raspberrypi/rpi-gpio2 { };
+    smbus2 = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/smbus2 { };
   };
 
 }
