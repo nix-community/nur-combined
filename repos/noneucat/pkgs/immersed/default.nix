@@ -4,11 +4,11 @@
 
 stdenv.mkDerivation {
   pname = "Immersed";
-  version = "4.0";
+  version = "5.1";
 
   src = fetchurl {
     url = "https://immersedvr.com/dl/Immersed-x86_64.AppImage";
-    sha256 = "1n95pfx899lxdir293364sa2vh16n1xvxqb2dj960c47a4qqirlb";
+    sha256 = "0b6bk7ch42n7fn905jfkhfdbjfxikc5n8ik2lm3zn78h42sr377d";
   };
 
   nativeBuildInputs = [
