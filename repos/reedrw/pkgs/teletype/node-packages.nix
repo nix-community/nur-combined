@@ -184,13 +184,13 @@ let
         sha512 = "tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==";
       };
     };
-    "@types/node-10.17.50" = {
+    "@types/node-10.17.51" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "10.17.50";
+      version = "10.17.51";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-10.17.50.tgz";
-        sha512 = "vwX+/ija9xKc/z9VqMCdbf4WYcMTGsI0I/L/6shIF3qXURxZOhPQlPRHtjTpiNhAwn0paMJzlOQqw6mAGEQnTA==";
+        url = "https://registry.npmjs.org/@types/node/-/node-10.17.51.tgz";
+        sha512 = "KANw+MkL626tq90l++hGelbl67irOJzGhUJk6a1Bt8QHOeh9tztJx+L0AqttraWKinmZn7Qi5lJZJzx45Gq0dg==";
       };
     };
     "ajv-6.12.6" = {
@@ -832,13 +832,13 @@ let
         sha512 = "xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==";
       };
     };
-    "fast-glob-3.2.4" = {
+    "fast-glob-3.2.5" = {
       name = "fast-glob";
       packageName = "fast-glob";
-      version = "3.2.4";
+      version = "3.2.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fast-glob/-/fast-glob-3.2.4.tgz";
-        sha512 = "kr/Oo6PX51265qeuCYsyGypiO5uJFgBS0jksyG7FUeCyQzNwYnzrNIMR1NXfkZXsMYXYLRAHgISHBz8gQcxKHQ==";
+        url = "https://registry.npmjs.org/fast-glob/-/fast-glob-3.2.5.tgz";
+        sha512 = "2DtFcgT68wiTTiwZ2hNdJfcHNke9XOfnwmBRWXhmeKM8rF0TGwmC/Qto3S7RoZKp5cilZbxzO5iTNTQsJ+EeDg==";
       };
     };
     "fast-json-stable-stringify-2.1.0" = {
@@ -1741,13 +1741,13 @@ let
         sha1 = "be35f5425be1f7f6c747184f98a788cb99477ee0";
       };
     };
-    "parse-json-5.1.0" = {
+    "parse-json-5.2.0" = {
       name = "parse-json";
       packageName = "parse-json";
-      version = "5.1.0";
+      version = "5.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/parse-json/-/parse-json-5.1.0.tgz";
-        sha512 = "+mi/lmVVNKFNVyLXV31ERiy2CY5E1/F6QtJFEzoChPRwwngMNXRDQ9GJ5WdE2Z2P4AujsOi0/+2qHID68KwfIQ==";
+        url = "https://registry.npmjs.org/parse-json/-/parse-json-5.2.0.tgz";
+        sha512 = "ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==";
       };
     };
     "password-prompt-1.1.2" = {
@@ -2663,7 +2663,7 @@ in
       sources."@oclif/screen-1.0.4"
       sources."@types/glob-7.1.3"
       sources."@types/minimatch-3.0.3"
-      sources."@types/node-10.17.50"
+      sources."@types/node-10.17.51"
       sources."ajv-6.12.6"
       sources."ansi-colors-4.1.1"
       sources."ansi-escapes-4.3.1"
@@ -2770,7 +2770,7 @@ in
       sources."extract-stack-2.0.0"
       sources."fast-deep-equal-3.1.3"
       sources."fast-diff-1.2.0"
-      sources."fast-glob-3.2.4"
+      sources."fast-glob-3.2.5"
       sources."fast-json-stable-stringify-2.1.0"
       sources."fastq-1.10.0"
       sources."fill-range-7.0.1"
@@ -2840,7 +2840,7 @@ in
       sources."lines-and-columns-1.1.6"
       (sources."load-json-file-6.2.0" // {
         dependencies = [
-          sources."parse-json-5.1.0"
+          sources."parse-json-5.2.0"
           sources."type-fest-0.6.0"
         ];
       })
