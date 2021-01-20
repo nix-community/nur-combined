@@ -32,8 +32,6 @@ rec {
 
   gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard { };
 
-  graphene = pkgs.callPackage ./pkgs/graphene { };
-
   healthcheck = pkgs.callPackage ./pkgs/healthcheck { };
 
   hello-nur = pkgs.callPackage ./pkgs/hello-nur { };
