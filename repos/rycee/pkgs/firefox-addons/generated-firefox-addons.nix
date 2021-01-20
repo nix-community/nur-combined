@@ -108,19 +108,6 @@
         platforms = platforms.all;
         };
       };
-    "browserpass-otp" = buildFirefoxXpiAddon {
-      pname = "browserpass-otp";
-      version = "0.2.5";
-      addonId = "browserpass-otp@maximbaz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3640263/browserpass_otp-0.2.5-fx.xpi";
-      sha256 = "00151e6b2a8c7e8601ab33284920e48a9eba8ac297e9056cc77e89962be02b1f";
-      meta = with stdenv.lib;
-      {
-        homepage = "https://github.com/browserpass/browserpass-otp";
-        description = "Companion extension to Browserpass that implements OTP support";
-        platforms = platforms.all;
-        };
-      };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
       version = "1.1.0";
