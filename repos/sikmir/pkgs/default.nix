@@ -27,7 +27,6 @@ lib.makeScope newScope (
     klogg-bin = callPackage ./applications/misc/klogg/bin.nix { };
     librewolf = callPackage ./applications/networking/librewolf { };
     macpass-bin = callPackage ./applications/macpass/bin.nix { };
-    map-stylizer = callPackage ./applications/gis/map-stylizer { };
     maperitive-bin = callPackage ./applications/gis/maperitive/bin.nix { };
     mapsoft = callPackage ./applications/gis/mapsoft { };
     mapsoft2 = callPackage ./applications/gis/mapsoft/2.nix { };
@@ -172,9 +171,6 @@ lib.makeScope newScope (
     morse-talk = callPackage ./tools/morse-talk { };
     musig = callPackage ./tools/audio/musig { };
     odict = callPackage ./tools/dict/odict { };
-    osm-area-tools = callPackage ./tools/geo/osm-area-tools { };
-    osmcoastline = callPackage ./tools/geo/osmcoastline { };
-    phyghtmap = callPackage ./tools/geo/phyghtmap { };
     polyvectorization = libsForQt5.callPackage ./tools/graphics/polyvectorization {
       inherit sources;
     };
@@ -189,7 +185,6 @@ lib.makeScope newScope (
       else callPackage ./tools/dict/stardict-tools { };
     supermercado = callPackage ./tools/geo/supermercado { };
     supload = callPackage ./tools/misc/supload { };
-    taginfo-tools = callPackage ./tools/geo/taginfo-tools { };
     tatoebatools = callPackage ./tools/dict/tatoebatools { };
     tilesets-cli = callPackage ./tools/geo/tilesets-cli { };
     tpkutils = callPackage ./tools/geo/tpkutils { };
@@ -233,6 +228,15 @@ lib.makeScope newScope (
     md2gemini = callPackage ./gemini/md2gemini { };
     shavit = callPackage ./gemini/shavit { };
 
+    ### OSM
+
+    map-stylizer = callPackage ./osm/map-stylizer { };
+    osm-area-tools = callPackage ./osm/osm-area-tools { };
+    osmcoastline = callPackage ./osm/osmcoastline { };
+    phyghtmap = callPackage ./osm/phyghtmap { };
+    sdlmap = callPackage ./osm/sdlmap { };
+    taginfo-tools = callPackage ./osm/taginfo-tools { };
+
     ### SERVERS
 
     dict2rest = callPackage ./servers/dict2rest { };
@@ -246,10 +250,13 @@ lib.makeScope newScope (
     farbfeld-utils = callPackage ./suckless/farbfeld-utils { };
     hurl = callPackage ./suckless/hurl { };
     imscript = callPackage ./suckless/imscript { };
+    lacc = callPackage ./suckless/lacc { };
     lel = callPackage ./suckless/lel { };
     quark = callPackage ./suckless/quark { };
     saait = callPackage ./suckless/saait { };
+    sbase = callPackage ./suckless/sbase { };
     scroll = callPackage ./suckless/scroll { };
+    sfeed = callPackage ./suckless/sfeed { };
     stagit = callPackage ./suckless/stagit { };
 
     ### MISC

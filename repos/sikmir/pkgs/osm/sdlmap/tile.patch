@@ -1,0 +1,28 @@
+diff --git i/sdlmap.cc w/sdlmap.cc
+index 8fa3483..22dafc4 100644
+--- i/sdlmap.cc
++++ w/sdlmap.cc
+@@ -107,7 +107,7 @@ int main(int argc, char *argv[]){
+ 	SDL_Window *window = SDL_CreateWindow("SDLmap", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE);
+ 
+ 	MapView view(window, width, height, zoom);
+-	view.center_coords(48.4284, -123.3656);
++	view.center_coords(60.0, 30.0);
+ 
+ 	runloop(view);
+ 	return 0;
+diff --git i/tile.cc w/tile.cc
+index 086fe3d..ddf0dab 100644
+--- i/tile.cc
++++ w/tile.cc
+@@ -21,8 +21,9 @@ std::string Tile::url(){
+ 	char url[4096];
+ 	//snprintf(url, sizeof url, "http://a.tile.openstreetmap.org/%i/%i/%i.png", zoom, x, y);
+ 	//snprintf(url, sizeof url, "http://a.tile.stamen.com/toner/%i/%i/%i.png", zoom, x, y);
+-	snprintf(url, sizeof url, "http://mts0.google.com/vt/hl=en&src=api&x=%i&s=&y=%i&z=%i", x, y, zoom);
++	//snprintf(url, sizeof url, "http://mts0.google.com/vt/hl=en&src=api&x=%i&s=&y=%i&z=%i", x, y, zoom);
+ 	//snprintf(url, sizeof url, "http://a.www.toolserver.org/tiles/bw-mapnik/%i/%i/%i.png", zoom, x, y);
++	snprintf(url, sizeof url, "https://tile-a.opentopomap.ru/%i/%i/%i.png", zoom, x, y);
+ 	return std::string(url);
+ }
+ void Tile::render(SDL_Surface *screen, int offsetx, int offsety){
