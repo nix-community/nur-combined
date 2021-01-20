@@ -27,7 +27,7 @@ pkgs.stdenv.mkDerivation {
   phases = [ \"installPhase\" ];
   installPhase = ''
     mkdir -p \$out/bin
-    tar -zxvf \$src -C \$out/bin/ ${REPO}
+    tar -zxf \$src -C \$out/bin/ ${REPO}
   '';
 }
 " > ../pkgs/${REPO}.nix

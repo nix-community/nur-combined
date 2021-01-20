@@ -10,7 +10,7 @@ pkgs.stdenv.mkDerivation {
   phases = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out/bin
-    tar -zxvf $src -C $out/bin/ gomodrun
+    tar -zxf $src -C $out/bin/ gomodrun
   '';
 }
 
