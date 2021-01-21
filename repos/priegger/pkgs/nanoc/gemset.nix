@@ -36,10 +36,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1vnxrbhi7cq3p4y2v9iwd10v1c7l15is4var14hwnb2jip4fyjzz";
+      sha256 = "0mr23wq0szj52xnj0zcn1k0c7j4v79wlwbijkpfcscqww3l6jlg3";
       type = "gem";
     };
-    version = "1.1.7";
+    version = "1.1.8";
   };
   cri = {
     groups = [ "default" ];
@@ -130,10 +130,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1n494k135q7qsazvcxqqhg2slcfw15ji622vamnjdi8v6fryqr3v";
+      sha256 = "0dw8jzmw4hlv0zba0vr13hxkp22jyk3nxaf37cmcam8vc4fzq91v";
       type = "gem";
     };
-    version = "4.11.22";
+    version = "4.11.23";
   };
   nanoc-checking = {
     dependencies = [ "nanoc-cli" "nanoc-core" ];
@@ -152,10 +152,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1626rln9dqmmf74ikzns80k7lr2qmq0v48ka4m4si12rkfz4x0hh";
+      sha256 = "10vvz0bcjn6bq9ya6j4l8qypi4868k8d2wm1aghmp2xml6qahiqy";
       type = "gem";
     };
-    version = "4.11.22";
+    version = "4.11.23";
   };
   nanoc-core = {
     dependencies = [ "concurrent-ruby" "ddmemoize" "ddmetrics" "ddplugin" "hamster" "json_schema" "slow_enumerator_tools" "tomlrb" "tty-platform" "zeitwerk" ];
@@ -163,10 +163,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1dkgkvqx8075fx6jlyzin1hkykc9jjdqj930h6qzk4xq5qc7l2gi";
+      sha256 = "18dimg8jcf6hbnsgn378l26zswf44s756p0q6w6fycv0abxl4rbk";
       type = "gem";
     };
-    version = "4.11.22";
+    version = "4.11.23";
   };
   nanoc-deploying = {
     dependencies = [ "nanoc-checking" "nanoc-cli" "nanoc-core" ];
