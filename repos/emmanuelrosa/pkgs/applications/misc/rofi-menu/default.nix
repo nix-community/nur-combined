@@ -2,19 +2,20 @@
 
 stdenv.mkDerivation rec {
   pname = "rofi-menu";
-  version = "0.3.1";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "emmanuelrosa";
     repo = pname;
     rev = version; 
-    sha256 = "0dggyh6c3w2bnjy2c6w1hwrwcms47ncp2i1z20hmm9hqrdxg0d66";
+    sha256 = "1vnd5fm8s68xcdqlykmdyla3jsx66bmia19wafz1r3ing6ainzz8";
   };
 
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     install -D rofi-menu-history $out/bin/rofi-menu-history
+    install -D rofi-menu-shutdown $out/bin/rofi-menu-shutdown
   '';
 
   postFixup = ''
