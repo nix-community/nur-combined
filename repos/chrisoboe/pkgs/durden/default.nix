@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, bash}:
+{ stdenv, fetchFromGitHub, bash, arcan}:
 
 stdenv.mkDerivation rec {
   pname = "durden";
@@ -10,6 +10,10 @@ stdenv.mkDerivation rec {
     rev = "${version}";
     sha256 = "03ry8ypsvpjydb9s4c28y3iffz9375pfgwq9q9y68hmj4d89bjvz";
   };
+
+  buildInputs = [
+    arcan
+  ];
 
   dontConfigure = true;
   dontBuild = true;
@@ -24,9 +28,37 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/wayland-sessions
     mkdir -p $out/bin
     cp -r ./durden $out/share/
-    echo -e "#!${bash}/bin/bash\nexec /run/wrappers/bin/arcan $out/share/durden" > $out/bin/durden
+
+    echo -e "\
+#!${bash}/bin/bash
+
+# check if XDG_RUNTIME_DIR needs to be set
+if [[ -z "'"$XDG_RUNTIME_DIR"'" ]];
+then
+  export XDG_RUNTIME_DIR=/run/user/"'$UID'"
+  mkdir -p "'$XDG_RUNTIME_DIR'"
+  chmod 700 "'$XDG_RUNTIME_DIR'"
+fi
+
+# check if we have a suid wrapper for arcan
+if [[ -f "/run/wrappers/bin/arcan" ]];
+then
+  exec /run/wrappers/bin/arcan $out/share/durden
+else
+  ${arcan}/bin/arcan $out/share/durden
+fi
+    " > $out/bin/durden
+
     chmod +x $out/bin/durden
-    echo -e "[Desktop Entry]\nName=durden\nComment=Next Generation Window Manager\nExec=$out/bin/durden\nType=Application" > $out/share/wayland-sessions/durden.desktop
+
+    echo -e "\
+[Desktop Entry]
+Name=durden
+Comment=Next Generation Window Manager
+Exec=$out/bin/durden
+Type=Application
+" > $out/share/wayland-sessions/durden.desktop
+
     chmod +x $out/share/wayland-sessions/durden.desktop
   '';
 

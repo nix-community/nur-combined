@@ -13,10 +13,10 @@ rec {
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-
-  #example-package = pkgs.callPackage ./pkgs/example-package { };
-  chitubox = pkgs.callPackage ./pkgs/chitubox/chitubox.nix {} ;
-  arcan = pkgs.callPackage ./pkgs/arcan/default.nix {};
-  durden = pkgs.callPackage ./pkgs/durden/default.nix {};
+  
+  chitubox = pkgs.callPackage ./pkgs/chitubox {} ;
+  arcan = pkgs.callPackage ./pkgs/arcan {};
+  durden = pkgs.callPackage ./pkgs/durden {arcan=arcan;};
+  #deskdockServer = pkgs.callPackage ./pkgs/deskdockServer {};
 }
 

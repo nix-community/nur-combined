@@ -8,16 +8,18 @@ stdenv.mkDerivation rec {
     url =
       "https://sac.chitubox.com/software/download.do?softwareId=17839&softwareVersionId=v${version}&fileName=CHITUBOX_V${version}.tar.gz";
     name = "${name}.tar.gz";
-    sha256 = "0i842fw73vclzlc8mzjq47j6c9jf4qi7azwrj2mmcgpawjy4sv7d";
+    sha256 = "0qqsp3rnins82nfknp1bxibdg56h1p6c637rm45ak7ysac38v4s0";
   };
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
   buildInputs = [ xorg.libX11 stdenv.cc.cc.lib libGL zlib libgpgerror glib fontconfig libdrm];
 
+  dontConfigure = true;
+  dontBuild = true;
+
   installPhase = ''
     cp -r ./ $out
-    mkdir $out/bin
     ln -s $out/CHITUBOX $out/bin/chitubox
   '';
 
