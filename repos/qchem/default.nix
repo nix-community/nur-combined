@@ -68,7 +68,7 @@ let
     };
   };
 
-  pythonOverrides = import ./pythonPackages.nix;
+  pythonOverrides = import ./pythonPackages.nix self super;
 
 in with super;
 {
@@ -125,7 +125,7 @@ in with super;
   ergoscf = callPackage ./ergoscf { };
 
   # fix a bug in the header file, which causes bagel to fail
-  libxc = super.libxc.overrideDerivation (oa: {
+  libxc = super.libxc.overrideAttrs (oa: {
     postFixup = ''
       sed -i '/#include "config.h"/d' $out/include/xc.h
     '';
@@ -222,6 +222,17 @@ in with super;
       qtscript
       qtsvg;
   }).overrideAttrs (x: { preCheck = "export OMP_NUM_THREADS=4"; });
+
+  dkh = callPackage ./dkh {};
+
+  dftd3 = callPackage ./dft-d3 {};
+
+  libefp = callPackage ./libefp {};
+
+  pcmsolver = callPackage ./pcmsolver {};
+
+  psi4 = super.python3Packages.toPythonApplication self.python3Packages.psi4;
+  psi4Unstable = super.python3Packages.toPythonApplication self.python3Packages.psi4Unstable;
 
   ### Python packages
 
@@ -348,5 +359,3 @@ in with super;
   in builtins.mapAttrs (n: v: v.override { batsTest = batsDontRun; })
     self.qc-tests;
 }
-
-

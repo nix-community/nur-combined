@@ -1,6 +1,11 @@
 { stdenv, fetchurl, autoreconfHook
 , doxygen, texlive, python, perl, gmpxx, mpfr, boost
+, maxAm ? 6
 } :
+assert
+  stdenv.lib.asserts.assertMsg
+  (maxAm <= 7 && maxAm >= 1)
+  "The maximum angular momentum must be in the interval between 1 and 7";
 
 let
   version = "1.1.5";
@@ -28,8 +33,8 @@ in stdenv.mkDerivation {
   doCheck = true;
 
   configureFlags = [
-    "--with-libint-max-am=6"
-    "--with-libderiv-max-am1=5"
+    "--with-libint-max-am=${toString maxAm}"
+    "--with-libderiv-max-am1=${toString (maxAm - 1)}"
   ];
 
   meta = with stdenv.lib; {
@@ -39,4 +44,3 @@ in stdenv.mkDerivation {
     platforms = platforms.linux;
   };
 }
-

@@ -1,4 +1,8 @@
-{ stdenv, fetchFromGitHub, cmake, openblasCompat, hdf5-full } :
+{ stdenv, fetchFromGitHub, cmake, blas, hdf5-full } :
+assert
+  stdenv.lib.asserts.assertMsg
+  (!blas.isILP64)
+  "32 bit integer BLAS implementation required.";
 
 stdenv.mkDerivation rec {
   pname = "CheMPS2";
@@ -12,7 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ openblasCompat hdf5-full ];
+  buildInputs = [ blas hdf5-full ];
 
   doCheck = true;
 
