@@ -96,10 +96,10 @@
       };
     "browserpass" = buildFirefoxXpiAddon {
       pname = "browserpass";
-      version = "3.7.1";
+      version = "3.7.2";
       addonId = "browserpass@maximbaz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3644800/browserpass-3.7.1-fx.xpi";
-      sha256 = "cd95750b5701234df661bda07fe4aeec4a7f4d7dfd7e45dff0b9b640ac7dcc07";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3711209/browserpass-3.7.2-fx.xpi";
+      sha256 = "b1781405b46f3274697885b53139264dca2ab56ffc4435c093102ad5ebc59297";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/browserpass/browserpass-extension";
@@ -124,10 +124,10 @@
       };
     "canvasblocker" = buildFirefoxXpiAddon {
       pname = "canvasblocker";
-      version = "1.4";
+      version = "1.5";
       addonId = "CanvasBlocker@kkapsner.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3674884/canvasblocker-1.4-an+fx.xpi";
-      sha256 = "5b93c2371ba680c97b151bd0e63be4eddfad6d6ff0ed2c6b14940614b20d7115";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3711139/canvasblocker-1.5-an+fx.xpi";
+      sha256 = "1ec7cfcf8567a2b70a8405980f0143316c560539688e9f43e8069f069bae5d51";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/kkapsner/CanvasBlocker/";
@@ -165,10 +165,10 @@
       };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
-      version = "3.5.1";
+      version = "3.6.0";
       addonId = "CookieAutoDelete@kennydo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3630305/cookie_autodelete-3.5.1-an+fx.xpi";
-      sha256 = "7aa3dde448c0e573a9882781482e7fb6952cbeb5152c3919799d2138d149abec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3711829/cookie_autodelete-3.6.0-an+fx.xpi";
+      sha256 = "f83646d42f476c86384164fd4868fa9c5b7452491f1f37d4e219c3fb3c421def";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/Cookie-AutoDelete/Cookie-AutoDelete";
@@ -304,10 +304,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.4.7";
+      version = "4.4.8";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3703622/floccus-4.4.7-fx.xpi";
-      sha256 = "7ed0823e2037467b52b4fddb0b0ac302fe9079714c2dce0bdcdb48da5400cc3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3711458/floccus-4.4.8-fx.xpi";
+      sha256 = "bd2dcd520e10821dd8af656258c983a52d99cc5d46d2b3683a50287f20d30ecf";
       meta = with stdenv.lib;
       {
         homepage = "https://floccus.org";
@@ -495,10 +495,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.17.0";
+      version = "2.17.2";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3707088/ipfs_companion-2.17.0-an+fx.xpi";
-      sha256 = "09b1ed78453576aa3f7563f9da814005bb14b5206f19f6551e9bb930f60c91e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3712433/ipfs_companion-2.17.2-an+fx.xpi";
+      sha256 = "e6ee04ab6fa9073a0f25eda1f1a150893992a07fb46324dfacc336f3be40e764";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -555,10 +555,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.62.0.6";
+      version = "4.63.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3693247/lastpass_password_manager-4.62.0.6-an+fx.xpi";
-      sha256 = "4e4cc6061fe44442de7e91c35d6b2cfd2d2b0c2365cfb84dcba5d4e0fae5138c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3708976/lastpass_password_manager-4.63.0.3-an+fx.xpi";
+      sha256 = "a932ed795e722a6c422799f7941468a2caf7d7f86a9839602dfb1b7d42063c18";
       meta = with stdenv.lib;
       {
         homepage = "https://lastpass.com/";
@@ -574,10 +574,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.0.8";
+      version = "1.0.9";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3700075/leechblock_ng-1.0.8-an+fx.xpi";
-      sha256 = "a4e6b71d2f7cc3a63f2ac1dfe32fb6aaf15fc375682e378870fd812a8100b475";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3710488/leechblock_ng-1.0.9-an+fx.xpi";
+      sha256 = "804512dd493f11be53285eb86c7bb73f1093768496b42d78f877a3e9a6c1316b";
       meta = with stdenv.lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -637,17 +637,17 @@
       meta = with stdenv.lib;
       {
         homepage = "https://elijahlopez.herokuapp.com/";
-        description = "A modern dark / Matte Black theme with a red accent color.\nOther accents available (request if not available).\nNOTE: ONLY WORKS ON FIREFOX DESKTOP.";
+        description = "A modern dark / Matte Black theme with a red accent color.\nClick my name for more accents (request if not available).\nmonero:42hpQgwfvFw6RXpmcXHBJ85cZs9yF97kqfV3JpycnanG7JazfdL4WHkVL";
         license = licenses.cc-by-nc-sa-30;
         platforms = platforms.all;
         };
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.0.1";
+      version = "9.0.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3708469/metamask-9.0.1-an+fx.xpi";
-      sha256 = "dbf9443085451e7081d8f9ab765f2648c4ce9a8925aed868a72205764b1be49f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3712414/metamask-9.0.2-an+fx.xpi";
+      sha256 = "c024ce06cf237ead247d254f232ca3f5816ee47296e7640cddb366a2f3685438";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
@@ -671,10 +671,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.2.5";
+      version = "6.2.6";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3702805/octotree_github_code_tree-6.2.5-fx.xpi";
-      sha256 = "c7984869db9ca5138c21e335f1089beff55dfec1bbf8889447aa8d55f77d2adb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3711228/octotree_github_code_tree-6.2.6-fx.xpi";
+      sha256 = "f30d347488b84a0a6bedeaa7f76bb3181c951bc5d08b6ada85ae258275906f66";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -824,10 +824,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "25.1";
+      version = "25.2";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3709729/save_page_we-25.1-fx.xpi";
-      sha256 = "bae812bbcb1879ab6afe62a9860dd339e1290d9f871e74b6d6a1377073281595";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3711952/save_page_we-25.2-fx.xpi";
+      sha256 = "66f6e5d92ee4afdd911e38f77775c7ed5f3a96ae9576fab7980e37b1aafecf26";
       meta = with stdenv.lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -934,10 +934,10 @@
       };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
-      version = "3.3.6";
+      version = "3.4.0";
       addonId = "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3710506/terms_of_service_didnt_read-3.3.6-fx.xpi";
-      sha256 = "4a1a2287f51ada39f0b60baa8094138c9a20c461c387f327d7bec0ea10a85323";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3710565/terms_of_service_didnt_read-3.4.0-fx.xpi";
+      sha256 = "8f29de9c3cf066e51bf77b6d7e50a9baf565c1dc00a6d3d2352c7c1264aba2f9";
       meta = with stdenv.lib;
       {
         homepage = "http://tosdr.org";
