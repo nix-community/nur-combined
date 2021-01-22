@@ -1,4 +1,16 @@
 {
+    "freeciv": {
+        "branch": "auto-update/freeciv",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "r-ryantm",
+        "repo": "nixpkgs",
+        "rev": "12f13bc8e874039d425608cffc636956a52b2dc5",
+        "sha256": "1kmzzkz4s1qk5msb8pyb0yw8rmrf8madxgbccc6m8g45x6ivcg2j",
+        "type": "tarball",
+        "url": "https://github.com/r-ryantm/nixpkgs/archive/12f13bc8e874039d425608cffc636956a52b2dc5.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",

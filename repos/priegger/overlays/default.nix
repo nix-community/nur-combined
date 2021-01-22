@@ -1,6 +1,7 @@
 let
   sources = import ../nix/sources.nix { };
 
+  nixpkgsFreeciv = import sources.freeciv { };
   nixpkgsPrometheusPushgateway = import sources.prometheus-pushgateway { };
 
   nixpkgsMaster = import sources.nixpkgs-master { };
@@ -32,6 +33,9 @@ in
 
   # https://github.com/NixOS/nixpkgs/pull/109390
   factorio = self: super: { inherit (nixpkgsUnstable) factorio-experimental factorio-headless-experimental; };
+
+  # https://github.com/NixOS/nixpkgs/pull/110417
+  freeciv = self: super: { inherit (nixpkgsFreeciv) freeciv; };
 
   # https://github.com/NixOS/nixpkgs/pull/105892
   prometheus-nginx-exporter = self: super: { inherit (nixpkgsUnstable) prometheus-nginx-exporter; };
