@@ -46,5 +46,17 @@
         "type": "tarball",
         "url": "https://github.com/NixOS/nixpkgs/archive/fd0daed2e8d590418fc565de70ea6ca47a6d2dcb.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "prometheus-pushgateway": {
+        "branch": "auto-update/pushgateway",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "r-ryantm",
+        "repo": "nixpkgs",
+        "rev": "799804ca6242887f952db3159435037e9e6c83ed",
+        "sha256": "0b1h0h98c4hlcrxy46jrb74xscds1hdx1j0qz0c77gmzj6ywhp8a",
+        "type": "tarball",
+        "url": "https://github.com/r-ryantm/nixpkgs/archive/799804ca6242887f952db3159435037e9e6c83ed.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

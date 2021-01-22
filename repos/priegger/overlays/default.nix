@@ -1,6 +1,8 @@
 let
   sources = import ../nix/sources.nix { };
 
+  nixpkgsPrometheusPushgateway = import sources.prometheus-pushgateway { };
+
   nixpkgsMaster = import sources.nixpkgs-master { };
   nixpkgsUnstable = import sources.nixpkgs-unstable { };
 in
@@ -33,4 +35,7 @@ in
 
   # https://github.com/NixOS/nixpkgs/pull/105892
   prometheus-nginx-exporter = self: super: { inherit (nixpkgsUnstable) prometheus-nginx-exporter; };
+
+  # https://github.com/NixOS/nixpkgs/pull/110247
+  prometheus-pushgateway = self: super: { inherit (nixpkgsPrometheusPushgateway) prometheus-pushgateway; };
 }
