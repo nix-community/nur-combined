@@ -7,8 +7,9 @@ in {
       hakyll-images = self.haskell.lib.unmarkBroken hsSuper.hakyll-images;
     };
   };
-  # https://github.com/NixOS/nixpkgs/pull/103485
-  inherit (unstable) zoom-us;
+  inherit (unstable)
+    zoom-us # https://github.com/NixOS/nixpkgs/pull/103485
+    bambootracker;
   steam-wrapper = with super; writeShellScriptBin "steam-wrapper" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
     export __GLX_VENDOR_LIBRARY_NAME=nvidia
