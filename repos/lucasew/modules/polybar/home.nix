@@ -93,8 +93,9 @@ in {
         "xkeyboard"
         "memory"
         "cpu"
-        "netusage"
+        "netusage-wifi"
         "wlan"
+        "netusage-ethernet"
         "eth"
         "temperature"
         "battery"
@@ -216,9 +217,18 @@ in {
     "format-underline" = "#4bffdc";
     "label" = " %percentage_used%%";
   };
-  "module/netusage" = {
+  "module/netusage-wifi" = {
     "type" = "internal/network";
     "interface" = "wlp3s0";
+    "interval" = 1;
+    "label-connected" = "↓ %downspeed% ↑ %upspeed%";
+    "label-disconnected" = "";
+    "format-connected-underline" = "#00ff00";
+    "format-disconnected-underline" = "#ff0000";
+  };
+  "module/netusage-ethernet" = {
+    "type" = "internal/network";
+    "interface" = "enp2s0f1";
     "interval" = 1;
     "label-connected" = "↓ %downspeed% ↑ %upspeed%";
     "label-disconnected" = "";

@@ -22,7 +22,7 @@ in
       ../../modules/polybar/system.nix
     ]
   ;
-  
+
   programs.steam.enable = true;
 
   home-manager = {
@@ -40,7 +40,10 @@ in
   };
 
   nixpkgs = {
-    config.allowUnfree = true;
+    config = {
+      allowUnfree = true;
+      android_sdk.accept_license = true;
+    };
     overlays = flake.outputs.overlays;
   };
   nix = {
