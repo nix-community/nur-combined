@@ -27,21 +27,28 @@ In a Nix script (example):
 ```nix
 { pkgs ? import <nixpkgs> {} }:
 let
-  # Option 1: get most recent version
-  drew-nur-master = import (builtins.fetchTarball "https://github.com/drewrisinger/nur-packages/archive/master.tar.gz") {
+  # Option 1 (recommended): Use Niv to manage versions
+  # https://github.com/nmattia/niv/
+  # niv add drewrisinger/nur-packages -n dr-nur-packages
+  dr-nur-niv = pkgs.callPackage sources.dr-nur-packages { };
+
+  # Option 2: get most recent version
+  dr-nur-master = import (builtins.fetchTarball "https://github.com/drewrisinger/nur-packages/archive/master.tar.gz") {
     inherit pkgs;
   };
 
-  # Option 2: get a specific version
-  drew-nur-at-commit = import (builtins.fetchTarball {
+  # Option 3: get a specific version
+  dr-nur-at-commit = import (builtins.fetchTarball {
     # Get the revision by choosing a version from https://github.com/drewrisinger/nur-packages/commits/master
     url = "https://github.com/drewrisinger/nur-packages/archive/ffd7e82fa492ce9c52ffeabb8250c6182b96c482.tar.gz";
     # Get the hash by running `nix-prefetch-url --unpack <url>` on the above url
     sha256 = "1vs1z05k68hn3mvq8kh68c78zlp417p0bbxw20a9arjb9cdffckn";
   }) { inherit pkgs; };
-in
-  drew-nur-master.python3Packages.qiskit
-  drew-nur-at-commit.python3Packages.cirq
+in {
+  dr-nur-niv.python3Packages.qiskit-terra;
+  dr-nur-master.python3Packages.qiskit;
+  dr-nur-at-commit.python3Packages.cirq;
+}
 ```
 
 ## Common Problems
