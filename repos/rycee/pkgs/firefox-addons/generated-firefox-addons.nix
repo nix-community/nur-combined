@@ -82,10 +82,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.47.1";
+      version = "1.48.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3688243/bitwarden_free_password_manager-1.47.1-an+fx.xpi";
-      sha256 = "f83c15496e19ae795581b8fbce52183c5ce31e729d31463fb76bed883dfead84";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3713036/bitwarden_free_password_manager-1.48.0-an+fx.xpi";
+      sha256 = "c9b5d62ce75e704008a68a133ba33c1b663d7dadba61bd3bffb400ebc66feac3";
       meta = with stdenv.lib;
       {
         homepage = "https://bitwarden.com";
@@ -206,10 +206,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.26";
+      version = "4.9.27";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3684946/dark_reader-4.9.26-an+fx.xpi";
-      sha256 = "5f2a2449524f5ab05c2e8568d2678c6b25795e87ce77ebc9448e13e8184e3c5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3712931/dark_reader-4.9.27-an+fx.xpi";
+      sha256 = "3388ad0c1e91e9fcb5103df1286bb5df0caf192aaf2a85a34acb046ca96b78a1";
       meta = with stdenv.lib;
       {
         homepage = "https://darkreader.org/";
@@ -644,10 +644,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.0.2";
+      version = "9.0.3";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3712414/metamask-9.0.2-an+fx.xpi";
-      sha256 = "c024ce06cf237ead247d254f232ca3f5816ee47296e7640cddb366a2f3685438";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3713506/metamask-9.0.3-an+fx.xpi";
+      sha256 = "692375925ffe029315963d91a084837ddf7137c2d15a121ca71e6b3f98d42761";
       meta = with stdenv.lib;
       {
         description = "Ethereum Browser Extension";
@@ -657,10 +657,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "7.2.0";
+      version = "7.3.0";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3707218/firefox_multi_account_containers-7.2.0-fx.xpi";
-      sha256 = "7d591651cb241c1ec49568dfba7442763052b2cac8ab4bc7d29d2230ef7115ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3713375/firefox_multi_account_containers-7.3.0-fx.xpi";
+      sha256 = "4784cbd5de44d65f4cc014949dcbd315503f4913dfa7b3124b8d84c49515666a";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -1119,10 +1119,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "17.12";
+      version = "17.13";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3702199/zoom_page_we-17.12-fx.xpi";
-      sha256 = "51ee355f33d9f08fd0d4a0f79a146df81e0a818cc368836f1d4ab6c1176f32fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3712730/zoom_page_we-17.13-fx.xpi";
+      sha256 = "e822268dc12ec45291a1788baa9cae9f00248de7b694b564c4a515d11dd18b6f";
       meta = with stdenv.lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
