@@ -21,15 +21,15 @@ assert withGui -> gtk3.meta.available;
 
 rustPlatform.buildRustPackage rec {
   pname = "psst";
-  version = "20210103.002c2bb";
+  version = "20210114.1fadc78";
   src = fetchFromGitHub {
     owner = "jpochyla";
     repo = "psst";
-    rev = "002c2bbd610ab7a49b095cd871c56bfe2c3a9f6b";
-    sha256 = "883ecb0ae2ef5af441dc4fe15ef15a2077f2cef10ab3e96096c38355acdba031";
+    rev = "1fadc78912af4d52e5e20e60e185f8e3ddcfc82e";
+    sha256 = "1dvsxd3rica8sm9nlx14vh37wb9aclsz33ahklcfga7w0w8l4zzr";
     fetchSubmodules = true;
   };
-  cargoSha256 = "e3f94e41fda9e2bc55b48ee77487d574d35e771fbd13a565432f30cda26654a1";
+  cargoSha256 = "05miwyjyd9zjcxw3aws0xcv1jgmy0md8pa6vljg8wiqgknjxcw56";
 
   nativeBuildInputs = [ pkg-config ]
     ++ optional withGui copyDesktopItems;

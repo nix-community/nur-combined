@@ -43,6 +43,8 @@ rec {
 
   amdgpu-fan = pkgs.callPackage ../tools/misc/amdgpu-fan { };
 
+  cardboard = pkgs.callPackage ../applications/window-managers/cardboard { };
+
   goModules = pkgs.recurseIntoAttrs rec {
     qt = pkgs.libsForQt512.callPackage ../development/go-modules/qt { };
   };

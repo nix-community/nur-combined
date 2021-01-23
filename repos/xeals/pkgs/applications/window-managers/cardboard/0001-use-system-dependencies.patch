@@ -1,0 +1,62 @@
+diff --git a/cardboard/meson.build b/cardboard/meson.build
+index b236f71..a90f230 100644
+--- a/cardboard/meson.build
++++ b/cardboard/meson.build
+@@ -4,24 +4,15 @@ xkbcommon = dependency('xkbcommon')
+ xcb = dependency('xcb', required: get_option('xwayland'))
+ 
+ wlroots_version = '>=0.10.0'
+-wlroots_proj = subproject(
++wlroots = dependency(
+   'wlroots',
+-  default_options: ['examples=false'],
+   required: true,
+   version: wlroots_version,
+ )
+ 
+-wlroots = wlroots_proj.get_variable('wlroots')
+-wlroots_conf = wlroots_proj.get_variable('conf_data')
+-wlroots_has_xwayland = wlroots_conf.get('WLR_HAS_XWAYLAND') == 1
++have_xwayland = xcb.found()
+ 
+-if get_option('xwayland').enabled() and not wlroots_has_xwayland
+-    error('Cannot enable Xwayland support in cardboard: wlroots has been built without Xwayland support')
+-endif
+-have_xwayland = xcb.found() and wlroots_has_xwayland
+-
+-expected_proj = subproject('expected', required: true)
+-expected = expected_proj.get_variable('expected_dep')
++expected = dependency('tl-expected', required: true, method: 'cmake', modules: ['tl::expected'])
+ 
+ conf_data = configuration_data()
+ conf_data.set10('HAVE_XWAYLAND', have_xwayland)
+diff --git a/cutter/meson.build b/cutter/meson.build
+index f1260a4..1485f37 100644
+--- a/cutter/meson.build
++++ b/cutter/meson.build
+@@ -1,6 +1,5 @@
+ # SPDX-License-Identifier: GPL-3.0-only
+-expected_proj = subproject('expected', required: true)
+-expected = expected_proj.get_variable('expected_dep')
++expected = dependency('tl-expected', required: true, method: 'cmake', modules: ['tl::expected'])
+ 
+ executable(
+     'cutter',
+diff --git a/libcardboard/meson.build b/libcardboard/meson.build
+index 89698fe..3ac8115 100644
+--- a/libcardboard/meson.build
++++ b/libcardboard/meson.build
+@@ -1,11 +1,9 @@
+ # SPDX-License-Identifier: GPL-3.0-only
+ libcardboard_inc = include_directories('include')
+ 
+-expected_proj = subproject('expected', required: true)
+-expected = expected_proj.get_variable('expected_dep')
++expected = dependency('tl-expected', required: true, method: 'cmake', modules: ['tl::expected'])
+ 
+-cereal_proj = subproject('cereal', required: true)
+-cereal = cereal_proj.get_variable('cereal_dep')
++cereal = dependency('cereal', required: true, method: 'cmake')
+ 
+ sources = files(
+     'src/command_protocol.cpp',
