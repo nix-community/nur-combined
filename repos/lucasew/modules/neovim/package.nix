@@ -57,6 +57,7 @@ in pkgs.neovim.override {
       themeStarrynight
       themePaper
       vim-jsx-typescript
+      dart-vim-plugin
     ];
     customRC = ''
     let g:LanguageClient_serverCommands = ${builtins.toJSON (import ./langservers.nix {inherit pkgs;})}

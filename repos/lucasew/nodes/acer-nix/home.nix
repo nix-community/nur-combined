@@ -46,6 +46,8 @@ in
     enable = true;
   };
 
+  services.flameshot.enable = true;
+
   programs = {
     adskipped-spotify.enable = true;
     adskipped-youtube-music.enable = true;

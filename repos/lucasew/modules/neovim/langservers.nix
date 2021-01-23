@@ -15,4 +15,5 @@ in
   typescript = ["${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server" "--stdio"];
   typescriptreact = ["${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server" "--stdio"];
   zig = ["zls"];
+  dart = ["dart" "--lsp"];
 }
