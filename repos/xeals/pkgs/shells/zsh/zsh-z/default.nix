@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation {
   pname = "zsh-z";
-  version = "2020.09.19.09209db";
+  version = "20210117.g289a4a7";
 
   src = fetchFromGitHub {
     owner = "agkozak";
     repo = "zsh-z";
-    rev = "09209db2daf4b0e7f180cea04d1344fcc06a9410";
-    sha256 = "06z96v3w998hcws13lj6332154aqg1qg3ignv2x835frq677yfzm";
+    rev = "289a4a7208db9b1778cba71c58fed46dbcea3bc7";
+    sha256 = "016prpavxdzjg372y2700rczdgzjb53bqz5mxjgmvrvjxwj69cf0";
   };
 
   nativeBuildInputs = [ installShellFiles ];
@@ -21,8 +21,7 @@ stdenv.mkDerivation {
   propogatedBuildInputs = [ zsh ];
 
   installPhase = ''
-    install -D zsh-z.plugin.zsh \
-      $out/share/zsh-z/zsh-z.zsh
+    install -D zsh-z.plugin.zsh $out/share/zsh-z/zsh-z.zsh
     installShellCompletion --zsh _zshz
   '';
 

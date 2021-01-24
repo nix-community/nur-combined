@@ -20,7 +20,7 @@ assert opusSupport              -> opusTools.meta.available;
 
 python2Packages.buildPythonApplication rec {
   pname = "spotify-ripper";
-  version = "2016.12.31";
+  version = "20161231.gd046419";
 
   src = fetchFromGitHub {
     owner = "hbashton";

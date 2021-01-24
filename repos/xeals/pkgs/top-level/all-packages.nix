@@ -2,24 +2,22 @@
 
 rec {
   # Alacritty with the unmerged ligature patches applied.
-  alacritty-ligatures = (pkgs.alacritty.override {
-    inherit (pkgs.rustPackages_1_45) rustPlatform;
-  }).overrideAttrs (oldAttrs: rec {
+  alacritty-ligatures = pkgs.alacritty.overrideAttrs (oldAttrs: rec {
     pname = "${oldAttrs.pname}-ligatures";
-    version = "0.7.0.20201204";
+    version = "0.7.1.20210107.gada2680";
 
     src = pkgs.fetchFromGitHub {
       owner = "zenixls2";
       repo = "alacritty";
       fetchSubmodules = true;
-      rev = "9adfaeb01bffb902eb305ed9de376d2032ba994e";
-      sha256 = "0lvynwgjrcrpvywpmqniw27268m0m9lw0lpwnfrbhipyp24c7pnx";
+      rev = "ada2680e79a8f53cd350263c8cc91d2e2a264d81";
+      sha256 = "0c0k1ib1dl35731zyjb32apyn28xc63mhbwsig5mz3hnkyk5nisr";
     };
 
     cargoDeps = oldAttrs.cargoDeps.overrideAttrs (pkgs.lib.const {
       name = "${pname}-${version}-vendor.tar.gz";
       inherit src;
-      outputHash = "1jjyqxpqk5k3kdjb4hmff562j2jncjmpq6wyyi7i3f3v1qc3xsb9";
+      outputHash = "1d1yz4xmal0f3c0pcn59lxfh5a3532nv7dv7s95svvi8qsvnk9gv";
     });
 
     ligatureInputs = [
@@ -39,6 +37,11 @@ rec {
         --set-rpath ${pkgs.lib.makeLibraryPath ligatureInputs}:"$(patchelf --show-rpath $out/bin/alacritty)" \
         $out/bin/alacritty
     '';
+
+    meta = oldAttrs.meta // {
+      description = "Alacritty with ligature patch applied";
+      homepage = "https://github.com/zenixls2/alacritty/tree/ligature";
+    };
   });
 
   amdgpu-fan = pkgs.callPackage ../tools/misc/amdgpu-fan { };

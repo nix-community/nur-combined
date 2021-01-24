@@ -23,13 +23,13 @@
 
 stdenv.mkDerivation rec {
   pname = "cardboard";
-  version = "20210120";
+  version = "20210120.g7b15613";
 
   src = fetchFromGitLab {
     owner = "cardboardwm";
     repo = "cardboard";
     rev = "7b15613e6e1222a6a83d69a2e5da2810dfb45522";
-    sha256 = "sha256-uL7zG2Q2tnGicWBeXgNjWK/drz2bbmbb5Z69sClYmhA=";
+    sha256 = "044sb0lv1gcywpdncvlv7npxvbsqcc1mwpk0f6i73dinchdz7gmq";
   };
 
   patches = [

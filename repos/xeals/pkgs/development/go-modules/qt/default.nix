@@ -11,7 +11,7 @@
 
 buildGoModule rec {
   pname = "go-qt";
-  version = "20200904";
+  version = "20200904.gc0c124a";
 
   src = fetchFromGitHub {
     owner = "therecipe";
