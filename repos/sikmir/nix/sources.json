@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-15T10:09:06Z",
+        "date": "2021-01-23T15:21:24Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "9381c9b200e0a4dae8905c397a47033e61e4a91f",
-        "sha256": "151fidln7sgfygzc02gxyqj2x6s7q8ib9i8322sxwf33k8axr224",
+        "rev": "4d8bee2e743ddd36cf55e29ae272860fb4bb9845",
+        "sha256": "0imxnnd3r61r7g6r8ic22nrzhpw23pwqnvpmzz2hsf1przzakfcs",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/9381c9b200e0a4dae8905c397a47033e61e4a91f.tar.gz",
+        "url": "https://github.com/embox/embox/archive/4d8bee2e743ddd36cf55e29ae272860fb4bb9845.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -226,15 +226,15 @@
     "gef": {
         "branch": "dev",
         "builtin": false,
-        "date": "2021-01-20T00:07:54Z",
+        "date": "2021-01-23T20:33:04Z",
         "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
         "homepage": "http://gef.rtfd.io",
         "owner": "hugsy",
         "repo": "gef",
-        "rev": "c17dcf596a0c010340146ead981e35a26d074822",
-        "sha256": "1cwvs4hi5sbrvhmy205wkccfzsripmx6dqrcyzjs9fgfbvzjbyyx",
+        "rev": "60fd341ba076942faac96fd6118ca927998ec0d9",
+        "sha256": "0gw112s16pdjd5csp8ap0qq2d3bkp2s8pyhjbw4f8k0mkgy1j66i",
         "type": "tarball",
-        "url": "https://github.com/hugsy/gef/archive/c17dcf596a0c010340146ead981e35a26d074822.tar.gz",
+        "url": "https://github.com/hugsy/gef/archive/60fd341ba076942faac96fd6118ca927998ec0d9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geminid": {
@@ -253,27 +253,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "0ysziz5fcwm7mrrm29hw6l4kmv6dgm7kzyf7wlzlkyqg9235xqdk",
+        "sha256": "1ch9py7hsgpm3xa66z0a9mrxipk8p2dzq4r8kzakv5kfilb3a8cd",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-210118.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-210122.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "210118"
+        "version": "210122"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "0d3mn1pk6rq7q9xlnp1qqnaqr1h05gjwljlb0iidlk6ksif6b8k0",
+        "sha256": "13af3ccdgkwsjg6mcwm4jj5p4j3r11sij5c1akbw1f7hdxph6jvz",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-210118.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-210122.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "210118"
+        "version": "210122"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "0mws5s1rxfhn9n0r6nd06bzr08mx3n73x5nxnn6xjwy9rjdpfa7k",
+        "sha256": "0ym5wf60syyqwl2rdpvm1cbmp17br3j342f2brr3vdhgqc3sfl4a",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210118.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210122.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "210118"
+        "version": "210122"
     },
     "gimgtools": {
         "branch": "master",
@@ -391,15 +391,15 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2021-01-18T22:00:23Z",
+        "date": "2021-01-23T17:30:46Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "51e38bf4d8a26fbf6a3cf6fe0513271e78b6084c",
-        "sha256": "05wn4kmvsswwd2q2pffxbplb38capwv7iddsghix3r5zds13142z",
+        "rev": "6ba7493b59f598da8204cf1d18c267058d67f5a2",
+        "sha256": "09an198lhswsl5a63fqxbpsbyll113m6p44kzvzniivvlvv117qg",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/51e38bf4d8a26fbf6a3cf6fe0513271e78b6084c.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/6ba7493b59f598da8204cf1d18c267058d67f5a2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
@@ -601,15 +601,15 @@
     "map-hr": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-13T00:32:44Z",
+        "date": "2021-01-23T13:43:00Z",
         "description": "Slazav mountains",
         "homepage": "http://slazav.xyz/maps/",
         "owner": "slazav",
         "repo": "map_hr",
-        "rev": "1253cc898e7f34c1c07f470db0e0a374868ba4f0",
-        "sha256": "0knq4l8qcabbxlb73sj9jhyix9f7fda7ns51hqw1wgjn903hn7gw",
+        "rev": "c2f83abac0b4dd7a0bcf338107297a4d154fa408",
+        "sha256": "11mwv7315h98pgw240ihd4fkzfak4s41nq0lx3j2c60faz60rbw6",
         "type": "tarball",
-        "url": "https://github.com/slazav/map_hr/archive/1253cc898e7f34c1c07f470db0e0a374868ba4f0.tar.gz",
+        "url": "https://github.com/slazav/map_hr/archive/c2f83abac0b4dd7a0bcf338107297a4d154fa408.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "map-podm": {
@@ -657,15 +657,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-19T06:11:21Z",
+        "date": "2021-01-23T07:07:17Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "12fca946c469a1f773fb845ae09ac29c5798a91c",
-        "sha256": "049w1wliv2awyjy9phmnq5vl5r5xsj5wbpih3d56m6dygqpz0cds",
+        "rev": "f7ee4034b49d62a2dffa47895db3ebcf2c8835c6",
+        "sha256": "0lkk3hhvrjq2h7ab52rd6gsxs54mi16xqmkj9p5aj2mdf6j7mv4q",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/12fca946c469a1f773fb845ae09ac29c5798a91c.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/f7ee4034b49d62a2dffa47895db3ebcf2c8835c6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maprec": {
@@ -685,15 +685,15 @@
     "mapsoft": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-05T11:51:50Z",
+        "date": "2021-01-23T16:21:20Z",
         "description": "Mapping software for linux",
         "homepage": "https://github.com/ushakov/mapsoft",
         "owner": "ushakov",
         "repo": "mapsoft",
-        "rev": "05565091d6636161a0d5c2a593266a16fe5ff887",
-        "sha256": "08l8krp1sajj04p85dhm5xwbypr6xrnhgp9h5fxylfyxwaaiwlvy",
+        "rev": "adabe528fdfdce6e1d74964f2ba52d42283e9ce4",
+        "sha256": "1d3ykka450blp8hyl930jl15k7vsvkv3jn5ff6i535mf9s6f7yym",
         "type": "tarball",
-        "url": "https://github.com/ushakov/mapsoft/archive/05565091d6636161a0d5c2a593266a16fe5ff887.tar.gz",
+        "url": "https://github.com/ushakov/mapsoft/archive/adabe528fdfdce6e1d74964f2ba52d42283e9ce4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maptourist": {
@@ -701,11 +701,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "09mkx77whzmsqm7p5824w3lgrkfqa7qdfvszffkgv9j4x4d2lr5z",
+        "sha256": "1iyxwncj9lzf0i7ab51rd7jn7ri5wc1fcxqi4b502ixaf9smcyrl",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-01-18.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-01-22.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2021-01-18"
+        "version": "2021-01-22"
     },
     "md2gemini": {
         "branch": "master",
@@ -804,15 +804,15 @@
     "nakarte": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-09T18:17:16Z",
+        "date": "2021-01-22T09:02:55Z",
         "description": "Source code of site http://nakarte.me",
         "homepage": "https://nakarte.me",
         "owner": "wladich",
         "repo": "nakarte",
-        "rev": "042b807c79e683b00956cad0e2b58bfc2f113afd",
-        "sha256": "18zij4kkb47r82pnhgqrlvsp27733i24r11kfv9ndns5fcngj91a",
+        "rev": "fa632a0b89c4264a9954da4fb25a2f194e72d8a0",
+        "sha256": "0wvwspl4mf7sb354k8fjixr4gc67rf60djxg2i9shsmyfmm1abp6",
         "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/042b807c79e683b00956cad0e2b58bfc2f113afd.tar.gz",
+        "url": "https://github.com/wladich/nakarte/archive/fa632a0b89c4264a9954da4fb25a2f194e72d8a0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
@@ -1136,15 +1136,15 @@
     "zdict": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-20T08:12:18Z",
+        "date": "2021-01-21T07:51:06Z",
         "description": "The last online dictionary framework you need",
         "homepage": "https://pypi.org/project/zdict/",
         "owner": "zdict",
         "repo": "zdict",
-        "rev": "8bb9e5b2e3b80f7725182662d506e274b48d168f",
-        "sha256": "0ymxz45j23pykz6dyv7pibpmnxvrzs60zfzlki5mwgasg26pq7bn",
+        "rev": "363542d220ea982ba5a179bbaa6fff293af99351",
+        "sha256": "06rhwzgs7jfblj8yzzcn8gk2qqbfggp4ng42hlds3d76gpg40p93",
         "type": "tarball",
-        "url": "https://github.com/zdict/zdict/archive/8bb9e5b2e3b80f7725182662d506e274b48d168f.tar.gz",
+        "url": "https://github.com/zdict/zdict/archive/363542d220ea982ba5a179bbaa6fff293af99351.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

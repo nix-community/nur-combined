@@ -1,4 +1,4 @@
-{ stdenv, pkgconfig, emacs, zlib, sources }:
+{ stdenv, pkg-config, emacs, zlib, sources }:
 
 stdenv.mkDerivation {
   pname = "gdcv";
@@ -6,7 +6,7 @@ stdenv.mkDerivation {
 
   src = sources.gdcv;
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [ emacs zlib ];
 

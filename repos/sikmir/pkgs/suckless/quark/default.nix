@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation {
   pname = "quark";
-  version = "2021-01-16";
+  version = "2021-01-24";
 
   src = fetchgit {
     url = "git://git.suckless.org/quark";
-    rev = "e5db41118f5c9bfc27338a803d6d4eebec05cc1b";
-    sha256 = "1nvs2d8vwlkga2bc8964wfmk3810bcs9wy7m1nc00n1wjgh8wcsi";
+    rev = "87ae2e9212c5cc7309eefa2a3f49a758862db6c7";
+    sha256 = "08gwb9rmj0d6z5p15vk5r7jv0wm80143mkzkq3cmmpd96mm689yw";
   };
 
   inherit patches;

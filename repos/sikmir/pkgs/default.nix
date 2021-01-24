@@ -11,7 +11,6 @@ lib.makeScope newScope (
     amethyst-bin = callPackage ./applications/window-managers/amethyst/bin.nix { };
     anki-bin = callPackage ./applications/anki/bin.nix { };
     goldencheetah-bin = callPackage ./applications/goldencheetah/bin.nix { };
-    goldendict-bin = callPackage ./applications/goldendict/bin.nix { };
     gpxlab = libsForQt5.callPackage ./applications/gpxlab {
       inherit sources;
     };
@@ -27,7 +26,6 @@ lib.makeScope newScope (
     klogg-bin = callPackage ./applications/misc/klogg/bin.nix { };
     librewolf = callPackage ./applications/networking/librewolf { };
     macpass-bin = callPackage ./applications/macpass/bin.nix { };
-    maperitive-bin = callPackage ./applications/gis/maperitive/bin.nix { };
     mapsoft = callPackage ./applications/gis/mapsoft { };
     mapsoft2 = callPackage ./applications/gis/mapsoft/2.nix { };
     nnn-plugins = callPackage ./applications/nnn-plugins { };
@@ -39,11 +37,7 @@ lib.makeScope newScope (
     qgis-ltr-bin = qgis-bin.override { releaseType = "ltr"; };
     qmapshack-bin = callPackage ./applications/gis/qmapshack/bin.nix { };
     qutebrowser-bin = callPackage ./applications/networking/qutebrowser/bin.nix { };
-    redict = libsForQt5.callPackage ./applications/redict {
-      inherit sources;
-    };
     sasplanet-bin = callPackage ./applications/gis/sasplanet/bin.nix { };
-    taskcoach = callPackage ./applications/misc/taskcoach { };
     tdh = callPackage ./applications/gis/tdh { };
     visualgps = libsForQt5.callPackage ./applications/visualgps { };
     wireguard-statusbar-bin = callPackage ./applications/wireguard-statusbar { };
@@ -145,55 +139,53 @@ lib.makeScope newScope (
     ### TOOLS
 
     apibackuper = callPackage ./tools/networking/apibackuper { };
-    cfiles = callPackage ./tools/cfiles { };
     csvquote = callPackage ./tools/text/csvquote { };
     csvtools = callPackage ./tools/text/csvtools { };
     datamaps = callPackage ./tools/geo/datamaps { };
-    docker-reg-tool = callPackage ./tools/docker-reg-tool { };
     docx2csv = callPackage ./tools/text/docx2csv { };
     elevation = callPackage ./tools/geo/elevation {
       click = click-6-7;
     };
     fx-bin = callPackage ./tools/text/fx/bin.nix { };
-    gdcv = callPackage ./tools/dict/gdcv { };
     go-staticmaps = callPackage ./tools/geo/go-staticmaps { };
     gpx-layer = perlPackages.callPackage ./tools/geo/gpx-layer {
       inherit sources;
     };
     gpxtools = callPackage ./tools/geo/gpxtools { };
     gpxtrackposter = callPackage ./tools/geo/gpxtrackposter { };
-    gt-bash-client = callPackage ./tools/dict/gt-bash-client { };
-    gt4gd = callPackage ./tools/dict/gt4gd { };
-    ish = callPackage ./tools/networking/ish { };
     lazyscraper = callPackage ./tools/text/lazyscraper { };
-    lsdreader = callPackage ./tools/dict/lsdreader { };
     map-tiler = callPackage ./tools/geo/map-tiler { };
-    morse-talk = callPackage ./tools/morse-talk { };
-    musig = callPackage ./tools/audio/musig { };
-    odict = callPackage ./tools/dict/odict { };
-    polyvectorization = libsForQt5.callPackage ./tools/graphics/polyvectorization {
+    py-staticmaps = callPackage ./tools/geo/py-staticmaps { };
+    supermercado = callPackage ./tools/geo/supermercado { };
+    tilesets-cli = callPackage ./tools/geo/tilesets-cli { };
+    tpkutils = callPackage ./tools/geo/tpkutils { };
+
+    ### DICT
+
+    dict2rest = callPackage ./dict/dict2rest { };
+    gdcv = callPackage ./dict/gdcv { };
+    goldendict-bin = callPackage ./dict/goldendict/bin.nix { };
+    gt4gd = callPackage ./dict/gt4gd { };
+    gt-bash-client = callPackage ./dict/gt-bash-client { };
+    lsdreader = callPackage ./dict/lsdreader { };
+    odict = callPackage ./dict/odict { };
+    opendict = callPackage ./dict/opendict { };
+    redict = libsForQt5.callPackage ./dict/redict {
       inherit sources;
     };
-    ptunnel = callPackage ./tools/networking/ptunnel { };
-    py-staticmaps = callPackage ./tools/geo/py-staticmaps { };
     stardict-tools =
       # Needed for nixos-19.09
       if pkgs ? libmysql
-      then callPackage ./tools/dict/stardict-tools {
+      then callPackage ./dict/stardict-tools {
         libmysqlclient = libmysql;
       }
-      else callPackage ./tools/dict/stardict-tools { };
-    supermercado = callPackage ./tools/geo/supermercado { };
-    supload = callPackage ./tools/misc/supload { };
-    tatoebatools = callPackage ./tools/dict/tatoebatools { };
-    tilesets-cli = callPackage ./tools/geo/tilesets-cli { };
-    tpkutils = callPackage ./tools/geo/tpkutils { };
-    xfractint = callPackage ./tools/xfractint { };
-    zdict = callPackage ./tools/dict/zdict { };
+      else callPackage ./dict/stardict-tools { };
+    tatoebatools = callPackage ./dict/tatoebatools { };
+    zdict = callPackage ./dict/zdict { };
 
-    ### GAMES
+    ### EMBOX
 
-    ascii-dash = callPackage ./games/ascii-dash { };
+    embox = callPackage ./embox { };
 
     ### GARMIN
 
@@ -228,9 +220,26 @@ lib.makeScope newScope (
     md2gemini = callPackage ./gemini/md2gemini { };
     shavit = callPackage ./gemini/shavit { };
 
+    ### MISC
+
+    ascii-dash = callPackage ./misc/ascii-dash { };
+    cfiles = callPackage ./misc/cfiles { };
+    docker-reg-tool = callPackage ./misc/docker-reg-tool { };
+    ish = callPackage ./misc/ish { };
+    morse-talk = callPackage ./misc/morse-talk { };
+    musig = callPackage ./misc/musig { };
+    polyvectorization = libsForQt5.callPackage ./misc/polyvectorization {
+      inherit sources;
+    };
+    ptunnel = callPackage ./misc/ptunnel { };
+    supload = callPackage ./misc/supload { };
+    taskcoach = callPackage ./misc/taskcoach { };
+    xfractint = callPackage ./misc/xfractint { };
+
     ### OSM
 
     map-stylizer = callPackage ./osm/map-stylizer { };
+    maperitive-bin = callPackage ./osm/maperitive/bin.nix { };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
     osmcoastline = callPackage ./osm/osmcoastline { };
     phyghtmap = callPackage ./osm/phyghtmap { };
@@ -239,7 +248,6 @@ lib.makeScope newScope (
 
     ### SERVERS
 
-    dict2rest = callPackage ./servers/dict2rest { };
     elevation_server = callPackage ./servers/elevation_server { };
     glauth = callPackage ./servers/glauth { };
     nakarte = callPackage ./servers/nakarte { };
@@ -258,9 +266,5 @@ lib.makeScope newScope (
     scroll = callPackage ./suckless/scroll { };
     sfeed = callPackage ./suckless/sfeed { };
     stagit = callPackage ./suckless/stagit { };
-
-    ### MISC
-
-    embox = callPackage ./embox { };
   }
 )

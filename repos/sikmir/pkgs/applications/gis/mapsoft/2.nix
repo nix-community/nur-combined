@@ -14,7 +14,7 @@
 , libxml2
 , libzip
 , perlPackages
-, pkgconfig
+, pkg-config
 , proj
 , shapelib
 , unzip
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     perlPackages.perl
-    pkgconfig
+    pkg-config
     unzip
     wrapGAppsHook
   ];

@@ -8,7 +8,7 @@
 , imagemagick
 , m4
 , netpbm
-, pkgconfig
+, pkg-config
 , scons
 , boost
 , curl
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
     m4
     netpbm
     perlPackages.perl
-    pkgconfig
+    pkg-config
     python2Packages.wrapPython
     scons
   ];

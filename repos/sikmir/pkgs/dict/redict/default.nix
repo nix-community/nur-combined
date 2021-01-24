@@ -1,7 +1,7 @@
 { mkDerivation
 , stdenv
 , lib
-, pkgconfig
+, pkg-config
 , qmake
 , qtbase
 , qtmultimedia
@@ -21,7 +21,7 @@ mkDerivation {
 
   src = sources.redict;
 
-  nativeBuildInputs = [ qmake pkgconfig ]
+  nativeBuildInputs = [ qmake pkg-config ]
     ++ lib.optional withI18n qttools;
   buildInputs = [ qtmultimedia qtsvg ]
     ++ lib.optionals stdenv.isLinux [ qtx11extras libX11 libXext libXtst ];
