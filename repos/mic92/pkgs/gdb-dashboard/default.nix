@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   name = "gdb-dashboard-${version}";
-  version = "0.11.3";
+  version = "0.11.4";
 
   src = fetchFromGitHub {
     owner = "cyrus-and";
     repo = "gdb-dashboard";
     rev = "v${version}";
-    sha256 = "1ylm1j8ksasvm17sv62rjv0k6h0l6navd51kiz0n0w18ly8mqlb6";
+    sha256 = "sha256-m+kXbgez4AvVa/siygdefqjRz0dW0G8oEUhwQFNaOU8=";
   };
 
   nativeBuildInputs = [ makeWrapper ];

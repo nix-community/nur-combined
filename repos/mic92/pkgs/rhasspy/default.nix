@@ -119,7 +119,6 @@
 
   rhasspy = callPackage ./rhasspy {
     inherit
-      phonetisaurus
       rhasspy-asr-kaldi-hermes
       rhasspy-dialogue-hermes
       rhasspy-tts-cli-hermes
@@ -140,8 +139,6 @@
   };
 
   swagger-ui-py = callPackage ./swagger-ui-py { };
-
-  phonetisaurus = callPackage ./phonetisaurus { };
 
   typing-inspect = callPackage ./typing-inspect { };
 }
