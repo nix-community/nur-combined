@@ -1,4 +1,16 @@
 {
+    "factorio": {
+        "branch": "factorio",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "priegger",
+        "repo": "nixpkgs",
+        "rev": "51bc6bdf8c3437c35946cf888643fc44f569c190",
+        "sha256": "0p2q3d6zzn6d1j69mqgvkrvx51sbagncgpv1044kmpldpc65436a",
+        "type": "tarball",
+        "url": "https://github.com/priegger/nixpkgs/archive/51bc6bdf8c3437c35946cf888643fc44f569c190.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "freeciv": {
         "branch": "auto-update/freeciv",
         "description": "Nix Packages collection",
