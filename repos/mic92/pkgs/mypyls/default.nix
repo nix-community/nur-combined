@@ -7,13 +7,13 @@
 
 buildPythonApplication rec {
   pname = "mypyls";
-  version = "2020-06-25";
+  version = "2020-08-07";
 
   src = fetchFromGitHub {
     owner = "matangover";
     repo = "mypyls";
-    rev = "78df3e7936cb94065c9ca2b2dc1249971ca2ea99";
-    sha256 = "QePLdSUv0V6zXEa5UFf5l0mLOrltiu9uWlgN4HSblwU=";
+    rev = "628ed24d07a0c41824e7aec5767b185726d34615";
+    sha256 = "sha256-2cuCX2pFq9rlBljNO9AEy9H5Js5CqFDDE2AL/W4SJNY=";
   };
 
   propagatedBuildInputs = [
