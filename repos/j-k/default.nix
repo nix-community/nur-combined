@@ -23,5 +23,6 @@
   infracost = pkgs.callPackage ./pkgs/infracost { };
   nerdctl = pkgs.callPackage ./pkgs/nerdctl { };
   scorecard = pkgs.callPackage ./pkgs/scorecard { };
+  subo = pkgs.callPackage ./pkgs/subo { };
 }
 
