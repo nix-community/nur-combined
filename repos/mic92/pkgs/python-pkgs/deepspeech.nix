@@ -5,12 +5,13 @@
 , isPy38
 , numpy
 , autoPatchelfHook
+, sox
 }:
 let
   pythonVersion = "38";
 in
 buildPythonPackage rec {
-  pname = "deepspeeche";
+  pname = "deepspeech";
   version = "0.9.3";
   disabled = !isPy38;
   wheelName = "deepspeech-${version}-cp${pythonVersion}-cp${pythonVersion}-manylinux1_x86_64.whl";
@@ -28,12 +29,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
+  makeWrapperArgs = [ "--prefix PATH : ${sox}/bin" ];
+
   unpackPhase = ":";
 
   format = "other";
 
   installPhase = ''
-    set +x
     cp $src ${wheelName}
     pip install --prefix=$out ${wheelName}
   '';

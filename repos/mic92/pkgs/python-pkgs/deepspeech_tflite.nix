@@ -5,6 +5,8 @@
 , isPy38
 , numpy
 , autoPatchelfHook
+, makeWrapper
+, sox
 }:
 let
   pythonVersion = "38";
@@ -24,16 +26,17 @@ buildPythonPackage rec {
 
   buildInputs = [ stdenv.cc.cc ];
 
-  nativeBuildInputs = [ pip autoPatchelfHook ];
+  nativeBuildInputs = [ pip autoPatchelfHook makeWrapper ];
 
   propagatedBuildInputs = [ numpy ];
+
+  makeWrapperArgs = [ "--prefix PATH : ${sox}/bin" ];
 
   unpackPhase = ":";
 
   format = "other";
 
   installPhase = ''
-    set +x
     cp $src ${wheelName}
     pip install --prefix=$out ${wheelName}
   '';
