@@ -7,6 +7,8 @@ rec {
 
   chump = callPackage ./chump.nix { };
 
+  deepspeech = callPackage ./deepspeech.nix { };
+
   deepspeech_tflite = callPackage ./deepspeech_tflite.nix { };
 
   jupyterthemes = callPackage ./jupyterthemes.nix {
