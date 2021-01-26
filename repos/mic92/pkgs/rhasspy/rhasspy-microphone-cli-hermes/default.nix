@@ -1,6 +1,6 @@
 { lib
 , buildPythonPackage
-, fetchPypi
+, fetchFromGitHub
 , pythonOlder
 , rhasspy-hermes
 , webrtcvad
@@ -12,12 +12,15 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-4+bujodWZ4WjG8iEHgN+qS02PFuuzetNdKJu+QgTDyA=";
+  src = fetchFromGitHub {
+    owner = "rhasspy";
+    repo = pname;
+    rev = "48b23d57fea4ba750d96197303446de896e712d6";
+    sha256  = "sha256-RFl1ALe2Qz3NjWbXFmHo1brk+KjV8gHTzXOrzGQpAVY=";
   };
 
   postPatch = ''
+    patchShebangs ./configure
     sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
   '';
 

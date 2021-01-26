@@ -9,13 +9,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-nlu-hermes";
-  version = "0.3.0";
+  version = "0.4.0";
 
   disabled = pythonOlder "3.7"; # requires python version >=3.7
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-4wOADSd1cVPPfhUnPiX2da298QUrDQACQKpNLufzjR0=";
+    sha256 = "sha256-IpkyNuCnHh9J2Th7UXulGOS3z9OJ6zzQu/mVWVrBDwA=";
   };
 
   postPatch = ''

@@ -11,6 +11,7 @@
 , lapack
 , blas
 , makeWrapper
+, rhasspy-asr-deepspeech-hermes
 , rhasspy-asr-kaldi-hermes
 , rhasspy-dialogue-hermes
 , rhasspy-tts-cli-hermes
@@ -23,7 +24,6 @@
 , rhasspy-microphone-cli-hermes
 , rhasspy-microphone-pyaudio-hermes
 , rhasspy-homeassistant-hermes
-, rhasspy-rasa-nlu-hermes
 , rhasspy-nlu-hermes
 , rhasspy-supervisor
 , rhasspy-server-hermes
@@ -61,7 +61,7 @@ buildPythonPackage rec {
 
   configureFlags = [
     "RHASSPY_WAKE_SYSTEM=porcupine"
-    "RHASSPY_SPEECH_SYSTEM=kaldi"
+    "RHASSPY_SPEECH_SYSTEM=kaldi,deepspeech"
     "RHASSPY_LANGUAGE=en"
     "--disable-precompiled-binaries"
     "--disable-virtualenv"
@@ -77,6 +77,9 @@ buildPythonPackage rec {
     # not packaged yet
     sed -i -e '/rhasspy-tts-larynx-hermes/d' RHASSPY_DIRS
     sed -i -e '/rhasspy-tts-wavenet-hermes/d' RHASSPY_DIRS
+    sed -i -e '/rhasspy-asr-pocketsphinx/d' RHASSPY_DIRS
+    # packaged but broken
+    sed -i -e '/rhasspy-rasa-nlu-hermes/d' RHASSPY_DIRS RHASSPY_SERVICES
   '';
 
   postInstall = ''
@@ -89,6 +92,7 @@ buildPythonPackage rec {
         supervisor
         rhasspy-dialogue-hermes
         rhasspy-asr-kaldi-hermes
+        rhasspy-asr-deepspeech-hermes
         rhasspy-tts-cli-hermes
         rhasspy-wake-porcupine-hermes
         rhasspy-wake-raven-hermes
@@ -98,7 +102,6 @@ buildPythonPackage rec {
         rhasspy-speakers-cli-hermes
         rhasspy-microphone-cli-hermes
         rhasspy-microphone-pyaudio-hermes
-        rhasspy-rasa-nlu-hermes
         rhasspy-homeassistant-hermes
         rhasspy-server-hermes
         rhasspy-nlu-hermes
@@ -143,6 +146,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     rhasspy-dialogue-hermes
+    rhasspy-asr-deepspeech-hermes
     rhasspy-asr-kaldi-hermes
     rhasspy-tts-cli-hermes
     rhasspy-wake-raven-hermes
@@ -152,7 +156,6 @@ buildPythonPackage rec {
     rhasspy-speakers-cli-hermes
     rhasspy-microphone-cli-hermes
     rhasspy-microphone-pyaudio-hermes
-    rhasspy-rasa-nlu-hermes
     rhasspy-homeassistant-hermes
     rhasspy-server-hermes
     rhasspy-nlu-hermes

@@ -1,32 +1,40 @@
 { stdenv
 , buildPythonPackage
 , fetchFromGitHub
-, paho-mqtt
-, rhasspy-hermes
+, rhasspy-asr
+, rhasspy-nlu
+, deepspeech
 }:
 
 buildPythonPackage rec {
-  pname = "rhasspy-wake-snowboy-hermes";
-  version = "2020-12-20";
+  pname = "rhasspy-asr-deepspeech";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "ddc92bc50010c2039d710e26485f641229c07f2f";
-    sha256 = "sha256-2c4vFaj8kLBkZl0v3+N/UfYYEVUNNOaHrCvoiSgY2tE=";
+    rev = "aace6a8c80ab26ed786619e91ebcc51b81e2dc0e";
+    sha256 = "sha256-tYLWiERRHItzGpqno3Yp8YWkR//uazPd6SYSfNu2Va0=";
+
   };
 
+  dontConfigure = true;
+
   propagatedBuildInputs = [
-    rhasspy-hermes
+    rhasspy-asr
+    rhasspy-nlu
+    deepspeech
   ];
 
   postPatch = ''
-    patchShebangs configure
     sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
   '';
 
+  # misses files
+  doCheck = false;
+
   meta = with stdenv.lib; {
-    description = "MQTT service for wake word detection with snowboy using Hermes protocol";
+    description = "Rhasspy wrapper for Deepspeech ASR";
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ mic92 ];

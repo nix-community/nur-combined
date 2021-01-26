@@ -6,11 +6,11 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-silence";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-5o/rGzPi+Lw275fnsxMxDA/ir25gY2S7S1XPu+gdZd4=";
+    sha256 = "sha256-sl0y5c4ETdG6zz398XpyEiOTrWHGEW73SaQUXJ9vSc0=";
   };
 
   propagatedBuildInputs = [

@@ -7,13 +7,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-wake-raven-hermes";
-  version = "0.3.0";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "d183c625681b48f9471e8e1bb16c8bcd388c26da";
-    sha256 = "sha256-dycSNNs/ThmxP12XsZYDDa2gMErtuLQvb7iXwgWoKz8=";
+    rev = "dedad027a10a8d376e449f6165a29831fe577e64";
+    sha256 = "sha256-S8AvPdI9GFFBc5B3JjFEWH0zDqJe35vxlYY3HlRmCZM=";
   };
 
   propagatedBuildInputs = [

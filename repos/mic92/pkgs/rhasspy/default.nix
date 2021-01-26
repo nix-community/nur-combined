@@ -1,4 +1,4 @@
-{ callPackage }: rec {
+{ callPackage, deepspeech }: rec {
   dataclasses-json = callPackage ./dataclasses-json {
     inherit typing-inspect;
   };
@@ -20,6 +20,14 @@
   };
 
   rhasspy-asr = callPackage ./rhasspy-asr { };
+
+  rhasspy-asr-deepspeech = callPackage ./rhasspy-asr-deepspeech {
+    inherit rhasspy-asr rhasspy-nlu deepspeech;
+  };
+
+  rhasspy-asr-deepspeech-hermes = callPackage ./rhasspy-asr-deepspeech-hermes {
+    inherit rhasspy-hermes rhasspy-asr-deepspeech rhasspy-silence;
+  };
 
   rhasspy-asr-kaldi = callPackage ./rhasspy-asr-kaldi {
     inherit rhasspy-asr rhasspy-nlu;
@@ -47,14 +55,14 @@
     inherit rhasspy-hermes rhasspy-nlu rhasspy-silence;
   };
 
-  rhasspy-silence = callPackage ./rhasspy-silence { };
+  rhasspy-silence = callPackage ./rhasspy-silence {};
 
   rhasspy-tts-cli-hermes = callPackage ./rhasspy-tts-cli-hermes {
     inherit rhasspy-hermes;
   };
 
   rhasspy-wake-porcupine-hermes = callPackage ./rhasspy-wake-porcupine-hermes {
-    inherit rhasspy-hermes;
+    inherit rhasspy-hermes pvporcupine;
   };
 
   rhasspy-wake-raven = callPackage ./rhasspy-wake-raven {
@@ -74,7 +82,7 @@
   };
 
   rhasspy-speakers-cli-hermes = callPackage ./rhasspy-speakers-cli-hermes {
-    inherit rhasspy-hermes;
+    inherit rhasspy-hermes wavchunk ;
   };
 
   rhasspy-microphone-cli-hermes = callPackage ./rhasspy-microphone-cli-hermes {
@@ -119,6 +127,7 @@
 
   rhasspy = callPackage ./rhasspy {
     inherit
+      rhasspy-asr-deepspeech-hermes
       rhasspy-asr-kaldi-hermes
       rhasspy-dialogue-hermes
       rhasspy-tts-cli-hermes
@@ -130,7 +139,6 @@
       rhasspy-speakers-cli-hermes
       rhasspy-microphone-cli-hermes
       rhasspy-microphone-pyaudio-hermes
-      rhasspy-rasa-nlu-hermes
       rhasspy-nlu-hermes
       rhasspy-homeassistant-hermes
       rhasspy-supervisor
@@ -139,6 +147,10 @@
   };
 
   swagger-ui-py = callPackage ./swagger-ui-py { };
+
+  wavchunk = callPackage ./wavchunk { };
+
+  pvporcupine = callPackage ./pvporcupine { };
 
   typing-inspect = callPackage ./typing-inspect { };
 }

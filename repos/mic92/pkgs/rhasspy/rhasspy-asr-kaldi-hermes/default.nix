@@ -14,8 +14,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-UwFTovFy5WbgjaqAqi8B+At4qhvPM8HAWy34yJiJWEw=";
+    rev = "de0b7e378b06e34cfe52630e40feba016c9e69c3";
+    sha256 = "sha256-NzZGrOBru9cW6lH/d+dbzzI2AHzE70MCWB8W+FXiq3Q=";
   };
 
   dontConfigure = true;

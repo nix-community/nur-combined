@@ -8,11 +8,11 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-fuzzywuzzy";
-  version = "0.3.1";
+  version = "0.4.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-CiTA/JkwiOHH9xF0Tvnm4gbNbYoCd+jYatpI9ObMhh0=";
+    sha256 = "sha256-cYhnDxnGfW1xHU+xWU6XrsLsmVbb2sQMLwpDy/9T2KI=";
   };
 
   postPatch = ''

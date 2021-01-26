@@ -3,17 +3,18 @@
 , fetchPypi
 , pythonOlder
 , rhasspy-hermes
+, wavchunk
 }:
 
 buildPythonPackage rec {
   pname = "rhasspy-speakers-cli-hermes";
-  version = "0.2.0";
+  version = "0.3.0";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-QqiMvpWxC9h38AhzC2mi3exVfXtDKODt+nBALXUsJgg=";
+    sha256 = "sha256-2ALTgggJhZ6eyrqb1ksPD2TcvkM2ve/9vI896BpGOoo=";
   };
 
   postPatch = ''
@@ -21,7 +22,7 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-    rhasspy-hermes
+    rhasspy-hermes wavchunk
   ];
 
   meta = with lib; {

@@ -15,15 +15,15 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-server-hermes";
-  version = "2.5.3";
+  version = "2.5.5";
 
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-Toec8lVTdlx+aJhomENcB1vMKaf8M207as9U7c4265w=";
+    rev = "0cb3d2b4afdd4c0412de2a5e56d37d980d195e6b";
+    sha256 = "sha256-9SY6OvXH5VtDSPQyRlQe+stlY+ax9loNELx4KVpyiP8=";
   };
 
   postPatch = ''

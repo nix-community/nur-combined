@@ -96,6 +96,7 @@ rec {
 
   rhasspyPackages = import ./pkgs/rhasspy {
     inherit (pkgs.python3Packages) callPackage;
+    inherit (python3Packages) deepspeech;
   };
 
   inherit (rhasspyPackages) rhasspy;

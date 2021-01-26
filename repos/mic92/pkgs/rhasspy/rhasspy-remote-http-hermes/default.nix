@@ -11,13 +11,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-remote-http-hermes";
-  version = "0.3.1";
+  version = "0.3.2";
 
   disabled = pythonOlder "3.7"; # requires python version >=3.7
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-FnbfCsJGQRdCo96lz/l3pORoFiQGYj46XtnVY3SsHyI=";
+    sha256 = "sha256-zj5XUhGWutDlMlLv7ckz4NjqLNt6SNZmoLN2S61qCM4=";
   };
 
   postPatch = ''

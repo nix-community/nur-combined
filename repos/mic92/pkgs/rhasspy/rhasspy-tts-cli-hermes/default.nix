@@ -7,13 +7,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-tts-cli-hermes";
-  version = "0.2.0";
+  version = "0.3.0";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-3eqL03ydybX8ygd7oFWwDuyHzQZiNBBC+ocCk0Ov5TI=";
+    sha256 = "sha256-vRwIc/XMhaHgeUYWXbibb/oVxHpGIx5ymbKxgYV754c=";
   };
   postPatch = ''
     sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt

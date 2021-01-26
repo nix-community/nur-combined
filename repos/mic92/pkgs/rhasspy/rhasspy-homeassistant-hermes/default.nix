@@ -1,6 +1,6 @@
 { lib
 , buildPythonPackage
-, fetchPypi
+, fetchFromGitHub
 , pythonOlder
 , rhasspy-hermes
 , aiohttp
@@ -12,12 +12,15 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-k3TDZrwkx8Y/b0FtUAh3kQzfI5hVRJNbjFQeLIWcX6o=";
+  src = fetchFromGitHub {
+    owner = "rhasspy";
+    repo = pname;
+    rev = "e4b0d9049d046c90b8862fe2dbca70a8917a5dff";
+    sha256 = "sha256-du4mzX8DuKNK+6yH+5WpMB2v05Q8QDNW7U/8TExTeNI=";
   };
 
   postPatch = ''
+    patchShebangs ./configure
     sed -i "s/aiohttp==.*/aiohttp/" requirements.txt
     sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
   '';
