@@ -21,7 +21,6 @@
   go-jira = pkgs.callPackage ./pkgs/go-jira { };
   hunter = pkgs.callPackage ./pkgs/hunter { };
   infracost = pkgs.callPackage ./pkgs/infracost { };
-  nerdctl = pkgs.callPackage ./pkgs/nerdctl { };
   scorecard = pkgs.callPackage ./pkgs/scorecard { };
   subo = pkgs.callPackage ./pkgs/subo { };
 }
