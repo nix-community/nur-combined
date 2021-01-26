@@ -132,6 +132,10 @@ in
     dotenvFile = rootPath + "/secrets/nixgram.env";
     customCommands = {
       echo = "echo $*";
+      wait = ''
+        sleep $1
+        echo Waited for $1 seconds!
+      '';
       speak = ''
         ${pkgs.espeak}/bin/espeak -v mb/mb-br1 "$*"
       '';

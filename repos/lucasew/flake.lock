@@ -71,11 +71,11 @@
     "nixgram": {
       "flake": false,
       "locked": {
-        "lastModified": 1609159665,
-        "narHash": "sha256-pF3/wL4gSAK1i9JkRdoyWDL9SdJKdnMLR0MuoLXdgjY=",
+        "lastModified": 1611597144,
+        "narHash": "sha256-vZNtB9lqqqk/yalEmaMXl0ZZP84guwgb8p1934a+0RQ=",
         "owner": "lucasew",
         "repo": "nixgram",
-        "rev": "6c975ac84a3eac83928c558abd86c9d752acb14c",
+        "rev": "9cab8548ab26b44d513d6af28333ad92ec686028",
         "type": "github"
       },
       "original": {
