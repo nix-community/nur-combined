@@ -3,6 +3,7 @@
 , fetchgit
 , IOKit ? null
 , makeWrapper
+, pkg-config
 , glib
 , gst_all_1
 , libsixel
@@ -11,19 +12,17 @@
 assert stdenv.isDarwin -> IOKit != null;
 rustPlatform.buildRustPackage rec {
   pname = "hunter";
-  version = "2e95cc567c751263f8c318399f3c5bb01d36962a";
+  version = "stable-2021-01-27";
 
   src = fetchgit {
     url = "https://github.com/06kellyjac/${pname}.git";
-    rev = "${version}";
-    sha256 = "0wrp37hzd1hihc99dlr1dq8b0x6vymrxl4pr365l093psm4zdhwq";
+    rev = "2484f0db580bed1972fd5000e1e949a4082d2f01";
+    sha256 = "sha256-oSuwM6cxEw4ybiwoYX6A/aqiU6NVu9cLLONalUHuE1A=";
   };
 
-  cargoSha256 = "14hcbni7v8a87jxk4cdkyqwkhmp3zr4zflpbvsbgjax9adf5sl4v";
+  cargoSha256 = "sha256-pWQl5d+6aFGP9lq7FAjXZ/2R6B29D4urKkktmg4Wypo=";
 
-  # RUSTC_BOOTSTRAP = 1;
-
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper pkg-config ];
   buildInputs = [
     glib
     gst_all_1.gstreamer
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     libsixel
   ] ++ stdenv.lib.optionals stdenv.isDarwin [ IOKit ];
 
-  doCheck = false;
+  # doCheck = false;
 
   postInstall = ''
     wrapProgram $out/bin/hunter --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0"
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "The fastest file manager in the galaxy - rust stable fork";
-    homepage = "https://github.com/06kellyjac/hunter";
+    homepage = "https://github.com/06kellyjac/hunter/tree/hunter_rust_stable_updated";
     license = licenses.wtfpl;
     maintainers = with maintainers; [ jk ];
     platforms = platforms.unix;
