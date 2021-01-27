@@ -1,16 +1,4 @@
 {
-    "factorio": {
-        "branch": "factorio",
-        "description": "Nix Packages collection",
-        "homepage": null,
-        "owner": "priegger",
-        "repo": "nixpkgs",
-        "rev": "51bc6bdf8c3437c35946cf888643fc44f569c190",
-        "sha256": "0p2q3d6zzn6d1j69mqgvkrvx51sbagncgpv1044kmpldpc65436a",
-        "type": "tarball",
-        "url": "https://github.com/priegger/nixpkgs/archive/51bc6bdf8c3437c35946cf888643fc44f569c190.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "freeciv": {
         "branch": "auto-update/freeciv",
         "description": "Nix Packages collection",
@@ -53,10 +41,10 @@
         "homepage": "https://github.com/NixOS/nixpkgs",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0f864eb45b2e868d0b4bf00cce5e8513f683f930",
-        "sha256": "1xyjavsv5003w4yfh4rh5mnxndx1adw1nxlirmmxl60pv8xfiql9",
+        "rev": "71e471636a0ff9d5467341867f7c25da22fcc726",
+        "sha256": "031my6g0kza83m7swgkk1zl3i4xc9s4qawsgzchzd5nr81nsvfqp",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/0f864eb45b2e868d0b4bf00cce5e8513f683f930.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/71e471636a0ff9d5467341867f7c25da22fcc726.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-unstable": {
