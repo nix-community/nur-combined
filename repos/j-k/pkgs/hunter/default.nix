@@ -33,8 +33,6 @@ rustPlatform.buildRustPackage rec {
     libsixel
   ] ++ stdenv.lib.optionals stdenv.isDarwin [ IOKit ];
 
-  # doCheck = false;
-
   postInstall = ''
     wrapProgram $out/bin/hunter --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0"
   '';
