@@ -21,7 +21,7 @@ let
   clashSystem = clashSystems.${system};
 in
 stdenv.mkDerivation rec {
-  name = "clash-premium-${version}";
+  pname = "clash-premium";
   version = "2020.12.27";
 
   src = fetchurl {
