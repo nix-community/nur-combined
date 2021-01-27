@@ -37,6 +37,5 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "KMS Emulator in C.";
     homepage = "https://github.com/Wind4/vlmcsd";
-    license = licenses.unfree;
   };
 }
