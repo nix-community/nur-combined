@@ -2380,13 +2380,13 @@ let
         sha512 = "g5JVHCIJwzfISaXpXE1qvNalca5Jwob6FjI4AoPlqMusJ6ftFE7IkkFoMhVLRgK+4Kx3gkzb8UZK5t5yTTvEmA==";
       };
     };
-    "tsutils-3.19.1" = {
+    "tsutils-3.20.0" = {
       name = "tsutils";
       packageName = "tsutils";
-      version = "3.19.1";
+      version = "3.20.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/tsutils/-/tsutils-3.19.1.tgz";
-        sha512 = "GEdoBf5XI324lu7ycad7s6laADfnAqCw6wLGI+knxvw9vsIYBaJfYdmeCEG3FMMUiSm3OGgNb+m6utsWf5h9Vw==";
+        url = "https://registry.npmjs.org/tsutils/-/tsutils-3.20.0.tgz";
+        sha512 = "RYbuQuvkhuqVeXweWT3tJLKOEJ/UUw9GjNEZGWdrLLlM+611o1gwLHBpxoFJKKl25fLprp2eVthtKs5JOrNeXg==";
       };
     };
     "tunnel-agent-0.6.0" = {
@@ -2612,7 +2612,7 @@ in
       })
       (sources."@fimbul/bifrost-0.21.0" // {
         dependencies = [
-          sources."tsutils-3.19.1"
+          sources."tsutils-3.20.0"
         ];
       })
       sources."@fimbul/ymir-0.21.0"
@@ -2988,7 +2988,7 @@ in
       (sources."tslint-eslint-rules-5.4.0" // {
         dependencies = [
           sources."tslib-1.9.0"
-          sources."tsutils-3.19.1"
+          sources."tsutils-3.20.0"
         ];
       })
       (sources."tslint-microsoft-contrib-5.2.1" // {
@@ -2999,7 +2999,7 @@ in
       sources."tslint-plugin-prettier-2.3.0"
       (sources."tslint-react-4.2.0" // {
         dependencies = [
-          sources."tsutils-3.19.1"
+          sources."tsutils-3.20.0"
         ];
       })
       sources."tsutils-2.29.0"
