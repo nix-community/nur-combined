@@ -6,7 +6,7 @@ buildGoModule {
 
   src = sources.go-staticmaps;
 
-  vendorSha256 = "13zp6fxjmaxnn2ald8n9gjlx225w9bvq1xwibns1bdsq2c6gyffz";
+  vendorSha256 = "0xv9s53vw2m8qn65gn4jp3h42l31llisvmhlk9jsj6qs2ccqqxqw";
 
   meta = with lib; {
     inherit (sources.go-staticmaps) description homepage;

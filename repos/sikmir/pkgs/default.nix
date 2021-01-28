@@ -125,16 +125,12 @@ lib.makeScope newScope (
     click-6-7 = callPackage ./development/python-modules/click { };
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
-    maprec = callPackage ./development/python-modules/maprec { };
     mercantile = callPackage ./development/python-modules/mercantile { };
     mikatools = callPackage ./development/python-modules/mikatools { };
-    ozi_map = callPackage ./development/python-modules/ozi_map { };
     pyephem = callPackage ./development/python-modules/pyephem { };
-    pyimagequant = callPackage ./development/python-modules/pyimagequant { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
     python-hfst = callPackage ./development/python-modules/python-hfst { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
-    thinplatespline = callPackage ./development/python-modules/thinplatespline { };
 
     ### TOOLS
 
@@ -148,15 +144,16 @@ lib.makeScope newScope (
     };
     fx-bin = callPackage ./tools/text/fx/bin.nix { };
     go-staticmaps = callPackage ./tools/geo/go-staticmaps { };
+    gpx-interpolate = callPackage ./tools/geo/gpx-interpolate { };
     gpx-layer = perlPackages.callPackage ./tools/geo/gpx-layer {
       inherit sources;
     };
     gpxtools = callPackage ./tools/geo/gpxtools { };
     gpxtrackposter = callPackage ./tools/geo/gpxtrackposter { };
     lazyscraper = callPackage ./tools/text/lazyscraper { };
-    map-tiler = callPackage ./tools/geo/map-tiler { };
     py-staticmaps = callPackage ./tools/geo/py-staticmaps { };
     supermercado = callPackage ./tools/geo/supermercado { };
+    tile-stitch = callPackage ./tools/geo/tile-stitch { };
     tilesets-cli = callPackage ./tools/geo/tilesets-cli { };
     tpkutils = callPackage ./tools/geo/tpkutils { };
 
@@ -220,6 +217,23 @@ lib.makeScope newScope (
     md2gemini = callPackage ./gemini/md2gemini { };
     shavit = callPackage ./gemini/shavit { };
 
+    ### IMAGES
+
+    docker-elevation_server = callPackage ./images/elevation_server { };
+    docker-git = callPackage ./images/git {
+      git = pkgs.gitMinimal.override {
+        perlSupport = false;
+        nlsSupport = false;
+      };
+    };
+    docker-mbtileserver = if pkgs ? mbtileserver
+      then callPackage ./images/mbtileserver { }
+      else null;
+    docker-quark = if pkgs.dockerTools ? fakeNss
+      then callPackage ./images/quark { }
+      else null;
+    docker-wekan = callPackage ./images/wekan { };
+
     ### MISC
 
     ascii-dash = callPackage ./misc/ascii-dash { };
@@ -236,6 +250,16 @@ lib.makeScope newScope (
     taskcoach = callPackage ./misc/taskcoach { };
     xfractint = callPackage ./misc/xfractint { };
 
+    ### NAKARTE
+
+    elevation_server = callPackage ./nakarte/elevation_server { };
+    map-tiler = callPackage ./nakarte/map-tiler { };
+    maprec = callPackage ./nakarte/maprec { };
+    nakarte = callPackage ./nakarte/nakarte { };
+    ozi_map = callPackage ./nakarte/ozi_map { };
+    pyimagequant = callPackage ./nakarte/pyimagequant { };
+    thinplatespline = callPackage ./nakarte/thinplatespline { };
+
     ### OSM
 
     map-stylizer = callPackage ./osm/map-stylizer { };
@@ -248,9 +272,7 @@ lib.makeScope newScope (
 
     ### SERVERS
 
-    elevation_server = callPackage ./servers/elevation_server { };
     glauth = callPackage ./servers/glauth { };
-    nakarte = callPackage ./servers/nakarte { };
 
     ### SUCKLESS
 
