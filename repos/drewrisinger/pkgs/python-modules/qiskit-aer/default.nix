@@ -28,7 +28,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-aer";
-  version = "0.7.2";
+  version = "0.7.3";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
@@ -37,17 +37,9 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit-aer";
     rev = version;
-    sha256 = "1xc660vh8bhx64v2w52yypyrjqyazp1g16j6bfbwyx504spxaik2";
+    sha256 = "1wj5alrkrazh57n8bmhr5ici38gk1nwds6lfax7lr9a7zlajf8j3";
   };
 
-  patches = [
-    # from https://github.com/Qiskit/qiskit-aer/pull/1080
-    (fetchpatch {
-      name = "qiskit-aer-pr-1080-disable-conan.patch";
-      url = "https://github.com/Qiskit/qiskit-aer/commit/955d24777e57d7841f9c831c4e2a4a3f369e7477.patch";
-      sha256 = "15lndgkz5qmh1khar6hl9llsbfqmpwaciwj9jq3s5wwmihrwcmz6";
-    })
-  ];
   # The default check for the dl library will erroneously fail (and building with it w/ buildInputs = [... glibc ] fails too).
   # So we use the standard ${CMAKE_DL_LIBS}, which they should have used in the first place...
   # Builds fine with this.
