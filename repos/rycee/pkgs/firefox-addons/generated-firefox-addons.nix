@@ -2,10 +2,10 @@
   {
     "1password-x-password-manager" = buildFirefoxXpiAddon {
       pname = "1password-x-password-manager";
-      version = "1.22.3";
+      version = "1.23.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3677399/1password_x_password_manager-1.22.3-fx.xpi";
-      sha256 = "05ffc0d540e1635755a79a102af602adc7f91b576876b32493501b8b2a87d662";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3715456/1password_x_password_manager-1.23.0-fx.xpi";
+      sha256 = "4b92f66768168ae58f7439cf51232512465fff79c770820b165b64cd90130a4c";
       meta = with stdenv.lib;
       {
         homepage = "https://1password.com";
@@ -82,10 +82,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.48.0";
+      version = "1.48.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3713036/bitwarden_free_password_manager-1.48.0-an+fx.xpi";
-      sha256 = "c9b5d62ce75e704008a68a133ba33c1b663d7dadba61bd3bffb400ebc66feac3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3714988/bitwarden_free_password_manager-1.48.1-an+fx.xpi";
+      sha256 = "27088233b72c36f8636ae88e79d7e52a0b4480d7fc73ed6412233a2f95408256";
       meta = with stdenv.lib;
       {
         homepage = "https://bitwarden.com";
@@ -304,10 +304,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.4.8";
+      version = "4.4.9";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3711458/floccus-4.4.8-fx.xpi";
-      sha256 = "bd2dcd520e10821dd8af656258c983a52d99cc5d46d2b3683a50287f20d30ecf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3715290/floccus-4.4.9-fx.xpi";
+      sha256 = "b82289661ae7e90256660ee216b57c6b0200fd807d9cbc30ba29a4e36c5e4bec";
       meta = with stdenv.lib;
       {
         homepage = "https://floccus.org";
@@ -402,10 +402,10 @@
       };
     "greasemonkey" = buildFirefoxXpiAddon {
       pname = "greasemonkey";
-      version = "4.10.0";
+      version = "4.11";
       addonId = "{e4a8a97b-f2ed-450b-b12d-ee082ba24781}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3654383/greasemonkey-4.10.0-an+fx.xpi";
-      sha256 = "65026ec3aaa2d397de208cd7ad24b3cdc355f8984728ca0137fab8bcccf195b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3716451/greasemonkey-4.11-an+fx.xpi";
+      sha256 = "5eb85a96f76a9b16a47cf207991d4237bf597c7b767574559204e2e0ff1173f0";
       meta = with stdenv.lib;
       {
         homepage = "http://www.greasespot.net/";
@@ -462,10 +462,10 @@
       };
     "https-everywhere" = buildFirefoxXpiAddon {
       pname = "https-everywhere";
-      version = "2020.11.17";
+      version = "2021.1.27";
       addonId = "https-everywhere@eff.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3679479/https_everywhere-2020.11.17-an+fx.xpi";
-      sha256 = "a6ebcb0a05607e54e7a9fc0b5b3832eda6f13f8dce2ee802164a455919e385c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3716461/https_everywhere-2021.1.27-an+fx.xpi";
+      sha256 = "da049748bba7282c0f8c0ab85ac8f494e795e79d6bdc6f9f726d687aa8cc2a1f";
       meta = with stdenv.lib;
       {
         homepage = "https://www.eff.org/https-everywhere";
@@ -536,10 +536,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "3.2.3";
+      version = "3.3.1";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3696634/grammatik_und_rechtschreibprufung_languagetool-3.2.3-fx.xpi";
-      sha256 = "c2db358d72ceaf6264ce7655bf27ba16bb6182e311b827acdbddc96ac841e827";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3715167/grammatik_und_rechtschreibprufung_languagetool-3.3.1-fx.xpi";
+      sha256 = "28b1d21f8fc33942ba12575a85fe95f2676198b5bd573a22a6b1321a1fe8e215";
       meta = with stdenv.lib;
       {
         homepage = "https://languagetool.org";
@@ -726,10 +726,10 @@
       };
     "plasma-integration" = buildFirefoxXpiAddon {
       pname = "plasma-integration";
-      version = "1.7.6";
+      version = "1.8.0.1";
       addonId = "plasma-browser-integration@kde.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3619363/plasma_integration-1.7.6-fx.xpi";
-      sha256 = "4603b20d884a472fc9eee538cf4aebf8e824b52cd537eaebdd4aa20c3a41ac70";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3715245/plasma_integration-1.8.0.1-fx.xpi";
+      sha256 = "226f0931a139346d78d0d8ae950688a731cb07a3e430b3b3f779585ae33714e7";
       meta = with stdenv.lib;
       {
         homepage = "http://kde.org";
@@ -837,10 +837,10 @@
       };
     "sidebery" = buildFirefoxXpiAddon {
       pname = "sidebery";
-      version = "4.9.0";
+      version = "4.9.1";
       addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3583437/sidebery-4.9.0-fx.xpi";
-      sha256 = "818f4ed1f396191edd1098d09d6b6d692124e83a1a870aaf3c039ce853790e66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3716798/sidebery-4.9.1-fx.xpi";
+      sha256 = "aca8a6f3c23253a48a2530c1e4bd346103699811a5deae96e782c69349607971";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/mbnuqw/sidebery";
@@ -865,10 +865,10 @@
       };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.5.2";
+      version = "0.5.3";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3679527/snowflake-0.5.2-fx.xpi";
-      sha256 = "1db00d00f5a0857e70871fac9e7ce34b1b6298a2c479e63c0195c8304aceee83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3716273/snowflake-0.5.3-fx.xpi";
+      sha256 = "a18bbf755ab056a7826959b221604ce8743d12b657c94a48737fa3ecbdb65561";
       meta = with stdenv.lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -934,10 +934,10 @@
       };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
-      version = "3.4.0";
+      version = "4.0.3";
       addonId = "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3710565/terms_of_service_didnt_read-3.4.0-fx.xpi";
-      sha256 = "8f29de9c3cf066e51bf77b6d7e50a9baf565c1dc00a6d3d2352c7c1264aba2f9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3716368/terms_of_service_didnt_read-4.0.3-fx.xpi";
+      sha256 = "4b49219cdb064e6ad2ef1373f2f227af4e6bc6402122ffb27c0123c503f90629";
       meta = with stdenv.lib;
       {
         homepage = "http://tosdr.org";
