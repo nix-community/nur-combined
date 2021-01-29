@@ -106,6 +106,8 @@ rec {
 
   signald = pkgs.callPackage ./pkgs/signald { };
 
+  weechat-signal = pkgs.callPackage ./pkgs/weechat-signal { };
+
   inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope reveal-md;
 
   source-code-pro-nerdfonts = pkgs.nerdfonts.override {
