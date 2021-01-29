@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-27T11:52:27Z",
+        "date": "2021-01-28T14:48:51Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "f4ec94c13a1a74f77340289187d9463b8f6f3f4c",
-        "sha256": "0jx3731cwsqq0wkwv2hy439yfj5ni64h888gak13q7x36v2c7wfh",
+        "rev": "13aca8482eb756d38a4a82cff0abc4c2da9bc21e",
+        "sha256": "1fdpn43s5qfv4y00sdnykgsi862qjsyykyqns831lf6ld0cmp2nq",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/f4ec94c13a1a74f77340289187d9463b8f6f3f4c.tar.gz",
+        "url": "https://github.com/embox/embox/archive/13aca8482eb756d38a4a82cff0abc4c2da9bc21e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -253,27 +253,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "1dngbm3yf2ppi4iic2nk8p57d940qmpm9wax2qd6nra5z6iqyh43",
+        "sha256": "1cgfc8s836pvc6zjq03caa1bz7rzir44wsm875db9yfm5kj1z2c6",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-210126.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-210127.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "210126"
+        "version": "210127"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "04gm5q6cbc4dwxdl8ac32k5905bx015i81f21l6sj6ni2yr03017",
+        "sha256": "18sa6rb7vbbg0qvd4nr1kqmnpd0shrs2fqvl9xik1arcrjr540kb",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-210126.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-210127.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "210126"
+        "version": "210127"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "0iqmjzc5z9285jg6fbcqldrjp829zp871lqm3xjz3q6bjmzhriv6",
+        "sha256": "1782m0bhk4hyamrsvqlwvpdmfri2vdgpl4l1bzcmkil94pnpbz1k",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210126.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210127.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "210126"
+        "version": "210127"
     },
     "gimgtools": {
         "branch": "master",
@@ -615,15 +615,15 @@
     "map-hr": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-23T13:43:00Z",
+        "date": "2021-01-28T12:31:47Z",
         "description": "Slazav mountains",
         "homepage": "http://slazav.xyz/maps/",
         "owner": "slazav",
         "repo": "map_hr",
-        "rev": "c2f83abac0b4dd7a0bcf338107297a4d154fa408",
-        "sha256": "11mwv7315h98pgw240ihd4fkzfak4s41nq0lx3j2c60faz60rbw6",
+        "rev": "b051be7b2924870864d0a9c4e58dba9e4d66af12",
+        "sha256": "08fbjglx3jjir0pfcw3qrxg4j4ndzv9w4zk6ffka2n2qwcqdywyg",
         "type": "tarball",
-        "url": "https://github.com/slazav/map_hr/archive/c2f83abac0b4dd7a0bcf338107297a4d154fa408.tar.gz",
+        "url": "https://github.com/slazav/map_hr/archive/b051be7b2924870864d0a9c4e58dba9e4d66af12.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "map-podm": {
@@ -715,11 +715,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "11cn0dm5vy1njg6lbgj0x7fcrxl68zvymcn9bn1fkvfmrrwi4vpq",
+        "sha256": "1xxg8hyl4fwrmnk3m385br9zn439sk61fx0rfz57a6kmlvmsikxs",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-01-26.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-01-27.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2021-01-26"
+        "version": "2021-01-27"
     },
     "md2gemini": {
         "branch": "master",

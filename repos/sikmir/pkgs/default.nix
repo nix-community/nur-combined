@@ -170,13 +170,7 @@ lib.makeScope newScope (
     redict = libsForQt5.callPackage ./dict/redict {
       inherit sources;
     };
-    stardict-tools =
-      # Needed for nixos-19.09
-      if pkgs ? libmysql
-      then callPackage ./dict/stardict-tools {
-        libmysqlclient = libmysql;
-      }
-      else callPackage ./dict/stardict-tools { };
+    stardict-tools = callPackage ./dict/stardict-tools { };
     tatoebatools = callPackage ./dict/tatoebatools { };
     zdict = callPackage ./dict/zdict { };
 
@@ -226,12 +220,8 @@ lib.makeScope newScope (
         nlsSupport = false;
       };
     };
-    docker-mbtileserver = if pkgs ? mbtileserver
-      then callPackage ./images/mbtileserver { }
-      else null;
-    docker-quark = if pkgs.dockerTools ? fakeNss
-      then callPackage ./images/quark { }
-      else null;
+    docker-mbtileserver = callPackage ./images/mbtileserver { };
+    docker-quark = callPackage ./images/quark { };
     docker-wekan = callPackage ./images/wekan { };
 
     ### MISC
