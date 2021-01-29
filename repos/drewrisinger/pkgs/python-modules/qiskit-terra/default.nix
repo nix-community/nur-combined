@@ -107,6 +107,8 @@ buildPythonPackage rec {
     # These tests are nondeterministic and can randomly fail.
     # We ignore them here for deterministic building.
     "--ignore=test/randomized/"
+    # These tests consistently fail on GitHub Actions build
+    "--ignore=test/python/quantum_info/operators/test_random.py"
   ] ++ lib.optionals (!withClassicalFunctionCompiler) [
     # Fail with ImportError because tweedledum isn't installed
     "--ignore=test/python/classical_function_compiler/"
