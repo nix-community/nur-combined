@@ -4,13 +4,14 @@
     "version": "unspecified",
     "path": "",
     "gradle": {
-      "version": "6.6.1",
+      "version": "6.7.1",
       "type": "bin",
-      "url": "https://services.gradle.org/distributions/gradle-6.6.1-bin.zip",
-      "sha256": "7873ed5287f47ca03549ab8dcb6dc877ac7f0e3d7b1eb12685161d10080910ac",
-      "nativeVersion": "0.22-milestone-4"
+      "url": "https://services.gradle.org/distributions/gradle-6.7.1-bin.zip",
+      "sha256": "3239b5ed86c3838a37d983ac100573f64c1f3fd8e1eb6c89fa5f9529b5ec091d",
+      "nativeVersion": "0.22-milestone-9"
     },
     "dependencies": {
+      "settings": [],
       "plugin": [
         {
           "id": {
@@ -256,33 +257,33 @@
           "id": {
             "group": "com.github.turasa",
             "name": "signal-service-java",
-            "version": "2.15.3_unofficial_12",
+            "version": "2.15.3_unofficial_15",
             "type": "jar",
             "extension": "jar"
           },
-          "name": "signal-service-java-2.15.3_unofficial_12.jar",
-          "path": "com/github/turasa/signal-service-java/2.15.3_unofficial_12",
+          "name": "signal-service-java-2.15.3_unofficial_15.jar",
+          "path": "com/github/turasa/signal-service-java/2.15.3_unofficial_15",
           "urls": [
-            "https://plugins.gradle.org/m2/com/github/turasa/signal-service-java/2.15.3_unofficial_12/signal-service-java-2.15.3_unofficial_12.jar",
-            "https://repo.maven.apache.org/maven2/com/github/turasa/signal-service-java/2.15.3_unofficial_12/signal-service-java-2.15.3_unofficial_12.jar"
+            "https://plugins.gradle.org/m2/com/github/turasa/signal-service-java/2.15.3_unofficial_15/signal-service-java-2.15.3_unofficial_15.jar",
+            "https://repo.maven.apache.org/maven2/com/github/turasa/signal-service-java/2.15.3_unofficial_15/signal-service-java-2.15.3_unofficial_15.jar"
           ],
-          "sha256": "a7fdf1fd9823cc9f6c892b5ed906dd8bffc1f61a70e942334d9f772d22248524"
+          "sha256": "e875e4b577e3aebfcb91e79481c7b72d3505935f81ffc2d59d1bab3c35c3f524"
         },
         {
           "id": {
             "group": "com.github.turasa",
             "name": "signal-service-java",
-            "version": "2.15.3_unofficial_12",
+            "version": "2.15.3_unofficial_15",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "signal-service-java-2.15.3_unofficial_12.pom",
-          "path": "com/github/turasa/signal-service-java/2.15.3_unofficial_12",
+          "name": "signal-service-java-2.15.3_unofficial_15.pom",
+          "path": "com/github/turasa/signal-service-java/2.15.3_unofficial_15",
           "urls": [
-            "https://plugins.gradle.org/m2/com/github/turasa/signal-service-java/2.15.3_unofficial_12/signal-service-java-2.15.3_unofficial_12.pom",
-            "https://repo.maven.apache.org/maven2/com/github/turasa/signal-service-java/2.15.3_unofficial_12/signal-service-java-2.15.3_unofficial_12.pom"
+            "https://plugins.gradle.org/m2/com/github/turasa/signal-service-java/2.15.3_unofficial_15/signal-service-java-2.15.3_unofficial_15.pom",
+            "https://repo.maven.apache.org/maven2/com/github/turasa/signal-service-java/2.15.3_unofficial_15/signal-service-java-2.15.3_unofficial_15.pom"
           ],
-          "sha256": "674fb81ff875f47a5177180f8af718502166c12b2abf0bd945758475a059a3bd"
+          "sha256": "3ccf3358e84ac990318e9948df2cb597dcb0e97b6a63b2a61085921fc5d26074"
         },
         {
           "id": {
@@ -576,161 +577,177 @@
           "id": {
             "group": "info.picocli",
             "name": "picocli",
-            "version": "4.5.0",
+            "version": "4.5.2",
             "type": "jar",
             "extension": "jar"
           },
-          "name": "picocli-4.5.0.jar",
-          "path": "info/picocli/picocli/4.5.0",
+          "name": "picocli-4.5.2.jar",
+          "path": "info/picocli/picocli/4.5.2",
           "urls": [
-            "https://plugins.gradle.org/m2/info/picocli/picocli/4.5.0/picocli-4.5.0.jar",
-            "https://repo.maven.apache.org/maven2/info/picocli/picocli/4.5.0/picocli-4.5.0.jar"
+            "https://plugins.gradle.org/m2/info/picocli/picocli/4.5.2/picocli-4.5.2.jar",
+            "https://repo.maven.apache.org/maven2/info/picocli/picocli/4.5.2/picocli-4.5.2.jar"
           ],
-          "sha256": "9058d90167d293f1379f49129f94424bc4c8c6cdc6a33e31bd6e4886a77733c1"
+          "sha256": "b4395e9a67932616efd2245d984bf5fcd453c2c5049558c3ce959ac2af4d3fac"
         },
         {
           "id": {
             "group": "info.picocli",
             "name": "picocli",
-            "version": "4.5.0",
+            "version": "4.5.2",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "picocli-4.5.0.pom",
-          "path": "info/picocli/picocli/4.5.0",
+          "name": "picocli-4.5.2.pom",
+          "path": "info/picocli/picocli/4.5.2",
           "urls": [
-            "https://plugins.gradle.org/m2/info/picocli/picocli/4.5.0/picocli-4.5.0.pom",
-            "https://repo.maven.apache.org/maven2/info/picocli/picocli/4.5.0/picocli-4.5.0.pom"
+            "https://plugins.gradle.org/m2/info/picocli/picocli/4.5.2/picocli-4.5.2.pom",
+            "https://repo.maven.apache.org/maven2/info/picocli/picocli/4.5.2/picocli-4.5.2.pom"
           ],
-          "sha256": "1a934b0302eaf46f2fedac08c11267301d2fc4cdf6abc8d932258b976723662d"
+          "sha256": "2bfb96ae5a01400703a2f4a438eac20b04764ba53669e7bffeaa4026302c4ee2"
         },
         {
           "id": {
             "group": "org.apache",
             "name": "apache",
-            "version": "21",
+            "version": "23",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "apache-21.pom",
-          "path": "org/apache/apache/21",
+          "name": "apache-23.pom",
+          "path": "org/apache/apache/23",
           "urls": [
-            "https://plugins.gradle.org/m2/org/apache/apache/21/apache-21.pom",
-            "https://repo.maven.apache.org/maven2/org/apache/apache/21/apache-21.pom"
+            "https://plugins.gradle.org/m2/org/apache/apache/23/apache-23.pom",
+            "https://repo.maven.apache.org/maven2/org/apache/apache/23/apache-23.pom"
           ],
-          "sha256": "af10c108da014f17cafac7b52b2b4b5a3a1c18265fa2af97a325d9143537b380"
+          "sha256": "bc10624e0623f36577fac5639ca2936d3240ed152fb6d8d533ab4d270543491c"
+        },
+        {
+          "id": {
+            "group": "org.apache.logging",
+            "name": "logging-parent",
+            "version": "3",
+            "type": "pom",
+            "extension": "pom"
+          },
+          "name": "logging-parent-3.pom",
+          "path": "org/apache/logging/logging-parent/3",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/apache/logging/logging-parent/3/logging-parent-3.pom",
+            "https://repo.maven.apache.org/maven2/org/apache/logging/logging-parent/3/logging-parent-3.pom"
+          ],
+          "sha256": "763a2ec2b8094d4161deb6c264b1262085b9be30bf3a31c2ce137242e57722a7"
         },
         {
           "id": {
             "group": "org.apache.logging.log4j",
             "name": "log4j",
-            "version": "2.13.3",
+            "version": "2.14.0",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "log4j-2.13.3.pom",
-          "path": "org/apache/logging/log4j/log4j/2.13.3",
+          "name": "log4j-2.14.0.pom",
+          "path": "org/apache/logging/log4j/log4j/2.14.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j/2.13.3/log4j-2.13.3.pom",
-            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j/2.13.3/log4j-2.13.3.pom"
+            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j/2.14.0/log4j-2.14.0.pom",
+            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j/2.14.0/log4j-2.14.0.pom"
           ],
-          "sha256": "674f1fa5165b9d48935f4103d9316fe5b161dff6f9be904a6edb9baa33da4480"
+          "sha256": "c1e24536a47ac2f718f6121d906c373b50135bea14f930956ac6b83188d77d09"
         },
         {
           "id": {
             "group": "org.apache.logging.log4j",
             "name": "log4j-api",
-            "version": "2.13.3",
+            "version": "2.14.0",
             "type": "jar",
             "extension": "jar"
           },
-          "name": "log4j-api-2.13.3.jar",
-          "path": "org/apache/logging/log4j/log4j-api/2.13.3",
+          "name": "log4j-api-2.14.0.jar",
+          "path": "org/apache/logging/log4j/log4j-api/2.14.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.jar",
-            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.jar"
+            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j-api/2.14.0/log4j-api-2.14.0.jar",
+            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.14.0/log4j-api-2.14.0.jar"
           ],
-          "sha256": "2b4b1965c9dce7f3732a0fbf5c8493199c1e6bf8cf65c3e235b57d98da5f36af"
+          "sha256": "9791ac85aa3cdad633e512192766f84995eddf4db188cc42facec52a0dae15e8"
         },
         {
           "id": {
             "group": "org.apache.logging.log4j",
             "name": "log4j-api",
-            "version": "2.13.3",
+            "version": "2.14.0",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "log4j-api-2.13.3.pom",
-          "path": "org/apache/logging/log4j/log4j-api/2.13.3",
+          "name": "log4j-api-2.14.0.pom",
+          "path": "org/apache/logging/log4j/log4j-api/2.14.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.pom",
-            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.pom"
+            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j-api/2.14.0/log4j-api-2.14.0.pom",
+            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.14.0/log4j-api-2.14.0.pom"
           ],
-          "sha256": "5953807d4e4fd4d7ae8087b5a76660236e55e718fcad62cf8a7adedc2ddc5a6e"
+          "sha256": "bf64276c977816c4c78b3abc20dbb20433a162353ca9a97ecdc108068843cd1e"
         },
         {
           "id": {
             "group": "org.apache.logging.log4j",
             "name": "log4j-core",
-            "version": "2.13.3",
+            "version": "2.14.0",
             "type": "jar",
             "extension": "jar"
           },
-          "name": "log4j-core-2.13.3.jar",
-          "path": "org/apache/logging/log4j/log4j-core/2.13.3",
+          "name": "log4j-core-2.14.0.jar",
+          "path": "org/apache/logging/log4j/log4j-core/2.14.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j-core/2.13.3/log4j-core-2.13.3.jar",
-            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.13.3/log4j-core-2.13.3.jar"
+            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j-core/2.14.0/log4j-core-2.14.0.jar",
+            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.14.0/log4j-core-2.14.0.jar"
           ],
-          "sha256": "9529c55814264ab96b0eeba2920ac0805170969c994cc479bd3d4d7eb24a35a8"
+          "sha256": "f04ee9c0ac417471d9127b5880b96c3147249f20674a8dbb88e9949d855382a8"
         },
         {
           "id": {
             "group": "org.apache.logging.log4j",
             "name": "log4j-core",
-            "version": "2.13.3",
+            "version": "2.14.0",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "log4j-core-2.13.3.pom",
-          "path": "org/apache/logging/log4j/log4j-core/2.13.3",
+          "name": "log4j-core-2.14.0.pom",
+          "path": "org/apache/logging/log4j/log4j-core/2.14.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j-core/2.13.3/log4j-core-2.13.3.pom",
-            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.13.3/log4j-core-2.13.3.pom"
+            "https://plugins.gradle.org/m2/org/apache/logging/log4j/log4j-core/2.14.0/log4j-core-2.14.0.pom",
+            "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.14.0/log4j-core-2.14.0.pom"
           ],
-          "sha256": "ec5592381a9b37e5054a91fcaf79e3c2c4582eee3574d9ad8a022afbd5b5a3fb"
+          "sha256": "02433d16bf31ac3408fff1fc300ff3f8642d239c65de2e7f92538677f1eaaf2e"
         },
         {
           "id": {
             "group": "org.apiguardian",
             "name": "apiguardian-api",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "type": "jar",
             "extension": "jar"
           },
-          "name": "apiguardian-api-1.0.0.jar",
-          "path": "org/apiguardian/apiguardian-api/1.0.0",
+          "name": "apiguardian-api-1.1.0.jar",
+          "path": "org/apiguardian/apiguardian-api/1.1.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar",
-            "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar"
+            "https://plugins.gradle.org/m2/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar",
+            "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar"
           ],
-          "sha256": "1f58b77470d8d147a0538d515347dd322f49a83b9e884b8970051160464b65b3"
+          "sha256": "a9aae9ff8ae3e17a2a18f79175e82b16267c246fbbd3ca9dfbbb290b08dcfdd4"
         },
         {
           "id": {
             "group": "org.apiguardian",
             "name": "apiguardian-api",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "apiguardian-api-1.0.0.pom",
-          "path": "org/apiguardian/apiguardian-api/1.0.0",
+          "name": "apiguardian-api-1.1.0.pom",
+          "path": "org/apiguardian/apiguardian-api/1.1.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.pom",
-            "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.pom"
+            "https://plugins.gradle.org/m2/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.pom",
+            "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.pom"
           ],
-          "sha256": "2ecc15d2614124cb9630c7173efcae1776cf43588a8f3ab1b04684b8dbe02489"
+          "sha256": "a945b9cb5cd9b77b2c711844e659c43ec070ef59d9f509fa9f4c1861b4862711"
         },
         {
           "id": {
@@ -864,161 +881,225 @@
           "id": {
             "group": "org.junit.jupiter",
             "name": "junit-jupiter-api",
-            "version": "5.3.1",
+            "version": "5.7.0",
             "type": "jar",
             "extension": "jar"
           },
-          "name": "junit-jupiter-api-5.3.1.jar",
-          "path": "org/junit/jupiter/junit-jupiter-api/5.3.1",
+          "name": "junit-jupiter-api-5.7.0.jar",
+          "path": "org/junit/jupiter/junit-jupiter-api/5.7.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-api/5.3.1/junit-jupiter-api-5.3.1.jar",
-            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.3.1/junit-jupiter-api-5.3.1.jar"
+            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.jar",
+            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.jar"
           ],
-          "sha256": "7923e21f030a9964d70a0e48007ca873280c66ddf0f0620b2d969852c23d5653"
+          "sha256": "b03f78e0daeed2d77a0af9bcd662b4cdb9693f7ee72e01a539b508b84c63d182"
         },
         {
           "id": {
             "group": "org.junit.jupiter",
             "name": "junit-jupiter-api",
-            "version": "5.3.1",
+            "version": "5.7.0",
+            "type": "module",
+            "extension": "module"
+          },
+          "name": "junit-jupiter-api-5.7.0.module",
+          "path": "org/junit/jupiter/junit-jupiter-api/5.7.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.module",
+            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.module"
+          ],
+          "sha256": "d1a7bae6cd44ad6d96715261410eef2338a494436d667280d1373a47c17e241c"
+        },
+        {
+          "id": {
+            "group": "org.junit.jupiter",
+            "name": "junit-jupiter-api",
+            "version": "5.7.0",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "junit-jupiter-api-5.3.1.pom",
-          "path": "org/junit/jupiter/junit-jupiter-api/5.3.1",
+          "name": "junit-jupiter-api-5.7.0.pom",
+          "path": "org/junit/jupiter/junit-jupiter-api/5.7.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-api/5.3.1/junit-jupiter-api-5.3.1.pom",
-            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.3.1/junit-jupiter-api-5.3.1.pom"
+            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.pom",
+            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.pom"
           ],
-          "sha256": "53868d7bd7f4fb77850b81f29cb63e9403d6a485a6a40b86f1edbc04ad3e53cd"
+          "sha256": "a0f823d513c8d4692935f24c2fe6e77cc4a7b6147a9e8a518f722e50bbf86138"
         },
         {
           "id": {
             "group": "org.junit.jupiter",
             "name": "junit-jupiter-engine",
-            "version": "5.3.1",
+            "version": "5.7.0",
             "type": "jar",
             "extension": "jar"
           },
-          "name": "junit-jupiter-engine-5.3.1.jar",
-          "path": "org/junit/jupiter/junit-jupiter-engine/5.3.1",
+          "name": "junit-jupiter-engine-5.7.0.jar",
+          "path": "org/junit/jupiter/junit-jupiter-engine/5.7.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-engine/5.3.1/junit-jupiter-engine-5.3.1.jar",
-            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.3.1/junit-jupiter-engine-5.3.1.jar"
+            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.jar",
+            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.jar"
           ],
-          "sha256": "04f4354548a30827e126bdf6fcbe3640789ad8335a6f3f0762bf7f9f74e51fbf"
+          "sha256": "dfa26af94644ac2612dde6625852fcb550a0d21caa243257de54cba738ba87af"
         },
         {
           "id": {
             "group": "org.junit.jupiter",
             "name": "junit-jupiter-engine",
-            "version": "5.3.1",
+            "version": "5.7.0",
+            "type": "module",
+            "extension": "module"
+          },
+          "name": "junit-jupiter-engine-5.7.0.module",
+          "path": "org/junit/jupiter/junit-jupiter-engine/5.7.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.module",
+            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.module"
+          ],
+          "sha256": "c36bda48228eef5c40cdc9a9d6303bb848382cdb0884b3677d49182b4ec7a1a4"
+        },
+        {
+          "id": {
+            "group": "org.junit.jupiter",
+            "name": "junit-jupiter-engine",
+            "version": "5.7.0",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "junit-jupiter-engine-5.3.1.pom",
-          "path": "org/junit/jupiter/junit-jupiter-engine/5.3.1",
+          "name": "junit-jupiter-engine-5.7.0.pom",
+          "path": "org/junit/jupiter/junit-jupiter-engine/5.7.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-engine/5.3.1/junit-jupiter-engine-5.3.1.pom",
-            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.3.1/junit-jupiter-engine-5.3.1.pom"
+            "https://plugins.gradle.org/m2/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.pom",
+            "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.pom"
           ],
-          "sha256": "4f846c02106be29b0005e0c519789964e2344ca1d4e2d3e28a8f99d5df96a443"
+          "sha256": "b702e250875d331ee3c6b88f37299fbe951f43992f4b2e4a8f144e2e4cf2c7e8"
         },
         {
           "id": {
             "group": "org.junit.platform",
             "name": "junit-platform-commons",
-            "version": "1.3.1",
+            "version": "1.7.0",
             "type": "jar",
             "extension": "jar"
           },
-          "name": "junit-platform-commons-1.3.1.jar",
-          "path": "org/junit/platform/junit-platform-commons/1.3.1",
+          "name": "junit-platform-commons-1.7.0.jar",
+          "path": "org/junit/platform/junit-platform-commons/1.7.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.jar",
-            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.jar"
+            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.jar",
+            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.jar"
           ],
-          "sha256": "457d8e1c0c80d1e320a792ec35e7c180694ba05182d7ecf7dabdb4e5a8a12fe2"
+          "sha256": "5330ee87cc7586e6e25175a34e9251624ff12ff525269d3415d0b4ca519b6fea"
         },
         {
           "id": {
             "group": "org.junit.platform",
             "name": "junit-platform-commons",
-            "version": "1.3.1",
+            "version": "1.7.0",
+            "type": "module",
+            "extension": "module"
+          },
+          "name": "junit-platform-commons-1.7.0.module",
+          "path": "org/junit/platform/junit-platform-commons/1.7.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.module",
+            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.module"
+          ],
+          "sha256": "b0a5c7a1b7e409d1f5cc963d9aea1c77c34b90e163d6842a4489c6aa07ff8ee2"
+        },
+        {
+          "id": {
+            "group": "org.junit.platform",
+            "name": "junit-platform-commons",
+            "version": "1.7.0",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "junit-platform-commons-1.3.1.pom",
-          "path": "org/junit/platform/junit-platform-commons/1.3.1",
+          "name": "junit-platform-commons-1.7.0.pom",
+          "path": "org/junit/platform/junit-platform-commons/1.7.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.pom",
-            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.pom"
+            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.pom",
+            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.pom"
           ],
-          "sha256": "50c8567c1c1afb4204e8c96a54daecbb8c40b1054b9b9cbb2a8f30d8eb86449e"
+          "sha256": "0cd7c4f9bee659912ac1dce46f123cd06f40bbb73ab316bd9411c792e3c680a2"
         },
         {
           "id": {
             "group": "org.junit.platform",
             "name": "junit-platform-engine",
-            "version": "1.3.1",
+            "version": "1.7.0",
             "type": "jar",
             "extension": "jar"
           },
-          "name": "junit-platform-engine-1.3.1.jar",
-          "path": "org/junit/platform/junit-platform-engine/1.3.1",
+          "name": "junit-platform-engine-1.7.0.jar",
+          "path": "org/junit/platform/junit-platform-engine/1.7.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.jar",
-            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.jar"
+            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.jar",
+            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.jar"
           ],
-          "sha256": "303d0546c3e950cc3beaca00dfcbf2632d4eca530e4e446391bf193cbc2a71a3"
+          "sha256": "75f21a20dc594afdc875736725b408cec6d0344874d29f34b2dd3075500236f2"
         },
         {
           "id": {
             "group": "org.junit.platform",
             "name": "junit-platform-engine",
-            "version": "1.3.1",
+            "version": "1.7.0",
+            "type": "module",
+            "extension": "module"
+          },
+          "name": "junit-platform-engine-1.7.0.module",
+          "path": "org/junit/platform/junit-platform-engine/1.7.0",
+          "urls": [
+            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.module",
+            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.module"
+          ],
+          "sha256": "6510a9fa881cef42d41485538dbc54749426db1e0b14ec433915ea5f2448079a"
+        },
+        {
+          "id": {
+            "group": "org.junit.platform",
+            "name": "junit-platform-engine",
+            "version": "1.7.0",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "junit-platform-engine-1.3.1.pom",
-          "path": "org/junit/platform/junit-platform-engine/1.3.1",
+          "name": "junit-platform-engine-1.7.0.pom",
+          "path": "org/junit/platform/junit-platform-engine/1.7.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.pom",
-            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.pom"
+            "https://plugins.gradle.org/m2/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.pom",
+            "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.pom"
           ],
-          "sha256": "3cbdbb4fefa6033dd14befe346b9ccd92d3d128201c210e794ee8514110954d6"
+          "sha256": "225b99c5032fd1cb8cecda2e8b5a7526d6a5f81fb98a29a57557f7f5ccda9d12"
         },
         {
           "id": {
             "group": "org.opentest4j",
             "name": "opentest4j",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "type": "jar",
             "extension": "jar"
           },
-          "name": "opentest4j-1.1.1.jar",
-          "path": "org/opentest4j/opentest4j/1.1.1",
+          "name": "opentest4j-1.2.0.jar",
+          "path": "org/opentest4j/opentest4j/1.2.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar",
-            "https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar"
+            "https://plugins.gradle.org/m2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar",
+            "https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"
           ],
-          "sha256": "f106351abd941110226745ed103c85863b3f04e9fa82ddea1084639ae0c5336c"
+          "sha256": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2"
         },
         {
           "id": {
             "group": "org.opentest4j",
             "name": "opentest4j",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "opentest4j-1.1.1.pom",
-          "path": "org/opentest4j/opentest4j/1.1.1",
+          "name": "opentest4j-1.2.0.pom",
+          "path": "org/opentest4j/opentest4j/1.2.0",
           "urls": [
-            "https://plugins.gradle.org/m2/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.pom",
-            "https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.pom"
+            "https://plugins.gradle.org/m2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.pom",
+            "https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.pom"
           ],
-          "sha256": "d9ddb3babfbfc0a7b5b3a76e7ebd0e8f35854af9f6db0e949919b6f85b7dfd68"
+          "sha256": "a96e671816c1ff8803bdec74c9241f025bdfb277da5d2b4ee02266405936f994"
         },
         {
           "id": {

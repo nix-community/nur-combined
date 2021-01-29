@@ -4,13 +4,13 @@ let
 in
 buildGradle rec {
   envSpec = ./gradle-env.json;
-  version = "0.10.0";
+  version = "0.11.1";
 
   src = fetchFromGitHub {
     owner = "thefinn93";
     repo = "signald";
     rev = version;
-    sha256 = "14m5041x74vawajm5hj1pa95v8q2ks4jcl4cjp8xrh1ykdj4jrvy";
+    sha256 = "sha256-aJtQ4ZjR8AnF2AHmUosZfkLWIOYFteSYwkWFSTj4hA8=";
   };
 
   # env variable used by gradle
