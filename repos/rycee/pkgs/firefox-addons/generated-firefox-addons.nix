@@ -495,10 +495,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.17.2";
+      version = "2.17.3";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3712433/ipfs_companion-2.17.2-an+fx.xpi";
-      sha256 = "e6ee04ab6fa9073a0f25eda1f1a150893992a07fb46324dfacc336f3be40e764";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3717531/ipfs_companion-2.17.3-an+fx.xpi";
+      sha256 = "b7e9b144ef6691bba3b6d682142c3a8241a96f2c618277763c0395e003ad858c";
       meta = with stdenv.lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
