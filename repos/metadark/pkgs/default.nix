@@ -11,6 +11,7 @@ with mergedPkgs; {
 
   bcml-gtk = python3Packages.callPackage ./games/bcml {
     gui = "gtk";
+    wrapQtAppsHook = null;
   };
 
   bcml-qt = python3Packages.callPackage ./games/bcml {
@@ -20,9 +21,7 @@ with mergedPkgs; {
 
   bluetooth-autoconnect = python3Packages.callPackage ./tools/bluetooth/bluetooth-autoconnect { };
 
-  caprine = callPackage ./applications/networking/instant-messengers/caprine {
-    electron = electron_9;
-  };
+  caprine = callPackage ./applications/networking/instant-messengers/caprine { };
 
   ccache = callPackage ./tools/misc/ccache {
     asciidoc = asciidoc-full;
@@ -105,8 +104,10 @@ with mergedPkgs; {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
-  vkBasalt = callPackage ./tools/graphics/vkBasalt {
-    vkBasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkBasalt { };
+  vkBasalt = callPackage ./tools/graphics/vkBasalt rec {
+    vkBasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkBasalt {
+      inherit vkBasalt32;
+    };
   };
 
   VVVVVV-unwrapped = callPackage ./games/VVVVVV {

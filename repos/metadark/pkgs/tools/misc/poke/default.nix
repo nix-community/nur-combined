@@ -21,16 +21,13 @@
 # Optional runtime libraries
 # TODO: Enable guiSupport by default once it's been fully implemented
 # TODO: Add nbdSupport, requires packaging libndb
-, guiSupport ? false, libX11 ? null, tcl ? null, tcllib ? null, tk ? null
-, miSupport ? true, json_c ? null
+, guiSupport ? false, tcl, tcllib, tk
+, miSupport ? true, json_c
 , textStylingSupport ? true
 
 # Test libraries
 , dejagnu
 }:
-
-assert guiSupport -> libX11 != null && tcl != null && tcllib != null && tk != null;
-assert miSupport -> json_c != null;
 
 stdenv.mkDerivation rec {
   pname = "poke";

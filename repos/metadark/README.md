@@ -25,13 +25,15 @@ Name | Attribute | Description
 [texlab](https://texlab.netlify.app)|[nur.repos.metadark.texlab](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/development/tools/misc/texlab/default.nix)|An implementation of the Language Server Protocol for LaTeX
 [vkBasalt](https://github.com/DadSchoorse/vkBasalt)|[nur.repos.metadark.vkBasalt](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/tools/graphics/vkBasalt/default.nix)|A Vulkan post processing layer for Linux
 [VVVVVV](https://thelettervsixtim.es)|[nur.repos.metadark.VVVVVV](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/games/VVVVVV/default.nix)|A retro-styled 2D platformer
+[yabridge](https://github.com/robbert-vdh/yabridge)|[nur.repos.metadark.yabridge](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/tools/audio/yabridge/default.nix)|Yet Another VST bridge, run Windows VST2 plugins under Linux
+[yabridgectl](https://github.com/robbert-vdh/yabridge/tree/master/tools/yabridgectl)|[nur.repos.metadark.yabridgectl](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/tools/audio/yabridgectl/default.nix)|A small, optional utility to help set up and update yabridge for several directories at once
 [zynaddsubfx](https://zynaddsubfx.sourceforge.io)|[nur.repos.metadark.zynaddsubfx](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/applications/audio/zynaddsubfx/default.nix)|High quality software synthesizer
 
 # NixOS Modules
 
 Name | Attribute | Description
 -----|-----------|------------
-[bluetooth-autoconnect](https://github.com/jrouleau/bluetooth-autoconnect)|[nur.repos.metadark.modules.bluetooth-autoconnect](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/modules/services/networking/bluetooh-autoconnect.nix)|A linux command line tool to automatically connect to all paired and trusted bluetooth devices
+[bluetooth-autoconnect](https://github.com/jrouleau/bluetooth-autoconnect)|[nur.repos.metadark.modules.bluetooth-autoconnect](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/modules/services/networking/bluetooth-autoconnect.nix)|A linux command line tool to automatically connect to all paired and trusted bluetooth devices
 [lightdm-webkit2-greeter](https://github.com/Antergos/web-greeter)|[nur.repos.metadark.modules.lightdm-webkit2-greeter](https://github.com/nix-community/nur-combined/tree/master/repos/metadark/modules/services/x11/display-managers/lightdm-greeters/webkit2.nix)|A modern, visually appealing greeter for LightDM
 [xpadneo](https://atar-axis.github.io/xpadneo)|[nur.repos.metadark.modules.xpadneo](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/modules/hardware/xpadneo.nix)|Advanced Linux driver for Xbox One wireless controllers
 

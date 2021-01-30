@@ -15,7 +15,7 @@
 , zlib
 
   # Optional dependencies
-, alsaSupport ? true
+, alsaSupport ? stdenv.hostPlatform.isLinux
 , alsaLib
 , dssiSupport ? false
 , dssi
@@ -27,6 +27,8 @@
 , ossSupport ? true
 , portaudioSupport ? true
 , portaudio
+, sndioSupport ? stdenv.hostPlatform.isOpenBSD
+, sndio
 
   # Optional GUI dependencies
 , guiModule ? "off"
@@ -40,6 +42,7 @@
 
   # Test dependencies
 , cxxtest
+, ruby
 }:
 
 assert builtins.any (g: guiModule == g) [ "fltk" "ntk" "zest" "off" ];
@@ -53,17 +56,18 @@ let
   mruby-zest = callPackage ./mruby-zest { };
 in stdenv.mkDerivation rec {
   pname = "zynaddsubfx";
-  version = "3.0.5";
+  version = "3.0.6-rc1";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = version;
-    sha256 = "1vh1gszgjxwn8m32rk5222z1j2cnjax0bqpag7b47v6i36p2q4x8";
+    sha256 = "1zb3lax8ah4pvfrfayra1h18l58zmb1snffk35h76yjda3cxppqq";
     fetchSubmodules = true;
   };
 
   postPatch = ''
+    patchShebangs .
     substituteInPlace src/Misc/Config.cpp --replace /usr $out
   '';
 
@@ -75,6 +79,7 @@ in stdenv.mkDerivation rec {
     ++ lib.optionals jackSupport [ libjack2 ]
     ++ lib.optionals lashSupport [ lash ]
     ++ lib.optionals portaudioSupport [ portaudio ]
+    ++ lib.optionals sndioSupport [ sndio ]
     ++ lib.optionals (guiModule == "fltk") [ fltk13 libjpeg libXpm ]
     ++ lib.optionals (guiModule == "ntk") [ ntk cairo libXpm ]
     ++ lib.optionals (guiModule == "zest") [ libGL libX11 ];
@@ -87,7 +92,13 @@ in stdenv.mkDerivation rec {
     ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON";
 
   doCheck = true;
-  checkInputs = [ cxxtest ];
+  checkInputs = [ cxxtest ruby ];
+
+  # PortChecker test fails when lashSupport is enabled because
+  # zynaddsubfx takes to long to start trying to connect to lash
+  checkPhase = lib.optional lashSupport ''
+    ctest --force-new-ctest-process -E '^PortChecker$'
+  '';
 
   # Use Zyn-Fusion logo for zest build
   # Derived from https://raw.githubusercontent.com/mruby-zest/mruby-zest/ea4894620bf80ae59593b5d404b950d436a91e6c/example/ZynLogo.qml
@@ -118,8 +129,8 @@ in stdenv.mkDerivation rec {
       then "https://zynaddsubfx.sourceforge.io/zyn-fusion.html"
       else "https://zynaddsubfx.sourceforge.io";
 
-    license = licenses.gpl2;
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ goibhniu metadark ];
-    platforms = platforms.linux;
+    platforms = platforms.all;
   };
 }

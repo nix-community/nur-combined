@@ -30,31 +30,20 @@
 , p7zip
 
   # GTK dependencies
-, gobject-introspection ? null
-, webkitgtk ? null
-, wrapGAppsHook ? null
-, glib-networking ? null
-, gst_all_1 ? null
-, pygobject3 ? null
+, gobject-introspection
+, webkitgtk
+, wrapGAppsHook
+, glib-networking
+, gst_all_1
+, pygobject3
 
   # Qt dependencies
-, wrapQtAppsHook ? null
-, pyqt5 ? null
-, pyqtwebengine ? null
+, wrapQtAppsHook
+, pyqt5
+, pyqtwebengine
 }:
 
 assert builtins.any (g: gui == g) [ "gtk" "qt" ];
-
-assert gui == "gtk" -> gobject-introspection != null;
-assert gui == "gtk" -> webkitgtk != null;
-assert gui == "gtk" -> wrapGAppsHook != null;
-assert gui == "gtk" -> glib-networking != null;
-assert gui == "gtk" -> gst_all_1 != null;
-assert gui == "gtk" -> pygobject3 != null;
-
-assert gui == "qt" -> wrapQtAppsHook != null;
-assert gui == "qt" -> pyqt5 != null;
-assert gui == "qt" -> pyqtwebengine != null;
 
 let
   guiName = {
@@ -178,7 +167,9 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "A mod merging and managing tool for The Legend of Zelda: Breath of the Wild (${guiName} GUI)";
     homepage = "https://github.com/NiceneNerd/BCML";
-    license = licenses.gpl3Plus;
+    # Unfree due to 7zip's non-free UnRAR license restriction
+    # Would be gpl3Plus without the restriction
+    license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [ metadark ];
     platforms = platforms.linux;
   };

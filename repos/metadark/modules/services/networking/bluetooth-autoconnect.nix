@@ -9,7 +9,7 @@ in
 {
   options.services.bluetooth-autoconnect = {
     enable = mkEnableOption ''
-      bluetooh autoconnect to automatically connect to all paired and
+      bluetooth autoconnect to automatically connect to all paired and
       trusted bluetooth devices.
     '';
   };
