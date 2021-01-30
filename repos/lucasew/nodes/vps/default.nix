@@ -7,6 +7,7 @@ with import ../../globalConfig.nix;
     ../../modules/cachix/system.nix
     
   ];
+  nixpkgs.config.allowUnfree = true;
   networking.hostName = "cloudhead";
   environment.systemPackages = with pkgs; [
     dotenv
