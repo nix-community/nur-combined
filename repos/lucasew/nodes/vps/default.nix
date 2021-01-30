@@ -2,9 +2,8 @@
 with import ../../globalConfig.nix;
 {
   imports = [
-    <nixos/nixos/modules/virtualisation/google-compute-image.nix>
     ../bootstrap/default.nix
-    # "${flake.inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
+     "${flake.inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
     ../../modules/cachix/system.nix
     
   ];
