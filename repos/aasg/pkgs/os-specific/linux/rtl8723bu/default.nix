@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "rtl8723bu-unstable";
-  version = "2020-09-04";
+  version = "2020-11-24";
 
   src = fetchFromGitHub {
     owner = "lwfinger";
     repo = "rtl8723bu";
-    rev = "ce4490b1e0dcedec30659dc20b945b90d9c3d83c";
-    sha256 = "18x3x9jx6mc22cgc8rf2fsa0crwq55iapry9ymdn1rw4dclyahjk";
+    rev = "9ce1c38439f4f574bb7adaf33949835c25536a28";
+    hash = "sha256-NSLGB0dgDu5TIpS0GszBFjzC+8uIKncs+jeJowtBjLQ=";
   };
 
   postPatch = stdenv.lib.optionalString (!concurrentMode) ''
@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   makeFlags = [
-    "ARCH=${stdenv.hostPlatform.platform.kernelArch}"
+    # TODO: remove fallback post NixOS 20.09 (see also github:NixOS/nixpkgs#107214)
+    "ARCH=${stdenv.hostPlatform.linuxArch or stdenv.hostPlatform.platform.kernelArch}"
     "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     "KVER=${kernel.version}"
     "DEPMOD=true"
