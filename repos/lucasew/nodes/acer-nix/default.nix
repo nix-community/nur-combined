@@ -5,7 +5,6 @@
 {pkgs, config, nix-ld, ... }:
 with (import ../../globalConfig.nix);
 let
-  username = "lucasew";
   hostname = "acer-nix";
 in
 {
@@ -13,8 +12,7 @@ in
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-    ]
-    ++ [
+      ../bootstrap/default.nix
       "${flake.inputs.home-manager}/nixos"
       "${flake.inputs.nix-ld}/modules/nix-ld.nix"
       ../../modules/cachix/system.nix
@@ -26,6 +24,9 @@ in
   programs.steam.enable = true;
 
   home-manager = {
+    sharedModules = [
+      ./modules/dummy_module.nix
+    ];
     useGlobalPkgs = true;
     useUserPackages = true;
     users.${username} = {config, ...}: {
@@ -44,20 +45,6 @@ in
       allowUnfree = true;
       android_sdk.accept_license = true;
     };
-    overlays = flake.outputs.overlays;
-  };
-  nix = {
-    trustedUsers = ["root" "@wheel"];
-    package = pkgs.nixFlakes;
-    autoOptimiseStore = true;
-    gc = {
-      options = "--delete-older-than 15d";
-    };
-    extraOptions = ''
-      min-free = ${toString (1  *1024*1024*1024)}
-      max-free = ${toString (10 *1024*1024*1024)}
-      experimental-features = nix-command flakes
-    '';
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -74,9 +61,6 @@ in
     };
   };
 
-  # limpar tmp no boot
-  boot.cleanTmpDir = true;
-
   services.xserver.displayManager.lightdm.background = wallpaper;
 
   networking.hostName = hostname; # Define your hostname.
@@ -92,15 +76,7 @@ in
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  # Select internationalisation properties.
-  i18n.defaultLocale = "pt_BR.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  # };
 
-  # Set your time zone.
-  time.timeZone = "America/Sao_Paulo";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -110,7 +86,7 @@ in
     paper-icon-theme
     kde-gtk-config # Custom
     # dasel # manipulação de json, toml, yaml, xml, csv e tal
-    rclone rclone-browser restic # cloud storage
+    rclone-browser # cloud storage
     p7zip unzip xarchiver # archiving
     custom_neovim dotenv # custom
     virt-manager
@@ -118,9 +94,6 @@ in
     gitAndTools.gitui
     python3Packages.pipx
   ];
-
-  # melhor editor ever
-  environment.variables.EDITOR = "nvim";
 
   programs.dconf.enable = true;
   services.dbus.packages = with pkgs; [ gnome3.dconf ];
@@ -149,9 +122,6 @@ in
     };
   };
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -172,13 +142,7 @@ in
   services.xserver.libinput.enable = true;
 
   # Zerotier
-  services.zerotierone = {
-    enable = true;
-    port = 6970;
-    joinNetworks = [
-      "e5cd7a9e1c857f07"
-    ];
-  };
+  services.zerotierone.enable = true;
 
   # Themes
   programs.qt5ct.enable = true;
@@ -186,11 +150,8 @@ in
   # Users
   users.users = {
     ${username} = {
-      isNormalUser = true;
       extraGroups = [
-        "wheel" # sudo
-        "docker" # docker
-        "adbusers" # adb
+        "adbusers"
       ]; 
       description = "Lucas Eduardo";
     };
@@ -213,9 +174,6 @@ in
     keybase.enable = true;
     kbfs.enable = true;
   };
-
-  # irqbalance
-  services.irqbalance.enable = true;
 
   # cachix
   cachix.enable = true;

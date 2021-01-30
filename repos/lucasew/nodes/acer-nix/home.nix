@@ -10,8 +10,6 @@ in
     ./modules/dlna.nix
     ./modules/firefox/home.nix
     ./modules/webviews/home.nix
-  ]
-  ++ [
     ../../modules/i3/home.nix
     ../../modules/polybar/home.nix
     ../../modules/spotify/home.nix
@@ -34,13 +32,13 @@ in
     fortune
     lazydocker
     libnotify
-    # manix
     neofetch
     nix-index
     scrcpy
     sqlite
     typora
   ];
+  programs.hello-world.enable = true;
 
   services.redial_proxy = {
     enable = true;

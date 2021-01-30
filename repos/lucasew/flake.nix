@@ -51,12 +51,14 @@
     inherit overlays;
     inherit environmentShell;
     nixosConfigurations.vps = nixpkgs.lib.nixosSystem {
+      inherit pkgs;
       inherit system;
       modules = [
         ./nodes/vps/default.nix
       ];
     };
     nixosConfigurations.acer-nix = nixpkgs.lib.nixosSystem {
+      inherit pkgs;
       inherit system;
       modules = [
         ./nodes/acer-nix/default.nix
