@@ -14,6 +14,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ncurses ];
   buildInputs = [ libX11 libXft harfbuzzFull ];
 
+  patchPhase = ''
+    sed -i 's/alpha = 0.8/alpha = 0.95/' config.h
+  '';
+
   installPhase = ''
     sed -i '/man/d' Makefile
     sed -i '/tic/d' Makefile
