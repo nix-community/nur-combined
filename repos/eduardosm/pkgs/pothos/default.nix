@@ -1,4 +1,4 @@
-{ gcc9Stdenv
+{ stdenv
 , fetchFromGitHub
 , makeDesktopItem
 , cmake
@@ -18,20 +18,22 @@
 , python3
 }:
 
-# Fails to build with GCC 10
-gcc9Stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "pothos";
-  version = "0.7.0";
+  version = "0.7.1";
 
   src = fetchFromGitHub {
     owner = "pothosware";
     repo = "PothosCore";
     rev = "pothos-${version}";
-    sha256 = "1mcg64bgxpd1765xszqwjsgf27bxj5s6jzx6gyjcqs3d3qk6isqb";
+    sha256 = "038c3ipvf4sgj0zhm3vcj07ymsva4ds6v89y43f5d3p4n8zc2rsg";
     fetchSubmodules = true;
   };
 
-  patches = [ ./spuce.patch ];
+  patches = [
+    # spuce's CMakeLists.txt uses QT5_USE_Modules, which does not seem to work on Nix
+    ./spuce.patch
+  ];
 
   nativeBuildInputs = [ cmake pkg-config doxygen wrapQtAppsHook ];
 
@@ -56,7 +58,7 @@ gcc9Stdenv.mkDerivation rec {
     wrapQtApp $out/bin/PothosFlow
   '';
 
-  meta = with gcc9Stdenv.lib; {
+  meta = with stdenv.lib; {
     description = "The Pothos data-flow framework";
     homepage = "https://github.com/pothosware/PothosCore/wiki";
     license = licenses.boost;
