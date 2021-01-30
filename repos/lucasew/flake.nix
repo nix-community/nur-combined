@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgsLatest.url = "github:NixOS/nixpkgs/master";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:lucasew/home-manager";
     nur.url = "github:nix-community/NUR/master";
     nix-ld.url = "github:Mic92/nix-ld";
     rust-overlay.url = "github:oxalica/rust-overlay";
@@ -50,6 +50,12 @@
   in {
     inherit overlays;
     inherit environmentShell;
+    nixosConfigurations.vps = nixpkgs.lib.nixosSystem {
+      inherit system;
+      modules = [
+        ./nodes/vps/default.nix
+      ];
+    };
     nixosConfigurations.acer-nix = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
