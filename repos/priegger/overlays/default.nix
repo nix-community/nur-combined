@@ -39,5 +39,5 @@ in
   prometheus-nginx-exporter = self: super: { inherit (nixpkgsUnstable) prometheus-nginx-exporter; };
 
   # https://github.com/NixOS/nixpkgs/pull/110247
-  prometheus-pushgateway = self: super: { inherit (import sources.nixpkgs-staging { }) prometheus-pushgateway; };
+  prometheus-pushgateway = self: super: { inherit (nixpkgsMaster) prometheus-pushgateway; };
 }
