@@ -120,8 +120,8 @@ in
       server_name = cfg.matrix.serverName;
       public_baseurl = "https://${cfg.matrix.hostName}/";
       dataDir = cfg.matrix.dataDir;
-      tls_certificate_path = "/var/lib/acme/${cfg.matrix.hostName}/fullchain.pem";
-      tls_private_key_path = "/var/lib/acme/${cfg.matrix.hostName}/key.pem";
+      tls_certificate_path = "/var/lib/acme/matrix-synapse/fullchain.pem";
+      tls_private_key_path = "/var/lib/acme/matrix-synapse/key.pem";
       registration_shared_secret = cfg.matrix.registration_shared_secret;
       turn_shared_secret = cfg.turn.turn_shared_secret;
       listeners = [
@@ -164,8 +164,14 @@ in
 
     # share certs with matrix-synapse and restart on renewal
     security.acme.certs."${cfg.matrix.hostName}" = {
-      group = "matrix-synapse";
-      postRun = "systemctl reload nginx.service; systemctl restart matrix-synapse.service";
+      group = "nginx";
+      postRun = ''
+        mkdir -p "/var/lib/acme/matrix-synapse"
+        cp -r "/var/lib/acme/${cfg.matrix.hostName}/*" "/var/lib/acme/matrix-synapse"
+        chown -R acme:matrix-synapse "/var/lib/acme/matrix-synapse"
+        systemctl reload nginx.service
+        systemctl restart matrix-synapse.service
+      '';
     };
 
     services.nginx.virtualHosts."${cfg.riot.hostName}" = lib.mkIf (config.services.nginx.enable && cfg.riot.enable) {
@@ -204,15 +210,21 @@ in
       no-multicast-peers
     ";
       secure-stun = true;
-      cert = "/var/lib/acme/${cfg.turn.hostName}/fullchain.pem";
-      pkey = "/var/lib/acme/${cfg.turn.hostName}/key.pem";
+      cert = "/var/lib/acme/matrix-turnserver/fullchain.pem";
+      pkey = "/var/lib/acme/matrix-turnserver/key.pem";
       min-port = cfg.turn.min-port;
       max-port = cfg.turn.max-port;
     };
 
     security.acme.certs."${cfg.turn.hostName}" = mkIf (cfg.turn.enable) {
-      group = "turnserver";
-      postRun = "systemctl reload nginx.service; systemctl restart coturn.service";
+      group = "nginx";
+      postRun = ''
+        mkdir -p "/var/lib/acme/matrix-turnserver"
+        cp -r "/var/lib/acme/${cfg.turn.hostName}/*" "/var/lib/acme/matrix-turnserver"
+        chown -R acme:turnserver "/var/lib/acme/matrix-turnserver"
+        systemctl reload nginx.service 
+        systemctl restart coturn.service
+      '';
     };
 
     services.nginx.virtualHosts."${cfg.turn.hostName}" = mkIf (config.services.nginx.enable && cfg.turn.enable) {
