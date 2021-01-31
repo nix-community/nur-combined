@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   }}/${python3Packages.python.sitePackages}";
 
   postPatch = ''
-    sed -i "2isys.path.append('$env')" ./signal.py
+    sed -i "2iimport sys; sys.path.append('$env')" ./signal.py
   '';
 
   passthru.scripts = [ "signal.py" ];
