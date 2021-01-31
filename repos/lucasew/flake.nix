@@ -31,14 +31,12 @@
   };
 
   outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, redial_proxy, ... }:
+  with import ./globalConfig.nix;
   let
-    userSettings = import ./globalConfig.nix;
     system = "x86_64-linux";
-    environmentShell = with userSettings; ''
-      alias nixos-rebuild="sudo -E nixos-rebuild --flake '${rootPath}#acer-nix'"
+    environmentShell = ''
       export NIXPKGS_ALLOW_UNFREE=1
-      export NIX_PATH="nixos-config=${(builtins.toString rootPath) + "/nodes/acer-nix"}:nixpkgs=${nixpkgs}:dotfiles=${builtins.toString rootPath}:nixpkgsLatest=${nixpkgsLatest}:home-manager=${home-manager}:nur=${nur}:nixpkgs-overlays=${(builtins.toString rootPath) + "/compat/overlay.nix"}"
-
+      export NIX_PATH=nixpkgs=${nixpkgs}:nixpkgs-overlays=${builtins.toString rootPath}/compat/overlay.nix:nixpkgsLatest=${nixpkgsLatest}:home-manager=${home-manager}:nur=${nur}:nixos-config=${(builtins.toString rootPath) + "/nodes/$HOSTNAME/default.nix"}
   '';
     overlays = [
       (import ./overlay.nix)
@@ -68,7 +66,7 @@
       ];
     };
     packages = pkgs;
-    devShell = pkgs.mkShell {
+    devShell.x86_64-linux = pkgs.mkShell {
       name = "nixcfg-shell";
       buildInputs = [];
       shellHook = ''

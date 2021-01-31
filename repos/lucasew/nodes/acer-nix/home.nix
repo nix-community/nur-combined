@@ -23,7 +23,7 @@ in
   home.packages = with pkgs; [
    # ------------ pacotes do nixpkgs ---------------
     # minecraft  # custom (excluded)
-    ets2 usb_tixati among_us pinball mspaint stremio custom_rofi peazip # custom
+    usb_tixati pinball mspaint custom_rofi peazip # custom
     vlc youtube-dl # media
     discord tdesktop # social
     google-chrome # browser (extra)

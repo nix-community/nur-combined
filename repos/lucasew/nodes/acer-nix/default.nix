@@ -88,7 +88,7 @@ in
     # dasel # manipulação de json, toml, yaml, xml, csv e tal
     rclone-browser # cloud storage
     p7zip unzip xarchiver # archiving
-    custom_neovim dotenv # custom
+    dotenv # custom
     virt-manager
     # Extra
     gitAndTools.gitui
