@@ -11,15 +11,6 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ZLYc+5k0T/4A7KECufacfdpWbFxRJZUo4QCMK+r9c00=";
   };
 
-  env = "${buildEnv {
-    name = "signal-env";
-    paths = with python3Packages; [ python3Packages.qrcode ];
-  }}/${python3Packages.python.sitePackages}";
-
-  postPatch = ''
-    sed -i "2iimport sys; sys.path.append('$env')" ./signal.py
-  '';
-
   passthru.scripts = [ "signal.py" ];
 
   installPhase = ''
