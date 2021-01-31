@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 
 , python3Packages
@@ -20,7 +21,7 @@ python3Packages.buildPythonApplication rec {
     pyyaml
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Fan controller for AMD graphics cards running the amdgpu driver on Linux";
     homepage = "https://github.com/chestm007/amdgpu-fan";
     license = licenses.gpl2;

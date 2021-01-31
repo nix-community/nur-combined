@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , buildPythonPackage
 , fetchPypi
 }:
@@ -14,9 +15,9 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  meta = {
+  meta = with lib; {
     homepage = "https://stuffivelearned.org/doku.php?id=programming:python:py-sonic";
-    license = stdenv.lib.licenses.gpl3;
+    license = licenses.gpl3;
     description = "A python wrapper library for the Subsonic REST API";
   };
 }

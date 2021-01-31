@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 
 , qtbase
@@ -26,7 +27,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/" "$out/"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "System daemon for reading current clocks of AMD Radeon cards";
     homepage = "https://github.com/marazmista/radeon-profile-daemon";
     license = licenses.gpl2Plus;

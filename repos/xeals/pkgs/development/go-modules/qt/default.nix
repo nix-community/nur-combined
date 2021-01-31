@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , buildGoModule
 , makeWrapper
@@ -59,7 +60,7 @@ buildGoModule rec {
     done
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/therecipe/qt";
     description = "Qt bindings for Go";
     license = licenses.lgpl3;

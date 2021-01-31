@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , rustPlatform
 
@@ -14,7 +15,7 @@
 }:
 
 let
-  inherit (stdenv.lib) optional optionals;
+  inherit (lib) optional optionals;
 in
 
 assert withGui -> gtk3.meta.available;
@@ -63,7 +64,7 @@ rustPlatform.buildRustPackage rec {
     })
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Fast and multi-platform Spotify client with native GUI ";
     homepage = "https://github.com/jpochyla/psst";
     license = licenses.mit;

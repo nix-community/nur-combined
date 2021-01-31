@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , python3Packages
 
@@ -20,7 +21,7 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/Prior99/mopidy-subidy";
     description = "Mopidy extension for playing music from Subsonic servers";
     license = licenses.bsd3;

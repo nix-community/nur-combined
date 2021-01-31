@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , installShellFiles
 
@@ -25,10 +26,10 @@ stdenv.mkDerivation {
     installShellCompletion --zsh _zshz
   '';
 
-  meta = {
+  meta = with lib; {
     description = ''Jump quickly to directories that you have visited "frecently." A native ZSH port of z.sh.'';
     homepage = "https://github.com/agkozak/zsh-z";
-    license = stdenv.lib.licenses.mit;
+    license = licenses.mit;
     platforms = zsh.meta.platforms;
   };
 }

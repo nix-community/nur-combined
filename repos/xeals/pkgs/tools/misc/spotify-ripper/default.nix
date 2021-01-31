@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 
 , python2Packages
@@ -48,7 +49,7 @@ python2Packages.buildPythonApplication rec {
   # Remove impure executables.
   patches = [ ./fix-setup.patch ];
 
-  meta = {
+  meta = with lib; {
     description = "Rip Spotify URIs to audio files, including ID3 tags and cover art";
     longDescription = ''
       Spotify-ripper is a small ripper script for Spotify that rips Spotify URIs
@@ -58,6 +59,6 @@ python2Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/hbashton/spotify-ripper";
     # spotify-ripper itself is MIT, but the upstream libspotify is unfree.
-    license = stdenv.lib.licenses.unfree;
+    license = licenses.unfree;
   };
 }

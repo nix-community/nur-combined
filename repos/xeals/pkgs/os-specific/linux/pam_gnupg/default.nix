@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 
 , autoreconfHook
@@ -25,10 +26,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-moduledir=\${out}/lib/security" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/cruegge/pam-gnupg";
     description = "Unlock GnuPG keys on login";
     license = licenses.gpl3;
-    inherit (pam.meta) platforms;
+    platforms = pam.meta.platforms;
   };
 }

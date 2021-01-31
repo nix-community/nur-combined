@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitLab
 , fetchzip
 
@@ -62,10 +63,10 @@ stdenv.mkDerivation rec {
 
   passthru.providedSessions = [ "cardboard" ];
 
-  meta = {
+  meta = with lib; {
     description = "Scrollable tiling Wayland compositor designed with laptops in mind";
     homepage = "https://gitlab.com/cardboardwm/cardboard";
-    license = stdenv.lib.licenses.gpl3;
+    license = licenses.gpl3;
     platforms = wlroots.meta.platforms;
   };
 }

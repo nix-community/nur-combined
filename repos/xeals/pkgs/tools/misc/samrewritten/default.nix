@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , makeWrapper
 
@@ -40,7 +41,7 @@ stdenv.mkDerivation rec {
       --replace /usr/bin/samrewritten $out/bin/samrewritten
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Steam Achievement Manager For Linux";
     homepage = "https://github.com/PaulCombal/SamRewritten";
     license = licenses.gpl3;
