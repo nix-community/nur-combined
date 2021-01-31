@@ -10,14 +10,14 @@ rec {
       owner = "zenixls2";
       repo = "alacritty";
       fetchSubmodules = true;
-      rev = "ada2680e79a8f53cd350263c8cc91d2e2a264d81";
-      sha256 = "0c0k1ib1dl35731zyjb32apyn28xc63mhbwsig5mz3hnkyk5nisr";
+      rev = "df24940a9ccf7ba897fa3167046ee8b181342d8f";
+      sha256 = "sha256-2Th2aojTN36MgYSFXiACcBkTpTou/X1Ub5JR2sgZa34=";
     };
 
     cargoDeps = oldAttrs.cargoDeps.overrideAttrs (pkgs.lib.const {
       name = "${pname}-${version}-vendor.tar.gz";
       inherit src;
-      outputHash = "1d1yz4xmal0f3c0pcn59lxfh5a3532nv7dv7s95svvi8qsvnk9gv";
+      outputHash = "sha256-weGYh5qeaOHFfq2nf0UdsuIZud+7/8SCD0g0BAjoJIc=";
     });
 
     ligatureInputs = [
