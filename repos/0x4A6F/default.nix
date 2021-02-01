@@ -22,6 +22,8 @@
 
   #bpf-linker = pkgs.callPackage ./pkgs/bpf-linker { };
 
+  espflash = pkgs.callPackage ./pkgs/espflash { };
+
   deploy-rs = pkgs.callPackage ./pkgs/deploy-rs { };
 
   freenukum = pkgs.callPackage ./pkgs/freenukum { };
