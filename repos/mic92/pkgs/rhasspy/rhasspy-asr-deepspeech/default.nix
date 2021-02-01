@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , buildPythonPackage
 , fetchFromGitHub
 , rhasspy-asr
@@ -33,7 +34,7 @@ buildPythonPackage rec {
   # misses files
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Rhasspy wrapper for Deepspeech ASR";
     inherit (src.meta) homepage;
     license = licenses.mit;

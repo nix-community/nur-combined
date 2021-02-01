@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , buildPythonPackage
 , fetchFromGitHub
 , paho-mqtt
@@ -30,7 +31,7 @@ buildPythonPackage rec {
     sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Hotword detection for Rhasspy using Porcupine";
     inherit (src.meta) homepage;
     license = licenses.mit;

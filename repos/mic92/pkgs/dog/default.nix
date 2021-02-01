@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , rustPlatform
 , fetchFromGitHub
 , openssl
@@ -22,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0q3jy8gykd7fhh4gdgfcbf30ksp78lq34pms6904c70skm6jnqck";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Command-line DNS client";
     homepage = "https://dns.lookup.dog";
     license = licenses.eupl12;

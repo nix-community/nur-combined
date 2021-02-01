@@ -1,4 +1,4 @@
-{ stdenv, buildGoPackage, fetchFromGitHub }:
+{ lib, stdenv, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
   name = "yubikey-touch-detector-${version}";
@@ -16,7 +16,7 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Detect when your YubiKey is waiting for a touch";
     license = licenses.mit;
     homepage = "https://github.com/maximbaz/yubikey-touch-detector";

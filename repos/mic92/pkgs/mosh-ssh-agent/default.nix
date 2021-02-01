@@ -1,4 +1,4 @@
-{ stdenv, mosh, fetchFromGitHub, fetchpatch }:
+{ lib, stdenv, mosh, fetchFromGitHub, fetchpatch }:
 
 mosh.overrideAttrs (old: {
   name = "mosh-ssh-agent-2020-07-22";
@@ -15,7 +15,7 @@ mosh.overrideAttrs (old: {
     ./ssh_path.patch
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Mosh fork with ssh-agent support";
     homepage = https://github.com/Mic92/mosh;
     license = stdenv.lib.licenses.gpl3Plus;

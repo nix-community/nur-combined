@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , rustPlatform
 , fetchFromGitHub
 , fetchpatch
@@ -21,11 +22,11 @@ rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ openssl ] ++ stdenv.lib.optionals stdenv.isDarwin [ Security CoreServices ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security CoreServices ];
 
   cargoSha256 = "12vg972fxvdi2dbad7g00vccmcqhnyjl8ch2sypl1hfk83mrwgrb";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "LDAP directory connector for bitwarden_rs";
     homepage = https://github.com/ViViDboarder/bitwarden_rs_ldap;
     license = licenses.gpl3;

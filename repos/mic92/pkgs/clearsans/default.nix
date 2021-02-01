@@ -1,4 +1,4 @@
-{ stdenv, fetchzip }:
+{ lib, stdenv, fetchzip }:
 
 stdenv.mkDerivation rec {
   name = "clearsans-1.00";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     install --target $out/share/fonts/truetype/ -D $src/TTF/*.ttf 
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A versatile OpenType font for screen, print and Web";
     homepage = "https://01.org/clear-sans";
     license = licenses.asl20;

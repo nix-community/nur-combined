@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , buildPythonPackage
 , fetchFromGitLab
 , ldap0
@@ -33,7 +33,7 @@ buildPythonPackage rec {
     "${placeholder "out"}"
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Full-featured LDAP client running as web application";
     homepage = "https://www.web2ldap.de";
     license = licenses.apsl20;

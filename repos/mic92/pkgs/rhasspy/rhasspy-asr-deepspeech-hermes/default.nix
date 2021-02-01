@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , buildPythonPackage
 , fetchFromGitHub
 , rhasspy-hermes
@@ -33,7 +34,7 @@ buildPythonPackage rec {
   # misses files
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "MQTT service for Rhasspy using Mozilla's DeepSpeech with the Hermes protocol";
     inherit (src.meta) homepage;
     license = licenses.mit;

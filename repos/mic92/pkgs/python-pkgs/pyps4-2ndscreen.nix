@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , buildPythonPackage
 , fetchFromGitHub
 , construct
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     py.test -k "not test_no_status and not test_parse_errors and not test_login and not test_get_ps_store_data"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Python Library for controlling a Sony PlayStation 4 Console";
     homepage = "https://github.com/ktnrg45/pyps4-2ndscreen";
     license = licenses.gpl3;

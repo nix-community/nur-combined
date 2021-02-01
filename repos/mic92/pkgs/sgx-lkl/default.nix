@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , autoconf
 , automake
 , fetchFromGitHub
@@ -181,7 +182,7 @@ stdenv.mkDerivation {
     openssl
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "SGX-LKL Library OS for running Linux applications inside of Intel SGX enclaves";
     homepage = "https://github.com/lsds/sgx-lkl";
     license = licenses.mit;

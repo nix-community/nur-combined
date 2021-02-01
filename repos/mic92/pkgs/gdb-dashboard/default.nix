@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gdb, makeWrapper, python3Packages }:
+{ lib, stdenv, fetchFromGitHub, gdb, makeWrapper, python3Packages }:
 
 stdenv.mkDerivation rec {
   name = "gdb-dashboard-${version}";
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
        $out/share/gdb-dashboard/gdbinit
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Modular visual interface for GDB in Python";
     homepage = "https://github.com/cyrus-and/gdb-dashboard";
     license = licenses.mit;

@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , buildPythonPackage
 , fetchPypi
 , requests
@@ -44,7 +45,7 @@ buildPythonPackage rec {
     vcrpy
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Python wrapper for the Mastodon API";
     homepage = "https://github.com/halcy/Mastodon.py";
     license = licenses.mit;

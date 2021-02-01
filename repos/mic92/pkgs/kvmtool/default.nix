@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, dtc }:
+{ lib, stdenv, fetchgit, dtc }:
 
 stdenv.mkDerivation rec {
   pname = "kvmtool";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ dtc ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A lightweight tool for hosting KVM guests";
     homepage =
       "https://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git/tree/README";

@@ -3,12 +3,8 @@
 rec {
   bitwarden_rs_ldap = pkgs.callPackage ./pkgs/bitwarden_rs_ldap { };
 
-  brotab = pkgs.callPackage ./pkgs/brotab {};
-
   # TODO checksum can break ... make a mirror?
   # binary-ninja = pkgs.callPackage ./pkgs/binary-ninja {};
-
-  check_mk-agent = pkgs.callPackage ./pkgs/check_mk-agent { };
 
   cntr = pkgs.callPackage ./pkgs/cntr { };
 
@@ -31,8 +27,6 @@ rec {
   gatttool = pkgs.callPackage ./pkgs/gatttool { };
 
   gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard { };
-
-  healthcheck = pkgs.callPackage ./pkgs/healthcheck { };
 
   hello-nur = pkgs.callPackage ./pkgs/hello-nur { };
 

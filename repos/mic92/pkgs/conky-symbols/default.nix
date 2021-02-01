@@ -1,4 +1,4 @@
-{ stdenv, fetchzip }:
+{ lib, stdenv, fetchzip }:
 
 stdenv.mkDerivation rec {
   name = "ConkySymbols";
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     install -D $src/ConkySymbols.ttf "$out/share/fonts/truetype/ConkySymbols.ttf"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "iconic font for use in Conky";
   };
 }

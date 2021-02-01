@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , writeScriptBin
 , coreutils
 , gawk
@@ -11,7 +12,7 @@
   #!${stdenv.shell}
   set -euf
 
-  export PATH=${stdenv.lib.makeSearchPath "bin" ([
+  export PATH=${lib.makeSearchPath "bin" ([
     coreutils
     gawk
     gnused

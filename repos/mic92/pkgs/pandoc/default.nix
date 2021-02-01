@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ stdenv, lib, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "pandoc-bin";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   dontStrip = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Universal markup converter (static binary to save disk space)";
     homepage = "https://github.com/jgm/pandoc";
     license = stdenv.lib.licenses.gpl2;

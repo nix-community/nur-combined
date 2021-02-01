@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, fetchpatch }:
+{ lib, fetchFromGitHub, rustPlatform, fetchpatch }:
 rustPlatform.buildRustPackage rec {
   pname = "peep-unstable";
   version = "2020-02-06";
@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "1lj3x84l37lqggkqnsxlnnmpjk29krzn5bgqcq4749nsdp72hrvs";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The CLI text viewer tool that works like less command on small pane within the terminal window.";
     inherit (src.meta) homepage;
     license = licenses.mit;

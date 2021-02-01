@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , buildPythonPackage
 , fetchFromGitHub
 , rhasspy-hermes
@@ -35,7 +36,7 @@ buildPythonPackage rec {
   # misses files
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Hotword detection for Rhasspy using Porcupine";
     inherit (src.meta) homepage;
     license = licenses.mit;

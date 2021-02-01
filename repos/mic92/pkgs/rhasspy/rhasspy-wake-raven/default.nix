@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , buildPythonPackage
 , fetchFromGitHub
 , scipy
@@ -33,7 +34,7 @@ buildPythonPackage rec {
     sed -i "s/rhasspy-silence.*/rhasspy-silence/" requirements.txt
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Hotword detection for Rhasspy using Raven";
     inherit (src.meta) homepage;
     license = licenses.mit;

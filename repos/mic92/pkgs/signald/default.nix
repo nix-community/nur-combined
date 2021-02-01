@@ -1,4 +1,4 @@
-{ stdenv, jre, callPackage, makeWrapper, fetchFromGitHub }:
+{ lib, stdenv, jre, callPackage, makeWrapper, fetchFromGitHub }:
 let
   buildGradle = callPackage ./gradle-env.nix { };
 in
@@ -25,10 +25,10 @@ buildGradle rec {
     cp -r build/install/signald/* $out
     rm $out/bin/signald.bat
     wrapProgram $out/bin/signald \
-      --prefix PATH ":" ${stdenv.lib.makeBinPath [ jre ]}
+      --prefix PATH ":" ${lib.makeBinPath [ jre ]}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A daemon that facilitates communication over Signal.";
     homepage = "https://gitlab.com/thefinn93/signald";
     license = licenses.gpl3;

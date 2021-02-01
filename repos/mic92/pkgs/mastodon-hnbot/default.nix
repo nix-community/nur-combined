@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, buildPythonApplication, feedparser, Mastodon }:
+{ lib, stdenv, fetchFromGitHub, buildPythonApplication, feedparser, Mastodon }:
 
 buildPythonApplication rec {
   pname = "mastodon-hnbot";
@@ -13,7 +13,7 @@ buildPythonApplication rec {
     feedparser
     Mastodon
   ];
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A bot posting hnbot news";
     homepage = "https://github.com/Mic92/mastodon-hnbot";
     license = licenses.mit;

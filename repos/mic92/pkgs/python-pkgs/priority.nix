@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi }:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "priority";
@@ -9,7 +9,7 @@ buildPythonPackage rec {
     sha256 = "1gpzn9k9zgks0iw5wdmad9b4dry8haiz2sbp6gycpjkzdld9dhbb";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A pure-Python HTTP/2 Priority implementation";
     homepage = "https://github.com/python-hyper/priority";
     license = licenses.mit;
