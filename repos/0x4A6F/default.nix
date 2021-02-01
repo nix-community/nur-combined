@@ -20,6 +20,8 @@
 
   acmed = pkgs.callPackage ./pkgs/acmed { };
 
+  bouffalo-cli = pkgs.callPackage ./pkgs/bouffalo-cli { };
+
   #bpf-linker = pkgs.callPackage ./pkgs/bpf-linker { };
 
   espflash = pkgs.callPackage ./pkgs/espflash { };
