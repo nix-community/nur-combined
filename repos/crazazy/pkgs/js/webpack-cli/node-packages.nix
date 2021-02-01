@@ -13,6 +13,15 @@ let
         sha512 = "HyYEUDeIj5rRQU2Hk5HTB2uHsbRQpF70nvMhVzi+VJR0X+xNEhjPui4/kBf3VeH/wqD28PT4sVOm8qqLjBrSZg==";
       };
     };
+    "@webpack-cli/configtest-1.0.0" = {
+      name = "_at_webpack-cli_slash_configtest";
+      packageName = "@webpack-cli/configtest";
+      version = "1.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@webpack-cli/configtest/-/configtest-1.0.0.tgz";
+        sha512 = "Un0SdBoN1h4ACnIO7EiCjWuyhNI0Jl96JC+63q6xi4HDUYRZn8Auluea9D+v9NWKc5J4sICVEltdBaVjLX39xw==";
+      };
+    };
     "@webpack-cli/info-1.2.1" = {
       name = "_at_webpack-cli_slash_info";
       packageName = "@webpack-cli/info";
@@ -22,13 +31,13 @@ let
         sha512 = "fLnDML5HZ5AEKzHul8xLAksoKN2cibu6MgonkUj8R9V7bbeVRkd1XbGEGWrAUNYHbX1jcqCsDEpBviE5StPMzQ==";
       };
     };
-    "@webpack-cli/serve-1.2.1" = {
+    "@webpack-cli/serve-1.2.2" = {
       name = "_at_webpack-cli_slash_serve";
       packageName = "@webpack-cli/serve";
-      version = "1.2.1";
+      version = "1.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.2.1.tgz";
-        sha512 = "Zj1z6AyS+vqV6Hfi7ngCjFGdHV5EwZNIHo6QfFTNe9PyW+zBU1zJ9BiOW1pmUEq950RC4+Dym6flyA/61/vhyw==";
+        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.2.2.tgz";
+        sha512 = "03GkWxcgFfm8+WIwcsqJb9agrSDNDDoxaNnexPnCCexP5SCE4IgFd9lNpSy+K2nFqVMpgTFw6SwbmVAVTndVew==";
       };
     };
     "ansi-colors-4.1.1" = {
@@ -38,6 +47,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/ansi-colors/-/ansi-colors-4.1.1.tgz";
         sha512 = "JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==";
+      };
+    };
+    "clone-deep-4.0.1" = {
+      name = "clone-deep";
+      packageName = "clone-deep";
+      version = "4.0.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/clone-deep/-/clone-deep-4.0.1.tgz";
+        sha512 = "neHB9xuzh/wk0dIHweyAXv2aPGZIVk3pLMe+/RNzINf17fe0OG96QroktYAUm7SM1PBnzTabaLboqqxDyMU+SQ==";
       };
     };
     "colorette-1.2.1" = {
@@ -175,6 +193,15 @@ let
         sha512 = "XRAfAdyyY5F5cOXn7hYQDqh2Xmii+DEfIcQGxK/uNwMHhIkPWO0g8msXcbzLe+MpGoR951MlqM/2iIlU4vKDdQ==";
       };
     };
+    "is-plain-object-2.0.4" = {
+      name = "is-plain-object";
+      packageName = "is-plain-object";
+      version = "2.0.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/is-plain-object/-/is-plain-object-2.0.4.tgz";
+        sha512 = "h5PpgXkWitc38BBMYawTYMWJHFZJVnBquFE57xFpjB8pJFiF6gZ+bU+WyI/yqXiFR5mdLsgYNaPe8uao6Uv9Og==";
+      };
+    };
     "is-stream-2.0.0" = {
       name = "is-stream";
       packageName = "is-stream";
@@ -193,6 +220,24 @@ let
         sha1 = "e8fbf374dc556ff8947a10dcb0572d633f2cfa10";
       };
     };
+    "isobject-3.0.1" = {
+      name = "isobject";
+      packageName = "isobject";
+      version = "3.0.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/isobject/-/isobject-3.0.1.tgz";
+        sha1 = "4e431e92b11a9731636aa1f9c8d1ccbcfdab78df";
+      };
+    };
+    "kind-of-6.0.3" = {
+      name = "kind-of";
+      packageName = "kind-of";
+      version = "6.0.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/kind-of/-/kind-of-6.0.3.tgz";
+        sha512 = "dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==";
+      };
+    };
     "locate-path-5.0.0" = {
       name = "locate-path";
       packageName = "locate-path";
@@ -200,15 +245,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/locate-path/-/locate-path-5.0.0.tgz";
         sha512 = "t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g==";
-      };
-    };
-    "lodash-4.17.20" = {
-      name = "lodash";
-      packageName = "lodash";
-      version = "4.17.20";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/lodash/-/lodash-4.17.20.tgz";
-        sha512 = "PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==";
       };
     };
     "merge-stream-2.0.0" = {
@@ -346,6 +382,15 @@ let
         sha512 = "qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==";
       };
     };
+    "shallow-clone-3.0.1" = {
+      name = "shallow-clone";
+      packageName = "shallow-clone";
+      version = "3.0.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/shallow-clone/-/shallow-clone-3.0.1.tgz";
+        sha512 = "/6KqX+GVUdqPuPPd2LxDDxzX6CAbjJehAAOKlNpqqUpAqPM6HeL8f+o3a+JsyGjn2lv0WY8UsTgUJjU9Ok55NA==";
+      };
+    };
     "shebang-command-2.0.0" = {
       name = "shebang-command";
       packageName = "shebang-command";
@@ -391,13 +436,13 @@ let
         sha512 = "gTpR5XQNKFwOd4clxfnhaqvfqMpqEwr4tOtCyz4MtYZX2JYhfr1JvBFKdS+7K/9rfpZR3VLX+YWBbKoxCgS43Q==";
       };
     };
-    "webpack-merge-4.2.2" = {
+    "webpack-merge-5.7.3" = {
       name = "webpack-merge";
       packageName = "webpack-merge";
-      version = "4.2.2";
+      version = "5.7.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/webpack-merge/-/webpack-merge-4.2.2.tgz";
-        sha512 = "TUE1UGoTX2Cd42j3krGYqObZbOD+xF7u28WB7tfUordytSjbWTIjK/8V0amkBfTYN4/pB/GIDlJZZ657BGG19g==";
+        url = "https://registry.npmjs.org/webpack-merge/-/webpack-merge-5.7.3.tgz";
+        sha512 = "6/JUQv0ELQ1igjGDzHkXbVDRxkfA57Zw7PfiupdLFJYrgFqY5ZP8xxbpp2lU3EPwYx89ht5Z/aDkD40hFCm5AA==";
       };
     };
     "which-2.0.2" = {
@@ -409,17 +454,28 @@ let
         sha512 = "BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==";
       };
     };
+    "wildcard-2.0.0" = {
+      name = "wildcard";
+      packageName = "wildcard";
+      version = "2.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/wildcard/-/wildcard-2.0.0.tgz";
+        sha512 = "JcKqAHLPxcdb9KM49dufGXn2x3ssnfjbcaQdLlfZsL9rH9wgDQjUtDxbo8NE0F6SFvydeu1VhZe7hZuHsB2/pw==";
+      };
+    };
   };
   args = {
     name = "webpack-cli";
     packageName = "webpack-cli";
-    version = "4.3.1";
-    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.3.1.tgz"; sha1 = "87a7873bc9c6a4708aa657759274b691e72a04a8"; };
+    version = "4.4.0";
+    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.4.0.tgz"; sha1 = "38c7fa01ea31510f5c490245dd1bb28018792f1b"; };
     dependencies = [
       sources."@discoveryjs/json-ext-0.5.2"
+      sources."@webpack-cli/configtest-1.0.0"
       sources."@webpack-cli/info-1.2.1"
-      sources."@webpack-cli/serve-1.2.1"
+      sources."@webpack-cli/serve-1.2.2"
       sources."ansi-colors-4.1.1"
+      sources."clone-deep-4.0.1"
       sources."colorette-1.2.1"
       sources."commander-6.2.1"
       sources."cross-spawn-7.0.3"
@@ -435,10 +491,12 @@ let
       sources."import-local-3.0.2"
       sources."interpret-2.2.0"
       sources."is-core-module-2.2.0"
+      sources."is-plain-object-2.0.4"
       sources."is-stream-2.0.0"
       sources."isexe-2.0.0"
+      sources."isobject-3.0.1"
+      sources."kind-of-6.0.3"
       sources."locate-path-5.0.0"
-      sources."lodash-4.17.20"
       sources."merge-stream-2.0.0"
       sources."mimic-fn-2.1.0"
       sources."npm-run-path-4.0.1"
@@ -454,13 +512,15 @@ let
       sources."resolve-1.19.0"
       sources."resolve-cwd-3.0.0"
       sources."resolve-from-5.0.0"
+      sources."shallow-clone-3.0.1"
       sources."shebang-command-2.0.0"
       sources."shebang-regex-3.0.0"
       sources."signal-exit-3.0.3"
       sources."strip-final-newline-2.0.0"
       sources."v8-compile-cache-2.2.0"
-      sources."webpack-merge-4.2.2"
+      sources."webpack-merge-5.7.3"
       sources."which-2.0.2"
+      sources."wildcard-2.0.0"
     ];
     buildInputs = globalBuildInputs;
     meta = {

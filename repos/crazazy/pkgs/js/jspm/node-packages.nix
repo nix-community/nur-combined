@@ -211,22 +211,22 @@ let
         sha512 = "oTcwoBmqpMLMp3M/f5Ji1ztX0ZwveByjH5UVwKQxCMKh3MCQ7ICcXgpznQqrnhalB7NBPae0uMx+1dtubjAIVQ==";
       };
     };
-    "@types/estree-0.0.45" = {
+    "@types/estree-0.0.46" = {
       name = "_at_types_slash_estree";
       packageName = "@types/estree";
-      version = "0.0.45";
+      version = "0.0.46";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/estree/-/estree-0.0.45.tgz";
-        sha512 = "jnqIUKDUqJbDIUxm0Uj7bnlMnRm1T/eZ9N+AVMqhPgzrba2GhGG5o/jCTwmdPK709nEZsGoMzXEDUjcXHa3W0g==";
+        url = "https://registry.npmjs.org/@types/estree/-/estree-0.0.46.tgz";
+        sha512 = "laIjwTQaD+5DukBZaygQ79K1Z0jb1bPEMRrkXSLjtCcZm+abyp5YbrqpSLzD42FwWW6gK/aS4NYpJ804nG2brg==";
       };
     };
-    "@types/node-14.14.19" = {
+    "@types/node-14.14.22" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "14.14.19";
+      version = "14.14.22";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-14.14.19.tgz";
-        sha512 = "4nhBPStMK04rruRVtVc6cDqhu7S9GZai0fpXgPXrFpcPX6Xul8xnrjSdGB4KPBVYG/R5+fXWdCM8qBoiULWGPQ==";
+        url = "https://registry.npmjs.org/@types/node/-/node-14.14.22.tgz";
+        sha512 = "g+f/qj/cNcqKkc3tFqlXOYjrmZA+jNBiDzbP3kH+B+otKFqAdPgVTGP1IeKRdMml/aE69as5S4FqtxAbl+LaMw==";
       };
     };
     "abbrev-1.1.1" = {
@@ -1921,13 +1921,13 @@ let
         sha1 = "195a21d6c46e361d2fb1281ba38b91e9df7bdbb3";
       };
     };
-    "needle-2.5.2" = {
+    "needle-2.6.0" = {
       name = "needle";
       packageName = "needle";
-      version = "2.5.2";
+      version = "2.6.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/needle/-/needle-2.5.2.tgz";
-        sha512 = "LbRIwS9BfkPvNwNHlsA41Q29kL2L/6VaOJ0qisM5lLWsTV3nP15abO5ITL6L81zqFhzjRKDAYjpcBcwM0AVvLQ==";
+        url = "https://registry.npmjs.org/needle/-/needle-2.6.0.tgz";
+        sha512 = "KKYdza4heMsEfSWD7VPUIz3zX2XDwOyX2d+geb4vrERZMT5RMU6ujjaD+I5Yr54uZxQ2w6XRTAhHBbSCyovZBg==";
       };
     };
     "netrc-0.1.4" = {
@@ -2686,13 +2686,13 @@ let
         sha1 = "3e935d7ddd73631b97659956d55128e87b5084a3";
       };
     };
-    "spdx-license-list-6.3.0" = {
+    "spdx-license-list-6.4.0" = {
       name = "spdx-license-list";
       packageName = "spdx-license-list";
-      version = "6.3.0";
+      version = "6.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/spdx-license-list/-/spdx-license-list-6.3.0.tgz";
-        sha512 = "Qz8ru5VVK5T4cFOBrshIzggzrQ15fVBcpjpZLCVz2j9KNnpslGbw8w1r06v2vi6YP6bnUSY5CXsFCfUypLZ2GA==";
+        url = "https://registry.npmjs.org/spdx-license-list/-/spdx-license-list-6.4.0.tgz";
+        sha512 = "4BxgJ1IZxTJuX1YxMGu2cRYK46Bk9zJNTK2/R0wNZR0cm+6SVl26/uG7FQmQtxoJQX1uZ0EpTi2L7zvMLboaBA==";
       };
     };
     "split-string-3.1.0" = {
@@ -2929,13 +2929,13 @@ let
         sha1 = "8376873f7d2335179ffb1e6fc3a8ed0dfc8ab559";
       };
     };
-    "uri-js-4.4.0" = {
+    "uri-js-4.4.1" = {
       name = "uri-js";
       packageName = "uri-js";
-      version = "4.4.0";
+      version = "4.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/uri-js/-/uri-js-4.4.0.tgz";
-        sha512 = "B0yRTzYdUCCn9n+F4+Gh4yIDtMQcaJsmYBDsTSG8g/OejKBodLQ2IHfN3bM7jUsRXndopT7OIXWdYqc1fjmV6g==";
+        url = "https://registry.npmjs.org/uri-js/-/uri-js-4.4.1.tgz";
+        sha512 = "7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==";
       };
     };
     "urix-0.1.0" = {
@@ -3067,8 +3067,8 @@ let
       sources."@jspm/github-1.0.4"
       sources."@jspm/npm-1.0.1"
       sources."@jspm/resolve-1.0.0"
-      sources."@types/estree-0.0.45"
-      sources."@types/node-14.14.19"
+      sources."@types/estree-0.0.46"
+      sources."@types/node-14.14.22"
       sources."abbrev-1.1.1"
       sources."acorn-7.4.1"
       sources."agent-base-4.3.0"
@@ -3325,7 +3325,7 @@ let
       sources."nan-2.14.2"
       sources."nanomatch-1.2.13"
       sources."ncp-2.0.0"
-      (sources."needle-2.5.2" // {
+      (sources."needle-2.6.0" // {
         dependencies = [
           sources."debug-3.2.7"
         ];
@@ -3464,7 +3464,7 @@ let
         ];
       })
       sources."source-map-url-0.4.0"
-      sources."spdx-license-list-6.3.0"
+      sources."spdx-license-list-6.4.0"
       sources."split-string-3.1.0"
       sources."sshpk-1.16.1"
       sources."ssri-6.0.1"
@@ -3535,7 +3535,7 @@ let
           sources."has-values-0.1.4"
         ];
       })
-      sources."uri-js-4.4.0"
+      sources."uri-js-4.4.1"
       sources."urix-0.1.0"
       sources."use-3.1.1"
       sources."util-deprecate-1.0.2"

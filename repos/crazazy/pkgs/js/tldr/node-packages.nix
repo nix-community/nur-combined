@@ -220,22 +220,22 @@ let
         sha1 = "c656051e9817d9ff08ed881477f3fe4019f3ef7d";
       };
     };
-    "follow-redirects-1.13.1" = {
+    "follow-redirects-1.13.2" = {
       name = "follow-redirects";
       packageName = "follow-redirects";
-      version = "1.13.1";
+      version = "1.13.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.1.tgz";
-        sha512 = "SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==";
+        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.2.tgz";
+        sha512 = "6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==";
       };
     };
-    "fs-extra-9.0.1" = {
+    "fs-extra-9.1.0" = {
       name = "fs-extra";
       packageName = "fs-extra";
-      version = "9.0.1";
+      version = "9.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fs-extra/-/fs-extra-9.0.1.tgz";
-        sha512 = "h2iAoN838FqAFJY2/qVpzFXy+EBxfVE220PalAqQLDVsFOHLJrZvut5puAbCdNv6WJk+B8ihI+k0c7JK5erwqQ==";
+        url = "https://registry.npmjs.org/fs-extra/-/fs-extra-9.1.0.tgz";
+        sha512 = "hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==";
       };
     };
     "fs.realpath-1.0.0" = {
@@ -373,13 +373,13 @@ let
         sha512 = "FN8JBzLx6CzeMrB0tg6pqlGU1wCrXW+ZXGH481kfsBqer0hToTIiHdjH4Mq8xJUbvATujKCvaREGWpGUionraA==";
       };
     };
-    "marked-1.2.7" = {
+    "marked-1.2.8" = {
       name = "marked";
       packageName = "marked";
-      version = "1.2.7";
+      version = "1.2.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/marked/-/marked-1.2.7.tgz";
-        sha512 = "No11hFYcXr/zkBvL6qFmAp1z6BKY3zqLMHny/JN/ey+al7qwCM2+CMBL9BOgqMxZU36fz4cCWfn2poWIf7QRXA==";
+        url = "https://registry.npmjs.org/marked/-/marked-1.2.8.tgz";
+        sha512 = "lzmFjGnzWHkmbk85q/ILZjFoHHJIQGF+SxGEfIdGk/XhiTPhqGs37gbru6Kkd48diJnEyYwnG67nru0Z2gQtuQ==";
       };
     };
     "match-stream-0.0.2" = {
@@ -436,13 +436,13 @@ let
         sha512 = "6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==";
       };
     };
-    "natural-2.4.1" = {
+    "natural-2.4.5" = {
       name = "natural";
       packageName = "natural";
-      version = "2.4.1";
+      version = "2.4.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/natural/-/natural-2.4.1.tgz";
-        sha512 = "IeRdHO578EMzq7Wzb9cDJPUAlBwYJfkpXr2ByeF7Gru4K66+mamvomjXIJ9J/Su+Kvte8si+OMzwpNu859MYaA==";
+        url = "https://registry.npmjs.org/natural/-/natural-2.4.5.tgz";
+        sha512 = "fxQou4ubo6Rzf7XL0jjwtC2vHm6Sdicu7ztcE0k1ODZs+d1UzcKF1Hu2IwE2y7OgzU3Sa9o8obw7rnyNrjsd1A==";
       };
     };
     "node-unzip-2-0.2.8" = {
@@ -472,13 +472,13 @@ let
         sha512 = "kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==";
       };
     };
-    "ora-5.2.0" = {
+    "ora-5.3.0" = {
       name = "ora";
       packageName = "ora";
-      version = "5.2.0";
+      version = "5.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ora/-/ora-5.2.0.tgz";
-        sha512 = "+wG2v8TUU8EgzPHun1k/n45pXquQ9fHnbXVetl9rRgO6kjZszGGbraF3XPTIdgeA+s1lbRjSEftAnyT0w8ZMvQ==";
+        url = "https://registry.npmjs.org/ora/-/ora-5.3.0.tgz";
+        sha512 = "zAKMgGXUim0Jyd6CXK9lraBnD3H5yPGBPPOkC23a2BG6hsm4Zu6OQSjQuEtV0BHDf4aKHcUFvJiGRrFuW3MG8g==";
       };
     };
     "over-0.0.5" = {
@@ -643,15 +643,6 @@ let
         sha512 = "21rQzss/XPMjolTiIezSu3JAjgagXKROtNrYFEOWK109qY1Uv2tVjPTZ1ci2HgvQDA16gHYSthQIJfB+XId/rQ==";
       };
     };
-    "universalify-1.0.0" = {
-      name = "universalify";
-      packageName = "universalify";
-      version = "1.0.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/universalify/-/universalify-1.0.0.tgz";
-        sha512 = "rb6X1W158d7pRQBg5gkR8uPaSfiids68LTJQYOtEUhoJUWBdaQHsuT/EUduxXYxcrt4r5PJ4fuHW1MHT6p0qug==";
-      };
-    };
     "universalify-2.0.0" = {
       name = "universalify";
       packageName = "universalify";
@@ -733,8 +724,8 @@ let
       sources."concat-map-0.0.1"
       sources."core-util-is-1.0.2"
       sources."defaults-1.0.3"
-      sources."follow-redirects-1.13.1"
-      sources."fs-extra-9.0.1"
+      sources."follow-redirects-1.13.2"
+      sources."fs-extra-9.1.0"
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"
       sources."glob-7.1.6"
@@ -746,26 +737,22 @@ let
       sources."is-interactive-1.0.0"
       sources."isarray-0.0.1"
       sources."json-stable-stringify-1.0.1"
-      (sources."jsonfile-6.1.0" // {
-        dependencies = [
-          sources."universalify-2.0.0"
-        ];
-      })
+      sources."jsonfile-6.1.0"
       sources."jsonify-0.0.0"
       sources."lodash-4.17.20"
       sources."log-symbols-4.0.0"
-      sources."marked-1.2.7"
+      sources."marked-1.2.8"
       sources."match-stream-0.0.2"
       sources."mimic-fn-2.1.0"
       sources."minimatch-3.0.4"
       sources."minimist-1.2.5"
       sources."mkdirp-0.5.5"
       sources."ms-2.1.3"
-      sources."natural-2.4.1"
+      sources."natural-2.4.5"
       sources."node-unzip-2-0.2.8"
       sources."once-1.4.0"
       sources."onetime-5.1.2"
-      sources."ora-5.2.0"
+      sources."ora-5.3.0"
       sources."over-0.0.5"
       sources."path-is-absolute-1.0.1"
       sources."pullstream-0.4.1"
@@ -782,7 +769,7 @@ let
       sources."sylvester-0.0.12"
       sources."traverse-0.3.9"
       sources."underscore-1.12.0"
-      sources."universalify-1.0.0"
+      sources."universalify-2.0.0"
       sources."util-deprecate-1.0.2"
       sources."wcwidth-1.0.1"
       sources."wordnet-db-3.1.14"
