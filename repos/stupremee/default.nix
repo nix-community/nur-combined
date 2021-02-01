@@ -18,4 +18,5 @@ rec {
   # veloren = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/veloren { });
 
   ddlog = pkgs.callPackage ./pkgs/ddlog { };
+  askii = pkgs.callPackage ./pkgs/askii { };
 }
