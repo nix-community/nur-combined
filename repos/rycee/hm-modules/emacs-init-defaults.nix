@@ -1,6 +1,6 @@
 # A collection of "uncontroversial" configurations for selected packages.
 
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   programs.emacs.init.usePackage = {
@@ -25,6 +25,15 @@
     dockerfile-mode = { mode = [ ''"Dockerfile\\'"'' ]; };
 
     elm-mode = { mode = [ ''"\\.elm\\'"'' ]; };
+
+    emacsql-sqlite3 = {
+      enable =
+        lib.mkDefault config.programs.emacs.init.usePackage.org-roam.enable;
+      defer = lib.mkDefault true;
+      config = ''
+        (setq emacsql-sqlite3-executable "${pkgs.sqlite}/bin/sqlite3")
+      '';
+    };
 
     ggtags = {
       config = ''
