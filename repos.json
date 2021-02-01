@@ -120,6 +120,9 @@
         "extends": {
             "url": "https://github.com/ImExtends/nur-packages-template"
         },
+        "fendse": {
+            "url": "https://github.com/fendse/nur"
+        },
         "fgaz": {
             "url": "https://github.com/fgaz/nur-packages"
         },
