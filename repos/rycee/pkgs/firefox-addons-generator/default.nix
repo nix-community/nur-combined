@@ -1,14 +1,14 @@
-{ mkDerivation, aeson, base-noprelude, directory, fetchgit, hnix
+{ mkDerivation, aeson, base-noprelude, directory, fetchFromGitLab, hnix
 , microlens-aeson, microlens-platform, relude, stdenv, text, wreq }:
 
 mkDerivation rec {
   pname = "nixpkgs-firefox-addons";
-  version = "0.7.0";
-  src = fetchgit {
-    url = "https://gitlab.com/rycee/nixpkgs-firefox-addons";
-    sha256 = "1kva943vzbkpn3x8fi5xclwhcg3m0s74i9bzsvn3q6fwsz3xd10i";
+  version = "0.8.0";
+  src = fetchFromGitLab {
+    owner = "rycee";
+    repo = "nixpkgs-firefox-addons";
     rev = "v${version}";
-    fetchSubmodules = false;
+    sha256 = "0f5d1r4vvxpa3rv3kyahaidm6mv39ip1d1fdkc5c0a38qcc5chvq";
   };
   isLibrary = false;
   isExecutable = true;
