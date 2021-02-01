@@ -1,0 +1,12 @@
+--- i/ubuntu/urw.desktop
++++ w/ubuntu/urw.desktop
+@@ -3,8 +3,8 @@ X-SuSE-translate=false
+ Name=UrW
+ GenericName=UnReal World
+ Comment=UnReal World is a unique low-fantasy roguelike game set in the far north during the late Iron-Age
+ Exec=urw
+-Icon=urwicon-48
++Icon=urwicon
+ Terminal=false
+ Type=Application
+ Categories=Game;ArcadeGame;

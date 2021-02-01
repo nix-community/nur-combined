@@ -1,0 +1,76 @@
+--- i/ubuntu/urw
++++ w/ubuntu/urw
+@@ -30,35 +30,12 @@
+ 
+ 
+ IFS=$'\n'
+-URW_OS=$(uname)
+ URW_BIN="urw3-bin"
+-URW_VERSION="3.62"
+-
+-if [ "${URW_OS}" == "Linux" ]; then
+-   echo " > Running under: Linux"
+-   URW_HOME="${HOME}/.config/urw3-$(uname)"
+-   if [ -d "/usr/share/urw3" ]; then
+-     URW_DATA="/usr/share/urw3"
+-     URW_BIN_DIR="/usr/bin"
+-   else
+-     echo "You probably are UBUNTU PPA user!"
+-     URW_DATA="/opt/urw3"
+-     URW_BIN_DIR="/opt/urw3"
+-   fi
+-fi
+-
+-if [ "${URW_OS}" == "Darwin" ]; then
+-   echo " > Running under: Mac OS (X)"
+-   URW_HOME="${HOME}/Library/Application Support/urw3-$(uname)"
+-   URW_APP_LOCATION="$(dirname "$0")/.."
+-   if [ "${URW_APP_LOCATION}" == "./.." ]; then
+-      URW_APP_LOCATION="$(pwd)/.."
+-   fi
+-
+-   URW_DATA="${URW_APP_LOCATION}/Resources"
+-   URW_BIN_DIR="${URW_APP_LOCATION}/Resources"
+-fi
++URW_VERSION="@version@"
+ 
++URW_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/UnRealWorld"
++URW_DATA="@out@/share/unreal-world"
++URW_BIN_DIR="@out@/share/unreal-world"
+ 
+ URW_HOME_GFX="${URW_HOME}/truegfx"
+ URW_HOME_TILE="${URW_HOME}/truetile"
+@@ -106,21 +83,26 @@ do
+ done
+ 
+ # Then go to home dir
+-if [ -d "${URW_HOME}" ]
++if [ ! -d "${URW_HOME}" ]
+ then
+-    cd "${URW_HOME}"
+-else
+-    echo " ! Can't find directory '${URW_HOME}' exiting!"
+-    exit 1
++    if [ -e "${URW_HOME}" ]
++    then
++        echo " ! Creating data directory at: '${URW_HOME}'"
++        mkdir -p "${URW_HOME}"
++    else
++        echo " ! '${URW_HOME}' exists but is not a directory, exiting!"
++        exit 1
++    fi
+ fi
++cd "${URW_HOME}"
+ 
+ #
+-# We have to sanitaze old links that
++# We have to sanitize old links so that
+ # URW doesn't crash on start
+ #
+ for FILE in $(find -L "${URW_HOME}" -type l)
+ do
+-  echo " ! Can't find linked file '${FILE}': remove old link"
++  echo " ! Removing dangling symbolic link: '${FILE}'"
+   rm -f "${FILE}"
+ done
+ 
