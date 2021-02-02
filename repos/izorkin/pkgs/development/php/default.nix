@@ -343,6 +343,7 @@ in {
       # Backport security bug patches
       ./patch/php56/php5640-75457.patch
       ./patch/php56/php5640-76846.patch
+      ./patch/php56/php5640-77423.patch
       ./patch/php56/php5640-77540.patch
       ./patch/php56/php5640-77563.patch
       ./patch/php56/php5640-77630.patch
@@ -390,6 +391,7 @@ in {
       # Openssl cert updates
       ./patch/php71/php7133-php-openssl-cert.patch
       # Backport security bug patches
+      ./patch/php71/php7133-77423.patch
       ./patch/php71/php7133-77569.patch
       ./patch/php71/php7133-78793.patch
       ./patch/php71/php7133-78862.patch
@@ -423,6 +425,10 @@ in {
     extraPatches = [
       # PKG_CONFIG need not be a relative path
       ./patch/fix-paths-pkgconfig-php72.patch
+      # mysqlnd fix patch for MariaDB
+      ./patch/php72/php72-mysqlnd-fix.patch
+      # Backport security bug patches
+      ./patch/php72/php7234-77423.patch
     ]
       # https://bugs.php.net/bug.php?id=76826
       ++ optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
