@@ -10,6 +10,5 @@ python3Packages.buildPythonPackage {
     inherit (sources.pyephem) description homepage;
     license = licenses.lgpl3;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

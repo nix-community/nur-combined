@@ -20,6 +20,5 @@ python3Packages.buildPythonPackage {
     inherit (sources.maprec) description homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

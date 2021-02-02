@@ -12,6 +12,5 @@ python3Packages.buildPythonPackage {
     inherit (sources.bson) description homepage;
     license = with licenses; [ bsd3 asl20 ];
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

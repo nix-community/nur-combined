@@ -14,6 +14,5 @@ python3Packages.buildPythonPackage {
     inherit (sources.mikatools) description homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

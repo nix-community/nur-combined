@@ -2,18 +2,16 @@
 
 stdenv.mkDerivation {
   pname = "lacc";
-  version = "20201-01-03";
+  version = "2021-01-31";
 
   src = fetchFromGitHub {
     owner = "larmel";
     repo = "lacc";
-    rev = "7c995af815a8e4b44f628021fe0b0a1e84d832c2";
-    sha256 = "0mrzfw93n05pqdr0ww46h9nv73dbh4q8pm13qw7i8a2psfgk858d";
+    rev = "70436fe2e7ba21ce3a8c43decc99f2b4e8cf1c9f";
+    sha256 = "0swh28xlmirbz1m3iwgqmcnhi8bvvnjkqcg9bnfzqn5x7lhjpr1v";
   };
 
   installFlags = [ "PREFIX=$(out)" ];
-
-  preInstall = "mkdir -p $out/bin";
 
   meta = with stdenv.lib; {
     description = "A simple, self-hosting C compiler";

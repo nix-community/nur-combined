@@ -208,21 +208,24 @@ lib.makeScope newScope (
     gmnisrv = callPackage ./gemini/gmnisrv { };
     gurl = callPackage ./gemini/gurl { };
     kiln = callPackage ./gemini/kiln { };
+    kineto = callPackage ./gemini/kineto { };
     md2gemini = callPackage ./gemini/md2gemini { };
     shavit = callPackage ./gemini/shavit { };
 
     ### IMAGES
 
-    docker-elevation_server = callPackage ./images/elevation_server { };
-    docker-git = callPackage ./images/git {
-      git = pkgs.gitMinimal.override {
-        perlSupport = false;
-        nlsSupport = false;
+    dockerImages = {
+      elevation_server = callPackage ./images/elevation_server { };
+      git = callPackage ./images/git {
+        git = pkgs.gitMinimal.override {
+          perlSupport = false;
+          nlsSupport = false;
+        };
       };
+      mbtileserver = callPackage ./images/mbtileserver { };
+      quark = callPackage ./images/quark { };
+      wekan = callPackage ./images/wekan { };
     };
-    docker-mbtileserver = callPackage ./images/mbtileserver { };
-    docker-quark = callPackage ./images/quark { };
-    docker-wekan = callPackage ./images/wekan { };
 
     ### MISC
 
@@ -236,7 +239,6 @@ lib.makeScope newScope (
       inherit sources;
     };
     ptunnel = callPackage ./misc/ptunnel { };
-    supload = callPackage ./misc/supload { };
     taskcoach = callPackage ./misc/taskcoach { };
     xfractint = callPackage ./misc/xfractint { };
 
@@ -278,5 +280,6 @@ lib.makeScope newScope (
     scroll = callPackage ./suckless/scroll { };
     sfeed = callPackage ./suckless/sfeed { };
     stagit = callPackage ./suckless/stagit { };
+    xprompt = callPackage ./suckless/xprompt { };
   }
 )

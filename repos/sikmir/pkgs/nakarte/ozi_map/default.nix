@@ -18,6 +18,5 @@ python3Packages.buildPythonPackage {
     inherit (sources.ozi-map) description homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

@@ -16,6 +16,5 @@ python3Packages.buildPythonPackage {
     inherit (sources.s2sphere) description homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

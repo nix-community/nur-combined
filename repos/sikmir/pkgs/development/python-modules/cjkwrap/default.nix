@@ -14,6 +14,5 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://f.gallai.re/cjkwrap";
     license = licenses.lgpl3Plus;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

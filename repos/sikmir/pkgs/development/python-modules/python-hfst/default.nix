@@ -15,6 +15,5 @@ python3Packages.buildPythonPackage {
     homepage = "https://github.com/hfst/python/wiki";
     license = hfst.meta.license;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

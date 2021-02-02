@@ -19,6 +19,5 @@ python3Packages.buildPythonPackage {
     inherit (sources.thinplatespline) description homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

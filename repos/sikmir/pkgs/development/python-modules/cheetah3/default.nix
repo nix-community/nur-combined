@@ -20,6 +20,5 @@ python3Packages.buildPythonPackage {
     inherit (sources.cheetah3) description homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

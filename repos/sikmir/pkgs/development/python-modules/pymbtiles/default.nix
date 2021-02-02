@@ -12,6 +12,5 @@ python3Packages.buildPythonPackage {
     inherit (sources.pymbtiles) description homepage;
     license = licenses.isc;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

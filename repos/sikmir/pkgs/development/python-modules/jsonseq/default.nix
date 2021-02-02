@@ -12,6 +12,5 @@ python3Packages.buildPythonPackage {
     inherit (sources.jsonseq) description homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

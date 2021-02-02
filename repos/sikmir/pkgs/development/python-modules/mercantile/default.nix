@@ -14,6 +14,5 @@ python3Packages.buildPythonPackage {
     inherit (sources.mercantile) description homepage;
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

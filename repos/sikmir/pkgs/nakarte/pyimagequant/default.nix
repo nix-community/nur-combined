@@ -21,6 +21,5 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/wladich/pyimagequant";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }
