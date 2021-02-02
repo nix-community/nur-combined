@@ -1,7 +1,14 @@
 name: "Build and populate cache"
 on:
   pull_request:
+    paths:
+      - "**.nix"
+      - .github/workflows/build.yml
   push:
+    branches: [master]
+    paths:
+      - "**.nix"
+      - .github/workflows/build.yml
   schedule:
     # Random time so not all repositories are build at once:
     - cron: "10 1 * * *"
@@ -9,10 +16,8 @@ jobs:
   tests:
     strategy:
       matrix:
-        nurRepo:
-          - j-k
-        cachixName:
-          - j-k-nur
+        nurRepo: [j-k]
+        cachixName: [j-k-nur]
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
@@ -29,7 +34,7 @@ jobs:
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
       - name: Setup cachix
         uses: cachix/cachix-action@v8
-        if: ${{ matrix.cachixName == 'j-k-nur' }}
+        if: matrix.cachixName == 'j-k-nur'
         with:
           name: ${{ matrix.cachixName }}
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
@@ -45,5 +50,5 @@ jobs:
       - name: Build nix packages
         run: nix run nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
       - name: Trigger NUR update
-        if: ${{ matrix.nurRepo == 'j-k' }}
+        if: matrix.nurRepo == 'j-k' && github.ref == 'refs/heads/master'
         run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
