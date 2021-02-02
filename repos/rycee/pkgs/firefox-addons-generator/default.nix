@@ -1,5 +1,5 @@
-{ mkDerivation, aeson, base-noprelude, directory, fetchFromGitLab, hnix
-, microlens-aeson, microlens-platform, relude, stdenv, text, wreq }:
+{ aeson, base-noprelude, directory, fetchFromGitLab, hnix, lib, microlens-aeson
+, microlens-platform, mkDerivation, relude, text, wreq }:
 
 mkDerivation rec {
   pname = "nixpkgs-firefox-addons";
@@ -26,6 +26,6 @@ mkDerivation rec {
   ];
   homepage = "https://gitlab.com/rycee/nix-firefox-addons";
   description = "Tool generating a Nix package set of Firefox addons";
-  license = stdenv.lib.licenses.gpl3;
-  maintainers = with stdenv.lib.maintainers; [ rycee ];
+  license = lib.licenses.gpl3;
+  maintainers = with lib.maintainers; [ rycee ];
 }

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, pkg-config, dbus }:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, dbus }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dbus-codegen-rust";
@@ -12,11 +12,10 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoPatches = [ ./cargo-lock.patch ];
-  cargoSha256 = with stdenv;
-    if lib.versionAtLeast lib.version "20.09pre" then
-      "0hwsw3m5hb9ig1dyhnr5w1fi83a4h4drvrqi3c53409bhb6mkyhb"
-    else
-      "1zswkz6zfys4n1crjzfldds17l9w6sjxafk17sddi3q3v7ghfxpc";
+  cargoSha256 = if lib.versionAtLeast lib.version "20.09pre" then
+    "0hwsw3m5hb9ig1dyhnr5w1fi83a4h4drvrqi3c53409bhb6mkyhb"
+  else
+    "1zswkz6zfys4n1crjzfldds17l9w6sjxafk17sddi3q3v7ghfxpc";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ dbus ];
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     $out/bin/dbus-codegen-rust --version
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "D-Bus binding for the Rust language";
     homepage = "https://github.com/diwic/dbus-rs";
     license = licenses.asl20;
