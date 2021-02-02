@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub
+{ stdenv, lib, fetchFromGitHub
 , deadbeef, glib, gtk3, sqlite
 , pkgconfig
 }:
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Waveform Seekbar plugin for DeaDBeeF audio player";
     homepage = https://github.com/cboxdoerfer/ddb_waveform_seekbar;
     license = licenses.gpl2Plus;

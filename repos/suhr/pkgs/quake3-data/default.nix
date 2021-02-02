@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, requireFile }:
+{ stdenv, lib, fetchurl, requireFile }:
 
 stdenv.mkDerivation rec {
   name = "quake3-data-${version}";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   preferLocalBuild = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Quake 3 Arena content (pak0.pk3)";
     license = licenses.unfree;
     platforms = platforms.all;

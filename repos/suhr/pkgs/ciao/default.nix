@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "ciao";
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     ./ciao-boot.sh install
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     website = "https://ciao-lang.org/";
     description = "A general purpose, multi-paradigm programming language in the Prolog family";
     license = licenses.lgpl2;

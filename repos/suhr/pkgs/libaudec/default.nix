@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub
+{ stdenv, lib, fetchFromGitHub
 , libsndfile, libsamplerate
 , meson, ninja, pkgconfig
 }:
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ libsndfile libsamplerate ];
   nativeBuildInputs = [ meson ninja pkgconfig ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://www.zrythm.org";
     description = "A library for reading and resampling audio files";
     license = licenses.agpl3Plus;

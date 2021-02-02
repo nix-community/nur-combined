@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform }:
+{ stdenv, lib, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "augr";
@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0ajhwjsll88i9gr1wq2hcmyi7y6zyc96pbmz8siwcnnsv36m2wb3";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     broken = true;
 
     description = "A simple command line time tracker";

@@ -35,7 +35,7 @@ in
         --prefix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
     '';
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "A field-theory motivated approach to computer algebra";
       homepage = https://cadabra.science/;
       license = licenses.gpl3;

@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake
-}:
+{ stdenv, lib, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "reproc";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     "-DREPROC_TEST=ON"
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/DaanDeMeyer/reproc";
     description = "A cross-platform (C99/C++11) process library";
     license = licenses.mit;

@@ -27,7 +27,7 @@ in
       && !(
         (builtins.hasAttr "meta" p)
         && (builtins.hasAttr "license" p.meta)
-        && (p.meta.license == pkgs.stdenv.lib.licenses.unfree)
+        && (p.meta.license == pkgs.lib.licenses.unfree)
       )
     )
    (import ./default.nix { inherit pkgs; })

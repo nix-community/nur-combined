@@ -1,4 +1,4 @@
-{ stdenv, rustPlatform, fetchFromGitHub
+{ stdenv, lib, rustPlatform, fetchFromGitHub
 , portmidi
 }:
 
@@ -26,7 +26,7 @@ in
       runHook preInstall
 
       install -D target/release/mimi $out/bin/mimi
-      patchelf --set-rpath "${stdenv.lib.makeLibraryPath rpathLibs}" $out/bin/mimi
+      patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/mimi
 
       runHook postInstall
     '';
@@ -36,7 +36,7 @@ in
 
     cargoSha256 = "1ii3j1y7akc0mhgdb63rvpxhd1apsi6b6isymbl073m4ssz7qg9x";
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       broken = true;
 
       description = "Tricesimoprimal Keyboard";

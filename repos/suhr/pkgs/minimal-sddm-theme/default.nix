@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub
+{ stdenv, lib, fetchurl, fetchFromGitHub
 }:
 
 stdenv.mkDerivation rec {
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     mv * $out/share/sddm/themes/minimal-sddm-theme
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Minimal theme for sddm display manager";
     homepage = https://github.com/egdoc/minimal-sddm-theme;
     license = licenses.unfree;

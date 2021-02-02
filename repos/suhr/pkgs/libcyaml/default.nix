@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub
+{ stdenv, lib, fetchFromGitHub
 , libyaml
 }:
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "VARIANT=release" "PREFIX=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/tlsa/libcyaml";
     description = "C library for reading and writing YAML";
     license = licenses.isc;

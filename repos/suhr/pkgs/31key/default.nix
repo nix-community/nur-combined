@@ -1,4 +1,4 @@
-{ stdenv, rustPlatform, fetchFromGitHub
+{ stdenv, lib, rustPlatform, fetchFromGitHub
 , xorg, libGL, portmidi
 }:
 
@@ -26,7 +26,7 @@ in
       runHook preInstall
 
       install -D target/release/31key $out/bin/31key
-      patchelf --set-rpath "${stdenv.lib.makeLibraryPath rpathLibs}" $out/bin/31key
+      patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/31key
 
       runHook postInstall
     '';
@@ -36,7 +36,7 @@ in
 
     cargoSha256 = "1cms7c35z7sqh3952gvqmz9c9pbwg1c0wzgyg4sbc4xw9crx96iy";
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       broken = true;
 
       description = "Tricesimoprimal Keyboard";
