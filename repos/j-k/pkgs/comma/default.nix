@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , makeWrapper
 , fetchgit
 
@@ -36,18 +37,18 @@ stdenv.mkDerivation rec {
 
   installPhase =
     let
-      caseCondition = stdenv.lib.concatStringsSep "|" (overlayPackages ++ [ "--placeholder--" ]);
+      caseCondition = lib.concatStringsSep "|" (overlayPackages ++ [ "--placeholder--" ]);
     in
     ''
       mkdir -p $out/bin
       sed -e 's/@OVERLAY_PACKAGES@/${caseCondition}/' < , > $out/bin/${pname}
       chmod +x $out/bin/${pname}
       wrapProgram "$out/bin/${pname}" \
-        --set PATH ${stdenv.lib.makeBinPath dependencies}
+        --set PATH ${lib.makeBinPath dependencies}
       ln -s $out/bin/${pname} $out/bin/,
     '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Comma runs software without installing it.";
     longDescription = ''
       Basically it just wraps together nix run and nix-index.

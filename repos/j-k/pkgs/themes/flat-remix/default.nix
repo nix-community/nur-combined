@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gtk-engine-murrine }:
+{ stdenv, lib, fetchFromGitHub, gtk-engine-murrine }:
 
 stdenv.mkDerivation rec {
   pname = "flat-remix-theme";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A GTK application theme inspired by material design.";
     longDescription = ''
       Flat Remix is a GTK application theme inspired by material design.

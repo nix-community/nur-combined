@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , rustPlatform
 , fetchgit
 , IOKit ? null
@@ -31,17 +32,18 @@ rustPlatform.buildRustPackage rec {
     gst_all_1.gst-plugins-ugly
     gst_all_1.gst-plugins-bad
     libsixel
-  ] ++ stdenv.lib.optionals stdenv.isDarwin [ IOKit ];
+  ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
 
   postInstall = ''
     wrapProgram $out/bin/hunter --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The fastest file manager in the galaxy - rust stable fork";
     homepage = "https://github.com/06kellyjac/hunter/tree/hunter_rust_stable_updated";
     license = licenses.wtfpl;
     maintainers = with maintainers; [ jk ];
     platforms = platforms.unix;
+    broken = true; # https://github.com/NixOS/nixpkgs/pull/111579
   };
 }
