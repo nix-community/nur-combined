@@ -225,7 +225,7 @@ let
       "--with-event-pthreads"
     ];
 
-    nativeBuildInputs = with pkgs; [ pkgconfig ];
+    nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [ openssl libevent ];
 
     meta = with pkgs.lib; {
@@ -282,7 +282,7 @@ let
       "--with-imagick=${imagemagick.dev}"
     ];
 
-    nativeBuildInputs = with pkgs; [ pkgconfig ];
+    nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
     meta.broken = isPhp80;
@@ -372,7 +372,7 @@ let
       "--with-libmemcached-dir=${libmemcached}"
     ];
 
-    nativeBuildInputs = with pkgs; [ pkgconfig ];
+    nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [ cyrus_sasl zlib ];
 
     meta.broken = !isPhp56;
@@ -393,7 +393,7 @@ let
       "--with-libmemcached-dir=${libmemcached}"
     ];
 
-    nativeBuildInputs = with pkgs; [ pkgconfig ];
+    nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [ cyrus_sasl zlib ];
 
     meta.broken = isPhp56;
@@ -407,7 +407,7 @@ let
 
     sha256 = "0yf3h70iqdk3b8va4i15la8whq8q91gip6crh9ibxs0aiihhg2p4";
 
-    nativeBuildInputs = with pkgs; [ pkgconfig ];
+    nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [
       cyrus_sasl
       icu
@@ -426,7 +426,7 @@ let
 
     sha256 = "16mbw3p80qxsj86nmjbfch8wv6jaq8wbz4rlpmixvhj9nwbp37hs";
 
-    nativeBuildInputs = with pkgs; [ pkgconfig ];
+    nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [
       cyrus_sasl
       icu
@@ -1008,7 +1008,7 @@ let
       "--with-yaml=${libyaml}"
     ];
 
-    nativeBuildInputs = with pkgs; [ pkgconfig ];
+    nativeBuildInputs = with pkgs; [ pkg-config ];
 
     meta.broken = !isPhp56;
   };
@@ -1023,7 +1023,7 @@ let
       "--with-yaml=${libyaml}"
     ];
 
-    nativeBuildInputs = with pkgs; [ pkgconfig ];
+    nativeBuildInputs = with pkgs; [ pkg-config ];
 
     meta.broken = isPhp56;
   };
@@ -1038,7 +1038,7 @@ let
       "--with-zmq=${zeromq}"
     ];
 
-    nativeBuildInputs = with pkgs; [ pkgconfig ];
+    nativeBuildInputs = with pkgs; [ pkg-config ];
 
     meta.broken = isPhp73;
   };

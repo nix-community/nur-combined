@@ -1,5 +1,5 @@
 { config, lib, stdenv, fetchFromGitHub
-, autoconf, automake, file, flex, libtool, pkgconfig, re2c
+, autoconf, automake, file, flex, libtool, pkg-config, re2c
 , bison2, bison, php-pearweb-phars
 , apacheHttpd, libargon2, systemd, system-sendmail, valgrind
 , freetds, bzip2, curl, openssl
@@ -96,7 +96,7 @@ let
       enableParallelBuilding = true;
 
       nativeBuildInputs = [
-        autoconf automake file flex libtool pkgconfig re2c
+        autoconf automake file flex libtool pkg-config re2c
       ] ++ optional (versionOlder version "7.0") bison2
         ++ optional (versionAtLeast version "7.0") bison;
 

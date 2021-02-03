@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, makeWrapper, ncurses
+{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, pkg-config, makeWrapper, ncurses
 , libiconv, openssl, pcre, boost, judy, bison, libxml2, libkrb5, linux-pam, curl
 , libaio, libevent, jemalloc450, jemalloc, cracklib, systemd, perl
 , bzip2, lz4, lzo, snappy, xz, zlib, zstd
@@ -34,7 +34,7 @@ common = rec { # attributes common to both builds
     name   = "mariadb-${version}.tar.gz";
   };
 
-  nativeBuildInputs = [ cmake pkgconfig ]
+  nativeBuildInputs = [ cmake pkg-config ]
     ++ optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = [

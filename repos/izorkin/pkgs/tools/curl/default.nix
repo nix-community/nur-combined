@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, pkgconfig, perl
+{ lib, stdenv, fetchurl, pkg-config, perl
 , http2Support ? true, nghttp2
 , idnSupport ? false, libidn ? null
 , ldapSupport ? false, openldap ? null
@@ -7,7 +7,8 @@
 , gnutlsSupport ? false, gnutls ? null
 , wolfsslSupport ? false, wolfssl ? null
 , scpSupport ? zlibSupport && !stdenv.isSunOS && !stdenv.isCygwin, libssh2 ? null
-, gssSupport ? !stdenv.hostPlatform.isWindows, libkrb5 ? null
+, # a very sad story re static: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=439039
+  gssSupport ? with stdenv.hostPlatform; !isWindows && !isStatic, libkrb5 ? null
 , c-aresSupport ? false, c-ares ? null
 , brotliSupport ? false, brotli ? null
 , ipv6Support ? true
@@ -35,14 +36,14 @@ assert gssSupport -> libkrb5 != null;
 
 stdenv.mkDerivation rec {
   pname = "curl";
-  version = "7.74.0";
+  version = "7.75.0";
 
   src = fetchurl {
     urls = [
       "https://curl.haxx.se/download/${pname}-${version}.tar.bz2"
       "https://github.com/curl/curl/releases/download/${lib.replaceStrings ["."] ["_"] pname}-${version}/${pname}-${version}.tar.bz2"
     ];
-    sha256 = "19bp3d91xq9vqwlbzq261j23mk9lz4lyka4gr2fm6dhnd3k66k8g";
+    sha256 = "09nh2srzz7l6045fbx5v35nkssj6gx4crbmsd36f8y61052jsmah";
   };
 
   outputs = [ "bin" "dev" "out" "man" "devdoc" ];
@@ -50,7 +51,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ pkgconfig perl ];
+  nativeBuildInputs = [ pkg-config perl ];
 
   # Zlib and OpenSSL must be propagated because `libcurl.la' contains
   # "-lz -lssl", which aren't necessary direct build inputs of
