@@ -53,6 +53,9 @@
         "chagra": {
             "url": "https://github.com/ihebchagra/nur-packages"
         },
+        "chisui": {
+            "url": "https://github.com/chisui/nur-pkgs"
+        },
         "chrisoboe": {
             "url": "https://github.com/ChrisOboe/nurrepo"
         },
