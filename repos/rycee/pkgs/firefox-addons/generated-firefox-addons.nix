@@ -49,10 +49,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.3.7";
+      version = "0.4.0";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3610821/auto_tab_discard-0.3.7-an+fx.xpi";
-      sha256 = "8d1d145d4063f14022576f91789d9cbb48fd9c1874c335a7b0c858ae9d404f6f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3719384/auto_tab_discard-0.4.0-an+fx.xpi";
+      sha256 = "a62b81c3c6cca626f175de0eed7fd2d53c3cd4d8c66505547077190df5680882";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -555,10 +555,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.63.0.3";
+      version = "4.64.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3708976/lastpass_password_manager-4.63.0.3-an+fx.xpi";
-      sha256 = "a932ed795e722a6c422799f7941468a2caf7d7f86a9839602dfb1b7d42063c18";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3719125/lastpass_password_manager-4.64.0.3-an+fx.xpi";
+      sha256 = "1a3abdd6133f0c36a5ab508319ec423e78c26aef5280b523b2a4bf45e4bd1271";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -740,10 +740,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2020.12.10";
+      version = "2021.2.2";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3691765/privacy_badger-2020.12.10-an+fx.xpi";
-      sha256 = "635ded379b5c3259d7bf0997689215bcb0f1bbb77f9289f33b0c01b0cddc7ff0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3719726/privacy_badger-2021.2.2-an+fx.xpi";
+      sha256 = "a9ab465df193e474416844d968ed36991e855b2bd9d965624045cd73373651a6";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
