@@ -1,0 +1,15 @@
+[submodule "dep/depot"]
+	path = dep/depot
+	url = https://code.tvl.fyi
+[submodule "dep/emacs"]
+	path = dep/emacs
+	url = https://github.com/crazazy/emacs
+[submodule "dep/emacs-overlay"]
+	path = dep/emacs-overlay
+	url = https://github.com/nix-community/emacs-overlay
+[submodule "dep/user-pkgs"]
+	path = dep/user-pkgs
+	url = https://github.com/nix-community/nur-combined
+[submodule "dep/nixpkgs"]
+	path = dep/nixpkgs
+	url = https://github.com/nixos/nixpkgs
