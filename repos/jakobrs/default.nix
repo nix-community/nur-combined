@@ -21,23 +21,19 @@ rec {
 
   obs-studio-wayland = pkgs.obs-studio.overrideAttrs (old: {
     pname = "obs-studio-wayland-unstable";
-    version = "2021-01-28";
+    version = "2021-02-02";
 
     src = pkgs.fetchFromGitHub {
       owner = "obsproject";
       repo = "obs-studio";
-      rev = "1c99cad33d478b090f8228a815de32ff4c6634fe";
-      sha256 = "16lyv0h9p8n8fhpmrjb2rwqh1siklvvb1hzd3s4z6aim629m9h9y";
+      rev = "31a9dc384dfa217b0ee54420cb977fd7f18d8cce";
+      hash = "sha256:0zjdwc59nz64hy90bncbvmw7vl6gsb96b8sk894cb21gks7fayyc";
     };
 
     buildInputs = old.buildInputs ++ [ pkgs.wayland ];
 
     patches = [
       ./pkgs/obs-studio-wayland/obs.patch
-      #(pkgs.fetchpatch {
-      #  url = "https://patch-diff.githubusercontent.com/raw/obsproject/obs-studio/pull/3338.patch";
-      #  sha256 = "0z374pymwgyl25c6ldbd6f1hjqsl4g4mp7h9rfcpfwjmsa93z1cg";
-      #})
     ];
   });
 }

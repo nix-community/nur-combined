@@ -1,4 +1,4 @@
-From ff47199080cc3ceb9e2660e0fc872479cc68abef Mon Sep 17 00:00:00 2001
+From ccc8229abaaf3a89de093bc2981260011b3056a5 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Mon, 9 Mar 2020 13:10:16 -0300
 Subject: [PATCH 01/23] deps-glad: Add EGL
@@ -563,10 +563,10 @@ index 000000000..e3cd1fc29
 +}
 +
 -- 
-2.30.0
+2.29.2
 
 
-From dd5d58ccdc2dba90ea6e25253dfb7bcbb44e9c32 Mon Sep 17 00:00:00 2001
+From 72be5628411944337878a0fd85ff3a0bf2ab65e8 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Mon, 9 Mar 2020 13:19:31 -0300
 Subject: [PATCH 02/23] libobs-opengl: Rename gl-x11.c to gl-x11-glx.c
@@ -599,10 +599,10 @@ similarity index 100%
 rename from libobs-opengl/gl-x11.c
 rename to libobs-opengl/gl-x11-glx.c
 -- 
-2.30.0
+2.29.2
 
 
-From 6db805c0f34284c0d77ff2e91fca789477ef6137 Mon Sep 17 00:00:00 2001
+From 98423fa165ab765f8d5e46b9d63272ec8e1b42d2 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Mon, 9 Mar 2020 16:46:37 -0300
 Subject: [PATCH 03/23] libobs-opengl: Factor out GLX winsys
@@ -1003,10 +1003,10 @@ index 000000000..bdedf55c5
 +
 +const struct gl_winsys_vtable *gl_x11_glx_get_winsys_vtable(void);
 -- 
-2.30.0
+2.29.2
 
 
-From 33800d3281c497e24006c114e98623842643d661 Mon Sep 17 00:00:00 2001
+From e8a9bbc1f6b1f0f0c9f0494ef5c864a7e375ca3a Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Mon, 9 Mar 2020 17:35:49 -0300
 Subject: [PATCH 04/23] libobs-opengl: Introduce the X11/EGL winsys
@@ -1749,10 +1749,10 @@ index 000000000..44ab31116
 +
 +const struct gl_winsys_vtable *gl_x11_egl_get_winsys_vtable(void);
 -- 
-2.30.0
+2.29.2
 
 
-From 8c8959a880d13bf2f572059a79f094a543d6b516 Mon Sep 17 00:00:00 2001
+From e8f87171b6c64327c70c7cfd94f1bdbd6acbee56 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Sat, 11 Apr 2020 23:49:05 -0300
 Subject: [PATCH 05/23] deps/glad: Make X11 required as well
@@ -1776,10 +1776,10 @@ index 60b3ad417..83f4efac5 100644
  endif()
  
 -- 
-2.30.0
+2.29.2
 
 
-From 8fcc5bf809e89475252438c5285d15b69172dc9e Mon Sep 17 00:00:00 2001
+From 345177f60ae8e2908c3c854907e9682fc262c38a Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Fri, 6 Mar 2020 16:22:01 -0300
 Subject: [PATCH 06/23] ci: Install qtbase5-private-dev on Linux
@@ -1816,10 +1816,10 @@ index 28f558caf..6f403eb45 100755
          swig \
          linux-generic \
 -- 
-2.30.0
+2.29.2
 
 
-From 66a191c6e35f60ef941fff7e16b3bff0a26cde8a Mon Sep 17 00:00:00 2001
+From 0e0932ad27f0f37f14fd9d98be42db1f45e25e35 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Fri, 6 Mar 2020 17:24:33 -0300
 Subject: [PATCH 07/23] libobs/nix: Move X11-specific code to obs-nix-x11.c
@@ -1847,7 +1847,7 @@ a new function to retrieve the X11 hotkeys vtable.
  create mode 100644 libobs/obs-nix.h
 
 diff --git a/libobs/CMakeLists.txt b/libobs/CMakeLists.txt
-index a0d390fcb..b03bcab79 100644
+index 5eb3042f7..ea5250e1a 100644
 --- a/libobs/CMakeLists.txt
 +++ b/libobs/CMakeLists.txt
 @@ -187,6 +187,7 @@ elseif(APPLE)
@@ -4500,10 +4500,10 @@ index 000000000..46eb9f3d3
 +}
 +#endif
 -- 
-2.30.0
+2.29.2
 
 
-From 0120811810000cdb7130f6edecd47090ca526b4a Mon Sep 17 00:00:00 2001
+From e442402442db85f1abe0cbdbab181855d044c9f7 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Fri, 6 Mar 2020 17:50:41 -0300
 Subject: [PATCH 08/23] libobs: Introduce the concept of a Unix platform
@@ -4515,17 +4515,17 @@ The concept of a platform display is also introduced. Again,
 the only display that is set right now is the X11 display.
 ---
  UI/obs-app.cpp            | 12 +++++++++
- libobs/CMakeLists.txt     | 20 ++++++++++++++-
+ libobs/CMakeLists.txt     |  4 ++-
  libobs/obs-nix-platform.c | 42 +++++++++++++++++++++++++++++++
  libobs/obs-nix-platform.h | 52 +++++++++++++++++++++++++++++++++++++++
  libobs/obs-nix-x11.c      |  5 ++--
  libobs/obs-nix.c          | 15 +++++++++--
- 6 files changed, 141 insertions(+), 5 deletions(-)
+ 6 files changed, 125 insertions(+), 5 deletions(-)
  create mode 100644 libobs/obs-nix-platform.c
  create mode 100644 libobs/obs-nix-platform.h
 
 diff --git a/UI/obs-app.cpp b/UI/obs-app.cpp
-index bfa91546e..d307fbd64 100644
+index e72f73d1c..cf1e89018 100644
 --- a/UI/obs-app.cpp
 +++ b/UI/obs-app.cpp
 @@ -58,6 +58,11 @@
@@ -4540,7 +4540,7 @@ index bfa91546e..d307fbd64 100644
  #include <iostream>
  
  #include "ui-config.h"
-@@ -1383,6 +1388,13 @@ bool OBSApp::OBSInit()
+@@ -1384,6 +1389,13 @@ bool OBSApp::OBSInit()
  
  	qRegisterMetaType<VoidFunc>();
  
@@ -4555,10 +4555,10 @@ index bfa91546e..d307fbd64 100644
  		return false;
  
 diff --git a/libobs/CMakeLists.txt b/libobs/CMakeLists.txt
-index b03bcab79..94f6d6578 100644
+index ea5250e1a..6bc83b3e4 100644
 --- a/libobs/CMakeLists.txt
 +++ b/libobs/CMakeLists.txt
-@@ -187,13 +187,31 @@ elseif(APPLE)
+@@ -187,13 +187,15 @@ elseif(APPLE)
  elseif(UNIX)
  	set(libobs_PLATFORM_SOURCES
  		obs-nix.c
@@ -4570,24 +4570,8 @@ index b03bcab79..94f6d6578 100644
  
  	set(libobs_PLATFORM_HEADERS
 -		util/threading-posix.h)
++		util/threading-posix.h
 +		obs-nix-platform.h)
-+
-+	if(NEEDS_SIMDE)
-+		set(libobs_PLATFORM_HEADERS
-+			${libobs_PLATFORM_HEADERS}
-+			util/simde/check.h
-+			util/simde/hedley.h
-+			util/simde/mmx.h
-+			util/simde/simde-arch.h
-+			util/simde/simde-common.h
-+			util/simde/sse.h
-+			util/simde/sse2.h
-+			util/threading-posix.h)
-+	else()
-+		set(libobs_PLATFORM_HEADERS
-+			${libobs_PLATFORM_HEADERS}
-+			util/threading-posix.h)
-+	endif()
  
  	if(HAVE_PULSEAUDIO)
  		set(libobs_audio_monitoring_HEADERS
@@ -4765,10 +4749,10 @@ index 4e8501224..bedd2d974 100644
  	return hotkeys_vtable->init(hotkeys);
  }
 -- 
-2.30.0
+2.29.2
 
 
-From 7cfec7f3b48fa5eca03586356ea5bb57506ab1aa Mon Sep 17 00:00:00 2001
+From 3eab1608831d63026710ca5ff5eff6adbdd7a9b1 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Tue, 7 Apr 2020 23:17:02 -0300
 Subject: [PATCH 09/23] UI: Set the Unix platform on startup
@@ -4783,10 +4767,10 @@ or OBS_NIX_PLATFORM_X11_EGL.
  3 files changed, 12 insertions(+), 4 deletions(-)
 
 diff --git a/UI/obs-app.cpp b/UI/obs-app.cpp
-index d307fbd64..0251dbdab 100644
+index cf1e89018..5f25929e7 100644
 --- a/UI/obs-app.cpp
 +++ b/UI/obs-app.cpp
-@@ -1391,6 +1391,10 @@ bool OBSApp::OBSInit()
+@@ -1392,6 +1392,10 @@ bool OBSApp::OBSInit()
  #if !defined(_WIN32) && !defined(__APPLE__)
  	obs_set_nix_platform(OBS_NIX_PLATFORM_X11_GLX);
  	if (QApplication::platformName() == "xcb") {
@@ -4833,10 +4817,10 @@ index 209cc3081..f55327198 100644
  
  struct gl_winsys_vtable {
 -- 
-2.30.0
+2.29.2
 
 
-From af838c7a72db0bdb5814485e0d03063a443b4232 Mon Sep 17 00:00:00 2001
+From c55363ce888f1fe8d337918c4af19246d6497e00 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Wed, 8 Apr 2020 23:58:43 -0300
 Subject: [PATCH 10/23] linux-capture: Fail to load when running on EGL
@@ -4872,10 +4856,10 @@ index ce49ee72e..56ff485c4 100644
  	xcomposite_load();
  	return true;
 -- 
-2.30.0
+2.29.2
 
 
-From 4288b1970553b97452eaf2dc1ad7330be2abdb97 Mon Sep 17 00:00:00 2001
+From db71748db2acff27d24d42ae94c9c3083718ed42 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Fri, 6 Mar 2020 18:53:42 -0300
 Subject: [PATCH 11/23] libobs: Add a Wayland platform
@@ -4914,10 +4898,10 @@ index 426d0628b..1e873810a 100644
  		add_definitions(-DUSE_XDG)
  	endif()
 diff --git a/UI/CMakeLists.txt b/UI/CMakeLists.txt
-index ae881a3f6..dc53d34aa 100644
+index ab10c577b..6e877cf82 100644
 --- a/UI/CMakeLists.txt
 +++ b/UI/CMakeLists.txt
-@@ -410,6 +410,11 @@ if (APPLE)
+@@ -413,6 +413,11 @@ if (APPLE)
  endif()
  set_target_properties(obs PROPERTIES FOLDER "frontend")
  
@@ -4930,7 +4914,7 @@ index ae881a3f6..dc53d34aa 100644
  
  install_obs_core(obs)
 diff --git a/UI/obs-app.cpp b/UI/obs-app.cpp
-index 0251dbdab..61a88a832 100644
+index 5f25929e7..e8faf32f3 100644
 --- a/UI/obs-app.cpp
 +++ b/UI/obs-app.cpp
 @@ -61,6 +61,11 @@
@@ -4945,7 +4929,7 @@ index 0251dbdab..61a88a832 100644
  #endif
  
  #include <iostream>
-@@ -1397,6 +1402,18 @@ bool OBSApp::OBSInit()
+@@ -1398,6 +1403,18 @@ bool OBSApp::OBSInit()
  		}
  		obs_set_nix_platform_display(QX11Info::display());
  	}
@@ -5078,11 +5062,11 @@ index 9ed3d198e..581e16a4b 100644
  
  	assert(gl_vtable != NULL);
 diff --git a/libobs/CMakeLists.txt b/libobs/CMakeLists.txt
-index 94f6d6578..e89d9cf6b 100644
+index 6bc83b3e4..1e4518448 100644
 --- a/libobs/CMakeLists.txt
 +++ b/libobs/CMakeLists.txt
-@@ -196,6 +196,21 @@ elseif(UNIX)
- 	set(libobs_PLATFORM_HEADERS
+@@ -197,6 +197,21 @@ elseif(UNIX)
+ 		util/threading-posix.h
  		obs-nix-platform.h)
  
 +	if(ENABLE_WAYLAND)
@@ -5100,9 +5084,9 @@ index 94f6d6578..e89d9cf6b 100644
 +			${WAYLAND_CLIENT_LIBRARIES})
 +	endif()
 +
- 	if(NEEDS_SIMDE)
- 		set(libobs_PLATFORM_HEADERS
- 			${libobs_PLATFORM_HEADERS}
+ 	if(HAVE_PULSEAUDIO)
+ 		set(libobs_audio_monitoring_HEADERS
+ 			audio-monitoring/pulse/pulseaudio-wrapper.h)
 diff --git a/libobs/obs-nix-platform.h b/libobs/obs-nix-platform.h
 index 4cf9d8cd2..cef700d77 100644
 --- a/libobs/obs-nix-platform.h
@@ -5295,10 +5279,10 @@ index 70f6da716..5997b1b08 100644
   * main release number!  For example, if the current public release is 21.0 and
   * the build is 22.0 release candidate 1, internally the build number (defined
 -- 
-2.30.0
+2.29.2
 
 
-From 27762f8fdbd70b7e608ad49165aeaf9bd3161858 Mon Sep 17 00:00:00 2001
+From e4b08d32d18a1bde5dc3497dc878f07686a63c88 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Sat, 11 Apr 2020 23:32:16 -0300
 Subject: [PATCH 12/23] libobs-opengl: Try to use the platform display if
@@ -5346,10 +5330,10 @@ index 5b4139953..47b8e420a 100644
  	if (!display) {
  		goto fail_display_open;
 -- 
-2.30.0
+2.29.2
 
 
-From de7ae20185eeceea8fbecf249d29c16669484b8a Mon Sep 17 00:00:00 2001
+From ee143f0a6b12b0baf93cab285a25c9c92d7d5aa0 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Mon, 9 Mar 2020 21:09:11 -0300
 Subject: [PATCH 13/23] libobs-opengl: Introduce an EGL/Wayland renderer
@@ -5813,10 +5797,10 @@ index 000000000..3384576f1
 +
 +const struct gl_winsys_vtable *gl_wayland_egl_get_winsys_vtable(void);
 -- 
-2.30.0
+2.29.2
 
 
-From 4a733d4610493736e5626cee5e7b60276349ac38 Mon Sep 17 00:00:00 2001
+From 5709a4e5dbfada118b00383d296364e960f05e28 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Mon, 9 Mar 2020 21:23:37 -0300
 Subject: [PATCH 14/23] UI: Retrieve Wayland surface from QWindow
@@ -5921,10 +5905,10 @@ index 600bab2fe..02312d748 100644
  uint32_t TranslateQtKeyboardEventModifiers(Qt::KeyboardModifiers mods);
  
 -- 
-2.30.0
+2.29.2
 
 
-From 8fb700edca3665fd4fb1014782693bc2fa26101e Mon Sep 17 00:00:00 2001
+From a0a03071b3e93de1c39b1ca2f93eae81e0eab4c8 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Tue, 18 Aug 2020 19:38:29 -0300
 Subject: [PATCH 15/23] UI: Destroy display when becoming invisible
@@ -5989,10 +5973,10 @@ index 816d96bce..21308e70f 100644
  	virtual QPaintEngine *paintEngine() const override;
  
 -- 
-2.30.0
+2.29.2
 
 
-From 32472929e51777664c2b6f011fa78e3d8d932cb2 Mon Sep 17 00:00:00 2001
+From 01241d5b8df7a74845e56f3058bf4e30969546fc Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Wed, 19 Aug 2020 10:11:08 -0300
 Subject: [PATCH 16/23] UI: Don't create obs_display when QTToGSWindow fails
@@ -6066,10 +6050,10 @@ index 02312d748..5042487e0 100644
  uint32_t TranslateQtKeyboardEventModifiers(Qt::KeyboardModifiers mods);
  
 -- 
-2.30.0
+2.29.2
 
 
-From 644b5270ae0ccce1e81422e2e4189673fb8fece1 Mon Sep 17 00:00:00 2001
+From 0e2326c63541ccc23b0f7b9936485baa79bb2671 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Wed, 19 Aug 2020 13:08:01 -0300
 Subject: [PATCH 17/23] UI: Rename callback to match signal name
@@ -6104,10 +6088,10 @@ index c00719cee..feed5b6c0 100644
  
  QColor OBSQTDisplay::GetDisplayBackgroundColor() const
 -- 
-2.30.0
+2.29.2
 
 
-From 89ac7fad0fccf5d8636e8e219ac5183e3fc26957 Mon Sep 17 00:00:00 2001
+From 5f83a82acec1ec18e2e8dbbb4ec363d2251c9fef Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Wed, 19 Aug 2020 15:09:26 -0300
 Subject: [PATCH 18/23] UI: Disable and ignore Always On Top on Wayland
@@ -6124,10 +6108,10 @@ option on the window menu.
  1 file changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/UI/window-basic-main.cpp b/UI/window-basic-main.cpp
-index 89ae20194..928143b46 100644
+index 845d50904..f2e64e0b9 100644
 --- a/UI/window-basic-main.cpp
 +++ b/UI/window-basic-main.cpp
-@@ -78,6 +78,10 @@
+@@ -79,6 +79,10 @@
  
  #include <json11.hpp>
  
@@ -6138,7 +6122,7 @@ index 89ae20194..928143b46 100644
  using namespace json11;
  using namespace std;
  
-@@ -1844,9 +1848,22 @@ void OBSBasic::OBSInit()
+@@ -1865,9 +1869,22 @@ void OBSBasic::OBSInit()
  
  	bool alwaysOnTop = config_get_bool(App()->GlobalConfig(), "BasicWindow",
  					   "AlwaysOnTop");
@@ -6163,10 +6147,10 @@ index 89ae20194..928143b46 100644
  
  #ifndef _WIN32
 -- 
-2.30.0
+2.29.2
 
 
-From 58fc3302eef2eb8ce40650945ada440133e6aafc Mon Sep 17 00:00:00 2001
+From 8778e295ebfebbf2e4c06e3c7e6e13a617340704 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Thu, 20 Aug 2020 11:57:19 -0300
 Subject: [PATCH 19/23] UI: Make OBSQTDisplay::CreateDisplay() public and allow
@@ -6218,10 +6202,10 @@ index 21308e70f..c48c12673 100644
 +	void CreateDisplay(bool force = false);
  };
 -- 
-2.30.0
+2.29.2
 
 
-From eafa304612c615650075b7f91234b74b5f6ee66a Mon Sep 17 00:00:00 2001
+From 8bec465660ad62325d8aaf048fed38c2858d1cda Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Thu, 20 Aug 2020 11:58:45 -0300
 Subject: [PATCH 20/23] UI: Check for Expose and PlatformSurface events to
@@ -6310,10 +6294,10 @@ index b230ab4e7..5d81c4630 100644
  
  QColor OBSQTDisplay::GetDisplayBackgroundColor() const
 -- 
-2.30.0
+2.29.2
 
 
-From 9ae1099efa48761e016d6924fbfaaffe2fadd4a3 Mon Sep 17 00:00:00 2001
+From 07d0d952c0c5dd3ae1bf357c3fb4094fab19464d Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Thu, 12 Mar 2020 23:50:18 -0300
 Subject: [PATCH 21/23] libobs/graphics: Add Linux-only
@@ -6586,10 +6570,10 @@ index f461d0a15..b254e4394 100644
  
  /* inline functions used by modules */
 -- 
-2.30.0
+2.29.2
 
 
-From 14d7c8a4ac6f1f38d4a98f323eebab836875f831 Mon Sep 17 00:00:00 2001
+From d1cf2962dd6d7319f42397ade5963a3861665050 Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Thu, 12 Mar 2020 23:57:23 -0300
 Subject: [PATCH 22/23] deps-glad: Add DMA-BUF EGL extensions
@@ -6772,16 +6756,16 @@ index e3cd1fc29..f2343b757 100644
  }
  
 -- 
-2.30.0
+2.29.2
 
 
-From 8b61e12af2dd46be21dd2efd18508e9f152b0b18 Mon Sep 17 00:00:00 2001
+From 83b21bf87cff04ca5d10e262ad9ff8225ce8696b Mon Sep 17 00:00:00 2001
 From: Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
 Date: Sat, 14 Mar 2020 14:26:02 -0300
 Subject: [PATCH 23/23] libobs-opengl: Implement DMA-BUF importing on EGL
  renderers
 
-This is currently extremely limited. It only supports XRGB8888
+This is currently extremely limited. It only supports a few common RGB(A)
 DMA-BUFs for now, which seems to be a sensible default.
 ---
  libobs-opengl/CMakeLists.txt   |   1 +
@@ -7172,18 +7156,18 @@ index 000000000..358113876
 +			   const int *fds, const uint32_t *strides,
 +			   const uint32_t *offsets, const uint64_t *modifiers);
 diff --git a/libobs-opengl/gl-wayland-egl.c b/libobs-opengl/gl-wayland-egl.c
-index 3968736da..299fe7ea7 100644
+index 3968736da..3dbb4ac2c 100644
 --- a/libobs-opengl/gl-wayland-egl.c
 +++ b/libobs-opengl/gl-wayland-egl.c
-@@ -17,6 +17,8 @@
- 
- #include "gl-wayland-egl.h"
- 
-+#include "gl-egl-common.h"
-+
+@@ -20,6 +20,8 @@
  #include <wayland-client.h>
  #include <wayland-egl.h>
  
++#include "gl-egl-common.h"
++
+ #include <glad/glad_egl.h>
+ 
+ static const EGLint config_attribs[] = {EGL_SURFACE_TYPE,
 @@ -325,17 +327,11 @@ static struct gs_texture *gl_wayland_egl_device_texture_create_from_dmabuf(
  	const uint32_t *strides, const uint32_t *offsets,
  	const uint64_t *modifiers)
@@ -7242,5 +7226,5 @@ index 7a9c59755..d56f6b712 100644
  
  static const struct gl_winsys_vtable egl_x11_winsys_vtable = {
 -- 
-2.30.0
+2.29.2
 
