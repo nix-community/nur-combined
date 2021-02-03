@@ -14,6 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  agate = pkgs.callPackage ./pkgs/agate { };
   comma = pkgs.callPackage ./pkgs/comma { };
   conform = pkgs.callPackage ./pkgs/conform { };
   container-diff = pkgs.callPackage ./pkgs/container-diff { };
