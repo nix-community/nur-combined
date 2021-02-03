@@ -12,6 +12,7 @@ It contains packages/attributes for:
   - lttoolbox (https://github.com/apertium/lttoolbox)
   - lunasvg (https://github.com/sammycage/lunasvg/)
   - lispPackages.vacietis (https://github.com/vsedach/Vacietis)
+  - ticker (https://github.com/achannarasappa/ticker)
 
 * License
   

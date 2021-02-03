@@ -23,4 +23,5 @@ rec {
     vacietis = pkgs.callPackage ./pkgs/vacietis {};
   };
 
+  ticker = pkgs.callPackage ./pkgs/ticker {};
 }
