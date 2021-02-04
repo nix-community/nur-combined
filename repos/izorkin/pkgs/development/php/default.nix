@@ -306,7 +306,7 @@ let
         name = "php-src-${version}";
         owner = "php";
         repo = "php-src";
-        rev = (if (versionAtLeast version "8.0") then "${rev}" else "php-${version}");
+        rev = "php-${version}";
         inherit sha256;
       };
 
@@ -435,8 +435,8 @@ in {
   };
 
   php73 = generic {
-    version = "7.3.26";
-    sha256 = "1936vh7h6s5faymhs571ifyvrhdzbagjf3f5msbgh7irsyifchfd";
+    version = "7.3.27";
+    sha256 = "0mdfm6ls9c80qcjyxjcy0rmpqgagamzjv65b9cwxl0y94mlpckl1";
 
     extraPatches = [
       # PKG_CONFIG need not be a relative path
@@ -447,13 +447,12 @@ in {
   };
 
   php74 = generic {
-    version = "7.4.14";
-    sha256 = "1gcys9jh8cs87d0a51sxgvq30x5dkrh4n571cswnpam2lbjbrj54";
+    version = "7.4.15";
+    sha256 = "0piqdpgb8lsswyzqwqmkpxa1y92vb4qpjicqlfkwm8fjn3ylq73r";
   };
 
   php80 = generic {
-    version = "8.0.1";
-    rev = "php-8.0.1";
-    sha256 = "1w6xd1bl1mp82nzjlihsvs5a5zv3a9mc1p91wm76qnirn5hqr884";
+    version = "8.0.2";
+    sha256 = "0ai0zslsdzn8lvkw1c56jdr9s6ia1vcwf7zp7cz7msx5vmx1h8a8";
   };
 }
