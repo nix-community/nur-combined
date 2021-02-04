@@ -34,7 +34,7 @@ rec {
     # and I can't work out a better way to push it to the RPATH.
     postInstall = pkgs.lib.optional (!pkgs.stdenv.isDarwin) ''
       patchelf \
-        --set-rpath ${pkgs.lib.makeLibraryPath ligatureInputs}:"$(patchelf --show-rpath $out/bin/alacritty)" \
+        --set-rpath ${pkgs.lib.makeLibraryPath ligatureInputs}:"$(patchelf --print-rpath $out/bin/alacritty)" \
         $out/bin/alacritty
     '';
 
