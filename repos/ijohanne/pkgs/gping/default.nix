@@ -6,8 +6,8 @@ rustPlatform.buildRustPackage rec {
     fetchFromGitHub { inherit (sources.gping) owner repo rev sha256; };
   cargoSha256 = "1p4k05r0zdwiywfv3vfspaxdb3wnpb17i9qznz0zpcgisi5hdjgm";
   nativeBuildInputs = [ installShellFiles ]
-    ++ stdenv.lib.optionals stdenv.isLinux [ pkg-config ];
-  buildInputs = stdenv.lib.optional stdenv.hostPlatform.isDarwin
+    ++ lib.optionals stdenv.isLinux [ pkg-config ];
+  buildInputs = lib.optional stdenv.hostPlatform.isDarwin
     darwin.apple_sdk.frameworks.IOKit;
   doCheck = true;
   meta = with lib; {

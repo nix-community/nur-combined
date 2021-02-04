@@ -3,8 +3,8 @@ let
   buildFirefoxXpiAddon = { pname, url, sha256, ... }:
     pkgs.fetchFirefoxAddon { inherit url sha256; name = pname; };
 
-  packages = import ./generated-addons.nix {
-    inherit buildFirefoxXpiAddon fetchurl stdenv;
+  packages = with pkgs; import ./generated-addons.nix {
+    inherit buildFirefoxXpiAddon fetchurl stdenv lib;
   };
 
   others = {

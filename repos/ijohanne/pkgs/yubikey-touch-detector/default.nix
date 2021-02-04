@@ -1,4 +1,4 @@
-{ sources, pkgs, stdenv, buildGoModule, fetchFromGitHub, ... }:
+{ sources, pkgs, buildGoModule, fetchFromGitHub, ... }:
 buildGoModule rec {
   pname = "yubikey-touch-detector";
   version = "1.9.0";
@@ -12,7 +12,7 @@ buildGoModule rec {
   nativeBuildInputs = with pkgs; [ pkg-config ];
   buildInputs = with pkgs; [ libnotify ];
 
-  meta = with stdenv.lib; {
+  meta = with pkgs.lib; {
     description = "Detect when your YubiKey is waiting for a touch";
     license = licenses.mit;
     homepage = "https://github.com/maximbaz/yubikey-touch-detector";

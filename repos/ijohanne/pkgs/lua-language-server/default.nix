@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     inherit (sources.lua-language-server) owner repo rev;
-    sha256 = "178s2xxr69g01zlwzzfjp72p53ym6gwa9ga1ldmvlhiw5yd5ngy5";
+    sha256 = "0rqqbr2vqjcbsz8psvskz2lwv2klnfbv7izxa8ygg5ws9wnymm78";
     fetchSubmodules = true;
   };
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Lua language server";
     homepage = "https://github.com/sumneko/lua-language-server";
     platforms = with platforms; linux ++ darwin;
