@@ -337,6 +337,9 @@
         "pschuprikov": {
             "url": "https://github.com/pschuprikov/nur-packages"
         },
+        "psiquo": {
+            "url": "https://github.com/psiquo/nur-derivations"
+        },
         "ptival": {
             "url": "https://github.com/Ptival/nur-packages"
         },
