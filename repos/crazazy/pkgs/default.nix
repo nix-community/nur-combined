@@ -10,6 +10,7 @@
   nix-gen-node-tools = pkgs.callPackage ./gen-node-env { inherit (pkgs.nodePackages) node2nix;inherit sources; };
   elm = pkgs.callPackage ./elm { inherit (pkgs.elmPackages) elm; };
   efm-langserver = pkgs.callPackage ./efm-langserver { inherit sources; };
+  truffleSqueak = pkgs.callPackage ./truffleSqueak {};
 
   # impure packages. These packages cannot get evaluated by NUR because they
   # contain some techniques that make the import -> eval -> build flow not possible without trying
