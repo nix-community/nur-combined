@@ -1,4 +1,4 @@
-{ stdenvNoCC, lib, sources }:
+{ lib, stdenvNoCC, sources }:
 
 stdenvNoCC.mkDerivation {
   pname = "mtk-suomi";

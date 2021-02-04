@@ -1,8 +1,8 @@
-{ stdenv, pkg-config, ncurses, w3m, ueberzug, sources }:
+{ lib, stdenv, pkg-config, ncurses, w3m, ueberzug, sources }:
 
 stdenv.mkDerivation {
   pname = "cfiles-unstable";
-  version = stdenv.lib.substring 0 10 sources.cfiles.date;
+  version = lib.substring 0 10 sources.cfiles.date;
 
   src = sources.cfiles;
 
@@ -21,7 +21,7 @@ stdenv.mkDerivation {
       --replace "ueberzug" "${ueberzug}/bin/ueberzug"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.cfiles) description homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];

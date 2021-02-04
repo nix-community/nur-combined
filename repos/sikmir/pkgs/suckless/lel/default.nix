@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, libX11, farbfeld, farbfeld-utils }:
+{ lib, stdenv, fetchgit, libX11, farbfeld, farbfeld-utils }:
 
 stdenv.mkDerivation rec {
   pname = "lel";
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Farbfeld image viewer";
     homepage = "https://git.codemadness.org/lel/file/README.html";
     license = licenses.mit;

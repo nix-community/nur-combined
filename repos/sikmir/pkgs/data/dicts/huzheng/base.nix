@@ -1,4 +1,4 @@
-{ stdenvNoCC, fetchurl, pname, version, filename, sha256, description }:
+{ lib, stdenvNoCC, fetchurl, pname, version, filename, sha256, description }:
 
 stdenvNoCC.mkDerivation {
   inherit pname version;
@@ -12,7 +12,7 @@ stdenvNoCC.mkDerivation {
 
   preferLocalBuild = true;
 
-  meta = with stdenvNoCC.lib; {
+  meta = with lib; {
     inherit description;
     homepage = "http://download.huzheng.org/bigdict/";
     license = licenses.free;

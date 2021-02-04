@@ -1,4 +1,4 @@
-{ stdenv, fetchsvn }:
+{ lib, stdenv, fetchsvn }:
 
 stdenv.mkDerivation {
   pname = "ocad2mp-unstable";
@@ -10,7 +10,7 @@ stdenv.mkDerivation {
     sha256 = "1700apfsjd27q9jsvvr94mk7rd0x24ib3bkn4y8hak0zvknib563";
   };
 
-  postPatch = stdenv.lib.optionalString stdenv.isDarwin ''
+  postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile.gcc \
       --replace "CXX=g++" "" \
       --replace "LINK=g++" "LINK=$CXX" \
@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     install -Dm644 SYM.TXT $out/share/ocad2mp/sym.txt
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Converter from OCAD map format to Polish format";
     homepage = "https://sourceforge.net/projects/ocad2mp/";
     license = licenses.gpl2;

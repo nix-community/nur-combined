@@ -1,4 +1,4 @@
-{ stdenv, fetchwebarchive }:
+{ lib, stdenv, fetchwebarchive }:
 
 stdenv.mkDerivation {
   pname = "cgpsmapper";
@@ -20,7 +20,7 @@ stdenv.mkDerivation {
 
   installCheckPhase = "$out/bin/cgpsmapper-static -h";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "GIS converter into GARMIN compatible format maps";
     homepage = "https://web.archive.org/web/20160620061746if_/http://www.cgpsmapper.com";
     license = licenses.free;

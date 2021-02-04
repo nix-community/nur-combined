@@ -1,4 +1,4 @@
-{ stdenv, fetchfromgh, undmg, sources }:
+{ lib, stdenv, fetchfromgh, undmg, sources }:
 
 stdenv.mkDerivation rec {
   pname = "Openorienteering-Mapper-bin";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     cp -r . $out/Applications/Mapper.app
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.mapper) description homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];

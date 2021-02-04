@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, libressl, libbsd }:
+{ lib, stdenv, fetchgit, libressl, libbsd }:
 
 stdenv.mkDerivation rec {
   pname = "hurl";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Relatively simple HTTP, HTTPS and Gopher client/file grabber";
     homepage = "https://git.codemadness.org/hurl/file/README.html";
     license = licenses.isc;

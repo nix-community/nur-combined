@@ -1,5 +1,5 @@
-{ stdenvNoCC
-, lib
+{ lib
+, stdenvNoCC
 , sources
 , maptilerApiKey ? ""
 , mapboxApiKey ? ""

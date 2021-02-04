@@ -1,8 +1,8 @@
-{ stdenv, bison, flex, libtool, ncurses, readline, zlib, sources }:
+{ lib, stdenv, bison, flex, libtool, ncurses, readline, zlib, sources }:
 
 stdenv.mkDerivation {
   pname = "foma-unstable";
-  version = stdenv.lib.substring 0 10 sources.foma.date;
+  version = lib.substring 0 10 sources.foma.date;
 
   src = sources.foma;
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation {
 
   makeFlags = [ "prefix=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.foma) description homepage;
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];

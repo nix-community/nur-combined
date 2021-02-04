@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, Cocoa, ScriptingBridge, xxd }:
+{ lib, stdenv, fetchFromGitHub, Cocoa, ScriptingBridge, xxd }:
 
 stdenv.mkDerivation rec {
   pname = "yabai";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     install -Dm644 doc/yabai.1 -t $out/share/man/man1
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A tiling window manager for macOS based on binary space partitioning";
     homepage = "https://github.com/koekeishiya/yabai";
     license = licenses.mit;

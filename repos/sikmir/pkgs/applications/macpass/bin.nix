@@ -1,4 +1,4 @@
-{ stdenv, fetchfromgh, unzip }:
+{ lib, stdenv, fetchfromgh, unzip }:
 
 stdenv.mkDerivation rec {
   pname = "MacPass-bin";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   preferLocalBuild = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A native OS X KeePass client";
     homepage = "https://macpassapp.org/";
     license = licenses.gpl3Plus;

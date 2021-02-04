@@ -1,4 +1,4 @@
-{ stdenv, fetchfromgh, unzip }:
+{ lib, stdenv, fetchfromgh, unzip }:
 let
   pname = "fx";
   version = "18.0.1";
@@ -33,14 +33,14 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm755 fx-${suffix} $out/bin/fx";
 
-  postFixup = stdenv.lib.optionalString stdenv.isLinux ''
+  postFixup = lib.optionalString stdenv.isLinux ''
     patchelf \
       --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-      --set-rpath "${stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib ]}" \
+      --set-rpath "${lib.makeLibraryPath [ stdenv.cc.cc.lib ]}" \
       $out/bin/fx
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Command-line tool and terminal JSON viewer";
     homepage = "https://github.com/antonmedv/fx";
     license = licenses.mit;

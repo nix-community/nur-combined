@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, patches ? null }:
+{ lib, stdenv, fetchgit }:
 
 stdenv.mkDerivation rec {
   pname = "scroll";
@@ -10,11 +10,9 @@ stdenv.mkDerivation rec {
     sha256 = "13qbzpw68140zzdmfdqww23b4brviqdpqvr134gjh1kpmpa6rgbn";
   };
 
-  inherit patches;
-
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Scrollbackbuffer program for st";
     homepage = "https://tools.suckless.org/scroll/";
     license = licenses.isc;

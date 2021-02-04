@@ -1,4 +1,4 @@
-{ stdenv, fetchfromgh, undmg }:
+{ lib, stdenv, fetchfromgh, undmg }:
 
 stdenv.mkDerivation rec {
   pname = "qutebrowser-bin";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     cp -r . $out/Applications/qutebrowser.app
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A keyboard-driven, vim-like browser based on PyQt5";
     homepage = "https://www.qutebrowser.org/";
     license = licenses.gpl3Plus;

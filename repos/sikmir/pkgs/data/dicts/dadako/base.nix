@@ -1,4 +1,4 @@
-{ stdenvNoCC, fetchurl, unzip, pname, version, filename, sha256, description }:
+{ lib, stdenvNoCC, fetchurl, unzip, pname, version, filename, sha256, description }:
 
 stdenvNoCC.mkDerivation {
   inherit pname version;
@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation {
 
   preferLocalBuild = true;
 
-  meta = with stdenvNoCC.lib; {
+  meta = with lib; {
     inherit description;
     homepage = "http://dadako.narod.ru/paperpoe.htm";
     license = licenses.free;

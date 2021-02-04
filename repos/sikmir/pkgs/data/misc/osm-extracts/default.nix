@@ -1,8 +1,8 @@
-{ stdenv, gdal, osmium-tool, sources }:
+{ lib, stdenv, gdal, osmium-tool, sources }:
 let
-  year = stdenv.lib.substring 0 2 sources.geofabrik-russia-nwfd.version;
-  month = stdenv.lib.substring 2 2 sources.geofabrik-russia-nwfd.version;
-  day = stdenv.lib.substring 4 2 sources.geofabrik-russia-nwfd.version;
+  year = lib.substring 0 2 sources.geofabrik-russia-nwfd.version;
+  month = lib.substring 2 2 sources.geofabrik-russia-nwfd.version;
+  day = lib.substring 4 2 sources.geofabrik-russia-nwfd.version;
 
   regions = [
     "RU-ARK"
@@ -38,7 +38,7 @@ in
 
     installPhase = "install -Dm644 *.geojson -t $out";
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "Administrative boundaries";
       homepage = "https://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative";
       license = licenses.free;

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "geographiclib";
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "046k49h52n2qxclqdzjmqj6pbvqsb28hn7lnsrdi1xbxc54hjdrl";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "GeographicLib offers a C++ interfaces to a small (but important!) set of geographic transformations";
     homepage = "http://geographiclib.sourceforge.io/";
     license = licenses.mit;

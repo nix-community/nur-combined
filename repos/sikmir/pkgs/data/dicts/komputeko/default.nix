@@ -1,4 +1,4 @@
-{ stdenvNoCC, fetchwebarchive, dict, jq, stardict-tools }:
+{ lib, stdenvNoCC, fetchwebarchive, dict, jq, stardict-tools }:
 
 stdenvNoCC.mkDerivation {
   pname = "komputeko";
@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation {
 
   installPhase = "install -Dm644 *.{dict*,idx,ifo} -t $out";
 
-  meta = with stdenvNoCC.lib; {
+  meta = with lib; {
     homepage = "https://komputeko.net/";
     description = "Prikomputila terminokolekto";
     maintainers = [ maintainers.sikmir ];

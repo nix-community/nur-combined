@@ -1,4 +1,4 @@
-{ stdenvNoCC, lib, dict, pandoc, stardict-tools, sources }:
+{ lib, stdenvNoCC, dict, pandoc, stardict-tools, sources }:
 
 stdenvNoCC.mkDerivation {
   pname = "it-sanasto";

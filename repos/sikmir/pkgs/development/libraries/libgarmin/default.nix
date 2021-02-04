@@ -1,4 +1,4 @@
-{ stdenv, fetchsvn, autoconf, automake, libtool }:
+{ lib, stdenv, fetchsvn, autoconf, automake, libtool }:
 
 stdenv.mkDerivation {
   pname = "libgarmin";
@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     && autoreconf
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Garmin IMG format library";
     homepage = "http://libgarmin.sourceforge.net/";
     license = licenses.gpl2;

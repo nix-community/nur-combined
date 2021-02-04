@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, curl, SDL2, SDL2_image }:
+{ lib, stdenv, fetchFromGitHub, curl, SDL2, SDL2_image }:
 
 stdenv.mkDerivation {
   pname = "sdlmap";
@@ -17,7 +17,7 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm755 sdlmap -t $out/bin";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A SDL + libcurl OpenStreetMap viewer";
     homepage = "https://github.com/jhawthorn/sdlmap";
     license = licenses.free;

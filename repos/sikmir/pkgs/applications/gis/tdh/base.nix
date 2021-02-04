@@ -1,4 +1,4 @@
-{ stdenv, fetchgdrive, unzip, wxGTK30
+{ lib, stdenv, fetchgdrive, unzip, wxGTK30
 , makeWrapper, libredirect
 , pname, version, id, sha256, description, homepage }:
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation {
     cp -r *_Structure $out/share/${pname}
   '';
 
-  postFixup = with stdenv.lib; ''
+  postFixup = with lib; ''
     patchelf --replace-needed "./libTdhCairo.so" libTdhCairo.so $out/bin/${pname}
 
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit description homepage;
     license = licenses.cc-by-nc-sa-40;
     maintainers = with maintainers; [ sikmir ];

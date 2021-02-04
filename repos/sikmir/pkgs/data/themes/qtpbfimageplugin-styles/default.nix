@@ -1,8 +1,8 @@
-{ stdenv, sources }:
+{ lib, stdenv, sources }:
 
 stdenv.mkDerivation {
   pname = "qtpbfimageplugin-styles";
-  version = stdenv.lib.substring 0 10 sources.qtpbfimageplugin-styles.date;
+  version = lib.substring 0 10 sources.qtpbfimageplugin-styles.date;
 
   src = sources.qtpbfimageplugin-styles;
 
@@ -11,7 +11,7 @@ stdenv.mkDerivation {
     cp -r Mapbox OpenMapTiles Tilezen $out/share/gpxsee/style
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.qtpbfimageplugin-styles) description homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];

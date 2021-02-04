@@ -1,4 +1,4 @@
-{ stdenv, fetchgit }:
+{ lib, stdenv, fetchgit }:
 
 stdenv.mkDerivation {
   pname = "saait";
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The most boring static page generator";
     homepage = "https://git.codemadness.org/saait/file/README.html";
     license = licenses.isc;

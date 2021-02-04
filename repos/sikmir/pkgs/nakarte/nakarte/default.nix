@@ -1,7 +1,7 @@
-{ stdenv, mkYarnPackage, sources, secretsConfig ? null }:
+{ lib, stdenv, mkYarnPackage, sources, secretsConfig ? null }:
 let
   pname = "nakarte";
-  version = stdenv.lib.substring 0 10 sources.nakarte.date;
+  version = lib.substring 0 10 sources.nakarte.date;
 in
 mkYarnPackage {
   name = "${pname}-${version}";
@@ -23,7 +23,7 @@ mkYarnPackage {
 
   distPhase = "true";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.nakarte) description homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, undmg, sources }:
+{ lib, stdenv, fetchurl, undmg, sources }:
 
 stdenv.mkDerivation rec {
   pname = "gpxsee-bin";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     cp -r . $out/Applications/GPXSee.app
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.gpxsee) description homepage changelog;
     license = licenses.gpl3Only;
     maintainers = [ maintainers.sikmir ];

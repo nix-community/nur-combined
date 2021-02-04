@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitHub
 , cmake
 , bzip2
@@ -14,7 +15,7 @@
 
 stdenv.mkDerivation rec {
   pname = "osmcoastline";
-  version = stdenv.lib.substring 0 10 sources.osmcoastline.date;
+  version = lib.substring 0 10 sources.osmcoastline.date;
 
   src = sources.osmcoastline;
 
@@ -40,7 +41,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.osmcoastline) description homepage;
     license = licenses.boost;
     maintainers = [ maintainers.sikmir ];

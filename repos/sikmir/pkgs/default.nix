@@ -152,6 +152,7 @@ lib.makeScope newScope (
     gpxtrackposter = callPackage ./tools/geo/gpxtrackposter { };
     lazyscraper = callPackage ./tools/text/lazyscraper { };
     py-staticmaps = callPackage ./tools/geo/py-staticmaps { };
+    render_geojson = callPackage ./tools/geo/render_geojson { };
     supermercado = callPackage ./tools/geo/supermercado { };
     tile-stitch = callPackage ./tools/geo/tile-stitch { };
     tilesets-cli = callPackage ./tools/geo/tilesets-cli { };
@@ -222,6 +223,7 @@ lib.makeScope newScope (
           nlsSupport = false;
         };
       };
+      gmnisrv = callPackage ./images/gmnisrv { };
       mbtileserver = callPackage ./images/mbtileserver { };
       quark = callPackage ./images/quark { };
       wekan = callPackage ./images/wekan { };

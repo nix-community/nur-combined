@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, bzip2, expat, gd, icu, libosmium, protozero, sqlite, zlib, sources }:
+{ lib, stdenv, fetchFromGitHub, cmake, bzip2, expat, gd, icu, libosmium, protozero, sqlite, zlib, sources }:
 
 stdenv.mkDerivation {
   pname = "taginfo-tools";
@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     install -Dm755 src/{osmstats,taginfo-sizes} -t $out/bin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "C++ tools used in taginfo processing";
     homepage = "https://wiki.openstreetmap.org/wiki/Taginfo";
     license = licenses.gpl3Plus;

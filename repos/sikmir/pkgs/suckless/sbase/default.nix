@@ -1,4 +1,4 @@
-{ stdenv, fetchgit }:
+{ lib, stdenv, fetchgit }:
 
 stdenv.mkDerivation rec {
   pname = "sbase";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "suckless unix tools";
     homepage = "https://tools.suckless.org/sbase/";
     license = licenses.mit;

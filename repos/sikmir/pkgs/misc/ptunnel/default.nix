@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, libpcap }:
+{ lib, stdenv, fetchurl, libpcap }:
 
 stdenv.mkDerivation rec {
   pname = "ptunnel";
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "prefix=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A tool for reliably tunneling TCP connections over ICMP echo request and reply packets";
     homepage = "https://www.cs.uit.no/~daniels/PingTunnel";
     license = licenses.bsd3;

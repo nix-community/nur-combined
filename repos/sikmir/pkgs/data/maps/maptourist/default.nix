@@ -1,4 +1,4 @@
-{ stdenvNoCC, lib, sources, unzip }:
+{ lib, stdenvNoCC, sources, unzip }:
 
 stdenvNoCC.mkDerivation {
   pname = "maptourist";

@@ -1,4 +1,4 @@
-{ stdenvNoCC, lib, fetchurl, p7zip }:
+{ lib, stdenvNoCC, fetchurl, p7zip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "usa-osm-topo-routable";

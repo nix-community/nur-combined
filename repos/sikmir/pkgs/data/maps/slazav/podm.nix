@@ -1,8 +1,8 @@
-{ stdenv, bc, cgpsmapper, gmaptool, mapsoft2, sources }:
+{ lib, stdenv, bc, cgpsmapper, gmaptool, mapsoft2, sources }:
 
 stdenv.mkDerivation {
-  pname = "slazav-podm-unstable";
-  version = stdenv.lib.substring 0 10 sources.map-podm.date;
+  pname = "slazav-podm";
+  version = lib.substring 0 10 sources.map-podm.date;
 
   src = sources.map-podm;
 
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm644 OUT/all_*.img -t $out";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.map-podm) description homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];

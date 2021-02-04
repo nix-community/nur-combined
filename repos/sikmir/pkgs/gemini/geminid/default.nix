@@ -1,8 +1,8 @@
-{ stdenv, libconfig, file, openssl, flex, sources }:
+{ lib, stdenv, libconfig, file, openssl, flex, sources }:
 
 stdenv.mkDerivation {
   pname = "geminid";
-  version = stdenv.lib.substring 0 10 sources.geminid.date;
+  version = lib.substring 0 10 sources.geminid.date;
 
   src = sources.geminid;
 
@@ -14,7 +14,7 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm755 geminid -t $out/bin";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.geminid) description homepage;
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];

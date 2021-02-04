@@ -1,4 +1,4 @@
-{ stdenvNoCC, fetchurl, lang, version, sha256 }:
+{ lib, stdenvNoCC, fetchurl, lang, version, sha256 }:
 
 stdenvNoCC.mkDerivation {
   pname = "wiktionary-${lang}";
@@ -13,7 +13,7 @@ stdenvNoCC.mkDerivation {
 
   preferLocalBuild = true;
 
-  meta = with stdenvNoCC.lib; {
+  meta = with lib; {
     description = "Wiktionary dictionaries for StarDict (${lang})";
     homepage = "http://libredict.org/en/info_${lang}.html";
     license = licenses.free;

@@ -1,8 +1,8 @@
-{ stdenv, curl, libjpeg, libpng, libtiff, libgeotiff, pkg-config, sources }:
+{ lib, stdenv, curl, libjpeg, libpng, libtiff, libgeotiff, pkg-config, sources }:
 
 stdenv.mkDerivation {
   pname = "tile-stitch";
-  version = stdenv.lib.substring 0 10 sources.tile-stitch.date;
+  version = lib.substring 0 10 sources.tile-stitch.date;
 
   src = sources.tile-stitch;
 
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm755 stitch -t $out/bin";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.tile-stitch) description homepage;
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];

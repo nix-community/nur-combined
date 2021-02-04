@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, undmg, releaseType ? "pr" }:
+{ lib, stdenv, fetchurl, undmg, releaseType ? "pr" }:
 
-assert stdenv.lib.assertOneOf "releaseType" releaseType [ "pr" "ltr" ];
+assert lib.assertOneOf "releaseType" releaseType [ "pr" "ltr" ];
 
 stdenv.mkDerivation rec {
   pname = "qgis-bin";
@@ -22,14 +22,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ undmg ];
 
-  sourceRoot = if releaseType == "pr" then "QGIS.app" else "QGIS${stdenv.lib.substring 0 4 version}.app";
+  sourceRoot = if releaseType == "pr" then "QGIS.app" else "QGIS${lib.substring 0 4 version}.app";
 
   installPhase = ''
     mkdir -p $out/Applications/QGIS.app
     cp -r . $out/Applications/QGIS.app
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A Free and Open Source Geographic Information System";
     homepage = "https://qgis.org";
     license = licenses.gpl2Plus;

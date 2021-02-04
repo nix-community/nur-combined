@@ -1,8 +1,8 @@
-{ stdenv, unzip, wine, makeWrapper, sources }:
+{ lib, stdenv, unzip, wine, makeWrapper, sources }:
 let
-  year = stdenv.lib.substring 0 2 sources.sasplanet.version;
-  month = stdenv.lib.substring 2 2 sources.sasplanet.version;
-  day = stdenv.lib.substring 4 2 sources.sasplanet.version;
+  year = lib.substring 0 2 sources.sasplanet.version;
+  month = lib.substring 2 2 sources.sasplanet.version;
+  day = lib.substring 4 2 sources.sasplanet.version;
 in
 stdenv.mkDerivation {
   pname = "sasplanet-bin";
@@ -23,7 +23,7 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.sasplanet) description homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];

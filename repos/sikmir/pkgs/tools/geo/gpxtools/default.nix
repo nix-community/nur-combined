@@ -1,8 +1,8 @@
-{ stdenv, cmake, expat, exiv2, sources }:
+{ lib, stdenv, cmake, expat, exiv2, sources }:
 
 stdenv.mkDerivation {
   pname = "gpxtools";
-  version = stdenv.lib.substring 0 10 sources.gpxtools.date;
+  version = lib.substring 0 10 sources.gpxtools.date;
 
   src = sources.gpxtools;
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm755 gpx* -t $out/bin";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.gpxtools) description homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];

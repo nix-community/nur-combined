@@ -1,4 +1,4 @@
-{ stdenv, fetchfromgh, unzip, jre, makeWrapper }:
+{ lib, stdenv, fetchfromgh, unzip, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "i18n-editor-bin";
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       --add-flags "-jar $out/share/java/i18n-editor.jar"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "GUI for editing your i18n translation files";
     homepage = "https://github.com/jcbvm/i18n-editor";
     license = licenses.mit;

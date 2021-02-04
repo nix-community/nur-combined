@@ -1,8 +1,8 @@
-{ stdenv, sources, routino }:
+{ lib, stdenv, sources, routino }:
 let
-  year = stdenv.lib.substring 0 2 sources.geofabrik-russia-nwfd.version;
-  month = stdenv.lib.substring 2 2 sources.geofabrik-russia-nwfd.version;
-  day = stdenv.lib.substring 4 2 sources.geofabrik-russia-nwfd.version;
+  year = lib.substring 0 2 sources.geofabrik-russia-nwfd.version;
+  month = lib.substring 2 2 sources.geofabrik-russia-nwfd.version;
+  day = lib.substring 4 2 sources.geofabrik-russia-nwfd.version;
 in
 stdenv.mkDerivation {
   pname = "routinodb";
@@ -34,7 +34,7 @@ stdenv.mkDerivation {
       --process-only
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Routino Database";
     homepage = "https://download.geofabrik.de/index.html";
     license = licenses.free;

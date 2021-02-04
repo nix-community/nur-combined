@@ -1,6 +1,6 @@
-{ stdenv, fetchfromgh, sdkVersion ? "10.13" }:
+{ lib, stdenv, fetchfromgh, sdkVersion ? "10.13" }:
 
-assert stdenv.lib.assertOneOf "sdkVersion" sdkVersion [ "10.13" "10.14" "10.15" "11.0.1" ];
+assert lib.assertOneOf "sdkVersion" sdkVersion [ "10.13" "10.14" "10.15" "11.0.1" ];
 
 stdenv.mkDerivation rec {
   pname = "qmapshack-bin";
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     cp -r *.app $out/Applications
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/Maproom/qmapshack";
     description = "Consumer grade GIS software";
     license = licenses.gpl3Plus;

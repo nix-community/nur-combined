@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitHub
 , substituteAll
 , db
@@ -74,7 +75,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "prefix=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A collection of tools and libraries for working with maps and geo-data";
     homepage = "http://slazav.github.io/mapsoft2";
     license = licenses.gpl3;

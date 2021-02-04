@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, fetchurl, appimageTools, undmg, lang ? "en-US" }:
+{ lib, stdenv, fetchgit, fetchurl, appimageTools, undmg, lang ? "en-US" }:
 let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
@@ -29,7 +29,7 @@ let
     }.${system} or throwSystem;
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A fork of Firefox, focused on privacy, security and freedom";
     homepage = "https://librewolf-community.gitlab.io/";
     license = licenses.mpl20;

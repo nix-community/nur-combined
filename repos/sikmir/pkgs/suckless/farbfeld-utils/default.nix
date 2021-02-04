@@ -1,4 +1,4 @@
-{ stdenv, fetchfossil }:
+{ lib, stdenv, fetchfossil }:
 
 stdenv.mkDerivation {
   pname = "farbfeld-utils";
@@ -14,7 +14,7 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm755 gif2ff -t $out/bin";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Collection of utilities for farbfeld picture format";
     homepage = "http://zzo38computer.org/fossil/farbfeld.ui/home";
     license = licenses.publicDomain;

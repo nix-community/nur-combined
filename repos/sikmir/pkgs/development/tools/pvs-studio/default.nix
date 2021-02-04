@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   installPhase = "./install.sh $out";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Static code analyzer for C, C++";
     homepage = "https://www.viva64.com/en/pvs-studio/";
     license = licenses.unfree;

@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitHub
 , cmake
 , boost
@@ -14,7 +15,7 @@
 
 stdenv.mkDerivation rec {
   pname = "osm-area-tools";
-  version = stdenv.lib.substring 0 10 sources.osm-area-tools.date;
+  version = lib.substring 0 10 sources.osm-area-tools.date;
 
   src = sources.osm-area-tools;
 
@@ -33,7 +34,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.osm-area-tools) description homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];

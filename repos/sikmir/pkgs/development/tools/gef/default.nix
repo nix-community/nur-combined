@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitHub
 , sources
 , runtimeShell
@@ -14,7 +15,7 @@ let
   '';
 
   gdbGef = writeScript "gdb-gef" (
-    with stdenv.lib; ''
+    with lib; ''
       #!${runtimeShell}
       export PATH="${makeBinPath [ procps binutils-unwrapped python3 ]}:$PATH"
       export NIX_PYTHONPATH="${pythonPath}"
@@ -29,7 +30,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "gef-unstable";
-  version = stdenv.lib.substring 0 10 sources.gef.date;
+  version = lib.substring 0 10 sources.gef.date;
 
   src = sources.gef;
 
@@ -47,7 +48,7 @@ stdenv.mkDerivation {
     substituteInPlace $out/bin/gdb-gef --subst-var out
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.gef) description homepage;
     license = licenses.mit;
     platforms = platforms.all;

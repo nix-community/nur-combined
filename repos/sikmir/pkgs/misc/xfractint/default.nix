@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, xlibsWrapper }:
+{ lib, stdenv, fetchurl, xlibsWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "xfractint";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/install" "install"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Fractal generator";
     homepage = "https://fractint.org/";
     license = licenses.free;

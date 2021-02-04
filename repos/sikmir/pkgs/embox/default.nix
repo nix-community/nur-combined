@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchurl
 , writers
 , sources
@@ -28,7 +29,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "embox-unstable";
-  version = stdenv.lib.substring 0 10 sources.embox.date;
+  version = lib.substring 0 10 sources.embox.date;
 
   src = sources.embox;
 
@@ -61,7 +62,7 @@ stdenv.mkDerivation {
     install -Dm755 scripts/qemu/stop_script $out/share/embox/scripts/qemu_stop
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.embox) description homepage;
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];

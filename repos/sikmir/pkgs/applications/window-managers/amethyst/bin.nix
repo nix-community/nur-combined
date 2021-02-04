@@ -1,4 +1,4 @@
-{ stdenv, fetchfromgh, unzip }:
+{ lib, stdenv, fetchfromgh, unzip }:
 
 stdenv.mkDerivation rec {
   pname = "Amethyst-bin";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   preferLocalBuild = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Automatic tiling window manager for macOS à la xmonad";
     homepage = "https://ianyh.com/amethyst/";
     license = licenses.mit;

@@ -1,8 +1,8 @@
-{ stdenv, sources }:
+{ lib, stdenv, sources }:
 
 stdenv.mkDerivation {
   pname = "csvquote";
-  version = stdenv.lib.substring 0 10 sources.csvquote.date;
+  version = lib.substring 0 10 sources.csvquote.date;
 
   src = sources.csvquote;
 
@@ -10,7 +10,7 @@ stdenv.mkDerivation {
 
   preInstall = "mkdir -p $out/bin";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.csvquote) description homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];

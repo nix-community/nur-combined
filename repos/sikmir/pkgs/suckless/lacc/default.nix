@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation {
   pname = "lacc";
@@ -13,7 +13,7 @@ stdenv.mkDerivation {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A simple, self-hosting C compiler";
     homepage = "https://github.com/larmel/lacc";
     license = licenses.mit;

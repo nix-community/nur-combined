@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , autoconf
 , automake
 , libtool
@@ -12,7 +13,7 @@
 
 stdenv.mkDerivation {
   pname = "stardict-tools";
-  version = stdenv.lib.substring 0 10 sources.stardict-3.date;
+  version = lib.substring 0 10 sources.stardict-3.date;
 
   src = sources.stardict-3;
 
@@ -49,7 +50,7 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.stardict-3) description homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];

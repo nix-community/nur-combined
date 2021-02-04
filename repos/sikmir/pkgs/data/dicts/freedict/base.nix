@@ -1,4 +1,4 @@
-{ stdenvNoCC, fetchurl, lang, version, sha256 }:
+{ lib, stdenvNoCC, fetchurl, lang, version, sha256 }:
 
 stdenvNoCC.mkDerivation {
   pname = "freedict-${lang}";
@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation {
 
   preferLocalBuild = true;
 
-  meta = with stdenvNoCC.lib; {
+  meta = with lib; {
     description = "FreeDict (${lang})";
     homepage = "https://freedict.org";
     license = licenses.free;

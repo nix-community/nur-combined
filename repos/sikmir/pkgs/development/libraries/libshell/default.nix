@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , bash
 , dash
 , help2man
@@ -10,7 +11,7 @@
 
 stdenv.mkDerivation {
   pname = "libshell-unstable";
-  version = stdenv.lib.substring 0 10 sources.libshell.date;
+  version = lib.substring 0 10 sources.libshell.date;
 
   src = sources.libshell;
 
@@ -26,7 +27,7 @@ stdenv.mkDerivation {
     done
   '';
 
-  makeFlags = with stdenv.lib; [
+  makeFlags = with lib; [
     "DESTDIR=$(out)"
     (optional withDoc "SCDOC=${scdoc}/bin/scdoc")
     (optional (!withDoc) "SCDOC=")
@@ -34,7 +35,7 @@ stdenv.mkDerivation {
 
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.libshell) description homepage;
     license = licenses.gpl2;
     maintainers = [ maintainers.sikmir ];

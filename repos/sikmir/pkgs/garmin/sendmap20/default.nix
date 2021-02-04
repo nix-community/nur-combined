@@ -1,4 +1,4 @@
-{ stdenv, fetchwebarchive }:
+{ lib, stdenv, fetchwebarchive }:
 
 stdenv.mkDerivation {
   pname = "sendmap20";
@@ -20,7 +20,7 @@ stdenv.mkDerivation {
 
   installCheckPhase = "$out/bin/sendmap20 -h";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Software for uploading maps to your GPS";
     homepage = "https://web.archive.org/web/20160620061746if_/http://www.cgpsmapper.com";
     license = licenses.free;

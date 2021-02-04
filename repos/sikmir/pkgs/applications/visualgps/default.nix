@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , mkDerivation
 , fetchFromGitHub
 , qmake
@@ -31,7 +32,7 @@ mkDerivation {
     install -Dm755 VisualGPSqt -t $out/bin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A QT application (GUI) that makes use of the VisualGPS/NMEAParser project";
     homepage = "https://github.com/VisualGPS/VisualGPSqt";
     license = licenses.mit;

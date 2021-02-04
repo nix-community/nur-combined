@@ -1,8 +1,8 @@
-{ stdenv, go, sources }:
+{ lib, stdenv, go, sources }:
 
 stdenv.mkDerivation {
   pname = "gloggery-unstable";
-  version = stdenv.lib.substring 0 10 sources.gloggery.date;
+  version = lib.substring 0 10 sources.gloggery.date;
 
   src = sources.gloggery;
 
@@ -14,7 +14,7 @@ stdenv.mkDerivation {
 
   postInstall = "mv $out/.gloggery $out/share/glogger";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.gloggery) description homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];

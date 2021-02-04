@@ -1,8 +1,8 @@
-{ stdenv, sources }:
+{ lib, stdenv, sources }:
 
 stdenv.mkDerivation {
   pname = "nnn-plugins";
-  version = stdenv.lib.substring 0 10 sources.nnn.date;
+  version = lib.substring 0 10 sources.nnn.date;
 
   src = sources.nnn;
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     done
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Plugins extend the capabilities of nnn";
     homepage = "https://github.com/jarun/nnn/tree/master/plugins";
     license = licenses.bsd2;

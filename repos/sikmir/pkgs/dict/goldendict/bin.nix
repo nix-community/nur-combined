@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, undmg }:
+{ lib, stdenv, fetchurl, undmg }:
 
 stdenv.mkDerivation rec {
   pname = "goldendict-bin";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     cp -r . $out/Applications/GoldenDict.app
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A feature-rich dictionary lookup program";
     homepage = "http://goldendict.org/";
     license = licenses.gpl3Plus;

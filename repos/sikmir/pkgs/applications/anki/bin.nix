@@ -1,4 +1,4 @@
-{ stdenv, fetchfromgh, undmg }:
+{ lib, stdenv, fetchfromgh, undmg }:
 
 stdenv.mkDerivation rec {
   pname = "anki-bin";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     cp -r . $out/Applications/Anki.app
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://apps.ankiweb.net/";
     description = "Spaced repetition flashcard program";
     license = licenses.agpl3Plus;

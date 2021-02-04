@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "imgdecode";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   installPhase = "install -Dm755 imgdecode -t $out/bin";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "IMG Decoder";
     homepage = "https://sourceforge.net/projects/garmin-img/";
     license = licenses.bsd3;

@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, openssl, pkg-config, scdoc }:
+{ lib, stdenv, fetchgit, openssl, pkg-config, scdoc }:
 
 stdenv.mkDerivation {
   pname = "gmni";
@@ -14,7 +14,7 @@ stdenv.mkDerivation {
 
   buildInputs = [ openssl ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Gemini client";
     homepage = "https://git.sr.ht/~sircmpwn/gmni";
     license = licenses.gpl3;

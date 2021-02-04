@@ -1,4 +1,4 @@
-{ stdenv, fetchfromgh, undmg }:
+{ lib, stdenv, fetchfromgh, undmg }:
 
 stdenv.mkDerivation rec {
   pname = "wireguard-statusbar-bin";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     cp -r . $out/Applications/WireGuardStatusbar.app
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "macOS menubar icon for WireGuard/wg-quick";
     homepage = "https://github.com/aequitas/macos-menubar-wireguard";
     license = licenses.gpl3;

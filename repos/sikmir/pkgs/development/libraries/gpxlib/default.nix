@@ -1,8 +1,8 @@
-{ stdenv, cmake, expat, sources }:
+{ lib, stdenv, cmake, expat, sources }:
 
 stdenv.mkDerivation {
   pname = "gpxlib-unstable";
-  version = stdenv.lib.substring 0 10 sources.gpxlib.date;
+  version = lib.substring 0 10 sources.gpxlib.date;
 
   src = sources.gpxlib;
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     test/gpxcheck
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.gpxlib) description homepage;
     license = licenses.lgpl3Plus;
     maintainers = [ maintainers.sikmir ];

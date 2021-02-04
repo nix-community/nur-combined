@@ -1,4 +1,4 @@
-{ stdenv, fetchgit }:
+{ lib, stdenv, fetchgit }:
 
 stdenv.mkDerivation rec {
   pname = "sfeed";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "RSS and Atom parser";
     homepage = "https://git.codemadness.org/sfeed/";
     license = licenses.isc;

@@ -1,8 +1,8 @@
-{ stdenv, bc, cgpsmapper, gmaptool, mapsoft2, sources }:
+{ lib, stdenv, bc, cgpsmapper, gmaptool, mapsoft2, sources }:
 
 stdenv.mkDerivation {
-  pname = "slazav-hr-unstable";
-  version = stdenv.lib.substring 0 10 sources.map-hr.date;
+  pname = "slazav-hr";
+  version = lib.substring 0 10 sources.map-hr.date;
 
   src = sources.map-hr;
 
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm644 OUT/all_*.img -t $out";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.map-hr) description homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];

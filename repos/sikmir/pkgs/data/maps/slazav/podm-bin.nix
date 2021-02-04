@@ -1,4 +1,5 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
+
 fetchurl {
   name = "slazav-podm-2020-12-03";
   url = "http://slazav.xyz/maps/podm/all_podm.img";
@@ -9,7 +10,7 @@ fetchurl {
 
   postFetch = "install -Dm644 $downloadedFile $out/all_podm.img";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://slazav.xyz/maps/podm_txt.htm";
     description = "Карты Подмосковья";
     license = licenses.free;

@@ -1,8 +1,8 @@
-{ stdenv, cmake, gtest, sources }:
+{ lib, stdenv, cmake, gtest, sources }:
 
 stdenv.mkDerivation {
   pname = "microjson-unstable";
-  version = stdenv.lib.substring 0 10 sources.microjson.date;
+  version = lib.substring 0 10 sources.microjson.date;
 
   src = sources.microjson;
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation {
 
   doCheck = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.microjson) description homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];

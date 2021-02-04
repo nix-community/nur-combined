@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, libgit2 }:
+{ lib, stdenv, fetchgit, libgit2 }:
 
 stdenv.mkDerivation {
   pname = "stagit";
@@ -14,7 +14,7 @@ stdenv.mkDerivation {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Static git page generator";
     homepage = "https://git.codemadness.org/stagit/file/README.html";
     license = licenses.mit;

@@ -1,14 +1,14 @@
-{ stdenv, sources, libiconv }:
+{ lib, stdenv, sources, libiconv }:
 
 stdenv.mkDerivation {
   pname = "gimgtools-unstable";
-  version = stdenv.lib.substring 0 10 sources.gimgtools.date;
+  version = lib.substring 0 10 sources.gimgtools.date;
 
   src = sources.gimgtools;
 
-  buildInputs = stdenv.lib.optional stdenv.isDarwin libiconv;
+  buildInputs = lib.optional stdenv.isDarwin libiconv;
 
-  postPatch = stdenv.lib.optionalString stdenv.isDarwin ''
+  postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile \
       --replace "CC = gcc" ""
   '';
@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     done
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.gimgtools) description homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];

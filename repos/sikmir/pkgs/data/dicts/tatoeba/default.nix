@@ -1,4 +1,4 @@
-{ stdenvNoCC, lib, fetchurl, dict, jq, moreutils, stardict-tools, tatoebatools }:
+{ lib, stdenvNoCC, fetchurl, dict, jq, moreutils, stardict-tools, tatoebatools }:
 let
   langs = [
     "deu eng"

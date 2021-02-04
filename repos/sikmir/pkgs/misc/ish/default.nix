@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "ish";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     install -Dm755 ish ishd -t $out/bin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "ICMP Shell";
     homepage = "http://icmpshell.sourceforge.net";
     license = licenses.free;

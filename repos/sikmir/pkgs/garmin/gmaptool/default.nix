@@ -1,7 +1,7 @@
-{ stdenv, fetchzip }:
+{ lib, stdenv, fetchzip }:
 let
   version = "0.8.220";
-  filename = "lgmt${stdenv.lib.replaceStrings [ "." ] [ "" ] version}.zip";
+  filename = "lgmt${lib.replaceStrings [ "." ] [ "" ] version}.zip";
 in
 stdenv.mkDerivation {
   pname = "gmaptool";
@@ -17,7 +17,7 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm755 gmt -t $out/bin";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Program for splitting and merging maps in Garmin format";
     homepage = "https://www.gmaptool.eu";
     license = licenses.cc-by-sa-30;

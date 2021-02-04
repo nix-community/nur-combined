@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, libX11, libXft, libXinerama }:
+{ lib, stdenv, fetchFromGitHub, libX11, libXft, libXinerama }:
 
 stdenv.mkDerivation rec {
   pname = "xprompt";

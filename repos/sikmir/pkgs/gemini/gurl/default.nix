@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, zig }:
+{ lib, stdenv, fetchFromGitHub, zig }:
 
 stdenv.mkDerivation {
   pname = "gurl-unstable";
@@ -18,7 +18,7 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm755 zig-cache/bin/gurl -t $out/bin";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A curl-like cli application to interact with Gemini sites";
     homepage = "https://github.com/MasterQ32/gurl";
     license = licenses.mit;

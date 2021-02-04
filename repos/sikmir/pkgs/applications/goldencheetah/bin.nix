@@ -1,4 +1,4 @@
-{ stdenv, fetchfromgh, appimageTools, undmg }:
+{ lib, stdenv, fetchfromgh, appimageTools, undmg }:
 let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
@@ -27,7 +27,7 @@ let
     inherit name src;
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Performance software for cyclists, runners and triathletes";
     homepage = "https://www.goldencheetah.org/";
     license = licenses.gpl3;

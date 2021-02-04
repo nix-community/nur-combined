@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, cmake, unzip, ncurses5, SDL, SDL_mixer }:
+{ lib, stdenv, fetchurl, cmake, unzip, ncurses5, SDL, SDL_mixer }:
 
 stdenv.mkDerivation rec {
   pname = "ascii-dash";
@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses5 SDL SDL_mixer ];
 
-  NIX_CFLAGS_COMPILE = stdenv.lib.optional stdenv.cc.isGNU "-Wno-error=stringop-truncation"
-    ++ stdenv.lib.optional stdenv.cc.isClang "-Wno-error=mismatched-new-delete";
+  NIX_CFLAGS_COMPILE = lib.optional stdenv.cc.isGNU "-Wno-error=stringop-truncation"
+    ++ lib.optional stdenv.cc.isClang "-Wno-error=mismatched-new-delete";
 
   installPhase = ''
     install -Dm755 main $out/bin/ascii-dash
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     cp -r ../{data,sounds} $out/share/ascii-dash
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Remake of BOULDER DASH with NCurses";
     homepage = "https://ascii-dash.sourceforge.io/";
     license = licenses.mit;

@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, patches ? [] }:
+{ lib, stdenv, fetchgit }:
 
 stdenv.mkDerivation {
   pname = "quark";
@@ -10,11 +10,9 @@ stdenv.mkDerivation {
     sha256 = "08gwb9rmj0d6z5p15vk5r7jv0wm80143mkzkq3cmmpd96mm689yw";
   };
 
-  inherit patches;
-
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Extremely small and simple HTTP GET/HEAD-only web server for static content";
     homepage = "http://tools.suckless.org/quark";
     license = licenses.isc;

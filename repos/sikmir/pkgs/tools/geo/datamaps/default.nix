@@ -1,8 +1,8 @@
-{ stdenv, libpng, pkg-config, sources }:
+{ lib, stdenv, libpng, pkg-config, sources }:
 
 stdenv.mkDerivation {
   pname = "datamaps";
-  version = stdenv.lib.substring 0 10 sources.datamaps.date;
+  version = lib.substring 0 10 sources.datamaps.date;
 
   src = sources.datamaps;
 
@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     done
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.datamaps) description homepage;
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];

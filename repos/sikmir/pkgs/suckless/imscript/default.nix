@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, libpng, libjpeg, libtiff, fftwFloat, libX11, gsl }:
+{ lib, stdenv, fetchgit, libpng, libjpeg, libtiff, fftwFloat, libX11, gsl }:
 
 stdenv.mkDerivation {
   pname = "imscript";
@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     install -Dm644 doc/man/* -t $out/share/man/man1
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A collection of small and standalone utilities for image processing";
     homepage = "https://git.sr.ht/~coco/imscript";
     license = licenses.agpl3;

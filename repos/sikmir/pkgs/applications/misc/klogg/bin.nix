@@ -1,4 +1,4 @@
-{ stdenv, fetchfromgh, appimageTools, undmg, sources }:
+{ lib, stdenv, fetchfromgh, appimageTools, undmg, sources }:
 let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
@@ -27,7 +27,7 @@ let
     inherit name src;
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.klogg) description homepage;
     license = licenses.gpl3Plus;
     platforms = [ "x86_64-linux" "x86_64-darwin" ];

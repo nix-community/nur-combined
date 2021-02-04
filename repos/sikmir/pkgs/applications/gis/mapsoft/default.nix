@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , perlPackages
 , python2Packages
 , gimp
@@ -31,7 +32,7 @@
 
 stdenv.mkDerivation {
   pname = "mapsoft-unstable";
-  version = stdenv.lib.substring 0 10 sources.mapsoft.date;
+  version = lib.substring 0 10 sources.mapsoft.date;
 
   src = sources.mapsoft;
 
@@ -84,7 +85,7 @@ stdenv.mkDerivation {
   sconsFlags = [ "minimal=1" "prefix=$(out)" ];
 
   postInstall = ''
-    wrapPythonProgramsIn $out/lib/gimp/${stdenv.lib.versions.major gimp.version}.0/plug-ins/
+    wrapPythonProgramsIn $out/lib/gimp/${lib.versions.major gimp.version}.0/plug-ins/
     substituteInPlace $out/bin/mapsoft_wp_parse \
       --replace "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
     wrapProgram $out/bin/mapsoft_wp_parse --prefix PERL5LIB : "$PERL5LIB"
@@ -92,7 +93,7 @@ stdenv.mkDerivation {
       --replace "getopt " "${getopt}/bin/getopt "
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (sources.mapsoft) description homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
