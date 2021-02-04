@@ -5,7 +5,7 @@ R.override {
     ggplot2
     BoardGames
     shiny
-    plumber
+    # plumber # rLibSodium is borked run
     rmarkdown
   ];
 }
