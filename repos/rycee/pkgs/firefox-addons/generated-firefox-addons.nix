@@ -522,10 +522,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.7.5";
+      version = "1.7.6";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3718260/keepassxc_browser-1.7.5-fx.xpi";
-      sha256 = "ac4b6926890b903bb7870d51b8a07a8740e63784a0621f274436ac401e85dd46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3720664/keepassxc_browser-1.7.6-fx.xpi";
+      sha256 = "dcae34e3f7aadda9878484f45a1cd0b42f3dda17b9234929d92bdbcc4f5d6d98";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -536,10 +536,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "3.3.1";
+      version = "3.3.3";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3715167/grammatik_und_rechtschreibprufung_languagetool-3.3.1-fx.xpi";
-      sha256 = "28b1d21f8fc33942ba12575a85fe95f2676198b5bd573a22a6b1321a1fe8e215";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3720821/grammatik_und_rechtschreibprufung_languagetool-3.3.3-fx.xpi";
+      sha256 = "274c67713498cc77d18af3f7e99fe88753b5d3e81ffdd14f212fdc36e50fb254";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -934,10 +934,10 @@
       };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
-      version = "4.0.4";
+      version = "4.0.5";
       addonId = "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3719292/terms_of_service_didnt_read-4.0.4-fx.xpi";
-      sha256 = "937a1485352a77a279c147803f5e587fc99050be12cfe87dff7ac6048b1e5667";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3721009/terms_of_service_didnt_read-4.0.5-fx.xpi";
+      sha256 = "65eda2a568f0bcaf67f70264eb71b94f4dfd151eafdbaca5c8b5f1f6d6ef23c3";
       meta = with lib;
       {
         homepage = "http://tosdr.org";
