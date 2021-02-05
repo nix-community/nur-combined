@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { }); 
+  chromium-extensions = pkgs.callPackage ./pkgs/chromium-extensions { };
 }
