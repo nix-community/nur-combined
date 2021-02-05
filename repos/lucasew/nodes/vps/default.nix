@@ -1,12 +1,26 @@
 {pkgs, ...}:
 with import ../../globalConfig.nix;
+let
+  randomtube = "${pkgs.callPackage "${builtins.fetchGit {
+    url = "ssh://git@github.com/lucasew/randomtube.git";
+    rev = "9bdb25e489685f27ec99bfafab37e183480d2a7b";
+  }}" {}}/bin/randomtube";
+  wrappedRandomtube = "${pkgs.wrapDotenv "randomtube.env" ''
+    PATH=$PATH:${pkgs.ffmpeg}/bin
+    ${randomtube} -ms 60
+  ''}";
+in
 {
   imports = [
     ../bootstrap/default.nix
      "${flake.inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
     ../../modules/cachix/system.nix
-    
   ];
+
+  swapDevices = [
+    { device = "/swapfile"; }
+  ];
+
   nixpkgs.config.allowUnfree = true;
   networking.hostName = "cloudhead";
   environment.systemPackages = with pkgs; [
@@ -28,6 +42,20 @@ with import ../../globalConfig.nix;
     ];
   };
   services.zerotierone.enable = true;
+  systemd = {
+    services.randomtube = {
+      serviceConfig = {
+        Type = "oneshot";
+        Nice = 19;
+      };
+      script = "${wrappedRandomtube}";
+    };
+    timers.randomtube = {
+      wantedBy = [ "timers.target" ];
+      partOf = [ "randomtube.service" ];
+      timerConfig.OnCalendar = "*-*-* 3:00:00";
+    };
+  };
   users.users = {
     ${username} = {
       description = "Ademir";

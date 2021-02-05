@@ -27,6 +27,9 @@ with import ../../globalConfig.nix;
   services.openssh = {
     enable = true;
     passwordAuthentication = true;
+    authorizedKeysFiles = [
+      (builtins.toString ../../authorized_keys)
+    ];
   };
   services.zerotierone = {
     port = 6969;

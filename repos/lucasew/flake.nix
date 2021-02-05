@@ -45,7 +45,7 @@
       inherit overlays;
       inherit system;
       config = {
-	allowUnfree = true;
+      allowUnfree = true;
       };
     };
   in {
