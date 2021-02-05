@@ -16,11 +16,14 @@ In this git repo you will find my personal configuration, and some packages I fi
 - `pkgs/`: personal package repository
 - `modules/`: nixos modules for my current laptop
 - `local/`: configuration files that are not written in nix
+- `overlays/`: overlay functions, neatly sorted by priority
+- `lib/`: small library functions. Most of them were used while I was still doing AoC 2020.
 
 ### main files:
 
 - `configuration.nix` nixos config entrypoint. this repository lives in my /etc/nixos
 - `createLinks.sh`: creates links to my local config directory. Right now I'm not using home-manager     as some of these configs are automatically written by GUI's
+- `default.nix`: setup for the monorepo
 
 ### copying this system setup
 
@@ -42,6 +45,11 @@ in
 ```
 
 then run `createLinks.sh` do create symlinks to configurations managed in the repository
+
+### Additional notes:
+
+- You need a nixpkgs source (or at least a source that implements nixpkgs library functions `extends`, `flip`, `fix` and `mapAttrs`) to use the overlays in this repository via NUR.
+- If you want to use this as a `<nixpkgs>` source, its best to first clone this repository, then enter the command `git submodule update --init --depth 1 dep/nixpkgs` so that you don't download the nixpkgs source with all git history attached.
 
 ### Installing packages faster
 
