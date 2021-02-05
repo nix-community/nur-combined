@@ -38,5 +38,6 @@ rec {
   );
   nix-search = pkgs.callPackage ./pkgs/nix-search {};
   prusa-slicer-latest = with deps; pkgs.callPackage ./pkgs/prusa-slicer-latest { inherit cereal cgal_5; };
+  arcwelder = pkgs.callPackage ./pkgs/arcwelder { };
   sc3-plugins = pkgs.callPackage ./pkgs/sc3-plugins {};
 }
