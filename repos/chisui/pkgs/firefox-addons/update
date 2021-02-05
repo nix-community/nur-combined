@@ -1,0 +1,3 @@
+#! /bin/sh
+nix-shell -p nur.repos.rycee.firefox-addons-generator --run "nixpkgs-firefox-addons addons.json generated-firefox-addons.nix"
+
