@@ -13,6 +13,7 @@ It contains packages/attributes for:
   - lunasvg (https://github.com/sammycage/lunasvg/)
   - lispPackages.vacietis (https://github.com/vsedach/Vacietis)
   - ticker (https://github.com/achannarasappa/ticker)
+  - colorpedia (https://github.com/joowani/colorpedia)
 
 * License
   

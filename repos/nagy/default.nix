@@ -24,4 +24,10 @@ rec {
   };
 
   ticker = pkgs.callPackage ./pkgs/ticker {};
+
+  colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {
+    setuptools = pkgs.python3Packages.setuptools;
+    setuptools_scm = pkgs.python3Packages.setuptools_scm;
+    fire = pkgs.python3Packages.fire;
+  };
 }

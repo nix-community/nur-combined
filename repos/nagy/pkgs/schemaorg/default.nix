@@ -15,9 +15,9 @@ stdenvNoCC.mkDerivation rec {
     cp -r "data/releases/${version}/." "$out/share/schema.org/"
   '';
 
-  meta = with lib ; {
+  meta = with lib; {
     description = "schema.org";
-    homepage = "schema.org";
+    homepage = "https://schema.org/";
     license = licenses.asl20;
     changelog = "https://schema.org/docs/releases.html";
   };
