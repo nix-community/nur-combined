@@ -1,6 +1,9 @@
 { sources ? import ../nix/sources.nix
 , pkgs ? import sources.nixpkgs { }
 }:
+let
+  monorepo = import ../. { inherit pkgs; };
+in
 {
   # package sets
   js = import ./js { inherit pkgs; };
@@ -17,11 +20,17 @@
   # to backtrack to a previous step
   hidden = {
     emacs = pkgs.callPackage ./emacs { inherit sources; };
-    monorepo = import ../. { inherit pkgs; };
+    inherit monorepo;
   };
   # below package is borked again, leaving it out for now
   # ClassiCube = pkgs.callPackage ./ClassiCube { inherit sources; };
 
   # modules
   modules = import ../modules;
+  # overlays
+  inherit (monorepo.lib) overlays;
+  # lib functions
+  lib = (import ../lib/utils.nix) // {
+    importFromSubmodules = import ../lib/importFromSubmodule.nix;
+  };
 }

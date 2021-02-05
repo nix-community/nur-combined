@@ -1,12 +1,12 @@
 {
   # list of modules for NUR
-  desktop-config = import ./desktop-configuration;
-  packages-config = import ./packages-configuration;
-  steam-config = import ./steam-configuration;
-  system-config = import ./system-configuration;
-  users-config = import ./users-configuration;
-  vim-config = import ./vim-configuration;
+  desktop-config = ./desktop-configuration;
+  packages-config = ./packages-configuration;
+  steam-config = ./steam-configuration;
+  system-config = ./system-configuration;
+  users-config = ./users-configuration;
+  vim-config = ./vim-configuration;
 
   # separate usable modules
-  feh-bg-module = import ./internet-background;
+  feh-bg-module = ./internet-background;
 }

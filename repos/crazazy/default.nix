@@ -7,8 +7,8 @@ let
   inherit (builtins) attrValues sort;
   ensureModules = import ./lib/importFromSubmodule.nix { root = ./.; };
   # impure Nix is faster than pinned nix
-  nixpkgsSrc = args.pkgs or (if impureNix then <nixpkgs> else (ensureModules ./dep/nixpkgs/default.nix));
-  pkgs = import nixpkgsSrc { };
+  nixpkgsSrc = if impureNix then <nixpkgs> else (ensureModules ./dep/nixpkgs/default.nix);
+  pkgs = args.pkgs or (import nixpkgsSrc { });
   localOverlays = import ./overlays;
   basePackageSet = self: {
     callPackage = pkgs.lib.callPackageWith self;
