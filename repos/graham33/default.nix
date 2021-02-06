@@ -8,13 +8,16 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
   fiblary3 = pkgs.python3Packages.callPackage ./pkgs/fiblary3 { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  garminconnect = pkgs.python3Packages.callPackage ./pkgs/garminconnect { };
+  libpurecool = pkgs.python3Packages.callPackage ./pkgs/libpurecool { };
+  python-socketio-4 = pkgs.python3Packages.callPackage ./pkgs/python-socketio/4.nix { };
+  ring_doorbell = pkgs.python3Packages.callPackage ./pkgs/ring_doorbell { };
+  smartbox = pkgs.python3Packages.callPackage ./pkgs/smartbox { python-socketio = python-socketio-4; };
 }

@@ -34,6 +34,6 @@ buildPythonPackage rec {
     license = licenses.asl20;
     description = "Home Center API Python Library";
     # TODO: maintainer
-    # maintainers = [ maintainers.graham33 ];
+    #maintainers = with maintainers; [ graham33 ];
   };
 }
