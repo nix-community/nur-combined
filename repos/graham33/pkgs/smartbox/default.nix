@@ -9,6 +9,7 @@
 , pytest-asyncio
 , pytest-mock
 , pytest-randomly
+, pytestCheckHook
 , python-socketio
 , pyyaml
 , requests
@@ -43,12 +44,9 @@ buildPythonPackage rec {
     pytest-asyncio
     pytest-mock
     pytest-randomly
+    pytestCheckHook
     requests-mock
   ];
-
-  checkPhase = ''
-    pytest
-  '';
 
   meta = with lib; {
     homepage = "https://github.com/graham33/smartbox";

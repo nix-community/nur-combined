@@ -20,4 +20,5 @@ rec {
   python-socketio-4 = pkgs.python3Packages.callPackage ./pkgs/python-socketio/4.nix { };
   ring_doorbell = pkgs.python3Packages.callPackage ./pkgs/ring_doorbell { };
   smartbox = pkgs.python3Packages.callPackage ./pkgs/smartbox { python-socketio = python-socketio-4; };
+  teslajsonpy = pkgs.python3Packages.callPackage ./pkgs/teslajsonpy { };
 }
