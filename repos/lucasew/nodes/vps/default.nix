@@ -1,20 +1,12 @@
 {pkgs, ...}:
 with import ../../globalConfig.nix;
-let
-  randomtube = "${pkgs.callPackage "${builtins.fetchGit {
-    url = "ssh://git@github.com/lucasew/randomtube.git";
-    rev = "9bdb25e489685f27ec99bfafab37e183480d2a7b";
-  }}" {}}/bin/randomtube";
-  wrappedRandomtube = "${pkgs.wrapDotenv "randomtube.env" ''
-    PATH=$PATH:${pkgs.ffmpeg}/bin
-    ${randomtube} -ms 60
-  ''}";
-in
 {
   imports = [
     ../bootstrap/default.nix
      "${flake.inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
     ../../modules/cachix/system.nix
+    ../../modules/randomtube/system.nix
+    ../../modules/vercel-ddns/system.nix
   ];
 
   swapDevices = [
@@ -41,28 +33,27 @@ in
       6969 6970 6971 6972 6973 6974 6975 6976 6977 6978 6979 6980
     ];
   };
-  services.zerotierone.enable = true;
-  systemd = {
-    services.randomtube = {
-      serviceConfig = {
-        Type = "oneshot";
-        Nice = 19;
-      };
-      script = "${wrappedRandomtube}";
-    };
-    timers.randomtube = {
-      wantedBy = [ "timers.target" ];
-      partOf = [ "randomtube.service" ];
-      timerConfig.OnCalendar = "*-*-* 3:00:00";
-    };
-  };
   users.users = {
     ${username} = {
       description = "Ademir";
     };
   };
   virtualisation.docker.enable = true;
-  services.irqbalance.enable = true;
+  services = {
+    zerotierone.enable = true;
+    irqbalance.enable = true;
+    randomtube = {
+      enable = false;
+      extraParameters = "-ms 120";
+      secretsDotenv = "${rootPath}/secrets/randomtube.env";
+    };
+    vercel-ddns = {
+      enable = true;
+      vercelTokenFile = "${rootPath}/secrets/vercel.env";
+      domain = "biglucas.tk";
+      name = "vps";
+    };
+  };
 
   cachix.enable = true;
 

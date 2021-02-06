@@ -9,8 +9,13 @@ COMMAND=$1;shift
 case $TARGET in
     vps)
         case $COMMAND in
+            build)
+                nixos-rebuild build --flake .#vps || exit 1
+            ;;
             switch)
-                nixos-rebuild switch --flake .#vps --target-host $DEFAULT_USER@$VPS_IP --build-host localhost
+                $0 vps build
+                nix-copy-closure $DEFAULT_USER@$VPS_IP $(readlink result)
+                ssh $DEFAULT_USER@$VPS_IP -t tmux new sudo $(readlink result)/bin/switch-to-configuration switch
             ;;
             reboot)
                 ssh $DEFAULT_USER@$VPS_IP reboot
@@ -25,8 +30,13 @@ case $TARGET in
     ;;
     nb)
         case $COMMAND in
+            build)
+                nixos-rebuild build --flake .#acer-nix
+            ;;
             switch)
-                nixos-rebuild switch --flake .#acer-nix --target-host $DEFAULT_USER@$NB_IP --build-host $DEFAULT_USER@$NB_IP
+                $0 nb build
+                nix-copy-closure $DEFAULT_USER@$NB_IP $(readlink result)
+                ssh $DEFAULT_USER@$NB_IP -t tmux new sudo $(readlink result)/bin/switch-to-configuration switch
             ;;
             reboot)
                 ssh $DEFAULT_USER@$NB_IP reboot
