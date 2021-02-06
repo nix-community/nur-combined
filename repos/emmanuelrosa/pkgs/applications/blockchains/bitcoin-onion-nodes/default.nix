@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gawk }:
+{ stdenv, lib, fetchFromGitHub, gawk }:
 
 let
   description = "A list of bitcoin validating nodes running as Tor onion services.";
@@ -17,7 +17,7 @@ in stdenv.mkDerivation rec {
     ${gawk}/bin/awk -f mknodes.awk <nodes.txt >$out
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit description;
     homepage = https://github.com/emmanuelrosa/bitcoin-onion-nodes;
     license = licenses.mit;

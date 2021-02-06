@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip }:
+{ stdenv, lib, fetchurl, unzip }:
 
 let
   description = "Century Gothic font.";
@@ -23,7 +23,7 @@ in stdenv.mkDerivation rec {
     cp -r ./*.TTF $out/share/fonts/century-gothic
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit description;
     homepage = https://www.dafontfree.net;
     license = licenses.unfree;

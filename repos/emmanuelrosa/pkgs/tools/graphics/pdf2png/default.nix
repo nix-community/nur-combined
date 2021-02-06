@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/pdf2jpg --prefix PATH : ${lib.makeBinPath [ imagemagick ghostscript]}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A simple script to convert a PDF into multiple PNGs.";
     homepage = https://github.com/emmanuelrosa/pdf2png;
     license = licenses.mit;

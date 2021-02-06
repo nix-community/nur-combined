@@ -1,4 +1,4 @@
-{ stdenv, coreutils, writeScript, makeDesktopItem, bash, bubblewrap, socat, electrum }:
+{ stdenv, lib, coreutils, writeScript, makeDesktopItem, bash, bubblewrap, socat, electrum }:
 
 let
   hostScript = writeScript "electrum-bubblewrap-host-script"
@@ -70,7 +70,7 @@ in stdenv.mkDerivation rec {
     genericName = "Bitcoin Wallet";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The Electrum Bitcoin wallet, but restricted by a Bubblewrap Linux container for enhanced privacy protection.";
     homepage = https://github.com/spesmilo/electrum;
     license = licenses.mit;

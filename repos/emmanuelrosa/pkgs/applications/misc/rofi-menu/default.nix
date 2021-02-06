@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/rofi-menu-history --prefix PATH : ${lib.makeBinPath [ gnused jq sxiv ]}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Various rofi menus (aka. modi)";
     homepage = "https://github.com/emmanuelrosa/rofi-menu";
     license = licenses.mit;

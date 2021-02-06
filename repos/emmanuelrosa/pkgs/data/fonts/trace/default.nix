@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip }:
+{ stdenv, lib, fetchurl, unzip }:
 
 let
   description = "Trace font";
@@ -26,7 +26,7 @@ in stdenv.mkDerivation rec {
     cp -r ./*.ttf $out/share/fonts/trace
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit description;
     homepage = https://www.fontspace.com/trace-font-f3625;
     license = licenses.unfree;

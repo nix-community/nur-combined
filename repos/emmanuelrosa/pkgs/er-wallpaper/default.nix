@@ -1,4 +1,4 @@
-{ mkDerivation, fetchFromGitHub, base, stdenv, turtle, pywal, betterlockscreen }:
+{ mkDerivation, lib, fetchFromGitHub, base, stdenv, turtle, pywal, betterlockscreen }:
 mkDerivation rec {
   pname = "er-wallpaper";
   version = "0.2.0.0";
@@ -15,7 +15,7 @@ mkDerivation rec {
   executableHaskellDepends = [ base turtle ];
   homepage = "https://github.com/emmanuelrosa/er-wallpaper";
   description = "A script for changing wallpaper and setting color schemes, for Linux";
-  license = stdenv.lib.licenses.mit;
+  license = lib.licenses.mit;
 
   postConfigure = ''
     substituteInPlace Main.hs \

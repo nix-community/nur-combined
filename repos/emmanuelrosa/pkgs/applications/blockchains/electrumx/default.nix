@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python38Packages }:
+{ stdenv, lib, fetchFromGitHub, python38Packages }:
 
 python38Packages.buildPythonApplication rec {
   pname = "electrumx";
@@ -15,7 +15,7 @@ python38Packages.buildPythonApplication rec {
 
   patches = [ ./setup.patch ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A reimplementation of electrum-server.";
     longDescription = ''
       This project is a fork of kyuupichan/electrumx. 

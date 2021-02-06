@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python3, python3Packages }:
+{ stdenv, lib, fetchFromGitHub, python3, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "electrum-personal-server";
@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3Packages; [ wheel pytestrunner setuptools ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "An lightweight, single-user implementation of the Electrum server protocol";
     longDescription = ''
       Electrum Personal Server aims to make using Electrum bitcoin wallet 

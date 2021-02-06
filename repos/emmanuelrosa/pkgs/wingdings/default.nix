@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip }:
+{ stdenv, lib, fetchurl, unzip }:
 
 let
   description = "Wingdings font.";
@@ -26,7 +26,7 @@ in stdenv.mkDerivation rec {
     cp -r ./*.ttf $out/share/fonts/wingdings
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit description;
     homepage = https://www.wfonts.com/font/wingdings;
     license = licenses.unfree;

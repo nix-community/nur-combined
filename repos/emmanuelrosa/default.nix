@@ -27,5 +27,6 @@
   rofi-menu = pkgs.callPackage ./pkgs/applications/misc/rofi-menu { };
   electrumx = pkgs.callPackage ./pkgs/applications/blockchains/electrumx { };
   bitcoin-onion-nodes = pkgs.callPackage ./pkgs/applications/blockchains/bitcoin-onion-nodes { };
+  nvidia-offload = pkgs.callPackage ./pkgs/os-specific/linux/nvidia-offload { };
 }
 
