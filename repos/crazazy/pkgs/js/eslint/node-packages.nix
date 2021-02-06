@@ -337,13 +337,13 @@ let
         sha512 = "eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==";
       };
     };
-    "esquery-1.3.1" = {
+    "esquery-1.4.0" = {
       name = "esquery";
       packageName = "esquery";
-      version = "1.3.1";
+      version = "1.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/esquery/-/esquery-1.3.1.tgz";
-        sha512 = "olpvt9QG0vniUBZspVRN6lwB7hOZoTRtT+jzR+tS4ffYx2mzbw+z0XCOk44aaLYKApNX5nMm+E+P6o25ip/DHQ==";
+        url = "https://registry.npmjs.org/esquery/-/esquery-1.4.0.tgz";
+        sha512 = "cCDispWt5vHHtwMY2YrAQ4ibFkAL8RbH5YGBnZBc90MolvvfkkQcJro/aZiAQUlQ3qgrYS6D6v8Gc5G5CQsc9w==";
       };
     };
     "esrecurse-4.3.0" = {
@@ -1025,7 +1025,7 @@ let
         ];
       })
       sources."esprima-4.0.1"
-      (sources."esquery-1.3.1" // {
+      (sources."esquery-1.4.0" // {
         dependencies = [
           sources."estraverse-5.2.0"
         ];

@@ -22,13 +22,13 @@ let
         sha512 = "BQKE9kXkPlXHPeqissfxo0lySWJcYdEP0hdtJOH/iJfDdhOCcgtNCjftCJg3qqauB4h+lz2N6ixM++b9DN1Tcw==";
       };
     };
-    "@babel/generator-7.12.13" = {
+    "@babel/generator-7.12.15" = {
       name = "_at_babel_slash_generator";
       packageName = "@babel/generator";
-      version = "7.12.13";
+      version = "7.12.15";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/generator/-/generator-7.12.13.tgz";
-        sha512 = "9qQ8Fgo8HaSvHEt6A5+BATP7XktD/AdAnObUeTRz5/e2y3kbrxZgz32qUJJsdmwUvBJzF4AeV21nGTNwv05Mpw==";
+        url = "https://registry.npmjs.org/@babel/generator/-/generator-7.12.15.tgz";
+        sha512 = "6F2xHxBiFXWNSGb7vyCUTBF8RCLY66rS0zEPcP8t/nQyXjha5EuK4z7H5o7fWG8B4M7y6mqVWq1J+1PuwRhecQ==";
       };
     };
     "@babel/helper-function-name-7.12.13" = {
@@ -139,13 +139,13 @@ let
         sha512 = "kocDQvIbgMKlWxXe9fof3TQ+gkIPOUSEYhJjqUjvKMez3krV7vbzYCDq39Oj11UAVK7JqPVGQPlgE85dPNlQww==";
       };
     };
-    "@babel/parser-7.12.14" = {
+    "@babel/parser-7.12.15" = {
       name = "_at_babel_slash_parser";
       packageName = "@babel/parser";
-      version = "7.12.14";
+      version = "7.12.15";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/parser/-/parser-7.12.14.tgz";
-        sha512 = "xcfxDq3OrBnDsA/Z8eK5/2iPcLD8qbOaSSfOw4RA6jp4i7e6dEQ7+wTwxItEwzcXPQcsry5nZk96gmVPKletjQ==";
+        url = "https://registry.npmjs.org/@babel/parser/-/parser-7.12.15.tgz";
+        sha512 = "AQBOU2Z9kWwSZMd6lNjCX0GUgFonL1wAM1db8L8PMk9UDaGsRCArBkU4Sc+UCM3AE4hjbXx+h58Lb3QT4oRmrA==";
       };
     };
     "@babel/template-7.12.13" = {
@@ -220,13 +220,13 @@ let
         sha512 = "laIjwTQaD+5DukBZaygQ79K1Z0jb1bPEMRrkXSLjtCcZm+abyp5YbrqpSLzD42FwWW6gK/aS4NYpJ804nG2brg==";
       };
     };
-    "@types/node-14.14.22" = {
+    "@types/node-14.14.25" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "14.14.22";
+      version = "14.14.25";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-14.14.22.tgz";
-        sha512 = "g+f/qj/cNcqKkc3tFqlXOYjrmZA+jNBiDzbP3kH+B+otKFqAdPgVTGP1IeKRdMml/aE69as5S4FqtxAbl+LaMw==";
+        url = "https://registry.npmjs.org/@types/node/-/node-14.14.25.tgz";
+        sha512 = "EPpXLOVqDvisVxtlbvzfyqSsFeQxltFbluZNRndIb8tr9KiBnYNLzrc1N3pyKUCww2RNrfHDViqDWWE1LCJQtQ==";
       };
     };
     "abbrev-1.1.1" = {
@@ -463,13 +463,13 @@ let
         sha1 = "a4301d389b6a43f9b67ff3ca11a3f6637e360e9e";
       };
     };
-    "bl-4.0.3" = {
+    "bl-4.0.4" = {
       name = "bl";
       packageName = "bl";
-      version = "4.0.3";
+      version = "4.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/bl/-/bl-4.0.3.tgz";
-        sha512 = "fs4G6/Hu4/EE+F75J8DuN/0IpQqNjAdC7aEQv7Qt8MHGUH7Ckv2MwTEEeN9QehD0pfIDkMI1bkHYkKy7xHyKIg==";
+        url = "https://registry.npmjs.org/bl/-/bl-4.0.4.tgz";
+        sha512 = "7tdr4EpSd7jJ6tuQ21vu2ke8w7pNEstzj1O8wwq6sNNzO3UDi5MA8Gny/gquCj7r2C6fHudg8tKRGyjRgmvNxQ==";
       };
     };
     "brace-expansion-1.1.11" = {
@@ -1183,13 +1183,13 @@ let
         sha512 = "WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==";
       };
     };
-    "graceful-fs-4.2.4" = {
+    "graceful-fs-4.2.5" = {
       name = "graceful-fs";
       packageName = "graceful-fs";
-      version = "4.2.4";
+      version = "4.2.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.4.tgz";
-        sha512 = "WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==";
+        url = "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.5.tgz";
+        sha512 = "kBBSQbz2K0Nyn+31j/w36fUfxkBW9/gfwRWdUY1ULReH3iokVJgddZAFcD1D0xlgTmFxJCbUkUclAlc6/IDJkw==";
       };
     };
     "har-schema-2.0.0" = {
@@ -3046,7 +3046,7 @@ let
     dependencies = [
       sources."@babel/code-frame-7.12.13"
       sources."@babel/core-7.12.13"
-      sources."@babel/generator-7.12.13"
+      sources."@babel/generator-7.12.15"
       sources."@babel/helper-function-name-7.12.13"
       sources."@babel/helper-get-function-arity-7.12.13"
       sources."@babel/helper-member-expression-to-functions-7.12.13"
@@ -3059,7 +3059,7 @@ let
       sources."@babel/helper-validator-identifier-7.12.11"
       sources."@babel/helpers-7.12.13"
       sources."@babel/highlight-7.12.13"
-      sources."@babel/parser-7.12.14"
+      sources."@babel/parser-7.12.15"
       sources."@babel/template-7.12.13"
       sources."@babel/traverse-7.12.13"
       sources."@babel/types-7.12.13"
@@ -3068,7 +3068,7 @@ let
       sources."@jspm/npm-1.0.1"
       sources."@jspm/resolve-1.0.0"
       sources."@types/estree-0.0.46"
-      sources."@types/node-14.14.22"
+      sources."@types/node-14.14.25"
       sources."abbrev-1.1.1"
       sources."acorn-7.4.1"
       sources."agent-base-4.3.0"
@@ -3099,7 +3099,7 @@ let
       })
       sources."base64-js-1.5.1"
       sources."bcrypt-pbkdf-1.0.2"
-      (sources."bl-4.0.3" // {
+      (sources."bl-4.0.4" // {
         dependencies = [
           sources."readable-stream-3.6.0"
         ];
@@ -3230,7 +3230,7 @@ let
       sources."global-modules-1.0.0"
       sources."global-prefix-1.0.2"
       sources."globals-11.12.0"
-      sources."graceful-fs-4.2.4"
+      sources."graceful-fs-4.2.5"
       sources."har-schema-2.0.0"
       sources."har-validator-5.1.5"
       sources."has-1.0.3"

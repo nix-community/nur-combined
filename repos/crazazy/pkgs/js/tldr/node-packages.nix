@@ -85,13 +85,13 @@ let
         sha1 = "9f60553bc5ce8c3386f3b553cff47462adecaa79";
       };
     };
-    "bl-4.0.3" = {
+    "bl-4.0.4" = {
       name = "bl";
       packageName = "bl";
-      version = "4.0.3";
+      version = "4.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/bl/-/bl-4.0.3.tgz";
-        sha512 = "fs4G6/Hu4/EE+F75J8DuN/0IpQqNjAdC7aEQv7Qt8MHGUH7Ckv2MwTEEeN9QehD0pfIDkMI1bkHYkKy7xHyKIg==";
+        url = "https://registry.npmjs.org/bl/-/bl-4.0.4.tgz";
+        sha512 = "7tdr4EpSd7jJ6tuQ21vu2ke8w7pNEstzj1O8wwq6sNNzO3UDi5MA8Gny/gquCj7r2C6fHudg8tKRGyjRgmvNxQ==";
       };
     };
     "brace-expansion-1.1.11" = {
@@ -265,13 +265,13 @@ let
         sha512 = "LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==";
       };
     };
-    "graceful-fs-4.2.4" = {
+    "graceful-fs-4.2.5" = {
       name = "graceful-fs";
       packageName = "graceful-fs";
-      version = "4.2.4";
+      version = "4.2.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.4.tgz";
-        sha512 = "WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==";
+        url = "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.5.tgz";
+        sha512 = "kBBSQbz2K0Nyn+31j/w36fUfxkBW9/gfwRWdUY1ULReH3iokVJgddZAFcD1D0xlgTmFxJCbUkUclAlc6/IDJkw==";
       };
     };
     "has-flag-4.0.0" = {
@@ -373,13 +373,13 @@ let
         sha512 = "FN8JBzLx6CzeMrB0tg6pqlGU1wCrXW+ZXGH481kfsBqer0hToTIiHdjH4Mq8xJUbvATujKCvaREGWpGUionraA==";
       };
     };
-    "marked-1.2.8" = {
+    "marked-1.2.9" = {
       name = "marked";
       packageName = "marked";
-      version = "1.2.8";
+      version = "1.2.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/marked/-/marked-1.2.8.tgz";
-        sha512 = "lzmFjGnzWHkmbk85q/ILZjFoHHJIQGF+SxGEfIdGk/XhiTPhqGs37gbru6Kkd48diJnEyYwnG67nru0Z2gQtuQ==";
+        url = "https://registry.npmjs.org/marked/-/marked-1.2.9.tgz";
+        sha512 = "H8lIX2SvyitGX+TRdtS06m1jHMijKN/XjfH6Ooii9fvxMlh8QdqBfBDkGUpMWH2kQNrtixjzYUa3SH8ROTgRRw==";
       };
     };
     "match-stream-0.0.2" = {
@@ -704,7 +704,7 @@ let
       sources."balanced-match-1.0.0"
       sources."base64-js-1.5.1"
       sources."binary-0.3.0"
-      (sources."bl-4.0.3" // {
+      (sources."bl-4.0.4" // {
         dependencies = [
           sources."readable-stream-3.6.0"
           sources."string_decoder-1.3.0"
@@ -729,7 +729,7 @@ let
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"
       sources."glob-7.1.6"
-      sources."graceful-fs-4.2.4"
+      sources."graceful-fs-4.2.5"
       sources."has-flag-4.0.0"
       sources."ieee754-1.2.1"
       sources."inflight-1.0.6"
@@ -741,7 +741,7 @@ let
       sources."jsonify-0.0.0"
       sources."lodash-4.17.20"
       sources."log-symbols-4.0.0"
-      sources."marked-1.2.8"
+      sources."marked-1.2.9"
       sources."match-stream-0.0.2"
       sources."mimic-fn-2.1.0"
       sources."minimatch-3.0.4"
