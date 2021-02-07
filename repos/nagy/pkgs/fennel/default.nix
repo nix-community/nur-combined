@@ -1,4 +1,4 @@
-{ lib, lua53Packages, fetchurl }:
+{ lib, lua53Packages, fetchurl, installShellFiles }:
 
 with lua53Packages;
 buildLuarocksPackage rec {
@@ -10,10 +10,14 @@ buildLuarocksPackage rec {
     sha256 = "0i10xf4y3xplphc0r10pqd8j1ia80aydmzy7961mc3x4znmlmkja";
   };
 
+  nativeBuildInputs = [ installShellFiles ];
+
   propagatedBuildInputs = [ lua ];
 
+  outputs = [ "out" "man" ];
+
   postInstall = ''
-    install -D fennel.1 $out/share/man/man1/fennel.1
+    installManPage fennel.1
   '';
 
   meta = with lib; {

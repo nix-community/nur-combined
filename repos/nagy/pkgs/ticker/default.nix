@@ -1,16 +1,16 @@
 { lib, buildGoModule, fetchFromGitHub }:
 buildGoModule rec {
   pname = "ticker";
-  version = "2.3.0";
+  version = "3.0.0";
 
   src = fetchFromGitHub {
     owner = "achannarasappa";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0cyp29qng0pbp2xlbj172pmrkvv24l07k1spqw99m7724bg28i2c";
+    sha256 = "1b1sf7gqgvdr28d2d6cnr1dav7dncb5b2l6425l71n08l6hs31lk";
   };
 
-  vendorSha256 = "12gkwqkf7xxgc3ckra7ar6n4klykja43ya0s1j0ds3pinyrhvc5b";
+  vendorSha256 = "0k1jrq1b2696ckd764w44hzck9lpcfxpjc7lhi0805lkzcmkwk7h";
 
   subPackages = [ "." ];
 

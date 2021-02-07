@@ -14,6 +14,9 @@ It contains packages/attributes for:
   - lispPackages.vacietis (https://github.com/vsedach/Vacietis)
   - ticker (https://github.com/achannarasappa/ticker)
   - colorpedia (https://github.com/joowani/colorpedia)
+  - rustfilt (https://github.com/luser/rustfilt)
+  - mmtc (https://github.com/figsoda/mmtc)
+  - warctools (https://github.com/internetarchive/warctools)
 
 * License
   

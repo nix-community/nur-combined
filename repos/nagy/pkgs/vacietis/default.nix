@@ -1,4 +1,4 @@
-{ config, lispPackages, fetchFromGitHub }:
+{ lispPackages, fetchFromGitHub }:
 
 lispPackages.buildLispPackage rec {
   baseName = "vacietis";
