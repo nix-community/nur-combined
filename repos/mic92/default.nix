@@ -28,6 +28,8 @@ rec {
 
   gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard { };
 
+  goatcounter = pkgs.callPackage ./pkgs/goatcounter { };
+
   hello-nur = pkgs.callPackage ./pkgs/hello-nur { };
 
   irc-announce = pkgs.callPackage ./pkgs/irc-announce { };
