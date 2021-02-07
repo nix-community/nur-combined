@@ -53,7 +53,7 @@ with import ../../globalConfig.nix;
   services = {
     zerotierone.enable = true;
     irqbalance.enable = true;
-    randomtube = {
+    randomtube = { # TODO: Bump git commit
       enable = false;
       extraParameters = "-ms 120";
       secretsDotenv = "${rootPath}/secrets/randomtube.env";
