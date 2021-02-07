@@ -14,6 +14,11 @@ with import ../../globalConfig.nix;
       experimental-features = nix-command flakes
     '';
   };
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 20;
+  };
   nixpkgs.config.allowUnfree = true;
   boot.cleanTmpDir = true;
   i18n.defaultLocale = "pt_BR.UTF-8";

@@ -2,11 +2,12 @@
   description = "nixcfg";
 
   inputs = {
+    impermanence.url = "github:nix-community/impermanence";
+    home-manager.url = "github:lucasew/home-manager";
+    nix-ld.url = "github:Mic92/nix-ld";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgsLatest.url = "github:NixOS/nixpkgs/master";
-    home-manager.url = "github:lucasew/home-manager";
     nur.url = "github:nix-community/NUR/master";
-    nix-ld.url = "github:Mic92/nix-ld";
     rust-overlay.url = "github:oxalica/rust-overlay";
     pocket2kindle = {
       url = "github:lucasew/pocket2kindle";

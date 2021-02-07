@@ -18,7 +18,7 @@ case $TARGET in
                 ssh $DEFAULT_USER@$VPS_IP -t tmux new sudo $(readlink result)/bin/switch-to-configuration switch
             ;;
             reboot)
-                ssh $DEFAULT_USER@$VPS_IP reboot
+                ssh $DEFAULT_USER@$VPS_IP -t tmux new sudo halt --no-wall --reboot
             ;;
             htop)
                 ssh $DEFAULT_USER@$VPS_IP -t htop
