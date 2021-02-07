@@ -30,6 +30,8 @@
 
   deploy-rs = pkgs.callPackage ./pkgs/deploy-rs { };
 
+  firejail = pkgs.callPackage ./pkgs/firejail { };
+
   freenukum = pkgs.callPackage ./pkgs/freenukum { };
 
   gobi_loader = pkgs.callPackage ./pkgs/gobi_loader { };
