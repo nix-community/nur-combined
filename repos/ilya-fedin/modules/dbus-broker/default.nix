@@ -4,8 +4,14 @@ with lib;
 let
   cfg = config.services.dbus-broker;
 
-  brokerPkg = pkgs.dbus-broker.overrideAttrs(_: {
-    patches = [ ./use-right-paths.patch ];
+  brokerPkg = pkgs.dbus-broker.overrideAttrs(oldAttrs: {
+    patches = (
+      if attrsets.hasAttrByPath [ "patches" ] oldAttrs
+      then oldAttrs.patches
+      else []
+    ) ++ [
+      ./use-right-paths.patch
+    ];
   });
 in {
   options = {
