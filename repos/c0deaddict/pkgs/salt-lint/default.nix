@@ -1,4 +1,4 @@
-{ stdenv, python3Packages, salt }:
+{ lib, stdenv, python3Packages, salt }:
 
 python3Packages.buildPythonApplication rec {
   pname = "salt-lint";
@@ -12,9 +12,10 @@ python3Packages.buildPythonApplication rec {
   buildInputs = with python3Packages; [ setuptools ];
   propagatedBuildInputs = [ salt python3Packages.pathspec ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/warpnet/salt-lint";
-    description = "Checks Salt State files (SLS) for practices and behavior that could potentially be improved.";
+    description =
+      "Checks Salt State files (SLS) for practices and behavior that could potentially be improved.";
     maintainers = with maintainers; [ c0deaddict ];
     license = licenses.mit;
   };

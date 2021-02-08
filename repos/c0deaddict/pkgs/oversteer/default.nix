@@ -1,18 +1,6 @@
-{ stdenv
-, meson
-, ninja
-, pkgconfig
-, gettext
-, fetchFromGitHub
-, python3
-, wrapGAppsHook
-, gtk3
-, glib
-, gnome3
-, appstream-glib
-, gobject-introspection
-, desktop-file-utils
-}:
+{ lib, stdenv, meson, ninja, pkgconfig, gettext, fetchFromGitHub, python3
+, wrapGAppsHook, gtk3, glib, gnome3, appstream-glib, gobject-introspection
+, desktop-file-utils }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "oversteer";
@@ -36,17 +24,21 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   nativeBuildInputs = [
-    meson ninja gettext pkgconfig wrapGAppsHook desktop-file-utils
-    appstream-glib  gobject-introspection
+    meson
+    ninja
+    gettext
+    pkgconfig
+    wrapGAppsHook
+    desktop-file-utils
+    appstream-glib
+    gobject-introspection
   ];
 
   buildInputs = [ gtk3 glib gnome3.adwaita-icon-theme python3 ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    pyudev pyxdg evdev pygobject3
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ pyudev pyxdg evdev pygobject3 ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Application to configure Logitech Wheels";
     homepage = "https://github.com/berarma/oversteer";
     license = licenses.gpl3;

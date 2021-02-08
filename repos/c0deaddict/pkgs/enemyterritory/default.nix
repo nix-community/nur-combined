@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip, buildFHSUserEnv, autoPatchelfHook }:
+{ lib, stdenv, fetchurl, unzip, buildFHSUserEnv, autoPatchelfHook }:
 
 let
 
@@ -8,14 +8,13 @@ let
     runScript = "bash";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "et";
   version = "260b";
 
   src = fetchurl {
-    url = "https://cdn.splashdamage.com/downloads/games/wet/et${version}.x86_full.zip";
+    url =
+      "https://cdn.splashdamage.com/downloads/games/wet/et${version}.x86_full.zip";
     sha256 = "1q5k3rjbg8zba0ii851mid0l11yz2a5rmfsqsv5gzvsqhn7fz3ra";
   };
 
@@ -39,8 +38,9 @@ stdenv.mkDerivation rec {
     cp -r {etmain,pb} $out/
   '';
 
-  meta = with stdenv.lib; {
-    homepage = "https://www.splashdamage.com/games/wolfenstein-enemy-territory/";
+  meta = with lib; {
+    homepage =
+      "https://www.splashdamage.com/games/wolfenstein-enemy-territory/";
     description = "Wolfenstein: Enemy Territory";
     maintainers = with maintainers; [ c0deaddict ];
   };

@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, unzip, runtimeShell, openjdk, writeScriptBin, python3, autoPatchelfHook, zlib }:
+{ lib, stdenv, fetchurl, unzip, runtimeShell, openjdk, writeScriptBin, python3
+, autoPatchelfHook, zlib }:
 
 let
 
@@ -7,9 +8,7 @@ let
     ${builtins.readFile ./keyhub.py}
   '';
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "keyhub-cli-${version}";
   version = "17.0";
 
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     ln -sf ${wrapper}/bin/keyhub.py $out/bin/keyhub.py
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://topicus-keyhub.com/";
     description = "A command line interface to Topicus KeyHub";
     maintainers = with maintainers; [ c0deaddict ];

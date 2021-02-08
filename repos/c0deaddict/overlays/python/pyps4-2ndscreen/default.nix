@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, buildPythonPackage
-, aiohttp, construct, pycryptodomex, click }:
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, aiohttp, construct
+, pycryptodomex, click }:
 
 buildPythonPackage rec {
   pname = "pyps4_2ndscreen";
@@ -17,8 +17,9 @@ buildPythonPackage rec {
   # Tests need network
   doCheck = false;
 
-  meta = with stdenv.lib; {
-    description = "Python Library for controlling a Sony PlayStation 4 Console.";
+  meta = with lib; {
+    description =
+      "Python Library for controlling a Sony PlayStation 4 Console.";
     homepage = "https://github.com/ktnrg45/pyps4-2ndscreen";
     license = licenses.lgpl21;
   };

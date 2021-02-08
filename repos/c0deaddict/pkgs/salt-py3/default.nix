@@ -1,10 +1,8 @@
-{
-  stdenv, python3Packages, openssl,
+{ lib, stdenv, python3Packages, openssl,
 
-  # Many Salt modules require various Python modules to be installed,
-  # passing them in this array enables Salt to find them.
-  extraInputs ? []
-}:
+# Many Salt modules require various Python modules to be installed,
+# passing them in this array enables Salt to find them.
+extraInputs ? [ ] }:
 
 python3Packages.buildPythonApplication rec {
   pname = "salt";
@@ -15,16 +13,9 @@ python3Packages.buildPythonApplication rec {
     sha256 = "06i7h5ymlxz5by8g6l21cjxinc5qk3d67nn8pfdpkhsdzpdyg5vl";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    jinja2
-    markupsafe
-    msgpack
-    pycrypto
-    pyyaml_3
-    pyzmq
-    requests
-    tornado_4
-  ] ++ extraInputs;
+  propagatedBuildInputs = with python3Packages;
+    [ jinja2 markupsafe msgpack pycrypto pyyaml_3 pyzmq requests tornado_4 ]
+    ++ extraInputs;
 
   patches = [ <nixpkgs/pkgs/tools/admin/salt/fix-libcrypto-loading.patch> ];
 
@@ -38,9 +29,10 @@ python3Packages.buildPythonApplication rec {
   # as is it rather long.
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://saltstack.com/";
-    description = "Portable, distributed, remote execution and configuration management system";
+    description =
+      "Portable, distributed, remote execution and configuration management system";
     maintainers = with maintainers; [ aneeshusa ];
     license = licenses.asl20;
   };

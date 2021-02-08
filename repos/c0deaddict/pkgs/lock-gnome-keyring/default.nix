@@ -1,4 +1,4 @@
-{ stdenv, pkg-config, libgnome_keyring }:
+{ lib, stdenv, pkg-config, libgnome_keyring }:
 
 stdenv.mkDerivation {
   name = "lock-gnome-keyring";
@@ -13,7 +13,7 @@ stdenv.mkDerivation {
     mv main $out/bin/lock-gnome-keyring
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Locks the gnome-keyring";
     license = licenses.mit;
     platforms = platforms.unix;

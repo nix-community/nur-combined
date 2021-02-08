@@ -1,4 +1,4 @@
-{ stdenv, fetchzip }:
+{ lib, stdenv, fetchzip }:
 
 let
 
@@ -18,7 +18,7 @@ in fetchzip {
 
   sha256 = "0074d8q4m802f5yms8yxdx4rdz5xnpgv1w5hs330zg2p9ksicgzy";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/tonsky/FiraCode";
     description = "Monospace font with programming ligatures";
     longDescription = ''

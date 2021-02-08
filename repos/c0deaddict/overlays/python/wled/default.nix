@@ -1,5 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage
-, pytest, attrs, cattrs, aiohttp }:
+{ lib, stdenv, fetchPypi, buildPythonPackage, pytest, attrs, cattrs, aiohttp }:
 
 buildPythonPackage rec {
   pname = "wled";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
   # Test are not included in pypi.
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "WLED API Client.";
     homepage = "https://pypi.org/project/wled";
     license = licenses.mit;

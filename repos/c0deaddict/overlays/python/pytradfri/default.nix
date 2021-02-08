@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, buildPythonPackage
-, pytest, aiocoap, dtlssocket }:
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, pytest, aiocoap, dtlssocket
+}:
 
 buildPythonPackage rec {
   pname = "pytradfri";
@@ -19,8 +19,9 @@ buildPythonPackage rec {
     pytest
   '';
 
-  meta = with stdenv.lib; {
-    description = "IKEA Trådfri/Tradfri API. Control and observe your lights from Python.";
+  meta = with lib; {
+    description =
+      "IKEA Trådfri/Tradfri API. Control and observe your lights from Python.";
     homepage = "https://github.com/ggravlingen/pytradfri";
     license = licenses.mit;
   };

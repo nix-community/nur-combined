@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, zfs }:
+{ lib, stdenv, fetchFromGitHub, cmake, zfs }:
 
 stdenv.mkDerivation rec {
   name = "zpool_prometheus";
@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1n8dwsxq9mklp7nhy1b3mmx1m8vkkphkbsax2y7392dgdvwsb6hr";
   };
 
-  cmakeFlags = [
-    "-DZFS_INSTALL_BASE=${zfs.dev}"
-  ];
+  cmakeFlags = [ "-DZFS_INSTALL_BASE=${zfs.dev}" ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ zfs ];
@@ -27,7 +25,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/richardelling/zpool_prometheus";
     description = "Prometheus-style metrics scraper for ZFS pools";
     maintainers = with maintainers; [ c0deaddict ];

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, sfml, eigen, libGL, makeWrapper }:
+{ lib, stdenv, fetchFromGitHub, cmake, sfml, eigen, libGL, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "MarbleMarcher";
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/HackerPoet/MarbleMarcher";
     description = "Fractal Physics Game";
     maintainers = with maintainers; [ c0deaddict ];

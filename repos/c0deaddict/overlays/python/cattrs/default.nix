@@ -1,5 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage
-, pytest }:
+{ lib, stdenv, fetchPypi, buildPythonPackage, pytest }:
 
 buildPythonPackage rec {
   pname = "cattrs";
@@ -12,7 +11,7 @@ buildPythonPackage rec {
 
   checkInputs = [ pytest ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Composable complex class support for attrs.";
     homepage = "https://pypi.org/project/cattrs";
     license = licenses.mit;

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitLab, buildPythonPackage
-, flake8, pydocstyle, pytest }:
+{ lib, stdenv, fetchFromGitLab, buildPythonPackage, flake8, pydocstyle, pytest
+}:
 
 buildPythonPackage rec {
   pname = "flake8-docstrings";
@@ -17,8 +17,9 @@ buildPythonPackage rec {
   # There are no tests.
   doCheck = false;
 
-  meta = with stdenv.lib; {
-    description = "Extension for flake8 which uses pydocstyle to check docstrings.";
+  meta = with lib; {
+    description =
+      "Extension for flake8 which uses pydocstyle to check docstrings.";
     homepage = "https://gitlab.com/pycqa/flake8-docstrings";
     maintainer = [ maintainers.c0deaddict ];
     license = licenses.mit;

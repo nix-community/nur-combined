@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, buildPythonPackage
-, pytest, dtlssocket, cryptography, cbor, hkdf
-, linkheader, cython }:
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, pytest, dtlssocket
+, cryptography, cbor, hkdf, linkheader, cython }:
 
 buildPythonPackage rec {
   pname = "aiocoap";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
   # https://github.com/chrysn/aiocoap/issues/127
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The Python CoAP library";
     homepage = "https://github.com/chrysn/aiocoap";
     # license is "AS IS"

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, zsh }:
+{ lib, stdenv, fetchFromGitHub, zsh }:
 
 stdenv.mkDerivation rec {
   pname = "zsh-kubectl-prompt";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
       $out/share/zsh-kubectl-prompt/kubectl.zsh
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description =
       "Display information about the kubectl current context and namespace in zsh prompt.";
     homepage = "https://github.com/superbrothers/zsh-kubectl-prompt";

@@ -1,4 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage
+{ lib, stdenv, fetchPypi, buildPythonPackage
 , pytest }:
 
 buildPythonPackage rec {
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   checkInputs = [ pytest ];
   propagatedBuildInputs = [ ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Parse and format link headers according to RFC 5988 \"Web Linking\"";
     homepage = "https://pypi.org/project/LinkHeader";
     # License is "BSD UNKNOWN"

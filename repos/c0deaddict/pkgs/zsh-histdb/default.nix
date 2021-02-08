@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, zsh }:
+{ lib, stdenv, fetchFromGitHub, zsh }:
 
 stdenv.mkDerivation rec {
   pname = "zsh-histdb";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     cp -r $src/* $out/share/zsh-histdb/
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A slightly better history for zsh";
     homepage = "https://github.com/larkery/zsh-histdb";
     license = licenses.mit;

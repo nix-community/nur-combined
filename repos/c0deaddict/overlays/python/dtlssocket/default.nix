@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage
-, pytest, cython, autoconf, python }:
+{ lib, stdenv, fetchPypi, buildPythonPackage, pytest, cython, autoconf, python
+}:
 
 buildPythonPackage rec {
   pname = "DTLSSocket";
@@ -15,8 +15,9 @@ buildPythonPackage rec {
   # Pypi doesn't contain tests.
   doCheck = false;
 
-  meta = with stdenv.lib; {
-    description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface";
+  meta = with lib; {
+    description =
+      "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface";
     homepage = "https://git.fslab.de/jkonra2m/tinydtls-cython";
     license = licenses.epl10;
   };

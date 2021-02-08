@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, autoPatchelfHook, libGL, libGLU, alsaLib, makeWrapper }:
+{ lib, stdenv, fetchurl, autoPatchelfHook, libGL, libGLU, alsaLib, makeWrapper
+}:
 
 # TODO:
 # mkdir -p ~/.etlegacy/etmain
@@ -31,15 +32,16 @@ stdenv.mkDerivation rec {
 
     wrapProgram "$out/bin/etl" \
       --run "cd $out/share" \
-      --set LD_LIBRARY_PATH "${stdenv.lib.makeLibraryPath [ alsaLib ]}"
+      --set LD_LIBRARY_PATH "${lib.makeLibraryPath [ alsaLib ]}"
 
     wrapProgram "$out/bin/etlded" \
       --run "cd $out/share"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://www.etlegacy.com/";
-    description = "Open source project that aims to create a fully compatible client and server for the popular online FPS game Wolfenstein: Enemy Territory";
+    description =
+      "Open source project that aims to create a fully compatible client and server for the popular online FPS game Wolfenstein: Enemy Territory";
     platforms = platforms.linux;
     maintainers = with maintainers; [ c0deaddict ];
   };
