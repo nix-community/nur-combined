@@ -1,0 +1,51 @@
+--- enroot/Makefile	2021-02-08 21:37:30.283526535 +0000
++++ enroot/Makefile.new	2021-02-08 21:58:48.212945966 +0000
+@@ -30,7 +30,7 @@
+         src/docker.sh  \
+         src/runtime.sh
+ 
+-DEPS := deps/dist/makeself/bin/enroot-makeself \
++DEPS := @enroot_makeself@ \
+ 
+ UTILS := bin/enroot-aufs2ovlfs    \
+          bin/enroot-mksquashovlfs \
+@@ -62,12 +62,12 @@
+ .PHONY: all install uninstall clean dist deps depsclean mostlyclean deb distclean
+ .DEFAULT_GOAL := all
+ 
+-CPPFLAGS := -D_FORTIFY_SOURCE=2 -isystem $(CURDIR)/deps/dist/libbsd/include/bsd -DLIBBSD_OVERLAY $(CPPFLAGS)
++CPPFLAGS := -D_FORTIFY_SOURCE=2 -isystem @libbsd@/include/bsd -DLIBBSD_OVERLAY $(CPPFLAGS)
+ CFLAGS   := -std=c99 -O2 -fstack-protector -fPIE -pedantic                                          \
+             -Wall -Wextra -Wcast-align -Wpointer-arith -Wmissing-prototypes -Wnonnull               \
+             -Wwrite-strings -Wlogical-op -Wformat=2 -Wmissing-format-attribute -Winit-self -Wshadow \
+             -Wstrict-prototypes -Wunreachable-code -Wconversion -Wsign-conversion $(CFLAGS)
+-LDFLAGS  := -Wl,-zrelro -Wl,-znow -Wl,-zdefs -Wl,--as-needed -Wl,--gc-sections -L$(CURDIR)/deps/dist/libbsd/lib $(LDFLAGS)
++LDFLAGS  := -Wl,-zrelro -Wl,-znow -Wl,-zdefs -Wl,--as-needed -Wl,--gc-sections -L@libbsd@/lib $(LDFLAGS)
+ LDLIBS   := -lbsd
+ 
+ ifdef DEBUG
+@@ -89,10 +89,10 @@
+ # Compile the utilities statically against musl libc.
+ ifndef FORCE_GLIBC
+ ifneq (,$(findstring gcc, $(notdir $(CC))))
+-$(UTILS): override CC := $(CURDIR)/deps/dist/musl/bin/musl-gcc
++$(UTILS): override CC := @musl_dev@/bin/musl-gcc
+ $(UTILS): LDFLAGS     += -pie -static-pie
+ else ifneq (,$(findstring clang, $(notdir $(CC))))
+-$(UTILS): override CC := $(CURDIR)/deps/dist/musl/bin/musl-clang
++$(UTILS): override CC := @musl_dev@/bin/musl-clang
+ $(UTILS): LDFLAGS     += -pie -static-pie
+ else
+ $(error MUSL CC wrapper not found for $(CC))
+@@ -109,11 +109,8 @@
+ all: $(BIN) $(CONFIG) $(DEPS) $(UTILS)
+ 
+ deps:
+-	-git submodule update --init
+-	$(MAKE) -C deps
+ 
+ depsclean:
+-	$(MAKE) -C deps clean
+ 
+ install: all uninstall
+ 	install -d -m 755 $(SYSCONFDIR) $(LIBDIR) $(BINDIR) $(DATADIR)

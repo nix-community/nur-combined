@@ -14,6 +14,7 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  enroot = pkgs.callPackage ./pkgs/enroot { };
   fiblary3 = pkgs.python3Packages.callPackage ./pkgs/fiblary3 { };
   garminconnect = pkgs.python3Packages.callPackage ./pkgs/garminconnect { };
   libpurecool = pkgs.python3Packages.callPackage ./pkgs/libpurecool { };
