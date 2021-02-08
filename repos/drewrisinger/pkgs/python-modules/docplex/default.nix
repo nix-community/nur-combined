@@ -9,12 +9,13 @@
 
 buildPythonPackage rec {
   pname = "docplex";
-  version = "2.16.196";
+  version = "2.19.202";
+  # Left at this version for qiskit-aqua compatibility: https://github.com/Qiskit/qiskit-optimization/issues/21
 
   # No source available from official repo
   src = fetchPypi {
     inherit pname version;
-    sha256 = "8fd96e3586444e577b356c0ac62511414e76027ff159ebe0d0b3e44b881406d1";
+    sha256 = "2b606dc645f99feae67dfc528620dddc773ecef5d59bcaeae68bba601f25162b";
   };
 
   propagatedBuildInputs = [

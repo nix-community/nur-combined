@@ -33,7 +33,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-aqua";
-  version = "0.8.1";
+  version = "0.8.2";
 
   disabled = pythonOlder "3.6";
 
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit-aqua";
     rev = version;
-    sha256 = "11qyya3vyq50wpzrzzl8v46yx5p72rhpqhybwn47qgazxgg82r1b";
+    sha256 = "074j7l95zby7xl9d9vkbnf9nbjpwx2vvxd48p6m4wmmcg9nzrdy9";
   };
 
   # Optional packages: pyscf (see below NOTE) & pytorch. Can install via pip/nix if needed.
@@ -78,7 +78,8 @@ buildPythonPackage rec {
   postPatch = ''
     substituteInPlace setup.py \
       --replace "pyscf; sys_platform != 'win32'" "" \
-      --replace "cplex; python_version >= '3.6' and python_version < '3.8'" ""
+      --replace "cplex; python_version >= '3.6' and python_version < '3.8'" "" \
+      --replace "docplex==2.15.194" "docplex"
 
     # Add ImportWarning when running qiskit.chemistry (pyscf is a chemistry package) that pyscf is not included
     echo -e "\nimport warnings\ntry: import pyscf;\nexcept ImportError:\n    " \
