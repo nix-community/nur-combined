@@ -12,8 +12,8 @@ buildPythonPackage rec {
     owner = "zeldamods";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1fnwc0jbg4xylzcg9apmxdxh6xsn6a2iyr17fv67qddi4x28lvjx";
     fetchSubmodules = true;
+    sha256 = "1fnwc0jbg4xylzcg9apmxdxh6xsn6a2iyr17fv67qddi4x28lvjx";
   };
 
   postPatch = ''

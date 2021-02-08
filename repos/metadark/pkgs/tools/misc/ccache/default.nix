@@ -19,7 +19,7 @@ let ccache = stdenv.mkDerivation rec {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "1lr9804xyzbs72f9jbbzy1fjqxwrwpb4rp431wqialvms4251d8f";
+    hash = "sha256:1lr9804xyzbs72f9jbbzy1fjqxwrwpb4rp431wqialvms4251d8f";
   };
 
   patches = lib.optional stdenv.isDarwin (substituteAll {

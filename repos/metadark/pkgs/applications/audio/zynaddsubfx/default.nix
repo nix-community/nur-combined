@@ -62,8 +62,8 @@ in stdenv.mkDerivation rec {
     owner = pname;
     repo = pname;
     rev = version;
-    sha256 = "1zb3lax8ah4pvfrfayra1h18l58zmb1snffk35h76yjda3cxppqq";
     fetchSubmodules = true;
+    sha256 = "1zb3lax8ah4pvfrfayra1h18l58zmb1snffk35h76yjda3cxppqq";
   };
 
   postPatch = ''

@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     owner = pname;
     repo = "${pname}-build";
     rev = version;
-    sha256 = "0mkfjaa3qhysh5cs583rpz638hyrkfpx4ab18sgpycchcdwg59b3";
     fetchSubmodules = true;
+    sha256 = "0mkfjaa3qhysh5cs583rpz638hyrkfpx4ab18sgpycchcdwg59b3";
   };
 
   patches = [

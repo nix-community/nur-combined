@@ -15,7 +15,7 @@ buildPythonPackage rec {
     owner = "gabrielcnr";
     repo = pname;
     rev = version;
-    sha256 = "0kwgp6sqnqnmww5r0dkmyfpi0lmw0iwxz3fnwn2fs8w6bvixzznf";
+    hash = "sha256:0kwgp6sqnqnmww5r0dkmyfpi0lmw0iwxz3fnwn2fs8w6bvixzznf";
   };
 
   nativeBuildInputs = [ setuptools_scm ];

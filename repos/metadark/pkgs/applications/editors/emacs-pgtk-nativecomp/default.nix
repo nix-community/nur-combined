@@ -12,7 +12,7 @@
     owner = "fejfighter";
     repo = "emacs";
     rev = "0603c2f49d8f9c2d0b8e141927b39f8d6d8fe272";
-    sha256 = "08jnfp0n8gpmd3cvrfisvywl1z0793x3m5xcj4k8djfwasa682pp";
+    hash = "sha256:08jnfp0n8gpmd3cvrfisvywl1z0793x3m5xcj4k8djfwasa682pp";
   };
 
   patches = [ ];

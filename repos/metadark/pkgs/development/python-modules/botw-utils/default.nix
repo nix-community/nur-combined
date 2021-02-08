@@ -13,7 +13,7 @@ buildPythonPackage rec {
     owner = "NiceneNerd";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0ywhz2rdm0f30axkx4qh7d50ndr61v2xvpc8v2lxwbam2ad06yvh";
+    hash = "sha256:0ywhz2rdm0f30axkx4qh7d50ndr61v2xvpc8v2lxwbam2ad06yvh";
   };
 
   propagatedBuildInputs = [

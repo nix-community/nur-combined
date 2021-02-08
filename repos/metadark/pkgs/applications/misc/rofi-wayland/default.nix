@@ -27,8 +27,8 @@ rofi.override {
       owner = "lbonn";
       repo = "rofi";
       rev = "${version}-wayland";
-      sha256 = "1n1hkv14qfcqfc15h4qswjxiagd9xps9n0zcrwmkrkmd6bi0w3ra";
       fetchSubmodules = true;
+      sha256 = "1n1hkv14qfcqfc15h4qswjxiagd9xps9n0zcrwmkrkmd6bi0w3ra";
     };
 
     nativeBuildInputs = [

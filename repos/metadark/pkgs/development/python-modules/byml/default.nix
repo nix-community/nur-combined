@@ -14,7 +14,7 @@ buildPythonPackage rec {
     owner = "zeldamods";
     repo = "${pname}-v2";
     rev = "v${version}";
-    sha256 = "09m9w364fplhxcs8q2zw4mhmwxii6b7876k2zg3da90rz72a4s4g";
+    hash = "sha256:09m9w364fplhxcs8q2zw4mhmwxii6b7876k2zg3da90rz72a4s4g";
   };
 
   propagatedBuildInputs = [

@@ -91,9 +91,9 @@ in
         type = types.either types.path (types.enum [ "antergos" "simple" ]);
         default = "antergos";
         example = ''
-          fetchTarball {
+          fetchzip {
             url = "https://github.com/Litarvan/lightdm-webkit-theme-litarvan/releases/download/v3.0.0/lightdm-webkit-theme-litarvan-3.0.0.tar.gz";
-            sha256 = "0q0r040vxg1nl51wb3z3r0pl7ymhyhp1lbn2ggg7v3pa563m4rrv";
+            hash = "sha256:0q0r040vxg1nl51wb3z3r0pl7ymhyhp1lbn2ggg7v3pa563m4rrv";
           };
         '';
         description = ''
@@ -115,7 +115,7 @@ in
           type = types.path;
           default = pkgs.fetchurl {
             url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/4f041870efa1a6f0799ef4b32bb7be2cafee7a74/logo/nixos.svg";
-            sha256 = "0b0dj408c1wxmzy6k0pjwc4bzwq286f1334s3cqqwdwjshxskshk";
+            hash = "sha256:0b0dj408c1wxmzy6k0pjwc4bzwq286f1334s3cqqwdwjshxskshk";
           };
           description = ''
             Path to logo image for use by greeter themes.

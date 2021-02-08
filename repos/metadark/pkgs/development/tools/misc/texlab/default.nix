@@ -14,10 +14,10 @@ rustPlatform.buildRustPackage rec {
     owner = "latex-lsp";
     repo = pname;
     rev = "v${version}";
-    sha256 = "06x7j4ppgw24xbsnyj1icaksngqbvq6mk8wfcqikzmvmifjspx9m";
+    hash = "sha256:06x7j4ppgw24xbsnyj1icaksngqbvq6mk8wfcqikzmvmifjspx9m";
   };
 
-  cargoSha256 = "0gzxylpn2hps0kxczd6wwcqhnvm6ir971bfvpgjr6rxi12hs47ky";
+  cargoHash = "sha256:0gzxylpn2hps0kxczd6wwcqhnvm6ir971bfvpgjr6rxi12hs47ky";
 
   nativeBuildInputs = [ installShellFiles ];
 

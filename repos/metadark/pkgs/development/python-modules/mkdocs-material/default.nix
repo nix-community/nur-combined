@@ -16,7 +16,7 @@ buildPythonPackage rec {
     owner = "squidfunk";
     repo = pname;
     rev = version;
-    sha256 = "1a19ckqlfcv3g02fi0ljdcfsw6ilq38l443iyrhlqiwj9sv9sxg3";
+    hash = "sha256:1a19ckqlfcv3g02fi0ljdcfsw6ilq38l443iyrhlqiwj9sv9sxg3";
   };
 
   patches = lib.optional (mkdocs-material-extensions == null)

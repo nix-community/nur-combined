@@ -17,7 +17,7 @@ buildPythonApplication rec {
     owner = "Matoking";
     repo = pname;
     rev = version;
-    sha256 = "0i7p0jj7avmq3b2qlcpwcflipndrnwsvwvhc5aal7rm95aa7xhja";
+    hash = "sha256:0i7p0jj7avmq3b2qlcpwcflipndrnwsvwvhc5aal7rm95aa7xhja";
   };
 
   patches = [
