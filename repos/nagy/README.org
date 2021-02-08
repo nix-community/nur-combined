@@ -17,6 +17,7 @@ It contains packages/attributes for:
   - rustfilt (https://github.com/luser/rustfilt)
   - mmtc (https://github.com/figsoda/mmtc)
   - warctools (https://github.com/internetarchive/warctools)
+  - bollux (https://sr.ht/~acdw/bollux/)
 
 * License
   

@@ -38,4 +38,6 @@ rec {
   warctools = pkgs.python3Packages.callPackage ./pkgs/warctools {
     setuptools = pkgs.python3Packages.setuptools;
   };
+
+  bollux = pkgs.callPackage ./pkgs/bollux {};
 }
