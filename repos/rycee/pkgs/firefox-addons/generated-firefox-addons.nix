@@ -304,10 +304,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.4.10";
+      version = "4.5.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3718398/floccus-4.4.10-fx.xpi";
-      sha256 = "e88d8ffed51f09fcfce9a18a2293e2589f517877a080b9cfe3d68da66842dbff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3723180/floccus-4.5.0-fx.xpi";
+      sha256 = "92a3cfa686e9f75060d6e2a48521ed5920c68718b0f34ede70df53703124c871";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -574,10 +574,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.0.10";
+      version = "1.0.11";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3714255/leechblock_ng-1.0.10-an+fx.xpi";
-      sha256 = "460a8a1aff43bfe8b300cd0004ab9203b6de306743a20d939f96ecdcb2a4fa61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3722927/leechblock_ng-1.0.11-an+fx.xpi";
+      sha256 = "c8c618fdcb059c72b2f82ffb15d486781e72101111b10f3c5feb24f956ad2f12";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -810,10 +810,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.1.23";
+      version = "21.2.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3713728/refined_github-21.1.23-an+fx.xpi";
-      sha256 = "f6f382435c06a4510a059b4b03b9e50ddb4a377d2225d60024179c7e0b84a5b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3719173/refined_github-21.2.1-an+fx.xpi";
+      sha256 = "355b9371f40fd3cec264cf472feeca81e0a1a0ea4e74578b1173fd6d2d47b37d";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -879,10 +879,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.13";
+      version = "1.5.15";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3614089/stylus-1.5.13-fx.xpi";
-      sha256 = "2bb379e655144e030ec931bab3ca01f11ee8710b4ff788a19977ed94f778a159";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3720616/stylus-1.5.15-fx.xpi";
+      sha256 = "7ec38df487988ec09c6ceab84ff5c30d61274432596ad738450a9236f8ab073c";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -920,10 +920,10 @@
       };
     "temporary-containers" = buildFirefoxXpiAddon {
       pname = "temporary-containers";
-      version = "1.9.1";
+      version = "1.9.2";
       addonId = "{c607c8df-14a7-4f28-894f-29e8722976af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3623550/temporary_containers-1.9.1-fx.xpi";
-      sha256 = "392ef6ff878f4969bf753801a4e99f19ff2108e2d9c978e2d5570c8b13e0a2ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3723251/temporary_containers-1.9.2-fx.xpi";
+      sha256 = "3340a08c29be7c83bd0fea3fc27fde71e4608a4532d932114b439aa690e7edc0";
       meta = with lib;
       {
         homepage = "https://github.com/stoically/temporary-containers";
