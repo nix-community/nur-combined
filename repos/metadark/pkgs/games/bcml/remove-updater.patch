@@ -1,21 +1,19 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index 2edb7c7..b2a447c 100644
+index 050299d..9a00e42 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
-@@ -64,11 +64,7 @@ class Api:
-         self.tmp_files = []
- 
-     def get_ver(self, params=None):
--        return {
--            "version": USER_VERSION,
--            "update": util.get_latest_bcml() > VERSION
--            and not util.get_settings("suppress_update"),
--        }
-+        return {"version": USER_VERSION}
- 
-     @win_or_lose
-     def sanity_check(self, kwargs=None):
-@@ -716,45 +712,6 @@ class Api:
+@@ -67,10 +67,6 @@ class Api:
+         updated = util.get_settings("last_version") < VERSION
+         res = {
+             "version": USER_VERSION,
+-            "update": (
+-                util.get_latest_bcml() > VERSION
+-                and not util.get_settings("suppress_update")
+-            ),
+             "showChangelog": updated and util.get_settings("changelog"),
+         }
+         if updated:
+@@ -730,45 +726,6 @@ class Api:
          help_thread = Thread(target=help_window, args=(self.host,))
          help_thread.start()
  
@@ -62,18 +60,18 @@ index 2edb7c7..b2a447c 100644
          opener = Thread(target=start_new_instance)
          opener.start()
 diff --git a/bcml/assets/src/js/App.jsx b/bcml/assets/src/js/App.jsx
-index 8832b09..1979059 100644
+index ecfffde..dcb5c48 100644
 --- a/bcml/assets/src/js/App.jsx
 +++ b/bcml/assets/src/js/App.jsx
-@@ -35,7 +35,6 @@ class App extends React.Component {
+@@ -39,7 +39,6 @@ class App extends React.Component {
              confirmText: "",
              confirmCallback: () => {},
              showAbout: false,
 -            update: false,
+             changelog: true,
+             showChangelog: false,
              version: "3.0"
-         };
-         this.selects = null;
-@@ -275,16 +274,6 @@ class App extends React.Component {
+@@ -319,16 +318,6 @@ class App extends React.Component {
              .catch(this.props.onError);
      };
  
@@ -90,7 +88,7 @@ index 8832b09..1979059 100644
      setProgress = (title, msg) => {
          this.setState({
              progressTitle: title,
-@@ -311,9 +300,6 @@ class App extends React.Component {
+@@ -355,9 +344,6 @@ class App extends React.Component {
                          <Dropdown.Item onClick={() => pywebview.api.save_mod_list()}>
                              Save Mod List
                          </Dropdown.Item>
@@ -100,7 +98,7 @@ index 8832b09..1979059 100644
                          <Dropdown.Item as="a" href="/index.html?firstrun">
                              Run Setup Wizard
                          </Dropdown.Item>
-@@ -424,14 +410,6 @@ class App extends React.Component {
+@@ -473,14 +459,6 @@ class App extends React.Component {
                      message={this.state.confirmText}
                      onClose={this.state.confirmCallback.bind(this)}
                  />
@@ -115,7 +113,7 @@ index 8832b09..1979059 100644
                  <BackupModal
                      show={this.state.showBackups}
                      busy={this.state.showProgress}
-@@ -552,23 +530,4 @@ const ConfirmDialog = props => {
+@@ -608,25 +586,6 @@ const ConfirmDialog = props => {
      );
  };
  
@@ -138,9 +136,11 @@ index 8832b09..1979059 100644
 -    );
 -};
 -
- export default App;
+ class Changelog extends React.Component {
+     constructor(props) {
+         super(props);
 diff --git a/bcml/assets/src/js/Settings.jsx b/bcml/assets/src/js/Settings.jsx
-index 1748411..f3b5e12 100644
+index 22fc7a1..c6306f5 100644
 --- a/bcml/assets/src/js/Settings.jsx
 +++ b/bcml/assets/src/js/Settings.jsx
 @@ -22,7 +22,6 @@ class Settings extends React.Component {
@@ -150,8 +150,8 @@ index 1748411..f3b5e12 100644
 -            suppress_update: false,
              valid: false,
              loaded: false,
-             nsfw: false
-@@ -461,24 +460,6 @@ class Settings extends React.Component {
+             nsfw: false,
+@@ -462,24 +461,6 @@ class Settings extends React.Component {
                                  />
                              </OverlayTrigger>
                          </Form.Group>
@@ -173,22 +173,22 @@ index 1748411..f3b5e12 100644
 -                                />
 -                            </OverlayTrigger>
 -                        </Form.Group>
-                         <Form.Group controlId="nsfw">
+                         <Form.Group controlId="changelog">
                              <OverlayTrigger
                                  overlay={
 diff --git a/bcml/util.py b/bcml/util.py
-index a992bcd..5119ad8 100644
+index c2e22da..ad7af33 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
-@@ -576,7 +576,6 @@ DEFAULT_SETTINGS = {
+@@ -577,7 +577,6 @@ DEFAULT_SETTINGS = {
      "wiiu": True,
      "no_hardlinks": False,
      "force_7z": False,
 -    "suppress_update": False,
      "nsfw": False,
- }
- 
-@@ -1274,25 +1273,6 @@ def get_open_port():
+     "last_version": VERSION,
+     "changelog": True,
+@@ -1277,25 +1276,6 @@ def get_open_port():
      return port
  
  

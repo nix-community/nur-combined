@@ -20,10 +20,10 @@ index f781840..2370b8a 100644
          LOG.parent.mkdir(parents=True, exist_ok=True)
          for folder in util.get_work_dir().glob("*"):
 diff --git a/bcml/util.py b/bcml/util.py
-index e6b6dd6..a992bcd 100644
+index 6c7792a..c2e22da 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
-@@ -1364,7 +1364,6 @@ def get_7z_path():
+@@ -1367,7 +1367,6 @@ def get_7z_path():
      if system() == "Windows":
          return str(get_exec_dir() / "helpers" / "7z.exe")
      bundle_path = get_exec_dir() / "helpers" / "7z"

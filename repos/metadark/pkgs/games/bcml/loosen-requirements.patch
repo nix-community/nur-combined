@@ -1,8 +1,8 @@
 diff --git a/requirements.txt b/requirements.txt
-index afb11ac..48376e0 100644
+index 5438ec6..fda18e4 100644
 --- a/requirements.txt
 +++ b/requirements.txt
-@@ -1,12 +1,12 @@
+@@ -1,13 +1,14 @@
 -numpy==1.19.2
 +numpy>=1.19.2,<2
  aamp>=1.4.1
@@ -14,11 +14,13 @@ index afb11ac..48376e0 100644
 -oead~=1.2.0
 +oead>=1.2.0,<2
  pythonnet>=2.5.0rc2; platform_system == 'Windows'
+-pyqtwebengine~=5.15.2; platform_system == 'Linux'
 -PyYAML~=5.3.1
 -requests~=2.23.0
++# pyqtwebengine missing dist-info + breaks GTK build
++# pyqtwebengine>=5.15.2,<6; platform_system == 'Linux'
 +PyYAML>=5.3.1,<6
 +requests>=2.23.0,<3
  rstb>=1.2.0
 -xxhash~=1.4
-\ No newline at end of file
 +xxhash>=1.4,<3
