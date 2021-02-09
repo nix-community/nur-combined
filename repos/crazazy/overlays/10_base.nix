@@ -7,10 +7,14 @@ in
          } // super.lib;
       inherit (pkgs)
          atom
+         bashInteractive
+         buildEnv
          deno
+         dillo
          emacs
          fetchurl
          fetchzip
+         git
          go
          graalvm11-ce
          hello
@@ -18,7 +22,6 @@ in
          nix
          openbox
          runCommand
-         stack
          stdenv
          writeShellScript
          writeShellScriptBin

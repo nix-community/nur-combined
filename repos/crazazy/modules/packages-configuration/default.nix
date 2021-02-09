@@ -8,8 +8,8 @@ in
   ];
   nix = {
     nixPath = [
-      "nixpkgs=${sources.nixpkgs}"
-      "nixos-config=/etc/nixos/configuration.nix"
+      "nixpkgs=${../../.}"
+      "nixos-config=/etc/nixos/configuration.nix" # nixos can't change if we change this to a relative path
     ];
     binaryCaches = [
       "https://cache.nixos.org/"
@@ -20,11 +20,13 @@ in
       "crazazy.cachix.org-1:3KaIHK26pkvd5palJH5A4Re1Hn2+GDV+aXYnftMYAm4=" # my own cache
     ];
   };
-  nixpkgs.config = {
-    allowUnfree = true;
-    packageOverrides = import ./packages.nix;
-    overlays = [
-      overlay
-    ];
+  nixpkgs.pkgs = import sources.nixpkgs {
+    config = {
+      allowUnfree = true;
+      packageOverrides = import ./packages.nix;
+      overlays = [
+        overlay
+      ];
+    };
   };
 }
