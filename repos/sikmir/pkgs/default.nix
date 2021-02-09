@@ -205,6 +205,7 @@ lib.makeScope newScope (
 
     geminid = callPackage ./gemini/geminid { };
     gloggery = callPackage ./gemini/gloggery { };
+    gmi2html = callPackage ./gemini/gmi2html { };
     gmni = callPackage ./gemini/gmni { };
     gmnisrv = callPackage ./gemini/gmnisrv { };
     gurl = callPackage ./gemini/gurl { };

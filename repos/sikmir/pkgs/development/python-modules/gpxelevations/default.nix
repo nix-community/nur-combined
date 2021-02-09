@@ -10,16 +10,16 @@ python3Packages.buildPythonApplication {
 
   propagatedBuildInputs = with python3Packages; [ requests gpxpy ];
 
-  postPatch = ''
-    mkdir -p tmp_home/.cache/srtm
-    ${lib.concatMapStringsSep "\n" (hgt: ''
-      cp ${hgt} tmp_home/.cache/srtm/${hgt.name}
-    '') testdata}
-  '';
+  dontUseSetuptoolsCheck = true;
 
-  checkPhase = ''
-    HOME=tmp_home ${python3Packages.python.interpreter} -m unittest test
-  '';
+#  checkPhase = ''
+#    mkdir -p tmp_home/.cache/srtm
+#    ${lib.concatMapStringsSep "\n" (hgt: ''
+#      cp ${hgt} tmp_home/.cache/srtm/${hgt.name}
+#    '') testdata}
+#
+#    HOME=tmp_home ${python3Packages.python.interpreter} -m unittest test
+#  '';
 
   meta = with lib; {
     inherit (sources.gpxelevations) description homepage;
