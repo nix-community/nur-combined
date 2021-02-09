@@ -1,7 +1,7 @@
 {
     "owner": "ibhagwan",
     "repo": "picom",
-    "rev": "44b4970f70d6b23759a61a2b94d9bfb4351b41b1",
-    "sha256": "0iff4bwpc00xbjad0m000midslgx12aihs33mdvfckr75r114ylh",
+    "rev": "60eb00ce1b52aee46d343481d0530d5013ab850b",
+    "sha256": "1m17znhl42sa6ry31yiy05j5ql6razajzd6s3k2wz4c63rc2fd1w",
     "fetchSubmodules": true
 }
