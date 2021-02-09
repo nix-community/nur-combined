@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-02-03T06:07:47Z",
+        "date": "2021-02-09T08:20:56Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "683f3002a001ca114576cf3b2400740c1b2d98cb",
-        "sha256": "06ash0zfz8v9rhzjwal95jd0hmy95xr182mh8xl3cbz25rv4ypxp",
+        "rev": "cdb1feb178aac73b0b6ab6fce32860a620ed2aa0",
+        "sha256": "0cv5nbrsjjvglwgbw2pl257cnj9xr8khg6rk39rjyvhb57b86xkc",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/683f3002a001ca114576cf3b2400740c1b2d98cb.tar.gz",
+        "url": "https://github.com/embox/embox/archive/cdb1feb178aac73b0b6ab6fce32860a620ed2aa0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -253,27 +253,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "077y82f0qmzcdazmis2gyzwh5w8sfsmgs7crfr93pw841bkzvvpk",
+        "sha256": "0jvrgrln48zfb7m9c1bk73jbdlp190m02zmy0krh7kr0v5hspymq",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-210206.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-210207.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "210206"
+        "version": "210207"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "1jdz4gqxvk18xc33qj0lmghdl9f7gd1r1h601cpnnnqdvr91p7j9",
+        "sha256": "1mns34822z10kpivr8qr2aql8g6lik6n3xg8qyxda15prharnygb",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-210206.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-210207.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "210206"
+        "version": "210207"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "1zmxbmb1kircnd8v6l4bwm1lny946vxkm3n77f8xwjxv1lwpj4c4",
+        "sha256": "1lki6wv3vs2cykfk41fmc24w13mx4f1cx3dcjdm36rqx5abivmwa",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210206.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210207.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "210206"
+        "version": "210207"
     },
     "gimgtools": {
         "branch": "master",
@@ -405,29 +405,29 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2021-02-07T15:11:52Z",
+        "date": "2021-02-08T18:57:14Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "9481e9b4e5455068e833cd45602340d07eb2d375",
-        "sha256": "13ynszmf02l500lcc97yip90xaa0l02wdkjpjhnzncncjqdl35dl",
+        "rev": "060c4df170ca5eef048fa334cdd816ee2631832a",
+        "sha256": "0pij7sm14nn203ikfh0g1f096p5h5kz916jk55wcf5s2ggq4q06a",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/9481e9b4e5455068e833cd45602340d07eb2d375.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/060c4df170ca5eef048fa334cdd816ee2631832a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-07T22:06:28Z",
+        "date": "2021-02-08T19:44:17Z",
         "description": "GPXSee maps",
         "homepage": "https://tumic0.github.io/GPXSee-maps",
         "owner": "tumic0",
         "repo": "GPXSee-maps",
-        "rev": "3cccff5b368aac5846dc83150dde2d9bb0b5628c",
-        "sha256": "1g2w595spnv5gr2l75fw4xgynz5h25vc7rwnki9n8yldfbc7ffiw",
+        "rev": "18d6710d645cba8e6890ad14bff54fa66cde4e97",
+        "sha256": "1anlncydgn9frx3faxj6yprlcir13ay2rbsqzqxmmg6hjzjd8ppv",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee-maps/archive/3cccff5b368aac5846dc83150dde2d9bb0b5628c.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee-maps/archive/18d6710d645cba8e6890ad14bff54fa66cde4e97.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxtools": {
@@ -517,15 +517,15 @@
     "how-to-use-pvs-studio-free": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-14T06:43:24Z",
+        "date": "2021-02-08T12:49:11Z",
         "description": "How to use PVS-Studio for Free",
         "homepage": "https://www.viva64.com/en/b/0457/",
         "owner": "viva64",
         "repo": "how-to-use-pvs-studio-free",
-        "rev": "75e1fe92a6a675c51814ea1f8172198ea9fd018a",
-        "sha256": "1bnj33dp52cj7arddmbhzdic94w4flv1d892gsxs4k0bd89ksvad",
+        "rev": "abc39706151159d102d29e3e2f2b8d5688362ec3",
+        "sha256": "10xx1vyw2dd2qgwaswz7nk0c1h60vy39a3fn7dkvr716i37pccih",
         "type": "tarball",
-        "url": "https://github.com/viva64/how-to-use-pvs-studio-free/archive/75e1fe92a6a675c51814ea1f8172198ea9fd018a.tar.gz",
+        "url": "https://github.com/viva64/how-to-use-pvs-studio-free/archive/abc39706151159d102d29e3e2f2b8d5688362ec3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "it-sanasto": {
@@ -615,15 +615,15 @@
     "map-hr": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-02-07T16:53:18Z",
+        "date": "2021-02-07T23:11:50Z",
         "description": "Slazav mountains",
         "homepage": "http://slazav.xyz/maps/",
         "owner": "slazav",
         "repo": "map_hr",
-        "rev": "efa89848ef0e6eb93f474a99a9fde63ccb99a7a7",
-        "sha256": "0ysmr1dr27ga1lxqqqlj317smivrnyfr0y8p5249mz3bw2bdqca1",
+        "rev": "f476649b5ff12fb6fa037e6fb023c1da19639b84",
+        "sha256": "0z2782smylf62ank8bpdhnvldqy46xai8ahg87yfyl203zcpp07h",
         "type": "tarball",
-        "url": "https://github.com/slazav/map_hr/archive/efa89848ef0e6eb93f474a99a9fde63ccb99a7a7.tar.gz",
+        "url": "https://github.com/slazav/map_hr/archive/f476649b5ff12fb6fa037e6fb023c1da19639b84.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "map-podm": {
@@ -671,15 +671,15 @@
     "mapper": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-02-05T07:13:40Z",
+        "date": "2021-02-09T06:20:57Z",
         "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
         "homepage": "https://www.openorienteering.org/apps/mapper/",
         "owner": "OpenOrienteering",
         "repo": "mapper",
-        "rev": "acbbd8b2f206a55e645e7ddf09c3af576451c7b5",
-        "sha256": "1fxgk62dhc83sar1frgp1h4h7as6d767v26qlkz6v0x916llihgw",
+        "rev": "9667e45ba36b587c7bed32fca88ae9c0a11d2bcd",
+        "sha256": "0za8z00v26fgwl5zn1sp1fnad0rnr5ff86mmcpmbv9fa9rl5iivj",
         "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/acbbd8b2f206a55e645e7ddf09c3af576451c7b5.tar.gz",
+        "url": "https://github.com/OpenOrienteering/mapper/archive/9667e45ba36b587c7bed32fca88ae9c0a11d2bcd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maprec": {
@@ -715,11 +715,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "1s52sxm83n4ldbwprdy7qyi1rkxxwq4ab7gmbsg4wpjlfafpxm0z",
+        "sha256": "02sqpkfj731f4cs1i28xk47phdmzw0v15s53wqdgyp902b5xs8qz",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-02-06.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-02-07.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2021-02-06"
+        "version": "2021-02-07"
     },
     "md2gemini": {
         "branch": "master",
@@ -832,15 +832,15 @@
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-31T02:55:05Z",
+        "date": "2021-02-08T01:43:16Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "4178f62ece6e06ce6954963d01eaf6c43a500457",
-        "sha256": "1w956zwh31l32yxnigr3q0wn23czlr0f45rbaswb9bk9ccdnnb9b",
+        "rev": "118657020e43fa75ab89bada281a7d9f25d69684",
+        "sha256": "176p20sj23d26vbficsfy2591zj6kcyyyn7a055xaz9l7y817h1p",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/4178f62ece6e06ce6954963d01eaf6c43a500457.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/118657020e43fa75ab89bada281a7d9f25d69684.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -1108,15 +1108,15 @@
     "tilesets-cli": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-27T20:12:33Z",
+        "date": "2021-02-08T18:38:38Z",
         "description": "CLI for interacting with the Mapbox Tilesets API",
         "homepage": "https://docs.mapbox.com/api/maps/#tilesets",
         "owner": "mapbox",
         "repo": "tilesets-cli",
-        "rev": "625877ed2ce22bd8a8026a1e87393ff7ff9da717",
-        "sha256": "05n7m53s4q6f7107b0nzw5bsksjly3ymn89jdphyda63j4am37wf",
+        "rev": "95af8c422c1111bafbff9de8b74264b7b60e15e7",
+        "sha256": "0rrw26llfvfacq2rv9cpyq2r3a75864jmlzh6ibs0k0jbn3sfjhl",
         "type": "tarball",
-        "url": "https://github.com/mapbox/tilesets-cli/archive/625877ed2ce22bd8a8026a1e87393ff7ff9da717.tar.gz",
+        "url": "https://github.com/mapbox/tilesets-cli/archive/95af8c422c1111bafbff9de8b74264b7b60e15e7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tpkutils": {

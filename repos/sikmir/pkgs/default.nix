@@ -134,7 +134,6 @@ lib.makeScope newScope (
 
     ### TOOLS
 
-    apibackuper = callPackage ./tools/networking/apibackuper { };
     csvquote = callPackage ./tools/text/csvquote { };
     csvtools = callPackage ./tools/text/csvtools { };
     datamaps = callPackage ./tools/geo/datamaps { };
@@ -150,7 +149,6 @@ lib.makeScope newScope (
     };
     gpxtools = callPackage ./tools/geo/gpxtools { };
     gpxtrackposter = callPackage ./tools/geo/gpxtrackposter { };
-    lazyscraper = callPackage ./tools/text/lazyscraper { };
     py-staticmaps = callPackage ./tools/geo/py-staticmaps { };
     render_geojson = callPackage ./tools/geo/render_geojson { };
     supermercado = callPackage ./tools/geo/supermercado { };
@@ -232,10 +230,14 @@ lib.makeScope newScope (
 
     ### MISC
 
+    apibackuper = callPackage ./misc/apibackuper { };
     ascii-dash = callPackage ./misc/ascii-dash { };
     cfiles = callPackage ./misc/cfiles { };
     docker-reg-tool = callPackage ./misc/docker-reg-tool { };
+    glauth = callPackage ./misc/glauth { };
+    ht = callPackage ./misc/ht { };
     ish = callPackage ./misc/ish { };
+    lazyscraper = callPackage ./misc/lazyscraper { };
     morse-talk = callPackage ./misc/morse-talk { };
     musig = callPackage ./misc/musig { };
     polyvectorization = libsForQt5.callPackage ./misc/polyvectorization {
@@ -264,10 +266,6 @@ lib.makeScope newScope (
     phyghtmap = callPackage ./osm/phyghtmap { };
     sdlmap = callPackage ./osm/sdlmap { };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
-
-    ### SERVERS
-
-    glauth = callPackage ./servers/glauth { };
 
     ### SUCKLESS
 
