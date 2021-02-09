@@ -64,10 +64,10 @@
   },
   {
     "name": "aai-vehicles-warden",
-    "version": "0.5.2",
-    "file_name": "aai-vehicles-warden_0.5.2.zip",
-    "download_url": "/download/aai-vehicles-warden/5fbf01564d167703aad68bda",
-    "sha1": "4d01a6c2a6ee96e08189840ba850666f266edcf1",
+    "version": "0.5.3",
+    "file_name": "aai-vehicles-warden_0.5.3.zip",
+    "download_url": "/download/aai-vehicles-warden/6021e75f6d3cb3f79daecade",
+    "sha1": "38c19d97f5498bb271f62fad55bc082475e6d219",
     "dependencies": [
       "base >= 1.1.0"
     ]
@@ -526,10 +526,10 @@
   },
   {
     "name": "Crafting_Speed_Research",
-    "version": "0.2.2",
-    "file_name": "Crafting_Speed_Research_0.2.2.zip",
-    "download_url": "/download/Crafting_Speed_Research/5e2d7dca34fc7d000c3103b4",
-    "sha1": "7a94e59e9a18c14747ed8493e537ca0cf08a087b",
+    "version": "0.2.3",
+    "file_name": "Crafting_Speed_Research_0.2.3.zip",
+    "download_url": "/download/Crafting_Speed_Research/60202291fd6b223ade6dcb96",
+    "sha1": "2c5af6a71b83003393f00a96bcf0d0fc982f78b4",
     "dependencies": []
   },
   {
