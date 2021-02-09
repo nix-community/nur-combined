@@ -9,6 +9,8 @@ python3Packages.buildPythonApplication {
   propagatedBuildInputs = with python3Packages; [ requests ]
     ++ lib.optional withUI tkinter;
 
+  doCheck = false;
+
   postInstall = lib.optionalString withUI ''
     install -Dm755 googletranslateui.py $out/bin/googletranslateui
     install -Dm644 google_translate.png -t $out/share/gt4gd
