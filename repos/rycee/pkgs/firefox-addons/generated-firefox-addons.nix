@@ -644,10 +644,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.0.4";
+      version = "9.0.5";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3719214/metamask-9.0.4-an+fx.xpi";
-      sha256 = "7f3b4ef6a781819b64272776667933a595a74f620387232185117b4e37c143ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3724014/metamask-9.0.5-an+fx.xpi";
+      sha256 = "a667b6f4bbed883012d18a7297441aac40b9cd11c1ad1c5b2661be9a38b1bf92";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -810,10 +810,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.2.1";
+      version = "21.2.9";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3719173/refined_github-21.2.1-an+fx.xpi";
-      sha256 = "355b9371f40fd3cec264cf472feeca81e0a1a0ea4e74578b1173fd6d2d47b37d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3724346/refined_github-21.2.9-an+fx.xpi";
+      sha256 = "f6585af47629ed812c8fc4892e5896472dc88f7adc3437884b64bc4cfd8e659f";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1002,10 +1002,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.6.5";
+      version = "3.7.0";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3705500/tree_style_tab_-3.6.5-fx.xpi";
-      sha256 = "86fa603dde05569f954e4281ef96cefb5313953671be7dd8bedaaa80c0912684";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3723694/tree_style_tab_-3.7.0-fx.xpi";
+      sha256 = "8c2c6a5c3680e1be1de893277992e387866f008d8975b7042e2e34c25dfb9c75";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
