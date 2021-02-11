@@ -22,8 +22,9 @@ let
       let
         current = head repolist;
         fileStart = substring 0 (stringLength current.path) fileName;
+        rest = replaceStrings [ fileStart ] [ "" ] fileName;
       in
-      if current.path == fileStart then current else f (tail repolist))
+      if current.path == fileStart && (substring 0 1 rest) == "/" then current else f (tail repolist))
     repoData;
   newName =
     let
