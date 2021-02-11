@@ -26,7 +26,6 @@ import ./lib/make-test.nix (
         default.succeed(
             "(nginx-prometheus-exporter || true) 2>&1 | head -n1 | tee /dev/stderr | grep ' Version=0.8.0 '"
         )
-        default.succeed("pushgateway --version 2>&1 | tee /dev/stderr | grep 'version 1.3.1'")
       '';
   }
 )

@@ -34,4 +34,6 @@ in
   prometheus-nginx-exporter = self: super: { inherit (nixpkgsUnstable) prometheus-nginx-exporter; };
 
   prometheus-pushgateway = self: super: { inherit (nixpkgsUnstable) prometheus-pushgateway; };
+
+  teamspeak = self: super: { inherit (nixpkgsUnstable) teamspeak_client teamspeak_server; };
 }
