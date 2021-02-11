@@ -4,8 +4,8 @@ self: super: let
    nixLib = pkgs.pkgs.lib;
 in
    pkgs.pkgs // {
-         lib = nixLib.recursiveUpdate super.lib {
-            overlays.nivConfig = pkgs.overlay;
-         };
+      lib = nixLib.recursiveUpdate super.lib {
+         overlays.nivConfig = pkgs.overlay;
          inherit (pkgs) sources nixos;
+      };
    }
