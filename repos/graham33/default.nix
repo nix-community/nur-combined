@@ -17,6 +17,7 @@ rec {
   enroot = pkgs.callPackage ./pkgs/enroot { };
   fiblary3 = pkgs.python3Packages.callPackage ./pkgs/fiblary3 { };
   garminconnect = pkgs.python3Packages.callPackage ./pkgs/garminconnect { };
+  hass-smartbox = pkgs.python3Packages.callPackage ./pkgs/hass-smartbox { };
   libpurecool = pkgs.python3Packages.callPackage ./pkgs/libpurecool { };
   python-socketio-4 = pkgs.python3Packages.callPackage ./pkgs/python-socketio/4.nix { };
   ring_doorbell = pkgs.python3Packages.callPackage ./pkgs/ring_doorbell { };
