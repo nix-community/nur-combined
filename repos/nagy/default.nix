@@ -40,4 +40,7 @@ rec {
   };
 
   bollux = pkgs.callPackage ./pkgs/bollux {};
+
+  gemget = pkgs.callPackage ./pkgs/gemget {};
+
 }
