@@ -1,8 +1,8 @@
 { fetchzip }:
 let
-  version = "2.1.7";
+  version = "2.3.8";
 in
 fetchzip {
   url = "https://github.com/threema-ch/threema-web/releases/download/v${version}/threema-web-${version}-gh.tar.gz";
-  sha256 = "0gi1ph8xvsqfg6br0ccgrxvss78gbayyvgxl13x82293gvms1lwg";
+  sha256 = "sha256-2UGjcc7LVg15eNIF3fivMYQ9GuyNw4IR6gWK4t1yVds=";
 }
