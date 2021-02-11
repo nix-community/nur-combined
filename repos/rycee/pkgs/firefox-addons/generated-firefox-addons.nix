@@ -346,10 +346,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.0.7";
+      version = "3.1.0";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3639516/gesturefy-3.0.7-fx.xpi";
-      sha256 = "d874656e9900d31575a90ab848f66483d3836cb6b2f814470c438c5aa1879dc3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3723971/gesturefy-3.1.0-fx.xpi";
+      sha256 = "c9881a82163fe0c6bd573f9d0835c9e4d58ba7fa36e77dbae935c23188fd343a";
       meta = with lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -1063,10 +1063,10 @@
       };
     "unpaywall" = buildFirefoxXpiAddon {
       pname = "unpaywall";
-      version = "3.93";
+      version = "3.94";
       addonId = "{f209234a-76f0-4735-9920-eb62507a54cd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3709278/unpaywall-3.93-fx.xpi";
-      sha256 = "a1de4838bcb4d28339ff87fa47c69b3d8381026ba673c1303ec53a8778f422c5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3724706/unpaywall-3.94-fx.xpi";
+      sha256 = "d21134223bf4aa06b9b21821e6bb5b19154bf80316cf0afaf10fe8845b4cc767";
       meta = with lib;
       {
         homepage = "http://unpaywall.org/products/extension";
