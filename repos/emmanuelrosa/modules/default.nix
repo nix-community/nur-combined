@@ -5,5 +5,6 @@
   btrbk = ./btrbk;
   electrum-personal-server = ./electrum-personal-server;
   electrumx = ./electrumx;
+  fzf = ./programs/fzf;
 }
 
