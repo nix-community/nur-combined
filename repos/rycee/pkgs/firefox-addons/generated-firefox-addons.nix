@@ -987,6 +987,20 @@
         platforms = platforms.all;
         };
       };
+    "to-deepl" = buildFirefoxXpiAddon {
+      pname = "to-deepl";
+      version = "0.2.0";
+      addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3592222/to_deepl_translation-0.2.0-fx.xpi";
+      sha256 = "7ab0364f69058185800f25c26681cf4c6bcbf7244936fe8edf5a4b3b597dd146";
+      meta = with lib;
+      {
+        homepage = "https://github.com/rewkha/firefox-to-deepl/";
+        description = "Right-click on a section of text and click on \"To DeepL\" to translate it to your language. Default language is selected in extension preferences.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "tomato-clock" = buildFirefoxXpiAddon {
       pname = "tomato-clock";
       version = "6.0.0";
