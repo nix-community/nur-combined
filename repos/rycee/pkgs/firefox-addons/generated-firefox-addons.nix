@@ -766,6 +766,20 @@
         platforms = platforms.all;
         };
       };
+    "privacy-redirect" = buildFirefoxXpiAddon {
+      pname = "privacy-redirect";
+      version = "1.1.46";
+      addonId = "{b7f9d2cd-d772-4302-8c3f-eb941af36f76}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3708074/privacy_redirect-1.1.46-an+fx.xpi";
+      sha256 = "cc614fe49cd4bb1b5d2b1065ca996b00b5fa6acbe4ff6b7d39f3d17ef5ddb05b";
+      meta = with lib;
+      {
+        homepage = "https://github.com/SimonBrazell/privacy-redirect";
+        description = "A simple web extension that redirects Twitter, YouTube, Instagram &amp; Google Maps requests to privacy friendly alternatives.";
+        license = licenses.gpl3Plus;
+        platforms = platforms.all;
+        };
+      };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
       version = "4.10.1";

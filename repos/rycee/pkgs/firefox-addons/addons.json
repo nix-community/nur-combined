@@ -220,6 +220,13 @@
     "slug": "privacy-possum"
   },
   {
+    "slug": "privacy-redirect",
+    "license": {
+      "tag": "predefined",
+      "shortName": "gpl3Plus"
+    }
+  },
+  {
     "slug": "react-devtools"
   },
   {
