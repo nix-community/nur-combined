@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@babel/code-frame-7.12.13" = {
+    "@babel/code-frame-7.12.11" = {
       name = "_at_babel_slash_code-frame";
       packageName = "@babel/code-frame";
-      version = "7.12.13";
+      version = "7.12.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.12.13.tgz";
-        sha512 = "HV1Cm0Q3ZrpCR93tkWOYiuYIgLxZXZFVG2VgK+MBWjUqZTundupbfx2aXarXuw5Ko5aMcjtJgbSs4vUGBS5v6g==";
+        url = "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.12.11.tgz";
+        sha512 = "Zt1yodBx1UcyiePMSkWnU4hPqhwq7hGi2nFL1LeA3EUl+q2LQx16MISgJ0+z7dnmgvP9QtIleuETGOiOH1RcIw==";
       };
     };
     "@babel/helper-validator-identifier-7.12.11" = {
@@ -67,13 +67,13 @@ let
         sha512 = "j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==";
       };
     };
-    "ajv-7.0.4" = {
+    "ajv-7.1.0" = {
       name = "ajv";
       packageName = "ajv";
-      version = "7.0.4";
+      version = "7.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ajv/-/ajv-7.0.4.tgz";
-        sha512 = "xzzzaqgEQfmuhbhAoqjJ8T/1okb6gAzXn/eQRNpAN1AEUoHJTNF9xCDRTtf/s3SKldtZfa+RJeTs+BQq+eZ/sw==";
+        url = "https://registry.npmjs.org/ajv/-/ajv-7.1.0.tgz";
+        sha512 = "svS9uILze/cXbH0z2myCK2Brqprx/+JJYK5pHicT/GQiBfzzhUVAIT6MwqJg8y4xV/zoGsUeuPuwtoiKSGE15g==";
       };
     };
     "ansi-colors-4.1.1" = {
@@ -971,10 +971,10 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.19.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.19.0.tgz"; sha1 = "6719621b196b5fad72e43387981314e5d0dc3f41"; };
+    version = "7.20.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.20.0.tgz"; sha1 = "db07c4ca4eda2e2316e7aa57ac7fc91ec550bdc7"; };
     dependencies = [
-      sources."@babel/code-frame-7.12.13"
+      sources."@babel/code-frame-7.12.11"
       sources."@babel/helper-validator-identifier-7.12.11"
       (sources."@babel/highlight-7.12.13" // {
         dependencies = [
@@ -1097,7 +1097,7 @@ let
       sources."supports-color-5.5.0"
       (sources."table-6.0.7" // {
         dependencies = [
-          sources."ajv-7.0.4"
+          sources."ajv-7.1.0"
           sources."json-schema-traverse-1.0.0"
         ];
       })

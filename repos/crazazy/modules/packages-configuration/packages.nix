@@ -17,7 +17,8 @@ defaultPackages: with defaultPackages.pkgs; {
       firefox-esr
       gparted
       xclip
-      spectral
+      # broken rn
+      # spectral
       xbanish
       vlc
       ffmpeg
