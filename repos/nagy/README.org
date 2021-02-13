@@ -18,6 +18,7 @@ It contains packages/attributes for:
   - mmtc (https://github.com/figsoda/mmtc)
   - warctools (https://github.com/internetarchive/warctools)
   - bollux (https://sr.ht/~acdw/bollux/)
+  - gemget (https://github.com/makeworld-the-better-one/gemget)
 
 * License
   

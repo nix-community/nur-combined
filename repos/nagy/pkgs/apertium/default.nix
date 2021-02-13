@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A free/open-source machine translation platform";
-    homepage = "https://github.com/apertium/apertium";
+    homepage = "https://www.apertium.org/";
 
     license = licenses.gpl2;
     maintainers = [  ];
