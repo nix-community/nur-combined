@@ -637,7 +637,7 @@
       meta = with lib;
       {
         homepage = "https://elijahlopez.herokuapp.com/";
-        description = "A modern dark / Matte Black theme with a red accent color.\nClick my name for more accents (request if not available).\nmonero:42hpQgwfvFw6RXpmcXHBJ85cZs9yF97kqfV3JpycnanG7JazfdL4WHkVL";
+        description = "A modern dark / Matte Black theme with a red accent color.\nClick my name for more accents (request if not available).\nmonero:42hpQgwfvFw6RXpmcXHBJ85cZs9yF97kqfV3JpycnanG7JazfdL4WHkVLuR8rcM64q6LHt547nKeeYaixBdCQYaHSuEnAuj";
         license = licenses.cc-by-nc-sa-30;
         platforms = platforms.all;
         };
@@ -1030,10 +1030,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.7.0";
+      version = "3.7.1";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3723694/tree_style_tab_-3.7.0-fx.xpi";
-      sha256 = "8c2c6a5c3680e1be1de893277992e387866f008d8975b7042e2e34c25dfb9c75";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3725574/tree_style_tab_-3.7.1-fx.xpi";
+      sha256 = "a59e8aa7777e14fb21b6a5d0d11400248ae0f8822b21f66f76f82d0c5a233047";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
