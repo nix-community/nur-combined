@@ -1,0 +1,212 @@
+From 6ffd4de223b7e1ba09d2eaeec5f52ce897175df1 Mon Sep 17 00:00:00 2001
+From: bfayers <bfayers@users.noreply.github.com>
+Date: Fri, 12 Feb 2021 11:31:22 +0000
+Subject: [PATCH 1/6] add account stats GET before login POST
+
+---
+ libpurecool/dyson.py | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/libpurecool/dyson.py b/libpurecool/dyson.py
+index 79a818f..a6ec1a1 100644
+--- a/libpurecool/dyson.py
++++ b/libpurecool/dyson.py
+@@ -52,6 +52,18 @@ def login(self):
+         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+         _LOGGER.debug("Disabling insecure request warnings since "
+                       "dyson are using a self signed certificate.")
++        
++        #Must first check account status
++        accountstatus = requests.get(f"https://{self._dyson_api_url}/v1/userregistration/userstatus?country={self._country}&email={self._email}")
++        if accountstatus.status_code == requests.codes.ok:
++            json_status = accountstatus.json()
++            if json_status['accountStatus'] != "ACTIVE":
++                #The account is not active
++                self._logged = False
++                return self._logged
++        else:
++            self._logged = False
++            return self._logged
+ 
+         request_body = {
+             "Email": self._email,
+
+From b41eadf2fd918249354d7976dbf7fa21675ada3d Mon Sep 17 00:00:00 2001
+From: bfayers <bfayers@users.noreply.github.com>
+Date: Fri, 12 Feb 2021 11:31:41 +0000
+Subject: [PATCH 2/6] set verify=False because dyson run self signed certs
+
+---
+ libpurecool/dyson.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libpurecool/dyson.py b/libpurecool/dyson.py
+index a6ec1a1..f07b50e 100644
+--- a/libpurecool/dyson.py
++++ b/libpurecool/dyson.py
+@@ -54,7 +54,7 @@ def login(self):
+                       "dyson are using a self signed certificate.")
+         
+         #Must first check account status
+-        accountstatus = requests.get(f"https://{self._dyson_api_url}/v1/userregistration/userstatus?country={self._country}&email={self._email}")
++        accountstatus = requests.get(f"https://{self._dyson_api_url}/v1/userregistration/userstatus?country={self._country}&email={self._email}", verify=False)
+         if accountstatus.status_code == requests.codes.ok:
+             json_status = accountstatus.json()
+             if json_status['accountStatus'] != "ACTIVE":
+
+From ac5566fa91a913c875fc1b3ad4c336e636c56a2c Mon Sep 17 00:00:00 2001
+From: bfayers <bfayers@users.noreply.github.com>
+Date: Fri, 12 Feb 2021 12:50:54 +0000
+Subject: [PATCH 3/6] use the headers for the status check, maybe unnecesarry;
+ also use json= instead of data= in the POST
+
+---
+ libpurecool/dyson.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/libpurecool/dyson.py b/libpurecool/dyson.py
+index f07b50e..1cda87d 100644
+--- a/libpurecool/dyson.py
++++ b/libpurecool/dyson.py
+@@ -41,7 +41,7 @@ def __init__(self, email, password, country):
+         self._country = country
+         self._logged = False
+         self._auth = None
+-        self._headers = {'User-Agent': DYSON_API_USER_AGENT}
++        self._headers = {'User-Agent': DYSON_API_USER_AGENT, 'Content-Type': 'application/json'}
+         if country == "CN":
+             self._dyson_api_url = DYSON_API_URL_CN
+         else:
+@@ -54,7 +54,7 @@ def login(self):
+                       "dyson are using a self signed certificate.")
+         
+         #Must first check account status
+-        accountstatus = requests.get(f"https://{self._dyson_api_url}/v1/userregistration/userstatus?country={self._country}&email={self._email}", verify=False)
++        accountstatus = requests.get(f"https://{self._dyson_api_url}/v1/userregistration/userstatus?country={self._country}&email={self._email}", headers=self._headers, verify=False)
+         if accountstatus.status_code == requests.codes.ok:
+             json_status = accountstatus.json()
+             if json_status['accountStatus'] != "ACTIVE":
+@@ -73,7 +73,7 @@ def login(self):
+             "https://{0}/v1/userregistration/authenticate?country={1}".format(
+                 self._dyson_api_url, self._country),
+             headers=self._headers,
+-            data=request_body,
++            json=request_body,
+             verify=False
+         )
+         # pylint: disable=no-member
+
+From 8ac02d076007ceb08cb592ce0de322f8a25f6550 Mon Sep 17 00:00:00 2001
+From: bfayers <bfayers@users.noreply.github.com>
+Date: Fri, 12 Feb 2021 13:12:40 +0000
+Subject: [PATCH 4/6] some changes to bring style in line with existing code as
+ well as to help CI pass
+
+---
+ libpurecool/dyson.py | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/libpurecool/dyson.py b/libpurecool/dyson.py
+index 1cda87d..9d720c5 100644
+--- a/libpurecool/dyson.py
++++ b/libpurecool/dyson.py
+@@ -41,7 +41,10 @@ def __init__(self, email, password, country):
+         self._country = country
+         self._logged = False
+         self._auth = None
+-        self._headers = {'User-Agent': DYSON_API_USER_AGENT, 'Content-Type': 'application/json'}
++        self._headers = {
++            'User-Agent': DYSON_API_USER_AGENT,
++            'Content-Type': 'application/json'
++        }
+         if country == "CN":
+             self._dyson_api_url = DYSON_API_URL_CN
+         else:
+@@ -52,13 +55,17 @@ def login(self):
+         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+         _LOGGER.debug("Disabling insecure request warnings since "
+                       "dyson are using a self signed certificate.")
+-        
+-        #Must first check account status
+-        accountstatus = requests.get(f"https://{self._dyson_api_url}/v1/userregistration/userstatus?country={self._country}&email={self._email}", headers=self._headers, verify=False)
++        # Must first check account status
++        accountstatus = requests.get(
++            "https://{0}/v1/userregistration/userstatus?country={1}&email={2}".format(
++                self._dyson_api_url, self._country, self._email),
++            headers=self._headers,
++            verify=False)
++        # pylint: disable=no-member
+         if accountstatus.status_code == requests.codes.ok:
+             json_status = accountstatus.json()
+             if json_status['accountStatus'] != "ACTIVE":
+-                #The account is not active
++                # The account is not active
+                 self._logged = False
+                 return self._logged
+         else:
+
+From 6307f4c44c2e74e0a620057a61e0193f69f0ec15 Mon Sep 17 00:00:00 2001
+From: bfayers <bfayers@users.noreply.github.com>
+Date: Fri, 12 Feb 2021 13:14:31 +0000
+Subject: [PATCH 5/6] Make changes as suggested by shenxn
+
+---
+ libpurecool/dyson.py | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/libpurecool/dyson.py b/libpurecool/dyson.py
+index 9d720c5..0ca2f34 100644
+--- a/libpurecool/dyson.py
++++ b/libpurecool/dyson.py
+@@ -41,10 +41,7 @@ def __init__(self, email, password, country):
+         self._country = country
+         self._logged = False
+         self._auth = None
+-        self._headers = {
+-            'User-Agent': DYSON_API_USER_AGENT,
+-            'Content-Type': 'application/json'
+-        }
++        self._headers = {'User-Agent': DYSON_API_USER_AGENT}
+         if country == "CN":
+             self._dyson_api_url = DYSON_API_URL_CN
+         else:
+@@ -57,10 +54,11 @@ def login(self):
+                       "dyson are using a self signed certificate.")
+         # Must first check account status
+         accountstatus = requests.get(
+-            "https://{0}/v1/userregistration/userstatus?country={1}&email={2}".format(
+-                self._dyson_api_url, self._country, self._email),
++            "https://{0}/v1/userregistration/userstatus".format(self._dyson_api_url),
++            params={"country": self._country, "email": self._email},
+             headers=self._headers,
+-            verify=False)
++            verify=False,
++        )
+         # pylint: disable=no-member
+         if accountstatus.status_code == requests.codes.ok:
+             json_status = accountstatus.json()
+
+From 3965d81938a6a0b596e9047d5d95746df2538554 Mon Sep 17 00:00:00 2001
+From: bfayers <bfayers@users.noreply.github.com>
+Date: Sat, 13 Feb 2021 14:51:03 +0000
+Subject: [PATCH 6/6] break up the format on line 57
+
+---
+ libpurecool/dyson.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/libpurecool/dyson.py b/libpurecool/dyson.py
+index 0ca2f34..fb3ad4e 100644
+--- a/libpurecool/dyson.py
++++ b/libpurecool/dyson.py
+@@ -54,7 +54,9 @@ def login(self):
+                       "dyson are using a self signed certificate.")
+         # Must first check account status
+         accountstatus = requests.get(
+-            "https://{0}/v1/userregistration/userstatus".format(self._dyson_api_url),
++            "https://{0}/v1/userregistration/userstatus".format(
++                self._dyson_api_url
++            ),
+             params={"country": self._country, "email": self._email},
+             headers=self._headers,
+             verify=False,
