@@ -1,0 +1,44 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Static nix
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Install Nix
+        # You may pin to the exact commit or the version.
+        # uses: cachix/install-nix-action@07da2520eebede906fbeefa9dd0a2b635323909d
+        uses: cachix/install-nix-action@v12
+        with:
+
+          # Set NIX_PATH environment variable.
+          nix_path: nixpkgs=channel:nixpkgs-unstable
+      - name: Build nix
+        run: nix-build "<nixpkgs>" -A pkgsStatic.nix
+      - name: copy results
+        run: |
+          mkdir results
+          cp -rf ./result/* results
+          rm result
+ 
+      - name: Upload results
+        uses: actions/upload-artifact@v2
+        with:
+          name: nixStatic
+          path: ./results
