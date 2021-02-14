@@ -13,6 +13,14 @@ buildGoModule rec {
 
   subPackages = [ "cmd/goatcounter" ];
 
+  buildFlagsArray = [
+    "-ldflags=" "-X=main.Version=${version}"
+  ];
+
+  postInstall = ''
+    install -D db/schema.pgsql $out/share/goatcounter/schema.pgsql
+  '';
+
   #LD_LIBRARY_PATH = lib.makeLibraryPath [ sqlite postgresql ] ;
   doCheck = false;
 
