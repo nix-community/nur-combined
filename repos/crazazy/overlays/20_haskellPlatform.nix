@@ -1,7 +1,7 @@
 # GHC with some of the more common haskell packages, along with some hand-picked ones to taste
 self: super: let
-   pkgs = super.callNixPackage ({pkgs}: pkgs) {};
-   haskellPackages = p: with p; [
+   nixpkgs = super.callNixPackage ({ pkgs }: pkgs) {};
+   ghcPackages = p: with p; [
       # from haskell.org
       OpenGL
       QuickCheck
@@ -57,10 +57,11 @@ self: super: let
       zip-archive
       zlib
       # own preference
+      free
+      hnix
       rio
       stack
-      hnix
    ];
 in
-   { haskellPlatform = pkgs.ghcWithHoogle haskellPackages; }
+   { haskellPlatform = nixpkgs.haskellPackages.ghcWithHoogle ghcPackages; }
 
