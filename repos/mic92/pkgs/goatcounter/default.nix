@@ -11,6 +11,8 @@ buildGoModule rec {
     sha256 = "sha256-XL16ryJmb0O+rvCP332fFSM0CrxoviBXwUKIwiFjG7Q=";
   };
 
+  subPackages = [ "cmd/goatcounter" ];
+
   #LD_LIBRARY_PATH = lib.makeLibraryPath [ sqlite postgresql ] ;
   doCheck = false;
 
