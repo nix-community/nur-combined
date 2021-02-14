@@ -9,10 +9,10 @@
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
-    owner = "fejfighter";
+    owner = "MetaDark";
     repo = "emacs";
-    rev = "0603c2f49d8f9c2d0b8e141927b39f8d6d8fe272";
-    hash = "sha256:08jnfp0n8gpmd3cvrfisvywl1z0793x3m5xcj4k8djfwasa682pp";
+    rev = "1cf25c5a2038d4e79fbb610193ae4ccbc7457f57";
+    hash = "sha256:1vaaalzj1njzgs9ksi96j0hln711ry62ihgiy08ifvl0wz4piiz3";
   };
 
   patches = [ ];
@@ -24,7 +24,7 @@
 
   meta = attrs.meta // (with lib; {
     description = "Emacs with pure GTK3 & native compilation support";
-    homepage = "https://github.com/fejfighter/emacs/tree/pgtk-nativecomp";
+    homepage = "https://github.com/MetaDark/emacs/tree/feature/pgtk-native-comp";
     maintainer = with maintainers; [ metadark ];
   });
 })

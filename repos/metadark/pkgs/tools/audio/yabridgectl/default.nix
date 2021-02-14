@@ -6,7 +6,7 @@ rustPlatform.buildRustPackage rec {
 
   src = yabridge.src;
   sourceRoot = "source/tools/yabridgectl";
-  cargoHash = "sha256:08j865n9vjnkc1g33lnzlj2nr3raj3av9cnvdqbkh65kr4zs4r9h";
+  cargoHash = "sha256:1sjhani8h7ap42yqlnj05sx59jyz2h12qlm1ibv8ldxcpwps0bwy";
 
   patches = [
     ./libyabridge-from-nix-profiles.patch
