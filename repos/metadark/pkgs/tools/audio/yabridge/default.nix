@@ -111,10 +111,8 @@ in stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p "$out/bin" "$out/lib"
-    cp yabridge-group.exe "$out/bin"
-    cp yabridge-group.exe.so "$out/bin"
-    cp yabridge-host.exe "$out/bin"
-    cp yabridge-host.exe.so "$out/bin"
+    cp yabridge-group.exe{,.so} "$out/bin"
+    cp yabridge-host.exe{,.so} "$out/bin"
     cp libyabridge-vst2.so "$out/lib"
     cp libyabridge-vst3.so "$out/lib"
   '';
