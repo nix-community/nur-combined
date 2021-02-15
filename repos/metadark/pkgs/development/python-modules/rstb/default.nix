@@ -12,7 +12,7 @@ buildPythonPackage rec {
     owner = "zeldamods";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256:066k8d16x8ary7g5hj7sxx8sw3lhims3n4nkakys1afhwr3s9py1";
+    hash = "sha256-wd+kR+bQqaD9VNMSO3SNkA6uUe/6SFje8VmhbkJD0xg=";
   };
 
   postPatch = ''

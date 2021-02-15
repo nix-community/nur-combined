@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     url = "git://git.savannah.gnu.org/poke.git";
     rev = "d446afcb23fc2b8800de77caf07304fd3e0f0c49";
     fetchSubmodules = true;
-    sha256 = "13nms0wwr45d08m5ya8b5l4mfixs0q4jysxy49w374ywpip65q89";
+    sha256 = "sha256-CeFibrzckzN4Ir5rLwkGukdXCS0LKV8qAq2QzDnQ1Y4=";
   };
 
   patches = [

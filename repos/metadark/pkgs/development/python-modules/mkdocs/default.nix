@@ -20,7 +20,7 @@ buildPythonPackage rec {
     owner = "mkdocs";
     repo = pname;
     rev = version;
-    hash = "sha256:1ngrm2w0fw89ckd9606bvqvxcjs6fna93n26cckqzwjsf7kwfhvp";
+    hash = "sha256-d0PH53Fa8o8nY0bYkZR1RkvWN97LAJPaZAlxB7io+dk=";
   };
 
   patches = [

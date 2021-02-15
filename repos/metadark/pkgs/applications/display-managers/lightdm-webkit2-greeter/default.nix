@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     owner = "Antergos";
     repo = "web-greeter";
     rev = version;
-    hash = "sha256:109qvybpwb35sybga7vfhr67w7w15zlx1d2nrhikmhj1miayr3id";
+    hash = "sha256-LY7sVaxBwjojzFa00OkvgR9+TIZuH/WW12UsfpffOIE=";
   };
 
   patches = [

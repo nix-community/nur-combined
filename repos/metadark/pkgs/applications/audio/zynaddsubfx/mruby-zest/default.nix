@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     repo = "${pname}-build";
     rev = version;
     fetchSubmodules = true;
-    sha256 = "0mkfjaa3qhysh5cs583rpz638hyrkfpx4ab18sgpycchcdwg59b3";
+    sha256 = "sha256-Y6XyeGOQMX+fRmEp0q+b2UM0zL95oKJZgdpDPJSSblY=";
   };
 
   patches = [

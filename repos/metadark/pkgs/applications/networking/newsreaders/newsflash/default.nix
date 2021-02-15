@@ -25,10 +25,10 @@ rustPlatform.buildRustPackage rec {
     owner = "news-flash";
     repo = "news_flash_gtk";
     rev = version;
-    hash = "sha256:1xllyf94z83bws75fgslva77hv7ii23yz9ds496psf82bqmmxs2d";
+    hash = "sha256-TeheK14COX1NIrql74eI8Wx4jtpUP1eO5mugT5LzlPY=";
   };
 
-  cargoHash = "sha256:0kdmj7p5039n7z8fwan8wc1glbypgn4kfi03s7d9ghpblsqzif0m";
+  cargoHash = "sha256-Fbj4sabrwpfa0QNEN4l91y/6AuPIKu7QPzYNUO6RtU0=";
 
   patches = [
     ./no-post-install.patch

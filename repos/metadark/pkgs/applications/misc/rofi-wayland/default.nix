@@ -28,7 +28,7 @@ rofi.override {
       repo = "rofi";
       rev = "${version}-wayland";
       fetchSubmodules = true;
-      sha256 = "1n1hkv14qfcqfc15h4qswjxiagd9xps9n0zcrwmkrkmd6bi0w3ra";
+      sha256 = "sha256-Kg8O4jKtzjwrz+wDm/TtqT0Vu+QaE1gCc5g5TMKeMNg=";
     };
 
     nativeBuildInputs = [

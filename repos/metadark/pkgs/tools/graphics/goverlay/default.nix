@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     owner = "benjamimgois";
     repo = pname;
     rev = version;
-    hash = "sha256:0i0z6xsj7m8q7mncx80h0x37pbnbjg607lkbdp5i98q1l35yd5dq";
+    hash = "sha256-uJXmy6ABoxTLbWvSA8yTy657RgcQoM5sPRjVI3U3H0Q=";
   };
 
   nativeBuildInputs = [ fpc lazarus makeWrapper ];

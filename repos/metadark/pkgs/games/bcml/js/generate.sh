@@ -6,4 +6,5 @@ node2nix \
   --lock package-lock.json \
   --output node-packages.nix \
   --composition node-composition.nix \
+  --node-env ../../../development/node-packages/node-env.nix \
   --development

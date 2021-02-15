@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "atar-axis";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256:1f146snbjkr3dgg3g1dav4q2621560zg5ixsip2wsvp7wfvahnhy";
+    hash = "sha256-HlqotuPnbs3FjbrH8j4wJQgjMNmqhTfeayNPuaw2JLg=";
   };
 
   setSourceRoot = ''

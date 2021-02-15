@@ -12,7 +12,7 @@
     owner = "MetaDark";
     repo = "emacs";
     rev = "1cf25c5a2038d4e79fbb610193ae4ccbc7457f57";
-    hash = "sha256:1vaaalzj1njzgs9ksi96j0hln711ry62ihgiy08ifvl0wz4piiz3";
+    hash = "sha256-48d4yeeAbhcR8PHBKIzPIRxLIZAmRT2Tfl/aID9VSu0=";
   };
 
   patches = [ ];

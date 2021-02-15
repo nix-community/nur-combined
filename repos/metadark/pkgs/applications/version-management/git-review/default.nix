@@ -15,7 +15,7 @@ buildPythonApplication rec {
 
   src = fetchurl {
     url = "https://opendev.org/opendev/${pname}/archive/${version}.tar.gz";
-    hash = "sha256:1y1jzb0hlprynwwr4q5y4x06641qrhj0k69mclabnmhfam9g8ygm";
+    hash = "sha256-9Xn0UlUOVrsUZTWZCSTMOBBjQCe+YJI5tz5fCsH6Mvg=";
   };
 
   propagatedBuildInputs = [ pbr requests ];

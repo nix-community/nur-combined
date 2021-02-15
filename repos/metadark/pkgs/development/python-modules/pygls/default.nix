@@ -16,7 +16,7 @@ buildPythonPackage rec {
     owner = "openlawlibrary";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256:1v7x5598d6jg8ya0spqjma56y062rznwimsrp8nq6fkskqgfm0ds";
+    hash = "sha256-uoHqHp56OoMtulnXyO3PwgBviqoSXw2UR0+ahlIp/ew=";
   };
 
   checkInputs = [ mock pytest-asyncio pytestCheckHook ];

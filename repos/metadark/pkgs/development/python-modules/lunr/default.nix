@@ -23,7 +23,7 @@ let
       name = "corpora/stopwords";
       path = fetchzip {
         url = "https://github.com/nltk/nltk_data/raw/${nltk_data_rev}/packages/corpora/stopwords.zip";
-        hash = "sha256:08kzi6ajf2lc5bg4d9yq2qg5z931vc6ss983hcbaqx90dx4zbd4c";
+        hash = "sha256-jLT1SW8gdawWgwMlrQ3bYaRfHhbYp0beKowKJ5WJfyI=";
       };
     }
   ];
@@ -35,7 +35,7 @@ in buildPythonPackage rec {
     owner = "yeraydiazdiaz";
     repo = pname;
     rev = version;
-    hash = "sha256:1410rnyjs0z48rd4k6bwjmr51y7kfcylpka5k5faqf2in74wb0lx";
+    hash = "sha256-nYLFybFROKxcmUXNSz1z8/hQcpV8mUlaRuQDLb3NIJA=";
   };
 
   patches = [

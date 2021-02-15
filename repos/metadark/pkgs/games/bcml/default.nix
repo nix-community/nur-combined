@@ -77,7 +77,7 @@ buildPythonApplication rec {
     owner = "NiceneNerd";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256:0bid87y264gl4pwpli4fd01gh2sv807x4m7bb017hf35ry7wm6a7";
+    hash = "sha256-R5nKj89lOHgCWOtU0g9AWwv4AmiORHr5JfQRI/xBLS4=";
   };
 
   patches = [

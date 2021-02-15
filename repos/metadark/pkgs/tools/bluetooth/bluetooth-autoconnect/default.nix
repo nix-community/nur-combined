@@ -16,7 +16,7 @@ buildPythonApplication rec {
     owner = "jrouleau";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256:18yqwrkxxl60haixyjl6sajfx8pjrq6m6xv5qy2022sfqhlwzs7m";
+    hash = "sha256-9ejPKcROCwGEx2V3Uw3O8qLupNKGSt+jgsDQ3mfm2KM=";
   };
 
   propagatedBuildInputs = [ dbus-python pygobject3 python-prctl ];

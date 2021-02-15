@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     owner = "DadSchoorse";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256:01iplj6dlw2vl35hyci5m5yp8jmzcwng6c3jk3wn97jpv6m3hjqz";
+    hash = "sha256-H0s4qtlXnmT5mHIw8yxnv0p0faklMg/LoFtw2oykNwY=";
   };
 
   nativeBuildInputs = [ glslang meson ninja pkg-config ];

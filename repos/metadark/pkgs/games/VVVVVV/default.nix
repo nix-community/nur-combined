@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     owner = "TerryCavanagh";
     repo = "VVVVVV";
     rev = version;
-    hash = "sha256:191id9kgivhb54wccfi5bpjnjf7y97w4l832vpf288phjymyl2rj";
+    hash = "sha256-Mgvqq5fwIiTc3WIgSvhJ/jhp5V0lOsY4KQvu+GZqMaQ=";
   };
 
   sourceRoot = "source/desktop_version";

@@ -13,7 +13,7 @@ buildPythonPackage rec {
     repo = pname;
     rev = "v${version}";
     fetchSubmodules = true;
-    sha256 = "1fnwc0jbg4xylzcg9apmxdxh6xsn6a2iyr17fv67qddi4x28lvjx";
+    sha256 = "sha256-XW6KRCexNXzMdidkH4UyVncDe+v1qvTYp76TtyRg3Lo=";
   };
 
   postPatch = ''

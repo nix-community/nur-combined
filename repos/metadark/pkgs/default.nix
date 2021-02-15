@@ -40,6 +40,8 @@ with mergedPkgs; {
 
   goverlay = callPackage ./tools/graphics/goverlay { };
 
+  # lbry-desktop = callPackage ./applications/video/lbry-desktop { };
+
   lightdm-webkit2-greeter = callPackage ./applications/display-managers/lightdm-webkit2-greeter { };
 
   newsflash = callPackage ./applications/networking/newsreaders/newsflash { };
