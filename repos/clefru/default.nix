@@ -23,4 +23,5 @@ rec {
   zsh-nix-shell = pkgs.callPackage ./pkgs/zsh-nix-shell { };
   usbreset = pkgs.callPackage ./pkgs/usbreset { };
   gtk-v4l = pkgs.callPackage ./pkgs/gtk-v4l { };
+  ib-tws = pkgs.callPackage ./pkgs/ib-tws { };
 }
