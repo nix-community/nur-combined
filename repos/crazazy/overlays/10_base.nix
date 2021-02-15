@@ -1,10 +1,21 @@
 self: super: let
    pkgs = super.callNixPackage ({ pkgs }: pkgs) {};
+   pythonSet = pkgs.python3.withPackages (p: with p; [
+      buildPythonPackage
+      buildPythonApplication
+      numpy
+      flask
+      tkinter
+      ipython
+   ]);
 in
    {
       lib = pkgs.lib // {
          inherit (import ../lib/utils.nix) zipWith quickElem any all sum product;
-         } // super.lib;
+      } // super.lib;
+      python = self.writeShellScriptBin "python" ''
+         ${pythonSet.interpreter} $@
+      '';
       inherit (pkgs)
          atom
          bashInteractive

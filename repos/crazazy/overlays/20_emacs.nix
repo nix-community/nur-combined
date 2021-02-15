@@ -2,6 +2,6 @@
 self: super: let
    inherit (super.lib.srcs) emacs-overlay emacs;
 in
-   { emacsBootstrap = { configDir ? null }: 
-      import emacs ({ pkgs = self; } // (if builtins.isNull configDir then { } else { inherit configDir; }));
+   { emacsBootstrap = { configDir ? /var/empty }: 
+      import emacs { pkgs = self; inherit configDir; }
    } // (import emacs-overlay self super)
