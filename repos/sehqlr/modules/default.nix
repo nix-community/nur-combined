@@ -6,4 +6,3 @@
   home-manager = ./home-manager;
   cloud = ./cloud;
 }
-
