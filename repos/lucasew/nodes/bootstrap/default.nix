@@ -51,5 +51,12 @@ with import ../../globalConfig.nix;
       ];
     };
   };
+  security.sudo.extraConfig = ''
+Defaults lecture = always
+
+Defaults lecture_file=${pkgs.writeText "sudo-lecture" ''
+It's sudo time!
+''}
+  '';
   services.irqbalance.enable = true;
 }
