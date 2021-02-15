@@ -19,5 +19,6 @@ buildPythonPackage rec {
     license = licenses.unlicense;
     platforms = [ "aarch64-linux" "armv7l-linux" ]; # targeted at Raspberry Pi ONLY
     maintainers = [ maintainers.drewrisinger ];
+    isRpiPkg = true;
   };
 }

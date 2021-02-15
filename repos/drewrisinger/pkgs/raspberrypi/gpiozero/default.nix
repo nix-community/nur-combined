@@ -36,5 +36,6 @@ buildPythonPackage rec {
     homepage = "https://gpiozero.readthedocs.io/en/stable/";
     license = licenses.bsd3;
     maintainers = [ maintainers.drewrisinger ];
+    isRpiPkg = true;
   };
 }

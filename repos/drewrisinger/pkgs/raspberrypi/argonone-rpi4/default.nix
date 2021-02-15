@@ -56,5 +56,6 @@ stdenv.mkDerivation {
     description = "Argon One Service and Control Scripts for Raspberry Pi 4";
     homepage = "https://github.com/Elrondo46/argonone";
     platforms = [ "aarch64-linux" ];  # Raspberry Pi 4
+    isRpiPkg = true;
   };
 }

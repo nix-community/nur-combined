@@ -32,5 +32,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/underground-software/RPi.GPIO2";
     license = licenses.gpl3Plus;
     platforms = [ "aarch64-linux" ];
+    isRpiPkg = true;
   };
 }

@@ -24,5 +24,6 @@ stdenv.mkDerivation {
     license = with licenses; [ unfree ];  # not specified, assuming worst-case
     maintainers = with maintainers; [ drewrisinger ];
     platforms = [ "aarch64-linux" "armv7l-linux" ];
+    isRpiPkg = true;
   };
 }

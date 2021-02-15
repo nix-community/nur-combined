@@ -43,5 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "TODO";
     maintainers = [ maintainers.drewrisinger ];
     platforms = [ "aarch64-linux" "armv7l-linux" "armv6l-linux" ];
+    isRpiPkg = true;
   };
 }
