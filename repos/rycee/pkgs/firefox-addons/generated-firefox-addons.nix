@@ -2,10 +2,10 @@
   {
     "1password-x-password-manager" = buildFirefoxXpiAddon {
       pname = "1password-x-password-manager";
-      version = "1.23.0";
+      version = "1.23.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3715456/1password_x_password_manager-1.23.0-fx.xpi";
-      sha256 = "4b92f66768168ae58f7439cf51232512465fff79c770820b165b64cd90130a4c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3726657/1password_password_manager-1.23.1-fx.xpi";
+      sha256 = "47e9e98f1072d93d595002dc8c221e5cca17e091b3431563a8e3e2be575c5cc1";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -810,10 +810,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.5.1";
+      version = "5.5.2";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3718253/moderator_toolbox_for_reddit-5.5.1-an+fx.xpi";
-      sha256 = "9601b617280d875deec1e1b542f6ef8e57c381f705fb14f737f43e9fe396b815";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3726573/moderator_toolbox_for_reddit-5.5.2-an+fx.xpi";
+      sha256 = "d2b30fd10b114a054807a98da21a4ea53f8e39b14d20741d244a07f3b69d5eb4";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
