@@ -4,5 +4,6 @@
   # my-module = ./my-module;
   nixos = ./nixos;
   home-manager = ./home-manager;
+  cloud = ./cloud;
 }
 
