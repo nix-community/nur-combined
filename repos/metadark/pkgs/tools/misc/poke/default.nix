@@ -31,14 +31,14 @@
 
 stdenv.mkDerivation rec {
   pname = "poke";
-  version = "unstable-2021-01-03";
+  version = "unstable-2021-02-14";
   jitter-version = "0.9.251";
 
   src = fetchgit {
     url = "git://git.savannah.gnu.org/poke.git";
-    rev = "011d904fe39ef526dc9b0fe1553b643b4bdbcc5c";
+    rev = "d446afcb23fc2b8800de77caf07304fd3e0f0c49";
     fetchSubmodules = true;
-    sha256 = "005h516cab8rrfir2kiydvn9hpxffgwr8z7888nfqymwjx2ck6j4";
+    sha256 = "13nms0wwr45d08m5ya8b5l4mfixs0q4jysxy49w374ywpip65q89";
   };
 
   patches = [

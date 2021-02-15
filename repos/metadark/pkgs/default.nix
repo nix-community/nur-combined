@@ -44,12 +44,7 @@ with mergedPkgs; {
 
   newsflash = callPackage ./applications/networking/newsreaders/newsflash { };
 
-  poke = callPackage ./tools/misc/poke {
-    # Autoconf 2.70 generates broken configure script:
-    #./configure: line 6522: syntax error near unexpected token `ac_cv_prog_cc_stdc=$ac_cv_prog_cc_c89'
-    #./configure: line 6522: `                      ac_cv_prog_cc_stdc=$ac_cv_prog_cc_c89'
-    autoconf = autoconf269;
-  };
+  poke = callPackage ./tools/misc/poke { };
 
   pokemmo-installer = callPackage ./games/pokemmo-installer {
     inherit (gnome3) zenity;
