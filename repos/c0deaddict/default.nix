@@ -68,4 +68,6 @@ rec {
 
   etlegacy = pkgs.callPackage_i686 ./pkgs/etlegacy {};
 
+  natscli = pkgs.callPackage ./pkgs/natscli {};
+
 }
