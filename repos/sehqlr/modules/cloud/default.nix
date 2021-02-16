@@ -12,7 +12,6 @@
     enable = true;
     statusPage = true;
     virtualHosts."samhatfield.me" = {
-      root = "/srv";
       addSSL = true;
       enableACME = true;
       locations."/" = {
