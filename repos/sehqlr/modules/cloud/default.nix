@@ -5,8 +5,7 @@
   networking.firewall.allowedTCPPorts = [ 80 443 ];
   networking.firewall.allowPing = true;
 
-  # security.acme.acceptTerms = true;
-  # security.acme.certs."samhatfield.me".email = "hey@samhatfield.me";
+  security.acme.acceptTerms = true;
 
   # services.nginx = {
   #   enable = true;

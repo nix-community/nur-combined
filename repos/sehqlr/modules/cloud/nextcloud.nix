@@ -1,4 +1,5 @@
 { config, pkgs, ... }: {
+  security.acme.certs."nextcloud.samhatfield.me".email = "hey@samhatfield.me";
   services.nginx.virtualHosts."nextcloud.samhatfield.me" = {
     forceSSL = true;
     enableACME = true;
