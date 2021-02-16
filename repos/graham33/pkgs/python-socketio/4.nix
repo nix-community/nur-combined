@@ -1,33 +1,47 @@
 { lib
+, bidict
 , buildPythonPackage
-, fetchPypi
-, six
-, python-engineio
+, fetchFromGitHub
 , mock
+, pytestCheckHook
+, python-engineio_3
 }:
 
 buildPythonPackage rec {
   pname = "python-socketio";
   version = "4.6.1";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "047syhrrxh327p0fnab0d1zy25zijnj3gs1qg3kjpsy1jaj5l7yd";
+  src = fetchFromGitHub {
+    owner = "miguelgrinberg";
+    repo = "python-socketio";
+    rev = "v${version}";
+    sha256 = "14dijag17v84v0pp9qi89h5awb4h4i9rj0ppkixqv6is9z9lflw5";
   };
 
   propagatedBuildInputs = [
-    six
-    python-engineio
+    bidict
+    python-engineio_3
   ];
 
-  checkInputs = [ mock ];
-  # tests only on github, but latest github release not tagged
-  doCheck = false;
+  checkInputs = [
+    mock
+    pytestCheckHook
+  ];
+
+  pythonImportsCheck = [ "socketio" ];
+
+  # pytestCheckHook seems to change the default log level to WARNING, but the
+  # tests assert it is ERROR
+  disabledTests = [ "test_logger" ];
 
   meta = with lib; {
-    description = "Socket.IO server";
+    description = "Python Socket.IO server and client 4.x";
+    longDescription = ''
+      Socket.IO is a lightweight transport protocol that enables real-time
+      bidirectional event-based communication between clients and a server.
+    '';
     homepage = "https://github.com/miguelgrinberg/python-socketio/";
-    license = licenses.mit;
-    maintainers = [ maintainers.mic92 ];
+    license = with licenses; [ mit ];
+    #maintainers = with maintainers; [ graham33 ];
   };
 }

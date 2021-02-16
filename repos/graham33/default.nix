@@ -20,9 +20,9 @@ rec {
   hass-smartbox = pkgs.python3Packages.callPackage ./pkgs/hass-smartbox { };
   libpurecool = pkgs.python3Packages.callPackage ./pkgs/libpurecool { };
   # TODO: use overlay to override
-  python-engineio-3 = pkgs.python3Packages.callPackage ./pkgs/python-engineio/3.nix { };
-  python-socketio-4 = pkgs.python3Packages.callPackage ./pkgs/python-socketio/4.nix { python-engineio = python-engineio-3; };
+  python-engineio_3 = pkgs.python3Packages.callPackage ./pkgs/python-engineio/3.nix { };
+  python-socketio_4 = pkgs.python3Packages.callPackage ./pkgs/python-socketio/4.nix { inherit python-engineio_3; };
   ring_doorbell = pkgs.python3Packages.callPackage ./pkgs/ring_doorbell { };
-  smartbox = pkgs.python3Packages.callPackage ./pkgs/smartbox { python-socketio = python-socketio-4; };
+  smartbox = pkgs.python3Packages.callPackage ./pkgs/smartbox { python-socketio = python-socketio_4; };
   teslajsonpy = pkgs.python3Packages.callPackage ./pkgs/teslajsonpy { };
 }
