@@ -6,16 +6,14 @@
   networking.firewall.allowPing = true;
 
   security.acme.acceptTerms = true;
+  security.acme.certs."samhatfield.me".email = "hey@samhatfield.me";
 
-  # services.nginx = {
-  #   enable = true;
-  #   statusPage = true;
-  #   virtualHosts."samhatfield.me" = {
-  #     addSSL = true;
-  #     enableACME = true;
-  #     locations."/" = {
-  #       index = "index.html";
-  #     };
-  #   };
-  # };
+  services.nginx = {
+    enable = true;
+    statusPage = true;
+    virtualHosts."samhatfield.me" = {
+      addSSL = true;
+      enableACME = true;
+    };
+  };
 }
