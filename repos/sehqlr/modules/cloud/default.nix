@@ -14,6 +14,10 @@
     virtualHosts."samhatfield.me" = {
       addSSL = true;
       enableACME = true;
+      locations."/" = {
+        root = "/srv/samhatfield.me";
+        index = "index.html";
+      };
     };
   };
 }
