@@ -27,7 +27,7 @@ in
 
   deno = self: super: { inherit (nixpkgsUnstable) deno; };
 
-  factorio = self: super: { inherit (nixpkgsMaster) factorio factorio-experimental factorio-headless factorio-headless-experimental; };
+  factorio = self: super: { inherit (import sources.nixpkgs-factorio { }) factorio factorio-experimental factorio-headless factorio-headless-experimental; };
 
   freeciv = self: super: { inherit (nixpkgsMaster) freeciv; };
 
