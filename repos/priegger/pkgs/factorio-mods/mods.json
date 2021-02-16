@@ -267,6 +267,16 @@
     ]
   },
   {
+    "name": "ArmouredBiters",
+    "version": "1.1.1",
+    "file_name": "ArmouredBiters_1.1.1.zip",
+    "download_url": "/download/ArmouredBiters/6017204d4878d54237770989",
+    "sha1": "4b9a0e067d4c117e24cf17ebb4075c3ef342bef1",
+    "dependencies": [
+      "base >= 1.1.1"
+    ]
+  },
+  {
     "name": "bobassembly",
     "version": "1.1.2",
     "file_name": "bobassembly_1.1.2.zip",
@@ -513,6 +523,28 @@
     ]
   },
   {
+    "name": "Clockwork",
+    "version": "1.1.0",
+    "file_name": "Clockwork_1.1.0.zip",
+    "download_url": "/download/Clockwork/5fbc3c3cd0e33c92e48d1085",
+    "sha1": "b4bdef4d444624e3c35b54823fb82e365f9a09dc",
+    "dependencies": [
+      "base >= 1.1"
+    ]
+  },
+  {
+    "name": "Companion_Drones",
+    "version": "1.0.19",
+    "file_name": "Companion_Drones_1.0.19.zip",
+    "download_url": "/download/Companion_Drones/60255a1a649c4200c2c0a550",
+    "sha1": "99fbc3ab08dcf3dd6c34049e1b13676e97c8f4ed",
+    "dependencies": [
+      "base >= 1.1.5",
+      "(?)alien-biomes",
+      "(?)space-exploration"
+    ]
+  },
+  {
     "name": "Construction_Drones",
     "version": "0.6.11",
     "file_name": "Construction_Drones_0.6.11.zip",
@@ -533,6 +565,17 @@
     "dependencies": []
   },
   {
+    "name": "FluidMustFlow",
+    "version": "1.2.16",
+    "file_name": "FluidMustFlow_1.2.16.zip",
+    "download_url": "/download/FluidMustFlow/5fe65966e40cc06677859846",
+    "sha1": "d7e5f7ac9839619efe61eca811c1fb5267e4f461",
+    "dependencies": [
+      "base >= 1.1",
+      "(?) Squeak Through >= 1.3.0"
+    ]
+  },
+  {
     "name": "grappling-gun",
     "version": "0.3.1",
     "file_name": "grappling-gun_0.3.1.zip",
@@ -551,6 +594,62 @@
     "dependencies": [
       "base >= 0.18.0",
       "! Bottleneck"
+    ]
+  },
+  {
+    "name": "Krastorio2",
+    "version": "1.0.23",
+    "file_name": "Krastorio2_1.0.23.zip",
+    "download_url": "/download/Krastorio2/5ffca76ea53ba6c52696278d",
+    "sha1": "371a0307073b7ddbfa79b2cbfdaffd98cab9ec10",
+    "dependencies": [
+      "base >= 1.0.0",
+      "(?) aai-industry >= 0.3.17",
+      "(?) aai-vehicles-chaingunner >= 0.5.2",
+      "(?) Aircraft >= 1.6.6",
+      "(?) angelsindustries >= 0.4.3",
+      "(?) angelspetrochem >= 0.9.11",
+      "(?) bobenemies >= 0.17.6",
+      "(?) bullet-trails >= 0.4.1",
+      "(?) deadlock-beltboxes-loaders >= 2.1.13",
+      "(?) DeadlockLargerLamp >= 1.3.1",
+      "(?) Dectorio >= 0.10.5",
+      "(?) DiscoScience >= 1.0.0",
+      "(?) Flow Control >= 3.0.5",
+      "(?) Hovercrafts >= 0.17.15",
+      "(?) rso-mod >= 6.0.6",
+      "(?) space-exploration >= 0.2.1",
+      "(?) Squeak Through >= 1.3.0",
+      "(?) Tral_robot_tree_farm >= 1.2.5",
+      "(?) vtk-armor-plating >= 0.8.0",
+      "(?) WaterAsAResource >= 0.7.8",
+      "! Annotorio >= 0.3.0",
+      "! brave-new-world >= 3.2.1",
+      "! Clowns-Nuclear >= 1.3.7",
+      "! HdProcessedMetal >= 0.0.1",
+      "! KS_Power >= 0.3.0",
+      "! Krastorio >= 0.2.1",
+      "! Krastorio-graphics >= 0.0.1",
+      "! KS_Combat >= 0.1.11",
+      "! ModularLife >= 0.2.11",
+      "! Power Armor MK3 >= 0.0.1",
+      "! PowerAndArmor >= 1.18.41",
+      "! SimpleSilicon >= 1.0.0",
+      "! bobequipment >= 0.17.0",
+      "! bobvehicleequipment >= 0.17.0",
+      "! custom_power_armor_fix >= 0.10.0",
+      "! laborat >= 0.1.0"
+    ]
+  },
+  {
+    "name": "krastorio2_extended_endgame",
+    "version": "1.0.0",
+    "file_name": "krastorio2_extended_endgame_1.0.0.zip",
+    "download_url": "/download/krastorio2_extended_endgame/5fc3c602772c4ba6456d9478",
+    "sha1": "a5b63f87173bcf26d19f5421d82b966a92ec0449",
+    "dependencies": [
+      "base >= 1.1.2",
+      "Krastorio2 >= 1.0.10"
     ]
   },
   {
@@ -677,5 +776,13 @@
     "dependencies": [
       "base >= 1.1.0"
     ]
+  },
+  {
+    "name": "VehicleSnap",
+    "version": "1.18.4",
+    "file_name": "VehicleSnap_1.18.4.zip",
+    "download_url": "/download/VehicleSnap/5fbe440bf6658f34bfb3c677",
+    "sha1": "d0755e73251d8d72c6ab3f82cd79266485af5da4",
+    "dependencies": []
   }
 ]
