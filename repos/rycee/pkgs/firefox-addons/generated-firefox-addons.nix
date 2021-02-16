@@ -49,10 +49,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.4.0";
+      version = "0.4.1";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3719384/auto_tab_discard-0.4.0-an+fx.xpi";
-      sha256 = "a62b81c3c6cca626f175de0eed7fd2d53c3cd4d8c66505547077190df5680882";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3726075/auto_tab_discard-0.4.1-an+fx.xpi";
+      sha256 = "f481d8637164b8f78ae22eb6e6cd96828c87114946f53663edf2701a70ebefad";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -536,10 +536,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "3.3.3";
+      version = "3.3.4";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3720821/grammatik_und_rechtschreibprufung_languagetool-3.3.3-fx.xpi";
-      sha256 = "274c67713498cc77d18af3f7e99fe88753b5d3e81ffdd14f212fdc36e50fb254";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3724574/grammatik_und_rechtschreibprufung_languagetool-3.3.4-fx.xpi";
+      sha256 = "d94e6fadd9c032f4898f04aa7ac989645e284311691e8009aa80934b7e0a7e3e";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
