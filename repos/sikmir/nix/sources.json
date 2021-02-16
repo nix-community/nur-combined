@@ -114,15 +114,15 @@
     "docker-reg-tool": {
         "branch": "master",
         "builtin": false,
-        "date": "2019-10-13T09:07:48Z",
+        "date": "2021-02-15T13:13:33Z",
         "description": "Docker registry cli tool, primarily for deleting images",
         "homepage": "https://github.com/byrnedo/docker-reg-tool",
         "owner": "byrnedo",
         "repo": "docker-reg-tool",
-        "rev": "c5e7ff63fa476cac1eed717d0aef238beb50c21c",
-        "sha256": "02ilwyanfgcsncnhwyy1y6l4bc6phcx610xckb7rnklkplw4c04m",
+        "rev": "23292d234289b1fd114b53786c9e4f9fece3674b",
+        "sha256": "0vwcdkxyg575dhchyshcjnkl7764ib1h21zqzb35gmncvkms0sx3",
         "type": "tarball",
-        "url": "https://github.com/byrnedo/docker-reg-tool/archive/c5e7ff63fa476cac1eed717d0aef238beb50c21c.tar.gz",
+        "url": "https://github.com/byrnedo/docker-reg-tool/archive/23292d234289b1fd114b53786c9e4f9fece3674b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "docx2csv": {
@@ -170,15 +170,15 @@
     "embox": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-02-09T08:20:56Z",
+        "date": "2021-02-16T09:26:43Z",
         "description": "Modular and configurable OS for embedded applications",
         "homepage": "http://embox.github.io",
         "owner": "embox",
         "repo": "embox",
-        "rev": "cdb1feb178aac73b0b6ab6fce32860a620ed2aa0",
-        "sha256": "0cv5nbrsjjvglwgbw2pl257cnj9xr8khg6rk39rjyvhb57b86xkc",
+        "rev": "77b56a7432ffdb5e550576dcf05412c7cec44bc8",
+        "sha256": "1wvjkyxcg4y83w0i8m3mi03j1qxxnag67l82g47y1mjqmhn0yfsy",
         "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/cdb1feb178aac73b0b6ab6fce32860a620ed2aa0.tar.gz",
+        "url": "https://github.com/embox/embox/archive/77b56a7432ffdb5e550576dcf05412c7cec44bc8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {
@@ -226,15 +226,15 @@
     "gef": {
         "branch": "dev",
         "builtin": false,
-        "date": "2021-02-06T20:05:44Z",
+        "date": "2021-02-15T19:07:43Z",
         "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
         "homepage": "http://gef.rtfd.io",
         "owner": "hugsy",
         "repo": "gef",
-        "rev": "54e93efd89ec59e5d178fbbeda1fed890098d18d",
-        "sha256": "1n6ijw5xvv7gg9622sa7sh2lzjc4j1mn1fqgkrcg42r6l7mlm5xg",
+        "rev": "716f76a23069c9150b3c9f50925e95750b3848a6",
+        "sha256": "1hh88y64i4379wdz2y0v7w8cki883af5jsvfnhffa9xrclygqcq1",
         "type": "tarball",
-        "url": "https://github.com/hugsy/gef/archive/54e93efd89ec59e5d178fbbeda1fed890098d18d.tar.gz",
+        "url": "https://github.com/hugsy/gef/archive/716f76a23069c9150b3c9f50925e95750b3848a6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geminid": {
@@ -253,27 +253,27 @@
     },
     "geofabrik-estonia": {
         "builtin": false,
-        "sha256": "0jvrgrln48zfb7m9c1bk73jbdlp190m02zmy0krh7kr0v5hspymq",
+        "sha256": "03551mkyqrfv18m9wi63w24a40m3jr76pd2x28max2r77hwkrwxj",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-210207.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/estonia-210214.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "210207"
+        "version": "210214"
     },
     "geofabrik-finland": {
         "builtin": false,
-        "sha256": "1mns34822z10kpivr8qr2aql8g6lik6n3xg8qyxda15prharnygb",
+        "sha256": "04r4qy86bjsf808m8dqhqr7hps1rkmf31jpzyylk2cki6asdyg2v",
         "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-210207.osm.pbf",
+        "url": "https://download.geofabrik.de/europe/finland-210214.osm.pbf",
         "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "210207"
+        "version": "210214"
     },
     "geofabrik-russia-nwfd": {
         "builtin": false,
-        "sha256": "1lki6wv3vs2cykfk41fmc24w13mx4f1cx3dcjdm36rqx5abivmwa",
+        "sha256": "0m3kwkz2mi3fi38wma1fvkiy5llfff1nl5mwdlji1s9q4mrm7bk1",
         "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210207.osm.pbf",
+        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210214.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "210207"
+        "version": "210214"
     },
     "gimgtools": {
         "branch": "master",
@@ -405,29 +405,29 @@
         "branch": "master",
         "builtin": false,
         "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2021-02-08T18:57:14Z",
+        "date": "2021-02-15T22:52:10Z",
         "description": "GPS log file viewer and analyzer",
         "homepage": "https://www.gpxsee.org",
         "owner": "tumic0",
         "repo": "GPXSee",
-        "rev": "060c4df170ca5eef048fa334cdd816ee2631832a",
-        "sha256": "0pij7sm14nn203ikfh0g1f096p5h5kz916jk55wcf5s2ggq4q06a",
+        "rev": "7e41069cde8be8c2aa27c6fe0e6e25d6693c0e83",
+        "sha256": "0cpab5521vc2v621sxvay3scsmpf24a8fdi0c2zyrzvkk4rr89qb",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/060c4df170ca5eef048fa334cdd816ee2631832a.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee/archive/7e41069cde8be8c2aa27c6fe0e6e25d6693c0e83.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-02-08T19:44:17Z",
+        "date": "2021-02-14T12:05:20Z",
         "description": "GPXSee maps",
         "homepage": "https://tumic0.github.io/GPXSee-maps",
         "owner": "tumic0",
         "repo": "GPXSee-maps",
-        "rev": "18d6710d645cba8e6890ad14bff54fa66cde4e97",
-        "sha256": "1anlncydgn9frx3faxj6yprlcir13ay2rbsqzqxmmg6hjzjd8ppv",
+        "rev": "7580c993d3d7ab782f0d708b9a7ba765b319d2b4",
+        "sha256": "1drfpc8f139ycdgqikc9by9mplfsh7kagv1k426nk9dwb8z2idgd",
         "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee-maps/archive/18d6710d645cba8e6890ad14bff54fa66cde4e97.tar.gz",
+        "url": "https://github.com/tumic0/GPXSee-maps/archive/7580c993d3d7ab782f0d708b9a7ba765b319d2b4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxtools": {
@@ -503,15 +503,15 @@
     "hfst": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-31T16:27:05Z",
+        "date": "2021-02-12T15:17:27Z",
         "description": "Helsinki Finite-State Technology (library and application suite)",
         "homepage": "https://hfst.github.io",
         "owner": "hfst",
         "repo": "hfst",
-        "rev": "d7dc9950f5d70d98ae02b923ced43fb6021c41a2",
-        "sha256": "1y4czwfbpng5fanc4yz2s1nas990w2h31k7pb7fpn28wfiqz7h6s",
+        "rev": "1eafb28ffe9f843540aaf355bf7193cea963ccb0",
+        "sha256": "0vkbsrwhiq3rm9nplxh5y3vpk3gvv09nqxnrqrxfvpp4sdm7vs30",
         "type": "tarball",
-        "url": "https://github.com/hfst/hfst/archive/d7dc9950f5d70d98ae02b923ced43fb6021c41a2.tar.gz",
+        "url": "https://github.com/hfst/hfst/archive/1eafb28ffe9f843540aaf355bf7193cea963ccb0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "how-to-use-pvs-studio-free": {
@@ -715,11 +715,11 @@
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
         "homepage": "https://maptourist.org",
         "region": "szfo",
-        "sha256": "02sqpkfj731f4cs1i28xk47phdmzw0v15s53wqdgyp902b5xs8qz",
+        "sha256": "19d508v3cdfvkph8zaxa894pycl2397wdix65ciiigzpaw7g2b8s",
         "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-02-07.zip",
+        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-02-14.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2021-02-07"
+        "version": "2021-02-14"
     },
     "md2gemini": {
         "branch": "master",
@@ -832,15 +832,15 @@
     "nnn": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-02-08T01:43:16Z",
+        "date": "2021-02-11T15:34:37Z",
         "description": "n³ The missing terminal file manager for X",
         "homepage": "https://github.com/jarun/nnn",
         "owner": "jarun",
         "repo": "nnn",
-        "rev": "118657020e43fa75ab89bada281a7d9f25d69684",
-        "sha256": "176p20sj23d26vbficsfy2591zj6kcyyyn7a055xaz9l7y817h1p",
+        "rev": "7e307bc2ffec54a301aeffd6caf4794e4c6034e7",
+        "sha256": "0x88r3yjb4fbancnv9kwip0qk18p1lch90dxr5raky6xr9hzqsm7",
         "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/118657020e43fa75ab89bada281a7d9f25d69684.tar.gz",
+        "url": "https://github.com/jarun/nnn/archive/7e307bc2ffec54a301aeffd6caf4794e4c6034e7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
@@ -944,29 +944,29 @@
     "py-staticmaps": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-16T16:11:35Z",
+        "date": "2021-02-11T20:03:49Z",
         "description": "A python module to create static map images with markers, geodesic lines, etc.",
         "homepage": "https://github.com/flopp/py-staticmaps",
         "owner": "flopp",
         "repo": "py-staticmaps",
-        "rev": "1d0a2623117858001fcf79f60385865949d00e9f",
-        "sha256": "0jnpkwzrih7wl8mkg7a448kxm0l8m84a1gpvv5if0kld04sr6j7y",
+        "rev": "c88a905beb7068a3ad7060e3a87f8d77bc956dc9",
+        "sha256": "0v6aiwys7gdsswv16g8clldbzc2rwsl420ikcb8rz5b6i1kzagwi",
         "type": "tarball",
-        "url": "https://github.com/flopp/py-staticmaps/archive/1d0a2623117858001fcf79f60385865949d00e9f.tar.gz",
+        "url": "https://github.com/flopp/py-staticmaps/archive/c88a905beb7068a3ad7060e3a87f8d77bc956dc9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pyephem": {
         "branch": "master",
         "builtin": false,
-        "date": "2021-01-30T14:15:21Z",
+        "date": "2021-02-10T03:09:53Z",
         "description": "Scientific-grade astronomy routines for Python",
         "homepage": "https://rhodesmill.org/pyephem",
         "owner": "brandon-rhodes",
         "repo": "pyephem",
-        "rev": "800999d61fc61b1334beb0c607cf5fe4116807e0",
-        "sha256": "06j54vpzb6dfgn5llaqnk20fry3ghd4hflxhqj61iksg7gq5krrm",
+        "rev": "e29c04f909308c1e429dac30e77303351d72ea46",
+        "sha256": "06n1ic2al4p86zqf3yafz36i97vwwl1gx7qh7km7pk2q9pa7h4wi",
         "type": "tarball",
-        "url": "https://github.com/brandon-rhodes/pyephem/archive/800999d61fc61b1334beb0c607cf5fe4116807e0.tar.gz",
+        "url": "https://github.com/brandon-rhodes/pyephem/archive/e29c04f909308c1e429dac30e77303351d72ea46.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pymbtiles": {
@@ -1024,16 +1024,6 @@
         "type": "tarball",
         "url": "https://github.com/sidewalklabs/s2sphere/archive/d1d067e8c06e5fbaf0cc0158bade947b4a03a438.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "sasplanet": {
-        "builtin": false,
-        "description": "SAS.Planet is a program designed for viewing and downloading high-resolution satellite imagery and conventional maps",
-        "homepage": "http://www.sasgis.org/sasplaneta/",
-        "sha256": "05pi0vr75y9yggya0bvf3bkyn3q3j9alriipy4lm9lsih4r7q09l",
-        "type": "file",
-        "url": "http://www.sasgis.org/programs/sasplanet/SASPlanet_200606.zip",
-        "url_template": "http://www.sasgis.org/programs/sasplanet/SASPlanet_<version>.zip",
-        "version": "200606"
     },
     "stardict-3": {
         "branch": "master",
@@ -1136,15 +1126,15 @@
     "xtr": {
         "branch": "master",
         "builtin": false,
-        "date": "2020-04-17T09:49:07Z",
+        "date": "2021-02-14T10:34:29Z",
         "description": "Translation tools for rust",
         "homepage": "https://github.com/woboq/tr",
         "owner": "woboq",
         "repo": "tr",
-        "rev": "d8e4517fb38f617b23cb050955ad8038342d6f31",
-        "sha256": "0qa7jc42n796yjxg17mm4jw1r8zrnjhwiya6q84zxxw609cvhbjl",
+        "rev": "28f8b95ccb8055cf785382f71d11aa9bbd35dab4",
+        "sha256": "0457467drkiwxc3fwrz63j37jgczz23b2zs9qf3d6w7dj5qq4212",
         "type": "tarball",
-        "url": "https://github.com/woboq/tr/archive/d8e4517fb38f617b23cb050955ad8038342d6f31.tar.gz",
+        "url": "https://github.com/woboq/tr/archive/28f8b95ccb8055cf785382f71d11aa9bbd35dab4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "zdict": {

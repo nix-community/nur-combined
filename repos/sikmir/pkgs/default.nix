@@ -38,6 +38,7 @@ lib.makeScope newScope (
     qmapshack-bin = callPackage ./applications/gis/qmapshack/bin.nix { };
     qutebrowser-bin = callPackage ./applications/networking/qutebrowser/bin.nix { };
     sasplanet-bin = callPackage ./applications/gis/sasplanet/bin.nix { };
+    synwrite-bin = callPackage ./applications/synwrite/bin.nix { };
     tdh = callPackage ./applications/gis/tdh { };
     visualgps = libsForQt5.callPackage ./applications/visualgps { };
     wireguard-statusbar-bin = callPackage ./applications/wireguard-statusbar { };

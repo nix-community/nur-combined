@@ -1,14 +1,13 @@
-{ lib, stdenv, unzip, wine, makeWrapper, sources }:
-let
-  year = lib.substring 0 2 sources.sasplanet.version;
-  month = lib.substring 2 2 sources.sasplanet.version;
-  day = lib.substring 4 2 sources.sasplanet.version;
-in
-stdenv.mkDerivation {
-  pname = "sasplanet-bin";
-  version = "20${year}-${month}-${day}";
+{ lib, stdenv, fetchurl, unzip, wine, makeWrapper }:
 
-  src = sources.sasplanet;
+stdenv.mkDerivation rec {
+  pname = "sasplanet-bin";
+  version = "200606";
+
+  src = fetchurl {
+    url = "http://www.sasgis.org/programs/sasplanet/SASPlanet_${version}.zip";
+    sha256 = "05pi0vr75y9yggya0bvf3bkyn3q3j9alriipy4lm9lsih4r7q09l";
+  };
 
   nativeBuildInputs = [ unzip makeWrapper ];
 
@@ -24,7 +23,8 @@ stdenv.mkDerivation {
   preferLocalBuild = true;
 
   meta = with lib; {
-    inherit (sources.sasplanet) description homepage;
+    description = "SAS.Planet is a program designed for viewing and downloading high-resolution satellite imagery and conventional maps";
+    homepage = "http://www.sasgis.org/sasplaneta/";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
