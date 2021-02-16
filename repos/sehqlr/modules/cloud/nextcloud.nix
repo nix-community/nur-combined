@@ -2,7 +2,7 @@
   services.nginx.virtualHosts."nextcloud.samhatfield.me" = {
     forceSSL = true;
     enableACME = true;
-  }
+  };
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud20;
