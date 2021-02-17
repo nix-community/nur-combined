@@ -15,7 +15,7 @@
       addSSL = true;
       enableACME = true;
       locations."/" = {
-        root = "/srv/samhatfield.me";
+        root = "/srv/www";
         index = "index.html";
       };
     };
