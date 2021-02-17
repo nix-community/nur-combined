@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euf -o pipefail
+
 export DEFAULT_USER=lucasew
 export VPS_IP=192.168.69.1
 export NB_IP=192.168.69.2

@@ -4,11 +4,12 @@ let
 in
 with globalConfig;
 with lib;
+with builtins;
 {
   options.wallpaper = {
     enable = mkEnableOption "enable wallpaper administration";
     wallpaperFile = mkOption {
-      type = with types; path;
+      type = types.str;
       default = "/dev/null";
       example = "/path/to/wallpaper/file.png";
       description = "file to setup as wallpaper";
@@ -23,18 +24,18 @@ with lib;
   {
     dconf.settings = {
         "org/gnome/desktop/background" = {
-            picture-uri = "file:///${wallpaper}";
+            picture-uri = "file:///${toString wallpaper}";
         };
         "org/gnome/desktop/screensaver" = {
-          picture-uri = "file:///${wallpaper}";
+          picture-uri = "file:///${toString wallpaper}";
           picture-options="zoom";
           primary-color="#ffffff";
           secondary-color="#000000";
         };
     };
-    home.file.".background-image".source = wallpaper;
+    # home.file.".background-image".source = wallpaper;
     home.file.".fehbg".text = ''
-      ${pkgs.feh}/bin/feh --no-fehbg --bg-center '${wallpaper}'
+      ${pkgs.feh}/bin/feh --no-fehbg --bg-center '${toString wallpaper}'
     '';
   };
 }
