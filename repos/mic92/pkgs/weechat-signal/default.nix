@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "weechat-signal";
-  version = "2020-12-22";
+  version = "2021-02-17";
 
   src = fetchFromGitHub {
     owner = "thefinn93";
     repo = "signal-weechat";
-    rev = "ebe2d25bf7b2cb6f80eb6bb236b25ee2b0335e3d";
-    sha256 = "sha256-ZLYc+5k0T/4A7KECufacfdpWbFxRJZUo4QCMK+r9c00=";
+    rev = "75d91d9a988f7c6762d769f9cc596e4137aa31c5";
+    sha256 = "sha256-TQwpdxM3XH5AzRctRSjJWYuIipypR9egLDx2Iwn7E1g=";
   };
 
   passthru.scripts = [ "signal.py" ];
