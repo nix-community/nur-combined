@@ -17,7 +17,10 @@ with import ../../globalConfig.nix;
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 20;
+    memoryPercent = 30;
+  };
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 20;
   };
   nixpkgs.config.allowUnfree = true;
   boot.cleanTmpDir = true;
