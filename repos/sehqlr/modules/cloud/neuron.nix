@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 let
-  neuron-notes = import (builtins.fetchTarball "https://github.com/srid/neuron/archive/master.tar.gz") {};
   notesDir = "/srv/git/zettelkasten";
   htmlDir = "/srv/neuron";
 in {
@@ -17,7 +16,7 @@ in {
     # generate HTML for neuron.samhatfield.me
     systemd.services.neuron-gen = {
         description = "Generate HTML for sehqlr's zettelkasten, with neuron";
-        script = "${neuron-notes}/bin/neuron -d ${notesDir} gen -o ${htmlDir}";
+        script = "${pkgs.neuron-notes}/bin/neuron -d ${notesDir} gen -o ${htmlDir}";
     };
     systemd.timers.neuron-gen = {
         wantedBy = [ "timers.target" ];
@@ -30,7 +29,7 @@ in {
         description = "Clone sehqlr's zettelkasten";
         serviceConfig.Type = "oneshot";
         serviceConfig.WorkingDirectory = "/srv/git";
-        script = "${pkgs.git}/bin/git clone https://git.bytes.zone/sehqlr/zettelkasten";
+        script = "${pkgs.gitAndTools.git}/bin/git clone https://git.bytes.zone/sehqlr/zettelkasten";
     };
     systemd.services.sync-zettelkasten = {
         description = "Use git-sync on sehqlr's zettelkasten";
