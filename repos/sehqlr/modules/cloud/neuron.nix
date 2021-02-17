@@ -25,12 +25,6 @@ in {
     };
 
     # sync git repo for zettelkasten
-    systemd.services.clone-zettelkasten = {
-        description = "Clone sehqlr's zettelkasten";
-        serviceConfig.Type = "oneshot";
-        serviceConfig.WorkingDirectory = "/srv/git";
-        script = "${pkgs.gitAndTools.git}/bin/git clone https://git.bytes.zone/sehqlr/zettelkasten";
-    };
     systemd.services.sync-zettelkasten = {
         description = "Use git-sync on sehqlr's zettelkasten";
         serviceConfig.Type = "oneshot";
