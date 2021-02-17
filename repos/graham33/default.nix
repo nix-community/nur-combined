@@ -15,14 +15,19 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   enroot = pkgs.callPackage ./pkgs/enroot { };
-  fiblary3 = pkgs.python3Packages.callPackage ./pkgs/fiblary3 { };
-  garminconnect = pkgs.python3Packages.callPackage ./pkgs/garminconnect { };
-  hass-smartbox = pkgs.python3Packages.callPackage ./pkgs/hass-smartbox { };
-  libpurecool = pkgs.python3Packages.callPackage ./pkgs/libpurecool { };
-  # TODO: use overlay to override
-  python-engineio_3 = pkgs.python3Packages.callPackage ./pkgs/python-engineio/3.nix { };
-  python-socketio_4 = pkgs.python3Packages.callPackage ./pkgs/python-socketio/4.nix { inherit python-engineio_3; };
-  ring_doorbell = pkgs.python3Packages.callPackage ./pkgs/ring_doorbell { };
-  smartbox = pkgs.python3Packages.callPackage ./pkgs/smartbox { python-socketio = python-socketio_4; };
-  teslajsonpy = pkgs.python3Packages.callPackage ./pkgs/teslajsonpy { };
+
+  python3 = pkgs.python3.override {
+    packageOverrides = pySelf: pySuper: {
+      fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
+      garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
+      hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
+      libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
+      python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };
+      python-socketio_4 = pySelf.callPackage ./pkgs/python-socketio/4.nix { };
+      ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
+      smartbox = pySelf.callPackage ./pkgs/smartbox { };
+      teslajsonpy = pySelf.callPackage ./pkgs/teslajsonpy { };
+    };
+  };
+  python3Packages = python3.pkgs;
 }

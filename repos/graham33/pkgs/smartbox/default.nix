@@ -10,7 +10,7 @@
 , pytest-mock
 , pytest-randomly
 , pytestCheckHook
-, python-socketio
+, python-socketio_4
 , pyyaml
 , requests
 , requests-mock
@@ -32,7 +32,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp
                             click
-                            python-socketio
+                            python-socketio_4
                             pyyaml
                             requests
                             websocket_client
