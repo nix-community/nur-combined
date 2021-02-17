@@ -42,7 +42,7 @@ jobs:
       uses: actions-x/commit@v2
       with:
         message: Updated package set
-        files: ryujinx
+        files: ryujinx/default.nix yuzu/default.nix
     - name: Build nix packages
       run: nix run -I 'nixpkgs=channel:nixpkgs-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
