@@ -1,4 +1,4 @@
-name: "Build packages and populate cache"
+name: "Update and build packages, and populate cache"
 on:
   pull_request:
   push:
@@ -32,9 +32,17 @@ jobs:
       with:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-
+    - name: Update packages
+      run: |
+        cd ryujinx
+        ./updater.sh
+    - name: Push changes
+      uses: actions-x/commit@v2
+      with:
+        message: Updated package set
+        files: ryujinx
     - name: Build nix packages
       run: nix run -I 'nixpkgs=channel:nixpkgs-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-      #    - name: Trigger NUR update
-      #if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-      #run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
+    - name: Trigger NUR update
+      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
