@@ -19,6 +19,8 @@ It contains packages/attributes for:
   - warctools (https://github.com/internetarchive/warctools)
   - bollux (https://sr.ht/~acdw/bollux/)
   - gemget (https://github.com/makeworld-the-better-one/gemget)
+  - cpp-httplib (https://github.com/yhirose/cpp-httplib)
+  - cxxtimer (https://github.com/andremaravilha/cxxtimer)
 
 * License
   
