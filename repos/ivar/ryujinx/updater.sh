@@ -8,18 +8,22 @@ deps_file="$(realpath "./deps.nix")"
 nix-prefetch-git https://github.com/ryujinx/ryujinx --quiet > repo_info
 new_hash="$(cat repo_info | jq -r ".sha256")"
 new_rev="$(cat repo_info | jq -r ".rev")"
-rm repo_info
-
 new_version="$(curl -s https://ci.appveyor.com/api/projects/gdkchan/ryujinx/branch/master | grep -Po '"version":.*?[^\\]",' | sed  's/"version":"\(.*\)",/\1/')"
+old_hash="$(sed -nE 's/\s*sha256 = "(.*)".*/\1/p' ./default.nix)"
+old_rev="$(sed -nE 's/\s*rev = "(.*)".*/\1/p' ./default.nix)"
 old_version="$(sed -nE 's/\s*version = "(.*)".*/\1/p' ./default.nix)"
+
+rm repo_info
 
 if [[ "$new_version" == "$old_version" ]]; then
   echo "Already up to date! Doing nothing"
   exit 0
 fi
 
-cd ../../../..
-update-source-version ryujinx "$new_version" "$new_hash" --rev="$new_rev"
+# update-source-version only works on nixpkgs, couldnt get it to work on the NUR
+sed -i "./default.nix" -re "s|\"$old_version\"|\"$new_version\"|"
+sed -i "./default.nix" -re "s|\"$old_hash\"|\"$new_hash\"|"
+sed -i "./default.nix" -re "s|\"$old_rev\"|\"$new_rev\"|"
 
 store_src="$(nix-build . -A ryujinx.src --no-out-link)"
 src="$(mktemp -d /tmp/ryujinx-src.XXX)"
