@@ -36,7 +36,7 @@ in {
         description = "Use git-sync on sehqlr's zettelkasten";
         serviceConfig.Type = "oneshot";
         serviceConfig.WorkingDirectory = notesDir;
-        script = "${pkgs.git-sync}/bin/git-sync sync";
+        script = "${pkgs.gitAndTools.git-sync}/bin/git-sync sync";
     };
     systemd.timers.sync-zettelkasten = {
         wantedBy = [ "timers.target" ];
