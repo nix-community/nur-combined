@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   neuron-notes = import (builtins.fetchTarball
-    "https://github.com/srid/neuron/archive/master.tar.gz");
+    "https://github.com/srid/neuron/archive/master.tar.gz") {};
   notesDir = "/srv/git/zettelkasten";
   htmlDir = "/srv/neuron";
 in {
