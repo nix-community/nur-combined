@@ -36,6 +36,8 @@ jobs:
       run: |
         cd ryujinx
         ./updater.sh
+        cd ../yuzu
+        ./updater.sh
     - name: Push changes
       uses: actions-x/commit@v2
       with:
