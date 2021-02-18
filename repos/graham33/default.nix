@@ -8,7 +8,20 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-rec {
+let
+  pyPackageOverrides = pySelf: pySuper: {
+    authcaptureproxy = pySelf.callPackage ./pkgs/authcaptureproxy { };
+    fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
+    garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
+    hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
+    libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
+    python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };
+    python-socketio_4 = pySelf.callPackage ./pkgs/python-socketio/4.nix { };
+    ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
+    smartbox = pySelf.callPackage ./pkgs/smartbox { };
+    teslajsonpy = pySelf.callPackage ./pkgs/teslajsonpy { };
+  };
+in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -16,18 +29,18 @@ rec {
 
   enroot = pkgs.callPackage ./pkgs/enroot { };
 
-  python3 = pkgs.python3.override {
-    packageOverrides = pySelf: pySuper: {
-      fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
-      garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
-      hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
-      libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
-      python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };
-      python-socketio_4 = pySelf.callPackage ./pkgs/python-socketio/4.nix { };
-      ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
-      smartbox = pySelf.callPackage ./pkgs/smartbox { };
-      teslajsonpy = pySelf.callPackage ./pkgs/teslajsonpy { };
-    };
+  python37 = pkgs.python37.override {
+    packageOverrides = pyPackageOverrides;
   };
-  python3Packages = python3.pkgs;
+  python37Packages = python37.pkgs;
+
+  python38 = pkgs.python38.override {
+    packageOverrides = pyPackageOverrides;
+  };
+  python38Packages = python38.pkgs;
+
+  python39 = pkgs.python39.override {
+    packageOverrides = pyPackageOverrides;
+  };
+  python39Packages = python39.pkgs;
 }
