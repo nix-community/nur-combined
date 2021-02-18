@@ -31,12 +31,12 @@
 
   kamch = stdenvNoCC.mkDerivation rec {
     pname = "Kamch";
-    version = "2020-11-09";
+    version = "2021-01-18";
 
     src = fetchgdrive {
       id = "1JWpkJxdnfqBrFc9Hd_FxndNDLlGM-dj0";
-      sha256 = "11xkrs6b3ld0bx6xl56azbs9p2ai8pmjx0wmd5i0aacv884nh4aj";
-      name = "OV-Kamch-${lib.replaceStrings [ "-" ] [ "" ] version}-1.05.zip";
+      sha256 = "1swvc8xzarh0nfb37w80ahsr0g14gyg3z0fp0jf4yhwwb9ima7f1";
+      name = "OV-Kamch-Draft.zip";
     };
 
     sourceRoot = ".";
@@ -49,6 +49,34 @@
 
     meta = with lib; {
       description = "OV Ключевская-Толбачик";
+      homepage = "https://vk.com/vlasenko_maps";
+      license = licenses.free;
+      maintainers = [ maintainers.sikmir ];
+      platforms = platforms.all;
+      skip.ci = true;
+    };
+  };
+
+  kodar = stdenvNoCC.mkDerivation rec {
+    pname = "Kodar";
+    version = "2021-02-15";
+
+    src = fetchgdrive {
+      id = "1CMMqgNoK92dIwxVpWQXkBR45P4dXP-o5";
+      sha256 = "04pvb8yf8qs1i6m7b1qs69nxjgc483z5z80mkmd610kmkbbpvvg6";
+      name = "OV-Kodar-Draft.zip";
+    };
+
+    sourceRoot = ".";
+
+    nativeBuildInputs = [ unzip ];
+
+    installPhase = "install -Dm644 *.img -t $out";
+
+    preferLocalBuild = true;
+
+    meta = with lib; {
+      description = "OV Кодар";
       homepage = "https://vk.com/vlasenko_maps";
       license = licenses.free;
       maintainers = [ maintainers.sikmir ];

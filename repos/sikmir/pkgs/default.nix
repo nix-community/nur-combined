@@ -135,6 +135,7 @@ lib.makeScope newScope (
 
     ### TOOLS
 
+    aamath = callPackage ./tools/text/aamath { };
     csvquote = callPackage ./tools/text/csvquote { };
     csvtools = callPackage ./tools/text/csvtools { };
     datamaps = callPackage ./tools/geo/datamaps { };
@@ -281,6 +282,7 @@ lib.makeScope newScope (
     sbase = callPackage ./suckless/sbase { };
     scroll = callPackage ./suckless/scroll { };
     sfeed = callPackage ./suckless/sfeed { };
+    sfm = callPackage ./suckless/sfm { };
     stagit = callPackage ./suckless/stagit { };
     xprompt = callPackage ./suckless/xprompt { };
   }
