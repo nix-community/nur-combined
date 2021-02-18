@@ -35,15 +35,16 @@ jobs:
     - name: Update packages
       run: |
         cd ryujinx
+        echo Now attempting to updating Ryujinx
         ./updater.sh
         cd ../yuzu
-        echo Now attempting to updating yuzu...
+        echo Now attempting to updating yuzu
         ./updater.sh
     - name: Push changes
       uses: actions-x/commit@v2
       with:
         name: gh-actions
-        message: Updated packages to latest versions
+        message: Update packages to their latest version
         files: ryujinx/default.nix ryujinx/deps.nix yuzu/default.nix
     - name: Build nix packages
       run: nix run -I 'nixpkgs=channel:nixpkgs-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs

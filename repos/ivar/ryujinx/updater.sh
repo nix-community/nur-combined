@@ -16,18 +16,19 @@ old_version="$(sed -nE 's/\s*version = "(.*)".*/\1/p' ./default.nix)"
 rm repo_info
 
 if [[ "$new_version" == "$old_version" ]]; then
-  echo "Already up to date! Doing nothing"
+  echo "Ryujinx is already up to date!"
   exit 0
 fi
 
 # update-source-version only works on nixpkgs, couldnt get it to work on the NUR
+echo Updating Ryujinx from version $old_version to version $new_version.
 sed -i "./default.nix" -re "s|\"$old_version\"|\"$new_version\"|"
 sed -i "./default.nix" -re "s|\"$old_hash\"|\"$new_hash\"|"
 sed -i "./default.nix" -re "s|\"$old_rev\"|\"$new_rev\"|"
 
+echo Updating nuget dependencies..
 store_src="$(nix-build .. -A ryujinx.src --no-out-link)"
 src="$(mktemp -d /tmp/ryujinx-src.XXX)"
-echo "Temp src dir: $src"
 cp -rT "$store_src" "$src"
 chmod -R +w "$src"
 pushd "$src"
