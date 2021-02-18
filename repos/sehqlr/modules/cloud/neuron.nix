@@ -18,7 +18,7 @@ in {
   };
   # generate HTML for neuron.samhatfield.me
   systemd.services.neuron-gen = {
-    description = "Generate HTML for sehqlr's zettelkasten, with neuron";
+    description = "Generate HTML for sehqlr's zettelkasten with neuron";
     script = "${neuron-notes}/bin/neuron -d ${notesDir} gen -o ${htmlDir}";
   };
   systemd.timers.neuron-gen = {
