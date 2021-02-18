@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, makeDesktopItem, unzip, dpkg, bash, jre8 }:
+{ lib, stdenv, fetchurl, makeDesktopItem, unzip, dpkg, bash, jre8 }:
 
 stdenv.mkDerivation rec {
   pname = "autofirma";
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     ln -s ${desktopItem}/share/applications/* $out/share/applications/
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Spanish Government digital signature tool";
     homepage = "https://firmaelectronica.gob.es/Home/Ciudadanos/Aplicaciones-Firma.html";
     license = with licenses; [ gpl2Only eupl11 ];

@@ -1,16 +1,16 @@
-{ stdenv, fetchurl, makeDesktopItem, unzip, imagemagick, bash, mono6, mpv }:
+{ lib, stdenv, fetchurl, makeDesktopItem, unzip, imagemagick, bash, mono6, mpv }:
 
 let
   pname = "subtitleedit";
-  version = "3.5.18";
+  version = "3.6.0";
   files = {
     app = fetchurl {
-      url = "https://github.com/SubtitleEdit/subtitleedit/releases/download/${version}/SE" + (builtins.replaceStrings ["."] [""] version) + "Linux.zip";
-      sha256 = "003vs5hcs1hp8b0ad7j8dnyb0vjibv99llmjjjig5vf3cw6gbg8y";
+      url = "https://github.com/SubtitleEdit/subtitleedit/releases/download/${version}/SE" + (builtins.replaceStrings ["."] [""] version) + ".zip";
+      sha256 = "0yzh6ivhcfk0fsxcmqphhzmfn66i3cjxyvjgwqvmxhwrnnc5wjyp";
     };
     icon = fetchurl {
-      url = "https://raw.githubusercontent.com/SubtitleEdit/subtitleedit/${version}/src/Icons/SE.ico";
-      sha256 = "1k9llmxmlydnzzgnk1nlv93hp7f8d40mj8grp5fv55rmrvki3lm2";
+      url = "https://github.com/SubtitleEdit/subtitleedit/raw/${version}/src/ui/SE.ico";
+      sha256 = "0mwlzjs2xv7najk3azqxm8aapxqa3i1s2h97fjrzajg93qs7mz3y";
     };
   };
   launcher = makeDesktopItem {
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     touch $out/share/subtitleedit/.PACKAGE-MANAGER
 
     install -d $out/share/pixmaps
-    convert "${files.icon}[6]" $out/share/pixmaps/subtitleedit.png
+    convert "${files.icon}[9]" $out/share/pixmaps/subtitleedit.png
 
     install -d $out/share/applications
     ln -s ${launcher}/share/applications/* $out/share/applications/
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/subtitleedit
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A subtitle editor";
     homepage = "https://www.nikse.dk/subtitleedit/";
     changelog = "https://github.com/SubtitleEdit/subtitleedit/releases";

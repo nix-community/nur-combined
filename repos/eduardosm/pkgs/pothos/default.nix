@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchFromGitHub
 , makeDesktopItem
 , cmake
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     wrapQtApp $out/bin/PothosFlow
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The Pothos data-flow framework";
     homepage = "https://github.com/pothosware/PothosCore/wiki";
     license = licenses.boost;
