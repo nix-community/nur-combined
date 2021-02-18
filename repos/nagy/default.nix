@@ -6,6 +6,7 @@ rec {
 
     fennel = pkgs.callPackage ./pkgs/fennel { } ;
     tl = pkgs.callPackage ./pkgs/teal { } ;
+    lua-curl = pkgs.callPackage ./pkgs/lua-curl {};
 
   };
 
@@ -22,8 +23,6 @@ rec {
   lispPackages = pkgs.recurseIntoAttrs {
     vacietis = pkgs.callPackage ./pkgs/vacietis {};
   };
-
-  ticker = pkgs.callPackage ./pkgs/ticker {};
 
   colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {
     setuptools = pkgs.python3Packages.setuptools;
