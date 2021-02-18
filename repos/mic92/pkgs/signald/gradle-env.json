@@ -256,47 +256,34 @@
         {
           "id": {
             "group": "com.github.turasa",
-            "name": "signal-service-java-x86_64-unknown-linux-gnu",
-            "version": "2.15.3_unofficial_17",
+            "name": "signal-service-java",
+            "version": "2.15.3_unofficial_15",
             "type": "jar",
             "extension": "jar"
           },
-          "name": "signal-service-java-x86_64-unknown-linux-gnu-2.15.3_unofficial_17.jar",
-          "path": "com/github/turasa/signal-service-java-x86_64-unknown-linux-gnu/2.15.3_unofficial_17",
+          "name": "signal-service-java-2.15.3_unofficial_15.jar",
+          "path": "com/github/turasa/signal-service-java/2.15.3_unofficial_15",
           "urls": [
-            "https://gitlab.com/api/v4/groups/6853927/-/packages/maven/com/github/turasa/signal-service-java-x86_64-unknown-linux-gnu/2.15.3_unofficial_17/signal-service-java-x86_64-unknown-linux-gnu-2.15.3_unofficial_17.jar"
+            "https://plugins.gradle.org/m2/com/github/turasa/signal-service-java/2.15.3_unofficial_15/signal-service-java-2.15.3_unofficial_15.jar",
+            "https://repo.maven.apache.org/maven2/com/github/turasa/signal-service-java/2.15.3_unofficial_15/signal-service-java-2.15.3_unofficial_15.jar"
           ],
-          "sha256": "791ebf22ac4957b51d5e07d7714259b9478f3239e9ff75682345510636165852"
+          "sha256": "e875e4b577e3aebfcb91e79481c7b72d3505935f81ffc2d59d1bab3c35c3f524"
         },
         {
           "id": {
             "group": "com.github.turasa",
-            "name": "signal-service-java-x86_64-unknown-linux-gnu",
-            "version": "2.15.3_unofficial_17",
-            "type": "module",
-            "extension": "module"
-          },
-          "name": "signal-service-java-x86_64-unknown-linux-gnu-2.15.3_unofficial_17.module",
-          "path": "com/github/turasa/signal-service-java-x86_64-unknown-linux-gnu/2.15.3_unofficial_17",
-          "urls": [
-            "https://gitlab.com/api/v4/groups/6853927/-/packages/maven/com/github/turasa/signal-service-java-x86_64-unknown-linux-gnu/2.15.3_unofficial_17/signal-service-java-x86_64-unknown-linux-gnu-2.15.3_unofficial_17.module"
-          ],
-          "sha256": "b09842bd2766d9c2d3e79bf8b605a4a4a8743bc82b4e85d1fa516f4ef693362d"
-        },
-        {
-          "id": {
-            "group": "com.github.turasa",
-            "name": "signal-service-java-x86_64-unknown-linux-gnu",
-            "version": "2.15.3_unofficial_17",
+            "name": "signal-service-java",
+            "version": "2.15.3_unofficial_15",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "signal-service-java-x86_64-unknown-linux-gnu-2.15.3_unofficial_17.pom",
-          "path": "com/github/turasa/signal-service-java-x86_64-unknown-linux-gnu/2.15.3_unofficial_17",
+          "name": "signal-service-java-2.15.3_unofficial_15.pom",
+          "path": "com/github/turasa/signal-service-java/2.15.3_unofficial_15",
           "urls": [
-            "https://gitlab.com/api/v4/groups/6853927/-/packages/maven/com/github/turasa/signal-service-java-x86_64-unknown-linux-gnu/2.15.3_unofficial_17/signal-service-java-x86_64-unknown-linux-gnu-2.15.3_unofficial_17.pom"
+            "https://plugins.gradle.org/m2/com/github/turasa/signal-service-java/2.15.3_unofficial_15/signal-service-java-2.15.3_unofficial_15.pom",
+            "https://repo.maven.apache.org/maven2/com/github/turasa/signal-service-java/2.15.3_unofficial_15/signal-service-java-2.15.3_unofficial_15.pom"
           ],
-          "sha256": "b67a4bea547ea5b6b0167bd069ed0fcd0d7e3ab2b0be555fa3254fa0785d17a6"
+          "sha256": "3ccf3358e84ac990318e9948df2cb597dcb0e97b6a63b2a61085921fc5d26074"
         },
         {
           "id": {
@@ -1149,47 +1136,34 @@
         {
           "id": {
             "group": "org.signal",
-            "name": "zkgroup-java-x86_64-unknown-linux-gnu",
+            "name": "zkgroup-java",
             "version": "0.7.0",
             "type": "jar",
             "extension": "jar"
           },
-          "name": "zkgroup-java-x86_64-unknown-linux-gnu-0.7.0.jar",
-          "path": "org/signal/zkgroup-java-x86_64-unknown-linux-gnu/0.7.0",
+          "name": "zkgroup-java-0.7.0.jar",
+          "path": "org/signal/zkgroup-java/0.7.0",
           "urls": [
-            "https://gitlab.com/api/v4/groups/6853927/-/packages/maven/org/signal/zkgroup-java-x86_64-unknown-linux-gnu/0.7.0/zkgroup-java-x86_64-unknown-linux-gnu-0.7.0.jar"
+            "https://plugins.gradle.org/m2/org/signal/zkgroup-java/0.7.0/zkgroup-java-0.7.0.jar",
+            "https://repo.maven.apache.org/maven2/org/signal/zkgroup-java/0.7.0/zkgroup-java-0.7.0.jar"
           ],
-          "sha256": "678c7b5960849ece4df11e9541fb84910be518c01f86f1718c0b2e9848cb573f"
+          "sha256": "d0099eedd60d6f7d4df5b288175e5d585228ed8897789926bdab69bf8c05659f"
         },
         {
           "id": {
             "group": "org.signal",
-            "name": "zkgroup-java-x86_64-unknown-linux-gnu",
-            "version": "0.7.0",
-            "type": "module",
-            "extension": "module"
-          },
-          "name": "zkgroup-java-x86_64-unknown-linux-gnu-0.7.0.module",
-          "path": "org/signal/zkgroup-java-x86_64-unknown-linux-gnu/0.7.0",
-          "urls": [
-            "https://gitlab.com/api/v4/groups/6853927/-/packages/maven/org/signal/zkgroup-java-x86_64-unknown-linux-gnu/0.7.0/zkgroup-java-x86_64-unknown-linux-gnu-0.7.0.module"
-          ],
-          "sha256": "1579bb80abfd7df903c89586b7209b4aa859e1a0a0ce7fa7234777ded60a8a92"
-        },
-        {
-          "id": {
-            "group": "org.signal",
-            "name": "zkgroup-java-x86_64-unknown-linux-gnu",
+            "name": "zkgroup-java",
             "version": "0.7.0",
             "type": "pom",
             "extension": "pom"
           },
-          "name": "zkgroup-java-x86_64-unknown-linux-gnu-0.7.0.pom",
-          "path": "org/signal/zkgroup-java-x86_64-unknown-linux-gnu/0.7.0",
+          "name": "zkgroup-java-0.7.0.pom",
+          "path": "org/signal/zkgroup-java/0.7.0",
           "urls": [
-            "https://gitlab.com/api/v4/groups/6853927/-/packages/maven/org/signal/zkgroup-java-x86_64-unknown-linux-gnu/0.7.0/zkgroup-java-x86_64-unknown-linux-gnu-0.7.0.pom"
+            "https://plugins.gradle.org/m2/org/signal/zkgroup-java/0.7.0/zkgroup-java-0.7.0.pom",
+            "https://repo.maven.apache.org/maven2/org/signal/zkgroup-java/0.7.0/zkgroup-java-0.7.0.pom"
           ],
-          "sha256": "c346cfa8d016353e099b29d87667a1165fdbc23649f67ff41edd37f02af1c5ca"
+          "sha256": "e9011b4259202fd04f420a796aef0093a454df2da6f4c3eba63f92b045921618"
         },
         {
           "id": {
