@@ -37,12 +37,14 @@ jobs:
         cd ryujinx
         ./updater.sh
         cd ../yuzu
+        echo Now attempting to updating yuzu...
         ./updater.sh
     - name: Push changes
       uses: actions-x/commit@v2
       with:
-        message: Updated package set
-        files: ryujinx/default.nix yuzu/default.nix
+        name: gh-actions
+        message: Updated packages to latest versions
+        files: ryujinx/default.nix ryujinx/deps.nix yuzu/default.nix
     - name: Build nix packages
       run: nix run -I 'nixpkgs=channel:nixpkgs-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
