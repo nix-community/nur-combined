@@ -25,7 +25,7 @@ sed -i "./default.nix" -re "s|\"$old_version\"|\"$new_version\"|"
 sed -i "./default.nix" -re "s|\"$old_hash\"|\"$new_hash\"|"
 sed -i "./default.nix" -re "s|\"$old_rev\"|\"$new_rev\"|"
 
-store_src="$(nix-build . -A ryujinx.src --no-out-link)"
+store_src="$(nix-build .. -A ryujinx.src --no-out-link)"
 src="$(mktemp -d /tmp/ryujinx-src.XXX)"
 echo "Temp src dir: $src"
 cp -rT "$store_src" "$src"
