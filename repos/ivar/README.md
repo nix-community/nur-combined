@@ -21,8 +21,8 @@ let
   nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
 in {
 home.packages = [
-	nur.repos.ivar.ryujinx;
-	nur.repos.ivar.yuzu-ea;
-	nur.repos.ivar.yuzu-mainline;
+  nur.repos.ivar.ryujinx
+  nur.repos.ivar.yuzu-ea
+  nur.repos.ivar.yuzu-mainline
 ];
 ```
