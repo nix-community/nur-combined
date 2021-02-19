@@ -34,6 +34,10 @@ stdenv.mkDerivation rec {
   installPhase = ''
     install -d $out/share/subtitleedit
     unzip ${files.app} -d $out/share/subtitleedit
+
+    rm -r $out/share/subtitleedit/Tesseract302
+    rm $out/share/subtitleedit/Hunspell{x86,x64}.dll
+
     touch $out/share/subtitleedit/.PACKAGE-MANAGER
 
     install -d $out/share/pixmaps
