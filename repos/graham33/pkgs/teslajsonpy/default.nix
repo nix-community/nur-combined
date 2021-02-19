@@ -11,12 +11,16 @@
 
 buildPythonPackage rec {
   pname = "teslajsonpy";
-  version = "0.12.3";
+  version = "0.11.5";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0d6iyaxpr0jv4x697rzhzqvcdwg0dxzxqkp08874qgp1ckky7qbv";
+    sha256 = "0fnnzcjac06vkpjzkylykgqcfi5fkmz1jsv12ziscxqx6zpgmfrl";
   };
+
+  # fix name used for beautifulsoup requirement
+  # TODO: remove for 0.12.3
+  patchPhase = "sed s/bs4/beautifulsoup4/ -i setup.py";
 
   propagatedBuildInputs = [
     aiohttp
