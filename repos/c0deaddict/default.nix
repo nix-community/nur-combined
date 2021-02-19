@@ -70,4 +70,8 @@ rec {
 
   natscli = pkgs.callPackage ./pkgs/natscli {};
 
+  rofi-wayland-unwrapped = pkgs.callPackage ./pkgs/rofi-wayland/unwrapped.nix {};
+
+  rofi-wayland = pkgs.rofi.override { rofi-unwrapped = rofi-wayland-unwrapped; };
+
 }
