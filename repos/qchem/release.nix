@@ -5,182 +5,98 @@
   # Override config from ENV
   , config ? {}
   , NixOS-QChem ? { shortRev = "0000000"; }
+  # build more variants
+  , buildVariants ? false
 } :
 
 
 let
-  # options for nixpkgs
-  input = {
-    overlays = [ (import ./default.nix) ];
-    config.allowUnfree = true;
-    config.qchem-config = (import ./cfg.nix) config;
-  };
 
-  # import package set
-  pkgs = (import nixpkgs) input;
+  cfg = (import ./cfg.nix) config;
 
-  cfg = pkgs.config.qchem-config;
-
-jobs = rec {
-  openmpiPkgs = {
-    inherit (pkgs.openmpiPkgs)
-      cp2k
-      hpl
-      bagel
-      mctdh
-      nwchem;
-  };
-
-  osu-benchmark = pkgs.openmpiPkgsNoCpp.osu-benchmark;
-  extra = {
-    inherit (pkgs)
-      libcint
-      libint2
-      libint1
-      mkl
-      quantum-espresso
-      quantum-espresso-mpi
-      siesta-mpi
-      siesta
-      octopus
-      libxsmm
-      openblas
-      openblasCompat
-      spglib;
-
-  };
-
-  scalapack = pkgs.openmpiPkgs.scalapack;
-
-  inherit (pkgs)
-    chemps2
-    cp2k
-    bagel
-    bagel-serial
-    ergoscf
-    fftwOpt
-    hwloc-x11
-    hpcg
-    molcas
-    molcas2010
-    molden
-    molcasUnstable
-    mt-dgemm
-    nwchem
-    gromacs
-    gromacsDouble
-    gromacsMpi
-    gromacsDoubleMpi
-    octave
-    sharcV1
-    sharc
-    sharc21
-    slurm-tools
-    stream-benchmark;
-
-  pyscf = pkgs.python3Packages.pyscf;
-  pychemps2 = pkgs.python3Packages.pychemps2;
-  pyquante = pkgs.python2Packages.pyquante;
-
-  # Packages depending on optimized libs
-  deps = {
-    python2 = {
-      inherit (pkgs.python2Packages)
-        numpy
-        scipy;
+  # Customized package set
+  pkgs = config: overlay: let
+    pkgSet = (import nixpkgs) {
+      overlays = [ overlay (import ./default.nix) ];
+      config.allowUnfree = true;
+      config.qchem-config = cfg;
     };
 
-    python3 = {
-      inherit (pkgs.python3Packages)
-        numpy
-        scipy;
-    };
-  };
+    makeForPython = plist:
+      pkgSet.lib.foldr (a: b: a // b) {}
+      (map (x: { "${x}" = pkgSet."${cfg.prefix}"."${x}".pkgs."${cfg.prefix}"; }) plist);
 
-  release = {
-    tests = {
-      inherit (pkgs.qc-tests)
-        bagel
-        cp2k
-        nwchem
-        molcas;
-    } // pkgs.lib.optionalAttrs (cfg.srcurl != null) {
-      inherit (pkgs.qc-tests)
-        molpro
-        mesa-qc
-        qdng;
-    };
+    # Filter out derivations
+    hydraJobs = with pkgSet.lib; filterAttrs (n: v: isDerivation v);
 
-    tested = with pkgs; releaseTools.aggregate {
-      name = "tests";
-      constituents = with release; [
-        tests.cp2k
-        tests.nwchem
-        tests.molcas
-        molden
-      ] ++ lib.optionals (cfg.srcurl != null) [
-        tests.molpro
-        tests.mesa-qc
-        tests.qdng
-      ];
-    };
+    # Make sure we only build the overlay's content
+    pkgsClean = hydraJobs pkgSet."${cfg.prefix}"
+      # Pick the test set
+      // { tests = hydraJobs pkgSet."${cfg.prefix}".tests; }
 
-    nixexprs = with pkgs; runCommand "nixexprs" {}
-      ''
-        mkdir -p $out/nixpkgs $out/NixOS-QChem
+      # release set for python packages
+      // makeForPython [ "python2" "python3" ]
 
-        cp -r ${nixpkgs}/* $out/nixpkgs
-        cp -r ${./.}/* $out/NixOS-QChem
+      # Have a manadatory test set and a channel
+      // rec {
+        tested = pkgSet.releaseTools.aggregate {
+          name = "tested-programs";
+          constituents = with pkgSet."${cfg.prefix}"; [
+            tests.cp2k
+            tests.nwchem
+            tests.molcas
+            molden
+          ] ++ pkgSet.lib.optionals (cfg.srcurl != null) [
+            tests.molpro
+            tests.mesa-qc
+            tests.qdng
+          ];
+        };
 
-        cp ${./channel.nix} $out/default.nix
+        nixexprs = pkgSet.runCommand "nixexprs" {}
+          ''
+            mkdir -p $out/NixOS-QChem
 
-        # nixpkgs version
-        cp ${nixpkgs}/.version $out/.version
-        cp ${nixpkgs}/.version $out/nixpkgs/.version
+            cp -r ${nixpkgs}/* $out/
+            mv $out/default.nix $out/nixpkgs-default.nix
 
-        cat <<EOF > $out/.revision
-        nixpkgs ${nixpkgs.shortRev}
-        NixOS-QChem ${NixOS-QChem.shortRev}
-        EOF
-      '';
+            cp -r ${./.}/* $out/NixOS-QChem
+            cp ${./channel.nix} $out/default.nix
 
-    channel = pkgs.releaseTools.channel {
-      name = "NixOS-QChem-channel";
-      src = release.nixexprs;
-      constituents = [ release.tested ];
-    };
-  };
+            # nixpkgs version
+            cp ${nixpkgs}/.version $out/.version
 
-} // (if cfg.srcurl != null then
-  {
-    inherit (pkgs)
-      gaussview
-      qdng
-      mesa-qc
-      mctdh
-      orca
-      sharcV1
-      vmd;
-  }
-  else {}
-  )
-  // (if cfg.licMolpro != null then
-  {
-    inherit (pkgs)
-      molpro
-      molpro12
-      molpro15
-      molpro18
-      molpro19;
-  }
-  else {}
-  ) // (if cfg.optpath != null  then
-  {
-    inherit (pkgs) gaussian;
-  }
-  else {}
-  );
+            cat <<EOF > $out/.qchem-revision
+            nixpkgs ${nixpkgs.shortRev}
+            NixOS-QChem ${NixOS-QChem.shortRev}
+            EOF
+          '';
 
-in jobs
+        channel = pkgSet.releaseTools.channel {
+          name = "NixOS-QChem-channel";
+          src = nixexprs;
+          constituents = [ tested ];
+        };
+      };
 
+  in pkgsClean;
 
+in {
+  qchem = pkgs (config // { optAVX = true; }) (self: super: {});
+  qchem-noavx = pkgs (config // { optAVX = false; }) (self: super: {});
+
+} # Extra variants for testing purposes
+// (if buildVariants then {
+  qchem-mpich = pkgs (config // { optAVX = true; }) (self: super: { mpi = super.mpich; });
+
+  qchem-mkl = pkgs (config // { optAVX = true; }) (self: super: {
+    blas = super.blas.override { blasProvider = super.mkl; };
+    lapack = super.lapack.override { lapackProvider = super.mkl; };
+  });
+
+  qchem-amd = pkgs (config // { optAVX = true; }) (self: super: {
+    blas = super.blas.override { blasProvider = super.amd-blis; };
+    lapack = super.lapack.override { lapackProvider = super.amd-libflame; };
+  });
+}
+else {})

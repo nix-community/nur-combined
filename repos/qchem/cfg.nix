@@ -4,7 +4,8 @@
 , srcurl ? null
 , optpath ? null
 , licMolpro ? null
-, optAVX ? false
+, prefix ? null
+, optAVX ? null
 } :
 
   let
@@ -16,22 +17,29 @@
     if (builtins.stringLength envVar) > 0 then envVar
     else null;
 
-  getValue = x: envVar:
-    if allowEnv then
-      if (getEnv envVar) != null then getEnv envVar else x
-    else x;
-in {
+  getValue = x: default: envVar:
+    if x != null then x
+    else if allowEnv then
+    if (getEnv envVar) != null then getEnv envVar else default else default;
+
+ in {
+
+  # Put the package set under prefix
+  prefix = getValue prefix "qchem" "NIXQC_PREFIX";
+
   # base url for non-free packages
-  srcurl = getValue srcurl "NIXQC_SRCURL";
+  srcurl = getValue srcurl null "NIXQC_SRCURL";
 
   # path to packages that reside outside the nix store
-  optpath = getValue optpath "NIXQC_OPTPATH";
+  optpath = getValue optpath null "NIXQC_OPTPATH";
 
   # string containing a valid MOLPRO license token
-  licMolpro = getValue licMolpro "NIXQC_LICMOLPRO";
+  licMolpro = getValue licMolpro null "NIXQC_LICMOLPRO";
 
   # turn of AVX optimizations in selected packages
-  optAVX =  if allowEnv then
-      if (getEnv "NIXQC_AVX") != null then (if (getEnv "NIXQC_AVX") == "1" then true else false) else optAVX
-    else optAVX;
+  optAVX = if optAVX != null then optAVX
+    else if allowEnv then
+    if (getEnv "NIXQC_AVX") != null then
+      (if (getEnv "NIXQC_AVX") == "1" then true else false)
+     else true else true;
 }

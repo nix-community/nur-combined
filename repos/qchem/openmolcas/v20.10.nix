@@ -1,4 +1,4 @@
-{ stdenv, pkgs, fetchFromGitLab, fetchpatch, cmake, gfortran, perl
+{ lib, stdenv, pkgs, fetchFromGitLab, fetchpatch, cmake, gfortran, perl
 , openblas, hdf5-full, python3, texlive
 , armadillo, makeWrapper, fetchFromGitHub, chemps2
 } :
@@ -116,7 +116,7 @@ in stdenv.mkDerivation {
     make test
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Quantum chemistry software package";
     homepage = https://gitlab.com/Molcas/OpenMolcas;
     maintainers = [ maintainers.markuskowa ];

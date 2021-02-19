@@ -1,7 +1,10 @@
-{ stdenv, writeShellScriptBin, buildFHSUserEnv, optpath
-, slurmLic ? null, slurmLicenseWrapper
+{ stdenv, writeShellScriptBin, buildFHSUserEnv
+, slurmLicenseWrapper
+, optpath ? null
+, slurmLic ? null
 } :
 
+assert (optpath != null);
 
 let
   version = "2018a";
@@ -9,7 +12,7 @@ let
     then
       "${optpath}/matlab-${version}"
     else
-      slurmLicenceWrapper {
+      slurmLicenseWrapper {
         name = "MATLAB";
         exe = "matlab";
         license = slurmLic;

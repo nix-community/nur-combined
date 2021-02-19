@@ -1,4 +1,4 @@
-{ callPackage, qc-tests } :
+{ callPackage, tests } :
 
 {
   threads ? 1,
@@ -6,7 +6,7 @@
 } :
 
 callPackage ../../builders/benchmark.nix {
-  test = qc-tests.bagel-bench;
+  test = tests.bagel-bench;
 
   subtests = [ "Run-Bagel" ];
 

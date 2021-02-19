@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python, gfortran, blas, lapack
+{ lib, stdenv, fetchFromGitHub, python3, gfortran, blas, lapack
 , fftw, libint2, libxc, mpi, gsl, scalapack, openssh, makeWrapper
 , libxsmm, spglib, which
 , optAVX ? false
@@ -7,7 +7,7 @@
 assert (!blas.isILP64) && (!lapack.isILP64);
 
 let
-  version = "7.1.0";
+  version = "8.1.0";
 
   cp2kVersion = "psmp";
   arch = "Linux-x86-64-gfortran";
@@ -19,11 +19,11 @@ in stdenv.mkDerivation rec {
     owner = "cp2k";
     repo = "cp2k";
     rev = "v${version}";
-    sha256 = "0icmzqc9v8rvcw8xg295qpa7h3d1vpjbc89l0lvakam977ianblf";
+    sha256 = "1qv7gprmm9riz9jj82n0mh2maij137h3ivh94z22bnm75az86jcs";
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ python which openssh makeWrapper ];
+  nativeBuildInputs = [ python3 which openssh makeWrapper ];
   buildInputs = [ gfortran fftw gsl libint2 libxc libxsmm  spglib blas lapack mpi scalapack ];
 
   makeFlags = [
@@ -36,12 +36,13 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   postPatch = ''
-    patchShebangs tools exts/dbcsr/tools/build_utils
+    patchShebangs tools exts/dbcsr/tools/build_utils exts/dbcsr/.cp2k
+    substituteInPlace exts/dbcsr/.cp2k/Makefile --replace '/usr/bin/env python3' '${python3}/bin/python'
   '';
 
-  preConfigure = ''
+  configurePhase = ''
     cat > arch/${arch}.${cp2kVersion} << EOF
-    CC         = gcc
+    CC         = mpicc
     CPP        =
     FC         = mpif90
     LD         = mpif90
@@ -50,9 +51,10 @@ in stdenv.mkDerivation rec {
                  -D__MPI_VERSION=3 -D__F2008 -D__LIBXSMM -D__SPGLIB \
                  -D__MAX_CONTR=4
 
+    CFLAGS    = -fopenmp
     FCFLAGS    = \$(DFLAGS) -O2 -ffree-form -ffree-line-length-none \
                  -ftree-vectorize -funroll-loops -msse2 \
-                 ${stdenv.lib.optionalString optAVX "-mavx -mavx2"} \
+                 ${lib.optionalString optAVX "-mavx -mavx2"} \
                  -std=f2008 \
                  -fopenmp -ftree-vectorize -funroll-loops \
                  -I${libxc}/include -I${libxsmm}/include \
@@ -67,6 +69,8 @@ in stdenv.mkDerivation rec {
 
   checkPhase = ''
     export OMP_NUM_THREADS=1
+    # Fix to make mpich run in a sandbox
+    export HYDRA_IFACE=lo
     export OMPI_MCA_rmaps_base_oversubscribe=1
     export CP2K_DATA_DIR=data
 
@@ -88,7 +92,7 @@ in stdenv.mkDerivation rec {
     ln -s ${mpi}/bin/mpiexec $out/bin/mpiexec
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Quantum chemistry and solid state physics program";
     homepage = "https://www.cp2k.org";
     license = licenses.gpl3;

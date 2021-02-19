@@ -1,4 +1,4 @@
-{ callPackage, lib, qc-tests } :
+{ callPackage, lib, tests } :
 
 {
   tasks ? 2
@@ -7,7 +7,7 @@
 } :
 
 callPackage ../../builders/benchmark.nix {
-  test = qc-tests.hpcg.override { inherit sizes runTime; };
+  test = tests.hpcg.override { inherit sizes runTime; };
 
   setupPhase = ''
     export TEST_NUM_CPUS=${toString tasks}

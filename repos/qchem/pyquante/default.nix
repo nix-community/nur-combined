@@ -1,11 +1,11 @@
 { lib, fetchurl, buildPythonPackage
-, numpy, isPy37
+, numpy, isPy3k
 } :
 
 buildPythonPackage rec {
   pname = "pyquante";
   version = "1.6.5";
-  disabled = isPy37;
+  disabled = isPy3k;
 
   src = fetchurl {
     url = "mirror://sourceforge/project/pyquante/PyQuante-1.6/PyQuante-${version}/PyQuante-${version}.tar.gz";

@@ -1,4 +1,4 @@
-{ batsTest, lib, stdenvNoCC, cp2k, openmpi, openssh } :
+{ batsTest, lib, stdenvNoCC, cp2k, mpi, openssh } :
 
 let
   # Copy test files from sources
@@ -18,13 +18,13 @@ in batsTest {
   name="c2pk";
 
   # Required for mpi to run in sandboxed env
-  nativeBuildInputs = [ openssh openmpi cp2k ];
+  nativeBuildInputs = [ openssh mpi cp2k ];
 
   outFile = [ "*.out" ];
 
   testScript = lib.concatStringsSep "\n" ( map (x: ''
     @test "${x}" {
-      ${openmpi}/bin/mpirun -np $TEST_NUM_CPUS ${cp2k}/bin/cp2k ${inp}/${x}.inp > ${x}.out
+      ${mpi}/bin/mpirun -np $TEST_NUM_CPUS ${cp2k}/bin/cp2k ${inp}/${x}.inp > ${x}.out
     }
   '') [ "dbcsr" "bench_dftb" "H2O-gga" ]) + ''
 

@@ -81,6 +81,8 @@ in stdenv.mkDerivation {
     export OMP_NUM_THREADS=1
     export OMPI_MCA_rmaps_base_oversubscribe=1
     export MV2_ENABLE_AFFINITY=0
+    # Fix to make mpich run in a sandbox
+    export HYDRA_IFACE=lo
 
     ${if (mpi != null) then "mpirun -np 1 $out/bin/BAGEL test/hf_svp_hf.json > log"
     else "$out/bin/BAGEL test/hf_svp_hf.json > log"}

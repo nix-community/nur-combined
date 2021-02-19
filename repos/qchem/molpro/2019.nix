@@ -1,4 +1,4 @@
-{ stdenv, requireFile, fetchurl, patchelf, python, token
+{ lib, stdenv, requireFile, fetchurl, patchelf, python, token
 } :
 
 assert token != null;
@@ -77,7 +77,7 @@ in stdenv.mkDerivation {
      grep "RHF STATE  1.1 Energy" $inp.out | grep 74.880174
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Quantum chemistry program package";
     homepage = https://www.molpro.net;
     license = licenses.unfree;

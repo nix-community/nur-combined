@@ -1,4 +1,4 @@
-{ callPackage, lib, qc-tests } :
+{ callPackage, lib, tests } :
 
 {
   threads ? 1
@@ -8,7 +8,7 @@
 } :
 
 callPackage ../../builders/benchmark.nix {
-  test = qc-tests.dgemm.override { inherit size useNumactl numactlParams; };
+  test = tests.dgemm.override { inherit size useNumactl numactlParams; };
 
   setupPhase = ''
     export TEST_NUM_CPUS=${toString threads}

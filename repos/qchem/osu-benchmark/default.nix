@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, mpi } :
+{ lib, stdenv, fetchurl, mpi } :
 let
   version = "5.6.3";
 
@@ -28,7 +28,7 @@ in stdenv.mkDerivation {
     EOF
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "MPI micro benchmark suite";
     homepage = "http://mvapich.cse.ohio-state.edu/benchmarks";
     maintainers = [ maintainers.markuskowa ];

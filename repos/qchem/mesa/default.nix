@@ -1,4 +1,4 @@
-{ stdenv, requireFile, gfortran, openblas } :
+{ lib, stdenv, requireFile, gfortran, openblas } :
 
 let
   # I am guessing here, that's the timestamp of the README
@@ -11,6 +11,7 @@ in stdenv.mkDerivation {
   src = requireFile {
     name = "mesa_lucchese.tar.xz";
     sha256 = "0xp287r53xfvgcfv1c2kpl68wsvmfkh1vb0f3l941jb0ry4wh5w0";
+    message = "The tarball for mesa needs to be in nix store";
   };
 
   buildInputs = [ gfortran openblas ];
@@ -67,7 +68,7 @@ in stdenv.mkDerivation {
     grep summary: mesa.out
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Electronic structure and scattering program";
     license = licenses.unfree;
     maintainers = [ maintainers.markuskowa ];

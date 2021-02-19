@@ -1,11 +1,11 @@
-{ batsTest, hpl, openmpi, openssh } :
+{ batsTest, hpl, mpi, openssh } :
 
 batsTest {
   name="hpl";
 
   outFile = [ "HPL.*" ];
 
-  nativeBuildInputs = [ hpl openmpi openssh ];
+  nativeBuildInputs = [ hpl mpi openssh ];
 
   # default needs at least 4 cpus
   TEST_NUM_CPUS=4;
@@ -18,7 +18,7 @@ batsTest {
 
   testScript = ''
     @test "HPL" {
-      ${openmpi}/bin/mpirun -np $TEST_NUM_CPUS ${hpl}/bin/xhpl > HPL.out
+      ${mpi}/bin/mpirun -np $TEST_NUM_CPUS ${hpl}/bin/xhpl > HPL.out
     }
   '';
 }

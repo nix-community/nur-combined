@@ -1,6 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, blas, hdf5-full } :
+{ lib, stdenv, fetchFromGitHub, cmake, blas, hdf5-full } :
 assert
-  stdenv.lib.asserts.assertMsg
+  lib.asserts.assertMsg
   (!blas.isILP64)
   "32 bit integer BLAS implementation required.";
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     export OMP_NUM_THREADS=1
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A spin-adapted implementation of DMRG for ab initio quantum chemistry";
     homepage = "http://sebwouters.github.io/CheMPS2";
     license = licenses.gpl2;

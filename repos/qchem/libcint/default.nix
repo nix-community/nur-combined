@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake
+{ lib, stdenv, fetchFromGitHub, cmake
 , openblas, python
 } :
 let
@@ -28,7 +28,7 @@ in stdenv.mkDerivation {
     "-DI8=0"
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Open source library for analytical Gaussian integrals";
     homepage = https://github.com/sunqm/libcint;
     license = licenses.bsd2;

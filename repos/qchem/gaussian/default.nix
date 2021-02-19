@@ -1,4 +1,4 @@
-{ stdenv, buildFHSUserEnv, symlinkJoin, optpath } :
+{ lib, stdenv, buildFHSUserEnv, symlinkJoin, optpath } :
 
 let
   version = "16b01";
@@ -25,7 +25,7 @@ let
 in symlinkJoin {
   name = "gaussian-${version}";
   paths = map (x: buildEnv x) executables;
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Quantum chemistry programm package";
     license = licenses.unfree;
   };

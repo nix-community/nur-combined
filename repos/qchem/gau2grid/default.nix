@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake
+{ lib, stdenv, fetchFromGitHub, cmake
 , python
 , numpy
 , setuptools
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       rev = "v" + version;
     };
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "Fast computation of a gaussian and its derivative on a grid";
       homepage = "https://github.com/dgasmith/gau2grid";
       license = licenses.bsd3;

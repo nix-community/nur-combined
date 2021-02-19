@@ -1,12 +1,11 @@
-{ callPackage, lib, qc-tests } :
+{ callPackage, lib, tests } :
 
 {
   threads ? 1
 } :
 
 callPackage ../../builders/benchmark.nix {
-  test = qc-tests.qdng;
-
+  test = tests.qdng;
 
   setupPhase = ''
     export TEST_NUM_CPUS=${toString threads}

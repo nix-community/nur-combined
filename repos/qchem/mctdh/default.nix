@@ -1,14 +1,16 @@
 { stdenv, lib, writeText, requireFile, python27, perl, gfortran
-, openblasCompat, mpi, scalapack
+, blas, lapack, mpi, scalapack
 # compile the MPI version
 , useMPI ? false
 } :
+
+assert (!blas.isILP64) && (!lapack.isILP64);
 
 let
   version = "8.4.17";
 
   platformcnf = writeText "platform.cnf" ''
-    MCTDH_VERSION="${with stdenv.lib.versions; major version + minor version}"
+    MCTDH_VERSION="${with lib.versions; major version + minor version}"
     MCTDH_PLATFORM="x86_64"
     MCTDH_COMPILER=${if useMPI then "gfortran" else "gfortran-64"}
     MCTDH_GNU_COMPILER="gfortran"
@@ -30,7 +32,7 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ ];
-  buildInputs = [ gfortran python27 perl openblasCompat ] ++ lib.optional useMPI [ mpi scalapack ];
+  buildInputs = [ gfortran python27 perl blas lapack ] ++ lib.optional useMPI [ mpi scalapack ];
 
   postPatch = ''
     patchShebangs ./bin
@@ -53,7 +55,7 @@ in stdenv.mkDerivation {
 
   configurePhase = ''
     cp ${platformcnf} install/platform.cnf.priv
-    sed -i 's/EXTERNAL_BLAS.*/EXTERNAL_BLAS=-lopenblas/;s/EXTERNAL_LAPACK.*/EXTERNAL_LAPACK=/' \
+    sed -i 's/EXTERNAL_BLAS.*/EXTERNAL_BLAS=-lblas/;s/EXTERNAL_LAPACK.*/EXTERNAL_LAPACK=-llapack/' \
          install/compile.cnf_le
 
     mkdir utils
@@ -83,7 +85,7 @@ in stdenv.mkDerivation {
     done
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Multi configuration time dependent hartree dynamics package";
     homepage = https://www.pci.uni-heidelberg.de/cms/mctdh.html;
     license = licenses.unfree;

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, openblas } :
+{ lib, stdenv, fetchurl, openblas } :
 
 let
   version = "3.8";
@@ -56,7 +56,7 @@ in stdenv.mkDerivation {
     grep "74.880174" ergoscf.out
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Quantum chemistry program for large-scale self-consistent field calculations";
     homepage = http://http://www.ergoscf.org;
     license = licenses.gpl3;

@@ -1,4 +1,4 @@
-{ callPackage, qc-tests } :
+{ callPackage, tests } :
 
 {
   threads ? 1
@@ -9,7 +9,7 @@
 assert threads == mpiTasks * mpiThreads;
 
 callPackage ../../builders/benchmark.nix {
-  test = qc-tests.molpro;
+  test = tests.molpro;
 
   subtests = [ "Run-Molpro" ];
 

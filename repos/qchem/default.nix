@@ -1,361 +1,313 @@
-self: super:
+self_: super:
 
 let
 
   cfg = if (builtins.hasAttr "qchem-config" super.config) then
-    super.config.qchem-config
+    (import ./cfg.nix) super.config.qchem-config
   else
-    (import ./cfg.nix) { allowEnv = true; };
+  (import ./cfg.nix) { allowEnv = true; }; # if no config is given allow env
+
+  lib = super.lib;
+
+  optAVX = cfg.optAVX;
+
+
+  #
+  # Our package set
+  #
+  overlay = subset: extra: let
+    self = self_."${subset}";
+    callPackage = super.lib.callPackageWith (self_ // self);
+    pythonOverrides = (import ./pythonPackages.nix) subset;
+
+  in {
+    "${subset}" = {
+      # For consistency: every package that is in nixpgs-opt.nix
+      # + extra builds that should be exposed
+      inherit (self_)
+        fftwSinglePrec
+        hpl
+        hpcg
+        gromacs
+        gromacsMpi
+        gromacsDouble
+        gromacsDoubleMpi
+        mpi
+        mkl
+        molden
+        libxsmm
+        octopus
+        quantum-espresso
+        quantum-espresso-mpi
+        scalapack
+        siesta
+        siesta-mpi;
+
+      pkgs = self_;
+
+
+      inherit callPackage;
+
+      #
+      # Upstream overrides
+      #
+
+      # Define an ILP64 blas/lapack
+      # This is still missing upstream
+      blas-i8 = if self_.blas.implementation != "amd-blis" then self_.blas.override { isILP64 = true; }
+                else super.blas.override { isILP64 = true; blasProvider = super.openblas; };
+      lapack-i8 = if self_.lapack.implementation != "amd-libflame" then self_.lapack.override { isILP64 = true; }
+                else super.lapack.override { isILP64 = true; lapackProvider = super.openblas; };
+
+      fftw = self_.fftw.overrideDerivation ( oldAttrs: {
+        buildInputs = [ self_.gfortran ];
+      });
+
+      # For molcas and chemps2
+      hdf5-full = self_.hdf5.override {
+        cpp = true;
+        inherit (self_) gfortran;
+      };
+
+      octave = (super.octave.override {
+        enableQt = true;
+        enableJava = true;
+        jdk = super.jdk8;
+        inherit (super)
+          hdf5
+          ghostscript
+          glpk
+          suitesparse
+          gnuplot;
+        inherit (super.libsForQt5)
+          qscintilla;
+        inherit (super.qt5)
+          qtbase
+          qttools
+          qtscript
+          qtsvg;
+        }).overrideAttrs (x: { preCheck = "export OMP_NUM_THREADS=4"; });
+
+      # Allow to provide a local download source for unfree packages
+      requireFile = if cfg.srcurl == null then super.requireFile else
+        { name, sha256, ... } :
+        super.fetchurl {
+          url = cfg.srcurl + "/" + name;
+          sha256 = sha256;
+        };
+
+      #
+      # Applications
+      #
+      bagel = callPackage ./bagel {
+        blas = self.mkl; # bagel is not stable with openblas
+        boost = self_.boost165;
+        scalapack=null; withScalapack=true;
+      };
 
-  # build a package with specfific MPI implementation
-  withMpi = pkg : mpi :
-    super.appendToName mpi.name (pkg.override { mpi = mpi; });
+      bagel-serial = callPackage ./bagel { mpi = null; blas = self.mkl; };
 
-  # Build a whole package set for a specific MPI implementation
-  makeMpi = pkg: MPI: with super; {
-    mpi = pkg;
+      chemps2 = callPackage ./chemps2 {};
 
-    globalarrays = super.globalarrays.override { openmpi=pkg; };
+      cp2k = callPackage ./cp2k {
+        libxc = self.libxc4;  # patches are are required for libxc5
+        inherit optAVX;
+      };
 
-    osu-benchmark = callPackage ./osu-benchmark { mpi=pkg; };
+      dkh = callPackage ./dkh {};
 
-    # scalapack can't be built with ILP64
-    scalapack = (super.scalapack.override { mpi=pkg; }).overrideAttrs
-    ( x: {
-      CFLAGS = super.lib.optionalString cfg.optAVX  "-O3 -mavx2 -mavx -msse2";
-      FFLAGS = super.lib.optionalString cfg.optAVX  "-O3 -mavx2 -mavx -msse2";
-    });
+      dftd3 = callPackage ./dft-d3 {};
 
-    scalapackCompat = MPI.scalapack;
+      ergoscf = callPackage ./ergoscf { };
 
-    cp2k = callPackage ./cp2k {
-      mpi=pkg;
-      scalapack=MPI.scalapack;
-      fftw=self.fftwOpt;
-      optAVX = cfg.optAVX;
-    };
+      gaussview = callPackage ./gaussview { };
 
-    gromacs = super.gromacs.override {
-      openmpi = pkg;
-      cpuAcceleration = if cfg.optAVX then "AVX2_256" else "SSE4.1";
-      mpiEnabled = true;
-    };
+      nwchem = callPackage ./nwchem { blas=self.blas-i8; lapack=self.lapack-i8; };
 
-    gromacsDouble = super.gromacs.override {
-      openmpi = pkg;
-      cpuAcceleration = if cfg.optAVX then "AVX2_256" else "SSE4.1";
-      mpiEnabled = true;
-      singlePrec = false;
-      fftw =  if cfg.optAVX then self.fftwOpt else fftw;
-    };
+      mctdh = callPackage ./mctdh { };
 
-    # MKL is the default. Relativistic methods are broken with non-MKL libs
-    bagel-mkl = callPackage ./bagel { blas = self.mkl; mpi=pkg; boost=boost165; scalapack=null; withScalapack=true; };
-    bagel-openblas = callPackage ./bagel { blas = self.openblas; mpi=pkg; };
-    bagel-mkl-scl = callPackage ./bagel { blas = self.mkl; mpi=pkg; scalapack=MPI.scalapack; withScalapack = true; };
-    bagel = MPI.bagel-mkl;
+      #mctdh-mpi = self.mctdh.override { useMPI = true; } ;
 
-    hpl = super.hpl.override { mpi=pkg; };
+      mesa-qc = callPackage ./mesa {
+        gfortran = self_.gfortran6;
+      };
 
-    mctdh = callPackage ./mctdh { useMPI=true; mpi=pkg; scalapack=MPI.scalapack; };
+      molcas = callPackage ./openmolcas { };
 
-    nwchem = callPackage ./nwchem { mpi=pkg; blas=self.blas-i8; lapack=self.lapack-i8; };
+      molcas1911 = self.molcas;
 
-    openmolcasUnstable = callPackage ./openmolcas/unstable.nix {
-      texLive = texlive.combine { inherit (texlive) scheme-basic epsf cm-super; };
-      mpi=pkg;
-      globalarrays=MPI.globalarrays;
-    };
-  };
+      molcas2010 = callPackage ./openmolcas/v20.10.nix { };
 
-  pythonOverrides = import ./pythonPackages.nix self super;
+      #molcasUnstable = callPackage ./openmolcas/unstable.nix {
+      #  texLive = self_.texlive.combine { inherit (self_.texlive) scheme-basic epsf cm-super; };
+      #};
 
-in with super;
-{
-  # Place composed config in pkgs
-  config.qchem-config = cfg;
+      mt-dgemm = callPackage ./mt-dgemm { };
 
-  # Allow to provide a local download source for unfree packages
-  requireFile = if cfg.srcurl == null then super.requireFile else
-    { name, sha256, ... } :
-    super.fetchurl {
-      url = cfg.srcurl + "/" + name;
-      sha256 = sha256;
-    };
+      orca = callPackage ./orca { };
 
-  # MPI packages sets
-  openmpiPkgs = makeMpi self.openmpi self.openmpiPkgs;
+      osu-benchmark = callPackage ./osu-benchmark {
+        # OSU benchmark fails with C++ binddings enabled
+        mpi = self.mpi.overrideAttrs (x: {
+          configureFlags = super.lib.remove "--enable-mpi-cxx" x.configureFlags;
+        });
+      };
 
-  # OSU benchmark fails with C++ binddings enabled
-  openmpiPkgsNoCpp = makeMpi (self.openmpi.overrideAttrs (x: {
-    configureFlags = super.lib.remove "--enable-mpi-cxx" x.configureFlags;
-  })) self.openmpiPkgs;
+      pcmsolver = callPackage ./pcmsolver {};
 
-  mpichPkgs = makeMpi self.mpich2 self.mpichPkgs;
+      psi4 = super.python3.pkgs.toPythonApplication self.python3.pkgs.psi4;
+      psi4Unstable = super.python3.pkgs.toPythonApplication self.python3.pkgs.psi4Unstable;
 
-  mvapichPkgs = makeMpi self.mvapich self.mvapichPkgs;
+      qdng = callPackage ./qdng { protobuf=super.protobuf3_11; };
 
-  ### Quantum Chem
-  chemps2 = callPackage ./chemps2 {};
+      sharc = self.sharcV2;
 
-  cp2k = self.openmpiPkgs.cp2k;
+      sharc21 = self.sharcV21;
 
-  bagel = self.openmpiPkgs.bagel;
+      sharcV1 = callPackage ./sharc/V1.nix {
+        molcas = self.molcas;
+        molpro = self.molpro12; # V1 only compatible with versions up to 2012
+        useMolpro = if cfg.licMolpro != null then true else false;
+      };
 
-  bagel-serial = callPackage ./bagel { mpi = null; blas = self.mkl; };
+      sharcV2 = callPackage ./sharc {
+        molcas = self.molcas;
+        molpro = self.molpro12; # V2 only compatible with versions up to 2012
+        useMolpro = if cfg.licMolpro != null then true else false;
+      };
 
-  gaussian = callPackage ./gaussian { inherit (cfg) optpath; };
+      sharcV21 = callPackage ./sharc/21.nix {
+        bagel = self.bagel-serial;
+        molcas = self.molcas;
+        molpro = self.molpro12; # V2 only compatible with versions up to 2012
+        useMolpro = if cfg.licMolpro != null then true else false;
+        useOrca = if cfg.srcurl != null then true else false;
+      };
 
-  gaussview = callPackage ./gaussview { };
+      stream-benchmark = callPackage ./stream { };
 
-  gromacs = super.gromacs.override {
-    cpuAcceleration = if cfg.optAVX then "AVX2_256" else "SSE4.1";
-  };
+      vmd = callPackage ./vmd {};
 
-  gromacsDouble = super.gromacs.override {
-    cpuAcceleration = if cfg.optAVX then "AVX2_256" else "SSE4.1";
-    singlePrec = false;
-    fftw = if cfg.optAVX then self.fftwOpt else fftw;
-  };
 
-  gromacsMpi = self.openmpiPkgs.gromacs;
 
-  gromacsDoubleMpi = self.openmpiPkgs.gromacsDouble;
+      ### Python packages
+      python3 = super.python3.override { packageOverrides=pythonOverrides self super; };
+      python2 = super.python2.override { packageOverrides=pythonOverrides self super; };
 
-  ergoscf = callPackage ./ergoscf { };
+      #
+      # Libraries
+      #
 
-  # fix a bug in the header file, which causes bagel to fail
-  libxc = super.libxc.overrideAttrs (oa: {
-    postFixup = ''
-      sed -i '/#include "config.h"/d' $out/include/xc.h
-    '';
-  });
+      libcint3 = callPackage ./libcint { };
 
-  nwchem = self.openmpiPkgs.nwchem;
+      libefp = callPackage ./libefp {};
 
-  mctdh = callPackage ./mctdh { mpi=null; };
+      libint1 = callPackage ./libint/1.nix { };
 
-  mctdh-mpi = self.openmpiPkgs.mctdh;
+      libint2 = callPackage ./libint { inherit optAVX; };
 
-  mesa-qc = callPackage ./mesa {
-    gfortran = gfortran6;
-  };
+      # libint configured for bagel
+      # See https://github.com/evaleev/libint/wiki#bagel
+      libint-bagel = callPackage ./libint { cfg = [
+        "--enable-eri=1"
+        "--enable-eri3=1"
+        "--enable-eri2=1"
+        "--with-max-am=6"
+        "--with-eri3-max-am=6"
+        "--with-eri2-max-am=6"
+        "--disable-unrolling"
+        "--enable-generic-code"
+        "--with-cartgauss-ordering=bagel"
+        "--enable-contracted-ints"
+      ] ++ lib.optional optAVX "--enable-fma"
+      ;};
 
-  molpro = self.molpro20;
+      # legacy version
+      libxc4 = callPackage ./libxc { };
 
-  molpro12 = callPackage ./molpro/2012.nix { token=cfg.licMolpro; };
+      mvapich = callPackage ./mvapich { };
 
-  molpro15 = callPackage ./molpro/2015.nix { token=cfg.licMolpro; };
+      osss-ucx = callPackage ./osss-ucx { };
 
-  molpro18 = callPackage ./molpro/2018.nix { token=cfg.licMolpro; };
+      sos = callPackage ./sos { };
+      #
+      # Utilities
+      #
 
-  molpro19 = callPackage ./molpro/2019.nix { token=cfg.licMolpro; };
+      writeScriptSlurm = callPackage ./builders/slurmScript.nix {};
 
-  molpro20 = callPackage ./molpro { token=cfg.licMolpro; };
+      slurm-tools = callPackage ./slurm-tools {};
 
-  molcas = callPackage ./openmolcas { };
+      # A wrapper to enforce license checkouts with slurm
+      slurmLicenseWrapper = callPackage ./builders/licenseWrapper.nix { };
 
-  molcas1911 = self.molcas;
+      # build bats tests
+      batsTest = callPackage ./builders/batsTest.nix { };
 
-  molcas2010 = callPackage ./openmolcas/v20.10.nix { };
+      # build a benchmark script
+      #benchmarkScript = callPackage ./builders/benchmark.nix { };
 
-  # deactivate for now, does not build out of the box
-  #molcasUnstable = self.openmpiPkgs.openmolcasUnstable;
-  molcasUnstable = self.molcas2010;
+      # benchmark set builder
+      benchmarks = callPackage ./benchmark/default.nix { };
 
-  orca = callPackage ./orca { };
+      benchmarksets = callPackage ./tests/benchmark-sets.nix { inherit callPackage; };
 
-  qdng = callPackage ./qdng { fftw=self.fftwOpt; protobuf=protobuf3_11; };
+      f2c = callPackage ./f2c { };
 
-  sharc = self.sharcV2;
+      tests = {
+        cp2k = callPackage ./tests/cp2k { };
+        bagel = callPackage ./tests/bagel { };
+        bagel-bench = callPackage ./tests/bagel/bench-test.nix { };
+        hpcg = callPackage ./tests/hpcg { };
+        hpl = callPackage ./tests/hpl { };
+        mesa-qc = callPackage ./tests/mesa { };
+        molcas = callPackage ./tests/molcas { };
+        #molcasUnstable = callPackage ./tests/molcas { molcas=self.molcasUnstable; };
+        nwchem = callPackage ./tests/nwchem { };
+        psi4 = callPackage ./tests/psi4 { };
+        qdng = callPackage ./tests/qdng { };
+        dgemm = callPackage ./tests/dgemm { };
+        stream = callPackage ./tests/stream { };
+      }  // lib.optionalAttrs (cfg.licMolpro != null) {
+        molpro = callPackage ./tests/molpro { };
+      };
 
-  sharc21 = self.sharcV21;
+      testFiles = let
+        batsDontRun = self.batsTest.override { overrideDontRun = true; };
+      in builtins.mapAttrs (n: v: v.override { batsTest = batsDontRun; })
+        self.tests;
 
-  sharcV1 = callPackage ./sharc/V1.nix {
-    molcas = self.molcas;
-    molpro = self.molpro12; # V1 only compatible with versions up to 2012
-    useMolpro = if cfg.licMolpro != null then true else false;
-    fftw = self.fftwOpt;
-  };
+    }  // lib.optionalAttrs (cfg.licMolpro != null) {
 
-  sharcV2 = callPackage ./sharc {
-    molcas = self.molcas;
-    molpro = self.molpro12; # V2 only compatible with versions up to 2012
-    useMolpro = if cfg.licMolpro != null then true else false;
-    fftw = self.fftwOpt;
-  };
+      #
+      # Molpro packages
+      #
+      molpro = self.molpro20;
 
-  sharcV21 = callPackage ./sharc/21.nix {
-    bagel = self.bagel-serial;
-    molcas = self.molcas;
-    molpro = self.molpro12; # V2 only compatible with versions up to 2012
-    useMolpro = if cfg.licMolpro != null then true else false;
-    useOrca = if cfg.srcurl != null then true else false;
-    fftw = self.fftwOpt;
-  };
+      molpro12 = callPackage ./molpro/2012.nix { token=cfg.licMolpro; };
 
-  vmd = callPackage ./vmd {};
+      molpro15 = callPackage ./molpro/2015.nix { token=cfg.licMolpro; };
 
-  # Unsuported. Scalapack does not work with ILP64
-  # scalapack = callPackage ./scalapack { mpi=self.openmpi-ilp64; };
+      molpro18 = callPackage ./molpro/2018.nix { token=cfg.licMolpro; };
 
-  ## Other scientfic applicatons
+      molpro19 = callPackage ./molpro/2019.nix { token=cfg.licMolpro; };
 
-  matlab = callPackage ./matlab { inherit (cfg) optpath; };
+      molpro20 = callPackage ./molpro { token=cfg.licMolpro; };
 
+    } // lib.optionalAttrs (cfg.optpath != null) {
 
-  octave = (super.octave.override {
-    enableQt = true;
-    enableJava = true;
-    jdk = super.jdk8;
-    inherit (super)
-      hdf5
-      ghostscript
-      glpk
-      suitesparse
-      gnuplot;
-    inherit (super.libsForQt5)
-      qscintilla;
-    inherit (super.qt5)
-      qtbase
-      qttools
-      qtscript
-      qtsvg;
-  }).overrideAttrs (x: { preCheck = "export OMP_NUM_THREADS=4"; });
+      #
+      # Quirky packages that need to reside outside the nix store
+      #
+      gaussian = callPackage ./gaussian { inherit (cfg) optpath; };
 
-  dkh = callPackage ./dkh {};
+      matlab = callPackage ./matlab { inherit (cfg) optpath; };
 
-  dftd3 = callPackage ./dft-d3 {};
+    } // extra;
+  } // lib.optionalAttrs optAVX (
+    import ./nixpkgs-opt.nix self_ super
+    );
 
-  libefp = callPackage ./libefp {};
+in
+  overlay cfg.prefix { }
 
-  pcmsolver = callPackage ./pcmsolver {};
-
-  psi4 = super.python3Packages.toPythonApplication self.python3Packages.psi4;
-  psi4Unstable = super.python3Packages.toPythonApplication self.python3Packages.psi4Unstable;
-
-  ### Python packages
-
-  python3 = super.python3.override { packageOverrides=pythonOverrides; };
-  python2 = super.python2.override { packageOverrides=pythonOverrides; };
-
-
-  ### Optmized HPC libs
-
-  # Provide an optimized fftw library.
-  # fftw supports instruction autodetect
-  # Overriding fftw completely causes a mass rebuild!
-  fftwOpt = fftw.overrideDerivation ( oldAttrs: {
-    configureFlags = oldAttrs.configureFlags
-    ++ [
-      "--enable-avx"
-      "--enable-avx2"
-      "--enable-fma"
-      "--enable-avx-128-fma"
-    ];
-    buildInputs = [ self.gfortran ];
-  });
-
-  # For molcas and chemps2
-  hdf5-full = hdf5.override {
-    cpp = true;
-    inherit gfortran;
-  };
-
-  # Define an ILP64 blas/lapack
-  # This is still missing upstream
-  blas-i8 = super.blas.override { isILP64 = true; };
-  lapack-i8 = super.lapack.override { isILP64 = true; };
-
-  ### HPC libs and Tools
-
-  hwloc-x11 = super.hwloc.override { x11Support= true; };
-
-  mt-dgemm = callPackage ./mt-dgemm { };
-
-  libcint = callPackage ./libcint { };
-
-  libint2 = callPackage ./libint { optAVX = cfg.optAVX; };
-
-  # Needed for CP2K
-  libint1 = callPackage ./libint/1.nix { };
-
-
-  # libint configured for bagel
-  # See https://github.com/evaleev/libint/wiki#bagel
-  libint-bagel = callPackage ./libint { cfg = [
-    "--enable-eri=1"
-    "--enable-eri3=1"
-    "--enable-eri2=1"
-    "--with-max-am=6"
-    "--with-eri3-max-am=6"
-    "--with-eri2-max-am=6"
-    "--disable-unrolling"
-    "--enable-generic-code"
-    "--with-cartgauss-ordering=bagel"
-    "--enable-contracted-ints"
-  ] ++ lib.optional cfg.optAVX "--enable-fma"
-  ;};
-
-  libxsmm = callPackage ./libxsmm { optAVX = cfg.optAVX; };
-
-  mvapich = callPackage ./mvapich { };
-
-  openshmem = callPackage ./openshmem { };
-
-  openshmem-smp = self.openshmem;
-
-  openshmem-udp = callPackage ./openshmem { conduit="udp"; };
-
-  openshmem-ibv = callPackage ./openshmem { conduit="ibv"; };
-
-  openshmem-ofi = callPackage ./openshmem { conduit="ofi"; };
-
-  osss-ucx = callPackage ./osss-ucx { };
-
-  sos = callPackage ./sos { };
-
-  spglib = callPackage ./spglib {};
-
-  stream-benchmark = callPackage ./stream { };
-
-  # Utilities
-  writeScriptSlurm = callPackage ./builders/slurmScript.nix {};
-
-  slurm-tools = callPackage ./slurm-tools {};
-
-  # A wrapper to enforce license checkouts with slurm
-  slurmLicenseWrapper = callPackage ./builders/licenseWrapper.nix { };
-
-  # build bats tests
-  batsTest = callPackage ./builders/batsTest.nix { };
-
-  # build a benchmark script
-  benchmarkScript = callPackage ./builders/benchmark.nix { };
-
-  # benchmark set builder
-  qc-benchmarks = callPackage ./benchmark/default.nix { };
-
-  qc-benchmarksets = callPackage ./tests/benchmark-sets.nix { };
-
-  qc-tests = {
-    molpro = callPackage ./tests/molpro { };
-    cp2k = callPackage ./tests/cp2k { };
-    bagel = callPackage ./tests/bagel { };
-    bagel-bench = callPackage ./tests/bagel/bench-test.nix { };
-    hpcg = callPackage ./tests/hpcg { };
-    hpl = callPackage ./tests/hpl { };
-    mesa-qc = callPackage ./tests/mesa { };
-    molcas = callPackage ./tests/molcas { };
-    molcasUnstable = callPackage ./tests/molcas { molcas=self.molcasUnstable; };
-    nwchem = callPackage ./tests/nwchem { };
-    qdng = callPackage ./tests/qdng { };
-    dgemm = callPackage ./tests/dgemm { };
-    stream = callPackage ./tests/stream { };
-  };
-
-  qc-testFiles = let
-    batsDontRun = self.batsTest.override { overrideDontRun = true; };
-  in builtins.mapAttrs (n: v: v.override { batsTest = batsDontRun; })
-    self.qc-tests;
-}

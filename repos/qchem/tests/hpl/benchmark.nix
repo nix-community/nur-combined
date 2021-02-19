@@ -1,4 +1,4 @@
-{ callPackage, lib, qc-tests
+{ callPackage, lib, tests
 , hpl # this should be the same as in the test !!!
 } :
 
@@ -16,7 +16,7 @@
 assert P * Q == tasks;
 
 callPackage ../../builders/benchmark.nix {
-  test = qc-tests.hpl;
+  test = tests.hpl;
 
 
   setupPhase = ''

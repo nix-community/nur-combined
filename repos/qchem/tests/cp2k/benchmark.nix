@@ -1,4 +1,4 @@
-{ callPackage, qc-tests } :
+{ callPackage, tests } :
 
 {
   threads ? 1,
@@ -6,7 +6,7 @@
 } :
 
 callPackage ../../builders/benchmark.nix {
-  test = qc-tests.cp2k;
+  test = tests.cp2k;
   subtests = [ "dbcsr" "bench_dftb" "H2O-gga" ];
   setupPhase = ''
     export TEST_NUM_CPUS=${toString tasks}

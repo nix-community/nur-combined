@@ -1,4 +1,4 @@
-{ stdenv, pkgs, fetchFromGitHub, which, openssh, gcc, gfortran, perl
+{ lib, stdenv, pkgs, fetchFromGitHub, which, openssh, gcc, gfortran, perl
 , mpi, blas, lapack, python, tcsh, bash
 , automake, autoconf, libtool, makeWrapper
 } :
@@ -90,7 +90,7 @@ in stdenv.mkDerivation {
 
     echo "ROOT: $NWCHEM_TOP"
     make nwchem_config
-    ${stdenv.lib.optionalString (!blas.isILP64) "make 64_to_32"}
+    ${lib.optionalString (!blas.isILP64) "make 64_to_32"}
   '';
 
   postBuild = ''
@@ -169,7 +169,7 @@ in stdenv.mkDerivation {
     grep "Total SCF energy" h2o.out  | grep 76.010538
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Open Source High-Performance Computational Chemistry";
     platforms = [ "x86_64-linux" ];
     maintainers = [ maintainers.markuskowa ];

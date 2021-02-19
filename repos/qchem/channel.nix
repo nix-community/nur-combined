@@ -4,9 +4,16 @@
 { overlays ? [], ... }@args :
 
 let
-  lib = import ./nixpkgs/lib;
+  lib = import ./lib;
   args' = lib.filterAttrs (n: v: n != "overlays") args;
 
-in import ./nixpkgs ({
-  overlays = overlays ++ [ (import ./NixOS-QChem) ];
-} // args' )
+  createPkgs = src: overlay: import src ({
+    overlays = overlay;
+  } // args' );
+
+  composePkgs = src:
+    createPkgs src overlays //
+    { qchem = (createPkgs src (overlays ++ [ (import ./NixOS-QChem) ])).qchem; };
+
+in composePkgs ./nixpkgs-default.nix
+

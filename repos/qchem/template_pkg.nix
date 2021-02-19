@@ -1,4 +1,4 @@
-{ stdenv } :
+{ stdenv, lib } :
 let
   version = "";
 in stdenv.mkDerivation {
@@ -11,7 +11,7 @@ in stdenv.mkDerivation {
   nativeBuildInputs = [ ];
   buildInputs = [ ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "";
     homepage = https://;
     license = licenses.;

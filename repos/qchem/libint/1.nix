@@ -1,9 +1,9 @@
-{ stdenv, fetchurl, autoreconfHook
+{ lib, stdenv, fetchurl, autoreconfHook
 , doxygen, texlive, python, perl, gmpxx, mpfr, boost
 , maxAm ? 6
 } :
 assert
-  stdenv.lib.asserts.assertMsg
+  lib.asserts.assertMsg
   (maxAm <= 7 && maxAm >= 1)
   "The maximum angular momentum must be in the interval between 1 and 7";
 
@@ -37,7 +37,7 @@ in stdenv.mkDerivation {
     "--with-libderiv-max-am1=${toString (maxAm - 1)}"
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions";
     homepage = https://github.com/evaleev/libint;
     license = licenses.lgpl3;

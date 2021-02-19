@@ -25,6 +25,8 @@
 # UCX fails in sandbox
 , OMPI_MCA_btl ? "self,vader"
 , OMPI_MCA_pml ? "ob1,v,cm"
+# Needed to run MPICH in a sandbox
+, HYDRA_IFACE ? "lo"
 # Place all inputs (packages here)
 , nativeBuildInputs ? []
 , ...
@@ -40,6 +42,7 @@ let
     "OMPI_MCA_rmaps_base_oversubscribe"
     "OMPI_MCA_btl"
     "OMPI_MCA_pml"
+    "HYDRA_IFACE"
   ];
 
   batsTest = writeTextFile {
@@ -54,6 +57,7 @@ let
         if [ -z "$TEST_NUM_CPUS" ]; then
           TEST_NUM_CPUS=${toString numCpus}
         fi
+
         ${setupScript}
         SECONDS=0
       }
@@ -78,6 +82,7 @@ in stdenvNoCC.mkDerivation ({
   inherit
     name
     auxFiles
+    HYDRA_IFACE
     OMP_NUM_THREADS
     OMPI_MCA_rmaps_base_oversubscribe;
 

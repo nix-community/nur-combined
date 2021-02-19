@@ -1,8 +1,8 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool
 , pkgconfig, pmix, ucx, numactl, libbfd, libiberty, perl } :
 
 let
-  version = "1.0";
+  version = "1.0.2";
 
 in stdenv.mkDerivation {
   name = "osss-ucx-${version}";
@@ -11,7 +11,7 @@ in stdenv.mkDerivation {
     owner = "openshmem-org";
     repo = "osss-ucx";
     rev = "v${version}";
-    sha256 = "0difh5j6b82mpbzdylmzf948w1pxvnrc9x047hgr720d283c7326";
+    sha256 = "0nialkl70l9f68znbsi76gvy52s6g098zm328xla0i7j035h3y7a";
   };
 
   nativeBuildInputs = [ autoconf automake libtool pkgconfig ];
@@ -32,11 +32,11 @@ in stdenv.mkDerivation {
     sed -i 's:g++:${stdenv.cc}/bin/g++:' $out/bin/oshc++
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "";
-    homepage = https://;
+    homepage = "http://www.openshmem.org";
     license = licenses.bsd3;
-    maintainers = [  ];
+    maintainers = [ maintainers.markuskowa ];
     platforms = platforms.linux;
   };
 }

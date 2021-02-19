@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, gfortran
+{ lib, stdenv, fetchFromGitHub, cmake, gfortran
 # Dependencies
 , blas
 , lapack
@@ -11,7 +11,7 @@
 , sha256 ? "0jcvl3chni4f0hddx9blaia3kccfqx7cszrwavp0a35d42n0x5i2"
 }:
 assert
-  stdenv.lib.asserts.assertMsg
+  lib.asserts.assertMsg
   (!blas.isILP64)
   "32 bit integer BLAS implementation required.";
 
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       "format"
     ];
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "Parallel implementation of the Effective Fragment Potential Method";
       homepage = "https://github.com/ilyak/libefp";
       license = licenses.bsd3;

@@ -1,4 +1,4 @@
-{ stdenv, requireFile, makeWrapper
+{ lib, stdenv, requireFile, makeWrapper
 , glib, xorg, zlib, freetype, fontconfig
 } :
 let
@@ -10,6 +10,7 @@ in stdenv.mkDerivation {
   src = requireFile {
     name = "gv-6016-Linux-x86_64.tbz";
     sha256 = "0f4ngf3d2qz58g7qsqp9jwsmv0iv5n6s3cq8ld1kwxl1ikgsimjx";
+    message = "Please aquire a licensed copy of Gaussview ${version} and it to the nix store";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -41,13 +42,13 @@ in stdenv.mkDerivation {
 
   preFixup =
   let
-    libPathEXE = stdenv.lib.makeLibraryPath [
+    libPathEXE = lib.makeLibraryPath [
       stdenv.cc.cc.lib
       glib.out
       xorg.libXext
       xorg.libX11
     ];
-    libPathQt = stdenv.lib.makeLibraryPath [
+    libPathQt = lib.makeLibraryPath [
       stdenv.cc.cc.lib
       freetype
       fontconfig
@@ -71,7 +72,7 @@ in stdenv.mkDerivation {
 
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "GUI for the Gaussian quantum chemistry software package";
     homepage = http://gaussian.com/gaussian16/;
     license = licenses.unfree;

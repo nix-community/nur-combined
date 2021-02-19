@@ -1,4 +1,4 @@
-{ stdenv, requireFile, autoPatchelfHook, makeWrapper
+{ lib, stdenv, requireFile, autoPatchelfHook, makeWrapper
 , openmpi, openssh
 } :
 
@@ -12,6 +12,7 @@ in stdenv.mkDerivation {
   src = requireFile {
     name = "orca_4_2_0_linux_x86-64_shared_openmpi314.tar.xz";
     sha256 = "1qi2irp79lndj256cp8dkx46wan090741xwal7jk4lhswik68281";
+    message = "Please get a copy of orca-${version} from https://orcaforum.kofo.mpg.de (it's free).";
   };
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
@@ -61,7 +62,7 @@ in stdenv.mkDerivation {
     grep "FINAL SINGLE POINT ENERGY" log | grep 74.880174
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Ab initio quantum chemistry program package";
     homepage = "https://orcaforum.kofo.mpg.de/";
     license = licenses.unfree;

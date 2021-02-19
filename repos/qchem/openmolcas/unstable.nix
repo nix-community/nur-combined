@@ -1,4 +1,4 @@
-{ stdenv, pkgs, fetchFromGitLab, fetchpatch, cmake, gfortran, perl
+{ lib, stdenv, pkgs, fetchFromGitLab, fetchpatch, cmake, gfortran, perl
 , openblas, hdf5-cpp, python3, texLive
 , armadillo, mpi ? pkgs.openmpi, globalarrays, openssh
 , makeWrapper, fetchFromGitHub
@@ -25,7 +25,7 @@ in stdenv.mkDerivation {
     owner = "Molcas";
     repo = "OpenMolcas";
     rev = gitLabRev;
-    sha256 = "08h7akv2rn6a2vq3as83mc495bkyswzgshwpx25cvy9gvqbzrr4p";
+    sha256 = "1winmsrk1g0a46vhjmk6gji7pwmkxan8g5f3r76savrdc9z6ys9l";
   };
 
   prePatch = ''
@@ -58,7 +58,7 @@ in stdenv.mkDerivation {
     "-DFDE=ON"
     "-DWFA=ON"
     "-DCTEST=ON"
-  ] ++ (if (builtins.parseDrvName openblas.name).name == "mkl" then [ "-DMKLROOT=${openblas}" ] else  [ "-DOPENBLASROOT=${openblas}" ]);
+  ] ++ (if (builtins.parseDrvName openblas.name).name == "mkl" then [ "-DMKLROOT=${openblas}" ] else  [ "-DOPENBLASROOT=${openblas.dev}" ]);
 
   GAROOT=globalarrays;
 
@@ -114,7 +114,7 @@ in stdenv.mkDerivation {
     make test
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Quantum chemistry software package";
     homepage = https://gitlab.com/Molcas/OpenMolcas;
     maintainers = [ maintainers.markuskowa ];

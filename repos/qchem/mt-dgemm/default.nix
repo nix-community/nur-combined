@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, blas } :
+{ lib, stdenv, fetchurl, blas } :
 
 assert (!blas.isILP64);
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     cp mt-dgemm $out/bin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Simple matrix multiplication performance test";
     platforms = platforms.all;
     homepage = "https://portal.nersc.gov/project/m888/apex/";

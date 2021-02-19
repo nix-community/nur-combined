@@ -1,4 +1,4 @@
-{ stdenv, requireFile, perl, tcl-8_5, tk-8_5, netcdf
+{ lib, stdenv, requireFile, perl, tcl-8_5, tk-8_5, netcdf
 , libGL_driver, libGLU, xorg, fltk, vrpn, flex, bison
 } :
 
@@ -34,7 +34,7 @@ let
 
     enableParallelBuilding = false;
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       inherit homepage;
       description = "Molecular dyanmics visualisation program";
       license = licenses.unfree;
@@ -88,7 +88,7 @@ in stdenv.mkDerivation {
   enableParallelBuilding = true;
 
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit homepage;
     description = "Molecular dynamics visualisation program";
     license = licenses.unfree;
