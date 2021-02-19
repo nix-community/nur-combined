@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "http://fuse.superglue.se/aamath/";
     license = licenses.gpl2Only;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }

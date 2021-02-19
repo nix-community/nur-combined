@@ -70,6 +70,7 @@ lib.makeScope newScope (
     gpxsee-maps = callPackage ./data/maps/gpxsee-maps { };
     vlasenko-maps = callPackage ./data/maps/vlasenko-maps { };
     maptourist = callPackage ./data/maps/maptourist { };
+    meridian = callPackage ./data/maps/meridian { };
     mtk-suomi = callPackage ./data/maps/mtk-suomi { };
     opentopomap = callPackage ./data/maps/opentopomap { };
     qmapshack-onlinemaps = callPackage ./data/maps/qmapshack-onlinemaps { };
@@ -88,13 +89,6 @@ lib.makeScope newScope (
     goldendict-dark-theme =
       callPackage ./data/themes/goldendict-themes/dark-theme.nix { };
     qtpbfimageplugin-styles = callPackage ./data/themes/qtpbfimageplugin-styles { };
-
-    ### DEVELOPMENT / TOOLS
-
-    gef = callPackage ./development/tools/gef { };
-    how-to-use-pvs-studio-free = callPackage ./development/tools/pvs-studio/how-to-use-pvs-studio-free.nix { };
-    pvs-studio = callPackage ./development/tools/pvs-studio { };
-    xtr = callPackage ./development/tools/xtr { };
 
     ### DEVELOPMENT / LIBRARIES
 
@@ -135,11 +129,7 @@ lib.makeScope newScope (
 
     ### TOOLS
 
-    aamath = callPackage ./tools/text/aamath { };
-    csvquote = callPackage ./tools/text/csvquote { };
-    csvtools = callPackage ./tools/text/csvtools { };
     datamaps = callPackage ./tools/geo/datamaps { };
-    docx2csv = callPackage ./tools/text/docx2csv { };
     elevation = callPackage ./tools/geo/elevation {
       click = click-6-7;
     };
@@ -232,11 +222,17 @@ lib.makeScope newScope (
 
     ### MISC
 
+    aamath = callPackage ./misc/aamath { };
     apibackuper = callPackage ./misc/apibackuper { };
     ascii-dash = callPackage ./misc/ascii-dash { };
     cfiles = callPackage ./misc/cfiles { };
+    csvquote = callPackage ./misc/csvquote { };
+    csvtools = callPackage ./misc/csvtools { };
     docker-reg-tool = callPackage ./misc/docker-reg-tool { };
+    docx2csv = callPackage ./misc/docx2csv { };
+    gef = callPackage ./misc/gef { };
     glauth = callPackage ./misc/glauth { };
+    how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
     ht = callPackage ./misc/ht { };
     ish = callPackage ./misc/ish { };
     lazyscraper = callPackage ./misc/lazyscraper { };
@@ -246,8 +242,10 @@ lib.makeScope newScope (
       inherit sources;
     };
     ptunnel = callPackage ./misc/ptunnel { };
+    pvs-studio = callPackage ./misc/pvs-studio { };
     taskcoach = callPackage ./misc/taskcoach { };
     xfractint = callPackage ./misc/xfractint { };
+    xtr = callPackage ./misc/xtr { };
 
     ### NAKARTE
 

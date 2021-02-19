@@ -17,7 +17,7 @@ stdenv.mkDerivation {
     description = "Simple file manager";
     homepage = "https://github.com/afify/sfm";
     license = licenses.isc;
-    platforms = platforms.unix;
+    platforms = platforms.linux;
     maintainers = [ maintainers.sikmir ];
   };
 }
