@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: {
 
-  imports = [ ./nextcloud.nix ./grocy.nix ];
+  imports = [ ./nextcloud.nix ./grocy.nix ./selfoss.nix ];
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
   networking.firewall.allowPing = true;
