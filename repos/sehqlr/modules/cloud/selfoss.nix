@@ -1,4 +1,4 @@
-{ config, pkgs }: {
+{ config, pkgs, ... }: {
     services.selfoss.enable = true;
 
     security.acme.certs."rss.samhatfield.me".email = "hey@samhatfield.me";
