@@ -5,6 +5,7 @@
 , authcaptureproxy
 , backoff
 , beautifulsoup4
+, pytest-asyncio
 , pytestCheckHook
 , wrapt
 }:
@@ -30,10 +31,10 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  checkInputs = [ pytestCheckHook ];
-
-  # TODO: re-enable once resolved upstream
-  disabledTests = [ "test_vehicle_device" ];
+  checkInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/zabuldon/teslajsonpy";
