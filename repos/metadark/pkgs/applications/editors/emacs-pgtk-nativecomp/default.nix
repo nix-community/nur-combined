@@ -11,8 +11,8 @@
   src = fetchFromGitHub {
     owner = "MetaDark";
     repo = "emacs";
-    rev = "1cf25c5a2038d4e79fbb610193ae4ccbc7457f57";
-    hash = "sha256-48d4yeeAbhcR8PHBKIzPIRxLIZAmRT2Tfl/aID9VSu0=";
+    rev = "c22339c9d51b1bc762a837a1b77118f17391d3f0";
+    hash = "sha256-65weT5rpCihCroFL0LSzBSoMLMYkPXdJSc6GQb3QDYQ=";
   };
 
   patches = [ ];
