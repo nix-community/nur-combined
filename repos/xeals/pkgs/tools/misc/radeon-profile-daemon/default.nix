@@ -4,14 +4,15 @@
 
 , qtbase
 , qmake
+, wrapQtAppsHook
 }:
 
 stdenv.mkDerivation rec {
   pname = "radeon-profile-daemon";
   version = "20190603.g06qxq2h";
 
-  nativeBuildInputs = [ qmake ];
   buildInputs = [ qtbase ];
+  nativeBuildInputs = [ qmake wrapQtAppsHook ];
 
   src = (
     fetchFromGitHub {
