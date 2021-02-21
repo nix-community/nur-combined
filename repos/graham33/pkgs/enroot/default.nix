@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , bashInteractive
 , libbsd
@@ -40,7 +41,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "DESTDIR=" "prefix=$(out)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A simple, yet powerful tool to turn traditional container/OS images into unprivileged sandboxes.";
     homepage = "https://github.com/NVIDIA/enroot";
     license = licenses.asl20;
