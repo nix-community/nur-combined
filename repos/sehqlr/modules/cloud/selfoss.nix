@@ -5,7 +5,7 @@
   services.nginx.virtualHosts."rss.samhatfield.me" = {
     addSSL = true;
     enableACME = true;
-    root = "/var/lib/selfoss/public_html";
+    root = "/var/lib/selfoss";
     
     locations = {
       "/" = {
