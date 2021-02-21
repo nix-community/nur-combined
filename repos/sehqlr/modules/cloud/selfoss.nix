@@ -9,7 +9,7 @@
     
     locations = {
       "/" = {
-          index = "index.php";
+          index = "index.php index.html index.htm";
           tryFiles = "$uri /public/$uri /index.php$is_args$args";
       };
       "~ \.php$" = {
@@ -25,8 +25,7 @@
         expires 30d;
       '';
       "~ ^/favicons/.*$".tryFiles = "$uri /data/$uri";
-      "~ ^/thumbnails/.$".tryFiles = "$uri /data/$uri";
-      "~* ^/(data/logs|data/sqlite|config.ini|.ht)".extraConfig = ''
+      "~* ^/(data/logs|data/sqlite|config\.ini|\.ht)".extraConfig = ''
         deny all;
       '';
     };
