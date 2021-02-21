@@ -43,4 +43,7 @@ in rec {
     packageOverrides = pyPackageOverrides;
   };
   python39Packages = python39.pkgs;
+
+  python3 = python38;
+  python3Packages = python38Packages;
 }
