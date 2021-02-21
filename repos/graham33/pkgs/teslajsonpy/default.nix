@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, isPy3k
 , aiohttp
 , authcaptureproxy
 , backoff
@@ -18,6 +19,8 @@ buildPythonPackage rec {
     inherit pname version;
     sha256 = "0sz2zzlr6n62jhbff2fvg4vs8whzsnkhsvpdfpaa9ybdv4kdszxf";
   };
+
+  disabled = !isPy3k;
 
   propagatedBuildInputs = [
     aiohttp

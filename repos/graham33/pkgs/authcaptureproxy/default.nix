@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, isPy3k
 , aiohttp
 , beautifulsoup4
 , importlib-metadata
@@ -26,6 +27,8 @@ buildPythonPackage rec {
     rev = "v${version}";
     sha256 = "1r22k5h35nrqcg128z2jyfa7shkf873d3l813fzfv7869c9msbs9";
   };
+
+  disabled = !isPy3k;
 
   # Lower importlib-metadata requirement and remove entirely Python >= 3.8 since
   # it's built-in (and the code will use the built-in version)
