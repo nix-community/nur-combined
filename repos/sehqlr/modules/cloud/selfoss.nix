@@ -14,9 +14,6 @@
       };
       "~ \.php$" = {
         extraConfig = ''
-          fastgci_intercept_errors on;
-          fastcgi_buffers 16 16k;
-          fastcgi_buffer_size 32k;
           fastcgi_pass unix:${config.services.phpfpm.pools.selfoss_pool.socket};
           include ${pkgs.nginx}/conf/fastcgi_params;
           include ${pkgs.nginx}/conf/fastcgi.conf;
