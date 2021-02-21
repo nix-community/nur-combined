@@ -1,11 +1,12 @@
 { lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
 , aiohttp
 , authcaptureproxy
 , backoff
 , beautifulsoup4
+, buildPythonPackage
+, fetchFromGitHub
+, fetchpatch
+, isPy3k
 , pytest-asyncio
 , pytestCheckHook
 , wrapt
@@ -15,9 +16,11 @@ buildPythonPackage rec {
   pname = "teslajsonpy";
   version = "0.13.0";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "0sz2zzlr6n62jhbff2fvg4vs8whzsnkhsvpdfpaa9ybdv4kdszxf";
+  src = fetchFromGitHub {
+    owner = "zabuldon";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "sha256-HnAk9il9Clcr02+JERMLyKJ3EAzsgnytcVjaPRiVlAQ=";
   };
 
   disabled = !isPy3k;
@@ -35,11 +38,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
+  pythonImportsCheck = [ "teslajsonpy" ];
+
   meta = with lib; {
+    description = "Python library to work with Tesla API";
     homepage = "https://github.com/zabuldon/teslajsonpy";
-    license = licenses.asl20;
-    description = "Async python module for Tesla API primarily for enabling Home-Assistant.";
-    # TODO: maintainer
-    #maintainers = with maintainers; [ graham33 ];
+    license = with licenses; [ asl20 ];
+    maintainers = with maintainers; [ fab ];
   };
 }
