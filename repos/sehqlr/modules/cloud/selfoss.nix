@@ -10,10 +10,11 @@
     locations = {
       "/" = {
           index = "index.php index.html index.htm";
-          tryFiles = "$uri /index.php$is_args$args";
+          tryFiles = "$uri /public/$uri /index.php$is_args$args";
       };
       "~ \.php$" = {
         extraConfig = ''
+          fastcgi_split_path_info ^(.+\.php)(/.+)$;
           fastcgi_pass unix:${config.services.phpfpm.pools.selfoss_pool.socket};
           fastcgi_index index.php;
           fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
@@ -25,6 +26,7 @@
         expires 30d;
       '';
       "~ ^/favicons/.*$".tryFiles = "$uri /data/$uri";
+      "~ ^/thumbnails/.*$".tryFiles = "$uri /data/$uri";
       "~* ^/(data/logs|data/sqlite|config\.ini|\.ht)".extraConfig = ''
         deny all;
       '';
