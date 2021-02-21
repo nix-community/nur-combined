@@ -10,7 +10,7 @@
     locations = {
       "/" = {
           index = "index.php";
-          tryFiles = "$uri /public/$uri /index.php$is_args$args;";
+          tryFiles = "$uri /public/$uri /index.php$is_args$args";
       };
       "~ \.php$" = {
         extraConfig = ''
