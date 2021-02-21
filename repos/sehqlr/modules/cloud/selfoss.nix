@@ -6,7 +6,6 @@
     addSSL = true;
     enableACME = true;
     root = "/var/lib/selfoss/public_html";
-    index = "index.php index.html";
     
     locations = {
       "/" = {
