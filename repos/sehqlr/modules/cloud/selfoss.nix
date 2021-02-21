@@ -15,6 +15,8 @@
       "~ \.php$" = {
         extraConfig = ''
           fastcgi_pass unix:${config.services.phpfpm.pools.selfoss_pool.socket};
+          fastcgi_index index.php;
+          fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
           include ${pkgs.nginx}/conf/fastcgi_params;
           include ${pkgs.nginx}/conf/fastcgi.conf;
         '';
