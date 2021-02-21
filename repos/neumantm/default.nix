@@ -16,5 +16,11 @@
 
   pythonWithPipenv = pkgs.callPackage ./pkgs/pythonWithPipenv { };
   multiEclipse = pkgs.callPackage ./pkgs/multiEclipse { };
+  mumble_ptt_caps_lock_led = pkgs.callPackage ./pkgs/mumble_ptt_caps_lock_led { 
+    buildPythonPackage = pkgs.python38Packages.buildPythonPackage; 
+    fetchPypi = pkgs.python38Packages.fetchPypi;
+    pydbus = pkgs.python38Packages.pydbus;
+    pygobject = pkgs.python38Packages.pygobject3;
+  };
 }
 
