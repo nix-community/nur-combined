@@ -1,4 +1,4 @@
-{ system ? builtins.currentSystem,  pkgs ? import <nixpkgs> { inherit system; } }:
+{ system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; } }:
 
 rec {
   bitwarden_rs_ldap = pkgs.callPackage ./pkgs/bitwarden_rs_ldap { };
@@ -53,7 +53,7 @@ rec {
     inherit (python3Packages) Mastodon;
   };
 
-  mypyls = pkgs.python3.pkgs.callPackage ./pkgs/mypyls {};
+  mypyls = pkgs.python3.pkgs.callPackage ./pkgs/mypyls { };
 
   mosh-ssh-agent = pkgs.callPackage ./pkgs/mosh-ssh-agent { };
 
@@ -82,12 +82,12 @@ rec {
   phpldapadmin = pkgs.callPackage ./pkgs/phpldapadmin { };
 
   python3Packages = pkgs.recurseIntoAttrs (
-    pkgs.python3Packages.callPackage ./pkgs/python-pkgs {}
+    pkgs.python3Packages.callPackage ./pkgs/python-pkgs { }
   );
 
   pyps4-2ndscreen = pkgs.python3.pkgs.toPythonApplication python3Packages.pyps4-2ndscreen;
 
-  rspamd-learn-spam-ham = pkgs.python3.pkgs.callPackage ./pkgs/rspam-learn-spam-ham {};
+  rspamd-learn-spam-ham = pkgs.python3.pkgs.callPackage ./pkgs/rspam-learn-spam-ham { };
 
   rhasspyPackages = import ./pkgs/rhasspy {
     inherit (pkgs.python3Packages) callPackage;

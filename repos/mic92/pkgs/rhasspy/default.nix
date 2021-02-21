@@ -55,7 +55,7 @@
     inherit rhasspy-hermes rhasspy-nlu rhasspy-silence;
   };
 
-  rhasspy-silence = callPackage ./rhasspy-silence {};
+  rhasspy-silence = callPackage ./rhasspy-silence { };
 
   rhasspy-tts-cli-hermes = callPackage ./rhasspy-tts-cli-hermes {
     inherit rhasspy-hermes;
@@ -82,7 +82,7 @@
   };
 
   rhasspy-speakers-cli-hermes = callPackage ./rhasspy-speakers-cli-hermes {
-    inherit rhasspy-hermes wavchunk ;
+    inherit rhasspy-hermes wavchunk;
   };
 
   rhasspy-microphone-cli-hermes = callPackage ./rhasspy-microphone-cli-hermes {

@@ -22,7 +22,8 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-    rhasspy-hermes wavchunk
+    rhasspy-hermes
+    wavchunk
   ];
 
   meta = with lib; {

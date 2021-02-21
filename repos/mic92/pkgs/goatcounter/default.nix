@@ -14,7 +14,8 @@ buildGoModule rec {
   subPackages = [ "cmd/goatcounter" ];
 
   buildFlagsArray = [
-    "-ldflags=" "-X=main.Version=${version}"
+    "-ldflags="
+    "-X=main.Version=${version}"
   ];
 
   postInstall = ''
