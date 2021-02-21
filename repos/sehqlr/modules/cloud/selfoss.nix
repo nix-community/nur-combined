@@ -14,7 +14,6 @@
       };
       "~ \.php$" = {
         extraConfig = ''
-          fastcgi_split_path_info ^(.+\.php)(/.+)$;
           fastcgi_pass unix:${config.services.phpfpm.pools.selfoss_pool.socket};
           fastcgi_index index.php;
           fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
@@ -22,7 +21,7 @@
           include ${pkgs.nginx}/conf/fastcgi.conf;
         '';
       };
-      "~* \ (gif|jpg|png)".extraConfig = ''
+      "~* \\ (gif|jpg|png)".extraConfig = ''
         expires 30d;
       '';
       "~ ^/favicons/.*$".tryFiles = "$uri /data/$uri";
