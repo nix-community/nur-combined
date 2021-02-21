@@ -948,10 +948,10 @@
       };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
-      version = "4.0.5";
+      version = "4.0.6";
       addonId = "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3721009/terms_of_service_didnt_read-4.0.5-fx.xpi";
-      sha256 = "65eda2a568f0bcaf67f70264eb71b94f4dfd151eafdbaca5c8b5f1f6d6ef23c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3730144/terms_of_service_didnt_read-4.0.6-fx.xpi";
+      sha256 = "fd1c57817b35fd2fe698666ddce6dd620eb81089679602ba01517f0f22e1939f";
       meta = with lib;
       {
         homepage = "http://tosdr.org";
