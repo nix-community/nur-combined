@@ -19,6 +19,10 @@ buildPythonPackage rec {
     sha256 = "ab666088d1996e1cc510ff91c9ff00ac14c7304d327d478ad948b3ea0c27668e";
   };
 
+  nativeBuildInputs = [
+    sphinx
+  ];
+
   propagatedBuildInputs = [
     jsonpatch
     netaddr
@@ -26,13 +30,12 @@ buildPythonPackage rec {
     python-dateutil
     requests
     six
-    sphinx # TODO: propagated?
   ];
 
   meta = with lib; {
-    homepage = "https://github.com/pbalogh/fiblary";
+    homepage = "https://github.com/pbalogh77/fiblary";
     license = licenses.asl20;
-    description = "Home Center API Python Library";
+    description = "Fibaro Home Center API Python Library";
     # TODO: maintainer
     #maintainers = with maintainers; [ graham33 ];
   };
