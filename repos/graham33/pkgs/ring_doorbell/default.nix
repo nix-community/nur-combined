@@ -2,7 +2,7 @@
 , buildPythonPackage
 , fetchPypi
 , isPy3k
-, pytest
+, pytestCheckHook
 , pytz
 , requests
 , requests-mock
@@ -11,12 +11,12 @@
 
 buildPythonPackage rec {
   pname = "ring_doorbell";
-  version = "0.7.0";
+  version = "0.6.2";
   disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1qnx9q9rzxhh0pygl3f9bg21b5zv7csv9h1w4zngdvsphbs0yiwg";
+    sha256 = "0q35sji2f4lphlr0hdpzazfbi6rrnyadh1k5q9abicr759r3gmgv";
   };
 
   propagatedBuildInputs = [
@@ -26,15 +26,16 @@ buildPythonPackage rec {
   ];
 
   checkInputs = [
-    pytest
+    pytestCheckHook
     requests-mock
   ];
+
+  pythonImportsCheck = [ "ring_doorbell" ];
 
   meta = with lib; {
     homepage = "https://github.com/tchellomello/python-ring-doorbell";
     description = "A Python library to communicate with Ring Door Bell (https://ring.com/)";
     license = licenses.lgpl2;
-    # TODO: maintainer
     #maintainers = with maintainers; [ graham33 ];
   };
 }
