@@ -6,7 +6,7 @@ on:
     # rebuild everyday at 4:23
     # TIP: Choose a random time here so not all repositories are build at once:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '23 4 * * *'
+    - cron:  '23 4 * * WED'
 jobs:
   tests:
     strategy:
