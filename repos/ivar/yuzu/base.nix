@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''
     rm -f .gitmodules # Trick the configure system. This prevents a check for submodule directories.
-    cmakeFlagsArray=( # https://github.com/NixOS/nixpkgs/issues/114044
-      $cmakeFlagsArray
+    cmakeFlagsArray+=( # https://github.com/NixOS/nixpkgs/issues/114044
       "-DTITLE_BAR_FORMAT_IDLE=\"yuzu ${branchName} ${version}\""
       "-DTITLE_BAR_FORMAT_RUNNING=\"yuzu ${branchName} ${version} \| \{3\}\""
     )
