@@ -1,4 +1,4 @@
-{ branch ? "early-access", libsForQt5, fetchFromGitHub }:
+{ branch ? "mainline", libsForQt5, fetchFromGitHub }:
 let
   inherit libsForQt5 fetchFromGitHub;
 in {
