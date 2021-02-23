@@ -64,6 +64,7 @@ in
         alias la="ls -a"
         alias ncdu='${pkgs.ncdu}/bin/ncdu --confirm-quit -x'
         alias sqlite3="${pkgs.rlwrap}/bin/rlwrap sqlite3"
+        alias simbora="git add -A && git commit --amend && git push origin master -f"
       '';
     };
     htop = {
