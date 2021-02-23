@@ -1,5 +1,6 @@
 { lib
 , buildPythonPackage
+, isPy3k
 , fetchPypi
 , jsonpatch
 , netaddr
@@ -13,6 +14,7 @@
 buildPythonPackage rec {
   pname = "fiblary3";
   version = "0.1.8";
+  disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
@@ -34,9 +36,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/pbalogh77/fiblary";
-    license = licenses.asl20;
     description = "Fibaro Home Center API Python Library";
-    # TODO: maintainer
+    license = licenses.asl20;
     #maintainers = with maintainers; [ graham33 ];
   };
 }
