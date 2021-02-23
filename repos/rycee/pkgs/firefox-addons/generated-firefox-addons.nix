@@ -206,10 +206,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.27";
+      version = "4.9.29";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3712931/dark_reader-4.9.27-an+fx.xpi";
-      sha256 = "3388ad0c1e91e9fcb5103df1286bb5df0caf192aaf2a85a34acb046ca96b78a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3730852/dark_reader-4.9.29-an+fx.xpi";
+      sha256 = "5d6d9059ec8d9c59fa7ecc3c421e1146925d978e9197260124797a6309c9b789";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1049,10 +1049,10 @@
       };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
-      version = "1.20.4";
+      version = "1.21.0";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3697894/tridactyl-1.20.4-an+fx.xpi";
-      sha256 = "9e2aba45307612923cbad7a4d4ff8c056883cfd7dc72b4244599ac3bb51e738b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3730868/tridactyl-1.21.0-an+fx.xpi";
+      sha256 = "becf24cbe5e20e3f03a2a8d43de591947ceecd443df1324073275a34e9b366b6";
       meta = with lib;
       {
         homepage = "https://github.com/cmcaine/tridactyl";
