@@ -18,8 +18,7 @@ buildPythonPackage rec {
   };
 
   patches = [
-    # See https://github.com/facelessuser/mkdocs-material-extensions/issues/15
-    ./fix-tests.patch
+    ./mkdocs-material-7.0.0.patch
   ];
 
   checkInputs = [
