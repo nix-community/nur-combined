@@ -1,12 +1,12 @@
 self: super: let
    pkgs = super.callNixPackage ({ pkgs }: pkgs) {};
    pythonSet = pkgs.python3.withPackages (p: with p; [
-      buildPythonPackage
-      buildPythonApplication
       numpy
       flask
       tkinter
       ipython
+      pygit2
+      virtualenvwrapper
    ]);
 in
    {
