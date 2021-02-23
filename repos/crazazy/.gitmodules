@@ -1,6 +1,6 @@
 [submodule "dep/depot"]
 	path = dep/depot
-	url = https://code.tvl.fyi
+	url = https://cl.tvl.fyi/depot
 [submodule "dep/emacs"]
 	path = dep/emacs
 	url = https://github.com/crazazy/emacs
