@@ -8,6 +8,6 @@ let
 
   inherit (import <nixpkgs/nixos/lib/testing-python.nix> { inherit system pkgs extraConfigurations; }) makeTest;
 
-  input = if pkgs.lib.isFunction f then f (args // { inherit pkgs;inherit (pkgs) lib; }) else f;
+  input = if pkgs.lib.isFunction f then f (args // { inherit pkgs; inherit (pkgs) lib; }) else f;
 in
 makeTest input

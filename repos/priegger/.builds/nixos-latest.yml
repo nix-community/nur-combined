@@ -1,8 +1,8 @@
 image: nixos/latest
 packages:
   - unstable.cachix
-  - nixos.nixpkgs-fmt
-  - nixos.shellcheck
+  - unstable.nixpkgs-fmt
+  - unstable.shellcheck
 repositories:
   unstable: https://nixos.org/channels/nixpkgs-unstable
 sources:

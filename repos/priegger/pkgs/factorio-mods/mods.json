@@ -534,10 +534,10 @@
   },
   {
     "name": "Companion_Drones",
-    "version": "1.0.19",
-    "file_name": "Companion_Drones_1.0.19.zip",
-    "download_url": "/download/Companion_Drones/60255a1a649c4200c2c0a550",
-    "sha1": "99fbc3ab08dcf3dd6c34049e1b13676e97c8f4ed",
+    "version": "1.0.21",
+    "file_name": "Companion_Drones_1.0.21.zip",
+    "download_url": "/download/Companion_Drones/6033d92ef71aa90f85430584",
+    "sha1": "0c7a5274788970b91113d0e62555e7f462659118",
     "dependencies": [
       "base >= 1.1.5",
       "(?)alien-biomes",
@@ -706,10 +706,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "8.0.1",
-    "file_name": "reverse-factory_8.0.1.zip",
-    "download_url": "/download/reverse-factory/5ff51c3631fbb7de16e5b626",
-    "sha1": "5a8581bf5decca654d9824d94ddb34a42cbcc745",
+    "version": "8.0.2",
+    "file_name": "reverse-factory_8.0.2.zip",
+    "download_url": "/download/reverse-factory/602dc141d8e353d48f8e9dc1",
+    "sha1": "e78a8bdacf85a2a9bf9ecaf256bd64a5eeae79a4",
     "dependencies": [
       "base",
       "stdlib",
