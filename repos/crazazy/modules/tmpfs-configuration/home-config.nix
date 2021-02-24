@@ -1,6 +1,7 @@
 { pkgs, config, lib, ... }:
 let
-  inherit (pkgs.sources) impermanence home-manager;
+  sources = import ../../nix/sources.nix;
+  inherit (sources) impermanence home-manager;
 in
 with lib;
 {
@@ -8,7 +9,7 @@ with lib;
     "${home-manager.outPath}/nixos"
   ];
   config = mkIf config.tmpfs-setup.enable {
-     home-manager.users.${mainUser} = { pkgs,  ...}: {
+     home-manager.users.${config.mainUser} = { pkgs,  ...}: {
        imports = [ 
          "${impermanence}/home-manager.nix" 
        ];

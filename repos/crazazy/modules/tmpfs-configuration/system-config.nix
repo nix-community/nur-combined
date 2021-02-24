@@ -1,6 +1,7 @@
 { pkgs, config, lib, ... }:
 let
-  inherit (pkgs.sources) impermanence;
+  sources = import ../../nix/sources.nix;
+  inherit (sources) impermanence;
 in
 with lib;
 {

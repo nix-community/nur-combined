@@ -12,7 +12,7 @@ with lib;
       ../packages-configuration
       ../vim-configuration
       # impermanences also belongs here i think
-      # ../tmpfs-configuration
+      ../tmpfs-configuration
     ];
 
   # main user option

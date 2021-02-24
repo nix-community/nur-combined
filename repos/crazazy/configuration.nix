@@ -6,4 +6,5 @@
     ./modules/desktop-configuration
     ./modules/users-configuration
   ];
+  tmpfs-setup.enable = builtins.pathExists "/nix/persist";
 }
