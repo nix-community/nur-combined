@@ -37,7 +37,6 @@ in stdenv.mkDerivation rec {
 
   patches = [
     ./log.patch # Without this, Ryujinx attempts to write logs to the nix store. This patch makes it write to "~/.config/Ryujinx/Logs" on Linux.
-    ./disable-updater.patch # This disables the auto-updater, which does not work as it attempts to modify the nix store.
   ];
 
   configurePhase = ''
