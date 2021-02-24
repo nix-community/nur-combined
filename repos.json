@@ -312,6 +312,9 @@
         "nprindle": {
             "url": "https://github.com/nprindle/nur-packages"
         },
+        "ondt": {
+            "url": "https://github.com/ondt/nur-packages"
+        },
         "onny": {
             "url": "https://git.project-insanity.org/onny/nur-packages"
         },
