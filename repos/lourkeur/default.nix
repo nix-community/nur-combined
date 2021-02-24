@@ -18,4 +18,5 @@ rec {
 
   mars-simulator = pkgs.callPackage pkgs/mars-simulator {};
 
+  teck-programmer = pkgs.callPackage pkgs/teck-programmer {};
 }
