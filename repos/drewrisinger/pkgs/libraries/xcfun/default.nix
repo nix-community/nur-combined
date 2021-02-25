@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , fetchpatch
 , cmake
@@ -39,7 +40,7 @@ stdenv.mkDerivation rec {
   # Add xcfun library in build dir to library path for ctest to find
   preCheck = "export LD_LIBRARY_PATH=$(pwd)/$out/lib:$LD_LIBRARY_PATH";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Exchange-correlation functionals with arbitrary order derivatives";
     homepage = "https://xcfun.readthedocs.io/en/latest/";
     downloadPage = "https://github.com/dftlibs/xcfun/releases";
