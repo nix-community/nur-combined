@@ -13,14 +13,14 @@
 
 buildPythonPackage rec {
   pname = "qutip";
-  version = "4.5.2";
+  version = "4.5.3";
   disabled = pythonOlder "3.5";
 
   src = fetchFromGitHub {
     owner = "qutip";
     repo = "qutip";
     rev = "v${version}";
-    sha256 = "107jgkrhh6kwvcskx59jys5kf31jrwg1cdzd2b651hh3yhndh91r";
+    sha256 = "0wl06ill14k05gr35qkm87wagmz8mgar3r9y5ajmjyq7w70hrpfi";
   };
 
   propagatedBuildInputs = [
