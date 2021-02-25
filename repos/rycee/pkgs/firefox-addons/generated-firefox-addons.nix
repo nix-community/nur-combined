@@ -177,20 +177,6 @@
         platforms = platforms.all;
         };
       };
-    "dark-night-mode" = buildFirefoxXpiAddon {
-      pname = "dark-night-mode";
-      version = "2.0.2";
-      addonId = "{27c3c9d8-95cd-44e6-ae9c-ff537348b9f3}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/932525/dark_night_mode-2.0.2-an+fx.xpi";
-      sha256 = "8ee966c8bda37c5b2d9cb08d8801eedcfc5ba39959f78bb57d84bc0ab489bfbd";
-      meta = with lib;
-      {
-        homepage = "https://darknightmode.com";
-        description = "It is a universal night mode for the entire Internet. It uses a special algorithm to automatically change the colors of the websites you visit into dark mode so that you can browse without straining your eyes, especially at night.";
-        license = licenses.gpl3;
-        platforms = platforms.all;
-        };
-      };
     "dark-scroll-for-tweetdeck" = buildFirefoxXpiAddon {
       pname = "dark-scroll-for-tweetdeck";
       version = "2.0.0";
