@@ -19,6 +19,7 @@ with lib;
            ".ssh"
            ".irssi"
            ".wine"
+           ".mozilla"
            "workbench"
            "Documents"
            "Pictures"
@@ -34,6 +35,7 @@ with lib;
          files = [
            ".gitconfig"
            ".fehbg"
+           ".inputrc"
            ".profile"
            ".bashrc"
          ];
