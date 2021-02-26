@@ -32,8 +32,6 @@ rec {
 
   rustfilt = pkgs.callPackage ./pkgs/rustfilt {};
 
-  mmtc = pkgs.callPackage ./pkgs/mmtc {};
-
   warctools = pkgs.python3Packages.callPackage ./pkgs/warctools {
     setuptools = pkgs.python3Packages.setuptools;
   };
