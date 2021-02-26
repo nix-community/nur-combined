@@ -56,14 +56,14 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "yabridge";
-  version = "3.0.0";
+  version = "3.0.1";
 
   # NOTE: Also update yabridgectl's cargoSha256 when this is updated
   src = fetchFromGitHub {
     owner = "robbert-vdh";
     repo = pname;
     rev = version;
-    hash = "sha256-dwlHoQmO7W2NhqH0lHJcKWxosD4Xip8LTiSKNi2UR0E=";
+    hash = "sha256-BT8Qj8WvyRlBwSuIIlfWVhlG3RSv2sFnSskCcjPF/N0=";
   };
 
   # Unpack subproject sources
