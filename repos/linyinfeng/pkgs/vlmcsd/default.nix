@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gzip, exa }:
+{ stdenv, lib, fetchFromGitHub, gzip, exa }:
 
 stdenv.mkDerivation rec {
   pname = "vlmcsd";
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "KMS Emulator in C.";
     homepage = "https://github.com/Wind4/vlmcsd";
   };

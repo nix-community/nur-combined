@@ -1,28 +1,28 @@
-{ system, stdenv, fetchurl }:
+{ system, stdenv, lib, fetchurl }:
 let
   clashSystems = {
     "aarch64-linux" = {
       system = "linux-armv8";
-      sha256 = "1p1sh1vxv95x5wcg8536ymvy7lw1kyphi26mpz1m54k3b1hmzj97";
+      sha256 = "0l1ml5yxnd7ccfhlwcmxxc8wp93gxq8pkc1xh261mr7adbk4sw23";
     };
     "i686-linux" = {
       system = "linux-386";
-      sha256 = "1r5bgngcw6n66cxjzklin79zaqlkjd5wjmgp4shf2flk6qcifkc2";
+      sha256 = "01r2fqkqk5q5yg084dhi0hbh1nw01rczyd76aac7h2jp9fkyc9cp";
     };
     "x86_64-darwin" = {
       system = "darwin-amd64";
-      sha256 = "02nrz6m14zm5lkwi39czbyix3aj4lsw4bvq33i3g9g4482bx8mn5";
+      sha256 = "1qzh4scf91fkbs69wyw51zm8nzvvwdx4qii4b2yjc264x3fh6ajj";
     };
     "x86_64-linux" = {
       system = "linux-amd64";
-      sha256 = "1fxld2f9ki8yg423h4fbl5shr09j85kn6kkby8b5ngkk3585b48y";
+      sha256 = "0c6khiybakhvlizg53yfjfd9jylks7xdzswwpdfg7mk8wjvpp3wn";
     };
   };
   clashSystem = clashSystems.${system};
 in
 stdenv.mkDerivation rec {
   pname = "clash-premium";
-  version = "2020.12.27";
+  version = "2021.02.21";
 
   src = fetchurl {
     url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-${clashSystem.system}-${version}.gz";
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/clash-premium
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = https://github.com/Dreamacro/clash;
     description = "Close-sourced pre-built Clash binary with TUN support and more";
     license = licenses.unfree;
