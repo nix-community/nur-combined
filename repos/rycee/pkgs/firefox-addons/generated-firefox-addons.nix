@@ -49,10 +49,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.4.1";
+      version = "0.4.1.1";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3726075/auto_tab_discard-0.4.1-an+fx.xpi";
-      sha256 = "f481d8637164b8f78ae22eb6e6cd96828c87114946f53663edf2701a70ebefad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3732237/auto_tab_discard-0.4.1.1-an+fx.xpi";
+      sha256 = "8b4499c10c6239382e2f80fc6e24196a231db39ef3cee3dc11544ce46501d87d";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -810,10 +810,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.2.19";
+      version = "21.2.23";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3729872/refined_github-21.2.19-an+fx.xpi";
-      sha256 = "58c199ce2482629c2187bbe098d884d4cc0ae4b463011340e02879f6ff98aedf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3731533/refined_github-21.2.23-an+fx.xpi";
+      sha256 = "3d65ae08b7c330cce9dc99bddfc24c243bd855a01385644adf011059f91731eb";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -824,10 +824,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "25.2";
+      version = "25.3";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3711952/save_page_we-25.2-fx.xpi";
-      sha256 = "66f6e5d92ee4afdd911e38f77775c7ed5f3a96ae9576fab7980e37b1aafecf26";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3732590/save_page_we-25.3-fx.xpi";
+      sha256 = "7498202babe73dd0a1de260a1844425ef7963774433fc0e1b4cdb276409ad036";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -879,10 +879,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.15";
+      version = "1.5.17";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3720616/stylus-1.5.15-fx.xpi";
-      sha256 = "7ec38df487988ec09c6ceab84ff5c30d61274432596ad738450a9236f8ab073c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3732726/stylus-1.5.17-fx.xpi";
+      sha256 = "6d0d770c7ebf8938533eec7d55952d0845df3c47b1783a23b4f513e6cae58f09";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
