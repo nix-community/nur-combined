@@ -337,13 +337,13 @@ let
         sha512 = "CJ6n7izLFXLvPZaWzCQDjU/RP+vHiZmWdOunaCS87v+2jxMsW9FB5ktfIxybRBxZjxuJGRnxk7xJecWTVxFUYQ==";
       };
     };
-    "@octokit/openapi-types-5.1.1" = {
+    "@octokit/openapi-types-5.2.0" = {
       name = "_at_octokit_slash_openapi-types";
       packageName = "@octokit/openapi-types";
-      version = "5.1.1";
+      version = "5.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@octokit/openapi-types/-/openapi-types-5.1.1.tgz";
-        sha512 = "yMyaX9EDWCiyv7m85/K8L7bLFj1wrLdfDkKcZEZ6gNmepSW5mfSMFJnYwRINN7lF58wvevKPWvw0MYy6sxcFlQ==";
+        url = "https://registry.npmjs.org/@octokit/openapi-types/-/openapi-types-5.2.0.tgz";
+        sha512 = "MInMij2VK5o96Ei6qaHjxBglSZWOXQs9dTZfnGX2Xnr2mhA+yk9L/QCH4RcJGISJJCBclLHuY3ytq+iRgDfX7w==";
       };
     };
     "@octokit/plugin-paginate-rest-2.10.0" = {
@@ -418,13 +418,13 @@ let
         sha512 = "UZ1pErDue6bZNjYOotCNveTXArOMZQFG6hKJfOnGnulVCMcVVi7YIIuuR4WfBhjo7zgpmzn/BkPDnUXtNx+PcQ==";
       };
     };
-    "@octokit/types-6.10.1" = {
+    "@octokit/types-6.11.0" = {
       name = "_at_octokit_slash_types";
       packageName = "@octokit/types";
-      version = "6.10.1";
+      version = "6.11.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@octokit/types/-/types-6.10.1.tgz";
-        sha512 = "hgNC5jxKG8/RlqxU/6GThkGrvFpz25+cPzjQjyiXTNBvhyltn2Z4GhFY25+kbtXwZ4Co4zM0goW5jak1KLp1ug==";
+        url = "https://registry.npmjs.org/@octokit/types/-/types-6.11.0.tgz";
+        sha512 = "RMLAmpPZf/a33EsclBazKg02NCCj4rC69V9sUgf0SuWTjmnBD2QC1nIVtJo7RJrGnwG1+aoFBb2yTrWm/8AS7w==";
       };
     };
     "@protobufjs/aspromise-1.1.2" = {
@@ -3532,13 +3532,13 @@ let
         sha512 = "vafcv6KjVZKSgz06oM/H6GDBrAtz8vdhQakGjFIvNrHA6y3HCF1CInLy+QLq8dTJPQ1b+KDUqDFctkdRW44e1w==";
       };
     };
-    "string-width-4.2.0" = {
+    "string-width-4.2.1" = {
       name = "string-width";
       packageName = "string-width";
-      version = "4.2.0";
+      version = "4.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/string-width/-/string-width-4.2.0.tgz";
-        sha512 = "zUz5JD+tgqtuDjMhwIg5uFVV3dtqZ9yQJlZVfq4I01/K5Paj5UHj7VyrQOJvzawSVlKpObApbfD0Ed6yJc+1eg==";
+        url = "https://registry.npmjs.org/string-width/-/string-width-4.2.1.tgz";
+        sha512 = "LL0OLyN6AnfV9xqGQpDBwedT2Rt63737LxvsRxbcwpa2aIeynBApG2Sm//F3TaLHIR1aJBN52DWklc06b94o5Q==";
       };
     };
     "string.prototype.trimend-1.0.4" = {
@@ -4114,26 +4114,26 @@ in
       sources."@kwsites/promise-deferred-1.1.1"
       (sources."@octokit/auth-token-2.4.5" // {
         dependencies = [
-          sources."@octokit/types-6.10.1"
+          sources."@octokit/types-6.11.0"
         ];
       })
       sources."@octokit/core-2.5.4"
       (sources."@octokit/endpoint-6.0.11" // {
         dependencies = [
-          sources."@octokit/types-6.10.1"
+          sources."@octokit/types-6.11.0"
           sources."universal-user-agent-6.0.0"
         ];
       })
       (sources."@octokit/graphql-4.6.0" // {
         dependencies = [
-          sources."@octokit/types-6.10.1"
+          sources."@octokit/types-6.11.0"
           sources."universal-user-agent-6.0.0"
         ];
       })
-      sources."@octokit/openapi-types-5.1.1"
+      sources."@octokit/openapi-types-5.2.0"
       (sources."@octokit/plugin-paginate-rest-2.10.0" // {
         dependencies = [
-          sources."@octokit/types-6.10.1"
+          sources."@octokit/types-6.11.0"
         ];
       })
       sources."@octokit/plugin-request-log-1.0.3"
@@ -4144,13 +4144,13 @@ in
       })
       (sources."@octokit/request-5.4.14" // {
         dependencies = [
-          sources."@octokit/types-6.10.1"
+          sources."@octokit/types-6.11.0"
           sources."universal-user-agent-6.0.0"
         ];
       })
       (sources."@octokit/request-error-2.0.5" // {
         dependencies = [
-          sources."@octokit/types-6.10.1"
+          sources."@octokit/types-6.11.0"
         ];
       })
       sources."@octokit/rest-17.11.2"
@@ -4588,7 +4588,7 @@ in
       sources."sprintf-js-1.1.2"
       sources."stack-trace-0.0.10"
       sources."statuses-1.5.0"
-      sources."string-width-4.2.0"
+      sources."string-width-4.2.1"
       sources."string.prototype.trimend-1.0.4"
       sources."string.prototype.trimstart-1.0.4"
       sources."string_decoder-1.3.0"
