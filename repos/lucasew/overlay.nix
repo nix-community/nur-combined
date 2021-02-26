@@ -27,6 +27,8 @@ in composeOverlay [
     p2k = cp flake.inputs.pocket2kindle;
     redial_proxy = cp flake.inputs.redial_proxy;
     zls = cp flake.inputs.zls;
+    arcan = cp ./packages/arcan.nix;
+    cisco-packet-tracer = cp ./packages/cisco-packet-tracer.nix;
     custom_neovim = cp ./modules/neovim/package.nix;
     among_us = cp ./packages/among_us.nix;
     comby = cp ./packages/comby.nix;

@@ -53,8 +53,8 @@ in pkgs.makeDesktopItem {
   desktopName = "Shiginima Minecraft";
   type = "Application";
   icon = builtins.fetchurl {
-    url = "https://icons.iconarchive.com/icons/blackvariant/button-ui-requests-2/1024/Minecraft-2-icon.png";
-    sha256 = "3cc5dfd914c2ac41b03f006c7ccbb59d6f9e4c32ecfd1906e718c8e47f130f4a";
+    url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/minecraft.png";
+    sha256 = "1bpky4ycdf6w1d9lrhxprsk04jgp26zp9wcm9gy4691di7v8w3iv";
   };
   exec = "${drv}/bin/minecraft $*";
 }
