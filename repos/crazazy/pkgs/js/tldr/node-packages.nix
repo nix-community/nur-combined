@@ -49,13 +49,13 @@ let
         sha512 = "+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==";
       };
     };
-    "axios-0.20.0" = {
+    "axios-0.21.1" = {
       name = "axios";
       packageName = "axios";
-      version = "0.20.0";
+      version = "0.21.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/axios/-/axios-0.20.0.tgz";
-        sha512 = "ANA4rr2BDcmmAQLOKft2fufrtuvlqR+cXNNinUmvfeSNCOF98PZL+7M/v1zIdGo7OLjEA9J2gXJL+j4zGsl0bA==";
+        url = "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz";
+        sha512 = "dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==";
       };
     };
     "balanced-match-1.0.0" = {
@@ -355,13 +355,13 @@ let
         sha1 = "2c74b6ee41d93ca51b7b5aaee8f503631d252a73";
       };
     };
-    "lodash-4.17.20" = {
+    "lodash-4.17.21" = {
       name = "lodash";
       packageName = "lodash";
-      version = "4.17.20";
+      version = "4.17.21";
       src = fetchurl {
-        url = "https://registry.npmjs.org/lodash/-/lodash-4.17.20.tgz";
-        sha512 = "PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==";
+        url = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
+        sha512 = "v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==";
       };
     };
     "log-symbols-4.0.0" = {
@@ -373,13 +373,13 @@ let
         sha512 = "FN8JBzLx6CzeMrB0tg6pqlGU1wCrXW+ZXGH481kfsBqer0hToTIiHdjH4Mq8xJUbvATujKCvaREGWpGUionraA==";
       };
     };
-    "marked-1.2.9" = {
+    "marked-2.0.0" = {
       name = "marked";
       packageName = "marked";
-      version = "1.2.9";
+      version = "2.0.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/marked/-/marked-1.2.9.tgz";
-        sha512 = "H8lIX2SvyitGX+TRdtS06m1jHMijKN/XjfH6Ooii9fvxMlh8QdqBfBDkGUpMWH2kQNrtixjzYUa3SH8ROTgRRw==";
+        url = "https://registry.npmjs.org/marked/-/marked-2.0.0.tgz";
+        sha512 = "NqRSh2+LlN2NInpqTQnS614Y/3NkVMFFU6sJlRFEpxJ/LHuK/qJECH7/fXZjk4VZstPW/Pevjil/VtSONsLc7Q==";
       };
     };
     "match-stream-0.0.2" = {
@@ -692,15 +692,15 @@ let
   args = {
     name = "tldr";
     packageName = "tldr";
-    version = "3.3.6";
-    src = fetchurl { url = "https://registry.npmjs.org/tldr/-/tldr-3.3.6.tgz"; sha1 = "e75ecd4497d15ee636fbc1a493f61c12605ea3cf"; };
+    version = "3.3.7";
+    src = fetchurl { url = "https://registry.npmjs.org/tldr/-/tldr-3.3.7.tgz"; sha1 = "ea553b55bebbb84a2c483467a17ddf8c4beb7260"; };
     dependencies = [
       sources."afinn-165-1.0.4"
       sources."ansi-regex-5.0.0"
       sources."ansi-styles-4.3.0"
       sources."apparatus-0.0.10"
       sources."at-least-node-1.0.0"
-      sources."axios-0.20.0"
+      sources."axios-0.21.1"
       sources."balanced-match-1.0.0"
       sources."base64-js-1.5.1"
       sources."binary-0.3.0"
@@ -739,9 +739,9 @@ let
       sources."json-stable-stringify-1.0.1"
       sources."jsonfile-6.1.0"
       sources."jsonify-0.0.0"
-      sources."lodash-4.17.20"
+      sources."lodash-4.17.21"
       sources."log-symbols-4.0.0"
-      sources."marked-1.2.9"
+      sources."marked-2.0.0"
       sources."match-stream-0.0.2"
       sources."mimic-fn-2.1.0"
       sources."minimatch-3.0.4"

@@ -58,13 +58,13 @@ let
         sha512 = "neHB9xuzh/wk0dIHweyAXv2aPGZIVk3pLMe+/RNzINf17fe0OG96QroktYAUm7SM1PBnzTabaLboqqxDyMU+SQ==";
       };
     };
-    "colorette-1.2.1" = {
+    "colorette-1.2.2" = {
       name = "colorette";
       packageName = "colorette";
-      version = "1.2.1";
+      version = "1.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/colorette/-/colorette-1.2.1.tgz";
-        sha512 = "puCDz0CzydiSYOrnXpz/PKd69zRrribezjtE9yd4zvytoRc8+RY/KJPvtPFKZS3E3wP6neGyMe0vOTlHO5L3Pw==";
+        url = "https://registry.npmjs.org/colorette/-/colorette-1.2.2.tgz";
+        sha512 = "MKGMzyfeuutC/ZJ1cba9NqcNpfeqMUcYmyF1ZFY6/Cn7CNSAKx6a+s48sqLqyAiZuaP2TcqMhoo+dlwFnVxT9w==";
       };
     };
     "commander-7.1.0" = {
@@ -476,7 +476,7 @@ let
       sources."@webpack-cli/serve-1.3.0"
       sources."ansi-colors-4.1.1"
       sources."clone-deep-4.0.1"
-      sources."colorette-1.2.1"
+      sources."colorette-1.2.2"
       sources."commander-7.1.0"
       sources."cross-spawn-7.0.3"
       sources."enquirer-2.3.6"

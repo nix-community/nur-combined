@@ -602,8 +602,8 @@ let
   args = {
     name = "create-react-app";
     packageName = "create-react-app";
-    version = "4.0.2";
-    src = fetchurl { url = "https://registry.npmjs.org/create-react-app/-/create-react-app-4.0.2.tgz"; sha1 = "5f4e302fcf5a8c2685d46bbceddd061de2ce210a"; };
+    version = "4.0.3";
+    src = fetchurl { url = "https://registry.npmjs.org/create-react-app/-/create-react-app-4.0.3.tgz"; sha1 = "7220aa0837308f63fe0e56e65867f0bb2b6786de"; };
     dependencies = [
       sources."ansi-styles-4.3.0"
       sources."at-least-node-1.0.0"
