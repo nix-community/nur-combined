@@ -19,7 +19,8 @@ recursiveUpdate common {
 
   # --- defaults from the kampka headless profile ---
 
-  environment.noXlibs = mkDefault true;
+  # Disabled for now. This leads to lots of rebuilds.
+  # environment.noXlibs = mkDefault true;
 
   services.udisks2.enable = mkDefault false;
   security.polkit.enable = mkDefault false;
