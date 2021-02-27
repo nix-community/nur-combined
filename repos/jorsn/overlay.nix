@@ -3,17 +3,14 @@
 # configuration.
 
 self: super:
-
 let
-
   isReserved = n: n == "lib" || n == "overlays" || n == "modules"
     || n == "hmModules"; # see https://github.com/nix-community/NUR/issues/140
   nameValuePair = n: v: { name = n; value = v; };
   nurAttrs = import ./default.nix { pkgs = super; };
 
 in
-
-  builtins.listToAttrs
+builtins.listToAttrs
   (map (n: nameValuePair n nurAttrs.${n})
-  (builtins.filter (n: !isReserved n)
-  (builtins.attrNames nurAttrs)))
+    (builtins.filter (n: !isReserved n)
+      (builtins.attrNames nurAttrs)))

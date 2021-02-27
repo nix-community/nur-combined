@@ -43,5 +43,6 @@ buildDunePackage rec {
     license = lib.licenses.gpl2;
     maintainers = [ ];
     homepage = "https://github.com/patoline/patoline";
+    broken = true; # requires earley =2.0.0 (dune <= 1.11) and nixpkgs uses 3.0.0
   };
 }

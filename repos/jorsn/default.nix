@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 let
   pkgs' = pkgs.extend (self: super: {
@@ -30,8 +30,12 @@ in {
   haskell = haskell pkgs';
   inherit (pkgsh.haskellPackages) bibi;
 
-  inherit ocaml-ng;
-  inherit (ocaml-ng.ocamlPackages_4_07) patoline;
+  # reason for commenting out:
+  # CI fails with absurd(?) error when evaluating package – cannot reproduce locally
+  #   https://github.com/nix-community/NUR/issues/330
+  #
+  #inherit ocaml-ng;
+  #inherit (ocaml-ng.ocamlPackages_4_07) patoline;
 
   shellFileBin =  callPackage ./pkgs/build-support/shellFileBin {};
 
