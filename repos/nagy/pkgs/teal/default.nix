@@ -3,10 +3,10 @@ let
   inherit (lua53Packages) lua luaOlder luaAtLeast buildLuarocksPackage;
 in buildLuarocksPackage rec {
   pname = "tl";
-  version = "0.11.2-1";
+  version = "0.12.0-1";
   src = fetchurl {
     url = "mirror://luarocks/tl-${version}.src.rock";
-    sha256 = "03j1xdpizbgw8sywzcmvq9vsk2y566c1hvadqb9w6gyhxfnzadfi";
+    sha256 = "0j2f8lh0pmy6vfdq4j1hl3p8qih0fgrxl9bngsczqds2mp05qinq";
   };
 
   disabled = (luaOlder "5.3") || (luaAtLeast "5.5");
