@@ -1,6 +1,7 @@
 { config, lib, fetchurl, fetchFromGitHub, buildDunePackage, makeWrapper
 , ocaml, findlib
-, earley, camlzip, ocaml_sqlite3, imagelib, imagelib-unix
+, earley, camlzip, ocaml_sqlite3, imagelib
+, imagelib-unix ? null # merged into imagelib in newer nixpkgs
 }:
 
 buildDunePackage rec {
@@ -15,7 +16,8 @@ buildDunePackage rec {
   #doInstallCheck = true;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ earley camlzip ocaml_sqlite3 imagelib imagelib-unix ];
+  buildInputs = [ earley camlzip ocaml_sqlite3 imagelib ]
+    ++ lib.optionals (imagelib-unix != null) imagelib-unix;
 
   patches = [
     ./imagelib-unix.patch
