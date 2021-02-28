@@ -22,13 +22,13 @@ let
         sha512 = "np/lG3uARFybkoHokJUmf1QfEvRVCPbmQeUQpKow5cQ3xWrV9i3rUHodKDJPQfTVX61qKi+UdYk8kik84n7XOw==";
       };
     };
-    "@babel/highlight-7.12.13" = {
+    "@babel/highlight-7.13.8" = {
       name = "_at_babel_slash_highlight";
       packageName = "@babel/highlight";
-      version = "7.12.13";
+      version = "7.13.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/highlight/-/highlight-7.12.13.tgz";
-        sha512 = "kocDQvIbgMKlWxXe9fof3TQ+gkIPOUSEYhJjqUjvKMez3krV7vbzYCDq39Oj11UAVK7JqPVGQPlgE85dPNlQww==";
+        url = "https://registry.npmjs.org/@babel/highlight/-/highlight-7.13.8.tgz";
+        sha512 = "4vrIhfJyfNf+lCtXC2ck1rKSzDwciqF7IWFhXXrSOUC2O5DrVp+w4c6ed4AllTxhTkUP5x2tYj41VaxdVMMRDw==";
       };
     };
     "@fimbul/bifrost-0.21.0" = {
@@ -2128,13 +2128,13 @@ let
         sha512 = "vafcv6KjVZKSgz06oM/H6GDBrAtz8vdhQakGjFIvNrHA6y3HCF1CInLy+QLq8dTJPQ1b+KDUqDFctkdRW44e1w==";
       };
     };
-    "string-width-4.2.1" = {
+    "string-width-4.2.2" = {
       name = "string-width";
       packageName = "string-width";
-      version = "4.2.1";
+      version = "4.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/string-width/-/string-width-4.2.1.tgz";
-        sha512 = "LL0OLyN6AnfV9xqGQpDBwedT2Rt63737LxvsRxbcwpa2aIeynBApG2Sm//F3TaLHIR1aJBN52DWklc06b94o5Q==";
+        url = "https://registry.npmjs.org/string-width/-/string-width-4.2.2.tgz";
+        sha512 = "XBJbT3N4JhVumXE0eoLU9DCjcaF92KLNqTmFCnG1pf8duUxFGwtP6AD6nkjw9a3IdiRtL3E2w3JDiE/xi3vOeA==";
       };
     };
     "string_decoder-1.3.0" = {
@@ -2610,7 +2610,7 @@ in
     dependencies = [
       sources."@babel/code-frame-7.12.13"
       sources."@babel/helper-validator-identifier-7.12.11"
-      (sources."@babel/highlight-7.12.13" // {
+      (sources."@babel/highlight-7.13.8" // {
         dependencies = [
           sources."ansi-styles-3.2.1"
           sources."chalk-2.4.2"
@@ -2961,7 +2961,7 @@ in
       sources."spdx-expression-parse-3.0.1"
       sources."spdx-license-ids-3.0.7"
       sources."sprintf-js-1.0.3"
-      sources."string-width-4.2.1"
+      sources."string-width-4.2.2"
       sources."string_decoder-1.3.0"
       sources."strip-ansi-6.0.0"
       sources."strip-bom-4.0.0"

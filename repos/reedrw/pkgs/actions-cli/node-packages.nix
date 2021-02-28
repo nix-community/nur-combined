@@ -346,13 +346,13 @@ let
         sha512 = "MInMij2VK5o96Ei6qaHjxBglSZWOXQs9dTZfnGX2Xnr2mhA+yk9L/QCH4RcJGISJJCBclLHuY3ytq+iRgDfX7w==";
       };
     };
-    "@octokit/plugin-paginate-rest-2.10.0" = {
+    "@octokit/plugin-paginate-rest-2.11.0" = {
       name = "_at_octokit_slash_plugin-paginate-rest";
       packageName = "@octokit/plugin-paginate-rest";
-      version = "2.10.0";
+      version = "2.11.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@octokit/plugin-paginate-rest/-/plugin-paginate-rest-2.10.0.tgz";
-        sha512 = "71OsKBSMcQEu/6lfVbhv5C5ikU1rn10rKot/WiV7do7fyfElQ2eCUQFogHPbj0ci5lnKAjvahOiMAr6lcvL8Qw==";
+        url = "https://registry.npmjs.org/@octokit/plugin-paginate-rest/-/plugin-paginate-rest-2.11.0.tgz";
+        sha512 = "7L9xQank2G3r1dGqrVPo1z62V5utbykOUzlmNHPz87Pww/JpZQ9KyG5CHtUzgmB4n5iDRKYNK/86A8D98HP0yA==";
       };
     };
     "@octokit/plugin-request-log-1.0.3" = {
@@ -2002,13 +2002,13 @@ let
         sha512 = "EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==";
       };
     };
-    "has-symbols-1.0.1" = {
+    "has-symbols-1.0.2" = {
       name = "has-symbols";
       packageName = "has-symbols";
-      version = "1.0.1";
+      version = "1.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/has-symbols/-/has-symbols-1.0.1.tgz";
-        sha512 = "PLcsoqu++dmEIZB+6totNFKq/7Do+Z0u4oT0zKOJNl3lYK6vGwwu2hjHs+68OEZbTjiUE9bgOABXbP/GvrS0Kg==";
+        url = "https://registry.npmjs.org/has-symbols/-/has-symbols-1.0.2.tgz";
+        sha512 = "chXa79rL/UC2KlX17jo3vRGz0azaWEx5tGqZg5pO3NUyEJVB17dMruQlzCCOfUvElghKcm5194+BCRvi2Rv/Gw==";
       };
     };
     "he-1.2.0" = {
@@ -3532,13 +3532,13 @@ let
         sha512 = "vafcv6KjVZKSgz06oM/H6GDBrAtz8vdhQakGjFIvNrHA6y3HCF1CInLy+QLq8dTJPQ1b+KDUqDFctkdRW44e1w==";
       };
     };
-    "string-width-4.2.1" = {
+    "string-width-4.2.2" = {
       name = "string-width";
       packageName = "string-width";
-      version = "4.2.1";
+      version = "4.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/string-width/-/string-width-4.2.1.tgz";
-        sha512 = "LL0OLyN6AnfV9xqGQpDBwedT2Rt63737LxvsRxbcwpa2aIeynBApG2Sm//F3TaLHIR1aJBN52DWklc06b94o5Q==";
+        url = "https://registry.npmjs.org/string-width/-/string-width-4.2.2.tgz";
+        sha512 = "XBJbT3N4JhVumXE0eoLU9DCjcaF92KLNqTmFCnG1pf8duUxFGwtP6AD6nkjw9a3IdiRtL3E2w3JDiE/xi3vOeA==";
       };
     };
     "string.prototype.trimend-1.0.4" = {
@@ -4131,7 +4131,7 @@ in
         ];
       })
       sources."@octokit/openapi-types-5.2.0"
-      (sources."@octokit/plugin-paginate-rest-2.10.0" // {
+      (sources."@octokit/plugin-paginate-rest-2.11.0" // {
         dependencies = [
           sources."@octokit/types-6.11.0"
         ];
@@ -4371,7 +4371,7 @@ in
         ];
       })
       sources."has-flag-4.0.0"
-      sources."has-symbols-1.0.1"
+      sources."has-symbols-1.0.2"
       sources."he-1.2.0"
       sources."http-errors-1.7.2"
       sources."http-parser-js-0.5.3"
@@ -4588,7 +4588,7 @@ in
       sources."sprintf-js-1.1.2"
       sources."stack-trace-0.0.10"
       sources."statuses-1.5.0"
-      sources."string-width-4.2.1"
+      sources."string-width-4.2.2"
       sources."string.prototype.trimend-1.0.4"
       sources."string.prototype.trimstart-1.0.4"
       sources."string_decoder-1.3.0"
