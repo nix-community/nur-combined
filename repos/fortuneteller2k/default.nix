@@ -8,23 +8,10 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-rec {
+{
   lib = import ./lib { inherit pkgs; };
   modules = import ./modules;
   overlays = import ./overlays;
-
-  eww = pkgs.callPackage ./pkgs/eww {
-    fetchFromGitHub = pkgs.fetchFromGitHub;
-    rustPlatform = pkgs.rustPlatform;
-    rust = overlays.rust-overlay.rust-bin.nightly."2021-02-21".rust;
-    atk = pkgs.atk;
-    cairo = pkgs.cairo;
-    gtk3 = pkgs.gtk3;
-    glib = pkgs.glib;
-    gdk-pixbuf = pkgs.gdk-pixbuf;
-    gdk-pixbuf-xlib = pkgs.gdk-pixbuf-xlib;
-    pkg-config = pkgs.pkg-config;
-  };
 
   ytmdl = pkgs.callPackage ./pkgs/ytmdl {
     bs4 = pkgs.callPackage ./pkgs/bs4 {
