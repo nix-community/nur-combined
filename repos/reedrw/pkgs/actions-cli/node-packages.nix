@@ -337,13 +337,13 @@ let
         sha512 = "CJ6n7izLFXLvPZaWzCQDjU/RP+vHiZmWdOunaCS87v+2jxMsW9FB5ktfIxybRBxZjxuJGRnxk7xJecWTVxFUYQ==";
       };
     };
-    "@octokit/openapi-types-5.2.0" = {
+    "@octokit/openapi-types-5.2.1" = {
       name = "_at_octokit_slash_openapi-types";
       packageName = "@octokit/openapi-types";
-      version = "5.2.0";
+      version = "5.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@octokit/openapi-types/-/openapi-types-5.2.0.tgz";
-        sha512 = "MInMij2VK5o96Ei6qaHjxBglSZWOXQs9dTZfnGX2Xnr2mhA+yk9L/QCH4RcJGISJJCBclLHuY3ytq+iRgDfX7w==";
+        url = "https://registry.npmjs.org/@octokit/openapi-types/-/openapi-types-5.2.1.tgz";
+        sha512 = "Bf7MBvQ1nMpv15ANaQtRBsC7YnwQFPM0eUztp3luQs9L6sBEiQ6ArM1Wx5CG+N7tXETtd0oE0DMcU4wbLlCZIw==";
       };
     };
     "@octokit/plugin-paginate-rest-2.11.0" = {
@@ -418,13 +418,13 @@ let
         sha512 = "UZ1pErDue6bZNjYOotCNveTXArOMZQFG6hKJfOnGnulVCMcVVi7YIIuuR4WfBhjo7zgpmzn/BkPDnUXtNx+PcQ==";
       };
     };
-    "@octokit/types-6.11.0" = {
+    "@octokit/types-6.11.1" = {
       name = "_at_octokit_slash_types";
       packageName = "@octokit/types";
-      version = "6.11.0";
+      version = "6.11.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@octokit/types/-/types-6.11.0.tgz";
-        sha512 = "RMLAmpPZf/a33EsclBazKg02NCCj4rC69V9sUgf0SuWTjmnBD2QC1nIVtJo7RJrGnwG1+aoFBb2yTrWm/8AS7w==";
+        url = "https://registry.npmjs.org/@octokit/types/-/types-6.11.1.tgz";
+        sha512 = "UiSRTG2lrFbMUMwhKNR0uSV33Fzv4bNu1n5iFuuNOg80XCh0VYNhR4TQWgrkLhVxdDuej6s61aP3eQvVm6K6uA==";
       };
     };
     "@protobufjs/aspromise-1.1.2" = {
@@ -4114,26 +4114,26 @@ in
       sources."@kwsites/promise-deferred-1.1.1"
       (sources."@octokit/auth-token-2.4.5" // {
         dependencies = [
-          sources."@octokit/types-6.11.0"
+          sources."@octokit/types-6.11.1"
         ];
       })
       sources."@octokit/core-2.5.4"
       (sources."@octokit/endpoint-6.0.11" // {
         dependencies = [
-          sources."@octokit/types-6.11.0"
+          sources."@octokit/types-6.11.1"
           sources."universal-user-agent-6.0.0"
         ];
       })
       (sources."@octokit/graphql-4.6.0" // {
         dependencies = [
-          sources."@octokit/types-6.11.0"
+          sources."@octokit/types-6.11.1"
           sources."universal-user-agent-6.0.0"
         ];
       })
-      sources."@octokit/openapi-types-5.2.0"
+      sources."@octokit/openapi-types-5.2.1"
       (sources."@octokit/plugin-paginate-rest-2.11.0" // {
         dependencies = [
-          sources."@octokit/types-6.11.0"
+          sources."@octokit/types-6.11.1"
         ];
       })
       sources."@octokit/plugin-request-log-1.0.3"
@@ -4144,13 +4144,13 @@ in
       })
       (sources."@octokit/request-5.4.14" // {
         dependencies = [
-          sources."@octokit/types-6.11.0"
+          sources."@octokit/types-6.11.1"
           sources."universal-user-agent-6.0.0"
         ];
       })
       (sources."@octokit/request-error-2.0.5" // {
         dependencies = [
-          sources."@octokit/types-6.11.0"
+          sources."@octokit/types-6.11.1"
         ];
       })
       sources."@octokit/rest-17.11.2"
