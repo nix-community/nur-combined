@@ -5,7 +5,6 @@ self: super: let
       flask
       tkinter
       ipython
-      pygit2
       virtualenvwrapper
    ]);
 in
@@ -16,6 +15,7 @@ in
       python = self.writeShellScriptBin "python" ''
          ${pythonSet.interpreter} $@
       '';
+      pkgs = self;
       inherit (pkgs)
          atom
          bashInteractive

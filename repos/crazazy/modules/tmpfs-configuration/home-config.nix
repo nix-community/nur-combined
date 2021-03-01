@@ -12,6 +12,7 @@ with lib;
      home-manager.users.${config.mainUser} = { pkgs,  ...}: {
        imports = [ 
          "${impermanence}/home-manager.nix" 
+         ../home-configuration
        ];
        programs.home-manager.enable = true;
        home.persistence."/nix/persist/home/erik" = {
