@@ -7,6 +7,8 @@ let
     # python-language-server
     yapf
 
+    beancount
+    jupytext
     matplotlib
     notebook
     numpy
