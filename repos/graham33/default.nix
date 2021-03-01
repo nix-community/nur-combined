@@ -15,6 +15,7 @@ let
     garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
     hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
     libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
+    pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
     python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };
     python-socketio_4 = pySelf.callPackage ./pkgs/python-socketio/4.nix { };
     ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
