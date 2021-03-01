@@ -1,0 +1,14 @@
+diff --git a/src/program/main.cpp b/src/program/main.cpp
+index d3990f48..a8360a39 100644
+--- a/src/program/main.cpp
++++ b/src/program/main.cpp
+@@ -200,8 +200,7 @@ int main(int argc, char **argv)
+     ssize_t count = readlink( "/proc/self/exe", buf, PATH_MAX );
+     std::string binpath = std::string( buf, (count > 0) ? count : 0 );
+     char* binpathptr = const_cast<char*>(binpath.c_str());
+-    context.libtaspath = dirname(binpathptr);
+-    context.libtaspath += "/libtas.so";
++    context.libtaspath = "@out@/lib/libtas.so";
+ #elif defined(__APPLE__) && defined(__MACH__)
+     uint32_t size = 4096;
+     if (_NSGetExecutablePath(buf, &size) == 0)

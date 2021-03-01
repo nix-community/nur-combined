@@ -22,13 +22,13 @@ let
 
 in relevantStdenv.mkDerivation rec {
   pname = "libtas-unstable";
-  version = "2021-01-24";
+  version = "2021-02-28";
 
   src = fetchFromGitHub {
     owner = "clementgallet";
     repo = "libTAS";
-    rev = "815daf0dcd06a2508edceeef26c32251372df2a1";
-    hash = "sha256:1rx3mg18ph67h981x73mwqjirwgz447daassikb572wpd4silr4y";
+    rev = "c98bf6d5b7eae3cdce14f3bf15bc0b50221016ce";
+    hash = "sha256:16flfb4gv15spgmcqs5k0kj5lfz236hd5g6ajx90wafzb6yvwdpp";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig wrapQtAppsHook git ];
@@ -46,7 +46,7 @@ in relevantStdenv.mkDerivation rec {
   dontStrip = true; # Segfaults, bug in patchelf
 
   patches = [
-    ./libtaspath.patch
+    ./libtaspath-unstable.patch
   ];
 
   # Note that this builds an extra .so file in the same derivation
