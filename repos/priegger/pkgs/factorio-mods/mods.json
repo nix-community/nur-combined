@@ -690,12 +690,12 @@
   },
   {
     "name": "Rampant",
-    "version": "1.0.1",
-    "file_name": "Rampant_1.0.1.zip",
-    "download_url": "/download/Rampant/5fcc7cd02aa122d089ab4731",
-    "sha1": "42275b9527a2e57b2faa0b18c692492111e467c3",
+    "version": "1.0.4",
+    "file_name": "Rampant_1.0.4.zip",
+    "download_url": "/download/Rampant/603bef61eb0c029df5ed2174",
+    "sha1": "ea70ee910d835ee9d50b5724befe6b33b6225d98",
     "dependencies": [
-      "base >= 1.0.0",
+      "base >= 1.1.0",
       "? bobenemies",
       "? Natural_Evolution_Enemies >= 0.17.0",
       "? Clockwork",

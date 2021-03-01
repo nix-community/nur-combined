@@ -1,4 +1,4 @@
-{ pkgs, stdenv, buildPackages, fetchFromGitHub, makeWrapper }:
+{ pkgs, stdenv, lib, buildPackages, fetchFromGitHub, makeWrapper }:
 
 stdenv.mkDerivation rec {
   version = "0.0.20191212";
@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     install -m 755 contrib/examples/reresolve-dns/reresolve-dns.sh $out/bin/reresolve-dns
     # pkgs.coreutils pkgs.utillinux pkgs.nettools
-    wrapProgram $out/bin/reresolve-dns --prefix PATH : "${pkgs.stdenv.lib.makeBinPath [ pkgs.wireguard-tools ]}"
+    wrapProgram $out/bin/reresolve-dns --prefix PATH : "${lib.makeBinPath [ pkgs.wireguard-tools ]}"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = https://github.com/WireGuard/WireGuard/tree/master/contrib/examples/reresolve-dns;
     license = licenses.gpl2;
     description = "update kernel DNS entries for wireguard remote endpoints";

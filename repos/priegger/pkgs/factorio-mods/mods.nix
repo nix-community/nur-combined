@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , factorio-utils
 , allRecommendedMods ? true
 , allOptionalMods ? false
@@ -6,7 +6,7 @@
 , token ? "" # get/reset token at https://factorio.com/profile
 }:
 with builtins;
-with stdenv.lib;
+with lib;
 let
   modDrv = factorio-utils.modDrv { inherit allRecommendedMods allOptionalMods; };
 

@@ -1,4 +1,4 @@
-{ stdenv, buildGoModule, fetchzip }:
+{ lib, buildGoModule, fetchzip }:
 let
   repo = "https://git.sr.ht/~priegger/go-hello-world";
   rev = "285f4d4526d2f64bd8e0f06bfaecfeeb4c3b19d8";
@@ -14,7 +14,7 @@ buildGoModule {
 
   vendorSha256 = null;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Hello World in Go";
     homepage = repo;
     license = licenses.mit;

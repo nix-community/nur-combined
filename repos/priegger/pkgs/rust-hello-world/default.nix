@@ -1,4 +1,4 @@
-{ stdenv, rustPlatform, fetchzip }:
+{ lib, rustPlatform, fetchzip }:
 let
   repo = "https://git.sr.ht/~priegger/rust-hello-world";
   rev = "35c7974bc84d538283dea515d86b847d15f61591";
@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage {
 
   cargoVendorDir = "vendor";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Hello World in Rust";
     homepage = repo;
     license = licenses.mit;
