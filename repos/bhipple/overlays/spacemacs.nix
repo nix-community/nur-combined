@@ -24,6 +24,10 @@ let
     # git-gutter-plus
     # git-gutter-fringe-plus
     # hybrid-mode
+    # company-ghc
+    # company-ghci
+    # ghc
+    # intero
 
     ac-ispell
     ace-jump-helm-line
@@ -69,8 +73,6 @@ let
     company-c-headers
     company-cabal
     company-emacs-eclim
-    company-ghc
-    company-ghci
     company-go
     company-lsp
     company-lua
@@ -155,7 +157,6 @@ let
     evil-ledger
     evil-lion
     evil-lisp-state
-    evil-magit
     evil-matchit
     evil-mc
     evil-nerd-commenter
@@ -192,7 +193,6 @@ let
     ggtags
     gh
     gh-md
-    ghc
     ghub
     gist
     git-commit
@@ -278,7 +278,6 @@ let
     indent-guide
     inf-ruby
     insert-shebang
-    intero
     ivy
     jenkins
     jinja2-mode
@@ -289,6 +288,7 @@ let
     json-navigator
     json-reformat
     json-snatcher
+    jupyter
     know-your-http-well
     language-detection
     lcr
