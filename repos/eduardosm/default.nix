@@ -16,6 +16,7 @@
 
   autofirma = pkgs.callPackage ./pkgs/autofirma { };
   configuradorfnmt = pkgs.callPackage ./pkgs/configuradorfnmt { };
+  matlab-r2020b-launcher = pkgs.callPackage ./pkgs/matlab-r2020b-launcher { };
   pothos = pkgs.libsForQt5.callPackage ./pkgs/pothos { };
   subtitleedit = pkgs.callPackage ./pkgs/subtitleedit { };
 }
