@@ -23,16 +23,28 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/0aeba64fb26e4defa0842a942757144659c6e29f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nixpkgs-factorio": {
+        "branch": "factorio",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "priegger",
+        "repo": "nixpkgs",
+        "rev": "2f5b3113ba9d3a465e3fd1f282d42c4346386c80",
+        "sha256": "1715wwv1n77y17x8cy8xryfhj6w94rsab5g57zvm877jk62hazy8",
+        "type": "tarball",
+        "url": "https://github.com/priegger/nixpkgs/archive/2f5b3113ba9d3a465e3fd1f282d42c4346386c80.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nixpkgs-master": {
         "branch": "master",
         "description": "Nix Packages collection",
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f3322d79fb748aaabf8273584b2d387ede9ab509",
-        "sha256": "0fylx0vfx6554zglm6qrh80d2h914ls7xrsbsiwvss77hl6002kh",
+        "rev": "c0013a02189e1281bd3f15eb828f1d6440781485",
+        "sha256": "1ggarnmnnw27mx592rf6z70m62qp593rgrx5jwx53vya4crxbznk",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/f3322d79fb748aaabf8273584b2d387ede9ab509.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/c0013a02189e1281bd3f15eb828f1d6440781485.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-unstable": {
