@@ -1,4 +1,5 @@
 { lib, stdenv
+, mkDerivation
 , fetchFromGitHub
 , makeDesktopItem
 , cmake
@@ -18,7 +19,7 @@
 , python3
 }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "pothos";
   version = "0.7.1";
 
@@ -54,8 +55,14 @@ stdenv.mkDerivation rec {
     rm -r $out/share/Pothos/Desktop
   '';
 
+  dontWrapQtApps = true;
   preFixup = ''
-    wrapQtApp $out/bin/PothosFlow
+    # PothosUtil does not need to be wrapped
+    wrapQtApp "$out/bin/PothosFlow"
+    wrapQtApp "$out/bin/spuce_fir_plot"
+    wrapQtApp "$out/bin/spuce_iir_plot"
+    wrapQtApp "$out/bin/spuce_other_plot"
+    wrapQtApp "$out/bin/spuce_window_plot"
   '';
 
   meta = with lib; {
