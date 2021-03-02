@@ -26,6 +26,7 @@ in composeOverlay [
     latest = cp flake.inputs.nixpkgsLatest;
     p2k = cp flake.inputs.pocket2kindle;
     redial_proxy = cp flake.inputs.redial_proxy;
+    send2kindle = cp flake.inputs.send2kindle;
     zls = cp flake.inputs.zls;
     arcan = cp ./packages/arcan.nix;
     cisco-packet-tracer = cp ./packages/cisco-packet-tracer.nix;

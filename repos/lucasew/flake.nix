@@ -13,6 +13,10 @@
       url = "github:lucasew/pocket2kindle";
       flake = false;
     };
+    send2kindle = {
+      url = "github:lucasew/send2kindle";
+      flake = false;
+    };
     nixgram = {
       url = "github:lucasew/nixgram/master";
       flake = false;

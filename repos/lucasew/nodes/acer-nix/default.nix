@@ -6,6 +6,7 @@
 with (import ../../globalConfig.nix);
 let
   hostname = "acer-nix";
+  send2kindle = pkgs.writeShellScriptBin "send2kindle" (pkgs.wrapDotenv "send2kindle.env" ''${pkgs.send2kindle}/bin/send2kindle "$@"'');
 in
 {
   imports =
@@ -93,6 +94,7 @@ in
     # Extra
     gitAndTools.gitui
     python3Packages.pipx
+    send2kindle
   ];
 
   programs.dconf.enable = true;
