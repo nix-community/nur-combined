@@ -1,6 +1,6 @@
-{ lib, python38Packages }:
+{ lib, python3Packages }:
 
-with python38Packages;
+with python3Packages;
 
 buildPythonPackage rec {
   pname = "youtube-search";
@@ -11,7 +11,7 @@ buildPythonPackage rec {
     sha256 = "sha256-um9ZlgGRFA4U8EQHJUON2vdAP1JEeFT6Jciy+CGP0Rg=";
   };
 
-  buildInputs = with python38Packages; [ requests ];
+  buildInputs = [ requests ];
 
   meta = with lib; {
     description =

@@ -1,6 +1,6 @@
-{ lib, python38Packages }:
+{ lib, python3Packages }:
 
-with python38Packages;
+with python3Packages;
 
 buildPythonPackage rec {
   pname = "itunespy";
@@ -11,7 +11,7 @@ buildPythonPackage rec {
     sha256 = "sha256-baENY+iglfcXIwv9m8h0eYcj/iyR/vtgiQ0bJxrMzUU=";
   };
 
-  buildInputs = with python38Packages; [ pycountry requests ];
+  buildInputs = [ pycountry requests ];
 
   meta = with lib; {
     description =

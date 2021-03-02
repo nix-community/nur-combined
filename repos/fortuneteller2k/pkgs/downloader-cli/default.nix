@@ -1,6 +1,6 @@
-{ lib, python38Packages, fetchFromGitHub }:
+{ lib, python3Packages, fetchFromGitHub }:
 
-with python38Packages;
+with python3Packages;
 
 buildPythonPackage rec {
   pname = "downloader-cli";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "sha256-WDbMmVv9WvxqH1TfGzM9qRS5zF803N7Q6tvy3Wbdcw8=";
   };
 
-  buildInputs = with python38Packages; [ urllib3 ];
+  buildInputs = [ urllib3 ];
 
   meta = with lib; {
     description =

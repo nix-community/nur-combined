@@ -1,6 +1,6 @@
-{ lib, python38Packages }:
+{ lib, python3Packages }:
 
-with python38Packages;
+with python3Packages;
 
 buildPythonPackage rec {
   pname = "bs4";
@@ -11,7 +11,7 @@ buildPythonPackage rec {
     sha256 = "sha256-NuzqH9fMXAxuSh/wdd8m1Q2mR7dTdmJswYbiISiG3To=";
   };
 
-  buildInputs = with python38Packages; [ beautifulsoup4 ];
+  buildInputs = [ beautifulsoup4 ];
 
   meta = with lib; {
     description = "HTML and XML parser (dummy package)";

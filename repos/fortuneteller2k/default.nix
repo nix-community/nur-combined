@@ -1,38 +1,42 @@
-# This file describes your repository contents.
-# It should return a set of nix derivations
-# and optionally the special attributes `lib`, `modules` and `overlays`.
-# It should NOT import <nixpkgs>. Instead, you should take pkgs as an argument.
-# Having pkgs default to <nixpkgs> is fine though, and it lets you use short
-# commands such as:
-#     nix-build -A mypackage
-
 { pkgs ? import <nixpkgs> { } }:
 
-{
+rec {
   lib = import ./lib { inherit pkgs; };
   modules = import ./modules;
   overlays = import ./overlays;
 
+  impure.eww = let 
+    rust-overlay = import (pkgs.fetchFromGitHub {
+      owner = "oxalica";
+      repo = "rust-overlay";
+      rev = "1d38b7c3bb2f317b935f20ac7e01db93b151770f";
+      sha256 = "sha256-mjTR3dgUrha4tqNpEEYUXx38wXlUp4ftlhx4wfQmrzs=";
+    }).out;
+    
+  in pkgs.callPackage ./pkgs/eww {
+    pkgs = pkgs.extend rust-overlay;
+  };
+
   ytmdl = pkgs.callPackage ./pkgs/ytmdl {
     bs4 = pkgs.callPackage ./pkgs/bs4 {
-      python38Packages = pkgs.python38Packages;
+      python3Packages = pkgs.python3Packages;
     };
     simber = pkgs.callPackage ./pkgs/simber {
-      python38Packages = pkgs.python38Packages;
+      python3Packages = pkgs.python3Packages;
     };
     pydes = pkgs.callPackage ./pkgs/pydes {
-      python38Packages = pkgs.python38Packages;
+      python3Packages = pkgs.python3Packages;
     };
     downloader-cli = pkgs.callPackage ./pkgs/downloader-cli {
       fetchFromGitHub = pkgs.fetchFromGitHub;
-      python38Packages = pkgs.python38Packages;
+      python3Packages = pkgs.python3Packages;
     };
     itunespy = pkgs.callPackage ./pkgs/itunespy {
-      python38Packages = pkgs.python38Packages;
+      python3Packages = pkgs.python3Packages;
     };
     youtube-search = pkgs.callPackage ./pkgs/youtube-search {
-      python38Packages = pkgs.python38Packages;
+      python3Packages = pkgs.python3Packages;
     };
-    python38Packages = pkgs.python38Packages;
+    python3Packages = pkgs.python3Packages;
   };
 }

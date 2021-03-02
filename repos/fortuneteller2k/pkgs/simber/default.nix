@@ -1,6 +1,6 @@
-{ lib, python38Packages }:
+{ lib, python3Packages }:
 
-with python38Packages;
+with python3Packages;
 
 buildPythonPackage rec {
   pname = "simber";
@@ -11,7 +11,7 @@ buildPythonPackage rec {
     sha256 = "sha256-k3ryTv9LfXpyhvDQf4TjR3BPzSr8oV0jbRnRpLN3A6k=";
   };
 
-  buildInputs = with python38Packages; [ colorama ];
+  buildInputs = [ colorama ];
 
   meta = with lib; {
     description = "A simple, minimal and powerful logging library for Python";

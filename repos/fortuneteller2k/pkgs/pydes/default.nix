@@ -1,6 +1,6 @@
-{ lib, python38Packages }:
+{ lib, python3Packages }:
 
-with python38Packages;
+with python3Packages;
 
 buildPythonPackage rec {
   pname = "pyDes";
