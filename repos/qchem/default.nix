@@ -69,8 +69,7 @@ let
         inherit (self_) gfortran;
       };
 
-      octave = (super.octave.override {
-        enableQt = true;
+      octave = (super.octaveFull.override {
         enableJava = true;
         jdk = super.jdk8;
         inherit (super)
@@ -79,13 +78,6 @@ let
           glpk
           suitesparse
           gnuplot;
-        inherit (super.libsForQt5)
-          qscintilla;
-        inherit (super.qt5)
-          qtbase
-          qttools
-          qtscript
-          qtsvg;
         }).overrideAttrs (x: { preCheck = "export OMP_NUM_THREADS=4"; });
 
       # Allow to provide a local download source for unfree packages
