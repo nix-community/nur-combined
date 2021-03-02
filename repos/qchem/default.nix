@@ -294,6 +294,8 @@ let
 
       molpro20 = callPackage ./molpro { token=cfg.licMolpro; };
 
+      molpro-ext = callPackage ./molpro/custom.nix { token=cfg.licMolpro; };
+
     } // lib.optionalAttrs (cfg.optpath != null) {
 
       #
