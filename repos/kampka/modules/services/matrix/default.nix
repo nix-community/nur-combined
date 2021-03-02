@@ -167,7 +167,7 @@ in
       group = "nginx";
       postRun = ''
         mkdir -p "/var/lib/acme/matrix-synapse"
-        cp -r "/var/lib/acme/${cfg.matrix.hostName}/*" "/var/lib/acme/matrix-synapse"
+        cp -r "/var/lib/acme/${cfg.matrix.hostName}/"* "/var/lib/acme/matrix-synapse"
         chown -R acme:matrix-synapse "/var/lib/acme/matrix-synapse"
         systemctl reload nginx.service
         systemctl restart matrix-synapse.service
@@ -220,7 +220,7 @@ in
       group = "nginx";
       postRun = ''
         mkdir -p "/var/lib/acme/matrix-turnserver"
-        cp -r "/var/lib/acme/${cfg.turn.hostName}/*" "/var/lib/acme/matrix-turnserver"
+        cp -r "/var/lib/acme/${cfg.turn.hostName}/"* "/var/lib/acme/matrix-turnserver"
         chown -R acme:turnserver "/var/lib/acme/matrix-turnserver"
         systemctl reload nginx.service 
         systemctl restart coturn.service
