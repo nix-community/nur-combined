@@ -49,10 +49,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.4.1.1";
+      version = "0.4.2";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3732237/auto_tab_discard-0.4.1.1-an+fx.xpi";
-      sha256 = "8b4499c10c6239382e2f80fc6e24196a231db39ef3cee3dc11544ce46501d87d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3734569/auto_tab_discard-0.4.2-an+fx.xpi";
+      sha256 = "3da62698f88f380de1841281cddf03719ff7095302c9e4291997fd475a9ba32e";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -657,10 +657,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.2.6";
+      version = "6.3.1";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3711228/octotree_github_code_tree-6.2.6-fx.xpi";
-      sha256 = "f30d347488b84a0a6bedeaa7f76bb3181c951bc5d08b6ada85ae258275906f66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3735118/octotree_github_code_tree-6.3.1-fx.xpi";
+      sha256 = "115bb6ac4f40045fc94f82d2d2a379b96efcf3482ac62d7eb91a3a0438c9e41d";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -810,10 +810,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.2.23";
+      version = "21.3.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3731533/refined_github-21.2.23-an+fx.xpi";
-      sha256 = "3d65ae08b7c330cce9dc99bddfc24c243bd855a01385644adf011059f91731eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3735421/refined_github-21.3.1-an+fx.xpi";
+      sha256 = "dd9a141060bc5b970282cb51804e4a84d4f42d15c210ab19f37066487353517c";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1016,10 +1016,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.7.2";
+      version = "3.7.3";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3729064/tree_style_tab_-3.7.2-fx.xpi";
-      sha256 = "0d869e85297fd0af4ea5cec365f50a14af5650f53a7b84dd106e1a7d9cb207d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3734736/tree_style_tab_-3.7.3-fx.xpi";
+      sha256 = "9b2bf3723115c6d389197afa374ac8294d95ca5e3e74a68dba5f365536cab9f6";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
