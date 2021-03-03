@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, fetchpatch
 , pythonOlder
 , cython
 , matplotlib
@@ -28,6 +29,14 @@ buildPythonPackage rec {
     matplotlib
     numpy
     scipy
+  ];
+
+  patches = [
+    (fetchpatch {
+      name = "qutip-pr-1452-fix-for-scipy-1.6.1.patch";
+      url = "https://github.com/qutip/qutip/commit/8ec557492634cb29f85033555b4ed06fff7a6427.patch";
+      sha256 = "11k3makispyzhxa73jjzlx837f9pc4jsbmmd1mr0d9rclpf64wn0";
+    })
   ];
 
   pythonImportsCheck = [ "qutip" ];
