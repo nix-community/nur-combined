@@ -290,10 +290,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.5.0";
+      version = "4.6.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3723180/floccus-4.5.0-fx.xpi";
-      sha256 = "92a3cfa686e9f75060d6e2a48521ed5920c68718b0f34ede70df53703124c871";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3735841/floccus-4.6.0-fx.xpi";
+      sha256 = "e51dfd58076701b2385b4ce26c7b33655303507c3ed1d702b5279eebdc703da1";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -346,10 +346,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.5.4";
+      version = "8.5.5";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3687087/ghostery_privacy_ad_blocker-8.5.4-an+fx.xpi";
-      sha256 = "79d2a7732cb7aa127824348658eb95ea685b9992d156c534a2825fedb9f8f420";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3733151/ghostery_privacy_ad_blocker-8.5.5-an+fx.xpi";
+      sha256 = "ee65876cc06aed170f8739a64a50ebd3406090c268a276418355b7ec25da2175";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -630,10 +630,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.0.5";
+      version = "9.1.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3724014/metamask-9.0.5-an+fx.xpi";
-      sha256 = "a667b6f4bbed883012d18a7297441aac40b9cd11c1ad1c5b2661be9a38b1bf92";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3736023/metamask-9.1.0-an+fx.xpi";
+      sha256 = "a6f325bb0ba0d3dbaa58086e4aec320c9521131a99ed51c05a1a0e855c10c957";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
