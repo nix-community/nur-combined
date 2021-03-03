@@ -10,7 +10,7 @@ rustPlatform.buildRustPackage rec {
     owner = "elkowar";
     repo = pname;
     rev = "5cf18bfc43d84cad60f9a8df3a7a3038543f3dab";
-    sha256 = lib.fakeSha256;
+    sha256 = "sha256-DMWYcSlS2tmu4Xd/f27ltiYUzEuMMUOD8HTmyg4xh6o=";
   };
 
   nativeBuildInputs = [ pkg-config rust-bin.nightly.latest.rust ];
