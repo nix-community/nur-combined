@@ -49,5 +49,6 @@ buildPythonPackage rec {
       "A simple app to get songs from YouTube in mp3 format with artist name, album name etc from sources like iTunes, LastFM, Deezer, Gaana etc.";
     homepage = "https://github.com/deepjyoti30/ytmdl";
     license = licenses.mit;
+    maintainers = with maintainers; [ fortuneteller2k ];
   };
 }

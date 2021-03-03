@@ -33,5 +33,6 @@ rustPlatform.buildRustPackage rec {
       "A standalone widget system made in Rust to add AwesomeWM like widgets to any WM";
     homepage = "https://github.com/elkowar/eww";
     license = licenses.mit;
+    maintainers = with maintainers; [ fortuneteller2k ];
   };
 }
