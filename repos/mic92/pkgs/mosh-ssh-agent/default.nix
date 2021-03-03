@@ -17,8 +17,8 @@ mosh.overrideAttrs (old: {
 
   meta = with lib; {
     description = "Mosh fork with ssh-agent support";
-    homepage = https://github.com/Mic92/mosh;
-    license = stdenv.lib.licenses.gpl3Plus;
-    platforms = stdenv.lib.platforms.unix;
+    homepage = "https://github.com/Mic92/mosh";
+    license = licenses.gpl3Plus;
+    platforms = platforms.unix;
   };
 })

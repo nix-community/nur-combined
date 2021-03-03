@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi }:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "chump";
@@ -9,7 +9,7 @@ buildPythonPackage rec {
     sha256 = "1vjm68ax2r355gaq3ggxal0f7wah6p2vx5wvjcpf6scwhhwryrgl";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A fully featured API wrapper for Pushover.";
     homepage = "https://github.com/karanlyons/chump";
     license = licenses.asl20;

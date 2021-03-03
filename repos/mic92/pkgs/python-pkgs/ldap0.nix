@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , buildPythonPackage
 , fetchFromGitLab
 , openldap
@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   buildInputs = [ openldap cyrus_sasl ];
   propagatedBuildInputs = [ pyasn1 pyasn1-modules ];
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Object-oriented API to access LDAP directory servers";
     homepage = "https://gitlab.com/ae-dir/python-ldap0";
     license = licenses.asl20;

@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , buildPythonPackage
 , fetchFromGitHub
 , six
@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sha256 = "1jf5bp4ncvw2gahhkvjy5b0366y9x3ki9r9c5n6hkvifjk3jhmb2";
   };
   LC_ALL = "en_US.utf8";
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Python LESS Compiler";
     homepage = "https://github.com/lesscpy/lesscpy";
     license = licenses.mit;

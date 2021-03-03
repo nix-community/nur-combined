@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , buildPythonPackage
 , fetchPypi
 , notebook
@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "07mldarwi9wi5m4v4x9s1n9m6grab307yxgip6csn4mjhh6br3ia";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Custom Jupyter Notebook Themes";
     homepage = "https://github.com/dunovank/jupyter-themes";
     license = licenses.mit;

@@ -1,6 +1,7 @@
 { stdenv
 , buildPythonPackage
 , keystone
+, lib
 }:
 
 buildPythonPackage rec {
@@ -9,7 +10,7 @@ buildPythonPackage rec {
   dontUseCmakeConfigure = 1;
   preBuild = "cd bindings/python";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (keystone.meta) description homepage license;
   };
 }

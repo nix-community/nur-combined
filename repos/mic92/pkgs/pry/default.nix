@@ -1,4 +1,4 @@
-{ buildPerlPackage, fetchurl, perlPackages }:
+{ lib, buildPerlPackage, fetchurl, perlPackages }:
 
 with perlPackages;
 let
@@ -50,7 +50,7 @@ buildPerlPackage rec {
     Reply
     BKeywords
   ];
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Intrude on your code";
     homepage = "https://metacpan.org/pod/Pry";
     license = licenses.artistic1;

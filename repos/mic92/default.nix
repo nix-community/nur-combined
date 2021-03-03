@@ -16,6 +16,8 @@ rec {
 
   drone-runner-exec = pkgs.callPackage ./pkgs/drone-runner-exec { };
 
+  drone-runner-ssh = pkgs.callPackage ./pkgs/drone-runner-ssh { };
+
   eapol_test = pkgs.callPackage ./pkgs/eapol_test { };
 
   fira-code-pro-nerdfonts = pkgs.nerdfonts.override {
@@ -64,8 +66,6 @@ rec {
   inherit (pkgs.callPackages ./pkgs/nix-build-uncached { })
     nix-build-uncached
     nix-build-uncached-flakes;
-
-  nixos-shell = pkgs.callPackage ./pkgs/nixos-shell { };
 
   pandoc-bin = pkgs.callPackage ./pkgs/pandoc { };
 

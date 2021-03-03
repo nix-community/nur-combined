@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , buildPythonPackage
 , fetchurl
 , pip
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     pip install --prefix=$out ${wheelName}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers";
     homepage = "https://www.frida.re";
     license = licenses.wxWindows;

@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , buildPythonPackage
 , fetchPypi
 , cryptography
@@ -24,7 +24,7 @@ buildPythonPackage rec {
     coverage
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Encryped Content-Encoding for HTTP";
     homepage = "https://github.com/web-push-libs/encrypted-content-encoding";
     license = licenses.mit;
