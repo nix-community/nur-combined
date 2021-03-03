@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, unzip, imagemagick, bash, mono6, mpv }:
+{ lib, stdenv, fetchurl, makeDesktopItem, unzip, imagemagick, bash, mono6, mpv, tesseract4 }:
 
 let
   pname = "subtitleedit";
@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  # TODO: tesseract (OCR)
-  buildInputs = [ bash mono6 mpv ];
+  buildInputs = [ bash mono6 mpv tesseract4 ];
   nativeBuildInputs = [ unzip imagemagick ];
 
   installPhase = ''
@@ -49,6 +48,7 @@ stdenv.mkDerivation rec {
     install -d $out/bin
     cat > $out/bin/subtitleedit <<EOF
     #!${bash}/bin/sh
+    export PATH="${tesseract4}/bin\''${PATH:+:}\$PATH"
     export LD_LIBRARY_PATH="${mpv}/lib\''${LD_LIBRARY_PATH:+:}\$LD_LIBRARY_PATH"
     ${mono6}/bin/mono $out/share/subtitleedit/SubtitleEdit.exe "\$@"
     EOF
