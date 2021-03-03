@@ -7,5 +7,8 @@
 use my cachix, `cachix use fortuneteller2k`
 
 ## Package List
-- `nur.repos.fortuneteller2k.ytmdl`
-- `nur.repos.fortuneteller2k.impure.eww`
+
+Most of my packages are listed [here](https://nur.nix-community.org/repos/fortuneteller2k/).
+
+Other packages that weren't listed due to being impure:
+	- `nur.repos.fortuneteller2k.impure.eww`
