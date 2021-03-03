@@ -15,7 +15,7 @@ in composeOverlay [
       dotenvFile = ((toString rootPath) + "/secrets/" + (toString file));
       command = super.writeShellScript "dotenv-wrapper" script;
     in ''
-      ${dotenv}/bin/dotenv "@${toString dotenvFile}" -- ${command} $*
+      ${dotenv}/bin/dotenv "@${toString dotenvFile}" -- ${command} "$@"
     '');
 
   in
