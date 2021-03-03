@@ -11,4 +11,7 @@ use my cachix, `cachix use fortuneteller2k`
 Most of my packages are listed [here](https://nur.nix-community.org/repos/fortuneteller2k/).
 
 Other packages that weren't listed due to being impure:
-	- `nur.repos.fortuneteller2k.impure.eww`
+
+| name                    | attribute                              | description                                                                     |
+|-------------------------|----------------------------------------|---------------------------------------------------------------------------------|
+| eww-unstable-2021-02-27 | `nur.repos.fortuneteller2k.impure.eww` | A standalone widget system made in Rust to add AwesomeWM like widgets to any WM |
