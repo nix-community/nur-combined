@@ -89,11 +89,8 @@ in
     # dasel # manipulação de json, toml, yaml, xml, csv e tal
     rclone-browser # cloud storage
     p7zip unzip xarchiver # archiving
-    dotenv # custom
     virt-manager
     # Extra
-    gitAndTools.gitui
-    python3Packages.pipx
     send2kindle
   ];
 

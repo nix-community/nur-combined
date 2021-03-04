@@ -25,18 +25,12 @@ in
     # minecraft  # custom (excluded)
     usb_tixati pinball mspaint custom_rofi peazip # custom
     vlc youtube-dl # media
-    discord tdesktop # social
     google-chrome # browser (extra)
-    calibre
     file
     fortune
-    lazydocker
     libnotify
     neofetch
-    nix-index
     scrcpy
-    sqlite
-    typora
   ];
   programs.hello-world.enable = true;
 
