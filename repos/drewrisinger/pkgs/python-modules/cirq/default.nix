@@ -3,7 +3,6 @@
 , buildPythonPackage
 , pythonOlder
 , fetchFromGitHub
-, fetchpatch
 , freezegun
 # nixpkgs <= 20.09
 , google_api_core ? null

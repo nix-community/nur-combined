@@ -1,18 +1,15 @@
 { lib
 , pythonOlder
 , buildPythonPackage
-, fetchFromGitHub
+, fetchPypi
 , cvxopt
 , ecos
-, multiprocess
 , numpy
 , osqp
 , scipy
 , scs
-, six
   # Check inputs
 , pytestCheckHook
-, nose
 }:
 
 buildPythonPackage rec {
@@ -21,28 +18,23 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.5";
 
-  src = fetchFromGitHub {
-    owner = "cvxgrp";
-    repo = "cvxpy";
-    rev = "v${version}";
-    sha256 = "0gxpnxch9vcam6ij5ka1pdaqs5r048x6q8fgds013ynbb3ni73p7";
+  src = fetchPypi {
+    inherit pname version;
+    hash = "sha256-7NCouJ95nOolSSjeqHktnGnDfbC9gwtM2mKbKyvlInA=";
   };
 
   propagatedBuildInputs = [
     cvxopt
     ecos
-    multiprocess
+    numpy
     osqp
+    scipy
     scs
-    six
   ];
 
-  checkInputs = [ pytestCheckHook nose ];
+  checkInputs = [ pytestCheckHook ];
   dontUseSetuptoolsCheck = true;
-  pytestFlagsArray = [
-    "./cvxpy"
-    "--ignore=./cvxpy/cvxcore/"  # seems out of date, many tests fail
-  ];
+  pytestFlagsArray = [ "./cvxpy" ];
   # Disable the slowest benchmarking tests, cuts test time in half
   disabledTests = [
     "test_tv_inpainting"
@@ -54,7 +46,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "A domain-specific language for modeling convex optimization problems in Python.";
+    description = "A domain-specific language for modeling convex optimization problems in Python";
     homepage = "https://www.cvxpy.org/";
     downloadPage = "https://github.com/cvxgrp/cvxpy/releases";
     changelog = "https://github.com/cvxgrp/cvxpy/releases/tag/v${version}";
