@@ -32,7 +32,6 @@ in
     neofetch
     scrcpy
   ];
-  programs.hello-world.enable = true;
 
   services.redial_proxy = {
     enable = true;

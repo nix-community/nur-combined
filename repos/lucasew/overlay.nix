@@ -50,5 +50,7 @@ in composeOverlay [
       inherit (super) pkgs;
       nurpkgs = super.pkgs;
     };
+    # fixes
+    calibre-py2 = super.calibre;
   })
 ]

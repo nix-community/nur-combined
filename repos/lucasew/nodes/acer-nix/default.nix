@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{pkgs, config, nix-ld, ... }:
+{pkgs, config, lib, nix-ld, utils, ... }:
 with (import ../../globalConfig.nix);
 let
   hostname = "acer-nix";
@@ -14,7 +14,12 @@ in
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../bootstrap/default.nix
-      "${flake.inputs.home-manager}/nixos"
+      (import "${flake.inputs.home-manager}/nixos" {
+        inherit config;
+        inherit pkgs;
+        inherit lib;
+        inherit utils;
+      })
       "${flake.inputs.nix-ld}/modules/nix-ld.nix"
       ../../modules/cachix/system.nix
       ../../modules/gui/system.nix
@@ -25,9 +30,9 @@ in
   programs.steam.enable = true;
 
   home-manager = {
-    sharedModules = [
-      ./modules/dummy_module.nix
-    ];
+    # sharedModules = map import [
+    #   ./modules/dummy_module.nix
+    # ];
     useGlobalPkgs = true;
     useUserPackages = true;
     users.${username} = {config, ...}: {

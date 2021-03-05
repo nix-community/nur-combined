@@ -5,7 +5,7 @@
     impermanence.url = "github:nix-community/impermanence";
     home-manager.url = "github:nix-community/home-manager";
     nix-ld.url = "github:Mic92/nix-ld";
-    nixpkgs.url = "github:NixOS/nixpkgs/20.09";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgsLatest.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nur.url = "github:nix-community/NUR/master";
     rust-overlay.url = "github:oxalica/rust-overlay";
@@ -82,3 +82,4 @@
     };
   };
 }
+
