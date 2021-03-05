@@ -39,11 +39,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2.3.4
 
-    - name: Setup nix-shell
-      run: nix-shell -I channel:nixos-20.09 shell.nix --run 'exit'
-
     - name: Update packages
-      run: ./update.sh
+      run: find -L "$(pwd)/" -type f -name "update.sh" | while read -r updatescript; do ( dir="$(dirname -- "$updatescript")"; cd "$dir" || exit; $updatescript ); done
 
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
