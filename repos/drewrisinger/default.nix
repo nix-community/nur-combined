@@ -107,7 +107,7 @@ rec {
       inherit cvxpy dlx docplex fastdtw pyscf qiskit-aer qiskit-ignis qiskit-terra yfinance;
     };
     qiskit-ibmq-provider = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ibmq-provider {
-      inherit ipyvuetify pproxy qiskit-terra;
+      inherit ipyvuetify pproxy qiskit-terra qiskit-aer;
     };
     qiskit = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit {
       inherit qiskit-aer qiskit-terra qiskit-ignis qiskit-aqua qiskit-ibmq-provider;

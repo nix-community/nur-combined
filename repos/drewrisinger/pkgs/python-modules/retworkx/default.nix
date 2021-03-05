@@ -8,19 +8,20 @@
 , pip
   # Check inputs
 , pytestCheckHook
+, networkx
 , numpy
 }:
 
 let
   pname = "retworkx";
-  version = "0.7.2";
+  version = "0.8.0";
   src = fetchFromGitHub {
     owner = "Qiskit";
     repo = "retworkx";
     rev = version;
-    sha256 = "028p96md4yiwq6996fcjx42fy4w2ycgx4dk1lashfg7ak6pzy84j";
+    sha256 = "0plpri6a3d6f1000kmcah9066vq2i37d14bdf8sm96493fhpqhrd";
   };
-  installCheckInputs = [ pytestCheckHook numpy ];
+  installCheckInputs = [ pytestCheckHook numpy networkx ];
   preCheck = ''
     export TESTDIR=$(mktemp -d)
     cp -r tests/ $TESTDIR
@@ -42,8 +43,8 @@ let
     # TODO: remove when 20.09 released, needed to build on CI.
     cargoSha256 = if
       lib.versionOlder lib.trivial.release "20.09"
-      then "0pzcb74vdx8n7vw16gv90h0spr66p8p6700p4bw8f0dmxw1qn40s"
-      else "1v25r2gvk11i4xc2yhj0bwv3asi8vbvhib6kp8za4p41n3w1yvma";
+      then "0jd7wd40nfv9k64a1kyrqr2b5y13lc3szas1wlbl0d3jyc249jra"
+      else "1ykrkwfdi8wvwnxsg9kvmd9f93hg9mzmlsw6fq1wqyx017vgnkps";
     legacyCargoFetcher = true;  # TODO: Remove on next nixos release. Cargo SHA mismatch b/w unstable & release.
 
     propagatedBuildInputs = [ python ];
@@ -73,7 +74,7 @@ let
     cargoDeps = rustPlatform.fetchCargoTarball {
       inherit src;
       name = "${pname}-${version}";
-      sha256 = "1v25r2gvk11i4xc2yhj0bwv3asi8vbvhib6kp8za4p41n3w1yvma";
+      sha256 = "1ykrkwfdi8wvwnxsg9kvmd9f93hg9mzmlsw6fq1wqyx017vgnkps";
     };
 
     nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
