@@ -541,10 +541,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.65.0.5";
+      version = "4.66.0.12";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3724736/lastpass_password_manager-4.65.0.5-an+fx.xpi";
-      sha256 = "fb40999a621a106457b4fb4cb4530468fd3e6a316c1dcfa40ad9834a5eb73750";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3736761/lastpass_password_manager-4.66.0.12-an+fx.xpi";
+      sha256 = "1d564314bed54c5f544c3562c4233cda7f379f54001a2485577da6aa9d72b6b9";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -630,10 +630,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.1.0";
+      version = "9.1.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3736023/metamask-9.1.0-an+fx.xpi";
-      sha256 = "a6f325bb0ba0d3dbaa58086e4aec320c9521131a99ed51c05a1a0e855c10c957";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3737380/metamask-9.1.1-an+fx.xpi";
+      sha256 = "d990278df37e4d0aec1fb67b595a404a2d5f3772a833406d72d1a787bd4858aa";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
