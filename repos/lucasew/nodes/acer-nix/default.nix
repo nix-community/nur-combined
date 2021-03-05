@@ -30,9 +30,9 @@ in
   programs.steam.enable = true;
 
   home-manager = {
-    # sharedModules = map import [
-    #   ./modules/dummy_module.nix
-    # ];
+    sharedModules = [
+      ./modules/dummy_module.nix
+    ];
     useGlobalPkgs = true;
     useUserPackages = true;
     users.${username} = {config, ...}: {

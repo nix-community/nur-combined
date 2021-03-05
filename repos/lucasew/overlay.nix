@@ -29,6 +29,7 @@ in composeOverlay [
     send2kindle = cp flake.inputs.send2kindle;
     zls = cp flake.inputs.zls;
     arcan = cp ./packages/arcan.nix;
+    c4me = cp ./packages/c4me.nix;
     cisco-packet-tracer = cp ./packages/cisco-packet-tracer.nix;
     custom_neovim = cp ./modules/neovim/package.nix;
     among_us = cp ./packages/among_us.nix;
