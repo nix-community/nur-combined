@@ -265,13 +265,13 @@ let
         sha512 = "0yPjzuzGMkW1GkrC8yWsiN7vt1OzkMIi9HgxRmKREZl2wnNPOKo/yScTjXf/O57HM8dltqxPF6jlNLFVtc2qdw==";
       };
     };
-    "@grpc/grpc-js-1.2.9" = {
+    "@grpc/grpc-js-1.2.10" = {
       name = "_at_grpc_slash_grpc-js";
       packageName = "@grpc/grpc-js";
-      version = "1.2.9";
+      version = "1.2.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.2.9.tgz";
-        sha512 = "hUNM2G8EP/dHN6cLFk8BXV6ae8zR7A0TPXGCERdwUiJv9yb6BL7FrTb73gUrrx4Dje6tUeomH6urSDEDz5mE7g==";
+        url = "https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.2.10.tgz";
+        sha512 = "wj6GkNiorWYaPiIZ767xImmw7avMMVUweTvPFg4mJWOxz2180DKwfuxhJJZ7rpc1+7D3mX/v8vJdxTuIo71Ieg==";
       };
     };
     "@grpc/proto-loader-0.5.6" = {
@@ -337,13 +337,13 @@ let
         sha512 = "CJ6n7izLFXLvPZaWzCQDjU/RP+vHiZmWdOunaCS87v+2jxMsW9FB5ktfIxybRBxZjxuJGRnxk7xJecWTVxFUYQ==";
       };
     };
-    "@octokit/openapi-types-5.3.0" = {
+    "@octokit/openapi-types-5.3.1" = {
       name = "_at_octokit_slash_openapi-types";
       packageName = "@octokit/openapi-types";
-      version = "5.3.0";
+      version = "5.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@octokit/openapi-types/-/openapi-types-5.3.0.tgz";
-        sha512 = "5q2qBz4iZ0xS/DEJ0ROusFbN4cVlbJE9GvOByen+mv7artuGXfVhONqcuRd7jYN2glTmCnzcZw+X6LrjRVqs0A==";
+        url = "https://registry.npmjs.org/@octokit/openapi-types/-/openapi-types-5.3.1.tgz";
+        sha512 = "TvVk2QuIA0lQZcIMd6xbdGaGDVeNYIOa3l1ZVagAIk5K3t/WMYbcg4BISNDhzdVhm/TgQB26frAgd/GV81aHJA==";
       };
     };
     "@octokit/plugin-paginate-rest-2.11.0" = {
@@ -922,13 +922,13 @@ let
         sha512 = "AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==";
       };
     };
-    "before-after-hook-2.1.1" = {
+    "before-after-hook-2.2.0" = {
       name = "before-after-hook";
       packageName = "before-after-hook";
-      version = "2.1.1";
+      version = "2.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/before-after-hook/-/before-after-hook-2.1.1.tgz";
-        sha512 = "5ekuQOvO04MDj7kYZJaMab2S8SPjGJbotVNyv7QYFCOAwrGZs/YnoDNlh1U+m5hl7H2D/+n0taaAV/tfyd3KMA==";
+        url = "https://registry.npmjs.org/before-after-hook/-/before-after-hook-2.2.0.tgz";
+        sha512 = "jH6rKQIfroBbhEXVmI7XmXe3ix5S/PgJqpzdDPnR8JGLHWNYLsYZ6tK5iWOF/Ra3oqEX0NobXGlzbiylIzVphQ==";
       };
     };
     "bignumber.js-9.0.1" = {
@@ -4167,7 +4167,7 @@ in
       sources."@firebase/storage-types-0.3.13"
       sources."@firebase/util-0.3.4"
       sources."@firebase/webchannel-wrapper-0.4.1"
-      (sources."@grpc/grpc-js-1.2.9" // {
+      (sources."@grpc/grpc-js-1.2.10" // {
         dependencies = [
           sources."semver-6.3.0"
         ];
@@ -4193,7 +4193,7 @@ in
           sources."universal-user-agent-6.0.0"
         ];
       })
-      sources."@octokit/openapi-types-5.3.0"
+      sources."@octokit/openapi-types-5.3.1"
       (sources."@octokit/plugin-paginate-rest-2.11.0" // {
         dependencies = [
           sources."@octokit/types-6.12.0"
@@ -4270,7 +4270,7 @@ in
       sources."await-to-js-2.1.1"
       sources."balanced-match-1.0.0"
       sources."base64-js-1.5.1"
-      sources."before-after-hook-2.1.1"
+      sources."before-after-hook-2.2.0"
       sources."bignumber.js-9.0.1"
       (sources."body-parser-1.19.0" // {
         dependencies = [
