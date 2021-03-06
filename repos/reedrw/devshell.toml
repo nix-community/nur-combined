@@ -3,6 +3,7 @@ name = "nur-packages"
 packages = [
   "cargo",
   "gcc",
+  "jq",
   "niv",
   "nix-prefetch",
   "nix-prefetch-github",
