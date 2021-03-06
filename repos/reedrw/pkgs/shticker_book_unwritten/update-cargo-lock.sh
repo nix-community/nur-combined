@@ -1,4 +1,5 @@
-#! /usr/bin/env bash
+#! /usr/bin/env nix-shell
+#! nix-shell ../../shell.nix -i bash
 
 # This updates cargo-lock.patch for the diesel version listed in default.nix.
 
