@@ -8,7 +8,6 @@ in {
     };
   };
   inherit (unstable)
-    zoom-us # https://github.com/NixOS/nixpkgs/pull/103485
     bambootracker;
   steam-wrapper = with super; writeShellScriptBin "steam-wrapper" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
@@ -16,7 +15,6 @@ in {
     export __VK_LAYER_NV_optimus=NVIDIA_only
     export LANG=en_US.UTF8
     export LC_ALL=en_US.UTF8
-    ${apulse}/bin/apulse "$@"
   '';
   ArchiSteamFarm = with super; (ArchiSteamFarm.override {
     dotnetCorePackages = dotnetCorePackages // {
