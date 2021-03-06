@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "runescape-launcher";
-  version = "2.2.8";
+  version = "2.2.9";
 
   # Debian Repo:
   # curl https://content.runescape.com/downloads/ubuntu/dists/trusty/Release
   # curl https://content.runescape.com/downloads/ubuntu/dists/trusty/non-free/binary-amd64/Packages
   src = fetchurl {
     url = "https://content.runescape.com/downloads/ubuntu/pool/non-free/r/${pname}/${pname}_${version}_amd64.deb";
-    hash = "sha256-avYMWG7ba36/SNIPK6mjuVF6UlG0QVfnKV+PSX4qYWQ=";
+    hash = "sha256-7CTPD8GkxsuM60Z6WbJ+bRvmNpkg7YPqYr+UfmU9Ywc=";
   };
 
   nativeBuildInputs = [ dpkg ];
