@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell ../../shell.nix -I channel:nixos-20.09 -i bash
+#! nix-shell ../../shell.nix -i bash
 
 set -e
 set -x

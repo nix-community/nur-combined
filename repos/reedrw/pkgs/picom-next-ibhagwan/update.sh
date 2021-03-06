@@ -1,4 +1,4 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i bash -p nix-prefetch-github
+#! nix-shell ../../shell.nix -i bash
 
 nix-prefetch-github ibhagwan picom | tee source.json
