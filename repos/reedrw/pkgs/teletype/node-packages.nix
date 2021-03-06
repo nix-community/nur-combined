@@ -2569,13 +2569,13 @@ let
         sha512 = "PxiShnxf0IlnQuMYOPPhPkhExoCQuTUNPOa/2JWCYTmBquU9njyyDuwRKN26IZBlp4yn1nt+Agh2HOOBl+55HQ==";
       };
     };
-    "ws-7.4.3" = {
+    "ws-7.4.4" = {
       name = "ws";
       packageName = "ws";
-      version = "7.4.3";
+      version = "7.4.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ws/-/ws-7.4.3.tgz";
-        sha512 = "hr6vCR76GsossIRsr8OLR9acVVm1jyfEWvhbNjtgPOrfvAlKzvyeg/P6r8RuDjRyrcQoPQT7K0DGEPc7Ae6jzA==";
+        url = "https://registry.npmjs.org/ws/-/ws-7.4.4.tgz";
+        sha512 = "Qm8k8ojNQIMx7S+Zp8u/uHOx7Qazv3Yv4q68MiWWWOJhiwG5W3x7iqmRtJo8xxrciZUY4vRxUTJCKuRnF28ZZw==";
       };
     };
     "yallist-4.0.0" = {
@@ -3027,7 +3027,7 @@ in
       sources."wrappy-1.0.2"
       sources."write-file-atomic-3.0.3"
       sources."write-json-file-4.3.0"
-      sources."ws-7.4.3"
+      sources."ws-7.4.4"
       sources."yallist-4.0.0"
       sources."yn-3.1.1"
     ];
