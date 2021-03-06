@@ -40,7 +40,7 @@ jobs:
           --option allow-import-from-derivation true \
           --drv-path --show-trace \
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
+          -I $PWD > /dev/null
     - name: Build nix packages
       run: nix run -f . nix-build-uncached -c nix-build-uncached non-broken.nix
     - name: Trigger NUR update
