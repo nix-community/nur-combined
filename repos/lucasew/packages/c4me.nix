@@ -6,7 +6,7 @@ let
 in pkgs.writeShellScriptBin "c4me" ''
 export TMPFILE=$(mktemp)
 cat ${setupScript} >> $TMPFILE
-cat /dev/stdin >> $TMPFILE
+read -e -t 0.1 && echo $REPLY >> $TMPFILE
 echo "print($@)" >> $TMPFILE
 ${pkgs.python3}/bin/python $TMPFILE
 rm $TMPFILE

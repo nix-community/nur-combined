@@ -36,11 +36,11 @@ in composeOverlay [
     comby = cp ./packages/comby.nix;
     custom_rofi = cp ./packages/custom_rofi.nix;
     ets2 = cp ./packages/ets2.nix;
-    funcoeszz = cp /home/lucasew/WORKSPACE/funcoeszz;
     minecraft = cp ./packages/minecraft.nix;
     mspaint = cp ./packages/mspaint.nix;
     peazip = cp ./packages/peazip.nix;
     pinball = cp ./packages/pinball.nix;
+    pkg = cp ./packages/pkg.nix;
     stremio = cp ./packages/stremio.nix;
     usb_tixati = cp ./packages/usb_tixati.nix;
     nodePackages = super.nodePackages
