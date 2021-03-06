@@ -12,11 +12,11 @@ with python3Packages;
 
 buildPythonPackage rec {
   pname = "ytmdl";
-  version = "2021.1.14.post1";
+  version = "2021.3.4";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-8/ZOUm9+amnim+L6Ju0cgJAgmvnRxao3rzV6BryCfvk=";
+    sha256 = "sha256-WFXodF9MHf7/Gz3KJDgZqW6PQtCiP4gphomcJFfJLSI=";
   };
 
   doCheck = false; # NOTE: disable to prevent false fails
@@ -28,8 +28,8 @@ buildPythonPackage rec {
     colorama
     itunespy
     downloader-cli
-    bs4 # TODO: make a pr that fucking fixes this dumb shit
-    beautifulsoup4 # TODO: make a pr that fucking fixes this dumb shit
+    bs4 # TODO: make a pr that fixes this
+    beautifulsoup4 # TODO: make a pr that fixes this
     urllib3
     mutagen
     unidecode
