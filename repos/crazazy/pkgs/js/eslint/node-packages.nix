@@ -31,13 +31,13 @@ let
         sha512 = "4vrIhfJyfNf+lCtXC2ck1rKSzDwciqF7IWFhXXrSOUC2O5DrVp+w4c6ed4AllTxhTkUP5x2tYj41VaxdVMMRDw==";
       };
     };
-    "@eslint/eslintrc-0.3.0" = {
+    "@eslint/eslintrc-0.4.0" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "0.3.0";
+      version = "0.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.3.0.tgz";
-        sha512 = "1JTKgrOKAHVivSvOYw+sJOunkBjUOvjqWk1DPja7ZFhIS2mX/4EgTT8M7eTK9jrKhL/FvXXEbQwIs3pg1xp3dg==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.4.0.tgz";
+        sha512 = "2ZPCc+uNbjV5ERJr+aKSPRwZgKd2z11x0EgLvb1PURmUrn9QNRXFqje0Ldq454PfAVyaJYyrDvvIKSFP4NnBog==";
       };
     };
     "acorn-7.4.1" = {
@@ -832,13 +832,13 @@ let
         sha1 = "04e6926f662895354f3dd015203633b857297e2c";
       };
     };
-    "string-width-4.2.1" = {
+    "string-width-4.2.2" = {
       name = "string-width";
       packageName = "string-width";
-      version = "4.2.1";
+      version = "4.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/string-width/-/string-width-4.2.1.tgz";
-        sha512 = "LL0OLyN6AnfV9xqGQpDBwedT2Rt63737LxvsRxbcwpa2aIeynBApG2Sm//F3TaLHIR1aJBN52DWklc06b94o5Q==";
+        url = "https://registry.npmjs.org/string-width/-/string-width-4.2.2.tgz";
+        sha512 = "XBJbT3N4JhVumXE0eoLU9DCjcaF92KLNqTmFCnG1pf8duUxFGwtP6AD6nkjw9a3IdiRtL3E2w3JDiE/xi3vOeA==";
       };
     };
     "strip-ansi-6.0.0" = {
@@ -971,8 +971,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.20.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.20.0.tgz"; sha1 = "db07c4ca4eda2e2316e7aa57ac7fc91ec550bdc7"; };
+    version = "7.21.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.21.0.tgz"; sha1 = "4ecd5b8c5b44f5dedc9b8a110b01bbfeb15d1c83"; };
     dependencies = [
       sources."@babel/code-frame-7.12.11"
       sources."@babel/helper-validator-identifier-7.12.11"
@@ -981,7 +981,7 @@ let
           sources."chalk-2.4.2"
         ];
       })
-      sources."@eslint/eslintrc-0.3.0"
+      sources."@eslint/eslintrc-0.4.0"
       sources."acorn-7.4.1"
       sources."acorn-jsx-5.3.1"
       sources."ajv-6.12.6"
@@ -1091,7 +1091,7 @@ let
         ];
       })
       sources."sprintf-js-1.0.3"
-      sources."string-width-4.2.1"
+      sources."string-width-4.2.2"
       sources."strip-ansi-6.0.0"
       sources."strip-json-comments-3.1.1"
       sources."supports-color-5.5.0"
