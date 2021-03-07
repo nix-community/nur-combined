@@ -14,6 +14,14 @@ let
     fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
     garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
     hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
+    homeassistant = let
+      tmpPython = pySelf.python.override {
+        packageOverrides = pySelf': pySuper': {
+          buildPythonApplication = pySelf'.buildPythonPackage;
+        };
+      };
+    in
+      tmpPython.pkgs.callPackage "${pkgs.path}/pkgs/servers/home-assistant" {};
     libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
     pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
     python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };
@@ -25,6 +33,8 @@ let
     pytest-homeassistant-custom-component = pySelf.callPackage ./pkgs/pytest-homeassistant-custom-component { };
   };
 in rec {
+  inherit pkgs; # for debugging
+
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules

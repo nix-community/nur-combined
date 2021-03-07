@@ -4,7 +4,7 @@
 , isPy37
 , isPy3k
 , coverage
-, home-assistant
+, homeassistant
 , jsonpickle
 , mock-open
 , pytest
@@ -47,7 +47,7 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-    home-assistant
+    homeassistant
     pytest
     requests-mock
     sqlalchemy
