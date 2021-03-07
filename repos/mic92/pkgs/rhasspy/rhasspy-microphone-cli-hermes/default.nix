@@ -4,6 +4,7 @@
 , pythonOlder
 , rhasspy-hermes
 , webrtcvad
+, alsaTools
 }:
 
 buildPythonPackage rec {
@@ -23,6 +24,8 @@ buildPythonPackage rec {
     patchShebangs ./configure
     sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
   '';
+
+  makeWrapperArgs = [ "--prefix PATH : ${alsaTools}/bin" ];
 
   propagatedBuildInputs = [
     webrtcvad
