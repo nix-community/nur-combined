@@ -195,6 +195,9 @@
     "slug": "multi-account-containers"
   },
   {
+    "slug": "news-feed-eradicator"
+  },
+  {
     "slug": "octotree"
   },
   {
@@ -208,6 +211,10 @@
   },
   {
     "slug": "plasma-integration"
+  },
+  {
+    "slug": "polish-spellchecker-dictionary",
+    "pname": "polish-dictionary"
   },
   {
     "slug": "privacy-badger17",
@@ -311,6 +318,9 @@
   },
   {
     "slug": "unpaywall"
+  },
+  {
+    "slug": "videospeed"
   },
   {
     "slug": "vim-vixen"

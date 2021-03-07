@@ -655,6 +655,20 @@
         platforms = platforms.all;
         };
       };
+    "news-feed-eradicator" = buildFirefoxXpiAddon {
+      pname = "news-feed-eradicator";
+      version = "2.2.0";
+      addonId = "@news-feed-eradicator";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3714424/news_feed_eradicator-2.2.0-fx.xpi";
+      sha256 = "6f6f8f70e9442059f95a7ca2c7d9b7e5230497c743e21bf2c8d61179de677f04";
+      meta = with lib;
+      {
+        homepage = "https://west.io/news-feed-eradicator";
+        description = "Find yourself spending too much time on Facebook? Eradicate distractions by replacing your entire news feed with an inspiring quote";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
       version = "6.3.1";
@@ -721,6 +735,19 @@
         homepage = "http://kde.org";
         description = "Multitask efficiently by controlling browser functions from the Plasma desktop.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "polish-dictionary" = buildFirefoxXpiAddon {
+      pname = "polish-dictionary";
+      version = "1.0.20160228.1webext";
+      addonId = "pl@dictionaries.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1163872/polish_spellchecker_dictionary-1.0.20160228.1webext.xpi";
+      sha256 = "b11906da9d9c1f3de7661b990fc1a670dc1615eda0ce0e96efae26b0627474c7";
+      meta = with lib;
+      {
+        homepage = "http://www.aviary.pl/";
+        description = "Polish spell-check dictionary for Firefox, Thunderbird and SeaMonkey.";
         platforms = platforms.all;
         };
       };
@@ -1085,6 +1112,20 @@
       {
         homepage = "http://unpaywall.org/products/extension";
         description = "Get free text of research papers as you browse, using Unpaywall's index of ten million legal, open-access articles.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "videospeed" = buildFirefoxXpiAddon {
+      pname = "videospeed";
+      version = "0.6.3.2";
+      addonId = "{7be2ba16-0f1e-4d93-9ebc-5164397477a9}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3723258/video_speed_controller-0.6.3.2-an+fx.xpi";
+      sha256 = "63e9849f4343bbfabb190e2d3e103cce57c5fbd5f7ed2066eaf52eda2f15d655";
+      meta = with lib;
+      {
+        homepage = "https://github.com/codebicycle/videospeed";
+        description = "Speed up, slow down, advance and rewind any HTML5 video with quick shortcuts.";
         license = licenses.mit;
         platforms = platforms.all;
         };
