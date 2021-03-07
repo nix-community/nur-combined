@@ -48,23 +48,23 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     home-assistant
+    pytest
+    requests-mock
+    sqlalchemy
   ];
 
   checkInputs = [
     coverage
     jsonpickle
     mock-open
-    pytest
     pytest-aiohttp
     pytest-cov
     pytest-sugar
     pytest-timeout
     pytest-xdist
     pytestCheckHook
-    requests-mock
     responses
     respx
-    sqlalchemy
     tqdm
   ];
 
