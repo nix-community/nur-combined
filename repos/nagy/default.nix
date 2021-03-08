@@ -12,8 +12,6 @@ rec {
 
   schemaorg = pkgs.callPackage ./pkgs/schemaorg { } ;
 
-  passphrase2pgp = pkgs.callPackage ./pkgs/passphrase2pgp {};
-
   lttoolbox = pkgs.callPackage ./pkgs/lttoolbox {};
 
   apertium = pkgs.callPackage ./pkgs/apertium { inherit lttoolbox; };
