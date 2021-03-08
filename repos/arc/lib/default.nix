@@ -76,7 +76,7 @@ in with self; {
     idx = listToAttrs pairs;
   in idx.${toLower char};
   hexToInt = str:
-    foldr (chr: value: value * 16 + hexCharToInt chr) 0 (stringToCharacters str);
+    foldl (value: chr: value * 16 + hexCharToInt chr) 0 (stringToCharacters str);
   toHex = toHexLower;
   toHexLower = int: let
     rest = int / 16;

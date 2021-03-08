@@ -116,6 +116,14 @@ let
 
     bitlbee-libpurple = { bitlbee }: bitlbee.override { enableLibPurple = true; };
 
+    mumble-arc = { mumble }: let
+      drv = mumble.override {
+        speechdSupport = true;
+      };
+    in drv.overrideAttrs (old: {
+      patches = old.patches or [] ++ [ ./mumble-pa-role.diff ];
+    });
+
     pidgin-arc = { pidgin, purple-plugins-arc }: let
       wrapped = pidgin.override {
         plugins = purple-plugins-arc;
