@@ -1160,10 +1160,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.12.8";
+      version = "2.12.10";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3694624/violentmonkey-2.12.8-an+fx.xpi";
-      sha256 = "159ea25020420250a0124b49eaadb2e7f67615bac80a1d2b0e2e13f7d0da5e35";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3739368/violentmonkey-2.12.10-an+fx.xpi";
+      sha256 = "9d74e2db628c2c78bfbfe98080114722175b1c859a3e7feb36340a11a8c6696e";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
