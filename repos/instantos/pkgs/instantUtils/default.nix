@@ -23,6 +23,7 @@
 , slock
 , wmctrl
 , xfce4-power-manager
+, upower
 , zenity
 , extraPatches ? []
 , defaultApps ? {}
@@ -47,12 +48,13 @@ let
 
     src = fetchurl {
       url = "https://raw.githubusercontent.com/instantOS/instantLOGO/master/description/thanks.txt";
-      sha256 = "0ivzww8pfc1ck7l7fizz48slfdpyx0lryqa3csaml8f2qxdrlrbi";
+      sha256 = "sha256-cWWaW8fCIVqVZkNhnyno/jZHNSL/R3fomSwwdxHnf0c=";
     };
     sourceRoot = ".";
     unpackCmd =  "cp $curSrc thanks.txt";
 
     installPhase = ''
+      echo THANKS
       ls -lh
       install -Dm 644 thanks.txt "$out/thanks.txt";
     '';
@@ -69,7 +71,7 @@ let
 
     src = fetchurl {
       url = "https://raw.githubusercontent.com/instantOS/instantos.github.io/master/youtube/hotkeys.md";
-      sha256 = "sha256-QiB4RZn2Gdz9gJvOOoKPQsdwcmVBgjz3XTj/3Sv8j+g=";
+      sha256 = "sha256-Sc0C9JmgoGd9dvWfYRi2QPUdUk51/g6jlR/eVe0moFU=";
     };
     sourceRoot = ".";
     unpackCmd =  "cp $curSrc hotkeys.md";
@@ -81,6 +83,7 @@ let
     '';
 
     installPhase = ''
+      echo HOTKEYS
       ls -lh
       install -Dm 644 hotkeys.md "$out/hotkeys.md";
     '';
@@ -100,8 +103,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantOS";
-    rev = "15aaccf7946e4879263a13880dc1f9e9b8641a24";
-    sha256 = "sha256-k58S+vxP7wGghzFas97WUdoSetRl2woMFJKLayrBGY0=";
+    rev = "f66cb9f2c62640bf918bd90e12461cb10590b15b";
+    sha256 = "DJmhrJ4Axv08umuTRhuNcRld5JHm2il8mNaBW5p+l/w=";
     name = "instantOS_instantUtils";
   };
 
@@ -129,6 +132,7 @@ stdenv.mkDerivation rec {
     st
     wmctrl
     xfce4-power-manager
+    upower
     zenity
 
     thanks
@@ -137,9 +141,11 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     for fl in *.sh programs/ifeh; do
-    substituteInPlace "$fl" \
-      --replace "#!/usr/bin/dash" "#!/bin/sh"
+      substituteInPlace "$fl" \
+        --replace "#!/usr/bin/dash" "#!/bin/sh"
     done
+    substituteInPlace programs/instantstartmenu \
+      --replace "/usr/share/instantutils/thanks.txt" "${thanks}/thanks.txt"
     substituteInPlace programs/appmenu \
       --replace "#!/usr/bin/dash" "#!/bin/sh" \
       --replace "/usr/share/instantdotfiles/rofi/appmenu.rasi" "tmp_placeholder" \
@@ -170,39 +176,22 @@ stdenv.mkDerivation rec {
     patchShebangs *.sh
   '';
 
+  dontBuild = true;
+
+  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
+
+  installTargets = [ "install_local" ];
+
   installPhase = ''
     runHook preInstall
-    install -Dm 555 autostart.sh "$out/bin/instantautostart"
-    install -Dm 555 status.sh "$out/bin/instantstatus"
-    install -Dm 555 monitor.sh "$out/bin/instantmonitor"
-
-    install -Dm 555 instantutils.sh "$out/bin/instantutils"
-    install -Dm 555 installinstantos.sh "$out/bin/installinstantos"
-
-    mkdir -p "$out/share/instantutils"
-    chmod +x *.sh
-    mv *.sh "$out/share/instantutils"
-
-    chmod +x setup/*
-    mv setup "$out/share/instantutils"
-    ln -s "${thanks}/thanks.txt" "$out/share/instantutils/thanks.txt"
-    mv mirrors "$out/share/instantutils"
-    echo "${version}" > "$out/share/instantutils/version"
-
-    mkdir -p "$out/share/applications"
-    mv desktop/* "$out/share/applications"
-
-    chmod +x programs/*
-    mv programs/* "$out/bin"
-
-    ln -s "${keybindings}/hotkeys.md" "$out/share/instantutils/keybinds"
-
-    mkdir -p "$out/etc/X11/xorg.conf.d"
-    mv xorg/* "$out/etc/X11/xorg.conf.d"
+    make install_local DESTDIR=$out PREFIX=
     runHook postInstall
   '';
 
   postInstall = ''
+    ln -s "${thanks}/thanks.txt" "$out/share/instantutils/thanks.txt"
+    ln -s "${keybindings}/hotkeys.md" "$out/share/instantutils/keybinds"
+    echo "${version}" > "$out/share/instantutils/version"
     # Wrapping PATHS
     wrapProgram "$out/bin/instantautostart" \
       --prefix PATH : ${lib.makeBinPath [
@@ -225,8 +214,8 @@ stdenv.mkDerivation rec {
       --prefix PATH : ${lib.makeBinPath [ rofi ]}
     wrapProgram "$out/bin/ifeh" \
       --prefix PATH : ${lib.makeBinPath [ nitrogen ]}
-    wrapProgram "$out/share/instantutils/userinstall.sh" \
-      --prefix PATH : ${lib.makeBinPath [ acpi pciutils ]}
+    #wrapProgram "$out/share/instantutils/userinstall.sh" \
+    #  --prefix PATH : ${lib.makeBinPath [ acpi pciutils ]}
     wrapProgram "$out/bin/ipicom" \
       --prefix PATH : ${lib.makeBinPath [ picom ]}
     wrapProgram "$out/bin/iswitch" \

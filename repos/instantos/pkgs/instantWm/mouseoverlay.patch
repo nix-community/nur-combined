@@ -1,0 +1,13 @@
+diff --git a/instantwm.c b/instantwm.c
+index 110250d..1c926da 100644
+--- a/instantwm.c
++++ b/instantwm.c
+@@ -2372,7 +2372,7 @@ motionnotify(XEvent *e)
+ 	if (ev->y_root == 0 && ev->x_root >= selmon->mx + selmon->ww - 20 - getsystraywidth()) {
+ 		if (selmon->gesture != 11) {
+ 			selmon->gesture = 11;
+-			setoverlay();
++			// setoverlay();
+ 		}
+ 		return;
+ 	} else if (selmon->gesture == 11 && ev->x_root >= selmon->mx + selmon->ww - 24  - getsystraywidth()) {

@@ -1,7 +1,7 @@
-{ stdenv, fetchFromGitHub, pkgconfig, writeText, libX11, ncurses
+{ stdenv, lib, fetchFromGitHub, pkgconfig, writeText, libX11, ncurses
 , libXft, harfbuzz, firacodenerd, conf ? null, patches ? [], extraLibs ? []}:
 
-with stdenv.lib;
+with lib;
 
 stdenv.mkDerivation rec {
   pname = "instantSt";
@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "st-instantos";
-    rev = "bfe35d5ebe539998d300ce3fb2fd083a5030ad5d";
-    sha256 = "sha256-8Mf1DmdNXFjoyuQzLjn9UI/K613DjFyHshihsEe9lSI=";
+    rev = "a89144869a7a603df7fc43144ddabccbba792a41";
+    sha256 = "sha256-DA16pSm2ZNUIbmVHPSh21XHO4kin7ji5O9C+zXV+eQE=";
     name = "instantOS_instantST";
   };
 

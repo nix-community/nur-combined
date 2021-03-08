@@ -5,7 +5,7 @@
 , instantMenu
 , conf ? null }:
 
-with stdenv.lib;
+with lib;
 stdenv.mkDerivation rec {
   pname = "instantLock";
   version = "unstable";
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     cp ${writeText "config.def.h" conf} config.def.h
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Screen lock manager of instantOS.";
     license = licenses.mit;
     homepage = "https://github.com/instantOS/instantLOCK";

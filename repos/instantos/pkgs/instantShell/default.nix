@@ -12,33 +12,36 @@ stdenv.mkDerivation {
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantshell";
-      rev = "482d900c4e18a1dab2f8893ff10687fb3c8d016a";
-      sha256 = "sha256-9sDDwp0SxLbTtC53hrR5uKoHiBmFjTDTLHdMaXXft6Y=";
+      rev = "a3348b1cc73deeea4fcdb7bdf7ae7ae15bc514cb";
+      sha256 = "Z3Hy+cXY7aOND3MrAGeyGNwVMFXXccDr6q/PStiKUtE=";
       name = "instantOS_instantShell";
     })
     (fetchFromGitHub {
       owner = "ohmyzsh";
       repo = "ohmyzsh";
-      rev = "90ffda7ed28dd8273b80bd262c6a28be65e4da71";
-      sha256 = "sha256-lYf+NmSgY0WFBMWxVBrh/f2cSJ0WqnaTktQNA0nYZNE=";
+      rev = "0ab87c26c17171ae6162ff379a0c704fa57dff2e";
+      sha256 = "HLWLYYcC+SoJAn8KpzSAVHrLh61N3jieHmadeSQ/zuc=";
       name = "ohmyzsh";
     })
   ];
 
   sourceRoot = ".";
 
+  dontBuild = true;
+
+  makeFlags = [ "PREFIX=$(out)" ];
+
   postPatch = ''
     ls -lh
-    substituteInPlace instantOS_instantShell/install.sh \
-      --replace "/usr/share/" "$out/share/"
     cat instantOS_instantShell/zshrc >> ohmyzsh/templates/zshrc.zsh-template
     rm instantOS_instantShell/zshrc
   '';
 
   installPhase = ''
+    install -Dm 755 instantOS_instantShell/instantshell.sh "$out/bin/instantshell"
     install -Dm 644 instantOS_instantShell/instantos.plugin.zsh $out/share/instantshell/custom/plugins/instantos/instantos.plugin.zsh
     install -Dm 644 instantOS_instantShell/instantos.zsh-theme $out/share/instantshell/custom/themes/instantos.zsh-theme
-    install -Dm 555 instantOS_instantShell/install.sh $out/bin/instantshell
+    install -Dm 644 instantOS_instantShell/zshrc $out/share/instantshell/zshrc || true
     cp -r ohmyzsh/* $out/share/instantshell
   '';
 

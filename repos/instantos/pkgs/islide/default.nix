@@ -13,8 +13,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "islide";
-    rev = "39d214e0ceab393236d8c6e54305d70659054a2a";
-    sha256 = "sha256-IbPRnrXOzq7tSiXFgUhPYph3eufeIVxqWl/WG3UkTmg=";
+    rev = "77d976ba9b9a71601aa34248a06e8c983b13fb5f";
+    sha256 = "sha256-BxD/GQMu2XgeeZotrdAf0hp+iXPS4KotvNixeXWg0FE=";
     name = "instantOS_islide";
   };
 

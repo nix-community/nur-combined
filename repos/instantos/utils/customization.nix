@@ -5,6 +5,7 @@
 (import ./.. { pkgs=import <nixpkgs> {}; }).extend (self: super: {
   instantwm = (super.instantwm.override {
     wmconfig = ./customconfig.h;
+    extraPatches = [ ./../pkgs/instantWm/mouseoverlay.patch ];
   });
   instantutils = (super.instantutils.override {
     extraPatches = [ ./dateformat.patch ];

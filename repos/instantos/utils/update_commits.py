@@ -23,7 +23,6 @@ import re, json, logging
 import os.path
 from pathlib import Path as P
 
-import requests
 from nix_prefetch_github import nix_prefetch_github
 
 __filedir__ = os.path.dirname(__file__)
@@ -64,6 +63,8 @@ def handle_match(match, commit, text):
 
 
 def github_request(match, auth=None):
+    # ToDo(confus): Make this async and watch for write conflicts in file later
+    import requests
     match["branch"] = match["branch"] or "master"
     auth = auth or dict(Authorization="token " + os.getenv("GITHUB_TOKEN"))
 
@@ -129,7 +130,7 @@ def replace_with_backup(file_, backup, text):
 
 
 def clone_repo(file_, owner, repo, rev, **_):
-    cmd = f"git clone 'https://github.com/{owner}/{repo}'; cd '{repo}' && git checkout '{rev}'",
+    cmd = f"git clone 'https://github.com/{owner}/{repo}'; cd '{repo}' && git checkout '{rev}'"
     cloneroot = P(__filedir__).parent
     sys.stderr.write(f"running command: '{cmd}'\n")
     subprocess.Popen(cmd, shell=True, cwd=cloneroot, stdout=sys.stdout, stderr=sys.stderr)

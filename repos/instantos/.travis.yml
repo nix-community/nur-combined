@@ -1,7 +1,7 @@
 language: nix
 nix: 2.3.4
-
-sudo: false
+os: linux
+dist: xenial
 
 env:
   global:
@@ -14,37 +14,42 @@ env:
     # For this to work, you also need to set the  CACHIX_SIGNING_KEY
     # in your repository settings in Travis.
     - CACHIX_CACHE=instantos
-    # Set this to notify the global nur package registry that changes are
-    # available.
-    #
-    # The repo name as used in
-    # https://github.com/nix-community/NUR/blob/master/repos.json
+      # Set this to notify the global nur package registry that changes are
+      # available.
+      #
+      # The repo name as used in
+      # https://github.com/nix-community/NUR/blob/master/repos.json
     - NUR_REPO=instantos
 
-matrix:
+jobs:
   include:
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable NIXPKGS_ALLOW_UNFREE=1
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable NIXPKGS_ALLOW_UNFREE=1
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.09 NIXPKGS_ALLOW_UNFREE=1
+    - env: NIX_CHANNEL=nixpkgs-unstable NIXPKGS_ALLOW_UNFREE=1
+    - env: NIX_CHANNEL=nixos-unstable NIXPKGS_ALLOW_UNFREE=1
+    - env: NIX_CHANNEL=nixos-20.09 NIXPKGS_ALLOW_UNFREE=1
 
 install:
- - nix --version
- # for cachix we need travis to be a trusted nix user
- - echo "trusted-users = $USER" | sudo tee -a /etc/nix/nix.conf
- - sudo systemctl restart nix-daemon
- - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
- - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
- - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
- - nix-channel --add "${NIX_CHANNEL}" nixpkgs
- - travis_retry nix-channel --update
+  - nix --version
+    # for cachix we need travis to be a trusted nix user
+  - echo "trusted-users = $USER" | sudo tee -a /etc/nix/nix.conf
+  - sudo systemctl restart nix-daemon
+  - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
+  - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
+  - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
+  - nix-channel --add "https://nixos.org/channels/${NIX_CHANNEL}" "${NIX_CHANNEL}"
+  - travis_retry nix-channel --update
+
+before_script:
+  - sudo mkdir -p /etc/nix && echo 'sandbox = true' | sudo tee /etc/nix/nix.conf
+  - ls -lh $HOME/.nix-defexpr/channels
+  - export NIX_PATH=$HOME/.nix-defexpr/channels:$NIX_PATH
 
 script:
- - nix-build ci.nix -A buildOutputs
- - nix eval -f default.nix 'lib'
- - nix eval -f default.nix 'modules'
- - nix eval -f default.nix 'overlays'
+  - nix-build --arg pkgs "import <${NIX_CHANNEL}> {}" ci.nix -A buildOutputs
+  - nix eval --arg pkgs "import <${NIX_CHANNEL}> {}" -f default.nix 'lib'
+  - nix eval --arg pkgs "import <${NIX_CHANNEL}> {}" -f default.nix 'modules'
+  - nix eval --arg pkgs "import <${NIX_CHANNEL}> {}" -f default.nix 'overlays'
 
 after_success:
-  - if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
+  - if [ -n "${CACHIX_CACHE}" ]; then nix-build --arg pkgs "import <${NIX_CHANNEL}> {}" ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
   - if [ "cron" != "${TRAVIS_EVENT_TYPE}" -a "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
-      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
+    curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi

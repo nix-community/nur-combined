@@ -20,3 +20,39 @@ instantwm.darkhoverfocus: #6e5991
 
 instantwm.darkfocus: #5c669b
 instantwm.focus: #7a88cf
+
+instantmenu.norm.fg : #dddddd
+instantmenu.norm.bg : #191a2a
+instantmenu.norm.detail : #6e5991
+
+instantmenu.fade.fg : #9a7acf
+instantmenu.fade.bg : #191a2a
+instantmenu.fade.detail : #6e5991
+
+instantmenu.highlight.fg : #dddddd
+instantmenu.highlight.bg : #0f0420
+instantmenu.highlight.detail : #6e5991
+
+instantmenu.hover.fg : #dddddd
+instantmenu.hover.bg : #7a64a0
+instantmenu.hover.detail : #6e5991
+
+instantmenu.sel.fg : #dddddd
+instantmenu.sel.bg : #f45dff
+instantmenu.sel.detail : #d130dd
+
+instantmenu.out.fg : #dddddd
+instantmenu.out.bg : #f45dff
+instantmenu.out.detail : #d130dd
+
+instantmenu.green.fg : #dddddd
+instantmenu.green.bg : #52e067
+instantmenu.green.detail: #35ca4b
+
+instantmenu.red.fg : #dddddd
+instantmenu.red.bg : #e0527e
+instantmenu.red.detail: #ca3563
+
+instantmenu.yellow.fg : #dddddd
+instantmenu.yellow.bg : #e09f52
+instantmenu.yellow.detail: #ca8635

@@ -24,15 +24,15 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantWM";
-    rev = "ee0867cd919d1b5e010c9563aabcba024a335f20";
-    sha256 = "sha256-T6EtJO5P5qfHV0gaZA9BHFnm+33OLlkwdGeNqvOBocU=";
+    rev = "45da9591c1d79c1b3b110c1aa9cbc2b5da1703c8";
+    sha256 = "SHA+Ym8OuXTshwrmq54dIKWN4qTuKIPZv3lgSsEy87M=";
     name = "instantOS_instantWm";
   };
   #src = ../../src/instantwm;
 
   patches = [ ] ++ extraPatches;
 
-  postPatch =  
+  postPatch =
   ( if builtins.isPath wmconfig then "cp ${wmconfig} config.def.h\n" else "" ) + 
   ''
     substituteInPlace config.mk \
@@ -76,7 +76,7 @@ stdenv.mkDerivation {
     license = licenses.mit;
     homepage = "https://github.com/instantOS/instantWM";
     maintainers = [ 
-        stdenv.lib.maintainers.shamilton
+        maintainers.shamilton
         "con-f-use <con-f-use@gmx.net>"
         "paperbenni <instantos@paperbenni.xyz>"
     ];

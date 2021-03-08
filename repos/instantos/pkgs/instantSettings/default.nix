@@ -23,6 +23,7 @@
 , system-config-printer
 , udiskie
 , xfce4-power-manager
+, gnome3
 }:
 let
   utilities = [
@@ -47,6 +48,7 @@ let
     papirus-icon-theme
     arc-theme
     hicolor-icon-theme
+    gnome3.zenity
   ];
 in
 stdenv.mkDerivation {
@@ -57,27 +59,25 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantSETTINGS";
-    rev = "2e7a53ad6801cb86a1aecffdc4a18e1c49719308";
-    sha256 = "sha256-c94RFTo0ZEAzkBBBecmC9xTIaygHrkOJPr5y/Pavv2s=";
+    rev = "1bcb700a9fa8d8f06d0fe3a3ccbd02b090ac5bbe";
+    sha256 = "QuNxqjwyKqT+LukUtnjpLq3l8Pmqi2Rn6WfD/apR0WE=";
   };
-  #src = ../../src/instantsettings;
+  # src = ../../src/instantsettings;
 
   nativeBuildInputs = [ makeWrapper ];
 
   propagatedBuildInputs = utilities;
 
+  makeFlags = [ "PREFIX=$(out)/" ];
+
   postPatch = ''
     substituteInPlace settings.sh \
       --replace "/usr/share/instantassist" "${instantAssist}/share/instantassist" \
-      --replace "/usr/share/instantsettings" "$out/share"
+      --replace "/usr/share/instantsettings" "$out/share/instantsettings"
   '';
 
   installPhase = ''
-    mkdir -p "$out/share/applications"
-    cp *.desktop "$out/share/applications"
-    mkdir -p "$out/share/utils"
-    cp utils/*.sh "$out/share/utils/"
-    install -Dm 555 settings.sh "$out/bin/instantsettings"
+    make install PREFIX=$out/
     ln -s "$out/bin/instantsettings" "$out/bin/instantos-control-center"
     runHook postInstall
   '';
