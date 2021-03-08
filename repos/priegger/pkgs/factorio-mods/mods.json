@@ -268,12 +268,13 @@
   },
   {
     "name": "ArmouredBiters",
-    "version": "1.1.1",
-    "file_name": "ArmouredBiters_1.1.1.zip",
-    "download_url": "/download/ArmouredBiters/6017204d4878d54237770989",
-    "sha1": "4b9a0e067d4c117e24cf17ebb4075c3ef342bef1",
+    "version": "1.1.3",
+    "file_name": "ArmouredBiters_1.1.3.zip",
+    "download_url": "/download/ArmouredBiters/6043c02c8e4d80d9b55111d9",
+    "sha1": "ad5ae740220bce04ed9c30f5bab382e863ca834c",
     "dependencies": [
-      "base >= 1.1.1"
+      "base >= 1.1.1",
+      "(?) alien-biomes"
     ]
   },
   {
@@ -587,10 +588,10 @@
   },
   {
     "name": "ixuBottleneck",
-    "version": "0.2.1",
-    "file_name": "ixuBottleneck_0.2.1.zip",
-    "download_url": "/download/ixuBottleneck/5fbd1fd4c23c61e3df7293cf",
-    "sha1": "ddebb73e7e5d3b6fcb2172b89c94e2c2d06c5646",
+    "version": "0.2.2",
+    "file_name": "ixuBottleneck_0.2.2.zip",
+    "download_url": "/download/ixuBottleneck/603e441cee74e9e17e5c68dc",
+    "sha1": "94507cf4e0766bd7f8aa15ba37cecea37188c4d0",
     "dependencies": [
       "base >= 0.18.0",
       "! Bottleneck"

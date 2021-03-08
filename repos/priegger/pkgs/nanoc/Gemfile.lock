@@ -16,7 +16,7 @@ GEM
     diff-lcs (1.4.4)
     hamster (3.0.0)
       concurrent-ruby (~> 1.0)
-    json_schema (0.20.9)
+    json_schema (0.21.0)
     kramdown (2.3.0)
       rexml
     nanoc (4.12.0)

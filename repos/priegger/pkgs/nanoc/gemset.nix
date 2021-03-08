@@ -108,10 +108,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "07df7lm7nz84b7pwqcpfh3h1320hhbj7pzc9djsbknwwvxa91jrc";
+      sha256 = "0nzcnb9j7bbj3nc6izwlsxky8j4xly345qzfg5v5n6550kqfmqfn";
       type = "gem";
     };
-    version = "0.20.9";
+    version = "0.21.0";
   };
   kramdown = {
     dependencies = [ "rexml" ];
