@@ -8,7 +8,6 @@ lib.makeScope newScope (
 
     ### APPLICATIONS
 
-    amethyst-bin = callPackage ./applications/window-managers/amethyst/bin.nix { };
     goldencheetah-bin = callPackage ./applications/goldencheetah/bin.nix { };
     gpxlab = libsForQt5.callPackage ./applications/gpxlab {
       inherit sources;
@@ -25,25 +24,15 @@ lib.makeScope newScope (
     klogg-bin = callPackage ./applications/misc/klogg/bin.nix { };
     librewolf = callPackage ./applications/networking/librewolf { };
     macpass-bin = callPackage ./applications/macpass/bin.nix { };
-    mapsoft = callPackage ./applications/gis/mapsoft { };
-    mapsoft2 = callPackage ./applications/gis/mapsoft/2.nix { };
     nnn-plugins = callPackage ./applications/nnn-plugins { };
     openorienteering-mapper = libsForQt5.callPackage ./applications/gis/openorienteering-mapper {
       inherit sources;
     };
     openorienteering-mapper-bin = callPackage ./applications/gis/openorienteering-mapper/bin.nix { };
-    qgis-bin = callPackage ./applications/gis/qgis/bin.nix { };
-    qgis-ltr-bin = qgis-bin.override { releaseType = "ltr"; };
-    qmapshack-bin = callPackage ./applications/gis/qmapshack/bin.nix { };
     qutebrowser-bin = callPackage ./applications/networking/qutebrowser/bin.nix { };
-    sasplanet-bin = callPackage ./applications/gis/sasplanet/bin.nix { };
     synwrite-bin = callPackage ./applications/synwrite/bin.nix { };
-    tdh = callPackage ./applications/gis/tdh { };
     visualgps = libsForQt5.callPackage ./applications/visualgps { };
     wireguard-statusbar-bin = callPackage ./applications/wireguard-statusbar { };
-    yabai = callPackage ./applications/window-managers/yabai {
-      inherit (darwin.apple_sdk.frameworks) Cocoa ScriptingBridge;
-    };
 
     ### BUILD SUPPORT
 
@@ -98,9 +87,6 @@ lib.makeScope newScope (
     geographiclib = callPackage ./development/libraries/geographiclib { };
     gpxlib = callPackage ./development/libraries/gpxlib { };
     hfst = callPackage ./development/libraries/hfst { };
-    libgarmin = callPackage ./development/libraries/libgarmin {
-      automake = pkgs.automake111x;
-    };
     libshell = callPackage ./development/libraries/libshell { };
     microjson = callPackage ./development/libraries/microjson { };
 
@@ -180,6 +166,9 @@ lib.makeScope newScope (
     gimgtools = callPackage ./garmin/gimgtools { };
     gmaptool = callPackage ./garmin/gmaptool { };
     imgdecode = callPackage ./garmin/imgdecode { };
+    libgarmin = callPackage ./garmin/libgarmin {
+      automake = pkgs.automake111x;
+    };
     ocad2img = perlPackages.callPackage ./garmin/ocad2img {
       inherit cgpsmapper ocad2mp fetchwebarchive;
     };
@@ -205,6 +194,16 @@ lib.makeScope newScope (
     md2gemini = callPackage ./gemini/md2gemini { };
     shavit = callPackage ./gemini/shavit { };
 
+    ### GIS
+
+    mapsoft = callPackage ./gis/mapsoft { };
+    mapsoft2 = callPackage ./gis/mapsoft/2.nix { };
+    qgis-bin = callPackage ./gis/qgis/bin.nix { };
+    qgis-ltr-bin = qgis-bin.override { releaseType = "ltr"; };
+    qmapshack-bin = callPackage ./gis/qmapshack/bin.nix { };
+    sasplanet-bin = callPackage ./gis/sasplanet/bin.nix { };
+    tdh = callPackage ./gis/tdh { };
+
     ### IMAGES
 
     dockerImages = {
@@ -224,6 +223,7 @@ lib.makeScope newScope (
     ### MISC
 
     aamath = callPackage ./misc/aamath { };
+    amethyst-bin = callPackage ./misc/amethyst/bin.nix { };
     apibackuper = callPackage ./misc/apibackuper { };
     ascii-dash = callPackage ./misc/ascii-dash { };
     cfiles = callPackage ./misc/cfiles { };
@@ -247,6 +247,9 @@ lib.makeScope newScope (
     taskcoach = callPackage ./misc/taskcoach { };
     xfractint = callPackage ./misc/xfractint { };
     xtr = callPackage ./misc/xtr { };
+    yabai = callPackage ./misc/yabai {
+      inherit (darwin.apple_sdk.frameworks) Cocoa ScriptingBridge;
+    };
 
     ### NAKARTE
 

@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "yabai";
-  version = "3.3.6";
+  version = "3.3.7";
 
   src = fetchFromGitHub {
     owner = "koekeishiya";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0319k35c2rm0hsf0s5qdx4510g2n3nzg42cw1mhxcqrpi63604gg";
+    sha256 = "1yx4qp4rwk3ncw57yqy9m0nsg1rb62x4y2mj009lbzx0syfvh84s";
   };
 
   nativeBuildInputs = [ xxd ];
@@ -23,6 +23,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A tiling window manager for macOS based on binary space partitioning";
     homepage = "https://github.com/koekeishiya/yabai";
+    changelog = "https://github.com/koekeishiya/yabai/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.darwin;
