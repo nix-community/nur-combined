@@ -10,31 +10,28 @@ rec {
   mdk4 = pkgs.callPackage ./pkgs/mdk4 { };
   reicast-emulator = pkgs.callPackage ./pkgs/reicast-emulator { };
   scamper = pkgs.callPackage ./pkgs/scamper { };
-  ubi_reader = pkgs.callPackage ./pkgs/ubi_reader { };
 
   prjxray-db = pkgs.callPackage ./pkgs/prjxray-db { };
   prjxray-tools = pkgs.callPackage ./pkgs/prjxray-tools { };
-  symbiflow-arch-defs = pkgs.callPackage ./pkgs/symbiflow-arch-defs { };
-  symbiflow-vtr = pkgs.callPackage ./pkgs/symbiflow-vtr { };
-  symbiflow-yosys = pkgs.callPackage ./pkgs/symbiflow-yosys { };
+  vtr = pkgs.callPackage ./pkgs/vtr { };
+  symbiflow-yosys-plugins = pkgs.callPackage ./pkgs/symbiflow-yosys-plugins { };
 
-  symbiflow-yosys-plugins = pkgs.callPackage ./pkgs/symbiflow-yosys/plugins/symbiflow-yosys-plugins {
-    inherit symbiflow-yosys;
-  };
+  symbiflow-arch-defs = pkgs.callPackage ./pkgs/symbiflow-arch-defs/default.nix;
 
   python3Packages = pkgs.python3Packages // rec {
     python-prjxray = pkgs.python3Packages.callPackage ./pkgs/python-prjxray {
+      inherit fasm;
       inherit prjxray-tools;
-      inherit symbiflow-fasm;
       inherit textx;
     };
-    symbiflow-fasm = pkgs.python3Packages.callPackage ./pkgs/symbiflow-fasm {
+    fasm = pkgs.python3Packages.callPackage ./pkgs/fasm {
       inherit textx;
     };
     textx = pkgs.python3Packages.callPackage ./pkgs/textx { };
+    ubi_reader = pkgs.python3Packages.callPackage ./pkgs/ubi_reader { };
     xc-fasm = pkgs.python3Packages.callPackage ./pkgs/xc-fasm {
+      inherit fasm;
       inherit python-prjxray;
-      inherit symbiflow-fasm;
       inherit textx;
     };
   };

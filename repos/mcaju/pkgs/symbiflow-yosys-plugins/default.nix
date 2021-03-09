@@ -1,30 +1,35 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, symbiflow-yosys
+, yosys
 , zlib
 , readline
 }:
 
 stdenv.mkDerivation rec {
   pname   = "symbiflow-yosys-plugins";
-  version = "1.0.0.7-0060-g7454cd6b";
+  version = "1.0.0.7-194-g40efa517";
 
   src = fetchFromGitHub {
     owner  = "SymbiFlow";
     repo   = "yosys-symbiflow-plugins";
-    rev    = "7454cd6b5e4fd22854e2ada219a5e3c3a06e0717";
-    sha256 = "0r9r31p7fy4ylfrwvwlbivq5a03xrph34blxbxzx2c8bc02mbv0s";
+    rev    = "40efa517423c54119440733f34dbd4e0eb14f983";
+    sha256 = "1178h6aqgnc060j1aj4af0bzhhx1fcbqisg86zf80gia3ixm71z3";
   };
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ symbiflow-yosys ];
+  nativeBuildInputs = [ yosys ];
 
   buildInputs = [
     readline
     zlib
   ];
+
+  patchPhase = ''
+    substituteInPlace xdc-plugin/xdc.cc \
+      --replace 'proc_share_dirname()' "std::string(\"$out/share/yosys\")"
+  '';
 
   makeFlags = [ "PLUGINS_DIR=$(out)/share/yosys/plugins" ];
 
@@ -33,6 +38,5 @@ stdenv.mkDerivation rec {
     homepage    = "https://github.com/SymbiFlow/yosys-symbiflow-plugins";
     license     = licenses.isc;
     platforms   = platforms.all;
-    broken      = true;
   };
 }

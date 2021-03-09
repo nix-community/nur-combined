@@ -6,19 +6,17 @@
 
 stdenv.mkDerivation rec {
   pname   = "prjxray-tools";
-  version = "0.1-2676-gac8d30e3";
+  version = "0.1-2836-gf3028e15";
 
   src = fetchFromGitHub {
     owner  = "SymbiFlow";
     repo   = "prjxray";
     fetchSubmodules = true;
-    rev    = "ac8d30e3fe2029122408888d2313844b3e0c265b";
-    sha256 = "1ag7dk12hdhip821crwinncp8vgyzs0r85l1h2vbgn61lnxc7f4h";
+    rev    = "f3028e157e5f554e085af2a58247e2c8c7be0f3b";
+    sha256 = "1dxljmcmkfyl6vd6m7d31bfqcijm68k718rf082lf4l6rx32wfwm";
   };
 
   nativeBuildInputs = [ cmake ];
-
-  doCheck = true;
 
   meta = with lib; {
     description = "Documenting the Xilinx 7-series bit-stream format";

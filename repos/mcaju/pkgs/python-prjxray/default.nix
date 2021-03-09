@@ -2,6 +2,7 @@
 , lib
 , fetchFromGitHub
 , buildPythonPackage
+, pytestCheckHook
 , intervaltree
 , numpy
 , openpyxl
@@ -11,7 +12,7 @@
 , pyjson5
 , pyyaml
 , simplejson
-, symbiflow-fasm
+, fasm
 , textx
 }:
 
@@ -22,6 +23,7 @@ buildPythonPackage rec {
   src = prjxray-tools.src;
 
   propagatedBuildInputs = [
+    fasm
     intervaltree
     numpy
     openpyxl
@@ -30,8 +32,11 @@ buildPythonPackage rec {
     pyjson5
     pyyaml
     simplejson
-    symbiflow-fasm
     textx
+  ];
+
+  checkInputs = [
+    pytestCheckHook
   ];
 
   doCheck = false;

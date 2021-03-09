@@ -1,6 +1,7 @@
-{ stdenv, lib, python3Packages}:
-
-with python3Packages;
+{ lib
+, buildPythonApplication
+, fetchPypi
+, python-lzo }:
 
 buildPythonApplication rec {
   pname = "ubi_reader";

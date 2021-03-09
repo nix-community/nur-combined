@@ -1,49 +1,51 @@
-{ stdenv
+{ pkgs
 , lib
-, fetchurl
-, autoPatchelfHook
-, python3Packages
-, archs ? [ "xc7a100t" "xc7a50t" "xc7z010" "xc7z020" ]
+, devices ? [ "xc7a50t" "xc7a100t" "xc7a200t" "xc7z010" "xc7z020" ]
 }:
 
-stdenv.mkDerivation rec {
-  pname   = "symbiflow-arch-defs";
-  version = "20200914-111752-g05d68df0";
+let
+  buildNum = "175";
+  buildDate = "20210305-000130";
+  commit = "098fe2e8";
 
-  src = fetchurl {
-    url = "https://storage.googleapis.com/symbiflow-arch-defs/artifacts/prod/foss-fpga-tools/symbiflow-arch-defs/continuous/install/66/20200914-111752/symbiflow-arch-defs-install-05d68df0.tar.xz";
-    sha256 = "1gmynybh8n33ag521w17c2kd16n834hqc6d8hi2pfs5kg1jl1a74";
+  bin = pkgs.callPackage ./bin.nix {
+    inherit buildNum buildDate commit;
+    sha256 = "06lnk93rwxd93dp05wv5225dagrw3f7n7zwizvzipk5pfhqx5ixw";
+  }; 
+
+  devicePkgs = {
+    "xc7a50t" = pkgs.callPackage ./mkdevice.nix {
+      inherit buildNum buildDate commit;
+      device  = "xc7a50t";
+      sha256 = "e1b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca485991b7852b855";
+    };
+    "xc7a100t" = pkgs.callPackage ./mkdevice.nix {
+      inherit buildNum buildDate commit;
+      device = "xc7a100t";
+      sha256 = "0s5q4dgwnzyvnclcxr75g37xma1vhdmd47bswkf8c82hvg9cpqzs";
+    };
+    "xc7a200t" = pkgs.callPackage {
+      inherit buildNum buildDate commit;
+      device = "xc7a200t";
+      sha256 = "e3a0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+    };
+    "xc7z010" = pkgs.callPackage {
+      inherit buildNum buildDate commit;
+      device = "xc7z010";
+      sha256 = "e2a0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+    };
+    "xc7z020" = pkgs.callPackage {
+      inherit buildNum buildDate commit;
+      device = "xc7z020";
+      sha256 = "d3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+    };
   };
+  
+  devices_ = (with lib.attrsets; attrVals devices devicePkgs);
 
-  sourceRoot = ".";
+in
 
-  propagatedBuildInputs = [
-    python3Packages.lxml
-    python3Packages.python-constraint
-  ];
-
-  installPhase = ''
-    mkdir -p $out/bin
-    cp -r bin/{symbiflow_*,vpr_common,python} $out/bin
-    for script in $out/bin/symbiflow_*; do
-        substituteInPlace $script --replace '/env' '/symbiflow_env'
-    done
-    cp bin/env $out/bin/symbiflow_env
-
-    mkdir -p $out/share/symbiflow/arch
-    cp -r share/symbiflow/{scripts,techmaps} $out/share/symbiflow/
-
-    for arch in ${builtins.concatStringsSep " " archs}; do
-        cp -r share/symbiflow/arch/"$arch"_test* $out/share/symbiflow/arch/
-    done
-  '';
-
-  preferLocalBuild = true;
-
-  meta = with lib; {
-    description = "Project X-Ray - Xilinx Series 7 Bitstream Documentation";
-    homepage    = "https://github.com/SymbiFlow/symbiflow-arch-defs";
-    license     = licenses.isc;
-    platforms   = platforms.all;
-  };
+pkgs.callPackage ./wrapper.nix {
+  inherit buildDate commit bin;
+  devices = devices_;
 }

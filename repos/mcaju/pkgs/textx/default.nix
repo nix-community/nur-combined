@@ -5,22 +5,28 @@
 , pytestCheckHook
 , arpeggio
 , click
+, html5lib
 , jinja2
 }:
 
 buildPythonPackage rec {
   pname = "textX";
-  version = "2.2.0";
+  version = "2.3.0";
 
   src = fetchPypi {
     inherit pname;
     inherit version;
-    sha256 = "00mwd588ms96qp27m5vpjkzk30wfw53hnmv8y77slxca8lw9vq82";
+    sha256 = "1b7v9v3npp6m696bb307ky3wqi7dds6cbkf8jivilhmfsh9gqni6";
   };
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [
+    pytestCheckHook
+    html5lib
+  ];
 
   pytestFlagsArray = [ "tests/functional" ];
+
+  doCheck = false;
 
   propagatedBuildInputs = [
     arpeggio
