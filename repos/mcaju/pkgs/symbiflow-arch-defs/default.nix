@@ -17,31 +17,31 @@ let
     "xc7a50t" = pkgs.callPackage ./mkdevice.nix {
       inherit buildNum buildDate commit;
       device  = "xc7a50t";
-      sha256 = "e1b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca485991b7852b855";
+      sha256 = "1jq91r23ay7vf08ich69n4l8kkq7nn5rc7bfgrgkqs5chmmsx41k";
     };
     "xc7a100t" = pkgs.callPackage ./mkdevice.nix {
       inherit buildNum buildDate commit;
       device = "xc7a100t";
       sha256 = "0s5q4dgwnzyvnclcxr75g37xma1vhdmd47bswkf8c82hvg9cpqzs";
     };
-    "xc7a200t" = pkgs.callPackage {
+    "xc7a200t" = pkgs.callPackage ./mkdevice.nix {
       inherit buildNum buildDate commit;
       device = "xc7a200t";
-      sha256 = "e3a0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+      sha256 = "1wlx3qqdc7jn2l2w3cd1kqj0686j5f267abvf4qiw79y7zxgg71d";
     };
-    "xc7z010" = pkgs.callPackage {
+    "xc7z010" = pkgs.callPackage ./mkdevice.nix {
       inherit buildNum buildDate commit;
       device = "xc7z010";
-      sha256 = "e2a0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+      sha256 = "0qfffkxcikis2ljasmmc6f0s2y3dyhaljah298wxxi89388fcq9b";
     };
-    "xc7z020" = pkgs.callPackage {
+    "xc7z020" = pkgs.callPackage ./mkdevice.nix {
       inherit buildNum buildDate commit;
       device = "xc7z020";
-      sha256 = "d3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+      sha256 = "14agjmmw0w8vjqdyg932ynzzgv10hq8j32di0lnzdwz4dcrvl99p";
     };
   };
   
-  devices_ = (with lib.attrsets; attrVals devices devicePkgs);
+  devices_ = with lib.attrsets; attrVals devices devicePkgs;
 
 in
 

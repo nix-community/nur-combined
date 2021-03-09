@@ -16,9 +16,9 @@ rec {
   vtr = pkgs.callPackage ./pkgs/vtr { };
   symbiflow-yosys-plugins = pkgs.callPackage ./pkgs/symbiflow-yosys-plugins { };
 
-  symbiflow-arch-defs = pkgs.callPackage ./pkgs/symbiflow-arch-defs/default.nix;
+  symbiflow-arch-defs = pkgs.callPackage ./pkgs/symbiflow-arch-defs/default.nix { };
 
-  python3Packages = pkgs.python3Packages // rec {
+  python3Packages = pkgs.recurseIntoAttrs rec {
     python-prjxray = pkgs.python3Packages.callPackage ./pkgs/python-prjxray {
       inherit fasm;
       inherit prjxray-tools;

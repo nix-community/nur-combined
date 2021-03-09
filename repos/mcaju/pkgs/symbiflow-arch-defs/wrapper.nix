@@ -3,7 +3,7 @@
 , buildDate
 , commit
 , bin
-, devices ? []
+, devices
 }:
 
 stdenv.mkDerivation rec {
@@ -26,6 +26,8 @@ stdenv.mkDerivation rec {
       ln -s $device/share/symbiflow/arch/* $out/share/symbiflow/arch/
     done
   '';
+
+  preferLocalBuild = true;
 
   meta = with lib; {
     description = "Project X-Ray - Xilinx Series 7 Bitstream Documentation";

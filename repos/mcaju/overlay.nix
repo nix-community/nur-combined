@@ -6,7 +6,10 @@ self: super:
 let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   nameValuePair = n: v: { name = n; value = v; };
-  nurAttrs = import ./default.nix { pkgs = super; };
+  nurAttrs_ = import ./default.nix { pkgs = super; };
+  nurAttrs = nurAttrs_ // {
+    python3Packages = super.python3Packages // nurAttrs_.python3Packages;
+  };
 
 in
 builtins.listToAttrs
