@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
 
     cat <<EOF > $out/bin/matlab-r2020b
     #!${bash}/bin/sh
-    ${fhsEnv}/bin/matlab-r2020b-env ${installDir}/bin/matlab "$@"
+    ${fhsEnv}/bin/matlab-r2020b-env ${installDir}/bin/matlab "\$@"
     EOF
     chmod +x $out/bin/matlab-r2020b
 
