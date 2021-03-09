@@ -467,10 +467,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.2.8";
+      version = "3.2.9";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3726039/i_dont_care_about_cookies-3.2.8-an+fx.xpi";
-      sha256 = "03c6fd21672c7ee545ab0118925f30091e3ca50d6d68f703c8031ff2cff7049c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3739461/i_dont_care_about_cookies-3.2.9-an+fx.xpi";
+      sha256 = "d742375a4c3ed65904df4f1febe4b58d25787bab55df2dc208586ceeda9148bd";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -1174,10 +1174,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "18.1";
+      version = "18.2";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3733988/zoom_page_we-18.1-fx.xpi";
-      sha256 = "9f11a4b43b8befbc2ea100a08e61cb74a1f07d5058b1b2bc2725153d8fd0ce1f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3738064/zoom_page_we-18.2-fx.xpi";
+      sha256 = "28fddf21e1bda7d1d09a027db1fb1164f6f0e8319138a093403a5ceed5c982ee";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
