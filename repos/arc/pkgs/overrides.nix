@@ -121,7 +121,7 @@ let
         speechdSupport = true;
       };
     in drv.overrideAttrs (old: {
-      patches = old.patches or [] ++ lib.optional (lib.versionOlder "1.3.4" mumble.version) [ ./mumble-pa-role.diff ];
+      patches = old.patches or [] ++ [ ./mumble-pa-role.diff ];
     });
 
     pidgin-arc = { pidgin, purple-plugins-arc }: let

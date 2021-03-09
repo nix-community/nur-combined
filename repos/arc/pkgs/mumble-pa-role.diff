@@ -1,13 +1,13 @@
 diff --git a/src/mumble/PulseAudio.cpp b/src/mumble/PulseAudio.cpp
-index dcfb1cef5..17c0958fa 100644
+index 5028a373a..ae7d83e48 100644
 --- a/src/mumble/PulseAudio.cpp
 +++ b/src/mumble/PulseAudio.cpp
-@@ -103,7 +103,7 @@ PulseAudioSystem::PulseAudioSystem() {
- 	m_pulseAudio.proplist_sets(proplist, PA_PROP_APPLICATION_NAME, "Mumble");
- 	m_pulseAudio.proplist_sets(proplist, PA_PROP_APPLICATION_ID, "net.sourceforge.mumble.mumble");
- 	m_pulseAudio.proplist_sets(proplist, PA_PROP_APPLICATION_ICON_NAME, "mumble");
--	m_pulseAudio.proplist_sets(proplist, PA_PROP_MEDIA_ROLE, "game");
-+	m_pulseAudio.proplist_sets(proplist, PA_PROP_MEDIA_ROLE, "phone");
+@@ -88,7 +88,7 @@ PulseAudioSystem::PulseAudioSystem() {
+ 	pa_proplist_sets(proplist, PA_PROP_APPLICATION_NAME, "Mumble");
+ 	pa_proplist_sets(proplist, PA_PROP_APPLICATION_ID, "net.sourceforge.mumble.mumble");
+ 	pa_proplist_sets(proplist, PA_PROP_APPLICATION_ICON_NAME, "mumble");
+-	pa_proplist_sets(proplist, PA_PROP_MEDIA_ROLE, "game");
++	pa_proplist_sets(proplist, PA_PROP_MEDIA_ROLE, "phone");
  
- 	pacContext = m_pulseAudio.context_new_with_proplist(api, nullptr, proplist);
- 	m_pulseAudio.proplist_free(proplist);
+ 	pacContext = pa_context_new_with_proplist(api, NULL, proplist);
+ 	pa_proplist_free(proplist);
