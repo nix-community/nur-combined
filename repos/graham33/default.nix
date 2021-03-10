@@ -14,11 +14,7 @@ let
     fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
     garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
     hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
-    # TODO: hack
-    homeassistant-pkg = pySelf.callPackage ./pkgs/homeassistant {
-      componentPackages = import "${pkgs.path}/pkgs/servers/home-assistant/component-packages.nix";
-      hass-frontend = pySelf.callPackage "${pkgs.path}/pkgs/servers/home-assistant/frontend.nix" {};
-    };
+    homeassistant = pySelf.toPythonModule pkgs.home-assistant;
     libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
     pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
     python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };

@@ -4,7 +4,7 @@
 , isPy37
 , isPy3k
 , coverage
-, homeassistant-pkg
+, homeassistant
 , jsonpickle
 , mock-open
 , pytest
@@ -23,18 +23,19 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.2.0";
+  version = "0.2.1";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "0y1z9z8fr4p5sij4hhqzdjlpnjglygj8jw71dcjqkgxbxf4b4ha3";
+    sha256 = "00icsvmdhvs5718z3kxrkbjhybm9vphh77vrqnjy3f5yc4zcfz8f";
   };
   postPatch = ''
     substituteInPlace requirements_test.txt \
-      --replace "coverage==5.4" "coverage>=5.3" \
+      --replace "coverage==5.5" "coverage>=5.3" \
+      --replace "jsonpickle==1.4.1" "jsonpickle>=1.4.1" \
       --replace "pipdeptree==1.0.0" "" \
       --replace "pylint-strict-informational==0.1" "" \
       --replace "pytest==6.2.2" "pytest>=6.1.2" \
@@ -47,7 +48,7 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-    homeassistant-pkg
+    homeassistant
     pytest
     requests-mock
     sqlalchemy
