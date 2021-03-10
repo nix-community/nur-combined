@@ -19,7 +19,7 @@
 
 buildPythonPackage rec {
   pname = "smartbox";
-  version = "0.0.6";
+  version = "0.1.0";
 
   disabled = !isPy3k;
 
@@ -27,7 +27,7 @@ buildPythonPackage rec {
     owner = "graham33";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1kvpsjp4pwhpsv682fgsnfaph4ckklagnq39f1jv4naxnrlvqf78";
+    sha256 = "0rvldv3nbr93wslgv5kfbi8gmxk14n155vxjyr4qqphcccg7bmhc";
   };
 
   propagatedBuildInputs = [ aiohttp
