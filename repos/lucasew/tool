@@ -13,7 +13,7 @@ case $TARGET in
     vps)
         case $COMMAND in
             build)
-                nixos-rebuild build --flake .#vps || exit 1
+                nixos-rebuild build --flake .#vps "$@" || exit 1
             ;;
             switch)
                 $0 vps build
@@ -34,7 +34,7 @@ case $TARGET in
     nb)
         case $COMMAND in
             build)
-                nixos-rebuild build --flake .#acer-nix
+                nixos-rebuild build --flake .#acer-nix "$@" || exit 1
             ;;
             switch)
                 $0 nb build

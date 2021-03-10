@@ -70,6 +70,13 @@
         ./nodes/acer-nix/default.nix
       ];
     };
+    nixosConfigurations.bootstrap = nixpkgs.lib.nixosSystem {
+      inherit pkgs;
+      inherit system;
+      modules = [
+        ./nodes/bootstrap/default.nix
+      ];
+    };
     packages = pkgs;
     devShell.x86_64-linux = pkgs.mkShell {
       name = "nixcfg-shell";

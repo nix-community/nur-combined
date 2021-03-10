@@ -193,11 +193,11 @@
     "pocket2kindle": {
       "flake": false,
       "locked": {
-        "lastModified": 1609428261,
-        "narHash": "sha256-9QQlunxCPfgABJjpU6wDjWJgWVZyaAo5hWuyjNnSu5g=",
+        "lastModified": 1615210443,
+        "narHash": "sha256-c9XPD6O4BMbuAAyKqjTcFGMcpjU/lPgkXKQAHtcgsLQ=",
         "owner": "lucasew",
         "repo": "pocket2kindle",
-        "rev": "8f91417f6d52b44a2fc8948b6fd2d9cd695bcab7",
+        "rev": "56282f06cfde441fa322d76d6c08690052a79f9c",
         "type": "github"
       },
       "original": {
