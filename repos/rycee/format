@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/a84cbb60f0296210be03c08d243670dd18a3f6eb.tar.gz -i bash -p findutils nixfmt
+#! nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/a84cbb60f0296210be03c08d243670dd18a3f6eb.tar.gz -i bash -p findutils nixfmt jq moreutils
 
 CHECK_ARG=
 
@@ -15,3 +15,8 @@ esac
 find . -name '*.nix' \
   ! -path ./pkgs/firefox-addons/generated-firefox-addons.nix \
   -exec nixfmt $CHECK_ARG {} +
+
+if [[ -z $CHECK_ARG ]] ; then
+  jq 'sort_by(.slug)' < pkgs/firefox-addons/addons.json \
+    | sponge pkgs/firefox-addons/addons.json
+fi

@@ -655,6 +655,20 @@
         platforms = platforms.all;
         };
       };
+    "netflix-1080p" = buildFirefoxXpiAddon {
+      pname = "netflix-1080p";
+      version = "1.15.3";
+      addonId = "{f18f0257-10ad-4ff7-b51e-6895edeccfc8}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3740714/netflix_1080p-1.15.3-fx.xpi";
+      sha256 = "5ff73fe8976debc837ee3593295522cc2de7957ab861ec51d1d4f395c0b2fbfb";
+      meta = with lib;
+      {
+        homepage = "https://github.com/TheGoddessInari/netflix-1080p-firefox";
+        description = "Forces 1080p playback for Netflix in Firefox. Originated with truedread/netflix-1080p-firefox, basic functionality has been rewritten.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "news-feed-eradicator" = buildFirefoxXpiAddon {
       pname = "news-feed-eradicator";
       version = "2.2.0";
@@ -665,6 +679,20 @@
       {
         homepage = "https://west.io/news-feed-eradicator";
         description = "Find yourself spending too much time on Facebook? Eradicate distractions by replacing your entire news feed with an inspiring quote";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "no-pdf-download" = buildFirefoxXpiAddon {
+      pname = "no-pdf-download";
+      version = "1.0.6";
+      addonId = "{b9b25e4a-bdf4-4270-868c-3f619eaf437d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3020560/no_pdf_download-1.0.6-an+fx.xpi";
+      sha256 = "fa27b6729178a23ccf2eee07cd7650d841fc6040f2e5adfb919931b671ed79e6";
+      meta = with lib;
+      {
+        homepage = "https://github.com/MorbZ/no-pdf-download";
+        description = "Opens all PDF files directly in the browser.";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -859,6 +887,20 @@
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
         license = licenses.gpl2;
+        platforms = platforms.all;
+        };
+      };
+    "search-by-image" = buildFirefoxXpiAddon {
+      pname = "search-by-image";
+      version = "3.6.0";
+      addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3721973/search_by_image-3.6.0-an+fx.xpi";
+      sha256 = "9acdc2c4fe0653119721d43eacce04733f138abd440252fc6a416a2bba8994e3";
+      meta = with lib;
+      {
+        homepage = "https://github.com/dessant/search-by-image";
+        description = "A powerful reverse image search tool, with support for various search engines, such as Google, Bing, Yandex, Baidu and TinEye.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };
@@ -1182,6 +1224,19 @@
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
         license = licenses.gpl2;
+        platforms = platforms.all;
+        };
+      };
+    "zoom-redirector" = buildFirefoxXpiAddon {
+      pname = "zoom-redirector";
+      version = "1.0.2";
+      addonId = "{2d0a18e8-6b0a-4c8c-9256-6e00c01f07fe}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3620533/zoom_redirector-1.0.2-fx.xpi";
+      sha256 = "fa505a34cabd8ba22625892cfb48103a4c06118b8f95d9fe2e49e57ef350a3a7";
+      meta = with lib;
+      {
+        description = "Zoom Redirector transparently redirects any meeting links to use Zoom's browser based web client.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };

@@ -195,7 +195,14 @@
     "slug": "multi-account-containers"
   },
   {
+    "slug": "netflix-1080p-firefox",
+    "pname": "netflix-1080p"
+  },
+  {
     "slug": "news-feed-eradicator"
+  },
+  {
+    "slug": "no-pdf-download"
   },
   {
     "slug": "octotree"
@@ -245,6 +252,10 @@
   },
   {
     "slug": "save-page-we"
+  },
+  {
+    "slug": "search_by_image",
+    "pname": "search-by-image"
   },
   {
     "slug": "sidebery"
@@ -334,5 +345,8 @@
   },
   {
     "slug": "zoom-page-we"
+  },
+  {
+    "slug": "zoom-redirector"
   }
 ]
