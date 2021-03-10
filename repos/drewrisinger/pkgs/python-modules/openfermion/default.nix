@@ -27,6 +27,14 @@ buildPythonPackage rec {
     sha256 = "1dcfds91phsj1wbkmpbaz6kh986pjyxh2zpxgx6cp6v76n8rzlnw";
   };
 
+  patches = [
+    (fetchpatch {
+      name = "openfermion-update-to-cirq-0_10_0.patch";
+      url = "https://github.com/quantumlib/OpenFermion/commit/10637dab77bbf73d066c789b2a59ead4f4ad6996.patch";
+      sha256 = "01i8kqrnkz7w5x43sc7qll2hcmp9s2xdcxvvy1wyagzggx0yk9q9";
+    })
+  ];
+
   propagatedBuildInputs = [
     cirq
     deprecation
