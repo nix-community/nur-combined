@@ -56,7 +56,7 @@ in
             Type = "simple";
 
             # PipeWire is currently a simple service, so we can't know for sure when it will be ready
-            ExecStartPre = "${pkgs.coreutils}/bin/sleep 0.1";
+            ExecStartPre = "${pkgs.coreutils}/bin/sleep 1";
 
             ExecStart = "${bluetooth-autoconnect}/bin/bluetooth-autoconnect";
           };
