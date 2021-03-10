@@ -239,6 +239,7 @@ lib.makeScope newScope (
     lazyscraper = callPackage ./misc/lazyscraper { };
     morse-talk = callPackage ./misc/morse-talk { };
     musig = callPackage ./misc/musig { };
+    playonmac = callPackage ./misc/playonmac { };
     polyvectorization = libsForQt5.callPackage ./misc/polyvectorization {
       inherit sources;
     };

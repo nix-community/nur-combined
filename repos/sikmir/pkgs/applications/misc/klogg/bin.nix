@@ -16,10 +16,10 @@ let
     owner = "variar";
     repo = "klogg";
     version = "v${version}";
-    name = "klogg-${version}.0.808-${suffix}";
+    name = "klogg-${version}.0.813-${suffix}";
     sha256 = {
-      x86_64-linux = "00xsqhw7dbvnwksl8ll612vn2h604z95syfa75sfc8ha8dsnvcdh";
-      x86_64-darwin = "0ig39sqiamrlaf0chn81bbi6z0gy7q0nr8qgaxzzy9ny7j8svip6";
+      x86_64-linux = "1m0yl6bd6ahxqljqfjvd6p9nm4vyr4pyrr1qzm70nn2rn4vi4w83";
+      x86_64-darwin = "07iyg1i6n5ydg99q75wlbl1jh1n1cdjl3rbia2kx6y7dg80lx0d1";
     }.${system} or throwSystem;
   };
 
@@ -50,11 +50,11 @@ let
 
     nativeBuildInputs = [ undmg ];
 
-    sourceRoot = "klogg.app";
+    sourceRoot = ".";
 
     installPhase = ''
-      mkdir -p $out/Applications/klogg.app
-      cp -r . $out/Applications/klogg.app
+      mkdir -p $out/Applications
+      cp -r *.app $out/Applications
     '';
   };
 in

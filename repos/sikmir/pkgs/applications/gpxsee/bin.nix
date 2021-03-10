@@ -13,9 +13,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ undmg ];
 
+  sourceRoot = ".";
+
   installPhase = ''
-    mkdir -p $out/Applications/GPXSee.app
-    cp -r . $out/Applications/GPXSee.app
+    mkdir -p $out/Applications
+    cp -r *.app $out/Applications
   '';
 
   meta = with lib; {

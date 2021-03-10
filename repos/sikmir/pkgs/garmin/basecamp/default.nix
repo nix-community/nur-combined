@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "basecamp";
-  version = "4.8.10";
+  version = "4.8.11";
 
   src = fetchurl {
     url = "https://download.garmin.com/software/BaseCampforMac_${lib.replaceStrings [ "." ] [ "" ] version}.dmg";
-    sha256 = "09jrbix42a6aqv8vd4hcrvhfnj9y7l17xm7hdyc6p1nmb859y5ri";
+    sha256 = "1ql049xxb7021qssn55hj8f49bzhriia0yvcv5xs3vrya7ymmhgn";
   };
 
   preferLocalBuild = true;

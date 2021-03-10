@@ -16,11 +16,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ undmg ];
 
-  sourceRoot = "qutebrowser.app";
+  sourceRoot = ".";
 
   installPhase = ''
-    mkdir -p $out/Applications/qutebrowser.app
-    cp -r . $out/Applications/qutebrowser.app
+    mkdir -p $out/Applications
+    cp -r *.app $out/Applications
   '';
 
   meta = with lib; {
