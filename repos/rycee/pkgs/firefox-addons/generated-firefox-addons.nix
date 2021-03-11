@@ -865,10 +865,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.3.5";
+      version = "21.3.11";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3737818/refined_github-21.3.5-an+fx.xpi";
-      sha256 = "b28f0f0434ecff0b815a65ebb2d0c1675436e3af3cf5e9b8265403bb5c850c86";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3741342/refined_github-21.3.11-an+fx.xpi";
+      sha256 = "eda4a71d1ba3c107b152f0a40ab26e986686ff40ad1bfd6d2db9b6082afd2a46";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1216,10 +1216,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "18.2";
+      version = "18.3";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3738064/zoom_page_we-18.2-fx.xpi";
-      sha256 = "28fddf21e1bda7d1d09a027db1fb1164f6f0e8319138a093403a5ceed5c982ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3740874/zoom_page_we-18.3-fx.xpi";
+      sha256 = "df588996d205c3640bdd3d95f537a820bdbe37173f32ff3ccfbdcad94e1a5145";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
