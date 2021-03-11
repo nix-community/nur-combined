@@ -5,7 +5,7 @@ variables:
 
 build:
   before_script:
-    - nix-env -iA nixpkgs.cachix nixpkgs.bash
+    - nix-env -iA nixpkgs.cachix nixpkgs.bash nixpkgs.curl
     - cachix use alwinb
   script:
     - nix-build ci.nix -A buildOutputs
@@ -14,8 +14,9 @@ build:
     - nix eval -f default.nix overlays
     - |
       if [ "$CI_COMMIT_REF_NAME" = "master" ] ; then
-          echo "Push to Cachix"
+          echo "Push to Cachix and update NUR"
           nix-build ci.nix -A cacheOutputs | cachix push alwinb
+          curl -sfSL -XPOST https://nur-update.herokuapp.com/update?repo=alwinb || true
       else
           echo "Do Nothing"
       fi

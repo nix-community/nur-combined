@@ -18,6 +18,7 @@
   sikulixIDE = pkgs.callPackage ./pkgs/sikulixIDE { };
   tea = pkgs.callPackage ./pkgs/tea { };
   sasm = pkgs.libsForQt5.callPackage ./pkgs/sasm { };
+  mescc-tools = pkgs.callPackage ./pkgs/mescc-tools { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

@@ -1,0 +1,18 @@
+; Where the ELF Header is going to hit
+; Simply jump to _start
+; Our main function
+:_start
+	POP_eax                     ; Get the number of arguments
+	POP_ebx                     ; Get the program name
+	POP_ebx                     ; Get the actual output name
+	LOAD_IMMEDIATE_ecx %492     ; Prepare dir as RW for owner only (600 in octal)
+	LOAD_IMMEDIATE_eax %39      ; the syscall number for mkdir()
+	INT_80                      ; Now open that dir
+
+:done
+	; assume we were successfull
+	LOAD_IMMEDIATE_ebx %0              ; All is well
+	LOAD_IMMEDIATE_eax %1              ; put the exit syscall number in eax
+	INT_80                      ; Call it a good day
+
+:ELF_end
