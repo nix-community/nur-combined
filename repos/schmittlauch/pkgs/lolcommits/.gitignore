@@ -1,0 +1,4 @@
+.direnv/
+vendor/
+result
+.bundle/
