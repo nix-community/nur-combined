@@ -24,7 +24,7 @@ buildGoModule rec {
     sha256 = "0n4mphf8q2mj9qi3lxdg8bm97lpf0c80y69nnps1mf0rk70bkbj0";
   };
 
-  vendorSha256 = "0iak4cc78q6s5cg2ffh6jkyfqhkvnj2j42fbq7az9n1hsmmlkqhm";
+  modSha256 = "0iak4cc78q6s5cg2ffh6jkyfqhkvnj2j42fbq7az9n1hsmmlkqhm";
 
   goPackagePath = "github.com/sylabs/singularity";
   goDeps = ./deps.nix;
@@ -77,5 +77,6 @@ buildGoModule rec {
     license = licenses.bsd3;
     platforms = platforms.linux;
     maintainers = [ maintainers.jbedo ];
+    broken = true;
   };
 }

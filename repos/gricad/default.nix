@@ -103,10 +103,11 @@ rec {
   mpi-ping = pkgs.callPackage ./pkgs/mpi-ping { };
 
   # Singularity
-  singularity = pkgs.callPackage ./pkgs/singularity { 
-    buildGoModule = pkgs.buildGo114Module;
-    go = pkgs.go_1_14;
-  };
+  # (disabled because of Go dependency that should match the NixOS release)
+  #singularity = pkgs.callPackage ./pkgs/singularity { 
+    #  buildGoModule = pkgs.buildGo113Module;
+    #go = pkgs.go_1_13;
+    #};
 
   # PLPlot
   plplot = pkgs.callPackage ./pkgs/plplot { };
