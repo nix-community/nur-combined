@@ -14,13 +14,13 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  agate = pkgs.callPackage ./pkgs/agate { };
   comma = pkgs.callPackage ./pkgs/comma { };
   conform = pkgs.callPackage ./pkgs/conform { };
   container-diff = pkgs.callPackage ./pkgs/container-diff { };
   dockle = pkgs.callPackage ./pkgs/dockle { };
   flat-remix-theme = pkgs.callPackage ./pkgs/themes/flat-remix { };
   go-jira = pkgs.callPackage ./pkgs/go-jira { };
+  nerdfont-hasklig = pkgs.callPackage ./pkgs/fonts/nerdfont-hasklig { };
   hunter = pkgs.callPackage ./pkgs/hunter { };
   infracost = pkgs.callPackage ./pkgs/infracost { };
   scorecard = pkgs.callPackage ./pkgs/scorecard { };
