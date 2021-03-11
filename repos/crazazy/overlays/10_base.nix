@@ -15,7 +15,6 @@ in
       python = self.writeShellScriptBin "python" ''
          ${pythonSet.interpreter} $@
       '';
-      pkgs = self;
       inherit (pkgs)
          atom
          bashInteractive
@@ -39,4 +38,3 @@ in
          xorg
          ;
    }
- 

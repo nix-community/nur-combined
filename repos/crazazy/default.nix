@@ -20,6 +20,7 @@ let
       pkgsrc = import ./.;
     };
     # bare necessities
+    pkgs = self;
     inherit (pkgs)
       nix
       runCommand
