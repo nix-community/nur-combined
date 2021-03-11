@@ -57,7 +57,7 @@ derivation {
 
   args = [ "${seed-script}" ];
 
-  system = builtins.currentSystem;
+  system = "x86_64-linux";
 
   description = "Bootstrapping tools for MES";
   homepage = "https://github.com/oriansj/stage0-posix";
