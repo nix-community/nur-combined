@@ -375,6 +375,9 @@
         "rycee": {
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
+        "schmittlauch": {
+            "url": "https://github.com/schmittlauch/nur-packages"
+        },
         "sehqlr": {
             "url": "https://github.com/sehqlr/nur-packages"
         },
