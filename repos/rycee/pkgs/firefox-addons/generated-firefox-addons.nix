@@ -481,10 +481,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.17.3";
+      version = "2.18.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3717531/ipfs_companion-2.17.3-an+fx.xpi";
-      sha256 = "b7e9b144ef6691bba3b6d682142c3a8241a96f2c618277763c0395e003ad858c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3741905/ipfs_companion-2.18.0-an+fx.xpi";
+      sha256 = "19ad13747049aeec8e9c86007b4a7a59fb43c0ee80e3ef759fb7673db61f15b8";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -1118,10 +1118,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.33.2";
+      version = "1.34.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3719054/ublock_origin-1.33.2-an+fx.xpi";
-      sha256 = "5c3a5ef6f5b5475895053238026360020d6793b05541d20032ea9dd1c9cae451";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3740966/ublock_origin-1.34.0-an+fx.xpi";
+      sha256 = "96783b4e9abed66af81a30f7dbb6560911a9d828b12aadf0ec88b181200c3bfe";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -1202,10 +1202,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.12.10";
+      version = "2.12.11";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3739368/violentmonkey-2.12.10-an+fx.xpi";
-      sha256 = "9d74e2db628c2c78bfbfe98080114722175b1c859a3e7feb36340a11a8c6696e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3741442/violentmonkey-2.12.11-an+fx.xpi";
+      sha256 = "495a47d1f2f864820a50c3a7f0fdef1fc6f605f316f9106d670bcb81ecd536cc";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
