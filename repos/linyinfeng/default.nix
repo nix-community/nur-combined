@@ -18,6 +18,7 @@
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   clash-premium = pkgs.callPackage ./pkgs/clash-premium { };
+  trojan = pkgs.callPackage ./pkgs/trojan { };
   godns = pkgs.callPackage ./pkgs/godns { };
   dpt-rp1-py = pkgs.callPackage ./pkgs/dpt-rp1-py { };
   activate-dpt = pkgs.callPackage ./pkgs/activate-dpt { };
