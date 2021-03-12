@@ -114,9 +114,9 @@ rec {
 
   threema-web = pkgs.callPackage ./pkgs/threema-web { };
 
-  untilport = pkgs.callPackage ./pkgs/untilport { };
+  queued-build-hook = pkgs.callPackage ./pkgs/queued-build-hook { };
 
-  term-24bit-terminfo = pkgs.callPackage ./pkgs/xterm-24bit-terminfo { };
+  untilport = pkgs.callPackage ./pkgs/untilport { };
 
   yubikey-touch-detector = pkgs.callPackage ./pkgs/yubikey-touch-detector { };
 
