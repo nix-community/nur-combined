@@ -29,10 +29,10 @@
         "homepage": null,
         "owner": "priegger",
         "repo": "nixpkgs",
-        "rev": "2f5b3113ba9d3a465e3fd1f282d42c4346386c80",
-        "sha256": "1715wwv1n77y17x8cy8xryfhj6w94rsab5g57zvm877jk62hazy8",
+        "rev": "8ace8ee0713bb34f6d5512ea8dc1cd06f7d8c480",
+        "sha256": "10gcd4jbsbg95mwc5ymcz682kzv1zx80p0a43c6zpkljmzjf4jqv",
         "type": "tarball",
-        "url": "https://github.com/priegger/nixpkgs/archive/2f5b3113ba9d3a465e3fd1f282d42c4346386c80.tar.gz",
+        "url": "https://github.com/priegger/nixpkgs/archive/8ace8ee0713bb34f6d5512ea8dc1cd06f7d8c480.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-master": {
