@@ -15,6 +15,7 @@ let
     garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
     hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
     homeassistant = pySelf.toPythonModule pkgs.home-assistant;
+    libdyson = pySelf.callPackage ./pkgs/libdyson { };
     libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
     pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
     python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };
