@@ -6,24 +6,19 @@
 # commands such as:
 #     nix-build -A mypackage
 
-let thisNur =
+{ pkgs ? import <nixpkgs> { } }:
 
-  { pkgs ? import <nixpkgs> { } }:
+{
+  # The `lib`, `modules`, and `overlay` names are special
+  lib = import ./lib { inherit pkgs; }; # functions
+  modules = import ./modules; # NixOS modules
+  overlays = import ./overlays; # nixpkgs overlays
 
-  {
-    # The `lib`, `modules`, and `overlay` names are special
-    lib = import ./lib { inherit pkgs; }; # functions
-    modules = import ./modules { inherit thisNur; }; # NixOS modules
-    overlays = import ./overlays; # nixpkgs overlays
-
-    clash-premium = pkgs.callPackage ./pkgs/clash-premium { };
-    trojan = pkgs.callPackage ./pkgs/trojan { };
-    godns = pkgs.callPackage ./pkgs/godns { };
-    dpt-rp1-py = pkgs.callPackage ./pkgs/dpt-rp1-py { };
-    activate-dpt = pkgs.callPackage ./pkgs/activate-dpt { };
-    musicbox = pkgs.callPackage ./pkgs/musicbox { };
-    vlmcsd = pkgs.callPackage ./pkgs/vlmcsd { };
-  };
-
-in
-thisNur
+  clash-premium = pkgs.callPackage ./pkgs/clash-premium { };
+  trojan = pkgs.callPackage ./pkgs/trojan { };
+  godns = pkgs.callPackage ./pkgs/godns { };
+  dpt-rp1-py = pkgs.callPackage ./pkgs/dpt-rp1-py { };
+  activate-dpt = pkgs.callPackage ./pkgs/activate-dpt { };
+  musicbox = pkgs.callPackage ./pkgs/musicbox { };
+  vlmcsd = pkgs.callPackage ./pkgs/vlmcsd { };
+}

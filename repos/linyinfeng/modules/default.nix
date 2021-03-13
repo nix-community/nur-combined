@@ -1,5 +1,4 @@
-{ thisNur }:
 {
-  vlmcsd = import ./services/vlmcsd.nix { inherit thisNur; };
-  trojan = import ./services/trojan.nix { inherit thisNur; };
+  vlmcsd = ./services/vlmcsd.nix;
+  trojan = ./services/trojan.nix;
 }

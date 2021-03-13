@@ -1,9 +1,7 @@
-{ thisNur }:
 { config, lib, pkgs, ... }:
 
 with lib;
 let
-  thisNurPkgs = thisNur { inherit pkgs; };
   cfg = config.services.trojan;
 in
 {
@@ -19,7 +17,7 @@ in
 
     package = mkOption {
       type = types.package;
-      default = thisNurPkgs.trojan;
+      default = pkgs.nur.repos.linyinfeng.trojan;
       defaultText = "pkgs.nur.repos.linyinfeng.trojan";
       description = ''
         trojan derivation to use.
