@@ -1,23 +1,26 @@
-{ lib, stdenv, fetchgit, libpng, libjpeg, libtiff, fftwFloat, libX11, gsl }:
+{ lib, stdenv, fetchFromSourcehut, libpng, libjpeg, libtiff, fftwFloat, libX11, gsl }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "imscript";
-  version = "2020-12-07";
+  version = "2021-02-11";
 
-  src = fetchgit {
-    url = "https://git.sr.ht/~coco/imscript";
-    rev = "81aac71e3a26033b7bc52c3f7e114a259bc24624";
-    sha256 = "0k15y6gyn5fnk9v3rc28aw6q73ws67ixsl51bzrd1h2z4aclpmk7";
+  src = fetchFromSourcehut {
+    owner = "~coco";
+    repo = pname;
+    rev = "f7d57e6dc707724056eddb2355b92b0da9d2d20a";
+    sha256 = "05sfkrd9543qmrx3r7s649fa9gixjjsiywiab36msarz3034xbr9";
   };
-
-  postPatch = ''
-    substituteInPlace src/iio.c \
-      --replace "#define I_CAN_HAS_LIBHDF5" ""
-  '';
 
   buildInputs = [ libpng libjpeg libtiff fftwFloat libX11 gsl ];
 
-  makeFlags = [ "full" ];
+  postPatch = ''
+    substituteInPlace .deps.mk \
+      --replace "ftr/fill_bill" "misc/fill_bill"
+  '';
+
+  makeFlags = [ "DISABLE_HDF5=1" "full" ];
+
+  enableParallelBuilding = true;
 
   installPhase = ''
     install -Dm755 bin/* -t $out/bin
