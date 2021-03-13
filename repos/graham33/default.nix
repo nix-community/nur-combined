@@ -13,6 +13,8 @@ let
     authcaptureproxy = pySelf.callPackage ./pkgs/authcaptureproxy { };
     fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
     garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
+    ha-dyson = pySelf.callPackage ./pkgs/ha-dyson { };
+    ha-dyson-cloud = pySelf.callPackage ./pkgs/ha-dyson-cloud { };
     hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
     homeassistant = pySelf.toPythonModule pkgs.home-assistant;
     libdyson = pySelf.callPackage ./pkgs/libdyson { };
