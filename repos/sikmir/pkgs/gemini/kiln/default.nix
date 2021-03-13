@@ -1,11 +1,12 @@
-{ lib, buildGoModule, fetchgit, sources }:
+{ lib, buildGoModule, fetchFromSourcehut }:
 
 buildGoModule rec {
   pname = "kiln";
   version = "0.1.0";
 
-  src = fetchgit {
-    url = "https://git.sr.ht/~adnano/kiln";
+  src = fetchFromSourcehut {
+    owner = "~adnano";
+    repo = pname;
     rev = "v${version}";
     sha256 = "0rj2h8l5b92kjfb3hhm77w6zwmvxwrrd3yjs1718q77xxf2l83m1";
   };

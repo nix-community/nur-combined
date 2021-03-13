@@ -1,11 +1,12 @@
-{ lib, stdenv, fetchgit, openssl, pkg-config, scdoc }:
+{ lib, stdenv, fetchFromSourcehut, openssl, pkg-config, scdoc }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "gmni";
   version = "2021-01-07";
 
-  src = fetchgit {
-    url = "https://git.sr.ht/~sircmpwn/gmni";
+  src = fetchFromSourcehut {
+    owner = "~sircmpwn";
+    repo = pname;
     rev = "4fbc632b22172daa976d8e1c9a2db75d52ee3232";
     sha256 = "1jasamkjy90b169hwl8p78ns92fs5vlpzr50pxcfsfgny8628sin";
   };

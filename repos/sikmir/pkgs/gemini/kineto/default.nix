@@ -1,11 +1,12 @@
-{ lib, buildGoModule, fetchgit }:
+{ lib, buildGoModule, fetchFromSourcehut }:
 
-buildGoModule {
+buildGoModule rec {
   pname = "kineto";
   version = "2021-01-15";
 
-  src = fetchgit {
-    url = "https://git.sr.ht/~sircmpwn/kineto";
+  src = fetchFromSourcehut {
+    owner = "~sircmpwn";
+    repo = pname;
     rev = "8f35e0a2b17b70691b8634c2bd8c99f98557105c";
     sha256 = "0vh28k3mnqv27nr3s6c4b4zcf5q1q2c1fs73np1cb0l4fpl6l7s2";
   };

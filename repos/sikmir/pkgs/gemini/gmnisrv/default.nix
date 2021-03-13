@@ -1,11 +1,12 @@
-{ lib, stdenv, fetchgit, mailcap, openssl, pkg-config, scdoc }:
+{ lib, stdenv, fetchFromSourcehut, mailcap, openssl, pkg-config, scdoc }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "gmnisrv";
   version = "2020-12-27";
 
-  src = fetchgit {
-    url = "https://git.sr.ht/~sircmpwn/gmnisrv";
+  src = fetchFromSourcehut {
+    owner = "~sircmpwn";
+    repo = pname;
     rev = "fbef1d34a1abd2614f85afee415fe0f417038efe";
     sha256 = "0y42vj5vy8pk732dkbdywgixr9bxpg11hf4w2qsa1vwqw3xbvdka";
   };

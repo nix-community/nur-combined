@@ -1,11 +1,12 @@
-{ lib, buildGoModule, fetchgit, sources }:
+{ lib, buildGoModule, fetchFromSourcehut }:
 
-buildGoModule {
+buildGoModule rec {
   pname = "gemreader";
   version = "2021-03-08";
 
-  src = fetchgit {
-    url = "https://git.sr.ht/~sircmpwn/gemreader";
+  src = fetchFromSourcehut {
+    owner = "~sircmpwn";
+    repo = pname;
     rev = "7f9df147d6785d5f2b77ce9d44513de65985657a";
     sha256 = "0w6jky5qz6p7i67jm6ab9rrlym2xkfqiaxgxfr4g2wg628qb32nl";
   };

@@ -1,11 +1,12 @@
-{ lib, buildGoModule, fetchgit, sources }:
+{ lib, buildGoModule, fetchFromSourcehut }:
 
-buildGoModule {
+buildGoModule rec {
   pname = "shavit";
   version = "2020-03-14";
 
-  src = fetchgit {
-    url = "https://git.sr.ht/~yotam/shavit";
+  src = fetchFromSourcehut {
+    owner = "~yotam";
+    repo = pname;
     rev = "129b3e7fc700d02843c4fbd3e7cc73bf714f9cc2";
     sha256 = "02g1igsx441q20yv2ylc50mf598whl0lfnwrj9nzab1jk5q3nhic";
   };
