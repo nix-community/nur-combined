@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, zig }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "gurl-unstable";
   version = "2020-12-28";
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "A curl-like cli application to interact with Gemini sites";
-    homepage = "https://github.com/MasterQ32/gurl";
+    homepage = src.meta.homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Translate text/gemini into HTML";
-    homepage = "https://github.com/shtanton/gmi2html";
+    homepage = src.meta.homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

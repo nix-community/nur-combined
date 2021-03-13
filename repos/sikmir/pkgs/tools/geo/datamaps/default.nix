@@ -1,10 +1,15 @@
-{ lib, stdenv, libpng, pkg-config, sources }:
+{ lib, stdenv, fetchFromGitHub, libpng, pkg-config }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "datamaps";
-  version = lib.substring 0 10 sources.datamaps.date;
+  version = "2014-08-19";
 
-  src = sources.datamaps;
+  src = fetchFromGitHub {
+    owner = "ericfischer";
+    repo = pname;
+    rev = "76e620adabbedabd6866b23b30c145b53bae751e";
+    sha256 = "1rdqbyfmgidiv4aqy1s6llls304dxbg5226c7k622smd2rnda2jk";
+  };
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ libpng ];
@@ -19,7 +24,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    inherit (sources.datamaps) description homepage;
+    description = "Indexes points and lines and generates map tiles to display them";
+    homepage = src.meta.homepage;
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

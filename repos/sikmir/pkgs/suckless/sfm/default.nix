@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "sfm";
   version = "2021-02-18";
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Simple file manager";
-    homepage = "https://github.com/afify/sfm";
+    homepage = src.meta.homepage;
     license = licenses.isc;
     platforms = platforms.linux;
     maintainers = [ maintainers.sikmir ];

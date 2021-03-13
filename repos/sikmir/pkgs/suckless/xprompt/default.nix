@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A dmenu rip-off with contextual completion";
-    homepage = "https://github.com/phillbush/xprompt";
+    homepage = src.meta.homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;

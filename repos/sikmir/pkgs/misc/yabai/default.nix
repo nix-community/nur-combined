@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A tiling window manager for macOS based on binary space partitioning";
-    homepage = "https://github.com/koekeishiya/yabai";
-    changelog = "https://github.com/koekeishiya/yabai/blob/v${version}/CHANGELOG.md";
+    homepage = src.meta.homepage;
+    changelog = "${src.meta.homepage}/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.darwin;

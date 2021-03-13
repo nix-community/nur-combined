@@ -83,20 +83,6 @@
         "url": "https://github.com/DavyLandman/csvtools/archive/efd3ef1c94c26c673e958ecb045056bfc2c7b4f3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "datamaps": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2014-08-19T19:28:16Z",
-        "description": "Indexes points and lines and generates map tiles to display them",
-        "homepage": "https://github.com/ericfischer/datamaps",
-        "owner": "ericfischer",
-        "repo": "datamaps",
-        "rev": "76e620adabbedabd6866b23b30c145b53bae751e",
-        "sha256": "1rdqbyfmgidiv4aqy1s6llls304dxbg5226c7k622smd2rnda2jk",
-        "type": "tarball",
-        "url": "https://github.com/ericfischer/datamaps/archive/76e620adabbedabd6866b23b30c145b53bae751e.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "dict2rest": {
         "branch": "master",
         "builtin": false,
@@ -343,20 +329,6 @@
         "sha256": "0gi8xq7gsmi1a6gbp4d0a0h6ys2jpf0b1fys3ggph5gqf47h9pvc",
         "type": "tarball",
         "url": "https://github.com/remisalmon/gpx_interpolate/archive/24236e45e3d8baa0662c329b735b79a17e84c1bd.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "gpx-layer": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2013-09-19T22:24:41Z",
-        "description": "Tools to turn GPX files into a GPS map tracing layer",
-        "homepage": "https://github.com/ericfischer/gpx-layer",
-        "owner": "ericfischer",
-        "repo": "gpx-layer",
-        "rev": "746b4723cf1f69fb86d45cf2d4efeaae9e711d2d",
-        "sha256": "0v5vfjqm5flmr30mpgabjwzy4avxl620051pcw03sdf3za8xkpr3",
-        "type": "tarball",
-        "url": "https://github.com/ericfischer/gpx-layer/archive/746b4723cf1f69fb86d45cf2d4efeaae9e711d2d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxelevations": {

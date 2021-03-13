@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "macOS menubar icon for WireGuard/wg-quick";
-    homepage = "https://github.com/aequitas/macos-menubar-wireguard";
+    homepage = src.meta.homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];

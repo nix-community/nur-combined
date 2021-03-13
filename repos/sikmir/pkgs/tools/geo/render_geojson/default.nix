@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, autoreconfHook, wxGTK30-gtk3 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "render_geojson";
   version = "2018-07-11";
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "C++ geoJSON and topoJSON parser and rendering using the WxWidgets GUI library";
-    homepage = "https://github.com/pedro-vicente/render_geojson";
+    homepage = src.meta.homepage;
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

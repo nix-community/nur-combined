@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "lacc";
   version = "2021-01-31";
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "A simple, self-hosting C compiler";
-    homepage = "https://github.com/larmel/lacc";
+    homepage = src.meta.homepage;
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = [ maintainers.sikmir ];

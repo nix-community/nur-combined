@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description = "Yet another HTTPie clone";
-    homepage = "https://github.com/ducaale/ht";
+    homepage = src.meta.homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

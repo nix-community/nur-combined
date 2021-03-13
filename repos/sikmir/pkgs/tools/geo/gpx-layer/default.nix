@@ -1,10 +1,15 @@
-{ lib, stdenv, buildPerlPackage, shortenPerlShebang, XMLParser, sources }:
+{ lib, stdenv, fetchFromGitHub, buildPerlPackage, shortenPerlShebang, XMLParser }:
 
-buildPerlPackage {
+buildPerlPackage rec {
   pname = "gpx-layer";
-  version = lib.substring 0 10 sources.gpx-layer.date;
+  version = "2013-09-19";
 
-  src = sources.gpx-layer;
+  src = fetchFromGitHub {
+    owner = "ericfischer";
+    repo = pname;
+    rev = "746b4723cf1f69fb86d45cf2d4efeaae9e711d2d";
+    sha256 = "0v5vfjqm5flmr30mpgabjwzy4avxl620051pcw03sdf3za8xkpr3";
+  };
 
   outputs = [ "out" ];
 
@@ -23,7 +28,8 @@ buildPerlPackage {
   '';
 
   meta = with lib; {
-    inherit (sources.gpx-layer) description homepage;
+    description = "Tools to turn GPX files into a GPS map tracing layer";
+    homepage = src.meta.homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

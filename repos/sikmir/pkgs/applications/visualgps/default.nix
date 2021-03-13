@@ -6,7 +6,7 @@
 , qtserialport
 }:
 
-mkDerivation {
+mkDerivation rec {
   pname = "visualgps-unstable";
   version = "2020-03-29";
 
@@ -34,7 +34,7 @@ mkDerivation {
 
   meta = with lib; {
     description = "A QT application (GUI) that makes use of the VisualGPS/NMEAParser project";
-    homepage = "https://github.com/VisualGPS/VisualGPSqt";
+    homepage = src.meta.homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

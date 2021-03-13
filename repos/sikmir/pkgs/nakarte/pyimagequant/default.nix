@@ -18,7 +18,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "python bindings for libimagequant (pngquant core)";
-    homepage = "https://github.com/wladich/pyimagequant";
+    homepage = src.meta.homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
   };
