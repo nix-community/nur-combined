@@ -48,7 +48,7 @@ in
     ];
 
     postBuild = ''
-      cp ${voidrice}/.local/bin/statusbar/news $out/bin/news
+      cp ${voidrice}/.local/bin/statusbar/sb-news $out/bin/sb-news
       cp ${voidrice}/.local/bin/cron/newsup $out/bin/newsup
       cp ${voidrice}/.local/bin/qndl $out/bin/qndl
       cp ${voidrice}/.local/bin/queueandnotify $out/bin/queueandnotify

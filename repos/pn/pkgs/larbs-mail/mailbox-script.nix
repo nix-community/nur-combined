@@ -6,6 +6,6 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp .local/bin/statusbar/mailbox $out/bin/mailbox
+    cp .local/bin/statusbar/sb-mailbox $out/bin/sb-mailbox
   '';
 }
