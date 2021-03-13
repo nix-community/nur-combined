@@ -427,13 +427,13 @@ let
         sha512 = "BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==";
       };
     };
-    "v8-compile-cache-2.2.0" = {
+    "v8-compile-cache-2.3.0" = {
       name = "v8-compile-cache";
       packageName = "v8-compile-cache";
-      version = "2.2.0";
+      version = "2.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.2.0.tgz";
-        sha512 = "gTpR5XQNKFwOd4clxfnhaqvfqMpqEwr4tOtCyz4MtYZX2JYhfr1JvBFKdS+7K/9rfpZR3VLX+YWBbKoxCgS43Q==";
+        url = "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz";
+        sha512 = "l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==";
       };
     };
     "webpack-merge-5.7.3" = {
@@ -517,7 +517,7 @@ let
       sources."shebang-regex-3.0.0"
       sources."signal-exit-3.0.3"
       sources."strip-final-newline-2.0.0"
-      sources."v8-compile-cache-2.2.0"
+      sources."v8-compile-cache-2.3.0"
       sources."webpack-merge-5.7.3"
       sources."which-2.0.2"
       sources."wildcard-2.0.0"

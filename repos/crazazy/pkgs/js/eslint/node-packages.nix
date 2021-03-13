@@ -22,13 +22,13 @@ let
         sha512 = "np/lG3uARFybkoHokJUmf1QfEvRVCPbmQeUQpKow5cQ3xWrV9i3rUHodKDJPQfTVX61qKi+UdYk8kik84n7XOw==";
       };
     };
-    "@babel/highlight-7.13.8" = {
+    "@babel/highlight-7.13.10" = {
       name = "_at_babel_slash_highlight";
       packageName = "@babel/highlight";
-      version = "7.13.8";
+      version = "7.13.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/highlight/-/highlight-7.13.8.tgz";
-        sha512 = "4vrIhfJyfNf+lCtXC2ck1rKSzDwciqF7IWFhXXrSOUC2O5DrVp+w4c6ed4AllTxhTkUP5x2tYj41VaxdVMMRDw==";
+        url = "https://registry.npmjs.org/@babel/highlight/-/highlight-7.13.10.tgz";
+        sha512 = "5aPpe5XQPzflQrFwL1/QoeHkP2MsA4JCntcXHRhEsdsfPVkvPi2w7Qix4iV7t5S/oC9OodGrggd8aco1g3SZFg==";
       };
     };
     "@eslint/eslintrc-0.4.0" = {
@@ -67,13 +67,13 @@ let
         sha512 = "j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==";
       };
     };
-    "ajv-7.1.1" = {
+    "ajv-7.2.1" = {
       name = "ajv";
       packageName = "ajv";
-      version = "7.1.1";
+      version = "7.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ajv/-/ajv-7.1.1.tgz";
-        sha512 = "ga/aqDYnUy/o7vbsRTFhhTsNeXiYb5JWDIcRIeZfwRNCefwjNTVYCGdGSUrEmiu3yDK3vFvNbgJxvrQW4JXrYQ==";
+        url = "https://registry.npmjs.org/ajv/-/ajv-7.2.1.tgz";
+        sha512 = "+nu0HDv7kNSOua9apAVc979qd932rrZeb3WOvoiD31A/p1mIE5/9bN2027pE2rOPYEdS3UHzsvof4hY+lM9/WQ==";
       };
     };
     "ansi-colors-4.1.1" = {
@@ -463,13 +463,13 @@ let
         sha512 = "LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==";
       };
     };
-    "glob-parent-5.1.1" = {
+    "glob-parent-5.1.2" = {
       name = "glob-parent";
       packageName = "glob-parent";
-      version = "5.1.1";
+      version = "5.1.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.1.tgz";
-        sha512 = "FnI+VGOpnlGHWZxthPGR+QhR78fuiK0sNLkHQv+bL9fQi57lNNdquIbna/WrfROrolq8GK5Ek6BiMwqL/voRYQ==";
+        url = "https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz";
+        sha512 = "AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==";
       };
     };
     "globals-12.4.0" = {
@@ -479,6 +479,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/globals/-/globals-12.4.0.tgz";
         sha512 = "BWICuzzDvDoH54NHKCseDanAhE3CeDorgDL5MT6LMXXj2WCnd9UC2szdk4AWLfjdgNBCXLUanXYcpBBKOSWGwg==";
+      };
+    };
+    "globals-13.6.0" = {
+      name = "globals";
+      packageName = "globals";
+      version = "13.6.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/globals/-/globals-13.6.0.tgz";
+        sha512 = "YFKCX0SiPg7l5oKYCJ2zZGxcXprVXHcSnVuvzrT3oSENQonVLqM5pf9fN5dLGZGyCjhw8TN8Btwe/jKnZ0pjvQ==";
       };
     };
     "has-flag-3.0.0" = {
@@ -904,6 +913,15 @@ let
         sha512 = "XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==";
       };
     };
+    "type-fest-0.20.2" = {
+      name = "type-fest";
+      packageName = "type-fest";
+      version = "0.20.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/type-fest/-/type-fest-0.20.2.tgz";
+        sha512 = "Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==";
+      };
+    };
     "type-fest-0.8.1" = {
       name = "type-fest";
       packageName = "type-fest";
@@ -922,13 +940,13 @@ let
         sha512 = "7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==";
       };
     };
-    "v8-compile-cache-2.2.0" = {
+    "v8-compile-cache-2.3.0" = {
       name = "v8-compile-cache";
       packageName = "v8-compile-cache";
-      version = "2.2.0";
+      version = "2.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.2.0.tgz";
-        sha512 = "gTpR5XQNKFwOd4clxfnhaqvfqMpqEwr4tOtCyz4MtYZX2JYhfr1JvBFKdS+7K/9rfpZR3VLX+YWBbKoxCgS43Q==";
+        url = "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz";
+        sha512 = "l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==";
       };
     };
     "which-2.0.2" = {
@@ -971,17 +989,21 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.21.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.21.0.tgz"; sha1 = "4ecd5b8c5b44f5dedc9b8a110b01bbfeb15d1c83"; };
+    version = "7.22.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.22.0.tgz"; sha1 = "07ecc61052fec63661a2cab6bd507127c07adc6f"; };
     dependencies = [
       sources."@babel/code-frame-7.12.11"
       sources."@babel/helper-validator-identifier-7.12.11"
-      (sources."@babel/highlight-7.13.8" // {
+      (sources."@babel/highlight-7.13.10" // {
         dependencies = [
           sources."chalk-2.4.2"
         ];
       })
-      sources."@eslint/eslintrc-0.4.0"
+      (sources."@eslint/eslintrc-0.4.0" // {
+        dependencies = [
+          sources."globals-12.4.0"
+        ];
+      })
       sources."acorn-7.4.1"
       sources."acorn-jsx-5.3.1"
       sources."ajv-6.12.6"
@@ -1046,8 +1068,12 @@ let
       sources."fs.realpath-1.0.0"
       sources."functional-red-black-tree-1.0.1"
       sources."glob-7.1.6"
-      sources."glob-parent-5.1.1"
-      sources."globals-12.4.0"
+      sources."glob-parent-5.1.2"
+      (sources."globals-13.6.0" // {
+        dependencies = [
+          sources."type-fest-0.20.2"
+        ];
+      })
       sources."has-flag-3.0.0"
       sources."ignore-4.0.6"
       sources."import-fresh-3.3.0"
@@ -1097,7 +1123,7 @@ let
       sources."supports-color-5.5.0"
       (sources."table-6.0.7" // {
         dependencies = [
-          sources."ajv-7.1.1"
+          sources."ajv-7.2.1"
           sources."json-schema-traverse-1.0.0"
         ];
       })
@@ -1105,7 +1131,7 @@ let
       sources."type-check-0.4.0"
       sources."type-fest-0.8.1"
       sources."uri-js-4.4.1"
-      sources."v8-compile-cache-2.2.0"
+      sources."v8-compile-cache-2.3.0"
       sources."which-2.0.2"
       sources."word-wrap-1.2.3"
       sources."wrappy-1.0.2"
