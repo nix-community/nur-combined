@@ -76,9 +76,6 @@ in
           pkgs.writeTextFile {
             name = "trojan.json";
             text = builtins.toJSON cfg.config;
-            checkPhase = ''
-              ${cfg.package}/bin/trojan --test --config $out
-            '';
           };
     in
     mkIf (cfg.enable) {
