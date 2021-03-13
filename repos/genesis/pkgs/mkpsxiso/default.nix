@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, tinyxml2 }:
+{ lib, stdenv, fetchFromGitHub, cmake, pkgconfig, tinyxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "mkpsxiso";
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   #  "-DTINYXML_LIBRARIES=${tinyxml}/lib"
   #];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = https://github.com/Lameguy64/mkpsxiso;
     description = "ISO Image Maker Made Specifically for PlayStation Homebrew Development ";
     license = licenses.gpl2;

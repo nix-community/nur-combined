@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , buildPythonPackage
 , fetchPypi
 , fetchurl
@@ -8,7 +9,7 @@
 
 let
   pname = "frida";
-  version = "14.0.6";
+  version = "14.1.0";
   pythonVersion = "38";
 
   # TODO : find a way to use fetchPypi
@@ -23,7 +24,7 @@ let
     # add your system support here
     x86_64-linux = fetchurl {
       url = "${base}/${pname}-${version}-py${python3.pythonVersion}-linux-x86_64.egg";
-      sha256 = "137svmdj6aaa5waxhhz5m41gv6rfqc87ycr3g7ck8gimqvqzc1xz";
+      sha256 = "1jgl0sbiizv47wjwzfxiivlahnw346wjgnxbb6rb7i6cj4yw64kg";
     };
   };
 
@@ -37,7 +38,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1p04acf4q1a9livsl531xxwd5m92klvcqjplzg6hihzgnmrn38af";
+    sha256 = "0p8vy75xqcm31yqhp621r48xz6s8i0ax4rfix821hamylm0zdc5p";
   };
 
   egg = eggs.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
@@ -48,11 +49,11 @@ buildPythonPackage rec {
    ln -s ${egg} ./${egg.name}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers";
     homepage = "https://www.frida.re";
     license = licenses.wxWindows;
-    maintainers = with maintainers; [ genesis ];
+    #maintainers = with maintainers; [ genesis ];
     platforms = [ "x86_64-linux" ];
   };
 }

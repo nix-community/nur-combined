@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python3Packages, desktop-file-utils
+{ lib, fetchFromGitHub, python3Packages, desktop-file-utils
   , wrapGAppsHook, gtk3, hicolor-icon-theme }:
 
 python3Packages.buildPythonApplication rec {
@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
   # No tests in archive
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     broken = true; #need to fix the wrapper
     description = "PlayStation 2 memory card manager";
     homepage = https://github.com/thestr4ng3r/mymcplus;

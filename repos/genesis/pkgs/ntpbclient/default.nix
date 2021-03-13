@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, perl }:
+{ lib, stdenv, fetchFromGitHub, perl }:
 
 stdenv.mkDerivation rec {
   version = "0.5.3";
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   installPhase = ''install -Dm755 ./pc/ntpbclient/ntpbclient -t $out/bin '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Client application to talk to the server side of PS2rd";
     homepage = https://github.com/mlafeldt/ps2rd;
     license = licenses.gpl3;

@@ -1,4 +1,4 @@
-{ stdenv, fetchhg, autoreconfHook, bison, flex }:
+{ lib, stdenv, fetchhg, autoreconfHook, bison, flex }:
 
 stdenv.mkDerivation rec {
   version = "unstable-2020-07-06";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook bison flex ];
 
-  meta = with stdenv.lib;{
+  meta = with lib;{
     homepage = "https://beremiz.org";
     description = "IEC 61131-3 compiler";
     license = licenses.gpl3;

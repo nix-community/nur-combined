@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, imagemagick, pkgconfig, autoreconfHook }:
+{ lib, stdenv, fetchFromGitHub, imagemagick6, pkgconfig, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   name = "magick2cpc-${version}";
@@ -12,9 +12,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
-  buildInputs = [ imagemagick ];
+  buildInputs = [ imagemagick6 ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (src.meta) homepage;
     description = "An image converter for CPC using ImageMagick.";
     license = licenses.gpl3;

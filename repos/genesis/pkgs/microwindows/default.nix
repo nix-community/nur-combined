@@ -1,7 +1,7 @@
-{ stdenv, fetchFromGitHub, automake, gcc, zlib, libpng, libjpeg
+{ lib, stdenv, fetchFromGitHub, automake, gcc, zlib, libpng, libjpeg
  , freetype, libX11, libXext, buildPackages, yacc, flex }:
 
-with stdenv.lib;
+with lib;
 
 stdenv.mkDerivation rec {
   version = "unstable-2019-05-20";
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       {} \;
   '';
 
-  meta = with stdenv.lib; {
+  meta = {
     description = "A small graphical windowing system";
     homepage = "http://microwindows.org";
     license = licenses.mpl11;

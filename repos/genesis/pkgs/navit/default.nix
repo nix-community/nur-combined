@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, fontconfig, freetype, imlib2
+{ lib, stdenv, fetchFromGitHub, pkgconfig, fontconfig, freetype, imlib2
 , SDL_image, libXmu, dbus, dbus-glib, glib
 , librsvg #inkscape
 , libxslt, cairo, gdk_pixbuf, pango
@@ -23,7 +23,8 @@
 
 assert speechdSupport -> speechd != null;
 
-with stdenv.lib;
+with lib;
+
 stdenv.mkDerivation rec {
   pname = "navit";
   version = "unstable-2020-14-10";

@@ -1,26 +1,22 @@
-{ stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "rasm";
-  version = "1.2";
+  version = "1.4";
 
   src = fetchFromGitHub {
     owner = "EdouardBERGE";
     repo = "rasm";
     rev = "v${version}";
-    sha256 = "1nfmr4s6pk0mpqzgii77pkck9ak09vd9y0vgkxlp64vwlwyb84hc";
+    sha256 = "sha256-mMn22FAir+fPHpPgbX3ISA3CoAzfjIZk7oi7KzYhdMA=";
   };
 
-  buildPhase = ''
-      # according to official documentation
-      cc rasm.c -O2 -lm -lrt -march=native -o rasm
-  '';
-
+  makeFlags = [ "EXEC=rasm" ];
   installPhase = ''
     install -Dt $out/bin rasm
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://www.roudoudou.com/rasm/";
     description = "Z80 assembler";
     # use -n option to display all licenses

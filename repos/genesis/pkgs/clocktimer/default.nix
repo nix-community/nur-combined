@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitLab, gst_all_1, python3Packages, makeDesktopItem, qt5 }:
+{ lib, fetchFromGitLab, gst_all_1, python3Packages, makeDesktopItem, qt5 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "clocktimer";
@@ -51,7 +51,7 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A countdown timer made with Python 3 and PyQt5 with custom presets";
     homepage = https://gitlab.com/lastrodamo/clocktimer;
     license = licenses.gpl3;

@@ -1,11 +1,10 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig
+{ lib, stdenv, fetchFromGitHub, cmake, pkgconfig
 , enableGUI ? false, libGLU_combined ? null, fltk ? null
 }:
 
 assert enableGUI -> libGLU_combined != null && fltk != null;
 
-with stdenv.lib;
-
+with lib;
 stdenv.mkDerivation rec {
 
   pname = "freediag";
@@ -23,11 +22,11 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = optional enableGUI [ "-DBUILD_GUI=1" ] ;
 
-  meta = {
+  meta =  {
     description = "Free diagnostic software for OBD-II compliant motor vehicles";
     homepage = https://freediag.sourceforge.net/;
     maintainers = [ maintainers.genesis ];
     platforms = platforms.linux;
-    license = stdenv.lib.licenses.gpl3;
+    license = lib.licenses.gpl3;
   };
 }

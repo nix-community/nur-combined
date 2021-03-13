@@ -1,9 +1,9 @@
-{ stdenv, pkgs, fetchurl, autoPatchelfHook, makeWrapper
+{ lib, stdenv, pkgs, fetchurl, autoPatchelfHook, makeWrapper
   , frida-tools
   , frida-agent-example }:
 
 let
-  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc ];
+  libPath = lib.makeLibraryPath [ stdenv.cc.cc ];
   version = "7.4.39";
 
 in stdenv.mkDerivation rec {
@@ -56,7 +56,7 @@ in stdenv.mkDerivation rec {
      --run "if [ -f _agent.js ]; then export SCRIPT_DIR=\$(pwd); else export SCRIPT_DIR=$out/lib/;fi"
   '';
 
-meta = with stdenv.lib; {
+meta = with lib; {
     broken = true;
     description = "tunneling program that allows the play LAN games online";
     homepage = https://www.teamxlink.co.uk;

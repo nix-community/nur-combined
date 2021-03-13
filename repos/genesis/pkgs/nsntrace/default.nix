@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, iptables, libpcap, libxslt, libnl }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, iptables, libpcap, libxslt, libnl }:
 
 stdenv.mkDerivation rec {
   version = "unstable-2020-05-25";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
 #i donno if it could work with recent setup.
 # i recommand firejail with --net option instead.
-  meta = with stdenv.lib; {
+  meta = with lib; {
     #broken = true; #not tested
     inherit (src.meta) homepage;
     description = "Perform network trace of a single process by using network namespaces";

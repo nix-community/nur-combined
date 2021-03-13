@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, unzip, lzo, bzip2, zlib, openssl }:
+{ lib, stdenv, fetchurl, pkgconfig, unzip, lzo, bzip2, zlib, openssl }:
 
-with stdenv.lib;
 stdenv.mkDerivation rec {
   version = "0.10.1";
   pname = "quickbms";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = {
+  meta = with lib; {
     description = "Files extractor and reimporter, archives and file formats parser";
     homepage = "http://quickbms.com";
     license = licenses.gpl2;

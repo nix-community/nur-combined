@@ -1,16 +1,17 @@
-{ stdenv, fetchFromGitHub, desktop-file-utils, libpng
+{ lib, stdenv, fetchFromGitHub, desktop-file-utils, libpng
 , pkgconfig, SDL, freetype, zlib }:
 
 stdenv.mkDerivation rec {
 
   pname = "caprice32";
-  version = "4.6.0";
+  version = "latest";
 
   src = fetchFromGitHub {
     repo = "caprice32";
-    rev = "v${version}";
+    #rev = "v${version}";
+    rev = "584d4ab6f4ce178b0a83a6a2d95119213c86fda6";
     owner = "ColinPitrat";
-    sha256 = "0hng5krwgc1h9bz1xlkp2hwnvas965nd7sb3z9mb2m6x9ghxlacz";
+    sha256 = "sha256-5Lpudnws3DcsRXCSAjJNxOwMDwHD6X58ruGiFZqdb5M=";
   };
 
   nativeBuildInputs = [ desktop-file-utils pkgconfig ];
@@ -37,7 +38,7 @@ stdenv.mkDerivation rec {
     install -Dm644 $out/share/caprice32/resources/freedesktop/caprice32.menu -t $out/etc/xdg/menus/applications-merged/
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A complete emulation of CPC464, CPC664 and CPC6128";
     homepage = "https://github.com/ColinPitrat/caprice32";
     license = licenses.gpl2;

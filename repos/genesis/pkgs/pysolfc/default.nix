@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, myPython3Packages, python3Packages
+{ lib, fetchzip, myPython3Packages, python3Packages
 , freecell-solver }:
 
 python3Packages.buildPythonApplication rec {
@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
     cp -r $cardsets/* $out/share/PySolFC/cardsets
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A collection of more than 1000 solitaire card games";
     homepage = https://pysolfc.sourceforge.io;
     license = licenses.gpl3;

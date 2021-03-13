@@ -1,20 +1,23 @@
-{ fetchFromGitHub, stdenv, makeDesktopItem, openal, pkgconfig, libogg,
+{ lib, fetchFromGitHub, stdenv, makeDesktopItem, openal, pkgconfig, libogg,
   libvorbis, SDL, SDL_image, makeWrapper, zlib, file, libpng, libjpeg_turbo,
   client ? true, server ? true }:
 
-with stdenv.lib;
+with lib;
 
 stdenv.mkDerivation rec {
 
+  # if cliend crashes after start, try
+  # echo "ati_mda_bug 1" >> ~/.config/assaultcube/config/autoexec.cfg
+
   # master branch has legacy (1.2.0.2) protocol 1201 and gcc 6 fix.
   pname = "assaultcube";
-  version = "unstable-2020-19-07";
+  version = "unstable-2020-21-08";
 
   src = fetchFromGitHub {
     owner = "assaultcube";
     repo  = "AC";
-    rev = "05003f9238a22a646773916b0b03986ada7b7eb8";
-    sha256 = "1kfm5vi96ivcqmhdqyz7wrv6cj438shqc5crl1lawxwlay1qkahn";
+    rev = "2f61ff92d3b28758a8467b9044f93d9bc7fa6dac";
+    sha256 = "sha256-bVY4KoX2ZCz9czHxhMB6Sz4nGV/f8vjH9k+n2Gy2Nhk=";
   };
 
   # was useless before someone broke SDL_image, see https://github.com/NixOS/nixpkgs/pull/97919/
@@ -34,7 +37,7 @@ stdenv.mkDerivation rec {
     comment = "A multiplayer, first-person shooter game, based on the CUBE engine. Fast, arcade gameplay.";
     genericName = "First-person shooter";
     categories = "Game;ActionGame;Shooter";
-    icon = "assaultcube.png";
+    icon = "assaultcube";
     exec = pname;
   };
 
@@ -56,7 +59,7 @@ stdenv.mkDerivation rec {
       install -Dpm644 packages/misc/icon.png $out/share/pixmaps/assaultcube.png
 
       makeWrapper $out/bin/ac_client $out/bin/${pname} \
-        --run "cd $out/$gamedatadir" --add-flags "--home=\$HOME/.assaultcube/v1.2next --init"
+        --run "cd $out/$gamedatadir" --add-flags "--home=\$HOME/.config/assaultcube/ --init"
     fi
 
     if (test -e source/src/ac_server) then
@@ -71,6 +74,6 @@ stdenv.mkDerivation rec {
     homepage = "https://assault.cubers.net";
     maintainers = [ maintainers.genesis ];
     platforms = platforms.linux; # should work on darwin with a little effort.
-    license = stdenv.lib.licenses.free;
+    license = lib.licenses.free;
   };
 }

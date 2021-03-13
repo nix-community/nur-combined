@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchFromGitHub, qmake, pkgconfig
 , libpng, zlib, unzip
 , qtbase, qttools, qtserialport, qtscript, qtmultimedia
@@ -32,7 +32,7 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "szieke";
     repo = "ScriptCommunicator_serial-terminal";
-    rev = "Release_${stdenv.lib.replaceStrings ["."] ["_"] version}";
+    rev = "Release_${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "1rzfql5ca7gs8l1igx17r7gshpr2f1inlln92qfhkl40qrr10w60";
   };
 
@@ -70,7 +70,7 @@ in stdenv.mkDerivation rec {
     ln -s ${desktopItem}/share/applications/* $out/share/applications/
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Scriptable data terminal which supports several interfaces";
     longDescription = ''
       In addition to the simple sending and receiving of data ScriptCommunicator

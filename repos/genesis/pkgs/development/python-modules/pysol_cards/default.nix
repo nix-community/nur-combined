@@ -1,4 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage, pbr, random2, six }:
+{ lib, fetchPypi, buildPythonPackage, pbr, random2, six }:
 
 buildPythonPackage rec {
   pname   = "pysol_cards";
@@ -15,11 +15,11 @@ buildPythonPackage rec {
   #checkInputs = [ testtools pytest ];
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = https://github.com/shlomif/pysol_cards;
     description = "allow the python developer to generate the initial deals of some PySol FC games";
     license = licenses.mit; # expat version
-    maintainers = with maintainers; [ genesis ];
+    #maintainers = with maintainers; [ genesis ];
   };
 
 }

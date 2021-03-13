@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, automake, sdcc }:
-
-with stdenv.lib;
+{ lib, stdenv, fetchFromGitHub, automake, sdcc }:
 
 stdenv.mkDerivation rec {
   pname = "gbdk-n";
@@ -33,7 +31,7 @@ stdenv.mkDerivation rec {
     make examples
   '';
 
-  meta = {
+  meta = with lib; {
     description = "GBDK is an SDK for gameboy platform";
     longDescription = ''
       The Gameboy Development Kit (GBDK) is an SDK for developing applications/games for the gameboy platform.
