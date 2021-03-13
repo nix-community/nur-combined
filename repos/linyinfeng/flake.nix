@@ -7,14 +7,17 @@
   outputs = { self, nixpkgs, flake-utils }:
     (flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          config = { allowUnfree = true; };
+        };
         mkApp = drvName: cfg: flake-utils.lib.mkApp ({ drv = self.packages.${system}.${drvName}; } // cfg);
       in
       {
         packages = import ./pkgs { inherit pkgs; };
         apps = {
           activate-dpt = mkApp "activate-dpt" { };
-          clash-premium = mkApp "clash-premium" { name = "clash"; };
+          clash-premium = mkApp "clash-premium" { };
           dpt-rp1-py = mkApp "dpt-rp1-py" { name = "dptrp1"; };
           godns = mkApp "godns" { };
           musicbox = mkApp "musicbox" { };
@@ -25,6 +28,10 @@
     {
       lib = import ./lib { inherit (nixpkgs) lib; };
       nixosModules = import ./modules;
-      overlays = import ./overlays;
+      overlays = {
+        singleRepoNur = final: prev: {
+          nur.repos.linyinfeng = self.packages.${final.system};
+        };
+      } // import ./overlays;
     };
 }
