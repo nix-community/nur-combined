@@ -36,6 +36,8 @@
 
   gobi_loader = pkgs.callPackage ./pkgs/gobi_loader { };
 
+  photoview-api = pkgs.callPackage ./pkgs/photoview-api { };
+
   routinator = pkgs.callPackage ./pkgs/routinator { };
 
 }
