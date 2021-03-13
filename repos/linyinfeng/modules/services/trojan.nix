@@ -24,6 +24,22 @@ in
       '';
     };
 
+    user = mkOption {
+      type = types.str;
+      default = "nobody";
+      description = ''
+        user to run trojan.
+      '';
+    };
+
+    group = mkOption {
+      type = types.str;
+      default = "nogroup";
+      description = ''
+        group to run trojan.
+      '';
+    };
+
     config = mkOption {
       type = types.nullOr types.attrs;
       default = null;
@@ -79,7 +95,8 @@ in
           serviceConfig = {
             Type = "simple";
             StandardError = "journal";
-            User = "nobody";
+            User = cfg.user;
+            Group = cfg.group;
             AmbientCapabilities = "CAP_NET_BIND_SERVICE";
             ExecStart = "${cfg.package}/bin/trojan --config ${configFile} ${cfg.extraOptions}";
             ExecReload = "${pkgs.util-linux}/bin/kill -HUP $MAINPID";
