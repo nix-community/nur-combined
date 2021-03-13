@@ -15,6 +15,7 @@ in {
     export __VK_LAYER_NV_optimus=NVIDIA_only
     export LANG=en_US.UTF8
     export LC_ALL=en_US.UTF8
+    "$@"
   '';
   ArchiSteamFarm = with super; (ArchiSteamFarm.override {
     dotnetCorePackages = dotnetCorePackages // {
