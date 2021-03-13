@@ -156,6 +156,10 @@
         "htr": {
             "url": "https://github.com/htr/nur-packages"
         },
+        "hutzdog": {
+            "type": "sourcehut",
+            "url": "https://git.sr.ht/~hutzdog/NUR"
+        },
         "ijohanne": {
             "url": "https://github.com/ijohanne/nur-packages"
         },
