@@ -20,7 +20,7 @@ in
       default = pkgs.nur.repos.linyinfeng.trojan;
       defaultText = "pkgs.nur.repos.linyinfeng.trojan";
       description = ''
-        trojan derivation to use.
+        Trojan derivation to use.
       '';
     };
 
@@ -28,7 +28,7 @@ in
       type = types.str;
       default = "nobody";
       description = ''
-        user to run trojan.
+        User to run trojan.
       '';
     };
 
@@ -36,7 +36,7 @@ in
       type = types.str;
       default = "nogroup";
       description = ''
-        group to run trojan.
+        Group to run trojan.
       '';
     };
 
@@ -44,25 +44,24 @@ in
       type = types.nullOr types.attrs;
       default = null;
       description = ''
-        configuration for trojan service.
+        Configuration for trojan service.
       '';
     };
 
-    configFile = mkOption
-      {
-        type = types.nullOr types.path;
-        default = null;
-        description = ''
-          configuration file for trojan service.
-        '';
-      };
+    configFile = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      description = ''
+        Configuration file for trojan service.
+      '';
+    };
 
     extraOptions = mkOption {
       type = types.separatedString " ";
       default = "";
       example = "--log LOG_FILE_PATH";
       description = ''
-        extra command line options for trojan service.
+        Extra command line options for trojan service.
       '';
     };
   };

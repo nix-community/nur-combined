@@ -20,7 +20,7 @@ in
       default = pkgs.nur.repos.linyinfeng.vlmcsd;
       defaultText = "pkgs.nur.repos.linyinfeng.vlmcsd";
       description = ''
-        vlmcsd derivation to use.
+        Vlmcsd derivation to use.
       '';
     };
 
@@ -29,7 +29,7 @@ in
       default = "";
       example = "-L 0.0.0.0:1688 -L [::]:1688";
       description = ''
-        extra command line options for vlmcsd service.
+        Extra command line options for vlmcsd service.
       '';
     };
   };
