@@ -18,24 +18,20 @@ rec {
   libtasMulti-unstable = pkgs.libsForQt5.callPackage ./pkgs/libtas/unstable.nix { multiArch = true; };
 
   obs-xdg-portal = pkgs.callPackage ./pkgs/obs-xdg-portal {
-    obs-studio = obs-studio-wayland;
+    inherit obs-studio;
   };
 
-  obs-studio-wayland = pkgs.obs-studio.overrideAttrs (old: {
-    pname = "obs-studio-wayland-unstable";
-    version = "2021-02-02";
+  obs-studio = pkgs.obs-studio.overrideAttrs (old: {
+    pname = "obs-studio-unstable";
+    version = "2021-03-11";
 
     src = pkgs.fetchFromGitHub {
       owner = "obsproject";
       repo = "obs-studio";
-      rev = "31a9dc384dfa217b0ee54420cb977fd7f18d8cce";
-      hash = "sha256:0zjdwc59nz64hy90bncbvmw7vl6gsb96b8sk894cb21gks7fayyc";
+      rev = "2a87543d82a2652151d0aac29dddcd9b02b6a1fc";
+      hash = "sha256:0rnv7d6fzg7i8f0bbpqjvrr099q7f8dbrd8f77db3s4nnjk4787d";
     };
 
     buildInputs = old.buildInputs ++ [ pkgs.wayland ];
-
-    patches = [
-      ./pkgs/obs-studio-wayland/obs.patch
-    ];
   });
 }

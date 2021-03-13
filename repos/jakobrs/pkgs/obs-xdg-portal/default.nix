@@ -4,14 +4,14 @@
 
 stdenv.mkDerivation {
   pname = "obs-xdg-portal-unstable";
-  version = "2020-12-28";
+  version = "2021-01-06";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "feaneron";
     repo = "obs-xdg-portal";
-    rev = "8dd8fa3a69762daec98dcaedcd4efa57f2e3efb7";
-    hash = "sha256:1bryvpqjwsrq3vk4igzfk10qq5zl8r4m172narxsr6yp7qp2kzza";
+    rev = "ee5241aed1a201d2dfa1af6be22762144bd61f0b";
+    hash = "sha256:0qqwjs8p1l67zrx0i3sd11wg6y6bhs64zd8cjzd9nfsl50ivb0b4";
   };
 
   nativeBuildInputs = [ meson cmake ninja pkg-config ];
