@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "free42";
-  version = "2.5.21";
+  version = "3.0.1";
 
   src = fetchFromGitHub{
     owner = "thomasokken";
     repo = "free42";
     rev = "v${version}";
-    sha256 = "1dlsb3c8iksphqa2wxaar7v98jim4awza01nz5rs3qisi2ylyjw5";
+    sha256 = "14prfykh57rad6hkcb99980sg2xnajqfnwa4v6vbwm0qg0s3dn8y";
   };
 
   desktopItem = makeDesktopItem {
@@ -29,8 +29,6 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   patchPhase = ''
-    substituteInPlace build-intel-lib.sh \
-      --replace 'arm64|i86pc)' 'aarch64|arm64|i86pc)'
     substituteInPlace Makefile --replace /bin/ls ls
   '';
 
@@ -38,7 +36,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -D -m 755 free42dec $out/bin/free42dec
-    install -D -m 755 icon-128x128.xpm $out/share/pixmaps/free42icon.xpm
+    install -D -m 755 icon-128x128.xpm $out/share/pixmaps/free42dec.xpm
 
     mkdir -p $out/share
     cp -rv ${desktopItem}/share/applications $out/share/
