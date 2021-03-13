@@ -1,3 +1,4 @@
+{ thisNur }:
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -17,7 +18,7 @@ in
 
     package = mkOption {
       type = types.package;
-      default = pkgs.nur.repos.linyinfeng.vlmcsd;
+      default = thisNur.vlmcsd;
       defaultText = "pkgs.nur.repos.linyinfeng.vlmcsd";
       description = ''
         vlmcsd derivation to use.

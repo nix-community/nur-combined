@@ -1,7 +1,5 @@
+{ thisNur }:
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
-
-  vlmcsd = ./services/vlmcsd.nix;
+  vlmcsd = import ./services/vlmcsd.nix { inherit thisNur; };
+  trojan = import ./services/trojan.nix { inherit thisNur; };
 }

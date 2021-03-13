@@ -8,15 +8,12 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+let thisNur = {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
+  modules = import ./modules { inherit thisNur; }; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  # example-package = pkgs.callPackage ./pkgs/example-package { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
   clash-premium = pkgs.callPackage ./pkgs/clash-premium { };
   trojan = pkgs.callPackage ./pkgs/trojan { };
   godns = pkgs.callPackage ./pkgs/godns { };
@@ -24,4 +21,6 @@
   activate-dpt = pkgs.callPackage ./pkgs/activate-dpt { };
   musicbox = pkgs.callPackage ./pkgs/musicbox { };
   vlmcsd = pkgs.callPackage ./pkgs/vlmcsd { };
-}
+};
+in
+thisNur
