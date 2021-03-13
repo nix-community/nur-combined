@@ -3,6 +3,7 @@
 
 with lib;
 let
+  thisNurPkgs = thisNur { inherit pkgs; };
   cfg = config.services.vlmcsd;
 in
 {
@@ -18,7 +19,7 @@ in
 
     package = mkOption {
       type = types.package;
-      default = thisNur.vlmcsd;
+      default = thisNurPkgs.vlmcsd;
       defaultText = "pkgs.nur.repos.linyinfeng.vlmcsd";
       description = ''
         vlmcsd derivation to use.
