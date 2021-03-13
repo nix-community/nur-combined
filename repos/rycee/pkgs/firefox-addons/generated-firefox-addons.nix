@@ -82,10 +82,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.48.1";
+      version = "1.49.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3714988/bitwarden_free_password_manager-1.48.1-an+fx.xpi";
-      sha256 = "27088233b72c36f8636ae88e79d7e52a0b4480d7fc73ed6412233a2f95408256";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3741860/bitwarden_free_password_manager-1.49.0-an+fx.xpi";
+      sha256 = "e71db6bdf639450f3ade99c4a4653ecac596f2c44dacd0ee4b35cba1834082a3";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -851,10 +851,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.5.2";
+      version = "5.5.3";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3726573/moderator_toolbox_for_reddit-5.5.2-an+fx.xpi";
-      sha256 = "d2b30fd10b114a054807a98da21a4ea53f8e39b14d20741d244a07f3b69d5eb4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3742595/moderator_toolbox_for_reddit-5.5.3-an+fx.xpi";
+      sha256 = "1638502aa4e5a495fc33e9133e1ef865dcb4341d5cc2cd83c2d0860e2f20a457";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
