@@ -13,6 +13,8 @@ let
 in
 runCommand "${name}"
 {
+  inherit pname version;
+
   buildInputs = [
     makeWrapper
   ];

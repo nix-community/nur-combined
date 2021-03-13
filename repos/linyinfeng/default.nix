@@ -10,15 +10,9 @@
 
 {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = import ./lib { inherit (pkgs) lib; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-
-  clash-premium = pkgs.callPackage ./pkgs/clash-premium { };
-  trojan = pkgs.callPackage ./pkgs/trojan { };
-  godns = pkgs.callPackage ./pkgs/godns { };
-  dpt-rp1-py = pkgs.callPackage ./pkgs/dpt-rp1-py { };
-  activate-dpt = pkgs.callPackage ./pkgs/activate-dpt { };
-  musicbox = pkgs.callPackage ./pkgs/musicbox { };
-  vlmcsd = pkgs.callPackage ./pkgs/vlmcsd { };
 }
+  //
+import ./pkgs { inherit pkgs; }
