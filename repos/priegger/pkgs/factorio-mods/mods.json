@@ -747,20 +747,20 @@
   },
   {
     "name": "RPGsystem",
-    "version": "1.0.54",
-    "file_name": "RPGsystem_1.0.54.zip",
-    "download_url": "/download/RPGsystem/60251a7916f57505bdc33f6a",
-    "sha1": "590022a81ce7fea8294c074d252734953079e44c",
+    "version": "1.1.0",
+    "file_name": "RPGsystem_1.1.0.zip",
+    "download_url": "/download/RPGsystem/604bea6ce867c56a619557a3",
+    "sha1": "24d739f5646195c81dbbad87f335de893f9964bd",
     "dependencies": [
       "base >= 1.1.0"
     ]
   },
   {
     "name": "rso-mod",
-    "version": "6.2.2",
-    "file_name": "rso-mod_6.2.2.zip",
-    "download_url": "/download/rso-mod/6011b1f2bef7ca6948808b96",
-    "sha1": "31afd28f4f1a0920a8704e4ae86120cec616f484",
+    "version": "6.2.3",
+    "file_name": "rso-mod_6.2.3.zip",
+    "download_url": "/download/rso-mod/604cc29c29bfb2de6ffaf003",
+    "sha1": "c7450308f9f61f427fb14e4438e477e11c959e7b",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
