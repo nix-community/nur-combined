@@ -4,13 +4,13 @@ with pkgs;
 
 rustPlatform.buildRustPackage rec {
   pname = "eww";
-  version = "unstable-2021-03-03";
+  version = "unstable-2021-03-09";
 
   src = fetchFromGitHub {
     owner = "elkowar";
     repo = pname;
-    rev = "5cf18bfc43d84cad60f9a8df3a7a3038543f3dab";
-    sha256 = "sha256-DMWYcSlS2tmu4Xd/f27ltiYUzEuMMUOD8HTmyg4xh6o=";
+    rev = "c4cbdedec58d94fe4368da3bd740c07ea7907113";
+    sha256 = "sha256-H1RdKwSqqwU2hJSCaNBp0DXimlhd0DUWUkD3nZYdTvs=";
   };
 
   nativeBuildInputs = [ pkg-config rust-bin.nightly.latest.rust ];
