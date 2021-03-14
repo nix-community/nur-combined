@@ -1,5 +1,8 @@
 { pkgs ? import <nixpkgs> { } }:
 
+let
+  stdenv = pkgs.clangStdenv;
+in
 rec {
   lib = import ./lib { inherit pkgs; };
   modules = import ./modules;
@@ -15,6 +18,11 @@ rec {
     
   in pkgs.callPackage ./pkgs/eww {
     pkgs = pkgs.extend rust-overlay;
+  };
+
+  abstractdark-sddm-theme = pkgs.callPackage ./pkgs/abstractdark-sddm-theme {
+    inherit stdenv;
+    fetchFromGitHub = pkgs.fetchFromGitHub;
   };
 
   bs4 = pkgs.callPackage ./pkgs/bs4 {
