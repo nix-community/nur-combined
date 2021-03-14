@@ -15,7 +15,7 @@
 
 buildPythonPackage rec {
   pname = "bundlewrap";
-  version = "4.5.1";
+  version = "4.6.0";
 
   disabled = pythonOlder "3.6";
 
@@ -23,7 +23,7 @@ buildPythonPackage rec {
     owner = "bundlewrap";
     repo = "bundlewrap";
     rev = "${version}";
-    sha256 = "1nqa3aabc3iq1r01gqma5bmz9gc7ygvqdxlxn9fgvysds5709jm6";
+    sha256 = "11kwbsr7nkiz5l672k845xaz36qsnwsdhxn94f62y8mz7ddpm79m";
   };
 
   propagatedBuildInputs = [
