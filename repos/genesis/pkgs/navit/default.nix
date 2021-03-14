@@ -27,18 +27,13 @@ with lib;
 
 stdenv.mkDerivation rec {
   pname = "navit";
-  version = "unstable-2020-14-10";
+  version = "0.5.6";
 
   src = fetchFromGitHub {
     owner = "navit-gps";
     repo = "navit";
-
-    # #1061
-    /* rev = "0a74d8a5134bf3478f09841e632e4e81ed34f15e";
-    sha256 = "0n5j2g6iyb212b4g8419gnhj6py07c9a7blpsdi4bkc8v8c48z5n"; */
-
-    rev = "55d64dd5476a9f8cca0db1c93f345ae1defccab3";
-    sha256 = "0znvqbpb6wzx8fhz9ddrxa49k2pmps6rd8hfjca8p75wrw653mkv";
+    rev = "v${version}";
+    sha256 = "sha256-ugT3AAZNwtf+npeEWs86cQq1engFJVkW5qgWpoGLFMo=";
   };
 
   # avoid dynamic fetching by cmake
