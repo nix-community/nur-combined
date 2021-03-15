@@ -1,0 +1,5 @@
+{ callPackage }:
+
+{
+  obspy = callPackage ./obspy { };
+}

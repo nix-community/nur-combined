@@ -8,13 +8,19 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
   free42 = pkgs.callPackage ./pkgs/free42 { };
+
+  obspy = pkgs.python3.pkgs.toPythonApplication python3Packages.obspy;
+
+  python3Packages = pkgs.recurseIntoAttrs (
+    pkgs.python3Packages.callPackage ./pkgs/python-modules { }  
+  );
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
