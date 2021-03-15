@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/share/sddm/themes/abstractdark-sddm-theme
     substituteInPlace theme.conf --replace 'Droid Sans Mono For Powerline' 'Sarasa Gothic J'
-    cp -aR $src $out/share/sddm/themes/abstractdark-sddm-theme 
+    mv * $out/share/sddm/themes/abstractdark-sddm-theme 
   '';
   
   meta = with lib; {
