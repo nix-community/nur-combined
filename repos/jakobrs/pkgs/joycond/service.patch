@@ -1,0 +1,11 @@
+--- a/systemd/joycond.service
++++ b/systemd/joycond.service
+@@ -3,7 +3,7 @@
+ After=network.target
+ 
+ [Service]
+-ExecStart=/usr/bin/joycond
++ExecStart=@out@/bin/joycond
+ WorkingDirectory=/root
+ StandardOutput=inherit
+ StandardError=inherit
