@@ -4,20 +4,20 @@ rec {
   # Alacritty with the unmerged ligature patches applied.
   alacritty-ligatures = pkgs.alacritty.overrideAttrs (oldAttrs: rec {
     pname = "${oldAttrs.pname}-ligatures";
-    version = "0.7.1.20210107.gada2680";
+    version = "0.7.2.20210209.g3ed0430";
 
     src = pkgs.fetchFromGitHub {
       owner = "zenixls2";
       repo = "alacritty";
       fetchSubmodules = true;
-      rev = "df24940a9ccf7ba897fa3167046ee8b181342d8f";
-      sha256 = "sha256-2Th2aojTN36MgYSFXiACcBkTpTou/X1Ub5JR2sgZa34=";
+      rev = "3ed043046fc74f288d4c8fa7e4463dc201213500";
+      sha256 = "1dGk4ORzMSUQhuKSt5Yo7rOJCJ5/folwPX2tLiu0suA=";
     };
 
     cargoDeps = oldAttrs.cargoDeps.overrideAttrs (pkgs.lib.const {
       name = "${pname}-${version}-vendor.tar.gz";
       inherit src;
-      outputHash = "sha256-weGYh5qeaOHFfq2nf0UdsuIZud+7/8SCD0g0BAjoJIc=";
+      outputHash = "pONu6caJmEKnbr7j+o9AyrYNpS4Q8OEjNZOhGTalncc=";
     });
 
     ligatureInputs = [

@@ -29,7 +29,7 @@ jobs:
         cachixName:
           - xeals
         nixPath:
-          - nixpkgs=channel:nixos-unstable
+          # - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
           # Disable due to buildGoModule and buildRustPackage
           # - nixpkgs=channel:nixos-20.03
