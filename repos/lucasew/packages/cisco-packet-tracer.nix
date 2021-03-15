@@ -17,19 +17,9 @@ let
     name = "PacketTracer";
     inherit version;
 
-    src = requireFile {
-      name = srcName;
-      url = "https://www.netacad.com/portal/resources/packet-tracer";
+    src = builtins.fetchurl {
+      url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/PacketTracer_731_amd64.deb";
       sha256 = "c39802d15dd61d00ba27fb8c116da45fd8562ab4b49996555ad66b88deace27f";
-      message = ''
-        This nix expression required that ${srcName} is already part of the store.
-        Download it from https://www.netacad.com/portal/resources/packet-tracer and add it to the nix store with:
-
-        nix-store --add-fixed sha256 ${srcName}
-
-        This can't be done automatically because you need to create an account on
-        their website and agree to their license terms before you can download it.
-      '';
     };
 
     nativeBuildInputs = [ dpkg makeWrapper ];

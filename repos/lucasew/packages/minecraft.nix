@@ -1,9 +1,8 @@
 {pkgs, ...}:
 let
-  launcherZip = pkgs.requireFile {
-    name = "ShiginimaSE_v4400.zip";
-    sha1 = "61cb768106e6e449158ebb2608ad1327402d9fec";
-    url = "https://teamshiginima.com/update/";
+  launcherZip = builtins.fetchurl {
+    sha256 = "08la0fazwl4gn6g06iqjfl300q18dpqa8bzc6v16p4lsl9r54bm6";
+    url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/ShiginimaSE_v4400.zip";
   };
   envLibPath = with pkgs; stdenv.lib.makeLibraryPath [
     alsaLib # needed for narrator
