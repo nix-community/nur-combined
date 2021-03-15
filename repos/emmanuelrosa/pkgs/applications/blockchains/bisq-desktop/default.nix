@@ -73,7 +73,7 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "13f3kaxfjm68974x4fc35iixpxm73scvajin361gws5fwx5p6kkn";
+    outputHash = "0z58kymzgrp6qhyfl8yqnw20glmdjv1wcysiidxv1acrghs6zwh0";
   };
 
 in stdenv.mkDerivation rec {
@@ -87,7 +87,7 @@ in stdenv.mkDerivation rec {
     exec = "bisq-desktop";
     icon = "bisq";
     desktopName = "Bisq";
-    genericName = "Wallet";
+    genericName = "Distributed crypto exchange";
     categories  = "Network;Utility;";
   };
 
