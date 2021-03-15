@@ -268,10 +268,10 @@
   },
   {
     "name": "ArmouredBiters",
-    "version": "1.1.3",
-    "file_name": "ArmouredBiters_1.1.3.zip",
-    "download_url": "/download/ArmouredBiters/6043c02c8e4d80d9b55111d9",
-    "sha1": "ad5ae740220bce04ed9c30f5bab382e863ca834c",
+    "version": "1.1.4",
+    "file_name": "ArmouredBiters_1.1.4.zip",
+    "download_url": "/download/ArmouredBiters/604de0d379ab79e77ebb7545",
+    "sha1": "8dff321a9577524c3ede602b491c2b5952729c50",
     "dependencies": [
       "base >= 1.1.1",
       "(?) alien-biomes"
