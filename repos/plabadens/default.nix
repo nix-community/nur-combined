@@ -16,11 +16,19 @@ rec {
 
   free42 = pkgs.callPackage ./pkgs/free42 { };
 
-  obspy = pkgs.python3.pkgs.toPythonApplication python3Packages.obspy;
+  pythonPackages = pkgs.makeOverridable (import pkgs/python-modules) {
+    inherit pkgs;
+    pythonPackages = pkgs.pythonPackages;
+  };
 
-  python3Packages = pkgs.recurseIntoAttrs (
-    pkgs.python3Packages.callPackage ./pkgs/python-modules { }  
-  );
+  python2Packages = pythonPackages.override {
+    pythonPackages = pkgs.python2Packages;
+  };
+
+  python3Packages = pythonPackages.override {
+    pythonPackages = pkgs.python3Packages;
+  };
+  
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
