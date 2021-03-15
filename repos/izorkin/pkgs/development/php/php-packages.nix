@@ -1,4 +1,4 @@
-{ pkgs, fetchgit, php, openssl, libevent, libcouchbase }:
+{ pkgs, fetchgit, fetchpatch, php, openssl, libevent, libcouchbase }:
 
 let
   self = with self; {
@@ -34,10 +34,10 @@ let
   };
 
   apcu51 = buildPecl {
-    version = "5.1.19";
+    version = "5.1.20";
     pname = "apcu";
 
-    sha256 = "1q3c4y9jqh1yz5vps2iiz2x04vn0y1g5ibxg1x8zp7n7sncvqzw3";
+    sha256 = "1463z4lavpw9fghh8vpa878c3gyx4rskxrff5w9lsvy0zvx417dr";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
     doCheck = true;
@@ -126,12 +126,12 @@ let
   };
 
   composer2 = mkDerivation rec {
-    version = "2.0.9";
+    version = "2.0.11";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "1k7rp77jqz045jzgl3l5r3wnss5hnpxk66m2x4r9yfbyh2yabyi4";
+      sha256 = "0lprp0rhjlg7zc22cl5z6pnb7p00lgnzr670v8mxhjvzcgaf1vnn";
     };
 
     dontUnpack = true;
@@ -213,10 +213,10 @@ let
   };
 
   event = buildPecl {
-    version = "3.0.2";
+    version = "3.0.2r1";
     pname = "event";
 
-    sha256 = "1ws4l014z52vb23xbsfj6viwkf7fmh462af639xgbp0n6syf77dq";
+    sha256 = "1i92kdh9lrjg8sjqd08p6j6zv9xy6f210zk2i9xpc8fpg1l876ay";
 
     configureFlags = with pkgs; [
       "--with-event-libevent-dir=${libevent.dev}"
@@ -282,10 +282,21 @@ let
       "--with-imagick=${imagemagick.dev}"
     ];
 
+    patches = [
+      # Fix compatibility with PHP 8.
+      (fetchpatch {
+        url = "https://github.com/Imagick/imagick/pull/336.patch";
+        sha256 = "nuRdh02qaMx0s/5OzlfWjyYgZG1zgrYnAjsZ/UVIrUM=";
+      })
+      # Fix detection of ImageMagick 7.
+      (fetchpatch {
+        url = "https://github.com/Imagick/imagick/commit/09551fbf38c16cdaf4ade7c08744501cd82d2747.patch";
+        sha256 = "qUeQHP08kKOzuQdEpR8RSZ18Yhi0U9z24KwQcAx1UVg=";
+      })
+    ];
+
     nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
-
-    meta.broken = isPhp80;
   };
 
   mailparse = buildPecl {
@@ -484,12 +495,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "2.18.2";
+    version = "2.18.3";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "13dsy34r1j4yxnw843mxww7s887jvxb3ancqdyidvjxzadxmp7g3";
+      sha256 = "1j4zcdc46b2ff3idx1klz6my6z274xcali1wzx9caacjgzwkbn85";
     };
 
     phases = [ "installPhase" ];
@@ -599,12 +610,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.71";
+    version = "0.12.81";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0lssq5fzvdfxcimkgi5p0zpsbsbaz6fwm7as5w40qsyknbgky82m";
+      sha256 = "0cbqifa99r6f2hjfkxln667qjpzdh3lq4smmp204sn7i7anrbnlr";
     };
 
     phases = [ "installPhase" ];
@@ -703,7 +714,7 @@ let
     };
   };
 
-  protobuf = if isPhp56 then protobuf312 else protobuf314;
+  protobuf = if isPhp56 then protobuf312 else protobuf315;
 
   protobuf312 = buildPecl {
     version = "3.12.4";
@@ -724,11 +735,11 @@ let
     };
   };
 
-  protobuf314 = buildPecl {
-    version = "3.14.0";
+  protobuf315 = buildPecl {
+    version = "3.15.6";
     pname = "protobuf";
 
-    sha256 = "1ldc4s28hq61cfg8l4c06pgicj0ng7k37f28a0dnnbs7xkr7cibd";
+    sha256 = "0ar6zdk4zp5s6f320n7slrqnjjc27j46fsa435wgyjflglj71alw";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -739,17 +750,17 @@ let
       license = licenses.bsd3;
       homepage = "https://developers.google.com/protocol-buffers";
 
-      broken = (isPhp56 || isPhp80);
+      broken = isPhp56;
     };
   };
 
   psalm = mkDerivation rec {
-    version = "4.4.1";
+    version = "4.6.2";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "1p4668ihcdswasyap37vzkj4302rx4241c8686gdkk75yw0a06p2";
+      sha256 = "1fm2jmzl1wifiglv2r5ndn1q18k1rwjv8iq59zcg5nx4gjm8s35g";
     };
 
     phases = [ "installPhase" ];
@@ -985,10 +996,10 @@ let
   };
 
   xdebug30 = buildPecl {
-    version = "3.0.2";
+    version = "3.0.3";
     pname = "xdebug";
 
-    sha256 = "05sfgkw55ym7mg0b54l9x3i9598kf2bkp4z3sdl1hd31q3g4cv89";
+    sha256 = "0ci4jgi0klb7a51raj7zfxqm7154s53ff8n95nbpyfcfa60ml9p7";
 
     doCheck = true;
     checkTarget = "test";

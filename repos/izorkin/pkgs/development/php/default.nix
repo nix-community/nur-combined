@@ -4,7 +4,7 @@
 , apacheHttpd, libargon2, systemd, system-sendmail, valgrind
 , freetds, bzip2, curl, openssl
 , gd, freetype, libXpm, libjpeg, libpng, libwebp
-, gettext, gmp, libiconv, uwimap, pam, icu60, icu
+, gettext, gmp, libiconv, uwimap, pam, icu67, icu60, icu
 , openldap, cyrus_sasl, libxml2, libmcrypt, pcre, pcre2
 , unixODBC, postgresql, sqlite, readline, html-tidy
 , libxslt, zlib, libzip, libsodium, oniguruma
@@ -85,7 +85,7 @@ let
     let
       libmcrypt' = libmcrypt.override { disablePosixThreads = true; };
       pcre' = if (versionAtLeast version "7.3") then pcre2 else pcre;
-      icu' = if (versionAtLeast version "7.0") then icu else icu60;
+      icu' = if (versionAtLeast version "7.0") then (if versionAtLeast version "7.3" then icu else icu67) else icu60;
 
     in stdenv.mkDerivation {
 
@@ -375,6 +375,7 @@ in {
       ./patch/php56/php5640-79699.patch
       ./patch/php56/php5640-79797.patch
       ./patch/php56/php5640-79877.patch
+      ./patch/php56/php5640-80672.patch
     ];
   };
 
@@ -413,6 +414,7 @@ in {
       ./patch/php71/php7133-79699.patch
       ./patch/php71/php7133-79797.patch
       ./patch/php71/php7133-79877.patch
+      ./patch/php71/php7133-80672.patch
     ] 
       # https://bugs.php.net/bug.php?id=76826
       ++ optional stdenv.isDarwin ./patch/php71-darwin-isfinite.patch;
@@ -429,6 +431,7 @@ in {
       ./patch/php72/php72-mysqlnd-fix.patch
       # Backport security bug patches
       ./patch/php72/php7234-77423.patch
+      ./patch/php72/php7234-80672.patch
     ]
       # https://bugs.php.net/bug.php?id=76826
       ++ optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
@@ -447,12 +450,12 @@ in {
   };
 
   php74 = generic {
-    version = "7.4.15";
-    sha256 = "0piqdpgb8lsswyzqwqmkpxa1y92vb4qpjicqlfkwm8fjn3ylq73r";
+    version = "7.4.16";
+    sha256 = "0s8zn60sp8ali21cczdi7afskg8kdhdca1nq8nlbw85drdgvbb3x";
   };
 
   php80 = generic {
-    version = "8.0.2";
-    sha256 = "0ai0zslsdzn8lvkw1c56jdr9s6ia1vcwf7zp7cz7msx5vmx1h8a8";
+    version = "8.0.3";
+    sha256 = "18w6mam4jfxgzqlf0r5477min112qz1wz18p1zrwish3hfjq8klw";
   };
 }
