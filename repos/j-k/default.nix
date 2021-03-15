@@ -8,22 +8,28 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
+let
+  inherit (pkgs) callPackage;
+in
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  comma = pkgs.callPackage ./pkgs/comma { };
-  conform = pkgs.callPackage ./pkgs/conform { };
-  container-diff = pkgs.callPackage ./pkgs/container-diff { };
-  dockle = pkgs.callPackage ./pkgs/dockle { };
-  flat-remix-theme = pkgs.callPackage ./pkgs/themes/flat-remix { };
-  go-jira = pkgs.callPackage ./pkgs/go-jira { };
-  nerdfont-hasklig = pkgs.callPackage ./pkgs/fonts/nerdfont-hasklig { };
-  hunter = pkgs.callPackage ./pkgs/hunter { };
-  infracost = pkgs.callPackage ./pkgs/infracost { };
-  scorecard = pkgs.callPackage ./pkgs/scorecard { };
-  subo = pkgs.callPackage ./pkgs/subo { };
+  # Defined in firefox-addons
+  firefox-addons = callPackage ./pkgs/firefox-addons { };
+
+  comma = callPackage ./pkgs/comma { };
+  conform = callPackage ./pkgs/conform { };
+  container-diff = callPackage ./pkgs/container-diff { };
+  dockle = callPackage ./pkgs/dockle { };
+  flat-remix-theme = callPackage ./pkgs/themes/flat-remix { };
+  go-jira = callPackage ./pkgs/go-jira { };
+  nerdfont-hasklig = callPackage ./pkgs/fonts/nerdfont-hasklig { };
+  hunter = callPackage ./pkgs/hunter { };
+  infracost = callPackage ./pkgs/infracost { };
+  scorecard = callPackage ./pkgs/scorecard { };
+  subo = callPackage ./pkgs/subo { };
 }
 
