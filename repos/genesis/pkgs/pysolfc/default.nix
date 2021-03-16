@@ -1,5 +1,9 @@
-{ lib, fetchzip, myPython3Packages, python3Packages
-, freecell-solver }:
+{ lib
+, fetchzip
+, myPython3Packages
+, python3Packages
+, freecell-solver
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "PySolFC";
@@ -22,12 +26,17 @@ python3Packages.buildPythonApplication rec {
   dontUseSetuptoolsCheck = true;
 
   propagatedBuildInputs = with python3Packages; [
-    attrs configobj six random2
+    attrs
+    configobj
+    six
+    random2
     myPython3Packages.pysol_cards
     myPython3Packages.pycotap
     tkinter
     #  optional :
-    pygame freecell-solver pillow
+    pygame
+    freecell-solver
+    pillow
   ];
 
   postInstall = ''

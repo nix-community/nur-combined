@@ -1,4 +1,4 @@
-{ pkgs , nodejs, stdenv, lib, ... }:
+{ pkgs, nodejs, stdenv, lib, ... }:
 
 let
 

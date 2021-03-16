@@ -4,7 +4,8 @@ let
 
   version = "2020-04-11";
 
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "hospital-hero";
   inherit version;
 
@@ -30,7 +31,7 @@ in stdenv.mkDerivation rec {
     makeWrapper ${love_11}/bin/love $out/bin/${pname} --add-flags $out/share/games/lovegames/${pname}.love
   '';
 
-meta = with lib; {
+  meta = with lib; {
     description = "You are a 101% systemically relevant janitor-hero!";
     homepage = https://hackefuffel.itch.io/hospital-hero;
     downloadPage = meta.homepage;

@@ -12,7 +12,7 @@ let
 
 in
 
-  builtins.listToAttrs
+builtins.listToAttrs
   (map (n: nameValuePair n nurAttrs.${n})
-  (builtins.filter (n: !isReserved n)
-  (builtins.attrNames nurAttrs)))
+    (builtins.filter (n: !isReserved n)
+      (builtins.attrNames nurAttrs)))

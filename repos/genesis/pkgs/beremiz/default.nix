@@ -1,8 +1,12 @@
-{ stdenv, fetchFromBitbucket, matiec 
- , python3, python3Packages }:
+{ stdenv
+, fetchFromBitbucket
+, matiec
+, python3
+, python3Packages
+}:
 
- # wxglade (python) http://wxglade.sourceforge.net/
- # optionals : CanFestival modbus BACnet
+# wxglade (python) http://wxglade.sourceforge.net/
+# optionals : CanFestival modbus BACnet
 
 python3Packages.buildPythonApplication rec {
   version = "unstable-2017-10-20";
@@ -15,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "06fpnb935r0gfalpbxd6h6i9v7gfsri6scc8bnv8d623zxs2n0p6";
   };
 
-  nativeBuildInputs = [  ];
+  nativeBuildInputs = [ ];
   buildInputs = with python3Packages; [
     python3
     matiec

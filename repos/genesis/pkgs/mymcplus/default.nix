@@ -1,33 +1,46 @@
-{ lib, fetchFromGitHub, python3Packages, desktop-file-utils
-  , wrapGAppsHook, gtk3, hicolor-icon-theme }:
+{ lib
+, fetchFromSourcehut
+, python3Packages
+, desktop-file-utils
+, wrapGAppsHook
+, gtk3
+, hicolor-icon-theme
+}:
+
+# TODO : GUI doesn't work
 
 python3Packages.buildPythonApplication rec {
   pname = "mymcplus";
-  version = "3.0.3";
+  version = "3.0.4";
 
-  src = fetchFromGitHub{
-    owner = "thestr4ng3r";
+  src = fetchFromSourcehut {
+    owner = "~thestr4ng3r";
     repo = "mymcplus";
     rev = "v${version}";
-    sha256 = "07r78v3hp3mcdxqf6j2vaqxc4pr08mwphchac71n79pvdqzj5j2i";
+    sha256 = "sha256-zua6NZTAXmgTZywFLjbekBx+OcVKnt3wsRgXJ0AS9wU=";
   };
 
+  nativeBuildInputs = [ desktop-file-utils ];
+  buildInputs = [ wrapGAppsHook gtk3 hicolor-icon-theme ];
   propagatedBuildInputs = with python3Packages; [ pyopengl wxPython_4_0 ];
 
-  nativeBuildInputs = [ desktop-file-utils ];
-  postPatch = ''
-  #  desktop-file-edit --set-key Icon --set-value ${placeholder "out"}/share/icons/pysol01.png data/pysol.desktop
-  #  desktop-file-edit --set-key Comment --set-value "${meta.description}" data/pysol.desktop
+  preFixup = ''
+    # buildPythonPath "$out $pythonPkgs"
+    gappsWrapperArgs+=(--prefix XDG_DATA_DIRS : "${hicolor-icon-theme}/share")
   '';
 
-  buildInputs = [ wrapGAppsHook gtk3 hicolor-icon-theme ];
+  # TODO use desktop icon docs/mc4.png
+  #postPatch = ''
+  #  desktop-file-edit --set-key Icon --set-value ${placeholder "out"}/share/icons/pysol01.png data/pysol.desktop
+  #  desktop-file-edit --set-key Comment --set-value "${meta.description}" data/pysol.desktop
+  # '';
+
   # No tests in archive
-  doCheck = false;
+  #doCheck = false;
 
   meta = with lib; {
-    broken = true; #need to fix the wrapper
     description = "PlayStation 2 memory card manager";
-    homepage = https://github.com/thestr4ng3r/mymcplus;
+    inherit (src.meta) homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ genesis ];
   };

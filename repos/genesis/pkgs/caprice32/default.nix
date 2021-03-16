@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, desktop-file-utils, libpng
-, pkgconfig, SDL, freetype, zlib }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, desktop-file-utils
+, libpng
+, pkgconfig
+, SDL
+, freetype
+, zlib
+}:
 
 stdenv.mkDerivation rec {
 

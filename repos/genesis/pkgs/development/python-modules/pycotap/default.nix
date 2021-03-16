@@ -1,7 +1,7 @@
 { lib, fetchPypi, buildPythonPackage, pbr, random2, six }:
 
 buildPythonPackage rec {
-  pname   = "pycotap";
+  pname = "pycotap";
   version = "1.2.2";
 
   src = fetchPypi {

@@ -1,8 +1,18 @@
-{ lib, stdenv
-, fetchFromGitHub, qmake, pkgconfig
-, libpng, zlib, unzip
-, qtbase, qttools, qtserialport, qtscript, qtmultimedia
-, makeWrapper, makeDesktopItem
+{ lib
+, stdenv
+, fetchFromGitHub
+, qmake
+, pkgconfig
+, libpng
+, zlib
+, unzip
+, qtbase
+, qttools
+, qtserialport
+, qtscript
+, qtmultimedia
+, makeWrapper
+, makeDesktopItem
 }:
 
 let
@@ -19,12 +29,13 @@ let
     categories = "Network;";
   };
 
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
 
   inherit pname version;
 
   nativeBuildInputs = [ unzip qmake makeWrapper ];
-  buildInputs = [  qtserialport qtscript qtmultimedia ];
+  buildInputs = [ qtserialport qtscript qtmultimedia ];
 
   # we want QtDesigner available to create UI
   propagatedBuildInputs = [ qttools ];
@@ -32,7 +43,7 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "szieke";
     repo = "ScriptCommunicator_serial-terminal";
-    rev = "Release_${lib.replaceStrings ["."] ["_"] version}";
+    rev = "Release_${lib.replaceStrings [ "." ] [ "_" ] version}";
     sha256 = "1rzfql5ca7gs8l1igx17r7gshpr2f1inlln92qfhkl40qrr10w60";
   };
 

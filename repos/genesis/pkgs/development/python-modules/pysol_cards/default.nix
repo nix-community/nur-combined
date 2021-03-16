@@ -1,7 +1,7 @@
 { lib, fetchPypi, buildPythonPackage, pbr, random2, six }:
 
 buildPythonPackage rec {
-  pname   = "pysol_cards";
+  pname = "pysol_cards";
   version = "0.10.1";
 
   src = fetchPypi {

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, automake, gcc, zlib, libpng, libjpeg
- , freetype, libX11, libXext, buildPackages, yacc, flex }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, automake
+, gcc
+, zlib
+, libpng
+, libjpeg
+, freetype
+, libX11
+, libXext
+, buildPackages
+, yacc
+, flex
+}:
 
 with lib;
 
@@ -40,13 +53,13 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup =
-  ''
+    ''
       find "$out/bin" -executable -exec \
       patchelf \
       --replace-needed /build/source/src/lib/libnano-X.so "$out/lib/libnano-X.so" \
       --replace-needed /build/source/src/lib/libmwin.so "$out/lib/libmwin.so" \
       {} \;
-  '';
+    '';
 
   meta = {
     description = "A small graphical windowing system";

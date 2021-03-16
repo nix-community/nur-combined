@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 let
   maintainers = pkgs.lib.maintainers // import ./maintainers.nix;
   mylib = pkgs.lib // { maintainers = maintainers; };
@@ -28,7 +28,7 @@ rec {
   freediag = pkgs.callPackage ./pkgs/freediag { lib = mylib; };
   frida-agent-example = pkgs.callPackage ./pkgs/frida-agent-example { lib = mylib; };
   #frida-compile = pkgs.callPackage ./pkgs/frida-compile {};
-  frida-tools = pkgs.callPackage ./pkgs/frida-tools { lib = mylib;  myPython3Packages = python3Packages; };
+  frida-tools = pkgs.callPackage ./pkgs/frida-tools { lib = mylib; myPython3Packages = python3Packages; };
   gbdk-n = pkgs.callPackage ./pkgs/gbdk-n { lib = mylib; };
   hdl-dump = pkgs.callPackage ./pkgs/hdl_dump { lib = mylib; };
 
@@ -44,10 +44,10 @@ rec {
   nsntrace = pkgs.callPackage ./pkgs/nsntrace { lib = mylib; };
   ntpbclient = pkgs.callPackage ./pkgs/ntpbclient { lib = mylib; };
   pfsshell = pkgs.callPackage ./pkgs/pfsshell { lib = mylib; };
-  pysolfc = pkgs.callPackage ./pkgs/pysolfc {  lib = mylib; myPython3Packages = python3Packages; };
+  pysolfc = pkgs.callPackage ./pkgs/pysolfc { lib = mylib; myPython3Packages = python3Packages; };
 
   python3Packages = pkgs.recurseIntoAttrs (
-    pkgs.python3Packages.callPackage ./pkgs/development/python-modules {}
+    pkgs.python3Packages.callPackage ./pkgs/development/python-modules { }
   );
 
   # from the makefile
@@ -58,5 +58,5 @@ rec {
   # qt.qpa.plugin issue, test later.
   #scriptcommunicator = pkgs.libsForQt5.callPackage ./pkgs/scriptcommunicator {};
   soulseekqt = pkgs.libsForQt5.callPackage ./pkgs/soulseekqt { lib = mylib; };
-  xlink-kai = pkgs.callPackage ./pkgs/xlink-kai {  lib = mylib; inherit frida-agent-example frida-tools; };
+  xlink-kai = pkgs.callPackage ./pkgs/xlink-kai { lib = mylib; inherit frida-agent-example frida-tools; };
 }

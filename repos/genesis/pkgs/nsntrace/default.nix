@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
     makeFlagsArray=(SUBDIRS=$PWD/src);
   '';
 
-#i donno if it could work with recent setup.
-# i recommand firejail with --net option instead.
+  #i donno if it could work with recent setup.
+  # i recommand firejail with --net option instead.
   meta = with lib; {
     #broken = true; #not tested
     inherit (src.meta) homepage;
