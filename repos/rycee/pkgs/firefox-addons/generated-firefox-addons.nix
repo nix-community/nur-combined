@@ -63,10 +63,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.2.91";
+      version = "7.2.92";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3696386/betterttv-7.2.91-fx.xpi";
-      sha256 = "6f9b0c1fb8a1da106d9a0acc63e730e4f6d1a34e16acd8fd1f828db5710a74e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3743565/betterttv-7.2.92-fx.xpi";
+      sha256 = "6b26f50a35d729a5faf41774fade4826d1f7ad4b6c7ce16e30edaaf8075847a0";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -297,7 +297,7 @@
       meta = with lib;
       {
         homepage = "https://floccus.org";
-        description = "Sync your bookmarks across browsers via Nextcloud, WebDAV or a local file (and thus any file sync solution)";
+        description = "Sync your bookmarks across browsers via Nextcloud, WebDAV or Google Drive";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -541,10 +541,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.66.0.12";
+      version = "4.67.1.4";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3736761/lastpass_password_manager-4.66.0.12-an+fx.xpi";
-      sha256 = "1d564314bed54c5f544c3562c4233cda7f379f54001a2485577da6aa9d72b6b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3741902/lastpass_password_manager-4.67.1.4-an+fx.xpi";
+      sha256 = "02e314319abeb17dfd5a40380ce96909fc65b9f061920da16fffcd7ed93fa98e";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -630,10 +630,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.1.1";
+      version = "9.2.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3737380/metamask-9.1.1-an+fx.xpi";
-      sha256 = "d990278df37e4d0aec1fb67b595a404a2d5f3772a833406d72d1a787bd4858aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3743982/metamask-9.2.0-an+fx.xpi";
+      sha256 = "92e0bd1e3d2e3d6e7ee1996c5a8a0fd518d49186ed097e63281bd54000507405";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1216,10 +1216,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "18.3";
+      version = "18.4";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3740874/zoom_page_we-18.3-fx.xpi";
-      sha256 = "df588996d205c3640bdd3d95f537a820bdbe37173f32ff3ccfbdcad94e1a5145";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3743405/zoom_page_we-18.4-fx.xpi";
+      sha256 = "1af99dfbbca020a4f0962d08a2945322d634aa5878ec710ec1fcc5cac8564468";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
