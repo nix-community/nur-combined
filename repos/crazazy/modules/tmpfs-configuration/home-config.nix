@@ -1,7 +1,8 @@
 { pkgs, config, lib, ... }:
 let
   sources = import ../../nix/sources.nix;
-  inherit (sources) impermanence home-manager;
+  inherit (sources) gitignore impermanence home-manager;
+  inherit (pkgs.callPackage gitignore { inherit (pkgs) lib; }) gitignoreSource;
 in
 with lib;
 {
@@ -9,31 +10,28 @@ with lib;
     "${home-manager.outPath}/nixos"
   ];
   config = mkIf config.tmpfs-setup.enable {
-    services.xserver.displayManager.sessionCommands = ''
-      HOME=/home/${config.mainUser} ${../..}/createLinks.sh
-    '';
     home-manager.users.${config.mainUser} = { pkgs,  ...}: {
-      imports = [ 
-        "${impermanence}/home-manager.nix" 
+      imports = [
+        "${impermanence}/home-manager.nix"
         ../home-configuration
       ];
+      home.file = lib.mapAttrs' (k: v: nameValuePair (".config/${k}") {
+        source = ../../local + "/${k}";
+        recursive = true;
+      }) (builtins.readDir ../../local);
       programs.home-manager.enable = true;
       home.persistence."/nix/persist/home/erik" = {
         directories = [
           ".ssh"
-          ".irssi"
           ".wine"
           ".mozilla"
-          "workbench"
           "Documents"
-          "Pictures"
+          "Music"
           "VirtualBox VMs"
-          ".local/share/albert"
           ".local/share/Terraria"
           ".local/share/Steam"
           ".local/share/Valve Corporation"
           ".local/share/multimc"
-          ".local/share/vlc"
           ".config/discord"
         ];
         files = [

@@ -2,4 +2,4 @@
 -e6d7c4e57f6b35dc47821ad7465c2a0a4e0fa8e4 dep/emacs
 -cc5a152154f67916735f2fa35b970d9fe2287c07 dep/emacs-overlay
 -2b5ea1f2cd1754762cb1bfc5cec6159922fc51cf dep/nixpkgs
--5da4c8d222e5ae8f59352e2e03d0cec7bc5bd68b dep/user-pkgs
+-ba6a277305b24dfa4ea5c4921c8c5383d43aea95 dep/user-pkgs
