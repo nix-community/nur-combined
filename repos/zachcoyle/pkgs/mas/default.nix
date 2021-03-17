@@ -6,11 +6,11 @@
 
 stdenv.mkDerivation rec {
   pname = "mas";
-  version = "1.7.1";
+  version = "1.8.1";
 
   src = builtins.fetchurl {
     url = "https://github.com/mas-cli/mas/releases/download/v${version}/mas.pkg";
-    sha256 = "03gjiiycvkr4kdl64cmz7gpfccv77q0mjj90sn2y87n6a3hrhkhs";
+    sha256 = "15fx3id542lnskkjs8qbjf4x175qyrhm8a5kczl96y0kw61j1z2v";
   };
 
   buildInputs = [ libarchive p7zip ];
