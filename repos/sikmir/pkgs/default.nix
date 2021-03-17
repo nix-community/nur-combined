@@ -206,6 +206,7 @@ lib.makeScope newScope (
     ### IMAGES
 
     dockerImages = {
+      agate = callPackage ./images/agate { };
       elevation_server = callPackage ./images/elevation_server { };
       git = callPackage ./images/git {
         git = pkgs.gitMinimal.override {
