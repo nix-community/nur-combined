@@ -28,6 +28,7 @@ in composeOverlay [
     redial_proxy = cp flake.inputs.redial_proxy;
     send2kindle = cp flake.inputs.send2kindle;
     zls = cp flake.inputs.zls;
+    appmode = cp ./packages/appmode.nix;
     arcan = cp ./packages/arcan.nix;
     c4me = cp ./packages/c4me.nix;
     cisco-packet-tracer = cp ./packages/cisco-packet-tracer.nix;
