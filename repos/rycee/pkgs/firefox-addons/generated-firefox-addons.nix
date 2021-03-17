@@ -234,10 +234,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.1.8";
+      version = "2021.3.8";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3705801/duckduckgo_privacy_essentials-2021.1.8-an+fx.xpi";
-      sha256 = "963633dc361669f0e6aee6944368c4bcbcbcad018d6802fb278e3679836b5b44";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3741831/duckduckgo_privacy_essentials-2021.3.8-an+fx.xpi";
+      sha256 = "4fb5bc1a4562f1298be7f3d020dea61f379f2d09c773621089ee3a57adcad55c";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -290,10 +290,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.6.0";
+      version = "4.6.1";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3735841/floccus-4.6.0-fx.xpi";
-      sha256 = "e51dfd58076701b2385b4ce26c7b33655303507c3ed1d702b5279eebdc703da1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3744486/floccus-4.6.1-fx.xpi";
+      sha256 = "5af4bd3d1b735ceaf5672ae19dd3e73650c8881a00ad874e39464a9059014517";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -837,10 +837,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.20.12";
+      version = "5.22.0";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3703195/reddit_enhancement_suite-5.20.12-an+fx.xpi";
-      sha256 = "8c4ee11c701a916ef7d53611bd237882ae0130d77c64bdccef4e33297c317599";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3744700/reddit_enhancement_suite-5.22.0-an+fx.xpi";
+      sha256 = "4d7703105e6fbab106af211f95d76de05eaa3f7abcc96999fc63d629c80b0643";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
