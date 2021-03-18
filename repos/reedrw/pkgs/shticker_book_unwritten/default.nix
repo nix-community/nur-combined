@@ -1,4 +1,4 @@
-{ alsaLib, buildFHSUserEnv, fetchFromGitHub, gcc-unwrapped, lib, libX11, libXext, libglvnd, makeWrapper, openssl, pkg-config, rustPlatform, stdenvNoCC }:
+{ alsaLib, buildFHSUserEnv, fetchFromGitHub, gcc-unwrapped, lib, libX11, libXext, libglvnd, openssl, pkg-config, rustPlatform, stdenvNoCC }:
 let
   version = "1.0.3";
 
@@ -11,28 +11,21 @@ let
     cargoPatches = [ ./cargo-lock.patch ];
     cargoSha256 = "1lcz96fixa0m39y64cjkf2ipzv4qxf000hji3mf536scr3wsxdib";
 
-    nativeBuildInputs = [
-      pkg-config
-      makeWrapper
-    ];
+    nativeBuildInputs = [ pkg-config ];
 
-    buildInputs = [
-      openssl
-      libglvnd
-      libX11
-      libXext
-      gcc-unwrapped
-    ];
-
-    postInstall = ''
-      wrapProgram $out/bin/shticker_book_unwritten \
-        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libglvnd libX11 libXext gcc-unwrapped.lib ]}
-    '';
+    buildInputs = [ openssl ];
   };
 
   env = buildFHSUserEnv {
     name = "shticker-book-unwriten-env-${version}";
-    targetPkgs = _: [ shticker-book-unwritten-unwrapped alsaLib ];
+    targetPkgs = _: [
+      alsaLib
+      gcc-unwrapped.lib
+      libX11
+      libXext
+      libglvnd
+      shticker-book-unwritten-unwrapped
+    ];
     runScript = "shticker_book_unwritten";
   };
 
