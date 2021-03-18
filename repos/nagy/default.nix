@@ -42,4 +42,5 @@ rec {
 
   cxxtimer = pkgs.callPackage ./pkgs/cxxtimer {};
 
+  duf = pkgs.callPackage ./pkgs/duf {};
 }
