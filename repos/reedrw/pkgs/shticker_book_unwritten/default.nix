@@ -1,4 +1,4 @@
-{ alsaLib, buildFHSUserEnv, fetchFromGitHub, gcc-unwrapped, lib, libX11, libXext, libglvnd, openssl, pkg-config, rustPlatform, stdenvNoCC }:
+{ alsaLib, buildFHSUserEnv, fetchFromGitHub, lib, libX11, libXext, libglvnd, openssl, pkg-config, rustPlatform, stdenvNoCC }:
 let
   version = "1.0.3";
 
@@ -20,7 +20,6 @@ let
     name = "shticker-book-unwriten-env-${version}";
     targetPkgs = _: [
       alsaLib
-      gcc-unwrapped.lib
       libX11
       libXext
       libglvnd
