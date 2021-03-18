@@ -104,6 +104,7 @@ lib.makeScope newScope (
     bson = callPackage ./development/python-modules/bson { };
     cheetah3 = callPackage ./development/python-modules/cheetah3 { };
     click-6-7 = callPackage ./development/python-modules/click { };
+    geotiler = callPackage ./development/python-modules/geotiler { };
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
     mercantile = callPackage ./development/python-modules/mercantile { };
@@ -115,6 +116,9 @@ lib.makeScope newScope (
 
     ### TOOLS
 
+    cmpgpx = callPackage ./tools/geo/cmpgpx {
+      inherit geotiler;
+    };
     datamaps = callPackage ./tools/geo/datamaps { };
     elevation = callPackage ./tools/geo/elevation {
       click = click-6-7;
