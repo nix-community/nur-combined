@@ -6,13 +6,13 @@ let
   description = "A list of bitcoin validating nodes running as Tor onion services.";
 in stdenv.mkDerivation rec {
   name = "bitcoin-onion-nodes-${version}.txt";
-  version = "595b4d618ee55401433b8aec9e01daf1a4ffb4ee";
+  version = "a4dfb6e5fe202e1ae58d30fdcf3e6166f6896987";
 
   src = fetchFromGitHub {
     owner = "emmanuelrosa";
     repo = "bitcoin-onion-nodes";
     rev = version;
-    sha256 = "1qva0zn8g2kqd7xj199zxwb54z99c7mdrw574ql2r84mv4ysf6zp";
+    sha256 = "1npc6x5saic8vzxacbjhngbv3xgyr2xwl867swwrr6j1prn1nzfb";
   };
 
   ignoreFile = writeText "ignore.txt" ''
