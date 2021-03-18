@@ -1,31 +1,57 @@
-{ stdenv, fetchFromGitHub, rustPlatform, openssl, pkg-config, steam-run-native, lib }:
-
-rustPlatform.buildRustPackage rec {
-  pname = "shticker_book_unwritten";
+{ alsaLib, buildFHSUserEnv, fetchFromGitHub, gcc-unwrapped, lib, libX11, libXext, libglvnd, makeWrapper, openssl, pkg-config, rustPlatform, stdenvNoCC }:
+let
   version = "1.0.3";
 
-  src = fetchFromGitHub (lib.importJSON ./source.json);
+  shticker-book-unwritten-unwrapped = rustPlatform.buildRustPackage rec {
+    pname = "shticker_book_unwritten";
+    inherit version;
 
-  cargoPatches = [ ./cargo-lock.patch ];
-  cargoSha256 = "1lcz96fixa0m39y64cjkf2ipzv4qxf000hji3mf536scr3wsxdib";
+    src = fetchFromGitHub (lib.importJSON ./source.json);
 
-  nativeBuildInputs = [ pkg-config ];
+    cargoPatches = [ ./cargo-lock.patch ];
+    cargoSha256 = "1lcz96fixa0m39y64cjkf2ipzv4qxf000hji3mf536scr3wsxdib";
 
-  buildInputs = [ openssl ];
+    nativeBuildInputs = [
+      pkg-config
+      makeWrapper
+    ];
 
-  postInstall = ''
-    mv -v $out/bin/shticker_book_unwritten $out/bin/.shticker_book_unwritten-wrapped
+    buildInputs = [
+      openssl
+      libglvnd
+      libX11
+      libXext
+      gcc-unwrapped
+    ];
 
-    cat > $out/bin/shticker_book_unwritten << EOF
-    #!${stdenv.shell} -e
-    exec ${steam-run-native}/bin/steam-run $out/bin/.shticker_book_unwritten-wrapped "\$@"
-    EOF
-    chmod a+x $out/bin/shticker_book_unwritten
+    postInstall = ''
+      wrapProgram $out/bin/shticker_book_unwritten \
+        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libglvnd libX11 libXext gcc-unwrapped.lib ]}
+    '';
+  };
+
+  env = buildFHSUserEnv {
+    name = "shticker-book-unwriten-env-${version}";
+    targetPkgs = _: [ shticker-book-unwritten-unwrapped alsaLib ];
+    runScript = "shticker_book_unwritten";
+  };
+
+in stdenvNoCC.mkDerivation rec {
+  pname = "shticker_book_unwritten";
+  inherit version;
+
+  dontUnpack = true;
+  dontConfigure = true;
+  dontBuild = true;
+
+  installPhase = ''
+    mkdir -p $out/bin
+    ln -s ${env}/bin/* $out/bin/shticker_book_unwritten
   '';
 
-  meta = {
+  meta = with lib; {
     description = "Minimal CLI launcher for the Toontown Rewritten MMORPG";
     homepage = "https://github.com/JonathanHelianthicusDoe/shticker_book_unwritten";
-    license = stdenv.lib.licenses.gpl3Plus;
+    license = licenses.gpl3Plus;
   };
 }
