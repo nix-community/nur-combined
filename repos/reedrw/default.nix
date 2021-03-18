@@ -21,7 +21,7 @@
   picom-next-ibhagwan = pkgs.callPackage ./pkgs/picom-next-ibhagwan { };
   r2mod_cli = pkgs.callPackage ./pkgs/r2mod_cli { };
   scientifica = pkgs.callPackage ./pkgs/scientifica { };
-  shticker_book_unwritten = pkgs.callPackage ./pkgs/shticker_book_unwritten { };
+  shticker-book-unwritten = pkgs.callPackage ./pkgs/shticker-book-unwritten { };
   teletype = pkgs.callPackage ./pkgs/teletype { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
