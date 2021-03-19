@@ -37,8 +37,6 @@ let
     };
   };
 in pkgs.neovim.override {
-  viAlias = true;
-  vimAlias = true;
   configure = {
     plug.plugins = with pkgs.vimPlugins; [
       LanguageClient-neovim

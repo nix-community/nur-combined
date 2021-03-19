@@ -9,21 +9,50 @@ let
     else
       URL="$@"
     fi
+    echo $URL
     if [ -z "$URL" ]
     then
       ${zenity} --error --text="Nenhuma URL especificada"
       exit 1
     fi
-    [[ "$URL" == '^http(s){0,1}:\/\/' ]] || URL="https://$URL"
+    if [[ "$URL" =~ ^http(s)?:\/\/ ]]
+    then
+      true
+    else
+      URL="https://$URL"
+    fi
     echo $URL
     ${chrome} --app="$URL"
   '';
   scriptDrv = pkgs.writeShellScript "webapp" script;
+  scriptBin = pkgs.writeShellScriptBin "webapp" ''
+    ${scriptDrv} "$@"
+  '';
   desktop = pkgs.makeDesktopItem {
     name = "chrome-applauncher";
     desktopName = "Lançar site em janela borderless";
     type = "Application";
     icon = "applications-internet";
-    exec = scriptDrv;
+    exec = "${scriptBin}/bin/webapp";
   };
-in desktop
+  joined = pkgs.symlinkJoin {
+    name = "webapp";
+    paths = [
+      desktop
+      scriptBin
+    ];
+  };
+in joined // {
+  wrap = {
+    name
+    ,desktopName ? name 
+    ,url
+    ,icon ? "applications-internet"
+  }: pkgs.makeDesktopItem {
+    name = name;
+    desktopName = desktopName;
+    type = "Application";
+    icon = icon;
+    exec = ''${scriptDrv} "${url}"'';
+  };
+}
