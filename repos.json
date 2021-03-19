@@ -95,6 +95,9 @@
         "divanorama": {
             "url": "https://github.com/divanorama/nur-packages"
         },
+        "dmayle": {
+            "url": "https://github.com/dmayle/nur-packages"
+        },
         "drewrisinger": {
             "url": "https://github.com/drewrisinger/nur-packages"
         },
@@ -333,6 +336,9 @@
         },
         "ouzu": {
             "url": "https://github.com/ouzu/nur-packages"
+        },
+        "p3psi": {
+            "url": "https://github.com/p3psi-boo/p3psi-nur"
         },
         "pamplemousse": {
             "url": "https://github.com/pamplemousse/nur-packages"
