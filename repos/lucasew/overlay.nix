@@ -30,7 +30,7 @@ in composeOverlay [
     zls = cp flake.inputs.zls;
     webapp = cp ./packages/webapp.nix;
     arcan = cp ./packages/arcan.nix;
-    c4me = cp ./packages/c4me.nix;
+    c4me = cp ./packages/c4me;
     cisco-packet-tracer = cp ./packages/cisco-packet-tracer.nix;
     custom_neovim = cp ./modules/neovim/package.nix;
     among_us = cp ./packages/among_us.nix;
