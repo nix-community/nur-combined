@@ -16,11 +16,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ undmg ];
 
-  sourceRoot = "WireGuardStatusbar.app";
+  sourceRoot = ".";
 
   installPhase = ''
-    mkdir -p $out/Applications/WireGuardStatusbar.app
-    cp -r . $out/Applications/WireGuardStatusbar.app
+    mkdir -p $out/Applications
+    cp -r *.app $out/Applications
   '';
 
   meta = with lib; {

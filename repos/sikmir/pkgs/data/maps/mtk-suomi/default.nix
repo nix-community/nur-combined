@@ -1,10 +1,13 @@
-{ lib, stdenvNoCC, sources }:
+{ lib, stdenvNoCC, fetchurl }:
 
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation rec {
   pname = "mtk-suomi";
-  version = sources.mtk-suomi.version;
+  version = "2021-02-27";
 
-  src = sources.mtk-suomi;
+  src = fetchurl {
+    url = "https://kartat-dl.hylly.org/${version}/mtk_suomi.img";
+    sha256 = "0xkhxb9bw1vsd5v9kmh48g4srdjmlc4fymvcvnnzdzx7qairak0b";
+  };
 
   preferLocalBuild = true;
 
@@ -13,7 +16,8 @@ stdenvNoCC.mkDerivation {
   installPhase = "install -Dm644 $src $out/mtk_suomi.img";
 
   meta = with lib; {
-    inherit (sources.mtk-suomi) description homepage;
+    description = "Maanmittauslaitoksen peruskartan tasoiset ja näköiset ilmaiset maastokartat";
+    homepage = "https://kartat.hylly.org/";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;

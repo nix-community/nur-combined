@@ -1,4 +1,5 @@
 { lib, stdenv, fetchurl, fetchgit, fetchgdrive, unzip, wine, makeWrapper
+, withMaps ? true
 , withExtremum ? true
 }:
 let
@@ -27,11 +28,12 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/opt/sasplanet
     cp -r . $out/opt/sasplanet
-    cp -r ${maps}/* $out/opt/sasplanet/Maps/sas.maps
 
     makeWrapper ${wine}/bin/wine $out/bin/sasplanet \
       --run "[ -d \$HOME/.sasplanet ] || { cp -r $out/opt/sasplanet \$HOME/.sasplanet && chmod -R +w \$HOME/.sasplanet; }" \
       --add-flags "\$HOME/.sasplanet/SASPlanet.exe"
+  '' + lib.optionalString withMaps ''
+    cp -r ${maps}/* $out/opt/sasplanet/Maps/sas.maps
   '' + lib.optionalString withExtremum ''
     unzip ${extremum} -d $out/opt/sasplanet/Maps/sas.maps
   '';

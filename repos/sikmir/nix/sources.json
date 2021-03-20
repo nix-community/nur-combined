@@ -763,16 +763,6 @@
         "url": "https://github.com/morse-talk/morse-talk/archive/71e09ace0aa554d28cada5ee658e43758305b8fa.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "mtk-suomi": {
-        "builtin": false,
-        "description": "Maanmittauslaitoksen peruskartan tasoiset ja näköiset ilmaiset maastokartat",
-        "homepage": "https://kartat.hylly.org/",
-        "sha256": "07rfp4mgglazm93q1p217f3f14js4ddifg1060zn61l5rcmwsm3b",
-        "type": "file",
-        "url": "https://kartat-dl.hylly.org/2020-12-26/mtk_suomi.img",
-        "url_template": "https://kartat-dl.hylly.org/<version>/mtk_suomi.img",
-        "version": "2020-12-26"
-    },
     "musig": {
         "branch": "master",
         "builtin": false,
