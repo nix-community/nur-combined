@@ -15,14 +15,16 @@
 }:
 stdenv.mkDerivation rec {
    buildInputs = [ libX11 libXinerama zlib libXft ];
-   # src = ~/coding/dmenu;
+
    # version = "local";
-   version = "691094ab6dc0c2dbfc3721d3aae8b1fc8a537e3a";
+   # src = ~/coding/dmenu;
+
+   version = "afdc9bb044ea6d3c85b65695ec1dbccae7f3f202";
    src = fetchFromGitHub {
       owner = "afreakk";
       repo = "dmenu";
       rev = version;
-      sha256 = "1fpv6pgaaa2h8hxgihd0iv8ajpljgqbk01vgr9ylh97nb3yhi1qg";
+      sha256 = "0rp3r8qc54fxdf0xcbkkl9254xga1bgb5mj8p3h5fsgvqh8j1xw1";
    };
    name = "dmenu-afreak";
    preConfigure = ''
