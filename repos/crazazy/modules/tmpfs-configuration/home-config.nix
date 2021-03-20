@@ -25,13 +25,15 @@ with lib;
           ".ssh"
           ".wine"
           ".mozilla"
+          "Desktop"
           "Documents"
           "Music"
           "VirtualBox VMs"
+          ".local/share/keybase"
           ".local/share/Terraria"
           ".local/share/Steam"
           ".local/share/Valve Corporation"
-          ".local/share/multimc"
+          ".config/keybase"
           ".config/discord"
         ];
         files = [
