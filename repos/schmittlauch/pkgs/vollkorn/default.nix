@@ -13,9 +13,8 @@ stdenv.mkDerivation rec {
   phases = [ "unpackPhase" "installPhase" ];
 
   installPhase = ''
-    mkdir -pv $out/share/{doc/${pname}-${version},fonts/{opentype,truetype,WOFF,WOFF2,EOT}}
-    cp -v {Fontlog,OFL-FAQ,OFL}.txt $out/share/doc/
-    cp -v EOT/*.eot $out/share/fonts/EOT
+    mkdir -pv $out/share/{doc/${pname}-${version},fonts/{opentype,truetype,WOFF,WOFF2}}
+    cp -v {Fontlog,OFL-FAQ,OFL}.txt $out/share/doc/${pname}-${version}/
     cp -v PS-OTF/*.otf $out/share/fonts/opentype
     cp -v TTF/*.ttf $out/share/fonts/truetype
     cp -v WOFF/*.woff $out/share/fonts/WOFF
