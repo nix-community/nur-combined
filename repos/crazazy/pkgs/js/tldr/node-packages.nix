@@ -148,13 +148,13 @@ let
         sha512 = "I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==";
       };
     };
-    "cli-spinners-2.5.0" = {
+    "cli-spinners-2.6.0" = {
       name = "cli-spinners";
       packageName = "cli-spinners";
-      version = "2.5.0";
+      version = "2.6.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/cli-spinners/-/cli-spinners-2.5.0.tgz";
-        sha512 = "PC+AmIuK04E6aeSs/pUccSujsTzBhu4HzC2dL+CfJB/Jcc2qTRbEwZQDfIUpt2Xl8BodYBEq8w4fc0kU2I9DjQ==";
+        url = "https://registry.npmjs.org/cli-spinners/-/cli-spinners-2.6.0.tgz";
+        sha512 = "t+4/y50K/+4xcCRosKkA7W4gTr1MySvLV0q+PxmG7FJ5g+66ChKurYjxBCjHggHH3HA5Hh9cy+lcUGWDqVH+4Q==";
       };
     };
     "clone-1.0.4" = {
@@ -319,6 +319,15 @@ let
         sha512 = "2HvIEKRoqS62guEC+qBjpvRubdX910WCMuJTZ+I9yvqKU2/12eSL549HMwtabb4oupdj2sMP50k+XJfB/8JE6w==";
       };
     };
+    "is-unicode-supported-0.1.0" = {
+      name = "is-unicode-supported";
+      packageName = "is-unicode-supported";
+      version = "0.1.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/is-unicode-supported/-/is-unicode-supported-0.1.0.tgz";
+        sha512 = "knxG2q4UC3u8stRGyAVJCOdxFmv5DZiRcdlIaAQXAbSfJya+OhopNotLQrstBhququ4ZpuKbDc/8S6mgXgPFPw==";
+      };
+    };
     "isarray-0.0.1" = {
       name = "isarray";
       packageName = "isarray";
@@ -364,13 +373,13 @@ let
         sha512 = "v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==";
       };
     };
-    "log-symbols-4.0.0" = {
+    "log-symbols-4.1.0" = {
       name = "log-symbols";
       packageName = "log-symbols";
-      version = "4.0.0";
+      version = "4.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/log-symbols/-/log-symbols-4.0.0.tgz";
-        sha512 = "FN8JBzLx6CzeMrB0tg6pqlGU1wCrXW+ZXGH481kfsBqer0hToTIiHdjH4Mq8xJUbvATujKCvaREGWpGUionraA==";
+        url = "https://registry.npmjs.org/log-symbols/-/log-symbols-4.1.0.tgz";
+        sha512 = "8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==";
       };
     };
     "marked-2.0.1" = {
@@ -472,13 +481,13 @@ let
         sha512 = "kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==";
       };
     };
-    "ora-5.3.0" = {
+    "ora-5.4.0" = {
       name = "ora";
       packageName = "ora";
-      version = "5.3.0";
+      version = "5.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ora/-/ora-5.3.0.tgz";
-        sha512 = "zAKMgGXUim0Jyd6CXK9lraBnD3H5yPGBPPOkC23a2BG6hsm4Zu6OQSjQuEtV0BHDf4aKHcUFvJiGRrFuW3MG8g==";
+        url = "https://registry.npmjs.org/ora/-/ora-5.4.0.tgz";
+        sha512 = "1StwyXQGoU6gdjYkyVcqOLnVlbKj+6yPNNOxJVgpt9t4eksKjiriiHuxktLYkgllwk+D6MbC4ihH84L1udRXPg==";
       };
     };
     "over-0.0.5" = {
@@ -634,13 +643,13 @@ let
         sha1 = "717b8f220cc0bb7b44e40514c22b2e8bbc70d8b9";
       };
     };
-    "underscore-1.12.0" = {
+    "underscore-1.12.1" = {
       name = "underscore";
       packageName = "underscore";
-      version = "1.12.0";
+      version = "1.12.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/underscore/-/underscore-1.12.0.tgz";
-        sha512 = "21rQzss/XPMjolTiIezSu3JAjgagXKROtNrYFEOWK109qY1Uv2tVjPTZ1ci2HgvQDA16gHYSthQIJfB+XId/rQ==";
+        url = "https://registry.npmjs.org/underscore/-/underscore-1.12.1.tgz";
+        sha512 = "hEQt0+ZLDVUMhebKxL4x1BTtDY7bavVofhZ9KZ4aI26X9SRaE+Y3m83XUL1UP2jn8ynjndwCCpEHdUG+9pP1Tw==";
       };
     };
     "universalify-2.0.0" = {
@@ -716,7 +725,7 @@ let
       sources."chainsaw-0.1.0"
       sources."chalk-4.1.0"
       sources."cli-cursor-3.1.0"
-      sources."cli-spinners-2.5.0"
+      sources."cli-spinners-2.6.0"
       sources."clone-1.0.4"
       sources."color-convert-2.0.1"
       sources."color-name-1.1.4"
@@ -735,12 +744,13 @@ let
       sources."inflight-1.0.6"
       sources."inherits-2.0.4"
       sources."is-interactive-1.0.0"
+      sources."is-unicode-supported-0.1.0"
       sources."isarray-0.0.1"
       sources."json-stable-stringify-1.0.1"
       sources."jsonfile-6.1.0"
       sources."jsonify-0.0.0"
       sources."lodash-4.17.21"
-      sources."log-symbols-4.0.0"
+      sources."log-symbols-4.1.0"
       sources."marked-2.0.1"
       sources."match-stream-0.0.2"
       sources."mimic-fn-2.1.0"
@@ -752,7 +762,7 @@ let
       sources."node-unzip-2-0.2.8"
       sources."once-1.4.0"
       sources."onetime-5.1.2"
-      sources."ora-5.3.0"
+      sources."ora-5.4.0"
       sources."over-0.0.5"
       sources."path-is-absolute-1.0.1"
       sources."pullstream-0.4.1"
@@ -768,7 +778,7 @@ let
       sources."supports-color-7.2.0"
       sources."sylvester-0.0.12"
       sources."traverse-0.3.9"
-      sources."underscore-1.12.0"
+      sources."underscore-1.12.1"
       sources."universalify-2.0.0"
       sources."util-deprecate-1.0.2"
       sources."wcwidth-1.0.1"

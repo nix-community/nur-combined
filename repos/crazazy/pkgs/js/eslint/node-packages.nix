@@ -481,13 +481,13 @@ let
         sha512 = "BWICuzzDvDoH54NHKCseDanAhE3CeDorgDL5MT6LMXXj2WCnd9UC2szdk4AWLfjdgNBCXLUanXYcpBBKOSWGwg==";
       };
     };
-    "globals-13.6.0" = {
+    "globals-13.7.0" = {
       name = "globals";
       packageName = "globals";
-      version = "13.6.0";
+      version = "13.7.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/globals/-/globals-13.6.0.tgz";
-        sha512 = "YFKCX0SiPg7l5oKYCJ2zZGxcXprVXHcSnVuvzrT3oSENQonVLqM5pf9fN5dLGZGyCjhw8TN8Btwe/jKnZ0pjvQ==";
+        url = "https://registry.npmjs.org/globals/-/globals-13.7.0.tgz";
+        sha512 = "Aipsz6ZKRxa/xQkZhNg0qIWXT6x6rD46f6x/PCnBomlttdIyAPak4YD9jTmKpZ72uROSMU87qJtcgpgHaVchiA==";
       };
     };
     "has-flag-3.0.0" = {
@@ -1069,7 +1069,7 @@ let
       sources."functional-red-black-tree-1.0.1"
       sources."glob-7.1.6"
       sources."glob-parent-5.1.2"
-      (sources."globals-13.6.0" // {
+      (sources."globals-13.7.0" // {
         dependencies = [
           sources."type-fest-0.20.2"
         ];
