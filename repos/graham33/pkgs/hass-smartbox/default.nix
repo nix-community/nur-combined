@@ -9,8 +9,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "graham33";
     repo = pname;
-    rev = "c50b657058003c521f294c0097aed6820226a7a7";
-    sha256 = "1y83vjvvql2gisspjvcdxjaxr59v3jiig7j9l1p4cqby6y9ny1sm";
+    rev = "75c2d92ee3ddbfe96d63d1728b84c0c46e6365b0";
+    sha256 = "061d9mb9lp3illi936y5ygwlbm0rbgh793cgw4hj7aspcch3js8i";
   };
 
   installPhase = ''
