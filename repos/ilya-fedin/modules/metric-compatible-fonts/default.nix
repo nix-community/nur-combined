@@ -104,7 +104,11 @@ in {
 
   config = mkIf cfg.crOSMaps {
     # there is no croscore package :(
-    fonts.fonts = [ pkgs.google-fonts ];
+    fonts.fonts = with pkgs; [
+      noto-fonts
+      carlito
+      caladea
+    ];
     fonts.fontconfig.confPackages = [ confPkg ];
   };
 }

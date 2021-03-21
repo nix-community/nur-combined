@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl }:
+{ lib, fetchFromGitHub, rustPlatform, pkgconfig, openssl }:
 
 rustPlatform.buildRustPackage rec {
   pname = "silver";
@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "02qk4h4qd00nm25mia52fa5n4is8yybi5agqhw8gvr4jkswj7nb2";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A cross-shell customizable powerline-like prompt with icons";
     homepage = https://github.com/reujab/silver;
     license = licenses.unlicense;
