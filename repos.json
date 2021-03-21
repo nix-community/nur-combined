@@ -448,6 +448,9 @@
         "trevorriles": {
             "url": "https://github.com/trevorriles/nur-packages"
         },
+        "uleenucks": {
+            "url": "https://github.com/uleenucks/nurpkgs"
+        },
         "vdemeester": {
             "file": "pkgs/default.nix",
             "url": "https://gitlab.com/vdemeester/home"
