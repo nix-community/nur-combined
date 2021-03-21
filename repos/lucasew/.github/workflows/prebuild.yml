@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: system-precompilation
+name: prebuild
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -25,6 +25,8 @@ jobs:
         with:
           name: lucasew-personal
           authToken: '${{ secrets.CACHIX_TOKEN }}'
-      - run: nix-shell -p nixFlakes --run 'nix build .#nixosConfigurations.acer-nix.config.system.build.toplevel --experimental-features "nix-command flakes"'
-      - run: nix-shell -p nixFlakes --run 'nix build .#nixosConfigurations.vps.config.system.build.toplevel --experimental-features "nix-command flakes"'
+      - run: nix-shell -p nixFlakes --run 'nix-build build.nix' | cachix push lucasew-personal
+      - run: nix-shell -p nixFlakes --run 'nix build .#nixosConfigurations.acer-nix.config.system.build.toplevel --experimental-features "nix-command flakes"' | cachix push lucasew-personal
+      - run: nix-shell -p nixFlakes --run 'nix build .#nixosConfigurations.vps.config.system.build.toplevel --experimental-features "nix-command flakes"' | cachix push lucasew-personal
+
 
