@@ -14,6 +14,15 @@ def b64e(data):
     encoded = b64encode(raw)
     return encoded.decode('utf-8')
 
+def urlencode(data):
+    import urllib.parse
+    return urllib.parse.quote_plus(data)
+
+def urldecode(data):
+    import urllib.parse
+    return urllib.parse.unquote(data)
+
+
 
 def debug_mode():
     return getenv("DEBUG") != None
