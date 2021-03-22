@@ -42,4 +42,5 @@ in {
       };
     };
   };
+  openmpt123 = super.openmpt123.override { usePulseAudio = true; };
 }
