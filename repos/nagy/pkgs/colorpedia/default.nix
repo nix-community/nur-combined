@@ -3,11 +3,11 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "colorpedia";
-  version = "1.2.2";
+  version = "1.2.3";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1b19mlss6arc4sk0bsk6ssqc6advnzr2kq7snxrv8a6hki81ykm5";
+    sha256 = "01a2vy941sxwqdaiyxyhixx0vbadwzqnafncmrglkpzdmdk7gl9l";
   };
 
   nativeBuildInputs = [ setuptools_scm installShellFiles ];
