@@ -19,7 +19,7 @@ in {
       systemPackages = with pkgs; [ pavucontrol pulseeffects ];
     };
     hardware.pulseaudio.configFile = pkgs.runCommand "default.pa" {} ''
-      sed 's/module-udev-detect$/module-udev-detect tsched=0/' \
+      sed 's/module-udev-detect$/module-udev-detect tsched_buffer_size=60000/' \
         ${pkgs.pulseaudio}/etc/pulse/default.pa > $out
     '';
   };
