@@ -37,12 +37,15 @@ in composeOverlay [
     comby = cp ./packages/comby.nix;
     custom_rofi = cp ./packages/custom_rofi.nix;
     ets2 = cp ./packages/ets2.nix;
+    custom_ncdu = cp ./packages/custom_ncdu.nix;
     minecraft = cp ./packages/minecraft.nix;
     mspaint = cp ./packages/mspaint.nix;
+    onlyoffice = cp ./packages/onlyoffice.nix;
     peazip = cp ./packages/peazip.nix;
     pinball = cp ./packages/pinball.nix;
     pkg = cp ./packages/pkg.nix;
     stremio = cp ./packages/stremio.nix;
+    sosim = cp ./packages/sosim.nix;
     usb_tixati = cp ./packages/usb_tixati.nix;
     nodePackages = super.nodePackages
     // cp ./modules/node_clis/package_data/default.nix;
