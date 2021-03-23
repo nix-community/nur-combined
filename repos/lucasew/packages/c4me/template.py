@@ -313,7 +313,23 @@ def simplex(num_vars, obj_type, obj, *restrictions):
     s = Simplex(int(num_vars), restrictions, (obj_type, obj))
     return s.solution
 
+def is_list(e):
+    return type(e) == list
+
+def expand_list(*elems):
+    return list(elems)
+
 def inspect(*elems):
+    return elems
+
+def sort(elems, **args):
+    elems = list(elems)
+    elems.sort(**args)
+    return elems
+
+def reverse(elems):
+    elems = list(elems)
+    elems.reverse()
     return elems
 
 def get_args():
