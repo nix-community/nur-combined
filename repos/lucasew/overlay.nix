@@ -33,12 +33,10 @@ in composeOverlay [
     c4me = cp ./packages/c4me;
     cisco-packet-tracer = cp ./packages/cisco-packet-tracer.nix;
     custom_neovim = cp ./modules/neovim/package.nix;
-    dart = cp ./packages/dart.nix;
     among_us = cp ./packages/among_us.nix;
     comby = cp ./packages/comby.nix;
     custom_rofi = cp ./packages/custom_rofi.nix;
     ets2 = cp ./packages/ets2.nix;
-    flutter2 = cp ./packages/flutter2.nix;
     custom_ncdu = cp ./packages/custom_ncdu.nix;
     minecraft = cp ./packages/minecraft.nix;
     mspaint = cp ./packages/mspaint.nix;
