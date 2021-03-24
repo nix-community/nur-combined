@@ -30,6 +30,8 @@ rec {
 
     buildInputs = (oldAttrs.buildInputs or []) ++ ligatureInputs;
 
+    outputs = [ "out" ];
+
     # HACK: One of the ligature libraries required the C++ stdlib at runtime,
     # and I can't work out a better way to push it to the RPATH.
     postInstall = pkgs.lib.optional (!pkgs.stdenv.isDarwin) ''
