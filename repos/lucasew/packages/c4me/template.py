@@ -313,6 +313,10 @@ def simplex(num_vars, obj_type, obj, *restrictions):
     s = Simplex(int(num_vars), restrictions, (obj_type, obj))
     return s.solution
 
+def frac(*args):
+    from fractions import Fraction
+    return Fraction(*args)
+
 def is_list(e):
     return type(e) == list
 
