@@ -74,4 +74,6 @@ rec {
 
   rofi-wayland = pkgs.rofi.override { rofi-unwrapped = rofi-wayland-unwrapped; };
 
+  helm-whatup = pkgs.callPackage ./pkgs/helm-whatup {};
+
 }
