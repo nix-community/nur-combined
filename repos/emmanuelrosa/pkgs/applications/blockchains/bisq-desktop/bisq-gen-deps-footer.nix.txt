@@ -1,0 +1,15 @@
+  ];
+in
+  stdenv.mkDerivation {
+    name = "bisq-deps";
+    dontUnpack = true;
+
+    installPhase = ''
+      mkdir $out
+
+      for p in ${toString deps}; do
+        ${rsync}/bin/rsync -a $p/ $out/
+      done
+    '';
+  }
+
