@@ -23,6 +23,7 @@
   scientifica = pkgs.callPackage ./pkgs/scientifica { };
   shticker-book-unwritten = pkgs.callPackage ./pkgs/shticker-book-unwritten { };
   teletype = pkgs.callPackage ./pkgs/teletype { };
+  uwuify = pkgs.callPackage ./pkgs/uwuify { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
