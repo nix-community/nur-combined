@@ -1,6 +1,10 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -p python3 -i python
 
+def eprint(*args, **kwargs):
+    from sys import stderr
+    print(*args, file=stderr, **kwargs)
+
 def b64d(data):
     from base64 import b64decode
     decoded = b64decode(data)
@@ -82,6 +86,7 @@ def simplex(num_vars, obj_type, obj, *restrictions):
             else:
                 self.solution = self.objective_maximize()
             self.optimize_val = self.coeff_matrix[0][-1]
+            self.print_coeff_matrix()
 
         def construct_matrix_from_constraints(self):
             num_s_vars = 0  # number of slack and surplus variables
@@ -277,10 +282,12 @@ def simplex(num_vars, obj_type, obj, *restrictions):
             for i in range(0, self.num_vars):
                 if i not in self.basic_vars[1:]:
                     solution['x_'+str(i+1)] = Fraction("0")
-
             self.check_alternate_solution()
 
             return solution
+        def print_coeff_matrix(self):
+            for line in self.coeff_matrix:
+                eprint(line)
 
     def add_row(row1, row2):
         row_sum = [0 for i in range(len(row1))]

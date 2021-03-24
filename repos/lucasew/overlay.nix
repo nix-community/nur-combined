@@ -47,6 +47,8 @@ in composeOverlay [
     stremio = cp ./packages/stremio.nix;
     sosim = cp ./packages/sosim.nix;
     usb_tixati = cp ./packages/usb_tixati.nix;
+    wrapWine = cp ./packages/wrapWine.nix;
+    tora_lp = cp ./packages/tora.nix;
     python3Packages = super.python3Packages
     // cp ./packages/python3Packages.nix;
     nodePackages = super.nodePackages
