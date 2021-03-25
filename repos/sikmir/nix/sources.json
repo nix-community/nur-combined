@@ -373,21 +373,6 @@
         "url": "https://github.com/irdvo/gpxlib/archive/43df92be29412b7f3b58e63ebea516df9f15b883.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "gpxsee": {
-        "branch": "master",
-        "builtin": false,
-        "changelog": "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes",
-        "date": "2021-03-07T11:00:53Z",
-        "description": "GPS log file viewer and analyzer",
-        "homepage": "https://www.gpxsee.org",
-        "owner": "tumic0",
-        "repo": "GPXSee",
-        "rev": "3ba684aafc24b54e4138f77f0f79089897da56c3",
-        "sha256": "1dzvv3jkyd65s5rzl807i5q0jn294aw76hv6917p1hxkckdzkcad",
-        "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee/archive/3ba684aafc24b54e4138f77f0f79089897da56c3.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "gpxsee-maps": {
         "branch": "master",
         "builtin": false,
@@ -638,20 +623,6 @@
         "sha256": "0y0ww7qsbgbc7xyh2dfp9xgvjqjah10ms44504023gqvbi9y206v",
         "type": "tarball",
         "url": "https://github.com/wladich/map-tiler/archive/1dc5be65e58638f5899cd6cdc2010e00ce5e62d4.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "mapper": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-03-03T05:25:51Z",
-        "description": "OpenOrienteering Mapper is a software for creating maps for the orienteering sport",
-        "homepage": "https://www.openorienteering.org/apps/mapper/",
-        "owner": "OpenOrienteering",
-        "repo": "mapper",
-        "rev": "b86983bc5ad983324addfb2e66fd4bb167779f27",
-        "sha256": "0rf0cf4mzqlaa9z7dgcq2hhz1g5n3irn0bycyjdsyarg2fzs2hqx",
-        "type": "tarball",
-        "url": "https://github.com/OpenOrienteering/mapper/archive/b86983bc5ad983324addfb2e66fd4bb167779f27.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "maprec": {

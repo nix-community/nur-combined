@@ -12,9 +12,6 @@ lib.makeScope newScope (
     gpxlab = libsForQt5.callPackage ./applications/gpxlab {
       inherit sources;
     };
-    gpxsee = libsForQt5.callPackage ./applications/gpxsee {
-      inherit sources;
-    };
     gpxsee-bin = callPackage ./applications/gpxsee/bin.nix { };
     i18n-editor-bin = callPackage ./applications/i18n-editor { jre = pkgs.jdk11; };
     iterm2-bin = callPackage ./applications/iterm2/bin.nix { };
@@ -25,9 +22,6 @@ lib.makeScope newScope (
     librewolf = callPackage ./applications/networking/librewolf { };
     macpass-bin = callPackage ./applications/macpass/bin.nix { };
     nnn-plugins = callPackage ./applications/nnn-plugins { };
-    openorienteering-mapper = libsForQt5.callPackage ./applications/gis/openorienteering-mapper {
-      inherit sources;
-    };
     openorienteering-mapper-bin = callPackage ./applications/gis/openorienteering-mapper/bin.nix { };
     qutebrowser-bin = callPackage ./applications/networking/qutebrowser/bin.nix { };
     synwrite-bin = callPackage ./applications/synwrite/bin.nix { };

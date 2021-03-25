@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "sfm";
-  version = "2021-02-18";
+  version = "2021-03-13";
 
   src = fetchFromGitHub {
     owner = "afify";
     repo = "sfm";
-    rev = "55ec310062f3e27dd95ac9d5fcb134f25a100ba9";
-    sha256 = "1wldb0y2i5jrj427z4q4m4n3v1myfizc0b2wkbmvnms2fvqw05vb";
+    rev = "b6063fd0a91a0ee976a09c79cbeb097ba26bfd21";
+    sha256 = "198ij2bdm8i8izpgcl8vckrfw2f5pj11mzal3h7aqp3igargq55m";
   };
 
   installFlags = [ "PREFIX=$(out)" ];

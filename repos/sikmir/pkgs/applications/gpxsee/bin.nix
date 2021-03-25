@@ -1,12 +1,12 @@
-{ lib, stdenv, fetchurl, undmg, sources }:
+{ lib, stdenv, fetchurl, undmg }:
 
 stdenv.mkDerivation rec {
   pname = "gpxsee-bin";
-  version = "8.8";
+  version = "8.9";
 
   src = fetchurl {
     url = "mirror://sourceforge/gpxsee/GPXSee-${version}.dmg";
-    sha256 = "1m0cnxa923pbj5n45n5bjza8nksfcicra4dhd7sphlsclmpm0i1m";
+    sha256 = "0sm65shma9ll69y9g5zwn7pbw2qjj7ha1l3wfb2rqp3s6kf9p90n";
   };
 
   preferLocalBuild = true;
@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    inherit (sources.gpxsee) description homepage changelog;
+    description = "GPS log file viewer and analyzer";
+    homepage = "https://www.gpxsee.org";
+    changelog = "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes";
     license = licenses.gpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];

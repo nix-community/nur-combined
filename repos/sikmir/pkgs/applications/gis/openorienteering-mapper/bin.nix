@@ -1,30 +1,31 @@
-{ lib, stdenv, fetchfromgh, undmg, sources }:
+{ lib, stdenv, fetchfromgh, undmg }:
 
 stdenv.mkDerivation rec {
   pname = "Openorienteering-Mapper-bin";
-  version = "20201227.4";
+  version = "0.9.5";
 
   src = fetchfromgh {
     owner = "OpenOrienteering";
     repo = "mapper";
-    version = "master-v${version}";
-    name = "OpenOrienteering-Mapper-master_v${version}-macOS.dmg";
-    sha256 = "0pm1f532prb4dgqycn1lpsw1qz22bi19kcb4zmgsp3pnhgvza067";
+    version = "v${version}";
+    name = "OpenOrienteering-Mapper-${version}-macOS.dmg";
+    sha256 = "1fy65svhrjdzp3wghz7maxwpl2ql0crw0z1qapinf8rv5xa309nr";
   };
 
   preferLocalBuild = true;
 
   nativeBuildInputs = [ undmg ];
 
-  sourceRoot = "Mapper.app";
+  sourceRoot = ".";
 
   installPhase = ''
-    mkdir -p $out/Applications/Mapper.app
-    cp -r . $out/Applications/Mapper.app
+    mkdir -p $out/Applications
+    cp -r *.app $out/Applications
   '';
 
   meta = with lib; {
-    inherit (sources.mapper) description homepage;
+    description = "OpenOrienteering Mapper is a software for creating maps for the orienteering sport";
+    homepage = "https://www.openorienteering.org/apps/mapper/";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];

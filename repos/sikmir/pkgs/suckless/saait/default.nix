@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation {
   pname = "saait";
-  version = "2020-11-15";
+  version = "2020-12-24";
 
   src = fetchgit {
     url = "git://git.codemadness.org/saait";
-    rev = "f242e6ade5979fd153b0b2a97a252912fa91b842";
-    sha256 = "1pbynkkqa3pi80jqdvrah9j4y1sydj6v2fy24wvxckayh56v8k38";
+    rev = "134ff98c58a8cca78caf918cc6dddc3a24155490";
+    sha256 = "0a7i0lsi40551krwxm0maqpnacm1imx8vdx4j3rm67h0ab3ba7bg";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];

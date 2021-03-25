@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation {
   pname = "quark";
-  version = "2021-01-24";
+  version = "2021-02-22";
 
   src = fetchgit {
     url = "git://git.suckless.org/quark";
-    rev = "87ae2e9212c5cc7309eefa2a3f49a758862db6c7";
-    sha256 = "08gwb9rmj0d6z5p15vk5r7jv0wm80143mkzkq3cmmpd96mm689yw";
+    rev = "68b4f733b2755762e43df90f73db5a6ec8d14104";
+    sha256 = "141v7x7p54443z6s0xm34c60qsz6lrbrvxlymf7fwxy7jz6bknr6";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];
