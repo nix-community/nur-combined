@@ -1,8 +1,7 @@
 {pkgs, config, ...}:
 let
   mkNativefier = pkgs.webapp.wrap;
-in
-let
+in {
   whatsapp = mkNativefier {
     name = "WhatsApp";
     url = "web.whatsapp.com";
@@ -43,20 +42,20 @@ let
       sha256 = "1059lfaij0lmm1jsywfmnin9z8jalqh8yar9r8sj0qzk4nmjniss";
     };
   };
-  # geforcenow = mkNativefier {
-  #   name = "GeforceNow";
-  #   url = "https://play.geforcenow.com/";
-  #   # icon = fetch "https://raw.githubusercontent.com/jiahaog/nativefier-icons/gh-pages/files/whatsapp.png";
-  # };
-
-in
-{
-    home.packages = with pkgs; [
-      whatsapp
-      remnote
-      notion
-      duolingo
-      todoist
-      # geforcenow
-    ];
+  youtube-music = mkNativefier {
+    name = "YoutubeMusic";
+    url = "music.youtube.com";
+    icon = builtins.fetchurl {
+      url = "https://vancedapp.com/static/media/logo.40712559.svg";
+      sha256 = "1xd28aikklqdi11wam97wcp276f8gx9d7f235h8wsqcixndbrm0y";
+    };
+  };
+  planttext = mkNativefier {
+    name = "PlantText";
+    url = "https://www.planttext.com/";
+    icon = builtins.fetchurl {
+      url = "https://www.planttext.com/images/blue_gray.png";
+      sha256 = "0n1p8g7gjxdp06fh36yqb10jvcbhxfc129xpvi1b10k1qb1vlj1h";
+    };
+  };
 }

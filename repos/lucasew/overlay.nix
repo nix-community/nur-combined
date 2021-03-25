@@ -31,6 +31,7 @@ in composeOverlay [
     zls = cp flake.inputs.zls;
     discord = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/networking/instant-messengers/discord/default.nix";
     webapp = cp ./packages/webapp.nix;
+    webapps = import ./packages/chromeapps.nix super;
     arcan = cp ./packages/arcan.nix;
     c4me = cp ./packages/c4me;
     cisco-packet-tracer = cp ./packages/cisco-packet-tracer.nix;

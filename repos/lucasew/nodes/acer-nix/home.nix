@@ -9,7 +9,6 @@ in
     "${flake.inputs.redial_proxy}/hmModule.nix"
     ./modules/dlna.nix
     ./modules/firefox/home.nix
-    ./modules/webviews/home.nix
     ../../modules/i3/home.nix
     ../../modules/polybar/home.nix
     ../../modules/spotify/home.nix
@@ -30,7 +29,7 @@ in
     libnotify
     neofetch
     scrcpy
-  ];
+  ] ++ (builtins.attrValues pkgs.webapps);
 
   programs.hello-world.enable = true;
 

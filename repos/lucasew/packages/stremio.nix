@@ -1,13 +1,20 @@
 {pkgs, ...}:
 with pkgs;
 let
+  name = "stremio";
+  version = "4.4.116";
   serverJS = builtins.fetchurl {
-    url = "https://s3-eu-west-1.amazonaws.com/stremio-artifacts/four/master/server.js";
-    sha256 = "sha256:0vvwijll6cfcdmk7f0mx4v8y0zzy3annrwwgb6i0b1mky13cv6la";
+    url = "https://s3-eu-west-1.amazonaws.com/stremio-artifacts/four/v${version}/server.js";
+    sha256 = "sha256:0fv05qpyvhac66lb6vnf1k9j71kgivd0r1r0wizz6j31vrjc2299";
+  };
+  src = fetchgit {
+    url = "https://github.com/Stremio/stremio-shell";
+    rev = "v" + version;
+    sha256 = "0v1mk4d2adx27m0z78j3vxnwx4pd2q6dnd9mqkz2prq6gpirhh7a";
+    fetchSubmodules = true;
   };
   pkg = qt5.mkDerivation rec {
-    name = "stremio";
-    version = "4.4.116";
+    inherit version name src;
 
     nativeBuildInputs = [ which ];
     buildInputs = [
@@ -31,13 +38,6 @@ let
       wrapQtApp "$out/opt/stremio/stremio" --prefix PATH : "$out/opt/stremio"
     '';
 
-    src = fetchgit {
-      url = "https://github.com/Stremio/stremio-shell";
-      rev = "v" + version;
-      sha256 = "0v1mk4d2adx27m0z78j3vxnwx4pd2q6dnd9mqkz2prq6gpirhh7a";
-      fetchSubmodules = true;
-    };
-
     buildPhase = ''
       cp ${serverJS} server.js
       make -f release.makefile PREFIX="$out/"
@@ -52,14 +52,14 @@ let
     '';
   };
   stremioItem = makeDesktopItem {
-      name = "Stremio";
-      exec = "${pkg}/bin/stremio %U";
-      icon = builtins.fetchurl {
-        url = "https://www.stremio.com/website/stremio-logo-small.png";
-        sha256 = "15zs8h7f8fsdkpxiqhx7wfw4aadw4a7y190v7kvay0yagsq239l6";
-      };
-      comment = "Torrent movies and TV series";
-      desktopName = "Stremio";
-      genericName = "Movies and TV Series";
+    name = "Stremio";
+    exec = "${pkg}/bin/stremio %U";
+    icon = builtins.fetchurl {
+      url = "https://www.stremio.com/website/stremio-logo-small.png";
+      sha256 = "15zs8h7f8fsdkpxiqhx7wfw4aadw4a7y190v7kvay0yagsq239l6";
+    };
+    comment = "Torrent movies and TV series";
+    desktopName = "Stremio";
+    genericName = "Movies and TV Series";
   };
 in stremioItem
