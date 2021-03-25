@@ -7,6 +7,7 @@
     nix-ld.url = "github:Mic92/nix-ld";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgsLatest.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgsLatestSmall.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nur.url = "github:nix-community/NUR/master";
     rust-overlay.url = "github:oxalica/rust-overlay";
     pocket2kindle = {

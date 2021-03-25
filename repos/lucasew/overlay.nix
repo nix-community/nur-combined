@@ -24,10 +24,12 @@ in composeOverlay [
       inherit composeOverlay;
     };
     latest = cp flake.inputs.nixpkgsLatest;
+    latest-small = cp flake.inputs.nixpkgsLatestSmall;
     p2k = cp flake.inputs.pocket2kindle;
     redial_proxy = cp flake.inputs.redial_proxy;
     send2kindle = cp flake.inputs.send2kindle;
     zls = cp flake.inputs.zls;
+    discord = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/networking/instant-messengers/discord/default.nix";
     webapp = cp ./packages/webapp.nix;
     arcan = cp ./packages/arcan.nix;
     c4me = cp ./packages/c4me;
@@ -49,6 +51,7 @@ in composeOverlay [
     usb_tixati = cp ./packages/usb_tixati.nix;
     wrapWine = cp ./packages/wrapWine.nix;
     tora_lp = cp ./packages/tora.nix;
+    preload = cp ./packages/preload.nix;
     python3Packages = super.python3Packages
     // cp ./packages/python3Packages.nix;
     nodePackages = super.nodePackages

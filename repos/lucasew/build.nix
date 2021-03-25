@@ -10,4 +10,5 @@ with packages;
   pinball
   stremio
   ets2
+  discord # from unstable small
 ]

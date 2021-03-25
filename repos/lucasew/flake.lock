@@ -116,16 +116,32 @@
     },
     "nixpkgsLatest": {
       "locked": {
-        "lastModified": 1614458356,
-        "narHash": "sha256-5PBcS5ws/6sUMkX6dFzdsnbAb/Y0iZZrbeGHIuZh9Io=",
+        "lastModified": 1616259034,
+        "narHash": "sha256-WlMIiGIXJm7J+jemzd+ksoun6znWmabCZNz76szV158=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5df05c902cde398e056eb6271d5fe13e418db4c6",
+        "rev": "4e0d3868c679da20108db402785f924daa1a7fb5",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgsLatestSmall": {
+      "locked": {
+        "lastModified": 1616618087,
+        "narHash": "sha256-kuCikcazQhpvlse4N+P4Da08zvb28fqTsgx8xgtbDsA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8004df3ba22e48d396921184a958458a7bb0c89f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable-small",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -231,6 +247,7 @@
         "nixgram": "nixgram",
         "nixpkgs": "nixpkgs_3",
         "nixpkgsLatest": "nixpkgsLatest",
+        "nixpkgsLatestSmall": "nixpkgsLatestSmall",
         "nur": "nur",
         "pocket2kindle": "pocket2kindle",
         "redial_proxy": "redial_proxy",
