@@ -16,7 +16,6 @@ in
     ../../modules/tmux/home.nix
     ../../modules/vscode/home.nix
     ../../modules/wallpaper/home.nix
-    ../../modules/youtube/home.nix
   ]
   ;
 
@@ -43,7 +42,6 @@ in
 
   programs = {
     adskipped-spotify.enable = true;
-    adskipped-youtube-music.enable = true;
     command-not-found.enable = true;
     jq.enable = true;
     obs-studio = {

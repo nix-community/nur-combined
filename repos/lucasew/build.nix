@@ -1,5 +1,6 @@
 with builtins;
-with (getFlake (toString ./.)).outputs;
+with import ./globalConfig.nix;
+with flake.outputs;
 with packages;
 [
   python3Packages.scikitlearn
