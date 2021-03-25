@@ -138,10 +138,10 @@
       };
     "clearurls" = buildFirefoxXpiAddon {
       pname = "clearurls";
-      version = "1.20.0";
+      version = "1.21.0";
       addonId = "{74145f27-f039-47ce-a470-a662b129930a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3682334/clearurls-1.20.0-an+fx.xpi";
-      sha256 = "2d4bdd6c702999f2d76c97cbd6a0bb80cbdef4665c3c104b38824e9dc0616df2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3748919/clearurls-1.21.0-an+fx.xpi";
+      sha256 = "eb0b199cd478b21bc1fab59be627603946d1474070aa4eb482c44d18c041d974";
       meta = with lib;
       {
         homepage = "https://clearurls.xyz/";
@@ -1216,10 +1216,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "18.4";
+      version = "18.5";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3743405/zoom_page_we-18.4-fx.xpi";
-      sha256 = "1af99dfbbca020a4f0962d08a2945322d634aa5878ec710ec1fcc5cac8564468";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3748386/zoom_page_we-18.5-fx.xpi";
+      sha256 = "0e11063e3b6fdf87150261c099111d7adca4a42808ede5f1d93407386de85409";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
