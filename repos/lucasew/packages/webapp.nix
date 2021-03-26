@@ -15,7 +15,16 @@ let
       ${zenity} --error --text="Nenhuma URL especificada"
       exit 1
     fi
-    if [[ "$URL" =~ ^http(s)?:\/\/ ]]
+    if [[ "$URL" =~ ^~ ]]
+    then
+      URL=$(echo $URL | sed -E s:^~\/?::)
+      URL="file://$HOME/$URL"
+    fi
+    if [[ "$URL" =~ ^\/ ]]
+    then
+      URL="file://$URL"
+    fi
+    if [[ "$URL" =~ ^(file|http(s))?:\/\/ ]]
     then
       true
     else
@@ -30,7 +39,7 @@ let
   '';
   desktop = pkgs.makeDesktopItem {
     name = "chrome-applauncher";
-    desktopName = "Lançar site em janela borderless";
+    desktopName = "Borderless Web Launcher";
     type = "Application";
     icon = "applications-internet";
     exec = "${scriptBin}/bin/webapp";
