@@ -11,13 +11,14 @@
 , qtserialport
 , qtscript
 , qtmultimedia
-, makeWrapper
+#, makeWrapper
+, wrapQtAppsHook
 , makeDesktopItem
 }:
 
 let
   pname = "scriptcommunicator";
-  version = "05.12";
+  version = "05.13";
 
   desktopItem = makeDesktopItem {
     name = "ScriptCommunicator";
@@ -34,7 +35,7 @@ stdenv.mkDerivation rec {
 
   inherit pname version;
 
-  nativeBuildInputs = [ unzip qmake makeWrapper ];
+  nativeBuildInputs = [ unzip qmake wrapQtAppsHook ];
   buildInputs = [ qtserialport qtscript qtmultimedia ];
 
   # we want QtDesigner available to create UI
@@ -44,7 +45,7 @@ stdenv.mkDerivation rec {
     owner = "szieke";
     repo = "ScriptCommunicator_serial-terminal";
     rev = "Release_${lib.replaceStrings [ "." ] [ "_" ] version}";
-    sha256 = "1rzfql5ca7gs8l1igx17r7gshpr2f1inlln92qfhkl40qrr10w60";
+    sha256 = "sha256-1y5utCYaBSPzjc8yUna0ZSKclocO5cdU9nrf3SikAds=";
   };
 
   sourceRoot = "source/ScriptCommunicator";
@@ -73,8 +74,8 @@ stdenv.mkDerivation rec {
     cp ScriptCommunicator $out/share/scriptcommunicator/
     cp documentation/Manual_ScriptCommunicator.pdf $out/share/scriptcommunicator/
 
-    makeWrapper $out/share/scriptcommunicator/ScriptCommunicator $out/bin/scriptcommunicator \
-      --suffix PATH ':' "$out/share/scriptcommunicator"
+    # makeWrapper $out/share/scriptcommunicator/ScriptCommunicator $out/bin/scriptcommunicator \
+    #   --suffix PATH ':' "$out/share/scriptcommunicator"
 
     # Install desktop file
     mkdir -p $out/share/applications
@@ -82,6 +83,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
+    broken = true;
     description = "Scriptable data terminal which supports several interfaces";
     longDescription = ''
       In addition to the simple sending and receiving of data ScriptCommunicator

@@ -25,6 +25,7 @@ rec {
   #beremiz = pkgs.callPackage ./pkgs/beremiz {};
   caprice32 = pkgs.callPackage ./pkgs/caprice32 { lib = mylib; };
   clocktimer = pkgs.callPackage ./pkgs/clocktimer { lib = mylib; };
+  fragments-of-euclid = pkgs.callPackage ./pkgs/fragments-of-euclid { lib = mylib; };
   freediag = pkgs.callPackage ./pkgs/freediag { lib = mylib; };
   frida-agent-example = pkgs.callPackage ./pkgs/frida-agent-example { lib = mylib; };
   #frida-compile = pkgs.callPackage ./pkgs/frida-compile {};
@@ -44,6 +45,7 @@ rec {
   nsntrace = pkgs.callPackage ./pkgs/nsntrace { lib = mylib; };
   ntpbclient = pkgs.callPackage ./pkgs/ntpbclient { lib = mylib; };
   pfsshell = pkgs.callPackage ./pkgs/pfsshell { lib = mylib; };
+  ps2client = pkgs.callPackage ./pkgs/ps2client { lib = mylib; };
   pysolfc = pkgs.callPackage ./pkgs/pysolfc { lib = mylib; myPython3Packages = python3Packages; };
 
   python3Packages = pkgs.recurseIntoAttrs (
@@ -54,9 +56,7 @@ rec {
   # -m32 because QuickBMS has been tested only on 32bit systems and gives problems using 64bit native code
   quickbms = pkgs.pkgsi686Linux.callPackage ./pkgs/quickbms { lib = mylib; };
   rasm = pkgs.callPackage ./pkgs/rasm { lib = mylib; };
-
-  # qt.qpa.plugin issue, test later.
-  #scriptcommunicator = pkgs.libsForQt5.callPackage ./pkgs/scriptcommunicator {};
+  scriptcommunicator = pkgs.libsForQt5.callPackage ./pkgs/scriptcommunicator { lib = mylib; };
   soulseekqt = pkgs.libsForQt5.callPackage ./pkgs/soulseekqt { lib = mylib; };
   xlink-kai = pkgs.callPackage ./pkgs/xlink-kai { lib = mylib; inherit frida-agent-example frida-tools; };
 }
