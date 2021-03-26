@@ -520,6 +520,21 @@
     sha256 = "1pizj82wisch28nfdaszwqm9bz19lnl0s5mq8c0zybm2vhnrhvk4";
   })
   (fetchNuGet {
+    name = "SixLabors.Fonts";
+    version = "1.0.0-beta0013";
+    sha256 = "0r0aw8xxd32rwcawawcz6asiyggz02hnzg5hvz8gimq8hvwx1wql";
+  })
+  (fetchNuGet {
+    name = "SixLabors.ImageSharp.Drawing";
+    version = "1.0.0-beta11";
+    sha256 = "0hl0rs3kr1zdnx3gdssxgli6fyvmwzcfp99f4db71s0i8j8b2bp5";
+  })
+  (fetchNuGet {
+    name = "SixLabors.ImageSharp";
+    version = "1.0.2";
+    sha256 = "0fhk9sn8k18slfb26wz8mal0j699f7djwhxgv97snz6b10wynfaj";
+  })
+  (fetchNuGet {
     name = "System.AppContext";
     version = "4.1.0";
     sha256 = "0fv3cma1jp4vgj7a8hqc9n7hr1f1kjp541s6z0q1r6nazb4iz9mz";
@@ -755,6 +770,11 @@
     sha256 = "05kji1mv4sl75iwmc613p873145nynm02xiajx8pn0h2kx53d23s";
   })
   (fetchNuGet {
+    name = "System.Numerics.Vectors";
+    version = "4.5.0";
+    sha256 = "1kzrj37yzawf1b19jq0253rcs8hsq1l2q8g69d7ipnhzb0h97m59";
+  })
+  (fetchNuGet {
     name = "System.ObjectModel";
     version = "4.0.12";
     sha256 = "1sybkfi60a4588xn34nd9a58png36i0xr4y4v4kqpg8wlvy5krrj";
@@ -843,6 +863,11 @@
     name = "System.Resources.ResourceManager";
     version = "4.3.0";
     sha256 = "0sjqlzsryb0mg4y4xzf35xi523s4is4hz9q4qgdvlvgivl7qxn49";
+  })
+  (fetchNuGet {
+    name = "System.Runtime.CompilerServices.Unsafe";
+    version = "4.7.0";
+    sha256 = "16r6sn4czfjk8qhnz7bnqlyiaaszr0ihinb7mq9zzr1wba257r54";
   })
   (fetchNuGet {
     name = "System.Runtime.CompilerServices.Unsafe";
