@@ -1,6 +1,7 @@
 self: super:
 let
   unstable = import <nixos-unstable> { config.allowUnfree = true; };
+  config = (super.lib.eval {modules = [(import <nixos-config>)];});
 in {
   haskellPackages = super.haskellPackages.override {
     overrides = hsSelf: hsSuper: {
@@ -42,5 +43,5 @@ in {
       };
     };
   };
-  openmpt123 = super.openmpt123.override { usePulseAudio = true; };
+  openmpt123 = super.openmpt123.override { usePulseAudio = config.nixpkgs.config.pulseaudio; };
 }
