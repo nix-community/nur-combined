@@ -8,6 +8,10 @@ rec {
 
   bobrossquotes = pkgs.python3Packages.callPackage ./pkgs/bobrossquotes {};
 
+  bsnes = pkgs.callPackage ./pkgs/bsnes {
+    inherit (pkgs.qt5) qtbase wrapQtAppsHook;
+  };
+
   cpptoml = pkgs.callPackage ./pkgs/cpptoml {};
   wireplumber = pkgs.callPackage ./pkgs/wireplumber { inherit cpptoml; };
 
