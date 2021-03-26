@@ -56,6 +56,7 @@ in pkgs.neovim.override {
       themePaper
       vim-jsx-typescript
       dart-vim-plugin
+      plantuml-syntax
     ];
     customRC = ''
     let g:LanguageClient_serverCommands = ${builtins.toJSON (import ./langservers.nix {inherit pkgs;})}
