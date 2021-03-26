@@ -2,8 +2,8 @@
 
 fetchFirefoxAddon {
   name = "clearurls";
-  url = "https://addons.mozilla.org/firefox/downloads/file/3682334/clearurls-1.20.0-an+fx.xpi";
-  sha256 = "sha256-LUvdbHApmfLXbJfL1qC7gMve9GZcPBBLOIJOncBhbfI=";
+  url = "https://addons.mozilla.org/firefox/downloads/file/3748919/clearurls-1.21.0-an+fx.xpi";
+  sha256 = "sha256-6wsZnNR4shvB+rWb5idgOUbRR0Bwqk60gsRNGMBB2XQ=";
 
   # meta = with lib; {
   #   homepage = "https://clearurls.xyz/";

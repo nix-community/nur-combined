@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "subo";
-  version = "0.0.9";
+  version = "0.0.15";
 
   src = fetchFromGitHub {
     owner = "suborbital";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-T/EkpuqnM7EAnolMtRZyhO7W7FfIJ7DOAmaab/JKbiA=";
+    sha256 = "sha256-Ie/MQeeixMc/NECAqeBB3C2u6GJLvM2pv2GDmonWNP8=";
   };
 
   vendorSha256 = null;
@@ -18,12 +18,12 @@ buildGoModule rec {
   meta = with lib; {
     description = "The Suborbital CLI";
     longDescription = ''
-      Subo is the command-line helper for working with the Suborbital Development Platform.
-      Subo is used to build Wasm Runnables, generate new projects and config files, and more over time.
+      Subo is the command-line helper for working with the Suborbital
+      Development Platform. Subo is used to build Wasm Runnables, generate new
+      projects and config files, and more over time.
     '';
     homepage = "https://suborbital.dev";
     license = licenses.asl20;
     maintainers = with maintainers; [ jk ];
-    platforms = platforms.all;
   };
 }

@@ -2,8 +2,8 @@
 
 fetchFirefoxAddon {
   name = "view-image";
-  url = "https://addons.mozilla.org/firefox/downloads/file/3556331/view_image-3.3.1-an+fx.xpi";
-  sha256 = "sha256-QTnstZwhb28yv18wfoF5v6u7b+r/D8efM+pg27X/lo0=";
+  url = "https://addons.mozilla.org/firefox/downloads/file/3746023/view_image-3.4.1-an+fx.xpi";
+  sha256 = "sha256-Q8I3SdPoaBLuPeGyR/c2SlPCqCnxVyUKSuBORIiApJU=";
 
   # meta = with lib; {
   #   homepage = "https://github.com/bijij/ViewImage/";
