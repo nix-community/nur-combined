@@ -37,6 +37,7 @@ in
   inherit (monorepo.lib) overlays;
   # lib functions
   lib = (import ../lib/utils.nix) // {
+    serialize = import ../lib/serialize.nix;
     importFromSubmodules = import ../lib/importFromSubmodule.nix;
     inherit augmentCallPackage;
   };

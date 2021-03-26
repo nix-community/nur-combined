@@ -1,7 +1,7 @@
 let
   inherit (import ../../nix) sources overlay;
 in
-{ config, pkgs, ... }:
+{ config, pkgs, system ? "", ... }:
 {
   imports = [
     ../steam-configuration
@@ -21,6 +21,8 @@ in
     ];
   };
   nixpkgs.pkgs = import sources.nixpkgs {
+    # new nix doesnt have builtins.currentSystem, but old nix doesn have a system argument
+    system = builtins.currentSystem or system;
     config = {
       allowUnfree = true;
       packageOverrides = import ./packages.nix;

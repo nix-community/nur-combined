@@ -47,6 +47,19 @@
         "url": "https://github.com/crazazy/emacs/archive/f1d78c4e6b4437a35bd4d710c27776db00369821.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "flake-utils": {
+        "branch": "master",
+        "description": "Pure Nix flake utility functions",
+        "flake": true,
+        "homepage": null,
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5466c5bbece17adaab2d82fae80b46e807611bf3",
+        "sha256": "0dagb904l2kcccyd42z88hgp5dlr6wwf86qxkrix9mfj3lxj3a9d",
+        "type": "tarball",
+        "url": "https://github.com/numtide/flake-utils/archive/5466c5bbece17adaab2d82fae80b46e807611bf3.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "gitignore": {
         "branch": "master",
         "description": "Nix function for filtering local git sources",
@@ -62,6 +75,7 @@
     "home-manager": {
         "branch": "master",
         "description": "Manage a user environment using Nix",
+        "flake": true,
         "homepage": "https://rycee.gitlab.io/home-manager/",
         "owner": "rycee",
         "repo": "home-manager",
@@ -74,6 +88,7 @@
     "impermanence": {
         "branch": "master",
         "description": "Modules to help you handle persistent state on systems with ephemeral root storage [maintainer=@talyz]",
+        "flake": true,
         "homepage": "",
         "owner": "nix-community",
         "repo": "impermanence",
@@ -86,6 +101,7 @@
     "napalm": {
         "branch": "master",
         "description": "Support for building npm packages in Nix and lightweight npm registry",
+        "flake": true,
         "homepage": "",
         "owner": "nmattia",
         "repo": "napalm",
@@ -110,6 +126,7 @@
     "nix-doom-emacs": {
         "branch": "master",
         "description": "doom-emacs packaged for Nix",
+        "flake": true,
         "homepage": "",
         "owner": "vlaci",
         "repo": "nix-doom-emacs",
@@ -134,6 +151,7 @@
     "nixpkgs": {
         "branch": "nixos-unstable",
         "description": "Nix Packages collection",
+        "flake": true,
         "homepage": "",
         "owner": "nixos",
         "repo": "nixpkgs",
