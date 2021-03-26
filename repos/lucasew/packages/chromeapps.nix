@@ -28,6 +28,7 @@ in {
   };
   notion = mkNativefier {
     name = "NotionSo";
+    desktopName = "Notion";
     url = "notion.so";
     icon = builtins.fetchurl {
       url = "https://logos-download.com/wp-content/uploads/2019/06/Notion_App_Logo.png";
@@ -44,6 +45,7 @@ in {
   };
   youtube-music = mkNativefier {
     name = "YoutubeMusic";
+    desktopName = "Youtube Music";
     url = "music.youtube.com";
     icon = builtins.fetchurl {
       url = "https://vancedapp.com/static/media/logo.40712559.svg";
@@ -57,5 +59,11 @@ in {
       url = "https://www.planttext.com/images/blue_gray.png";
       sha256 = "0n1p8g7gjxdp06fh36yqb10jvcbhxfc129xpvi1b10k1qb1vlj1h";
     };
+  };
+  rainmode = mkNativefier {
+    name = "rainvideo";
+    desktopName = "Tocar som de chuva";
+    url = "https://youtu.be/mPZkdNFkNps";
+    icon = "weather-showers";
   };
 }
