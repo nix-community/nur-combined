@@ -17,7 +17,10 @@ let
       inherit ensureModules;
       srcs = import ./dep { inherit ensureModules; };
       overlays = pkgs.lib.mapAttrs (k: v: v.function) localOverlays;
-      pkgsrc = import ./.;
+      pkgsrc = {
+        outPath = ./.;
+        __functor = self: import self.outPath;
+      };
     };
     # bare necessities
     pkgs = self;
