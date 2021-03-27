@@ -865,10 +865,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.3.17";
+      version = "21.3.26";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3745256/refined_github-21.3.17-an+fx.xpi";
-      sha256 = "11e32c12908b237f643ee9ad07d3096341f597d85ca3545b15e5f3c8653c80cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3750292/refined_github-21.3.26-an+fx.xpi";
+      sha256 = "3aacf2cdd7543fd2f84423a125485a8c82e91d4569a27ceb5fc45001fe105654";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -906,10 +906,10 @@
       };
     "sidebery" = buildFirefoxXpiAddon {
       pname = "sidebery";
-      version = "4.9.1";
+      version = "4.9.3";
       addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3716798/sidebery-4.9.1-fx.xpi";
-      sha256 = "aca8a6f3c23253a48a2530c1e4bd346103699811a5deae96e782c69349607971";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3750143/sidebery-4.9.3-fx.xpi";
+      sha256 = "4d717bbbd4cdc369118a4aebf8194f5242af5d10f652405c93dfcefb45bb932f";
       meta = with lib;
       {
         homepage = "https://github.com/mbnuqw/sidebery";
