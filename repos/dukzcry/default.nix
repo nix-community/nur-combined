@@ -17,7 +17,7 @@ let
   };
   unstable = import unstable_ { config.allowUnfree = true; };
   eval = import <nixpkgs/nixos/lib/eval-config.nix>;
-  config = eval {modules = [(import <nixos-config>)];};
+  config = eval {modules = [(import <nixos-config>)];}.config;
 in {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
