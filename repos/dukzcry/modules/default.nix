@@ -11,8 +11,6 @@
   pulseaudio = ./pulseaudio;
   bambootracker = ./bambootracker;
   nvidia = ./nvidia;
-  path = [
-    # https://github.com/NixOS/nixpkgs/pull/103531
-    "${unstable}/nixos/modules/hardware/acpilight.nix"
-  ];
+  # https://github.com/NixOS/nixpkgs/pull/103531
+  acpilight = "${unstable}/nixos/modules/hardware/acpilight.nix";
 }
