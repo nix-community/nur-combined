@@ -67,13 +67,13 @@ let
         sha512 = "j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==";
       };
     };
-    "ajv-7.2.1" = {
+    "ajv-7.2.4" = {
       name = "ajv";
       packageName = "ajv";
-      version = "7.2.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ajv/-/ajv-7.2.1.tgz";
-        sha512 = "+nu0HDv7kNSOua9apAVc979qd932rrZeb3WOvoiD31A/p1mIE5/9bN2027pE2rOPYEdS3UHzsvof4hY+lM9/WQ==";
+        url = "https://registry.npmjs.org/ajv/-/ajv-7.2.4.tgz";
+        sha512 = "nBeQgg/ZZA3u3SYxyaDvpvDtgZ/EZPF547ARgZBrG9Bhu1vKDwAIjtIf+sDtJUKa2zOcEbmRLBRSyMraS/Oy1A==";
       };
     };
     "ansi-colors-4.1.1" = {
@@ -796,13 +796,13 @@ let
         sha512 = "JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==";
       };
     };
-    "semver-7.3.4" = {
+    "semver-7.3.5" = {
       name = "semver";
       packageName = "semver";
-      version = "7.3.4";
+      version = "7.3.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/semver/-/semver-7.3.4.tgz";
-        sha512 = "tCfb2WLjqFAtXn4KEdxIhalnRtoKFN7nAwj0B3ZXCbQloV2tq5eDbcTmT68JJD3nRJq24/XgxtQKFIpQdtvmVw==";
+        url = "https://registry.npmjs.org/semver/-/semver-7.3.5.tgz";
+        sha512 = "PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==";
       };
     };
     "shebang-command-2.0.0" = {
@@ -989,8 +989,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.22.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.22.0.tgz"; sha1 = "07ecc61052fec63661a2cab6bd507127c07adc6f"; };
+    version = "7.23.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.23.0.tgz"; sha1 = "8d029d252f6e8cf45894b4bee08f5493f8e94325"; };
     dependencies = [
       sources."@babel/code-frame-7.12.11"
       sources."@babel/helper-validator-identifier-7.12.11"
@@ -1106,7 +1106,7 @@ let
       sources."require-from-string-2.0.2"
       sources."resolve-from-4.0.0"
       sources."rimraf-3.0.2"
-      sources."semver-7.3.4"
+      sources."semver-7.3.5"
       sources."shebang-command-2.0.0"
       sources."shebang-regex-3.0.0"
       (sources."slice-ansi-4.0.0" // {
@@ -1123,7 +1123,7 @@ let
       sources."supports-color-5.5.0"
       (sources."table-6.0.7" // {
         dependencies = [
-          sources."ajv-7.2.1"
+          sources."ajv-7.2.4"
           sources."json-schema-traverse-1.0.0"
         ];
       })

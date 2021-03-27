@@ -67,13 +67,13 @@ let
         sha512 = "MKGMzyfeuutC/ZJ1cba9NqcNpfeqMUcYmyF1ZFY6/Cn7CNSAKx6a+s48sqLqyAiZuaP2TcqMhoo+dlwFnVxT9w==";
       };
     };
-    "commander-7.1.0" = {
+    "commander-7.2.0" = {
       name = "commander";
       packageName = "commander";
-      version = "7.1.0";
+      version = "7.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/commander/-/commander-7.1.0.tgz";
-        sha512 = "pRxBna3MJe6HKnBGsDyMv8ETbptw3axEdYHoqNh7gu5oDcew8fs0xnivZGm06Ogk8zGAJ9VX+OPEr2GXEQK4dg==";
+        url = "https://registry.npmjs.org/commander/-/commander-7.2.0.tgz";
+        sha512 = "QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==";
       };
     };
     "cross-spawn-7.0.3" = {
@@ -477,7 +477,7 @@ let
       sources."ansi-colors-4.1.1"
       sources."clone-deep-4.0.1"
       sources."colorette-1.2.2"
-      sources."commander-7.1.0"
+      sources."commander-7.2.0"
       sources."cross-spawn-7.0.3"
       sources."enquirer-2.3.6"
       sources."envinfo-7.7.4"
