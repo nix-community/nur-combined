@@ -7,11 +7,11 @@
 
 buildPythonPackage rec {
   pname = "daemonocle";
-  version = "1.0.2";
+  version = "1.2.2";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "025fb5c53b42618f8cdd592936621c833a871f27eb747e0fdbf3cdb4643a92b3";
+    sha256 = "3bd2f5d649a84aca6a04af6daec6e6dd3c82803f71519c35bf5fc68e58f5c40f";
   };
 
   propagatedBuildInputs = [ click psutil ];

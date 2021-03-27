@@ -15,13 +15,4 @@ tasks:
   - check-flake: |
       nix flake check --log-format raw ./nixexprs
   - build: |
-      nix path-info --all | grep -v '\.drv$' | sort >pre-build-paths
-      nix-build --no-out-link --keep-going --keep-failed --show-trace ./nixexprs/ci.nix || touch FAILED
-      nix path-info --all | grep -v '\.drv$' | sort >post-build-paths
-  - cache: |
-      comm -13 pre-build-paths post-build-paths | cachix push aasg-nixexprs
-  - finish: |
-      if [[ -f FAILED ]]; then
-        echo "Build failed. See logs of the build task for details."
-        exit 1
-      fi
+      cachix watch-exec aasg-nixexprs -- nix-build --no-out-link --keep-going --keep-failed --show-trace ./nixexprs/ci.nix

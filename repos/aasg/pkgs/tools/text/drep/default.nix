@@ -1,10 +1,10 @@
-{ stdenv, callPackage, defaultCrateOverrides, CoreServices }:
+{ stdenv, lib, callPackage, defaultCrateOverrides, CoreServices }:
 
 (callPackage ./Cargo.nix { }).workspaceMembers.drep.build.override {
   crateOverrides = defaultCrateOverrides // {
     drep = attrs: {
-      buildInputs = stdenv.lib.optional stdenv.isDarwin CoreServices;
-      meta = with stdenv.lib; {
+      buildInputs = lib.optional stdenv.isDarwin CoreServices;
+      meta = with lib; {
         description = "A grep with runtime reloadable filters";
         homepage = "https://github.com/maxpert/drep";
         license = licenses.mit;

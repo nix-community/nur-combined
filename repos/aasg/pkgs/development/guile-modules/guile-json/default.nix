@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "guile-json";
-  version = "4.4.1";
+  version = "4.5.2";
 
   src = fetchzip {
     url = "mirror://savannah/${pname}/${pname}-${version}.tar.gz";
-    hash = "sha256-aksK5rBzhD0/nUR4Am65u3HFrEeh7S47izFuY2czqXQ=";
+    hash = "sha256-OnqXvTvhMjCFQmBqcNz3AOYw3Fx2e0WTyw6jp1fDuwQ=";
   };
 
   nativeBuildInputs = [ pkgconfig ];

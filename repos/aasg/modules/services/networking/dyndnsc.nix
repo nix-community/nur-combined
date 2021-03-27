@@ -57,6 +57,8 @@ in
                 "hopper.pw:ipv6"
                 "dyn.com"
                 "duckdns.org"
+                "strato.com:ipv4"
+                "strato.com:ipv6"
               ]);
               default = null;
               description = ''

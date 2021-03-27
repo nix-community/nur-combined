@@ -1,6 +1,7 @@
 { lib
 , callPackage
 , defaultCrateOverrides
+, libiconv
 , features ? [ ]
 }:
 
@@ -8,6 +9,9 @@
   inherit features;
   crateOverrides = defaultCrateOverrides // {
     trust-dns = attrs: {
+      builtInputs = [ libiconv ];
+      extraLinkFlags = [ "-L${libiconv}/lib" ];
+
       meta = with lib; {
         description = "Rust-based DNS client, server, and resolver";
         homepage = "https://github.com/bluejekyll/trust-dns";

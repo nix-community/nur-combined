@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, kernel, concurrentMode ? false }:
+{ stdenv, lib, fetchFromGitHub, kernel, concurrentMode ? false }:
 
 stdenv.mkDerivation rec {
   pname = "rtl8723bu-unstable";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-NSLGB0dgDu5TIpS0GszBFjzC+8uIKncs+jeJowtBjLQ=";
   };
 
-  postPatch = stdenv.lib.optionalString (!concurrentMode) ''
+  postPatch = lib.optionalString (!concurrentMode) ''
     sed -i '/-DCONFIG_CONCURRENT_MODE/d' Makefile
   '';
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Driver for RTL8723BU";
     longDescription = ''
       Kernel driver for Realtek RTL8723BU Wireless Adapter with hardware ID 0bda:b720.

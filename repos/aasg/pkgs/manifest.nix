@@ -12,6 +12,7 @@
   [ "matrix-appservice-irc" ]
   [ "prometheus-bird-exporter" ]
   [ "python3Packages" "daemonocle" ]
+  [ "python3Packages" "json-logging" ]
   [ "shellharden" ]
   [ "trust-dns" ]
 ]

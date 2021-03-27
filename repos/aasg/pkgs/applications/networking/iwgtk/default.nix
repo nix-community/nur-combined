@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, glib, gtk3, gzip, pkgconfig, wrapGAppsHook }:
+{ stdenv, lib, fetchFromGitHub, glib, gtk3, gzip, pkgconfig, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "iwgtk";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     substituteInPlace "$out/share/applications/iwgtk.desktop" --replace "Exec=iwgtk" "Exec=$out/bin/iwgtk"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = " Lightweight, graphical wifi management utility for Linux";
     longDescription = ''
       iwgtk is a lightweight, graphical wifi management utility for Linux.

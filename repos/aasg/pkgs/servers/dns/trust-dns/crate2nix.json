@@ -3,8 +3,8 @@
     "trust-dns": {
       "type": "CratesIo",
       "name": "trust-dns",
-      "version": "0.19.5",
-      "sha256": "1fklaamqizzlrs1nzanbg6ldgb8cw12g7f2v7sshdsw19x5k0skn"
+      "version": "0.20.1",
+      "sha256": "0paxjr6ps48vngip5bl78ppbs1xxyy792jnizcrwr7s0if79jhz1"
     }
   }
 }

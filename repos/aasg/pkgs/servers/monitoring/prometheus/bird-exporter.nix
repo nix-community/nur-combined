@@ -2,15 +2,15 @@
 
 buildGoModule rec {
   pname = "bird_exporter";
-  version = "1.2.4";
+  version = "1.2.5";
 
   src = fetchFromGitHub {
     owner = "czerwonk";
     repo = pname;
     rev = version;
-    sha256 = "1kgymbk9npw5bdbawm8xvm81b267ag81862favfbnmg3xyl5sh81";
+    hash = "sha256-qOj1RaYWO2XHZm+DaB1ajvUIYvdoJFIgHaulk3etNBs=";
   };
-  vendorSha256 = null;
+  vendorSha256 = "sha256-QELQFgviMCba6UJQKvdqoG1RVqTWgmqDfmntvrFrcpE=";
 
   doCheck = true;
 
