@@ -66,4 +66,13 @@ in {
     url = "https://youtu.be/mPZkdNFkNps";
     icon = "weather-showers";
   };
+  gmail = mkNativefier {
+    name = "gmail";
+    desktopName = "GMail";
+    url = "gmail.com";
+    icon = builtins.fetchurl {
+      url = "https://icons.iconarchive.com/icons/dtafalonso/android-lollipop/256/Gmail-icon.png";
+      sha256 = "1cldc9k30rlvchh7ng00hmn0prbh632z8h9fqclj466y8bgdp15j";
+    };
+  };
 }
