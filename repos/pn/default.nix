@@ -31,6 +31,7 @@
   duckling-proxy = pkgs.callPackage ./pkgs/duckling-proxy { };
   saait = pkgs.callPackage ./pkgs/saait { };
   groff = pkgs.callPackage ./pkgs/groff { };
+  xccp = pkgs.callPackage ./pkgs/xccp { };
 
   st = pkgs.callPackage ./pkgs/larbs/st { };
   dwm = pkgs.callPackage ./pkgs/larbs/dwm { };
