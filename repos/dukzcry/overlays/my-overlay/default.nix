@@ -28,5 +28,4 @@ self: super:
       };
     };
   };
-  openmpt123 = super.openmpt123.override { usePulseAudio = config.nixpkgs.config.pulseaudio; };
 }
