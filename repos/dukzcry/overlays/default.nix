@@ -1,6 +1,7 @@
+args@{ ... }:
 {
   # Add your overlays here
   #
-  my-overlay = import ./my-overlay;
+  my-overlay = import ./my-overlay args;
 }
 
