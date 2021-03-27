@@ -1,4 +1,5 @@
 local/albert/core.db
 local/xfce4/*
 !local/xfce4/terminal/
+flake.nix
 result
