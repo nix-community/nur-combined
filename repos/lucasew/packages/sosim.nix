@@ -1,13 +1,15 @@
 {pkgs ? import <nixpkgs> {}}:
+
 let
   src = pkgs.fetchzip {
-    url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/sosim_v11_en.zip";
-    sha256 = "sha256-KTsZlDR6AKNjF0TAWeyNyd03DeSB19XRkao5xoq3sBc=";
+    url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/sosim_v20.zip";
+    sha256 = "sha256-HIL2+X+SJkzmsM7nWytNCDURPuPFc5i5tX0o+gGsAbo=";
     stripRoot = false;
   };
-  bin = pkgs.writeShellScriptBin "sosim" ''
-    ${pkgs.wine}/bin/wine ${src}/sosim.exe "$@"
-  '';
+  bin = pkgs.wrapWine {
+    executable = "${src}/sosim.exe";
+    name = "sosim";
+  };
   desktop = pkgs.makeDesktopItem {
     name = "sosim";
     desktopName = "SOSIM";
