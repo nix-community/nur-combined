@@ -1,10 +1,15 @@
-{ lib, python3Packages, sources, withCli ? true, checkLang ? false }:
+{ lib, python3Packages, fetchFromGitHub, withCli ? true, checkLang ? false }:
 
 python3Packages.buildPythonApplication {
-  pname = "tatoebatools-unstable";
-  version = lib.substring 0 10 sources.tatoebatools.date;
+  pname = "tatoebatools";
+  version = "0.1.1";
 
-  src = sources.tatoebatools;
+  src = fetchFromGitHub {
+    owner = "LBeaudoux";
+    repo = "tatoebatools";
+    rev = "c3b4e40886233a83e30a517d63a1eee0547650d7";
+    sha256 = "1h977ghl13jj5xvyan88xjqgbp31ckk4krr2jgjl65c30wyrjlkj";
+  };
 
   patches = lib.optional (!checkLang) ./dont-check-lang-validity.patch
     ++ lib.optional withCli ./cli.patch;
@@ -20,7 +25,8 @@ python3Packages.buildPythonApplication {
   ];
 
   meta = with lib; {
-    inherit (sources.tatoebatools) description homepage;
+    description = "A library for downloading, updating and iterating over data files from Tatoeba";
+    homepage = "https://github.com/LBeaudoux/tatoebatools";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, sources
 , runtimeShell
 , writeScript
 , procps
@@ -28,11 +27,16 @@ let
     unicorn
   ];
 in
-stdenv.mkDerivation {
-  pname = "gef-unstable";
-  version = lib.substring 0 10 sources.gef.date;
+stdenv.mkDerivation rec {
+  pname = "gef";
+  version = "2021.01";
 
-  src = sources.gef;
+  src = fetchFromGitHub {
+    owner = "hugsy";
+    repo = "gef";
+    rev = version;
+    sha256 = "0gw112s16pdjd5csp8ap0qq2d3bkp2s8pyhjbw4f8k0mkgy1j66i";
+  };
 
   dontBuild = true;
   doCheck = false;
@@ -49,7 +53,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    inherit (sources.gef) description homepage;
+    description = "GDB Enhanced Features for exploit devs & reversers";
+    homepage = "http://gef.rtfd.io/";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = [ maintainers.sikmir ];

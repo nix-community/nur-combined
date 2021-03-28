@@ -13,20 +13,6 @@
         "url": "https://github.com/ruarxive/apibackuper/archive/1ff139f688d59b899ff041ccc282e224110ddc76.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "bson": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-05-26T11:13:32Z",
-        "description": "Independent BSON codec for Python that doesn't depend on MongoDB",
-        "homepage": "https://github.com/py-bson/bson",
-        "owner": "py-bson",
-        "repo": "bson",
-        "rev": "a68073661c637051985f3d0c24b8c7828a4c3ff4",
-        "sha256": "0gh0kbblmxnidr9xp05d8nlfjna7461bxx82l82mwwz1a7i7x36d",
-        "type": "tarball",
-        "url": "https://github.com/py-bson/bson/archive/a68073661c637051985f3d0c24b8c7828a4c3ff4.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "cfiles": {
         "branch": "master",
         "builtin": false,
@@ -207,20 +193,6 @@
         "sha256": "1v9micdr6fml1lbhxndbynghrajix5vgp8qg7b7bdsa2wngzlr16",
         "type": "tarball",
         "url": "https://github.com/konstare/gdcv/archive/39fd2667362710f69c13dd596e112b0391e0a57e.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "gef": {
-        "branch": "dev",
-        "builtin": false,
-        "date": "2021-03-02T03:44:36Z",
-        "description": "GEF - GDB Enhanced Features for exploit devs & reversers",
-        "homepage": "http://gef.rtfd.io",
-        "owner": "hugsy",
-        "repo": "gef",
-        "rev": "0fa225771a788d7e6214e50f27d0262b60d90745",
-        "sha256": "00q7247axbwph5c7ljxvyyp74pjlrjwibc9nqdm43h3n9ml10bc8",
-        "type": "tarball",
-        "url": "https://github.com/hugsy/gef/archive/0fa225771a788d7e6214e50f27d0262b60d90745.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geminid": {
@@ -984,20 +956,6 @@
         "sha256": "1b5kyxz8n1ysrv0kdf49ma60k5448sg5k7c9zyzrl46hw5lbar4k",
         "type": "tarball",
         "url": "https://github.com/mapbox/supermercado/archive/ecc9f5a36c1c8d13872df5bdcbd01621e5f3ab48.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "tatoebatools": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-12-01T13:06:20Z",
-        "description": "A library for downloading, updating and iterating over monolingual data files from Tatoeba",
-        "homepage": "https://github.com/LBeaudoux/tatoebatools",
-        "owner": "LBeaudoux",
-        "repo": "tatoebatools",
-        "rev": "97a50b9aa4d7a66550aa338ab595cb10eb7f799d",
-        "sha256": "0a482kirbv3hnlgfgz75kdq52mbaazawg40cy5vq079kqd3m8v09",
-        "type": "tarball",
-        "url": "https://github.com/LBeaudoux/tatoebatools/archive/97a50b9aa4d7a66550aa338ab595cb10eb7f799d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "thinplatespline": {
