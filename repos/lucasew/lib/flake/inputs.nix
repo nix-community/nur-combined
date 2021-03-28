@@ -9,7 +9,7 @@ let
   inputs = nodes.root.inputs;
   flakeHandler = {
     github = obj: builtins.fetchTarball {
-      url = "https://github.com/${obj.owner}/${obj.repo}/archive/${obj.rev}.tar.gz";
+      url = "https://api.github.com/repos/${obj.owner}/${obj.repo}/tarball/${obj.rev}";
       sha256 = obj.narHash;
     };
   };
