@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv, lib, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   name = "rederr";
 
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     cp rederr $out/bin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Colour your stderr red";
     license = licenses.lgpl2Plus;
     homepage = https://github.com/poettering/rederr;

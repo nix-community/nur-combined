@@ -1,5 +1,5 @@
 # TODO extract rfcs into own derivation so the outputs are cached
-{ stdenv, fetchFromGitHub, fetchurl, python3, pythonPackages }:
+{ stdenv, lib, fetchFromGitHub, fetchurl, python3, pythonPackages }:
 let
   src = fetchFromGitHub {
     owner = "monsieurh";
@@ -42,7 +42,7 @@ pythonPackages.buildPythonApplication rec {
     ''
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The CLI RFC reader";
     license = licenses.gpl3;
     homepage = https://github.com/monsieurh/rfc_reader;

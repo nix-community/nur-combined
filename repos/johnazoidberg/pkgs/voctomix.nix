@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub
+{ stdenv, lib, fetchFromGitHub
 , python3, python36Packages
 , gstreamer
 , gst-plugins-bad, gst-plugins-base, gst-plugins-good, gst-plugins-ugly
@@ -47,8 +47,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = {
     description = "Full-HD Software Live-Video-Mixer in python";
     homepage = https://github.com/voc/voctomix;
-    license = with stdenv.lib.licenses; [ mit ];
-    maintainers = with stdenv.lib.maintainers; [ johnazoidberg ];
-    platforms = stdenv.lib.platforms.linux;
+    license = with lib.licenses; [ mit ];
+    maintainers = with lib.maintainers; [ johnazoidberg ];
+    platforms = lib.platforms.linux;
   };
 }

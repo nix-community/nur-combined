@@ -1,5 +1,5 @@
 # FIXME: Doesn't really work on NixOS because it want's to write in /etc
-{ stdenv, fetchurl, ppp, dialog, perl }:
+{ stdenv, lib, fetchurl, ppp, dialog, perl }:
 stdenv.mkDerivation rec {
   name = "pppconfig-${version}";
   version = "2.3.23";
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     substituteInPlace "pppconfig" --replace "$etc = \"/etc\";" "$etc = \"/home/zoid/etc\"";
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Configure pppd to connect to the Internet";
     license = licenses.gpl2;
     homepage = http://ftp.debian.org/debian/pool/main/p/pppconfig/;

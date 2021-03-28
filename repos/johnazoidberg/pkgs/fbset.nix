@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, bison, flex }:
+{ stdenv, lib, fetchurl, bison, flex }:
 stdenv.mkDerivation rec {
   name = "fbset-${version}";
   version = "2.1-30";
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/sbin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Show and modify frame buffer device settings";
     license = licenses.gpl2;
     homepage = http://users.telenet.be/geertu/Linux/fbdev/;

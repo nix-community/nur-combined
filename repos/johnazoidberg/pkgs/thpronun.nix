@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, callPackage, pkgconfig, libdatrie, libthai }:
+{ stdenv, lib, fetchFromGitHub, callPackage, pkgconfig, libdatrie, libthai }:
 stdenv.mkDerivation rec {
   name = "thpronun-${version}";
   rev = "v${version}";
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ pkgconfig libdatrie libthai ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A program for analyzing pronunciation of Thai words";
     license = licenses.gpl3;
     homepage = https://github.com/tlwg/thpronun;

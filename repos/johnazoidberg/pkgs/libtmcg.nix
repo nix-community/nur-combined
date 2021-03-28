@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, gmp, libgcrypt, libgpgerror }:
+{ stdenv, lib, fetchurl, gmp, libgcrypt, libgpgerror }:
 stdenv.mkDerivation rec {
   pname = "libtmcg";
   version = "1.3.16";
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gmp libgcrypt libgpgerror ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "C++ library for creating secure and fair online card games";
     license = licenses.gpl2;
     homepage = ttps://www.nongnu.org/libtmcg/;

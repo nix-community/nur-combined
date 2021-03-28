@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, libtmcg, libgcrypt, libgpgerror, gmp, zlib, bzip2 ? null }:
+{ stdenv, lib, fetchurl, libtmcg, libgcrypt, libgpgerror, gmp, zlib, bzip2 ? null }:
 stdenv.mkDerivation rec {
   name = "dkgpg-${version}";
   version = "1.1.0";
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libtmcg libgcrypt libgpgerror gmp zlib bzip2 ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Distributed Key Generation (DKG) and Threshold Cryptography for OpenPGP";
     license = licenses.gpl2;
     homepage = https://www.nongnu.org/dkgpg/;

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python3Packages }:
+{ stdenv, lib, fetchFromGitHub, python3Packages }:
 python3Packages.buildPythonPackage rec {
   name = "hkp4py-${version}";
   version = "0.2.3.0";
@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage rec {
 
   checkInputs = with python3Packages; [ pylint autopep8 pep8 ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A Library to get GPG/PGP keys from a Keyserver";
     license = licenses.mit;
     homepage = https://github.com/Selfnet/hkp4py;

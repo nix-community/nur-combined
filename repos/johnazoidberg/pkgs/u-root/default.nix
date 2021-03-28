@@ -1,4 +1,4 @@
- { stdenv, fetchFromGitHub, buildGoPackage, fetchgit, fetchhg, fetchbzr, fetchsvn }:
+ { stdenv, lib, fetchFromGitHub, buildGoPackage, fetchgit, fetchhg, fetchbzr, fetchsvn }:
  buildGoPackage rec {
   name = "u-root-${version}";
   version = "v1.0.0";
@@ -14,7 +14,7 @@
 
   goDeps = ./deps.nix;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A fully Go userland! u-root can create a root file system (initramfs) containing a busybox-like set of tools written in Go.";
     license = licenses.bsd3;
     homepage = https://u-root.tk;  # Doesn't redirect from http

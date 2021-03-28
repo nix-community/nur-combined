@@ -17,7 +17,7 @@ python36Packages.buildPythonApplication rec {
     lxml pycryptodome requests oath
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Free software implementation of Symantec's VIP Access application and protocol";
     license = licenses.asl20;
     homepage = https://github.com/dlenski/python-vipaccess;

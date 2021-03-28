@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, gtk3, vte_290, systemd, intltool }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, gtk3, vte_290, systemd, intltool }:
 
 stdenv.mkDerivation rec {
   pname = "gtkterm";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig intltool ];
   buildInputs = [ gtk3 systemd vte_290 ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "GTK+ serial port terminal";
     homepage = https://github.com/zdavkeos/gtkterm;
     license = licenses.gpl3;

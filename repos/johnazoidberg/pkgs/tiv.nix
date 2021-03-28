@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, imagemagick }:
+{ stdenv, lib, fetchFromGitHub, imagemagick }:
 stdenv.mkDerivation rec {
   name = "tiv-${version}";
   version = "1.0.0";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Small C++ program to display images in a (modern) terminal using RGB ANSI codes and unicode block graphics characters";
     license = licenses.asl20;
     homepage = https://github.com/stefanhaustein/TerminalImageViewer;

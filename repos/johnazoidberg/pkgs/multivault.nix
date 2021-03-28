@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python3Packages, python3, myPython3Packages }:
+{ stdenv, lib, fetchFromGitHub, python3Packages, python3, myPython3Packages }:
 python3Packages.buildPythonApplication rec {
   name = "multivault-${version}";
   version = "2018-09-19";
@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     ${python3}/bin/${python3.executable} setup.py install_data --install-dir=$out --root=$out
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Simple CLI to manage distributed secrets for Ansible";
     license = licenses.mit;
     homepage = https://github.com/Selfnet/multivault;

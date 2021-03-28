@@ -6,16 +6,13 @@ rec {
 
   gtkterm = pkgs.callPackage ./pkgs/gtkterm { };
 
-
   dkgpg = pkgs.callPackage ./pkgs/dkgpg.nix {
     inherit libtmcg;
     bzip2 = pkgs.bzip2;
   };
   libtmcg = pkgs.callPackage ./pkgs/libtmcg.nix {};
 
-  uefitool = pkgs.qt5.callPackage ./pkgs/uefitool.nix {};
-
-  caas = pkgs.callPackages ./pkgs/caas.nix {
+  caas = pkgs.callPackage ./pkgs/caas.nix {
     jre = pkgs.openjdk11;
     maven = pkgs.maven.overrideAttrs (old: {
       jdk = pkgs.openjdk11;
@@ -67,29 +64,27 @@ rec {
 
   uefi-driver-wizard = pkgs.callPackage ./pkgs/uefi-driver-wizard.nix {};
 
-  # Without kernel driver, should build and work on MacOS as well
-  chipsec = pkgs.callPackage ./pkgs/chipsec.nix { withDriver = false; };
-
   linuxPackagesFor = kernel: pkgs.lib.makeExtensible (self: with self; {
-    chipsec = pkgs.callPackage ./pkgs/chipsec.nix {
-      inherit kernel;
-      withDriver = true;
-    };
+    #chipsec = pkgs.callPackage ./pkgs/chipsec.nix {
+    #  inherit kernel;
+    #  withDriver = true;
+    #};
   });
   linuxPackages_4_4 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_4);
   linuxPackages_4_9 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_9);
   linuxPackages_4_14 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_14);
   linuxPackages_4_19 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_4_19);
+  linuxPackages_5_4 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_4);
+  linuxPackages_5_10 = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_10);
 
   rfc-reader = pkgs.callPackage ./pkgs/rfc-reader {};
 
   youtube-rss = pkgs.callPackage ./pkgs/youtuberss.nix {};
 
-  libdatrie = pkgs.callPackage ./pkgs/libdatrie.nix {};
-  libthai = pkgs.callPackage ./pkgs/libthai.nix {
-    inherit libdatrie;
-  };
-  thpronun = pkgs.callPackage ./pkgs/thpronun.nix {
-    inherit libdatrie libthai;
-  };
+  thpronun = pkgs.callPackage ./pkgs/thpronun.nix {};
+
+  ams = pkgs.callPackage ./pkgs/ams.nix {};
+  ilorest = pkgs.callPackage ./pkgs/ilorest.nix {};
+  hponcfg = pkgs.callPackage ./pkgs/hponcfg.nix {};
+  ssacli = pkgs.callPackage ./pkgs/ssacli.nix {};
 }

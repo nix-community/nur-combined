@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, buildGoPackage }:
+{ stdenv, lib, fetchFromGitHub, buildGoPackage }:
 buildGoPackage rec {
   name = "prosody-filer-${version}";
   version = "1.0.0-rc3";
@@ -14,7 +14,7 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Golang mod_http_upload_external server for Prosody";
     license = licenses.mit;
     homepage = https://github.com/ThomasLeister/prosody-filer;

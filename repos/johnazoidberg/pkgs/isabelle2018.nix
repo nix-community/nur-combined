@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, perl, nettools, java, polyml, z3 }:
+{ stdenv, lib, fetchurl, perl, nettools, java, polyml, z3 }:
 # nettools needed for hostname
 
 let
@@ -21,7 +21,7 @@ stdenv.mkDerivation {
     };
 
   buildInputs = [ perl polyml z3 ]
-             ++ stdenv.lib.optionals (!stdenv.isDarwin) [ nettools java ];
+             ++ lib.optionals (!stdenv.isDarwin) [ nettools java ];
 
   sourceRoot = dirname;
 
@@ -72,7 +72,7 @@ stdenv.mkDerivation {
     '';
     homepage = http://isabelle.in.tum.de/;
     license = "LGPL";
-    maintainers = [ stdenv.lib.maintainers.jwiegley ];
-    platforms = stdenv.lib.platforms.linux;
+    maintainers = [ lib.maintainers.jwiegley ];
+    platforms = lib.platforms.linux;
   };
 }

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, buildPythonPackage, python-dateutil, docopt, pyyaml }:
+{ stdenv, lib, fetchFromGitHub, buildPythonPackage, python-dateutil, docopt, pyyaml }:
 buildPythonPackage rec {
   pname = "pykwalify";
   version = "1.7.0";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   checkPhase = "true";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Python YAML/JSON schema validation library";
     license = licenses.mit;
     homepage = https://github.com/Grokzen/pykwalify;

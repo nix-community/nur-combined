@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, buildPythonPackage, pyyaml, pykwalify, requests
+{ stdenv, lib, fetchFromGitHub, buildPythonPackage, pyyaml, pykwalify, requests
 , pyjwt, python-box , future, contextlib2, stevedore
 , backports_functools_lru_cache, paho-mqtt , jmespath, pytest, }:
 buildPythonPackage rec {
@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   checkPhase = "true";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Command-line tool and Python library and Pytest plugin for automated testing of RESTful APIs";
     license = licenses.mit;
     homepage = https://github.com/taverntesting/tavern;

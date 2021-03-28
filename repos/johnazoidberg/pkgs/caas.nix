@@ -1,5 +1,5 @@
 # Packaging heavily inspired by how hadoop is packaged
-{ stdenv, fetchFromGitHub, maven, jre }:
+{ stdenv, lib, fetchFromGitHub, maven, jre }:
 let
   version = "2019-12-10";
 
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/*
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = https://github.com/iNPUTmice/caas;
     description = "XMPP Compliance Tester";
     license = licenses.bsd3;

@@ -1,6 +1,6 @@
-{ stdenv, buildPackages, hostPlatform, fetchurl, perl, buildLinux, ... } @ args:
+{ stdenv, lib, buildPackages, hostPlatform, fetchurl, perl, buildLinux, ... } @ args:
 
-with stdenv.lib;
+with lib;
 
 buildLinux (args // rec {
   version = "4.15.18";

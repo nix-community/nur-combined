@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python3Packages }:
+{ stdenv, lib, fetchFromGitHub, python3Packages }:
 python3Packages.buildPythonPackage rec {
   name = "cmakeconverter-${version}";
   version = "1.2.0";
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
 
   propagatedBuildInputs = with python3Packages; [ lxml colorama docopt ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Facilitate the conversion of Visual Studio to CMake projects";
     license = licenses.agpl3;
     homepage = https://github.com/algorys/cmakeconverter;

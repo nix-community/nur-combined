@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   name = "youtube-rss-${version}";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     cp -ra * $out/
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Generate an audio-only podcast rss feed from any YouTube channel or playlist";
     license = licenses.bsd3;
     homepage = https://github.com/JohnAZoidberg/YoutubeRSS;

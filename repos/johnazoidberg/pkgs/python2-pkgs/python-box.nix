@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, pytestrunner, buildPythonPackage }:
+{ stdenv, lib, fetchFromGitHub, pytestrunner, buildPythonPackage }:
 buildPythonPackage rec {
   pname = "python-box";
   version = "3.2.4";
@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   checkPhase = "true";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Python dictionaries with advanced dot notation access";
     license = licenses.mit;
     homepage = https://github.com/cdgriffith/Box;

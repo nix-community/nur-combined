@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python27Packages }:
+{ stdenv, lib, fetchFromGitHub, python27Packages }:
 python27Packages.buildPythonApplication {
   name = "uefi-driver-wizard";
 
@@ -18,7 +18,7 @@ python27Packages.buildPythonApplication {
     python27Packages.wxPython
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "UEFI Driver Wizard for EDK2";
     license = licenses.bsd2;
     homepage = https://github.com/tianocore/tianocore.github.io/wiki/UEFI-Driver-Wizard;
