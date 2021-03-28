@@ -15,17 +15,15 @@ let
     garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
     ha-dyson = pySelf.callPackage ./pkgs/ha-dyson { };
     ha-dyson-cloud = pySelf.callPackage ./pkgs/ha-dyson-cloud { };
-    hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
     homeassistant = pySelf.toPythonModule pkgs.home-assistant;
     libdyson = pySelf.callPackage ./pkgs/libdyson { };
     libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
     pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
-    python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };
-    python-socketio_4 = pySelf.callPackage ./pkgs/python-socketio/4.nix { };
     ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
-    smartbox = pySelf.callPackage ./pkgs/smartbox { };
     teslajsonpy = pySelf.callPackage ./pkgs/teslajsonpy { };
   } // pkgs.lib.optionalAttrs (pkgs.lib.hasPrefix "21.05" pkgs.lib.version) {
+    smartbox = pySelf.callPackage ./pkgs/smartbox { };
+    hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
     pytest-homeassistant-custom-component = pySelf.callPackage ./pkgs/pytest-homeassistant-custom-component { };
   };
 in rec {
