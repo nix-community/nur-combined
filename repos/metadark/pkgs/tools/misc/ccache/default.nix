@@ -13,13 +13,13 @@
 
 let ccache = stdenv.mkDerivation rec {
   pname = "ccache";
-  version = "4.2";
+  version = "4.2.1";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-DrVQBNF1UxUxD4PcTNblmXcsXfB/LZmcOHp93wlAKdM=";
+    hash = "sha256-hVpnpRvO0LrqEmyspDqklj/il0tI5Bnlb2g6wY29vNc=";
   };
 
   patches = lib.optional stdenv.isDarwin (substituteAll {
