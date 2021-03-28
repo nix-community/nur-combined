@@ -15,11 +15,15 @@ with lib;
         "${impermanence}/home-manager.nix"
         ../home-configuration
       ];
-      home.file = lib.mapAttrs' (k: v: nameValuePair (".config/${k}") {
+
+      programs.home-manager.enable = true;
+      privateConfig.enable = true;
+
+      home.file = mapAttrs' (k: v: nameValuePair (".config/${k}") {
         source = ../../local + "/${k}";
         recursive = true;
       }) (builtins.readDir ../../local);
-      programs.home-manager.enable = true;
+
       home.persistence."/nix/persist/home/erik" = {
         directories = [
           ".ssh"

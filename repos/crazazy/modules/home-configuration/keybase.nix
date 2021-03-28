@@ -1,8 +1,10 @@
-{ ... }:
+{ config, lib, ... }:
 {
-  services.keybase.enable = true;
-  services.kbfs = {
-    enable = true;
-    mountPoint = ".local/keybase";
+  config = lib.mkIf config.privateConfig.enable {
+    services.keybase.enable = true;
+    services.kbfs = {
+        enable = true;
+        mountPoint = ".local/keybase";
+    };
   };
 }
