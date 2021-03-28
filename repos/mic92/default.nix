@@ -42,6 +42,18 @@ rec {
       kernelPatches.request_key_helper
     ];
   };
+  #linux_ayufan_5_9 = pkgs.callPackage ./pkgs/linux_ayufan_5_9 {
+  #  kernelPatches = with pkgs; [
+  #    kernelPatches.bridge_stp_helper
+  #    kernelPatches.request_key_helper
+  #  ];
+  #};
+  #linux_ayufan_5_11 = pkgs.callPackage ./pkgs/linux_ayufan_5_11 {
+  #  kernelPatches = with pkgs; [
+  #    kernelPatches.bridge_stp_helper
+  #    kernelPatches.request_key_helper
+  #  ];
+  #};
   linux_ayufan = linux_ayufan_5_6;
 
   linuxPackages_ayufan_5_6 = pkgs.linuxPackagesFor linux_ayufan_5_6;
@@ -93,8 +105,6 @@ rec {
   };
 
   inherit (rhasspyPackages) rhasspy;
-
-  rnix-lsp-unstable = pkgs.callPackage ./pkgs/rnix-lsp { };
 
   sgx-lkl = pkgs.callPackage ./pkgs/sgx-lkl { };
 
