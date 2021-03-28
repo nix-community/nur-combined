@@ -32,6 +32,7 @@
   saait = pkgs.callPackage ./pkgs/saait { };
   groff = pkgs.callPackage ./pkgs/groff { };
   xccp = pkgs.callPackage ./pkgs/xccp { };
+  neatroff = pkgs.callPackage ./pkgs/neatroff { };
 
   st = pkgs.callPackage ./pkgs/larbs/st { };
   dwm = pkgs.callPackage ./pkgs/larbs/dwm { };

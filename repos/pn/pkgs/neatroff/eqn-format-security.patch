@@ -1,0 +1,11 @@
+diff --git a/Makefile b/Makefile
+index 9c8d51a..0ed61bd 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,5 +1,5 @@
+ CC = cc
+-CFLAGS = -Wall -O2
++CFLAGS = -Wall -O2 -Wno-format-security
+ LDFLAGS =
+ OBJS = eqn.o tok.o src.o def.o box.o reg.o sbuf.o
+ 

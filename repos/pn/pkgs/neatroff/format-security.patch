@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 801c6ed..d1efdaa 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@ FDIR = /neatroff/font
+ MDIR = /neatroff/tmac
+ 
+ CC = cc
+-CFLAGS = -Wall -O2 "-DTROFFFDIR=\"$(FDIR)\"" "-DTROFFMDIR=\"$(MDIR)\""
++CFLAGS = -Wall -O2 "-DTROFFFDIR=\"$(FDIR)\"" "-DTROFFMDIR=\"$(MDIR)\"" -Wno-format-security
+ LDFLAGS =
+ OBJS = roff.o dev.o font.o in.o cp.o tr.o ren.o out.o reg.o sbuf.o fmt.o \
+ 	eval.o draw.o wb.o hyph.o map.o clr.o char.o dict.o iset.o dir.o
