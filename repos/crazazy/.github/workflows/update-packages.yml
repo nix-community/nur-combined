@@ -22,7 +22,7 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-    
+
     - name: Setup fake git account
       run: |
         git config user.name "Monorepo bot :D"
@@ -36,43 +36,37 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
         nix_path: nixpkgs=channel:nixpkgs-unstable
-   
+
    # updates niv and javascript dependencies
     - name: Update niv dependencies
       run:  GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} nix-shell -p niv --run "niv update"
-    
+
     - name: Update flakes
       run: |
         ./createFlakeNix.sh
         git add -f flake.nix
         nix flake update
         git rm -f flake.nix
-        if [[ -z "$(git diff flake.lock --exit-code)" ]]; then
-          git add flake.lock
-        fi
-      
+
     - name: Update JavaScript packages
       run: |
         nix-env -iA nix-gen-node-tools -f pkgs/default.nix
-        cd pkgs
-        mv js old-js
-        mkdir js
-        mv old-js/default.nix js/
-        for i in $(ls old-js/); do
-          (cd js/ && nix-gen-node-tools $i)
-        done
-        rm -rf old-js/
-        if [[ -z "$(git diff --exit-code)" ]]; then
-          git add .
-        fi
-        
+        (cd pkgs && {
+            mv js old-js
+            mkdir js
+            mv old-js/default.nix js/
+            for i in $(ls old-js/); do
+            (cd js/ && nix-gen-node-tools $i)
+            done
+            rm -rf old-js/
+         })
+
     - name: Create commit message
       run: |
+        git add .
         git commit -m "Automatic update of packages at $(date)"
-      
+
     - name: Push to master
       uses: ad-m/github-push-action@v0.6.0
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
-
-

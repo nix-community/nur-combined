@@ -13,31 +13,31 @@ let
         sha512 = "HyYEUDeIj5rRQU2Hk5HTB2uHsbRQpF70nvMhVzi+VJR0X+xNEhjPui4/kBf3VeH/wqD28PT4sVOm8qqLjBrSZg==";
       };
     };
-    "@webpack-cli/configtest-1.0.1" = {
+    "@webpack-cli/configtest-1.0.2" = {
       name = "_at_webpack-cli_slash_configtest";
       packageName = "@webpack-cli/configtest";
-      version = "1.0.1";
+      version = "1.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/configtest/-/configtest-1.0.1.tgz";
-        sha512 = "B+4uBUYhpzDXmwuo3V9yBH6cISwxEI4J+NO5ggDaGEEHb0osY/R7MzeKc0bHURXQuZjMM4qD+bSJCKIuI3eNBQ==";
+        url = "https://registry.npmjs.org/@webpack-cli/configtest/-/configtest-1.0.2.tgz";
+        sha512 = "3OBzV2fBGZ5TBfdW50cha1lHDVf9vlvRXnjpVbJBa20pSZQaSkMJZiwA8V2vD9ogyeXn8nU5s5A6mHyf5jhMzA==";
       };
     };
-    "@webpack-cli/info-1.2.2" = {
+    "@webpack-cli/info-1.2.3" = {
       name = "_at_webpack-cli_slash_info";
       packageName = "@webpack-cli/info";
-      version = "1.2.2";
+      version = "1.2.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/info/-/info-1.2.2.tgz";
-        sha512 = "5U9kUJHnwU+FhKH4PWGZuBC1hTEPYyxGSL5jjoBI96Gx8qcYJGOikpiIpFoTq8mmgX3im2zAo2wanv/alD74KQ==";
+        url = "https://registry.npmjs.org/@webpack-cli/info/-/info-1.2.3.tgz";
+        sha512 = "lLek3/T7u40lTqzCGpC6CAbY6+vXhdhmwFRxZLMnRm6/sIF/7qMpT8MocXCRQfz0JAh63wpbXLMnsQ5162WS7Q==";
       };
     };
-    "@webpack-cli/serve-1.3.0" = {
+    "@webpack-cli/serve-1.3.1" = {
       name = "_at_webpack-cli_slash_serve";
       packageName = "@webpack-cli/serve";
-      version = "1.3.0";
+      version = "1.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.3.0.tgz";
-        sha512 = "k2p2VrONcYVX1wRRrf0f3X2VGltLWcv+JzXRBDmvCxGlCeESx4OXw91TsWeKOkp784uNoVQo313vxJFHXPPwfw==";
+        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.3.1.tgz";
+        sha512 = "0qXvpeYO6vaNoRBI52/UsbcaBydJCggoBBnIo/ovQQdn6fug0BgwsjorV1hVS7fMqGVTZGcVxv8334gjmbj5hw==";
       };
     };
     "ansi-colors-4.1.1" = {
@@ -467,13 +467,13 @@ let
   args = {
     name = "webpack-cli";
     packageName = "webpack-cli";
-    version = "4.5.0";
-    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.5.0.tgz"; sha1 = "b5213b84adf6e1f5de6391334c9fa53a48850466"; };
+    version = "4.6.0";
+    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.6.0.tgz"; sha1 = "27ae86bfaec0cf393fcfd58abdc5a229ad32fd16"; };
     dependencies = [
       sources."@discoveryjs/json-ext-0.5.2"
-      sources."@webpack-cli/configtest-1.0.1"
-      sources."@webpack-cli/info-1.2.2"
-      sources."@webpack-cli/serve-1.3.0"
+      sources."@webpack-cli/configtest-1.0.2"
+      sources."@webpack-cli/info-1.2.3"
+      sources."@webpack-cli/serve-1.3.1"
       sources."ansi-colors-4.1.1"
       sources."clone-deep-4.0.1"
       sources."colorette-1.2.2"

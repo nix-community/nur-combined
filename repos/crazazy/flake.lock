@@ -3,13 +3,13 @@
     "NUR": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-sQMhDeKPduEbKoWkuvwg7a9oz2aYUL3IkQIGEGRWKhI=",
+        "narHash": "sha256-6xjQLPErwf8AktE1pNbwZw0aRJPI2IScL/f3PWH+p60=",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/e895015d863d499ba7ef35a0ddbe6d2a0cbfdcab.tar.gz"
+        "url": "https://github.com/nix-community/NUR/archive/211b30b234cd32297cf84214c942c56d7a564789.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/e895015d863d499ba7ef35a0ddbe6d2a0cbfdcab.tar.gz"
+        "url": "https://github.com/nix-community/NUR/archive/211b30b234cd32297cf84214c942c56d7a564789.tar.gz"
       }
     },
     "classicube": {
@@ -220,13 +220,13 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "narHash": "sha256-U9DO04sb+8Qy13EJckxOJIxT2Vlc/8i089XkfBnXH0M=",
+        "narHash": "sha256-Z9hL54J/M6sWSa2UqDDVCgsNsA1MhUEt0dQ803+24I8=",
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/7b30fc99227e6c7c331a01a9fb87599e4cd8cee1.tar.gz"
+        "url": "https://github.com/rycee/home-manager/archive/c1761366b522595ff0dda47d7ba79d5242ecb31e.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/7b30fc99227e6c7c331a01a9fb87599e4cd8cee1.tar.gz"
+        "url": "https://github.com/rycee/home-manager/archive/c1761366b522595ff0dda47d7ba79d5242ecb31e.tar.gz"
       }
     },
     "impermanence": {
