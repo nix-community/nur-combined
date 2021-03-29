@@ -15,13 +15,13 @@ let
     buildInputs = lib.remove gnome2.gnome_vfs oldAttrs.buildInputs;
     NIX_LDFLAGS = builtins.replaceStrings [ "-lgnomevfs-2" ] [ "" ] oldAttrs.NIX_LDFLAGS;
   });
-  version = "1.5.9";
+  version = "1.6.1";
   name = "bisq-desktop";
 
   src = (fetchgit rec {
     url = https://github.com/bisq-network/bisq;
     rev = "v${version}";
-    sha256 = "0xhmc69gw7d3cdsc84pkpz5ga8v9d9hn7flh07n68c0f9ngz1smp";
+    sha256 = "12i6b1qqf3lxpx1dnai8znijhwv2rg0ak0pyma1y85faqhhnvbk9";
     postFetch = ''
       cd $out
       git clone $url
