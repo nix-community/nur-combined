@@ -699,10 +699,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "6.3.1";
+      version = "7.0.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3735118/octotree_github_code_tree-6.3.1-fx.xpi";
-      sha256 = "115bb6ac4f40045fc94f82d2d2a379b96efcf3482ac62d7eb91a3a0438c9e41d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3751427/octotree_github_code_tree-7.0.0-fx.xpi";
+      sha256 = "cd1db0de3ffd50e22e4a33a3a9cbeca05dbb21ec56ec79bbb015cb0bc2f2ad8a";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -837,10 +837,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.22.0";
+      version = "5.22.1";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3744700/reddit_enhancement_suite-5.22.0-an+fx.xpi";
-      sha256 = "4d7703105e6fbab106af211f95d76de05eaa3f7abcc96999fc63d629c80b0643";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3750970/reddit_enhancement_suite-5.22.1-an+fx.xpi";
+      sha256 = "a692d8e64a8115100c22ca00051443cad94ade4fa8d907fef10221f29f1dd38b";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -1174,10 +1174,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "0.32";
+      version = "1.0.0";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3700427/vim_vixen-0.32-an+fx.xpi";
-      sha256 = "99c6c8e785a0796a12a2d2e59dd1b539cb1edc00e1d81cd993eac43926eb91e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3750949/vim_vixen-1.0.0-an+fx.xpi";
+      sha256 = "f0c5817d758d46ee67be33bd53951406b1f3cb078eb9230cd3c2c73221a4d955";
       meta = with lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
@@ -1202,10 +1202,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.12.11";
+      version = "2.12.12";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3741442/violentmonkey-2.12.11-an+fx.xpi";
-      sha256 = "495a47d1f2f864820a50c3a7f0fdef1fc6f605f316f9106d670bcb81ecd536cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3750973/violentmonkey-2.12.12-an+fx.xpi";
+      sha256 = "fd060b98a8e3f9c03ae9d809644248c848734d8ba1a46e9a240ea3581604ed43";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
