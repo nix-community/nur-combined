@@ -260,6 +260,20 @@
         platforms = platforms.all;
         };
       };
+    "export-tabs-urls-and-titles" = buildFirefoxXpiAddon {
+      pname = "export-tabs-urls-and-titles";
+      version = "0.2.12";
+      addonId = "{17165bd9-9b71-4323-99a5-3d4ce49f3d75}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3398882/export_tabs_urls-0.2.12-fx.xpi";
+      sha256 = "ff71ff6e300bf00e02ba79e127073f918aec79f951b749b2f06add006e773ac9";
+      meta = with lib;
+      {
+        homepage = "https://github.com/alct/export-tabs-urls";
+        description = "List the URLs of all the open tabs and copy that list to clipboard or export it to a file.\n\nFeatures:\n- include titles\n- custom format (e.g. markdown, html…)\n- filter tabs\n- limit to current window\n- list non-HTTP(s) URLs\n- ignore pinned tabs";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
       version = "2.1.2";
@@ -383,6 +397,25 @@
         homepage = "https://github.com/gopasspw/gopassbridge";
         description = "Gopass Bridge allows searching and inserting login credentials from the gopass password manager ( <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/fa484fa7cde64c1be04f689a80902fdf34bfe274b8675213f619c3a13e6606ab/https%3A//www.gopass.pw/\">https://www.gopass.pw/</a> ).";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "grammarly" = buildFirefoxXpiAddon {
+      pname = "grammarly";
+      version = "8.872.0";
+      addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3747920/grammarly_for_firefox-8.872.0-an+fx.xpi";
+      sha256 = "18df21f042452d03e15673543fa7c2e3ac1a2c2611554b9b6cdcc491c86e970e";
+      meta = with lib;
+      {
+        homepage = "http://grammarly.com";
+        description = "Grammarly’s writing assistant has you covered in any writing situation. With real-time suggestions to help with grammar, clarity, tone, and more, you can be confident that your writing will make the impression you want.";
+        license = {
+          shortName = "grammarly";
+          fullName = "Grammarly Terms of Service and License Agreement";
+          url = "https://www.grammarly.com/terms";
+          free = false;
+          };
         platforms = platforms.all;
         };
       };
@@ -697,6 +730,20 @@
         platforms = platforms.all;
         };
       };
+    "octolinker" = buildFirefoxXpiAddon {
+      pname = "octolinker";
+      version = "6.8.1";
+      addonId = "octolinker@stefanbuck.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3702571/octolinker-6.8.1-an+fx.xpi";
+      sha256 = "86ef604f30994ade83293caf12734312728a57001e4fd9083afe8c1f8e8e394d";
+      meta = with lib;
+      {
+        homepage = "https://octolinker.now.sh";
+        description = "It turns language-specific module-loading statements like include, require or import into links. Depending on the language it will either redirect you to the referenced file or to an external website like a manual page or another service.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
       version = "7.0.0";
@@ -721,6 +768,20 @@
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
         description = "Ensure Reddit always loads the old design";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "open-in-browser" = buildFirefoxXpiAddon {
+      pname = "open-in-browser";
+      version = "2.11";
+      addonId = "openinbrowser@www.spasche.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3481016/open_in_browser-2.11-fx.xpi";
+      sha256 = "8abbcbfcaffd63d0501e77ae5748ec52ce4df465a83433e2063542ed74a7ce4f";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Rob--W/open-in-browser";
+        description = "Offers the possibility to display documents in the browser window.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -763,6 +824,24 @@
         homepage = "http://kde.org";
         description = "Multitask efficiently by controlling browser functions from the Plasma desktop.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "pocket-select-all" = buildFirefoxXpiAddon {
+      pname = "pocket-select-all";
+      version = "1.0";
+      addonId = "{68a267e1-f384-4356-9f1e-511ec5807858}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1052566/pocket_select_all-1.0-an+fx.xpi";
+      sha256 = "5cdf8426127fdc376bad81aa3035f3993cfa7621b2899353881333302c0df507";
+      meta = with lib;
+      {
+        description = "Adds a Select All button to <a href=\"https://outgoing.prod.mozaws.net/v1/00c9d03cfa8d351fa7e6b5809ce9940b861a97f394a8cedefcee710f58cfb0c5/https%3A//getpocket.com\" rel=\"nofollow\">https://getpocket.com</a>.\n\n**WARNING**: Some people have complained about this extension being automatically installed or similar. If this happens, or you installed it from anywhere but <a href=\"http://addons.mozilla.org\" rel=\"nofollow\">addons.mozilla.org</a>, please remove it.";
+        license = {
+          shortName = "unfree";
+          fullName = "Unfree";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/pocket-select-all/";
+          free = false;
+          };
         platforms = platforms.all;
         };
       };
@@ -821,6 +900,20 @@
         platforms = platforms.all;
         };
       };
+    "rabattcorner" = buildFirefoxXpiAddon {
+      pname = "rabattcorner";
+      version = "2.1.1";
+      addonId = "jid1-7eplFgLu6atoog@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/976325/rabattcorner-2.1.1-fx.xpi";
+      sha256 = "c6d51f11f0dfea6e4253eb161f8f769ee25e1e47d2ea2ce88f0b464805e7c5ed";
+      meta = with lib;
+      {
+        homepage = "https://www.rabattcorner.ch";
+        description = "Jetzt bei jedem Online Einkauf bis zu 25% Cashback erhalten. <a href=\"https://outgoing.prod.mozaws.net/v1/be8bb3eaeaba31de0d5f89ccc266fa9cf18fda0fabad24266491f7c9342df151/http%3A//Rabattcorner.ch\" rel=\"nofollow\">Rabattcorner.ch</a> zahlt dir nach jedem Einkauf in einem der über 350 angeschlossenen Online Shops einen Teil deines Einkaufsbetrags zurück.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
       version = "4.10.1";
@@ -831,6 +924,20 @@
       {
         homepage = "https://github.com/facebook/react";
         description = "React Developer Tools is a tool that allows you to inspect a React tree, including the component hierarchy, props, state, and more. To get started, just open the Firefox devtools and switch to the \"⚛️ Components\" or \"⚛️ Profiler\" tab.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "reddit-comment-collapser" = buildFirefoxXpiAddon {
+      pname = "reddit-comment-collapser";
+      version = "5.1.1";
+      addonId = "{a5b2e636-07e5-4331-93c1-6cf4074356c8}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/687469/reddit_comment_collapser-5.1.1-fx.xpi";
+      sha256 = "32c55ccfc082715f648d04bd92c9985730a6cce768f6e0ee9e9eb28cb72d6c44";
+      meta = with lib;
+      {
+        homepage = "https://github.com/tom-james-watson/reddit-comment-collapser";
+        description = "A more elegant solution for collapsing reddit comment trees.\n\nReddit Comment Collapser is free and open source. Contributions welcome - <a href=\"https://outgoing.prod.mozaws.net/v1/782747fdec02dc86f6a710b2169056074fd7d1c2e56583eddf9168d2be14e7a0/https%3A//github.com/tom-james-watson/reddit-comment-collapser\" rel=\"nofollow\">https://github.com/tom-james-watson/reddit-comment-collapser</a>";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -860,6 +967,20 @@
         homepage = "https://www.reddit.com/r/toolbox";
         description = "This is bundled extension of the /r/toolbox moderator tools for <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/42268797a19a16a2ebeeda77cca1eda5a48db14e0cff56de4fab35eaef484216/http%3A//reddit.com\">reddit.com</a>\n\nContaining:\n\nMod Tools Enhanced\nMod Button\nMod Mail Pro\nMod Domain Tagger\nToolbox Notifier\nMod User Notes\nToolbox Config";
         license = licenses.asl20;
+        platforms = platforms.all;
+        };
+      };
+    "reduxdevtools" = buildFirefoxXpiAddon {
+      pname = "reduxdevtools";
+      version = "2.17.1";
+      addonId = "extension@redux.devtools";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1509811/redux_devtools-2.17.1-fx.xpi";
+      sha256 = "649d780d19201b2607347c4f57b5b57b237624b2c0ed322af9575cf791cce326";
+      meta = with lib;
+      {
+        homepage = "https://github.com/zalmoxisus/redux-devtools-extension";
+        description = "DevTools for Redux with actions history, undo and replay.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -970,6 +1091,20 @@
       {
         description = "Swedish spell-check dictionary.";
         license = licenses.lgpl3;
+        platforms = platforms.all;
+        };
+      };
+    "tab-session-manager" = buildFirefoxXpiAddon {
+      pname = "tab-session-manager";
+      version = "6.4.2";
+      addonId = "Tab-Session-Manager@sienori";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3743205/tab_session_manager-6.4.2-fx.xpi";
+      sha256 = "e7afe81f3833b36b7d6d899b6c19d2d9ed0515c77654461280a5ebb5cb4b4d4f";
+      meta = with lib;
+      {
+        homepage = "https://tab-session-manager.sienori.com/";
+        description = "Save and restore the state of windows and tabs. It also supports automatic saving and cloud sync.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -1172,6 +1307,20 @@
         platforms = platforms.all;
         };
       };
+    "view-image" = buildFirefoxXpiAddon {
+      pname = "view-image";
+      version = "3.4.1";
+      addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3746023/view_image-3.4.1-an+fx.xpi";
+      sha256 = "43c23749d3e86812ee3de1b247f7364a53c2a829f157250a4ae04e448880a495";
+      meta = with lib;
+      {
+        homepage = "https://github.com/bijij/ViewImage";
+        description = "Re-implements the google image, \"View Image\" and \"Search by Image\" buttons.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
       version = "1.0.0";
@@ -1210,6 +1359,34 @@
       {
         homepage = "https://violentmonkey.github.io/";
         description = "Violentmonkey provides userscripts support for browsers.\nIt's open source! <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/c8bcebd9a0e76f20c888274e94578ab5957439e46d59a046ff9e1a9ef55c282c/https%3A//github.com/violentmonkey/violentmonkey\">https://github.com/violentmonkey/violentmonkey</a>";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "wappalyzer" = buildFirefoxXpiAddon {
+      pname = "wappalyzer";
+      version = "6.5.29";
+      addonId = "wappalyzer@crunchlabz.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3747969/wappalyzer-6.5.29-fx.xpi";
+      sha256 = "491bd628f522301fb6af27645cb354407621353047e6d0abf5647b365197ddde";
+      meta = with lib;
+      {
+        homepage = "https://www.wappalyzer.com";
+        description = "Identify technologies on websites";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "web-scrobbler" = buildFirefoxXpiAddon {
+      pname = "web-scrobbler";
+      version = "2.41.0";
+      addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3737319/web_scrobbler-2.41.0-an+fx.xpi";
+      sha256 = "07730c165c49a0e08c3369d79b3d12150ccac22587c38c6614ac2dbf73d2a423";
+      meta = with lib;
+      {
+        homepage = "https://web-scrobbler.com";
+        description = "Scrobble music all around the web!";
         license = licenses.mit;
         platforms = platforms.all;
         };
