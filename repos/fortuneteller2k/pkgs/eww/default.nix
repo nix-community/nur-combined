@@ -13,6 +13,8 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-K94Utgw+0oFnVmmyQQ4CbSeiRkAviDGoilSy6D/jmMY=";
   };
 
+  cargoPatches = [ ./update-cargo-lock.patch ];
+
   nativeBuildInputs = [ wrapGAppsHook pkg-config rust-bin.nightly.latest.rust ];
 
   buildInputs = [
@@ -26,7 +28,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   checkPhase = null;
-  cargoSha256 = "sha256-E328a8i0/eIBcu1N+NV66vmyGIqHVvp7MczDoo/QEJo=";
+  cargoSha256 = "sha256-9OefhdIHK252Cu/xVmET2oh1YkPpe/Vt4YrBS+lSSUc=";
 
   meta = with lib; {
     description =
