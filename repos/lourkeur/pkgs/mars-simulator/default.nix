@@ -1,4 +1,5 @@
 {
+  lib,
   stdenv,
   fetchurl,
   openjdk11,
@@ -24,7 +25,7 @@ stdenv.mkDerivation {
     makeWrapper ${openjdk11}/bin/java $out/bin/mars-simulator --add-flags "-jar $jar"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "MIPS Assembler and Runtime Simulator";
     longDescription = ''
     MARS is a lightweight interactive development environment (IDE) for
