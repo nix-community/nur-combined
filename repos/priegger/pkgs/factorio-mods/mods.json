@@ -691,10 +691,10 @@
   },
   {
     "name": "Rampant",
-    "version": "1.0.4",
-    "file_name": "Rampant_1.0.4.zip",
-    "download_url": "/download/Rampant/603bef61eb0c029df5ed2174",
-    "sha1": "ea70ee910d835ee9d50b5724befe6b33b6225d98",
+    "version": "1.0.6",
+    "file_name": "Rampant_1.0.6.zip",
+    "download_url": "/download/Rampant/6061618ccbd4ca8b6f194258",
+    "sha1": "3473d6e6e72031240fe780a3c261f36ef2ad6a27",
     "dependencies": [
       "base >= 1.1.0",
       "? bobenemies",
