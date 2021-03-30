@@ -346,6 +346,10 @@
         "peel": {
             "url": "https://github.com/peel/nur-packages"
         },
+        "petrichor": {
+            "type": "gitea",
+            "url": "https://tildegit.org/petrichor/nixexprs"
+        },
         "piegames": {
             "url": "https://github.com/piegamesde/nur-packages"
         },
