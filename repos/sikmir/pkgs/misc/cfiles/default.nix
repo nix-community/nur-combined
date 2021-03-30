@@ -1,10 +1,15 @@
-{ lib, stdenv, pkg-config, ncurses, w3m, ueberzug, sources }:
+{ lib, stdenv, fetchFromGitHub, pkg-config, ncurses, w3m, ueberzug }:
 
-stdenv.mkDerivation {
-  pname = "cfiles-unstable";
-  version = lib.substring 0 10 sources.cfiles.date;
+stdenv.mkDerivation rec {
+  pname = "cfiles";
+  version = "1.8";
 
-  src = sources.cfiles;
+  src = fetchFromGitHub {
+    owner = "mananapr";
+    repo = "cfiles";
+    rev = "v${version}";
+    sha256 = "1nj20d839a2q3m23hbv53vdv6ifkjb5qjcsyxdw3k7l6841qx4v3";
+  };
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ncurses w3m ueberzug ];
@@ -22,7 +27,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    inherit (sources.cfiles) description homepage;
+    description = "A ncurses file manager written in C with vim like keybindings";
+    homepage = "https://github.com/mananapr/cfiles";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

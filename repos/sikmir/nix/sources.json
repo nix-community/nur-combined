@@ -13,20 +13,6 @@
         "url": "https://github.com/ruarxive/apibackuper/archive/1ff139f688d59b899ff041ccc282e224110ddc76.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "cfiles": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-06-09T05:17:34Z",
-        "description": "A ncurses file manager written in C with vim like keybindings",
-        "homepage": "https://github.com/mananapr/cfiles",
-        "owner": "mananapr",
-        "repo": "cfiles",
-        "rev": "c225a0d5ef60d8ce3f3acb0a54951a5c90849644",
-        "sha256": "11qq002gq4xi6vzwgrsr2hf3aj3fcaqcic3hw33mbj27xxxpaah4",
-        "type": "tarball",
-        "url": "https://github.com/mananapr/cfiles/archive/c225a0d5ef60d8ce3f3acb0a54951a5c90849644.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "cheetah3": {
         "branch": "master",
         "builtin": false,
@@ -137,20 +123,6 @@
         "sha256": "0187ygkk5g2xz2vfnl49xbgqgvkbnxy18xvakfb5y8fahdp42sns",
         "type": "tarball",
         "url": "https://github.com/wladich/elevation_server/archive/ed023fee8e7a4347f240d35fc0c855fdfff0464f.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "embox": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-03-08T09:26:30Z",
-        "description": "Modular and configurable OS for embedded applications",
-        "homepage": "http://embox.github.io",
-        "owner": "embox",
-        "repo": "embox",
-        "rev": "d24671d0e06d5f3077c95bd6b8bea5d7736e9b7f",
-        "sha256": "0lmknzc7y6p4zs58mmf95y8yz1pj8bf8v7d7cnk4x16mpjhd39mr",
-        "type": "tarball",
-        "url": "https://github.com/embox/embox/archive/d24671d0e06d5f3077c95bd6b8bea5d7736e9b7f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "foma": {

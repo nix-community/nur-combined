@@ -1,8 +1,8 @@
 { lib
 , stdenv
+, fetchFromGitHub
 , fetchurl
 , writers
-, sources
 , cpio
 , gcc-arm-embedded
 , python
@@ -27,11 +27,16 @@ let
       -nographic
   '';
 in
-stdenv.mkDerivation {
-  pname = "embox-unstable";
-  version = lib.substring 0 10 sources.embox.date;
+stdenv.mkDerivation rec {
+  pname = "embox";
+  version = "0.5.1";
 
-  src = sources.embox;
+  src = fetchFromGitHub {
+    owner = "embox";
+    repo = "embox";
+    rev = "v${version}";
+    sha256 = "0lvlmw60ab3n48cqb857phsvw9mpc5qfva4dw7wyilgs635x567c";
+  };
 
   patches = [ ./0001-fix-build.patch ];
 
@@ -63,7 +68,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    inherit (sources.embox) description homepage;
+    description = "Modular and configurable OS for embedded applications";
+    homepage = "http://embox.github.io/";
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
