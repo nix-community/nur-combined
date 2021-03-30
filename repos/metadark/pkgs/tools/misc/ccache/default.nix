@@ -22,10 +22,16 @@ let ccache = stdenv.mkDerivation rec {
     hash = "sha256-hVpnpRvO0LrqEmyspDqklj/il0tI5Bnlb2g6wY29vNc=";
   };
 
-  patches = lib.optional stdenv.isDarwin (substituteAll {
-    src = ./force-objdump-on-darwin.patch;
-    objdump = "${binutils.bintools}/bin/objdump";
-  });
+  patches = [
+    # When building for Darwin, test/run uses dwarfdump, whereas on
+    # Linux it uses objdump. We don't have dwarfdump packaged for
+    # Darwin, so this patch updates the test to also use objdump on
+    # Darwin.
+    (substituteAll {
+      src = ./force-objdump-on-darwin.patch;
+      objdump = "${binutils.bintools}/bin/objdump";
+    })
+  ];
 
   nativeBuildInputs = [ asciidoc cmake perl ];
 
