@@ -234,10 +234,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.3.8";
+      version = "2021.3.26";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3741831/duckduckgo_privacy_essentials-2021.3.8-an+fx.xpi";
-      sha256 = "4fb5bc1a4562f1298be7f3d020dea61f379f2d09c773621089ee3a57adcad55c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3751525/duckduckgo_privacy_essentials-2021.3.26-an+fx.xpi";
+      sha256 = "7d798b0e18d9a8450b805bf9d714e317fdd0527edda352da7e4703305e90ce82";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -574,10 +574,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.67.1.4";
+      version = "4.68.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3741902/lastpass_password_manager-4.67.1.4-an+fx.xpi";
-      sha256 = "02e314319abeb17dfd5a40380ce96909fc65b9f061920da16fffcd7ed93fa98e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3750291/lastpass_password_manager-4.68.0.3-an+fx.xpi";
+      sha256 = "f6f19474cb9af46f7c47d6dabd78532c868915d3e269ca1b9068ffa2459ac3d7";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -663,10 +663,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.2.0";
+      version = "9.2.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3743982/metamask-9.2.0-an+fx.xpi";
-      sha256 = "92e0bd1e3d2e3d6e7ee1996c5a8a0fd518d49186ed097e63281bd54000507405";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3751755/metamask-9.2.1-an+fx.xpi";
+      sha256 = "f1f4409206f59022888bcf2aff689019ee121c1d0db0714fdef9c589852e2dbb";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -944,10 +944,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.22.1";
+      version = "5.22.2";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3750970/reddit_enhancement_suite-5.22.1-an+fx.xpi";
-      sha256 = "a692d8e64a8115100c22ca00051443cad94ade4fa8d907fef10221f29f1dd38b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3751751/reddit_enhancement_suite-5.22.2-an+fx.xpi";
+      sha256 = "d79ba200b5b3646c4e32ceb58a1bdca9c8b7d934b950e5c03298a02012654060";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -1138,10 +1138,10 @@
       };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
-      version = "4.0.6";
+      version = "4.0.7";
       addonId = "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3730144/terms_of_service_didnt_read-4.0.6-fx.xpi";
-      sha256 = "fd1c57817b35fd2fe698666ddce6dd620eb81089679602ba01517f0f22e1939f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3751527/terms_of_service_didnt_read-4.0.7-fx.xpi";
+      sha256 = "4f94378af7e10907621ff9623e2fe68ea3e46d022608cd1d3c80b35e0bb68180";
       meta = with lib;
       {
         homepage = "http://tosdr.org";
@@ -1323,10 +1323,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "1.0.0";
+      version = "1.0.1";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3750949/vim_vixen-1.0.0-an+fx.xpi";
-      sha256 = "f0c5817d758d46ee67be33bd53951406b1f3cb078eb9230cd3c2c73221a4d955";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3751589/vim_vixen-1.0.1-an+fx.xpi";
+      sha256 = "60172f35ccc2d092bc1e21c43ec990dc40733b4aa3d5a6b66e54d04004d1b02e";
       meta = with lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
@@ -1365,10 +1365,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.5.29";
+      version = "6.5.31";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3747969/wappalyzer-6.5.29-fx.xpi";
-      sha256 = "491bd628f522301fb6af27645cb354407621353047e6d0abf5647b365197ddde";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3751860/wappalyzer-6.5.31-fx.xpi";
+      sha256 = "1464180198cfb92c28eb784be5b93698599292f54ea74cc69de942fed76389f0";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
