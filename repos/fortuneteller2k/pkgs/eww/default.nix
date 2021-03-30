@@ -4,16 +4,16 @@ with pkgs;
 
 rustPlatform.buildRustPackage rec {
   pname = "eww";
-  version = "unstable-2021-03-09";
+  version = "unstable-2021-03-28";
 
   src = fetchFromGitHub {
     owner = "elkowar";
     repo = pname;
-    rev = "c4cbdedec58d94fe4368da3bd740c07ea7907113";
-    sha256 = "sha256-H1RdKwSqqwU2hJSCaNBp0DXimlhd0DUWUkD3nZYdTvs=";
+    rev = "8436b666c292c3479916577c3142421f9455560c";
+    sha256 = "sha256-K94Utgw+0oFnVmmyQQ4CbSeiRkAviDGoilSy6D/jmMY=";
   };
 
-  nativeBuildInputs = [ pkg-config rust-bin.nightly.latest.rust ];
+  nativeBuildInputs = [ wrapGAppsHook pkg-config rust-bin.nightly.latest.rust ];
 
   buildInputs = [
     gtk3
@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   checkPhase = null;
-  cargoSha256 = "sha256-YyYpezOkF7H44N+dIyU2ITwb8Sa8AFlH8bHvkk4gWa8=";
+  cargoSha256 = "sha256-E328a8i0/eIBcu1N+NV66vmyGIqHVvp7MczDoo/QEJo=";
 
   meta = with lib; {
     description =
