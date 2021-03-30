@@ -7,6 +7,7 @@ with import ../../globalConfig.nix;
     "${flake.inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
     "${flake.inputs.impermanence}/nixos.nix"
     ../../modules/cachix/system.nix
+    ./modules/alibot.nix
   ];
   
   environment.persistence."/persist" = {
@@ -49,6 +50,7 @@ with import ../../globalConfig.nix;
   };
   virtualisation.docker.enable = true;
   services = {
+    alibot.enable = true;
     zerotierone.enable = true;
     irqbalance.enable = true;
     randomtube = { # TODO: Bump git commit
@@ -56,6 +58,7 @@ with import ../../globalConfig.nix;
       extraParameters = "-ms 120";
       secretsDotenv = "${rootPath}/secrets/randomtube.env";
     };
+    cloudflared.enable = true;
   };
 
   cachix.enable = true;
