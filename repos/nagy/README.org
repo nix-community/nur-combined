@@ -21,6 +21,11 @@ It contains packages/attributes for:
   - cxxtimer (https://github.com/andremaravilha/cxxtimer)
   - duf (https://github.com/muesli/duf)
 
+* Mirrors of this repo
+- https://github.com/nagy/nur-packages
+- https://gitlab.com/_nagy_/nur-packages
+- https://sr.ht/nagy/nur-packages
+
 * License
   
 MIT License

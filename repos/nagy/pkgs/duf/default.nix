@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "duf";
-  version = "0.6.0";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "muesli";
     repo = pname;
     rev = "v${version}";
-    sha256 = "00qsq63hkv8f4mflgi4lp9znvzk3z6sdkgmq5h2m8vps59zf0vas";
+    sha256 = "1szzppriwy20f87bgjanvvfv7xl7j8d29agwibjrdyjqx3hdrzjj";
   };
 
-  vendorSha256 = "0icxy6wbqjqawr6i5skwp1z37fq303p8f95crd8lwn6pjjiqzk4i";
+  vendorSha256 = "1pm3inyyd57xgi4v2yb3ln0m5qs0sw7w1rw8cph6v5k7aw5x8nh3";
 
   meta = with lib; {
     description = "Disk Usage/Free Utility - a better 'df' alternative";
