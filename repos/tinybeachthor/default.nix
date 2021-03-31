@@ -32,4 +32,5 @@ rec {
     inherit fluidsynth;
     inherit (libraries) libinstpatch;
   };
+  netlogo = pkgs.callPackage ./pkgs/netlogo { };
 }
