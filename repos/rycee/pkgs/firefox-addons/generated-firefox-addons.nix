@@ -541,10 +541,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.7.6";
+      version = "1.7.7";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3720664/keepassxc_browser-1.7.6-fx.xpi";
-      sha256 = "dcae34e3f7aadda9878484f45a1cd0b42f3dda17b9234929d92bdbcc4f5d6d98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3752138/keepassxc_browser-1.7.7-fx.xpi";
+      sha256 = "c99b6bb19db40806573d3317984d8c82dabd417315d3e82a8a0a8dda017a87f5";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -746,10 +746,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.0.0";
+      version = "7.0.1";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3751427/octotree_github_code_tree-7.0.0-fx.xpi";
-      sha256 = "cd1db0de3ffd50e22e4a33a3a9cbeca05dbb21ec56ec79bbb015cb0bc2f2ad8a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3752189/octotree_github_code_tree-7.0.1-fx.xpi";
+      sha256 = "e693d303877642ec2f8ccf61924375adf65c01336447d38e6f0f48afdc44d2f2";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1179,10 +1179,10 @@
       };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.2.0";
+      version = "0.3.0";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3592222/to_deepl_translation-0.2.0-fx.xpi";
-      sha256 = "7ab0364f69058185800f25c26681cf4c6bcbf7244936fe8edf5a4b3b597dd146";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3752182/to_deepl_translation-0.3.0-fx.xpi";
+      sha256 = "9a14af6d5b64e1391b9c3cb00297e041a242c7e3b2b1f0632bbbf44563188bb9";
       meta = with lib;
       {
         homepage = "https://github.com/rewkha/firefox-to-deepl/";
