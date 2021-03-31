@@ -1,5 +1,5 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index 050299d..9a00e42 100644
+index 9e74678..e6cf43f 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
 @@ -67,10 +67,6 @@ class Api:
@@ -13,7 +13,7 @@ index 050299d..9a00e42 100644
              "showChangelog": updated and util.get_settings("changelog"),
          }
          if updated:
-@@ -730,45 +726,6 @@ class Api:
+@@ -736,45 +732,6 @@ class Api:
          help_thread = Thread(target=help_window, args=(self.host,))
          help_thread.start()
  
@@ -60,10 +60,10 @@ index 050299d..9a00e42 100644
          opener = Thread(target=start_new_instance)
          opener.start()
 diff --git a/bcml/assets/src/js/App.jsx b/bcml/assets/src/js/App.jsx
-index ecfffde..dcb5c48 100644
+index c91c653..12c2ba1 100644
 --- a/bcml/assets/src/js/App.jsx
 +++ b/bcml/assets/src/js/App.jsx
-@@ -39,7 +39,6 @@ class App extends React.Component {
+@@ -49,7 +49,6 @@ class App extends React.Component {
              confirmText: "",
              confirmCallback: () => {},
              showAbout: false,
@@ -71,7 +71,7 @@ index ecfffde..dcb5c48 100644
              changelog: true,
              showChangelog: false,
              version: "3.0"
-@@ -319,16 +318,6 @@ class App extends React.Component {
+@@ -336,16 +335,6 @@ class App extends React.Component {
              .catch(this.props.onError);
      };
  
@@ -88,17 +88,17 @@ index ecfffde..dcb5c48 100644
      setProgress = (title, msg) => {
          this.setState({
              progressTitle: title,
-@@ -355,9 +344,6 @@ class App extends React.Component {
-                         <Dropdown.Item onClick={() => pywebview.api.save_mod_list()}>
-                             Save Mod List
-                         </Dropdown.Item>
--                        <Dropdown.Item onClick={this.updateBcml}>
--                            Update BCML
--                        </Dropdown.Item>
-                         <Dropdown.Item as="a" href="/index.html?firstrun">
-                             Run Setup Wizard
-                         </Dropdown.Item>
-@@ -473,14 +459,6 @@ class App extends React.Component {
+@@ -373,9 +362,6 @@ class App extends React.Component {
+                                 onClick={() => pywebview.api.save_mod_list()}>
+                                 Save Mod List
+                             </Dropdown.Item>
+-                            <Dropdown.Item onClick={this.updateBcml}>
+-                                Update BCML
+-                            </Dropdown.Item>
+                             <Dropdown.Item as="a" href="/index.html?firstrun">
+                                 Run Setup Wizard
+                             </Dropdown.Item>
+@@ -504,14 +490,6 @@ class App extends React.Component {
                      message={this.state.confirmText}
                      onClose={this.state.confirmCallback.bind(this)}
                  />
@@ -113,7 +113,7 @@ index ecfffde..dcb5c48 100644
                  <BackupModal
                      show={this.state.showBackups}
                      busy={this.state.showProgress}
-@@ -608,25 +586,6 @@ const ConfirmDialog = props => {
+@@ -639,25 +617,6 @@ const ConfirmDialog = props => {
      );
  };
  
@@ -140,7 +140,7 @@ index ecfffde..dcb5c48 100644
      constructor(props) {
          super(props);
 diff --git a/bcml/assets/src/js/Settings.jsx b/bcml/assets/src/js/Settings.jsx
-index 22fc7a1..c6306f5 100644
+index 3e56b0e..75934e9 100644
 --- a/bcml/assets/src/js/Settings.jsx
 +++ b/bcml/assets/src/js/Settings.jsx
 @@ -22,7 +22,6 @@ class Settings extends React.Component {
@@ -151,7 +151,7 @@ index 22fc7a1..c6306f5 100644
              valid: false,
              loaded: false,
              nsfw: false,
-@@ -462,24 +461,6 @@ class Settings extends React.Component {
+@@ -501,24 +500,6 @@ class Settings extends React.Component {
                                  />
                              </OverlayTrigger>
                          </Form.Group>
@@ -177,7 +177,7 @@ index 22fc7a1..c6306f5 100644
                              <OverlayTrigger
                                  overlay={
 diff --git a/bcml/util.py b/bcml/util.py
-index c2e22da..ad7af33 100644
+index 71127b3..7206835 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
 @@ -577,7 +577,6 @@ DEFAULT_SETTINGS = {
@@ -188,7 +188,7 @@ index c2e22da..ad7af33 100644
      "nsfw": False,
      "last_version": VERSION,
      "changelog": True,
-@@ -1277,25 +1276,6 @@ def get_open_port():
+@@ -1286,25 +1285,6 @@ def get_open_port():
      return port
  
  

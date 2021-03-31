@@ -1,24 +1,26 @@
 diff --git a/requirements.txt b/requirements.txt
-index 5438ec6..fda18e4 100644
+index ec4a5b3..a9bdd40 100644
 --- a/requirements.txt
 +++ b/requirements.txt
-@@ -1,13 +1,14 @@
--numpy==1.19.2
-+numpy>=1.19.2,<2
- aamp>=1.4.1
- byml>=2.3.1
--botw-utils==0.2.3
-+botw-utils~=0.2.3
+@@ -1,14 +1,15 @@
+ numpy==1.19.2; platform_system == 'Windows'
+-numpy~=1.19.3; platform_system == 'Linux'
+-aamp~=1.4.1
+-byml~=2.3.1
++numpy>=1.19.3,<2; platform_system == 'Linux'
++aamp>=1.4.1,<2
++byml>=2.3.1,<3
+ botw-utils~=0.2.3
  botw-havok~=0.3.18
- cefpython3~=66.0; platform_system == 'Windows'
+ cefpython3~=66.1; platform_system == 'Windows'
 -oead~=1.2.0
 +oead>=1.2.0,<2
- pythonnet>=2.5.0rc2; platform_system == 'Windows'
+ pythonnet~=2.5.2; platform_system == 'Windows'
 -pyqtwebengine~=5.15.2; platform_system == 'Linux'
 -PyYAML~=5.3.1
 -requests~=2.23.0
 +# pyqtwebengine missing dist-info + breaks GTK build
-+# pyqtwebengine>=5.15.2,<6; platform_system == 'Linux'
++# pyqtwebengine~=5.15.2,<6; platform_system == 'Linux'
 +PyYAML>=5.3.1,<6
 +requests>=2.23.0,<3
  rstb>=1.2.0
