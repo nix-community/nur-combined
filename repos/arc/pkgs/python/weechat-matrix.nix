@@ -16,7 +16,6 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     pyopenssl
     webcolors
-    future
     atomicwrites
     attrs
     Logbook
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     requests
     python_magic
     matrix-nio
-    aiohttp
-    typing
-  ];
+  ] ++ lib.optional (lib.versionOlder python.version "3.5") typing
+  ++ lib.optional (lib.versionOlder python.version "3.2") future
+  ++ lib.optional (lib.versionAtLeast python.version "3.5") aiohttp;
 
   passAsFile = [ "setup" ];
   setup = ''
