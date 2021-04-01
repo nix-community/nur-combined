@@ -1,4 +1,4 @@
-{ stdenv, writeText, fetchFromGitHub }: stdenv.mkDerivation rec {
+{ stdenv, lib, writeText, fetchFromGitHub }: stdenv.mkDerivation rec {
   pname = "mdloader";
   version = "1.05";
 
@@ -31,6 +31,6 @@
   '';
 
   meta = {
-    platforms = stdenv.lib.platforms.linux;
+    platforms = lib.platforms.linux;
   };
 }

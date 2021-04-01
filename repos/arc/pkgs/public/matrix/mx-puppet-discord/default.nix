@@ -1,4 +1,4 @@
-{ stdenv, pkgs, fetchFromGitHub, nodejs, nodePackages, pkg-config, cairo, pango, libpng, libjpeg, giflib, librsvg, makeWrapper, callPackage }:
+{ stdenv, lib, pkgs, fetchFromGitHub, nodejs, nodePackages, pkg-config, cairo, pango, libpng, libjpeg, giflib, librsvg, makeWrapper, callPackage }:
 
 let
   src = fetchFromGitHub {
@@ -38,7 +38,7 @@ in stdenv.mkDerivation rec {
     makeWrapper $out/build/index.js $out/bin/${pname}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     platforms = platforms.linux;
   };
 }

@@ -69,12 +69,6 @@ let
         source = nixos'.nixos-option;
         paths = [nixos'.manual.manpages man coreutils gnused nix];
       });
-    nixos-rebuild = { nixos, lib, path, stdenvNoCC, makeWrapper, man, coreutils, openssh, nix }: wrapScript nixos (nixos': {
-        inherit lib path stdenvNoCC makeWrapper;
-        name = "nixos-rebuild";
-        source = nixos'.nixos-rebuild.overrideAttrs (_: { inherit nix; });
-        paths = [nixos'.manual.manpages man coreutils openssh];
-      });
   };
   #tools = callPackage packages { };
 in packages#tools

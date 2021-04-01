@@ -1,20 +1,23 @@
-{ buildGoModule, fetchFromGitHub, makeWrapper, lib, i3 }: lib.drvExec "bin/i3gopher" (buildGoModule rec {
+{ buildGoModule, fetchFromGitHub, makeWrapper, lib
+, i3, enableI3 ? true
+, sway, enableSway ? hostPlatform.isLinux
+, hostPlatform
+}: lib.drvExec "bin/i3gopher" (buildGoModule rec {
   pname = "i3gopher";
-  version = "1.0.0";
+  version = "2020-09-02";
 
   src = fetchFromGitHub {
     owner = "quite";
     repo = "i3gopher";
-    rev = "v${version}";
-    sha256 = "03zlzd7v1n3nkjwyjsm2xc324jqpz6f93ksq19qqmnbyqqahphxy";
+    rev = "d8ac71f6499d0d15dd011c49522efab14d599dff";
+    sha256 = "04qz33vb7cvg6ckg7c04x170d992z55n3mncjyj72bc1d02hplh9";
   };
 
-  modSha256 = "1c4qx7ig59qqflmbkxi6bm97z38jcy9nsf6nj8j8w3fgc1f36r1g";
-  vendorSha256 = "0nbzm5j8vvdgddzd13qk87pamiw30i0a02sn6i1myx7rxcbi9vgm";
+  vendorSha256 = "1v11zmazk9aplskkr7gslzni6klfwadyi6kgazjyh3zl97wf6bb4";
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ i3 ];
-  i3Path = lib.makeBinPath [ i3 ];
+  buildInputs = lib.optional enableI3 i3 ++ lib.optional enableSway sway;
+  i3Path = lib.makeBinPath buildInputs;
   preFixup = ''
     wrapProgram $out/bin/i3gopher --prefix PATH : $i3Path
   '';

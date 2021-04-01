@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , perl
 , writeText
@@ -49,7 +50,7 @@ stdenv.mkDerivation {
     install -Dm0755 $src $out/lib/password-store/extensions/b2.bash
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A pass extension to retrieve meta-data properties";
     homepage = https://github.com/rjekker/pass-extension-meta;
     license = licenses.gpl3;

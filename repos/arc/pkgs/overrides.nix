@@ -321,7 +321,8 @@ let
       patchVersion =
         if lib.versionOlder old.version "0.22" then "0.21.25"
         else if lib.versionOlder old.version "0.22.1" then "0.22"
-        else "0.22.2";
+        else if lib.versionOlder old.version "0.22.6" then "0.22.2"
+        else "0.22.6";
     in {
       pname = "${mpd.pname}-youtube-dl";
 
@@ -332,6 +333,7 @@ let
           if patchVersion == "0.21.25" then "16n1fx505k6pprf753j6xzwh25ka4azwx49sz02wy68qdx8wa586"
           else if patchVersion == "0.22" then "07vladkk80mnc23ybi80wn17cfxwl8pvv5cg0rl17avyymljspax"
           else if patchVersion == "0.22.2" then "19ia0my2id84arxzzdgccp8r50jyi6z8355qpi3sn8i77phdbihh"
+          else if patchVersion == "0.22.6" then "19ia0my2id84arxzzdgccp8r50jyi6z8355qpi3sn8i77phdbihh"
           else lib.fakeSha256;
       }) ];
 

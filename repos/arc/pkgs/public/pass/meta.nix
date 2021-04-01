@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , perl
 }:
@@ -24,7 +25,7 @@ stdenv.mkDerivation {
       --replace "perl -l" "$perl/bin/perl -l"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A pass extension to retrieve meta-data properties";
     homepage = https://github.com/rjekker/pass-extension-meta;
     license = licenses.gpl3;

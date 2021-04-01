@@ -3,7 +3,9 @@
   version = olm.version;
 
   inherit (olm) src;
-  sourceRoot = "${olm.name}/python";
+  sourceRoot =
+    if lib.versionAtLeast olm.version "3.2.2" then "source/python"
+    else "${olm.name}/python";
   buildInputs = [ olm ];
 
   propagatedBuildInputs = with pythonPackages; [

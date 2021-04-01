@@ -1,4 +1,4 @@
-{ stdenv, pythonPackages, fetchpatch }:
+{ stdenv, lib, pythonPackages, fetchpatch }:
 
 with pythonPackages;
 
@@ -29,7 +29,7 @@ buildPythonPackage (rec {
     rm urwid/tests/test_vterm.py
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A full-featured console (xterm et al.) user interface library";
     homepage = http://excess.org/urwid;
     repositories.git = git://github.com/wardi/urwid.git;
