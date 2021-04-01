@@ -2,10 +2,10 @@
   {
     "1password-x-password-manager" = buildFirefoxXpiAddon {
       pname = "1password-x-password-manager";
-      version = "1.23.1";
+      version = "1.24.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3726657/1password_password_manager-1.23.1-fx.xpi";
-      sha256 = "47e9e98f1072d93d595002dc8c221e5cca17e091b3431563a8e3e2be575c5cc1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3752706/1password_password_manager-1.24.0-fx.xpi";
+      sha256 = "e52b6eb06bb9dde59c96d2a3cafd629a996fa0245686743646835beb80b905fe";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -1179,10 +1179,10 @@
       };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.3.0";
+      version = "0.3.1";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3752182/to_deepl_translation-0.3.0-fx.xpi";
-      sha256 = "9a14af6d5b64e1391b9c3cb00297e041a242c7e3b2b1f0632bbbf44563188bb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3752795/to_deepl_translation-0.3.1-fx.xpi";
+      sha256 = "b752cefa0a8f0aa81202dc957752c6f22e94d9e89b97d0644cb1358a999673fc";
       meta = with lib;
       {
         homepage = "https://github.com/rewkha/firefox-to-deepl/";
@@ -1220,10 +1220,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.7.3";
+      version = "3.7.4";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3734736/tree_style_tab_-3.7.3-fx.xpi";
-      sha256 = "9b2bf3723115c6d389197afa374ac8294d95ca5e3e74a68dba5f365536cab9f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3752249/tree_style_tab_-3.7.4-fx.xpi";
+      sha256 = "9e7a9b1ea63c62511e915e301ec7c8f93fabb4551b908bbd4f8e719adf9336d6";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
