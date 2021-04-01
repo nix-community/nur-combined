@@ -96,42 +96,42 @@ in
     };
 
     /*
-    TODO: There is some rate limiting/cpu usage issue, so this is disabled for now.
+      TODO: There is some rate limiting/cpu usage issue, so this is disabled for now.
 
-    systemd =
+      systemd =
       let
-        onionServiceNames =
-          map
-            (name: "${torOnionDirectory}/${name}")
-            (attrNames config.services.tor.hiddenServices);
+      onionServiceNames =
+      map
+      (name: "${torOnionDirectory}/${name}")
+      (attrNames config.services.tor.hiddenServices);
 
-        hasNodeExporter = config.services.prometheus.exporters.node.enable;
-        hasTor = config.services.tor.enable;
-        hasOnionService = onionServiceNames != [ ];
+      hasNodeExporter = config.services.prometheus.exporters.node.enable;
+      hasTor = config.services.tor.enable;
+      hasOnionService = onionServiceNames != [ ];
       in
       mkIf (hasNodeExporter && hasTor && hasOnionService) {
-        services = {
-          "tor-metrics" = {
-            description = "Additional metrics for tor";
-            path = with pkgs; [ bash ];
-            serviceConfig = {
-              User = "root";
-              ExecStart = torMetrics;
-            };
-          };
-        };
+      services = {
+      "tor-metrics" = {
+      description = "Additional metrics for tor";
+      path = with pkgs; [ bash ];
+      serviceConfig = {
+      User = "root";
+      ExecStart = torMetrics;
+      };
+      };
+      };
 
-        paths = {
-          "tor-onion-services" = {
-            description = "Tor onion service hostname paths";
-            wantedBy = [ "multi-user.target" ];
-            pathConfig = {
-              PathExists = toString onionServiceNames;
-              PathChanged = toString onionServiceNames;
-              Unit = "tor-metrics.service";
-            };
-          };
-        };
+      paths = {
+      "tor-onion-services" = {
+      description = "Tor onion service hostname paths";
+      wantedBy = [ "multi-user.target" ];
+      pathConfig = {
+      PathExists = toString onionServiceNames;
+      PathChanged = toString onionServiceNames;
+      Unit = "tor-metrics.service";
+      };
+      };
+      };
       };
     */
   };
