@@ -235,61 +235,11 @@ let
       isBroken = hostPlatform.isDarwin || cargo-download.meta.broken or false == true || !lib.isNixpkgsStable;
     in if isBroken then cargo-download-arc else cargo-download;
 
-    libjaylink = { stdenv, fetchgit, autoreconfHook, pkgconfig, libusb1 }: stdenv.mkDerivation {
-      pname = "libjaylink";
-      version = "2019-10-03";
-      nativeBuildInputs = [ pkgconfig autoreconfHook ];
-      buildInputs = [ libusb1 ];
-
-      src = fetchgit {
-        #url = "git://git.zapb.de/libjaylink.git"; # appears to be down?
-        url = "git://repo.or.cz/libjaylink.git";
-        rev = "cfccbc9d6763733f1d14dff3c2dc5b75aaef136b";
-        sha256 = "0z3hv2wadbmx8mf7kjfrcgp5ivi5lix0vapg24gykhadgg2a6gcm";
-      };
-    };
-
     jimtcl-minimal = { lib, tcl, jimtcl, readline }: (jimtcl.override { SDL = null; SDL_gfx = null; sqlite = null; }).overrideAttrs (old: {
       NIX_CFLAGS_COMPILE = "";
       configureFlags = with lib; filter (f: !hasSuffix "sqlite3" f && !hasSuffix "sdl" f) old.configureFlags;
       propagatedBuildInputs = old.propagatedBuildInputs or [] ++ [ readline ];
       nativeBuildInputs = old.nativeBuildInputs or [] ++ [ tcl ];
-    });
-
-    openocd-git = {
-      openocd
-    , fetchgit, autoreconfHook, lib
-    , git, jimtcl-minimal ? null, libjaylink ? null, enableJaylink ? libjaylink != null
-    }: with lib; openocd.overrideAttrs (old: rec {
-      pname = "openocd-git";
-      name = "openocd-git-${version}";
-      version = "2021-01-13";
-
-      patches = [ ];
-
-      nativeBuildInputs = old.nativeBuildInputs ++ [ autoreconfHook git jimtcl-minimal ];
-      buildInputs = old.buildInputs
-        ++ optional enableJaylink libjaylink
-        ++ optional (jimtcl-minimal != null) jimtcl-minimal;
-      configureFlags = filter (f: !hasSuffix "oocd_trace" f) old.configureFlags
-        ++ optional (jimtcl-minimal != null) "--disable-internal-jimtcl"
-        ++ optional (!enableJaylink || libjaylink != null) "--disable-internal-libjaylink";
-
-      enableParallelBuilding = true;
-      NIX_LDFLAGS = optional (jimtcl-minimal != null) "-lreadline";
-
-      src = fetchgit ({
-        url = "https://repo.or.cz/r/openocd.git";
-        rev = "aaa6110d9b027acd1d027ef27c723ec9cf2381a0";
-        sha256 = "048vl18p65yjjkb6b97fskx9fwy2bgm5vnkpv56p1zp0prqr7icz";
-      } // optionalAttrs (jimtcl-minimal == null || (enableJaylink && libjaylink == null)) {
-        fetchSubmodules = true;
-        sha256 = "048vl18p65yjjkb6b97fskx9fwy2bgm5vnkpv56p1zp0prqr7icz";
-      });
-
-      meta = old.meta or {} // {
-        broken = old.meta.broken or false || openocd.stdenv.isDarwin;
-      };
     });
 
     kakoune = { kakoune, kakoune-unwrapped ? null }: if kakoune-unwrapped != null
@@ -333,7 +283,7 @@ let
           if patchVersion == "0.21.25" then "16n1fx505k6pprf753j6xzwh25ka4azwx49sz02wy68qdx8wa586"
           else if patchVersion == "0.22" then "07vladkk80mnc23ybi80wn17cfxwl8pvv5cg0rl17avyymljspax"
           else if patchVersion == "0.22.2" then "19ia0my2id84arxzzdgccp8r50jyi6z8355qpi3sn8i77phdbihh"
-          else if patchVersion == "0.22.6" then "19ia0my2id84arxzzdgccp8r50jyi6z8355qpi3sn8i77phdbihh"
+          else if patchVersion == "0.22.6" then "16fzj27m9xyh3aqnmfgwrbfr4rcljw7z7vdszlfgq8zj1z8zrdir"
           else lib.fakeSha256;
       }) ];
 
