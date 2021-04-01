@@ -16,7 +16,7 @@ case $TARGET in
                 nixos-rebuild build --flake .#vps "$@" || exit 1
             ;;
             switch)
-                $0 vps build
+                $0 vps build "$@"
                 nix-copy-closure $DEFAULT_USER@$VPS_IP $(readlink result)
                 ssh $DEFAULT_USER@$VPS_IP -t tmux new sudo $(readlink result)/bin/switch-to-configuration switch
             ;;
@@ -37,7 +37,7 @@ case $TARGET in
                 nixos-rebuild build --flake .#acer-nix "$@" || exit 1
             ;;
             switch)
-                $0 nb build
+                $0 nb build "$@"
                 nix-copy-closure $DEFAULT_USER@$NB_IP $(readlink result)
                 ssh $DEFAULT_USER@$NB_IP -t tmux new sudo $(readlink result)/bin/switch-to-configuration switch
             ;;

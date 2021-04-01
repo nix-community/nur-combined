@@ -75,4 +75,13 @@ in {
       sha256 = "1cldc9k30rlvchh7ng00hmn0prbh632z8h9fqclj466y8bgdp15j";
     };
   };
+  keymash = mkNativefier {
+    name = "keymash";
+    desktopName = "keyma.sh: Keyboard typing train";
+    url = "https://keyma.sh/learn";
+    icon = builtins.fetchurl {
+      url = "https://keyma.sh/static/media/logo_svg.ead5cacb.svg";
+      sha256 = "1i6py2gnpmf548zwakh9gscnk5ggsd1j98z80yb6mr0fm84bgizy";
+    };
+  };
 }

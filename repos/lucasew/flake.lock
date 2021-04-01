@@ -132,11 +132,11 @@
     },
     "nixpkgsLatestSmall": {
       "locked": {
-        "lastModified": 1616618087,
-        "narHash": "sha256-kuCikcazQhpvlse4N+P4Da08zvb28fqTsgx8xgtbDsA=",
+        "lastModified": 1617183747,
+        "narHash": "sha256-P6ri0QDLL7WleRBIF6gkndGG7+tsU6czz7/AZCW5UjI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8004df3ba22e48d396921184a958458a7bb0c89f",
+        "rev": "779ef0a43dca70763e23187b476db5e1c1326c54",
         "type": "github"
       },
       "original": {
@@ -209,11 +209,11 @@
     "pocket2kindle": {
       "flake": false,
       "locked": {
-        "lastModified": 1615210443,
-        "narHash": "sha256-c9XPD6O4BMbuAAyKqjTcFGMcpjU/lPgkXKQAHtcgsLQ=",
+        "lastModified": 1617294573,
+        "narHash": "sha256-14N7wzvXcA40X+wFLjBKfiTMGy2h/GPqrgrjVrzWDVI=",
         "owner": "lucasew",
         "repo": "pocket2kindle",
-        "rev": "56282f06cfde441fa322d76d6c08690052a79f9c",
+        "rev": "bdc401c4fb7b400155571e8f6b871971fcd8c695",
         "type": "github"
       },
       "original": {
@@ -252,8 +252,7 @@
         "pocket2kindle": "pocket2kindle",
         "redial_proxy": "redial_proxy",
         "rust-overlay": "rust-overlay",
-        "send2kindle": "send2kindle",
-        "zls": "zls"
+        "send2kindle": "send2kindle"
       }
     },
     "rust-overlay": {
@@ -278,11 +277,11 @@
     "send2kindle": {
       "flake": false,
       "locked": {
-        "lastModified": 1614703465,
-        "narHash": "sha256-1JPGiyJIaL0TSIuRIUdhzjXMW/Cviu8Q0rENnersZmA=",
+        "lastModified": 1617294349,
+        "narHash": "sha256-fmZlCaGqxDqCndwIbGT9k0FmQG+GOd4/1oiqCw3HD9M=",
         "owner": "lucasew",
         "repo": "send2kindle",
-        "rev": "0e17784afc3eb0375ae49d0aa738fe463529ac02",
+        "rev": "82dced627ba2421586fa07c9cc09a946043e09d9",
         "type": "github"
       },
       "original": {
@@ -303,22 +302,6 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "zls": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1610702818,
-        "narHash": "sha256-rO9pEbLictJuo8BdRTkHBl2zGSc4YbBDWStikZkz9zo=",
-        "owner": "zigtools",
-        "repo": "zls",
-        "rev": "2a968f51d71ba9ba0b519c526ffd1c59f33c222c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "zigtools",
-        "repo": "zls",
         "type": "github"
       }
     }
