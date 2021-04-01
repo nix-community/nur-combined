@@ -6,7 +6,7 @@ let
   alibot = pkgs.callPackage "${
     builtins.fetchGit {
       url = "ssh://git@github.com/lucasew/alibot";
-      rev = "7a9867ab4851fe0fae79cea37908ee121df74f85";
+      rev = "fe009e2c679cd978510e857002d036ca692aacbc";
     }
   }/package.nix" {};
 in
