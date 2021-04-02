@@ -192,10 +192,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.29";
+      version = "4.9.30";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3730852/dark_reader-4.9.29-an+fx.xpi";
-      sha256 = "5d6d9059ec8d9c59fa7ecc3c421e1146925d978e9197260124797a6309c9b789";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3753289/dark_reader-4.9.30-an+fx.xpi";
+      sha256 = "92fa3841c93ab652057a2aa019f7b94f050b4dc677f4b3ba9798f54ab6237a17";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -346,10 +346,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.1.1";
+      version = "3.1.2";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3726404/gesturefy-3.1.1-fx.xpi";
-      sha256 = "d1b13ce9084e170529cd44c332e1ba330346ed084310f784bc533de0dfa5d9ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3753142/gesturefy-3.1.2-fx.xpi";
+      sha256 = "4cd7cf5aee68d839b23b721648efb83812deaa0dc1eb4b606bea17e3125461d9";
       meta = with lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -1000,10 +1000,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "25.4";
+      version = "25.5";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3738467/save_page_we-25.4-fx.xpi";
-      sha256 = "313d96e84937a4a2f83280f1d3329b9796811ab85ee1c316143ef71cb79a49ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3753594/save_page_we-25.5-fx.xpi";
+      sha256 = "6d4ba6f4d3dd22b1f7949697678395db9d84caa0ac8e59f72337692350a35142";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
