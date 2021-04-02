@@ -2,28 +2,15 @@
   {
     "bitwarden-password-manager" = buildFirefoxXpiAddon {
       pname = "bitwarden-password-manager";
-      version = "1.48.1";
+      version = "1.49.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3714988/bitwarden_free_password_manager-1.48.1-an+fx.xpi";
-      sha256 = "27088233b72c36f8636ae88e79d7e52a0b4480d7fc73ed6412233a2f95408256";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3745234/bitwarden_free_password_manager-1.49.1-an+fx.xpi";
+      sha256 = "7e534c18ad98171551bde96f3ed9b0a5424ce818f73355866b2fb0658a67d716";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
         description = "A secure and free password manager for all of your devices.";
         license = licenses.gpl3;
-        platforms = platforms.all;
-        };
-      };
-    "lastpass-password-manager" = buildFirefoxXpiAddon {
-      pname = "lastpass-password-manager";
-      version = "4.65.0.5";
-      addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3724736/lastpass_password_manager-4.65.0.5-an+fx.xpi";
-      sha256 = "fb40999a621a106457b4fb4cb4530468fd3e6a316c1dcfa40ad9834a5eb73750";
-      meta = with lib;
-      {
-        homepage = "https://lastpass.com/";
-        description = "LastPass, an award-winning password manager, saves your passwords and gives you secure access from every computer and mobile device.";
         platforms = platforms.all;
         };
       };
@@ -69,10 +56,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.33.2";
+      version = "1.34.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3719054/ublock_origin-1.33.2-an+fx.xpi";
-      sha256 = "5c3a5ef6f5b5475895053238026360020d6793b05541d20032ea9dd1c9cae451";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3740966/ublock_origin-1.34.0-an+fx.xpi";
+      sha256 = "96783b4e9abed66af81a30f7dbb6560911a9d828b12aadf0ec88b181200c3bfe";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -83,10 +70,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "0.32";
+      version = "1.0.1";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3700427/vim_vixen-0.32-an+fx.xpi";
-      sha256 = "99c6c8e785a0796a12a2d2e59dd1b539cb1edc00e1d81cd993eac43926eb91e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3751589/vim_vixen-1.0.1-an+fx.xpi";
+      sha256 = "60172f35ccc2d092bc1e21c43ec990dc40733b4aa3d5a6b66e54d04004d1b02e";
       meta = with lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
