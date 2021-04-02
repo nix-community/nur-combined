@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   lemonade = pkgs.callPackage ./pkgs/lemonade { };
+  xss-events = pkgs.callPackage ./pkgs/xss-events { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

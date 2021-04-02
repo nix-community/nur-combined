@@ -6,6 +6,11 @@
 
 # Available packages
 - [`nur.repos.ondt.lemonade`](https://github.com/Snowlabs/lemonade): A multithreaded alternative to [lemonbar](https://github.com/krypt-n/bar) written in rust
+- [`nur.repos.ondt.xss-events`](https://github.com/ondt/xss-events): Simple X11 ScreenSaver event listener
+
+
+
+
 
 # Installing a package
 ```console
