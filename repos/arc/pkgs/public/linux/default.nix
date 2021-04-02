@@ -9,8 +9,8 @@ let
       coreutils gnused gnugrep gnumake flex bison
     ];
   };
-  generateLinuxConfig = { stdenv, pkgs, perl, gmp, libmpc, mpfr, flex ? null, bison ? null }:
-    pkgs.lib.drvExec "" (stdenv.mkDerivation {
+  generateLinuxConfig = { stdenv, pkgs, lib, perl, gmp, libmpc, mpfr, flex ? null, bison ? null }:
+    lib.drvExec "" (stdenv.mkDerivation {
       name = "generate-config.pl";
       src = pkgs.path + "/pkgs/os-specific/linux/kernel/generate-config.pl";
       patches = [ ./generate-config.patch ];

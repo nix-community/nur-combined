@@ -112,7 +112,7 @@ in with self; {
   makeOrExtend = super: attr: overlay: let
     overlay' = if isAttrs overlay then (_: _: overlay) else overlay;
     super' = super.${attr} or { };
-  in if super' ? ${attr}.extend then super'.${attr}.extend overlay'
+  in if super' ? extend then super'.extend overlay'
     else makeExtensible (self: super' // flip overlay' super' self);
 
   # NOTE: a very basic/incomplete parser
@@ -136,7 +136,7 @@ in with self; {
   in auto // args;
 
   /* I don't really know what I want out of this okay damn
-  # callPackgeWith for functions that return functions
+  # callPackageWith for functions that return functions
   callFunctionWith = autoArgs: fn: args: let
     f = if isFunction fn then fn else import fn;
     auto = autoArgs // args;
