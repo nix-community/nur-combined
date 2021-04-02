@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 # FIXME: Can't hear that lovely music and the sound effects
 let
   wine = pkgs.wine.override {
@@ -27,7 +27,8 @@ let
       # sed -i 's/WaveOutDevice=0/WaveOutDevice=1/' $out/share/mspinball/WAVEMIX.INF
     '';
   };
-in pkgs.makeDesktopItem {
+in
+pkgs.makeDesktopItem {
   name = "Pinball";
   desktopName = "Pinbal - Space Cadet";
   icon = builtins.fetchurl {

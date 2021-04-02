@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 let
   fhs = pkgs.buildFHSUserEnv {
     name = "usb_tixati";
@@ -21,4 +21,5 @@ let
     type = "Application";
     exec = "${fhs}/bin/usb_tixati";
   };
-in desktop
+in
+desktop

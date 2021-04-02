@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 with pkgs;
 let
   paint = fetchzip {
@@ -25,7 +25,8 @@ let
   bin = writeShellScriptBin "mspaint" ''
     ${wineStable}/bin/wine ${theDerivation}/mspaint.exe
   '';
-in pkgs.makeDesktopItem {
+in
+pkgs.makeDesktopItem {
   name = "paint";
   desktopName = "Paint WindowsXP";
   icon = builtins.fetchurl {

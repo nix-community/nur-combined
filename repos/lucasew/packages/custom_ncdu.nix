@@ -1,4 +1,4 @@
-{ncdu, writeShellScriptBin}:
+{ ncdu, writeShellScriptBin }:
 writeShellScriptBin "ncdu" ''
-${ncdu}/bin/ncdu --confirm-quit -x "$@"
+  ${ncdu}/bin/ncdu --confirm-quit -x "$@"
 ''

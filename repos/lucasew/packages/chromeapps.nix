@@ -1,7 +1,8 @@
-{pkgs, config, ...}:
+{ pkgs, config, ... }:
 let
   mkNativefier = pkgs.webapp.wrap;
-in {
+in
+{
   whatsapp = mkNativefier {
     name = "WhatsApp";
     url = "web.whatsapp.com";

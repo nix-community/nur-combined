@@ -1,5 +1,5 @@
 # winetricks vb6run comdlg32.ocx msflxgrd
-{pkgs}:
+{ pkgs }:
 let
   source = builtins.fetchurl {
     url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/tora.exe";
@@ -15,13 +15,14 @@ let
       "vb6run"
       "comdlg32.ocx"
       "msflxgrd"
-      ];
-      executable = "$WINEPREFIX/tora.exe";
+    ];
+    executable = "$WINEPREFIX/tora.exe";
   };
-  desktop =  pkgs.makeDesktopItem {
+  desktop = pkgs.makeDesktopItem {
     name = "tora";
     desktopName = "TORA";
     icon = "utility";
     exec = "${bin}/bin/tora-lp";
   };
-in desktop
+in
+desktop

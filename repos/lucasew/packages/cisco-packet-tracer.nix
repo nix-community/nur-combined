@@ -1,7 +1,23 @@
 # based on: https://gist.github.com/buckley310/b4e718e71fb1c7403fb4ceb8fabbc1c4
-{ stdenv, requireFile, dpkg, makeWrapper, buildFHSUserEnv, makeDesktopItem
-, alsaLib, dbus, expat, fontconfig, glib, libglvnd, libpulseaudio
-, libudev0-shim, libxkbcommon, libxml2, libxslt, nspr, nss
+{ stdenv
+, requireFile
+, dpkg
+, makeWrapper
+, buildFHSUserEnv
+, makeDesktopItem
+, alsaLib
+, dbus
+, expat
+, fontconfig
+, glib
+, libglvnd
+, libpulseaudio
+, libudev0-shim
+, libxkbcommon
+, libxml2
+, libxslt
+, nspr
+, nss
 , xlibs
 }:
 
@@ -10,7 +26,7 @@ let
 
   srcName =
     if stdenv.hostPlatform.system == "x86_64-linux" then
-      "PacketTracer_${builtins.replaceStrings ["."] [""] version}_amd64.deb"
+      "PacketTracer_${builtins.replaceStrings [ "." ] [ "" ] version}_amd64.deb"
     else throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   ptFiles = stdenv.mkDerivation {
@@ -40,7 +56,8 @@ let
     mimeType = "application/x-pkt;application/x-pka;application/x-pkz;";
   };
 
-in buildFHSUserEnv {
+in
+buildFHSUserEnv {
   name = "packettracer";
   runScript = "${ptFiles}/bin/packettracer";
 
@@ -50,8 +67,22 @@ in buildFHSUserEnv {
   '';
 
   targetPkgs = pkgs: [
-    alsaLib dbus expat fontconfig glib libglvnd libpulseaudio
-    libudev0-shim libxkbcommon libxml2 libxslt nspr nss
-    xlibs.libICE xlibs.libSM xlibs.libX11 xlibs.libXScrnSaver
+    alsaLib
+    dbus
+    expat
+    fontconfig
+    glib
+    libglvnd
+    libpulseaudio
+    libudev0-shim
+    libxkbcommon
+    libxml2
+    libxslt
+    nspr
+    nss
+    xlibs.libICE
+    xlibs.libSM
+    xlibs.libX11
+    xlibs.libXScrnSaver
   ];
 }

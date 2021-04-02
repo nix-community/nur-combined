@@ -1,18 +1,18 @@
 with builtins;
-{pkgs}:
-{
-  wine ? pkgs.wine
-  , wineFlags ? ""
-  , executable
-  , name
-  , tricks ? []
-  , setupScript ? ""
+{ pkgs }:
+{ wine ? pkgs.wine
+, wineFlags ? ""
+, executable
+, name
+, tricks ? [ ]
+, setupScript ? ""
 }:
 let
-  tricksStmt = if (length tricks) > 0 then
-    concatStringsSep " " tricks
-  else
-    "-V";
+  tricksStmt =
+    if (length tricks) > 0 then
+      concatStringsSep " " tricks
+    else
+      "-V";
   script = pkgs.writeShellScriptBin name ''
     HOME="$(echo ~)"
     WINE_NIX="$HOME/.wine-nix"
@@ -25,4 +25,5 @@ let
     fi
     ${wine}/bin/wine ${wineFlags} "${executable}" "$@"
   '';
-in script
+in
+script

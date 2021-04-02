@@ -10,7 +10,9 @@ let
   suffixifyItem = item:
     let
       suffix = "/" + item + "/" + component + ".nix";
-    in <dotfiles/modules> + suffix;
+    in
+    <dotfiles/modules> + suffix;
   suffixedItems = map suffixifyItem (map getModuleName items);
   filteredItems = filter builtins.pathExists suffixedItems;
-in map builtins.toPath filteredItems
+in
+map builtins.toPath filteredItems

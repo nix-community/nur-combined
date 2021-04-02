@@ -1,4 +1,4 @@
-{pkgs ? import <nixpkgs> {}}:
+{ pkgs ? import <nixpkgs> { } }:
 
 let
   src = pkgs.fetchzip {
@@ -16,10 +16,12 @@ let
     icon = "utility";
     exec = "${bin}/bin/sosim";
   };
-# in desktop
-in pkgs.symlinkJoin {
+  # in desktop
+in
+pkgs.symlinkJoin {
   name = "sosim";
   paths = [
-    desktop bin
+    desktop
+    bin
   ];
 }

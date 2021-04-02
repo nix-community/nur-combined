@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 with pkgs;
 let
   name = "stremio";
@@ -62,4 +62,5 @@ let
     desktopName = "Stremio";
     genericName = "Movies and TV Series";
   };
-in stremioItem
+in
+stremioItem

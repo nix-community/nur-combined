@@ -1,4 +1,4 @@
-{pkgs ? import <nixpkgs> {}}:
+{ pkgs ? import <nixpkgs> { } }:
 with pkgs;
 let
   src = builtins.fetchTarball {
@@ -24,12 +24,13 @@ let
     genericName = "Compressed files";
     type = "Application";
     terminal = false;
-    categories="GTK;Qt;Utility;System;Archiving;";
+    categories = "GTK;Qt;Utility;System;Archiving;";
     exec = "${fhs}/bin/peazip %F";
     icon = "${src}/FreeDesktop_integration/peazip.png";
-    mimeType="application/x-gzip;application/x-lha;application/x-tar;application/x-tgz;application/x-tbz;application/x-tbz2;application/x-zip;application/zip;application/x-bzip;application/x-rar;application/x-tarz;application/x-archive;application/x-bzip2;application/x-jar;application/x-deb;application/x-ace;application/x-7z;application/x-arc;application/x-arj;application/x-compress;application/x-cpio;";
+    mimeType = "application/x-gzip;application/x-lha;application/x-tar;application/x-tgz;application/x-tbz;application/x-tbz2;application/x-zip;application/zip;application/x-bzip;application/x-rar;application/x-tarz;application/x-archive;application/x-bzip2;application/x-jar;application/x-deb;application/x-ace;application/x-7z;application/x-arc;application/x-arj;application/x-compress;application/x-cpio;";
   };
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   name = "PeaZip";
   inherit src;
   installPhase = ''

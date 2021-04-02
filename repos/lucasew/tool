@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
 #! nix-shell -i bash -p nixFlakes openssh tmux htop curl
+# vim:ft=sh
 
 set -euf -o pipefail
 

@@ -1,4 +1,4 @@
-{pkgs ? import <nixpkgs> {}}:
+{ pkgs ? import <nixpkgs> { } }:
 let
   zenity = "${pkgs.gnome3.zenity}/bin/zenity";
   chrome = "${pkgs.google-chrome}/bin/google-chrome-stable";
@@ -51,17 +51,18 @@ let
       scriptBin
     ];
   };
-in joined // {
-  wrap = {
-    name
-    ,desktopName ? name 
-    ,url
-    ,icon ? "applications-internet"
-  }: pkgs.makeDesktopItem {
-    name = name;
-    desktopName = desktopName;
-    type = "Application";
-    icon = icon;
-    exec = ''${scriptDrv} "${url}"'';
-  };
+in
+joined // {
+  wrap =
+    { name
+    , desktopName ? name
+    , url
+    , icon ? "applications-internet"
+    }: pkgs.makeDesktopItem {
+      name = name;
+      desktopName = desktopName;
+      type = "Application";
+      icon = icon;
+      exec = ''${scriptDrv} "${url}"'';
+    };
 }

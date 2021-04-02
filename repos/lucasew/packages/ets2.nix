@@ -1,8 +1,9 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 let
   version = "1.28.0.10";
   game = "/run/media/lucasew/Dados/DADOS/Jogos/Euro.Truck.Simulator.2.v1.28.0.10.Inclu.ALL.DLC";
-in pkgs.makeDesktopItem {
+in
+pkgs.makeDesktopItem {
   name = "ets2";
   desktopName = "Euro Truck Simulator 2";
   type = "Application";

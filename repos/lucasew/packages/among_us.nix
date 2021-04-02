@@ -1,4 +1,4 @@
-{pkgs, ...}: pkgs.makeDesktopItem {
+{ pkgs, ... }: pkgs.makeDesktopItem {
   name = "amongUs";
   desktopName = "Among Us";
   type = "Application";

@@ -1,8 +1,7 @@
 # TODO: what happens if a enabled unit fails at boot?
-{
-  description,
-  command,
-  enable ? true
+{ description
+, command
+, enable ? true
 }:
 {
   Unit = {
@@ -14,8 +13,9 @@
     Restart = "on-failure";
   };
   Install = {
-    WantedBy = if enable then [
-      "default.target"
-    ] else [];
+    WantedBy =
+      if enable then [
+        "default.target"
+      ] else [ ];
   };
 }

@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 let
   launcherZip = builtins.fetchurl {
     sha256 = "08la0fazwl4gn6g06iqjfl300q18dpqa8bzc6v16p4lsl9r54bm6";
@@ -47,7 +47,8 @@ let
       platforms = pkgs.stdenv.lib.platforms.unix;
     };
   };
-in pkgs.makeDesktopItem {
+in
+pkgs.makeDesktopItem {
   name = "minecraft";
   desktopName = "Shiginima Minecraft";
   type = "Application";

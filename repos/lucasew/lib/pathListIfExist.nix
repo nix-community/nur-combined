@@ -5,4 +5,4 @@ let
   pathAsPath = /. + path;
   isExist = builtins.pathExists path;
 in
-if isExist then [pathAsPath] else []
+if isExist then [ pathAsPath ] else [ ]
