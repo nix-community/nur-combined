@@ -76,4 +76,6 @@ rec {
 
   helm-whatup = pkgs.callPackage ./pkgs/helm-whatup {};
 
+  terraformer-aws = (pkgs.callPackage ./pkgs/terraformer {}).aws;
+
 }
