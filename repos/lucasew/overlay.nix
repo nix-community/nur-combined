@@ -53,6 +53,7 @@ in reduceJoin [
     usb_tixati = cp ./packages/usb_tixati.nix;
     wrapWine = cp ./packages/wrapWine.nix;
     tora_lp = cp ./packages/tora.nix;
+    wine7zip = cp ./packages/7zip.nix;
     preload = cp ./packages/preload.nix;
     python3Packages = cp ./packages/python3Packages.nix;
     nodePackages = cp ./modules/node_clis/package_data/default.nix;

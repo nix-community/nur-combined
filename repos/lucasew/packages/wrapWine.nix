@@ -6,6 +6,7 @@ with builtins;
 , name
 , tricks ? [ ]
 , setupScript ? ""
+, firstrunScript ? ""
 }:
 let
   tricksStmt =
@@ -14,14 +15,16 @@ let
     else
       "-V";
   script = pkgs.writeShellScriptBin name ''
+    PATH=$PATH:${wine}/bin
     HOME="$(echo ~)"
     WINE_NIX="$HOME/.wine-nix"
     export WINEPREFIX="$WINE_NIX/${name}"
-    ${setupScript}
     mkdir -p "$WINE_NIX"
+    ${setupScript}
     if [ ! -d "$WINEPREFIX" ]
     then
       ${pkgs.winetricks}/bin/winetricks ${tricksStmt}
+      ${firstrunScript}
     fi
     ${wine}/bin/wine ${wineFlags} "${executable}" "$@"
   '';
