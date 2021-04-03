@@ -23,7 +23,7 @@ in
     # minecraft  # custom (excluded)
     usb_tixati pinball mspaint custom_rofi peazip # custom
     vlc youtube-dl # media
-    google-chrome # browser (extra)
+    chromium
     file
     fortune
     libnotify

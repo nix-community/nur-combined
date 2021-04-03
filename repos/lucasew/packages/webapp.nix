@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 let
   zenity = "${pkgs.gnome3.zenity}/bin/zenity";
-  chrome = "${pkgs.google-chrome}/bin/google-chrome-stable";
+  browser = "${pkgs.chromium}/bin/chromium";
   script = with pkgs; ''
     if [ -z "$@" ]
     then
@@ -31,7 +31,7 @@ let
       URL="https://$URL"
     fi
     echo $URL
-    ${chrome} --app="$URL"
+    ${browser} --app="$URL"
   '';
   scriptDrv = pkgs.writeShellScript "webapp" script;
   scriptBin = pkgs.writeShellScriptBin "webapp" ''
