@@ -8,7 +8,7 @@
 
 buildPythonPackage rec {
   pname = "asteval";
-  version = "0.9.18";
+  version = "0.9.22";
 
   disabled = pythonOlder "3.5";
 
@@ -16,7 +16,7 @@ buildPythonPackage rec {
     owner = "newville";
     repo = "asteval";
     rev = version;
-    sha256 = "1dbxqvxn6pv1ga4916s0djnd1qxs24ph5xc0bicvsqf1k8giiz9r";
+    sha256 = "1nwxszs9mp2sc2wbx1f16qw1rqg4frgkq4rxh39jzl8qm13nl4g7";
   };
 
   pythonImportsCheck = [ "asteval" ];
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     homepage = "https://newville.github.io/asteval/";
     downloadPage = "https://github.com/newville/asteval/releases";
     license = licenses.mit;
-    # maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [ drewrisinger ];
   };
 }

@@ -1,7 +1,9 @@
 { lib
 , buildPythonPackage
+, libtweedledum
 , fetchPypi
 , cmake
+, ninja
 , scikit-build
   # Check Inputs
 , pytestCheckHook
@@ -9,18 +11,18 @@
 
 buildPythonPackage rec {
   pname = "tweedledum";
-  version = "0.1b0";
+  inherit (libtweedledum) version src;
+  format = "pyproject";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "705093191342a4b50d17271bf10e6fe6c87ae1907adf64498b62aac88911ca27";
-  };
-
-  nativeBuildInputs = [ cmake scikit-build ];
+  nativeBuildInputs = [ cmake ninja scikit-build ];
   dontUseCmakeConfigure = true;
-  dontUseSetuptoolsCheck = true;  # tries to run CMake check, doesn't work.
 
   pythonImportsCheck = [ "tweedledum" ];
+
+  # TODO: use pytest, but had issues with finding the correct directories
+  checkPhase = ''
+    python -m unittest discover -s ./python/test -t .
+  '';
 
   meta = with lib; {
     description = "A library for synthesizing and manipulating quantum circuits";

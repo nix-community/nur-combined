@@ -18,6 +18,10 @@
 , sympy
 , tqdm
 , typing-extensions
+  # Contrib requirements
+, withContribRequires ? false
+, pyquil ? null
+, quimb ? null
   # test inputs
 , pytestCheckHook
 , freezegun
@@ -67,6 +71,9 @@ buildPythonPackage rec {
     sympy
     tqdm
     typing-extensions
+  ] ++ lib.optionals withContribRequires [
+    pyquil
+    quimb
   ];
 
   doCheck = true;
@@ -85,10 +92,13 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [
     "--ignore=dev_tools"  # Only needed when developing new code, which is out-of-scope
-    "--ignore=cirq/contrib/"  # requires external (unpackaged) libraries, so untested.
     "-rfE"
     # "--durations=25"
     "--benchmark-disable"
+  ] ++ lib.optionals (!withContribRequires) [
+    # requires external (unpackaged) libraries, so untested.
+    "--ignore=cirq/contrib/quimb/"
+    "--ignore=cirq/contrib/quil_import/"
   ];
   # TODO: remove disables before aarch64 on NixOS 20.09+, working protobuf version.
   disabledTests = [

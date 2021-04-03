@@ -22,9 +22,10 @@ rec {
 
   # New/unstable packages below
   libcint = pkgs.callPackage ./pkgs/libraries/libcint { };
-  xcfun = pkgs.callPackage ./pkgs/libraries/xcfun { };
   muparserx = pkgs.callPackage ./pkgs/libraries/muparserx { };
   tuna = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/tuna { };
+  libtweedledum = pkgs.callPackage ./pkgs/libraries/tweedledum { };
+  xcfun = pkgs.callPackage ./pkgs/libraries/xcfun { };
 
   # Raspberry Pi Packages
   raspberryPi = pkgs.recurseIntoAttrs {
@@ -36,7 +37,8 @@ rec {
 
   python3Packages = pkgs.recurseIntoAttrs rec {
     # New packages NOT in NixOS/nixpkgs (and likely never will be)
-    # asteval = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/asteval { };
+    asteval = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/asteval { };
+    autoray = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/autoray { };
     # nose-timer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/nose-timer { };
     oitg = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/oitg { };
     pyscf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyscf { inherit libcint xcfun; };
@@ -58,14 +60,17 @@ rec {
     openfermion = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/openfermion { inherit cirq pubchempy; };
     # openfermion-cirq has been deprecated. Its functionality is now rolled into openfermion as of v1.0
     # setuptools-rust has been removed b/c it has been integrated into nixpkgs. That probably has a better derivation to copy
-    tweedledum = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/tweedledum { };
+    pyquil = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyquil { inherit rpcq; };
+    quimb = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/quimb { inherit autoray; };
+    rpcq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/rpcq { };
+    tweedledum = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/tweedledum { inherit libtweedledum; };
 
     # VISA & Lab Instrument control
     pyvisa = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvisa { };
     pyvisa-py = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvisa-py { inherit pyvisa; };
 
     # More recent version than in Nixpkgs
-    cirq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cirq { };
+    cirq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cirq { withContribRequires = false; inherit pyquil quimb; };
     cvxpy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cvxpy { inherit ecos osqp scs; };
     ecos = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ecos { };
     qdldl = pkgs.python3Packages.callPackage ./pkgs/python-modules/qdldl { };
