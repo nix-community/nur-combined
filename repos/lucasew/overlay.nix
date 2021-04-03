@@ -37,23 +37,25 @@ in reduceJoin [
     c4me = cp ./packages/c4me;
     cisco-packet-tracer = cp ./packages/cisco-packet-tracer.nix;
     custom_neovim = cp ./modules/neovim/package.nix;
+    wineApps = {
+      wine7zip = cp ./packages/wineApps/7zip.nix;
+      among_us = cp ./packages/wineApps/among_us.nix;
+      ets2 = cp ./packages/wineApps/ets2.nix;
+      mspaint = cp ./packages/wineApps/mspaint.nix;
+      pinball = cp ./packages/wineApps/pinball.nix;
+      sosim = cp ./packages/wineApps/sosim.nix;
+      tora = cp ./packages/wineApps/tora.nix;
+    };
     among_us = cp ./packages/among_us.nix;
     comby = cp ./packages/comby.nix;
     custom_rofi = cp ./packages/custom_rofi.nix;
-    ets2 = cp ./packages/ets2.nix;
     custom_ncdu = cp ./packages/custom_ncdu.nix;
     minecraft = cp ./packages/minecraft.nix;
-    mspaint = cp ./packages/mspaint.nix;
-    # onlyoffice = cp ./packages/onlyoffice.nix;
     peazip = cp ./packages/peazip.nix;
-    pinball = cp ./packages/pinball.nix;
     pkg = cp ./packages/pkg.nix;
     stremio = cp ./packages/stremio.nix;
-    sosim = cp ./packages/sosim.nix;
     usb_tixati = cp ./packages/usb_tixati.nix;
     wrapWine = cp ./packages/wrapWine.nix;
-    tora_lp = cp ./packages/tora.nix;
-    wine7zip = cp ./packages/7zip.nix;
     preload = cp ./packages/preload.nix;
     python3Packages = cp ./packages/python3Packages.nix;
     nodePackages = cp ./modules/node_clis/package_data/default.nix;
@@ -63,6 +65,5 @@ in reduceJoin [
       inherit (super) pkgs;
       nurpkgs = super.pkgs;
     };
-    calibre-py2 = super.calibre;
   }
 ]

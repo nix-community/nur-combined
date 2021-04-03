@@ -23,6 +23,8 @@ let
     ${setupScript}
     if [ ! -d "$WINEPREFIX" ]
     then
+      wine cmd /c dir > /dev/null 2> /dev/null # initialize prefix
+      wineserver -w
       ${pkgs.winetricks}/bin/winetricks ${tricksStmt}
       ${firstrunScript}
     fi
