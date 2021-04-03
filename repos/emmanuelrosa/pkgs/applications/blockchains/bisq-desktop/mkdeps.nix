@@ -21,13 +21,13 @@ let
     buildInputs = pkgs.lib.remove pkgs.gnome2.gnome_vfs oldAttrs.buildInputs;
     NIX_LDFLAGS = builtins.replaceStrings [ "-lgnomevfs-2" ] [ "" ] oldAttrs.NIX_LDFLAGS;
   });
-  version = "1.6.1";
+  version = "1.6.2";
   name = "bisq-desktop";
 
   src = (pkgs.fetchgit rec {
     url = https://github.com/bisq-network/bisq;
     rev = "v${version}";
-    sha256 = "12i6b1qqf3lxpx1dnai8znijhwv2rg0ak0pyma1y85faqhhnvbk9";
+    sha256 = "1zmf76i4yddr4zc2jcm09bgs7yya6bqv1zk68z17g3r39qmyxv1q";
     postFetch = ''
       cd $out
       git clone $url
@@ -80,7 +80,7 @@ let
     outputHashMode = "recursive";
 
     # REF1
-    outputHash = "0cq74fd5i8nhy3q7z49773ljkawrqqyqqzggq8y880j61dyz40sw";
+    outputHash = "1y7md3r4viacp9xcrvprma8h33nnf2fall5s1f35cypn10978iy3";
   };
 
   header = ./bisq-gen-deps-header.nix.txt;

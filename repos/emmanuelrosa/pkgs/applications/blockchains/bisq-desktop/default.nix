@@ -15,13 +15,13 @@ let
     buildInputs = lib.remove gnome2.gnome_vfs oldAttrs.buildInputs;
     NIX_LDFLAGS = builtins.replaceStrings [ "-lgnomevfs-2" ] [ "" ] oldAttrs.NIX_LDFLAGS;
   });
-  version = "1.6.1";
-  name = "bisq-desktop";
+  version = "1.6.2";
+  pname = "bisq-desktop";
 
   src = (fetchgit rec {
     url = https://github.com/bisq-network/bisq;
     rev = "v${version}";
-    sha256 = "12i6b1qqf3lxpx1dnai8znijhwv2rg0ak0pyma1y85faqhhnvbk9";
+    sha256 = "1zmf76i4yddr4zc2jcm09bgs7yya6bqv1zk68z17g3r39qmyxv1q";
     postFetch = ''
       cd $out
       git clone $url
@@ -46,7 +46,7 @@ let
   deps = callPackage ./deps.nix {};
 
 in stdenv.mkDerivation rec {
-  inherit name src;
+  inherit pname src version;
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ gradle ps tor ];
@@ -56,7 +56,7 @@ in stdenv.mkDerivation rec {
     exec = "bisq-desktop";
     icon = "bisq";
     desktopName = "Bisq";
-    genericName = "Distributed crypto exchange";
+    genericName = "Decentralized bitcoin exchange";
     categories  = "Network;Utility;";
   };
 
@@ -99,7 +99,7 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "The decentralized bitcoin exchange network";
+    description = "A decentralized bitcoin exchange network";
     homepage = "https://bisq.network";
     license = licenses.mit;
     maintainers = with maintainers; [ juaningan emmanuelrosa ];
