@@ -5,12 +5,12 @@ in
 
 stdenv.mkDerivation rec {
   pname = "dockd";
-  version = "1.21";
+  version = "1.3";
 
   src = fetchgit {
     url = "https://github.com/libthinkpad/dockd";
     rev = version;
-    sha256 = "1fr9r19b04ac92ynz62rnzgc6jfzxrf76k3m6szspgw7sx9rhjc2";
+    sha256 = "sha256:1bygsnp1svp978dnqlcy7n29qsgn087s8sm5cpy2d8kc2zscw126";
   };
 
   nativeBuildInputs = [ cmake ];
