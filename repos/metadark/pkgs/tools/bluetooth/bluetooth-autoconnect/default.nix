@@ -9,14 +9,14 @@
 
 buildPythonApplication rec {
   pname = "bluetooth-autoconnect";
-  version = "1.2";
+  version = "1.3";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "jrouleau";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-9ejPKcROCwGEx2V3Uw3O8qLupNKGSt+jgsDQ3mfm2KM=";
+    hash = "sha256-qfU7fNPNRQxIxxfKZkGAM6Wd3NMuNI+8DqeUW+LYRUw=";
   };
 
   propagatedBuildInputs = [ dbus-python pygobject3 python-prctl ];

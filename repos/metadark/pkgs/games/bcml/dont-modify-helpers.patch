@@ -1,16 +1,16 @@
 diff --git a/bcml/__main__.py b/bcml/__main__.py
-index f781840..2370b8a 100644
+index 5be1a56..c30b94d 100644
 --- a/bcml/__main__.py
 +++ b/bcml/__main__.py
-@@ -2,7 +2,6 @@ import os
- import sys
+@@ -3,7 +3,6 @@ import sys
  from contextlib import redirect_stderr, redirect_stdout
+ from datetime import datetime
  from multiprocessing import set_start_method, Process
 -from os import chmod  # pylint: disable=ungrouped-imports
  from pathlib import Path
+ from random import randint
  from subprocess import Popen, DEVNULL
- from shutil import rmtree
-@@ -60,8 +59,6 @@ def main(debug: bool = False):
+@@ -62,8 +61,6 @@ def main(debug: bool = False):
  
      try:
          if SYSTEM != "Windows":
