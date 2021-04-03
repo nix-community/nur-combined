@@ -19,7 +19,6 @@ It contains packages/attributes for:
   - gemget (https://github.com/makeworld-the-better-one/gemget)
   - cpp-httplib (https://github.com/yhirose/cpp-httplib)
   - cxxtimer (https://github.com/andremaravilha/cxxtimer)
-  - duf (https://github.com/muesli/duf)
 
 * Mirrors of this repo
 - https://github.com/nagy/nur-packages
