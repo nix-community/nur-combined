@@ -38,4 +38,6 @@
 
   vmangos = pkgs.callPackage ./pkgs/servers/games/vmangos {};
   vmangos-worlddb = pkgs.callPackage ./pkgs/servers/games/vmangos/worlddb.nix {};
+
+  zigbee2mqtt = pkgs.callPackage ./pkgs/servers/homeautomation/zigbee2mqtt {};
 }
