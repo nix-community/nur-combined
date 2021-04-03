@@ -29,15 +29,15 @@ rec {
 
   obs-studio = pkgs.obs-studio.overrideAttrs (old: {
     pname = "obs-studio-unstable";
-    version = "2021-03-11";
+    version = "2021-04-02";
 
     src = pkgs.fetchFromGitHub {
       owner = "obsproject";
       repo = "obs-studio";
-      rev = "2a87543d82a2652151d0aac29dddcd9b02b6a1fc";
-      hash = "sha256:0rnv7d6fzg7i8f0bbpqjvrr099q7f8dbrd8f77db3s4nnjk4787d";
+      rev = "334146ee36f8751f92b54716c4ea88f4a88f453d";
+      hash = "sha256:05z1azc8yy0xihvkb2dsv4j6w78q2bfbsjdwi205is2yx2h6inz2";
     };
 
-    buildInputs = old.buildInputs ++ [ pkgs.wayland ];
+    buildInputs = old.buildInputs ++ [ pkgs.wayland pkgs.pipewire ];
   });
 }
