@@ -387,20 +387,6 @@
         "url": "https://github.com/xinebf/google-translate-for-goldendict/archive/37c2cf96fe5584d766211f72aa0f7002fe334168.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "gupload": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-27T22:03:06Z",
-        "description": "Garmin Connect Python Uploader",
-        "homepage": "https://github.com/La0/garmin-uploader",
-        "owner": "La0",
-        "repo": "garmin-uploader",
-        "rev": "d1426ac61a48479a610c969c4bf37a186f717504",
-        "sha256": "1nkkhj30yb00l0an3ds4x4gzcmmfkba4aj84ifbi4zr3xmzkhxiq",
-        "type": "tarball",
-        "url": "https://github.com/La0/garmin-uploader/archive/d1426ac61a48479a610c969c4bf37a186f717504.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "hfst": {
         "branch": "master",
         "builtin": false,
@@ -648,20 +634,6 @@
         "sha256": "15nhvkrdq9mi8np1s3k65w92aksm3937v27cxhiws7ab35wqhh41",
         "type": "tarball",
         "url": "https://github.com/semlanik/microjson/archive/0d9f50e407cd117e56582faf0d99bfececc1b6ea.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "mikatools": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-09-11T21:36:14Z",
-        "description": "Mikatools provides fast and easy methods for common Python coding tasks",
-        "homepage": "https://github.com/mikahama/mikatools",
-        "owner": "mikahama",
-        "repo": "mikatools",
-        "rev": "e2f4d210f88904b5f6d368b638f7bb664b2e0f36",
-        "sha256": "0gpmwrkvn1x8sjq1681flpdma6miipw1vcmc99l15cg80sy3rz2l",
-        "type": "tarball",
-        "url": "https://github.com/mikahama/mikatools/archive/e2f4d210f88904b5f6d368b638f7bb664b2e0f36.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "morse-talk": {
