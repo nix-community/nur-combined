@@ -4,6 +4,7 @@
   _1password-x = callPackage ./1password-x { };
   auto-tab-discard = callPackage ./auto-tab-discard { };
   clearurls = callPackage ./clearurls { };
+  cors-everywhere = callPackage ./cors-everywhere { };
   decentraleyes = callPackage ./decentraleyes { };
   disable-webrtc = callPackage ./disable-webrtc { };
   https-everywhere = callPackage ./https-everywhere { };

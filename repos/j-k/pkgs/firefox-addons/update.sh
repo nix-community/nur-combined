@@ -31,7 +31,7 @@ ADDONS_MOZILLA=$(rg "url = \"https://addons.mozilla.org/firefox/downloads/file/"
 for ADDON in $ADDONS_MOZILLA; do
 	# NAME=$(grep "  name = \"" "$ADDON" | cut -d '"' -f2)
 	NAME=$(extract_val "$ADDON" "name")
-	if [[ "$NAME" == "sty-lus" ]]; then
+	if [[ "$NAME" == "sty-lus" || "$NAME" == "cors_everywhere" ]]; then
 		echo "[$NAME] skipping because addons api broken"
 		continue
 	fi
