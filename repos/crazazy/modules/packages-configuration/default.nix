@@ -1,14 +1,14 @@
 let
   inherit (import ../../nix) sources overlay;
 in
-{ config, pkgs, system ? "", ... }:
+{ config, pkgs, lib, system ? "", ... }:
 {
   imports = [
     ../steam-configuration
   ];
   nix = {
     nixPath = [
-      "nixpkgs=${../../.}"
+      "nixpkgs=${lib.cleanSource ../../.}"
       "nixos-config=/etc/nixos/configuration.nix" # nixos can't change if we change this to a relative path
     ];
     binaryCaches = [
