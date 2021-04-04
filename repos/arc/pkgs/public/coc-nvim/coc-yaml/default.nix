@@ -1,11 +1,11 @@
-{ fetchFromGitHub, yarn2nix, yarn, vimUtils, nodePackages }: let
+{ fetchFromGitHub, yarn2nix, yarn, vimUtils, yaml-language-server, nodePackages }: let
   pname = "coc-yaml";
-  version = "1.1.0";
+  version = "1.3.0";
   src = fetchFromGitHub {
     owner = "neoclide";
     repo = pname;
     rev = version;
-    sha256 = "17zz7kmxw33824y99rs9l5blchd8xz6w0j2p0vpng9d4afiwfzvi";
+    sha256 = "1xjwpkzwb47ahml3rc1cngjw069yi08sw2wvp8sdka0fcy6sbs59";
   };
   deps = yarn2nix.mkYarnModules rec {
     inherit pname version;
@@ -31,6 +31,12 @@ in vimUtils.buildVimPluginFrom2Nix {
 
     webpack-cli
     rm -r node_modules
+
+  '';
+
+  preInstall = ''
+    install -d node_modules/yaml-language-server/out/server/src
+    ln -s ${yaml-language-server}/bin/yaml-language-server node_modules/yaml-language-server/out/server/src/server.js
   '';
 
   meta.broken = !(builtins.tryEval yarn2nix).success || yarn.stdenv.isDarwin;

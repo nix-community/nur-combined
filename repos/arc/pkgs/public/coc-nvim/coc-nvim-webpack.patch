@@ -1,16 +1,26 @@
+diff --git a/src/types.ts b/src/types.ts
+index 585b2d7d..aab46caa 100644
+--- a/src/types.ts
++++ b/src/types.ts
+@@ -20,7 +20,7 @@ export type ProviderName = 'rename' | 'onTypeEdit' | 'documentLink' | 'documentC
+   | 'codeLens' | 'selectionRange'
+ 
+ export interface ParsedUrlQueryInput {
+-  [key: string]: unknown
++  [key: string]: string | number | boolean | number[] | string[] | boolean[]
+ }
+ 
+ /**
 diff --git a/webpack.config.js b/webpack.config.js
-index 0b4ec686..eed12d06 100644
+index 25fd4858..20d93f01 100644
 --- a/webpack.config.js
 +++ b/webpack.config.js
-@@ -1,9 +1,7 @@
+@@ -1,7 +1,6 @@
  const path = require('path')
  const cp = require('child_process')
 -let res = cp.execSync('git rev-parse HEAD', {encoding: 'utf8'})
--let revision = res.slice(0, 10)
--let globalDir = cp.execSync('yarn global dir', {encoding: 'utf8'}).trim()
--const webpack = require(path.join(globalDir, 'node_modules/webpack'))
+-let revision = res.trim().slice(0, 10)
 +let revision = process.env.version
-+const webpack = require('webpack')
+ const webpack = require('webpack')
+ const dev = process.env.NODE_ENV === 'development'
  
- module.exports = {
-   entry: './bin/server',
