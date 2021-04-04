@@ -219,7 +219,7 @@ in with self; {
     else imp channel pkgs;
 
   nixpkgsVersionStable = "20.09";
-  nixpkgsVersionUnstable = "21.03";
+  nixpkgsVersionUnstable = "21.05";
   isNixpkgsStable = versionOlder version "${nixpkgsVersionUnstable}pre";
   isNixpkgsUnstable = !isNixpkgsStable;
 }
