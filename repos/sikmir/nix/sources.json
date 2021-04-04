@@ -874,48 +874,6 @@
         "url": "https://github.com/tumic0/QtPBFImagePlugin-styles/archive/577bb119641c80e1736815ed70a0b99c942c63e0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "redict": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2019-06-20T23:15:30Z",
-        "description": "A dictionary for Linux, based on C++/Qt development",
-        "homepage": "https://github.com/rekols/redict",
-        "owner": "rekols",
-        "repo": "redict",
-        "rev": "525aac01ed5fc0f74f8393dc5b5b3bb57c9b0c5f",
-        "sha256": "1zlad1bmlyy4hirm93f0744c98y9hg11b32ym06rsax719qj2rjl",
-        "type": "tarball",
-        "url": "https://github.com/rekols/redict/archive/525aac01ed5fc0f74f8393dc5b5b3bb57c9b0c5f.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "s2sphere": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2017-11-16T17:47:11Z",
-        "description": "Python implementation of the S2 geometry library",
-        "homepage": "http://s2sphere.sidewalklabs.com/",
-        "owner": "sidewalklabs",
-        "repo": "s2sphere",
-        "rev": "d1d067e8c06e5fbaf0cc0158bade947b4a03a438",
-        "sha256": "0jidg5bg6qpiji8j2r8s8abxxs08ldkc7rdplhbnfw6k4axlh4za",
-        "type": "tarball",
-        "url": "https://github.com/sidewalklabs/s2sphere/archive/d1d067e8c06e5fbaf0cc0158bade947b4a03a438.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "stardict-3": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-01-07T02:11:57Z",
-        "description": "Automatically exported from code.google.com/p/stardict-3",
-        "homepage": "https://github.com/huzheng001/stardict-3",
-        "owner": "huzheng001",
-        "repo": "stardict-3",
-        "rev": "c551c8dd0d8abaa93968dcfb432963671d537807",
-        "sha256": "18j4r125mcyf9iy01092s2fr80xij7lh40s6l969k3jx77xkpfxc",
-        "type": "tarball",
-        "url": "https://github.com/huzheng001/stardict-3/archive/c551c8dd0d8abaa93968dcfb432963671d537807.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "supermercado": {
         "branch": "master",
         "builtin": false,
@@ -998,20 +956,6 @@
         "sha256": "0457467drkiwxc3fwrz63j37jgczz23b2zs9qf3d6w7dj5qq4212",
         "type": "tarball",
         "url": "https://github.com/woboq/tr/archive/28f8b95ccb8055cf785382f71d11aa9bbd35dab4.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "zdict": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-03-06T07:20:36Z",
-        "description": "The last online dictionary framework you need",
-        "homepage": "https://pypi.org/project/zdict/",
-        "owner": "zdict",
-        "repo": "zdict",
-        "rev": "75bb41aebbe150fb874aa577a955c5d547fa0f69",
-        "sha256": "081h6wz11kd9dr00vdig3662j69gbv9fk79c58gisxpjddawf7w6",
-        "type": "tarball",
-        "url": "https://github.com/zdict/zdict/archive/75bb41aebbe150fb874aa577a955c5d547fa0f69.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

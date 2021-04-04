@@ -1,5 +1,6 @@
 { lib
 , stdenv
+, fetchFromGitHub
 , autoconf
 , automake
 , libtool
@@ -8,14 +9,18 @@
 , libmysqlclient
 , libxml2
 , pcre
-, sources
 }:
 
 stdenv.mkDerivation {
   pname = "stardict-tools";
-  version = lib.substring 0 10 sources.stardict-3.date;
+  version = "2021-01-07";
 
-  src = sources.stardict-3;
+  src = fetchFromGitHub {
+    owner = "huzheng001";
+    repo = "stardict-3";
+    rev = "36347a29526e4bacea910017efa1d839dab89667";
+    sha256 = "1qvf74j4m7s3cjhrwdfgji436im0zxh0m1j92ybdk0krnnv29c4m";
+  };
 
   nativeBuildInputs = [
     autoconf
@@ -51,7 +56,8 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    inherit (sources.stardict-3) description homepage;
+    description = "Stardict tools";
+    homepage = "https://github.com/huzheng001/stardict-3";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

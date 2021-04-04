@@ -1,12 +1,17 @@
-{ lib, python37Packages, sources }:
+{ lib, fetchFromGitHub, python3Packages }:
 
-python37Packages.buildPythonApplication {
-  pname = "zdict-unstable";
-  version = lib.substring 0 10 sources.zdict.date;
+python3Packages.buildPythonApplication rec {
+  pname = "zdict";
+  version = "3.8.2";
 
-  src = sources.zdict;
+  src = fetchFromGitHub {
+    owner = "zdict";
+    repo = "zdict";
+    rev = version;
+    sha256 = "0x0952m0yknzpvpfc5qxwijx2fa163rqsvs8masv0n2h9fl5rr8z";
+  };
 
-  propagatedBuildInputs = with python37Packages; [
+  propagatedBuildInputs = with python3Packages; [
     beautifulsoup4
     peewee
     requests
@@ -16,17 +21,18 @@ python37Packages.buildPythonApplication {
   postPatch = "sed -i 's/==.*//' requirements.txt";
 
   buildPhase = ''
-    ${python37Packages.python.interpreter} setup.py build
+    ${python3Packages.python.interpreter} setup.py build
   '';
 
   doCheck = false;
 
   installPhase = ''
-    ${python37Packages.python.interpreter} setup.py install --skip-build --prefix=$out
+    ${python3Packages.python.interpreter} setup.py install --skip-build --prefix=$out
   '';
 
   meta = with lib; {
-    inherit (sources.zdict) description homepage;
+    description = "The last online dictionary framework you need";
+    homepage = "https://github.com/zdict/zdict";
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

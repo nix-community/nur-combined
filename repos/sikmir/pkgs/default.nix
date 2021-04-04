@@ -140,9 +140,7 @@ lib.makeScope newScope (
     lsdreader = callPackage ./dict/lsdreader { };
     odict = callPackage ./dict/odict { };
     opendict = callPackage ./dict/opendict { };
-    redict = libsForQt5.callPackage ./dict/redict {
-      inherit sources;
-    };
+    redict = libsForQt5.callPackage ./dict/redict { };
     stardict-tools = callPackage ./dict/stardict-tools { };
     tatoebatools = callPackage ./dict/tatoebatools { };
     zdict = callPackage ./dict/zdict { };
