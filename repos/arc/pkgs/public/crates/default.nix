@@ -12,7 +12,7 @@
     preBuild = "pushd crates/rust-analyzer";
     postBuild = "popd";
 
-    buildInputs = lib.optionals hostPlatform.isDarwin [ darwin.cf-private darwin.apple_sdk.frameworks.CoreServices ];
+    buildInputs = lib.optionals hostPlatform.isDarwin [ darwin.cf-private darwin.apple_sdk.frameworks.CoreServices darwin.libiconv ];
     # darwin undefined symbol _CFURLResourceIsReachable: https://discourse.nixos.org/t/help-with-rust-linker-error-on-darwin-cfurlresourceisreachable/2657
 
     cargoSha256 = "10hk6argjqdl0wvgadfafc049b1ny6qk0rlp621ik5j8yicsgj4q";
