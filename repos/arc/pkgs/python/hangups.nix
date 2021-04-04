@@ -1,14 +1,14 @@
-{ lib, fetchFromGitHub, fetchzip, protobuf3_13 ? null, pythonPackages }:
+{ lib, pythonPackages }:
 
 with pythonPackages;
 
 buildPythonPackage rec {
   pname = "hangups";
-  version = "0.4.12";
+  version = "0.4.13";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "06vhn5mx2h4b1rgwwhqbi1kx1mwddd55ygkc5jfaqpwisbmfv9hs";
+    sha256 = "015g635vnrxk5lf9n80rdcmh6chv8kmla1k2j7m1iijijs519ngn";
   };
 
   propagatedBuildInputs = [
@@ -26,21 +26,14 @@ buildPythonPackage rec {
     readlike
     requests
     reparser
-    ((protobuf.overrideAttrs (old: rec {
-      version = "3.13.0";
-      src = fetchFromGitHub {
-        repo = "protobuf";
-        owner = "protocolbuffers";
-        rev = "v${version}";
-        sha256 = "1nqsvi2yfr93kiwlinz8z7c68ilg1j75b2vcpzxzvripxx5h6xhd";
-      };
-    })).override { protobuf = protobuf3_13; })
-    urwid1
+    protobuf
+    urwid
     (MechanicalSoup.overrideAttrs (old: rec {
-      version = "0.6.0";
-      src = fetchzip {
-        url = "https://files.pythonhosted.org/packages/50/ae/015244f26e2603b15f796fdd42aa99d20c9a395606900909e119a971fa8e/${old.pname}-${version}.zip";
-        sha256 = "1dm6lhka09k9hcmhsxxz53i7kq47lb8fqp345m6hga6bwa28ksir";
+      version = "0.12.0";
+      src = fetchPypi {
+        inherit version;
+        inherit (old) pname;
+        sha256 = "1g976rk79apz6rc338zq3ml2yps8hb88nyw3a698d0brm4khd9ir";
       };
     }))
   ];
@@ -53,5 +46,5 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  meta.broken = pythonPackages.python.isPy2 || protobuf3_13 == null;
+  meta.broken = lib.versionOlder python.version "3.6" || lib.isNixpkgsStable;
 }

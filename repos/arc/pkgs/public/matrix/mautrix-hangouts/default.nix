@@ -1,19 +1,14 @@
 { fetchFromGitHub, fetchpatch, lib, python3Packages, e2be ? true }: with python3Packages; let
   drv = buildPythonApplication rec {
     pname = "mautrix-hangouts";
-    version = "0.1.1";
+    version = "2021-03-31";
 
     src = fetchFromGitHub {
       owner = "tulir";
       repo = pname;
-      rev = "v${version}";
-      sha256 = "0xj5ykfixy58dsqyky6ds8fh84chbywlnq8khmwkz4m9bx2vr2fy";
+      rev = "a590e1f7eb1fcc8432205530470ae20107cc0319";
+      sha256 = "073sw9x9d01cf1c4f8q7bgp3jx81vqpi1r4gb52n993mwvsxz6vy";
     };
-
-    patches = [ (fetchpatch {
-      url = "https://github.com/tulir/mautrix-hangouts/commit/184937965ee28dd8b8a823015f48e6fc3ec341ee.patch";
-      sha256 = "1fbg7ykchf4akkb62f0ngwayzvvihww4hqddfbc574qm49r8rc4h";
-    }) ];
 
     postPatch = ''
       sed -i -e '/alembic>/d' requirements.txt
