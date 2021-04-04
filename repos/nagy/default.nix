@@ -44,4 +44,6 @@ rec {
 
   timg = pkgs.callPackage ./pkgs/timg {};
 
+  cxxmatrix = pkgs.callPackage ./pkgs/cxxmatrix {};
+
 }

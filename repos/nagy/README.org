@@ -20,6 +20,7 @@ It contains packages/attributes for:
   - cpp-httplib (https://github.com/yhirose/cpp-httplib)
   - cxxtimer (https://github.com/andremaravilha/cxxtimer)
   - timg (https://github.com/hzeller/timg)
+  - cxxmatrix (https://github.com/akinomyoga/cxxmatrix)
 
 * Mirrors of this repo
 - https://github.com/nagy/nur-packages
