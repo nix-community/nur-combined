@@ -39,12 +39,17 @@ in reduceJoin [
     custom_neovim = cp ./modules/neovim/package.nix;
     wineApps = {
       wine7zip = cp ./packages/wineApps/7zip.nix;
+      cs_extreme = cp ./packages/wineApps/cs_extreme.nix;
+      dead_space = cp ./packages/wineApps/dead_space.nix;
+      gta_sa = cp ./packages/wineApps/gta_sa.nix;
       among_us = cp ./packages/wineApps/among_us.nix;
       ets2 = cp ./packages/wineApps/ets2.nix;
       mspaint = cp ./packages/wineApps/mspaint.nix;
       pinball = cp ./packages/wineApps/pinball.nix;
       sosim = cp ./packages/wineApps/sosim.nix;
       tora = cp ./packages/wineApps/tora.nix;
+      nfsu2 = cp ./packages/wineApps/nfsu2.nix;
+      flatout2 = cp ./packages/wineApps/flatout2.nix;
     };
     among_us = cp ./packages/among_us.nix;
     comby = cp ./packages/comby.nix;
