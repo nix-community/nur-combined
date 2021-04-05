@@ -316,6 +316,20 @@
         platforms = platforms.all;
         };
       };
+    "form-history-control" = buildFirefoxXpiAddon {
+      pname = "form-history-control";
+      version = "2.5.5.1";
+      addonId = "formhistory@yahoo.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3678048/form_history_control-2.5.5.1-an+fx.xpi";
+      sha256 = "8c3402cfe7c777193b05e248846f5e8d15b2c10aa7fa69c7b1c9d2cfa1a287c0";
+      meta = with lib;
+      {
+        homepage = "https://stephanmahieu.github.io/fhc-home/";
+        description = "Manage form history entries (search, edit, cleanup, export/import) and easy text formfiller.\n\nAuto-save text entered in any form while typing to allow fast recovery when disaster strikes.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "foxyproxy-standard" = buildFirefoxXpiAddon {
       pname = "foxyproxy-standard";
       version = "7.5.1";
