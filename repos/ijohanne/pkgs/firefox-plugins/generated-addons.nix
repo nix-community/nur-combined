@@ -15,10 +15,10 @@
   };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
-    version = "4.9.27";
+    version = "4.9.30";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3712931/dark_reader-4.9.27-an+fx.xpi";
-    sha256 = "3388ad0c1e91e9fcb5103df1286bb5df0caf192aaf2a85a34acb046ca96b78a1";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3753289/dark_reader-4.9.30-an+fx.xpi";
+    sha256 = "92fa3841c93ab652057a2aa019f7b94f050b4dc677f4b3ba9798f54ab6237a17";
     meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -29,14 +29,14 @@
   };
   "enhancer-for-youtube" = buildFirefoxXpiAddon {
     pname = "enhancer-for-youtube";
-    version = "2.0.101";
+    version = "2.0.103.3";
     addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3537917/enhancer_for_youtubetm-2.0.101-fx.xpi";
-    sha256 = "b64c2f36b6fc93c22d2305bb25dd0af60c5f3d1fa7ce45592ba3344aa2a99715";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3738131/enhancer_for_youtubetm-2.0.103.3-fx.xpi";
+    sha256 = "41c31da34a99fae5d9fcbddc57f4715f1c43e639b688ae4f665102596fa690b5";
     meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
-        description = "Tons of features to improve your user experience on YouTube™.";
+        description = "Take control of YouTube and boost your user experience!";
         platforms = platforms.all;
       };
   };
@@ -69,10 +69,10 @@
   };
   "lastpass-password-manager" = buildFirefoxXpiAddon {
     pname = "lastpass-password-manager";
-    version = "4.64.0.3";
+    version = "4.68.0.3";
     addonId = "support@lastpass.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3719125/lastpass_password_manager-4.64.0.3-an+fx.xpi";
-    sha256 = "1a3abdd6133f0c36a5ab508319ec423e78c26aef5280b523b2a4bf45e4bd1271";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3750291/lastpass_password_manager-4.68.0.3-an+fx.xpi";
+    sha256 = "f6f19474cb9af46f7c47d6dabd78532c868915d3e269ca1b9068ffa2459ac3d7";
     meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -82,10 +82,10 @@
   };
   "reddit-enhancement-suite" = buildFirefoxXpiAddon {
     pname = "reddit-enhancement-suite";
-    version = "5.20.12";
+    version = "5.22.2";
     addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3703195/reddit_enhancement_suite-5.20.12-an+fx.xpi";
-    sha256 = "8c4ee11c701a916ef7d53611bd237882ae0130d77c64bdccef4e33297c317599";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3751751/reddit_enhancement_suite-5.22.2-an+fx.xpi";
+    sha256 = "d79ba200b5b3646c4e32ceb58a1bdca9c8b7d934b950e5c03298a02012654060";
     meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -96,10 +96,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.33.2";
+    version = "1.34.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3719054/ublock_origin-1.33.2-an+fx.xpi";
-    sha256 = "5c3a5ef6f5b5475895053238026360020d6793b05541d20032ea9dd1c9cae451";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3740966/ublock_origin-1.34.0-an+fx.xpi";
+    sha256 = "96783b4e9abed66af81a30f7dbb6560911a9d828b12aadf0ec88b181200c3bfe";
     meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
