@@ -17,5 +17,6 @@
   autofirma = pkgs.callPackage ./pkgs/autofirma { };
   configuradorfnmt = pkgs.callPackage ./pkgs/configuradorfnmt { };
   matlab-r2020b-launcher = pkgs.callPackage ./pkgs/matlab-r2020b-launcher { };
+  matlab-r2021a-launcher = pkgs.callPackage ./pkgs/matlab-r2021a-launcher { };
   subtitleedit = pkgs.callPackage ./pkgs/subtitleedit { };
 }
