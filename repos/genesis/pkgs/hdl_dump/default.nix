@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  version = "unstable-2020-29-12";
+  version = "unstable-2021-05-03";
   pname = "hdl_dump";
 
   src = fetchFromGitHub {

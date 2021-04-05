@@ -12,11 +12,11 @@
 stdenv.mkDerivation rec {
 
   pname = "caprice32";
-  version = "sdl2_v1";
+  version = "4.6.0";
 
   src = fetchFromGitHub {
     repo = "caprice32";
-    rev = "${version}";
+    rev = "v${version}";
     owner = "ColinPitrat";
     sha256 = "sha256-GvgjSrDeyCNdBr3Cx8nNG1slJbmukgStu3gg8plMcKc=";
   };
