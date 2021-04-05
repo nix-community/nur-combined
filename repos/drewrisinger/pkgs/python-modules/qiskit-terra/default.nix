@@ -29,7 +29,7 @@
 , withCrosstalkPass ? false
 , z3
   # Classical function -> Quantum Circuit compiler
-, withClassicalFunctionCompiler ? false
+, withClassicalFunctionCompiler ? true
 , tweedledum
   # test requirements
 , ddt
@@ -56,7 +56,7 @@ in
 
 buildPythonPackage rec {
   pname = "qiskit-terra";
-  version = "0.16.4";
+  version = "0.17.0";
 
   disabled = pythonOlder "3.6";
 
@@ -64,7 +64,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "1iz143wnlrgrr1jdgyz2mv709pb2shvxmf51fhg867j0z8ysbdgy";
+    sha256 = "0wlpkw0b8kxmjz2fis2n8126psbhn3mqwgdpc2wm208nf1l5pcrd";
   };
 
   nativeBuildInputs = [ cython ];
@@ -117,6 +117,8 @@ buildPythonPackage rec {
     # Flaky tests
     "test_pulse_limits" # Fails on GitHub Actions, probably due to minor floating point arithmetic error.
     "test_cx_equivalence"  # Fails due to flaky test
+  ] ++ lib.optionals (!withClassicalFunctionCompiler) [
+    "TestPhaseOracle"
   ]
   # Disabling slow tests for Travis build constraints
   ++ [

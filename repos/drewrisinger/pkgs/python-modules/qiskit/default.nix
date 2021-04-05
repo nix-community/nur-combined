@@ -15,7 +15,7 @@
 buildPythonPackage rec {
   pname = "qiskit";
   # NOTE: This version denotes a specific set of subpackages. See https://qiskit.org/documentation/release_notes.html#version-history
-  version = "0.24.1";
+  version = "0.25.0";
 
   disabled = pythonOlder "3.6";
 
@@ -23,7 +23,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit";
     rev = version;
-    sha256 = "0qfz69n8sl7sk4hzygni9qars9q1cyz0n3bv1lca00ia5qsc72d2";
+    sha256 = "0kaa1pc4fi90xasr1c32j71363j1pipmrl0vgd0cy5ijf1vkm4x4";
   };
 
   propagatedBuildInputs = [
@@ -37,7 +37,6 @@ buildPythonPackage rec {
   checkInputs = [ pytestCheckHook ];
   dontUseSetuptoolsCheck = true;
 
-  # following doesn't work b/c they are distributed across different nix sitePackages dirs. Tested with pytest though.
   pythonImportsCheck = [
     "qiskit"
     "qiskit.aqua"

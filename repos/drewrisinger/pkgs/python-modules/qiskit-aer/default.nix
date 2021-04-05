@@ -27,7 +27,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-aer";
-  version = "0.7.6";
+  version = "0.8.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit-aer";
     rev = version;
-    sha256 = "0595as4rxjrd5dqx54ywz3rjsjk0z7r41bq0z9r8y1h7zgvvlrmn";
+    sha256 = "1ylpl1b7yh79vqkg80ax2xrhh309nszxdxc1kmbp1l7c29x7fq89";
   };
 
   # The default check for the dl library will erroneously fail (and building with it w/ buildInputs = [... glibc ] fails too).
@@ -45,7 +45,12 @@ buildPythonPackage rec {
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace "find_library(DL_LIB NAMES dl)" ""
     substituteInPlace CMakeLists.txt --replace "''${DL_LIB}" "''${CMAKE_DL_LIBS}"
-    substituteInPlace setup.py --replace "'cmake!=3.17,!=3.17.0'," ""
+    substituteInPlace setup.py \
+      --replace "'cmake!=3.17,!=3.17.0'," "" \
+      --replace "'pybind11', min_version='2.6'" "'pybind11'" \
+      --replace "pybind11>=2.6" "pybind11" \
+      --replace "scikit-build>=0.11.0" "scikit-build" \
+      --replace "min_version='0.11.0'" ""
   '';
 
   nativeBuildInputs = [
