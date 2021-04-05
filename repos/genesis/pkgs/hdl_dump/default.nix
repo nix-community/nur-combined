@@ -7,9 +7,11 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ps2homebrew";
     repo = "hdl-dump";
-    rev = "b7c85abe5a1c7b1aa8ad402499932c673c1cecd2";
-    sha256 = "1ijg4nvq865qgp99dmc5np5snb5aibjmvflmj6mj82kszmbbakip";
+    rev = "58b6f6ce9c2c142ded18da99b219fa75e85c06ac";
+    sha256 = "sha256-zzHpHBG9HEMyiztGfJ7gcRf4VKm2fsvdUDkr7lY9ixA=";
   };
+
+  makeFlags = [ "RELEASE=yes" ];
 
   installPhase = ''
     install -Dm755 hdl_dump -t $out/bin

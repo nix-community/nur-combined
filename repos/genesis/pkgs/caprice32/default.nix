@@ -4,7 +4,7 @@
 , desktop-file-utils
 , libpng
 , pkgconfig
-, SDL
+, SDL2
 , freetype
 , zlib
 }:
@@ -12,18 +12,17 @@
 stdenv.mkDerivation rec {
 
   pname = "caprice32";
-  version = "latest";
+  version = "sdl2_v1";
 
   src = fetchFromGitHub {
     repo = "caprice32";
-    #rev = "v${version}";
-    rev = "584d4ab6f4ce178b0a83a6a2d95119213c86fda6";
+    rev = "${version}";
     owner = "ColinPitrat";
-    sha256 = "sha256-5Lpudnws3DcsRXCSAjJNxOwMDwHD6X58ruGiFZqdb5M=";
+    sha256 = "sha256-GvgjSrDeyCNdBr3Cx8nNG1slJbmukgStu3gg8plMcKc=";
   };
 
   nativeBuildInputs = [ desktop-file-utils pkgconfig ];
-  buildInputs = [ libpng SDL freetype zlib ];
+  buildInputs = [ libpng SDL2 freetype zlib ];
 
   makeFlags = [
     "APP_PATH=${placeholder "out"}/share/caprice32"
