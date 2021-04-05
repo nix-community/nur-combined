@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "zsh-kubectl-prompt";
-  version = "1.3.1";
+  version = "1.4.0";
 
   src = fetchFromGitHub {
     owner = "superbrothers";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0l467mkdqxyf9ag9nyg7j41c1vz2v3zq0piy6wdb70lhr7825rgp";
+    sha256 = "10gmhxcg2qvb6lcsckrmrgza6pr5gf79vwp96822casqrhc15q3q";
   };
 
   buildInputs = [ zsh ];

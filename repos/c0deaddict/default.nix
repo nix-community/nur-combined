@@ -78,4 +78,6 @@ rec {
 
   terraformer-aws = (pkgs.callPackage ./pkgs/terraformer {}).aws;
 
+  kubectl-crossplane = pkgs.callPackage ./pkgs/kubectl-crossplane {};
+
 }
