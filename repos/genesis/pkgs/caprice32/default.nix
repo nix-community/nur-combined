@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     repo = "caprice32";
     rev = "v${version}";
     owner = "ColinPitrat";
-    sha256 = "sha256-GvgjSrDeyCNdBr3Cx8nNG1slJbmukgStu3gg8plMcKc=";
+    sha256 = "sha256-nyna4UvdVLFq+mPp02wxSattORR30h7+SjCwx/Msz0I=";
   };
 
   nativeBuildInputs = [ desktop-file-utils pkgconfig ];
