@@ -27,7 +27,7 @@
 
 buildPythonPackage rec {
   pname = "angr";
-  version = "9.0.5405";
+  version = "9.0.6588";
   disabled = !isPy3k;
 
   propagatedBuildInputs = [
@@ -58,15 +58,8 @@ buildPythonPackage rec {
     owner = "angr";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-ZsIP4MBDGHurLh+BkZG+x6WLvkYpshZQEmzL/G4id28=";
+    sha256 = "sha256-0Z9i1Glu00NPlN3kJ0HEnp9kUwywV4SXFjGKjUJwBVg=";
   };
-
-  # Version 9.0.4446 of `archinfo` is broken: see angr/archinfo#94 ;
-  # Allow the use of the unstable version present in the repo;
-  # Could probably be removed on the next release of `angr` (and its dependencies).
-  patchPhase = ''
-    sed -i "s/archinfo==${version}/archinfo/" setup.py
-  '';
 
   setupPyBuildFlags = [
     "--plat-name x86_64-linux"
