@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   launcherZip = builtins.fetchurl {
     sha256 = "08la0fazwl4gn6g06iqjfl300q18dpqa8bzc6v16p4lsl9r54bm6";
     url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/ShiginimaSE_v4400.zip";
   };
-  envLibPath = with pkgs; stdenv.lib.makeLibraryPath [
+  envLibPath = with pkgs; lib.makeLibraryPath [
     alsaLib # needed for narrator
     curl
     flite # needed for narrator
@@ -43,8 +43,8 @@ let
     meta = {
       homepage = "https://teamshiginima.com/update/";
       description = "Minecraft";
-      # license = stdenv.licences.proprietary;
-      platforms = pkgs.stdenv.lib.platforms.unix;
+      license = lib.licenses.unfree;
+      platforms = lib.platforms.unix;
     };
   };
 in

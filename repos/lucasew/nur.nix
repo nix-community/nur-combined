@@ -4,8 +4,6 @@ let
 in
 {
   hmModules = {
-    spotify-adskip = ./modules/spotify/home.nix;
-    youtube-adskip = ./modules/youtube/home.nix;
     tmux = ./modules/tmux/home.nix;
     wallpaper = ./modules/wallpaper/home.nix;
   };
@@ -13,13 +11,29 @@ in
     cachix = ./modules/cachix/system.nix;
   };
   packages = {
-    custom_rofi = p ./packages/custom_rofi.nix;
-    shiginima = p ./packages/minecraft.nix;
-    mspaint = p ./packages/mspaint.nix;
+    # wine packages
+    wrapWine = p ./packages/wrapWine.nix;
+    mspaint = p ./packages/wineApps/mspaint.nix;
+    pinball = p ./packages/wineApps/pinball.nix;
+    sosim = p ./packages/wineApps/sosim.nix;
+    tora = p ./packages/wineApps/tora.nix;
+    wine7zip = p ./packages/wineApps/7zip.nix;
+
+    # custom things
     custom_neovim = p ./modules/neovim/package.nix;
-    pinball = p ./packages/pinball.nix;
-    stremio = p ./packages/stremio.nix;
+    custom_rofi = p ./packages/custom_rofi.nix;
     peazip = p ./packages/peazip.nix;
+    shiginima = p ./packages/minecraft.nix;
+    stremio = p ./packages/stremio.nix;
+    cisco-packet-tracr = p ./packages/cisco-packet-tracer.nix;
+
+    # webapp stuff
+    webapp = p ./packages/webapp.nix;
+    webapps = p ./packages/chromeapps.nix;
+
+    # utils
+    pkg = p ./packages/pkg.nix;
+    c4me = p ./packages/c4me/default.nix;
   };
   lib = {
     filter = import ./lib/filter.nix;
