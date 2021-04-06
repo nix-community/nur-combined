@@ -12,14 +12,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    (ConfigArgParse.overrideAttrs (old: rec {
-      version = "0.11.0";
-      src = fetchPypi {
-        inherit version;
-        inherit (old) pname;
-        sha256 = "12dcl0wdsjxgphxadyz9bdzbvlwfaqgvba9s59ghajw4yqiyi2kc";
-      };
-    }))
+    ConfigArgParse
     aiohttp
     async-timeout
     appdirs
