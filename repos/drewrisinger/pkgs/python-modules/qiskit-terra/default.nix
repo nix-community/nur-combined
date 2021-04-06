@@ -140,6 +140,14 @@ buildPythonPackage rec {
     "test_block_collection_reduces_1q_gate"
     "test_multi_controlled_rotation_gate_matrices"
     "test_block_collection_runs_for_non_cx_bases"
+    "test_with_two_qubit_reduction"
+    "test_basic_aer_qasm"
+    "test_hhl"
+    "test_H2_hamiltonian"
+    "test_max_evals_grouped_2"
+    "test_qaoa_qc_mixer_4"
+    "test_abelian_grouper_random_2"
+    "test_pauli_two_design"
   ];
 
   # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding
