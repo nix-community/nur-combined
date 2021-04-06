@@ -49,10 +49,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.4.2";
+      version = "0.4.3";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3734569/auto_tab_discard-0.4.2-an+fx.xpi";
-      sha256 = "3da62698f88f380de1841281cddf03719ff7095302c9e4291997fd475a9ba32e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3755275/auto_tab_discard-0.4.3-an+fx.xpi";
+      sha256 = "63e9f72dedaca1f180989f3dc6baaee9c14c243dfe57c39da01f309bc3a01b6c";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -192,10 +192,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.30";
+      version = "4.9.31";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3753289/dark_reader-4.9.30-an+fx.xpi";
-      sha256 = "92fa3841c93ab652057a2aa019f7b94f050b4dc677f4b3ba9798f54ab6237a17";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3755341/dark_reader-4.9.31-an+fx.xpi";
+      sha256 = "43da8e70e4d3d2ebde549f5a8dea54b59c8793d32049cdaf8868f3da02e94faa";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -304,10 +304,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.6.1";
+      version = "4.6.2";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3744486/floccus-4.6.1-fx.xpi";
-      sha256 = "5af4bd3d1b735ceaf5672ae19dd3e73650c8881a00ad874e39464a9059014517";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3755331/floccus-4.6.2-fx.xpi";
+      sha256 = "be252937282037d2b7b3e17f5aff010e2d6003ce6f857b02d1d225932d8be2c0";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -677,10 +677,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.2.1";
+      version = "9.3.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3751755/metamask-9.2.1-an+fx.xpi";
-      sha256 = "f1f4409206f59022888bcf2aff689019ee121c1d0db0714fdef9c589852e2dbb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3755627/metamask-9.3.0-an+fx.xpi";
+      sha256 = "2c4b1ba8f17f2a93742ffbc56071acdea93d11c044d38466c09688fdc8db3ccb";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -958,10 +958,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.22.2";
+      version = "5.22.3";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3751751/reddit_enhancement_suite-5.22.2-an+fx.xpi";
-      sha256 = "d79ba200b5b3646c4e32ceb58a1bdca9c8b7d934b950e5c03298a02012654060";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3755655/reddit_enhancement_suite-5.22.3-an+fx.xpi";
+      sha256 = "cb4753adf0f3592f6332d7b3d69adccecbbfb2baba6c238e15c2abe6e6f80b83";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -1393,10 +1393,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.41.0";
+      version = "2.42.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3737319/web_scrobbler-2.41.0-an+fx.xpi";
-      sha256 = "07730c165c49a0e08c3369d79b3d12150ccac22587c38c6614ac2dbf73d2a423";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3755338/web_scrobbler-2.42.0-an+fx.xpi";
+      sha256 = "ce8e13157db1330dbb69a9d22e55daf9e921424890ad087cc1c79737c7c4d7d6";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
