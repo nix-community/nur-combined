@@ -130,10 +130,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "0dylmcbblxj0sbwjiym961amxvj0r8yks47kdw9ssfbx9wg73chw";
+      sha256 = "1rsxrcnayi3gpqbrcvryiqvvvfib7bpjzc0yij8c9hihcc46mpaz";
       type = "gem";
     };
-    version = "4.12.0";
+    version = "4.12.1";
   };
   nanoc-checking = {
     dependencies = [ "nanoc-cli" "nanoc-core" ];
@@ -152,21 +152,21 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "0mz93msccaa4g5dkjab5j77g7b353zavxia7wvrwmgccznmli9p1";
+      sha256 = "0wmziv22ygqvzc839vr3sgpgn32q2k9h6l33h9bxmr9yi04s41sl";
       type = "gem";
     };
-    version = "4.12.0";
+    version = "4.12.1";
   };
   nanoc-core = {
-    dependencies = [ "concurrent-ruby" "ddmemoize" "ddmetrics" "ddplugin" "hamster" "json_schema" "slow_enumerator_tools" "tomlrb" "tty-platform" "zeitwerk" ];
+    dependencies = [ "concurrent-ruby" "ddmemoize" "ddmetrics" "ddplugin" "hamster" "json_schema" "slow_enumerator_tools" "tty-platform" "zeitwerk" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1yibscgw82dafqp4giprmvbqz3zadka8ywvgpd6lgm1kf4c3j1qm";
+      sha256 = "0gwaxhww20f6bk58z5m2hrydxyawr2iv9ykiifqbrimil7iylv6a";
       type = "gem";
     };
-    version = "4.12.0";
+    version = "4.12.1";
   };
   nanoc-deploying = {
     dependencies = [ "nanoc-checking" "nanoc-cli" "nanoc-core" ];
@@ -235,10 +235,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1mkvkcw9fhpaizrhca0pdgjcrbns48rlz4g6lavl5gjjq3rk2sq3";
+      sha256 = "08ximcyfjy94pm1rhcx04ny1vx2sk0x4y185gzn86yfsbzwkng53";
       type = "gem";
     };
-    version = "3.2.4";
+    version = "3.2.5";
   };
   slow_enumerator_tools = {
     groups = [ "default" ];
@@ -249,16 +249,6 @@
       type = "gem";
     };
     version = "1.1.0";
-  };
-  tomlrb = {
-    groups = [ "default" ];
-    platforms = [ ];
-    source = {
-      remotes = [ "https://rubygems.org" ];
-      sha256 = "00x5y9h4fbvrv4xrjk4cqlkm4vq8gv73ax4alj3ac2x77zsnnrk8";
-      type = "gem";
-    };
-    version = "1.3.0";
   };
   tty-color = {
     groups = [ "default" ];
