@@ -10,6 +10,7 @@
       sha256 = "073sw9x9d01cf1c4f8q7bgp3jx81vqpi1r4gb52n993mwvsxz6vy";
     };
 
+    patches = [ ./entrypoint.patch ];
     postPatch = ''
       sed -i -e '/alembic>/d' requirements.txt
     '';
