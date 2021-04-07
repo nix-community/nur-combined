@@ -6,8 +6,7 @@ rec {
   fix = f:
     let x = f x; in x;
   # Especially useful if working with tuples (tuples in a semantic sense of course)
-  quickElem = f: xs:
-    let i = elemAt xs; in f i;
+  quickElem = f: xs: f (elemAt xs);
   enumerate = xs: genList (x: [ x (elemAt xs x) ]) (length xs);
   charList = simpleSplit "";
   gcd = a: b: if b == 0 then a else gcd b (mod a b);
