@@ -1,5 +1,5 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index 36e7b71..f9a4576 100644
+index e49513d..e3182e7 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
 @@ -67,10 +67,6 @@ class Api:
