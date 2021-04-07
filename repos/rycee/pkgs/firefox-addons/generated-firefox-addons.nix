@@ -1000,10 +1000,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.4.2";
+      version = "21.4.6";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3754309/refined_github-21.4.2-an+fx.xpi";
-      sha256 = "2e9502a7a187d1f25874ecb7cc26cb461e5584a7e34c3d2028856e026be11362";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3756338/refined_github-21.4.6-an+fx.xpi";
+      sha256 = "97cdd6528e18d49ce7a49afdb418e5eac2d0a20c881ad8337728977fc99b4013";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1309,10 +1309,10 @@
       };
     "videospeed" = buildFirefoxXpiAddon {
       pname = "videospeed";
-      version = "0.6.3.2";
+      version = "0.6.3.3";
       addonId = "{7be2ba16-0f1e-4d93-9ebc-5164397477a9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3723258/video_speed_controller-0.6.3.2-an+fx.xpi";
-      sha256 = "63e9849f4343bbfabb190e2d3e103cce57c5fbd5f7ed2066eaf52eda2f15d655";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3756025/video_speed_controller-0.6.3.3-an+fx.xpi";
+      sha256 = "dea225f3520dd92b5ab3ef30515f37fbd127aa191c7eb3fa2547d2deae52102a";
       meta = with lib;
       {
         homepage = "https://github.com/codebicycle/videospeed";
