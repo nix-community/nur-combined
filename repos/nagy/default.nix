@@ -46,4 +46,6 @@ rec {
 
   cxxmatrix = pkgs.callPackage ./pkgs/cxxmatrix {};
 
+  cpufetch = pkgs.callPackage ./pkgs/cpufetch {};
+
 }
