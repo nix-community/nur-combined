@@ -80,4 +80,6 @@ rec {
 
   kubectl-crossplane = pkgs.callPackage ./pkgs/kubectl-crossplane {};
 
+  argo-rollouts = pkgs.callPackage ./pkgs/argo-rollouts {};
+
 }
