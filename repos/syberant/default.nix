@@ -21,6 +21,10 @@ rec {
   caia = pkgs.callPackage ./pkgs/caia { inherit caia-unwrapped; };
   caia-unwrapped = pkgs.callPackage ./pkgs/caia/unwrapped.nix { };
 
+  digital = pkgs.callPackage ./pkgs/digital {};
+
+  ytfzf = pkgs.callPackage ./pkgs/ytfzf {};
+
   # build-support
   makeDevEnv = pkgs.callPackage ./pkgs/build-support/makeDevEnv { };
 }
