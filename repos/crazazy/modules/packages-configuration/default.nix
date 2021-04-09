@@ -5,6 +5,7 @@ in
 {
   imports = [
     ../steam-configuration
+    ../nix-experimental
   ];
   nix = {
     nixPath = [

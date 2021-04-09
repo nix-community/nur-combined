@@ -8,9 +8,8 @@ I'm Crazazy, and nowadays I mostly work on nix projects in my free time
 
 Currently I study at the [University of Twente](https://utwente.nl)
 
-This README.md is part of my personal monorepo, where I plan to experiemnt with automation using nix and maybe eventually build my own small operating system based on NixOS. For now it's pretty barren, though so don't expect much when clicking on the link
 In this git repo you will find my personal configuration, and some packages I find useful to have
- 
+
 ### folders:
 
 - `pkgs/`: personal package repository
@@ -31,14 +30,15 @@ In this git repo you will find my personal configuration, and some packages I fi
 - replace configuration.nix with the following:
 ```nix
 { ... }:
-let 
+let
     nur-no-pkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {};
-    inherit (nur-no-pkgs.repos.crazazy.modules) desktop-configuration system-configuration;
+    inherit (nur-no-pkgs.repos.crazazy.modules.private) desktop-configuration system-configuration users-configuration;
 in
 {
     imports = [
         desktop-configuration
         system-configuration
+		users-configuration
         ./hardware-configuration.nix
         ];
 }
@@ -58,5 +58,3 @@ This repository uses [cachix](https://cachix.org) to cache the build artifacts n
 nix-env -iA cachix -f https://cachix.org/api/v1/install
 cachix use crazazy
 ```
-
-

@@ -10,6 +10,7 @@
   };
 
   # separate usable modules
+  nix-experimental = ./nix-experimental;
   feh-bg-module = ./internet-background;
   home-manager = ./home-configuration;
 }
