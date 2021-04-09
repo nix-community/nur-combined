@@ -1,20 +1,29 @@
-{ stdenvNoCC, fetchzip }: let
-  version = "5.414.0";
-in stdenvNoCC.mkDerivation {
+{ stdenv, unzip, requireFile, hostPlatform, autoPatchelfHook }: let
+  subdir =
+    if hostPlatform.isAarch64 then "aarch64"
+    else if hostPlatform.isx86_64 then "x64"
+    else if hostPlatform.isx86 then "x86"
+    else if hostPlatform.isPowerPC then "ppc64"
+    else throw "Unknown nvflash platform ${hostPlatform.config}";
+in stdenv.mkDerivation rec {
   pname = "nvflash";
-  inherit version;
+  version = "5.692";
 
-  src = fetchzip {
-    # https://www.techpowerup.com/download/nvidia-nvflash/
-    url = "http://us1-dl.techpowerup.com/files/?/nvflash_${version}_linux.zip";
-    sha256 = "0znglxarhldk774cmja623nlp65vnz703jlms2fj194l00shplsb";
+  nativeBuildInputs = [ unzip autoPatchelfHook ];
+
+  src = requireFile {
+    url = "https://www.techpowerup.com/download/nvidia-nvflash/";
+    name = "nvflash_${version}_linux.zip";
+    sha256 = "1ywpiw467pvkwy90slpfgpq2bnjvj64ji0g94cx7kx31gz5sn5dz";
   };
+  sourceRoot = ".";
 
   buildPhase = "true";
 
+  inherit subdir;
   installPhase = ''
-    install -Dm0755 nvflash_linux $out/bin/nvflash
+    install -Dm0755 -t $out/bin $subdir/nvflash
   '';
 
-  meta.broken = true;
+  passthru.ci.skip = true;
 }

@@ -29,5 +29,5 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  meta.broken = lib.versionOlder python.version "3.6";
+  meta.broken = pythonOlder "3.6";
 }

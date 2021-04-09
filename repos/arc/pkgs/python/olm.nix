@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, pythonPackages, olm }: pythonPackages.buildPythonPackage {
+{ lib, fetchFromGitHub, pythonPackages, olm }: with pythonPackages; buildPythonPackage {
   pname = "python-olm";
   version = olm.version;
 
@@ -8,8 +8,8 @@
     else "${olm.name}/python";
   buildInputs = [ olm ];
 
-  propagatedBuildInputs = with pythonPackages; [
+  propagatedBuildInputs = [
     cffi
     future
-  ] ++ lib.optional pythonPackages.python.isPy2 typing;
+  ] ++ lib.optional python.isPy2 typing;
 }

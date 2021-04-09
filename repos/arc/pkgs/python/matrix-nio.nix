@@ -22,7 +22,8 @@ buildPythonPackage rec {
   doCheck = enableOlm;
 
   propagatedBuildInputs = let
-    aiohttp-socks = pythonPackages.aiohttp-socks.overrideAttrs (old: rec {
+    aiohttp-socks = buildPythonPackage rec {
+      pname = "aiohttp-socks";
       version = "0.5.5";
       src = fetchPypi {
         inherit version;
@@ -30,8 +31,15 @@ buildPythonPackage rec {
         sha256 = "0jmhb0l1w8k1nishij3awd9zv8zbyb5l35a2pdalrqxxasbhbcif";
       };
 
-      propagatedBuildInputs = old.propagatedBuildInputs ++ [ pythonPackages.python-socks ];
-    });
+      postPatch = ''
+        substituteInPlace setup.py \
+          --replace '[asyncio]' ""
+      '';
+
+      doCheck = false;
+
+      propagatedBuildInputs = [ aiohttp attrs python-socks ];
+    };
     aiofiles = pythonPackages.aiofiles.overrideAttrs (old: rec {
       version = "0.4.0";
       src = fetchPypi {
@@ -72,7 +80,7 @@ buildPythonPackage rec {
         sha256 = "1qfad70h59hya21vrzz8dqyyaiqhac0anl2dx3s3k80gpskvrm1k";
       };
     });
-  in with pythonPackages; [
+  in [
     attrs
     future
     h11
@@ -82,7 +90,7 @@ buildPythonPackage rec {
     Logbook
     jsonschema
     unpaddedbase64
-  ] ++ lib.optionals (!pythonPackages.python.isPy2) [ aiohttp aiofiles aiohttp-socks ]
+  ] ++ lib.optionals (!python.isPy2) [ aiohttp aiofiles aiohttp-socks ]
     ++ lib.optionals enableOlm [ olm peewee atomicwrites cachetools ];
 
   passthru = {

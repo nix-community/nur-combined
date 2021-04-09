@@ -23,5 +23,5 @@ buildPythonPackage rec {
     isort
   ];
 
-  meta.broken = pythonPackages.python.isPy2;
+  meta.broken = python.isPy2;
 }
