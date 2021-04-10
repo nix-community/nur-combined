@@ -14,8 +14,6 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  free42 = pkgs.callPackage ./pkgs/free42 { };
-
   pythonPackages = pkgs.makeOverridable (import pkgs/python-modules) {
     inherit pkgs;
     pythonPackages = pkgs.pythonPackages;
