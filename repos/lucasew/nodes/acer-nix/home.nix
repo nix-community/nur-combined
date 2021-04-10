@@ -9,6 +9,7 @@ in
     "${flake.inputs.redial_proxy}/hmModule.nix"
     ./modules/dlna.nix
     ./modules/firefox/home.nix
+    ./modules/dunst.nix
     ../../modules/i3/home.nix
     ../../modules/polybar/home.nix
     ../../modules/spotify/home.nix
@@ -21,7 +22,7 @@ in
   home.packages = with pkgs; [
    # ------------ pacotes do nixpkgs ---------------
     # minecraft  # custom (excluded)
-    usb_tixati pinball mspaint custom_rofi peazip # custom
+    usb_tixati wineApps.pinball wineApps.mspaint custom_rofi peazip # custom
     vlc youtube-dl # media
     chromium
     file

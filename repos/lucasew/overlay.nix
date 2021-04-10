@@ -19,7 +19,7 @@ let
   {};
 in reduceJoin [
   super
-  {
+  rec {
     lib = {
       inherit reduceJoin;
       maintainers = import "${flake.inputs.nixpkgsLatestSmall}/maintainers/maintainer-list.nix";
