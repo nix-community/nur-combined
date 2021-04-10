@@ -1,5 +1,5 @@
 {
   # Add your overlays here
   #
-  mkYamlShell = import ./mkYamlShell/overlay.nix { };
+  mkYamlShell = import ./mkYamlShell/overlay.nix;
 }
