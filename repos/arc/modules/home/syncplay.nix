@@ -93,6 +93,9 @@ in {
   };
   config = {
     programs.syncplay = {
+      player = mkIf config.programs.mpv.enable (
+        mkDefault "${config.programs.mpv.finalPackage}/bin/mpv"
+      );
       args = [ "--no-store" ] ++ optional (! cfg.gui) "--no-gui";
       trustedDomains = [ "youtube.com" "youtu.be" ];
       configIni = mkOptionDefault (concatStringsSep "\n" (

@@ -1,4 +1,5 @@
 { pkgs, config, lib, ... }: with lib; let
+  # this partially exists to work around https://github.com/NixOS/nixpkgs/issues/25456
   cfg = config.boot.modprobe;
   optionString = option: value: let
     str =
