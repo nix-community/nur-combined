@@ -10,10 +10,8 @@
     zoom-us
   ];
 
-  programs.firefox = {
-    enable = true;
-    package = pkgs.firefox;
-  };
+  programs.firefox.enable = true;
+
 
   programs.obs-studio = {
     enable = true;
