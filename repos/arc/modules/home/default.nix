@@ -22,6 +22,7 @@
   ncpamixer = ./ncpamixer.nix;
   nix-path = ./nix-path.nix;
   offlineimap = ./offlineimap.nix;
+  syncplay = ./syncplay.nix;
   weechat = ./weechat.nix;
   systemd = ./systemd.nix;
 
@@ -46,6 +47,7 @@
       ncpamixer
       nix-path
       offlineimap
+      syncplay
       weechat
       systemd
     ];
