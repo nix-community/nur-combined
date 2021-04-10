@@ -1,5 +1,7 @@
 { pkgs, lib, ... }:
 let
+  # java = pkgs.openjdk8;
+  java = pkgs.graalvm8-ce;
   launcherZip = builtins.fetchurl {
     sha256 = "08la0fazwl4gn6g06iqjfl300q18dpqa8bzc6v16p4lsl9r54bm6";
     url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/ShiginimaSE_v4400.zip";
@@ -36,7 +38,7 @@ let
       do
           cat "$file" > $out/share/java/minecraft.jar
       done
-      makeWrapper ${pkgs.jre8}/bin/java $out/bin/minecraft \
+      makeWrapper ${java}/bin/java $out/bin/minecraft \
           --add-flags "-jar $out/share/java/minecraft.jar" \
                 --prefix LD_LIBRARY_PATH : ${envLibPath}
     '';
