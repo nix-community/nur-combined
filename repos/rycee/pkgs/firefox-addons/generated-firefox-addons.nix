@@ -569,10 +569,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "3.3.4";
+      version = "3.3.18";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3724574/grammatik_und_rechtschreibprufung_languagetool-3.3.4-fx.xpi";
-      sha256 = "d94e6fadd9c032f4898f04aa7ac989645e284311691e8009aa80934b7e0a7e3e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3756814/grammatik_und_rechtschreibprufung_languagetool-3.3.18-fx.xpi";
+      sha256 = "5f36751069b65166dd5ac76ab1e3837b28a75a4c338d4d2a047c566add36d314";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -760,10 +760,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.0.1";
+      version = "7.0.2";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3752189/octotree_github_code_tree-7.0.1-fx.xpi";
-      sha256 = "e693d303877642ec2f8ccf61924375adf65c01336447d38e6f0f48afdc44d2f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3757981/octotree_github_code_tree-7.0.2-fx.xpi";
+      sha256 = "e162f2a2114c46bb72ba2165194940b7d3e1a6ab09b5e6c6ea2e32721ea1b602";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -930,10 +930,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.10.1";
+      version = "4.11.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3689412/react_developer_tools-4.10.1-fx.xpi";
-      sha256 = "f089d5d4f82782b34d4bad9483bcc12d06cbcdfa8369e6ea516a736c07767a16";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3758027/react_developer_tools-4.11.0-fx.xpi";
+      sha256 = "5ecd1cc03fb33d05ef781f1dce0b8fd4622fd2b96179af398702a4e48686f73b";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1110,10 +1110,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.4.2";
+      version = "6.5.0";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3743205/tab_session_manager-6.4.2-fx.xpi";
-      sha256 = "e7afe81f3833b36b7d6d899b6c19d2d9ed0515c77654461280a5ebb5cb4b4d4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3757745/tab_session_manager-6.5.0-fx.xpi";
+      sha256 = "39f239c50326a19a60f6a3868b8882cc0ae8e2b1230480f8ea5e891d12c2ef0b";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
