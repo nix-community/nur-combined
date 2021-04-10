@@ -48,4 +48,12 @@ rec {
 
   cpufetch = pkgs.callPackage ./pkgs/cpufetch {};
 
+  piecash = pkgs.python3Packages.callPackage ./pkgs/piecash {
+    setuptools = pkgs.python3Packages.setuptools;
+    pytz = pkgs.python3Packages.pytz;
+    sqlalchemy-utils = pkgs.python3Packages.sqlalchemy-utils;
+    tzlocal = pkgs.python3Packages.tzlocal;
+    click = pkgs.python3Packages.click;
+  };
+
 }

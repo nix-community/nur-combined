@@ -22,6 +22,7 @@ It contains packages/attributes for:
   - timg (https://github.com/hzeller/timg)
   - cxxmatrix (https://github.com/akinomyoga/cxxmatrix)
   - cpufetch (https://github.com/Dr-Noob/cpufetch)
+  - piecash (https://github.com/sdementen/piecash)
 
 * Mirrors of this repo
 - https://github.com/nagy/nur-packages
