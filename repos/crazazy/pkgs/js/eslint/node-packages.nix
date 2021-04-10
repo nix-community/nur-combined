@@ -130,13 +130,13 @@ let
         sha512 = "Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==";
       };
     };
-    "balanced-match-1.0.0" = {
+    "balanced-match-1.0.2" = {
       name = "balanced-match";
       packageName = "balanced-match";
-      version = "1.0.0";
+      version = "1.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz";
-        sha1 = "89b4d199ab2bee49de164ea02b89ce462d71b767";
+        url = "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz";
+        sha512 = "3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==";
       };
     };
     "brace-expansion-1.1.11" = {
@@ -508,13 +508,13 @@ let
         sha512 = "BWICuzzDvDoH54NHKCseDanAhE3CeDorgDL5MT6LMXXj2WCnd9UC2szdk4AWLfjdgNBCXLUanXYcpBBKOSWGwg==";
       };
     };
-    "globals-13.7.0" = {
+    "globals-13.8.0" = {
       name = "globals";
       packageName = "globals";
-      version = "13.7.0";
+      version = "13.8.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/globals/-/globals-13.7.0.tgz";
-        sha512 = "Aipsz6ZKRxa/xQkZhNg0qIWXT6x6rD46f6x/PCnBomlttdIyAPak4YD9jTmKpZ72uROSMU87qJtcgpgHaVchiA==";
+        url = "https://registry.npmjs.org/globals/-/globals-13.8.0.tgz";
+        sha512 = "rHtdA6+PDBIjeEvA91rpqzEvk/k3/i7EeNQiryiWuJH0Hw9cpyJMAt2jtbAwUaRdhD+573X4vWw6IcjKPasi9Q==";
       };
     };
     "has-1.0.3" = {
@@ -1088,8 +1088,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.23.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.23.0.tgz"; sha1 = "8d029d252f6e8cf45894b4bee08f5493f8e94325"; };
+    version = "7.24.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.24.0.tgz"; sha1 = "2e44fa62d93892bfdb100521f17345ba54b8513a"; };
     dependencies = [
       sources."@babel/code-frame-7.12.11"
       sources."@babel/helper-validator-identifier-7.12.11"
@@ -1111,7 +1111,7 @@ let
       sources."ansi-styles-3.2.1"
       sources."argparse-1.0.10"
       sources."astral-regex-2.0.0"
-      sources."balanced-match-1.0.0"
+      sources."balanced-match-1.0.2"
       sources."brace-expansion-1.1.11"
       sources."call-bind-1.0.2"
       sources."callsites-3.1.0"
@@ -1171,7 +1171,7 @@ let
       sources."get-intrinsic-1.1.1"
       sources."glob-7.1.6"
       sources."glob-parent-5.1.2"
-      (sources."globals-13.7.0" // {
+      (sources."globals-13.8.0" // {
         dependencies = [
           sources."type-fest-0.20.2"
         ];

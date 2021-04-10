@@ -7,12 +7,12 @@ let
   args = {
     name = "pnpm";
     packageName = "pnpm";
-    version = "5.18.9";
-    src = fetchurl { url = "https://registry.npmjs.org/pnpm/-/pnpm-5.18.9.tgz"; sha1 = "d5216cc174953144075a0b6d18757e484fd9371a"; };
+    version = "6.0.1";
+    src = fetchurl { url = "https://registry.npmjs.org/pnpm/-/pnpm-6.0.1.tgz"; sha1 = "f125aecfa801152ed3f15c72999a7dd0f0d7b984"; };
     buildInputs = globalBuildInputs;
     meta = {
       description = "Fast, disk space efficient package manager";
-      homepage = "https://pnpm.js.org";
+      homepage = "https://pnpm.io";
       license = "MIT";
     };
     production = true;

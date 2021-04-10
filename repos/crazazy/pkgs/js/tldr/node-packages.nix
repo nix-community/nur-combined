@@ -58,13 +58,13 @@ let
         sha512 = "dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==";
       };
     };
-    "balanced-match-1.0.0" = {
+    "balanced-match-1.0.2" = {
       name = "balanced-match";
       packageName = "balanced-match";
-      version = "1.0.0";
+      version = "1.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz";
-        sha1 = "89b4d199ab2bee49de164ea02b89ce462d71b767";
+        url = "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz";
+        sha512 = "3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==";
       };
     };
     "base64-js-1.5.1" = {
@@ -643,13 +643,13 @@ let
         sha1 = "717b8f220cc0bb7b44e40514c22b2e8bbc70d8b9";
       };
     };
-    "underscore-1.12.1" = {
+    "underscore-1.13.0" = {
       name = "underscore";
       packageName = "underscore";
-      version = "1.12.1";
+      version = "1.13.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/underscore/-/underscore-1.12.1.tgz";
-        sha512 = "hEQt0+ZLDVUMhebKxL4x1BTtDY7bavVofhZ9KZ4aI26X9SRaE+Y3m83XUL1UP2jn8ynjndwCCpEHdUG+9pP1Tw==";
+        url = "https://registry.npmjs.org/underscore/-/underscore-1.13.0.tgz";
+        sha512 = "sCs4H3pCytsb5K7i072FAEC9YlSYFIbosvM0tAKAlpSSUgD7yC1iXSEGdl5XrDKQ1YUB+p/HDzYrSG2H2Vl36g==";
       };
     };
     "universalify-2.0.0" = {
@@ -710,7 +710,7 @@ let
       sources."apparatus-0.0.10"
       sources."at-least-node-1.0.0"
       sources."axios-0.21.1"
-      sources."balanced-match-1.0.0"
+      sources."balanced-match-1.0.2"
       sources."base64-js-1.5.1"
       sources."binary-0.3.0"
       (sources."bl-4.1.0" // {
@@ -778,7 +778,7 @@ let
       sources."supports-color-7.2.0"
       sources."sylvester-0.0.12"
       sources."traverse-0.3.9"
-      sources."underscore-1.12.1"
+      sources."underscore-1.13.0"
       sources."universalify-2.0.0"
       sources."util-deprecate-1.0.2"
       sources."wcwidth-1.0.1"

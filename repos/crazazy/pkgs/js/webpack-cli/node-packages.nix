@@ -94,13 +94,13 @@ let
         sha512 = "yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==";
       };
     };
-    "envinfo-7.7.4" = {
+    "envinfo-7.8.1" = {
       name = "envinfo";
       packageName = "envinfo";
-      version = "7.7.4";
+      version = "7.8.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/envinfo/-/envinfo-7.7.4.tgz";
-        sha512 = "TQXTYFVVwwluWSFis6K2XKxgrD22jEv0FTuLCQI+OjH7rn93+iY0fSSFM5lrSxFY+H1+B0/cvvlamr3UsBivdQ==";
+        url = "https://registry.npmjs.org/envinfo/-/envinfo-7.8.1.tgz";
+        sha512 = "/o+BXHmB7ocbHEAs6F2EnG0ogybVVUdkRunTT2glZU9XAaGmhqskrvKwqXuDfNjEO0LZKWdejEEpnq8aM0tOaw==";
       };
     };
     "execa-5.0.0" = {
@@ -480,7 +480,7 @@ let
       sources."commander-7.2.0"
       sources."cross-spawn-7.0.3"
       sources."enquirer-2.3.6"
-      sources."envinfo-7.7.4"
+      sources."envinfo-7.8.1"
       sources."execa-5.0.0"
       sources."fastest-levenshtein-1.0.12"
       sources."find-up-4.1.0"
