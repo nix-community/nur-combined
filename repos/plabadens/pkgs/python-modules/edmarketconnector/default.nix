@@ -2,17 +2,19 @@
 
 buildPythonApplication rec {
   pname = "EDMarketConnector";
-  version = "4.1.3";
+  version = "4.2.7";
+  
   format="other";
 
   src = fetchFromGitHub {
     owner = "EDCD";
     repo = pname;
     rev = "Release/${version}";
-    sha256 = "122p3v5b683a8hhlawmzyrnpfsmxi9irmz241g3di37fxfsrij9c";
+    sha256 = "sha256-YAA06yf2/IDrzOzXV5uMMf1kPhB/RpkK7B2qoK5bNd8=";
   };
 
   doCheck = false;
+
   propagatedBuildInputs = with python.pkgs; [
     certifi
     requests
