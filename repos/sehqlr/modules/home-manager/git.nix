@@ -11,10 +11,6 @@
     };
     extraConfig.init.defaultBranch = "main";
     ignores = [ "result" ];
-    signing = {
-      key = "hey@samhatfield.me";
-      signByDefault = true;
-    };
     userEmail = "hey@samhatfield.me";
     userName = "sehqlr";
   };
@@ -29,6 +25,7 @@
       "github" = {
         host = "github.com";
         user = "git";
+        identityFile = "~/.ssh/github";
       };
       "gitlab" = {
         host = "gitlab.com";
