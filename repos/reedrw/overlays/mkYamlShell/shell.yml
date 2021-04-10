@@ -1,0 +1,10 @@
+name: mkYamlShell
+
+packages:
+  - hello
+
+env:
+  FOO: "BAR"
+
+run: |
+  hello
