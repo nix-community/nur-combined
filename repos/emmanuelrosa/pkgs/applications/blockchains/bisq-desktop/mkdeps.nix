@@ -17,40 +17,17 @@
 
 with import <nixpkgs> { };
 let
-  jdk = pkgs.openjdk11.overrideAttrs (oldAttrs: rec {
-    buildInputs = pkgs.lib.remove pkgs.gnome2.gnome_vfs oldAttrs.buildInputs;
-    NIX_LDFLAGS = builtins.replaceStrings [ "-lgnomevfs-2" ] [ "" ] oldAttrs.NIX_LDFLAGS;
-  });
-  version = "1.6.2";
-  name = "bisq-desktop";
-
-  src = (pkgs.fetchgit rec {
-    url = https://github.com/bisq-network/bisq;
-    rev = "v${version}";
-    sha256 = "1zmf76i4yddr4zc2jcm09bgs7yya6bqv1zk68z17g3r39qmyxv1q";
-    postFetch = ''
-      cd $out
-      git clone $url
-      cd bisq
-      git lfs install --force --local
-      git lfs pull
-      cp -v p2p/src/main/resources/* $out/p2p/src/main/resources/
-      cd ..
-      rm -rf bisq
-    '';
-  }).overrideAttrs (oldAttrs: {
-    nativeBuildInputs = oldAttrs.nativeBuildInputs or [] ++ [ git-lfs ];
-  });
-
-  grpc = callPackage ./grpc-java.nix {};
-
-  gradle = (pkgs.gradleGen.override {
-    java = jdk;
-  }).gradle_5_6;
+  common = callPackage ./common.nix {};
+  jdk = common.jdk;
+  version = common.version;
+  pname = common.pname;
+  src = common.src;
+  grpc = common.grpc;
+  gradle = common.gradle;
 
   # fake build to pre-download deps into fixed-output derivation
   prebuild = pkgs.stdenv.mkDerivation {
-    name = "${name}-prebuild";
+    name = "${pname}-prebuild-${version}";
     inherit src;
     buildInputs = [ gradle pkgs.perl pkgs.unzip pkgs.zip ];
 
@@ -80,34 +57,13 @@ let
     outputHashMode = "recursive";
 
     # REF1
-    outputHash = "1y7md3r4viacp9xcrvprma8h33nnf2fall5s1f35cypn10978iy3";
+    outputHash = "06sq1a6jrsxfpqcwslwmqgq76r40jjn8c2533livvvi5fcvpmwbf";
   };
 
-  header = ./bisq-gen-deps-header.nix.txt;
-  footer = ./bisq-gen-deps-footer.nix.txt;
-
-  gen-deps-script = pkgs.writeScript "${name}-gen-deps-script" ''
-    excludes="gradle-witness"
-    cat ${header}
-    for path in $(find -L ${prebuild} -type f); do
+  gen-deps-script = pkgs.writeScript "${pname}-gen-deps-script" ''
+    echo "["
+    for path in $(find -L ${prebuild} -type f | sort | grep -v gradle-witness); do
       name=$(basename $path)
-      skip=0
-  
-      for n in $excludes; do
-        if [ "$name" == "$n.pom" ]
-        then
-          skip=1
-        elif [ "$name" == "$n.jar" ]
-        then
-          skip=1
-        fi
-      done
-  
-      if [ "$skip" == "1" ] 
-      then 
-        continue 
-      fi
-
       sha256=""
       upstreamPath=$(realpath --relative-to ${prebuild} $path)
       upstreamDir=$(dirname $upstreamPath)
@@ -136,11 +92,11 @@ let
       echo "  }"
     done
   
-    cat ${footer}
+    echo "]"
   '';
 
 in pkgs.stdenv.mkDerivation {
-  name = "${name}-deps.nix";
+  name = "${pname}-deps-${version}.nix";
 
   phases = [ "installPhase" ];
   

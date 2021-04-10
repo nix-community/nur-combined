@@ -16,6 +16,7 @@ writeScript "bisq-launcher" ''
   echo Temp directory: $TMPDIR
   echo Tor PID: $torpid
   echo Tor control port: $CONTROLPORT
+  echo Tor SOCKS port: $SOCKSPORT
   echo Tor log: $TMPDIR/tor.log
   echo Bisq log file: $TMPDIR/bisq.log
   

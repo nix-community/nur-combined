@@ -1,55 +1,51 @@
-{ stdenv, lib, callPackage, makeWrapper, fetchgit, unzip, zip, git, git-lfs
-, openjdk11
-, perl
-, gradle
-, gradleGen
+{ stdenv, lib, callPackage, makeWrapper, fetchurl, rsync 
 , protobuf3_10
-, gnome2
-, ps
-, tor
 , makeDesktopItem
 , imagemagick
 }:
 let
-  jdk = openjdk11.overrideAttrs (oldAttrs: rec {
-    buildInputs = lib.remove gnome2.gnome_vfs oldAttrs.buildInputs;
-    NIX_LDFLAGS = builtins.replaceStrings [ "-lgnomevfs-2" ] [ "" ] oldAttrs.NIX_LDFLAGS;
-  });
-  version = "1.6.2";
-  pname = "bisq-desktop";
-
-  src = (fetchgit rec {
-    url = https://github.com/bisq-network/bisq;
-    rev = "v${version}";
-    sha256 = "1zmf76i4yddr4zc2jcm09bgs7yya6bqv1zk68z17g3r39qmyxv1q";
-    postFetch = ''
-      cd $out
-      git clone $url
-      cd bisq
-      git lfs install --force --local
-      git lfs pull
-      cp -v p2p/src/main/resources/* $out/p2p/src/main/resources/
-      cd ..
-      rm -rf bisq
-    '';
-  }).overrideAttrs (oldAttrs: {
-    nativeBuildInputs = oldAttrs.nativeBuildInputs or [] ++ [ git-lfs ];
-  });
-
   bisq-launcher = callPackage ./launcher.nix {};
-  grpc = callPackage ./grpc-java.nix {};
+  common = callPackage ./common.nix {};
 
-  gradle = (gradleGen.override {
-    java = jdk;
-  }).gradle_5_6;
+  # This takes all of the Java dependencies from deps.nix,
+  # and creates a single mvn directory tree so that gradle
+  # can find the project's dependencies.
+  deps = let
+    mkDepDerivation = { name, url, sha256, mavenDir }: 
+      stdenv.mkDerivation {
+        name = "bisq-dep-${name}";
 
-  deps = callPackage ./deps.nix {};
+        src = fetchurl { inherit sha256 url; };
 
+        unpackCmd = ''
+          mkdir output 
+          cp $curSrc "output/${name}"
+        '';
+
+        installPhase = ''
+          mkdir -p "$out/${mavenDir}"
+          cp -r . "$out/${mavenDir}/"
+        '';
+      };
+
+    d = map mkDepDerivation (import ./deps.nix); 
+    in stdenv.mkDerivation {
+      name = "bisq-deps";
+      dontUnpack = true;
+
+      installPhase = ''
+        mkdir $out
+
+        for p in ${toString d}; do
+          ${rsync}/bin/rsync -a $p/ $out/
+        done
+      '';
+    };
 in stdenv.mkDerivation rec {
-  inherit pname src version;
+  inherit (common) pname version src jdk grpc gradle;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ gradle ps tor ];
+  buildInputs = [ gradle ];
 
   desktopItem = makeDesktopItem {
     name = "Bisq";
