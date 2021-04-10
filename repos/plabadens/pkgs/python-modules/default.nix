@@ -1,8 +1,6 @@
-{ pkgs, pythonPackages }:
+{ callPackage }:
 
-let
-  callPackage = pythonPackages.callPackage;
-in {
+{
   edmarketconnector = callPackage ./edmarketconnector { };
 
   obspy = callPackage ./obspy { };

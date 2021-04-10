@@ -10,26 +10,14 @@
 
 rec {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+  #lib = import ./lib { inherit pkgs; }; # functions
+  #modules = import ./modules; # NixOS modules
+  #overlays = import ./overlays; # nixpkgs overlays
 
-  edmarketconnector = python3Packages.edmarketconnector;
+  edmarketconnector = pkgs.python3.pkgs.toPythonApplication python3Packages.edmarketconnector;
 
-  pythonPackages = pkgs.makeOverridable (import pkgs/python-modules) {
-    inherit pkgs;
-    pythonPackages = pkgs.pythonPackages;
-  };
-
-  python2Packages = pythonPackages.override {
-    pythonPackages = pkgs.python2Packages;
-  };
-
-  python3Packages = pythonPackages.override {
-    pythonPackages = pkgs.python3Packages;
-  };
-  
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  python3Packages = pkgs.recurseIntoAttrs (
+    pkgs.python3Packages.callPackage ./pkgs/python-modules { }
+  );
 }
 
