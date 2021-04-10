@@ -19,6 +19,7 @@ in
   nix-gen-node-tools = callPackage ./gen-node-env { inherit (pkgs.nodePackages) node2nix;};
   elm = callPackage ./elm { inherit (pkgs.elmPackages) elm; };
   efm-langserver = callPackage ./efm-langserver { };
+  guile-hall = callPackage ./guile-hall { };
   truffleSqueak = callPackage ./truffleSqueak { };
 
   # impure packages. These packages cannot get evaluated by NUR because they
