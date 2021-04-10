@@ -21,6 +21,7 @@
         host = "git.bytes.zone";
         port = 2222;
         user = "git";
+        identityFile = "~/.ssh/gitea";
       };
       "github" = {
         host = "github.com";
