@@ -3,14 +3,13 @@
     chatterino2
     discord
     element-desktop
+    firefox
     imv
     paperwork
     slack
     spotify
     zoom-us
   ];
-
-  programs.firefox.enable = true;
 
 
   programs.obs-studio = {
