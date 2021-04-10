@@ -11,11 +11,11 @@
 
 buildPythonPackage rec {
   pname = "libdyson";
-  version = "0.8.1";
+  version = "0.8.2";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0w4rjz1zdnir6dxivnrgb47kmsck760lvjssh7mg47izlawkasj7";
+    sha256 = "00qv3qhrlad90v48fxhdvm3jzram25jchfn29cyq22nncr2y4qj5";
   };
 
   propagatedBuildInputs = [
