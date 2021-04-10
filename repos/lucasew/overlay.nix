@@ -35,6 +35,7 @@ in reduceJoin [
     webapps = import ./packages/chromeapps.nix super;
     arcan = cp ./packages/arcan.nix;
     c4me = cp ./packages/c4me;
+    xplr = cp ./packages/xplr.nix;
     cisco-packet-tracer = cp ./packages/cisco-packet-tracer.nix;
     custom_neovim = cp ./modules/neovim/package.nix;
     wineApps = {
