@@ -3,26 +3,26 @@ let
   clashSystems = {
     "aarch64-linux" = {
       system = "linux-armv8";
-      sha256 = "043kak9sb3dfldrkbb3cr3yi8rsqq1x8k1iqrmwckfd3cmz7kpcd";
+      sha256 = "0q2hs8xzk7gni2gw2lg99xs2s6022381rj3vjw0vxdvvy47lidzv";
     };
     "i686-linux" = {
       system = "linux-386";
-      sha256 = "09vrbgkijyz6hs4666llp3ab969gaxbramkhf9mwqz08krhkwv7z";
+      sha256 = "1qi3zwmsksjga4q0p8zavqqs89ipk0f9s4w0jrbhri36r2kmyhch";
     };
     "x86_64-darwin" = {
       system = "darwin-amd64";
-      sha256 = "130m2glqclysc9yrc6bsac5fm0zlw905y96hqs0nw84i68bv18q1";
+      sha256 = "0wwm7si0x9s362j671b5mmh4dcbadi1gg2a50xcz190p9w34xcxf";
     };
     "x86_64-linux" = {
       system = "linux-amd64";
-      sha256 = "1akxsbib4fdkapl82pcihy2w69s22fb5p19n5j4vxxrhzq7887k1";
+      sha256 = "1150gyjp23mbs68czm53i7cbfpqnk62f8hqi1na7hq6zraqx640h";
     };
   };
   clashSystem = clashSystems.${system};
 in
 stdenv.mkDerivation rec {
   pname = "clash-premium";
-  version = "2021.03.10";
+  version = "2021.04.08";
 
   src = fetchurl {
     url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-${clashSystem.system}-${version}.gz";
