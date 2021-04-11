@@ -7,7 +7,7 @@
 
 buildPythonApplication rec {
   pname = "git-review";
-  version = "1.28.0";
+  version = "2.0.0";
 
   # Manually set version because prb wants to get it from the git
   # upstream repository (and we are installing from tarball instead)
@@ -15,7 +15,7 @@ buildPythonApplication rec {
 
   src = fetchurl {
     url = "https://opendev.org/opendev/${pname}/archive/${version}.tar.gz";
-    hash = "sha256-9Xn0UlUOVrsUZTWZCSTMOBBjQCe+YJI5tz5fCsH6Mvg=";
+    hash = "sha256-0koFKlYDd+KAylZyA5iJcMRZcWps6EhCUHrXLl5pfjY=";
   };
 
   propagatedBuildInputs = [ pbr requests ];
@@ -24,7 +24,7 @@ buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Tool for uploading changesets to Gerrit from git";
+    description = "Tool to submit code to Gerrit";
     homepage = "https://opendev.org/opendev/git-review";
     license = licenses.asl20;
     maintainers = with maintainers; [ metadark ];
