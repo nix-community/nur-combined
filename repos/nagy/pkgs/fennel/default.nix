@@ -3,11 +3,11 @@
 with lua53Packages;
 buildLuarocksPackage rec {
   pname = "fennel";
-  version = "0.9.0-1";
+  version = "0.9.1-1";
 
   src = fetchurl {
     url = "mirror://luarocks/fennel-${version}.src.rock";
-    sha256 = "1qidvg8sj9q2i5w2lhgihh9vq7pjmh6k3m7x0hhhqps6qxw268zg";
+    sha256 = "11sv6cmb4l7ain3p0wqf23n0966n2xls42ynigb7mdbdjy89afa0";
   };
 
   nativeBuildInputs = [ installShellFiles ];
