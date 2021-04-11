@@ -1,19 +1,19 @@
-{ lib, stdenv, fetchFromSourcehut, openssl, pkg-config, scdoc }:
+{ lib, stdenv, fetchFromSourcehut, bearssl, pkg-config, scdoc }:
 
 stdenv.mkDerivation rec {
   pname = "gmni";
-  version = "2021-01-07";
+  version = "2021-04-02";
 
   src = fetchFromSourcehut {
     owner = "~sircmpwn";
     repo = pname;
-    rev = "4fbc632b22172daa976d8e1c9a2db75d52ee3232";
-    sha256 = "1jasamkjy90b169hwl8p78ns92fs5vlpzr50pxcfsfgny8628sin";
+    rev = "e0993d4886e7e0b8970f7c83b6d0003e75f33348";
+    sha256 = "09gdgyz21ni707ph91fs61v61j2lladzhvbplqqc80hg17w9av4s";
   };
 
   nativeBuildInputs = [ pkg-config scdoc ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [ bearssl ];
 
   meta = with lib; {
     description = "Gemini client";

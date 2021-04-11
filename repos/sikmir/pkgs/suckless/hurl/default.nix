@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "hurl";
-  version = "0.4";
+  version = "0.5";
 
   src = fetchgit {
-    url = "git://git.codemadness.org/hurl";
+    url = "git://git.codemadness.org/${pname}";
     rev = version;
-    sha256 = "09a7l9dhygkvyc6v1jw960rmdvgpzp440f6n94jj71jlqi3k43hq";
+    sha256 = "06kxrl97mdhfg9hbrh69r41z7mr8fmphxyl1m16rh3imy99szv90";
   };
 
   buildInputs = [ libressl libbsd ];

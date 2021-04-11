@@ -1,10 +1,15 @@
-{ lib, stdenv, go, sources }:
+{ lib, stdenv, fetchFromGitHub, go }:
 
-stdenv.mkDerivation {
-  pname = "gloggery-unstable";
-  version = lib.substring 0 10 sources.gloggery.date;
+stdenv.mkDerivation rec {
+  pname = "gloggery";
+  version = "2020-10-11";
 
-  src = sources.gloggery;
+  src = fetchFromGitHub {
+    owner = "kconner";
+    repo = pname;
+    rev = "49707b008cd6e3fb3ecb453a472051644fb319eb";
+    sha256 = "1kd3saxlzclm2n0l02za1zvs0lrxppwd3f5j249cgzv63dfwjr5m";
+  };
 
   nativeBuildInputs = [ go ];
 
@@ -15,7 +20,8 @@ stdenv.mkDerivation {
   postInstall = "mv $out/.gloggery $out/share/glogger";
 
   meta = with lib; {
-    inherit (sources.gloggery) description homepage;
+    description = "Gemtext blog static site generator";
+    homepage = "https://github.com/kconner/gloggery";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
