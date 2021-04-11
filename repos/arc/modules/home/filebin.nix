@@ -13,11 +13,21 @@ in {
       type = types.lines;
       default = "";
     };
+
+    extraConfigFiles = mkOption {
+      type = types.listOf types.path;
+      default = [ ];
+    };
   };
 
-  config.home.packages = mkIf cfg.enable [pkgs.arc'private.filebin];
-  config.xdg.configFile."filebin/config".text = ''
-    ${concatStringsSep "\n" (mapAttrsToList (k: v: "${k}=${v}") cfg.config)}
-    ${cfg.extraConfig}
-  '';
+  config = {
+    home.packages = mkIf cfg.enable [ pkgs.arc'private.filebin ];
+    programs.filebin.extraConfig = mkMerge (map (path: ''
+      source ${path}
+    '') cfg.extraConfigFiles);
+    xdg.configFile."filebin/config".text = ''
+      ${concatStringsSep "\n" (mapAttrsToList (k: v: "${k}=${v}") cfg.config)}
+      ${cfg.extraConfig}
+    '';
+  };
 }

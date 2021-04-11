@@ -8,7 +8,9 @@
 in rustPlatform.buildRustPackage {
   inherit pname src version;
 
-  cargoSha256 = "12b0clhdms3wbwp27d9n43y0v568i2lns9v3ygg8n8n312rg17aw";
+  cargoSha256 = if lib.isNixpkgsUnstable
+    then "1a2vm5lsiismqipmaaic0574lyxqvcrn1bimsshj1j8mq8gb3wwi"
+    else "12b0clhdms3wbwp27d9n43y0v568i2lns9v3ygg8n8n312rg17aw";
   buildInputs = with darwin.apple_sdk.frameworks; lib.optionals stdenv.isDarwin [ CoreFoundation CoreServices ];
   meta.broken = lib.versionAtLeast "1.40.0" rustPlatform.rust.rustc.version;
 }
