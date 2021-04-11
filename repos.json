@@ -465,6 +465,9 @@
             "file": "pkgs/default.nix",
             "url": "https://gitlab.com/vdemeester/home"
         },
+        "vroad": {
+            "url": "https://github.com/vroad/nur-packages"
+        },
         "wamserma": {
             "url": "https://github.com/wamserma/nur-packages"
         },
