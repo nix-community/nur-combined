@@ -10,7 +10,7 @@
   pkgs ? import <nixpkgs> {}
 }:
 
-rec {
+{
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -27,10 +27,6 @@ rec {
   fluidsynth = pkgs.callPackage ./pkgs/fluidsynth {
     inherit (pkgs.stdenv.darwin.apple_sdk.frameworks)
     AudioUnit CoreAudio CoreMIDI CoreServices;
-  };
-  swami = pkgs.callPackage ./pkgs/swami {
-    inherit fluidsynth;
-    inherit (libraries) libinstpatch;
   };
   netlogo = pkgs.callPackage ./pkgs/netlogo { };
 }
