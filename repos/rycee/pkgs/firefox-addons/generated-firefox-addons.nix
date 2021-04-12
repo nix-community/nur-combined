@@ -318,10 +318,10 @@
       };
     "form-history-control" = buildFirefoxXpiAddon {
       pname = "form-history-control";
-      version = "2.5.5.1";
+      version = "2.5.6.1";
       addonId = "formhistory@yahoo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3678048/form_history_control-2.5.5.1-an+fx.xpi";
-      sha256 = "8c3402cfe7c777193b05e248846f5e8d15b2c10aa7fa69c7b1c9d2cfa1a287c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3758560/form_history_control-2.5.6.1-an+fx.xpi";
+      sha256 = "3ce088e3d569363312f55ca945cacbdcb7f2c4268aae1b3dea45307e2c47e18b";
       meta = with lib;
       {
         homepage = "https://stephanmahieu.github.io/fhc-home/";
