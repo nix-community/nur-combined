@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+let cfg = {
   services.kanshi.profiles."workstation" = {
     outputs = [
       {
@@ -28,4 +29,4 @@
       { command = "${pkgs.element-desktop}/bin/element"; }
     ];
   };
-}
+}; in if config.networking.hostName == "p50" then cfg else {}
