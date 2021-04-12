@@ -19,10 +19,14 @@ let ccache = stdenv.mkDerivation rec {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-hVpnpRvO0LrqEmyspDqklj/il0tI5Bnlb2g6wY29vNc=";
+    hash = "sha256-AmgJpW7AGCSggbHp1fLO5yhXS9LIm7O77nQdDERJYAA=";
   };
 
   patches = [
+    # test/run use compgen to get environment variable names, but
+    # compgen isn't available in non-interactive bash.
+    ./env-instead-of-compgen.patch
+
     # When building for Darwin, test/run uses dwarfdump, whereas on
     # Linux it uses objdump. We don't have dwarfdump packaged for
     # Darwin, so this patch updates the test to also use objdump on
@@ -44,7 +48,7 @@ let ccache = stdenv.mkDerivation rec {
   checkPhase = ''
     export HOME=$(mktemp -d)
     ctest --output-on-failure ${lib.optionalString stdenv.isDarwin ''
-      -E '^(test.nocpp2|test.modules)$'
+      -E '^(test.nocpp2|test.basedir|test.multi_arch)$'
     ''}
   '';
 
