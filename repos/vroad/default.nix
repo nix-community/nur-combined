@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> { } }:
 
 {
-  gn = pkgs.callPackage ./pkgs/tools/build-managers/gn { };
+  gn = pkgs.callPackage ./pkgs/development/tools/build-managers/gn { };
 }
