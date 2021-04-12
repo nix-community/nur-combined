@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitLab }:
+{ stdenv, fetchFromGitLab, lib }:
 
 stdenv.mkDerivation rec {
   name = "kakoune-ghwiki-${version}";
@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     cp -r $src/* $out/share/kak/autoload/plugins/kakoune-ghwiki
     '';
 
-  meta = with stdenv.lib;
+  meta = with lib;
   { description = "Teach Kakoune tricks for editing a GitHub-style wiki";
-      homepage = "https://github.com/Screwtapello/kakoune-ghwiki";
+      homepage = "https://gitlab.com/Screwtapello/kakoune-ghwiki";
       license = licenses.mit;
   };
 }
