@@ -2,6 +2,7 @@
 , stdenv
 , fetchurl
 , fetchgit
+, fetchzip
 , python
 , python3
 , autoPatchelfHook
@@ -22,6 +23,12 @@ let
     sha256 = "1p24w1zy3w2jjk2y7k6gzkhm199f9168w0j5rzxhmw55xp8v08ri";
     executable = true;
   };
+  gsutilVersion = "4.30";
+  gsutil = fetchzip {
+    name = "gsutil";
+    url = "https://storage.googleapis.com/pub/gsutil_${gsutilVersion}.zip";
+    sha256 = "1xiarvnq49a7z2ai390yz9gzjkhv0snfg4q56w04vgmah10c32lv";
+  };
 in
 stdenv.mkDerivation {
   name = "depot-tools";
@@ -30,12 +37,13 @@ stdenv.mkDerivation {
   unpackPhase = ''
     mkdir -p $out/src/
     cp -r ${src}/. $out/src/
+    chmod -R u+rwX,go+rX,go-w $out/src/
   '';
   installPhase = ''
     mkdir -p $out/bin
+    mkdir -p $out/src/third_party/
     ln -sf ${cipdClient} $out/src/cipd
-    ln -s ${cipdClient} $out/bin/cipd
-    ln -s $out/src/ninja-linux64 $out/bin/ninja
+    ln -sf ${gsutil} $out/src/third_party/gsutil
     makeWrapper $out/src/gclient $out/bin/gclient \
       --set DEPOT_TOOLS_UPDATE 0 \
       --set VPYTHON_BYPASS 'manually managed python not supported by chrome operations' \
