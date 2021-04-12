@@ -76,10 +76,13 @@ buildPythonPackage rec {
   # cplex is only distributed in manylinux1 wheel (no source), and Nix python is not manylinux1 compatible
 
   postPatch = ''
-    substituteInPlace setup.py \
-      --replace "pyscf; sys_platform != 'win32'" "" \
-      --replace "cplex; python_version >= '3.6' and python_version < '3.8'" "" \
-      --replace "docplex==2.15.194" "docplex"
+    # Because this is a legacy/final release, the maintainers restricted the maximum
+    # versions of all dependencies to the latest current version. That will not
+    # work with nixpkgs' rolling release/update system.
+    # Unlock all versions for compatibility
+    substituteInPlace setup.py --replace "<=" "~="
+    sed -i 's/\(\w\+-*\w*\).*/\1/' requirements.txt
+    substituteInPlace requirements.txt --replace "dataclasses" ""
 
     # Add ImportWarning when running qiskit.chemistry (pyscf is a chemistry package) that pyscf is not included
     echo -e "\nimport warnings\ntry: import pyscf;\nexcept ImportError:\n    " \
