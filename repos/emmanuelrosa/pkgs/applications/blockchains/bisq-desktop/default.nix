@@ -1,35 +1,42 @@
-{ stdenv, lib, callPackage, makeWrapper, fetchurl, rsync 
+{ stdenv
+, lib
+, callPackage
+, makeWrapper
+, fetchurl
+, rsync
 , protobuf3_10
 , makeDesktopItem
 , imagemagick
 }:
 let
-  bisq-launcher = callPackage ./launcher.nix {};
-  common = callPackage ./common.nix {};
+  bisq-launcher = callPackage ./launcher.nix { };
+  common = callPackage ./common.nix { };
 
   # This takes all of the Java dependencies from deps.nix,
   # and creates a single mvn directory tree so that gradle
   # can find the project's dependencies.
-  deps = let
-    mkDepDerivation = { name, url, sha256, mavenDir }: 
-      stdenv.mkDerivation {
-        name = "bisq-dep-${name}";
+  deps =
+    let
+      mkDepDerivation = { name, url, sha256, mavenDir }:
+        stdenv.mkDerivation {
+          name = "bisq-dep-${name}";
 
-        src = fetchurl { inherit sha256 url; };
+          src = fetchurl { inherit sha256 url; };
 
-        unpackCmd = ''
-          mkdir output 
-          cp $curSrc "output/${name}"
-        '';
+          unpackCmd = ''
+            mkdir output
+            cp $curSrc "output/${name}"
+          '';
 
-        installPhase = ''
-          mkdir -p "$out/${mavenDir}"
-          cp -r . "$out/${mavenDir}/"
-        '';
-      };
+          installPhase = ''
+            mkdir -p "$out/${mavenDir}"
+            cp -r . "$out/${mavenDir}/"
+          '';
+        };
 
-    d = map mkDepDerivation (import ./deps.nix); 
-    in stdenv.mkDerivation {
+      d = map mkDepDerivation (import ./deps.nix);
+    in
+    stdenv.mkDerivation {
       name = "bisq-deps";
       dontUnpack = true;
 
@@ -41,11 +48,11 @@ let
         done
       '';
     };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   inherit (common) pname version src jdk grpc gradle;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ gradle ];
+  nativeBuildInputs = [ makeWrapper gradle ];
 
   desktopItem = makeDesktopItem {
     name = "Bisq";
@@ -53,7 +60,7 @@ in stdenv.mkDerivation rec {
     icon = "bisq";
     desktopName = "Bisq";
     genericName = "Decentralized bitcoin exchange";
-    categories  = "Network;Utility;";
+    categories = "Network;Utility;";
   };
 
   buildPhase = ''
@@ -71,12 +78,13 @@ in stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out/lib
+    mkdir -p $out/lib $out/bin
     cp -r lib/* $out/lib
+
     for jar in $out/lib/*.jar; do
       classpath="$classpath:$jar"
     done
-    mkdir -p $out/bin
+
     makeWrapper ${jdk}/bin/java $out/bin/bisq-desktop-wrapped \
       --add-flags "-classpath $classpath bisq.desktop.app.BisqAppMain"
     makeWrapper ${bisq-launcher} $out/bin/bisq-desktop \
@@ -87,10 +95,8 @@ in stdenv.mkDerivation rec {
 
     for n in 16 24 32 48 64 96 128 256; do
       size=$n"x"$n
-      ${imagemagick}/bin/convert $src/desktop/package/linux/icon.png -resize $size icon.png
-      install -Dm644 \
-        -t $out/share/icons/hicolor/$size/apps/bisq.png \
-        icon.png
+      ${imagemagick}/bin/convert $src/desktop/package/linux/icon.png -resize $size bisq.png
+      install -Dm644 -t $out/share/icons/hicolor/$size/apps bisq.png
     done;
   '';
 

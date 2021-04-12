@@ -1,4 +1,10 @@
-{ lib, callPackage, fetchgit, unzip, zip, git, git-lfs
+{ lib
+, callPackage
+, fetchgit
+, unzip
+, zip
+, git
+, git-lfs
 , openjdk11
 , gradle
 , gradleGen
@@ -20,10 +26,10 @@ rec {
       git lfs pull
       cp -v p2p/src/main/resources/* $out/p2p/src/main/resources/
       cd ..
-      rm -rf bisq
+      rm -r bisq
     '';
   }).overrideAttrs (oldAttrs: {
-    nativeBuildInputs = oldAttrs.nativeBuildInputs or [] ++ [ git-lfs ];
+    nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [ git-lfs ];
   });
 
   # We use a modified JDK package due to an issue with libcrypto.
@@ -33,7 +39,7 @@ rec {
     NIX_LDFLAGS = builtins.replaceStrings [ "-lgnomevfs-2" ] [ "" ] oldAttrs.NIX_LDFLAGS;
   });
 
-  grpc = callPackage ./grpc-java.nix {};
+  grpc = callPackage ./grpc-java.nix { };
 
   gradle = (gradleGen.override {
     java = jdk;

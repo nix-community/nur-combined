@@ -10,7 +10,7 @@ writeScript "bisq-launcher" ''
   ${coreutils}/bin/head -c 1024 < /dev/urandom > $TMPDIR/cookie
 
   ${tor}/bin/tor --SocksPort $SOCKSPORT --ControlPort $CONTROLPORT --ControlPortWriteToFile $TMPDIR/port --CookieAuthFile $TMPDIR/cookie --CookieAuthentication 1 >$TMPDIR/tor.log --RunAsDaemon 1
-  
+
   torpid=$(${psmisc}/bin/fuser $CONTROLPORT/tcp)
 
   echo Temp directory: $TMPDIR
@@ -19,8 +19,8 @@ writeScript "bisq-launcher" ''
   echo Tor SOCKS port: $SOCKSPORT
   echo Tor log: $TMPDIR/tor.log
   echo Bisq log file: $TMPDIR/bisq.log
-  
-  bisq-desktop-wrapped --torControlCookieFile=$TMPDIR/cookie --torControlUseSafeCookieAuth --torControlPort $CONTROLPORT "$@" > $TMPDIR/bisq.log 
+
+  bisq-desktop-wrapped --torControlCookieFile=$TMPDIR/cookie --torControlUseSafeCookieAuth --torControlPort $CONTROLPORT "$@" > $TMPDIR/bisq.log
 
   echo Bisq exited. Killing Tor...
   kill $torpid

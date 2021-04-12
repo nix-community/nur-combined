@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, autoPatchelfHook }:
+{ stdenv, lib, fetchurl, autoPatchelfHook }:
 
 stdenv.mkDerivation rec {
   name = "protoc-gen-grpc-java";
@@ -17,4 +17,12 @@ stdenv.mkDerivation rec {
   installPhase = ''
     install -m755 -D $src $out/bin/protoc-gen-rpc-java
   '';
+
+  meta = with lib; {
+    description = "The protoc plugin for gRPC Java";
+    homepage = "https://grpc.io";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ juaningan emmanuelrosa ];
+    platforms = [ "x86_64-linux" ];
+  };
 }

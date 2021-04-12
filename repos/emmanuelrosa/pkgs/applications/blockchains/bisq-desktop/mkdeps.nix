@@ -17,13 +17,8 @@
 
 with import <nixpkgs> { };
 let
-  common = callPackage ./common.nix {};
-  jdk = common.jdk;
-  version = common.version;
-  pname = common.pname;
-  src = common.src;
-  grpc = common.grpc;
-  gradle = common.gradle;
+  common = callPackage ./common.nix { };
+  inherit (common) src jdk version pname grpc gradle;
 
   # fake build to pre-download deps into fixed-output derivation
   prebuild = pkgs.stdenv.mkDerivation {
@@ -33,8 +28,7 @@ let
 
     patchPhase = ''
       substituteInPlace ./build.gradle \
-        --replace 'artifact = "com.google.protobuf:protoc:''${protocVersion}"' "path = '${pkgs.protobuf3_10}/bin/protoc'"
-      substituteInPlace ./build.gradle \
+        --replace 'artifact = "com.google.protobuf:protoc:''${protocVersion}"' "path = '${pkgs.protobuf3_10}/bin/protoc'" \
         --replace 'artifact = "io.grpc:protoc-gen-grpc-java:''${grpcVersion}"' "path = '${grpc}/bin/protoc-gen-rpc-java'"
     '';
 
@@ -48,20 +42,21 @@ let
       find $GRADLE_USER_HOME -type f -regex '.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
         | sh
-
-   '';
-
-    dontStrip = true;
+    '';
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
 
     # REF1
-    outputHash = "06sq1a6jrsxfpqcwslwmqgq76r40jjn8c2533livvvi5fcvpmwbf";
+    outputHash = "1m5kfi44bm6lx07j3wnphkq3c0gn87q6pm6s3vkjmvfz2bbyq8si";
   };
 
   gen-deps-script = pkgs.writeScript "${pname}-gen-deps-script" ''
+    echo "# This file was generated with mkdeps.nix"
+    echo "# You should not edit this file manually."
+    echo
     echo "["
+
     for path in $(find -L ${prebuild} -type f | sort | grep -v gradle-witness); do
       name=$(basename $path)
       sha256=""
@@ -76,7 +71,7 @@ let
         if [[ $status -eq 0 ]]
         then
           break
-        fi  
+        fi
       done
 
       if [[ "$sha256" == "" ]]
@@ -85,21 +80,23 @@ let
         exit 1
       fi
 
-      echo "  { url = \"$url\";"
+      echo "  {"
+      echo "    url = \"$url\";"
       echo "    sha256 = \"$sha256\";"
       echo "    name = \"$name\";"
       echo "    mavenDir = \"$upstreamDir\";"
       echo "  }"
     done
-  
+
     echo "]"
   '';
 
-in pkgs.stdenv.mkDerivation {
+in
+pkgs.stdenv.mkDerivation {
   name = "${pname}-deps-${version}.nix";
 
   phases = [ "installPhase" ];
-  
+
   installPhase = ''
     cp ${gen-deps-script} $out
   '';
