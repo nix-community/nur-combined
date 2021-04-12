@@ -1,7 +1,6 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
-, fetchpatch
 , pythonOlder
 , cython
 , matplotlib
@@ -14,14 +13,15 @@
 
 buildPythonPackage rec {
   pname = "qutip";
-  version = "4.5.3";
+  version = "4.6.0";
+  format = "pyproject";
   disabled = pythonOlder "3.5";
 
   src = fetchFromGitHub {
     owner = "qutip";
     repo = "qutip";
     rev = "v${version}";
-    sha256 = "0wl06ill14k05gr35qkm87wagmz8mgar3r9y5ajmjyq7w70hrpfi";
+    sha256 = "0mcm0nbgwyw33xc6iflx364iafcfa26blwqp5ycj4sh2yaws4axf";
   };
 
   propagatedBuildInputs = [
@@ -31,13 +31,14 @@ buildPythonPackage rec {
     scipy
   ];
 
-  patches = [
-    (fetchpatch {
-      name = "qutip-pr-1452-fix-for-scipy-1.6.1.patch";
-      url = "https://github.com/qutip/qutip/commit/8ec557492634cb29f85033555b4ed06fff7a6427.patch";
-      sha256 = "11k3makispyzhxa73jjzlx837f9pc4jsbmmd1mr0d9rclpf64wn0";
-    })
-  ];
+  postPatch = ''
+    substituteInPlace setup.cfg --replace "cython>=0.29.20" "cython"
+  '';
+
+  # Tell qutip build process that this is a release version
+  preBuild = ''
+    export CI_QUTIP_RELEASE=1
+  '';
 
   pythonImportsCheck = [ "qutip" ];
   checkInputs = [ pytestCheckHook ipython ];
