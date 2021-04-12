@@ -96,6 +96,17 @@ buildPythonPackage rec {
     # Slow tests
     "test_paulis_1_and_2_qubits"
     "test_3d_oscillator"
+    "_057"
+    "_136"
+    "_137"
+    "_139"
+    "_138"
+    "_140"
+    "_141"
+    "_143"
+    "_144"
+    "test_sparse_output_probabilities"
+    "test_reset_2_qubit"
   ];
   checkInputs = [
     pytestCheckHook
