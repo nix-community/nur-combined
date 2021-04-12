@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "grit";
-  version = "0.3.0";
+  version = "3c0dca6a6bf140fcd59900337130776f12de7fa2";
 
   src = fetchFromGitHub {
-    owner = "climech";
+    owner = "sehqlr";
     repo = "grit";
-    rev = "v${version}";
-    sha256 = "0sqfinl192bq81iqj7g93ip7ii64jcwyfjscx4nrp3n5cp103k3k";
+    rev = "${version}";
+    sha256 = "1jzm60pxnsk0nqss8livwcfbkhfhmxfcpw9jzza9zis98c04rwca";
   };
 
   vendorSha256 = null;
@@ -19,6 +19,5 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/climech/grit";
     license = licenses.mit;
-    broken = true;
   };
 }

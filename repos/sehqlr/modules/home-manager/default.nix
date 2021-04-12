@@ -2,6 +2,7 @@
   imports = [
     ./apps.nix
     ./git.nix
+    ./go.nix
     ./haskell.nix
     ./kakoune.nix
     ./lorri.nix
