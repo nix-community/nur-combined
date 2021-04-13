@@ -6,5 +6,9 @@ packages:
 env:
   FOO: "BAR"
 
+aliases:
+  hi: hello
+  testing: echo "This is a test!"
+
 run: |
   hello

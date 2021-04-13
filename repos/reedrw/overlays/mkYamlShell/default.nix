@@ -2,6 +2,7 @@
 , runCommand
 , mkShell
 , remarshal
+, writeShellScriptBin
 , pkgs
 }:
 
@@ -28,16 +29,23 @@ let
   envToBash = env:
     builtins.concatStringsSep "\n"
       (lib.mapAttrsToList
-        (k: v: "export ${k}=${lib.escapeShellArg (toString v)}")
+        (name: value: "export ${name}=${lib.escapeShellArg (toString value)}")
         env
       )
+  ;
+
+  aliasToPackage = alias:
+    (lib.mapAttrsToList
+      (name: value: writeShellScriptBin name value)
+      alias
+    )
   ;
 
   mkYamlShell = shellFile:
     let
       shell = fromYaml shellFile;
       name = "${shell.name}";
-      packages = map resolveKey (shell.packages or [ ]);
+      packages = map resolveKey (shell.packages or [ ]) ++ aliasToPackage shell.aliases;
       shellHook = ''
         ${envToBash shell.env}
         ${shell.run}
