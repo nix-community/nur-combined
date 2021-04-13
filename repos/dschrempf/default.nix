@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> {} }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -15,13 +15,17 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   # Evolution.
-  beast = pkgs.callPackage ./pkgs/evolution/beast { };
-  beast2 = pkgs.callPackage ./pkgs/evolution/beast2 { };
-  figtree = pkgs.callPackage ./pkgs/evolution/figtree { };
-  iqtree2 = pkgs.callPackage ./pkgs/evolution/iqtree2 { };
-  tracer = pkgs.callPackage ./pkgs/evolution/tracer { };
+  beast = pkgs.callPackage ./pkgs/evolution/beast {};
+  beast2 = pkgs.callPackage ./pkgs/evolution/beast2 {};
+  figtree = pkgs.callPackage ./pkgs/evolution/figtree {};
+  iqtree2 = pkgs.callPackage ./pkgs/evolution/iqtree2 {};
+  tracer = pkgs.callPackage ./pkgs/evolution/tracer {};
 
   # Misc.
-  biblib = pkgs.callPackage ./pkgs/misc/biblib { };
-  vimiv-qt = pkgs.callPackage ./pkgs/misc/vimiv-qt { };
+  biblib = pkgs.callPackage ./pkgs/misc/biblib {};
+  frida = pkgs.callPackage ./pkgs/misc/frida {};
+  frida-tools = pkgs.callPackage ./pkgs/misc/frida-tools {
+    frida = pkgs.callPackage ./pkgs/misc/frida {};
+  };
+  vimiv-qt = pkgs.callPackage ./pkgs/misc/vimiv-qt {};
 }
