@@ -23,9 +23,9 @@ in
   comma = callPackage ./pkgs/comma { };
   conform = callPackage ./pkgs/conform { };
   container-diff = callPackage ./pkgs/container-diff { };
-  dockle = callPackage ./pkgs/dockle { };
   flat-remix-theme = callPackage ./pkgs/themes/flat-remix { };
   go-jira = callPackage ./pkgs/go-jira { };
+  google-fonts = callPackage ./pkgs/fonts/google-fonts { };
   nerdfont-hasklig = callPackage ./pkgs/fonts/nerdfont-hasklig { };
   hunter = callPackage ./pkgs/hunter { };
   infracost = callPackage ./pkgs/infracost { };
