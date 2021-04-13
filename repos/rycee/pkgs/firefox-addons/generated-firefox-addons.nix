@@ -234,10 +234,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.3.26";
+      version = "2021.4.9";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3751525/duckduckgo_privacy_essentials-2021.3.26-an+fx.xpi";
-      sha256 = "7d798b0e18d9a8450b805bf9d714e317fdd0527edda352da7e4703305e90ce82";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3757752/duckduckgo_privacy_essentials-2021.4.9-an+fx.xpi";
+      sha256 = "c7392a826ba39f4996209230318330bf0d3125aad1aa5cc09848d7e2583aa66e";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -555,10 +555,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.7.8";
+      version = "1.7.8.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3758141/keepassxc_browser-1.7.8-fx.xpi";
-      sha256 = "659a33dcbcd956b8b05410d970c1d846fc0cb7023106c1d316a2111713e351ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3758952/keepassxc_browser-1.7.8.1-fx.xpi";
+      sha256 = "c091084b5ac5acbf4652bd60033a69e10d1b1e3e5ff3dd1f68fc62afea636b3d";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -588,10 +588,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.68.0.3";
+      version = "4.69.0.4";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3750291/lastpass_password_manager-4.68.0.3-an+fx.xpi";
-      sha256 = "f6f19474cb9af46f7c47d6dabd78532c868915d3e269ca1b9068ffa2459ac3d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3757173/lastpass_password_manager-4.69.0.4-an+fx.xpi";
+      sha256 = "62421c7ed204491daee558cac2a3b1643f24e41ae0666a2dfc5b6112f5b8ebd8";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1000,10 +1000,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.4.6";
+      version = "21.4.13";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3756338/refined_github-21.4.6-an+fx.xpi";
-      sha256 = "97cdd6528e18d49ce7a49afdb418e5eac2d0a20c881ad8337728977fc99b4013";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3759418/refined_github-21.4.13-an+fx.xpi";
+      sha256 = "6d7062322d4d15a8428e1e44654ca36836a2faa3ad12e42855612490af3d2932";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1027,10 +1027,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "3.6.0";
+      version = "3.6.1";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3721973/search_by_image-3.6.0-an+fx.xpi";
-      sha256 = "9acdc2c4fe0653119721d43eacce04733f138abd440252fc6a416a2bba8994e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3758273/search_by_image-3.6.1-an+fx.xpi";
+      sha256 = "9783070b7bb3e433d55af0228328ccbec1e8435402ccdf869c7d91a45f66851b";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image";
@@ -1069,10 +1069,10 @@
       };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.5.3";
+      version = "0.5.4";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3716273/snowflake-0.5.3-fx.xpi";
-      sha256 = "a18bbf755ab056a7826959b221604ce8743d12b657c94a48737fa3ecbdb65561";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3759245/snowflake-0.5.4-fx.xpi";
+      sha256 = "5cd9648ce39e137d495c5ce48ff23e8e741f1eb6f1bcb1c0bc1d9bcabe7f9622";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -1365,10 +1365,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.12.12";
+      version = "2.12.14";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3750973/violentmonkey-2.12.12-an+fx.xpi";
-      sha256 = "fd060b98a8e3f9c03ae9d809644248c848734d8ba1a46e9a240ea3581604ed43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3758938/violentmonkey-2.12.14-an+fx.xpi";
+      sha256 = "40ccfbcab81821a4719ae7e6736225c93f6280f3c5457c45287cde7893242d92";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
