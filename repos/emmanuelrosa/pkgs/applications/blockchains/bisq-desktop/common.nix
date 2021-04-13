@@ -32,13 +32,7 @@ rec {
     nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [ git-lfs ];
   });
 
-  # We use a modified JDK package due to an issue with libcrypto.
-  # See https://github.com/NixOS/nixpkgs/issues/73246
-  jdk = openjdk11.overrideAttrs (oldAttrs: rec {
-    buildInputs = lib.remove gnome2.gnome_vfs oldAttrs.buildInputs;
-    NIX_LDFLAGS = builtins.replaceStrings [ "-lgnomevfs-2" ] [ "" ] oldAttrs.NIX_LDFLAGS;
-  });
-
+  jdk = openjdk11;
   grpc = callPackage ./grpc-java.nix { };
 
   gradle = (gradleGen.override {

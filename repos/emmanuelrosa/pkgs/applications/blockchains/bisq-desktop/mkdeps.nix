@@ -18,7 +18,7 @@
 with import <nixpkgs> { };
 let
   common = callPackage ./common.nix { };
-  inherit (common) src jdk version pname grpc gradle;
+  inherit (common) src version pname grpc gradle;
 
   # fake build to pre-download deps into fixed-output derivation
   prebuild = pkgs.stdenv.mkDerivation {
@@ -48,7 +48,7 @@ let
     outputHashMode = "recursive";
 
     # REF1
-    outputHash = "1m5kfi44bm6lx07j3wnphkq3c0gn87q6pm6s3vkjmvfz2bbyq8si";
+    outputHash = "1zx6hd7b4kc2s4zv9p897dbsydvh260hdhhwqpaliyq300vhfiwv";
   };
 
   gen-deps-script = pkgs.writeScript "${pname}-gen-deps-script" ''
