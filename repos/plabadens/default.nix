@@ -14,6 +14,8 @@ rec {
   #modules = import ./modules; # NixOS modules
   #overlays = import ./overlays; # nixpkgs overlays
 
+  clight-gui = pkgs.libsForQt5.callPackage ./pkgs/clight-gui { };
+
   edmarketconnector = pkgs.python3.pkgs.toPythonApplication python3Packages.edmarketconnector;
 
   python3Packages = pkgs.recurseIntoAttrs (
