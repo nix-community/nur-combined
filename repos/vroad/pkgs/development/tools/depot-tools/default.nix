@@ -32,7 +32,7 @@ let
 in
 stdenv.mkDerivation {
   name = "depot-tools";
-  buildInputs = [ gcc-unwrapped ];
+  buildInputs = [ gcc-unwrapped python python3 ];
   nativeBuildInputs = [ makeWrapper autoPatchelfHook ];
   unpackPhase = ''
     mkdir -p $out/src/
@@ -44,12 +44,28 @@ stdenv.mkDerivation {
     mkdir -p $out/src/third_party/
     ln -sf ${cipdClient} $out/src/cipd
     ln -sf ${gsutil} $out/src/third_party/gsutil
+
+    BOTO_CONFIG=$out/boto.cfg
+    GSUTIL_STATE_DIR=$out/.gsutil
+    cat > $BOTO_CONFIG << EOF
+[GSUtil]
+state_dir=$GSUTIL_STATE_DIR
+EOF
     makeWrapper $out/src/gclient $out/bin/gclient \
       --set DEPOT_TOOLS_UPDATE 0 \
       --set VPYTHON_BYPASS 'manually managed python not supported by chrome operations' \
       --set DEPOT_TOOLS_METRICS 0 \
+      --set BOTO_CONFIG $BOTO_CONFIG \
       --prefix PATH : ${lib.makeBinPath [ python python3 ]}
     makeWrapper $out/src/autoninja $out/bin/autoninja \
       --prefix PATH : ${lib.makeBinPath [ python3 ]}
   '';
+  installCheckPhase = ''
+    export VPYTHON_BYPASS='manually managed python not supported by chrome operations'
+    export PATH=$out/src:$PATH
+    export BOTO_CONFIG=$out/boto.cfg
+    python $out/src/gsutil.py --force-version ""
+    autoninja --version
+  '';
+  doInstallCheck = true;
 }
