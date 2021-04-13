@@ -53,6 +53,7 @@ rec {
       };
       propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ cirq ];
     });
+    pytest-plt = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pytest-plt { };
     pytest-profiling = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pytest-profiling { };
     pubchempy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pubchempy { };
     python-box = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/python-box { };
