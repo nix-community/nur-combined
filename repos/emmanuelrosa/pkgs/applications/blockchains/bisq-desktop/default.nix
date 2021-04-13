@@ -3,9 +3,9 @@
 , callPackage
 , makeWrapper
 , fetchurl
+, rsync
 , protobuf3_10
 , makeDesktopItem
-, copyDesktopItems
 , imagemagick
 }:
 let
@@ -40,33 +40,28 @@ let
       name = "bisq-deps";
       dontUnpack = true;
 
-      buildPhase = ''
-        for p in ${toString d}; do
-          cp --no-preserve=mode -r $p/* .
-        done
-      '';
-
       installPhase = ''
         mkdir $out
-        cp -r . $out/
+
+        for p in ${toString d}; do
+          ${rsync}/bin/rsync -a $p/ $out/
+        done
       '';
     };
 in
 stdenv.mkDerivation rec {
   inherit (common) pname version src jdk grpc gradle;
 
-  nativeBuildInputs = [ makeWrapper gradle copyDesktopItems ];
+  nativeBuildInputs = [ makeWrapper gradle ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Bisq";
-      exec = "bisq-desktop";
-      icon = "bisq";
-      desktopName = "Bisq";
-      genericName = "Decentralized bitcoin exchange";
-      categories = "Network;Utility;";
-    })
-  ];
+  desktopItem = makeDesktopItem {
+    name = "Bisq";
+    exec = "bisq-desktop";
+    icon = "bisq";
+    desktopName = "Bisq";
+    genericName = "Decentralized bitcoin exchange";
+    categories = "Network;Utility;";
+  };
 
   buildPhase = ''
     export GRADLE_USER_HOME=$(mktemp -d)
@@ -95,7 +90,8 @@ stdenv.mkDerivation rec {
     makeWrapper ${bisq-launcher} $out/bin/bisq-desktop \
       --prefix PATH : $out/bin
 
-    copyDesktopItems
+    install -Dm644 -t $out/share/applications \
+      ${desktopItem}/share/applications/*
 
     for n in 16 24 32 48 64 96 128 256; do
       size=$n"x"$n
