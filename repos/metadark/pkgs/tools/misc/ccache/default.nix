@@ -7,6 +7,7 @@
 , cmake
 , perl
 , zstd
+, bashInteractive
 , xcodebuild
 , makeWrapper
 }:
@@ -23,10 +24,6 @@ let ccache = stdenv.mkDerivation rec {
   };
 
   patches = [
-    # test/run use compgen to get environment variable names, but
-    # compgen isn't available in non-interactive bash.
-    ./env-instead-of-compgen.patch
-
     # When building for Darwin, test/run uses dwarfdump, whereas on
     # Linux it uses objdump. We don't have dwarfdump packaged for
     # Darwin, so this patch updates the test to also use objdump on
@@ -44,7 +41,13 @@ let ccache = stdenv.mkDerivation rec {
   outputs = [ "out" "man" ];
 
   doCheck = true;
-  checkInputs = lib.optional stdenv.isDarwin xcodebuild;
+
+  checkInputs = [
+    # test/run requires the compgen function which is available in
+    # bashInteractive, but not bash.
+    bashInteractive
+  ] ++ lib.optional stdenv.isDarwin xcodebuild;
+
   checkPhase = ''
     export HOME=$(mktemp -d)
     ctest --output-on-failure ${lib.optionalString stdenv.isDarwin ''
