@@ -45,17 +45,10 @@ stdenv.mkDerivation {
     ln -sf ${cipdClient} $out/src/cipd
     ln -sf ${gsutil} $out/src/third_party/gsutil
 
-    BOTO_CONFIG=$out/boto.cfg
-    GSUTIL_STATE_DIR=$out/.gsutil
-    cat > $BOTO_CONFIG << EOF
-[GSUtil]
-state_dir=$GSUTIL_STATE_DIR
-EOF
     makeWrapper $out/src/gclient $out/bin/gclient \
       --set DEPOT_TOOLS_UPDATE 0 \
       --set VPYTHON_BYPASS 'manually managed python not supported by chrome operations' \
       --set DEPOT_TOOLS_METRICS 0 \
-      --set BOTO_CONFIG $BOTO_CONFIG \
       --prefix PATH : ${lib.makeBinPath [ python python3 ]}
     makeWrapper $out/src/autoninja $out/bin/autoninja \
       --prefix PATH : ${lib.makeBinPath [ python3 ]}
@@ -64,6 +57,11 @@ EOF
     export VPYTHON_BYPASS='manually managed python not supported by chrome operations'
     export PATH=$out/src:$PATH
     export BOTO_CONFIG=$out/boto.cfg
+    GSUTIL_STATE_DIR=$out/.gsutil
+    cat > $BOTO_CONFIG << EOF
+[GSUtil]
+state_dir=$GSUTIL_STATE_DIR
+EOF
     python $out/src/gsutil.py --force-version ""
     autoninja --version
   '';
