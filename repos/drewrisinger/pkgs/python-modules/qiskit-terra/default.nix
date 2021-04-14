@@ -2,6 +2,7 @@
 , pythonOlder
 , buildPythonPackage
 , fetchFromGitHub
+, fetchpatch
   # Python requirements
 , cython
 , dill
@@ -66,6 +67,15 @@ buildPythonPackage rec {
     rev = version;
     sha256 = "0wlpkw0b8kxmjz2fis2n8126psbhn3mqwgdpc2wm208nf1l5pcrd";
   };
+
+  patches = [
+    # TODO: Remove on next version. Merged to master
+    (fetchpatch {
+      name = "qiskit-terra-pr-6213-fix-seconds-to-samples.patch";
+      url = "https://github.com/Qiskit/qiskit-terra/commit/40ffd2b07c03e220a174b2bfd0bf8c23aa021c5f.patch";
+      sha256 = "19j3w9xmzwcazkdfgiar4v7hsnf2sy9xaym1qg70lh5qvwad0b3s";
+    })
+  ];
 
   nativeBuildInputs = [ cython ];
 
