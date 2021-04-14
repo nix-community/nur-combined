@@ -7,11 +7,7 @@ rec {
 
   exo2 = callPackage ./pkgs/exo2 {};
 
-  kotatogram-desktop = qt5.callPackage ./pkgs/kotatogram-desktop {
-    inherit libtgvoip;
-  };
-
-  libtgvoip = callPackage ./pkgs/libtgvoip {};
+  kotatogram-desktop = qt5.callPackage ./pkgs/kotatogram-desktop {};
 
   silver = callPackage ./pkgs/silver {};
 }

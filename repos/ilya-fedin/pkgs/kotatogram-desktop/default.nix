@@ -1,13 +1,18 @@
-{ mkDerivation, lib, fetchFromGitHub, pkg-config, python3, cmake, ninja
-, qtbase, qtimageformats, libsForQt5, hunspell, xdg_utils, ffmpeg, openalSoft
-, lzma, lz4, xxHash, zlib, minizip, openssl, libtgvoip, microsoft_gsl, tl-expected
-, range-v3
+{ mkDerivation, lib, fetchFromGitHub, fetchpatch, callPackage
+, pkg-config, cmake, ninja, python3, wrapGAppsHook, wrapQtAppsHook, removeReferencesTo
+, qtbase, qtimageformats, gtk3, libsForQt5, lz4, xxHash
+, ffmpeg, openalSoft, minizip, libopus, alsaLib, libpulseaudio, range-v3
+, tl-expected, hunspell, glibmm
+# Transitive dependencies:
+, pcre, xorg, util-linux, libselinux, libsepol, epoxy
+, at-spi2-core, libXtst, libthai, libdatrie
 }:
 
 with lib;
 
 let
-  ver = "1.2";
+  tg_owt = callPackage ./tg_owt.nix {};
+  ver = "1.4";
 in mkDerivation rec {
   pname = "kotatogram-desktop";
   version = "${ver}-1";
@@ -16,26 +21,47 @@ in mkDerivation rec {
     owner = "kotatogram";
     repo = "kotatogram-desktop";
     rev = "k${ver}";
-    sha256 = "00pdx3cjhrihf7ihhmszcf159jrzn1bcx20vwiiizs5r1qk8l210";
+    sha256 = "0nhyjqxrbqiik4sgzplmpgx8msf8rykjiik0c2zr61rjm4fngkb3";
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config python3 cmake ninja ];
+  patches = [
+    ./0001-Add-an-option-to-hide-messages-from-blocked-users-in.patch
+  ];
+
+  postPatch = ''
+    substituteInPlace Telegram/CMakeLists.txt \
+      --replace '"''${TDESKTOP_LAUNCHER_BASENAME}.appdata.xml"' '"''${TDESKTOP_LAUNCHER_BASENAME}.metainfo.xml"'
+  '';
+
+  # We want to run wrapProgram manually (with additional parameters)
+  dontWrapGApps = true;
+  dontWrapQtApps = true;
+
+  nativeBuildInputs = [ pkg-config cmake ninja python3 wrapGAppsHook wrapQtAppsHook removeReferencesTo ];
 
   buildInputs = [
-    qtbase qtimageformats ffmpeg openalSoft lzma lz4 xxHash libsForQt5.libdbusmenu
-    zlib minizip openssl hunspell libtgvoip microsoft_gsl tl-expected range-v3
+    qtbase qtimageformats gtk3 libsForQt5.kwayland libsForQt5.libdbusmenu lz4 xxHash
+    ffmpeg openalSoft minizip libopus alsaLib libpulseaudio range-v3
+    tl-expected hunspell glibmm
+    tg_owt
+    # Transitive dependencies:
+    pcre xorg.libXdmcp util-linux libselinux libsepol epoxy
+    at-spi2-core libXtst libthai libdatrie
   ];
 
-  qtWrapperArgs = [
-    "--prefix PATH : ${xdg_utils}/bin"
-  ];
+  cmakeFlags = [ "-DTDESKTOP_API_TEST=ON" ];
 
-  cmakeFlags = [
-    "-DTDESKTOP_API_TEST=ON"
-    "-DDESKTOP_APP_USE_PACKAGED_RLOTTIE=OFF"
-    "-DDESKTOP_APP_USE_PACKAGED_VARIANT=OFF"
-  ];
+  postFixup = ''
+    # We also use gappsWrapperArgs from wrapGAppsHook.
+    wrapProgram $out/bin/kotatogram-desktop \
+      "''${gappsWrapperArgs[@]}" \
+      "''${qtWrapperArgs[@]}"
+  '';
+
+  passthru = {
+    inherit tg_owt;
+  };
 
   meta = {
     description = "Kotatogram – experimental Telegram Desktop fork";
@@ -47,6 +73,7 @@ in mkDerivation rec {
     license = licenses.gpl3;
     platforms = platforms.linux;
     homepage = https://kotatogram.github.io;
+    changelog = "https://github.com/kotatogram/kotatogram-desktop/releases/tag/k{ver}";
     maintainers = with maintainers; [ ilya-fedin ];
   };
 }
