@@ -30,17 +30,19 @@ with import ../../globalConfig.nix;
   ];
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [
-      22
-      80 443
-      59356 
-      6969 6970 6971 6972 6973 6974 6975 6976 6977 6978 6979 6980
+    trustedInterfaces = [
+      "ztppi77yi3" # zerotier
     ];
-    allowedUDPPorts = [
-      22
-      80 443
-      59356 
-      6969 6970 6971 6972 6973 6974 6975 6976 6977 6978 6979 6980
+    allowedTCPPortRanges = [
+      {from = 6969; to = 6980; }
+    ];
+    allowedUDPPortRanges = [
+      {from = 6969; to = 6980; }
+    ];
+    allowedTCPPorts = [
+      # 22
+      # 80 443
+      # 59356 
     ];
   };
   users.users = {
@@ -53,6 +55,14 @@ with import ../../globalConfig.nix;
     alibot.enable = true;
     zerotierone.enable = true;
     irqbalance.enable = true;
+    postgresql = {
+      enable = true;
+      enableTCPIP = true;
+      authentication = pkgs.lib.mkOverride 10 ''
+        local all all trust
+        host all all 192.168.69.0/24 trust
+      '';
+    };
     randomtube = { # TODO: Bump git commit
       enable = false;
       extraParameters = "-ms 120";
