@@ -153,9 +153,6 @@
         "genesis": {
             "url": "https://github.com/bignaux/nur-packages"
         },
-        "gnidorah": {
-            "url": "https://github.com/gnidorah/nur-packages"
-        },
         "graham33": {
             "url": "https://github.com/graham33/nur-packages"
         },
@@ -479,9 +476,6 @@
         },
         "xeals": {
             "url": "https://github.com/xeals/nur-packages"
-        },
-        "yoctocell": {
-            "url": "https://github.com/yoctocell/nur-packages"
         },
         "ysndr": {
             "url": "https://github.com/ysndr/nur-packages"
