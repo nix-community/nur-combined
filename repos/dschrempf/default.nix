@@ -27,5 +27,11 @@
   frida-tools = pkgs.callPackage ./pkgs/misc/frida-tools {
     frida = pkgs.callPackage ./pkgs/misc/frida {};
   };
+  # nvd = import (pkgs.fetchFromGitLab {
+  #   owner = "khumba";
+  #   repo = "nvd";
+  #   rev = "7cdaa6d818119bd7a51930d990fded5d594c6623";
+  #   sha256 = "sha256-dQcfoMtRGg+SRvgY9pbSqlyeTozlHp3qE70egSEiFX0=";
+  # }) { inherit pkgs; };
   vimiv-qt = pkgs.callPackage ./pkgs/misc/vimiv-qt {};
 }
