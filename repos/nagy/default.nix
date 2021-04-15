@@ -42,8 +42,6 @@ rec {
 
   cxxtimer = pkgs.callPackage ./pkgs/cxxtimer {};
 
-  timg = pkgs.callPackage ./pkgs/timg {};
-
   cxxmatrix = pkgs.callPackage ./pkgs/cxxmatrix {};
 
   cpufetch = pkgs.callPackage ./pkgs/cpufetch {};
