@@ -11,6 +11,7 @@ let
   callPackage = pkgs.callPackage;
   stdenv = pkgs.stdenv;
 
+  cubyzPkgs = pkgs.callPackage ./pkgs/cubyz-launcher { };
   gradlePkgs = pkgs.callPackage ./pkgs/gradle { };
   groovyPkgs = pkgs.callPackage ./pkgs/groovy { };
   groovy4Pkgs = pkgs.callPackage ./pkgs/groovy4 { };
@@ -135,6 +136,8 @@ in rec {
   adoptopenjdk-jre-hotspot-bin-16-nightly = if stdenv.isLinux
     then callPackage adoptopenjdk-bin-16-packages-linux.jre-hotspot {}
     else callPackage adoptopenjdk-bin-16-packages-darwin.jre-hotspot {};
+
+  cubyz-launcher-0_2 = cubyzPkgs.cubyz-launcher-0_2;
 
   gradle-4_10_3 = gradlePkgs.gradle-4_10_3;
   gradle-5_6_4 = gradlePkgs.gradle-5_6_4;
