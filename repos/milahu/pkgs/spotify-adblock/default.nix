@@ -71,10 +71,10 @@ let
       spotify-unwrapped-version = spotify-unwrapped.version;
 
       cef-version =
-        #builtins.trace "spotify-adblock: spotify-version = ${spotify-version}"
+        #builtins.trace "spotify-adblock-linux: spotify-version = ${spotify-version}"
         builtins.getAttr spotify-version cef-version-of-spotify-version;
       cef-build =
-        #builtins.trace "spotify-adblock: cef-version = ${cef-version}"
+        #builtins.trace "spotify-adblock-linux: cef-version = ${cef-version}"
         builtins.getAttr cef-version cef-build-of-cef-version;
       cef-sha256 = builtins.getAttr cef-file cef-sha256-of-file;
 
@@ -148,7 +148,7 @@ let
 in
 
 stdenv.mkDerivation rec {
-  pname = "spotify-adblock";
+  pname = "spotify-adblock-linux";
   version = "1.4";
 
   src = fetchFromGitHub {
@@ -181,7 +181,7 @@ stdenv.mkDerivation rec {
     libdir=${spotify-unwrapped}/lib/spotify
     librarypath="${lib.makeLibraryPath deps}:$libdir"
 
-    makeWrapper ${spotify-unwrapped}/share/spotify/.spotify-wrapped $out/bin/spotify-adblock \
+    makeWrapper ${spotify-unwrapped}/share/spotify/.spotify-wrapped $out/bin/spotify-adblock-linux \
       --prefix LD_LIBRARY_PATH : "$librarypath" \
       --prefix PATH : "${gnome3.zenity}/bin" \
       --suffix LD_PRELOAD : "$out/lib/spotify-adblock.so"
@@ -189,13 +189,13 @@ stdenv.mkDerivation rec {
     # Desktop file
     # based on spotify/default.nix
     mkdir -p $out/share/applications
-    cp ${spotify-unwrapped}/share/spotify/spotify.desktop $out/share/applications/spotify-adblock.desktop
+    cp ${spotify-unwrapped}/share/spotify/spotify.desktop $out/share/applications/spotify-adblock-linux.desktop
     # fix Icon line in the desktop file (#48062)
     sed -i "
       s/^Icon=.*/Icon=spotify-client/;
-      s/Exec=spotify/Exec=spotify-adblock/;
-      s/Name=Spotify/Name=Spotify Adblock/;
-    " $out/share/applications/spotify-adblock.desktop
+      s/Exec=spotify/Exec=spotify-adblock-linux/;
+      s/Name=Spotify/Name=Spotify Adblock Linux/;
+    " $out/share/applications/spotify-adblock-linux.desktop
     # Icons
     for i in 16 22 24 32 48 64 128 256 512; do
       ixi="$i"x"$i"
@@ -212,5 +212,59 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/abba23/spotify-adblock-linux";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
+    longDescription = ''
+      ## install
+
+      this requires a recent version of spotify (gtk3, libxkbcommon).
+      spotify from nixos-unstable is too old
+
+      ### /etc/nixos/configuration.nix
+
+      ```nix
+      { config, pkgs, lib, stdenv, ... }:
+      let
+
+        base-config = {
+          allowUnfree = true; # needed for spotify
+        };
+
+        # use a recent version of spotify
+        spotify-pkgs = import (fetchTarball {
+          # spotify 1.1.55.498
+          # https://github.com/NixOS/nixpkgs/pull/118055
+          url = "https://github.com/NixOS/nixpkgs/archive/caeafab22e39f1e95fc9452ff190fa7bdf342579.tar.gz";
+          sha256 = "0axzksla5x5akvjx3fz6kx2dbhw9fv5r6yrhwjj5zd21pgpkgnc3";
+        }) { config = base-config; };
+
+      in
+      {
+        imports = [ ./hardware-configuration.nix ];
+
+        nixpkgs.config = base-config // {
+
+          packageOverrides = pkgs: {
+
+            nur = import (builtins.fetchTarball {
+              # NUR 2021-04-15
+              url = "https://github.com/nix-community/NUR/archive/2ed3b8f5861313e9e8e8b39b1fb05f3a5a049325.tar.gz";
+              sha256 = "1rpl2jpwvp05gj79xflw5ka6lv149rkikh6x7zhr3za36s27q5pz";
+            }) {
+              inherit pkgs;
+            };
+
+            # use a recent version of spotify
+            inherit (spotify-pkgs) spotify;
+            inherit (spotify-pkgs) spotify-unwrapped; # required by spotify-adblock-linux
+
+          };
+
+        };
+
+        environment.systemPackages = with pkgs; [
+          nur.repos.milahu.spotify-adblock-linux
+        ];
+      }
+      ```
+    '';
   };
 }
