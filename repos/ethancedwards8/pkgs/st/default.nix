@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitLab {
     owner = "ethancedwards";
     repo = "st-config";
-    rev = "0eedc647ff2c4d19fdaa8c27d4ae0649e44b83e5";
-    sha256 = "oojXFwuYJD9sfbntje9UQ//0bOBtGt0RyFeYwWV7eZo=";
+    rev = "8dfefc7d84c4aa1785cd583fd027b90fd9df9771";
+    sha256 = "aAkLLrZkwKsQWRTxJRbjrdLbeq01eMrvQhldF5kQBTk=";
   };
 
   inherit patches;
