@@ -41,5 +41,7 @@ jobs:
           -I $PWD
     - name: Build nix packages
       run: nix run -I 'nixpkgs=channel:nixos-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      env:
+        NIXPKGS_ALLOW_INSECURE: 1
     - name: Trigger NUR update
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"

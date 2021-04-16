@@ -1,11 +1,12 @@
-{ lib, stdenv, fetchurl, fetchpatch, readline, ncurses, bison, flex }:
+{ lib, stdenv, fetchwebarchive, fetchpatch, readline, ncurses, bison, flex }:
 
 stdenv.mkDerivation rec {
   pname = "aamath";
   version = "0.3";
 
-  src = fetchurl {
+  src = fetchwebarchive {
     url = "http://fuse.superglue.se/aamath/aamath-${version}.tar.gz";
+    timestamp = "20190303013301";
     sha256 = "0cdnfy7zdwyxvkhnk5gdcl75w9ag3n95i3sxrrawvqlmhrcg8hwq";
   };
 
