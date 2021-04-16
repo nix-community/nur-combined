@@ -6,7 +6,6 @@
     ./haskell.nix
     ./kakoune.nix
     ./lorri.nix
-    ./neuron.nix
     ./sway.nix
     ./terminal.nix
   ];

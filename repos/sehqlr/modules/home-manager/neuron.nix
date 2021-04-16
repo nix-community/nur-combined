@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   neuronSrc = builtins.fetchTarball
-    "https://github.com/srid/neuron/archive/master.tar.gz";
+    "https://github.com/srid/neuron/archive/master.tar.gz"
   neuronPkg = import neuronSrc { };
 in {
 

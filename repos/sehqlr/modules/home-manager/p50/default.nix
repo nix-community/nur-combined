@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  services.kanshi.profiles."workstation" = {
+  services.kanshi.profiles."3 monitors" = {
     outputs = [
       {
         criteria = "DP-4";

@@ -53,7 +53,10 @@
 
   services.kanshi.enable = true;
 
-  services.udiskie.enable = true;
+  services.udiskie = {
+      enable = true;
+      tray = "always";
+  };
 
   wayland.windowManager.sway = {
     enable = true;
