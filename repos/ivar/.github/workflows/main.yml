@@ -27,13 +27,13 @@ jobs:
     - name: Update repository
       run: git pull -f
     - name: Install nix
-      uses: cachix/install-nix-action@v12
+      uses: cachix/install-nix-action@v13
       with:
         nix_path: "${{ matrix.nixPath }}"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
-      uses: cachix/cachix-action@v8
+      uses: cachix/cachix-action@v10
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
         name: ${{ matrix.cachixName }}
