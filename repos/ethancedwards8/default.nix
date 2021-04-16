@@ -18,4 +18,6 @@
   st = pkgs.callPackage ./pkgs/st { };
 
   sysfo = pkgs.callPackage ./pkgs/sysfo { };
+
+  jool = pkgs.callPackage ./pkgs/emacs { };
 }
