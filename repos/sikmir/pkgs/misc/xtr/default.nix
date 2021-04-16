@@ -7,7 +7,7 @@ rustPlatform.buildRustPackage {
   src = sources.xtr;
 
   cargoPatches = [ ./cargo-lock.patch ];
-  cargoSha256 = "1pyidpfk18j50bkrhj8xk4k03h80w2q0l1f0yfkpwss2nfdvpp9x";
+  cargoSha256 = "0l7gj8ddhjvbnzkvm9ij2f6p89zp2faiqm03ra26a75589imnw9m";
 
   meta = with lib; {
     inherit (sources.xtr) description homepage;
