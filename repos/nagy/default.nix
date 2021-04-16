@@ -44,8 +44,6 @@ rec {
 
   cxxmatrix = pkgs.callPackage ./pkgs/cxxmatrix {};
 
-  cpufetch = pkgs.callPackage ./pkgs/cpufetch {};
-
   piecash = pkgs.python3Packages.callPackage ./pkgs/piecash {
     setuptools = pkgs.python3Packages.setuptools;
     pytz = pkgs.python3Packages.pytz;

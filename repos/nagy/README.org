@@ -20,7 +20,6 @@ It contains packages/attributes for:
   - cpp-httplib (https://github.com/yhirose/cpp-httplib)
   - cxxtimer (https://github.com/andremaravilha/cxxtimer)
   - cxxmatrix (https://github.com/akinomyoga/cxxmatrix)
-  - cpufetch (https://github.com/Dr-Noob/cpufetch)
   - piecash (https://github.com/sdementen/piecash)
 
 * Mirrors of this repo
