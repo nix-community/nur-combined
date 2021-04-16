@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }: {
   imports = [
-    ./apps.nix
     ./git.nix
     ./go.nix
     ./haskell.nix
