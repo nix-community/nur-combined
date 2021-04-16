@@ -2,10 +2,10 @@
   {
     "1password-x-password-manager" = buildFirefoxXpiAddon {
       pname = "1password-x-password-manager";
-      version = "1.24.0";
+      version = "1.24.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3752706/1password_password_manager-1.24.0-fx.xpi";
-      sha256 = "e52b6eb06bb9dde59c96d2a3cafd629a996fa0245686743646835beb80b905fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3761012/1password_password_manager-1.24.1-fx.xpi";
+      sha256 = "3f4429ec7e8895802de24eedfc83122dd7dcbe8996c841fdcf6b68b558092975";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -495,10 +495,10 @@
       };
     "https-everywhere" = buildFirefoxXpiAddon {
       pname = "https-everywhere";
-      version = "2021.1.27";
+      version = "2021.4.15";
       addonId = "https-everywhere@eff.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3716461/https_everywhere-2021.1.27-an+fx.xpi";
-      sha256 = "da049748bba7282c0f8c0ab85ac8f494e795e79d6bdc6f9f726d687aa8cc2a1f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3760520/https_everywhere-2021.4.15-an+fx.xpi";
+      sha256 = "8f6342077515669f73ae377346da4447428544559c870678488fa5b6b63d2500";
       meta = with lib;
       {
         homepage = "https://www.eff.org/https-everywhere";
@@ -902,14 +902,14 @@
       };
     "privacy-redirect" = buildFirefoxXpiAddon {
       pname = "privacy-redirect";
-      version = "1.1.46";
+      version = "1.1.47";
       addonId = "{b7f9d2cd-d772-4302-8c3f-eb941af36f76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3708074/privacy_redirect-1.1.46-an+fx.xpi";
-      sha256 = "cc614fe49cd4bb1b5d2b1065ca996b00b5fa6acbe4ff6b7d39f3d17ef5ddb05b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3761053/privacy_redirect-1.1.47-an+fx.xpi";
+      sha256 = "f39d53581a265f585c38f6fbfb1f2e2d1d840922453bf75cf193fe089236707b";
       meta = with lib;
       {
         homepage = "https://github.com/SimonBrazell/privacy-redirect";
-        description = "A simple web extension that redirects Twitter, YouTube, Instagram &amp; Google Maps requests to privacy friendly alternatives.";
+        description = "Redirects Twitter, YouTube, Instagram and more to privacy friendly alternatives.";
         license = licenses.gpl3Plus;
         platforms = platforms.all;
         };
@@ -958,10 +958,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.22.3";
+      version = "5.22.4";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3755655/reddit_enhancement_suite-5.22.3-an+fx.xpi";
-      sha256 = "cb4753adf0f3592f6332d7b3d69adccecbbfb2baba6c238e15c2abe6e6f80b83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3760642/reddit_enhancement_suite-5.22.4-an+fx.xpi";
+      sha256 = "877ba3dbce54834b81f7856f6041db58b05e09e1e916008f7f8433600af6cbd2";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -1041,10 +1041,10 @@
       };
     "sidebery" = buildFirefoxXpiAddon {
       pname = "sidebery";
-      version = "4.9.3";
+      version = "4.9.4";
       addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3750143/sidebery-4.9.3-fx.xpi";
-      sha256 = "4d717bbbd4cdc369118a4aebf8194f5242af5d10f652405c93dfcefb45bb932f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3759780/sidebery-4.9.4-fx.xpi";
+      sha256 = "f54da033ba54ec970427212ec0d2dab9fa5cdc53ba3f00528c0e1340fa486c66";
       meta = with lib;
       {
         homepage = "https://github.com/mbnuqw/sidebery";
