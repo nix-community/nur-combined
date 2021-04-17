@@ -1,8 +1,8 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index e49513d..e3182e7 100644
+index 76db6a1..bf9c4d4 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
-@@ -67,10 +67,6 @@ class Api:
+@@ -68,10 +68,6 @@ class Api:
          updated = util.get_settings("last_version") < VERSION
          res = {
              "version": USER_VERSION,
@@ -13,7 +13,7 @@ index e49513d..e3182e7 100644
              "showChangelog": updated and util.get_settings("changelog"),
          }
          if updated:
-@@ -745,46 +741,6 @@ class Api:
+@@ -752,46 +748,6 @@ class Api:
          help_thread = Thread(target=help_window, args=(self.host,))
          help_thread.start()
  
@@ -141,10 +141,10 @@ index c91c653..12c2ba1 100644
      constructor(props) {
          super(props);
 diff --git a/bcml/assets/src/js/Settings.jsx b/bcml/assets/src/js/Settings.jsx
-index bcec443..d201029 100644
+index a56de9c..b099c49 100644
 --- a/bcml/assets/src/js/Settings.jsx
 +++ b/bcml/assets/src/js/Settings.jsx
-@@ -22,7 +22,6 @@ class Settings extends React.Component {
+@@ -23,7 +23,6 @@ class Settings extends React.Component {
              wiiu: true,
              no_hardlinks: false,
              force_7z: false,
@@ -152,7 +152,7 @@ index bcec443..d201029 100644
              valid: false,
              loaded: false,
              nsfw: false,
-@@ -501,24 +500,6 @@ class Settings extends React.Component {
+@@ -518,24 +517,6 @@ class Settings extends React.Component {
                                  />
                              </OverlayTrigger>
                          </Form.Group>
@@ -178,10 +178,10 @@ index bcec443..d201029 100644
                              <OverlayTrigger
                                  overlay={
 diff --git a/bcml/util.py b/bcml/util.py
-index 71127b3..7206835 100644
+index 4aba838..dfdaf78 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
-@@ -577,7 +577,6 @@ DEFAULT_SETTINGS = {
+@@ -578,7 +578,6 @@ DEFAULT_SETTINGS = {
      "wiiu": True,
      "no_hardlinks": False,
      "force_7z": False,
@@ -189,7 +189,7 @@ index 71127b3..7206835 100644
      "nsfw": False,
      "last_version": VERSION,
      "changelog": True,
-@@ -1286,25 +1285,6 @@ def get_open_port():
+@@ -1293,25 +1292,6 @@ def get_open_port():
      return port
  
  
