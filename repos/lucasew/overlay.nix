@@ -35,6 +35,7 @@ in reduceJoin [
     webapps = import ./packages/chromeapps.nix super;
     arcan = cp ./packages/arcan.nix;
     c4me = cp ./packages/c4me;
+    encore = cp ./packages/encore.nix;
     xplr = cp ./packages/xplr.nix;
     personal-utils = cp ./packages/personal-utils.nix;
     cisco-packet-tracer = cp ./packages/cisco-packet-tracer.nix;
@@ -53,7 +54,6 @@ in reduceJoin [
       nfsu2 = cp ./packages/wineApps/nfsu2.nix;
       flatout2 = cp ./packages/wineApps/flatout2.nix;
     };
-    among_us = cp ./packages/among_us.nix;
     comby = cp ./packages/comby.nix;
     custom_rofi = cp ./packages/custom_rofi.nix;
     custom_ncdu = cp ./packages/custom_ncdu.nix;
