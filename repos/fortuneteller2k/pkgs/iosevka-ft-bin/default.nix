@@ -17,8 +17,8 @@ in fetchFromGitHub rec {
   '';
 
   meta = with lib; {
-    description = "An upscaled version of scientifica";
-    homepage = "https://github.com/NerdyPepper/curie";
+    description = "Custom build of Iosevka by fortuneteller2k";
+    homepage = "https://github.com/fortuneteller2k/iosevka-ft";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = with maintainers; [ fortuneteller2k ];
