@@ -54,16 +54,8 @@ stdenv.mkDerivation {
       --prefix PATH : ${lib.makeBinPath [ python3 ]}
   '';
   installCheckPhase = ''
-    export VPYTHON_BYPASS='manually managed python not supported by chrome operations'
-    export PATH=$out/src:$PATH
-    export BOTO_CONFIG=$out/boto.cfg
-    GSUTIL_STATE_DIR=$out/.gsutil
-    cat > $BOTO_CONFIG << EOF
-[GSUtil]
-state_dir=$GSUTIL_STATE_DIR
-EOF
-    python $out/src/gsutil.py --force-version ""
-    autoninja --version
+    $out/bin/gclient --version
+    $out/bin/autoninja --version
   '';
   doInstallCheck = true;
 }
