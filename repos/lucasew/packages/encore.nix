@@ -1,8 +1,10 @@
 {pkgs ? import <nixpkgs> {}}:
 let
   encore_common = ''
-    ENCORE_INSTALL="~/.encore"
-    PATH="$ENCORE_INSTALL/bin:$PATH"
+    export ENCORE_INSTALL="$HOME/.encore"
+    export ENCORE_RUNTIME_PATH="$ENCORE_INSTALL/runtime"
+    export ENCORE_GOROOT="$ENCORE_INSTALL/encore-go"
+    PATH="$ENCORE_INSTALL/bin:${pkgs.gcc}/bin:$PATH"
   '';
   encore = pkgs.writeShellScriptBin "encore" ''
     ${encore_common}

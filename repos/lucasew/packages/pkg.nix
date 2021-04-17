@@ -68,7 +68,7 @@ echo "$(bold "$0"): Convenient wrapper around nix-env
         fi
 
         PKGNAME="$1";shift
-        JSON="$(nix eval --impure --expr "with import <nixpkgs> {}; pkgs.$PKGNAME.meta" --json)"
+        JSON="$(nix eval --impure --expr "with import <nixpkgs> {}; pkgs.$PKGNAME.meta // {inherit ({version = \"not defined\";} // pkgs.$PKGNAME) version;}" --json)"
 
         function jsonkey {
             echo "$JSON" | jq -r "$@"
@@ -81,7 +81,7 @@ echo "$(bold "$0"): Convenient wrapper around nix-env
             printf "$(bold $(jsonkey "select(.$1) | \"$1 \""))"
         }
 
-        echo "$(bold $PKGNAME)"
+        echo "$(bold $PKGNAME) ($(jsonkey ".version"))"
         exists  description && echo -e "$(jsonkey ".description")"
         exists longDescription && echo -e "\n$(jsonkey ".longDescription")"
 
