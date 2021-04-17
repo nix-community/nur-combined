@@ -165,6 +165,7 @@ in rec {
   micronaut-1_3_5 = micronautPkgs.micronaut-1_3_5;
 
   micronaut-cli-2_2_2 = micronautCliPkgs.micronaut-cli-2_2_2;
+  micronaut-cli-2_4_2 = micronautCliPkgs.micronaut-cli-2_4_2;
 
   netbeans-11_3 = callPackage ./pkgs/netbeans { };
 

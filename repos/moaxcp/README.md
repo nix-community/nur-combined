@@ -122,3 +122,18 @@ in top of file for versions to add. nightly builds can also be added.
 ### nix-prefetch-url
 
 adds a download to the nix store and prints the hash.
+
+
+# development
+
+## build
+
+```
+$ nix-build -A micronaut-cli-2_4_2
+```
+
+## install
+
+```
+
+```
