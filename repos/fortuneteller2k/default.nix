@@ -20,6 +20,10 @@ rec {
     pkgs = pkgs.extend rust-overlay;
   };
 
+  iosevka-ft-bin = pkgs.callPackage ./pkgs/iosevka-ft-bin {
+    fetchFromGitHub = pkgs.fetchFromGitHub;
+  };
+
   abstractdark-sddm-theme = pkgs.callPackage ./pkgs/abstractdark-sddm-theme {
     inherit stdenv;
     fetchFromGitHub = pkgs.fetchFromGitHub;
