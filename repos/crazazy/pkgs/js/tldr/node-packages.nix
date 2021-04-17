@@ -382,13 +382,13 @@ let
         sha512 = "8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==";
       };
     };
-    "marked-2.0.1" = {
+    "marked-2.0.3" = {
       name = "marked";
       packageName = "marked";
-      version = "2.0.1";
+      version = "2.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/marked/-/marked-2.0.1.tgz";
-        sha512 = "5+/fKgMv2hARmMW7DOpykr2iLhl0NgjyELk5yn92iE7z8Se1IS9n3UsFm86hFXIkvMBmVxki8+ckcpjBeyo/hw==";
+        url = "https://registry.npmjs.org/marked/-/marked-2.0.3.tgz";
+        sha512 = "5otztIIcJfPc2qGTN8cVtOJEjNJZ0jwa46INMagrYfk0EvqtRuEHLsEe0LrFS0/q+ZRKT0+kXK7P2T1AN5lWRA==";
       };
     };
     "match-stream-0.0.2" = {
@@ -643,13 +643,13 @@ let
         sha1 = "717b8f220cc0bb7b44e40514c22b2e8bbc70d8b9";
       };
     };
-    "underscore-1.13.0" = {
+    "underscore-1.13.1" = {
       name = "underscore";
       packageName = "underscore";
-      version = "1.13.0";
+      version = "1.13.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/underscore/-/underscore-1.13.0.tgz";
-        sha512 = "sCs4H3pCytsb5K7i072FAEC9YlSYFIbosvM0tAKAlpSSUgD7yC1iXSEGdl5XrDKQ1YUB+p/HDzYrSG2H2Vl36g==";
+        url = "https://registry.npmjs.org/underscore/-/underscore-1.13.1.tgz";
+        sha512 = "hzSoAVtJF+3ZtiFX0VgfFPHEDRm7Y/QPjGyNo4TVdnDTdft3tr8hEkD25a1jC+TjTuE7tkHGKkhwCgs9dgBB2g==";
       };
     };
     "universalify-2.0.0" = {
@@ -751,7 +751,7 @@ let
       sources."jsonify-0.0.0"
       sources."lodash-4.17.21"
       sources."log-symbols-4.1.0"
-      sources."marked-2.0.1"
+      sources."marked-2.0.3"
       sources."match-stream-0.0.2"
       sources."mimic-fn-2.1.0"
       sources."minimatch-3.0.4"
@@ -778,7 +778,7 @@ let
       sources."supports-color-7.2.0"
       sources."sylvester-0.0.12"
       sources."traverse-0.3.9"
-      sources."underscore-1.13.0"
+      sources."underscore-1.13.1"
       sources."universalify-2.0.0"
       sources."util-deprecate-1.0.2"
       sources."wcwidth-1.0.1"

@@ -139,13 +139,13 @@ let
         sha512 = "yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==";
       };
     };
-    "get-stream-6.0.0" = {
+    "get-stream-6.0.1" = {
       name = "get-stream";
       packageName = "get-stream";
-      version = "6.0.0";
+      version = "6.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/get-stream/-/get-stream-6.0.0.tgz";
-        sha512 = "A1B3Bh1UmL0bidM/YX2NsCOTnGJePL9rO/M+Mw3m9f2gUpfokS0hi5Eah0WSUEWZdZhIZtMjkIYS7mDfOqNHbg==";
+        url = "https://registry.npmjs.org/get-stream/-/get-stream-6.0.1.tgz";
+        sha512 = "ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==";
       };
     };
     "has-1.0.3" = {
@@ -485,7 +485,7 @@ let
       sources."fastest-levenshtein-1.0.12"
       sources."find-up-4.1.0"
       sources."function-bind-1.1.1"
-      sources."get-stream-6.0.0"
+      sources."get-stream-6.0.1"
       sources."has-1.0.3"
       sources."human-signals-2.1.0"
       sources."import-local-3.0.2"
