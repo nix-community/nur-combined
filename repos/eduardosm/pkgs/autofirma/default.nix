@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   buildPhase = ''
-    ${jre8}/bin/java -jar usr/lib/AutoFirma/AutoFirmaConfigurador.jar
+    java -jar usr/lib/AutoFirma/AutoFirmaConfigurador.jar
   '';
 
   installPhase = ''
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     install -d $out/bin
     cat > $out/bin/AutoFirma <<EOF
     #!${bash}/bin/sh
-    ${jre8}/bin/java -jar $out/share/AutoFirma/AutoFirma.jar $*
+    ${jre8}/bin/java -jar $out/share/AutoFirma/AutoFirma.jar "\$@"
     EOF
     chmod +x $out/bin/AutoFirma
 
