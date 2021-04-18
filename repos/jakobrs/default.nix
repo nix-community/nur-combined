@@ -28,8 +28,8 @@ rec {
   };
 
   obs-studio = pkgs.obs-studio.overrideAttrs (old: {
-    pname = "obs-studio-unstable";
-    version = "2021-04-02";
+    pname = "obs-studio";
+    version = "unstable-2021-04-02";
 
     src = pkgs.fetchFromGitHub {
       owner = "obsproject";

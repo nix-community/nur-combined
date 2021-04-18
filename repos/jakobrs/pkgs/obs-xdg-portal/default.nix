@@ -3,8 +3,8 @@
   obs-studio, libX11, glib, pipewire, xdg-desktop-portal }:
 
 stdenv.mkDerivation {
-  pname = "obs-xdg-portal-unstable";
-  version = "2021-01-06";
+  pname = "obs-xdg-portal";
+  version = "unstable-2021-01-06";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";

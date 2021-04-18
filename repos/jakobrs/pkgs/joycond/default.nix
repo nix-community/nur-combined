@@ -3,8 +3,8 @@
 , libevdev, libudev }:
 
 stdenv.mkDerivation {
-  pname = "joycond-unstable";
-  version = "2021-03-06";
+  pname = "joycond";
+  version = "unstable-2021-03-06";
 
   src = fetchFromGitHub {
     owner = "DanielOgorchock";

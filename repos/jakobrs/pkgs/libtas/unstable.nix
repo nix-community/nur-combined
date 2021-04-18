@@ -21,14 +21,14 @@ let
   relevantStdenv = if multiArch then multiStdenv else stdenv;
 
 in relevantStdenv.mkDerivation rec {
-  pname = "libtas-unstable";
-  version = "2021-02-28";
+  pname = "libtas";
+  version = "unstable-2021-04-15";
 
   src = fetchFromGitHub {
     owner = "clementgallet";
     repo = "libTAS";
-    rev = "c98bf6d5b7eae3cdce14f3bf15bc0b50221016ce";
-    hash = "sha256:16flfb4gv15spgmcqs5k0kj5lfz236hd5g6ajx90wafzb6yvwdpp";
+    rev = "93a378a410eac8e7e50cb9fcefc3f7193b89da95";
+    hash = "sha256:1xh0aa5xmsj8f9y7g8m7pfgwfmgs3vp9dizf1l70vqi8vc8rn4y7";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig wrapQtAppsHook git ];
