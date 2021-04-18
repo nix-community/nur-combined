@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Comma runs software without installing it.";
     homepage = "https://github.com/Shopify/comma/pull/7";
-    license = stdenv.lib.licenses.mit;
+    license = lib.licenses.mit;
   };
 
 }

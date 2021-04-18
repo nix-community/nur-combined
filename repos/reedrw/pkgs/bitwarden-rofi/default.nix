@@ -2,6 +2,7 @@
 # TODO https://github.com/mattydebie/bitwarden-rofi/issues/34
 
 { stdenv
+, lib
 , fetchFromGitHub
 , makeWrapper
 , unixtools
@@ -60,10 +61,10 @@ stdenv.mkDerivation {
     install -Dm644 "README.md" "$out/usr/share/doc/bitwarden-rofi/README.md"
     install -Dm644 img/* "$out/usr/share/doc/bitwarden-rofi/img/"
 
-    wrapProgram "$out/bin/bwmenu" --prefix PATH : ${stdenv.lib.makeBinPath bins}
+    wrapProgram "$out/bin/bwmenu" --prefix PATH : ${lib.makeBinPath bins}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Wrapper for Bitwarden and Rofi";
     homepage = "https://github.com/mattydebie/bitwarden-rofi";
     license = licenses.gpl3;
