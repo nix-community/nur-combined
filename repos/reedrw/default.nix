@@ -14,13 +14,11 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  actions-cli = pkgs.callPackage ./pkgs/actions-cli { };
   artwiz-lemon = pkgs.callPackage ./pkgs/artwiz-lemon { };
   bitwarden-rofi-patched = pkgs.callPackage ./pkgs/bitwarden-rofi { };
   comma = pkgs.callPackage ./pkgs/comma { }; # From https://github.com/Shopify/comma/pull/7
   picom-next-ibhagwan = pkgs.callPackage ./pkgs/picom-next-ibhagwan { };
   scientifica = pkgs.callPackage ./pkgs/scientifica { };
-  teletype = pkgs.callPackage ./pkgs/teletype { };
   uwuify = pkgs.callPackage ./pkgs/uwuify { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
