@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Improved version of artwiz-lime with better kerning, distinct characters, extended unicode support, and in-built icons.";
     homepage = "https://github.com/cmvnd/fonts";
-    license = lib.licenses.wtfpl;
+    license = lib.licenses.gpl3Only;
   };
 
 }
