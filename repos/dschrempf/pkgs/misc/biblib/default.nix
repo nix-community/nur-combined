@@ -13,10 +13,10 @@ python39.pkgs.buildPythonPackage rec {
     sha256 = "065ihxlc3pjiyaw4pbkc8y30jrn2r36li3xncb86ggkfc2mg9r4s";
   };
 
-  meta = {
+  meta = with lib; {
     description = "Parser for BibTeX bibliographic databases";
     homepage = "https://github.com/colour-science/biblib";
-    license = [ lib.licenses.mit ];
-    maintainers = let dschrempf = import ../../dschrempf.nix; in [ dschrempf ];
+    license = [ licenses.mit ];
+    maintainers = with maintainers; [ dschrempf ];
   };
 }

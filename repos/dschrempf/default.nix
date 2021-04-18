@@ -35,5 +35,4 @@
   #   sha256 = "sha256-dQcfoMtRGg+SRvgY9pbSqlyeTozlHp3qE70egSEiFX0=";
   # }) { inherit pkgs; };
   signal-back = pkgs.callPackage ./pkgs/misc/signal-back {};
-  vimiv-qt = pkgs.callPackage ./pkgs/misc/vimiv-qt {};
 }

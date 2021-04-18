@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "View and analyze traces of MCMC runs";
     license = null;
     homepage = "https://github.com/beast-dev/tracer";
-    maintainers = let dschrempf = import ../../dschrempf.nix; in [ dschrempf ];
+    maintainers = with maintainers; [ dschrempf ];
     platforms = platforms.all;
   };
 }

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Efficient and versatile phylogenomic software by maximum likelihood";
     license = licenses.gpl2Only;
     homepage = "http://www.iqtree.org/";
-    maintainers = let dschrempf = import ../../dschrempf.nix; in [ dschrempf ];
+    maintainers = with maintainers; [ dschrempf ];
     platforms = platforms.all;
   };
 }

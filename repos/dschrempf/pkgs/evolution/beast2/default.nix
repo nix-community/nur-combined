@@ -54,7 +54,7 @@ stdenv.mkDerivation {
     description = "Bayesian evolutionary analysis by sampling trees";
     license = licenses.lgpl21Only;
     homepage = "https://github.com/CompEvol/beast2";
-    maintainers = let dschrempf = import ../../dschrempf.nix; in [ dschrempf ];
+    maintainers = with maintainers; [ dschrempf ];
     platforms = platforms.all;
   };
 }

@@ -21,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers";
     homepage = "https://www.frida.re/";
-    maintainers = let dschrempf = import ../../dschrempf.nix; in [ dschrempf ];
+    maintainers = with maintainers; [ dschrempf ];
     license = licenses.wxWindows;
   };
 }

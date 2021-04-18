@@ -55,7 +55,7 @@ python3.pkgs.buildPythonPackage rec {
     description = "Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers";
     homepage = "https://www.frida.re";
     license = licenses.wxWindows;
-    maintainers = let dschrempf = import ../../dschrempf.nix; in [ dschrempf ];
+    maintainers = with maintainers; [ dschrempf ];
     platforms = [ "x86_64-linux" ];
   };
 }

@@ -48,7 +48,7 @@ stdenv.mkDerivation {
     description = "Program for Bayesian analysis of molecular sequences using MCMC";
     license = licenses.lgpl21Only;
     homepage = "https://github.com/beast-dev/beast-mcmc";
-    maintainers = let dschrempf = import ../../dschrempf.nix; in [ dschrempf ];
+    maintainers = with maintainers; [ dschrempf ];
     platforms = platforms.all;
   };
 }

@@ -23,7 +23,7 @@ buildGoPackage rec {
     homepage = "https://github.com/xeals/signal-back";
     # TODO: Change to dschrempf from Nixpkgs.
     license = licenses.asl20;
-    maintainers = let dschrempf = import ../../dschrempf.nix; in [ dschrempf ];
+    maintainers = with maintainers; [ dschrempf ];
     platforms = platforms.all;
   };
 }

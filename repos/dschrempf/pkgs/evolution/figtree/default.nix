@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Graphical viewer of phylogenetic trees";
     license = null;
     homepage = "https://github.com/rambaut/figtree";
-    maintainers = let dschrempf = import ../../dschrempf.nix; in [ dschrempf ];
+    maintainers = with maintainers; [ dschrempf ];
     platforms = platforms.all;
   };
 }
