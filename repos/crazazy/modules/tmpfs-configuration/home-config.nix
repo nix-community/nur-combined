@@ -33,10 +33,10 @@ with lib;
           "Documents"
           "Music"
           "VirtualBox VMs"
+          "workbench/browsing"
+          "workbench/EMACS"
           ".local/share/keybase"
-          ".local/share/Terraria"
           ".local/share/Steam"
-          ".local/share/Valve Corporation"
           ".config/keybase"
           ".config/discord"
         ];
