@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     install -d $out/bin
     cat > $out/bin/configuradorfnmt <<EOF
     #!${bash}/bin/sh
-    ${jre}/bin/java -Dsun.security.smartcardio.library=${lib.getLib pcsclite}/lib/libpcsclite.so.1 -jar $out/share/configuradorfnmt/configuradorfnmt.jar
+    ${jre}/bin/java -Dsun.security.smartcardio.library=${lib.getLib pcsclite}/lib/libpcsclite.so.1 -jar $out/share/configuradorfnmt/configuradorfnmt.jar "\$@"
     EOF
     chmod +x $out/bin/configuradorfnmt
 
