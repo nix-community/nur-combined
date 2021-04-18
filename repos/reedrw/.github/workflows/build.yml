@@ -31,12 +31,12 @@ jobs:
         DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v12
+      uses: cachix/install-nix-action@v13
       with:
         nix_path: "${{ matrix.nixPath }}"
 
     - name: Install Cachix
-      uses: cachix/cachix-action@v8
+      uses: cachix/cachix-action@v10
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
         name: ${{ matrix.cachixName }}

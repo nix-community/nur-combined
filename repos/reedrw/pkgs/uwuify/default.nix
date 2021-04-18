@@ -2,11 +2,11 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "uwuify";
-  version = "0.1.0";
+  version = "0.2.2";
 
   src = fetchFromGitHub (lib.importJSON ./source.json);
 
-  cargoSha256 = "043glp98jhaapxa19k2kx1hawqpcqiz4g5sw4b82lj2vzhfb2bxx";
+  cargoSha256 = "sha256-1BoB7K/dWy3AbogvHIDLrdPD7K54EISvn4RVU5RLTi4=";
 
   meta = with lib; {
     description = "fastest text uwuifier in the west";

@@ -11,13 +11,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "scientifica";
-  version = "2.1";
+  version = "2.2";
 
   src = fetchFromGitHub {
     owner = "NerdyPepper";
     repo = "scientifica";
     rev = "v${version}";
-    sha256 = "0x1qhh35gw5wvndk8szjwx9ad2rccdficcvkix9gs535lyja5z4j";
+    sha256 = "sha256-ttFF2qC337zjcfr1agQkjYCrhiSlP7NiWOE2RES68YM=";
   };
 
   nativeBuildInputs = [ fontforge jre ];
