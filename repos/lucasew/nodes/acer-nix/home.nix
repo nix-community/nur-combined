@@ -15,7 +15,6 @@ in
     ../../modules/spotify/home.nix
     ../../modules/tmux/home.nix
     ../../modules/vscode/home.nix
-    ../../modules/wallpaper/home.nix
   ]
   ;
 

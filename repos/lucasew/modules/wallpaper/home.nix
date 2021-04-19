@@ -1,6 +1,6 @@
 {lib, config, pkgs, ...}:
 let
-    globalConfig = import <dotfiles/globalConfig.nix>;
+    globalConfig = import ../../globalConfig.nix;
 in
 with globalConfig;
 with lib;
@@ -10,7 +10,7 @@ with builtins;
     enable = mkEnableOption "enable wallpaper administration";
     wallpaperFile = mkOption {
       type = types.str;
-      default = "/dev/null";
+      default = globalConfig.wallpaper;
       example = "/path/to/wallpaper/file.png";
       description = "file to setup as wallpaper";
     };
@@ -33,7 +33,7 @@ with builtins;
           secondary-color="#000000";
         };
     };
-    # home.file.".background-image".source = wallpaper;
+    home.file.".background-image".source = wallpaper;
     home.file.".fehbg".text = ''
       ${pkgs.feh}/bin/feh --no-fehbg --bg-center '${toString wallpaper}'
     '';

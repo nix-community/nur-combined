@@ -30,6 +30,7 @@ in
   home-manager = {
     sharedModules = [
       ./modules/dummy_module.nix
+      ../../modules/wallpaper/home.nix
     ];
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -102,11 +103,12 @@ in
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  #   pinentryFlavor = "gnome3";
-  # };
+  programs.ssh.startAgent = true;
+  programs.gnupg.agent = {
+    enable = true;
+    # enableSSHSupport = true;
+    pinentryFlavor = "gnome3";
+  };
   hardware = {
     opengl = {
       enable = true;
