@@ -691,10 +691,10 @@
   },
   {
     "name": "Rampant",
-    "version": "1.0.7",
-    "file_name": "Rampant_1.0.7.zip",
-    "download_url": "/download/Rampant/6073c5cdb398a55e4a24a601",
-    "sha1": "d9c83a38231c041039658668e6ea771dc3517025",
+    "version": "1.0.8",
+    "file_name": "Rampant_1.0.8.zip",
+    "download_url": "/download/Rampant/607a04799727a43fb1587ee1",
+    "sha1": "8ef2e7a89501383a311586eae87869f9ed692b2c",
     "dependencies": [
       "base >= 1.1.0",
       "? bobenemies",
@@ -757,15 +757,16 @@
   },
   {
     "name": "rso-mod",
-    "version": "6.2.4",
-    "file_name": "rso-mod_6.2.4.zip",
-    "download_url": "/download/rso-mod/6069a48e3dcc2986ce2a8a5f",
-    "sha1": "9d58aeff1ef1fa90f27535e04ad115831223a437",
+    "version": "6.2.5",
+    "file_name": "rso-mod_6.2.5.zip",
+    "download_url": "/download/rso-mod/607c2a74d081dca5c814bf36",
+    "sha1": "0ae6fe9c0363a4894d2cd44898ad5f60c8824624",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
       "? bobores",
-      "? 5dim_ores"
+      "? 5dim_ores",
+      "! bitumen"
     ]
   },
   {
