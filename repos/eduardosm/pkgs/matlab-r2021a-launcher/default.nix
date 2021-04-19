@@ -30,6 +30,7 @@ stdenv.mkDerivation rec {
       gst_all_1.gst-plugins-base
       gst_all_1.gstreamer
       gtk3
+      libGL
       libselinux
       libsndfile
       libuuid
@@ -96,6 +97,9 @@ stdenv.mkDerivation rec {
 
     cat <<EOF > $out/bin/matlab-r2021a
     #!${bash}/bin/sh
+    if [ ! -z "\$MATLAB_MESA_OVERRIDE" ]; then
+        export MESA_LOADER_DRIVER_OVERRIDE="\$MATLAB_MESA_OVERRIDE"
+    fi
     ${fhsEnv}/bin/matlab-r2021a-env ${installDir}/bin/matlab "\$@"
     EOF
     chmod +x $out/bin/matlab-r2021a
