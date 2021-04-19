@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , cmake
 , fmt
@@ -44,7 +45,7 @@ stdenv.mkDerivation rec {
     ./test/run_tests
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Library for writing, manipulating, and optimizing quantum circuits";
     homepage = "https://github.com/boschmitt/tweedledum";
     license = licenses.mit ;

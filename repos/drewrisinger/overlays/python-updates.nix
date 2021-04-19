@@ -16,7 +16,8 @@ rec {
           localPyPackage;
     in
     {
-      # None currently needed for nixpkgs-20.03+
+      # Needed for nixpkgs-20.03
+      sparse = overrideSuperVersionIfNewer py-super.sparse (py-self.callPackage ../pkgs/python-modules/sparse { });
     };
   };
 
