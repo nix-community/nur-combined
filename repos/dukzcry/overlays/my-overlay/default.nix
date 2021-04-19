@@ -7,12 +7,6 @@ self: super:
       hakyll-images = self.haskell.lib.unmarkBroken hsSuper.hakyll-images;
     };
   };
-  nvidia-offload = with super; writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec "$@"
-  '';
   # https://github.com/qutebrowser/qutebrowser/pull/5917
   qutebrowser = unstable.qutebrowser.override {
     python3 = super.python3.override {
