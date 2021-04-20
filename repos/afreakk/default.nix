@@ -2,6 +2,7 @@
 let
   tmuxHlp = import ./tmuxhelpers.nix { };
   self = {
+    irc-link-informant = pkgs.callPackage ./pkgs/irc-link-informant {};
     realm-cli = pkgs.callPackage ./pkgs/realm-cli {};
     fish-history-merger = pkgs.callPackage ./pkgs/fish-history-merger {};
     wowup = pkgs.callPackage ./pkgs/wowup { };
