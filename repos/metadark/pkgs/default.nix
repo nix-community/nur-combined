@@ -124,10 +124,12 @@ with mergedPkgs; {
   };
 
   yabridge = callPackage ./tools/audio/yabridge {
-    wine = wineWowPackages.minimal;
+    wine = wineWowPackages.staging;
   };
 
-  yabridgectl = callPackage ./tools/audio/yabridgectl { };
+  yabridgectl = callPackage ./tools/audio/yabridgectl {
+    wine = wineWowPackages.staging;
+  };
 
   zynaddsubfx = zyn-fusion;
 
