@@ -49,10 +49,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.4.3";
+      version = "0.4.5.1";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3755275/auto_tab_discard-0.4.3-an+fx.xpi";
-      sha256 = "63e9f72dedaca1f180989f3dc6baaee9c14c243dfe57c39da01f309bc3a01b6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3761150/auto_tab_discard-0.4.5.1-an+fx.xpi";
+      sha256 = "d3b79e091870b19b98c5bb13b49c02c29b4a556205a115580b5e48d3a6e01bc7";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -63,10 +63,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.2.93";
+      version = "7.2.94";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3762088/betterttv-7.2.93-fx.xpi";
-      sha256 = "f7c614aa002d601a2f96ee3f756e76200aec4edf1f5d38f5a78068f6ff07cab4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3762473/betterttv-7.2.94-fx.xpi";
+      sha256 = "1662380a000694098a45b5a963f41450953ff30d17843ed852f96a236fc0ac0a";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -514,10 +514,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.2.9";
+      version = "3.3.0";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3739461/i_dont_care_about_cookies-3.2.9-an+fx.xpi";
-      sha256 = "d742375a4c3ed65904df4f1febe4b58d25787bab55df2dc208586ceeda9148bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3761156/i_dont_care_about_cookies-3.3.0-an+fx.xpi";
+      sha256 = "cc9df05562a1f7315267d342b2d6fac2994b59b4220c0541c9877522b85ed695";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -930,10 +930,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.11.0";
+      version = "4.12.3";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3758027/react_developer_tools-4.11.0-fx.xpi";
-      sha256 = "5ecd1cc03fb33d05ef781f1dce0b8fd4622fd2b96179af398702a4e48686f73b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3762376/react_developer_tools-4.12.3-fx.xpi";
+      sha256 = "85e057f30de7f62653a6bc962bd4c9b8e4d3a94cf5fd7ec08d605519d710613c";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1110,10 +1110,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.5.0";
+      version = "6.6.0";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3757745/tab_session_manager-6.5.0-fx.xpi";
-      sha256 = "39f239c50326a19a60f6a3868b8882cc0ae8e2b1230480f8ea5e891d12c2ef0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3761926/tab_session_manager-6.6.0-fx.xpi";
+      sha256 = "95c9c06658cb2c8689df43adad2b42db2d92d6fe2c919586ac865ea1a23cb76c";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
