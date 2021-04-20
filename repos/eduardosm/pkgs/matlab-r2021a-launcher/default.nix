@@ -10,7 +10,7 @@
 
 stdenv.mkDerivation rec {
   pname = "matlab-r2021a-launcher";
-  version = "9.9.x";
+  version = "9.10.x";
 
   fhsEnv = buildFHSUserEnv {
     name = "matlab-r2021a-env";
