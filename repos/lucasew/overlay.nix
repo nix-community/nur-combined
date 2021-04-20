@@ -31,6 +31,8 @@ in reduceJoin [
     send2kindle = cp flake.inputs.send2kindle;
     discord = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/networking/instant-messengers/discord/default.nix";
     onlyoffice-bin = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/office/onlyoffice-bin/default.nix";
+    dart = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/development/interpreters/dart/default.nix";
+    flutter = (cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/development/compilers/flutter/default.nix").stable;
     webapp = cp ./packages/webapp.nix;
     webapps = import ./packages/chromeapps.nix super;
     arcan = cp ./packages/arcan.nix;

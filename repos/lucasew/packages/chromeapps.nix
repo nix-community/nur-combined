@@ -1,4 +1,5 @@
 { pkgs, config, ... }:
+# link util: https://developer.gnome.org/icon-naming-spec/
 let
   mkNativefier = pkgs.webapp.wrap;
 in
@@ -84,5 +85,11 @@ in
       url = "https://keyma.sh/static/media/logo_svg.ead5cacb.svg";
       sha256 = "1i6py2gnpmf548zwakh9gscnk5ggsd1j98z80yb6mr0fm84bgizy";
     };
+  };
+  calendar = mkNativefier {
+    name = "calendar";
+    desktopName = "Calendário";
+    url = "https://calendar.google.com/calendar/u/0/r/customday";
+    icon = "x-office-calendar";
   };
 }

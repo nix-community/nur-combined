@@ -33,7 +33,7 @@ with builtins;
           secondary-color="#000000";
         };
     };
-    home.file.".background-image".source = wallpaper;
+    # home.file.".background-image".source = wallpaper; # não descomenta isso
     home.file.".fehbg".text = ''
       ${pkgs.feh}/bin/feh --no-fehbg --bg-center '${toString wallpaper}'
     '';
