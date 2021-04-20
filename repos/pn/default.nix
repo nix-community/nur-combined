@@ -20,7 +20,6 @@
   simple-mtpfs = pkgs.callPackage ./pkgs/simple-mtpfs { };
   task-spooler = pkgs.callPackage ./pkgs/task-spooler { };
   wywozik-todo = pkgs.callPackage ./pkgs/wywozik-todo { };
-  agate = pkgs.callPackage ./pkgs/agate { };
   #hyperion-rpi3 = pkgs.callPackage ./pkgs/hyperion-rpi3 { };
   gemget = pkgs.callPackage ./pkgs/gemget { };
   kaiosrt = pkgs.callPackage ./pkgs/kaiosrt { };

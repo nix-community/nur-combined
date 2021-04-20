@@ -1,6 +1,7 @@
-{ stdenv, fetchgit, pkgconfig, writeText, libX11, ncurses, libXft, harfbuzzFull }:
+{ stdenv, lib, fetchgit, pkgconfig, writeText, libX11, ncurses, libXft, harfbuzzFull,
+conf ? null }:
 
-with stdenv.lib;
+with lib;
 
 stdenv.mkDerivation rec {
   name = "st";
@@ -16,7 +17,9 @@ stdenv.mkDerivation rec {
 
   patchPhase = ''
     sed -i 's/alpha = 0.8/alpha = 0.95/' config.h
-  '';
+  '' + optionalString (conf != null) ''
+      cp ${conf} config.h
+    '';
 
   installPhase = ''
     sed -i '/man/d' Makefile
