@@ -1,11 +1,11 @@
 { config, lib, pkgs ? import <nixpkgs> {}, ... }:
 with lib;
 let
-  cfg = config.sxmo;
+  cfg = config.pine.sxmo;
 in
 {
   options = {
-    sxmo = {
+    pine.sxmo = {
       enable = mkOption {
         type = types.bool;
         description = "Whether to write sxmo config files";
@@ -55,8 +55,8 @@ in
       executable = true;
       target = "${config.xdg.configHome}/sxmo/xinit";
       text = let
-        startupSound = if cfg.startupSound != null then "mpv --quiet --no-video ${cfg.startupSound} &" else "";
-        enableModem = if cfg.enableModem == true then "sleep 22 && sxmo_modemmonitortoggle.sh on &" else "";
+        startupSound = if cfg.startupSound != null then "mpv --quiet --no-video ${cfg.startupSound} &\n" else "";
+        enableModem = if cfg.enableModem == true then "sleep 22 && sxmo_modemmonitortoggle.sh on &\n" else "";
         xinitExtras = if cfg.xinitExtras != null then cfg.xinitExtras else "";
       in ''
         feh --bg-fill ${cfg.background}
@@ -64,10 +64,10 @@ in
         sxmo_audioout.sh ${cfg.defaultAudioOut}
         amixer sset 'Line Out Source' 'Mono Differential','Mono Differential'
         amixer set "Line Out" ${builtins.toString cfg.defaultVolume}%
-        ${startupSound}
-        ${enableModem}
-        ${xinitExtras}
-      '';
+      ''
+        +startupSound
+        +enableModem
+        +xinitExtras;
     };
   };
 }
