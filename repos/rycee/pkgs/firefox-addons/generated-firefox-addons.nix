@@ -1405,6 +1405,20 @@
         platforms = platforms.all;
         };
       };
+    "xbrowsersync" = buildFirefoxXpiAddon {
+      pname = "xbrowsersync";
+      version = "1.5.2";
+      addonId = "{019b606a-6f61-4d01-af2a-cea528f606da}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3546070/xbrowsersync-1.5.2-fx.xpi";
+      sha256 = "8b58ad5498273e121b1ba5abaf108d2bc9f4fb4795bd5c7e6a3778196f7a0221";
+      meta = with lib;
+      {
+        homepage = "https://www.xbrowsersync.org/";
+        description = "Browser syncing as it should be: secure, anonymous and free! Sync bookmarks across your browsers and devices, no sign up required.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
       version = "18.5";
