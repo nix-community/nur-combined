@@ -83,6 +83,7 @@ let
       dependencies = [ pkgs.gawk ];
     };
     modules = {
+      fzf-fork = import ./modules/fzf-fork;
       strongdm = import ./modules/sdm;
       mcfly_with_fix = import ./modules/mcfly;
     };
