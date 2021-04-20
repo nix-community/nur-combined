@@ -2,6 +2,8 @@ final: prev:
 
 {
 
+  aasgBrotlifyHook = final.callPackage ./build-support/aasg-brotlify { };
+
   dma = final.callPackage ./tools/networking/dma { };
 
   drep = final.callPackage ./tools/text/drep {

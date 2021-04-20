@@ -1,4 +1,5 @@
 [
+  [ "aasgBrotlifyHook" ]
   [ "dma" ]
   [ "drep" ]
   [ "dyndnsc" ]

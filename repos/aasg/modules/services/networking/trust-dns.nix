@@ -38,7 +38,7 @@ in
       wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        Type = "simple";
+        Type = "exec";
         ExecStart = "${cfg.package}/bin/named --quiet --config=${configFile}";
         DynamicUser = true;
         ConfigurationDirectory = "trust-dns";

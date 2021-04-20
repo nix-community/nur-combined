@@ -24,7 +24,7 @@
           # Flatten package sets.
           flattenTree
           # Remove packages not compatible with this system.
-          (filterAttrs (attr: drv: builtins.elem system drv.meta.platforms))
+          (filterAttrs (attr: drv: drv ? meta.platforms -> builtins.elem system drv.meta.platforms))
         ]);
       nixosModules = mapAttrs (name: path: import path) (import ./modules);
       overlays = {

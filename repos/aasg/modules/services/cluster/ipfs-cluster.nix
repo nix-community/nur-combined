@@ -105,7 +105,7 @@ in
         IPFS_CLUSTER_PATH = cfg.dataDir;
       } // settingsToEnv cfg.settings;
       serviceConfig = {
-        Type = "simple";
+        Type = "exec";
         User = cfg.user;
         Group = cfg.group;
         Restart = "on-abnormal";

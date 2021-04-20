@@ -119,7 +119,7 @@ in
       description = "Matrix bridge to IRC";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = rec {
-        Type = "simple";
+        Type = "exec";
         ExecStartPre = reconfigureScript;
         ExecStart = "${pkg}/bin/matrix-appservice-irc --config /etc/matrix-appservice-irc/config.json --file /etc/matrix-appservice-irc/registration.yaml";
         ExecReload = [ reconfigureScript "${pkgs.coreutils}/bin/kill -HUP $MAINPID" ];
