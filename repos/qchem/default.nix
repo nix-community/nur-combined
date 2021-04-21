@@ -130,6 +130,8 @@ let
 
       molcas2010 = callPackage ./openmolcas/v20.10.nix { };
 
+      molcas2102 = callPackage ./openmolcas/v21.02.nix { };
+
       #molcasUnstable = callPackage ./openmolcas/unstable.nix {
       #  texLive = self_.texlive.combine { inherit (self_.texlive) scheme-basic epsf cm-super; };
       #};
