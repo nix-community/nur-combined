@@ -61,6 +61,8 @@ in stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
+  NIX_CFLAGS_COMPILE = "-DH5_USE_110_API";
+
   cmakeFlags = [
     "-DOPENMP=ON"
     "-DLINALG=${if (builtins.parseDrvName openblas.name).name == "mkl" then "MKL" else "OpenBLAS"}"
