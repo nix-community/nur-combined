@@ -1,8 +1,8 @@
 { lib
 , fetchFromGitHub
-, python39 }:
+, python3 }:
 
-python39.pkgs.buildPythonPackage rec {
+python3.pkgs.buildPythonPackage rec {
   pname = "biblib";
   version = "0.1.1";
 
