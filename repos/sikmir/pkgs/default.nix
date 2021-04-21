@@ -244,6 +244,7 @@ lib.makeScope newScope (
     };
     ptunnel = callPackage ./misc/ptunnel { };
     pvs-studio = callPackage ./misc/pvs-studio { };
+    reproxy = callPackage ./misc/reproxy { };
     taskcoach = callPackage ./misc/taskcoach { };
     xfractint = callPackage ./misc/xfractint { };
     xtr = callPackage ./misc/xtr { };
