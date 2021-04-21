@@ -16,7 +16,7 @@ python3.pkgs.buildPythonPackage rec {
   meta = with lib; {
     description = "Parser for BibTeX bibliographic databases";
     homepage = "https://github.com/colour-science/biblib";
-    license = [ licenses.mit ];
+    license = licenses.mit;
     maintainers = with maintainers; [ dschrempf ];
   };
 }
