@@ -182,6 +182,7 @@ lib.makeScope newScope (
     gmi2html = callPackage ./gemini/gmi2html { };
     gmnhg = callPackage ./gemini/gmnhg { };
     gmni = callPackage ./gemini/gmni { };
+    gmnigit = callPackage ./gemini/gmnigit { };
     gmnisrv = callPackage ./gemini/gmnisrv { };
     gssg = callPackage ./gemini/gssg { };
     gurl = callPackage ./gemini/gurl { };
