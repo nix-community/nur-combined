@@ -7,8 +7,13 @@ with import ../../globalConfig.nix;
     "${flake.inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
     "${flake.inputs.impermanence}/nixos.nix"
     ../../modules/cachix/system.nix
-    ./modules/alibot.nix
+    ./modules
   ];
+
+  vps = {
+    alibot.enable = true;
+    pgbackup.enable = true;
+  };
   
   environment.persistence."/persist" = {
     files = [
@@ -16,6 +21,7 @@ with import ../../globalConfig.nix;
     ];
     directories = [
       "${toString rootPath}/secrets"
+      "/backups"
     ];
   };
 
@@ -52,8 +58,6 @@ with import ../../globalConfig.nix;
   };
   virtualisation.docker.enable = true;
   services = {
-    alibot.enable = true;
-    zerotierone.enable = true;
     irqbalance.enable = true;
     postgresql = {
       enable = true;

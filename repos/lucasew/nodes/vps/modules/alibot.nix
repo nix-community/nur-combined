@@ -2,7 +2,7 @@
 with import ../../../globalConfig.nix;
 with lib;
 let
-  cfg = config.services.alibot;
+  cfg = config.vps.alibot;
   alibot = pkgs.callPackage "${
     builtins.fetchGit {
       url = "ssh://git@github.com/lucasew/alibot";
@@ -12,7 +12,7 @@ let
 in
 {
   options = {
-    services.alibot = {
+    vps.alibot = {
       enable = mkEnableOption "Enable alibot";
       secretsDotenv = mkOption {
         type = types.str;
