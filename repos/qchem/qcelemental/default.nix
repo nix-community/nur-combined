@@ -12,7 +12,7 @@
 }:
 buildPythonPackage rec {
   pname = "qcelemental";
-  version = "0.17.0";
+  version = "0.19.0";
 
   checkInputs = [
     pytestrunner
@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   src = fetchPypi  {
     inherit pname version;
-    sha256 = "0xsxmj1l6l72ga06a1gy2kf7lqdgnx8hcgqw0ikvzgs0xj2w4421";
+    sha256 = "1ljxwhiz1689qijjqzmzydn8q963xx7zxizjnjq0vqg5py9pkyc5";
   };
 
   doCheck = true;
