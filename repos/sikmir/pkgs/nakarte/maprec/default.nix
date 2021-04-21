@@ -1,10 +1,15 @@
-{ lib, python3Packages, thinplatespline, sources }:
+{ lib, python3Packages, fetchFromGitHub, thinplatespline }:
 
-python3Packages.buildPythonPackage {
+python3Packages.buildPythonPackage rec {
   pname = "maprec";
-  version = lib.substring 0 10 sources.maprec.date;
+  version = "2019-10-24";
 
-  src = sources.maprec;
+  src = fetchFromGitHub {
+    owner = "wladich";
+    repo = pname;
+    rev = "20f5177cae7454455b21cd5f7178f5639c02d385";
+    sha256 = "sha256-8lLCzqy4W35/WV83aRnARuAdoBO+977nbuXJfpdOxP8=";
+  };
 
   patches = [ ./python3.patch ];
 
@@ -17,7 +22,7 @@ python3Packages.buildPythonPackage {
   pythonImportsCheck = [ "maprec" ];
 
   meta = with lib; {
-    inherit (sources.maprec) description homepage;
+    homepage = "https://github.com/wladich/maprec";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
   };

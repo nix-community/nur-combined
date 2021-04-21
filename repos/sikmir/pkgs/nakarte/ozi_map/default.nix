@@ -1,10 +1,15 @@
-{ lib, python3Packages, maprec, sources }:
+{ lib, python3Packages, fetchFromGitHub, maprec }:
 
-python3Packages.buildPythonPackage {
+python3Packages.buildPythonPackage rec {
   pname = "ozi_map";
-  version = lib.substring 0 10 sources.ozi-map.date;
+  version = "2019-10-24";
 
-  src = sources.ozi-map;
+  src = fetchFromGitHub {
+    owner = "wladich";
+    repo = pname;
+    rev = "4d6bd3f234960ba90d82e6d58da9c1bf4677eb16";
+    sha256 = "sha256-sbAKi9GZEPmbI1Nq3l4uSh/tVNLXAY2siXu3YtHI5qo=";
+  };
 
   postPatch = "2to3 -n -w ozi_map/*.py";
 
@@ -15,7 +20,8 @@ python3Packages.buildPythonPackage {
   pythonImportsCheck = [ "ozi_map" ];
 
   meta = with lib; {
-    inherit (sources.ozi-map) description homepage;
+    description = "python module for reading OziExplorer .map files";
+    homepage = "https://github.com/wladich/ozi_map";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
   };

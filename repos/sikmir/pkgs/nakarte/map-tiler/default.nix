@@ -1,12 +1,17 @@
-{ lib, python3Packages, sources
+{ lib, python3Packages, fetchFromGitHub
 , gobject-introspection, pango
 , maprec, ozi_map, pyimagequant }:
 
-python3Packages.buildPythonApplication {
+python3Packages.buildPythonApplication rec {
   pname = "map-tiler";
-  version = lib.substring 0 10 sources.map-tiler.date;
+  version = "2019-10-24";
 
-  src = sources.map-tiler;
+  src = fetchFromGitHub {
+    owner = "wladich";
+    repo = pname;
+    rev = "1dc5be65e58638f5899cd6cdc2010e00ce5e62d4";
+    sha256 = "sha256-2wDhU1wbvyEAAYUQXUGASmK5X0/XNQF9P2y9pfHhHHg=";
+  };
 
   patches = [
     ./gobject.patch
@@ -44,7 +49,8 @@ python3Packages.buildPythonApplication {
   '';
 
   meta = with lib; {
-    inherit (sources.map-tiler) description homepage;
+    description = "Raster maps to map tiles";
+    homepage = "https://github.com/wladich/map-tiler";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

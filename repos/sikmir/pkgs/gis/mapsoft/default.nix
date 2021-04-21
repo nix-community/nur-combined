@@ -1,9 +1,9 @@
 { lib
 , stdenv
+, fetchFromGitHub
 , perlPackages
 , python2Packages
 , gimp
-, sources
 , bc
 , fig2dev
 , imagemagick
@@ -30,11 +30,16 @@
 , getopt
 }:
 
-stdenv.mkDerivation {
-  pname = "mapsoft-unstable";
-  version = lib.substring 0 10 sources.mapsoft.date;
+stdenv.mkDerivation rec {
+  pname = "mapsoft";
+  version = "2021-01-31";
 
-  src = sources.mapsoft;
+  src = fetchFromGitHub {
+    owner = "ushakov";
+    repo = pname;
+    rev = "45fdd650f1fb1d30ac0682550c541bc7a3d368fc";
+    sha256 = "sha256-s/9en0d8eYsbDb3krZrmenFaZd9LPuNG0uEo35K0oNo=";
+  };
 
   patches = [ ./0001-fix-build.patch ];
 
@@ -94,7 +99,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    inherit (sources.mapsoft) description homepage;
+    description = "Mapping software for linux";
+    homepage = "https://github.com/ushakov/mapsoft";
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;

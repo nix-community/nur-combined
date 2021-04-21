@@ -1,10 +1,15 @@
-{ lib, python3Packages, sources }:
+{ lib, python3Packages, fetchFromGitHub }:
 
-python3Packages.buildPythonPackage {
+python3Packages.buildPythonPackage rec {
   pname = "thinplatespline";
-  version = lib.substring 0 10 sources.thinplatespline.date;
+  version = "2013-01-23";
 
-  src = sources.thinplatespline;
+  src = fetchFromGitHub {
+    owner = "wladich";
+    repo = pname;
+    rev = "55fecd22c7160577b925e03169e74bd488a41cf3";
+    sha256 = "sha256-t15iO+3UZKnORiQaYoGD4RLZx2SHtCbjg+Qr+sAHQHY=";
+  };
 
   postPatch = ''
     2to3 -n -w tps/*.py
@@ -16,7 +21,8 @@ python3Packages.buildPythonPackage {
   pythonImportsCheck = [ "tps" ];
 
   meta = with lib; {
-    inherit (sources.thinplatespline) description homepage;
+    description = "Python library for thin plate spline calculations";
+    homepage = "https://github.com/wladich/thinplatespline";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
   };

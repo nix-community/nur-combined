@@ -527,48 +527,6 @@
         "url": "https://github.com/Absolute-Tinkerer/map-stylizer/archive/6279f40408aff823a4eb1071334bd2acd10cb921.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "map-tiler": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2019-10-24T19:20:49Z",
-        "description": "Raster maps to map tiles",
-        "homepage": "https://github.com/wladich/map-tiler",
-        "owner": "wladich",
-        "repo": "map-tiler",
-        "rev": "1dc5be65e58638f5899cd6cdc2010e00ce5e62d4",
-        "sha256": "0y0ww7qsbgbc7xyh2dfp9xgvjqjah10ms44504023gqvbi9y206v",
-        "type": "tarball",
-        "url": "https://github.com/wladich/map-tiler/archive/1dc5be65e58638f5899cd6cdc2010e00ce5e62d4.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "maprec": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2019-10-24T18:36:24Z",
-        "description": null,
-        "homepage": "https://github.com/wladich/maprec",
-        "owner": "wladich",
-        "repo": "maprec",
-        "rev": "20f5177cae7454455b21cd5f7178f5639c02d385",
-        "sha256": "1zy49sbpxjg5dvkvxxxy2fh1vq26q0cnjdszb5zpwnxqmk7c4lpj",
-        "type": "tarball",
-        "url": "https://github.com/wladich/maprec/archive/20f5177cae7454455b21cd5f7178f5639c02d385.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "mapsoft": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-01-31T11:05:32Z",
-        "description": "Mapping software for linux",
-        "homepage": "https://github.com/ushakov/mapsoft",
-        "owner": "ushakov",
-        "repo": "mapsoft",
-        "rev": "45fdd650f1fb1d30ac0682550c541bc7a3d368fc",
-        "sha256": "1nm0nj9dya71s93f6gjbvxjmlwbswsdavr5x1ldqnybw8ygmxzxk",
-        "type": "tarball",
-        "url": "https://github.com/ushakov/mapsoft/archive/45fdd650f1fb1d30ac0682550c541bc7a3d368fc.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "maptourist": {
         "builtin": false,
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
@@ -748,20 +706,6 @@
         "url": "https://github.com/osmcode/osmcoastline/archive/56371668ebb6261009f35a7411a8fbcc83aabfe0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "ozi-map": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2019-10-24T18:44:05Z",
-        "description": "python module for reading OziExplorer .map files",
-        "homepage": "https://github.com/wladich/ozi_map",
-        "owner": "wladich",
-        "repo": "ozi_map",
-        "rev": "4d6bd3f234960ba90d82e6d58da9c1bf4677eb16",
-        "sha256": "1ap6r38n5dvvi6n8s0fps9afs7sa5rgdwsjk4fdzj44rs65hmc5i",
-        "type": "tarball",
-        "url": "https://github.com/wladich/ozi_map/archive/4d6bd3f234960ba90d82e6d58da9c1bf4677eb16.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "polyvectorization": {
         "branch": "master",
         "builtin": false,
@@ -844,20 +788,6 @@
         "sha256": "1b5kyxz8n1ysrv0kdf49ma60k5448sg5k7c9zyzrl46hw5lbar4k",
         "type": "tarball",
         "url": "https://github.com/mapbox/supermercado/archive/ecc9f5a36c1c8d13872df5bdcbd01621e5f3ab48.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "thinplatespline": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2013-01-23T09:17:04Z",
-        "description": "Python library for thin plate spline calculations",
-        "homepage": "https://github.com/wladich/thinplatespline",
-        "owner": "wladich",
-        "repo": "thinplatespline",
-        "rev": "55fecd22c7160577b925e03169e74bd488a41cf3",
-        "sha256": "0xj00z0glaz4hgijdd47ck3xj4p1hf0n46i48v7ajr6lxlxn4pmp",
-        "type": "tarball",
-        "url": "https://github.com/wladich/thinplatespline/archive/55fecd22c7160577b925e03169e74bd488a41cf3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tile-stitch": {
