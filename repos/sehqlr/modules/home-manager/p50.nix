@@ -54,10 +54,5 @@
       "5: discord" = [{ class = "^discord$"; }];
       "7: element" = [{ class = "^Element$"; }];
     };
-    startup = [
-      { command = "${pkgs.slack}/bin/slack"; }
-      { command = "${pkgs.discord}/bin/discord"; }
-      { command = "${pkgs.element-desktop}/bin/element"; }
-    ];
   };
 }

@@ -84,6 +84,8 @@
       modifier = "Mod4";
       startup = [
         { command = "${pkgs.firefox}/bin/firefox"; }
+        { command = "${pkgs.discord}/bin/discord"; }
+        { command = "${pkgs.element-desktop}/bin/element"; }
         { command = "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob"; }
       ];
       terminal = "${pkgs.termite}/bin/termite -e tmux";
