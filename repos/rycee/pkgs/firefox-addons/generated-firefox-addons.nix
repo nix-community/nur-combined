@@ -647,6 +647,20 @@
         platforms = platforms.all;
         };
       };
+    "localcdn" = buildFirefoxXpiAddon {
+      pname = "localcdn";
+      version = "2.6.5";
+      addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3758393/localcdn-2.6.5-an+fx.xpi";
+      sha256 = "49289c553c4cc6978c245f83d7a8ff215f4ee8937008d3b382c2feefed3dd1fa";
+      meta = with lib;
+      {
+        homepage = "https://www.localcdn.org";
+        description = "Emulates remote frameworks (e.g. jQuery, Bootstrap, AngularJS) and delivers them as local resource. Prevents unnecessary 3rd party requests to Google, StackPath, MaxCDN and more. Prepared rules for uBlock Origin/uMatrix.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
       version = "4.4.0";
