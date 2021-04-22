@@ -691,10 +691,10 @@
   },
   {
     "name": "Rampant",
-    "version": "1.0.8",
-    "file_name": "Rampant_1.0.8.zip",
-    "download_url": "/download/Rampant/607a04799727a43fb1587ee1",
-    "sha1": "8ef2e7a89501383a311586eae87869f9ed692b2c",
+    "version": "1.0.9",
+    "file_name": "Rampant_1.0.9.zip",
+    "download_url": "/download/Rampant/6080f2c6e0e7ee700f3b56b2",
+    "sha1": "7cd77ed79197bcc876c6633061c49424bfff8ce8",
     "dependencies": [
       "base >= 1.1.0",
       "? bobenemies",
@@ -707,10 +707,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "8.0.2",
-    "file_name": "reverse-factory_8.0.2.zip",
-    "download_url": "/download/reverse-factory/602dc141d8e353d48f8e9dc1",
-    "sha1": "e78a8bdacf85a2a9bf9ecaf256bd64a5eeae79a4",
+    "version": "8.0.3",
+    "file_name": "reverse-factory_8.0.3.zip",
+    "download_url": "/download/reverse-factory/6080b1d3cfc8a90cb0f19776",
+    "sha1": "a06f8fa621af547a597892b697b9411f72542abe",
     "dependencies": [
       "base",
       "stdlib",
@@ -732,7 +732,8 @@
       "? pypetroleumhandling",
       "? IndustrialRevolution >= 2.0.2",
       "(?) anarchy",
-      "(?) randotorio"
+      "(?) randotorio",
+      "(?) ZRecipeRandomizer"
     ]
   },
   {
