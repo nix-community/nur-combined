@@ -1,7 +1,4 @@
 { config, pkgs, ... }: {
-    networking = {
-        networkmanager.enable = true;
-        useDHCP = false;
-    };
+    networking.networkmanager.enable = true;
     users.users.sam.extraGroups = [ "networkmanager" ];
 }

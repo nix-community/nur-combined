@@ -1,4 +1,5 @@
 { config, lib, pkgs, ... }: {
+    imports = [ ./ipfs.nix ];
     i18n.defaultLocale = "en_US.UTF-8";
     nix.autoOptimiseStore = true;
     nix.gc.automatic = true;

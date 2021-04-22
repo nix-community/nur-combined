@@ -2,10 +2,7 @@
   imports = [ ./networking.nix ./sam.nix ];
 
   environment.systemPackages = with pkgs; [
-    android-file-transfer
     commonsCompress
-    libreoffice
-    vlc
   ];
 
   fonts.enableDefaultFonts = true;
