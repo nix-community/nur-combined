@@ -192,10 +192,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.31";
+      version = "4.9.32";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3755341/dark_reader-4.9.31-an+fx.xpi";
-      sha256 = "43da8e70e4d3d2ebde549f5a8dea54b59c8793d32049cdaf8868f3da02e94faa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3763728/dark_reader-4.9.32-an+fx.xpi";
+      sha256 = "6d0d1ec5ba638bd0b897d3ff2b2e785770302b58c4ba0e735e10b3f9c4227bf6";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1267,10 +1267,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.34.0";
+      version = "1.35.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3740966/ublock_origin-1.34.0-an+fx.xpi";
-      sha256 = "96783b4e9abed66af81a30f7dbb6560911a9d828b12aadf0ec88b181200c3bfe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3763753/ublock_origin-1.35.0-an+fx.xpi";
+      sha256 = "754c581546bd2acec929dc69c619a0a2f13c65d544904e891441e7f060466144";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
