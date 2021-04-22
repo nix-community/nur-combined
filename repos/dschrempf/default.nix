@@ -23,7 +23,6 @@
 
   # Misc.
   biblib = pkgs.callPackage ./pkgs/misc/biblib {};
-  findimagedupes = pkgs.callPackage ./pkgs/misc/findimagedupes {};
   frida = pkgs.callPackage ./pkgs/misc/frida {};
   frida-tools = pkgs.callPackage ./pkgs/misc/frida-tools {
     frida = pkgs.callPackage ./pkgs/misc/frida {};
