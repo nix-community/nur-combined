@@ -1,0 +1,42 @@
+diff --git i/tile_provider.go w/tile_provider.go
+index a4b7f9b..62a56b6 100644
+--- i/tile_provider.go
++++ w/tile_provider.go
+@@ -143,6 +143,28 @@ func NewTileProviderArcgisWorldImagery() *TileProvider {
+ 	return t
+ }
+ 
++// NewTileProviderOpenTopoMapRu creates a TileProvider struct for opentopomap's tile service
++func NewTileProviderOpenTopoMapRu() *TileProvider {
++	t := new(TileProvider)
++	t.Name = "opentopomapru"
++	t.Attribution = "Maps (c) OpenTopoMap.ru [CC-BY-SA]; Data (c) OSM and contributors [ODbL]; Data (c) SRTM"
++	t.TileSize = 256
++	t.URLPattern = "https://tile-%[1]s.opentopomap.ru/%[2]d/%[3]d/%[4]d.png"
++	t.Shards = []string{"a", "b", "c"}
++	return t
++}
++
++// NewTileProviderInkatlas creates a TileProvider struct for inkatlas's tile service
++func NewTileProviderInkatlas() *TileProvider {
++	t := new(TileProvider)
++	t.Name = "inkatlas"
++	t.Attribution = "Maps (c) Inkatlas OÜ; Data (c) OSM and contributors [ODbL]; Data (c) SRTM"
++	t.TileSize = 256
++	t.URLPattern = "https://tile.inkatlas.com/inkatlas/outdoor/%[2]d/%[3]d/%[4]d.png"
++	t.Shards = []string{}
++	return t
++}
++
+ // GetTileProviders returns a map of all available TileProviders
+ func GetTileProviders() map[string]*TileProvider {
+ 	m := make(map[string]*TileProvider)
+@@ -161,6 +183,8 @@ func GetTileProviders() map[string]*TileProvider {
+ 		NewTileProviderCartoLight(),
+ 		NewTileProviderCartoDark(),
+ 		NewTileProviderArcgisWorldImagery(),
++		NewTileProviderOpenTopoMapRu(),
++		NewTileProviderInkatlas(),
+ 	}
+ 
+ 	for _, tp := range list {

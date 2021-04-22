@@ -83,20 +83,6 @@
         "url": "https://github.com/bopen/elevation/archive/6819b2931f5de412bd6b18bd07f1674f71fa35e5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "elevation-server": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-12-05T18:04:12Z",
-        "description": "The server providing elevation data for https://nakarte.me written in go",
-        "homepage": "https://github.com/wladich/elevation_server",
-        "owner": "wladich",
-        "repo": "elevation_server",
-        "rev": "ed023fee8e7a4347f240d35fc0c855fdfff0464f",
-        "sha256": "0187ygkk5g2xz2vfnl49xbgqgvkbnxy18xvakfb5y8fahdp42sns",
-        "type": "tarball",
-        "url": "https://github.com/wladich/elevation_server/archive/ed023fee8e7a4347f240d35fc0c855fdfff0464f.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "foma": {
         "branch": "master",
         "builtin": false,
@@ -191,20 +177,6 @@
         "url": "https://github.com/glauth/glauth/archive/5681dc4d0236c49e549ae7804ef2f4e4455340e4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "go-staticmaps": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-06T12:36:33Z",
-        "description": "A go (golang) library and command line tool to render static map images using OpenStreetMap tiles",
-        "homepage": "https://github.com/flopp/go-staticmaps",
-        "owner": "flopp",
-        "repo": "go-staticmaps",
-        "rev": "1292f1734c3cad612ff67b4598f1a0cdc3d6fa7c",
-        "sha256": "1vhl8vv2136a83n9js5098r6irw2cad0yl7zq3i3zwg62jjdaygd",
-        "type": "tarball",
-        "url": "https://github.com/flopp/go-staticmaps/archive/1292f1734c3cad612ff67b4598f1a0cdc3d6fa7c.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "gpx-interpolate": {
         "branch": "master",
         "builtin": false,
@@ -288,20 +260,6 @@
         "type": "tarball",
         "url": "https://notabug.org/irdvo/gpxtools/archive/919fb5953af8de1e71f61244eb70dd56b670a429.tar.gz",
         "url_template": "https://notabug.org/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "gpxtrackposter": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-03-04T17:23:25Z",
-        "description": "Create a visually appealing poster from your GPX tracks",
-        "homepage": "https://github.com/flopp/GpxTrackPoster",
-        "owner": "flopp",
-        "repo": "GpxTrackPoster",
-        "rev": "0ea91a7231cb9aa3c11b3c1d6715cfc7c35cd6e6",
-        "sha256": "08w4zlc6f69x0cidd13m5lknj1bgsa57rmv6rr2sh1g68v47rb0b",
-        "type": "tarball",
-        "url": "https://github.com/flopp/GpxTrackPoster/archive/0ea91a7231cb9aa3c11b3c1d6715cfc7c35cd6e6.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gt-bash-client": {
         "branch": "master",
@@ -578,20 +536,6 @@
         "sha256": "0d8281q3rdxzrxr5y9bxjkq2s2sfl8fgkk9kqpmpp3z5hxg893jq",
         "type": "tarball",
         "url": "https://github.com/bmpix/PolyVectorization/archive/bceb8e2a08cca29cef1df074eb1a1f6450cc163f.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "py-staticmaps": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-03-08T19:58:16Z",
-        "description": "A python module to create static map images with markers, geodesic lines, etc.",
-        "homepage": "https://github.com/flopp/py-staticmaps",
-        "owner": "flopp",
-        "repo": "py-staticmaps",
-        "rev": "d8f378e1cc4a8229645af1199adbdcbfe91a29b4",
-        "sha256": "01xkm5yrhix2g0y9f50x6yxybfzsbw1wpm2rjym2k9303hi1d2av",
-        "type": "tarball",
-        "url": "https://github.com/flopp/py-staticmaps/archive/d8f378e1cc4a8229645af1199adbdcbfe91a29b4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pyephem": {

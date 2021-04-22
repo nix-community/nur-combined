@@ -1,15 +1,23 @@
-{ lib, buildGoModule, sources }:
+{ lib, buildGoModule, fetchFromGitHub }:
 
-buildGoModule {
+buildGoModule rec {
   pname = "go-staticmaps";
-  version = lib.substring 0 10 sources.go-staticmaps.date;
+  version = "2021-04-12";
 
-  src = sources.go-staticmaps;
+  src = fetchFromGitHub {
+    owner = "flopp";
+    repo = pname;
+    rev = "9eef5d84e2f2fd705ebb1cd0c0601cf2301ad9ca";
+    sha256 = "sha256-HH7HjVdv9yTpE7on6PDXqiUSGQzSqyh5/+psFm53+WQ=";
+  };
 
-  vendorSha256 = "0xv9s53vw2m8qn65gn4jp3h42l31llisvmhlk9jsj6qs2ccqqxqw";
+  patches = [ ./extra-tileproviders.patch ];
+
+  vendorSha256 = "sha256-HHeMGRMaG6llmhTWrSOlYVBB4LiS2FeMxagKvkfRaXc=";
 
   meta = with lib; {
-    inherit (sources.go-staticmaps) description homepage;
+    description = "A go (golang) library and command line tool to render static map images using OpenStreetMap tiles";
+    homepage = "https://github.com/flopp/go-staticmaps";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

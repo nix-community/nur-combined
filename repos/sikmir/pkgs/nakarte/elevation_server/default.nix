@@ -1,10 +1,15 @@
-{ lib, buildGoPackage, lz4, sources }:
+{ lib, fetchFromGitHub, buildGoPackage, lz4 }:
 
 buildGoPackage rec {
-  pname = "elevation-server-unstable";
-  version = lib.substring 0 10 sources.elevation-server.date;
+  pname = "elevation_server";
+  version = "1.2.0";
 
-  src = sources.elevation-server;
+  src = fetchFromGitHub {
+    owner = "wladich";
+    repo = pname;
+    rev = version;
+    sha256 = "sha256-2mpBboPKIV+Wm2p3FHy3a+6H3+qJUOu2+F28MufzBwU=";
+  };
 
   goPackagePath = "github.com/wladich/elevation_server";
 
@@ -15,7 +20,8 @@ buildGoPackage rec {
   goDeps = ./deps.nix;
 
   meta = with lib; {
-    inherit (sources.elevation-server) description homepage;
+    description = "The server providing elevation data";
+    homepage = "https://github.com/wladich/elevation_server";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
