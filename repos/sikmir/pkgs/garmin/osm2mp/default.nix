@@ -2,7 +2,7 @@
 , stdenv
 , buildPerlPackage
 , shortenPerlShebang
-, sources
+, fetchFromGitHub
 , ConfigStd
 , EncodeLocale
 , FileSlurp
@@ -19,11 +19,16 @@
 , YAML
 }:
 
-buildPerlPackage {
+buildPerlPackage rec {
   pname = "osm2mp";
-  version = lib.substring 0 10 sources.osm2mp.date;
+  version = "2018-08-31";
 
-  src = sources.osm2mp;
+  src = fetchFromGitHub {
+    owner = "liosha";
+    repo = pname;
+    rev = "748f93792ead174ad0e94a183a173ef3fcacf200";
+    sha256 = "sha256-YxtEOuoLeglpdpmStrcEkXwRGHRE+N1hKDB2Rr8rokw=";
+  };
 
   outputs = [ "out" ];
 
@@ -66,7 +71,8 @@ buildPerlPackage {
   '';
 
   meta = with lib; {
-    inherit (sources.osm2mp) description homepage;
+    description = "Convert Openstreetmap data to MP format";
+    homepage = "https://github.com/liosha/osm2mp";
     license = licenses.gpl2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

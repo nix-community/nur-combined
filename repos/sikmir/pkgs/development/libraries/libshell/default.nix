@@ -1,19 +1,24 @@
 { lib
 , stdenv
+, fetchFromGitHub
 , bash
 , dash
 , help2man
 , ncurses
-, sources
 , withDoc ? false
 , scdoc
 }:
 
-stdenv.mkDerivation {
-  pname = "libshell-unstable";
-  version = lib.substring 0 10 sources.libshell.date;
+stdenv.mkDerivation rec {
+  pname = "libshell";
+  version = "0.4.9";
 
-  src = sources.libshell;
+  src = fetchFromGitHub {
+    owner = "legionus";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "sha256-BkKBmKzmL3O+BQi4VZm3agRLpQ8nIZ2ZhQBL40oeCy4=";
+  };
 
   nativeBuildInputs = [ help2man ];
 
@@ -36,7 +41,8 @@ stdenv.mkDerivation {
   doCheck = false;
 
   meta = with lib; {
-    inherit (sources.libshell) description homepage;
+    description = "A library of shell functions";
+    homepage = "https://github.com/legionus/libshell";
     license = licenses.gpl2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;

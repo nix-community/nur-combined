@@ -1,10 +1,15 @@
-{ lib, python3Packages, sources }:
+{ lib, fetchFromGitHub, python3Packages }:
 
-python3Packages.buildPythonApplication {
-  pname = "morse-talk-unstable";
-  version = lib.substring 0 10 sources.morse-talk.date;
+python3Packages.buildPythonApplication rec {
+  pname = "morse-talk";
+  version = "2016-12-25";
 
-  src = sources.morse-talk;
+  src = fetchFromGitHub {
+    owner = "morse-talk";
+    repo = pname;
+    rev = "71e09ace0aa554d28cada5ee658e43758305b8fa";
+    sha256 = "sha256-fvQCETz0Lv0hyfKG7HC2Whm+xoZ9233hF/1ogsfZ10o=";
+  };
 
   propagatedBuildInputs = with python3Packages; [ matplotlib sounddevice tkinter ];
 
@@ -12,7 +17,8 @@ python3Packages.buildPythonApplication {
   checkPhase = "nosetests";
 
   meta = with lib; {
-    inherit (sources.morse-talk) description homepage;
+    description = "A Python library written for Morse Code";
+    homepage = "https://github.com/morse-talk/morse-talk";
     license = licenses.gpl2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

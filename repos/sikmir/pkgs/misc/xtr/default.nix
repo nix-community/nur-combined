@@ -1,16 +1,22 @@
-{ lib, rustPlatform, sources }:
+{ lib, rustPlatform, fetchFromGitHub }:
 
-rustPlatform.buildRustPackage {
-  pname = "xtr-unstable";
-  version = lib.substring 0 10 sources.xtr.date;
+rustPlatform.buildRustPackage rec {
+  pname = "xtr";
+  version = "0.1.6";
 
-  src = sources.xtr;
+  src = fetchFromGitHub {
+    owner = "woboq";
+    repo = "tr";
+    rev = "v${version}";
+    sha256 = "sha256-IgiCcZHtcNOGw0l/sYb4nz15hhzmZ+4G6zzO3I4hpxA=";
+  };
 
   cargoPatches = [ ./cargo-lock.patch ];
-  cargoSha256 = "0l7gj8ddhjvbnzkvm9ij2f6p89zp2faiqm03ra26a75589imnw9m";
+  cargoSha256 = "sha256-6a+n1ApCyfcPQy4wqWNDhXCRGCbJ8BgxHxz/b9uY6Qk=";
 
   meta = with lib; {
-    inherit (sources.xtr) description homepage;
+    description = "Translation tools for rust";
+    homepage = "https://github.com/woboq/tr";
     license = with licenses; [ agpl3 mit ];
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

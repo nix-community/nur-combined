@@ -169,7 +169,6 @@ lib.makeScope newScope (
     ocad2mp = callPackage ./garmin/ocad2mp { };
     openmtbmap = callPackage ./garmin/openmtbmap { };
     osm2mp = perlPackages.callPackage ./garmin/osm2mp {
-      inherit sources;
       inherit (perlPackages) GeoOpenstreetmapParser MatchSimple MathPolygon MathPolygonTree TreeR;
     };
     sendmap20 = callPackage ./garmin/sendmap20 { };

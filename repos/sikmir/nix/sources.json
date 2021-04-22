@@ -27,34 +27,6 @@
         "url": "https://github.com/CheetahTemplate3/cheetah3/archive/a4e33f0f55ed5909437cbbf262fa99de78a7ad2b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "csvquote": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2018-05-28T13:43:50Z",
-        "description": "Enables common unix utlities like cut, awk, wc, head to work correctly with csv data containing delimiters and newlines",
-        "homepage": "https://github.com/dbro/csvquote",
-        "owner": "dbro",
-        "repo": "csvquote",
-        "rev": "baf37fa4cccc656282551db4ea7ce4ec6b9c318e",
-        "sha256": "06kzg52mnli0mvwrhw4vifj7lfs3id2v73z63s11jj2qvlcp8biy",
-        "type": "tarball",
-        "url": "https://github.com/dbro/csvquote/archive/baf37fa4cccc656282551db4ea7ce4ec6b9c318e.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "csvtools": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2019-08-03T13:11:03Z",
-        "description": "GNU-alike tools for parsing RFC 4180 CSVs at high speed",
-        "homepage": "https://github.com/DavyLandman/csvtools",
-        "owner": "DavyLandman",
-        "repo": "csvtools",
-        "rev": "efd3ef1c94c26c673e958ecb045056bfc2c7b4f3",
-        "sha256": "0s4aw9wf1apxjas7hsgfzryisb67nipxhivxkzrar3rpykk0ilc4",
-        "type": "tarball",
-        "url": "https://github.com/DavyLandman/csvtools/archive/efd3ef1c94c26c673e958ecb045056bfc2c7b4f3.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "dict2rest": {
         "branch": "master",
         "builtin": false,
@@ -165,20 +137,6 @@
         "sha256": "1v9micdr6fml1lbhxndbynghrajix5vgp8qg7b7bdsa2wngzlr16",
         "type": "tarball",
         "url": "https://github.com/konstare/gdcv/archive/39fd2667362710f69c13dd596e112b0391e0a57e.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "geminid": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-09-09T10:08:52Z",
-        "description": "Gemini Server in C",
-        "homepage": "https://github.com/jovoro/geminid",
-        "owner": "jovoro",
-        "repo": "geminid",
-        "rev": "3f79348aaffebfb2d80252d8cdbaf6ad26fa9121",
-        "sha256": "1r3pakhgr4kry71blxay1hq93raw7xc2ypzk6z7zk0ljfqp2qq3v",
-        "type": "tarball",
-        "url": "https://github.com/jovoro/geminid/archive/3f79348aaffebfb2d80252d8cdbaf6ad26fa9121.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "geofabrik-estonia": {
@@ -401,20 +359,6 @@
         "url": "https://github.com/viva64/how-to-use-pvs-studio-free/archive/abc39706151159d102d29e3e2f2b8d5688362ec3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "it-sanasto": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-02-27T16:11:28Z",
-        "description": "IT-alan englanti-suomi -sanasto",
-        "homepage": "https://github.com/HankiDesign/IT-sanasto",
-        "owner": "HankiDesign",
-        "repo": "IT-sanasto",
-        "rev": "e31974edd50a50db6ef1b95aab81a18f33800e67",
-        "sha256": "0knd2mw97wjc7d9zvfb9wsb1f5hr7d04gi6s8nj5aziai4dwm0pr",
-        "type": "tarball",
-        "url": "https://github.com/HankiDesign/IT-sanasto/archive/e31974edd50a50db6ef1b95aab81a18f33800e67.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "jsonseq": {
         "branch": "master",
         "builtin": false,
@@ -455,20 +399,6 @@
         "sha256": "02pix53f5j6g4vv2w7vj93jk6a10wld7kk6ichc04aacwq3ljy42",
         "type": "tarball",
         "url": "https://github.com/ivbeg/lazyscraper/archive/2e14bd829311cde19ef32d7f0e11c3c4a3c08e1b.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "libshell": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-03-16T17:18:36Z",
-        "description": "A library of shell functions",
-        "homepage": "https://github.com/legionus/libshell",
-        "owner": "legionus",
-        "repo": "libshell",
-        "rev": "62559f85214bb902c2201d0a1e338d56d5f640e4",
-        "sha256": "1iyqagc8mc0afp0clbigjqds1hg3wz884cp1nng7gx08rnmr0l89",
-        "type": "tarball",
-        "url": "https://github.com/legionus/libshell/archive/62559f85214bb902c2201d0a1e338d56d5f640e4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lsdreader": {
@@ -513,20 +443,6 @@
         "url": "https://github.com/slazav/map_podm/archive/c95a381155986f9f621e5d26b21bda041ad8c24f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "map-stylizer": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-06-30T03:06:18Z",
-        "description": "GUI written in Python to parse OSM (OpenStreetMap) files and render them onscreen",
-        "homepage": "https://github.com/Absolute-Tinkerer/map-stylizer",
-        "owner": "Absolute-Tinkerer",
-        "repo": "map-stylizer",
-        "rev": "6279f40408aff823a4eb1071334bd2acd10cb921",
-        "sha256": "0k9lng42vi0qcjwfkkd0g55g1wb7a5wz782mvc0rj8gr95shfhxx",
-        "type": "tarball",
-        "url": "https://github.com/Absolute-Tinkerer/map-stylizer/archive/6279f40408aff823a4eb1071334bd2acd10cb921.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "maptourist": {
         "builtin": false,
         "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
@@ -537,20 +453,6 @@
         "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-03-06.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
         "version": "2021-03-06"
-    },
-    "md2gemini": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-12-14T20:05:33Z",
-        "description": "File converter from Markdown to Gemini",
-        "homepage": "https://github.com/makeworld-the-better-one/md2gemini",
-        "owner": "makeworld-the-better-one",
-        "repo": "md2gemini",
-        "rev": "c83ad7f9b22407154556625ea2d1c3b89890f04a",
-        "sha256": "156k0caqmmsypqiirmxsn22ddk6rz8wcxzkw0jrdwszv78ai750y",
-        "type": "tarball",
-        "url": "https://github.com/makeworld-the-better-one/md2gemini/archive/c83ad7f9b22407154556625ea2d1c3b89890f04a.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mercantile": {
         "branch": "master",
@@ -580,20 +482,6 @@
         "url": "https://github.com/semlanik/microjson/archive/0d9f50e407cd117e56582faf0d99bfececc1b6ea.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "morse-talk": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2016-12-25T13:48:00Z",
-        "description": "A Python library written for Morse Code",
-        "homepage": "https://github.com/morse-talk/morse-talk",
-        "owner": "morse-talk",
-        "repo": "morse-talk",
-        "rev": "71e09ace0aa554d28cada5ee658e43758305b8fa",
-        "sha256": "0jnpv73q4s7x2zhpvnvxhv3bw6asnrqfr1pjr4hzsbpl7h8h5x3y",
-        "type": "tarball",
-        "url": "https://github.com/morse-talk/morse-talk/archive/71e09ace0aa554d28cada5ee658e43758305b8fa.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "musig": {
         "branch": "master",
         "builtin": false,
@@ -606,20 +494,6 @@
         "sha256": "1h201rqn74hcspxjigq50vj4rl526x8s0sx18j5gbswisf84bgql",
         "type": "tarball",
         "url": "https://github.com/sfluor/musig/archive/f445fa128b826c1cee527afdcc97e3e1e8433c32.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "nakarte": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-21T11:11:31Z",
-        "description": "Source code of site http://nakarte.me",
-        "homepage": "https://nakarte.me",
-        "owner": "wladich",
-        "repo": "nakarte",
-        "rev": "131a70c6143b31569f75477396d4745edc89d22f",
-        "sha256": "17bzaj8s2sgl1yjknyk7kdxbd8ydxizag28wwmxpir5zm85is4pz",
-        "type": "tarball",
-        "url": "https://github.com/wladich/nakarte/archive/131a70c6143b31569f75477396d4745edc89d22f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nnn": {
@@ -676,20 +550,6 @@
         "sha256": "1awb2kj2afdcn29zl3cgrsmld0bwmf3z3f0bn1lhkbvpqzqgxh3c",
         "type": "tarball",
         "url": "https://github.com/osmcode/osm-area-tools/archive/b96db0ced55f1bb574084620ca34f0a2e9d19b5a.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "osm2mp": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2018-08-31T10:45:18Z",
-        "description": "Convert Openstreetmap data to MP format",
-        "homepage": "https://github.com/liosha/osm2mp",
-        "owner": "liosha",
-        "repo": "osm2mp",
-        "rev": "748f93792ead174ad0e94a183a173ef3fcacf200",
-        "sha256": "0k525fzlcxih51hxvy24fhc12z4i0jvvd4lrfrlhjyhbx8x486v3",
-        "type": "tarball",
-        "url": "https://github.com/liosha/osm2mp/archive/748f93792ead174ad0e94a183a173ef3fcacf200.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "osmcoastline": {
@@ -830,20 +690,6 @@
         "sha256": "0rr5ynzzy0a9y2d55bhq271vsjdi5nqq70329zinwgs1d9207qg9",
         "type": "tarball",
         "url": "https://github.com/consbio/tpkutils/archive/5f3694451a1759548af579b689f478cefc633252.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "xtr": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-14T10:34:29Z",
-        "description": "Translation tools for rust",
-        "homepage": "https://github.com/woboq/tr",
-        "owner": "woboq",
-        "repo": "tr",
-        "rev": "28f8b95ccb8055cf785382f71d11aa9bbd35dab4",
-        "sha256": "0457467drkiwxc3fwrz63j37jgczz23b2zs9qf3d6w7dj5qq4212",
-        "type": "tarball",
-        "url": "https://github.com/woboq/tr/archive/28f8b95ccb8055cf785382f71d11aa9bbd35dab4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

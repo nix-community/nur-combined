@@ -1,10 +1,15 @@
-{ lib, stdenv, pcre, openssl, sources }:
+{ lib, stdenv, fetchFromGitHub, pcre, openssl }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "csvtools";
-  version = lib.substring 0 10 sources.csvtools.date;
+  version = "2019-08-03";
 
-  src = sources.csvtools;
+  src = fetchFromGitHub {
+    owner = "DavyLandman";
+    repo = pname;
+    rev = "efd3ef1c94c26c673e958ecb045056bfc2c7b4f3";
+    sha256 = "sha256-hNEI5vQ3j6zyn31H2G+0xywdff7uaXi0kv2q4Hjiimg=";
+  };
 
   buildInputs = [ pcre ];
 
@@ -19,7 +24,8 @@ stdenv.mkDerivation {
   preInstall = "mkdir -p $out/bin";
 
   meta = with lib; {
-    inherit (sources.csvtools) description homepage;
+    description = "GNU-alike tools for parsing RFC 4180 CSVs at high speed";
+    homepage = "https://github.com/DavyLandman/csvtools";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

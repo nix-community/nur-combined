@@ -1,12 +1,17 @@
-{ lib, stdenv, mkYarnPackage, sources, secretsConfig ? null }:
+{ lib, stdenv, mkYarnPackage, fetchFromGitHub, secretsConfig ? null }:
 let
   pname = "nakarte";
-  version = lib.substring 0 10 sources.nakarte.date;
+  version = "2021-04-16";
 in
 mkYarnPackage {
   name = "${pname}-${version}";
 
-  src = sources.nakarte;
+  src = fetchFromGitHub {
+    owner = "wladich";
+    repo = pname;
+    rev = "ddc52268bd00f656ac1d4301b580c287c84f314d";
+    sha256 = "sha256-cxyxT7B12HtfQ5vx2p1DS8Ol3eZ0U7W1oy0jLw6YN+Y=";
+  };
 
   postPatch =
     if (secretsConfig != null) then
@@ -24,7 +29,7 @@ mkYarnPackage {
   distPhase = "true";
 
   meta = with lib; {
-    inherit (sources.nakarte) description homepage;
+    homepage = "https://github.com/wladich/nakarte";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;

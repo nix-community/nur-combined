@@ -1,10 +1,15 @@
-{ lib, python3Packages, sources, cjkwrap }:
+{ lib, fetchFromGitHub, python3Packages, cjkwrap }:
 
-python3Packages.buildPythonApplication {
-  pname = "md2gemini-unstable";
-  version = lib.substring 0 10 sources.md2gemini.date;
+python3Packages.buildPythonApplication rec {
+  pname = "md2gemini";
+  version = "1.8.1";
 
-  src = sources.md2gemini;
+  src = fetchFromGitHub {
+    owner = "makeworld-the-better-one";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "sha256-DQH7/wn6chgsDAclXaqHM37sT2aw6RMByCZ9/UPx0Zc=";
+  };
 
   propagatedBuildInputs = with python3Packages; [
     (mistune.overrideAttrs (old: rec {
@@ -22,7 +27,8 @@ python3Packages.buildPythonApplication {
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
-    inherit (sources.md2gemini) description homepage;
+    description = "File converter from Markdown to Gemini";
+    homepage = "https://github.com/makeworld-the-better-one/md2gemini";
     license = licenses.lgpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

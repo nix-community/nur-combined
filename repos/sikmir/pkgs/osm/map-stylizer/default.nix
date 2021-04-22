@@ -1,10 +1,15 @@
-{ lib, python3Packages, qt5, sources }:
+{ lib, fetchFromGitHub, python3Packages, qt5 }:
 
-python3Packages.buildPythonApplication {
-  pname = "map-stylizer-unstable";
-  version = lib.substring 0 10 sources.map-stylizer.date;
+python3Packages.buildPythonApplication rec {
+  pname = "map-stylizer";
+  version = "2020-06-30";
 
-  src = sources.map-stylizer;
+  src = fetchFromGitHub {
+    owner = "Absolute-Tinkerer";
+    repo = pname;
+    rev = "6279f40408aff823a4eb1071334bd2acd10cb921";
+    sha256 = "sha256-vUMHdUn5IZkB21Wg83lRZ/HwSnmgzem4ZBjELcizNE0=";
+  };
 
   patches = [ ./config.patch ];
 
@@ -28,7 +33,8 @@ python3Packages.buildPythonApplication {
   '';
 
   meta = with lib; {
-    inherit (sources.map-stylizer) description homepage;
+    description = "GUI written in Python to parse OSM (OpenStreetMap) files and render them onscreen";
+    homepage = "https://github.com/Absolute-Tinkerer/map-stylizer";
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
