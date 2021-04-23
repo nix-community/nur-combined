@@ -9,7 +9,14 @@ let
 
   peers = config.my.secrets.wireguard.peers;
   thisPeer = peers."${hostName}";
-  otherPeers = lib.filterAttrs (name: _: name != hostName) peers;
+  thisPeerIsServer = thisPeer ? externalIp;
+  # Only connect to clients from server, and only connect to server from clients
+  otherPeers =
+    let
+      allOthers = lib.filterAttrs (name: _: name != hostName) peers;
+      shouldConnectToPeer = _: peer: thisPeerIsServer != (peer ? externalIp);
+    in
+    lib.filterAttrs shouldConnectToPeer allOthers;
 
   extIface = config.my.networking.externalInterface;
 in
@@ -31,7 +38,27 @@ in
       description = "Port to configure for Wireguard";
     };
 
+    dns = {
+      useInternal = my.mkDisableOption ''
+        Use internal DNS servers from wireguard 'server'
+      '';
+
+      additionalServers = mkOption {
+        type = with types; listOf str;
+        default = [
+          "1.0.0.1"
+          "1.1.1.1"
+        ];
+        example = [
+          "8.8.4.4"
+          "8.8.8.8"
+        ];
+        description = "Which DNS servers to use in addition to adblock ones";
+      };
+    };
+
     net = {
+      # FIXME: use new ip library to handle this more cleanly
       v4 = {
         subnet = mkOption {
           type = types.str;
@@ -46,6 +73,7 @@ in
           description = "The CIDR mask to use on internal IPs";
         };
       };
+      # FIXME: extend library for IPv6
       v6 = {
         subnet = mkOption {
           type = types.str;
@@ -76,7 +104,7 @@ in
       peers = lib.mapAttrsToList
         (_: peer: {
           inherit (peer) publicKey;
-        } // lib.optionalAttrs (thisPeer ? externalIp) {
+        } // lib.optionalAttrs thisPeerIsServer {
           # Only forward from server to clients
           allowedIPs = with cfg.net; [
             "${v4.subnet}.${toString peer.clientNum}/32"
@@ -85,7 +113,7 @@ in
         } // lib.optionalAttrs (peer ? externalIp) {
           # Known addresses
           endpoint = "${peer.externalIp}:${toString cfg.port}";
-        } // lib.optionalAttrs (!(thisPeer ? externalIp)) {
+        } // lib.optionalAttrs (!thisPeerIsServer) {
           # Forward all traffic to server
           allowedIPs = with cfg.net; [
             "0.0.0.0/0"
@@ -93,10 +121,9 @@ in
           ];
           # Roaming clients need to keep NAT-ing active
           persistentKeepalive = 10;
-          # Use server DNS
         })
         otherPeers;
-    } // lib.optionalAttrs (thisPeer ? externalIp) {
+    } // lib.optionalAttrs thisPeerIsServer {
       # Setup forwarding on server
       postUp = with cfg.net; ''
         ${pkgs.iptables}/bin/iptables -A FORWARD -i ${cfg.iface} -j ACCEPT
@@ -110,10 +137,24 @@ in
         ${pkgs.iptables}/bin/ip6tables -D FORWARD -i ${cfg.iface} -j ACCEPT
         ${pkgs.iptables}/bin/ip6tables -t nat -D POSTROUTING -s ${v6.subnet}::1/${toString v6.mask} -o ${extIface} -j MASQUERADE
       '';
-
+    } // lib.optionalAttrs (!thisPeerIsServer) {
+      # Use DNS servers hosted on wireguard servers
+      dns =
+        let
+          isServer = _: peer: peer ? externalIp;
+          toInternalIps = peer: [
+            "${cfg.net.v4.subnet}.${toString peer.clientNum}"
+            "${cfg.net.v6.subnet}::${toString peer.clientNum}"
+          ];
+          servers = lib.filterAttrs isServer otherPeers;
+          internalIps = lib.flatten
+            (lib.mapAttrsToList (_: peer: toInternalIps peer) servers);
+          internalServers = lib.optionals cfg.dns.useInternal internalIps;
+        in
+        internalServers ++ cfg.dns.additionalServers;
     };
 
-    nat = lib.optionalAttrs (thisPeer ? externalIp) {
+    nat = lib.optionalAttrs thisPeerIsServer {
       enable = true;
       externalInterface = extIface;
       internalInterfaces = [ cfg.iface ];
