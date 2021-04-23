@@ -9,22 +9,25 @@ in
   options = {
     services.freshrss = {
       enable = mkEnableOption "FreshRSS";
+      # TODO: Replace Sqlite with PostgreSQL
 
       user = mkOption {
         type = types.str;
-        default = "nginx";
-        example = "nginx";
+        default = "freshrss";
+        example = "freshrss";
         description = ''
           User account under which FreshRSS run.
-        '';
+          If it's freshrss it will be created.
+        ''; # TODO Format it.
       };
 
       group = mkOption {
         type = types.str;
-        default = "nginx";
-        example = "nginx";
+        default = "freshrss";
+        example = "freshrss";
         description = ''
           Group under which the FreshRSS run.
+          It will be created if it doesn't exist.
         '';
       };
 
@@ -71,16 +74,74 @@ in
           information about the format.
         '';
       };
+
+      admin = mkOption {
+        type = types.str;
+        default = "admin";
+        example = "admin";
+        description = ''
+          Administrator username. It will be used to login to FreshRSS.
+        '';
+      };
+
+      database = {
+        type = mkOption {
+          type = types.enum [ "sqlite" "pgsql" ];
+          default = "sqlite";
+          description = ''
+            What type of database to use.
+          ''; # TODO What to do when this option changes.
+        };
+
+        createLocally = mkOption {
+          type = types.bool;
+          default = true;
+          description = ''
+            Create the database and database user locally.
+            Has no effect if database.type is sqlite.
+          ''; # TODO Format
+        };
+
+        name = mkOption {
+          type = types.str;
+          default = "freshrss";
+          description = ''
+            Name of the database.
+            Has no effect if database.type is sqlite.
+          '';
+        };
+
+        user = mkOption {
+          type = types.str;
+          default = "freshrss";
+          description = ''
+            The database user.
+            Has no effect if database.type is sqlite.
+          '';
+        };
+
+      };
     };
   };
 
   config = mkIf cfg.enable {
+    users.users = optionalAttrs (cfg.user == "freshrss") {
+      freshrss = {
+        description = "FreshRSS user";
+        isSystemUser = true;
+        group = cfg.group;
+      };
+    };
+
+    users.groups.${cfg.group} = { };
+
+
     services.phpfpm.pools = mkIf (cfg.pool == poolName) {
       ${poolName} = {
         user = cfg.user;
         settings = mapAttrs (name: mkDefault) {
-          "listen.owner" = cfg.user;
-          "listen.group" = cfg.user;
+          "listen.owner" = config.services.nginx.user;
+          "listen.group" = config.services.nginx.group;
           "listen.mode" = "0600";
           "pm" = "dynamic";
           "pm.max_children" = 75;
@@ -109,9 +170,7 @@ in
             extraConfig = ''
               include ${pkgs.nginx}/conf/fastcgi_params;
               fastcgi_split_path_info ^(.+\.php)(/.+)$;
-              fastcgi_pass unix:${
-                config.services.phpfpm.pools.${poolName}.socket
-              };
+              fastcgi_pass unix:${config.services.phpfpm.pools.${poolName}.socket};
               set $path_info $fastcgi_path_info;
               fastcgi_param PATH_INFO $path_info;
               fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -122,21 +181,41 @@ in
       };
     };
 
+    services.postgresql = mkIf (cfg.database.type == "pgsql" && cfg.database.createLocally) {
+      enable = true;
+      ensureDatabases = [ cfg.database.name ];
+      ensureUsers = [
+        {
+          name = cfg.database.user;
+          ensurePermissions = { "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES"; };
+        }
+      ];
+    };
+
     systemd.tmpfiles.rules =
-      [ "d '${cfg.dataDir}/data' 0750 ${cfg.user} ${cfg.group} - -" ];
+      [ "Z '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -" ];
 
-    system.activationScripts.freshrss = ''
-      export FRESHRSS_DATA="${cfg.dataDir}"
-      mkdir -p ${cfg.dataDir}/data
-      cp -r --no-preserve=mode,ownership ${package}/data/* ${cfg.dataDir}/data
+    system.activationScripts.freshrss =
+      let
+        host = if cfg.database.createLocally then "/var/run/postgresql" else cfg.database.host;
+        databaseSetup = {
+          sqlite = "--db-type sqlite";
+          pgsql = "--db-type pgsql --db-host ${host} --db-base ${cfg.database.name}";
+        }.${cfg.database.type};
+      in
+      ''
+        export FRESHRSS_DATA="${cfg.dataDir}"
+        mkdir -p ${cfg.dataDir}
+        cp -r --no-preserve=mode,ownership ${package}/data/* ${cfg.dataDir}
+        chown ${cfg.user}:${cfg.group} -R ${cfg.dataDir}
 
-      if [ ! -f ${cfg.dataDir}/data/config.php ]; then
-        ${pkgs.php}/bin/php ${package}/cli/do-install.php --default_user admin --db-type sqlite --disable_update
-        ${pkgs.php}/bin/php ${package}/cli/create-user.php --user admin --password '${cfg.initialPassword}'
-      fi
+        if [ ! -f ${cfg.dataDir}/config.php ]; then
+          ${pkgs.sudo}/bin/sudo -Eu freshrss ${pkgs.php}/bin/php ${package}/cli/do-install.php --default_user ${cfg.admin} ${databaseSetup} --disable_update
+          ${pkgs.sudo}/bin/sudo -Eu freshrss ${pkgs.php}/bin/php ${package}/cli/create-user.php --user ${cfg.admin} --password '${cfg.initialPassword}'
+        fi
 
-      rm -f ${cfg.dataDir}/data/do-install.txt 
-    '';
+        rm -f ${cfg.dataDir}/data/do-install.txt 
+      '';
 
     systemd = {
       services.freshrss-update = {
@@ -145,8 +224,8 @@ in
         serviceConfig = {
           ExecStart =
             "${pkgs.php}/bin/php ${package}/app/actualize_script.php";
-          User = "nginx";
-          Group = "nginx";
+          User = cfg.user;
+          Group = cfg.group;
           Type = "oneshot";
           Restart = "on-failure";
           RestartSec = "60";

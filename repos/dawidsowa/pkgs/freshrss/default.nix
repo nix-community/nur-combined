@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   phpConfig = writeText "constants.local.php" ''
     <?php
-      safe_define('DATA_PATH', getenv('FRESHRSS_DATA') . '/data');
+      safe_define('DATA_PATH', getenv('FRESHRSS_DATA'));
     ?>
   '';
 
