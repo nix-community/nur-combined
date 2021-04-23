@@ -9,8 +9,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "elkowar";
     repo = pname;
-    rev = "aaac4c3b43bbbb5085f0545ba95d16d0b2b8cf6f";
-    sha256 = "sha256-WFIBynTlqM3LPI0JiqPmHu4/1201IZqj1q6jcYi6lDg=";
+    rev = "ca7ff95f2ccc7005190070a3974fe88c165cd956";
+    sha256 = "sha256-O5bOXL1l+AYvyqHMdqvY7fWOLsH6/L2gYWf72+Ld7nI=";
   };
 
   nativeBuildInputs = [ wrapGAppsHook pkg-config rust-bin.nightly.latest.rust ];
