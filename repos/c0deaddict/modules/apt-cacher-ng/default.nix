@@ -142,6 +142,7 @@ let
       description = "apt-cacher-ng";
       home = acng-home;
       createHome = false;
+      isSystemUser = true;
     };
 
     users.extraGroups.acng = { gid = 999; };
