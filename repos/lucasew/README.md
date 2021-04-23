@@ -20,6 +20,8 @@ module structure and nix imports it automagically, same for `machine/acer`
     
 - machines referenced:
     - acer: my main laptop. Acer A315-51-51SL 6GB RAM 240GB SSD Dual booted with Windows 10
+    - vps: a f1-micro VPS running on Google Cloud Platform (for free)
+    - android: a Redmi Note 5 (whyred), it's not running NixOS but I want to add some scripts I use with it
 
 - not tested
     - bootstrap in a new machine, should regenerate the configuration.nix and hardware.nix and adapt in a new device
