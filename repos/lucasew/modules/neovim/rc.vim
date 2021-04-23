@@ -63,7 +63,8 @@ endfunction
 autocmd VimEnter * call HandleTheming()
 command ThemeToggle call ToggleTheme()
 
-
+" AutoPairs
+let g:AutoPairsMultilineClose=0
 
 " Echodoc: 
 let g:echodoc#enable_at_startup=1
@@ -88,3 +89,4 @@ let g:vim_markdown_no_extensions_in_markdown = 1
 
 " Disable conceallevel
 autocmd VimEnter * set conceallevel=0
+

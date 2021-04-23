@@ -40,6 +40,7 @@ in reduceJoin [
     encore = cp ./packages/encore.nix;
     xplr = cp ./packages/xplr.nix;
     personal-utils = cp ./packages/personal-utils.nix;
+    nixwrap = cp ./packages/nixwrap.nix;
     cisco-packet-tracer = cp ./packages/cisco-packet-tracer.nix;
     custom_neovim = cp ./modules/neovim/package.nix;
     wineApps = {
