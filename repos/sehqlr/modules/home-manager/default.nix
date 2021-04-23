@@ -1,12 +1,7 @@
 { config, lib, pkgs, ... }: {
   imports = [
-    ./git.nix
-    ./go.nix
-    ./haskell.nix
-    ./kakoune.nix
-    ./lorri.nix
+    ./dev.nix
     ./sway.nix
-    ./terminal.nix
   ];
 
   programs.home-manager.enable = true;
