@@ -10,7 +10,7 @@
 , mesa
 , meson
 , ninja
-, pkgconfig
+, pkg-config
 , python3Packages
 , vulkan-headers
 , vulkan-loader
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     meson
     ninja
-    pkgconfig
+    pkg-config
     python3Packages.Mako
     python3Packages.python
   ];
