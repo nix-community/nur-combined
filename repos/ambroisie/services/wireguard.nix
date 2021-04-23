@@ -96,80 +96,100 @@ in
     };
   };
 
-  config.networking = lib.mkIf cfg.enable {
-    wg-quick.interfaces."${cfg.iface}" = {
-      listenPort = cfg.port;
-      address = with cfg.net; with lib; [
-        "${v4.subnet}.${toString thisPeer.clientNum}/${toString v4.mask}"
-        "${v6.subnet}::${toString thisPeer.clientNum}/${toHexString v6.mask}"
-      ];
-      # Insecure, I don't care
-      privateKey = thisPeer.privateKey;
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
+      networking.wg-quick.interfaces."${cfg.iface}" = {
+        listenPort = cfg.port;
+        address = with cfg.net; with lib; [
+          "${v4.subnet}.${toString thisPeer.clientNum}/${toString v4.mask}"
+          "${v6.subnet}::${toString thisPeer.clientNum}/${toHexString v6.mask}"
+        ];
+        # Insecure, I don't care
+        privateKey = thisPeer.privateKey;
 
-      peers = lib.mapAttrsToList
-        (_: peer: {
-          inherit (peer) publicKey;
-        } // lib.optionalAttrs thisPeerIsServer {
-          # Only forward from server to clients
-          allowedIPs = with cfg.net; [
-            "${v4.subnet}.${toString peer.clientNum}/32"
-            "${v6.subnet}::${toString peer.clientNum}/128"
-          ];
-        } // lib.optionalAttrs (peer ? externalIp) {
-          # Known addresses
-          endpoint = "${peer.externalIp}:${toString cfg.port}";
-        } // lib.optionalAttrs (!thisPeerIsServer) {
-          # Forward all traffic to server
-          allowedIPs = with cfg.net; [
-            "0.0.0.0/0"
-            "::/0"
-          ];
-          # Roaming clients need to keep NAT-ing active
-          persistentKeepalive = 10;
-        })
-        otherPeers;
-    } // lib.optionalAttrs thisPeerIsServer {
-      # Setup forwarding on server
-      postUp = with cfg.net; ''
-        ${pkgs.iptables}/bin/iptables -A FORWARD -i ${cfg.iface} -j ACCEPT
-        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${v4.subnet}.1/${toString v4.mask} -o ${extIface} -j MASQUERADE
-        ${pkgs.iptables}/bin/ip6tables -A FORWARD -i ${cfg.iface} -j ACCEPT
-        ${pkgs.iptables}/bin/ip6tables -t nat -A POSTROUTING -s ${v6.subnet}::1/${toString v6.mask} -o ${extIface} -j MASQUERADE
-      '';
-      preDown = with cfg.net; ''
-        ${pkgs.iptables}/bin/iptables -D FORWARD -i ${cfg.iface} -j ACCEPT
-        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${v4.subnet}.1/${toString v4.mask} -o ${extIface} -j MASQUERADE
-        ${pkgs.iptables}/bin/ip6tables -D FORWARD -i ${cfg.iface} -j ACCEPT
-        ${pkgs.iptables}/bin/ip6tables -t nat -D POSTROUTING -s ${v6.subnet}::1/${toString v6.mask} -o ${extIface} -j MASQUERADE
-      '';
-    } // lib.optionalAttrs (!thisPeerIsServer) {
-      # Use DNS servers hosted on wireguard servers
-      dns =
+        peers =
+          let
+            mkPeer = _: peer: lib.mkMerge [
+              {
+                inherit (peer) publicKey;
+              }
+
+              (lib.optionalAttrs thisPeerIsServer {
+                # Only forward from server to clients
+                allowedIPs = with cfg.net; [
+                  "${v4.subnet}.${toString peer.clientNum}/32"
+                  "${v6.subnet}::${toString peer.clientNum}/128"
+                ];
+              })
+
+              (lib.optionalAttrs (!thisPeerIsServer) {
+                # Forward all traffic through wireguard to server
+                allowedIPs = with cfg.net; [
+                  "0.0.0.0/0"
+                  "::/0"
+                ];
+                # Roaming clients need to keep NAT-ing active
+                persistentKeepalive = 10;
+                # We know that `peer` is a server, set up the endpoint
+                endpoint = "${peer.externalIp}:${toString cfg.port}";
+              })
+            ];
+          in
+          lib.mapAttrsToList mkPeer otherPeers;
+      };
+    }
+
+    # Set up clients to use configured DNS servers
+    (lib.mkIf (!thisPeerIsServer) {
+      networking.wg-quick.interfaces."${cfg.iface}".dns =
         let
-          isServer = _: peer: peer ? externalIp;
           toInternalIps = peer: [
             "${cfg.net.v4.subnet}.${toString peer.clientNum}"
             "${cfg.net.v6.subnet}::${toString peer.clientNum}"
           ];
-          servers = lib.filterAttrs isServer otherPeers;
+          # We know that `otherPeers` is an attribute set of servers
           internalIps = lib.flatten
-            (lib.mapAttrsToList (_: peer: toInternalIps peer) servers);
+            (lib.mapAttrsToList (_: peer: toInternalIps peer) otherPeers);
           internalServers = lib.optionals cfg.dns.useInternal internalIps;
         in
         internalServers ++ cfg.dns.additionalServers;
-    };
+    })
 
-    nat = lib.optionalAttrs thisPeerIsServer {
-      enable = true;
-      externalInterface = extIface;
-      internalInterfaces = [ cfg.iface ];
-    };
+    # Expose port
+    {
+      networking.firewall.allowedUDPPorts = [ cfg.port ];
+    }
 
-    firewall.allowedUDPPorts = [ cfg.port ];
-  };
+    # Allow NATing wireguard traffic on server
+    (lib.mkIf thisPeerIsServer {
+      networking.nat = {
+        enable = true;
+        externalInterface = extIface;
+        internalInterfaces = [ cfg.iface ];
+      };
+    })
 
-  # Do not start the service by making it not wanted by any unit
-  config.systemd.services.wg-quick-wg = lib.mkIf (!cfg.startAtBoot) {
-    wantedBy = lib.mkForce [ ];
-  };
+    # Set up forwarding to WAN
+    (lib.mkIf thisPeerIsServer {
+      networking.wg-quick.interfaces."${cfg.iface}" = {
+        postUp = with cfg.net; ''
+          ${pkgs.iptables}/bin/iptables -A FORWARD -i ${cfg.iface} -j ACCEPT
+          ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${v4.subnet}.1/${toString v4.mask} -o ${extIface} -j MASQUERADE
+          ${pkgs.iptables}/bin/ip6tables -A FORWARD -i ${cfg.iface} -j ACCEPT
+          ${pkgs.iptables}/bin/ip6tables -t nat -A POSTROUTING -s ${v6.subnet}::1/${toString v6.mask} -o ${extIface} -j MASQUERADE
+        '';
+        preDown = with cfg.net; ''
+          ${pkgs.iptables}/bin/iptables -D FORWARD -i ${cfg.iface} -j ACCEPT
+          ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${v4.subnet}.1/${toString v4.mask} -o ${extIface} -j MASQUERADE
+          ${pkgs.iptables}/bin/ip6tables -D FORWARD -i ${cfg.iface} -j ACCEPT
+          ${pkgs.iptables}/bin/ip6tables -t nat -D POSTROUTING -s ${v6.subnet}::1/${toString v6.mask} -o ${extIface} -j MASQUERADE
+        '';
+      };
+    })
+
+    # When not needed at boot, ensure that there are no reverse dependencies
+    (lib.mkIf (!cfg.startAtBoot) {
+      systemd.services."wg-quick-${cfg.iface}".wantedBy = lib.mkForce [ ];
+    })
+  ]);
 }
