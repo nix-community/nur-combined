@@ -49,10 +49,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.4.5.1";
+      version = "0.4.6";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3761150/auto_tab_discard-0.4.5.1-an+fx.xpi";
-      sha256 = "d3b79e091870b19b98c5bb13b49c02c29b4a556205a115580b5e48d3a6e01bc7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3764231/auto_tab_discard-0.4.6-an+fx.xpi";
+      sha256 = "eefb4c3c12d8748f999a8415a975783d31d1a38162a026a6f9d76aa2ccfeec67";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -588,10 +588,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.69.0.4";
+      version = "4.70.0.1";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3757173/lastpass_password_manager-4.69.0.4-an+fx.xpi";
-      sha256 = "62421c7ed204491daee558cac2a3b1643f24e41ae0666a2dfc5b6112f5b8ebd8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3764310/lastpass_password_manager-4.70.0.1-an+fx.xpi";
+      sha256 = "64017a4536e4dce378272447d2ce279c22bf51935514e307f7e86113254f1b15";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
