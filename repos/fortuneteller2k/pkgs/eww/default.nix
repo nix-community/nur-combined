@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
   # NOTE: Compile times are longer with the checkPhase enabled, this is NUR so *we don't care*
   checkPhase = null;
 
-  cargoSha256 = "sha256-0qfsSnAk31CtMXTYqX3BEhQUj60W+mtGJsiCy2kNz4Q=";
+  cargoSha256 = "sha256-Bzqs2Rln1g1ZmmJW9n18g2qIB2BeeAtsYFi2PurMOoA=";
 
   meta = with lib; {
     description = "A standalone widget system made in Rust to add AwesomeWM like widgets to any WM";
