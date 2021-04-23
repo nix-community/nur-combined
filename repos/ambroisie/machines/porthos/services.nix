@@ -103,6 +103,7 @@ in
     # Simple, in-kernel VPN
     wireguard = {
       enable = true;
+      startAtBoot = true; # Server must be started to ensure clients can connect
     };
   };
 

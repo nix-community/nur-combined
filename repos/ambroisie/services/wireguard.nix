@@ -24,6 +24,11 @@ in
   options.my.services.wireguard = with lib; {
     enable = mkEnableOption "Wireguard VPN service";
 
+    startAtBoot = mkEnableOption ''
+      Should the VPN service be started at boot. Must be true for the server to
+      work reliably.
+    '';
+
     iface = mkOption {
       type = types.str;
       default = "wg";
@@ -161,5 +166,10 @@ in
     };
 
     firewall.allowedUDPPorts = [ cfg.port ];
+  };
+
+  # Do not start the service by making it not wanted by any unit
+  config.systemd.services.wg-quick-wg = lib.mkIf (!cfg.startAtBoot) {
+    wantedBy = lib.mkForce [ ];
   };
 }
