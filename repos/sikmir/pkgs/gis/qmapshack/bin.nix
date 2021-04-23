@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://github.com/Maproom/qmapshack";
     description = "Consumer grade GIS software";
+    inherit (src.meta) homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];

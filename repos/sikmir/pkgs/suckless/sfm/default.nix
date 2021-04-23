@@ -8,14 +8,14 @@ stdenv.mkDerivation rec {
     owner = "afify";
     repo = "sfm";
     rev = "b6063fd0a91a0ee976a09c79cbeb097ba26bfd21";
-    sha256 = "198ij2bdm8i8izpgcl8vckrfw2f5pj11mzal3h7aqp3igargq55m";
+    hash = "sha256-tRT8snpxXKwOHFT9GoK8xQnu8mQbUfbujyii2paQEaU=";
   };
 
   installFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "Simple file manager";
-    homepage = src.meta.homepage;
+    inherit (src.meta) homepage;
     license = licenses.isc;
     platforms = platforms.linux;
     maintainers = [ maintainers.sikmir ];

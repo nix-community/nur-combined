@@ -8,7 +8,7 @@ python3Packages.buildPythonPackage rec {
     owner = "wladich";
     repo = pname;
     rev = "55fecd22c7160577b925e03169e74bd488a41cf3";
-    sha256 = "sha256-t15iO+3UZKnORiQaYoGD4RLZx2SHtCbjg+Qr+sAHQHY=";
+    hash = "sha256-t15iO+3UZKnORiQaYoGD4RLZx2SHtCbjg+Qr+sAHQHY=";
   };
 
   postPatch = ''
@@ -22,7 +22,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python library for thin plate spline calculations";
-    homepage = "https://github.com/wladich/thinplatespline";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
   };

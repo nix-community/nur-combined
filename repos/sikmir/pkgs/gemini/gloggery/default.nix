@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "kconner";
     repo = pname;
     rev = "49707b008cd6e3fb3ecb453a472051644fb319eb";
-    sha256 = "1kd3saxlzclm2n0l02za1zvs0lrxppwd3f5j249cgzv63dfwjr5m";
+    hash = "sha256-tWTJXRtm/8cSEbK40fi9PVOg9w/qC0CBFZWyT7vSo80=";
   };
 
   nativeBuildInputs = [ go ];
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Gemtext blog static site generator";
-    homepage = "https://github.com/kconner/gloggery";
+    inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

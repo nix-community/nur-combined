@@ -1,6 +1,6 @@
 { lib, python3Packages, fetchFromGitHub, withCli ? true, checkLang ? false }:
 
-python3Packages.buildPythonApplication {
+python3Packages.buildPythonApplication rec {
   pname = "tatoebatools";
   version = "0.1.1";
 
@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication {
 
   meta = with lib; {
     description = "A library for downloading, updating and iterating over data files from Tatoeba";
-    homepage = "https://github.com/LBeaudoux/tatoebatools";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A ncurses file manager written in C with vim like keybindings";
-    homepage = "https://github.com/mananapr/cfiles";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

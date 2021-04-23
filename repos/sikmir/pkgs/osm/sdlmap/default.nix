@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "jhawthorn";
     repo = "sdlmap";
     rev = "0baa8fb4472751c28bfe8b063070ea8b2d459224";
-    sha256 = "125hsfjbpvf2zia6702qgjyqsa84wnxxb75xskawif564b65cksv";
+    hash = "sha256-W09WzCKmuMjV1L2c1bvlBCmNvXxYgGNU/MLtu6TTsIg=";
   };
 
   patches = [ ./tile.patch ];
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A SDL + libcurl OpenStreetMap viewer";
-    homepage = src.meta.homepage;
+    inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

@@ -1,10 +1,15 @@
-{ lib, mkDerivation, cmake, gdal, proj, sources }:
+{ lib, mkDerivation, fetchFromGitHub, cmake, gdal, proj }:
 
-mkDerivation {
+mkDerivation rec {
   pname = "garminimg";
-  version = lib.substring 0 10 sources.garminimg.date;
+  version = "2021-01-07";
 
-  src = sources.garminimg;
+  src = fetchFromGitHub {
+    owner = "kiozen";
+    repo = "GarminImg";
+    rev = "6bfd029e9712b47eeab144bfe150baccd8c879bd";
+    hash = "sha256-6vNN80NJSo2GdGruUKTupMcWOR7E3vo2SD1fAkMCodE=";
+  };
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -24,7 +29,8 @@ mkDerivation {
   installPhase = "install -Dm755 bin/* -t $out/bin";
 
   meta = with lib; {
-    inherit (sources.garminimg) description homepage;
+    description = "Encode/decode a Garmin IMG file";
+    inherit (src.meta) homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

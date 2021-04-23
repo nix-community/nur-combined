@@ -1,23 +1,29 @@
-{ lib, buildGoModule, go-bindata, sources }:
+{ lib, fetchFromGitHub, buildGoModule, go-bindata }:
 
-buildGoModule {
-  pname = "glauth-unstable";
-  version = lib.substring 0 10 sources.glauth.date;
+buildGoModule rec {
+  pname = "glauth";
+  version = "1.1.2";
 
-  src = sources.glauth;
+  src = fetchFromGitHub {
+    owner = "glauth";
+    repo = pname;
+    rev = "v${version}";
+    hash = "sha256-2U9LmK+gqVaYnVBvqS3CeNmrK2pFmS5X/oQqFb4MQKk=";
+  };
 
-  vendorSha256 = "18inm0s9mww7c19z9alnvy0g80d3laxh4lwbgzkcc8kf9zg25149";
+  vendorSha256 = "sha256-iYQi3k9uIsbmf4tTAruiowH0gN+WqvRTYIfzmjSoNqI=";
 
   nativeBuildInputs = [ go-bindata ];
 
-  buildFlagsArray = [ "-ldflags=-X main.GitCommit=${sources.glauth.rev}" ];
+  buildFlagsArray = [ "-ldflags=-X main.LastGitTag=v${version} -X main.GitTagIsCommit=1" ];
 
   preBuild = "go-bindata -pkg=assets -o=pkg/assets/bindata.go assets";
 
   doCheck = false;
 
   meta = with lib; {
-    inherit (sources.glauth) description homepage;
+    description = "A lightweight LDAP server for development, home use, or CI";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

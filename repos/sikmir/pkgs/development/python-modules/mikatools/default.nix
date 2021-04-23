@@ -17,7 +17,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "Mikatools provides fast and easy methods for common Python coding tasks";
-    homepage = "https://github.com/mikahama/mikatools";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
   };

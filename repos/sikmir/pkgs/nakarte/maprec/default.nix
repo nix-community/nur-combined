@@ -8,7 +8,7 @@ python3Packages.buildPythonPackage rec {
     owner = "wladich";
     repo = pname;
     rev = "20f5177cae7454455b21cd5f7178f5639c02d385";
-    sha256 = "sha256-8lLCzqy4W35/WV83aRnARuAdoBO+977nbuXJfpdOxP8=";
+    hash = "sha256-8lLCzqy4W35/WV83aRnARuAdoBO+977nbuXJfpdOxP8=";
   };
 
   patches = [ ./python3.patch ];
@@ -22,7 +22,7 @@ python3Packages.buildPythonPackage rec {
   pythonImportsCheck = [ "maprec" ];
 
   meta = with lib; {
-    homepage = "https://github.com/wladich/maprec";
+    inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
   };

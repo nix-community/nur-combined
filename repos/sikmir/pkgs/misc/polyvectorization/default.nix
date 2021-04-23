@@ -1,10 +1,15 @@
-{ lib, mkDerivation, cmake, boost165, eigen, opencv2, sources }:
+{ lib, mkDerivation, fetchFromGitHub, cmake, boost165, eigen, opencv2 }:
 
-mkDerivation {
+mkDerivation rec {
   pname = "polyvectorization";
-  version = lib.substring 0 10 sources.polyvectorization.date;
+  version = "2019-08-23";
 
-  src = sources.polyvectorization;
+  src = fetchFromGitHub {
+    owner = "bmpix";
+    repo = "PolyVectorization";
+    rev = "bceb8e2a08cca29cef1df074eb1a1f6450cc163f";
+    hash = "sha256-WI6EXoflj3vrxTPN+RyiTgst8JR9JV9yz7+3PHBAAjU=";
+  };
 
   patches = [ ./with-gui.patch ];
 
@@ -22,7 +27,8 @@ mkDerivation {
   installPhase = "install -Dm755 polyvector_thing -t $out/bin";
 
   meta = with lib; {
-    inherit (sources.polyvectorization) description homepage;
+    description = "Reference implementation of Vectorization of Line Drawings via PolyVector Fields";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;

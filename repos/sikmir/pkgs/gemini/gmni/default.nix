@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "~sircmpwn";
     repo = pname;
     rev = "e0993d4886e7e0b8970f7c83b6d0003e75f33348";
-    sha256 = "09gdgyz21ni707ph91fs61v61j2lladzhvbplqqc80hg17w9av4s";
+    hash = "sha256-mmyV+AkPAsQwpndt+JuiVMhgdjDahQTvASfaIL5/7SU=";
   };
 
   nativeBuildInputs = [ pkg-config scdoc ];
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Gemini client";
-    homepage = "https://git.sr.ht/~sircmpwn/gmni";
+    inherit (src.meta) homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

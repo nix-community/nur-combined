@@ -11,7 +11,7 @@
 , pcre
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "stardict-tools";
   version = "2021-01-07";
 
@@ -57,7 +57,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Stardict tools";
-    homepage = "https://github.com/huzheng001/stardict-3";
+    inherit (src.meta) homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

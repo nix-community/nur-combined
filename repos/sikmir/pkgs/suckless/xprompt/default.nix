@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "phillbush";
     repo = "xprompt";
     rev = "v${version}";
-    sha256 = "00i4zlypsbh43w0xkjlhy768d8s26kcf15rpbf62viffkg8s4z7w";
+    hash = "sha256-/Hyi0ZvOxS2MWzeX4Ng0QqOGzPGQytkBHwQufT39JAI=";
   };
 
   buildInputs = [ libX11 libXft libXinerama ];
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A dmenu rip-off with contextual completion";
-    homepage = src.meta.homepage;
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;

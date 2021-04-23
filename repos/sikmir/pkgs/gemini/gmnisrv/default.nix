@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "~sircmpwn";
     repo = pname;
     rev = "8b65e303b01fc573cb1c40a365fb5db166146a37";
-    sha256 = "1n0iiz6gd3dmv1r7i6437zmrv0vim69fc0haqfvagd4y20hy5s8z";
+    hash = "sha256-H+niIRCetKe2wwoC5pKpcYOd6z+DmHhy2LWN9syPEdg=";
   };
 
   nativeBuildInputs = [ pkg-config scdoc ];
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Simple Gemini protocol server";
-    homepage = "https://git.sr.ht/~sircmpwn/gmnisrv";
+    inherit (src.meta) homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "shtanton";
     repo = "gmi2html";
     rev = "v${version}";
-    sha256 = "1nfl0cy99mm2rk9v0g43370i4rnz26hg9ryl0gkm5d1v2sg2i4al";
+    hash = "sha256-VJEonhY7tFLnA9Tn9KAR32YSwRmDPLDTzKLWlDwD1Nk=";
   };
 
   nativeBuildInputs = [ scdoc zig ];
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Translate text/gemini into HTML";
-    homepage = src.meta.homepage;
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

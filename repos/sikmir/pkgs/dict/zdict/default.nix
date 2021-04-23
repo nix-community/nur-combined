@@ -32,7 +32,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description = "The last online dictionary framework you need";
-    homepage = "https://github.com/zdict/zdict";
+    inherit (src.meta) homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

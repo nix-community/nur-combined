@@ -8,7 +8,7 @@ python3Packages.buildPythonApplication rec {
     owner = "flopp";
     repo = pname;
     rev = "545c551b808fece43ff199e006d8a1c399536a05";
-    sha256 = "sha256-2if0e74mYItTM7tYc2OS2EhZu3gnZjfkT5kzLnacH7Y=";
+    hash = "sha256-2if0e74mYItTM7tYc2OS2EhZu3gnZjfkT5kzLnacH7Y=";
   };
 
   patches = [ ./fix-localedir.patch ];
@@ -51,7 +51,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Create a visually appealing poster from your GPX tracks";
-    homepage = "https://github.com/flopp/GpxTrackPoster";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

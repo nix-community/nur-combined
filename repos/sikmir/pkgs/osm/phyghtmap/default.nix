@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchurl {
     url = "http://katze.tfiu.de/projects/phyghtmap/phyghtmap_${version}.orig.tar.gz";
-    sha256 = "04xhqcf4bvgbahzw1vcx4khja0z3xqkd0mvk2z8b0xnmy5rsw3lc";
+    hash = "sha256-jA6uc/HVdrDQF3NX0Cbu4wMl4SSd7cA/VOvtRRzDsBM=";
   };
 
   propagatedBuildInputs = with python3Packages; [ beautifulsoup4 lxml matplotlib numpy ];

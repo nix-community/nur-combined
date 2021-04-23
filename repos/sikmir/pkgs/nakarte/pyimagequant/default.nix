@@ -8,7 +8,7 @@ python3Packages.buildPythonPackage rec {
     owner = "wladich";
     repo = pname;
     rev = "a467b3b2566f4edd31a272738f7c5e646c0d84a9";
-    sha256 = "1alyaizr910zv885a15mmw9v74bsmmkch5n14ggi69w54sq5j6y8";
+    sha256 = "sha256-yBtZsCaFJxPfI8EWyGatepGzE6+1BFUQ2h+ElH9Unqo=";
     fetchSubmodules = true;
   };
 
@@ -17,8 +17,8 @@ python3Packages.buildPythonPackage rec {
   pythonImportsCheck = [ "imagequant" ];
 
   meta = with lib; {
-    description = "python bindings for libimagequant (pngquant core)";
-    homepage = src.meta.homepage;
+    description = "Python bindings for libimagequant (pngquant core)";
+    inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
   };

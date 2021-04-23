@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/gpxsee/GPXSee-${version}.dmg";
-    sha256 = "sha256-9QZdQPPg/Cl7fjM6ucGnno6HNQnkdEtAFnVTH66KSjI=";
+    hash = "sha256-9QZdQPPg/Cl7fjM6ucGnno6HNQnkdEtAFnVTH66KSjI=";
   };
 
   preferLocalBuild = true;

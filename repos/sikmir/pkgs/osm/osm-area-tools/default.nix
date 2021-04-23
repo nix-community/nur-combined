@@ -10,14 +10,18 @@
 , protozero
 , sqlite
 , zlib
-, sources
 }:
 
 stdenv.mkDerivation rec {
   pname = "osm-area-tools";
-  version = lib.substring 0 10 sources.osm-area-tools.date;
+  version = "2021-01-04";
 
-  src = sources.osm-area-tools;
+  src = fetchFromGitHub {
+    owner = "osmcode";
+    repo = pname;
+    rev = "b96db0ced55f1bb574084620ca34f0a2e9d19b5a";
+    hash = "sha256-bMD+8Md3rwlpsAu48YerfIFGq86PDfqTsKw5JeQUi6s=";
+  };
 
   nativeBuildInputs = [ cmake ];
 
@@ -35,7 +39,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    inherit (sources.osm-area-tools) description homepage;
+    description = "OSM Area Tools";
+    homepage = "https://osmcode.org/osm-area-tools/";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

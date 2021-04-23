@@ -8,7 +8,7 @@ python3Packages.buildPythonApplication rec {
     owner = "makeworld-the-better-one";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-DQH7/wn6chgsDAclXaqHM37sT2aw6RMByCZ9/UPx0Zc=";
+    hash = "sha256-DQH7/wn6chgsDAclXaqHM37sT2aw6RMByCZ9/UPx0Zc=";
   };
 
   propagatedBuildInputs = with python3Packages; [
@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description = "File converter from Markdown to Gemini";
-    homepage = "https://github.com/makeworld-the-better-one/md2gemini";
+    inherit (src.meta) homepage;
     license = licenses.lgpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

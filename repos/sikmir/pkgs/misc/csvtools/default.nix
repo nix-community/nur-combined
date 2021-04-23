@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "DavyLandman";
     repo = pname;
     rev = "efd3ef1c94c26c673e958ecb045056bfc2c7b4f3";
-    sha256 = "sha256-hNEI5vQ3j6zyn31H2G+0xywdff7uaXi0kv2q4Hjiimg=";
+    hash = "sha256-hNEI5vQ3j6zyn31H2G+0xywdff7uaXi0kv2q4Hjiimg=";
   };
 
   buildInputs = [ pcre ];
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "GNU-alike tools for parsing RFC 4180 CSVs at high speed";
-    homepage = "https://github.com/DavyLandman/csvtools";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

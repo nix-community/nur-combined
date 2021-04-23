@@ -7,7 +7,7 @@ buildPerlPackage {
   src = fetchwebarchive {
     url = "http://worldofo.com/div/ocad2img.zip";
     timestamp = "20150326063156";
-    sha256 = "1w68jww1kyy2cdzc8b69pca5w05gxj8q3ap5q0ff10ix0sfcm0mn";
+    hash = "sha256-toLKnAY9guAcwOWqgZHsrwBeFLvJLMR+Y8L7GTiXyPA=";
   };
 
   sourceRoot = ".";

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     owner = "legionus";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-BkKBmKzmL3O+BQi4VZm3agRLpQ8nIZ2ZhQBL40oeCy4=";
+    hash = "sha256-BkKBmKzmL3O+BQi4VZm3agRLpQ8nIZ2ZhQBL40oeCy4=";
   };
 
   nativeBuildInputs = [ help2man ];
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A library of shell functions";
-    homepage = "https://github.com/legionus/libshell";
+    inherit (src.meta) homepage;
     license = licenses.gpl2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;

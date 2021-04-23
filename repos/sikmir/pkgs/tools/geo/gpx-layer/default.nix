@@ -29,7 +29,7 @@ buildPerlPackage rec {
 
   meta = with lib; {
     description = "Tools to turn GPX files into a GPS map tracing layer";
-    homepage = src.meta.homepage;
+    inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

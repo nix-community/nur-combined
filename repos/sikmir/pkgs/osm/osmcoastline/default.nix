@@ -10,14 +10,18 @@
 , protozero
 , sqlite
 , zlib
-, sources
 }:
 
 stdenv.mkDerivation rec {
   pname = "osmcoastline";
-  version = lib.substring 0 10 sources.osmcoastline.date;
+  version = "2021-01-08";
 
-  src = sources.osmcoastline;
+  src = fetchFromGitHub {
+    owner = "osmcode";
+    repo = pname;
+    rev = "56371668ebb6261009f35a7411a8fbcc83aabfe0";
+    hash = "sha256-gW6VJ4u4FBJO4mnDIpDW3KRoXmTbcsZhb5762bqv92A=";
+  };
 
   nativeBuildInputs = [ cmake ];
 
@@ -27,22 +31,14 @@ stdenv.mkDerivation rec {
     gdal
     geos
     libosmium
-    (libosmium.overrideAttrs (old: rec {
-      version = "2.16.0";
-      src = fetchFromGitHub {
-        owner = "osmcode";
-        repo = "libosmium";
-        rev = "v${version}";
-        sha256 = "1na51g6xfm1bx0d0izbg99cwmqn0grp0g41znn93xnhs202qnb2h";
-      };
-    }))
     protozero
     sqlite
     zlib
   ];
 
   meta = with lib; {
-    inherit (sources.osmcoastline) description homepage;
+    description = "Extracts coastline data from OpenStreetMap planet file";
+    homepage = "https://osmcode.org/osmcoastline/";
     license = licenses.boost;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

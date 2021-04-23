@@ -8,14 +8,14 @@ buildGoModule rec {
     owner = "~yotam";
     repo = pname;
     rev = "129b3e7fc700d02843c4fbd3e7cc73bf714f9cc2";
-    sha256 = "02g1igsx441q20yv2ylc50mf598whl0lfnwrj9nzab1jk5q3nhic";
+    hash = "sha256-LEI7cJkyLPVtkplbRwGFHKXiKiiMerE9EDgQ0vWL4Qk=";
   };
 
   vendorSha256 = "00avyrznhgw4zxp6z6n8zi86nsvm91iygm26401k3vp3i24ydhda";
 
   meta = with lib; {
     description = "Gemini server";
-    homepage = "https://git.sr.ht/~yotam/shavit";
+    inherit (src.meta) homepage;
     license = licenses.agpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

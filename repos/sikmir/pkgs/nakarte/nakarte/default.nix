@@ -10,7 +10,7 @@ mkYarnPackage {
     owner = "wladich";
     repo = pname;
     rev = "ddc52268bd00f656ac1d4301b580c287c84f314d";
-    sha256 = "sha256-cxyxT7B12HtfQ5vx2p1DS8Ol3eZ0U7W1oy0jLw6YN+Y=";
+    hash = "sha256-cxyxT7B12HtfQ5vx2p1DS8Ol3eZ0U7W1oy0jLw6YN+Y=";
   };
 
   postPatch =

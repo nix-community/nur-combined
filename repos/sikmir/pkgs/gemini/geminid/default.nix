@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "jovoro";
     repo = pname;
     rev = "bf6148baf91847e8dc011c3a101bee547142f4b5";
-    sha256 = "sha256-yiD3GMrYi9KhKgCWAs+tdenP/0Q1E16FdhatdbTkYK4=";
+    hash = "sha256-yiD3GMrYi9KhKgCWAs+tdenP/0Q1E16FdhatdbTkYK4=";
   };
 
   nativeBuildInputs = [ flex ];
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Gemini Server in C";
-    homepage = "https://github.com/jovoro/geminid";
+    inherit (src.meta) homepage;
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

@@ -8,7 +8,7 @@ python3Packages.buildPythonApplication rec {
     owner = "Absolute-Tinkerer";
     repo = pname;
     rev = "6279f40408aff823a4eb1071334bd2acd10cb921";
-    sha256 = "sha256-vUMHdUn5IZkB21Wg83lRZ/HwSnmgzem4ZBjELcizNE0=";
+    hash = "sha256-vUMHdUn5IZkB21Wg83lRZ/HwSnmgzem4ZBjELcizNE0=";
   };
 
   patches = [ ./config.patch ];
@@ -34,7 +34,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description = "GUI written in Python to parse OSM (OpenStreetMap) files and render them onscreen";
-    homepage = "https://github.com/Absolute-Tinkerer/map-stylizer";
+    inherit (src.meta) homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

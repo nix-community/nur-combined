@@ -13,20 +13,6 @@
         "url": "https://github.com/ruarxive/apibackuper/archive/1ff139f688d59b899ff041ccc282e224110ddc76.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "cheetah3": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-22T10:57:01Z",
-        "description": "Cheetah3 is a free (MIT) and open source template engine for Python",
-        "homepage": "https://cheetahtemplate.org/",
-        "owner": "CheetahTemplate3",
-        "repo": "cheetah3",
-        "rev": "a4e33f0f55ed5909437cbbf262fa99de78a7ad2b",
-        "sha256": "0y7py63fcxk3wk85n87y3kgiq07qyqirbh4r2pd2m1kpyyjzshsc",
-        "type": "tarball",
-        "url": "https://github.com/CheetahTemplate3/cheetah3/archive/a4e33f0f55ed5909437cbbf262fa99de78a7ad2b.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "dict2rest": {
         "branch": "master",
         "builtin": false,
@@ -55,20 +41,6 @@
         "url": "https://github.com/byrnedo/docker-reg-tool/archive/23292d234289b1fd114b53786c9e4f9fece3674b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "docx2csv": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-05-05T21:11:02Z",
-        "description": "Extracts tables from .docx files and saves them as .csv or .xls files",
-        "homepage": "https://github.com/ivbeg/docx2csv",
-        "owner": "ivbeg",
-        "repo": "docx2csv",
-        "rev": "e397b6bd17c73d76b21404ce3422496b8da262db",
-        "sha256": "0n0h9wc8jqaqpi7cdv8692af5mwy9djgmrhwicb2f8917idj0pzf",
-        "type": "tarball",
-        "url": "https://github.com/ivbeg/docx2csv/archive/e397b6bd17c73d76b21404ce3422496b8da262db.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "elevation": {
         "branch": "master",
         "builtin": false,
@@ -95,20 +67,6 @@
         "sha256": "0bcgrnfl693dmg6yd5bnhmfikdqvv61d2l3mkbg524h0l38xv6ym",
         "type": "tarball",
         "url": "https://github.com/mhulden/foma/archive/b44022c7d9d347dc7392aabbf72c82e558767675.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "garminimg": {
-        "branch": "main",
-        "builtin": false,
-        "date": "2021-01-05T11:21:46Z",
-        "description": "Encode/decode a Garmin IMG file",
-        "homepage": "https://github.com/kiozen/GarminImg",
-        "owner": "kiozen",
-        "repo": "GarminImg",
-        "rev": "049b10a35da548f032e7e1e3ce3e9ae8600fd83e",
-        "sha256": "1d80gxnb6qh3485d46vm0w5vw26b3a6jkbsi52hawwwh68a1knnw",
-        "type": "tarball",
-        "url": "https://github.com/kiozen/GarminImg/archive/049b10a35da548f032e7e1e3ce3e9ae8600fd83e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gdcv": {
@@ -161,20 +119,6 @@
         "sha256": "14i9knc1dbkag0gsc2y1kv9hwzzzkycfy7fj1zmrgbsq71rnl1h2",
         "type": "tarball",
         "url": "https://github.com/wuyongzheng/gimgtools/archive/92d015749e105c5fb8eb704ae503a5c7e51af2bd.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "glauth": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-27T13:51:46Z",
-        "description": "A lightweight LDAP server for development, home use, or CI",
-        "homepage": "https://github.com/glauth/glauth",
-        "owner": "glauth",
-        "repo": "glauth",
-        "rev": "5681dc4d0236c49e549ae7804ef2f4e4455340e4",
-        "sha256": "1fcr6xrn9rqj5jxy1n18rjk11zbb5qanmh39msv1avs5dmvmg7ly",
-        "type": "tarball",
-        "url": "https://github.com/glauth/glauth/archive/5681dc4d0236c49e549ae7804ef2f4e4455340e4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpx-interpolate": {
@@ -494,48 +438,6 @@
         "sha256": "1llhdxd9205cj2v0vxynxx9hwliw7pk7w1pac58dmsrwp5h54kr7",
         "type": "tarball",
         "url": "https://github.com/btittelbach/openmtbmap_openvelomap_linux/archive/de24cd5d4168d8571c544ac42c51883af957a01a.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "osm-area-tools": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-01-04T16:32:27Z",
-        "description": "OSM Area Tools",
-        "homepage": "https://osmcode.org/osm-area-tools/",
-        "owner": "osmcode",
-        "repo": "osm-area-tools",
-        "rev": "b96db0ced55f1bb574084620ca34f0a2e9d19b5a",
-        "sha256": "1awb2kj2afdcn29zl3cgrsmld0bwmf3z3f0bn1lhkbvpqzqgxh3c",
-        "type": "tarball",
-        "url": "https://github.com/osmcode/osm-area-tools/archive/b96db0ced55f1bb574084620ca34f0a2e9d19b5a.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "osmcoastline": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-01-08T14:38:44Z",
-        "description": "Extracts coastline data from OpenStreetMap planet file",
-        "homepage": "https://osmcode.org/osmcoastline/",
-        "owner": "osmcode",
-        "repo": "osmcoastline",
-        "rev": "56371668ebb6261009f35a7411a8fbcc83aabfe0",
-        "sha256": "0q7pmyxdkylydxhwcwnvcig6i96wss825hv9w971455qickravl1",
-        "type": "tarball",
-        "url": "https://github.com/osmcode/osmcoastline/archive/56371668ebb6261009f35a7411a8fbcc83aabfe0.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "polyvectorization": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2019-08-23T14:52:46Z",
-        "description": "Reference implementation of Vectorization of Line Drawings via PolyVector Fields",
-        "homepage": "https://github.com/bmpix/PolyVectorization",
-        "owner": "bmpix",
-        "repo": "PolyVectorization",
-        "rev": "bceb8e2a08cca29cef1df074eb1a1f6450cc163f",
-        "sha256": "0d8281q3rdxzrxr5y9bxjkq2s2sfl8fgkk9kqpmpp3z5hxg893jq",
-        "type": "tarball",
-        "url": "https://github.com/bmpix/PolyVectorization/archive/bceb8e2a08cca29cef1df074eb1a1f6450cc163f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pyephem": {

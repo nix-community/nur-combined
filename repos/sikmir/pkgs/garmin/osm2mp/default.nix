@@ -27,7 +27,7 @@ buildPerlPackage rec {
     owner = "liosha";
     repo = pname;
     rev = "748f93792ead174ad0e94a183a173ef3fcacf200";
-    sha256 = "sha256-YxtEOuoLeglpdpmStrcEkXwRGHRE+N1hKDB2Rr8rokw=";
+    hash = "sha256-YxtEOuoLeglpdpmStrcEkXwRGHRE+N1hKDB2Rr8rokw=";
   };
 
   outputs = [ "out" ];
@@ -72,7 +72,7 @@ buildPerlPackage rec {
 
   meta = with lib; {
     description = "Convert Openstreetmap data to MP format";
-    homepage = "https://github.com/liosha/osm2mp";
+    inherit (src.meta) homepage;
     license = licenses.gpl2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

@@ -1,6 +1,6 @@
 { lib, stdenvNoCC, fetchFromGitHub, dict, pandoc, stardict-tools }:
 
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation rec {
   pname = "it-sanasto";
   version = "2020-02-27";
 
@@ -8,7 +8,7 @@ stdenvNoCC.mkDerivation {
     owner = "HankiDesign";
     repo = "IT-sanasto";
     rev = "e31974edd50a50db6ef1b95aab81a18f33800e67";
-    sha256 = "sha256-+YLKG4kqflWkRdrER0A7GRYXluZpuf1TO0zyk3gVzU4=";
+    hash = "sha256-+YLKG4kqflWkRdrER0A7GRYXluZpuf1TO0zyk3gVzU4=";
   };
 
   nativeBuildInputs = [ dict pandoc stardict-tools ];
@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation {
 
   meta = with lib; {
     description = "IT-alan englanti-suomi -sanasto";
-    homepage = "https://github.com/HankiDesign/IT-sanasto";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;

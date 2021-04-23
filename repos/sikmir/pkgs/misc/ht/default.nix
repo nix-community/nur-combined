@@ -8,16 +8,16 @@ rustPlatform.buildRustPackage rec {
     owner = "ducaale";
     repo = "ht";
     rev = "v${version}";
-    sha256 = "083m1wz8rs5mr1lgvj5rnygv7b5l7ik4m6h666qivm4hci1d4ynh";
+    hash = "sha256-0HrSQmSQ1B2xMQaaSmY8tKyzn7e5yP1oyLXojD4PdSA=";
   };
 
-  cargoSha256 = "1h0i6zcbhjik6452x73pfz292yb1yclwxxf04gj76y6y4cas3d5p";
+  cargoHash = "sha256-t7ShFSPeeHPkI8D1zinzYXmRxHd3nC4KMTNKuNg3EcA=";
 
   doCheck = false;
 
   meta = with lib; {
     description = "Yet another HTTPie clone";
-    homepage = src.meta.homepage;
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

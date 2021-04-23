@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     owner = "ushakov";
     repo = pname;
     rev = "45fdd650f1fb1d30ac0682550c541bc7a3d368fc";
-    sha256 = "sha256-s/9en0d8eYsbDb3krZrmenFaZd9LPuNG0uEo35K0oNo=";
+    hash = "sha256-s/9en0d8eYsbDb3krZrmenFaZd9LPuNG0uEo35K0oNo=";
   };
 
   patches = [ ./0001-fix-build.patch ];
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Mapping software for linux";
-    homepage = "https://github.com/ushakov/mapsoft";
+    inherit (src.meta) homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;

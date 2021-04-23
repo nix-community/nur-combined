@@ -10,7 +10,7 @@ python3Packages.buildPythonApplication rec {
     owner = "wladich";
     repo = pname;
     rev = "1dc5be65e58638f5899cd6cdc2010e00ce5e62d4";
-    sha256 = "sha256-2wDhU1wbvyEAAYUQXUGASmK5X0/XNQF9P2y9pfHhHHg=";
+    hash = "sha256-2wDhU1wbvyEAAYUQXUGASmK5X0/XNQF9P2y9pfHhHHg=";
   };
 
   patches = [
@@ -50,7 +50,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Raster maps to map tiles";
-    homepage = "https://github.com/wladich/map-tiler";
+    inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

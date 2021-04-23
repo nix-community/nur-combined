@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Indexes points and lines and generates map tiles to display them";
-    homepage = src.meta.homepage;
+    inherit (src.meta) homepage;
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

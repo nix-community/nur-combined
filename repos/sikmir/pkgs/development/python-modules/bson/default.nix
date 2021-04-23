@@ -1,6 +1,6 @@
 { lib, python3Packages, fetchFromGitHub }:
 
-python3Packages.buildPythonPackage {
+python3Packages.buildPythonPackage rec {
   pname = "bson";
   version = "0.5.10";
 
@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage {
 
   meta = with lib; {
     description = "Independent BSON codec for Python that doesn't depend on MongoDB";
-    homepage = "https://github.com/py-bson/bson";
+    inherit (src.meta) homepage;
     license = with licenses; [ bsd3 asl20 ];
     maintainers = [ maintainers.sikmir ];
   };

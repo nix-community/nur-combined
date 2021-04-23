@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "dbro";
     repo = pname;
     rev = "baf37fa4cccc656282551db4ea7ce4ec6b9c318e";
-    sha256 = "sha256-Pi50Gd1YSBmCHuaPs0WLQzt6pIubcJj5riBSW0V5fxo=";
+    hash = "sha256-Pi50Gd1YSBmCHuaPs0WLQzt6pIubcJj5riBSW0V5fxo=";
   };
 
   makeFlags = [ "BINDIR=$(out)/bin" ];
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Enables common unix utlities like cut, awk, wc, head to work correctly with csv data containing delimiters and newlines";
-    homepage = "https://github.com/dbro/csvquote";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

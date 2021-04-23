@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://dl.suckless.org/tools/blind-${version}.tar.gz";
-    sha256 = "0nncvzyipvkkd7zlgzwbjygp82frzs2hvbnk71gxf671np607y94";
+    hash = "sha256-JPkDzLXhGNdfONOuDYX+2Ql0n5eL/0f/aXPuG/3fzFo=";
   };
 
   installFlags = [ "PREFIX=$(out)" ];

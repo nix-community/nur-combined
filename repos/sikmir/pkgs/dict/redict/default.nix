@@ -15,7 +15,7 @@
 , withI18n ? true
 }:
 
-mkDerivation {
+mkDerivation rec {
   pname = "redict";
   version = "2019-06-21";
 
@@ -50,7 +50,7 @@ mkDerivation {
 
   meta = with lib; {
     description = "A dictionary for Linux, based on C++/Qt development";
-    homepage = "https://github.com/rekols/redict";
+    inherit (src.meta) homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

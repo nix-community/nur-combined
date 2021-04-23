@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "C++ geoJSON and topoJSON parser and rendering using the WxWidgets GUI library";
-    homepage = src.meta.homepage;
+    inherit (src.meta) homepage;
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

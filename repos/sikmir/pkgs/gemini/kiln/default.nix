@@ -8,14 +8,14 @@ buildGoModule rec {
     owner = "~adnano";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0rj2h8l5b92kjfb3hhm77w6zwmvxwrrd3yjs1718q77xxf2l83m1";
+    hash = "sha256-oQ5Ehev9HIzCCVr60XLmfVf+DT+nQjiWk1OkVSiCQmY=";
   };
 
   vendorSha256 = "1vqzbw4a2rh043cim17ys0yn33qxk0d7szxr9gkcs5dqlaa8z36y";
 
   meta = with lib; {
     description = "A simple static site generator for Gemini";
-    homepage = "https://git.sr.ht/~adnano/kiln";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

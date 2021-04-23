@@ -8,7 +8,7 @@ python3Packages.buildPythonPackage rec {
     owner = "wladich";
     repo = pname;
     rev = "4d6bd3f234960ba90d82e6d58da9c1bf4677eb16";
-    sha256 = "sha256-sbAKi9GZEPmbI1Nq3l4uSh/tVNLXAY2siXu3YtHI5qo=";
+    hash = "sha256-sbAKi9GZEPmbI1Nq3l4uSh/tVNLXAY2siXu3YtHI5qo=";
   };
 
   postPatch = "2to3 -n -w ozi_map/*.py";
@@ -20,8 +20,8 @@ python3Packages.buildPythonPackage rec {
   pythonImportsCheck = [ "ozi_map" ];
 
   meta = with lib; {
-    description = "python module for reading OziExplorer .map files";
-    homepage = "https://github.com/wladich/ozi_map";
+    description = "Python module for reading OziExplorer .map files";
+    inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
   };

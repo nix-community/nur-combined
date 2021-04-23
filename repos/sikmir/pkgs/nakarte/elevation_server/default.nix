@@ -8,7 +8,7 @@ buildGoPackage rec {
     owner = "wladich";
     repo = pname;
     rev = version;
-    sha256 = "sha256-2mpBboPKIV+Wm2p3FHy3a+6H3+qJUOu2+F28MufzBwU=";
+    hash = "sha256-2mpBboPKIV+Wm2p3FHy3a+6H3+qJUOu2+F28MufzBwU=";
   };
 
   goPackagePath = "github.com/wladich/elevation_server";
@@ -21,7 +21,7 @@ buildGoPackage rec {
 
   meta = with lib; {
     description = "The server providing elevation data";
-    homepage = "https://github.com/wladich/elevation_server";
+    inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
