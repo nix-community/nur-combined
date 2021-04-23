@@ -2,8 +2,8 @@
 
 fetchFirefoxAddon {
   name = "ublock-origin";
-  url = "https://addons.mozilla.org/firefox/downloads/file/3740966/ublock_origin-1.34.0-an+fx.xpi";
-  sha256 = "sha256-lng7Tpq+1mr4GjD327ZWCRGp2CixKq3w7IixgSAMO/4=";
+  url = "https://addons.mozilla.org/firefox/downloads/file/3763753/ublock_origin-1.35.0-an+fx.xpi";
+  sha256 = "sha256-dUxYFUa9Ks7JKdxpxhmgovE8ZdVEkE6JFEHn8GBGYUQ=";
 
   # meta = with lib; {
   #   https://github.com/gorhill/uBlock/releases/download/1.34.0/uBlock0_1.34.0.firefox.xpi

@@ -26,9 +26,10 @@ in
   flat-remix-theme = callPackage ./pkgs/themes/flat-remix { };
   go-jira = callPackage ./pkgs/go-jira { };
   google-fonts = callPackage ./pkgs/fonts/google-fonts { };
-  nerdfont-hasklig = callPackage ./pkgs/fonts/nerdfont-hasklig { };
   hunter = callPackage ./pkgs/hunter { };
   infracost = callPackage ./pkgs/infracost { };
+  ko = callPackage ./pkgs/ko { };
+  nerdfont-hasklig = callPackage ./pkgs/fonts/nerdfont-hasklig { };
   scorecard = callPackage ./pkgs/scorecard { };
   subo = callPackage ./pkgs/subo { };
 }
