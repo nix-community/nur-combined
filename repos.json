@@ -16,6 +16,10 @@
         "alwinb": {
             "url": "https://gitlab.com/AlwinB/nur-packages"
         },
+        "ambroisie": {
+            "file": "pkgs/default.nix",
+            "url": "https://github.com/ambroisie/nix-config"
+        },
         "andersontorres": {
             "url": "https://github.com/AndersonTorres/nur-packages"
         },
