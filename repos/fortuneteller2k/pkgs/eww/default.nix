@@ -4,7 +4,7 @@ with pkgs;
 
 rustPlatform.buildRustPackage rec {
   pname = "eww";
-  version = "unstable-2021-04-14";
+  version = "unstable-2021-04-22";
 
   src = fetchFromGitHub {
     owner = "elkowar";
@@ -13,7 +13,11 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-O5bOXL1l+AYvyqHMdqvY7fWOLsH6/L2gYWf72+Ld7nI=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook pkg-config rust-bin.nightly.latest.rust ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    pkg-config
+    rust-bin.nightly.latest.default
+  ];
 
   buildInputs = [
     gtk3
