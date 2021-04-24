@@ -13,20 +13,6 @@
         "url": "https://github.com/ruarxive/apibackuper/archive/1ff139f688d59b899ff041ccc282e224110ddc76.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "dict2rest": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2016-12-05T08:16:58Z",
-        "description": "A simple proxy service providing an HTTP interface to a Dict protocol (RFC 2229) server",
-        "homepage": "https://github.com/felix/go-dict2rest",
-        "owner": "felix",
-        "repo": "go-dict2rest",
-        "rev": "b049991a46a2f619344bd6e915745703864d0134",
-        "sha256": "0d3fbqyyzy1rxpv76phkbfzrx9ianckq30a87k982rchs6qw36xz",
-        "type": "tarball",
-        "url": "https://github.com/felix/go-dict2rest/archive/b049991a46a2f619344bd6e915745703864d0134.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "docker-reg-tool": {
         "branch": "master",
         "builtin": false,
@@ -452,20 +438,6 @@
         "sha256": "1p1d6s8jnrnlvk55p5spzjyv5cm8h4xggxzl2piwlirpkai4933a",
         "type": "tarball",
         "url": "https://github.com/brandon-rhodes/pyephem/archive/6aac05e01f2bfc323779b21933721a4a059b1564.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "pymbtiles": {
-        "branch": "main",
-        "builtin": false,
-        "date": "2021-02-16T00:08:01Z",
-        "description": "Python utilities for Mapbox mbtiles files",
-        "homepage": "https://github.com/consbio/pymbtiles",
-        "owner": "consbio",
-        "repo": "pymbtiles",
-        "rev": "5094f77de6fb920092952df68aa64f91bf2aa097",
-        "sha256": "0ds31ddphaipk4wf0ch6rm61y26vlw1qdbr9pvywc7p4qnhpf6k8",
-        "type": "tarball",
-        "url": "https://github.com/consbio/pymbtiles/archive/5094f77de6fb920092952df68aa64f91bf2aa097.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "qtpbfimageplugin-styles": {

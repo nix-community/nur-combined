@@ -1,15 +1,21 @@
-{ lib, python3Packages, sources }:
+{ lib, fetchFromGitHub, python3Packages }:
 
-python3Packages.buildPythonPackage {
-  pname = "pymbtiles-unstable";
-  version = lib.substring 0 10 sources.pymbtiles.date;
+python3Packages.buildPythonPackage rec {
+  pname = "pymbtiles";
+  version = "2021-02-16";
 
-  src = sources.pymbtiles;
+  src = fetchFromGitHub {
+    owner = "consbio";
+    repo = pname;
+    rev = "5094f77de6fb920092952df68aa64f91bf2aa097";
+    hash = "sha256-aBp3ocXkHsb9vimvhgOn2wgfTM0GMuA4mTcqeFsLQzc=";
+  };
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
-    inherit (sources.pymbtiles) description homepage;
+    description = "Python utilities for Mapbox mbtiles files";
+    inherit (src.meta) homepage;
     license = licenses.isc;
     maintainers = [ maintainers.sikmir ];
   };

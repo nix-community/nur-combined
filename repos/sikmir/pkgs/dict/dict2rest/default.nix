@@ -1,15 +1,21 @@
-{ lib, buildGoPackage, sources }:
+{ lib, fetchFromGitHub, buildGoPackage }:
 
-buildGoPackage {
+buildGoPackage rec {
   pname = "dict2rest";
-  version = lib.substring 0 10 sources.dict2rest.date;
+  version = "2016-12-05";
 
-  src = sources.dict2rest;
+  src = fetchFromGitHub {
+    owner = "felix";
+    repo = "go-dict2rest";
+    rev = "b049991a46a2f619344bd6e915745703864d0134";
+    hash = "sha256-v5vBsdGQZYHSPEiBgSezKqaev1sTXnP27Tn47z1ebjQ=";
+  };
 
   goPackagePath = "github.com/felix/go-dict2rest";
 
   meta = with lib; {
-    inherit (sources.dict2rest) description homepage;
+    description = "A simple proxy service providing an HTTP interface to a Dict protocol (RFC 2229) server";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
