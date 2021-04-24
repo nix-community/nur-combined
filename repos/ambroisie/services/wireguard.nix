@@ -55,6 +55,21 @@ let
         ];
       in
       lib.mapAttrsToList mkPeer otherPeers;
+
+    # Set up clients to use configured DNS servers
+    dns =
+      let
+        toInternalIps = peer: [
+          "${cfg.net.v4.subnet}.${toString peer.clientNum}"
+          "${cfg.net.v6.subnet}::${toString peer.clientNum}"
+        ];
+        # We know that `otherPeers` is an attribute set of servers
+        internalIps = lib.flatten
+          (lib.mapAttrsToList (_: peer: toInternalIps peer) otherPeers);
+        internalServers = lib.optionals cfg.dns.useInternal internalIps;
+      in
+      lib.mkIf (!thisPeerIsServer)
+        (internalServers ++ cfg.dns.additionalServers);
   };
 in
 {
@@ -172,26 +187,6 @@ in
         "${cfg.net.v6.subnet}::/${toString cfg.net.v6.mask}"
       ];
     })
-
-    # Set up clients to use configured DNS servers on both interfaces
-    (
-      let
-        toInternalIps = peer: [
-          "${cfg.net.v4.subnet}.${toString peer.clientNum}"
-          "${cfg.net.v6.subnet}::${toString peer.clientNum}"
-        ];
-        # We know that `otherPeers` is an attribute set of servers
-        internalIps = lib.flatten
-          (lib.mapAttrsToList (_: peer: toInternalIps peer) otherPeers);
-        internalServers = lib.optionals cfg.dns.useInternal internalIps;
-        dns = internalServers ++ cfg.dns.additionalServers;
-      in
-      lib.mkIf (!thisPeerIsServer) {
-        networking.wg-quick.interfaces."${cfg.iface}".dns = dns;
-        networking.wg-quick.interfaces."${cfg.internal.name}".dns =
-          lib.mkIf cfg.internal.enable dns;
-      }
-    )
 
     # Expose port
     {

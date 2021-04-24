@@ -65,7 +65,8 @@ rec {
         from = baseIp;
         to = zipListsWith (b: m: 255 - m + b) baseIp mask;
       };
-      check = ip: baseIp == zipListsWith (b: m: bitAnd b m) ip mask;
+      check =
+        ip: isValidIp4 ip && baseIp == zipListsWith (b: m: bitAnd b m) ip mask;
       try =
         if baseIp == givenIp
         then id
@@ -75,9 +76,22 @@ rec {
             "which will get masked to ${prettyIp4 baseIp},"
             "which should be used instead"
           ]);
+      nth = n:
+        let
+          result = nthInRange4 range n;
+          try =
+            if check result
+            then id
+            else
+              warn (concatStringsSep " " [
+                "nth call with n = ${toString n}"
+                "is out of range for subnet ${str}"
+              ]);
+        in
+        try result;
     in
     try {
-      inherit baseIp check cidr mask range;
+      inherit baseIp check cidr mask nth range;
     };
 
   # Pretty print a parsed IPv4 address into a human readable form
@@ -86,27 +100,32 @@ rec {
   # Pretty print a parsed subnet into a human readable form
   prettySubnet4 = { baseIp, cidr, ... }: "${prettyIp4 baseIp}/${toString cidr}";
 
+  # Get the nth address from an IPv4 range, without checking if it is in range
+  nthInRange4 = { from, to }: n:
+    let
+      carry = lhs: { carry, acc }:
+        let
+          totVal = lhs + carry;
+        in
+        {
+          carry = totVal / 256;
+          acc = [ (mod totVal 256) ] ++ acc;
+        };
+      carried = foldr carry { carry = n; acc = [ ]; } from;
+    in
+    carried.acc;
+
   # Convert an IPv4 range into a list of all its constituent addresses
   rangeIp4 =
-    { from, to }:
+    { from, to } @ arg:
     let
       numAddresses =
         builtins.foldl' (acc: rhs: acc * 256 + rhs)
           0
           (zipListsWith (lhs: rhs: lhs - rhs) to from);
-      addToBase = n:
-        let
-          carry = lhs: { carry, acc }:
-            let
-              totVal = lhs + carry;
-            in
-            {
-              carry = totVal / 256;
-              acc = [ (mod totVal 256) ] ++ acc;
-            };
-          carried = foldr carry { carry = n; acc = [ ]; } from;
-        in
-        carried.acc;
     in
-    map addToBase (range 0 numAddresses);
+    map (nthInRange4 arg) (range 0 numAddresses);
+
+  isValidIp4 = ip:
+    (builtins.all (n: n >= 0 && n < 256) ip) && (builtins.length ip == 4);
 }
