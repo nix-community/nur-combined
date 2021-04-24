@@ -19,6 +19,43 @@ let
     lib.filterAttrs shouldConnectToPeer allOthers;
 
   extIface = config.my.networking.externalInterface;
+
+  mkInterface = clientAllowedIPs: {
+    listenPort = cfg.port;
+    address = with cfg.net; with lib; [
+      "${v4.subnet}.${toString thisPeer.clientNum}/${toString v4.mask}"
+      "${v6.subnet}::${toString thisPeer.clientNum}/${toHexString v6.mask}"
+    ];
+    # Insecure, I don't care
+    privateKey = thisPeer.privateKey;
+
+    peers =
+      let
+        mkPeer = _: peer: lib.mkMerge [
+          {
+            inherit (peer) publicKey;
+          }
+
+          (lib.optionalAttrs thisPeerIsServer {
+            # Only forward from server to clients
+            allowedIPs = with cfg.net; [
+              "${v4.subnet}.${toString peer.clientNum}/32"
+              "${v6.subnet}::${toString peer.clientNum}/128"
+            ];
+          })
+
+          (lib.optionalAttrs (!thisPeerIsServer) {
+            # Forward all traffic through wireguard to server
+            allowedIPs = clientAllowedIPs;
+            # Roaming clients need to keep NAT-ing active
+            persistentKeepalive = 10;
+            # We know that `peer` is a server, set up the endpoint
+            endpoint = "${peer.externalIp}:${toString cfg.port}";
+          })
+        ];
+      in
+      lib.mapAttrsToList mkPeer otherPeers;
+  };
 in
 {
   options.my.services.wireguard = with lib; {
@@ -94,66 +131,67 @@ in
         };
       };
     };
+
+    internal = {
+      enable = mkEnableOption ''
+        Additional interface which does not route WAN traffic, but gives access
+        to wireguard peers.
+        Is useful for accessing DNS and other internal services, without having
+        to route all traffic through wireguard.
+        Is automatically disabled on server, and enabled otherwise.
+      '' // {
+        default = !thisPeerIsServer;
+      };
+
+      name = mkOption {
+        type = types.str;
+        default = "lan";
+        example = "internal";
+        description = "Which name to use for this interface";
+      };
+
+      startAtBoot = my.mkDisableOption ''
+        Should the internal VPN service be started at boot.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
+    # Normal interface should route all traffic from client through server
     {
-      networking.wg-quick.interfaces."${cfg.iface}" = {
-        listenPort = cfg.port;
-        address = with cfg.net; with lib; [
-          "${v4.subnet}.${toString thisPeer.clientNum}/${toString v4.mask}"
-          "${v6.subnet}::${toString thisPeer.clientNum}/${toHexString v6.mask}"
-        ];
-        # Insecure, I don't care
-        privateKey = thisPeer.privateKey;
-
-        peers =
-          let
-            mkPeer = _: peer: lib.mkMerge [
-              {
-                inherit (peer) publicKey;
-              }
-
-              (lib.optionalAttrs thisPeerIsServer {
-                # Only forward from server to clients
-                allowedIPs = with cfg.net; [
-                  "${v4.subnet}.${toString peer.clientNum}/32"
-                  "${v6.subnet}::${toString peer.clientNum}/128"
-                ];
-              })
-
-              (lib.optionalAttrs (!thisPeerIsServer) {
-                # Forward all traffic through wireguard to server
-                allowedIPs = with cfg.net; [
-                  "0.0.0.0/0"
-                  "::/0"
-                ];
-                # Roaming clients need to keep NAT-ing active
-                persistentKeepalive = 10;
-                # We know that `peer` is a server, set up the endpoint
-                endpoint = "${peer.externalIp}:${toString cfg.port}";
-              })
-            ];
-          in
-          lib.mapAttrsToList mkPeer otherPeers;
-      };
+      networking.wg-quick.interfaces."${cfg.iface}" = mkInterface [
+        "0.0.0.0/0"
+        "::/0"
+      ];
     }
 
-    # Set up clients to use configured DNS servers
-    (lib.mkIf (!thisPeerIsServer) {
-      networking.wg-quick.interfaces."${cfg.iface}".dns =
-        let
-          toInternalIps = peer: [
-            "${cfg.net.v4.subnet}.${toString peer.clientNum}"
-            "${cfg.net.v6.subnet}::${toString peer.clientNum}"
-          ];
-          # We know that `otherPeers` is an attribute set of servers
-          internalIps = lib.flatten
-            (lib.mapAttrsToList (_: peer: toInternalIps peer) otherPeers);
-          internalServers = lib.optionals cfg.dns.useInternal internalIps;
-        in
-        internalServers ++ cfg.dns.additionalServers;
+    # Additional inteface is only used to get access to "LAN" from wireguard
+    (lib.mkIf cfg.internal.enable {
+      networking.wg-quick.interfaces."${cfg.internal.name}" = mkInterface [
+        "${cfg.net.v4.subnet}.0/${toString cfg.net.v4.mask}"
+        "${cfg.net.v6.subnet}::/${toString cfg.net.v6.mask}"
+      ];
     })
+
+    # Set up clients to use configured DNS servers on both interfaces
+    (
+      let
+        toInternalIps = peer: [
+          "${cfg.net.v4.subnet}.${toString peer.clientNum}"
+          "${cfg.net.v6.subnet}::${toString peer.clientNum}"
+        ];
+        # We know that `otherPeers` is an attribute set of servers
+        internalIps = lib.flatten
+          (lib.mapAttrsToList (_: peer: toInternalIps peer) otherPeers);
+        internalServers = lib.optionals cfg.dns.useInternal internalIps;
+        dns = internalServers ++ cfg.dns.additionalServers;
+      in
+      lib.mkIf (!thisPeerIsServer) {
+        networking.wg-quick.interfaces."${cfg.iface}".dns = dns;
+        networking.wg-quick.interfaces."${cfg.internal.name}".dns =
+          lib.mkIf cfg.internal.enable dns;
+      }
+    )
 
     # Expose port
     {
@@ -174,15 +212,23 @@ in
       networking.wg-quick.interfaces."${cfg.iface}" = {
         postUp = with cfg.net; ''
           ${pkgs.iptables}/bin/iptables -A FORWARD -i ${cfg.iface} -j ACCEPT
-          ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${v4.subnet}.1/${toString v4.mask} -o ${extIface} -j MASQUERADE
+          ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING \
+              -s ${v4.subnet}.${toString thisPeer.clientNum}/${toString v4.mask} \
+              -o ${extIface} -j MASQUERADE
           ${pkgs.iptables}/bin/ip6tables -A FORWARD -i ${cfg.iface} -j ACCEPT
-          ${pkgs.iptables}/bin/ip6tables -t nat -A POSTROUTING -s ${v6.subnet}::1/${toString v6.mask} -o ${extIface} -j MASQUERADE
+          ${pkgs.iptables}/bin/ip6tables -t nat -A POSTROUTING \
+              -s ${v6.subnet}::${toString thisPeer.clientNum}/${toString v6.mask} \
+              -o ${extIface} -j MASQUERADE
         '';
         preDown = with cfg.net; ''
           ${pkgs.iptables}/bin/iptables -D FORWARD -i ${cfg.iface} -j ACCEPT
-          ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${v4.subnet}.1/${toString v4.mask} -o ${extIface} -j MASQUERADE
+          ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING \
+              -s ${v4.subnet}.${toString thisPeer.clientNum}/${toString v4.mask} \
+              -o ${extIface} -j MASQUERADE
           ${pkgs.iptables}/bin/ip6tables -D FORWARD -i ${cfg.iface} -j ACCEPT
-          ${pkgs.iptables}/bin/ip6tables -t nat -D POSTROUTING -s ${v6.subnet}::1/${toString v6.mask} -o ${extIface} -j MASQUERADE
+          ${pkgs.iptables}/bin/ip6tables -t nat -D POSTROUTING \
+              -s ${v6.subnet}::${toString thisPeer.clientNum}/${toString v6.mask} \
+              -o ${extIface} -j MASQUERADE
         '';
       };
     })
@@ -190,6 +236,11 @@ in
     # When not needed at boot, ensure that there are no reverse dependencies
     (lib.mkIf (!cfg.startAtBoot) {
       systemd.services."wg-quick-${cfg.iface}".wantedBy = lib.mkForce [ ];
+    })
+
+    # Same idea, for internal-only interface
+    (lib.mkIf (cfg.internal.enable && !cfg.internal.startAtBoot) {
+      systemd.services."wg-quick-${cfg.internal.name}".wantedBy = lib.mkForce [ ];
     })
   ]);
 }
