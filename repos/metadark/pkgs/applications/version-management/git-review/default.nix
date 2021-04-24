@@ -19,8 +19,11 @@ buildPythonApplication rec {
     hash = "sha256-3A1T+/iXhNeMS2Aww5jISoiNExdv9N9/kwyATSuwVTE=";
   };
 
-  propagatedBuildInputs = [
+  nativeBuildInputs = [
     pbr
+  ];
+
+  propagatedBuildInputs = [
     requests
     setuptools # implicit dependency, used to get package version through pkg_resources
   ];
@@ -29,6 +32,8 @@ buildPythonApplication rec {
   # (a specific build of gerrit + maven plugins), and I haven't figured
   # out how to work around this yet.
   doCheck = false;
+
+  pythonImportsCheck = [ "git_review" ];
 
   meta = with lib; {
     description = "Tool to submit code to Gerrit";
