@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "kiln";
-  version = "0.1.0";
+  version = "2021-04-24";
 
   src = fetchFromSourcehut {
     owner = "~adnano";
     repo = pname;
-    rev = "v${version}";
-    hash = "sha256-oQ5Ehev9HIzCCVr60XLmfVf+DT+nQjiWk1OkVSiCQmY=";
+    rev = "1b7f5b4ab4863217e92995962be67b2c43567bda";
+    hash = "sha256-nzgIwYzNkf7dHO7xIChBVCVX3PMbsAObzLiOyOKpSZQ=";
   };
 
-  vendorSha256 = "1vqzbw4a2rh043cim17ys0yn33qxk0d7szxr9gkcs5dqlaa8z36y";
+  vendorSha256 = "sha256-nNK1Hv3MiD1XbYw5aqjk4AmFdN3LHCvUIFHEX75Ox0Y=";
 
   meta = with lib; {
     description = "A simple static site generator for Gemini";

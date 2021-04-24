@@ -1,15 +1,21 @@
-{ lib, python3Packages, sources }:
+{ lib, fetchFromGitHub, python3Packages }:
 
-python3Packages.buildPythonPackage {
-  pname = "jsonseq-unstable";
-  version = lib.substring 0 10 sources.jsonseq.date;
+python3Packages.buildPythonPackage rec {
+  pname = "jsonseq";
+  version = "1.0.0";
 
-  src = sources.jsonseq;
+  src = fetchFromGitHub {
+    owner = "sgillies";
+    repo = pname;
+    rev = version;
+    hash = "sha256-aZu4+MRFrAizskxqMnks9pRXbe/vw4sYt92tRpjfUSg=";
+  };
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
-    inherit (sources.jsonseq) description homepage;
+    description = "Python implementation of RFC 7464";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
   };

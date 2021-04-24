@@ -1,18 +1,4 @@
 {
-    "apibackuper": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-11-03T14:35:02Z",
-        "description": "Python library and cmd tool to backup API calls",
-        "homepage": "https://github.com/ruarxive/apibackuper",
-        "owner": "ruarxive",
-        "repo": "apibackuper",
-        "rev": "1ff139f688d59b899ff041ccc282e224110ddc76",
-        "sha256": "01lwd958byqh3ly9f1n4rk8sq3mdjgydsw2il4mvblsmcid7pg84",
-        "type": "tarball",
-        "url": "https://github.com/ruarxive/apibackuper/archive/1ff139f688d59b899ff041ccc282e224110ddc76.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "docker-reg-tool": {
         "branch": "master",
         "builtin": false,
@@ -203,20 +189,6 @@
         "sha256": "10xx1vyw2dd2qgwaswz7nk0c1h60vy39a3fn7dkvr716i37pccih",
         "type": "tarball",
         "url": "https://github.com/viva64/how-to-use-pvs-studio-free/archive/abc39706151159d102d29e3e2f2b8d5688362ec3.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "jsonseq": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2019-07-31T19:44:30Z",
-        "description": "Python implementation of RFC 7464",
-        "homepage": "https://github.com/sgillies/jsonseq",
-        "owner": "sgillies",
-        "repo": "jsonseq",
-        "rev": "d9a9c86c6c05abca1ed2bdbff248eb3cd9f214fd",
-        "sha256": "0a2ivyc4dbfxnwc8phzgxxnmg57n5iwk4sjcnarhib25qkwbi6v9",
-        "type": "tarball",
-        "url": "https://github.com/sgillies/jsonseq/archive/d9a9c86c6c05abca1ed2bdbff248eb3cd9f214fd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "klogg": {
@@ -452,20 +424,6 @@
         "sha256": "0a8bz0cfywhxg8v6a6n2n91r77sxvni0lxlv6sz4cfhjsasbibpw",
         "type": "tarball",
         "url": "https://github.com/mapbox/tilesets-cli/archive/23b74acadf89ad917c15dd8fb9c8f59aa6cc8640.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "tpkutils": {
-        "branch": "main",
-        "builtin": false,
-        "date": "2021-02-10T19:44:55Z",
-        "description": "ArcGIS Tile Package Utilities",
-        "homepage": "https://github.com/consbio/tpkutils",
-        "owner": "consbio",
-        "repo": "tpkutils",
-        "rev": "5f3694451a1759548af579b689f478cefc633252",
-        "sha256": "0rr5ynzzy0a9y2d55bhq271vsjdi5nqq70329zinwgs1d9207qg9",
-        "type": "tarball",
-        "url": "https://github.com/consbio/tpkutils/archive/5f3694451a1759548af579b689f478cefc633252.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
