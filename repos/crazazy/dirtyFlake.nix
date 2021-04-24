@@ -24,10 +24,10 @@
     in
     {
       __functor = attrs: import ./. ;
-      nixosConfigurations.RACEMONSTER = mkSystem [ 
+      nixosConfigurations.RACEMONSTER = mkSystem [
         ./configuration.nix
         ({config, lib, ...}: {
-          nix.registry = lib.mkIf config.nix-unstable.enable (
+          nix.registry = lib.mkIf config.nixExperimental.enable (
             lib.mapAttrs (k: v: { flake = v; }) inputs);
           })
       ];
