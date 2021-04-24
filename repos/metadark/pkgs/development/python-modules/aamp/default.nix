@@ -24,6 +24,8 @@ buildPythonPackage rec {
     python test.py
   '';
 
+  pythonImportsCheck = [ "aamp" ];
+
   meta = with lib; {
     description = "Nintendo parameter archive (AAMP) library and converters";
     homepage = "https://github.com/zeldamods/aamp";

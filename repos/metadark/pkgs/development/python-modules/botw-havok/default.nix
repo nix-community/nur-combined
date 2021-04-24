@@ -31,6 +31,7 @@ buildPythonPackage rec {
 
   # No tests
   doCheck = false;
+  pythonImportsCheck = [ "botw_havok" ];
 
   meta = with lib; {
     description = "A library for manipulating Breath of the Wild Havok packfiles";

@@ -10,13 +10,13 @@
 
 buildPythonPackage rec {
   pname = "mkdocs-material";
-  version = "7.1.2";
+  version = "7.1.3";
 
   src = fetchFromGitHub {
     owner = "squidfunk";
     repo = pname;
     rev = version;
-    hash = "sha256-vzTTnfb37xVRQw18wJzQK6yG2/ejIkOVz3dS2CBRLZ8=";
+    hash = "sha256-kqFKDxVoGp8rV3y9xrWeHcfNT9t293Js6xGbGL3mCfE=";
   };
 
   patches = lib.optional (mkdocs-material-extensions == null)
@@ -31,6 +31,7 @@ buildPythonPackage rec {
 
   # No tests
   doCheck = false;
+  pythonImportsCheck = [ "material" ];
 
   # Strip adds unnecessary overhead with no binary files to strip
   dontStrip = true;

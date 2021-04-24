@@ -26,6 +26,8 @@ buildPythonPackage rec {
     oead
   ];
 
+  pythonImportsCheck = [ "rstb" ];
+
   meta = with lib; {
     description = "Breath of the Wild RSTB parser and editing tool";
     homepage = "https://github.com/zeldamods/rstb";

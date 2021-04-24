@@ -87,6 +87,8 @@ buildPythonPackage rec {
     "gevent"
   ];
 
+  pythonImportsCheck = [ "debugpy" ];
+
   meta = with lib; {
     description = "An implementation of the Debug Adapter Protocol for Python";
     homepage = "https://github.com/microsoft/debugpy";

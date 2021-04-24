@@ -28,6 +28,8 @@ buildPythonPackage rec {
     python test.py
   '';
 
+  pythonImportsCheck = [ "byml" ];
+
   meta = with lib; {
     description = "Nintendo BYML or BYAML parser, writer and converter";
     homepage = "https://github.com/zeldamods/byml-v2";

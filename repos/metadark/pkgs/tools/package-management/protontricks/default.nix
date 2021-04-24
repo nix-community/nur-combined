@@ -55,6 +55,8 @@ buildPythonApplication rec {
     "test_run_winetricks_steam_runtime_v2"
   ];
 
+  pythonImportsCheck = [ "protontricks" ];
+
   meta = with lib; {
     description = "A simple wrapper for running Winetricks commands for Proton-enabled games";
     homepage = "https://github.com/Matoking/protontricks";

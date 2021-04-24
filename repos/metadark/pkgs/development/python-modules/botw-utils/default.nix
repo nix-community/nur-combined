@@ -25,6 +25,8 @@ buildPythonPackage rec {
     python test.py
   '';
 
+  pythonImportsCheck = [ "botw" ];
+
   meta = with lib; {
     description = "A Python library containing various utilities for BOTW modding";
     homepage = "https://github.com/NiceneNerd/botw-utils";

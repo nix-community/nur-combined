@@ -146,6 +146,7 @@ buildPythonApplication rec {
 
   # No tests
   doCheck = false;
+  pythonImportsCheck = [ "bcml" ];
 
   # Prevent double wrapping
   dontWrapGApps = true;

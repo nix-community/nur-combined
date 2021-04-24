@@ -26,6 +26,8 @@ buildPythonPackage rec {
     pyyaml
   ];
 
+  pythonImportsCheck = [ "pymdownx" ];
+
   meta = with lib; {
     description = "Extensions for Python Markdown";
     homepage = "https://github.com/facelessuser/pymdown-extensions";

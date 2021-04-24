@@ -25,6 +25,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cmake ];
   dontUseCmakeConfigure = true;
+  pythonImportsCheck = [ "oead" ];
 
   meta = with lib; {
     description = "Library for recent Nintendo EAD formats in first-party games";

@@ -25,6 +25,7 @@ buildPythonPackage rec {
   '';
 
   checkInputs = [ pytestCheckHook ];
+  pythonImportsCheck = [ "pytest_datadir" ];
 
   meta = with lib; {
     description = "Pytest plugin for manipulating test data directories and files";

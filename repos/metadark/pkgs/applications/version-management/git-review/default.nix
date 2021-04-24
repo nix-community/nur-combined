@@ -32,7 +32,6 @@ buildPythonApplication rec {
   # (a specific build of gerrit + maven plugins), and I haven't figured
   # out how to work around this yet.
   doCheck = false;
-
   pythonImportsCheck = [ "git_review" ];
 
   meta = with lib; {

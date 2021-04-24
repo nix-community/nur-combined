@@ -26,6 +26,7 @@ buildPythonApplication rec {
 
   checkInputs = [ cmake pytest-datadir pytestCheckHook ];
   dontUseCmakeConfigure = true;
+  pythonImportsCheck = [ "cmake_language_server" ];
 
   meta = with lib; {
     description = "CMake LSP Implementation";

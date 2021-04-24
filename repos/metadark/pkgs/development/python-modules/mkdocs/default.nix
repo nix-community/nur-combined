@@ -37,6 +37,8 @@ buildPythonPackage rec {
     tornado
   ];
 
+  pythonImportsCheck = [ "mkdocs" ];
+
   meta = with lib; {
     description = "Project documentation with Markdown / static website generator";
     longDescription = ''

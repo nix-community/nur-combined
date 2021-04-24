@@ -58,6 +58,8 @@ in buildPythonPackage rec {
     export NLTK_DATA=${nltk_data}
   '';
 
+  pythonImportsCheck = [ "lunr" ];
+
   meta = with lib; {
     description = "A Python implementation of Lunr.js";
     homepage = "https://github.com/yeraydiazdiaz/lunr.py";
