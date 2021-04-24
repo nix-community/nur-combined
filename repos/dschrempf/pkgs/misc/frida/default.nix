@@ -8,7 +8,7 @@
 
 let
   pname = "frida";
-  version = "14.2.14";
+  version = "14.2.16";
   pythonVersion = "38";
 
   # TODO : find a way to use fetchPypi
@@ -21,13 +21,13 @@ let
       # ${pname}-${version}.${extension}
       base = "https://files.pythonhosted.org/packages/${python3.pythonVersion}/${builtins.substring 0 1 pname}/${pname}";
     in
-    {
-      # add your system support here
-      x86_64-linux = fetchurl {
-        url = "${base}/${pname}-${version}-py${python3.pythonVersion}-linux-x86_64.egg";
-        sha256 = "1s5y2knxin5q85g6vmdmpw3b0g9jas6v0r1zhqjc0ylxc306209l";
+      {
+        # add your system support here
+        x86_64-linux = fetchurl {
+          url = "${base}/${pname}-${version}-py${python3.pythonVersion}-linux-x86_64.egg";
+          sha256 = "1ci5zalink3n6rj9rr4j8rp1fxp7g6kharxikh0swdyy182a8ssd";
+        };
       };
-    };
 
 in
 python3.pkgs.buildPythonPackage rec {
@@ -39,7 +39,7 @@ python3.pkgs.buildPythonPackage rec {
 
   src = python3.pkgs.fetchPypi {
     inherit pname version;
-    sha256 = "1a5gppp1r5qkgp6a9mp30a87q2n7cwwgvjxjc4fw3xi0q0d05l81";
+    sha256 = "sha256-k585fxj1JdunV+9yle9NHDcHQRnlNyjPnxo5qFLGbSM=";
   };
 
   egg = eggs.${stdenv.hostPlatform.system}
