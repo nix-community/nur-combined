@@ -29,13 +29,13 @@ let
   ];
 in buildPythonPackage rec {
   pname = "lunr.py";
-  version = "0.5.9";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "yeraydiazdiaz";
     repo = pname;
     rev = version;
-    hash = "sha256-nYLFybFROKxcmUXNSz1z8/hQcpV8mUlaRuQDLb3NIJA=";
+    hash = "sha256-u2nZ8majUejdhBQ43ptOOzBr3f00O5MM+1IUp3AAOqk=";
   };
 
   patches = [

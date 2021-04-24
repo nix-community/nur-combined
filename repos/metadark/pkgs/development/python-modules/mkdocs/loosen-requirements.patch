@@ -1,5 +1,5 @@
 diff --git a/setup.py b/setup.py
-index 2784814..391ae75 100755
+index 2784814..8d73b4c 100755
 --- a/setup.py
 +++ b/setup.py
 @@ -57,7 +57,7 @@ setup(
@@ -7,7 +7,7 @@ index 2784814..391ae75 100755
          'Jinja2>=2.10.1',
          'livereload>=2.5.1',
 -        'lunr[languages]==0.5.8',  # must support lunr.js version included in search
-+        'lunr[languages]~=0.5.8',  # must support lunr.js version included in search
++        'lunr[languages]>=0.5.8,<0.7',  # must support lunr.js version included in search
          'Markdown>=3.2.1',
          'PyYAML>=3.10',
          'tornado>=5.0'
