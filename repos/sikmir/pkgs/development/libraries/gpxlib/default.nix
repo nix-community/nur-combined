@@ -1,10 +1,15 @@
-{ lib, stdenv, cmake, expat, sources }:
+{ lib, stdenv, fetchFromGitHub, cmake, expat }:
 
-stdenv.mkDerivation {
-  pname = "gpxlib-unstable";
-  version = lib.substring 0 10 sources.gpxlib.date;
+stdenv.mkDerivation rec {
+  pname = "gpxlib";
+  version = "2021-02-16";
 
-  src = sources.gpxlib;
+  src = fetchFromGitHub {
+    owner = "irdvo";
+    repo = pname;
+    rev = "43df92be29412b7f3b58e63ebea516df9f15b883";
+    hash = "sha256-Ai6d2N0H+V/xzWVYL/jfJtQMaUVpY0ecNCISfugbE2k=";
+  };
 
   nativeBuildInputs = [ cmake ];
 
@@ -23,7 +28,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    inherit (sources.gpxlib) description homepage;
+    description = "A c++ library for parsing, browsing, changing and writing of GPX files";
+    homepage = "http://irdvo.nl/gpxlib/";
     license = licenses.lgpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

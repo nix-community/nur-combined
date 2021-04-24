@@ -55,20 +55,6 @@
         "url": "https://github.com/mhulden/foma/archive/b44022c7d9d347dc7392aabbf72c82e558767675.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "gdcv": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-05-14T16:41:01Z",
-        "description": "GoldenDict console version and emacs dynamic module",
-        "homepage": "https://github.com/konstare/gdcv",
-        "owner": "konstare",
-        "repo": "gdcv",
-        "rev": "39fd2667362710f69c13dd596e112b0391e0a57e",
-        "sha256": "1v9micdr6fml1lbhxndbynghrajix5vgp8qg7b7bdsa2wngzlr16",
-        "type": "tarball",
-        "url": "https://github.com/konstare/gdcv/archive/39fd2667362710f69c13dd596e112b0391e0a57e.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "geofabrik-estonia": {
         "builtin": false,
         "sha256": "07gy3280arvkvfpm82aqcing1w7av6hq3crf5wxm66ipk2viwmg7",
@@ -107,20 +93,6 @@
         "url": "https://github.com/wuyongzheng/gimgtools/archive/92d015749e105c5fb8eb704ae503a5c7e51af2bd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "gpx-interpolate": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-01-24T21:39:05Z",
-        "description": "Python script to interpolate GPX files using linear or spline interpolation",
-        "homepage": "https://github.com/remisalmon/gpx_interpolate",
-        "owner": "remisalmon",
-        "repo": "gpx_interpolate",
-        "rev": "24236e45e3d8baa0662c329b735b79a17e84c1bd",
-        "sha256": "0gi8xq7gsmi1a6gbp4d0a0h6ys2jpf0b1fys3ggph5gqf47h9pvc",
-        "type": "tarball",
-        "url": "https://github.com/remisalmon/gpx_interpolate/archive/24236e45e3d8baa0662c329b735b79a17e84c1bd.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "gpxelevations": {
         "branch": "master",
         "builtin": false,
@@ -147,20 +119,6 @@
         "sha256": "1z4wdnd65gkzpbn1gqrsl6vs0gvc9pqgnziw19g6bhap41dvxbv0",
         "type": "tarball",
         "url": "https://github.com/BourgeoisLab/GPXLab/archive/0a2e13756ed1c39f4278b0b3d6cef7f8ac9f6fe7.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "gpxlib": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-16T17:32:51Z",
-        "description": "A c++ library for parsing, browsing, changing and writing of GPX files",
-        "homepage": "http://irdvo.nl/gpxlib/",
-        "owner": "irdvo",
-        "repo": "gpxlib",
-        "rev": "43df92be29412b7f3b58e63ebea516df9f15b883",
-        "sha256": "0s8k3gl7w4i26jf4fqv98mlhrm16vzw2yn35rpqmzy87vpc9sbh2",
-        "type": "tarball",
-        "url": "https://github.com/irdvo/gpxlib/archive/43df92be29412b7f3b58e63ebea516df9f15b883.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxsee-maps": {

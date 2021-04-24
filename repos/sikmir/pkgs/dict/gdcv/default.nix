@@ -1,10 +1,15 @@
-{ lib, stdenv, pkg-config, emacs, zlib, sources }:
+{ lib, stdenv, fetchFromGitHub, pkg-config, emacs, zlib }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "gdcv";
-  version = lib.substring 0 10 sources.gdcv.date;
+  version = "2020-05-14";
 
-  src = sources.gdcv;
+  src = fetchFromGitHub {
+    owner = "konstare";
+    repo = pname;
+    rev = "39fd2667362710f69c13dd596e112b0391e0a57e";
+    hash = "sha256-JmT6n+VC6bbOOg+j+3bpUaoMn/Wr2Q4XDbQ6kxuLNe0=";
+  };
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -18,7 +23,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    inherit (sources.gdcv) description homepage;
+    description = "GoldenDict console version and emacs dynamic module";
+    inherit (src.meta) homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

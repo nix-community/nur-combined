@@ -1,10 +1,15 @@
-{ lib, python3Packages, sources }:
+{ lib, fetchFromGitHub, python3Packages }:
 
-python3Packages.buildPythonApplication {
+python3Packages.buildPythonApplication rec {
   pname = "gpx_interpolate";
-  version = lib.substring 0 10 sources.gpx-interpolate.date;
+  version = "2021-01-24";
 
-  src = sources.gpx-interpolate;
+  src = fetchFromGitHub {
+    owner = "remisalmon";
+    repo = pname;
+    rev = "24236e45e3d8baa0662c329b735b79a17e84c1bd";
+    hash = "sha256-bN8ED3H4FXjfG9q7sIC7UmhvIFCgkbueUSFW/Q7uKD4=";
+  };
 
   propagatedBuildInputs = with python3Packages; [ gpxpy scipy numpy ];
 
@@ -19,7 +24,8 @@ python3Packages.buildPythonApplication {
   '';
 
   meta = with lib; {
-    inherit (sources.gpx-interpolate) description homepage;
+    description = "Python script to interpolate GPX files using linear or spline interpolation";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
