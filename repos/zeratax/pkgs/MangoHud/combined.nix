@@ -8,13 +8,7 @@ in
 pkgs.buildEnv rec {
   name = "mangohud-${mangohud_64.version}";
 
-  paths = [
-    mangohud_32
-  ] ++
-  lib.lists.optionals
-    stdenv.is64bit
-    [ mangohud_64 ]
-  ;
+  paths = [ mangohud_32 ] ++ lib.optionals stdenv.is64bit [ mangohud_64 ];
 
   meta = mangohud_64.meta;
 }
