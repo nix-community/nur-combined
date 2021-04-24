@@ -63,10 +63,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.2.94";
+      version = "7.2.95";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3762473/betterttv-7.2.94-fx.xpi";
-      sha256 = "1662380a000694098a45b5a963f41450953ff30d17843ed852f96a236fc0ac0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3764883/betterttv-7.2.95-fx.xpi";
+      sha256 = "4fd6c25b682205dbd9df7dcf0d8833f1b7cef970a1ad1b50294e676687cc90ba";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -569,10 +569,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "3.3.18";
+      version = "3.3.19";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3756814/grammatik_und_rechtschreibprufung_languagetool-3.3.18-fx.xpi";
-      sha256 = "5f36751069b65166dd5ac76ab1e3837b28a75a4c338d4d2a047c566add36d314";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3764920/grammatik_und_rechtschreibprufung_languagetool-3.3.19-fx.xpi";
+      sha256 = "41bf128e1f5746ec78899facf563fcbe45103a3ab3b982960b04ae1fd81c6469";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1014,10 +1014,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.4.13";
+      version = "21.4.23";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3759418/refined_github-21.4.13-an+fx.xpi";
-      sha256 = "6d7062322d4d15a8428e1e44654ca36836a2faa3ad12e42855612490af3d2932";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3764936/refined_github-21.4.23-an+fx.xpi";
+      sha256 = "f08ccc747403b82fbcccaae1fd9f6ba5c63e1e67f6f5f0c2f9e40409274a517b";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
