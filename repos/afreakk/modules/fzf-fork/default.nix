@@ -88,25 +88,21 @@ in {
       '';
     };
 
-    useTmuxInShellIntegration = mkOption {
-      default = false;
-      type = types.bool;
-      description = ''
-        Whether to set FZF_TMUX to 1 which causes shell integration to use fzf-tmux.
+    tmux = {
+      enableShellIntegration = mkEnableOption ''
+          sets FZF_TMUX=1 which causes shell integration to use fzf-tmux
       '';
+      shellIntegrationOptions = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        example = [ "-d 40%" ];
+        description = ''
+          If <options>programs.fzf.tmux.enableShellIntegration<options> is set to true,
+          shell integration will use these options for fzf-tmux.
+          See fzf-tmux --help for available options.
+        '';
+      };
     };
-
-    tmuxOptionsInShellIntegration = mkOption {
-      type = types.listOf types.str;
-      default = [ ];
-      example = [ "-d 40%" ];
-      description = ''
-        If useTmuxInShellIntegration is set to true,
-        shell integration will use these options for fzf-tmux.
-        See fzf-tmux --help for available options.
-      '';
-    };
-
     enableBashIntegration = mkOption {
       default = true;
       type = types.bool;
@@ -144,8 +140,8 @@ in {
         FZF_CTRL_T_OPTS = cfg.fileWidgetOptions;
         FZF_DEFAULT_COMMAND = cfg.defaultCommand;
         FZF_DEFAULT_OPTS = cfg.defaultOptions;
-        FZF_TMUX = if cfg.useTmuxInShellIntegration then "1" else null;
-        FZF_TMUX_OPTS = cfg.tmuxOptionsInShellIntegration;
+        FZF_TMUX = if cfg.tmux.enableShellIntegration then "1" else null;
+        FZF_TMUX_OPTS = cfg.tmux.shellIntegrationOptions;
       });
 
     programs.bash.initExtra = mkIf cfg.enableBashIntegration ''
