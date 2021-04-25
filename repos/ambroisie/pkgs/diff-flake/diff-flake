@@ -61,11 +61,11 @@ parse_args() {
                 shift
                 ;;
             -n|--new-rev)
-                NEW_REV="$1"
+                NEW_REV="$(@git@ rev-parse "$1")"
                 shift
                 ;;
             -p|--previous-rev)
-                PREVIOUS_REV="$1"
+                PREVIOUS_REV="$(@git@ rev-parse "$1")"
                 shift
                 ;;
             --)

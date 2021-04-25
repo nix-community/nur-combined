@@ -11,6 +11,7 @@
       },
       "original": {
         "owner": "numtide",
+        "ref": "master",
         "repo": "flake-utils",
         "type": "github"
       }
@@ -31,6 +32,7 @@
       },
       "original": {
         "owner": "nix-community",
+        "ref": "master",
         "repo": "home-manager",
         "type": "github"
       }
@@ -62,6 +64,7 @@
       },
       "original": {
         "owner": "nix-community",
+        "ref": "master",
         "repo": "NUR",
         "type": "github"
       }
