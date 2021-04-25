@@ -1,4 +1,4 @@
-{ stdenv, lib, config, fetchFromGitHub, pkgs, ... }:
+{ stdenv, lib, fetchFromGitHub, ... }:
 
 stdenv.mkDerivation rec {
   pname = "cxxmatrix";

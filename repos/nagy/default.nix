@@ -22,17 +22,11 @@ rec {
     vacietis = pkgs.callPackage ./pkgs/vacietis {};
   };
 
-  colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {
-    setuptools = pkgs.python3Packages.setuptools;
-    setuptools_scm = pkgs.python3Packages.setuptools_scm;
-    fire = pkgs.python3Packages.fire;
-  };
+  colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {  };
 
   rustfilt = pkgs.callPackage ./pkgs/rustfilt {};
 
-  warctools = pkgs.python3Packages.callPackage ./pkgs/warctools {
-    setuptools = pkgs.python3Packages.setuptools;
-  };
+  warctools = pkgs.python3Packages.callPackage ./pkgs/warctools {  };
 
   bollux = pkgs.callPackage ./pkgs/bollux {};
 
@@ -44,14 +38,9 @@ rec {
 
   cxxmatrix = pkgs.callPackage ./pkgs/cxxmatrix {};
 
-  piecash = pkgs.python3Packages.callPackage ./pkgs/piecash {
-    setuptools = pkgs.python3Packages.setuptools;
-    pytz = pkgs.python3Packages.pytz;
-    sqlalchemy-utils = pkgs.python3Packages.sqlalchemy-utils;
-    tzlocal = pkgs.python3Packages.tzlocal;
-    click = pkgs.python3Packages.click;
-  };
-
+  piecash = pkgs.python3Packages.callPackage ./pkgs/piecash { };
 
   hackernews-tui = pkgs.callPackage ./pkgs/hackernews-tui {};
+
+  har-tools = pkgs.callPackage ./pkgs/har-tools {};
 }
