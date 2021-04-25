@@ -1,18 +1,4 @@
 {
-    "docker-reg-tool": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-15T13:13:33Z",
-        "description": "Docker registry cli tool, primarily for deleting images",
-        "homepage": "https://github.com/byrnedo/docker-reg-tool",
-        "owner": "byrnedo",
-        "repo": "docker-reg-tool",
-        "rev": "23292d234289b1fd114b53786c9e4f9fece3674b",
-        "sha256": "0vwcdkxyg575dhchyshcjnkl7764ib1h21zqzb35gmncvkms0sx3",
-        "type": "tarball",
-        "url": "https://github.com/byrnedo/docker-reg-tool/archive/23292d234289b1fd114b53786c9e4f9fece3674b.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "elevation": {
         "branch": "master",
         "builtin": false,
@@ -64,20 +50,6 @@
         "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210306.osm.pbf",
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
         "version": "210306"
-    },
-    "gimgtools": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2013-09-19T06:22:45Z",
-        "description": "Garmin Image Tools",
-        "homepage": "https://github.com/wuyongzheng/gimgtools",
-        "owner": "wuyongzheng",
-        "repo": "gimgtools",
-        "rev": "92d015749e105c5fb8eb704ae503a5c7e51af2bd",
-        "sha256": "14i9knc1dbkag0gsc2y1kv9hwzzzkycfy7fj1zmrgbsq71rnl1h2",
-        "type": "tarball",
-        "url": "https://github.com/wuyongzheng/gimgtools/archive/92d015749e105c5fb8eb704ae503a5c7e51af2bd.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gpxelevations": {
         "branch": "master",
@@ -312,20 +284,6 @@
         "sha256": "1h201rqn74hcspxjigq50vj4rl526x8s0sx18j5gbswisf84bgql",
         "type": "tarball",
         "url": "https://github.com/sfluor/musig/archive/f445fa128b826c1cee527afdcc97e3e1e8433c32.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "nnn": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-03-06T06:50:14Z",
-        "description": "n³ The missing terminal file manager for X",
-        "homepage": "https://github.com/jarun/nnn",
-        "owner": "jarun",
-        "repo": "nnn",
-        "rev": "3387f0a6ac41bf7a96f461ca62df4190f6b853f9",
-        "sha256": "1y06h1qqlsmdhcb7g33x38c4xv66w4cjk9f82hj4czdjavjp132r",
-        "type": "tarball",
-        "url": "https://github.com/jarun/nnn/archive/3387f0a6ac41bf7a96f461ca62df4190f6b853f9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {

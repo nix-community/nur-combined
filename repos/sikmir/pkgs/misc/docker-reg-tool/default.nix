@@ -1,15 +1,21 @@
-{ lib, stdenv, sources }:
+{ lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "docker-reg-tool";
-  version = lib.substring 0 10 sources.docker-reg-tool.date;
+  version = "2021-02-15";
 
-  src = sources.docker-reg-tool;
+  src = fetchFromGitHub {
+    owner = "byrnedo";
+    repo = pname;
+    rev = "23292d234289b1fd114b53786c9e4f9fece3674b";
+    hash = "sha256-o2ug69zM1lfG+vgHAcOKxJxDp5UMag8ZbOWU5/tsjG8=";
+  };
 
   installPhase = "install -Dm755 docker_reg_tool -t $out/bin";
 
   meta = with lib; {
-    inherit (sources.docker-reg-tool) description homepage;
+    description = "Docker registry cli tool, primarily for deleting images";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;

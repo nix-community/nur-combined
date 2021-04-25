@@ -1,10 +1,8 @@
-{ lib, stdenv, sources }:
+{ lib, stdenv, nnn }:
 
 stdenv.mkDerivation {
   pname = "nnn-plugins";
-  version = lib.substring 0 10 sources.nnn.date;
-
-  src = sources.nnn;
+  inherit (nnn) version src;
 
   phases = [ "installPhase" "fixupPhase" ];
 

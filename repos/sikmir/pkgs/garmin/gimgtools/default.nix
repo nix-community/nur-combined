@@ -1,10 +1,15 @@
-{ lib, stdenv, sources, libiconv }:
+{ lib, stdenv, fetchFromGitHub, libiconv }:
 
-stdenv.mkDerivation {
-  pname = "gimgtools-unstable";
-  version = lib.substring 0 10 sources.gimgtools.date;
+stdenv.mkDerivation rec {
+  pname = "gimgtools";
+  version = "2013-09-19";
 
-  src = sources.gimgtools;
+  src = fetchFromGitHub {
+    owner = "wuyongzheng";
+    repo = pname;
+    rev = "92d015749e105c5fb8eb704ae503a5c7e51af2bd";
+    hash = "sha256-AgZqczhYr5frD9Id75if/38O057BC6YfeGquFpidKZI=";
+  };
 
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
@@ -20,7 +25,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    inherit (sources.gimgtools) description homepage;
+    description = "Garmin Image Tools";
+    inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
