@@ -38,7 +38,7 @@ in
     imports = [
         desktop-configuration
         system-configuration
-		users-configuration
+        users-configuration
         ./hardware-configuration.nix
         ];
 }
