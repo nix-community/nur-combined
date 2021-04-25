@@ -30,5 +30,6 @@ in {
   k380-function-keys-conf = pkgs.callPackage ./pkgs/k380-function-keys-conf { };
   knobkraft-orm = pkgs.callPackage ./pkgs/knobkraft-orm { };
   realrtcw = pkgs.callPackage ./pkgs/realrtcw { };
+  gamescope = pkgs.callPackage ./pkgs/gamescope {};
 }
 
