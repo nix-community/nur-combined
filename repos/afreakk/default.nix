@@ -5,6 +5,7 @@ let
     irc-link-informant = pkgs.callPackage ./pkgs/irc-link-informant {};
     realm-cli = pkgs.callPackage ./pkgs/realm-cli {};
     fish-history-merger = pkgs.callPackage ./pkgs/fish-history-merger {};
+    qutebrowser-start-page = pkgs.callPackage ./pkgs/qutebrowser-start-page {};
     wowup = pkgs.callPackage ./pkgs/wowup { };
     strongdm = pkgs.callPackage ./pkgs/sdm { };
     dmenu-afreak = pkgs.callPackage ./pkgs/dmenu { };
