@@ -37,4 +37,6 @@
     isNormalUser = true;
     shell = pkgs.zsh;
   };
+
+  virtualisation.docker.enable = true;
 }
