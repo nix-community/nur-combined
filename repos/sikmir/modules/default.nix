@@ -1,4 +1,6 @@
 {
+  gmnisrv = ./services/gmnisrv.nix;
+
   home-manager = {
     programs = {
       aerc = ./home-manager/programs/aerc.nix;
