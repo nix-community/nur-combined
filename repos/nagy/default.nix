@@ -43,4 +43,6 @@ rec {
   hackernews-tui = pkgs.callPackage ./pkgs/hackernews-tui {};
 
   har-tools = pkgs.callPackage ./pkgs/har-tools {};
+
+  ksuid = pkgs.callPackage ./pkgs/ksuid {};
 }
