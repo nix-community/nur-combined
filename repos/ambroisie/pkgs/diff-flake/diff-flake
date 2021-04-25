@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+
+set -eu
+
+NEW_REV=
+PREVIOUS_REV="$(@git@ rev-parse @~)"
+OUTPUT_FILE=/dev/stdout
+FLAKE_OUTPUTS=()
+NIX_BUILD_ARGS=()
+
+print_err() {
+    printf "%s\n" "$1" >&2
+}
+
+sanitize_output() {
+    if [ "$OUTPUT_FILE" != "/dev/stdout" ]; then
+        @sed@ 's/\x1b\[[0-9;]*m//g'
+    else
+        @cat@
+    fi
+}
+
+usage() {
+    print_err "Usage: $0 [option]... [-- [nix build option]...]"
+    print_err ""
+    print_err "  -h, --help"
+    print_err "    print this usage screen and exit"
+    print_err "  -f, --flake-output"
+    print_err "    specify which flake output's closures should be diffed,"
+    print_err "    can be used multiple times to specify multiple outputs"
+    print_err "  -o, --output"
+    print_err "    specify where to output the closure diffs,"
+    print_err "    defaults to printing to standard output"
+    print_err "  -n, --new-rev"
+    print_err "    which git revision should be considered the 'new' state,"
+    print_err "    defaults to current state"
+    print_err "  -p, --previous-rev"
+    print_err "    which git revision should be considered the 'previous' state,"
+    print_err "    defaults to HEAD~"
+    print_err ""
+    print_err "when no flake outputs are specified, automatically queries for"
+    print_err "all NixOS configurations, and devShell for current system"
+}
+
+parse_args() {
+    while [ $# -gt 0 ]; do
+        opt="$1"
+        shift
+
+        case "$opt" in
+            -h|--help)
+                usage
+                exit
+                ;;
+            -f|--flake-output)
+                INPUTS+="$1"
+                shift
+                ;;
+            -o|--output)
+                OUTPUT_FILE="$1"
+                shift
+                ;;
+            -n|--new-rev)
+                NEW_REV="$1"
+                shift
+                ;;
+            -p|--previous-rev)
+                PREVIOUS_REV="$1"
+                shift
+                ;;
+            --)
+                NIX_BUILD_ARGS=("$@")
+                break
+                ;;
+            *)
+                print_err "Unknown argument '$opt'"
+                usage
+                exit 1
+                ;;
+        esac
+    done
+}
+
+list_nixos_configurations() {
+    nix eval '.#nixosConfigurations' \
+        --apply 'attrs: with builtins; concatStringsSep "\n" (attrNames attrs)' \
+        --raw
+}
+
+fill_default_outputs() {
+    for host in $(list_nixos_configurations); do
+        FLAKE_OUTPUTS+=("nixosConfigurations.$host.config.system.build.toplevel")
+    done
+
+    # Use 'inputDerivation' attribute to make sure that it is build-able
+    FLAKE_OUTPUTS+=("devShell.$(nix eval --raw --impure --expr 'builtins.currentSystem').inputDerivation")
+}
+
+diff_output() {
+    local PREV NEW;
+    PREV="$(@mktemp@ --dry-run)"
+    NEW="$(@mktemp@ --dry-run)"
+
+    nix build "${NIX_BUILD_ARGS[@]}" -v ".?rev=${PREVIOUS_REV}#$1" -o "$PREV"
+    nix build "${NIX_BUILD_ARGS[@]}" -v ".${NEW_REV:+?rev=$NEW_REV}#$1" -o "$NEW"
+
+    {
+        # shellcheck disable=SC2016
+        printf 'Closure diff for `%s`:\n```\n' "$1"
+        nix store diff-closures "$PREV" "$NEW" | sanitize_output
+        printf '```\n\n'
+    } >> "$OUTPUT_FILE"
+}
+
+parse_args "$@"
+
+if [ "${#FLAKE_OUTPUTS[@]}" -eq 0 ]; then
+    fill_default_outputs
+fi
+
+for out in "${FLAKE_OUTPUTS[@]}"; do
+    diff_output "$out"
+done

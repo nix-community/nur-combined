@@ -19,10 +19,7 @@
       defaultModules = [
         ({ ... }: {
           # Let 'nixos-version --json' know about the Git revision
-          system.configurationRevision =
-            if self ? rev
-            then self.rev
-            else throw "Refusing to build from a dirty Git tree!";
+          system.configurationRevision = self.rev or "dirty";
         })
         {
           nixpkgs.overlays = (lib.attrValues self.overlays) ++ [
@@ -54,7 +51,13 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
         in
-        {
+        rec {
+          apps = {
+            diff-flake = futils.lib.mkApp { drv = packages.diff-flake; };
+          };
+
+          defaultApp = apps.diff-flake;
+
           devShell = pkgs.mkShell {
             name = "NixOS-config";
             buildInputs = with pkgs; [

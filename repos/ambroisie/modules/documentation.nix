@@ -15,12 +15,11 @@ in
 
     info.enable = defaultToGlobal "Documentation aimed at developers";
 
-    man = {
-      enable = defaultToGlobal "Documentation aimed at developers";
-    };
+    man.enable = defaultToGlobal "Documentation aimed at developers";
 
     nixos.enable = defaultToGlobal "NixOS documentation";
   };
+
   config.documentation = {
     enable = cfg.enable;
 
