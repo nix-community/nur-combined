@@ -24,6 +24,7 @@ rec {
   assaultcube = pkgs.callPackage ./pkgs/assaultcube { lib = mylib; };
   #beremiz = pkgs.callPackage ./pkgs/beremiz {};
   caprice32 = pkgs.callPackage ./pkgs/caprice32 { lib = mylib; };
+  colorize = pkgs.callPackage ./pkgs/colorize { lib = mylib; };
   clocktimer = pkgs.callPackage ./pkgs/clocktimer { lib = mylib; };
   fragments-of-euclid = pkgs.callPackage ./pkgs/fragments-of-euclid { lib = mylib; };
   freediag = pkgs.callPackage ./pkgs/freediag { lib = mylib; };
@@ -33,6 +34,7 @@ rec {
   gbdk-n = pkgs.callPackage ./pkgs/gbdk-n { lib = mylib; };
   hdl-dump = pkgs.callPackage ./pkgs/hdl_dump { lib = mylib; };
 
+  hdl-batch-installer = pkgs.callPackage ./pkgs/hdl-batch-installer { lib = mylib; };
   # find a lot of games on https://itch.io/games/free/platform-linux
   hospital-hero = pkgs.callPackage ./pkgs/hospital-hero { lib = mylib; };
   kelftool = pkgs.callPackage ./pkgs/kelftool { lib = mylib; };
