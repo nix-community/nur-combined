@@ -21,6 +21,7 @@ It contains packages/attributes for:
   - cxxtimer (https://github.com/andremaravilha/cxxtimer)
   - cxxmatrix (https://github.com/akinomyoga/cxxmatrix)
   - piecash (https://github.com/sdementen/piecash)
+  - hackernews-tui (https://github.com/aome510/hackernews-TUI)
 
 * Mirrors of this repo
 - https://github.com/nagy/nur-packages

@@ -52,4 +52,6 @@ rec {
     click = pkgs.python3Packages.click;
   };
 
+
+  hackernews-tui = pkgs.callPackage ./pkgs/hackernews-tui {};
 }
