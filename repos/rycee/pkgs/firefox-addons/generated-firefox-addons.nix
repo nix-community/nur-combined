@@ -1407,10 +1407,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.42.0";
+      version = "2.43.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3755338/web_scrobbler-2.42.0-an+fx.xpi";
-      sha256 = "ce8e13157db1330dbb69a9d22e55daf9e921424890ad087cc1c79737c7c4d7d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3765703/web_scrobbler-2.43.0-an+fx.xpi";
+      sha256 = "58ed52573947dafb7327e6d71364abdc956f0fd7349cd7993c5b64f6596ce890";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
