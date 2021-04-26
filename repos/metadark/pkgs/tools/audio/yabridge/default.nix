@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, fetchpatch
 , substituteAll
 , meson
 , ninja
@@ -79,7 +80,15 @@ in stdenv.mkDerivation rec {
   )'';
 
   patches = [
-    ./fix-wineloader-version.patch
+    # Fix printing wine version when using absolute path (remove patches in next release):
+    (fetchpatch {
+      url = "https://github.com/robbert-vdh/yabridge/commit/2aadf5256b3eafeb86efa8626247972dd33baa13.patch";
+      sha256 = "sha256-Nq9TQJxa22vJLmf+USyPBkF8cKyEzb1Lp2Rx86pDxnY=";
+    })
+    (fetchpatch {
+      url = "https://github.com/robbert-vdh/yabridge/commit/93df3fa1da6ffcc69a5b384ba04e3da7c5ef23ef.patch";
+      sha256 = "sha256-//8Dxolqe6n+aFo4yVnnMR9kSq/iEFE0qZPvcIBehvI=";
+    })
 
     # Hard code wine path so wine version is correct in logs
     (substituteAll {
