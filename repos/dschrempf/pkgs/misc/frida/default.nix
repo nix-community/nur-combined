@@ -11,8 +11,8 @@ let
   version = "14.2.16";
   pythonVersion = "38";
 
-  # TODO : find a way to use fetchPypi
-  # i guess we should add egg support to pkgs/development/interpreters/python/fetchpypi.nix
+  # TODO: Find a way to use fetchPypi.
+  # I guess we should add egg support to pkgs/development/interpreters/python/fetchpypi.nix
   # "~/frida-{}-py{}.{}-{}.egg".format(frida_version, python_version[0], python_version[1], os_version))
   eggs =
     let
