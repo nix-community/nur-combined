@@ -182,6 +182,8 @@ let
 
       vmd = callPackage ./vmd {};
 
+      multiwfn = callPackage ./multiwfn {};
+
 
 
       ### Python packages
@@ -306,4 +308,3 @@ let
 
 in
   overlay cfg.prefix { }
-
