@@ -59,7 +59,7 @@ let
       lapack-i8 = if self_.lapack.implementation != "amd-libflame" then self_.lapack.override { isILP64 = true; }
                 else super.lapack.override { isILP64 = true; lapackProvider = super.openblas; };
 
-      fftw = self_.fftw.overrideDerivation ( oldAttrs: {
+      fftw = self_.fftw.overrideAttrs ( oldAttrs: {
         buildInputs = [ self_.gfortran ];
       });
 

@@ -5,7 +5,7 @@ self: super:
   #
 
   # Compile fftw with full AVX features
-  fftw = super.fftw.overrideDerivation ( oldAttrs: {
+  fftw = super.fftw.overrideAttrs ( oldAttrs: {
     configureFlags = oldAttrs.configureFlags
     ++ [
       "--enable-avx"
