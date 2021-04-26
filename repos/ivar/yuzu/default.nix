@@ -4,7 +4,7 @@ let
 in {
   mainline = libsForQt5.callPackage ./base.nix rec {
     pname = "yuzu-mainline";
-    version = "597";
+    version = "598";
     branchName = branch;
     src = fetchFromGitHub {
       owner = "yuzu-emu";
@@ -16,13 +16,13 @@ in {
   };
   early-access = libsForQt5.callPackage ./base.nix rec {
     pname = "yuzu-ea";
-    version = "1631";
+    version = "1632";
     branchName = branch;
     src = fetchFromGitHub {
       owner = "pineappleEA";
       repo = "pineapple-src";
       rev = "EA-${version}";
-      sha256 = "0hziisv8qpscirvcgmgkbrbbl88ml81w1xfc4nfy8gwmigzx696a";
+      sha256 = "0y420axwc0rslzcj7glqc0xbym37kq7blkxa0w4f2gxidcz72096";
       fetchSubmodules = true;
     };
   };
