@@ -79,6 +79,8 @@ in stdenv.mkDerivation rec {
   )'';
 
   patches = [
+    ./fix-wineloader-version.patch
+
     # Hard code wine path so wine version is correct in logs
     (substituteAll {
       src = ./hardcode-wine.patch;
