@@ -8,10 +8,14 @@
     but got  "${a}"
   '';
   chisui = import ../../default.nix {};
-  test = n: assertEquals "00" 
+  testOut = n: assertEquals "out 00" 
     (inline (trim (chisui.lib.toJavaPropertiesStr(fromJSON (readFile (toPath ./. + "/test${n}.json"))))))
     (inline (trim (readFile (toPath ./. + "/test${n}.properties"))));
+  testIn = n: assertEquals "in 00"
+    (chisui.lib.fromJavaProperties (readFile (toPath ./. + "/test${n}.properties")))
+    (fromJSON (readFile (toPath ./. + "/test${n}.json")));
 in {
-  test00 = test "00";
+  out.test00 = testOut "00";
+  read.test00 = testIn "00";
 }
 
