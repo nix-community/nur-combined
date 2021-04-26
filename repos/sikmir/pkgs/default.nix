@@ -180,6 +180,7 @@ lib.makeScope newScope (
     gmni = callPackage ./gemini/gmni { };
     gmnigit = callPackage ./gemini/gmnigit { };
     gmnisrv = callPackage ./gemini/gmnisrv { };
+    gmnitohtml = callPackage ./gemini/gmnitohtml { };
     gssg = callPackage ./gemini/gssg { };
     gurl = callPackage ./gemini/gurl { };
     kiln = callPackage ./gemini/kiln { };
