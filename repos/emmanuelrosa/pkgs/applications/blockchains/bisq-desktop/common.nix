@@ -1,6 +1,6 @@
 { lib
 , callPackage
-, fetchgit
+, fetchFromGitHub
 , unzip
 , zip
 , git
@@ -14,22 +14,13 @@ rec {
   pname = "bisq-desktop";
   version = "1.6.2";
 
-  src = (fetchgit rec {
-    url = https://github.com/bisq-network/bisq;
+  src = (fetchFromGitHub {
+    owner = "bisq-network";
+    repo = "bisq";
     rev = "v${version}";
-    sha256 = "1zmf76i4yddr4zc2jcm09bgs7yya6bqv1zk68z17g3r39qmyxv1q";
-    postFetch = ''
-      cd $out
-      git clone $url
-      cd bisq
-      git lfs install --force --local
-      git lfs pull
-      cp -v p2p/src/main/resources/* $out/p2p/src/main/resources/
-      cd ..
-      rm -r bisq
-    '';
-  }).overrideAttrs (oldAttrs: {
-    nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [ git-lfs ];
+    sha256 = "0p7h0biffkj4vx547vpn33fa2500whnq864inxdmxf8l3zp3c4wz";
+    leaveDotGit = true;
+    fetchLFS = true;
   });
 
   jdk = openjdk11;

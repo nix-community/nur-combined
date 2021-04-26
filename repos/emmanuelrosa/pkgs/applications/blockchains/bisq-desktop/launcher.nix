@@ -20,7 +20,7 @@ writeScript "bisq-launcher" ''
   echo Tor log: $TMPDIR/tor.log
   echo Bisq log file: $TMPDIR/bisq.log
 
-  bisq-desktop-wrapped --torControlCookieFile=$TMPDIR/cookie --torControlUseSafeCookieAuth --torControlPort $CONTROLPORT "$@" > $TMPDIR/bisq.log
+  JAVA_TOOL_OPTIONS="-XX:MaxRAM=4g" bisq-desktop-wrapped --torControlCookieFile=$TMPDIR/cookie --torControlUseSafeCookieAuth --torControlPort $CONTROLPORT "$@" > $TMPDIR/bisq.log
 
   echo Bisq exited. Killing Tor...
   kill $torpid
