@@ -21,4 +21,8 @@ self: super:
       };
     };
   };
+  #xorg = super.xorg.overrideScope' (selfx: superx: {
+  #  inherit (unstable.xorg) xrandr;
+  #}) // { inherit (super) xlibsWrapper; };
+  xrandr = unstable.xorg.xrandr;
 }

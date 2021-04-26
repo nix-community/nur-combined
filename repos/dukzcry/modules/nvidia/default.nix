@@ -24,7 +24,7 @@ in {
     # https://github.com/NixOS/nixpkgs/issues/86123
     systemd.services.systemd-udev-trigger.restartIfChanged = false;
     environment = {
-      systemPackages = with pkgs; [ nvidia-offload ];
+      systemPackages = with pkgs; [ nvidia-offload xrandr ];
     };
   };
 }
