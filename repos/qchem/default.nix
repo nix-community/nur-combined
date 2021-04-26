@@ -183,6 +183,7 @@ let
       vmd = callPackage ./vmd {};
 
       multiwfn = callPackage ./multiwfn {};
+      turbomole = callPackage ./turbomole {};
 
 
 
@@ -264,6 +265,7 @@ let
         qdng = callPackage ./tests/qdng { };
         dgemm = callPackage ./tests/dgemm { };
         stream = callPackage ./tests/stream { };
+        turbomole = callPackage ./tests/turbomole { };
       }  // lib.optionalAttrs (cfg.licMolpro != null) {
         molpro = callPackage ./tests/molpro { };
       };
