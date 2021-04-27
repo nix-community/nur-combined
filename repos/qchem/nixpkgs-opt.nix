@@ -16,6 +16,21 @@ self: super:
     buildInputs = oldAttrs.buildInputs ++ [ self.gfortran ];
   });
 
+  fftw-mpi = self.fftw.overrideAttrs ( oldAttrs: {
+    buildInputs = oldAttrs.buildInputs ++ [
+      self.mpi
+    ];
+
+    configureFlags = with super.lib.lists; oldAttrs.configureFlags ++ [
+      "--enable-mpi"
+      "MPICC=${self.mpi}/bin/mpicc"
+      "MPIFC=${self.mpi}/bin/mpif90"
+      "MPIF90=${self.mpi}/bin/mpif90"
+    ];
+  });
+
+
+
   fftwSinglePrec = self.fftw.override { precision = "single"; };
 
   libxsmm = super.libxsmm.overrideAttrs ( x: {

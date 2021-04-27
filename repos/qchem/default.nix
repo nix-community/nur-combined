@@ -63,6 +63,19 @@ let
         buildInputs = [ self_.gfortran ];
       });
 
+      fftw-mpi = self.fftw.overrideAttrs (oldAttrs: {
+        buildInputs = oldAttrs.buildInputs ++ [
+          self.mpi
+        ];
+
+        configureFlags = with lib.lists; oldAttrs.configureFlags ++ [
+          "--enable-mpi"
+          "MPICC=${self_.mpi}/bin/mpicc"
+          "MPIFC=${self_.mpi}/bin/mpif90"
+          "MPIF90=${self_.mpi}/bin/mpif90"
+        ];
+      });
+
       # For molcas and chemps2
       hdf5-full = self_.hdf5.override {
         cpp = true;
@@ -114,6 +127,8 @@ let
 
       gaussview = callPackage ./gaussview { };
 
+      gpaw = super.python3.pkgs.toPythonApplication self.python3.pkgs.gpaw;
+
       nwchem = callPackage ./nwchem { blas=self.blas-i8; lapack=self.lapack-i8; };
 
       mctdh = callPackage ./mctdh { };
@@ -137,6 +152,8 @@ let
       #};
 
       mt-dgemm = callPackage ./mt-dgemm { };
+
+      multiwfn = callPackage ./multiwfn { };
 
       orca = callPackage ./orca { };
 
@@ -180,10 +197,10 @@ let
 
       stream-benchmark = callPackage ./stream { };
 
+      turbomole = callPackage ./turbomole {};
+
       vmd = callPackage ./vmd {};
 
-      multiwfn = callPackage ./multiwfn {};
-      turbomole = callPackage ./turbomole {};
 
 
 
@@ -202,6 +219,8 @@ let
       libint1 = callPackage ./libint/1.nix { };
 
       libint2 = callPackage ./libint { inherit optAVX; };
+
+      libvdwxc = callPackage ./libvdwxc { };
 
       # libint configured for bagel
       # See https://github.com/evaleev/libint/wiki#bagel
