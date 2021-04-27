@@ -6,9 +6,9 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "mananapr";
-    repo = "cfiles";
+    repo = pname;
     rev = "v${version}";
-    sha256 = "1nj20d839a2q3m23hbv53vdv6ifkjb5qjcsyxdw3k7l6841qx4v3";
+    hash = "sha256-Y5OOA0GGnjl4614zicuS00Wz2x5lLzhEHVioNFADQto=";
   };
 
   nativeBuildInputs = [ pkg-config ];

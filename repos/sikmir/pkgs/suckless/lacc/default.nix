@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "larmel";
-    repo = "lacc";
+    repo = pname;
     rev = "f6ab3973d44ce79e469c4c3dc770a8b2e7a5543f";
     hash = "sha256-L9EW7Zl5PxOIGJwSwhq1gvAkN8fbpHg7gSbtTzuBHSE=";
   };

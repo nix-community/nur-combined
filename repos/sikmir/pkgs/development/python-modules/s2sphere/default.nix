@@ -1,14 +1,14 @@
 { lib, fetchFromGitHub, python3Packages }:
 
-python3Packages.buildPythonPackage {
+python3Packages.buildPythonPackage rec {
   pname = "s2sphere";
   version = "0.2.5";
 
   src = fetchFromGitHub {
     owner = "sidewalklabs";
-    repo = "s2sphere";
+    repo = pname;
     rev = "d1d067e8c06e5fbaf0cc0158bade947b4a03a438";
-    sha256 = "0jidg5bg6qpiji8j2r8s8abxxs08ldkc7rdplhbnfw6k4axlh4za";
+    hash = "sha256-6hNIuyLTcGcXpLflw2ajCOjel0IaZSFRlPFi81Z5LUo=";
   };
 
   propagatedBuildInputs = with python3Packages; [ future ];

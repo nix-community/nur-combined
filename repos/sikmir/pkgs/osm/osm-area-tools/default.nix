@@ -30,9 +30,7 @@ stdenv.mkDerivation rec {
     bzip2
     expat
     gdal
-    (libosmium.overrideAttrs (old: {
-      cmakeFlags = [ "-DINSTALL_GDALCPP:BOOL=ON" ];
-    }))
+    libosmium
     protozero
     sqlite
     zlib

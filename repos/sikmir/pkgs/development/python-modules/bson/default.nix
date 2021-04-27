@@ -6,9 +6,9 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "py-bson";
-    repo = "bson";
+    repo = pname;
     rev = "a68073661c637051985f3d0c24b8c7828a4c3ff4";
-    sha256 = "0gh0kbblmxnidr9xp05d8nlfjna7461bxx82l82mwwz1a7i7x36d";
+    hash = "sha256-zYx+4lHhc14FogL1voIhR1npqEWtgNtTbtH2SteaAD4=";
   };
 
   propagatedBuildInputs = with python3Packages; [ python-dateutil six ];

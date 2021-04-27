@@ -6,9 +6,9 @@ python2Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "nerijus";
-    repo = "opendict";
+    repo = pname;
     rev = version;
-    sha256 = "0jgamfrvadbbj08yracx22j4350l3j7bgvw3w9yb6in2hh0wflbf";
+    hash = "sha256-blHHAYTCRrN84oPvt44cFJRBpBCdqewRkGs1tbOr6kk=";
   };
 
   patches = [ ./0001-fix-makefile.patch ];

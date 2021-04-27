@@ -14,7 +14,7 @@
 let
   cjson = fetchurl {
     url = "mirror://sourceforge/cjson/cJSONFiles.zip";
-    sha256 = "19qdsfq4r7gjr39lkjplz418gkl2xg5j5fpdz9phlxlbggnklqhd";
+    hash = "sha256-DWI67XuLdgpv+u26Isvrgs6HAvn0yknTyPKdTLDTDac=";
   };
 
   runScript = writers.writeBash "run-embox" ''
@@ -29,13 +29,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "embox";
-  version = "0.5.1";
+  version = "0.5.2";
 
   src = fetchFromGitHub {
     owner = "embox";
-    repo = "embox";
+    repo = pname;
     rev = "v${version}";
-    sha256 = "0lvlmw60ab3n48cqb857phsvw9mpc5qfva4dw7wyilgs635x567c";
+    hash = "sha256-hX9rcREgAXJF2paIkekTShig/Ttx/TWZGgPVrBt9xeA=";
   };
 
   patches = [ ./0001-fix-build.patch ];

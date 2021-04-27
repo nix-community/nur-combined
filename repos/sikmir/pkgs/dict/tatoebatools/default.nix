@@ -6,9 +6,9 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "LBeaudoux";
-    repo = "tatoebatools";
+    repo = pname;
     rev = "c3b4e40886233a83e30a517d63a1eee0547650d7";
-    sha256 = "1h977ghl13jj5xvyan88xjqgbp31ckk4krr2jgjl65c30wyrjlkj";
+    hash = "sha256-clKZPQeDFUPlkyLnSeZkYdz1sOwIWeV3L1KOQOE7J8E=";
   };
 
   patches = lib.optional (!checkLang) ./dont-check-lang-validity.patch

@@ -1,20 +1,20 @@
 { lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  pname = "sfm";
-  version = "2021-03-13";
+  pname = "sthkd";
+  version = "2020-11-15";
 
   src = fetchFromGitHub {
-    owner = "afify";
+    owner = "jeremybobbin";
     repo = pname;
-    rev = "b6063fd0a91a0ee976a09c79cbeb097ba26bfd21";
-    hash = "sha256-tRT8snpxXKwOHFT9GoK8xQnu8mQbUfbujyii2paQEaU=";
+    rev = "2cb198a8e0bc46b9e88c4a7b0f533b35d197a8f0";
+    hash = "sha256-P7RWdsxYv/P7K+BfvzkOzCCSMppSxacKVj19MPgeV7I=";
   };
 
   installFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
-    description = "Simple file manager";
+    description = "Simple Terminal Hotkey Daemon";
     inherit (src.meta) homepage;
     license = licenses.isc;
     platforms = platforms.linux;

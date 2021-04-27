@@ -6,9 +6,9 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "zdict";
-    repo = "zdict";
+    repo = pname;
     rev = version;
-    sha256 = "0x0952m0yknzpvpfc5qxwijx2fa163rqsvs8masv0n2h9fl5rr8z";
+    hash = "sha256-H+VcqEtQWLC1qkhvjfMwQTnRZeQdF+buvt9OD6ooCXQ=";
   };
 
   propagatedBuildInputs = with python3Packages; [

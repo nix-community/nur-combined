@@ -6,9 +6,9 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "pedro-vicente";
-    repo = "render_geojson";
+    repo = pname;
     rev = "ed65a22f45fc09784fa113fe93254492d88663c2";
-    sha256 = "063faznw81dh4bah0hd3rl258x18cxbn88bcqdxc0avsidw7ijaz";
+    hash = "sha256-X8l4eIt6K8B6w2whZFdnKHRUBM2jQQDVIrAFxO1Xbhg=";
   };
 
   nativeBuildInputs = [ autoreconfHook ];

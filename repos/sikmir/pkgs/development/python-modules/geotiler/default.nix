@@ -6,9 +6,9 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "wrobell";
-    repo = "geotiler";
+    repo = pname;
     rev = "geotiler-${version}";
-    sha256 = "1b0cvf1dq9vdwwyki1qnmr8mmhrj3sjybbil6p34f0i634pgnk1q";
+    hash = "sha256-OEz7LhkmAkfGNTSu5aUeMsNaUa4Whzg9520n3ILbDKw=";
   };
 
   postPatch = ''

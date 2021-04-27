@@ -1,12 +1,17 @@
-{ lib, buildGoModule, pkg-config, portaudio, sources }:
+{ lib, fetchFromGitHub, buildGoModule, pkg-config, portaudio }:
 
 buildGoModule rec {
-  pname = "musig-unstable";
-  version = lib.substring 0 10 sources.musig.date;
+  pname = "musig";
+  version = "1.0.0";
 
-  src = sources.musig;
+  src = fetchFromGitHub {
+    owner = "sfluor";
+    repo = pname;
+    rev = version;
+    hash = "sha256-FL9FkNOR6/WKRKFroFE3otBM5AYFvyj71QySY3EOQMA=";
+  };
 
-  vendorSha256 = "0ha1xjdwibm8543b4bx0xrbigngiiakksdc6mnp0mz5y6ai56pg5";
+  vendorSha256 = "sha256-5V1TojK+/AqurYY1PaeK8dkXV+6gL7IGKaiuyJvsQUE=";
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -19,7 +24,8 @@ buildGoModule rec {
   installCheckPhase = "$out/bin/musig --version";
 
   meta = with lib; {
-    inherit (sources.musig) description homepage;
+    description = "A shazam like tool to store songs fingerprints and retrieve them";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "gmnigit";
-  version = "2021-04-16";
+  version = "2021-04-24";
 
   src = fetchFromSourcehut {
     owner = "~kornellapacz";
     repo = pname;
-    rev = "9cdc82885cf4286f621f8cb7f26c45aa4e513ad6";
-    hash = "sha256-1oZDzrFPLjIxq9egRCzQPR0kzD/ZWrrVY+r6V8cMpPM=";
+    rev = "8070917b7e55893ecf4be648a55459e5a7a92ecc";
+    hash = "sha256-cn4Netr/CYT8bG0qqBcbC+V7NrYCtxWbajD+3Sc4DkY=";
   };
 
-  vendorSha256 = "0kjz21bzn829k10x3fvsvij4zxmi1ahq4bnk62lghrvazjbqk2r9";
+  vendorSha256 = "sha256-KYuJl/xqZ/ioMNMugqEKsfZPZNx6u9FBmEkg+1cQX04=";
 
   meta = with lib; {
     description = "Static git gemini viewer";

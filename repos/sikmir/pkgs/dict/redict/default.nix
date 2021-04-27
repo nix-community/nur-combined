@@ -21,9 +21,9 @@ mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "rekols";
-    repo = "redict";
+    repo = pname;
     rev = "525aac01ed5fc0f74f8393dc5b5b3bb57c9b0c5f";
-    sha256 = "1zlad1bmlyy4hirm93f0744c98y9hg11b32ym06rsax719qj2rjl";
+    hash = "sha256-VGYhcQqnK50NqF6MFcKDyaPECDnAjVRzhMR7Wldoiv4=";
   };
 
   nativeBuildInputs = [ qmake pkg-config ]

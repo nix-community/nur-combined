@@ -272,20 +272,6 @@
         "url": "https://github.com/semlanik/microjson/archive/0d9f50e407cd117e56582faf0d99bfececc1b6ea.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "musig": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-02-22T23:15:04Z",
-        "description": "A shazam like tool to store musics fingerprints and retrieve them",
-        "homepage": "https://github.com/sfluor/musig",
-        "owner": "sfluor",
-        "repo": "musig",
-        "rev": "f445fa128b826c1cee527afdcc97e3e1e8433c32",
-        "sha256": "1h201rqn74hcspxjigq50vj4rl526x8s0sx18j5gbswisf84bgql",
-        "type": "tarball",
-        "url": "https://github.com/sfluor/musig/archive/f445fa128b826c1cee527afdcc97e3e1e8433c32.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "odict": {
         "branch": "master",
         "builtin": false,
