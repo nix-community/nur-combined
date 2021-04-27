@@ -53,7 +53,7 @@ parse_args() {
                 exit
                 ;;
             -f|--flake-output)
-                INPUTS+="$1"
+                FLAKE_OUTPUTS+=("$1")
                 shift
                 ;;
             -o|--output)
@@ -101,8 +101,8 @@ diff_output() {
     PREV="$(@mktemp@ --dry-run)"
     NEW="$(@mktemp@ --dry-run)"
 
-    nix build "${NIX_BUILD_ARGS[@]}" -v ".?rev=${PREVIOUS_REV}#$1" -o "$PREV"
-    nix build "${NIX_BUILD_ARGS[@]}" -v ".${NEW_REV:+?rev=$NEW_REV}#$1" -o "$NEW"
+    nix build "${NIX_BUILD_ARGS[@]}" ".?rev=${PREVIOUS_REV}#$1" -o "$PREV"
+    nix build "${NIX_BUILD_ARGS[@]}" ".${NEW_REV:+?rev=$NEW_REV}#$1" -o "$NEW"
 
     {
         # shellcheck disable=SC2016
