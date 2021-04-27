@@ -1221,10 +1221,10 @@
       };
     "tomato-clock" = buildFirefoxXpiAddon {
       pname = "tomato-clock";
-      version = "6.0.0";
+      version = "6.0.1";
       addonId = "jid1-Kt2kYYgi32zPuw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3622546/tomato_clock-6.0.0-an+fx.xpi";
-      sha256 = "03aae6f6d75e042cbf204042aa61ddd8aa8dcc23f08482c34fadc04931c80e58";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3765883/tomato_clock-6.0.1-an+fx.xpi";
+      sha256 = "96466bf497b24edf01760f3a3a86a25219837b64489c718e990e8e50a21c61aa";
       meta = with lib;
       {
         homepage = "https://github.com/samueljun/tomato-clock";
