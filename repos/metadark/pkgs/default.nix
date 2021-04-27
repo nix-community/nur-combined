@@ -101,6 +101,8 @@ with mergedPkgs; {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
+  undistract-me = callPackage ./shells/bash/undistract-me { };
+
   virtualparadise = callPackage ./games/virtualparadise {
     inherit (qt5) wrapQtAppsHook;
   };

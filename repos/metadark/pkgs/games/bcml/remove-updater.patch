@@ -1,5 +1,5 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index 76db6a1..bf9c4d4 100644
+index 2f9b10a..51fdfa4 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
 @@ -68,10 +68,6 @@ class Api:
@@ -13,7 +13,7 @@ index 76db6a1..bf9c4d4 100644
              "showChangelog": updated and util.get_settings("changelog"),
          }
          if updated:
-@@ -752,46 +748,6 @@ class Api:
+@@ -751,46 +747,6 @@ class Api:
          help_thread = Thread(target=help_window, args=(self.host,))
          help_thread.start()
  
@@ -141,10 +141,10 @@ index c91c653..12c2ba1 100644
      constructor(props) {
          super(props);
 diff --git a/bcml/assets/src/js/Settings.jsx b/bcml/assets/src/js/Settings.jsx
-index a56de9c..b099c49 100644
+index 459832d..8507a69 100644
 --- a/bcml/assets/src/js/Settings.jsx
 +++ b/bcml/assets/src/js/Settings.jsx
-@@ -23,7 +23,6 @@ class Settings extends React.Component {
+@@ -24,7 +24,6 @@ class Settings extends React.Component {
              wiiu: true,
              no_hardlinks: false,
              force_7z: false,
@@ -152,7 +152,7 @@ index a56de9c..b099c49 100644
              valid: false,
              loaded: false,
              nsfw: false,
-@@ -518,24 +517,6 @@ class Settings extends React.Component {
+@@ -539,24 +538,6 @@ class Settings extends React.Component {
                                  />
                              </OverlayTrigger>
                          </Form.Group>
@@ -178,10 +178,10 @@ index a56de9c..b099c49 100644
                              <OverlayTrigger
                                  overlay={
 diff --git a/bcml/util.py b/bcml/util.py
-index 4aba838..dfdaf78 100644
+index 1f217b2..dd67e60 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
-@@ -578,7 +578,6 @@ DEFAULT_SETTINGS = {
+@@ -579,7 +579,6 @@ DEFAULT_SETTINGS = {
      "wiiu": True,
      "no_hardlinks": False,
      "force_7z": False,
@@ -189,7 +189,7 @@ index 4aba838..dfdaf78 100644
      "nsfw": False,
      "last_version": VERSION,
      "changelog": True,
-@@ -1293,25 +1292,6 @@ def get_open_port():
+@@ -1294,25 +1293,6 @@ def get_open_port():
      return port
  
  
