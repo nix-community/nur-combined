@@ -1,14 +1,8 @@
-{ lib
-, callPackage
+{ callPackage
 , fetchFromGitHub
-, unzip
-, zip
-, git
-, git-lfs
 , openjdk11
 , gradle
 , gradleGen
-, gnome2
 }:
 rec {
   pname = "bisq-desktop";
