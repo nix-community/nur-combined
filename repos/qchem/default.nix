@@ -238,6 +238,8 @@ let
       ] ++ lib.optional optAVX "--enable-fma"
       ;};
 
+      libvori = callPackage ./libvori { };
+
       # legacy version
       libxc4 = callPackage ./libxc { };
 

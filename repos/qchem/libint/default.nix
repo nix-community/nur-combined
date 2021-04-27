@@ -23,11 +23,9 @@ stdenv.mkDerivation rec {
     sha256 = "0pbc2j928jyffhdp4x5bkw68mqmx610qqhnb223vdzr0n2yj5y19";
   };
 
-  patches = [ (fetchpatch {
-    name = "fortran_bindings";
-    url = "https://sources.debian.org/data/main/libi/libint2/2.6.0-4/debian/patches/fortran_bindings.patch";
-    sha256 = "0x71xldmk0agdk61x7k39r743nvq3irxy6s3djyg59r8yby9a6vc";
-  })];
+  patches = [
+    ./patches/fortran_bindings_debian.patch
+  ];
 
   postPatch = ''
     find -name Makefile -exec sed -i 's:/bin/rm:rm:' \{} \;
@@ -66,4 +64,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
-

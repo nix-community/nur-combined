@@ -1,5 +1,5 @@
 { lib, stdenv, fetchFromGitHub, python3, gfortran, blas, lapack
-, fftw, libint2, libxc, mpi, gsl, scalapack, openssh, makeWrapper
+, fftw, libint2, libvori, libxc, mpi, gsl, scalapack, openssh, makeWrapper
 , libxsmm, spglib, which
 , optAVX ? false
 } :
@@ -24,7 +24,20 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ python3 which openssh makeWrapper ];
-  buildInputs = [ gfortran fftw gsl libint2 libxc libxsmm  spglib blas lapack mpi scalapack ];
+  buildInputs = [
+    gfortran
+    fftw
+    gsl
+    libint2
+    libvori
+    libxc
+    libxsmm
+    spglib
+    blas
+    lapack
+    mpi
+    scalapack
+  ];
 
   makeFlags = [
     "ARCH=${arch}"
@@ -49,7 +62,7 @@ in stdenv.mkDerivation rec {
     AR         = ar -r
     DFLAGS     = -D__FFTW3 -D__LIBXC -D__LIBINT -D__parallel -D__SCALAPACK \
                  -D__MPI_VERSION=3 -D__F2008 -D__LIBXSMM -D__SPGLIB \
-                 -D__MAX_CONTR=4
+                 -D__MAX_CONTR=4 -D__LIBVORI
 
     CFLAGS    = -fopenmp
     FCFLAGS    = \$(DFLAGS) -O2 -ffree-form -ffree-line-length-none \
@@ -61,7 +74,7 @@ in stdenv.mkDerivation rec {
                  -I${libint2}/include
     LIBS       = -lfftw3 -lfftw3_threads -lscalapack -lblas -llapack \
                  -lxcf03 -lxc -lxsmmf -lxsmm -lsymspg \
-                 -lint2 -lstdc++ \
+                 -lint2 -lstdc++ -lvori \
                  -fopenmp
     LDFLAGS    = \$(FCFLAGS) \$(LIBS)
     EOF
@@ -100,4 +113,3 @@ in stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
   };
 }
-
