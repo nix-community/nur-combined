@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# vim:set ft=bash
+# WORK IN PROGRESS: Will eat your cat
+set -euf -o pipefail
+function bold {
+    echo -e "$(tput bold)$@$(tput sgr0)"
+}
+function red {
+    echo -e "\033[0;31m$@\033[0m"
+}
+
+command=$1;shift
+
+case "$command" in
+    "error")
+        echo -e "$(red error): $*"
+        exit 1
+    ;;
+    "require_binary")
+        which "$1" > /dev/null 2> /dev/null || $0 error "'$1' binary not found"
+    ;;
+    "disable_app")
+        $0 require_binary adb
+        adb shell pm uninstall -k --user 0 "$1"
+    ;;
+esac
+
+

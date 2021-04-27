@@ -6,7 +6,7 @@ TEMPFILE=$(mktemp)
 while [ true ]
 do
     echo "running '$@'"
-    "$@" | tee "$TEMPFILE"
+    "$@" 2> /dev/stdout | tee "$TEMPFILE"
     OUTPUT="$(cat "$TEMPFILE" | grep "Cannot allocate memory")"
     if [ "$OUTPUT" == "" ]
     then

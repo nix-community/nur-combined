@@ -1,5 +1,6 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -p python3 -i python
+from os import sys
 
 def eprint(*args, **kwargs):
     from sys import stderr
@@ -515,6 +516,9 @@ def eval_passed_stmt():
     args = get_args()
     if len(args) == 0:
         print("c4me [python expression]")
+        exit(1)
+        return
+    elif args[0] == "stdin":
         return
     elif args[0] == "repl":
         repl()
