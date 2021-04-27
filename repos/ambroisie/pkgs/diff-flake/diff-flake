@@ -3,7 +3,7 @@
 set -eu
 
 NEW_REV=
-PREVIOUS_REV="$(@git@ rev-parse @~)"
+PREVIOUS_REV="$(git rev-parse @~)"
 OUTPUT_FILE=/dev/stdout
 FLAKE_OUTPUTS=()
 NIX_BUILD_ARGS=()
@@ -14,9 +14,9 @@ print_err() {
 
 sanitize_output() {
     if [ "$OUTPUT_FILE" != "/dev/stdout" ]; then
-        @sed@ 's/\x1b\[[0-9;]*m//g'
+        sed 's/\x1b\[[0-9;]*m//g'
     else
-        @cat@
+        cat
     fi
 }
 
@@ -61,11 +61,11 @@ parse_args() {
                 shift
                 ;;
             -n|--new-rev)
-                NEW_REV="$(@git@ rev-parse "$1")"
+                NEW_REV="$(git rev-parse "$1")"
                 shift
                 ;;
             -p|--previous-rev)
-                PREVIOUS_REV="$(@git@ rev-parse "$1")"
+                PREVIOUS_REV="$(git rev-parse "$1")"
                 shift
                 ;;
             --)
@@ -98,8 +98,8 @@ fill_default_outputs() {
 
 diff_output() {
     local PREV NEW;
-    PREV="$(@mktemp@ --dry-run)"
-    NEW="$(@mktemp@ --dry-run)"
+    PREV="$(mktemp --dry-run)"
+    NEW="$(mktemp --dry-run)"
 
     nix build "${NIX_BUILD_ARGS[@]}" ".?rev=${PREVIOUS_REV}#$1" -o "$PREV"
     nix build "${NIX_BUILD_ARGS[@]}" ".${NEW_REV:+?rev=$NEW_REV}#$1" -o "$NEW"

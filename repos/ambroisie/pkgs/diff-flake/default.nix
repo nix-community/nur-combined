@@ -1,13 +1,14 @@
-{ coreutils, git, gnused, lib, shellcheck, stdenvNoCC }:
-stdenvNoCC.mkDerivation {
+{ coreutils, git, gnused, makeWrapper, lib, shellcheck, stdenvNoCC }:
+stdenvNoCC.mkDerivation rec {
   pname = "diff-flake";
   version = "0.1.0";
 
   src = ./diff-flake;
 
-  phases = [ "buildPhase" "installPhase" ];
+  phases = [ "buildPhase" "installPhase" "fixupPhase" ];
 
   buildInputs = [
+    makeWrapper
     shellcheck
   ];
 
@@ -17,15 +18,20 @@ stdenvNoCC.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp $src $out/bin/diff-flake
-    substituteAllInPlace $out/bin/diff-flake
-    patchShebangs $out/bin/diff-flake
+    cp $src $out/bin/${pname}
+    chmod a+x $out/bin/${pname}
   '';
 
-  cat = "${coreutils}/bin/cat";
-  mktemp = "${coreutils}/bin/mktemp";
-  git = "${git}/bin/git";
-  sed = "${gnused}/bin/sed";
+  wrapperPath = lib.makeBinPath [
+    coreutils
+    git
+    gnused
+  ];
+
+  fixupPhase = ''
+    patchShebangs $out/bin/${pname}
+    wrapProgram $out/bin/${pname} --prefix PATH : "${wrapperPath}"
+  '';
 
   meta = with lib; {
     description = "Nix flake helper to visualize changes in closures";
