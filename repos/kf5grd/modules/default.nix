@@ -3,9 +3,6 @@
   #
   # my-module = ./my-module;
   pinephone = {
-    sxmo = {
-      xinit = ./pinephone/sxmo/xinit.nix;
-      scripts = ./pinephone/sxmo/scripts.nix;
-    };
+    sxmo = ./pinephone/sxmo.nix;
   };
 }
