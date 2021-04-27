@@ -33,7 +33,7 @@
   
   users.users.sam = {
     description = "Sam Hatfield <hey@samhatfield.me>";
-    extraGroups = [ "wheel" "audio" "video" "networkmanager" ];
+    extraGroups = [ "wheel" "audio" "docker" "video" "networkmanager" ];
     isNormalUser = true;
     shell = pkgs.zsh;
   };

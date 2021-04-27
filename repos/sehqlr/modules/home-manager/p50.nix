@@ -17,7 +17,7 @@
       plugins = [ pkgs.obs-wlrobs ];
   };
   
-  services.kanshi.profiles."three_monitors" = {
+  services.kanshi.profiles."three_monitors_on_reboot" = {
     outputs = [
       {
         criteria = "DP-4";
@@ -34,6 +34,22 @@
     ];
   };
   
+  services.kanshi.profiles."three_monitors" = {
+    outputs = [
+      {
+        criteria = "DP-5";
+        position = "3840,0";
+      }
+      {
+        criteria = "DP-8";
+        position = "0,0";
+      }
+      {
+        criteria = "eDP-1";
+        position = "1920,0";
+      }
+    ];
+  };
   services.kanshi.profiles."two_monitors" = {
     outputs = [
       {
