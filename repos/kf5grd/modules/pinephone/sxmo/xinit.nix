@@ -1,14 +1,14 @@
 { config, lib, pkgs ? import <nixpkgs> {}, ... }:
 with lib;
 let
-  cfg = config.pinephone.sxmo;
+  cfg = config.pinephone.sxmo.xinit;
 in
 {
   options = {
-    pinephone.sxmo = {
+    pinephone.sxmo.xinit = {
       enable = mkOption {
         type = types.bool;
-        description = "Whether to write sxmo config files";
+        description = "Whether to manage sxmo xinit file";
         default = false;
       };
       background = mkOption {
@@ -42,7 +42,7 @@ in
         description = "Enable modemmonitor on boot";
         default = false;
       };
-      xinitExtras = mkOption {
+      extras = mkOption {
         type = types.nullOr types.str;
         description = "Extras to append to then end of sxmo's xinit";
         default = null;
@@ -57,7 +57,7 @@ in
       text = let
         startupSound = if cfg.startupSound != null then "mpv --quiet --no-video ${builtins.toString cfg.startupSound} &\n" else "";
         enableModem = if cfg.enableModem == true then "sleep 22 && sxmo_modemmonitortoggle.sh on &\n" else "";
-        xinitExtras = if cfg.xinitExtras != null then cfg.xinitExtras else "";
+        extras = if cfg.extras != null then cfg.extras else "";
       in ''
         feh --bg-fill ${builtins.toString cfg.background}
         conky -c ${builtins.toString cfg.conkyConfig} -d
@@ -67,7 +67,7 @@ in
       ''
         +startupSound
         +enableModem
-        +xinitExtras;
+        +extras;
     };
   };
 }
