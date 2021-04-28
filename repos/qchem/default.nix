@@ -112,12 +112,16 @@ let
 
       bagel-serial = callPackage ./bagel { mpi = null; blas = self.mkl; };
 
+      cefine = callPackage ./cefine { };
+
       chemps2 = callPackage ./chemps2 {};
 
       cp2k = callPackage ./cp2k {
         libxc = self.libxc4;  # patches are are required for libxc5
         inherit optAVX;
       };
+
+      crest = callPackage ./crest { };
 
       dkh = callPackage ./dkh {};
 
@@ -139,17 +143,13 @@ let
         gfortran = self_.gfortran6;
       };
 
-      molcas = callPackage ./openmolcas { };
+      molcas = self.molcas2102;
 
-      molcas1911 = self.molcas;
+      molcas1911 = callPackage ./openmolcas/v19.11.nix { };
 
       molcas2010 = callPackage ./openmolcas/v20.10.nix { };
 
       molcas2102 = callPackage ./openmolcas/v21.02.nix { };
-
-      #molcasUnstable = callPackage ./openmolcas/unstable.nix {
-      #  texLive = self_.texlive.combine { inherit (self_.texlive) scheme-basic epsf cm-super; };
-      #};
 
       mt-dgemm = callPackage ./mt-dgemm { };
 
@@ -201,6 +201,11 @@ let
 
       vmd = callPackage ./vmd {};
 
+      xtb = callPackage ./xtb {
+        turbomole = null;
+        cefine = null;
+        orca = self.orca;
+      };
 
 
 
@@ -287,6 +292,7 @@ let
         dgemm = callPackage ./tests/dgemm { };
         stream = callPackage ./tests/stream { };
         turbomole = callPackage ./tests/turbomole { };
+        xtb = callPackage ./tests/xtb { };
       }  // lib.optionalAttrs (cfg.licMolpro != null) {
         molpro = callPackage ./tests/molpro { };
       };

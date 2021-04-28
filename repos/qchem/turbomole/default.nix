@@ -114,6 +114,7 @@ in stdenv.mkDerivation rec {
         --prefix PATH : "${coreutils}/bin" \
         --prefix PATH : "${less}/bin" \
         --prefix PATH : "${more}/bin" \
+        --set PAGER "more" \
         --set TURBODIR "$TURBODIR" \
         --set PARA_ARCH "${PARA_ARCH}" \
         --set TURBOARCH ${systemName}

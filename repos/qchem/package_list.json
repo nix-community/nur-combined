@@ -33,9 +33,9 @@
   },
   {
     "attribute": "qchem.cp2k",
-    "name": "cp2k-7.1.0",
+    "name": "cp2k-8.1.0",
     "pname": "cp2k",
-    "version": "7.1.0",
+    "version": "8.1.0",
     "description": "Quantum chemistry and solid state physics program",
     "homepage": "https://www.cp2k.org"
   },
@@ -64,18 +64,34 @@
     "homepage": "http://http://www.ergoscf.org"
   },
   {
+    "attribute": "qchem.f2c",
+    "name": "f2c-20200916",
+    "pname": "f2c",
+    "version": "20200916",
+    "description": "F2C converts Fortran 77 source code to C",
+    "homepage": "http://www.netlib.org/f2c/"
+  },
+  {
     "attribute": "qchem.fftw",
-    "name": "fftw-double-3.3.8",
+    "name": "fftw-double-3.3.9",
     "pname": "fftw-double",
-    "version": "3.3.8",
+    "version": "3.3.9",
+    "description": "Fastest Fourier Transform in the West library",
+    "homepage": "http://www.fftw.org/"
+  },
+  {
+    "attribute": "qchem.fftw-mpi",
+    "name": "fftw-double-3.3.9",
+    "pname": "fftw-double",
+    "version": "3.3.9",
     "description": "Fastest Fourier Transform in the West library",
     "homepage": "http://www.fftw.org/"
   },
   {
     "attribute": "qchem.fftwSinglePrec",
-    "name": "fftw-single-3.3.8",
+    "name": "fftw-single-3.3.9",
     "pname": "fftw-single",
-    "version": "3.3.8",
+    "version": "3.3.9",
     "description": "Fastest Fourier Transform in the West library",
     "homepage": "http://www.fftw.org/"
   },
@@ -102,6 +118,14 @@
     "version": "6.0.16",
     "description": "GUI for the Gaussian quantum chemistry software package",
     "homepage": "http://gaussian.com/gaussian16/"
+  },
+  {
+    "attribute": "qchem.gpaw",
+    "name": "gpaw-21.1.0",
+    "pname": "gpaw",
+    "version": "21.1.0",
+    "description": "DFT and beyond within the projector-augmented wave method",
+    "homepage": "https://wiki.fysik.dtu.dk/gpaw/index.html"
   },
   {
     "attribute": "qchem.gromacs",
@@ -137,9 +161,9 @@
   },
   {
     "attribute": "qchem.hdf5-full",
-    "name": "hdf5-1.10.6",
+    "name": "hdf5-1.12.0",
     "pname": "hdf5",
-    "version": "1.10.6",
+    "version": "1.12.0",
     "description": "Data model, library, and file format for storing and managing data",
     "homepage": "https://www.hdfgroup.org/HDF5/"
   },
@@ -192,14 +216,6 @@
     "homepage": "https://github.com/evaleev/libint"
   },
   {
-    "attribute": "qchem.libint-bagel",
-    "name": "libint2-2.6.0",
-    "pname": "libint2",
-    "version": "2.6.0",
-    "description": "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions",
-    "homepage": "https://github.com/evaleev/libint"
-  },
-  {
     "attribute": "qchem.libint2",
     "name": "libint2-2.6.0",
     "pname": "libint2",
@@ -208,7 +224,31 @@
     "homepage": "https://github.com/evaleev/libint"
   },
   {
-    "attribute": "qchem.libxc",
+    "attribute": "qchem.libint-bagel",
+    "name": "libint2-2.6.0",
+    "pname": "libint2",
+    "version": "2.6.0",
+    "description": "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions",
+    "homepage": "https://github.com/evaleev/libint"
+  },
+  {
+    "attribute": "qchem.libvdwxc",
+    "name": "libvdwxc-24.02.2020",
+    "pname": "libvdwxc",
+    "version": "24.02.2020",
+    "description": "Portable C library of density functionals with van der Waals interactions for density functional theory",
+    "homepage": "https://libvdwxc.org/"
+  },
+  {
+    "attribute": "qchem.libvori",
+    "name": "libvori-201229",
+    "pname": "libvori",
+    "version": "201229",
+    "description": "Library for Voronoi intergration of electron densities",
+    "homepage": "https://brehm-research.de/libvori.php"
+  },
+  {
+    "attribute": "qchem.libxc4",
     "name": "libxc-4.3.4",
     "pname": "libxc",
     "version": "4.3.4",
@@ -249,10 +289,10 @@
   },
   {
     "attribute": "qchem.mkl",
-    "name": "mkl-2020.4.304",
+    "name": "mkl-2021.1.1.52",
     "pname": "mkl",
-    "version": "2020.4.304",
-    "description": "Intel Math Kernel Library",
+    "version": "2021.1.1.52",
+    "description": "Intel OneAPI Math Kernel Library",
     "homepage": "https://software.intel.com/en-us/mkl"
   },
   {
@@ -261,7 +301,7 @@
     "pname": "molden",
     "version": "6.3",
     "description": "Display and manipulate molecular structures",
-    "homepage": "http://www.cmbi.ru.nl/molden/"
+    "homepage": "http://www3.cmbi.umcn.nl/molden/"
   },
   {
     "attribute": "qchem.molpro12",
@@ -304,12 +344,28 @@
     "homepage": "https://www.molpro.net"
   },
   {
+    "attribute": "qchem.molpro-ext",
+    "name": "molpro-2020.2",
+    "pname": "molpro",
+    "version": "2020.2",
+    "description": "Quantum chemistry program package",
+    "homepage": "https://www.molpro.net"
+  },
+  {
     "attribute": "qchem.mt-dgemm",
     "name": "mt-dgeem-20160114",
     "pname": "mt-dgeem",
     "version": "20160114",
     "description": "Simple matrix multiplication performance test",
     "homepage": "https://portal.nersc.gov/project/m888/apex/"
+  },
+  {
+    "attribute": "qchem.multiwfn",
+    "name": "multiwfn-3.7",
+    "pname": "multiwfn",
+    "version": "3.7",
+    "description": "Multifunctional wave function analyser.",
+    "homepage": "http://sobereva.com/multiwfn/index.html"
   },
   {
     "attribute": "qchem.mvapich",
@@ -345,9 +401,9 @@
   },
   {
     "attribute": "qchem.octave",
-    "name": "octave-6.1.0",
+    "name": "octave-6.2.0",
     "pname": "octave",
-    "version": "6.1.0",
+    "version": "6.2.0",
     "description": "Scientific Pragramming Language",
     "homepage": "https://www.gnu.org/software/octave/"
   },
@@ -376,18 +432,26 @@
     "homepage": "https://gitlab.com/Molcas/OpenMolcas"
   },
   {
+    "attribute": "qchem.molcas2102",
+    "name": "openmolcas-21.02",
+    "pname": "openmolcas",
+    "version": "21.02",
+    "description": "Quantum chemistry software package",
+    "homepage": "https://gitlab.com/Molcas/OpenMolcas"
+  },
+  {
     "attribute": "qchem.mpi",
-    "name": "openmpi-4.0.5",
+    "name": "openmpi-4.1.1",
     "pname": "openmpi",
-    "version": "4.0.5",
+    "version": "4.1.1",
     "description": "Open source MPI-3 implementation",
     "homepage": "https://www.open-mpi.org/"
   },
   {
     "attribute": "qchem.orca",
-    "name": "orca-4.2.0",
+    "name": "orca-4.2.1",
     "pname": "orca",
-    "version": "4.2.0",
+    "version": "4.2.1",
     "description": "Ab initio quantum chemistry program package",
     "homepage": "https://orcaforum.kofo.mpg.de/"
   },
@@ -512,14 +576,6 @@
     "homepage": "https://github.com/Sandia-OpenSHMEM/SOS/releases"
   },
   {
-    "attribute": "qchem.spglib",
-    "name": "spglib-1.15.1",
-    "pname": "spglib",
-    "version": "1.15.1",
-    "description": "C library for finding and handling crystal symmetries",
-    "homepage": "https://atztogo.github.io/spglib/"
-  },
-  {
     "attribute": "qchem.stream-benchmark",
     "name": "stream-benchmark-2013",
     "pname": "stream-benchmark",
@@ -534,6 +590,14 @@
     "version": "",
     "description": null,
     "homepage": null
+  },
+  {
+    "attribute": "qchem.turbomole",
+    "name": "turbomole-7.5",
+    "pname": "turbomole",
+    "version": "7.5",
+    "description": "General purpose quantum chemistry program. Tools, not Toys!",
+    "homepage": "https://www.turbomole.org/"
   },
   {
     "attribute": "qchem.vmd",
