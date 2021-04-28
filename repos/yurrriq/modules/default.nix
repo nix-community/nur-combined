@@ -1,3 +1,0 @@
-{
-  yubikey-gpg = ./yubikey-gpg;
-}
