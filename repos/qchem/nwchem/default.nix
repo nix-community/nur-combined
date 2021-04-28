@@ -57,7 +57,7 @@ in stdenv.mkDerivation {
   # config parameters
   NWCHEM_TARGET="LINUX64";
 
-  ARMCI_NETWORK="MPI-MT";
+  ARMCI_NETWORK="MPI-PR";
   USE_MPI="y";
   USE_MPIF="y";
 
@@ -82,9 +82,7 @@ in stdenv.mkDerivation {
   preBuild = ''
     ln -s ${ga_src} src/tools/ga-${versionGA}.tar.gz
 
-    export LIBMPI=$(mpif90 -showme:link)
     export NWCHEM_TOP="$PWD"
-
 
     cd src
 
@@ -139,7 +137,6 @@ in stdenv.mkDerivation {
 
     chmod 755 $out/bin/nwchem
 
-
     cat > $out/share/nwchem/nwchemrc << EOF
     nwchem_basis_library $out/share/nwchem/data/libraries/
     nwchem_nwpw_library $out/share/nwchem//data/libraryps/
@@ -159,13 +156,19 @@ in stdenv.mkDerivation {
     ./doqmtests.mpi 1 fast
   '';
 
-  doCheck=false;
+  doCheck = false;
 
   doInstallCheck = true;
 
   installCheckPhase = ''
+    export OMP_NUM_THREADS=1
+
+    # Fix to make mpich run in a sandbox
+    export HYDRA_IFACE=lo
+    export OMPI_MCA_rmaps_base_oversubscribe=1
+
     # run a simple water test
-    $out/bin/nwchem $out/share/nwchem/QA/tests/h2o/h2o.nw > h2o.out
+    $out/bin/nwchem 2 $out/share/nwchem/QA/tests/h2o/h2o.nw > h2o.out
     grep "Total SCF energy" h2o.out  | grep 76.010538
   '';
 

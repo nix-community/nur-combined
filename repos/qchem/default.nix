@@ -133,7 +133,10 @@ let
 
       gpaw = super.python3.pkgs.toPythonApplication self.python3.pkgs.gpaw;
 
-      nwchem = callPackage ./nwchem { blas=self.blas-i8; lapack=self.lapack-i8; };
+      nwchem = callPackage ./nwchem {
+        blas=self.blas-i8;
+        lapack=self.lapack-i8;
+      };
 
       mctdh = callPackage ./mctdh { };
 
@@ -150,6 +153,8 @@ let
       molcas2010 = callPackage ./openmolcas/v20.10.nix { };
 
       molcas2102 = callPackage ./openmolcas/v21.02.nix { };
+
+      mrcc = callPackage ./mrcc { };
 
       mt-dgemm = callPackage ./mt-dgemm { };
 
@@ -286,6 +291,7 @@ let
         mesa-qc = callPackage ./tests/mesa { };
         molcas = callPackage ./tests/molcas { };
         #molcasUnstable = callPackage ./tests/molcas { molcas=self.molcasUnstable; };
+        mrcc = callPackage ./tests/mrcc { };
         nwchem = callPackage ./tests/nwchem { };
         psi4 = callPackage ./tests/psi4 { };
         qdng = callPackage ./tests/qdng { };
