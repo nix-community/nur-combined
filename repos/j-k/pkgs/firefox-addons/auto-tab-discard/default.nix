@@ -2,8 +2,8 @@
 
 fetchFirefoxAddon {
   name = "auto-tab-discard";
-  url = "https://addons.mozilla.org/firefox/downloads/file/3764231/auto_tab_discard-0.4.6-an+fx.xpi";
-  sha256 = "sha256-7vtMPBLYdI+ZmoQVqXV4PTHRo4FioCam+ddqosz+7Gc=";
+  url = "https://addons.mozilla.org/firefox/downloads/file/3767563/auto_tab_discard-0.4.7-an+fx.xpi";
+  sha256 = "sha256-Ov16BZlQecfGR8egGgfdAzseR+57VoRuM+LZSasQyYo=";
 
   # meta = with lib; {
   #   # https://github.com/rNeomy/auto-tab-discard

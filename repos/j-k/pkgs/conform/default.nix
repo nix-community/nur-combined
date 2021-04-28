@@ -13,19 +13,27 @@ buildGoModule rec {
 
   vendorSha256 = "18vhxq475d1f5sghy8gxa4wg6dbfj103pbl0kfx6xl6jf2ksqiln";
 
-  nativeBuildInputs = [ git ];
+  preBuild = ''
+    buildFlagsArray+=("-ldflags" "-s -w -X github.com/talos-systems/conform/cmd.Tag=v${version}")
+  '';
 
-  buildFlagsArray = [
-    "-ldflags="
-    "-s"
-    "-w"
-    "-X github.com/talos-systems/${pname}/cmd.Tag=v${version}"
-  ];
+  checkInputs = [ git ];
+
+  doInstallCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
+    $out/bin/conform --help
+    $out/bin/conform version | grep "v${version}"
+    runHook postInstallCheck
+  '';
 
   meta = with lib; {
+    homepage = "https://github.com/talos-systems/conform";
+    changelog = "https://github.com/talos-systems/conform/blob/v${version}/CHANGELOG.md";
     description = "Policy enforcement for your pipelines";
-    longDescription = "Conform is a tool for enforcing policies on your build pipelines";
-    homepage = src.meta.homepage;
+    longDescription = ''
+      Conform is a tool for enforcing policies on your build pipelines
+    '';
     license = licenses.mpl20;
     maintainers = with maintainers; [ jk ];
   };

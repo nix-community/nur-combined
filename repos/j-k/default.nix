@@ -29,6 +29,7 @@ in
   hunter = callPackage ./pkgs/hunter { };
   infracost = callPackage ./pkgs/infracost { };
   ko = callPackage ./pkgs/ko { };
+  konstraint = callPackage ./pkgs/konstraint { };
   nerdfont-hasklig = callPackage ./pkgs/fonts/nerdfont-hasklig { };
   scorecard = callPackage ./pkgs/scorecard { };
   subo = callPackage ./pkgs/subo { };

@@ -2,26 +2,34 @@
 
 buildGoModule rec {
   pname = "scorecard";
-  version = "1.0.0";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "ossf";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1br50c73crml2c6js3mkszk1canjm657mqhcyi1x66p27dqvwirf";
+    sha256 = "sha256-y/hqfk1fDnp7Nrf3NwHQRQwlSiCXt4Xm15qoTIFlCKk=";
   };
 
-  vendorSha256 = "0x03gcmzsshaxq5k0p6i6jbjkn7rn32hp1jp5q8nnk0agjs09a35";
+  vendorSha256 = "sha256-Hs1W1A6M1Qq3HUd+2BamXEmaCS2d/s5a7po9iFo9TtA=";
 
-  buildFlagsArray = [
-    "-ldflags="
-    "-w"
-    "-s"
-  ];
+  excludedPackages="\\(gitcache\\|e2e\\)";
+
+  preBuild = ''
+    buildFlagsArray+=("-ldflags" "-s -w")
+  '';
+
+  doInstallCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
+    $out/bin/scorecard --help
+    runHook postInstallCheck
+  '';
 
   meta = with lib; {
-    description = "OSS Security Scorecards";
-    homepage = src.meta.homepage;
+    homepage = "https://github.com/ossf/scorecard";
+    changelog = "https://github.com/ossf/scorecard/releases/tag/v${version}";
+    description = "A program that shows security scorecard for an open source software";
     license = licenses.asl20;
     maintainers = with maintainers; [ jk ];
   };
