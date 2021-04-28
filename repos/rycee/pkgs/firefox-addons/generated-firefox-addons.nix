@@ -588,10 +588,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.70.0.1";
+      version = "4.70.1.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3764310/lastpass_password_manager-4.70.0.1-an+fx.xpi";
-      sha256 = "64017a4536e4dce378272447d2ce279c22bf51935514e307f7e86113254f1b15";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3766455/lastpass_password_manager-4.70.1.2-an+fx.xpi";
+      sha256 = "72227477662ec8063ea3520687e310e9df1a75b5e3b0fe21d5d9b4c80cdcf7a2";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1351,10 +1351,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "1.0.1";
+      version = "1.1.0";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3751589/vim_vixen-1.0.1-an+fx.xpi";
-      sha256 = "60172f35ccc2d092bc1e21c43ec990dc40733b4aa3d5a6b66e54d04004d1b02e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3767030/vim_vixen-1.1.0-an+fx.xpi";
+      sha256 = "d370e4e7692878d570f4eeaa63304a147d15cda2426a6c90d99b3675a66c3ea8";
       meta = with lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
