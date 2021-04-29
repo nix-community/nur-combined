@@ -49,10 +49,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.4.6";
+      version = "0.4.7";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3764231/auto_tab_discard-0.4.6-an+fx.xpi";
-      sha256 = "eefb4c3c12d8748f999a8415a975783d31d1a38162a026a6f9d76aa2ccfeec67";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3767563/auto_tab_discard-0.4.7-an+fx.xpi";
+      sha256 = "3afd7a05995079c7c647c7a01a07dd033b1e47ee7b56846e33e2d949ab10c98a";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -944,10 +944,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.12.3";
+      version = "4.13.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3762376/react_developer_tools-4.12.3-fx.xpi";
-      sha256 = "85e057f30de7f62653a6bc962bd4c9b8e4d3a94cf5fd7ec08d605519d710613c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3767928/react_developer_tools-4.13.0-fx.xpi";
+      sha256 = "e7fded13740a55d71cc29bddf72c10f25984db3d2228dfe5b6b998de34d967c6";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1041,10 +1041,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "3.6.1";
+      version = "3.6.2";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3758273/search_by_image-3.6.1-an+fx.xpi";
-      sha256 = "9783070b7bb3e433d55af0228328ccbec1e8435402ccdf869c7d91a45f66851b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3767226/search_by_image-3.6.2-an+fx.xpi";
+      sha256 = "2419da33e09e330f7f03af1aa3d5725f54324f74f774fa55dc07a088c979ff96";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image";
@@ -1124,10 +1124,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.6.0";
+      version = "6.7.0";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3761926/tab_session_manager-6.6.0-fx.xpi";
-      sha256 = "95c9c06658cb2c8689df43adad2b42db2d92d6fe2c919586ac865ea1a23cb76c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3767895/tab_session_manager-6.7.0-fx.xpi";
+      sha256 = "50107dd4eb731f92869e2f90542c504d1eadc641bdc512bbcd5e71bcae7712ec";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -1393,10 +1393,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.5.33";
+      version = "6.5.35";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3757520/wappalyzer-6.5.33-fx.xpi";
-      sha256 = "b9740f40b5cccd1f58f5a85dcb88c7e0670128e9bc8ae5dad385b6ee33ab8b9c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3768082/wappalyzer-6.5.35-fx.xpi";
+      sha256 = "38651d88bdc9210d3d6f12ce243ad95ba1174d7d997100fff9ce5065eea11b46";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
