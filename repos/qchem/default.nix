@@ -123,6 +123,8 @@ let
 
       crest = callPackage ./crest { };
 
+      dalton = callPackage ./dalton {};
+
       dkh = callPackage ./dkh {};
 
       dftd3 = callPackage ./dft-d3 {};
@@ -286,6 +288,7 @@ let
         cp2k = callPackage ./tests/cp2k { };
         bagel = callPackage ./tests/bagel { };
         bagel-bench = callPackage ./tests/bagel/bench-test.nix { };
+        dalton = callPackage ./tests/dalton { };
         hpcg = callPackage ./tests/hpcg { };
         hpl = callPackage ./tests/hpl { };
         mesa-qc = callPackage ./tests/mesa { };
