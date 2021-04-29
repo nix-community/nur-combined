@@ -43,11 +43,20 @@ in
 
       dataDir = mkOption {
         type = types.str;
-        default = "/var/lib/freshrss";
+        default = "/var/lib/freshrss/data";
         description = ''
-          Location in which FreshRSS directory will be created.
+          Location of FreshRSS data directory.
         '';
       };
+
+      extensionsDir = mkOption {
+        type = types.str;
+        default = "/var/lib/freshrss/extensions";
+        description = ''
+          Location of FreshRSS extensions directory.
+        '';
+      };
+
 
       virtualHost = mkOption {
         type = types.nullOr types.str;
@@ -175,6 +184,7 @@ in
               fastcgi_param PATH_INFO $path_info;
               fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
               fastcgi_param FRESHRSS_DATA ${cfg.dataDir};
+              fastcgi_param FRESHRSS_EXTENSIONS ${cfg.extensionsDir};
             '';
           };
         };
@@ -193,7 +203,11 @@ in
     };
 
     systemd.tmpfiles.rules =
-      [ "Z '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -" ];
+      [
+        "Z '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.extensionsDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "Z '${cfg.extensionsDir}' - ${cfg.user} ${cfg.group} - -"
+      ];
 
     system.activationScripts.freshrss =
       let
@@ -214,7 +228,7 @@ in
           ${pkgs.sudo}/bin/sudo -Eu freshrss ${pkgs.php}/bin/php ${package}/cli/create-user.php --user ${cfg.admin} --password '${cfg.initialPassword}'
         fi
 
-        rm -f ${cfg.dataDir}/data/do-install.txt 
+        rm -f ${cfg.dataDir}/do-install.txt 
       '';
 
     systemd = {

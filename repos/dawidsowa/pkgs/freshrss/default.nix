@@ -14,6 +14,7 @@ stdenv.mkDerivation rec {
   phpConfig = writeText "constants.local.php" ''
     <?php
       safe_define('DATA_PATH', getenv('FRESHRSS_DATA'));
+      safe_define('THIRDPARTY_EXTENSIONS_PATH', getenv('FRESHRSS_EXTENSIONS'));
     ?>
   '';
 
