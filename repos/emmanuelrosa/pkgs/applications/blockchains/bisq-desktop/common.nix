@@ -12,7 +12,7 @@ rec {
     owner = "bisq-network";
     repo = "bisq";
     rev = "v${version}";
-    sha256 = "0p7h0biffkj4vx547vpn33fa2500whnq864inxdmxf8l3zp3c4wz";
+    sha256 = "05w9f2aqvwlwxjylnbzc3mvi8mz1n0dv1938c589698pyfzfwhw8";
     leaveDotGit = true;
     fetchLFS = true;
   });

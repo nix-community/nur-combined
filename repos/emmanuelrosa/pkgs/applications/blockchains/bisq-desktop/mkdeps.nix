@@ -48,10 +48,11 @@ let
     outputHashMode = "recursive";
 
     # REF1
-    outputHash = "1zx6hd7b4kc2s4zv9p897dbsydvh260hdhhwqpaliyq300vhfiwv";
+    outputHash = "1wkrl46f4pz06p4yzlmx5pg6pyskj4xbgbnyn3p0qgpsl2yj396i";
   };
 
   gen-deps-script = pkgs.writeScript "${pname}-gen-deps-script" ''
+    #! ${pkgs.bash}/bin/bash
     echo "# This file was generated with mkdeps.nix"
     echo "# You should not edit this file manually."
     echo
@@ -93,9 +94,11 @@ let
 
 in
 pkgs.stdenv.mkDerivation {
-  name = "${pname}-deps-${version}.nix";
+  name = "${pname}-gen-java-deps.bash";
 
-  phases = [ "installPhase" ];
+  dontUnpack = true;
+  dontConfigure = true;
+  dontBuild = true;
 
   installPhase = ''
     cp ${gen-deps-script} $out
