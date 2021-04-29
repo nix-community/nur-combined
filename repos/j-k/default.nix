@@ -26,6 +26,7 @@ in
   flat-remix-theme = callPackage ./pkgs/themes/flat-remix { };
   go-jira = callPackage ./pkgs/go-jira { };
   google-fonts = callPackage ./pkgs/fonts/google-fonts { };
+  goss = callPackage ./pkgs/goss { };
   hunter = callPackage ./pkgs/hunter { };
   infracost = callPackage ./pkgs/infracost { };
   ko = callPackage ./pkgs/ko { };
