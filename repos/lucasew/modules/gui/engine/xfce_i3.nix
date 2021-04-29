@@ -19,12 +19,11 @@ in
       };
     };
     windowManager.i3.enable = true;
-    xautolock = {
-      enable = true;
-      time = 10;
-      killtime = 24 * 60;
-      locker = "${locker}";
-    };
+  };
+  programs.xss-lock = {
+    enable = true;
+    lockerCommand = "${locker}";
+    extraOptions = [];
   };
   environment.systemPackages = [
     pkgs.xfce.xfce4-xkb-plugin

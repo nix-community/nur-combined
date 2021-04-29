@@ -89,7 +89,7 @@ in {
           "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume @DEFAULT_SINK@ -10%";
           "XF86AudioMute" = "exec ${pactl} set-sink-volume @DEFAULT_SINK@ toggle";
           "XF86AudioMicMute" = "exec ${pactl} set-sink-volume @DEFAULT_SOURCE@ toggle";
-          "${mod}+l" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
+          "${mod}+l" = "exec loginctl lock-session";
           "${mod}+m" = "move workspace to output left";
           "${mod}+n" = "exec ${modn}";
           "${mod}+b" = "exec ${gotoNewWs}";

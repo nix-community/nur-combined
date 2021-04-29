@@ -33,6 +33,8 @@ in reduceJoin [
     onlyoffice-bin = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/office/onlyoffice-bin/default.nix";
     dart = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/development/interpreters/dart/default.nix";
     flutter = (cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/development/compilers/flutter/default.nix").stable;
+    tor-browser-bundle-bin = (cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/networking/browsers/tor-browser-bundle-bin/default.nix");
+    obsidian = (cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/misc/obsidian/default.nix");
     webapp = cp ./packages/webapp.nix;
     webapps = import ./packages/chromeapps.nix super;
     arcan = cp ./packages/arcan.nix;
