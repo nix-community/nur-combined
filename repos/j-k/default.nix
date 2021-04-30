@@ -32,6 +32,7 @@ in
   ko = callPackage ./pkgs/ko { };
   konstraint = callPackage ./pkgs/konstraint { };
   nerdfont-hasklig = callPackage ./pkgs/fonts/nerdfont-hasklig { };
+  rakkess = callPackage ./pkgs/rakkess { };
   scorecard = callPackage ./pkgs/scorecard { };
   subo = callPackage ./pkgs/subo { };
   terraform-ls = callPackage ./pkgs/terraform-ls { };
