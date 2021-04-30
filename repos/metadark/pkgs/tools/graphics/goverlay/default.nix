@@ -2,30 +2,27 @@
 , stdenv
 , fetchFromGitHub
 , fpc
-, lazarus
-, makeWrapper
-, atk
-, cairo
-, gdk_pixbuf
-, glib
-, gtk2-x11
+, lazarus-qt
+, qt5
 , libX11
-, pango
+, libqt5pas
 }:
 
 stdenv.mkDerivation rec {
   pname = "goverlay";
-  version = "0.4";
+  version = "0.5";
 
   src = fetchFromGitHub {
     owner = "benjamimgois";
     repo = pname;
     rev = version;
-    hash = "sha256-uJXmy6ABoxTLbWvSA8yTy657RgcQoM5sPRjVI3U3H0Q=";
+    hash = "sha256-qS0GY2alUBfkmT20oegGpkhVkK+ZOUkJCPSV/wt0ZUA=";
   };
 
-  nativeBuildInputs = [ fpc lazarus makeWrapper ];
-  buildInputs = [ atk cairo gdk_pixbuf glib gtk2-x11 libX11 pango ];
+  nativeBuildInputs = [ fpc lazarus-qt qt5.wrapQtAppsHook ];
+  buildInputs = [ libX11 libqt5pas ];
+
+  NIX_LDFLAGS = "--as-needed -rpath ${lib.makeLibraryPath buildInputs}";
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -33,13 +30,14 @@ stdenv.mkDerivation rec {
   '';
 
   buildPhase = ''
-    lazbuild --lazarusdir=${lazarus}/share/lazarus -B goverlay.lpi
+    HOME=$(mktemp -d) lazbuild --lazarusdir=${lazarus-qt}/share/lazarus -B goverlay.lpi
   '';
 
-  postInstall = ''
-    wrapProgram "$out/bin/goverlay" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}"
-  '';
+  # Force xcb since libqt5pas doesn't support Wayland
+  # See https://github.com/benjamimgois/goverlay/issues/107
+  qtWrapperArgs = [
+    "--set QT_QPA_PLATFORM xcb"
+  ];
 
   meta = with lib; {
     description = "An opensource project that aims to create a Graphical UI to help manage Linux overlays";
