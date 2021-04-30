@@ -65,6 +65,7 @@ rec {
     quimb = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/quimb { inherit autoray; };
     rpcq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/rpcq { };
     tweedledum = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/tweedledum { inherit libtweedledum; };
+    olsq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/olsq { inherit cirq qiskit-terra qiskit-ibmq-provider; };
 
     # VISA & Lab Instrument control
     pyvisa = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvisa { };
