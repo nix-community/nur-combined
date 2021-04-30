@@ -133,7 +133,11 @@ let
 
       gaussview = callPackage ./gaussview { };
 
+      gdma = callPackage ./gdma { };
+
       gpaw = super.python3.pkgs.toPythonApplication self.python3.pkgs.gpaw;
+
+      i-pi = super.python3.pkgs.toPythonApplication self.python3.pkgs.i-pi;
 
       nwchem = callPackage ./nwchem {
         blas=self.blas-i8;
@@ -171,6 +175,8 @@ let
         });
       };
 
+      packmol = callPackage ./packmol { };
+
       pcmsolver = callPackage ./pcmsolver {};
 
       psi4 = super.python3.pkgs.toPythonApplication self.python3.pkgs.psi4;
@@ -203,6 +209,10 @@ let
       };
 
       stream-benchmark = callPackage ./stream { };
+
+      tinker = callPackage ./tinker { };
+
+      travis-analyzer = callPackage ./travis-analyzer { };
 
       turbomole = callPackage ./turbomole {};
 
