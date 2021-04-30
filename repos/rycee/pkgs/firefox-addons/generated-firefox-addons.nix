@@ -110,10 +110,10 @@
       };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
-      version = "1.1.0";
+      version = "1.2.0";
       addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3659047/buster_captcha_solver_for_humans-1.1.0-an+fx.xpi";
-      sha256 = "80b2f7c211862f4bd4e18df3cf1af3d0b4d31de6d7d5c387dfad79eb37feddba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3768455/buster_captcha_solver_for_humans-1.2.0-an+fx.xpi";
+      sha256 = "a1bbfb4a88132b852b96855b548ffd24a7763a73dd2803591f058debf111e8b2";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/buster";
@@ -1028,10 +1028,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "25.5";
+      version = "25.6";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3753594/save_page_we-25.5-fx.xpi";
-      sha256 = "6d4ba6f4d3dd22b1f7949697678395db9d84caa0ac8e59f72337692350a35142";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3768378/save_page_we-25.6-fx.xpi";
+      sha256 = "5752375fbf499a3b10dba9656a11dc2686ef9e16444bf72c080117a19751d782";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
