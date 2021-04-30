@@ -24,6 +24,14 @@
     "homepage": "https://github.com/xianyi/OpenBLAS"
   },
   {
+    "attribute": "qchem.cefine",
+    "name": "cefine-2.23",
+    "pname": "cefine",
+    "version": "2.23",
+    "description": "Non-interactive command-line wrapper around turbomoles define",
+    "homepage": "https://github.com/grimme-lab/cefine"
+  },
+  {
     "attribute": "qchem.chemps2",
     "name": "CheMPS2-1.8.9",
     "pname": "CheMPS2",
@@ -38,6 +46,22 @@
     "version": "8.1.0",
     "description": "Quantum chemistry and solid state physics program",
     "homepage": "https://www.cp2k.org"
+  },
+  {
+    "attribute": "qchem.crest",
+    "name": "crest-24.04.2021",
+    "pname": "crest",
+    "version": "24.04.2021",
+    "description": "Conformer-Rotamer Ensemble Sampling Tool based on the xtb Semiempirical Extended Tight-Binding Program Package",
+    "homepage": "https://github.com/grimme-lab/crest"
+  },
+  {
+    "attribute": "qchem.dalton",
+    "name": "dalton-2020.0",
+    "pname": "dalton",
+    "version": "2020.0",
+    "description": "Quantum chemistry code specialised on exotic properties.",
+    "homepage": "https://daltonprogram.org/"
   },
   {
     "attribute": "qchem.dftd3",
@@ -120,6 +144,14 @@
     "homepage": "http://gaussian.com/gaussian16/"
   },
   {
+    "attribute": "qchem.gdma",
+    "name": "gdma-2.3.3",
+    "pname": "gdma",
+    "version": "2.3.3",
+    "description": "Global Distributed Multipole Analysis from Gaussian Wavefunctions",
+    "homepage": "http://www-stone.ch.cam.ac.uk/pub/gdma/"
+  },
+  {
     "attribute": "qchem.gpaw",
     "name": "gpaw-21.1.0",
     "pname": "gpaw",
@@ -184,6 +216,14 @@
     "homepage": "http://www.netlib.org/benchmark/hpl/"
   },
   {
+    "attribute": "qchem.i-pi",
+    "name": "i-PI",
+    "pname": "i-PI",
+    "version": "",
+    "description": "A universal force engine",
+    "homepage": "http://ipi-code.org/"
+  },
+  {
     "attribute": "qchem.lapack-i8",
     "name": "lapack-3",
     "pname": "lapack",
@@ -216,7 +256,7 @@
     "homepage": "https://github.com/evaleev/libint"
   },
   {
-    "attribute": "qchem.libint2",
+    "attribute": "qchem.libint-bagel",
     "name": "libint2-2.6.0",
     "pname": "libint2",
     "version": "2.6.0",
@@ -224,7 +264,7 @@
     "homepage": "https://github.com/evaleev/libint"
   },
   {
-    "attribute": "qchem.libint-bagel",
+    "attribute": "qchem.libint2",
     "name": "libint2-2.6.0",
     "pname": "libint2",
     "version": "2.6.0",
@@ -352,6 +392,14 @@
     "homepage": "https://www.molpro.net"
   },
   {
+    "attribute": "qchem.mrcc",
+    "name": "mrcc-2020.02.22",
+    "pname": "mrcc",
+    "version": "2020.02.22",
+    "description": "MRCC is a suite of ab initio and density functional quantum chemistry programs for high-accuracy electronic structure calculations.",
+    "homepage": "https://www.mrcc.hu/"
+  },
+  {
     "attribute": "qchem.mt-dgemm",
     "name": "mt-dgeem-20160114",
     "pname": "mt-dgeem",
@@ -416,7 +464,7 @@
     "homepage": "https://octopus-code.org"
   },
   {
-    "attribute": "qchem.molcas",
+    "attribute": "qchem.molcas1911",
     "name": "openmolcas-19.11",
     "pname": "openmolcas",
     "version": "19.11",
@@ -432,7 +480,7 @@
     "homepage": "https://gitlab.com/Molcas/OpenMolcas"
   },
   {
-    "attribute": "qchem.molcas2102",
+    "attribute": "qchem.molcas",
     "name": "openmolcas-21.02",
     "pname": "openmolcas",
     "version": "21.02",
@@ -470,6 +518,14 @@
     "version": "5.6.3",
     "description": "MPI micro benchmark suite",
     "homepage": "http://mvapich.cse.ohio-state.edu/benchmarks"
+  },
+  {
+    "attribute": "qchem.packmol",
+    "name": "packmol-20.2.2",
+    "pname": "packmol",
+    "version": "20.2.2",
+    "description": "Generating initial configurations for molecular dynamics",
+    "homepage": "http://m3g.iqm.unicamp.br/packmol/home.shtml"
   },
   {
     "attribute": "qchem.pcmsolver",
@@ -552,7 +608,7 @@
     "homepage": "https://www.sharc-md.org"
   },
   {
-    "attribute": "qchem.siesta",
+    "attribute": "qchem.siesta-mpi",
     "name": "siesta-4.1-b3",
     "pname": "siesta",
     "version": "4.1-b3",
@@ -560,7 +616,7 @@
     "homepage": "https://www.quantum-espresso.org/"
   },
   {
-    "attribute": "qchem.siesta-mpi",
+    "attribute": "qchem.siesta",
     "name": "siesta-4.1-b3",
     "pname": "siesta",
     "version": "4.1-b3",
@@ -592,6 +648,22 @@
     "homepage": null
   },
   {
+    "attribute": "qchem.tinker",
+    "name": "tinker-8.8.3",
+    "pname": "tinker",
+    "version": "8.8.3",
+    "description": "Software Tools for Molecular Design",
+    "homepage": "https://dasher.wustl.edu/tinker/"
+  },
+  {
+    "attribute": "qchem.travis-analyzer",
+    "name": "travis-analyzer-03Jun2020",
+    "pname": "travis-analyzer",
+    "version": "03Jun2020",
+    "description": "Molecular dynamics trajectory analyzer and visualizer",
+    "homepage": "http://www.travis-analyzer.de/"
+  },
+  {
     "attribute": "qchem.turbomole",
     "name": "turbomole-7.5",
     "pname": "turbomole",
@@ -606,5 +678,21 @@
     "version": "1.9.3",
     "description": "Molecular dynamics visualisation program",
     "homepage": "https://www.ks.uiuc.edu/Research/vmd/"
+  },
+  {
+    "attribute": "qchem.wfoverlap",
+    "name": "wfoverlap-24.08.2020",
+    "pname": "wfoverlap",
+    "version": "24.08.2020",
+    "description": "Efficient calculation of wavefunction overlaps",
+    "homepage": "https://sharc-md.org/?page_id=309"
+  },
+  {
+    "attribute": "qchem.xtb",
+    "name": "xtb-6.4.0",
+    "pname": "xtb",
+    "version": "6.4.0",
+    "description": "Semiempirical Extended Tight-Binding Program Package",
+    "homepage": "https://www.chemie.uni-bonn.de/pctc/mulliken-center/grimme/software/xtb"
   }
 ]
