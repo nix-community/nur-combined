@@ -29,8 +29,6 @@ in
 
   factorio = self: super: { inherit (nixpkgsMaster) factorio factorio-experimental factorio-headless factorio-headless-experimental; };
 
-  freeciv = self: super: { inherit (nixpkgsMaster) freeciv; };
-
   prometheus-nginx-exporter = self: super: { inherit (nixpkgsUnstable) prometheus-nginx-exporter; };
 
   prometheus-pushgateway = self: super: { inherit (nixpkgsUnstable) prometheus-pushgateway; };
