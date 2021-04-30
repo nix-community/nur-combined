@@ -14,6 +14,5 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { }); 
-  chromium-extensions = pkgs.callPackage ./pkgs/chromium-extensions { };
-}
+} // (import ./pkgs { inherit pkgs; })
+
