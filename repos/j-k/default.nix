@@ -34,5 +34,5 @@ in
   nerdfont-hasklig = callPackage ./pkgs/fonts/nerdfont-hasklig { };
   scorecard = callPackage ./pkgs/scorecard { };
   subo = callPackage ./pkgs/subo { };
+  terraform-ls = callPackage ./pkgs/terraform-ls { };
 }
-
