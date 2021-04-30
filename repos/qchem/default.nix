@@ -208,11 +208,14 @@ let
 
       vmd = callPackage ./vmd {};
 
+      wfoverlap = callPackage ./wfoverlap {};
+        
       xtb = callPackage ./xtb {
         turbomole = null;
         cefine = null;
         orca = self.orca;
       };
+
 
 
 
