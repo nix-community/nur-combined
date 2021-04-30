@@ -114,6 +114,8 @@ let
 
       cefine = callPackage ./cefine { };
 
+      cfour = callPackage ./cfour { };
+
       chemps2 = callPackage ./chemps2 {};
 
       cp2k = callPackage ./cp2k {
@@ -298,6 +300,7 @@ let
       f2c = callPackage ./f2c { };
 
       tests = {
+        cfour = callPackage ./tests/cfour { };
         cp2k = callPackage ./tests/cp2k { };
         bagel = callPackage ./tests/bagel { };
         bagel-bench = callPackage ./tests/bagel/bench-test.nix { };

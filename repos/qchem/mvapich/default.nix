@@ -6,10 +6,11 @@
 } :
 
 let
-  version = "2.3.5";
 
-in stdenv.mkDerivation {
-  name = "mvapich-${version}";
+
+in stdenv.mkDerivation rec {
+  pname = "mvapich";
+  version = "2.3.5";
 
   src = fetchurl {
     url = "http://mvapich.cse.ohio-state.edu/download/mvapich/mv2/mvapich2-${version}.tar.gz";
