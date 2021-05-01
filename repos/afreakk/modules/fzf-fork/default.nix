@@ -90,19 +90,21 @@ in {
 
     tmux = {
       enableShellIntegration = mkEnableOption ''
-          sets FZF_TMUX=1 which causes shell integration to use fzf-tmux
+        setting <literal>FZF_TMUX=1</literal> which causes shell integration to use fzf-tmux
       '';
+
       shellIntegrationOptions = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "-d 40%" ];
+        example = literalExample ''[ "-d 40%" ]'';
         description = ''
           If <options>programs.fzf.tmux.enableShellIntegration<options> is set to true,
           shell integration will use these options for fzf-tmux.
-          See fzf-tmux --help for available options.
+          See <command>fzf-tmux --help</command> for available options.
         '';
       };
     };
+
     enableBashIntegration = mkOption {
       default = true;
       type = types.bool;
