@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = ''
     wrapProgram "$out/bin/yabridgectl" \
-      --prefix PATH : "${wine}/bin"
+      --prefix PATH : ${lib.makeBinPath [ wine ]}
   '';
 
   meta = with lib; {
