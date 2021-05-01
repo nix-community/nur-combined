@@ -1,8 +1,8 @@
 { mkDerivation, lib, fetchFromGitHub, fetchpatch, callPackage
-, pkg-config, cmake, ninja, python3, wrapGAppsHook, wrapQtAppsHook, removeReferencesTo
+, pkg-config, cmake, ninja, python3, wrapGAppsHook, wrapQtAppsHook
 , qtbase, qtimageformats, gtk3, libsForQt5, lz4, xxHash
 , ffmpeg, openalSoft, minizip, libopus, alsaLib, libpulseaudio, range-v3
-, tl-expected, hunspell, glibmm
+, tl-expected, hunspell, glibmm, webkitgtk
 # Transitive dependencies:
 , pcre, xorg, util-linux, libselinux, libsepol, epoxy
 , at-spi2-core, libXtst, libthai, libdatrie
@@ -11,8 +11,8 @@
 with lib;
 
 let
-  tg_owt = callPackage ./tg_owt.nix {};
-  ver = "1.4";
+  tg_owt = callPackage <nixpkgs/pkgs/applications/networking/instant-messengers/telegram/tdesktop/tg_owt.nix> {};
+  ver = "1.4.1";
 in mkDerivation rec {
   pname = "kotatogram-desktop";
   version = "${ver}-1";
@@ -21,7 +21,7 @@ in mkDerivation rec {
     owner = "kotatogram";
     repo = "kotatogram-desktop";
     rev = "k${ver}";
-    sha256 = "0nhyjqxrbqiik4sgzplmpgx8msf8rykjiik0c2zr61rjm4fngkb3";
+    sha256 = "07z56gz3sk45n5j0gw9p9mxrbwixxsmp7lvqc6lqnxmglz6knc1d";
     fetchSubmodules = true;
   };
 
@@ -38,12 +38,12 @@ in mkDerivation rec {
   dontWrapGApps = true;
   dontWrapQtApps = true;
 
-  nativeBuildInputs = [ pkg-config cmake ninja python3 wrapGAppsHook wrapQtAppsHook removeReferencesTo ];
+  nativeBuildInputs = [ pkg-config cmake ninja python3 wrapGAppsHook wrapQtAppsHook ];
 
   buildInputs = [
     qtbase qtimageformats gtk3 libsForQt5.kwayland libsForQt5.libdbusmenu lz4 xxHash
     ffmpeg openalSoft minizip libopus alsaLib libpulseaudio range-v3
-    tl-expected hunspell glibmm
+    tl-expected hunspell glibmm webkitgtk
     tg_owt
     # Transitive dependencies:
     pcre xorg.libXdmcp util-linux libselinux libsepol epoxy
