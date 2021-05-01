@@ -21,10 +21,10 @@ node2nix --nodejs-12 \
 
 rm package.json npm-shrinkwrap.json
 
-{
+(
     cd ../../../..
     nix-update --version "$TARGET_VERSION" --build zigbee2mqtt
-}
+)
 
 git add ./default.nix ./node-packages.nix ./node.nix
 git commit -m "zigbee2mqtt: ${CURRENT_VERSION} -> ${TARGET_VERSION}"
