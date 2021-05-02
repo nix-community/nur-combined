@@ -1,61 +1,64 @@
 { stdenv
 , lib
-, callPackage
 , makeWrapper
 , fetchurl
-, protobuf3_10
 , makeDesktopItem
 , copyDesktopItems
 , imagemagick
+, openjdk11
+, dpkg
+, writeScript
+, coreutils
+, bash
+, tor
+, psmisc
 }:
 let
-  bisq-launcher = callPackage ./launcher.nix { };
-  common = callPackage ./common.nix { };
+  bisq-launcher = writeScript "bisq-launcher" ''
+    #! ${bash}/bin/bash
 
-  # This takes all of the Java dependencies from deps.nix,
-  # and creates a single mvn directory tree so that gradle
-  # can find the project's dependencies.
-  deps =
-    let
-      mkDepDerivation = { name, url, sha256, mavenDir }:
-        stdenv.mkDerivation {
-          name = "bisq-dep-${name}";
+    # Setup a temporary Tor instance
+    TMPDIR=$(${coreutils}/bin/mktemp -d)
+    CONTROLPORT=$(${coreutils}/bin/shuf -i 9100-9499 -n 1)
+    SOCKSPORT=$(${coreutils}/bin/shuf -i 9500-9999 -n 1)
+    ${coreutils}/bin/head -c 1024 < /dev/urandom > $TMPDIR/cookie
 
-          src = fetchurl { inherit sha256 url; };
+    ${tor}/bin/tor --SocksPort $SOCKSPORT --ControlPort $CONTROLPORT \
+      --ControlPortWriteToFile $TMPDIR/port --CookieAuthFile $TMPDIR/cookie \
+      --CookieAuthentication 1 >$TMPDIR/tor.log --RunAsDaemon 1
 
-          unpackCmd = ''
-            mkdir output
-            cp $curSrc "output/${name}"
-          '';
+    torpid=$(${psmisc}/bin/fuser $CONTROLPORT/tcp)
 
-          installPhase = ''
-            mkdir -p "$out/${mavenDir}"
-            cp -r . "$out/${mavenDir}/"
-          '';
-        };
+    echo Temp directory: $TMPDIR
+    echo Tor PID: $torpid
+    echo Tor control port: $CONTROLPORT
+    echo Tor SOCKS port: $SOCKSPORT
+    echo Tor log: $TMPDIR/tor.log
+    echo Bisq log file: $TMPDIR/bisq.log
 
-      d = map mkDepDerivation (import ./deps.nix);
-    in
-    stdenv.mkDerivation {
-      name = "bisq-deps";
-      dontUnpack = true;
+    JAVA_TOOL_OPTIONS="-XX:MaxRAM=4g" bisq-desktop-wrapped \
+      --torControlCookieFile=$TMPDIR/cookie \
+      --torControlUseSafeCookieAuth \
+      --torControlPort $CONTROLPORT "$@" > $TMPDIR/bisq.log
 
-      buildPhase = ''
-        for p in ${toString d}; do
-          cp --no-preserve=mode -r $p/* .
-        done
-      '';
-
-      installPhase = ''
-        mkdir $out
-        cp -r . $out/
-      '';
-    };
+    echo Bisq exited. Killing Tor...
+    kill $torpid
+  '';
 in
 stdenv.mkDerivation rec {
-  inherit (common) pname version src jdk grpc gradle;
+  version = "1.6.3";
+  pname = "bisq-desktop";
+  nativeBuildInputs = [ makeWrapper copyDesktopItems dpkg ];
 
-  nativeBuildInputs = [ makeWrapper gradle copyDesktopItems ];
+  src = fetchurl {
+    url = "https://github.com/bisq-network/bisq/releases/download/v${version}/Bisq-64bit-${version}.deb";
+    sha256 = "0ijpqgix1m6pni71rrp0j86ny0pfllb4pcm9ga41vqsijcgmbr9y";
+  };
+
+  icon = fetchurl {
+    url = "https://github.com/bisq-network/bisq/raw/v${version}/desktop/package/linux/icon.png";
+    sha256 = "1g32mj2h2wfqcqylrn30a8050bcp0ax7g5p3j67s611vr0h8cjkp";
+  };
 
   desktopItems = [
     (makeDesktopItem {
@@ -68,30 +71,17 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildPhase = ''
-    export GRADLE_USER_HOME=$(mktemp -d)
-    (
-      mkdir lib
-      substituteInPlace build.gradle \
-        --replace 'mavenCentral()' 'mavenLocal(); maven { url uri("${deps}") }' \
-        --replace 'jcenter()' 'mavenLocal(); maven { url uri("${deps}") }' \
-        --replace 'artifact = "com.google.protobuf:protoc:''${protocVersion}"' "path = '${protobuf3_10}/bin/protoc'" \
-        --replace 'artifact = "io.grpc:protoc-gen-grpc-java:''${grpcVersion}"' "path = '${grpc}/bin/protoc-gen-rpc-java'"
-      sed -i 's/^.*com.github.JesusMcCloud.tor-binary:tor-binary-linux64.*$//g' gradle/witness/gradle-witness.gradle
-      gradle  --offline --no-daemon desktop:build  --exclude-task desktop:test
-    )
+  unpackPhase = ''
+    dpkg -x $src .
   '';
 
   installPhase = ''
     mkdir -p $out/lib $out/bin
-    cp -r lib/* $out/lib
+    cp opt/bisq/lib/app/desktop-${version}-all.jar $out/lib
 
-    for jar in $out/lib/*.jar; do
-      classpath="$classpath:$jar"
-    done
+    makeWrapper ${openjdk11}/bin/java $out/bin/bisq-desktop-wrapped \
+      --add-flags "-jar $out/lib/desktop-${version}-all.jar bisq.desktop.app.BisqAppMain"
 
-    makeWrapper ${jdk}/bin/java $out/bin/bisq-desktop-wrapped \
-      --add-flags "-classpath $classpath bisq.desktop.app.BisqAppMain"
     makeWrapper ${bisq-launcher} $out/bin/bisq-desktop \
       --prefix PATH : $out/bin
 
@@ -99,7 +89,7 @@ stdenv.mkDerivation rec {
 
     for n in 16 24 32 48 64 96 128 256; do
       size=$n"x"$n
-      ${imagemagick}/bin/convert $src/desktop/package/linux/icon.png -resize $size bisq.png
+      ${imagemagick}/bin/convert $icon -resize $size bisq.png
       install -Dm644 -t $out/share/icons/hicolor/$size/apps bisq.png
     done;
   '';
