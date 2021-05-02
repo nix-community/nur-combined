@@ -785,6 +785,20 @@
         platforms = platforms.all;
         };
       };
+    "offline-qr-code-generator" = buildFirefoxXpiAddon {
+      pname = "offline-qr-code-generator";
+      version = "1.7";
+      addonId = "offline-qr-code@rugk.github.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3582169/offline_qr_code_generator-1.7-an+fx.xpi";
+      sha256 = "c3a7162ff6f8679e02eebd5a9077a68fa6494a94ec6ca1b05248e47bc33aeaa1";
+      meta = with lib;
+      {
+        homepage = "https://github.com/rugk/offline-qr-code";
+        description = "This add-on allows you to quickly generate a QR code offline with the URL of the open tab or any (selected) other text! 👍\n\nIt works completely offline protecting your privacy and has a big range of features like colored QR codes!";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
       version = "1.4.0";
