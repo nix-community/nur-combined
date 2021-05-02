@@ -37,11 +37,6 @@ rec {
 
   oversteer = pkgs.callPackage ./pkgs/oversteer {};
 
-  nats-utils = pkgs.callPackage ./pkgs/nats-utils {};
-
-  # Go mod/vendors is broken.
-  # stan-utils = pkgs.callPackage ./pkgs/stan-utils {};
-
   lock-gnome-keyring = pkgs.callPackage ./pkgs/lock-gnome-keyring {};
 
   goreplay = pkgs.callPackage ./pkgs/goreplay {};
