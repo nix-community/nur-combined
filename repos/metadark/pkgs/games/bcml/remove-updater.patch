@@ -1,5 +1,5 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index 2f9b10a..51fdfa4 100644
+index 474ddf9..8178ae0 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
 @@ -68,10 +68,6 @@ class Api:
@@ -13,7 +13,7 @@ index 2f9b10a..51fdfa4 100644
              "showChangelog": updated and util.get_settings("changelog"),
          }
          if updated:
-@@ -751,46 +747,6 @@ class Api:
+@@ -757,46 +753,6 @@ class Api:
          help_thread = Thread(target=help_window, args=(self.host,))
          help_thread.start()
  
