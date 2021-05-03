@@ -91,7 +91,7 @@ in
     kde-gtk-config # Custom
     # dasel # manipulação de json, toml, yaml, xml, csv e tal
     rclone-browser rclone restic # cloud storage
-    p7zip unzip xarchiver # archiving
+    p7zip unzip # archiving
     virt-manager
     # Extra
     send2kindle

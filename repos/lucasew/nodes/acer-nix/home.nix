@@ -21,7 +21,7 @@ in
   home.packages = with pkgs; [
    # ------------ pacotes do nixpkgs ---------------
     # minecraft  # custom (excluded)
-    usb_tixati wineApps.pinball wineApps.mspaint custom_rofi peazip # custom
+    usb_tixati wineApps.pinball wineApps.mspaint custom_rofi # custom
     vlc youtube-dl # media
     chromium
     file
