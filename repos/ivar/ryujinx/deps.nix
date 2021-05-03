@@ -21,13 +21,13 @@
   })
   (fetchNuGet {
     name = "DiscordRichPresence";
-    version = "1.0.166";
-    sha256 = "019rz0br8hamydmdrgzcc6280jfhm4i4ix27jh66a7h37alvdi3a";
+    version = "1.0.175";
+    sha256 = "180sax976327d70qbinv07f65g3w2zbw80n49hckg8wd4rw209vd";
   })
   (fetchNuGet {
     name = "FFmpeg.AutoGen";
-    version = "4.3.0";
-    sha256 = "03lb3xzgwxik8nljq87pr1b9bsxbsl3a4kvy0kqkw9f57n29ihvk";
+    version = "4.4.0";
+    sha256 = "02n4az1jv30078019png9gbspygz051inxsn6w4iar20dqp55g2w";
   })
   (fetchNuGet {
     name = "GdkSharp";
@@ -511,8 +511,8 @@
   })
   (fetchNuGet {
     name = "Ryujinx.Graphics.Nvdec.Dependencies";
-    version = "4.3.0";
-    sha256 = "0szgbdhyhvzpw8nb9k2ww37p5qipab1pdll8idkk57y5xnl2f7ll";
+    version = "4.4.0-build7";
+    sha256 = "0g1l3lgs0ffxp64ka81v6q1cgsdirl1qlf73255v29r3v337074m";
   })
   (fetchNuGet {
     name = "SharpZipLib";
