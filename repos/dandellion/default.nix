@@ -22,7 +22,7 @@ in
   overlays = import ./overlays; # nixpkgs overlays
 
   colors = pkgs.callPackage ./pkgs/colors { };
-  eplot = pkgs.callPackage ./pkgs/eplot { };
+##  eplot = pkgs.callPackage ./pkgs/eplot { };
 
 ##  synapse-admin = pkgs.callPackage ./pkgs/synapse-admin { };
 #  matrix-presents = pkgs.callPackage ./pkgs/matrix-presents { };
