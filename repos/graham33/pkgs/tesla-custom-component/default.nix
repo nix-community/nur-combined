@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , buildPythonPackage
 , python
 , fetchFromGitHub
@@ -30,4 +30,11 @@ buildPythonPackage rec {
   installCheckPhase = ''
     ${python.interpreter} ${../build-support/ha-custom-components/check_requirements.py} $out/custom_components/tesla_custom/manifest.json
   '';
+
+  meta = with lib; {
+    homepage = "https://github.com/alandtse/tesla";
+    license = licenses.asl20;
+    description = "A fork of the official Tesla integration in Home Assistant to use an oauth proxy for logins.";
+    maintainers = with maintainers; [ graham33 ];
+  };
 }
