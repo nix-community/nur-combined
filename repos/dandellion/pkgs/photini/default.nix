@@ -42,4 +42,7 @@ in
       done
     '';
 
+    meta = {
+      broken = true;
+    };
   }

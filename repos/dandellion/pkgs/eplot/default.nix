@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gnuplot, ruby }:
+{ lib, stdenv, fetchFromGitHub, gnuplot, ruby }:
 
 stdenv.mkDerivation {
   name = "eplot-unstable-2018-09-03";
@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     sed -i -e "s|gnuplot -persist|${gnuplot}/bin/gnuplot -persist|" "$out/bin/eplot"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Create plots quickly with gnuplot";
     longDescription = ''
       eplot ("easy gnuplot") is a ruby script which allows to pipe data easily

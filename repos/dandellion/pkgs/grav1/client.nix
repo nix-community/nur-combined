@@ -7,13 +7,13 @@ let
 in
 stdenv.mkDerivation { 
   pname = "grav1c";
-  version = "0.0.0-20200708";
+  version = "0.0.0-20200811";
 
   src = fetchFromGitHub {
     owner = "wwww-wwww";
     repo = "grav1";
-    rev = "975e16d7fedc2d4f012c694cb5b1b0876c3cac01";
-    sha256 = "11vingnczwy7wxrzp0hqij0jwwzbwjjd8l35wk2zps28npazaly3";
+    rev = "f0e713a399ffb287835a0c5ea31e02cd9babbe34";
+    sha256 = "025jqhdh5ysgca9yj0q1ld0s1y30bzfbb57wgr78wja61ywnqmgy";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -21,7 +21,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp grav1c.py $out/bin/grav1c
+    cp client.py $out/bin/grav1c
     chmod +x $out/bin/grav1c
 
     wrapProgram $out/bin/grav1c \

@@ -12,13 +12,14 @@ let
 in
 stdenv.mkDerivation { 
   pname = "grav1";
-  version = "0.0.0-20200708";
+  version = "0.0.0-20200811";
 
   src = fetchFromGitHub {
     owner = "wwww-wwww";
+    fetchSubmodules = true;
     repo = "grav1";
-    rev = "975e16d7fedc2d4f012c694cb5b1b0876c3cac01";
-    sha256 = "11vingnczwy7wxrzp0hqij0jwwzbwjjd8l35wk2zps28npazaly3";
+    rev = "f0e713a399ffb287835a0c5ea31e02cd9babbe34";
+    sha256 = "00s7w8gx5718zp8d7iqvya1sv9grcca73ciw4hbqkd1pfigg6x8y";
   };
 
 #  src = ./grav1;
@@ -27,15 +28,10 @@ stdenv.mkDerivation {
   buildInputs = [ pythonEnv ];
 
   installPhase = ''
-    mkdir -p $out/bin
-    cp server.py $out/bin/server
-    cp logger.py $out/bin/logger.py
-    cp project.py $out/bin/project.py
-    cp split.py $out/bin/split.py
-    cp util.py $out/bin/util.py
-    cp mkv_keyframes.py $out/bin/mkv_keyframes.py
-    cp aom_keyframes.py $out/bin/aom_keyframes.py
-    cp actions.py $out/bin/actions.py
+    mkdir -p $out/grav1 $out/bin
+    cp -r * $out/grav1
+    rm $out/grav1/client.py
+    ln -s $out/grav1/server.py $out/bin/server
     chmod +x $out/bin/server
 
     wrapProgram $out/bin/server \
