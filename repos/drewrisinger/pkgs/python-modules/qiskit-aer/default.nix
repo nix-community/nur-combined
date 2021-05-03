@@ -27,7 +27,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-aer";
-  version = "0.8.1";
+  version = "0.8.2";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit-aer";
     rev = version;
-    sha256 = "1f1s2jm8y13plkmpdnm2jsji5rvzd72f3q186v1g2ql21sl2i07g";
+    sha256 = "1zcm0bdy40y0c49ycwb1qwyfq64hwx1q87cxxb07nhscmbp8rmgc";
   };
 
   # The default check for the dl library will erroneously fail (and building with it w/ buildInputs = [... glibc ] fails too).
