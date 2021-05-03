@@ -1,7 +1,11 @@
 { pkgs }:
 
 with pkgs.lib; {
-  # Add your library functions here
-  #
-  # hexint = x: hexvals.${toLower x};
+  /*  Returns the list of public SSH keys for the given user.
+
+      Example:
+        fetchGitHubKeys { username = "Pamplemousse"; sha256 = "..." }
+        => [ "ssh-ed25519 ..." "ssh-ed25519 ..." ]
+  */
+  fetchGitHubKeys = (import ./fetchGitHubKeys.nix) { lib = pkgs.lib; };
 }
