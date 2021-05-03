@@ -20,6 +20,7 @@ let
     libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
     pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
     ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
+    tesla-custom-component = pySelf.callPackage ./pkgs/tesla-custom-component { };
     teslajsonpy = pySelf.callPackage ./pkgs/teslajsonpy { };
   } // pkgs.lib.optionalAttrs (pkgs.lib.hasPrefix "21.05" pkgs.lib.version) {
     smartbox = pySelf.callPackage ./pkgs/smartbox { };

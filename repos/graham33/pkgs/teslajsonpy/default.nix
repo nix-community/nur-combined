@@ -6,7 +6,7 @@
 , buildPythonPackage
 , fetchFromGitHub
 , fetchpatch
-, isPy3k
+, poetry-core
 , pytest-asyncio
 , pytestCheckHook
 , wrapt
@@ -14,20 +14,23 @@
 
 buildPythonPackage rec {
   pname = "teslajsonpy";
-  version = "0.13.0";
+  version = "0.18.3";
+  format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "zabuldon";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-HnAk9il9Clcr02+JERMLyKJ3EAzsgnytcVjaPRiVlAQ=";
+    sha256 = "1hdc5gm6dg1vw6qfs3z6mg2m94scrvjphj0lin6pi8n3zqj1h26k";
   };
 
-  disabled = !isPy3k;
+  nativeBuildInputs = [
+    poetry-core
+  ];
 
   propagatedBuildInputs = [
-    aiohttp
     authcaptureproxy
+    aiohttp
     backoff
     beautifulsoup4
     wrapt
