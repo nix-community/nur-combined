@@ -55,11 +55,6 @@ stdenv.mkDerivation rec {
     sha256 = "0ijpqgix1m6pni71rrp0j86ny0pfllb4pcm9ga41vqsijcgmbr9y";
   };
 
-  icon = fetchurl {
-    url = "https://github.com/bisq-network/bisq/raw/v${version}/desktop/package/linux/icon.png";
-    sha256 = "1g32mj2h2wfqcqylrn30a8050bcp0ax7g5p3j67s611vr0h8cjkp";
-  };
-
   desktopItems = [
     (makeDesktopItem {
       name = "Bisq";
@@ -89,7 +84,7 @@ stdenv.mkDerivation rec {
 
     for n in 16 24 32 48 64 96 128 256; do
       size=$n"x"$n
-      ${imagemagick}/bin/convert $icon -resize $size bisq.png
+      ${imagemagick}/bin/convert opt/bisq/lib/Bisq.png -resize $size bisq.png
       install -Dm644 -t $out/share/icons/hicolor/$size/apps bisq.png
     done;
   '';
