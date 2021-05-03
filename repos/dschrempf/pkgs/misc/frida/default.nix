@@ -8,7 +8,7 @@
 
 let
   pname = "frida";
-  version = "14.2.16";
+  version = "14.2.17";
   pythonVersion = "38";
 
   # TODO: Find a way to use fetchPypi.
@@ -25,7 +25,7 @@ let
         # add your system support here
         x86_64-linux = fetchurl {
           url = "${base}/${pname}-${version}-py${python3.pythonVersion}-linux-x86_64.egg";
-          sha256 = "1ci5zalink3n6rj9rr4j8rp1fxp7g6kharxikh0swdyy182a8ssd";
+          sha256 = "0ckj3l0j5pi723bvkw7kmvcrigk1jahqic6lnzma62nppz4mj3my";
         };
       };
 
@@ -39,7 +39,7 @@ python3.pkgs.buildPythonPackage rec {
 
   src = python3.pkgs.fetchPypi {
     inherit pname version;
-    sha256 = "sha256-k585fxj1JdunV+9yle9NHDcHQRnlNyjPnxo5qFLGbSM=";
+    sha256 = "sha256-J7uhY3539J2ZDy9L7f7IT6UYEzCfoe9xo1dlhJhMms4=";
   };
 
   egg = eggs.${stdenv.hostPlatform.system}
