@@ -1221,10 +1221,10 @@
       };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.4.1";
+      version = "0.4.3";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3769065/to_deepl_translation-0.4.1-fx.xpi";
-      sha256 = "61504a8ca2f8f6a55b9d7fe4be62cccf91eb7a36e3eb6f5bacdc2b0d25e462c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3769683/to_deepl_translation-0.4.3-fx.xpi";
+      sha256 = "ac6dbaff42d7c6c2b5598d855284da4aa1ad4a4fc17812c1324e4b0523122742";
       meta = with lib;
       {
         homepage = "https://github.com/rewkha/firefox-to-deepl/";
