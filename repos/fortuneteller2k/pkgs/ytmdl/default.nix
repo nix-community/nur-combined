@@ -1,14 +1,13 @@
 { lib
+, buildPythonPackage
+, fetchPypi
 , python3Packages
 , simber
 , pydes
 , youtube-search
 , downloader-cli
 , itunespy
-, bs4
 }:
-
-with python3Packages;
 
 buildPythonPackage rec {
   pname = "ytmdl";
@@ -19,17 +18,18 @@ buildPythonPackage rec {
     sha256 = "sha256-WFXodF9MHf7/Gz3KJDgZqW6PQtCiP4gphomcJFfJLSI=";
   };
 
+  patches = [ ./use-beautifulsoup4.diff ];
+
   doCheck = false; # NOTE: disable to prevent false fails
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     simber
     pydes
     youtube-search
     colorama
     itunespy
     downloader-cli
-    bs4 # TODO: make a pr that fixes this
-    beautifulsoup4 # TODO: make a pr that fixes this
+    beautifulsoup4
     urllib3
     mutagen
     unidecode

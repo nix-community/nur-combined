@@ -12,8 +12,8 @@ rec {
     rust-overlay = import (pkgs.fetchFromGitHub {
       owner = "oxalica";
       repo = "rust-overlay";
-      rev = "2dffb6e3a8d665d8b7d12569a30e70f763efe002";
-      sha256 = "sha256-FRpeaxpfq2WZlz21bqCoiFv1c1f2vh1ZCsA9XYczgy4=";
+      rev = "d9a12fdf65157656348ea67456c5bfec39f50f73";
+      sha256 = "sha256-lXs7JuyfrJUNlDvrXV0E+0mN7CHUSFp9+wgBQIz1SiE=";
     });
     
   in pkgs.callPackage ./pkgs/eww {
@@ -54,7 +54,8 @@ rec {
   };
 
   ytmdl = pkgs.callPackage ./pkgs/ytmdl {
-    inherit bs4 itunespy simber pydes downloader-cli youtube-search;
+    inherit itunespy simber pydes downloader-cli youtube-search;
     inherit (pkgs) python3Packages;
+    inherit (pkgs.python3Packages) buildPythonPackage fetchPypi;
   };
 }
