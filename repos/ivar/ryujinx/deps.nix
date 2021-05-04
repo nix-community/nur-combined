@@ -536,8 +536,8 @@
   })
   (fetchNuGet {
     name = "SPB";
-    version = "0.0.2";
-    sha256 = "178z9mi7zlk0laj79nkjh75ych47jjajiaj33hnh7zfmz05d8h6r";
+    version = "0.0.3-build15";
+    sha256 = "0h00yi2j65q31r5npsziq2rpiw832vf9r72j1hjqibp2l5m6v6yw";
   })
   (fetchNuGet {
     name = "System.AppContext";
