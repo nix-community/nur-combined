@@ -37,7 +37,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Create Matplotlib plots easily for visual inspection of complicated tests";
     homepage = "https://www.nengo.ai/pytest-plt/";
-    downloadPage = "https://github.com/cvxgrp/cvxpy/releases";
     changelog = "https://github.com/nengo/pytest-plt/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ drewrisinger ];
