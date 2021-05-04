@@ -1,12 +1,17 @@
-{ lib, stdenv, bison, flex, libtool, ncurses, readline, zlib, sources }:
+{ lib, stdenv, fetchFromGitHub, bison, flex, libtool, ncurses, readline, zlib }:
 
-stdenv.mkDerivation {
-  pname = "foma-unstable";
-  version = lib.substring 0 10 sources.foma.date;
+stdenv.mkDerivation rec {
+  pname = "foma";
+  version = "2020-09-28";
 
-  src = sources.foma;
+  src = fetchFromGitHub {
+    owner = "mhulden";
+    repo = pname;
+    rev = "b44022c7d9d347dc7392aabbf72c82e558767675";
+    hash = "sha256-1Zvd0aAAElHemnVQ0YLZG7cZXYV2lebNq20kQ53Njy0=";
+  };
 
-  sourceRoot = "foma-src/foma";
+  sourceRoot = "${src.name}/foma";
 
   nativeBuildInputs = [ bison flex libtool ];
 
@@ -21,7 +26,13 @@ stdenv.mkDerivation {
   makeFlags = [ "prefix=$(out)" ];
 
   meta = with lib; {
-    inherit (sources.foma) description homepage;
+    description = "xfst-compatible C++ finite-state transducer library";
+    longDescription = ''
+      Foma is designed to be a complete replacement for the
+      closed-source Xerox tool xfst. Everything that compiles
+      with xfst should compile with Foma. If not it is a bug.
+    '';
+    homepage = "https://code.google.com/p/foma/";
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

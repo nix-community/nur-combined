@@ -1,10 +1,14 @@
-{ lib, stdenv, cmake, expat, exiv2, sources }:
+{ lib, stdenv, fetchgit, cmake, expat, exiv2 }:
 
 stdenv.mkDerivation {
   pname = "gpxtools";
-  version = lib.substring 0 10 sources.gpxtools.date;
+  version = "2020-05-10";
 
-  src = sources.gpxtools;
+  src = fetchgit {
+    url = "https://notabug.org/irdvo/gpxtools.git";
+    rev = "919fb5953af8de1e71f61244eb70dd56b670a429";
+    sha256 = "sha256-GkrdvwzrxQs/hCghqBnALbRE8oSstNzckzpcLaGfCRs=";
+  };
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ expat ];
@@ -17,7 +21,8 @@ stdenv.mkDerivation {
   installPhase = "install -Dm755 gpx* -t $out/bin";
 
   meta = with lib; {
-    inherit (sources.gpxtools) description homepage;
+    description = "A collection of c++ tools for using GPX files";
+    homepage = "https://notabug.org/irdvo/gpxtools";
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

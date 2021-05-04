@@ -13,20 +13,6 @@
         "url": "https://github.com/bopen/elevation/archive/6819b2931f5de412bd6b18bd07f1674f71fa35e5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "foma": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-09-28T19:00:09Z",
-        "description": "xfst-compatible C++ finite-state transducer library",
-        "homepage": "https://github.com/mhulden/foma",
-        "owner": "mhulden",
-        "repo": "foma",
-        "rev": "b44022c7d9d347dc7392aabbf72c82e558767675",
-        "sha256": "0bcgrnfl693dmg6yd5bnhmfikdqvv61d2l3mkbg524h0l38xv6ym",
-        "type": "tarball",
-        "url": "https://github.com/mhulden/foma/archive/b44022c7d9d347dc7392aabbf72c82e558767675.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "geofabrik-estonia": {
         "builtin": false,
         "sha256": "07gy3280arvkvfpm82aqcing1w7av6hq3crf5wxm66ipk2viwmg7",
@@ -93,20 +79,6 @@
         "url": "https://github.com/tumic0/GPXSee-maps/archive/cb60f47393f79ce0e279ee08b0697acda2ded7e9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "gpxtools": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-05-10T10:24:49Z",
-        "description": "A collection of c++ tools for using GPX files",
-        "homepage": "https://notabug.org/irdvo/gpxtools",
-        "owner": "irdvo",
-        "repo": "gpxtools",
-        "rev": "919fb5953af8de1e71f61244eb70dd56b670a429",
-        "sha256": "06q9kyhjsp1sjgfdrd5chkr49d1dq0csh898hhzhpigb1jzxsjhs",
-        "type": "tarball",
-        "url": "https://notabug.org/irdvo/gpxtools/archive/919fb5953af8de1e71f61244eb70dd56b670a429.tar.gz",
-        "url_template": "https://notabug.org/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "gt-bash-client": {
         "branch": "master",
         "builtin": false,
@@ -147,20 +119,6 @@
         "sha256": "0vkbsrwhiq3rm9nplxh5y3vpk3gvv09nqxnrqrxfvpp4sdm7vs30",
         "type": "tarball",
         "url": "https://github.com/hfst/hfst/archive/1eafb28ffe9f843540aaf355bf7193cea963ccb0.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "how-to-use-pvs-studio-free": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-08T12:49:11Z",
-        "description": "How to use PVS-Studio for Free",
-        "homepage": "https://www.viva64.com/en/b/0457/",
-        "owner": "viva64",
-        "repo": "how-to-use-pvs-studio-free",
-        "rev": "abc39706151159d102d29e3e2f2b8d5688362ec3",
-        "sha256": "10xx1vyw2dd2qgwaswz7nk0c1h60vy39a3fn7dkvr716i37pccih",
-        "type": "tarball",
-        "url": "https://github.com/viva64/how-to-use-pvs-studio-free/archive/abc39706151159d102d29e3e2f2b8d5688362ec3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "klogg": {

@@ -1,10 +1,15 @@
-{ lib, stdenv, cmake, sources }:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
-stdenv.mkDerivation {
-  pname = "how-to-use-pvs-studio-free-unstable";
-  version = lib.substring 0 10 sources.how-to-use-pvs-studio-free.date;
+stdenv.mkDerivation rec {
+  pname = "how-to-use-pvs-studio-free";
+  version = "2021-02-08";
 
-  src = sources.how-to-use-pvs-studio-free;
+  src = fetchFromGitHub {
+    owner = "viva64";
+    repo = pname;
+    rev = "abc39706151159d102d29e3e2f2b8d5688362ec3";
+    hash = "sha256-MDJ2z4gmnLxnO9YNlYbfwMDAwLTnc634w6I1wf0OvYM=";
+  };
 
   nativeBuildInputs = [ cmake ];
 
@@ -17,7 +22,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    inherit (sources.how-to-use-pvs-studio-free) description homepage;
+    description = "How to use PVS-Studio for Free?";
+    homepage = "https://pvs-studio.com/en/blog/posts/0457/";
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
