@@ -61,12 +61,12 @@ let
   };
 
   ast = buildPecl {
-    version = "1.0.10";
+    version = "1.0.11";
     pname = "ast";
 
-    sha256 = "13s5r1szd80g1mqickghdd38mvjkwss221322mmbrykcfgp4fs30";
+    sha256 = "07kx8lh840f5b1y6kszrlv6c9kqz094ppk7pfdk9w0k91z1gcx2a";
 
-    meta.broken = (isPhp56 || isPhp80);
+    meta.broken = isPhp56;
   };
 
   box = mkDerivation rec {
@@ -97,12 +97,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.21";
+    version = "1.10.22";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "01l3dfyxcx8wngqnk2mq5fglmvkilfw0ab4q0d1dwhd9linxaxql";
+      sha256 = "00073smi1jja00d4bqfs6p4fqs38mki2ziy7b1kwsmiv5lcsw9v1";
     };
 
     dontUnpack = true;
@@ -213,10 +213,10 @@ let
   };
 
   event = buildPecl {
-    version = "3.0.3";
+    version = "3.0.4";
     pname = "event";
 
-    sha256 = "0x3i9hbphi4y7rvs4pmk1mhhh5snnvx84vr57np24svxpk0qahah";
+    sha256 = "13yb3zvlx43cncawymiwbqyz8gzpq1g03vd0xjlw9vz75b4mwn1x";
 
     configureFlags = with pkgs; [
       "--with-event-libevent-dir=${libevent.dev}"
@@ -257,10 +257,10 @@ let
   };
 
   igbinary30 = buildPecl {
-    version = "3.2.1";
+    version = "3.2.2";
     pname = "igbinary";
 
-    sha256 = "1nskazizh9mz0q1dr2n1kq17y964p1lhb70942b5agivzp7j05k0";
+    sha256 = "0321pb0298fa67qwj5nhhabkjiaxna5mag15ljyrqzpivimvny92";
 
     configureFlags = [
       "--enable-igbinary"
@@ -495,12 +495,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "2.18.5";
+    version = "3.0.0";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "0raiy0px359kznzciqdxsnnbylil83hghl5krn0nkai6ig3sxbmh";
+      sha256 = "141rkcr0wbsqnc4s5vg4bk4dmxwigwxa3j0vi5c42b5k1lq3sgwr";
     };
 
     phases = [ "installPhase" ];
@@ -610,12 +610,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.83";
+    version = "0.12.85";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0ifyn4bpvd6x1bx140sjn96av93i21ypbsz98y6i97zfhdipx9ai";
+      sha256 = "15xjq27h62hj4yjqg6ca4v5isag063bfbya5haswb43kg0yc9rk0";
     };
 
     phases = [ "installPhase" ];
