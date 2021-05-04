@@ -1,14 +1,27 @@
-# Porthos specific settings
-{ ... }:
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+{ config, pkgs, ... }:
 
 {
   imports = [
     ./boot.nix
     ./hardware.nix
+    ./home.nix
     ./networking.nix
     ./services.nix
-    ./users.nix
+    ./sound.nix
   ];
+
+  # Set your time zone.
+  time.timeZone = "Europe/Paris";
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Enable touchpad support (enabled default in most desktopManager).
+  services.xserver.libinput.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

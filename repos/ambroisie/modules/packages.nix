@@ -1,5 +1,5 @@
 # Common packages
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   # List packages installed in system profile. To search, run:
@@ -13,7 +13,11 @@
   ];
 
   programs.vim.defaultEditor = true; # Modal editing is life
-  programs.zsh.enable = true; # Use integrations
+  programs.zsh = {
+    enable = true; # Use integrations
+    # Disable global compinit when a user config exists
+    enableGlobalCompInit = !config.my.home.zsh.enable;
+  };
 
   nixpkgs.config.allowUnfree = true; # Because I don't care *that* much.
 }

@@ -19,17 +19,20 @@ in
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = groupsIfExist [
+      "audio" # sound control
       "media" # access to media files
       "plugdev" # usage of ZSA keyboard tools
+      "video" # screen control
       "wheel" # `sudo` for the user.
     ];
-    openssh.authorizedKeys.keys = with builtins; let
-      keyDir = ./ssh;
-      contents = readDir keyDir;
-      names = attrNames contents;
-      files = filter (name: contents.${name} == "regular") names;
-      keys = map (basename: readFile (keyDir + "/${basename}")) files;
-    in
-    keys;
+    openssh.authorizedKeys.keys = with builtins;
+      let
+        keyDir = ./ssh;
+        contents = readDir keyDir;
+        names = attrNames contents;
+        files = filter (name: contents.${name} == "regular") names;
+        keys = map (basename: readFile (keyDir + "/${basename}")) files;
+      in
+      keys;
   };
 }

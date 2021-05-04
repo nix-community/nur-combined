@@ -5,6 +5,7 @@
   imports = [
     ./documentation.nix
     ./ergodox.nix
+    ./home.nix
     ./language.nix
     ./media.nix
     ./networking.nix

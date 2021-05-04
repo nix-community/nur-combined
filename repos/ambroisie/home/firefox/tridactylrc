@@ -1,0 +1,72 @@
+" Shamelessly taken from bovine3dom's example configuration file from the docs
+
+" Basics {{{
+" Use dark color scheme
+colorscheme dark
+
+" Make tridactyl open Vim in my prefered terminal
+" FIXME: make it follow my prefered terminal
+set editorcmd termite --class tridactyl_editor -e 'vim %f'
+" }}}
+
+" Binds {{{
+" Reddit et al. {{{
+" Toggle comments on Reddit, Hacker News, Lobste.rs
+bind ;c hint -c [class*="expand"],[class="togg"],[class="comment_folder"]
+
+" Make `gu` take me back to subreddit from comments
+bindurl reddit.com gu urlparent 4
+
+" Only hint search results on Google
+bindurl www.google.com f hint -Jc #search div:not(.action-menu) > a
+bindurl www.google.com F hint -Jbc #search div:not(.action-menu) > a
+
+" Only hint search results on DuckDuckGo
+bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
+bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
+
+" Only hint item pages on Hacker News
+bindurl news.ycombinator.com ;f hint -Jc .age > a
+bindurl news.ycombinator.com ;f hint -Jtc .age > a
+" }}}
+
+" Better bindings {{{
+" Handy multiwindow binds
+bind gd tabdetach
+bind gD composite tabduplicate; tabdetach
+
+" Make yy use canonical links on the few websites that support them
+bind yy clipboard yankcanon
+" }}}
+
+" Search {{{
+" Case insensitive only if fully lowercase
+set findcase smart
+
+" Search forward/backward
+bind / fillcmdline find
+bind ? fillcmdline find -?
+
+" Go to next/previous match
+bind n findnext 1
+bind N findnext -1
+
+" Because :nohls never works
+bind <Space><Space> nohlsearch
+
+" Use browser's native find when using Ctrl-F
+unbind <C-f>
+" }}}
+" }}}
+
+" Redirections {{{
+" Always redirect Reddit to the old site
+autocmd DocStart ^http(s?)://www.redit.com js tri.excmds.urlmodify("-t", "www", "old")
+" }}}
+
+" Disabled websites {{{
+blacklistadd netflix.com
+blacklistadd jellyfin.belanyi.fr
+" }}}
+
+" vim: set filetype=vim foldmethod=marker:

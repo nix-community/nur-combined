@@ -65,6 +65,12 @@ in
       # Sometime `gpg-agent` errors out...
       reset-agent = "gpg-connect-agent updatestartuptty /bye";
     };
+
+    # Enable VTE integration when using one of the affected shells
+    enableVteIntegration =
+      builtins.any (name: config.my.home.terminal.program == name) [
+        "termite"
+      ];
   };
 
   # Fuzzy-wuzzy

@@ -4,6 +4,9 @@
     ./bat.nix
     ./direnv.nix
     ./documentation.nix
+    ./firefox
+    ./flameshot.nix
+    ./gammastep.nix
     ./git
     ./gpg.nix
     ./htop.nix
@@ -12,9 +15,14 @@
     ./pager.nix
     ./secrets # Home-manager specific secrets
     ./ssh.nix
+    ./terminal
     ./tmux.nix
+    ./udiskie.nix
     ./vim
+    ./wm
+    ./x
     ./xdg.nix
+    ./zathura.nix
     ./zsh
   ];
 
