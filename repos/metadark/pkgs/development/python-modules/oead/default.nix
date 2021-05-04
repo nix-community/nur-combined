@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, substituteAll
 , cmake
 }:
 
@@ -16,12 +17,13 @@ buildPythonPackage rec {
     sha256 = "sha256-XW6KRCexNXzMdidkH4UyVncDe+v1qvTYp76TtyRg3Lo=";
   };
 
-  postPatch = ''
+  patches = [
     # Use nixpkgs version instead of versioneer
-    substituteInPlace setup.py \
-      --replace "cmdclass = versioneer.get_cmdclass()" "cmdclass = {}" \
-      --replace "version=versioneer.get_version()" "version='${version}'"
-  '';
+    (substituteAll {
+      src = ./hardcode-version.patch;
+      inherit version;
+    })
+  ];
 
   nativeBuildInputs = [ cmake ];
   dontUseCmakeConfigure = true;

@@ -33,6 +33,7 @@ buildPythonPackage rec {
       inherit gdb;
     })
 
+    # Use nixpkgs version instead of versioneer
     (substituteAll {
       src = ./hardcode-version.patch;
       inherit version;

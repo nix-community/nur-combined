@@ -1,0 +1,25 @@
+diff --git a/setup.py b/setup.py
+index cdef124..2843fe8 100644
+--- a/setup.py
++++ b/setup.py
+@@ -1,5 +1,4 @@
+ import setuptools
+-import versioneer
+ 
+ import os
+ import re
+@@ -58,12 +57,12 @@ class CMakeBuild(build_ext):
+ with open("readme.rst", "r") as fh:
+     long_description = fh.read()
+ 
+-cmdclass = versioneer.get_cmdclass()
++cmdclass = {}
+ cmdclass["build_ext"] = CMakeBuild
+ 
+ setuptools.setup(
+     name="oead",
+-    version=versioneer.get_version(),
++    version="@version@",
+     cmdclass=cmdclass,
+     author="leoetlino",
+     author_email="leo@leolam.fr",

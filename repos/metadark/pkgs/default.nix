@@ -101,6 +101,8 @@ with mergedPkgs; {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
+  themes = callPackage ./data/themes { };
+
   undistract-me = callPackage ./shells/bash/undistract-me { };
 
   virtualparadise = callPackage ./games/virtualparadise {

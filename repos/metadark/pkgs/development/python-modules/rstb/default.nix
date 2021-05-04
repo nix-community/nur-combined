@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, substituteAll
 , oead
 }:
 
@@ -15,12 +16,13 @@ buildPythonPackage rec {
     hash = "sha256-wd+kR+bQqaD9VNMSO3SNkA6uUe/6SFje8VmhbkJD0xg=";
   };
 
-  postPatch = ''
+  patches = [
     # Use nixpkgs version instead of versioneer
-    substituteInPlace setup.py \
-      --replace "version=versioneer.get_version()" "version='${version}'" \
-      --replace "cmdclass=versioneer.get_cmdclass()," ""
-  '';
+    (substituteAll {
+      src = ./hardcode-version.patch;
+      inherit version;
+    })
+  ];
 
   propagatedBuildInputs = [
     oead

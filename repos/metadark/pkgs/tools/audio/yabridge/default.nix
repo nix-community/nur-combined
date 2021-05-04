@@ -58,14 +58,14 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "yabridge";
-  version = "3.1.0";
+  version = "3.2.0";
 
   # NOTE: Also update yabridgectl's cargoHash when this is updated
   src = fetchFromGitHub {
     owner = "robbert-vdh";
     repo = pname;
     rev = version;
-    hash = "sha256-xvKjb+ql3WxnGHqcn3WnxunY5+s9f8Gt/n6EFSBrNdI=";
+    hash = "sha256-UT6st0Rc6HOaObE3N+qlPZZ8U1gl/MFLU0mjFuScdes=";
   };
 
   # Unpack subproject sources
@@ -80,16 +80,6 @@ in stdenv.mkDerivation rec {
   )'';
 
   patches = [
-    # Fix printing wine version when using absolute path (remove patches in next release):
-    (fetchpatch {
-      url = "https://github.com/robbert-vdh/yabridge/commit/2aadf5256b3eafeb86efa8626247972dd33baa13.patch";
-      sha256 = "sha256-Nq9TQJxa22vJLmf+USyPBkF8cKyEzb1Lp2Rx86pDxnY=";
-    })
-    (fetchpatch {
-      url = "https://github.com/robbert-vdh/yabridge/commit/93df3fa1da6ffcc69a5b384ba04e3da7c5ef23ef.patch";
-      sha256 = "sha256-//8Dxolqe6n+aFo4yVnnMR9kSq/iEFE0qZPvcIBehvI=";
-    })
-
     # Hard code wine path so wine version is correct in logs
     (substituteAll {
       src = ./hardcode-wine.patch;
