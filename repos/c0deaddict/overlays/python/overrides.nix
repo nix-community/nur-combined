@@ -1,24 +1,26 @@
 self: super: rec {
   # Pytradfri
-  pytradfri = super.callPackage ./pytradfri {};
-  aiocoap = super.callPackage ./aiocoap {};
-  dtlssocket = super.callPackage ./dtlssocket {};
-  linkheader = super.callPackage ./linkheader {};
+  pytradfri = self.callPackage ./pytradfri {};
+  aiocoap = self.callPackage ./aiocoap {};
+  dtlssocket = self.callPackage ./dtlssocket {};
+  linkheader = self.callPackage ./linkheader {};
 
   # testinfra
-  testinfra = super.callPackage ./testinfra {};
+  testinfra = self.callPackage ./testinfra {};
 
   # Midi stuff
-  rtmidi = super.callPackage ./rtmidi {};
-  mido = super.callPackage ./mido {};
+  rtmidi = self.callPackage ./rtmidi {};
+  mido = self.callPackage ./mido {};
 
   # WLED
-  wled = super.callPackage ./wled {};
-  cattrs = super.callPackage ./cattrs {};
+  wled = self.callPackage ./wled {};
+  cattrs = self.callPackage ./cattrs {};
 
   # pyps4-2ndscreen
-  pyps4-2ndscreen = super.callPackage ./pyps4-2ndscreen {};
+  pyps4-2ndscreen = self.callPackage ./pyps4-2ndscreen {};
 
   # flake8-docstrings
-  flake8-docstrings = super.callPackage ./flake8-docstrings {};
+  flake8-docstrings = self.callPackage ./flake8-docstrings {};
+
+  madmom = self.callPackage ./madmom {};
 }

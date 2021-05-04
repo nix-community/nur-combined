@@ -1,0 +1,15 @@
+diff --git a/setup.py b/setup.py
+old mode 100644
+new mode 100755
+index c426d0b..ea9a493
+--- a/setup.py
++++ b/setup.py
+@@ -92,6 +92,6 @@ setup(name='madmom',
+       scripts=scripts,
+       install_requires=requirements,
+       cmdclass={'build_ext': build_ext},
+-      setup_requires=['pytest-runner'],
+-      tests_require=['pytest'],
++      setup_requires=[],
++      tests_require=['pytest', 'pytest-runner'],
+       classifiers=classifiers)
