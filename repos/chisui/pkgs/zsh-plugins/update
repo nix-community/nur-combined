@@ -1,0 +1,2 @@
+#! /bin/sh
+nix-shell -p nodejs --run 'node update.js'
