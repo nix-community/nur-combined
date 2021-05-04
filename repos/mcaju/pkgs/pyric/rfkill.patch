@@ -1,0 +1,29 @@
+diff --git a/pyric/utils/rfkill.py b/pyric/utils/rfkill.py
+index ce0416e..36ae2aa 100644
+--- a/pyric/utils/rfkill.py
++++ b/pyric/utils/rfkill.py
+@@ -101,7 +101,7 @@ def rfkill_block(idx):
+     try:
+         rfke = rfkh.rfkill_event(idx,rfkh.RFKILL_TYPE_ALL,rfkh.RFKILL_OP_CHANGE,1,0)
+         if _PY3_: rfke = rfke.decode('ascii')
+-        fout = open(dpath, 'w')
++        fout = open(dpath, 'wb')
+         fout.write(rfke)
+     except struct.error as e:
+         raise pyric.error(pyric.EUNDEF,"Error packing rfkill event {0}".format(e))
+@@ -131,7 +131,7 @@ def rfkill_unblock(idx):
+     fout = None
+     try:
+         rfke = rfkh.rfkill_event(idx,rfkh.RFKILL_TYPE_ALL,rfkh.RFKILL_OP_CHANGE,0,0)
+-        fout = open(dpath, 'w')
++        fout = open(dpath, 'wb')
+         fout.write(rfke)
+     except struct.error as e:
+         raise pyric.error(pyric.EUNDEF,"Error packing rfkill event {0}".format(e))
+@@ -231,4 +231,4 @@ def gettype(idx):
+     except IOError:
+         raise pyric.error(errno.ENODEV,"No device at {0}".format(idx))
+     finally:
+-        if fin: fin.close()
+\ No newline at end of file
++        if fin: fin.close()

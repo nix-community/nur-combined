@@ -8,7 +8,6 @@ rec {
   decaf-emu = pkgs.libsForQt5.callPackage ./pkgs/decaf-emu { };
   epk2extract = pkgs.callPackage ./pkgs/epk2extract { };
   mdk4 = pkgs.callPackage ./pkgs/mdk4 { };
-  reicast-emulator = pkgs.callPackage ./pkgs/reicast-emulator { };
   scamper = pkgs.callPackage ./pkgs/scamper { };
 
   prjxray-db = pkgs.callPackage ./pkgs/prjxray-db { };
@@ -27,12 +26,18 @@ rec {
     fasm = pkgs.python3Packages.callPackage ./pkgs/fasm {
       inherit textx;
     };
+    pyric = pkgs.python3Packages.callPackage ./pkgs/pyric { };
+    roguehostapd = pkgs.python3Packages.callPackage ./pkgs/roguehostapd { };
     textx = pkgs.python3Packages.callPackage ./pkgs/textx { };
     ubi_reader = pkgs.python3Packages.callPackage ./pkgs/ubi_reader { };
     xc-fasm = pkgs.python3Packages.callPackage ./pkgs/xc-fasm {
       inherit fasm;
       inherit python-prjxray;
       inherit textx;
+    };
+    wifiphisher = pkgs.python3Packages.callPackage ./pkgs/wifiphisher {
+      inherit pyric;
+      inherit roguehostapd;
     };
   };
 }
