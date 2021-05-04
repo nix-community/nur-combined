@@ -2,10 +2,10 @@
   {
     "1password-x-password-manager" = buildFirefoxXpiAddon {
       pname = "1password-x-password-manager";
-      version = "1.24.1";
+      version = "1.24.2";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3761012/1password_password_manager-1.24.1-fx.xpi";
-      sha256 = "3f4429ec7e8895802de24eedfc83122dd7dcbe8996c841fdcf6b68b558092975";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3770500/1password_password_manager-1.24.2-fx.xpi";
+      sha256 = "06b44ff0b8884fd42b20765b621d8040194a3052b5f58bcf4c9adfab11f12d6b";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -416,10 +416,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.872.0";
+      version = "8.873.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3747920/grammarly_for_firefox-8.872.0-an+fx.xpi";
-      sha256 = "18df21f042452d03e15673543fa7c2e3ac1a2c2611554b9b6cdcc491c86e970e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3770425/grammarly_for_firefox-8.873.0-an+fx.xpi";
+      sha256 = "ecfa569d2a7345db6e715e2b7531d18007ab3b3636700a958462fd1617facffa";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
