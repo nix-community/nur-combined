@@ -23,10 +23,7 @@ buildPythonPackage rec {
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
-
-  nativeBuildInputs = [
-    setuptools_scm
-  ];
+  nativeBuildInputs = [ setuptools_scm ];
 
   propagatedBuildInputs = [
     pydantic

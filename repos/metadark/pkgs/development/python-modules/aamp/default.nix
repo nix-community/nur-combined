@@ -21,8 +21,7 @@ buildPythonPackage rec {
 
   checkPhase = ''
     runHook preCheck
-    export PATH=$out/bin:$PATH
-    python test.py
+    PATH=$out/bin:$PATH python test.py
     runHook postCheck
   '';
 

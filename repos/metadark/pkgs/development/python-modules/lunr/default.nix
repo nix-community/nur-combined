@@ -2,13 +2,13 @@
 , pkgs
 , nodejs
 , stdenv
-, linkFarm
-, fetchzip
 , buildPythonPackage
 , fetchFromGitHub
 , nltk
 , mock
 , pytestCheckHook
+, linkFarm
+, fetchzip
 }:
 
 let
@@ -16,17 +16,6 @@ let
     inherit pkgs nodejs;
     inherit (stdenv.hostPlatform) system;
   }).package;
-
-  nltk_data_rev = "3a486db7729373e7982eda3f7e6e6572c532d06c";
-  nltk_data = linkFarm "nltk_data" [
-    {
-      name = "corpora/stopwords";
-      path = fetchzip {
-        url = "https://github.com/nltk/nltk_data/raw/${nltk_data_rev}/packages/corpora/stopwords.zip";
-        hash = "sha256-jLT1SW8gdawWgwMlrQ3bYaRfHhbYp0beKowKJ5WJfyI=";
-      };
-    }
-  ];
 in buildPythonPackage rec {
   pname = "lunr.py";
   version = "0.6.0";
@@ -52,10 +41,20 @@ in buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # Patch in node_modules & nltk_data for tests
+  # Define NLTK_DATA for tests
+  NLTK_DATA = linkFarm "nltk_data" [
+    {
+      name = "corpora/stopwords";
+      path = fetchzip {
+        url = "https://github.com/nltk/nltk_data/raw/3a486db7729373e7982eda3f7e6e6572c532d06c/packages/corpora/stopwords.zip";
+        hash = "sha256-jLT1SW8gdawWgwMlrQ3bYaRfHhbYp0beKowKJ5WJfyI=";
+      };
+    }
+  ];
+
+  # Patch in node_modules for tests
   preCheck = ''
     ln -s ${acceptance_tests}/lib/node_modules/acceptance_tests/node_modules tests/acceptance_tests/javascript
-    export NLTK_DATA=${nltk_data}
   '';
 
   pythonImportsCheck = [ "lunr" ];

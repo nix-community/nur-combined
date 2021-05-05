@@ -18,12 +18,8 @@ buildPythonPackage rec {
     hash = "sha256-zv7f416GI+2E5daN33kEvFIQr/N1NpAL59Vii7W5j08=";
   };
 
+  SETUPTOOLS_SCM_PRETEND_VERSION = version;
   nativeBuildInputs = [ setuptools_scm ];
-
-  preBuild = ''
-    export SETUPTOOLS_SCM_PRETEND_VERSION="${version}"
-  '';
-
   checkInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "pytest_datadir" ];
 

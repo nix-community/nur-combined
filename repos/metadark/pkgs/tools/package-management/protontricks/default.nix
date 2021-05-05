@@ -26,10 +26,7 @@ buildPythonApplication rec {
     ./steam-run.patch
   ];
 
-  preBuild = ''
-    export SETUPTOOLS_SCM_PRETEND_VERSION="${version}"
-  '';
-
+  SETUPTOOLS_SCM_PRETEND_VERSION = version;
   nativeBuildInputs = [ setuptools_scm ];
   propagatedBuildInputs = [ vdf ];
 
