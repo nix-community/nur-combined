@@ -239,6 +239,7 @@ lib.makeScope newScope (
     polyvectorization = libsForQt5.callPackage ./misc/polyvectorization { };
     ptunnel = callPackage ./misc/ptunnel { };
     pvs-studio = callPackage ./misc/pvs-studio { };
+    repolocli = callPackage ./misc/repolocli { };
     reproxy = callPackage ./misc/reproxy { };
     taskcoach = callPackage ./misc/taskcoach { };
     xfractint = callPackage ./misc/xfractint { };
