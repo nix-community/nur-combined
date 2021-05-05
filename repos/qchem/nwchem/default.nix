@@ -172,6 +172,8 @@ in stdenv.mkDerivation {
     grep "Total SCF energy" h2o.out  | grep 76.010538
   '';
 
+  passthru = { inherit mpi; };
+
   meta = with lib; {
     description = "Open Source High-Performance Computational Chemistry";
     platforms = [ "x86_64-linux" ];
@@ -184,5 +186,3 @@ in stdenv.mkDerivation {
     };
   };
 }
-
-

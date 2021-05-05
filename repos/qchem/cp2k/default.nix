@@ -105,6 +105,8 @@ in stdenv.mkDerivation rec {
     ln -s ${mpi}/bin/mpiexec $out/bin/mpiexec
   '';
 
+  passthru = { inherit mpi; };
+
   meta = with lib; {
     description = "Quantum chemistry and solid state physics program";
     homepage = "https://www.cp2k.org";

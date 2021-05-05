@@ -86,6 +86,8 @@ stdenv.mkDerivation rec {
       --prefix PATH : ${openssh}/bin
   '';
 
+  passthru = { inherit mpi; };
+
   meta = with lib; {
     description = "Quantum chemistry code specialised on exotic properties.";
     license = licenses.lgpl21Only;

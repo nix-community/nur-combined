@@ -117,6 +117,8 @@ in
       done
     '';
 
+    passthru.mpi = { inherit mpi; };
+
     meta = with lib; {
       description = "DFT and beyond within the projector-augmented wave method";
       license = licenses.gpl3Only;

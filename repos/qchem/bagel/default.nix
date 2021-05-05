@@ -96,6 +96,8 @@ in stdenv.mkDerivation {
 
   doCheck = true;
 
+  passthru = { inherit mpi; };
+
   meta = with lib; {
     description = "Brilliantly Advanced General Electronic-structure Library";
     homepage = "https://nubakery.org";
@@ -104,4 +106,3 @@ in stdenv.mkDerivation {
     platforms = [ "x86_64-linux" ];
   };
 }
-

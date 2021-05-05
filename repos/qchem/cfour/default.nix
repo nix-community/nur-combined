@@ -63,6 +63,8 @@ in
       done
     '';
 
+    passthru = { inherit mpi; };
+
     meta = with lib; {
       description = "Specialist coupled cluster software.";
       homepage = "http://slater.chemie.uni-mainz.de/cfour/index.php";

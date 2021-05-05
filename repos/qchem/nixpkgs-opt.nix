@@ -27,6 +27,8 @@ self: super:
       "MPIFC=${self.mpi}/bin/mpif90"
       "MPIF90=${self.mpi}/bin/mpif90"
     ];
+
+    propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ self.mpi ];
   });
 
 

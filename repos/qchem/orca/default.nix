@@ -62,6 +62,8 @@ in stdenv.mkDerivation {
     grep "FINAL SINGLE POINT ENERGY" log | grep 74.880174
   '';
 
+  passthru = { mpi = openmpi; };
+
   meta = with lib; {
     description = "Ab initio quantum chemistry program package";
     homepage = "https://orcaforum.kofo.mpg.de/";

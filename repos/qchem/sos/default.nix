@@ -46,6 +46,8 @@ in stdenv.mkDerivation {
     make check TEST_RUNNER="mpiexec -n 2"
   '';
 
+  passthru = { inherit mpi; };
+
   meta = with lib; {
     description = "Sandia open SHMEM implementation";
     homepage = https://github.com/Sandia-OpenSHMEM/SOS/releases;
@@ -53,4 +55,3 @@ in stdenv.mkDerivation {
     platforms = with platforms; linux;
   };
 }
-
