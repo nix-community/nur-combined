@@ -35,6 +35,12 @@ in stdenv.mkDerivation rec {
     };
   });
 
+  # Change hardcoded search path for ffmpeg from "/lib" to a path to the nix store
+  prePatch = ''
+    substituteInPlace Ryujinx/Program.cs --replace \
+      "ffmpeg.RootPath = \"/lib\"\;" "ffmpeg.RootPath = \"${ffmpeg}/lib\"\;"
+  '';
+
   patches = [
     ./log.patch # Without this, Ryujinx attempts to write logs to the nix store. This patch makes it write to "~/.config/Ryujinx/Logs" on Linux.
   ];
