@@ -1,10 +1,10 @@
 { lib, python3Packages, hfst, swig }:
 
-python3Packages.buildPythonPackage {
+python3Packages.buildPythonPackage rec {
   pname = "python-hfst";
   inherit (hfst) src version;
 
-  sourceRoot = "hfst-src/python";
+  sourceRoot = "${src.name}/python";
 
   buildInputs = [ hfst ];
 

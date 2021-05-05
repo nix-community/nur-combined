@@ -1,10 +1,15 @@
-{ lib, stdenv, cmake, gtest, sources }:
+{ lib, stdenv, fetchFromGitHub, cmake, gtest }:
 
-stdenv.mkDerivation {
-  pname = "microjson-unstable";
-  version = lib.substring 0 10 sources.microjson.date;
+stdenv.mkDerivation rec {
+  pname = "microjson";
+  version = "0.1.0";
 
-  src = sources.microjson;
+  src = fetchFromGitHub {
+    owner = "semlanik";
+    repo = pname;
+    rev = "v${version}";
+    hash = "sha256-6kGshpy0CDg/8z3unZvGs0Uh1gglZ7yrIGc9/X+M0i8=";
+  };
 
   postPatch = ''
     substituteInPlace tests/CMakeLists.txt \
@@ -18,7 +23,8 @@ stdenv.mkDerivation {
   doCheck = true;
 
   meta = with lib; {
-    inherit (sources.microjson) description homepage;
+    description = "Tiny streaming json deserializer";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

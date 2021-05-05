@@ -1,15 +1,21 @@
-{ lib, python3Packages, sources }:
+{ lib, python3Packages, fetchFromGitHub }:
 
-python3Packages.buildPythonApplication {
-  pname = "lsdreader-unstable";
-  version = lib.substring 0 10 sources.lsdreader.date;
+python3Packages.buildPythonApplication rec {
+  pname = "lsdreader";
+  version = "0.2.14";
 
-  src = sources.lsdreader;
+  src = fetchFromGitHub {
+    owner = "sv99";
+    repo = pname;
+    rev = "c78ab22e794f1fbfbc93ffb3ee7ae481f54dd8c2";
+    hash = "sha256-vTXfWTQ6TUZCyXo/PgJ/JaWf9mseKKQNz1+cA8KOKw0=";
+  };
 
   doCheck = false;
 
   meta = with lib; {
-    inherit (sources.lsdreader) description homepage;
+    description = "Decompile Lingvo LSD dictionary to DSL";
+    inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

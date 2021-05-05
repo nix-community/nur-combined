@@ -1,18 +1,4 @@
 {
-    "elevation": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-12-27T22:12:39Z",
-        "description": "Python script to download global terrain digital elevation models, SRTM 30m DEM and SRTM 90m DEM",
-        "homepage": "http://elevation.bopen.eu",
-        "owner": "bopen",
-        "repo": "elevation",
-        "rev": "6819b2931f5de412bd6b18bd07f1674f71fa35e5",
-        "sha256": "16sywbifg0xb0fx1sscqsrbrj0phc91p4vvlsaj2h5mswd5x3bfj",
-        "type": "tarball",
-        "url": "https://github.com/bopen/elevation/archive/6819b2931f5de412bd6b18bd07f1674f71fa35e5.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "geofabrik-estonia": {
         "builtin": false,
         "sha256": "07gy3280arvkvfpm82aqcing1w7av6hq3crf5wxm66ipk2viwmg7",
@@ -107,20 +93,6 @@
         "url": "https://github.com/xinebf/google-translate-for-goldendict/archive/37c2cf96fe5584d766211f72aa0f7002fe334168.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "hfst": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-12T15:17:27Z",
-        "description": "Helsinki Finite-State Technology (library and application suite)",
-        "homepage": "https://hfst.github.io",
-        "owner": "hfst",
-        "repo": "hfst",
-        "rev": "1eafb28ffe9f843540aaf355bf7193cea963ccb0",
-        "sha256": "0vkbsrwhiq3rm9nplxh5y3vpk3gvv09nqxnrqrxfvpp4sdm7vs30",
-        "type": "tarball",
-        "url": "https://github.com/hfst/hfst/archive/1eafb28ffe9f843540aaf355bf7193cea963ccb0.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "klogg": {
         "branch": "master",
         "builtin": false,
@@ -133,34 +105,6 @@
         "sha256": "0fnhwhdxzpaf8cqfgr7m2zmj26bpls9dh5r9yxijbbpmnwqmghdp",
         "type": "tarball",
         "url": "https://github.com/variar/klogg/archive/9bf68ff2c6f2290723cb2c0ca3b834a6a6290291.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "lazyscraper": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-05-19T11:50:13Z",
-        "description": "Lazy helper tool to make easier scraping with simple tasks",
-        "homepage": "https://github.com/ivbeg/lazyscraper",
-        "owner": "ivbeg",
-        "repo": "lazyscraper",
-        "rev": "2e14bd829311cde19ef32d7f0e11c3c4a3c08e1b",
-        "sha256": "02pix53f5j6g4vv2w7vj93jk6a10wld7kk6ichc04aacwq3ljy42",
-        "type": "tarball",
-        "url": "https://github.com/ivbeg/lazyscraper/archive/2e14bd829311cde19ef32d7f0e11c3c4a3c08e1b.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "lsdreader": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2018-12-28T12:22:11Z",
-        "description": "decompile Lingvo LSD dictionary to DSL",
-        "homepage": "https://github.com/sv99/lsdreader",
-        "owner": "sv99",
-        "repo": "lsdreader",
-        "rev": "c78ab22e794f1fbfbc93ffb3ee7ae481f54dd8c2",
-        "sha256": "039biv10772zrw6s8a0ydgv9z995gw13wgvsr514ck9s6icxyddx",
-        "type": "tarball",
-        "url": "https://github.com/sv99/lsdreader/archive/c78ab22e794f1fbfbc93ffb3ee7ae481f54dd8c2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "map-hr": {
@@ -214,20 +158,6 @@
         "sha256": "0kdhvph2k7qjjqxp84qvdhkm5pii711kkfghpkqwjml1ms0ld96s",
         "type": "tarball",
         "url": "https://github.com/mapbox/mercantile/archive/d00e29330663d2ca8dc1f4056f92194286250b38.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "microjson": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-11-30T15:22:10Z",
-        "description": "Tiny streaming json deserializer",
-        "homepage": "https://github.com/semlanik/microjson",
-        "owner": "semlanik",
-        "repo": "microjson",
-        "rev": "0d9f50e407cd117e56582faf0d99bfececc1b6ea",
-        "sha256": "15nhvkrdq9mi8np1s3k65w92aksm3937v27cxhiws7ab35wqhh41",
-        "type": "tarball",
-        "url": "https://github.com/semlanik/microjson/archive/0d9f50e407cd117e56582faf0d99bfececc1b6ea.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {

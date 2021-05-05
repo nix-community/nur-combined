@@ -1,4 +1,5 @@
 { lib
+, fetchFromGitHub
 , python3Packages
 , click
 , gnumake
@@ -6,14 +7,18 @@
 , unzip
 , gzip
 , gdal
-, sources
 }:
 
-python3Packages.buildPythonApplication {
-  pname = "elevation-unstable";
-  version = lib.substring 0 10 sources.elevation.date;
+python3Packages.buildPythonApplication rec {
+  pname = "elevation";
+  version = "1.1.3";
 
-  src = sources.elevation;
+  src = fetchFromGitHub {
+    owner = "bopen";
+    repo = pname;
+    rev = version;
+    hash = "sha256-sZStJgToQtWYrBH1BjqxCUwQUT5dcAlyZwnb4aYga+4=";
+  };
 
   propagatedBuildInputs = with python3Packages; [ fasteners appdirs click setuptools ];
 
@@ -34,8 +39,17 @@ python3Packages.buildPythonApplication {
 
   checkInputs = with python3Packages; [ pytestCheckHook pytest-mock ];
 
+  postInstall = ''
+    install -Dm644 elevation/datasource.mk -t $out/lib/${python3Packages.python.libPrefix}/site-packages/elevation
+  '';
+
+  doInstallCheck = true;
+
+  installCheckPhase = "$out/bin/eio selfcheck";
+
   meta = with lib; {
-    inherit (sources.elevation) description homepage;
+    description = "Python script to download global terrain digital elevation models, SRTM 30m DEM and SRTM 90m DEM";
+    homepage = "http://elevation.bopen.eu/";
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
