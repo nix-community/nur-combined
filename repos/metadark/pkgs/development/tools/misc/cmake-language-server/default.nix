@@ -11,7 +11,7 @@
 
 buildPythonApplication rec {
   pname = "cmake-language-server";
-  version = "0.1.2";
+  version = "unstable-2021-03-28";
   format = "pyproject";
 
   src = fetchFromGitHub {

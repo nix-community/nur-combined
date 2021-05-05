@@ -2,6 +2,7 @@
 , buildPythonPackage
 , isPy3k
 , fetchFromGitHub
+, setuptools_scm
 , pydantic
 , typeguard
 , mock
@@ -11,15 +12,21 @@
 
 buildPythonPackage rec {
   pname = "pygls";
-  version = "0.10.2";
+  version = "0.10.3";
   disabled = !isPy3k;
 
   src = fetchFromGitHub {
     owner = "openlawlibrary";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-HMKGFgSQyhFc7IgOWl6BrTnCqwy6duEw5NqUN3vOHEE=";
+    hash = "sha256-oqIVBb9xPCXpzPCp5WC28otCNSoxq+X0JJ8QEXgYuJ4=";
   };
+
+  SETUPTOOLS_SCM_PRETEND_VERSION = version;
+
+  nativeBuildInputs = [
+    setuptools_scm
+  ];
 
   propagatedBuildInputs = [
     pydantic
