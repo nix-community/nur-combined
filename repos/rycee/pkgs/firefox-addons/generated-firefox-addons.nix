@@ -346,10 +346,10 @@
       };
     "fraidycat" = buildFirefoxXpiAddon {
       pname = "fraidycat";
-      version = "1.1.8";
+      version = "1.1.9";
       addonId = "{94060031-effe-4b93-89b4-9cd570217a8d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3756483/fraidycat-1.1.8-fx.xpi";
-      sha256 = "bc7a1e39e11b1a885273781246379c992c9c04dd0ed68eead3926f30f890cf30";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3770581/fraidycat-1.1.9-fx.xpi";
+      sha256 = "59cad17787739da2d9e6402ece437f4bbfaacadcb2f7e282632c3313e755f30b";
       meta = with lib;
       {
         homepage = "https://fraidyc.at/";
@@ -649,10 +649,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.5";
+      version = "2.6.6";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3758393/localcdn-2.6.5-an+fx.xpi";
-      sha256 = "49289c553c4cc6978c245f83d7a8ff215f4ee8937008d3b382c2feefed3dd1fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3765668/localcdn-2.6.6-an+fx.xpi";
+      sha256 = "d935403f2895ea8a89673dfdcd50edc0aeb37eeed1b78312a4b6e49e64daeaf4";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1262,10 +1262,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.7.4";
+      version = "3.8.0";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3752249/tree_style_tab_-3.7.4-fx.xpi";
-      sha256 = "9e7a9b1ea63c62511e915e301ec7c8f93fabb4551b908bbd4f8e719adf9336d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3770891/tree_style_tab_-3.8.0-fx.xpi";
+      sha256 = "8f0f72b7c3ac865c512f394b9fc62cf7a738f43f6cf2fa495593ddfe5b8194a4";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -1295,10 +1295,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.35.0";
+      version = "1.35.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3763753/ublock_origin-1.35.0-an+fx.xpi";
-      sha256 = "754c581546bd2acec929dc69c619a0a2f13c65d544904e891441e7f060466144";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3768975/ublock_origin-1.35.2-an+fx.xpi";
+      sha256 = "8eccfa436bc5852b91ddb9628dca4bfd0ff5d2a302f2e9e595d801fa228c3975";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -1393,10 +1393,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.12.14";
+      version = "2.13.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3758938/violentmonkey-2.12.14-an+fx.xpi";
-      sha256 = "40ccfbcab81821a4719ae7e6736225c93f6280f3c5457c45287cde7893242d92";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3770708/violentmonkey-2.13.0-an+fx.xpi";
+      sha256 = "c2b17f2fbad676304f8b3791602edd388a9df68c585168d04221c2851ff6346a";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
@@ -1449,10 +1449,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "18.5";
+      version = "18.6";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3748386/zoom_page_we-18.5-fx.xpi";
-      sha256 = "0e11063e3b6fdf87150261c099111d7adca4a42808ede5f1d93407386de85409";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3768396/zoom_page_we-18.6-fx.xpi";
+      sha256 = "4f0d68c12cf6030338990e800913c06cebf4b481ece4d062306efb873f7d3dcf";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
