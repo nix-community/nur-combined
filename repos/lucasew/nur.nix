@@ -34,6 +34,7 @@ in
     # utils
     pkg = p ./packages/pkg.nix;
     c4me = p ./packages/c4me/default.nix;
+    fhsctl = p ./packages/fhsctl.nix;
   };
   lib = {
     filter = import ./lib/filter.nix;

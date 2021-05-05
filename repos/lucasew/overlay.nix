@@ -59,6 +59,7 @@ in reduceJoin [
       nfsu2 = cp ./packages/wineApps/nfsu2.nix;
       flatout2 = cp ./packages/wineApps/flatout2.nix;
     };
+    fhsctl = cp ./packages/fhsctl.nix;
     comby = cp ./packages/comby.nix;
     custom_rofi = cp ./packages/custom_rofi.nix;
     custom_ncdu = cp ./packages/custom_ncdu.nix;
