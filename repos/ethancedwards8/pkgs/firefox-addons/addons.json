@@ -1,0 +1,18 @@
+[
+    {
+	"slug": "nextcloud-passwords"
+    },
+    {
+	"slug": "sponsorblock"
+    },
+    {
+	"slug": "enhancer-for-youtube",
+	"license": {
+	    "tag": "custom",
+	    "shortName": "clefy",
+	    "fullName": "Custom License for Enhancer for YouTube",
+	    "url": "https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/license/",
+	    "free": false
+	}
+    }
+]

@@ -1,8 +1,9 @@
-{ lib, stdenv, libX11, libXinerama, libXft, zlib, patches ? null, fetchFromGitLab }:
+{ lib, stdenv, libX11, libXinerama, libXft, zlib, patches ? null, fetchFromGitLab, ... }@inputs:
 
 stdenv.mkDerivation rec {
   name = "dmenu-5.0";
 
+  # src = inputs.dmenu;
   src = fetchFromGitLab {
     owner = "ethancedwards";
     repo = "dmenu-config";

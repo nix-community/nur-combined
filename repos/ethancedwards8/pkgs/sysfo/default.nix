@@ -1,16 +1,16 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub, ... }@inputs:
 
 stdenv.mkDerivation {
   pname = "sysfo";
   version = "1.0";
 
+  # src = inputs.sysfo;
   src = fetchFromGitHub {
     owner = "ethancedwards8";
     repo = "sysfo";
     rev = "fd620e7ffd81c8fad7210ad3c99d92e2307a679a";
     sha256 = "IAZGz5mHTLIOP0RXuyXTJAdNT0fW6PhyjZptJ1ssL3Y=";
   };
-
   buildPhase = ''
     make
   '';

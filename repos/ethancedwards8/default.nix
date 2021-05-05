@@ -1,4 +1,4 @@
-{ system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; } }:
+{ system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; }, ... }@inputs:
 
 {
 
@@ -12,6 +12,9 @@
 
   firefox-addons =
     pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { });
+
+  firefox-addons-generator =
+    pkgs.haskellPackages.callPackage ./pkgs/firefox-addons-generator { };
 
   hello-nur = pkgs.callPackage ./pkgs/hello-nur { };
 

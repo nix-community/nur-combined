@@ -1,5 +1,5 @@
 { lib, stdenv, pkg-config, writeText, libX11, ncurses
-, libXft, conf ? null, patches ? [], extraLibs ? [], fetchFromGitLab }:
+, libXft, conf ? null, patches ? [], extraLibs ? [], fetchFromGitLab, ... }@inputs:
 
 with lib;
 
@@ -7,6 +7,7 @@ stdenv.mkDerivation rec {
   pname = "st";
   version = "0.8.4";
 
+  # src = inputs.st;
   src = fetchFromGitLab {
     owner = "ethancedwards";
     repo = "st-config";
