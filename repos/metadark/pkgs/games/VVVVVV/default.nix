@@ -40,8 +40,10 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p "$out/bin"
     cp vvvvvv${executableSuffix} "$out/bin/VVVVVV"
+    runHook postInstall
   '';
 
   meta = with lib; {

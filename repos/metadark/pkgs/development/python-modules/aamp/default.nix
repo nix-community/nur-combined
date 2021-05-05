@@ -20,8 +20,10 @@ buildPythonPackage rec {
   ];
 
   checkPhase = ''
+    runHook preCheck
     export PATH=$out/bin:$PATH
     python test.py
+    runHook postCheck
   '';
 
   pythonImportsCheck = [ "aamp" ];

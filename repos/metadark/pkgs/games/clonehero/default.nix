@@ -40,12 +40,14 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p "$out/bin" "$out/share"
     install -Dm755 ${name} "$out/bin"
     cp -r clonehero_Data "$out/share"
 
     mkdir -p "$doc/share/${name}"
     cp README.txt "$doc/share/${name}"
+    runHook postInstall
   '';
 
   # Patch required run-time libraries as load-time libraries

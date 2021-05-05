@@ -22,7 +22,9 @@ buildPythonPackage rec {
   ];
 
   checkPhase = ''
+    runHook preCheck
     python test.py
+    runHook postCheck
   '';
 
   pythonImportsCheck = [ "botw" ];

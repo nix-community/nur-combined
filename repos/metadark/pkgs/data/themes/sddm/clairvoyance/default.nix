@@ -27,9 +27,11 @@ stdenvNoCC.mkDerivation rec {
   };
 
   installPhase = ''
+    runHook preInstall
     mkdir -p "$out/share/sddm/themes"
     cp -r . "$out/share/sddm/themes/clairvoyance"
     cp ${theme-conf} "$out/share/sddm/themes/clairvoyance/theme.conf"
+    runHook postInstall
   '';
 
   meta = with lib; {

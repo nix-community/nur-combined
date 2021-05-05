@@ -49,10 +49,12 @@ let ccache = stdenv.mkDerivation rec {
   ] ++ lib.optional stdenv.isDarwin xcodebuild;
 
   checkPhase = ''
+    runHook preCheck
     export HOME=$(mktemp -d)
     ctest --output-on-failure ${lib.optionalString stdenv.isDarwin ''
       -E '^(test.nocpp2|test.basedir|test.multi_arch)$'
     ''}
+    runHook postCheck
   '';
 
   passthru = {

@@ -67,6 +67,7 @@ let
     ];
 
     installPhase = ''
+      runHook preInstall
       cp -R . "$out"
 
       rm "$out/bin/virtualparadise"
@@ -78,6 +79,7 @@ let
       mkdir "$out/lib/virtualparadise/swiftshader"
       mv "$out/lib/virtualparadise/libGLESv2.so" "$out/lib/virtualparadise/swiftshader/libGLESv2.so"
       mv "$out/lib/virtualparadise/libEGL.so" "$out/lib/virtualparadise/swiftshader/libEGL.so"
+      runHook postInstall
     '';
 
     postFixup = ''

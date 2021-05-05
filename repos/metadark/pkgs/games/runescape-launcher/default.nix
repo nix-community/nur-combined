@@ -13,10 +13,18 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ dpkg ];
-  unpackPhase = "dpkg-deb -x $src .";
+
+  unpackPhase = ''
+    runHook preUnpack
+    dpkg-deb -x $src .
+    runHook postUnpack
+  '';
+
   installPhase = ''
+    runHook preInstall
     mkdir -p "$out"
     cp -r usr/* "$out"
+    runHook postInstall
   '';
 
   # Avoid modifying the executable to comply with the license

@@ -97,7 +97,9 @@ in stdenv.mkDerivation rec {
   # PortChecker test fails when lashSupport is enabled because
   # zynaddsubfx takes to long to start trying to connect to lash
   checkPhase = lib.optional lashSupport ''
+    runHook preCheck
     ctest --force-new-ctest-process -E '^PortChecker$'
+    runHook postCheck
   '';
 
   # Use Zyn-Fusion logo for zest build

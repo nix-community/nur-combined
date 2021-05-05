@@ -22,8 +22,10 @@ buildPythonApplication rec {
   propagatedBuildInputs = [ dbus-python pygobject3 python-prctl ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p "$out/bin"
     cp bluetooth-autoconnect "$out/bin"
+    runHook postInstall
   '';
 
   preFixup = ''
