@@ -1,0 +1,31 @@
+#! /usr/bin/env bash
+
+set -eu -o pipefail
+
+packages=""
+while [ ! "$1" == "--" ]
+do
+    packages="$packages $1"
+    shift
+done
+shift # ignore --
+
+tempfile=$(mktemp /tmp/fhsctl-XXXXXX.nix)
+cmd="$(readlink $(which $1) -m)";shift
+fhsname="fhsctl-$RANDOM"
+
+echo $tempfile
+
+
+echo 'with import <nixpkgs> {};' >> $tempfile
+echo 'buildFHSUserEnv {' >> $tempfile
+echo "name = \"$fhsname\";" >> $tempfile
+echo "targetPkgs = pkgs: with pkgs; [" >> $tempfile
+echo "$packages" >> $tempfile
+echo "];" >> $tempfile
+echo "runScript = ''\"$cmd\" \"\$@\"'';" >> $tempfile
+echo "}" >> $tempfile
+
+out=$(nix-store -r $(nix-instantiate $tempfile))
+
+$out/bin/$fhsname "$@"
