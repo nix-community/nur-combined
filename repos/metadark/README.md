@@ -57,3 +57,8 @@ Name | Attribute | Description
 [pytest-datadir](https://github.com/gabrielcnr/pytest-datadir)|[nur.repos.metadark.pythonPackages.pytest-datadir](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/development/python-modules/pytest-datadir/default.nix)|Pytest plugin for manipulating test data directories and files
 [rstb](https://github.com/zeldamods/rstb)|[nur.repos.metadark.pythonPackages.rstb](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/development/python-modules/rstb/default.nix)|Breath of the Wild RSTB parser and editing tool
 [vdf](https://github.com/ValvePython/vdf)|[nur.repos.metadark.pythonPackages.vdf](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/development/python-modules/vdf/default.nix)|Library for working with Valve's VDF text format
+
+# Themes
+Name | Attribute | Description
+-----|-----------|------------
+[sddm-theme-clairvoyance](https://github.com/eayus/sddm-theme-clairvoyance)|[nur.repos.metadark.themes.sddm.clairvoyance](https://github.com/nix-community/nur-combined/blob/master/repos/metadark/pkgs/data/themes/sddm/clairvoyance/default.nix)|An SDDM theme
