@@ -1,10 +1,15 @@
-{ lib, python3Packages, sources, withUI ? true }:
+{ lib, fetchFromGitHub, python3Packages, withUI ? true }:
 
-python3Packages.buildPythonApplication {
-  pname = "gt4gd-unstable";
-  version = lib.substring 0 10 sources.gt4gd.date;
+python3Packages.buildPythonApplication rec {
+  pname = "gt4gd";
+  version = "1.3.5";
 
-  src = sources.gt4gd;
+  src = fetchFromGitHub {
+    owner = "xinebf";
+    repo = "google-translate-for-goldendict";
+    rev = "v${version}";
+    hash = "sha256-1WZo2pDYLUN4BgbYfTsrAZpWvNgixILkVL0NWlTCkRU=";
+  };
 
   propagatedBuildInputs = with python3Packages; [ requests ]
     ++ lib.optional withUI tkinter;
@@ -17,7 +22,8 @@ python3Packages.buildPythonApplication {
   '';
 
   meta = with lib; {
-    inherit (sources.gt4gd) description homepage;
+    description = "Add Google translate to GoldenDict";
+    inherit (src.meta) homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

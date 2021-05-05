@@ -1,21 +1,23 @@
-{ lib
-, python3Packages
-, mercantile
-, sources
-}:
+{ lib, fetchFromGitHub, python3Packages, mercantile }:
 
-python3Packages.buildPythonApplication {
-  pname = "supermercado-unstable";
-  version = lib.substring 0 10 sources.supermercado.date;
+python3Packages.buildPythonApplication rec {
+  pname = "supermercado";
+  version = "0.2.0";
 
-  src = sources.supermercado;
+  src = fetchFromGitHub {
+    owner = "mapbox";
+    repo = pname;
+    rev = "44841a07adff32665fae736f9ba7df8c7b24ac44";
+    hash = "sha256-k2S1aOHQEJq//4mdWZ5GhJQJjKqJuDbBztoHi373s6w=";
+  };
 
   propagatedBuildInputs = with python3Packages; [ click-plugins rasterio mercantile numpy ];
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
-    inherit (sources.supermercado) description homepage;
+    description = "Supercharger for mercantile";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

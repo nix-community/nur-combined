@@ -1,10 +1,15 @@
-{ lib, python3Packages, jsonseq, mercantile, supermercado, sources }:
+{ lib, fetchFromGitHub, python3Packages, jsonseq, mercantile, supermercado }:
 
-python3Packages.buildPythonApplication {
-  pname = "tilesets-cli-unstable";
-  version = lib.substring 0 10 sources.tilesets-cli.date;
+python3Packages.buildPythonApplication rec {
+  pname = "tilesets-cli";
+  version = "1.7.1";
 
-  src = sources.tilesets-cli;
+  src = fetchFromGitHub {
+    owner = "mapbox";
+    repo = pname;
+    rev = "v${version}";
+    hash = "sha256-nAI5mwXlJ8JKUna+2dNwMnfEJuQqTrrXW10slNkjv9w=";
+  };
 
   propagatedBuildInputs = with python3Packages; [
     boto3 click cligj
@@ -16,7 +21,8 @@ python3Packages.buildPythonApplication {
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
-    inherit (sources.tilesets-cli) description homepage;
+    description = "CLI for interacting with the Mapbox Tilesets API";
+    homepage = "https://docs.mapbox.com/mapbox-tiling-service";
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

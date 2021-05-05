@@ -1,17 +1,23 @@
-{ lib, stdenv, sources }:
+{ lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation {
-  pname = "gt-bash-client-unstable";
-  version = lib.substring 0 10 sources.gt-bash-client.date;
+stdenv.mkDerivation rec {
+  pname = "gt-bash-client";
+  version = "1.2";
 
-  src = sources.gt-bash-client;
+  src = fetchFromGitHub {
+    owner = "OPHoperHPO";
+    repo = "GT-bash-client";
+    rev = version;
+    hash = "sha256-dVtwuZsF9ExH6qadUO2MJiWmQ/elTKaVZAp+o3b6XUg=";
+  };
 
   installPhase = ''
     install -Dm755 translate.sh $out/bin/gt-bash-client
   '';
 
   meta = with lib; {
-    inherit (sources.gt-bash-client) description homepage;
+    description = "Get translated text from your terminal! Console Google Translate Script (bash+curl+sed)";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;

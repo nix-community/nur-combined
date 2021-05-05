@@ -1,10 +1,15 @@
-{ lib, stdenv, curl, libjpeg, libpng, libtiff, libgeotiff, pkg-config, sources }:
+{ lib, stdenv, fetchFromGitHub, curl, libjpeg, libpng, libtiff, libgeotiff, pkg-config }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "tile-stitch";
-  version = lib.substring 0 10 sources.tile-stitch.date;
+  version = "2019-07-11";
 
-  src = sources.tile-stitch;
+  src = fetchFromGitHub {
+    owner = "ericfischer";
+    repo = pname;
+    rev = "f14d113c54bb7dcffee05a7608a806b8557139e5";
+    hash = "sha256-EEQ/8NbcB1O1rqlDWyYw7ERDQCm4j8YGv7z8WTVVCfc=";
+  };
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -13,7 +18,8 @@ stdenv.mkDerivation {
   installPhase = "install -Dm755 stitch -t $out/bin";
 
   meta = with lib; {
-    inherit (sources.tile-stitch) description homepage;
+    description = "Stitch together and crop map tiles for a specified bounding box";
+    inherit (src.meta) homepage;
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
