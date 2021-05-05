@@ -14,6 +14,11 @@ buildPythonPackage rec {
   inherit (libtweedledum) version src;
   format = "pyproject";
 
+  # TODO: remove in next version
+  postPatch = ''
+    substituteInPlace setup.py --replace "where='python'" "where='python', exclude=('test',)"
+  '';
+
   nativeBuildInputs = [ cmake ninja scikit-build ];
   dontUseCmakeConfigure = true;
 
