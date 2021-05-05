@@ -9,7 +9,7 @@ buildPythonPackage rec {
     owner = "CPJKU";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1x0pwxnky4xisyxhjdx2h4bgj426drr3iz8j9qhzcdzzz1mgg4xc";
+    sha256 = "1f9rr9v61j9rdprdiaw2yan080v326s7s093izj6crwxkyc88l24";
     fetchSubmodules = true;
   };
 
@@ -19,9 +19,7 @@ buildPythonPackage rec {
 
   patches = [ ./no-setup-requires-pytestrunner.patch ];
 
-  # Some tests complain about this:
-  #   ImportError: cannot import name 'BEATS_LSTM' from 'madmom.models' (unknown location)
-  # Strangely, the package exists in the final build.
+  # Tests take very long.
   doCheck = false;
   checkInputs = [ pytest pytestrunner ffmpeg ];
 
