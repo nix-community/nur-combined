@@ -21,6 +21,7 @@ in
     extraGroups = groupsIfExist [
       "audio" # sound control
       "media" # access to media files
+      "networkmanager" # wireless configuration
       "plugdev" # usage of ZSA keyboard tools
       "video" # screen control
       "wheel" # `sudo` for the user.

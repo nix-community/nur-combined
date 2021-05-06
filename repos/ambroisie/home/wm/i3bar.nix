@@ -7,6 +7,7 @@ in
     home.packages = with pkgs; [
       alsaUtils # Used by `sound` block
       lm_sensors # Used by `temperature` block
+      font-awesome # Icon font
     ];
 
     programs.i3status-rust = {
@@ -14,6 +15,8 @@ in
 
       bars = {
         top = {
+          icons = "awesome5";
+
           blocks = builtins.filter (attr: attr != { }) [
             {
               block = "music";

@@ -3,7 +3,6 @@
   networking = {
     hostName = "aramis";
     domain = "nodomain.local"; # FIXME: gotta fix domain handling
-    wireless.enable = true;
 
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.
     # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -18,4 +17,7 @@
 
   # Which interface is used to connect to the internet
   my.networking.externalInterface = "enp0s3";
+
+  # Enable WiFi integration
+  my.networking.wireless.enable = true;
 }

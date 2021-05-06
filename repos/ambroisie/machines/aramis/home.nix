@@ -1,12 +1,16 @@
 { ... }:
 {
   my.home = {
+    # Bluetooth GUI & media keys
+    bluetooth.enable = true;
     # Firefo profile and extensions
     firefox.enable = true;
     # Blue light filter
     gammastep.enable = true;
     # Use a small popup to enter passwords
     gpg.pinentry = "gtk2";
+    # Network-Manager applet
+    nm-applet.enable = true;
     # Termite terminal
     terminal.program = "termite";
     # i3 settings

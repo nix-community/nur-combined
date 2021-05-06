@@ -20,7 +20,7 @@ in
 
     temperature = {
       day = mkTempOption "Colour temperature to use during the day" 6500;
-      night = mkTempOption "Colour temperature to use during the night" 2500;
+      night = mkTempOption "Colour temperature to use during the night" 2000;
     };
 
     times = {
@@ -31,6 +31,8 @@ in
 
   config.services.gammastep = lib.mkIf cfg.enable {
     enable = true;
+
+    tray = true;
 
     dawnTime = cfg.times.dawn;
     duskTime = cfg.times.dusk;

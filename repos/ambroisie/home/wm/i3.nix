@@ -84,6 +84,11 @@ in
                   text = "#fdf6e3";
                 };
               };
+
+              fonts = {
+                names = [ "DejaVu Sans Mono" "FontAwesome5Free" ];
+                size = 8.0;
+              };
             }
           ];
 
@@ -105,9 +110,10 @@ in
           mouseWarping = true; # Let's moving around when switching screens
         };
 
-        fonts = [
-          "DejaVu Sans Mono 8"
-        ];
+        fonts = {
+          names = [ "DejaVu Sans Mono" ];
+          size = 8.0;
+        };
 
         # I don't care for i3's default values, I specify them all explicitly
         keybindings = builtins.foldl' (lhs: rhs: lhs // rhs) { } [

@@ -1,13 +1,27 @@
-{ lib, ... }:
-
+{ config, lib, ... }:
+let
+  cfg = config.my.networking;
+in
 {
-  options.my.networking.externalInterface = with lib; mkOption {
-    type = types.nullOr types.str;
-    default = null;
-    example = "eth0";
-    description = ''
-      Name of the network interface that egresses to the internet. Used for
-      e.g. NATing internal networks.
-    '';
+  options.my.networking = with lib; {
+    externalInterface = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      example = "eth0";
+      description = ''
+        Name of the network interface that egresses to the internet. Used for
+        e.g. NATing internal networks.
+      '';
+    };
+
+    wireless = {
+      enable = mkEnableOption "wireless configuration";
+    };
   };
+
+  config = lib.mkMerge [
+    (lib.mkIf cfg.wireless.enable {
+      networking.networkmanager.enable = true;
+    })
+  ];
 }

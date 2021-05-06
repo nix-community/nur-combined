@@ -2,6 +2,7 @@
 {
   imports = [
     ./bat.nix
+    ./bluetooth.nix
     ./direnv.nix
     ./documentation.nix
     ./firefox
@@ -11,6 +12,7 @@
     ./gpg.nix
     ./htop.nix
     ./jq.nix
+    ./nm-applet.nix
     ./packages.nix
     ./pager.nix
     ./secrets # Home-manager specific secrets
@@ -31,4 +33,6 @@
 
   # Who am I?
   home.username = "ambroisie";
+
+  services.network-manager-applet.enable = true; # FIXME: move this
 }

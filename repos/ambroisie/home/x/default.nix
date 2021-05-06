@@ -4,6 +4,7 @@ let
 in
 {
   imports = [
+    ./cursor.nix
     ./keyboard.nix
   ];
 

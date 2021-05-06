@@ -6,6 +6,7 @@
 
 {
   imports = [
+    ./bluetooth.nix
     ./boot.nix
     ./hardware.nix
     ./home.nix

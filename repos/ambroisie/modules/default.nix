@@ -3,6 +3,7 @@
 
 {
   imports = [
+    ./bluetooth.nix
     ./documentation.nix
     ./ergodox.nix
     ./home.nix
