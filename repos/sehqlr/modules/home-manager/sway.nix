@@ -1,5 +1,5 @@
-{ config, lib, pkgs, ... }: {
-
+{ config, lib, pkgs, ... }:
+{
   home.packages = with pkgs; [
     pamixer
     sway-contrib.grimshot
@@ -83,9 +83,6 @@
         "exec ${pkgs.wofi}/bin/wofi -S run | ${pkgs.findutils}/bin/xargs swaymsg exec --";
       modifier = "Mod4";
       startup = [
-        { command = "${pkgs.firefox}/bin/firefox"; }
-        { command = "${pkgs.discord}/bin/discord"; }
-        { command = "${pkgs.element-desktop}/bin/element"; }
         { command = "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob"; }
       ];
       terminal = "${pkgs.termite}/bin/termite -e tmux";
