@@ -4,6 +4,12 @@
 
   # Override config from ENV
   , config ? {}
+  # allowUnfree for nixpkgs
+  , allowUnfree ? true
+  # Additional overlays to apply (applied before and after the main Overlay)
+  , preOverlays ? []
+  , postOverlays ? []
+  # Revision for Hydra
   , NixOS-QChem ? { shortRev = "0000000"; }
   # build more variants
   , buildVariants ? false
@@ -17,8 +23,8 @@ let
   # Customized package set
   pkgs = config: overlay: let
     pkgSet = (import nixpkgs) {
-      overlays = [ overlay (import ./default.nix) ];
-      config.allowUnfree = true;
+      overlays = [ overlay ] ++ preOverlays ++ [ (import ./default.nix) ] ++ postOverlays;
+      config.allowUnfree = allowUnfree;
       config.qchem-config = cfg;
     };
 
@@ -45,8 +51,9 @@ let
             tests.cp2k
             tests.nwchem
             tests.molcas
+          ] ++ pkgSet.lib.optionals allowUnfree [
             molden
-          ] ++ pkgSet.lib.optionals (cfg.srcurl != null) [
+          ] ++ pkgSet.lib.optionals (cfg.srcurl != null && allowUnfree) [
             tests.molpro
             tests.mesa-qc
             tests.qdng
