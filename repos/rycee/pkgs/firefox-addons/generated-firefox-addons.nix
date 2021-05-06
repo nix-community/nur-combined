@@ -958,10 +958,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.13.0";
+      version = "4.13.1";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3767928/react_developer_tools-4.13.0-fx.xpi";
-      sha256 = "e7fded13740a55d71cc29bddf72c10f25984db3d2228dfe5b6b998de34d967c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3771514/react_developer_tools-4.13.1-fx.xpi";
+      sha256 = "3669b8ac3530a1ebc3a2db590056cd5297777c29682601c778b586c765cbf7d8";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
