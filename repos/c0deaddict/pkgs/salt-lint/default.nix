@@ -2,15 +2,16 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "salt-lint";
-  version = "0.4.1";
+  version = "0.5.2";
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "1h5wyn74glyiz377qwcg1y75l6mkh24bxjld4svifmx1v952fj2a";
+    sha256 = "0i00ri0vnq65528gvvw9i0yr9hfx8yr5qcghgajv43bgrskp1x06";
   };
 
   buildInputs = with python3Packages; [ setuptools ];
-  propagatedBuildInputs = [ salt python3Packages.pathspec ];
+  propagatedBuildInputs = [ salt ]
+    ++ (with python3Packages; [ pathspec six future ]);
 
   meta = with lib; {
     homepage = "https://github.com/warpnet/salt-lint";

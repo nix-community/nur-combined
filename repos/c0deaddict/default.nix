@@ -57,8 +57,6 @@ rec {
 
   zsh-histdb = pkgs.callPackage ./pkgs/zsh-histdb {};
 
-  bonfire = pkgs.callPackage ./pkgs/bonfire {};
-
   enemyterritory = pkgs.callPackage_i686 ./pkgs/enemyterritory {};
 
   etlegacy = pkgs.callPackage_i686 ./pkgs/etlegacy {};

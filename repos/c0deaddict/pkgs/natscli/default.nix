@@ -1,6 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{ lib, buildGo116Module, fetchFromGitHub }:
 
-buildGoModule rec {
+# Pin on Go 1.16 because in stable (20.09, Go 1.15) the vendorSha256 is
+# different.
+buildGo116Module rec {
   pname = "natscli";
   version = "0.0.23";
 

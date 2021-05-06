@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "goreplay";
-  version = "1.1.0";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "buger";
     repo = pname;
     rev = "v${version}";
-    sha256 = "07nsrx5hwmk6l8bqp48gqk40i9bxf0g4fbmpqbngx6j5f7lpbk2n";
+    sha256 = "0smhl6gk91fymryybf1hzihmd0j4ks4yyf2vwihb55xh83mnnn2s";
   };
 
   buildInputs = [ libpcap ];
