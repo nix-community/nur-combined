@@ -2,12 +2,12 @@
 
 stdenvNoCC.mkDerivation {
   pname = "komputeko";
-  version = "2020-10-18";
+  version = "2021-04-21";
 
   src = fetchwebarchive {
     url = "https://komputeko.net/data.json";
-    timestamp = "20201018194034";
-    sha256 = "1bwzpxdk221cdya2sdc9cjvkl7qw1mk4yiy8mbdx8nmcm9m4adwc";
+    timestamp = "20210421213134";
+    hash = "sha256-NMoLcTHZt3OS+jTZRYlFwRPqWaK6EInTo0hPHKSJoFU=";
   };
 
   dontUnpack = true;

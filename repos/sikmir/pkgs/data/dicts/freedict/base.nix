@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, fetchurl, lang, version, sha256 }:
+{ lib, stdenvNoCC, fetchurl, lang, version, hash }:
 
 stdenvNoCC.mkDerivation {
   pname = "freedict-${lang}";
@@ -6,7 +6,7 @@ stdenvNoCC.mkDerivation {
 
   src = fetchurl {
     url = "https://download.freedict.org/dictionaries/${lang}/${version}/freedict-${lang}-${version}.dictd.tar.xz";
-    inherit sha256;
+    inherit hash;
   };
 
   installPhase = ''

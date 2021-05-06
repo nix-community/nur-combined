@@ -230,7 +230,6 @@ lib.makeScope newScope (
     gef = callPackage ./misc/gef { };
     glauth = callPackage ./misc/glauth { };
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
-    ht = callPackage ./misc/ht { };
     ish = callPackage ./misc/ish { };
     lazyscraper = callPackage ./misc/lazyscraper { };
     morse-talk = callPackage ./misc/morse-talk { };

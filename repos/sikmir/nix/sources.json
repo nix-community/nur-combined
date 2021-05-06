@@ -23,20 +23,6 @@
         "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
         "version": "210306"
     },
-    "gpxelevations": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-27T11:06:41Z",
-        "description": "Geo elevation data parser for \"The Shuttle Radar Topography Mission\" data",
-        "homepage": "https://github.com/tkrajina/srtm.py",
-        "owner": "tkrajina",
-        "repo": "srtm.py",
-        "rev": "aac72b36d105198622e33047b09786543c9aa4fa",
-        "sha256": "1qik15m5gwi4fp0ap898vgnvxhfh55a945dxkzkr9c7q9qaay0gw",
-        "type": "tarball",
-        "url": "https://github.com/tkrajina/srtm.py/archive/aac72b36d105198622e33047b09786543c9aa4fa.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "gpxlab": {
         "branch": "master",
         "builtin": false,
@@ -117,20 +103,6 @@
         "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-03-06.zip",
         "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
         "version": "2021-03-06"
-    },
-    "mercantile": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-08-24T14:49:04Z",
-        "description": "Spherical mercator tile and coordinate utilities",
-        "homepage": "https://github.com/mapbox/mercantile",
-        "owner": "mapbox",
-        "repo": "mercantile",
-        "rev": "d00e29330663d2ca8dc1f4056f92194286250b38",
-        "sha256": "0kdhvph2k7qjjqxp84qvdhkm5pii711kkfghpkqwjml1ms0ld96s",
-        "type": "tarball",
-        "url": "https://github.com/mapbox/mercantile/archive/d00e29330663d2ca8dc1f4056f92194286250b38.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "odict": {
         "branch": "master",
