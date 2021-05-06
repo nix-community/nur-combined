@@ -12,10 +12,10 @@ in {
 
   config = mkIf cfg.enable {
     services.autorandr.enable = true;
-    services.xserver.dpi = 150;
+    #services.xserver.dpi = 150;
     services.picom.enable = true;
-    #environment = {
-    #  systemPackages = with pkgs; [ unstable.xorg.xrandr ];
-    #};
+    environment = {
+      systemPackages = with pkgs; [ unstable.xorg.xrandr ];
+    };
   };
 }
