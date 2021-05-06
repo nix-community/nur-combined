@@ -13,7 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "0b4ljqnqag2rikdamhq0xdasbnkax7c541cw0nxbndn38n17k9kb";
 
-  postInstall = ''
+  postFixup = ''
     install -dm755 $out/${pname}
     mv $out/bin $out/${pname}/
     install -m644 -Dt $out/${pname} plugin.yaml

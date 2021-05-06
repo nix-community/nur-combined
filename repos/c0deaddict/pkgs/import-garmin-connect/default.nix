@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , influxdb
 , requests
+, setuptools_scm
 }:
 
 buildPythonApplication rec {
@@ -15,6 +16,8 @@ buildPythonApplication rec {
     rev = "v${version}";
     sha256 = "1swmcg1rxvzsls8rdc85s063rjlgjc9k96jksm83sz068zqnz5a7";
   };
+
+  buildInputs = [ setuptools_scm ];
 
   propagatedBuildInputs = [ influxdb requests ];
 
