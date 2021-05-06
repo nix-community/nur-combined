@@ -17,6 +17,5 @@
   lemonade = pkgs.callPackage ./pkgs/lemonade { };
   xss-events = pkgs.callPackage ./pkgs/xss-events { };
   xvisbell = pkgs.callPackage ./pkgs/xvisbell { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  # ondt-desktop-environment = pkgs.callPackage ./pkgs/ondt-desktop-environment { lemonade = lemonade; };
 }
