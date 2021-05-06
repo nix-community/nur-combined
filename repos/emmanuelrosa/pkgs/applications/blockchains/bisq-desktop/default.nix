@@ -46,13 +46,13 @@ let
   '';
 in
 stdenv.mkDerivation rec {
-  version = "1.6.3";
+  version = "1.6.4";
   pname = "bisq-desktop";
   nativeBuildInputs = [ makeWrapper copyDesktopItems dpkg ];
 
   src = fetchurl {
     url = "https://github.com/bisq-network/bisq/releases/download/v${version}/Bisq-64bit-${version}.deb";
-    sha256 = "0ijpqgix1m6pni71rrp0j86ny0pfllb4pcm9ga41vqsijcgmbr9y";
+    sha256 = "0xbd1h2cclknqbikgvscqkamqnshb90dfqd77h0j8d7qqzhb60vl";
   };
 
   desktopItems = [
