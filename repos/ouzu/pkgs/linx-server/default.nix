@@ -21,7 +21,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ go-rice ];
 
-  postBuild = "rice append --exec $GOPATH/bin/linx-server";
+  preBuild = "rice embed-go";
 
   meta = with stdenv.lib; {
     description = "Self-hosted file/media sharing website.";
