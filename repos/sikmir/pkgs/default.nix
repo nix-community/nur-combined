@@ -100,12 +100,14 @@ lib.makeScope newScope (
     geotiler = callPackage ./development/python-modules/geotiler { };
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
+    lru-dict = callPackage ./development/python-modules/lru-dict { };
     mercantile = callPackage ./development/python-modules/mercantile { };
     mikatools = callPackage ./development/python-modules/mikatools { };
     pyephem = callPackage ./development/python-modules/pyephem { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
     python-hfst = callPackage ./development/python-modules/python-hfst { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
+    wikitextprocessor = callPackage ./development/python-modules/wikitextprocessor { };
 
     ### TOOLS
 
@@ -142,6 +144,7 @@ lib.makeScope newScope (
     redict = libsForQt5.callPackage ./dict/redict { };
     stardict-tools = callPackage ./dict/stardict-tools { };
     tatoebatools = callPackage ./dict/tatoebatools { };
+    wiktextract = callPackage ./dict/wiktextract { };
     zdict = callPackage ./dict/zdict { };
 
     ### EMBOX

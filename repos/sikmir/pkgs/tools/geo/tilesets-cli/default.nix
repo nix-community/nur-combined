@@ -11,6 +11,8 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-nAI5mwXlJ8JKUna+2dNwMnfEJuQqTrrXW10slNkjv9w=";
   };
 
+  postPatch = "sed -i 's/~=.*\"/\"/' setup.py";
+
   propagatedBuildInputs = with python3Packages; [
     boto3 click cligj
     requests requests-toolbelt
@@ -19,6 +21,8 @@ python3Packages.buildPythonApplication rec {
   ];
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
+
+  installCheckPhase = "$out/bin/tilesets --version";
 
   meta = with lib; {
     description = "CLI for interacting with the Mapbox Tilesets API";
