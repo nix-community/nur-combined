@@ -103,6 +103,9 @@ let
           sha256 = sha256;
         };
 
+      # Return null if x == null otherwise return the argument
+      nullable = x: ret: if x == null then null else ret;
+
       #
       # Applications
       #
@@ -114,7 +117,7 @@ let
 
       bagel-serial = callPackage ./bagel { mpi = null; blas = self.mkl; };
 
-      cefine = callPackage ./cefine { };
+      cefine = self.nullable self.turbomole (callPackage ./cefine { });
 
       cfour = callPackage ./cfour { };
 
@@ -301,24 +304,24 @@ let
 
       f2c = callPackage ./f2c { };
 
-      tests = {
-        cfour = callPackage ./tests/cfour { };
+      tests = with self; {
+        cfour = nullable cfour (callPackage ./tests/cfour { });
         cp2k = callPackage ./tests/cp2k { };
         bagel = callPackage ./tests/bagel { };
         bagel-bench = callPackage ./tests/bagel/bench-test.nix { };
         dalton = callPackage ./tests/dalton { };
         hpcg = callPackage ./tests/hpcg { };
         hpl = callPackage ./tests/hpl { };
-        mesa-qc = callPackage ./tests/mesa { };
+        mesa-qc = nullable mesa-qc (callPackage ./tests/mesa { });
         molcas = callPackage ./tests/molcas { };
         #molcasUnstable = callPackage ./tests/molcas { molcas=self.molcasUnstable; };
-        mrcc = callPackage ./tests/mrcc { };
+        mrcc = nullable mrcc (callPackage ./tests/mrcc { });
         nwchem = callPackage ./tests/nwchem { };
         psi4 = callPackage ./tests/psi4 { };
-        qdng = callPackage ./tests/qdng { };
+        qdng = nullable qdng (callPackage ./tests/qdng { });
         dgemm = callPackage ./tests/dgemm { };
         stream = callPackage ./tests/stream { };
-        turbomole = callPackage ./tests/turbomole { };
+        turbomole = nullable turbomole (callPackage ./tests/turbomole { });
         xtb = callPackage ./tests/xtb { };
       }  // lib.optionalAttrs (cfg.licMolpro != null) {
         molpro = callPackage ./tests/molpro { };
