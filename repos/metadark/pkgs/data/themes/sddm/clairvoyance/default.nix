@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "An SDDM theme";
     homepage = "https://github.com/eayus/sddm-theme-clairvoyance";
-    license = licenses.gpl3Plus;
+    license = licenses.gpl3Only;
     maintners = with maintiners; [ metadark ];
     platforms = platforms.all;
   };
