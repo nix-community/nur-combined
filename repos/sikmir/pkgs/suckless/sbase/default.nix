@@ -17,6 +17,7 @@ stdenv.mkDerivation rec {
     homepage = "https://tools.suckless.org/sbase/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 }
