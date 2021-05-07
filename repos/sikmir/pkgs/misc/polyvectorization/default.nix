@@ -1,4 +1,4 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, boost165, eigen, opencv2 }:
+{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, boost165, eigen, opencv2 }:
 
 mkDerivation rec {
   pname = "polyvectorization";
@@ -32,5 +32,6 @@ mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 }

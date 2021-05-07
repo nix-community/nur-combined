@@ -38,5 +38,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 }

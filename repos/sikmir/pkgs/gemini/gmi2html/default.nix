@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gmi2html";
-  version = "0.2.0";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "shtanton";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-VJEonhY7tFLnA9Tn9KAR32YSwRmDPLDTzKLWlDwD1Nk=";
+    hash = "sha256-2u9Cmi6XxpDNDwMVLufTeeip8PsXSVoRwgA0w1dnRBo=";
   };
 
   nativeBuildInputs = [ scdoc zig ];
@@ -31,5 +31,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin;
   };
 }

@@ -13,9 +13,11 @@ jobs:
         cachixName:
           - sikmir
         nixPath:
-          - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
-    runs-on: ubuntu-latest
+        os:
+          - ubuntu-latest
+          - macos-latest
+    runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2.3.4
