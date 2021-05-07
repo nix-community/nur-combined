@@ -234,10 +234,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.4.9";
+      version = "2021.5.4";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3757752/duckduckgo_privacy_essentials-2021.4.9-an+fx.xpi";
-      sha256 = "c7392a826ba39f4996209230318330bf0d3125aad1aa5cc09848d7e2583aa66e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3771527/duckduckgo_privacy_essentials-2021.5.4-an+fx.xpi";
+      sha256 = "1a9ebe8c458c0a38484798563262c0d4343af1d0baf38af0de99343bbf9ece02";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -569,10 +569,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "3.3.19";
+      version = "3.3.21";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3764920/grammatik_und_rechtschreibprufung_languagetool-3.3.19-fx.xpi";
-      sha256 = "41bf128e1f5746ec78899facf563fcbe45103a3ab3b982960b04ae1fd81c6469";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3770097/grammatik_und_rechtschreibprufung_languagetool-3.3.21-fx.xpi";
+      sha256 = "665559c7f0e6eb144083c77775d451cbd9320aeb8c3c9b2fd1a85468a2efe5a0";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -588,10 +588,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.70.1.2";
+      version = "4.71.0.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3766455/lastpass_password_manager-4.70.1.2-an+fx.xpi";
-      sha256 = "72227477662ec8063ea3520687e310e9df1a75b5e3b0fe21d5d9b4c80cdcf7a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3771493/lastpass_password_manager-4.71.0.2-an+fx.xpi";
+      sha256 = "329852bff3eb7c3cb1894bf36a484846b922166068279be9e3a2cf89c4a2ff06";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1262,10 +1262,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.0";
+      version = "3.8.1";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3770891/tree_style_tab_-3.8.0-fx.xpi";
-      sha256 = "8f0f72b7c3ac865c512f394b9fc62cf7a738f43f6cf2fa495593ddfe5b8194a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3772067/tree_style_tab_-3.8.1-fx.xpi";
+      sha256 = "a3024c9a803565640c63dfa135b0f59bb3f25bcc031fc5638fc6bd9d2f94fc06";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
