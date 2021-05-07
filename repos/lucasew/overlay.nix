@@ -58,6 +58,7 @@ in reduceJoin [
       tora = cp ./packages/wineApps/tora.nix;
       nfsu2 = cp ./packages/wineApps/nfsu2.nix;
       flatout2 = cp ./packages/wineApps/flatout2.nix;
+      watchdogs2 = cp ./packages/wineApps/watchdogs2.nix;
     };
     fhsctl = cp ./packages/fhsctl.nix;
     comby = cp ./packages/comby.nix;

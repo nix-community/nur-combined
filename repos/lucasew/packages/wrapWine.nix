@@ -1,6 +1,8 @@
 with builtins;
 { pkgs }:
-{ wine ? pkgs.wine
+{ 
+  is64bits ? false
+  , wine ? if is64bits then pkgs.wineWowPackages.stable else pkgs.wine
 , wineFlags ? ""
 , executable
 , chdir ? null
@@ -15,7 +17,9 @@ let
       concatStringsSep " " tricks
     else
       "-V";
+  wineBin = "${wine}/bin/wine${if is64bits then "64" else ""}";
   script = pkgs.writeShellScriptBin name ''
+    export WINEARCH=${if is64bits then "win64" else "win32"}
     PATH=$PATH:${wine}/bin:${pkgs.winetricks}/bin
     HOME="$(echo ~)"
     WINE_NIX="$HOME/.wine-nix"
@@ -25,7 +29,8 @@ let
     ${setupScript}
     if [ ! -d "$WINEPREFIX" ]
     then
-      wine cmd /c dir > /dev/null 2> /dev/null # initialize prefix
+      ${wine}/bin/wineboot
+      # ${wineBin} cmd /c dir > /dev/null 2> /dev/null # initialize prefix
       wineserver -w
       winetricks ${tricksStmt}
       ${firstrunScript}
@@ -37,7 +42,7 @@ let
       exit 0
     fi
 
-    wine ${wineFlags} "$EXECUTABLE" "$@"
+    ${wineBin} ${wineFlags} "$EXECUTABLE" "$@"
     wineserver -w
   '';
 in
