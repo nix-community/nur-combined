@@ -122,6 +122,20 @@
         platforms = platforms.all;
         };
       };
+    "bypass-paywalls" = buildFirefoxXpiAddon {
+      pname = "bypass-paywalls";
+      version = "1.7.9";
+      addonId = "bypasspaywalls@bypasspaywalls";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3752653/bypass_paywalls-1.7.9-an+fx.xpi";
+      sha256 = "364f592943cf495f84146f623ba5bb0effe22d7d9cdc18761b15799cc4d0eaaf";
+      meta = with lib;
+      {
+        homepage = "https://github.com/iamadamdev/bypass-paywalls-chrome/blob/master/README.md";
+        description = "This is the official Bypass Paywalls web browser extension used to help bypass paywalls for selected sites.\n\nThis extension is meant for educational purposes only. Please consider supporting the sites you frequently use this on.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "canvasblocker" = buildFirefoxXpiAddon {
       pname = "canvasblocker";
       version = "1.5";
@@ -214,6 +228,19 @@
       {
         homepage = "https://decentraleyes.org";
         description = "Protects you against tracking through \"free\", centralized, content delivery. It prevents a lot of requests from reaching networks like Google Hosted Libraries, and serves local files to keep sites from breaking. Complements regular content blockers.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "df-youtube" = buildFirefoxXpiAddon {
+      pname = "df-youtube";
+      version = "1.13.504";
+      addonId = "dfyoutube@example.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3449086/df_youtube_distraction_free-1.13.504-fx.xpi";
+      sha256 = "5b10ae345c2fe1151bb760313738b9b3860a781bbc54276e95cfedba65f2cdf3";
+      meta = with lib;
+      {
+        description = "Allow yourself to focus while using YouTube for work, recreation or education.  Disable autoplay, remove sidebar, hide feed, comments, and more.";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -619,6 +646,25 @@
         platforms = platforms.all;
         };
       };
+    "limit-limit-distracting-sites" = buildFirefoxXpiAddon {
+      pname = "limit-limit-distracting-sites";
+      version = "0.1.6";
+      addonId = "{26ebede3-10ce-443c-bb0e-7f490cad0ec8}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3589010/limit_limit_distracting_sites-0.1.6-fx.xpi";
+      sha256 = "98a55100de3b2577393c37451c91965da5ef3a1925e77fca186ffb3908f94fe9";
+      meta = with lib;
+      {
+        homepage = "https://freedom.to";
+        description = "Limit your time spent on distracting sites. Limit is an extension that allows you to set time limits for distracting websites.";
+        license = {
+          shortName = "unfree";
+          fullName = "Unfree";
+          url = "https://freedom.to/terms";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "link-cleaner" = buildFirefoxXpiAddon {
       pname = "link-cleaner";
       version = "1.5";
@@ -702,6 +748,19 @@
         platforms = platforms.all;
         };
       };
+    "min-twitter" = buildFirefoxXpiAddon {
+      pname = "min-twitter";
+      version = "2.78";
+      addonId = "{e7476172-097c-4b77-b56e-f56a894adca9}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3746536/minimal_twitter-2.78-fx.xpi";
+      sha256 = "254f04637d13773c970e66cc41b7bfbcbd90251b1e793ad72100deeb8fb9bc7b";
+      meta = with lib;
+      {
+        description = "A minimal twitter theme for the new Twitter!";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
       version = "7.3.0";
@@ -755,6 +814,20 @@
         homepage = "https://github.com/MorbZ/no-pdf-download";
         description = "Opens all PDF files directly in the browser.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "noscript" = buildFirefoxXpiAddon {
+      pname = "noscript";
+      version = "11.2.7";
+      addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3771676/noscript_security_suite-11.2.7-an+fx.xpi";
+      sha256 = "c4f20b85f3f18d3dcd202120e27bcc58313e3c00ba899731937025b2a80d4994";
+      meta = with lib;
+      {
+        homepage = "https://noscript.net";
+        description = "The best security you can get in a web browser! Allow potentially malicious web content to run only from sites you trust. Protect yourself against XSS other web security exploits.";
+        license = licenses.gpl2;
         platforms = platforms.all;
         };
       };
@@ -1109,6 +1182,20 @@
         platforms = platforms.all;
         };
       };
+    "sponsorblock" = buildFirefoxXpiAddon {
+      pname = "sponsorblock";
+      version = "2.0.13.1";
+      addonId = "sponsorBlocker@ajay.app";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3748692/sponsorblock_skip_sponsorships_on_youtube-2.0.13.1-an+fx.xpi";
+      sha256 = "c9990812d376afb607c437bfb26184e7b3f07bcfc0116a5a45ca617c6d3f0453";
+      meta = with lib;
+      {
+        homepage = "https://sponsor.ajay.app";
+        description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
       version = "1.5.17";
@@ -1161,6 +1248,20 @@
         homepage = "https://framagit.org/ariasuni/tabcenter-reborn";
         description = "Simple and powerful vertical tab bar";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "tabliss" = buildFirefoxXpiAddon {
+      pname = "tabliss";
+      version = "2.1.0";
+      addonId = "extension@tabliss.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3716637/tabliss_new_tab-2.1.0-fx.xpi";
+      sha256 = "7381d681c4eef5bf91667e6b3918569c72009c6a7f62f9a33a44017b03d740ef";
+      meta = with lib;
+      {
+        homepage = "https://tabliss.io";
+        description = "A beautiful New Tab page with many customisable backgrounds and widgets that does not require any permissions.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };
@@ -1244,6 +1345,19 @@
         homepage = "https://github.com/samueljun/tomato-clock";
         description = "Tomato Clock is a simple browser extension that helps with online time management.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "translate-web-pages" = buildFirefoxXpiAddon {
+      pname = "translate-web-pages";
+      version = "8.9.3";
+      addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3754861/traduzir_paginas_web-8.9.3-an+fx.xpi";
+      sha256 = "a2a507be0f5e310cfa7941d2f518f9ef11a9c23415d577afefe5a6f71221e560";
+      meta = with lib;
+      {
+        description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };

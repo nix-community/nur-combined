@@ -40,6 +40,10 @@
     "slug": "buster-captcha-solver"
   },
   {
+    "slug": "bypass-paywalls-firefox",
+    "pname": "bypass-paywalls"
+  },
+  {
     "slug": "canvasblocker"
   },
   {
@@ -59,6 +63,9 @@
   },
   {
     "slug": "decentraleyes"
+  },
+  {
+    "slug": "df-youtube"
   },
   {
     "slug": "disconnect"
@@ -193,6 +200,16 @@
     "slug": "leechblock-ng"
   },
   {
+    "slug": "limit-limit-distracting-sites",
+    "license": {
+      "tag": "custom",
+      "shortName": "unfree",
+      "fullName": "Unfree",
+      "url": "https://freedom.to/terms",
+      "free": false
+    }
+  },
+  {
     "slug": "link-cleaner"
   },
   {
@@ -213,6 +230,9 @@
     }
   },
   {
+    "slug": "min-twitter"
+  },
+  {
     "slug": "multi-account-containers"
   },
   {
@@ -224,6 +244,9 @@
   },
   {
     "slug": "no-pdf-download"
+  },
+  {
+    "slug": "noscript"
   },
   {
     "slug": "octolinker"
@@ -314,6 +337,9 @@
     "slug": "simple-tab-groups"
   },
   {
+    "slug": "sponsorblock"
+  },
+  {
     "slug": "styl-us",
     "pname": "stylus"
   },
@@ -322,6 +348,9 @@
   },
   {
     "slug": "tabcenter-reborn"
+  },
+  {
+    "slug": "tabliss"
   },
   {
     "slug": "temporary-containers"
@@ -352,6 +381,10 @@
       "tag": "predefined",
       "shortName": "bsd3"
     }
+  },
+  {
+    "slug": "traduzir-paginas-web",
+    "pname": "translate-web-pages"
   },
   {
     "slug": "transparent-standalone-image"
