@@ -1,5 +1,7 @@
 { stdenv, lib, makeWrapper, requireFile, autoPatchelfHook, writeTextFile, perl, sysstat, zlib,
-  glibc, gcc-unwrapped, which, less, more, coreutils, useMPI ? false
+  glibc, gcc-unwrapped, which, less, more, coreutils,
+  # Configuration
+  useMPI ? false
 }:
 let
   systemName = if stdenv.isLinux && stdenv.isx86_64
@@ -7,8 +9,8 @@ let
     else "x86_64-unknown-linux-gnu";
 
 in stdenv.mkDerivation rec {
+  version = "7.5.1";
   pname = "turbomole";
-  version = "7.5";
 
   nativeBuildInputs = [
     makeWrapper
@@ -28,9 +30,9 @@ in stdenv.mkDerivation rec {
   ];
 
   src = requireFile rec {
-    name = "Turbomole-${version}.tar.bz2";
+    sha256 = "6826d47429bc2a64081f40944e4d48c8f951676e097935ea533a1a25a4e35af0";
+    name = "turbolinux${lib.strings.replaceStrings ["."] [""] version}.tar.gz";
     url = "https://www.turbomole.org/";
-    sha256 = "53157585a00b926582de221e8254e18082f7af86273d78f3334ea905409e644b";
   };
 
   postPatch = ''
@@ -62,6 +64,17 @@ in stdenv.mkDerivation rec {
     export TURBODIR=$out/share/turbomole
     mkdir -p $TURBODIR
     cp -r * $TURBODIR/.
+
+    # The symlink/$0 magic of ridft. The script is actually a symlink to rdgrad and figures out
+    # which fortran executable to call for an actual RIDFT calculation. Now they use
+    # "PROG=`basename $0`", which gives "ridft", when the script is called by its symlink name,
+    # but during wrapping it is not.
+    unlink $TURBODIR/smprun_scripts/ridft
+    cp $TURBODIR/smprun_scripts/rdgrad $TURBODIR/smprun_scripts/ridft
+    substituteInPlace $TURBODIR/smprun_scripts/rdgrad \
+      --replace 'export PROG=`basename $0`' "export PROG=rdgrad"
+    substituteInPlace $TURBODIR/smprun_scripts/ridft \
+      --replace 'export PROG=`basename $0`' "export PROG=ridft"
 
     # Find all executables which are entry points.
     exesBin=$(find $TURBODIR/bin/${TURBOMOLE_SYSNAME}_${lib.strings.toLower PARA_ARCH} -type l,f -executable)
@@ -105,6 +118,7 @@ in stdenv.mkDerivation rec {
           $f
       done
     done
+
 
     exesToWrap="$(find $TURBODIR/bin -type f -executable) $(find $TURBODIR/scripts -type f -executable -maxdepth 1) $(find $TURBODIR/smprun_scripts -type f -executable ! -name "*.so*") $(find $TURBODIR/mpirun_scripts -type f -executable ! -name "*.so*")"
     for exe in $exesToWrap; do
