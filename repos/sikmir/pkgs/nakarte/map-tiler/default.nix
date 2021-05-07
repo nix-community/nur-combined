@@ -1,4 +1,4 @@
-{ lib, python3Packages, fetchFromGitHub
+{ lib, stdenv, python3Packages, fetchFromGitHub
 , gobject-introspection, pango
 , maprec, ozi_map, pyimagequant }:
 
@@ -54,5 +54,6 @@ python3Packages.buildPythonApplication rec {
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin;
   };
 }
