@@ -1,6 +1,6 @@
 { lib
 , stdenvNoCC
-, sources
+, fetchFromGitHub
 , maptilerApiKey ? ""
 , mapboxApiKey ? ""
 , thunderforestApiKey ? ""
@@ -22,9 +22,14 @@
 
 stdenvNoCC.mkDerivation {
   pname = "gpxsee-maps";
-  version = lib.substring 0 10 sources.gpxsee-maps.date;
+  version = "2021-04-03";
 
-  src = sources.gpxsee-maps;
+  src = fetchFromGitHub {
+    owner = "tumic0";
+    repo = "GPXSee-maps";
+    rev = "5adba63fbb5d3919671454d32c802bc1a26c5308";
+    hash = "sha256-pEEpcHl4d6lNHWFlxJot8/swUuE7g6mJSbwhUNbUv5k=";
+  };
 
   postPatch = ''
     substitute World/MapTiler.tpl World/MapTiler.xml \
@@ -53,7 +58,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    inherit (sources.gpxsee-maps) description homepage;
+    description = "GPXSee maps";
+    homepage = "https://tumic0.github.io/GPXSee-maps/";
     license = licenses.unlicense;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;

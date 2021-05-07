@@ -103,7 +103,6 @@ lib.makeScope newScope (
     lru-dict = callPackage ./development/python-modules/lru-dict { };
     mercantile = callPackage ./development/python-modules/mercantile { };
     mikatools = callPackage ./development/python-modules/mikatools { };
-    pyephem = callPackage ./development/python-modules/pyephem { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
     python-hfst = callPackage ./development/python-modules/python-hfst { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };

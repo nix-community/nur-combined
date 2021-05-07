@@ -37,20 +37,6 @@
         "url": "https://github.com/BourgeoisLab/GPXLab/archive/0a2e13756ed1c39f4278b0b3d6cef7f8ac9f6fe7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "gpxsee-maps": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-03-02T21:46:10Z",
-        "description": "GPXSee maps",
-        "homepage": "https://tumic0.github.io/GPXSee-maps",
-        "owner": "tumic0",
-        "repo": "GPXSee-maps",
-        "rev": "cb60f47393f79ce0e279ee08b0697acda2ded7e9",
-        "sha256": "0ncyk268l0wvxp897j0nyp217aj2zwda7528ar5105csjg2bfdyc",
-        "type": "tarball",
-        "url": "https://github.com/tumic0/GPXSee-maps/archive/cb60f47393f79ce0e279ee08b0697acda2ded7e9.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "klogg": {
         "branch": "master",
         "builtin": false,
@@ -116,48 +102,6 @@
         "sha256": "1ffkj7ry1rcljkilfnwffpqz3mb9ci9y9z9z6z6yhwakq4g5dj3j",
         "type": "tarball",
         "url": "https://github.com/odict/odict/archive/639dbab4feac15c4f69049bfb9b7bcfecaf68b47.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "openmtbmap": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-06-10T11:16:05Z",
-        "description": "Linux script to extract and compile garmin *.img map files from openmtbmap.org or openvelomap.org downloads",
-        "homepage": "https://github.com/btittelbach/openmtbmap_openvelomap_linux",
-        "owner": "btittelbach",
-        "repo": "openmtbmap_openvelomap_linux",
-        "rev": "de24cd5d4168d8571c544ac42c51883af957a01a",
-        "sha256": "1llhdxd9205cj2v0vxynxx9hwliw7pk7w1pac58dmsrwp5h54kr7",
-        "type": "tarball",
-        "url": "https://github.com/btittelbach/openmtbmap_openvelomap_linux/archive/de24cd5d4168d8571c544ac42c51883af957a01a.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "pyephem": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-20T09:14:48Z",
-        "description": "Scientific-grade astronomy routines for Python",
-        "homepage": "https://rhodesmill.org/pyephem",
-        "owner": "brandon-rhodes",
-        "repo": "pyephem",
-        "rev": "6aac05e01f2bfc323779b21933721a4a059b1564",
-        "sha256": "1p1d6s8jnrnlvk55p5spzjyv5cm8h4xggxzl2piwlirpkai4933a",
-        "type": "tarball",
-        "url": "https://github.com/brandon-rhodes/pyephem/archive/6aac05e01f2bfc323779b21933721a4a059b1564.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "qtpbfimageplugin-styles": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-04-10T11:06:10Z",
-        "description": "QtPBFImagePlugin styles",
-        "homepage": "https://github.com/tumic0/QtPBFImagePlugin-styles",
-        "owner": "tumic0",
-        "repo": "QtPBFImagePlugin-styles",
-        "rev": "577bb119641c80e1736815ed70a0b99c942c63e0",
-        "sha256": "1vj1db35prm4npww6vzjkjd12aqvyvkhwg35fg4m4mbfz0d289qx",
-        "type": "tarball",
-        "url": "https://github.com/tumic0/QtPBFImagePlugin-styles/archive/577bb119641c80e1736815ed70a0b99c942c63e0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
