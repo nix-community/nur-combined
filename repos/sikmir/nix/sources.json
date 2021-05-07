@@ -37,20 +37,6 @@
         "url": "https://github.com/BourgeoisLab/GPXLab/archive/0a2e13756ed1c39f4278b0b3d6cef7f8ac9f6fe7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "klogg": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-02-25T10:09:37Z",
-        "description": "A fast, advanced log explorer based on glogg project",
-        "homepage": "https://klogg.filimonov.dev/",
-        "owner": "variar",
-        "repo": "klogg",
-        "rev": "9bf68ff2c6f2290723cb2c0ca3b834a6a6290291",
-        "sha256": "0fnhwhdxzpaf8cqfgr7m2zmj26bpls9dh5r9yxijbbpmnwqmghdp",
-        "type": "tarball",
-        "url": "https://github.com/variar/klogg/archive/9bf68ff2c6f2290723cb2c0ca3b834a6a6290291.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "map-hr": {
         "branch": "master",
         "builtin": false,

@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchfromgh, appimageTools, undmg, sources }:
+{ lib, stdenv, fetchfromgh, appimageTools, undmg }:
 let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
@@ -28,7 +28,8 @@ let
   };
 
   meta = with lib; {
-    inherit (sources.klogg) description homepage;
+    description = "A fast, advanced log explorer based on glogg project";
+    homepage = "https://klogg.filimonov.dev/";
     license = licenses.gpl3Plus;
     platforms = [ "x86_64-linux" "x86_64-darwin" ];
     maintainers = [ maintainers.sikmir ];

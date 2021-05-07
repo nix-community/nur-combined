@@ -1,19 +1,30 @@
 { stdenv
 , lib
 , mkDerivation
+, fetchFromGitHub
 , cmake
 , ninja
-, sources
+, python3Packages
+, boost
+, ragel
 , useSentry ? stdenv.isLinux
+, useHyperscan ? false
 }:
 
 mkDerivation rec {
-  pname = "klogg-unstable";
-  version = lib.substring 0 10 sources.klogg.date;
+  pname = "klogg";
+  version = "2021-05-06";
 
-  src = sources.klogg;
+  src = fetchFromGitHub {
+    owner = "variar";
+    repo = pname;
+    rev = "50fcd2f9e3d4947b131f94aaa4bc4807b7e41c30";
+    hash = "sha256-8rA15uekxeN8PYlFGy3mixAk4uzln5YcWFqs+zpueAo=";
+  };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [ cmake ninja python3Packages.python ];
+
+  buildInputs = [ boost ragel ];
 
   postPatch = lib.optionalString useSentry ''
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
@@ -28,12 +39,17 @@ mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=missing-braces";
 
-  cmakeFlags = lib.optional (!useSentry) "-DKLOGG_USE_SENTRY:BOOL=OFF";
+  cmakeFlags = lib.mapAttrsToList (k: v: "-D${k}=${if v then "ON" else "OFF"}") {
+    KLOGG_USE_SENTRY = useSentry;
+    KLOGG_USE_HYPERSCAN = useHyperscan;
+  };
 
   meta = with lib; {
-    inherit (sources.klogg) description homepage;
+    description = "A fast, advanced log explorer based on glogg project";
+    homepage = "https://klogg.filimonov.dev/";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin;
   };
 }
