@@ -29,5 +29,6 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
+    skip.ci = true;
   };
 }
