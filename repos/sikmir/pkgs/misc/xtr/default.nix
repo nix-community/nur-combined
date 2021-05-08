@@ -1,4 +1,4 @@
-{ lib, rustPlatform, fetchFromGitHub }:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, libiconv, Foundation }:
 
 rustPlatform.buildRustPackage rec {
   pname = "xtr";
@@ -13,6 +13,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoPatches = [ ./cargo-lock.patch ];
   cargoHash = "sha256-6a+n1ApCyfcPQy4wqWNDhXCRGCbJ8BgxHxz/b9uY6Qk=";
+
+  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Foundation ];
+
+  hardeningDisable = lib.optional stdenv.isDarwin "format";
 
   meta = with lib; {
     description = "Translation tools for rust";

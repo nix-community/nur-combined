@@ -242,7 +242,9 @@ lib.makeScope newScope (
     reproxy = callPackage ./misc/reproxy { };
     taskcoach = callPackage ./misc/taskcoach { };
     xfractint = callPackage ./misc/xfractint { };
-    xtr = callPackage ./misc/xtr { };
+    xtr = callPackage ./misc/xtr {
+      inherit (darwin.apple_sdk.frameworks) Foundation;
+    };
     yabai = callPackage ./misc/yabai {
       inherit (darwin.apple_sdk.frameworks) Cocoa ScriptingBridge;
     };
