@@ -13,40 +13,31 @@ let
         sha512 = "HyYEUDeIj5rRQU2Hk5HTB2uHsbRQpF70nvMhVzi+VJR0X+xNEhjPui4/kBf3VeH/wqD28PT4sVOm8qqLjBrSZg==";
       };
     };
-    "@webpack-cli/configtest-1.0.2" = {
+    "@webpack-cli/configtest-1.0.3" = {
       name = "_at_webpack-cli_slash_configtest";
       packageName = "@webpack-cli/configtest";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/configtest/-/configtest-1.0.2.tgz";
-        sha512 = "3OBzV2fBGZ5TBfdW50cha1lHDVf9vlvRXnjpVbJBa20pSZQaSkMJZiwA8V2vD9ogyeXn8nU5s5A6mHyf5jhMzA==";
+        url = "https://registry.npmjs.org/@webpack-cli/configtest/-/configtest-1.0.3.tgz";
+        sha512 = "WQs0ep98FXX2XBAfQpRbY0Ma6ADw8JR6xoIkaIiJIzClGOMqVRvPCWqndTxf28DgFopWan0EKtHtg/5W1h0Zkw==";
       };
     };
-    "@webpack-cli/info-1.2.3" = {
+    "@webpack-cli/info-1.2.4" = {
       name = "_at_webpack-cli_slash_info";
       packageName = "@webpack-cli/info";
-      version = "1.2.3";
+      version = "1.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/info/-/info-1.2.3.tgz";
-        sha512 = "lLek3/T7u40lTqzCGpC6CAbY6+vXhdhmwFRxZLMnRm6/sIF/7qMpT8MocXCRQfz0JAh63wpbXLMnsQ5162WS7Q==";
+        url = "https://registry.npmjs.org/@webpack-cli/info/-/info-1.2.4.tgz";
+        sha512 = "ogE2T4+pLhTTPS/8MM3IjHn0IYplKM4HbVNMCWA9N4NrdPzunwenpCsqKEXyejMfRu6K8mhauIPYf8ZxWG5O6g==";
       };
     };
-    "@webpack-cli/serve-1.3.1" = {
+    "@webpack-cli/serve-1.4.0" = {
       name = "_at_webpack-cli_slash_serve";
       packageName = "@webpack-cli/serve";
-      version = "1.3.1";
+      version = "1.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.3.1.tgz";
-        sha512 = "0qXvpeYO6vaNoRBI52/UsbcaBydJCggoBBnIo/ovQQdn6fug0BgwsjorV1hVS7fMqGVTZGcVxv8334gjmbj5hw==";
-      };
-    };
-    "ansi-colors-4.1.1" = {
-      name = "ansi-colors";
-      packageName = "ansi-colors";
-      version = "4.1.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/ansi-colors/-/ansi-colors-4.1.1.tgz";
-        sha512 = "JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==";
+        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.4.0.tgz";
+        sha512 = "xgT/HqJ+uLWGX+Mzufusl3cgjAcnqYYskaB7o0vRcwOEfuu6hMzSILQpnIzFMGsTaeaX4Nnekl+6fadLbl1/Vg==";
       };
     };
     "clone-deep-4.0.1" = {
@@ -83,15 +74,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz";
         sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
-      };
-    };
-    "enquirer-2.3.6" = {
-      name = "enquirer";
-      packageName = "enquirer";
-      version = "2.3.6";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/enquirer/-/enquirer-2.3.6.tgz";
-        sha512 = "yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==";
       };
     };
     "envinfo-7.8.1" = {
@@ -467,19 +449,17 @@ let
   args = {
     name = "webpack-cli";
     packageName = "webpack-cli";
-    version = "4.6.0";
-    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.6.0.tgz"; sha1 = "27ae86bfaec0cf393fcfd58abdc5a229ad32fd16"; };
+    version = "4.7.0";
+    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.7.0.tgz"; sha1 = "3195a777f1f802ecda732f6c95d24c0004bc5a35"; };
     dependencies = [
       sources."@discoveryjs/json-ext-0.5.2"
-      sources."@webpack-cli/configtest-1.0.2"
-      sources."@webpack-cli/info-1.2.3"
-      sources."@webpack-cli/serve-1.3.1"
-      sources."ansi-colors-4.1.1"
+      sources."@webpack-cli/configtest-1.0.3"
+      sources."@webpack-cli/info-1.2.4"
+      sources."@webpack-cli/serve-1.4.0"
       sources."clone-deep-4.0.1"
       sources."colorette-1.2.2"
       sources."commander-7.2.0"
       sources."cross-spawn-7.0.3"
-      sources."enquirer-2.3.6"
       sources."envinfo-7.8.1"
       sources."execa-5.0.0"
       sources."fastest-levenshtein-1.0.12"
@@ -525,6 +505,7 @@ let
     buildInputs = globalBuildInputs;
     meta = {
       description = "CLI for webpack & friends";
+      homepage = "https://github.com/webpack/webpack-cli/tree/master/packages/webpack-cli";
       license = "MIT";
     };
     production = true;

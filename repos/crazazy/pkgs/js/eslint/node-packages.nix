@@ -31,13 +31,13 @@ let
         sha512 = "YSCOwxvTYEIMSGaBQb5kDDsCopDdiUGsqpatp3fOlI4+2HQSkTmEVWnVuySdAC5EWCqSWWTv0ib63RjR7dTBdg==";
       };
     };
-    "@eslint/eslintrc-0.4.0" = {
+    "@eslint/eslintrc-0.4.1" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "0.4.0";
+      version = "0.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.4.0.tgz";
-        sha512 = "2ZPCc+uNbjV5ERJr+aKSPRwZgKd2z11x0EgLvb1PURmUrn9QNRXFqje0Ldq454PfAVyaJYyrDvvIKSFP4NnBog==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.4.1.tgz";
+        sha512 = "5v7TDE9plVhvxQeWLXDTvFvJBdH6pEsdnl2g/dAptmuFEPedQ4Erq5rsDsX+mvAM610IhNaO2W5V1dOOnDKxkQ==";
       };
     };
     "acorn-7.4.1" = {
@@ -310,13 +310,13 @@ let
         sha512 = "6J72N8UNa462wa/KFODt/PJ3IU60SDpC3QXC1Hjc1BXXpfL2C9R5+AU7jhe0F6GREqVMh4Juu+NY7xn+6dipUQ==";
       };
     };
-    "eslint-visitor-keys-2.0.0" = {
+    "eslint-visitor-keys-2.1.0" = {
       name = "eslint-visitor-keys";
       packageName = "eslint-visitor-keys";
-      version = "2.0.0";
+      version = "2.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-2.0.0.tgz";
-        sha512 = "QudtT6av5WXels9WjIM7qz1XD1cWGvX4gGXvp/zBn9nXG02D0utdU3Em2m/QjTnrsk6bBjmCygl3rmj118msQQ==";
+        url = "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-2.1.0.tgz";
+        sha512 = "0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==";
       };
     };
     "espree-7.3.1" = {
@@ -454,13 +454,13 @@ let
         sha1 = "1b0ab3bd553b2a0d6399d29c0e3ea0b252078327";
       };
     };
-    "glob-7.1.6" = {
+    "glob-7.1.7" = {
       name = "glob";
       packageName = "glob";
-      version = "7.1.6";
+      version = "7.1.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/glob/-/glob-7.1.6.tgz";
-        sha512 = "LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==";
+        url = "https://registry.npmjs.org/glob/-/glob-7.1.7.tgz";
+        sha512 = "OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==";
       };
     };
     "glob-parent-5.1.2" = {
@@ -659,15 +659,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz";
         sha1 = "e23f3f9c4f8fbdde872529c1071857a086e5ccef";
-      };
-    };
-    "lodash.flatten-4.4.0" = {
-      name = "lodash.flatten";
-      packageName = "lodash.flatten";
-      version = "4.4.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/lodash.flatten/-/lodash.flatten-4.4.0.tgz";
-        sha1 = "f31c22225a9632d2bbf8e4addbef240aa765a61f";
       };
     };
     "lodash.truncate-4.4.2" = {
@@ -913,13 +904,13 @@ let
         sha512 = "qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==";
       };
     };
-    "table-6.6.0" = {
+    "table-6.7.0" = {
       name = "table";
       packageName = "table";
-      version = "6.6.0";
+      version = "6.7.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/table/-/table-6.6.0.tgz";
-        sha512 = "iZMtp5tUvcnAdtHpZTWLPF0M7AgiQsURR2DwmxnJwSy8I3+cY+ozzVvYha3BOLG2TB+L0CqjIz+91htuj6yCXg==";
+        url = "https://registry.npmjs.org/table/-/table-6.7.0.tgz";
+        sha512 = "SAM+5p6V99gYiiy2gT5ArdzgM1dLDed0nkrWmG6Fry/bUS/m9x83BwpJUOf1Qj/x2qJd+thL6IkIx7qPGRxqBw==";
       };
     };
     "text-table-0.2.0" = {
@@ -1026,7 +1017,7 @@ let
           sources."chalk-2.4.2"
         ];
       })
-      (sources."@eslint/eslintrc-0.4.0" // {
+      (sources."@eslint/eslintrc-0.4.1" // {
         dependencies = [
           sources."globals-12.4.0"
         ];
@@ -1067,7 +1058,7 @@ let
           sources."eslint-visitor-keys-1.3.0"
         ];
       })
-      sources."eslint-visitor-keys-2.0.0"
+      sources."eslint-visitor-keys-2.1.0"
       (sources."espree-7.3.1" // {
         dependencies = [
           sources."eslint-visitor-keys-1.3.0"
@@ -1094,7 +1085,7 @@ let
       sources."flatted-3.1.1"
       sources."fs.realpath-1.0.0"
       sources."functional-red-black-tree-1.0.1"
-      sources."glob-7.1.6"
+      sources."glob-7.1.7"
       sources."glob-parent-5.1.2"
       (sources."globals-13.8.0" // {
         dependencies = [
@@ -1118,7 +1109,6 @@ let
       sources."levn-0.4.1"
       sources."lodash-4.17.21"
       sources."lodash.clonedeep-4.5.0"
-      sources."lodash.flatten-4.4.0"
       sources."lodash.truncate-4.4.2"
       sources."lru-cache-6.0.0"
       sources."minimatch-3.0.4"
@@ -1151,7 +1141,7 @@ let
       sources."strip-ansi-6.0.0"
       sources."strip-json-comments-3.1.1"
       sources."supports-color-5.5.0"
-      (sources."table-6.6.0" // {
+      (sources."table-6.7.0" // {
         dependencies = [
           sources."ajv-8.2.0"
           sources."json-schema-traverse-1.0.0"
