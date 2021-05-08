@@ -10,13 +10,13 @@
 
 buildPythonPackage rec {
   pname = "mkdocs-material";
-  version = "7.1.3";
+  version = "7.1.4";
 
   src = fetchFromGitHub {
     owner = "squidfunk";
     repo = pname;
     rev = version;
-    hash = "sha256-kqFKDxVoGp8rV3y9xrWeHcfNT9t293Js6xGbGL3mCfE=";
+    hash = "sha256-c8uRjWgHd+SkYPxavUkKDtYm4UfvsJgoLsfn8duu+54=";
   };
 
   patches = lib.optional (mkdocs-material-extensions == null)
