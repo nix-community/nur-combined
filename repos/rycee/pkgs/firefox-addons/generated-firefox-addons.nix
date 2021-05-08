@@ -303,10 +303,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.1.2";
+      version = "2.2.1";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3650887/facebook_container-2.1.2-fx.xpi";
-      sha256 = "86c75e90ae6f3f59999406c34229f05d563e024e293dfcabcfea10c75ce76cf7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3772109/facebook_container-2.2.1-fx.xpi";
+      sha256 = "459b4273c3926b0a273614a46ddb7dffc091989e9dc602707f8a526abc2c26c9";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -1031,10 +1031,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.13.1";
+      version = "4.13.2";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3771514/react_developer_tools-4.13.1-fx.xpi";
-      sha256 = "3669b8ac3530a1ebc3a2db590056cd5297777c29682601c778b586c765cbf7d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3772652/react_developer_tools-4.13.2-fx.xpi";
+      sha256 = "c2973030e9e12d3c838aa5fb3c10b09c2135a59897d780ed6a41cefbe8022112";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
