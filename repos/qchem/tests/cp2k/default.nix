@@ -24,7 +24,7 @@ in batsTest {
 
   testScript = lib.concatStringsSep "\n" ( map (x: ''
     @test "${x}" {
-      ${mpi}/bin/mpirun -np $TEST_NUM_CPUS ${cp2k}/bin/cp2k ${inp}/${x}.inp > ${x}.out
+      ${mpi}/bin/mpirun -np $TEST_NUM_CPUS ${cp2k}/bin/cp2k.psmp ${inp}/${x}.inp > ${x}.out
     }
   '') [ "dbcsr" "bench_dftb" "H2O-gga" ]) + ''
 

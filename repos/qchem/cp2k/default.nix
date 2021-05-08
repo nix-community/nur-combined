@@ -1,10 +1,8 @@
-{ lib, stdenv, fetchFromGitHub, python3, gfortran, blas, lapack
+{ lib, stdenv, fetchFromGitHub, python3, gfortran, mkl
 , fftw, libint2, libvori, libxc, mpi, gsl, scalapack, openssh, makeWrapper
 , libxsmm, spglib, which
 , optAVX ? false
 } :
-
-assert (!blas.isILP64) && (!lapack.isILP64);
 
 let
   version = "8.1.0";
@@ -33,10 +31,9 @@ in stdenv.mkDerivation rec {
     libxc
     libxsmm
     spglib
-    blas
-    lapack
     mpi
     scalapack
+    mkl
   ];
 
   makeFlags = [
@@ -72,9 +69,11 @@ in stdenv.mkDerivation rec {
                  -fopenmp -ftree-vectorize -funroll-loops \
                  -I${libxc}/include -I${libxsmm}/include \
                  -I${libint2}/include
-    LIBS       = -lfftw3 -lfftw3_threads -lscalapack -lblas -llapack \
+    LIBS       = -lfftw3 -lfftw3_threads \
+                 -lscalapack -lmkl_gf_lp64 -lmkl_gnu_thread -lmkl_core \
                  -lxcf03 -lxc -lxsmmf -lxsmm -lsymspg \
                  -lint2 -lstdc++ -lvori \
+                 -lgomp -lpthread -lm \
                  -fopenmp
     LDFLAGS    = \$(FCFLAGS) \$(LIBS)
     EOF
@@ -96,8 +95,14 @@ in stdenv.mkDerivation rec {
     cp exe/${arch}/* $out/bin
 
     for i in cp2k cp2k_shell graph; do
-      makeWrapper $out/bin/$i.${cp2kVersion} $out/bin/$i --set CP2K_DATA_DIR $out/share/cp2k
+      wrapProgram $out/bin/$i.${cp2kVersion} \
+        --set-default CP2K_DATA_DIR $out/share/cp2k
     done
+
+    # Is always built.
+    wrapProgram $out/bin/cp2k.popt \
+      --set-default CP2K_DATA_DIR $out/share/cp2k \
+      --set OMP_NUM_THREADS 1
 
     cp -r data/* $out/share/cp2k
 
