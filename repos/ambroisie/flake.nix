@@ -103,7 +103,7 @@
         }) // {
       overlay = self.overlays.pkgs;
 
-      overlays = {
+      overlays = import ./overlays // {
         lib = final: prev: { inherit lib; };
         pkgs = final: prev: { ambroisie = import ./pkgs { pkgs = prev; }; };
       };

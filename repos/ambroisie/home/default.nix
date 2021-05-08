@@ -11,6 +11,7 @@
     ./gammastep.nix
     ./git
     ./gpg.nix
+    ./gtk.nix
     ./htop.nix
     ./jq.nix
     ./nm-applet.nix
