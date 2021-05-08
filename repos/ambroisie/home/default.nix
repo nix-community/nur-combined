@@ -5,6 +5,7 @@
     ./bluetooth.nix
     ./direnv.nix
     ./documentation.nix
+    ./feh.nix
     ./firefox
     ./flameshot.nix
     ./gammastep.nix

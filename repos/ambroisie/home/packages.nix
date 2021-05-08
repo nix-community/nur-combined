@@ -18,13 +18,11 @@ in
   };
 
   config.home.packages = with pkgs; lib.mkIf cfg.enable ([
-    # Git related
+    file
     gitAndTools.git-absorb
     gitAndTools.git-revise
     gitAndTools.tig
-    # Dev work
     rr
-    # Terminal prettiness
     termite.terminfo
   ] ++ cfg.additionalPackages);
 }

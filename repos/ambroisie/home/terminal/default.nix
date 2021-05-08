@@ -1,10 +1,12 @@
-{ lib, ... }:
+{ config, lib, ... }:
 let
   mkColorOption = with lib; description: default: mkOption {
     inherit description default;
     example = "#abcdef";
     type = types.strMatching "#[0-9a-f]{6}";
   };
+
+  cfg = config.my.home.terminal;
 in
 {
   imports = [
@@ -51,5 +53,9 @@ in
         whiteBold = mkColorOption "White bold" "#cccccc";
       };
     };
+  };
+
+  config.home.sessionVariables = lib.mkIf (cfg.program != null) {
+    TERMINAL = "termite";
   };
 }
