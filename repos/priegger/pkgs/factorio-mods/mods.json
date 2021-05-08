@@ -599,12 +599,12 @@
   },
   {
     "name": "Krastorio2",
-    "version": "1.0.23",
-    "file_name": "Krastorio2_1.0.23.zip",
-    "download_url": "/download/Krastorio2/5ffca76ea53ba6c52696278d",
-    "sha1": "371a0307073b7ddbfa79b2cbfdaffd98cab9ec10",
+    "version": "1.1.0",
+    "file_name": "Krastorio2_1.1.0.zip",
+    "download_url": "/download/Krastorio2/609603e6a6335e722b700d0a",
+    "sha1": "6c1e14cce56ef05d92f9c5c0aeb3d35ed369f28a",
     "dependencies": [
-      "base >= 1.0.0",
+      "base >= 1.1.21",
       "(?) aai-industry >= 0.3.17",
       "(?) aai-vehicles-chaingunner >= 0.5.2",
       "(?) Aircraft >= 1.6.6",
@@ -655,12 +655,12 @@
   },
   {
     "name": "Logistic-Gun-Turret",
-    "version": "1.0.10",
-    "file_name": "Logistic-Gun-Turret_1.0.10.zip",
-    "download_url": "/download/Logistic-Gun-Turret/5f1bddb450cd1c1a3813d3b2",
-    "sha1": "61b7d20f4c11bb50c09eda76d367adf18196ecbf",
+    "version": "1.1.0",
+    "file_name": "Logistic-Gun-Turret_1.1.0.zip",
+    "download_url": "/download/Logistic-Gun-Turret/608f8d2afd362771ba580b10",
+    "sha1": "cd8111ae3f3f1b08aca04752d28cbe2cb75cd5cc",
     "dependencies": [
-      "base >= 0.18.0"
+      "base >= 1.1.0"
     ]
   },
   {
@@ -691,10 +691,10 @@
   },
   {
     "name": "Rampant",
-    "version": "1.0.9",
-    "file_name": "Rampant_1.0.9.zip",
-    "download_url": "/download/Rampant/6080f2c6e0e7ee700f3b56b2",
-    "sha1": "7cd77ed79197bcc876c6633061c49424bfff8ce8",
+    "version": "1.1.0",
+    "file_name": "Rampant_1.1.0.zip",
+    "download_url": "/download/Rampant/608dc1c167dddf07ee4c3a12",
+    "sha1": "12184ad7b51bfc1efc7d7e18e2fa9511d5d846fe",
     "dependencies": [
       "base >= 1.1.0",
       "? bobenemies",
@@ -748,10 +748,10 @@
   },
   {
     "name": "RPGsystem",
-    "version": "1.1.3",
-    "file_name": "RPGsystem_1.1.3.zip",
-    "download_url": "/download/RPGsystem/606f324e6bde65ace75cae25",
-    "sha1": "d151a3f1278a78bcf704c4f51e07f57f5433856f",
+    "version": "1.1.4",
+    "file_name": "RPGsystem_1.1.4.zip",
+    "download_url": "/download/RPGsystem/60954ca9978927bd09ecbed0",
+    "sha1": "89f2c833577f2af09541ef4996d39bfd309a1b37",
     "dependencies": [
       "base >= 1.1.0"
     ]
