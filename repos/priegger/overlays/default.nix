@@ -5,8 +5,6 @@ let
   nixpkgsUnstable = import sources.nixpkgs-unstable { };
 in
 {
-  bees = self: super: { inherit (nixpkgsUnstable) bees; };
-
   brlaser = self: super: {
     brlaser = super.brlaser.overrideAttrs (oldAttrs:
       let
@@ -25,13 +23,9 @@ in
 
   cadvisor = self: super: { inherit (nixpkgsUnstable) cadvisor; };
 
-  deno = self: super: { inherit (nixpkgsUnstable) deno; };
-
   factorio = self: super: { inherit (nixpkgsMaster) factorio factorio-experimental factorio-headless factorio-headless-experimental; };
 
   prometheus-nginx-exporter = self: super: { inherit (nixpkgsUnstable) prometheus-nginx-exporter; };
 
   prometheus-pushgateway = self: super: { inherit (nixpkgsUnstable) prometheus-pushgateway; };
-
-  teamspeak = self: super: { inherit (nixpkgsUnstable) teamspeak_client teamspeak_server; };
 }
