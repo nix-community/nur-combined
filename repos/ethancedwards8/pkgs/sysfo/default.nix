@@ -1,6 +1,7 @@
 { lib, stdenv, fetchFromGitHub, ... }@inputs:
 
 stdenv.mkDerivation {
+  __contentAddressed = true;
   pname = "sysfo";
   version = "1.0";
 

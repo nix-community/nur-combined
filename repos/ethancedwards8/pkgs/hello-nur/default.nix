@@ -1,6 +1,7 @@
 { lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
+  __contentAddressed = true;
   pname = "hello";
   version = "2.10";
 

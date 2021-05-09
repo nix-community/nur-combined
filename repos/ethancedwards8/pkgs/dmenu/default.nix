@@ -1,6 +1,7 @@
 { lib, stdenv, libX11, libXinerama, libXft, zlib, patches ? null, fetchFromGitLab, ... }@inputs:
 
 stdenv.mkDerivation rec {
+  __contentAddressed = true;
   name = "dmenu-5.0";
 
   # src = inputs.dmenu;

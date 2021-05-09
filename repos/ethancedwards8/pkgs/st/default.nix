@@ -4,6 +4,7 @@
 with lib;
 
 stdenv.mkDerivation rec {
+  __contentAddressed = true;
   pname = "st";
   version = "0.8.4";
 
