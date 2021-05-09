@@ -6,10 +6,9 @@
 
 let
   # TODO: remove this when https://github.com/NixOS/nixpkgs/pull/122352 gets merged
-  patchedSndio = (sndio.overrideAttrs (attrs: rec {
-    version = "1.8.0";
+  patchedSndio = (sndio.overrideAttrs (attrs: {
     src = fetchurl {
-      url = "http://www.sndio.org/sndio-${version}.tar.gz";
+      url = "http://www.sndio.org/sndio-1.8.0.tar.gz";
       sha256 = "027hlqji0h2cm96rb8qvkdmwxl56l59bgn828nvmwak2c2i5k703";
     };
   }));
