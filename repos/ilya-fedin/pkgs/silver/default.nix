@@ -2,20 +2,20 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "silver";
-  version = "1.1.0";
+  version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "reujab";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0p992lvsvs0fr2dksb84h9xyzxxwi8y3720zz2b7l5yg61brz72m";
+    sha256 = "1p9c7l2bcc9pv5v9bgk01wrqdbcpvc3clf1sv0lw7ydq44ihqm08";
   };
 
   nativeBuildInputs = [ pkgconfig ];
 
   buildInputs = [ openssl ];
 
-  cargoSha256 = "02qk4h4qd00nm25mia52fa5n4is8yybi5agqhw8gvr4jkswj7nb2";
+  cargoSha256 = "1whzqf4nw47dm1sppqsv429j4nfg5g891g03l266ba57k3lfl1ib";
 
   meta = with lib; {
     description = "A cross-shell customizable powerline-like prompt with icons";
