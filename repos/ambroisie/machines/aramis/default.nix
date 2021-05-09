@@ -6,11 +6,11 @@
 
 {
   imports = [
-    ./bluetooth.nix
     ./boot.nix
     ./hardware.nix
     ./home.nix
     ./networking.nix
+    ./profiles.nix
     ./services.nix
     ./sound.nix
   ];
@@ -20,9 +20,6 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

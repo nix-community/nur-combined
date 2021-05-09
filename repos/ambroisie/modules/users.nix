@@ -2,11 +2,8 @@
 { config, lib, pkgs, ... }:
 let
   my = config.my;
-  groupIfExists = grp:
-    lib.lists.optional
-      (builtins.hasAttr grp config.users.groups)
-      grp;
-  groupsIfExist = builtins.concatMap groupIfExists;
+  groupExists = grp: builtins.hasAttr grp config.users.groups;
+  groupsIfExist = builtins.filter groupExists;
 in
 {
   users.mutableUsers = false; # I want it to be declarative.

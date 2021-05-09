@@ -60,6 +60,8 @@
         }
         # Include generic settings
         ./modules
+        # Include bundles of settings
+        ./profiles
         # Include my secrets
         ./secrets
         # Include my services
