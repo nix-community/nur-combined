@@ -9,13 +9,13 @@
 
 buildPythonPackage rec {
   pname = "pymdown-extensions";
-  version = "8.1.1";
+  version = "8.2";
 
   src = fetchFromGitHub {
     owner = "facelessuser";
     repo = pname;
     rev = version;
-    hash = "sha256-pBE98UKBEqeRtAGXujdcnISIwZEFCCG1XXKWvskMWuY=";
+    hash = "sha256-TFPdkhdaXyrgl7SUYpRlATWmv0YstjbkuCRonNIuWu8=";
   };
 
   propagatedBuildInputs = [ markdown ];
@@ -26,9 +26,6 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  # Tests broken in pygments 2.7.4 -> 2.8.1 update
-  # Re-enable when the tests are fixed upstream
-  doCheck = false;
   pythonImportsCheck = [ "pymdownx" ];
 
   meta = with lib; {
