@@ -34,12 +34,9 @@ in
               block = "net";
               format = "{ssid} {ip} {signal_strength}";
             }
-            (lib.optionalAttrs (config.my.home.gammastep.enable) {
-              block = "hueshift";
-              hue_shifter = "gammastep";
-              step = 100;
-              click_temp = config.my.home.gammastep.temperature.day;
-            })
+            {
+              block = "backlight";
+            }
             {
               block = "battery";
               format = "{percentage}% ({time})";

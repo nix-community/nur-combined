@@ -222,29 +222,28 @@ in
           }
           (
             let
-              xbacklight = "${pkgs.xorg.xbacklight}/bin/xbacklight";
+              brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
               changeBacklight = pkgs.writeScript "change-backlight" ''
                 #!/bin/sh
                 if [ "$1" = "up" ]; then
-                    upDown=-inc
+                    upDown="+$2%"
                 else
-                    upDown=-dec
+                    upDown="$2%-"
                 fi
 
-                ${xbacklight} "$upDown" "$2"
-                newBrightness="$(printf '$.0f' "$(${xbacklight} -get)")"
+                newBrightness="$(${brightnessctl} -m set "$upDown" | cut -d, -f4)"
                 ${pkgs.libnotify}/bin/notify-send -u low \
                     -h string:x-canonical-private-synchronous:change-backlight \
-                    -h "int:value:$newBrightness" \
+                    -h "int:value:''${newBrightness/\%/}" \
                     -- "Set brightness to $newBrightness"
               '';
             in
             {
-              "XF86Display" = "arandr";
-              "XF86MonBrightnessUp" = "${changeBacklight} up 10";
-              "XF86MonBrightnessDown" = "${changeBacklight} down 10";
-              "Control+XF86MonBrightnessUp" = "${changeBacklight} up 1";
-              "Control+XF86MonBrightnessDown" = "${changeBacklight} down 1";
+              "XF86Display" = "exec arandr";
+              "XF86MonBrightnessUp" = "exec ${changeBacklight} up 10";
+              "XF86MonBrightnessDown" = "exec ${changeBacklight} down 10";
+              "Control+XF86MonBrightnessUp" = "exec ${changeBacklight} up 1";
+              "Control+XF86MonBrightnessDown" = "exec ${changeBacklight} down 1";
             }
           )
           {
