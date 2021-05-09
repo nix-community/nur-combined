@@ -38,7 +38,7 @@ in stdenv.mkDerivation rec {
   # Change hardcoded search path for ffmpeg from "/lib" to a path to the nix store
   prePatch = ''
     substituteInPlace Ryujinx/Program.cs --replace \
-      "ffmpeg.RootPath = \"/lib\"\;" "ffmpeg.RootPath = \"${ffmpeg}/lib\"\;"
+      "ffmpeg.RootPath = \"/lib\"" "ffmpeg.RootPath = \"${ffmpeg}/lib\""
   '';
 
   patches = [
