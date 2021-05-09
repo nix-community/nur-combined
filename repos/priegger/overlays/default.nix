@@ -1,7 +1,6 @@
 let
   sources = import ../nix/sources.nix { };
 
-  nixpkgsMaster = import sources.nixpkgs-master { };
   nixpkgsUnstable = import sources.nixpkgs-unstable { };
 in
 {
@@ -22,8 +21,6 @@ in
   };
 
   cadvisor = self: super: { inherit (nixpkgsUnstable) cadvisor; };
-
-  factorio = self: super: { inherit (nixpkgsMaster) factorio factorio-experimental factorio-headless factorio-headless-experimental; };
 
   prometheus-nginx-exporter = self: super: { inherit (nixpkgsUnstable) prometheus-nginx-exporter; };
 
