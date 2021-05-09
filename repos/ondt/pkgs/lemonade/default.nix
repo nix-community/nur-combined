@@ -2,7 +2,7 @@
 
 rustPlatform.buildRustPackage rec {
 	pname = "lemonade";
-	version = "git-2020-12-17";
+	version = "0.1.0";
 
 	nativeBuildInputs = [ pkg-config python3 ];
 
