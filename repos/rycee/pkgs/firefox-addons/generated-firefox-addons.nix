@@ -124,10 +124,10 @@
       };
     "bypass-paywalls" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls";
-      version = "1.7.9";
+      version = "1.7.9b";
       addonId = "bypasspaywalls@bypasspaywalls";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3752653/bypass_paywalls-1.7.9-an+fx.xpi";
-      sha256 = "364f592943cf495f84146f623ba5bb0effe22d7d9cdc18761b15799cc4d0eaaf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3773130/bypass_paywalls-1.7.9b-an+fx.xpi";
+      sha256 = "b7675863b1f8000294b26425acd9fa4209ca2a43310d7baf52eb0934d30f28e8";
       meta = with lib;
       {
         homepage = "https://github.com/iamadamdev/bypass-paywalls-chrome/blob/master/README.md";
@@ -1115,10 +1115,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "25.6";
+      version = "25.7";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3768378/save_page_we-25.6-fx.xpi";
-      sha256 = "5752375fbf499a3b10dba9656a11dc2686ef9e16444bf72c080117a19751d782";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3772950/save_page_we-25.7-fx.xpi";
+      sha256 = "b55adb4c3094b1b8d24e00d02d728d88740b1de8c7a98bdf0674773eabde736e";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -1322,10 +1322,10 @@
       };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.4.3";
+      version = "0.5.0";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3769683/to_deepl_translation-0.4.3-fx.xpi";
-      sha256 = "ac6dbaff42d7c6c2b5598d855284da4aa1ad4a4fc17812c1324e4b0523122742";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3772899/to_deepl_translation-0.5.0-fx.xpi";
+      sha256 = "ad0806b0355b3e777eee2f1ee9e39939f8cec221bef40101449e09b2d869a6e2";
       meta = with lib;
       {
         homepage = "https://github.com/rewkha/firefox-to-deepl/";
