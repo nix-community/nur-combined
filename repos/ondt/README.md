@@ -1,6 +1,6 @@
 # nur-packages
 
-**My personal [NUR](https://github.com/nix-community/NUR) repository**
+**ondt's own [Nix User Repository](https://github.com/nix-community/NUR)**
 
 ![Build and populate cache](https://github.com/ondt/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 
@@ -12,8 +12,46 @@
 
 
 
+# Adding the NUR repository
+```nix
+# /etc/nixos/configuration.nix
+{
+    nixpkgs.config.packageOverrides = pkgs: {
+        nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+            inherit pkgs;
+        };
+    };
+}
+```
+
+or 
+
+```nix
+# ~/.config/nixpkgs/config.nix
+{
+    packageOverrides = pkgs: {
+        nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+            inherit pkgs;
+        };
+    };
+}
+```
+
+
+
 
 # Installing a package
+```nix
+# /etc/nixos/configuration.nix
+{
+    environment.systemPackages = with pkgs; [
+        nur.repos.ondt.lemonade
+    ];
+}
+```
+
+or
+
 ```console
 $ nix-shell -p nur.repos.ondt.lemonade
 ```
@@ -22,22 +60,4 @@ or
 
 ```console
 $ nix-env -f '<nixpkgs>' -iA nur.repos.ondt.lemonade
-```
-
-or
-
-```console
-# configuration.nix
-environment.systemPackages = with pkgs; [
-  nur.repos.ondt.lemonade
-];
-```
-
-# Adding the NUR repository to `configuration.nix`
-```nix
-nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-        inherit pkgs;
-    };
-};
 ```
