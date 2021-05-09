@@ -35,6 +35,4 @@
 
   # Who am I?
   home.username = "ambroisie";
-
-  services.network-manager-applet.enable = true; # FIXME: move this
 }
