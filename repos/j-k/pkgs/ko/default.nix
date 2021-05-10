@@ -2,23 +2,19 @@
 
 buildGoModule rec {
   pname = "ko";
-  version = "0.8.2";
+  version = "0.8.3";
 
   src = fetchFromGitHub {
     owner = "google";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-dk4W4v8tKYVti4srxAoaE6kLl4/27WEeTVwhvm7di9E=";
-
-    # required for the tests, see test/kodata
-    fetchSubmodules = true;
-    leaveDotGit = true;
+    sha256 = "sha256-r07bFFDBB7pFcVpfaHeuE8dqE+SwLQRzY2bpoZyxwFU=";
   };
 
   vendorSha256 = null;
 
-  # Don't build the legacy main.go
-  excludedPackages = "cmd/ko";
+  # Don't build the legacy main.go and test binary
+  excludedPackages = "\\(cmd/ko\\|test\\)";
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -31,9 +27,6 @@ buildGoModule rec {
   '';
 
   postInstall = ''
-    # remove test binary
-    rm $out/bin/test
-
     installShellCompletion --cmd ko \
       --bash <($out/bin/ko completion) \
       --zsh <($out/bin/ko completion --zsh)

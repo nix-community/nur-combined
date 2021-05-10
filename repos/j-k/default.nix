@@ -36,4 +36,5 @@ in
   scorecard = callPackage ./pkgs/scorecard { };
   subo = callPackage ./pkgs/subo { };
   terraform-ls = callPackage ./pkgs/terraform-ls { };
+  tuftool = callPackage ./pkgs/tuftool { };
 }
