@@ -26,10 +26,6 @@
       __functor = attrs: import ./. ;
       nixosConfigurations.RACEMONSTER = mkSystem [
         ./configuration.nix
-        ({config, lib, ...}: {
-          nix.registry = lib.mkIf config.nixExperimental.enable (
-            lib.mapAttrs (k: v: { flake = v; }) inputs);
-          })
       ];
       lib = import ./lib/utils.nix // {
         serialize = import ./lib/serialize.nix;
