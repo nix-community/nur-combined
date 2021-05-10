@@ -41,5 +41,7 @@
         # inherit inputs;
         pkgs = import nixpkgs { inherit system; };
       });
+
+      devShell = forAllSystems (system: nixpkgs.legacyPackages."${system}".callPackage ./pkgs/devShell.nix { });
     };
 }
