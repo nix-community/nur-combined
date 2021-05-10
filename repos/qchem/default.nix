@@ -109,105 +109,105 @@ let
       #
       # Applications
       #
-      bagel = callPackage ./bagel {
+      bagel = callPackage ./pkgs/apps/bagel {
         blas = self.mkl; # bagel is not stable with openblas
         boost = self_.boost165;
         scalapack=null; withScalapack=true;
       };
 
-      bagel-serial = callPackage ./bagel { mpi = null; blas = self.mkl; };
+      bagel-serial = callPackage ./pkgs/apps/bagel { mpi = null; blas = self.mkl; };
 
-      cefine = self.nullable self.turbomole (callPackage ./cefine { });
+      cefine = self.nullable self.turbomole (callPackage ./pkgs/apps/cefine { });
 
-      cfour = callPackage ./cfour { };
+      cfour = callPackage ./pkgs/apps/cfour { };
 
-      chemps2 = callPackage ./chemps2 {};
+      chemps2 = callPackage ./pkgs/apps/chemps2 {};
 
-      cp2k = callPackage ./cp2k {
+      cp2k = callPackage ./pkgs/apps/cp2k {
         libxc = self.libxc4;  # patches are are required for libxc5
         inherit optAVX;
       };
 
-      crest = callPackage ./crest { };
+      crest = callPackage ./pkgs/apps/crest { };
 
-      dalton = callPackage ./dalton {};
+      dalton = callPackage ./pkgs/apps/dalton {};
 
-      dkh = callPackage ./dkh {};
+      dkh = callPackage ./pkgs/apps/dkh {};
 
-      dftd3 = callPackage ./dft-d3 {};
+      dftd3 = callPackage ./pkgs/apps/dft-d3 {};
 
-      ergoscf = callPackage ./ergoscf { };
+      ergoscf = callPackage ./pkgs/apps/ergoscf { };
 
-      gaussview = callPackage ./gaussview { };
+      gaussview = callPackage ./pkgs/apps/gaussview { };
 
-      gdma = callPackage ./gdma { };
+      gdma = callPackage ./pkgs/apps/gdma { };
 
       gpaw = super.python3.pkgs.toPythonApplication self.python3.pkgs.gpaw;
 
       i-pi = super.python3.pkgs.toPythonApplication self.python3.pkgs.i-pi;
 
-      nwchem = callPackage ./nwchem {
+      nwchem = callPackage ./pkgs/apps/nwchem {
         blas=self.blas-i8;
         lapack=self.lapack-i8;
       };
 
-      mctdh = callPackage ./mctdh { };
+      mctdh = callPackage ./pkgs/apps/mctdh { };
 
       #mctdh-mpi = self.mctdh.override { useMPI = true; } ;
 
-      mesa-qc = callPackage ./mesa {
+      mesa-qc = callPackage ./pkgs/apps/mesa {
         gfortran = self_.gfortran6;
       };
 
       molcas = self.molcas2102;
 
-      molcas1911 = callPackage ./openmolcas/v19.11.nix { };
+      molcas1911 = callPackage ./pkgs/apps/openmolcas/v19.11.nix { };
 
-      molcas2010 = callPackage ./openmolcas/v20.10.nix { };
+      molcas2010 = callPackage ./pkgs/apps/openmolcas/v20.10.nix { };
 
-      molcas2102 = callPackage ./openmolcas/v21.02.nix { };
+      molcas2102 = callPackage ./pkgs/apps/openmolcas/v21.02.nix { };
 
-      mrcc = callPackage ./mrcc { };
+      mrcc = callPackage ./pkgs/apps/mrcc { };
 
-      mt-dgemm = callPackage ./mt-dgemm { };
+      mt-dgemm = callPackage ./pkgs/apps/mt-dgemm { };
 
-      multiwfn = callPackage ./multiwfn { };
+      multiwfn = callPackage ./pkgs/apps/multiwfn { };
 
-      orca = callPackage ./orca { };
+      orca = callPackage ./pkgs/apps/orca { };
 
-      osu-benchmark = callPackage ./osu-benchmark {
+      osu-benchmark = callPackage ./pkgs/apps/osu-benchmark {
         # OSU benchmark fails with C++ binddings enabled
         mpi = self.mpi.overrideAttrs (x: {
           configureFlags = super.lib.remove "--enable-mpi-cxx" x.configureFlags;
         });
       };
 
-      packmol = callPackage ./packmol { };
+      packmol = callPackage ./pkgs/apps/packmol { };
 
-      pcmsolver = callPackage ./pcmsolver {};
+      pcmsolver = callPackage ./pkgs/apps/pcmsolver {};
 
       psi4 = super.python3.pkgs.toPythonApplication self.python3.pkgs.psi4;
       psi4Unstable = super.python3.pkgs.toPythonApplication self.python3.pkgs.psi4Unstable;
 
-      qdng = callPackage ./qdng { protobuf=super.protobuf3_11; };
+      qdng = callPackage ./pkgs/apps/qdng { protobuf=super.protobuf3_11; };
 
       sharc = self.sharcV2;
 
       sharc21 = self.sharcV21;
 
-      sharcV1 = callPackage ./sharc/V1.nix {
+      sharcV1 = callPackage ./pkgs/apps/sharc/V1.nix {
         molcas = self.molcas;
         molpro = self.molpro12; # V1 only compatible with versions up to 2012
         useMolpro = if cfg.licMolpro != null then true else false;
       };
 
-      sharcV2 = callPackage ./sharc {
+      sharcV2 = callPackage ./pkgs/apps/sharc {
         molcas = self.molcas;
         molpro = self.molpro12; # V2 only compatible with versions up to 2012
         useMolpro = if cfg.licMolpro != null then true else false;
       };
 
-      sharcV21 = callPackage ./sharc/21.nix {
+      sharcV21 = callPackage ./pkgs/apps/sharc/21.nix {
         bagel = self.bagel-serial;
         molcas = self.molcas;
         molpro = self.molpro12; # V2 only compatible with versions up to 2012
@@ -215,19 +215,19 @@ let
         useOrca = if cfg.srcurl != null then true else false;
       };
 
-      stream-benchmark = callPackage ./stream { };
+      stream-benchmark = callPackage ./pkgs/apps/stream { };
 
-      tinker = callPackage ./tinker { };
+      tinker = callPackage ./pkgs/apps/tinker { };
 
-      travis-analyzer = callPackage ./travis-analyzer { };
+      travis-analyzer = callPackage ./pkgs/apps/travis-analyzer { };
 
-      turbomole = callPackage ./turbomole {};
+      turbomole = callPackage ./pkgs/apps/turbomole {};
 
-      vmd = callPackage ./vmd {};
+      vmd = callPackage ./pkgs/apps/vmd {};
 
       wfoverlap = callPackage ./wfoverlap {};
 
-      xtb = callPackage ./xtb {
+      xtb = callPackage ./pkgs/apps/xtb {
         turbomole = null;
         cefine = null;
         orca = self.orca;
@@ -244,19 +244,19 @@ let
       # Libraries
       #
 
-      libcint3 = callPackage ./libcint { };
+      libcint3 = callPackage ./pkgs/lib/libcint { };
 
-      libefp = callPackage ./libefp {};
+      libefp = callPackage ./pkgs/lib/libefp {};
 
-      libint1 = callPackage ./libint/1.nix { };
+      libint1 = callPackage ./pkgs/lib/libint/1.nix { };
 
-      libint2 = callPackage ./libint { inherit optAVX; };
+      libint2 = callPackage ./pkgs/lib/libint { inherit optAVX; };
 
-      libvdwxc = callPackage ./libvdwxc { };
+      libvdwxc = callPackage ./pkgs/lib/libvdwxc { };
 
       # libint configured for bagel
       # See https://github.com/evaleev/libint/wiki#bagel
-      libint-bagel = callPackage ./libint { cfg = [
+      libint-bagel = callPackage ./pkgs/lib/libint { cfg = [
         "--enable-eri=1"
         "--enable-eri3=1"
         "--enable-eri2=1"
@@ -270,23 +270,23 @@ let
       ] ++ lib.optional optAVX "--enable-fma"
       ;};
 
-      libvori = callPackage ./libvori { };
+      libvori = callPackage ./pkgs/lib/libvori { };
 
       # legacy version
-      libxc4 = callPackage ./libxc { };
+      libxc4 = callPackage ./pkgs/lib/libxc { };
 
-      mvapich = callPackage ./mvapich { };
+      mvapich = callPackage ./pkgs/lib/mvapich { };
 
-      osss-ucx = callPackage ./osss-ucx { };
+      osss-ucx = callPackage ./pkgs/lib/osss-ucx { };
 
-      sos = callPackage ./sos { };
+      sos = callPackage ./pkgs/lib/sos { };
       #
       # Utilities
       #
 
       writeScriptSlurm = callPackage ./builders/slurmScript.nix {};
 
-      slurm-tools = callPackage ./slurm-tools {};
+      slurm-tools = callPackage ./pkgs/apps/slurm-tools {};
 
       # A wrapper to enforce license checkouts with slurm
       slurmLicenseWrapper = callPackage ./builders/licenseWrapper.nix { };
@@ -302,7 +302,7 @@ let
 
       benchmarksets = callPackage ./tests/benchmark-sets.nix { inherit callPackage; };
 
-      f2c = callPackage ./f2c { };
+      f2c = callPackage ./pkgs/apps/f2c { };
 
       tests = with self; {
         cfour = nullable cfour (callPackage ./tests/cfour { });
@@ -339,26 +339,26 @@ let
       #
       molpro = self.molpro20;
 
-      molpro12 = callPackage ./molpro/2012.nix { token=cfg.licMolpro; };
+      molpro12 = callPackage ./pkgs/apps/molpro/2012.nix { token=cfg.licMolpro; };
 
-      molpro15 = callPackage ./molpro/2015.nix { token=cfg.licMolpro; };
+      molpro15 = callPackage ./pkgs/apps/molpro/2015.nix { token=cfg.licMolpro; };
 
-      molpro18 = callPackage ./molpro/2018.nix { token=cfg.licMolpro; };
+      molpro18 = callPackage ./pkgs/apps/molpro/2018.nix { token=cfg.licMolpro; };
 
-      molpro19 = callPackage ./molpro/2019.nix { token=cfg.licMolpro; };
+      molpro19 = callPackage ./pkgs/apps/molpro/2019.nix { token=cfg.licMolpro; };
 
-      molpro20 = callPackage ./molpro { token=cfg.licMolpro; };
+      molpro20 = callPackage ./pkgs/apps/molpro { token=cfg.licMolpro; };
 
-      molpro-ext = callPackage ./molpro/custom.nix { token=cfg.licMolpro; };
+      molpro-ext = callPackage ./pkgs/apps/molpro/custom.nix { token=cfg.licMolpro; };
 
     } // lib.optionalAttrs (cfg.optpath != null) {
 
       #
       # Quirky packages that need to reside outside the nix store
       #
-      gaussian = callPackage ./gaussian { inherit (cfg) optpath; };
+      gaussian = callPackage ./pkgs/apps/gaussian { inherit (cfg) optpath; };
 
-      matlab = callPackage ./matlab { inherit (cfg) optpath; };
+      matlab = callPackage ./pkgs/apps/matlab { inherit (cfg) optpath; };
 
     } // extra;
   } // lib.optionalAttrs optAVX (
