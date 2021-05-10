@@ -9,11 +9,15 @@ buildGoModule rec {
     repo = pname;
     rev = "v${version}";
     sha256 = "sha256-r07bFFDBB7pFcVpfaHeuE8dqE+SwLQRzY2bpoZyxwFU=";
+
+    # required for the tests, see test/kodata & TestGoBuild
+    fetchSubmodules = true;
+    leaveDotGit = true;
   };
 
   vendorSha256 = null;
 
-  # Don't build the legacy main.go and test binary
+  # Don't build the legacy main.go and test
   excludedPackages = "\\(cmd/ko\\|test\\)";
 
   nativeBuildInputs = [ installShellFiles ];
