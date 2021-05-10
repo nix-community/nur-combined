@@ -14,13 +14,13 @@
 
 let ccache = stdenv.mkDerivation rec {
   pname = "ccache";
-  version = "4.2.1";
+  version = "4.3";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-AmgJpW7AGCSggbHp1fLO5yhXS9LIm7O77nQdDERJYAA=";
+    hash = "sha256-ZBxDTMUZiZJLIYbvACTFwvlss+IZiMjiL0khfM5hFCM=";
   };
 
   patches = [
