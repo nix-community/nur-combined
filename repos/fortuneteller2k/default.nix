@@ -12,8 +12,8 @@ rec {
     rust-overlay = import (pkgs.fetchFromGitHub {
       owner = "oxalica";
       repo = "rust-overlay";
-      rev = "d9a12fdf65157656348ea67456c5bfec39f50f73";
-      sha256 = "sha256-lXs7JuyfrJUNlDvrXV0E+0mN7CHUSFp9+wgBQIz1SiE=";
+      rev = "7ad612694103fa3a3e6d06bc3e7c1a0a62856e5f";
+      sha256 = "sha256-ju70leih5XINXymlQMbj+tmQ6OwIbpIBt+8L0IAd8kQ=";
     });
     
   in pkgs.callPackage ./pkgs/eww {

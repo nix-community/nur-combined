@@ -4,20 +4,19 @@ with pkgs;
 
 rustPlatform.buildRustPackage rec {
   pname = "eww";
-  version = "unstable-2021-05-04";
+  version = "unstable-2021-05-09";
 
   src = fetchFromGitHub {
     owner = "elkowar";
     repo = pname;
-    rev = "9ea20cd7537bd9637c42e36ba260e360f5d51440";
-    sha256 = "sha256-LPA2wu5ACv2n+y0JLD7o8q3JTtCzjcEGzLNmL8DZBkI=";
+    rev = "6eea3e039d8362600df4030a29c84cf2f572809b";
+    sha256 = "sha256-DnZDfvPhqMd6bNEmAwJfcufy0Ce9mSXyZknz0I1oV00=";
   };
 
   nativeBuildInputs = [
     wrapGAppsHook
     pkg-config
-    # FIXME: something broke when using the latest rust nightly
-    rust-bin.nightly."2021-04-20".default
+    rust-bin.nightly.latest.default
   ];
 
   buildInputs = [
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
   # NOTE: Compile times are longer with the checkPhase enabled, this is NUR so *we don't care*
   checkPhase = null;
 
-  cargoSha256 = "sha256-IAEGNepyIMXtXgvl/Y4G64WBvDEiIrkPIOoFgN74zwg=";
+  cargoSha256 = "sha256-xywnAUeEq2eFtBgcmnYafe7i+rfgZtMo8ZZdBiLuW00=";
 
   meta = with lib; {
     description = "A standalone widget system made in Rust to add AwesomeWM like widgets to any WM";
