@@ -33,7 +33,9 @@ in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+  overlays = map import [
+    ./overlays/emacs-overlay.nix
+  ];
 
   # TODO: fix
   #enroot = pkgs.callPackage ./pkgs/enroot { };
