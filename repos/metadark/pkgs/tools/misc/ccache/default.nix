@@ -23,6 +23,8 @@ let ccache = stdenv.mkDerivation rec {
     hash = "sha256-ZBxDTMUZiZJLIYbvACTFwvlss+IZiMjiL0khfM5hFCM=";
   };
 
+  outputs = [ "out" "man" ];
+
   patches = [
     # When building for Darwin, test/run uses dwarfdump, whereas on
     # Linux it uses objdump. We don't have dwarfdump packaged for
@@ -35,13 +37,9 @@ let ccache = stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ asciidoc cmake perl ];
-
   buildInputs = [ zstd ];
 
-  outputs = [ "out" "man" ];
-
   doCheck = true;
-
   checkInputs = [
     # test/run requires the compgen function which is available in
     # bashInteractive, but not bash.
