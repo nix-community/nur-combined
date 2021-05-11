@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "hass-smartbox";
-  version = "0.1.0";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "graham33";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0zgvhpq4jdad487qx5iqlgrc6wwhy0mzr00cbjlyh61wqf2pg6qx";
+    sha256 = "1ja3904lkjvaswrdaap8k75xz504vz2xkgahlfkxi37sv13shkvk";
   };
 
   installPhase = ''
