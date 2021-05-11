@@ -26,8 +26,8 @@ jobs:
         #
         # For this to work, you also need to set the CACHIX_SIGNING_KEY secret
         # in your repository settings in Github found at https://github.com/<your_githubname>/nur-packages/settings/secrets
-        #cachixName:
-          #- <YOUR_CACHIX_NAME>
+        cachixName:
+          - ondt
         nixPath:
           # - nixpkgs=channel:nixos-unstable
           # - nixpkgs=channel:nixpkgs-unstable
@@ -42,12 +42,12 @@ jobs:
         nix_path: "${{ matrix.nixPath }}"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    #- name: Setup cachix
-      #uses: cachix/cachix-action@v8
-      #if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
-      #with:
-        #name: ${{ matrix.cachixName }}
-        #signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+    - name: Setup cachix
+      uses: cachix/cachix-action@v10
+#      if: ${{ matrix.cachixName != 'ondt' }}
+      with:
+        name: ${{ matrix.cachixName }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \

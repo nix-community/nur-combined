@@ -1,6 +1,6 @@
 # nur-packages
 
-**ondt's own [Nix User Repository](https://github.com/nix-community/NUR)**
+**ondt's [Nix User Repository](https://github.com/nix-community/NUR)**
 
 ![Build and populate cache](https://github.com/ondt/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 
