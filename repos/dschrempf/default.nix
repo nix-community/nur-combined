@@ -28,5 +28,6 @@
   frida-tools = pkgs.callPackage ./pkgs/misc/frida-tools {
     frida-python = pkgs.callPackage ./pkgs/misc/frida-python {};
   };
+  nvd = pkgs.callPackage ./pkgs/misc/nvd {};
   signal-back = pkgs.callPackage ./pkgs/misc/signal-back {};
 }
