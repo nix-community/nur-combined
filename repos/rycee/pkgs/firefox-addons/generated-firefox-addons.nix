@@ -315,6 +315,20 @@
         platforms = platforms.all;
         };
       };
+    "ff2mpv" = buildFirefoxXpiAddon {
+      pname = "ff2mpv";
+      version = "3.7.1";
+      addonId = "ff2mpv@yossarian.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3749203/ff2mpv-3.7.1-fx.xpi";
+      sha256 = "616294cc4150466e65564373d190f17e92e3e92ed1241ed4e745745cb43ff505";
+      meta = with lib;
+      {
+        homepage = "https://github.com/woodruffw/ff2mpv";
+        description = "Tries to play links in mpv.\n\nPress the toolbar button to play the current URL in mpv. Otherwise, right click on a URL and use the context  item to play an arbitrary URL.\n\nYou'll need the native client here: <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/aadcd34348f892e0805a94f141a1124d9c4aa75199eb4cb7c4ff530417617f77/http%3A//github.com/woodruffw/ff2mpv\">github.com/woodruffw/ff2mpv</a>";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "firefox-color" = buildFirefoxXpiAddon {
       pname = "firefox-color";
       version = "2.1.7";
