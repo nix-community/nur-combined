@@ -15,10 +15,12 @@ let
   };
 
 in batsTest {
-  name="c2pk";
+  name="cp2k";
 
   # Required for mpi to run in sandboxed env
   nativeBuildInputs = [ openssh mpi cp2k ];
+
+  auxFiles = [ ./oxole.inp ];
 
   outFile = [ "*.out" ];
 
@@ -34,6 +36,11 @@ in batsTest {
 
     @test "H2O-gga Energy" {
       grep 'ENERGY|' H2O-gga.out | tail -1 | grep '\-1106.7588411'
+    }
+
+    @test "Threading and BLAS" {
+      OMP_NUM_THREADS=2 ${mpi}/bin/mpirun -np 2 ${cp2k}/bin/cp2k.psmp oxole.inp > oxole.out
+      grep "Total energy:                                               -41.131148" oxole.out
     }
   '';
 }
