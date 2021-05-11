@@ -24,9 +24,9 @@
 
   # Misc.
   biblib = pkgs.callPackage ./pkgs/misc/biblib {};
-  frida = pkgs.callPackage ./pkgs/misc/frida {};
+  frida-python = pkgs.callPackage ./pkgs/misc/frida-python {};
   frida-tools = pkgs.callPackage ./pkgs/misc/frida-tools {
-    frida = pkgs.callPackage ./pkgs/misc/frida {};
+    frida-python = pkgs.callPackage ./pkgs/misc/frida-python {};
   };
   signal-back = pkgs.callPackage ./pkgs/misc/signal-back {};
 }
