@@ -1,21 +1,58 @@
-{ stdenv
+{ lib
+, buildPythonPackage
+, python
 , fetchFromGitHub
+, smartbox
+, pytest-aiohttp
+, pytest-asyncio
+, pytest-cov
+, pytest-homeassistant-custom-component
+, pytest-randomly
+, pytest-sugar
+, pytestCheckHook
 }:
 
-stdenv.mkDerivation rec {
+buildPythonPackage rec {
   pname = "hass-smartbox";
   version = "0.2.1";
+  format = "other";
 
   src = fetchFromGitHub {
     owner = "graham33";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "1ja3904lkjvaswrdaap8k75xz504vz2xkgahlfkxi37sv13shkvk";
+    rev = "f4989219685a06d2e4be3e2ba0e19e18e8f95664";
+    sha256 = "0087qdc9qdm2vz5c5sd3g86qkbjva1y910ydbls1969ryyvm5cx2";
   };
 
+  propagatedBuildInputs = [
+    smartbox
+  ];
+
   installPhase = ''
-    mkdir -p $out
-    cp -r * $out/
+    mkdir -p $out/custom_components
+    cp -r custom_components/smartbox $out/custom_components/
   '';
 
+  preCheck = ''
+    ${python.interpreter} ${../build-support/ha-custom-components/check_requirements.py} $out/custom_components/smartbox/manifest.json
+  '';
+
+  doCheck = true;
+
+  checkInputs = [
+    pytest-aiohttp
+    pytest-asyncio
+    pytest-cov
+    pytest-homeassistant-custom-component
+    pytest-randomly
+    pytest-sugar
+    pytestCheckHook
+  ];
+
+  meta = with lib; {
+    homepage = "https://github.com/graham33/hass-smartbox";
+    license = licenses.mit;
+    description = "Home Assistant integration for heating smartboxes.";
+    maintainers = with maintainers; [ graham33 ];
+  };
 }

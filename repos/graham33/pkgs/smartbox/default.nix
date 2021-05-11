@@ -52,7 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/graham33/smartbox";
     license = licenses.mit;
     description = "Python API to control heating 'smart boxes'.";
-    # TODO: maintainer
-    #maintainers = with maintainers; [ graham33 ];
+    maintainers = with maintainers; [ graham33 ];
   };
 }
