@@ -2,21 +2,21 @@
 with pkgs;
 let
   name = "stremio";
-  version = "4.4.116";
+  version = "4.4.137";
   serverJS = builtins.fetchurl {
     url = "https://s3-eu-west-1.amazonaws.com/stremio-artifacts/four/v${version}/server.js";
-    sha256 = "sha256:0fv05qpyvhac66lb6vnf1k9j71kgivd0r1r0wizz6j31vrjc2299";
+    sha256 = "sha256:127rfyraa59cx5r7nlvpnsclnkrylvahl3q7g4qz80sz670jywks";
   };
   src = fetchgit {
     url = "https://github.com/Stremio/stremio-shell";
     rev = "v" + version;
-    sha256 = "0v1mk4d2adx27m0z78j3vxnwx4pd2q6dnd9mqkz2prq6gpirhh7a";
+    sha256 = "sha256-EN5bHLeNJZjGc7IEsIjWvMv9KAcK0sjYkxH2mvwi7Dc=";
     fetchSubmodules = true;
   };
   pkg = qt5.mkDerivation rec {
     inherit version name src;
 
-    nativeBuildInputs = [ which ];
+    nativeBuildInputs = [ which cmake ];
     buildInputs = [
       ffmpeg
       mpv
@@ -34,21 +34,12 @@ let
     ];
 
     dontWrapQtApps = true;
-    preFixup = ''
+    postFixup = ''
       wrapQtApp "$out/opt/stremio/stremio" --prefix PATH : "$out/opt/stremio"
-    '';
-
-    buildPhase = ''
-      cp ${serverJS} server.js
-      make -f release.makefile PREFIX="$out/"
-    '';
-
-    installPhase = ''
-      make -f release.makefile install PREFIX="$out/"
-      mkdir -p "$out/bin"
+      cp ${serverJS} $out/opt/stremio/server.js
+      mkdir $out/bin -p
       ln -s "$out/opt/stremio/stremio" "$out/bin/stremio"
-      # mkdir -p "$out/share/applications"
-      # ln -s "$out/opt/stremio/smartcode-stremio.desktop" "$out/share/applications"
+      ln -s "$(which node)" "$out/opt/stremio/node"
     '';
   };
   stremioItem = makeDesktopItem {
