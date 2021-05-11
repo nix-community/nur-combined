@@ -555,10 +555,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.18.0";
+      version = "2.19.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3741905/ipfs_companion-2.18.0-an+fx.xpi";
-      sha256 = "19ad13747049aeec8e9c86007b4a7a59fb43c0ee80e3ef759fb7673db61f15b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3773956/ipfs_companion-2.19.0-an+fx.xpi";
+      sha256 = "84652c6bf37889d4d6511b48860b76835fa7ea8fff03b7a23a013f882675337e";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -1101,10 +1101,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.5.9";
+      version = "21.5.10";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3773262/refined_github-21.5.9-an+fx.xpi";
-      sha256 = "3dfefe3695c704e495f1a30c27270b0dc28c8240ee3f62322c91a7def6a1ffc5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3774069/refined_github-21.5.10-an+fx.xpi";
+      sha256 = "6acfe3d9091c6ade8473021e3380e2f7af5a84e07711df023e8dd67491aae630";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1225,10 +1225,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.7.0";
+      version = "6.8.0";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3767895/tab_session_manager-6.7.0-fx.xpi";
-      sha256 = "50107dd4eb731f92869e2f90542c504d1eadc641bdc512bbcd5e71bcae7712ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3772940/tab_session_manager-6.8.0-fx.xpi";
+      sha256 = "0da8cdc4618c54de915019d6662fbc49a3791989fc8c764645f5c952e5fd9ee5";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -1350,10 +1350,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "8.9.3";
+      version = "9.0";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3754861/traduzir_paginas_web-8.9.3-an+fx.xpi";
-      sha256 = "a2a507be0f5e310cfa7941d2f518f9ef11a9c23415d577afefe5a6f71221e560";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3773764/traduzir_paginas_web-9.0-an+fx.xpi";
+      sha256 = "df31bd177189bacc6d401beb356558f7440017d018e09db542753876ee6f9517";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
