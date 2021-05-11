@@ -34,7 +34,8 @@ with mergedPkgs; {
 
   cmake-language-server = python3Packages.callPackage ./development/tools/misc/cmake-language-server { };
 
-  emacs-pgtk-native-comp = callPackage ./applications/editors/emacs-pgtk-native-comp { };
+  emacs-pgtk = callPackage ./applications/editors/emacs-pgtk { };
+  emacs-pgtk-native-comp = emacs-pgtk;
 
   git-review = python3Packages.callPackage ./applications/version-management/git-review { };
 

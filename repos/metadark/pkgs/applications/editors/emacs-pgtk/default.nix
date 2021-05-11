@@ -11,20 +11,19 @@
   src = fetchFromGitHub {
     owner = "MetaDark";
     repo = "emacs";
-    rev = "5fede5507040743516ffcaea73b250c5e831fb0e";
-    hash = "sha256-7nsU+Ww7VIcqc8gvRt3iTBdN9HlSPfUKn77jTrSHJMA=";
+    rev = "486e77befd2ea7fd750b1f24eb5dfaf2b91d70b3";
+    hash = "sha256-CbIpL/e8u6jCdSEd3MhGgkLIcmEcA7C5VYpEF0u7COY=";
   };
 
   patches = [ ];
 
   configureFlags = attrs.configureFlags ++ [
     "--with-pgtk"
-    "--with-cairo"
   ];
 
   meta = attrs.meta // (with lib; {
-    description = "Emacs with pure GTK3 & native compilation support";
-    homepage = "https://github.com/MetaDark/emacs/tree/feature/pgtk-native-comp";
+    description = "Emacs with pure GTK3 support";
+    homepage = "https://git.savannah.gnu.org/cgit/emacs.git/log/?h=feature/pgtk";
     maintainer = with maintainers; [ metadark ];
   });
 })
