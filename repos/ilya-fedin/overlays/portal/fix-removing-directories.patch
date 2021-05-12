@@ -1,0 +1,15 @@
+diff --git a/src/xdp-utils.c b/src/xdp-utils.c
+index ef68f0f..962a2b6 100644
+--- a/src/xdp-utils.c
++++ b/src/xdp-utils.c
+@@ -970,10 +970,6 @@ xdp_app_info_get_path_for_fd (XdpAppInfo *app_info,
+        * See issues #167 for details.
+        */
+ 
+-      /* Must not be O_NOFOLLOW (because we want the target file) */
+-      if ((fd_flags & O_NOFOLLOW) == O_NOFOLLOW)
+-        return NULL;
+-
+       if (!xdp_app_info_supports_opath (app_info))
+         return NULL;
+ 
