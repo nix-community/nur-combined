@@ -10,6 +10,7 @@
 , pytest-randomly
 , pytest-sugar
 , pytestCheckHook
+, haManifestRequirementsCheckHook
 }:
 
 buildPythonPackage rec {
@@ -33,10 +34,6 @@ buildPythonPackage rec {
     cp -r custom_components/smartbox $out/custom_components/
   '';
 
-  preCheck = ''
-    ${python.interpreter} ${../build-support/ha-custom-components/check_requirements.py} $out/custom_components/smartbox/manifest.json
-  '';
-
   doCheck = true;
 
   checkInputs = [
@@ -47,6 +44,7 @@ buildPythonPackage rec {
     pytest-randomly
     pytest-sugar
     pytestCheckHook
+    haManifestRequirementsCheckHook
   ];
 
   meta = with lib; {

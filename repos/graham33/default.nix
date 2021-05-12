@@ -15,6 +15,7 @@ let
     garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
     ha-dyson = pySelf.callPackage ./pkgs/ha-dyson { };
     ha-dyson-cloud = pySelf.callPackage ./pkgs/ha-dyson-cloud { };
+    haManifestRequirementsCheckHook = pySelf.callPackage pkgs/build-support/ha-custom-components/ha-manifest-requirements-check-hook.nix {};
     homeassistant = pySelf.toPythonModule pkgs.home-assistant;
     libdyson = pySelf.callPackage ./pkgs/libdyson { };
     libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
