@@ -33,25 +33,30 @@
           (super.path + /pkgs/tools/networking/mosh/bash_completion_datadir.patch)
         ];
       });
-    # Use Clementine > 1.3.1 to fix Clementine issue #4748
+    # Use a more recent Clementine 1.4 RC to fix some Clementine issues
     clementine = if versionAtLeast (getVersion super.clementine) "1.3.2"
       then super.clementine
       else super.clementine.overrideAttrs (oa: rec {
         name = "${pname}-${version}";
         pname = "clementine";
-        version = "1.4.0rc1-270-g6900197a8";
+        version = "1.4.0rc1-591-g579d86904";
         src = super.fetchFromGitHub {
           owner = "clementine-player"; repo = "Clementine";
           rev = version;
-          sha256 = "0c6dfn7258ndjkbw0w1rqqbldnqz0ym8liv1qi828q4xxg8md8pl";
+          sha256 = "sha256-1BdNLMbAgT5qqDUzMsb05iu3r8Z2O61xUUk0lnOIGvI=";
         };
-        patches = [
-          (super.path + /pkgs/applications/audio/clementine/clementine-spotify-blob.patch)
+        nativeBuildInputs = oa.nativeBuildInputs or [] ++ [
+          util-linux
+          libunwind
+          libselinux
+          elfutils
+          libsepol
+          orc
         ];
-        buildInputs = oa.buildInputs or [] ++ [ super.qt5.qtx11extras self.liblastfm5 ];
-        nativeBuildInputs = oa.nativeBuildInputs or [] ++ [ super.qt5.wrapQtAppsHook ];
+        buildInputs = oa.buildInputs or [] ++ [
+          alsaLib
+        ];
       });
-    liblastfm5 = super.liblastfm5 or (super.libsForQt5.callPackage ./fixes/liblastfm5.nix { });
     # Workaround for https://bugreports.qt.io/browse/PYSIDE-1140; can be removed
     # once qt 5.14 is default in nixpkgsuper.s
     syncplay = super.python37.pkgs.callPackage (super.path + /pkgs/applications/networking/syncplay) { };
