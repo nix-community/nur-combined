@@ -72,7 +72,7 @@ rec {
     pyvisa-py = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvisa-py { inherit pyvisa; };
 
     # More recent version than in Nixpkgs
-    cirq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cirq { withContribRequires = false; inherit pyquil quimb; };
+    inherit (pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cirq { }) cirq-core cirq-google cirq;
     cvxpy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cvxpy { inherit ecos osqp scs; };
     ecos = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ecos { };
     qdldl = pkgs.python3Packages.callPackage ./pkgs/python-modules/qdldl { };

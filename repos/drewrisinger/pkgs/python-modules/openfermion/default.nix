@@ -33,6 +33,11 @@ buildPythonPackage rec {
       url = "https://github.com/quantumlib/OpenFermion/commit/10637dab77bbf73d066c789b2a59ead4f4ad6996.patch";
       sha256 = "01i8kqrnkz7w5x43sc7qll2hcmp9s2xdcxvvy1wyagzggx0yk9q9";
     })
+    (fetchpatch {
+      name = "openfermion-update-to-cirq-0_11_0.patch";
+      url = "https://github.com/quantumlib/OpenFermion/commit/b9becd72f7af283d867d219d7ee6df8942ac870f.patch";
+      sha256 = "0fwp3r142zg7b5vmmgwh67s0scnpbahbwaqj1759v01x1ai6fp0b";
+    })
   ];
 
   propagatedBuildInputs = [
