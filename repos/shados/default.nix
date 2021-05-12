@@ -9,8 +9,6 @@ let repo = rec {
 
   ## Packages
 
-  bash-language-server = pkgs.callPackage ./pkgs/lsp/bash-language-server { };
-
   firefox-common = opts: with pkgs; callPackage
     (import (nixpkgsPath + /pkgs/applications/networking/browsers/firefox/common.nix) opts)
     { libpng = libpng_apng;
@@ -23,8 +21,6 @@ let repo = rec {
       enableOfficialBranding = false;
       privacySupport = true;
     };
-
-  fixjson = pkgs.callPackage ./pkgs/fixjson { };
 
   json-yaml = pkgs.callPackage ./pkgs/json-yaml { };
 
@@ -46,8 +42,6 @@ let repo = rec {
     inherit (pkgs.qt5) qtbase qmake;
     inherit (pkgs.xorg) libXft;
   };
-
-  vscode-css-language-server-bin = pkgs.callPackage ./pkgs/lsp/vscode-css-languageserver-bin { };
 
   # waterfox = pkgs.wrapFirefox waterfox-unwrapped {
   #   browserName = "waterfox";
