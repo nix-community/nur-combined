@@ -3,6 +3,7 @@
 , python
 , fetchFromGitHub
 , smartbox
+, voluptuous
 , pytest-aiohttp
 , pytest-asyncio
 , pytest-cov
@@ -27,6 +28,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     smartbox
+    voluptuous
   ];
 
   installPhase = ''
