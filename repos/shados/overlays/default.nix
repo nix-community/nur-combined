@@ -13,13 +13,8 @@
   # Fixes/workarounds for issues in upstream nixpkgs that I CBF upstreaming (or
   # that would be problematic to upstream)
   fixes = self: super: with super.lib; {
-    # Fix flashplayer-standalone hw gpu stuff
-    flashplayer-standalone = super.flashplayer-standalone.overrideAttrs(oldAttrs: let
-      libs = super.stdenv.lib.makeLibraryPath [ super.libGL ];
-    in {
-      nativeBuildInputs = with super; oldAttrs.nativeBuildInputs ++ [ makeWrapper libGL ];
-      rpath = oldAttrs.rpath + ":" + libs;
-    });
+    # Fix for flashplayer-standalone being dropped from nixpkgs, -_-''
+    flashplayer-standalone = self.callPackage ../pkgs/flashplayer-standalone.nix { };
     # Use mosh newer than 1.3.2 to get proper truecolor support
     mosh = if versionAtLeast (getVersion super.mosh) "1.3.3"
       then super.mosh
