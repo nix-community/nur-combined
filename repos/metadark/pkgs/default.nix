@@ -43,6 +43,16 @@ with mergedPkgs; {
 
   lightdm-webkit2-greeter = callPackage ./applications/display-managers/lightdm-webkit2-greeter { };
 
+  mangohud = callPackage ./tools/graphics/mangohud rec {
+    libXNVCtrl = linuxPackages.nvidia_x11.settings.libXNVCtrl;
+    mangohud32 = pkgsi686Linux.callPackage ./tools/graphics/mangohud {
+      libXNVCtrl = linuxPackages.nvidia_x11.settings.libXNVCtrl;
+      inherit mangohud32;
+      inherit (pkgs) python3Packages;
+    };
+    inherit (pkgs) python3Packages;
+  };
+
   newsflash = callPackage ./applications/networking/newsreaders/newsflash { };
 
   poke = callPackage ./applications/editors/poke { };
