@@ -109,10 +109,10 @@ stdenv.mkDerivation rec {
   '';
 
   # Support overlaying Vulkan applications without requiring mangohud to be installed
-  # postFixup = ''
-  #   wrapProgram "$out/bin/mangohud" \
-  #     --prefix XDG_DATA_DIRS : "$out/share"
-  # '';
+  postFixup = ''
+    wrapProgram "$out/bin/mangohud" \
+      --prefix XDG_DATA_DIRS : "$out/share"
+  '';
 
   meta = with lib; {
     description = "A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more";
