@@ -261,10 +261,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.5.4";
+      version = "2021.5.10";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3771527/duckduckgo_privacy_essentials-2021.5.4-an+fx.xpi";
-      sha256 = "1a9ebe8c458c0a38484798563262c0d4343af1d0baf38af0de99343bbf9ece02";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3773951/duckduckgo_privacy_essentials-2021.5.10-an+fx.xpi";
+      sha256 = "26596526c50d5df74b95570990b09f32eb95ccf2397f96a9a98f0c901e8246b0";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -1198,10 +1198,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.0.13.1";
+      version = "2.0.14";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3748692/sponsorblock_skip_sponsorships_on_youtube-2.0.13.1-an+fx.xpi";
-      sha256 = "c9990812d376afb607c437bfb26184e7b3f07bcfc0116a5a45ca617c6d3f0453";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3774156/sponsorblock_skip_sponsorships_on_youtube-2.0.14-an+fx.xpi";
+      sha256 = "48f9182b0bf3026a23378fdafe621211346c766e05286a5cc3c37be17245befc";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1364,10 +1364,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.0";
+      version = "9.0.2";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3773764/traduzir_paginas_web-9.0-an+fx.xpi";
-      sha256 = "df31bd177189bacc6d401beb356558f7440017d018e09db542753876ee6f9517";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3774259/traduzir_paginas_web-9.0.2-an+fx.xpi";
+      sha256 = "93171f8a685946d033f485773adb85a6b84bd93276a32afda32992e6f7009533";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
