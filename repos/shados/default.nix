@@ -38,8 +38,7 @@ let repo = rec {
     inherit (pkgs.perlPackages) AnyEvent LinuxFD CommonSense SubExporter
       DataOptList ParamsUtil SubInstall;
   };
-  urxvtconfig = pkgs.callPackage ./pkgs/urxvtconfig {
-    inherit (pkgs.qt5) qtbase qmake;
+  urxvtconfig = pkgs.libsForQt5.callPackage ./pkgs/urxvtconfig {
     inherit (pkgs.xorg) libXft;
   };
 

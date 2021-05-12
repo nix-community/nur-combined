@@ -1,14 +1,10 @@
-{ stdenv, lua, toLuaModule, fetchFromGitHub
+{ stdenv, lua, toLuaModule
 }:
 toLuaModule (stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   pname = "cparser";
-  version = "unstable-2019-05-21";
-  src = fetchFromGitHub {
-    owner = "facebookresearch"; repo = "CParser";
-    rev = "7e4e633961db158a3e8bee9b5c263fbfe2d6a3f2";
-    sha256 = "0v9n6dhsrjf9dqsi73n7bgl562kfy682hd1mr4sykil957dci0k9";
-  };
+  version = "unstable-2021-05-04";
+  src = (import ../../nix/sources.nix).cparser;
 
   buildPhase = ":";
   installPhase = let

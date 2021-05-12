@@ -1,3 +1,6 @@
+let
+  pins = import ../nix/sources.nix;
+in
 {
   # Allows specifying cross-lua-version Lua package overrides
   lua-overrides = import ./lua-overrides.nix;
@@ -21,12 +24,8 @@
       else super.mosh.overrideAttrs (oldAttrs: rec {
         name = "${pname}-${version}";
         pname = "mosh";
-        version = "unstable-2018-08-30";
-        src = super.fetchFromGitHub {
-          owner = "mobile-shell"; repo = pname;
-          rev = "944fd6c796338235c4f3d8daf4959ff658f12760";
-          sha256 = "0fwrdqizwnn0kmf8bvlz334va526mlbm1kas9fif0jmvl1q11ayv";
-        };
+        version = "unstable-2020-05-18";
+        src = pins.mosh;
         patches = [
           (super.path + /pkgs/tools/networking/mosh/ssh_path.patch)
           (super.path + /pkgs/tools/networking/mosh/utempter_path.patch)
@@ -40,11 +39,7 @@
         name = "${pname}-${version}";
         pname = "clementine";
         version = "1.4.0rc1-591-g579d86904";
-        src = super.fetchFromGitHub {
-          owner = "clementine-player"; repo = "Clementine";
-          rev = version;
-          sha256 = "sha256-1BdNLMbAgT5qqDUzMsb05iu3r8Z2O61xUUk0lnOIGvI=";
-        };
+        src = pins.clementine;
         nativeBuildInputs = oa.nativeBuildInputs or [] ++ [
           util-linux
           libunwind
@@ -57,9 +52,6 @@
           alsaLib
         ];
       });
-    # Workaround for https://bugreports.qt.io/browse/PYSIDE-1140; can be removed
-    # once qt 5.14 is default in nixpkgsuper.s
-    syncplay = super.python37.pkgs.callPackage (super.path + /pkgs/applications/networking/syncplay) { };
   };
 
   # Pinned old flashplayer versions

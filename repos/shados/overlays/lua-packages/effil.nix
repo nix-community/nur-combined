@@ -1,31 +1,36 @@
-{ stdenv, buildLuarocksPackage, fetchgit
+{ stdenv, buildLuarocksPackage, fetchFromGitHub
+, gcc9
 }:
 
 buildLuarocksPackage rec {
   pname = "effil";
-  version = "1.0-0";
+  version = "1.2-0";
 
   # version = "unstable-2018-11-14";
-  src = fetchgit {
-    # owner = "effil"; repo = "effil";
-    url = "https://github.com/effil/effil";
-    rev = "73be7561235f5f472fce6ed3173dff08bbd14423";
-    sha256 = "1zxvhv5zv68r5sr3imxv0pshss4lwxy54syg6cq6cklvkliaknvh";
+  src = fetchFromGitHub {
+    owner = pname; repo = pname;
+    rev = "v${version}";
+    sha256 = "0rij3ms8glzmr8j7b5607qwyhbcjy66i8wrw85bshixb32cn06wz";
     # Need the below for the 'sol' submodule especially; might want to look
     # into using system version?
     fetchSubmodules = true;
   };
   knownRockspec = "rockspecs/${pname}-${version}.rockspec";
+  preConfigure = ''
+    # Annoyingly, they're missing a rockspec for the latest version, despite tagging the commit?
+    cp rockspecs/${pname}-1.1-0.rockspec "''${knownRockspec}"
+    substituteInPlace ''${knownRockspec} \
+      --replace '1.1-0' "$version"
+  '';
   postConfigure = ''
     # We already have the submodule, we don't need fetch-gitrec
     substituteInPlace ''${rockspecFilename} \
       --replace ', "luarocks-fetch-gitrec"' '''
-
-    # There's no more effil.lua, it's all in the shared object now
-    sed ''${rockspecFilename} -i \
-      -Ee '/lua = \{ install_dir /d' \
-      -Ee 's|libeffil\.so|effil.so|g'
   '';
+  nativeBuildInputs = [
+    # Fails to compile on >=gcc10 due to sol2 issue #1001
+    gcc9
+  ];
 
   meta = with stdenv.lib; {
     description = "Effil is a lua module for multithreading support, it allows you to spawn native threads and perform safe data exchange between them";

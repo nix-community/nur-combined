@@ -1,18 +1,10 @@
-{ stdenv, fetchFromGitHub, makeWrapper, perl, AnyEvent, LinuxFD, CommonSense
+{ stdenv, makeWrapper, perl, AnyEvent, LinuxFD, CommonSense
 , SubExporter, DataOptList, ParamsUtil, SubInstall }:
 stdenv.mkDerivation {
-  name = "urxvt-config-reload";
+  pname = "urxvt-config-reload";
+  version = "unstable-2019-10-11";
 
-  src = fetchFromGitHub {
-    owner   = "regnarg";
-    repo    = "urxvt-config-reload";
-    rev     = "7e26031a6dfcd22d3747c256899a600d509ae9b4";
-    sha256  = "0zkinp5a9llxq63ssdk9ym20sdv9q2mgjz1x5z5a32gbwcz9ggfa";
-  };
-
-  patches = [
-    ./border-color.patch
-  ];
+  src = (import ../../nix/sources.nix).urxvt-config-reload;
 
   buildInputs = [ makeWrapper ];
 

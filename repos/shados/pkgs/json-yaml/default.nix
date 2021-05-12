@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub
+{ stdenv
 , libyaml, yajl
 }:
 
@@ -6,11 +6,7 @@ stdenv.mkDerivation rec {
   pname = "json-yaml";
   version = "1.2.1";
 
-  src = fetchFromGitHub {
-    owner = "sjmulder"; repo = pname;
-    rev = version;
-    sha256 = "1g2fh1nl3xr8lfvzm6infqj8cxavjrggnn790sqgc4mzq52nqk48";
-  };
+  src = (import ../../nix/sources.nix).json-yaml;
 
   buildInputs = [
     libyaml yajl

@@ -1,5 +1,6 @@
 self: super: with super.lib; let
   luaNames = [
+    (nameAndPkgs "lua" "luaPackages" )
     (nameAndPkgs "lua5_1" "lua51Packages" )
     (nameAndPkgs "lua5_2" "lua52Packages" )
     (nameAndPkgs "lua5_3" "lua53Packages" )

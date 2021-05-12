@@ -36,11 +36,7 @@ let
     in rec {
       version = "${version'}-${revision}";
       # Add support for luajit & 5.1 (test this moar), and use lyaml
-      src = pkgs.fetchFromGitHub {
-        owner = "Shados"; repo = "lcmark";
-        rev = "local-changes";
-        sha256 = "1zkaj30mmah71v296sfs61a9jb3g1s3rc0d6sg9kcdck4hwlvaai";
-      };
+      src = (import ../../nix/sources.nix).lcmark;
       disabled = luaOlder "5.1" || luaAtLeast "5.4";
       knownRockspec = let
         rockspecName = "${super.lcmark.pname}-${version'}-${revision}.rockspec";
@@ -52,11 +48,7 @@ let
     });
 
     ldoc = super.ldoc.override ({
-      src = pkgs.fetchFromGitHub {
-        owner = "Shados"; repo = "LDoc";
-        rev = "50d268a2387597c813fea6b060c5d08742dcf58a";
-        sha256 = "1ji85nqjgdzr2p00a7hkxwg1bckixaqrsxxc3rq76giwaf8s16q9";
-      };
+      src = (import ../../nix/sources.nix).ldoc;
     });
 
     lua-ev = super.lua-ev.override ({
@@ -79,11 +71,7 @@ let
     });
 
     moonscript = super.moonscript.override ({
-      src = pkgs.fetchFromGitHub {
-        owner = "Shados"; repo = "moonscript";
-        rev = "623bb0fc5d0d23c05caf0c8ffded6ef751baf366";
-        sha256 = "05kpl9l1311lgjrfghnqnh6m3zkwp09gww056bf30fbvhlfc8iyw";
-      };
+      src = (import ../../nix/sources.nix).moonscript;
       knownRockspec = with super.moonscript; "${pname}-dev-1.rockspec";
       propagatedBuildInputs = with self; [
         lua lpeg luafilesystem argparse
@@ -93,8 +81,6 @@ let
         busted loadkit
       ];
       checkPhase = ''
-        export LUA_PATH="''${LUA_PATH:+''${LUA_PATH};}$NIX_LUA_PATH"
-        export LUA_CPATH="''${LUA_CPATH:+''${LUA_CPATH};}$NIX_LUA_CPATH"
         make test $makeFlags
       '';
     });

@@ -1,14 +1,10 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkg-config
+{ stdenv, autoreconfHook, pkg-config
 , glib, fuse, libdbi, libdbiDrivers, sqlite, libextractor
 }:
 stdenv.mkDerivation {
   pname = "tagsistant";
   version = "unstable-2017-02-12";
-  src = fetchFromGitHub {
-    owner = "StrumentiResistenti"; repo = "Tagsistant";
-    rev = "0dabdca1077136b7626a2977410f910689c235b7";
-    sha256 = "06pi712grfz790n2v75qbxwdm4dy96h25fyd9jkx3wfm1hc83y5m";
-  };
+  src = (import ../../nix/sources.nix).tagsistant;
   nativeBuildInputs = [
     autoreconfHook pkg-config
   ];

@@ -1,15 +1,11 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig
+{ stdenv, cmake, pkgconfig
 , ffmpeg, libebur128, taglib
 }:
 stdenv.mkDerivation rec {
   pname = "loudgain";
-  version = "unstable-2019-11-03";
+  version = "unstable-2020-12-28";
 
-  src = fetchFromGitHub {
-    owner = "Moonbase59"; repo = pname;
-    rev = "0ff67eec6cc2d37df1cd9d0bd95c5076604a23bc";
-    sha256 = "1yn1wz3w0zkwgd8xqb0j1y8909s6klv5g107dl1aw21gdjavnlc5";
-  };
+  src = (import ../../nix/sources.nix).loudgain;
 
   nativeBuildInputs = [
     cmake pkgconfig
