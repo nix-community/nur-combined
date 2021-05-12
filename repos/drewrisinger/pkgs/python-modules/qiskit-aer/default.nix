@@ -80,7 +80,9 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  DISABLE_CONAN=1;
+  preBuild = ''
+    export DISABLE_CONAN=1
+  '';
 
   dontUseCmakeConfigure = true;
 
