@@ -1,4 +1,4 @@
-{ pkgs, fetchgit, fetchpatch, php, openssl, libevent, libcouchbase }:
+{ pkgs, fetchgit, fetchpatch, php, openssl, libevent, libcouchbase, spidermonkey_1_8_5 }:
 
 let
   self = with self; {
@@ -610,12 +610,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.85";
+    version = "0.12.87";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "15xjq27h62hj4yjqg6ca4v5isag063bfbya5haswb43kg0yc9rk0";
+      sha256 = "0q0lxy20ljqmg23vm8slzv29h3ira3as1ixd17v21g280b7vkwvk";
     };
 
     phases = [ "installPhase" ];
@@ -714,7 +714,7 @@ let
     };
   };
 
-  protobuf = if isPhp56 then protobuf312 else protobuf315;
+  protobuf = if isPhp56 then protobuf312 else protobuf317;
 
   protobuf312 = buildPecl {
     version = "3.12.4";
@@ -735,11 +735,11 @@ let
     };
   };
 
-  protobuf315 = buildPecl {
-    version = "3.15.8";
+  protobuf317 = buildPecl {
+    version = "3.17.0";
     pname = "protobuf";
 
-    sha256 = "1n3vvn9zvn8rw3rv3fgrk7gq3a1cnqrkpvqd05f1ywxch5542dld";
+    sha256 = "0mnawjp925n2zfr5dmigibh93zwhvnxg22vwynjllq53bnpvmj96";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
