@@ -1,37 +1,30 @@
 { lib, stdenv, fetchFromGitHub, fetchurl, makeWrapper, makeDesktopItem, linkFarmFromDrvs
 , dotnet-sdk_5, dotnetPackages, dotnetCorePackages, cacert
-, SDL2, libX11, libgdiplus, ffmpeg, openal, libsoundio, sndio
+, libX11, libgdiplus, ffmpeg
+, SDL2_mixer, openal, libsoundio, sndio
 , gtk3, gobject-introspection, gdk-pixbuf, wrapGAppsHook
 }:
 
 let
-  # TODO: remove this when https://github.com/NixOS/nixpkgs/pull/122352 gets merged
-  patchedSndio = (sndio.overrideAttrs (attrs: {
-    src = fetchurl {
-      url = "http://www.sndio.org/sndio-1.8.0.tar.gz";
-      sha256 = "027hlqji0h2cm96rb8qvkdmwxl56l59bgn828nvmwak2c2i5k703";
-    };
-  }));
-
   runtimeDeps = [
-    SDL2
     gtk3
     libX11
     libgdiplus
     ffmpeg
+    SDL2_mixer
     openal
     libsoundio
-    patchedSndio
+    sndio
   ];
 in stdenv.mkDerivation rec {
   pname = "ryujinx";
-  version = "1.0.6867"; # Versioning is based off of the official appveyor builds: https://ci.appveyor.com/project/gdkchan/ryujinx
+  version = "1.0.6869"; # Versioning is based off of the official appveyor builds: https://ci.appveyor.com/project/gdkchan/ryujinx
 
   src = fetchFromGitHub {
     owner = "Ryujinx";
     repo = "Ryujinx";
-    rev = "701c4276599dbedb05f0a8b1ec19eb7b90157799";
-    sha256 = "0diq9xgiw0xr5isivpzirrms5wrbcaq3jl531pbdzy9b28a8dsf7";
+    rev = "a8022ca3a1c9c2f312855c7676454507031be644";
+    sha256 = "05ljdlkfrmpf1xbxgrn6kjwp7r6lx68xp053wqin9085pb06wgc5";
   };
 
   nativeBuildInputs = [ dotnet-sdk_5 dotnetPackages.Nuget cacert makeWrapper wrapGAppsHook gobject-introspection gdk-pixbuf ];
@@ -44,7 +37,7 @@ in stdenv.mkDerivation rec {
     };
   });
 
-  # Change hardcoded search path for ffmpeg from "/lib" to a path to the nix store
+  # Change hardcoded FFmpeg search path to the nix store.
   prePatch = ''
     substituteInPlace Ryujinx/Program.cs --replace \
       "ffmpeg.RootPath = \"/lib\"" "ffmpeg.RootPath = \"${ffmpeg}/lib\""
