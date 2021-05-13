@@ -20,6 +20,12 @@ rec {
     pkgs = pkgs.extend rust-overlay;
   };
 
+  bling = pkgs.callPackage ./pkgs/bling {
+    inherit stdenv;
+    inherit (pkgs) fetchFromGitHub;
+    inherit (pkgs.lua53Packages) lua toLuaModule;
+  };
+
   iosevka-ft-bin = pkgs.callPackage ./pkgs/iosevka-ft-bin {
     inherit (pkgs) fetchFromGitHub;
   };
