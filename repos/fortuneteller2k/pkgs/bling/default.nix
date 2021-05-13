@@ -1,6 +1,6 @@
 { lib, stdenv, toLuaModule, lua, fetchFromGitHub }:
 
-toLuaModule(stdenv.mkDerivation rec {
+toLuaModule (stdenv.mkDerivation rec {
   name = "bling-${version}";
   version = "unstable-2021-05-12";
 

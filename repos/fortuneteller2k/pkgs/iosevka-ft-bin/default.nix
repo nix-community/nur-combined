@@ -2,9 +2,10 @@
 
 let
   version = "6.1.3";
-in fetchFromGitHub rec {
+in
+fetchFromGitHub rec {
   name = "iosevka-ft-bin-${version}";
-  
+
   owner = "fortuneteller2k";
   repo = "iosevka-ft";
   rev = "a8815ff860b820c13612ef4e34589ed77c727aac";
