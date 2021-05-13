@@ -1,4 +1,4 @@
-{ stdenv, buildGoModule, fetchFromGitHub, go-rice }:
+{ stdenv, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "cf-dns-updater";
