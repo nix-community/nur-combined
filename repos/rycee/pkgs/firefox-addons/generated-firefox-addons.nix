@@ -723,10 +723,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "4.4.0";
+      version = "4.4.1";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3666219/mailvelope-4.4.0-fx.xpi";
-      sha256 = "03945eb7a4949f9429a3416ff46a791dafdcbd7943dc825c60ed39d996a1f03b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3775277/mailvelope-4.4.1-fx.xpi";
+      sha256 = "f3dc00d01242ddc064b73f7a35dfc4e2f3c737993786bcda71cb2ddd03343139";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -751,10 +751,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.4.0";
+      version = "9.5.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3761410/metamask-9.4.0-an+fx.xpi";
-      sha256 = "ae33574741ecb5987cbce0bc0309feab032c638cc9c8421765baf90f38697ef6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3775478/metamask-9.5.1-an+fx.xpi";
+      sha256 = "e7d4f7303260728900d130b7912c6674f3e6ae4a06791833157765ffa38be507";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1493,10 +1493,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "1.1.0";
+      version = "1.2.0";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3767030/vim_vixen-1.1.0-an+fx.xpi";
-      sha256 = "d370e4e7692878d570f4eeaa63304a147d15cda2426a6c90d99b3675a66c3ea8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3775186/vim_vixen-1.2.0-an+fx.xpi";
+      sha256 = "7ea0e36ab0d9fc628f6e96d1131c2960a64f9729b4608ebd00ebc79968f73691";
       meta = with lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
@@ -1535,10 +1535,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.5.35";
+      version = "6.6.0";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3768082/wappalyzer-6.5.35-fx.xpi";
-      sha256 = "38651d88bdc9210d3d6f12ce243ad95ba1174d7d997100fff9ce5065eea11b46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3775507/wappalyzer-6.6.0-fx.xpi";
+      sha256 = "f78f9dffdb2bff800f0e9c55c9be6fbd31bc94e1cb55adb65c027cc6a0c9d0b4";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
