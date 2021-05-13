@@ -68,7 +68,10 @@ in stdenv.mkDerivation rec {
     ./wadlocation.patch
   ];
 
-  patchPhase = ''sed "s#@wadlocation@#$out#" ${./wadlocation.patch} | patch -p1'';
+  postPatch = ''
+    substituteInPlace src/sdl/i_system.c \
+        --replace '@wadlocation@' $out
+  '';
 
   preConfigure = ''
     7z x ${assets} -o"/build/source/assets" -aos

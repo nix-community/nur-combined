@@ -3,4 +3,5 @@
   #
   # my-module = ./my-module;
   matrix-registration = ./matrix-registration.nix;
+  bukkit-plugins = ./bukkit-plugins;
 }

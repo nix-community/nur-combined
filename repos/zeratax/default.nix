@@ -14,23 +14,24 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
- 
   # applications
-  mangohud = pkgs.callPackage ./pkgs/MangoHud/combined.nix { libXNVCtrl = pkgs.linuxPackages.nvidia_x11.settings.libXNVCtrl; };
+  matrix-registration = pkgs.callPackage ./pkgs/matrix-registration { };
 
-  matrix-registration =  pkgs.callPackage ./pkgs/matrix-registration { };
-
-  mirage-im = pkgs.libsForQt5.callPackage ./pkgs/mirage { myPython3Packages = python3Packages; };
+  mirage-im =
+    pkgs.libsForQt5.callPackage ./pkgs/mirage { python3Packages = myPython3Packages // pkgs.python3Packages; };
 
   # games
   srb2 = pkgs.callPackage ./pkgs/srb2 { };
 
   # python modules
-  python3Packages = pkgs.recurseIntoAttrs (
-    (pkgs.python3Packages.callPackage ./pkgs/development/python-modules {
-    })
-  );
+  myPython3Packages = pkgs.recurseIntoAttrs
+    (pkgs.callPackage ./pkgs/development/python-modules { });
+
+  # bukkit/spigot/paper minecraft server plugins
+  bukkitPlugins =
+    pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/bukkit-plugins { });
 
   # vscode-extensions
-  vscode-extensions = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/vscode-extensions {});
+  vscode-extensions =
+    pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/vscode-extensions { });
 }

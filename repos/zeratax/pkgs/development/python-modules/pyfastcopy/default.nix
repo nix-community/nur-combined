@@ -11,8 +11,7 @@ buildPythonPackage rec {
   version = "1.0.3";
 
   src = fetchPypi {
-    inherit version;
-    pname = "pyfastcopy";
+    inherit version pname;
     extension = "tar.gz";
     sha256 = "ed4620f1087a8949888973e315d3d59fbe9b8cc4ca5df553d76d2f21d2748999";
   };
@@ -27,7 +26,7 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://github.com/desbma/pyfastcopy";
-    description = "Speed up Python's shutil.copyfile by using sendfile system call";
+    description = "Speed up Python's shutil.copyfile by using sendfile system call.";
     license = lib.licenses.psfl;
     # maintainers = with lib.maintainers; [ zeratax ];
   };
