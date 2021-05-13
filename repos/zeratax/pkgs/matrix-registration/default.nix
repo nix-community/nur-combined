@@ -24,6 +24,8 @@ buildPythonPackage rec {
 
   postPatch = ''
     sed -i -e '/alembic>/d' setup.py
+    sed -i -e 's/waitress~=/waitress>=/' setup.py
+    cat setup.py
   '';
 
   propagatedBuildInputs = [
