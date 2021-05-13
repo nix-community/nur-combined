@@ -26,10 +26,10 @@ in stdenv.mkDerivation {
     install -Dm555 -t $out/bin minecraft-server
   '';
 
-  meta = {
+  meta = with stdenv.lib; {
     description = "High-performance Minecraft Server";
     homepage    = "https://papermc.io/";
-    license     = lib.licenses.gpl3Only;
-    platforms   = lib.platforms.unix;
+    license     = licenses.gpl3;
+    platforms   = platforms.unix;
   };
 }
