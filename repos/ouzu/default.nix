@@ -14,10 +14,14 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  cf-dns-updater = pkgs.callPackage ./pkgs/cf-dns-updater { };
+
   linx-client = pkgs.callPackage ./pkgs/linx-client { };
   linx-server = pkgs.callPackage ./pkgs/linx-server { go-rice=pkgs.callPackage ./pkgs/go-rice { }; };
 
   hbs = pkgs.callPackage ./pkgs/hbs { };
 
   i3lock-fancy-rapid = pkgs.callPackage ./pkgs/i3lock-fancy-rapid { };
+
+  papermc = pkgs.callPackage ./pkgs/papermc { };
 }
