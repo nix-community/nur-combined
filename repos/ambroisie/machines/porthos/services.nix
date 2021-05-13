@@ -106,9 +106,4 @@ in
       startAtBoot = true; # Server must be started to ensure clients can connect
     };
   };
-
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
 }

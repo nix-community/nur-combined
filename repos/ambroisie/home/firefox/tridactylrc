@@ -15,7 +15,7 @@ set editorcmd termite --class tridactyl_editor -e 'vim %f'
 bind ;c hint -c [class*="expand"],[class="togg"],[class="comment_folder"]
 
 " Make `gu` take me back to subreddit from comments
-bindurl reddit.com gu urlparent 4
+bindurl reddit.com gu urlparent 3
 
 " Only hint search results on Google
 bindurl www.google.com f hint -Jc #search div:not(.action-menu) > a
@@ -27,7 +27,7 @@ bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
 
 " Only hint item pages on Hacker News
 bindurl news.ycombinator.com ;f hint -Jc .age > a
-bindurl news.ycombinator.com ;f hint -Jtc .age > a
+bindurl news.ycombinator.com ;F hint -Jtc .age > a
 " }}}
 
 " Better bindings {{{

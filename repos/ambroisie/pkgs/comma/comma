@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+print_err() {
+    printf "%s\n" "$1" >&2
+}
+
+usage() {
+    print_err "Usage: , <program> [argument]..."
+}
+
+find_program() {
+    local CANDIDATE
+    CANDIDATE="$(nix-locate --top-level --minimal --at-root --whole-name "/bin/$1")"
+    if [ "$(printf '%s\n' "$CANDIDATE" | wc -l)" -gt 1 ]; then
+        CANDIDATE="$(printf '%s' "$CANDIDATE" | fzf-tmux)"
+    fi
+    printf '%s' "$CANDIDATE"
+}
+
+if [ $# -lt 1 ]; then
+    usage
+    exit 1
+fi
+
+PROGRAM="$(find_program "$1")"
+if [ -z "$PROGRAM" ]; then
+    print_err "No match found for $1"
+    exit 1
+fi
+
+nix shell "nixpkgs#$PROGRAM" -c "$@"

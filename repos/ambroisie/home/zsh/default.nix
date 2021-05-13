@@ -13,7 +13,7 @@ in
     enableCompletion = true;
 
     history = {
-      size = 50000;
+      size = 500000;
       ignoreSpace = true;
       ignoreDups = true;
       share = true;

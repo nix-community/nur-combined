@@ -12,6 +12,7 @@
     ./networking.nix
     ./nix.nix
     ./packages.nix
+    ./upower.nix
     ./users.nix
   ];
 }
