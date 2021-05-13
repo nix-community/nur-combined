@@ -110,7 +110,7 @@ in {
           # findExceptions = concatStringsSep " " mapAttrsToList (n: v: "! -name ${n}.jar") cfg.plugins;
           deletePluginJars = pkgs.writeScriptBin "deletePluginJars" ''
             #!${pkgs.stdenv.shell}
-            rm ${cfg.pluginsDir}/*.jar
+            rm -f ${cfg.pluginsDir}/*.jar
           '';
         in {
           # delete all symlinked jars before and after every start
