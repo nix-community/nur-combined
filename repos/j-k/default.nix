@@ -20,6 +20,7 @@ in
   # Defined in firefox-addons
   firefox-addons = callPackage ./pkgs/firefox-addons { };
 
+  bane = callPackage ./pkgs/bane { };
   comma = callPackage ./pkgs/comma { };
   conform = callPackage ./pkgs/conform { };
   container-diff = callPackage ./pkgs/container-diff { };
