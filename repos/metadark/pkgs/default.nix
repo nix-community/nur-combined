@@ -58,14 +58,14 @@ with mergedPkgs; {
   poke = callPackage ./applications/editors/poke { };
 
   pokemmo-installer = callPackage ./games/pokemmo-installer {
-    inherit (gnome3) zenity;
+    inherit (gnome) zenity;
     jre = jdk11;
   };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
     inherit steam-run;
     inherit winetricks;
-    inherit (gnome3) zenity;
+    inherit (gnome) zenity;
   };
 
   pythonPackages = makeOverridable (import ./development/python-modules) {

@@ -105,7 +105,7 @@ in
         backgroundImages = mkOption {
           type = types.path;
           default = dirOf ldmcfg.background;
-          example = "\${pkgs.gnome3.gnome-backgrounds}/share/backgrounds/gnome";
+          example = "\${pkgs.gnome.gnome-backgrounds}/share/backgrounds/gnome";
           description = ''
             Path to directory that contains background images for use by themes.
           '';
@@ -147,7 +147,7 @@ in
       };
 
       # Use Assistive Technologies service
-      gnome3.at-spi2-core.enable = true;
+      gnome.at-spi2-core.enable = true;
     };
 
     environment.etc."lightdm/lightdm-webkit2-greeter.conf".source = webkit2GreeterConf;
