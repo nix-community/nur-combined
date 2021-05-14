@@ -7,4 +7,5 @@
   duplicity = ./duplicity;
   wordpress = ./wordpress;
   etlegacy = ./etlegacy;
+  nats = ./nats;
 }

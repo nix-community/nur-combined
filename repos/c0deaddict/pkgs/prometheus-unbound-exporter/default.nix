@@ -5,7 +5,7 @@ buildGoModule rec {
   version = "0.3";
 
   src = fetchFromGitHub {
-    owner = "kumina";
+    owner = "c0deaddict";
     repo = pname;
     rev = "v${version}";
     sha256 = "0v752z3k5vikikph1z19bx9s2iqf8sb32jlcas27hvz52h7d78g8";
@@ -18,7 +18,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Prometheus exporter for Unbound";
-    homepage = "https://github.com/kumina/unbound_exporter";
+    homepage = "https://github.com/c0deaddict/unbound_exporter";
     maintainers = [ maintainers.c0deaddict ];
     license = licenses.asl20;
   };
