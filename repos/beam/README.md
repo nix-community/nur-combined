@@ -1,5 +1,5 @@
-[![Linux](https://github.com/jechol/nix-beam/workflows/Linux/badge.svg)](https://github.com/jechol/nix-beam/actions?query=workflow%3A%22Linux%22)
-[![macOS](https://github.com/jechol/nix-beam/workflows/macOS/badge.svg)](https://github.com/jechol/nix-beam/actions?query=workflow%3A%22macOS%22)
+[![Linux](https://github.com/jechol/nix-beam/workflows/Linux/badge.svg)](https://github.com/jechol/nix-beam/actions?query=workflow%3A%23Linux%23)
+[![macOS](https://github.com/jechol/nix-beam/workflows/macOS/badge.svg)](https://github.com/jechol/nix-beam/actions?query=workflow%3A%23macOS%23)
 [![Cachix Cache](https://img.shields.io/badge/cachix-jechol-blue.svg)](https://jechol.cachix.org)
 
 # Nix Packages for Erlang, Elixir
@@ -44,22 +44,23 @@ Include NUR(Nix User Repository) to `~/.config/nixpkgs/config.nix`:
 Packages can be installed from the `nur` namespace:
 
 ```console
-$ nix-env -iA nur.repos.beam.erlang.v23_0
+$ nix-env -iA nur.repos.beam.erlang.v24_0
 $ erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().'  -noshell
-"23"
+"24"
 
-$ nix-env -iA nur.repos.beam.pkg.v22_0.elixir.v1_11_0
+$ nix-env -iA nur.repos.beam.pkg.v23_3.elixir.v1_11_4
 $ elixir --version
-Erlang/OTP 22 [erts-10.4] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1] [hipe]
+Erlang/OTP 23 [erts-10.4] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1] [hipe]
 
-Elixir 1.11.0 (compiled with Erlang/OTP 22)
+Elixir 1.11.4 (compiled with Erlang/OTP 23)
 ```
 
-See? You can use Erlang 23 and Elixir 1.11 on Erlang 22 at the same time!
+See? You can use Erlang 24.0 and Elixir 1.11.4 on Erlang 23.3 at the same time!
 
-### Included packages
+## Available packages
 
-* Erlang: Latest 3 major versions. i.e. includes 23.0, but not 23.1 or 23.0.1
-* Elixir: Latest 5 minor versions for each Erlang. i.e. includes 1.11.0, but not 1.11.1
-* Rebar3: Latest Rebar3 for each Erlang.
-* Rebar: Rebar 2.6.4 for each Erlang. 
+See available packages with
+
+```shell
+$ nix-env -qaP -f https://github.com/jechol/nix-beam/archive/master.tar.gz
+```
