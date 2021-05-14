@@ -82,10 +82,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.49.1";
+      version = "1.50.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3745234/bitwarden_free_password_manager-1.49.1-an+fx.xpi";
-      sha256 = "7e534c18ad98171551bde96f3ed9b0a5424ce818f73355866b2fb0658a67d716";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3775487/bitwarden_free_password_manager-1.50.0-an+fx.xpi";
+      sha256 = "0361ae35139c613c4b27fa80f094db250f4510f36eb5eafefdadc6f89b2050f9";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -751,10 +751,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.5.1";
+      version = "9.5.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3775478/metamask-9.5.1-an+fx.xpi";
-      sha256 = "e7d4f7303260728900d130b7912c6674f3e6ae4a06791833157765ffa38be507";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3775783/metamask-9.5.2-an+fx.xpi";
+      sha256 = "278145da579d0b04f541fc290213632740599795ace95ca9adb5bcc05cb5af9f";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1129,10 +1129,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "25.7";
+      version = "25.8";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3772950/save_page_we-25.7-fx.xpi";
-      sha256 = "b55adb4c3094b1b8d24e00d02d728d88740b1de8c7a98bdf0674773eabde736e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3775815/save_page_we-25.8-fx.xpi";
+      sha256 = "2c3533645b9457616aaaf500bb39f12f87f2ef3bcceebddbb7b88e05fd30b21a";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -1198,10 +1198,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.0.14";
+      version = "2.0.14.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3774156/sponsorblock_skip_sponsorships_on_youtube-2.0.14-an+fx.xpi";
-      sha256 = "48f9182b0bf3026a23378fdafe621211346c766e05286a5cc3c37be17245befc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3775447/sponsorblock_skip_sponsorships_on_youtube-2.0.14.1-an+fx.xpi";
+      sha256 = "021ea1c8db0b397415b9b4a612fe457a04b2374361ef8c8573cdd4b354f4ca32";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1364,10 +1364,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.0.2";
+      version = "9.0.3";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3774259/traduzir_paginas_web-9.0.2-an+fx.xpi";
-      sha256 = "93171f8a685946d033f485773adb85a6b84bd93276a32afda32992e6f7009533";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3775364/traduzir_paginas_web-9.0.3-an+fx.xpi";
+      sha256 = "0730309553adbda9dcb3d79204b3f0f62e8ba26bf4be51569b9e3032f91e4358";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
