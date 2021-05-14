@@ -1,9 +1,5 @@
-{ lib, stdenv, gdal, osmium-tool, sources }:
+{ lib, stdenv, fetchurl, gdal, osmium-tool }:
 let
-  year = lib.substring 0 2 sources.geofabrik-russia-nwfd.version;
-  month = lib.substring 2 2 sources.geofabrik-russia-nwfd.version;
-  day = lib.substring 4 2 sources.geofabrik-russia-nwfd.version;
-
   regions = [
     "RU-ARK"
     "RU-VLG"
@@ -19,27 +15,29 @@ let
   ];
 in
 {
-  admin-boundaries = stdenv.mkDerivation {
+  admin-boundaries = stdenv.mkDerivation rec {
     pname = "osm-admin-boundaries";
-    version = "20${year}-${month}-${day}";
+    version = "210512";
 
-    src = sources.geofabrik-russia-nwfd;
+    src = fetchurl {
+      url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
+      hash = "sha256-VxTUUJeqVKmFDbvf9Wd/DtNYoGuD5ZR6dhenVeDBnAg=";
+    };
 
     dontUnpack = true;
 
     nativeBuildInputs = [ gdal osmium-tool ];
 
-    buildPhase = stdenv.lib.concatMapStringsSep "\n"
-      (name: ''
-        osmium tags-filter -o ${name}-boundary.osm $src r/ISO3166-2=${name}
-        ogr2ogr -f GeoJSON ${name}-boundary.geojson ${name}-boundary.osm multipolygons
-      '')
-      regions;
+    buildPhase = lib.concatMapStringsSep "\n" (name: ''
+      osmium tags-filter -o ${name}-boundary.osm $src r/ISO3166-2=${name}
+      osmium extract -p ${name}-boundary.osm $src -s simple -o ${name}.osm
+      ogr2ogr -f GeoJSON ${name}-boundary.geojson ${name}-boundary.osm multipolygons
+    '') regions;
 
-    installPhase = "install -Dm644 *.geojson -t $out";
+    installPhase = "install -Dm644 *.geojson *.osm -t $out";
 
     meta = with lib; {
-      description = "Administrative boundaries";
+      description = "Administrative boundaries (NWFD)";
       homepage = "https://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative";
       license = licenses.free;
       maintainers = [ maintainers.sikmir ];

@@ -8,7 +8,7 @@ dockerTools.buildImage {
   runAsRoot = "mkdir -p /htdocs";
 
   config = {
-    Cmd = [ "${quark}/bin/quark" "-h" "0.0.0.0" "-p" "8080" "-g" "nobody" "-l" ];
+    Cmd = [ "quark" "-h" "0.0.0.0" "-p" "8080" "-g" "nobody" "-l" ];
     WorkingDir = "/htdocs";
     Volumes = {
       "/htdocs" = { };

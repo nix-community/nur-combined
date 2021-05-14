@@ -8,7 +8,7 @@ dockerTools.buildImage {
   runAsRoot = "mkdir -p /tilesets";
 
   config = {
-    Cmd = [ "${mbtileserver}/bin/mbtileserver" "--enable-reload" ];
+    Cmd = [ "mbtileserver" "--enable-reload" ];
     Volumes = {
       "/tilesets" = { };
     };

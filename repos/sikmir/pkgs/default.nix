@@ -108,9 +108,7 @@ lib.makeScope newScope (
 
     ### TOOLS
 
-    cmpgpx = callPackage ./tools/geo/cmpgpx {
-      inherit geotiler;
-    };
+    cmpgpx = callPackage ./tools/geo/cmpgpx { };
     datamaps = callPackage ./tools/geo/datamaps { };
     elevation = callPackage ./tools/geo/elevation {
       click = click-6-7;

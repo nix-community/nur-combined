@@ -8,7 +8,7 @@ dockerTools.buildImage {
   runAsRoot = "mkdir -p /dem";
 
   config = {
-    Cmd = [ "${elevation_server}/bin/elevation_server" "-dem" "/dem/dem_tiles" "-host" "0.0.0.0" ];
+    Cmd = [ "elevation_server" "-dem" "/dem/dem_tiles" "-host" "0.0.0.0" ];
     Volumes = {
       "/dem" = { };
     };

@@ -1,28 +1,4 @@
 {
-    "geofabrik-estonia": {
-        "builtin": false,
-        "sha256": "07gy3280arvkvfpm82aqcing1w7av6hq3crf5wxm66ipk2viwmg7",
-        "type": "file",
-        "url": "https://download.geofabrik.de/europe/estonia-210306.osm.pbf",
-        "url_template": "https://download.geofabrik.de/europe/estonia-<version>.osm.pbf",
-        "version": "210306"
-    },
-    "geofabrik-finland": {
-        "builtin": false,
-        "sha256": "1l9w1f09b1x4b5nayg86h1kqidq8nyg21rp8l8s87b4jycfhw0b0",
-        "type": "file",
-        "url": "https://download.geofabrik.de/europe/finland-210306.osm.pbf",
-        "url_template": "https://download.geofabrik.de/europe/finland-<version>.osm.pbf",
-        "version": "210306"
-    },
-    "geofabrik-russia-nwfd": {
-        "builtin": false,
-        "sha256": "0dxkamjzb98ncpgqrzw4x71n7cn48pyvrwjws840rxghdj3gfky0",
-        "type": "file",
-        "url": "https://download.geofabrik.de/russia/northwestern-fed-district-210306.osm.pbf",
-        "url_template": "https://download.geofabrik.de/russia/northwestern-fed-district-<version>.osm.pbf",
-        "version": "210306"
-    },
     "gpxlab": {
         "branch": "master",
         "builtin": false,

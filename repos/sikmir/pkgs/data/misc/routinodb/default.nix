@@ -1,17 +1,22 @@
-{ lib, stdenv, sources, routino }:
-let
-  year = lib.substring 0 2 sources.geofabrik-russia-nwfd.version;
-  month = lib.substring 2 2 sources.geofabrik-russia-nwfd.version;
-  day = lib.substring 4 2 sources.geofabrik-russia-nwfd.version;
-in
-stdenv.mkDerivation {
+{ lib, stdenv, fetchurl, routino }:
+
+stdenv.mkDerivation rec {
   pname = "routinodb";
-  version = "20${year}-${month}-${day}";
+  version = "210512";
 
   srcs = [
-    sources.geofabrik-finland
-    sources.geofabrik-estonia
-    sources.geofabrik-russia-nwfd
+    (fetchurl {
+      url = "https://download.geofabrik.de/europe/finland-${version}.osm.pbf";
+      hash = "sha256-Vw9rG/SgO6gjgqFEwcO1/PJhtYwkTT/QOeMQTiaDQAw=";
+    })
+    (fetchurl {
+      url = "https://download.geofabrik.de/europe/estonia-${version}.osm.pbf";
+      hash = "sha256-u7WoFIOx5OH+Sv7WuCw7PucS1Ohxz4GzHX2nmR29rMw=";
+    })
+    (fetchurl {
+      url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
+      hash = "sha256-VxTUUJeqVKmFDbvf9Wd/DtNYoGuD5ZR6dhenVeDBnAg=";
+    })
   ];
 
   dontUnpack = true;
@@ -35,7 +40,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Routino Database";
+    description = "Routino Database (FIN+EST+NWFD)";
     homepage = "https://download.geofabrik.de/index.html";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
