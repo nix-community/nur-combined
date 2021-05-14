@@ -1,10 +1,6 @@
 { sources ? import ./nix/sources.nix }:
 let
-  pkgs = import sources.nixpkgs {
-    overlays = [
-      (self: super: { inherit (import sources.niv { }) niv; })
-    ];
-  };
+  pkgs = import sources.nixpkgs { };
 in
 pkgs.mkShell {
   name = "nur-packages";

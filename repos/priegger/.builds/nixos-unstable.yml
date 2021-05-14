@@ -6,7 +6,7 @@ packages:
 sources:
   - https://git.sr.ht/~priegger/nur-packages
 secrets:
-  -  979bc696-35ff-421b-a46e-99f04e657a87 # cachix-priegger
+  - 979bc696-35ff-421b-a46e-99f04e657a87 # cachix-priegger
 environment:
   CACHIX_CACHE: priegger
   NUR_REPO: priegger
