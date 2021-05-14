@@ -39,7 +39,7 @@ let
       environment = { DIR = cfg.pluginsDir; };
 
       preStart = ''
-        pluginJar=`ls -1 ${package}/share/*.jar | head -1`
+        pluginJar=`ls -1 ${package}/*.jar | head -1`
         ln -sf $pluginJar ${cfg.pluginsDir}/${name}.jar
         ${concatStringsSep "\n" settingsCommands}
       '';

@@ -1,34 +1,33 @@
-{ lib, stdenv, mkDerivation, fetchurl
-}:
+{ lib, stdenv, callPackage, fetchFromGitHub}:
+let
+  buildGradle = callPackage ./gradle-env.nix {};
+in
+buildGradle rec {
+  envSpec = ./gradle-env.json;
 
-mkDerivation rec {
-  version = "0.7.1";
-  pname = "mirage";
+  pname = "dynmap";
+  version = "3.1-beta-7";
 
   src = fetchFromGitHub {
-    owner = "mirukana";
+    owner = "webbukkit";
     repo = pname;
     rev = "v${version}";
-    fetchSubmodules = true;
-    sha256 = "0j7gdg2z8yg3qvwg9d9fa3i4ig231qda48p00s5gk8bc3c65vsll";
+    sha256 = "0skaqldpzz7yjslw77rgfykj8lb237lyir42sp6h4rwsj8m73rg6";
   };
 
+  gradleFlags = [ "installDist" ];
 
-  dontWrapQtApps = true;
-  postInstall = ''
-    buildPythonPath "$out $pythonPath"
-    wrapProgram $out/bin/mirage \
-      --prefix PYTHONPATH : "$PYTHONPATH" \
-      "''${qtWrapperArgs[@]}"
-    '';
-
+  installPhase = ''
+    mkdir -p $out
+    cp -r app/build/install/myproject $out
+  '';
 
   meta = with lib; {
-    homepage = "https://github.com/mirukana/mirage/";
+    homepage = "https://github.com/webbukkit/dynmap";
     description =
-      " A fancy, customizable, keyboard-operable Qt/QML+Python Matrix chat client for encrypted and decentralized communication.";
-    license = licenses.lgpl3;
+    " A set of Minecraft mods that provide a real time web-based map system for various Minecraft server implementations.";
+    license = licenses.asl20;
+    broken = true;
     # maintainers = with maintainers; [ zeratax ];
   };
 }
-

@@ -26,7 +26,7 @@ in stdenv.mkDerivation rec {
 
   installPhase = ''
     ls target/
-    install -Dm644 target/Harbor-${version}.jar $out/share/${pname}.jar
+    install -Dm644 target/Harbor-${version}.jar $out/${pname}.jar
   '';
 
   meta = with stdenv.lib; {
