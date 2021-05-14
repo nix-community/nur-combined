@@ -1,20 +1,20 @@
-{ lib, openssl_1_0_2, wxGTK30, beamLib, util, deriveErlangFeatureVariants }:
+{ lib, openssl_1_1, wxGTK30, beamLib, util, deriveErlangFeatureVariants }:
 
 let
   # releases = util.findByPrefix ./. (baseNameOf ./.);
-  releases = [ ./R22.0.nix ];
+  releases = [ ];
 
   buildOpts = {
     wxGTK = wxGTK30;
     # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
     parallelBuild = true;
+    wxSupport = true;
   };
 
   variantOpts = {
     "" = {
       odbcSupport = true;
       javacSupport = true;
-      wxSupport = true;
     };
   };
 

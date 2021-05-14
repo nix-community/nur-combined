@@ -1,4 +1,4 @@
-{ pkgs, callPackage, wxGTK30, openssl_1_0_2, lib, util }:
+{ pkgs, callPackage, wxGTK30, openssl_1_1, lib, util }:
 
 with lib.attrsets;
 let

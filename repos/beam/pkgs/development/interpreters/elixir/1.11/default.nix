@@ -2,5 +2,5 @@
 
 let
   # releases = util.findByPrefix ./. (baseNameOf ./.);
-  releases = [ ./1.11.0.nix ];
-in deriveElixirs releases "21" "23"
+  releases = [ ./1.11.4.nix ];
+in deriveElixirs releases "21" "24"

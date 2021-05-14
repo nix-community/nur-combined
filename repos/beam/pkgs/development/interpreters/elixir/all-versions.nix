@@ -1,4 +1,4 @@
-{ lib, callPackage, rebar, erlang, debugInfo, annotateErlangInVersion, util }:
+{ lib, callPackage, erlang, debugInfo, annotateErlangInVersion, util }:
 
 let
   beamLib = callPackage ../../beam-modules/lib.nix { };
@@ -16,8 +16,8 @@ let
     in if meetMin && meetMax then
       let
 
-        pkgs = map (r: beamLib.callElixir r { inherit rebar erlang debugInfo; })
-          releases;
+        pkgs =
+          map (r: beamLib.callElixir r { inherit erlang debugInfo; }) releases;
 
         pairs = map (pkg: {
           name = "v${util.snakeVersion pkg.version}";

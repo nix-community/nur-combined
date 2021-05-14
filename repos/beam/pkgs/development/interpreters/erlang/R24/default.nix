@@ -1,20 +1,19 @@
-{ lib, openssl_1_0_2, wxGTK30, beamLib, util, deriveErlangFeatureVariants }:
+{ lib, openssl_1_1, wxGTK30, beamLib, util, deriveErlangFeatureVariants }:
 
 let
-  # Remove R18 because rebar3 support R19+
-  releases = [ ];
-  # releases = util.findByPrefix ./. (baseNameOf ./.);
+  releases = util.findByPrefix ./. (baseNameOf ./.);
 
   buildOpts = {
     wxGTK = wxGTK30;
-    openssl = openssl_1_0_2;
+    # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
+    parallelBuild = true;
+    wxSupport = true;
   };
 
   variantOpts = {
     "" = {
       odbcSupport = true;
       javacSupport = true;
-      wxSupport = true;
     };
   };
 
