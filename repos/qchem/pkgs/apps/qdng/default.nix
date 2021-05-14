@@ -27,10 +27,11 @@ in stdenv.mkDerivation {
                   bzip2 zlib libxml2 flex bison ];
   nativeBuildInputs = [ automake autoconf libtool ];
 
-  meta = {
+  meta = with lib; {
     description = "Quantum dynamics program package";
-    platforms = lib.platforms.linux;
-    maintainer = "markus.kowalewski@gmail.com";
+    platforms = platforms.linux;
+    maintainer = [ maintainers.markuskowa ];
+    license = licenses.unfree;
   };
 
 }

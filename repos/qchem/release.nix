@@ -26,14 +26,27 @@ let
       overlays = [ overlay ] ++ preOverlays ++ [ (import ./default.nix) ] ++ postOverlays;
       config.allowUnfree = allowUnfree;
       config.qchem-config = cfg;
+      # Provide a handler to sort out unfree Packages
+      # This creates a hard fail, which we can test with tryEval v.drvPath
+      config.handleEvalIssue = reason: message:
+        if reason == "unfree" then false
+        else throw message;
+      # config.checkMetaRecursively = true;
+      config.inHydra = true;
     };
 
     makeForPython = plist:
       pkgSet.lib.foldr (a: b: a // b) {}
-      (map (x: { "${x}" = pkgSet."${cfg.prefix}"."${x}".pkgs."${cfg.prefix}"; }) plist);
+      (map (x: { "${x}" = hydraJobs pkgSet."${cfg.prefix}"."${x}".pkgs."${cfg.prefix}"; }) plist);
 
-    # Filter out derivations
-    hydraJobs = with pkgSet.lib; filterAttrs (n: v: isDerivation v);
+    # Filter out valid derivations
+    hydraJobs = with pkgSet.lib; filterAttrs (n: v:
+      isDerivation v && (if allowUnfree then true else (builtins.tryEval v.drvPath).success)
+    );
+
+    # Filter Attributes from set by name and put them in a list
+    selectList = attributes: pkgs: with pkgSet.lib; mapAttrsToList (n: v: v)
+      (filterAttrs (attr: val: (foldr (a: b: a == attr || b) false attributes)) pkgs);
 
     # Make sure we only build the overlay's content
     pkgsClean = hydraJobs pkgSet."${cfg.prefix}"
@@ -47,17 +60,16 @@ let
       // rec {
         tested = pkgSet.releaseTools.aggregate {
           name = "tested-programs";
-          constituents = with pkgSet."${cfg.prefix}"; [
-            tests.cp2k
-            tests.nwchem
-            tests.molcas
-          ] ++ pkgSet.lib.optionals allowUnfree [
-            molden
-          ] ++ pkgSet.lib.optionals (cfg.srcurl != null && allowUnfree) [
-            tests.molpro
-            tests.mesa-qc
-            tests.qdng
-          ];
+          constituents = selectList [ "molden" ] ( hydraJobs pkgSet."${cfg.prefix}" )
+            ++
+            selectList [
+              "cp2k"
+              "nwchem"
+              "molcas"
+              "molpro"
+              "mesa-qc"
+              "qdng"
+            ] ( hydraJobs pkgSet."${cfg.prefix}".tests );
         };
 
         nixexprs = pkgSet.runCommand "nixexprs" {}
