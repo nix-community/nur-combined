@@ -8,6 +8,8 @@
     networking.interfaces.enp0s31f6.useDHCP = true;
     networking.interfaces.wlp4s0.useDHCP = true;
 
+    nixpkgs.config.allowUnfree = true;
+
     programs.steam.enable = true;
 
     services.jupyterhub.enable = true;
