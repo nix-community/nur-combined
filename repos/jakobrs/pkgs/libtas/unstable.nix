@@ -22,13 +22,13 @@ let
 
 in relevantStdenv.mkDerivation rec {
   pname = "libtas";
-  version = "unstable-2021-04-22";
+  version = "unstable-2021-05-15";
 
   src = fetchFromGitHub {
     owner = "clementgallet";
     repo = "libTAS";
-    rev = "ca915b1e059bd2c06e6a6fcb580679adc363d1d0";
-    hash = "sha256:0sghj11li850zmffw4bz2yr8ivr8127aqbrad2fhih8jr1j6naxl";
+    rev = "652c8d3da34ec83b4e7e2ec91da9cdaaf1d48501";
+    hash = "sha256:0jk1h2hbv2cy8szrc8x0wnzc4kwdmd83irqwz1gc3hqn1y0wz4sc";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig wrapQtAppsHook git ];
@@ -46,7 +46,10 @@ in relevantStdenv.mkDerivation rec {
   dontStrip = true; # Segfaults, bug in patchelf
 
   patches = [
-    ./libtaspath-unstable.patch
+    (fetchpatch {
+      url = "https://github.com/clementgallet/libTAS/pull/415.patch";
+      sha256 = "19s62mxl66fqclqbvbffd3qgw56ksyvi274q8a44i68jbsvh1c9m";
+    })
   ];
 
   # Note that this builds an extra .so file in the same derivation
@@ -56,11 +59,6 @@ in relevantStdenv.mkDerivation rec {
     "--disable-build-date"
   ] ++ lib.optional multiArch "--with-i386";
 
-  postPatch = ''
-    substituteInPlace src/program/main.cpp \
-      --subst-var out
-  '';
-
   postInstall = ''
     mkdir -p $out/lib
     mv $out/bin/libtas*.so $out/lib/
@@ -69,7 +67,9 @@ in relevantStdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   postFixup = ''
-    wrapProgram $out/bin/libTAS --suffix PATH : ${lib.makeBinPath [ file ]}
+    wrapProgram $out/bin/libTAS \
+      --suffix PATH : ${lib.makeBinPath [ file ]} \
+      --set-default LIBTAS_SO_PATH $out/lib/libtas.so
   '';
 
   meta = {
