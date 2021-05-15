@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@discoveryjs/json-ext-0.5.2" = {
+    "@discoveryjs/json-ext-0.5.3" = {
       name = "_at_discoveryjs_slash_json-ext";
       packageName = "@discoveryjs/json-ext";
-      version = "0.5.2";
+      version = "0.5.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.2.tgz";
-        sha512 = "HyYEUDeIj5rRQU2Hk5HTB2uHsbRQpF70nvMhVzi+VJR0X+xNEhjPui4/kBf3VeH/wqD28PT4sVOm8qqLjBrSZg==";
+        url = "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz";
+        sha512 = "Fxt+AfXgjMoin2maPIYzFZnQjAXjAL0PHscM5pRTtatFqB+vZxAM9tLp2Optnuw3QOQC40jTNeGYFOMvyf7v9g==";
       };
     };
     "@webpack-cli/configtest-1.0.3" = {
@@ -166,13 +166,13 @@ let
         sha512 = "Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==";
       };
     };
-    "is-core-module-2.3.0" = {
+    "is-core-module-2.4.0" = {
       name = "is-core-module";
       packageName = "is-core-module";
-      version = "2.3.0";
+      version = "2.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.3.0.tgz";
-        sha512 = "xSphU2KG9867tsYdLD4RWQ1VqdFl4HTO9Thf3I/3dLEfr0dbPTWKsuCKrgqMljg4nPE+Gq0VCnzT3gr0CyBmsw==";
+        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.4.0.tgz";
+        sha512 = "6A2fkfq1rfeQZjxrZJGerpLCTHRNEBiSgnu0+obeJpEPZRUooHgsizvzv0ZjJwOz3iWIHdJtVWJ/tmPr3D21/A==";
       };
     };
     "is-plain-object-2.0.4" = {
@@ -452,7 +452,7 @@ let
     version = "4.7.0";
     src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.7.0.tgz"; sha1 = "3195a777f1f802ecda732f6c95d24c0004bc5a35"; };
     dependencies = [
-      sources."@discoveryjs/json-ext-0.5.2"
+      sources."@discoveryjs/json-ext-0.5.3"
       sources."@webpack-cli/configtest-1.0.3"
       sources."@webpack-cli/info-1.2.4"
       sources."@webpack-cli/serve-1.4.0"
@@ -470,7 +470,7 @@ let
       sources."human-signals-2.1.0"
       sources."import-local-3.0.2"
       sources."interpret-2.2.0"
-      sources."is-core-module-2.3.0"
+      sources."is-core-module-2.4.0"
       sources."is-plain-object-2.0.4"
       sources."is-stream-2.0.0"
       sources."isexe-2.0.0"

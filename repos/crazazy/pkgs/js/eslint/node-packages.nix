@@ -67,13 +67,13 @@ let
         sha512 = "j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==";
       };
     };
-    "ajv-8.2.0" = {
+    "ajv-8.4.0" = {
       name = "ajv";
       packageName = "ajv";
-      version = "8.2.0";
+      version = "8.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ajv/-/ajv-8.2.0.tgz";
-        sha512 = "WSNGFuyWd//XO8n/m/EaOlNLtO0yL8EXT/74LqT4khdhpZjP7lkj/kT5uwRmGitKEVp/Oj7ZUHeGfPtgHhQ5CA==";
+        url = "https://registry.npmjs.org/ajv/-/ajv-8.4.0.tgz";
+        sha512 = "7QD2l6+KBSLwf+7MuYocbWvRPdOu63/trReTLu2KFwkgctnub1auoF+Y1WYcm09CTM7quuscrzqmASaLHC/K4Q==";
       };
     };
     "ansi-colors-4.1.1" = {
@@ -904,13 +904,13 @@ let
         sha512 = "qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==";
       };
     };
-    "table-6.7.0" = {
+    "table-6.7.1" = {
       name = "table";
       packageName = "table";
-      version = "6.7.0";
+      version = "6.7.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/table/-/table-6.7.0.tgz";
-        sha512 = "SAM+5p6V99gYiiy2gT5ArdzgM1dLDed0nkrWmG6Fry/bUS/m9x83BwpJUOf1Qj/x2qJd+thL6IkIx7qPGRxqBw==";
+        url = "https://registry.npmjs.org/table/-/table-6.7.1.tgz";
+        sha512 = "ZGum47Yi6KOOFDE8m223td53ath2enHcYLgOCjGr5ngu8bdIARQk6mN/wRMv4yMRcHnCSnHbCEha4sobQx5yWg==";
       };
     };
     "text-table-0.2.0" = {
@@ -1007,8 +1007,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.25.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.25.0.tgz"; sha1 = "1309e4404d94e676e3e831b3a3ad2b050031eb67"; };
+    version = "7.26.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.26.0.tgz"; sha1 = "d416fdcdcb3236cd8f282065312813f8c13982f6"; };
     dependencies = [
       sources."@babel/code-frame-7.12.11"
       sources."@babel/helper-validator-identifier-7.14.0"
@@ -1141,9 +1141,9 @@ let
       sources."strip-ansi-6.0.0"
       sources."strip-json-comments-3.1.1"
       sources."supports-color-5.5.0"
-      (sources."table-6.7.0" // {
+      (sources."table-6.7.1" // {
         dependencies = [
-          sources."ajv-8.2.0"
+          sources."ajv-8.4.0"
           sources."json-schema-traverse-1.0.0"
         ];
       })
