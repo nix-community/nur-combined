@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   dwm = pkgs.callPackage ./pkgs/dwm { };
+  st = pkgs.callPackage ./pkgs/st { };
 }
