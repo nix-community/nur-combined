@@ -101,6 +101,8 @@ with mergedPkgs; {
     pythonPackages = pkgs.python310Packages;
   };
 
+  replay-sorcery = callPackage ./tools/video/replay-sorcery { };
+
   rofi-wayland = callPackage ./applications/misc/rofi-wayland { };
 
   runescape-launcher = callPackage ./games/runescape-launcher/wrapper.nix { };
