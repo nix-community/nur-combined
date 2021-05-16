@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "kineto";
-  version = "2021-01-15";
+  version = "2021-02-25";
 
   src = fetchFromSourcehut {
     owner = "~sircmpwn";
     repo = pname;
-    rev = "8f35e0a2b17b70691b8634c2bd8c99f98557105c";
-    hash = "sha256-Qh9q6HWEgsXCteNoF5jAARfHPlmEGT2yPWJjW8dEAm4=";
+    rev = "edd4fe31f16f9eb9565d2b6a329738ceedea8de9";
+    hash = "sha256-qRBD9b4Vtb23pzsnSwbNly/EUtptCdmM+gq2HMt3jbY=";
   };
 
-  vendorSha256 = "06yjz1rsnfz2dyky53q4y5g05f2h724cjvc9z5d57rra1kjp3p1j";
+  vendorSha256 = "sha256-+CLJJ4najojIE/0gMlhZxb1P7owdY9+cTnRk+UmHogk=";
 
   meta = with lib; {
     description = "An HTTP to Gemini proxy";

@@ -1,15 +1,19 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub, conf ? null }:
 
 stdenv.mkDerivation rec {
   pname = "sfm";
-  version = "2021-03-13";
+  version = "2021-05-16";
 
   src = fetchFromGitHub {
     owner = "afify";
     repo = pname;
-    rev = "b6063fd0a91a0ee976a09c79cbeb097ba26bfd21";
-    hash = "sha256-tRT8snpxXKwOHFT9GoK8xQnu8mQbUfbujyii2paQEaU=";
+    rev = "cc1efcf914bbfe75cbd2ce2a1a90e764d5b88bfd";
+    hash = "sha256-6pdxfRhvZDde332BFIYlcia5JVMS79HlgEZ/T5CniZo=";
   };
+
+  configFile = lib.optionalString (conf!=null) (lib.writeText "config.def.h" conf);
+
+  postPatch = lib.optionalString (conf!=null) "cp ${configFile} config.def.h";
 
   installFlags = [ "PREFIX=$(out)" ];
 

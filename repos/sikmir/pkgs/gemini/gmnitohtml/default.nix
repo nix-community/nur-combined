@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "gmnitohtml";
-  version = "2021-04-24";
+  version = "2021-05-08";
 
   src = fetchFromSourcehut {
     owner = "~adnano";
     repo = pname;
-    rev = "b3379f9536a27b689e0a5bfe87c25aacf26e8b30";
-    hash = "sha256-RNrAjGTdvyP+jCXnSYtnrXSPl+l1PGVk9vjHBawzRII=";
+    rev = "332368e55341b8de44eecd5abe128d4a4b6a3087";
+    hash = "sha256-iYN6DGYMsLSbkAWRr7KygkgxxDuoFqopxwr9gfiiC+0=";
   };
 
   nativeBuildInputs = [ scdoc ];
