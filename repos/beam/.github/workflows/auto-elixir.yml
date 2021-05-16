@@ -1,6 +1,8 @@
 name: "Auto fetch Elixir"
 on:
   push:
+    branches:
+      - "*"
     paths-ignore:
       - .gitignore
       - README.md
