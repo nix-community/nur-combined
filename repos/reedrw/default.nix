@@ -19,7 +19,6 @@
   comma = pkgs.callPackage ./pkgs/comma { }; # From https://github.com/Shopify/comma/pull/7
   picom-next-ibhagwan = pkgs.callPackage ./pkgs/picom-next-ibhagwan { };
   toonmux = pkgs.callPackage ./pkgs/toonmux { };
-  uwuify = pkgs.callPackage ./pkgs/uwuify { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
