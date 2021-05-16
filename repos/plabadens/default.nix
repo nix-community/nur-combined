@@ -16,6 +16,8 @@ rec {
 
   clight-gui = pkgs.libsForQt5.callPackage ./pkgs/clight-gui { };
 
+  diskgraph = pkgs.callPackage ./pkgs/diskgraph { };
+
   edmarketconnector = pkgs.python3.pkgs.toPythonApplication python3Packages.edmarketconnector;
 
   python3Packages = pkgs.recurseIntoAttrs (
