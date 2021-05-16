@@ -861,10 +861,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.0.2";
+      version = "7.0.3";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3757981/octotree_github_code_tree-7.0.2-fx.xpi";
-      sha256 = "e162f2a2114c46bb72ba2165194940b7d3e1a6ab09b5e6c6ea2e32721ea1b602";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3776606/octotree_github_code_tree-7.0.3-fx.xpi";
+      sha256 = "8afb336a451648c6963893dfe2ae576a070dd60a8c75d5949a8eda42d56ee373";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
