@@ -1,0 +1,156 @@
+From f7d3794668563d4bb8cd96f1f846d0c8ff67d822 Mon Sep 17 00:00:00 2001
+From: jakobrs <jakobrs100@gmail.com>
+Date: Sun, 16 May 2021 12:02:55 +0200
+Subject: [PATCH] Add --libtas32-so-path and LIBTAS32_SO_PATH
+
+---
+ src/program/Context.h            |  5 ++++-
+ src/program/GameThread.cpp       |  4 +---
+ src/program/main.cpp             | 30 +++++++++++++++++++++++++++++-
+ src/program/ui/ErrorChecking.cpp | 21 +++++++++------------
+ 4 files changed, 43 insertions(+), 17 deletions(-)
+
+diff --git a/src/program/Context.h b/src/program/Context.h
+index ed5cf8b7..40f59e0a 100644
+--- a/src/program/Context.h
++++ b/src/program/Context.h
+@@ -82,9 +82,12 @@ struct Context {
+     /* config */
+     Config config;
+ 
+-    /* Absolute path of libTAS.so */
++    /* Absolute path of libtas.so */
+     std::string libtaspath;
+ 
++    /* Absolute path of libtas32.so */
++    std::string libtas32path;
++
+     /* Absolute path of the game executable */
+     std::string gamepath;
+ 
+diff --git a/src/program/GameThread.cpp b/src/program/GameThread.cpp
+index be47f42d..39e7ab2e 100644
+--- a/src/program/GameThread.cpp
++++ b/src/program/GameThread.cpp
+@@ -95,9 +95,7 @@ void GameThread::launch(Context *context)
+ 
+     /* Switch to libtas32.so if required */
+     if (((gameArch == BT_ELF32) || (gameArch == BT_PE32)) && (libtasArch == BT_ELF64)) {
+-        std::string libname("libtas.so");
+-        size_t pos = context->libtaspath.find(libname);
+-        context->libtaspath.replace(pos, libname.length(), "libtas32.so");
++        context->libtaspath = context->libtas32path;
+         /* libtas32.so presence was already checked in ui/ErrorChecking.cpp */
+         libtasArch = extractBinaryType(context->libtaspath);
+     }
+diff --git a/src/program/main.cpp b/src/program/main.cpp
+index 6393d41b..f1e77281 100644
+--- a/src/program/main.cpp
++++ b/src/program/main.cpp
+@@ -65,6 +65,7 @@ static void print_usage(void)
+     std::cout << "  -w, --write MOVIE       Record game inputs into the specified MOVIE file" << std::endl;
+     std::cout << "  -n, --non-interactive   Don't offer any interactive choice, so that it can run headless" << std::endl;
+     std::cout << "      --libtas-so-path    Path to libtas.so (equivalent to setting LIBTAS_SO_PATH)" << std::endl;
++    std::cout << "      --libtas32-so-path  Path to libtas32.so (equivalent to setting LIBTAS32_SO_PATH)" << std::endl;
+     std::cout << "  -h, --help              Show this message" << std::endl;
+ }
+ 
+@@ -97,6 +98,7 @@ int main(int argc, char **argv)
+         {"dump", required_argument, nullptr, 'd'},
+         {"non-interactive", no_argument, nullptr, 'n'},
+         {"libtas-so-path", required_argument, nullptr, 'p'},
++        {"libtas32-so-path", required_argument, nullptr, 'P'},
+         {"help", no_argument, nullptr, 'h'},
+         {nullptr, 0, nullptr, 0}
+     };
+@@ -130,6 +132,12 @@ int main(int argc, char **argv)
+                     context.libtaspath = abspath;
+                 }
+                 break;
++            case 'P':
++                abspath = realpath_nonexist(optarg);
++                if (!abspath.empty()) {
++                    context.libtas32path = abspath;
++                }
++                break;
+             case '?':
+                 std::cout << "Unknown option character" << std::endl;
+                 break;
+@@ -202,7 +210,7 @@ int main(int argc, char **argv)
+     context.config.km = new KeyMappingQuartz(nullptr);
+ #endif
+ 
+-    /* libTAS.so path */
++    /* libtas.so path */
+     /* TODO: Not portable! */
+     if (context.libtaspath.empty()) {
+         char *libtaspath_from_env = getenv("LIBTAS_SO_PATH");
+@@ -232,6 +240,26 @@ int main(int argc, char **argv)
+ #endif
+     }
+ 
++    /* libtas32.so path */
++    if (context.libtas32path.empty()) {
++        char *libtas32path_from_env = getenv("LIBTAS32_SO_PATH");
++        if (libtas32path_from_env) {
++            abspath = realpath_nonexist(libtas32path_from_env);
++            if (!abspath.empty()) {
++                context.libtas32path = abspath;
++            }
++        }
++    }
++    if (context.libtas32path.empty()) {
++        std::string lib32path = context.libtaspath;
++        std::string libname("libtas.so");
++        size_t pos = context.libtaspath.find(libname);
++        if (pos != std::string::npos) {
++            lib32path.replace(pos, libname.length(), "libtas32.so");
++            context.libtas32path = lib32path;
++        }
++    }
++
+     /* Create the working directories */
+     char *path = getenv("XDG_CONFIG_HOME");
+     if (path) {
+diff --git a/src/program/ui/ErrorChecking.cpp b/src/program/ui/ErrorChecking.cpp
+index 07ad7fb4..44d1c53b 100644
+--- a/src/program/ui/ErrorChecking.cpp
++++ b/src/program/ui/ErrorChecking.cpp
+@@ -125,7 +125,7 @@ bool ErrorChecking::checkArchType(Context* context)
+ 
+     /* Checking that the libtas.so library path is correct */
+     if (access(context->libtaspath.c_str(), F_OK) != 0) {
+-        critical(QString("libtas.so library at %1 was not found. Make sure that the file libtas.so is in the same directory as libTAS file").arg(context->libtaspath.c_str()), context->interactive);
++        critical(QString("libtas.so library at %1 was not found. Make sure that the libtas.so file is in the same directory as the libTAS executable").arg(context->libtaspath.c_str()), context->interactive);
+         return false;
+     }
+ 
+@@ -163,17 +163,14 @@ bool ErrorChecking::checkArchType(Context* context)
+ 
+     /* Check for a possible libtas alternate file */
+     if (((gameArch == BT_ELF32) || (gameArch == BT_PE32)) && (libtasArch == BT_ELF64)) {
+-        std::string lib32path = context->libtaspath;
+-        std::string libname("libtas.so");
+-        size_t pos = context->libtaspath.find(libname);
+-        if (pos != std::string::npos) {
+-            lib32path.replace(pos, libname.length(), "libtas32.so");
+-
+-            /* Checking that libtas32.so exists */
+-            if (access(lib32path.c_str(), F_OK) == 0) {
+-                /* Just in case, check the arch */
+-                libtasArch = extractBinaryType(lib32path);
+-            }
++        if (context->libtas32path.empty()) {
++            critical(QString("Trying to launch a 32-bit game with a 64-bit build of libTAS, but libTAS couldn't guess the path to libtas32.so. Use --libtas32-so-path (see --help)"), context->interactive);
++            return false;
++        } else if (access(context->libtas32path.c_str(), F_OK) != 0) {
++            critical(QString("Trying to launch a 32-bit game with a 64-bit build of libTAS, but no libtas32.so library could be found at %1. Make sure that libTAS was built with dual-arch support and that the libtas32.so file is in the same directory as the libTAS executable").arg(context->libtas32path.c_str()), context->interactive);
++            return false;
++        } else {
++            libtasArch = extractBinaryType(context->libtas32path);
+         }
+     }
+ 
+-- 
+2.31.1
+

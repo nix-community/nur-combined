@@ -50,6 +50,7 @@ in relevantStdenv.mkDerivation rec {
       url = "https://github.com/clementgallet/libTAS/pull/415.patch";
       sha256 = "19s62mxl66fqclqbvbffd3qgw56ksyvi274q8a44i68jbsvh1c9m";
     })
+    ./0001-Add-libtas32-so-path-and-LIBTAS32_SO_PATH.patch
   ];
 
   # Note that this builds an extra .so file in the same derivation
