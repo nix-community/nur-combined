@@ -17,8 +17,10 @@ let
     ha-dyson-cloud = pySelf.callPackage ./pkgs/ha-dyson-cloud { };
     haManifestRequirementsCheckHook = pySelf.callPackage pkgs/build-support/ha-custom-components/ha-manifest-requirements-check-hook.nix {};
     homeassistant = pySelf.toPythonModule pkgs.home-assistant;
+    homeassistant-stubs = pySelf.callPackage ./pkgs/homeassistant-stubs { };
     libdyson = pySelf.callPackage ./pkgs/libdyson { };
     libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
+    monkeytype = pySelf.callPackage ./pkgs/monkeytype { };
     pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
     ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
     tesla-custom-component = pySelf.callPackage ./pkgs/tesla-custom-component { };
