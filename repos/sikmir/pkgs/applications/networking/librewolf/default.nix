@@ -1,51 +1,44 @@
-{ lib, stdenv, fetchgit, fetchurl, appimageTools, undmg, lang ? "en-US" }:
+{ lib, stdenv, fetchurl, appimageTools, undmg }:
 let
-  inherit (stdenv.hostPlatform) system;
-  throwSystem = throw "Unsupported system: ${system}";
-
   pname = "librewolf";
-  version = "83.0";
+  version = "88.0.1";
   name = "${pname}-${version}";
 
-  firefox = fetchurl {
-    url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}/mac/${lang}/Firefox%20${version}.dmg";
-    sha256 = {
-      en-US = "1ikfcdsz0pgaiwal47fnbybam513p5a1fn99g74wcf80wj27hlky";
-      eo = "0vj93igq98rdib5fv6l362mn8mqknq2nsacaki4wxg4r7z0yji0r";
-      fi = "0gi96mylj3wh3kyhw8mhdlzai64cr8g9g36jxi6ydca9aj134vwm";
-      ru = "0qjhdxwiwn9hqz5fsw2x6yw2qbh0054fkbsk915gwqamlfi1x31j";
-    }.${lang};
-    name = "Firefox.dmg";
+  srcs = {
+    x86_64-linux = fetchurl {
+      url = "https://gitlab.com/librewolf-community/browser/appimage/-/jobs/1246930630/artifacts/raw/LibreWolf-${version}-1.x86_64.AppImage";
+      hash = "sha256-5W7wO0DJJTbC6B8N+i6hjKImrEvhjUUsVTxkzWQXyOQ=";
+    };
+    aarch64-linux = fetchurl {
+      url = "https://gitlab.com/librewolf-community/browser/appimage/-/jobs/1246930548/artifacts/raw/LibreWolf-${version}-1.aarch64.AppImage";
+      hash = "sha256-cHDs5eaPNaS7Eng0GMDvRMaAKYKJxezWfU2QkXanSO4=";
+    };
+    x86_64-darwin = fetchurl {
+      url = "https://gitlab.com/librewolf-community/browser/macos/uploads/271c8180431a4e05ad7159626dfba5ec/librewolf-${version}-2_x86.dmg";
+      hash = "sha256-0SCQOx350hLklS/HA+IimKD6S0fc6FC5P5MU660ij3Y=";
+    };
+    aarch64-darwin = fetchurl {
+      url = "https://gitlab.com//librewolf-community/browser/macos/uploads/02461b5e5f59b74c1fdd0e0682a65124/librewolf-${version}-2_aarch64_exp.dmg";
+      hash = "sha256-e2rXWNjPiybRK6nw4hOiCxnLQ/z3pLOMZw7zO/mk9Ek";
+    };
   };
-
-  librewolf = fetchurl {
-    url = {
-      x86_64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/91420360aa0b7a059bd855e20d1b8a8a/LibreWolf-${version}-1.x86_64.AppImage";
-      aarch64-linux = "https://gitlab.com/librewolf-community/browser/linux/uploads/c24cfeea0298499fa755536fadb27ab5/LibreWolf-${version}-1.aarch64.AppImage";
-    }.${system} or throwSystem;
-    sha256 = {
-      x86_64-linux = "1alrplhj4yx4svl8rnkyw844aybicx1zyp5aap32rvmmg0blga1n";
-      aarch64-linux = "0s7x4xm7iv9d2k018m0azk2s2gk5w2n7xg6bqba4qg2pdnx39hyp";
-    }.${system} or throwSystem;
-  };
+  src = srcs.${stdenv.hostPlatform.system};
 
   meta = with lib; {
     description = "A fork of Firefox, focused on privacy, security and freedom";
     homepage = "https://librewolf-community.gitlab.io/";
     license = licenses.mpl20;
     maintainers = [ maintainers.sikmir ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
+    platforms = builtins.attrNames srcs;
     skip.ci = true;
   };
 
   appimageContents = appimageTools.extract {
-    inherit name;
-    src = librewolf;
+    inherit name src;
   };
 
   linux = appimageTools.wrapType2 rec {
-    inherit name meta;
-    src = librewolf;
+    inherit name src meta;
 
     extraInstallCommands = ''
       mv $out/bin/{${name},${pname}}
@@ -55,32 +48,15 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit pname version meta;
+    inherit pname version src meta;
 
-    src = fetchgit {
-      url = "https://gitlab.com/librewolf-community/browser/macos";
-      rev = "3fcf44663ff1fb4e180fb3cdb26620abe7284b53";
-      sha256 = "0p517ixkgp3sl7b26mdjr9mwv6155xx8ah85fgpwqnpryr64xs3d";
-    };
+    nativeBuildInputs = [ undmg ];
 
-    postPatch = ''
-      substituteInPlace package.sh \
-        --replace "codesign" "/usr/bin/codesign" \
-        --replace "cp" "/bin/cp" \
-        --replace "hdiutil" "/usr/bin/hdiutil" \
-        --replace "out_dir=" "out_dir=. #"
-    '';
-
-    buildPhase = ''
-      # Use fresh FF dmgs for each build.
-      cp ${firefox} Firefox.dmg
-      ./package.sh Firefox.dmg
-    '';
+    sourceRoot = ".";
 
     installPhase = ''
-      ${undmg}/bin/undmg LibreWolf.dmg
       mkdir -p $out/Applications
-      cp -r LibreWolf.app $out/Applications
+      cp -r *.app $out/Applications
     '';
   };
 in

@@ -1,29 +1,9 @@
-{ lib, stdenvNoCC, fetchurl, unzip
-, withVRT ? true, gdal }:
+{ lib, stdenvNoCC, fetchurl, unzip, gdal, elevation_server }:
 let
-  dem1 = builtins.fromJSON (builtins.readFile ./dem1.json);
-in
-stdenvNoCC.mkDerivation {
-  pname = "dem";
   version = "2014-05-25";
 
-  srcs = lib.mapAttrsToList (name: spec: fetchurl spec) dem1;
-
-  unpackPhase = "for src in $srcs; do ${unzip}/bin/unzip $src; done";
-
-  nativeBuildInputs = lib.optional withVRT gdal;
-
-  dontConfigure = true;
-  dontBuild = true;
-  dontFixup = true;
-
-  preferLocalBuild = true;
-
-  installPhase = ''
-    install -Dm644 **/*.hgt -t $out
-  '' + lib.optionalString withVRT ''
-    gdalbuildvrt $out/SRTM.vrt $out/*.hgt
-  '';
+  dem1 = builtins.fromJSON (builtins.readFile ./dem1.json);
+  dem3 = builtins.fromJSON (builtins.readFile ./dem3.json);
 
   meta = with lib; {
     description = "Digital Elevation Data";
@@ -32,5 +12,45 @@ stdenvNoCC.mkDerivation {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
+  };
+in
+{
+  vrt = stdenvNoCC.mkDerivation rec {
+    pname = "dem1-vrt";
+    inherit version meta;
+
+    srcs = lib.mapAttrsToList (name: spec: fetchurl spec) dem1;
+
+    unpackPhase = lib.concatMapStringsSep "\n" (src: "unzip ${src}") srcs;
+
+    nativeBuildInputs = [ unzip gdal ];
+
+    dontFixup = true;
+    preferLocalBuild = true;
+
+    installPhase = ''
+      install -Dm644 **/*.hgt -t $out/hgt
+      gdalbuildvrt $out/SRTM1.vrt $out/hgt/*.hgt
+    '';
+  };
+
+  tiles = stdenvNoCC.mkDerivation rec {
+    pname = "dem3-tiles";
+    inherit version meta;
+
+    # 1 arc-second hgt files are not supported by elevation_server
+    srcs = lib.mapAttrsToList (name: spec: fetchurl spec) dem3;
+
+    unpackPhase = lib.concatMapStringsSep "\n" (src: "unzip ${src}") srcs;
+
+    nativeBuildInputs = [ unzip elevation_server ];
+
+    dontFixup = true;
+    preferLocalBuild = true;
+
+    installPhase = ''
+      install -Dm644 **/*.hgt -t $out/hgt
+      make_data -hgt $out/hgt -out $out/dem_tiles
+    '';
   };
 }

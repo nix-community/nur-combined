@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "kiln";
-  version = "2021-05-12";
+  version = "2021-05-16";
 
   src = fetchFromSourcehut {
     owner = "~adnano";
     repo = pname;
-    rev = "07a54e89dd58a055ab91cd7561977ca80bf686e4";
-    hash = "sha256-4GhhlQ5pFnJKR9pVl+0x2qIfdvBj9vIgNdW+GvQtyg0=";
+    rev = "277842223e1d677bc0dca24b372a9bd772101f5f";
+    hash = "sha256-xgE0UZ/SERc1LaKODb0Rurgl6DBTTUzQK+pcCXICPoM=";
   };
 
   nativeBuildInputs = [ scdoc ];
