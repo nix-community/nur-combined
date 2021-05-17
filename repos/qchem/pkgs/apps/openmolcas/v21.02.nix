@@ -1,11 +1,20 @@
 { lib, stdenv, pkgs, fetchFromGitLab, fetchpatch, cmake, gfortran, perl
-, openblas, hdf5-full, python3, texlive
+, blas-i8, hdf5-full, python3, texlive
 , armadillo, makeWrapper, fetchFromGitHub, chemps2
 } :
 
+assert
+  lib.asserts.assertMsg
+  (blas-i8.isILP64 || blas-i8.passthru.implementation == "mkl")
+  "A 64 bint integer BLAS implementation is required.";
+
+assert
+  lib.asserts.assertMsg
+  (builtins.elem blas-i8.passthru.implementation [ "openblas" "mkl" ])
+  "OpenMolcas requires OpenBLAS or MKL.";
+
 let
-  version = "21.02";
-  gitLabRev = "v${version}";
+  version = "21.02-24.02.2021";
 
   python = python3.withPackages (ps : with ps; [ six pyparsing ]);
 
@@ -23,7 +32,7 @@ in stdenv.mkDerivation {
   src = fetchFromGitLab {
     owner = "Molcas";
     repo = "OpenMolcas";
-    rev = gitLabRev;
+    rev = "41cee871945ac712e86ee971425a49a8fc60a936";
     sha256 = "0cap53gy1wds2qaxbijw09fqhvfxphfkr93nhp9xdq84yxh4wzv6";
   };
 
@@ -32,6 +41,7 @@ in stdenv.mkDerivation {
     url = "https://raw.githubusercontent.com/NixOS/nixpkgs/2eee4e4eac851a2846515dcfa3274c4ab92ecbe5/pkgs/applications/science/chemistry/openmolcas/openblasPath.patch";
     sha256 = "0l6z5zhfbfpbp9x58228nhhwwp1fzmi8cmmasvzddp84h31f0b8h";
   })
+    ./MKL-MPICH.patch
   ];
 
   prePatch = ''
@@ -40,9 +50,15 @@ in stdenv.mkDerivation {
     chmod -R u+w External/
   '';
 
-
   nativeBuildInputs = [ perl cmake texlive.combined.scheme-minimal makeWrapper ];
-  buildInputs = [ gfortran openblas hdf5-full python armadillo chemps2];
+  buildInputs = [
+    gfortran
+    (blas-i8.passthru.provider)
+    hdf5-full
+    python
+    armadillo
+    chemps2
+  ];
 
   # tests are not running right now.
   doCheck = false;
@@ -55,14 +71,15 @@ in stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DOPENMP=ON"
-    "-DLINALG=${if (builtins.parseDrvName openblas.name).name == "mkl" then "MKL" else "OpenBLAS"}"
     "-DTOOLS=ON"
     "-DHDF5=ON"
     "-DFDE=ON"
     "-DWFA=ON"
     "-DCTEST=ON"
     "-DCHEMPS2=ON" "-DCHEMPS2_DIR=${chemps2}/bin"
-  ] ++ (if (builtins.parseDrvName openblas.name).name == "mkl" then [ "-DMKLROOT=${openblas}" ] else  [ "-DOPENBLASROOT=${openblas.dev}" ]);
+  ] ++ lib.lists.optionals (blas-i8.passthru.implementation == "openblas") [ "-DOPENBLASROOT=${blas-i8.passthru.provider.dev}" "-DLINALG=OpenBLAS" ]
+    ++ lib.lists.optionals (blas-i8.passthru.implementation == "mkl") [ "-DMKLROOT=${blas-i8.passthru.provider}" "-DLINALG=MKL"]
+  ;
 
   postConfigure = ''
     # The Makefile will install pymolcas during the build grrr.
@@ -130,4 +147,3 @@ in stdenv.mkDerivation {
     platforms = platforms.linux;
   };
 }
-

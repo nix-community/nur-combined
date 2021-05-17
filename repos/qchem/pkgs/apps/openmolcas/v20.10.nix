@@ -4,7 +4,7 @@
 } :
 
 let
-  version = "20.10";
+  version = "20.10-14.10.2020";
   gitLabRev = "v${version}";
 
   python = python3.withPackages (ps : with ps; [ six pyparsing ]);
@@ -23,8 +23,8 @@ in stdenv.mkDerivation {
   src = fetchFromGitLab {
     owner = "Molcas";
     repo = "OpenMolcas";
-    rev = gitLabRev;
-    sha256 = "1w8av44dx5r9yp2xhf9ypdrhappvk984wrd5pa1ww0qv6j2446ic";
+    rev = "01fe7a2bdca51c51d183f3061b0ee9c631bf9bec";
+    sha256 = "0xr9plgb0cfmxxqmd3wrhvl0hv2jqqfqzxwzs1jysq2m9cxl314v";
   };
 
   patches = [ (fetchpatch {
@@ -32,6 +32,7 @@ in stdenv.mkDerivation {
     url = "https://raw.githubusercontent.com/NixOS/nixpkgs/2eee4e4eac851a2846515dcfa3274c4ab92ecbe5/pkgs/applications/science/chemistry/openmolcas/openblasPath.patch";
     sha256 = "0l6z5zhfbfpbp9x58228nhhwwp1fzmi8cmmasvzddp84h31f0b8h";
   })
+    ./MKL-MPICH.patch
   ];
 
   prePatch = ''
@@ -126,4 +127,3 @@ in stdenv.mkDerivation {
     platforms = platforms.linux;
   };
 }
-
