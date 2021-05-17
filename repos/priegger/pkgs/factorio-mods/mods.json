@@ -74,10 +74,10 @@
   },
   {
     "name": "alien-biomes",
-    "version": "0.6.4",
-    "file_name": "alien-biomes_0.6.4.zip",
-    "download_url": "/download/alien-biomes/6008e60f1b5a7e4dea2a1967",
-    "sha1": "9a163a597c736aaddea2f229debddefb7eed61ff",
+    "version": "0.6.5",
+    "file_name": "alien-biomes_0.6.5.zip",
+    "download_url": "/download/alien-biomes/609f15d125138298d0258bb8",
+    "sha1": "30a5e6f9198f7afd212464a9fec3f3ff48bca533",
     "dependencies": [
       "base >= 1.1.0",
       "?alien-biomes-hr-terrain >= 0.3.1"
@@ -691,10 +691,10 @@
   },
   {
     "name": "Rampant",
-    "version": "1.1.0",
-    "file_name": "Rampant_1.1.0.zip",
-    "download_url": "/download/Rampant/608dc1c167dddf07ee4c3a12",
-    "sha1": "12184ad7b51bfc1efc7d7e18e2fa9511d5d846fe",
+    "version": "1.1.1",
+    "file_name": "Rampant_1.1.1.zip",
+    "download_url": "/download/Rampant/609f486f72a5b55129850441",
+    "sha1": "e1616ac55f8eaf837c7a210c8ccb5224a8dc1c65",
     "dependencies": [
       "base >= 1.1.0",
       "? bobenemies",
@@ -707,10 +707,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "8.0.3",
-    "file_name": "reverse-factory_8.0.3.zip",
-    "download_url": "/download/reverse-factory/6080b1d3cfc8a90cb0f19776",
-    "sha1": "a06f8fa621af547a597892b697b9411f72542abe",
+    "version": "8.0.4",
+    "file_name": "reverse-factory_8.0.4.zip",
+    "download_url": "/download/reverse-factory/60a151f03f43c298ab0c1df3",
+    "sha1": "8f702f05a6fc462457d94765fc92cce26d5be969",
     "dependencies": [
       "base",
       "stdlib",
@@ -738,10 +738,10 @@
   },
   {
     "name": "robot_attrition",
-    "version": "0.5.9",
-    "file_name": "robot_attrition_0.5.9.zip",
-    "download_url": "/download/robot_attrition/60149bee42de445ab5040cde",
-    "sha1": "6087fc5e56691f78dbcac0f85dcff003b520b087",
+    "version": "0.5.10",
+    "file_name": "robot_attrition_0.5.10.zip",
+    "download_url": "/download/robot_attrition/609fc58310e3a81ed75affe7",
+    "sha1": "064422d7bbb2794c586e13bde6fbd00864a49a8b",
     "dependencies": [
       "base >= 1.1.0"
     ]
