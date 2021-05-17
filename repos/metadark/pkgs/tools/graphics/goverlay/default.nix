@@ -44,6 +44,8 @@ in stdenv.mkDerivation rec {
     hash = "sha256-qS0GY2alUBfkmT20oegGpkhVkK+ZOUkJCPSV/wt0ZUA=";
   };
 
+  outputs = [ "out" "man" ];
+
   patches = [
     # Find replay-sorcery in PATH
     # See https://github.com/benjamimgois/goverlay/pull/123

@@ -19,6 +19,8 @@ buildPythonApplication rec {
     hash = "sha256-3A1T+/iXhNeMS2Aww5jISoiNExdv9N9/kwyATSuwVTE=";
   };
 
+  outputs = [ "out" "man" ];
+
   nativeBuildInputs = [
     pbr
   ];

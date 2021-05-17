@@ -66,6 +66,8 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-eIj1S8aWpXREbKIoZyvxSCjM9RVc4OsIm/BFNsdoonE=";
   };
 
+  outputs = [ "out" "doc" ];
+
   postPatch = ''
     patchShebangs .
     substituteInPlace src/Misc/Config.cpp --replace /usr $out
@@ -113,11 +115,9 @@ in stdenv.mkDerivation rec {
   # When building with zest GUI, patch plugins
   # and standalone executable to properly locate zest
   postFixup = lib.optional (guiModule == "zest") ''
-    patchelf --set-rpath "${mruby-zest}:$(patchelf --print-rpath "$out/lib/lv2/ZynAddSubFX.lv2/ZynAddSubFX_ui.so")" \
-      "$out/lib/lv2/ZynAddSubFX.lv2/ZynAddSubFX_ui.so"
-
-    patchelf --set-rpath "${mruby-zest}:$(patchelf --print-rpath "$out/lib/vst/ZynAddSubFX.so")" \
-      "$out/lib/vst/ZynAddSubFX.so"
+    for lib in "$out/lib/lv2/ZynAddSubFX.lv2/ZynAddSubFX_ui.so" "$out/lib/vst/ZynAddSubFX.so"; do
+      patchelf --set-rpath "${mruby-zest}:$(patchelf --print-rpath "$lib")" "$lib"
+    done
 
     wrapProgram "$out/bin/zynaddsubfx" \
       --prefix PATH : ${mruby-zest} \

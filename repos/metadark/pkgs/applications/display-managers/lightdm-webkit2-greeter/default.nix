@@ -24,6 +24,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-LY7sVaxBwjojzFa00OkvgR9+TIZuH/WW12UsfpffOIE=";
   };
 
+  outputs = [ "out" "man" ];
+
   patches = [
     # Support absolute paths in webkit_theme, so custom themes can be selected by a Nix store path
     ./absolute-theme-paths.patch
