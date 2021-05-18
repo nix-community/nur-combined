@@ -208,9 +208,10 @@ let
       sharcV21 = callPackage ./pkgs/apps/sharc/21.nix {
         bagel = self.bagel-serial;
         molcas = self.molcas;
-        molpro = self.molpro12; # V2 only compatible with versions up to 2012
-        useMolpro = if cfg.licMolpro != null then true else false;
-        useOrca = if cfg.srcurl != null then true else false;
+        molpro = if cfg.licMolpro != null then self.molpro12 else null; # V2 only compatible with versions up to 2012
+        orca = self.orca;
+        gaussian = if cfg.optpath != null then self.gaussian else null;
+        turbomole = self.turbomole;
       };
 
       stream-benchmark = callPackage ./pkgs/apps/stream { };

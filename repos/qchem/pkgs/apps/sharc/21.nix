@@ -1,12 +1,11 @@
 { stdenv, lib, fetchFromGitHub, makeWrapper, which, gfortran
-, blas, liblapack, fftw, python2, molcas, bagel
-, molpro, orca
-, useMolpro ? false
-, useOrca ? false
+, blas, liblapack, fftw, python2, molcas, bagel, gnuplot, wfoverlap
+# May all be null
+, orca ? null, gaussian ? null, turbomole ? null, molpro ? null
 } :
 
 let
-  version = "2.1.1";
+  version = "2.1";
   python = python2.withPackages(p: with p; [ numpy pyquante ]);
 
 in stdenv.mkDerivation {
@@ -16,7 +15,7 @@ in stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "sharc-md";
     repo = "sharc";
-    rev = "Release2.1.1";
+    rev = "v${version}";
     sha256 = "1p9byiwlyqhbwdq0icxg75n3waxji0fiwp92q8jgrzb384k3bj36";
   };
 
@@ -44,13 +43,12 @@ in stdenv.mkDerivation {
     patchShebangs wfoverlap/scripts
   '';
 
-  buildPhase = ''
-    cd wfoverlap/source
-    make wfoverlap_ascii.x
-    cd ../../source
-    make
-    cd ..
-  '';
+  binSearchPath = with lib; strings.makeSearchPath "bin" ([ molcas bagel gnuplot ]
+   ++ lists.optional (orca != null) orca
+    ++ lists.optional (gaussian != null) gaussian
+    ++ lists.optional (turbomole != null) turbomole
+    ++ lists.optional (molpro != null) molpro
+  );
 
   installPhase = ''
     mkdir -p $out/bin $out/share/sharc/tests
@@ -61,6 +59,7 @@ in stdenv.mkDerivation {
 
     cp -u bin/* $out/bin
     cp wfoverlap/scripts/* $out/bin
+    cp ${wfoverlap}/bin/wfoverlap.x $out/bin/wfoverlap_ascii.x
 
     cp doc/* $out/share/sharc
     cp -r tests/* $out/share/sharc/tests
@@ -75,8 +74,10 @@ in stdenv.mkDerivation {
                      --set HOSTNAME localhost \
                      --set-default MOLCAS ${molcas} \
                      --set-default BAGEL ${bagel} \
-                     ${lib.optionalString useMolpro "--set-default MOLPRO ${molpro}/bin"} \
-                     ${lib.optionalString useOrca "--set-default ORCA ${orca}/bin"}
+                     ${lib.optionalString (molpro != null) "--set-default MOLPRO ${molpro}/bin"} \
+                     ${lib.optionalString (orca != null) "--set-default ORCA ${orca}/bin"} \
+                     ${lib.optionalString (turbomole != null) "--set-default TURBOMOLE ${turbomole}/bin"} \
+                     ${lib.optionalString (gaussian != null) "--set-default GAUSSIAN ${turbomole}/bin"}
     done
   '';
 
@@ -99,4 +100,3 @@ in stdenv.mkDerivation {
     note = "Untested";
   };
 }
-
