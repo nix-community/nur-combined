@@ -37,6 +37,12 @@ with mergedPkgs; {
   emacs-pgtk = callPackage ./applications/editors/emacs-pgtk { };
   emacs-pgtk-native-comp = emacs-pgtk;
 
+  gamemode = callPackage ./tools/games/gamemode rec {
+    libgamemode32 = (pkgsi686Linux.callPackage ./tools/games/gamemode {
+      inherit libgamemode32;
+    }).lib;
+  };
+
   git-review = python3Packages.callPackage ./applications/version-management/git-review { };
 
   goverlay = callPackage ./tools/graphics/goverlay { };
