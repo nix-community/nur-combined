@@ -1198,10 +1198,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.0.14.1";
+      version = "2.0.14.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3775447/sponsorblock_skip_sponsorships_on_youtube-2.0.14.1-an+fx.xpi";
-      sha256 = "021ea1c8db0b397415b9b4a612fe457a04b2374361ef8c8573cdd4b354f4ca32";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3777295/sponsorblock_skip_sponsorships_on_youtube-2.0.14.2-an+fx.xpi";
+      sha256 = "3e1ab92a10365d4b962c7d954374a28e1e2fd7ab32ce839515a6cf1d62320ac4";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1239,10 +1239,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.8.0";
+      version = "6.8.1";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3772940/tab_session_manager-6.8.0-fx.xpi";
-      sha256 = "0da8cdc4618c54de915019d6662fbc49a3791989fc8c764645f5c952e5fd9ee5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3776955/tab_session_manager-6.8.1-fx.xpi";
+      sha256 = "781407e68707e93233986e175a14ef22f1bcb090fe2f10cda07c2cfe1d79f2e5";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -1295,10 +1295,10 @@
       };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
-      version = "4.0.7";
+      version = "4.0.8";
       addonId = "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3751527/terms_of_service_didnt_read-4.0.7-fx.xpi";
-      sha256 = "4f94378af7e10907621ff9623e2fe68ea3e46d022608cd1d3c80b35e0bb68180";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3777815/terms_of_service_didnt_read-4.0.8-fx.xpi";
+      sha256 = "7ec08538019ef855f71e63dc9ed80f0b35eea0b023e38a25d347d6f2a5c52ee3";
       meta = with lib;
       {
         homepage = "http://tosdr.org";
@@ -1364,10 +1364,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.0.3";
+      version = "9.0.4";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3775364/traduzir_paginas_web-9.0.3-an+fx.xpi";
-      sha256 = "0730309553adbda9dcb3d79204b3f0f62e8ba26bf4be51569b9e3032f91e4358";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3777317/translate_web_pages-9.0.4-an+fx.xpi";
+      sha256 = "af49aaf263d6ec2931606b6814dfb5e18b71cb4ba4f37008a25974c3ba1c7d89";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
@@ -1535,10 +1535,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.6.0";
+      version = "6.7.0";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3775507/wappalyzer-6.6.0-fx.xpi";
-      sha256 = "f78f9dffdb2bff800f0e9c55c9be6fbd31bc94e1cb55adb65c027cc6a0c9d0b4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3777783/wappalyzer-6.7.0-fx.xpi";
+      sha256 = "6e8f5dad76909e89a623a82d11cfd7fc185d8c6ba0494940d5d695e2e564e104";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
