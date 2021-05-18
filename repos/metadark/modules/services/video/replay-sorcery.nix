@@ -5,9 +5,10 @@ with lib;
 let
   nur = import ../../.. { inherit pkgs; };
   cfg = config.services.replay-sorcery;
+  configFile = generators.toKeyValue {} cfg.settings;
 in
 {
-  options = {
+  options = with types; {
     services.replay-sorcery = {
       enable = mkEnableOption "the ReplaySorcery service for instant-replays";
 
@@ -17,16 +18,30 @@ in
         root, so use with caution'';
 
       autoStart = mkOption {
+        type = bool;
         default = false;
-        type = types.bool;
-        description = "Automatically start ReplaySorcery when graphical-session.target starts";
+        description = "Automatically start ReplaySorcery when graphical-session.target starts.";
+      };
+
+      settings = mkOption {
+        type = attrsOf (oneOf [ str int ]);
+        default = {};
+        description = "System-wide configuration for ReplaySorcery (/etc/replay-sorcery.conf).";
+        example = literalExample ''
+          {
+            videoInput = "hwaccel"; # requires `services.replay-sorcery.enableSysAdminCapability = true`
+            videoFramerate = 60;
+          }
+        '';
       };
     };
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ nur.replay-sorcery ];
-    systemd.packages = [ nur.replay-sorcery ];
+    environment = {
+      systemPackages = [ nur.replay-sorcery ];
+      etc."replay-sorcery.conf".text = configFile;
+    };
 
     security.wrappers = mkIf cfg.enableSysAdminCapability {
       replay-sorcery = {
@@ -35,14 +50,17 @@ in
       };
     };
 
-    systemd.user.services.replay-sorcery = {
-      wantedBy = mkIf cfg.autoStart [ "graphical-session.target" ];
-      partOf = mkIf cfg.autoStart [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = mkIf cfg.enableSysAdminCapability [
-          "" # Tell systemd to clear the existing ExecStart list, to prevent appending to it.
-          "${config.security.wrapperDir}/replay-sorcery"
-        ];
+    systemd = {
+      packages = [ nur.replay-sorcery ];
+      user.services.replay-sorcery = {
+        wantedBy = mkIf cfg.autoStart [ "graphical-session.target" ];
+        partOf = mkIf cfg.autoStart [ "graphical-session.target" ];
+        serviceConfig = {
+          ExecStart = mkIf cfg.enableSysAdminCapability [
+            "" # Tell systemd to clear the existing ExecStart list, to prevent appending to it.
+            "${config.security.wrapperDir}/replay-sorcery"
+          ];
+        };
       };
     };
   };
