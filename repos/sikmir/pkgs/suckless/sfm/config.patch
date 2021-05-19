@@ -1,0 +1,33 @@
+diff --git i/config.def.h w/config.def.h
+index cc848c8..1005815 100644
+--- i/config.def.h
++++ w/config.def.h
+@@ -34,6 +34,8 @@ static const char *mupdf[]        = { "mupdf", "-I", NULL };
+ static const char *libreoffice[]  = { "libreoffice", NULL };
+ static const char *gimp[]         = { "gimp", NULL };
+ static const char *r2[]           = { "r2", "-c", "vv", NULL };
++static const char *gpxsee[]       = { "gpxsee", NULL };
++static const char *oomapper[]     = { "Mapper", NULL };
+ 
+ /* extensions*/
+ static const char *images[]    = { "bmp", "jpg", "jpeg", "png", "gif", "xpm" };
+@@ -46,6 +48,9 @@ static const char *videos[]    = { "avi", "flv", "wav", "webm", "wma", "wmv",
+ 				   "mp4", "mpeg", "mpg" };
+ static const char *documents[] = { "odt", "doc", "docx", "xls", "xlsx", "odp",
+ 				   "ods", "pptx", "odg" };
++static const char *gpsdata[]   = { "gpx", "tcx", "kml", "loc", "slf", "fit", "igc", "nmea", "plt", "rte", "wpt", "geojson", "cup", "gpi", "sml", "ov2", "itn" };
++static const char *maps[]      = { "img", "jnx", "xml", "kap", "map", "mbtiles", "rmap", "rtmap", "tba", "kmz", "aqm", "sqlitedb" };
++static const char *omaps[]     = { "omap", "xmap", "ocd" };
+ 
+ static Rule rules[] = {
+ 	{videos,    LEN(videos),    mpv},
+@@ -55,6 +60,9 @@ static Rule rules[] = {
+ 	{documents, LEN(documents), libreoffice},
+ 	{arts,      LEN(arts),      gimp},
+ 	{obj,       LEN(obj),       r2},
++	{gpsdata,   LEN(gpsdata),   gpxsee},
++	{maps,      LEN(maps),      gpxsee},
++	{omaps,     LEN(omaps),     oomapper},
+ };
+ 
+ /* normal keys */
