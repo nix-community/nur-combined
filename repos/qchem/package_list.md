@@ -4,6 +4,7 @@
 | bagel-1.2.2-mkl | qchem.bagel | Brilliantly Advanced General Electronic-structure Library |
 | blas-3 | qchem.blas-i8 | openblas with just the BLAS C and FORTRAN ABI |
 | cefine-2.23 | qchem.cefine | Non-interactive command-line wrapper around turbomoles define |
+| cfour-2.1 | qchem.cfour | Specialist coupled cluster software. |
 | CheMPS2-1.8.9 | qchem.chemps2 | A spin-adapted implementation of DMRG for ab initio quantum chemistry |
 | cp2k-8.1.0 | qchem.cp2k | Quantum chemistry and solid state physics program |
 | crest-24.04.2021 | qchem.crest | Conformer-Rotamer Ensemble Sampling Tool based on the xtb Semiempirical Extended Tight-Binding Program Package |
@@ -12,8 +13,8 @@
 | dkh-1.2 | qchem.dkh | Arbitrary-​order scalar-​relativistic Douglas-​Kroll-Hess module |
 | ergoscf-3.8 | qchem.ergoscf | Quantum chemistry program for large-scale self-consistent field calculations |
 | f2c-20200916 | qchem.f2c | F2C converts Fortran 77 source code to C |
-| fftw-double-3.3.9 | qchem.fftw | Fastest Fourier Transform in the West library |
 | fftw-double-3.3.9 | qchem.fftw-mpi | Fastest Fourier Transform in the West library |
+| fftw-double-3.3.9 | qchem.fftw | Fastest Fourier Transform in the West library |
 | fftw-single-3.3.9 | qchem.fftwSinglePrec | Fastest Fourier Transform in the West library |
 | fugu-tools-1.2.2 | qchem.slurm-tools | null |
 | gaussian-16b01 | qchem.gaussian | Quantum chemistry programm package |
@@ -29,7 +30,6 @@
 | hpl-2.3 | qchem.hpl | Portable Implementation of the Linpack Benchmark for Distributed-Memory Computers |
 | i-PI | qchem.i-pi | A universal force engine |
 | lapack-3 | qchem.lapack-i8 | openblas with just the LAPACK C and FORTRAN ABI |
-| libcint-3.0.15 | qchem.libcint3 | Open source library for analytical Gaussian integrals |
 | libefp-1.5.0-psi4 | qchem.libefp | Parallel implementation of the Effective Fragment Potential Method |
 | libint-1.1.5 | qchem.libint1 | Library for the evaluation of molecular integrals of many-body operators over Gaussian functions |
 | libint2-2.6.0 | qchem.libint-bagel | Library for the evaluation of molecular integrals of many-body operators over Gaussian functions |
@@ -58,9 +58,8 @@
 | nwchem-7.0.2 | qchem.nwchem | Open Source High-Performance Computational Chemistry |
 | octave-6.2.0 | qchem.octave | Scientific Pragramming Language |
 | octopus-10.3 | qchem.octopus | Real-space time dependent density-functional theory code |
-| openmolcas-19.11 | qchem.molcas1911 | Quantum chemistry software package |
-| openmolcas-20.10 | qchem.molcas2010 | Quantum chemistry software package |
-| openmolcas-21.02 | qchem.molcas | Quantum chemistry software package |
+| openmolcas-20.10-14.10.2020 | qchem.molcas2010 | Quantum chemistry software package |
+| openmolcas-21.02-24.02.2021 | qchem.molcas | Quantum chemistry software package |
 | openmpi-4.1.1 | qchem.mpi | Open source MPI-3 implementation |
 | orca-4.2.1 | qchem.orca | Ab initio quantum chemistry program package |
 | osss-ucx-1.0.2 | qchem.osss-ucx |  |
@@ -75,15 +74,16 @@
 | scalapack-2.1.0 | qchem.scalapack | Library of high-performance linear algebra routines for parallel distributed memory machines |
 | sharc-1.0 | qchem.sharcV1 | Molecular dynamics (MD) program suite for excited states |
 | sharc-2.0 | qchem.sharc | Molecular dynamics (MD) program suite for excited states |
-| sharc-2.1.1 | qchem.sharc21 | Molecular dynamics (MD) program suite for excited states |
-| siesta-4.1-b3 | qchem.siesta-mpi | A first-principles materials simulation code using DFT |
+| sharc-2.1 | qchem.sharc21 | Molecular dynamics (MD) program suite for excited states |
 | siesta-4.1-b3 | qchem.siesta | A first-principles materials simulation code using DFT |
+| siesta-4.1-b3 | qchem.siesta-mpi | A first-principles materials simulation code using DFT |
 | sos-1.5.0 | qchem.sos | Sandia open SHMEM implementation |
 | stream-benchmark-2013 | qchem.stream-benchmark | null |
 | tested-programs | qchem.tested | null |
 | tinker-8.8.3 | qchem.tinker | Software Tools for Molecular Design |
 | travis-analyzer-03Jun2020 | qchem.travis-analyzer | Molecular dynamics trajectory analyzer and visualizer |
-| turbomole-7.5 | qchem.turbomole | General purpose quantum chemistry program. Tools, not Toys! |
+| turbomole-7.5.1 | qchem.turbomole | General purpose quantum chemistry program. Tools, not Toys! |
 | vmd-1.9.3 | qchem.vmd | Molecular dynamics visualisation program |
 | wfoverlap-24.08.2020 | qchem.wfoverlap | Efficient calculation of wavefunction overlaps |
+| xcfun-2.1.1 | qchem.xcfun | A library of exchange-correlation functionals with arbitrary-order derivatives. |
 | xtb-6.4.0 | qchem.xtb | Semiempirical Extended Tight-Binding Program Package |

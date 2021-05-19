@@ -32,6 +32,14 @@
     "homepage": "https://github.com/grimme-lab/cefine"
   },
   {
+    "attribute": "qchem.cfour",
+    "name": "cfour-2.1",
+    "pname": "cfour",
+    "version": "2.1",
+    "description": "Specialist coupled cluster software.",
+    "homepage": "http://slater.chemie.uni-mainz.de/cfour/index.php"
+  },
+  {
     "attribute": "qchem.chemps2",
     "name": "CheMPS2-1.8.9",
     "pname": "CheMPS2",
@@ -96,7 +104,7 @@
     "homepage": "http://www.netlib.org/f2c/"
   },
   {
-    "attribute": "qchem.fftw",
+    "attribute": "qchem.fftw-mpi",
     "name": "fftw-double-3.3.9",
     "pname": "fftw-double",
     "version": "3.3.9",
@@ -104,7 +112,7 @@
     "homepage": "http://www.fftw.org/"
   },
   {
-    "attribute": "qchem.fftw-mpi",
+    "attribute": "qchem.fftw",
     "name": "fftw-double-3.3.9",
     "pname": "fftw-double",
     "version": "3.3.9",
@@ -230,14 +238,6 @@
     "version": "3",
     "description": "openblas with just the LAPACK C and FORTRAN ABI",
     "homepage": "https://github.com/xianyi/OpenBLAS"
-  },
-  {
-    "attribute": "qchem.libcint3",
-    "name": "libcint-3.0.15",
-    "pname": "libcint",
-    "version": "3.0.15",
-    "description": "Open source library for analytical Gaussian integrals",
-    "homepage": "https://github.com/sunqm/libcint"
   },
   {
     "attribute": "qchem.libefp",
@@ -464,26 +464,18 @@
     "homepage": "https://octopus-code.org"
   },
   {
-    "attribute": "qchem.molcas1911",
-    "name": "openmolcas-19.11",
-    "pname": "openmolcas",
-    "version": "19.11",
-    "description": "Quantum chemistry software package",
-    "homepage": "https://gitlab.com/Molcas/OpenMolcas"
-  },
-  {
     "attribute": "qchem.molcas2010",
-    "name": "openmolcas-20.10",
+    "name": "openmolcas-20.10-14.10.2020",
     "pname": "openmolcas",
-    "version": "20.10",
+    "version": "20.10-14.10.2020",
     "description": "Quantum chemistry software package",
     "homepage": "https://gitlab.com/Molcas/OpenMolcas"
   },
   {
     "attribute": "qchem.molcas",
-    "name": "openmolcas-21.02",
+    "name": "openmolcas-21.02-24.02.2021",
     "pname": "openmolcas",
-    "version": "21.02",
+    "version": "21.02-24.02.2021",
     "description": "Quantum chemistry software package",
     "homepage": "https://gitlab.com/Molcas/OpenMolcas"
   },
@@ -601,14 +593,14 @@
   },
   {
     "attribute": "qchem.sharc21",
-    "name": "sharc-2.1.1",
+    "name": "sharc-2.1",
     "pname": "sharc",
-    "version": "2.1.1",
+    "version": "2.1",
     "description": "Molecular dynamics (MD) program suite for excited states",
     "homepage": "https://www.sharc-md.org"
   },
   {
-    "attribute": "qchem.siesta-mpi",
+    "attribute": "qchem.siesta",
     "name": "siesta-4.1-b3",
     "pname": "siesta",
     "version": "4.1-b3",
@@ -616,7 +608,7 @@
     "homepage": "https://www.quantum-espresso.org/"
   },
   {
-    "attribute": "qchem.siesta",
+    "attribute": "qchem.siesta-mpi",
     "name": "siesta-4.1-b3",
     "pname": "siesta",
     "version": "4.1-b3",
@@ -665,9 +657,9 @@
   },
   {
     "attribute": "qchem.turbomole",
-    "name": "turbomole-7.5",
+    "name": "turbomole-7.5.1",
     "pname": "turbomole",
-    "version": "7.5",
+    "version": "7.5.1",
     "description": "General purpose quantum chemistry program. Tools, not Toys!",
     "homepage": "https://www.turbomole.org/"
   },
@@ -686,6 +678,14 @@
     "version": "24.08.2020",
     "description": "Efficient calculation of wavefunction overlaps",
     "homepage": "https://sharc-md.org/?page_id=309"
+  },
+  {
+    "attribute": "qchem.xcfun",
+    "name": "xcfun-2.1.1",
+    "pname": "xcfun",
+    "version": "2.1.1",
+    "description": "A library of exchange-correlation functionals with arbitrary-order derivatives.",
+    "homepage": "https://github.com/dftlibs/xcfun"
   },
   {
     "attribute": "qchem.xtb",
