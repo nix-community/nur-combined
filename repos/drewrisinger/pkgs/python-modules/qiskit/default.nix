@@ -29,7 +29,7 @@ in
 buildPythonPackage rec {
   pname = "qiskit";
   # NOTE: This version denotes a specific set of subpackages. See https://qiskit.org/documentation/release_notes.html#version-history
-  version = "0.26.0";
+  version = "0.26.2";
 
   disabled = pythonOlder "3.6";
 
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit";
     rev = version;
-    sha256 = "18y9lih2rc4lhxk6j1vpay8kbyp97pvmyw08ywxy5i12rjqiarjq";
+    sha256 = "072sl6q9aqica28zvjh2rvnajjglq245g5lvwsny1zny5qlqm1a1";
   };
 
   propagatedBuildInputs = [

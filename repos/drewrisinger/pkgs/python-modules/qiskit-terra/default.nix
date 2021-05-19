@@ -37,6 +37,7 @@
 , nbformat
 , nbconvert
 , pytestCheckHook
+, pytest_xdist
 , python
 }:
 
@@ -56,7 +57,7 @@ in
 
 buildPythonPackage rec {
   pname = "qiskit-terra";
-  version = "0.17.3";
+  version = "0.17.4";
 
   disabled = pythonOlder "3.6";
 
@@ -64,7 +65,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "1922rvcvb1ksaciknyn4xm2zmh23m28p8nhsqcg0sdsv37jgxkkw";
+    sha256 = "0nl985bhw776f153a4dg97w39fb3gpkkxvwnap5shglpxy8nw8r7";
   };
 
   nativeBuildInputs = [ cython ];
@@ -94,6 +95,7 @@ buildPythonPackage rec {
     hypothesis
     nbformat
     nbconvert
+    pytest_xdist
   ] ++ lib.optionals (!withVisualization) visualizationPackages;
   dontUseSetuptoolsCheck = true;  # can't find setup.py, so fails. tested by pytest
 
@@ -119,6 +121,8 @@ buildPythonPackage rec {
     "test_cx_equivalence"  # Fails due to flaky test
   ] ++ lib.optionals (!withClassicalFunctionCompiler) [
     "TestPhaseOracle"
+  ] ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") [
+    "test_plot_circuit_layout"
   ]
   # Disabling slow tests for Travis build constraints
   ++ [
