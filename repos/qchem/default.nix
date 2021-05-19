@@ -224,6 +224,8 @@ let
 
       wfoverlap = callPackage ./pkgs/apps/wfoverlap {};
 
+      xcfun = callPackage ./pkgs/lib/xcfun {};
+
       xtb = callPackage ./pkgs/apps/xtb {
         turbomole = null;
         cefine = null;
@@ -240,8 +242,6 @@ let
       #
       # Libraries
       #
-
-      libcint3 = callPackage ./pkgs/lib/libcint { };
 
       libefp = callPackage ./pkgs/lib/libefp {};
 
@@ -315,6 +315,7 @@ let
         mrcc = nullable mrcc (callPackage ./tests/mrcc { });
         nwchem = callPackage ./tests/nwchem { };
         psi4 = callPackage ./tests/psi4 { };
+        pyscf = callPackage ./tests/pyscf { };
         qdng = nullable qdng (callPackage ./tests/qdng { });
         dgemm = callPackage ./tests/dgemm { };
         stream = callPackage ./tests/stream { };

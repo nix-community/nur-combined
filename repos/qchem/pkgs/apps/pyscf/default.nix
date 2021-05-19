@@ -1,41 +1,40 @@
-{ lib, buildPythonPackage, fetchFromGitHub
-, numpy, scipy, h5py, libcint3, libxc
-} :
+{ buildPythonPackage, lib, fetchFromGitHub, libcint, libxc, xcfun, blas,
+  numpy, scipy, h5py, python3
+}:
 
 buildPythonPackage rec {
   pname = "pyscf";
-  version = "1.7.3";
+  version = "1.7.6";
 
   src = fetchFromGitHub {
     owner = "pyscf";
-    repo = "pyscf";
+    repo = pname;
     rev = "v${version}";
-    sha256 = "1gmx75kqyjb8n3jgnlnzamw7f6cibc6wqsfy4vad6crz58lffjjj";
+    sha256  = "1plicf3df732mcwzsinfbmlzwwi40sh2cxy621v7fny2hphh14dl";
   };
 
-  propagatedBuildInputs = [ numpy scipy h5py ];
-  buildInputs = [ libcint3 libxc ];
+  buildInputs = [
+    libcint
+    libxc
+    xcfun
+    blas
+  ];
 
-  PYSCF_INC_DIR="${libcint3}:${libxc}";
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    h5py
+    python3
+  ];
 
-  doCheck = true;
+  PYSCF_INC_DIR="${libcint}:${libxc}";
 
-  # setup does not build/install DMRG modules
-#  postPatch = ''
-#    cat <<EOF > pyscf/dmrgscf/settings.py
-#    import os
-#    from pyscf import lib
-#    PYCHEMPS2BIN = '${chemps2}/lib/libchemps2.so'
-#    EOF
-
-#    chmod +x pyscf/dmrgscf/settings.py
-#  '';
+  doCheck = false;
 
   meta = with lib; {
     description = "Python-based simulations of chemistry framework";
     homepage = https://pyscf.github.io/;
     license = licenses.asl20;
-    maintainers = [ maintainers.markuskowa ];
     platforms = platforms.linux;
   };
 }
