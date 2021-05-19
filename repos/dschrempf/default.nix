@@ -6,14 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs }:
 
 {
-  # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
-
   # Evolution.
   beast = pkgs.callPackage ./pkgs/evolution/beast {};
   beast2 = pkgs.callPackage ./pkgs/evolution/beast2 {};
