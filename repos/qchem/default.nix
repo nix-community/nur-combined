@@ -195,14 +195,12 @@ let
 
       sharcV1 = callPackage ./pkgs/apps/sharc/V1.nix {
         molcas = self.molcas;
-        molpro = self.molpro12; # V1 only compatible with versions up to 2012
-        useMolpro = if cfg.licMolpro != null then true else false;
+        molpro = if cfg.licMolpro != null then self.molpro12 else null; # V1 only compatible with versions up to 2012
       };
 
       sharcV2 = callPackage ./pkgs/apps/sharc {
         molcas = self.molcas;
-        molpro = self.molpro12; # V2 only compatible with versions up to 2012
-        useMolpro = if cfg.licMolpro != null then true else false;
+        molpro = if cfg.licMolpro != null then self.molpro12 else null; # V2 only compatible with versions up to 2012
       };
 
       sharcV21 = callPackage ./pkgs/apps/sharc/21.nix {
@@ -224,7 +222,7 @@ let
 
       vmd = callPackage ./pkgs/apps/vmd {};
 
-      wfoverlap = callPackage ./wfoverlap {};
+      wfoverlap = callPackage ./pkgs/apps/wfoverlap {};
 
       xtb = callPackage ./pkgs/apps/xtb {
         turbomole = null;

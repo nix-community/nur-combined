@@ -1,6 +1,5 @@
 { stdenv, lib, requireFile, makeWrapper, gfortran
-, openblasCompat, fftw, python2, molcas, molpro
-, useMolpro ? false
+, blas, fftw, python2, molcas, molpro ? null
 } :
 
 let
@@ -19,14 +18,14 @@ in stdenv.mkDerivation {
 
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ gfortran openblasCompat fftw python ];
+  buildInputs = [ gfortran blas fftw python ];
 
   patches = [ ./testingV1.patch ];
 
   postPatch = ''
     # SHARC make file
     #sed -i 's/^F90.*=.*/F90 = gfortran/' source/Makefile;
-    sed -i 's/LD.*=.*/LD = -lopenblas -lfftw3/' source/Makefile;
+    sed -i 's/LD.*=.*/LD = -lblas -lfftw3/' source/Makefile;
     sed -i 's:^EXEDIR.*=.*:EXEDIR = ''${out}/bin:' source/Makefile;
 
     # purify output
@@ -36,7 +35,7 @@ in stdenv.mkDerivation {
 
 
     # WF overlap
-    #sed -i 's:^LALIB.*=.*:LALIB = -lopenblas -fopenmp:' wfoverlap/source/Makefile;
+    #sed -i 's:^LALIB.*=.*:LALIB = -lblas -fopenmp:' wfoverlap/source/Makefile;
 
     rm bin/*.x
 
@@ -73,7 +72,7 @@ in stdenv.mkDerivation {
       wrapProgram $i --set SHARC $out/bin \
                      --set HOSTNAME localhost \
                      --set-default MOLCAS ${molcas} \
-                     ${lib.optionalString useMolpro "--set-default MOLPRO ${molpro}/bin"}
+                     ${lib.optionalString (molpro != null) "--set-default MOLPRO ${molpro}/bin"}
     done
   '';
 
@@ -95,5 +94,3 @@ in stdenv.mkDerivation {
     platforms = platforms.linux;
   };
 }
-
-
