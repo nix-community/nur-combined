@@ -1,5 +1,5 @@
 {
   # Add your overlays here
   #
-  emacs = import ./emacs.nix;
+  emacs = import ./10-emacs.nix;
 }
