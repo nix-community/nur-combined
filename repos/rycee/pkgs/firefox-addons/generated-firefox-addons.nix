@@ -63,10 +63,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.2.96";
+      version = "7.2.97";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3765587/betterttv-7.2.96-fx.xpi";
-      sha256 = "e44a990bf7cc83c5d7838ad0794cda0015d756584a88c4667b9ed8173108296e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3777749/betterttv-7.2.97-fx.xpi";
+      sha256 = "b56f01c457696b45639204d61d44fe7496813286219508145e633d3c2e708f60";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -751,10 +751,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.5.2";
+      version = "9.5.3";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3775783/metamask-9.5.2-an+fx.xpi";
-      sha256 = "278145da579d0b04f541fc290213632740599795ace95ca9adb5bcc05cb5af9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3778212/metamask-9.5.3-an+fx.xpi";
+      sha256 = "0fc522352208e1d50e2949733756e4cbdaac2ba3d2ef9ea19c82a9bee707ffed";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
