@@ -457,10 +457,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.873.0";
+      version = "8.874.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3770425/grammarly_for_firefox-8.873.0-an+fx.xpi";
-      sha256 = "ecfa569d2a7345db6e715e2b7531d18007ab3b3636700a958462fd1617facffa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3778920/grammarly_for_firefox-8.874.0-an+fx.xpi";
+      sha256 = "bd619efd313ce6b6d10ec0cf670ed6cba4649e810ca2ef77bd1f1ca3b2d81dff";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -1045,10 +1045,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.13.2";
+      version = "4.13.3";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3772652/react_developer_tools-4.13.2-fx.xpi";
-      sha256 = "c2973030e9e12d3c838aa5fb3c10b09c2135a59897d780ed6a41cefbe8022112";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3778776/react_developer_tools-4.13.3-fx.xpi";
+      sha256 = "df5ca93273f881d527e62179b08375fedd0de468145bc37991d22099f6c7169d";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1115,10 +1115,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.5.10";
+      version = "21.5.19";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3774069/refined_github-21.5.10-an+fx.xpi";
-      sha256 = "6acfe3d9091c6ade8473021e3380e2f7af5a84e07711df023e8dd67491aae630";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3778563/refined_github-21.5.19-an+fx.xpi";
+      sha256 = "85e77764d27196116f980ef35835fe1a4355b44f8f1fe2eef331a8e8eb1f8c59";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
