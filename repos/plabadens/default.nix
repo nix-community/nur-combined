@@ -20,6 +20,8 @@ rec {
 
   edmarketconnector = pkgs.python3.pkgs.toPythonApplication python3Packages.edmarketconnector;
 
+  lsix = pkgs.callPackage ./pkgs/lsix { };
+
   python3Packages = pkgs.recurseIntoAttrs (
     pkgs.python3Packages.callPackage ./pkgs/python-modules { }
   );
