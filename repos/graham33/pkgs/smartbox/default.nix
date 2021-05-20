@@ -19,14 +19,14 @@
 
 buildPythonPackage rec {
   pname = "smartbox";
-  version = "0.2.0pre1";
+  version = "0.2.0";
 
   disabled = !isPy3k;
 
   src = fetchFromGitHub {
     owner = "graham33";
     repo = pname;
-    rev = "2a23049e728e6ab9c0042b2b654f563da3753243";
+    rev = "v${version}";
     sha256 = "0qaxxvwhxaci1fppjvb8llsy0k2ypvix94idgivjrfrx9jwvljjh";
   };
 
