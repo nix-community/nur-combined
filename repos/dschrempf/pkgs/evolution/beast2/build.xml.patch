@@ -28,12 +28,12 @@
  
          <jar jarfile="${release_dir}/package/BEAST.package.v${version}.zip">
              <fileset dir="${release_dir}/package">
-@@ -822,7 +822,7 @@
-     </target>
+@@ -825,6 +825,6 @@
  
      <!-- Define the appbundler task -->
--    <taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="../beast2/lib/bundler/appbundler-1.0.jar"/>
-+    <taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="${lib}/bundler/appbundler-1.0.jar"/>
+ <!--    <taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="../beast2/lib/bundler/appbundler-1.0.jar"/>-->
+-    <taskdef name="jarbundler" classname="com.ultramixer.jarbundler.JarBundler" classpath="../beast2/lib/bundler/jarbundler-core-3.3.0.jar"/>
++    <taskdef name="jarbundler" classname="com.ultramixer.jarbundler.JarBundler" classpath="${lib}/bundler/jarbundler-core-3.3.0.jar"/>
  
      <!--property name="AppleSigner" value="Developer ID Application: Alexei Drummond (6M6Y6L7RUP)" /-->
-     <property name="AppleSigner" value="Developer ID Application: Remco Bouckaert (LHFJWE5U63)" />    
+     <!--<property name="AppleSigner" value="Developer ID Application: Remco Bouckaert (LHFJWE5U63)" />-->

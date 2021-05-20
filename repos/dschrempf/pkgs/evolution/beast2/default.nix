@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation {
   pname = "beast2";
-  version = "2.6.3";
+  version = "2.6.4";
 
   src = fetchFromGitHub {
     owner = "CompEvol";
     repo = "beast2";
-    rev = "v2.6.3";
-    sha256 = "0klzm2yvq2z5k6h8afqrwlajaparpw7bcx4nd4bzzww0sqcxc5xr";
+    rev = "v2.6.4";
+    sha256 = "sha256-/Rn2wqIOQ20uVY+ajw6lMoOU/QUnVXN3nxbAP2WgW7g=";
   };
 
   nativeBuildInputs = [ ant jdk8 makeWrapper ];
@@ -30,9 +30,6 @@ stdenv.mkDerivation {
     ant linux
   '';
 
-  # TODO: Beauti does not work because it does not find the templates. See the
-  # 'release/Linux/beast' directory.
-
   installPhase = ''
     # Libraries.
     mkdir -p $out
@@ -42,6 +39,8 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     makeWrapper ${jre8}/bin/java $out/bin/applauncher --add-flags "-cp $out/lib/launcher.jar beast.app.tools.AppLauncherLauncher"
     makeWrapper ${jre8}/bin/java $out/bin/beast --add-flags "-cp $out/lib/launcher.jar beast.app.beastapp.BeastLauncher"
+    # NOTE: Beauti does not work because it does not find the templates. See the
+    # 'release/Linux/beast' directory.
     makeWrapper ${jre8}/bin/java $out/bin/beauti --add-flags "-cp $out/lib/launcher.jar beast.app.beauti.BeautiLauncher -capture"
     makeWrapper ${jre8}/bin/java $out/bin/densitree --add-flags "-cp $out/lib/DensiTree.jar viz.DensiTree"
     makeWrapper ${jre8}/bin/java $out/bin/loganalyser --add-flags "-cp $out/lib/beast.jar beast.util.LogAnalyser"

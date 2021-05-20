@@ -13,8 +13,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "beast-dev";
     repo = "beast-mcmc";
-    rev = "v1.10.5pre_thorney_v0.1.0";
-    sha256 = "0sdxrmwzwj0dfwyv2m0smspbphay69bkqnv840xwpns9p7pg8j3n";
+    rev = "v1.10.5pre_thorney_v0.1.1";
+    sha256 = "sha256-h0cacdVKJ8++Tus3kQVoz18HIIHUOx6DEr/XaY0pIn0=";
   };
 
   nativeBuildInputs = [ ant jdk8 makeWrapper ];
