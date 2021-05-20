@@ -24,7 +24,8 @@
   IRC_PORT=$2
   IRC_NICK=$3$$
   IRC_CHANNEL=$4
-  message=$5
+  IRC_TLS=$5
+  message=$6
 
   export IRC_CHANNEL # for privmsg_cat
 
@@ -35,6 +36,8 @@
 
   # privmsg_cat transforms stdin to a privmsg
   privmsg_cat() { awk '{ print "PRIVMSG "ENVIRON["IRC_CHANNEL"]" :"$0 }'; }
+
+  tls_flag() { if [[ "$IRC_TLS" == 1 ]]; then echo "-c"; fi }
 
   # ircin is used to feed the output of netcat back to the "irc client"
   # so we can implement expect-like behavior with sed^_^
@@ -53,6 +56,8 @@
     echo2 "USER $LOGNAME 0 * :$LOGNAME@$(hostname)"
     echo2 "NICK $IRC_NICK"
 
+    awk 'match($0, /PING(.*)/, m) {print "PONG", m[1]; exit}'
+
     # wait for MODE message
     sed -n '/^:[^ ]* MODE /q'
 
@@ -69,7 +74,7 @@
 
     echo2 'QUIT :Gone to have lunch'
   } < ircin \
-    | nc "$IRC_SERVER" "$IRC_PORT" | tee -a ircin
+    | nc $(tls_flag) "$IRC_SERVER" "$IRC_PORT" | tee -a ircin
 '') // {
   meta = {
     description = "IRC notifications implemented in ~25 lines shell script";
