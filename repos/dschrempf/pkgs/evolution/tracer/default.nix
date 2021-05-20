@@ -6,15 +6,17 @@
   jre8,
   makeWrapper }:
 
-stdenv.mkDerivation rec {
-  pname = "tracer";
-  version = "1.7.1";
+let pname = "tracer";
+    version = "1.7.2";
+in
+stdenv.mkDerivation {
+  inherit pname version;
 
   src = fetchFromGitHub {
     owner = "beast-dev";
     repo = "${pname}";
     rev = "v${version}";
-    sha256 = "1p3z6z716qkfbmi7x7gcs2cnqqjrfi1dvlwn8m9r1kwbvjj2pj0r";
+    sha256 = "sha256-ZuXG2ZgwiLS+fpaH/UlF8oYgfeX8YjGyR6+uj/wfLbw=";
   };
 
   nativeBuildInputs = [ ant jdk8 makeWrapper ];
@@ -22,9 +24,6 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ jre8 ];
 
   buildPhase = ''
-    export LANG="en_US.UTF-8"
-    export ANT_OPTS="-Dfile.encoding=utf-8"
-    export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8"
     ant linux
   '';
 
