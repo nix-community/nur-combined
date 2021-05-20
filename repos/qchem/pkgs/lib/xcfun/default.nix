@@ -13,19 +13,7 @@ in stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ python ];
 
-  /*
-  Something goes wrong when using normal configurePhase and includes become wrong.
-  Whatever this changes here ...
-  */
-  configurePhase = ''
-    cmake -Bbuild \
-      -DBUILD_SHARED_LIBS=ON \
-      -DXCFUN_MAX_ORDER=3 \
-      -DCMAKE_BUILD_TYPE=RELEASE \
-      -DXCFUN_ENABLE_TESTS=0 \
-      -DCMAKE_INSTALL_PREFIX=$out
-    cd build
-  '';
+  cmakeFlags = [ "-DXCFUN_MAX_ORDER=3" ];
 
   enableParallelBuilding = true;
 
