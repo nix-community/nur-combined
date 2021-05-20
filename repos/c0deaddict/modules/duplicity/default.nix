@@ -228,6 +228,7 @@ let
         --include-filelist ${includeFile} \
         --max-blocksize ${toString job.target.maxBlocksize} \
         --volsize ${toString job.target.volsize} \
+        --allow-source-mismatch \
         --timeout ${toString job.target.timeout}"
 
       case "''${1:-}" in
