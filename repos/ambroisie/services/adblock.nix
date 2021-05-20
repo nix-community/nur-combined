@@ -45,21 +45,26 @@ in
     services.unbound = {
       enable = true;
 
-      allowedAccess = [
-        "127.0.0.0/24"
-        "${wgCfg.net.v4.subnet}.0/${toString wgCfg.net.v4.mask}"
-        "${wgCfg.net.v6.subnet}::0/${toString wgCfg.net.v6.mask}"
-      ];
+      settings = {
+        server = {
+          access-control = [
+            "127.0.0.0/24 allow"
+            "${wgCfg.net.v4.subnet}.0/${toString wgCfg.net.v4.mask} allow"
+            "${wgCfg.net.v6.subnet}::0/${toString wgCfg.net.v6.mask} allow"
+          ];
 
-      inherit (cfg) forwardAddresses interfaces;
+          so-reuseport = true;
+          tls-cert-bundle = "/etc/ssl/certs/ca-certificates.crt";
+          tls-upstream = true;
+        };
 
-      extraConfig = ''
-        so-reuseport: yes
-        tls-cert-bundle: /etc/ssl/certs/ca-certificates.crt
-        tls-upstream: yes
+        include = "${pkgs.ambroisie.unbound-zones-adblock}/hosts";
 
-        include: "${pkgs.ambroisie.unbound-zones-adblock}/hosts"
-      '';
+        forward-zone = [{
+          name = ".";
+          forward-addr = cfg.forwardAddresses;
+        }];
+      };
     };
   };
 }
