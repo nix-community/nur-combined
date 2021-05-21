@@ -1,4 +1,4 @@
-{ buildPythonPackage, lib, fetchPypi, fetchFromGitHub
+{ buildPythonPackage, lib, fetchPypi
 # Other dependencies
 , cacert
 # Python dependencies
@@ -9,7 +9,8 @@
 , pytestrunner
 , pytestcov
 , pytest
-}:
+} :
+
 buildPythonPackage rec {
   pname = "qcelemental";
   version = "0.19.0";
@@ -28,7 +29,7 @@ buildPythonPackage rec {
     cacert
   ];
 
-  src = fetchPypi  {
+  src = fetchPypi {
     inherit pname version;
     sha256 = "1ljxwhiz1689qijjqzmzydn8q963xx7zxizjnjq0vqg5py9pkyc5";
   };
@@ -37,8 +38,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Periodic table, physical constants, and molecule parsing for quantum chemistry.";
-    license = licenses.bsd3;
     homepage = "http://docs.qcarchive.molssi.org/projects/qcelemental/en/latest/";
-    platforms = platforms.unix;
+    license = licenses.bsd3;
+    platforms = platforms.linux;
   };
 }

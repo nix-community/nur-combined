@@ -1,8 +1,10 @@
-{ stdenv, lib, fetchurl, makeWrapper, cmake, gfortran, mkl, fetchFromGitHub, xtb }:
+{ stdenv, lib, fetchurl, makeWrapper, cmake
+, gfortran, mkl, fetchFromGitHub, xtb
+} :
 
 stdenv.mkDerivation rec {
   pname = "crest";
-  version = "24.04.2021";
+  version = "2021-04-24";
 
   nativeBuildInputs = [
     cmake
@@ -13,8 +15,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ mkl ];
 
   src = fetchFromGitHub {
-    repo = pname;
     owner = "grimme-lab";
+    repo = pname;
     rev = "6a0f5c06c89d54567aab307a5d803e9ab6ba6a28";
     sha256 = "0kkx035zj4950jaf70vhd29yqd7qxapfrpic91rzbfx3la6n53fs";
   };

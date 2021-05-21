@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions";
     homepage = https://github.com/evaleev/libint;
-    license = licenses.lgpl3;
+    license = with licenses; [ lgpl3Only gpl3Only ];
     maintainers = [ maintainers.markuskowa ];
     platforms = platforms.linux;
   };

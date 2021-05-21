@@ -32,7 +32,8 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ ];
-  buildInputs = [ gfortran python27 perl blas lapack ] ++ lib.optional useMPI [ mpi scalapack ];
+  buildInputs = [ gfortran python27 perl blas lapack ]
+    ++ lib.optional useMPI [ mpi scalapack ];
 
   postPatch = ''
     patchShebangs ./bin

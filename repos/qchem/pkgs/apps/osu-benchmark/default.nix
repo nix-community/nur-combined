@@ -1,9 +1,11 @@
 { lib, stdenv, fetchurl, mpi } :
+
 let
   version = "5.6.3";
 
 in stdenv.mkDerivation {
-  name = "osu-benchmark-${version}";
+  pname = "osu-benchmark";
+  inherit version;
 
   src = fetchurl {
     url = "http://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-${version}.tar.gz";

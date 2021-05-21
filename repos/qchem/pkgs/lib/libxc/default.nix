@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, gfortran, perl }:
+{ lib, stdenv, fetchurl, gfortran, perl } :
 
 let
   version = "4.3.4";
@@ -6,6 +6,7 @@ let
 in stdenv.mkDerivation {
   pname = "libxc";
   inherit version;
+
   src = fetchurl {
     url = "http://www.tddft.org/programs/octopus/down.php?file=libxc/${version}/libxc-${version}.tar.gz";
     sha256 = "0dw356dfwn2bwjdfwwi4h0kimm69aql2f4yk9f2kk4q7qpfkgvm8";

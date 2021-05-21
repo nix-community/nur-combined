@@ -16,11 +16,7 @@ let
       sha256 = "0a7ijps3qmp2qkz0ys31bd96dkz3vg1vdm0fa7z21minr16k3p2v";
     };
 
-    #nativeBuildInputs = [ perl ];
     buildInputs = [ tcl-8_5 netcdf ];
-
-    postPatch = ''
-    '';
 
     sourceRoot = "plugins";
 
@@ -81,7 +77,6 @@ in stdenv.mkDerivation {
   '';
 
   preBuild = ''
-    #make linux.amd64.opengl
     cd src
   '';
 

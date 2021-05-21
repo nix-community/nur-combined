@@ -1,5 +1,6 @@
 { lib, stdenv, fetchFromGitHub, autoconf, automake, libtool
-, pkgconfig, pmix, ucx, numactl, libbfd, libiberty, perl } :
+, pkgconfig, pmix, ucx, numactl, libbfd, libiberty, perl
+} :
 
 let
   version = "1.0.2";
@@ -33,7 +34,7 @@ in stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "";
+    description = "OpenSHM reference implementation";
     homepage = "http://www.openshmem.org";
     license = licenses.bsd3;
     maintainers = [ maintainers.markuskowa ];

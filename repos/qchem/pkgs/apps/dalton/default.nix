@@ -1,4 +1,7 @@
-{ stdenv, lib, fetchgit, gfortran, cmake, makeWrapper, which, openssh, blas, lapack, mpi, python3 }:
+{ stdenv, lib, fetchgit, gfortran, cmake, makeWrapper
+, which, openssh, blas, lapack, mpi, python3
+} :
+
 assert
   lib.asserts.assertMsg
   (!blas.isILP64)

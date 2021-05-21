@@ -6,7 +6,7 @@
 assert
   lib.asserts.assertMsg
   (blas-i8.isILP64 || blas-i8.passthru.implementation == "mkl")
-  "A 64 bint integer BLAS implementation is required.";
+  "A 64 bit integer BLAS implementation is required.";
 
 assert
   lib.asserts.assertMsg
@@ -14,7 +14,7 @@ assert
   "OpenMolcas requires OpenBLAS or MKL.";
 
 let
-  version = "21.02-24.02.2021";
+  version = "21.02-20210224";
 
   python = python3.withPackages (ps : with ps; [ six pyparsing ]);
 
@@ -77,9 +77,11 @@ in stdenv.mkDerivation {
     "-DWFA=ON"
     "-DCTEST=ON"
     "-DCHEMPS2=ON" "-DCHEMPS2_DIR=${chemps2}/bin"
-  ] ++ lib.lists.optionals (blas-i8.passthru.implementation == "openblas") [ "-DOPENBLASROOT=${blas-i8.passthru.provider.dev}" "-DLINALG=OpenBLAS" ]
-    ++ lib.lists.optionals (blas-i8.passthru.implementation == "mkl") [ "-DMKLROOT=${blas-i8.passthru.provider}" "-DLINALG=MKL"]
-  ;
+  ] ++ lib.lists.optionals (blas-i8.passthru.implementation == "openblas") [
+    "-DOPENBLASROOT=${blas-i8.passthru.provider.dev}" "-DLINALG=OpenBLAS"
+  ] ++ lib.lists.optionals (blas-i8.passthru.implementation == "mkl") [
+    "-DMKLROOT=${blas-i8.passthru.provider}" "-DLINALG=MKL"
+  ];
 
   postConfigure = ''
     # The Makefile will install pymolcas during the build grrr.

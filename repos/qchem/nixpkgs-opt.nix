@@ -17,9 +17,7 @@ self: super:
   });
 
   fftw-mpi = self.fftw.overrideAttrs ( oldAttrs: {
-    buildInputs = oldAttrs.buildInputs ++ [
-      self.mpi
-    ];
+    buildInputs = oldAttrs.buildInputs ++ [ self.mpi ];
 
     configureFlags = with super.lib.lists; oldAttrs.configureFlags ++ [
       "--enable-mpi"
@@ -30,8 +28,6 @@ self: super:
 
     propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ self.mpi ];
   });
-
-
 
   fftwSinglePrec = self.fftw.override { precision = "single"; };
 

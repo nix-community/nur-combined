@@ -18,11 +18,10 @@ stdenv.mkDerivation {
     makeFlagsArray+=("CFLAGS=-DUSE_CBLAS")
   '';
 
-
   installPhase = ''
     mkdir -p $out/bin
 
-    cp mt-dgemm $out/bin
+    install -m755 mt-dgemm $out/bin
   '';
 
   meta = with lib; {
@@ -32,4 +31,3 @@ stdenv.mkDerivation {
     maintainers = [ maintainers.markuskowa ];
   };
 }
-

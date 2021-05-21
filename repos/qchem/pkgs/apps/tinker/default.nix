@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl, gfortran, cmake, fftw, pkgconfig }:
+{ stdenv, lib, fetchurl, gfortran, cmake, fftw, pkgconfig } :
 
 stdenv.mkDerivation rec {
   pname = "tinker";

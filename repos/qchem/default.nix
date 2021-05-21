@@ -1,30 +1,30 @@
-self_: super:
+final: prev:
 
 let
 
-  cfg = if (builtins.hasAttr "qchem-config" super.config) then
-    (import ./cfg.nix) super.config.qchem-config
+  cfg = if (builtins.hasAttr "qchem-config" prev.config) then
+    (import ./cfg.nix) prev.config.qchem-config
   else
-  (import ./cfg.nix) { allowEnv = true; }; # if no config is given allow env
+    (import ./cfg.nix) { allowEnv = true; }; # if no config is given allow env
 
-  lib = super.lib;
+  lib = prev.lib;
 
   optAVX = cfg.optAVX;
-
 
   #
   # Our package set
   #
   overlay = subset: extra: let
-    self = self_."${subset}";
-    callPackage = super.lib.callPackageWith (self_ // self);
+    super = prev;
+    self = final."${subset}";
+    callPackage = super.lib.callPackageWith (final // self);
     pythonOverrides = (import ./pythonPackages.nix) subset;
 
   in {
     "${subset}" = {
       # For consistency: every package that is in nixpgs-opt.nix
       # + extra builds that should be exposed
-      inherit (self_)
+      inherit (final)
         fftwSinglePrec
         hpl
         hpcg
@@ -43,7 +43,7 @@ let
         siesta
         siesta-mpi;
 
-      pkgs = self_;
+      pkgs = final;
 
 
       inherit callPackage;
@@ -54,19 +54,18 @@ let
 
       # Define an ILP64 blas/lapack
       # This is still missing upstream
-      blas-i8 = if self_.blas.implementation != "amd-blis" then self_.blas.override { isILP64 = true; }
-                else super.blas.override { isILP64 = true; blasProvider = super.openblas; };
-      lapack-i8 = if self_.lapack.implementation != "amd-libflame" then self_.lapack.override { isILP64 = true; }
-                else super.lapack.override { isILP64 = true; lapackProvider = super.openblas; };
+      blas-i8 = if final.blas.implementation != "amd-blis" then prev.blas.override { isILP64 = true; }
+        else super.blas.override { isILP64 = true; blasProvider = super.openblas; };
 
-      fftw = self_.fftw.overrideAttrs ( oldAttrs: {
-        buildInputs = [ self_.gfortran ];
+      lapack-i8 = if final.lapack.implementation != "amd-libflame" then prev.lapack.override { isILP64 = true; }
+        else super.lapack.override { isILP64 = true; lapackProvider = super.openblas; };
+
+      fftw = final.fftw.overrideAttrs ( oldAttrs: {
+        buildInputs = [ final.gfortran ];
       });
 
       fftw-mpi = self.fftw.overrideAttrs (oldAttrs: {
-        buildInputs = oldAttrs.buildInputs ++ [
-          self.mpi
-        ];
+        buildInputs = oldAttrs.buildInputs ++ [ self.mpi ];
 
         configureFlags = oldAttrs.configureFlags ++ [
           "--enable-mpi"
@@ -79,9 +78,9 @@ let
       });
 
       # For molcas and chemps2
-      hdf5-full = self_.hdf5.override {
+      hdf5-full = final.hdf5.override {
         cpp = true;
-        inherit (self_) gfortran;
+        inherit (final) gfortran;
       };
 
       octave = (super.octaveFull.override {
@@ -93,7 +92,7 @@ let
           glpk
           suitesparse
           gnuplot;
-        }).overrideAttrs (x: { preCheck = "export OMP_NUM_THREADS=4"; });
+      }).overrideAttrs (x: { preCheck = "export OMP_NUM_THREADS=4"; });
 
       # Allow to provide a local download source for unfree packages
       requireFile = if cfg.srcurl == null then super.requireFile else
@@ -111,7 +110,7 @@ let
       #
       bagel = callPackage ./pkgs/apps/bagel {
         blas = self.mkl; # bagel is not stable with openblas
-        boost = self_.boost165;
+        boost = final.boost165;
         scalapack=null; withScalapack=true;
       };
 
@@ -132,11 +131,11 @@ let
 
       crest = callPackage ./pkgs/apps/crest { };
 
-      dalton = callPackage ./pkgs/apps/dalton {};
+      dalton = callPackage ./pkgs/apps/dalton { };
 
-      dkh = callPackage ./pkgs/apps/dkh {};
+      dkh = callPackage ./pkgs/apps/dkh { };
 
-      dftd3 = callPackage ./pkgs/apps/dft-d3 {};
+      dftd3 = callPackage ./pkgs/apps/dft-d3 { };
 
       ergoscf = callPackage ./pkgs/apps/ergoscf { };
 
@@ -149,23 +148,19 @@ let
       i-pi = super.python3.pkgs.toPythonApplication self.python3.pkgs.i-pi;
 
       nwchem = callPackage ./pkgs/apps/nwchem {
-        blas=self.blas-i8;
-        lapack=self.lapack-i8;
+        blas = self.blas-i8;
+        lapack = self.lapack-i8;
       };
 
       mctdh = callPackage ./pkgs/apps/mctdh { };
 
-      #mctdh-mpi = self.mctdh.override { useMPI = true; } ;
-
       mesa-qc = callPackage ./pkgs/apps/mesa {
-        gfortran = self_.gfortran6;
+        gfortran = final.gfortran6;
       };
 
       molcas = self.molcas2102;
 
       molcas1809 = callPackage ./pkgs/apps/openmolcas/v18.09.nix { };
-
-      molcas2010 = callPackage ./pkgs/apps/openmolcas/v20.10.nix { };
 
       molcas2102 = callPackage ./pkgs/apps/openmolcas/v21.02.nix { };
 
@@ -191,7 +186,9 @@ let
       psi4 = super.python3.pkgs.toPythonApplication self.python3.pkgs.psi4;
       psi4Unstable = super.python3.pkgs.toPythonApplication self.python3.pkgs.psi4Unstable;
 
-      qdng = callPackage ./pkgs/apps/qdng { protobuf=super.protobuf3_11; };
+      qdng = callPackage ./pkgs/apps/qdng {
+        protobuf=super.protobuf3_11;
+      };
 
       sharc = self.sharcV2;
 
@@ -199,18 +196,18 @@ let
 
       sharcV1 = callPackage ./pkgs/apps/sharc/V1.nix {
         molcas = self.molcas;
-        molpro = if cfg.licMolpro != null then self.molpro12 else null; # V1 only compatible with versions up to 2012
+        molpro = self.molpro12; # V1 only compatible with versions up to 2012
       };
 
       sharcV2 = callPackage ./pkgs/apps/sharc {
         molcas = self.molcas;
-        molpro = if cfg.licMolpro != null then self.molpro12 else null; # V2 only compatible with versions up to 2012
+        molpro = self.molpro12; # V2 only compatible with versions up to 2012
       };
 
       sharcV21 = callPackage ./pkgs/apps/sharc/21.nix {
         bagel = self.bagel-serial;
         molcas = self.molcas;
-        molpro = if cfg.licMolpro != null then self.molpro12 else null; # V2 only compatible with versions up to 2012
+        molpro = self.molpro12; # V2 only compatible with versions up to 2012
         orca = self.orca;
         gaussian = if cfg.optpath != null then self.gaussian else null;
         turbomole = self.turbomole;
@@ -222,22 +219,19 @@ let
 
       travis-analyzer = callPackage ./pkgs/apps/travis-analyzer { };
 
-      turbomole = callPackage ./pkgs/apps/turbomole {};
+      turbomole = callPackage ./pkgs/apps/turbomole { };
 
-      vmd = callPackage ./pkgs/apps/vmd {};
+      vmd = callPackage ./pkgs/apps/vmd { };
 
-      wfoverlap = callPackage ./pkgs/apps/wfoverlap {};
+      wfoverlap = callPackage ./pkgs/apps/wfoverlap { };
 
-      xcfun = callPackage ./pkgs/lib/xcfun {};
+      xcfun = callPackage ./pkgs/lib/xcfun { };
 
       xtb = callPackage ./pkgs/apps/xtb {
         turbomole = null;
         cefine = null;
         orca = self.orca;
       };
-
-
-
 
       ### Python packages
       python3 = super.python3.override { packageOverrides=pythonOverrides self super; };
@@ -273,7 +267,7 @@ let
 
       libvori = callPackage ./pkgs/lib/libvori { };
 
-      # legacy version
+      # libxc legacy version
       libxc4 = callPackage ./pkgs/lib/libxc { };
 
       mvapich = callPackage ./pkgs/lib/mvapich { };
@@ -281,6 +275,7 @@ let
       osss-ucx = callPackage ./pkgs/lib/osss-ucx { };
 
       sos = callPackage ./pkgs/lib/sos { };
+
       #
       # Utilities
       #
@@ -301,7 +296,9 @@ let
       # benchmark set builder
       benchmarks = callPackage ./benchmark/default.nix { };
 
-      benchmarksets = callPackage ./tests/benchmark-sets.nix { inherit callPackage; };
+      benchmarksets = callPackage ./tests/benchmark-sets.nix {
+        inherit callPackage;
+      };
 
       f2c = callPackage ./pkgs/apps/f2c { };
 
@@ -315,7 +312,7 @@ let
         hpl = callPackage ./tests/hpl { };
         mesa-qc = nullable mesa-qc (callPackage ./tests/mesa { });
         molcas = callPackage ./tests/molcas { };
-        #molcasUnstable = callPackage ./tests/molcas { molcas=self.molcasUnstable; };
+        molpro = nullable molpro (callPackage ./tests/molpro { });
         mrcc = nullable mrcc (callPackage ./tests/mrcc { });
         nwchem = callPackage ./tests/nwchem { };
         psi4 = callPackage ./tests/psi4 { };
@@ -325,8 +322,6 @@ let
         stream = callPackage ./tests/stream { };
         turbomole = nullable turbomole (callPackage ./tests/turbomole { });
         xtb = callPackage ./tests/xtb { };
-      }  // lib.optionalAttrs (cfg.licMolpro != null) {
-        molpro = callPackage ./tests/molpro { };
       };
 
       testFiles = let
@@ -334,6 +329,11 @@ let
       in builtins.mapAttrs (n: v: v.override { batsTest = batsDontRun; })
         self.tests;
 
+      # provide null molpro attrs in case there is no license
+      molpro = null;
+      molpro12 = null;
+      molpro20 = null;
+      molpro-ext = null;
     }  // lib.optionalAttrs (cfg.licMolpro != null) {
 
       #
@@ -343,18 +343,11 @@ let
 
       molpro12 = callPackage ./pkgs/apps/molpro/2012.nix { token=cfg.licMolpro; };
 
-      molpro15 = callPackage ./pkgs/apps/molpro/2015.nix { token=cfg.licMolpro; };
-
-      molpro18 = callPackage ./pkgs/apps/molpro/2018.nix { token=cfg.licMolpro; };
-
-      molpro19 = callPackage ./pkgs/apps/molpro/2019.nix { token=cfg.licMolpro; };
-
       molpro20 = callPackage ./pkgs/apps/molpro { token=cfg.licMolpro; };
 
       molpro-ext = callPackage ./pkgs/apps/molpro/custom.nix { token=cfg.licMolpro; };
 
     } // lib.optionalAttrs (cfg.optpath != null) {
-
       #
       # Quirky packages that need to reside outside the nix store
       #
@@ -364,8 +357,9 @@ let
 
     } // extra;
   } // lib.optionalAttrs optAVX (
-    import ./nixpkgs-opt.nix self_ super
+    import ./nixpkgs-opt.nix final super
     );
 
 in
   overlay cfg.prefix { }
+

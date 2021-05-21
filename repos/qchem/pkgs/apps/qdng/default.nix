@@ -1,6 +1,9 @@
-{ lib, stdenv, fetchurl, requireFile, gfortran, fftw, protobuf, openblasCompat
+{ lib, stdenv, fetchurl, requireFile, gfortran, fftw, protobuf
+, blas, lapack
 , automake, autoconf, libtool, zlib, bzip2, libxml2, flex, bison
-}:
+} :
+
+assert (!blas.isILP64 && !lapack.isILP64);
 
 let
   version = "20200218";
@@ -15,7 +18,11 @@ in stdenv.mkDerivation {
     message = "Get a copy of the QDng tarball from Markus...";
   };
 
-  configureFlags = [ "--enable-openmp" "--with-blas=-lopenblas" ];
+  configureFlags = [
+    "--enable-openmp"
+    "--with-blas=-lblas"
+    "--with-lapack=-llapack"
+  ];
 
   enableParallelBuilding = true;
 
@@ -23,7 +30,7 @@ in stdenv.mkDerivation {
     ./genbs
   '';
 
-  buildInputs = [ gfortran fftw protobuf openblasCompat
+  buildInputs = [ gfortran fftw protobuf blas lapack
                   bzip2 zlib libxml2 flex bison ];
   nativeBuildInputs = [ automake autoconf libtool ];
 
@@ -33,5 +40,4 @@ in stdenv.mkDerivation {
     maintainer = [ maintainers.markuskowa ];
     license = licenses.unfree;
   };
-
 }

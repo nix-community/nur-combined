@@ -1,8 +1,5 @@
 { lib, stdenv, fetchFromGitHub, cmake, perl, gfortran, python
-# Dependencies
-, boost
-, eigen
-, zlib
+, boost, eigen, zlib
 } :
 
 stdenv.mkDerivation rec {
@@ -39,8 +36,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "An API for the Polarizable Continuum Model";
-    license = licenses.lgpl3;
     homepage = "https://pcmsolver.readthedocs.io/en/stable/";
+    license = licenses.lgpl3;
     platforms = platforms.unix;
   };
 }

@@ -37,9 +37,6 @@ in stdenv.mkDerivation {
   '';
 
   checkPhase = ''
-    fi_info
-    #export SHMEM_OFI_PROVIDER=sockets
-    #export SHMEM_OFI_FABRIC="127.0.0.1/8"
     export OMPI_MCA_rmaps_base_oversubscribe=1
     export HYDRA_IFACE=lo
     export SHMEM_OFI_DOMAIN=lo
@@ -51,7 +48,7 @@ in stdenv.mkDerivation {
   meta = with lib; {
     description = "Sandia open SHMEM implementation";
     homepage = https://github.com/Sandia-OpenSHMEM/SOS/releases;
-    license = with licenses; gpl2;
-    platforms = with platforms; linux;
+    license = licenses.bsd3;
+    platforms = platforms.linux;
   };
 }

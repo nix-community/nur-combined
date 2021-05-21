@@ -1,11 +1,13 @@
 { lib, stdenv, requireFile, makeWrapper
 , glib, xorg, zlib, freetype, fontconfig
 } :
+
 let
   version = "6.0.16";
 
 in stdenv.mkDerivation {
-  name = "gaussview-${version}";
+  pname = "gaussview";
+  inherit version;
 
   src = requireFile {
     name = "gv-6016-Linux-x86_64.tbz";
@@ -14,7 +16,6 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ ];
 
   installPhase = ''
     mkdir -p $out/bin $out/data
@@ -40,14 +41,14 @@ in stdenv.mkDerivation {
 
   dontStrip = true;
 
-  preFixup =
-  let
+  preFixup = let
     libPathEXE = lib.makeLibraryPath [
       stdenv.cc.cc.lib
       glib.out
       xorg.libXext
       xorg.libX11
     ];
+
     libPathQt = lib.makeLibraryPath [
       stdenv.cc.cc.lib
       freetype

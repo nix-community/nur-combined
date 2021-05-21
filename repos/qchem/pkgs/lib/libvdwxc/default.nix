@@ -1,5 +1,6 @@
 { stdenv, lib, fetchFromGitLab, gfortran, autoreconfHook, fftw-mpi, mpi
-}:
+} :
+
 stdenv.mkDerivation rec {
   pname = "libvdwxc";
   # Stable version has non-working MPI detection.

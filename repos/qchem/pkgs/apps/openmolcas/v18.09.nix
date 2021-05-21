@@ -14,7 +14,7 @@ assert
   "OpenMolcas requires OpenBLAS or MKL.";
 
 let
-  version = "18.09-02.09.2018";
+  version = "18.09-20180902";
 
   python = python3.withPackages (ps : with ps; [ six pyparsing ]);
 

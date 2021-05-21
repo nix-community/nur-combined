@@ -55,111 +55,108 @@ let
       $(pwd)/${localRelPrefix}/dmrcc_mpi-original
     '');
 
-in
+/*
+This is the normal MRCC derivation without shenanigans. Only in the postFixup wrapper magic
+happens to make MRCC work for the user. See the comments at postFixup.
+*/
+in stdenv.mkDerivation rec {
+  pname = "mrcc";
+  version = "2020.02.22";
+
+  nativeBuildInputs = [
+    makeWrapper
+  ];
+
+  src = let
+    dashVersion = lib.strings.replaceStrings ["."] ["-"] version;
+  in requireFile rec {
+    name = "mrcc.${dashVersion}.binary.tar.gz";
+    sha256 = "e7b4944c66b1b127f9e7b47ca973eee189a6085d4bbc8b2e46b082e57e49ad0b";
+    url = "https://www.mrcc.hu/index.php/download-mrcc/mrcc-binary/send/4-mrcc-binary/31-mrcc-${dashVersion}-binary-tar";
+    message = ''
+      The MRCC source code and binaries are not publically available. Obtain your own license at
+      https://www.mrcc.hu and download the binaries at ${url}. Add the archive ${name} to the nix
+      store by:
+        nix-store --add-fixed sha256 ${name}
+      and then rebuild.
+    '';
+  };
+
+  unpackPhase = ''
+    tar -xf $src
+  '';
+
+  dontConfigure = true;
+  dontBuild = true;
+  installPhase = ''
+    runHook preInstall
+
+    # Move executables to $out
+    mkdir -p $out/bin
+    exes=$(find -type f -executable)
+    for exe in $exes; do
+      cp $exe $out/bin/.
+    done
+
+    # Move the tests and basis sets to share and make a symlink for MRCC
+    mkdir -p $out/share
+    cp -r BASIS $out/share/.
+    cp -r MTEST $out/share/.
+    ln -s $out/share/BASIS $out/bin/.
+    ln -s $out/share/MTEST $out/bin/.
+
+    # Copy the manual also to share
+    cp manual.pdf $out/share/.
+
+    runHook postInstall
+  '';
+
   /*
-  This is the normal MRCC derivation without shenanigans. Only in the postFixup wrapper magic
-  happens to make MRCC work for the user. See the comments at postFixup.
+  The postFixup introduces a lot of wrapper magic:
+    1. All executables of MRCC are wrapped, so that correct MPI libraries and coreutils are found.
+    2. The original mrcc entry points (dmrcc and dmrcc_mpi) are moved (to dmrcc-original and
+       dmrcc_mpi-original), so that they can be replaced by other wrapper scripts
+       (dmrccEntryScript and dmrccMpiEntryScript).
+    3. The wrapper scripts dmrccEntryScript and dmrccMpiEntryScript are copied in the mrcc bin
+       directory and replace the original entry points. Those scripts create in the directory from
+       which they were called a "local" mrcc installation by linking the executables to calling
+       directory and replace all the absolute paths in the wrappers of this derivation.
+    4. The entrypoint wrapper scripts are wrapped AGAIN so that they have the correct coreutils
+       available at runtime.
   */
-  stdenv.mkDerivation rec {
-    pname = "mrcc";
-    version = "2020.02.22";
+  postFixup = ''
+    # Step 1:
+    # Look for all original mrcc executables and wrap them for paths and stuff
+    exes=$(find $out/bin/ -type f -executable)
+    for exe in $exes; do
+    wrapProgram $exe \
+      --prefix PATH : ${stdenv.cc.coreutils_bin}/bin \
+      --prefix PATH : ${which}/bin
+    done
 
-    nativeBuildInputs = [
-      makeWrapper
-    ];
+    # Step 2:
+    # Move the original mrcc entry points (dmrcc and dmrcc_mpi) to new, hidden names, so that they
+    # can be replaced by my wrapper scripts. (They are already wrapped but that does not matter)
+    mv $out/bin/dmrcc $out/bin/dmrcc-original
+    mv $out/bin/dmrcc_mpi $out/bin/dmrcc_mpi-original
 
-    src =
-      let dashVersion = lib.strings.replaceStrings ["."] ["-"] version;
-      in requireFile rec {
-           name = "mrcc.${dashVersion}.binary.tar.gz";
-           sha256 = "e7b4944c66b1b127f9e7b47ca973eee189a6085d4bbc8b2e46b082e57e49ad0b";
-           url = "https://www.mrcc.hu/index.php/download-mrcc/mrcc-binary/send/4-mrcc-binary/31-mrcc-${dashVersion}-binary-tar";
-           message = ''
-             The MRCC source code and binaries are not publically available. Obtain your own license at
-             https://www.mrcc.hu and download the binaries at ${url}. Add the archive ${name} to the nix
-             store by:
-               nix-store --add-fixed sha256 ${name}
-             and then rebuild.
-           '';
-         };
+    # Step 3:
+    # Replaces the original mrcc entry points by wrapper scripts, that create a local mrcc
+    # installation in the calling directory.
+    cp ${dmrccEntryScript} $out/bin/dmrcc && substituteAllInPlace $out/bin/dmrcc
+    cp ${dmrccMpiEntryScript} $out/bin/dmrcc_mpi && substituteAllInPlace $out/bin/dmrcc_mpi
 
-    unpackPhase = ''
-      tar -xf $src
-    '';
+    # Step 4:
+    # Now again wrap the entrypoints (which are wrapper scripts), so that they find the correct
+    # coreutils.
+    wrapProgram $out/bin/dmrcc --prefix PATH : ${coreutils}/bin
+    wrapProgram $out/bin/dmrcc_mpi --prefix PATH : ${coreutils}/bin
+  '';
 
-    dontConfigure = true;
-    dontBuild = true;
-    installPhase = ''
-      runHook preInstall
-
-
-      # Move executables to $out
-      mkdir -p $out/bin
-      exes=$(find -type f -executable)
-      for exe in $exes; do
-        cp $exe $out/bin/.
-      done
-
-      # Move the tests and basis sets to share and make a symlink for MRCC
-      mkdir -p $out/share
-      cp -r BASIS $out/share/.
-      cp -r MTEST $out/share/.
-      ln -s $out/share/BASIS $out/bin/.
-      ln -s $out/share/MTEST $out/bin/.
-
-      # Copy the manual also to share
-      cp manual.pdf $out/share/.
-
-
-      runHook postInstall
-    '';
-
-    /*
-    The postFixup introduces a lot of wrapper magic:
-      1. All executables of MRCC are wrapped, so that correct MPI libraries and coreutils are found.
-      2. The original mrcc entry points (dmrcc and dmrcc_mpi) are moved (to dmrcc-original and
-         dmrcc_mpi-original), so that they can be replaced by other wrapper scripts
-         (dmrccEntryScript and dmrccMpiEntryScript).
-      3. The wrapper scripts dmrccEntryScript and dmrccMpiEntryScript are copied in the mrcc bin
-         directory and replace the original entry points. Those scripts create in the directory from
-         which they were called a "local" mrcc installation by linking the executables to calling
-         directory and replace all the absolute paths in the wrappers of this derivation.
-      4. The entrypoint wrapper scripts are wrapped AGAIN so that they have the correct coreutils
-         available at runtime.
-    */
-    postFixup = ''
-      # Step 1:
-      # Look for all original mrcc executables and wrap them for paths and stuff
-      exes=$(find $out/bin/ -type f -executable)
-      for exe in $exes; do
-      wrapProgram $exe \
-        --prefix PATH : ${stdenv.cc.coreutils_bin}/bin \
-        --prefix PATH : ${which}/bin
-      done
-
-      # Step 2:
-      # Move the original mrcc entry points (dmrcc and dmrcc_mpi) to new, hidden names, so that they
-      # can be replaced by my wrapper scripts. (They are already wrapped but that does not matter)
-      mv $out/bin/dmrcc $out/bin/dmrcc-original
-      mv $out/bin/dmrcc_mpi $out/bin/dmrcc_mpi-original
-
-      # Step 3:
-      # Replaces the original mrcc entry points by wrapper scripts, that create a local mrcc
-      # installation in the calling directory.
-      cp ${dmrccEntryScript} $out/bin/dmrcc && substituteAllInPlace $out/bin/dmrcc
-      cp ${dmrccMpiEntryScript} $out/bin/dmrcc_mpi && substituteAllInPlace $out/bin/dmrcc_mpi
-
-      # Step 4:
-      # Now again wrap the entrypoints (which are wrapper scripts), so that they find the correct
-      # coreutils.
-      wrapProgram $out/bin/dmrcc --prefix PATH : ${coreutils}/bin
-      wrapProgram $out/bin/dmrcc_mpi --prefix PATH : ${coreutils}/bin
-    '';
-
-    meta = with lib; {
-      description = "MRCC is a suite of ab initio and density functional quantum chemistry programs for high-accuracy electronic structure calculations.";
-      homepage = "https://www.mrcc.hu/";
-      license = licenses.unfree;
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+  meta = with lib; {
+    description = "MRCC is a suite of ab initio and density functional quantum chemistry programs for high-accuracy electronic structure calculations.";
+    homepage = "https://www.mrcc.hu/";
+    license = licenses.unfree;
+    platforms = [ "x86_64-linux" ];
+  };
+}

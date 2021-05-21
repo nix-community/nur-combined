@@ -145,8 +145,7 @@ let
   };
 
 
-in
-  buildPythonPackage rec {
+in buildPythonPackage rec {
     pname = "psi4";
     inherit version;
 
@@ -237,30 +236,10 @@ in
       cd build
     '';
 
-    buildPhase = ''
-      make -j $NIX_BUILD_CORES
-    '';
+    postFixup = let
+      binSearchPath = with lib; strings.makeSearchPath "bin" [ dftd3 ];
 
-    installPhase = ''
-      make install
-    '';
-
-    binSearchPath = with lib; strings.makeSearchPath "bin" [
-      dftd3
-    ];
-
-    /*
-    libSearchPath = with lib; strings.makeSearchPath "lib/${python.executable}/site-packages" ([
-      pybind11
-      qcelemental
-      numpy
-      libefp
-      deepdiff
-    ] ++ qcelemental.passthru.requiredPythonModules
-    );
-    */
-
-    postFixup = ''
+    in ''
       # Make libraries and external binaries available
       wrapProgram $out/bin/psi4 \
         --prefix PATH : ${binSearchPath}
@@ -293,6 +272,6 @@ in
       description = "Open-Source Quantum Chemistry – an electronic structure package in C++ driven by Python";
       homepage = "http://www.psicode.org/";
       license = licenses.lgpl3;
-      platforms = platforms.unix;
+      platforms = platforms.linux;
     };
   }

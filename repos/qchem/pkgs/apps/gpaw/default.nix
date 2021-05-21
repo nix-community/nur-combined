@@ -1,6 +1,8 @@
-{ fetchFromGitLab, buildPythonPackage, lib, writeTextFile, makeWrapper, fetchurl, blas, lapack,
-  scalapack, mpi, fftw-mpi, libxc, libvdwxc, which, ase, numpy, scipy
-}:
+{ fetchFromGitLab, buildPythonPackage, lib, writeTextFile, makeWrapper
+, fetchurl, blas, lapack, scalapack, mpi, fftw-mpi, libxc, libvdwxc
+, which, ase, numpy, scipy
+} :
+
 assert
   lib.asserts.assertMsg
   (!blas.isILP64)
@@ -59,70 +61,70 @@ let
     url = "https://wiki.fysik.dtu.dk/gpaw-files/gpaw-setups-${setupVersion}.tar.gz";
     sha256 = "07yldxnn38gky39fxyv3rfzag9p4lb0xfpzn15wy2h9aw4mnhwbc";
   };
-in
-  buildPythonPackage rec {
-    pname = "gpaw";
-    version = "21.1.0";
 
-    nativeBuildInputs = [
-      which
-      makeWrapper
-    ];
+in buildPythonPackage rec {
+  pname = "gpaw";
+  version = "21.1.0";
 
-    buildInputs = [
-      blas
-      scalapack
-      fftw-mpi
-      libxc
-      libvdwxc
-    ];
+  src = fetchFromGitLab  {
+    owner = "gpaw";
+    repo = pname;
+    rev = version;
+    sha256 = "0xws39yq5d1ih4zj31bdd0h64afs6x9j30yrrycxf3pnc5h9wbr0";
+  };
 
-    propagatedBuildInputs = [
-      ase
-      scipy
-      numpy
-      mpi
-    ];
+  nativeBuildInputs = [
+    which
+    makeWrapper
+  ];
 
-    src = fetchFromGitLab  {
-      owner = "gpaw";
-      repo = pname;
-      rev = version;
-      sha256 = "0xws39yq5d1ih4zj31bdd0h64afs6x9j30yrrycxf3pnc5h9wbr0";
-    };
+  buildInputs = [
+    blas
+    scalapack
+    fftw-mpi
+    libxc
+    libvdwxc
+  ];
 
-    postInstall = ''
-      currDir=$(pwd)
-      mkdir -p $out/share/gpaw && cd $out/share/gpaw
-      cp ${pawDataSets} gpaw-setups.tar.gz
-      tar -xvf $out/share/gpaw/gpaw-setups.tar.gz
-      rm gpaw-setups.tar.gz
-      cd $currDir
-    '';
+  propagatedBuildInputs = [
+    ase
+    scipy
+    numpy
+    mpi
+  ];
 
-    doCheck = false;
-    preCheck = ''
-      # export PATH=$PATH:${mpi}/bin
-      export GPAW_SETUP_PATH=$out/share/gpaw/gpaw-setups-${setupVersion}
-    '';
+  postInstall = ''
+    currDir=$(pwd)
+    mkdir -p $out/share/gpaw && cd $out/share/gpaw
+    cp ${pawDataSets} gpaw-setups.tar.gz
+    tar -xvf $out/share/gpaw/gpaw-setups.tar.gz
+    rm gpaw-setups.tar.gz
+    cd $currDir
+  '';
 
-    postPatch = ''
-      cp ${gpawConfig} siteconfig.py
-    '';
+  doCheck = false;
+  preCheck = ''
+    # export PATH=$PATH:${mpi}/bin
+    export GPAW_SETUP_PATH=$out/share/gpaw/gpaw-setups-${setupVersion}
+  '';
 
-    postFixup = ''
-      for exe in $out/bin/*; do
-        wrapProgram $exe \
-          --set "GPAW_SETUP_PATH" "$out/share/gpaw/gpaw-setups-${setupVersion}"
-      done
-    '';
+  postPatch = ''
+    cp ${gpawConfig} siteconfig.py
+  '';
 
-    passthru.mpi = { inherit mpi; };
+  postFixup = ''
+    for exe in $out/bin/*; do
+      wrapProgram $exe \
+        --set "GPAW_SETUP_PATH" "$out/share/gpaw/gpaw-setups-${setupVersion}"
+    done
+  '';
 
-    meta = with lib; {
-      description = "DFT and beyond within the projector-augmented wave method";
-      license = licenses.gpl3Only;
-      homepage = "https://wiki.fysik.dtu.dk/gpaw/index.html";
-      platforms = platforms.unix;
-    };
-  }
+  passthru.mpi = { inherit mpi; };
+
+  meta = with lib; {
+    description = "DFT and beyond within the projector-augmented wave method";
+    homepage = "https://wiki.fysik.dtu.dk/gpaw/index.html";
+    license = licenses.gpl3Only;
+    platforms = platforms.unix;
+  };
+}

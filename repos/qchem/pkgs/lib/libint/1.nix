@@ -2,6 +2,7 @@
 , doxygen, texlive, python, perl, gmpxx, mpfr, boost
 , maxAm ? 6
 } :
+
 assert
   lib.asserts.assertMsg
   (maxAm <= 7 && maxAm >= 1)
@@ -40,7 +41,7 @@ in stdenv.mkDerivation {
   meta = with lib; {
     description = "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions";
     homepage = https://github.com/evaleev/libint;
-    license = licenses.lgpl3;
+    license = with licenses; [ lgpl3Only gpl3Only ];
     platforms = platforms.linux;
   };
 }

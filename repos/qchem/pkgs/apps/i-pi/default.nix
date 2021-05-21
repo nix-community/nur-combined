@@ -1,4 +1,6 @@
-{ buildPythonPackage, lib, fetchFromGitHub, gfortran, makeWrapper, numpy, pytest, mock, pytest-mock }:
+{ buildPythonPackage, lib, fetchFromGitHub, gfortran
+, makeWrapper, numpy, pytest, mock, pytest-mock
+} :
 
 buildPythonPackage rec {
   name = "i-PI";

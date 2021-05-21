@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl, cmake }:
+{ stdenv, lib, fetchurl, cmake } :
 
 stdenv.mkDerivation rec {
   pname = "libvori";
@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Library for Voronoi intergration of electron densities";
-    license = with licenses; [ lgpl3Only ];
     homepage = "https://brehm-research.de/libvori.php";
+    license = with licenses; [ lgpl3Only ];
     platforms = platforms.unix;
   };
 }

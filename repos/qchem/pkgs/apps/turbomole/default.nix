@@ -29,9 +29,9 @@ in stdenv.mkDerivation rec {
     which
   ];
 
-  src = requireFile rec {
+  src = requireFile {
     sha256 = "6826d47429bc2a64081f40944e4d48c8f951676e097935ea533a1a25a4e35af0";
-    name = "turbolinux${lib.strings.replaceStrings ["."] [""] version}.tar.gz";
+    name = "turbolinux${lib.replaceStrings ["."] [""] version}.tar.gz";
     url = "https://www.turbomole.org/";
   };
 
@@ -98,15 +98,15 @@ in stdenv.mkDerivation rec {
 
   dontAutoPatchelf = true;
 
-  libSearchPath = lib.strings.makeSearchPath "lib" [
-    "$out/lib"
-    "$out/share/turbomole/libso/${systemName}_mpi"
-    gcc-unwrapped.lib
-    zlib
-    glibc
-  ];
-
-  postFixup = ''
+  postFixup = let
+    libSearchPath = lib.strings.makeSearchPath "lib" [
+      "$out/lib"
+      "$out/share/turbomole/libso/${systemName}_mpi"
+      gcc-unwrapped.lib
+      zlib
+      glibc
+    ];
+  in ''
     # Patch elf dynamic library paths.
     for dir in $TURBODIR/libso $TURBODIR/bin/*; do
       files=$(find $dir -type f -executable -maxdepth 1 ! -name rimp2 ! -name ccsdf12)

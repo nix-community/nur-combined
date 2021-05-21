@@ -1,8 +1,7 @@
-{ stdenvNoCC, fetchFromGitHub } :
-
+{ stdenvNoCC, lib, fetchFromGitHub } :
 
 stdenvNoCC.mkDerivation {
-  pname = "fugu-tools";
+  pname = "slurm-tools";
   version = "1.2.2";
 
   src = fetchFromGitHub {
@@ -20,4 +19,11 @@ stdenvNoCC.mkDerivation {
       install -m 755 -t $out/bin $i
     done
   '';
+
+  meta = with lib; {
+    description = "Collection of scripts to integrate nix and slurm";
+    homepage = "https://github.com/markuskowa/slurm-tools";
+    license = licenses.mit;
+    maintainers = [ maintainers.markuskowa ];
+  };
 }

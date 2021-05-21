@@ -12,10 +12,7 @@
 
 assert builtins.elem network [ "ethernet" "infiniband" "omnipath" ];
 
-let
-
-
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "mvapich";
   version = "2.3.5";
 

@@ -1,7 +1,8 @@
 { stdenv, lib, fetchFromGitHub, autoconf, automake, libtool
-, python, boost, mpi, libxc, fetchpatch, blas
-, scalapack, withScalapack ? false
 , makeWrapper, openssh
+, python, boost, mpi, libxc, blas
+, withScalapack ? false
+, scalapack
 } :
 
 let
@@ -69,8 +70,8 @@ in stdenv.mkDerivation {
     EOF
     chmod 755 $out/bin/bagel
 
-    '' +
     ''
+    + ''
     # install test jobs
     mkdir -p $out/share/tests
     cp test/* $out/share/tests

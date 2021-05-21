@@ -1,6 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, cmake, gfortran, python3 }:
+{ stdenv, lib, fetchFromGitHub, cmake, gfortran, python3 } :
 
-let python = python3.withPackages (p: with p; [ pybind11 ]);
+let
+  python = python3.withPackages (p: with p; [ pybind11 ]);
 
 in stdenv.mkDerivation rec {
   pname = "xcfun";
