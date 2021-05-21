@@ -833,10 +833,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.7";
+      version = "11.2.8";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3771676/noscript_security_suite-11.2.7-an+fx.xpi";
-      sha256 = "c4f20b85f3f18d3dcd202120e27bcc58313e3c00ba899731937025b2a80d4994";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3778947/noscript_security_suite-11.2.8-an+fx.xpi";
+      sha256 = "4744f9d99acbe9dec3557765edd9173272b4681c8425228fb6af52493f853467";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1045,10 +1045,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.13.3";
+      version = "4.13.4";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3778776/react_developer_tools-4.13.3-fx.xpi";
-      sha256 = "df5ca93273f881d527e62179b08375fedd0de468145bc37991d22099f6c7169d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3779590/react_developer_tools-4.13.4-fx.xpi";
+      sha256 = "5005736e3ab90aea10b1cda2823cfdfd0c244a0870b5185ad7dd32931d735746";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1198,10 +1198,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.0.14.2";
+      version = "2.0.15.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3777295/sponsorblock_skip_sponsorships_on_youtube-2.0.14.2-an+fx.xpi";
-      sha256 = "3e1ab92a10365d4b962c7d954374a28e1e2fd7ab32ce839515a6cf1d62320ac4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3779014/sponsorblock_skip_sponsorships_on_youtube-2.0.15.1-an+fx.xpi";
+      sha256 = "675289edebf104f2271de9171a68d5210573ab2c7992e4a72ff9cbac909dd87b";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
