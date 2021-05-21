@@ -1,7 +1,7 @@
 { batsTest, dalton } :
 
 batsTest {
-  name = "psi4";
+  name = "dalton";
 
   auxFiles = [ ./dalinp.dal ./molinp.mol ];
   outFile = [ "dalton.out" ];
