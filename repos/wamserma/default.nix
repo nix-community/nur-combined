@@ -14,7 +14,8 @@ let
 in
 let
   python3AppPackages = pkgs.recurseIntoAttrs rec {
-    bundlewrap = pkgs.python3.pkgs.callPackage ./pkgs/development/python-modules/bundlewrap { lib = mylib; };
+    pyrouteros = pkgs.python3.pkgs.callPackage ./pkgs/development/python-modules/routeros { lib = mylib; };
+    bundlewrap = pkgs.python3.pkgs.callPackage ./pkgs/development/python-modules/bundlewrap { lib = mylib; inherit pyrouteros; };
   };
 in
 rec {

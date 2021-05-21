@@ -11,11 +11,12 @@
 , requests
 , setuptools
 , tomlkit
+, pyrouteros
 }:
 
 buildPythonPackage rec {
   pname = "bundlewrap";
-  version = "4.7.1";
+  version = "4.8.1";
 
   disabled = pythonOlder "3.6";
 
@@ -23,11 +24,11 @@ buildPythonPackage rec {
     owner = "bundlewrap";
     repo = "bundlewrap";
     rev = "${version}";
-    sha256 = "1ik34q2a6m9z7dncz2j5pj517i6hs0qqlaab9lqiikfnk3nc9j86";
+    sha256 = "06zhj0rprvngyrfrihxwwkkzrjlcnimvwyn1baa90gmxs5hyxz27";
   };
 
   propagatedBuildInputs = [
-    cryptography jinja2 Mako passlib pyyaml requests setuptools tomlkit
+    cryptography jinja2 Mako passlib pyyaml requests setuptools tomlkit pyrouteros
   ];
 
   checkInputs = [ pytest ];
