@@ -4,13 +4,13 @@ with pkgs;
 
 rustPlatform.buildRustPackage rec {
   pname = "eww";
-  version = "unstable-2021-05-12";
+  version = "unstable-2021-05-18";
 
   src = fetchFromGitHub {
     owner = "elkowar";
     repo = pname;
-    rev = "df5793b2048bfb62113c9ac5f4b71dc9c2405329";
-    sha256 = "sha256-XPbvDKeA/jXzhmo++mPFUj24/wAVcFAiSNqhke5Invw=";
+    rev = "f26d91f45562700a39362a02892e13f667cfa4a2";
+    sha256 = "sha256-xI0O35swAJkuYNA3A+EyQyJWLlicSRID5z42sz4jkkA=";
   };
 
   nativeBuildInputs = [
@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
   checkPhase = null;
 
-  cargoSha256 = "sha256-gAyuDcKXXWz52VXgfbLvVGCj9YVBxAqgsMCp2r5shMg=";
+  cargoSha256 = "sha256-wqbUpufEKCvxnUDDYWeiIUsRkS/cuehsbwcmYPfnx8E=";
 
   meta = with lib; {
     description = "A standalone widget system made in Rust to add AwesomeWM like widgets to any WM";

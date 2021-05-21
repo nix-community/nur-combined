@@ -1,0 +1,12 @@
+diff --git a/Makefile b/Makefile
+index 82e3825..1924298 100644
+--- a/Makefile
++++ b/Makefile
+@@ -18,7 +18,6 @@ install:
+ 	cp $(NAME) $(DESTDIR)$(PREFIX)/$(NAME)
+ 	ls $(DESTDIR)/usr/lib/uwufetch/ 2> /dev/null || mkdir $(DESTDIR)/usr/lib/uwufetch/
+ 	cp res/* $(DESTDIR)/usr/lib/uwufetch/
+-	cp ./$(NAME).1.gz $(DESTDIR)/usr/share/man/man1/
+ 
+ uninstall:
+ 	rm -f $(DESTDIR)$(PREFIX)/$(NAME)

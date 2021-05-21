@@ -1,0 +1,24 @@
+{
+  "name": "htBrowser",
+  "version": "1.0.0",
+  "description": "A hotkey browser made for developers to go through docs while staying in editor",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/mTvare6/htBrowser",
+  "keywords": [
+    "Electron",
+    "hotkey",
+    "docs"
+  ],
+  "author": "mTvare6",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "electron": "^12.0.7"
+  },
+  "dependencies": {
+    "electron-active-window": "^0.0.5",
+    "electron-is-accelerator": "^0.2.0"
+  }
+}
