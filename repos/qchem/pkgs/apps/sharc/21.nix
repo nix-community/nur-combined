@@ -5,7 +5,7 @@
 } :
 
 let
-  version = "2.1";
+  version = "2.1.1";
   python = python2.withPackages(p: with p; [ numpy pyquante ]);
 
 in stdenv.mkDerivation {
@@ -16,7 +16,7 @@ in stdenv.mkDerivation {
     owner = "sharc-md";
     repo = "sharc";
     rev = "v${version}";
-    sha256 = "1p9byiwlyqhbwdq0icxg75n3waxji0fiwp92q8jgrzb384k3bj36";
+    sha256 = "09a5a0zbkganvx9g70vcjbr0i77a9kh095vgh0k0rm0lmkay1cd2";
   };
 
   nativeBuildInputs = [ makeWrapper which ];
@@ -27,6 +27,8 @@ in stdenv.mkDerivation {
     ./testing.patch
     # Molpro tests require more memory
     ./molpro_tests.patch
+    # Allows for newer molcas versions
+    ./molcas_version.patch
   ];
 
   postPatch = ''
@@ -75,9 +77,9 @@ in stdenv.mkDerivation {
                      --set-default MOLCAS ${molcas} \
                      --set-default BAGEL ${bagel} \
                      ${lib.optionalString (molpro != null) "--set-default MOLPRO ${molpro}/bin"} \
-                     ${lib.optionalString (orca != null) "--set-default ORCA ${orca}/bin"} \
+                     ${lib.optionalString (orca != null) "--set-default ORCADIR ${orca}/bin"} \
                      ${lib.optionalString (turbomole != null) "--set-default TURBOMOLE ${turbomole}/bin"} \
-                     ${lib.optionalString (gaussian != null) "--set-default GAUSSIAN ${turbomole}/bin"}
+                     ${lib.optionalString (gaussian != null) "--set-default GAUSSIAN ${gaussian}/bin"}
     done
   '';
 
@@ -90,6 +92,10 @@ in stdenv.mkDerivation {
        sed -i 's/cd \$COPY_DIR/cd $COPY_DIR\;chmod -R +w \*/' $i
     done
   '';
+
+  setupHooks = [
+    ./sharcHook.sh
+  ];
 
   meta = with lib; {
     description = "Molecular dynamics (MD) program suite for excited states";

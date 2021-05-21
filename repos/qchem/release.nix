@@ -31,7 +31,7 @@ let
       config.handleEvalIssue = reason: message:
         if reason == "unfree" then false
         else throw message;
-      # config.checkMetaRecursively = true;
+      config.checkMetaRecursively = true;
       config.inHydra = true;
     };
 
@@ -101,19 +101,18 @@ let
   in pkgsClean;
 
 in {
-  qchem = pkgs (config // { optAVX = true; }) (self: super: {});
-  qchem-noavx = pkgs (config // { optAVX = false; }) (self: super: {});
+  qchem = pkgs config (self: super: {});
 
 } # Extra variants for testing purposes
 // (if buildVariants then {
-  qchem-mpich = pkgs (config // { optAVX = true; }) (self: super: { mpi = super.mpich; });
+  qchem-mpich = pkgs config (self: super: { mpi = super.mpich; });
 
-  qchem-mkl = pkgs (config // { optAVX = true; }) (self: super: {
+  qchem-mkl = pkgs config (self: super: {
     blas = super.blas.override { blasProvider = super.mkl; };
     lapack = super.lapack.override { lapackProvider = super.mkl; };
   });
 
-  qchem-amd = pkgs (config // { optAVX = true; }) (self: super: {
+  qchem-amd = pkgs config (self: super: {
     blas = super.blas.override { blasProvider = super.amd-blis; };
     lapack = super.lapack.override { lapackProvider = super.amd-libflame; };
   });
