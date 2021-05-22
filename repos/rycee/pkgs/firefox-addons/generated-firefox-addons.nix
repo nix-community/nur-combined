@@ -2,10 +2,10 @@
   {
     "1password-x-password-manager" = buildFirefoxXpiAddon {
       pname = "1password-x-password-manager";
-      version = "1.24.2";
+      version = "1.24.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3770500/1password_password_manager-1.24.2-fx.xpi";
-      sha256 = "06b44ff0b8884fd42b20765b621d8040194a3052b5f58bcf4c9adfab11f12d6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3761012/1password_password_manager-1.24.1-fx.xpi";
+      sha256 = "3f4429ec7e8895802de24eedfc83122dd7dcbe8996c841fdcf6b68b558092975";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -751,10 +751,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.5.3";
+      version = "9.5.4";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3778212/metamask-9.5.3-an+fx.xpi";
-      sha256 = "0fc522352208e1d50e2949733756e4cbdaac2ba3d2ef9ea19c82a9bee707ffed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3780182/metamask-9.5.4-an+fx.xpi";
+      sha256 = "bfeff1807d1e8ea57f2f2eedd84cf2e73b8647c9848e757e2809322786649ff3";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -764,10 +764,10 @@
       };
     "min-twitter" = buildFirefoxXpiAddon {
       pname = "min-twitter";
-      version = "2.78";
+      version = "2.79";
       addonId = "{e7476172-097c-4b77-b56e-f56a894adca9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3746536/minimal_twitter-2.78-fx.xpi";
-      sha256 = "254f04637d13773c970e66cc41b7bfbcbd90251b1e793ad72100deeb8fb9bc7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3780064/minimal_twitter-2.79-fx.xpi";
+      sha256 = "e4821d283ca276cb8a0849e942e703b412d1db357089bdd0eefef38c1a4ab47c";
       meta = with lib;
       {
         description = "A minimal twitter theme for the new Twitter!";
@@ -1336,10 +1336,10 @@
       };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.5.0";
+      version = "0.5.1";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3772899/to_deepl_translation-0.5.0-fx.xpi";
-      sha256 = "ad0806b0355b3e777eee2f1ee9e39939f8cec221bef40101449e09b2d869a6e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3780089/to_deepl_translation-0.5.1-fx.xpi";
+      sha256 = "effe80c3ccaa7201c76602451ba6789044a64cb25f6f90a79d5505f5352da8b8";
       meta = with lib;
       {
         homepage = "https://github.com/rewkha/firefox-to-deepl/";
