@@ -36,6 +36,7 @@ in
             }
             {
               block = "backlight";
+              invert_icons = true;
             }
             {
               block = "battery";

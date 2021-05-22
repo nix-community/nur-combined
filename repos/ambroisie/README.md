@@ -21,3 +21,4 @@ Secondly, take care of a few manual steps:
 * Configure Sonarr, Radarr, Bazarr
 * Configure Transmission's webui port
 * Configure Quassel user
+* Configure Flood account

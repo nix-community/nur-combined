@@ -40,6 +40,10 @@ in
       sharedSecretFile =
         builtins.toFile "rpc.env" my.secrets.drone.secret;
     };
+    # Flood UI for transmission
+    flood = {
+      enable = true;
+    };
     # Gitea forge
     gitea.enable = true;
     # Meta-indexers

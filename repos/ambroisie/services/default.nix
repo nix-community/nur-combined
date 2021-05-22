@@ -7,6 +7,7 @@
     ./blog.nix
     ./calibre-web.nix
     ./drone.nix
+    ./flood.nix
     ./gitea.nix
     ./indexers.nix
     ./jellyfin.nix
