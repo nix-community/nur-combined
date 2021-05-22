@@ -11,6 +11,9 @@ in
     # Enable touchpad support
     services.xserver.libinput.enable = true;
 
+    # Enable TLP power management
+    my.services.tlp.enable = true;
+
     # Enable upower power management
     my.modules.upower.enable = true;
 

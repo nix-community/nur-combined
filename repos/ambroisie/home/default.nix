@@ -14,6 +14,8 @@
     ./gtk.nix
     ./htop.nix
     ./jq.nix
+    ./mpv.nix
+    ./nix-index.nix
     ./nm-applet.nix
     ./packages.nix
     ./pager.nix

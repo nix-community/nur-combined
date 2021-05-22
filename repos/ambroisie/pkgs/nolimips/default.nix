@@ -19,5 +19,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.lrde.epita.fr/wiki/Nolimips";
     license = licenses.gpl2;
     platforms = platforms.all;
+    maintainers = with maintainers; [ ambroisie ];
   };
 }

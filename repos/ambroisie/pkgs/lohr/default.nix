@@ -17,5 +17,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/alarsyo/lohr";
     license = with licenses; [ mit asl20 ];
     platforms = platforms.unix;
+    maintainers = with maintainers; [ ambroisie ];
   };
 }

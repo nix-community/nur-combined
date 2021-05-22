@@ -1,9 +1,9 @@
-{ coreutils, git, gnused, makeWrapper, lib, shellcheck, stdenvNoCC }:
+{ bitwarden-cli, coreutils, jq, keyutils, lib, makeWrapper, rofi, shellcheck, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
-  pname = "diff-flake";
+  pname = "bw-pass";
   version = "0.1.0";
 
-  src = ./diff-flake;
+  src = ./bw-pass;
 
   phases = [ "buildPhase" "installPhase" "fixupPhase" ];
 
@@ -23,9 +23,11 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   wrapperPath = lib.makeBinPath [
+    bitwarden-cli
     coreutils
-    git
-    gnused
+    jq
+    keyutils
+    rofi
   ];
 
   fixupPhase = ''
@@ -34,7 +36,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Nix flake helper to visualize changes in closures";
+    description = "A simple script to query a password from bitwarden";
     homepage = "https://gitea.belanyi.fr/ambroisie/nix-config";
     license = with licenses; [ mit ];
     platforms = platforms.unix;

@@ -26,5 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.lrde.epita.fr/wiki/Havm";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
+    maintainers = with maintainers; [ ambroisie ];
   };
 }

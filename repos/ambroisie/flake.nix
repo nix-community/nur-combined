@@ -76,6 +76,8 @@
         specialArgs = {
           # Use my extended lib in NixOS configuration
           inherit lib;
+          # Inject inputs to use them in global registry
+          inherit inputs;
         };
       };
     in

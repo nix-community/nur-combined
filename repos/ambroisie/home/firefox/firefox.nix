@@ -10,6 +10,11 @@ in
       cfg = {
         enableTridactylNative = cfg.tridactyl.enable;
       };
+
+      extraNativeMessagingHosts = with pkgs; ([ ]
+        # Watch videos using mpv
+        ++ lib.optional cfg.ff2mpv.enable ambroisie.ff2mpv-go
+      );
     };
 
     profiles = {
@@ -35,13 +40,16 @@ in
       };
     };
 
-    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+    extensions = with pkgs.nur.repos.rycee.firefox-addons; ([
       bitwarden
       form-history-control
       https-everywhere
       i-dont-care-about-cookies
       reddit-enhancement-suite
       ublock-origin
-    ] ++ lib.optional (cfg.tridactyl.enable) tridactyl;
+    ]
+    ++ lib.optional (cfg.tridactyl.enable) tridactyl
+    ++ lib.optional (cfg.ff2mpv.enable) ff2mpv
+    );
   };
 }

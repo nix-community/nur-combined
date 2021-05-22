@@ -22,6 +22,7 @@
     ./rss-bridge.nix
     ./sabnzbd.nix
     ./ssh-server.nix
+    ./tlp.nix
     ./transmission.nix
     ./wireguard.nix
   ];

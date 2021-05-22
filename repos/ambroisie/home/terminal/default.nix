@@ -56,6 +56,6 @@ in
   };
 
   config.home.sessionVariables = lib.mkIf (cfg.program != null) {
-    TERMINAL = "termite";
+    TERMINAL = cfg.program;
   };
 }

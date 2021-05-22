@@ -1,8 +1,12 @@
 { pkgs }:
 rec {
+  bw-pass = pkgs.callPackage ./bw-pass { };
+
   comma = pkgs.callPackage ./comma { };
 
   diff-flake = pkgs.callPackage ./diff-flake { };
+
+  ff2mpv-go = pkgs.callPackage ./ff2mpv-go { };
 
   havm = pkgs.callPackage ./havm { };
 
@@ -11,8 +15,6 @@ rec {
   lohr = pkgs.callPackage ./lohr { };
 
   nolimips = pkgs.callPackage ./nolimips { };
-
-  podgrab = pkgs.callPackage ./podgrab { };
 
   unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock {
     inherit unified-hosts-lists;

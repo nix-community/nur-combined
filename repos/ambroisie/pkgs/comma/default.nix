@@ -38,5 +38,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://gitea.belanyi.fr/ambroisie/nix-config";
     license = with licenses; [ mit ];
     platforms = platforms.unix;
+    maintainers = with maintainers; [ ambroisie ];
   };
 }

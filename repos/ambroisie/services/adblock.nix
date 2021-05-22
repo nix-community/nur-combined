@@ -53,14 +53,12 @@ in
             "${wgCfg.net.v6.subnet}::0/${toString wgCfg.net.v6.mask} allow"
           ];
 
-          interface = cfg.interfaces;
-
           so-reuseport = true;
           tls-cert-bundle = "/etc/ssl/certs/ca-certificates.crt";
           tls-upstream = true;
-
-          include = "${pkgs.ambroisie.unbound-zones-adblock}/hosts";
         };
+
+        include = "${pkgs.ambroisie.unbound-zones-adblock}/hosts";
 
         forward-zone = [{
           name = ".";

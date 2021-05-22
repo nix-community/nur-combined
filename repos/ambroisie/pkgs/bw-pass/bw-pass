@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+AUTO_LOCK=900 # 15min timeout by default
+
+usage() {
+    printf '%s\n' "Usage: bw-pass [directory name] <account name>" >&2
+}
+
+prompt_pass() {
+    rofi -dmenu -password -no-fixed-num-lines -p "$1"
+}
+
+error_out() {
+    rofi -dmenu -no-fixed-num-lines -p "$1"
+    exit 1
+}
+
+login() {
+    local PASSWORD
+    PASSWORD="$(prompt_pass "Password")" || error_out "Cannot prompt password"
+    export BW_SESSION
+    BW_SESSION="$(bw unlock "$PASSWORD" --raw)" || error_out "Cannot unlock"
+}
+
+ensure_logged_in() {
+    # Use the same keyring as bitwarden-rofi for this
+
+    local KEY_ID
+    keyctl link @u @s
+    if ! KEY_ID="$(keyctl request user bw_session 2>/dev/null)"; then
+        login
+        KEY_ID="$(keyctl add user bw_session "$BW_SESSION" @u)"
+    fi
+
+    if [ "$AUTO_LOCK" -gt 0 ]; then
+        keyctl timeout "$KEY_ID" "$AUTO_LOCK"
+    fi
+    export BW_SESSION
+    BW_SESSION="$(keyctl pipe "$KEY_ID")"
+    keyctl unlink @u @s
+}
+
+query_password() {
+    # Either use with `query_password <directory> <account name>
+    # Or `query_password <account name>` when the account has no directory
+
+    local FOLDER_ID
+    local PASSWORD
+
+    if [ $# -eq 2 ]; then
+        FOLDER_ID="$(bw list folders |
+            jq '.[] | select(.name == "'"$1"'") | .id' |
+            cut -d'"' -f2)"
+        shift
+    else
+        FOLDER_ID=null
+    fi
+    PASSWORD="$(bw list items --folderid "$FOLDER_ID" |
+        jq '.[] | select(.name == "'"$1"'") | .login.password' |
+        cut -d'"' -f2)"
+
+    if [ -z "$PASSWORD" ]; then
+        error_out "Did not find password for '$1'"
+    fi
+    printf '%s\n' "$PASSWORD"
+}
+
+if [ $# -lt 1  ] || [ $# -gt 2 ]; then
+    usage
+    exit 1
+fi
+
+ensure_logged_in
+query_password "$@"
