@@ -64,6 +64,7 @@ stdenv.mkDerivation ({
 
     license = licenses.epl10;
     platforms = platforms.unix;
-    maintainers = teams.beam.members;
+    # Cause error for nixpkgs 20.09
+    # maintainers = teams.beam.members;
   };
 })
