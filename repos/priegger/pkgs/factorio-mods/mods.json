@@ -759,10 +759,10 @@
   },
   {
     "name": "rso-mod",
-    "version": "6.2.5",
-    "file_name": "rso-mod_6.2.5.zip",
-    "download_url": "/download/rso-mod/607c2a74d081dca5c814bf36",
-    "sha1": "0ae6fe9c0363a4894d2cd44898ad5f60c8824624",
+    "version": "6.2.6",
+    "file_name": "rso-mod_6.2.6.zip",
+    "download_url": "/download/rso-mod/60a90d46f3216f7a6e213d73",
+    "sha1": "cbe8c0fffe584880dc27b4205091167dd9a10949",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
