@@ -1,15 +1,21 @@
-{ lib, buildGoModule, sources }:
+{ lib, fetchFromGitHub, buildGoModule }:
 
-buildGoModule {
-  pname = "odict-unstable";
-  version = lib.substring 0 10 sources.odict.date;
+buildGoModule rec {
+  pname = "odict";
+  version = "2021-01-08";
 
-  src = sources.odict;
+  src = fetchFromGitHub {
+    owner = "TheOpenDictionary";
+    repo = pname;
+    rev = "639dbab4feac15c4f69049bfb9b7bcfecaf68b47";
+    hash = "sha256-cshWHsFTcejNNz/95FNkadXx8XWOW0fjlJTl4POR07k=";
+  };
 
-  vendorSha256 = "1n07b9dclsyc0m50lifigm90k3l6s1kbx6fln4gzp4crn0axh0gs";
+  vendorSha256 = "sha256-+gHYFbCZkfsfsdSZvmbQho4JUn3RRQpKBcxrylpaB9g=";
 
   meta = with lib; {
-    inherit (sources.odict) description homepage;
+    description = "A blazingly-fast portable dictionary file format";
+    homepage = "https://odict.org/";
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

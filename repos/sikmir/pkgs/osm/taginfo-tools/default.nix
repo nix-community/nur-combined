@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, bzip2, expat, gd, icu, libosmium, protozero, sqlite, zlib, sources }:
+{ lib, stdenv, fetchFromGitHub, cmake, bzip2, expat, gd, icu, libosmium, protozero, sqlite, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "taginfo-tools";

@@ -3,6 +3,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "rasterio";
   version = "1.2.3";
+  disabled = python3Packages.pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "mapbox";
@@ -15,12 +16,12 @@ python3Packages.buildPythonPackage rec {
 
   propagatedBuildInputs = with python3Packages; [ affine attrs boto3 click-plugins cligj matplotlib numpy snuggs setuptools ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook hypothesis ];
+  checkInputs = with python3Packages; [ pytestCheckHook hypothesis shapely ];
 
   installCheckPhase = "$out/bin/rio --version";
 
   meta = with lib; {
-    description = "Rasterio reads and writes geospatial raster datasets";
+    description = "Python package to read and write geospatial raster data";
     homepage = "https://rasterio.readthedocs.io/";
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];

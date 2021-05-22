@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, python2Packages, gettext, sources }:
+{ lib, fetchFromGitHub, python2Packages, gettext }:
 
 python2Packages.buildPythonApplication rec {
   pname = "opendict";

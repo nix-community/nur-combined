@@ -1,10 +1,13 @@
-{ lib, stdenvNoCC, sources, unzip }:
+{ lib, stdenvNoCC, fetchurl, unzip }:
 
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation rec {
   pname = "maptourist";
-  version = sources.maptourist.version;
+  version = "2021-05-21";
 
-  src = sources.maptourist;
+  src = fetchurl {
+    url = "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_${version}.zip";
+    hash = "sha256-a9iDeUWz3dwcXBk6HrIyS2+mAjkrVG6i89wKHfW+yaQ=";
+  };
 
   sourceRoot = ".";
 
@@ -15,7 +18,8 @@ stdenvNoCC.mkDerivation {
   preferLocalBuild = true;
 
   meta = with lib; {
-    inherit (sources.maptourist) description homepage;
+    description = "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin";
+    homepage = "https://maptourist.org";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;

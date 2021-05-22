@@ -1,18 +1,4 @@
 {
-    "gpxlab": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2020-10-16T17:00:40Z",
-        "description": "Program to show and manipulate GPS tracks",
-        "homepage": "https://github.com/BourgeoisLab/GPXLab",
-        "owner": "BourgeoisLab",
-        "repo": "GPXLab",
-        "rev": "0a2e13756ed1c39f4278b0b3d6cef7f8ac9f6fe7",
-        "sha256": "1z4wdnd65gkzpbn1gqrsl6vs0gvc9pqgnziw19g6bhap41dvxbv0",
-        "type": "tarball",
-        "url": "https://github.com/BourgeoisLab/GPXLab/archive/0a2e13756ed1c39f4278b0b3d6cef7f8ac9f6fe7.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "map-hr": {
         "branch": "master",
         "builtin": false,
@@ -39,31 +25,6 @@
         "sha256": "0jsrjzmg23rp3ay5149llqrq6pnr66wf7siphwn7gisz5g60pgpf",
         "type": "tarball",
         "url": "https://github.com/slazav/map_podm/archive/c95a381155986f9f621e5d26b21bda041ad8c24f.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "maptourist": {
-        "builtin": false,
-        "description": "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin",
-        "homepage": "https://maptourist.org",
-        "region": "szfo",
-        "sha256": "1447yna1gqmpb5zcg61f3vyw9hfv5v7dbwjh6c05lhpjf5aw6d45",
-        "type": "file",
-        "url": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_2021-03-06.zip",
-        "url_template": "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-<region>-RU_<version>.zip",
-        "version": "2021-03-06"
-    },
-    "odict": {
-        "branch": "master",
-        "builtin": false,
-        "date": "2021-01-08T22:22:26Z",
-        "description": "A blazingly-fast replacement for Apple Dictionaries, Babylon, StarDict, etc",
-        "homepage": "https://odict.org",
-        "owner": "odict",
-        "repo": "odict",
-        "rev": "639dbab4feac15c4f69049bfb9b7bcfecaf68b47",
-        "sha256": "1ffkj7ry1rcljkilfnwffpqz3mb9ci9y9z9z6z6yhwakq4g5dj3j",
-        "type": "tarball",
-        "url": "https://github.com/odict/odict/archive/639dbab4feac15c4f69049bfb9b7bcfecaf68b47.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
