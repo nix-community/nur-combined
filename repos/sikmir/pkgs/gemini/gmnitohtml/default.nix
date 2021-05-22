@@ -2,12 +2,12 @@
 
 buildGoModule rec {
   pname = "gmnitohtml";
-  version = "2021-05-08";
+  version = "0.1.0";
 
   src = fetchFromSourcehut {
     owner = "~adnano";
     repo = pname;
-    rev = "332368e55341b8de44eecd5abe128d4a4b6a3087";
+    rev = version;
     hash = "sha256-iYN6DGYMsLSbkAWRr7KygkgxxDuoFqopxwr9gfiiC+0=";
   };
 
