@@ -14,6 +14,7 @@
     ./gtk.nix
     ./htop.nix
     ./jq.nix
+    ./mail
     ./mpv.nix
     ./nix-index.nix
     ./nm-applet.nix
