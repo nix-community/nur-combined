@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "subtitleedit";
-  version = "3.6.0";
+  version = "3.6.1";
 
   src = fetchurl {
     url = "https://github.com/SubtitleEdit/subtitleedit/releases/download/${version}/SE" + (builtins.replaceStrings ["."] [""] version) + ".zip";
-    sha256 = "0yzh6ivhcfk0fsxcmqphhzmfn66i3cjxyvjgwqvmxhwrnnc5wjyp";
+    sha256 = "1phz4yn309xhny3yhblmkmfd27bj0w1mlrm9qmjkxik6p3ig0x1q";
   };
   icon = fetchurl {
-    url = "https://github.com/SubtitleEdit/subtitleedit/raw/${version}/src/ui/SE.ico";
+    url = "https://github.com/SubtitleEdit/subtitleedit/raw/${version}/src/ui/Icons/SE.ico";
     sha256 = "0mwlzjs2xv7najk3azqxm8aapxqa3i1s2h97fjrzajg93qs7mz3y";
   };
 
