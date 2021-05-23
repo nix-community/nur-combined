@@ -1129,10 +1129,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "25.9";
+      version = "25.10";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3777011/save_page_we-25.9-fx.xpi";
-      sha256 = "ff5c1c26104550fad8538b024346c6e85c072a8d977602dbe271ee93deca8595";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3780327/save_page_we-25.10-fx.xpi";
+      sha256 = "6ae8cd08b325e58714d62fd0970d342ab4f40347892acadc608673d641af2c5b";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -1336,10 +1336,10 @@
       };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.5.1";
+      version = "0.5.2";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3780089/to_deepl_translation-0.5.1-fx.xpi";
-      sha256 = "effe80c3ccaa7201c76602451ba6789044a64cb25f6f90a79d5505f5352da8b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3780397/to_deepl_translation-0.5.2-fx.xpi";
+      sha256 = "6e51d5623f5cd7270aa491f2248d8dd6d72c2160fb3fc21a1afc9de7b3b77e46";
       meta = with lib;
       {
         homepage = "https://github.com/rewkha/firefox-to-deepl/";
