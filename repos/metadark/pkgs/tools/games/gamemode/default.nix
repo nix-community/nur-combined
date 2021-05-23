@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
     description = "Optimise Linux system performance on demand";
     homepage = "https://github.com/FeralInteractive/GameMode";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
   };
 }

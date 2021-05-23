@@ -26,6 +26,8 @@ in stdenv.mkDerivation rec {
     hash = "sha256-9hz42ltkwBoTWTc3JarRyiV/NcHJJp5NUN0GZBg932I=";
   };
 
+  outputs = [ "out" "dev" "info" "lib" "man" ];
+
   postPatch = ''
     patchShebangs .
   '';
@@ -46,7 +48,9 @@ in stdenv.mkDerivation rec {
   ++ lib.optional textStylingSupport gettext
   ++ lib.optional (!isCross) dejagnu;
 
-  configureFlags = lib.optionals guiSupport [
+  configureFlags = [
+    "--datadir=${placeholder "lib"}/share"
+  ] ++ lib.optionals guiSupport [
     "--with-tcl=${tcl}/lib"
     "--with-tk=${tk}/lib"
     "--with-tkinclude=${tk.dev}/include"
@@ -57,6 +61,10 @@ in stdenv.mkDerivation rec {
   doCheck = !isCross;
   checkInputs = lib.optionals (!isCross) [ dejagnu ];
 
+  postInstall = ''
+    moveToOutput share/emacs "$out"
+  '';
+
   postFixup = lib.optionalString guiSupport ''
     wrapProgram "$out/bin/poke-gui" \
       --prefix TCLLIBPATH ' ' ${tcllib}/lib/tcllib${tcllib.version}
@@ -66,7 +74,7 @@ in stdenv.mkDerivation rec {
     description = "Interactive, extensible editor for binary data";
     homepage = "http://www.jemarch.net/poke";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres metadark ];
+    maintainers = with maintainers; [ AndersonTorres kira-bruneau ];
     platforms = platforms.unix;
     changelog = "https://git.savannah.gnu.org/cgit/poke.git/plain/ChangeLog?h=releases/poke-${version}";
   };

@@ -171,7 +171,7 @@ buildPythonApplication rec {
     # Unfree due to 7zip's non-free UnRAR license restriction
     # Would be gpl3Plus without the restriction
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
   };
 }

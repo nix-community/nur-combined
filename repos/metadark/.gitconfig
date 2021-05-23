@@ -2,16 +2,16 @@
 	url = https://github.com/nix-community/nur-packages-template.git
 	fetch = +refs/heads/*:refs/remotes/template/*
 [remote "gitlab"]
-	url = https://gitlab.com/MetaDark/nur-packages.git
+	url = https://gitlab.com/kira-bruneau/nur-packages.git
 	fetch = +refs/heads/*:refs/remotes/gitlab/*
 [remote "github"]
-	url = https://github.com/MetaDark/nur-packages.git
+	url = https://github.com/kira-bruneau/nur-packages.git
 	fetch = +refs/heads/*:refs/remotes/github/*
 	fetch = +refs/pull/*/head:refs/pullreqs/*
 [remote "all"]
-	url = https://gitlab.com/MetaDark/nur-packages.git
+	url = https://gitlab.com/kira-bruneau/nur-packages.git
 	fetch = +refs/heads/*:refs/remotes/all/*
-	pushurl = git@gitlab.com:MetaDark/nur-packages.git
-	pushurl = git@github.com:MetaDark/nur-packages.git
+	pushurl = git@gitlab.com:kira-bruneau/nur-packages.git
+	pushurl = git@github.com:kira-bruneau/nur-packages.git
 [remote]
 	pushDefault = all

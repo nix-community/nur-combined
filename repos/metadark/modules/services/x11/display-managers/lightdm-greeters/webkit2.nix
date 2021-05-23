@@ -152,4 +152,8 @@ in
 
     environment.etc."lightdm/lightdm-webkit2-greeter.conf".source = webkit2GreeterConf;
   };
+
+  meta = {
+    maintainers = with maintainers; [ kira-bruneau ];
+  };
 }

@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       free = false;
       redistributable = true;
     };
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.all;
   };
 }

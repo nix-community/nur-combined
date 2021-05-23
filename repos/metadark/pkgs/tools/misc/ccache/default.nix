@@ -48,7 +48,8 @@ let ccache = stdenv.mkDerivation rec {
 
   checkPhase = ''
     runHook preCheck
-    HOME=$(mktemp -d) ctest --output-on-failure ${lib.optionalString stdenv.isDarwin ''
+    export HOME=$(mktemp -d)
+    ctest --output-on-failure ${lib.optionalString stdenv.isDarwin ''
       -E '^(test.nocpp2|test.basedir|test.multi_arch)$'
     ''}
     runHook postCheck
@@ -101,7 +102,7 @@ let ccache = stdenv.mkDerivation rec {
     homepage = "https://ccache.dev";
     downloadPage = "https://ccache.dev/download.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ metadark r-burns ];
+    maintainers = with maintainers; [ kira-bruneau r-burns ];
     platforms = platforms.unix;
   };
 };

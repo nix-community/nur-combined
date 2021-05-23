@@ -33,6 +33,6 @@ buildPythonPackage rec {
     description = "A Python library containing various utilities for BOTW modding";
     homepage = "https://github.com/NiceneNerd/botw-utils";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
   };
 }

@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "Nintendo parameter archive (AAMP) library and converters";
     homepage = "https://github.com/zeldamods/aamp";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
   };
 }

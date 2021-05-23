@@ -33,6 +33,6 @@ buildPythonPackage rec {
     description = "Library for recent Nintendo EAD formats in first-party games";
     homepage = "https://github.com/zeldamods/oead";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
   };
 }

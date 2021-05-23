@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "Breath of the Wild RSTB parser and editing tool";
     homepage = "https://github.com/zeldamods/rstb";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
   };
 }

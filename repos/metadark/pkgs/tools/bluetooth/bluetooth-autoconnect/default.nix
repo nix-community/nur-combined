@@ -37,6 +37,7 @@ buildPythonApplication rec {
     description = "A linux command line tool to automatically connect to all paired and trusted bluetooth devices";
     homepage = "https://github.com/jrouleau/bluetooth-autoconnect";
     license = licenses.mit;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
+    platforms = platforms.linux;
   };
 }

@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "Nintendo BYML or BYAML parser, writer and converter";
     homepage = "https://github.com/zeldamods/byml-v2";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
   };
 }

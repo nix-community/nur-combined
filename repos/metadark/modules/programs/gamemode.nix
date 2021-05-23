@@ -88,4 +88,8 @@ in
       };
     };
   };
+
+  meta = {
+    maintainers = with maintainers; [ kira-bruneau ];
+  };
 }

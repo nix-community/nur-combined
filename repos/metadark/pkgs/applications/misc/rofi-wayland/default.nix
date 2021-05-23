@@ -65,7 +65,7 @@ rofi.override {
       description = "Window switcher, run dialog and dmenu replacement (built for Wayland)";
       homepage = "https://github.com/lbonn/rofi";
       license = licenses.mit;
-      maintainers = with maintainers; [ metadark ];
+      maintainers = with maintainers; [ kira-bruneau ];
       platforms = platforms.linux;
     };
   };

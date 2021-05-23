@@ -32,6 +32,6 @@ in
   };
 
   meta = {
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
   };
 }

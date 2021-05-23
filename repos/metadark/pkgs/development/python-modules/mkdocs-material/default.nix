@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "A Material Design theme for MkDocs";
     homepage = "https://squidfunk.github.io/mkdocs-material";
     license = licenses.mit;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
   };
 }

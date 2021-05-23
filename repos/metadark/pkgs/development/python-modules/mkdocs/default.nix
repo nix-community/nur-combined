@@ -50,7 +50,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://www.mkdocs.org";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ metadark rkoe ];
-    platforms = platforms.unix;
+    maintainers = with maintainers; [ kira-bruneau rkoe ];
   };
 }

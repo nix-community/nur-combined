@@ -32,6 +32,6 @@ buildPythonPackage rec {
     description = "Extensions for Python Markdown";
     homepage = "https://github.com/facelessuser/pymdown-extensions";
     license = licenses.mit;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
   };
 }

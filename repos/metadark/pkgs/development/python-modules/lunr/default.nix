@@ -63,6 +63,6 @@ in buildPythonPackage rec {
     description = "A Python implementation of Lunr.js";
     homepage = "https://github.com/yeraydiazdiaz/lunr.py";
     license = licenses.mit;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
   };
 }

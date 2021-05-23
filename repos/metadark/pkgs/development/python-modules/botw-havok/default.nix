@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "A library for manipulating Breath of the Wild Havok packfiles";
     homepage = "https://github.com/krenyy/botw_havok";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
   };
 }

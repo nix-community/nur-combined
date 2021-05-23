@@ -92,7 +92,7 @@ let
       description = "An online virtual universe consisting of several 3D worlds";
       homepage = "https://www.virtualparadise.org";
       license = licenses.unfree;
-      maintainers = with maintainers; [ metadark ];
+      maintainers = with maintainers; [ kira-bruneau ];
       platforms = [ "x86_64-linux" ];
     };
   };

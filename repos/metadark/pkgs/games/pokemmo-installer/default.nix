@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Installer and Launcher for the PokeMMO emulator";
     homepage = "https://pokemmo.eu";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
   };
 }

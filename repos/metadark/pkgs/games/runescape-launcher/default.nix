@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       url = "http://content.runescape.com/downloads/LICENCE.txt";
       free = false;
     };
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
     platforms = [ "x86_64-linux" ];
   };
 }

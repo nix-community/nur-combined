@@ -33,6 +33,6 @@ buildPythonPackage rec {
     description = "Markdown extension resources for MkDocs Material";
     homepage = "https://github.com/facelessuser/mkdocs-material-extensions";
     license = licenses.mit;
-    maintainers = with maintainers; [ metadark ];
+    maintainers = with maintainers; [ kira-bruneau ];
   };
 }
