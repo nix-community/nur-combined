@@ -2,21 +2,16 @@
 
 stdenv.mkDerivation rec {
   pname = "imscript";
-  version = "2021-05-09";
+  version = "2021-05-21";
 
   src = fetchFromSourcehut {
     owner = "~coco";
     repo = pname;
-    rev = "e20691ed86c9b9b9799b847805d2e19954c6aad8";
-    hash = "sha256-aFJ2dtp5fMW+zc8lrnv7AR56Dylm93kbEQcfKfu+uBA=";
+    rev = "74270602e54c3d32ba93766d3a21fca0d846ea32";
+    hash = "sha256-uY9Y8u46mZNtlIqIQWE2/g8skRTnk/cTBkwERiG7b/g=";
   };
 
   buildInputs = [ libpng libjpeg libtiff fftwFloat libX11 gsl ];
-
-  postPatch = ''
-    substituteInPlace .deps.mk \
-      --replace "ftr/fill_bill" "misc/fill_bill"
-  '';
 
   makeFlags = [ "DISABLE_HDF5=1" "full" ];
 

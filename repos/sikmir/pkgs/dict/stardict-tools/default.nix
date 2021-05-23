@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation rec {
   pname = "stardict-tools";
-  version = "2021-01-07";
+  version = "2021-04-05";
 
   src = fetchFromGitHub {
     owner = "huzheng001";
     repo = "stardict-3";
-    rev = "36347a29526e4bacea910017efa1d839dab89667";
-    sha256 = "1qvf74j4m7s3cjhrwdfgji436im0zxh0m1j92ybdk0krnnv29c4m";
+    rev = "e861c2a8f551a37f3ce1520d5cdcd611f146d90d";
+    hash = "sha256-k3rvl6Y2zMXTQ+VQIydUgKk3f8Ji0gP8IJFDWWlOeyY=";
   };
 
   nativeBuildInputs = [

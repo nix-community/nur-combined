@@ -2,12 +2,12 @@
 
 buildGoModule rec {
   pname = "comitium";
-  version = "1.7.0";
+  version = "1.8.0";
 
   src = fetchgit {
     url = "git://git.nytpu.com/comitium";
     rev = "v${version}";
-    sha256 = "sha256-DI6Wb8xcDN2tbVvh74BKdmpQsdpH87QIggGyFNo11p4=";
+    sha256 = "sha256-an3favwpTTf61ecfAmasZY4fBV8gIH3hWDbIiImtIVs=";
   };
 
   vendorSha256 = "sha256-dEywsGjLuaZ+Yv5IfuPHcKYZ8hyZ1Qf46LOF2RGcpxo=";
