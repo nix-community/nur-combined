@@ -12,7 +12,7 @@ in
 nodePackages."${packageName}".override {
   postInstall = ''
     npm run build
-    cp -v dist/*.js $out/
+    cp -v dist/home-assistant-sun-card.js $out/sun-card.js
     rm -rf $out/lib
   '';
 
