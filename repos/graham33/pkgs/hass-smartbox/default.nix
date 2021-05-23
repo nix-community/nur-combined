@@ -17,14 +17,14 @@
 
 buildPythonPackage rec {
   pname = "hass-smartbox";
-  version = "0.2.2";
+  version = "0.3.0";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "graham33";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0zrmfgn4parqbyx6vrj9cg7k5z9zicq8d66ywaa852amfdgpvz20";
+    sha256 = "0cd2shkc31l3fbvw3g9s0fg48ikwjcfzjajb2fakvxnzhqks4f0a";
   };
 
   propagatedBuildInputs = [
