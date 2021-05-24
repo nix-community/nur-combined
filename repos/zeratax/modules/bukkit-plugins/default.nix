@@ -34,7 +34,6 @@ let
 
       wants = [ "bukkit-plugins.service" ];
       after = [ "bukkit-plugins.service" ];
-      before = [ "minecraft-server.service" ];
 
       environment = { DIR = cfg.pluginsDir; };
 
@@ -63,7 +62,13 @@ in {
 
       pluginsDir = mkOption {
         type = types.path;
-        default = "${config.services.minecraft-server.dataDir}/plugins";
+        default = if config.services.minecraft-server.enable then 
+          "${config.services.minecraft-server.dataDir}/plugins"
+        else if config.services.bukkit-server.enable then
+          "${config.services.bukkit-server.dataDir}/plugins"
+        else
+          null
+        ;
         description = ''
           Plugins directory of the minecraft server
         '';
@@ -105,7 +110,17 @@ in {
       systemd.services.bukkit-plugins = {
         description =
           "service to prepare the plugins directory for other bukkit plugins";
+
         wantedBy = [ "multi-user.target" ];
+
+        before = if config.services.minecraft-server.enable then
+          [ "minecraft-server.service" ]
+        else if config.services.bukkit-server.enable then
+          [ "bukkit-server.service" ]
+        else 
+          []
+        ;
+
         serviceConfig = let
           # findExceptions = concatStringsSep " " mapAttrsToList (n: v: "! -name ${n}.jar") cfg.plugins;
           deletePluginJars = pkgs.writeScriptBin "deletePluginJars" ''
