@@ -17,23 +17,14 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     inherit (sources.lua-language-server) owner repo rev;
-    sha256 = "122dw737gd0fsv906ijyywc30qi2ccrhsikhg0nrp778yjmj32zc";
+    sha256 = "01hp1l9j133ds8n6qy9y8f5qhz5nha4s8kq7rw0n8kmdfyhsav5y";
     fetchSubmodules = true;
   };
 
   buildPhase = ''
     cd 3rd/luamake
-
-  ''
-  + optionalString
-    (stdenv.isLinux)
-    "ninja -f ninja/linux.ninja"
-  + optionalString
-    (stdenv.isDarwin)
-    "ninja -f ninja/linux.ninja"
-  +
-  ''
-
+    patchShebangs compile/install.sh
+    compile/install.sh
     cd ../..
     ./3rd/luamake/luamake rebuild
   '';
