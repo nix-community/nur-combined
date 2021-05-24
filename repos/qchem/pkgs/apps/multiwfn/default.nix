@@ -1,4 +1,4 @@
-{ stdenv, lib, makeWrapper, requireFile, autoPatchelfHook, unzip,
+{ stdenv, lib, makeWrapper, autoPatchelfHook, unzip,
   writeScriptBin, fetchurl, glibc, xorg, libGL, motif
 } :
 

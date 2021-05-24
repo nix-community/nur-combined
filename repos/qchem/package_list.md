@@ -7,16 +7,15 @@
 | cfour-2.1 | qchem.cfour | Specialist coupled cluster software. |
 | CheMPS2-1.8.9 | qchem.chemps2 | A spin-adapted implementation of DMRG for ab initio quantum chemistry |
 | cp2k-8.1.0 | qchem.cp2k | Quantum chemistry and solid state physics program |
-| crest-24.04.2021 | qchem.crest | Conformer-Rotamer Ensemble Sampling Tool based on the xtb Semiempirical Extended Tight-Binding Program Package |
+| crest-2021-04-24 | qchem.crest | Conformer-Rotamer Ensemble Sampling Tool based on the xtb Semiempirical Extended Tight-Binding Program Package |
 | dalton-2020.0 | qchem.dalton | Quantum chemistry code specialised on exotic properties. |
 | dft-d3-3.2rev0 | qchem.dftd3 | Dispersion correction for DFT |
-| dkh-1.2 | qchem.dkh | Arbitrary-​order scalar-​relativistic Douglas-​Kroll-Hess module |
+| dkh-1.2 | qchem.dkh | Arbitrary-order scalar-relativistic Douglas-Kroll-Hess module |
 | ergoscf-3.8 | qchem.ergoscf | Quantum chemistry program for large-scale self-consistent field calculations |
 | f2c-20200916 | qchem.f2c | F2C converts Fortran 77 source code to C |
-| fftw-double-3.3.9 | qchem.fftw-mpi | Fastest Fourier Transform in the West library |
 | fftw-double-3.3.9 | qchem.fftw | Fastest Fourier Transform in the West library |
+| fftw-double-3.3.9 | qchem.fftw-mpi | Fastest Fourier Transform in the West library |
 | fftw-single-3.3.9 | qchem.fftwSinglePrec | Fastest Fourier Transform in the West library |
-| fugu-tools-1.2.2 | qchem.slurm-tools | null |
 | gaussian-16b01 | qchem.gaussian | Quantum chemistry programm package |
 | gaussview-6.0.16 | qchem.gaussview | GUI for the Gaussian quantum chemistry software package |
 | gdma-2.3.3 | qchem.gdma | Global Distributed Multipole Analysis from Gaussian Wavefunctions |
@@ -44,9 +43,6 @@
 | mkl-2021.1.1.52 | qchem.mkl | Intel OneAPI Math Kernel Library |
 | molden-6.3 | qchem.molden | Display and manipulate molecular structures |
 | molpro-2012.1.12 | qchem.molpro12 | Quantum chemistry program package |
-| molpro-2015.1.44 | qchem.molpro15 | Quantum chemistry program package |
-| molpro-2018.2.0 | qchem.molpro18 | Quantum chemistry program package |
-| molpro-2019.2.3 | qchem.molpro19 | Quantum chemistry program package |
 | molpro-2020.1.2 | qchem.molpro | Quantum chemistry program package |
 | molpro-2020.2 | qchem.molpro-ext | Quantum chemistry program package |
 | mrcc-2020.02.22 | qchem.mrcc | MRCC is a suite of ab initio and density functional quantum chemistry programs for high-accuracy electronic structure calculations. |
@@ -58,11 +54,11 @@
 | nwchem-7.0.2 | qchem.nwchem | Open Source High-Performance Computational Chemistry |
 | octave-6.2.0 | qchem.octave | Scientific Pragramming Language |
 | octopus-10.3 | qchem.octopus | Real-space time dependent density-functional theory code |
-| openmolcas-20.10-14.10.2020 | qchem.molcas2010 | Quantum chemistry software package |
-| openmolcas-21.02-24.02.2021 | qchem.molcas | Quantum chemistry software package |
+| openmolcas-18.09-20180902 | qchem.molcas1809 | Quantum chemistry software package |
+| openmolcas-21.02-20210224 | qchem.molcas | Quantum chemistry software package |
 | openmpi-4.1.1 | qchem.mpi | Open source MPI-3 implementation |
 | orca-4.2.1 | qchem.orca | Ab initio quantum chemistry program package |
-| osss-ucx-1.0.2 | qchem.osss-ucx |  |
+| osss-ucx-1.0.2 | qchem.osss-ucx | OpenSHM reference implementation |
 | osu-benchmark-5.6.3 | qchem.osu-benchmark | MPI micro benchmark suite |
 | packmol-20.2.2 | qchem.packmol | Generating initial configurations for molecular dynamics |
 | pcmsolver-1.3.0 | qchem.pcmsolver | An API for the Polarizable Continuum Model |
@@ -74,11 +70,12 @@
 | scalapack-2.1.0 | qchem.scalapack | Library of high-performance linear algebra routines for parallel distributed memory machines |
 | sharc-1.0 | qchem.sharcV1 | Molecular dynamics (MD) program suite for excited states |
 | sharc-2.0 | qchem.sharc | Molecular dynamics (MD) program suite for excited states |
-| sharc-2.1 | qchem.sharc21 | Molecular dynamics (MD) program suite for excited states |
+| sharc-2.1.1 | qchem.sharc21 | Molecular dynamics (MD) program suite for excited states |
 | siesta-4.1-b3 | qchem.siesta | A first-principles materials simulation code using DFT |
 | siesta-4.1-b3 | qchem.siesta-mpi | A first-principles materials simulation code using DFT |
+| slurm-tools-1.2.2 | qchem.slurm-tools | Collection of scripts to integrate nix and slurm |
 | sos-1.5.0 | qchem.sos | Sandia open SHMEM implementation |
-| stream-benchmark-2013 | qchem.stream-benchmark | null |
+| stream-benchmark-2013 | qchem.stream-benchmark | Measure memory transfer rates in MB/s for simple computational kernels |
 | tested-programs | qchem.tested | null |
 | tinker-8.8.3 | qchem.tinker | Software Tools for Molecular Design |
 | travis-analyzer-03Jun2020 | qchem.travis-analyzer | Molecular dynamics trajectory analyzer and visualizer |

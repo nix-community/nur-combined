@@ -57,9 +57,9 @@
   },
   {
     "attribute": "qchem.crest",
-    "name": "crest-24.04.2021",
+    "name": "crest-2021-04-24",
     "pname": "crest",
-    "version": "24.04.2021",
+    "version": "2021-04-24",
     "description": "Conformer-Rotamer Ensemble Sampling Tool based on the xtb Semiempirical Extended Tight-Binding Program Package",
     "homepage": "https://github.com/grimme-lab/crest"
   },
@@ -84,7 +84,7 @@
     "name": "dkh-1.2",
     "pname": "dkh",
     "version": "1.2",
-    "description": "Arbitrary-​order scalar-​relativistic Douglas-​Kroll-Hess module",
+    "description": "Arbitrary-order scalar-relativistic Douglas-Kroll-Hess module",
     "homepage": "https://github.com/psi4/dkh"
   },
   {
@@ -104,7 +104,7 @@
     "homepage": "http://www.netlib.org/f2c/"
   },
   {
-    "attribute": "qchem.fftw-mpi",
+    "attribute": "qchem.fftw",
     "name": "fftw-double-3.3.9",
     "pname": "fftw-double",
     "version": "3.3.9",
@@ -112,7 +112,7 @@
     "homepage": "http://www.fftw.org/"
   },
   {
-    "attribute": "qchem.fftw",
+    "attribute": "qchem.fftw-mpi",
     "name": "fftw-double-3.3.9",
     "pname": "fftw-double",
     "version": "3.3.9",
@@ -126,14 +126,6 @@
     "version": "3.3.9",
     "description": "Fastest Fourier Transform in the West library",
     "homepage": "http://www.fftw.org/"
-  },
-  {
-    "attribute": "qchem.slurm-tools",
-    "name": "fugu-tools-1.2.2",
-    "pname": "fugu-tools",
-    "version": "1.2.2",
-    "description": null,
-    "homepage": null
   },
   {
     "attribute": "qchem.gaussian",
@@ -352,30 +344,6 @@
     "homepage": "https://www.molpro.net"
   },
   {
-    "attribute": "qchem.molpro15",
-    "name": "molpro-2015.1.44",
-    "pname": "molpro",
-    "version": "2015.1.44",
-    "description": "Quantum chemistry program package",
-    "homepage": "https://www.molpro.net"
-  },
-  {
-    "attribute": "qchem.molpro18",
-    "name": "molpro-2018.2.0",
-    "pname": "molpro",
-    "version": "2018.2.0",
-    "description": "Quantum chemistry program package",
-    "homepage": "https://www.molpro.net"
-  },
-  {
-    "attribute": "qchem.molpro19",
-    "name": "molpro-2019.2.3",
-    "pname": "molpro",
-    "version": "2019.2.3",
-    "description": "Quantum chemistry program package",
-    "homepage": "https://www.molpro.net"
-  },
-  {
     "attribute": "qchem.molpro",
     "name": "molpro-2020.1.2",
     "pname": "molpro",
@@ -464,18 +432,18 @@
     "homepage": "https://octopus-code.org"
   },
   {
-    "attribute": "qchem.molcas2010",
-    "name": "openmolcas-20.10-14.10.2020",
+    "attribute": "qchem.molcas1809",
+    "name": "openmolcas-18.09-20180902",
     "pname": "openmolcas",
-    "version": "20.10-14.10.2020",
+    "version": "18.09-20180902",
     "description": "Quantum chemistry software package",
     "homepage": "https://gitlab.com/Molcas/OpenMolcas"
   },
   {
     "attribute": "qchem.molcas",
-    "name": "openmolcas-21.02-24.02.2021",
+    "name": "openmolcas-21.02-20210224",
     "pname": "openmolcas",
-    "version": "21.02-24.02.2021",
+    "version": "21.02-20210224",
     "description": "Quantum chemistry software package",
     "homepage": "https://gitlab.com/Molcas/OpenMolcas"
   },
@@ -500,7 +468,7 @@
     "name": "osss-ucx-1.0.2",
     "pname": "osss-ucx",
     "version": "1.0.2",
-    "description": "",
+    "description": "OpenSHM reference implementation",
     "homepage": "http://www.openshmem.org"
   },
   {
@@ -593,9 +561,9 @@
   },
   {
     "attribute": "qchem.sharc21",
-    "name": "sharc-2.1",
+    "name": "sharc-2.1.1",
     "pname": "sharc",
-    "version": "2.1",
+    "version": "2.1.1",
     "description": "Molecular dynamics (MD) program suite for excited states",
     "homepage": "https://www.sharc-md.org"
   },
@@ -616,6 +584,14 @@
     "homepage": "https://www.quantum-espresso.org/"
   },
   {
+    "attribute": "qchem.slurm-tools",
+    "name": "slurm-tools-1.2.2",
+    "pname": "slurm-tools",
+    "version": "1.2.2",
+    "description": "Collection of scripts to integrate nix and slurm",
+    "homepage": "https://github.com/markuskowa/slurm-tools"
+  },
+  {
     "attribute": "qchem.sos",
     "name": "sos-1.5.0",
     "pname": "sos",
@@ -628,8 +604,8 @@
     "name": "stream-benchmark-2013",
     "pname": "stream-benchmark",
     "version": "2013",
-    "description": null,
-    "homepage": null
+    "description": "Measure memory transfer rates in MB/s for simple computational kernels",
+    "homepage": "http://www.cs.virginia.edu/stream/ref.html"
   },
   {
     "attribute": "qchem.tested",
