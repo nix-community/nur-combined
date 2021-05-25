@@ -11,7 +11,8 @@ let
   arch = "Linux-x86-64-gfortran";
 
 in stdenv.mkDerivation rec {
-  name = "cp2k-${version}";
+  pname = "cp2k";
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "cp2k";
