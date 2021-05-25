@@ -6,7 +6,8 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; } }:
+{ system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; }
+}:
 
 rec {
   # The `lib`, `modules`, and `overlay` names are special
@@ -18,12 +19,14 @@ rec {
 
   diskgraph = pkgs.callPackage ./pkgs/diskgraph { };
 
-  edmarketconnector = pkgs.python3.pkgs.toPythonApplication python3Packages.edmarketconnector;
+  edmarketconnector =
+    pkgs.python3.pkgs.toPythonApplication python3Packages.edmarketconnector;
+
+  filebrowser = pkgs.callPackage ./pkgs/filebrowser { };
 
   lsix = pkgs.callPackage ./pkgs/lsix { };
 
-  python3Packages = pkgs.recurseIntoAttrs (
-    pkgs.python3Packages.callPackage ./pkgs/python-modules { }
-  );
+  python3Packages = pkgs.recurseIntoAttrs
+    (pkgs.python3Packages.callPackage ./pkgs/python-modules { });
 }
 

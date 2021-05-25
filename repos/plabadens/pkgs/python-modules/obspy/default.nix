@@ -1,16 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 
-, decorator
-, future
-, lxml
-, matplotlib
-, numpy
-, requests
-, scipy
-, sqlalchemy
-}:
+, decorator, future, lxml, matplotlib, numpy, requests, scipy, sqlalchemy }:
 
 buildPythonPackage rec {
   pname = "obspy";
@@ -22,16 +12,8 @@ buildPythonPackage rec {
     sha256 = "a0f2b0915beeb597762563fa0358aa1b4d6b09ffda49909c760b5cdf5bdc419e";
   };
 
-  propagatedBuildInputs = [
-    decorator
-    future
-    lxml
-    matplotlib
-    numpy
-    requests
-    scipy
-    sqlalchemy
-  ];
+  propagatedBuildInputs =
+    [ decorator future lxml matplotlib numpy requests scipy sqlalchemy ];
 
   # TODO: fix the tests
   doCheck = false;

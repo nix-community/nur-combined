@@ -8,7 +8,7 @@ stdenv.mkDerivation {
     owner = "nullobsi";
     repo = "clight-gui";
     rev = "4258f297ac4c993a769743ecc2184d0c76d1dae4";
-    sha256 = "sha256-dutwHZd6ymwQcpngfkDeopnQVwK6x+nar5Toksbn3w8="; 
+    sha256 = "sha256-dutwHZd6ymwQcpngfkDeopnQVwK6x+nar5Toksbn3w8=";
   };
 
   sourceRoot = "source/src";

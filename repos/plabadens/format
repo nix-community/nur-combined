@@ -1,0 +1,16 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p findutils nixfmt
+
+CHECK_ARG=
+
+case $1 in
+    -h)
+        echo "$0 [-c]"
+        ;;
+    -c)
+        CHECK_ARG=-c
+        ;;
+esac
+
+find . -name '*.nix' \
+  -exec nixfmt $CHECK_ARG {} +

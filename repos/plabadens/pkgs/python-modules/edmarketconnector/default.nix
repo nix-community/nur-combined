@@ -3,8 +3,8 @@
 buildPythonApplication rec {
   pname = "EDMarketConnector";
   version = "4.2.7";
-  
-  format="other";
+
+  format = "other";
 
   src = fetchFromGitHub {
     owner = "EDCD";
@@ -39,7 +39,8 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/EDCD/EDMarketConnector";
-    description = "Downloads commodity market and other station data from the game Elite: Dangerous for use with all popular online and offline trading tools.";
+    description =
+      "Downloads commodity market and other station data from the game Elite: Dangerous for use with all popular online and offline trading tools.";
     license = licenses.gpl2Only;
   };
 }
