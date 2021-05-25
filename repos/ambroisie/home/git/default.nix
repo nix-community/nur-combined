@@ -23,6 +23,7 @@ in
       assume = "update-index --assume-unchanged";
       unassume = "update-index --no-assume-unchanged";
       assumed = "!git ls-files -v | grep ^h | cut -c 3-";
+      pick = "log -p -G";
       push-new = "!git push -u origin "
         + ''"$(git branch | grep '^* ' | cut -f2- -d' ')"'';
     };
