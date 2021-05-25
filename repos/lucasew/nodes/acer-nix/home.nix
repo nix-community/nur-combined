@@ -21,14 +21,13 @@ in
   home.packages = with pkgs; [
    # ------------ pacotes do nixpkgs ---------------
     # minecraft  # custom (excluded)
-    usb_tixati wineApps.pinball wineApps.mspaint custom_rofi # custom
+    usb_tixati custom_rofi # custom
     vlc youtube-dl # media
     chromium
     file
     fortune
     libnotify
     neofetch
-    scrcpy
   ] ++ (builtins.attrValues pkgs.webapps);
 
   programs.hello-world.enable = true;
@@ -37,10 +36,8 @@ in
     enable = true;
   };
 
-  services.flameshot.enable = true;
-
   programs = {
-    adskipped-spotify.enable = true;
+    # adskipped-spotify.enable = true;
     command-not-found.enable = true;
     jq.enable = true;
     obs-studio = {

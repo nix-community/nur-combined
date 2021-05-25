@@ -34,7 +34,8 @@ echo "$(bold "$0"): Convenient wrapper around nix-env
           if [ $# == 0 ]; then
             error no package specified for install
           fi
-          nix-env -iA "$1" -f '<nixpkgs>'
+          PACKAGE="$1"; shift
+          nix-env -iA "$PACKAGE" -f '<nixpkgs>' "$@"
       ;;
       list)
           nix-env --query
