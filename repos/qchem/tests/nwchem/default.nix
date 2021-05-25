@@ -13,7 +13,6 @@ batsTest {
 
   testScript = ''
     @test "Run-nwchem" {
-      export OPENBLAS_CORETYPE=ATHLON
       nwchem $TEST_NUM_CPUS nwchem.inp > nwchem.out
     }
 

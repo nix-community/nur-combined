@@ -31,8 +31,8 @@ stdenv.mkDerivation rec {
   # Many submodules are required and they are not fetched by fetchFromGitLab.
   src = fetchgit  {
     url = "https://gitlab.com/dalton/dalton.git";
-    rev = version;
-    sha256 = "08qhbwqhg87g2lkrvz00981q9y6wfg67c2vy60n0bgqyvhgrhhnm";
+    rev = "66052b3af5ea7225e31178bf9a8b031913c72190"; # Git hash of 2020.0 as of 25.05.2021.
+    sha256 = "1n32f6rxk80i6lsx2j08bf2kmzj9cgx8fh4q7kkgnn2agimhv2v6";
     deepClone = true;
   };
 
