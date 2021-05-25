@@ -610,10 +610,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "3.3.21";
+      version = "4.0.1";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3770097/grammatik_und_rechtschreibprufung_languagetool-3.3.21-fx.xpi";
-      sha256 = "665559c7f0e6eb144083c77775d451cbd9320aeb8c3c9b2fd1a85468a2efe5a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3780519/grammatik_und_rechtschreibprufung_languagetool-4.0.1-fx.xpi";
+      sha256 = "099ae60874f080ef9f1f072092bf9c1aea3a98786843c9e31ceb3f2b967c4eb2";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -709,10 +709,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.6";
+      version = "2.6.7";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3765668/localcdn-2.6.6-an+fx.xpi";
-      sha256 = "d935403f2895ea8a89673dfdcd50edc0aeb37eeed1b78312a4b6e49e64daeaf4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3780329/localcdn-2.6.7-an+fx.xpi";
+      sha256 = "1a3d98fb7d3529984ff6c9cd585df8079afc9fc444f57ac85a7dbcc2429990ea";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1129,10 +1129,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "25.10";
+      version = "25.11";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3780327/save_page_we-25.10-fx.xpi";
-      sha256 = "6ae8cd08b325e58714d62fd0970d342ab4f40347892acadc608673d641af2c5b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3781004/save_page_we-25.11-fx.xpi";
+      sha256 = "f3de356b8973869f16c3bdd03dfd0cd5f8fa918c89e70e1e9cc03aaec5079809";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -1198,10 +1198,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.0.15.1";
+      version = "2.0.16.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3779014/sponsorblock_skip_sponsorships_on_youtube-2.0.15.1-an+fx.xpi";
-      sha256 = "675289edebf104f2271de9171a68d5210573ab2c7992e4a72ff9cbac909dd87b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3780797/sponsorblock_skip_sponsorships_on_youtube-2.0.16.2-an+fx.xpi";
+      sha256 = "17c15d51df20c5b00bdce6032c6c8ac464e8802b65241e141e3c41abfa98bc6a";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1295,10 +1295,10 @@
       };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
-      version = "4.0.8";
+      version = "4.1.1";
       addonId = "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3777815/terms_of_service_didnt_read-4.0.8-fx.xpi";
-      sha256 = "7ec08538019ef855f71e63dc9ed80f0b35eea0b023e38a25d347d6f2a5c52ee3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3781409/terms_of_service_didnt_read-4.1.1-fx.xpi";
+      sha256 = "3d1738c93c7cdec136b11a9473f5ebbf39d69b2217a3905a6c1e5c660396f054";
       meta = with lib;
       {
         homepage = "http://tosdr.org";
