@@ -1,5 +1,10 @@
 { ... }:
 {
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  my.modules.sound = {
+    enable = true;
+
+    pipewire = {
+      enable = true;
+    };
+  };
 }

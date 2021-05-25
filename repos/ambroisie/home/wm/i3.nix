@@ -36,6 +36,7 @@ in
     home.packages = with pkgs; [
       ambroisie.i3-get-window-criteria # little helper for i3 configuration
       arandr # Used by a mapping
+      pamixer # Used by a mapping
       playerctl # Used by a mapping
     ];
 
@@ -209,12 +210,12 @@ in
           )
           {
             # Media keys
-            "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
-            "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
-            "Control+XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +1%";
-            "Control+XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -1%";
-            "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-            "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+            "XF86AudioRaiseVolume" = "exec pamixer --allow-boost -i 5";
+            "XF86AudioLowerVolume" = "exec pamixer --allow-boost -d 5";
+            "Control+XF86AudioRaiseVolume" = "exec pamixer --allow-boost -i 1";
+            "Control+XF86AudioLowerVolume" = "exec pamixer --allow-boost -d 1";
+            "XF86AudioMute" = "exec pamixer --toggle-mute";
+            "XF86AudioMicMute" = "exec pamixer --default-source --toggle-mute";
 
             "XF86AudioPlay" = "exec playerctl play-pause";
             "XF86AudioNext" = "exec playerctl next";
