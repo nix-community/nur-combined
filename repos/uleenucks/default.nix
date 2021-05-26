@@ -16,4 +16,5 @@
 
   dwm = pkgs.callPackage ./pkgs/dwm { };
   st = pkgs.callPackage ./pkgs/st { };
+  alacritty = pkgs.callPackage ./pkgs/alacritty { };
 }
