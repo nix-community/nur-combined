@@ -262,7 +262,8 @@ let
   hasDiminish = any (p: p.diminish != [ ]) (attrValues cfg.usePackage);
 
   # Whether the configuration makes use of `:bind`.
-  hasBind = any (p: p.bind != { }) (attrValues cfg.usePackage);
+  hasBind = any (p: p.bind != { } || p.bindLocal != { } || p.bindKeyMap != { })
+    (attrValues cfg.usePackage);
 
   # Whether the configuration makes use of `:chords`.
   hasChords = any (p: p.chords != { }) (attrValues cfg.usePackage);
