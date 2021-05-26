@@ -343,6 +343,19 @@
         platforms = platforms.all;
         };
       };
+    "firenvim" = buildFirefoxXpiAddon {
+      pname = "firenvim";
+      version = "0.2.6";
+      addonId = "firenvim@lacamb.re";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3773283/firenvim-0.2.6-fx.xpi";
+      sha256 = "79243feae6202078f818b8d42db34aaec95843f295e57b2ba486170c857adc1c";
+      meta = with lib;
+      {
+        description = "Turn Firefox into a Neovim client.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
       version = "4.6.4";
