@@ -1,4 +1,4 @@
-{lib, stdenv, fetchurl, jdk, callPackage}:
+{lib, stdenv, fetchurl, jdk11, callPackage}:
 let
   # TODO: Why can't i use rec one level above and be done?
   opencvJava = callPackage ../opencvJava { };
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec{
     mkdir -p $out/bin
     cp $src $out/bin/sikulix-ide.jar
     echo "export LD_LIBRARY_PATH=${opencvJava}/share/java/opencv4/
-    ${jdk}/bin/java -jar ${src} \$@
+    ${jdk11}/bin/java -jar ${src} \$@
     " > $out/bin/sikulix-ide
     chmod +x $out/bin/sikulix-ide
     mkdir -p $out/share/applications
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec{
     description = "Automate what you see on a computer monitor";
     homepage = "http://sikulix.com/";
     license = lib.licenses.mit;
-    platforms = jdk.meta.platforms;
+    platforms = jdk11.meta.platforms;
   };
 }
