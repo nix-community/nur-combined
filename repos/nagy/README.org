@@ -3,36 +3,35 @@
 #+HTML_HEAD: <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 
 * Packages
-
 My personal [[https://github.com/nix-community/NUR][NUR]] repository. You can see an overview site here:
 
- * [[https://nur.nix-community.org/repos/nagy/]]
+ * https://nur.nix-community.org/repos/nagy/
 
 It contains these packages/attributes:
 
-| *attribute*           | *homepage*                                         |
-|-----------------------+----------------------------------------------------|
-| hyperspec             | [[http://www.lispworks.com/documentation/HyperSpec/Front/index.htm][Common Lisp HyperSpec]]                              |
-| schemaorg             | https://schema.org                                 |
-| luaPackages.fennel    | https://fennel-lang.org/                           |
-| luaPackages.tl        | https://github.com/teal-language/tl                |
-| luaPackages.lua-curl  | https://github.com/Lua-cURL/Lua-cURLv3             |
-| apertium              | https://github.com/apertium/apertium               |
-| lttoolbox             | https://github.com/apertium/lttoolbox              |
-| lunasvg               | https://github.com/sammycage/lunasvg/              |
-| lispPackages.vacietis | https://github.com/vsedach/Vacietis                |
-| colorpedia            | https://github.com/joowani/colorpedia              |
-| rustfilt              | https://github.com/luser/rustfilt                  |
-| warctools             | https://github.com/internetarchive/warctools       |
-| bollux                | https://sr.ht/~acdw/bollux/                        |
-| gemget                | https://github.com/makeworld-the-better-one/gemget |
-| cpp-httplib           | https://github.com/yhirose/cpp-httplib             |
-| cxxtimer              | https://github.com/andremaravilha/cxxtimer         |
-| cxxmatrix             | https://github.com/akinomyoga/cxxmatrix            |
-| piecash               | https://github.com/sdementen/piecash               |
-| hackernews-tui        | https://github.com/aome510/hackernews-TUI          |
-| har-tools             | https://github.com/outersky/har-tools              |
-| ksuid                 | https://github.com/segmentio/ksuid                 |
+| *attribute*           | *homepage*                                                       |
+|-----------------------+------------------------------------------------------------------|
+| hyperspec             | http://www.lispworks.com/documentation/HyperSpec/Front/index.htm |
+| schemaorg             | https://schema.org                                               |
+| luaPackages.fennel    | https://fennel-lang.org/                                         |
+| luaPackages.tl        | https://github.com/teal-language/tl                              |
+| luaPackages.lua-curl  | https://github.com/Lua-cURL/Lua-cURLv3                           |
+| apertium              | https://github.com/apertium/apertium                             |
+| lttoolbox             | https://github.com/apertium/lttoolbox                            |
+| lunasvg               | https://github.com/sammycage/lunasvg/                            |
+| lispPackages.vacietis | https://github.com/vsedach/Vacietis                              |
+| colorpedia            | https://github.com/joowani/colorpedia                            |
+| rustfilt              | https://github.com/luser/rustfilt                                |
+| warctools             | https://github.com/internetarchive/warctools                     |
+| bollux                | https://sr.ht/~acdw/bollux/                                      |
+| gemget                | https://github.com/makeworld-the-better-one/gemget               |
+| cpp-httplib           | https://github.com/yhirose/cpp-httplib                           |
+| cxxtimer              | https://github.com/andremaravilha/cxxtimer                       |
+| cxxmatrix             | https://github.com/akinomyoga/cxxmatrix                          |
+| piecash               | https://github.com/sdementen/piecash                             |
+| hackernews-tui        | https://github.com/aome510/hackernews-TUI                        |
+| har-tools             | https://github.com/outersky/har-tools                            |
+| ksuid                 | https://github.com/segmentio/ksuid                               |
 
 * Mirrors of this repo
  * https://github.com/nagy/nur-packages
@@ -40,5 +39,4 @@ It contains these packages/attributes:
  * https://git.sr.ht/~nagy/nur-packages.git
 
 * License
-  
 MIT License

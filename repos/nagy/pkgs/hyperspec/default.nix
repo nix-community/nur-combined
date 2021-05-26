@@ -9,8 +9,8 @@ stdenvNoCC.mkDerivation {
   };
 
   installPhase = ''
-      mkdir -p "$out/share/hyperspec/"
-      cp -r ./ "$out/share/hyperspec/"
+      mkdir -p "$out/"
+      cp -r ./ "$out/"
   '';
 
   meta = {
