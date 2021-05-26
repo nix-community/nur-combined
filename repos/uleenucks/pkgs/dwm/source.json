@@ -1,7 +1,7 @@
 {
   "url": "https://github.com/uleenucks/dwm",
-  "rev": "906103ab5c1799310f1c28b2f5fedad4faebd283",
-  "sha256": "11pz01xvxybsncdscw7mngsvanzja6wlb5ps9hnynby4zyyg84a6",
+  "rev": "ead8441553f290bf4effe666dfb217f55613f9e5",
+  "sha256": "1ffdbvh8xrrf8w5fza042c5aggb2gch7mfv07n55k9rggksygawd",
   "fetchSubmodules": false,
   "deepClone": false
 }
