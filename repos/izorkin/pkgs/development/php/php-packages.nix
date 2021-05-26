@@ -61,10 +61,10 @@ let
   };
 
   ast = buildPecl {
-    version = "1.0.11";
+    version = "1.0.12";
     pname = "ast";
 
-    sha256 = "07kx8lh840f5b1y6kszrlv6c9kqz094ppk7pfdk9w0k91z1gcx2a";
+    sha256 = "1mcfx989yrakixlsx2d8v6kyxawfwhig4mra9ccpjasfhad0d31x";
 
     meta.broken = isPhp56;
   };
@@ -126,12 +126,12 @@ let
   };
 
   composer2 = mkDerivation rec {
-    version = "2.0.12";
+    version = "2.0.14";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "0cd661bn63lj9lvhfz13wzydm7grrmy4q07narzfpb6g6waqrsl2";
+      sha256 = "0wrlvlv7sx760mx6v9rpns8ms9zjgz8d9qpm9diwls49am0lni99";
     };
 
     dontUnpack = true;
@@ -610,12 +610,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.87";
+    version = "0.12.88";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0q0lxy20ljqmg23vm8slzv29h3ira3as1ixd17v21g280b7vkwvk";
+      sha256 = "0ccg95hyaz5sl77sjcqhdwf1d57m2j7y1ks6pmvxrchv8ai1dh07";
     };
 
     phases = [ "installPhase" ];
@@ -736,10 +736,10 @@ let
   };
 
   protobuf317 = buildPecl {
-    version = "3.17.0";
+    version = "3.17.1";
     pname = "protobuf";
 
-    sha256 = "0mnawjp925n2zfr5dmigibh93zwhvnxg22vwynjllq53bnpvmj96";
+    sha256 = "0g10s74waw8z9iq7zkjv020p3npis17q9yjj1cad8jhfhgqjgg6i";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -755,12 +755,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "4.7.0";
+    version = "4.7.3";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "1c206cqjj3qx9j6saq4x6h7srvwa05w04hakppmx85kjlql3hbl8";
+      sha256 = "0d8gxkpm4rc00a8br5wzjpglkwx95kr15s4z3cvxyf6iik1j5r47";
     };
 
     phases = [ "installPhase" ];
