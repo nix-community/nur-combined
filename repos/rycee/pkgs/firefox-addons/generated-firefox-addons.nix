@@ -63,10 +63,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.2.97";
+      version = "7.2.99";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3777749/betterttv-7.2.97-fx.xpi";
-      sha256 = "b56f01c457696b45639204d61d44fe7496813286219508145e633d3c2e708f60";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3780825/betterttv-7.2.99-fx.xpi";
+      sha256 = "8bffa15bce91ed0a7c8477fa3406158de90c637cb7701451dd1bc3032127264b";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -791,10 +791,10 @@
       };
     "netflix-1080p" = buildFirefoxXpiAddon {
       pname = "netflix-1080p";
-      version = "1.15.3";
+      version = "1.16.0";
       addonId = "{f18f0257-10ad-4ff7-b51e-6895edeccfc8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3740714/netflix_1080p-1.15.3-fx.xpi";
-      sha256 = "5ff73fe8976debc837ee3593295522cc2de7957ab861ec51d1d4f395c0b2fbfb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3781739/netflix_1080p-1.16.0-fx.xpi";
+      sha256 = "897f841cd73e70058773b0b2de8b757fb9a1b6ce0a913dad9797100b84c48e1d";
       meta = with lib;
       {
         homepage = "https://github.com/TheGoddessInari/netflix-1080p-firefox";
@@ -1045,10 +1045,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.13.4";
+      version = "4.13.5";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3779590/react_developer_tools-4.13.4-fx.xpi";
-      sha256 = "5005736e3ab90aea10b1cda2823cfdfd0c244a0870b5185ad7dd32931d735746";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3781975/react_developer_tools-4.13.5-fx.xpi";
+      sha256 = "d397fc7b3e2b7ac57d2fabf380408731c694dd52afa871e7808dfbb3531b623a";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1129,10 +1129,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "25.11";
+      version = "25.12";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3781004/save_page_we-25.11-fx.xpi";
-      sha256 = "f3de356b8973869f16c3bdd03dfd0cd5f8fa918c89e70e1e9cc03aaec5079809";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3781701/save_page_we-25.12-fx.xpi";
+      sha256 = "984dccd4132c4fdf832d973158636286b9a7d5f24a754fac52660ba912851c3a";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
