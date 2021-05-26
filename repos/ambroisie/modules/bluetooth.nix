@@ -40,7 +40,7 @@ in
                 # mSBC provides better audio + microphone
                 "bluez5.msbc-support" = true;
                 # SBC XQ provides better audio
-                "bluew5.sbc-xq-support" = true;
+                "bluez5.sbc-xq-support" = true;
               };
             };
           }
