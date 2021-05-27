@@ -50,10 +50,10 @@ rustPlatform.buildRustPackage rec {
     owner = "alacritty";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1083qwx0a18q8f4lks1dd8n3z9wmz8bimmnf9r53i4ycqag2m57n";
+    sha256 = "sha256-9pQqnsLMkzhKTs7WGhf6lac/LGot6EmJQxgFBTrHA4E=";
   };
 
-  cargoSha256 = "0mwh3f46f7xrp623njrn5rwi36igyfv0wpbj51rr9yx05mfxxl1n";
+  cargoSha256 = "sha256-NtDeXS2g+5RzKHJdDrbzL5oReS42SzuEubkfZ4gbkFc=";
 
   nativeBuildInputs = [
     cmake
@@ -70,21 +70,23 @@ rustPlatform.buildRustPackage rec {
   outputs = [ "out" "terminfo" ];
 
   postPatch = ''
-    substituteInPlace alacritty/src/config/mouse.rs \
+    substituteInPlace alacritty/src/config/ui_config.rs \
       --replace xdg-open ${xdg_utils}/bin/xdg-open
   '';
 
-  installPhase = ''
-    install -D extra/linux/Alacritty.desktop -t $out/share/applications/
-    install -D extra/logo/compat/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
+  postInstall = (
+    ''
+      install -D extra/linux/Alacritty.desktop -t $out/share/applications/
+      install -D extra/logo/compat/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
 
-    # patchelf generates an ELF that binutils' "strip" doesn't like:
-    #    strip: not enough room for program headers, try linking with -N
-    # As a workaround, strip manually before running patchelf.
-    strip -S $out/bin/alacritty
+      # patchelf generates an ELF that binutils' "strip" doesn't like:
+      #    strip: not enough room for program headers, try linking with -N
+      # As a workaround, strip manually before running patchelf.
+      strip -S $out/bin/alacritty
 
-    patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/alacritty
-  '' + ''
+      patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/alacritty
+    ''
+  ) + ''
 
     installShellCompletion --zsh extra/completions/_alacritty
 
@@ -107,5 +109,6 @@ rustPlatform.buildRustPackage rec {
     license = licenses.asl20;
     maintainers = "uleenucks";
     platforms = platforms.unix;
+    changelog = "https://github.com/alacritty/alacritty/blob/v${version}/CHANGELOG.md";
   };
 }
