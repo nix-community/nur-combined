@@ -1,0 +1,13 @@
+diff --git a/src/library/audio/alsa/pcm.cpp b/src/library/audio/alsa/pcm.cpp
+index 1b43d098..f1fe99b6 100644
+--- a/src/library/audio/alsa/pcm.cpp
++++ b/src/library/audio/alsa/pcm.cpp
+@@ -346,7 +346,7 @@ int snd_pcm_pause(snd_pcm_t *pcm, int enable)
+ {
+     if (GlobalState::isNative()) {
+         LINK_NAMESPACE_GLOBAL(snd_pcm_pause);
+-        return orig::snd_pcm_pause(pcm);
++        return orig::snd_pcm_pause(pcm, enable);
+     }
+ 
+     DEBUGLOGCALL(LCF_SOUND);

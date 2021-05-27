@@ -22,13 +22,13 @@ let
 
 in relevantStdenv.mkDerivation rec {
   pname = "libtas";
-  version = "unstable-2021-05-15";
+  version = "unstable-2021-05-27";
 
   src = fetchFromGitHub {
     owner = "clementgallet";
     repo = "libTAS";
-    rev = "652c8d3da34ec83b4e7e2ec91da9cdaaf1d48501";
-    hash = "sha256:0jk1h2hbv2cy8szrc8x0wnzc4kwdmd83irqwz1gc3hqn1y0wz4sc";
+    rev = "1eb4ecc5462248bfd6846ea2f701453d575a9b78";
+    hash = "sha256:12b0li168z2psw6s754lbysiwj6gjfjxq9pcpx64yxfrzarnxw2w";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig wrapQtAppsHook git ];
@@ -46,10 +46,7 @@ in relevantStdenv.mkDerivation rec {
   dontStrip = true; # Segfaults, bug in patchelf
 
   patches = [
-    (fetchpatch {
-      url = "https://github.com/clementgallet/libTAS/pull/415.patch";
-      sha256 = "1kbpink7laa7vx2r1izlq0wgn512bbq7pgv410556phc84q9dl90";
-    })
+    ./typo-in-typo.patch
   ];
 
   # Note that this builds an extra .so file in the same derivation
