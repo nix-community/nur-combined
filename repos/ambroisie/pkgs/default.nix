@@ -16,6 +16,8 @@ rec {
 
   nolimips = pkgs.callPackage ./nolimips { };
 
+  vimix-cursors = pkgs.callPackage ./vimix-cursors { };
+
   unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock {
     inherit unified-hosts-lists;
   };

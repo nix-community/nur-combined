@@ -5,8 +5,8 @@ in
 {
   config = lib.mkIf cfg.enable {
     xsession.pointerCursor = {
-      package = pkgs.numix-cursor-theme;
-      name = "Numix-Cursor";
+      package = pkgs.ambroisie.vimix-cursors;
+      name = "Vimix-cursors";
     };
   };
 }
