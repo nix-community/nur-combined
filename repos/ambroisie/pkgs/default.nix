@@ -18,6 +18,8 @@ rec {
 
   vimix-cursors = pkgs.callPackage ./vimix-cursors { };
 
+  volantes-cursors = pkgs.callPackage ./volantes-cursors { };
+
   unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock {
     inherit unified-hosts-lists;
   };

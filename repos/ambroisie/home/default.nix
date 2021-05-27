@@ -3,6 +3,7 @@
   imports = [
     ./bat.nix
     ./bluetooth.nix
+    ./comma.nix
     ./direnv.nix
     ./documentation.nix
     ./feh.nix

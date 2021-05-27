@@ -30,4 +30,4 @@ if [ -z "$PROGRAM" ]; then
     exit 1
 fi
 
-nix shell "nixpkgs#$PROGRAM" -c "$@"
+nix shell "${COMMA_PKGS_FLAKE:-nixpkgs}#$PROGRAM" -c "$@"

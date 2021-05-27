@@ -18,7 +18,6 @@ in
   };
 
   config.home.packages = with pkgs; lib.mkIf cfg.enable ([
-    ambroisie.comma
     file
     gitAndTools.git-absorb
     gitAndTools.git-revise
