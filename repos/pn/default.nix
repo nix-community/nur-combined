@@ -33,6 +33,7 @@
   xccp = pkgs.callPackage ./pkgs/xccp { };
   neatroff = pkgs.callPackage ./pkgs/neatroff { };
   neatroff-utmac = pkgs.callPackage ./pkgs/neatroff/neatroff-utmac.nix { };
+  html2gmi = pkgs.callPackage ./pkgs/html2gmi { };
 
   st = pkgs.callPackage ./pkgs/larbs/st { };
   dwm = pkgs.callPackage ./pkgs/larbs/dwm { };
