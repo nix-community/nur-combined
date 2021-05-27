@@ -2,10 +2,10 @@
   {
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.104.8";
+      version = "2.0.104.12";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3761885/enhancer_for_youtubetm-2.0.104.8-fx.xpi";
-      sha256 = "a5b48c78ad5474cd9e0874648f6803815483c00b66103adff6497676e3806087";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3780706/enhancer_for_youtubetm-2.0.104.12-fx.xpi";
+      sha256 = "17217b857409bbe1b1e520e4b542b90e893d2e3f61493424945083b79f245a7e";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -21,10 +21,10 @@
       };
     "nextcloud-passwords" = buildFirefoxXpiAddon {
       pname = "nextcloud-passwords";
-      version = "2.1.1";
+      version = "2.1.2";
       addonId = "ncpasswords@mdns.eu";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3734590/passwords_for_nextcloud_browser_add_on-2.1.1-an+fx.xpi";
-      sha256 = "3de46e5964d43fad7d6b5ec2a0450280159c7989f4db6a5d21f2ca26b9a75ea9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3782489/passwords_for_nextcloud_browser_add_on-2.1.2-an+fx.xpi";
+      sha256 = "d096f4b5690f0391619a7f3f8d955f5d591db9ba816c58ea4d98ea5bb1dff9ce";
       meta = with lib;
       {
         homepage = "https://github.com/marius-wieschollek/passwords-webextension";
@@ -35,10 +35,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.0.13.1";
+      version = "2.0.16.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3748692/sponsorblock_skip_sponsorships_on_youtube-2.0.13.1-an+fx.xpi";
-      sha256 = "c9990812d376afb607c437bfb26184e7b3f07bcfc0116a5a45ca617c6d3f0453";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3780797/sponsorblock_skip_sponsorships_on_youtube-2.0.16.2-an+fx.xpi";
+      sha256 = "17c15d51df20c5b00bdce6032c6c8ac464e8802b65241e141e3c41abfa98bc6a";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";

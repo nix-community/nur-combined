@@ -1,7 +1,7 @@
 { mkShell, nixpkgs-fmt, git }:
 
 mkShell {
-  name = "system-and-home-pull-on-entry";
+  name = "nur-devShell";
 
   buildInputs = [ nixpkgs-fmt git ];
 
