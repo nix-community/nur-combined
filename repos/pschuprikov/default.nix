@@ -126,16 +126,6 @@ let
     #  intel-sgx-psw = intel-sgx-psw_2_7_1;
     #};
 
-    llvmPackagesWithGcc10 = let
-      gccForLibs = pkgs.gcc10.cc;
-      wrapCCWith = args: pkgs.wrapCCWith (args // { inherit gccForLibs; });
-      llvmPackages = pkgs.llvmPackages_10.override {
-        buildLlvmTools = llvmPackages.tools;
-        targetLlvmLibraries = llvmPackages.libraries;
-        inherit wrapCCWith gccForLibs;
-      };
-    in llvmPackages;
-
     perlPackages =
       self.callPackage ./pkgs/perl-packages.nix { inherit (pkgs) perlPackages; }
       // pkgs.perlPackages // {
