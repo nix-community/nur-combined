@@ -110,12 +110,12 @@ in batsTest {
          skip "${x} is broken (memory leak)"
       fi
 
-      ${bagel}/bin/bagel -np $TEST_NUM_CPUS ${bagel}/share/tests/${x} > ${x}.out
+      mpirun -np $TEST_NUM_CPUS ${bagel}/bin/BAGEL ${bagel}/share/tests/${x} > ${x}.out
     }
   '') files) + ''
 
     @test "Run-Bagel" {
-      ${bagel}/bin/bagel -np $TEST_NUM_CPUS ./bagel.inp > bagel.out
+      mpirun -np $TEST_NUM_CPUS ${bagel}/bin/BAGEL ./bagel.inp > bagel.out
     }
   '';
 

@@ -11,7 +11,7 @@ batsTest {
 
   testScript = ''
     @test "Run-Bagel" {
-      ${bagel}/bin/bagel -np $TEST_NUM_CPUS ./bagel.inp > bagel.out
+      mpirun -np $TEST_NUM_CPUS ${bagel}/bin/BAGEL ./bagel.inp > bagel.out
     }
   '';
 

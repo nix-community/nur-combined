@@ -13,7 +13,7 @@ batsTest {
 
   testScript = ''
     @test "Run-nwchem" {
-      nwchem $TEST_NUM_CPUS nwchem.inp > nwchem.out
+      mpirun -np $TEST_NUM_CPUS nwchem nwchem.inp > nwchem.out
     }
 
     @test "DFT Optimize" {

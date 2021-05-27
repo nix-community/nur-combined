@@ -27,8 +27,11 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ autoconf automake libtool openssh boost ];
-  buildInputs = [ python boost libxc blas mpi ]
+  buildInputs = [ python boost libxc blas ]
                 ++ lib.optional withScalapack scalapack;
+
+  propagatedBuildInputs = [ mpi ];
+  propagatedUserEnvPkgs = [ mpi ];
 
   #
   # Furthermore, if relativistic calculations fail without MKL,
@@ -58,20 +61,7 @@ in stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  postInstall = lib.optionalString (mpi != null) ''
-    cat << EOF > $out/bin/bagel
-    if [ \$# -lt 1 ]; then
-    echo
-    echo "Usage: $(basename \\$0) [mpirun parameters] <input file>"
-    echo
-    exit
-    fi
-    ${mpi}/bin/mpirun \''${@:1:\$#-1} $out/bin/BAGEL \''${@:\$#}
-    EOF
-    chmod 755 $out/bin/bagel
-
-    ''
-    + ''
+  postInstall = ''
     # install test jobs
     mkdir -p $out/share/tests
     cp test/* $out/share/tests

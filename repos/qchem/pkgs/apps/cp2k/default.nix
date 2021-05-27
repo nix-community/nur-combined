@@ -32,10 +32,12 @@ in stdenv.mkDerivation rec {
     libxc
     libxsmm
     spglib
-    mpi
     scalapack
     mkl
   ];
+
+  propagatedBuildInputs = [ mpi ];
+  propagatedUserEnvPkgs = [ mpi ];
 
   makeFlags = [
     "ARCH=${arch}"
@@ -106,9 +108,6 @@ in stdenv.mkDerivation rec {
       --set OMP_NUM_THREADS 1
 
     cp -r data/* $out/share/cp2k
-
-    ln -s ${mpi}/bin/mpirun $out/bin/mpirun
-    ln -s ${mpi}/bin/mpiexec $out/bin/mpiexec
   '';
 
   passthru = { inherit mpi; };

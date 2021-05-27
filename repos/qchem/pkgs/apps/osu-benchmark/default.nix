@@ -12,7 +12,8 @@ in stdenv.mkDerivation {
     sha256 = "1f5fc252c0k4rd26xh1v5017wfbbsr2w7jm49x8yigc6n32sisn5";
   };
 
-  buildInputs = [ mpi ];
+  propagatedBuildInputs = [ mpi ];
+  propagatedUserEnvPkgs = [ mpi ];
 
   preConfigure = ''
     export CXX="${mpi}/bin/mpicc"

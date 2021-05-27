@@ -73,8 +73,6 @@ let
       });
 
       fftw-mpi = self.fftw.overrideAttrs (oldAttrs: {
-        buildInputs = oldAttrs.buildInputs ++ [ self.mpi ];
-
         configureFlags = oldAttrs.configureFlags ++ [
           "--enable-mpi"
           "MPICC=${self.mpi}/bin/mpicc"

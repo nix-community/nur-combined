@@ -21,8 +21,9 @@ in stdenv.mkDerivation {
     "--with-ofi=${libfabric}"
   ];
 
-  nativeBuildInputs = [ autoconf automake libtool mpi openssh ];
+  nativeBuildInputs = [ autoconf automake libtool openssh ];
   buildInputs = [ rdma-core libfabric libnl perl ];
+  propagatedBuildInputs = [ mpi ];
 
   enableParallelBuilding = true;
 

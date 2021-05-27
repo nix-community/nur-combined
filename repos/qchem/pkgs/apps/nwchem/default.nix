@@ -28,7 +28,8 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ perl automake autoconf libtool makeWrapper ];
-  buildInputs = [ tcsh openssh which gfortran mpi blas lapack which python ];
+  buildInputs = [ tcsh openssh which gfortran blas lapack which python ];
+  propagatedBuildInputs = [ mpi ];
   propagatedUserEnvPkgs = [ mpi ];
 
   postUnpack = ''
@@ -102,40 +103,14 @@ in stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin $out/share/nwchem
 
-    cp $NWCHEM_TOP/bin/LINUX64/nwchem $out/bin/.nwchem-wrapped
+    cp $NWCHEM_TOP/bin/LINUX64/nwchem $out/bin/nwchem
     cp -r $NWCHEM_TOP/src/data $out/share/nwchem/
     cp -r $NWCHEM_TOP/src/basis/libraries $out/share/nwchem/data
     cp -r $NWCHEM_TOP/src/nwpw/libraryps $out/share/nwchem/data
     cp -r $NWCHEM_TOP/QA $out/share/nwchem
 
-    # create wrapper
-    cat << EOF > $out/bin/nwchem
-    #!/bin/sh
-
-    if [ \$# == 0 ]; then
-    echo
-    echo "Usage: nwchem [number of procs] <input file name>"
-    echo
-    exit
-    fi
-
-    if [ -z "\$NWCHEM_BASIS_LIBRARY" ]; then
-    export NWCHEM_BASIS_LIBRARY=$out/share/nwchem/data/libraries/
-    fi
-
-    if [ \$# -gt 1 ]; then
-    np=\$1; shift;
-    if [ \$np == 0 ]; then
-    ${mpi}/bin/mpirun $out/bin/.nwchem-wrapped \$@
-    else
-    ${mpi}/bin/mpirun -np \$np $out/bin/.nwchem-wrapped \$@
-    fi
-    else
-    $out/bin/.nwchem-wrapped \$@
-    fi
-    EOF
-
-    chmod 755 $out/bin/nwchem
+    wrapProgram $out/bin/nwchem \
+      --set-default NWCHEM_BASIS_LIBRARY $out/share/nwchem/data/libraries/
 
     cat > $out/share/nwchem/nwchemrc << EOF
     nwchem_basis_library $out/share/nwchem/data/libraries/
@@ -168,7 +143,7 @@ in stdenv.mkDerivation {
     export OMPI_MCA_rmaps_base_oversubscribe=1
 
     # run a simple water test
-    $out/bin/nwchem 2 $out/share/nwchem/QA/tests/h2o/h2o.nw > h2o.out
+    mpirun -np 2 $out/bin/nwchem $out/share/nwchem/QA/tests/h2o/h2o.nw > h2o.out
     grep "Total SCF energy" h2o.out  | grep 76.010538
   '';
 
