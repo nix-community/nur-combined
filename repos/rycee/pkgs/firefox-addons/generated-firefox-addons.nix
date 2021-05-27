@@ -470,10 +470,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.874.0";
+      version = "8.875.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3778920/grammarly_for_firefox-8.874.0-an+fx.xpi";
-      sha256 = "bd619efd313ce6b6d10ec0cf670ed6cba4649e810ca2ef77bd1f1ca3b2d81dff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3782571/grammarly_for_firefox-8.875.0-an+fx.xpi";
+      sha256 = "027d28cdbf05c448b328748136690279bc0617281fdca02327291481c8060a7f";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -764,10 +764,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.5.4";
+      version = "9.5.5";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3780182/metamask-9.5.4-an+fx.xpi";
-      sha256 = "bfeff1807d1e8ea57f2f2eedd84cf2e73b8647c9848e757e2809322786649ff3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3782473/metamask-9.5.5-an+fx.xpi";
+      sha256 = "178abd81d3b97715254419224942841fc18b4269be11ca7398a25b4eab5372b6";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
