@@ -27,8 +27,8 @@ in relevantStdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "clementgallet";
     repo = "libTAS";
-    rev = "1eb4ecc5462248bfd6846ea2f701453d575a9b78";
-    hash = "sha256:12b0li168z2psw6s754lbysiwj6gjfjxq9pcpx64yxfrzarnxw2w";
+    rev = "cc1039cbe11b2634e5cda0f9aa143e726ce68eeb";
+    hash = "sha256:0xp5ii92bhk1i9c7qw7gz5qd6g6mfz78jrkyjzhjbsgr3p327vda";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig wrapQtAppsHook git ];
@@ -44,10 +44,6 @@ in relevantStdenv.mkDerivation rec {
   ];
 
   dontStrip = true; # Segfaults, bug in patchelf
-
-  patches = [
-    ./typo-in-typo.patch
-  ];
 
   # Note that this builds an extra .so file in the same derivation
   # Ideally the library and executable might be split into separate derivations,
