@@ -29,5 +29,6 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     platforms = platforms.linux;
+    broken = true;
   };
 }

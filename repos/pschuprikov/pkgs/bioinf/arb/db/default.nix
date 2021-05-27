@@ -1,4 +1,4 @@
-{ buildArb, fetchsvn, pkgconfig, arbcore, arbcommon, arbslcb, glib }:
+{ buildArb, fetchsvn, pkgconfig, arbcore, arbcommon, arbslcb, glib, libtirpc }:
 buildArb rec {
   version = "6.0.6";
   name = "arbdb-${version}";
@@ -10,10 +10,10 @@ buildArb rec {
 
   MAIN="libARBDB.a";
 
-  nativeBuildInputs = [ pkgconfig arbcore arbcommon glib arbslcb ];
+  nativeBuildInputs = [ pkgconfig arbcore arbcommon glib arbslcb libtirpc ];
 
   preConfigure = ''
-    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config --cflags glib-2.0)"
+    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config --cflags glib-2.0) $(pkg-config --cflags libtirpc)"
   '';
 
   installPhase = ''

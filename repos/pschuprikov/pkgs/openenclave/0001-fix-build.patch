@@ -1,0 +1,97 @@
+From 6b8bdc0ebdd69f027b80da70193ffa6cd122f0e1 Mon Sep 17 00:00:00 2001
+From: Pavel Chuprikov <pschuprikov@gmail.com>
+Date: Tue, 17 Nov 2020 17:05:00 +0100
+Subject: [PATCH] fix build
+
+---
+ 3rdparty/musl/CMakeLists.txt   | 4 ++--
+ include/CMakeLists.txt         | 2 +-
+ tests/crypto/tests.c           | 4 ----
+ tests/safemath/CMakeLists.txt  | 1 +
+ tools/oeedger8r/CMakeLists.txt | 8 +-------
+ 5 files changed, 5 insertions(+), 14 deletions(-)
+
+diff --git a/3rdparty/musl/CMakeLists.txt b/3rdparty/musl/CMakeLists.txt
+index b9b51649a..40741c2ee 100644
+--- a/3rdparty/musl/CMakeLists.txt
++++ b/3rdparty/musl/CMakeLists.txt
+@@ -127,9 +127,9 @@ add_dependencies(oelibc_includes musl_includes)
+ target_include_directories(oelibc_includes
+   INTERFACE
+   $<BUILD_INTERFACE:$<$<COMPILE_LANGUAGE:CXX>:${LIBCXX_INCLUDES}>>
+-  $<INSTALL_INTERFACE:$<$<COMPILE_LANGUAGE:CXX>:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}/openenclave/3rdparty/libcxx>>
++  $<INSTALL_INTERFACE:$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_INSTALL_INCLUDEDIR}/openenclave/3rdparty/libcxx>>
+   $<BUILD_INTERFACE:${MUSL_INCLUDES}>
+-  $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}/openenclave/3rdparty/libc>)
++  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/openenclave/3rdparty/libc>)
+ 
+ if (CMAKE_C_COMPILER_ID MATCHES GNU AND
+     CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL "7.1.0")
+diff --git a/include/CMakeLists.txt b/include/CMakeLists.txt
+index c28572ec9..32c7ee1b3 100644
+--- a/include/CMakeLists.txt
++++ b/include/CMakeLists.txt
+@@ -7,7 +7,7 @@ add_library(oe_includes INTERFACE)
+ target_include_directories(oe_includes INTERFACE
+     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+     $<BUILD_INTERFACE:${OE_INCDIR}>
+-    $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>)
++    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+ install(DIRECTORY openenclave/bits DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openenclave/ COMPONENT OEHOSTVERIFY)
+ install(DIRECTORY openenclave/edger8r DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openenclave/)
+ install(FILES openenclave/enclave.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openenclave/)
+diff --git a/tests/crypto/tests.c b/tests/crypto/tests.c
+index 5f3423cd3..1babde3fa 100644
+--- a/tests/crypto/tests.c
++++ b/tests/crypto/tests.c
+@@ -12,10 +12,6 @@ void TestAll()
+     TestEC();
+     TestRSA();
+     TestRandom();
+-#if defined(__x86_64__) || defined(__i386__)
+-    // Test the RDRAND/RDSEED instructions, which are x86/64-specific.
+-    TestCpuEntropy();
+-#endif
+     TestHMAC();
+     TestKDF();
+     TestSHA();
+diff --git a/tests/safemath/CMakeLists.txt b/tests/safemath/CMakeLists.txt
+index fb7a5e8bd..58ae1f191 100644
+--- a/tests/safemath/CMakeLists.txt
++++ b/tests/safemath/CMakeLists.txt
+@@ -3,5 +3,6 @@
+ 
+ add_executable(safemath main.cpp)
+ target_link_libraries(safemath oehost)
++target_compile_options(safemath PRIVATE "-Wno-maybe-uninitialized")
+ 
+ add_test(NAME tests/safemath COMMAND safemath)
+diff --git a/tools/oeedger8r/CMakeLists.txt b/tools/oeedger8r/CMakeLists.txt
+index ed037afd6..0d6479d99 100644
+--- a/tools/oeedger8r/CMakeLists.txt
++++ b/tools/oeedger8r/CMakeLists.txt
+@@ -6,11 +6,6 @@
+ # do not emit to the current working directory, they always emit to
+ # the location of the input file.
+ 
+-find_program(ESY esy)
+-if (NOT ESY)
+-  message(FATAL_ERROR "Please check your esy installation")
+-endif ()
+-
+ # An artifact of using `esy` is that the generated binary is always
+ # `main.exe` regardless of platform. We rename it for installation in
+ # the package.
+@@ -26,8 +21,7 @@ add_custom_command(
+   COMMAND cmake -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/intel ${CMAKE_CURRENT_BINARY_DIR}/intel
+   COMMAND cmake -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_BINARY_DIR}/src
+   COMMAND cmake -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/dune-project ${CMAKE_CURRENT_SOURCE_DIR}/package.json ${CMAKE_CURRENT_BINARY_DIR}
+-  COMMAND esy install
+-  COMMAND esy build --release
++  COMMAND dune build -p oeedger8r
+   DEPENDS dune-project
+           package.json
+           src/dune
+-- 
+2.28.0
+

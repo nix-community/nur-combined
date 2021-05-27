@@ -1,8 +1,8 @@
-{ stdenv, fetchFromGitHub, perlPackages, makeWrapper, ncbi_blast, ncbi_tools, any2fasta, unzip, gzip }:
+{ stdenv, fetchFromGitHub, perlPackages, makeWrapper, blast ? null, ncbi_tools, any2fasta, unzip, gzip }:
 let perl = perlPackages.perl.withPackages (pkgs: with pkgs; [
       PathTiny ListMoreUtils
     ]);
-    external = [ ncbi_blast ncbi_tools any2fasta unzip gzip ];
+    external = [ blast ncbi_tools any2fasta unzip gzip ];
 in stdenv.mkDerivation rec {
   version = "0.9.8";
   name = "abricate-${version}";
@@ -37,5 +37,6 @@ in stdenv.mkDerivation rec {
   
   meta = with stdenv.lib; {
     platforms = platforms.linux;
+    broken = isNull blast;
   };
 }

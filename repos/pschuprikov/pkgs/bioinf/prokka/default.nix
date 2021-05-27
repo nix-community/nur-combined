@@ -1,8 +1,8 @@
-{ stdenv, perlPackages, fetchFromGitHub, BioPerl, hmmer, infernal, ncbi_blast, ncbi_tools, aragorn, gnugrep, findutils, parallel, jdk, prodigal, makeWrapper, BioSearchIOhmmer }:
+{ stdenv, perlPackages, fetchFromGitHub, BioPerl, hmmer, infernal, blast ? null, ncbi_tools, aragorn, gnugrep, findutils, parallel, jdk, prodigal, makeWrapper, BioSearchIOhmmer }:
 let perl = perlPackages.perl.withPackages (pkgs: with pkgs; [ 
       XMLSimple BioPerl BioSearchIOhmmer
       ]);
-    toolsPath = stdenv.lib.makeBinPath [ hmmer infernal ncbi_blast ncbi_tools aragorn gnugrep findutils parallel prodigal jdk ];
+    toolsPath = stdenv.lib.makeBinPath [ hmmer infernal blast ncbi_tools aragorn gnugrep findutils parallel prodigal jdk ];
 in stdenv.mkDerivation rec {
   version = "1.4.15";
   name = "prokka-${version}";
@@ -28,5 +28,6 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     platforms = platforms.linux;
+    broken = isNull blast;
   };
 }

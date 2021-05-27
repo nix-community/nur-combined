@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, perlPackages, ncbi_blast, parallel, bedtools, prank, mcl, mafft, cd-hit, makeWrapper }:
+{ stdenv, fetchurl, perlPackages, blast ? null, parallel, bedtools, prank, mcl, mafft, cd-hit, makeWrapper }:
 with perlPackages; 
 rec {
   inherit perl;
@@ -33,7 +33,7 @@ rec {
 
   BioRoary = 
     let 
-      external = [ncbi_blast parallel bedtools prank mcl mafft cd-hit];
+      external = [blast parallel bedtools prank mcl mafft cd-hit];
     in buildPerlPackage {
     pname = "Bio-Roary";
     version = "3.13.0";
@@ -61,6 +61,7 @@ rec {
       description = "Create a pan genome";
       license = stdenv.lib.licenses.gpl3Plus;
       platforms = stdenv.lib.platforms.linux;
+      broken = true;  # Tests are not stable
     };
   };
 
