@@ -2,10 +2,10 @@
   {
     "1password-x-password-manager" = buildFirefoxXpiAddon {
       pname = "1password-x-password-manager";
-      version = "1.24.1";
+      version = "2.0.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3761012/1password_password_manager-1.24.1-fx.xpi";
-      sha256 = "3f4429ec7e8895802de24eedfc83122dd7dcbe8996c841fdcf6b68b558092975";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3782153/1password_password_manager-2.0.1-fx.xpi";
+      sha256 = "05e984ea6081f79f829bba3d5c4da0802673b275b7ea19899885b683d5201da7";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -777,12 +777,13 @@
       };
     "min-twitter" = buildFirefoxXpiAddon {
       pname = "min-twitter";
-      version = "2.79";
+      version = "3.1.0";
       addonId = "{e7476172-097c-4b77-b56e-f56a894adca9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3780064/minimal_twitter-2.79-fx.xpi";
-      sha256 = "e4821d283ca276cb8a0849e942e703b412d1db357089bdd0eefef38c1a4ab47c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3782831/minimal_twitter-3.1.0-fx.xpi";
+      sha256 = "7b77e144ad865a6205d467b7f8967cda0bd15c12028eec6c3e1968808136e776";
       meta = with lib;
       {
+        homepage = "https://www.wang.sh/minimal-twitter";
         description = "A minimal twitter theme for the new Twitter!";
         license = licenses.mit;
         platforms = platforms.all;
