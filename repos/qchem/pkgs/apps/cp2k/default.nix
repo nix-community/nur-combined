@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, python3, gfortran, mkl
+{ lib, stdenv, fetchFromGitHub, python3, gfortran, blas, lapack
 , fftw, libint2, libvori, libxc, mpi, gsl, scalapack, openssh, makeWrapper
 , libxsmm, spglib, which
 , optAVX ? false
@@ -33,7 +33,8 @@ in stdenv.mkDerivation rec {
     libxsmm
     spglib
     scalapack
-    mkl
+    blas
+    lapack
   ];
 
   propagatedBuildInputs = [ mpi ];
@@ -73,7 +74,7 @@ in stdenv.mkDerivation rec {
                  -I${libxc}/include -I${libxsmm}/include \
                  -I${libint2}/include
     LIBS       = -lfftw3 -lfftw3_threads \
-                 -lscalapack -lmkl_gf_lp64 -lmkl_gnu_thread -lmkl_core \
+                 -lscalapack -lblas -llapack \
                  -lxcf03 -lxc -lxsmmf -lxsmm -lsymspg \
                  -lint2 -lstdc++ -lvori \
                  -lgomp -lpthread -lm \

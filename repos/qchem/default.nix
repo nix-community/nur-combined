@@ -115,12 +115,11 @@ let
       # Applications
       #
       bagel = callPackage ./pkgs/apps/bagel {
-        blas = self.mkl; # bagel is not stable with openblas
+        inherit optAVX;
         boost = final.boost165;
-        scalapack=null; withScalapack=true;
       };
 
-      bagel-serial = callPackage ./pkgs/apps/bagel { mpi = null; blas = self.mkl; };
+      bagel-serial = callPackage ./pkgs/apps/bagel { mpi = null; };
 
       cefine = self.nullable self.turbomole (callPackage ./pkgs/apps/cefine { });
 
@@ -361,4 +360,3 @@ let
 
 in
   overlay cfg.prefix { }
-

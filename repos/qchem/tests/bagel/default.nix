@@ -38,8 +38,6 @@ let
     "hf_sto3g_relfci_breit.json"
     "hf_sto3g_relfci_coulomb.json"
     "hf_sto3g_relfci_gaunt.json"
-    "hf_svp_b3lyp.json"
-    "hf_svp_b3lyp_opt.json"
     "hf_svp_breit.json"
     "hf_svp_cas_opt.json"
     "hf_svp_cis.json"

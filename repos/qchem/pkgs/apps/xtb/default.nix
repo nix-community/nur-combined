@@ -1,5 +1,5 @@
-{ stdenv, lib, gfortran, fetchFromGitHub, cmake, makeWrapper, mkl
-,  turbomole ? null, orca ? null, cefine ? null
+{ stdenv, lib, gfortran, fetchFromGitHub, cmake, makeWrapper, blas, lapack
+, turbomole ? null, orca ? null, cefine ? null
 } :
 
 stdenv.mkDerivation rec {
@@ -19,13 +19,9 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    mkl
-  ];
+  buildInputs = [ blas lapack ];
 
-  hardeningDisable = [
-    "format"
-  ];
+  hardeningDisable = [ "format" ];
 
   postFixup = let
     # programs that XTB might call.
@@ -45,5 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.chemie.uni-bonn.de/pctc/mulliken-center/grimme/software/xtb";
     license = licenses.lgpl3Only;
     platforms = platforms.linux;
+    maintainers = [ maintainers.sheepforce ];
   };
 }

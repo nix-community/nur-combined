@@ -1,23 +1,22 @@
 { stdenv, lib, fetchFromGitHub, autoconf, automake, libtool
 , makeWrapper, openssh
-, python, boost, mpi, libxc, blas
-, withScalapack ? false
-, scalapack
+, python3, boost, mpi, blas, lapack
+, scalapack ? null
+, optAVX ? true
 } :
 
 let
-  version = "1.2.2";
-
-  blasName = (builtins.parseDrvName blas.name).name;
-
-  mpiName = (builtins.parseDrvName mpi.name).name;
+  mpiName = mpi.pname;
   mpiType = if mpiName == "openmpi" then mpiName
        else if mpiName == "mpich"  then "mvapich"
        else if mpiName == "mvapich"  then mpiName
        else throw "mpi type ${mpiName} not supported";
 
-in stdenv.mkDerivation {
-  name = "bagel-${version}" + lib.optionalString (blasName != "openblas") "-${blasName}";
+  useMKL = blas.passthru.implementation == "mkl" && lapack.passthru.implementation == "mkl";
+
+in stdenv.mkDerivation rec {
+  pname = "bagel";
+  version = "1.2.2";
 
   src = fetchFromGitHub {
     owner = "nubakery";
@@ -27,8 +26,12 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ autoconf automake libtool openssh boost ];
-  buildInputs = [ python boost libxc blas ]
-                ++ lib.optional withScalapack scalapack;
+  buildInputs = [
+    python3
+    boost
+    mpi
+  ] ++ (if useMKL then [ blas.passthru.provider ] else [ blas lapack ])
+    ++ lib.optional (scalapack != null) scalapack;
 
   propagatedBuildInputs = [ mpi ];
   propagatedUserEnvPkgs = [ mpi ];
@@ -36,19 +39,22 @@ in stdenv.mkDerivation {
   #
   # Furthermore, if relativistic calculations fail without MKL,
   # users may consider reconfiguring and recompiling with -DZDOT_RETURN in CXXFLAGS.
-  CXXFLAGS="-DNDEBUG -O3 -mavx -DCOMPILE_J_ORB "
-           + lib.optionalString (blasName == "openblas") "-lopenblas -DZDOT_RETURN"
-           + lib.optionalString (blasName == "mkl") "-L${blas}/lib/intel64";
-
-  LDFLAGS = lib.optionalString (blasName == "mkl") "-L${blas}/lib/intel64";
+  CXXFLAGS = builtins.toString ([
+    "-DNDEBUG"
+    "-O3"
+    "-DCOMPILE_J_ORB"
+  ] ++ lib.lists.optionals (!useMKL) [ "-lblas" "-llapack" ]
+    ++ lib.lists.optional optAVX "-mavx -mavx2"
+    ++ lib.lists.optional (blas.passthru.implementation == "openblas") "-DZDOT_RETURN"
+  );
 
   BOOST_ROOT=boost;
 
-  configureFlags = with lib; [ "--with-libxc" "--with-boost=${boost}" ]
+  configureFlags = with lib; [ "--with-boost=${boost}" ]
                    ++ optional ( mpi != null ) "--with-mpi=${mpiType}"
                    ++ optional ( mpi == null ) "--disable-smith"
-                   ++ optional ( blasName == "mkl" ) "--enable-mkl"
-                   ++ optional ( !withScalapack ) "--disable-scalapack";
+                   ++ optional ( scalapack == null ) "--disable-scalapack"
+                   ++ optional ( useMKL ) "--enable-mkl";
 
   postPatch = ''
     # Fixed upstream
