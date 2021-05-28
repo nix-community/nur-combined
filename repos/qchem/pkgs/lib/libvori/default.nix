@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "libvori";
-  version = "201229";
+  version = "210412";
 
   nativeBuildInputs = [ cmake ];
 
   # Original server is misconfigured and messes up the file compression.
   src = fetchurl {
     url = "https://www.cp2k.org/static/downloads/${pname}-${version}.tar.gz";
-    sha256 = "01ncvqikiabwn1w8995q7h48dzazs69bdl5zmqmdxy4l5hlzn2ns";
+    sha256 = "1b4hpwibf3k7gl6n984l3wdi0zyl2fmpz84m9g2di4yhm6p8c61k";
   };
 
   meta = with lib; {
@@ -17,5 +17,6 @@ stdenv.mkDerivation rec {
     homepage = "https://brehm-research.de/libvori.php";
     license = with licenses; [ lgpl3Only ];
     platforms = platforms.unix;
+    maintainers = [ maintainers.sheepforce ];
   };
 }

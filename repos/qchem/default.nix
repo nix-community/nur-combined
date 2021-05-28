@@ -128,7 +128,6 @@ let
       chemps2 = callPackage ./pkgs/apps/chemps2 { };
 
       cp2k = callPackage ./pkgs/apps/cp2k {
-        libxc = self.libxc4;  # patches are are required for libxc5
         inherit optAVX;
       };
 

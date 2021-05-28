@@ -5,7 +5,7 @@
 } :
 
 let
-  version = "8.1.0";
+  version = "8.2.0";
 
   cp2kVersion = "psmp";
   arch = "Linux-x86-64-gfortran";
@@ -18,7 +18,7 @@ in stdenv.mkDerivation rec {
     owner = "cp2k";
     repo = "cp2k";
     rev = "v${version}";
-    sha256 = "1qv7gprmm9riz9jj82n0mh2maij137h3ivh94z22bnm75az86jcs";
+    sha256 = "0kykq5p318hxjzd4gzqjwv9gqshbdvbg0gnjbd9bdfjx1r6jkjn3";
     fetchSubmodules = true;
   };
 
