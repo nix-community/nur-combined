@@ -17,8 +17,8 @@ let
 				sources);
 	namesString = 
 		if (modules == null)
-			then "\"*\""
-			else builtins.concatStringsSep " " modules;
+			then ''"*"''
+			else (builtins.concatStringsSep " " modules);
 	ignoreString =
 		builtins.concatStringsSep 
 			" " 
