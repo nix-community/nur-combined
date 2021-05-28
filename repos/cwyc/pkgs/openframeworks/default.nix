@@ -7,14 +7,14 @@ poco, mpg123,
 findutils,
 ...}:
 let
-  version = "v0.11.0";
+  version = "v0.11.2";
 in
 stdenv.mkDerivation {
   name = "openframeworks-${version}";
   
   src = fetchurl {
-    url = "https://openframeworks.cc/versions/${version}/of_${version}_linux64gcc6_release.tar.gz";
-    sha256 = "1cb9mv1zn9pgdjky1vnxg8yzypqld6cg0all3bf9zrw1w0yfwg2i";
+    url = "https://openframeworks.cc/versions/v0.11.2/of_v0.11.2_linux64gcc6_release.tar.gz";
+    sha256 = "032706s64jiclg2f0g59ni0c5ww068kz2mas1x3m2rvqdjpbw1wr";
   };
   
   buildInputs = [
