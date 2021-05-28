@@ -75,4 +75,6 @@ rec {
 
   argo-rollouts = pkgs.callPackage ./pkgs/argo-rollouts {};
 
+  pamidicontrol = pkgs.callPackage ./pkgs/pamidicontrol {};
+
 }
