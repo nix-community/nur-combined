@@ -4,7 +4,7 @@
 , autoPatchelfHook, buildEnv, binutils-unwrapped, wrapBintoolsWith, file
 , coreutils, ocaml, autoconf, automake, which, python, libtool, openssl
 , llvmPackages_8, ocamlPackages, perl, cmake, bash, protobuf, curl, fakeroot
-, intelSGXDCAPPrebuilt, enableMitigation ? false }:
+, intelSGXDCAPPrebuilt, debugMode ? false, enableMitigation ? false }:
 
 assert !hasMitigation -> !enableMitigation;
 
@@ -69,7 +69,7 @@ let
         sha256 = sha256;
         fetchSubmodules = true;
       };
-
+      hardeningDisable = lib.optionals debugMode ["fortify"];
       dontUseCmakeConfigure = true;
       patchPhase = ''
         tar -xzvf ${intel-optlibs-prebuilt}
@@ -97,7 +97,7 @@ let
         ("${component}"
           + lib.optionalString (component == "sdk" && hasMitigation && !enableMitigation)
           "_no_mitigation")
-      ];
+      ] ++ lib.optional debugMode "DEBUG=1";
 
 
       enableParallelBuilding = true;
