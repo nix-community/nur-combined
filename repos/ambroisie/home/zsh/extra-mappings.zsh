@@ -1,4 +1,4 @@
-# Fix delete key not working 
+# Fix delete key not working
 bindkey "\e[3~" delete-char
 
 # Fix Ctrl+u killing from the cursor instead of the whole line
