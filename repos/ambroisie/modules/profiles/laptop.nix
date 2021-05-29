@@ -15,7 +15,7 @@ in
     my.services.tlp.enable = true;
 
     # Enable upower power management
-    my.modules.upower.enable = true;
+    my.hardware.upower.enable = true;
 
     # Enable battery notifications
     my.home.power-alert.enable = true;

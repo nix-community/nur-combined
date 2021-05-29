@@ -60,12 +60,8 @@
         }
         # Include generic settings
         ./modules
-        # Include bundles of settings
-        ./profiles
         # Include my secrets
         ./secrets
-        # Include my services
-        ./services
       ];
 
       buildHost = name: system: lib.nixosSystem {

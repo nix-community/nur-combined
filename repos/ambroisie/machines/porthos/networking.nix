@@ -31,5 +31,5 @@
   };
 
   # Which interface is used to connect to the internet
-  my.networking.externalInterface = "eth0";
+  my.hardware.networking.externalInterface = "eth0";
 }

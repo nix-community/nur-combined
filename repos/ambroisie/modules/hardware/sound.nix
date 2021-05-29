@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.my.modules.sound;
+  cfg = config.my.hardware.sound;
 in
 {
-  options.my.modules.sound = with lib; {
+  options.my.hardware.sound = with lib; {
     enable = mkEnableOption "sound configuration";
 
     pipewire = {

@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.my.module.documentation;
+  cfg = config.my.system.documentation;
 in
 {
-  options.my.module.documentation = with lib.my; {
+  options.my.system.documentation = with lib.my; {
     enable = mkDisableOption "Documentation integration";
 
     dev.enable = mkDisableOption "Documentation aimed at developers";

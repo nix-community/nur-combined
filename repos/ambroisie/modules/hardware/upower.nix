@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.my.modules.upower;
+  cfg = config.my.hardware.upower;
 in
 {
-  options.my.modules.upower = with lib; {
+  options.my.hardware.upower = with lib; {
     enable = mkEnableOption "upower configuration";
 
     levels = {

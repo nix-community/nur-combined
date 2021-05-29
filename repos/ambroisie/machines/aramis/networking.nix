@@ -15,9 +15,11 @@
     };
   };
 
-  # Which interface is used to connect to the internet
-  my.networking.externalInterface = "enp0s3";
+  my.hardware.networking = {
+    # Which interface is used to connect to the internet
+    externalInterface = "enp0s3";
 
-  # Enable WiFi integration
-  my.networking.wireless.enable = true;
+    # Enable WiFi integration
+    wireless.enable = true;
+  };
 }

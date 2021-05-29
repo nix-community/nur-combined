@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.my.modules.bluetooth;
+  cfg = config.my.hardware.bluetooth;
 in
 {
-  options.my.modules.bluetooth = with lib; {
+  options.my.hardware.bluetooth = with lib; {
     enable = mkEnableOption "bluetooth configuration";
 
     enableHeadsetIntegration = my.mkDisableOption "A2DP sink configuration";

@@ -1,6 +1,6 @@
 { ... }:
 {
-  my.modules.sound = {
+  my.hardware.sound = {
     enable = true;
 
     pipewire = {

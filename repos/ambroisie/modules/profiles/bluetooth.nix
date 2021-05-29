@@ -8,7 +8,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    my.modules.bluetooth.enable = true;
+    my.hardware.bluetooth.enable = true;
 
     my.home.bluetooth.enable = true;
   };

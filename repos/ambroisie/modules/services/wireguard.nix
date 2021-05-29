@@ -18,7 +18,7 @@ let
     in
     lib.filterAttrs shouldConnectToPeer allOthers;
 
-  extIface = config.my.networking.externalInterface;
+  extIface = config.my.hardware.networking.externalInterface;
 
   mkInterface = clientAllowedIPs: {
     listenPort = cfg.port;
