@@ -206,10 +206,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.32";
+      version = "4.9.33";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3763728/dark_reader-4.9.32-an+fx.xpi";
-      sha256 = "6d0d1ec5ba638bd0b897d3ff2b2e785770302b58c4ba0e735e10b3f9c4227bf6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3783471/dark_reader-4.9.33-an+fx.xpi";
+      sha256 = "49e7ec13cfdb953dfb785a2442582788e895a5623956d0b7dff02f59db2e3159";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -470,10 +470,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.875.0";
+      version = "8.876.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3782571/grammarly_for_firefox-8.875.0-an+fx.xpi";
-      sha256 = "027d28cdbf05c448b328748136690279bc0617281fdca02327291481c8060a7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3783646/grammarly_for_firefox-8.876.0-an+fx.xpi";
+      sha256 = "8d129548d57be3ac61f490d32fbc45e89bb1f0321211ccee6ad1719de67bc78d";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -777,14 +777,14 @@
       };
     "min-twitter" = buildFirefoxXpiAddon {
       pname = "min-twitter";
-      version = "3.1.0";
+      version = "3.1.1";
       addonId = "{e7476172-097c-4b77-b56e-f56a894adca9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3782831/minimal_twitter-3.1.0-fx.xpi";
-      sha256 = "7b77e144ad865a6205d467b7f8967cda0bd15c12028eec6c3e1968808136e776";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3783292/minimal_twitter-3.1.1-fx.xpi";
+      sha256 = "e6eea6ec1da643c1d682611d7b9f9952810c3a8e18f01498eed7e7a9deb730d6";
       meta = with lib;
       {
-        homepage = "https://www.wang.sh/minimal-twitter";
-        description = "A minimal twitter theme for the new Twitter!";
+        homepage = "https://github.com/thomaswang/minimal-twitter";
+        description = "Minimal Twitter theme that drastically simplifies and declutters the new Twitter UI.";
         license = licenses.mit;
         platforms = platforms.all;
         };
