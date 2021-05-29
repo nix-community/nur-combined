@@ -2,7 +2,7 @@
 
 buildPythonApplication rec {
   pname = "EDMarketConnector";
-  version = "4.2.7";
+  version = "5.0.4";
 
   format = "other";
 
@@ -10,7 +10,7 @@ buildPythonApplication rec {
     owner = "EDCD";
     repo = pname;
     rev = "Release/${version}";
-    sha256 = "sha256-YAA06yf2/IDrzOzXV5uMMf1kPhB/RpkK7B2qoK5bNd8=";
+    sha256 = "sha256-/DYmdZxV5FqEq8SUJw70mz2h6Kh4OUS9Lx0WCHEvM4k=";
   };
 
   doCheck = false;
