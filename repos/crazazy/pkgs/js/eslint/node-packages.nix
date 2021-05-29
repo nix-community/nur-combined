@@ -283,6 +283,15 @@ let
         sha1 = "1b61c0562190a8dff6ae3bb2cf0200ca130b86d4";
       };
     };
+    "escape-string-regexp-4.0.0" = {
+      name = "escape-string-regexp";
+      packageName = "escape-string-regexp";
+      version = "4.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz";
+        sha512 = "TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==";
+      };
+    };
     "eslint-scope-5.1.1" = {
       name = "eslint-scope";
       packageName = "eslint-scope";
@@ -481,13 +490,13 @@ let
         sha512 = "BWICuzzDvDoH54NHKCseDanAhE3CeDorgDL5MT6LMXXj2WCnd9UC2szdk4AWLfjdgNBCXLUanXYcpBBKOSWGwg==";
       };
     };
-    "globals-13.8.0" = {
+    "globals-13.9.0" = {
       name = "globals";
       packageName = "globals";
-      version = "13.8.0";
+      version = "13.9.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/globals/-/globals-13.8.0.tgz";
-        sha512 = "rHtdA6+PDBIjeEvA91rpqzEvk/k3/i7EeNQiryiWuJH0Hw9cpyJMAt2jtbAwUaRdhD+573X4vWw6IcjKPasi9Q==";
+        url = "https://registry.npmjs.org/globals/-/globals-13.9.0.tgz";
+        sha512 = "74/FduwI/JaIrr1H8e71UbDE+5x7pIPs1C2rrwC52SszOo043CsWOZEMW7o2Y58xwm9b+0RBKDxY5n2sUpEFxA==";
       };
     };
     "has-flag-3.0.0" = {
@@ -643,15 +652,6 @@ let
         sha512 = "+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==";
       };
     };
-    "lodash-4.17.21" = {
-      name = "lodash";
-      packageName = "lodash";
-      version = "4.17.21";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
-        sha512 = "v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==";
-      };
-    };
     "lodash.clonedeep-4.5.0" = {
       name = "lodash.clonedeep";
       packageName = "lodash.clonedeep";
@@ -659,6 +659,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz";
         sha1 = "e23f3f9c4f8fbdde872529c1071857a086e5ccef";
+      };
+    };
+    "lodash.merge-4.6.2" = {
+      name = "lodash.merge";
+      packageName = "lodash.merge";
+      version = "4.6.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz";
+        sha512 = "0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==";
       };
     };
     "lodash.truncate-4.4.2" = {
@@ -1007,14 +1016,15 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.26.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.26.0.tgz"; sha1 = "d416fdcdcb3236cd8f282065312813f8c13982f6"; };
+    version = "7.27.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.27.0.tgz"; sha1 = "665a1506d8f95655c9274d84bd78f7166b07e9c7"; };
     dependencies = [
       sources."@babel/code-frame-7.12.11"
       sources."@babel/helper-validator-identifier-7.14.0"
       (sources."@babel/highlight-7.14.0" // {
         dependencies = [
           sources."chalk-2.4.2"
+          sources."escape-string-regexp-1.0.5"
         ];
       })
       (sources."@eslint/eslintrc-0.4.1" // {
@@ -1051,7 +1061,7 @@ let
       sources."doctrine-3.0.0"
       sources."emoji-regex-8.0.0"
       sources."enquirer-2.3.6"
-      sources."escape-string-regexp-1.0.5"
+      sources."escape-string-regexp-4.0.0"
       sources."eslint-scope-5.1.1"
       (sources."eslint-utils-2.1.0" // {
         dependencies = [
@@ -1087,7 +1097,7 @@ let
       sources."functional-red-black-tree-1.0.1"
       sources."glob-7.1.7"
       sources."glob-parent-5.1.2"
-      (sources."globals-13.8.0" // {
+      (sources."globals-13.9.0" // {
         dependencies = [
           sources."type-fest-0.20.2"
         ];
@@ -1107,8 +1117,8 @@ let
       sources."json-schema-traverse-0.4.1"
       sources."json-stable-stringify-without-jsonify-1.0.1"
       sources."levn-0.4.1"
-      sources."lodash-4.17.21"
       sources."lodash.clonedeep-4.5.0"
+      sources."lodash.merge-4.6.2"
       sources."lodash.truncate-4.4.2"
       sources."lru-cache-6.0.0"
       sources."minimatch-3.0.4"

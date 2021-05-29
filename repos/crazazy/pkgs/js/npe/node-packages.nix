@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "merge-1.2.1" = {
+    "merge-2.1.1" = {
       name = "merge";
       packageName = "merge";
-      version = "1.2.1";
+      version = "2.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/merge/-/merge-1.2.1.tgz";
-        sha512 = "VjFo4P5Whtj4vsLzsYBu5ayHhoHJ0UqNm7ibvShmbmoz7tGi0vXaoJbGdB+GmDMLUdg8DpQXEIeVDAe8MaABvQ==";
+        url = "https://registry.npmjs.org/merge/-/merge-2.1.1.tgz";
+        sha512 = "jz+Cfrg9GWOZbQAnDQ4hlVnQky+341Yk5ru8bZSe6sIDTCIg8n9i/u7hSQGSVOF3C7lH6mGtqjkiT9G4wFLL0w==";
       };
     };
     "minimist-1.2.5" = {
@@ -35,17 +35,16 @@ let
   args = {
     name = "npe";
     packageName = "npe";
-    version = "1.1.3";
-    src = fetchurl { url = "https://registry.npmjs.org/npe/-/npe-1.1.3.tgz"; sha1 = "a0b1224d94fcce03fb0490bc109ed77456f02d19"; };
+    version = "1.1.4";
+    src = fetchurl { url = "https://registry.npmjs.org/npe/-/npe-1.1.4.tgz"; sha1 = "b6543d057b91af9a428911f62e1788c39f19a404"; };
     dependencies = [
-      sources."merge-1.2.1"
+      sources."merge-2.1.1"
       sources."minimist-1.2.5"
       sources."steeltoe-1.0.1"
     ];
     buildInputs = globalBuildInputs;
     meta = {
       description = "Node Package Editor: a CLI for one-off inspection and editing of properties in package.json files.";
-      homepage = "https://github.com/zeke/npe";
       license = "MIT";
     };
     production = true;
