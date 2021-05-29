@@ -174,9 +174,7 @@ lib.makeScope newScope (
     gloggery = callPackage ./gemini/gloggery { };
     gmi2html = callPackage ./gemini/gmi2html { };
     gmnhg = callPackage ./gemini/gmnhg { };
-    gmni = callPackage ./gemini/gmni { };
     gmnigit = callPackage ./gemini/gmnigit { };
-    gmnisrv = callPackage ./gemini/gmnisrv { };
     gmnitohtml = callPackage ./gemini/gmnitohtml { };
     gssg = callPackage ./gemini/gssg { };
     gurl = callPackage ./gemini/gurl { };
