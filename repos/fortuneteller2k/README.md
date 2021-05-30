@@ -12,4 +12,4 @@ Other packages that weren't listed due to being impure:
 
 | name                    | attribute                              | description                                                                     |
 |-------------------------|----------------------------------------|---------------------------------------------------------------------------------|
-| eww-unstable-2021-05-18 | `nur.repos.fortuneteller2k.impure.eww` | A standalone widget system made in Rust to add AwesomeWM like widgets to any WM |
+| eww-unstable-2021-05-29 | `nur.repos.fortuneteller2k.impure.eww` | A standalone widget system made in Rust to add AwesomeWM like widgets to any WM |
