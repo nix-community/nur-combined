@@ -400,10 +400,10 @@
       };
     "fraidycat" = buildFirefoxXpiAddon {
       pname = "fraidycat";
-      version = "1.1.9";
+      version = "1.1.10";
       addonId = "{94060031-effe-4b93-89b4-9cd570217a8d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3770581/fraidycat-1.1.9-fx.xpi";
-      sha256 = "59cad17787739da2d9e6402ece437f4bbfaacadcb2f7e282632c3313e755f30b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3783967/fraidycat-1.1.10-fx.xpi";
+      sha256 = "2bf975fef065290e19d5e70722021fc65e8499bececbdd56c616462d5bf834f1";
       meta = with lib;
       {
         homepage = "https://fraidyc.at/";
