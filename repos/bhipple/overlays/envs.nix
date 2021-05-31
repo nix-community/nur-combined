@@ -73,7 +73,6 @@ in
         self.cachix
         self.chromium
         self.clang-tools
-        self.dasht
         self.direnv
         self.discord
         self.dunst
@@ -93,6 +92,7 @@ in
         self.nixpkgs-fmt
         self.nixpkgs-review
         self.nload
+        self.nodePackages.bash-language-server
         self.nodePackages.pyright
         self.nodePackages.vscode-json-languageserver
         self.pavucontrol
@@ -100,9 +100,8 @@ in
         self.remmina
         self.shellcheck
         self.source-code-pro
-        self.truecrypt
+        self.talon
         self.vlc
-        self.wally-cli
         self.xclip
         self.xsel
         self.youtube-dl

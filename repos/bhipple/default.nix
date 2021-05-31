@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -21,10 +21,10 @@
     ./overlays/spacemacs.nix
   ];
 
-  gmpydl = pkgs.callPackage ./pkgs/gmpydl {};
-  plaid2qif = pkgs.callPackage ./pkgs/plaid2qif {};
+  plaid2qif = pkgs.callPackage ./pkgs/plaid2qif { };
 
-  # ledger-cli only gets a release every couple years; build the latest commit
-  # off master.
-  # ledger-git = pkgs.callPackage ./pkgs/ledger {};
+  # This only works if you have the beta-src.nix file created, which CI does not.
+  # talon =
+  #   let res = builtins.tryEval (pkgs.callPackage ./pkgs/talon { });
+  #   in if res.success then res.value else null;
 }

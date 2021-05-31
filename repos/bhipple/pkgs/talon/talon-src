@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+if [ -z $1 ]; then
+    echo "USAGE: talon-src <tar.gz url>"
+    exit 1
+fi
+
+set -euxo pipefail
+cd "$0:h"
+
+rm -f beta-src.nix
+
+url=$1
+version=$(basename $1 | sed 's|\.tar.xz$||' | sed 's|talon-linux-||')
+sha256=$(nix-prefetch-url $url)
+
+tee beta-src.nix << EOF
+{
+  version = "$version";  # updated $(date -I)
+  url = "$url";
+  sha256 = "$sha256";
+}
+EOF
+
+nix build --no-link -L nixos.talon
+nix-env -iA nixos.talon
