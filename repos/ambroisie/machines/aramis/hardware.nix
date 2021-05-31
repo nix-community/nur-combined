@@ -22,5 +22,13 @@
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
-  hardware.cpu.intel.updateMicrocode = true;
+  hardware = {
+    cpu.intel.updateMicrocode = true;
+
+    trackpoint = {
+      enable = true;
+
+      emulateWheel = true; # Holding middle buttons allows scrolling
+    };
+  };
 }

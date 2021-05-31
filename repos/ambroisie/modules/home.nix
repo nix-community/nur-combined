@@ -1,7 +1,7 @@
 # Simplify setting home options
-{ lib, ... }:
+{ config, lib, ... }:
 let
-  actualPath = [ "home-manager" "users" "ambroisie" "my" "home" ];
+  actualPath = [ "home-manager" "users" config.my.username "my" "home" ];
   aliasPath = [ "my" "home" ];
 in
 {

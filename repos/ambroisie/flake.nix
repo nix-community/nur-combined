@@ -31,9 +31,28 @@
       repo = "NUR";
       ref = "master";
     };
+
+    pre-commit-hooks = {
+      type = "github";
+      owner = "cachix";
+      repo = "pre-commit-hooks.nix";
+      ref = "master";
+      inputs = {
+        flake-utils.follows = "futils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
-  outputs = { self, futils, home-manager, nixpkgs, nur } @ inputs:
+  outputs =
+    inputs @
+    { self
+    , futils
+    , home-manager
+    , nixpkgs
+    , nur
+    , pre-commit-hooks
+    }:
     let
       inherit (futils.lib) eachDefaultSystem;
 
@@ -52,12 +71,12 @@
           ];
         }
         home-manager.nixosModules.home-manager
-        {
-          home-manager.users.ambroisie = import ./home;
+        ({ config, ... }: {
+          home-manager.users.${config.my.username} = import ./home;
           # Nix Flakes compatibility
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-        }
+        })
         # Include generic settings
         ./modules
         # Include bundles of settings
@@ -81,28 +100,43 @@
     in
     eachDefaultSystem
       (system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        rec {
-          apps = {
-            diff-flake = futils.lib.mkApp { drv = packages.diff-flake; };
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+      rec {
+        apps = {
+          diff-flake = futils.lib.mkApp { drv = packages.diff-flake; };
+        };
+
+        checks = {
+          pre-commit = pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+
+            hooks = {
+              nixpkgs-fmt = {
+                enable = true;
+              };
+            };
           };
+        };
 
-          defaultApp = apps.diff-flake;
+        defaultApp = apps.diff-flake;
 
-          devShell = pkgs.mkShell {
-            name = "NixOS-config";
-            buildInputs = with pkgs; [
-              git-crypt
-              gitAndTools.pre-commit
-              gnupg
-              nixpkgs-fmt
-            ];
-          };
+        devShell = pkgs.mkShell {
+          name = "NixOS-config";
 
-          packages = import ./pkgs { inherit pkgs; };
-        }) // {
+          buildInputs = with pkgs; [
+            git-crypt
+            gitAndTools.pre-commit
+            gnupg
+            nixpkgs-fmt
+          ];
+
+          inherit (self.checks.${system}.pre-commit) shellHook;
+        };
+
+        packages = import ./pkgs { inherit pkgs; };
+      }) // {
       overlay = self.overlays.pkgs;
 
       overlays = import ./overlays // {
