@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "";
+    description = "Powerful hands-free input";
     homepage = "https://talonvoice.com";
     license = licenses.unfree; # https://talonvoice.com/EULA.txt
     maintainer = maintainers.bhipple;
