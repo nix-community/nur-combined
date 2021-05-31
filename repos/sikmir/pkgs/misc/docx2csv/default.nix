@@ -19,5 +19,6 @@ python3Packages.buildPythonApplication rec {
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = true;
   };
 }
