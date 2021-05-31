@@ -5,7 +5,7 @@ if [ -z $1 ]; then
 fi
 
 set -euxo pipefail
-cd "$0:h"
+cd "$0:A:h"
 
 rm -f beta-src.nix
 

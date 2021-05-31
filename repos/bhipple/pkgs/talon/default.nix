@@ -1,4 +1,5 @@
 { stdenv
+, file
 , dbus
 , fetchurl
 , fontconfig
@@ -16,21 +17,21 @@
 , ncurses
 , xz
 , zlib
+, runCommandNoCC
 }:
 let
   # See README.md
-  beta = import ./beta-src.nix;
+  srcs =
+    if builtins.pathExists ./beta-src.nix
+    then import ./beta-src.nix
+    else import ./src.nix;
 in
-
-assert beta.version != "";
-assert beta.url != "";
-assert beta.sha256 != "";
 
 stdenv.mkDerivation rec {
   pname = "talon";
-  inherit (beta) version;
+  inherit (srcs) version;
   src = fetchurl {
-    inherit (beta) url sha256;
+    inherit (srcs) url sha256;
   };
 
   nativeBuildInputs = [

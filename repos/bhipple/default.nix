@@ -22,9 +22,5 @@
   ];
 
   plaid2qif = pkgs.callPackage ./pkgs/plaid2qif { };
-
-  # This only works if you have the beta-src.nix file created, which CI does not.
-  # talon =
-  #   let res = builtins.tryEval (pkgs.callPackage ./pkgs/talon { });
-  #   in if res.success then res.value else null;
+  talon = pkgs.callPackage ./pkgs/talon { };
 }
