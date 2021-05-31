@@ -32,6 +32,7 @@ in reduceJoin [
     discord = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/networking/instant-messengers/discord/default.nix";
     onlyoffice-bin = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/office/onlyoffice-bin/default.nix";
     dart = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/development/interpreters/dart/default.nix";
+    hugo = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/misc/hugo/default.nix";
     flutter = (cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/development/compilers/flutter/default.nix").stable;
     tor-browser-bundle-bin = (cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/networking/browsers/tor-browser-bundle-bin/default.nix");
     obsidian = (cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/misc/obsidian/default.nix");

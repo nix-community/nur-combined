@@ -67,6 +67,8 @@ in
 
   services.xserver.displayManager.lightdm.background = wallpaper;
 
+  services.auto-cpufreq.enable = true;
+
   networking.hostName = hostname; # Define your hostname.
   networking.networkmanager.enable = true;
 
