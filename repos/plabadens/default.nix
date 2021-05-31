@@ -24,6 +24,8 @@ rec {
 
   filebrowser = pkgs.callPackage ./pkgs/filebrowser { };
 
+  hw-probe = pkgs.callPackage ./pkgs/hw-probe { };
+
   lsix = pkgs.callPackage ./pkgs/lsix { };
 
   python3Packages = pkgs.recurseIntoAttrs
