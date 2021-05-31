@@ -66,13 +66,9 @@ stdenv.mkDerivation rec {
     + "${placeholder "out"}/share/talon/resources/python/lib/python3.9/site-packages/numpy.libs:"
     + lib.makeLibraryPath buildInputs;
 
-  pythonPath = "${placeholder "out"}/share/talon/resources/python/lib/python3.9/site-packages";
-
   qtWrapperArgs = [
     "--prefix LD_LIBRARY_PATH : ${libPath}"
-    "--prefix PYTHONPATH : ${pythonPath}"
     "--set LC_NUMERIC C"
-    "--unset PYTHONHOME"
   ];
 
   installPhase = ''
@@ -103,15 +99,6 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/bin"
     ln -s "$out/share/talon/talon" "$out/bin/talon"
   ''
-  # Add a wrapped talon repl too
-  # FIXME: This does not work due to PYTHONHOME issues?
-  # + ''
-  #   sed 's|^exec .*|exec -a "$0" $out/share/talon/resources/python/bin/python3 "'$out'/share/talon/resources/repl.py"|' \
-  #      "$out/bin/talon" \
-  #      > "$out/bin/repl"
-
-  #   chmod +x "$out/bin/repl"
-  # ''
   + ''
     runHook postInstall
   '';
