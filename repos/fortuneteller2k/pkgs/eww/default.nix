@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
   checkPhase = null;
 
-  cargoSha256 = "sha256-wqbUpufEKCvxnUDDYWeiIUsRkS/cuehsbwcmYPfnx8E=";
+  cargoSha256 = "sha256-tBfN9ocA7Pzsou8018PHZisGhQ/YUPGw37wZyZItQ1s=";
 
   meta = with lib; {
     description = "A standalone widget system made in Rust to add AwesomeWM like widgets to any WM";
