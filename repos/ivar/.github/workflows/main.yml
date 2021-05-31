@@ -41,10 +41,10 @@ jobs:
     - name: Update packages
       run: |
         cd ryujinx
-        echo Now attempting to updating Ryujinx
+        echo Now attempting to update Ryujinx
         ./updater.sh
         cd ../yuzu
-        echo Now attempting to updating yuzu
+        echo Now attempting to update yuzu
         ./updater.sh
     - name: Push changes
       uses: actions-x/commit@v2

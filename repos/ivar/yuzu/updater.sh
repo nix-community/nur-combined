@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p nix-prefetch-git jq
+#! nix-shell --quiet -i bash -p nix-prefetch-git jq
 set -eo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
 

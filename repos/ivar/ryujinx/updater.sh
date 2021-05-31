@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p common-updater-scripts nix-prefetch-git jq dotnet-sdk_5
+#! nix-shell --quiet -i bash -p common-updater-scripts nix-prefetch-git jq dotnet-sdk_5
 set -eo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
 

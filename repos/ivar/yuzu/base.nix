@@ -41,6 +41,12 @@ stdenv.mkDerivation rec {
     sha256 = "1zxh5fwdr7jl0aagb3yfwd0995vyyk54f0f748f7c4rqvg6867fd";
   })];
 
+  # TODO: Remove this when https://github.com/NixOS/nixpkgs/pull/124870 hits the channels
+  postPatch = ''
+    substituteInPlace CMakeLists.txt --replace \
+      "1.5         zstd/1.5.0" "1.4.9         zstd/1.4.9"
+  '';
+
   cmakeFlags = [
     "-DENABLE_QT_TRANSLATION=ON"
     "-DYUZU_USE_QT_WEB_ENGINE=ON"
