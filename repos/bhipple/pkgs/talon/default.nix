@@ -1,5 +1,4 @@
 { stdenv
-, file
 , dbus
 , fetchurl
 , fontconfig
@@ -14,10 +13,8 @@
 , sqlite
 , udev
 , xorg
-, ncurses
 , xz
 , zlib
-, runCommandNoCC
 }:
 let
   # See README.md
@@ -40,13 +37,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     dbus
-    ncurses
     fontconfig
     freetype
     glib
     libGL
     libffi
-    libffi.dev
     libxkbcommon_7
     pulseaudio
     qt5.qtbase
@@ -108,5 +103,6 @@ stdenv.mkDerivation rec {
     homepage = "https://talonvoice.com";
     license = licenses.unfree; # https://talonvoice.com/EULA.txt
     maintainer = maintainers.bhipple;
+    platforms = platforms.linux;
   };
 }

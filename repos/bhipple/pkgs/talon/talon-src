@@ -20,6 +20,3 @@ tee beta-src.nix << EOF
   sha256 = "$sha256";
 }
 EOF
-
-nix build --no-link -L nixos.talon
-nix-env -iA nixos.talon
