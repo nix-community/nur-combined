@@ -4,13 +4,13 @@
 
 buildPythonPackage rec {
   name = "i-PI";
-  version = "2.3.0";
+  version = "2.4.0";
 
   src = fetchFromGitHub {
     owner = "i-pi";
     repo = "i-pi";
     rev = "v${version}";
-    sha256 = "18aavj2x5vxl2i8ssk757rnbi6hygqpf4nsppxjjpmwjb7lw1ad3";
+    sha256 = "0d0ag57aa0fsqjwya27fyj8alimjvlxzgh6hxjqy1k4ap9h3n1cy";
   };
 
   nativeBuildInputs = [
@@ -36,5 +36,6 @@ buildPythonPackage rec {
     license = licenses.gpl3Only;
     homepage = "http://ipi-code.org/";
     platforms = platforms.linux;
+    maintainers = [ maintainers.sheepforce ];
   };
 }

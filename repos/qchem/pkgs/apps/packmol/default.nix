@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "packmol";
-  version = "20.2.2";
+  version = "20.2.3";
 
   buildInputs = [ gfortran ];
 
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     owner = "m3g";
     repo = pname;
     rev = "v${version}";
-    sha256= "0pj6ah09zbj3lir628p8rbfbkq4wqnmvcyvq3rqgbc7w2vyslxrk";
+    sha256= "0z9x8n2ippffkg5gi0b7vgw0dj3zhvm7p1n2ajybkh3n2xv84bhq";
   };
 
   dontConfigure = true;
@@ -29,5 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "http://m3g.iqm.unicamp.br/packmol/home.shtml";
     license = licenses.mit;
     platforms = platforms.linux;
+    maintainers = [ maintainers.sheepforce ];
   };
 }
