@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "sfm";
-  version = "2021-05-22";
+  version = "0.1";
 
   src = fetchFromGitHub {
     owner = "afify";
     repo = pname;
-    rev = "7b0060575657e47ca9edadfd4ebc01e73f8fb72e";
-    hash = "sha256-B8RZ9GnjR1ZxVk6ut7KBEYPUXiewpYgqzUUN0G1bx+o=";
+    rev = "v${version}";
+    hash = "sha256-i4WzYaJKityIt+LPWCbd6UsPBaYoaS397l5BInOXQQA=";
   };
 
   patches = [ ./config.patch ];

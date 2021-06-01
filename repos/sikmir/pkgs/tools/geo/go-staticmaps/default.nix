@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "go-staticmaps";
-  version = "2021-04-12";
+  version = "2021-04-25";
 
   src = fetchFromGitHub {
     owner = "flopp";
     repo = pname;
-    rev = "9eef5d84e2f2fd705ebb1cd0c0601cf2301ad9ca";
-    hash = "sha256-HH7HjVdv9yTpE7on6PDXqiUSGQzSqyh5/+psFm53+WQ=";
+    rev = "2e6e19a99c28a6e68b24e2f2fbcc084da8aee8ac";
+    hash = "sha256-yTnlX55+B4Qh+Zcq7PdAK3nIB36iHvZOo+l4z/ECO6Y=";
   };
 
   patches = [ ./extra-tileproviders.patch ];

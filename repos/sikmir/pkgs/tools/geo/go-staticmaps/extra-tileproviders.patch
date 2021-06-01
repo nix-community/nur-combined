@@ -1,5 +1,5 @@
 diff --git i/tile_provider.go w/tile_provider.go
-index a4b7f9b..62a56b6 100644
+index be2c487..7adac9c 100644
 --- i/tile_provider.go
 +++ w/tile_provider.go
 @@ -143,6 +143,28 @@ func NewTileProviderArcgisWorldImagery() *TileProvider {
@@ -31,10 +31,10 @@ index a4b7f9b..62a56b6 100644
  // GetTileProviders returns a map of all available TileProviders
  func GetTileProviders() map[string]*TileProvider {
  	m := make(map[string]*TileProvider)
-@@ -161,6 +183,8 @@ func GetTileProviders() map[string]*TileProvider {
- 		NewTileProviderCartoLight(),
+@@ -162,6 +184,8 @@ func GetTileProviders() map[string]*TileProvider {
  		NewTileProviderCartoDark(),
  		NewTileProviderArcgisWorldImagery(),
+ 		NewTileProviderWikimedia(),
 +		NewTileProviderOpenTopoMapRu(),
 +		NewTileProviderInkatlas(),
  	}
