@@ -2,10 +2,10 @@
   {
     "1password-x-password-manager" = buildFirefoxXpiAddon {
       pname = "1password-x-password-manager";
-      version = "2.0.1";
+      version = "2.0.2";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3782153/1password_password_manager-2.0.1-fx.xpi";
-      sha256 = "05e984ea6081f79f829bba3d5c4da0802673b275b7ea19899885b683d5201da7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3784953/1password_password_manager-2.0.2-fx.xpi";
+      sha256 = "d147818c3bcd8081dd25ddfe74a0687abe3cae5622cbf3ab2ef33440b195523a";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -1087,10 +1087,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.22.4";
+      version = "5.22.5";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3760642/reddit_enhancement_suite-5.22.4-an+fx.xpi";
-      sha256 = "877ba3dbce54834b81f7856f6041db58b05e09e1e916008f7f8433600af6cbd2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3784229/reddit_enhancement_suite-5.22.5-an+fx.xpi";
+      sha256 = "213f1ada92bb9d2814e6760cf20a2dc3cf2cc31b503e2baa8fe2f784be6df11c";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -1253,10 +1253,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.8.1";
+      version = "6.8.2";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3776955/tab_session_manager-6.8.1-fx.xpi";
-      sha256 = "781407e68707e93233986e175a14ef22f1bcb090fe2f10cda07c2cfe1d79f2e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3784096/tab_session_manager-6.8.2-fx.xpi";
+      sha256 = "d96ef935806048207596a3ad1c2af5b300312a5ae84d99424f8faed6167b8a68";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
