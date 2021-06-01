@@ -8,20 +8,34 @@
 , pip
   # Check inputs
 , pytestCheckHook
+, fixtures
+, graphviz
+, matplotlib
 , networkx
 , numpy
+, pydot
 }:
 
 let
   pname = "retworkx";
-  version = "0.8.0";
+  version = "0.9.0";
   src = fetchFromGitHub {
     owner = "Qiskit";
     repo = "retworkx";
     rev = version;
-    sha256 = "0plpri6a3d6f1000kmcah9066vq2i37d14bdf8sm96493fhpqhrd";
+    sha256 = "0adb9zar8wihjkywal13b6w21hf5z9fh168wnc7j045y2ixw6vnm";
   };
-  installCheckInputs = [ pytestCheckHook numpy networkx ];
+  oldCargoSha = "0bhwggx5ni24wj637q6n2lvbc3sj8sqn8b2v5dd0b18ng8yn8rdf";
+  newCargoSha = "09zmp4zf3r3b7ffgasshr21db7blkwn7wkibka9cbh61593845dh";
+  installCheckInputs = [
+    pytestCheckHook
+    fixtures
+    graphviz
+    matplotlib
+    numpy
+    networkx
+    pydot
+  ];
   preCheck = ''
     export TESTDIR=$(mktemp -d)
     cp -r tests/ $TESTDIR
@@ -40,11 +54,8 @@ let
   pre2105Package = rustPlatform.buildRustPackage rec {
     inherit pname version src installCheckInputs preCheck postCheck meta;
 
-    # TODO: remove when 20.09 released, needed to build on CI.
-    cargoSha256 = if
-      lib.versionOlder lib.trivial.release "20.09"
-      then "0jd7wd40nfv9k64a1kyrqr2b5y13lc3szas1wlbl0d3jyc249jra"
-      else "1ykrkwfdi8wvwnxsg9kvmd9f93hg9mzmlsw6fq1wqyx017vgnkps";
+    # TODO: remove when 20.03 support dropped
+    cargoSha256 = if lib.versionOlder lib.trivial.release "20.09"then oldCargoSha else newCargoSha;
     legacyCargoFetcher = true;  # TODO: Remove on next nixos release. Cargo SHA mismatch b/w unstable & release.
 
     propagatedBuildInputs = [ python ];
@@ -68,18 +79,18 @@ let
   };
 
   nixpkgs2105Package = buildPythonPackage {
-    inherit pname version src installCheckInputs preCheck postCheck meta;
+    inherit pname version src preCheck postCheck meta;
     format = "pyproject";
 
     cargoDeps = rustPlatform.fetchCargoTarball {
       inherit src;
       name = "${pname}-${version}";
-      sha256 = "1ykrkwfdi8wvwnxsg9kvmd9f93hg9mzmlsw6fq1wqyx017vgnkps";
+      sha256 = newCargoSha;
     };
 
     nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
-    doCheck = false;
-    doInstallCheck = true;
+
+    checkInputs = installCheckInputs;
   };
 in
   (if lib.versionAtLeast lib.trivial.release "21.05" then nixpkgs2105Package else pre2105Package)
