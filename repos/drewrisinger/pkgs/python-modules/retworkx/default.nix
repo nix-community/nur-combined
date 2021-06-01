@@ -55,7 +55,7 @@ let
     inherit pname version src installCheckInputs preCheck postCheck meta;
 
     # TODO: remove when 20.03 support dropped
-    cargoSha256 = if lib.versionOlder lib.trivial.release "20.09"then oldCargoSha else newCargoSha;
+    cargoSha256 = if lib.versionOlder lib.trivial.release "20.09" then oldCargoSha else newCargoSha;
     legacyCargoFetcher = true;  # TODO: Remove on next nixos release. Cargo SHA mismatch b/w unstable & release.
 
     propagatedBuildInputs = [ python ];
