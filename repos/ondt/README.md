@@ -40,6 +40,28 @@ or
 
 
 
+
+# Adding the NUR repository as a channel
+```sh
+sudo nix-channel --add https://github.com/nix-community/NUR/archive/master.tar.gz nur
+sudo nix-channel --update
+```
+```nix
+# /etc/nixos/configuration.nix
+{
+    nixpkgs.config.packageOverrides = pkgs: {
+        nur = import <nur> {
+            inherit pkgs;
+        };
+    };
+}
+```
+
+
+
+
+
+
 # Installing a package
 ```nix
 # /etc/nixos/configuration.nix
