@@ -19,8 +19,3 @@ reduced privileges.
 
 ## Contributions
 Pull requests improving the nix expressions are welcome!
-
-## TODO Items
-- The non-beta src does not work (QT plugin error). I only use the beta version,
-  though, and at some point latest will likely use the same QT, so I'll just
-  wait it out unless someone else contributes a fix.

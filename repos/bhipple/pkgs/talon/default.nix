@@ -44,7 +44,6 @@ stdenv.mkDerivation rec {
     libffi
     libxkbcommon_7
     pulseaudio
-    qt5.qtbase
     sqlite
     stdenv.cc.cc
     stdenv.cc.libc
