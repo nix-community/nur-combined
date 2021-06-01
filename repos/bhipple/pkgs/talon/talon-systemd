@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
+# WARNING: This will break some talon features. Use at your own risk!
+
 echo "Killing..."
 systemctl --user stop talon || true
 
