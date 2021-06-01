@@ -23,6 +23,14 @@
     else if allowEnv then
     if (getEnv envVar) != null then getEnv envVar else default else default;
 
+  getBoolValue = x: default: envVar:
+    if x != null then x
+    else if allowEnv then
+      if (getEnv envVar) != null then
+        (if (getEnv envVar) == "1" then true else false)
+      else default
+    else default;
+
  in {
 
   # Put the package set under prefix
@@ -38,18 +46,8 @@
   licMolpro = getValue licMolpro null "NIXQC_LICMOLPRO";
 
   # turn of AVX optimizations in selected packages
-  optAVX = if optAVX != null then optAVX
-    else if allowEnv then
-    if (getEnv "NIXQC_AVX") != null then
-      (if (getEnv "NIXQC_AVX") == "1" then true else false)
-     else true else true;
+  optAVX = getBoolValue optAVX true "NIXQC_AVX";
 
   # Enable CUDA on selected packages
-  useCuda = if useCuda != null
-    then useCuda
-    else if allowEnv
-      then if (getEnv "NIXQC_CUDA") != null
-        then (if (getEnv "NIXQC_CUDA") == "1" then true else false)
-        else false
-      else false;
+  useCuda = getBoolValue useCuda false "NIXQC_CUDA";
 }

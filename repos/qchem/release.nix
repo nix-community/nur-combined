@@ -107,6 +107,8 @@ in {
 // (if buildVariants then {
   qchem-mpich = pkgs config (self: super: { mpi = super.mpich; });
 
+  qchem-mvapich = pkgs config (self: super: { mpi = self.qchem.mvapich; });
+
   qchem-mkl = pkgs config (self: super: {
     blas = super.blas.override { blasProvider = super.mkl; };
     lapack = super.lapack.override { lapackProvider = super.mkl; };
