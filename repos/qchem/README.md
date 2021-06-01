@@ -42,6 +42,7 @@ Configuration options can be set directly via `config.qchem-config` alongside ot
 * `optpath`: Path to packages that reside outside the nix store. This is mainly relevant for Gaussian and Matlab.
 * `licMolpro`: Molpro license token string required to run molpro.
 * `optAVX`: If this variable is set to true (default) some packages will be explicitly compiled with AVX/AVX2 support. Some upstream packages will be overriden to use make use of AVX (see `nixpkgs-opt.nix`).
+* `useCuda`: Uses Cuda features in selected packages.
 
 
 ### Configuation via environment variables
@@ -52,5 +53,4 @@ The overlay will check for environment variables to configure some features:
 * `NIXQC_OPTPATH`
 * `NIXQC_LICMOLPRO`
 * `NIXQC_AVX`: see `optAVX`, setting this to 1 corresponds to `true`.
-
-
+* `NIXQC_CUDA`: see `useCuda`, setting this to 1 corresponds to `true`.

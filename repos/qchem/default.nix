@@ -218,7 +218,10 @@ let
 
       turbomole = callPackage ./pkgs/apps/turbomole { };
 
-      vmd = callPackage ./pkgs/apps/vmd { };
+      vmd = if cfg.useCuda
+        then callPackage ./pkgs/apps/vmd/binary.nix { }
+        else callPackage ./pkgs/apps/vmd { }
+      ;
 
       wfoverlap = callPackage ./pkgs/apps/wfoverlap { };
 

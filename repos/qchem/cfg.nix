@@ -6,6 +6,7 @@
 , licMolpro ? null
 , prefix ? null
 , optAVX ? null
+, useCuda ? null
 } :
 
   let
@@ -42,4 +43,13 @@
     if (getEnv "NIXQC_AVX") != null then
       (if (getEnv "NIXQC_AVX") == "1" then true else false)
      else true else true;
+
+  # Enable CUDA on selected packages
+  useCuda = if useCuda != null
+    then useCuda
+    else if allowEnv
+      then if (getEnv "NIXQC_CUDA") != null
+        then (if (getEnv "NIXQC_CUDA") == "1" then true else false)
+        else false
+      else false;
 }
