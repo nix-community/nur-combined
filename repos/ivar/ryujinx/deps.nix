@@ -511,8 +511,8 @@
   })
   (fetchNuGet {
     name = "Ryujinx.SDL2-CS";
-    version = "2.0.15-build9";
-    sha256 = "0c3yfr10q0rh4npycn4k5q6rfj0qv2nl70379lg66zrg02c3frb6";
+    version = "2.0.15-build11";
+    sha256 = "0s4h69l2b508l5wxp4v4ip8k83k78p3963xxv8bfamin9517przi";
   })
   (fetchNuGet {
     name = "SharpZipLib";
