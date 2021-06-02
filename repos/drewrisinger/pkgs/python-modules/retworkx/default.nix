@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , buildPythonPackage
 , rustPlatform
 , python
@@ -6,6 +7,7 @@
 , pipInstallHook
 , maturin
 , pip
+, libiconv
   # Check inputs
 , pytestCheckHook
 , fixtures
@@ -27,6 +29,7 @@ let
   };
   oldCargoSha = "0bhwggx5ni24wj637q6n2lvbc3sj8sqn8b2v5dd0b18ng8yn8rdf";
   newCargoSha = "09zmp4zf3r3b7ffgasshr21db7blkwn7wkibka9cbh61593845dh";
+  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
   installCheckInputs = [
     pytestCheckHook
     fixtures
@@ -52,7 +55,7 @@ let
   };
 
   pre2105Package = rustPlatform.buildRustPackage rec {
-    inherit pname version src installCheckInputs preCheck postCheck meta;
+    inherit pname version src buildInputs installCheckInputs preCheck postCheck meta;
 
     # TODO: remove when 20.03 support dropped
     cargoSha256 = if lib.versionOlder lib.trivial.release "20.09" then oldCargoSha else newCargoSha;
@@ -79,7 +82,7 @@ let
   };
 
   nixpkgs2105Package = buildPythonPackage {
-    inherit pname version src preCheck postCheck meta;
+    inherit pname version src buildInputs preCheck postCheck meta ;
     format = "pyproject";
 
     cargoDeps = rustPlatform.fetchCargoTarball {
@@ -90,6 +93,7 @@ let
 
     nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
 
+    pythonImportsCheck = [ "retworkx" ];
     checkInputs = installCheckInputs;
   };
 in

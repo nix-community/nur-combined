@@ -167,8 +167,8 @@ buildPythonPackage rec {
     pushd $PACKAGEDIR
   '';
   postCheck = ''
-    rm -rf test
-    rm -rf examples
+    rm -r test
+    rm -r examples
     popd
   '';
 
