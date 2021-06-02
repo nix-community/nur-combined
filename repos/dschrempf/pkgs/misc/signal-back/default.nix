@@ -21,7 +21,6 @@ buildGoPackage rec {
   meta = with lib; {
     description = "Decrypt Signal instant messenger backups";
     homepage = "https://github.com/xeals/signal-back";
-    # TODO: Change to dschrempf from Nixpkgs.
     license = licenses.asl20;
     maintainers = with maintainers; [ dschrempf ];
     platforms = platforms.all;
