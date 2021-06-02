@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "qutip";
-  version = "4.6.1";
+  version = "4.6.2";
   format = "pyproject";
   disabled = pythonOlder "3.5";
 
@@ -21,7 +21,7 @@ buildPythonPackage rec {
     owner = "qutip";
     repo = "qutip";
     rev = "v${version}";
-    sha256 = "0nr0amk6k07rrx1r8a2vsw390cw9fqr0g4ian4rx0r4x9nqmjy57";
+    sha256 = "04g7ixq1yrrid4lliqbcamnzyw5r0fjbl8ipklps234hvsjfwmxb";
   };
 
   propagatedBuildInputs = [
@@ -33,11 +33,6 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace setup.cfg --replace "cython>=0.29.20" "cython"
-  '';
-
-  # Tell qutip build process that this is a release version
-  preBuild = ''
-    export CI_QUTIP_RELEASE=1
   '';
 
   pythonImportsCheck = [ "qutip" ];
@@ -52,7 +47,6 @@ buildPythonPackage rec {
   '';
   pytestFlagsArray = [
     "--durations=10"
-    "-v"
     "-rfE"
   ];
   disabledTests = [
@@ -102,11 +96,17 @@ buildPythonPackage rec {
     "test_wigner_ghz_su2parity"
     "test_smesolve_homodyne"
     "test_result_states"
+    "test_usage_in_solvers"
+    "test_correlation_solver_equivalence"
+    "test_correlation_2op_1t_known_cases"
+    "test_coefficient_c_ops_3ls"
+    "test_varying_coefficient_hamiltonian"
+    "test_states_and_expect"
   ];
 
   meta = with lib; {
     description = "Quantum Toolbox in Python.";
-    homepage = "http://qutip.org";  # HTTPS not currently enabled
+    homepage = "https://qutip.org";
     downloadPage = "https://github.com/qutip/qutip/releases";
     changelog = "http://qutip.org/docs/latest/changelog.html";
     license = licenses.bsd3;
