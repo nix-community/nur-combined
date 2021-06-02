@@ -1,5 +1,5 @@
 { stdenv, cmake, pkgconfig
-, ffmpeg, libebur128, taglib
+, ffmpeg, libebur128, taglib, zlib
 }:
 stdenv.mkDerivation rec {
   pname = "loudgain";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    ffmpeg libebur128 taglib
+    ffmpeg libebur128 taglib zlib
   ];
 
   meta = with stdenv.lib; {
