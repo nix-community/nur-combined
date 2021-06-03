@@ -450,8 +450,8 @@ in {
   };
 
   php74 = generic {
-    version = "7.4.19";
-    sha256 = "0sfrs2k48609sw5n6ykr77c8g1894p2dzl7rcaj972ki1bs3knn6";
+    version = "7.4.20";
+    sha256 = "0gbmwlvcgargrr30gfjii4mihssgfpmv22iix0538h2g2vfnm2fg";
   };
 
   php80 = generic {
