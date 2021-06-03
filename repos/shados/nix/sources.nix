@@ -1,4 +1,4 @@
-nixpkgs:
+nixpkgs: system:
 let
 
   #
@@ -56,9 +56,6 @@ let
             ((x: builtins.elemAt (builtins.match "\\.*(.*)" x) 0) name)
         )
     );
-
-  # The set of packages used when specs are fetched using non-builtins.
-  mkPkgs = sources: system: import nixpkgs { inherit system; };
 
   # The actual fetching function.
   fetch = pkgs: name: spec:
@@ -143,14 +140,12 @@ let
   mkConfig =
     { sourcesFile ? if builtins.pathExists ./sources.json then ./sources.json else null
     , sources ? if isNull sourcesFile then {} else builtins.fromJSON (builtins.readFile sourcesFile)
-    , system ? builtins.currentSystem
-    , pkgs ? mkPkgs sources system
     }: rec {
       # The sources, i.e. the attribute set of spec name to spec
       inherit sources;
 
-      # The "pkgs" (evaluated nixpkgs) to use for e.g. non-builtin fetchers
-      inherit pkgs;
+      # The set of packages used when specs are fetched using non-builtins.
+      pkgs = import nixpkgs { inherit system; };
     };
 
 in

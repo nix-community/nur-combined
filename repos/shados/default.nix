@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 let
   nixpkgsPath = pkgs.path;
-  pins = import ./nix/sources.nix nixpkgsPath;
+  pins = import ./nix/sources.nix nixpkgsPath pkgs.targetPlatform.system;
 in
 let repo = rec {
   lib = import ./lib { inherit pkgs repo; };

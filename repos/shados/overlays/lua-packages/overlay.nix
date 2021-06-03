@@ -5,7 +5,7 @@ let
   overridePackages = self: super: let
     callPackage = super.callPackage;
     inherit (super) luaOlder luaAtLeast isLuaJIT;
-  pins = import ../../nix/sources.nix pkgs.path;
+  pins = import ../../nix/sources.nix pkgs.path pkgs.targetPlatform.system;
 in
   with self; {
     /* Bespoke packages */
