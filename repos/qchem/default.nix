@@ -188,6 +188,8 @@ let
       psi4 = super.python3.pkgs.toPythonApplication self.python3.pkgs.psi4;
       psi4Unstable = super.python3.pkgs.toPythonApplication self.python3.pkgs.psi4Unstable;
 
+      pysisyphus = super.python3.pkgs.toPythonApplication self.python3.pkgs.pysisyphus;
+
       qdng = callPackage ./pkgs/apps/qdng {
         protobuf=super.protobuf3_11;
       };
@@ -334,6 +336,9 @@ let
       molpro12 = null;
       molpro20 = null;
       molpro-ext = null;
+
+      # Provide null gaussian attrs in case optpath is not set
+      gaussian = null;
     }  // lib.optionalAttrs (cfg.licMolpro != null) {
 
       #

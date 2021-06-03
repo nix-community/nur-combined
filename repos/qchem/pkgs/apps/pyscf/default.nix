@@ -4,13 +4,13 @@
 
 buildPythonPackage rec {
   pname = "pyscf";
-  version = "1.7.6";
+  version = "1.7.6.post1";
 
   src = fetchFromGitHub {
     owner = "pyscf";
     repo = pname;
-    rev = "v${version}";
-    sha256  = "1plicf3df732mcwzsinfbmlzwwi40sh2cxy621v7fny2hphh14dl";
+    rev = "f6c9c6654dd9609c5e467a1edd5c2c076f793acc";
+    sha256  = "0xbwkjxxysfpqz72qn6n4a0zr2h6sprbcal8j7kzymh7swjy117w";
   };
 
   buildInputs = [
@@ -27,7 +27,7 @@ buildPythonPackage rec {
     python3
   ];
 
-  PYSCF_INC_DIR="${libcint}:${libxc}";
+  PYSCF_INC_DIR="${libcint}:${libxc}:${xcfun}";
 
   doCheck = false;
 
@@ -36,5 +36,6 @@ buildPythonPackage rec {
     homepage = https://pyscf.github.io/;
     license = licenses.asl20;
     platforms = platforms.linux;
+    maintainers = [ maintainers.sheepforce ];
   };
 }

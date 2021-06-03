@@ -1,8 +1,17 @@
-{ stdenv, lib, gfortran, fetchFromGitHub, cmake, makeWrapper, blas, lapack
+{ stdenv, lib, gfortran, fetchFromGitHub, cmake, makeWrapper, blas, lapack, writeTextFile
 , turbomole ? null, orca ? null, cefine ? null
 } :
 
-stdenv.mkDerivation rec {
+let
+  description = "Semiempirical extended tight-binding program package";
+
+  binSearchPath = with lib; strings.makeSearchPath "bin" ([ ]
+    ++ lists.optional (turbomole != null) turbomole
+    ++ lists.optional (orca != null) orca
+    ++ lists.optional (turbomole != null) cefine
+  );
+
+in stdenv.mkDerivation rec {
   pname = "xtb";
   version = "6.4.0";
 
@@ -23,21 +32,30 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  postFixup = let
-    # programs that XTB might call.
-    binSearchPath = with lib; strings.makeSearchPath "bin" ([ ]
-      ++ lists.optional (turbomole != null) turbomole
-      ++ lists.optional (orca != null) orca
-      ++ lists.optional (turbomole != null) cefine
-    );
-  in  ''
+  postInstall = ''
+    mkdir -p $out/lib/pkgconfig
+
+    cat > $out/lib/pkgconfig/xtb.pc << EOF
+    prefix=$out
+    libdir=''${prefix}/lib
+    includedir=''${prefix}/include
+
+    Name: ${pname}
+    Description: ${description}
+    Version: ${version}
+    Cflags: -I''${prefix}/include
+    Libs: -L''${prefix}/lib -lxtb
+    EOF
+  '';
+
+  postFixup = ''
     wrapProgram $out/bin/xtb \
       --prefix PATH : "${binSearchPath}" \
       --set-default XTBPATH "$out/share/xtb"
   '';
 
   meta = with lib; {
-    description = "Semiempirical Extended Tight-Binding Program Package";
+    inherit description;
     homepage = "https://www.chemie.uni-bonn.de/pctc/mulliken-center/grimme/software/xtb";
     license = licenses.lgpl3Only;
     platforms = platforms.linux;

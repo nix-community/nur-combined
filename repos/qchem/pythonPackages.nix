@@ -47,6 +47,18 @@ let
       rev = "9b60184c5d161e4871c91ce29a44e3ac2c2a438e";
       sha256 = "1vh8dp3nw4fk1mnfv0w8ici1lzxyfn5han7hipqzsfxl75w76r18";
     };
+
+    pysisyphus = callPackage ./pkgs/apps/pysisyphus {
+      orca = selfPkgs.orca;
+      turbomole = selfPkgs.turbomole;
+      cfour = selfPkgs.cfour;
+      gaussian = selfPkgs.gaussian;
+      molpro = selfPkgs.molpro;
+    };
+
+    rmsd = callPackage ./pkgs/lib/rmsd { };
+
+    xtb-python = callPackage ./pkgs/lib/xtb-python { };
   } // lib.optionalAttrs super.isPy27 {
     pyquante = callPackage ./pkgs/apps/pyquante { };
   };

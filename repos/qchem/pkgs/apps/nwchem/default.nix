@@ -3,7 +3,7 @@
 , automake, autoconf, libtool, makeWrapper
 } :
 
-assert blas.isILP64 == blas.isILP64;
+assert blas.isILP64 == lapack.isILP64;
 
 let
   version = "7.0.2";
@@ -68,7 +68,7 @@ in stdenv.mkDerivation {
   USE_PYTHON64="n";
   PYTHONLIBTYPE="so";
   PYTHONHOME="${python}";
-  PYTHONVERSION="2.7";
+  PYTHONVERSION=lib.versions.majorMinor python.version;
 
   BLASOPT="-L${blas}/lib -lblas";
   LAPACK_LIB="-L${lapack}/lib -llapack";
