@@ -75,12 +75,12 @@ sudo nix-channel --update
 
 or
 
-```console
-$ nix-shell -p nur.repos.ondt.lemonade
+```sh
+nix-shell -p nur.repos.ondt.lemonade
 ```
 
 or
 
-```console
-$ nix-env -f '<nixpkgs>' -iA nur.repos.ondt.lemonade
+```sh
+nix-env -f '<nixpkgs>' -iA nur.repos.ondt.lemonade
 ```
