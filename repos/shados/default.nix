@@ -1,6 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 let
   nixpkgsPath = pkgs.path;
+  pins = import ./nix/sources.nix nixpkgsPath;
 in
 let repo = rec {
   lib = import ./lib { inherit pkgs repo; };
@@ -22,9 +23,13 @@ let repo = rec {
       privacySupport = true;
     };
 
-  json-yaml = pkgs.callPackage ./pkgs/json-yaml { };
+  json-yaml = pkgs.callPackage ./pkgs/json-yaml {
+    inherit pins;
+  };
 
-  loudgain = pkgs.callPackage ./pkgs/loudgain { };
+  loudgain = pkgs.callPackage ./pkgs/loudgain {
+    inherit pins;
+  };
 
   rxvt_unicode_24bit = pkgs.callPackage ./pkgs/rxvt_unicode_24bit {
     perlSupport = true;
@@ -32,14 +37,18 @@ let repo = rec {
     unicode3Support = true;
   };
 
-  tagsistant = pkgs.callPackage ./pkgs/tagsistant { };
+  tagsistant = pkgs.callPackage ./pkgs/tagsistant {
+    inherit pins;
+  };
 
   urxvt-config-reload = pkgs.callPackage ./pkgs/urxvt-config-reload {
     inherit (pkgs.perlPackages) AnyEvent LinuxFD CommonSense SubExporter
       DataOptList ParamsUtil SubInstall;
+    inherit pins;
   };
   urxvtconfig = pkgs.libsForQt5.callPackage ./pkgs/urxvtconfig {
     inherit (pkgs.xorg) libXft;
+    inherit pins;
   };
 
   # waterfox = pkgs.wrapFirefox waterfox-unwrapped {

@@ -5,9 +5,13 @@ let
   overridePackages = self: super: let
     callPackage = super.callPackage;
     inherit (super) luaOlder luaAtLeast isLuaJIT;
-  in with self; {
+  pins = import ../../nix/sources.nix pkgs.path;
+in
+  with self; {
     /* Bespoke packages */
-    cparser = callPackage ./cparser.nix { };
+    cparser = callPackage ./cparser.nix {
+      inherit pins;
+    };
     effil = callPackage ./effil.nix { };
     # lunadoc = callPackage ./lunadoc.nix {
     #   inherit (self) moonscript lua-discount etlua loadkit shim-getpw;
@@ -16,11 +20,14 @@ let
 
 
     earthshine = callPackage ./earthshine.nix {
+      inherit pins;
     };
     facade-nvim = callPackage ./facade.nvim.nix {
       inherit (self) earthshine;
+      inherit pins;
     };
     moonpick-vim = callPackage ./moonpick-vim.nix {
+      inherit pins;
     };
 
     /* Overrides for generated packages */
@@ -36,7 +43,7 @@ let
     in rec {
       version = "${version'}-${revision}";
       # Add support for luajit & 5.1 (test this moar), and use lyaml
-      src = (import ../../nix/sources.nix).lcmark;
+      src = pins.lcmark;
       disabled = luaOlder "5.1" || luaAtLeast "5.4";
       knownRockspec = let
         rockspecName = "${super.lcmark.pname}-${version'}-${revision}.rockspec";
@@ -48,7 +55,7 @@ let
     });
 
     ldoc = super.ldoc.override ({
-      src = (import ../../nix/sources.nix).ldoc;
+      src = pins.ldoc;
     });
 
     lua-ev = super.lua-ev.override ({
@@ -71,7 +78,7 @@ let
     });
 
     moonscript = super.moonscript.override ({
-      src = (import ../../nix/sources.nix).moonscript;
+      src = pins.moonscript;
       knownRockspec = with super.moonscript; "${pname}-dev-1.rockspec";
       propagatedBuildInputs = with self; [
         lua lpeg luafilesystem argparse

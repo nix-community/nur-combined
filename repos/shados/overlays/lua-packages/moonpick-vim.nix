@@ -1,4 +1,4 @@
-{ stdenv, moonscript, buildLuarocksPackage
+{ stdenv, moonscript, buildLuarocksPackage, pins
 , moonpick
 , isLua51, isLuaJIT
 }:
@@ -6,7 +6,7 @@ buildLuarocksPackage rec {
   pname = "moonpick-vim";
   version = "scm-1";
 
-  src = (import ../../nix/sources.nix).moonpick-vim;
+  src = pins.moonpick-vim;
 
   propagatedBuildInputs = [
     moonscript

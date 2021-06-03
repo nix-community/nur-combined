@@ -1,11 +1,11 @@
-{ stdenv, moonscript, buildLuarocksPackage
+{ stdenv, moonscript, buildLuarocksPackage, pins
 }:
 
 buildLuarocksPackage rec {
   pname = "earthshine";
   version = "scm-1";
 
-  src = (import ../../nix/sources.nix).earthshine;
+  src = pins.earthshine;
 
   propagatedBuildInputs = [
     moonscript

@@ -1,4 +1,4 @@
-{ stdenv, mkDerivation, qmake
+{ stdenv, mkDerivation, qmake, pins
 , qtbase, imagemagick, fontconfig, libXft
 }:
 
@@ -6,7 +6,7 @@ mkDerivation rec {
   pname = "urxvtconfig";
   version = "unstable-2017-11-30";
 
-  src = (import ../../nix/sources.nix).urxvtconfig;
+  src = pins.urxvtconfig;
 
   nativeBuildInputs = [
     qmake

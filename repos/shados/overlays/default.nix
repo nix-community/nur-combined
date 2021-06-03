@@ -1,6 +1,3 @@
-let
-  pins = import ../nix/sources.nix;
-in
 {
   # Allows specifying cross-lua-version Lua package overrides
   lua-overrides = import ./lua-overrides.nix;
@@ -15,7 +12,9 @@ in
 
   # Fixes/workarounds for issues in upstream nixpkgs that I CBF upstreaming (or
   # that would be problematic to upstream)
-  fixes = self: super: with super.lib; {
+  fixes = self: super: with super.lib; let
+    pins = import ../nix/sources.nix super.path;
+  in {
     # Fix for flashplayer-standalone being dropped from nixpkgs, -_-''
     flashplayer-standalone = self.callPackage ../pkgs/flashplayer-standalone.nix { };
     # Use mosh newer than 1.3.2 to get proper truecolor support

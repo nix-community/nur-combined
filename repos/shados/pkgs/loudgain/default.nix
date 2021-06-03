@@ -1,11 +1,11 @@
-{ stdenv, cmake, pkgconfig
+{ stdenv, cmake, pkgconfig, pins
 , ffmpeg, libebur128, taglib, zlib
 }:
 stdenv.mkDerivation rec {
   pname = "loudgain";
   version = "unstable-2020-12-28";
 
-  src = (import ../../nix/sources.nix).loudgain;
+  src = pins.loudgain;
 
   nativeBuildInputs = [
     cmake pkgconfig

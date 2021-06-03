@@ -1,10 +1,10 @@
-{ stdenv, makeWrapper, perl, AnyEvent, LinuxFD, CommonSense
+{ stdenv, makeWrapper, perl, AnyEvent, LinuxFD, CommonSense, pins
 , SubExporter, DataOptList, ParamsUtil, SubInstall }:
 stdenv.mkDerivation {
   pname = "urxvt-config-reload";
   version = "unstable-2019-10-11";
 
-  src = (import ../../nix/sources.nix).urxvt-config-reload;
+  src = pins.urxvt-config-reload;
 
   buildInputs = [ makeWrapper ];
 

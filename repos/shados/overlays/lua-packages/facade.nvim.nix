@@ -1,4 +1,4 @@
-{ stdenv, moonscript, buildLuarocksPackage
+{ stdenv, moonscript, buildLuarocksPackage, pins
 , earthshine
 }:
 
@@ -6,7 +6,7 @@ buildLuarocksPackage rec {
   pname = "facade.nvim";
   version = "scm-1";
 
-  src = (import ../../nix/sources.nix)."facade.nvim";
+  src = pins."facade.nvim";
 
   propagatedBuildInputs = [
     earthshine

@@ -1,4 +1,4 @@
-{ stdenv
+{ stdenv, pins
 , libyaml, yajl
 }:
 
@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   pname = "json-yaml";
   version = "1.2.1";
 
-  src = (import ../../nix/sources.nix).json-yaml;
+  src = pins.json-yaml;
 
   buildInputs = [
     libyaml yajl

@@ -1,10 +1,10 @@
-{ stdenv, autoreconfHook, pkg-config
+{ stdenv, autoreconfHook, pkg-config, pins
 , glib, fuse, libdbi, libdbiDrivers, sqlite, libextractor
 }:
 stdenv.mkDerivation {
   pname = "tagsistant";
   version = "unstable-2017-02-12";
-  src = (import ../../nix/sources.nix).tagsistant;
+  src = pins.tagsistant;
   nativeBuildInputs = [
     autoreconfHook pkg-config
   ];
