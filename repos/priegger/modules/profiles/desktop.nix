@@ -12,39 +12,39 @@ recursiveUpdate common {
       # misc tools
       gnupg
 
-      # Gnome3 tools
-      gnome3.gnome-shell-extensions
-      gnome3.gnome-tweak-tool
+      # Gnome tools
+      gnome.gnome-shell-extensions
+      gnome.gnome-tweak-tool
     ]
   );
 
-  # X-Server and Gnome3 desktop configuration
+  # X-Server and Gnome desktop configuration
   services.xserver.enable = mkDefault true;
   services.xserver.layout = mkDefault "de";
 
   services.xserver.displayManager.gdm.enable = mkDefault true;
   # Disable wayland if the nvidia driver is used
   services.xserver.displayManager.gdm.wayland = mkDefault (!(any (v: v == "nvidia") config.services.xserver.videoDrivers));
-  services.xserver.desktopManager.gnome3.enable = mkDefault true;
+  services.xserver.desktopManager.gnome.enable = mkDefault true;
 
-  # Gnome3 adjustments
-  environment.gnome3.excludePackages = with pkgs; [
+  # Gnome adjustments
+  environment.gnome.excludePackages = with pkgs; [
     epiphany
-    gnome3.cheese
-    gnome3.gnome-software
-    gnome3.totem
+    gnome.cheese
+    gnome.gnome-software
+    gnome.totem
   ];
 
   programs.geary.enable = false;
 
-  services.gnome3.evolution-data-server.enable = mkForce false;
-  services.gnome3.gnome-online-accounts.enable = false;
-  services.gnome3.gnome-online-miners.enable = mkForce false;
-  services.gnome3.gnome-remote-desktop.enable = false;
-  services.gnome3.gnome-user-share.enable = false;
-  services.gnome3.rygel.enable = false;
-  services.gnome3.tracker.enable = false;
-  services.gnome3.tracker-miners.enable = false;
+  services.gnome.evolution-data-server.enable = mkForce false;
+  services.gnome.gnome-online-accounts.enable = false;
+  services.gnome.gnome-online-miners.enable = mkForce false;
+  services.gnome.gnome-remote-desktop.enable = false;
+  services.gnome.gnome-user-share.enable = false;
+  services.gnome.rygel.enable = false;
+  services.gnome.tracker.enable = false;
+  services.gnome.tracker-miners.enable = false;
 
   xdg.portal.enable = mkForce false;
 
