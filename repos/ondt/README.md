@@ -11,8 +11,6 @@
 
 ## Channels
 - `channel:nixos-21.05`
-- `channel:nixos-unstable`
-- `channel:nixpkgs-unstable`
 
 
 
