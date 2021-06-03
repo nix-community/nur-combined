@@ -23,6 +23,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A powerful, flexible, and modular rule-based rendering engine for OSM data";
     inherit (src.meta) homepage;
+    license = licenses.gpl3Only;
+    maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 }
