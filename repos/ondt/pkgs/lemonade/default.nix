@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
 		sha256 = "1pi4vaiblpacr91i67pasqxr086dpw1319gq9nvzz4phqs9isx3c";
 	};
 
-	cargoSha256 = "0sr6llkr0z4hp1rl2qva807d7xd4yqvmn9a4ki16hk5xpvb19dld";
+	cargoSha256 = "05jvzhkyqaflfrxcgq5dd1agrlxjm2vii4rfcxmyrh6q8l2yf18g";
 
 	meta = with lib; {
 		description = "A multithreaded alternative to lemonbar written in rust";

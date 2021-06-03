@@ -1,10 +1,10 @@
-{ lib, fetchFromGitHub, python37Packages, tor }:
+{ lib, fetchFromGitHub, python39Packages, tor }:
 
-python37Packages.buildPythonApplication rec {
+python39Packages.buildPythonApplication rec {
   pname = "ulozto-downloader";
   version = "2.6.0";
 
-  src = python37Packages.fetchPypi {
+  src = python39Packages.fetchPypi {
     inherit pname version;
     sha256 = "08z1pm6nk991b7hpsjqwir5dayzm8brxms63wdif25y3k7l3idf4";
   };
@@ -18,7 +18,7 @@ python37Packages.buildPythonApplication rec {
   
   patches = [ ./tensorflow.patch ];
 
-  propagatedBuildInputs = with python37Packages; [
+  propagatedBuildInputs = with python39Packages; [
     tor
     
     tkinter

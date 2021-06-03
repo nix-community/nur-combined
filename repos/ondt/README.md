@@ -1,14 +1,18 @@
-# nur-packages
-
-**ondt's [Nix User Repository](https://github.com/nix-community/NUR)**
+# ondt's [Nix User Repository](https://github.com/nix-community/NUR)
 
 ![Build and populate cache](https://github.com/ondt/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 
-# Available packages
+
+## Available packages
 - [`nur.repos.ondt.lemonade`](https://github.com/Snowlabs/lemonade): A multithreaded alternative to [lemonbar](https://github.com/krypt-n/bar) written in rust
 - [`nur.repos.ondt.ulozto-downloader`](https://github.com/setnicka/ulozto-downloader): Paralelní stahovač z Ulož.to s automatickým louskáním CAPTCHA kódů
 - [`nur.repos.ondt.xss-events`](https://github.com/ondt/xss-events): Simple X11 ScreenSaver event listener
 - [`nur.repos.ondt.xvisbell`](https://github.com/ondt/xvisbell): Visual Bell for X11
+
+## Channels
+- `channel:nixos-21.05`
+- `channel:nixos-unstable`
+- `channel:nixpkgs-unstable`
 
 
 
@@ -25,7 +29,7 @@
 }
 ```
 
-or 
+or
 
 ```nix
 # ~/.config/nixpkgs/config.nix
