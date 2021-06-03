@@ -15,6 +15,6 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   lolcommits = pkgs.callPackage ./pkgs/lolcommits { mplayer = mplayerV4l; };
-  mplayerV4l = pkgs.callPackage ./pkgs/mplayer { v4lSupport = true; };
+  mplayerV4l = pkgs.mplayer.override { v4lSupport = true; };
   vollkorn = pkgs.callPackage ./pkgs/vollkorn { };
 }
