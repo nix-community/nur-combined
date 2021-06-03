@@ -159,7 +159,7 @@
       # - HIGHLIGHTJS (env, string)
       # - xlstFlags (list)
       # - XMLFORMT_CONFIg (maybe?)
-      manual = super.callPackage "${super.path}/doc" { };
+      manual = super.callPackage (super.path + /doc) { };
     in writeHtmlHelper "nixpkgs-help" "${manual}/share/doc/nixpkgs/manual.html";
   };
 }
