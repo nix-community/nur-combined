@@ -1,0 +1,13 @@
+diff --git a/uldlib/captcha.py b/uldlib/captcha.py
+index 51cd0ec..c4bd2a3 100644
+--- a/uldlib/captcha.py
++++ b/uldlib/captcha.py
+@@ -84,7 +84,7 @@ class AutoReadCaptcha:
+         self.print_func = print_func
+ 
+     def __call__(self, img_url, print_func):
+-        import tflite_runtime.interpreter as tflite
++        import tensorflow.lite as tflite
+         import numpy as np
+ 
+         print_func("Auto solving CAPTCHA")
