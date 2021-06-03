@@ -261,6 +261,7 @@ lib.makeScope newScope (
     osmcoastline = callPackage ./osm/osmcoastline { };
     phyghtmap = callPackage ./osm/phyghtmap { };
     sdlmap = callPackage ./osm/sdlmap { };
+    smrender = callPackage ./osm/smrender { };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
 
     ### SUCKLESS
