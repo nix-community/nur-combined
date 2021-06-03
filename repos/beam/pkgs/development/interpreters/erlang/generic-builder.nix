@@ -128,8 +128,7 @@ in stdenv.mkDerivation ({
       '';
 
       platforms = platforms.unix;
-      # Cause error for nixpkgs 20.09
-      # maintainers = teams.beam.members;
+      maintainers = teams.beam.members;
       license = licenses.asl20;
     } // meta);
 } // optionalAttrs (preUnpack != "") { inherit preUnpack; }
