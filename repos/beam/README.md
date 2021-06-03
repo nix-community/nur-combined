@@ -1,6 +1,6 @@
-[![Linux](https://github.com/jechol/nix-beam/workflows/Linux/badge.svg)](https://github.com/jechol/nix-beam/actions?query=workflow%3A%23Linux%23)
-[![macOS](https://github.com/jechol/nix-beam/workflows/macOS/badge.svg)](https://github.com/jechol/nix-beam/actions?query=workflow%3A%23macOS%23)
-[![Cachix Cache](https://img.shields.io/badge/cachix-jechol-blue.svg)](https://jechol.cachix.org)
+[![Linux](https://github.com/trevorite/nix-beam/workflows/Linux/badge.svg)](https://github.com/trevorite/nix-beam/actions?query=workflow%3A%23Linux%23)
+[![macOS](https://github.com/trevorite/nix-beam/workflows/macOS/badge.svg)](https://github.com/trevorite/nix-beam/actions?query=workflow%3A%23macOS%23)
+[![Cachix Cache](https://img.shields.io/badge/cachix-trevorite-blue.svg)](https://trevorite.cachix.org)
 
 # Nix Packages for Erlang, Elixir
 
@@ -16,7 +16,7 @@ Save compile time with binary cache:
 
 ```console
 $ nix-env -iA cachix -f https://cachix.org/api/v1/install
-$ cachix use jechol
+$ cachix use trevorite
 ```
 
 ### Configuration
@@ -32,7 +32,7 @@ Include NUR(Nix User Repository) to `~/.config/nixpkgs/config.nix`:
 
         repoOverrides = {
           beam = import (builtins.fetchTarball
-            "https://github.com/jechol/nix-beam/archive/master.tar.gz") { };
+            "https://github.com/trevorite/nix-beam/archive/master.tar.gz") { };
         };
       };
   };
@@ -62,5 +62,5 @@ See? You can use Erlang 24.0 and Elixir 1.11.4 on Erlang 23.3 at the same time!
 See available packages with
 
 ```shell
-$ nix-env -qaP -f https://github.com/jechol/nix-beam/archive/master.tar.gz
+$ nix-env -qaP -f https://github.com/trevorite/nix-beam/archive/master.tar.gz
 ```

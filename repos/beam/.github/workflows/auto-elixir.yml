@@ -47,5 +47,5 @@ jobs:
             Add default.nix if new folder is created.
           labels: |
             auto-pr
-          assignees: jechol
-          reviewers: jechol
+          assignees: trevorite
+          reviewers: trevorite

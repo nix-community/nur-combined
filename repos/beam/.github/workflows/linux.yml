@@ -31,7 +31,7 @@ jobs:
         # For this to work, you also need to set the CACHIX_SIGNING_KEY secret
         # in your repository settings in Github found at https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
-          - jechol
+          - trevorite
         nixPath:
           # - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
@@ -52,7 +52,7 @@ jobs:
         if: ${{ matrix.cachixName != '' }}
         with:
           name: ${{ matrix.cachixName }}
-          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - name: Build nix packages
         run: nix-build
         env:
