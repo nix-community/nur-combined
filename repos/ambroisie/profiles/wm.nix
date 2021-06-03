@@ -18,6 +18,10 @@ in
       services.xserver.windowManager.i3.enable = true;
       # i3 settings
       my.home.wm.windowManager = "i3";
+      # Screenshot tool
+      my.home.flameshot.enable = true;
+      # Auto disk mounter
+      my.home.udiskie.enable = true;
     })
   ];
 }

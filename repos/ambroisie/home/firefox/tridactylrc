@@ -35,6 +35,9 @@ bindurl news.ycombinator.com ;F hint -Jtc .age > a
 bind gd tabdetach
 bind gD composite tabduplicate; tabdetach
 
+" Duplicate a tab without detaching window
+bind <Space>d tabduplicate
+
 " Make yy use canonical links on the few websites that support them
 bind yy clipboard yankcanon
 " }}}

@@ -25,14 +25,48 @@ let
   addVimKeyBindings = bindings: bindings // (toVimKeyBindings bindings);
   # Generate an attrset of movement bindings, using the mapper function
   genMovementBindings = f: addVimKeyBindings (lib.my.genAttrs' movementKeys f);
+
+  # Screen backlight management
+  changeBacklight =
+    let
+      brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+    in
+    pkgs.writeScript "change-backlight" ''
+      #!/bin/sh
+      if [ "$1" = "up" ]; then
+          upDown="+$2%"
+      else
+          upDown="$2%-"
+      fi
+
+      newBrightness="$(${brightnessctl} -m set "$upDown" | cut -d, -f4)"
+      ${pkgs.libnotify}/bin/notify-send -u low \
+          -h string:x-canonical-private-synchronous:change-backlight \
+          -h "int:value:''${newBrightness/\%/}" \
+          -- "Set brightness to $newBrightness"
+    '';
+
+  # Lock management
+  toggleXautolock =
+    let
+      systemctlUser = "${pkgs.systemd}/bin/systemctl --user";
+      notify-send = "${pkgs.libnotify}/bin/notify-send";
+      notify = "${notify-send} -u low"
+        + " -h string:x-canonical-private-synchronous:xautolock-toggle";
+    in
+    pkgs.writeScript "toggle-xautolock" ''
+      #!/bin/sh
+      if ${systemctlUser} is-active xautolock-session.service; then
+        ${systemctlUser} stop --user xautolock-session.service
+        ${notify} "Disabled Xautolock"
+      else
+        ${systemctlUser} start xautolock-session.service
+        ${notify} "Enabled Xautolock"
+      fi
+    '';
 in
 {
   config = lib.mkIf isEnabled {
-    my.home = {
-      flameshot.enable = true;
-      udiskie.enable = true;
-    };
-
     home.packages = with pkgs; [
       ambroisie.i3-get-window-criteria # little helper for i3 configuration
       arandr # Used by a mapping
@@ -221,55 +255,21 @@ in
             "XF86AudioNext" = "exec playerctl next";
             "XF86AudioPrev" = "exec playerctl previous";
           }
-          (
-            let
-              brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
-              changeBacklight = pkgs.writeScript "change-backlight" ''
-                #!/bin/sh
-                if [ "$1" = "up" ]; then
-                    upDown="+$2%"
-                else
-                    upDown="$2%-"
-                fi
-
-                newBrightness="$(${brightnessctl} -m set "$upDown" | cut -d, -f4)"
-                ${pkgs.libnotify}/bin/notify-send -u low \
-                    -h string:x-canonical-private-synchronous:change-backlight \
-                    -h "int:value:''${newBrightness/\%/}" \
-                    -- "Set brightness to $newBrightness"
-              '';
-            in
-            {
-              "XF86Display" = "exec arandr";
-              "XF86MonBrightnessUp" = "exec ${changeBacklight} up 10";
-              "XF86MonBrightnessDown" = "exec ${changeBacklight} down 10";
-              "Control+XF86MonBrightnessUp" = "exec ${changeBacklight} up 1";
-              "Control+XF86MonBrightnessDown" = "exec ${changeBacklight} down 1";
-            }
-          )
+          {
+            # Screen management
+            "XF86Display" = "exec arandr";
+            "XF86MonBrightnessUp" = "exec ${changeBacklight} up 10";
+            "XF86MonBrightnessDown" = "exec ${changeBacklight} down 10";
+            "Control+XF86MonBrightnessUp" = "exec ${changeBacklight} up 1";
+            "Control+XF86MonBrightnessDown" = "exec ${changeBacklight} down 1";
+          }
           {
             # Sub-modes
             "${modifier}+r" = "mode resize";
             "${modifier}+Shift+space" = "mode floating";
           }
           (lib.optionalAttrs config.my.home.wm.screen-lock.enable {
-            "${modifier}+x" =
-              let
-                systemctlUser = "${pkgs.systemd}/bin/systemctl --user";
-                notify = "${pkgs.libnotify}/bin/notify-send -u low " +
-                  "-h string:x-canonical-private-synchronous:xautolock-toggle";
-                toggleXautolock = pkgs.writeScript "toggle-xautolock" ''
-                  #!/bin/sh
-                  if ${systemctlUser} is-active xautolock-session.service; then
-                    ${systemctlUser} stop --user xautolock-session.service
-                    ${notify} "Disabled Xautolock"
-                  else
-                    ${systemctlUser} start xautolock-session.service
-                    ${notify} "Enabled Xautolock"
-                  fi
-                '';
-              in
-              "exec ${toggleXautolock}";
+            "${modifier}+x" = "exec ${toggleXautolock}";
           })
           (
             let
