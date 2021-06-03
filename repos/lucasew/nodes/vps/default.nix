@@ -11,7 +11,7 @@ with import ../../globalConfig.nix;
   ];
 
   vps = {
-    alibot.enable = true;
+    # alibot.enable = true;
     pgbackup.enable = true;
   };
   

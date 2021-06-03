@@ -22,20 +22,19 @@ in reduceJoin [
   rec {
     lib = {
       inherit reduceJoin;
-      maintainers = import "${flake.inputs.nixpkgsLatestSmall}/maintainers/maintainer-list.nix";
+      maintainers = import "${flake.inputs.nixpkgsLatest}/maintainers/maintainer-list.nix";
     };
-    latest = cp flake.inputs.nixpkgsLatest;
-    latest-small = cp flake.inputs.nixpkgsLatestSmall;
+    latest = import flake.inputs.nixpkgsLatest {};
     p2k = cp flake.inputs.pocket2kindle;
     redial_proxy = cp flake.inputs.redial_proxy;
     send2kindle = cp flake.inputs.send2kindle;
-    discord = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/networking/instant-messengers/discord/default.nix";
-    onlyoffice-bin = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/office/onlyoffice-bin/default.nix";
-    dart = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/development/interpreters/dart/default.nix";
-    hugo = cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/misc/hugo/default.nix";
-    flutter = (cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/development/compilers/flutter/default.nix").stable;
-    tor-browser-bundle-bin = (cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/networking/browsers/tor-browser-bundle-bin/default.nix");
-    obsidian = (cp "${flake.inputs.nixpkgsLatestSmall}/pkgs/applications/misc/obsidian/default.nix");
+    discord = cp "${flake.inputs.nixpkgsLatest}/pkgs/applications/networking/instant-messengers/discord/default.nix";
+    onlyoffice-bin = cp "${flake.inputs.nixpkgsLatest}/pkgs/applications/office/onlyoffice-bin/default.nix";
+    dart = cp "${flake.inputs.nixpkgsLatest}/pkgs/development/interpreters/dart/default.nix";
+    hugo = cp "${flake.inputs.nixpkgsLatest}/pkgs/applications/misc/hugo/default.nix";
+    flutter = (cp "${flake.inputs.nixpkgsLatest}/pkgs/development/compilers/flutter/default.nix").stable;
+    tor-browser-bundle-bin = (cp "${flake.inputs.nixpkgsLatest}/pkgs/applications/networking/browsers/tor-browser-bundle-bin/default.nix");
+    obsidian = (cp "${flake.inputs.nixpkgsLatest}/pkgs/applications/misc/obsidian/default.nix");
     webapp = cp ./packages/webapp.nix;
     webapps = import ./packages/chromeapps.nix super;
     arcan = cp ./packages/arcan.nix;
@@ -75,6 +74,7 @@ in reduceJoin [
     preload = cp ./packages/preload.nix;
     python3Packages = cp ./packages/python3Packages.nix;
     nodePackages = cp ./modules/node_clis/package_data/default.nix;
+
     inherit dotenv;
     inherit wrapDotenv;
     nur = import flake.inputs.nur {

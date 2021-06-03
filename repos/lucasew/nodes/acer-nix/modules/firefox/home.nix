@@ -6,12 +6,7 @@ in
 {
   programs.firefox = {
     enable = true;
-    package = 
-      if globalConfig.selectedDesktopEnvironment == "gnome"
-      then
-        pkgs.firefox-wayland
-      else
-        pkgs.firefox-bin;
+    package = pkgs.firefox-bin;
     extensions = with nur.repos.rycee.firefox-addons; [
       ublock-origin
       darkreader
