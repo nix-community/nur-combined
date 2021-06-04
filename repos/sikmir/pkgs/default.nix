@@ -255,6 +255,7 @@ lib.makeScope newScope (
 
     ### OSM
 
+    imposm = callPackage ./osm/imposm { };
     map-stylizer = callPackage ./osm/map-stylizer { };
     maperitive-bin = callPackage ./osm/maperitive/bin.nix { };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
