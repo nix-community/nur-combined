@@ -25,15 +25,19 @@
   };
 } }:
 
-stdenv.mkDerivation {
+let
+
+  version = "20210322";
+
+in stdenv.mkDerivation {
   pname = "materia-theme";
-  version = "2020-09-28";
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "nana-4";
     repo = "materia-theme";
-    rev = "e329aaee160c82e85fe91a6467c666c7f9f2a7df";
-    sha256 = "1qmq5ycfpzv0rcp5aav4amlglkqy02477i4bdi7lgpbn0agvms6c";
+    rev = "v${version}";
+    sha256 = "1fsicmcni70jkl4jb3fvh7yv0v9jhb8nwjzdq8vfwn256qyk0xvl";
   };
 
   nativeBuildInputs = [ bc inkscape optipng sassc ];
