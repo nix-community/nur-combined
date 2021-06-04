@@ -8990,7 +8990,7 @@ let
   args = {
     name = "zigbee2mqtt";
     packageName = "zigbee2mqtt";
-    version = "1.19.0";
+    version = "1.19.1";
     src = ./.;
     dependencies = [
       sources."@dabh/diagnostics-2.0.2"
