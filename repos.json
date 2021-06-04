@@ -13,6 +13,10 @@
         "afreakk": {
             "url": "https://github.com/afreakk/mynixrepo"
         },
+        "alarsyo": {
+            "file": "pkgs/default.nix",
+            "url": "https://github.com/alarsyo/nixos-config"
+        },
         "alwinb": {
             "url": "https://gitlab.com/AlwinB/nur-packages"
         },
