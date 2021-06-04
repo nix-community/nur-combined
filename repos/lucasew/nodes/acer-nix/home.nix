@@ -1,8 +1,5 @@
 { pkgs, config, lib, nixgram, ... }:
 with (import ../../globalConfig.nix);
-let
-  tuple = lib.hm.gvariant.mkTuple;
-in
 {
   imports = [
     "${flake.inputs.nixgram}/hmModule.nix"
@@ -32,9 +29,7 @@ in
 
   programs.hello-world.enable = true;
 
-  services.redial_proxy = {
-    enable = true;
-  };
+  services.redial_proxy.enable = true;
 
   programs = {
     # adskipped-spotify.enable = true;
@@ -45,8 +40,10 @@ in
     };
     htop = {
       enable = true;
-      hideThreads = true;
-      treeView = true;
+      settings = {
+        hideThreads = true;
+        treeView = true;
+      };
     };
     tmux.enable = true;
     vscode.enable = true;
@@ -76,7 +73,11 @@ in
       primary-color = "#ffffff";
       secondary-color = "#000000";
     };
-    "org/gnome/desktop/input-sources" = {
+    "org/gnome/desktop/input-sources" = 
+      let
+        tuple = lib.hm.gvariant.mkTuple;
+      in 
+    {
       current = "uint32 0";
       sources = [(tuple ["xkb" "br"]) (tuple ["xkb" "us"])];
       xkb-options = [ "terminate:ctrl_alt_bksp" ];
@@ -102,7 +103,7 @@ in
   };
 
   # nixgram
-  services.nixgram = {
+  services.nixgram = with pkgs; {
     enable = true;
     dotenvFile = rootPath + "/secrets/nixgram.env";
     customCommands = {
@@ -112,9 +113,9 @@ in
         echo Waited for $1 seconds!
       '';
       speak = ''
-        ${pkgs.espeak}/bin/espeak -v mb/mb-br1 "$*"
+        ${espeak}/bin/espeak -v mb/mb-br1 "$*"
       '';
-      flow = pkgs.wrapDotenv "flows.env" ''
+      flow = wrapDotenv "flows.env" ''
       PAYLOAD="
       {
           \"ref\": \"main\"
@@ -127,7 +128,8 @@ in
         "https://api.github.com/repos/lucasew/flows/actions/workflows/2929078/dispatches" \
         -d "$PAYLOAD" || echo "Fail" && echo "Ok"
       '';
-      p2k = pkgs.wrapDotenv "p2k.env" ''
+      p2k = wrapDotenv "p2k.env" ''
+      unset QT_QPA_PLATFORMTHEME
       export AMOUNT=10
 
       if [ -n "$DEFAULT_AMOUNT" ]; then
@@ -141,10 +143,14 @@ in
       if [ -n "$TESTING" ]; then
           exit 0
       fi
-      ${pkgs.p2k}/bin/p2k -k $KINDLE_EMAIL -c $AMOUNT -t 30 -a 
+      ${p2k}/bin/p2k -k $KINDLE_EMAIL -c $AMOUNT -t 30 $EXTRA_PARAMS
+      '';
+      letsgo = ''
+        echo "let's gou"
       '';
     };
   };
+  services.flameshot.enable = true;
 
   # wallpaper
   wallpaper = {

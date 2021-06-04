@@ -3,9 +3,9 @@
 
   inputs = {
     impermanence.url = "github:nix-community/impermanence";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-21.05";
     nix-ld.url = "github:Mic92/nix-ld";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
     nixpkgsLatest.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nur.url = "github:nix-community/NUR/master";
     rust-overlay.url = "github:oxalica/rust-overlay";
@@ -64,6 +64,7 @@
       inherit system;
       modules = [
         ./nodes/acer-nix/default.nix
+        "${home-manager}/nixos"
       ];
     };
     nixosConfigurations.bootstrap = nixpkgs.lib.nixosSystem {

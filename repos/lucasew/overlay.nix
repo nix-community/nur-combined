@@ -4,7 +4,7 @@ let
   recursiveUpdate = super.lib.recursiveUpdate;
   cp = f: (super.callPackage f) {};
   dotenv = cp flake.inputs.dotenv;
-    wrapDotenv = (file: script:
+  wrapDotenv = (file: script:
     let
       dotenvFile = ((toString rootPath) + "/secrets/" + (toString file));
       command = super.writeShellScript "dotenv-wrapper" script;
@@ -13,13 +13,16 @@ let
     '');
 
   reduceJoin = items:
-  if (builtins.length items) > 0 then
-    (recursiveUpdate (builtins.head items) (reduceJoin (builtins.tail items)))
-  else
-  {};
+    if (builtins.length items) > 0 then
+      (recursiveUpdate (builtins.head items) (reduceJoin (builtins.tail items)))
+    else
+    {};
 in reduceJoin [
   super
   rec {
+    inherit dotenv;
+    inherit wrapDotenv;
+
     lib = {
       inherit reduceJoin;
       maintainers = import "${flake.inputs.nixpkgsLatest}/maintainers/maintainer-list.nix";
@@ -75,8 +78,6 @@ in reduceJoin [
     python3Packages = cp ./packages/python3Packages.nix;
     nodePackages = cp ./modules/node_clis/package_data/default.nix;
 
-    inherit dotenv;
-    inherit wrapDotenv;
     nur = import flake.inputs.nur {
       inherit (super) pkgs;
       nurpkgs = super.pkgs;

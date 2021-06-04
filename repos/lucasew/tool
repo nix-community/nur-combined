@@ -18,7 +18,7 @@ case $TARGET in
             ;;
             switch)
                 $0 vps build "$@"
-                nix-copy-closure $DEFAULT_USER@$VPS_IP $(readlink result)
+                nix-copy-closure $DEFAULT_USER@$VPS_IP $(readlink result) || exit 1
                 ssh $DEFAULT_USER@$VPS_IP -t tmux new sudo $(readlink result)/bin/switch-to-configuration switch
             ;;
             reboot)
@@ -39,7 +39,7 @@ case $TARGET in
             ;;
             switch)
                 $0 nb build "$@"
-                nix-copy-closure $DEFAULT_USER@$NB_IP $(readlink result)
+                nix-copy-closure $DEFAULT_USER@$NB_IP $(readlink result) || exit 1
                 ssh $DEFAULT_USER@$NB_IP -t tmux new sudo $(readlink result)/bin/switch-to-configuration switch
             ;;
             reboot)

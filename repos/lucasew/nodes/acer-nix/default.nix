@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{pkgs, config, lib, nix-ld, utils, ... }:
+{pkgs, config, lib, nix-ld, utils, home-manager, ... }:
 with (import ../../globalConfig.nix);
 let
   hostname = "acer-nix";
@@ -11,22 +11,16 @@ in
 {
   imports =
     [
+      ../common/default.nix
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../common/default.nix
-      (import "${flake.inputs.home-manager}/nixos" {
-        inherit config;
-        inherit pkgs;
-        inherit lib;
-        inherit utils;
-      })
       "${flake.inputs.nix-ld}/modules/nix-ld.nix"
       ../../modules/gui/system.nix
       ../../modules/polybar/system.nix
     ]
   ;
 
-  programs.steam.enable = true;
+  # programs.steam.enable = true;
   home-manager = {
     sharedModules = [
       ./modules/dummy_module.nix
@@ -147,7 +141,8 @@ in
   services.xserver.libinput.enable = true;
 
   # Themes
-  programs.qt5ct.enable = true;
+  # this is crashing calibre
+  # programs.qt5ct.enable = true;
 
   # Users
   users.users = {

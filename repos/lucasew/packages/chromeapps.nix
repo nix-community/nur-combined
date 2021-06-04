@@ -50,8 +50,8 @@ in
     desktopName = "Youtube Music";
     url = "music.youtube.com";
     icon = builtins.fetchurl {
-      url = "https://vancedapp.com/static/media/logo.40712559.svg";
-      sha256 = "1xd28aikklqdi11wam97wcp276f8gx9d7f235h8wsqcixndbrm0y";
+      url = "https://vancedapp.com/static/media/logo.866a4e0b.svg";
+      sha256 = "1axznpmfgmfqjgnq7z7vdjwmdsrk0qpc1rdlv9yyrcxfkyzqmvdv";
     };
   };
   planttext = mkNativefier {
