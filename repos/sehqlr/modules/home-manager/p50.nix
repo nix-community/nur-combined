@@ -1,7 +1,6 @@
 { config, pkgs, ... }: {
   home.packages = with pkgs; [
     chatterino2
-    discord
     element-desktop
     firefox
     imv
@@ -9,7 +8,7 @@
     paperwork
     slack
     spotify
-    zoom-us
+    xdg-desktop-portal-wlr
   ];
 
   programs.obs-studio = {

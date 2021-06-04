@@ -12,5 +12,8 @@
 
     programs.steam.enable = true;
 
+    services.flatpak.enable = true;
     services.jupyterhub.enable = true;
+
+    xdg.portal.enable = true;
 }
