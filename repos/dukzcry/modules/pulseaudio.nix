@@ -16,11 +16,7 @@ in {
     nixpkgs.config.pulseaudio = true;
     programs.dconf.enable = true;
     environment = {
-      systemPackages = with pkgs; [ pavucontrol pulseeffects ];
+      systemPackages = with pkgs; [ pavucontrol pulseeffects-legacy ];
     };
-    #hardware.pulseaudio.configFile = pkgs.runCommand "default.pa" {} ''
-    #  sed 's/module-udev-detect$/module-udev-detect tsched=0/' \
-    #    ${pkgs.pulseaudio}/etc/pulse/default.pa > $out
-    #'';
   };
 }

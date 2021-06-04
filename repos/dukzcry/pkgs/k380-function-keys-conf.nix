@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "k380-function-keys-conf";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "PREFIX=${placeholder "out"}" "UDEVDIR=${placeholder "out"}/etc/udev/rules.d"
   ];
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Make function keys default on Logitech k380 bluetooth keyboard";
     license = licenses.gpl3;
     homepage = src.meta.homepage;

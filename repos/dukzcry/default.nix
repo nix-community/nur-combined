@@ -24,12 +24,9 @@ in {
   modules = import ./modules { unstable-path = unstable_; inherit unstable; }; # NixOS modules
   overlays = import ./overlays { inherit unstable config; }; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
-  k380-function-keys-conf = pkgs.callPackage ./pkgs/k380-function-keys-conf { };
-  knobkraft-orm = pkgs.callPackage ./pkgs/knobkraft-orm { };
-  realrtcw = pkgs.callPackage ./pkgs/realrtcw { };
-  gamescope = pkgs.callPackage ./pkgs/gamescope {};
+  k380-function-keys-conf = pkgs.callPackage ./pkgs/k380-function-keys-conf.nix { };
+  knobkraft-orm = pkgs.callPackage ./pkgs/knobkraft-orm.nix { };
+  realrtcw = pkgs.callPackage ./pkgs/realrtcw.nix { };
+  gamescope = pkgs.callPackage ./pkgs/gamescope.nix {};
 }
 

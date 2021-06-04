@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, python3, pkgconfig, gtk3
+{ stdenv, lib, fetchFromGitHub, cmake, python3, pkgconfig, gtk3
 , glew, webkitgtk, icu, boost, curl, alsaLib, makeWrapper
 , gnome3, makeDesktopItem, gcc-unwrapped
 , debug ? false }:
@@ -12,7 +12,7 @@ let
     genericName = "KnobKraft Orm";
     categories = "Audio;AudioVideo;";
   };
-  inherit (stdenv.lib) optional optionalString;
+  inherit (lib) optional optionalString;
 in stdenv.mkDerivation rec {
   pname = "KnobKraft-orm";
   version = "1.10.1";
@@ -52,7 +52,7 @@ in stdenv.mkDerivation rec {
     cp $src/The-Orm/resources/icon_orm.png $out/share/icons/hicolor/256x256/apps
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Free modern cross-platform MIDI Sysex Librarian";
     homepage = src.meta.homepage;
     license = licenses.agpl3;

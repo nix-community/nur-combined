@@ -2,6 +2,6 @@ args@{ ... }:
 {
   # Add your overlays here
   #
-  my-overlay = import ./my-overlay args;
+  my-overlay = import ./my-overlay.nix args;
 }
 

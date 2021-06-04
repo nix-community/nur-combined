@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, opusfile, libogg, SDL2, openal, freetype
+{ stdenv, lib, fetchFromGitHub, opusfile, libogg, SDL2, openal, freetype
 , libjpeg_original, makeWrapper }:
 
 stdenv.mkDerivation rec {
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "RealRTCW mod based on ioRTCW engine";
     homepage = src.meta.homepage;
     license = licenses.gpl3;

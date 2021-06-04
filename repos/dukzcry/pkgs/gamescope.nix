@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, meson, pkgconfig, libX11, libXdamage
+{ lib, stdenv, fetchFromGitHub, meson, pkgconfig, libX11, libXdamage
 , libXcomposite, libXrender, libXext, libXxf86vm, libXtst, libdrm
 , vulkan-loader, wayland, wayland-protocols, libxkbcommon, libcap
 , SDL2, mesa, libinput, pixman, xcbutilerrors, xcbutilwm, glslang
@@ -6,13 +6,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gamescope";
-  version = "3.7.1";
+  version = "3.8.1";
 
   src = fetchFromGitHub {
     owner = "Plagman";
     repo = "gamescope";
     rev = version;
-    sha256 = "0l3rrjq743zm5bi8b942rr41gccg8nvc7m47xj3db7slsj2zp99h";
+    sha256 = "1712wz58wjr7gyglapv5l7ykbx15wjz816xa6fj1gw1hx2ky7c7k";
     fetchSubmodules = true;
   };
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/gamescope \
-      --prefix PATH : "${stdenv.lib.makeBinPath [ xwayland ]}"
+      --prefix PATH : "${lib.makeBinPath [ xwayland ]}"
   '';
 
   buildInputs = [
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   ];
   nativeBuildInputs = [ meson pkgconfig glslang ninja makeWrapper ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The micro-compositor formerly known as steamcompmgr";
     license = licenses.bsd2;
     homepage = src.meta.homepage;

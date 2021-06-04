@@ -17,7 +17,7 @@ in {
       options = [ "defaults,noauto" ];
     };
     # remember Skype password
-    services.gnome3.gnome-keyring.enable = true;
+    services.gnome.gnome-keyring.enable = true;
     environment = {
       systemPackages = with pkgs; [
         gnome3.networkmanagerapplet

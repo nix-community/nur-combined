@@ -21,7 +21,7 @@ in {
     hardware.nvidia.prime.offload.enable = true;
     hardware.nvidia.prime.nvidiaBusId = "PCI:1:0:0";
     hardware.nvidia.prime.intelBusId = "PCI:0:2:0";
-    # https://github.com/NixOS/nixpkgs/issues/86123
+    # actual for 21.05
     systemd.services.systemd-udev-trigger.restartIfChanged = false;
     environment = {
       systemPackages = with pkgs; [ nvidia-offload ];
