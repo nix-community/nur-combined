@@ -623,10 +623,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "4.0.1";
+      version = "4.0.3";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3780519/grammatik_und_rechtschreibprufung_languagetool-4.0.1-fx.xpi";
-      sha256 = "099ae60874f080ef9f1f072092bf9c1aea3a98786843c9e31ceb3f2b967c4eb2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3787038/grammatik_und_rechtschreibprufung_languagetool-4.0.3-fx.xpi";
+      sha256 = "b6ecf9ab783a35a4b2476042c345c3f6c80c18d592f5793e8c58ec7356f4fc3e";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
