@@ -1,4 +1,4 @@
-{ stdenv , fetchFromGitHub }:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   name = "id3";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     make install prefix=$out
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "id3 - a command line mass tagger";
     longDescription = ''
       id3  mass tagger is a tool for listing and manipulating ID3 and Lyrics3

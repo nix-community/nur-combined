@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, pythonPackages, mopidy }:
+{ stdenv, lib, fetchFromGitHub, pythonPackages, mopidy }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "mopidy-podcast";
@@ -19,7 +19,7 @@ pythonPackages.buildPythonApplication rec {
 
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = https://github.com/tkem/mopidy-podcast;
     description = "Mopidy-Podcast is a Mopidy extension for browsing and playing podcasts.";
     license = licenses.asl20;
