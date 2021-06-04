@@ -9,7 +9,7 @@ let
   secrets = config.my.secrets;
   lohrPkg =
     let
-      flake = builtins.getFlake "github:alarsyo/lohr?rev=bc32f8a565faa2055c1bbfa8c2353ce4738208b2";
+      flake = builtins.getFlake "github:alarsyo/lohr?rev=fd50523f11d44a9b9bd9ff69081b369400d277db";
     in
     flake.defaultPackage."x86_64-linux"; # FIXME: use correct system
 in
