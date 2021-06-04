@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, openblas } :
+{ lib, stdenv, fetchurl, openblasCompat } :
 
 let
   version = "3.8";
@@ -13,7 +13,7 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ ];
-  buildInputs = [ openblas ];
+  buildInputs = [ openblasCompat ];
 
   patches = [ ./math-constants.patch ];
 
@@ -59,7 +59,7 @@ in stdenv.mkDerivation {
   meta = with lib; {
     description = "Quantum chemistry program for large-scale self-consistent field calculations";
     homepage = http://http://www.ergoscf.org;
-    license = licenses.gpl3Only;
+    license = licenses.gpl3Plus;
     maintainers = [ maintainers.markuskowa ];
     platforms = platforms.linux;
   };
