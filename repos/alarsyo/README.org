@@ -1,0 +1,46 @@
+#+title: NixOS deployment configuration
+
+* Services
+
+** Bitwarden
+
+Password manager, Rust lightweight version.
+
+** Borg backup
+
+Creating daily backups to borgbase
+
+** fail2ban
+
+Keeping the bad guys away
+
+** Gitea
+
+Hosting for all my personal projects
+
+** Jellyfin
+
+Netflix but just for me
+
+** Lohr
+
+*** Setup
+
+Needs manual SSH key and known hosts setup.
+
+** Matrix
+
+My Matrix homeserver at =alarsyo.net=. Also hosting an Element web client at
+[[https://chat.alarsyo.net][chat.alarsyo.net]].
+
+** Miniflux
+
+RSS reader
+
+** Monitoring
+
+Grafana and Prometheus are currently used as a glorified =htop=.
+
+** Nextcloud
+
+** Wireguard VPN

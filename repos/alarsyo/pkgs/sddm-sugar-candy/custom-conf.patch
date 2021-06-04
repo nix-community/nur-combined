@@ -1,0 +1,51 @@
+diff --git a/theme.conf b/theme.conf
+index f39fb68..8f3256d 100644
+--- a/theme.conf
++++ b/theme.conf
+@@ -1,6 +1,6 @@
+ [General]
+ 
+-Background="Backgrounds/Mountain.jpg"
++Background="Backgrounds/Colorful Dune.jpg"
+ ## Path relative to the theme root directory. Most standard image file formats are allowed including support for transparency. (e.g. background.jpeg/illustration.GIF/Foto.png/undraw.svgz)
+ 
+ DimBackgroundImage="0.0"
+@@ -9,8 +9,8 @@ DimBackgroundImage="0.0"
+ ScaleImageCropped="true"
+ ## Whether the image should be cropped when scaled proportionally. Setting this to false will fit the whole image instead, possibly leaving white space. This can be exploited beautifully with illustrations (try it with "undraw.svg" included in the theme).
+ 
+-ScreenWidth="1440"
+-ScreenHeight="900"
++ScreenWidth="1920"
++ScreenHeight="1080"
+ ## Adjust to your resolution to help SDDM speed up on calculations
+ 
+ 
+@@ -44,7 +44,7 @@ MainColor="white"
+ ## Used for all elements when not focused/hovered etc. Usually the best effect is achieved by having this be either white or a very dark grey like #444 (not black for smoother antialias)
+ ## Colors can be HEX or Qt names (e.g. red/salmon/blanchedalmond). See https://doc.qt.io/qt-5/qml-color.html
+ 
+-AccentColor="#fb884f"
++AccentColor="#268bd2"
+ ## Used for elements in focus/hover/pressed. Should be contrasting to the background and the MainColor to achieve the best effect.
+ 
+ BackgroundColor="#444"
+@@ -84,7 +84,7 @@ ForceLastUser="true"
+ ForcePasswordFocus="true"
+ ## Give automatic focus to the password field. Together with ForceLastUser this makes for the fastest login experience.
+ 
+-ForceHideCompletePassword="false"
++ForceHideCompletePassword="true"
+ ## If you don't like to see any character at all not even while being entered set this to true.
+ 
+ ForceHideVirtualKeyboardButton="false"
+@@ -96,7 +96,8 @@ ForceHideSystemButtons="false"
+ AllowEmptyPassword="false"
+ ## Enable login for users without a password. This is discouraged. Makes the login button always enabled.
+ 
+-AllowBadUsernames="false"
++## set to true to not capitalize my username
++AllowBadUsernames="true"
+ ## Do not change this! Uppercase letters are generally not allowed in usernames. This option is only for systems that differ from this standard! Also shows username as is instead of capitalized.
+ 
+ 
