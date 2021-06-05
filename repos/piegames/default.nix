@@ -13,23 +13,7 @@ let
 	lib = import ./lib { inherit pkgs; }; # functions
 	modules = import ./modules; # NixOS modules
 	overlays = import ./overlays; # nixpkgs overlays
-
-	# Locally apply overlay on to pkgs
-	pkgsGnomeExtensions = pkgs.lib.fix (self: pkgs // (overlays.gnome-extensions self pkgs));
 in
 rec {
 	inherit lib modules overlays;
-
-	buildShellExtension = pkgsGnomeExtensions.gnomeExtensions.buildShellExtension;
-	buildShellExtension2 = pkgsGnomeExtensions.buildShellExtension;
-
-	gnome36Extensions = pkgs.recurseIntoAttrs (
-		pkgsGnomeExtensions.gnome36Extensions
-	);
-
-	gnome38Extensions = pkgs.recurseIntoAttrs (
-		pkgsGnomeExtensions.gnome38Extensions
-	);
-
-	matrix-conduit = pkgs.callPackage ./pkgs/matrix-conduit.nix {};
 }
