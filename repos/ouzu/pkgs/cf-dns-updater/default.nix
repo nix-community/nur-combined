@@ -1,4 +1,4 @@
-{ stdenv, buildGoModule, fetchFromGitHub }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "cf-dns-updater";
@@ -14,7 +14,7 @@ buildGoModule rec {
   vendorSha256 = "07jkx29c18a0bmb8nyqvi64r0gvvj59swqwdlii54r7mk4in594a";
   runVend = true;
   
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Gets the public IP adress from FritzBox routers and updates Cloudflare DNS records";
     homepage = "https://github.com/ouzu/cf-dns-updater";
     license = licenses.gpl3;

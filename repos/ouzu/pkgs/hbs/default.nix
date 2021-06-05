@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "hbs";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     cp hbs $out/bin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A command line utility that searches for files, and tells you how big it all is.";
     homepage = "https://github.com/LovesToCode/hbs-How-Big-Search";
     license = licenses.gpl3;

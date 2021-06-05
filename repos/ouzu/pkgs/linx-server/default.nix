@@ -1,4 +1,4 @@
-{ stdenv, buildGoModule, fetchFromGitHub, go-rice }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, go-rice }:
 
 buildGoModule rec {
   pname = "linx-server";
@@ -23,7 +23,7 @@ buildGoModule rec {
 
   preBuild = "rice embed-go";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Self-hosted file/media sharing website.";
     homepage = "https://github.com/andreimarcu/linx-server";
     license = licenses.gpl3;

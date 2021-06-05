@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, xorg }:
+{ stdenv, lib, fetchFromGitHub, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "i3lock-fancy-rapid";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     cp $pname $out/bin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A faster implementation of i3lock-fancy. It is blazing fast and provides a fully configurable box blur. It uses linear-time box blur and accelerates using OpenMP.";
     longDescription = "This is my fork of i3lock-fancy-rapid which includes a brightness and pixelation option.";
     homepage = "https://github.com/ouzu/i3lock-fancy-rapid";
