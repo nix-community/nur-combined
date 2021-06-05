@@ -345,10 +345,10 @@
       };
     "firenvim" = buildFirefoxXpiAddon {
       pname = "firenvim";
-      version = "0.2.6";
+      version = "0.2.7";
       addonId = "firenvim@lacamb.re";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3773283/firenvim-0.2.6-fx.xpi";
-      sha256 = "79243feae6202078f818b8d42db34aaec95843f295e57b2ba486170c857adc1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3788179/firenvim-0.2.7-fx.xpi";
+      sha256 = "059bd30c01975a4a19bf5ab0c7497ae894f4f8fcb69fc319de4e9c5cfcec705d";
       meta = with lib;
       {
         description = "Turn Firefox into a Neovim client.";
@@ -819,10 +819,10 @@
       };
     "news-feed-eradicator" = buildFirefoxXpiAddon {
       pname = "news-feed-eradicator";
-      version = "2.2.0";
+      version = "2.2.1";
       addonId = "@news-feed-eradicator";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3714424/news_feed_eradicator-2.2.0-fx.xpi";
-      sha256 = "6f6f8f70e9442059f95a7ca2c7d9b7e5230497c743e21bf2c8d61179de677f04";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3789058/news_feed_eradicator-2.2.1-fx.xpi";
+      sha256 = "90a7c9d3041e54100bc814eea323e58c736cf498c1f5ff57962b5268039b668a";
       meta = with lib;
       {
         homepage = "https://west.io/news-feed-eradicator";
