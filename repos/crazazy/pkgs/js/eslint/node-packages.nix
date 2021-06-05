@@ -31,13 +31,13 @@ let
         sha512 = "YSCOwxvTYEIMSGaBQb5kDDsCopDdiUGsqpatp3fOlI4+2HQSkTmEVWnVuySdAC5EWCqSWWTv0ib63RjR7dTBdg==";
       };
     };
-    "@eslint/eslintrc-0.4.1" = {
+    "@eslint/eslintrc-0.4.2" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "0.4.1";
+      version = "0.4.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.4.1.tgz";
-        sha512 = "5v7TDE9plVhvxQeWLXDTvFvJBdH6pEsdnl2g/dAptmuFEPedQ4Erq5rsDsX+mvAM610IhNaO2W5V1dOOnDKxkQ==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.4.2.tgz";
+        sha512 = "8nmGq/4ycLpIwzvhI4tNDmQztZ8sp+hI7cyG8i1nQDhkAbRzHpXPidRAHlNvCZQpJTKw5ItIpMw9RSToGF00mg==";
       };
     };
     "acorn-7.4.1" = {
@@ -479,15 +479,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz";
         sha512 = "AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==";
-      };
-    };
-    "globals-12.4.0" = {
-      name = "globals";
-      packageName = "globals";
-      version = "12.4.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/globals/-/globals-12.4.0.tgz";
-        sha512 = "BWICuzzDvDoH54NHKCseDanAhE3CeDorgDL5MT6LMXXj2WCnd9UC2szdk4AWLfjdgNBCXLUanXYcpBBKOSWGwg==";
       };
     };
     "globals-13.9.0" = {
@@ -949,15 +940,6 @@ let
         sha512 = "Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==";
       };
     };
-    "type-fest-0.8.1" = {
-      name = "type-fest";
-      packageName = "type-fest";
-      version = "0.8.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/type-fest/-/type-fest-0.8.1.tgz";
-        sha512 = "4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==";
-      };
-    };
     "uri-js-4.4.1" = {
       name = "uri-js";
       packageName = "uri-js";
@@ -1016,8 +998,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.27.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.27.0.tgz"; sha1 = "665a1506d8f95655c9274d84bd78f7166b07e9c7"; };
+    version = "7.28.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.28.0.tgz"; sha1 = "435aa17a0b82c13bb2be9d51408b617e49c1e820"; };
     dependencies = [
       sources."@babel/code-frame-7.12.11"
       sources."@babel/helper-validator-identifier-7.14.0"
@@ -1027,11 +1009,7 @@ let
           sources."escape-string-regexp-1.0.5"
         ];
       })
-      (sources."@eslint/eslintrc-0.4.1" // {
-        dependencies = [
-          sources."globals-12.4.0"
-        ];
-      })
+      sources."@eslint/eslintrc-0.4.2"
       sources."acorn-7.4.1"
       sources."acorn-jsx-5.3.1"
       sources."ajv-6.12.6"
@@ -1097,11 +1075,7 @@ let
       sources."functional-red-black-tree-1.0.1"
       sources."glob-7.1.7"
       sources."glob-parent-5.1.2"
-      (sources."globals-13.9.0" // {
-        dependencies = [
-          sources."type-fest-0.20.2"
-        ];
-      })
+      sources."globals-13.9.0"
       sources."has-flag-3.0.0"
       sources."ignore-4.0.6"
       sources."import-fresh-3.3.0"
@@ -1159,7 +1133,7 @@ let
       })
       sources."text-table-0.2.0"
       sources."type-check-0.4.0"
-      sources."type-fest-0.8.1"
+      sources."type-fest-0.20.2"
       sources."uri-js-4.4.1"
       sources."v8-compile-cache-2.3.0"
       sources."which-2.0.2"
