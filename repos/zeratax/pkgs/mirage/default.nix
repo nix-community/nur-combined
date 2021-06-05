@@ -54,6 +54,7 @@ mkDerivation rec {
     description =
       "A fancy, customizable, keyboard-operable Qt/QML+Python Matrix chat client for encrypted and decentralized communication.";
     license = licenses.lgpl3;
+    broken = true; # see ../development/python-modules/html-sanitizer
     # maintainers = with maintainers; [ zeratax ];
   };
 }
