@@ -16,13 +16,13 @@ in {
   };
   early-access = libsForQt5.callPackage ./base.nix rec {
     pname = "yuzu-ea";
-    version = "1755";
+    version = "1756";
     branchName = branch;
     src = fetchFromGitHub {
       owner = "pineappleEA";
       repo = "pineapple-src";
       rev = "EA-${version}";
-      sha256 = "1icy6cgyqrpk907pvp8dk3nrsr13zs85x7icwgbq5kjv8ysc2gss";
+      sha256 = "09f888mkfdhz7cbzvazmzkjw86lapldq44wbliza5pyc8hcnf66g";
       fetchSubmodules = true;
     };
   };
