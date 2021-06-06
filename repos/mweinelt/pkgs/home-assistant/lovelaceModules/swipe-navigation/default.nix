@@ -1,4 +1,7 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv
+, lib
+, fetchFromGitHub
+}:
 
 stdenv.mkDerivation rec {
   pname = "swipe-navigation";
@@ -16,7 +19,7 @@ stdenv.mkDerivation rec {
     cp swipe-navigation.js $out/
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/maykar/lovelace-swipe-navigation";
     description = "Swipe through Lovelace views on mobile";
     license = licenses.mit;

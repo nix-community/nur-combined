@@ -1,4 +1,7 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv
+, lib
+, fetchFromGitHub
+}:
 
 stdenv.mkDerivation rec {
   pname = "weather-card-chart";
@@ -16,7 +19,7 @@ stdenv.mkDerivation rec {
     cp -v weather-card-chart.js $out/
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/Yevgenium/lovelace-weather-card-chart";
     description = "Custom weather card with charts";
     license = licenses.mit;

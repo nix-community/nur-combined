@@ -1,4 +1,7 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv
+, lib
+, fetchFromGitHub
+}:
 
 stdenv.mkDerivation rec {
   pname = "multiple-entity-row";
@@ -16,7 +19,7 @@ stdenv.mkDerivation rec {
     cp multiple-entity-row.js $out/
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/benct/lovelace-multiple-entity-row";
     description = "Show multiple entity states and attributes on entity rows in Home Assistant's Lovelace UI";
     license = licenses.mit;

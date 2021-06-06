@@ -1,4 +1,7 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv
+, lib
+, fetchFromGitHub
+}:
 
 stdenv.mkDerivation rec {
   pname = "clear-dark";
@@ -16,7 +19,7 @@ stdenv.mkDerivation rec {
     cp themes/clear-dark.yaml $out/
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/naofireblade/clear-theme-dark";
     description = "Dark variant of Clear Theme for Home Assistant";
     license = licenses.mit;

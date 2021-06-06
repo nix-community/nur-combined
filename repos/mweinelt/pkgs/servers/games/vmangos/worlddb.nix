@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchurl
 , p7zip
 }:
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
 
   preferLocalBuild = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Vanilla MaNGOS world database";
     homepage = "https://github.com/brotalnia/database";
   };

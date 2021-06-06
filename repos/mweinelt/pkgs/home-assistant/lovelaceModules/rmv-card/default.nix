@@ -1,4 +1,7 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv
+, lib
+, fetchFromGitHub
+}:
 
 stdenv.mkDerivation rec {
   pname = "rmv-card";
@@ -16,9 +19,9 @@ stdenv.mkDerivation rec {
     cp -v rmv-card.js $out/
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/cgtobi/rmv-card";
     description = "Custom card for the RMV component";
-    license = licenses.mit;  # assume MIT since the api bindings are MIT as well; https://github.com/cgtobi/rmv-card/issues/1
+    license = licenses.asl20;
   };
 }
