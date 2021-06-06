@@ -1549,10 +1549,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.7.0";
+      version = "6.7.4";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3777783/wappalyzer-6.7.0-fx.xpi";
-      sha256 = "6e8f5dad76909e89a623a82d11cfd7fc185d8c6ba0494940d5d695e2e564e104";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3789734/wappalyzer-6.7.4-fx.xpi";
+      sha256 = "cb3869460b88e9dad6c56e65bebfa711b433e6e939a0d8d86932281bc7aabd79";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -1563,10 +1563,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.43.0";
+      version = "2.44.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3765703/web_scrobbler-2.43.0-an+fx.xpi";
-      sha256 = "58ed52573947dafb7327e6d71364abdc956f0fd7349cd7993c5b64f6596ce890";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3789294/web_scrobbler-2.44.0-an+fx.xpi";
+      sha256 = "9c9886520eb05ad05f889991724bf2343f80d8b3397172c2b064ef22442729dd";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
