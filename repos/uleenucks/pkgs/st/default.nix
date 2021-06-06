@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, pkgconfig, libX11, ncurses, libXft }:
+{ stdenv, pkgs, fetchgit, pkgconfig, libX11, ncurses, libXft }:
 
 let
   pname = "st";
@@ -22,7 +22,7 @@ in stdenv.mkDerivation {
   meta = {
     homepage = "https://st.suckless.org/";
     description = "Simple Terminal for X from Suckless.org Community";
-    license = stdenv.lib.licenses.mit;
-    platforms = with stdenv.lib.platforms; all;
+    license = pkgs.lib.licenses.mit;
+    platforms = with pkgs.lib.platforms; all;
   };
 }
