@@ -11,8 +11,8 @@ in
   config = lib.mkIf cfg.enable {
     services.xserver.inputClassSections = [
       ''
-        Identifier   "MX Ergo Mouse"
-        MatchProduct "MX Ergo Mouse"
+        Identifier   "MX Ergo scroll button configuration"
+        MatchProduct "MX Ergo"
         Driver       "libinput"
         Option       "ScrollMethod"    "button"
         Option       "ScrollButton"    "9"
