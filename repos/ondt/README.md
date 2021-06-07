@@ -27,19 +27,6 @@
 }
 ```
 
-or
-
-```nix
-# ~/.config/nixpkgs/config.nix
-{
-    packageOverrides = pkgs: {
-        nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-            inherit pkgs;
-        };
-    };
-}
-```
-
 
 
 
@@ -62,6 +49,17 @@ sudo nix-channel --update
 
 
 
+# Adding the binary cache
+```nix
+# /etc/nixos/configuration.nix
+{
+    nix = {
+        binaryCaches = [ "https://ondt.cachix.org" ];
+		binaryCachePublicKeys = [ "ondt.cachix.org-1:bfVL4zF1qPjwrhAITTRqE7ZHEjNrBkqrb28ffYatMJk=" ];
+    };
+}
+```
+
 
 
 
@@ -73,16 +71,4 @@ sudo nix-channel --update
         nur.repos.ondt.lemonade
     ];
 }
-```
-
-or
-
-```sh
-nix-shell -p nur.repos.ondt.lemonade
-```
-
-or
-
-```sh
-nix-env -f '<nixpkgs>' -iA nur.repos.ondt.lemonade
 ```
