@@ -1,22 +1,21 @@
 { buildPythonPackage
 , lib
-, fetchFromGitHub
+, fetchPypi
 , pytestCheckHook
 }:
 
 buildPythonPackage rec {
   pname = "colorzero";
-  version = "1.1";
+  version = "2.0";
 
-  src = fetchFromGitHub {
-    owner = "waveform80";
-    repo = "colorzero";
-    rev = "release-${version}";
-    sha256 = "1nm3zxnzpib74fis6mdc8lb8pvl6275620bc2ixwd1zna9qg77qi";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-59WlwmzQ3DexZOvvxgnziN4k+Fk7ZZGR4S2F+PnV61g=";
   };
 
   propagatedBuildInputs = [];
 
+  doCheck = false;
   checkInputs = [ pytestCheckHook ];
   dontUseSetuptoolsCheck = true;  # for nixpkgs < 20.09
   pythonImportsCheck = [ "colorzero" ];

@@ -8,7 +8,7 @@
 
 buildPythonPackage rec {
   pname = "asteval";
-  version = "0.9.22";
+  version = "0.9.23";
 
   disabled = pythonOlder "3.5";
 
@@ -16,7 +16,7 @@ buildPythonPackage rec {
     owner = "newville";
     repo = "asteval";
     rev = version;
-    sha256 = "1nwxszs9mp2sc2wbx1f16qw1rqg4frgkq4rxh39jzl8qm13nl4g7";
+    sha256 = "sha256-wDmFlEJdIRMnafYOxVSVCsp/F4x8sQBG+dsg3fIxJjc=";
   };
 
   pythonImportsCheck = [ "asteval" ];

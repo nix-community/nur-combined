@@ -1,22 +1,33 @@
 { lib
 , buildPythonPackage
-, fetchFromGitHub
+, pythonOlder
+, fetchPypi
+, setuptools_scm
+, typing-extensions
 , pytestCheckHook
 }:
 
 buildPythonPackage rec {
   pname = "pyvisa";
-  version = "1.10.1";
+  version = "1.11.3";
+  format = "pyproject";
+  disabled = pythonOlder "3.6";
 
-  src = fetchFromGitHub {
-    owner = "pyvisa";
-    repo = "pyvisa";
-    rev = version;
-    sha256 = "10cnkap8xj7r0s9lj5p04mxgrj3rfqysllrz973f8hy2sz66gmbk";
+  src = fetchPypi {
+    pname = "PyVISA";
+    inherit version;
+    sha256 = "00v7v31jhihy1hz8l629yl8hakymidafbpgw4q4s1qgw94fn0jzv";
   };
+
+  nativeBuildInputs = [ setuptools_scm ];
+
+  propagatedBuildInputs = [ typing-extensions ];
 
   checkInputs = [ pytestCheckHook ];
   dontUseSetuptoolsCheck = true;
+  preCheck = ''
+    export PATH=$out/bin:$PATH
+  '';
 
   meta = with lib; {
     description = "A python library with bindings to the VISA library.";
@@ -30,4 +41,3 @@ buildPythonPackage rec {
     maintainers = maintainers.drewrisinger;
   };
 }
-

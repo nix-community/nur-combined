@@ -10,7 +10,7 @@
 
 buildPythonPackage rec {
   pname = "autoray";
-  version = "0.2.3";
+  version = "0.2.5";
 
   disabled = pythonOlder "3.5";
 
@@ -18,7 +18,7 @@ buildPythonPackage rec {
     owner = "jcmgray";
     repo = pname;
     rev = version;
-    sha256 = "07srcx3lwaqmnpyklpxixxq8vnkpl4y35cgwzr5480l60idnznbh";
+    sha256 = "sha256-/ceZtwno5et8GrXBqqCDw2ueo/F19JpG/IAa4k6eA8k=";
   };
 
   propagatedBuildInputs = [

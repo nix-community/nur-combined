@@ -13,7 +13,7 @@
 
 with builtins;
 let
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules";
+  isReserved = n: n == "lib" || n == "overlays" || n == "modules" || n == "pkgs";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) && (p.meta.license.free or true) && !(p.meta.isRpiPkg or false);
   isCacheable = p: !(p.preferLocalBuild or false);
@@ -43,6 +43,13 @@ let
           (filter (n: !isReserved n)
             (attrNames nurAttrs))));
 
+  # Generate all paths to all (buildable) NUR packages
+  allAttrPaths = pkgs.lib.mapAttrsRecursiveCond shouldRecurseForDerivations
+    (path: value:
+      if (isBuildable value && !(isBool value)) then
+        concatStringsSep "." path
+      else
+        null) (pkgs.lib.filterAttrs (n: v: !isReserved n) nurAttrs);
 in
 rec {
   buildPkgs = filter isBuildable nurPkgs;
@@ -50,4 +57,5 @@ rec {
 
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;
+  inherit allAttrPaths;
 }

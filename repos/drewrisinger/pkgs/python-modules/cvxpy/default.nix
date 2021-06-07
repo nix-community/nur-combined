@@ -16,14 +16,14 @@
 
 buildPythonPackage rec {
   pname = "cvxpy";
-  version = "1.1.12";
+  version = "1.1.13";
   format = "pyproject";
 
   disabled = pythonOlder "3.5";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "01sqc1ca9ad8cqfwxh5ml5a6hnqwrgzp65b24famwr7wwkxfp6dl";
+    sha256 = "sha256-qceB50rXYJe0e4ZFbLOpQ4mPfsmsj0e878kiBRzcSgQ=";
   };
 
   propagatedBuildInputs = [
@@ -51,6 +51,7 @@ buildPythonPackage rec {
     "test_cvxopt_sdp"
     "test_psd_nsd_parameters"
     "test_all_solvers"
+    "test_constant_atoms"
   ] ++ lib.optionals stdenv.isAarch64 [
     "test_ecos_bb_mi_lp_2" # https://github.com/cvxgrp/cvxpy/issues/1241#issuecomment-780912155
   ];

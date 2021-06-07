@@ -1,22 +1,24 @@
 { lib
 , buildPythonApplication
 , pythonOlder
-, fetchPypi
+, fetchFromGitHub
   # test inputs
 , pytestCheckHook
 }:
 
 buildPythonApplication rec {
   pname = "tuna";
-  version = "0.4.7";
+  version = "0.5.6";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
 
-  # Use PyPi b/c some Javascript files aren't included in GitHub checkout
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "7a4eb545bde7eb5cd43a7d1233e55c15bfe3101a0fff3da5cde1ff68b2191bcb";
+  # Use GitHub b/c some PyPi doesn't include tests
+  src = fetchFromGitHub {
+    owner = "nschloe";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "0f4s46ik66yfkp4ivlz22s93zjqpmp5y7ddc6yfhnipfwm07pm3l";
   };
 
   dontUseSetuptoolsCheck = true;

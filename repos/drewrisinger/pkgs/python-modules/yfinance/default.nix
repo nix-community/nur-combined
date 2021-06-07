@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "yfinance";
-  version = "0.1.59";
+  version = "0.1.55";
 
   src = fetchFromGitHub {
     owner = "ranaroussi";

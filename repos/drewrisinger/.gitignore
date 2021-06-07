@@ -4,3 +4,10 @@ result-*
 
 # Direnv files
 .envrc.local
+/.direnv/
+
+# artifact from auto-update
+nurAttrs.json
+
+# Nix shell artifact? for CI
+env-vars

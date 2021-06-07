@@ -6,13 +6,13 @@
 
 buildPythonPackage rec {
   pname = "smbus2";
-  version = "0.4.0";
+  version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "kplindegaard";
     repo = pname;
     rev = version;
-    sha256 = "1dfns2dmv81g87yp2l5qm9a9v8ayi9qfwzzw5i216kg6l3zba2fq";
+    sha256 = "sha256-urz79x6xJNkx2SKT7QN7xQ0auG0Dv8RyHB5l+NfR+HU=";
   };
 
   propagatedBuildInputs = [ ];
