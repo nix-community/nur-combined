@@ -9,14 +9,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.xserver.inputClassSections = [
-      ''
-        Identifier   "MX Ergo scroll button configuration"
-        MatchProduct "MX Ergo"
-        Driver       "libinput"
-        Option       "ScrollMethod"    "button"
-        Option       "ScrollButton"    "9"
-      ''
-    ];
+    services.xserver = {
+      # This section must be *after* the one configured by `libinput`
+      # for the `ScrollMethod` configuration to not be overriden
+      inputClassSections = lib.mkAfter [
+        ''
+          Identifier      "MX Ergo scroll button configuration"
+          MatchProduct    "MX Ergo"
+          MatchIsPointer  "on"
+          Option          "ScrollMethod"    "button"
+          Option          "ScrollButton"    "9"
+        ''
+      ];
+    };
   };
 }
