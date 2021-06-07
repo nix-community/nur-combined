@@ -1,10 +1,10 @@
-{ lib, fetchFromGitHub, python39Packages, tor }:
+{ lib, fetchFromGitHub, python3Packages, tor }:
 
-python39Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "ulozto-downloader";
   version = "2.6.0";
 
-  src = python39Packages.fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "08z1pm6nk991b7hpsjqwir5dayzm8brxms63wdif25y3k7l3idf4";
   };
@@ -18,9 +18,7 @@ python39Packages.buildPythonApplication rec {
   
   patches = [ ./tensorflow.patch ];
 
-  propagatedBuildInputs = with python39Packages; [
-    tor
-    
+  propagatedBuildInputs = with python3Packages; [
     tkinter
     tensorflow
     
@@ -30,6 +28,8 @@ python39Packages.buildPythonApplication rec {
     numpy
     pysocks
     stem
+  ] ++ [
+    tor
   ];
 
   doCheck = false;
