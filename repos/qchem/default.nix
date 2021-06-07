@@ -40,6 +40,7 @@ let
         gromacsMpi
         gromacsDouble
         gromacsDoubleMpi
+        i-pi
         mpi
         mkl
         molden
@@ -47,6 +48,7 @@ let
         octopus
         quantum-espresso
         quantum-espresso-mpi
+        pcmsolver
         scalapack
         siesta
         siesta-mpi;
@@ -147,8 +149,6 @@ let
 
       gpaw = super.python3.pkgs.toPythonApplication self.python3.pkgs.gpaw;
 
-      i-pi = super.python3.pkgs.toPythonApplication self.python3.pkgs.i-pi;
-
       nwchem = callPackage ./pkgs/apps/nwchem {
         blas = self.blas-i8;
         lapack = self.lapack-i8;
@@ -182,8 +182,6 @@ let
       };
 
       packmol = callPackage ./pkgs/apps/packmol { };
-
-      pcmsolver = callPackage ./pkgs/apps/pcmsolver {};
 
       psi4 = super.python3.pkgs.toPythonApplication self.python3.pkgs.psi4;
       psi4Unstable = super.python3.pkgs.toPythonApplication self.python3.pkgs.psi4Unstable;
@@ -272,8 +270,6 @@ let
       # libxc legacy version
       libxc4 = callPackage ./pkgs/lib/libxc { };
 
-      mvapich = callPackage ./pkgs/lib/mvapich { };
-
       osss-ucx = callPackage ./pkgs/lib/osss-ucx { };
 
       sos = callPackage ./pkgs/lib/sos { };
@@ -301,8 +297,6 @@ let
       benchmarksets = callPackage ./tests/benchmark-sets.nix {
         inherit callPackage;
       };
-
-      f2c = callPackage ./pkgs/apps/f2c { };
 
       tests = with self; {
         cfour = nullable cfour (callPackage ./tests/cfour { });

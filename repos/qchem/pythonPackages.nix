@@ -13,15 +13,9 @@ let
     pychemps2 = callPackage ./pkgs/apps/chemps2/PyChemMPS2.nix { };
 
   } // lib.optionalAttrs super.isPy3k {
-    i-pi = callPackage ./pkgs/apps/i-pi { };
-
     pyqdng = callPackage ./pkgs/apps/pyQDng { };
 
     pyscf = callPackage ./pkgs/apps/pyscf { };
-
-    qcelemental = callPackage ./pkgs/apps/qcelemental { };
-
-    qcengine = callPackage ./pkgs/apps/qcengine { };
 
     gpaw = callPackage ./pkgs/apps/gpaw { };
 
