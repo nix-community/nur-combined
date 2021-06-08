@@ -84,7 +84,7 @@ in {
           in {
           name = "${setName}-${runName}";
           value = if cfg.slurm then # create slurm job
-            pkgs.writeScriptSlurm  {
+            pkgs.qchem.writeScriptSlurm  {
               name = "${setName}-${runName}";
               c = if hasAttr "threads" paramSet then paramSet.threads else 1;
               n = if hasAttr "tasks" paramSet then paramSet.tasks else 1;
