@@ -900,6 +900,25 @@
         platforms = platforms.all;
         };
       };
+    "okta-browser-plugin" = buildFirefoxXpiAddon {
+      pname = "okta-browser-plugin";
+      version = "5.45.0";
+      addonId = "plugin@okta.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3768724/okta_browser_plugin-5.45.0-an+fx.xpi";
+      sha256 = "41042749a9245bedfcd480b4ce50f7e3232dea344ea8bb622323b030eb0ea63a";
+      meta = with lib;
+      {
+        homepage = "https://www.okta.com";
+        description = "Okta Browser Plugin";
+        license = {
+          shortName = "okta";
+          fullName = "Various Okta Agreements";
+          url = "https://www.okta.com/agreements/";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
       version = "1.4.0";

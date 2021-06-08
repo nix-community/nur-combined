@@ -264,6 +264,16 @@
     "slug": "offline-qr-code-generator"
   },
   {
+    "slug": "okta-browser-plugin",
+    "license": {
+      "tag": "custom",
+      "shortName": "okta",
+      "fullName": "Various Okta Agreements",
+      "url": "https://www.okta.com/agreements/",
+      "free": false
+    }
+  },
+  {
     "slug": "old-reddit-redirect"
   },
   {
