@@ -55,7 +55,7 @@ sudo nix-channel --update
 {
     nix = {
         binaryCaches = [ "https://ondt.cachix.org" ];
-		binaryCachePublicKeys = [ "ondt.cachix.org-1:bfVL4zF1qPjwrhAITTRqE7ZHEjNrBkqrb28ffYatMJk=" ];
+        binaryCachePublicKeys = [ "ondt.cachix.org-1:bfVL4zF1qPjwrhAITTRqE7ZHEjNrBkqrb28ffYatMJk=" ];
     };
 }
 ```
