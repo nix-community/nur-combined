@@ -261,10 +261,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.5.10";
+      version = "2021.6.2";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3773951/duckduckgo_privacy_essentials-2021.5.10-an+fx.xpi";
-      sha256 = "26596526c50d5df74b95570990b09f32eb95ccf2397f96a9a98f0c901e8246b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3788189/duckduckgo_privacy_essentials-2021.6.2-an+fx.xpi";
+      sha256 = "510c4e7b7e720ccb5ee0eec78c498dee5c012a5939b8b0706b7a195377876fa2";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -722,10 +722,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.7";
+      version = "2.6.8";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3780329/localcdn-2.6.7-an+fx.xpi";
-      sha256 = "1a3d98fb7d3529984ff6c9cd585df8079afc9fc444f57ac85a7dbcc2429990ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3791108/localcdn-2.6.8-an+fx.xpi";
+      sha256 = "8f1efa9ca8b7ccff047a9a36f436de3606e66fecfd861aece0ced72b85a37085";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -875,10 +875,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.0.3";
+      version = "7.0.4";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3776606/octotree_github_code_tree-7.0.3-fx.xpi";
-      sha256 = "8afb336a451648c6963893dfe2ae576a070dd60a8c75d5949a8eda42d56ee373";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3792492/octotree_github_code_tree-7.0.4-fx.xpi";
+      sha256 = "acb6e57d0ddba24570846453f762fc774155e10ef02e1df5dfaca8a2a5a5513a";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1148,10 +1148,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.6.1";
+      version = "21.6.8";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3785396/refined_github-21.6.1-an+fx.xpi";
-      sha256 = "0e422af46ea6e6cf5d691d62838a78e3ab500f2505e96d9c01ce1fae548218dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3791699/refined_github-21.6.8-an+fx.xpi";
+      sha256 = "f14005a6083c5eba3ac2a546e413fa279e91bfcb54392b8baf2a4d827bc675de";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
