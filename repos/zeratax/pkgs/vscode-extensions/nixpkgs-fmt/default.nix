@@ -1,5 +1,4 @@
-{ stdenv
-, jq, nixpkgs-fmt, vscode-utils}:
+{ stdenv, lib, jq, nixpkgs-fmt, vscode-utils}:
 
 let
   inherit (vscode-utils) buildVscodeMarketplaceExtension;
@@ -23,7 +22,7 @@ buildVscodeMarketplaceExtension {
     mv package.json.new package.json
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Format nix files with nixpkgs-fmt";
     homepage = "https://github.com/B4dM4n/vscode-nixpkgs-fmt";
     license = licenses.mit;

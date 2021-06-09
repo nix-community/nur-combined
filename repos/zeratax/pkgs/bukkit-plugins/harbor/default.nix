@@ -1,5 +1,5 @@
-{ stdenv, maven, callPackage, fetchFromGitHub }:
-let repository = callPackage ./build-maven-repository.nix { };
+{ stdenv, lib, maven, buildMaven, callPackage, fetchFromGitHub }:
+let repository = (buildMaven ./project-info.json).repo;
 # let
 #   mvn2nix = import
 #     (fetchTarball "https://github.com/fzakaria/mvn2nix/archive/master.tar.gz")
@@ -29,7 +29,7 @@ in stdenv.mkDerivation rec {
     install -Dm644 target/Harbor-${version}.jar $out/${pname}.jar
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/nkomarn/Harbor";
     description =
       "Harbor is a plugin that redefines sleep within your Spigot server!";
