@@ -25,7 +25,7 @@ in
       description = "Shared secret to register users";
     };
 
-    email = {
+    mail = {
       host = mkOption {
         type = types.str;
         default = "smtp.migadu.com";
@@ -109,11 +109,11 @@ in
           spaces_enabled: true
 
         email:
-          smtp_host: "${cfg.emailConfig.smtpHost}"
-          smtp_port: ${toString cfg.emailConfig.smtpPort}
-          smtp_user: "${cfg.emailConfig.smtpUser}"
-          smtp_pass: "${cfg.emailConfig.smtpPass}"
-          notif_from: "${cfg.emailConfig.notifFrom}"
+          smtp_host: "${cfg.mail.host}"
+          smtp_port: ${toString cfg.mail.port}
+          smtp_user: "${cfg.mail.username}"
+          smtp_pass: "${cfg.mail.password}"
+          notif_from: "${cfg.mail.notifFrom}"
           # Refuse to connect unless the server supports STARTTLS.
           require_transport_security: true
       '';
