@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, check, dbus, xvfb_run, glib, gtk, gettext, libiconv, json_c, libintl
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, check, dbus, xvfb_run, glib, gtk
+, gettext, libiconv, json_c, libintl, lib }:
 
 stdenv.mkDerivation rec {
   pname = "girara";
@@ -8,13 +8,12 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "https://git.pwmt.org/pwmt/${pname}/-/archive/${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://git.pwmt.org/pwmt/${pname}/-/archive/${version}/${pname}-${version}.tar.gz";
     sha256 = "08zdsr4zwi49facsl5596l0g1xqqv2jk3sqk841gkxwawcggim44";
   };
 
-  patches = [
-    ./girara-alpha.patch
-  ];
+  patches = [ ./girara-alpha.patch ];
 
   nativeBuildInputs = [ meson ninja pkgconfig gettext check dbus xvfb_run ];
   buildInputs = [ libintl libiconv json_c ];
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
       meson test --print-errorlogs
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://git.pwmt.org/pwmt/girara";
     description = "User interface library";
     longDescription = ''

@@ -23,7 +23,6 @@ rec {
   comma = pkgs.callPackage ./pkgs/comma { };
   deno = pkgs.callPackage ./pkgs/deno { };
   discord = pkgs.callPackage ./pkgs/discord { };
-  dwm = pkgs.callPackage ./pkgs/dwm { };
   gopls = pkgs.callPackage ./pkgs/gopls { };
   gruvbox-css = pkgs.callPackage ./pkgs/gruvbox-css { };
   hewwo = pkgs.callPackage ./pkgs/hewwo { };
@@ -41,7 +40,6 @@ rec {
   pridecat = pkgs.callPackage ./pkgs/pridecat { };
   quickserv = pkgs.callPackage ./pkgs/quickserv { };
   sctd = pkgs.callPackage ./pkgs/sctd { };
-  st = pkgs.callPackage ./pkgs/st { };
   steno-lookup = pkgs.callPackage ./pkgs/steno-lookup { };
   sw = pkgs.callPackage ./pkgs/sw { };
   zathura = pkgs.callPackage ./pkgs/zathura { inherit girara; };

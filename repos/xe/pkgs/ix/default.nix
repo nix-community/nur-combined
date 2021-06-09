@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchurl, lib }:
 
 stdenv.mkDerivation {
   name = "ix";
@@ -17,7 +17,7 @@ stdenv.mkDerivation {
     chmod +x $out/bin/ix
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://ix.io";
     description = "command line pastebin";
   };

@@ -1,4 +1,4 @@
-{ lua5_3, buildLuarocksPackage, fetchurl, dkjson, stdenv }:
+{ lua5_3, buildLuarocksPackage, fetchurl, dkjson, stdenv, lib }:
 
 buildLuarocksPackage {
   pname = "ln";
@@ -10,7 +10,7 @@ buildLuarocksPackage {
   };
   propagatedBuildInputs = [ lua5_3 dkjson ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://tulpa.dev/cadey/lua-ln";
     description = "The natural log function";
     license.fullName = "0bsd";

@@ -2,7 +2,7 @@
 # environment.systemPackages = [
 #   (pkgs.callPackage ./nix-simple-deploy.nix { })
 # ];
-{ stdenv, fetchFromGitHub, rustPlatform }:
+{ stdenv, fetchFromGitHub, rustPlatform, lib }:
 rustPlatform.buildRustPackage rec {
   pname = "nix-simple-deploy";
   src = fetchFromGitHub {
@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
   version = "0.1.1";
   cargoSha256 = "02v8lrwjai45bkm69cd98s5wlvq8w5yz4wfzf7bjcv6n61k05n6f";
   verifyCargoDeps = true;
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Deploy software or an entire NixOS system configuration to another NixOS system";
     homepage = "https://github.com/misuzu/nix-simple-deploy";
     license = with licenses; [ mit ];

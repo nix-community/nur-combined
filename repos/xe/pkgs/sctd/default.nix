@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, pkg-config, libX11, libXrandr }:
+{ stdenv, fetchFromGitHub, rustPlatform, pkg-config, libX11, libXrandr, lib }:
 
 rustPlatform.buildRustPackage rec {
   pname = "sctd";
@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "1dxqzkv7y7h09drqcj2b0ds3bgkhgcc058r1fprhs76ic9h1z92q";
   verifyCargoDeps = true;
   legacyCargoFetcher = true;
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "set color temperature daemon ";
     homepage = "https://github.com/amir/${pname}";
     maintainers = with maintainers; [ xe ];

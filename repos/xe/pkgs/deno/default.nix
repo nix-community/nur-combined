@@ -1,4 +1,4 @@
-{ autoPatchelfHook, fetchurl, stdenv, unzip }:
+{ autoPatchelfHook, fetchurl, stdenv, unzip, lib }:
 
 stdenv.mkDerivation rec {
   name = "deno-bin-${version}";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     install -m755 -D deno $out/bin/deno
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://deno.land";
     description = "A secure runtime for JavaScript and TypeScript";
     platforms = platforms.linux;

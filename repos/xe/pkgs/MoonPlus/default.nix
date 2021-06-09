@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     install -D bin/release/moonp $out/bin/moonp
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/pigpigyyy/MoonPlus";
     description = "Moonscript to Lua compiler";
     license = licenses.mit;

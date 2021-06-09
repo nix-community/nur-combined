@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
       $out/opt/microsoft/msedge-dev/libsmartscreen.so
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://www.microsoftedgeinsider.com/en-us/";
     description = "Microsoft's fork of Chromium web browser";
     license = licenses.unfree;

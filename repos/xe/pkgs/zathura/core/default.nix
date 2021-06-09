@@ -3,10 +3,10 @@
 , gtk, girara, gettext, libxml2, check
 , sqlite, glib, texlive, libintl, libseccomp
 , file, librsvg
-, gtk-mac-integration
+, gtk-mac-integration, lib
 }:
 
-with stdenv.lib;
+with lib;
 
 stdenv.mkDerivation rec {
   pname = "zathura";

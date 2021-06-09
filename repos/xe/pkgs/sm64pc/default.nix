@@ -47,7 +47,7 @@ in stdenv.mkDerivation rec {
     cp ./build/us_pc/sm64.us.f3dex2e $out/bin/sm64pc
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Super Mario 64 PC port, requires rom :)";
     license = licenses.unfree;
   };

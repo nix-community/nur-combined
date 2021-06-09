@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, pkg-config, libX11, libXrandr }:
+{ stdenv, fetchFromGitHub, rustPlatform, pkg-config, libX11, libXrandr, lib }:
 
 rustPlatform.buildRustPackage rec {
   pname = "steno-lookup";
@@ -8,7 +8,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "1j3fgifcx6ipq2q2sn6w6sgpg7bj9jy2y5z2s38pphwijb2wrd1s";
   verifyCargoDeps = true;
   legacyCargoFetcher = true;
-  meta = with stdenv.lib; {
+  meta = with lib; {
     maintainers = with maintainers; [ xe ];
   };
 }
