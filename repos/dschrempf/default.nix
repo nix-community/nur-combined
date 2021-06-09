@@ -6,6 +6,7 @@
   beast2 = pkgs.callPackage ./pkgs/evolution/beast2 {};
   figtree = pkgs.callPackage ./pkgs/evolution/figtree {};
   iqtree2 = pkgs.callPackage ./pkgs/evolution/iqtree2 {};
+  phylobayes = pkgs.callPackage ./pkgs/evolution/phylobayes {};
   revbayes = pkgs.callPackage ./pkgs/evolution/revbayes {};
   tracer = pkgs.callPackage ./pkgs/evolution/tracer {};
 
