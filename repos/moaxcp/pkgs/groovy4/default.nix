@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip, which, makeWrapper, jdk, coreutils, gawk }:
+{ lib, stdenv, fetchurl, unzip, which, makeWrapper, jdk, coreutils, gawk }:
 
 rec {
     groovyGen = {version, src} : stdenv.mkDerivation {
@@ -28,7 +28,7 @@ rec {
         $out/bin/groovy --version 2>&1 | grep -q "${version}"
       '';
 
-      meta = with stdenv.lib; {
+      meta = with lib; {
         description = "An agile dynamic language for the Java Platform";
         homepage = http://groovy-lang.org/;
         license = licenses.asl20;

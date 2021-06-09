@@ -22,7 +22,7 @@ in rec {
       $out/bin/mn --version 2>&1 | grep -q "${version}"
     '';
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "Modern, JVM-based, full-stack framework for building microservice applications";
       longDescription = ''
         Micronaut is a modern, JVM-based, full stack microservices framework

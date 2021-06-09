@@ -25,7 +25,7 @@ in rec {
       $out/bin/mvn --version 2>&1 | grep -q "Apache Maven ${version}"
     '';
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "Build automation tool (used primarily for Java projects)";
       homepage = "http://maven.apache.org/";
       license = licenses.asl20;

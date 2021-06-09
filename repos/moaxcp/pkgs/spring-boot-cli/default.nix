@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, jdk, makeWrapper, installShellFiles, coreutils }:
+{ lib, stdenv, fetchzip, jdk, makeWrapper, installShellFiles, coreutils }:
 let
   pname = "spring-boot-cli";
 in rec {
@@ -24,7 +24,7 @@ in rec {
       $out/bin/spring --version 2>&1 | grep -q "${version}"
     '';
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = ''
         CLI which makes it easy to create spring-based applications
       '';

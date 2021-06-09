@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip, jdk, makeWrapper }:
+{ lib, stdenv, fetchurl, unzip, jdk, makeWrapper }:
 let
   pname = "gradle";
 in rec {
@@ -41,7 +41,7 @@ in rec {
         $out/bin/gradle --version 2>&1 | grep -q "Gradle ${version}"
       '';
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "Enterprise-grade build system";
       longDescription = ''
         Gradle is a build system which offers you ease, power and freedom.

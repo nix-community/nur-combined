@@ -23,7 +23,7 @@ in rec {
       $out/bin/jbang --version 2>&1 | grep -q "${version}"
     '';
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "Run java as scripts anywhere";
       longDescription = ''
         jbang uses the java language to build scripts similar to groovy scripts. Dependencies are automatically

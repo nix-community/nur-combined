@@ -1,4 +1,4 @@
-{ stdenv, releaseTools, fetchzip, jdk, ant, makeDesktopItem, makeWrapper,
+{ lib, stdenv, releaseTools, fetchzip, jdk, ant, makeDesktopItem, makeWrapper,
   which, unzip, libicns, imagemagick, perl, python
 }:
 
@@ -67,9 +67,9 @@ from nixpkgs build
     broken = true;
     description = "An integrated development environment for Java, C, C++ and PHP";
     homepage = "https://netbeans.org/";
-    license = stdenv.lib.licenses.asl20;
-    maintainers = with stdenv.lib.maintainers; [ moaxcp sander rszibele ];
-    platforms = stdenv.lib.platforms.unix;
+    license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ moaxcp sander rszibele ];
+    platforms = lib.platforms.unix;
   };
   
 }

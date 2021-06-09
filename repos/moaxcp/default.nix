@@ -130,10 +130,10 @@ in rec {
     then callPackage adoptopenjdk-bin-15-packages-linux.jre-openj9 {}
     else callPackage adoptopenjdk-bin-15-packages-darwin.jre-openj9 {};
 
-  adoptopenjdk-hotspot-bin-16-nightly = if stdenv.isLinux
+  adoptopenjdk-hotspot-bin-16 = if stdenv.isLinux
     then callPackage adoptopenjdk-bin-16-packages-linux.jdk-hotspot {}
     else callPackage adoptopenjdk-bin-16-packages-darwin.jdk-hotspot {};
-  adoptopenjdk-jre-hotspot-bin-16-nightly = if stdenv.isLinux
+  adoptopenjdk-jre-hotspot-bin-16 = if stdenv.isLinux
     then callPackage adoptopenjdk-bin-16-packages-linux.jre-hotspot {}
     else callPackage adoptopenjdk-bin-16-packages-darwin.jre-hotspot {};
 
