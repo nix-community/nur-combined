@@ -65,6 +65,7 @@ in
     # Matrix backend and Element chat front-end
     matrix = {
       enable = true;
+      mail = my.secrets.matrix.mail;
       secret = my.secrets.matrix.secret;
     };
     miniflux = {
