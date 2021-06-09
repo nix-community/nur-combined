@@ -94,6 +94,7 @@ in
     matrix = {
       enable = true;
       registration_shared_secret = secrets.matrix-registration-shared-secret;
+      emailConfig = secrets.matrixEmailConfig;
     };
 
     monitoring = {

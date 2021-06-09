@@ -1,3 +1,4 @@
 secrets/**/*.secret filter=git-crypt diff=git-crypt
+secrets/matrix-email-config.nix filter=git-crypt diff=git-crypt
 secrets/wireguard.nix filter=git-crypt diff=git-crypt
 home/secrets/*.secret filter=git-crypt diff=git-crypt

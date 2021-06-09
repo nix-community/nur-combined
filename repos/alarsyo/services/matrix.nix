@@ -28,6 +28,37 @@ in {
       example = "deadbeef";
       description = "Shared secret to register users";
     };
+
+    emailConfig = mkOption {
+      type = types.submodule {
+        options = {
+          smtpHost = mkOption {
+            type = types.str;
+            default = "localhost";
+          };
+          smtpPort = mkOption {
+            type = types.port;
+            default = 587;
+            description = ''
+              The port to use to connect to the SMTP host.
+
+              Defaulting to STARTTLS port 587 because TLS port 465 isn't supported by synapse
+              See https://github.com/matrix-org/synapse/issues/8046
+            '';
+          };
+          smtpUser = mkOption {
+            type = types.str;
+          };
+          smtpPass = mkOption {
+            type = types.str;
+          };
+          notifFrom = mkOption {
+            type = types.str;
+            example = "Your Friendly %(app)s homeserver <noreply@example.com>";
+          };
+        };
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -69,6 +100,40 @@ in {
       extraConfig = ''
         experimental_features: { spaces_enabled: true }
         use_presence: false
+
+        email:
+          # The hostname of the outgoing SMTP server to use. Defaults to 'localhost'.
+          #
+          smtp_host: "${cfg.emailConfig.smtpHost}"
+
+          # The port on the mail server for outgoing SMTP. Defaults to 25.
+          #
+          smtp_port: ${toString cfg.emailConfig.smtpPort}
+
+          # Username/password for authentication to the SMTP server. By default, no
+          # authentication is attempted.
+          #
+          smtp_user: "${cfg.emailConfig.smtpUser}"
+          smtp_pass: "${cfg.emailConfig.smtpPass}"
+
+          # Uncomment the following to require TLS transport security for SMTP.
+          # By default, Synapse will connect over plain text, and will then switch to
+          # TLS via STARTTLS *if the SMTP server supports it*. If this option is set,
+          # Synapse will refuse to connect unless the server supports STARTTLS.
+          #
+          require_transport_security: true
+
+          # notif_from defines the "From" address to use when sending emails.
+          # It must be set if email sending is enabled.
+          #
+          # The placeholder '%(app)s' will be replaced by the application name,
+          # which is normally 'app_name' (below), but may be overridden by the
+          # Matrix client application.
+          #
+          # Note that the placeholder must be written '%(app)s', including the
+          # trailing 's'.
+          #
+          notif_from: "${cfg.emailConfig.notifFrom}"
       '';
 
       logConfig = ''
