@@ -40,7 +40,7 @@ rec {
     groovy-4_0_0-alpha-2 = groovyGen rec {
         version = "4.0.0-alpha-2";
         src = fetchurl {
-            url = "https://dl.bintray.com/groovy/maven/apache-groovy-binary-${version}.zip";
+            url = "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-${version}.zip";
             sha256 = "1qwgsz5dvggrwhxm30l81pzv6h0swf5k35rhqicbkrmm2im19nd6";
         };
     };
