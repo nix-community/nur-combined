@@ -1,5 +1,5 @@
-{ bc, cantarell-fonts, fetchFromGitHub, inkscape, lib, makeFontsConf, optipng
-, sassc, stdenv
+{ bc, cantarell-fonts, fetchFromGitHub, lib, makeFontsConf, optipng, resvg
+, runCommandLocal, sassc, stdenv
 
 # A base16 theme configuration as defined in the `theme.base16` module.
 , configBase16 ? {
@@ -40,7 +40,16 @@ in stdenv.mkDerivation {
     sha256 = "1fsicmcni70jkl4jb3fvh7yv0v9jhb8nwjzdq8vfwn256qyk0xvl";
   };
 
-  nativeBuildInputs = [ bc inkscape optipng sassc ];
+  nativeBuildInputs = [
+    bc
+    optipng
+    sassc
+
+    (runCommandLocal "rendersvg" { } ''
+      mkdir -p $out/bin
+      ln -s ${resvg}/bin/resvg $out/bin/rendersvg
+    '')
+  ];
 
   dontConfigure = true;
 
@@ -81,10 +90,17 @@ in stdenv.mkDerivation {
 
   postPatch = ''
     patchShebangs .
+
+    sed -e '/handle-horz-.*/d' -e '/handle-vert-.*/d' \
+      -i ./src/gtk-2.0/assets.txt
   '';
 
   buildPhase = ''
     export HOME="$NIX_BUILD_ROOT"
-    ./change_color.sh -t $out/share/themes -o ${configBase16.name} "$themePath"
+    ./change_color.sh \
+       -i False \
+       -t $out/share/themes \
+       -o ${configBase16.name} \
+       "$themePath"
   '';
 }
