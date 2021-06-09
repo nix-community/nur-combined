@@ -1,4 +1,4 @@
 {
-  vlmcsd = ./services/vlmcsd.nix;
-  trojan = ./services/trojan.nix;
+  vlmcsd = import ./services/vlmcsd.nix;
+  trojan = import ./services/trojan.nix;
 }
