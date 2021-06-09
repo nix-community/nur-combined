@@ -57,7 +57,7 @@ let
 in
   buildPythonPackage rec {
     pname = "pysisyphus";
-    version = "0.7rc1";
+    version = "0.7";
 
     nativeBuildInputs = [ makeWrapper ];
 
@@ -100,7 +100,7 @@ in
       owner = "eljost";
       repo = pname;
       rev = version;
-      sha256 = "19jwn2hprawz652z0q4d716z2gyb2l3vhjkxn4rjr0dhz5ps4nw2";
+      sha256 = "0ijr3mi9342wwwm4z7jjkpq8w0jkmscb20bqls7scif0nfb4gnbi";
     };
 
     doCheck = true;
