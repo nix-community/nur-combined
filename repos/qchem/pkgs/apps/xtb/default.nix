@@ -13,13 +13,13 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "xtb";
-  version = "6.4.0";
+  version = "6.4.1";
 
   src = fetchFromGitHub  {
     owner = "grimme-lab";
     repo = pname;
     rev = "v${version}";
-    sha256= "0fcf9f6y93aii907as25vmchfvdyzyrk0w7nqwyv1mjvab9a9acc";
+    sha256= "1cakkysjj5qm3dhia0f3frp68rysc1p6p4hm8z36j20j02vmks0i";
   };
 
   nativeBuildInputs = [
