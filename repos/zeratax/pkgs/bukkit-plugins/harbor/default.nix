@@ -1,11 +1,5 @@
 { stdenv, lib, maven, buildMaven, callPackage, fetchFromGitHub }:
 let repository = (buildMaven ./project-info.json).repo;
-# let
-#   mvn2nix = import
-#     (fetchTarball "https://github.com/fzakaria/mvn2nix/archive/master.tar.gz")
-#     { };
-#   repository =
-#    mvn2nix.buildMavenRepositoryFromLockFile { file = ./mvn2nix-lock.json; };
 in stdenv.mkDerivation rec {
   pname = "harbor";
   version = "1.6.3";
@@ -25,7 +19,6 @@ in stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    ls target/
     install -Dm644 target/Harbor-${version}.jar $out/${pname}.jar
   '';
 
