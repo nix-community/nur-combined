@@ -2,8 +2,8 @@
 
 fetchFirefoxAddon {
   name = "react-devtools";
-  url = "https://addons.mozilla.org/firefox/downloads/file/3772652/react_developer_tools-4.13.2-fx.xpi";
-  sha256 = "sha256-wpcwMOnhLTyDiqX7PBCwnCE1pZiX14DtakHO++gCIRI=";
+  url = "https://addons.mozilla.org/firefox/downloads/file/3781975/react_developer_tools-4.13.5-fx.xpi";
+  sha256 = "sha256-05f8ez4resV9L6vzgECHMcaU3VKvqHHngI37s1MbYjo=";
 
   # meta = with lib; {
   #   homepage = "https://github.com/facebook/react/tree/master/packages/react-devtools-extensions/";

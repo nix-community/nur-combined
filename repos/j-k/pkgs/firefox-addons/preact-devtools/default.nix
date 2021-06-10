@@ -2,8 +2,8 @@
 
 fetchFirefoxAddon {
   name = "preact-devtools";
-  url = "https://addons.mozilla.org/firefox/downloads/file/3760867/preact_developer_tools-1.4.0-fx.xpi";
-  sha256 = "sha256-1TEPmUKfQCFoOJ/LsDa6xwb7kKJcWlZ16WjwUMxPY7Y=";
+  url = "https://addons.mozilla.org/firefox/downloads/file/3779571/preact_developer_tools-1.4.1-fx.xpi";
+  sha256 = "sha256-8BXwf8qnqfJ4lufeOw9aLJt7veLd5BfiasC0zhx9xyg=";
 
   # meta = with lib; {
   #   homepage = "https://preactjs.github.io/preact-devtools/";

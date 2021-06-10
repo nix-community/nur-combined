@@ -2,8 +2,8 @@
 
 fetchFirefoxAddon {
   name = "noscript";
-  url = "https://addons.mozilla.org/firefox/downloads/file/3771676/noscript_security_suite-11.2.7-an+fx.xpi";
-  sha256 = "sha256-xPILhfPxjT3NICEg4nvMWDE+PAC6iZcxk3AlsqgNSZQ=";
+  url = "https://addons.mozilla.org/firefox/downloads/file/3778947/noscript_security_suite-11.2.8-an+fx.xpi";
+  sha256 = "sha256-R0T52ZrL6d7DVXdl7dkXMnK0aByEJSKPtq9SST+FNGc=";
 
   # meta = with lib; {
   #   https://github.com/hackademix/noscript/
