@@ -14,8 +14,6 @@ in
       ./home.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -112,6 +110,14 @@ in
     };
   };
   my.displayManager.sddm.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    chrysalis
+  ];
+
+  services.udev.packages = with pkgs; [
+    packages.kaleidoscope-udev-rules
+  ];
 
   hardware.bluetooth = {
     enable = true;
