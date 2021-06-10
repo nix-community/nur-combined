@@ -32,13 +32,13 @@
 
 stdenv.mkDerivation rec {
   pname = "mapsoft";
-  version = "2021-06-07";
+  version = "2021-06-10";
 
   src = fetchFromGitHub {
     owner = "ushakov";
     repo = pname;
-    rev = "9f6bfff9ab82fc3dafa370c99b1bbbd9c025b6cf";
-    hash = "sha256-E5HMNeo3JXOZZgIjVIS/TbNY6f08Z4dt66zPKvBN26U=";
+    rev = "0fbf1e39f3d7fbe3f5c67f56997745ac6526c8b4";
+    hash = "sha256-fU7Nwa5jtt07JTOnuai0d2Tyk8N9Jq9PdwDOCl7FigE=";
   };
 
   patches = [ ./0001-fix-build.patch ];
@@ -50,10 +50,6 @@ stdenv.mkDerivation rec {
       --replace "/usr/share/mapsoft" "$out/share/mapsoft"
     substituteInPlace core/vmap/zn.cpp \
       --replace "/usr/share/mapsoft" "$out/share/mapsoft"
-    substituteInPlace vector/SConscript \
-      --replace "vmap4" ""
-    substituteInPlace programs/SConscript \
-      --replace "convs_gtiles" ""
   '';
 
   nativeBuildInputs = [
