@@ -1,4 +1,4 @@
-{ vscode-utils, stdenv }:
+{ vscode-utils, lib }:
 vscode-utils.buildVscodeMarketplaceExtension {
     mktplcRef = {
         name = "rust";
@@ -7,6 +7,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
         sha256 = "sha256-Y33agSNMVmaVCQdYd5mzwjiK5JTZTtzTkmSGTQrSNg0=";
     };
     meta = {
-      license = stdenv.lib.licenses.mit;
+      license = lib.licenses.mit;
     };
 }

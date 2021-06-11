@@ -1,4 +1,4 @@
-{ vscode-utils, stdenv }:
+{ vscode-utils, lib }:
 vscode-utils.buildVscodeMarketplaceExtension {
     mktplcRef = {
         name = "org-mode";
@@ -7,6 +7,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
         sha256 = "sha256-o9CIjMlYQQVRdtTlOp9BAVjqrfFIhhdvzlyhlcOv5rY=";
     };
     meta = {
-      license = stdenv.lib.licenses.mit;
+      license = lib.licenses.mit;
     };
 }
