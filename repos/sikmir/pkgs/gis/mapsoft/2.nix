@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     repo = pname;
     #rev = "${version}-alt1";
     rev = "0986827ffe1d733c815e5002ba027904b65b4088";
-    sha256 = "05zq3fk11wylfzkjpc51sv0lf279wbbpdf1ivm9c7j6m73vvh7md";
+    sha256 = "sha256-rR649zjVyMNS3TG4dtfi6QhHwdahsCvnd9TzEKYb+Bc=";
     fetchSubmodules = true;
   };
 

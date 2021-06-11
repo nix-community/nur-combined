@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "gloggery";
-  version = "2020-10-11";
+  version = "1.0";
 
   src = fetchFromGitHub {
     owner = "kconner";
     repo = pname;
-    rev = "49707b008cd6e3fb3ecb453a472051644fb319eb";
+    rev = "v${version}";
     hash = "sha256-tWTJXRtm/8cSEbK40fi9PVOg9w/qC0CBFZWyT7vSo80=";
   };
 
