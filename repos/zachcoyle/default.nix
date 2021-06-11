@@ -16,8 +16,6 @@
 
   kotlin-language-server = pkgs.callPackage ./pkgs/kotlin-language-server { };
 
-  mas = pkgs.callPackage ./pkgs/mas { };
-
   xcodeproj = pkgs.callPackage ./pkgs/xcodeproj { };
 
 }

@@ -6,11 +6,11 @@ with pkgs;
 
 stdenv.mkDerivation rec {
   pname = "kotlin-language-server";
-  version = "0.7.0";
+  version = "1.1.1";
 
   src = fetchzip {
     url = "https://github.com/fwcd/kotlin-language-server/releases/download/${version}/server.zip";
-    sha256 = "6r7cUIVxeEE+j6TlFyhx7cZhNd20iWk6E/H3alqOTts=";
+    sha256 = "aG+1LcL9d1FR3ZDyyRA82wgIe6JIxYTO5SKz2Srs9ok=";
   };
 
   buildPhase = ''
