@@ -6,6 +6,7 @@
 , merge-keepass
 , pykeepass
 , click
+, setuptools
 }:
 
 buildPythonPackage rec {
@@ -15,11 +16,11 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "sync-database";
-    rev = "20431f337db65ed628e5585fa55435546ed324ff";
-    sha256 = "102yn8ipwzsz08nrdjhc005f270wj41859jh1879d0qv6q6nb1pw";
+    rev = "cd57461009298229762b27e5ae3bf6100b6196cb";
+    sha256 = "0m9gac1b6haaifi69lwybq1hlp631jbxyj79ccfxchfjxanhjhrr";
   };
 
-  propagatedBuildInputs = [ libssh2 parallel-ssh merge-keepass pykeepass click ];
+  propagatedBuildInputs = [ setuptools libssh2 parallel-ssh merge-keepass pykeepass click ];
   
   doCheck = false;
   

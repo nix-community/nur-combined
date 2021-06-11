@@ -152,7 +152,7 @@ pkgs.lib.traceValFn (x:
   };
   sync-database = with pkgs.python3Packages; pkgs.callPackage ./pkgs/sync-database {
     inherit (self) parallel-ssh merge-keepass;
-    inherit buildPythonPackage pykeepass;
+    inherit buildPythonPackage pykeepass setuptools;
   };
   tabula-py = pkgs.callPackage ./pkgs/tabula-py {
     inherit (python_with_openpyxl305.pkgs) buildPythonPackage fetchPypi distro numpy pandas setuptools_scm setuptools;
