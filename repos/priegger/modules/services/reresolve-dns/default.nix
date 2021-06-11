@@ -21,6 +21,12 @@ in
   };
 
   config = mkIf cfg.enable {
+    warnings = [
+      ''
+        The `reresolve-dns' service is deprecated and will go away soon!
+        Please switch to `networking.wireguard.interfaces.<name>.peers.*.dynamicEndpointRefreshSeconds'.
+      ''
+    ];
 
     systemd.timers.reresolve-dns = {
       wantedBy = [ "timers.target" ];
