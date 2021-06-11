@@ -130,7 +130,10 @@ in
           # its class until after initialization, so has to be done this way.
           #
           # See https://i3wm.org/docs/userguide.html#assign_workspace
-          { criteria = { class = "Spotify"; }; command = "move to workspace 8"; }
+          {
+            criteria = { class = "Spotify"; };
+            command = "move --no-auto-back-and-forth to workspace 8";
+          }
         ];
       };
     };
