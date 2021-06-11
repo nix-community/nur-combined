@@ -5,13 +5,13 @@
 
 stdenv.mkDerivation rec {
   pname   = "prjxray-db";
-  version = "0.0-245-ge7663ba6";
+  version = "0.0-251-gc284338";
 
   src = fetchFromGitHub {
     owner  = "SymbiFlow";
     repo   = "prjxray-db";
-    rev    = "e7663ba6eb651a7255775c7dca4e32483a8cd9fb";
-    sha256 = "1w404xmmycs8y13bvqjax4g1y43jlx9dyras74r7n36mify2f7aq";
+    rev    = "c28433840752ff0da5b8353bfdeafed24148aa38";
+    sha256 = "19mi78vvh2mm75xksmayxphz1xdiljsfhdliqx5h6f91xk0falzx";
   };
 
   enableParallelBuilding = true;

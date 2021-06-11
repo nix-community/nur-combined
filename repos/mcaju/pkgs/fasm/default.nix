@@ -9,13 +9,13 @@
 
 buildPythonPackage rec {
   pname = "fasm";
-  version = "0.0.2-gaf39a4fb";
+  version = "0.0.2-g99f199f9";
 
   src = fetchFromGitHub {
     owner = "Symbiflow";
     repo = "fasm";
-    rev = "af39a4fb7adc367502ed91ac7f0b8f1c17f37ee8";
-    sha256 = "0swk4nks1lbx2cp4dz3z127sj0x4s7a3cbz47niy6gf0i73znijr";
+    rev = "99f199f9e32fd30c8adffcc73c13caf95a951c35";
+    sha256 = "12msxg24pxqqk4dj2431dj7vky6a3r5pi62sl90s7lw8yzqb7lwl";
   };
 
   nativeBuildInputs = [

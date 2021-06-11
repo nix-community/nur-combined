@@ -5,11 +5,11 @@
 
 stdenv.mkDerivation rec {
   pname = "scamper";
-  version = "20200923";
+  version = "20210324";
 
   src = fetchurl {
-    url = "https://www.caida.org/tools/measurement/scamper/code/scamper-cvs-${version}.tar.gz";
-    sha256 = "096305ci20dr1i19yan2nmsq52fb4ky2vmgrcr82n5cnlvcqi6fw";
+    url = "https://ftp.openbsd.org/pub/OpenBSD/distfiles/scamper-cvs-${version}.tar.gz";
+    sha256 = "0124rz96nzr5m2p25hcapggdbfgqvajawgrwvm2k1h07lw8wwb9k";
   };
 
   meta = with lib; {

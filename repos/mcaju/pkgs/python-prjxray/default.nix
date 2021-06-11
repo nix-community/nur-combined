@@ -3,17 +3,13 @@
 , fetchFromGitHub
 , buildPythonPackage
 , pytestCheckHook
+, fasm
 , intervaltree
+, kijewski-pyjson5
 , numpy
-, openpyxl
-, parse
 , prjxray-tools
-, progressbar
-, pyjson5
 , pyyaml
 , simplejson
-, fasm
-, textx
 }:
 
 buildPythonPackage rec {
@@ -25,14 +21,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     fasm
     intervaltree
+    kijewski-pyjson5
     numpy
-    openpyxl
-    parse
-    progressbar
-    pyjson5
     pyyaml
     simplejson
-    textx
   ];
 
   checkInputs = [

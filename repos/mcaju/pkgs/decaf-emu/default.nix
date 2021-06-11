@@ -31,8 +31,8 @@ let
       owner = "decaf-emu";
       repo = "decaf-emu";
       fetchSubmodules = true;
-      rev = "6feb1be1db3938e6da2d4a65fc0a7a8599fc8dd6";
-      sha256 = "1aa1ld00vczzndb3iy7i8zll4175gx20zgz003n5f03113jpr3as";
+      rev = "0cd56a2faa3b0f7d3f447a39ba9ad8449666e2f9";
+      sha256 = "1ab1ld00vczzndb3iy7i8zll4175gx20zgz003n5f03113jpr3as";
     };
 
     depsBuildBuild = [

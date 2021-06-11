@@ -4,6 +4,7 @@
 , buildPythonPackage
 , pytestCheckHook
 , intervaltree
+, prjxray-tools
 , python-prjxray
 , simplejson
 , fasm
@@ -12,13 +13,13 @@
 
 buildPythonPackage rec {
   pname = "xc-fasm";
-  version = "0.0.1-ge12f3133";
+  version = "0.0.1-gfc546c75";
 
   src = fetchFromGitHub {
     owner = "SymbiFlow";
     repo = "xc-fasm";
-    rev = "e12f31334e96fedf3af86d13cf51f70ad2270f5f";
-    sha256 = "0cx3wp0l7pijj735jz4v07ijkdacws3c3aiafxnziyspmxaclghs";
+    rev = "fc546c75eb9de814024d71e45d740a6eb197b180";
+    sha256 = "0shahvr0sq6dsfdizc2h8a1xmgx5nwljpi05332mfssmvln1kzl3";
   };
 
   propagatedBuildInputs = [
@@ -29,7 +30,9 @@ buildPythonPackage rec {
     textx
   ];
 
-  doCheck = false;
+  postInstall = ''
+    wrapProgram $out/bin/xcfasm --prefix PATH : ${lib.makeBinPath [ prjxray-tools ]}
+  '';
 
   meta = with lib; {
     description = "XC FASM libraries";

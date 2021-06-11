@@ -6,14 +6,14 @@
 
 stdenv.mkDerivation rec {
   pname   = "prjxray-tools";
-  version = "0.1-2836-gf3028e15";
+  version = "0.1-2928-gda7bf6a0";
 
   src = fetchFromGitHub {
     owner  = "SymbiFlow";
     repo   = "prjxray";
     fetchSubmodules = true;
-    rev    = "f3028e157e5f554e085af2a58247e2c8c7be0f3b";
-    sha256 = "1dxljmcmkfyl6vd6m7d31bfqcijm68k718rf082lf4l6rx32wfwm";
+    rev    = "da7bf6a0789c9c573cb3f43307cbd99d570ebcde";
+    sha256 = "17i5xf61q4j4g3k0iwl6phkpn5wqzcv6xz2j9rr3fd192bmsqwxn";
   };
 
   nativeBuildInputs = [ cmake ];

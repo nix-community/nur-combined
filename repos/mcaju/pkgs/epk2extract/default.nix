@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "openlgtv";
     repo = pname;
-    rev = "0914ee8ade32c03f70b9d69d837e57ef851a6431";
-    sha256 = "03l9mzi1ak20w82619207yfniy71ydn2cd4fy1az2ph07z4vcn9f";
+    rev = "9d6a7288122fa6e788d529530e3807188c888e2a";
+    sha256 = "1f09r046jyxg8725wvdnxxj4jp4b1bwa40b41fljj9094hi3kx7l";
   };
 
   nativeBuildInputs = [
