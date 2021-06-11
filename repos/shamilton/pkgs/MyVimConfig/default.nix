@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ coreutils ];
 
-  patches = [ ./remove-pathogen.patch ~/GIT/vimconfig/patch.patch ];
+  patches = [ ./remove-pathogen.patch ];
 
   postPatch = ''
     find . -maxdepth 1 | egrep -v "^\./ftplugin$|^\./vimrc$|^\.$" | xargs -n1 -L1 -r -I{} rm -rf {}

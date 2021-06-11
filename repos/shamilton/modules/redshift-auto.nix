@@ -1,5 +1,5 @@
 { config, lib, pkgs, options,
-home, modulesPath
+home, modulesPath, specialArgs
 }:
 
 with lib;

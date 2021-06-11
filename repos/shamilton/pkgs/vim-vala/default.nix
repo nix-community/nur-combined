@@ -1,5 +1,4 @@
-{ pkgs
-, lib
+{ lib
 , buildVimPluginFrom2Nix
 , fetchFromGitHub
 , coreutils

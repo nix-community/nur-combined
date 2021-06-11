@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , mkDerivation
 , qmake
@@ -10,16 +11,14 @@
 
 mkDerivation rec {
   pname = "UnoconvUI";
-  version = "unstable";
+  version = "2020-12-30";
 
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "UnoconvUI";
-    rev = "df87c0222045599bc467fef996e6dcadf41b8ca5";
-    sha256 = "05jkapp22rdvliaf29sv4ywpy8cpi5p6nv2wkkwwi0qbmcbdqqw2";
+    rev = "6a3d9ecf2be3739920d5514f75b4ab2539ee66a6";
+    sha256 = "1hzj8l4pds5zbw128cryynmk0cwnfj1bsadgv8r16wcghaxrcxyj";
   };
-
-  # src = ./src.tar.gz;
 
   nativeBuildInputs = [ qmake qttools librsvg ];
   propagatedBuildInputs = [ qtquickcontrols2 ];
@@ -29,7 +28,7 @@ mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "MS Office files conversion client for the Unoconv Web Service";
     license = licenses.mit;
     homepage = "https://github.com/SCOTT-HAMILTON/UnoconvUI";

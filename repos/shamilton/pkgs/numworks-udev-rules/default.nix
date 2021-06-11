@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ stdenv, lib, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "numworks-udev-rules";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     install -Dm 644 "${udevRules}" "$out/lib/udev/rules.d/50-numworks-calculator.rules"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Udev rules for Numworks calculators";
     homepage = "https://numworks.com";
     license = licenses.gpl3;

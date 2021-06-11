@@ -1,5 +1,4 @@
-{ pkgs
-, lib
+{ lib
 , fetchFromGitHub
 , buildVimPluginFrom2Nix
 , vim-async

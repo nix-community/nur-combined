@@ -1,6 +1,6 @@
 { lib
 , mkDerivation
-, fetchurl
+, fetchFromGitLab
 , cmake
 , extra-cmake-modules
 , qtbase
@@ -8,14 +8,17 @@
 , phonon
 , taglib
 }:
-mkDerivation {
 
+mkDerivation rec {
   pname = "juk";
   version = "20.08.2";
 
-  src = fetchurl {
-    url = "mirror://kde/stable/release-service/20.08.2/src/juk-20.08.2.tar.xz";
-    sha256 = "0q7cqwkdi8rrmd79d68ndcl2w4cjvgkdvgcz8qsw7i40ijnmk7xi";
+  src = fetchFromGitLab {
+    domain = "invent.kde.org";
+    owner = "multimedia";
+    repo = "juk";
+    rev = "v${version}";
+    sha256 = "1miqa83bp1jxflzchg7bfn606487z3lx7iwpb26ns9dv472bdfbh";
   };
 
   nativeBuildInputs = [ extra-cmake-modules cmake  ];

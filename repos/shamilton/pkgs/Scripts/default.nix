@@ -1,5 +1,4 @@
-{ pkgs
-, lib
+{ lib
 , stdenv
 , fetchFromGitHub
 , perl

@@ -5,12 +5,7 @@
 , click
 , pytest
 }:
-let 
-  pyModuleDeps = [
-    pykeepass
-    click
-  ];
-in
+
 buildPythonPackage rec {
   pname = "merge-keepass";
   version = "unstable";
@@ -18,13 +13,11 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "merge-keepass";
-    rev = "32dbbe7c6db5d3c0c5a43b7d7b8b97abda45c6a7";
-    sha256 = "0van65l37374v9r14rhl9aqw4lfp27kkns8a6b32al4hijw80lvb";
+    rev = "c9e2df22d0464b6d90ef3f47e1ba24d9a1b64495";
+    sha256 = "0nhjy0n9siw9s0cfnkvfzz11d4a7rd17vjpy5j62zn4jw3shqs89";
   };
 
-  buildInputs = pyModuleDeps;
-  propagatedBuildInputs = pyModuleDeps;
-
+  propagatedBuildInputs = [ pykeepass click ];
   checkInputs = [ pytest ];
 
   checkPhase = ''

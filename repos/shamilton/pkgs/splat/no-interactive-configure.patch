@@ -1,0 +1,222 @@
+diff --color -ur a/configure b/configure
+--- a/configure	2009-09-10 02:44:24.000000000 +0200
++++ b/configure	2021-04-23 20:07:32.704365319 +0200
+@@ -9,29 +9,31 @@
+ ans=""
+ whoami=`whoami`
+ 
+-until [ "$ans" = "2" ] || [ "$ans" = "3" ] || [ "$ans" = "4" ] || [ "$ans" = "5" ] || [ "$ans" = "6" ] || [ "$ans" = "7" ] || [ "$ans" = "8" ]; do
++# until [ "$ans" = "2" ] || [ "$ans" = "3" ] || [ "$ans" = "4" ] || [ "$ans" = "5" ] || [ "$ans" = "6" ] || [ "$ans" = "7" ] || [ "$ans" = "8" ]; do
+ 
+-	clear
+-	echo
+-	echo -e "\t  ******************************************************"
+-	echo -e "\t  **   SPLAT! Standard Resolution Mode Configuration  **"
+-	echo -e "\t  ******************************************************\n"
+-	echo -e "\t   Please select the Maximum Analysis Region capability"
+-	echo -e "\t   you would like SPLAT! to possess when operating in"
+-	echo -e "\t   3 arc-second (standard) resolution mode based on"
+-	echo -e "\t   the amount of free memory available for SPLAT!:\n"
+-	echo -e "\t   Maximum Analysis Region       RAM + Swap Requirement"
+-	echo -e "\t   ====================================================\n"
+-	echo -e "\t   (2)  2 x 2 Degrees  ---------   25 Megabytes minimum"
+-	echo -e "\t   (3)  3 x 3 Degrees  ---------   52 Megabytes minimum"
+-	echo -e "\t   (4)  4 x 4 Degrees  ---------   95 Megabytes minimum"
+-	echo -e "\t   (5)  5 x 5 Degrees  ---------  145 Megabytes minimum"
+-	echo -e "\t   (6)  6 x 6 Degrees  ---------  210 Megabytes minimum"
+-	echo -e "\t   (7)  7 x 7 Degrees  ---------  285 Megabytes minimum"
+-	echo -e "\t   (8)  8 x 8 Degrees  ---------  370 Megabytes minimum\n"
+-	echo -n "Your choice: "
+-	read ans
+-done
++# 	clear
++# 	echo
++# 	echo -e "\t  ******************************************************"
++# 	echo -e "\t  **   SPLAT! Standard Resolution Mode Configuration  **"
++# 	echo -e "\t  ******************************************************\n"
++# 	echo -e "\t   Please select the Maximum Analysis Region capability"
++# 	echo -e "\t   you would like SPLAT! to possess when operating in"
++# 	echo -e "\t   3 arc-second (standard) resolution mode based on"
++# 	echo -e "\t   the amount of free memory available for SPLAT!:\n"
++# 	echo -e "\t   Maximum Analysis Region       RAM + Swap Requirement"
++# 	echo -e "\t   ====================================================\n"
++# 	echo -e "\t   (2)  2 x 2 Degrees  ---------   25 Megabytes minimum"
++# 	echo -e "\t   (3)  3 x 3 Degrees  ---------   52 Megabytes minimum"
++# 	echo -e "\t   (4)  4 x 4 Degrees  ---------   95 Megabytes minimum"
++# 	echo -e "\t   (5)  5 x 5 Degrees  ---------  145 Megabytes minimum"
++# 	echo -e "\t   (6)  6 x 6 Degrees  ---------  210 Megabytes minimum"
++# 	echo -e "\t   (7)  7 x 7 Degrees  ---------  285 Megabytes minimum"
++# 	echo -e "\t   (8)  8 x 8 Degrees  ---------  370 Megabytes minimum\n"
++# 	echo -n "Your choice: "
++# 	read ans
++# done
++
++export ans=$standard_resolution_mode
+ 
+ # Build std-parms.h file that will be copied into splat.h at compilation time
+ 
+@@ -71,32 +73,34 @@
+ 
+ ans=""
+ 
+-until [ "$ans" = "0" ] || [ "$ans" = "1" ] || [ "$ans" = "2" ] || [ "$ans" = "3" ] || [ "$ans" = "4" ] || [ "$ans" = "5" ] || [ "$ans" = "6" ] || [ "$ans" = "7" ] || [ "$ans" = "8" ]; do
++# until [ "$ans" = "0" ] || [ "$ans" = "1" ] || [ "$ans" = "2" ] || [ "$ans" = "3" ] || [ "$ans" = "4" ] || [ "$ans" = "5" ] || [ "$ans" = "6" ] || [ "$ans" = "7" ] || [ "$ans" = "8" ]; do
++
++# 	clear
++# 	echo
++# 	echo -e "\t  ******************************************************"
++# 	echo -e "\t  **   SPLAT! HD High Resolution Mode Configuration   **"
++# 	echo -e "\t  ******************************************************\n"
++# 	echo -e "\t   Please select the Maximum Analysis Region capability"
++# 	echo -e "\t   you would like SPLAT! to possess when operating in"
++# 	echo -e "\t   1 arc-second (HD) resolution mode based on the amount"
++# 	echo -e "\t   of free memory available for SPLAT!  Selections 6, 7,"
++# 	echo -e "\t   and 8 are suitable for 64-BIT SYSTEMS ONLY:\n"
++# 	echo -e "\t   Maximum Analysis Region       RAM + Swap Requirement"
++# 	echo -e "\t   ====================================================\n"
++# 	echo -e "\t   (1)  1 x 1 Degrees  ---------   52 Megabytes minimum"
++# 	echo -e "\t   (2)  2 x 2 Degrees  ---------  225 Megabytes minimum"
++# 	echo -e "\t   (3)  3 x 3 Degrees  ---------  468 Megabytes minimum"
++# 	echo -e "\t   (4)  4 x 4 Degrees  ---------  855 Megabytes minimum"
++# 	echo -e "\t   (5)  5 x 5 Degrees  --------- 1305 Megabytes minimum"
++# 	echo -e "\t   (6)  6 x 6 Degrees  --------- 1890 Megabytes minimum"
++# 	echo -e "\t   (7)  7 x 7 Degrees  --------- 2565 Megabytes minimum"
++# 	echo -e "\t   (8)  8 x 8 Degrees  --------- 3330 Megabytes minimum"
++# 	echo -e "\t   (0)  None of the above.  Do not build SPLAT! HD.\n"
++# 	echo -n "Your choice: "
++# 	read ans
++# done
+ 
+-	clear
+-	echo
+-	echo -e "\t  ******************************************************"
+-	echo -e "\t  **   SPLAT! HD High Resolution Mode Configuration   **"
+-	echo -e "\t  ******************************************************\n"
+-	echo -e "\t   Please select the Maximum Analysis Region capability"
+-	echo -e "\t   you would like SPLAT! to possess when operating in"
+-	echo -e "\t   1 arc-second (HD) resolution mode based on the amount"
+-	echo -e "\t   of free memory available for SPLAT!  Selections 6, 7,"
+-	echo -e "\t   and 8 are suitable for 64-BIT SYSTEMS ONLY:\n"
+-	echo -e "\t   Maximum Analysis Region       RAM + Swap Requirement"
+-	echo -e "\t   ====================================================\n"
+-	echo -e "\t   (1)  1 x 1 Degrees  ---------   52 Megabytes minimum"
+-	echo -e "\t   (2)  2 x 2 Degrees  ---------  225 Megabytes minimum"
+-	echo -e "\t   (3)  3 x 3 Degrees  ---------  468 Megabytes minimum"
+-	echo -e "\t   (4)  4 x 4 Degrees  ---------  855 Megabytes minimum"
+-	echo -e "\t   (5)  5 x 5 Degrees  --------- 1305 Megabytes minimum"
+-	echo -e "\t   (6)  6 x 6 Degrees  --------- 1890 Megabytes minimum"
+-	echo -e "\t   (7)  7 x 7 Degrees  --------- 2565 Megabytes minimum"
+-	echo -e "\t   (8)  8 x 8 Degrees  --------- 3330 Megabytes minimum"
+-	echo -e "\t   (0)  None of the above.  Do not build SPLAT! HD.\n"
+-	echo -n "Your choice: "
+-	read ans
+-done
++export ans=$high_resolution_mode
+ 
+ if [ "$ans" != "0" ]; then
+ 
+@@ -151,17 +155,9 @@
+ echo "            *****************************************************"
+ echo
+ ./build all
+-if [ "$whoami" = "root" ]; then
+-	echo -e "\nNow installing SPLAT! and associated utilities..."
+-	echo
+-	./install all
+-else
+-	echo
+-	echo "To install SPLAT! and its associated utilities, please"
+-	echo "su to 'root' and execute the install script as follows:"
+-	echo
+-	echo -e "\t./install all"
+-fi
++echo -e "\nNow installing SPLAT! and associated utilities..."
++echo
++./install all
+ echo
+ echo "Don't forget to read the documentation under the docs directory"
+ echo "as well as the various README files in the splat and splat/utils"
+diff --color -ur a/install b/install
+--- a/install	2009-03-01 18:28:26.000000000 +0100
++++ b/install	2021-04-23 20:02:45.845584351 +0200
+@@ -54,27 +54,22 @@
+ if [ "$#" = "0" ]; then
+ 	echo "Usage: ./install { splat, utils, man, all }"
+ else
+-	if [ "$whoami" = "root" ]; then
+-
+-		if [ "$1" = "splat" ] && [ -x splat ]; then
+-			install_splat
+-		fi
++	if [ "$1" = "splat" ] && [ -x splat ]; then
++		install_splat
++	fi
+ 
+-		if [ "$1" = "utils" ]; then
+-			install_utils
+-		fi
++	if [ "$1" = "utils" ]; then
++		install_utils
++	fi
+ 
+-		if [ "$1" = "man" ]; then
+-			install_man
+-		fi
++	if [ "$1" = "man" ]; then
++		install_man
++	fi
+ 
+-		if [ "$1" = "all" ] && [ -x splat ]; then
+-			install_splat
+-			install_utils
+-			install_man
+-		fi
+-	else
+-		echo "Sorry, $whoami.  You need to be 'root' to install this software.  :-("
++	if [ "$1" = "all" ] && [ -x splat ]; then
++		install_splat
++		install_utils
++		install_man
+ 	fi
+ 
+ 	if [ "$1" != "splat" ] && [ "$1" != "utils" ] && [ "$1" != "man" ] && [ "$1" != "all" ]; then
+diff --color -ur a/utils/install b/utils/install
+--- a/utils/install	2009-03-01 18:36:21.000000000 +0100
++++ b/utils/install	2021-04-23 20:07:03.261115216 +0200
+@@ -32,31 +32,27 @@
+ 
+ whoami=`whoami`
+ 
+-if [ "$whoami" != "root" ]; then
+-	echo "Sorry, $whoami.  You need to be 'root' to install this software.  :-("
+-fi
+-
+ if [ "$#" = "0" ]; then
+ 	echo "Usage: ./install  { citydecoder, srtm2sdf, usgs2sdf, fontdata, all }"
+ else 
+ 
+-	if [ "$1" = "citydecoder" ] && [ "$whoami" = "root" ] && [ -x citydecoder ]; then
++	if [ "$1" = "citydecoder" ] && [ -x citydecoder ]; then
+ 		install_citydecoder
+ 	fi
+ 
+-	if [ "$1" = "srtm2sdf" ] && [ "$whoami" = "root" ] && [ -x srtm2sdf ]; then
++	if [ "$1" = "srtm2sdf" ] && [ -x srtm2sdf ]; then
+ 		install_srtm2sdf
+ 	fi
+ 
+-	if [ "$1" = "usgs2sdf" ] && [ "$whoami" = "root" ] && [ -x usgs2sdf ]; then
++	if [ "$1" = "usgs2sdf" ] && [ -x usgs2sdf ]; then
+ 		install_usgs2sdf
+ 	fi
+ 
+-	if [ "$1" = "fontdata" ] && [ "$whoami" = "root" ] && [ -x fontdata ]; then
++	if [ "$1" = "fontdata" ] && [ -x fontdata ]; then
+ 		install_fontdata
+ 	fi
+ 
+-	if [ "$1" = "all" ]  && [ "$whoami" = "root" ]; then
++	if [ "$1" = "all" ]; then
+ 		if [ -x citydecoder ]; then
+ 			install_citydecoder
+ 		fi

@@ -1,22 +1,24 @@
 { lib
 , mkDerivation
-, fetchurl
+, fetchFromGitLab
 , cmake
 , extra-cmake-modules
 , qtbase
 , kactivities
 , libkdegames
 }:
-mkDerivation {
 
+mkDerivation rec {
   pname = "Killbots";
-  version = "19.12.3";
+  version = "20.08.2";
 
-  src = fetchurl {
-      url = "mirror://kde/stable/release-service/19.12.3/src/killbots-19.12.3.tar.xz";
-      sha256 = "3c5dc7e1f27036d2584f6ee58bf3bbffd9e56a467f30a8e2eab9e1bda1e7d4a3";
-      name = "killbots-19.12.3.tar.xz";
-    };
+  src = fetchFromGitLab {
+    domain = "invent.kde.org";
+    owner = "games";
+    repo = "killbots";
+    rev = "v${version}";
+    sha256 = "1pf71ha7lrikf26nvrqihnd373v0crfbk2d028pfiwg5si3jdw4s";
+  };
 
   nativeBuildInputs = [ extra-cmake-modules cmake  ];
 

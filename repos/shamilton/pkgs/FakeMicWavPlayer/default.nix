@@ -11,16 +11,16 @@
 , libogg
 , argparse
 }:
-stdenv.mkDerivation {
 
+stdenv.mkDerivation {
   pname = "FakeMicWavPlayer";
   version = "unstable";
 
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "FakeMicWavPlayer";
-    rev = "ab290aaae70b0e94a6958ea7528b2cadaa37dda6";
-    sha256 = "08390bf7szgcyal0m5py8xpjncnfjwavkip24r2cmzx9dbc0jkbn";
+    rev = "c5ecb7cd0c2cb142806dcbbc8e2f8ea5afb6c28c";
+    sha256 = "17vlsihpkfkl408w1cyjm8zxv07v5gcs1q46ab39l4g2rdxg5072";
   };
 
   # src = ./src.tar.gz;

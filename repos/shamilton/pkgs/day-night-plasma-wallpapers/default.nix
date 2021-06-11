@@ -4,15 +4,15 @@
 , dbus-python
 , coreutils
 }:
-stdenv.mkDerivation rec {
 
+stdenv.mkDerivation rec {
   pname = "day-night-plasma-wallpapers";
-  version = "unstable";
+  version = "2020-05-30";
 
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "Day-night-plasma-wallpapers";
-    rev = "master";
+    rev = "1f6124fbc4f1297ada77d6d3155b5b494455c316";
     sha256 = "0ribzd0svp9sp0j87lhfqb7kivh3hw38ldvr5ps8qkr778460fdl";
   };
 

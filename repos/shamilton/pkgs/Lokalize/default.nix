@@ -12,10 +12,10 @@
 , kross
 , breakpointHook
 }:
-mkDerivation rec {
 
+mkDerivation rec {
   pname = "Lokalize";
-  version = "20.04.1";
+  version = "21.04.0";
 
   src = fetchFromGitHub {
     owner = "KDE";

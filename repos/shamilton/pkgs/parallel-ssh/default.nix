@@ -4,33 +4,30 @@
 , fetchPypi
 , paramiko
 , gevent
+, ssh-python
 , ssh2-python
 , openssh
 , libssh2
 }:
-let 
-  pyModuleDeps = [
-    # libkeepass
-    setuptools
-    gevent
-    paramiko
-    ssh2-python
-  ];
-in
+
 buildPythonPackage rec {
   pname = "parallel-ssh";
-  version = "1.9.1";
+  version = "2.5.4";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0s8359f8mr3lqb3yi2cv65hdl9q97rrfxrwp4ib1cdf7kf6cy7yv";
+    sha256 = "01r8ajq2vic6l9rihailv5a100gwf6k4mswbmaqyrjr39h0pg571";
   };
   
-  buildInputs = pyModuleDeps;
-  propagatedBuildInputs = pyModuleDeps ++ [ libssh2 ];
+  propagatedBuildInputs = [
+    gevent
+    paramiko
+    ssh-python
+    ssh2-python
+    libssh2
+  ];
   
-  # Checks fails with libssh2.so.1 missing, while libssh2 in checkInputs
-  doCheck = false;
+  doCheck = true;
 
   meta = with lib; {
     description = "Asynchronous parallel SSH client library";

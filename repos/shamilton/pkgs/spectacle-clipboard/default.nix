@@ -28,8 +28,8 @@ mkDerivation {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "spectacle";
-    rev = "master";
-    sha256 = "0zwxsm7a66637dakzw5qrh8mar6h7pmyhfyg88v517wqps43kzly";
+    rev = "678004f9fab0d678c72b5b0269e4bd0d82ef45f7";
+    sha256 = "0xs5jbj9f13lacni5i506b4w138bvf3d6cy6h1wa2z8jzmb5nx5c";
   };
 
   postPatch = ''

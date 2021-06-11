@@ -16,11 +16,9 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "PronoteBot";
-    rev = "6a32db8e1ae6c222a18cfa2074d2a591423f2ee5";
-    sha256 = "196jf20afci5pmz5p233ma676z9xdb7i2k97vfs89brbw99k9f45";
+    rev = "4033ba7c937f9fbdb50416ecb8bd030754392770";
+    sha256 = "1lblqb98lmxw3n90zggy0hqx9zgml2gwbgpnyajqrnkj3p2grfjj";
   };
-
-  # src = ./src.tar.gz;
 
   propagatedBuildInputs = [
     click

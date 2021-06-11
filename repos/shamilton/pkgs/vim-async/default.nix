@@ -1,5 +1,4 @@
-{ pkgs
-, lib
+{ lib
 , buildVimPluginFrom2Nix
 , fetchFromGitHub
 , coreutils
@@ -7,13 +6,13 @@
 buildVimPluginFrom2Nix {
 
   pname = "vim-async";
-  version = "2020-03-17";
+  version = "2020-06-27";
 
   src = fetchFromGitHub {
     owner = "prabirshrestha";
     repo = "async.vim";
-    rev = "42371b5fb2cc07254295ff6beb3ca7cf235b7ede";
-    sha256 = "1c6ymxm28hpai1ki5y5a2m6qh5129nqn1fxiq9xnlzfrlbjl8vil";
+    rev = "0fb846e1eb3c2bf04d52a57f41088afb3395212e";
+    sha256 = "1glzg0i53wkm383y1vbddbyp1ivlsx2hivjchiw60sr9gccn8f8l";
   };
 
   meta = with lib; {

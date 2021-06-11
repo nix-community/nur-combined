@@ -1,19 +1,18 @@
-{ pkgs
-, lib
+{ lib
 , buildVimPluginFrom2Nix
 , fetchFromGitHub
 , coreutils
 }:
-buildVimPluginFrom2Nix {
 
+buildVimPluginFrom2Nix {
   pname = "vim-asyncomplete-lsp";
-  version = "2020-05-25";
+  version = "2020-06-27";
 
   src = fetchFromGitHub {
     owner = "prabirshrestha";
     repo = "asyncomplete-lsp.vim";
-    rev = "0357e956fa143b3824c6a032c5b6c9b7ef744c23";
-    sha256 = "10cccsfp435is42q0n2bbpccl2lppda2adjv4i7z3hkjk55azr6j";
+    rev = "684c34453db9dcbed5dbf4769aaa6521530a23e0";
+    sha256 = "0vqx0d6iks7c0liplh3x8vgvffpljfs1j3g2yap7as6wyvq621rq";
   };
 
   meta = with lib; {

@@ -1,0 +1,36 @@
+diff --color -ur a/wavetrace/main.py b/wavetrace/main.py
+--- a/wavetrace/main.py	2021-04-24 21:25:48.154978404 +0200
++++ b/wavetrace/main.py	2021-04-24 21:38:59.454928827 +0200
+@@ -676,24 +676,24 @@
+     NOTES:
+         - It would be good to rewrite this function so that it does not depend on internet access. For starters, see `https://github.com/vandry/geoidheight <https://github.com/vandry/geoidheight>`_, which uses the EGM2008 ellipsoid.
+     """
+-    url = 'https://geographiclib.sourceforge.io/cgi-bin/GeoidEval'
+-    data = {'input': '{!s}+{!s}'.format(lat, lon)}
++    url = 'https://geographiclib.sourceforge.io/cgi-bin/GeoidEval?input={!s}+{!s}'.format(lat,lon)
++    # data = {'input': '{!s}+{!s}'.format(lat, lon), 'option':'Submit'}
++    print(url)
+     pattern = r'EGM96</a>\s*=\s*<font color="blue">([\d\.\-]+)</font>'
+-    
++
+     for i in range(num_tries):
+-        r = requests.get(url, data)
++        r = requests.get(url)
+         if r.status_code != requests.codes.ok:
+             continue
+-            
+         m = re.search(pattern, r.text)
+         if m is None:
+             raise ValueError('Failed to parse data from', url)
+         else:
+-            return float(m.group(1)) 
+-        
++            return float(m.group(1))
++
+     raise ValueError('Failed to download data from', url)
+ 
+-def compute_satellite_los(in_path, satellite_lon, out_path, n=3, 
++def compute_satellite_los(in_path, satellite_lon, out_path, n=3,
+   make_shp=False):
+     """
+     Given the path ``in_path`` to an SRTM1 or SRTM3 file and the longitude of a geostationary satellite, color with 8-bits of grayscale (pixel values from 0 to 255) the raster cells according to whether they are out (blackish, close to 0) or in (whitish, close to 255) of the line-of-site of the satellite, and save the result as a GeoTIFF file located at ``out_path``.

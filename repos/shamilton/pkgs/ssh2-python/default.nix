@@ -10,26 +10,19 @@
 , pytest
 , breakpointHook
 }:
-let 
-  pyModuleDeps = with python38Packages; [
-    cython
-  ];
-in
 buildPythonPackage rec {
   pname = "ssh2-python";
-  version = "0.17.0";
+  version = "0.26.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0kfs0yv2pfz3kklmvaapgsz593r2l1nm2qzmci0vvlq13jn1qf38";
+    sha256 = "17llrzzmsfdd2sv4mhvx40azd28yihay33qspncvrlhjq68i4mgq";
   };
-
   
   nativeBuildInputs = [ breakpointHook cmake setuptools ];
+  buildInputs = [ openssl zlib ];
+  propagatedBuildInputs = [ cython ];
   cmakeDir = "../libssh2";
-
-  buildInputs = pyModuleDeps ++ [ openssl zlib ];
-  propagatedBuildInputs = pyModuleDeps;
 
   checkInputs = [ pytest ];
 

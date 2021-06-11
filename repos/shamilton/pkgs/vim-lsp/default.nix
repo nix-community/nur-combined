@@ -1,5 +1,4 @@
-{ pkgs
-, lib
+{ lib
 , fetchFromGitHub
 , buildVimPluginFrom2Nix
 , vim-async
@@ -7,13 +6,13 @@
 buildVimPluginFrom2Nix rec {
 
   pname = "vim-lsp";
-  version = "0.1.1";
+  version = "0.1.4";
 
   src = fetchFromGitHub {
     owner = "prabirshrestha";
     repo = "vim-lsp";
     rev = "v${version}";
-    sha256 = "14dy0y671z6xir7i8i01k8lwws9dl0z3l41v57a00a43hya6s9fp";
+    sha256 = "1x9rb34a9542rn2dx2kaz4iq83swpq56144h81pr8l080r6vi2l6";
   };
 
   buildInputs = [ vim-async ];

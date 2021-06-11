@@ -1,6 +1,5 @@
+{ patched-tabbed }:
 self: super:
 {
-  tabbed = super.tabbed.override {
-    patches = [ ./keys.patch ];
-  };
+  tabbed = patched-tabbed;
 }

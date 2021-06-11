@@ -1,5 +1,4 @@
-{ pkgs
-, lib
+{ lib
 , buildVimPluginFrom2Nix
 , fetchFromGitHub
 , coreutils
@@ -15,8 +14,6 @@ buildVimPluginFrom2Nix {
     rev = "77fbc4befaea0654fdfcf7d6bf0f2f7f9f87904d";
     sha256 = "0cdrc72342ys7p9mxvdsw57wvl9l2x64k3gs298yx3f4j4kpx2ja";
   };
-
-  patches = [ ~/GIT/vimconfig/patch.patch ];
 
   buildInputs = [ coreutils ];
 

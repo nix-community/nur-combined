@@ -1,7 +1,8 @@
 language: nix
 nix: 2.3.4
+dist: xenial
+os: linux
 
-sudo: false
 
 env:
   global:
@@ -14,50 +15,53 @@ env:
     # For this to work, you also need to set the  CACHIX_SIGNING_KEY
     # in your repository settings in Travis.
     - CACHIX_CACHE=scott-hamilton
-    # Set this to notify the global nur package registry that changes are
-    # available.
-    #
-    # The repo name as used in
-    # https://github.com/nix-community/NUR/blob/master/repos.json
+      # Set this to notify the global nur package registry that changes are
+      # available.
+      #
+      # The repo name as used in
+      # https://github.com/nix-community/NUR/blob/master/repos.json
     - NUR_REPO=shamilton
-    # Certain packages are marked as broken to disable NUR from building them,
-    # we want them to build build anyways as they're still useful
+      # Certain packages are marked as broken to disable NUR from building them,
+      # we want them to build build anyways as they're still useful
     - NIXPKGS_ALLOW_BROKEN=1
+    - NIXPKGS_ALLOW_UNFREE=1
 
 branches:
   only:
-  - master
-  - nixpkgs-unstable
-  - nixos-unstable
+    - master
 
 matrix:
   include:
-    - if: branch = nixpkgs-unstable
-      env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable NIXPKGS_ALLOW_UNFREE=1
-    - if: branch = nixos-unstable
-      env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable NIXPKGS_ALLOW_UNFREE=1
-    - if: branch = master
-      env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.09 NIXPKGS_ALLOW_UNFREE=1
+    - env: NIXOS_VERSION=master NIX_CHANNEL=nixos-20.09
+    - env: NIXOS_VERSION=nixos-unstable NIX_CHANNEL=nixos-unstable
+    - env: NIXOS_VERSION=nixpkgs-unstable NIX_CHANNEL=nixpkgs-unstable 
 
 install:
- - nix --version
- # for cachix we need travis to be a trusted nix user
- - echo "trusted-users = $USER" | sudo tee -a /etc/nix/nix.conf
- - sudo systemctl restart nix-daemon
- - travis_retry nix-channel --update
- - nix-env -iA cachix -f https://cachix.org/api/v1/install
- - cachix authtoken "${CACHIX_AUTH_TOKEN}"
- - cachix use "${CACHIX_CACHE}"
- - nix-channel --add "${NIX_CHANNEL}" nixpkgs
- - travis_retry nix-channel --update
+  - nix --version
+    # for cachix we need travis to be a trusted nix user
+  - echo "trusted-users = $USER" | sudo tee -a /etc/nix/nix.conf
+  - sudo systemctl restart nix-daemon
+  - travis_retry nix-channel --update
+  - nix-env -iA cachix -f https://cachix.org/api/v1/install
+  - cachix authtoken "${CACHIX_AUTH_TOKEN}"
+  - cachix use "${CACHIX_CACHE}"
+  - nix-channel --add "https://nixos.org/channels/${NIX_CHANNEL}" "${NIX_CHANNEL}"
+  - travis_retry nix-channel --update
+
+before_script:
+  - sudo mkdir -p /etc/nix && echo 'sandbox = true' | sudo tee /etc/nix/nix.conf
+  - ls -lh $HOME/.nix-defexpr/channels
+  - export NIX_PATH=$HOME/.nix-defexpr/channels:$NIX_PATH
 
 script:
- - nix-build
- - nix eval -f default.nix 'lib'
- - nix eval -f default.nix 'modules'
- - nix eval -f default.nix 'overlays'
+  - echo "${NIX_PATH}"
+  - nix-channel --list
+  - nix-build --arg pkgs "import <${NIX_CHANNEL}> {}" --argstr nixosVersion "${NIXOS_VERSION}" all-unbroken.nix
+  - nix eval --arg pkgs "import <${NIX_CHANNEL}> {}" --argstr nixosVersion "${NIXOS_VERSION}" -f default.nix 'lib'
+  - nix eval --arg pkgs "import <${NIX_CHANNEL}> {}" --argstr nixosVersion "${NIXOS_VERSION}" -f default.nix 'modules'
+  - nix eval --arg pkgs "import <${NIX_CHANNEL}> {}" --argstr nixosVersion "${NIXOS_VERSION}" -f default.nix 'overlays'
 
 after_success:
-  - nix-build | cachix push "${CACHIX_CACHE}"
+  - nix-build --argstr nixosVersion "${{ matrix.channel-branch }}" all-unbroken.nix | cachix push "${CACHIX_CACHE}"
   - if [ "cron" != "${TRAVIS_EVENT_TYPE}" -a "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
-      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
+    curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi

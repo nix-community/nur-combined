@@ -1,0 +1,21 @@
+diff --color -ur a/source/dialogs/drun.c b/source/dialogs/drun.c
+--- a/source/dialogs/drun.c	2020-11-22 22:02:43.000000000 +0100
++++ b/source/dialogs/drun.c	2021-06-11 13:29:54.313489984 +0200
+@@ -912,6 +912,17 @@
+         dir = g_build_filename ( g_get_user_data_dir (), "applications", NULL );
+         walk_dir ( pd, dir, dir );
+         g_free ( dir );
++
++        // Second read nix-profile dir
++        dir = g_build_filename ( g_get_home_dir (), ".nix-profile/share/applications", NULL );
++        walk_dir ( pd, dir, dir );
++        g_free ( dir );
++
++        // Third read nix-profile dir
++        dir = g_build_filename ( "/run/current-system/sw/share/applications", NULL );
++        walk_dir ( pd, dir, dir );
++        g_free ( dir );
++
+         TICK_N ( "Get Desktop apps (user dir)" );
+         // Then read thee system data dirs.
+         const gchar * const * sys = g_get_system_data_dirs ();
