@@ -34,7 +34,7 @@ jobs:
       timeout-minutes: 30
       continue-on-error: true # want the PR to still submit even if some updates error
       # Run nix-update on all attribute paths, except pygsti-cirq
-      run: nix-shell ./update-shell.nix --run "jq '[.. | values | strings] | map(select(contains(\"pygsti-cirq\") | not)) | .[]' nurAttrs.json | xargs -L1 nix-update --commit"
+      run: nix-shell ./update-shell.nix --run "jq '[.. | values | strings] | map(select(contains(\"pygsti-cirq\") or contains (\"pyscf\") | not)) | .[]' nurAttrs.json | xargs -L1 nix-update --commit"
     - name: Submit auto-update PR
       uses: peter-evans/create-pull-request@v3
       with:
