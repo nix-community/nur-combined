@@ -232,6 +232,9 @@
         "kf5grd": {
             "url": "https://github.com/kf5grd/nur-packages"
         },
+        "kira-bruneau": {
+            "url": "https://gitlab.com/kira-bruneau/nur-packages"
+        },
         "kmein": {
             "submodules": true,
             "url": "https://github.com/kmein/nur-packages"
@@ -279,9 +282,6 @@
         },
         "mcaju": {
             "url": "https://github.com/CajuM/nur-packages"
-        },
-        "metadark": {
-            "url": "https://github.com/metadark/nur-packages"
         },
         "mhuesch": {
             "url": "https://github.com/mhuesch/nur-packages"
