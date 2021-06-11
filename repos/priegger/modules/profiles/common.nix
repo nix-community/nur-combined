@@ -16,7 +16,7 @@ recursiveUpdate base {
     tcpdump
     tree
     wget
-    wireguard
+    wireguard-tools
   ];
 
 
