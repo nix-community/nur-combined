@@ -36,6 +36,8 @@ alacritty.overrideAttrs (oldAttrs: rec {
     libxcb
   ];
 
+  preferLocalBuild = true;
+
   buildInputs = (oldAttrs.buildInputs or [ ]) ++ ligatureInputs;
 
   # HACK: One of the ligature libraries required the C++ stdlib at runtime,
