@@ -135,7 +135,13 @@
           inherit (self.checks.${system}.pre-commit) shellHook;
         };
 
-        packages = import ./pkgs { inherit pkgs; };
+        packages =
+          let
+            packages = import ./pkgs { inherit pkgs; };
+            isSystem = pkg: builtins.elem system pkg.meta.platforms;
+            finalPackages = lib.flip lib.filterAttrs packages (_: isSystem);
+          in
+          finalPackages;
       }) // {
       overlay = self.overlays.pkgs;
 
