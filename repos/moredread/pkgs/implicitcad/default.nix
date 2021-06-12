@@ -1,4 +1,5 @@
 { mkDerivation
+, lib
 , base
 , blaze-builder
 , blaze-markup
@@ -97,5 +98,5 @@ mkDerivation {
   postInstall = "rm $out/bin/Benchmark";
   homepage = "http://kalli1.faikvm.com/ImplicitCAD/Stable";
   description = "Warning: experimental package, might change at any time. Math-inspired programmatic 2&3D CAD, also known as extopenscad";
-  license = stdenv.lib.licenses.agpl3;
+  license = lib.licenses.agpl3;
 }

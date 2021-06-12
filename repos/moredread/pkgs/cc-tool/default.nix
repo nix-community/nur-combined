@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, libusb, boost, autoreconfHook, pkgconfig }:
+{ stdenv, lib, fetchFromGitHub, libusb, boost, autoreconfHook, pkgconfig }:
 
 # TODO: needs cleanup and meta
 stdenv.mkDerivation rec {
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "1q7zqib4rn5l8clk2hj7078rfyrjdwxzpyg4r10is31lq22zhxqj";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "WIP";
     homepage = https://github.com/dashesy/cc-tool;
     license = licenses.gpl2;

@@ -1,7 +1,7 @@
 # Adapted from a snipped by candeira
 # https://www.snip2code.com/Snippet/4375157/Nix-package-definition-for-sc3-plugins/
 
-{ stdenv, fetchgit, cmake, supercollider, fftw, libsndfile }:
+{ stdenv, lib, fetchgit, cmake, supercollider, fftw, libsndfile }:
 stdenv.mkDerivation rec {
 	pname = "sc3-plugins";
 	version = "3.11.0-rc2";

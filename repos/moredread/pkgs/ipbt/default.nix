@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, ncurses, perl }:
+{ stdenv, lib, fetchurl, ncurses, perl }:
 
 stdenv.mkDerivation rec {
   name = "ipbt-${version}";
@@ -14,6 +14,6 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = https://www.chiark.greenend.org.uk/~sgtatham/ipbt;
     description = "WIP: ttyrec player";
-    #license = stdenv.lib.licenses.gpl3;
+    #license = lib.licenses.gpl3;
   };
 }

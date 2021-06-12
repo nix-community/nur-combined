@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, wrapQtAppsHook, qmake, qtsvg, qtquickcontrols2 }:
+{ stdenv, lib, fetchFromGitHub, wrapQtAppsHook, qmake, qtsvg, qtquickcontrols2 }:
 
 let
   extplane_src = fetchFromGitHub {
@@ -34,6 +34,6 @@ in stdenv.mkDerivation rec {
 
   meta = {
     description = "WIP";
-    #license = stdenv.lib.licenses.gpl3;
+    #license = lib.licenses.gpl3;
   };
 }

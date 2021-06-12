@@ -1,4 +1,4 @@
-{ stdenv, pythonPackages, buildPythonApplication, fetchurl, fetchzip }:
+{ stdenv, lib, pythonPackages, buildPythonApplication, fetchurl, fetchzip }:
 
 stdenv.mkDerivation rec {
   name = "airnef-${version}";
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = http://www.testcams.com/airnef/;
     description = "Wireless download from your camera";
-    license = stdenv.lib.licenses.gpl3;
+    license = lib.licenses.gpl3;
     # default "appdata" path is in the installation path, so running fails atm
     broken = true;
   };

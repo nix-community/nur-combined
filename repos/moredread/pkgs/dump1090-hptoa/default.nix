@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , pkgconfig
 , libbladeRF
@@ -48,7 +49,7 @@ stdenv.mkDerivation rec {
     cp -vr ../public_html $out/share/dump1090
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A simple Mode S decoder for RTLSDR devices";
     homepage = "https://github.com/flightaware/dump1090";
     license = licenses.gpl2Plus;

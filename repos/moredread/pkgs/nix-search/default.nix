@@ -1,4 +1,4 @@
-{ stdenv, bash, makeWrapper }:
+{ stdenv, lib, bash, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "nix-search";
