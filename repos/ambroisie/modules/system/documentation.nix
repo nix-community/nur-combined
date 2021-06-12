@@ -35,6 +35,9 @@ in
       nixos.enable = cfg.nixos.enable;
     };
 
-    environment.systemPackages = lib.optional cfg.man.linux pkgs.manpages;
+    environment.systemPackages = with pkgs; lib.optionals cfg.man.linux [
+      man-pages
+      man-pages-posix
+    ];
   };
 }
