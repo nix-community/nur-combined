@@ -4,7 +4,7 @@
 
 , qtbase
 , qmake
-, wrapQtAppsHook
+, wrapQtAppsHook ? null # Temporary backwards compatibility
 }:
 
 stdenv.mkDerivation rec {

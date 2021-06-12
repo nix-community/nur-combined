@@ -2,49 +2,7 @@
 
 rec {
   # Alacritty with the unmerged ligature patches applied.
-  alacritty-ligatures = pkgs.alacritty.overrideAttrs (oldAttrs: rec {
-    pname = "${oldAttrs.pname}-ligatures";
-    version = "0.7.2.20210209.g3ed0430";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "zenixls2";
-      repo = "alacritty";
-      fetchSubmodules = true;
-      rev = "3ed043046fc74f288d4c8fa7e4463dc201213500";
-      sha256 = "1dGk4ORzMSUQhuKSt5Yo7rOJCJ5/folwPX2tLiu0suA=";
-    };
-
-    cargoDeps = oldAttrs.cargoDeps.overrideAttrs (pkgs.lib.const {
-      name = "${pname}-${version}-vendor.tar.gz";
-      inherit src;
-      outputHash = "pONu6caJmEKnbr7j+o9AyrYNpS4Q8OEjNZOhGTalncc=";
-    });
-
-    ligatureInputs = [
-      pkgs.fontconfig
-      pkgs.freetype
-      pkgs.libglvnd
-      pkgs.stdenv.cc.cc.lib
-      pkgs.xlibs.libxcb
-    ];
-
-    buildInputs = (oldAttrs.buildInputs or []) ++ ligatureInputs;
-
-    outputs = [ "out" ];
-
-    # HACK: One of the ligature libraries required the C++ stdlib at runtime,
-    # and I can't work out a better way to push it to the RPATH.
-    postInstall = pkgs.lib.optional (!pkgs.stdenv.isDarwin) ''
-      patchelf \
-        --set-rpath ${pkgs.lib.makeLibraryPath ligatureInputs}:"$(patchelf --print-rpath $out/bin/alacritty)" \
-        $out/bin/alacritty
-    '';
-
-    meta = oldAttrs.meta // {
-      description = "Alacritty with ligature patch applied";
-      homepage = "https://github.com/zenixls2/alacritty/tree/ligature";
-    };
-  });
+  alacritty-ligatures = pkgs.callPackage ../applications/terminal-emulators/alacritty-ligatures { };
 
   amdgpu-fan = pkgs.callPackage ../tools/misc/amdgpu-fan { };
 

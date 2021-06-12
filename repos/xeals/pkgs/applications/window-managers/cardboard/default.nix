@@ -68,5 +68,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/cardboardwm/cardboard";
     license = licenses.gpl3;
     platforms = wlroots.meta.platforms;
+    broken = true;
   };
 }
