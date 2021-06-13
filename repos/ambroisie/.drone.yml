@@ -1,24 +1,27 @@
+---
 kind: pipeline
-name: check config
+type: exec
+name: NixOS config check
 
 steps:
-  - name: format check
-    image: nixos/nix
-    commands:
-      - nix-shell -p nixpkgs-fmt --run 'nixpkgs-fmt . --check'
+- name: format check
+  commands:
+  - nix develop -c nixpkgs-fmt .
 
-  - name: notify
-    image: plugins/matrix
-    settings:
-      homeserver:
-        from_secret: matrix_homeserver
-      roomid:
-        from_secret: matrix_roomid
-      username:
-        from_secret: matrix_username
-      password:
-        from_secret: matrix_password
-      trigger:
-        status:
-          - failure
-          - success
+- name: notifiy
+  commands:
+  - nix run .#matrix-notifier
+  environment:
+    ADDRESS:
+      from_secret: matrix_homeserver
+    ROOM:
+      from_secret: matrix_roomid
+    USER:
+      from_secret: matrix_username
+    PASS:
+      from_secret: matrix_password
+  when:
+    status:
+      - failure
+      - success
+...

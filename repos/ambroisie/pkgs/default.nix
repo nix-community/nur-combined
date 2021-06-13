@@ -14,6 +14,8 @@ rec {
 
   lohr = pkgs.callPackage ./lohr { };
 
+  matrix-notifier = pkgs.callPackage ./matrix-notifier { };
+
   nolimips = pkgs.callPackage ./nolimips { };
 
   vimix-cursors = pkgs.callPackage ./vimix-cursors { };
