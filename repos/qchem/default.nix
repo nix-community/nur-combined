@@ -149,12 +149,16 @@ let
 
       gpaw = super.python3.pkgs.toPythonApplication self.python3.pkgs.gpaw;
 
+      harminv = callPackage ./pkgs/apps/harminv { };
+
       nwchem = callPackage ./pkgs/apps/nwchem {
         blas = self.blas-i8;
         lapack = self.lapack-i8;
       };
 
       mctdh = callPackage ./pkgs/apps/mctdh { };
+
+      meep = super.python3.pkgs.toPythonApplication self.python3.pkgs.meep;
 
       mesa-qc = callPackage ./pkgs/apps/mesa {
         gfortran = final.gfortran6;
@@ -241,7 +245,11 @@ let
       # Libraries
       #
 
+      libctl = callPackage ./pkgs/lib/libctl {};
+
       libefp = callPackage ./pkgs/lib/libefp {};
+
+      libGDSII = callPackage ./pkgs/lib/libGDSII {};
 
       libint1 = callPackage ./pkgs/lib/libint/1.nix { };
 
