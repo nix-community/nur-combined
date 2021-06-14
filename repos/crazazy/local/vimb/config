@@ -1,0 +1,13 @@
+set accelerated-2d-canvas=true
+set cookie-accept=origin
+set header=User-Agent,DNT=1
+set hint-keys=fjkdlsa
+set media-playback-requires-user-gesture=true
+set mediasource=true
+
+nnoremap d :q<CR>
+
+set home-page=https://start.me
+set download-path=~/Downloads
+
+au LoadCommitted http{s,}://{www.,}reddit.com/* eval! document.location.hostname = "old.reddit.com"

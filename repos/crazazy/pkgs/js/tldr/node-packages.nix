@@ -481,13 +481,13 @@ let
         sha512 = "kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==";
       };
     };
-    "ora-5.4.0" = {
+    "ora-5.4.1" = {
       name = "ora";
       packageName = "ora";
-      version = "5.4.0";
+      version = "5.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ora/-/ora-5.4.0.tgz";
-        sha512 = "1StwyXQGoU6gdjYkyVcqOLnVlbKj+6yPNNOxJVgpt9t4eksKjiriiHuxktLYkgllwk+D6MbC4ihH84L1udRXPg==";
+        url = "https://registry.npmjs.org/ora/-/ora-5.4.1.tgz";
+        sha512 = "5b6Y85tPxZZ7QytO+BQzysW31HJku27cRIlkbAXaNx+BdcVi+LlRFmVXzeF6a7JCwJpyw5c4b+YSVImQIrBpuQ==";
       };
     };
     "over-0.0.5" = {
@@ -762,7 +762,7 @@ let
       sources."node-unzip-2-0.2.8"
       sources."once-1.4.0"
       sources."onetime-5.1.2"
-      sources."ora-5.4.0"
+      sources."ora-5.4.1"
       sources."over-0.0.5"
       sources."path-is-absolute-1.0.1"
       sources."pullstream-0.4.1"

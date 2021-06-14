@@ -13,22 +13,22 @@ let
         sha512 = "Zt1yodBx1UcyiePMSkWnU4hPqhwq7hGi2nFL1LeA3EUl+q2LQx16MISgJ0+z7dnmgvP9QtIleuETGOiOH1RcIw==";
       };
     };
-    "@babel/helper-validator-identifier-7.14.0" = {
+    "@babel/helper-validator-identifier-7.14.5" = {
       name = "_at_babel_slash_helper-validator-identifier";
       packageName = "@babel/helper-validator-identifier";
-      version = "7.14.0";
+      version = "7.14.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.14.0.tgz";
-        sha512 = "V3ts7zMSu5lfiwWDVWzRDGIN+lnCEUdaXgtVHJgLb1rGaA6jMrtB9EmE7L18foXJIE8Un/A/h6NJfGQp/e1J4A==";
+        url = "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.14.5.tgz";
+        sha512 = "5lsetuxCLilmVGyiLEfoHBRX8UCFD+1m2x3Rj97WrW3V7H3u4RWRXA4evMjImCsin2J2YT0QaVDGf+z8ondbAg==";
       };
     };
-    "@babel/highlight-7.14.0" = {
+    "@babel/highlight-7.14.5" = {
       name = "_at_babel_slash_highlight";
       packageName = "@babel/highlight";
-      version = "7.14.0";
+      version = "7.14.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/highlight/-/highlight-7.14.0.tgz";
-        sha512 = "YSCOwxvTYEIMSGaBQb5kDDsCopDdiUGsqpatp3fOlI4+2HQSkTmEVWnVuySdAC5EWCqSWWTv0ib63RjR7dTBdg==";
+        url = "https://registry.npmjs.org/@babel/highlight/-/highlight-7.14.5.tgz";
+        sha512 = "qf9u2WFWVV0MppaL877j2dBtQIDgmidgjGk5VIMw3OadXvYaXn66U1BFlH2t4+t3i+8PhedppRv+i40ABzd+gg==";
       };
     };
     "@eslint/eslintrc-0.4.2" = {
@@ -67,13 +67,13 @@ let
         sha512 = "j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==";
       };
     };
-    "ajv-8.5.0" = {
+    "ajv-8.6.0" = {
       name = "ajv";
       packageName = "ajv";
-      version = "8.5.0";
+      version = "8.6.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ajv/-/ajv-8.5.0.tgz";
-        sha512 = "Y2l399Tt1AguU3BPRP9Fn4eN+Or+StUGWCUpbnFyXSo8NZ9S4uj+AG2pjs5apK+ZMOwYOz1+a+VKvKH7CudXgQ==";
+        url = "https://registry.npmjs.org/ajv/-/ajv-8.6.0.tgz";
+        sha512 = "cnUG4NSBiM4YFBxgZIj/In3/6KX+rQ2l2YPRVcvAMQGWEPKuXoPIhxzwqh31jA3IPbI4qEOp/5ILI4ynioXsGQ==";
       };
     };
     "ansi-colors-4.1.1" = {
@@ -1002,8 +1002,8 @@ let
     src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.28.0.tgz"; sha1 = "435aa17a0b82c13bb2be9d51408b617e49c1e820"; };
     dependencies = [
       sources."@babel/code-frame-7.12.11"
-      sources."@babel/helper-validator-identifier-7.14.0"
-      (sources."@babel/highlight-7.14.0" // {
+      sources."@babel/helper-validator-identifier-7.14.5"
+      (sources."@babel/highlight-7.14.5" // {
         dependencies = [
           sources."chalk-2.4.2"
           sources."escape-string-regexp-1.0.5"
@@ -1127,7 +1127,7 @@ let
       sources."supports-color-5.5.0"
       (sources."table-6.7.1" // {
         dependencies = [
-          sources."ajv-8.5.0"
+          sources."ajv-8.6.0"
           sources."json-schema-traverse-1.0.0"
         ];
       })

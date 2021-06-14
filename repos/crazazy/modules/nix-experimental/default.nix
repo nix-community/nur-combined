@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}@args:
+{ config, lib, pkgs, ...}:
 let
   sources = import ../../nix/default.nix;
   flakeJSON = pkgs.runCommand {buildInputs = with pkgs; [ jq ];} ''
@@ -13,8 +13,7 @@ in
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
-      registry = lib.mapAttrs (k: v: { flake = v; }) 
-        (args.inputs or (import sources.flake-compat { src = ../..; }).defaultNix.inputs);
+      registry = lib.mapAttrs (k: v: { flake = v; }) (import sources.flake-compat { src = ../..; }).defaultNix.inputs;
       # registry = buildInputs.fromJSON flakeJSON;
     };
   };
