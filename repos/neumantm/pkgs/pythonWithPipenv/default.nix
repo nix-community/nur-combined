@@ -1,9 +1,9 @@
 { stdenv, lib, writeTextDir, buildFHSUserEnv, symlinkJoin,
 
-python, pypi2nix, ctags, 
+python, ctags,
 
-myPythonDerivation ? python, 
-myPythonPackages ? pp:[] 
+myPythonDerivation ? python,
+myPythonPackages ? pp:[]
 }:
 
 let
@@ -75,7 +75,6 @@ symlinkJoin {
   version = "1.0";
   paths = [
     (myPythonDerivation.withPackages(myPythonPackages))
-    pypi2nix
     ctags
     pipenvwrapper
     ];
@@ -90,4 +89,3 @@ This derivation is based on the blogpost https://sid-kap.github.io/index.html by
     platforms = platforms.linux;
   };
 }
-
