@@ -1,11 +1,11 @@
-{ stdenv, moonscript, buildLuarocksPackage, pins
+{ lib, stdenv, moonscript, buildLuarocksPackage, pins
 }:
 
 buildLuarocksPackage rec {
   pname = "earthshine";
   version = "scm-1";
 
-  src = pins.earthshine;
+  src = pins.earthshine.outPath;
 
   propagatedBuildInputs = [
     moonscript
@@ -13,7 +13,7 @@ buildLuarocksPackage rec {
 
   knownRockspec = "${pname}-${version}.rockspec";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A collection of MoonScript libraries I had a need for";
     homepage = https://github.com/Shados/earthshine;
     hydraPlatforms = platforms.linux;

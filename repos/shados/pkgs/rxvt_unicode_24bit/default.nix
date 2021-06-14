@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, perlSupport, libX11, libXt, libXft, ncurses, perl,
+{ lib, stdenv, fetchurl, perlSupport, libX11, libXt, libXft, ncurses, perl,
   fontconfig, freetype, pkgconfig, libXrender, gdkPixbufSupport, gdk_pixbuf,
   unicode3Support }:
 
@@ -19,8 +19,8 @@ stdenv.mkDerivation (rec {
   buildInputs =
     [ libX11 libXt libXft ncurses /* required to build the terminfo file */
       fontconfig freetype pkgconfig libXrender ]
-    ++ stdenv.lib.optional perlSupport perl
-    ++ stdenv.lib.optional gdkPixbufSupport gdk_pixbuf;
+    ++ lib.optional perlSupport perl
+    ++ lib.optional gdkPixbufSupport gdk_pixbuf;
 
   outputs = [ "out" "terminfo" ];
 
@@ -68,7 +68,7 @@ stdenv.mkDerivation (rec {
       NIX_LDFLAGS="$NIX_LDFLAGS -lfontconfig -lXrender -lpthread "
     ''
     # make urxvt find its perl file lib/perl5/site_perl is added to PERL5LIB automatically
-    + stdenv.lib.optionalString perlSupport ''
+    + lib.optionalString perlSupport ''
       mkdir -p $out/$(dirname ${perl.libPrefix})
       ln -s $out/lib/urxvt $out/${perl.libPrefix}
     '';
@@ -81,6 +81,6 @@ stdenv.mkDerivation (rec {
   meta = {
     description = "A clone of the well-known terminal emulator rxvt";
     homepage = "http://software.schmorp.de/pkg/rxvt-unicode.html";
-    maintainers = [ stdenv.lib.maintainers.arobyn ];
+    maintainers = [ lib.maintainers.arobyn ];
   };
 })

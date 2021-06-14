@@ -1,4 +1,4 @@
-{ stdenv, mkDerivation, qmake, pins
+{ lib, stdenv, mkDerivation, qmake, pins
 , qtbase, imagemagick, fontconfig, libXft
 }:
 
@@ -6,7 +6,7 @@ mkDerivation rec {
   pname = "urxvtconfig";
   version = "unstable-2017-11-30";
 
-  src = pins.urxvtconfig;
+  src = pins.urxvtconfig.outPath;
 
   nativeBuildInputs = [
     qmake
@@ -23,7 +23,7 @@ mkDerivation rec {
       --replace '/usr' "$out"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A graphical user interface tool for configuration of the rxvt-unicode terminal emulator.";
     homepage = "https://github.com/daedreth/URXVTConfig";
     license = with licenses; lgpl3;

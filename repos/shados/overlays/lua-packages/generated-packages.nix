@@ -5,7 +5,7 @@ nixpkgs$ /nix/store/q36ls71b177lyndydzjazfjpdw19gp5n-nixos-20.09pre228622.029a5d
 
 These packages are manually refined in lua-overrides.nix
 */
-{ self, stdenv, fetchurl, fetchgit, pkgs, ... } @ args:
+{ self, lib, stdenv, fetchurl, fetchgit, pkgs, ... } @ args:
 self: super:
 with self;
 {
@@ -19,7 +19,7 @@ cmark = buildLuarocksPackage {
     sha256 = "04a039jmyk6scl1frkqf38qwnb095c43rr0ygz3qcjaq9vb7kdg2";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/jgm/cmark-lua";
     description = "Lua wrapper for libcmark, CommonMark Markdown parsing\
       and rendering library";
@@ -38,7 +38,7 @@ copas = buildLuarocksPackage {
   disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
   propagatedBuildInputs = [ lua luasocket coxpcall ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://www.keplerproject.org/copas/";
     description = "Coroutine Oriented Portable Asynchronous Services";
     maintainers = with maintainers; [ arobyn ];
@@ -56,7 +56,7 @@ etlua = buildLuarocksPackage {
   disabled = (luaOlder "5.1");
   propagatedBuildInputs = [ lua ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/leafo/etlua";
     description = "Embedded templates for Lua";
     maintainers = with maintainers; [ arobyn ];
@@ -74,7 +74,7 @@ inotify = buildLuarocksPackage {
   disabled = (luaOlder "5.1");
   propagatedBuildInputs = [ lua ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://hoelz.ro/projects/linotify";
     description = "Inotify bindings for Lua";
     maintainers = with maintainers; [ arobyn ];
@@ -92,7 +92,7 @@ lcmark = buildLuarocksPackage {
   disabled = (luaOlder "5.1");
   propagatedBuildInputs = [ lua cmark yaml lpeg optparse ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/jgm/lcmark";
     description = "A command-line CommonMark converter with flexible\
       features, and a lua module that exposes these features.";
@@ -124,7 +124,7 @@ ldbus = buildLuarocksPackage {
   disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
   propagatedBuildInputs = [ lua ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/daurnimator/ldbus";
     description = "A Lua library to access dbus.";
     maintainers = with maintainers; [ arobyn ];
@@ -142,7 +142,7 @@ loadkit = buildLuarocksPackage {
   disabled = (luaOlder "5.1");
   propagatedBuildInputs = [ lua ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/leafo/loadkit";
     description = "Loadkit allows you to load arbitrary files within the Lua package path";
     maintainers = with maintainers; [ arobyn ];
@@ -173,7 +173,7 @@ lua-ev = buildLuarocksPackage {
   disabled = (luaOlder "5.1");
   propagatedBuildInputs = [ lua ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://github.com/brimworks/lua-ev";
     description = "Lua integration with libev";
     maintainers = with maintainers; [ arobyn ];
@@ -191,7 +191,7 @@ lua-testmore = buildLuarocksPackage {
   disabled = (luaOlder "5.1");
   propagatedBuildInputs = [ lua ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://fperrad.frama.io/lua-TestMore/";
     description = "an Unit Testing Framework";
     maintainers = with maintainers; [ arobyn ];
@@ -209,7 +209,7 @@ luagraph = buildLuarocksPackage {
   disabled = (luaOlder "5.1");
   propagatedBuildInputs = [ lua ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://github.com/hleuwer/luagraph";
     description = "A binding to the graphviz graph library";
     maintainers = with maintainers; [ arobyn ];
@@ -225,7 +225,7 @@ lunix = buildLuarocksPackage {
     sha256 = "1mjy3sprpskykjwsb3xzsy1add78hjjrwcfhx4c4x25fjjrhfh2a";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://25thandclement.com/~william/projects/lunix.html";
     description = "Lua Unix Module.";
     maintainers = with maintainers; [ arobyn ];
@@ -243,7 +243,7 @@ lub = buildLuarocksPackage {
   disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
   propagatedBuildInputs = [ lua luafilesystem ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://doc.lubyk.org/lub.html";
     description = "Lubyk base module.";
     maintainers = with maintainers; [ arobyn ];
@@ -274,7 +274,7 @@ mobdebug = buildLuarocksPackage {
   disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
   propagatedBuildInputs = [ lua luasocket ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/pkulchenko/MobDebug";
     description = "MobDebug is a remote debugger for the Lua programming language";
     maintainers = with maintainers; [ arobyn ];
@@ -292,7 +292,7 @@ moonpick = buildLuarocksPackage {
   disabled = (luaOlder "5.1");
   propagatedBuildInputs = [ lua moonscript ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/nilnor/moonpick";
     description = "An alternative moonscript linter.";
     maintainers = with maintainers; [ arobyn ];
@@ -310,7 +310,7 @@ moonscript = buildLuarocksPackage {
   disabled = (luaOlder "5.1");
   propagatedBuildInputs = [ lua lpeg alt-getopt luafilesystem ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://moonscript.org";
     description = "A programmer friendly language that compiles to Lua";
     maintainers = with maintainers; [ arobyn ];
@@ -327,7 +327,7 @@ moor = buildLuarocksPackage {
   };
   propagatedBuildInputs = [ moonscript inspect linenoise ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/Nymphium/moor";
     description = "MoonScript REPL";
     maintainers = with maintainers; [ arobyn ];
@@ -345,7 +345,7 @@ optparse = buildLuarocksPackage {
   disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
   propagatedBuildInputs = [ lua ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://gvvaughan.github.io/optparse";
     description = "Parse and process command-line options";
     maintainers = with maintainers; [ arobyn ];
@@ -376,7 +376,7 @@ pegdebug = buildLuarocksPackage {
   disabled = (luaOlder "5.1");
   propagatedBuildInputs = [ lua lpeg ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://github.com/pkulchenko/PegDebug";
     description = "PegDebug is a trace debugger for LPeg rules and captures.";
     maintainers = with maintainers; [ arobyn ];
@@ -394,7 +394,7 @@ spawn = buildLuarocksPackage {
   disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
   propagatedBuildInputs = [ lua lunix ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/daurnimator/lua-spawn";
     description = "A lua library to spawn programs";
     maintainers = with maintainers; [ arobyn ];
@@ -412,7 +412,7 @@ yaml = buildLuarocksPackage {
   disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
   propagatedBuildInputs = [ lua lub ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://doc.lubyk.org/yaml.html";
     description = "Very fast yaml parser based on libYAML by Kirill Simonov";
     maintainers = with maintainers; [ arobyn ];

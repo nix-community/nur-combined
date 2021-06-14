@@ -24,7 +24,7 @@
         name = "${pname}-${version}";
         pname = "mosh";
         version = "unstable-2020-05-18";
-        src = pins.mosh;
+        src = pins.mosh.outPath;
         patches = [
           (super.path + /pkgs/tools/networking/mosh/ssh_path.patch)
           (super.path + /pkgs/tools/networking/mosh/utempter_path.patch)
@@ -38,7 +38,7 @@
         name = "${pname}-${version}";
         pname = "clementine";
         version = "1.4.0rc1-591-g579d86904";
-        src = pins.clementine;
+        src = pins.clementine.outPath;
         nativeBuildInputs = oa.nativeBuildInputs or [] ++ [
           util-linux
           libunwind

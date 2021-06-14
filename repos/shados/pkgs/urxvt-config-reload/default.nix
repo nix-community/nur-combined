@@ -1,10 +1,10 @@
-{ stdenv, makeWrapper, perl, AnyEvent, LinuxFD, CommonSense, pins
+{ lib, stdenv, makeWrapper, perl, AnyEvent, LinuxFD, CommonSense, pins
 , SubExporter, DataOptList, ParamsUtil, SubInstall }:
 stdenv.mkDerivation {
   pname = "urxvt-config-reload";
   version = "unstable-2019-10-11";
 
-  src = pins.urxvt-config-reload;
+  src = pins.urxvt-config-reload.outPath;
 
   buildInputs = [ makeWrapper ];
 
@@ -29,6 +29,6 @@ stdenv.mkDerivation {
       sending SIGHUP to the urxvt process.
     '';
     homepage        = "https://github.com/regnarg/urxvt-config-reload";
-    maintainers     = with stdenv.lib.maintainers; [ arobyn ];
+    maintainers     = with lib.maintainers; [ arobyn ];
   };
 }

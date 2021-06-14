@@ -1,4 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage, flake8
+{ lib, stdenv, fetchPypi, buildPythonPackage, flake8
 , pathmatch ? null, typing ? null, six ? null, fetchurl ? null
 }:
 
@@ -28,7 +28,7 @@ let
           six
           typing
         ];
-        meta = with stdenv.lib; {
+        meta = with lib; {
           maintainer = with mainters; [ arobyn ];
           homepage = "https://github.com/demurgos/py-pathmatch";
           license = licenses.mit;

@@ -1,4 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage }:
+{ lib, stdenv, fetchPypi, buildPythonPackage }:
 
 buildPythonPackage rec {
   name = "${pname}-${version}";
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   buildInputs = [];
   propagatedBuildInputs = [
   ];
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/ValentinBELYN/icmplib";
     license = licenses.lgpl3;
     maintainer = with mainters; [ arobyn ];

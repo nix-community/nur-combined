@@ -4,7 +4,7 @@ toLuaModule (stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   pname = "cparser";
   version = "unstable-2021-05-04";
-  src = pins.cparser;
+  src = pins.cparser.outPath;
 
   buildPhase = ":";
   installPhase = let

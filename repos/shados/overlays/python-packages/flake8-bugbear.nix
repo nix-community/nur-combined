@@ -1,4 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage, attrs, flake8 }:
+{ lib, stdenv, fetchPypi, buildPythonPackage, attrs, flake8 }:
 
 buildPythonPackage rec {
   name = "${pname}-${version}";
@@ -16,7 +16,7 @@ buildPythonPackage rec {
     attrs
     flake8
   ];
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/PyCQA/flake8-bugbear";
     license = licenses.mit;
     maintainer = with mainters; [ arobyn ];

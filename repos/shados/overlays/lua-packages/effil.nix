@@ -1,4 +1,4 @@
-{ stdenv, buildLuarocksPackage, fetchFromGitHub
+{ lib, stdenv, buildLuarocksPackage, fetchFromGitHub
 , gcc9
 }:
 
@@ -32,7 +32,7 @@ buildLuarocksPackage rec {
     gcc9
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Effil is a lua module for multithreading support, it allows you to spawn native threads and perform safe data exchange between them";
     homepage = https://github.com/effil/effil;
     hydraPlatforms = platforms.linux;

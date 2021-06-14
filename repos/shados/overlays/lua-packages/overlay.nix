@@ -43,7 +43,7 @@ in
     in rec {
       version = "${version'}-${revision}";
       # Add support for luajit & 5.1 (test this moar), and use lyaml
-      src = pins.lcmark;
+      src = pins.lcmark.outPath;
       disabled = luaOlder "5.1" || luaAtLeast "5.4";
       knownRockspec = let
         rockspecName = "${super.lcmark.pname}-${version'}-${revision}.rockspec";
@@ -55,7 +55,7 @@ in
     });
 
     ldoc = super.ldoc.override ({
-      src = pins.ldoc;
+      src = pins.ldoc.outPath;
     });
 
     lua-ev = super.lua-ev.override ({
@@ -78,7 +78,7 @@ in
     });
 
     moonscript = super.moonscript.override ({
-      src = pins.moonscript;
+      src = pins.moonscript.outPath;
       knownRockspec = with super.moonscript; "${pname}-dev-1.rockspec";
       propagatedBuildInputs = with self; [
         lua lpeg luafilesystem argparse

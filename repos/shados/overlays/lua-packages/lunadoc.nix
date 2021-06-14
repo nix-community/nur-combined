@@ -1,4 +1,4 @@
-{ stdenv, lua, buildLuarocksPackage
+{ lib, stdenv, lua, buildLuarocksPackage
 , fetchgit, writeText
 , luarocks, shim-getpw
 , moonscript, etlua, loadkit, luafilesystem, lua-discount
@@ -170,7 +170,7 @@ buildLuarocksPackage rec {
     luarocks --tree $out make ${rockspecName}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A better documentation generator for Moonscript";
     homepage = https://gitlab.com/nonchip/lunadoc;
     hydraPlatforms = platforms.linux;

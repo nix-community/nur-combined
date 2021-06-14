@@ -1,4 +1,4 @@
-{ stdenv, moonscript, buildLuarocksPackage, pins
+{ lib, stdenv, moonscript, buildLuarocksPackage, pins
 , moonpick
 , isLua51, isLuaJIT
 }:
@@ -6,7 +6,7 @@ buildLuarocksPackage rec {
   pname = "moonpick-vim";
   version = "scm-1";
 
-  src = pins.moonpick-vim;
+  src = pins.moonpick-vim.outPath;
 
   propagatedBuildInputs = [
     moonscript
@@ -17,7 +17,7 @@ buildLuarocksPackage rec {
 
   knownRockspec = "${pname}-${version}.rockspec";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "ALE-based vim integration for moonpick";
     homepage = https://github.com/Shados/moonpick-vim;
     hydraPlatforms = platforms.linux;
