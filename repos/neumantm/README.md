@@ -1,7 +1,7 @@
 # nur-packages
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
-[![Build Status](https://travis-ci.com/neumantm/nur-packages.svg?branch=master)](https://travis-ci.com/neumantm/nur-packages)
+![Build and populate cache](https://github.com/neumantm/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 
 ## Contained packages:
 

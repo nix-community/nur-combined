@@ -1,4 +1,4 @@
-{ stdenv, makeDesktopItem, writeShellScriptBin, symlinkJoin, coreutils, eclipses, 
+{ stdenv, lib, makeDesktopItem, writeShellScriptBin, symlinkJoin, coreutils, eclipses,
 myEclipsePackages ? [ eclipses.eclipse-platform ],
 logFile ? "/dev/null",
 additionalJREs ? [],
@@ -75,7 +75,7 @@ in symlinkJoin {
       ln -s ${builtins.elemAt myEclipsePackages 0}/share/pixmaps/eclipse.xpm $out/share/pixmaps/eclipse.xpm
     '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     descripytion = "An eclipse varaiant chooser.";
     longDescription = ''Let's you choose the eclipse variant you need before starting.'';
     homepage = "https://github.com/neumantm/nur-packages";

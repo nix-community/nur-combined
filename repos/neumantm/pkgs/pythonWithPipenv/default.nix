@@ -1,4 +1,4 @@
-{ stdenv, writeTextDir, buildFHSUserEnv, symlinkJoin,
+{ stdenv, lib, writeTextDir, buildFHSUserEnv, symlinkJoin,
 
 python, pypi2nix, ctags, 
 
@@ -20,7 +20,7 @@ let
     buildCommand = ''
       mkdir -p $out/etc
       cd $out/etc
-    '' + stdenv.lib.concatMapStrings (path: ''
+    '' + lib.concatMapStrings (path: ''
       ln -s /host/etc/${path} ${path}
     '') extraEtcPaths;
   };
@@ -79,7 +79,7 @@ symlinkJoin {
     ctags
     pipenvwrapper
     ];
-  meta = with stdenv.lib; {
+  meta = with lib; {
     descripytion = "A python wrapper with pipenv and manylinux wheel support.";
     longDescription = ''A wrapper for python with a working pipenv and support for wheels (binary distribution of native libraries) with manylinux.
 To override the used python derivation override the argument "myPythonDerivation". The default is the derivation named "python".
