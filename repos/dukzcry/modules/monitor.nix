@@ -12,6 +12,8 @@ in {
 
   config = mkIf cfg.enable {
     services.autorandr.enable = true;
-    services.picom.enable = true;
+    hardware.acpilight.enable = true;
+    environment.systemPackages = with pkgs; [ ddcutil ];
+    hardware.i2c.enable = true;
   };
 }

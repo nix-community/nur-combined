@@ -12,5 +12,5 @@
   bambootracker = ./bambootracker.nix;
   nvidia = ./nvidia.nix;
   job = ./job.nix;
-  monitor = ./monitor.nix;
+  monitor = import ./monitor.nix unstable;
 }
