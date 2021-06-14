@@ -43,6 +43,8 @@ rec {
 
   piecash = pkgs.python3Packages.callPackage ./pkgs/piecash { };
 
+  blender-file = pkgs.python3Packages.callPackage ./pkgs/blender-file { };
+
   hackernews-tui = callPackage ./pkgs/hackernews-tui {};
 
   har-tools = callPackage ./pkgs/har-tools {};
