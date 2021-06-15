@@ -24,6 +24,9 @@
           trojan = mkApp "trojan" { };
           vlmcsd = mkApp "vlmcsd" { };
         };
+        checks = flake-utils.lib.flattenTree {
+          packages = pkgs.lib.recurseIntoAttrs self.packages.${system};
+        };
       })) //
     {
       lib = import ./lib { inherit (nixpkgs) lib; };
