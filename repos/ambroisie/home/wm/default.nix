@@ -65,13 +65,7 @@ in
         enable = my.mkDisableOption "Notify when about to lock the screen";
 
         delay = mkOption {
-          type = with types;
-            addCheck int (x:
-              let
-                cfg = config.my.home.wm.screen-lock.notify;
-                cornerCfg = config.my.home.wm.screen-lock.cornerLock;
-              in
-              (cfg.enable && cornerCfg.enable) -> cornerCfg.delay >= x);
+          type = types.int;
           default = 5;
           example = 15;
           description = ''

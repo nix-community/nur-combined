@@ -3,6 +3,7 @@
 
 {
   imports = [
+    ./boot.nix
     ./documentation.nix
     ./language.nix
     ./media.nix
