@@ -36,10 +36,7 @@ stdenv.mkDerivation rec {
     ffmpeg
   ];
 
-  patches = [(fetchpatch {
-    url = "https://raw.githubusercontent.com/pineappleEA/Pineapple-Linux/28cbf656e3188b80eda0031d0b2713708ecd630f/inject-git-info.patch";
-    sha256 = "1zxh5fwdr7jl0aagb3yfwd0995vyyk54f0f748f7c4rqvg6867fd";
-  })];
+  patches = [ ./inject-git-info.patch ];
 
   # TODO: Remove this when https://github.com/NixOS/nixpkgs/pull/124870 hits the channels
   postPatch = ''
@@ -55,6 +52,10 @@ stdenv.mkDerivation rec {
     "-DGIT_BRANCH=\"\""
     "-DGIT_DESC=\"\""
   ];
+
+  # This changes `ir/opt` to `ir/var/empty` in `externals/dynarmic/src/dynarmic/CMakeLists.txt`
+  # making the build fail, as that path does not exist
+  dontFixCmake = true;
 
   preConfigure = ''
     rm -f .gitmodules # Trick the configure system. This prevents a check for submodule directories.
