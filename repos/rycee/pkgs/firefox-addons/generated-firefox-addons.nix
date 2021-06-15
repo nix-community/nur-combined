@@ -764,10 +764,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.5.9";
+      version = "9.6.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3787533/metamask-9.5.9-an+fx.xpi";
-      sha256 = "a7dedbf5a35c837809f6c84015416472eb8a809dba2b1260824178003f00816e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3795817/metamask-9.6.0-an+fx.xpi";
+      sha256 = "d0f6d850ccb7b178eed79b87d3e018616fc40a0181d5f3f08abf94db9a1e651d";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -875,10 +875,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.0.4";
+      version = "7.0.5";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3792492/octotree_github_code_tree-7.0.4-fx.xpi";
-      sha256 = "acb6e57d0ddba24570846453f762fc774155e10ef02e1df5dfaca8a2a5a5513a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3795572/octotree_github_code_tree-7.0.5-fx.xpi";
+      sha256 = "ea75f7e479820430d8a773afd08fc87865fb87e63b4731daea1164d611064df0";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -921,10 +921,10 @@
       };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "1.4.0";
+      version = "1.5.0";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3714071/old_reddit_redirect-1.4.0-an+fx.xpi";
-      sha256 = "ceb63ae82790f8d4c2f31a41292b25cba49ab98c9e7d76b60c48ee8c572bd206";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3794978/old_reddit_redirect-1.5.0-an+fx.xpi";
+      sha256 = "e42388aa175f20fdc358bee99ba61db0e9629a7b1e74d35d6463d87786f4edd3";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -1175,10 +1175,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "3.6.2";
+      version = "3.6.3";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3767226/search_by_image-3.6.2-an+fx.xpi";
-      sha256 = "2419da33e09e330f7f03af1aa3d5725f54324f74f774fa55dc07a088c979ff96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3795059/search_by_image-3.6.3-an+fx.xpi";
+      sha256 = "7854169e59df5907b7ab9fed8cd47755157bbfee3c605ecc938bff5ee411713c";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image";
@@ -1423,10 +1423,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.2";
+      version = "3.8.3";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3793559/tree_style_tab_-3.8.2-fx.xpi";
-      sha256 = "8bd3e6a8089eeede312cc777d4e2f42c7668f4c461c5db3920475d5b4f3b8472";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3794994/tree_style_tab_-3.8.3-fx.xpi";
+      sha256 = "c9ac0fcc02d0e5d0f66114ef743144506a46d00480c6f1b87b9fc946b3779c54";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
