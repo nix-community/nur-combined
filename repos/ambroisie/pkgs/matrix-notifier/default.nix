@@ -1,13 +1,13 @@
 { curl, jq, fetchFromGitHub, lib, makeWrapper, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "matrix-notifier";
-  version = "0.1.0";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "ambroisie";
     repo = "matrix-notifier";
     rev = "v${version}";
-    sha256 = "sha256-MbtxLUVL4bBS66TJTXky/0blR9lFKzLkRccck7Um2Co=";
+    sha256 = "sha256-kEOwROIBzjet0R82/IknRSfCLf56Pp2LBSn3QzCigAM=";
   };
 
   phases = [ "installPhase" "fixupPhase" ];
