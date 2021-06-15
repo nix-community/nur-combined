@@ -21,6 +21,15 @@ in
       enable = true;
     };
 
+    # Jackett wants to eat *all* my RAM if left to its own devices
+    systemd.services.jackett = {
+      serviceConfig = {
+        MemoryHigh = "15%";
+        MemoryMax = "25%";
+      };
+    };
+
+
     services.nginx.virtualHosts."${jackettDomain}" =
       lib.mkIf cfg.jackett.enable {
         forceSSL = true;
