@@ -28,6 +28,13 @@ in
   };
 
   config = mkIf cfg.enable {
+    warnings = [
+      ''
+        The `smtp-to-sendmail' service is deprecated and will go away soon!
+        Please switch to `opensmtpd-relay'.
+      ''
+    ];
+
     services.opensmtpd = {
       enable = true;
       extraServerArgs = [ "-v" ];
