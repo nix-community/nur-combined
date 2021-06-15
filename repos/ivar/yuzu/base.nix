@@ -36,7 +36,11 @@ stdenv.mkDerivation rec {
     ffmpeg
   ];
 
-  patches = [ ./inject-git-info.patch ];
+# TODO: patch fails to apply?
+#  patches = [(fetchpatch {
+#    url = "https://raw.githubusercontent.com/pineappleEA/Pineapple-Linux/28cbf656e3188b80eda0031d0b2713708ecd630f/inject-git-info.patch";
+#    sha256 = "1zxh5fwdr7jl0aagb3yfwd0995vyyk54f0f748f7c4rqvg6867fd";
+#  })];
 
   # TODO: Remove this when https://github.com/NixOS/nixpkgs/pull/124870 hits the channels
   postPatch = ''
@@ -60,8 +64,8 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     rm -f .gitmodules # Trick the configure system. This prevents a check for submodule directories.
     cmakeFlagsArray+=( # https://github.com/NixOS/nixpkgs/issues/114044
-      "-DTITLE_BAR_FORMAT_IDLE=\"yuzu ${branchName} ${version}\""
-      "-DTITLE_BAR_FORMAT_RUNNING=\"yuzu ${branchName} ${version} \| \{3\}\""
+      "-DTITLE_BAR_FORMAT_IDLE=yuzu ${branchName} ${version}"
+      "-DTITLE_BAR_FORMAT_RUNNING=yuzu ${branchName} ${version} | {3}"
     )
   '';
 
