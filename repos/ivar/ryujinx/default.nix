@@ -79,9 +79,13 @@ in stdenv.mkDerivation rec {
       --output $out/lib/ryujinx
     shopt -s extglob
 
+    # TODO: fix this hack https://github.com/Ryujinx/Ryujinx/issues/2349
+    mkdir -p $out/lib/sndio-6
+    cp ${sndio}/lib/libsndio.so $out/lib/sndio-6/libsndio.so.6
+
     makeWrapper $out/lib/ryujinx/Ryujinx $out/bin/Ryujinx \
       --set DOTNET_ROOT "${dotnetCorePackages.net_5_0}" \
-      --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeDeps}" \
+      --suffix LD_LIBRARY_PATH : "${builtins.concatStringsSep ":" [ (lib.makeLibraryPath runtimeDeps) "$out/lib/sndio-6" ]}" \
       ''${gappsWrapperArgs[@]}
 
     for i in 16 32 48 64 96 128 256 512 1024; do
