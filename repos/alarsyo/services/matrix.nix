@@ -304,10 +304,13 @@ in {
           ''
             set -eux
 
-            ${compress}/bin/synapse-compress-state \
-              -p postgresql://localhost/${db_name} \
-              -o compress.sql \
-              -t
+            for room in 'nix:nixos.org'; do
+              ${compress}/bin/synapse-compress-state \
+                -p postgresql://localhost/${db_name} \
+                -r $room \
+                -o compress.sql \
+                -t
+            done
 
             rm compress.sql
           '';
