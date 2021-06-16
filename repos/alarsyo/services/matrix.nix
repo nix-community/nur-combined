@@ -304,10 +304,10 @@ in {
           ''
             set -eux
 
-            for room in 'nix:nixos.org'; do
+            for room in $(cat rooms.txt); do
               ${compress}/bin/synapse-compress-state \
-                -p postgresql://localhost/${db_name} \
-                -r $room \
+                -p "postgresql:///${db_name}?user=matrix-synapse&host=/var/run/postgresql" \
+                -r "$room" \
                 -o compress.sql \
                 -t
             done
