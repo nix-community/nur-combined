@@ -20,6 +20,7 @@
     multiple-entity-row = (pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/multiple-entity-row {});
     rmv-card = (pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/rmv-card {});
     sun-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/sun-card {};
+    slider-button-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/slider-button-card {};
     swipe-navigation = (pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/swipe-navigation {});
     weather-card-chart = (pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/weather-card-chart {});
   };
