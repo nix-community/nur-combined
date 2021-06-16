@@ -287,5 +287,30 @@ in {
       # this is just caching for other servers media, doesn't need backup
       exclude = [ "${dataDir}/media/remote_*" ];
     };
+
+    systemd.services.matrix-synapse-compress-state = {
+      serviceConfig = {
+        Type = "oneshot";
+        WorkingDirectory = config.services.matrix-synapse.dataDir;
+        User = "matrix-synapse";
+        Group = "matrix-synapse";
+      };
+
+      script =
+        let
+          compress = pkgs.matrix-synapse-tools.rust-synapse-compress-state;
+          db_name = config.services.matrix-synapse.database_name;
+        in
+          ''
+            set -eux
+
+            ${compress}/bin/synapse-compress-state \
+              -p postgresql://localhost/${db_name} \
+              -o compress.sql \
+              -t
+
+            rm compress.sql
+          '';
+    };
   };
 }
