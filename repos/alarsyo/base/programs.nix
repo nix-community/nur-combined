@@ -39,6 +39,8 @@
     pinentry-curses
     python3
     vim
+    clang_11
+    llvmPackages_11.bintools
 
     # terminal utilities
     bottom

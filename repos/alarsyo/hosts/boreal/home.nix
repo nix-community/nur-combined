@@ -19,7 +19,6 @@
         chromium
 
         # dev
-        clang_11
         rustup
 
         unstable.beancount
