@@ -1,4 +1,4 @@
-{ coreutils, gnused, makeWrapper, lib, shellcheck, stdenvNoCC, xorg }:
+{ lib, coreutils, gnused, makeWrapper, shellcheck, stdenvNoCC, xorg }:
 stdenvNoCC.mkDerivation rec {
   pname = "i3-get-window-criteria";
   version = "0.1.0";

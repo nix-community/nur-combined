@@ -1,4 +1,4 @@
-{ python3, fetchFromGitHub, inkscape, lib, stdenvNoCC, xcursorgen }:
+{ lib, python3, fetchFromGitHub, inkscape, stdenvNoCC, xcursorgen }:
 let
   py = python3.withPackages (ps: with ps; [ cairosvg ]);
 in

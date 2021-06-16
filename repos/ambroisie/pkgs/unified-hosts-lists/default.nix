@@ -1,4 +1,4 @@
-{ fetchFromGitHub, lib, stdenvNoCC }:
+{ lib, fetchFromGitHub, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "unified-hosts-lists";
   version = "3.6.4";

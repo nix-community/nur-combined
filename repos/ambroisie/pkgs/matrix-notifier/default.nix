@@ -1,4 +1,4 @@
-{ curl, jq, fetchFromGitHub, lib, makeWrapper, stdenvNoCC }:
+{ lib, curl, jq, fetchFromGitHub, makeWrapper, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "matrix-notifier";
   version = "0.1.2";

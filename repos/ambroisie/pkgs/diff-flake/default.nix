@@ -1,4 +1,4 @@
-{ coreutils, git, gnused, makeWrapper, lib, shellcheck, stdenvNoCC }:
+{ lib, coreutils, git, gnused, makeWrapper, shellcheck, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "diff-flake";
   version = "0.1.0";

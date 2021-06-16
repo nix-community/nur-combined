@@ -1,4 +1,4 @@
-{ fzf, lib, makeWrapper, nix-index, shellcheck, stdenvNoCC }:
+{ lib, fzf, makeWrapper, nix-index, shellcheck, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "comma";
   version = "0.1.0";

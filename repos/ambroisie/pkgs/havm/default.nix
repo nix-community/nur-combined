@@ -1,4 +1,4 @@
-{ fetchurl, ghc, lib, stdenv, which }:
+{ lib, fetchurl, ghc, stdenv, which }:
 stdenv.mkDerivation rec {
   pname = "havm";
   version = "0.28";

@@ -1,4 +1,4 @@
-{ bitwarden-cli, coreutils, jq, keyutils, lib, makeWrapper, rofi, shellcheck, stdenvNoCC }:
+{ lib, bitwarden-cli, coreutils, jq, keyutils, makeWrapper, rofi, shellcheck, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "bw-pass";
   version = "0.1.0";

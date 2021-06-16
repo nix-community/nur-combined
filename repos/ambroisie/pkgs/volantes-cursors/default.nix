@@ -1,4 +1,4 @@
-{ fetchFromGitHub, inkscape, lib, stdenvNoCC, xcursorgen }:
+{ lib, fetchFromGitHub, inkscape, stdenvNoCC, xcursorgen }:
 stdenvNoCC.mkDerivation rec {
   pname = "volantes-cursors";
   version = "unstable-2020-06-06";
