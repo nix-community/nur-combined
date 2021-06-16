@@ -7,12 +7,12 @@
 
 buildPythonPackage rec {
   pname = "ipyvuetify";
-  version = "1.6.2";
+  version = "1.7.0";
 
   # GitHub version tries to run npm (Node JS)
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-BWd201m1U0NEL3B8tMzVYHgAWZo2vuBuHwHvAnfwPdw=";
+    sha256 = "sha256-6pUeOBn8/ooroKD+ilHwewHcp5hur1fxhAs8cYSMx8M=";
   };
 
   propagatedBuildInputs = [ ipyvue ];

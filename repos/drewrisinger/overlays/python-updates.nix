@@ -18,6 +18,8 @@ rec {
     {
       # Needed for nixpkgs-20.03
       sparse = overrideSuperVersionIfNewer py-super.sparse (py-self.callPackage ../pkgs/python-modules/sparse { });
+      # Needed for nixpkgs < nixos-unstable
+      websocket_client = overrideSuperVersionIfNewer py-super.websocket_client (py-self.callPackage ../pkgs/python-modules/websocket-client { });
     };
   };
 

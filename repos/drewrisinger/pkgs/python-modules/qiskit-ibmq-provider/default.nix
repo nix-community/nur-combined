@@ -7,7 +7,8 @@
 , qiskit-terra
 , requests
 , requests_ntlm
-, websockets
+, websocket_client ? null # nixpkgs <= 21.05
+, websocket-client ? null # nixpkgs > 21.05
   # Visualization inputs
 , withVisualization ? true
 , ipython
@@ -23,6 +24,7 @@
 , nbformat
 , pproxy
 , qiskit-aer
+, websockets
 , vcrpy
 }:
 
@@ -39,7 +41,7 @@ let
 in
 buildPythonPackage rec {
   pname = "qiskit-ibmq-provider";
-  version = "0.13.1";
+  version = "0.14.0";
 
   disabled = pythonOlder "3.6";
 
@@ -47,7 +49,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "0qhpbvnc5i4zn3vfipfd9bmddspfj1k8fs75wal33drdfxgfal8f";
+    sha256 = "sha256-GQTGjFrir/d0ozyZCife9exJQNoWa5ohELPmOfFbxno=";
   };
 
   propagatedBuildInputs = [
@@ -56,8 +58,13 @@ buildPythonPackage rec {
     qiskit-terra
     requests
     requests_ntlm
-    websockets
+    websocket_client
+    websocket-client
   ] ++ lib.optionals withVisualization visualizationPackages;
+
+  postPatch = ''
+    substituteInPlace setup.py --replace "websocket-client>=1.0.1" "websocket-client"
+  '';
 
   # Most tests require credentials to run on IBMQ
   checkInputs = [
@@ -67,6 +74,7 @@ buildPythonPackage rec {
     pproxy
     qiskit-aer
     vcrpy
+    websockets
   ] ++ lib.optionals (!withVisualization) visualizationPackages;
   dontUseSetuptoolsCheck = true;
 
@@ -89,7 +97,6 @@ buildPythonPackage rec {
     export QISKIT_TESTS=skip_online
   '';
   postCheck = "popd";
-
 
   meta = with lib; {
     description = "Qiskit provider for accessing the quantum devices and simulators at IBMQ";
