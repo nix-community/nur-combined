@@ -164,11 +164,11 @@ let
         gfortran = final.gfortran6;
       };
 
-      molcas = self.molcas2102;
+      molcas = self.molcas2106;
 
       molcas1809 = callPackage ./pkgs/apps/openmolcas/v18.09.nix { };
 
-      molcas2102 = callPackage ./pkgs/apps/openmolcas/v21.02.nix { };
+      molcas2106 = callPackage ./pkgs/apps/openmolcas/default.nix { };
 
       mrcc = callPackage ./pkgs/apps/mrcc { };
 
