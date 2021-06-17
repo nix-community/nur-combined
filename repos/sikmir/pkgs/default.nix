@@ -107,16 +107,11 @@ lib.makeScope newScope (
 
     ### TOOLS
 
-    cmpgpx = callPackage ./tools/geo/cmpgpx { };
     datamaps = callPackage ./tools/geo/datamaps { };
     elevation = callPackage ./tools/geo/elevation {
       click = click-6-7;
     };
     go-staticmaps = callPackage ./tools/geo/go-staticmaps { };
-    gpx-interpolate = callPackage ./tools/geo/gpx-interpolate { };
-    gpx-layer = perlPackages.callPackage ./tools/geo/gpx-layer { };
-    gpxtools = callPackage ./tools/geo/gpxtools { };
-    gpxtrackposter = callPackage ./tools/geo/gpxtrackposter { };
     py-staticmaps = callPackage ./tools/geo/py-staticmaps { };
     render_geojson = callPackage ./tools/geo/render_geojson { };
     supermercado = callPackage ./tools/geo/supermercado { };
@@ -193,6 +188,15 @@ lib.makeScope newScope (
     qmapshack-bin = callPackage ./gis/qmapshack/bin.nix { };
     sasplanet-bin = callPackage ./gis/sasplanet/bin.nix { };
     tdh = callPackage ./gis/tdh { };
+
+    ### GPX
+
+    cmpgpx = callPackage ./gpx/cmpgpx { };
+    gpx-animator = callPackage ./gpx/gpx-animator { };
+    gpx-interpolate = callPackage ./gpx/gpx-interpolate { };
+    gpx-layer = perlPackages.callPackage ./gpx/gpx-layer { };
+    gpxtools = callPackage ./gpx/gpxtools { };
+    gpxtrackposter = callPackage ./gpx/gpxtrackposter { };
 
     ### IMAGES
 
