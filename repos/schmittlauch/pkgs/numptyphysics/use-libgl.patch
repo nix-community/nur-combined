@@ -1,0 +1,19 @@
+diff --git a/platform/gl/gl.mk b/platform/gl/gl.mk
+index 094a69b..f374acd 100644
+--- a/platform/gl/gl.mk
++++ b/platform/gl/gl.mk
+@@ -2,13 +2,8 @@
+ ifeq ($(shell uname),Darwin)
+ LIBS += -framework OpenGL
+ else ifneq ($(PLATFORM),mingw)
+-ifneq ($(wildcard $(patsubst %,%/libGL.so.1,/usr/lib /usr/lib64 /usr/lib/* /usr/lib/*/mesa)),)
++# quick and dirty patch: always use libGL without checking
+ $(eval $(call add_pkgconfig,gl))
+ else
+-$(eval $(call add_pkgconfig,glesv2))
+-CFLAGS += -DUSE_OPENGL_ES
+-CXXFLAGS += -DUSE_OPENGL_ES
+-endif
+-else
+ LIBS += -lopengl32
+ endif
