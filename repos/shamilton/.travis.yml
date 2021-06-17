@@ -32,7 +32,7 @@ branches:
 
 matrix:
   include:
-    - env: NIXOS_VERSION=master NIX_CHANNEL=nixos-20.09
+    - env: NIXOS_VERSION=master NIX_CHANNEL=nixos-21.05
     - env: NIXOS_VERSION=nixos-unstable NIX_CHANNEL=nixos-unstable
     - env: NIXOS_VERSION=nixpkgs-unstable NIX_CHANNEL=nixpkgs-unstable 
 

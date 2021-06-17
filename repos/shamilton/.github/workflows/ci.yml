@@ -17,7 +17,7 @@ env:
   CACHIX_CACHE: scott-hamilton
   NIXPKGS_ALLOW_BROKEN: 0
   CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-  DEFAULT_NIX_CHANNEL: nixos-20.09
+  DEFAULT_NIX_CHANNEL: nixos-21.05
   # Allows you to run this workflow manually from the Actions tab
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
