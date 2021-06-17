@@ -65,6 +65,7 @@ in
 
         # Rust builds using half my storage capacity
         "/home/alarsyo/*/target"
+        "/home/alarsyo/work/rust/build"
 
         # C build crap
         "*.a"
