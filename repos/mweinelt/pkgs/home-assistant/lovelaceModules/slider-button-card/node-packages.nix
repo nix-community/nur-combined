@@ -2848,13 +2848,13 @@ let
         sha512 = "4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==";
       };
     };
-    "typescript-3.9.9" = {
+    "typescript-3.9.10" = {
       name = "typescript";
       packageName = "typescript";
-      version = "3.9.9";
+      version = "3.9.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/typescript/-/typescript-3.9.9.tgz";
-        sha512 = "kdMjTiekY+z/ubJCATUPlRDl39vXYiMV9iyeMuEuXZh2we6zz80uovNN2WlAxmmdE/Z/YQe+EbOEXB5RHEED3w==";
+        url = "https://registry.npmjs.org/typescript/-/typescript-3.9.10.tgz";
+        sha512 = "w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==";
       };
     };
     "uglify-js-3.13.9" = {
@@ -2968,14 +2968,14 @@ let
   };
 in
 {
-  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.3.0" = nodeEnv.buildNodePackage {
+  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.3.2" = nodeEnv.buildNodePackage {
     name = "slider-button-card";
     packageName = "slider-button-card";
-    version = "1.3.0";
+    version = "1.3.2";
     src = fetchgit {
       url = "https://github.com/mattieha/slider-button-card";
-      rev = "72d2458546604c03d6f0fea6b416339d7b01e311";
-      sha256 = "f23c9f70fcb6e5db183dd2d5786967fcbb0ec624014625459d4ec92ffe614145";
+      rev = "745c73cd7baf34a6941b32d0d37b4c5f2771df3e";
+      sha256 = "037141d2da077938c8610bfecf3bcc74705e639ddc896b64dc5beb543107c2a5";
     };
     dependencies = [
       sources."@babel/code-frame-7.14.5"
@@ -3385,7 +3385,7 @@ in
       })
       sources."type-check-0.3.2"
       sources."type-fest-0.8.1"
-      sources."typescript-3.9.9"
+      sources."typescript-3.9.10"
       sources."uglify-js-3.13.9"
       sources."unbox-primitive-1.0.1"
       sources."universalify-0.1.2"
