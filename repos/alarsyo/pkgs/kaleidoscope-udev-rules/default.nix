@@ -1,25 +1,30 @@
-{ stdenv, lib }:
+{ stdenv, lib, fetchFromGitHub }:
 
 let
+  version = "1.99.3";
+in
+stdenv.mkDerivation {
+  inherit version;
   pname = "kaleidoscope-udev-rules";
-  version = "0.8.4";
-in stdenv.mkDerivation rec {
-  name = "${pname}-${version}";
 
   dontBuild = true;
 
-  src = ./.;
+  src = fetchFromGitHub {
+    owner = "keyboardio";
+    repo = "Kaleidoscope";
+    rev = "v${version}";
+    sha256 = "sha256-4WIl/Hj23j9GLzdMcyEQvg9X7HI4WSInrLkYCkj6yhM=";
+  };
 
-  # FIXME: fetch from GitHub properly
   installPhase = ''
     mkdir -p $out/lib/udev/rules.d
-    cp ./60-kaleidoscope.rules $out/lib/udev/rules.d/
+    cp etc/60-kaleidoscope.rules $out/lib/udev/rules.d/
   '';
 
   meta = with lib; {
     description = "udev rules for kaleidoscope firmware keyboards";
-    homepage = "https://github.com/keyboardio/Chrysalis";
-    license = licenses.gpl3;
+    homepage = "https://github.com/keyboardio/Kaleidoscope";
+    license = licenses.gpl3Only;
     platforms = [ "x86_64-linux" ];
   };
 }
