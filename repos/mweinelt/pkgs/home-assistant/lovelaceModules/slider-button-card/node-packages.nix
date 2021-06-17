@@ -2317,13 +2317,13 @@ let
         sha512 = "/2HA0Ec70TvQnXdzynFffkjA6XN+1e2pEv/uKS5Ulca40g2L7KuOE3riasHoNVHOsFD5KKZgDsMk1CP3Tw9s+A==";
       };
     };
-    "rollup-2.52.0" = {
+    "rollup-2.52.1" = {
       name = "rollup";
       packageName = "rollup";
-      version = "2.52.0";
+      version = "2.52.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rollup/-/rollup-2.52.0.tgz";
-        sha512 = "lSkBDGsVoXjqaBf7dsHwxBJz+p+hJEP72P+LOitA0yVs+Nzxj76FidkZE2thrmhjwGqLYiJo39opi7mAfaQ/Vg==";
+        url = "https://registry.npmjs.org/rollup/-/rollup-2.52.1.tgz";
+        sha512 = "/SPqz8UGnp4P1hq6wc9gdTqA2bXQXGx13TtoL03GBm6qGRI6Hm3p4Io7GeiHNLl0BsQAne1JNYY+q/apcY933w==";
       };
     };
     "rollup-plugin-babel-4.4.0" = {
@@ -2968,14 +2968,14 @@ let
   };
 in
 {
-  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.3.2" = nodeEnv.buildNodePackage {
+  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.4.0" = nodeEnv.buildNodePackage {
     name = "slider-button-card";
     packageName = "slider-button-card";
-    version = "1.3.2";
+    version = "1.4.0";
     src = fetchgit {
       url = "https://github.com/mattieha/slider-button-card";
-      rev = "745c73cd7baf34a6941b32d0d37b4c5f2771df3e";
-      sha256 = "037141d2da077938c8610bfecf3bcc74705e639ddc896b64dc5beb543107c2a5";
+      rev = "4857d7e5a670903bb33800edf377bff723f82d89";
+      sha256 = "8cab1e51d76b0a4c1d8c29ea432fda69417a61c766aabfdf441b815cb17aac9d";
     };
     dependencies = [
       sources."@babel/code-frame-7.14.5"
@@ -3068,7 +3068,7 @@ in
       (sources."custom-card-helpers-1.7.1" // {
         dependencies = [
           sources."home-assistant-js-websocket-5.10.0"
-          sources."rollup-2.52.0"
+          sources."rollup-2.52.1"
         ];
       })
       sources."debug-4.3.2"
