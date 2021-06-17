@@ -14,7 +14,8 @@ assert
   "OpenMolcas requires OpenBLAS or MKL.";
 
 let
-  version = "21.06";
+  version = "21.06-2021-06-09";
+  gitLabRev = "dd982ad4bc94dec8ac1e3e99cb6a7dd249ff71de";
 
   python = python3.withPackages (ps : with ps; [ six pyparsing ]);
 
@@ -32,7 +33,7 @@ in stdenv.mkDerivation {
   src = fetchFromGitLab {
     owner = "Molcas";
     repo = "OpenMolcas";
-    rev = "v${version}";
+    rev = gitLabRev;
     sha256 = "07dm73n0s7ckif561yb3s9yqxsv39a73kb9qwny4yp39wdvv52hz";
   };
 
