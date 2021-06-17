@@ -1,4 +1,5 @@
 { MyVimConfig
+, kotlin-vim
 , vim-lsp
 , vim-lsp-settings
 , vim-myftplugins
@@ -26,6 +27,7 @@ in
         pkgs.vimPlugins.commentary
         pkgs.vimPlugins.vim-colorschemes
         pkgs.vimPlugins.vim-qml
+        kotlin-vim
         vim-lsp
         vim-lsp-settings
         vim-myftplugins

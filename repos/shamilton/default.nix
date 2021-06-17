@@ -74,6 +74,9 @@ pkgs.lib.traceValFn (x:
   keysmith = kdeApplications.callPackage ./pkgs/keysmith { };
   killbots = kdeApplications.callPackage ./pkgs/Killbots { };
   kirigami-gallery = kdeApplications.callPackage ./pkgs/KirigamiGallery { };
+  kotlin-vim = with pkgs.vimUtils; pkgs.callPackage ./pkgs/kotlin-vim {
+    inherit buildVimPluginFrom2Nix;
+  };
   libfake = pkgs.callPackage ./pkgs/FakeLib { };
   lokalize = pkgs.libsForQt5.callPackage ./pkgs/Lokalize { };
   merge-keepass = with pkgs.python3Packages; pkgs.callPackage ./pkgs/merge-keepass { 

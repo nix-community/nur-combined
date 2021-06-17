@@ -9,6 +9,7 @@
     myvim = import ./myvim.nix {
       inherit (selfnur) 
           MyVimConfig
+          kotlin-vim
           vim-lsp
           vim-lsp-settings
           vim-myftplugins
