@@ -67,6 +67,9 @@ in
         "/home/alarsyo/*/target"
         "/home/alarsyo/work/rust/build"
 
+        # don't backup nixpkgs
+        "/home/alarsyo/work/nixpkgs"
+
         # C build crap
         "*.a"
         "*.o"
