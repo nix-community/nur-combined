@@ -764,10 +764,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.6.0";
+      version = "9.6.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3795817/metamask-9.6.0-an+fx.xpi";
-      sha256 = "d0f6d850ccb7b178eed79b87d3e018616fc40a0181d5f3f08abf94db9a1e651d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3797278/metamask-9.6.1-an+fx.xpi";
+      sha256 = "7a340b6afc3a8e38f47b9e31982e8140f8c02cbde06b021c98de5f4c893a9ee9";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1175,10 +1175,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "3.6.3";
+      version = "3.6.4";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3795059/search_by_image-3.6.3-an+fx.xpi";
-      sha256 = "7854169e59df5907b7ab9fed8cd47755157bbfee3c605ecc938bff5ee411713c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3796475/search_by_image-3.6.4-an+fx.xpi";
+      sha256 = "2601cce6b4f8a767fe85c70e18ca18e797c91f57eb053192e92cd23538255f19";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image";
