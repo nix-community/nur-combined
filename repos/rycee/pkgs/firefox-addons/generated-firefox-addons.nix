@@ -902,10 +902,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "5.45.0";
+      version = "5.47.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3768724/okta_browser_plugin-5.45.0-an+fx.xpi";
-      sha256 = "41042749a9245bedfcd480b4ce50f7e3232dea344ea8bb622323b030eb0ea63a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3793624/okta_browser_plugin-5.47.0-an+fx.xpi";
+      sha256 = "83b8b7c31b441202548bcae6365816da903f9f0291d9df1bba79a423f911fc65";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -1148,10 +1148,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.6.8";
+      version = "21.6.17";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3791699/refined_github-21.6.8-an+fx.xpi";
-      sha256 = "f14005a6083c5eba3ac2a546e413fa279e91bfcb54392b8baf2a4d827bc675de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3797406/refined_github-21.6.17-an+fx.xpi";
+      sha256 = "9be63917fa82fdefddb0350534ae6eec9165249f8880b04dc2eb60bd52c42684";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
