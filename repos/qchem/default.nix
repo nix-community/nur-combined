@@ -176,6 +176,8 @@ let
 
       multiwfn = callPackage ./pkgs/apps/multiwfn { };
 
+      openmm = super.python3.pkgs.toPythonApplication self.python3.pkgs.openmm;
+
       orca = callPackage ./pkgs/apps/orca { };
 
       osu-benchmark = callPackage ./pkgs/apps/osu-benchmark {
@@ -238,8 +240,8 @@ let
       };
 
       ### Python packages
-      python3 = super.python3.override { packageOverrides=pythonOverrides self super; };
-      python2 = super.python2.override { packageOverrides=pythonOverrides self super; };
+      python3 = super.python3.override { packageOverrides=pythonOverrides cfg self super; };
+      python2 = super.python2.override { packageOverrides=pythonOverrides cfg self super; };
 
       #
       # Libraries

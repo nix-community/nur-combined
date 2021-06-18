@@ -1,4 +1,4 @@
-subset: selfPkgs: superPkgs: self: super:
+subset: cfg: selfPkgs: superPkgs: self: super:
 
 let
   callPackage = lib.callPackageWith (
@@ -25,6 +25,10 @@ let
     gau2grid-2_0_4 = callPackage ./pkgs/apps/gau2grid { version = "2.0.4"; sha256 = "0qypq8iax0n6yfi4223zya468v24b60nr0x43ypmsafj0104zqa6"; };
 
     meep = callPackage ./pkgs/apps/meep { };
+
+    openmm = callPackage ./pkgs/apps/openmm {
+      cudatoolkit = if cfg.useCuda then superPkgs.cudaPackages.cudatoolkit_11 else null;
+    };
 
     pylibefp = callPackage ./pkgs/lib/pylibefp { };
 
