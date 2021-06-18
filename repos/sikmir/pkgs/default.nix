@@ -280,6 +280,7 @@ lib.makeScope newScope (
     quark = callPackage ./suckless/quark { };
     saait = callPackage ./suckless/saait { };
     sbase = callPackage ./suckless/sbase { };
+    scc = callPackage ./suckless/scc { };
     scroll = callPackage ./suckless/scroll { };
     sfeed = callPackage ./suckless/sfeed { };
     sthkd = callPackage ./suckless/sthkd { };
