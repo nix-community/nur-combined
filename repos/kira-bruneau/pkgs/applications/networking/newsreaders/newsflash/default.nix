@@ -15,6 +15,7 @@
 , webkitgtk
 , glib-networking
 , librsvg
+, xdg-utils
 , gst_all_1
 }:
 
@@ -34,6 +35,12 @@ stdenv.mkDerivation rec {
     name = "${pname}-${version}";
     hash = "sha256-qq8cZplt5YWUwsXUShMDhQm3RGH2kCEBk64x6bOa50E=";
   };
+
+  # https://github.com/CasualX/obfstr/blob/v0.2.4/build.rs#L5
+  # obfstr 0.2.4 fails to set RUSTC_BOOTSTRAP in its build script because cargo
+  # build scripts are forbidden from setting RUSTC_BOOTSTRAP since rustc 1.52.0
+  # https://github.com/rust-lang/rust/blob/1.52.0/RELEASES.md#compatibility-notes
+  RUSTC_BOOTSTRAP = 1;
 
   patches = [
     # Post install tries to generate an icon cache & update the
@@ -77,6 +84,9 @@ stdenv.mkDerivation rec {
 
     # SVG support for gdk-pixbuf
     librsvg
+
+    # Open links in browser
+    xdg-utils
   ] ++ (with gst_all_1; [
     # Audio & video support for webkitgtk WebView
     gstreamer
