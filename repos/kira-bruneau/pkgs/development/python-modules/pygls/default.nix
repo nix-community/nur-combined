@@ -2,7 +2,7 @@
 , buildPythonPackage
 , isPy3k
 , fetchFromGitHub
-, setuptools_scm
+, setuptools-scm
 , pydantic
 , typeguard
 , mock
@@ -23,7 +23,7 @@ buildPythonPackage rec {
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
-  nativeBuildInputs = [ setuptools_scm ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     pydantic

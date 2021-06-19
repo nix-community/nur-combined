@@ -1,7 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
-, setuptools_scm
+, setuptools-scm
 , pytestCheckHook
 , cmake
 }:
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
-  nativeBuildInputs = [ setuptools_scm ];
+  nativeBuildInputs = [ setuptools-scm ];
   checkInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "pytest_datadir" ];
 

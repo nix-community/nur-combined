@@ -57,14 +57,14 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "yabridge";
-  version = "3.2.0";
+  version = "3.3.1";
 
   # NOTE: Also update yabridgectl's cargoHash when this is updated
   src = fetchFromGitHub {
     owner = "robbert-vdh";
     repo = pname;
     rev = version;
-    hash = "sha256-UT6st0Rc6HOaObE3N+qlPZZ8U1gl/MFLU0mjFuScdes=";
+    hash = "sha256-3B+6YuCWVJljqdyGpePjPf5JDwLSWFNgOCeLt8e4mO8=";
   };
 
   # Unpack subproject sources
