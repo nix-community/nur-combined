@@ -778,13 +778,13 @@ let
         sha512 = "XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==";
       };
     };
-    "regexpp-3.1.0" = {
+    "regexpp-3.2.0" = {
       name = "regexpp";
       packageName = "regexpp";
-      version = "3.1.0";
+      version = "3.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/regexpp/-/regexpp-3.1.0.tgz";
-        sha512 = "ZOIzd8yVsQQA7j8GCSlPGXwg5PfmA1mrq0JP4nGhh54LaKN3xdai/vHUDu74pKwV8OxseMS65u2NImosQcSD0Q==";
+        url = "https://registry.npmjs.org/regexpp/-/regexpp-3.2.0.tgz";
+        sha512 = "pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==";
       };
     };
     "require-from-string-2.0.2" = {
@@ -998,8 +998,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.28.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.28.0.tgz"; sha1 = "435aa17a0b82c13bb2be9d51408b617e49c1e820"; };
+    version = "7.29.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.29.0.tgz"; sha1 = "ee2a7648f2e729485e4d0bd6383ec1deabc8b3c0"; };
     dependencies = [
       sources."@babel/code-frame-7.12.11"
       sources."@babel/helper-validator-identifier-7.14.5"
@@ -1106,7 +1106,7 @@ let
       sources."prelude-ls-1.2.1"
       sources."progress-2.0.3"
       sources."punycode-2.1.1"
-      sources."regexpp-3.1.0"
+      sources."regexpp-3.2.0"
       sources."require-from-string-2.0.2"
       sources."resolve-from-4.0.0"
       sources."rimraf-3.0.2"
