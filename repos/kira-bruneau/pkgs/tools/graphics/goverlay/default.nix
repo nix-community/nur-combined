@@ -3,7 +3,6 @@
 , bash
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , fpc
 , lazarus-qt
 , qt5
@@ -35,32 +34,18 @@ let
   '';
 in stdenv.mkDerivation rec {
   pname = "goverlay";
-  version = "0.5";
+  version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "benjamimgois";
     repo = pname;
     rev = version;
-    hash = "sha256-qS0GY2alUBfkmT20oegGpkhVkK+ZOUkJCPSV/wt0ZUA=";
+    hash = "sha256-Zl1pq2MeGJsPdNlwUEpov5MHlsr9pSMkWHVprt8ImKs=";
   };
 
   outputs = [ "out" "man" ];
 
   patches = [
-    # Find replay-sorcery in PATH
-    # See https://github.com/benjamimgois/goverlay/pull/123
-    (fetchpatch {
-      url = "https://github.com/benjamimgois/goverlay/commit/09da4db26196f42578b11bd6541be5ede1125cdf.patch";
-      sha256 = "sha256-qYxAe5okKwRfmk7IBVq0nl6RUddKjge+TKzah+0VfeQ=";
-    })
-
-    # Support running previews without MangoHud
-    # See https://github.com/benjamimgois/goverlay/pull/124
-    (fetchpatch {
-      url = "https://github.com/benjamimgois/goverlay/commit/1a7e9eee5113c45e93000dfd41f79b36fd169475.patch";
-      sha256 = "sha256-qTRuULv/NLuZLdejC34JS1T+jKvdRyVQSzCBXtOaRME=";
-    })
-
     # Find MangoHud & vkBasalt Vulkan layers using the XDG Base Directory Specification
     ./find-xdg-data-files.patch
   ];
