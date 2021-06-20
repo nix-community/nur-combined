@@ -3,10 +3,9 @@
 let nurPkgs = (mergedPkgs:
 let
   callPackage = pkgs.newScope mergedPkgs;
+  pythonOverrides = import ./development/python-modules mergedPkgs;
 in
 with mergedPkgs; {
-  inherit callPackage;
-
   bcml = bcml-qt;
 
   bcml-gtk = python3Packages.callPackage ./games/bcml {
@@ -74,38 +73,25 @@ with mergedPkgs; {
     inherit (gnome) zenity;
   };
 
-  pythonPackages = makeOverridable (import ./development/python-modules) {
-    inherit mergedPkgs;
-    pythonPackages = pkgs.pythonPackages;
-  };
+  python = pkgs.python.override { packageOverrides = pythonOverrides; };
+  python2 = pkgs.python2.override { packageOverrides = pythonOverrides; };
+  python3 = pkgs.python3.override { packageOverrides = pythonOverrides; };
+  python27 = pkgs.python27.override { packageOverrides = pythonOverrides; };
+  python36 = pkgs.python36.override { packageOverrides = pythonOverrides; };
+  python37 = pkgs.python37.override { packageOverrides = pythonOverrides; };
+  python38 = pkgs.python38.override { packageOverrides = pythonOverrides; };
+  python39 = pkgs.python39.override { packageOverrides = pythonOverrides; };
+  python310 = pkgs.python310.override { packageOverrides = pythonOverrides; };
 
-  python2Packages = pythonPackages.override {
-    pythonPackages = pkgs.python2Packages;
-  };
-
-  python3Packages = pythonPackages.override {
-    pythonPackages = pkgs.python3Packages;
-  };
-
-  python27Packages = pythonPackages.override {
-    pythonPackages = pkgs.python27Packages;
-  };
-
-  python37Packages = pythonPackages.override {
-    pythonPackages = pkgs.python37Packages;
-  };
-
-  python38Packages = pythonPackages.override {
-    pythonPackages = pkgs.python38Packages;
-  };
-
-  python39Packages = pythonPackages.override {
-    pythonPackages = pkgs.python39Packages;
-  };
-
-  python310Packages = pythonPackages.override {
-    pythonPackages = pkgs.python310Packages;
-  };
+  pythonPackages = python.pkgs;
+  python2Packages = python2.pkgs;
+  python3Packages = python3.pkgs;
+  python27Packages = python27.pkgs;
+  python36Packages = python36.pkgs;
+  python37Packages = python37.pkgs;
+  python38Packages = python38.pkgs;
+  python39Packages = python39.pkgs;
+  python310Packages = python310.pkgs;
 
   replay-sorcery = callPackage ./tools/video/replay-sorcery { };
 

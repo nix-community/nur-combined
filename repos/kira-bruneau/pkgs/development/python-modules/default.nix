@@ -1,12 +1,11 @@
-{ mergedPkgs, pythonPackages }:
+mergedPkgs: final: prev:
 
-let nurPythonPackages = (mergedPythonPackages:
+with final;
+
 let
-  callPackage = mergedPkgs.newScope mergedPythonPackages;
+  callPackage = mergedPkgs.newScope final;
 in
-with mergedPythonPackages; {
-  inherit callPackage;
-
+{
   aamp = callPackage ./aamp { };
 
   botw-havok = callPackage ./botw-havok { };
@@ -44,6 +43,4 @@ with mergedPythonPackages; {
   rstb = callPackage ./rstb { };
 
   vdf = callPackage ./vdf { };
-}) (pythonPackages // nurPythonPackages);
-in
-nurPythonPackages
+}
