@@ -346,13 +346,13 @@ let
         sha1 = "ee28707ae94e11d2b827bcbe5270bcea7f3e71ee";
       };
     };
-    "@types/node-15.12.3" = {
+    "@types/node-15.12.4" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "15.12.3";
+      version = "15.12.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-15.12.3.tgz";
-        sha512 = "SNt65CPCXvGNDZ3bvk1TQ0Qxoe3y1RKH88+wZ2Uf05dduBCqqFQ76ADP9pbT+Cpvj60SkRppMCh2Zo8tDixqjQ==";
+        url = "https://registry.npmjs.org/@types/node/-/node-15.12.4.tgz";
+        sha512 = "zrNj1+yqYF4WskCMOHwN+w9iuD12+dGm0rQ35HLl9/Ouuq52cEtd0CH9qMgrdNmi5ejC1/V7vKEXYubB+65DkA==";
       };
     };
     "@types/resolve-0.0.8" = {
@@ -571,13 +571,13 @@ let
         sha512 = "P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==";
       };
     };
-    "caniuse-lite-1.0.30001238" = {
+    "caniuse-lite-1.0.30001239" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001238";
+      version = "1.0.30001239";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001238.tgz";
-        sha512 = "bZGam2MxEt7YNsa2VwshqWQMwrYs5tR5WZQRYSuFxsBQunWjBuXhN4cS9nV5FFb1Z9y+DoQcQ0COyQbv6A+CKw==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001239.tgz";
+        sha512 = "cyBkXJDMeI4wthy8xJ2FvDU6+0dtcZSJW3voUF8+e9f1bBeuvyZfc3PNbkOETyhbR+dGCPzn9E7MA3iwzusOhQ==";
       };
     };
     "chalk-2.4.2" = {
@@ -706,13 +706,13 @@ let
         sha512 = "gNld/3lySHwuhaVluJUKLePYirM3QNCKzVxqAdhJII9/WXKVX5PURzMVJspS1jTslSqjeuG4KMVTSouit5YPHA==";
       };
     };
-    "convert-source-map-1.7.0" = {
+    "convert-source-map-1.8.0" = {
       name = "convert-source-map";
       packageName = "convert-source-map";
-      version = "1.7.0";
+      version = "1.8.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/convert-source-map/-/convert-source-map-1.7.0.tgz";
-        sha512 = "4FJkXzKXEDB1snCFZlLP4gpC3JILicCpGbzG9f9G7tGqGCzETQ2hWPrcinA9oU4wtf2biUaEH5065UnMeR33oA==";
+        url = "https://registry.npmjs.org/convert-source-map/-/convert-source-map-1.8.0.tgz";
+        sha512 = "+OQdjP49zViI/6i7nIJpA8rAl4sV/JdPfU9nZs3VqOwGIgizICvuN2ru6fMd+4llL0tar18UYJXfZ/TWtmhUjA==";
       };
     };
     "cross-spawn-6.0.5" = {
@@ -2968,14 +2968,14 @@ let
   };
 in
 {
-  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.4.2" = nodeEnv.buildNodePackage {
+  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.5.1" = nodeEnv.buildNodePackage {
     name = "slider-button-card";
     packageName = "slider-button-card";
-    version = "1.4.2";
+    version = "1.5.1";
     src = fetchgit {
       url = "https://github.com/mattieha/slider-button-card";
-      rev = "e7dcc290e2528b30a8325c534248230001e02162";
-      sha256 = "e9a83e28bf4eea0d3757b38ec23ffc5595e67bbc4630e234a2adb92000779def";
+      rev = "5b2d05c8271606e9390b550238072f1852f5770f";
+      sha256 = "bf3f05976df7d2f135885259e5454a604858f47e758bc8b4bcd3885cbbf6e024";
     };
     dependencies = [
       sources."@babel/code-frame-7.14.5"
@@ -3016,7 +3016,7 @@ in
       sources."@types/estree-0.0.39"
       sources."@types/json-schema-7.0.7"
       sources."@types/json5-0.0.29"
-      sources."@types/node-15.12.3"
+      sources."@types/node-15.12.4"
       sources."@types/resolve-0.0.8"
       sources."@typescript-eslint/eslint-plugin-2.34.0"
       sources."@typescript-eslint/experimental-utils-2.34.0"
@@ -3047,7 +3047,7 @@ in
       sources."builtin-modules-3.2.0"
       sources."call-bind-1.0.2"
       sources."callsites-3.1.0"
-      sources."caniuse-lite-1.0.30001238"
+      sources."caniuse-lite-1.0.30001239"
       sources."chalk-2.4.2"
       sources."chardet-0.7.0"
       sources."cli-cursor-3.1.0"
@@ -3059,7 +3059,7 @@ in
       sources."commondir-1.0.1"
       sources."concat-map-0.0.1"
       sources."confusing-browser-globals-1.0.10"
-      sources."convert-source-map-1.7.0"
+      sources."convert-source-map-1.8.0"
       (sources."cross-spawn-6.0.5" // {
         dependencies = [
           sources."semver-5.7.1"
