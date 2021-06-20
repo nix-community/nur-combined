@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, hiredis, libev }:
+{ stdenv, lib, fetchFromGitHub, cmake, hiredis, libev }:
 
 stdenv.mkDerivation rec {
   name = "redox";
@@ -19,11 +19,11 @@ stdenv.mkDerivation rec {
     sed -i -E 'sW^libdir=(.*)/lib[0-9]{2}Wlibdir=\1/libW' $out/lib*/pkgconfig/redox.pc
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Modern, asynchronous, and wicked fast C++11 client for Redis";
     homepage    = https://github.com/hmartiro/redox;
     license     = licenses.asl20;
-    platforms   = platforms.unix;
+    platforms   = platforms.all;
     broken = false;
 
     longDescription = ''

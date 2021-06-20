@@ -1,3 +1,5 @@
+*~
 result
 result-*
-
+__pycache__/
+pytest.xml

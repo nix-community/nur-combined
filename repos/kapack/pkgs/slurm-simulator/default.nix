@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libtool, curl
+{ stdenv, lib, fetchFromGitHub, pkgconfig, libtool, curl
 , python, munge, perl, pam, openssl, zlib
 , ncurses, libmysqlclient, lua, hwloc, numactl
 , readline, freeipmi, libssh2, lz4, autoconf, automake, gtk2, version ? "17"
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
 
   #makeFlags = ''CFLAGS="-D SLURM_SIMULATOR -g0 -O3 -D NDEBUG=1"'';
   #makeFlags = "CFLAGS=-DSLURM_SIMULATOR";
-  configureFlags = with stdenv.lib;
+  configureFlags = with lib;
     [ #"--with-hwloc=${hwloc.dev}"
       "--with-lz4=${lz4.dev}"
       "--with-ssl=${openssl.dev}"
@@ -84,7 +84,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
+    broken = true;
     homepage = http://www.schedmd.com/;
     description = "Simple Linux Utility for Resource Management";
     platforms = platforms.linux;

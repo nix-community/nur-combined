@@ -1,21 +1,19 @@
-{ stdenv, pkgs, fetchgit, fetchFromGitHub, python37Packages, zeromq, procset, sqlalchemy_utils, pybatsim,  pytest_flask, remote_pdb}:
+{ lib, pkgs, fetchFromGitHub, python3Packages, zeromq, procset, pybatsim, remote_pdb}:
 
-python37Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   name = "oar-${version}";
-  version = "3.0.0.dev3";  
-
+  version = "3.0.0.dev4";
   src = fetchFromGitHub {
-    owner = "oar-team";
-    repo = "oar3";
-    rev = "f8104a677263467d97476977f642b504dfdb8ba6";
-    sha256 = "1dlpbb3bn6h6ranj48zbf7shzsimlpdqyyysmva8rmsrwrhb61ql";
+        owner = "oar-team";
+        repo = "oar3";
+        rev = "8eb57ab83144c64de3bd9c4b024380a78311279d";
+        sha256 = "sha256-PnPUq+KUTqG0TU0lQSeVrftimoJuz1VOG2eqsfXNUzs=";
   };
   #src = /home/auguste/dev/oar3;
 
-  propagatedBuildInputs = with python37Packages; [
+propagatedBuildInputs = with python3Packages; [
     pyzmq
     requests
-    sqlalchemy
     alembic
     procset
     click
@@ -23,16 +21,19 @@ python37Packages.buildPythonPackage rec {
     flask
     tabulate
     psutil
-    sqlalchemy_utils
+    sqlalchemy-utils
     simpy
     redis
-    pybatsim
-    pytest_flask
+    #pybatsim
+    #pytest_flask
     psycopg2
-    remote_pdb
+    #remote_pdb # for debug only
+    passlib
+    pyyaml
+    escapism
+    toml
   ];
 
-  # Tests do not pass
   doCheck = false;
 
   postInstall = ''
@@ -41,11 +42,11 @@ python37Packages.buildPythonPackage rec {
     cp -r visualization_interfaces $out
   '';
 
-  meta = with stdenv.lib; {
+  meta = {
+    #broken = true;
     homepage = "https://github.com/oar-team/oar3";
     description = "The OAR Resources and Tasks Management System";
-    license = licenses.lgpl3;
-    longDescription = ''
-    '';
+    license = lib.licenses.lgpl3;
+    longDescription = "";
   };
 }

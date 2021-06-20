@@ -1,0 +1,63 @@
+name: Build packages
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 8 * * MON"
+env:
+  CACHIX_CACHE: capack
+  # The name defined in https://github.com/nix-community/NUR/blob/master/repos.json
+  REPO_NAME: kapack
+jobs:
+  build-packages:
+    name: Build Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nix
+        run: |
+          curl -L https://nixos.org/nix/install | sh
+          source ~/.nix-profile/etc/profile.d/nix.sh
+          nix --version
+      - name: Set up cachix
+        run: |
+          source ~/.nix-profile/etc/profile.d/nix.sh
+          nix-env -iA cachix -f https://cachix.org/api/v1/install
+          cachix --version
+          cachix use ${CACHIX_CACHE}
+      - uses: actions/checkout@v2
+      - name: Build packages
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        run: |
+          source ~/.nix-profile/etc/profile.d/nix.sh
+          nix run -f https://github.com/NixOS/nixpkgs/archive/20.09.tar.gz python3Packages.pytest --command pytest -ra -v --cachix-name=${CACHIX_CACHE} --push-deps-on-cachix --push-on-cachix --junit-xml pytest.xml
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test results
+          path: pytest.xml
+
+  publish-test-results:
+    name: Publish test results
+    runs-on: ubuntu-latest
+    needs: build-packages
+    if: success() || failure()
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+      - name: Publish test results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        with:
+          files: artifacts/**/*.xml
+
+  update-nur:
+    name: Commit/push on NUR branch, trigger NUR update
+    runs-on: ubuntu-latest
+    needs: build-packages
+    if: success() && github.ref == 'refs/heads/master'
+    steps:
+      - name: Trigger NUR update
+        run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${REPO_NAME}"

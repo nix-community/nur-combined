@@ -1,4 +1,4 @@
-{ stdenv, pkgs, fetchurl, python37Packages}:
+{ lib, pkgs, fetchurl, python37Packages}:
 
 python37Packages.buildPythonPackage rec {
   pname = "remote-pdb";
@@ -13,7 +13,7 @@ python37Packages.buildPythonPackage rec {
   LC_ALL = "en_US.UTF-8";
 
   doCheck = false;
-  meta = with stdenv.lib; {
+  meta = with lib; {
     longDescription = ''
      .'';
     description = ''Remote vanilla PDB (over TCP sockets).'';

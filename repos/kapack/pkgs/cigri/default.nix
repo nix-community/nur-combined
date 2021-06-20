@@ -1,4 +1,4 @@
-{ stdenv, pkgs, fetchFromGitHub, bundlerEnv, ruby, bash, perl }:
+{ stdenv, lib, pkgs, fetchFromGitHub, bundlerEnv, ruby, bash, perl }:
 let
   rubyEnv = bundlerEnv rec {
   name = "cigri-env";
@@ -43,7 +43,7 @@ let
     inherit rubyEnv;
   };
   
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/oar-team/cigri";
     description = "CiGri: a Lightweight Grid Middleware";
     license = licenses.lgpl3;

@@ -710,6 +710,11 @@ API_TRUST_IDENT="1"
 
 OARDODO="/run/wrappers/bin/oardodo"
 
+# (REVERSE) PROXY 
+PROXY="traefik"
+OAR_PROXY_BASE_URL="/proxy"
+PROXY_TRAEFIK_RULES_FILE="/etc/oar/proxy/rules_oar_traefik.toml"
+PROXY_TRAEFIK_ENTRYPOINT="http://localhost:5000"
   '';
 
 vars =  mapAttrsToList (name: value: name) cfg.extraConfig;

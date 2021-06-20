@@ -1,4 +1,4 @@
-{ stdenv, pkgs, fetchFromGitHub, python37Packages, libpowercap }:
+{ lib, pkgs, fetchFromGitHub, python37Packages, libpowercap }:
 
 python37Packages.buildPythonApplication rec {
   name = "colmet-${version}";
@@ -31,10 +31,10 @@ python37Packages.buildPythonApplication rec {
   # Tests do not pass
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Collecting metrics about process running in cpuset and in a distributed environnement";
     homepage    = https://github.com/oar-team/colmet;
-    platforms   = platforms.unix;
+    platforms   = platforms.all;
     licence     = licenses.gpl2;
     longDescription = ''
     '';

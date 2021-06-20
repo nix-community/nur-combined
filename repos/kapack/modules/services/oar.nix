@@ -85,15 +85,14 @@ oarTools = pkgs.stdenv.mkDerivation {
       $CC -Wall -O2 oardo.c -o $out/$2
     }
    
-    # generate cli
-    
-    a=(oarsub3 oarstat3 oardel3 oarnodes3 oarnodesetting3)
-    b=(oarsub oarstat oardel oarnodes oarnodesetting)
+    # generate cli    
+    a=(oarsub oarstat oardel oarresume oarnodes oarnotify oarqueue oarconnect oarremoveresource \
+    oarnodesetting oaraccounting oarproperty oarwalltime)
     
     for (( i=0; i<''${#a[@]}; i++ ))
     do
-      echo generate ''${b[i]}
-      gen_oardo ''${a[i]} ''${b[i]}
+      echo generate ''${a[i]}
+      gen_oardo .''${a[i]} ''${a[i]}
     done
 
   '';
@@ -190,6 +189,11 @@ in
         enable = mkEnableOption "OAR node";
         register = {
           enable = mkEnableOption "Register node into OAR server";
+          add = mkOption {
+            type = types.bool;
+            default = true;
+            description = "Execute oarnodesseting";
+          };
           extraCommand = mkOption {
             type = types.str;
             default = "";
@@ -220,6 +224,31 @@ in
         };
         drawgantt = {
           enable = mkEnableOption "Drawgantt web page";
+        };
+        proxy = {
+          enable = mkEnableOption "Enable proxy service based on Traefik";
+          entryPointHttp = mkOption {
+            type = types.str;
+            default = "";
+            description = ''
+              Entry Point for proxy server (example "server:5000"). 
+            '';
+          };
+          configOptions =  mkOption {
+            description = ''
+              Config for Traefik.
+            '';
+            type = types.attrs;
+            default = {
+              defaultentrypoints = [ "http"];
+              #     # [api]
+              #     # dashboard = true
+              #     # entrypoint = "auth_api"
+              wss.protocol = "http";
+              file.filename = "/etc/oar/proxy/rules_oar_traefik.toml";
+              file.watch = true;
+            };
+          };
         };
         extraConfig = mkOption {
           type = types.str;
@@ -255,7 +284,9 @@ in
         setuid = true;
         permissions = "u+rwx,g+rx";
       };
-    } // lib.genAttrs ["oarsub" "oarstat" "oardel" "oarnodes" "oarnodesetting"]
+    } // lib.genAttrs ["oarsub" "oarstat" "oarresume" "oardel" "oarnodes"  "oarnotify"
+      "oarqueue" "oarconnect" "oarremoveresource" "oarnodesetting" "oaraccounting"
+      "oarproperty" "oarwalltime"]
       (name: {
       source = "${oarTools}/${name}";
       owner = "root";
@@ -267,8 +298,8 @@ in
     # oar user declaration
     users.users.oar = mkIf ( cfg.client.enable || cfg.node.enable || cfg.server.enable )  {
       description = "OAR user";
+      isSystemUser = true;
       home = cfg.oarHomeDir;
-      #shell = pkgs.bashInteractive;
       shell = "${oarTools}/bin/oarsh_shell";
       group = "oar";
       uid = 745;
@@ -384,11 +415,12 @@ in
 
     systemd.services.oar-node-register =  mkIf (cfg.node.register.enable) {
       wantedBy = [ "multi-user.target" ];      
-      after = [ "network.target" "oar-user-init" "oar-node" ];
+      after = [ "network.target" "oar-user-init" "oar-conf-init" "oar-node" ];
       serviceConfig.Type = "oneshot";
       path = [ pkgs.hostname ];
-      script = concatStringsSep "\n" [''
-        /run/wrappers/bin/oarnodesetting -a -s Alive''
+      script = concatStringsSep "\n" [
+        (optionalString cfg.node.register.add ''
+          /run/wrappers/bin/oarnodesetting -a -s Alive'')
         (optionalString (cfg.node.register.extraCommand != "") ''
           ${cfg.node.register.extraCommand}
         '')
@@ -406,7 +438,7 @@ in
       serviceConfig = {
         User = "oar";
         Group = "oar";
-        ExecStart = "${cfg.package}/bin/oar3-almighty";
+        ExecStart = "${cfg.package}/bin/oar-almighty";
         KillMode = "process";
         Restart = "on-failure";
       };
@@ -488,7 +520,7 @@ in
           
           location ~ ^/oarapi-priv {
             auth_basic "OAR API Authentication";
-            auth_basic_user_file /etc/oarapi-users;
+            auth_basic_user_file /etc/oar/api-users;
             error_page 404 = @oarapi;
           }
 
@@ -596,7 +628,6 @@ in
       serviceConfig.Type = "oneshot";
       script = concatStringsSep "\n" [''
         mkdir -p /etc/oar
-        touch /etc/oar/yop
         source ${cfg.database.passwordFile}
       ''  
         (optionalString cfg.web.monika.enable ''
@@ -621,5 +652,64 @@ in
         ];
     };
 
+     systemd.tmpfiles.rules =  mkIf cfg.web.proxy.enable [
+       "d '/etc/oar/proxy' - oar oar - -"
+     ];
+
+    
+    systemd.services.oar-proxy-cleaner =  mkIf cfg.web.proxy.enable {
+      description = "OAR's proxy rules cleaner";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
+      #preStart = "touch /etc/oar/proxy/rules_oar_traefik.toml";
+      environment.OARDIR = "${cfg.package}/bin";
+      serviceConfig = {
+        User = "oar";
+        Group = "oar";
+        ExecStart = "${cfg.package}/bin/oar-proxy-cleaner";
+        KillMode = "process";
+        Restart = "on-failure";
+      };
+    };
+    
+    systemd.services.oar-proxy-traefik = mkIf cfg.web.proxy.enable {
+      description = "OAR's proxy rules cleaner";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
+      preStart = "touch /etc/oar/proxy/rules_oar_traefik.toml";
+      serviceConfig = {
+        ExecStart = let configFile = pkgs.runCommand "config.toml" {
+          buildInputs = [ pkgs.remarshal ];
+          preferLocalBuild = true;
+        } ''
+          remarshal -if json -of toml \
+          < ${pkgs.writeText "config.json" (builtins.toJSON (cfg.web.proxy.configOptions // {entryPoints.http.address = cfg.web.proxy.entryPointHttp;}))} \
+          > $out
+        '';
+      in
+      ''${pkgs.traefik}/bin/traefik --configfile=${configFile}'';
+        Type = "simple";
+        User = "oar";
+        Group = "oar";
+        Restart = "on-failure";
+        StartLimitInterval = 86400;
+        StartLimitBurst = 5;
+      };
+    };
+    # services.traefik = mkIf cfg.web.proxy.enable {
+    #   enable = true;     
+    #   configOptions = {
+    #     #debug = true;
+    #     #logLevel = "DEBUG";
+    #     defaultentrypoints = [ "http"];
+    #     # [api]
+    #     # dashboard = true
+    #     # entrypoint = "auth_api"
+    #     wss.protocol = "http";
+    #     file.filename = "/etc/oar/proxy/rules_oar_traefik.toml";
+    #     file.watch = true;
+    #     entryPoints.http.address = cfg.web.proxy.entryPointHttp;
+    #   };
+    #};
   };
 }

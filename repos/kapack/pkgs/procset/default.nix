@@ -1,6 +1,6 @@
-{ stdenv, pkgs, fetchgit, python37Packages}:
+{ lib, pkgs, fetchgit, python3Packages}:
 
-python37Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   name = "procset-${version}";
   version = "v1.0";
 
@@ -13,7 +13,7 @@ python37Packages.buildPythonPackage rec {
   LC_ALL = "en_US.UTF-8";
   buildInputs = [ pkgs.glibcLocales ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     longDescription = ''
       Toolkit to manage sets of closed intervals.
       procset is a pure python module to manage sets of closed intervals. It can be
@@ -21,7 +21,7 @@ python37Packages.buildPythonPackage rec {
       useful when writing schedulers.'';
     description = ''Toolkit to manage sets of closed intervals.'';
     homepage    = "https://gitlab.inria.fr/bleuse/procset.py";
-    platforms   = platforms.unix;
+    platforms   = platforms.all;
     license     = licenses.lgpl3;
     broken      = false;
   };

@@ -1,0 +1,24 @@
+From 18e822fadcfeb91639eea343569c67b9dec27240 Mon Sep 17 00:00:00 2001
+From: Millian Poquet <millian.poquet@inria.fr>
+Date: Thu, 3 Jun 2021 20:51:27 +0200
+Subject: [PATCH] code: fix missing include
+
+---
+ src/permissions.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/permissions.cpp b/src/permissions.cpp
+index 1fd81ff..8d3f2b6 100644
+--- a/src/permissions.cpp
++++ b/src/permissions.cpp
+@@ -1,6 +1,7 @@
+ #include "permissions.hpp"
+ 
+ #include <map>
++#include <stdexcept>
+ 
+ const static std::map<std::string, roles::Permissions> map_str_to_role = {
+     {"master", roles::Permissions::MASTER},
+-- 
+2.23.3
+

@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, fetchFromGitHub, python37Packages, pkgs, zeromq }:
+{ lib, fetchgit, fetchFromGitHub, python37Packages, pkgs, zeromq }:
 
 python37Packages.buildPythonApplication rec {
   pname = "batsky";
@@ -28,7 +28,7 @@ python37Packages.buildPythonApplication rec {
   # Tests do not pass
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "";
     homepage    = https://github.com/oar-team/batsky;
     platforms   = platforms.unix;

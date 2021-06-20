@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake }:
+{ stdenv, lib, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   name =  "powercap-${version}";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ cmake ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/powercap/powercap";
     description = "C bindings to the Linux Power Capping Framework in sysfs ";
     longDescription = "This project provides the powercap library -- a generic C interface to the Linux power capping framework (sysfs interface). It includes an implementation for

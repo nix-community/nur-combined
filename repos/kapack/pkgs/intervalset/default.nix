@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, meson, ninja, pkgconfig, boost, gtest
+{ stdenv, lib, fetchgit, meson, ninja, pkgconfig, boost, gtest
 , debug ? false
 }:
 
@@ -15,16 +15,18 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja pkgconfig ];
   buildInputs = [ boost gtest ];
   mesonBuildType = if debug then "debug" else "release";
+  ninjaFlags = [ "-v" ];
+  dontStrip = debug;
   doCheck = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "C++ library to manage sets of integral closed intervals";
     longDescription = ''
       intervalset is a C++ library to manage sets of closed intervals of integers.
       This is a simple wrapper around Boost.Icl.
     '';
     homepage = https://framagit.org/batsim/intervalset;
-    platforms = platforms.x86_64;
+    platforms = platforms.all;
     license = licenses.lgpl3;
     broken = false;
   };

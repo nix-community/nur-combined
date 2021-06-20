@@ -1,4 +1,4 @@
-{ stdenv, pkgs, fetchurl }:
+{ stdenv, lib, pkgs, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "tgz-g5k-${version}";
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 	  install    -m 0644 "$NAME".8 $MANDIR
   '';
 
-  meta =  with stdenv.lib; {
+  meta =  with lib; {
     description = "A tool to create neutral deployment tgz image for Grid'5000";
     homepage = https://www.grid5000.fr/mediawiki/index.php/TGZ-G5K;
     license = licenses.lgpl2;

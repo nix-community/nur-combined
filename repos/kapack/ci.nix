@@ -1,56 +1,22 @@
-# This file provides all the buildable and cacheable packages and
-# package outputs in you package set. These are what gets built by CI,
-# so if you correctly mark packages as
-#
-# - broken (using `meta.broken`),
-# - unfree (using `meta.license.free`), and
-# - locally built (using `preferLocalBuild`)
-#
-# then your CI will be able to build and cache only those packages for
-# which this is possible.
-
-{ pkgs ? import <nixpkgs> {} }:
-
-with builtins;
-
+# The role of this file is to list which derivations should be built on CI.
+# Example usage:
+# - nix eval --json -f ci.nix 'pkgs-names-to-build'
+# - nix eval --json -f ci.nix 'pkgs-to-build-with-deps'
 let
-
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules";
-  isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
+  nixpkgs = import (fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz";
+    sha256 = "1ckzhh24mgz6jd1xhfgx0i9mijk6xjqxwsshnvq789xsavrmsc36";
+  }) {};
+  isDerivation = nixpkgs.lib.isDerivation;
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
-  isCacheable = p: !(p.preferLocalBuild or false);
-  shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
-
-  nameValuePair = n: v: { name = n; value = v; };
-
-  concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
-
-  flattenPkgs = s:
-    let
-      f = p:
-        if shouldRecurseForDerivations p then flattenPkgs p
-        else if isDerivation p then [p]
-        else [];
-    in
-      concatMap f (attrValues s);
-
-  outputsOf = p: map (o: p.${o}) p.outputs;
-
-  nurAttrs = import ./default.nix { inherit pkgs; };
-
-  nurPkgs =
-    flattenPkgs
-    (listToAttrs
-    (map (n: nameValuePair n nurAttrs.${n})
-    (filter (n: !isReserved n)
-    (attrNames nurAttrs))));
-
+  isMaster = n: builtins.match "^.*-master$" n != null;
+  wantToBuild = n: v: isDerivation v && isBuildable v && !(isMaster n);
+  allInputs = p: builtins.filter (v: v!=null) (p.buildInputs ++ p.nativeBuildInputs ++ p.propagatedBuildInputs);
 in
 
 rec {
-  buildPkgs = filter isBuildable nurPkgs;
-  cachePkgs = filter isCacheable buildPkgs;
-
-  buildOutputs = concatMap outputsOf buildPkgs;
-  cacheOutputs = concatMap outputsOf cachePkgs;
+  default = import ./default.nix {};
+  pkgs-to-build = default.pkgs.lib.filterAttrs wantToBuild default;
+  pkgs-names-to-build = builtins.attrNames pkgs-to-build;
+  pkgs-to-build-with-deps = default.pkgs.lib.mapAttrs (name: value: {derivation = value; inputs=allInputs value;}) pkgs-to-build;
 }
