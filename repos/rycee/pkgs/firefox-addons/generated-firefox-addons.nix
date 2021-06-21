@@ -138,10 +138,10 @@
       };
     "canvasblocker" = buildFirefoxXpiAddon {
       pname = "canvasblocker";
-      version = "1.5";
+      version = "1.6";
       addonId = "CanvasBlocker@kkapsner.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3711139/canvasblocker-1.5-an+fx.xpi";
-      sha256 = "1ec7cfcf8567a2b70a8405980f0143316c560539688e9f43e8069f069bae5d51";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3799003/canvasblocker-1.6-an+fx.xpi";
+      sha256 = "7c9bc6eabb59d8f1c214bd3f784337f960f12f861b7dc5dba8b134a662aad50b";
       meta = with lib;
       {
         homepage = "https://github.com/kkapsner/CanvasBlocker/";
@@ -1568,10 +1568,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.7.4";
+      version = "6.7.6";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3789734/wappalyzer-6.7.4-fx.xpi";
-      sha256 = "cb3869460b88e9dad6c56e65bebfa711b433e6e939a0d8d86932281bc7aabd79";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3799373/wappalyzer-6.7.6-fx.xpi";
+      sha256 = "47825c9ea8549ea94e6fa9698779c3d6e6c9318461e7d1436a97b2a4856c05df";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
