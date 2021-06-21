@@ -74,8 +74,8 @@ stdenv.mkDerivation
     ln -sf $out/bin/compton $out/bin/picom
   '';
   meta = with lib; {
-    description = "A compositor for X11";
-    homepage = "https://github.com/chjj/compton";
+    description = "A compositor for X11 (fork with excellent blur)";
+    homepage = "https://github.com/tryone144/compton";
     license = licenses.mit;
   };
 }
