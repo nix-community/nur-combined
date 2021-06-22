@@ -138,10 +138,10 @@
       };
     "canvasblocker" = buildFirefoxXpiAddon {
       pname = "canvasblocker";
-      version = "1.6";
+      version = "1.6.1";
       addonId = "CanvasBlocker@kkapsner.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3799003/canvasblocker-1.6-an+fx.xpi";
-      sha256 = "7c9bc6eabb59d8f1c214bd3f784337f960f12f861b7dc5dba8b134a662aad50b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3799708/canvasblocker-1.6.1-an+fx.xpi";
+      sha256 = "4db930c2100d3a01c001f60a7a168f41ec4a6374da6a55e2ae3b37aa37df8967";
       meta = with lib;
       {
         homepage = "https://github.com/kkapsner/CanvasBlocker/";
