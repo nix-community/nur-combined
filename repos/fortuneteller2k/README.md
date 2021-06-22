@@ -1,4 +1,6 @@
-# fortuneteller2k's NUR repository
+# I moved to a different repository https://github.com/fortuneteller2k/nixpkgs-f2k
+
+### fortuneteller2k's NUR repository
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
