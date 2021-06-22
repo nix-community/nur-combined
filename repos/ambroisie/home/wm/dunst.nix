@@ -16,10 +16,12 @@ in
           frame_width = 3; # small frame
           geometry = "300x50-15+49";
           markup = "full"; # subset of HTML
+          max_icon_size = 32; # avoid icons that are too big
           padding = 6; # distance between text and bubble border
           progress_bar = true; # show a progress bar in notification bubbles
           separator_color = "frame"; # use frame color to separate bubbles
           sort = true; # sort messages by urgency
+          word_wrap = true; # Break long lines to make them readable
         };
 
         urgency_low = {
