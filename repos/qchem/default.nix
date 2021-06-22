@@ -176,6 +176,8 @@ let
 
       multiwfn = callPackage ./pkgs/apps/multiwfn { };
 
+      gmultiwfn = callPackage ./pkgs/apps/gmultiwfn { };
+
       openmm = super.python3.pkgs.toPythonApplication self.python3.pkgs.openmm;
 
       orca = callPackage ./pkgs/apps/orca { };
