@@ -16,4 +16,5 @@
 
   gyro = pkgs.callPackage ./pkgs/gyro { };
   zigup = pkgs.callPackage ./pkgs/zigup { };
+  bunnyfetch-rs = pkgs.callPackage ./pkgs/bunnyfetch-rs { };
 }
