@@ -18,6 +18,22 @@ rec {
       pkgs = pkgs.extend rust-overlay;
     };
 
+  awesome-git = with pkgs; (awesome.overrideAttrs (old: rec {
+    src = fetchFromGitHub {
+      owner = "awesomeWM";
+      repo = "awesome";
+      rev = "6b97ec33071790e66719773bfc280f34a17fef25";
+      sha256 = "1ail2aks699db064adiw4s5ipyj1yw4hmxy1xhgdi2dpshfkcp76";
+    };
+
+    GI_TYPELIB_PATH = "${playerctl}/lib/girepository-1.0:"
+      + "${upower}/lib/girepository-1.0:" + old.GI_TYPELIB_PATH;
+  })).override {
+    stdenv = clangStdenv;
+    luaPackages = lua52Packages;
+    gtk3Support = true;
+  };
+
   bling = pkgs.callPackage ./pkgs/bling {
     inherit (pkgs.lua53Packages) lua toLuaModule;
   };
