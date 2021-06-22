@@ -18,10 +18,7 @@ let
     rev = "ae315ded4dba10685dbbafbfa2ff3c1aefeb490d";
     sha256 = "0h52p2waggzfshvy1wvhj4hf06fmzd44bv6j18k3l9rcx6aixzn6";
   };
-  mytheme = fetchurl {
-    url = "https://gitlab.com/dan4ik605743/dotfiles/-/raw/master/home/dan4ik/Documents/my.zsh-theme";
-    sha256 = "1r3liynfinpk0n5b16vybnkbwwdwqnfjyqf7i82avbhrfn8gf4x6";
-  };
+  mytheme = ./my.zsh-theme.nix;
 in
   stdenv.mkDerivation {
   name = "myZsh";
