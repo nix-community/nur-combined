@@ -14,6 +14,8 @@ in
 
     history = {
       size = 500000;
+      save = 500000;
+      extended = false;
       ignoreSpace = true;
       ignoreDups = true;
       share = true;

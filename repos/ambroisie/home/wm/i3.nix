@@ -187,13 +187,13 @@ in
             # Focus child container
             "${modifier}+a" = "focus child";
           }
-          {
+          (lib.optionalAttrs config.my.home.wm.rofi.enable {
             # Rofi tools
             "${modifier}+d" = "exec rofi -show drun -disable-history";
             "${modifier}+Shift+d" = "exec rofi -show run -disable-history";
             "${modifier}+p" = "exec --no-startup-id flameshot gui";
             "${modifier}+Shift+p" = "exec rofi -show emoji";
-          }
+          })
           (
             # Changing container focus
             genMovementBindings (
