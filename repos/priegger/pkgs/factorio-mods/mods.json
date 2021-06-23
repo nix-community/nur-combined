@@ -1,10 +1,10 @@
 [
   {
     "name": "aai-programmable-vehicles",
-    "version": "0.7.9",
-    "file_name": "aai-programmable-vehicles_0.7.9.zip",
-    "download_url": "/download/aai-programmable-vehicles/5fd63ff465308f55c5c8efe2",
-    "sha1": "f39e1b1c2173fb5f5b3d43f5458913d33e4fd4a3",
+    "version": "0.7.10",
+    "file_name": "aai-programmable-vehicles_0.7.10.zip",
+    "download_url": "/download/aai-programmable-vehicles/60ce6e716cd7af31bee62b7a",
+    "sha1": "37354bf22efcc4ff783999c4c047b7b96690e39e",
     "dependencies": [
       "base >= 1.1.0",
       "aai-signals >= 0.4.1",
@@ -600,10 +600,10 @@
   },
   {
     "name": "Krastorio2",
-    "version": "1.1.3",
-    "file_name": "Krastorio2_1.1.3.zip",
-    "download_url": "/download/Krastorio2/60a348a0481e59a1232d63cc",
-    "sha1": "d736716cbaad523f7da6e4fe79ac82b084a464e8",
+    "version": "1.1.4",
+    "file_name": "Krastorio2_1.1.4.zip",
+    "download_url": "/download/Krastorio2/60cfa843723ea8e882941aac",
+    "sha1": "18a5d026d5df6108d86f1639400d444258c1ee5e",
     "dependencies": [
       "base >= 1.1.21",
       "flib >= 0.7.0",
@@ -760,10 +760,10 @@
   },
   {
     "name": "rso-mod",
-    "version": "6.2.7",
-    "file_name": "rso-mod_6.2.7.zip",
-    "download_url": "/download/rso-mod/60c6396e065ce3e0204497b3",
-    "sha1": "63b41ad5c04c740df71f59d8f7914a6aa1ef079e",
+    "version": "6.2.8",
+    "file_name": "rso-mod_6.2.8.zip",
+    "download_url": "/download/rso-mod/60ce5988c8646397f0f8e3ef",
+    "sha1": "6586026dfc711264df1c70a543a3cdd90e76e555",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
