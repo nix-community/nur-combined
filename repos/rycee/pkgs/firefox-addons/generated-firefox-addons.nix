@@ -414,10 +414,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.1.2";
+      version = "3.2.0";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3753142/gesturefy-3.1.2-fx.xpi";
-      sha256 = "4cd7cf5aee68d839b23b721648efb83812deaa0dc1eb4b606bea17e3125461d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3798767/gesturefy-3.2.0-fx.xpi";
+      sha256 = "3d3df579bdb6de79bca76f92a4ff83e41ee6cee6d6b0d66ff03f068795219696";
       meta = with lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -1231,10 +1231,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.0.16.2";
+      version = "2.1.0.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3780797/sponsorblock_skip_sponsorships_on_youtube-2.0.16.2-an+fx.xpi";
-      sha256 = "17c15d51df20c5b00bdce6032c6c8ac464e8802b65241e141e3c41abfa98bc6a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3799365/sponsorblock_skip_sponsorships_on_youtube-2.1.0.1-an+fx.xpi";
+      sha256 = "69ec09f994f8a031171cca069112f431cb38dd34928f9e5cbfea556f5432a9b6";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1423,10 +1423,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.3";
+      version = "3.8.4";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3794994/tree_style_tab_-3.8.3-fx.xpi";
-      sha256 = "c9ac0fcc02d0e5d0f66114ef743144506a46d00480c6f1b87b9fc946b3779c54";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3798964/tree_style_tab_-3.8.4-fx.xpi";
+      sha256 = "8fbd47947efe647de25879505c0130aff2917062d413cb1d99fd832697d9ecaa";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -1456,10 +1456,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.35.2";
+      version = "1.36.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3768975/ublock_origin-1.35.2-an+fx.xpi";
-      sha256 = "8eccfa436bc5852b91ddb9628dca4bfd0ff5d2a302f2e9e595d801fa228c3975";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3798731/ublock_origin-1.36.0-an+fx.xpi";
+      sha256 = "384f3e5241f87e90c376fb6964842ce204743feed554b8b7dabe09f119ea7d66";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
