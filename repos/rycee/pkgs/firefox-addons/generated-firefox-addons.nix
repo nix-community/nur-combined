@@ -530,10 +530,10 @@
       };
     "honey" = buildFirefoxXpiAddon {
       pname = "honey";
-      version = "12.4.5";
+      version = "12.8.4";
       addonId = "jid1-93CWPmRbVPjRQA@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3665480/honey-12.4.5-fx.xpi";
-      sha256 = "d3589e96335235a7500db2c0059501f67cadcc0ebe0b2230bed85a6d16b4f288";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3731265/honey-12.8.4-fx.xpi";
+      sha256 = "1abc41b3d81879e8687696bb084ecceb40edec95ffa5b4516ad86185e13114cb";
       meta = with lib;
       {
         homepage = "https://www.joinhoney.com";
@@ -777,10 +777,10 @@
       };
     "min-twitter" = buildFirefoxXpiAddon {
       pname = "min-twitter";
-      version = "3.1.1";
+      version = "3.1.2";
       addonId = "{e7476172-097c-4b77-b56e-f56a894adca9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3783292/minimal_twitter-3.1.1-fx.xpi";
-      sha256 = "e6eea6ec1da643c1d682611d7b9f9952810c3a8e18f01498eed7e7a9deb730d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3801084/minimal_twitter-3.1.2-fx.xpi";
+      sha256 = "bf596bca617228a08d95bfc39e1f649eaf657224df97c65710dc62aa2f0abadc";
       meta = with lib;
       {
         homepage = "https://github.com/thomaswang/minimal-twitter";
