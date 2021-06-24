@@ -1,8 +1,8 @@
 { stdenv, lib, buildPythonPackage, fetchFromGitHub, autoreconfHook, pkg-config
-, gfortran, mpi, blas, lapack, fftw, hdf5-full, swig, gsl, harminv, libctl
+, gfortran, mpi, blas, lapack, fftw, hdf5-mpi, swig, gsl, harminv, libctl
 , libGDSII, openssh, guile
 # Python
-, python, numpy, scipy, matplotlib, h5py, cython, autograd, mpi4py
+, python, numpy, scipy, matplotlib, h5py-mpi, cython, autograd, mpi4py
 } :
 
 buildPythonPackage rec {
@@ -29,7 +29,7 @@ buildPythonPackage rec {
     blas
     lapack
     fftw
-    hdf5-full
+    hdf5-mpi
     harminv
     libctl
     libGDSII
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     numpy
     scipy
     matplotlib
-    h5py
+    h5py-mpi
     cython
     autograd
     mpi4py
@@ -73,7 +73,15 @@ buildPythonPackage rec {
   doCheck = true;
   checkPhase = ''
     export PYTHONPATH="$out/lib/${python.libPrefix}/site-packages:$PYTHONPATH"
-    python3 << EOF
+
+    export OMP_NUM_THREADS=1
+
+    # Fix to make mpich run in a sandbox
+    export HYDRA_IFACE=lo
+    export OMPI_MCA_rmaps_base_oversubscribe=1
+
+    # Generate a python test script
+    cat > test.py << EOF
     import meep as mp
     cell = mp.Vector3(16,8,0)
     geometry = [mp.Block(mp.Vector3(mp.inf,1,mp.inf),
@@ -91,6 +99,8 @@ buildPythonPackage rec {
                     resolution=resolution)
     sim.run(until=200)
     EOF
+
+    ${mpi}/bin/mpiexec -np 2 python3 test.py
   '';
 
   meta = with lib; {
