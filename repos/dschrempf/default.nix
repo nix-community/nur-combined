@@ -1,6 +1,8 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ system ? builtins.currentSystem
+, pkgs ? import <nixpkgs> { inherit system; }
+}:
 
-{
+rec {
   # Evolution.
   beast = pkgs.callPackage ./pkgs/evolution/beast {};
   beast2 = pkgs.callPackage ./pkgs/evolution/beast2 {};
@@ -14,8 +16,9 @@
   biblib = pkgs.callPackage ./pkgs/misc/biblib {};
   frida-python = pkgs.callPackage ./pkgs/misc/frida-python {};
   frida-tools = pkgs.callPackage ./pkgs/misc/frida-tools {
-    frida-python = pkgs.callPackage ./pkgs/misc/frida-python {};
+    inherit frida-python;
   };
+  jugglinglab = pkgs.callPackage ./pkgs/misc/jugglinglab {};
   nvd = pkgs.callPackage ./pkgs/misc/nvd {};
   signal-back = pkgs.callPackage ./pkgs/misc/signal-back {};
 }

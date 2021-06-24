@@ -11,7 +11,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
         in
           {
-            packages = import ./default.nix { inherit pkgs; };
+            packages = import ./default.nix { inherit pkgs; inherit system; };
           }
     );
 }
