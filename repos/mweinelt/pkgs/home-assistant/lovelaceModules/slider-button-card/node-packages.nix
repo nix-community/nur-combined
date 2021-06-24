@@ -796,13 +796,13 @@ let
         sha512 = "yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==";
       };
     };
-    "electron-to-chromium-1.3.756" = {
+    "electron-to-chromium-1.3.754" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.756";
+      version = "1.3.754";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.756.tgz";
-        sha512 = "WsmJym1TMeHVndjPjczTFbnRR/c4sbzg8fBFtuhlb2Sru3i/S1VGpzDSrv/It8ctMU2bj8G7g7/O3FzYMGw6eA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.754.tgz";
+        sha512 = "Q50dJbfYYRtwK3G9mFP/EsJVzlgcYwKxFjbXmvVa1lDAbdviPcT9QOpFoufDApub4j0hBfDRL6v3lWNLEdEDXQ==";
       };
     };
     "emoji-regex-7.0.3" = {
@@ -1055,15 +1055,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/external-editor/-/external-editor-3.1.0.tgz";
         sha512 = "hMQ4CX1p1izmuLYyZqLMO/qGNw10wSv9QDCPfzXfyFrOaCSSoRfqE1Kf1s5an66J5JZC62NewG+mK49jOCtQew==";
-      };
-    };
-    "fast-copy-2.1.1" = {
-      name = "fast-copy";
-      packageName = "fast-copy";
-      version = "2.1.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/fast-copy/-/fast-copy-2.1.1.tgz";
-        sha512 = "Qod3DdRgFZ8GUIM6ygeoZYpQ0QLW9cf/FS9KhhjlYggcSZXWAemAw8BOCO5LuYCrR3Uj3qXDVTUzOUwG8C7beQ==";
       };
     };
     "fast-deep-equal-3.1.3" = {
@@ -2977,14 +2968,14 @@ let
   };
 in
 {
-  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.5.3" = nodeEnv.buildNodePackage {
+  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.5.2" = nodeEnv.buildNodePackage {
     name = "slider-button-card";
     packageName = "slider-button-card";
-    version = "1.5.3";
+    version = "1.5.2";
     src = fetchgit {
       url = "https://github.com/mattieha/slider-button-card";
-      rev = "fa3199d8f484d87bf1b57776821dcb945d889a01";
-      sha256 = "47844adfa959a43e27e2e8378adf5c3089d8bca5506202aa2bdfe7cbd5c1dc15";
+      rev = "e4ca0af852c71355860530c8c643a66adc8bd824";
+      sha256 = "859828eb39c02a94bc15e09fada5a2bfa8064f374bd8c99e6d36e1de03bfaa18";
     };
     dependencies = [
       sources."@babel/code-frame-7.14.5"
@@ -3084,7 +3075,7 @@ in
       sources."deep-is-0.1.3"
       sources."define-properties-1.1.3"
       sources."doctrine-3.0.0"
-      sources."electron-to-chromium-1.3.756"
+      sources."electron-to-chromium-1.3.754"
       sources."emoji-regex-8.0.0"
       sources."error-ex-1.3.2"
       sources."es-abstract-1.18.3"
@@ -3138,7 +3129,6 @@ in
       sources."estree-walker-1.0.1"
       sources."esutils-2.0.3"
       sources."external-editor-3.1.0"
-      sources."fast-copy-2.1.1"
       sources."fast-deep-equal-3.1.3"
       sources."fast-diff-1.2.0"
       sources."fast-json-stable-stringify-2.1.0"
