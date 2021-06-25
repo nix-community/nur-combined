@@ -796,13 +796,13 @@ let
         sha512 = "yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==";
       };
     };
-    "electron-to-chromium-1.3.756" = {
+    "electron-to-chromium-1.3.759" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.756";
+      version = "1.3.759";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.756.tgz";
-        sha512 = "WsmJym1TMeHVndjPjczTFbnRR/c4sbzg8fBFtuhlb2Sru3i/S1VGpzDSrv/It8ctMU2bj8G7g7/O3FzYMGw6eA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.759.tgz";
+        sha512 = "nM76xH0t2FBH5iMEZDVc3S/qbdKjGH7TThezxC8k1Q7w7WHvIAyJh8lAe2UamGfdRqBTjHfPDn82LJ0ksCiB9g==";
       };
     };
     "emoji-regex-7.0.3" = {
@@ -2326,13 +2326,13 @@ let
         sha512 = "/2HA0Ec70TvQnXdzynFffkjA6XN+1e2pEv/uKS5Ulca40g2L7KuOE3riasHoNVHOsFD5KKZgDsMk1CP3Tw9s+A==";
       };
     };
-    "rollup-2.52.2" = {
+    "rollup-2.52.3" = {
       name = "rollup";
       packageName = "rollup";
-      version = "2.52.2";
+      version = "2.52.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rollup/-/rollup-2.52.2.tgz";
-        sha512 = "4RlFC3k2BIHlUsJ9mGd8OO+9Lm2eDF5P7+6DNQOp5sx+7N/1tFM01kELfbxlMX3MxT6owvLB1ln4S3QvvQlbUA==";
+        url = "https://registry.npmjs.org/rollup/-/rollup-2.52.3.tgz";
+        sha512 = "QF3Sju8Kl2z0osI4unyOLyUudyhOMK6G0AeqJWgfiyigqLAlnNrfBcDWDx+f1cqn+JU2iIYVkDrgQ6/KtwEfrg==";
       };
     };
     "rollup-plugin-babel-4.4.0" = {
@@ -2977,14 +2977,14 @@ let
   };
 in
 {
-  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.5.3" = nodeEnv.buildNodePackage {
+  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.6.0" = nodeEnv.buildNodePackage {
     name = "slider-button-card";
     packageName = "slider-button-card";
-    version = "1.5.3";
+    version = "1.6.0";
     src = fetchgit {
       url = "https://github.com/mattieha/slider-button-card";
-      rev = "fa3199d8f484d87bf1b57776821dcb945d889a01";
-      sha256 = "47844adfa959a43e27e2e8378adf5c3089d8bca5506202aa2bdfe7cbd5c1dc15";
+      rev = "f7adc7f34f0e223f9e97f9d870a2fe54ea0b9d90";
+      sha256 = "ceb00e131021d47b23f24bee4bd8820c26efb86ffd6a90b12f1da3b848aff614";
     };
     dependencies = [
       sources."@babel/code-frame-7.14.5"
@@ -3077,14 +3077,14 @@ in
       (sources."custom-card-helpers-1.7.1" // {
         dependencies = [
           sources."home-assistant-js-websocket-5.10.0"
-          sources."rollup-2.52.2"
+          sources."rollup-2.52.3"
         ];
       })
       sources."debug-4.3.2"
       sources."deep-is-0.1.3"
       sources."define-properties-1.1.3"
       sources."doctrine-3.0.0"
-      sources."electron-to-chromium-1.3.756"
+      sources."electron-to-chromium-1.3.759"
       sources."emoji-regex-8.0.0"
       sources."error-ex-1.3.2"
       sources."es-abstract-1.18.3"
