@@ -1,4 +1,4 @@
-{ fetchFromGitLab, buildPythonPackage, lib, writeTextFile, makeWrapper
+{ fetchFromGitLab, buildPythonPackage, lib, writeTextFile
 , fetchurl, blas, lapack, scalapack, mpi, fftw-mpi, libxc, libvdwxc
 , which, ase, numpy, scipy
 } :
@@ -64,19 +64,16 @@ let
 
 in buildPythonPackage rec {
   pname = "gpaw";
-  version = "21.1.0";
+  version = "21.6.0";
 
   src = fetchFromGitLab  {
     owner = "gpaw";
     repo = pname;
     rev = version;
-    sha256 = "0xws39yq5d1ih4zj31bdd0h64afs6x9j30yrrycxf3pnc5h9wbr0";
+    sha256 = "0iv7xgrb256m6sq6sd5w4whf635rmvzvlrp9s248qrwb5p98dmg1";
   };
 
-  nativeBuildInputs = [
-    which
-    makeWrapper
-  ];
+  nativeBuildInputs = [ which ];
 
   buildInputs = [
     blas
@@ -93,6 +90,13 @@ in buildPythonPackage rec {
     mpi
   ];
 
+  patches = [ ./SetupPath.patch ];
+
+  postPatch = ''
+    substituteInPlace gpaw/__init__.py \
+      --subst-var-by gpawSetupPath "$out/share/gpaw/gpaw-setups-${setupVersion}"
+  '';
+
   postInstall = ''
     currDir=$(pwd)
     mkdir -p $out/share/gpaw && cd $out/share/gpaw
@@ -103,28 +107,18 @@ in buildPythonPackage rec {
   '';
 
   doCheck = false;
-  preCheck = ''
-    # export PATH=$PATH:${mpi}/bin
-    export GPAW_SETUP_PATH=$out/share/gpaw/gpaw-setups-${setupVersion}
-  '';
 
-  postPatch = ''
+  preConfigure = ''
     cp ${gpawConfig} siteconfig.py
   '';
 
-  postFixup = ''
-    for exe in $out/bin/*; do
-      wrapProgram $exe \
-        --set "GPAW_SETUP_PATH" "$out/share/gpaw/gpaw-setups-${setupVersion}"
-    done
-  '';
-
-  passthru.mpi = { inherit mpi; };
+  passthru = { inherit mpi; };
 
   meta = with lib; {
     description = "DFT and beyond within the projector-augmented wave method";
     homepage = "https://wiki.fysik.dtu.dk/gpaw/index.html";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
+    maintainers = [ maintainers.sheepforce ];
   };
 }
