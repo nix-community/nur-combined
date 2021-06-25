@@ -38,7 +38,6 @@ recursiveUpdate base {
   ## Enable the OpenSSH daemon.
   services.openssh = {
     enable = mkDefault true;
-    logLevel = mkDefault "ERROR";
     passwordAuthentication = mkDefault false;
   };
 
