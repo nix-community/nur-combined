@@ -12,20 +12,19 @@ let
 in
 buildPythonPackage rec {
   pname = "matrix-registration";
-  version = "1.0.0.dev3";
+  version = "1.0.0.dev4";
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "ZerataX";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0dz60qv32dn0ci4c696c12rlqamd00m19rn8c6dxbza23r7a952n";
+    sha256 = "00ky8gqs7860yy1mx7rfcdrmph4s9cqqg887sxxn5vjf3a6nhwnx";
   };
 
   postPatch = ''
     sed -i -e '/alembic>/d' setup.py
     sed -i -e 's/~=/>=/' setup.py
-    cat setup.py
   '';
 
   propagatedBuildInputs = [

@@ -5,6 +5,7 @@ let
   dataDir = "/var/lib/matrix-registration";
   cfg = config.services.matrix-registration;
   format = pkgs.formats.yaml { };
+
   matrix-registration-config =
     format.generate "config.yaml" cfg.settings;
   matrix-registration-cli-wrapper = pkgs.stdenv.mkDerivation {
@@ -17,6 +18,16 @@ let
     '';
   };
   serviceDependencies = optional config.services.matrix-synapse.enable "matrix-synapse.service";
+
+  synapse_port = (lists.findFirst
+    (
+      listener: lists.any
+        (
+          resource: (builtins.elem "client" resource.names)
+        )
+        listener.resources
+    ) 0
+    config.services.matrix-synapse.listeners).port;
 
 in
 {
@@ -32,8 +43,14 @@ in
         options = {
           server_location = mkOption {
             type = types.str;
-            description = "The client base URL.";
+            description = ''
+              The client base URL.
+              It is necessary that `/_synapse/admin/v1/register` is reachable.
+              Using a local address is recommended.  
+            '';
             example = "https://matrix.example.tld";
+            default = optionalString (synapse_port > 0)
+              "http://localhost:${builtins.toString synapse_port}";
           };
           server_name = mkOption {
             type = types.str;
@@ -44,14 +61,16 @@ in
           };
           registration_shared_secret = mkOption {
             type = types.str;
+            default = "";
             description = ''
               The registration secret shared with the synapse configuration.
               This option is discouraged, use the <literal>credentialsFile</literal> option if possible instead.
             '';
             example = "RegistrationSharedSecret";
           };
-          admin_secret = mkOption {
+          admin_api_shared_secret = mkOption {
             type = types.str;
+            default = "APIAdminPassword";
             description = ''
               The admin secret to access the API.
               This option is discouraged, use the <literal>credentialsFile</literal> option if possible instead.
@@ -144,8 +163,8 @@ in
       description = ''
         File containing variables to be passed to the matrix-registration service,
         in which secret tokens can be specified securely by defining values for:
-        <literal>REGISTRATION_SHARED_SECRET</literal>,
-        <literal>ADMIN_SECRET</literal>
+        <literal>registration_shared_secret</literal>,
+        <literal>admin_api_shared_secret</literal>
       '';
     };
   };
@@ -159,10 +178,10 @@ in
       wants = [ "network-online.target" ] ++ serviceDependencies;
       after = [ "network-online.target" ] ++ serviceDependencies;
 
-      preStart = ''
-        # run automatic database init and migration scripts
-        ${pkgs.matrix-registration.alembic}/bin/alembic -x config='${matrix-registration-config}' upgrade head
-      '';
+      # preStart = ''
+      #   # run automatic database init and migration scripts
+      #   ${pkgs.matrix-registration.alembic}/bin/alembic -x config='${matrix-registration-config}' upgrade head
+      # '';
 
       serviceConfig = {
         Type = "simple";
@@ -186,14 +205,20 @@ in
         ExecStart = ''
           ${pkgs.matrix-registration}/bin/matrix-registration \
             --config-path="${matrix-registration-config}" \
-        '' + strings.optionalString (cfg.credentialsFile != null) ''
-            --secrets-path="$CREDENTIALS_DIRECTORY/secrets" \
-        '' + "serve"
-        ;
+            serve
+        '';
       };
     };
 
     environment.systemPackages = [ matrix-registration-cli-wrapper ];
+
+    assertions = [
+      {
+        assertion = cfg.settings.server_location != "";
+        message = "can't find server location automatically, "
+          + "please set `config.services.matrix-registration.settings.server_location`";
+      }
+    ];
   };
 
   # meta.maintainers = with maintainers; [ zeratax ];
