@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
       sed -i 's/fg0\[]\s*=\s*".*"/fg0[] = "${fg0}"/' config.def.h
       sed -i 's/fg1\[]\s*=\s*".*"/fg1[] = "${fg1}"/' config.def.h
       sed -i 's/accent\[]\s*=\s*".*"/accent[] = "${accent}"/' config.def.h
-      sed 's/hack:pixelsize=18:antialias=true:autohint=true/${font}/' config.def.h
+      sed -i 's/hack:pixelsize=18:antialias=true:autohint=true/${font}/' config.def.h
    '';
 }
