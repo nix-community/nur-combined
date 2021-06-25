@@ -470,10 +470,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.876.0";
+      version = "8.877.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3783646/grammarly_for_firefox-8.876.0-an+fx.xpi";
-      sha256 = "8d129548d57be3ac61f490d32fbc45e89bb1f0321211ccee6ad1719de67bc78d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3801752/grammarly_for_firefox-8.877.0-an+fx.xpi";
+      sha256 = "a012913ef5f170b0997bd3fcfccb836d7bfb0a2ef7e62654041919c7f22024fc";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -642,10 +642,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.71.0.2";
+      version = "4.74.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3771493/lastpass_password_manager-4.71.0.2-an+fx.xpi";
-      sha256 = "329852bff3eb7c3cb1894bf36a484846b922166068279be9e3a2cf89c4a2ff06";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3797662/lastpass_password_manager-4.74.0.3-an+fx.xpi";
+      sha256 = "994d74e02fb60e121d97e45b36c3a35206401fb36e640004baaa3009c5d837cf";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -847,10 +847,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.8";
+      version = "11.2.9";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3778947/noscript_security_suite-11.2.8-an+fx.xpi";
-      sha256 = "4744f9d99acbe9dec3557765edd9173272b4681c8425228fb6af52493f853467";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3800990/noscript_security_suite-11.2.9-an+fx.xpi";
+      sha256 = "830a25dad07327ae220b4740ea834b0abe715e9ef3dabc326bf7fef2c5af1efb";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1231,10 +1231,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.1.0.1";
+      version = "2.1.0.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3799365/sponsorblock_skip_sponsorships_on_youtube-2.1.0.1-an+fx.xpi";
-      sha256 = "69ec09f994f8a031171cca069112f431cb38dd34928f9e5cbfea556f5432a9b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3801123/sponsorblock_skip_sponsorships_on_youtube-2.1.0.2-an+fx.xpi";
+      sha256 = "565654b611becd1b34c6be1a3e03d17b750c8f2cdc54d1a0d2f2b981e0148fd8";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
