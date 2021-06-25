@@ -18,8 +18,14 @@
     enable = true;
     kernels = {
       nltk = let
-        env = (pkgs.python3.withPackages
-          (pypkgs: with pypkgs; [ ipykernel nltk matplotlib numpy ]));
+        env = (pkgs.python3.withPackages (pypkgs:
+          with pypkgs; [
+            ipykernel
+            nltk
+            matplotlib
+            numpy
+            beautifulsoup4
+          ]));
       in {
         displayName = "Python 3 for NLP";
         argv = [
