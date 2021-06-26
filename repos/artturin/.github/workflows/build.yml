@@ -4,7 +4,7 @@ on:
   # when opening a pull request from an own branch.
   push:
     branches:
-      - main
+      - master
   pull_request:
   schedule:
     # rebuild everyday at 7:55
