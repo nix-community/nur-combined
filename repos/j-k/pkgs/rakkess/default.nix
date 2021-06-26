@@ -15,9 +15,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  preBuild = ''
-    buildFlagsArray+=("-ldflags" "-s -w -X github.com/corneliusweig/rakkess/internal/version.version=v${version}")
-  '';
+  ldflags = [ "-s" "-w" "-X github.com/corneliusweig/rakkess/internal/version.version=v${version}" ];
 
   postInstall = ''
     installShellCompletion --cmd rakkess \

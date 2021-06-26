@@ -2,8 +2,8 @@
 
 fetchFirefoxAddon {
   name = "refined-github-";
-  url = "https://addons.mozilla.org/firefox/downloads/file/3791699/refined_github-21.6.8-an+fx.xpi";
-  sha256 = "sha256-8UAFpgg8Xro6wqVG5BP6J56Rv8tUOSuLrypNgnvGdd4=";
+  url = "https://addons.mozilla.org/firefox/downloads/file/3797406/refined_github-21.6.17-an+fx.xpi";
+  sha256 = "sha256-m+Y5F/qC/e/dsDUFNK5u7JFlJJ+IgLBNwutgvVLEJoQ=";
 
   # meta = with lib; {
   #   homepage = "https://github.com/sindresorhus/refined-github/";

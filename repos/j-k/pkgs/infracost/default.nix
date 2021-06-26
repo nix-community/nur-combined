@@ -2,20 +2,17 @@
 
 buildGoModule rec {
   pname = "infracost";
-  version = "0.9.0";
+  version = "0.9.1";
 
   src = fetchFromGitHub {
     owner = "infracost";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-JhuO/3qATtqp19OmRH8rHfiXd18x39Gfnqdzu28UXPo=";
+    sha256 = "sha256-3dR4NZ1PiMuHNO+xl3zxeBLPOZTLAbJ0VtYJNYpJuXI=";
   };
-
   vendorSha256 = "sha256-YHewZsIiDPsgJVYwQX/FovlD+UzJflXy/0oglk8ZkKk=";
 
-  preBuild = ''
-    buildFlagsArray+=("-ldflags" "-s -w -X github.com/infracost/infracost/internal/version.Version=v${version}")
-  '';
+  ldflags = [ "-s" "-w" "-X github.com/infracost/infracost/internal/version.Version=v${version}" ];
 
   # Tests run terraform init which attempts to create files
   doCheck = false;

@@ -6,28 +6,31 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 let
   inherit (pkgs) callPackage recurseIntoAttrs;
 in
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  # Dev utils
+  fetchDenoTarball = callPackage ./pkgs/deno-extra/fetchDenoTarball.nix { };
+  bundleDeno = callPackage ./pkgs/deno-extra/bundleDeno.nix { inherit fetchDenoTarball; };
+
   # Defined in firefox-addons
   firefox-addons = recurseIntoAttrs (callPackage ./pkgs/firefox-addons { });
 
   bane = callPackage ./pkgs/bane { };
+  crane = callPackage ./pkgs/crane { };
   comma = callPackage ./pkgs/comma { };
   conform = callPackage ./pkgs/conform { };
   container-diff = callPackage ./pkgs/container-diff { };
   flat-remix-theme = callPackage ./pkgs/themes/flat-remix { };
   google-fonts = callPackage ./pkgs/fonts/google-fonts { };
-  goss = callPackage ./pkgs/goss { };
-  hunter = callPackage ./pkgs/hunter { };
   infracost = callPackage ./pkgs/infracost { };
   ko = callPackage ./pkgs/ko { };
   konstraint = callPackage ./pkgs/konstraint { };
@@ -35,6 +38,5 @@ in
   rakkess = callPackage ./pkgs/rakkess { };
   scorecard = callPackage ./pkgs/scorecard { };
   subo = callPackage ./pkgs/subo { };
-  terraform-ls = callPackage ./pkgs/terraform-ls { };
   tuftool = callPackage ./pkgs/tuftool { };
 }

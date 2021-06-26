@@ -15,9 +15,7 @@ buildGoModule rec {
 
   excludedPackages="\\(gitcache\\|e2e\\)";
 
-  preBuild = ''
-    buildFlagsArray+=("-ldflags" "-s -w")
-  '';
+  ldflags = [ "-s" "-w" ];
 
   doInstallCheck = true;
   installCheckPhase = ''

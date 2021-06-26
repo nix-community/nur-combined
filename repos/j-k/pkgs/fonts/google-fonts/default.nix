@@ -2,13 +2,13 @@
 
 let
   pname = "google-fonts";
-  version = "2021-04-09";
+  version = "2021-06-26";
 in fetchFromGitHub {
   name = "${pname}-${version}";
   owner = "google";
   repo = "fonts";
-  rev = "2b2aab212c4ed04131063a55ccde23714dd191fd";
-  sha256 = "sha256-7jfjXw8TajLCtPv8+lXa0Kkh5m+U51O7pCkx0vLYZ28=";
+  rev = "f2c3da05f6b8d8ee6b3abc4b466287ccdd680501";
+  sha256 = "sha256-2xHOXoSRD4p53jg3kouByUINW4CwNyyC7eh1qcEhpNE=";
 
   postFetch = ''
     tar xf $downloadedFile --strip 1

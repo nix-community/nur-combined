@@ -13,9 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "18vhxq475d1f5sghy8gxa4wg6dbfj103pbl0kfx6xl6jf2ksqiln";
 
-  preBuild = ''
-    buildFlagsArray+=("-ldflags" "-s -w -X github.com/talos-systems/conform/cmd.Tag=v${version}")
-  '';
+  ldflags = [ "-s" "-w" "-X github.com/talos-systems/conform/cmd.Tag=v${version}" ];
 
   checkInputs = [ git ];
 

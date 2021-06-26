@@ -8,7 +8,7 @@ buildGoModule rec {
     owner = "google";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-r07bFFDBB7pFcVpfaHeuE8dqE+SwLQRzY2bpoZyxwFU=";
+    sha256 = "sha256-baNiqyp5GNuAMM+mFE7VtWQtRiEgjVBcHMo9Pp8BKgw=";
 
     # required for the tests, see test/kodata & TestGoBuild
     fetchSubmodules = true;
@@ -22,12 +22,10 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  preBuild = ''
-    buildFlagsArray+=("-ldflags" "-s -w -X github.com/google/ko/pkg/commands.Version=${version}")
-  '';
+  ldflags = [ "-s" "-w" "-X github.com/google/ko/pkg/commands.Version=${version}" ];
 
   preCheck = ''
-    export GOROOT=$(go env GOROOT)
+    export GOROOT="$(go env GOROOT)"
   '';
 
   postInstall = ''

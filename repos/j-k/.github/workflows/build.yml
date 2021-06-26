@@ -47,8 +47,8 @@ jobs:
             --drv-path --show-trace \
             -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
             -I $PWD
-      - name: Build nix packages
-        run: nix run nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      # - name: Build nix packages
+      #   run: nix run nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
       - name: Trigger NUR update
         if: matrix.nurRepo == 'j-k' && github.ref == 'refs/heads/master'
         run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"

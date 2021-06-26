@@ -2,23 +2,20 @@
 
 buildGoModule rec {
   pname = "container-diff";
-  version = "0.16.0";
+  version = "0.17.0";
 
   src = fetchFromGitHub {
     owner = "GoogleContainerTools";
     repo = pname;
     rev = "v${version}";
-    sha256 = "09kxqzhg8s40gzlq3mmf5gypilgpsydmfpzhsm1vfxxldbn7cxlg";
+    sha256 = "sha256-4sk6DqScaNf0tMZQ6Hj40ZEklFTUFwAkN63v67nUFn8=";
   };
-
   vendorSha256 = null;
 
   # Don't build documentation tooling
   excludedPackages = "hack";
 
-  preBuild = ''
-    buildFlagsArray+=("-ldflags" "-s -w -X github.com/GoogleContainerTools/container-diff/version.version=${version}")
-  '';
+  ldflags = [ "-s" "-w" "-X github.com/GoogleContainerTools/container-diff/version.version=${version}" ];
 
   preCheck = ''
     # Remove test that requires networking

@@ -10,11 +10,12 @@ buildGoModule rec {
     rev = "v${version}";
     sha256 = "sha256-2O7F2fcGid4ub3QJwPznXjMYuzIQ84T6/DKSfezgl7M=";
   };
-
   vendorSha256 = "sha256-HMTDYYzlH35EoloFES2K8yeWVBfqcLCjMurrnRA5uBA=";
 
   # Exclude go within .github folder
   excludedPackages = ".github";
+
+  ldflags = [ "-s" "-w" ];
 
   doInstallCheck = true;
   installCheckPhase = ''

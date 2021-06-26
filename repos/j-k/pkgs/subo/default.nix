@@ -2,20 +2,18 @@
 
 buildGoModule rec {
   pname = "subo";
-  version = "0.0.15";
+  version = "0.0.17";
 
   src = fetchFromGitHub {
     owner = "suborbital";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-Ie/MQeeixMc/NECAqeBB3C2u6GJLvM2pv2GDmonWNP8=";
+    sha256 = "sha256-0JG7GpuNcdUgmsNxnlv+45tahoMlPOYtm405cFhpuyw=";
   };
 
   vendorSha256 = null;
 
-  preBuild = ''
-    buildFlagsArray+=("-ldflags" "-s -w")
-  '';
+  ldflags = [ "-s" "-w" ];
 
   doInstallCheck = true;
   installCheckPhase = ''
