@@ -48,7 +48,7 @@ jobs:
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
       uses: cachix/cachix-action@v10
-      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
+      if: ${{ matrix.cachixName != 'artturin' }}
       with:
         name: ${{ matrix.cachixName }}
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
