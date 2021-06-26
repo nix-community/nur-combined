@@ -20,8 +20,8 @@ in
           inherit (secrets.users.root) hashedPassword;
         };
 
-        ${config.my.username} = {
-          inherit (secrets.users.${config.my.username}) hashedPassword;
+        ${config.my.user.name} = {
+          inherit (secrets.users.${config.my.user.name}) hashedPassword;
           description = "Bruno BELANYI";
           isNormalUser = true;
           shell = pkgs.zsh;

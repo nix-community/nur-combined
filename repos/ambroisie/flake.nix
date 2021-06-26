@@ -70,13 +70,6 @@
             nur.overlay
           ];
         }
-        home-manager.nixosModules.home-manager
-        ({ config, ... }: {
-          home-manager.users.${config.my.username} = import ./home;
-          # Nix Flakes compatibility
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-        })
         # Include generic settings
         ./modules
         # Include bundles of settings

@@ -10,11 +10,17 @@
   ];
 
   options.my = with lib; {
-    username = mkOption {
-      type = types.str;
-      default = "ambroisie";
-      example = "alice";
-      description = "my username";
+    user = {
+      name = mkOption {
+        type = types.str;
+        default = "ambroisie";
+        example = "alice";
+        description = "my username";
+      };
+
+      home = {
+        enable = my.mkDisableOption "home-manager configuration";
+      };
     };
   };
 }
