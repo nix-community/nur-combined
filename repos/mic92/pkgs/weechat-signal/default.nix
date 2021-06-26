@@ -22,5 +22,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ mic92 ];
     description = "Use Signal via signald in weechat.";
+    broken = true;
   };
 }

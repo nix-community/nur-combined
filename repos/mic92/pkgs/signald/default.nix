@@ -34,5 +34,6 @@ buildGradle rec {
     license = licenses.gpl3;
     maintainers = with maintainers; [ mic92 ];
     platforms = platforms.unix;
+    broken = true;
   };
 }
