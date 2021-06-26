@@ -30,6 +30,7 @@ stdenvNoCC.mkDerivation ({
     export DENO_DIR=$name
 
     if [[ ! -f "${lockfileLocation}" ]]; then
+      echo "lockfile doesnt exist, generating..."
       if [[ ! -f "${entrypoint}" ]]; then
           echo
           echo "ERROR: The entrypoint file doesn't exist"
@@ -38,7 +39,10 @@ stdenvNoCC.mkDerivation ({
           exit 1
       fi
       deno cache --lock=${lockfileLocation} --lock-write ${entrypoint} --unstable
+    else
+      echo "lockfile found"
     fi
+    echo "reloading dependencies from lockfile"
     deno cache --reload --lock=${lockfileLocation} ${entrypoint} --unstable
     echo "strip non-reproducable metadata"
     find . -type f -name "metadata.json" -delete

@@ -68,15 +68,12 @@ stdenvNoCC.mkDerivation (args // {
     runHook preInstall
 
     mkdir -p $out/{bin,lib/${outname}}
-    mv $DENO_LOCK $out/lib/${outname}/lock.js
     mv ${outname}.js $out/lib/${outname}/
-    deno install --root $out $out/lib/${outname}/${outname}.js --no-check --lock $out/lib/${outname}/lock.js $permissionsFlags --unstable
-    substituteInPlace $out/bin/* --replace 'exec deno ' 'exec ${deno}/bin/deno '
+    deno install --unstable --root $out --lock $DENO_LOCK $permissionsFlags $out/lib/${outname}/${outname}.js
+    substituteInPlace $out/bin/${outname} --replace 'exec deno ' 'exec ${deno}/bin/deno '
 
     runHook postInstall
   '';
-
-  # doCheck = args.doCheck or true;
 
   strictDeps = true;
 
