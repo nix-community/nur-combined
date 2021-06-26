@@ -1,4 +1,4 @@
-{ fetchgit, fetchFromGitHub, stdenv
+{ fetchgit, fetchFromGitHub, lib, stdenv
 , bison, cmake, flex, gmp, libedit, makeWrapper, pkgconfig, readline
 }:
 let
@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "An SMT solver";
     homepage    = "verify.inf.usi.ch/opensmt";
-    license     = stdenv.lib.licenses.mit;
-    maintainers = [ stdenv.lib.maintainers.ptival ];
+    license     = lib.licenses.mit;
+    maintainers = [ lib.maintainers.ptival ];
   };
 
   patches = [ ./no-git-clone.patch ];

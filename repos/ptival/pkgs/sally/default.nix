@@ -1,4 +1,4 @@
-{ fetchFromGitHub, stdenv
+{ fetchFromGitHub, lib, stdenv
 , boost, cmake, gmp, libpoly, makeWrapper, openjdk, opensmt2, pkgconfig, yices, z3
 }:
 stdenv.mkDerivation rec {
@@ -27,15 +27,15 @@ stdenv.mkDerivation rec {
   ];
 
   # Darwin uses clang, which issues this warning as an error
-  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.isDarwin "-Wno-return-std-move";
+  NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-return-std-move";
 
   NIX_LDFLAGS = "-lboost_iostreams -lboost_program_options -lboost_thread -lboost_system";
 
   meta = {
     description = "A model checker for infinite-state systems.";
     homepage    = "http://sri-csl.github.io/sally/";
-    license     = stdenv.lib.licenses.gpl3;
-    maintainers = [ stdenv.lib.maintainers.ptival ];
+    license     = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.ptival ];
   };
 
   patchPhase = ''

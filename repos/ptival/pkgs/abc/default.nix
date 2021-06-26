@@ -1,4 +1,4 @@
-{ fetchhg, stdenv }:
+{ fetchhg, lib, stdenv }:
 stdenv.mkDerivation rec {
   name = "abc-${version}";
   version = "20160818";
@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A tool for sequential logic synthesis and formal verification";
     homepage    = "https://people.eecs.berkeley.edu/~alanmi/abc/abc.htm";
-    license     = stdenv.lib.licenses.mit;
-    platforms   = stdenv.lib.platforms.unix;
-    maintainers = [ stdenv.lib.maintainers.thoughtpolice ];
+    license     = lib.licenses.mit;
+    platforms   = lib.platforms.unix;
+    maintainers = [ lib.maintainers.thoughtpolice ];
   };
 }

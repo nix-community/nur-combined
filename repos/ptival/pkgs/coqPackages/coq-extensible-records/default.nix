@@ -1,4 +1,6 @@
-{ stdenv, fetchFromGitHub, coq }:
+{ fetchFromGitHub, lib, stdenv,
+, coq
+}:
 
 let
   versions = {
@@ -44,7 +46,7 @@ stdenv.mkDerivation rec {
     make -f Makefile.coq COQLIB=$out/lib/coq/${coq.coq-version}/ install
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = https://github.com/gmalecha/coq-extensible-records;
     description = "Implementation of extensible records in Coq";
     license = licenses.mit;

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip }:
+{ fetchurl, lib, stdenv, unzip }:
 let
   pname = "meslo-nerd-powerlevel10k";
   version = "1.0";
@@ -17,8 +17,8 @@ fetchurl {
   meta = {
     description = "A version of Apple’s Menlo-Regular font patched for Powerlevel10k";
     homepage = https://github.com/romkatv/powerlevel10k-media/;
-    license = stdenv.lib.licenses.mit;
-    maintainers = with stdenv.lib.maintainers; [ ptival ];
-    platforms = with stdenv.lib.platforms; all;
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ ptival ];
+    platforms = with lib.platforms; all;
   };
 }
