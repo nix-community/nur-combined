@@ -1,0 +1,13 @@
+--- a/xcb.c
++++ b/xcb.c
+@@ -187,8 +187,8 @@ 
+     xcb_colormap_t win_colormap = xcb_generate_id(conn);
+     xcb_create_colormap(conn, XCB_COLORMAP_ALLOC_NONE, win_colormap, scr->root, visual);
+ 
+-    mask |= XCB_CW_BACK_PIXEL;
+-    values[0] = get_colorpixel(color);
++    mask |= XCB_CW_BACK_PIXMAP;
++    values[0] = scr->black_pixel;
+ 
+     mask |= XCB_CW_BORDER_PIXEL;
+     values[1] = 0x00000000;
