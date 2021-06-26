@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A simple screen locker like slock, enhanced version with extra configuration options(With patches)";
+    description = "A simple screen locker like slock, enhanced version with extra configuration options (With patches)";
     homepage = "https://github.com/PandorasFox/i3lock-color";
     license = licenses.bsd3;
     platforms = platforms.x86;
