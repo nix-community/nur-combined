@@ -1231,10 +1231,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.1.0.2";
+      version = "2.1.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3801123/sponsorblock_skip_sponsorships_on_youtube-2.1.0.2-an+fx.xpi";
-      sha256 = "565654b611becd1b34c6be1a3e03d17b750c8f2cdc54d1a0d2f2b981e0148fd8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3801441/sponsorblock_skip_sponsorships_on_youtube-2.1.1-an+fx.xpi";
+      sha256 = "02fc35dd1c8d910c212045f63072e6cc490d7b6c7abd0510297ac954c84e79de";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
