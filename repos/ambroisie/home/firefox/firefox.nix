@@ -46,6 +46,7 @@ in
       https-everywhere
       i-dont-care-about-cookies
       reddit-enhancement-suite
+      sponsorblock
       ublock-origin
     ]
     ++ lib.optional (cfg.tridactyl.enable) tridactyl

@@ -14,7 +14,15 @@ let
 in
 throwOnCanary {
   options.my.secrets = mkOption {
-    type = types.attrs;
+    type =
+      let
+        valueType = with types; oneOf [
+          int
+          str
+          (attrsOf valueType)
+        ];
+      in
+      valueType;
   };
 
   config.my.secrets = {
