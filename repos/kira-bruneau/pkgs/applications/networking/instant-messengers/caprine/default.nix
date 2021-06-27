@@ -1,7 +1,12 @@
 { lib, stdenv, pkgs, nodejs, makeDesktopItem, makeWrapper, electron }:
 
 let
-  packageName = with lib;
+  nodePackages = import ./node2nix/node-composition.nix {
+    inherit pkgs nodejs;
+    inherit (stdenv.hostPlatform) system;
+  };
+
+  nodePackageName = with lib;
     head
       (map
         (entry: "caprine-${entry.caprine}")
@@ -9,15 +14,12 @@ let
           (entry: hasAttr "caprine" entry)
           (importJSON ./node2nix/node-packages.json)));
 
-  nodePackages = import ./node2nix/node-composition.nix {
-    inherit pkgs nodejs;
-    inherit (stdenv.hostPlatform) system;
-  };
+  nodePackage = nodePackages.${nodePackageName};
 
   desktopItem = makeDesktopItem {
-    name = "caprine";
-    exec = "caprine";
-    icon = "caprine";
+    name = nodePackage.packageName;
+    exec = nodePackage.packageName;
+    icon = nodePackage.packageName;
     desktopName = "Caprine";
     genericName = "IM Client";
     comment = "Elegant Facebook Messenger desktop app";
@@ -25,7 +27,7 @@ let
     startupNotify = "true";
   };
 in
-nodePackages.${packageName}.override {
+nodePackage.override {
   nativeBuildInputs = [ makeWrapper ];
 
   npmFlags = "--ignore-scripts";
@@ -47,9 +49,11 @@ nodePackages.${packageName}.override {
       --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland $out/lib/node_modules/caprine"
   '';
 
-  meta = with lib; {
+  meta = with lib; (nodePackage.meta // {
     homepage = "https://sindresorhus.com/caprine";
+    license = licenses.mit;
+    mainProgram = nodePackage.packageName;
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.all;
-  };
+  });
 }

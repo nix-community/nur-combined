@@ -2,7 +2,6 @@
 , stdenv
 , fetchFromGitHub
 , fetchurl
-, fetchpatch
 , substituteAll
 , coreutils
 , curl
@@ -10,7 +9,7 @@
 , glxinfo
 , gnugrep
 , gnused
-, pciutils
+, lsof
 , xdg-utils
 , dbus
 , hwdata
@@ -27,6 +26,7 @@
 , vulkan-loader
 , libXNVCtrl
 , wayland
+, addOpenGLRunpath
 }:
 
 let
@@ -46,14 +46,14 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "mangohud";
-  version = "0.6.3";
+  version = "0.6.4";
 
   src = fetchFromGitHub {
     owner = "flightlessmango";
     repo = "MangoHud";
     rev = "v${version}";
-    sha256 = "wL+/wAqvVFph1QzuXPBbSEFjs33VA0S6euNWr/1J1Mk=";
     fetchSubmodules = true;
+    sha256 = "S7FtO/VLZp6Al13i6IrEbIzsgP3kZ3VSNBLhwReZLqM=";
   };
 
   outputs = [ "out" "doc" "man" ];
@@ -78,7 +78,7 @@ in stdenv.mkDerivation rec {
         glxinfo
         gnugrep
         gnused
-        pciutils
+        lsof
         xdg-utils
       ];
 
@@ -131,9 +131,11 @@ in stdenv.mkDerivation rec {
       "$out/share/vulkan/implicit_layer.d/MangoHud.x86.json"
   '';
 
-  # Support overlaying Vulkan applications without requiring mangohud to be installed
+  # Support Nvidia cards by adding OpenGL path and support overlaying
+  # Vulkan applications without requiring MangoHud to be installed
   postFixup = ''
     wrapProgram "$out/bin/mangohud" \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ addOpenGLRunpath.driverLink ]} \
       --prefix XDG_DATA_DIRS : "$out/share"
   '';
 
