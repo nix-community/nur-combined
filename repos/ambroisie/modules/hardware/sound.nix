@@ -18,7 +18,10 @@ in
     {
       assertions = [
         {
-          assertion = cfg.pipewire.enable != cfg.pulse.enable;
+          assertion = builtins.all (lib.id) [
+            (cfg.pipewire.enable -> !cfg.pulse.enable)
+            (cfg.pulse.enable -> !cfg.pipewire.enable)
+          ];
           message = ''
             `config.my.hardware.sound.pipewire.enable` and
             `config.my.hardware.sound.pulse.enable` are incompatible.
