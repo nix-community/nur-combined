@@ -48,7 +48,7 @@ stdenvNoCC.mkDerivation ({
     find . -type f \( \
       -name "*.buildinfo" -o \
       -name "metadata.json" -o -name "*.metadata.json" \
-    \) -exec echo {} \;
+    \) -exec rm {} \;
     cp ${lockfileLocation} $name/lockfile.json
   '';
 
