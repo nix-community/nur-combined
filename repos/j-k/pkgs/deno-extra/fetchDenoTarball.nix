@@ -44,8 +44,8 @@ stdenvNoCC.mkDerivation ({
     fi
     echo "reloading dependencies from lockfile"
     deno cache --reload --lock=${lockfileLocation} ${entrypoint} --unstable
-    echo "strip non-reproducable metadata"
-    find . -type f -name "metadata.json" -delete
+    echo "strip non-reproducable metadata files"
+    find . -type f \( -name "metadata.json" -o -name "*.metadata.json" \) -exec rm {} \;
     cp ${lockfileLocation} $name/lockfile.json
   '';
 
