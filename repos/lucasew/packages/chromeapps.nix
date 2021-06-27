@@ -92,4 +92,9 @@ in
     url = "https://calendar.google.com/calendar/u/0/r/customday";
     icon = "x-office-calendar";
   };
+  twitchLive = mkNativefier {
+    name = "twitchlive";
+    desktopName = "Dashboard de Live";
+    url = "https://dashboard.twitch.tv/stream-manager";
+  };
 }

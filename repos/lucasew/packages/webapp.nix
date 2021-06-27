@@ -24,7 +24,7 @@ let
     then
       URL="file://$URL"
     fi
-    if [[ "$URL" =~ ^(file|http(s))?:\/\/ ]]
+    if [[ "$URL" =~ ^(file|https?)?:\/\/ ]]
     then
       true
     else
