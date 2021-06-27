@@ -1568,10 +1568,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.7.6";
+      version = "6.7.7";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3799373/wappalyzer-6.7.6-fx.xpi";
-      sha256 = "47825c9ea8549ea94e6fa9698779c3d6e6c9318461e7d1436a97b2a4856c05df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3802468/wappalyzer-6.7.7-fx.xpi";
+      sha256 = "b25d1ef2b45b6293d945030f0ebd34f94e4efe83e882be0a6aed47ebeaf4a484";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
