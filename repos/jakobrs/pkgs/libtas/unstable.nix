@@ -43,8 +43,6 @@ in relevantStdenv.mkDerivation rec {
     pkgsi686Linux.freetype
   ];
 
-  dontStrip = true; # Segfaults, bug in patchelf
-
   # Note that this builds an extra .so file in the same derivation
   # Ideally the library and executable might be split into separate derivations,
   # but this is easier for now

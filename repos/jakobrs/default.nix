@@ -12,8 +12,10 @@ rec {
     inherit (pkgs.qt5) qtbase wrapQtAppsHook;
   };
 
+  avizo = pkgs.callPackage ./pkgs/avizo {};
+
   cpptoml = pkgs.callPackage ./pkgs/cpptoml {};
-  wireplumber = pkgs.callPackage ./pkgs/wireplumber { inherit cpptoml; };
+  wireplumber = pkgs.callPackage ./pkgs/wireplumber {};
 
   libtas = pkgs.libsForQt5.callPackage ./pkgs/libtas { multiArch = pkgs.stdenv.hostPlatform.isx86_64; };
   libtasNoMulti = pkgs.libsForQt5.callPackage ./pkgs/libtas { multiArch = false; };

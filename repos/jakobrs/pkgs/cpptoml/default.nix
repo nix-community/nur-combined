@@ -1,4 +1,4 @@
-{ stdenv, cmake, fetchFromGitHub }:
+{ stdenv, lib, cmake, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "cpptoml";
@@ -15,6 +15,6 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "cpptoml is a header-only library for parsing TOML";
-    license = stdenv.lib.licenses.mit;
+    license = lib.licenses.mit;
   };
 }
