@@ -5,7 +5,6 @@ stdenv.mkDerivation rec {
   version = "unstable-2021-06-16";
 
   src = fetchzip {
-    #name = "zigup.zip";
     url =
       "https://nightly.link/marler8997/zigup/actions/artifacts/68302209.zip";
     sha256 = "sha256-akDNu+KOXcB2sphYCKJU0yZ37B8b6zGzgjeNfu1eP1U=";

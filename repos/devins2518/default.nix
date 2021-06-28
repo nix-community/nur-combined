@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -17,4 +17,5 @@
   gyro = pkgs.callPackage ./pkgs/gyro { };
   zigup = pkgs.callPackage ./pkgs/zigup { };
   bunnyfetch-rs = pkgs.callPackage ./pkgs/bunnyfetch-rs { };
+  zig-master = pkgs.callPackage ./pkgs/zig-master { };
 }
