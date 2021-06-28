@@ -32,6 +32,7 @@ It contains these packages/attributes:
 | hackernews-tui        | https://github.com/aome510/hackernews-TUI                        |
 | har-tools             | https://github.com/outersky/har-tools                            |
 | ksuid                 | https://github.com/segmentio/ksuid                               |
+| pigo                  | https://github.com/esimov/pigo                                   |
 
 * Mirrors of this repo
  * https://github.com/nagy/nur-packages

@@ -51,6 +51,8 @@ rec {
 
   ksuid = callPackage ./pkgs/ksuid {};
 
+  pigo = callPackage ./pkgs/pigo {};
+
   lib = {
 
     # A function, which adds "man" to a packages output if it is not already
