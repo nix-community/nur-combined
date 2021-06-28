@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "sbase";
-  version = "2021-01-15";
+  version = "2021-06-18";
 
   src = fetchgit {
     url = "git://git.suckless.org/sbase";
-    rev = "7ef4038fb5b93e63f4223ab9f222526130a1e14f";
-    sha256 = "0bmri69wi8vi3g8q5fqhwdvwxf4d9r4mhnbwzibr6r70mhcwhiln";
+    rev = "3d8481f01dc9f579666a15a5d510358fe50cbecf";
+    sha256 = "sha256-GCeU0j/VsqzTwWwDzcbEgEZrllLcCwO8OwekC6fkKEw=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];
