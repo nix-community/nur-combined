@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , autoPatchelfHook, pkgconfig, cmake
 , glib, libsndfile
@@ -23,7 +24,7 @@ stdenv.mkDerivation rec {
     "-DLIB_SUFFIX=" # Install in $out/lib.
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Instrument file software library.";
     homepage = "https://github.com/swami/libinstpatch";
     license = licenses.lgpl21Plus;

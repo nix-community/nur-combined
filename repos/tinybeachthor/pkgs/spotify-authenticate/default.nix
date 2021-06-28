@@ -1,5 +1,5 @@
 {
-  stdenv,
+  lib,
   buildGoModule,
   fetchFromGitHub
 }:
@@ -19,7 +19,7 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Get Spotify oauth refreshable access-token";
     homepage = https://github.com/tinybeachthor/spotify-authenticate;
     license = licenses.unlicense;

@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchzip
 , autoPatchelfHook
 , zlib
@@ -35,7 +36,7 @@ stdenv.mkDerivation rec {
   '';
   dontInstall = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Immersive audio solutions for games and VR";
     homepage = "https://valvesoftware.github.io/steam-audio/index.html";
     platforms = with platforms; linux;

@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , autoPatchelfHook
 , multiInstances ? true
@@ -19,7 +20,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoPatchelfHook ];
 
   buildPhase = ''
-    make libpd MULTI=${stdenv.lib.boolToString multiInstances}
+    make libpd MULTI=${lib.boolToString multiInstances}
 
     mkdir $out
     mkdir $out/lib
@@ -28,7 +29,7 @@ stdenv.mkDerivation rec {
 
   dontInstall = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Pure Data embeddable audio synthesis library";
     homepage = "https://github.com/libpd/libpd";
     license = licenses.bsd3;
