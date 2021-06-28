@@ -1,5 +1,5 @@
-language: nix
-nix: 2.3.4
+version: ~> 1.0
+import: nix-community/nix-travis-ci:nix.yml@main
 
 sudo: false
 
@@ -13,27 +13,19 @@ env:
     #
     # For this to work, you also need to set the  CACHIX_SIGNING_KEY
     # in your repository settings in Travis.
-    - CACHIX_CACHE=
+    # - CACHIX_CACHE=
     # Set this to notify the global nur package registry that changes are
     # available.
     #
     # The repo name as used in
     # https://github.com/nix-community/NUR/blob/master/repos.json
-    - NUR_REPO=<YOUR_NUR_REPO_NAME_HERE>
+    - NUR_REPO="<YOUR_NUR_REPO_NAME_HERE>"
 
 matrix:
   include:
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
-
-install:
- - nix --version
- - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
- - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
- - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
- - nix-channel --add "${NIX_CHANNEL}" nixpkgs
- - travis_retry nix-channel --update
+    - env: NIX_PATH=nixpkgs=channel:nixpkgs-unstable
+    - env: NIX_PATH=nixpkgs=channel:nixos-unstable
+    - env: NIX_PATH=nixpkgs=channel:nixos-20.03
 
 script:
  - nix-build ci.nix -A buildOutputs
@@ -43,6 +35,6 @@ script:
 
 after_success:
   - if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
-  - if [ "cron" != "${TRAVIS_EVENT_TYPE}" -a "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
+  - if [[ NUR_REPO != "<YOUR_NUR_REPO_NAME_HERE>" && "cron" != "${TRAVIS_EVENT_TYPE}" && "false" = "${TRAVIS_PULL_REQUEST}" && "master" = "${TRAVIS_BRANCH}" ]]; then
       curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
 

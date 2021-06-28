@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -30,4 +30,3 @@
   nvidia-offload = pkgs.callPackage ./pkgs/os-specific/linux/nvidia-offload { };
   bisq-desktop = pkgs.callPackage ./pkgs/applications/blockchains/bisq-desktop { };
 }
-

@@ -7,4 +7,3 @@ stdenv.mkDerivation rec {
   buildPhase = "echo echo Hello World > example";
   installPhase = "install -Dm755 example $out";
 }
-

@@ -12,4 +12,3 @@
     trace-font = super.callPackage ../pkgs/data/fonts/trace { };
   };
 }
-

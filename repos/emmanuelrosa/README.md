@@ -4,8 +4,6 @@
 
 ## Packages
 
-### century-gothic
-
 A Century Gothic font. For example...
 
 ```

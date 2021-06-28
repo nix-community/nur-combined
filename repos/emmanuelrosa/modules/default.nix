@@ -7,4 +7,3 @@
   electrumx = ./electrumx;
   fzf = ./programs/fzf;
 }
-
