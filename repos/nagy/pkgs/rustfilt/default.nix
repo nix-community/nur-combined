@@ -10,7 +10,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "096219q0d2i3c2awczlv64dnyjpx2b5ml8fgd2xwly56wn8nvgfd";
   };
 
-  cargoSha256 = "19lkvmg5ii731iz1wkji959qq4gx1m9wvpr7l9x6f8f92v697n34";
+  cargoSha256 = "04ghk7803s1dqfrs51kydgpqmkz67frqqzjb4xgbbi6krdcq9kdf";
 
   meta = with lib; {
     description = "Demangle Rust symbols";
