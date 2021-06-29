@@ -18,13 +18,13 @@ let
   ];
 in stdenv.mkDerivation rec {
   pname = "ryujinx";
-  version = "1.0.6940"; # Versioning is based off of the official appveyor builds: https://ci.appveyor.com/project/gdkchan/ryujinx
+  version = "1.0.6941"; # Versioning is based off of the official appveyor builds: https://ci.appveyor.com/project/gdkchan/ryujinx
 
   src = fetchFromGitHub {
     owner = "Ryujinx";
     repo = "Ryujinx";
-    rev = "a79b39b91347816ea14677b58af738b70df03e9c";
-    sha256 = "0nhiy8cb1gp3h28xhcds71hlwaw7nbyx66si40xralwsrafkkj6i";
+    rev = "28618c58d7ee1ae63fc57deca791a64ab38b57af";
+    sha256 = "1rbm5fwls4z6p743j2jcrxdjd93fhyacqzddmq3g5zpvs3ag5p5s";
   };
 
   nativeBuildInputs = [ dotnet-sdk_5 dotnetPackages.Nuget cacert makeWrapper wrapGAppsHook gobject-introspection gdk-pixbuf ];
