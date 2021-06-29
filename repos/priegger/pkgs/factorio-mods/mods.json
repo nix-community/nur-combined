@@ -1,10 +1,10 @@
 [
   {
     "name": "aai-programmable-vehicles",
-    "version": "0.7.10",
-    "file_name": "aai-programmable-vehicles_0.7.10.zip",
-    "download_url": "/download/aai-programmable-vehicles/60ce6e716cd7af31bee62b7a",
-    "sha1": "37354bf22efcc4ff783999c4c047b7b96690e39e",
+    "version": "0.7.11",
+    "file_name": "aai-programmable-vehicles_0.7.11.zip",
+    "download_url": "/download/aai-programmable-vehicles/60da48c6faa00e45c273d385",
+    "sha1": "f9a020962307521a6e342dd8c0bc308157d70089",
     "dependencies": [
       "base >= 1.1.0",
       "aai-signals >= 0.4.1",
@@ -19,7 +19,8 @@
       "?aai-vehicles-laser-tank >= 0.4.1",
       "?aai-vehicles-warden >= 0.3.1",
       "?bullet-trails >= 0.4.1",
-      "?walls-block-spitters >= 0.4.2"
+      "?walls-block-spitters >= 0.4.2",
+      "? equipment-gantry >= 0.1.1"
     ]
   },
   {
