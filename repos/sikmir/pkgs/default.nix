@@ -163,6 +163,7 @@ lib.makeScope newScope (
 
     ### GEMINI
 
+    astronaut = callPackage ./gemini/astronaut { };
     comitium = callPackage ./gemini/comitium { };
     geminid = callPackage ./gemini/geminid { };
     gemreader = callPackage ./gemini/gemreader { };

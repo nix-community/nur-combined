@@ -26,5 +26,6 @@ stdenv.mkDerivation {
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/127172
   };
 }
