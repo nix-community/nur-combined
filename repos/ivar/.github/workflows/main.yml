@@ -46,14 +46,33 @@ jobs:
         cd ../yuzu
         echo Now attempting to update yuzu
         ./updater.sh
-    - name: Push changes
+
+    - name: Build ryujinx
+      id: ryujinx
+      run: nix run -I 'nixpkgs=channel:nixpkgs-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached -A ryujinx
+      continue-on-error: true
+
+    - name: Build yuzu
+      id: yuzu
+      run: nix run -I 'nixpkgs=channel:nixpkgs-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached -A yuzu-ea yuzu-mainline
+      continue-on-error: true
+
+    - name: Push ryujinx update
+      if: steps.ryujinx.outcome == 'success'
       uses: actions-x/commit@v2
       with:
         name: gh-actions
-        message: Update packages to their latest version
-        files: ryujinx/default.nix ryujinx/deps.nix yuzu/default.nix
-    - name: Build nix packages
-      run: nix run -I 'nixpkgs=channel:nixpkgs-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+        message: Update Ryujinx to its latest version
+        files: ryujinx/default.nix ryujinx/deps.nix
+
+    - name: Push yuzu update
+      if: steps.yuzu.outcome == 'success'
+      uses: actions-x/commit@v2
+      with:
+        name: gh-actions
+        message: Update yuzu to its latest version
+        files: yuzu/default.nix
+
     - name: Trigger NUR update
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"

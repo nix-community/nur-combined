@@ -1,5 +1,5 @@
 { pname, version, src, branchName
-, stdenv, lib, fetchFromGitHub, fetchpatch, wrapQtAppsHook
+, stdenv, lib, fetchFromGitHub, wrapQtAppsHook
 , cmake, pkg-config
 , libpulseaudio, libjack2, alsaLib, sndio
 , vulkan-loader, vulkan-headers
@@ -36,16 +36,12 @@ stdenv.mkDerivation rec {
     ffmpeg
   ];
 
-# TODO: patch fails to apply?
-#  patches = [(fetchpatch {
-#    url = "https://raw.githubusercontent.com/pineappleEA/Pineapple-Linux/28cbf656e3188b80eda0031d0b2713708ecd630f/inject-git-info.patch";
-#    sha256 = "1zxh5fwdr7jl0aagb3yfwd0995vyyk54f0f748f7c4rqvg6867fd";
-#  })];
-
   # TODO: Remove this when https://github.com/NixOS/nixpkgs/pull/124870 hits the channels
   postPatch = ''
-    substituteInPlace CMakeLists.txt --replace \
-      "1.5         zstd/1.5.0" "1.4.9         zstd/1.4.9"
+    substituteInPlace CMakeLists.txt \
+      --replace "1.5         zstd/1.5.0" "1.4.9         zstd/1.4.9"
+      --replace "8.0         fmt/8.0.0" "7.1.3         fmt/7.1.3"
+
   '';
 
   cmakeFlags = [
