@@ -233,8 +233,6 @@ let
 
       wfoverlap = callPackage ./pkgs/apps/wfoverlap { };
 
-      xcfun = callPackage ./pkgs/lib/xcfun { };
-
       xtb = callPackage ./pkgs/apps/xtb {
         turbomole = null;
         cefine = null;
@@ -276,8 +274,6 @@ let
         "--enable-contracted-ints"
       ] ++ lib.optional optAVX "--enable-fma"
       ;};
-
-      libvori = callPackage ./pkgs/lib/libvori { };
 
       # libxc legacy version
       libxc4 = callPackage ./pkgs/lib/libxc { };
