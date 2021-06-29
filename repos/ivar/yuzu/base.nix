@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   # TODO: Remove this when https://github.com/NixOS/nixpkgs/pull/124870 hits the channels
   postPatch = ''
     substituteInPlace CMakeLists.txt \
-      --replace "1.5         zstd/1.5.0" "1.4.9         zstd/1.4.9"
+      --replace "1.5         zstd/1.5.0" "1.4.9         zstd/1.4.9" \
       --replace "8.0         fmt/8.0.0" "7.1.3         fmt/7.1.3"
 
   '';
