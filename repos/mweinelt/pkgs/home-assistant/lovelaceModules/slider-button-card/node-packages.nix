@@ -346,13 +346,13 @@ let
         sha1 = "ee28707ae94e11d2b827bcbe5270bcea7f3e71ee";
       };
     };
-    "@types/node-15.12.4" = {
+    "@types/node-15.12.5" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "15.12.4";
+      version = "15.12.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-15.12.4.tgz";
-        sha512 = "zrNj1+yqYF4WskCMOHwN+w9iuD12+dGm0rQ35HLl9/Ouuq52cEtd0CH9qMgrdNmi5ejC1/V7vKEXYubB+65DkA==";
+        url = "https://registry.npmjs.org/@types/node/-/node-15.12.5.tgz";
+        sha512 = "se3yX7UHv5Bscf8f1ERKvQOD6sTyycH3hdaoozvaLxgUiY5lIGEeH37AD0G0Qi9kPqihPn0HOfd2yaIEN9VwEg==";
       };
     };
     "@types/resolve-0.0.8" = {
@@ -571,13 +571,13 @@ let
         sha512 = "P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==";
       };
     };
-    "caniuse-lite-1.0.30001239" = {
+    "caniuse-lite-1.0.30001241" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001239";
+      version = "1.0.30001241";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001239.tgz";
-        sha512 = "cyBkXJDMeI4wthy8xJ2FvDU6+0dtcZSJW3voUF8+e9f1bBeuvyZfc3PNbkOETyhbR+dGCPzn9E7MA3iwzusOhQ==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001241.tgz";
+        sha512 = "1uoSZ1Pq1VpH0WerIMqwptXHNNGfdl7d1cJUFs80CwQ/lVzdhTvsFZCeNFslze7AjsQnb4C85tzclPa1VShbeQ==";
       };
     };
     "chalk-2.4.2" = {
@@ -796,13 +796,13 @@ let
         sha512 = "yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==";
       };
     };
-    "electron-to-chromium-1.3.759" = {
+    "electron-to-chromium-1.3.762" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.759";
+      version = "1.3.762";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.759.tgz";
-        sha512 = "nM76xH0t2FBH5iMEZDVc3S/qbdKjGH7TThezxC8k1Q7w7WHvIAyJh8lAe2UamGfdRqBTjHfPDn82LJ0ksCiB9g==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.762.tgz";
+        sha512 = "LehWjRpfPcK8F1Lf/NZoAwWLWnjJVo0SZeQ9j/tvnBWYcT99qDqgo4raAfS2oTKZjPrR/jxruh85DGgDUmywEA==";
       };
     };
     "emoji-regex-7.0.3" = {
@@ -2866,13 +2866,13 @@ let
         sha512 = "w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==";
       };
     };
-    "uglify-js-3.13.9" = {
+    "uglify-js-3.13.10" = {
       name = "uglify-js";
       packageName = "uglify-js";
-      version = "3.13.9";
+      version = "3.13.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/uglify-js/-/uglify-js-3.13.9.tgz";
-        sha512 = "wZbyTQ1w6Y7fHdt8sJnHfSIuWeDgk6B5rCb4E/AM6QNNPbOMIZph21PW5dRB3h7Df0GszN+t7RuUH6sWK5bF0g==";
+        url = "https://registry.npmjs.org/uglify-js/-/uglify-js-3.13.10.tgz";
+        sha512 = "57H3ACYFXeo1IaZ1w02sfA71wI60MGco/IQFjOqK+WtKoprh7Go2/yvd2HPtoJILO2Or84ncLccI4xoHMTSbGg==";
       };
     };
     "unbox-primitive-1.0.1" = {
@@ -2977,14 +2977,14 @@ let
   };
 in
 {
-  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.6.0" = nodeEnv.buildNodePackage {
+  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.9.0" = nodeEnv.buildNodePackage {
     name = "slider-button-card";
     packageName = "slider-button-card";
-    version = "1.6.0";
+    version = "1.9.0";
     src = fetchgit {
       url = "https://github.com/mattieha/slider-button-card";
-      rev = "f7adc7f34f0e223f9e97f9d870a2fe54ea0b9d90";
-      sha256 = "ceb00e131021d47b23f24bee4bd8820c26efb86ffd6a90b12f1da3b848aff614";
+      rev = "21f669a111a33c73f016aff10bf64dc769a72dfe";
+      sha256 = "c801ed846a86a7a850d7b3d5b1c5792465f886e652a7d93e558f2b6dc0fce134";
     };
     dependencies = [
       sources."@babel/code-frame-7.14.5"
@@ -3025,7 +3025,7 @@ in
       sources."@types/estree-0.0.39"
       sources."@types/json-schema-7.0.7"
       sources."@types/json5-0.0.29"
-      sources."@types/node-15.12.4"
+      sources."@types/node-15.12.5"
       sources."@types/resolve-0.0.8"
       sources."@typescript-eslint/eslint-plugin-2.34.0"
       sources."@typescript-eslint/experimental-utils-2.34.0"
@@ -3056,7 +3056,7 @@ in
       sources."builtin-modules-3.2.0"
       sources."call-bind-1.0.2"
       sources."callsites-3.1.0"
-      sources."caniuse-lite-1.0.30001239"
+      sources."caniuse-lite-1.0.30001241"
       sources."chalk-2.4.2"
       sources."chardet-0.7.0"
       sources."cli-cursor-3.1.0"
@@ -3084,7 +3084,7 @@ in
       sources."deep-is-0.1.3"
       sources."define-properties-1.1.3"
       sources."doctrine-3.0.0"
-      sources."electron-to-chromium-1.3.759"
+      sources."electron-to-chromium-1.3.762"
       sources."emoji-regex-8.0.0"
       sources."error-ex-1.3.2"
       sources."es-abstract-1.18.3"
@@ -3396,7 +3396,7 @@ in
       sources."type-check-0.3.2"
       sources."type-fest-0.8.1"
       sources."typescript-3.9.10"
-      sources."uglify-js-3.13.9"
+      sources."uglify-js-3.13.10"
       sources."unbox-primitive-1.0.1"
       sources."universalify-0.1.2"
       sources."uri-js-4.4.1"
