@@ -1,10 +1,10 @@
 [
   {
     "name": "aai-programmable-vehicles",
-    "version": "0.7.11",
-    "file_name": "aai-programmable-vehicles_0.7.11.zip",
-    "download_url": "/download/aai-programmable-vehicles/60da48c6faa00e45c273d385",
-    "sha1": "f9a020962307521a6e342dd8c0bc308157d70089",
+    "version": "0.7.12",
+    "file_name": "aai-programmable-vehicles_0.7.12.zip",
+    "download_url": "/download/aai-programmable-vehicles/60db88535c1e77d252e3bd01",
+    "sha1": "7f72ae6c59f0228b3514c737f8f478bab9f2953a",
     "dependencies": [
       "base >= 1.1.0",
       "aai-signals >= 0.4.1",
