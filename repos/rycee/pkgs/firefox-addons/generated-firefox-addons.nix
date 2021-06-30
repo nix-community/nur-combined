@@ -428,10 +428,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.5.5";
+      version = "8.5.7";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3733151/ghostery_privacy_ad_blocker-8.5.5-an+fx.xpi";
-      sha256 = "ee65876cc06aed170f8739a64a50ebd3406090c268a276418355b7ec25da2175";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3803046/ghostery_privacy_ad_blocker-8.5.7-an+fx.xpi";
+      sha256 = "f6977b23eca4a3ce351a00379ce3febf03ac8f927105000075aab5b8393d21ff";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -777,10 +777,10 @@
       };
     "min-twitter" = buildFirefoxXpiAddon {
       pname = "min-twitter";
-      version = "3.1.2";
+      version = "3.1.3";
       addonId = "{e7476172-097c-4b77-b56e-f56a894adca9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3801084/minimal_twitter-3.1.2-fx.xpi";
-      sha256 = "bf596bca617228a08d95bfc39e1f649eaf657224df97c65710dc62aa2f0abadc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3803292/minimal_twitter-3.1.3-fx.xpi";
+      sha256 = "d6958c8ce2f95a1029e4ffdd29e7334b0551976492e2104709811db3e83c15cb";
       meta = with lib;
       {
         homepage = "https://github.com/thomaswang/minimal-twitter";
