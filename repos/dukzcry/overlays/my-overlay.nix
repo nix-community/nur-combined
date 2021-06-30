@@ -2,13 +2,6 @@
 
 self: super:
 {
-  qutebrowser = super.qutebrowser.overrideAttrs (oldAttrs: {
-    postFixup = ''
-      ${oldAttrs.postFixup}
-      wrapProgram $out/bin/qutebrowser \
-        --prefix PATH : "${super.lib.makeBinPath [ super.mpv ]}"
-    '';
-  });
   dtrx = super.dtrx.overrideAttrs (oldAttrs: {
     postFixup = ''
       ${oldAttrs.postFixup}
