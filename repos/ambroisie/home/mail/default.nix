@@ -7,11 +7,16 @@ in
 {
   imports = [
     ./accounts.nix
+    ./himalaya.nix
     ./msmtp.nix
   ];
 
   options.my.home.mail = with lib; {
     enable = my.mkDisableOption "email configuration";
+
+    himalaya = {
+      enable = mkRelatedOption "himalaya configuration";
+    };
 
     msmtp = {
       enable = mkRelatedOption "msmtp configuration";

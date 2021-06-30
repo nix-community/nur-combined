@@ -15,6 +15,10 @@ let
 
     inherit primary;
 
+    himalaya = {
+      enable = cfg.himalaya.enable;
+    };
+
     msmtp = {
       enable = cfg.msmtp.enable;
     };

@@ -9,7 +9,11 @@ in
 
   config.programs.direnv = lib.mkIf cfg.enable {
     enable = true;
-    # A better `use_nix`
-    enableNixDirenvIntegration = true;
+    nix-direnv = {
+      # A better `use_nix`
+      enable = true;
+      # And `use_flake`
+      enableFlakes = true;
+    };
   };
 }
