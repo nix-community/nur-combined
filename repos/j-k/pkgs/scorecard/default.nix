@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "scorecard";
-  version = "1.2.0";
+  version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "ossf";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-y/hqfk1fDnp7Nrf3NwHQRQwlSiCXt4Xm15qoTIFlCKk=";
+    sha256 = "sha256-rL+0YJjzVMxAYwXQOjXd6Zp1S/0ZMzw+A/ceZk3O/W8=";
   };
 
-  vendorSha256 = "sha256-Hs1W1A6M1Qq3HUd+2BamXEmaCS2d/s5a7po9iFo9TtA=";
+  vendorSha256 = "sha256-BVs0J71k8Xqgq/cl4yAWBVOyVQuKeVNXBBuFGKljypM=";
 
   excludedPackages="\\(gitcache\\|e2e\\)";
 
