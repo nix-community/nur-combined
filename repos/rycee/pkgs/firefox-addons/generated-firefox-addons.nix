@@ -63,10 +63,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.2.99";
+      version = "7.2.100";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3780825/betterttv-7.2.99-fx.xpi";
-      sha256 = "8bffa15bce91ed0a7c8477fa3406158de90c637cb7701451dd1bc3032127264b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3803747/betterttv-7.2.100-fx.xpi";
+      sha256 = "d2d4b182bb2eb665dbece7b9da5988e7299f93dd35a31f0770da521c7c7b55ba";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1397,10 +1397,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.0.4";
+      version = "9.1";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3777317/translate_web_pages-9.0.4-an+fx.xpi";
-      sha256 = "af49aaf263d6ec2931606b6814dfb5e18b71cb4ba4f37008a25974c3ba1c7d89";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3803717/traduzir_paginas_web-9.1-an+fx.xpi";
+      sha256 = "b9a76c3e0d257ed1d8383741cf5a8fa28024d78e32d9b82533bd19d1663ddeb5";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
