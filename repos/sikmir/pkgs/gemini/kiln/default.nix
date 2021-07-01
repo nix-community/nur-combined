@@ -2,24 +2,18 @@
 
 buildGoModule rec {
   pname = "kiln";
-  version = "0.2.0";
+  version = "0.2.1";
 
   src = fetchFromSourcehut {
     owner = "~adnano";
     repo = pname;
     rev = version;
-    hash = "sha256-ERDStRh5M2X2Nnvut97IhN0PjZvS9ePMEscsLCiXWiI=";
+    hash = "sha256-c6ed62Nn++qw+U/DCiYeGwF77YsBxexWKZ7UQ3LE4fI=";
   };
 
   nativeBuildInputs = [ scdoc ];
 
   vendorSha256 = "sha256-bMpzebwbVHAbBtw0uuGyWd4wnM9z6tlsEQN4S/iucgk=";
-
-  buildPhase = ''
-    runHook preBuild
-    # we use make instead of go build
-    runHook postBuild
-  '';
 
   installPhase = ''
     runHook preInstall

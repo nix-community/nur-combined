@@ -96,12 +96,10 @@ lib.makeScope newScope (
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
     lru-dict = callPackage ./development/python-modules/lru-dict { };
-    mercantile = callPackage ./development/python-modules/mercantile { };
     mikatools = callPackage ./development/python-modules/mikatools { };
     morecantile = callPackage ./development/python-modules/morecantile { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
     python-hfst = callPackage ./development/python-modules/python-hfst { };
-    rasterio = callPackage ./development/python-modules/rasterio { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
     wikitextprocessor = callPackage ./development/python-modules/wikitextprocessor { };
 
@@ -165,6 +163,7 @@ lib.makeScope newScope (
 
     astronaut = callPackage ./gemini/astronaut { };
     comitium = callPackage ./gemini/comitium { };
+    gemget = callPackage ./gemini/gemget { };
     geminid = callPackage ./gemini/geminid { };
     gemreader = callPackage ./gemini/gemreader { };
     gloggery = callPackage ./gemini/gloggery { };

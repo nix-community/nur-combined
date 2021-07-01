@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, python3Packages, jsonseq, mercantile, supermercado }:
+{ lib, fetchFromGitHub, python3Packages, jsonseq, supermercado }:
 
 python3Packages.buildPythonApplication rec {
   pname = "tilesets-cli";

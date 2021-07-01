@@ -15,12 +15,6 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-o5BxL2azzfKhwG1lOxHe6HZUci96+jddPwq+jIJELls=";
 
-  buildPhase = ''
-    runHook preBuild
-    # we use make instead of go build
-    runHook postBuild
-  '';
-
   installPhase = ''
     runHook preInstall
     make PREFIX=$out install

@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, python3Packages, mercantile }:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "supermercado";

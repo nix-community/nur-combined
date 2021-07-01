@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, python3Packages, mercantile, pymbtiles }:
+{ lib, fetchFromGitHub, python3Packages, pymbtiles }:
 
 python3Packages.buildPythonApplication rec {
   pname = "tpkutils";

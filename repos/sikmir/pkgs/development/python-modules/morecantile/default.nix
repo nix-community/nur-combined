@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, python3Packages, mercantile, rasterio }:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonPackage rec {
   pname = "morecantile";
