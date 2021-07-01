@@ -12,8 +12,8 @@ let
   unstable_ = pkgs.fetchFromGitHub {
     owner = "nixos";
     repo = "nixpkgs";
-    rev = "1a57d96edd156958b12782e8c8b6a374142a7248";
-    sha256 = "1qdh457apmw2yxbpi1biwl5x5ygaw158ppff4al8rx7gncgl10rd";
+    rev = "3a8d7958a610cd3fec3a6f424480f91a1b259185";
+    sha256 = "0bmxrdn9sn6mxvkyyxdlxlzczfh59iy66c55ql144ilc1cjk28is";
   };
   unstable = import unstable_ { config.allowUnfree = true; };
   eval = import <nixpkgs/nixos/lib/eval-config.nix>;
@@ -28,5 +28,7 @@ in {
   knobkraft-orm = pkgs.callPackage ./pkgs/knobkraft-orm.nix { };
   realrtcw = pkgs.callPackage ./pkgs/realrtcw.nix { };
   gamescope = pkgs.callPackage ./pkgs/gamescope.nix {};
+  re3 = pkgs.callPackage ./pkgs/re3.nix {};
+  revc = pkgs.callPackage ./pkgs/revc.nix {};
 }
 

@@ -20,4 +20,5 @@ self: super:
     modprobe iwlwifi iwlmvm
   '';
   goldendict = unstable.goldendict;
+  inherit (unstable) steam;
 }

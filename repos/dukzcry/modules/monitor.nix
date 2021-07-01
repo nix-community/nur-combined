@@ -12,7 +12,7 @@ in {
 
   config = mkIf cfg.enable {
     services.autorandr.enable = true;
-    hardware.acpilight.enable = true;
+    programs.light.enable = true;
     environment.systemPackages = with pkgs; [ ddcutil ];
     hardware.i2c.enable = true;
   };
