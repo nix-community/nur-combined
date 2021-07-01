@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , buildPythonApplication
 , fetchFromGitHub
 , poetry
@@ -33,5 +34,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/regen100/cmake-language-server";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
+    broken = stdenv.isDarwin; # pygls hangs at tests/test_protocol.py on darwin
   };
 }

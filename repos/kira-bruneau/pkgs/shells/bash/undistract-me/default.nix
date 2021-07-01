@@ -77,6 +77,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/jml/undistract-me";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }

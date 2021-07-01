@@ -1,7 +1,9 @@
 { pkgs }:
 
-with pkgs; {
-  sddm = {
+with pkgs;
+
+{
+  sddm = recurseIntoAttrs {
     clairvoyance = callPackage ./sddm/clairvoyance { };
   };
 }

@@ -4,6 +4,7 @@
 , oead
 , pyyaml
 , sortedcontainers
+, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -36,5 +37,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/zeldamods/byml-v2";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kira-bruneau ];
+    # broken = !isPy3k;
+    broken = true; # oead references commit outside of branch
   };
 }

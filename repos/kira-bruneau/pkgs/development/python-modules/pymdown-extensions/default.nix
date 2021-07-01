@@ -5,6 +5,7 @@
 , pygments
 , pytestCheckHook
 , pyyaml
+, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -33,5 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/facelessuser/pymdown-extensions";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
+    broken = !isPy3k;
   };
 }

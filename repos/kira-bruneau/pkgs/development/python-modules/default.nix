@@ -1,11 +1,13 @@
-mergedPkgs: final: prev:
+pkgs: final: prev:
 
 with final;
 
 let
-  callPackage = mergedPkgs.newScope final;
+  callPackage = pkgs.newScope final;
 in
 {
+  inherit callPackage;
+
   aamp = callPackage ./aamp { };
 
   botw-havok = callPackage ./botw-havok { };
@@ -31,7 +33,7 @@ in
   };
 
   oead = callPackage ./oead {
-    inherit (mergedPkgs) cmake;
+    inherit (pkgs) cmake;
   };
 
   pygls = callPackage ./pygls { };

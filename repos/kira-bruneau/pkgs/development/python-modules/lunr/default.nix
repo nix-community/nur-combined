@@ -9,6 +9,7 @@
 , pytestCheckHook
 , linkFarm
 , fetchzip
+, isPy3k
 }:
 
 let
@@ -64,5 +65,6 @@ in buildPythonPackage rec {
     homepage = "https://github.com/yeraydiazdiaz/lunr.py";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
+    broken = !isPy3k;
   };
 }

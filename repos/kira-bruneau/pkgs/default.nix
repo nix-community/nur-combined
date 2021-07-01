@@ -1,11 +1,14 @@
-{ pkgs }:
+final: prev:
 
-let nurPkgs = (mergedPkgs:
+with final;
+
 let
-  callPackage = pkgs.newScope mergedPkgs;
-  pythonOverrides = import ./development/python-modules mergedPkgs;
+  callPackage = pkgs.newScope final;
+  pythonOverrides = import ./development/python-modules final;
 in
-with mergedPkgs; {
+{
+  inherit callPackage;
+
   bcml = bcml-qt;
 
   bcml-gtk = python3Packages.callPackage ./games/bcml {
@@ -32,9 +35,6 @@ with mergedPkgs; {
   clonehero-xdg-wrapper = callPackage ./games/clonehero/xdg-wrapper.nix { };
 
   cmake-language-server = python3Packages.callPackage ./development/tools/misc/cmake-language-server { };
-
-  emacs-pgtk = callPackage ./applications/editors/emacs-pgtk { };
-  emacs-pgtk-native-comp = emacs-pgtk;
 
   gamemode = callPackage ./tools/games/gamemode rec {
     libgamemode32 = (pkgsi686Linux.callPackage ./tools/games/gamemode {
@@ -63,8 +63,8 @@ with mergedPkgs; {
   poke = callPackage ./applications/editors/poke { };
 
   pokemmo-installer = callPackage ./games/pokemmo-installer {
-    inherit (gnome) zenity;
     jre = jdk11;
+    inherit (gnome) zenity;
   };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
@@ -73,29 +73,14 @@ with mergedPkgs; {
     inherit (gnome) zenity;
   };
 
-  python = pkgs.python.override { packageOverrides = pythonOverrides; };
-  python2 = pkgs.python2.override { packageOverrides = pythonOverrides; };
-  python3 = pkgs.python3.override { packageOverrides = pythonOverrides; };
-  python27 = pkgs.python27.override { packageOverrides = pythonOverrides; };
-  python36 = pkgs.python36.override { packageOverrides = pythonOverrides; };
-  python37 = pkgs.python37.override { packageOverrides = pythonOverrides; };
-  python38 = pkgs.python38.override { packageOverrides = pythonOverrides; };
-  python39 = pkgs.python39.override { packageOverrides = pythonOverrides; };
-  python310 = pkgs.python310.override { packageOverrides = pythonOverrides; };
-
-  pythonPackages = python.pkgs;
-  python2Packages = python2.pkgs;
-  python3Packages = python3.pkgs;
-  python27Packages = python27.pkgs;
-  python36Packages = python36.pkgs;
-  python37Packages = python37.pkgs;
-  python38Packages = python38.pkgs;
-  python39Packages = python39.pkgs;
-  python310Packages = python310.pkgs;
+  python2Packages = recurseIntoAttrs (pythonOverrides (pkgs.python2Packages // python2Packages) pkgs.python2Packages);
+  python3Packages = recurseIntoAttrs (pythonOverrides (pkgs.python3Packages // python3Packages) pkgs.python3Packages);
 
   replay-sorcery = callPackage ./tools/video/replay-sorcery { };
 
-  rofi-wayland = callPackage ./applications/misc/rofi-wayland { };
+  rofi-wayland = prev.rofi.override {
+    rofi-unwrapped = callPackage ./applications/misc/rofi-wayland { };
+  };
 
   runescape-launcher = callPackage ./games/runescape-launcher/wrapper.nix { };
   runescape-launcher-unwrapped = callPackage ./games/runescape-launcher { };
@@ -104,7 +89,7 @@ with mergedPkgs; {
     inherit (darwin.apple_sdk.frameworks) Security CoreServices;
   };
 
-  themes = callPackage ./data/themes { };
+  themes = recurseIntoAttrs (callPackage ./data/themes { });
 
   undistract-me = callPackage ./shells/bash/undistract-me { };
 
@@ -151,6 +136,4 @@ with mergedPkgs; {
   zyn-fusion = callPackage ./applications/audio/zynaddsubfx {
     guiModule = "zest";
   };
-}) (pkgs // nurPkgs);
-in
-nurPkgs
+}

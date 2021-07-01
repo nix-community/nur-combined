@@ -18,4 +18,6 @@ writeScript "${name}-xdg-wrapper-${clonehero-unwrapped.version}" ''
 
   # Fake argv[0] to emulate running in the config directory
   exec -a "$configDir/${name}" ${clonehero-unwrapped}/bin/${name} "$@"
-''
+'' // {
+  inherit (clonehero-unwrapped) meta;
+}

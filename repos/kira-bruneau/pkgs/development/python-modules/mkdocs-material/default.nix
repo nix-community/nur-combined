@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , buildPythonPackage
 , fetchFromGitHub
 , markdown
@@ -6,6 +7,7 @@
 , pygments
 , pymdown-extensions
 , mkdocs-material-extensions
+, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -41,5 +43,6 @@ buildPythonPackage rec {
     homepage = "https://squidfunk.github.io/mkdocs-material";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
+    broken = !isPy3k || stdenv.isDarwin; # mkdocs
   };
 }

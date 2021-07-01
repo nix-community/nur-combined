@@ -1,16 +1,15 @@
 { lib
 , buildPythonPackage
-, isPy3k
 , fetchFromGitHub
 , colorama
 , numpy
 , oead
+, isPy3k
 }:
 
 buildPythonPackage rec {
   pname = "botw-havok";
   version = "0.3.18";
-  disabled = !isPy3k;
 
   src = fetchFromGitHub {
     owner = "krenyy";
@@ -38,5 +37,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/krenyy/botw_havok";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kira-bruneau ];
+    # broken = !isPy3k;
+    broken = true; # oead references commit outside of branch
   };
 }

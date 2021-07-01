@@ -1,9 +1,11 @@
 { lib
+, stdenv
 , buildPythonPackage
 , fetchFromGitHub
 , markdown
 , mkdocs-material
 , pytestCheckHook
+, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -34,5 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/facelessuser/mkdocs-material-extensions";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
+    broken = !isPy3k || stdenv.isDarwin; # mkdocs
   };
 }

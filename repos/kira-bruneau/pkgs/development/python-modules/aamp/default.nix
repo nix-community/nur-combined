@@ -2,6 +2,7 @@
 , buildPythonPackage
 , fetchFromGitHub
 , pyyaml
+, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -32,5 +33,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zeldamods/aamp";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kira-bruneau ];
+    broken = !isPy3k;
   };
 }

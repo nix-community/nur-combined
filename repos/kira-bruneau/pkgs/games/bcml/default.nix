@@ -173,5 +173,6 @@ buildPythonApplication rec {
     license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
+    broken = true; # oead references commit outside of branch
   };
 }

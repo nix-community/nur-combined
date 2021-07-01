@@ -13,14 +13,15 @@
           config.allowUnfree = true;
           inherit system;
         };
+
+        nurPkgs = import ./pkgs (pkgs // nurPkgs) pkgs;
       in
       rec {
-        legacyPackages = import ./pkgs {
-          inherit pkgs;
-        };
+        checks = packages;
+        packages = flake-utils.lib.filterPackages system (flake-utils.lib.flattenTree nurPkgs);
       }
     ) // rec {
-      overlay = overlays.nur;
+      overlay = overlays.default;
       overlays = import ./overlays;
       nixosModules = nixpkgs.lib.mapAttrs (name: value: import value) (import ./modules);
     };

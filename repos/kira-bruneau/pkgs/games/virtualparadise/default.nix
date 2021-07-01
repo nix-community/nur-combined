@@ -94,6 +94,7 @@ let
       license = licenses.unfree;
       maintainers = with maintainers; [ kira-bruneau ];
       platforms = [ "x86_64-linux" ];
+      broken = true; # requires bullet 2.89
     };
   };
 in

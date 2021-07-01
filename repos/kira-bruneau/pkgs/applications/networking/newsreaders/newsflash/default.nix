@@ -94,6 +94,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/news-flash/news_flash_gtk";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kira-bruneau ];
-    platforms = platforms.all;
+    platforms = platforms.linux; # libhandy
   };
 }

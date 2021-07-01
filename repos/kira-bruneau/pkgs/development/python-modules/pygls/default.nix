@@ -1,6 +1,6 @@
 { lib
+, stdenv
 , buildPythonPackage
-, isPy3k
 , fetchFromGitHub
 , setuptools-scm
 , pydantic
@@ -8,12 +8,12 @@
 , mock
 , pytest-asyncio
 , pytestCheckHook
+, isPy3k
 }:
 
 buildPythonPackage rec {
   pname = "pygls";
   version = "0.10.3";
-  disabled = !isPy3k;
 
   src = fetchFromGitHub {
     owner = "openlawlibrary";
@@ -43,5 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/openlawlibrary/pygls";
     license = licenses.asl20;
     maintainers = with maintainers; [ kira-bruneau ];
+    broken = !isPy3k || stdenv.isDarwin; # hangs at tests/test_protocol.py on darwin
   };
 }
