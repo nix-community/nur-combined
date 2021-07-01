@@ -817,6 +817,19 @@
         platforms = platforms.all;
         };
       };
+    "new-window-without-toolbar" = buildFirefoxXpiAddon {
+      pname = "new-window-without-toolbar";
+      version = "1.3.0";
+      addonId = "new-window-without-toolbar@tkrkt.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1738301/new_window_without_toolbar-1.3.0-fx.xpi";
+      sha256 = "f3504d65c0ac0fa22c37629b6767091b03802a5f15edb0f92dd1caa90a76fa91";
+      meta = with lib;
+      {
+        description = "Open current page in new window without toolbar.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "news-feed-eradicator" = buildFirefoxXpiAddon {
       pname = "news-feed-eradicator";
       version = "2.2.1";
@@ -1493,6 +1506,20 @@
         homepage = "http://unpaywall.org/products/extension";
         description = "Get free text of research papers as you browse, using Unpaywall's index of ten million legal, open-access articles.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "user-agent-string-switcher" = buildFirefoxXpiAddon {
+      pname = "user-agent-string-switcher";
+      version = "0.4.7.1";
+      addonId = "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3769639/user_agent_switcher_and_manager-0.4.7.1-an+fx.xpi";
+      sha256 = "9760558c47886730e61d9691e0457b4d9b358b42085db53309af3c0ebf9043ba";
+      meta = with lib;
+      {
+        homepage = "http://add0n.com/useragent-switcher.html";
+        description = "Spoof websites trying to gather information about your web navigation—like your browser type and operating system—to deliver distinct content you may not want.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };

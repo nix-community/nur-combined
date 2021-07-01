@@ -246,6 +246,9 @@
     "pname": "netflix-1080p"
   },
   {
+    "slug": "new-window-without-toolbar"
+  },
+  {
     "slug": "news-feed-eradicator"
   },
   {
@@ -431,6 +434,9 @@
   },
   {
     "slug": "unpaywall"
+  },
+  {
+    "slug": "user-agent-string-switcher"
   },
   {
     "slug": "videospeed"
