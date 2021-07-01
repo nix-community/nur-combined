@@ -1,5 +1,5 @@
 { lib, stdenv, fetchFromGitHub, python3, gfortran, blas, lapack
-, fftw, libint2, libvori, libxc, mpi, gsl, scalapack, openssh, makeWrapper
+, fftw, libint, libvori, libxc, mpi, gsl, scalapack, openssh, makeWrapper
 , libxsmm, spglib, which
 , optAVX ? false
 } :
@@ -27,7 +27,7 @@ in stdenv.mkDerivation rec {
     gfortran
     fftw
     gsl
-    libint2
+    libint
     libvori
     libxc
     libxsmm
@@ -72,7 +72,7 @@ in stdenv.mkDerivation rec {
                  -std=f2008 \
                  -fopenmp -ftree-vectorize -funroll-loops \
                  -I${libxc}/include -I${libxsmm}/include \
-                 -I${libint2}/include
+                 -I${libint}/include
     LIBS       = -lfftw3 -lfftw3_threads \
                  -lscalapack -lblas -llapack \
                  -lxcf03 -lxc -lxsmmf -lxsmm -lsymspg \

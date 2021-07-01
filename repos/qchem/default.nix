@@ -21,14 +21,6 @@ let
     pythonOverrides = (import ./pythonPackages.nix) subset;
 
   in {
-    # FIXME: workaround, remove when upstream openblas is fixed
-    # see https://github.com/markuskowa/NixOS-QChem/issues/52
-    # This cause a mass re-build
-    # openblas known broken versions: 0.3.13
-    openblas = super.openblas.overrideAttrs (x: {
-      makeFlags = x.makeFlags ++ [ "NO_AVX512=1" ];
-    });
-
     "${subset}" = {
       # For consistency: every package that is in nixpgs-opt.nix
       # + extra builds that should be exposed
@@ -41,6 +33,7 @@ let
         gromacsDouble
         gromacsDoubleMpi
         i-pi
+        libint
         mpi
         mkl
         molden
@@ -255,25 +248,7 @@ let
 
       libint1 = callPackage ./pkgs/lib/libint/1.nix { };
 
-      libint2 = callPackage ./pkgs/lib/libint { inherit optAVX; };
-
       libvdwxc = callPackage ./pkgs/lib/libvdwxc { };
-
-      # libint configured for bagel
-      # See https://github.com/evaleev/libint/wiki#bagel
-      libint-bagel = callPackage ./pkgs/lib/libint { cfg = [
-        "--enable-eri=1"
-        "--enable-eri3=1"
-        "--enable-eri2=1"
-        "--with-max-am=6"
-        "--with-eri3-max-am=6"
-        "--with-eri2-max-am=6"
-        "--disable-unrolling"
-        "--enable-generic-code"
-        "--with-cartgauss-ordering=bagel"
-        "--enable-contracted-ints"
-      ] ++ lib.optional optAVX "--enable-fma"
-      ;};
 
       # libxc legacy version
       libxc4 = callPackage ./pkgs/lib/libxc { };

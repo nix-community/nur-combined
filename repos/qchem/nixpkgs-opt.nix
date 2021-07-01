@@ -31,6 +31,8 @@ self: super:
 
   fftwSinglePrec = self.fftw.override { precision = "single"; };
 
+  libint = super.libint.override { enableFMA = true; };
+
   libxsmm = super.libxsmm.overrideAttrs ( x: {
     makeFlags = x.makeFlags ++ [ "OPT=3" "AVX=2" ];
   });
