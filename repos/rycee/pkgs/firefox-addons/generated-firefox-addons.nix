@@ -642,10 +642,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.74.0.3";
+      version = "4.75.0.4";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3797662/lastpass_password_manager-4.74.0.3-an+fx.xpi";
-      sha256 = "994d74e02fb60e121d97e45b36c3a35206401fb36e640004baaa3009c5d837cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3804007/lastpass_password_manager-4.75.0.4-an+fx.xpi";
+      sha256 = "205aca771a76c7cb86702bae72ba8862ae2f83fc11919e3aedae51298975727f";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1161,10 +1161,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.6.17";
+      version = "21.7.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3797406/refined_github-21.6.17-an+fx.xpi";
-      sha256 = "9be63917fa82fdefddb0350534ae6eec9165249f8880b04dc2eb60bd52c42684";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3804541/refined_github-21.7.1-an+fx.xpi";
+      sha256 = "90797bce23187b8a770ee9eadb22052864247a9fe35ba8bc87f629944d68fe1e";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
