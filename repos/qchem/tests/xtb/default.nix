@@ -17,7 +17,7 @@ batsTest rec {
   '' + lib.strings.optionalString (orca != null) ''
     @test "XTB-ORCA" {
       ${xtb}/bin/xtb RuCO_6.xyz --orca -u 2 --grad > xtb_orca.out
-      grep "gradient norm              0.1158" xtb_orca.out
+      grep "gradient norm              0.1155" xtb_orca.out
     }
   '';
 }
