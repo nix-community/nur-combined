@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, makeWrapper, curl, ncurses, mpv, youtube-dl, fzf, jq }:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, curl, ncurses, mpv, youtube-dl, fzf, jq }:
 
 stdenv.mkDerivation {
   pname = "ytfzf";
@@ -19,6 +19,6 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     cp $src/ytfzf $out/bin/ytfzf
 
-    wrapProgram $out/bin/ytfzf --set PATH ${stdenv.lib.makeBinPath ([ mpv youtube-dl fzf jq ncurses curl] ++ stdenv.initialPath)}
+    wrapProgram $out/bin/ytfzf --set PATH ${lib.makeBinPath ([ mpv youtube-dl fzf jq ncurses curl] ++ stdenv.initialPath)}
   '';
 }

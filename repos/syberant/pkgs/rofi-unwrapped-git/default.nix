@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, automake, autoconf, pkgconfig, libxkbcommon, pango
+{ lib, stdenv, fetchFromGitHub, automake, autoconf, pkgconfig, libxkbcommon, pango
 , cairo, git, bison, flex, librsvg, check, libstartup_notification, libxcb
 , xcbutil, xcbutilwm, xcbutilxrm, which }:
 
@@ -77,7 +77,7 @@ in stdenv.mkDerivation {
     which
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Window switcher, run dialog and dmenu replacement";
     homepage = "https://github.com/davatorium/rofi";
     license = licenses.mit;

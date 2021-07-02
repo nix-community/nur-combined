@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, autoPatchelfHook }:
+{ lib, stdenv, fetchzip, autoPatchelfHook }:
 
 let game = "zuniq";
 in stdenv.mkDerivation {
@@ -37,7 +37,7 @@ in stdenv.mkDerivation {
     ln -s $out/caia/${game}/bin/caiaio $out/bin/
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The program tester and competition runner for CodeCup";
     homepage = "https://www.codecup.nl/download_caia.php";
     license = licenses.gpl2;

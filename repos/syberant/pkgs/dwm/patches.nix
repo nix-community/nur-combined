@@ -1,4 +1,4 @@
-{ callPackage, stdenv }:
+{ lib, callPackage, stdenv }:
 
 let
   pfetch = {
@@ -11,7 +11,7 @@ let
         url = "https://dwm.suckless.org/patches/${name}/${patchName}.diff";
         inherit sha256;
       } // {
-        meta = with stdenv.lib; {
+        meta = with lib; {
           description = "A patch for dwm";
           longDescription = ''
             A patch for dwm.
