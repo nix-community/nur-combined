@@ -12,8 +12,6 @@ rec {
 
   clearsans = pkgs.callPackage ./pkgs/clearsans { };
 
-  dog = pkgs.callPackage ./pkgs/dog { };
-
   drone-runner-ssh = pkgs.callPackage ./pkgs/drone-runner-ssh { };
 
   eapol_test = pkgs.callPackage ./pkgs/eapol_test { };
@@ -89,8 +87,6 @@ rec {
     Pry = pkgs.callPackage ./pkgs/pry { };
   };
 
-  phpldapadmin = pkgs.callPackage ./pkgs/phpldapadmin { };
-
   python3Packages = pkgs.recurseIntoAttrs (
     pkgs.python3Packages.callPackage ./pkgs/python-pkgs { }
   );
@@ -121,8 +117,6 @@ rec {
   traceshark = pkgs.qt5.callPackage ./pkgs/traceshark { };
 
   threema-web = pkgs.callPackage ./pkgs/threema-web { };
-
-  queued-build-hook = pkgs.callPackage ./pkgs/queued-build-hook { };
 
   untilport = pkgs.callPackage ./pkgs/untilport { };
 
