@@ -346,13 +346,13 @@ let
         sha1 = "ee28707ae94e11d2b827bcbe5270bcea7f3e71ee";
       };
     };
-    "@types/node-15.12.5" = {
+    "@types/node-15.14.0" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "15.12.5";
+      version = "15.14.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-15.12.5.tgz";
-        sha512 = "se3yX7UHv5Bscf8f1ERKvQOD6sTyycH3hdaoozvaLxgUiY5lIGEeH37AD0G0Qi9kPqihPn0HOfd2yaIEN9VwEg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-15.14.0.tgz";
+        sha512 = "um/+/ip3QZmwLfIkWZSNtQIJNVAqrJ92OkLMeuZrjZMTAJniI7fh8N8OICyDhAJ2mzgk/fmYFo72jRr5HyZ1EQ==";
       };
     };
     "@types/resolve-0.0.8" = {
@@ -796,13 +796,13 @@ let
         sha512 = "yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==";
       };
     };
-    "electron-to-chromium-1.3.762" = {
+    "electron-to-chromium-1.3.766" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.762";
+      version = "1.3.766";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.762.tgz";
-        sha512 = "LehWjRpfPcK8F1Lf/NZoAwWLWnjJVo0SZeQ9j/tvnBWYcT99qDqgo4raAfS2oTKZjPrR/jxruh85DGgDUmywEA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.766.tgz";
+        sha512 = "u2quJ862q9reRKh/je3GXis3w38+RoXH1J9N3XjtsS6NzmUAosNsyZgUVFZPN/ZlJ3v6T0rTyZR3q/J5c6Sy5w==";
       };
     };
     "emoji-regex-7.0.3" = {
@@ -2326,13 +2326,13 @@ let
         sha512 = "/2HA0Ec70TvQnXdzynFffkjA6XN+1e2pEv/uKS5Ulca40g2L7KuOE3riasHoNVHOsFD5KKZgDsMk1CP3Tw9s+A==";
       };
     };
-    "rollup-2.52.3" = {
+    "rollup-2.52.7" = {
       name = "rollup";
       packageName = "rollup";
-      version = "2.52.3";
+      version = "2.52.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rollup/-/rollup-2.52.3.tgz";
-        sha512 = "QF3Sju8Kl2z0osI4unyOLyUudyhOMK6G0AeqJWgfiyigqLAlnNrfBcDWDx+f1cqn+JU2iIYVkDrgQ6/KtwEfrg==";
+        url = "https://registry.npmjs.org/rollup/-/rollup-2.52.7.tgz";
+        sha512 = "55cSH4CCU6MaPr9TAOyrIC+7qFCHscL7tkNsm1MBfIJRRqRbCEY0mmeFn4Wg8FKsHtEH8r389Fz38r/o+kgXLg==";
       };
     };
     "rollup-plugin-babel-4.4.0" = {
@@ -2977,14 +2977,14 @@ let
   };
 in
 {
-  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.9.0" = nodeEnv.buildNodePackage {
+  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.10.0" = nodeEnv.buildNodePackage {
     name = "slider-button-card";
     packageName = "slider-button-card";
-    version = "1.9.0";
+    version = "1.10.0";
     src = fetchgit {
       url = "https://github.com/mattieha/slider-button-card";
-      rev = "21f669a111a33c73f016aff10bf64dc769a72dfe";
-      sha256 = "c801ed846a86a7a850d7b3d5b1c5792465f886e652a7d93e558f2b6dc0fce134";
+      rev = "3f54448d2632a7f3919060cd499389cc84adf56f";
+      sha256 = "ce1c1cb6fef0aced384efb46b4dc2545f1fe9a5e970a27df60d6174d8fe542ec";
     };
     dependencies = [
       sources."@babel/code-frame-7.14.5"
@@ -3025,7 +3025,7 @@ in
       sources."@types/estree-0.0.39"
       sources."@types/json-schema-7.0.7"
       sources."@types/json5-0.0.29"
-      sources."@types/node-15.12.5"
+      sources."@types/node-15.14.0"
       sources."@types/resolve-0.0.8"
       sources."@typescript-eslint/eslint-plugin-2.34.0"
       sources."@typescript-eslint/experimental-utils-2.34.0"
@@ -3077,14 +3077,14 @@ in
       (sources."custom-card-helpers-1.7.1" // {
         dependencies = [
           sources."home-assistant-js-websocket-5.10.0"
-          sources."rollup-2.52.3"
+          sources."rollup-2.52.7"
         ];
       })
       sources."debug-4.3.2"
       sources."deep-is-0.1.3"
       sources."define-properties-1.1.3"
       sources."doctrine-3.0.0"
-      sources."electron-to-chromium-1.3.762"
+      sources."electron-to-chromium-1.3.766"
       sources."emoji-regex-8.0.0"
       sources."error-ex-1.3.2"
       sources."es-abstract-1.18.3"
