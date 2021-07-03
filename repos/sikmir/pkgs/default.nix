@@ -178,6 +178,7 @@ lib.makeScope newScope (
     md2gemini = callPackage ./gemini/md2gemini { };
     satellite = callPackage ./gemini/satellite { };
     shavit = callPackage ./gemini/shavit { };
+    telescope = callPackage ./gemini/telescope { };
 
     ### GIS
 
