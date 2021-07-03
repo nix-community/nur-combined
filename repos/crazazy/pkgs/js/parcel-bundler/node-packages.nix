@@ -1633,13 +1633,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001239" = {
+    "caniuse-lite-1.0.30001241" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001239";
+      version = "1.0.30001241";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001239.tgz";
-        sha512 = "cyBkXJDMeI4wthy8xJ2FvDU6+0dtcZSJW3voUF8+e9f1bBeuvyZfc3PNbkOETyhbR+dGCPzn9E7MA3iwzusOhQ==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001241.tgz";
+        sha512 = "1uoSZ1Pq1VpH0WerIMqwptXHNNGfdl7d1cJUFs80CwQ/lVzdhTvsFZCeNFslze7AjsQnb4C85tzclPa1VShbeQ==";
       };
     };
     "caseless-0.12.0" = {
@@ -1903,13 +1903,13 @@ let
         sha512 = "Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==";
       };
     };
-    "core-js-compat-3.15.1" = {
+    "core-js-compat-3.15.2" = {
       name = "core-js-compat";
       packageName = "core-js-compat";
-      version = "3.15.1";
+      version = "3.15.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.15.1.tgz";
-        sha512 = "xGhzYMX6y7oEGQGAJmP2TmtBLvR4nZmRGEcFa3ubHOq5YEp51gGN9AovVa0AoujGZIq+Wm6dISiYyGNfdflYww==";
+        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.15.2.tgz";
+        sha512 = "Wp+BJVvwopjI+A1EFqm2dwUmWYXrvucmtIB2LgXn/Rb+gWPKYxtmb4GKHGKG/KGF1eK9jfjzT38DITbTOCX/SQ==";
       };
     };
     "core-util-is-1.0.2" = {
@@ -2443,13 +2443,13 @@ let
         sha1 = "590c61156b0ae2f4f0255732a158b266bc56b21d";
       };
     };
-    "electron-to-chromium-1.3.759" = {
+    "electron-to-chromium-1.3.766" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.759";
+      version = "1.3.766";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.759.tgz";
-        sha512 = "nM76xH0t2FBH5iMEZDVc3S/qbdKjGH7TThezxC8k1Q7w7WHvIAyJh8lAe2UamGfdRqBTjHfPDn82LJ0ksCiB9g==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.766.tgz";
+        sha512 = "u2quJ862q9reRKh/je3GXis3w38+RoXH1J9N3XjtsS6NzmUAosNsyZgUVFZPN/ZlJ3v6T0rTyZR3q/J5c6Sy5w==";
       };
     };
     "elliptic-6.5.4" = {
@@ -5818,13 +5818,13 @@ let
         sha512 = "/FQzzPJmCpjAH9Xvk2paiWrFq+5M6aVOf+2KRbwhByISDX/EujxsK+BAvrhb6H+2rtrLCHK9N01wO014vrIwVQ==";
       };
     };
-    "terser-5.7.0" = {
+    "terser-5.7.1" = {
       name = "terser";
       packageName = "terser";
-      version = "5.7.0";
+      version = "5.7.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terser/-/terser-5.7.0.tgz";
-        sha512 = "HP5/9hp2UaZt5fYkuhNBR8YyRcT8juw8+uFbAme53iN9hblvKnLUTKkmwJG6ocWpIKf8UK4DoeWG4ty0J6S6/g==";
+        url = "https://registry.npmjs.org/terser/-/terser-5.7.1.tgz";
+        sha512 = "b3e+d5JbHAe/JSjwsC3Zn55wsBIM7AsHLjKxT31kGCldgbpFePaFo+PiddtO6uwRZWRw7sPXmAN8dTW61xmnSg==";
       };
     };
     "through2-2.0.5" = {
@@ -6628,7 +6628,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001239"
+      sources."caniuse-lite-1.0.30001241"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-2.1.8"
@@ -6655,7 +6655,7 @@ let
       sources."convert-source-map-1.8.0"
       sources."copy-descriptor-0.1.1"
       sources."core-js-2.6.12"
-      (sources."core-js-compat-3.15.1" // {
+      (sources."core-js-compat-3.15.2" // {
         dependencies = [
           sources."semver-7.0.0"
         ];
@@ -6766,7 +6766,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.3.759"
+      sources."electron-to-chromium-1.3.766"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -6874,7 +6874,7 @@ let
           sources."posthtml-0.15.2"
           sources."posthtml-parser-0.7.2"
           sources."source-map-0.7.3"
-          sources."terser-5.7.0"
+          sources."terser-5.7.1"
         ];
       })
       (sources."htmlparser2-6.1.0" // {

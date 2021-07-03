@@ -40,6 +40,24 @@ let
         sha512 = "8nmGq/4ycLpIwzvhI4tNDmQztZ8sp+hI7cyG8i1nQDhkAbRzHpXPidRAHlNvCZQpJTKw5ItIpMw9RSToGF00mg==";
       };
     };
+    "@humanwhocodes/config-array-0.5.0" = {
+      name = "_at_humanwhocodes_slash_config-array";
+      packageName = "@humanwhocodes/config-array";
+      version = "0.5.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.5.0.tgz";
+        sha512 = "FagtKFz74XrTl7y6HCzQpwDfXP0yhxe9lHLD1UZxjvZIcbyRz8zTFF/yYNfSfzU414eDwZ1SrO0Qvtyf+wFMQg==";
+      };
+    };
+    "@humanwhocodes/object-schema-1.2.0" = {
+      name = "_at_humanwhocodes_slash_object-schema";
+      packageName = "@humanwhocodes/object-schema";
+      version = "1.2.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.0.tgz";
+        sha512 = "wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==";
+      };
+    };
     "acorn-7.4.1" = {
       name = "acorn";
       packageName = "acorn";
@@ -436,13 +454,13 @@ let
         sha512 = "dm9s5Pw7Jc0GvMYbshN6zchCA9RgQlzzEZX3vylR9IqFfS8XciblUXOKfW6SiuJ0e13eDYZoZV5wdrev7P3Nwg==";
       };
     };
-    "flatted-3.1.1" = {
+    "flatted-3.2.0" = {
       name = "flatted";
       packageName = "flatted";
-      version = "3.1.1";
+      version = "3.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/flatted/-/flatted-3.1.1.tgz";
-        sha512 = "zAoAQiudy+r5SvnSw3KJy5os/oRJYHzrzja/tBDqrZtNhUw8bt6y8OBzMWcjWr+8liV8Eb6yOhw8WZ7VFZ5ZzA==";
+        url = "https://registry.npmjs.org/flatted/-/flatted-3.2.0.tgz";
+        sha512 = "XprP7lDrVT+kE2c2YlfiV+IfS9zxukiIOvNamPNsImNhXadSsQEbosItdL9bUQlCZXR13SvPk20BjWSWLA7m4A==";
       };
     };
     "fs.realpath-1.0.0" = {
@@ -998,8 +1016,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.29.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.29.0.tgz"; sha1 = "ee2a7648f2e729485e4d0bd6383ec1deabc8b3c0"; };
+    version = "7.30.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.30.0.tgz"; sha1 = "6d34ab51aaa56112fd97166226c9a97f505474f8"; };
     dependencies = [
       sources."@babel/code-frame-7.12.11"
       sources."@babel/helper-validator-identifier-7.14.5"
@@ -1010,6 +1028,8 @@ let
         ];
       })
       sources."@eslint/eslintrc-0.4.2"
+      sources."@humanwhocodes/config-array-0.5.0"
+      sources."@humanwhocodes/object-schema-1.2.0"
       sources."acorn-7.4.1"
       sources."acorn-jsx-5.3.1"
       sources."ajv-6.12.6"
@@ -1070,7 +1090,7 @@ let
       sources."fast-levenshtein-2.0.6"
       sources."file-entry-cache-6.0.1"
       sources."flat-cache-3.0.4"
-      sources."flatted-3.1.1"
+      sources."flatted-3.2.0"
       sources."fs.realpath-1.0.0"
       sources."functional-red-black-tree-1.0.1"
       sources."glob-7.1.7"
