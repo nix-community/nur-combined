@@ -10,6 +10,7 @@ let
 in
 {
   imports = [
+    ./caffeine.nix
     ./dunst.nix
     ./i3.nix
     ./i3bar.nix
@@ -23,6 +24,10 @@ in
       default = null;
       example = "i3";
       description = "Which window manager to use for home session";
+    };
+
+    caffeine = {
+      enable = mkRelatedOption "caffeine configuration" [ "i3" ];
     };
 
     dunst = {
