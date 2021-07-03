@@ -1,7 +1,7 @@
 { system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; } }:
 
 rec {
-  bitwarden_rs_ldap = pkgs.callPackage ./pkgs/bitwarden_rs_ldap { };
+  vaultwarden_ldap = pkgs.callPackage ./pkgs/vaultwarden_ldap { };
 
   # TODO checksum can break ... make a mirror?
   # binary-ninja = pkgs.callPackage ./pkgs/binary-ninja {};
@@ -101,8 +101,6 @@ rec {
   };
 
   inherit (rhasspyPackages) rhasspy;
-
-  sgx-lkl = pkgs.callPackage ./pkgs/sgx-lkl { };
 
   signald = pkgs.callPackage ./pkgs/signald { };
 

@@ -11,24 +11,24 @@ let
   inherit (darwin.apple_sdk.frameworks) Security CoreServices;
 in
 rustPlatform.buildRustPackage rec {
-  pname = "bitwarden_rs_ldap";
-  version = "0.1.1-cargo-fix";
+  pname = "vaultwarden_ldap";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "ViViDboarder";
-    repo = "bitwarden_rs_ldap";
+    repo = "vaultwarden_ldap";
     rev = "v${version}";
-    sha256 = "0a7r38as1w3gsb2fgqv58xa1v4il4kq76zvh2s3zd7ahwvrxc7zc";
+    sha256 = "sha256-dLM24NioLrFPJ94nA76HzYskE3Wy7DNnFw6LVAPsqlc=";
   };
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security CoreServices ];
 
-  cargoSha256 = "12vg972fxvdi2dbad7g00vccmcqhnyjl8ch2sypl1hfk83mrwgrb";
+  cargoSha256 = "sha256-hjUk465+OqLJ5D0PLNf1w4dSrTnXXbzH85fGX2Oqh+U=";
 
   meta = with lib; {
-    description = "LDAP directory connector for bitwarden_rs";
-    homepage = https://github.com/ViViDboarder/bitwarden_rs_ldap;
+    description = "LDAP directory connector for vaultwarden";
+    homepage = "https://github.com/ViViDboarder/vaultwarden_ldap";
     license = licenses.gpl3;
     platforms = platforms.all;
   };

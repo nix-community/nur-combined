@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "goatcounter";
-  version = "1.4.2";
+  version = "2.0.4";
 
   src = fetchFromGitHub {
     owner = "zgoat";
     repo = "goatcounter";
     rev = "v${version}";
-    sha256 = "sha256-XL16ryJmb0O+rvCP332fFSM0CrxoviBXwUKIwiFjG7Q=";
+    sha256 = "sha256-Le0ZQ9iYrCEcYko1i6ETyi+SFOUMuWOoEJDd6nNxiuQ=";
   };
 
   subPackages = [ "cmd/goatcounter" ];
@@ -18,14 +18,10 @@ buildGoModule rec {
     "-X=main.Version=${version}"
   ];
 
-  postInstall = ''
-    install -D db/schema.pgsql $out/share/goatcounter/schema.pgsql
-  '';
-
   #LD_LIBRARY_PATH = lib.makeLibraryPath [ sqlite postgresql ] ;
   doCheck = false;
 
-  vendorSha256 = "sha256-2qzdF4VpJB7lw/9+5zxmUJH58dWjPS9JeVVnxjJJqX0=";
+  vendorSha256 = "sha256-z9SoAASihdTo2Q23hwo78SU76jVD4jvA0UVhredidOQ=";
 
   meta = with lib; {
     description = "Easy web analytics. No tracking of personal data.";
