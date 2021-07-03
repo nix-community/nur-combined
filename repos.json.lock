@@ -126,8 +126,8 @@
             "url": "https://github.com/cransom/nur-packages"
         },
         "crazazy": {
-            "rev": "685b94e4233c768c7017f2d1c46c1e3f5316e4e9",
-            "sha256": "0yndqmxb1fi2hbc6x7f7g2zv3ipqzxwc7b7p8ygcby8i7jpmadd4",
+            "rev": "14721240c333510cc01f59920280d56573d27320",
+            "sha256": "1kv728v8zq0fjf9xwbq63pp140fh27f4nlppwdmkdz4bwmfhrckz",
             "url": "https://github.com/crazazy/nixos-config"
         },
         "crazedprogrammer": {
@@ -707,8 +707,8 @@
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
         "sikmir": {
-            "rev": "3a712095b143e5c2e922469df689cc332d09ebf7",
-            "sha256": "0jv72n9h81139x90d9k3g0msnyhn3h5kzmxmvlxv9x9mk0hkvkq2",
+            "rev": "2cacfa92ea9b884131cc8bf975c7381542b1f42a",
+            "sha256": "09dql2nzcmv1q6m2fhxl68634cqlh1mz39mixbl77s9nb7qgzkbq",
             "url": "https://github.com/sikmir/nur-packages"
         },
         "smaret": {
