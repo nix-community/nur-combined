@@ -9,8 +9,11 @@ stdenv.mkDerivation rec {
   # curl https://content.runescape.com/downloads/ubuntu/dists/trusty/non-free/binary-amd64/Packages
   src = fetchurl {
     url = "https://content.runescape.com/downloads/ubuntu/pool/non-free/r/${pname}/${pname}_${version}_amd64.deb";
-    hash = "sha256-bHYKg/a5SMEu6tx2kit9KnqhbTHUmW7jIGca4L+OI4E=";
+    hash = "sha256-zfaDMXL5X1NEODkt7sgCeSVpT49TSgtKUT1pbS9cHLM=";
   };
+
+  # What about fhs wrapper?
+  outputs = [ "out" "doc" ];
 
   nativeBuildInputs = [ dpkg ];
 
