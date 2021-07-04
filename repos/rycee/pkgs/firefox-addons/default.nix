@@ -24,4 +24,9 @@ let
     inherit buildFirefoxXpiAddon fetchurl lib stdenv;
   };
 
-in packages // { inherit buildFirefoxXpiAddon; }
+in packages // {
+  inherit buildFirefoxXpiAddon;
+
+  # Aliases.
+  "1password-x-password-manager" = packages.onepassword-password-manager;
+}

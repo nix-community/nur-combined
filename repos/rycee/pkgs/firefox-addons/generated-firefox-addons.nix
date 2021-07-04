@@ -1,24 +1,5 @@
 { buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
   {
-    "1password-x-password-manager" = buildFirefoxXpiAddon {
-      pname = "1password-x-password-manager";
-      version = "2.0.4";
-      addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3803208/1password_password_manager-2.0.4-fx.xpi";
-      sha256 = "48009f26b4caa6f526b071cbae61adb354be0ed16d2f8b1a81ff96a27fb920fc";
-      meta = with lib;
-      {
-        homepage = "https://1password.com";
-        description = "The best way to experience 1Password in your browser. Easily sign in to sites, generate passwords, and store secure information, including logins, credit cards, notes, and more.";
-        license = {
-          shortName = "1pwd";
-          fullName = "Service Agreement for 1Password users and customers";
-          url = "https://1password.com/legal/terms-of-service/";
-          free = false;
-          };
-        platforms = platforms.all;
-        };
-      };
     "adsum-notabs" = buildFirefoxXpiAddon {
       pname = "adsum-notabs";
       version = "1.1";
@@ -943,6 +924,25 @@
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
         description = "Ensure Reddit always loads the old design";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "onepassword-password-manager" = buildFirefoxXpiAddon {
+      pname = "onepassword-password-manager";
+      version = "2.0.4";
+      addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3803208/1password_password_manager-2.0.4-fx.xpi";
+      sha256 = "48009f26b4caa6f526b071cbae61adb354be0ed16d2f8b1a81ff96a27fb920fc";
+      meta = with lib;
+      {
+        homepage = "https://1password.com";
+        description = "The best way to experience 1Password in your browser. Easily sign in to sites, generate passwords, and store secure information, including logins, credit cards, notes, and more.";
+        license = {
+          shortName = "1pwd";
+          fullName = "Service Agreement for 1Password users and customers";
+          url = "https://1password.com/legal/terms-of-service/";
+          free = false;
+          };
         platforms = platforms.all;
         };
       };

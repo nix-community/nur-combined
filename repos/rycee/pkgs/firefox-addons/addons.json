@@ -1,5 +1,6 @@
 [
   {
+    "pname": "onepassword-password-manager",
     "slug": "1password-x-password-manager",
     "license": {
       "tag": "custom",
