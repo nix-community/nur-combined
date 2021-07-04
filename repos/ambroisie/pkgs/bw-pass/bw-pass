@@ -17,7 +17,7 @@ error_out() {
 
 login() {
     local PASSWORD
-    PASSWORD="$(prompt_pass "Password")" || error_out "Cannot prompt password"
+    PASSWORD="$(prompt_pass "Bitwarden Password")" || error_out "Cannot prompt password"
     export BW_SESSION
     BW_SESSION="$(bw unlock "$PASSWORD" --raw)" || error_out "Cannot unlock"
 }
