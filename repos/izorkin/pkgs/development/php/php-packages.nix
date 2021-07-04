@@ -1,4 +1,4 @@
-{ pkgs, fetchgit, fetchpatch, php, openssl, libevent, libcouchbase, spidermonkey_1_8_5 }:
+{ pkgs, fetchgit, fetchpatch, php, openssl, libevent, libcouchbase_2_10_4, spidermonkey_1_8_5 }:
 
 let
   self = with self; {
@@ -126,12 +126,12 @@ let
   };
 
   composer2 = mkDerivation rec {
-    version = "2.1.1";
+    version = "2.1.3";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "1ki106973q74inwgd4hjmml905rqg82808qq4wiysrkr7mzmfnj4";
+      sha256 = "04ad2zsnf8qi6hzs9sak6y8xxyx8l0f7crmcimnp7nn8vsc2x9zq";
     };
 
     dontUnpack = true;
@@ -158,7 +158,7 @@ let
     version = "2.6.2";
     pname = "couchbase";
 
-    buildInputs = with pkgs; [ libcouchbase zlib igbinary pcs ];
+    buildInputs = with pkgs; [ libcouchbase_2_10_4 zlib igbinary pcs ];
 
     src = pkgs.fetchFromGitHub {
       owner = "couchbase";
@@ -178,7 +178,7 @@ let
            else
              AC_MSG_CHECKING(for libcouchbase in default path)
         -    for i in /usr/local /usr; do
-        +    for i in ${libcouchbase}; do
+        +    for i in ${libcouchbase_2_10_4}; do
                if test -r $i/include/libcouchbase/couchbase.h; then
                  LIBCOUCHBASE_DIR=$i
                  AC_MSG_RESULT(found in $i)
@@ -213,10 +213,10 @@ let
   };
 
   event = buildPecl {
-    version = "3.0.4";
+    version = "3.0.5";
     pname = "event";
 
-    sha256 = "13yb3zvlx43cncawymiwbqyz8gzpq1g03vd0xjlw9vz75b4mwn1x";
+    sha256 = "0q5a83mcl97cyry5rd85j5xsjvflnki6s5cm56igjm0szxvgj39c";
 
     configureFlags = with pkgs; [
       "--with-event-libevent-dir=${libevent.dev}"
@@ -257,10 +257,10 @@ let
   };
 
   igbinary30 = buildPecl {
-    version = "3.2.2";
+    version = "3.2.3";
     pname = "igbinary";
 
-    sha256 = "0321pb0298fa67qwj5nhhabkjiaxna5mag15ljyrqzpivimvny92";
+    sha256 = "1ffaqhckkk1qr5dk1fl7f8dm2w4lj4gqrgazzmc67acsdmp7z5f0";
 
     configureFlags = [
       "--enable-igbinary"
@@ -273,26 +273,13 @@ let
   };
 
   imagick = buildPecl {
-    version = "3.4.4";
+    version = "3.5.0";
     pname = "imagick";
 
-    sha256 = "0xvhaqny1v796ywx83w7jyjyd0nrxkxf34w9zi8qc8aw8qbammcd";
+    sha256 = "0afjyll6rr79am6d1p041bl4dj44hp9z4gzmlhrkvkdsdz1vfpbr";
 
     configureFlags = with pkgs; [
       "--with-imagick=${imagemagick.dev}"
-    ];
-
-    patches = [
-      # Fix compatibility with PHP 8.
-      (fetchpatch {
-        url = "https://github.com/Imagick/imagick/pull/336.patch";
-        sha256 = "nuRdh02qaMx0s/5OzlfWjyYgZG1zgrYnAjsZ/UVIrUM=";
-      })
-      # Fix detection of ImageMagick 7.
-      (fetchpatch {
-        url = "https://github.com/Imagick/imagick/commit/09551fbf38c16cdaf4ade7c08744501cd82d2747.patch";
-        sha256 = "qUeQHP08kKOzuQdEpR8RSZ18Yhi0U9z24KwQcAx1UVg=";
-      })
     ];
 
     nativeBuildInputs = with pkgs; [ pkg-config ];
@@ -451,10 +438,10 @@ let
   };
 
   pcov = buildPecl {
-    version = "1.0.8";
+    version = "1.0.9";
     pname = "pcov";
 
-    sha256 = "053rc0nm2jn26xsmgvl1ngb0abx9fn9mk7pgzpb7682b5j5ygdpa";
+    sha256 = "0q2ig5lxzpwz3qgr05wcyh5jzhfxlygkv6nj6jagkhiialng2710";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -610,12 +597,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.88";
+    version = "0.12.90";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0ccg95hyaz5sl77sjcqhdwf1d57m2j7y1ks6pmvxrchv8ai1dh07";
+      sha256 = "0f8858w9b421s3dfz8a56g0mik4zyi1lp88lijw4zs2d94dcdl9s";
     };
 
     phases = [ "installPhase" ];
@@ -736,10 +723,10 @@ let
   };
 
   protobuf317 = buildPecl {
-    version = "3.17.2";
+    version = "3.17.3";
     pname = "protobuf";
 
-    sha256 = "0i4npj4sl8ihkzxc6m3vv3nlqk952z9bfwnrk90a9yakw5gfhlz5";
+    sha256 = "05nn6ps271vwrbr9w08lyyzsszabnqhz1x0vbblg0q8y2xrmb6dl";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -755,12 +742,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "4.7.3";
+    version = "4.8.1";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "0d8gxkpm4rc00a8br5wzjpglkwx95kr15s4z3cvxyf6iik1j5r47";
+      sha256 = "1bsg6mh8mqxl0k6j1afah1wixkr3pijkhz1fwqhqv7361ia4cql9";
     };
 
     phases = [ "installPhase" ];

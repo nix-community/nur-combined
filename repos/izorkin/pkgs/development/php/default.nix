@@ -376,6 +376,7 @@ in {
       ./patch/php56/php5640-79797.patch
       ./patch/php56/php5640-79877.patch
       ./patch/php56/php5640-80672.patch
+      ./patch/php56/php5640-80710.patch
     ];
   };
 
@@ -415,6 +416,7 @@ in {
       ./patch/php71/php7133-79797.patch
       ./patch/php71/php7133-79877.patch
       ./patch/php71/php7133-80672.patch
+      ./patch/php71/php7133-80710.patch
     ] 
       # https://bugs.php.net/bug.php?id=76826
       ++ optional stdenv.isDarwin ./patch/php71-darwin-isfinite.patch;
@@ -432,14 +434,15 @@ in {
       # Backport security bug patches
       ./patch/php72/php7234-77423.patch
       ./patch/php72/php7234-80672.patch
+      ./patch/php72/php7234-80710.patch
     ]
       # https://bugs.php.net/bug.php?id=76826
       ++ optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
   };
 
   php73 = generic {
-    version = "7.3.28";
-    sha256 = "0bvcpfpbhxra4jghla4kaah37sx40030kpvy6ma82s06r6iz8z25";
+    version = "7.3.29";
+    sha256 = "1dp3gkqdcmgj1iypjjm4i21c30sk62icxj6jmm5p9db4x3fdkgs6";
 
     extraPatches = [
       # PKG_CONFIG need not be a relative path
@@ -450,12 +453,12 @@ in {
   };
 
   php74 = generic {
-    version = "7.4.20";
-    sha256 = "0gbmwlvcgargrr30gfjii4mihssgfpmv22iix0538h2g2vfnm2fg";
+    version = "7.4.21";
+    sha256 = "000wcdwn7ihzj2l2q91rfml2i7yyihvmbiv7k0sc46bf5qx229sl";
   };
 
   php80 = generic {
-    version = "8.0.7";
-    sha256 = "05qi7m754da2qb055gfb6bflw9y7hiq2qx8zkmbwzj6sgi2a5p06";
+    version = "8.0.8";
+    sha256 = "1mqc7i30kak1z7ss5zr3zxfcabxq8ky8d3zl5nschiavc94fmw67";
   };
 }
