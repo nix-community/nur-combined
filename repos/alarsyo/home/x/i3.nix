@@ -106,14 +106,6 @@ in
               };
             };
 
-        startup = [
-          # FIXME: make it conditional on "nvidia" being part of video drivers
-          {
-            command = "nvidia-settings -a '[gpu:0]/GPUPowerMizerMode=1'";
-            notification = false;
-          }
-        ];
-
         terminal = myTerminal;
 
         assigns = {
