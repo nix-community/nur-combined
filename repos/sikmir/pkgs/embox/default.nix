@@ -29,13 +29,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "embox";
-  version = "0.5.2";
+  version = "0.5.3";
 
   src = fetchFromGitHub {
     owner = "embox";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-hX9rcREgAXJF2paIkekTShig/Ttx/TWZGgPVrBt9xeA=";
+    hash = "sha256-UIYtkKdAtbINPYJyJeuizSNOpzSla7OWfxBndN5RjTk=";
   };
 
   patches = [ ./0001-fix-build.patch ];
