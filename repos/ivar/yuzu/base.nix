@@ -1,7 +1,7 @@
 { pname, version, src, branchName
 , stdenv, lib, fetchFromGitHub, wrapQtAppsHook
 , cmake, pkg-config
-, libpulseaudio, libjack2, alsaLib, sndio
+, libpulseaudio, libjack2, alsa-lib, sndio
 , vulkan-loader, vulkan-headers
 , qtbase, qtwebengine, qttools
 , nlohmann_json, rapidjson
@@ -16,12 +16,25 @@
 , ffmpeg
 }:
 
+let
+  # TODO: remove this when https://github.com/NixOS/nixpkgs/pull/129378 gets merged.
+  # This is currently done as yuzu depends on fmt 8.0+ behaviour.
+  updatedFmt = (fmt.overrideAttrs (attrs: rec {
+    version = "8.0.1";
+    src = fetchFromGitHub {
+      owner = "fmtlib";
+      repo = "fmt";
+      rev = version;
+      sha256 = "1mnvxqsan034d2jiqnw2yvkljl7lwvhakmj5bscwp1fpkn655bbw";
+    };
+  }));
+in
 stdenv.mkDerivation rec {
   inherit pname version src;
 
   nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
   buildInputs = [
-    libpulseaudio libjack2 alsaLib sndio
+    libpulseaudio libjack2 alsa-lib sndio
     vulkan-loader vulkan-headers
     qtbase qtwebengine qttools
     nlohmann_json rapidjson
@@ -29,28 +42,21 @@ stdenv.mkDerivation rec {
     glslang
     boost173
     catch2
-    fmt
+    #fmt
+    updatedFmt
     SDL2
     udev
     libusb1
     ffmpeg
   ];
 
-  # TODO: Remove this when https://github.com/NixOS/nixpkgs/pull/124870 hits the channels
-  postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace "1.5         zstd/1.5.0" "1.4.9         zstd/1.4.9" \
-      --replace "8.0         fmt/8.0.0" "7.1.3         fmt/7.1.3"
-
-  '';
-
   cmakeFlags = [
+    "-DYUZU_USE_BUNDLED_QT=OFF"
+    "-DYUZU_USE_BUNDLED_SDL2=OFF"
+    "-DYUZU_USE_BUNDLED_FFMPEG=OFF"
     "-DENABLE_QT_TRANSLATION=ON"
     "-DYUZU_USE_QT_WEB_ENGINE=ON"
     "-DUSE_DISCORD_PRESENCE=ON"
-    # Shows errors about not being able to find .git at runtime if you do not set these
-    "-DGIT_BRANCH=\"\""
-    "-DGIT_DESC=\"\""
   ];
 
   # This changes `ir/opt` to `ir/var/empty` in `externals/dynarmic/src/dynarmic/CMakeLists.txt`
@@ -58,8 +64,11 @@ stdenv.mkDerivation rec {
   dontFixCmake = true;
 
   preConfigure = ''
-    rm -f .gitmodules # Trick the configure system. This prevents a check for submodule directories.
-    cmakeFlagsArray+=( # https://github.com/NixOS/nixpkgs/issues/114044
+    # Trick the configure system. This prevents a check for submodule directories.
+    rm -f .gitmodules
+
+    # see https://github.com/NixOS/nixpkgs/issues/114044, setting this through cmakeFlags does not work.
+    cmakeFlagsArray+=(
       "-DTITLE_BAR_FORMAT_IDLE=yuzu ${branchName} ${version}"
       "-DTITLE_BAR_FORMAT_RUNNING=yuzu ${branchName} ${version} | {3}"
     )
