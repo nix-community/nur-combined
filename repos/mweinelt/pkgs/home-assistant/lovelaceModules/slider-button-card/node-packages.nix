@@ -346,13 +346,13 @@ let
         sha1 = "ee28707ae94e11d2b827bcbe5270bcea7f3e71ee";
       };
     };
-    "@types/node-15.14.0" = {
+    "@types/node-16.0.0" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "15.14.0";
+      version = "16.0.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-15.14.0.tgz";
-        sha512 = "um/+/ip3QZmwLfIkWZSNtQIJNVAqrJ92OkLMeuZrjZMTAJniI7fh8N8OICyDhAJ2mzgk/fmYFo72jRr5HyZ1EQ==";
+        url = "https://registry.npmjs.org/@types/node/-/node-16.0.0.tgz";
+        sha512 = "TmCW5HoZ2o2/z2EYi109jLqIaPIi9y/lc2LmDCWzuCi35bcaQ+OtUh6nwBiFK7SOu25FAU5+YKdqFZUwtqGSdg==";
       };
     };
     "@types/resolve-0.0.8" = {
@@ -571,13 +571,13 @@ let
         sha512 = "P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==";
       };
     };
-    "caniuse-lite-1.0.30001241" = {
+    "caniuse-lite-1.0.30001242" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001241";
+      version = "1.0.30001242";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001241.tgz";
-        sha512 = "1uoSZ1Pq1VpH0WerIMqwptXHNNGfdl7d1cJUFs80CwQ/lVzdhTvsFZCeNFslze7AjsQnb4C85tzclPa1VShbeQ==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001242.tgz";
+        sha512 = "KvNuZ/duufelMB3w2xtf9gEWCSxJwUgoxOx5b6ScLXC4kPc9xsczUVCPrQU26j5kOsHM4pSUL54tAZt5THQKug==";
       };
     };
     "chalk-2.4.2" = {
@@ -2977,14 +2977,14 @@ let
   };
 in
 {
-  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.10.0" = nodeEnv.buildNodePackage {
+  "slider-button-card-git+https://github.com/mattieha/slider-button-card#v1.10.1" = nodeEnv.buildNodePackage {
     name = "slider-button-card";
     packageName = "slider-button-card";
-    version = "1.10.0";
+    version = "1.10.1";
     src = fetchgit {
       url = "https://github.com/mattieha/slider-button-card";
-      rev = "3f54448d2632a7f3919060cd499389cc84adf56f";
-      sha256 = "ce1c1cb6fef0aced384efb46b4dc2545f1fe9a5e970a27df60d6174d8fe542ec";
+      rev = "1a286a9a1848a5b7f06f7218497427d98a39cb3d";
+      sha256 = "6233ef6453e680430c8f1baf288bd8f9d3ecf58d1412cbb73869216e37518080";
     };
     dependencies = [
       sources."@babel/code-frame-7.14.5"
@@ -3025,7 +3025,7 @@ in
       sources."@types/estree-0.0.39"
       sources."@types/json-schema-7.0.7"
       sources."@types/json5-0.0.29"
-      sources."@types/node-15.14.0"
+      sources."@types/node-16.0.0"
       sources."@types/resolve-0.0.8"
       sources."@typescript-eslint/eslint-plugin-2.34.0"
       sources."@typescript-eslint/experimental-utils-2.34.0"
@@ -3056,7 +3056,7 @@ in
       sources."builtin-modules-3.2.0"
       sources."call-bind-1.0.2"
       sources."callsites-3.1.0"
-      sources."caniuse-lite-1.0.30001241"
+      sources."caniuse-lite-1.0.30001242"
       sources."chalk-2.4.2"
       sources."chardet-0.7.0"
       sources."cli-cursor-3.1.0"
