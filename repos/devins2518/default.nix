@@ -14,8 +14,10 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  gyro = pkgs.callPackage ./pkgs/gyro { };
-  zigup = pkgs.callPackage ./pkgs/zigup { };
   bunnyfetch-rs = pkgs.callPackage ./pkgs/bunnyfetch-rs { };
+  gyro = pkgs.callPackage ./pkgs/gyro { };
+  iosevka-serif = pkgs.callPackage ./pkgs/iosevka-serif { };
   zig-master = pkgs.callPackage ./pkgs/zig-master { };
+  zigup = pkgs.callPackage ./pkgs/zigup { };
+  # zls = pkgs.callPackage ./pkgs/zls { };
 }
