@@ -6,8 +6,7 @@ fetchFromGitHub rec {
   owner = "devins2518";
   repo = "iosevka-serif";
   rev = "270e7139d719aa52e525697f36b03fe10ef90722";
-  sha256 = lib.fakeSha256;
-  fetchSubmodules = false;
+  sha256 = "sha256-vHXoPhrmdNv65KvW/66QhMLBuW/9kAoc2hRDOse/654=";
 
   postFetch = ''
     tar xzf $downloadedFile --strip=1
