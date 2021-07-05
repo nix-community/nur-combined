@@ -4,7 +4,7 @@ rustPlatform.buildRustPackage rec {
   pname = "lfs";
   version = "master";
   src = fetchFromGitHub { inherit (sources.lfs) owner repo rev sha256; };
-  cargoSha256 = "02mgmimp4dbq8ahhrs9np665c5pl6z997zmxlz1g3pw14x3dw2h9";
+  cargoSha256 = "1d718qqkk36n19hp9igv6qxb6sv1i0na0i6clpcxfy7zsagxqwc0";
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin
     darwin.apple_sdk.frameworks.IOKit;
 
