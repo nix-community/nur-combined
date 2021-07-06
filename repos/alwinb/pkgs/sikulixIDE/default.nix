@@ -7,11 +7,11 @@ stdenv.mkDerivation rec{
 
   pname = "sikulixIDE";
 
-  version = "2.0.4";
+  version = "2.0.5";
 
   src = fetchurl {
     url = "https://launchpad.net/sikuli/sikulix/${version}/+download/sikulixide-${version}.jar";
-    sha256 = "0pq0d58h4svkgnw3h5qv27bzmap2cgx0pkhmq824nq4rdj9ivphi";
+    sha256 = "sha256-9LC1DI5BMJTnjNHY/tAq5l9i+MU+0A2gVi/e30rP9yk=";
   };
 
   dontUnpack = true;

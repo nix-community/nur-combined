@@ -3,26 +3,32 @@ let
     bootstrapseeds = fetchFromGitHub {
         owner = "oriansj";
         repo = "bootstrap-seeds";
-        rev = "6d3fb087efe2d7cc7938cf2aff0265c6bfc86370";
+        rev = "refs/tags/Release_1.0.0";
         sha256 = "sha256-/fsl6Ds1U8rvBCdwH3YpEI5vVBSCsalW55oap2TAREc=";
     };
     mescctoolsseed = fetchFromGitHub {
         owner = "oriansj";
         repo = "stage0-posix";
-        rev = "957c268024d7b750f7b43d5531aee156d018ae8c";
-        sha256 = "sha256-vEB1lQdk03+kraDA2X0qIBO7hGUIWDUdio367H0ig9s=";
+        rev = "refs/tags/Release_1.3";
+        sha256 = "sha256-fJA6AHG6Z5h4GQgL98HuoXA7KDzxnkdXwLarjCj25DE=";
     };
     m2planet = fetchFromGitHub {
         owner = "oriansj";
         repo = "M2-Planet";
-        rev = "09acd6253d3a1c81468f42ed3d23b9c4606e52c3";
-        sha256 = "sha256-1CEi49+sFx/f7Ir0e4CuxdL255vAqt9UIfZL3XAC9kg=";
+        rev = "refs/tags/Release_1.8.0";
+        sha256 = "sha256-7HmhLqEs/KtSGEEfT0lhWOFThtAc0DZ5aMpHYMuSPc8=";
+    };
+    m2libc = fetchFromGitHub {
+        owner = "oriansj";
+        repo = "M2libc";
+        rev = "refs/tags/Release_0.1";
+        sha256 = "sha256-Hj/AXcso6Ki4oiO419vCkq7japajdNt1skYeR7fz9X8=";
     };
     mescctools = fetchFromGitHub {
         owner = "oriansj";
         repo = "mescc-tools";
-        rev = "5768b2a79036f34b9bd420ab4801ad7dca15dff8";
-        sha256 = "sha256-z8gi5xZ2CMsbKq69uzRtlyzixtNrPFumfQN4XIy7chU=";
+        rev = "refs/tags/Release_1.2.0";  # official tree points one commit ahead
+        sha256 = "sha256-Ipu5Yog5PkoX/9E8VcrIseQII+mJs3jWWtxw52LtxEQ=";
     };
     # mes = fetchzip {
     #     url = "https://git.savannah.gnu.org/cgit/mes.git/snapshot/mes-2ab4c5c676cb66088b0fb8de03b40b01f07bd4e0.tar.gz";
@@ -33,9 +39,9 @@ let
     mkdirm1 = ./mkdir.M1;
 
     # The seed kaem is very limited
-    seed-script = writeTextFile {
+    seedscript = writeTextFile {
         name = "kaem.run";
-        text = (import ./mescc-tools-seed-kaem.nix {inherit bootstrapseeds mescctoolsseed m2planet mescctools full-script mkdirm1; });
+        text = (import ./mescc-tools-seed-kaem.nix {inherit bootstrapseeds mescctoolsseed m2planet m2libc mescctools full-script mkdirm1; });
     };
 
     # The full kaem can follow up with this script
@@ -51,11 +57,13 @@ derivation {
   inherit bootstrapseeds;
   inherit mescctoolsseed;
   inherit m2planet;
+  inherit m2libc;
   inherit mescctools;
+  inherit seedscript;
 
   builder = "${bootstrapseeds}/POSIX/x86/kaem-optional-seed";
 
-  args = [ "${seed-script}" ];
+  args = [ "${seedscript}" ];
 
   system = "x86_64-linux";
 
