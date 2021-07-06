@@ -77,5 +77,7 @@ stdenv.mkDerivation
     description = "A compositor for X11 (fork with excellent blur)";
     homepage = "https://github.com/tryone144/compton";
     license = licenses.mit;
+    maintainers = with maintainers; [ dan4ik605743 ];
+    platforms = platforms.linux;
   };
 }

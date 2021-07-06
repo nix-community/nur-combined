@@ -35,5 +35,7 @@ in
     description = "Custom oh-my-zsh";
     homepage = "https://github.com/ohmyzsh/ohmyzsh";
     license = licenses.mit;
+    maintainers = with maintainers; [ dan4ik605743 ];
+    platforms = platforms.linux;
   };
 }

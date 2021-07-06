@@ -22,5 +22,7 @@ stdenv.mkDerivation
     description = "This is an x-cursor theme inspired by macOS and based on capitaine-cursors";
     homepage = "https://github.com/yeyushengfan258/Lyra-Cursors";
     license = licenses.mit;
+    maintainers = with maintainers; [ dan4ik605743 ];
+    platforms = platforms.linux;
   };
 }
