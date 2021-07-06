@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "devins2518";
     repo = "iosevka-serif";
-    rev = "669f1113ee324fd5cc19a73c94430444c2c4f0c0";
-    sha256 = "1hymgrrmj6z8avaqx5qiayr9vwnzg45fr14qndclm8k9l3y5h2ly";
+    rev = "09769449724b3f053a4f29c9e4cd3e6bd9f9b042";
+    sha256 = "12891hlvhwzj4yl4vq5clh26h5dhg4p6kg4lq6nhb097i04a359f";
   };
 
   installPhase = ''
