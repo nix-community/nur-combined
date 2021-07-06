@@ -11,5 +11,4 @@
   myzsh = pkgs.callPackage ./pkgs/myzsh { };
   waffle-font = pkgs.callPackage ./pkgs/waffle-font { };
   i3lock-color = pkgs.callPackage ./pkgs/i3lock-color { };
-  downloader-cli = pkgs.callPackage ./pkgs/downloader-cli { };
 }
