@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub, unstableGitUpdater }:
 
 stdenv.mkDerivation rec {
   name = "iosevka-serif";
@@ -10,7 +10,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-stkjtxHsM3lTKzvavFMoH38ZSGpWnBnd23gspnMJhm8=";
   };
 
-    # tar xzf $downloadedFile --strip=1
+  passthru.updateScript =
+    unstableGitUpdater { url = "https://github.com/devins2518/iosevka-serif.git"; };
+
   installPhase = ''
     mkdir -p $out/share/fonts
     install out/*.ttf $out/share/fonts
