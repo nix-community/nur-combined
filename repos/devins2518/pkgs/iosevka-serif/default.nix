@@ -6,12 +6,9 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "devins2518";
     repo = "iosevka-serif";
-    rev = "270e7139d719aa52e525697f36b03fe10ef90722";
-    sha256 = "sha256-stkjtxHsM3lTKzvavFMoH38ZSGpWnBnd23gspnMJhm8=";
+    rev = "04d1b83227e9f7eb2ffb590c6cff14a0b88a6481";
+    sha256 = "sha256-kszJoKQLITYMfISzANm9bYoWsDdSt/z+RVYHTzs94Vw=";
   };
-
-  passthru.updateScript =
-    unstableGitUpdater { url = "https://github.com/devins2518/iosevka-serif.git"; };
 
   installPhase = ''
     mkdir -p $out/share/fonts
