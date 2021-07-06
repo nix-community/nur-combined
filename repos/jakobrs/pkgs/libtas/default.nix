@@ -8,7 +8,7 @@
   git, # Used in configure to generate a version string or something like that
 
   # runtime dependencies
-  xcbutilcursor, SDL2, alsaLib, ffmpeg,
+  xcbutilcursor, SDL2, alsaLib, ffmpeg, lua5_3,
 
   # Even more runtime dependencies
   file, # Used to get information about the architecture of a file
@@ -22,18 +22,18 @@ let
 
 in relevantStdenv.mkDerivation rec {
   pname = "libtas";
-  version = "1.4.1";
+  version = "1.4.2";
 
   src = fetchFromGitHub {
     owner = "clementgallet";
     repo = "libTAS";
-    rev = "v${version}";
-    hash = "sha256:17apyhaivc74nlsaq84q48l6by1njjk6c24x0j012lcjjzvq3nca";
+    rev = "v1.4.2";
+    hash = "sha256:1lrbp2ff36yf20hjdicy2ppckk6k4rarakwkr4x89idx8wyx7dwb";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig wrapQtAppsHook git ];
   buildInputs = [
-    xcbutilcursor SDL2 alsaLib ffmpeg
+    xcbutilcursor SDL2 alsaLib ffmpeg lua5_3
   ] ++ lib.optionals multiArch [
     pkgsi686Linux.xorg.xcbutilcursor
     pkgsi686Linux.SDL2
@@ -43,27 +43,12 @@ in relevantStdenv.mkDerivation rec {
     pkgsi686Linux.freetype
   ];
 
-  dontStrip = true; # Segfaults, bug in patchelf
-
-  patches = [
-    ./libtaspath.patch
-    (fetchpatch {
-      url = "https://github.com/clementgallet/libTAS/commit/f12b1080c177e3281419c6e1c8e45dbd7b3544fb.patch";
-      sha256 = "121qqvb77zxrmbkzfcbfh7jzjsr116nsnip0l4vk5v1bqmng0xkk";
-    })
-  ];
-
   # Note that this builds an extra .so file in the same derivation
   # Ideally the library and executable might be split into separate derivations,
   # but this is easier for now
   configureFlags = [
-    "--disable-build-date"
+    "--enable-release-build"
   ] ++ lib.optional multiArch "--with-i386";
-
-  postPatch = ''
-    substituteInPlace src/program/main.cpp \
-      --subst-var out
-  '';
 
   postInstall = ''
     mkdir -p $out/lib
@@ -73,7 +58,9 @@ in relevantStdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   postFixup = ''
-    wrapProgram $out/bin/libTAS --suffix PATH : ${lib.makeBinPath [ file ]}
+    wrapProgram $out/bin/libTAS \
+      --suffix PATH : ${lib.makeBinPath [ file ]} \
+      --set-default LIBTAS_SO_PATH $out/lib/libtas.so
   '';
 
   meta = {
