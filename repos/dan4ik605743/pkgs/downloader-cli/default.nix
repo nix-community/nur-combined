@@ -14,9 +14,9 @@ python38Packages.buildPythonPackage rec {
     sha256 = "sha256-SAhMlrAVkONiXqzUd6c0llWK6Od1aMpAQq+4nVaXaz0=";
   };
 
-  buildInputs = (with python38Packages; [
+  buildInputs = with python38Packages; [
     urllib3
-  ]);
+  ];
 
   meta = with lib; {
     description = "A simple downloader with an awesome progressbar";
