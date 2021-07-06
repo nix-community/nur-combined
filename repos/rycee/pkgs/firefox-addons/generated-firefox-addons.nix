@@ -642,10 +642,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.0.12";
+      version = "1.0.13";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3785808/leechblock_ng-1.0.12-an+fx.xpi";
-      sha256 = "09858f53ace0a824163720980b27a9b20591f7c0f31cf0bcbf1f99f90bc697dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3805552/leechblock_ng-1.0.13-an+fx.xpi";
+      sha256 = "e10a01184a1fc06a1ead440e88bad04032c86ce15d7445d624329ba0727b3b2d";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -1133,10 +1133,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.5.4";
+      version = "5.6.0";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3749581/moderator_toolbox_for_reddit-5.5.4-an+fx.xpi";
-      sha256 = "8c63e79b4f71d288f0364e683a6686b67909ab6533e49ececbd9613a4c8467f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3805854/moderator_toolbox_for_reddit-5.6.0-an+fx.xpi";
+      sha256 = "5fe758281ec7ff7393a78024abf8744080c338633812c72ad7c99cf0e989f2bf";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
