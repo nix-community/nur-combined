@@ -1,7 +1,16 @@
-self: super: let
-  callLibs = file: import file { inherit self super; };
-in with self; {
-  scope = callLibs ./scope.nix;
+{ pkgs ? import <nixpkgs> { }
+, lib ? pkgs.lib
+# for internal use...
+, super ? if !isOverlayLib then lib else { }
+, self ? if isOverlayLib then lib else { }
+, before ? if !isOverlayLib then lib else { }
+, isOverlayLib ? false
+}@args: let lib = before // arclib // self; arclib = with before; with arclib; with self; {
+  arclib = arclib // {
+    path = ./.;
+  };
+
+  scope = import ./scope.nix { };
   inherit (scope) nixPathImport nixPathScopedImport nixPathList;
 
   # is a string a path?
@@ -115,11 +124,20 @@ in with self; {
   in if super' ? extend then super'.extend overlay'
     else makeExtensible (self: super' // flip overlay' super' self);
 
+  composeExtensions = super.composeExtensions or (previous: overlay: pself: psuper: let
+    psuper' = previous pself psuper;
+  in psuper' // overlay pself (psuper // psuper'));
+  composeManyExtensions = super.composeManyExtensions or (overlays: if overlays != [ ]
+    then foldl composeExtensions (head overlays) (tail overlays)
+    else _: _: { });
+
+  gst = import ./gst.nix { inherit lib; };
+
   # NOTE: a very basic/incomplete parser
-  fromYAML = import ./from-yaml.nix self;
+  fromYAML = import ./from-yaml.nix lib;
   importYAML = path: fromYAML (builtins.readFile path);
 
-  inherit (import ./toml.nix self) toTOML;
+  inherit (import ./toml.nix lib) toTOML;
 
   # copy function signature
   copyFunctionArgs = src: dst: setFunctionArgs dst (functionArgs src);
@@ -218,8 +236,42 @@ in with self; {
     then check pkgs
     else imp channel pkgs;
 
-  nixpkgsVersionStable = "20.09";
-  nixpkgsVersionUnstable = "21.05";
+  overlayOverride = {
+    self
+  , super
+  , attr
+  , withAttr ? null
+  , superAttr ? null
+  , fallback ? { previous, callPackage }: throw "overlay could not find pkgs.${unlessNull withAttr attr}"
+  , apply ? { self, super, previous, new }: new
+  }: let
+    previous = if superAttr == null then super.${attr} else self.${superAttr};
+    fallbackValue = fallback {
+      inherit previous;
+      callPackage = flip self.callPackage {
+        ${attr} = previous;
+      };
+    };
+    superValue' = super.${withAttr} or fallbackValue;
+    superOverride = superValue'.override or null;
+    superValue = if isFunction superOverride /*&& (functionArgs superOverride) ? ${attr}*/ then superOverride {
+      ${attr} = previous;
+    } else superValue';
+    new = if isAttrs superValue then superValue // {
+      super = previous;
+    } else if isFunction superValue then setFunctionArgs superValue (functionArgs superValue) // {
+      super = previous;
+    } else superValue;
+  in {
+    ${attr} = apply {
+      inherit previous new self super;
+    };
+    ${withAttr} = superValue;
+    ${superAttr} = super.${attr};
+  };
+
+  nixpkgsVersionStable = "21.05";
+  nixpkgsVersionUnstable = "21.11";
   isNixpkgsStable = versionOlder version "${nixpkgsVersionUnstable}pre";
   isNixpkgsUnstable = !isNixpkgsStable;
-}
+}; in arclib

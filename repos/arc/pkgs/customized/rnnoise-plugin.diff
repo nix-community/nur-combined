@@ -1,0 +1,50 @@
+commit 0e4540ae60278f22c4f2c7e1dd0bc42eafc17783
+Author: arcnmx <arcnmx@users.noreply.github.com>
+Date:   Mon May 24 01:38:15 2021 -0700
+
+    support external rnnoise
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a15261f..3d59cc1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -13,7 +13,15 @@ option(BUILD_VST_PLUGIN "If the VST plugin should be built" ON)
+ option(BUILD_LV2_PLUGIN "If the LV2 plugin should be built" ON)
+ option(BUILD_LADSPA_PLUGIN "If the LADSPA plugin should be built" ON)
+ 
+-add_subdirectory(src/rnnoise)
++find_package(PkgConfig)
++if(PkgConfig_FOUND)
++    pkg_search_module(RNNOISE IMPORTED_TARGET rnnoise)
++    if(rnnoise_FOUND)
++        add_library(RnNoise ALIAS PkgConfig::RNNOISE)
++    else()
++        add_subdirectory(src/rnnoise)
++    endif()
++endif()
+ add_subdirectory(src/common)
+ if(BUILD_VST_PLUGIN)
+     add_subdirectory(src/vst_plugin)
+diff --git a/src/common/src/RnNoiseCommonPlugin.cpp b/src/common/src/RnNoiseCommonPlugin.cpp
+index 7d62f49..e6ae467 100644
+--- a/src/common/src/RnNoiseCommonPlugin.cpp
++++ b/src/common/src/RnNoiseCommonPlugin.cpp
+@@ -6,7 +6,7 @@
+ #include <algorithm>
+ #include <cassert>
+ 
+-#include <rnnoise/rnnoise.h>
++#include <rnnoise.h>
+ 
+ void RnNoiseCommonPlugin::init() {
+     deinit();
+@@ -111,7 +111,7 @@ void RnNoiseCommonPlugin::process(const float *in, float *out, int32_t sampleFra
+ }
+ 
+ void RnNoiseCommonPlugin::createDenoiseState() {
+-    m_denoiseState = std::shared_ptr<DenoiseState>(rnnoise_create(), [](DenoiseState *st) {
++    m_denoiseState = std::shared_ptr<DenoiseState>(rnnoise_create(NULL), [](DenoiseState *st) {
+         rnnoise_destroy(st);
+     });
+ }
+\ No newline at end of file

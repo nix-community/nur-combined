@@ -43,4 +43,4 @@
         } // passthru) (nix-fetchurl.value (filterArgs args));
     in nixFetchurl;
   };
-in builtins.mapAttrs (_: p: self.callPackage p { }) builders
+in builders

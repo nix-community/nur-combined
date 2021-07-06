@@ -1,4 +1,4 @@
-{ stdenvNoCC, fetchFromGitHub, makeWrapper, taskwarrior, jq }: with stdenvNoCC.lib; let
+{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper, taskwarrior, jq }: with lib; let
   package = stdenvNoCC.mkDerivation rec {
     name = "task-blocks";
 

@@ -8,6 +8,7 @@ let
 #in import (clip + "/derivation.nix")
 # NUR doesn't like this IFD so inline it here instead:
 in { stdenvNoCC
+, lib
 , makeWrapper
 , coreutils
 , enableX11 ? stdenvNoCC.isLinux
@@ -15,7 +16,7 @@ in { stdenvNoCC
 , enableWayland ? stdenvNoCC.isLinux
 , wl-clipboard ? null
 , fetchFromGitHub
-}: with stdenvNoCC.lib;
+}: with lib;
 
 assert enableX11 -> xsel != null;
 assert enableWayland -> wl-clipboard != null;

@@ -1,1 +1,1 @@
-import ./overlays/arc.nix
+import ./overlays

@@ -1,0 +1,22 @@
+diff --git a/src/ryzen_monitor.c b/src/ryzen_monitor.c
+index d1bc2c1..e3c801f 100644
+--- a/src/ryzen_monitor.c
++++ b/src/ryzen_monitor.c
+@@ -342,7 +342,7 @@ void start_pm_monitor(unsigned int force) {
+         default:            sysinfo.if_ver =  0; break;
+     }
+ 
+-    while(1) {
++    do {
+         if (smu_read_pm_table(&obj, pm_buf, obj.pm_table_size) != SMU_Return_OK)
+             continue;
+ 
+@@ -352,7 +352,7 @@ void start_pm_monitor(unsigned int force) {
+         fflush(stdout);
+ 
+         sleep(update_time_s);
+-    }
++    } while(update_time_s);
+ }
+ 
+ void read_from_dumpfile(char *dumpfile, unsigned int version) {

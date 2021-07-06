@@ -1,5 +1,6 @@
 { config, pkgs, lib, ... }: with lib; let
   cfg = config.home.base16-shell;
+  arc = import ../../canon.nix { inherit pkgs; };
   shellInit = ''
     BASE16_SHELL="${cfg.package}"
     if [[ -n "''${PS1-}" ]]; then
@@ -17,7 +18,7 @@ in {
     };
     package = mkOption {
       type = types.package;
-      default = pkgs.base16-shell;
+      default = pkgs.base16-shell or arc.packages.base16-shell;
       defaultText = "pkgs.base16-shell";
     };
   };

@@ -18,6 +18,7 @@
   lorri = ./lorri.nix;
   shell = ./shell.nix;
   less = ./less.nix;
+  firefox = ./firefox.nix;
   tridactyl = ./tridactyl.nix;
   ncpamixer = ./ncpamixer.nix;
   nix-path = ./nix-path.nix;
@@ -25,6 +26,7 @@
   syncplay = ./syncplay.nix;
   weechat = ./weechat.nix;
   systemd = ./systemd.nix;
+  xdg = ./xdg.nix;
 
   __functionArgs = { };
   __functor = self: { ... }: {
@@ -43,6 +45,7 @@
       lorri
       shell
       less
+      firefox
       tridactyl
       ncpamixer
       nix-path
@@ -50,6 +53,7 @@
       syncplay
       weechat
       systemd
+      xdg
     ];
   };
 }

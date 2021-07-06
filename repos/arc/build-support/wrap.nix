@@ -51,4 +51,4 @@ let builders = {
     } // env);
     in
     pkg;
-}; in builtins.mapAttrs (_: p: self.callPackage p { }) builders
+}; in builders

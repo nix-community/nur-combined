@@ -1,5 +1,6 @@
 isNixos: { pkgs, config, lib, ... }: with lib; let
   cfg = config.base16;
+  arc = import ../../canon.nix { inherit pkgs; };
 in {
   options.base16 = {
     schemes = mkOption {
@@ -38,7 +39,7 @@ in {
       schemeFor = scheme: let
         path' = splitString "." scheme;
         path = if length path' == 1 then path' ++ [ "default" ] else path';
-      in if isString scheme then getAttrFromPath path pkgs.base16.scheme else scheme;
+      in if isString scheme then getAttrFromPath path pkgs.base16.scheme or arc.build.base16.scheme else scheme;
       schemeForAlias = mapAttrs (_: config.lib.arc.base16.schemeFor) config.base16.alias;
       shellScriptFor = scheme: let
         scheme' = config.lib.arc.base16.schemeFor scheme;

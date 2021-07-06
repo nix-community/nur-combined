@@ -1,5 +1,6 @@
 { pkgs, config, lib, ... }: with lib; let
   cfg = config.programs.filebin;
+  arc = import ../../canon.nix { inherit pkgs; };
 in {
   options.programs.filebin = {
     enable = mkEnableOption "filebin path monitor";
@@ -21,7 +22,7 @@ in {
   };
 
   config = {
-    home.packages = mkIf cfg.enable [ pkgs.arc'private.filebin ];
+    home.packages = mkIf cfg.enable [ arc.packages.personal.filebin ];
     programs.filebin.extraConfig = mkMerge (map (path: ''
       source ${path}
     '') cfg.extraConfigFiles);

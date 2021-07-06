@@ -1,4 +1,4 @@
-{ stdenvNoCC, fetchzip, mkfontdir, mkfontscale }:
+{ stdenvNoCC, lib, fetchzip, mkfontdir, mkfontscale }:
 
 let
   version = "1.11.4"; 
@@ -23,7 +23,7 @@ in stdenvNoCC.mkDerivation {
     mkfontscale
   '';
 
-  meta = with stdenvNoCC.lib; {
+  meta = with lib; {
     description = "Bitmapped programming font, based on Tamsyn";
     homepage = https://github.com/sunaku/tamzen-font;
     downloadPage = https://github.com/sunaku/tamzen-font/releases;

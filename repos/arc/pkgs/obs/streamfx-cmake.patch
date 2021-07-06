@@ -1,0 +1,58 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2ab9755..9010777 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -108,12 +108,12 @@ if(NOT (${PREFIX}VERSION STREQUAL ""))
+ 	list(GET T_VERSION 0 VERSION_MAJOR)
+ 	list(GET T_VERSION 1 VERSION_MINOR)
+ 	list(GET T_VERSION 2 VERSION_PATCH)
+-	if (T_VERSIONLEN GREATER_EQUAL 3)
++	if (T_VERSIONLEN GREATER_EQUAL 4)
+ 		list(GET T_VERSION 3 VERSION_TWEAK)
+ 	else()
+ 		set(VERSION_BUILD 0)
+ 	endif()
+-	if (T_VERSIONLEN GREATER_EQUAL 4)
++	if (T_VERSIONLEN GREATER_EQUAL 5)
+ 		list(GET T_VERSION 4 VERSION_COMMIT)
+ 	else()
+ 		set(VERSION_COMMIT "")
+@@ -170,7 +170,7 @@ set(PROJECT_VERSION_STRING ${VERSION_STRING})
+ ################################################################################
+ 
+ # Search Paths
+-set(CMAKE_MODULE_PATH
++list(APPEND CMAKE_MODULE_PATH
+ 	"${CMAKE_CURRENT_SOURCE_DIR}/cmake/clang"
+ 	"${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules"
+ 	"${CMAKE_CURRENT_SOURCE_DIR}/cmake"
+@@ -407,16 +407,7 @@ if(NOT ${PREFIX}OBS_NATIVE)
+ 		endif()
+ 	endif()
+ 
+-	# Download libOBS
+-	download_project(
+-		PROJ libobs
+-		URL "${_DOWNLOAD_OBS_URL}"
+-		URL_HASH "${_DOWNLOAD_OBS_HASH}"
+-		DOWNLOAD_NO_PROGRESS OFF
+-		UPDATE_DISCONNECTED OFF
+-	)
+-
+-	include("${libobs_SOURCE_DIR}/cmake/LibObs/LibObsConfig.cmake")
++	find_package(LibObs REQUIRED CONFIG)
+ endif()
+ 
+ ################################################################################
+@@ -876,10 +867,7 @@ if(REQUIRE_OBSFE)
+ 			set(HAVE_OBSFE ON)
+ 		endif()
+ 	else()
+-		if (EXISTS "${libobs_SOURCE_DIR}/cmake/obs-frontend-api/obs-frontend-apiConfig.cmake")
+-			include("${libobs_SOURCE_DIR}/cmake/obs-frontend-api/obs-frontend-apiConfig.cmake")
+-			set(HAVE_OBSFE ON)
+-		endif()
++		set(HAVE_OBSFE ON)
+ 	endif()
+ endif()
+ 

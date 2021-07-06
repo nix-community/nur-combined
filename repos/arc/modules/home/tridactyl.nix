@@ -1,5 +1,6 @@
 { pkgs, config, lib, ... }: with lib; let
   cfg = config.programs.firefox.tridactyl;
+  arc = import ../../canon.nix { inherit pkgs; };
   cmdType = types.str; # TODO: add fancier types for "js" etc that escape things and compose better
   settingType = types.either types.bool types.str;
   configStrs = {
@@ -247,7 +248,7 @@ in {
     xdg.configFile = {
       "tridactyl/tridactylrc".text = cfg.extraConfig;
     } // mapAttrs' (name: source: nameValuePair
-      "tridactyl/themes/${name}.css" { source = pkgs.lib.asFile "${name}.css" source; }
+      "tridactyl/themes/${name}.css" { source = arc.lib.asFile "${name}.css" source; }
     ) cfg.themes;
   };
 }

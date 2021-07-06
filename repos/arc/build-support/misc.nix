@@ -4,4 +4,4 @@
       pidgin-skypeweb pidgin-otr purple-discord purple-hangouts purple-facebook telegram-purple purple-matrix purple-plugin-pack purple-lurch
     ];
   };
-in (builtins.mapAttrs (_: p: self.callPackage p { }) attrs)
+in attrs

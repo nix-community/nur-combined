@@ -9,6 +9,7 @@
   in listToAttrs (recurse deep);
   cfgType = types.either types.str (types.either types.bool types.int);
   cfg = config.programs.weechat;
+  scfg = config.services.weechat;
   drvAttr = types.either types.str types.package;
   drvAttrsFor = packages: map (d:
     if isString d then packages.${d} else d
@@ -18,9 +19,27 @@
     else if isBool v then (if v then "on" else "off")
     else if isInt v then toString v
     else throw "unknown weechat config value ${toString v}";
+  makeConfText = attr:
+    lib.concatStringsSep "\n" (
+      lib.attrsets.mapAttrsToList (name: value: "[${name}]\n" +
+        lib.concatStringsSep "\n" (
+          lib.attrsets.mapAttrsToList (k: v: "${k} = ${configStr v}") (flatConfig value)
+        )
+      )
+    attr);
+  writeConfig = attr: weechatDir:
+    lib.attrsets.mapAttrs(name: value: {
+      text = makeConfText value;
+      target = "${removePrefix config.home.homeDirectory cfg.homeDirectory}/${name}.conf";
+    })
+    (lib.attrsets.mapAttrs' (name: value: lib.attrsets.nameValuePair
+      ("${weechatDir}/" + name + ".conf") value)
+    attr);
   configure = { availablePlugins, ... }: {
     plugins = with availablePlugins;
-      optional cfg.plugins.python.enable (
+      optional cfg.plugins.perl.enable (
+        perl
+      ) ++ optional cfg.plugins.python.enable (
         python.withPackages (ps: drvAttrsFor ps cfg.plugins.python.packages)
       ) ++ optional (cfg.environment != { }) {
         # dummy for inserting env vars into wrapper script
@@ -65,6 +84,12 @@ in {
     };
 
     plugins = {
+      perl = {
+        enable = mkOption {
+          type = types.bool;
+          default = true;
+        };
+      };
       python = {
         enable = mkOption {
           type = types.bool;
@@ -84,7 +109,7 @@ in {
       type = types.listOf drvAttr;
       description = "Attributes or derivations from pkgs.weechatScripts";
       default = [ ];
-      example = [ "weechat-matrix" "weechat-autosort" ];
+      example = [ "weechat-matrix" "autosort" ];
     };
 
     init = mkOption {
@@ -106,32 +131,90 @@ in {
     };
 
     homeDirectory = mkOption {
-      type = types.nullOr types.path;
+      type = types.path;
       description = "Weechat home config directory";
-      default = defaultHomeDirectory;
-      defaultText = "~/.weechat";
+      default = if cfg.mutableConfig then defaultHomeDirectory else "${config.xdg.configHome}/weechat";
+      defaultText = "~/.weechat or $XDG_CONFIG_HOME/weechat if immutable";
       example = literalExample "\${config.xdg.dataHome}/weechat";
     };
 
     config = mkOption {
       type = settingType;
-      default = { };
       description = "Weechat configuration settings";
+      default = { };
+    };
+
+    mutableConfig = mkOption {
+      type = types.bool;
+      description = "Allow imperative modification of the weechat config via /set";
+      default = true;
+    };
+
+    liveReload = mkOption {
+      type = types.bool;
+      description = "Apply settings to the running weechat instance on switch";
+      default = true;
+    };
+  };
+  options.services.weechat = {
+    enable = mkEnableOption "weechat tmux session";
+
+    sessionName = mkOption {
+      type = types.str;
+      description = "Name of the tmux session for weechat";
+      default = "irc";
+    };
+
+    tmuxPackage = mkOption {
+      type = types.package;
+      description = "tmux package";
+      default = pkgs.tmux;
+      defaultText = "pkgs.tmux";
+    };
+
+    binary = mkOption {
+      type = types.path;
+      description = "Binary to execute";
+      example = literalExample "\${config.programs.weechat.package}/bin/weechat-headless";
+      default = "${cfg.package}/bin/weechat";
+      defaultText = "\${config.programs.weechat.package}/bin/weechat";
     };
   };
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
 
-    xdg.configFile."weechat/weechatrc" = mkIf (cfg.config != { }) {
+    systemd.user.services = mkIf scfg.enable {
+      weechat-tmux = {
+        Unit.Description = "Weechat tmux session";
+        Service = {
+          After = [ "network.target" ];
+          Type = "oneshot";
+          RemainAfterExit = true;
+          X-RestartIfChanged = false;
+          ExecStart = "${scfg.tmuxPackage}/bin/tmux -2 new-session -d -s ${scfg.sessionName} ${scfg.binary}";
+          ExecStop = "${scfg.tmuxPackage}/bin/tmux kill-session -t ${scfg.sessionName}";
+        };
+        Install.WantedBy = [ "default.target" ];
+      };
+    };
+
+    home.file = mkIf (!cfg.mutableConfig) (
+      writeConfig cfg.config (removePrefix config.home.homeDirectory cfg.homeDirectory)
+    );
+    xdg.configFile."weechat/weechatrc" = mkIf ((cfg.mutableConfig || cfg.liveReload) && cfg.config != { }) {
       text = concatStringsSep "\n" (mapAttrsToList
         (k: v: "/set ${k} ${configStr v}") (flatConfig cfg.config)
       );
       # NOTE: this doesn't include/re-run init commands (should it?)
-      onChange = ''
+      onChange = mkIf cfg.liveReload ''
         if [[ -p "${cfg.homeDirectory}/weechat_fifo" ]]; then
           echo "Refreshing weechat settings..." >&2
-          timeout 3 sed "s-^/-*/-" "${weechatrc}" > "${cfg.homeDirectory}/weechat_fifo" || true
+          timeout 3 ${if cfg.mutableConfig then ''
+            sed "s-^/-*/-" "${weechatrc}"''
+          else ''
+            echo "*/reload"''
+          }  > "${cfg.homeDirectory}/weechat_fifo" || true
         fi
       '';
     };
@@ -139,7 +222,9 @@ in {
       environment = mkIf (cfg.homeDirectory != defaultHomeDirectory) {
         WEECHAT_HOME = cfg.homeDirectory;
       };
-      source = optional (cfg.config != { }) weechatrc;
+      source = [
+        (mkIf (cfg.mutableConfig && cfg.config != { }) weechatrc)
+      ];
       init = concatMapStringsSep "\n" (f: "/exec -sh -norc -oc cat ${f}") cfg.source;
     };
   };

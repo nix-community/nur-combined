@@ -18,5 +18,20 @@
     in if lib.isDerivation attrs
       then attrs.overrideAttrs (attrs: shellEnv attrs)
       else mkShell (attrs // shellEnv attrs);
+
+    # replacement for `mkShell` that includes a `.shellEnv` attribute for caching the shell
+    mkShell' = { mkShell, mkShellEnv }: let
+    in {
+      inherit mkShell mkShellEnv;
+      __functionArgs = lib.functionArgs mkShell;
+      __functor = self: attrs: lib.drvPassthru (drv: let
+        shellEnv = self.mkShellEnv attrs;
+      in {
+        inherit shellEnv;
+        ci = attrs.ci or { } // {
+          inputs = attrs.ci.inputs or [ ] ++ [ shellEnv ];
+        };
+      }) (self.mkShell attrs);
+    };
   };
-in builtins.mapAttrs (_: p: self.callPackage p { }) builders
+in builders

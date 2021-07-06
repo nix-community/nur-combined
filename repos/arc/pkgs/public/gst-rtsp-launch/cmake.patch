@@ -1,0 +1,37 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 913a016..65bdf59 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -25,15 +25,17 @@ find_library(_LIB_GOBJECT
+   libgobject-2.0
+   libgobject-2.0.so
+ )
++find_path(_INCLUDE_GST gst/gst.h
++  PATH_SUFFIXES gstreamer-1.0
++)
++find_path(_INCLUDE_GSTBASE gst/rtsp/gstrtsptransport.h
++  PATH_SUFFIXES gstreamer-1.0
++)
+ find_path(_INCLUDE_GSTRTSP gst/rtsp-server/rtsp-server.h
+-  HINTS
+-  /usr/include
+-  /usr/include/gstreamer-1.0
++  PATH_SUFFIXES gstreamer-1.0
+ )
+ find_path(_INCLUDE_GLIB glib.h
+-  HINTS
+-  /usr/include
+-  /usr/include/glib-2.0
++  PATH_SUFFIXES glib-2.0
+ )
+ # Terrible, terrible hack to find glibconfig (which is in /usr/lib/platform-triplet/glib-2.0/include, of all places!)
+ if (_LIB_GLIB)
+@@ -78,6 +80,8 @@ target_link_libraries(GST_RTSP_SERVER INTERFACE
+ )
+ target_include_directories(GST_RTSP_SERVER INTERFACE
+   ${_INCLUDE_GSTRTSP}
++  ${_INCLUDE_GST}
++	${_INCLUDE_GSTBASE}
+   ${_INCLUDE_GLIB}
+   ${_INCLUDE_GLIBCONFIG}
+ )

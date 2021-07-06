@@ -1,0 +1,12 @@
+diff -ruN a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
+--- a/drivers/video/fbdev/efifb.c	2018-01-28 16:20:33.000000000 -0500
++++ b/drivers/video/fbdev/efifb.c	2018-02-08 20:51:28.138745549 -0500
+@@ -382,7 +382,7 @@
+ 
+ builtin_platform_driver(efifb_driver);
+ 
+-#if defined(CONFIG_PCI)
++#if defined(CONFIG_PCI) && !defined(CONFIG_X86)
+ 
+ static void record_efifb_bar_resource(struct pci_dev *dev, int idx, u64 offset)
+ {

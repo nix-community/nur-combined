@@ -1,5 +1,5 @@
 { self, ... }: let
-  buildKakPlugin = self.callPackage ({ lib, stdenvNoCC }: {
+  buildKakPlugin = { lib, stdenvNoCC }: {
     src, sources ? [ ],
     mkDerivation ? stdenvNoCC.mkDerivation,
     name ? "${pname}-${attrs.version}",
@@ -39,10 +39,10 @@
         runHook postInstall
       '';
     } // attrs');
-  in lib.drvPassthru buildKakrc drv) { };
-  buildKakPluginFrom2Nix = self.callPackage ({ buildKakPlugin }: attrs: buildKakPlugin ({
+  in lib.drvPassthru buildKakrc drv;
+  buildKakPluginFrom2Nix = { buildKakPlugin }: attrs: buildKakPlugin ({
     src = null;
-  } // attrs)) { };
+  } // attrs);
 in {
   inherit buildKakPlugin buildKakPluginFrom2Nix;
 }

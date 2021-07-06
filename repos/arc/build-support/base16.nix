@@ -85,6 +85,10 @@
             if stringLength self.hex.raw == 8 then self.hex.raw
             else if stringLength self.hex.raw == 6 then "${self.hex.raw}ff"
             else throw ''base16 unsupported value "${self.hex.raw}"'';
+          argb =
+            if stringLength self.hex.raw == 6 then "ff${self.hex.raw}"
+            else if stringLength self.hex.raw == 8 then "${self.hex.a}${self.hex.r}${self.hex.g}${self.hex.b}"
+            else throw ''base16 unsupported value "${self.hex.raw}"'';
           rgb = substring 0 6 self.hex.rgba;
           rgb16 = substring 0 12 self.hex.rgba16;
           bgr = "${self.hex.b}${self.hex.g}${self.hex.r}";
@@ -128,6 +132,52 @@
       scheme-author = data.author or (throw "base16 theme author missing");
       shell = base16.shell.forScheme { scheme = sself; };
       template = mapAttrs (_: template: template sself) base16.template;
+      alias = {
+        background = base.base00;
+        background_light = base.base01;
+        background_status = base.base01;
+        background_selection = base.base02;
+        comment = base.base03;
+        highlight = base.base03;
+        foreground_dark = base.base04;
+        foreground_status = base.base04;
+        foreground = base.base05;
+        caret = base.base05;
+        delimiter = base.base05;
+        operator = base.base05;
+        foreground_alt = base.base06; # called "light", not often used?
+        background_alt = base.base07; # called "light", not often used?
+        variable = base.base08;
+        link = base.base08;
+        ident = base.base08;
+        deleted = base.base08;
+        constant = base.base09;
+        integer = base.base09;
+        boolean = base.base09;
+        url = base.base09;
+        class = base.base0A;
+        bold = base.base0A;
+        background_search = base.base0A;
+        string = base.base0B;
+        inherited = base.base0B;
+        code = base.base0B;
+        inserted = base.base0B;
+        support = base.base0C;
+        escape = base.base0C;
+        regex = base.base0C;
+        quote = base.base0C;
+        function = base.base0D;
+        method = base.base0D;
+        attribute = base.base0D;
+        heading = base.base0D;
+        keyword = base.base0E;
+        storage = base.base0E;
+        selector = base.base0E;
+        italic = base.base0E;
+        changed = base.base0E;
+        deprecated = base.base0F;
+        tag = base.base0F;
+      };
     } // base);
     shell = let
       mapshell = _: { shell ? head shells, shells ? [ shell ] }: { inherit shell shells; };

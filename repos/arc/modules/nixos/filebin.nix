@@ -1,5 +1,6 @@
 { pkgs, config, lib, ... }: with lib; let
   cfg = config.services.filebin;
+  arc = import ../../canon.nix { inherit pkgs; };
 in {
   options.services.filebin = {
     enable = mkEnableOption "filebin path monitor";
@@ -26,7 +27,7 @@ in {
       after = ["network.target"];
       serviceConfig = {
         Type = "oneshot";
-        ExecStart= "${pkgs.arc'private.filebin.exec} ${if cfg.notify then "-n" else ""} -d ${cfg.path}";
+        ExecStart= "${arc.packages.personal.filebin.exec} ${if cfg.notify then "-n" else ""} -d ${cfg.path}";
         User = mkIf (cfg.user != null) cfg.user;
       };
     };

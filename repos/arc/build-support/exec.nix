@@ -1,4 +1,4 @@
-{ self, super, ... }: with self; {
+{ self, super, ... }: with self; builtins.mapAttrs (_: f: { }: f) {
   writeShellScriptBin = name: contents:
     lib.drvExec "bin/${name}" (super.writeShellScriptBin name contents);
   writeShellScript = name: contents:

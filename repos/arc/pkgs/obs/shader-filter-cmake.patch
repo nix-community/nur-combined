@@ -1,0 +1,69 @@
+diff --git a/plugins/obs-shader-filter/CMakeLists.txt b/plugins/obs-shader-filter/CMakeLists.txt
+index bc4cf121..5951c476 100644
+--- a/plugins/obs-shader-filter/CMakeLists.txt
++++ b/plugins/obs-shader-filter/CMakeLists.txt
+@@ -5,9 +5,10 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
+ set(CMAKE_AUTOMOC ON)
+ set(CMAKE_AUTOUIC ON)
+ 
+-#find_package(LibObs REQUIRED)
++find_package(LibObs REQUIRED)
+ find_package(Qt5Core REQUIRED)
+ find_package(Qt5Widgets REQUIRED)
++find_package(PkgConfig REQUIRED)
+ 
+ include_directories(
+ #	SYSTEM "${CMAKE_SOURCE_DIR}/libobs"
+@@ -16,9 +17,8 @@ include_directories(
+ 	${Qt5Widgets_INCLUDES}
+ )
+ 
+-find_package(FFmpeg REQUIRED
+-	COMPONENTS avcodec)
+-include_directories(${FFMPEG_INCLUDE_DIRS})
++pkg_check_modules(FFMPEG REQUIRED IMPORTED_TARGET
++	libavcodec)
+ 
+ if(MSVC)
+ 	set(obs-shader-filter_PLATFORM_DEPS
+@@ -43,16 +43,24 @@ add_library(obs-shader-filter MODULE
+ 	${obs-shader-filter_SOURCES}
+ 	${obs-shader-filter_HEADERS}
+ )
+-	
++
+ target_link_libraries(obs-shader-filter
+ 	libobs
+ 	Qt5::Core
+ 	Qt5::Widgets
+ 	${obs-shader-filter_PLATFORM_DEPS}
+-	${FFMPEG_LIBRARIES}
++	PkgConfig::FFMPEG
+ #	obs-frontend-api
+ #	Qt5::Core
+ #	Qt5::Widgets
+ )
+ 
+-install_obs_plugin_with_data(obs-shader-filter data)
++file(GLOB locale_files data/locale/*.ini)
++file(GLOB data_files data/*.effect)
++file(GLOB shader_files data/*.effect shaders/*.shader)
++
++include(GNUInstallDirs)
++install(TARGETS obs-shader-filter LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}/obs-plugins")
++install(FILES ${locale_files} DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/obs/obs-plugins/obs-shader-filter/locale")
++install(FILES ${data_files} DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/obs/obs-plugins/obs-shader-filter")
++install(FILES ${shader_files} DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/obs-shader-filter")
+diff --git a/plugins/obs-shader-filter/obs-shader-filter.hpp b/plugins/obs-shader-filter/obs-shader-filter.hpp
+index cce27f46..836b3d0e 100644
+--- a/plugins/obs-shader-filter/obs-shader-filter.hpp
++++ b/plugins/obs-shader-filter/obs-shader-filter.hpp
+@@ -176,7 +176,7 @@ public:
+ 		if (!_compiled) {
+ 			_errString = "Expression Error At [" + std::to_string(_err) + "] in: " + expression + "\n" +
+ 				expression.substr(0, _err) + "[ERROR HERE]" + expression.substr(_err);
+-			blog(LOG_WARNING, _errString.c_str());
++			blog(LOG_WARNING, "%s", _errString.c_str());
+ 		} else {
+ 			_errString = "";
+ 			_expr = expression;

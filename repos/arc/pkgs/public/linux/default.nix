@@ -46,6 +46,14 @@ let
         };
       };
     });
+    kernelMakeFlags = linux: [
+      "-C" "${linux.dev}/lib/modules/${linux.modDirVersion}/build" "modules"
+      "CROSS_COMPILE=${linux.stdenv.cc.targetPrefix or ""}"
+      "M=$(NIX_BUILD_TOP)/$(sourceRoot)"
+      "VERSION=$(version)"
+    ] ++ (if linux.stdenv.hostPlatform ? linuxArch then [
+      "ARCH=${linux.stdenv.hostPlatform.linuxArch}"
+    ] else [ ]);
   packages = {
     inherit mergeLinuxConfig generateLinuxConfig;
 
@@ -62,16 +70,15 @@ let
         rev = "2793a4b";
         sha256 = "1npbns5x2lssjxkqvj97bgi263l7zx6c9ij5r9ksbcdfpws5mmy5";
       };
+      sourceRoot = "source";
 
       nativeBuildInputs = [ makeWrapper ];
       shellPath = lib.makeBinPath [ kmod gnugrep coreutils ];
 
       kernelVersion = linux.modDirVersion;
       modules = [ "forcefully_remove_bootfb" ];
-      makeFlags = [
-        "-C ${linux.dev}/lib/modules/${linux.modDirVersion}/build modules"
-        "M=$(NIX_BUILD_TOP)/source"
-      ];
+      makeFlags = kernelMakeFlags linux;
+      enableParallelBuilding = true;
 
       outputs = [ "bin" "out" ];
 
@@ -84,6 +91,169 @@ let
       dontStrip = true;
       meta.platforms = lib.platforms.linux;
     };
+
+    ryzen-smu = { stdenv, lib, fetchFromGitLab, linux }: stdenv.mkDerivation rec {
+      version = "2021-04-21";
+      pname = let
+        pname = "ryzen-smu";
+        kernel-name = builtins.tryEval "${pname}-${linux.version}";
+      in if kernel-name.success then kernel-name.value else pname;
+
+      src = fetchFromGitLab {
+        owner = "leogx9r";
+        repo = "ryzen_smu";
+        #rev = "v${version}";
+        rev = "847caf27a1e05bfcb546e4456572ed2bc4ffd262";
+        sha256 = "1xcrdwdkk7ijhiqix5rmz59cfps7p0x7gwflhqdcjm6np0ja3acv";
+      };
+      sourceRoot = "source";
+
+      kernelVersion = linux.modDirVersion;
+      modules = [ "ryzen-smu" ];
+      makeFlags = kernelMakeFlags linux;
+      enableParallelBuilding = true;
+
+      installPhase = ''
+        install -Dm644 -t $out/lib/modules/$kernelVersion/kernel/drivers/ ryzen_smu.ko
+      '';
+
+      meta.platforms = lib.platforms.linux;
+    };
+
+    rtl8189es = { stdenv, lib, fetchFromGitHub, linux }: stdenv.mkDerivation rec {
+      version = "2021-03-02";
+      pname = let
+        pname = "rtl8189es";
+        kernel-name = builtins.tryEval "${pname}-${linux.version}";
+      in if kernel-name.success then kernel-name.value else pname;
+
+      src = fetchFromGitHub {
+        owner = "jwrdegoede";
+        repo = "rtl8189ES_linux";
+        rev = "03ac413135a355b55b693154c44b70f86a39732e";
+        sha256 = "0wiikviwyvy6h55rgdvy7csi1zqniqg26p8x44rd6mhbw0g00h56";
+      };
+      sourceRoot = "source";
+
+      kernelVersion = linux.modDirVersion;
+      modules = [ "8189es" ];
+      makeFlags = kernelMakeFlags linux ++ [
+        "CONFIG_RTL8189ES=m"
+      ];
+      enableParallelBuilding = true;
+
+      installPhase = ''
+        install -Dm644 -t $out/lib/modules/$kernelVersion/kernel/drivers/net/wireless 8189es.ko
+      '';
+
+      meta.platforms = lib.platforms.linux;
+    };
+
+    looking-glass-kvmfr = { stdenv, looking-glass-client, lib, linux }: stdenv.mkDerivation rec {
+      inherit (looking-glass-client) version;
+      pname = let
+        pname = "${looking-glass-client.pname}-kvmfr";
+        kernel-name = builtins.tryEval "${pname}-${linux.version}";
+      in if kernel-name.success then kernel-name.value else pname;
+
+      inherit (looking-glass-client) src;
+      sourceRoot = "source/module";
+
+      kernelVersion = linux.modDirVersion;
+      modules = [ "kvmfr" ];
+      makeFlags = kernelMakeFlags linux;
+      enableParallelBuilding = true;
+
+      installPhase = ''
+        install -Dm644 -t $out/lib/modules/$kernelVersion/kernel/drivers/ kvmfr.ko
+      '';
+
+      meta.platforms = lib.platforms.linux;
+    };
+
+    nvidia-patch = { stdenvNoCC, fetchFromGitHub, writeShellScriptBin, lib, lndir, nvidia_x11 ? linuxPackages.nvidia_x11, linuxPackages ? { } }: let
+      nvpatch = writeShellScriptBin "nvpatch" ''
+        set -eu
+        patchScript=$1
+        objdir=$2
+
+        set -- -sl
+        source $patchScript
+
+        patch="''${patch_list[$nvidiaVersion]}"
+        object="''${object_list[$nvidiaVersion]}"
+
+        if [[ -z $patch || -z $object ]]; then
+          echo "$nvidiaVersion not supported for $patchScript" >&2
+          exit 1
+        fi
+
+        sed -e "$patch" $objdir/$object.$nvidiaVersion > $object.$nvidiaVersion
+      '';
+    in stdenvNoCC.mkDerivation {
+      pname = "nvidia-patch";
+      version = "2021-06-23";
+
+      src = fetchFromGitHub {
+        # mirror: git clone https://ipfs.io/ipns/Qmed4r8yrBP162WK1ybd1DJWhLUi4t6mGuBoB9fLtjxR7u
+        owner = "keylase";
+        repo = "nvidia-patch";
+        rev = "2a1a85483fc0713c219d4b85f33f106991b05b6b";
+        sha256 = "1xar1yryrf6j8vwjki7ih3sbbghg7xrdzpz173snvf5pfajpvjfg";
+      };
+
+      nativeBuildInputs = [ nvpatch lndir ];
+      patchedLibs = [
+        "libnvidia-encode${stdenvNoCC.hostPlatform.extensions.sharedLibrary}"
+        "libnvidia-fbc${stdenvNoCC.hostPlatform.extensions.sharedLibrary}"
+      ];
+
+      inherit nvidia_x11;
+      nvidia_x11_bin = nvidia_x11.bin;
+      nvidia_x11_lib32 = nvidia_x11.lib32; # XXX: no patches for 32bit?
+      nvidiaVersion = nvidia_x11.version;
+
+      outputs = [ "out" "bin" "lib32" ];
+
+      buildPhase = ''
+        runHook preBuild
+
+        nvpatch patch.sh $nvidia_x11/lib || nvenc=$?
+        nvpatch patch-fbc.sh $nvidia_x11/lib || nvfbc=$?
+        if [[ -n $nvenc && -n $nvfbc ]]; then
+          exit 1
+        fi
+
+        runHook postBuild
+      '';
+
+      installPhase = ''
+        runHook preInstall
+
+        for f in $patchedLibs; do
+          if [[ -e $f.$nvidiaVersion ]]; then
+            install -Dm0755 -t $out/lib $f.$nvidiaVersion
+          else
+            echo WARN: $f not patched >&2
+          fi
+        done
+
+        install -d $out $bin $lib32
+        lndir -silent $nvidia_x11 $out
+
+        ln -s $nvidia_x11_bin/* $bin/
+        ln -s $nvidia_x11_lib32/* $lib32/
+
+        runHook postInstall
+      '';
+
+      meta = with lib.licenses; {
+        license = unfree;
+      };
+      passthru = {
+        ci.cache.wrap = true;
+        inherit (nvidia_x11) useProfiles persistenced settings bin lib32;
+      };
+    };
   };
-#in (callPackage packages { })
 in packages

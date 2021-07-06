@@ -1,8 +1,13 @@
 {
   go = { buildWeechatScript }: buildWeechatScript {
     pname = "go.py";
-    version = "2.6";
-    sha256 = "0zgy1dgkzlqjc0jzbdwa21yfcnvlwx154rlzll4c75c1y5825mld";
+    version = "2.7";
+    sha256 = "0bnbfpj1qg4yzwbikh1aw5ajc8l44lkb0y0m6mz8grpf5bxk5cwm";
+  };
+  highmon = { buildWeechatScript }: buildWeechatScript {
+    pname = "highmon.pl";
+    version = "2.7";
+    sha256 = "1vvgzscb12l3cp2nq954fx6j3awvpjsb0nqylal51ps9cq9a3wir";
   };
   auto_away = { buildWeechatScript }: buildWeechatScript {
     pname = "auto_away.py";
@@ -12,7 +17,7 @@
   autoconf = { buildWeechatScript }: buildWeechatScript {
     pname = "autoconf.py";
     version = "0.3";
-    sha256 = "1i81imlx4bcy3xl01lld1shj1wxqx2ixl72fwknb0s90gn7j4jrc";
+    sha256 = "122krj58hvsn7z6221ra7f1l5h6xa4g0dsdsrxzwkvkq83j01f00";
   };
   autosort = { buildWeechatScript }: buildWeechatScript {
     pname = "autosort.py";
@@ -23,6 +28,11 @@
     pname = "colorize_nicks.py";
     version = "27";
     sha256 = "0hiay88vvy171jiq6ahflm0ipb7sslfxwhmmm8psv6qk19rv2sxs";
+  };
+  title = { buildWeechatScript }: buildWeechatScript {
+    pname = "title.py";
+    version = "0.9";
+    sha256 = "1h8mxpv47q3inhynlfjm3pdjxlr2fl06z4cdhr06kpm8f7xvz56p";
   };
   unread_buffer = { buildWeechatScript }: buildWeechatScript {
     pname = "unread_buffer.py";
@@ -69,19 +79,5 @@
     passthru.scripts = [ pname ];
   };
 
-  weechat-matrix = { stdenvNoCC, weechat-matrix-contrib, lib }: stdenvNoCC.mkDerivation {
-    pname = "weechat-matrix";
-    inherit (weechat-matrix-contrib) version src;
-
-    weechatMatrixContrib = weechat-matrix-contrib;
-    buildPhase = "true";
-    installPhase = ''
-      install -D main.py $out/share/matrix.py
-
-      install -d $out/bin
-      ln -s $weechatMatrixContrib/bin/matrix_{upload,decrypt} $out/bin/
-    '';
-
-    passthru.scripts = [ "matrix.py" ];
-  };
+  weechat-matrix = { python3Packages, weechat-matrix }: python3Packages.weechat-matrix or weechat-matrix;
 }

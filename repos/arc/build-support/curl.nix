@@ -41,4 +41,4 @@
     } // env');
   in package;
 };
-in builtins.mapAttrs (_: p: self.callPackage p { }) builders
+in builders

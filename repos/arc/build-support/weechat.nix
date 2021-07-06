@@ -1,5 +1,5 @@
 { self, ... }: let
-  buildWeechatScript = self.callPackage ({ lib, stdenvNoCC, fetchurl }: {
+  buildWeechatScript = { lib, stdenvNoCC, fetchurl }: {
     pname, version, sha256, ...
   }@args: stdenvNoCC.mkDerivation ({
     pname = "weechat-script-${pname}";
@@ -25,7 +25,7 @@
 
       runHook postInstall
     '';
-  } // builtins.removeAttrs args [ "pname" "sha256" ])) { };
+  } // builtins.removeAttrs args [ "pname" "sha256" ]);
 in {
   inherit buildWeechatScript;
 }
