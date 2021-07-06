@@ -14,6 +14,7 @@
     ./monitoring.nix
     ./nextcloud.nix
     ./nginx.nix
+    ./nuage.nix
     ./pipewire.nix
     ./postgresql-backup.nix
     ./postgresql.nix

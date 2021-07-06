@@ -107,6 +107,10 @@ in
       enable = true;
     };
 
+    nuage = {
+      enable = true;
+    };
+
     postgresql-backup = {
       enable = true;
     };
