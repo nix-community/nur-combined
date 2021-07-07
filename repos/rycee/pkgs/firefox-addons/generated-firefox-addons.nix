@@ -242,10 +242,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.6.2";
+      version = "2021.7.5";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3788189/duckduckgo_privacy_essentials-2021.6.2-an+fx.xpi";
-      sha256 = "510c4e7b7e720ccb5ee0eec78c498dee5c012a5939b8b0706b7a195377876fa2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3806273/duckduckgo_privacy_essentials-2021.7.5-an+fx.xpi";
+      sha256 = "80ce7f01051b3b7789d75f936adfb67fc4c82a88db30a9a48c99ee354bb8f4bf";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -745,10 +745,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.6.1";
+      version = "9.7.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3797278/metamask-9.6.1-an+fx.xpi";
-      sha256 = "7a340b6afc3a8e38f47b9e31982e8140f8c02cbde06b021c98de5f4c893a9ee9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3806721/metamask-9.7.1-an+fx.xpi";
+      sha256 = "5b4642f34307d2be2e4212e1b594ba40be19f9ec2c744d0376d5599e4f26094e";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1436,10 +1436,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.4";
+      version = "3.8.6";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3798964/tree_style_tab_-3.8.4-fx.xpi";
-      sha256 = "8fbd47947efe647de25879505c0130aff2917062d413cb1d99fd832697d9ecaa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3806461/tree_style_tab_-3.8.6-fx.xpi";
+      sha256 = "c614e92e0d122832cf13f3e6a90d06ffae158827f13e0a978d453f132a557084";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -1469,10 +1469,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.36.0";
+      version = "1.36.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3798731/ublock_origin-1.36.0-an+fx.xpi";
-      sha256 = "384f3e5241f87e90c376fb6964842ce204743feed554b8b7dabe09f119ea7d66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3806442/ublock_origin-1.36.2-an+fx.xpi";
+      sha256 = "31f8c2126a3f4e3cfe3ef63550b842a5d4f071ec1c6e5aa377c2f29b11ff1415";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -1497,10 +1497,10 @@
       };
     "unpaywall" = buildFirefoxXpiAddon {
       pname = "unpaywall";
-      version = "3.94";
+      version = "3.96";
       addonId = "{f209234a-76f0-4735-9920-eb62507a54cd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3724706/unpaywall-3.94-fx.xpi";
-      sha256 = "d21134223bf4aa06b9b21821e6bb5b19154bf80316cf0afaf10fe8845b4cc767";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3806465/unpaywall-3.96-fx.xpi";
+      sha256 = "fa19409ca9feab9121e39d01bb46fc658abcaded172adb5900a2b52c60bc9f65";
       meta = with lib;
       {
         homepage = "http://unpaywall.org/products/extension";
