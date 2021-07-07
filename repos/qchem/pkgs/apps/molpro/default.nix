@@ -4,7 +4,7 @@
 assert token != null;
 
 let
-  version = "2020.1.2";
+  version = "2021.2.0";
 
 in stdenv.mkDerivation {
   pname = "molpro";
@@ -12,8 +12,8 @@ in stdenv.mkDerivation {
 
   src = requireFile {
     url = http://www.molpro.net;
-    name = "molpro-mpp-${version}.linux_x86_64_openmp.sh.gz";
-    sha256 = "1i6k0rfwfghizlhflzcdr7rb7w3cw1i172a1s60qkih1iipvmd9p";
+    name = "molpro-mpp-${version}.linux_x86_64_sockets.sh.gz";
+    sha256 = "0ghpv73zfdwx66hpnxma9wwzsgzpi1c92himvq23spqdpxykmdq2";
   };
 
   nativeBuildInputs = [ patchelf ];
@@ -68,15 +68,14 @@ in stdenv.mkDerivation {
 
      # pretend this is a writable home dir
      export HOME=$PWD
-
      # need to specify interface or: "MPID_nem_tcp_init(373) gethostbyname failed"
      $out/bin/molpro --launcher \
        "$out/bin/mpiexec.hydra -iface lo $out/bin/molpro.exe" $inp.inp
 
      echo "Check for sucessful run:"
-     grep "RHF STATE  1.1 Energy" $inp.out
+     grep "RHF STATE 1.1 Energy" $inp.out
      echo "Check for correct energy:"
-     grep "RHF STATE  1.1 Energy" $inp.out | grep 74.880174
+     grep "RHF STATE 1.1 Energy" $inp.out | grep 74.880174
   '';
 
   meta = with lib; {

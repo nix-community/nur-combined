@@ -34,8 +34,7 @@
 | libefp-1.5.0-psi4 | qchem.libefp | Parallel implementation of the Effective Fragment Potential Method |
 | libGDSII-0.21 | qchem.libGDSII | Library and command-line utility for reading GDSII geometry files |
 | libint-1.1.5 | qchem.libint1 | Library for the evaluation of molecular integrals of many-body operators over Gaussian functions |
-| libint2-2.6.0 | qchem.libint-bagel | Library for the evaluation of molecular integrals of many-body operators over Gaussian functions |
-| libint2-2.6.0 | qchem.libint2 | Library for the evaluation of molecular integrals of many-body operators over Gaussian functions |
+| libint2-2.6.0 | qchem.libint | Library for the evaluation of molecular integrals of many-body operators over Gaussian functions |
 | libvdwxc-24.02.2020 | qchem.libvdwxc | Portable C library of density functionals with van der Waals interactions for density functional theory |
 | libxc-4.3.4 | qchem.libxc4 | Library of exchange-correlation functionals for density-functional theory |
 | libxsmm-1.16.1 | qchem.libxsmm | Library targeting Intel Architecture for specialized dense and sparse matrix operations, and deep learning primitives |
@@ -46,8 +45,8 @@
 | mkl-2021.1.1.52 | qchem.mkl | Intel OneAPI Math Kernel Library |
 | molden-6.3 | qchem.molden | Display and manipulate molecular structures |
 | molpro-2012.1.12 | qchem.molpro12 | Quantum chemistry program package |
-| molpro-2020.1.2 | qchem.molpro | Quantum chemistry program package |
 | molpro-2020.2 | qchem.molpro-ext | Quantum chemistry program package |
+| molpro-2021.2.0 | qchem.molpro | Quantum chemistry program package |
 | mrcc-2020.02.22 | qchem.mrcc | MRCC is a suite of ab initio and density functional quantum chemistry programs for high-accuracy electronic structure calculations. |
 | mt-dgeem-20160114 | qchem.mt-dgemm | Simple matrix multiplication performance test |
 | multiwfn-3.7 | qchem.multiwfn | Multifunctional wave function analyser. |
@@ -60,7 +59,7 @@
 | openmolcas-18.09-20180902 | qchem.molcas1809 | Quantum chemistry software package |
 | openmolcas-21.06-2021-06-09 | qchem.molcas | Quantum chemistry software package |
 | openmpi-4.1.1 | qchem.mpi | Open source MPI-3 implementation |
-| orca-4.2.1 | qchem.orca | Ab initio quantum chemistry program package |
+| orca-5.0.0 | qchem.orca | Ab initio quantum chemistry program package |
 | osss-ucx-1.0.2 | qchem.osss-ucx | OpenSHM reference implementation |
 | osu-benchmark-5.6.3 | qchem.osu-benchmark | MPI micro benchmark suite |
 | packmol-20.2.3 | qchem.packmol | Generating initial configurations for molecular dynamics |

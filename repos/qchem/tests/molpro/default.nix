@@ -17,13 +17,13 @@ batsTest {
     }
 
     @test "HF Energy" {
-      grep '!RHF STATE  1.1 Energy' molpro.out | grep '\-113.9124931'
+      grep '!RHF STATE 1.1 Energy' molpro.out | grep '\-113.9124931'
     }
 
     @test "CASSCF Energy" {
-      grep '!MCSCF STATE  1.1 Energy' molpro.out | grep '\-113.8704585'
-      grep '!MCSCF STATE  2.1 Energy' molpro.out | grep '\-113.6617828'
-      grep '!MCSCF STATE  3.1 Energy' molpro.out | grep '\-113.5701796'
+      grep '!MCSCF STATE 1.1 Energy' molpro.out | grep '\-113.8704585'
+      grep '!MCSCF STATE 2.1 Energy' molpro.out | grep '\-113.6617828'
+      grep '!MCSCF STATE 3.1 Energy' molpro.out | grep '\-113.5701796'
     }
 
     @test "OPTG Energy" {
@@ -31,12 +31,12 @@ batsTest {
     }
 
     @test "CASPT2 Energy" {
-      grep '!RSPT2 STATE  1.1 Energy' molpro.out | tail -1 | grep '\-114.3045096'
+      grep '!RSPT2 STATE 1.1 Energy' molpro.out | tail -1 | grep '\-114.3045096'
     }
 
     @test "MRCI Energy" {
-      grep '!MRCI STATE  1.1 Energy' molpro.out | grep '\-114.2818399'
-      grep '!MRCI STATE  2.1 Energy' molpro.out | grep '\-114.0268108'
+      grep '!MRCI STATE 1.1 Energy' molpro.out | grep '\-114.2818399'
+      grep '!MRCI STATE 2.1 Energy' molpro.out | grep '\-114.0268108'
     }
   '';
 }

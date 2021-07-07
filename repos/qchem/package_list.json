@@ -272,15 +272,7 @@
     "homepage": "https://github.com/evaleev/libint"
   },
   {
-    "attribute": "qchem.libint-bagel",
-    "name": "libint2-2.6.0",
-    "pname": "libint2",
-    "version": "2.6.0",
-    "description": "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions",
-    "homepage": "https://github.com/evaleev/libint"
-  },
-  {
-    "attribute": "qchem.libint2",
+    "attribute": "qchem.libint",
     "name": "libint2-2.6.0",
     "pname": "libint2",
     "version": "2.6.0",
@@ -368,18 +360,18 @@
     "homepage": "https://www.molpro.net"
   },
   {
-    "attribute": "qchem.molpro",
-    "name": "molpro-2020.1.2",
-    "pname": "molpro",
-    "version": "2020.1.2",
-    "description": "Quantum chemistry program package",
-    "homepage": "https://www.molpro.net"
-  },
-  {
     "attribute": "qchem.molpro-ext",
     "name": "molpro-2020.2",
     "pname": "molpro",
     "version": "2020.2",
+    "description": "Quantum chemistry program package",
+    "homepage": "https://www.molpro.net"
+  },
+  {
+    "attribute": "qchem.molpro",
+    "name": "molpro-2021.2.0",
+    "pname": "molpro",
+    "version": "2021.2.0",
     "description": "Quantum chemistry program package",
     "homepage": "https://www.molpro.net"
   },
@@ -481,9 +473,9 @@
   },
   {
     "attribute": "qchem.orca",
-    "name": "orca-4.2.1",
+    "name": "orca-5.0.0",
     "pname": "orca",
-    "version": "4.2.1",
+    "version": "5.0.0",
     "description": "Ab initio quantum chemistry program package",
     "homepage": "https://orcaforum.kofo.mpg.de/"
   },
