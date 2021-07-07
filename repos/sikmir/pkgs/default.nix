@@ -173,7 +173,6 @@ lib.makeScope newScope (
     gmnitohtml = callPackage ./gemini/gmnitohtml { };
     gssg = callPackage ./gemini/gssg { };
     gurl = callPackage ./gemini/gurl { };
-    kiln = callPackage ./gemini/kiln { };
     kineto = callPackage ./gemini/kineto { };
     md2gemini = callPackage ./gemini/md2gemini { };
     satellite = callPackage ./gemini/satellite { };

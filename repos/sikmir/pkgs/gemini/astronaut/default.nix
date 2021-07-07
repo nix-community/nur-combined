@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "astronaut";
-  version = "2021-06-28";
+  version = "2021-07-04";
 
   src = fetchFromSourcehut {
     owner = "~adnano";
     repo = pname;
-    rev = "d257518c8b7280256ccd062f78ffb2638098b978";
-    hash = "sha256-Hq8jJzLdM0h/0X7WIiLnSlQn996F0X2rGBFI167D+IY=";
+    rev = "85f5f440d28187a1c55b703f6575f129b7437873";
+    hash = "sha256-Lt67XU0FoGsQ59b/byxqMd8014tstt6HysIi50IW4Zw=";
   };
 
   nativeBuildInputs = [ scdoc ];

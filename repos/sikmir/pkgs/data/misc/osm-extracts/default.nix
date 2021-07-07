@@ -17,11 +17,11 @@ in
 {
   admin-boundaries = stdenv.mkDerivation rec {
     pname = "osm-admin-boundaries";
-    version = "210627";
+    version = "210705";
 
     src = fetchurl {
       url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
-      hash = "sha256-8dK/kIhEq4RwsaSjs4HEBhhlX7p/H/KVnEgDcgWRDuk=";
+      hash = "sha256-/5aP8iNSczUyyBWprgmqQjwEqoMR/kukwhPBBeSTTrQ=";
     };
 
     dontUnpack = true;
