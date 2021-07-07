@@ -182,7 +182,7 @@
     patches = [
       ./cargo-call-stack-udf.patch # https://github.com/japaric/cargo-call-stack/issues/20
     ];
-    cargoSha256 = "0pj6skdbmwwp49yin4fx4finbpkjhn4w904lk2s0ik17klrvmm5j";
+    cargoSha256 = "05gbh3kklr2d9m1mmj3lgnwqvgd53dzn5ibiz7ny75ch5ykqq720";
 
     # Only because of the cargo lockfile version...
     meta.broken = !lib.rustVersionAtLeast rustPlatform "1.41";

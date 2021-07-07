@@ -11,4 +11,5 @@
     url = "https://github.com/arcnmx/LookingGlass/commit/64170aff1f856314a24d9f89b24fc2f822d2ea52.patch";
     sha256 = "066x8pp5mnz9lkp9v46iampx5y58i0yrcb62d91033il8l980hvq";
   };
+  cmake-obs-installdir = ./obs-installdir.patch;
 }

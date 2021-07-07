@@ -62,32 +62,6 @@ let
         inherit linux;
       };
 
-    droidcam-obs = { stdenv, fetchurl, unzip, autoPatchelfHook }: stdenv.mkDerivation {
-      pname = "droidcam-obs";
-      version = "1.2.1";
-
-      nativeBuildInputs = [ autoPatchelfHook unzip ];
-      buildInputs = [ stdenv.cc.cc.lib ];
-
-      src = fetchurl {
-        url = "https://files.dev47apps.net/obs/droidcam_obs_1.2.1_linux.zip";
-        sha256 = "1pvpw47j896s9h5nqvngf9vbfd4l5zkksy3y5vngf1j6blcjz6nm";
-      };
-
-      dontBuild = true;
-
-      installPhase = ''
-        runHook preInstall
-
-        install -d $out/share/obs/obs-plugins/$pname
-        mv bin data $out/share/obs/obs-plugins/$pname/
-
-        runHook postInstall
-      '';
-
-      meta.broken = stdenv.isDarwin;
-    };
-
     rnnoise-plugin-extern = { stdenv, rnnoise-plugin, rnnoise, ladspaH, pkg-config }: rnnoise-plugin.overrideAttrs (old: rec {
       nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ pkg-config ];
       buildInputs = old.buildInputs or [ ] ++ [ rnnoise ladspaH ];

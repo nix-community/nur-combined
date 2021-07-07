@@ -8,7 +8,7 @@ in stdenv.mkDerivation {
   NIX_CFLAGS_COMPILE = looking-glass-client.NIX_CFLAGS_COMPILE or "-mavx"; # TODO fix?
 
   patches = with namedPatches; [
-    singlethread
+    singlethread cmake-obs-installdir
   ];
 
   nativeBuildInputs = [ cmake pkg-config ];
