@@ -10,6 +10,11 @@
     sha256 = "1rjdxd4fq5z3n51qx8vrcaf4i277ccc62jxk88xzbsxapdmjjdf9";
   })
   (fetchNuGet {
+    name = "CommandLineParser";
+    version = "2.8.0";
+    sha256 = "1m32xyilv2b7k55jy8ddg08c20glbcj2yi545kxs9hj2ahanhrbb";
+  })
+  (fetchNuGet {
     name = "Concentus";
     version = "1.1.7";
     sha256 = "0y5z444wrbhlmsqpy2sxmajl1fbf74843lvgj3y6vz260dn2q0l0";
