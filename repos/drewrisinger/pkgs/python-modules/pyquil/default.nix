@@ -20,7 +20,7 @@
 
 buildPythonPackage rec {
   pname = "pyquil";
-  version = "2.28.1";
+  version = "2.28.2";
 
   disabled = pythonOlder "3.6";
 
@@ -28,7 +28,7 @@ buildPythonPackage rec {
     owner = "rigetti";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-KkixNgtjZhbFj839oxkmhdjYIht4lw50ADFJtMoKqB8=";
+    sha256 = "sha256-ETnfXubyw6yWwrIEfmogxa/FXaWOzNe5iefsUGiO6So=";
   };
 
   propagatedBuildInputs = [
@@ -73,5 +73,6 @@ buildPythonPackage rec {
     homepage = "https://docs.rigetti.com/en/";
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];
+    broken = lib.versionOlder lark-parser.version "0.11.0"; # generating parser fails on older versions of Lark parser. Exact version compatibility unknown
   };
 }
