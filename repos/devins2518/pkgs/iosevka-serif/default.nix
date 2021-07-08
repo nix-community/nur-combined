@@ -12,8 +12,8 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/share/fonts
-    install iosevka-serif-term/*.ttf $out/share/fonts
     install norm/*.ttf $out/share/fonts
+    install iosevka-serif-term/complete/*.ttf $out/share/fonts
   '';
 
   meta = with lib; {
