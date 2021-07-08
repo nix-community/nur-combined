@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "cf-dns-updater";
-  version = "0.2";
+  version = "0.3";
 
   src = fetchFromGitHub {
     owner = "ouzu";
     repo = "cf-dns-updater";
     rev = "v${version}";
-    sha256 = "0jfg8f4xmig56v3p2a8i9dpf0lhmamk5wahzw619hplp9bpl2gjf";
+    sha256 = "1hjz4c4jp6axvbqbq0knpqcz6x90nzfaf0hb4ajlg9rn0fb80yj3";
   };
 
-  vendorSha256 = "07jkx29c18a0bmb8nyqvi64r0gvvj59swqwdlii54r7mk4in594a";
+  vendorSha256 = "11lq6mmvfa1yyqxaixgc1zzs6b3cr8ykzrgzdl5diwm2mn9zggc5";
   runVend = true;
   
   meta = with lib; {
