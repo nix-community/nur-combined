@@ -63,6 +63,10 @@ stdenv.mkDerivation rec {
     "-Denable_compile_warnings=off"
     "-Denable_compile_optimizations=${optionOnOff optimize}"
     "-Denable_lto=${optionOnOff optimize}"
+    # Otherwise CMAKE_INSTALL_{INCLUDEDIR,LIBDIR} are filled with the full derivation path
+    # which is not compatible with how SimGrid CmakeList.txt is written and leads to bad smpicc generation.
+    "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    "-DCMAKE_INSTALL_LIBDIR=lib"
   ];
 
   makeFlags = optional debug "VERBOSE=1";
