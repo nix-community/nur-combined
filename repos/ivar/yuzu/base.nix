@@ -1,5 +1,5 @@
 { pname, version, src, branchName
-, stdenv, lib, fetchFromGitHub, wrapQtAppsHook
+, stdenv, lib, wrapQtAppsHook
 , cmake, pkg-config
 , libpulseaudio, libjack2, alsa-lib, sndio
 , vulkan-loader, vulkan-headers
@@ -9,26 +9,13 @@
 , glslang
 , boost173
 , catch2
-, fmt
+, fmt_8
 , SDL2
 , udev
 , libusb1
 , ffmpeg
 }:
 
-let
-  # TODO: remove this when https://github.com/NixOS/nixpkgs/pull/129378 gets merged.
-  # This is currently done as yuzu depends on fmt 8.0+ behaviour.
-  updatedFmt = (fmt.overrideAttrs (attrs: rec {
-    version = "8.0.1";
-    src = fetchFromGitHub {
-      owner = "fmtlib";
-      repo = "fmt";
-      rev = version;
-      sha256 = "1mnvxqsan034d2jiqnw2yvkljl7lwvhakmj5bscwp1fpkn655bbw";
-    };
-  }));
-in
 stdenv.mkDerivation rec {
   inherit pname version src;
 
@@ -42,8 +29,7 @@ stdenv.mkDerivation rec {
     glslang
     boost173
     catch2
-    #fmt
-    updatedFmt
+    fmt_8
     SDL2
     udev
     libusb1
@@ -91,5 +77,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ ivar joshuafern ];
     platforms = platforms.linux;
+    broken = stdenv.isAarch64; # Currently aarch64 is not supported.
   };
 }
