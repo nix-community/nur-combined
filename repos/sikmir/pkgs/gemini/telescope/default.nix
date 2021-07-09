@@ -21,5 +21,6 @@ stdenv.mkDerivation rec {
     license = licenses.isc;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin; # explicit_bzero() compatibility function symbol exported in libressl
   };
 }
