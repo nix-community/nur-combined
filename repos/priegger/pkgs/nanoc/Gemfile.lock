@@ -67,7 +67,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
-  ruby
+  x86_64-linux
 
 DEPENDENCIES
   adsf
@@ -75,4 +75,4 @@ DEPENDENCIES
   nanoc
 
 BUNDLED WITH
-   2.1.4
+   2.2.20
