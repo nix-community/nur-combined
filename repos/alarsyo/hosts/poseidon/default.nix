@@ -28,6 +28,11 @@ in
     };
   };
 
+  services.tailscale = {
+    enable = true;
+    package = pkgs.unstable.tailscale;
+  };
+
   networking.hostName = "poseidon"; # Define your hostname.
   networking.domain = "alarsyo.net";
 
