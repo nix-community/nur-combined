@@ -1,3 +1,4 @@
+# git config include.path ../.gitconfig
 [remote "template"]
 	url = https://github.com/nix-community/nur-packages-template.git
 	fetch = +refs/heads/*:refs/remotes/template/*
