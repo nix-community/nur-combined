@@ -3,25 +3,25 @@
     "NUR": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-fAyOMP6fzsblZwsy7AtidSz4TzkvSsoP4fqZNoUxuCE=",
+        "narHash": "sha256-joS1haxPHeLtGccVflxzpAqhQmoI1yGGgUy4vQ/h3hg=",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/6c795b255eb56392524fb15d4c7f2bae5e90194a.tar.gz"
+        "url": "https://github.com/nix-community/NUR/archive/f7868201c510296231f65ba4aabff7e117045396.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/6c795b255eb56392524fb15d4c7f2bae5e90194a.tar.gz"
+        "url": "https://github.com/nix-community/NUR/archive/f7868201c510296231f65ba4aabff7e117045396.tar.gz"
       }
     },
     "classicube": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-ZBOMgR+7NMeyih9mT+DqZ6F3FHjjRHYoJGfs4fQjphk=",
+        "narHash": "sha256-v+Lu8F0BV8FQmWtXWGASm9/Oc81tC0/1dcg5kBr2aMA=",
         "type": "tarball",
-        "url": "https://github.com/unknownshadow200/classicube/archive/800cfe03d41ba0222e4821d039646d613e83df41.tar.gz"
+        "url": "https://github.com/unknownshadow200/classicube/archive/7ca3d62423be15ca06cbf81cf2998c31aa91ab52.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/unknownshadow200/classicube/archive/800cfe03d41ba0222e4821d039646d613e83df41.tar.gz"
+        "url": "https://github.com/unknownshadow200/classicube/archive/7ca3d62423be15ca06cbf81cf2998c31aa91ab52.tar.gz"
       }
     },
     "doom-emacs": {
@@ -60,13 +60,13 @@
     "efm-langserver": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-6FlQy2qpjBPb93J0WVNLPAMBh636igZnIbwVSbteCPw=",
+        "narHash": "sha256-GLOPIu8Bm9PeVK/3yT9JYVgVL9AwjUYgysdg8l8rTW0=",
         "type": "tarball",
-        "url": "https://github.com/mattn/efm-langserver/archive/4e23221382658949c836a11874af265179be2dee.tar.gz"
+        "url": "https://github.com/mattn/efm-langserver/archive/b7a20ec38aaea8fe0799d46cf317a861f46b5d55.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/mattn/efm-langserver/archive/4e23221382658949c836a11874af265179be2dee.tar.gz"
+        "url": "https://github.com/mattn/efm-langserver/archive/b7a20ec38aaea8fe0799d46cf317a861f46b5d55.tar.gz"
       }
     },
     "emacs": {
@@ -220,13 +220,13 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "narHash": "sha256-IzKTw2u/EKVr6TCQYylSAcOnrVRpir3wG3MUHj2LsTc=",
+        "narHash": "sha256-goRLk1I/OMclS9i17g932wyHyjiKI+htbuFIWIkzTbw=",
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/7df6656b113ce0d39c8b7d30915cafe046e1d64e.tar.gz"
+        "url": "https://github.com/rycee/home-manager/archive/06ee8ec8dfc4554c374052cd7b7083765748af99.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/7df6656b113ce0d39c8b7d30915cafe046e1d64e.tar.gz"
+        "url": "https://github.com/rycee/home-manager/archive/06ee8ec8dfc4554c374052cd7b7083765748af99.tar.gz"
       }
     },
     "impermanence": {
@@ -288,13 +288,13 @@
         "rotate-text": "rotate-text"
       },
       "locked": {
-        "narHash": "sha256-Q/3w8uX1eAMkaA/oQ98OicZQJXxnDaQsaxoQnKIXBr8=",
+        "narHash": "sha256-3RGoNYZ4hAo+iRTfy6qJfQ3YzLMDDFzBIUQNEmCv6Ms=",
         "type": "tarball",
-        "url": "https://github.com/vlaci/nix-doom-emacs/archive/71a2ea289967ca81708a1b4820c6e6a8361fca0a.tar.gz"
+        "url": "https://github.com/vlaci/nix-doom-emacs/archive/3893c50877a9d2d5d4aeee524ba1539f22115f1f.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/vlaci/nix-doom-emacs/archive/71a2ea289967ca81708a1b4820c6e6a8361fca0a.tar.gz"
+        "url": "https://github.com/vlaci/nix-doom-emacs/archive/3893c50877a9d2d5d4aeee524ba1539f22115f1f.tar.gz"
       }
     },
     "nix-gen-node-tools": {
@@ -371,13 +371,13 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "narHash": "sha256-R6ja2P/RdDGCcfC5FYCY6wa8EsHjJLV1jztlcK3xsi0=",
+        "narHash": "sha256-/v85RkZ0Z+lxipkG2sjYNRINktc8VySbLQmPbirY0hQ=",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/59ef8087a3d95bf6c69767c126bbc0b7ced89e32.tar.gz"
+        "url": "https://github.com/nixos/nixpkgs/archive/87807e64a5ef5206b745a40af118c7be8db73681.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/59ef8087a3d95bf6c69767c126bbc0b7ced89e32.tar.gz"
+        "url": "https://github.com/nixos/nixpkgs/archive/87807e64a5ef5206b745a40af118c7be8db73681.tar.gz"
       }
     },
     "nose": {
