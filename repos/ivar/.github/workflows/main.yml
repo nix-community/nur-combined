@@ -47,7 +47,7 @@ jobs:
         echo Now attempting to update yuzu
         ./updater.sh
     - name: Build nix packages
-      run: nix run -I 'nixpkgs=channel:nixpkgs-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      run: nix run --quiet -I 'nixpkgs=channel:nixpkgs-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Push changes
       uses: actions-x/commit@v2
       with:
