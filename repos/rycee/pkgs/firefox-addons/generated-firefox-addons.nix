@@ -63,10 +63,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.51.0";
+      version = "1.51.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3804457/bitwarden_free_password_manager-1.51.0-an+fx.xpi";
-      sha256 = "4cb28f3de262ac9a698139c8ee9850805af87c3b047b9437faea2ef0231dbf18";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3807401/bitwarden_free_password_manager-1.51.1-an+fx.xpi";
+      sha256 = "9cd1db78e612473e1c7a9e57b9868f82b3d5fd770cbea7ffa488cc9efc65a345";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -242,10 +242,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.7.5";
+      version = "2021.7.9";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3806273/duckduckgo_privacy_essentials-2021.7.5-an+fx.xpi";
-      sha256 = "80ce7f01051b3b7789d75f936adfb67fc4c82a88db30a9a48c99ee354bb8f4bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3807661/duckduckgo_privacy_essentials-2021.7.9-an+fx.xpi";
+      sha256 = "6b1e36c6f19af5c8417ae086a95009485bac934a232b6e33da04d88cf4c1614f";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -1063,10 +1063,10 @@
       };
     "privacy-redirect" = buildFirefoxXpiAddon {
       pname = "privacy-redirect";
-      version = "1.1.47";
+      version = "1.1.48";
       addonId = "{b7f9d2cd-d772-4302-8c3f-eb941af36f76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3761053/privacy_redirect-1.1.47-an+fx.xpi";
-      sha256 = "f39d53581a265f585c38f6fbfb1f2e2d1d840922453bf75cf193fe089236707b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3807896/privacy_redirect-1.1.48-an+fx.xpi";
+      sha256 = "b1ee93dd4ead3286373f3a6475e32c3f51b291a5cc6f37abbdbfb8ba84350182";
       meta = with lib;
       {
         homepage = "https://github.com/SimonBrazell/privacy-redirect";
@@ -1133,10 +1133,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.6.0";
+      version = "5.6.1";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3805854/moderator_toolbox_for_reddit-5.6.0-an+fx.xpi";
-      sha256 = "5fe758281ec7ff7393a78024abf8744080c338633812c72ad7c99cf0e989f2bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3807747/moderator_toolbox_for_reddit-5.6.1-an+fx.xpi";
+      sha256 = "47fd5cab9b5c9e5968e804301926bd8fb3cbb7f09c3e831bc1895f5397ceb0c6";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
