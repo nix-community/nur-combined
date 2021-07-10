@@ -1,13 +1,13 @@
 { stdenvNoCC, lib, fetchFromGitHub }:
 stdenvNoCC.mkDerivation rec {
   pname = "schemaorg";
-  version = "12.0";
+  version = "13.0";
 
   src = fetchFromGitHub {
     owner = "schemaorg";
     repo = "schemaorg";
     rev = "v${version}-release";
-    sha256 = "1pzhkiq4nxfshmvajd0x3w26xnyikjf388rfx48xs2f4nfagfa5q";
+    sha256 = "0vg5i2w3mp04dfqrl1wl1flf32qqgg4bzlaxzp6sx6wyznlvn2g3";
   };
 
   installPhase = ''
