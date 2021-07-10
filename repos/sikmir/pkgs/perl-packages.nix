@@ -113,7 +113,7 @@ rec {
     };
     propagatedBuildInputs = [ ListMoreUtils EncodeLocale ];
     meta = with lib; {
-      homepage = "https://metacpan.org/pod/Geo::Openstreetmap::Parser";
+      homepage = "https://metacpan.org/pod/Geo::Names::Russian";
       description = "Geo::Names::Russian - parse and split russian geographical names";
       license = licenses.free;
     };

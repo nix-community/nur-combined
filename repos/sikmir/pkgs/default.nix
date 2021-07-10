@@ -269,6 +269,12 @@ lib.makeScope newScope (
     smrender = callPackage ./osm/smrender { };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
 
+    ### RADIO
+
+    airspyhf = callPackage ./radio/airspyhf { };
+    libad9361 = callPackage ./radio/libad9361 { };
+    sdrpp = callPackage ./radio/sdrpp { };
+
     ### SUCKLESS
 
     blind = callPackage ./suckless/blind { };
