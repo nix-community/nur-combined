@@ -35,7 +35,7 @@ Index: qt5ct/src/qt5ct/appearancepage.cpp
      keys = QPlatformThemeFactory::keys();
      m_ui->dialogComboBox->addItem(tr("Default"), "default");
 +    if(keys.contains("xdgdesktopportal"))
-+        m_ui->dialogComboBox->addItem("Portal", "xdgdesktopportal");
++        m_ui->dialogComboBox->addItem("XDG Desktop Portal", "xdgdesktopportal");
      if(keys.contains("gtk2") || keys.contains("qt5gtk2"))
          m_ui->dialogComboBox->addItem("GTK2", "gtk2");
      else if(keys.contains("gtk3") || keys.contains("qt5gtk3"))
@@ -118,15 +118,17 @@ Index: qt5ct/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp
  void Qt5CTPlatformTheme::applySettings()
  {
      if(!QGuiApplication::desktopSettingsAware())
-@@ -306,7 +321,10 @@
+@@ -306,7 +321,12 @@
      if(!schemePath.isEmpty() && settings.value("custom_palette", false).toBool())
      {
          schemePath = Qt5CT::resolvePath(schemePath); //replace environment variables
 -        m_palette = new QPalette(loadColorScheme(schemePath));
-+        if(schemePath.endsWith(".colors"))
++        if(schemePath.endsWith(".colors")) {
 +            m_palette = new QPalette(KColorScheme::createApplicationPalette(KSharedConfig::openConfig(schemePath)));
-+        else
++            qApp->setProperty("KDE_COLOR_SCHEME_PATH", schemePath);
++        } else {
 +            m_palette = new QPalette(loadColorScheme(schemePath));
++        }
      }
      m_iconTheme = settings.value("icon_theme").toString();
      //load dialogs
