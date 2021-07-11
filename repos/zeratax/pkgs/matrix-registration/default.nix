@@ -12,22 +12,19 @@ let
 in
 buildPythonPackage rec {
   pname = "matrix-registration";
-  version = "1.0.0.dev6";
+  version = "1.0.0.dev7";
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "ZerataX";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0c6lm4nkvii054wsj6wszddgcrgb3g65h3is30pdikdjk8p8j70i";
+    sha256 = "0mbdciys0hkp5nn2yv48fcjklb3lvjzaz0zpyiacx83c3h6k4c0r";
   };
 
   postPatch = ''
-    cat setup.py
     sed -i -e '/alembic>/d' setup.py
-    sed -iE -e 's/"SQLAlchemy.+/"SQLAlchemy>=1.3.13",/' setup.py
     sed -i -e 's/~=/>=/' setup.py
-    cat setup.py
   '';
 
   propagatedBuildInputs = [
