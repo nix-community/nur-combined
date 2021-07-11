@@ -100,7 +100,6 @@ in
         self.remmina
         self.shellcheck
         self.source-code-pro
-        self.talon
         self.vlc
         self.xclip
         self.xsel

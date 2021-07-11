@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export TERM=xterm-256color
+export NIXPKGS_ALLOW_UNFREE=1
+
+nix run -f channel:nixos-21.05 talon -c talon

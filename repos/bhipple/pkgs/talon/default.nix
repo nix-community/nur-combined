@@ -69,14 +69,12 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-  ''
-  # Clean out unused stuff
-  + ''
+
+    # Clean out unused stuff
     rm run.sh
-  ''
-  # Copy Talon to the Nix store and patchelf
-  + ''
-    mkdir -p $out
+
+    # Copy Talon to the Nix store and patchelf
+    mkdir -p $out/bin
     cp --recursive --target-directory=$out *
 
     # Tell talon where to find glibc
@@ -84,13 +82,9 @@ stdenv.mkDerivation rec {
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath $libPath \
       $out/talon
-  ''
-  # Setup a bin dir
-  + ''
-    mkdir -p "$out/bin"
+
     ln -s "$out/talon" "$out/bin/talon"
-  ''
-  + ''
+
     runHook postInstall
   '';
 
