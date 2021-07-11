@@ -57,12 +57,9 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  # TODO: Instead of copying to $out/share/talon, use a standard Linux tree;
-  # then this gets much simpler
-  libPath = "${placeholder "out"}/share/talon/lib:"
-    + "${placeholder "out"}/share/talon/resources/python/lib:"
-    + "${placeholder "out"}/share/talon/resources/pypy/lib:"
-    + "${placeholder "out"}/share/talon/resources/python/lib/python3.9/site-packages/numpy.libs:"
+  libPath = "${placeholder "out"}/lib:"
+    + "${placeholder "out"}/resources/python/lib:"
+    + "${placeholder "out"}/resources/python/lib/python3.9/site-packages/numpy.libs:"
     + lib.makeLibraryPath buildInputs;
 
   qtWrapperArgs = [
@@ -75,25 +72,23 @@ stdenv.mkDerivation rec {
   ''
   # Clean out unused stuff
   + ''
-    # We don't use this script, so remove it to ensure that it's not run by
-    # accident.
     rm run.sh
   ''
   # Copy Talon to the Nix store and patchelf
   + ''
-    mkdir -p "$out/share/talon"
-    cp --recursive --target-directory=$out/share/talon *
+    mkdir -p $out
+    cp --recursive --target-directory=$out *
 
     # Tell talon where to find glibc
     patchelf \
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath $libPath \
-      $out/share/talon/talon
+      $out/talon
   ''
   # Setup a bin dir
   + ''
     mkdir -p "$out/bin"
-    ln -s "$out/share/talon/talon" "$out/bin/talon"
+    ln -s "$out/talon" "$out/bin/talon"
   ''
   + ''
     runHook postInstall
