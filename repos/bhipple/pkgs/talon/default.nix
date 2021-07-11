@@ -52,10 +52,13 @@ stdenv.mkDerivation rec {
     xorg.libSM
     xorg.libX11
     xorg.libXrender
+    xorg.libxcb
     xz
     zlib
   ];
 
+  # TODO: Instead of copying to $out/share/talon, use a standard Linux tree;
+  # then this gets much simpler
   libPath = "${placeholder "out"}/share/talon/lib:"
     + "${placeholder "out"}/share/talon/resources/python/lib:"
     + "${placeholder "out"}/share/talon/resources/pypy/lib:"
