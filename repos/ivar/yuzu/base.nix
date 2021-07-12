@@ -16,12 +16,6 @@
 , ffmpeg
 }:
 
-let
-  qtbase_patched = (qtbase.overrideAttrs (attrs: {
-    # See https://codereview.qt-project.org/c/qt/qtbase/+/339323
-    patches = attrs.patches or [] ++ [ ./fix-compilation.diff ];
-  }));
-in
 stdenv.mkDerivation rec {
   inherit pname version src;
 
@@ -29,8 +23,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libpulseaudio libjack2 alsa-lib sndio
     vulkan-loader vulkan-headers
-    #qtbase qtwebengine qttools
-    qtbase_patched qtwebengine qttools
+    qtbase qtwebengine qttools
     nlohmann_json rapidjson
     zlib zstd libzip lz4
     glslang
