@@ -14,6 +14,7 @@ with lib;
     nextcloud-admin-pass = lib.fileContents ./nextcloud-admin-pass.secret;
     nextcloud-admin-user = lib.fileContents ./nextcloud-admin-user.secret;
     lohr-shared-secret = lib.fileContents ./lohr-shared-secret.secret;
+    gandiKey = lib.fileContents ./gandi-api-key.secret;
 
     borg-backup = import ./borg-backup { inherit lib; };
 

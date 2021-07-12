@@ -33,7 +33,9 @@ in
     package = pkgs.unstable.tailscale;
   };
 
-  virtualisation.podman.enable = true;
+  virtualisation.docker = {
+    enable = true;
+  };
 
   networking.hostName = "poseidon"; # Define your hostname.
   networking.domain = "alarsyo.net";
@@ -106,7 +108,6 @@ in
 
     monitoring = {
       enable = true;
-      useACME = true;
       domain = "monitoring.${config.networking.domain}";
     };
 
@@ -116,6 +117,11 @@ in
 
     nuage = {
       enable = true;
+    };
+
+    paperless = {
+      enable = true;
+      port = 8085;
     };
 
     postgresql-backup = {
@@ -150,9 +156,6 @@ in
     };
   };
 
-  security.acme.acceptTerms = true;
-  security.acme.email = "antoine97.martin@gmail.com";
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.permitRootLogin = "no";
@@ -162,6 +165,6 @@ in
   documentation.nixos.enable = false;
 
   environment.systemPackages = with pkgs; [
-    podman-compose
+    docker-compose
   ];
 }

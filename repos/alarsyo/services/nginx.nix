@@ -1,7 +1,7 @@
 # Part of config shamelessly stolen from:
 #
 # https://github.com/delroth/infra.delroth.net
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
   # Whenever something defines an nginx vhost, ensure that nginx defaults are
   # properly set.
@@ -17,5 +17,23 @@
     };
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];
+
+    security.acme = {
+      acceptTerms = true;
+      email = "antoine97.martin@gmail.com";
+
+      certs =
+        let
+          domain = config.networking.domain;
+          gandiKey = config.my.secrets.gandiKey;
+        in {
+          "${domain}" = {
+            extraDomainNames = [ "*.${domain}" ];
+            dnsProvider = "gandiv5";
+            credentialsFile = pkgs.writeText "gandi-creds.env" gandiKey;
+            group = "nginx";
+          };
+        };
+    };
   };
 }

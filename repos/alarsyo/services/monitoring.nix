@@ -2,11 +2,12 @@
 
 with lib;
 
-let cfg = config.my.services.monitoring;
+let
+  cfg = config.my.services.monitoring;
+  domain = config.networking.domain;
 in {
   options.my.services.monitoring = {
     enable = mkEnableOption "Enable monitoring";
-    useACME = mkEnableOption "Get HTTPS certs";
 
     domain = mkOption {
       type = types.str;
@@ -49,6 +50,8 @@ in {
       port = 9090;
       listenAddress = "127.0.0.1";
 
+      retentionTime = "2y";
+
       exporters = {
         node = {
           enable = true;
@@ -74,8 +77,8 @@ in {
           proxyWebsockets = true;
         };
 
-        forceSSL = cfg.useACME;
-        enableACME = cfg.useACME;
+        forceSSL = true;
+        useACMEHost = domain;
       };
     };
   };

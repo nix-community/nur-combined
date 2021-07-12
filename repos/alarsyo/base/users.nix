@@ -13,6 +13,7 @@ in
     extraGroups = [
       "media"
       "networkmanager"
+      "docker"
       "wheel" # Enable ‘sudo’ for the user.
     ];
     shell = pkgs.fish;

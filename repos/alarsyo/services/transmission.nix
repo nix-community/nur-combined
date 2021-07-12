@@ -56,7 +56,7 @@ in
 
     services.nginx.virtualHosts."${webuiDomain}" = {
       forceSSL = true;
-      enableACME = true;
+      useACMEHost = domain;
 
       locations."/".proxyPass = "http://127.0.0.1:${toString transmissionRpcPort}";
     };

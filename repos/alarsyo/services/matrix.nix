@@ -171,7 +171,7 @@ in {
       virtualHosts = {
         "matrix.${domain}" = {
           forceSSL = true;
-          enableACME = true;
+          useACMEHost = domain;
 
           locations =
             let
@@ -199,7 +199,7 @@ in {
         "matrix.${domain}_federation" = rec {
           forceSSL = true;
           serverName = "matrix.${domain}";
-          useACMEHost = serverName;
+          useACMEHost = domain;
 
           locations."/".return = "404";
 
@@ -216,7 +216,7 @@ in {
 
         "${domain}" = {
           forceSSL = true;
-          enableACME = true;
+          useACMEHost = domain;
 
           locations."= /.well-known/matrix/server".extraConfig =
             let
@@ -243,7 +243,7 @@ in {
         # Element Web app deployment
         #
         "chat.${domain}" = {
-          enableACME = true;
+          useACMEHost = domain;
           forceSSL = true;
 
           root = pkgs.element-web.override {

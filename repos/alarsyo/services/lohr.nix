@@ -65,7 +65,7 @@ in
     services.nginx.virtualHosts = {
       "lohr.${domain}" = {
         forceSSL = true;
-        enableACME = true;
+        useACMEHost = domain;
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString cfg.port}";

@@ -24,7 +24,7 @@ in {
     # Proxy to Jellyfin
     services.nginx.virtualHosts."jellyfin.${domain}" = {
       forceSSL = true;
-      enableACME = true;
+      useACMEHost = domain;
 
       locations."/" = {
         proxyPass = "http://localhost:${toString jellyfinPort}/";

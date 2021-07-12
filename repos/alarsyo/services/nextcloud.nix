@@ -66,7 +66,7 @@ in
       virtualHosts = {
         "cloud.${domain}" = {
           forceSSL = true;
-          enableACME = true;
+          useACMEHost = domain;
         };
       };
     };
