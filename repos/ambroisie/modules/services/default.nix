@@ -14,6 +14,7 @@
     ./lohr.nix
     ./matrix.nix
     ./miniflux.nix
+    ./monitoring.nix
     ./nextcloud.nix
     ./nginx.nix
     ./pirate.nix

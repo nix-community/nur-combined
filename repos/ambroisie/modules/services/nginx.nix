@@ -1,7 +1,7 @@
 # Configuration shamelessly stolen from [1]
 #
 # [1]: https://github.com/delroth/infra.delroth.net/blob/master/common/nginx.nix
-{ config, pkgs, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # Whenever something defines an nginx vhost, ensure that nginx defaults are
@@ -39,6 +39,35 @@
             credentialsFile = writeText "key.env" key; # Unsecure, I don't care.
           };
         };
+    };
+    # Setup monitoring
+    services.grafana.provision.dashboards = [
+      {
+        name = "NGINX";
+        options.path = pkgs.nur.repos.alarsyo.grafana-dashboards.nginx;
+        disableDeletion = true;
+      }
+    ];
+
+    services.prometheus = {
+      exporters.nginx = {
+        enable = true;
+        listenAddress = "127.0.0.1";
+      };
+
+      scrapeConfigs = [
+        {
+          job_name = "nginx";
+          static_configs = [
+            {
+              targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.nginx.port}" ];
+              labels = {
+                instance = config.networking.hostName;
+              };
+            }
+          ];
+        }
+      ];
     };
   };
 }

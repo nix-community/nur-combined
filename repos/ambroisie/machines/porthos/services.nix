@@ -72,6 +72,14 @@ in
       enable = true;
       password = my.secrets.miniflux.password;
     };
+    # Various monitoring dashboards
+    monitoring = {
+      enable = true;
+      grafana = {
+        passwordFile =
+          builtins.toFile "grafana.txt" my.secrets.monitoring.password; # Insecure, I don't care
+      };
+    };
     # Nextcloud self-hosted cloud
     nextcloud = {
       enable = true;

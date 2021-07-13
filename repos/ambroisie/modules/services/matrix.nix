@@ -121,7 +121,7 @@ in
 
     services.nginx.virtualHosts = {
       "matrix.${domain}" = {
-        forceSSL = true;
+        onlySSL = true;
         useACMEHost = domain;
 
         locations =
@@ -149,7 +149,7 @@ in
 
       # same as above, but listening on the federation port
       "matrix.${domain}_federation" = rec {
-        forceSSL = true;
+        onlySSL = true;
         serverName = "matrix.${domain}";
         useACMEHost = domain;
 

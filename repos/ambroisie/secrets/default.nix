@@ -51,6 +51,8 @@ throwOnCanary {
 
     miniflux.password = fileContents ./miniflux/password.txt;
 
+    monitoring.password = fileContents ./monitoring/password.txt;
+
     nextcloud.password = fileContents ./nextcloud/password.txt;
 
     podgrab.password = fileContents ./podgrab/password.txt;
