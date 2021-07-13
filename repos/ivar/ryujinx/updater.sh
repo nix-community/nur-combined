@@ -27,7 +27,7 @@ sed -i "./default.nix" -re "s|\"$old_hash\"|\"$new_hash\"|"
 sed -i "./default.nix" -re "s|\"$old_rev\"|\"$new_rev\"|"
 
 echo Updating nuget dependencies..
-store_src="$(nix-build .. -A ryujinx.src --no-out-link)"
+store_src="$(nix-build .. -A ryujinx.src --no-out-link --quiet)"
 src="$(mktemp -d /tmp/ryujinx-src.XXX)"
 cp -rT "$store_src" "$src"
 chmod -R +w "$src"
@@ -47,7 +47,7 @@ cat >./nuget_tmp.config <<EOF
 </configuration>
 EOF
 
-dotnet restore Ryujinx.sln --configfile ./nuget_tmp.config
+dotnet restore Ryujinx.sln --configfile ./nuget_tmp.config -nologo -consoleLoggerParameters:NoSummary -verbosity:quiet
 
 echo "{ fetchNuGet }: [" >"$deps_file"
 while read pkg_spec; do
