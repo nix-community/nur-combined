@@ -20,7 +20,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "6.7.3"
+      "version": "7.3.7"
     },
     {
       "type": "panel",
@@ -59,8 +59,23 @@
   "gnetId": 1860,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1595837627257,
-  "links": [],
+  "iteration": 1614605016686,
+  "links": [
+    {
+      "icon": "external link",
+      "tags": [],
+      "title": "Github",
+      "type": "link",
+      "url": "https://github.com/rfrail3/grafana-dashboards"
+    },
+    {
+      "icon": "external link",
+      "tags": [],
+      "title": "Grafana",
+      "type": "link",
+      "url": "https://grafana.com/grafana/dashboards/1860"
+    }
+  ],
   "panels": [
     {
       "collapsed": false,
@@ -81,6 +96,45 @@
       "cacheTimeout": null,
       "datasource": "${DS_PROMETHEUS}",
       "description": "Busy state of all CPU cores together",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "nullValueMode": "null",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 85
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 3,
@@ -90,61 +144,26 @@
       "id": 20,
       "links": [],
       "options": {
-        "fieldOptions": {
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "mappings": [
-              {
-                "id": 0,
-                "op": "=",
-                "text": "N/A",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "max": 100,
-            "min": 0,
-            "nullValueMode": "null",
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "rgba(50, 172, 45, 0.97)",
-                  "value": null
-                },
-                {
-                  "color": "rgba(237, 129, 40, 0.89)",
-                  "value": 85
-                },
-                {
-                  "color": "rgba(245, 54, 54, 0.9)",
-                  "value": 95
-                }
-              ]
-            },
-            "unit": "percent"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "orientation": "horizontal",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.3.7",
       "targets": [
         {
-          "expr": "(((count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu))) - avg(sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance=\"$node\",job=\"$job\"}[5m])))) * 100) / count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu))",
+          "expr": "(((count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu))) - avg(sum by (mode)(rate(node_cpu_seconds_total{mode='idle',instance=\"$node\",job=\"$job\"}[$__rate_interval])))) * 100) / count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu))",
           "hide": false,
           "intervalFactor": 1,
           "legendFormat": "",
           "refId": "A",
-          "step": 900
+          "step": 240
         }
       ],
       "title": "CPU Busy",
@@ -154,6 +173,45 @@
       "cacheTimeout": null,
       "datasource": "${DS_PROMETHEUS}",
       "description": "Busy state of all CPU cores together (5 min average)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "nullValueMode": "null",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 85
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 3,
@@ -163,53 +221,18 @@
       "id": 155,
       "links": [],
       "options": {
-        "fieldOptions": {
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "mappings": [
-              {
-                "id": 0,
-                "op": "=",
-                "text": "N/A",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "max": 100,
-            "min": 0,
-            "nullValueMode": "null",
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "rgba(50, 172, 45, 0.97)",
-                  "value": null
-                },
-                {
-                  "color": "rgba(237, 129, 40, 0.89)",
-                  "value": 85
-                },
-                {
-                  "color": "rgba(245, 54, 54, 0.9)",
-                  "value": 95
-                }
-              ]
-            },
-            "unit": "percent"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "orientation": "horizontal",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.3.7",
       "targets": [
         {
           "expr": "avg(node_load5{instance=\"$node\",job=\"$job\"}) /  count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)) * 100",
@@ -217,7 +240,7 @@
           "hide": false,
           "intervalFactor": 1,
           "refId": "A",
-          "step": 900
+          "step": 240
         }
       ],
       "title": "Sys Load (5m avg)",
@@ -227,6 +250,45 @@
       "cacheTimeout": null,
       "datasource": "${DS_PROMETHEUS}",
       "description": "Busy state of all CPU cores together (15 min average)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "nullValueMode": "null",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 85
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 3,
@@ -236,60 +298,25 @@
       "id": 19,
       "links": [],
       "options": {
-        "fieldOptions": {
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "mappings": [
-              {
-                "id": 0,
-                "op": "=",
-                "text": "N/A",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "max": 100,
-            "min": 0,
-            "nullValueMode": "null",
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "rgba(50, 172, 45, 0.97)",
-                  "value": null
-                },
-                {
-                  "color": "rgba(237, 129, 40, 0.89)",
-                  "value": 85
-                },
-                {
-                  "color": "rgba(245, 54, 54, 0.9)",
-                  "value": 95
-                }
-              ]
-            },
-            "unit": "percent"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "orientation": "horizontal",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.3.7",
       "targets": [
         {
           "expr": "avg(node_load15{instance=\"$node\",job=\"$job\"}) /  count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)) * 100",
           "hide": false,
           "intervalFactor": 1,
           "refId": "A",
-          "step": 900
+          "step": 240
         }
       ],
       "title": "Sys Load (15m avg)",
@@ -299,6 +326,38 @@
       "cacheTimeout": null,
       "datasource": "${DS_PROMETHEUS}",
       "description": "Non available RAM memory",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "nullValueMode": "null",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 80
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 3,
@@ -309,46 +368,18 @@
       "id": 16,
       "links": [],
       "options": {
-        "fieldOptions": {
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "decimals": 0,
-            "mappings": [],
-            "max": 100,
-            "min": 0,
-            "nullValueMode": "null",
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "rgba(50, 172, 45, 0.97)",
-                  "value": null
-                },
-                {
-                  "color": "rgba(237, 129, 40, 0.89)",
-                  "value": 80
-                },
-                {
-                  "color": "rgba(245, 54, 54, 0.9)",
-                  "value": 90
-                }
-              ]
-            },
-            "unit": "percent"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "orientation": "horizontal",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.3.7",
       "targets": [
         {
           "expr": "((node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"}) / (node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"} )) * 100",
@@ -356,7 +387,7 @@
           "hide": true,
           "intervalFactor": 1,
           "refId": "A",
-          "step": 900
+          "step": 240
         },
         {
           "expr": "100 - ((node_memory_MemAvailable_bytes{instance=\"$node\",job=\"$job\"} * 100) / node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"})",
@@ -364,7 +395,7 @@
           "hide": false,
           "intervalFactor": 1,
           "refId": "B",
-          "step": 900
+          "step": 240
         }
       ],
       "title": "RAM Used",
@@ -374,6 +405,45 @@
       "cacheTimeout": null,
       "datasource": "${DS_PROMETHEUS}",
       "description": "Used Swap",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "nullValueMode": "null",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 10
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 25
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 3,
@@ -383,59 +453,24 @@
       "id": 21,
       "links": [],
       "options": {
-        "fieldOptions": {
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "mappings": [
-              {
-                "id": 0,
-                "op": "=",
-                "text": "N/A",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "max": 100,
-            "min": 0,
-            "nullValueMode": "null",
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "rgba(50, 172, 45, 0.97)",
-                  "value": null
-                },
-                {
-                  "color": "rgba(237, 129, 40, 0.89)",
-                  "value": 10
-                },
-                {
-                  "color": "rgba(245, 54, 54, 0.9)",
-                  "value": 25
-                }
-              ]
-            },
-            "unit": "percent"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "orientation": "horizontal",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.3.7",
       "targets": [
         {
           "expr": "((node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{instance=\"$node\",job=\"$job\"}) / (node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} )) * 100",
           "intervalFactor": 1,
           "refId": "A",
-          "step": 900
+          "step": 240
         }
       ],
       "title": "SWAP Used",
@@ -445,6 +480,45 @@
       "cacheTimeout": null,
       "datasource": "${DS_PROMETHEUS}",
       "description": "Used Root FS",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "nullValueMode": "null",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 80
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 3,
@@ -454,60 +528,25 @@
       "id": 154,
       "links": [],
       "options": {
-        "fieldOptions": {
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "mappings": [
-              {
-                "id": 0,
-                "op": "=",
-                "text": "N/A",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "max": 100,
-            "min": 0,
-            "nullValueMode": "null",
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "rgba(50, 172, 45, 0.97)",
-                  "value": null
-                },
-                {
-                  "color": "rgba(237, 129, 40, 0.89)",
-                  "value": 80
-                },
-                {
-                  "color": "rgba(245, 54, 54, 0.9)",
-                  "value": 90
-                }
-              ]
-            },
-            "unit": "percent"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "orientation": "horizontal",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.3.7",
       "targets": [
         {
           "expr": "100 - ((node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A",
-          "step": 900
+          "step": 240
         }
       ],
       "title": "Root FS Used",
@@ -524,6 +563,12 @@
       ],
       "datasource": "${DS_PROMETHEUS}",
       "description": "Total number of CPU cores",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "short",
       "gauge": {
         "maxValue": 100,
@@ -581,7 +626,7 @@
           "intervalFactor": 1,
           "legendFormat": "",
           "refId": "A",
-          "step": 900
+          "step": 240
         }
       ],
       "thresholds": "",
@@ -609,6 +654,12 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "description": "System uptime",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "s",
       "gauge": {
         "maxValue": 100,
@@ -666,7 +717,7 @@
           "expr": "node_time_seconds{instance=\"$node\",job=\"$job\"} - node_boot_time_seconds{instance=\"$node\",job=\"$job\"}",
           "intervalFactor": 2,
           "refId": "A",
-          "step": 1800
+          "step": 240
         }
       ],
       "thresholds": "",
@@ -695,6 +746,12 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
       "description": "Total RootFS",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "bytes",
       "gauge": {
         "maxValue": 100,
@@ -752,7 +809,7 @@
           "hide": false,
           "intervalFactor": 1,
           "refId": "A",
-          "step": 900
+          "step": 240
         }
       ],
       "thresholds": "70,90",
@@ -780,6 +837,12 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
       "description": "Total RAM",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "bytes",
       "gauge": {
         "maxValue": 100,
@@ -835,7 +898,7 @@
           "expr": "node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"}",
           "intervalFactor": 1,
           "refId": "A",
-          "step": 900
+          "step": 240
         }
       ],
       "thresholds": "",
@@ -863,6 +926,12 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
       "description": "Total SWAP",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "bytes",
       "gauge": {
         "maxValue": 100,
@@ -918,7 +987,7 @@
           "expr": "node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"}",
           "intervalFactor": 1,
           "refId": "A",
-          "step": 900
+          "step": 240
         }
       ],
       "thresholds": "",
@@ -972,6 +1041,13 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 2,
       "description": "Basic CPU info",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 4,
       "fillGradient": 0,
       "gridPos": {
@@ -1002,9 +1078,10 @@
       "maxPerRow": 6,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": true,
+      "pluginVersion": "7.3.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1035,7 +1112,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode=\"system\",instance=\"$node\",job=\"$job\"}[5m])) * 100",
+          "expr": "sum by (instance)(rate(node_cpu_seconds_total{mode=\"system\",instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -1044,7 +1121,7 @@
           "step": 240
         },
         {
-          "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode='user',instance=\"$node\",job=\"$job\"}[5m])) * 100",
+          "expr": "sum by (instance)(rate(node_cpu_seconds_total{mode='user',instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -1053,7 +1130,7 @@
           "step": 240
         },
         {
-          "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode='iowait',instance=\"$node\",job=\"$job\"}[5m])) * 100",
+          "expr": "sum by (instance)(rate(node_cpu_seconds_total{mode='iowait',instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "Busy Iowait",
@@ -1061,7 +1138,7 @@
           "step": 240
         },
         {
-          "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode=~\".*irq\",instance=\"$node\",job=\"$job\"}[5m])) * 100",
+          "expr": "sum by (instance)(rate(node_cpu_seconds_total{mode=~\".*irq\",instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "Busy IRQs",
@@ -1069,7 +1146,7 @@
           "step": 240
         },
         {
-          "expr": "sum (irate(node_cpu_seconds_total{mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq',instance=\"$node\",job=\"$job\"}[5m])) * 100",
+          "expr": "sum (rate(node_cpu_seconds_total{mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq',instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "Busy Other",
@@ -1077,7 +1154,7 @@
           "step": 240
         },
         {
-          "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance=\"$node\",job=\"$job\"}[5m])) * 100",
+          "expr": "sum by (mode)(rate(node_cpu_seconds_total{mode='idle',instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "Idle",
@@ -1105,6 +1182,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:123",
           "format": "short",
           "label": "",
           "logBase": 1,
@@ -1113,6 +1191,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:124",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1154,6 +1233,13 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 2,
       "description": "Basic memory usage",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 4,
       "fillGradient": 0,
       "gridPos": {
@@ -1182,9 +1268,10 @@
       "maxPerRow": 6,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1329,6 +1416,13 @@
       "dashes": false,
       "datasource": "${DS_PROMETHEUS}",
       "description": "Basic network info per interface",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 4,
       "fillGradient": 0,
       "gridPos": {
@@ -1359,9 +1453,10 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1376,7 +1471,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(node_network_receive_bytes_total{instance=\"$node\",job=\"$job\"}[5m])*8",
+          "expr": "rate(node_network_receive_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])*8",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "recv {{device}}",
@@ -1384,7 +1479,7 @@
           "step": 240
         },
         {
-          "expr": "irate(node_network_transmit_bytes_total{instance=\"$node\",job=\"$job\"}[5m])*8",
+          "expr": "rate(node_network_transmit_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])*8",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "trans {{device}} ",
@@ -1441,6 +1536,13 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 3,
       "description": "Disk space used of all filesystems mounted",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 4,
       "fillGradient": 0,
       "gridPos": {
@@ -1471,9 +1573,10 @@
       "maxPerRow": 6,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1562,13 +1665,20 @@
           "datasource": "${DS_PROMETHEUS}",
           "decimals": 2,
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 4,
           "fillGradient": 0,
           "gridPos": {
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 21
+            "y": 3
           },
           "hiddenSeries": false,
           "id": 3,
@@ -1592,9 +1702,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": true,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1605,16 +1716,16 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode=\"system\",instance=\"$node\",job=\"$job\"}[5m])) * 100",
+              "expr": "sum by (mode)(rate(node_cpu_seconds_total{mode=\"system\",instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
               "format": "time_series",
               "interval": "10s",
               "intervalFactor": 2,
               "legendFormat": "System - Processes executing in kernel mode",
               "refId": "A",
-              "step": 20
+              "step": 240
             },
             {
-              "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='user',instance=\"$node\",job=\"$job\"}[5m])) * 100",
+              "expr": "sum by (mode)(rate(node_cpu_seconds_total{mode='user',instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "User - Normal processes executing in user mode",
@@ -1622,7 +1733,7 @@
               "step": 240
             },
             {
-              "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='nice',instance=\"$node\",job=\"$job\"}[5m])) * 100",
+              "expr": "sum by (mode)(rate(node_cpu_seconds_total{mode='nice',instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Nice - Niced processes executing in user mode",
@@ -1630,7 +1741,7 @@
               "step": 240
             },
             {
-              "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance=\"$node\",job=\"$job\"}[5m])) * 100",
+              "expr": "sum by (mode)(rate(node_cpu_seconds_total{mode='idle',instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Idle - Waiting for something to happen",
@@ -1638,7 +1749,7 @@
               "step": 240
             },
             {
-              "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='iowait',instance=\"$node\",job=\"$job\"}[5m])) * 100",
+              "expr": "sum by (mode)(rate(node_cpu_seconds_total{mode='iowait',instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Iowait - Waiting for I/O to complete",
@@ -1646,7 +1757,7 @@
               "step": 240
             },
             {
-              "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='irq',instance=\"$node\",job=\"$job\"}[5m])) * 100",
+              "expr": "sum by (mode)(rate(node_cpu_seconds_total{mode='irq',instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Irq - Servicing interrupts",
@@ -1654,7 +1765,7 @@
               "step": 240
             },
             {
-              "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='softirq',instance=\"$node\",job=\"$job\"}[5m])) * 100",
+              "expr": "sum by (mode)(rate(node_cpu_seconds_total{mode='softirq',instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Softirq - Servicing softirqs",
@@ -1662,7 +1773,7 @@
               "step": 240
             },
             {
-              "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='steal',instance=\"$node\",job=\"$job\"}[5m])) * 100",
+              "expr": "sum by (mode)(rate(node_cpu_seconds_total{mode='steal',instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Steal - Time spent in other operating systems when running in a virtualized environment",
@@ -1670,7 +1781,7 @@
               "step": 240
             },
             {
-              "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='guest',instance=\"$node\",job=\"$job\"}[5m])) * 100",
+              "expr": "sum by (mode)(rate(node_cpu_seconds_total{mode='guest',instance=\"$node\",job=\"$job\"}[$__rate_interval])) * 100",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Guest - Time spent running a virtual CPU for a guest operating system",
@@ -1747,13 +1858,20 @@
           "datasource": "${DS_PROMETHEUS}",
           "decimals": 2,
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 4,
           "fillGradient": 0,
           "gridPos": {
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 21
+            "y": 3
           },
           "hiddenSeries": false,
           "id": 24,
@@ -1777,9 +1895,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1926,13 +2045,20 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 4,
           "fillGradient": 0,
           "gridPos": {
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 33
+            "y": 15
           },
           "hiddenSeries": false,
           "id": 84,
@@ -1952,9 +2078,10 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1970,7 +2097,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_receive_bytes_total{instance=\"$node\",job=\"$job\"}[5m])*8",
+              "expr": "rate(node_network_receive_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])*8",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Receive",
@@ -1978,7 +2105,7 @@
               "step": 240
             },
             {
-              "expr": "irate(node_network_transmit_bytes_total{instance=\"$node\",job=\"$job\"}[5m])*8",
+              "expr": "rate(node_network_transmit_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])*8",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Transmit",
@@ -2037,13 +2164,20 @@
           "datasource": "${DS_PROMETHEUS}",
           "decimals": 3,
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 4,
           "fillGradient": 0,
           "gridPos": {
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 33
+            "y": 15
           },
           "height": "",
           "hiddenSeries": false,
@@ -2067,9 +2201,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2135,13 +2270,20 @@
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 45
+            "y": 27
           },
           "hiddenSeries": false,
           "id": 229,
@@ -2163,9 +2305,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2264,14 +2407,14 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[5m])",
+              "expr": "rate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[$__rate_interval])",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - Reads completed",
               "refId": "A",
-              "step": 480
+              "step": 240
             },
             {
-              "expr": "irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[5m])",
+              "expr": "rate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[$__rate_interval])",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Writes completed",
               "refId": "B",
@@ -2329,13 +2472,20 @@
           "datasource": "${DS_PROMETHEUS}",
           "decimals": 3,
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 4,
           "fillGradient": 0,
           "gridPos": {
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 45
+            "y": 27
           },
           "hiddenSeries": false,
           "id": 42,
@@ -2358,9 +2508,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2395,7 +2546,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_read_bytes_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[5m])",
+              "expr": "rate(node_disk_read_bytes_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
@@ -2404,7 +2555,7 @@
               "step": 240
             },
             {
-              "expr": "irate(node_disk_written_bytes_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[5m])",
+              "expr": "rate(node_disk_written_bytes_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
@@ -2433,7 +2584,8 @@
           },
           "yaxes": [
             {
-              "format": "bytes",
+              "$$hashKey": "object:965",
+              "format": "Bps",
               "label": "bytes read (-) / write (+)",
               "logBase": 1,
               "max": null,
@@ -2441,6 +2593,7 @@
               "show": true
             },
             {
+              "$$hashKey": "object:966",
               "format": "ms",
               "label": "",
               "logBase": 1,
@@ -2464,13 +2617,20 @@
           "datasource": "${DS_PROMETHEUS}",
           "decimals": 3,
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 4,
           "fillGradient": 0,
           "gridPos": {
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 57
+            "y": 39
           },
           "hiddenSeries": false,
           "id": 127,
@@ -2493,9 +2653,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2505,11 +2666,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_io_time_seconds_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"} [5m])",
+              "expr": "rate(node_disk_io_time_seconds_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"} [$__rate_interval])",
               "format": "time_series",
               "hide": false,
+              "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Time spent doing I/Os",
+              "legendFormat": "{{device}}",
               "refId": "A",
               "step": 240
             }
@@ -2518,7 +2680,7 @@
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "I/O Usage Times",
+          "title": "I/O Utilization",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -2534,14 +2696,16 @@
           },
           "yaxes": [
             {
-              "format": "s",
-              "label": "time",
+              "$$hashKey": "object:1041",
+              "format": "percentunit",
+              "label": "%util",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             },
             {
+              "$$hashKey": "object:1042",
               "format": "s",
               "label": "",
               "logBase": 1,
@@ -2641,7 +2805,7 @@
               "intervalFactor": 2,
               "legendFormat": "Inactive - Memory which has been less recently used.  It is more eligible to be reclaimed for other purposes",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_Active_bytes{instance=\"$node\",job=\"$job\"}",
@@ -2649,7 +2813,7 @@
               "intervalFactor": 2,
               "legendFormat": "Active - Memory that has been used more recently and usually not reclaimed unless absolutely necessary",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -2772,7 +2936,7 @@
               "intervalFactor": 2,
               "legendFormat": "Committed_AS - Amount of memory presently allocated on the system",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_CommitLimit_bytes{instance=\"$node\",job=\"$job\"}",
@@ -2780,7 +2944,7 @@
               "intervalFactor": 2,
               "legendFormat": "CommitLimit - Amount of  memory currently available to be allocated on the system",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -2895,7 +3059,7 @@
               "intervalFactor": 2,
               "legendFormat": "Inactive_file - File-backed memory on inactive LRU list",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_Inactive_anon_bytes{instance=\"$node\",job=\"$job\"}",
@@ -2904,7 +3068,7 @@
               "intervalFactor": 2,
               "legendFormat": "Inactive_anon - Anonymous and swap cache on inactive LRU list, including tmpfs (shmem)",
               "refId": "B",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_Active_file_bytes{instance=\"$node\",job=\"$job\"}",
@@ -2913,7 +3077,7 @@
               "intervalFactor": 2,
               "legendFormat": "Active_file - File-backed memory on active LRU list",
               "refId": "C",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_Active_anon_bytes{instance=\"$node\",job=\"$job\"}",
@@ -2922,7 +3086,7 @@
               "intervalFactor": 2,
               "legendFormat": "Active_anon - Anonymous and swap cache on active least-recently-used (LRU) list, including tmpfs",
               "refId": "D",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3038,7 +3202,7 @@
               "intervalFactor": 2,
               "legendFormat": "Writeback - Memory which is actively being written back to disk",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_WritebackTmp_bytes{instance=\"$node\",job=\"$job\"}",
@@ -3046,7 +3210,7 @@
               "intervalFactor": 2,
               "legendFormat": "WritebackTmp - Memory used by FUSE for temporary writeback buffers",
               "refId": "B",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_Dirty_bytes{instance=\"$node\",job=\"$job\"}",
@@ -3054,7 +3218,7 @@
               "intervalFactor": 2,
               "legendFormat": "Dirty - Memory which is waiting to get written back to the disk",
               "refId": "C",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3179,7 +3343,7 @@
               "intervalFactor": 2,
               "legendFormat": "Mapped - Used memory in mapped pages files which have been mmaped, such as libraries",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_Shmem_bytes{instance=\"$node\",job=\"$job\"}",
@@ -3187,7 +3351,7 @@
               "intervalFactor": 2,
               "legendFormat": "Shmem - Used shared memory (shared between several processes, thus including RAM disks)",
               "refId": "B",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_ShmemHugePages_bytes{instance=\"$node\",job=\"$job\"}",
@@ -3196,7 +3360,7 @@
               "intervalFactor": 2,
               "legendFormat": "ShmemHugePages - Memory used by shared memory (shmem) and tmpfs allocated  with huge pages",
               "refId": "C",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_ShmemPmdMapped_bytes{instance=\"$node\",job=\"$job\"}",
@@ -3205,7 +3369,7 @@
               "intervalFactor": 2,
               "legendFormat": "ShmemPmdMapped - Ammount of shared (shmem/tmpfs) memory backed by huge pages",
               "refId": "D",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3323,7 +3487,7 @@
               "intervalFactor": 2,
               "legendFormat": "SUnreclaim - Part of Slab, that cannot be reclaimed on memory pressure",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_SReclaimable_bytes{instance=\"$node\",job=\"$job\"}",
@@ -3331,7 +3495,7 @@
               "intervalFactor": 2,
               "legendFormat": "SReclaimable - Part of Slab, that might be reclaimed, such as caches",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3447,7 +3611,7 @@
               "intervalFactor": 2,
               "legendFormat": "VmallocChunk - Largest contigious block of vmalloc area which is free",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_VmallocTotal_bytes{instance=\"$node\",job=\"$job\"}",
@@ -3456,7 +3620,7 @@
               "intervalFactor": 2,
               "legendFormat": "VmallocTotal - Total size of vmalloc memory area",
               "refId": "B",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_VmallocUsed_bytes{instance=\"$node\",job=\"$job\"}",
@@ -3465,7 +3629,7 @@
               "intervalFactor": 2,
               "legendFormat": "VmallocUsed - Amount of vmalloc area which is used",
               "refId": "C",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3579,7 +3743,7 @@
               "intervalFactor": 2,
               "legendFormat": "Bounce - Memory used for block device bounce buffers",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3699,7 +3863,7 @@
               "intervalFactor": 2,
               "legendFormat": "AnonHugePages - Memory in anonymous huge pages",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_AnonPages_bytes{instance=\"$node\",job=\"$job\"}",
@@ -3707,7 +3871,7 @@
               "intervalFactor": 2,
               "legendFormat": "AnonPages - Memory in user pages not backed by files",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3821,7 +3985,7 @@
               "intervalFactor": 2,
               "legendFormat": "KernelStack - Kernel memory stack. This is not reclaimable",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_Percpu_bytes{instance=\"$node\",job=\"$job\"}",
@@ -3830,7 +3994,7 @@
               "intervalFactor": 2,
               "legendFormat": "PerCPU - Per CPU memory allocated dynamically by loadable modules",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3945,7 +4109,7 @@
               "intervalFactor": 2,
               "legendFormat": "HugePages_Free - Huge pages in the pool that are not yet allocated",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_HugePages_Rsvd{instance=\"$node\",job=\"$job\"}",
@@ -3953,7 +4117,7 @@
               "intervalFactor": 2,
               "legendFormat": "HugePages_Rsvd - Huge pages for which a commitment to allocate from the pool has been made, but no allocation has yet been made",
               "refId": "B",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_HugePages_Surp{instance=\"$node\",job=\"$job\"}",
@@ -3961,7 +4125,7 @@
               "intervalFactor": 2,
               "legendFormat": "HugePages_Surp - Huge pages in the pool above the value in /proc/sys/vm/nr_hugepages",
               "refId": "C",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4076,7 +4240,7 @@
               "intervalFactor": 2,
               "legendFormat": "HugePages - Total size of the pool of huge pages",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_Hugepagesize_bytes{instance=\"$node\",job=\"$job\"}",
@@ -4084,7 +4248,7 @@
               "intervalFactor": 2,
               "legendFormat": "Hugepagesize - Huge Page size",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4201,7 +4365,7 @@
               "intervalFactor": 2,
               "legendFormat": "DirectMap1G - Amount of pages mapped as this size",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_DirectMap2M_bytes{instance=\"$node\",job=\"$job\"}",
@@ -4210,7 +4374,7 @@
               "intervalFactor": 2,
               "legendFormat": "DirectMap2M - Amount of pages mapped as this size",
               "refId": "B",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_DirectMap4k_bytes{instance=\"$node\",job=\"$job\"}",
@@ -4219,7 +4383,7 @@
               "intervalFactor": 2,
               "legendFormat": "DirectMap4K - Amount of pages mapped as this size",
               "refId": "C",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4333,7 +4497,7 @@
               "intervalFactor": 2,
               "legendFormat": "Unevictable - Amount of unevictable memory that can't be swapped out for a variety of reasons",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_memory_Mlocked_bytes{instance=\"$node\",job=\"$job\"}",
@@ -4341,7 +4505,7 @@
               "intervalFactor": 2,
               "legendFormat": "MLocked - Size of pages locked to memory using the mlock() system call",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4457,7 +4621,7 @@
               "intervalFactor": 2,
               "legendFormat": "NFS Unstable - Memory in NFS pages sent to the server, but not yet commited to the storage",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4567,20 +4731,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_vmstat_pgpgin{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_vmstat_pgpgin{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Pagesin - Page in operations",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_vmstat_pgpgout{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_vmstat_pgpgout{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Pagesout - Page out operations",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4674,20 +4838,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_vmstat_pswpin{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_vmstat_pswpin{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Pswpin - Pages swapped in",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_vmstat_pswpout{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_vmstat_pswpout{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Pswpout - Pages swapped out",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4803,28 +4967,28 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_vmstat_pgfault{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_vmstat_pgfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Pgfault - Page major and minor fault operations",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_vmstat_pgmajfault{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_vmstat_pgmajfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Pgmajfault - Major page fault operations",
               "refId": "B",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_vmstat_pgfault{instance=\"$node\",job=\"$job\"}[5m])  - irate(node_vmstat_pgmajfault{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_vmstat_pgfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])  - rate(node_vmstat_pgmajfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Pgminfault - Minor page fault operations",
               "refId": "C",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4937,13 +5101,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_vmstat_oom_kill{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_vmstat_oom_kill{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "oom killer invocations ",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -5688,7 +5852,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_forks_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_forks_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
@@ -5788,7 +5952,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(process_virtual_memory_bytes{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(process_virtual_memory_bytes{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
@@ -5806,7 +5970,7 @@
               "step": 240
             },
             {
-              "expr": "irate(process_virtual_memory_bytes{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(process_virtual_memory_bytes{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
@@ -5815,7 +5979,7 @@
               "step": 240
             },
             {
-              "expr": "irate(process_virtual_memory_max_bytes{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(process_virtual_memory_max_bytes{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
@@ -6027,7 +6191,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_schedstat_running_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_schedstat_running_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -6036,7 +6200,7 @@
               "step": 240
             },
             {
-              "expr": "irate(node_schedstat_waiting_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_schedstat_waiting_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -6049,7 +6213,7 @@
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Process schdeule stats Running / Waiting",
+          "title": "Process schedule stats Running / Waiting",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -6260,7 +6424,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_context_switches_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_context_switches_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Context switches",
@@ -6268,7 +6432,7 @@
               "step": 240
             },
             {
-              "expr": "irate(node_intr_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_intr_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
@@ -6368,7 +6532,7 @@
               "intervalFactor": 4,
               "legendFormat": "Load 1m",
               "refId": "A",
-              "step": 480
+              "step": 240
             },
             {
               "expr": "node_load5{instance=\"$node\",job=\"$job\"}",
@@ -6376,7 +6540,7 @@
               "intervalFactor": 4,
               "legendFormat": "Load 5m",
               "refId": "B",
-              "step": 480
+              "step": 240
             },
             {
               "expr": "node_load15{instance=\"$node\",job=\"$job\"}",
@@ -6384,7 +6548,7 @@
               "intervalFactor": 4,
               "legendFormat": "Load 15m",
               "refId": "C",
-              "step": 480
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -6484,7 +6648,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_interrupts_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_interrupts_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -6578,7 +6742,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_schedstat_timeslices_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_schedstat_timeslices_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -6769,7 +6933,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(process_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(process_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -7359,7 +7523,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_systemd_socket_accepted_connections_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_systemd_socket_accepted_connections_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -7580,14 +7744,21 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
-          "description": "",
+          "description": "The number (after merges) of I/O requests completed per second for the device",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 29
+            "y": 11
           },
           "hiddenSeries": false,
           "id": 9,
@@ -7609,9 +7780,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -7728,18 +7900,18 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - Reads completed",
               "refId": "A",
-              "step": 8
+              "step": 240
             },
             {
-              "expr": "irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Writes completed",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -7791,14 +7963,21 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
-          "description": "",
+          "description": "The number of bytes read from or written to the device per second",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 29
+            "y": 11
           },
           "hiddenSeries": false,
           "id": 33,
@@ -7820,9 +7999,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -7917,20 +8097,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_read_bytes_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_read_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - Read bytes",
               "refId": "A",
-              "step": 8
+              "step": 240
             },
             {
-              "expr": "irate(node_disk_written_bytes_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_written_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Written bytes",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -7953,6 +8133,7 @@
           },
           "yaxes": [
             {
+              "$$hashKey": "object:369",
               "format": "Bps",
               "label": "bytes read (-) / write (+)",
               "logBase": 1,
@@ -7961,6 +8142,7 @@
               "show": true
             },
             {
+              "$$hashKey": "object:370",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -7980,14 +8162,21 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
-          "description": "",
+          "description": "The average time for requests issued to the device to be served. This includes the time spent by the requests in queue and the time spent servicing them.",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 3,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 39
+            "y": 21
           },
           "hiddenSeries": false,
           "id": 37,
@@ -8011,9 +8200,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -8108,27 +8298,29 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_read_time_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_read_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval]) / rate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "hide": false,
+              "interval": "",
               "intervalFactor": 4,
-              "legendFormat": "{{device}} - Read time",
+              "legendFormat": "{{device}} - r_await",
               "refId": "A",
-              "step": 8
+              "step": 240
             },
             {
-              "expr": "irate(node_disk_write_time_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_write_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval]) / rate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "hide": false,
+              "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Write time",
+              "legendFormat": "{{device}} - w_await",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Disk R/W Time",
+          "title": "Disk Average Wait Time",
           "tooltip": {
             "shared": false,
             "sort": 0,
@@ -8144,6 +8336,7 @@
           },
           "yaxes": [
             {
+              "$$hashKey": "object:441",
               "format": "s",
               "label": "time. read (-) / write (+)",
               "logBase": 1,
@@ -8152,6 +8345,7 @@
               "show": true
             },
             {
+              "$$hashKey": "object:442",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -8171,14 +8365,21 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
-          "description": "",
+          "description": "The average queue length of the requests that were issued to the device",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 39
+            "y": 21
           },
           "hiddenSeries": false,
           "id": 35,
@@ -8202,9 +8403,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -8295,18 +8497,19 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_io_time_weighted_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_io_time_weighted_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "interval": "",
               "intervalFactor": 4,
-              "legendFormat": "{{device}} - IO time weighted",
+              "legendFormat": "{{device}}",
               "refId": "A",
-              "step": 8
+              "step": 240
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Disk IOs Weighted",
+          "title": "Average Queue Size",
           "tooltip": {
             "shared": false,
             "sort": 0,
@@ -8322,14 +8525,16 @@
           },
           "yaxes": [
             {
-              "format": "s",
-              "label": "time",
+              "$$hashKey": "object:513",
+              "format": "none",
+              "label": "aqu-sz",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             },
             {
+              "$$hashKey": "object:514",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -8349,14 +8554,21 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
-          "description": "",
+          "description": "The number of read and write requests merged per second that were queued to the device",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 49
+            "y": 31
           },
           "hiddenSeries": false,
           "id": 133,
@@ -8380,9 +8592,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -8477,18 +8690,18 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_reads_merged_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_reads_merged_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Read merged",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_disk_writes_merged_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_writes_merged_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Write merged",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -8511,6 +8724,7 @@
           },
           "yaxes": [
             {
+              "$$hashKey": "object:585",
               "format": "iops",
               "label": "I/Os",
               "logBase": 1,
@@ -8519,6 +8733,7 @@
               "show": true
             },
             {
+              "$$hashKey": "object:586",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -8538,14 +8753,21 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
-          "description": "",
+          "description": "Percentage of elapsed time during which I/O requests were issued to the device (bandwidth utilization for the device). Device saturation occurs when this value is close to 100% for devices serving requests serially.  But for devices  serving requests in parallel, such as RAID arrays and modern SSDs, this number does not reflect their performance limits.",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 3,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 49
+            "y": 31
           },
           "hiddenSeries": false,
           "id": 36,
@@ -8569,9 +8791,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -8662,19 +8885,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_io_time_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
-              "intervalFactor": 4,
-              "legendFormat": "{{device}} - IO time",
-              "refId": "A",
-              "step": 8
-            },
-            {
-              "expr": "irate(node_disk_discard_time_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_io_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 4,
-              "legendFormat": "{{device}} - discard time",
+              "legendFormat": "{{device}} - IO",
+              "refId": "A",
+              "step": 240
+            },
+            {
+              "expr": "rate(node_disk_discard_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "interval": "",
+              "intervalFactor": 4,
+              "legendFormat": "{{device}} - discard",
               "refId": "B",
-              "step": 8
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -8697,14 +8921,16 @@
           },
           "yaxes": [
             {
-              "format": "s",
-              "label": "time",
+              "$$hashKey": "object:657",
+              "format": "percentunit",
+              "label": "%util",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             },
             {
+              "$$hashKey": "object:658",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -8724,14 +8950,21 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
-          "description": "",
+          "description": "The number of outstanding requests at the instant the sample was taken. Incremented as requests are given to appropriate struct request_queue and decremented as they finish.",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 59
+            "y": 41
           },
           "hiddenSeries": false,
           "id": 34,
@@ -8755,9 +8988,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -8848,18 +9082,18 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_io_now{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_io_now{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - IO now",
               "refId": "A",
-              "step": 8
+              "step": 240
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Disk IOs Current in Progress",
+          "title": "Instantaneous Queue Size",
           "tooltip": {
             "shared": false,
             "sort": 0,
@@ -8875,6 +9109,7 @@
           },
           "yaxes": [
             {
+              "$$hashKey": "object:729",
               "format": "iops",
               "label": "I/Os",
               "logBase": 1,
@@ -8883,6 +9118,7 @@
               "show": true
             },
             {
+              "$$hashKey": "object:730",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -8903,13 +9139,20 @@
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 59
+            "y": 41
           },
           "hiddenSeries": false,
           "id": 301,
@@ -8931,9 +9174,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null as zero",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9044,20 +9288,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_discards_completed_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_discards_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - Discards completed",
               "refId": "A",
-              "step": 8
+              "step": 240
             },
             {
-              "expr": "irate(node_disk_discards_merged_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_disk_discards_merged_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Discards merged",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9127,13 +9371,20 @@
           "datasource": "${DS_PROMETHEUS}",
           "decimals": 3,
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 78
+            "y": 12
           },
           "hiddenSeries": false,
           "id": 43,
@@ -9154,9 +9405,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9173,7 +9425,7 @@
               "legendFormat": "{{mountpoint}} - Available",
               "metric": "",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_filesystem_free_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
@@ -9182,7 +9434,7 @@
               "intervalFactor": 2,
               "legendFormat": "{{mountpoint}} - Free",
               "refId": "B",
-              "step": 2
+              "step": 240
             },
             {
               "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
@@ -9191,7 +9443,7 @@
               "intervalFactor": 2,
               "legendFormat": "{{mountpoint}} - Size",
               "refId": "C",
-              "step": 2
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9244,13 +9496,20 @@
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 78
+            "y": 12
           },
           "hiddenSeries": false,
           "id": 41,
@@ -9271,9 +9530,10 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9289,7 +9549,7 @@
               "intervalFactor": 2,
               "legendFormat": "{{mountpoint}} - Free file nodes",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9342,13 +9602,20 @@
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 88
+            "y": 22
           },
           "hiddenSeries": false,
           "id": 28,
@@ -9368,9 +9635,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9385,7 +9653,7 @@
               "intervalFactor": 4,
               "legendFormat": "Max open files",
               "refId": "A",
-              "step": 8
+              "step": 240
             },
             {
               "expr": "node_filefd_allocated{instance=\"$node\",job=\"$job\"}",
@@ -9393,7 +9661,7 @@
               "intervalFactor": 2,
               "legendFormat": "Open files",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9444,13 +9712,20 @@
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 88
+            "y": 22
           },
           "hiddenSeries": false,
           "id": 219,
@@ -9471,9 +9746,10 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9489,7 +9765,7 @@
               "intervalFactor": 2,
               "legendFormat": "{{mountpoint}} - File nodes total",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9543,13 +9819,20 @@
           "datasource": "${DS_PROMETHEUS}",
           "decimals": null,
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 98
+            "y": 32
           },
           "hiddenSeries": false,
           "id": 44,
@@ -9572,9 +9855,10 @@
           "maxPerRow": 6,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9589,16 +9873,16 @@
               "intervalFactor": 2,
               "legendFormat": "{{mountpoint}} - ReadOnly",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "node_filesystem_device_error{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
+              "expr": "node_filesystem_device_error{instance=\"$node\",job=\"$job\",device!~'rootfs',fstype!~'tmpfs'}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "{{mountpoint}} - Device error",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9715,22 +9999,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_receive_packets_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_receive_packets_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Receive",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_network_transmit_packets_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_transmit_packets_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Transmit",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9828,20 +10112,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_receive_errs_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_receive_errs_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Receive errors",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_network_transmit_errs_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_transmit_errs_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Rransmit errors",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9939,20 +10223,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_receive_drop_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_receive_drop_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Receive drop",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_network_transmit_drop_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_transmit_drop_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Transmit drop",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10050,20 +10334,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_receive_compressed_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_receive_compressed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Receive compressed",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_network_transmit_compressed_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_transmit_compressed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Transmit compressed",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10161,12 +10445,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_receive_multicast_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_receive_multicast_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Receive multicast",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10264,20 +10548,20 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_receive_fifo_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_receive_fifo_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Receive fifo",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_network_transmit_fifo_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_transmit_fifo_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Transmit fifo",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10376,13 +10660,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_receive_frame_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_receive_frame_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Receive frame",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10477,12 +10761,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_transmit_carrier_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_transmit_carrier_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Statistic transmit_carrier",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10580,12 +10864,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_transmit_colls_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_network_transmit_colls_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{device}} - Transmit colls",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10685,7 +10969,7 @@
               "intervalFactor": 2,
               "legendFormat": "NF conntrack entries",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_nf_conntrack_entries_limit{instance=\"$node\",job=\"$job\"}",
@@ -10693,7 +10977,7 @@
               "intervalFactor": 2,
               "legendFormat": "NF conntrack limit",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10788,7 +11072,7 @@
               "intervalFactor": 2,
               "legendFormat": "{{ device }} - ARP entries",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10881,7 +11165,7 @@
               "intervalFactor": 2,
               "legendFormat": "{{ device }} - Bytes",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10975,7 +11259,7 @@
               "intervalFactor": 2,
               "legendFormat": "{{ device }} - Speed",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11069,7 +11353,7 @@
               "intervalFactor": 2,
               "legendFormat": "{{ device }} -   Interface transmit queue length",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11169,22 +11453,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_softnet_processed_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_softnet_processed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "CPU {{cpu}} - Processed",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_softnet_dropped_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_softnet_dropped_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "CPU {{cpu}} - Dropped",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11279,13 +11563,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_softnet_times_squeezed_total{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_softnet_times_squeezed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "CPU {{cpu}} - Squeezed",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11385,7 +11669,7 @@
               "intervalFactor": 2,
               "legendFormat": "{{interface}} - Operational state UP",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_network_carrier{instance=\"$node\",job=\"$job\"}",
@@ -12094,21 +12378,21 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_netstat_IpExt_InOctets{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_IpExt_InOctets{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "InOctets - Received octets",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_IpExt_OutOctets{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_IpExt_OutOctets{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "OutOctets - Sent octets",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -12204,13 +12488,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_netstat_Ip_Forwarding{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Ip_Forwarding{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "Forwarding - IP forwarding",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -12311,22 +12595,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_netstat_Icmp_InMsgs{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Icmp_InMsgs{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "InMsgs -  Messages which the entity received. Note that this counter includes all those counted by icmpInErrors",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_Icmp_OutMsgs{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Icmp_OutMsgs{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "OutMsgs - Messages which this entity attempted to send. Note that this counter includes all those counted by icmpOutErrors",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -12425,13 +12709,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_netstat_Icmp_InErrors{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Icmp_InErrors{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "InErrors - Messages which the entity received but determined as having ICMP-specific errors (bad ICMP checksums, bad length, etc.)",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -12534,22 +12818,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_netstat_Udp_InDatagrams{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Udp_InDatagrams{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "InDatagrams - Datagrams received",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_Udp_OutDatagrams{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Udp_OutDatagrams{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "OutDatagrams - Datagrams sent",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -12642,46 +12926,46 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_netstat_Udp_InErrors{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Udp_InErrors{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "InErrors - UDP Datagrams that could not be delivered to an application",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_Udp_NoPorts{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Udp_NoPorts{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "NoPorts - UDP Datagrams received on a port with no listener",
               "refId": "B",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_UdpLite_InErrors{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_UdpLite_InErrors{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "InErrors Lite - UDPLite Datagrams that could not be delivered to an application",
               "refId": "C"
             },
             {
-              "expr": "irate(node_netstat_Udp_RcvbufErrors{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Udp_RcvbufErrors{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "RcvbufErrors - UDP buffer errors received",
               "refId": "D",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_Udp_SndbufErrors{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Udp_SndbufErrors{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "SndbufErrors - UDP buffer errors send",
               "refId": "E",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -12786,23 +13070,23 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_netstat_Tcp_InSegs{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Tcp_InSegs{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "instant": false,
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "InSegs - Segments received, including those received in error. This count includes segments received on currently established connections",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_Tcp_OutSegs{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Tcp_OutSegs{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "OutSegs - Segments sent, including those on current connections but excluding those containing only retransmitted octets",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -12897,42 +13181,42 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_netstat_TcpExt_ListenOverflows{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_TcpExt_ListenOverflows{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "ListenOverflows - Times the listen queue of a socket overflowed",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_TcpExt_ListenDrops{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_TcpExt_ListenDrops{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "ListenDrops - SYNs to LISTEN sockets ignored",
               "refId": "B",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_TcpExt_TCPSynRetrans{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_TcpExt_TCPSynRetrans{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "TCPSynRetrans - SYN-SYN/ACK retransmits to break down retransmissions in SYN, fast/timeout retransmits",
               "refId": "C",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_Tcp_RetransSegs{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Tcp_RetransSegs{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "RetransSegs - Segments retransmitted - that is, the number of TCP segments transmitted containing one or more previously transmitted octets",
               "refId": "D"
             },
             {
-              "expr": "irate(node_netstat_Tcp_InErrs{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Tcp_InErrs{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "InErrs - Segments received in error (e.g., bad TCP checksums)",
               "refId": "E"
@@ -13041,7 +13325,7 @@
               "intervalFactor": 2,
               "legendFormat": "CurrEstab - TCP connections for which the current state is either ESTABLISHED or CLOSE- WAIT",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_netstat_Tcp_MaxConn{instance=\"$node\",job=\"$job\"}",
@@ -13051,7 +13335,7 @@
               "intervalFactor": 2,
               "legendFormat": "MaxConn - Limit on the total number of TCP connections the entity can support (Dinamic is \"-1\")",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -13153,34 +13437,34 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_netstat_TcpExt_SyncookiesFailed{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_TcpExt_SyncookiesFailed{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "SyncookiesFailed - Invalid SYN cookies received",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_TcpExt_SyncookiesRecv{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_TcpExt_SyncookiesRecv{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "SyncookiesRecv - SYN cookies received",
               "refId": "B",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_TcpExt_SyncookiesSent{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_TcpExt_SyncookiesSent{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "SyncookiesSent - SYN cookies sent",
               "refId": "C",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -13272,22 +13556,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_netstat_Tcp_ActiveOpens{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Tcp_ActiveOpens{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "ActiveOpens - TCP connections that have made a direct transition to the SYN-SENT state from the CLOSED state",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
-              "expr": "irate(node_netstat_Tcp_PassiveOpens{instance=\"$node\",job=\"$job\"}[5m])",
+              "expr": "rate(node_netstat_Tcp_PassiveOpens{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "PassiveOpens - TCP connections that have made a direct transition to the SYN-RCVD state from the LISTEN state",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -13400,7 +13684,7 @@
               "intervalFactor": 2,
               "legendFormat": "{{collector}} - Scrape duration",
               "refId": "A",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -13502,7 +13786,7 @@
               "intervalFactor": 2,
               "legendFormat": "{{collector}} - Scrape success",
               "refId": "A",
-              "step": 4
+              "step": 240
             },
             {
               "expr": "node_textfile_scrape_error{instance=\"$node\",job=\"$job\"}",
@@ -13512,7 +13796,7 @@
               "intervalFactor": 2,
               "legendFormat": "{{collector}} - Scrape textfile error (1 = true)",
               "refId": "B",
-              "step": 4
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -13565,7 +13849,7 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 22,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [
     "linux"
@@ -13578,6 +13862,7 @@
           "text": "default",
           "value": "default"
         },
+        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "datasource",
@@ -13595,9 +13880,9 @@
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
         "definition": "",
+        "error": null,
         "hide": 0,
         "includeAll": false,
-        "index": -1,
         "label": "Job",
         "multi": false,
         "name": "job",
@@ -13618,9 +13903,9 @@
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
         "definition": "label_values(node_uname_info{job=\"$job\"}, instance)",
+        "error": null,
         "hide": 0,
         "includeAll": false,
-        "index": -1,
         "label": "Host:",
         "multi": false,
         "name": "node",
@@ -13643,6 +13928,7 @@
           "text": "[a-z]+|nvme[0-9]+n[0-9]+",
           "value": "[a-z]+|nvme[0-9]+n[0-9]+"
         },
+        "error": null,
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -13691,11 +13977,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Prometheus Node Exporter Full",
+  "title": "Node Exporter Full",
   "uid": "rYdddlPWk",
-  "variables": {
-    "list": []
-  },
-  "version": 47,
-  "description": "Quick dashboard for Prometheus metrics"
+  "version": 56
 }

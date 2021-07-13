@@ -18,6 +18,25 @@
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];
 
+    services.prometheus = {
+      exporters.nginx = {
+        enable = true;
+        listenAddress = "127.0.0.1";
+      };
+
+      scrapeConfigs = [
+        {
+          job_name = "nginx";
+          static_configs = [{
+            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.nginx.port}" ];
+            labels = {
+              instance = config.networking.hostName;
+            };
+          }];
+        }
+      ];
+    };
+
     security.acme = {
       acceptTerms = true;
       email = "antoine97.martin@gmail.com";

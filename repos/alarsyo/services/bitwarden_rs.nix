@@ -47,7 +47,9 @@ in {
         TZ = "Europe/Paris";
         WEB_VAULT_ENABLED = true;
         WEBSOCKET_ENABLED = true;
+        WEBSOCKET_ADDRESS = "127.0.0.1";
         WEBSOCKET_PORT = cfg.websocketPort;
+        ROCKET_ADDRESS = "127.0.0.1";
         ROCKET_PORT = cfg.privatePort;
         SIGNUPS_ALLOWED = false;
         INVITATIONS_ALLOWED = false;

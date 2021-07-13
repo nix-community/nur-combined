@@ -37,7 +37,7 @@ in {
 
         dashboards = [
           {
-            name = "Node Exporter";
+            name = "Dashboards";
             options.path = ./grafana-dashboards;
             disableDeletion = true;
           }
@@ -57,6 +57,7 @@ in {
           enable = true;
           enabledCollectors = [ "systemd" ];
           port = 9100;
+          listenAddress = "[::1]";
         };
       };
 
