@@ -1,0 +1,56 @@
+{
+  "name": "rctpm",
+  "description": "OpenRCT2 Plugin Manager",
+  "version": "0.0.0-development",
+  "main": "dist/src/index.js",
+  "license": "MIT",
+  "bin": {
+    "rctpm": "./dist/src/cli.js"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
+    "@types/node": "^14.14.30",
+    "@types/pino": "^6.3.6",
+    "@types/shelljs": "^0.8.8",
+    "@types/yargs": "^16.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
+    "commitizen": "^4.2.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-json": "^2.1.2",
+    "eslint-plugin-prettier": "^3.3.1",
+    "husky": "^5.0.9",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.4",
+    "pinst": "^2.1.6",
+    "prettier": "^2.2.1",
+    "semantic-release": "^17.4.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
+  },
+  "dependencies": {
+    "pino": "^6.11.2",
+    "pino-pretty": "^4.7.1",
+    "shelljs": "^0.8.4",
+    "xdg-basedir": "^4.0.0",
+    "yargs": "^16.2.0"
+  },
+  "scripts": {
+    "start": "ts-node src/cli.ts",
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint --ext ts --ext tsx --ext json",
+    "fmt": "yarn lint --fix",
+    "postinstall": "husky install",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pinst --disable && tsc",
+    "postpublish": "pinst --enable",
+    "release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tubbo/rctpm.git"
+  }
+}
