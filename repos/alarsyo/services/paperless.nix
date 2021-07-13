@@ -20,6 +20,14 @@ in
   };
 
   config = mkIf cfg.enable {
+    # HACK: see https://github.com/NixOS/nixpkgs/issues/111852
+    networking.firewall.extraCommands = ''
+      iptables -N DOCKER-USER || true
+      iptables -F DOCKER-USER
+      iptables -A DOCKER-USER -i eno1 -m state --state RELATED,ESTABLISHED -j ACCEPT
+      iptables -A DOCKER-USER -i eno1 -j DROP
+    '';
+
     services.nginx.virtualHosts = {
       "paperless.${domain}" = {
         forceSSL = true;
