@@ -1,4 +1,4 @@
-{ stdenv, make-gog-package }:
+{ lib, make-gog-package }:
 
 make-gog-package {
   pname = "enter-the-gungeon";
@@ -7,7 +7,7 @@ make-gog-package {
   binname = "enter-the-gungeon";
   sha256 = "0z0693drj6aawzva021xaszgmvrhkd4p61zdn6myqgnsam5l3sr3";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "";
     homepage    = https://gog.com;
     license     = licenses.unfree;

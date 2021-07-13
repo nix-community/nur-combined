@@ -15,7 +15,6 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   ### DEVELOPMENT
-  lobster = pkgs.callPackage ./pkgs/lobster { };
 
   ### APPLICATIONS
   variety = pkgs.callPackage ./pkgs/variety { };
@@ -34,6 +33,6 @@ rec {
   };
   openhexagonPacks = pkgs.callPackage ./pkgs/openhexagon/packs.nix { };
   powermanga = pkgs.libsForQt5.callPackage ./pkgs/powermanga { };
-  enter-the-gungeon-gog = pkgs.callPackage (import ./pkgs/enter-the-gungeon-gog { stdenv = pkgs.stdenv; make-gog-package = lib.make-gog-package; }) { };
+  enter-the-gungeon-gog = pkgs.callPackage (import ./pkgs/enter-the-gungeon-gog { lib = pkgs.lib; make-gog-package = lib.make-gog-package; }) { };
 }
 

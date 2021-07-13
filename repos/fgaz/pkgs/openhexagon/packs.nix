@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub, unzip }:
+{ lib, stdenv, fetchurl, fetchFromGitHub, unzip }:
 
 {
   faith = fetchFromGitHub {
@@ -7,7 +7,7 @@
     repo = "open-hexagon-faith";
     rev = "d9d1baab868cc5dabc53d84a4cff9e5fef458387";
     sha256 = "1ybjiz0ihafrxif2xbgvwhfiz36rhl6j5hf7ks67pah0pfqls095";
-    meta = with stdenv.lib; {
+    meta = with lib; {
       homepage = https://github.com/hithroc/open-hexagon-faith;
       description = "Spontaneous level pack for Open Hexagon";
       license = licenses.bsd3;
@@ -23,7 +23,7 @@
     nativeBuildInputs = [ unzip ];
     dontBuild = true;
     installPhase = "cp -r . $out";
-    meta = with stdenv.lib; {
+    meta = with lib; {
       homepage = https://gamebanana.com/gamefiles/4312;
       downloadPage = https://gamebanana.com/gamefiles/download/4312;
       description = "Tuxo's level pack with 8 levels";
