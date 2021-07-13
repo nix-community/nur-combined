@@ -42,5 +42,3 @@ RSS reader
 Grafana and Prometheus are currently used as a glorified =htop=.
 
 ** Nextcloud
-
-** Wireguard VPN

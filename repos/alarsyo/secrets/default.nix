@@ -18,8 +18,6 @@ with lib;
 
     borg-backup = import ./borg-backup { inherit lib; };
 
-    wireguard = pkgs.callPackage ./wireguard.nix { };
-
     matrixEmailConfig = import ./matrix-email-config.nix;
   };
 }

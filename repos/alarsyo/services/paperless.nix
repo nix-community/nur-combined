@@ -53,5 +53,9 @@ in
         };
       };
     };
+
+    my.services.borg-backup = mkIf cfg.enable {
+      paths = [ "/var/lib/docker/volumes/paperless_*" ];
+    };
   };
 }

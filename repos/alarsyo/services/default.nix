@@ -19,8 +19,8 @@
     ./pipewire.nix
     ./postgresql-backup.nix
     ./postgresql.nix
+    ./tailscale.nix
     ./tgv.nix
     ./transmission.nix
-    ./wireguard.nix
   ];
 }

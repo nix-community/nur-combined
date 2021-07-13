@@ -28,11 +28,6 @@ in
     };
   };
 
-  services.tailscale = {
-    enable = true;
-    package = pkgs.unstable.tailscale;
-  };
-
   virtualisation.docker = {
     enable = true;
   };
@@ -128,6 +123,11 @@ in
       enable = true;
     };
 
+    tailscale = {
+      enable = true;
+      exitNode = true;
+    };
+
     tgv = {
       enable = true;
     };
@@ -136,23 +136,6 @@ in
       enable = true;
       username = "alarsyo";
       password = secrets.transmission-password;
-    };
-
-    wireguard = {
-      enable = true;
-      iface = "wg";
-      port = 51820;
-
-      net = {
-        v4 = {
-          subnet = "10.0.0";
-          mask = 24;
-        };
-        v6 = {
-          subnet = "fd42:42:42";
-          mask = 64;
-        };
-      };
     };
   };
 

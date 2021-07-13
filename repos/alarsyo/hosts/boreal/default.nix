@@ -32,11 +32,6 @@ in
     };
   };
 
-  services.tailscale = {
-    enable = true;
-    package = pkgs.unstable.tailscale;
-  };
-
   networking.hostName = "boreal"; # Define your hostname.
   networking.domain = "alarsyo.net";
 
@@ -87,22 +82,7 @@ in
 
     pipewire.enable = true;
 
-    wireguard = {
-      enable = false;
-      iface = "wg";
-      port = 51820;
-
-      net = {
-        v4 = {
-          subnet = "10.0.0";
-          mask = 24;
-        };
-        v6 = {
-          subnet = "fd42:42:42";
-          mask = 64;
-        };
-      };
-    };
+    tailscale.enable = true;
   };
 
   services = {
