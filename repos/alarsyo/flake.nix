@@ -51,7 +51,9 @@
 
         {
           nixpkgs.overlays = [
-            (final: prev: {
+            (self: super: {
+              packages = import ./pkgs { pkgs = super; };
+
               # packages accessible through pkgs.unstable.package
               unstable = import nixpkgs-unstable {
                 inherit system;
