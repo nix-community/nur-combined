@@ -1,0 +1,13 @@
+on:
+  push:
+    paths:
+      - 'pkgs/**'
+
+jobs:
+  update-nur:
+    name: "Update NUR repo"
+    runs-on: ubuntu-latest
+    steps:
+      - name: curl nur endpoint
+        run: |
+          curl -XPOST https://nur-update.herokuapp.com/update?repo=alarsyo
