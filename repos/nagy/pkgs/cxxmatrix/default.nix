@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "cxxmatrix";
-  version = "unstable-2020-11-28";
+  version = "unstable-2021-06-30";
 
   src = fetchFromGitHub {
     owner = "akinomyoga";
     repo = pname;
-    rev = "93e505c82f06b67d610a14eff1bce9812ab203c5";
-    sha256 = "1dxmq6hnhas6hbp1ayzk9hzhhpchkdmh5gh2x6vyj0qvgckwncpz";
+    rev = "b58c7e00588c46cd0cef6fef3205ccd814b51ba8";
+    sha256 = "0n5zkzfv6ablkinvz1mvn2iaq1mzlv56izrqnp7hg10ckvp63szx";
   };
 
   outputs = [ "out" "man" ];
