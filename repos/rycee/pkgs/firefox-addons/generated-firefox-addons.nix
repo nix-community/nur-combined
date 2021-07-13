@@ -604,10 +604,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "4.0.3";
+      version = "4.0.6";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3787038/grammatik_und_rechtschreibprufung_languagetool-4.0.3-fx.xpi";
-      sha256 = "b6ecf9ab783a35a4b2476042c345c3f6c80c18d592f5793e8c58ec7356f4fc3e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3808335/grammatik_und_rechtschreibprufung_languagetool-4.0.6-fx.xpi";
+      sha256 = "e9ccb56062332c2e5bf8202895c0988422fe16cb2b6c3e9137fbd6f6bfc4f050";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -915,10 +915,10 @@
       };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "1.5.0";
+      version = "1.5.1";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3794978/old_reddit_redirect-1.5.0-an+fx.xpi";
-      sha256 = "e42388aa175f20fdc358bee99ba61db0e9629a7b1e74d35d6463d87786f4edd3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3808545/old_reddit_redirect-1.5.1-an+fx.xpi";
+      sha256 = "db55d34c64c4b3a9c0e2a5bf21cdd74ba25487bf1d9b2fce59925f9ec996fceb";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -1161,10 +1161,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.7.1";
+      version = "21.7.12";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3804541/refined_github-21.7.1-an+fx.xpi";
-      sha256 = "90797bce23187b8a770ee9eadb22052864247a9fe35ba8bc87f629944d68fe1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3808553/refined_github-21.7.12-an+fx.xpi";
+      sha256 = "bef89e9fe24c8a6ca11205e5da9b31463f7a8fca24f242a57f1aee0495ba9528";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1244,10 +1244,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.1.1";
+      version = "2.1.2.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3801441/sponsorblock_skip_sponsorships_on_youtube-2.1.1-an+fx.xpi";
-      sha256 = "02fc35dd1c8d910c212045f63072e6cc490d7b6c7abd0510297ac954c84e79de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3808409/sponsorblock_skip_sponsorships_on_youtube-2.1.2.1-an+fx.xpi";
+      sha256 = "b06b428783cc99d523cde27ca640901377d55b545969b7ddafcd57027a2ae9e5";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1410,10 +1410,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.1";
+      version = "9.2";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3803717/traduzir_paginas_web-9.1-an+fx.xpi";
-      sha256 = "b9a76c3e0d257ed1d8383741cf5a8fa28024d78e32d9b82533bd19d1663ddeb5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3807920/traduzir_paginas_web-9.2-an+fx.xpi";
+      sha256 = "739a7d6217ac25dc9974931f5b3d769d67001499d936ec637b33a5478856ef40";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
