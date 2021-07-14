@@ -38,12 +38,12 @@ in {
         dashboards = [
           {
             name = "Node Exporter";
-            options.path = pkgs.packages.grafana-dashboards.node-exporter;
+            options.path = pkgs.packages.grafanaDashboards.node-exporter;
             disableDeletion = true;
           }
           {
             name = "NGINX";
-            options.path = pkgs.packages.grafana-dashboards.nginx;
+            options.path = pkgs.packages.grafanaDashboards.nginx;
             disableDeletion = true;
           }
         ];
