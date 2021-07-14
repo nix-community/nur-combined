@@ -29,6 +29,13 @@
       ref = "release-21.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flake-utils = {
+      type = "github";
+      owner = "numtide";
+      repo = "flake-utils";
+      ref = "master";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... } @inputs: {
@@ -112,5 +119,9 @@
         };
 
       };
-  };
+  } // inputs.flake-utils.lib.eachDefaultSystem (system: {
+    packages =
+      inputs.flake-utils.lib.flattenTree
+        (import ./pkgs { pkgs = import nixpkgs { inherit system; }; });
+  });
 }

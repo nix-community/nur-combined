@@ -25,6 +25,5 @@ stdenv.mkDerivation {
     description = "udev rules for kaleidoscope firmware keyboards";
     homepage = "https://github.com/keyboardio/Kaleidoscope";
     license = licenses.gpl3Only;
-    platforms = [ "x86_64-linux" ];
   };
 }
