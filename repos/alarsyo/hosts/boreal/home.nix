@@ -23,6 +23,8 @@
 
         unstable.beancount
         unstable.fava
+
+        packages.spot
     ];
   };
 }
