@@ -17,6 +17,14 @@
   };
 
   services.kanshi.profiles = {
+    "one_monitor" = {
+      outputs = [
+          {
+              criteria = "eDP-1";
+              position = "0,0";
+          }
+      ];
+    };
     "three_monitors_on_reboot" = {
       outputs = [
         {
