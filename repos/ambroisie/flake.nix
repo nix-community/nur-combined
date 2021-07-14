@@ -130,9 +130,10 @@
 
         packages =
           let
+            inherit (futils.lib) filterPackages flattenTree;
             packages = import ./pkgs { inherit pkgs; };
-            isSystem = pkg: builtins.elem system pkg.meta.platforms;
-            finalPackages = lib.flip lib.filterAttrs packages (_: isSystem);
+            flattenedPackages = flattenTree packages;
+            finalPackages = filterPackages system flattenedPackages;
           in
           finalPackages;
       }) // {
