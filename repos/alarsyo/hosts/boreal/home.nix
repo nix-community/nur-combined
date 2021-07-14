@@ -24,6 +24,9 @@
         unstable.beancount
         unstable.fava
 
+        # keyboard goodness
+        chrysalis
+
         packages.spot
     ];
   };

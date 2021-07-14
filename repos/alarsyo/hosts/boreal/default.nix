@@ -103,10 +103,6 @@ in
   };
   my.displayManager.sddm.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    chrysalis
-  ];
-
   services.udev.packages = with pkgs; [
     packages.kaleidoscope-udev-rules
   ];
