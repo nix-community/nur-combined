@@ -33,12 +33,12 @@
 
   outputs = { self, nixpkgs, home-manager, ... } @inputs: {
     nixosModules = {
-        home = {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.alarsyo = import ./home;
-          home-manager.verbose = true;
-        };
+      home = {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.users.alarsyo = import ./home;
+        home-manager.verbose = true;
+      };
     };
 
     nixosConfigurations =
