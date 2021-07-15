@@ -15,6 +15,13 @@ in {
       example = "monitoring.example.com";
       description = "Domain to use in reverse proxy";
     };
+
+    scrapeInterval = mkOption {
+      type = types.str;
+      default = "15s";
+      example = "1m";
+      description = "prometheus scrape interval";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -32,6 +39,9 @@ in {
             name = "Prometheus";
             type = "prometheus";
             url = "http://localhost:${toString config.services.prometheus.port}";
+            jsonData = {
+              timeInterval = cfg.scrapeInterval;
+            };
           }
         ];
 
@@ -64,6 +74,10 @@ in {
           port = 9100;
           listenAddress = "127.0.0.1";
         };
+      };
+
+      globalConfig = {
+        scrape_interval = cfg.scrapeInterval;
       };
 
       scrapeConfigs = [
