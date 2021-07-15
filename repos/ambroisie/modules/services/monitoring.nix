@@ -39,6 +39,13 @@ in
         example = 3002;
         description = "Internal port";
       };
+
+      scrapeInterval = mkOption {
+        type = types.str;
+        default = "15s";
+        example = "1m";
+        description = "Scrape interval";
+      };
     };
   };
 
@@ -62,6 +69,9 @@ in
             name = "Prometheus";
             type = "prometheus";
             url = "http://localhost:${toString cfg.prometheus.port}";
+            jsonData = {
+              timeInterval = cfg.prometheus.scrapeInterval;
+            };
           }
         ];
 
@@ -89,6 +99,10 @@ in
           port = 9100;
           listenAddress = "127.0.0.1";
         };
+      };
+
+      globalConfig = {
+        scrape_interval = cfg.prometheus.scrapeInterval;
       };
 
       scrapeConfigs = [
