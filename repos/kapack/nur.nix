@@ -102,11 +102,13 @@ rec {
   simgrid-325 = pkgs.callPackage ./pkgs/simgrid/simgrid325.nix { inherit debug; };
   simgrid-326 = pkgs.callPackage ./pkgs/simgrid/simgrid326.nix { inherit debug; };
   simgrid-327 = pkgs.callPackage ./pkgs/simgrid/simgrid327.nix { inherit debug; };
+  simgrid-328 = pkgs.callPackage ./pkgs/simgrid/simgrid328.nix { inherit debug; };
   simgrid-325light = simgrid-325.override { minimalBindings = true; withoutBin = true; };
   simgrid-326light = simgrid-326.override { minimalBindings = true; withoutBin = true; };
   simgrid-327light = simgrid-327.override { minimalBindings = true; withoutBin = true; };
-  simgrid = simgrid-327;
-  simgrid-light = simgrid-327light;
+  simgrid-328light = simgrid-328.override { minimalBindings = true; withoutBin = true; };
+  simgrid = simgrid-328;
+  simgrid-light = simgrid-328light;
 
   # Setting needed for nixos-19.03 and nixos-19.09
   slurm-bsc-simulator =
