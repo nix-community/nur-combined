@@ -60,6 +60,7 @@
 
   wayland.windowManager.sway = {
     enable = true;
+    wrapperFeatures.gtk = true;
     config = {
       bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
       input."type:touchpad".tap = "enabled";

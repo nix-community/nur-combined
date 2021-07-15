@@ -1,13 +1,9 @@
 { config, pkgs, ... }: {
   home.packages = with pkgs; [
-    chatterino2
-    element-desktop
-    firefox
+    firefox-wayland
     imv
     manuskript
     paperwork
-    slack
-    spotify
     xdg-desktop-portal-wlr
   ];
 
@@ -17,7 +13,7 @@
   };
 
   services.kanshi.profiles = {
-    "one_monitor" = {
+    undocked = {
       outputs = [
           {
               criteria = "eDP-1";
@@ -57,21 +53,6 @@
           position = "1920,0";
         }
       ];
-    };
-  };
-
-  wayland.windowManager.sway.config = {
-    startup = [
-      { command = "${pkgs.firefox}/bin/firefox"; }
-      { command = "${pkgs.slack}/bin/slack"; }
-      { command = "${pkgs.discord}/bin/discord"; }
-      { command = "${pkgs.element-desktop}/bin/element"; }
-    ];
-    assigns = {
-      "1: web" = [{ class = "^Firefox$"; }];
-      "3: slack" = [{ class = "^Slack$"; }];
-      "5: discord" = [{ class = "^(D|d)iscord$"; }];
-      "7: element" = [{ class = "^Element$"; }];
     };
   };
 }

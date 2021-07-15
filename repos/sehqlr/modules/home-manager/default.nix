@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }: {
   imports = [
     ./dev.nix
-    ./sway.nix
+    ./wm.nix
   ];
 
   programs.home-manager.enable = true;

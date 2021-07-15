@@ -14,23 +14,13 @@
   networking.networkmanager.enable = true;
 
   nix.trustedUsers = [ "root" "sam" ];
-  
-  programs.sway.enable = true;
+
   services.xserver.enable = true;
-  services.xserver.displayManager = {
-    defaultSession = "sway";
-    lightdm.enable = true;
-    autoLogin = {
-      enable = true;
-      user = "sam";
-    };
-  };
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
 
   hardware.pulseaudio.enable = true;
-  sound.mediaKeys.enable = true;
 
-  programs.light.enable = true;
-  
   users.users.sam = {
     description = "Sam Hatfield <hey@samhatfield.me>";
     extraGroups = [ "wheel" "audio" "docker" "video" "networkmanager" ];
