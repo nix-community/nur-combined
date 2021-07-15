@@ -741,10 +741,10 @@
   },
   {
     "name": "robot_attrition",
-    "version": "0.5.10",
-    "file_name": "robot_attrition_0.5.10.zip",
-    "download_url": "/download/robot_attrition/609fc58310e3a81ed75affe7",
-    "sha1": "064422d7bbb2794c586e13bde6fbd00864a49a8b",
+    "version": "0.5.11",
+    "file_name": "robot_attrition_0.5.11.zip",
+    "download_url": "/download/robot_attrition/60ee0b01a0fa0668c0a2044d",
+    "sha1": "9123975b0e50db9ce77c453b713cf6c100c154b4",
     "dependencies": [
       "base >= 1.1.0"
     ]
