@@ -421,20 +421,6 @@
         platforms = platforms.all;
         };
       };
-    "google-search-link-fix" = buildFirefoxXpiAddon {
-      pname = "google-search-link-fix";
-      version = "1.6.10";
-      addonId = "jid0-XWJxt5VvCXkKzQK99PhZqAn7Xbg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3589584/google_search_link_fix-1.6.10-an+fx.xpi";
-      sha256 = "c3161b62b8c7fb27a67a7821a4c867ac852c16f47fbd6221be9dbb011c43bdc5";
-      meta = with lib;
-      {
-        homepage = "https://github.com/palant/searchlinkfix";
-        description = "This extension prevents Google and Yandex search pages from modifying search result links when you click them. This is useful when copying links but it also helps privacy by preventing the search engines from recording your clicks.";
-        license = licenses.mpl20;
-        platforms = platforms.all;
-        };
-      };
     "gopass-bridge" = buildFirefoxXpiAddon {
       pname = "gopass-bridge";
       version = "0.8.0";
