@@ -9,4 +9,5 @@
   nixpkgs-niv = import ./nixpkgs-niv;
   vscode = import ./vscode;
   qt5ct = import ./qt5ct;
+  flatpak-fonts = import ./flatpak-fonts;
 }
