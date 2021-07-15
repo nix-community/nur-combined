@@ -1,4 +1,4 @@
-{fetchurl, stdenv, autoPatchelfHook, makeDesktopItem, writeScriptBin,
+{fetchurl, stdenv, lib, autoPatchelfHook, makeDesktopItem, writeScriptBin,
  gcc-unwrapped, SDL2, SDL2_image, SDL2_mixer, SDL2_net,
 }:
 let version = "3.62";
@@ -72,7 +72,7 @@ in
       description = "Survival based roguelike game";
       longDescription = "A unique low-fantasy roguelike game set in the far north during the late Iron-Age. The world of the game is highly realistic, rich with historical atmosphere and emphasized on survival in the harsh ancient wilderness. This package contains the latest free (in terms of cost) version of UnReal World, though there may be more recent releases available on itch.io and Steam";
       homepage = "https://unrealworld.fi";
-      license = stdenv.lib.licenses.unfree;
+      license = lib.licenses.unfree;
       maintainers = with stdenv.lib.maintainers; [ ];
       platforms = [ "x86_64-linux" "i686-linux" ];
     };

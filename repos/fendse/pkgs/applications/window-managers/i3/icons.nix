@@ -1,4 +1,4 @@
-{ fetchurl, fetchgit, stdenv, which, pkgconfig, makeWrapper, installShellFiles, libxcb, xcbutilkeysyms
+{ fetchurl, fetchgit, stdenv, lib, which, pkgconfig, makeWrapper, installShellFiles, libxcb, xcbutilkeysyms
 , xcbutil, xcbutilwm, xcbutilxrm, libstartup_notification, libX11, pcre, libev
 , yajl, xcb-util-cursor, perl, pango, perlPackages, libxkbcommon
 , xorgserver, xvfb_run }:
@@ -45,7 +45,7 @@ in stdenv.mkDerivation rec {
   # https://github.com/NixOS/nixpkgs/issues/7957
   doCheck = false; # stdenv.hostPlatform.system == "x86_64-linux";
 
-  checkPhase = stdenv.lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
+  checkPhase = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
   ''
     (cd testcases && xvfb-run ./complete-run.pl -p 1 --keep-xserver-output)
     ! grep -q '^not ok' testcases/latest/complete-run.log
@@ -62,7 +62,7 @@ in stdenv.mkDerivation rec {
 
   separateDebugInfo = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A tiling window manager with titlebar icons";
     homepage    = "https://i3wm.org";
     maintainers = with maintainers; [ ];
