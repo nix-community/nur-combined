@@ -23,7 +23,7 @@ let
     mkdir -p "$out"
     font_regexp='.*\.\(ttf\|ttc\|otf\|pcf\|pfa\|pfb\|bdf\)\(\.gz\)?'
     find ${toString config.fonts.fonts} -regex "$font_regexp" \
-      -exec cp -r '{}' "$out" \;
+      -exec cp -rn --no-preserve=mode,ownership '{}' "$out" \;
   '';
 
   # configuration file to read fontconfig cache
