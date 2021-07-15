@@ -1,6 +1,7 @@
 {pkgs, config, ... }:
 with pkgs.lib;
 let
+
   mod = "Mod4";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${pkgs.playerctl}/bin/playerctl";
@@ -20,6 +21,16 @@ echo $goto_ws | bash
     ws=$[ $RANDOM % 100 + 11 ]
     i3-msg workspace number $ws
   '';
+  locker = pkgs.writeShellScript "locker" ''
+    loginctl lock-session
+  '';
+  lockerSpace = pkgs.makeDesktopItem {
+    name = "locker";
+    desktopName = "Bloquear Tela";
+    icon = "lock";
+    type = "Application";
+    exec = "${locker}";
+  };
   colors = {
     background = "#00ffffff";
     background-alt = "#aa111111";
@@ -31,6 +42,9 @@ echo $goto_ws | bash
     transparent = "#00000000";
   };
 in {
+  home.packages = [
+    lockerSpace
+  ];
     services.picom.enable = true;
     xsession.windowManager.i3 = {
       config = {
@@ -89,7 +103,7 @@ in {
           "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume @DEFAULT_SINK@ -10%";
           "XF86AudioMute" = "exec ${pactl} set-sink-volume @DEFAULT_SINK@ toggle";
           "XF86AudioMicMute" = "exec ${pactl} set-sink-volume @DEFAULT_SOURCE@ toggle";
-          "${mod}+l" = "exec loginctl lock-session";
+          "${mod}+l" = "exec ${locker}";
           "${mod}+m" = "move workspace to output left";
           "${mod}+n" = "exec ${modn}";
           "${mod}+b" = "exec ${gotoNewWs}";
@@ -103,6 +117,7 @@ in {
       extraConfig = ''
           exec --no-startup-id ${pkgs.networkmanagerapplet}/bin/nm-applet
           exec --no-startup-id ${pkgs.feh}/bin/feh --bg-center ~/.background-image
+          exec --no-startup-id ${pkgs.blueberry}/bin/blueberry-tray
           exec_always systemctl restart --user polybar.service
 
           new_window 1pixel

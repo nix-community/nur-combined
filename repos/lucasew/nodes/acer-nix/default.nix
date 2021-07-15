@@ -106,6 +106,7 @@ in
     pinentryFlavor = "gnome3";
   };
   hardware = {
+    bluetooth.enable = true;
     opengl = {
       enable = true;
       driSupport32Bit = true;
