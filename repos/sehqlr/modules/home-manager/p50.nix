@@ -7,11 +7,6 @@
     xdg-desktop-portal-wlr
   ];
 
-  programs.obs-studio = {
-    enable = true;
-    plugins = [ pkgs.obs-studio-plugins.wlrobs ];
-  };
-
   services.kanshi.profiles = {
     undocked = {
       outputs = [{
