@@ -225,26 +225,16 @@ let
     ln -s ${rejectType1} $dst/53-nixos-reject-type1.conf
     ''}
   '';
-
-  # Package with configuration files
-  # this merge all the packages in the fonts.fontconfig.confPackages list
-  fontconfigEtc = pkgs.buildEnv {
-    name  = "fontconfig-etc";
-    paths = cfg.confPackages;
-    ignoreCollisions = true;
-  };
 in
 {
 
-  config = mkMerge [
-    (mkIf cfg.enable {
-      fonts.fontconfig.confPackages = mkForce [ confPkg ];
-      fileSystems."/usr/share/fonts" = {
-        device = "${fontDir}";
-        fsType = "none";
-        options = [ "bind" ];
-      };
-    })
-  ];
+  config = mkIf cfg.enable {
+    fonts.fontconfig.confPackages = [ confPkg ];
+    fileSystems."/usr/share/fonts" = {
+      device = "${fontDir}";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+  };
 
 }
