@@ -516,10 +516,10 @@
       };
     "https-everywhere" = buildFirefoxXpiAddon {
       pname = "https-everywhere";
-      version = "2021.4.15";
+      version = "2021.7.13";
       addonId = "https-everywhere@eff.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3760520/https_everywhere-2021.4.15-an+fx.xpi";
-      sha256 = "8f6342077515669f73ae377346da4447428544559c870678488fa5b6b63d2500";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3809748/https_everywhere-2021.7.13-an+fx.xpi";
+      sha256 = "e261461b5d4d3621285fce70773558184d691c614b330744dab672f032db731c";
       meta = with lib;
       {
         homepage = "https://www.eff.org/https-everywhere";
@@ -590,10 +590,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "4.0.6";
+      version = "4.0.7";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3808335/grammatik_und_rechtschreibprufung_languagetool-4.0.6-fx.xpi";
-      sha256 = "e9ccb56062332c2e5bf8202895c0988422fe16cb2b6c3e9137fbd6f6bfc4f050";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3809032/grammatik_und_rechtschreibprufung_languagetool-4.0.7-fx.xpi";
+      sha256 = "13af33f254d4018da8f5365184501df289a31c036b4bc623c1a1f410512e1ccc";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -731,10 +731,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.7.1";
+      version = "9.8.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3806721/metamask-9.7.1-an+fx.xpi";
-      sha256 = "5b4642f34307d2be2e4212e1b594ba40be19f9ec2c744d0376d5599e4f26094e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3810658/metamask-9.8.0-an+fx.xpi";
+      sha256 = "cf1d42010978dfc0391b33b3ac8e6fa8672c6350a6006c107d6e2aab34388d22";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -882,10 +882,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "5.47.0";
+      version = "6.1.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3793624/okta_browser_plugin-5.47.0-an+fx.xpi";
-      sha256 = "83b8b7c31b441202548bcae6365816da903f9f0291d9df1bba79a423f911fc65";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3807454/okta_browser_plugin-6.1.0-an+fx.xpi";
+      sha256 = "8155148a317343b95a5a1eda94c4c546bc3109e070d9f68a7373205414ea1939";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -915,10 +915,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.0.4";
+      version = "2.0.5";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3803208/1password_password_manager-2.0.4-fx.xpi";
-      sha256 = "48009f26b4caa6f526b071cbae61adb354be0ed16d2f8b1a81ff96a27fb920fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3809753/1password_password_manager-2.0.5-fx.xpi";
+      sha256 = "964c741ad57f19bd70d644e0fde1877e91790ed429d9dddbb1825ea8e4c2f174";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -1119,10 +1119,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.6.1";
+      version = "5.6.2";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3807747/moderator_toolbox_for_reddit-5.6.1-an+fx.xpi";
-      sha256 = "47fd5cab9b5c9e5968e804301926bd8fb3cbb7f09c3e831bc1895f5397ceb0c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3810106/moderator_toolbox_for_reddit-5.6.2-an+fx.xpi";
+      sha256 = "a7a8657b3302257f970248880dad390c29071b777dd15d25919dce16664e2f72";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -1483,13 +1483,13 @@
       };
     "unpaywall" = buildFirefoxXpiAddon {
       pname = "unpaywall";
-      version = "3.96";
+      version = "3.97";
       addonId = "{f209234a-76f0-4735-9920-eb62507a54cd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3806465/unpaywall-3.96-fx.xpi";
-      sha256 = "fa19409ca9feab9121e39d01bb46fc658abcaded172adb5900a2b52c60bc9f65";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3810542/unpaywall-3.97-fx.xpi";
+      sha256 = "18b41f8405103ec87aef8c2565079b26e8fe2188a4277ad17108225d5cd3a30a";
       meta = with lib;
       {
-        homepage = "http://unpaywall.org/products/extension";
+        homepage = "https://unpaywall.org/products/extension";
         description = "Get free text of research papers as you browse, using Unpaywall's index of ten million legal, open-access articles.";
         license = licenses.mit;
         platforms = platforms.all;
