@@ -61,10 +61,10 @@ let
   };
 
   ast = buildPecl {
-    version = "1.0.12";
+    version = "1.0.13";
     pname = "ast";
 
-    sha256 = "1mcfx989yrakixlsx2d8v6kyxawfwhig4mra9ccpjasfhad0d31x";
+    sha256 = "1ifh66gy54mc44m3szpzzblwjk3hzp7j6nfziyfqlz7aw79qgjkq";
 
     meta.broken = isPhp56;
   };
@@ -397,7 +397,7 @@ let
     meta.broken = isPhp56;
   };
 
-  mongodb = if isPhp56 then mongodb17 else mongodb19;
+  mongodb = if isPhp56 then mongodb17 else mongodb110;
 
   mongodb17 = buildPecl {
     pname = "mongodb";
@@ -418,11 +418,11 @@ let
     meta.broken = isPhp71;
   };
 
-  mongodb19 = buildPecl {
+  mongodb110 = buildPecl {
     pname = "mongodb";
-    version = "1.9.1";
+    version = "1.10.0";
 
-    sha256 = "1mzyssy2a89grw7rwmh0x22lql377nmnqlcv9piam1c32qiwxlg9";
+    sha256 = "0wvaq97hrpcnfyhsd7a2jv4iiswbr711a339v95rl4x5lphxqcw0";
 
     nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [
@@ -597,12 +597,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.90";
+    version = "0.12.92";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0f8858w9b421s3dfz8a56g0mik4zyi1lp88lijw4zs2d94dcdl9s";
+      sha256 = "1dhybgymlc3sl1hyxn4ik5nc7hhas9ks7vk4kqsk9ldlw0zkqx9b";
     };
 
     phases = [ "installPhase" ];
