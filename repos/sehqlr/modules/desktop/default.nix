@@ -23,10 +23,10 @@
 
   users.users.sam = {
     description = "Sam Hatfield <hey@samhatfield.me>";
-    extraGroups = [ "wheel" "audio" "docker" "video" "networkmanager" ];
+    extraGroups = [ "wheel" "audio" "video" "networkmanager" ];
     isNormalUser = true;
     shell = pkgs.zsh;
   };
 
-  virtualisation.docker.enable = true;
+  virtualisation.podman.enable = true;
 }
