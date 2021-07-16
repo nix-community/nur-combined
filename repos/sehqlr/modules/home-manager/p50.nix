@@ -14,12 +14,10 @@
 
   services.kanshi.profiles = {
     undocked = {
-      outputs = [
-          {
-              criteria = "eDP-1";
-              position = "0,0";
-          }
-      ];
+      outputs = [{
+        criteria = "eDP-1";
+        position = "0,0";
+      }];
     };
     "three_monitors_on_reboot" = {
       outputs = [
