@@ -19,6 +19,5 @@ self: super:
     sleep 5
     modprobe iwlwifi iwlmvm
   '';
-  goldendict = unstable.goldendict;
-  inherit (unstable) steam;
+  inherit (unstable) steam goldendict;
 }
