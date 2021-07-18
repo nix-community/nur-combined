@@ -2,8 +2,8 @@
 
 fetchFirefoxAddon {
   name = "tree-style-tab";
-  url = "https://addons.mozilla.org/firefox/downloads/file/3798964/tree_style_tab_-3.8.4-fx.xpi";
-  sha256 = "sha256-j71HlH7+ZH3iWHlQXAEwr/KRcGLUE8sdmf2DJpfZ7Ko=";
+  url = "https://addons.mozilla.org/firefox/downloads/file/3807070/tree_style_tab_-3.8.7-fx.xpi";
+  sha256 = "sha256-eR6Jz3ILC3zDOlsf5sFVJJCViwbkrApFaAX9uzl1tJw=";
 
   # meta = with lib; {
   #   https://github.com/piroor/treestyletab/releases/download/3.7.3/treestyletab-we.xpi

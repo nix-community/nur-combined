@@ -31,6 +31,7 @@ rec {
   container-diff = callPackage ./pkgs/container-diff { };
   flat-remix-theme = callPackage ./pkgs/themes/flat-remix { };
   google-fonts = callPackage ./pkgs/fonts/google-fonts { };
+  grpc-web = callPackage ./pkgs/grpc-web { };
   infracost = callPackage ./pkgs/infracost { };
   ko = callPackage ./pkgs/ko { };
   konstraint = callPackage ./pkgs/konstraint { };

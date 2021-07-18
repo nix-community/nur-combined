@@ -2,8 +2,8 @@
 
 fetchFirefoxAddon {
   name = "https-everywhere";
-  url = "https://addons.mozilla.org/firefox/downloads/file/3760520/https_everywhere-2021.4.15-an+fx.xpi";
-  sha256 = "sha256-j2NCB3UVZp9zrjdzRtpER0KFRFWchwZ4SI+ltrY9JQA=";
+  url = "https://addons.mozilla.org/firefox/downloads/file/3809748/https_everywhere-2021.7.13-an+fx.xpi";
+  sha256 = "sha256-4mFGG11NNiEoX85wdzVYGE1pHGFLMwdE2rZy8DLbcxw=";
 
   # meta = with lib; {
   #   https://github.com/EFForg/https-everywhere

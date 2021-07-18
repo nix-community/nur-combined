@@ -2,8 +2,8 @@
 
 fetchFirefoxAddon {
   name = "1password-x-password-manager";
-  url = "https://addons.mozilla.org/firefox/downloads/file/3784953/1password_password_manager-2.0.2-fx.xpi";
-  sha256 = "sha256-0UeBjDvNgIHdJd3+dKBoer48rlYiy/OrLvM0QLGVUjo=";
+  url = "https://addons.mozilla.org/firefox/downloads/file/3809753/1password_password_manager-2.0.5-fx.xpi";
+  sha256 = "sha256-lkx0GtV/Gb1w1kTg/eGHfpF5DtQp2d3bsYJeqOTC8XQ=";
 
   # meta = with lib; {
   #   homepage = "https://addons.mozilla.org/en-US/firefox/addon/1password-x-password-manager/";
