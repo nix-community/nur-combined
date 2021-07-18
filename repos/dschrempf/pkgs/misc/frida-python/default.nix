@@ -8,14 +8,14 @@
 
 let
   pname = "frida-python";
-  version = "14.2.18";
+  version = "15.0.8";
   namePypi = "frida";
   pythonVersion = "38";
   base = "https://files.pythonhosted.org/packages/${python3.pythonVersion}/${builtins.substring 0 1 namePypi}/${namePypi}";
   eggs = {
     x86_64-linux = fetchurl {
       url = "${base}/${namePypi}-${version}-py${python3.pythonVersion}-linux-x86_64.egg";
-      sha256 = "1qqj3wfrp0d4pzhg5qqrfbkigydpan49c1y003mk8jl5020k8krn";
+      sha256 = "sha256-az9CIlwiofFJEH+WOr6fe18y60kV/o+oKG5WV6e2x4k=";
     };
   };
 in
@@ -26,10 +26,11 @@ python3.pkgs.buildPythonPackage rec {
   src = python3.pkgs.fetchPypi {
     pname = namePypi;
     inherit version;
-    sha256 = "sha256-8OQLiy7+wypUDCWbkj7mWnOmCFwfMNE5rfAchZq69Ho=";
+    sha256 = "sha256-3i3ykkdwYBzjnNyZL6NpC0oIkdYUpRXK0DvBuU52L/E=";
   };
 
-  egg = eggs.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
+  egg = eggs.${stdenv.hostPlatform.system}
+    or (throw "unsupported system: ${stdenv.hostPlatform.system}");
 
   postPatch = ''
     # sed -i "s/'build_ext': FridaPrebuiltExt//" setup.py
