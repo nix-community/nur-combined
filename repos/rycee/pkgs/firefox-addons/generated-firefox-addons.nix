@@ -1593,6 +1593,19 @@
         platforms = platforms.all;
         };
       };
+    "wayback-machine" = buildFirefoxXpiAddon {
+      pname = "wayback-machine";
+      version = "1.8.6";
+      addonId = "wayback_machine@mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/929315/wayback_machine-1.8.6-an+fx.xpi";
+      sha256 = "9036b595c24b46b9d236863be3d7cf6dd59ab09b6e512c3a5c9bd41b7b843394";
+      meta = with lib;
+      {
+        description = "Detects dead pages, 404s, DNS failures &amp; a range of other web breakdowns, offering to show archived versions via the Internet Archive's Wayback Machine.  In addition you can archive web pages, and see their most recent &amp; first archives.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
       version = "2.44.0";
