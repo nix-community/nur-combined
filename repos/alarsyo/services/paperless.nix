@@ -58,7 +58,7 @@ in
       paths = [
         "/var/lib/docker/volumes/paperless_data"
         "/var/lib/docker/volumes/paperless_media"
-        "/var/lib/docker/volumes/paperless_pgdata"
+        "/home/alarsyo/paperless-ng/backups"
       ];
     };
   };
