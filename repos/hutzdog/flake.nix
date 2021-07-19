@@ -5,8 +5,12 @@
 
   outputs = { nixpkgs, utils, ... }:
     utils.lib.eachDefaultSystem (system: 
-    let pkgs = import nixpkgs { inherit system; };
+    let 
+      pkgs = import nixpkgs { inherit system; };
+      repo = import ./. { inherit pkgs; };
     in {
-      packages = import ./default.nix { inherit pkgs; };
-    });
+      packages = { inherit (repo) lmt build-sh; };
+    }) // { 
+      overlays = import ./overlays.nix;
+    };
 }
