@@ -20,10 +20,12 @@ with import ../../globalConfig.nix;
     neovim
   ];
   environment.variables.EDITOR = "nvim";
+  # remote acess
   services.openssh = {
     enable = true;
     passwordAuthentication = true;
   };
+  programs.mosh.enable = true;
   services.zerotierone = {
     enable = true;
     port = 6969;
