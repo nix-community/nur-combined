@@ -22,13 +22,13 @@ let
 
 in relevantStdenv.mkDerivation rec {
   pname = "libtas";
-  version = "unstable-2021-05-27";
+  version = "unstable-2021-07-20";
 
   src = fetchFromGitHub {
     owner = "clementgallet";
     repo = "libTAS";
-    rev = "cc1039cbe11b2634e5cda0f9aa143e726ce68eeb";
-    hash = "sha256:0xp5ii92bhk1i9c7qw7gz5qd6g6mfz78jrkyjzhjbsgr3p327vda";
+    rev = "8c916e7bd1fd42a6e5c65f765af6627fb1dd3ca7";
+    hash = "sha256:0mrrm475mmpc2i7baggndl3srrvkwv53l8yblykcalafswy824cd";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig wrapQtAppsHook git ];
