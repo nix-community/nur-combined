@@ -47,6 +47,12 @@
       '';
     };
 
+    lsp-eslint = {
+      config = ''
+        (setq lsp-eslint-server-command '("node" "${pkgs.vscode-extensions.dbaeumer.vscode-eslint}/share/vscode/extensions/dbaeumer.vscode-eslint/server/out/eslintServer.js" "--stdio"))
+      '';
+    };
+
     markdown-mode = {
       mode = [ ''"\\.mdwn\\'"'' ''"\\.markdown\\'"'' ''"\\.md\\'"'' ];
     };
