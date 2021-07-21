@@ -44,10 +44,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.2.100";
+      version = "7.3.2";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3803747/betterttv-7.2.100-fx.xpi";
-      sha256 = "d2d4b182bb2eb665dbece7b9da5988e7299f93dd35a31f0770da521c7c7b55ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3812482/betterttv-7.3.2-fx.xpi";
+      sha256 = "5b7a7ae89e2ece08944a6ab819ad62f6102cf6a9b24b52a80d229abce220ada8";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -100,20 +100,6 @@
         homepage = "https://github.com/dessant/buster";
         description = "Save time by asking Buster to solve captchas for you.";
         license = licenses.gpl3;
-        platforms = platforms.all;
-        };
-      };
-    "bypass-paywalls" = buildFirefoxXpiAddon {
-      pname = "bypass-paywalls";
-      version = "1.7.9b";
-      addonId = "bypasspaywalls@bypasspaywalls";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3773130/bypass_paywalls-1.7.9b-an+fx.xpi";
-      sha256 = "b7675863b1f8000294b26425acd9fa4209ca2a43310d7baf52eb0934d30f28e8";
-      meta = with lib;
-      {
-        homepage = "https://github.com/iamadamdev/bypass-paywalls-chrome/blob/master/README.md";
-        description = "This is the official Bypass Paywalls web browser extension used to help bypass paywalls for selected sites.\n\nThis extension is meant for educational purposes only. Please consider supporting the sites you frequently use this on.";
-        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -609,10 +595,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.75.0.4";
+      version = "4.76.0.12";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3804007/lastpass_password_manager-4.75.0.4-an+fx.xpi";
-      sha256 = "205aca771a76c7cb86702bae72ba8862ae2f83fc11919e3aedae51298975727f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3810602/lastpass_password_manager-4.76.0.12-an+fx.xpi";
+      sha256 = "5a923d25b1cb3c8070614a5eaf4813200fe8990cc801e506a63420825a71599e";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1077,10 +1063,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.13.5";
+      version = "4.14.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3781975/react_developer_tools-4.13.5-fx.xpi";
-      sha256 = "d397fc7b3e2b7ac57d2fabf380408731c694dd52afa871e7808dfbb3531b623a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3811140/react_developer_tools-4.14.0-fx.xpi";
+      sha256 = "afa732941ac8bc6bedcdc7995baafef82d6485851799f3766928ebd3ca632ec2";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1147,10 +1133,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.7.12";
+      version = "21.7.18";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3808553/refined_github-21.7.12-an+fx.xpi";
-      sha256 = "bef89e9fe24c8a6ca11205e5da9b31463f7a8fca24f242a57f1aee0495ba9528";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3811850/refined_github-21.7.18-an+fx.xpi";
+      sha256 = "6eeb130bdf5815745bd8c30861d8438c713aae451ffa0d4078bb43af3ad52b5b";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1174,10 +1160,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "3.6.4";
+      version = "3.6.5";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3796475/search_by_image-3.6.4-an+fx.xpi";
-      sha256 = "2601cce6b4f8a767fe85c70e18ca18e797c91f57eb053192e92cd23538255f19";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3810052/search_by_image-3.6.5-an+fx.xpi";
+      sha256 = "39c34b695e5de84910b937c276c0c67a45ba5790fe46cccc829b498419a90d4f";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image";
@@ -1244,10 +1230,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.17";
+      version = "1.5.19";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3732726/stylus-1.5.17-fx.xpi";
-      sha256 = "6d0d770c7ebf8938533eec7d55952d0845df3c47b1783a23b4f513e6cae58f09";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3810495/stylus-1.5.19-fx.xpi";
+      sha256 = "58810c68aefb238ded3a73ae0e76540d290eb575ba42ea142bfd73a2387bbc4e";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -1422,10 +1408,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.7";
+      version = "3.8.8";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3807070/tree_style_tab_-3.8.7-fx.xpi";
-      sha256 = "791e89cf720b0b7cc33a5b1fe6c1552490958b06e4ac0a456805fdbb3975b49c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3811312/tree_style_tab-3.8.8-fx.xpi";
+      sha256 = "09f9d3b8514e622310a5e4a9f73482e305e46114aaaa194b71c1232de20e1ea6";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -1469,10 +1455,10 @@
       };
     "umatrix" = buildFirefoxXpiAddon {
       pname = "umatrix";
-      version = "1.4.0";
+      version = "1.4.4";
       addonId = "uMatrix@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3396815/umatrix-1.4.0-an+fx.xpi";
-      sha256 = "991f0fa5c64172b8a2bc0a010af60743eba1c18078c490348e1c6631882cbfc7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3812704/umatrix-1.4.4-an+fx.xpi";
+      sha256 = "1de172b1d82de28c334834f7b0eaece0b503f59e62cfc0ccf23222b8f2cb88e5";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uMatrix";
@@ -1581,10 +1567,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.7.7";
+      version = "6.7.10";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3802468/wappalyzer-6.7.7-fx.xpi";
-      sha256 = "b25d1ef2b45b6293d945030f0ebd34f94e4efe83e882be0a6aed47ebeaf4a484";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3812548/wappalyzer-6.7.10-fx.xpi";
+      sha256 = "c099020e11ff5c13851dec732cba97d884405e9ddb38d56f80f0caac040d9a9b";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
