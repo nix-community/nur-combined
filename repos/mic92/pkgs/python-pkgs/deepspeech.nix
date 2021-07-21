@@ -2,26 +2,25 @@
 , buildPythonPackage
 , fetchurl
 , pip
-, isPy38
+, isPy39
 , numpy
 , autoPatchelfHook
 , sox
 , stdenv
 }:
 let
-  pythonVersion = "38";
+  pythonVersion = "39";
 in
 buildPythonPackage rec {
   pname = "deepspeech";
-  version = "0.9.3";
-  disabled = !isPy38;
-  wheelName = "deepspeech-${version}-cp${pythonVersion}-cp${pythonVersion}-manylinux1_x86_64.whl";
-
-  # building is somewhat complicated, described in https://nixos.wiki/wiki/Frida
+  version = "0.10.0-alpha.3";
+  wheelVersion = builtins.replaceStrings ["-alpha."] ["a"] version;
+  disabled = !isPy39;
+  wheelName = "deepspeech-${wheelVersion}-cp${pythonVersion}-cp${pythonVersion}-manylinux1_x86_64.whl";
 
   src = fetchurl {
     url = "https://github.com/mozilla/DeepSpeech/releases/download/v${version}/${wheelName}";
-    sha256 = "sha256-R3UlaEfYxLFsYEYlYfl6bazzJRg0acefQr10TAZHngw=";
+    sha256 = "sha256-/s9W1esD/7CG4T9PL8GwTCjRFjEYfIis/SweXxhMiiE=";
   };
 
   buildInputs = [ stdenv.cc.cc ];

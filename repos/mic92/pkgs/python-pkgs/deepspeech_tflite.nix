@@ -2,7 +2,7 @@
 , buildPythonPackage
 , fetchurl
 , pip
-, isPy38
+, isPy39
 , numpy
 , autoPatchelfHook
 , makeWrapper
@@ -10,19 +10,18 @@
 , stdenv
 }:
 let
-  pythonVersion = "38";
+  pythonVersion = "39";
 in
 buildPythonPackage rec {
   pname = "deepspeech_tflite";
-  version = "0.9.3";
-  disabled = !isPy38;
-  wheelName = "deepspeech_tflite-${version}-cp${pythonVersion}-cp${pythonVersion}-manylinux1_x86_64.whl";
-
-  # building is somewhat complicated, described in https://nixos.wiki/wiki/Frida
+  version = "0.10.0-alpha.3";
+  disabled = !isPy39;
+  wheelVersion = builtins.replaceStrings ["-alpha."] ["a"] version;
+  wheelName = "deepspeech_tflite-${wheelVersion}-cp${pythonVersion}-cp${pythonVersion}-manylinux1_x86_64.whl";
 
   src = fetchurl {
     url = "https://github.com/mozilla/DeepSpeech/releases/download/v${version}/${wheelName}";
-    sha256 = "sha256-Ot30lYusxipgQ9tjYGQCKQXKt47OsQ0S+aDU4b2Yq3Q=";
+    sha256 = "sha256-xyB4viocVyavx6WYaGZ12+3ThoKE5p/Dj57wUnTfai8=";
   };
 
   buildInputs = [ stdenv.cc.cc ];

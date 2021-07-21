@@ -15,8 +15,6 @@ rec {
     inherit lesscpy;
   };
 
-  frida = callPackage ./frida.nix { };
-
   gatt = callPackage ./gatt.nix { };
 
   http_ece = callPackage ./http_ece.nix { };

@@ -20,8 +20,6 @@ rec {
     fonts = [ "FiraCode" ];
   };
 
-  frida-tools = pkgs.callPackage ./pkgs/frida-tools { myPython3Packages = python3Packages; };
-
   gatttool = pkgs.callPackage ./pkgs/gatttool { };
 
   gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard { };
@@ -88,7 +86,7 @@ rec {
   };
 
   python3Packages = pkgs.recurseIntoAttrs (
-    pkgs.python3Packages.callPackage ./pkgs/python-pkgs { }
+    pkgs.python39Packages.callPackage ./pkgs/python-pkgs { }
   );
 
   pyps4-2ndscreen = pkgs.python3.pkgs.toPythonApplication python3Packages.pyps4-2ndscreen;
