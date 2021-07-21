@@ -57,11 +57,11 @@ rec {
 
   lualdap = pkgs.callPackage ./pkgs/lualdap { };
 
-  mastodon-hnbot = pkgs.python3Packages.callPackage ./pkgs/mastodon-hnbot {
+  mastodon-hnbot = pkgs.python39Packages.callPackage ./pkgs/mastodon-hnbot {
     inherit (python3Packages) Mastodon;
   };
 
-  mypyls = pkgs.python3.pkgs.callPackage ./pkgs/mypyls { };
+  mypyls = pkgs.python39.pkgs.callPackage ./pkgs/mypyls { };
 
   mosh-ssh-agent = pkgs.callPackage ./pkgs/mosh-ssh-agent { };
 
@@ -75,7 +75,7 @@ rec {
 
   pandoc-bin = pkgs.callPackage ./pkgs/pandoc { };
 
-  patool = pkgs.python3.pkgs.callPackage ./pkgs/patool {
+  patool = pkgs.python39.pkgs.callPackage ./pkgs/patool {
     inherit (pkgs) libarchive;
   };
 
@@ -89,12 +89,12 @@ rec {
     pkgs.python39Packages.callPackage ./pkgs/python-pkgs { }
   );
 
-  pyps4-2ndscreen = pkgs.python3.pkgs.toPythonApplication python3Packages.pyps4-2ndscreen;
+  pyps4-2ndscreen = pkgs.python39.pkgs.toPythonApplication python3Packages.pyps4-2ndscreen;
 
-  rspamd-learn-spam-ham = pkgs.python3.pkgs.callPackage ./pkgs/rspam-learn-spam-ham { };
+  rspamd-learn-spam-ham = pkgs.python39.pkgs.callPackage ./pkgs/rspam-learn-spam-ham { };
 
   rhasspyPackages = import ./pkgs/rhasspy {
-    inherit (pkgs.python3Packages) callPackage;
+    inherit (pkgs.python39Packages) callPackage;
     inherit (python3Packages) deepspeech;
   };
 

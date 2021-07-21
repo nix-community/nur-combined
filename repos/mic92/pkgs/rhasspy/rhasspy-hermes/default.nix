@@ -8,13 +8,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-hermes";
-  version = "0.5.0";
+  version = "0.6.1";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-0fNlzJHkJ0X20AKuFuEx3njI5kCPTAXGL2cXa/GTSzo=";
+    sha256 = "sha256-q88NYl0UKcQgewVZ+xevv/G7Hdf+bbJyKT/OMssVRS0=";
   };
 
   postPatch = ''

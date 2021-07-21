@@ -9,15 +9,15 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-microphone-cli-hermes";
-  version = "0.2.0";
+  version = "0.2.1";
 
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "48b23d57fea4ba750d96197303446de896e712d6";
-    sha256 = "sha256-RFl1ALe2Qz3NjWbXFmHo1brk+KjV8gHTzXOrzGQpAVY=";
+    rev = "490e9b6abbdc24f85d3dcb5a41fb0c4b8870099d";
+    sha256 = "sha256-9NQWewCFqCRaZQES2Zz/gES+HgXjtaaFF0LS0ySvn3s=";
   };
 
   postPatch = ''

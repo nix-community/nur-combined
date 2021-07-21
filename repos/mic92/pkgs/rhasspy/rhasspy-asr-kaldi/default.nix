@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-asr-kaldi";
-  version = "0.6.0";
+  version = "0.6.1";
 
   disabled = pythonOlder "3.7";
 
@@ -20,7 +20,7 @@ buildPythonPackage rec {
     owner = "rhasspy";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-D+x/gNU9It5SFrPrvV2qoaHzJPbAa7JFp+2X9zYEqpw=";
+    sha256 = "sha256-lZZOHBaGxAhyMNuW1J3bHO89NsZCOM7CYBI6oTLyA+o=";
   };
 
   propagatedBuildInputs = [

@@ -3,22 +3,23 @@
 , buildPythonPackage
 , fetchFromGitHub
 , paho-mqtt
+, snowboy
 , rhasspy-hermes
 }:
 
 buildPythonPackage rec {
   pname = "rhasspy-wake-snowboy-hermes";
-  version = "2020-12-20";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "ddc92bc50010c2039d710e26485f641229c07f2f";
-    sha256 = "sha256-2c4vFaj8kLBkZl0v3+N/UfYYEVUNNOaHrCvoiSgY2tE=";
+    rev = "72d970350f4ba7a764427724c015d1cbb18e6c67";
+    sha256 = "sha256-j2QzIcdF2pQDALzmLjcp4rhgy6yKLhZtb9wjvLKAx+U=";
   };
 
   propagatedBuildInputs = [
-    rhasspy-hermes
+    rhasspy-hermes snowboy
   ];
 
   postPatch = ''

@@ -3,6 +3,9 @@
     inherit typing-inspect;
   };
 
+  grapheme = callPackage ./grapheme {
+  };
+
   hypercorn = callPackage ./hypercorn { };
 
   quart = callPackage ./quart {
@@ -49,7 +52,9 @@
     inherit rhasspy-hermes;
   };
 
-  rhasspy-nlu = callPackage ./rhasspy-nlu { };
+  rhasspy-nlu = callPackage ./rhasspy-nlu {
+    inherit grapheme;
+  };
 
   rhasspy-remote-http-hermes = callPackage ./rhasspy-remote-http-hermes {
     inherit rhasspy-hermes rhasspy-nlu rhasspy-silence;
@@ -74,7 +79,7 @@
   };
 
   rhasspy-wake-snowboy-hermes = callPackage ./rhasspy-wake-snowboy-hermes {
-    inherit rhasspy-hermes;
+    inherit rhasspy-hermes snowboy;
   };
 
   rhasspy-dialogue-hermes = callPackage ./rhasspy-dialogue-hermes {
@@ -145,6 +150,8 @@
       rhasspy-server-hermes
       ;
   };
+
+  snowboy = callPackage ./snowboy { };
 
   swagger-ui-py = callPackage ./swagger-ui-py { };
 

@@ -48,7 +48,7 @@
 
 buildPythonPackage rec {
   pname = "rhasspy";
-  version = "2.5.9";
+  version = "2.5.10";
 
   disabled = pythonOlder "3.7";
 
@@ -56,7 +56,7 @@ buildPythonPackage rec {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-Zxj8ZsNc3M5dBQSbF1ODiwikqgKI6ALq2RDvtLUEHBc=";
+    sha256 = "sha256-2WbgsqTz3QwzyN+wJoR38NGqPMFhNP6LxtJ8t44Cmd8=";
   };
 
   configureFlags = [

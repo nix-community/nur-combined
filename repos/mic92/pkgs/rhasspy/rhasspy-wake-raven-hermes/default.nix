@@ -8,13 +8,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-wake-raven-hermes";
-  version = "0.5.0";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "dedad027a10a8d376e449f6165a29831fe577e64";
-    sha256 = "sha256-S8AvPdI9GFFBc5B3JjFEWH0zDqJe35vxlYY3HlRmCZM=";
+    rev = "41ff418e10dcda3ed827b8a863a35b46ebda0062";
+    sha256 = "sha256-sry3k+JRQWNot4JhWPwgrkUGTyq3VNFMY77YAtc/Z3o=";
   };
 
   propagatedBuildInputs = [
@@ -25,6 +25,7 @@ buildPythonPackage rec {
   postPatch = ''
     patchShebangs configure
     sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
+    sed -i "s/rhasspy-wake-raven.*/rhasspy-wake-raven/" requirements.txt
   '';
 
   meta = with lib; {

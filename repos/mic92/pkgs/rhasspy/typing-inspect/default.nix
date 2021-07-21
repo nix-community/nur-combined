@@ -9,13 +9,13 @@
 
 buildPythonPackage rec {
   pname = "typing-inspect";
-  version = "0.6.0";
+  version = "0.7.1";
 
   src = fetchPypi {
     inherit version;
     pname = "typing_inspect";
     extension = "tar.gz";
-    sha256 = "8f1b1dd25908dbfd81d3bebc218011531e7ab614ba6e5bf7826d887c834afab7";
+    sha256 = "sha256-BH1Al9mxf0ZTG/bwFDVhEaG2+4IaJP56yQmFPKKngqo=";
   };
 
   propagatedBuildInputs = [

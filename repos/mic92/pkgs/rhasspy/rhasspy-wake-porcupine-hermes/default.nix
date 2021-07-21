@@ -11,13 +11,13 @@
 buildPythonPackage rec {
   pname = "rhasspy-wake-porcupine-hermes";
 
-  version = "0.2.0";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "6e7819b4b82aa25a23b15364cb6bfc620742dca3";
-    sha256 = "sha256-WQseofi3uuwlMmep0Zi0xHwWTsguwPqVtLMxQnGUaRI=";
+    rev = "v${version}";
+    sha256 = "sha256-FS0/Cxtz0y84xeJHE8m7vHbl3RGLu5kMMlnJWcXthuo=";
   };
 
   propagatedBuildInputs = [

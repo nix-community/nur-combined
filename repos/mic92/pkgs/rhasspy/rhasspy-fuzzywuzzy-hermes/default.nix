@@ -10,13 +10,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-fuzzywuzzy-hermes";
-  version = "0.4.0";
+  version = "0.6.1";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-zlkXHjBxro0/pjmWjvjR3G2IAwJ5sYi4Td2NbJkLKZc=";
+    sha256 = "sha256-ARJmvJ/Htvqip2V2QY0HYWeZ+NXOlgl4BOaxt5VgPmo=";
   };
 
   propagatedBuildInputs = [

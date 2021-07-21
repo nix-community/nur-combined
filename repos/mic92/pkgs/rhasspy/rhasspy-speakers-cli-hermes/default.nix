@@ -8,13 +8,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-speakers-cli-hermes";
-  version = "0.3.0";
+  version = "0.3.1";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-2ALTgggJhZ6eyrqb1ksPD2TcvkM2ve/9vI896BpGOoo=";
+    sha256 = "sha256-IOqDiPXYEH/sG6b6+9x5GHAHNwjHoGEqSH1GUD6PcCc=";
   };
 
   postPatch = ''

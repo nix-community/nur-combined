@@ -11,13 +11,13 @@
 
 buildPythonPackage rec {
   pname = "dataclasses-json";
-  version = "0.4.2";
+  version = "0.5.4";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Zaya4vfsFS7gG/QsjAJHNtTNb2+3YVAt7JK9VTkx49k=";
+    sha256 = "sha256-bDl2gW/TzdjbO+K1FrZPwIOs1GrCLGgNPcJMsdauM2c=";
   };
 
   propagatedBuildInputs = [

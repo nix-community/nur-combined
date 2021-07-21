@@ -18,14 +18,14 @@
 
 buildPythonPackage rec {
   pname = "quart";
-  version = "0.13.1";
+  version = "0.14.1";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     pname = "Quart";
     inherit version;
-    sha256 = "sha256-nGNOTB5LIbgkADxnbeFYNYEljHKwrE0rp0fbhG6X/1Y=";
+    sha256 = "sha256-QpxbT/J+HS+coKrMOParoP9Js4uBVEi/JLYT094S6gI=";
   };
 
   # # Package conditions to handle

@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-asr-deepspeech";
-  version = "0.4.0";
+  version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
@@ -29,6 +29,7 @@ buildPythonPackage rec {
 
   postPatch = ''
     sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
+    sed -i 's/deepspeech==.*/deepspeech/' requirements.txt
   '';
 
   # misses files

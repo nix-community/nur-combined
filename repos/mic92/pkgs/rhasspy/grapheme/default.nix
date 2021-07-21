@@ -5,19 +5,19 @@
 }:
 
 buildPythonPackage rec {
-  pname = "rapidfuzz";
-  version = "1.4.1";
+  pname = "grapheme";
+  version = "0.6.0";
 
   disabled = pythonOlder "3.5";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-3iBVAXg3bSG/4bNKfcQqsQe7KC74IGnPbf4oBaACniY=";
+    sha256 = "sha256-RMK58hu+d8+wWDX+wjC9Q1lUJ1Jn/qGFgBOxAvhgPMo=";
   };
 
   meta = with lib; {
-    description = "Rapid fuzzy string matching";
-    homepage = "https://github.com/maxbachmann/rapidfuzz";
+    description = "A python package for grapheme aware string handling";
+    homepage = "https://github.com/alvinlindstam/grapheme";
     license = licenses.mit;
     maintainers = [ maintainers.mic92 ];
   };

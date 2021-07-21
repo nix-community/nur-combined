@@ -6,11 +6,11 @@
 
 buildPythonPackage rec {
   pname = "json5";
-  version = "0.9.5";
+  version = "0.9.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "703cfee540790576b56a92e1c6aaa6c4b0d98971dc358ead83812aa4d06bdb96";
+    sha256 = "sha256-kXWtG8JI4iu42VqOjXZZWL8ACP7y/oq6tbwE4PGsgwI=";
   };
 
   checkInputs = [

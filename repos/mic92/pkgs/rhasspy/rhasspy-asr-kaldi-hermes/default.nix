@@ -10,13 +10,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-asr-kaldi-hermes";
-  version = "0.3.0";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "de0b7e378b06e34cfe52630e40feba016c9e69c3";
-    sha256 = "sha256-NzZGrOBru9cW6lH/d+dbzzI2AHzE70MCWB8W+FXiq3Q=";
+    rev = "v${version}";
+    sha256 = "sha256-u1SAEBJPG/1HqBNXg6PEBG270bgoIpubmKWA3d4vSCo=";
   };
 
   dontConfigure = true;

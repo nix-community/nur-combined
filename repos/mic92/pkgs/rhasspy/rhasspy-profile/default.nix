@@ -6,13 +6,13 @@
 , aiofiles
 , aiohttp
 , json5
-, python3
+, python
 , dataclasses-json
 }:
 
 buildPythonPackage rec {
   pname = "rhasspy-profile";
-  version = "0.5.3";
+  version = "0.7.2";
 
   disabled = pythonOlder "3.6";
 
@@ -20,7 +20,7 @@ buildPythonPackage rec {
     owner = "rhasspy";
     repo = "rhasspy-profile";
     rev = "v${version}";
-    sha256 = "sha256-LwfM72WOQFrC86722z/u7lHWgMcG5Tn3m5xAHGcoGe8=";
+    sha256 = "sha256-xzu7pRVAyHQm0zI6RnPnHP7CAhi67BPGnnU+PEZyavM=";
   };
 
   postPatch = ''
@@ -31,7 +31,7 @@ buildPythonPackage rec {
   '';
 
   postInstall = ''
-    cp -r rhasspyprofile/profiles $out/${python3.sitePackages}/rhasspyprofile
+    cp -r rhasspyprofile/profiles $out/${python.sitePackages}/rhasspyprofile
   '';
 
   propagatedBuildInputs = [

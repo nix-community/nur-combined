@@ -1,6 +1,6 @@
 { lib
 , buildPythonPackage
-, fetchFromGitHub
+, fetchPypi
 , pythonOlder
 , rhasspy-hermes
 , aiohttp
@@ -8,15 +8,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-homeassistant-hermes";
-  version = "0.2.0";
+  version = "0.2.1";
 
   disabled = pythonOlder "3.7";
 
-  src = fetchFromGitHub {
-    owner = "rhasspy";
-    repo = pname;
-    rev = "e4b0d9049d046c90b8862fe2dbca70a8917a5dff";
-    sha256 = "sha256-du4mzX8DuKNK+6yH+5WpMB2v05Q8QDNW7U/8TExTeNI=";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-e7l5sUlXUMeHoSAZRx1VW4ugi0bLuaFNQCgcWM0ImEA=";
   };
 
   postPatch = ''

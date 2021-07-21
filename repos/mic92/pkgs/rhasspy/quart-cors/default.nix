@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchPypi {
     pname = "Quart-CORS";
     inherit version;
-    sha256 = "c08bdb326219b6c186d19ed6a97a7fd02de8fe36c7856af889494c69b525c53c";
+    sha256 = "sha256-wIvbMmIZtsGG0Z7WqXp/0C3o/jbHhWr4iUlMabUlxTw=";
   };
 
   propagatedBuildInputs = [

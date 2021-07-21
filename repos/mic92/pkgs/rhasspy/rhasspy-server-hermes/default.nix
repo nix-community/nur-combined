@@ -11,6 +11,7 @@
 , rhasspy-supervisor
 , quart
 , quart-cors
+, multidict
 }:
 
 buildPythonPackage rec {
@@ -22,8 +23,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = pname;
-    rev = "0cb3d2b4afdd4c0412de2a5e56d37d980d195e6b";
-    sha256 = "sha256-9SY6OvXH5VtDSPQyRlQe+stlY+ax9loNELx4KVpyiP8=";
+    rev = "796ad413581431e99f1a58c884262b11ae0897d4";
+    sha256 = "sha256-Kd30xi7sJOxmxg4ncsFES2lWVwo+kZgpHUlcI146xsg=";
   };
 
   postPatch = ''
@@ -33,6 +34,7 @@ buildPythonPackage rec {
     sed -i "s/aiohttp==.*/aiohttp/" requirements.txt
     sed -i "s/networkx==.*/networkx/" requirements.txt
     sed -i 's/paho-mqtt==.*/paho-mqtt/' requirements.txt
+    sed -i 's/multidict==.*/multidict/' requirements.txt
   '';
 
   propagatedBuildInputs = [

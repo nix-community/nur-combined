@@ -7,13 +7,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-dialogue-hermes";
-  version = "0.5.0";
+  version = "0.6.1";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-3JO4Y8CGhZud3+PZyUNJwSQC3Ho1xxP5wiDuZgtHjCQ=";
+    sha256 = "sha256-lgZCvK8T1+Hw/KMSwnU56kWP/NAinfTwWueMpOBQld8=";
   };
 
   postPatch = ''

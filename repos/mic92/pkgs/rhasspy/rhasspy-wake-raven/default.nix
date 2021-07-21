@@ -10,13 +10,13 @@
 
 buildPythonPackage rec {
   pname = "rhasspy-wake-raven";
-  version = "0.5.1";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = "rhasspy-wake-raven";
-    rev = "0fa941b1c273f7729e8ac0118aac26c158126ced";
-    sha256 = "sha256-4Arc5qFQek6XW9PK3FRrGbsOMPvJSWllowId0RkQyCY=";
+    rev = "5d16e5f76dff2b0894129613a048953a159f9d1e";
+    sha256 = "sha256-ZnGnxbEGIFUZdzAg8Kn1FoDwbCnWY1HdSNbq2FK0b5k=";
   };
 
   propagatedBuildInputs = [
