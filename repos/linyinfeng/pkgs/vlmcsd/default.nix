@@ -1,15 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, gzip, exa }:
+{ sources, stdenv, lib, fetchFromGitHub, gzip, exa }:
 
 stdenv.mkDerivation rec {
-  pname = "vlmcsd";
-  version = "1113";
-
-  src = fetchFromGitHub {
-    owner = "Wind4";
-    repo = pname;
-    rev = "svn${version}";
-    sha256 = "sha256-OKysOm44T9wrAaopp9HfLlox5InlpV33AHGXRSjhDqc=";
-  };
+  inherit (sources.vlmcsd) pname version src;
 
   buildPhase = ''
     make

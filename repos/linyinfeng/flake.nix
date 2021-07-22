@@ -13,19 +13,31 @@
         };
         mkApp = drvName: cfg: flake-utils.lib.mkApp ({ drv = self.packages.${system}.${drvName}; } // cfg);
       in
-      {
+      rec {
         packages = import ./pkgs { inherit pkgs; };
         apps = {
+          updater = mkApp "updater" { };
           activate-dpt = mkApp "activate-dpt" { };
           clash-premium = mkApp "clash-premium" { };
           dpt-rp1-py = mkApp "dpt-rp1-py" { name = "dptrp1"; };
           godns = mkApp "godns" { };
-          musicbox = mkApp "musicbox" { };
           trojan = mkApp "trojan" { };
           vlmcsd = mkApp "vlmcsd" { };
         };
         checks = flake-utils.lib.flattenTree {
           packages = pkgs.lib.recurseIntoAttrs self.packages.${system};
+        };
+        devShell = pkgs.mkShell {
+          inputsFrom = [
+            packages.updater.env
+          ];
+          packages = [
+            pkgs.cabal-install
+            pkgs.ormolu
+            (pkgs.writeScriptBin "update" ''
+              ${packages.updater}/bin/updater "$@"
+            '')
+          ];
         };
       })) //
     {

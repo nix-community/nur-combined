@@ -1,15 +1,8 @@
-{ stdenv, lib, fetchFromGitHub, buildGoModule }:
+{ sources, stdenv, lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
-  pname = "godns";
-  version = "2.4.1";
+  inherit (sources.godns) pname version src;
 
-  src = fetchFromGitHub {
-    owner = "TimothyYe";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-0LFCUjzYqHiLQYiKdYJ8jCXiCDXdGCHk67wqsQhXlVM=";
-  };
 
   vendorSha256 = "sha256-FZLDaMrPEyoTGFmGBlpqPWsMuobqwkBaot5qjcRJe9w=";
 

@@ -24,8 +24,10 @@ jobs:
         # Format: Your cachix cache host name without the ".cachix.org" suffix.
         # Example: mycache (for mycache.cachix.org)
         #
-        # For this to work, you also need to set the CACHIX_SIGNING_KEY secret
-        # in your repository settings in Github found at https://github.com/<your_githubname>/nur-packages/settings/secrets
+        # For this to work, you also need to set the CACHIX_SIGNING_KEY or
+        # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
+        # Github found at
+        # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
           - linyinfeng
         nixPath:
@@ -44,10 +46,12 @@ jobs:
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
       uses: cachix/cachix-action@v10
+      # Don't replace <YOUR_CACHIX_NAME> here!
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
@@ -61,5 +65,6 @@ jobs:
       # TODO switch to default nixpkgs channel once nix-build-uncached 1.0.0 is in stable
       run: nix run -I 'nixpkgs=channel:nixos-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
+      # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"

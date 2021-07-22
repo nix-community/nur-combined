@@ -1,15 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, cmake, boost, openssl, libmysqlclient }:
+{ sources, stdenv, lib, fetchFromGitHub, cmake, boost, openssl, libmysqlclient }:
 
 stdenv.mkDerivation rec {
-  pname = "trojan-gfw";
-  version = "1.16.0";
-
-  src = fetchFromGitHub {
-    owner = "trojan-gfw";
-    repo = "trojan";
-    rev = "v${version}";
-    sha256 = "fCoZEXQ6SL++QXP6GlNYIyFaVhQ8EWelJ33VbYiHRGw=";
-  };
+  inherit (sources.trojan) pname version src;
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ boost openssl libmysqlclient ];

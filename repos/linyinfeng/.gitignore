@@ -1,2 +1,9 @@
 result
 result-*
+
+dist
+dist-*
+
+.direnv
+.envrc
+*.shake*
