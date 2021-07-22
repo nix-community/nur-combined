@@ -3,6 +3,7 @@
   environment.systemPackages = with pkgs; [
     alacritty
     feh
+    gimp
     gnome.nautilus
     mpv
     pavucontrol

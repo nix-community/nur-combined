@@ -47,12 +47,11 @@
     dogdns
     du-dust
     htop
-    stow
     tealdeer
+    unzip
+    zip
 
     # nix pkgs lookup
     nix-index
-
-    unstable.innernet
   ];
 }
