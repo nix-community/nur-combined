@@ -562,10 +562,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.7.8.1";
+      version = "1.7.9";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3758952/keepassxc_browser-1.7.8.1-fx.xpi";
-      sha256 = "c091084b5ac5acbf4652bd60033a69e10d1b1e3e5ff3dd1f68fc62afea636b3d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3813466/keepassxc_browser-1.7.9-fx.xpi";
+      sha256 = "ee8432f3acbc3be64553d44dd7edff1d7fb84ede93570be278d90793d6fbf119";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -1160,10 +1160,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "3.6.5";
+      version = "3.7.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3810052/search_by_image-3.6.5-an+fx.xpi";
-      sha256 = "39c34b695e5de84910b937c276c0c67a45ba5790fe46cccc829b498419a90d4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3812766/search_by_image-3.7.0-an+fx.xpi";
+      sha256 = "bae3be604b574c6639f81eba81242df9822dc7c517ed04869c91fba261807057";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image";
