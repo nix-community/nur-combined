@@ -119,7 +119,7 @@ in {
           exec --no-startup-id ${pkgs.feh}/bin/feh --bg-center ~/.background-image
           exec --no-startup-id ${pkgs.blueberry}/bin/blueberry-tray
           exec_always systemctl restart --user polybar.service
-          exec_always ${pkgs.feh}/bin/feh --bg-scale --no-xinerama --no-fehbg '/home/lucasew/.dotfiles/wall.jpg'
+          exec_always ${pkgs.feh}/bin/feh --bg-fill --no-xinerama --no-fehbg '/home/lucasew/.dotfiles/wall.jpg'
 
           new_window 1pixel
       '';

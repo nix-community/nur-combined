@@ -2,8 +2,10 @@
 with pkgs.lib;
 let
   colors = {
-    background = "#00ffffff";
+    background = "#77000000";
     background-alt = "#aa111111";
+    background-selected = "cc000000";
+    background-selected-secondary = "99000000";
     foreground = "#dfdfdf";
     foreground-alt = "#555";
     primary = "#ffb52a";
@@ -150,11 +152,11 @@ in {
 
     "label-mode-padding" = 2;
     "label-mode-foreground" = "#000";
-    "label-mode-background" = colors.primary;
+    "label-mode-background" = colors.background-selected;
 
     # ; focused = Active workspace on focused monitor
     "label-focused" = "%index%";
-    "label-focused-background" = colors.background-alt;
+    "label-focused-background" = colors.background-selected;
     "label-focused-underline" = colors.primary;
     "label-focused-padding" = 2;
 
@@ -165,7 +167,7 @@ in {
     # ; visible = Active workspace on unfocused monitor
     # ; label-visible = %index%
     "label-visible" = "%index%";
-    "label-visible-background" = "#44ffffff";
+    "label-visible-background" = colors.background-selected-secondary;
     "label-visible-underline" = colors.primary;
     "label-visible-padding" = 2;
 
