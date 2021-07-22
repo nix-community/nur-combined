@@ -14,7 +14,9 @@
         mkApp = drvName: cfg: flake-utils.lib.mkApp ({ drv = self.packages.${system}.${drvName}; } // cfg);
       in
       rec {
-        packages = import ./pkgs { inherit pkgs; };
+        packages = import ./pkgs { inherit pkgs; } // {
+          updater = pkgs.callPackage ./pkgs/updater { };
+        };
         apps = {
           updater = mkApp "updater" { };
           activate-dpt = mkApp "activate-dpt" { };

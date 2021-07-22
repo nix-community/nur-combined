@@ -4,7 +4,6 @@ let
   sources = pkgs.callPackage ../sources.nix { };
 in
 {
-  updater = pkgs.callPackage ./updater { };
   clash-premium = pkgs.callPackage ./clash-premium { inherit sources; };
   godns = pkgs.callPackage ./godns { inherit sources; };
   dpt-rp1-py = pkgs.callPackage ./dpt-rp1-py { inherit sources; };
