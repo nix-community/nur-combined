@@ -93,6 +93,8 @@
 
     protobuf-mode = { mode = [ ''"'\\.proto\\'"'' ]; };
 
+    purescript-mode = { mode = [ ''"\\.purs\\'"'' ]; };
+
     ripgrep = {
       config = ''
         (setq ripgrep-executable "${pkgs.ripgrep}/bin/rg")
