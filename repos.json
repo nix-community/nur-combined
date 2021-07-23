@@ -482,6 +482,9 @@
         "tomberek": {
             "url": "https://github.com/tomberek/nur-packages"
         },
+        "toonn": {
+            "url": "https://github.com/toonn/nur-packages"
+        },
         "tox": {
             "url": "https://github.com/tox-rs/nur-tox"
         },
