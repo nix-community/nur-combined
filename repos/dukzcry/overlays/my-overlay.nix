@@ -1,7 +1,7 @@
 { unstable, config }:
 
 self: super:
-{
+rec {
   dtrx = super.dtrx.overrideAttrs (oldAttrs: {
     postFixup = ''
       ${oldAttrs.postFixup}
@@ -19,5 +19,5 @@ self: super:
     sleep 5
     modprobe iwlwifi iwlmvm
   '';
-  inherit (unstable) steam goldendict;
+  inherit (unstable) steam goldendict helio-workstation;
 }

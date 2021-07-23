@@ -31,10 +31,6 @@ in {
    })
    (mkIf pulse {
       hardware.pulseaudio.package = pkgs.pulseaudioFull;
-      hardware.pulseaudio.extraConfig = ''
-        load-module module-jack-sink
-        load-module module-jack-source
-      '';
    })
   ];
 }

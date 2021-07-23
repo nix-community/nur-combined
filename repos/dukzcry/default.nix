@@ -18,7 +18,7 @@ let
   unstable = import unstable_ { config.allowUnfree = true; };
   eval = import <nixpkgs/nixos/lib/eval-config.nix>;
   config = eval {modules = [(import <nixos-config>)];}.config;
-in {
+in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules { unstable-path = unstable_; inherit unstable; }; # NixOS modules
@@ -29,6 +29,7 @@ in {
   realrtcw = pkgs.callPackage ./pkgs/realrtcw.nix { };
   gamescope = pkgs.callPackage ./pkgs/gamescope.nix {};
   re3 = pkgs.callPackage ./pkgs/re3.nix {};
-  revc = pkgs.callPackage ./pkgs/revc.nix {};
+  revc = pkgs.callPackage ./pkgs/revc.nix { inherit re3; };
+  bitwig-studio3 = pkgs.callPackage ./pkgs/bitwig-studio3.nix {};
 }
 

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, premake5, glfw, openal, libX11, libXrandr, mpg123, libsndfile }:
+{ lib, stdenv, fetchFromGitHub, premake5, glfw, openal, libX11, libXrandr, mpg123, libsndfile }:
 
 let
   # attempt to call a nil value (global 'staticruntime')  
@@ -43,4 +43,11 @@ in stdenv.mkDerivation {
     mkdir -p $out/share/games/re3
     cp -r ../gamefiles $out/share/games/re3
   '';
+  meta = with lib; {
+    description = "GTA III engine";
+    license = licenses.unfree;
+    homepage = src.meta.homepage;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ ];
+  };
 }
