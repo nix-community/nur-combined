@@ -13,6 +13,7 @@ in
     extraGroups = [
       "media"
       "networkmanager"
+      "video" # for `light` permissions
       "docker"
       "wheel" # Enable ‘sudo’ for the user.
     ];

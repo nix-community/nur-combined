@@ -60,4 +60,6 @@ in
     enable = true;
     powerOnBoot = false;
   };
+
+  programs.light.enable = true;
 }
