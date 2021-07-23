@@ -63,19 +63,6 @@
     };
     
   };
-  musicbox = {
-    pname = "musicbox";
-    version = "0.3.1";
-    src = fetchgit {
-      url = "https://github.com/darknessomi/musicbox";
-      rev = "0.3.1";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "0wqhci463xfhmcwq24vni5llazj62wq4mmminik558yhh5najv9w";
-    };
-    
-  };
   trojan = {
     pname = "trojan";
     version = "v1.16.0";

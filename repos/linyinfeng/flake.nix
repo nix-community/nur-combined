@@ -37,7 +37,7 @@
             pkgs.cabal-install
             pkgs.ormolu
             (pkgs.writeScriptBin "update" ''
-              ${packages.updater}/bin/updater "$@"
+              nix run .#updater -- "$@"
             '')
           ];
         };
