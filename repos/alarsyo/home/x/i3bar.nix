@@ -2,8 +2,21 @@
 let
   isEnabled = config.my.home.x.enable;
   i3BarTheme = config.my.theme.i3BarTheme;
+  cfg = config.my.home.x.i3bar;
 in
 {
+  options.my.home.x.i3bar = with lib; {
+    temperature.chip = mkOption {
+      type = types.str;
+      example = "coretemp-isa-*";
+      default = "";
+    };
+    temperature.inputs = mkOption {
+      type = types.listOf types.str;
+      example = ["Core 0" "Core 1" "Core 2" "Core 3"];
+      default = "";
+    };
+  };
 
   config = lib.mkIf isEnabled {
     home.packages = with pkgs; [
@@ -57,10 +70,8 @@ in
               collapsed = false;
               interval = 10;
               format = "{max}";
-              # FIXME: specific to my AMD Ryzen CPU. Make this depend on
-              # hostname or something else
-              chip = "k10temp-pci-*";
-              inputs = [ "Tccd1" ];
+              chip = cfg.temperature.chip;
+              inputs = cfg.temperature.inputs;
             }
             {
               block = "networkmanager";

@@ -118,6 +118,26 @@
           ];
         };
 
+        zephyrus = nixpkgs.lib.nixosSystem rec {
+          inherit system;
+          modules = [
+            ./zephyrus.nix
+
+            home-manager.nixosModule
+            self.nixosModules.home
+
+            {
+              nixpkgs.overlays = [
+                inputs.emacs-overlay.overlay
+
+                (self: super: {
+                  steam = self.unstable.steam;
+                })
+              ] ++ shared_overlays;
+            }
+          ];
+        };
+
       };
   } // inputs.flake-utils.lib.eachDefaultSystem (system: {
     packages =
