@@ -6,5 +6,4 @@
   desktop = ./desktop;
   home-manager = ./home-manager;
   cloud = ./cloud;
-  services = ./services;
 }
