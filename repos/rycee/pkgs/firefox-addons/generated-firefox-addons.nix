@@ -423,10 +423,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.878.0";
+      version = "8.880.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3803074/grammarly_for_firefox-8.878.0-an+fx.xpi";
-      sha256 = "d662f68e5eb0bf28b719c427f9d410fea804f62b66d990d6bbff041f9362448e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3813516/grammarly_for_firefox-8.880.0-an+fx.xpi";
+      sha256 = "1297f3431259a5cd6bd5bb398e63d0140efa4e332c5fa673e7af9430af78de3c";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -535,10 +535,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.19.0";
+      version = "2.19.1";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3773956/ipfs_companion-2.19.0-an+fx.xpi";
-      sha256 = "84652c6bf37889d4d6511b48860b76835fa7ea8fff03b7a23a013f882675337e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3804013/ipfs_companion-2.19.1-an+fx.xpi";
+      sha256 = "6abe23deb1fdf9e0634aa8bd0c8115b03631affc67e2a88b47590b389dca2017";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -562,10 +562,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.7.9";
+      version = "1.7.9.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3813466/keepassxc_browser-1.7.9-fx.xpi";
-      sha256 = "ee8432f3acbc3be64553d44dd7edff1d7fb84ede93570be278d90793d6fbf119";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3813940/keepassxc_browser-1.7.9.1-fx.xpi";
+      sha256 = "b57ef5d973992ed5e2e75fec69082c8517ca5f680fbbe5db48e9b1bac5ce9f81";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
