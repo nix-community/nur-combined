@@ -91,10 +91,10 @@
       };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
-      version = "1.2.0";
+      version = "1.2.2";
       addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3768455/buster_captcha_solver_for_humans-1.2.0-an+fx.xpi";
-      sha256 = "a1bbfb4a88132b852b96855b548ffd24a7763a73dd2803591f058debf111e8b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3814691/buster_captcha_solver_for_humans-1.2.2-an+fx.xpi";
+      sha256 = "c3f5e78a408cab6214de5875fa34c064996d5b9d068600958a08ba919bc24ab1";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/buster";
@@ -717,10 +717,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.8.0";
+      version = "9.8.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3810658/metamask-9.8.0-an+fx.xpi";
-      sha256 = "cf1d42010978dfc0391b33b3ac8e6fa8672c6350a6006c107d6e2aab34388d22";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3814701/metamask-9.8.2-an+fx.xpi";
+      sha256 = "d33aaf78f91a4821b22fb7bd60bfceac78dae097a5fd9c55811771a89bdeb4e3";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -813,10 +813,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.9";
+      version = "11.2.10";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3800990/noscript_security_suite-11.2.9-an+fx.xpi";
-      sha256 = "830a25dad07327ae220b4740ea834b0abe715e9ef3dabc326bf7fef2c5af1efb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3814113/noscript_security_suite-11.2.10-an+fx.xpi";
+      sha256 = "4d3b68f77647d0afcf28a6c5223c7fdc8af591f4087eede149a195ef80eec32b";
       meta = with lib;
       {
         homepage = "https://noscript.net";
