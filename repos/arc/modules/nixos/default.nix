@@ -2,6 +2,7 @@
   modprobe = ./modprobe.nix;
   pulseaudio = ./pulseaudio.nix;
   pipewire = ./pipewire.nix;
+  alsa = ./alsa.nix;
   yggdrasil = ./yggdrasil.nix;
   display = ./display.nix;
   filebin = ./filebin.nix;
@@ -15,6 +16,7 @@
       modprobe
       pulseaudio
       pipewire
+      alsa
       yggdrasil
       display
       filebin

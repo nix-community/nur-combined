@@ -89,6 +89,23 @@ let
       };
     });
 
+    imv-develop = { imv, fetchFromGitHub, fetchpatch }: imv.overrideAttrs (old: {
+      version = "2021-07-08";
+      src = fetchFromGitHub {
+        owner = "eXeC64";
+        repo = "imv";
+        rev = "eeaf5e3cb983befd20bc5d706f5b8e7cd321decf";
+        sha256 = "1wrbzgm7q9q937p7cyz6kfmmpjm23vn7zfrhqklp6hpxh1gqfw0q";
+      };
+
+      patches = old.patches or [ ] ++ [
+        (fetchpatch {
+          url = "https://github.com/eXeC64/imv/pull/341.patch";
+          sha256 = "1rnycq2qhh692npi697a9z4iq946g8qk0rlgsc5na72126srqwfh";
+        })
+      ];
+    });
+
     i3gopher-sway = { i3gopher }: i3gopher.override {
       enableI3 = false;
       enableSway = true;

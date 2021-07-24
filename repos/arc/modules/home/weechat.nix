@@ -165,6 +165,13 @@ in {
       default = "irc";
     };
 
+    tmuxSocket = mkOption {
+      type = with types; nullOr str;
+      default = null;
+      example = "tmux";
+      description = "If set, the service will store the named server socket under `programs.weechat.homeDirectory`";
+    };
+
     tmuxPackage = mkOption {
       type = types.package;
       description = "tmux package";
@@ -186,14 +193,32 @@ in {
 
     systemd.user.services = mkIf scfg.enable {
       weechat-tmux = {
-        Unit.Description = "Weechat tmux session";
-        Service = {
+        Unit = {
+          Description = "Weechat tmux session";
           After = [ "network.target" ];
+        };
+        Service = let
+          tmuxFlags = [
+            "-2"
+          ] ++ optionals (scfg.tmuxSocket != null) [
+            "-S" "${cfg.homeDirectory}/${scfg.tmuxSocket}"
+          ];
+          sessionFlags = [
+            "-d"
+            "-e" "WEECHAT_HOME=${cfg.homeDirectory}"
+            "-s" scfg.sessionName
+            scfg.binary
+          ];
+          tmuxFlagsStr = concatStringsSep " " tmuxFlags;
+          sessionFlagsStr = concatStringsSep " " sessionFlags;
+        in {
           Type = "oneshot";
+          Environment = optional
+            (scfg.tmuxSocket == null && config.programs.tmux.secureSocket) "TMUX_TMPDIR=%t";
           RemainAfterExit = true;
           X-RestartIfChanged = false;
-          ExecStart = "${scfg.tmuxPackage}/bin/tmux -2 new-session -d -s ${scfg.sessionName} ${scfg.binary}";
-          ExecStop = "${scfg.tmuxPackage}/bin/tmux kill-session -t ${scfg.sessionName}";
+          ExecStart = "${scfg.tmuxPackage}/bin/tmux ${tmuxFlagsStr} new-session ${sessionFlagsStr}";
+          ExecStop = "${scfg.tmuxPackage}/bin/tmux ${tmuxFlagsStr} kill-session -t ${scfg.sessionName}";
         };
         Install.WantedBy = [ "default.target" ];
       };

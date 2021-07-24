@@ -21,6 +21,7 @@
   firefox = ./firefox.nix;
   tridactyl = ./tridactyl.nix;
   ncpamixer = ./ncpamixer.nix;
+  ncmpcpp = ./ncmpcpp.nix;
   nix-path = ./nix-path.nix;
   offlineimap = ./offlineimap.nix;
   syncplay = ./syncplay.nix;
@@ -48,6 +49,7 @@
       firefox
       tridactyl
       ncpamixer
+      ncmpcpp
       nix-path
       offlineimap
       syncplay
