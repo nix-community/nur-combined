@@ -6,7 +6,7 @@
   programs.emacs.init.usePackage = {
     all-the-icons = { extraPackages = [ pkgs.emacs-all-the-icons-fonts ]; };
 
-    csharp-mode = { mode = [ ''"\\.cs\\'"'' ]; };
+    csharp-mode.mode = [ ''"\\.cs\\'"'' ];
 
     dap-lldb = {
       config = ''
@@ -20,11 +20,11 @@
       '';
     };
 
-    dhall-mode = { mode = [ ''"\\.dhall\\'"'' ]; };
+    dhall-mode.mode = [ ''"\\.dhall\\'"'' ];
 
-    dockerfile-mode = { mode = [ ''"Dockerfile\\'"'' ]; };
+    dockerfile-mode.mode = [ ''"Dockerfile\\'"'' ];
 
-    elm-mode = { mode = [ ''"\\.elm\\'"'' ]; };
+    elm-mode.mode = [ ''"\\.elm\\'"'' ];
 
     emacsql-sqlite3 = {
       enable =
@@ -42,10 +42,13 @@
     };
 
     idris-mode = {
+      mode = [ ''"\\.idr\\'"'' ];
       config = ''
         (setq idris-interpreter-path "${pkgs.idris}/bin/idris")
       '';
     };
+
+    latex.mode = [ ''("\\.tex\\'" . latex-mode)'' ];
 
     lsp-eslint = {
       config = ''
@@ -57,7 +60,7 @@
       mode = [ ''"\\.mdwn\\'"'' ''"\\.markdown\\'"'' ''"\\.md\\'"'' ];
     };
 
-    nix-mode = { mode = [ ''"\\.nix\\'"'' ]; };
+    nix-mode.mode = [ ''"\\.nix\\'"'' ];
 
     notmuch = {
       config = ''
@@ -65,7 +68,7 @@
       '';
     };
 
-    octave = { mode = [ ''("\\.m\\'" . octave-mode)'' ]; };
+    octave.mode = [ ''("\\.m\\'" . octave-mode)'' ];
 
     ob-plantuml = {
       config = ''
@@ -85,15 +88,17 @@
       '';
     };
 
+    php-mode.mode = [ ''"\\.php\\'"'' ];
+
     plantuml-mode = {
       config = ''
         (setq plantuml-jar-path "${pkgs.plantuml}/lib/plantuml.jar")
       '';
     };
 
-    protobuf-mode = { mode = [ ''"'\\.proto\\'"'' ]; };
+    protobuf-mode.mode = [ ''"'\\.proto\\'"'' ];
 
-    purescript-mode = { mode = [ ''"\\.purs\\'"'' ]; };
+    purescript-mode.mode = [ ''"\\.purs\\'"'' ];
 
     ripgrep = {
       config = ''
@@ -101,10 +106,10 @@
       '';
     };
 
-    rust-mode = { mode = [ ''"\\.rs\\'"'' ]; };
+    rust-mode.mode = [ ''"\\.rs\\'"'' ];
 
-    terraform-mode = { mode = [ ''"\\.tf\\'"'' ]; };
+    terraform-mode.mode = [ ''"\\.tf\\'"'' ];
 
-    yaml-mode = { mode = [ ''"\\.\\(e?ya?\\|ra\\)ml\\'"'' ]; };
+    yaml-mode.mode = [ ''"\\.\\(e?ya?\\|ra\\)ml\\'"'' ];
   };
 }
