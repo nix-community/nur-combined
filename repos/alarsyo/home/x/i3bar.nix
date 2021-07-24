@@ -93,6 +93,11 @@ in
               block = "sound";
               driver = "pulseaudio";
             }
+          ] ++ (lib.lists.optionals config.my.home.laptop.enable [
+            {
+              block = "battery";
+            }
+          ]) ++ [
             # {
             #   block = "notify";
             # }

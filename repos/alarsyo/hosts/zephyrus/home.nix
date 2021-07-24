@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 {
   home-manager.users.alarsyo = {
+    my.home.laptop.enable = true;
+
     # Keyboard settings & i3 settings
     my.home.x.enable = true;
     my.home.x.i3bar.temperature.chip = "coretemp-isa-*";

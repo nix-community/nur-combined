@@ -6,6 +6,7 @@
     ./env.nix
     ./fish
     ./flameshot.nix
+    ./laptop.nix
     ./secrets
     ./starship.nix
     ./themes
