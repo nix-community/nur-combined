@@ -328,13 +328,13 @@ let
         sha512 = "HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==";
       };
     };
-    "rechoir-0.7.0" = {
+    "rechoir-0.7.1" = {
       name = "rechoir";
       packageName = "rechoir";
-      version = "0.7.0";
+      version = "0.7.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rechoir/-/rechoir-0.7.0.tgz";
-        sha512 = "ADsDEH2bvbjltXEP+hTIAmeFekTFK0V2BTxMkok6qILyAJEXV0AFfoWcAq4yfll5VdIMd/RVXq0lR+wQi5ZU3Q==";
+        url = "https://registry.npmjs.org/rechoir/-/rechoir-0.7.1.tgz";
+        sha512 = "/njmZ8s1wVeR6pjTZ+0nCnv8SpZNRMT2D1RLOJQESlYFDBvwpTA4KWJpZ+sBJ4+vhjILRcK7JIFdGCdxEAAitg==";
       };
     };
     "resolve-1.20.0" = {
@@ -488,7 +488,7 @@ let
       sources."path-key-3.1.1"
       sources."path-parse-1.0.7"
       sources."pkg-dir-4.2.0"
-      sources."rechoir-0.7.0"
+      sources."rechoir-0.7.1"
       sources."resolve-1.20.0"
       sources."resolve-cwd-3.0.0"
       sources."resolve-from-5.0.0"

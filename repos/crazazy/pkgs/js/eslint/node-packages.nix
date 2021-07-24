@@ -13,13 +13,13 @@ let
         sha512 = "Zt1yodBx1UcyiePMSkWnU4hPqhwq7hGi2nFL1LeA3EUl+q2LQx16MISgJ0+z7dnmgvP9QtIleuETGOiOH1RcIw==";
       };
     };
-    "@babel/helper-validator-identifier-7.14.5" = {
+    "@babel/helper-validator-identifier-7.14.8" = {
       name = "_at_babel_slash_helper-validator-identifier";
       packageName = "@babel/helper-validator-identifier";
-      version = "7.14.5";
+      version = "7.14.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.14.5.tgz";
-        sha512 = "5lsetuxCLilmVGyiLEfoHBRX8UCFD+1m2x3Rj97WrW3V7H3u4RWRXA4evMjImCsin2J2YT0QaVDGf+z8ondbAg==";
+        url = "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.14.8.tgz";
+        sha512 = "ZGy6/XQjllhYQrNw/3zfWRwZCTVSiBLZ9DHVZxn9n2gip/7ab8mv2TWlKPIBk26RwedCBoWdjLmn+t9na2Gcow==";
       };
     };
     "@babel/highlight-7.14.5" = {
@@ -31,13 +31,13 @@ let
         sha512 = "qf9u2WFWVV0MppaL877j2dBtQIDgmidgjGk5VIMw3OadXvYaXn66U1BFlH2t4+t3i+8PhedppRv+i40ABzd+gg==";
       };
     };
-    "@eslint/eslintrc-0.4.2" = {
+    "@eslint/eslintrc-0.4.3" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "0.4.2";
+      version = "0.4.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.4.2.tgz";
-        sha512 = "8nmGq/4ycLpIwzvhI4tNDmQztZ8sp+hI7cyG8i1nQDhkAbRzHpXPidRAHlNvCZQpJTKw5ItIpMw9RSToGF00mg==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.4.3.tgz";
+        sha512 = "J6KFFz5QCYUJq3pf0mjEcCJVERbzv71PUIDczuh9JkwGEzced6CO5ADLHB1rbf/+oPBtoPfMYNOpGDzCANlbXw==";
       };
     };
     "@humanwhocodes/config-array-0.5.0" = {
@@ -1016,18 +1016,18 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "7.30.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.30.0.tgz"; sha1 = "6d34ab51aaa56112fd97166226c9a97f505474f8"; };
+    version = "7.31.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.31.0.tgz"; sha1 = "f972b539424bf2604907a970860732c5d99d3aca"; };
     dependencies = [
       sources."@babel/code-frame-7.12.11"
-      sources."@babel/helper-validator-identifier-7.14.5"
+      sources."@babel/helper-validator-identifier-7.14.8"
       (sources."@babel/highlight-7.14.5" // {
         dependencies = [
           sources."chalk-2.4.2"
           sources."escape-string-regexp-1.0.5"
         ];
       })
-      sources."@eslint/eslintrc-0.4.2"
+      sources."@eslint/eslintrc-0.4.3"
       sources."@humanwhocodes/config-array-0.5.0"
       sources."@humanwhocodes/object-schema-1.2.0"
       sources."acorn-7.4.1"
