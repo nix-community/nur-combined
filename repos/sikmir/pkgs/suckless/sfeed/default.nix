@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "sfeed";
-  version = "0.9.24";
+  version = "0.9.25";
 
   src = fetchgit {
     url = "git://git.codemadness.org/sfeed";
     rev = version;
-    sha256 = "sha256-nwvY79Xj/p7Z8npgq62RFOpG6Z8i7OsmLvQSrGD7LNA=";
+    sha256 = "sha256-/3H86+a0EzIBVO9QVVqwOoJT9mHlXzlL/mraK9mfAvU=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];

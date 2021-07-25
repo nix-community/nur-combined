@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "telescope";
-  version = "0.3";
+  version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "omar-polo";
     repo = pname;
     rev = version;
-    hash = "sha256-BssB2cZx4rEutgk+P0HCd6eQ8gzKDVIl2JA4B4kw5XI=";
+    hash = "sha256-B7CpM7NQck731Q1iZ5/n1X8fquOaZex0MqZQwGp8ZY8=";
   };
 
   nativeBuildInputs = [ autoreconfHook yacc ];

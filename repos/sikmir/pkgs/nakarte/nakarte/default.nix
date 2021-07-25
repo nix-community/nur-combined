@@ -1,7 +1,7 @@
 { lib, stdenv, mkYarnPackage, fetchFromGitHub, secretsConfig ? null }:
 let
   pname = "nakarte";
-  version = "2021-06-29";
+  version = "2021-07-17";
 in
 mkYarnPackage {
   name = "${pname}-${version}";
@@ -9,8 +9,8 @@ mkYarnPackage {
   src = fetchFromGitHub {
     owner = "wladich";
     repo = pname;
-    rev = "77f1fcadb53dc04c589750b5b84015cc474eb65f";
-    hash = "sha256-p7Ie4fOK1/FMA/lzNLc8X1TrWdLFO+ZuCHXE94PrTfM=";
+    rev = "4163b36921d867f314de5351e079bd3d8ce6e444";
+    hash = "sha256-9klRyrnpdL0RJ8FupICbViG/oa3IFwqDcA6xoP9CvIs=";
   };
 
   postPatch =
