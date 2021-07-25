@@ -126,6 +126,11 @@
         user = "git";
       };
       "sr.ht".host = "*sr.ht";
+      "samhatfield.me" = {
+        host = "samhatfield.me";
+        user = "root";
+        identityFile = "~/.ssh/terraform";
+      };
     };
   };
 
