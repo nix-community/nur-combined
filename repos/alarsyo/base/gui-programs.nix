@@ -5,6 +5,7 @@
     feh
     gimp
     gnome.nautilus
+    imagemagick
     mpv
     pavucontrol
     thunderbird

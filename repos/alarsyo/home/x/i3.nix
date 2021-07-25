@@ -87,6 +87,9 @@ in
           "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle";
           "XF86AudioMicMute" = "exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
+          "XF86MonBrightnessDown" = "exec --no-startup-id light -U 5";
+          "XF86MonBrightnessUp" = "exec --no-startup-id light -A 5";
+
           "${modifier}+l" = "exec --no-startup-id betterlockscreen --lock";
         };
 
