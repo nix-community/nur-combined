@@ -7,8 +7,8 @@ stdenvNoCC.mkDerivation {
   src = fetchFromGitHub {
     owner = "markuskowa";
     repo = "slurm-tools";
-    rev = "v1.2.2";
-    sha256 = "16gf2kf3pqi96q17gvbrc6vdqxy39kg3pwg5mmsjk7zrm6hymm2x";
+    rev = "v1.3";
+    sha256 = "0f3krxka4g8mrahy2215hndqzbvakxqc9sypn41fwp2imcr9ffms";
   };
 
   installPhase = ''
