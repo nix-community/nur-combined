@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "ksuid";
-  version = "1.0.3";
+  version = "1.0.4";
 
   src = fetchFromGitHub {
     owner = "segmentio";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0pvq218cyrwzh113fyfiac69yv5bdc1n6klp7vf7jah3aw6p1aic";
+    sha256 = "1qc9w7imal5jk0lw0hwyszs2fh7wjsnbkawgw7kwzdvg9nbahjg7";
   };
 
   vendorSha256 = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
