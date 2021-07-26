@@ -1035,10 +1035,10 @@
       };
     "privacy-redirect" = buildFirefoxXpiAddon {
       pname = "privacy-redirect";
-      version = "1.1.48";
+      version = "1.1.49";
       addonId = "{b7f9d2cd-d772-4302-8c3f-eb941af36f76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3807896/privacy_redirect-1.1.48-an+fx.xpi";
-      sha256 = "b1ee93dd4ead3286373f3a6475e32c3f51b291a5cc6f37abbdbfb8ba84350182";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3815058/privacy_redirect-1.1.49-an+fx.xpi";
+      sha256 = "9f1cf6e58fa3f86d180b5b99549fa666fa853a827c48cb231558566b0c1c3c75";
       meta = with lib;
       {
         homepage = "https://github.com/SimonBrazell/privacy-redirect";
@@ -1567,10 +1567,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.7.10";
+      version = "6.7.11";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3812548/wappalyzer-6.7.10-fx.xpi";
-      sha256 = "c099020e11ff5c13851dec732cba97d884405e9ddb38d56f80f0caac040d9a9b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3815488/wappalyzer-6.7.11-fx.xpi";
+      sha256 = "cde36b7a6768cf60b69fe1fc007f1928b6feed7c9b66af470b8dce7baacab77f";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -1594,10 +1594,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.44.0";
+      version = "2.45.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3789294/web_scrobbler-2.44.0-an+fx.xpi";
-      sha256 = "9c9886520eb05ad05f889991724bf2343f80d8b3397172c2b064ef22442729dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3815255/web_scrobbler-2.45.0-an+fx.xpi";
+      sha256 = "368688954bb861036ceefcec4fec160471e07a210e3cefd946bf4b84732612fb";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
