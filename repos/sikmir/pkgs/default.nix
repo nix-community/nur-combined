@@ -291,6 +291,7 @@ lib.makeScope newScope (
     scc = callPackage ./suckless/scc { };
     scroll = callPackage ./suckless/scroll { };
     sfeed = callPackage ./suckless/sfeed { };
+    sfeed_curses = callPackage ./suckless/sfeed_curses { };
     sthkd = callPackage ./suckless/sthkd { };
     xprompt = callPackage ./suckless/xprompt { };
   }
