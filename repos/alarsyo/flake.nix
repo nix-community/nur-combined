@@ -36,6 +36,13 @@
       repo = "flake-utils";
       ref = "master";
     };
+
+    nixos-hardware = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixos-hardware";
+      ref = "master";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... } @inputs: {
@@ -122,6 +129,10 @@
           inherit system;
           modules = [
             ./zephyrus.nix
+
+            inputs.nixos-hardware.nixosModules.common-cpu-intel
+            inputs.nixos-hardware.nixosModules.common-pc-laptop
+            inputs.nixos-hardware.nixosModules.common-pc-ssd
 
             home-manager.nixosModule
             self.nixosModules.home
