@@ -8,10 +8,8 @@
 , openjdk11
 , dpkg
 , writeScript
-, coreutils
 , bash
 , tor
-, psmisc
 , gnutar
 , zip
 , xz
@@ -21,20 +19,27 @@ let
     #! ${bash}/bin/bash
 
     # This is just a comment to convince Nix that Tor is a
-    # runtime dependency; The Tor binary is in a *.jar file.
-    # ${tor}/bin/tor
+    # runtime dependency; The Tor binary is in a *.jar file,
+    # whereas Nix only scans for hashes in uncompressed text.
+    # ${bisq-tor}
 
-    JAVA_TOOL_OPTIONS="-XX:MaxRAM=4g" bisq-desktop-wrapped "$@"
+    JAVA_TOOL_OPTIONS="-XX:+UseG1GC -XX:MaxHeapFreeRatio=10 -XX:MinHeapFreeRatio=5 -XX:+UseStringDeduplication" bisq-desktop-wrapped "$@"
+  '';
+
+  bisq-tor = writeScript "bisq-tor" ''
+    #! ${bash}/bin/bash
+
+    exec ${tor}/bin/tor "$@"
   '';
 in
 stdenv.mkDerivation rec {
-  version = "1.7.1";
+  version = "1.7.2";
   pname = "bisq-desktop";
-  nativeBuildInputs = [ makeWrapper copyDesktopItems dpkg gnutar zip xz ];
+  nativeBuildInputs = [ makeWrapper copyDesktopItems imagemagick dpkg gnutar zip xz ];
 
   src = fetchurl {
     url = "https://github.com/bisq-network/bisq/releases/download/v${version}/Bisq-64bit-${version}.deb";
-    sha256 = "1r7nl6ny6gq6jmvpz0cdrawzfdn2lf8i58xldwln146ccf0ncdxn";
+    sha256 = "0b2rh9sphc9wffkawprrl20frgv0rah7y2k5sfxpjc3shgkqsw80";
   };
 
   desktopItems = [
@@ -57,9 +62,9 @@ stdenv.mkDerivation rec {
     # with one from Nixpkgs.
 
     mkdir -p native/linux/x64/
-    cp ${tor}/bin/tor ./
-    ${gnutar}/bin/tar -cJf native/linux/x64/tor.tar.xz tor
-    ${zip}/bin/zip -r opt/bisq/lib/app/desktop-${version}-all.jar native
+    cp ${bisq-tor} ./tor
+    tar -cJf native/linux/x64/tor.tar.xz tor
+    zip -r opt/bisq/lib/app/desktop-${version}-all.jar native
   '';
 
   installPhase = ''
@@ -76,7 +81,7 @@ stdenv.mkDerivation rec {
 
     for n in 16 24 32 48 64 96 128 256; do
       size=$n"x"$n
-      ${imagemagick}/bin/convert opt/bisq/lib/Bisq.png -resize $size bisq.png
+      convert opt/bisq/lib/Bisq.png -resize $size bisq.png
       install -Dm644 -t $out/share/icons/hicolor/$size/apps bisq.png
     done;
   '';
