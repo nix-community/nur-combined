@@ -44,10 +44,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.3.2";
+      version = "7.3.3";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3812482/betterttv-7.3.2-fx.xpi";
-      sha256 = "5b7a7ae89e2ece08944a6ab819ad62f6102cf6a9b24b52a80d229abce220ada8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3815239/betterttv-7.3.3-fx.xpi";
+      sha256 = "f226f9f2bd35944008a69b585d64fd4c93ae26040f0cd8be61eac2a94116a13a";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -228,10 +228,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.7.9";
+      version = "2021.7.22.1";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3807661/duckduckgo_privacy_essentials-2021.7.9-an+fx.xpi";
-      sha256 = "6b1e36c6f19af5c8417ae086a95009485bac934a232b6e33da04d88cf4c1614f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3814563/duckduckgo_privacy_essentials-2021.7.22.1-an+fx.xpi";
+      sha256 = "a01e387420885b0f93da9996204067c547b00c702ac45224c87a6569bd1c5922";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -841,10 +841,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.0.6";
+      version = "7.0.7";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3805305/octotree_github_code_tree-7.0.6-fx.xpi";
-      sha256 = "e7c6349c10db7ddc29a8c4ab6205fa0a376e37b9884d51189098dd13914d5eb7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3815564/octotree_github_code_tree-7.0.7-fx.xpi";
+      sha256 = "b2c673e722ade199359f9ee721308bda57e1ebb3be270c6e9723e77e84b98e9d";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1160,10 +1160,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "3.7.0";
+      version = "3.7.1";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3812766/search_by_image-3.7.0-an+fx.xpi";
-      sha256 = "bae3be604b574c6639f81eba81242df9822dc7c517ed04869c91fba261807057";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3815277/search_by_image-3.7.1-an+fx.xpi";
+      sha256 = "c893835efe00471376df0f60cb519bf35ffb72ed3c32362e4fb9b2faca87d1b9";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image";
@@ -1441,10 +1441,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.36.2";
+      version = "1.37.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3806442/ublock_origin-1.36.2-an+fx.xpi";
-      sha256 = "31f8c2126a3f4e3cfe3ef63550b842a5d4f071ec1c6e5aa377c2f29b11ff1415";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3814538/ublock_origin-1.37.0-an+fx.xpi";
+      sha256 = "484025993fc95c823ed81f7fb4028626b2f644a9d7500d3267f3b0ac59eac53b";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
