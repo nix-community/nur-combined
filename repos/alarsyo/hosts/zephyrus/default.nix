@@ -62,6 +62,7 @@ in
         STOP_CHARGE_THRESH_BAT0 = 80;
       };
     };
+    fwupd.enable = true;
   };
   my.displayManager.sddm.enable = true;
 
