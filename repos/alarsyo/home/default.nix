@@ -2,6 +2,7 @@
 {
   imports = [
     ./alacritty.nix
+    ./bat.nix
     ./emacs.nix
     ./env.nix
     ./fish

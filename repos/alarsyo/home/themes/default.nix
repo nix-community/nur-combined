@@ -7,6 +7,10 @@ let
         type = import ./alacritty.nix { inherit lib; };
         default = {};
       };
+      batTheme = mkOption {
+        type = import ./bat.nix { inherit lib; };
+        default = {};
+      };
       i3Theme = mkOption {
         type = import ./i3.nix { inherit lib; };
         default = {};
