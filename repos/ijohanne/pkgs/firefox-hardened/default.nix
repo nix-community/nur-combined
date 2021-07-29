@@ -33,5 +33,6 @@ pkgs.wrapFirefox unwrappedFirefox {
     lockPref("signon.rememberSignons.visibilityToggle", false);
     lockPref("media.eme.enabled", true);
     lockPref("browser.eme.ui.enabled", true);
+    lockPref("xpinstall.signatures.required",false);
   '';
 }

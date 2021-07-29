@@ -1,7 +1,8 @@
 { pkgs, sources, ... }:
 let
-  firefox-devedition-unwrapped = pkgs.firefox-devedition-bin-unwrapped.overrideAttrs (_: {
+  firefox-devedition-unwrapped = pkgs.firefox-devedition-bin-unwrapped.overrideAttrs (attrs: {
     pname = "firefox";
+    firefoxLibName = "firefox-bin-${attrs.version}";
   });
 in
 {
