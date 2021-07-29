@@ -81,6 +81,7 @@ in
     users.groups.drone = { };
 
     services.postgresql = {
+      enable = true;
       ensureDatabases = [ "drone" ];
       ensureUsers = [{
         name = "drone";

@@ -63,7 +63,6 @@ in
   config = lib.mkIf cfg.enable {
     services.postgresql = {
       enable = true;
-      package = pkgs.postgresql_12;
       initialScript = pkgs.writeText "synapse-init.sql" ''
         CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
         CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"

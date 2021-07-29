@@ -20,6 +20,7 @@
     ./pirate.nix
     ./podgrab.nix
     ./postgresql-backup.nix
+    ./postgresql.nix
     ./quassel.nix
     ./rss-bridge.nix
     ./sabnzbd.nix

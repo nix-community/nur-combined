@@ -78,7 +78,7 @@ in
         dashboards = [
           {
             name = "Node Exporter";
-            options.path = pkgs.nur.repos.alarsyo.grafana-dashboards.node-exporter;
+            options.path = pkgs.nur.repos.alarsyo.grafanaDashboards.node-exporter;
             disableDeletion = true;
           }
         ];

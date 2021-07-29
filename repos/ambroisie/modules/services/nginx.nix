@@ -44,7 +44,7 @@
     services.grafana.provision.dashboards = [
       {
         name = "NGINX";
-        options.path = pkgs.nur.repos.alarsyo.grafana-dashboards.nginx;
+        options.path = pkgs.nur.repos.alarsyo.grafanaDashboards.nginx;
         disableDeletion = true;
       }
     ];
