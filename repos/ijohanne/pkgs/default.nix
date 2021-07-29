@@ -1,10 +1,4 @@
 { pkgs, sources, ... }:
-let
-  firefox-devedition-unwrapped = pkgs.firefox-devedition-bin-unwrapped.overrideAttrs (_: {
-    pname = "firefox";
-    firefoxLibName = "firefox-bin-${pkgs.firefox-devedition-bin.version}";
-  });
-in
 {
   bottom = pkgs.callPackage ./bottom { inherit sources; };
   lfs = pkgs.callPackage ./lfs { inherit sources; };
@@ -19,8 +13,6 @@ in
   firefoxPlugins = pkgs.recurseIntoAttrs (pkgs.callPackage ./firefox-plugins { });
   firefox-hardened = pkgs.callPackage ./firefox-hardened { inherit pkgs; };
   firefox-hardened-wayland = pkgs.callPackage ./firefox-hardened { inherit pkgs; forceWayland = true; };
-  firefox-devedition-hardened = pkgs.callPackage ./firefox-hardened { inherit pkgs; unwrappedFirefox = firefox-devedition-unwrapped; };
-  firefox-devedition-hardened-wayland = pkgs.callPackage ./firefox-hardened { inherit pkgs; forceWayland = true; unwrappedFirefox = firefox-devedition-unwrapped; };
   hexokinase = pkgs.callPackage ./hexokinase { inherit pkgs sources; };
   nixpkgs-firefox-addons = pkgs.haskellPackages.callPackage ./firefox-addons-generator { inherit sources; };
 }

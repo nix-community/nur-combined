@@ -1,4 +1,4 @@
-{ pkgs, unwrappedFirefox ? pkgs.firefox-unwrapped, forceWayland ? false, nixExtensions ? [ ], ... }:
+{ pkgs, unwrappedFirefox ? pkgs.firefox-esr-78-unwrapped, forceWayland ? false, nixExtensions ? [ ], ... }:
 pkgs.wrapFirefox unwrappedFirefox {
   inherit forceWayland nixExtensions;
   extraPolicies = {
