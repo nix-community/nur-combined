@@ -61,10 +61,10 @@ let
   };
 
   ast = buildPecl {
-    version = "1.0.13";
+    version = "1.0.14";
     pname = "ast";
 
-    sha256 = "1ifh66gy54mc44m3szpzzblwjk3hzp7j6nfziyfqlz7aw79qgjkq";
+    sha256 = "12hngyvd8kcnl2x1zbxjr5wf3sgnbx74ir6zrzhajsh9sd9h4rky";
 
     meta.broken = isPhp56;
   };
@@ -126,12 +126,12 @@ let
   };
 
   composer2 = mkDerivation rec {
-    version = "2.1.3";
+    version = "2.1.5";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "04ad2zsnf8qi6hzs9sak6y8xxyx8l0f7crmcimnp7nn8vsc2x9zq";
+      sha256 = "1v4hjwbv1y5jvj91i2fj8bvmfsymp9ls8h231zd85svfqdy5b5dy";
     };
 
     dontUnpack = true;
@@ -257,10 +257,10 @@ let
   };
 
   igbinary30 = buildPecl {
-    version = "3.2.3";
+    version = "3.2.4";
     pname = "igbinary";
 
-    sha256 = "1ffaqhckkk1qr5dk1fl7f8dm2w4lj4gqrgazzmc67acsdmp7z5f0";
+    sha256 = "1fv0xy9nk9p7wjcl38ms15p4d15fdjz157cf8s1rhzcbakqlg4f3";
 
     configureFlags = [
       "--enable-igbinary"
@@ -273,10 +273,10 @@ let
   };
 
   imagick = buildPecl {
-    version = "3.5.0";
+    version = "3.5.1";
     pname = "imagick";
 
-    sha256 = "0afjyll6rr79am6d1p041bl4dj44hp9z4gzmlhrkvkdsdz1vfpbr";
+    sha256 = "10bz1znwp6317c15j7x7lqk4y2m672glsfpf8spb5b6w9q4z4gr4";
 
     configureFlags = with pkgs; [
       "--with-imagick=${imagemagick.dev}"

@@ -8,11 +8,12 @@
 , withPHP73 ? true, php73
 , withPHP74 ? false, php74
 , withPHP80 ? false, php80
-, withPerl532 ? true, perl532
+, withPerl532 ? false, perl532
+, withPerl534 ? true, perl534
 , withPerldevel ? false, perldevel
-, withRuby_2_4 ? false, ruby_2_4
-, withRuby_2_5 ? false, ruby_2_5
-, withRuby_2_6 ? true, ruby_2_6
+, withRuby_2_6 ? false, ruby_2_6
+, withRuby_2_7 ? false, ruby_2_7
+, withRuby_3_0 ? true, ruby_3_0
 , withSSL ? true, openssl ? null
 , withIPv6 ? true
 , withDebug ? false
@@ -43,10 +44,11 @@ stdenv.mkDerivation rec {
     ++ optional withPHP74 php74
     ++ optional withPHP80 php80
     ++ optional withPerl532 perl532
+    ++ optional withPerl534 perl534
     ++ optional withPerldevel perldevel
-    ++ optional withRuby_2_4 ruby_2_4
-    ++ optional withRuby_2_5 ruby_2_5
     ++ optional withRuby_2_6 ruby_2_6
+    ++ optional withRuby_2_7 ruby_2_7
+    ++ optional withRuby_3_0 ruby_3_0
     ++ optional withSSL openssl;
 
   configureFlags = [
@@ -68,10 +70,11 @@ stdenv.mkDerivation rec {
     ${optionalString withPHP74      "./configure php    --module=php74    --config=${php74.dev}/bin/php-config    --lib-path=${php74}/lib"}
     ${optionalString withPHP80      "./configure php    --module=php80    --config=${php80.dev}/bin/php-config    --lib-path=${php80}/lib"}
     ${optionalString withPerl532    "./configure perl   --module=perl532  --perl=${perl532}/bin/perl"}
+    ${optionalString withPerl534    "./configure perl   --module=perl534  --perl=${perl534}/bin/perl"}
     ${optionalString withPerldevel  "./configure perl   --module=perldev  --perl=${perldevel}/bin/perl"}
-    ${optionalString withRuby_2_4   "./configure ruby   --module=ruby24   --ruby=${ruby_2_4}/bin/ruby"}
-    ${optionalString withRuby_2_5   "./configure ruby   --module=ruby25   --ruby=${ruby_2_5}/bin/ruby"}
     ${optionalString withRuby_2_6   "./configure ruby   --module=ruby26   --ruby=${ruby_2_6}/bin/ruby"}
+    ${optionalString withRuby_2_7   "./configure ruby   --module=ruby27   --ruby=${ruby_2_7}/bin/ruby"}
+    ${optionalString withRuby_3_0   "./configure ruby   --module=ruby30   --ruby=${ruby_3_0}/bin/ruby"}
   '';
 
   meta = {
