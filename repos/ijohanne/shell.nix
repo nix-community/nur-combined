@@ -3,6 +3,7 @@
     overlays = [
       (_:pkgs: {
         niv = (import sources.niv { }).niv;
+        nixpkgs-firefox-addons = (import ./pkgs { inherit sources pkgs; }).nixpkgs-firefox-addons;
         nur = (import sources.NUR
           {
             inherit pkgs;
@@ -33,7 +34,7 @@ pkgs.mkShell rec {
     shfmt
     nixpkgs-fmt
     git
-    nur.rycee.firefox-addons-generator
+    nixpkgs-firefox-addons
   ];
   shellHook = ''
     export NIX_PATH="nixpkgs=${sources.nixpkgs}"

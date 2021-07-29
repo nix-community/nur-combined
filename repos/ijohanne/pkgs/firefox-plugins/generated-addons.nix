@@ -15,10 +15,10 @@
   };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
-    version = "4.9.33";
+    version = "4.9.34";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3783471/dark_reader-4.9.33-an+fx.xpi";
-    sha256 = "49e7ec13cfdb953dfb785a2442582788e895a5623956d0b7dff02f59db2e3159";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3806938/dark_reader-4.9.34-an+fx.xpi";
+    sha256 = "9ba482118d25675af31ee403c740972a106fdccfd117c4449c046b70f1a2d95d";
     meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -56,10 +56,10 @@
   };
   "https-everywhere" = buildFirefoxXpiAddon {
     pname = "https-everywhere";
-    version = "2021.4.15";
+    version = "2021.7.13";
     addonId = "https-everywhere@eff.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3760520/https_everywhere-2021.4.15-an+fx.xpi";
-    sha256 = "8f6342077515669f73ae377346da4447428544559c870678488fa5b6b63d2500";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3809748/https_everywhere-2021.7.13-an+fx.xpi";
+    sha256 = "e261461b5d4d3621285fce70773558184d691c614b330744dab672f032db731c";
     meta = with lib;
       {
         homepage = "https://www.eff.org/https-everywhere";
@@ -69,10 +69,10 @@
   };
   "lastpass-password-manager" = buildFirefoxXpiAddon {
     pname = "lastpass-password-manager";
-    version = "4.75.0.4";
+    version = "4.77.0.17";
     addonId = "support@lastpass.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3804007/lastpass_password_manager-4.75.0.4-an+fx.xpi";
-    sha256 = "205aca771a76c7cb86702bae72ba8862ae2f83fc11919e3aedae51298975727f";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3815803/lastpass_password_manager-4.77.0.17-an+fx.xpi";
+    sha256 = "1c1062b1483aa57494ff2a3f2659706341be75debe85acb2a4f5bd393c841c89";
     meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -96,10 +96,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.36.0";
+    version = "1.37.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3798731/ublock_origin-1.36.0-an+fx.xpi";
-    sha256 = "384f3e5241f87e90c376fb6964842ce204743feed554b8b7dabe09f119ea7d66";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3814538/ublock_origin-1.37.0-an+fx.xpi";
+    sha256 = "484025993fc95c823ed81f7fb4028626b2f644a9d7500d3267f3b0ac59eac53b";
     meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";

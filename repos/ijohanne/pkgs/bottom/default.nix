@@ -4,7 +4,7 @@ rustPlatform.buildRustPackage rec {
   version = "master";
   src =
     fetchFromGitHub { inherit (sources.bottom) owner repo rev sha256; };
-  cargoSha256 = "0fjyhlj8y0ma9j103jdd0az9rz5dwqq3c7x5sb7l4hrn9k2r7sra";
+  cargoSha256 = "1ll5hn1apvg82krrdxplbipxhkzd8bjspadhih5j1462jcrr2r9v";
   nativeBuildInputs = [ installShellFiles ]
     ++ lib.optionals stdenv.isLinux [ pkg-config ];
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin
