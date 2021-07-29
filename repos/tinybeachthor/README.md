@@ -1,3 +1,5 @@
+**ARCHIVED - full on using [flakes](https://nixos.wiki/wiki/Flakes) now**
+
 # nur-packages
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
