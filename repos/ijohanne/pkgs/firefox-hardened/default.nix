@@ -1,5 +1,5 @@
-{ pkgs, forceWayland ? false, nixExtensions ? [ ], ... }:
-pkgs.wrapFirefox pkgs.firefox-unwrapped {
+{ pkgs, unwrappedFirefox ? pkgs.firefox-unwrapped, forceWayland ? false, nixExtensions ? [ ], ... }:
+pkgs.wrapFirefox unwrappedFirefox {
   inherit forceWayland nixExtensions;
   extraPolicies = {
     CaptivePortal = false;

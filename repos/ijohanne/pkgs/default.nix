@@ -13,6 +13,8 @@
   firefoxPlugins = pkgs.recurseIntoAttrs (pkgs.callPackage ./firefox-plugins { });
   firefox-hardened = pkgs.callPackage ./firefox-hardened { inherit pkgs; };
   firefox-hardened-wayland = pkgs.callPackage ./firefox-hardened { inherit pkgs; forceWayland = true; };
+  firefox-devedition-hardened = pkgs.callPackage ./firefox-hardened { inherit pkgs; unwrappedFirefox = pkgs.firefox-devedition-bin-unwrapped; };
+  firefox-devedition-hardened-wayland = pkgs.callPackage ./firefox-hardened { inherit pkgs; forceWayland = true; unwrappedFirefox = pkgs.firefox-devedition-bin-unwrapped; };
   hexokinase = pkgs.callPackage ./hexokinase { inherit pkgs sources; };
   nixpkgs-firefox-addons = pkgs.haskellPackages.callPackage ./firefox-addons-generator { inherit sources; };
 }
