@@ -5,12 +5,7 @@
     my.home.x.enable = true;
     my.home.x.i3bar.temperature.chip = "k10temp-pci-*";
     my.home.x.i3bar.temperature.inputs =  [ "Tccd1" ];
-    my.home.x.cursor.enable = true;
-    my.home.alacritty.enable = true;
     my.home.emacs.enable = true;
-    my.home.tmux.enable = true;
-    my.home.starship.enable = false;
-    my.home.fish.enable = true;
 
     my.theme = config.home-manager.users.alarsyo.my.themes.solarizedLight;
 

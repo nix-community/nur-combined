@@ -5,17 +5,21 @@
     ./bat.nix
     ./emacs.nix
     ./env.nix
+    ./firefox.nix
     ./fish
     ./flameshot.nix
+    ./git.nix
     ./laptop.nix
+    ./rofi.nix
     ./secrets
-    ./starship.nix
+    ./ssh.nix
     ./themes
     ./tmux.nix
+    ./tridactyl.nix
     ./x
   ];
 
-  home.stateVersion = "20.09";
+  home.stateVersion = "21.05";
 
   home.username = "alarsyo";
 }

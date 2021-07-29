@@ -4,7 +4,7 @@ let
 in
 {
   options.my.home.tmux = with lib; {
-    enable = mkEnableOption "tmux dotfiles";
+    enable = (mkEnableOption "tmux dotfiles") // { default = true; };
   };
 
   config = lib.mkIf cfg.enable {

@@ -3,7 +3,7 @@ let
   cfg = config.my.home.x.cursor;
 in
 {
-  options.my.home.x.cursor.enable = lib.mkEnableOption "X cursor";
+  options.my.home.x.cursor.enable = (lib.mkEnableOption "X cursor") // { default = config.my.home.x.enable; };
 
   config = lib.mkIf cfg.enable {
     xsession.pointerCursor = {

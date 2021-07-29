@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    alacritty
     feh
     gimp
     gnome.nautilus

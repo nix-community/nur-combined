@@ -4,7 +4,7 @@ let
   alacrittyTheme = config.my.theme.alacrittyTheme;
 in
 {
-  options.my.home.alacritty.enable = lib.mkEnableOption "Alacritty terminal";
+  options.my.home.alacritty.enable = (lib.mkEnableOption "Alacritty terminal") // { default = config.my.home.x.enable; };
 
   config = lib.mkIf cfg.enable {
     programs.alacritty = {
