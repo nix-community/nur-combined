@@ -813,10 +813,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.10";
+      version = "11.2.11";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3814113/noscript_security_suite-11.2.10-an+fx.xpi";
-      sha256 = "4d3b68f77647d0afcf28a6c5223c7fdc8af591f4087eede149a195ef80eec32b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3816655/noscript_security_suite-11.2.11-an+fx.xpi";
+      sha256 = "b833e81823986646dbc473ebbee987bd47757fbe79c9d1720150f08ba6ca9ba9";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1216,10 +1216,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.1.2.1";
+      version = "2.1.3";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3808409/sponsorblock_skip_sponsorships_on_youtube-2.1.2.1-an+fx.xpi";
-      sha256 = "b06b428783cc99d523cde27ca640901377d55b545969b7ddafcd57027a2ae9e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3816654/sponsorblock_skip_sponsorships_on_youtube-2.1.3-an+fx.xpi";
+      sha256 = "7eabb77da4ad3ec7ca4dae338946f8027b87da5172ddda7f2c692bc774f52453";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1469,10 +1469,10 @@
       };
     "unpaywall" = buildFirefoxXpiAddon {
       pname = "unpaywall";
-      version = "3.97";
+      version = "3.98";
       addonId = "{f209234a-76f0-4735-9920-eb62507a54cd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3810542/unpaywall-3.97-fx.xpi";
-      sha256 = "18b41f8405103ec87aef8c2565079b26e8fe2188a4277ad17108225d5cd3a30a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3816853/unpaywall-3.98-fx.xpi";
+      sha256 = "6893bea86d3c4ed7f1100bf0e173591b526a062f4ddd7be13c30a54573c797fb";
       meta = with lib;
       {
         homepage = "https://unpaywall.org/products/extension";
