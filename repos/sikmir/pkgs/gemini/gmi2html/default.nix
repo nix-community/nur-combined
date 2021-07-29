@@ -1,17 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, scdoc, zig }:
+{ lib, stdenv, fetchFromGitHub, zig, scdoc, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "gmi2html";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "shtanton";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-2u9Cmi6XxpDNDwMVLufTeeip8PsXSVoRwgA0w1dnRBo=";
+    hash = "sha256-B0+1s2eB1SAaVkGqj9OupMg0wGJGPj86NMEN765e7OU=";
   };
 
-  nativeBuildInputs = [ scdoc zig ];
+  nativeBuildInputs = [ zig scdoc installShellFiles ];
 
   preConfigure = "HOME=$TMP";
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     zig build --prefix $out install
-    install -Dm644 doc/gmi2html.1 -t $out/share/man/man1
+    installManPage doc/gmi2html.1
   '';
 
   meta = with lib; {

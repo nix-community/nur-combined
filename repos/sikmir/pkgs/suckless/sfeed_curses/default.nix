@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
     description = "sfeed curses UI";
     homepage = "https://git.codemadness.org/sfeed_curses/";
     license = licenses.isc;
-    platforms = platforms.unix;
+    platforms = platforms.linux;
     maintainers = [ maintainers.sikmir ];
+    skip.ci = stdenv.isDarwin;
   };
 }
