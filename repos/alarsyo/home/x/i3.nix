@@ -89,6 +89,8 @@ in
 
           "XF86MonBrightnessDown" = "exec --no-startup-id light -U 5";
           "XF86MonBrightnessUp" = "exec --no-startup-id light -A 5";
+          "${modifier}+XF86MonBrightnessDown" = "exec --no-startup-id light -U 0.1";
+          "${modifier}+XF86MonBrightnessUp" = "exec --no-startup-id light -A 0.1";
 
           "${modifier}+l" = "exec --no-startup-id betterlockscreen --lock";
           "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run";
