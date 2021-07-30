@@ -34,8 +34,8 @@ let
     "--bshlcolor=${w}"
     "--clock"
     "--indicator"
-    "--timestr='%X'"
-    "--datestr='%A %B %e'"
+    "--timestr='%%H:%%M:%%S'"
+    "--datestr='%%A %%B %%e'"
     "--keylayout 1"
   ];
 
