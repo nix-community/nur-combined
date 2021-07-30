@@ -16,7 +16,7 @@ let
   notmuchFccDir = account:
     let
       mkLine = address: ''
-        ("${address}" . "${account.maildir.path}/${account.folders.sent}")
+        ("${address}" . "\"${account.maildir.path}/${account.folders.sent}\"")
       '';
     in concatMapStrings mkLine ([ account.address ] ++ account.aliases);
 
