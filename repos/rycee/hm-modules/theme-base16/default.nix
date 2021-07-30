@@ -100,6 +100,7 @@ in {
     ./gtk.nix
     ./polybar.nix
     ./rofi.nix
+    ./screen-locker.nix
     ./xscreensaver.nix
   ];
 
