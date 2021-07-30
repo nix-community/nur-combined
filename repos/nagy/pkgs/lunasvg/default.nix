@@ -1,13 +1,14 @@
 { stdenv, lib, fetchFromGitHub, cmake }:
+
 stdenv.mkDerivation rec {
   pname = "lunasvg";
-  version = "2.1.5";
+  version = "2.2.0";
 
   src = fetchFromGitHub {
     owner = "sammycage";
     repo = "lunasvg";
     rev = "v${version}";
-    sha256 = "1h823ya10rl3j6b2rg0mwn60b760pj3qdd42za4s8mpv8dg2ridm";
+    sha256 = "05y50f7lgbcx64dd430khwrck13mjwskkijx8g7y7i77a95rrqhf";
   };
 
   nativeBuildInputs = [ cmake ];
