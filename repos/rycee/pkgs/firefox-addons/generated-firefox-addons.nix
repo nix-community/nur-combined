@@ -1567,10 +1567,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.7.11";
+      version = "6.7.12";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3815488/wappalyzer-6.7.11-fx.xpi";
-      sha256 = "cde36b7a6768cf60b69fe1fc007f1928b6feed7c9b66af470b8dce7baacab77f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3817026/wappalyzer-6.7.12-fx.xpi";
+      sha256 = "c4dc50a482f1e10e95117de2bd9c632cc979c22cce341b75d59c2366da7842e1";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -1622,10 +1622,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "18.6";
+      version = "18.7";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3768396/zoom_page_we-18.6-fx.xpi";
-      sha256 = "4f0d68c12cf6030338990e800913c06cebf4b481ece4d062306efb873f7d3dcf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3816728/zoom_page_we-18.7-fx.xpi";
+      sha256 = "31a41137f6b719f2381a7e91d340aedad9d572556e5efaf3bce3007dbfd6bcdd";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
