@@ -50,9 +50,10 @@
       lib = import ./lib { inherit (nixpkgs) lib; };
       nixosModules = import ./modules;
       overlays = {
-        singleRepoNur = final: prev: {
-          nur.repos.linyinfeng = self.packages.${final.system};
-        };
+        singleRepoNur = final: prev:
+          prev.lib.recursiveUpdate prev {
+            nur.repos.linyinfeng = self.packages.${final.system};
+          };
       } // import ./overlays;
     };
 }
