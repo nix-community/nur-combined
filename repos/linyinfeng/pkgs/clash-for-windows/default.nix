@@ -48,6 +48,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p "$out/opt"
     cp -r . "$out/opt/clash-for-windows"
+
+    mkdir -p "$out/bin"
+    ln -s "$out/opt/clash-for-windows/cfw" "$out/bin/cfw"
   '';
 
   meta = with lib; {
