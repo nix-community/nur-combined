@@ -2,10 +2,10 @@
 
 {
   geocachingSu = fetchwebarchive {
-    name = "geocaching_su-2020-12-30";
+    name = "geocaching_su-2021-07-31";
     url = "https://nakarte.me/geocachingSu/geocaching_su2.json";
-    timestamp = "20201230114828";
-    sha256 = "1lnx664iax9imww669hgpg5vr4rl8bpz5nq5hbvfknjyc6kbyyqj";
+    timestamp = "20210731232107";
+    hash = "sha256-jCdTilM36m+BxNhPOGD0dWw9bITaVgO43fBpnnCHJ/Q=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -24,9 +24,9 @@
   };
 
   laavut = fetchurl {
-    name = "laavut-2020-11-16";
+    name = "laavut-2021-07-02";
     url = "http://laavu.org/lataa.php?paikkakunta=kaikki";
-    sha256 = "11b8ipd6whdiwb1vx6580b9syjgrcf573kr80zpwl5nx1k3rxm95";
+    hash = "sha256-jPyYJJELWqdDNj97kLCpX+vqwQkNzKbz///LH9i2sm0=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = "install -Dm644 $downloadedFile $out/Laavut-kodat.gpx";
@@ -42,9 +42,9 @@
   };
 
   autiotuvat = fetchurl {
-    name = "autiotuvat-2020-09-29";
+    name = "autiotuvat-2021-07-13";
     url = "http://www.laavu.org/autiotuvat/lataa.php?paikkakunta=kaikki";
-    sha256 = "1my36s3a20il2bziylg3f2bw0r43axsnqq6zr9wv5513h6z4axqc";
+    hash = "sha256-ycxy58RB/aigywtxfuqyf2tB67rDjN5zrETxbkQ900M=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = "install -Dm644 $downloadedFile $out/Autiotuvat.gpx";

@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "gpxtrackposter";
-  version = "2021-04-01";
+  version = "2021-05-01";
 
   src = fetchFromGitHub {
     owner = "flopp";
     repo = pname;
-    rev = "545c551b808fece43ff199e006d8a1c399536a05";
-    hash = "sha256-2if0e74mYItTM7tYc2OS2EhZu3gnZjfkT5kzLnacH7Y=";
+    rev = "0b13e79c2332856ee35aa88921c168d717b33f87";
+    hash = "sha256-0VXSes/Q6XD5/tevZihPAgOIwfYit4c3dJbIPugAWM0=";
   };
 
   patches = [ ./fix-localedir.patch ];

@@ -29,13 +29,13 @@
 
 stdenv.mkDerivation rec {
   pname = "sdrpp";
-  version = "2021-07-09";
+  version = "2021-07-31";
 
   src = fetchFromGitHub {
     owner = "AlexandreRouma";
     repo = "SDRPlusPlus";
-    rev = "cf3c9766519548878dbd7f9b18c3097e65d5bb0d";
-    hash = "sha256-GtwuHDmmAte/PIU0x7ytLPADI52H4N6XFRnW5IYgMes=";
+    rev = "99096885f54bd056c3e461c8319f71304d5e6e39";
+    hash = "sha256-pCRf/Kk3kJ6M1FkoYthQHZaRm8OZKjJu2bg3g/qQC6o=";
   };
 
   postPatch = ''

@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "lacc";
-  version = "2021-07-10";
+  version = "2021-07-29";
 
   src = fetchFromGitHub {
     owner = "larmel";
     repo = pname;
-    rev = "ebb03267c48f22f692329f3351ddc432766903de";
-    hash = "sha256-pfKjTUSCSHWI/JvYZYpCVaFt3PAcj/4jOHgDwM9PZ/E=";
+    rev = "ac8c693a8d70c23ef72b81112e7f67682b384db4";
+    hash = "sha256-mvnkZ2+mDC9Imwpx4TAeFrnagUibE4acAGV8pwEmZlA=";
   };
 
   installFlags = [ "PREFIX=$(out)" ];
