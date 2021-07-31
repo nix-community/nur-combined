@@ -1,4 +1,7 @@
 { config, pkgs, ... }: {
+    
+  imports = [ ./wm.nix ];
+  
   home.packages = with pkgs; [
     firefox-wayland
     imv
