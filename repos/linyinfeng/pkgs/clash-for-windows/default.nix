@@ -60,8 +60,8 @@ stdenv.mkDerivation rec {
     icon_sizes=("16x16" "24x24" "32x32" "48x48" "256x256")
     for s in "''${icon_sizes[@]}"; do
       echo "create icon \"$s\""
-      mkdir -p "$icon_dir/$s/app"
-      ${imagemagick}/bin/convert -resize "$s" ${./clash-for-windows.png} "$icon_dir/$s/app/clash-for-windows.png"
+      mkdir -p "$icon_dir/$s/apps"
+      ${imagemagick}/bin/convert -resize "$s" ${./clash-for-windows.png} "$icon_dir/$s/apps/clash-for-windows.png"
     done
   '';
 
