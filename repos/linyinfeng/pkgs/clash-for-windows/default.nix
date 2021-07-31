@@ -14,6 +14,7 @@
 , mesa
 , libudev
 , libappindicator
+, imagemagick
 }:
 
 stdenv.mkDerivation rec {
@@ -51,6 +52,17 @@ stdenv.mkDerivation rec {
 
     mkdir -p "$out/bin"
     ln -s "$out/opt/clash-for-windows/cfw" "$out/bin/cfw"
+
+    mkdir -p "$out/share/applications"
+    substituteAll "${./clash-for-windows.desktop}" "$out/share/applications/clash-for-windows.desktop"
+
+    icon_dir="$out/share/icons/hicolor"
+    icon_sizes=("16x16" "24x24" "32x32" "48x48" "256x256")
+    for s in "''${icon_sizes[@]}"; do
+      echo "create icon \"$s\""
+      mkdir -p "$icon_dir/$s/app"
+      ${imagemagick}/bin/convert -resize "$s" ${./clash-for-windows.png} "$icon_dir/$s/app/clash-for-windows.png"
+    done
   '';
 
   meta = with lib; {
