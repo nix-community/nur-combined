@@ -1,4 +1,4 @@
-{ sources, stdenv, lib, fetchFromGitHub, cmake, boost, openssl, libmysqlclient }:
+{ sources, stdenv, lib, cmake, boost, openssl, libmysqlclient }:
 
 stdenv.mkDerivation rec {
   inherit (sources.trojan) pname version src;

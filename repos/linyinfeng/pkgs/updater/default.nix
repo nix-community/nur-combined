@@ -8,5 +8,5 @@ drv.overrideAttrs (old: {
   postInstall = (old.postInstall or "") + ''
     wrapProgram $out/bin/updater \
       --prefix PATH : "${lib.makeBinPath [nvchecker nix-prefetch-git]}"
-    '';
+  '';
 })

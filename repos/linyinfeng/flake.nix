@@ -7,10 +7,11 @@
   outputs = { self, nixpkgs, flake-utils }:
     (flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs {
+        importPkgs = p: import p {
           inherit system;
           config = { allowUnfree = true; };
         };
+        pkgs = importPkgs nixpkgs;
         mkApp = drvName: cfg: flake-utils.lib.mkApp ({ drv = self.packages.${system}.${drvName}; } // cfg);
       in
       rec {
@@ -20,6 +21,7 @@
         apps = {
           updater = mkApp "updater" { };
           activate-dpt = mkApp "activate-dpt" { };
+          clash-for-windows = mkApp "clash-for-windows" { name = "cfw"; };
           clash-premium = mkApp "clash-premium" { };
           dpt-rp1-py = mkApp "dpt-rp1-py" { name = "dptrp1"; };
           godns = mkApp "godns" { };
@@ -36,8 +38,10 @@
           packages = [
             pkgs.cabal-install
             pkgs.ormolu
+            pkgs.nixpkgs-fmt
             (pkgs.writeScriptBin "update" ''
               nix run .#updater -- "$@"
+              nixpkgs-fmt .
             '')
           ];
         };

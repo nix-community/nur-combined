@@ -1,8 +1,7 @@
-{ sources, stdenv, lib, fetchFromGitHub, buildGoModule }:
+{ sources, stdenv, lib, buildGoModule }:
 
 buildGoModule rec {
   inherit (sources.godns) pname version src;
-
 
   vendorSha256 = "sha256-FZLDaMrPEyoTGFmGBlpqPWsMuobqwkBaot5qjcRJe9w=";
 

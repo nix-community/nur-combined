@@ -1,4 +1,4 @@
-{ sources, stdenv, lib, fetchFromGitHub, gzip, exa }:
+{ sources, stdenv, lib, gzip, exa }:
 
 stdenv.mkDerivation rec {
   inherit (sources.vlmcsd) pname version src;

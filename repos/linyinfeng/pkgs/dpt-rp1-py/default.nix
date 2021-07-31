@@ -1,4 +1,4 @@
-{ sources, lib, python3Packages, fetchFromGitHub }:
+{ sources, lib, python3Packages }:
 python3Packages.buildPythonApplication rec {
   inherit (sources.dpt-rp1-py) pname version src;
 
