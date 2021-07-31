@@ -12,22 +12,35 @@
           config = { allowUnfree = true; };
         };
         pkgs = importPkgs nixpkgs;
-        mkApp = drvName: cfg: flake-utils.lib.mkApp ({ drv = self.packages.${system}.${drvName}; } // cfg);
-      in
-      rec {
+
         packages = import ./pkgs { inherit pkgs; } // {
           updater = pkgs.callPackage ./pkgs/updater { };
         };
-        apps = {
-          updater = mkApp "updater" { };
-          activate-dpt = mkApp "activate-dpt" { };
-          clash-for-windows = mkApp "clash-for-windows" { name = "cfw"; };
-          clash-premium = mkApp "clash-premium" { };
-          dpt-rp1-py = mkApp "dpt-rp1-py" { name = "dptrp1"; };
-          godns = mkApp "godns" { };
-          trojan = mkApp "trojan" { };
-          vlmcsd = mkApp "vlmcsd" { };
-        };
+        platformFilter = sys: p:
+          if p.meta ? platforms
+          then pkgs.lib.elem sys p.meta.platforms
+          else true;
+        filteredPackages = pkgs.lib.filterAttrs (_: pkg: platformFilter system pkg) packages;
+
+        mkApp = drvName: cfg:
+          if self.packages.${system} ? ${drvName}
+          then {
+            "${drvName}" = flake-utils.lib.mkApp ({ drv = self.packages.${system}.${drvName}; } // cfg);
+          }
+          else { };
+      in
+      rec {
+        packages = filteredPackages;
+        apps =
+          mkApp "updater" { } //
+          mkApp "activate-dpt" { } //
+          mkApp "clash-for-windows" { name = "cfw"; } //
+          mkApp "clash-premium" { } //
+          mkApp "dpt-rp1-py" { name = "dptrp1"; } //
+          mkApp "godns" { } //
+          mkApp "trojan" { } //
+          mkApp "vlmcsd" { };
+
         checks = flake-utils.lib.flattenTree {
           packages = pkgs.lib.recurseIntoAttrs self.packages.${system};
         };
