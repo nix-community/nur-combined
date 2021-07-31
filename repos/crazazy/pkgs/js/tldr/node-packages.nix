@@ -130,13 +130,13 @@ let
         sha1 = "5eab50b28afe58074d0d58291388828b5e5fbc98";
       };
     };
-    "chalk-4.1.1" = {
+    "chalk-4.1.2" = {
       name = "chalk";
       packageName = "chalk";
-      version = "4.1.1";
+      version = "4.1.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/chalk/-/chalk-4.1.1.tgz";
-        sha512 = "diHzdDKxcU+bAsUboHLPEDQiw0qEe0qd7SYUn3HgcFlWgbDcfLGswOHYeGrHKzG9z6UYf01d9VFMfZxPM1xZSg==";
+        url = "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz";
+        sha512 = "oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==";
       };
     };
     "cli-cursor-3.1.0" = {
@@ -723,7 +723,7 @@ let
       sources."buffer-5.7.1"
       sources."buffers-0.1.1"
       sources."chainsaw-0.1.0"
-      sources."chalk-4.1.1"
+      sources."chalk-4.1.2"
       sources."cli-cursor-3.1.0"
       sources."cli-spinners-2.6.0"
       sources."clone-1.0.4"
