@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchwebarchive, fetchpatch, readline, ncurses, bison, flex }:
+{ lib, stdenv, fetchwebarchive, fetchpatch, readline, ncurses, bison, flex, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "aamath";
@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
       --replace "-ltermcap" "-lncurses"
   '';
 
-  nativeBuildInputs = [ bison flex ];
+  nativeBuildInputs = [ bison flex installShellFiles ];
 
   buildInputs = [ readline ncurses ];
 
   installPhase = ''
     install -Dm755 aamath -t $out/bin
-    install -Dm644 aamath.1 -t $out/share/man/man1
+    installManPage aamath.1
   '';
 
   meta = with lib; {

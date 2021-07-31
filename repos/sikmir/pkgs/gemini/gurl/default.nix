@@ -1,22 +1,24 @@
 { lib, stdenv, fetchFromGitHub, zig }:
 
 stdenv.mkDerivation rec {
-  pname = "gurl-unstable";
-  version = "2020-12-28";
+  pname = "gurl";
+  version = "2021-03-06";
 
   src = fetchFromGitHub {
     owner = "MasterQ32";
-    repo = "gurl";
-    rev = "13e2999a8c86a84ed9b3054f1f7ef9613387b778";
-    sha256 = "0yyxgl9kj25frz1m2wwvbrpl83r7w1pkqp52zfm2qhrv6qzjqic7";
+    repo = pname;
+    rev = "c6491a0760c125ca50d86860f77b544f729d8885";
+    sha256 = "sha256-l7WasR1rdD6DV3JWDIGcUlVkypnIKLNoKaVbibdibQc=";
     fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ zig ];
 
-  buildPhase = "HOME=$TMP zig build install";
+  preConfigure = "HOME=$TMP";
 
-  installPhase = "install -Dm755 zig-cache/bin/gurl -t $out/bin";
+  buildPhase = "zig build";
+
+  installPhase = "install -Dm755 zig-out/bin/gurl -t $out/bin";
 
   meta = with lib; {
     description = "A curl-like cli application to interact with Gemini sites";
@@ -24,6 +26,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
-    broken = true; # https://github.com/MasterQ32/gurl/issues/4
+    broken = stdenv.isDarwin;
   };
 }
