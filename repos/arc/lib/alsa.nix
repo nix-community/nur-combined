@@ -34,7 +34,7 @@
   ];
   alsaDirectiveType = with types; oneOf ([
     (listOf (oneOf (alsaDirectiveTypePrimitives ++ singleton (attrsOf (oneOf alsaDirectiveTypePrimitives)))))
-    (attrsOf alsaDirectiveType)
+    (attrsOf alsaDirectiveType // { description = "attrs"; })
   ] ++ alsaDirectiveTypePrimitives);
 in {
   inherit alsaConf alsaConfDirective alsaDirectiveType;

@@ -25,6 +25,7 @@
   nix-path = ./nix-path.nix;
   offlineimap = ./offlineimap.nix;
   syncplay = ./syncplay.nix;
+  imv = ./imv.nix;
   weechat = ./weechat.nix;
   systemd = ./systemd.nix;
   xdg = ./xdg.nix;
@@ -53,6 +54,7 @@
       nix-path
       offlineimap
       syncplay
+      imv
       weechat
       systemd
       xdg

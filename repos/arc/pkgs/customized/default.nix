@@ -90,20 +90,13 @@ let
     });
 
     imv-develop = { imv, fetchFromGitHub, fetchpatch }: imv.overrideAttrs (old: {
-      version = "2021-07-08";
+      version = "2021-07-29";
       src = fetchFromGitHub {
         owner = "eXeC64";
         repo = "imv";
-        rev = "eeaf5e3cb983befd20bc5d706f5b8e7cd321decf";
-        sha256 = "1wrbzgm7q9q937p7cyz6kfmmpjm23vn7zfrhqklp6hpxh1gqfw0q";
+        rev = "b194997c20fb1ade3aa2828676ca85a2738a8f3e";
+        sha256 = "1jp5glqigq6mq6awamja9av83imsrp2c7731rprflvrj6i7sff7z";
       };
-
-      patches = old.patches or [ ] ++ [
-        (fetchpatch {
-          url = "https://github.com/eXeC64/imv/pull/341.patch";
-          sha256 = "1rnycq2qhh692npi697a9z4iq946g8qk0rlgsc5na72126srqwfh";
-        })
-      ];
     });
 
     i3gopher-sway = { i3gopher }: i3gopher.override {
@@ -221,7 +214,7 @@ let
         speechdSupport = true;
         jackSupport = true;
       };
-      version = "2021-06-04";
+      version = "2021-07-24";
       runtimeDependencies = [ libpulseaudio pipewire libopus libjack2 ];
     in with lib; drv.overrideAttrs (old: {
       pname = "mumble-develop";
@@ -229,8 +222,8 @@ let
       src = fetchFromGitHub {
         owner = "mumble-voip";
         repo = "mumble";
-        rev = "4fab1880e119b23f340e9001350b975c531778c5";
-        sha256 = "0iba1yd4f3y9nzlb9dj2v0k39b9znlazzaj6lzp2gxq1zkzjfprz";
+        rev = "a4f41775e8ee172a89e18209c6013b473951697c";
+        sha256 = "0vlcjdn4wwd6idhgks2ihzkngrkli59h16lbcmf0njmlc3dlirqj";
         fetchSubmodules = false;
       };
 

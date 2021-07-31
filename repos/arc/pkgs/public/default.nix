@@ -1,6 +1,5 @@
 {
   i3gopher = import ./i3gopher;
-  tamzen = import ./tamzen.nix;
   paswitch = import ./paswitch.nix;
   base16-shell = import ./base16-shell.nix;
   clip = import ./clip.nix;
@@ -15,6 +14,7 @@
   gst-jpegtrunc = import ./gst-jpegtrunc.nix;
   gst-protectbuffer = import ./gst-protectbuffer.nix;
   gst-rtsp-launch = import ./gst-rtsp-launch;
+  zsh-completions-abduco = import ./zsh-completions-abduco.nix;
   wireplumber = import ./wireplumber.nix;
 }
 // (import ./droid.nix)

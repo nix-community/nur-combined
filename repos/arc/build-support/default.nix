@@ -21,6 +21,7 @@
     (call ./weechat.nix) //
     (call ./rust) //
     (call ./misc.nix) //
+    (import ./zsh.nix { inherit self super lib; }) //
     (import ./linux.nix { inherit self super; }) //
     (import ./base16.nix { inherit self super lib; }) //
     {

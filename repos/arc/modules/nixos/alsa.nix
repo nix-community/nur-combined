@@ -597,6 +597,7 @@ in {
       ucm = {
         configDirectory = pkgs.linkFarm "alsa-ucm2" ([
           {
+            # variable substitutions that can be used: https://github.com/alsa-project/alsa-lib/blob/master/src/ucm/ucm_subs.c#L677
             name = "ucm.conf";
             path = pkgs.writeText "alsa-ucm2.conf" (alsaConf {
               If.driver = {

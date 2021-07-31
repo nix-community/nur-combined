@@ -22,6 +22,7 @@
     kernelPatches = import ./kernelPatches.nix;
     rxvt-unicode-plugins = import ./urxvt;
     obs-studio-plugins = import ./obs;
+    zsh-plugins = import ./zsh;
     gitAndTools = import ./git;
     weechatScripts = import ./public/weechat/scripts.nix;
   };
