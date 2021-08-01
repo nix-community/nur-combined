@@ -4,6 +4,9 @@
   day-night-plasma-wallpapers = ./day-night-plasma-wallpapers-nixos.nix;
   numworks = ./numworks.nix;
   slick-greeter = ./slick-greeter.nix;
+  autognirehtet = import ./autognirehtet.nix {
+    inherit (selfnur) autognirehtet;
+  };
   hmModules = {
     day-night-plasma-wallpapers = ./day-night-plasma-wallpapers-home-manager.nix;
     myvim = import ./myvim.nix {
