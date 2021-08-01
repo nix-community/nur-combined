@@ -14,7 +14,7 @@ in
       ./home.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_5_12;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

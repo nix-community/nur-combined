@@ -15,6 +15,15 @@ in
         poseidon = {
           hostname = "poseidon.alarsyo.net";
         };
+
+        "*.lrde.epita.fr" = {
+          user = "amartin";
+        };
+
+        lrde-proxyjump = {
+          host = "*.lrde.epita.fr !ssh.lrde.epita.fr";
+          proxyJump = "ssh.lrde.epita.fr";
+        };
       };
     };
   };
