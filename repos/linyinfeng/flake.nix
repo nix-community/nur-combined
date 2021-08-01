@@ -53,7 +53,11 @@
             pkgs.ormolu
             pkgs.nixpkgs-fmt
             (pkgs.writeScriptBin "update" ''
-              nix run .#updater -- "$@"
+              nix shell .#updater --command bash -c '
+                cd pkgs
+                echo "$PWD"
+                updater
+              '
               nixpkgs-fmt .
             '')
           ];

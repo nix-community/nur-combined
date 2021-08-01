@@ -1,7 +1,7 @@
 { pkgs }:
 
 let
-  sources = pkgs.callPackage ../sources.nix { };
+  sources = pkgs.callPackage ./sources.nix { };
 in
 {
   clash-for-windows = pkgs.callPackage ./clash-for-windows { inherit sources; };
