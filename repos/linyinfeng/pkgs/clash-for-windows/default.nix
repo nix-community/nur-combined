@@ -17,6 +17,9 @@
 , imagemagick
 }:
 
+let
+  icon = "${sources.clash-for-windows-icon.src}[4]";
+in
 stdenv.mkDerivation rec {
   inherit (sources.clash-for-windows) pname version src;
 
@@ -61,7 +64,7 @@ stdenv.mkDerivation rec {
     for s in "''${icon_sizes[@]}"; do
       echo "create icon \"$s\""
       mkdir -p "$icon_dir/$s/apps"
-      ${imagemagick}/bin/convert -resize "$s" ${./clash-for-windows.png} "$icon_dir/$s/apps/clash-for-windows.png"
+      ${imagemagick}/bin/convert -resize "$s" "${icon}" "$icon_dir/$s/apps/clash-for-windows.png"
     done
   '';
 

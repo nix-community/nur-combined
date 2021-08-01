@@ -17,6 +17,7 @@ packageSet = do
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
   clashForWindows
+  clashForWindowsIcon
 
 ghPkg :: Text -> Text -> PackageSet ()
 ghPkg owner repo = define $ package repo `fromGitHub` (owner, repo)
@@ -46,3 +47,10 @@ clashForWindows =
       `fetchUrl` url
   where
     url (Version v) = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/" <> v <> "/Clash.for.Windows-" <> v <> "-x64-linux.tar.gz"
+
+clashForWindowsIcon :: PackageSet ()
+clashForWindowsIcon =
+  define $
+    package "clash-for-windows-icon"
+      `sourceManual` "0"
+      `fetchUrl` (const "https://docs.cfw.lbyczf.com/favicon.ico")

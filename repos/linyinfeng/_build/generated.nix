@@ -10,6 +10,15 @@
     };
 
   };
+  clash-for-windows-icon = {
+    pname = "clash-for-windows-icon";
+    version = "0";
+    src = fetchurl {
+      sha256 = "1zd453mwrlc9kafagyvmj9i8vd5a4akp9srbsy9mxa48x77ckqp2";
+      url = "https://docs.cfw.lbyczf.com/favicon.ico";
+    };
+
+  };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
     version = "2021.07.03";
