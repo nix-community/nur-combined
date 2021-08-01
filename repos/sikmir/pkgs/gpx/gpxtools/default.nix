@@ -23,9 +23,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "A collection of c++ tools for using GPX files";
     homepage = "https://notabug.org/irdvo/gpxtools";
-    license = licenses.gpl3;
+    license = licenses.gpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/127172
   };
 }

@@ -1,23 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, Cocoa, ScriptingBridge, xxd }:
+{ lib, stdenv, fetchFromGitHub, Cocoa, ScriptingBridge, installShellFiles, xxd }:
 
 stdenv.mkDerivation rec {
   pname = "yabai";
-  version = "3.3.7";
+  version = "3.3.10";
 
   src = fetchFromGitHub {
     owner = "koekeishiya";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1yx4qp4rwk3ncw57yqy9m0nsg1rb62x4y2mj009lbzx0syfvh84s";
+    hash = "sha256-8O6//T894C32Pba3F2Z84Z6VWeCXlwml3xsXoIZGqL0";
   };
 
-  nativeBuildInputs = [ xxd ];
+  nativeBuildInputs = [ installShellFiles xxd ];
 
   buildInputs = [ Cocoa ScriptingBridge ];
 
   postInstall = ''
     install -Dm755 bin/yabai -t $out/bin
-    install -Dm644 doc/yabai.1 -t $out/share/man/man1
+    installManPage doc/yabai.1
   '';
 
   meta = with lib; {
