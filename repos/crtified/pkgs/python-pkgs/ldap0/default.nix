@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitLab
-, openldap
-, cyrus_sasl
-, pyasn1
-, pyasn1-modules
-, breakpointHook
-}:
+{ lib, buildPythonPackage, fetchFromGitLab, openldap, cyrus_sasl, pyasn1
+, pyasn1-modules, breakpointHook }:
 
 buildPythonPackage rec {
   pname = "ldap0";

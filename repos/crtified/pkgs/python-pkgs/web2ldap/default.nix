@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitLab
-, ldap0
-, paramiko
-, asn1crypto
-, xlwt
-, dnspython
-}:
+{ lib, buildPythonPackage, fetchFromGitLab, ldap0, paramiko, asn1crypto, xlwt
+, dnspython }:
 
 buildPythonPackage rec {
   pname = "web2ldap";

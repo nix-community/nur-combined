@@ -14,10 +14,10 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  mfbot = pkgs.callPackage ./pkgs/mfbot { };
 
   mfc_l2710dn = pkgs.callPackage ./pkgs/mfc_l2710dn { };
 
-  python3Packages = pkgs.recurseIntoAttrs (
-    pkgs.python3Packages.callPackage ./pkgs/python-pkgs { }
-  );
+  python3Packages = pkgs.recurseIntoAttrs
+    (pkgs.python3Packages.callPackage ./pkgs/python-pkgs { });
 }

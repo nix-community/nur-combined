@@ -1,5 +1,5 @@
-{ stdenv, pkgsi686Linux, lib, fetchurl, dpkg, makeWrapper, coreutils, ghostscript
-, gnugrep, gnused, which, perl }:
+{ stdenv, pkgsi686Linux, lib, fetchurl, dpkg, makeWrapper, coreutils
+, ghostscript, gnugrep, gnused, which, perl }:
 let
   srcbase = fetchurl {
     url =
