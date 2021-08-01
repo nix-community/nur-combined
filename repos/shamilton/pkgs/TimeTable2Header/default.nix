@@ -1,13 +1,9 @@
 { lib
-, buildPythonPackage
+, python3Packages
 , fetchFromGitHub 
-, click
-, numpy
-, odfpy
-, pandas
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "TimeTable2Header";
   version = "1.0.0";
 
@@ -18,9 +14,7 @@ buildPythonPackage rec {
     sha256 = "0ccbly6qd2zrjxnr6r8x5gbypg0nmzryii64y3qndyh5d2ivlw2j";
   };
 
-  # src = ./src.tar.gz;
-
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     click
     numpy
     odfpy

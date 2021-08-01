@@ -1,13 +1,12 @@
 { lib
-, buildPythonPackage
-, fetchPypi 
+, python3Packages
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "PyRect";
   version = "0.1.4";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "00p2ykg3gh4jicjawiw97i1679yjd1clj58adfm12ap37hssfbrv";
   };

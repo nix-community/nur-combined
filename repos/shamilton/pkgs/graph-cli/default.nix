@@ -1,21 +1,18 @@
 { lib
-, buildPythonPackage
-, fetchPypi
-, matplotlib
-, pandas
+, python3Packages
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "graph-cli";
   version = "0.1.13";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit version;
     pname = "graph_cli";
     sha256 = "04bp1y29rx3nlam4g233xcmbcbc7v3ihpbymi4m7bh7qi6qmvs39";
   };
   
-  propagatedBuildInputs = [ matplotlib pandas ];
+  propagatedBuildInputs = with python3Packages; [ matplotlib pandas ];
 
   doCheck = true;
 

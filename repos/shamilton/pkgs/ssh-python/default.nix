@@ -1,16 +1,15 @@
 { lib
-, buildPythonPackage
-, fetchPypi
+, python3Packages
 , cmake
 , zlib
 , openssl
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "ssh-python";
   version = "0.9.0";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "0sm9hqcc2ndbnq7kak1v1949pzym5fsvzfhfp3knil1013a7i1zk";
   };

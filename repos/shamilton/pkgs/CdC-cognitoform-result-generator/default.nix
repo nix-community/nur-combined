@@ -1,12 +1,9 @@
 { lib
-, buildPythonApplication
 , fetchFromGitHub
-, click
-, setuptools
-, pandas
+, python3Packages
 }:
 
-buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "CdC-cognitoform-result-generator";
   version = "0.1";
 
@@ -17,7 +14,7 @@ buildPythonApplication rec {
     sha256 = "0jai9c9vzh45jxa9zia8kxwbbz993d9xjdqd1b9y00s3rm88si8i";
   };
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     click
     pandas
     setuptools

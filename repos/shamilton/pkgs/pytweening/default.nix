@@ -1,9 +1,9 @@
 { lib
-, buildPythonPackage
+, python3Packages
 , fetchFromGitHub 
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "pytweening";
   version = "1.0.3";
 

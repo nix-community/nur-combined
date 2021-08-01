@@ -1,20 +1,20 @@
 { lib
-, buildPythonApplication
+, python3Packages
 , fetchFromGitHub
-, pexpect
 }:
 
-buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "AutoGnirehtet";
   version = "unstable";
 
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "AutoGnirehtet";
-    rev = "557eb2186011e92f06a45283b067b49ab3f433f0";
-    sha256 = "0nr62ylmk379h4dpg5chz1zpa6pngnb1m7l7sf3d6mnc9i4g5bmm";
+    rev = "cad9f575332623ea5eb809af409c22be23d9598c";
+    sha256 = "0v0mlcp4sja5nqqxbvfm3k3vqlljzvdljhd7jja91icx9prnc14n";
   };
-  propagatedBuildInputs = [ pexpect ];
+
+  propagatedBuildInputs = with python3Packages; [ pexpect ];
   doCheck = false;
 
   meta = with lib; {

@@ -1,16 +1,13 @@
 { lib
-, buildPythonPackage
+, python3Packages
 , fetchFromGitHub
-, pillow
-, pytest
-, xlib
 , xvfb-run
 , scrot
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "PyScreeze";
-  version = "latest";
+  version = "unstable";
 
   src = fetchFromGitHub {
     owner = "asweigart";
@@ -20,10 +17,10 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ xvfb-run ];
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     pillow
   ];
-  checkInputs = [ pytest xlib scrot ];
+  checkInputs = with python3Packages; [ pytest xlib scrot ];
 
   doCheck = true;
   checkPhase = ''

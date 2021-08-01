@@ -1,30 +1,24 @@
 { lib
-, buildPythonPackage
-, fetchPypi
-, python38Packages
+, python3Packages
 , cmake
 , openssl
 , zlib
-, cython
-, setuptools
-, pytest
-, breakpointHook
 }:
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "ssh2-python";
   version = "0.26.0";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "17llrzzmsfdd2sv4mhvx40azd28yihay33qspncvrlhjq68i4mgq";
   };
   
-  nativeBuildInputs = [ breakpointHook cmake setuptools ];
+  nativeBuildInputs = with python3Packages; [ cmake setuptools ];
   buildInputs = [ openssl zlib ];
-  propagatedBuildInputs = [ cython ];
+  propagatedBuildInputs = with python3Packages; [ cython ];
   cmakeDir = "../libssh2";
 
-  checkInputs = [ pytest ];
+  checkInputs = with python3Packages; [ pytest ];
 
   preBuild = ''
     cd ..

@@ -9,7 +9,7 @@
 , eom, surf, zathura, coreutils, findutils, gawk
 
 ## Sync databases deps
-, sync-database, buildPythonPackage, parallel-ssh, merge-keepass
+, sync-database, parallel-ssh, merge-keepass
 }:
 let
   perlEnv = perl.withPackages(pp: with pp; [ PDFAPI2 ]);

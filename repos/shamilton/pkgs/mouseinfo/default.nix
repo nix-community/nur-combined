@@ -1,25 +1,30 @@
 { lib
-, buildPythonPackage
-, fetchPypi 
-, pillow
-, pyperclip
+, fetchFromGitHub
+, python3Packages
 , python3-xlib
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonApplication rec {
   pname = "MouseInfo";
-  version = "0.1.3";
+  version = "unstable";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "1rznyzv6w9f8bfq2x5b0ik0dqyk5ghlhmkiw1998waq6hn4gnqic";
+  src = fetchFromGitHub {
+    owner = "asweigart";
+    repo = "mouseinfo";
+    rev = "a323c0e7253e01366f12d023cb5e481c5a08eb5c";
+    sha256 = "0r6mngbapiccgpm8axbh8m9c5bv0chhf3r4700hddrgxrwyi3909";
   };
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     pillow
     pyperclip
     python3-xlib
+    setuptools
   ];
+
+  # preBuild = ''
+  #   export PYTHONPATH=$PYTHONPATH:${makePythonPath propagatedBuildInputs}
+  # '';
 
   doCheck = false;
 

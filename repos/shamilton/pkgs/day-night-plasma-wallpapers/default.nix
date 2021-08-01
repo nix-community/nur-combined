@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, dbus-python
+, python3Packages
 , coreutils
 }:
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0ribzd0svp9sp0j87lhfqb7kivh3hw38ldvr5ps8qkr778460fdl";
   };
 
-  propagatedBuildInputs = [ dbus-python ];
+  propagatedBuildInputs = with python3Packages; [ dbus-python ];
 
   installPhase = ''
     install -Dm 555 update-day-night-plasma-wallpapers.py $out/bin/update-day-night-plasma-wallpapers.py

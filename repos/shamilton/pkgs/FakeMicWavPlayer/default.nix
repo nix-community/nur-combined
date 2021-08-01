@@ -19,11 +19,9 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "FakeMicWavPlayer";
-    rev = "c5ecb7cd0c2cb142806dcbbc8e2f8ea5afb6c28c";
-    sha256 = "17vlsihpkfkl408w1cyjm8zxv07v5gcs1q46ab39l4g2rdxg5072";
+    rev = "cf7a4572fa187ebf67bf93dc378ee939b8c46752";
+    sha256 = "1ajgv9mjdrj8y83azvw3gkghlfsqcwmsm0ma55b1f5sfi81691ay";
   };
-
-  # src = ./src.tar.gz;
 
   nativeBuildInputs = [ pkg-config ninja meson cmake ];
 

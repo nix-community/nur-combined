@@ -1,14 +1,12 @@
 { lib
-, buildPythonPackage
-, fetchPypi
-, pytest
+, python3Packages
 }:
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
 
   pname = "iconf";
   version = "0.0.2";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "1dzb6yi9y4xhc10bdiv46b74yznppq1s2c8vrjaw351xs2fl7ca3";
   };

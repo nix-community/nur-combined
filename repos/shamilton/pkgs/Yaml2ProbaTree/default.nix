@@ -1,11 +1,9 @@
 { lib
-, buildPythonPackage
+, python3Packages
 , fetchFromGitHub
-, click
-, pyyaml
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "Yaml2ProbaTree";
   version = "0.1";
 
@@ -16,9 +14,7 @@ buildPythonPackage rec {
     sha256 = "15vjpzw9jqv25vgc0kl7n3qci1mhm27ydnmlaa91vc5l4fg442jy";
   };
 
-  # src = ./src.tar.gz;
-
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     click
     pyyaml
   ];

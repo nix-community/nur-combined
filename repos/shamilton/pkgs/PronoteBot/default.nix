@@ -1,15 +1,11 @@
 { lib
-, buildPythonPackage
+, python3Packages
 , fetchFromGitHub 
-, click
 , geckodriver
 , pyautogui
-, pybase64
-, selenium
-, wget
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "PronoteBot";
   version = "1.0.0";
 
@@ -20,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "1lblqb98lmxw3n90zggy0hqx9zgml2gwbgpnyajqrnkj3p2grfjj";
   };
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     click
     geckodriver
     pyautogui

@@ -20,8 +20,6 @@ buildPythonPackage rec {
     sha256 = "12qsa3z59g3418wbdfnmb6cpm7rszjy39zcd7rhw4lh6dki765sq";
   };
 
-  # src = ./src.tar.gz;
-
   propagatedBuildInputs = [
     click
     numpy

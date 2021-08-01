@@ -1,19 +1,18 @@
 { lib
-, buildPythonPackage
-, fetchPypi 
+, python3Packages
 , pyrect
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "PyGetWindow";
   version = "0.0.9";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "1256s0nj9w7vyzv29klhi9lw25s07047fw9dhg6hbcyjwxal728p";
   };
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     pyrect
   ];
 

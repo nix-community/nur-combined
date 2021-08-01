@@ -1,25 +1,20 @@
 { lib
-, buildPythonPackage
-, setuptools
-, fetchPypi
-, paramiko
-, gevent
+, python3Packages
 , ssh-python
 , ssh2-python
-, openssh
 , libssh2
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "parallel-ssh";
   version = "2.5.4";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "01r8ajq2vic6l9rihailv5a100gwf6k4mswbmaqyrjr39h0pg571";
   };
   
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     gevent
     paramiko
     ssh-python

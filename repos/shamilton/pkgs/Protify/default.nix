@@ -8,6 +8,7 @@
 , qttools
 , qtquickcontrols2
 , avahi
+, clang_10
 }:
 
 mkDerivation {
@@ -17,14 +18,14 @@ mkDerivation {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "Protify";
-    rev = "dad9d1248b2677d125faba94817de93af4c6391f";
-    sha256 = "0j5j5y4ywirr9jdjy25q9mzkfd1rfx10gw1priw15sz36i4wg0lp";
+    rev = "b324984386fb2bf8743de9608711d18624cc9889";
+    sha256 = "0s13hqlic3dp65zmiyg77x2adgs8c9n6g2flwhsmw5imx4pdbddn";
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ qmake qtbase pkg-config qttools ];
+  nativeBuildInputs = [ clang_10 qmake qtbase pkg-config qttools ];
   buildInputs = [ qtquickcontrols2 qtbase avahi ];
-    
+  qmakeFlags = [ "QMAKE_CXX=clang++" ];
   installFlags = [ "INSTALL_ROOT=$(out)" ];
 
   meta = with lib; {

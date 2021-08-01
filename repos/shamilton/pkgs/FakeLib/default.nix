@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "FakeLib";
-    rev = "76f36bd48414ad87d2f17a60bd4c15596a5c2bf9";
-    sha256 = "1a334w4hifk3b38904w9zyh52axbjj8w90zfn01fz4wnvzg7dkmx";
+    rev = "a8e7ccd88fa128d9f6d8bdff77d093a488cb231a";
+    sha256 = "07gcl39fddp20p1nisjrdryswbrn25kcj7hjmm8xkfmf017spyzm";
   };
 
   nativeBuildInputs = [ pkg-config ninja meson ];

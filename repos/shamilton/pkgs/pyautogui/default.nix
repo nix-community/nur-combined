@@ -1,25 +1,23 @@
 { lib
-, buildPythonPackage
-, fetchPypi
+, python3Packages
 , mouseinfo
-, pygetwindow
-, pymsgbox
-, pyscreeze
 , python3-xlib
-, pytweening
+, pygetwindow
 , pyrect
+, pyscreeze
+, pytweening
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "PyAutoGUI";
   version = "0.9.52";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "1j7cb0xx8l3frvl5ddwlld7i6r79rv3i1l28igwwvjwbh5mwp1m4";
   };
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     pyrect
     mouseinfo
     pygetwindow

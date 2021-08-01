@@ -1,24 +1,21 @@
 { lib
-, buildPythonPackage
+, python3Packages
 , fetchFromGitHub 
-, pykeepass
-, click
-, pytest
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "merge-keepass";
   version = "unstable";
 
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "merge-keepass";
-    rev = "c9e2df22d0464b6d90ef3f47e1ba24d9a1b64495";
-    sha256 = "0nhjy0n9siw9s0cfnkvfzz11d4a7rd17vjpy5j62zn4jw3shqs89";
+    rev = "ff314141625a558db1e6c91eadc77d0b780f4b61";
+    sha256 = "06yaxx5vvrm36kz6474da8n7a60cgpgwzkj7pp4pm6x2hn3pr6d7";
   };
 
-  propagatedBuildInputs = [ pykeepass click ];
-  checkInputs = [ pytest ];
+  propagatedBuildInputs = with python3Packages; [ pykeepass click ];
+  checkInputs = with python3Packages; [ pytest ];
 
   checkPhase = ''
     pytest tests.py

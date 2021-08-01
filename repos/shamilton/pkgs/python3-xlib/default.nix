@@ -1,13 +1,12 @@
 { lib
-, buildPythonPackage
-, fetchPypi 
+, python3Packages
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "python3-xlib";
   version = "0.15";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "1y43ngjmdyibbxjaj6vjjrxf7b8175rf8bhi3nf999aamvrlahnw";
   };

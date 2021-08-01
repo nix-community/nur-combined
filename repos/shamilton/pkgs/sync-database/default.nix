@@ -1,15 +1,12 @@
 { lib
-, buildPythonPackage
+, python3Packages
 , fetchFromGitHub
 , parallel-ssh
 , libssh2
 , merge-keepass
-, pykeepass
-, click
-, setuptools
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "sync-database";
   version = "unstable";
 
@@ -20,7 +17,14 @@ buildPythonPackage rec {
     sha256 = "0m9gac1b6haaifi69lwybq1hlp631jbxyj79ccfxchfjxanhjhrr";
   };
 
-  propagatedBuildInputs = [ setuptools libssh2 parallel-ssh merge-keepass pykeepass click ];
+  propagatedBuildInputs = with python3Packages; [
+    setuptools
+    libssh2
+    parallel-ssh
+    merge-keepass
+    pykeepass
+    click
+  ];
   
   doCheck = false;
   
