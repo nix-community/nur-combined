@@ -1133,10 +1133,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.7.18";
+      version = "21.8.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3811850/refined_github-21.7.18-an+fx.xpi";
-      sha256 = "6eeb130bdf5815745bd8c30861d8438c713aae451ffa0d4078bb43af3ad52b5b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3818382/refined_github-21.8.1-an+fx.xpi";
+      sha256 = "361bc62fbb89703dbc1103bc236758067ae890f7e9b434eac0919e9142f2a610";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1511,10 +1511,10 @@
       };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "3.4.1";
+      version = "3.4.2";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3746023/view_image-3.4.1-an+fx.xpi";
-      sha256 = "43c23749d3e86812ee3de1b247f7364a53c2a829f157250a4ae04e448880a495";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3818236/view_image-3.4.2-an+fx.xpi";
+      sha256 = "b37f81c3e56b1ef9dbd9f7e0690979341736125ec910d0b238686623c913a563";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
