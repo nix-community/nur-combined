@@ -32,7 +32,7 @@ let
 in
 {
 
-  options.services.emacs = {
+  options.dan4ik605743.services.emacs = {
     enable = mkOption {
       type = types.bool;
       default = false;
