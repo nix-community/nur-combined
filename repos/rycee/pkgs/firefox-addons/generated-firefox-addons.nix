@@ -228,10 +228,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.7.22.1";
+      version = "2021.7.30";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3814563/duckduckgo_privacy_essentials-2021.7.22.1-an+fx.xpi";
-      sha256 = "a01e387420885b0f93da9996204067c547b00c702ac45224c87a6569bd1c5922";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3817734/duckduckgo_privacy_essentials-2021.7.30-an+fx.xpi";
+      sha256 = "f736519aa2648776b534c2dc5838eb718274ea43d189ea75c12c6baaf3787869";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -576,10 +576,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "4.0.7";
+      version = "4.1.0";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3809032/grammatik_und_rechtschreibprufung_languagetool-4.0.7-fx.xpi";
-      sha256 = "13af33f254d4018da8f5365184501df289a31c036b4bc623c1a1f410512e1ccc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3817128/grammatik_und_rechtschreibprufung_languagetool-4.1.0-fx.xpi";
+      sha256 = "6f2fccd1adcf320c5c02e08d3d406cf88baedecdfba111d161a2d6a870ef65df";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -717,10 +717,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.8.2";
+      version = "9.8.4";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3814701/metamask-9.8.2-an+fx.xpi";
-      sha256 = "d33aaf78f91a4821b22fb7bd60bfceac78dae097a5fd9c55811771a89bdeb4e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3819127/metamask-9.8.4-an+fx.xpi";
+      sha256 = "11bf94d4d9f6201a25090d94ab3da047bbacab295857c805313e103cef3e1bdc";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1216,10 +1216,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.1.3";
+      version = "2.1.4";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3816654/sponsorblock_skip_sponsorships_on_youtube-2.1.3-an+fx.xpi";
-      sha256 = "7eabb77da4ad3ec7ca4dae338946f8027b87da5172ddda7f2c692bc774f52453";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3817821/sponsorblock_skip_sponsorships_on_youtube-2.1.4-an+fx.xpi";
+      sha256 = "ad0dae7f9e77bf3060d4e8c5750a41776c5dfab1ef2eac1719c91201e5f8aa1b";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1257,10 +1257,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.8.3";
+      version = "6.9.0";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3792541/tab_session_manager-6.8.3-fx.xpi";
-      sha256 = "ef5852f7a4b9f9a69081b58973e1a156496bb99199894babe6e7dcafb4f55e1f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3818365/tab_session_manager-6.9.0-fx.xpi";
+      sha256 = "8d6864684a319c3d4f183f7f019afbd1441b21dba06b26baf80ee54ca29ba142";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -1511,10 +1511,10 @@
       };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "3.4.2";
+      version = "3.4.3";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3818236/view_image-3.4.2-an+fx.xpi";
-      sha256 = "b37f81c3e56b1ef9dbd9f7e0690979341736125ec910d0b238686623c913a563";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3819005/view_image-3.4.3-an+fx.xpi";
+      sha256 = "79b05369069421e1a62ac0bfb597c7a879ede3610dd28613247de80d488b880e";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
