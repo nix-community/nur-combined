@@ -46,7 +46,7 @@ in stdenv.mkDerivation {
   '';
 
   binSearchPath = with lib; strings.makeSearchPath "bin" ([ molcas bagel gnuplot ]
-   ++ lists.optional (orca != null) orca
+    ++ lists.optional (orca != null) orca
     ++ lists.optional (gaussian != null) gaussian
     ++ lists.optional (turbomole != null) turbomole
     ++ lists.optional (molpro != null) molpro
