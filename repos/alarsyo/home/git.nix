@@ -30,15 +30,15 @@ in
 
       includes = [
         {
-          condition = "gitdir:~/work/lrde";
+          condition = "gitdir:~/work/lrde/";
           contents = { user = { email = "amartin@lrde.epita.fr"; }; };
         }
         {
-          condition = "gitdir:~/work/prologin";
+          condition = "gitdir:~/work/prologin/";
           contents = { user = { email = "antoine.martin@prologin.org"; }; };
         }
         {
-          condition = "gitdir:~/work/epita";
+          condition = "gitdir:~/work/epita/";
           contents = { user = { email = "antoine4.martin@epita.fr"; }; };
         }
       ];
