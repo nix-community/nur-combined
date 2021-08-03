@@ -461,10 +461,14 @@ in {
   php74 = generic {
     version = "7.4.22";
     sha256 = "140rxjn9bb8zi8c8c8k3whn92k8qigfy1ja9lrjjc7r0n7mgr647";
+
+    extraPatches = [ ./patch/revert-bug-52093.patch ];
   };
 
   php80 = generic {
     version = "8.0.9";
     sha256 = "06i73843ilnl0c4z5yvj016zby2g3hmxnci6l32ikpzfgi2jfza6";
+
+    extraPatches = [ ./patch/revert-bug-52093.patch ];
   };
 }

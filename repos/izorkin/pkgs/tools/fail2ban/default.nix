@@ -1,16 +1,14 @@
 { lib, stdenv, fetchFromGitHub, python3 }:
 
-let version = "0.11.1"; in
-
-python3.pkgs.buildPythonApplication {
+python3.pkgs.buildPythonApplication rec {
   pname = "fail2ban";
-  inherit version;
+  version = "0.11.2";
 
   src = fetchFromGitHub {
-    owner  = "fail2ban";
-    repo   = "fail2ban";
-    rev    = version;
-    sha256 = "0kqvkxpb72y3kgmxf6g36w67499c6gcd2a9yyblagwx12y05f1sh";
+    owner = "fail2ban";
+    repo = "fail2ban";
+    rev = version;
+    sha256 = "00d9q8m284q2wy6q462nipzszplfbvrs9fhgn0y3imwsc24kv1db";
   };
 
   pythonPath = with python3.pkgs;
@@ -42,21 +40,23 @@ python3.pkgs.buildPythonApplication {
     ${stdenv.shell} ./fail2ban-2to3
   '';
 
-  postInstall = let
-    sitePackages = "$out/${python3.sitePackages}";
-  in ''
-    # see https://github.com/NixOS/nixpkgs/issues/4968
-    rm -rf ${sitePackages}/etc ${sitePackages}/usr ${sitePackages}/var;
+  postInstall =
+    let
+      sitePackages = "$out/${python3.sitePackages}";
+    in
+    ''
+      # see https://github.com/NixOS/nixpkgs/issues/4968
+      rm -rf ${sitePackages}/etc ${sitePackages}/usr;
 
-    # Add custom filters
-    cd ${./filter.d} && cp * $out/etc/fail2ban/filter.d
-  '';
+      # Add custom filters
+      cd ${./filter.d} && cp * $out/etc/fail2ban/filter.d
+    '';
 
   meta = with lib; {
-    homepage    = "https://www.fail2ban.org/";
+    homepage = "https://www.fail2ban.org/";
     description = "A program that scans log files for repeated failing login attempts and bans IP addresses";
-    license     = licenses.gpl2Plus;
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ eelco lovek323 fpletz ];
-    platforms   = platforms.linux ++ platforms.darwin;
+    platforms = platforms.unix;
   };
 }
