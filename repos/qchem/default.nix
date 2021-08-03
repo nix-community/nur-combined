@@ -25,6 +25,7 @@ let
       # For consistency: every package that is in nixpgs-opt.nix
       # + extra builds that should be exposed
       inherit (final)
+        cp2k
         fftwSinglePrec
         hpl
         hpcg
@@ -121,10 +122,6 @@ let
       cfour = callPackage ./pkgs/apps/cfour { };
 
       chemps2 = callPackage ./pkgs/apps/chemps2 { };
-
-      cp2k = callPackage ./pkgs/apps/cp2k {
-        inherit optAVX;
-      };
 
       crest = callPackage ./pkgs/apps/crest { };
 
