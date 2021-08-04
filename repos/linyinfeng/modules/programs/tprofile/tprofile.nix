@@ -15,6 +15,11 @@ in
   };
 
   config = lib.mkIf (cfg.enable) {
+    system.activationScripts.tprofile = lib.stringAfter [ "users" "groups" ]
+      ''
+        echo "setting up /run/tprofile..."
+        mkdir --parents --mode=777 /run/tprofile
+      '';
     programs.bash.interactiveShellInit = ''
       source ${./tprofile.bash};
     '';
