@@ -1,5 +1,5 @@
 final: prev: {
-  awesome = prev.awesome.overrideAttrs (old: {
+  awesome = (prev.awesome.overrideAttrs (old: {
     src = prev.fetchFromGitHub {
       owner = "awesomeWM";
       repo = "awesome";
@@ -8,7 +8,7 @@ final: prev: {
     };
     GI_TYPELIB_PATH = "${prev.playerctl}/lib/girepository-1.0:"
       + "${prev.upower}/lib/girepository-1.0:" + old.GI_TYPELIB_PATH;
-  }).override {
+  })).override {
     stdenv = prev.clangStdenv;
     luaPackages = prev.lua52Packages;
     gtk3Support = true;
