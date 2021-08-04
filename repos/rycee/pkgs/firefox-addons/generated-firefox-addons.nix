@@ -270,10 +270,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.3.0";
+      version = "2.3.1";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3816940/facebook_container-2.3.0-fx.xpi";
-      sha256 = "69e06ccfaf7b13e6d0f0646f20dd28a1e0b02902d42ed11b074cfc0b10237c24";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3818838/facebook_container-2.3.1-fx.xpi";
+      sha256 = "37e5def08a300360a1667a16b281af41a9f282d0d85a2c7b05693db8b3e33853";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -1511,10 +1511,10 @@
       };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "3.4.3";
+      version = "3.5.0";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3819005/view_image-3.4.3-an+fx.xpi";
-      sha256 = "79b05369069421e1a62ac0bfb597c7a879ede3610dd28613247de80d488b880e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3819211/view_image-3.5.0-an+fx.xpi";
+      sha256 = "18ebd855bdd8d5ff0910157e07dc79270b26c6baee74321a134d2e7f59eaae8d";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
@@ -1567,10 +1567,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.7.12";
+      version = "6.7.13";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3817026/wappalyzer-6.7.12-fx.xpi";
-      sha256 = "c4dc50a482f1e10e95117de2bd9c632cc979c22cce341b75d59c2366da7842e1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3819588/wappalyzer-6.7.13-fx.xpi";
+      sha256 = "221b9edadb2a1a7defb133109487981623950fe24b2c3c871e5cef8326e434ac";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
