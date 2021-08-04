@@ -8,6 +8,7 @@
 , openldap, cyrus_sasl, libxml2, libmcrypt, pcre, pcre2
 , unixODBC, postgresql, sqlite, readline, html-tidy
 , libxslt, zlib, libzip, libsodium, oniguruma
+, fetchpatch
 }:
 
 with lib;
@@ -462,13 +463,23 @@ in {
     version = "7.4.22";
     sha256 = "140rxjn9bb8zi8c8c8k3whn92k8qigfy1ja9lrjjc7r0n7mgr647";
 
-    extraPatches = [ ./patch/revert-bug-52093.patch ];
+    extraPatches = [
+      (fetchpatch {
+        url = "https://github.com/php/php-src/commit/6724d5d4c2c502b098e708bd85b43f2a52848093.patch";
+        sha256 = "0zr14n4l269vnn3a4ri6q6nz6q1dg9nwk8jqcpm80m3fwdvxm2ch";
+      })
+    ];
   };
 
   php80 = generic {
     version = "8.0.9";
     sha256 = "06i73843ilnl0c4z5yvj016zby2g3hmxnci6l32ikpzfgi2jfza6";
 
-    extraPatches = [ ./patch/revert-bug-52093.patch ];
+    extraPatches = [
+      (fetchpatch {
+        url = "https://github.com/php/php-src/commit/6724d5d4c2c502b098e708bd85b43f2a52848093.patch";
+        sha256 = "0zr14n4l269vnn3a4ri6q6nz6q1dg9nwk8jqcpm80m3fwdvxm2ch";
+      })
+    ];
   };
 }

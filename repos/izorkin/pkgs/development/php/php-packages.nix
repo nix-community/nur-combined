@@ -482,12 +482,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "3.0.0";
+    version = "3.0.1";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "141rkcr0wbsqnc4s5vg4bk4dmxwigwxa3j0vi5c42b5k1lq3sgwr";
+      sha256 = "007bn6s8lr8xay0xcwca6ir78dapraiwg0faxpqsv3kygj5wmqdd";
     };
 
     phases = [ "installPhase" ];
@@ -742,12 +742,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "4.8.1";
+    version = "4.9.2";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "1bsg6mh8mqxl0k6j1afah1wixkr3pijkhz1fwqhqv7361ia4cql9";
+      sha256 = "17bs77axszgfg8sglglbgm4f394hbm9m45r4755pi234631h9mvi";
     };
 
     phases = [ "installPhase" ];
@@ -900,12 +900,12 @@ let
   };
 
   snuffleupagus = buildPecl rec {
-    version = "0.7.0";
+    version = "0.7.1";
     pname = "snuffleupagus";
 
     src = pkgs.fetchurl {
       url = "https://github.com/jvoisin/snuffleupagus/archive/v${version}.tar.gz";
-      sha256 = "17qiy2c9bqrb0fk236mawd1vy47n3z8jv7iz031366nvb032y49a";
+      sha256 = "10crdlhs5d6nz91dp1396wa1s24as8irrspvz3bgf83xsy13pz0d";
     };
 
     sourceRoot = "snuffleupagus-${version}/src";
