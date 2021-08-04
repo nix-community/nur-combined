@@ -227,6 +227,7 @@ lib.makeScope newScope (
     cfiles = callPackage ./misc/cfiles { };
     csvquote = callPackage ./misc/csvquote { };
     csvtools = callPackage ./misc/csvtools { };
+    didder = callPackage ./misc/didder { };
     docker-reg-tool = callPackage ./misc/docker-reg-tool { };
     docx2csv = callPackage ./misc/docx2csv { };
     gef = callPackage ./misc/gef { };
