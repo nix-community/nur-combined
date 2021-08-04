@@ -1,6 +1,6 @@
 { lib, stdenv, pkgs, fetchFromGitLab, fetchpatch, cmake, gfortran, perl
 , blas-i8, hdf5-full, python3, texlive
-, armadillo, makeWrapper, fetchFromGitHub, chemps2
+, armadillo, makeWrapper, fetchFromGitHub, chemps2, libwfa
 } :
 
 assert
@@ -18,13 +18,6 @@ let
   gitLabRev = "dd982ad4bc94dec8ac1e3e99cb6a7dd249ff71de";
 
   python = python3.withPackages (ps : with ps; [ six pyparsing ]);
-
-  srcLibwfa = fetchFromGitHub {
-    owner = "libwfa";
-    repo = "libwfa";
-    rev = "efd3d5bafd403f945e3ea5bee17d43e150ef78b2";
-    sha256 = "0qzs8s0pjrda7icws3f1a55rklfw7b94468ym5zsgp86ikjf2rlz";
-  };
 
 in stdenv.mkDerivation {
   pname = "openmolcas";
@@ -47,7 +40,7 @@ in stdenv.mkDerivation {
 
   prePatch = ''
     rm -r External/libwfa
-    cp -r ${srcLibwfa} External/libwfa
+    cp -r ${libwfa.src} External/libwfa
     chmod -R u+w External/
   '';
 

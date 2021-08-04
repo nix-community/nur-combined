@@ -221,6 +221,8 @@ let
         else callPackage ./pkgs/apps/vmd { }
       ;
 
+      wfaMolcas = self.libwfa.override { buildMolcasExe = true; };
+
       wfoverlap = callPackage ./pkgs/apps/wfoverlap { };
 
       xtb = callPackage ./pkgs/apps/xtb {
@@ -246,6 +248,8 @@ let
       libint1 = callPackage ./pkgs/lib/libint/1.nix { };
 
       libvdwxc = callPackage ./pkgs/lib/libvdwxc { };
+
+      libwfa = callPackage ./pkgs/lib/libwfa { };
 
       # libxc legacy version
       libxc4 = callPackage ./pkgs/lib/libxc { };
