@@ -24,6 +24,8 @@
 , ddt
 , fixtures
 , qiskit-terra
+, setuptools
+, testtools
 }:
 
 buildPythonPackage rec {
@@ -42,10 +44,22 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      # Not yet accepted: https://github.com/Qiskit/qiskit-aer/pull/1250
+      # Merged, not on stable: https://github.com/Qiskit/qiskit-aer/pull/1250
       name = "qiskit-aer-pr-1250-native-cmake_dl_libs.patch";
       url = "https://github.com/Qiskit/qiskit-aer/commit/2bf04ade3e5411776817706cf82cc67a3b3866f6.patch";
       sha256 = "0ldwzxxfgaad7ifpci03zfdaj0kqj0p3h94qgshrd2953mf27p6z";
+    })
+    (fetchpatch {
+      # Merged, not yet on stable: https://github.com/Qiskit/qiskit-aer/pull/1262
+      name = "qiskit-aer-pr-1262-fix-tests.patch";
+      url = "https://github.com/Qiskit/qiskit-aer/commit/91c8990c9d9950df3e1338c11ed46645a7778911.patch";
+      sha256 = "1bgys17srjwh9arzqy6nrxbw8np9nxbcikzcidr8lyy4s1ngpag0";
+    })
+    (fetchpatch {
+      # Merged, but not yet on stable:
+      name = "qiskit-aer-pr-1292-fix-terra-dependent-tests.patch";
+      url = "https://github.com/Qiskit/qiskit-aer/commit/224b8755b1d85634a754756cd542e604dc4081fd.patch";
+      sha256 = "0njdfna6v7ijancgpxg5nrvajf7ax6j6441v2pkqgjabcjc73k1f";
     })
   ];
 
@@ -87,12 +101,12 @@ buildPythonPackage rec {
   dontUseCmakeConfigure = true;
 
   # *** Testing ***
-
   pythonImportsCheck = [
     "qiskit.providers.aer"
     "qiskit.providers.aer.backends.qasm_simulator"
     "qiskit.providers.aer.backends.controller_wrappers" # Checks C++ files built correctly. Only exists if built & moved to output
   ];
+  pytestFlagsArray = [ "--durations=10" ];
   disabledTests = [
     # these fail for some builds. Haven't been able to reproduce error locally.
     "test_kraus_gate_noise"
@@ -120,6 +134,8 @@ buildPythonPackage rec {
     ddt
     fixtures
     qiskit-terra
+    setuptools  # temporary workaround for pbr missing setuptools, see https://github.com/NixOS/nixpkgs/pull/132614
+    testtools
   ];
   dontUseSetuptoolsCheck = true;  # Otherwise runs tests twice
 
@@ -131,6 +147,8 @@ buildPythonPackage rec {
 
     # Add qiskit-aer compiled files to cython include search
     pushd $HOME
+    # TODO: remove this in next release. This logic is no longer necessary after https://github.com/Qiskit/qiskit-terra/pull/6753
+    export QISKIT_TEST_CAPTURE_STREAMS=1
   '';
   postCheck = "popd";
 

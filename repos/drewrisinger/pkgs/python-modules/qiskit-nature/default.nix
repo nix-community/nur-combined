@@ -20,7 +20,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-nature";
-  version = "0.1.3";
+  version = "0.1.5";
 
   disabled = pythonOlder "3.6";
 
@@ -28,7 +28,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "1mj3pgl4lfnzbhd9k1nkqscmrqhd5jmxm8318bjbg8yagvzi5mz7";
+    sha256 = "sha256-kmYGVTi4jBQKJvbBf7kBYJg3S287Y9yScUot62qILUg=";
   };
 
   propagatedBuildInputs = [
@@ -52,7 +52,9 @@ buildPythonPackage rec {
   preCheck = "pushd $TMP/$sourceRoot";
   postCheck = "popd";
 
-  pytestFlagsArray = lib.optionals (!withPyscf) [
+  pytestFlagsArray = [
+    "--durations=10"
+  ] ++ lib.optionals (!withPyscf) [
     "--ignore=test/algorithms/excited_state_solvers/test_excited_states_eigensolver.py"
   ];
 

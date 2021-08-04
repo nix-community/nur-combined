@@ -48,6 +48,7 @@ buildPythonPackage rec {
     pyfakefs
     qiskit-aer
   ];
+  pytestFlagsArray = [ "--durations=10" ];
   disabledTests = [
     "test_tensored_meas_cal_on_circuit" # Flaky test, occasionally returns result outside bounds
     "test_qv_fitter"  # execution hangs, ran for several minutes

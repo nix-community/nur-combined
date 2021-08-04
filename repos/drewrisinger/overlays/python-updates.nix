@@ -20,8 +20,12 @@ rec {
       sparse = overrideSuperVersionIfNewer py-super.sparse (py-self.callPackage ../pkgs/python-modules/sparse { });
       # Needed for nixpkgs < nixos-unstable
       websocket_client = overrideSuperVersionIfNewer py-super.websocket_client (py-self.callPackage ../pkgs/python-modules/websocket-client { });
+      # needed for nixpkgs < nixos-21.05, broken
+      symengine = overrideSuperVersionIfNewer py-super.symengine (py-self.callPackage ../pkgs/python-modules/symengine { inherit (self) symengine; });
     };
   };
+
+  symengine = self.callPackage ../pkgs/libraries/symengine { }; # update symengine to match python version that's unbroken/pinned above
 
   python3Packages = python3.pkgs;
 }

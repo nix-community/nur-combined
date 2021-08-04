@@ -22,7 +22,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-finance";
-  version = "0.1.0";
+  version = "0.2.0";
 
   disabled = pythonOlder "3.6";
 
@@ -30,7 +30,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "0kxhv53hc2n6icwywli6dsvidbk6smmrrv630jvwp94cxs1lynpq";
+    sha256 = "sha256-Ua+2cZniA9Wh1tr2OjGsi8iwXNg1InTjGQ9kau9UZdU=";
   };
 
   propagatedBuildInputs = [

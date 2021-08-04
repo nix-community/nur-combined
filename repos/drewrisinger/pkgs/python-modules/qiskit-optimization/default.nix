@@ -18,7 +18,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-optimization";
-  version = "0.1.0";
+  version = "0.2.1";
 
   disabled = pythonOlder "3.6";
 
@@ -26,7 +26,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "11rym9gzd4dd0mh1kzfbp4nf71w2i7lx18605k4d5f3f4kn3vlx5";
+    sha256 = "sha256-jBH5mWYKWXVa1ZmhPCF4bIYJt0fb3WiZr5mXD4e3124=";
   };
 
   propagatedBuildInputs = [
@@ -49,6 +49,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "qiskit_optimization" ];
   preCheck = "pushd $TMP/$sourceRoot";
   postCheck = "popd";
+  pytestFlagsArray = [ "--durations=10" ];
 
   meta = with lib; {
     description = "Software for developing quantum computing programs";

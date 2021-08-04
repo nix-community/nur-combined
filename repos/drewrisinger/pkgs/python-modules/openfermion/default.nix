@@ -18,27 +18,14 @@
 
 buildPythonPackage rec {
   pname = "openfermion";
-  version = "1.0";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "quantumlib";
     repo = "openfermion";
     rev = "v${version}";
-    sha256 = "1dcfds91phsj1wbkmpbaz6kh986pjyxh2zpxgx6cp6v76n8rzlnw";
+    sha256 = "sha256-PEJOKf86ypPO8TqIJR+mqV80+1c8EDIr7fpoBV6Qwgc=";
   };
-
-  patches = [
-    (fetchpatch {
-      name = "openfermion-update-to-cirq-0_10_0.patch";
-      url = "https://github.com/quantumlib/OpenFermion/commit/10637dab77bbf73d066c789b2a59ead4f4ad6996.patch";
-      sha256 = "01i8kqrnkz7w5x43sc7qll2hcmp9s2xdcxvvy1wyagzggx0yk9q9";
-    })
-    (fetchpatch {
-      name = "openfermion-update-to-cirq-0_11_0.patch";
-      url = "https://github.com/quantumlib/OpenFermion/commit/b9becd72f7af283d867d219d7ee6df8942ac870f.patch";
-      sha256 = "0fwp3r142zg7b5vmmgwh67s0scnpbahbwaqj1759v01x1ai6fp0b";
-    })
-  ];
 
   propagatedBuildInputs = [
     cirq
@@ -58,7 +45,7 @@ buildPythonPackage rec {
 
   # For NixOS 19.09, run tests from source dir
   preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "pushd $TMP/$sourceRoot";
+  postCheck = "popd";
 
   pytestFlagsArray = [
     "--disable-warnings"  # for reducing output so Travis CI isn't angry
@@ -67,6 +54,11 @@ buildPythonPackage rec {
     "OpenFermionPubChemTest"
     "test_can_run_examples_jupyter_notebooks"
     "test_signal" # Fails when built on WSL, 1e-5 error in one value
+    # Slow tests > 10 s
+    "test_energy_reduce_symmetric"
+    "test_all"
+    "test_apply_constraints"
+    "test_plane_wave_hamiltonian"
   ] ++
     # These fail on scipy 1.6.1, seem to work before that
     lib.optionals (lib.versionAtLeast scipy.version "1.6.1") [

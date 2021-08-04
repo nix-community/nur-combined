@@ -33,12 +33,12 @@
 }:
 
 let
-  version = "0.11.0";
+  version = "0.11.1";
   src = fetchFromGitHub {
     owner = "quantumlib";
     repo = "cirq";
     rev = "v${version}";
-    sha256 = "0z51p1529awz0c55c97lhjk6wd7hd2l1jlkydw2k51qqg4d978i5";
+    sha256 = "sha256-Me+fhz/r5exG4jFaB8XRebQU187KZtbkRTa4VdwV+cg=";
   };
   disabled = pythonOlder "3.6";
   cirq-core = buildPythonPackage rec {

@@ -41,7 +41,7 @@ let
 in
 buildPythonPackage rec {
   pname = "qiskit-ibmq-provider";
-  version = "0.14.0";
+  version = "0.16.0";
 
   disabled = pythonOlder "3.6";
 
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-GQTGjFrir/d0ozyZCife9exJQNoWa5ohELPmOfFbxno=";
+    sha256 = "sha256-yzFxdtAk32qq12Alid/D+62BU6rwx3B0dsnvqLmjG08=";
   };
 
   propagatedBuildInputs = [
@@ -84,6 +84,7 @@ buildPythonPackage rec {
     "test_old_api_url"
     "test_non_auth_url"
     "test_non_auth_url_with_hub"
+    "test_coder_optimizers" # TODO: reenable when package scikit-quant is packaged, either in NUR or nixpkgs
 
     # slow tests
     "test_websocket_retry_failure"
