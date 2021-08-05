@@ -127,11 +127,19 @@ let
 
       dalton = callPackage ./pkgs/apps/dalton { };
 
-      dkh = callPackage ./pkgs/apps/dkh { };
-
       dftd3 = callPackage ./pkgs/apps/dft-d3 { };
 
+      dirac = callPackage ./pkgs/apps/dirac rec {
+        exatensor = self.exatensor;
+      };
+
+      dkh = callPackage ./pkgs/apps/dkh { };
+
       ergoscf = callPackage ./pkgs/apps/ergoscf { };
+
+      exatensor = callPackage ./pkgs/apps/exatensor rec {
+        mpi = super.mpi.override { gfortran = super.gfortran8; };
+      };
 
       gaussview = callPackage ./pkgs/apps/gaussview { };
 
