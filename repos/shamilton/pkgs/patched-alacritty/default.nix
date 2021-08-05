@@ -27,8 +27,9 @@ alacritty.overrideAttrs (old: rec {
   doCheck = false;
   cargoDeps = old.cargoDeps.overrideAttrs (lib.const {
     inherit src;
-    
-    outputHash = "1dd06mhk3fp67wjyfp5b3pwvxz2lw4vim14q61s2i9icvrdnh6hh";
+    outputHash = if nixosVersion == "nixpkgs-unstable"
+      then "02v0nd68y2gy4jqhc7n663h9b3v808wddd3biqs4xznzbczz9al7"
+      else "1dd06mhk3fp67wjyfp5b3pwvxz2lw4vim14q61s2i9icvrdnh6hh";
     doCheck = false;
   });
 })

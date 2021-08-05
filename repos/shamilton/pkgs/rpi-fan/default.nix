@@ -2,6 +2,8 @@
 , stdenvNoCC
 , substituteAll
 , bc
+, coreutils
+, libraspberrypi
 , temp_min ? 40
 , temp_max ? 60
 , fan_min ? 0
@@ -27,7 +29,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  propagatedBuildInputs = [ bc ];
+  propagatedBuildInputs = [ bc coreutils libraspberrypi ];
 
   meta = with lib; {
     description = "Argument Parser for Modern C++";
