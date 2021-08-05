@@ -104,6 +104,7 @@ pkgs.lib.traceValFn (x:
   pyrect = pkgs.callPackage ./pkgs/pyrect { };
   pyscreeze = pkgs.callPackage ./pkgs/pyscreeze { };
   pytweening = pkgs.callPackage ./pkgs/pytweening { };
+  rpi-fan = pkgs.callPackage ./pkgs/rpi-fan { };
   # qradiopredict = pkgs.libsForQt5.callPackage ./pkgs/qradiopredict { };
   scripts = with pkgs; callPackage ./pkgs/Scripts {
     eom = mate.eom;

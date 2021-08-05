@@ -7,6 +7,9 @@
   autognirehtet = import ./autognirehtet.nix {
     inherit (selfnur) autognirehtet;
   };
+  rpi-fan = import ./rpi-fan.nix {
+    inherit (selfnur) rpi-fan;
+  };
   hmModules = {
     day-night-plasma-wallpapers = ./day-night-plasma-wallpapers-home-manager.nix;
     myvim = import ./myvim.nix {
