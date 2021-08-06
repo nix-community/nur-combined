@@ -1,0 +1,180 @@
+/dts-v1/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	fragment@0 {
+		target-path = [2f 00];
+
+		__overlay__ {
+
+			rpi-poe-fan@0 {
+				compatible = "raspberrypi,rpi-poe-fan";
+				firmware = <0xffffffff>;
+				cooling-min-state = <0x00>;
+				cooling-max-state = <0x04>;
+				#cooling-cells = <0x02>;
+				cooling-levels = <0x00 0x01 0x0a 0x64 0xff>;
+				status = "okay";
+				phandle = <0x02>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+
+			trips {
+
+				trip0 {
+					temperature = <0x9c40>;
+					hysteresis = <0x7d0>;
+					type = "active";
+					phandle = <0x01>;
+				};
+
+				trip1 {
+					temperature = <0xafc8>;
+					hysteresis = <0x7d0>;
+					type = "active";
+					phandle = <0x03>;
+				};
+
+				trip2 {
+					temperature = <0xc350>;
+					hysteresis = <0x7d0>;
+					type = "active";
+					phandle = <0x04>;
+				};
+
+				trip3 {
+					temperature = <0xd6d8>;
+					hysteresis = <0x1388>;
+					type = "active";
+					phandle = <0x05>;
+				};
+			};
+
+			cooling-maps {
+
+				map0 {
+					trip = <0x01>;
+					cooling-device = <0x02 0x00 0x01>;
+				};
+
+				map1 {
+					trip = <0x03>;
+					cooling-device = <0x02 0x01 0x02>;
+				};
+
+				map2 {
+					trip = <0x04>;
+					cooling-device = <0x02 0x02 0x03>;
+				};
+
+				map3 {
+					trip = <0x05>;
+					cooling-device = <0x02 0x03 0x04>;
+				};
+			};
+		};
+	};
+
+	fragment@2 {
+		target-path = "/__overrides__";
+
+		__overlay__ {
+			poe_fan_temp0 = [00 00 00 01 74 65 6d 70 65 72 61 74 75 72 65 3a 30 00];
+			poe_fan_temp0_hyst = [00 00 00 01 68 79 73 74 65 72 65 73 69 73 3a 30 00];
+			poe_fan_temp1 = [00 00 00 03 74 65 6d 70 65 72 61 74 75 72 65 3a 30 00];
+			poe_fan_temp1_hyst = [00 00 00 03 68 79 73 74 65 72 65 73 69 73 3a 30 00];
+			poe_fan_temp2 = [00 00 00 04 74 65 6d 70 65 72 61 74 75 72 65 3a 30 00];
+			poe_fan_temp2_hyst = [00 00 00 04 68 79 73 74 65 72 65 73 69 73 3a 30 00];
+			poe_fan_temp3 = [00 00 00 05 74 65 6d 70 65 72 61 74 75 72 65 3a 30 00];
+			poe_fan_temp3_hyst = [00 00 00 05 68 79 73 74 65 72 65 73 69 73 3a 30 00];
+		};
+	};
+
+	__overrides__ {
+		poe_fan_temp0 = [00 00 00 01 74 65 6d 70 65 72 61 74 75 72 65 3a 30 00];
+		poe_fan_temp0_hyst = [00 00 00 01 68 79 73 74 65 72 65 73 69 73 3a 30 00];
+		poe_fan_temp1 = [00 00 00 03 74 65 6d 70 65 72 61 74 75 72 65 3a 30 00];
+		poe_fan_temp1_hyst = [00 00 00 03 68 79 73 74 65 72 65 73 69 73 3a 30 00];
+		poe_fan_temp2 = [00 00 00 04 74 65 6d 70 65 72 61 74 75 72 65 3a 30 00];
+		poe_fan_temp2_hyst = [00 00 00 04 68 79 73 74 65 72 65 73 69 73 3a 30 00];
+		poe_fan_temp3 = [00 00 00 05 74 65 6d 70 65 72 61 74 75 72 65 3a 30 00];
+		poe_fan_temp3_hyst = [00 00 00 05 68 79 73 74 65 72 65 73 69 73 3a 30 00];
+	};
+
+	__symbols__ {
+		fan0 = "/fragment@0/__overlay__/rpi-poe-fan@0";
+		trip0 = "/fragment@1/__overlay__/trips/trip0";
+		trip1 = "/fragment@1/__overlay__/trips/trip1";
+		trip2 = "/fragment@1/__overlay__/trips/trip2";
+		trip3 = "/fragment@1/__overlay__/trips/trip3";
+	};
+
+	__fixups__ {
+		firmware = "/fragment@0/__overlay__/rpi-poe-fan@0:firmware:0";
+		cpu_thermal = "/fragment@1:target:0";
+	};
+
+	__local_fixups__ {
+
+		fragment@1 {
+
+			__overlay__ {
+
+				cooling-maps {
+
+					map0 {
+						trip = <0x00>;
+						cooling-device = <0x00>;
+					};
+
+					map1 {
+						trip = <0x00>;
+						cooling-device = <0x00>;
+					};
+
+					map2 {
+						trip = <0x00>;
+						cooling-device = <0x00>;
+					};
+
+					map3 {
+						trip = <0x00>;
+						cooling-device = <0x00>;
+					};
+				};
+			};
+		};
+
+		fragment@2 {
+
+			__overlay__ {
+				poe_fan_temp0 = <0x00>;
+				poe_fan_temp0_hyst = <0x00>;
+				poe_fan_temp1 = <0x00>;
+				poe_fan_temp1_hyst = <0x00>;
+				poe_fan_temp2 = <0x00>;
+				poe_fan_temp2_hyst = <0x00>;
+				poe_fan_temp3 = <0x00>;
+				poe_fan_temp3_hyst = <0x00>;
+			};
+		};
+
+		__overrides__ {
+			poe_fan_temp0 = <0x00>;
+			poe_fan_temp0_hyst = <0x00>;
+			poe_fan_temp1 = <0x00>;
+			poe_fan_temp1_hyst = <0x00>;
+			poe_fan_temp2 = <0x00>;
+			poe_fan_temp2_hyst = <0x00>;
+			poe_fan_temp3 = <0x00>;
+			poe_fan_temp3_hyst = <0x00>;
+		};
+	};
+};

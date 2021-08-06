@@ -17,14 +17,17 @@ fan_delta=$(($fan_max - $fan_min))
 fan_delta_1_percent=$(bc <<< "scale=2 ; $fan_delta / 100")
 
 check_overlay() {
-	if [ ! -d "$OVERLAYS_PATH" ]; then
-		echo "Overlays path: $OVERLAYS_PATH doesn't exist"
-		exit 1
+	if [ ! -d "$OVERLAYS_DIR" ]; then
+		OVERLAYS_DIR="@overlays_dir@"
+		if [ ! -d "$OVERLAYS_DIR" ]; then
+			echo "Overlays path: $OVERLAYS_DIR doesn't exist"
+			exit 1
+		fi
 	fi
 	if [ ! -f /sys/class/thermal/cooling_device0/cur_state ]; then
 		echo "Trying to load rpi-poe overlay..."
-		echo "Overlays path: $OVERLAYS_PATH"
-		dtoverlay -l | grep rpi-poe || dtoverlay -d "$OVERLAYS_PATH" rpi-poe
+		echo "Overlays path: $OVERLAYS_DIR"
+		dtoverlay -l | grep rpi-poe || dtoverlay -d "$OVERLAYS_DIR" rpi-poe
 	fi
 }
 check_overlay
