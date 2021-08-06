@@ -26,6 +26,7 @@ let
       # + extra builds that should be exposed
       inherit (final)
         cp2k
+        ergoscf
         fftwSinglePrec
         hpl
         hpcg
@@ -134,8 +135,6 @@ let
       };
 
       dkh = callPackage ./pkgs/apps/dkh { };
-
-      ergoscf = callPackage ./pkgs/apps/ergoscf { };
 
       exatensor = callPackage ./pkgs/apps/exatensor rec {
         mpi = super.mpi.override { gfortran = super.gfortran8; };
