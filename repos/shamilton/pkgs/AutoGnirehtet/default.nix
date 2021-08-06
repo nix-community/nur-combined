@@ -10,11 +10,14 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "AutoGnirehtet";
-    rev = "cad9f575332623ea5eb809af409c22be23d9598c";
-    sha256 = "0v0mlcp4sja5nqqxbvfm3k3vqlljzvdljhd7jja91icx9prnc14n";
+    rev = "c176b5ec15b7c067ef228fbcce779a949f96a532";
+    sha256 = "14d18439vnfl2vid8n15y4ijs5yyfvq5glif5shy9hqx4gn810cr";
   };
 
-  propagatedBuildInputs = with python3Packages; [ pexpect ];
+  propagatedBuildInputs = with python3Packages; [
+    pexpect
+    pure-python-adb
+  ];
   doCheck = false;
 
   meta = with lib; {
