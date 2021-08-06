@@ -1,0 +1,10 @@
+{
+  "acpica-unix": {
+    "url": "http://acpica.org/sites/acpica/files/acpica-unix-20210331.tar.gz",
+    "hash": "sha256-tJI3osPfWLVzEGEuw6br7mnhpSW17+7HFS+vMqA7cGg="
+  },
+  "cjson": {
+    "url": "mirror://sourceforge/cjson/cJSONFiles.zip",
+    "hash": "sha256-DWI67XuLdgpv+u26Isvrgs6HAvn0yknTyPKdTLDTDac="
+  }
+}
