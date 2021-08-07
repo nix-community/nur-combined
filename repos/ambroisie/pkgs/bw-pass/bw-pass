@@ -11,6 +11,7 @@ prompt_pass() {
 }
 
 error_out() {
+    printf '%s\n' "$1" >&2
     rofi -dmenu -no-fixed-num-lines -p "$1"
     exit 1
 }
