@@ -19,6 +19,7 @@ rec {
   bunnyfetch-rs = pkgs.callPackage ./pkgs/bunnyfetch-rs { };
   gyro = pkgs.callPackage ./pkgs/gyro { };
   iosevka-serif = pkgs.callPackage ./pkgs/iosevka-serif { };
+  midle = pkgs.callPackage ./pkgs/midle { };
   paper = pkgs.callPackage ./pkgs/paper { };
   zig-master = pkgs.callPackage ./pkgs/zig-master { };
   zigup = pkgs.callPackage ./pkgs/zigup { };
