@@ -44,10 +44,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.3.3";
+      version = "7.3.5";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3815239/betterttv-7.3.3-fx.xpi";
-      sha256 = "f226f9f2bd35944008a69b585d64fd4c93ae26040f0cd8be61eac2a94116a13a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3820799/betterttv-7.3.5-fx.xpi";
+      sha256 = "c3a8cead8dfde72d451459f612b07a5fa5b01f8bb1fcdfb1650e8dadc1dbe119";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -325,10 +325,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.6.4";
+      version = "4.7.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3765492/floccus-4.6.4-fx.xpi";
-      sha256 = "93ade0995658d52335d5a14a793b4bb0e360366f6120577603d092d57e8afce3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3820867/floccus-4.7.0-fx.xpi";
+      sha256 = "9291baf7fa1f0c8fc2702f5087edcc26e30a950d73945720a5ce2d998c28e2ca";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -1216,10 +1216,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.1.4";
+      version = "2.1.4.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3817821/sponsorblock_skip_sponsorships_on_youtube-2.1.4-an+fx.xpi";
-      sha256 = "ad0dae7f9e77bf3060d4e8c5750a41776c5dfab1ef2eac1719c91201e5f8aa1b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3820687/sponsorblock_skip_sponsorships_on_youtube-2.1.4.1-an+fx.xpi";
+      sha256 = "a795308849a5b9586abecde9b3774874cb24890edc38fc64af5152262bd1af44";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
