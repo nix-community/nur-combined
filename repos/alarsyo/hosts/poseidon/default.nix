@@ -75,6 +75,12 @@ in
       enable = true;
     };
 
+    fava = {
+      enable = true;
+      port = 8084;
+      filePath = "accounts/current.beancount";
+    };
+
     gitea = {
       enable = true;
       privatePort = 8082;

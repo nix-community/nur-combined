@@ -5,6 +5,7 @@
     ./bitwarden_rs.nix
     ./borg-backup.nix
     ./fail2ban.nix
+    ./fava.nix
     ./gitea
     ./jellyfin.nix
     ./lohr.nix
