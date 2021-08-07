@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    element-desktop
     feh
     gimp
     gnome.nautilus
@@ -12,7 +13,6 @@
 
     unstable.discord
     unstable.firefox
-    unstable.element-desktop
     unstable.slack
     unstable.spotify
     unstable.tdesktop
