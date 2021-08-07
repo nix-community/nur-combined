@@ -11,6 +11,7 @@ let
     dmenu-afreak = pkgs.callPackage ./pkgs/dmenu { };
     dmenuhist = pkgs.callPackage ./pkgs/dmenuhist { };
     dcreemer-1pass = pkgs.callPackage ./pkgs/dcreemer-1pass { };
+    mongosh = pkgs.callPackage ./pkgs/mongosh { };
     url-handler-tmux = tmuxHlp.mkDerivation rec {
       pluginName = "url-handler-tmux";
       # version = "lolx";
