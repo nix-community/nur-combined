@@ -112,6 +112,8 @@ rec {
 
   traceshark = pkgs.qt5.callPackage ./pkgs/traceshark { };
 
+  tmux-thumbs = pkgs.callPackage ./pkgs/tmux-thumbs { };
+
   threema-web = pkgs.callPackage ./pkgs/threema-web { };
 
   untilport = pkgs.callPackage ./pkgs/untilport { };
