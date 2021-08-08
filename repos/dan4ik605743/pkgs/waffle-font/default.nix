@@ -10,7 +10,7 @@ stdenv.mkDerivation
   src = fetchgit 
   {
     url = "https://github.com/addy-dclxvi/bitmap-font-collections";
-    sha256 = "sha256-a0MA2jIH7J4Btm8JBi7EHjI3Pt/ZaCZK6JqNH7PLSvM=";
+    sha256 = "13wkgdvl9j63mq221bcsrj5am8avddq8lijc7z30f1f1xq5jcw8z";
   };
   dontUnpack = true;
   nativeBuildInputs =
