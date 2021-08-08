@@ -6,7 +6,7 @@
 
 stdenv.mkDerivation 
 {
-  name = "waffle-font";
+  name = "bitmap-fonts";
   src = fetchgit 
   {
     url = "https://github.com/addy-dclxvi/bitmap-font-collections";
@@ -20,13 +20,13 @@ stdenv.mkDerivation
   installPhase = 
   ''
     mkdir -p $out/share/fonts/
-    cp $src/waffle-10.bdf $out/share/fonts/
+    cp $src/*.bdf $out/share/fonts/
     cd "$out/share/fonts"
     mkfontdir
     mkfontscale
   '';
   meta = with lib; {
-    description = "bitmap-font";
+    description = "bitmap-fonts";
     homepage = "https://github.com/addy-dclxvi/bitmap-font-collections";
     license = licenses.mit;
     maintainers = with maintainers; [ dan4ik605743 ];

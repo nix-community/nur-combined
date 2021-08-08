@@ -7,6 +7,6 @@
 
   compton = pkgs.callPackage ./pkgs/compton { };
   lyra-cursors = pkgs.callPackage ./pkgs/lyra-cursors { };
-  waffle-font = pkgs.callPackage ./pkgs/waffle-font { };
+  bitmap-fonts = pkgs.callPackage ./pkgs/bitmap-fonts { };
   i3lock-color = pkgs.callPackage ./pkgs/i3lock-color { };
 }
