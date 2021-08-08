@@ -6,6 +6,8 @@ rec {
 
   diff-flake = pkgs.callPackage ./diff-flake { };
 
+  drone-scp = pkgs.callPackage ./drone-scp { };
+
   ff2mpv-go = pkgs.callPackage ./ff2mpv-go { };
 
   havm = pkgs.callPackage ./havm { };
