@@ -26,7 +26,7 @@ stdenv.mkDerivation
     mkfontscale
   '';
   meta = with lib; {
-    description = "bitmap-fonts";
+    description = "Bitmap Fonts Collections";
     homepage = "https://github.com/addy-dclxvi/bitmap-font-collections";
     license = licenses.mit;
     maintainers = with maintainers; [ dan4ik605743 ];
