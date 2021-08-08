@@ -113,6 +113,7 @@ lib.makeScope newScope (
       click = click-6-7;
     };
     go-staticmaps = callPackage ./tools/geo/go-staticmaps { };
+    mbtiles2osmand = callPackage ./tools/geo/mbtiles2osmand { };
     py-staticmaps = callPackage ./tools/geo/py-staticmaps { };
     render_geojson = callPackage ./tools/geo/render_geojson { };
     supermercado = callPackage ./tools/geo/supermercado { };
@@ -171,6 +172,7 @@ lib.makeScope newScope (
     astronaut = callPackage ./gemini/astronaut { };
     comitium = callPackage ./gemini/comitium { };
     gemget = callPackage ./gemini/gemget { };
+    gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway { };
     geminid = callPackage ./gemini/geminid { };
     gemreader = callPackage ./gemini/gemreader { };
     gloggery = callPackage ./gemini/gloggery { };
@@ -264,6 +266,7 @@ lib.makeScope newScope (
     ozi_map = callPackage ./nakarte/ozi_map { };
     pyimagequant = callPackage ./nakarte/pyimagequant { };
     thinplatespline = callPackage ./nakarte/thinplatespline { };
+    tracks_storage_server = callPackage ./nakarte/tracks_storage_server { };
 
     ### OSM
 

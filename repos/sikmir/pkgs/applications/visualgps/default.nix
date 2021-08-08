@@ -24,13 +24,14 @@ mkDerivation rec {
 
   qmakeFlags = [ "Software/VisualGPSqt/Source/VisualGPSqt.pro" ];
 
-  postInstall = if stdenv.isDarwin then ''
-    mkdir -p $out/Applications
-    mv *.app $out/Applications
-    wrapQtApp $out/Applications/VisualGPSqt.app/Contents/MacOS/VisualGPSqt
-  '' else ''
-    install -Dm755 VisualGPSqt -t $out/bin
-  '';
+  postInstall =
+    if stdenv.isDarwin then ''
+      mkdir -p $out/Applications
+      mv *.app $out/Applications
+      wrapQtApp $out/Applications/VisualGPSqt.app/Contents/MacOS/VisualGPSqt
+    '' else ''
+      install -Dm755 VisualGPSqt -t $out/bin
+    '';
 
   meta = with lib; {
     description = "A QT application (GUI) that makes use of the VisualGPS/NMEAParser project";

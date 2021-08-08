@@ -1,7 +1,20 @@
-{ lib, stdenv, fetchgdrive, unzip
-, gsettings-desktop-schemas, gtk3, wxgtk
-, libredirect, makeWrapper, wrapGAppsHook
-, pname, version, id, sha256, description, homepage }:
+{ lib
+, stdenv
+, fetchgdrive
+, unzip
+, gsettings-desktop-schemas
+, gtk3
+, wxgtk
+, libredirect
+, makeWrapper
+, wrapGAppsHook
+, pname
+, version
+, id
+, sha256
+, description
+, homepage
+}:
 
 stdenv.mkDerivation {
   inherit pname version;

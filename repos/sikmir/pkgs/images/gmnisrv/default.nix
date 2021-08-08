@@ -2,13 +2,13 @@
 
 let
   cfg = writeText "gmnisrv.ini" ''
-  listen=0.0.0.0:1965 [::]:1965
+    listen=0.0.0.0:1965 [::]:1965
 
-  [:tls]
-  store=/certs
+    [:tls]
+    store=/certs
 
-  [${domain}]
-  root=/gemini
+    [${domain}]
+    root=/gemini
   '';
 in
 dockerTools.buildImage {

@@ -1,6 +1,13 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub
-, gobject-introspection, pango
-, maprec, ozi_map, pyimagequant }:
+{ lib
+, stdenv
+, python3Packages
+, fetchFromGitHub
+, gobject-introspection
+, pango
+, maprec
+, ozi_map
+, pyimagequant
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "map-tiler";
@@ -28,9 +35,13 @@ python3Packages.buildPythonApplication rec {
   nativeBuildInputs = [ gobject-introspection pango ];
 
   pythonPath = with python3Packages; [
-    pillow purepng
-    pygobject3 pycairo
-    maprec ozi_map pyimagequant
+    pillow
+    purepng
+    pygobject3
+    pycairo
+    maprec
+    ozi_map
+    pyimagequant
   ];
 
   dontUseSetuptoolsBuild = true;

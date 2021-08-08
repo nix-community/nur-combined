@@ -14,10 +14,15 @@ python3Packages.buildPythonApplication rec {
   postPatch = "sed -i 's/~=.*\"/\"/' setup.py";
 
   propagatedBuildInputs = with python3Packages; [
-    boto3 click cligj
-    requests requests-toolbelt
-    jsonschema jsonseq
-    mercantile supermercado
+    boto3
+    click
+    cligj
+    requests
+    requests-toolbelt
+    jsonschema
+    jsonseq
+    mercantile
+    supermercado
   ];
 
   checkInputs = with python3Packages; [ pytestCheckHook ];

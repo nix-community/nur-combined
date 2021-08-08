@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchgit, fetchgdrive, unzip, wine, makeWrapper
+{ lib
+, stdenv
+, fetchurl
+, fetchgit
+, fetchgdrive
+, unzip
+, wine
+, makeWrapper
 , withMaps ? true
 , withExtremum ? true
 }:

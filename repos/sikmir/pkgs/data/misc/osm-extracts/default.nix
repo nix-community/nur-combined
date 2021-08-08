@@ -28,11 +28,13 @@ in
 
     nativeBuildInputs = [ gdal osmium-tool ];
 
-    buildPhase = lib.concatMapStringsSep "\n" (name: ''
-      osmium tags-filter -o ${name}-boundary.osm $src r/ISO3166-2=${name}
-      osmium extract -p ${name}-boundary.osm $src -s simple -o ${name}.osm
-      ogr2ogr -f GeoJSON ${name}-boundary.geojson ${name}-boundary.osm multipolygons
-    '') regions;
+    buildPhase = lib.concatMapStringsSep "\n"
+      (name: ''
+        osmium tags-filter -o ${name}-boundary.osm $src r/ISO3166-2=${name}
+        osmium extract -p ${name}-boundary.osm $src -s simple -o ${name}.osm
+        ogr2ogr -f GeoJSON ${name}-boundary.geojson ${name}-boundary.osm multipolygons
+      '')
+      regions;
 
     installPhase = "install -Dm644 *.geojson *.osm -t $out";
 

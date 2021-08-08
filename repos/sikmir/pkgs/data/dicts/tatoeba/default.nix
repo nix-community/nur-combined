@@ -30,27 +30,31 @@ stdenvNoCC.mkDerivation rec {
 
   unpackPhase = ''
     echo "{}" > versions.json
-  '' + lib.concatMapStringsSep "\n" (src: ''
-    bzcat ${src} > ${lib.removeSuffix ".bz2" src.name}
-    jq '.+{"${lib.removeSuffix ".tsv.bz2" src.name}":"${version} 00:00:00"}' versions.json | \
-      sponge versions.json
-  '') srcs;
+  '' + lib.concatMapStringsSep "\n"
+    (src: ''
+      bzcat ${src} > ${lib.removeSuffix ".bz2" src.name}
+      jq '.+{"${lib.removeSuffix ".tsv.bz2" src.name}":"${version} 00:00:00"}' versions.json | \
+        sponge versions.json
+    '')
+    srcs;
 
   nativeBuildInputs = [ dict jq moreutils stardict-tools tatoebatools ];
 
-  buildPhase = let
-    makeDict = lang: with lib; ''
-      parallel_corpus ${lang} > tatoeba_${replaceStrings [ " " ] [ "_" ] lang}.tab
-      stardict-tabfile tatoeba_${replaceStrings [ " " ] [ "_" ] lang}.tab
+  buildPhase =
+    let
+      makeDict = lang: with lib; ''
+        parallel_corpus ${lang} > tatoeba_${replaceStrings [ " " ] [ "_" ] lang}.tab
+        stardict-tabfile tatoeba_${replaceStrings [ " " ] [ "_" ] lang}.tab
+      '';
+    in
+    ''
+      export XDG_DATA_HOME=$PWD
+      mkdir -p tatoebatools/{links,sentences_detailed}
+      mv *_links.tsv tatoebatools/links
+      mv *_sentences_detailed.tsv tatoebatools/sentences_detailed
+      mv versions.json tatoebatools
+      ${lib.concatMapStringsSep "\n" makeDict langs}
     '';
-  in ''
-    export XDG_DATA_HOME=$PWD
-    mkdir -p tatoebatools/{links,sentences_detailed}
-    mv *_links.tsv tatoebatools/links
-    mv *_sentences_detailed.tsv tatoebatools/sentences_detailed
-    mv versions.json tatoebatools
-    ${lib.concatMapStringsSep "\n" makeDict langs}
-  '';
 
   installPhase = "install -Dm644 *.{dict*,idx,ifo} -t $out";
 

@@ -25,19 +25,26 @@ python3Packages.buildPythonApplication rec {
   dontUseSetuptoolsBuild = true;
   dontUseSetuptoolsCheck = true;
 
-  installPhase = let
-    pythonEnv = python3Packages.python.withPackages (p: with p; [
-      colour numpy portolan pyyaml svgwrite urllib3
-    ]);
-  in ''
-    site_packages=$out/lib/${python3Packages.python.libPrefix}/site-packages
-    mkdir -p $site_packages $out/share/roentgen
-    cp -r roentgen roentgen.py $site_packages
-    cp -r icons scheme $out/share/roentgen
+  installPhase =
+    let
+      pythonEnv = python3Packages.python.withPackages (p: with p; [
+        colour
+        numpy
+        portolan
+        pyyaml
+        svgwrite
+        urllib3
+      ]);
+    in
+    ''
+      site_packages=$out/lib/${python3Packages.python.libPrefix}/site-packages
+      mkdir -p $site_packages $out/share/roentgen
+      cp -r roentgen roentgen.py $site_packages
+      cp -r icons scheme $out/share/roentgen
 
-    makeWrapper ${pythonEnv.interpreter} $out/bin/roentgen \
-      --add-flags "$site_packages/roentgen.py"
-  '';
+      makeWrapper ${pythonEnv.interpreter} $out/bin/roentgen \
+        --add-flags "$site_packages/roentgen.py"
+    '';
 
   meta = with lib; {
     description = "A simple renderer for OpenStreetMap with custom icons intended to display as many tags as possible";
