@@ -3,6 +3,7 @@ let
   bin = pkgs.wrapWine {
     name = "among_us";
     executable = "/run/media/lucasew/Dados/DADOS/Jogos/Among_Us/Among Us.exe";
+    home = "/run/media/lucasew/Dados/DADOS/Lucas/";
   };
 in pkgs.makeDesktopItem {
   name = "amongUs";

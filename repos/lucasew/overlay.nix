@@ -63,6 +63,7 @@ in reduceJoin [
       nfsu2 = cp ./packages/wineApps/nfsu2.nix;
       flatout2 = cp ./packages/wineApps/flatout2.nix;
       watchdogs2 = cp ./packages/wineApps/watchdogs2.nix;
+      rimworld = cp ./packages/wineApps/rimworld.nix;
     };
     fhsctl = cp ./packages/fhsctl.nix;
     comby = cp ./packages/comby.nix;

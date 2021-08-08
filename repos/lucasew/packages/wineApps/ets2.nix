@@ -3,6 +3,7 @@ let
   bin = pkgs.wrapWine {
     name = "ets2";
     executable = "/run/media/lucasew/Dados/DADOS/Jogos/Euro.Truck.Simulator.2.v1.28.0.10.Inclu.ALL.DLC/bin/win_x86/eurotrucks2.exe";
+    home = "/run/media/lucasew/Dados/DADOS/Lucas/";
   };
   logo = builtins.fetchurl {
     url = "https://eurotrucksimulator2.com/images/logo.png";
