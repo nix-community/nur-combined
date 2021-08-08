@@ -18,9 +18,11 @@ let
     wine
     cabextract
   ];
+  WINENIX_PROFILES = "$HOME/WINENIX_PROFILES";
   PATH = pkgs.lib.makeBinPath requiredPackages;
+  NAME = name;
   HOME = if home == "" 
-    then "$HOME" 
+    then "${WINENIX_PROFILES}/${name}" 
     else home;
   WINEARCH = if is64bits 
     then "win64" 
@@ -41,27 +43,31 @@ let
       in tricksCmd
     else "";
   script = pkgs.writeShellScriptBin name ''
+    export APP_NAME="${NAME}"
     export WINEARCH=${WINEARCH}
     export WINE_NIX="$HOME/.wine-nix" # define antes de definir $HOME senão ele vai gravar na nova $HOME a .wine-nix
+    export WINE_NIX_PROFILES="${WINENIX_PROFILES}"
     export PATH=$PATH:${PATH}
-    export HOME=${HOME}
-    HOME="$(echo ~)"
+    export HOME="${HOME}"
+    mkdir -p "$HOME"
     export WINEPREFIX="$WINE_NIX/${name}"
-    EXECUTABLE="${executable}"
-    mkdir -p "$WINE_NIX"
+    export EXECUTABLE="${executable}"
+    mkdir -p "$WINE_NIX" "$WINE_NIX_PROFILES"
     ${setupScript}
-    if [ ! -d "$WINEPREFIX" ]
+    if [ ! -d "$WINEPREFIX" ] # if the prefix does not exist
     then
       ${setupHook}
       # ${wineBin} cmd /c dir > /dev/null 2> /dev/null # initialize prefix
       wineserver -w
       ${tricksHook}
       ${firstrunScript}
+      rm "$WINEPREFIX/drive_c/users/$USER"
+      ln -s "$HOME" "$WINEPREFIX/drive_c/users/$USER"
     fi
     ${if chdir != null 
       then ''cd "${chdir}"'' 
       else ""}
-    if [ ! "$REPL" == "" ];
+    if [ ! "$REPL" == "" ]; # if $REPL is setup then start a shell in the context
     then
       bash
       exit 0

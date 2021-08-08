@@ -53,6 +53,7 @@ in {
 
       "modules-center" = [
         "i3"
+        "temperature"
         "date"
         # "xwindow"
       ];
