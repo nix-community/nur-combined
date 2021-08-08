@@ -3,11 +3,11 @@
 with lua53Packages;
 buildLuarocksPackage rec {
   pname = "fennel";
-  version = "0.9.2-1";
+  version = "0.10.0";
 
   src = fetchurl {
-    url = "mirror://luarocks/fennel-${version}.src.rock";
-    sha256 = "1ki1cm33f2vlgyargs1p30ixppvvzl0fznnyhwvr6x70g91damd9";
+    url = "mirror://luarocks/fennel-${version}-1.src.rock";
+    sha256 = "0a7ads3qv99v3frfj80g5z684f32219nd22blkgljx9xb9psxfry";
   };
 
   nativeBuildInputs = [ installShellFiles ];
@@ -24,5 +24,6 @@ buildLuarocksPackage rec {
     description = "A lisp that compiles to Lua";
     homepage = "https://fennel-lang.org/";
     license = licenses.mit;
+    changelog = "https://git.sr.ht/~technomancy/fennel/tree/${version}/item/changelog.md";
   };
 }
