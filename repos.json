@@ -182,6 +182,9 @@
         "gricad": {
             "url": "https://github.com/Gricad/nur-packages"
         },
+        "heph2": {
+            "url": "https://github.com/heph2/nur-packages"
+        },
         "htr": {
             "url": "https://github.com/htr/nur-packages"
         },
