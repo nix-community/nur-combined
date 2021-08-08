@@ -398,7 +398,8 @@ let
         else if lib.versionOlder old.version "0.22.1" then "0.22"
         else if lib.versionOlder old.version "0.22.6" then "0.22.2"
         else if lib.versionOlder old.version "0.22.7" then "0.22.6"
-        else "0.22.7";
+        else if lib.versionOlder old.version "0.22.10" then "0.22.7"
+        else "0.22.10";
     in {
       pname = "${mpd.pname}-youtube-dl";
 
@@ -411,6 +412,7 @@ let
           else if patchVersion == "0.22.2" then "19ia0my2id84arxzzdgccp8r50jyi6z8355qpi3sn8i77phdbihh"
           else if patchVersion == "0.22.6" then "16fzj27m9xyh3aqnmfgwrbfr4rcljw7z7vdszlfgq8zj1z8zrdir"
           else if patchVersion == "0.22.7" then "1way27q3m9zzps2wkmjsqk22grp727fzky7ds30gdnzn4dygbcrp"
+          else if patchVersion == "0.22.10" then "14sndl4b8zaf7l8ia4n6qq6l4iq5d9h7f495p0dzchw6ck536nhq"
           else lib.fakeSha256;
       }) ];
 
@@ -436,8 +438,12 @@ let
     qemu-vfio = { qemu, fetchpatch, lib }: (qemu.override {
       gtkSupport = false;
       smartcardSupport = false;
-      hostCpuOnly = true;
       smbdSupport = true;
+      hostCpuTargets = [
+        "${qemu.stdenv.hostPlatform.qemuArch}-softmmu"
+        "aarch64-linux-user" "aarch64-softmmu"
+        "arm-linux-user" "arm-softmmu"
+      ] ++ lib.optional qemu.stdenv.isx86_64 "i386-softmmu";
     }).overrideAttrs (old: {
       pname = "qemu-vfio";
       patches = old.patches or [] ++ lib.optional (lib.versionAtLeast qemu.version "4.2" && lib.versionOlder qemu.version "5.0") (fetchpatch {
