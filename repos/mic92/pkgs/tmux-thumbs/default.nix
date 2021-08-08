@@ -10,6 +10,11 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-qxrpfPh9yXowKHwHglSf5s3bnn+U+4T63LRJs6A38+I=";
   };
 
+  postInstall = ''
+    install -m755 -D tmux-thumbs.sh $out/share/tmux-thumbs
+    install -m755 -D tmux-thumbs.tmux $out/share/tmux-thumbs
+  '';
+
   cargoSha256 = "sha256-FcQWsg93BLPWsu9f9whUxSKfjYWVhArXB+HTCbapOaw=";
 
   meta = with lib; {
