@@ -15,4 +15,5 @@ rec {
   rosie = pkgs.luaPackages.callPackage ./pkgs/rosie { };
   pcem = pkgs.callPackage ./pkgs/pcem { };
   ciao = pkgs.callPackage ./pkgs/ciao { };
+  iosevka-term = pkgs.callPackage ./pkgs/iosevka/term.nix { };
 }
