@@ -80,6 +80,8 @@ in
         "${nextcloudHome}/data/*/uploads"
         # image previews can take up a lot of space
         "${nextcloudHome}/data/appdata_*/preview"
+        # specific account for huge files I don't care about losing
+        "${nextcloudHome}/data/misc"
       ];
     };
   };
