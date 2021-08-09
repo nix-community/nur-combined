@@ -71,7 +71,7 @@ in
       };
     };
 
-    my.services.borg-backup = let
+    my.services.restic-backup = let
       nextcloudHome = config.services.nextcloud.home;
     in lib.mkIf cfg.enable  {
       paths = [ nextcloudHome ];

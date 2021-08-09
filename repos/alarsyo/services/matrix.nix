@@ -280,7 +280,7 @@ in {
       federationPort.public
     ];
 
-    my.services.borg-backup = let
+    my.services.restic-backup = let
       dataDir = config.services.matrix-synapse.dataDir;
     in mkIf cfg.enable {
       paths = [ dataDir ];

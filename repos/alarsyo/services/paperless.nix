@@ -54,7 +54,7 @@ in
       };
     };
 
-    my.services.borg-backup = mkIf cfg.enable {
+    my.services.restic-backup = mkIf cfg.enable {
       paths = [
         "/var/lib/docker/volumes/paperless_data"
         "/var/lib/docker/volumes/paperless_media"

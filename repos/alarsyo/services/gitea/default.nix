@@ -61,7 +61,7 @@ in {
       };
 
       # NixOS module uses `gitea dump` to backup repositories and the database,
-      # but it produces a single .zip file that's not very borg-backup friendly.
+      # but it produces a single .zip file that's not very restic friendly.
       # I configure my backup system manually below.
       dump.enable = false;
 
@@ -76,7 +76,7 @@ in {
     # gitea, so it may produce corrupt files in the snapshot if I push stuff
     # around midnight. I'm not sure how `gitea dump` handles this either,
     # though.
-    my.services.borg-backup = {
+    my.services.restic-backup = {
       paths = [
         config.services.gitea.lfs.contentDir
         config.services.gitea.repositoryRoot
