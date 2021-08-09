@@ -66,15 +66,6 @@ in
         emacs derivation to use.
       '';
     };
-
-    defaultEditor = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        When enabled, configures emacsclient to be the default editor
-        using the EDITOR environment variable.
-      '';
-    };
   };
 
   config = mkIf (cfg.enable || cfg.install) {
@@ -90,7 +81,5 @@ in
     } // optionalAttrs cfg.enable { wantedBy = [ "default.target" ]; };
 
     environment.systemPackages = [ cfg.package editorScript desktopApplicationFile ];
-
-    environment.variables.EDITOR = mkIf cfg.defaultEditor (mkOverride 900 "${editorScript}/bin/emacseditor");
   };
 }
