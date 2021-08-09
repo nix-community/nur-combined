@@ -85,7 +85,6 @@ let
     company-terraform
     company-web
     concurrent
-    confluence
     copy-as-format
     counsel
     counsel-gtags
@@ -301,7 +300,6 @@ let
     lsp-mode
     lsp-origami
     lsp-pyright
-    lsp-python-ms
     lsp-treemacs
     lsp-ui
     lua-mode
@@ -498,6 +496,11 @@ let
     self.cargo
     self.rustc
     self.rustfmt
+
+    # LSP Tools
+    self.nodePackages.bash-language-server
+    self.nodePackages.pyright
+    self.nodePackages.vscode-json-languageserver
   ];
 
   # Build a spacemacs with the pinned overlay import, using the passed emacs

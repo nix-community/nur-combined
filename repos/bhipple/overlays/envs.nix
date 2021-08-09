@@ -8,12 +8,14 @@ let
     yapf
 
     beancount
+    bokeh
     jupytext
     matplotlib
     notebook
     numpy
     pandas
     scipy
+    seaborn
   ]);
 
 in
