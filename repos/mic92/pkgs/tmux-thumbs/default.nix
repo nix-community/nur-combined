@@ -11,8 +11,8 @@ rustPlatform.buildRustPackage rec {
   };
 
   postInstall = ''
-    install -m755 -D tmux-thumbs.sh $out/share/tmux-thumbs
-    install -m755 -D tmux-thumbs.tmux $out/share/tmux-thumbs
+    install -m755 -D tmux-thumbs.sh $out/share/tmux-thumbs/tmux-thumbs.sh
+    install -m755 -D tmux-thumbs.tmux $out/share/tmux-thumbs/tmux-thumbs.tmux
   '';
 
   cargoSha256 = "sha256-FcQWsg93BLPWsu9f9whUxSKfjYWVhArXB+HTCbapOaw=";
