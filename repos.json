@@ -504,6 +504,9 @@
             "file": "pkgs/default.nix",
             "url": "https://gitlab.com/vdemeester/home"
         },
+        "vojtechstep": {
+            "url": "https://github.com/VojtechStep/vspkgs"
+        },
         "vroad": {
             "url": "https://github.com/vroad/nur-packages"
         },
