@@ -20,6 +20,7 @@
     ./pipewire.nix
     ./postgresql-backup.nix
     ./postgresql.nix
+    ./restic-backup.nix
     ./tailscale.nix
     ./tgv.nix
     ./transmission.nix

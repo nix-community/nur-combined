@@ -66,9 +66,9 @@ in
       websocketPort = 3012;
     };
 
-    borg-backup = {
+    restic-backup = {
       enable = true;
-      repo = secrets.borg-backup.poseidon-repo;
+      repo = secrets.restic-backup.poseidon-repo;
     };
 
     fail2ban = {
