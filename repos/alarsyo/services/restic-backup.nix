@@ -8,7 +8,7 @@ let
   excludeArg = with builtins; with pkgs;
     "--exclude-file=" + (writeText "excludes.txt" (concatStringsSep "\n" cfg.exclude));
   makePruneOpts = pruneOpts:
-    attrsets.mapAttrsToList (name: value: "--keep-${name}") pruneOpts;
+    attrsets.mapAttrsToList (name: value: "--keep-${name} ${toString value}") pruneOpts;
 in {
   options.my.services.restic-backup = {
     enable = mkEnableOption "Enable Restic backups for this host";
@@ -51,11 +51,9 @@ in {
     prune = mkOption {
       type = types.attrs;
       default = {
-        keep = {
-          daily = 7;
-          weekly = 4;
-          monthly = 6;
-        };
+        daily = 7;
+        weekly = 4;
+        monthly = 6;
       };
     };
   };
@@ -72,9 +70,8 @@ in {
       passwordFile = "/root/restic/password";
       s3CredentialsFile = "/root/restic/creds";
 
-      extraOptions = with builtins; with lib;[
-        (optionalString ((length cfg.exclude) != 0) excludeArg)
-      ];
+      extraBackupArgs = [ ]
+        ++ optional (builtins.length cfg.exclude != 0) excludeArg;
 
       timerConfig = {
         OnCalendar = "daily";
