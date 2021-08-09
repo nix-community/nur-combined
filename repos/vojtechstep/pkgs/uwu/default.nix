@@ -17,9 +17,12 @@ in stdenv.mkDerivation {
     install -Dm755 uwu $out/bin
   '';
 
-  meta = {
+  meta = with lib; {
     description = "Obfuscated C uwu";
+    homepage = "https://github.com/98WuG/uwu";
     # Based on the PKGBUILD file included in the project's repo
-    license = lib.licenses.gpl2Plus;
+    license = licenses.gpl2Plus;
+    maintainers = "VojtechStep";
+    platforms = platforms.unix;
   };
 }
