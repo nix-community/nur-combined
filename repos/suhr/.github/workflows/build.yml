@@ -1,0 +1,50 @@
+name: "Build and populate cache"
+on:
+  pull_request:
+  push:
+  schedule:
+    - cron:  '30 7 * * *'
+jobs:
+  tests:
+    strategy:
+      matrix:
+        nurRepo:
+          - suhr
+        cachixName:
+          - suhr
+        nixPath:
+          - nixpkgs=channel:nixos-unstable
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2.3.4
+    - name: Install nix
+      uses: cachix/install-nix-action@v13
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Setup cachix
+      uses: cachix/cachix-action@v10
+      # Don't replace <YOUR_CACHIX_NAME> here!
+      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
+      with:
+        name: ${{ matrix.cachixName }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Check evaluation
+      run: |
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD
+    - name: Build nix packages
+      # TODO switch to default nixpkgs channel once nix-build-uncached 1.0.0 is in stable
+      run: nix run -I 'nixpkgs=channel:nixos-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+    - name: Trigger NUR update
+      # Don't replace <YOUR_REPO_NAME> here!
+      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
