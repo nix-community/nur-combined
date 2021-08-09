@@ -143,7 +143,9 @@ lib.makeScope newScope (
     embox-arm = callPackage ./embox { arch = "arm"; };
     embox-ppc = callPackage ./embox { arch = "ppc"; };
     embox-riscv64 = callPackage ./embox { arch = "riscv64"; };
-    embox-x86 = callPackage ./embox { };
+    embox-x86 = callPackage ./embox {
+      stdenv = pkgs.gccMultiStdenv;
+    };
 
     ### GARMIN
 
