@@ -92,9 +92,9 @@ in
     services.restic.backups.backblaze = {
       # Take care of included and excluded files
       paths = cfg.paths;
-      extraOptions = with builtins; with lib;[
-        (optionalString ((length cfg.exclude) != 0) excludeArg)
-      ];
+      extraBackupArgs = [ ]
+        ++ lib.optional (builtins.length cfg.exclude != 0) excludeArg
+      ;
       # Take care of creating the repository if it doesn't exist
       initialize = true;
       # Hijack S3-related env to give B2 API key
