@@ -4,7 +4,7 @@ rustPlatform.buildRustPackage rec {
   pname = "paper";
   version = "unstable-2021-07-26";
 
-  buildInputs = with pkgs; [ fontconfig ];
+  buildInputs = with pkgs; [ fontconfig wayland ];
   nativeBuildInputs = with pkgs; [ pkg-config ];
   fontconfig = pkgs.fontconfig;
 
