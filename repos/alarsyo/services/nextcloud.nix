@@ -77,9 +77,9 @@ in
       paths = [ nextcloudHome ];
       exclude = [
         # borg can fail if *.part files disappear during backup
-        "re:^${nextcloudHome}/data/[^/]+/uploads"
+        "${nextcloudHome}/data/*/uploads"
         # image previews can take up a lot of space
-        "re:^${nextcloudHome}/data/appdata_[^/]+/preview"
+        "${nextcloudHome}/data/appdata_*/preview"
       ];
     };
   };
