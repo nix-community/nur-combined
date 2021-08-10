@@ -16,6 +16,12 @@ in
       example = ["Core 0" "Core 1" "Core 2" "Core 3"];
       default = "";
     };
+
+    networking.throughput_interfaces = mkOption {
+      type = types.listOf types.str;
+      example = [ "wlp1s0" ];
+      default = [ ];
+    };
   };
 
   config = lib.mkIf isEnabled {
@@ -73,6 +79,18 @@ in
               chip = cfg.temperature.chip;
               inputs = cfg.temperature.inputs;
             }
+          ] ++ (lib.lists.optionals ((builtins.length cfg.networking.throughput_interfaces) != 0)
+            (map
+              (interface:
+                {
+                  block = "net";
+                  device = interface;
+                  interval = 1;
+                  hide_inactive = true;
+                })
+
+              cfg.networking.throughput_interfaces)
+          ) ++ [
             {
               block = "networkmanager";
               primary_only = true;
