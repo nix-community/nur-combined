@@ -1,12 +1,12 @@
 { lib, stdenv, rustPlatform, fetchFromGitLab, pkgs }:
 
-rustPlatform.buildRustPackage rec {
+let rpathLibs = with pkgs; [ fontconfig wayland ];
+in rustPlatform.buildRustPackage rec {
   pname = "paper";
   version = "unstable-2021-07-26";
 
-  buildInputs = with pkgs; [ fontconfig wayland ];
+  buildInputs = rpathLibs;
   nativeBuildInputs = with pkgs; [ pkg-config ];
-  fontconfig = pkgs.fontconfig;
 
   src = fetchFromGitLab {
     owner = "snakedye";
@@ -26,7 +26,14 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  cargoSha256 = lib.fakeSha256;
+  installPhase = ''
+    runHook preInstall
+    install -D ./target/x86_64-unknown-linux-gnu/release/paper $out/bin/paper
+    patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/paper
+    runHook postInstall
+  '';
+
+  dontPatchELF = true; # we already did it :)
 
   meta = with lib; {
     description = "A wallpaper daemon for Wayland compositors";
