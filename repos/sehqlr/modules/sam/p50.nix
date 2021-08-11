@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
     
-  imports = [ ./wm.nix ];
+  imports = [ ./common.nix ./dev.nix ./taskwarrior.nix ];
   
   home.packages = with pkgs; [
     firefox-wayland
@@ -9,6 +9,8 @@
     paperwork
     xdg-desktop-portal-wlr
   ];
+
+  programs.taskwarrior.config.reports.next.filter = "status:pending limit:page +HOME";
 
   services.kanshi.profiles = {
     undocked = {

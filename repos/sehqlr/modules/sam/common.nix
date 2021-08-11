@@ -1,9 +1,4 @@
 { config, lib, pkgs, ... }: {
-  imports = [
-    ./dev.nix
-    ./taskwarrior.nix
-  ];
-
   programs.home-manager.enable = true;
 
   home.username = "sam";
