@@ -730,10 +730,10 @@
       };
     "min-twitter" = buildFirefoxXpiAddon {
       pname = "min-twitter";
-      version = "3.1.3";
+      version = "3.1.4";
       addonId = "{e7476172-097c-4b77-b56e-f56a894adca9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3803292/minimal_twitter-3.1.3-fx.xpi";
-      sha256 = "d6958c8ce2f95a1029e4ffdd29e7334b0551976492e2104709811db3e83c15cb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3822965/minimal_twitter-3.1.4-fx.xpi";
+      sha256 = "81844ec71193412b96eed66cd8e82510ca1ab389be3d380cd63725401daa8d86";
       meta = with lib;
       {
         homepage = "https://github.com/thomaswang/minimal-twitter";
@@ -744,10 +744,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "7.3.0";
+      version = "7.4.0";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3713375/firefox_multi_account_containers-7.3.0-fx.xpi";
-      sha256 = "4784cbd5de44d65f4cc014949dcbd315503f4913dfa7b3124b8d84c49515666a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3821991/firefox_multi_account_containers-7.4.0-fx.xpi";
+      sha256 = "75c15ec1b76f5bb77da99f401119ae38e0387cf85a1980e1245700a2995ab1eb";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
