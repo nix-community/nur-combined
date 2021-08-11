@@ -9,10 +9,8 @@ let
     home = "/run/media/lucasew/Dados/DADOS/Lucas/";
     chdir = "/run/media/lucasew/Dados/DADOS/Jogos/Watch Dogs 2/bin/";
     tricks = [
-      # "d3dx10"
-      # "d3dx11_43"
-      # "d3dcompiler_47"
-      "d9dx"
+      "corefonts"
+      "d3dx11_43"
     ];
   };
 in bin

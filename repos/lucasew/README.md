@@ -10,12 +10,11 @@
 - a few overlays for custom packages like stremio and shiginima launcher
 
 - multiple interchangeable graphical environments
-    - i3 + xfce: working nice, unable to skip music locked (workaround using kdeconnect xD), the bar is still the default
-    - gnome: now is what I am using, working nice, also in unstable there is a new lockscreen (GDM) that I think is better than the old
-    - xfce: working nice too
-    - kde: works but I haven't played much yet
+    - i3 + xfce: working nice, using polybar and the playback buttons works when locked
+    - gnome: it works but I am not using anymore
+    - xfce: working nice. I use the XFCE daemons on the i3 flavor
+    - kde: works, not so nice and I am not using it
 
-- modular fashion: home modules are searched when the config files loads, you just create a file in home directory using home-manager 
 module structure and nix imports it automagically, same for `machine/acer`
     
 - machines referenced:
@@ -24,7 +23,7 @@ module structure and nix imports it automagically, same for `machine/acer`
     - android: a Redmi Note 5 (whyred), it's not running NixOS but I want to add some scripts I use with it
 
 - not tested
-    - bootstrap in a new machine, should regenerate the configuration.nix and hardware.nix and adapt in a new device
+    - bootstrap in a new machine, should regenerate the configuration.nix and hardware.nix and adapt in a new device. I will do this on demand
 
 - licence
     - nothing special

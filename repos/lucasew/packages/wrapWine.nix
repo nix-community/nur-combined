@@ -61,7 +61,7 @@ let
       wineserver -w
       ${tricksHook}
       ${firstrunScript}
-      rm "$WINEPREFIX/drive_c/users/$USER"
+      rm "$WINEPREFIX/drive_c/users/$USER" -rf
       ln -s "$HOME" "$WINEPREFIX/drive_c/users/$USER"
     fi
     ${if chdir != null 
