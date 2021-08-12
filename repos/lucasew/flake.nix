@@ -3,7 +3,10 @@
 
   inputs = {
     impermanence.url = "github:nix-community/impermanence";
-    home-manager.url = "github:nix-community/home-manager/release-21.05";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-21.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-ld.url = "github:Mic92/nix-ld";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
     nixpkgsLatest.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -36,12 +39,22 @@
   let
     system = "x86_64-linux";
     environmentShell = ''
+      function nix-repl {
+        nix repl "${rootPath}/repl.nix" "$@"
+      }
       export NIXPKGS_ALLOW_UNFREE=1
       export NIX_PATH=nixpkgs=${nixpkgs}:nixpkgs-overlays=${builtins.toString rootPath}/compat/overlay.nix:nixpkgsLatest=${nixpkgsLatest}:home-manager=${home-manager}:nur=${nur}:nixos-config=${(builtins.toString rootPath) + "/nodes/$HOSTNAME/default.nix"}
     '';
 
     hmConf = home-manager.lib.homeManagerConfiguration;
-    nixosConf = nixpkgs.lib.nixosSystem;
+    nixosConf = {mainModule}: nixpkgs.lib.nixosSystem {
+      inherit pkgs;
+      inherit system;
+      modules = [
+        (mainModule)
+        revModule
+      ];
+    };
     overlays = [
       (import ./overlay.nix)
       (import "${home-manager}/overlay.nix")
@@ -73,28 +86,13 @@
       };
       nixosConfigurations = {
         vps = nixosConf {
-          inherit pkgs;
-          inherit system;
-          modules = [
-            ./nodes/vps/default.nix
-            revModule
-          ];
+          mainModule = ./nodes/vps/default.nix;
         };
         acer-nix = nixosConf {
-          inherit pkgs;
-          inherit system;
-          modules = [
-            ./nodes/acer-nix/default.nix
-            revModule
-          ];
+          mainModule = ./nodes/acer-nix/default.nix;
         };
         bootstrap = nixosConf {
-          inherit pkgs;
-          inherit system;
-          modules = [
-            ./nodes/bootstrap/default.nix
-            revModule
-          ];
+          mainModule = ./nodes/bootstrap/default.nix;
         };
       };
       inherit pkgs;
@@ -106,6 +104,10 @@
         echo '${environmentShell}'
         echo Shell setup complete!
         '';
+      };
+      apps."${system}".pkg = {
+        type = "app";
+        program = "${pkgs.pkg}/bin/pkg";
       };
     };
   }
