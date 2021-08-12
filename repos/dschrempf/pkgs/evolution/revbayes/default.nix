@@ -51,8 +51,8 @@ stdenv.mkDerivation rec {
   # '';
 
   meta = with lib; {
-    description = "";
-    homepage = "";
+    description = "Bayesian phylogenetic inference using probabilistic graphical models";
+    homepage = "https://github.com/revbayes/revbayes";
     license = licenses.asl20;
     maintainers = with maintainers; [ dschrempf ];
   };

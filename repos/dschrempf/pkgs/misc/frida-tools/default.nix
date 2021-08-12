@@ -4,11 +4,11 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "frida-tools";
-  version = "10.0.0";
+  version = "10.2.1";
 
   src = python3.pkgs.fetchPypi {
     inherit pname version;
-    sha256 = "sha256-oo4p9OJ/txGBEwg2ts5ll+Duhx3MeE7VtbzsFRzuyyA=";
+    sha256 = "sha256-bvzMKdsikmJpeeNCTwjzmW0KP6ir3Bhp4UoHAGf2HeI=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [

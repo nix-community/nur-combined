@@ -24,13 +24,6 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iWRfGo90Ni/piNLJceesSAG3ZIppR/F+c36k9KGRJzI=";
   };
 
-  meta = with lib; {
-    description = "Phylogenetic reconstruction using infinite mixtures";
-    homepage = "http://www.atgc-montpellier.fr/phylobayes/";
-    license = null;
-    maintainers = with maintainers; [ dschrempf ];
-  };
-
   sourceRoot = "source/sources";
   patches = [ ./progsdir.patch ];
   patchFlags = [ "-p0" ];
@@ -57,4 +50,12 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp ${builtins.concatStringsSep " " executables} $out/bin
   '';
+
+  meta = with lib; {
+    description = "Phylogenetic reconstruction using infinite mixtures";
+    # Git repository: https://github.com/bayesiancook/phylobayes.
+    homepage = "http://www.atgc-montpellier.fr/phylobayes/";
+    license = null;
+    maintainers = with maintainers; [ dschrempf ];
+  };
 }

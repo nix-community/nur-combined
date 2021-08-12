@@ -14,8 +14,12 @@ rec {
 
   # Misc.
   biblib = pkgs.callPackage ./pkgs/misc/biblib {};
-  frida-python = pkgs.callPackage ./pkgs/misc/frida-python {};
+  frida-python = pkgs.callPackage ./pkgs/misc/frida-python {
+    # TODO: Nixpkgs has moved to Python 3.9 by default.
+    python3 = pkgs.python38;
+  };
   frida-tools = pkgs.callPackage ./pkgs/misc/frida-tools {
+    python3 = pkgs.python38;
     inherit frida-python;
   };
   jugglinglab = pkgs.callPackage ./pkgs/misc/jugglinglab {};
