@@ -28,6 +28,8 @@ rec {
 
   lsix = pkgs.callPackage ./pkgs/lsix { };
 
+  nwg-dock = pkgs.callPackage ./pkgs/nwg-dock { };
+
   python3Packages = pkgs.recurseIntoAttrs
     (pkgs.python3Packages.callPackage ./pkgs/python-modules { });
 }
