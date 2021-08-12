@@ -521,10 +521,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.3.1";
+      version = "3.3.2";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3802980/i_dont_care_about_cookies-3.3.1-an+fx.xpi";
-      sha256 = "bc4cd60d50836c47241ef08c6966a424f364c8c800551f627be5b8a60e1d6f6f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3823055/i_dont_care_about_cookies-3.3.2-an+fx.xpi";
+      sha256 = "3c897474025f6d25e494e18a46c7609d7b8af330e9f33fde3734fb5d4261b283";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -1382,10 +1382,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.2";
+      version = "9.3";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3807920/traduzir_paginas_web-9.2-an+fx.xpi";
-      sha256 = "739a7d6217ac25dc9974931f5b3d769d67001499d936ec637b33a5478856ef40";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3822990/traduzir_paginas_web-9.3-an+fx.xpi";
+      sha256 = "e62ede0f013c776a86b0c0475f3666c7465d0ad34f7ed6bcafd5668db1ad2a09";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
