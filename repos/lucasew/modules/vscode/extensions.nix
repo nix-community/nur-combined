@@ -14,12 +14,12 @@
       version = "1.0.61";
       sha256 = "0r3bfp8kvhf9zpbiil7acx7zain26grk133f0r0syxqgml12i652";
     }
-    {
-      publisher = "xadillax";
-      name = "viml";
-      version = "1.0.0";
-      sha256 = "0wxspvf0af66hnqk4vnfkifjznhfl5f7qhbyjigmqzdfwgz2g2q1";
-    }
+    # {
+    #   publisher = "xadillax";
+    #   name = "viml";
+    #   version = "1.0.0";
+    #   sha256 = "0wxspvf0af66hnqk4vnfkifjznhfl5f7qhbyjigmqzdfwgz2g2q1";
+    # }
     {
       publisher = "esbenp";
       name = "prettier-vscode";
@@ -32,12 +32,12 @@
       version = "0.6.8";
       sha256 = "0wc0wsnqwyg0pz0jrmw0038k6g1p564krqscrx3h8wpyfymcd68l";
     }
-    {
-      publisher = "eamodio";
-      name = "gitlens";
-      version = "10.2.2";
-      sha256 = "00fp6pz9jqcr6j6zwr2wpvqazh1ssa48jnk1282gnj5k560vh8mb";
-    }
+    # {
+    #   publisher = "eamodio";
+    #   name = "gitlens";
+    #   version = "10.2.2";
+    #   sha256 = "00fp6pz9jqcr6j6zwr2wpvqazh1ssa48jnk1282gnj5k560vh8mb";
+    # }
     {
       publisher = "file-icons";
       name = "file-icons";
@@ -68,24 +68,24 @@
       version = "0.24.1";
       sha256 = "07jfya2pfkz51m3zljjlvsb5lwl8kdmsn1j39n8k6q8hqsjn0zml";
     }
-    {
-      publisher = "mjmcloug";
-      name = "vscode-elixir";
-      version = "1.1.0";
-      sha256 = "0kj7wlhapkkikn1md8cknrffrimk0g0dbbhavasys6k3k7pk2khh";
-    }
+    # {
+    #   publisher = "mjmcloug";
+    #   name = "vscode-elixir";
+    #   version = "1.1.0";
+    #   sha256 = "0kj7wlhapkkikn1md8cknrffrimk0g0dbbhavasys6k3k7pk2khh";
+    # }
     {
         publisher = "rust-lang";
         name = "rust";
         version = "0.7.8";
         sha256 = "039ns854v1k4jb9xqknrjkj8lf62nfcpfn0716ancmjc4f0xlzb3";
     }
-    {
-        publisher = "octref";
-        name = "vetur";
-        version = "0.28.0";
-        sha256 = "01r14f6ynv4pwvi8i9g7hprwhsx6kxjxzs5pqvd9flcvd7kxaks3";
-    }
+    # {
+    #     publisher = "octref";
+    #     name = "vetur";
+    #     version = "0.28.0";
+    #     sha256 = "01r14f6ynv4pwvi8i9g7hprwhsx6kxjxzs5pqvd9flcvd7kxaks3";
+    # }
     {
         publisher = "golang";
         name = "go";

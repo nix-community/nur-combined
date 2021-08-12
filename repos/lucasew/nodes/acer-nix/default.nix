@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{pkgs, config, lib, nix-ld, utils, home-manager, ... }:
+{pkgs, config, lib, nix-ld, utils, ... }:
 with (import ../../globalConfig.nix);
 let
   hostname = "acer-nix";
@@ -21,23 +21,6 @@ in
   ;
 
   # programs.steam.enable = true;
-  home-manager = {
-    sharedModules = [
-      ./modules/dummy_module.nix
-      ../../modules/wallpaper/home.nix
-    ];
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.${username} = {config, ...}: {
-      home.file.".dotfilerc".text = ''
-      #!/usr/bin/env bash
-      ${flake.outputs.environmentShell}
-      '';
-      imports = [
-        ./home.nix
-      ];
-    };
-  };
 
   nixpkgs = {
     config = {

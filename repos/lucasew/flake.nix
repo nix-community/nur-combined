@@ -31,22 +31,26 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, redial_proxy, ... }:
+  outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, redial_proxy, ... }@inputs:
   with import ./globalConfig.nix;
   let
     system = "x86_64-linux";
     environmentShell = ''
       export NIXPKGS_ALLOW_UNFREE=1
       export NIX_PATH=nixpkgs=${nixpkgs}:nixpkgs-overlays=${builtins.toString rootPath}/compat/overlay.nix:nixpkgsLatest=${nixpkgsLatest}:home-manager=${home-manager}:nur=${nur}:nixos-config=${(builtins.toString rootPath) + "/nodes/$HOSTNAME/default.nix"}
-  '';
+    '';
+
+    hmConf = home-manager.lib.homeManagerConfiguration;
+    nixosConf = nixpkgs.lib.nixosSystem;
     overlays = [
       (import ./overlay.nix)
+      (import "${home-manager}/overlay.nix")
     ];
     pkgs = import nixpkgs {
       inherit overlays;
       inherit system;
       config = {
-      allowUnfree = true;
+        allowUnfree = true;
       };
     };
     revModule = ({pkgs, ...}: {
@@ -54,45 +58,54 @@
         builtins.trace "detected flake hash: ${self.rev}" self.rev
       else
         builtins.trace "flake hash not detected!" null;
-    });
-  in {
-    inherit overlays;
-    inherit environmentShell;
-    nixosConfigurations.vps = nixpkgs.lib.nixosSystem {
+      });
+    in {
+      inherit overlays;
+      inherit environmentShell;
+      homeConfigurations = {
+        main = hmConf {
+          configuration = import ./homes/main/default.nix;
+          inherit system;
+          homeDirectory = "/home/${username}";
+          inherit username;
+          inherit pkgs;
+        };
+      };
+      nixosConfigurations = {
+        vps = nixosConf {
+          inherit pkgs;
+          inherit system;
+          modules = [
+            ./nodes/vps/default.nix
+            revModule
+          ];
+        };
+        acer-nix = nixosConf {
+          inherit pkgs;
+          inherit system;
+          modules = [
+            ./nodes/acer-nix/default.nix
+            revModule
+          ];
+        };
+        bootstrap = nixosConf {
+          inherit pkgs;
+          inherit system;
+          modules = [
+            ./nodes/bootstrap/default.nix
+            revModule
+          ];
+        };
+      };
       inherit pkgs;
-      inherit system;
-      modules = [
-        ./nodes/vps/default.nix
-        revModule
-      ];
-    };
-    nixosConfigurations.acer-nix = nixpkgs.lib.nixosSystem {
-      inherit pkgs;
-      inherit system;
-      modules = [
-        ./nodes/acer-nix/default.nix
-        "${home-manager}/nixos"
-        revModule
-      ];
-    };
-    nixosConfigurations.bootstrap = nixpkgs.lib.nixosSystem {
-      inherit pkgs;
-      inherit system;
-      modules = [
-        ./nodes/bootstrap/default.nix
-        revModule
-      ];
-    };
-    packages = pkgs;
-    devShell.x86_64-linux = pkgs.mkShell {
-      name = "nixcfg-shell";
-      buildInputs = [];
-      shellHook = ''
+      devShell.x86_64-linux = pkgs.mkShell {
+        name = "nixcfg-shell";
+        buildInputs = [];
+        shellHook = ''
         ${environmentShell}
         echo '${environmentShell}'
         echo Shell setup complete!
-      '';
+        '';
+      };
     };
-  };
-}
-
+  }

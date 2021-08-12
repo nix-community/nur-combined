@@ -7,7 +7,9 @@ with (import ../../globalConfig.nix);
     ./modules/dlna.nix
     ./modules/firefox/home.nix
     ./modules/dunst.nix
-    ../../modules/i3/home.nix
+    ./modules/dummy_module.nix
+    ./modules/i3.nix
+    ./modules/wallpaper.nix
     ../../modules/polybar/home.nix
     ../../modules/spotify/home.nix
     ../../modules/tmux/home.nix
@@ -26,6 +28,11 @@ with (import ../../globalConfig.nix);
     libnotify
     neofetch
   ] ++ (builtins.attrValues pkgs.webapps);
+
+  home.file.".dotfilerc".text = ''
+    #!/usr/bin/env bash
+    ${flake.outputs.environmentShell}
+  '';
 
   programs.hello-world.enable = true;
 
@@ -175,6 +182,6 @@ with (import ../../globalConfig.nix);
     enable = true;
     platformTheme = "gtk";
   };
-  home.stateVersion = "20.03";
+  # home.stateVersion = "20.03";
 
 }
