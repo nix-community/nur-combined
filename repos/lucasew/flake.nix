@@ -105,9 +105,23 @@
         echo Shell setup complete!
         '';
       };
-      apps."${system}".pkg = {
-        type = "app";
-        program = "${pkgs.pkg}/bin/pkg";
+      apps."${system}" = {
+        pkg = {
+          type = "app";
+          program = "${pkgs.pkg}/bin/pkg";
+        };
+        webapp = {
+          type = "app";
+          program = "${pkgs.webapp}/bin/webapp";
+        };
+        pinball = {
+          type = "app";
+          program = "${pkgs.wineApps.pinball}/bin/pinball";
+        };
+        wine7zip = {
+          type = "app";
+          program = "${pkgs.wineApps.wine7zip}/bin/7zip";
+        };
       };
     };
   }

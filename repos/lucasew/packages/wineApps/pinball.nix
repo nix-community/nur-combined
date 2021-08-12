@@ -20,8 +20,7 @@ let
       popd
     '';
   };
-in
-pkgs.makeDesktopItem {
+desktop = pkgs.makeDesktopItem {
   name = "Pinball";
   desktopName = "Pinbal - Space Cadet";
   icon = builtins.fetchurl {
@@ -30,4 +29,11 @@ pkgs.makeDesktopItem {
   };
   type = "Application";
   exec = "${bin}/bin/pinball";
+};
+in pkgs.symlinkJoin {
+  name = "pinball-app";
+  paths = [
+    bin
+    desktop
+  ];
 }

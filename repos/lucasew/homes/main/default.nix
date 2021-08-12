@@ -21,6 +21,8 @@ with (import ../../globalConfig.nix);
    # ------------ pacotes do nixpkgs ---------------
     # minecraft  # custom (excluded)
     usb_tixati custom_rofi # custom
+    tdesktop # communication
+    obsidian
     vlc youtube-dl # media
     chromium
     file
