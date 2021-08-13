@@ -10,6 +10,7 @@ with (import ../../globalConfig.nix);
     ./modules/dummy_module.nix
     ./modules/i3.nix
     ./modules/wallpaper.nix
+    ./modules/espanso.nix
     ../../modules/polybar/home.nix
     ../../modules/spotify/home.nix
     ../../modules/tmux/home.nix
@@ -37,6 +38,7 @@ with (import ../../globalConfig.nix);
   '';
 
   programs.hello-world.enable = true;
+  services.espanso.enable = true;
 
   services.redial_proxy.enable = true;
 
