@@ -153,7 +153,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/Cookie-AutoDelete/Cookie-AutoDelete";
-        description = "Control your cookies! This WebExtension is inspired by Self Destructing Cookies. When a tab closes, any cookies not being used are automatically deleted. Whitelist the ones you trust while deleting the rest. Support for Container Tabs.";
+        description = "Control your cookies! This WebExtension is inspired by Self Destructing Cookies. When a tab closes, any cookies not being used are automatically deleted. Keep the ones you trust (forever/until restart) while deleting the rest. Containers Supported";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -717,10 +717,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "9.8.4";
+      version = "10.0.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3819127/metamask-9.8.4-an+fx.xpi";
-      sha256 = "11bf94d4d9f6201a25090d94ab3da047bbacab295857c805313e103cef3e1bdc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3823785/metamask-10.0.1-an+fx.xpi";
+      sha256 = "a27b9776a78390ef1150879ddc3cd65076f5cc9726dfb3d249b9cfcbcb58964b";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1007,10 +1007,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2021.6.8";
+      version = "2021.8.11";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3792149/privacy_badger-2021.6.8-an+fx.xpi";
-      sha256 = "72579f77035a5146b7332e39a28063c6bb48ca7284d5b1383cab24dca65372a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3823352/privacy_badger-2021.8.11-an+fx.xpi";
+      sha256 = "4228c39471a4c1d4807d5dc56ebe69a9f475761967f9b5f8039e1e207a49ea22";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
