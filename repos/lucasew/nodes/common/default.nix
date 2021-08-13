@@ -30,6 +30,7 @@ with import ../../globalConfig.nix;
       "la" = "ls -a";
       "sqlite3" = "${pkgs.rlwrap}/bin/rlwrap sqlite3";
       "cd.." = "cd ..";
+      ".." = "cd ..";
       "simbora"="git add -A && git commit --amend && git push origin master -f";
     };
     promptInit = ''
