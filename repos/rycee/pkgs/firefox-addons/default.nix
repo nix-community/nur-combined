@@ -11,7 +11,7 @@ let
       src = fetchurl { inherit url sha256; };
 
       preferLocalBuild = true;
-      allowSubstitutes = false;
+      allowSubstitutes = true;
 
       buildCommand = ''
         dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"

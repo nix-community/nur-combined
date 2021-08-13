@@ -1,8 +1,8 @@
 image: nixos/nix:latest
 
 variables:
-  # Pinned 2021-02-04.
-  NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/5c7a370a208d93d458193fc05ed84ced0ba7f387.tar.gz"
+  # Pinned 2021-08-09.
+  NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/67c80531be622641b5b2ccc3a7aff355cb02476b.tar.gz"
 
 stages:
   - build

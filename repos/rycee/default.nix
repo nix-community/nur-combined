@@ -17,8 +17,14 @@ in {
   firefox-addons =
     pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { });
 
-  firefox-addons-generator =
-    pkgs.haskellPackages.callPackage ./pkgs/firefox-addons-generator { };
+  firefox-addons-generator = let
+    haskellPackages = pkgs.haskellPackages.override {
+      overrides = self: super: {
+        # TODO: Remove this override when haskellPackages.relude >= 1.0.0.
+        relude = self.relude_1_0_0_1;
+      };
+    };
+  in haskellPackages.callPackage ./pkgs/firefox-addons-generator { };
 
   materia-theme = pkgs.callPackage ./pkgs/materia-theme { };
 

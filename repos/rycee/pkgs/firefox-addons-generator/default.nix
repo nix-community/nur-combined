@@ -3,12 +3,12 @@
 
 mkDerivation rec {
   pname = "nixpkgs-firefox-addons";
-  version = "0.8.0";
+  version = "0.8.1";
   src = fetchFromGitLab {
     owner = "rycee";
     repo = "nixpkgs-firefox-addons";
     rev = "v${version}";
-    sha256 = "0f5d1r4vvxpa3rv3kyahaidm6mv39ip1d1fdkc5c0a38qcc5chvq";
+    sha256 = "0yhkf17d179sc56gxf9pxillh8bj6f3k5bzyqbdvk6ls4l8hj0d7";
   };
   isLibrary = false;
   isExecutable = true;
@@ -21,7 +21,6 @@ mkDerivation rec {
     microlens-aeson
     microlens-platform
     relude
-    text
     wreq
   ];
   homepage = "https://gitlab.com/rycee/nix-firefox-addons";
