@@ -8,6 +8,8 @@ rec {
 
   bobrossquotes = pkgs.python3Packages.callPackage ./pkgs/bobrossquotes {};
 
+  libdecor = pkgs.callPackage ./pkgs/libdecor {};
+
   bsnes = pkgs.callPackage ./pkgs/bsnes {
     inherit (pkgs.qt5) qtbase wrapQtAppsHook;
   };
