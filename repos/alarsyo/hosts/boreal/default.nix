@@ -14,7 +14,7 @@ in
       ./home.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_5_12;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -76,7 +76,7 @@ in
         "*.so"
 
         # ignore all dotfiles as .config and .cache can become quite big
-        "re:^/home/alarsyo/\\."
+        "/home/alarsyo/.*"
       ];
     };
 
