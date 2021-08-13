@@ -61,8 +61,8 @@
   })
   (fetchNuGet {
     name = "LibHac";
-    version = "0.12.0";
-    sha256 = "08r9b9cdcbz6339sw8r5dfy2a8iw53df0j3xq9rygkg02xspimld";
+    version = "0.13.2";
+    sha256 = "1340qy73b708zi2b2g4br3kw65gbk1wyr1g6ahr3j3qcb5dspb9l";
   })
   (fetchNuGet {
     name = "Microsoft.AspNetCore.App.Runtime.linux-x64";
@@ -873,11 +873,6 @@
     name = "System.Runtime.CompilerServices.Unsafe";
     version = "4.7.0";
     sha256 = "16r6sn4czfjk8qhnz7bnqlyiaaszr0ihinb7mq9zzr1wba257r54";
-  })
-  (fetchNuGet {
-    name = "System.Runtime.CompilerServices.Unsafe";
-    version = "5.0.0-preview.7.20364.11";
-    sha256 = "19sl184f6rjhfsizq0vapysazd6yd66lf638rszvrdhqlsxssz2m";
   })
   (fetchNuGet {
     name = "System.Runtime.Extensions";
