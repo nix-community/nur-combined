@@ -20,7 +20,7 @@ let
     == "overlays";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
-  isCacheable = p: !(p.allowSubstitutes or false);
+  isCacheable = p: p.allowSubstitutes or true;
   shouldRecurseForDerivations = p:
     isAttrs p && p.recurseForDerivations or false;
 
