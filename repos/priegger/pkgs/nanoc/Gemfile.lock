@@ -63,7 +63,7 @@ GEM
     tty-command (0.10.1)
       pastel (~> 0.8)
     tty-platform (0.3.0)
-    tty-which (0.4.2)
+    tty-which (0.5.0)
     zeitwerk (2.4.2)
 
 PLATFORMS
