@@ -21,24 +21,28 @@ in {
             { # Dates
               trigger = ":date";
               replace = "{{mydate}}";
-              vars = {
-                name = "mydate";
-                type = "date";
-                params = {
-                  format = "%m/%d/%Y";
-                };
-              };
+              vars = [
+                  {
+                    name = "mydate";
+                    type = "date";
+                    params = {
+                      format = "%m/%d/%Y";
+                    };
+                  }
+                ];
             }
             { # Shell commands
               trigger = ":shell";
               replace = "{{output}}";
-              vars = {
-                name = "output";
-                type = "shell";
-                params = {
-                  cmd = "echo Hello from your shell";
-                };
-              };
+              vars = [
+                {
+                  name = "output";
+                  type = "shell";
+                  params = {
+                    cmd = "echo Hello from your shell";
+                  };
+                }
+              ];
             }
           ];
         };
@@ -56,6 +60,7 @@ in {
     home.file.".config/espanso/default.yml".source = yaml.generate "default.yml" cfg.config;
     home.packages = with pkgs; [
       espanso
+      xclip
     ];
   };
 }
