@@ -17,6 +17,8 @@ rec {
   unoconvservice = import ./unoconvservice.nix {
     inherit tfk-api-unoconv unoconv;
   };
+  hamiltonsamba = ./hamiltonsamba.nix;
+  scottslounge = ./scottslounge.nix;
   hmModules = {
     day-night-plasma-wallpapers = ./day-night-plasma-wallpapers-home-manager.nix;
     myvim = import ./myvim.nix {
