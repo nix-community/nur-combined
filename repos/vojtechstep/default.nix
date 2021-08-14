@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -15,5 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   uwu = pkgs.callPackage ./pkgs/uwu { };
+  inherit (pkgs.libsForQt5.callPackage ./pkgs/qtmips { }) qtmips-unstable qtmips-075;
 }
 
