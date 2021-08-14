@@ -16,17 +16,22 @@ fan_max="@fan_max@"
 fan_delta=$(($fan_max - $fan_min))
 fan_delta_1_percent=$(bc <<< "scale=2 ; $fan_delta / 100")
 
+LOG_FILE=${LOG_FILE:=/var/log/rpi-fan/rpi-fan.log}
+LOG_FOLDER=${LOG_FILE%/*}
+mkdir -p "$LOG_FOLDER"
+touch "$LOG_FILE"
+
 check_overlay() {
 	if [ ! -d "$OVERLAYS_DIR" ]; then
 		OVERLAYS_DIR="@overlays_dir@"
 		if [ ! -d "$OVERLAYS_DIR" ]; then
-			echo "Overlays path: $OVERLAYS_DIR doesn't exist"
+			echo "Overlays path: $OVERLAYS_DIR doesn't exist" >> $LOG_FILE
 			exit 1
 		fi
 	fi
 	if [ ! -f /sys/class/thermal/cooling_device0/cur_state ]; then
-		echo "Trying to load rpi-poe overlay..."
-		echo "Overlays path: $OVERLAYS_DIR"
+		echo "Trying to load rpi-poe overlay..." >> $LOG_FILE
+		echo "Overlays path: $OVERLAYS_DIR" >> $LOG_FILE
 		dtoverlay -l | grep rpi-poe || dtoverlay -d "$OVERLAYS_DIR" rpi-poe
 	fi
 }
@@ -56,7 +61,7 @@ do
 	delta_temp=${delta_temp#-}
 
 	# echo CPU status
-	echo "CPU $cpu_state with $cpu_temp_string, Δ$delta_temp°C"
+	echo "CPU $cpu_state with $cpu_temp_string, Δ$delta_temp°C" >> $LOG_FILE
 
 	fan_speed_percent=$(bc <<< "scale=2 ; $delta_cpu_temp / $temp_delta_1_percent")
 
@@ -72,7 +77,7 @@ do
 
 	level=0
 	if ((delta_temp >= 2)); then
-		echo "fan_speed : $fan_speed"
+		echo "fan_speed : $fan_speed" >> $LOG_FILE
 		last_cpu_temp=$cpu_temp
 		if ((fan_speed >= 0 && fan_speed < 51)); then
 			level=0
@@ -90,11 +95,11 @@ do
 			level=4
 		fi
 		last_level=$level
-		echo "Level is: $level"
-		echo ""
+		echo "Level is: $level" >> $LOG_FILE
+		echo "" >> $LOG_FILE
 	fi
 	echo $last_level > /sys/class/thermal/cooling_device0/cur_state
-	echo "Applied level `cat /sys/class/thermal/cooling_device0/cur_state`"
+	echo "Applied level `cat /sys/class/thermal/cooling_device0/cur_state`" >> $LOG_FILE
 
 	sleep 3
 done

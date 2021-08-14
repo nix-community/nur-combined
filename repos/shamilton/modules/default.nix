@@ -1,5 +1,5 @@
 { selfnur }:
-{
+rec {
   # create-ap = ./create-ap.nix;
   day-night-plasma-wallpapers = ./day-night-plasma-wallpapers-nixos.nix;
   numworks = ./numworks.nix;
@@ -9,6 +9,13 @@
   };
   rpi-fan = import ./rpi-fan.nix {
     inherit (selfnur) rpi-fan;
+  };
+  tfk-api-unoconv = import ./tfk-api-unoconv.nix {
+    inherit (selfnur) tfk-api-unoconv;
+  };
+  unoconv = ./unoconv.nix;
+  unoconvservice = import ./unoconvservice.nix {
+    inherit tfk-api-unoconv unoconv;
   };
   hmModules = {
     day-night-plasma-wallpapers = ./day-night-plasma-wallpapers-home-manager.nix;

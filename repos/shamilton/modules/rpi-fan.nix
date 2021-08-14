@@ -10,13 +10,21 @@ in
   options.services.rpi-fan = {
     enable = mkEnableOption "Smart fan control for the the RPi Poe Hat";
     overlays-dir = mkOption {
-      type = types.path;
+      type = types.nullOr types.path;
       default = null;
       description = ''
         The directory where is located the `rpi-poe.dtbo` overlay file.
         If null, the builtin directory will be used.
       '';
       example = "/home/user/custom_overlays";
+    };
+    logFile = mkOption {
+      type = types.path;
+      default = "/var/log/rpi-fan/rpi-fan.log";
+      description = ''
+        The file where to save logs.
+      '';
+      example = "/tmp/rpi-fan.log";
     };
   };
   config = mkIf cfg.enable {
@@ -28,7 +36,11 @@ in
       ];
       description = "Smart fan control for the the RPi Poe Hat";
       wantedBy = [ "multi-user.target" ];
-      environment = { OVERLAYS_DIR = "${cfg.overlays-dir}"; };
+      environment = if (!isNull cfg.overlays-dir) then {
+        OVERLAYS_DIR = "${cfg.overlays-dir}";
+      } else {} // {
+        LOG_FILE = "${cfg.logFile}";
+      };
       serviceConfig = {
         Type = "simple";
         ExecStart = [ "${rpi-fan}/bin/rpi-fan" ];
