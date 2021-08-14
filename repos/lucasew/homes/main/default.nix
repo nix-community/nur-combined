@@ -85,6 +85,99 @@ with (import ../../globalConfig.nix);
         (replaceDate ":ot" "#datetime/%Y/%m/%e/%H/%M")
         (replaceDate ":od" "#datetime/%Y/%m/%e")
 
+        # code
+        (justReplace ":html:5" ''
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Document</title>
+          </head>
+          <body>
+          $|$
+          </body>
+          </html>
+        '')
+        (justReplace ":reactfc" ''
+          import React from 'react';
+
+          interface ComponentProps {
+            children: React.ReactNode
+          }
+
+          export default function Component(props: ComponentProps) {
+            return (
+              <>
+                $|$
+              </>
+            )
+          }
+        '')
+        (justReplace ":cbasic" ''
+          #include <stdio.h>
+          #include <stdlib.h>
+          #include <unistd.h>
+
+          int main(int argc, char **argv) {
+            $|$
+          }
+        '')
+        (justReplace ":gobasic" ''
+          package main
+
+          import (
+            "fmt"
+            "github.com/davecgh/go-spew/spew"
+          )
+
+          func init() {
+          }
+
+          func main() {
+            $|$
+          }
+        '')
+        (justReplace ":shbasic" ''
+          #!/usr/bin/env bash
+          set -eu -o pipefail
+          # set -f # if glob patterns are undesirable
+
+          function bold {
+              echo -e "$(tput bold)$@$(tput sgr0)"
+          }
+          function red {
+              echo -e "\033[0;31m$@\033[0m"
+          }
+          function error {
+            echo -e "$(red error): $*"
+            exit 1
+          }
+
+          function usage {
+            echo "$(bold "$0"): lucasew's default script template
+            - $(bold "command"): do something"
+          }
+
+          if [ $# == 0 ]; then
+            usage
+            error "no command specified"
+          fi
+
+          COMMAND="$1"; shift
+
+          case "$COMMAND" in
+            command)
+              echo "Doing something..."
+              error "nothing specified"
+            ;;
+            *)
+              error "command $COMMAND not specified"
+            ;;
+          esac
+        '')
+
         # atalhos
         (replaceRun ":blaunch" "webapp > /dev/null") # borderless browser
         (replaceRun ":globalip" "curl ifconfig.me ")
