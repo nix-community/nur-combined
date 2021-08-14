@@ -78,6 +78,7 @@ with (import ../../globalConfig.nix);
       matches = [
         # macros
         (justReplace ":email" "lucas59356@gmail.com")
+        (justReplace ":me" "Lucas Eduardo Wendt")
         (justReplace ":shrug" "¯\\_(ツ)_/¯")
         (justReplace ":lenny" "( ͡° ͜ʖ ͡°)")
         (replaceDate ":hoje" "%d/%m/%Y")
@@ -85,9 +86,9 @@ with (import ../../globalConfig.nix);
         (replaceDate ":od" "#datetime/%Y/%m/%e")
 
         # atalhos
-        (replaceRun ":blaunch" "webapp > /dev/null")
+        (replaceRun ":blaunch" "webapp > /dev/null") # borderless browser
         (replaceRun ":globalip" "curl ifconfig.me ")
-        (replaceRun ":lero" "lero")
+        (replaceRun ":lero" "lero") # https://github.com/lucasew/lerolero.sh
         (replaceRun ":lockscreen" "loginctl lock-session")
 
         # typos
@@ -95,6 +96,9 @@ with (import ../../globalConfig.nix);
         (replaceWord "ther" "there")
         (replaceWord "automacao" "automação")
         (replaceWord "nixos" "NixOS")
+        (replaceWord "its" "it's")
+        (replaceWord "dont" "don't")
+        (replaceWord "didnt" "didn't")
       ];
     };
   };
