@@ -49,13 +49,13 @@ let
         sha512 = "neHB9xuzh/wk0dIHweyAXv2aPGZIVk3pLMe+/RNzINf17fe0OG96QroktYAUm7SM1PBnzTabaLboqqxDyMU+SQ==";
       };
     };
-    "colorette-1.2.2" = {
+    "colorette-1.3.0" = {
       name = "colorette";
       packageName = "colorette";
-      version = "1.2.2";
+      version = "1.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/colorette/-/colorette-1.2.2.tgz";
-        sha512 = "MKGMzyfeuutC/ZJ1cba9NqcNpfeqMUcYmyF1ZFY6/Cn7CNSAKx6a+s48sqLqyAiZuaP2TcqMhoo+dlwFnVxT9w==";
+        url = "https://registry.npmjs.org/colorette/-/colorette-1.3.0.tgz";
+        sha512 = "ecORCqbSFP7Wm8Y6lyqMJjexBQqXSF7SSeaTyGGphogUjBlFP9m9o08wy86HL2uB7fMTxtOUzLMk7ogKcxMg1w==";
       };
     };
     "commander-7.2.0" = {
@@ -457,7 +457,7 @@ let
       sources."@webpack-cli/info-1.3.0"
       sources."@webpack-cli/serve-1.5.1"
       sources."clone-deep-4.0.1"
-      sources."colorette-1.2.2"
+      sources."colorette-1.3.0"
       sources."commander-7.2.0"
       sources."cross-spawn-7.0.3"
       sources."envinfo-7.8.1"
