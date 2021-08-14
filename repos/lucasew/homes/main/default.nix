@@ -86,7 +86,7 @@ with (import ../../globalConfig.nix);
         (replaceDate ":od" "#datetime/%Y/%m/%e")
 
         # code
-        (justReplace ":html:5" ''
+        (justReplace ":<html>" ''
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -100,7 +100,7 @@ with (import ../../globalConfig.nix);
           </body>
           </html>
         '')
-        (justReplace ":reactfc" ''
+        (justReplace ":import React" ''
           import React from 'react';
 
           interface ComponentProps {
@@ -115,7 +115,7 @@ with (import ../../globalConfig.nix);
             )
           }
         '')
-        (justReplace ":cbasic" ''
+        (justReplace ":#include" ''
           #include <stdio.h>
           #include <stdlib.h>
           #include <unistd.h>
@@ -124,7 +124,7 @@ with (import ../../globalConfig.nix);
             $|$
           }
         '')
-        (justReplace ":gobasic" ''
+        (justReplace ":package" ''
           package main
 
           import (
@@ -139,7 +139,7 @@ with (import ../../globalConfig.nix);
             $|$
           }
         '')
-        (justReplace ":shbasic" ''
+        (justReplace ":#!/usr/bin/env bash" ''
           #!/usr/bin/env bash
           set -eu -o pipefail
           # set -f # if glob patterns are undesirable
