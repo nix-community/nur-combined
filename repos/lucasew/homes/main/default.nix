@@ -38,7 +38,66 @@ with (import ../../globalConfig.nix);
   '';
 
   programs.hello-world.enable = true;
-  services.espanso.enable = true;
+  services.espanso = {
+    enable = true;
+    config = 
+      let
+        justReplace = from: to: {
+          trigger = from;
+          replace = "${to} ";
+        };
+        replaceWord = from: to: {
+          trigger = from;
+          replace = to;
+          word = true;
+          propagate_case = true;
+        };
+        replaceDate = from: format: {
+          trigger = from;
+          replace = "{{date}} ";
+          vars = [{
+            name = "date";
+            type = "date";
+            params = {
+              inherit format;
+            };
+          }];
+        };
+        replaceRun = from: command: {
+          trigger = from;
+          replace = "{{output}} ";
+          vars = [{
+            name = "output";
+            type = "shell";
+            params = {
+              cmd = pkgs.writeShellScript "espanso-script" command;
+            };
+          }];
+        };
+      in {
+      matches = [
+        # macros
+        (justReplace ":email" "lucas59356@gmail.com")
+        (justReplace ":shrug" "¯\\_(ツ)_/¯")
+        (justReplace ":lenny" "( ͡° ͜ʖ ͡°)")
+        (replaceDate ":hoje" "%d/%m/%Y")
+        (replaceDate ":ot" "#datetime/%Y/%m/%e/%H/%M")
+        (replaceDate ":od" "#datetime/%Y/%m/%e")
+
+        # atalhos
+        (replaceRun ":blaunch" "webapp > /dev/null")
+        (replaceRun ":globalip" "curl ifconfig.me ")
+        (replaceRun ":lero" "lero")
+        (replaceRun ":lockscreen" "loginctl lock-session")
+
+        # typos
+        (replaceWord "lenght" "length")
+        (replaceWord "ther" "there")
+        (replaceWord "automacao" "automação")
+        (replaceWord "nixos" "NixOS")
+      ];
+    };
+  };
 
   services.redial_proxy.enable = true;
 
