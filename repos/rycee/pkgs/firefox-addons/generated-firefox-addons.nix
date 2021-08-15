@@ -675,10 +675,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.10";
+      version = "2.6.12";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3814877/localcdn-2.6.10-an+fx.xpi";
-      sha256 = "de7165979b963f5717c735da2bbe62db40d843203f7ff797956eb4865893c4be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3824683/localcdn-2.6.12-an+fx.xpi";
+      sha256 = "bedb0c5e71c67ebaec5c97895360bed9aa040348194b916e79e47786d377f31d";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1133,10 +1133,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.8.1";
+      version = "21.8.14";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3818382/refined_github-21.8.1-an+fx.xpi";
-      sha256 = "361bc62fbb89703dbc1103bc236758067ae890f7e9b434eac0919e9142f2a610";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3824822/refined_github-21.8.14-an+fx.xpi";
+      sha256 = "3012d79bcbde3f3609aa9948c401d12683ee2adfc9a08fd205a44a2d31d6220a";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
