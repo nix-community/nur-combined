@@ -16,6 +16,7 @@ let
     ha-dyson = pySelf.callPackage ./pkgs/ha-dyson { };
     ha-dyson-cloud = pySelf.callPackage ./pkgs/ha-dyson-cloud { };
     haManifestRequirementsCheckHook = pySelf.callPackage pkgs/build-support/ha-custom-components/ha-manifest-requirements-check-hook.nix {};
+    hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
     homeassistant = (pySelf.toPythonModule pkgs.home-assistant).overrideAttrs (o: {
       # tests take a really long time
       doInstallCheck = false;
@@ -25,12 +26,13 @@ let
     libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
     monkeytype = pySelf.callPackage ./pkgs/monkeytype { };
     pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
+    pytest-homeassistant-custom-component = pySelf.callPackage ./pkgs/pytest-homeassistant-custom-component { };
+    python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };
+    python-socketio_4 = pySelf.callPackage ./pkgs/python-socketio/4.nix { };
     ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
+    smartbox = pySelf.callPackage ./pkgs/smartbox { };
     tesla-custom-component = pySelf.callPackage ./pkgs/tesla-custom-component { };
     teslajsonpy = pySelf.callPackage ./pkgs/teslajsonpy { };
-    smartbox = pySelf.callPackage ./pkgs/smartbox { };
-    hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
-    pytest-homeassistant-custom-component = pySelf.callPackage ./pkgs/pytest-homeassistant-custom-component { };
   };
 in rec {
   inherit pkgs; # for debugging
