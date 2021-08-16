@@ -22,5 +22,8 @@
    },
    {
       "slug": "facebook-container"
+   },
+   {
+      "slug": "bitwarden-password-manager"
    }
 ]

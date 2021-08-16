@@ -1,5 +1,19 @@
 { buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
 {
+  "bitwarden-password-manager" = buildFirefoxXpiAddon {
+    pname = "bitwarden-password-manager";
+    version = "1.51.1";
+    addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3807401/bitwarden_free_password_manager-1.51.1-an+fx.xpi";
+    sha256 = "9cd1db78e612473e1c7a9e57b9868f82b3d5fd770cbea7ffa488cc9efc65a345";
+    meta = with lib;
+      {
+        homepage = "https://bitwarden.com";
+        description = "A secure and free password manager for all of your devices.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+      };
+  };
   "certificate-pinner" = buildFirefoxXpiAddon {
     pname = "certificate-pinner";
     version = "0.17.10";
@@ -29,10 +43,10 @@
   };
   "enhancer-for-youtube" = buildFirefoxXpiAddon {
     pname = "enhancer-for-youtube";
-    version = "2.0.104.13";
+    version = "2.0.105";
     addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3803898/enhancer_for_youtubetm-2.0.104.13-fx.xpi";
-    sha256 = "83dacb5ef1ecf82226437438b5b893f5b7d19c330c3e8c3712feb5a043c5b672";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3824758/enhancer_for_youtubetm-2.0.105-fx.xpi";
+    sha256 = "8944a1fad859450ce61b3c151e126ec871bf84a6d664baf6701c4244cd1d2246";
     meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -42,10 +56,10 @@
   };
   "facebook-container" = buildFirefoxXpiAddon {
     pname = "facebook-container";
-    version = "2.2.1";
+    version = "2.3.1";
     addonId = "@contain-facebook";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3772109/facebook_container-2.2.1-fx.xpi";
-    sha256 = "459b4273c3926b0a273614a46ddb7dffc091989e9dc602707f8a526abc2c26c9";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3818838/facebook_container-2.3.1-fx.xpi";
+    sha256 = "37e5def08a300360a1667a16b281af41a9f282d0d85a2c7b05693db8b3e33853";
     meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -96,10 +110,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.37.0";
+    version = "1.37.2";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3814538/ublock_origin-1.37.0-an+fx.xpi";
-    sha256 = "484025993fc95c823ed81f7fb4028626b2f644a9d7500d3267f3b0ac59eac53b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3816867/ublock_origin-1.37.2-an+fx.xpi";
+    sha256 = "b3a3c81891acb4620e33dd548b50375aad826376044a6143b5a947d0406a559e";
     meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
