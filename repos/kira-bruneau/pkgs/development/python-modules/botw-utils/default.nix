@@ -35,7 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/NiceneNerd/botw-utils";
     license = licenses.unlicense;
     maintainers = with maintainers; [ kira-bruneau ];
-    # broken = !isPy3k;
-    broken = true; # oead references commit outside of branch
+    broken = !isPy3k;
   };
 }

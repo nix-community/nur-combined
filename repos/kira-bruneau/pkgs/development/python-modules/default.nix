@@ -18,10 +18,6 @@ in
 
   debugpy = callPackage ./debugpy { };
 
-  lunr = callPackage ./lunr { };
-
-  mkdocs = callPackage ./mkdocs { };
-
   mkdocs-material = callPackage ./mkdocs-material { };
 
   mkdocs-material-extensions = callPackage ./mkdocs-material-extensions {

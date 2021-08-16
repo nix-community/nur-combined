@@ -37,7 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/krenyy/botw_havok";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kira-bruneau ];
-    # broken = !isPy3k;
-    broken = true; # oead references commit outside of branch
+    broken = !isPy3k;
   };
 }

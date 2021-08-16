@@ -20,7 +20,7 @@ buildPythonPackage rec {
   };
 
   patches = [
-    ./mkdocs-material-7.0.0.patch
+    ./fix-tests.patch
   ];
 
   checkInputs = [

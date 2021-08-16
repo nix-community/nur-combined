@@ -8,14 +8,14 @@
 
 buildPythonPackage rec {
   pname = "oead";
-  version = "1.2.1";
+  version = "1.2.2";
 
   src = fetchFromGitHub {
     owner = "zeldamods";
     repo = pname;
     rev = "v${version}";
     fetchSubmodules = true;
-    sha256 = "sha256-XW6KRCexNXzMdidkH4UyVncDe+v1qvTYp76TtyRg3Lo=";
+    sha256 = "sha256-xAEb4BL2zCWmF6QIyjPmd52w2JbsiKe7Iyk0Q4kX61M=";
   };
 
   patches = [
@@ -35,7 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zeldamods/oead";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kira-bruneau ];
-    # broken = !isPy3k;
-    broken = true; # oead references commit outside of branch
+    broken = !isPy3k;
   };
 }

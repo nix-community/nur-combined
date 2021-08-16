@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , substituteAll
 , oead
+, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -35,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zeldamods/rstb";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kira-bruneau ];
-    broken = true; # oead references commit outside of branch
+    broken = !isPy3k;
   };
 }
