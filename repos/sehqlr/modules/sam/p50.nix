@@ -10,7 +10,7 @@
     xdg-desktop-portal-wlr
   ];
 
-  programs.taskwarrior.config.report.next.filter = "status:pending limit:page +HOME";
+  programs.taskwarrior.config.context.home = "+HOME";
 
   services.kanshi.profiles = {
     undocked = {
