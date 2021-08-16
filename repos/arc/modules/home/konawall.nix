@@ -9,6 +9,10 @@ in with lib; {
       type = types.listOf types.str;
       default = ["score:>=200" "width:>=1600" "nobody"];
     };
+    package = mkOption {
+      type = types.package;
+      default = arc.packages.personal.konawall;
+    };
     interval = mkOption {
       type = types.nullOr types.str;
       default = null;
@@ -35,7 +39,7 @@ in with lib; {
         Service = {
           Environment = ["KONATAGS=${concatStringsSep "+" cfg.tags}"];
           Type = "oneshot";
-          ExecStart = arc.packages.personal.konawall.exec;
+          ExecStart = "${cfg.package}/bin/konawall";
           RemainAfterExit = true;
           IOSchedulingClass = "idle";
           TimeoutStartSec = "5m";
