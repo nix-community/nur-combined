@@ -208,6 +208,7 @@ lib.makeScope newScope (
     gpx-animator = callPackage ./gpx/gpx-animator { };
     gpx-interpolate = callPackage ./gpx/gpx-interpolate { };
     gpx-layer = perlPackages.callPackage ./gpx/gpx-layer { };
+    gpx2yaml = callPackage ./gpx/gpx2yaml { };
     gpxtools = callPackage ./gpx/gpxtools { };
     gpxtrackposter = callPackage ./gpx/gpxtrackposter { };
 
