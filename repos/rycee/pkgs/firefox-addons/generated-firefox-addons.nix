@@ -675,10 +675,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.12";
+      version = "2.6.13";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3824683/localcdn-2.6.12-an+fx.xpi";
-      sha256 = "bedb0c5e71c67ebaec5c97895360bed9aa040348194b916e79e47786d377f31d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3825165/localcdn-2.6.13-an+fx.xpi";
+      sha256 = "78b3e51a1e98d024d913e6533407fef8cbaae236d044ddcd3da79830894da116";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
