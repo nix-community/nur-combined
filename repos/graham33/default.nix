@@ -9,7 +9,7 @@
 { pkgs ? import <nixpkgs> { } }:
 
 let
-  pyPackageOverrides = pySelf: pySuper: {
+  pyPackageOverrides = pySelf: pySuper: rec {
     authcaptureproxy = pySelf.callPackage ./pkgs/authcaptureproxy { };
     fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
     garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
@@ -60,6 +60,6 @@ in rec {
   };
   python39Packages = python39.pkgs;
 
-  python3 = python38;
-  python3Packages = python38Packages;
+  python3 = python39;
+  python3Packages = python39Packages;
 }
