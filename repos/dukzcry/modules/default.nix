@@ -1,6 +1,6 @@
 { unstable-path, unstable }:
 
-{
+rec {
   # Add your NixOS modules here
   #
   # my-module = ./my-module;
@@ -12,5 +12,7 @@
   bambootracker = ./bambootracker.nix;
   nvidia = ./nvidia.nix;
   job = ./job.nix;
-  monitor = import ./monitor.nix unstable;
+  # JUST UPDATE RELEASE
+  ddccontrol = "${unstable-path}/nixos/modules/services/hardware/ddccontrol.nix";
+  monitor = import ./monitor.nix unstable ddccontrol;
 }

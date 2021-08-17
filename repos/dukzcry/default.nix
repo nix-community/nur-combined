@@ -12,8 +12,8 @@ let
   unstable_ = pkgs.fetchFromGitHub {
     owner = "nixos";
     repo = "nixpkgs";
-    rev = "3a8d7958a610cd3fec3a6f424480f91a1b259185";
-    sha256 = "0bmxrdn9sn6mxvkyyxdlxlzczfh59iy66c55ql144ilc1cjk28is";
+    rev = "63ee5cd99a2e193d5e4c879feb9683ddec23fa03";
+    sha256 = "0avbsx5chbwr0y55shndkzf0ixx3bznbzq526p5nj8llryxa10af";
   };
   unstable = import unstable_ { config.allowUnfree = true; };
   eval = import <nixpkgs/nixos/lib/eval-config.nix>;
@@ -28,8 +28,8 @@ in rec {
   knobkraft-orm = pkgs.callPackage ./pkgs/knobkraft-orm.nix { };
   realrtcw = pkgs.callPackage ./pkgs/realrtcw.nix { };
   gamescope = pkgs.callPackage ./pkgs/gamescope.nix {};
-  re3 = pkgs.callPackage ./pkgs/re3.nix {};
-  revc = pkgs.callPackage ./pkgs/revc.nix { inherit re3; };
-  bitwig-studio3 = pkgs.callPackage ./pkgs/bitwig-studio3.nix {};
+  #re3 = pkgs.callPackage ./pkgs/re3.nix {};
+  #revc = pkgs.callPackage ./pkgs/revc.nix { inherit re3; };
+  #bitwig-studio3 = pkgs.callPackage ./pkgs/bitwig-studio3.nix {};
 }
 

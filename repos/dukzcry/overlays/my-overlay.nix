@@ -19,8 +19,9 @@ rec {
     sleep 5
     modprobe iwlwifi iwlmvm
   '';
-  inherit (unstable) steam goldendict helio-workstation;
-  lmms = super.lmms.overrideAttrs (oldAttrs: rec {
-    cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DWANT_WEAKJACK=OFF" ];
-  });
+  # JUST UPDATE RELEASE
+  inherit (unstable) steam goldendict ddccontrol;
+  #lmms = super.lmms.overrideAttrs (oldAttrs: rec {
+  #  cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DWANT_WEAKJACK=OFF" ];
+  #});
 }
