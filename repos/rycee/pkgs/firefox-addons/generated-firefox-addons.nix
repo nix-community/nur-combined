@@ -228,10 +228,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.7.30";
+      version = "2021.8.13.36133";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3817734/duckduckgo_privacy_essentials-2021.7.30-an+fx.xpi";
-      sha256 = "f736519aa2648776b534c2dc5838eb718274ea43d189ea75c12c6baaf3787869";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3824380/duckduckgo_privacy_essentials-2021.8.13.36133-an+fx.xpi";
+      sha256 = "70e67d1dab478f874af842d3f21ddd3bab6d49255992b846787436755e0446f1";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -284,10 +284,10 @@
       };
     "ff2mpv" = buildFirefoxXpiAddon {
       pname = "ff2mpv";
-      version = "3.7.1";
+      version = "3.8.0";
       addonId = "ff2mpv@yossarian.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3749203/ff2mpv-3.7.1-fx.xpi";
-      sha256 = "616294cc4150466e65564373d190f17e92e3e92ed1241ed4e745745cb43ff505";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3826080/ff2mpv-3.8.0-fx.xpi";
+      sha256 = "4a456ad15a32d8737a5839e87d36cc105d2e23ae87514c18219bbd4a7fc98100";
       meta = with lib;
       {
         homepage = "https://github.com/woodruffw/ff2mpv";
@@ -423,10 +423,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.881.0";
+      version = "8.882.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3817317/grammarly_for_firefox-8.881.0-an+fx.xpi";
-      sha256 = "eea7e137440e5f70ab24d25758979a173540cbe26ef2cab938fbc06be750a090";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3824154/grammarly_for_firefox-8.882.0-an+fx.xpi";
+      sha256 = "0e98e081f22a1ec1a7d5db52b39667688029ba600ad8884878aa1eb56d27ff16";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -1063,10 +1063,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.14.0";
+      version = "4.16.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3811140/react_developer_tools-4.14.0-fx.xpi";
-      sha256 = "afa732941ac8bc6bedcdc7995baafef82d6485851799f3766928ebd3ca632ec2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3826046/react_developer_tools-4.16.0-fx.xpi";
+      sha256 = "9950fc2323318bb4ce599342b7631093289cc4a031cbdfaae431599cd95e6277";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1230,10 +1230,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.19";
+      version = "1.5.20";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3810495/stylus-1.5.19-fx.xpi";
-      sha256 = "58810c68aefb238ded3a73ae0e76540d290eb575ba42ea142bfd73a2387bbc4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3825193/stylus-1.5.20-fx.xpi";
+      sha256 = "b0a76657720c85a2b223df980083287564d3f80d451a4603c6c0e09d66722d57";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -1257,10 +1257,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.9.0";
+      version = "6.10.0";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3818365/tab_session_manager-6.9.0-fx.xpi";
-      sha256 = "8d6864684a319c3d4f183f7f019afbd1441b21dba06b26baf80ee54ca29ba142";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3824429/tab_session_manager-6.10.0-fx.xpi";
+      sha256 = "5b3f755e052848c99716187eae20abb292def127c0d837aa7c1c065f937d5050";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -1408,10 +1408,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.8";
+      version = "3.8.9";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3811312/tree_style_tab-3.8.8-fx.xpi";
-      sha256 = "09f9d3b8514e622310a5e4a9f73482e305e46114aaaa194b71c1232de20e1ea6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3824868/tree_style_tab-3.8.9-fx.xpi";
+      sha256 = "37d96b8a86a5a1715bbd3be10434f6f5b0470609692b21ca8f82677996354069";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
