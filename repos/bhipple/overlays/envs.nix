@@ -2,20 +2,18 @@ self: super:
 let
 
   brh-python = self.python3.withPackages (ps: with ps; [
-    pyflakes
-    # pyls-isort
-    # python-language-server
-    yapf
-
     beancount
     bokeh
+    ipdb
     jupytext
     matplotlib
     notebook
     numpy
     pandas
+    pyflakes
     scipy
     seaborn
+    yapf
   ]);
 
 in
