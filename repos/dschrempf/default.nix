@@ -15,7 +15,8 @@ rec {
   # Misc.
   biblib = pkgs.callPackage ./pkgs/misc/biblib {};
   frida-python = pkgs.callPackage ./pkgs/misc/frida-python {
-    # TODO: Nixpkgs has moved to Python 3.9 by default.
+    # TODO: Check when Frida is available for Python 3.9 which is now the
+    # default in Nixpkgs.
     python3 = pkgs.python38;
   };
   frida-tools = pkgs.callPackage ./pkgs/misc/frida-tools {

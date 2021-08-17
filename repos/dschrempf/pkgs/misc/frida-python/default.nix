@@ -21,7 +21,6 @@ let
 in
 python3.pkgs.buildPythonPackage rec {
   inherit pname version;
-  # TODO: Nixpkgs has moved to Python 3.9 by default.
   disabled = !python3.pkgs.isPy38;
 
   src = python3.pkgs.fetchPypi {
