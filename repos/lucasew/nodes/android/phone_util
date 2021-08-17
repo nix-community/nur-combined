@@ -23,6 +23,13 @@ case "$command" in
         $0 require_binary adb
         adb shell pm uninstall -k --user 0 "$1"
     ;;
+    "change_governor")
+        GOVERNOR="$1";shift
+        echo "Changing governor: $GOVERNOR"
+        for i in $(seq 0 10);
+        do
+            adb shell "su -c 'echo $GOVERNOR > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor'"
+        done
 esac
 
 
