@@ -1,10 +1,9 @@
-{ pkgs, sources }:
+{ pkgs }:
 let
   inherit (pkgs) lib newScope recurseIntoAttrs libsForQt5 darwin;
 in
 lib.makeScope newScope (
   self: with self; {
-    inherit sources;
 
     ### APPLICATIONS
 

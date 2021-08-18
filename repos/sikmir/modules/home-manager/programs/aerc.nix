@@ -7,20 +7,21 @@ let
 
   accountConfFile = with cfg;
     generators.toINI
-      { } {
-      Personal = {
-        source = "imaps://${gUsername}:${gPassword}@imap.gmail.com:993";
-        outgoing = "smtp+plain://${gUsername}:${gPassword}@smtp.gmail.com:587";
-        default = "INBOX";
-        smtp-starttls = "yes";
-        from =
-          if fullName != "" then
-            "${fullName} <${gUsername}@gmail.com>"
-          else
-            "${gUsername}@gmail.com";
-        copy-to = "Sent";
+      { }
+      {
+        Personal = {
+          source = "imaps://${gUsername}:${gPassword}@imap.gmail.com:993";
+          outgoing = "smtp+plain://${gUsername}:${gPassword}@smtp.gmail.com:587";
+          default = "INBOX";
+          smtp-starttls = "yes";
+          from =
+            if fullName != "" then
+              "${fullName} <${gUsername}@gmail.com>"
+            else
+              "${gUsername}@gmail.com";
+          copy-to = "Sent";
+        };
       };
-    };
 
   activationScript = ''
     $DRY_RUN_CMD install -Dm644 ${pkgs.aerc}/share/aerc/aerc.conf -t ${configDir}

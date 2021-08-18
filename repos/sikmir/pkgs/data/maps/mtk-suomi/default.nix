@@ -2,11 +2,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "mtk-suomi";
-  version = "2021-07-24";
+  version = "2021-08-14";
 
   src = fetchurl {
     url = "https://kartat-dl.hylly.org/${version}/mtk_suomi.img";
-    hash = "sha256-TCuvw8nbIBfJi5M+BR4/pL9ciq86V4Xlb5Ak2kuYBA0=";
+    hash = "sha256-UTGnzx8epdOOjSg8Qx73TPJlsJPfOZSEBYi5D0b2EFk=";
   };
 
   preferLocalBuild = true;

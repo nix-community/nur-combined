@@ -7,7 +7,6 @@
 #     nix-build -A mypackage
 
 { pkgs ? import <nixpkgs> args
-, sources ? import ./nix/sources.nix
 , system ? builtins.currentSystem
 , ...
 }@args:
@@ -18,7 +17,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 } // (pkgs.lib.optionalAttrs (builtins.tryEval pkgs).success (import ./pkgs {
-  inherit sources pkgs;
+  inherit pkgs;
 }
 )
 )

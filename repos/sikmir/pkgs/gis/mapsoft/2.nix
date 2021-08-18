@@ -45,8 +45,17 @@ stdenv.mkDerivation rec {
     substituteInPlace modules/get_deps \
       --replace "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
     substituteInPlace modules/mapview/mapview.cpp \
-      --replace "/usr/share" "$(out)/share"
+      --replace "/usr/share" "$out/share"
     patchShebangs .
+
+    # https://github.com/OSGeo/PROJ/pull/2547
+    cat > modules/pc/proj.pc << EOF
+    Name: PROJ
+    Description: Coordinate transformation software library
+    Requires:
+    Version: ${proj.version}
+    Libs: -lproj
+    EOF
   '';
 
   nativeBuildInputs = [
