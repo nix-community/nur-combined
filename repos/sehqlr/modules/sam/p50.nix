@@ -10,8 +10,6 @@
     xdg-desktop-portal-wlr
   ];
 
-  programs.taskwarrior.config.context.home = "+HOME";
-
   services.kanshi.profiles = {
     undocked = {
       outputs = [{
