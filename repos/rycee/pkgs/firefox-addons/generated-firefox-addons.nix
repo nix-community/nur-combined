@@ -1336,6 +1336,20 @@
         platforms = platforms.all;
         };
       };
+    "surfingkeys" = buildFirefoxXpiAddon {
+      pname = "surfingkeys";
+      version = "0.9.74";
+      addonId = "{a8332c60-5b6d-41ee-bfc8-e9bb331d34ad}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3771858/surfingkeys-0.9.74-fx.xpi";
+      sha256 = "2093789a90eedf4667151771b0c1dbba1d3c3be52f64fc2da940360b4b713267";
+      meta = with lib;
+      {
+        homepage = "https://github.com/brookhong/Surfingkeys";
+        description = "Rich shortcuts for you to click links / switch tabs / scroll pages or DIVs / capture full page or DIV etc, let you use the browser like vim, plus an embed vim editor.\n\n<a href=\"https://outgoing.prod.mozaws.net/v1/353ad9268cb5cdeb3fa107ea4d154273229fe2ffe8a28e3fda510de7f6ddd75f/https%3A//github.com/brookhong/Surfingkeys\" rel=\"nofollow\">https://github.com/brookhong/Surfingkeys</a>";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "swedish-dictionary" = buildFirefoxXpiAddon {
       pname = "swedish-dictionary";
       version = "1.21";
