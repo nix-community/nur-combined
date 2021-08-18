@@ -41,6 +41,9 @@
     "slug": "buster-captcha-solver"
   },
   {
+    "slug": "bypass-paywalls-clean"
+  },
+  {
     "slug": "canvasblocker"
   },
   {
@@ -53,6 +56,9 @@
     "slug": "cookie-autodelete"
   },
   {
+    "slug": "cookies-txt"
+  },
+  {
     "slug": "dark-scroll-for-tweetdeck"
   },
   {
@@ -63,6 +69,10 @@
   },
   {
     "slug": "df-youtube"
+  },
+  {
+    "slug": "dictionnaire-français1",
+    "pname": "french-dictionary"
   },
   {
     "slug": "disconnect"
@@ -109,6 +119,10 @@
   },
   {
     "slug": "fraidycat"
+  },
+  {
+    "slug": "français-language-pack",
+    "pname": "french-language-pack"
   },
   {
     "slug": "gesturefy"
@@ -223,6 +237,9 @@
     "slug": "mailvelope"
   },
   {
+    "slug": "markdownload"
+  },
+  {
     "slug": "matte-black-red",
     "license": {
       "tag": "predefined",
@@ -314,6 +331,9 @@
     }
   },
   {
+    "slug": "private-relay"
+  },
+  {
     "slug": "rabattcorner"
   },
   {
@@ -335,6 +355,9 @@
   {
     "slug": "refined-github-",
     "pname": "refined-github"
+  },
+  {
+    "slug": "rust-search-extension"
   },
   {
     "slug": "save-page-we"

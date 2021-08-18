@@ -103,6 +103,19 @@
         platforms = platforms.all;
         };
       };
+    "bypass-paywalls-clean" = buildFirefoxXpiAddon {
+      pname = "bypass-paywalls-clean";
+      version = "2.3.2.0";
+      addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3821686/bypass_paywalls_clean-2.3.2.0-an+fx.xpi";
+      sha256 = "164a3c4d757de1368a0b72887644bfb7aeed683082bad46a5c8fab15a5db3859";
+      meta = with lib;
+      {
+        homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
+        description = "Bypass Paywalls of (custom) news sites";
+        platforms = platforms.all;
+        };
+      };
     "canvasblocker" = buildFirefoxXpiAddon {
       pname = "canvasblocker";
       version = "1.6.1";
@@ -155,6 +168,19 @@
         homepage = "https://github.com/Cookie-AutoDelete/Cookie-AutoDelete";
         description = "Control your cookies! This WebExtension is inspired by Self Destructing Cookies. When a tab closes, any cookies not being used are automatically deleted. Keep the ones you trust (forever/until restart) while deleting the rest. Containers Supported";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "cookies-txt" = buildFirefoxXpiAddon {
+      pname = "cookies-txt";
+      version = "0.2";
+      addonId = "{12cf650b-1822-40aa-bff0-996df6948878}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3588248/cookiestxt-0.2-fx.xpi";
+      sha256 = "e2c227e30a4096019686e84b30f53fce27152cad702e04d325e54a4fff28d9af";
+      meta = with lib;
+      {
+        description = "Exports all cookies to a Netscape HTTP Cookie File, as used by curl, wget, and youtube-dl, among others.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };
@@ -376,6 +402,33 @@
         homepage = "https://fraidyc.at/";
         description = "Follow from afar. Follow blogs, wikis, Twitter, Instagram, Tumblr - anyone on nearly any blog-like network - from your browser. No notifications, no unread messages, no 'inbox'. Just a single page overview of all your follows.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "french-dictionary" = buildFirefoxXpiAddon {
+      pname = "french-dictionary";
+      version = "7.0b";
+      addonId = "fr-dicollecte@dictionaries.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3581786/dictionnaire_francais-7.0b.xpi";
+      sha256 = "e0e90b88b177dc1b268b019c8672eb1be943f12e174ad474dbdc46f0e6fbaa6f";
+      meta = with lib;
+      {
+        homepage = "https://grammalecte.net";
+        description = "Spelling dictionary for the French language.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "french-language-pack" = buildFirefoxXpiAddon {
+      pname = "french-language-pack";
+      version = "92.0buildid20210812192544";
+      addonId = "langpack-fr@firefox.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3823926/francais_language_pack-92.0buildid20210812192544-fx.xpi";
+      sha256 = "4f82df2c0437b5cf3ed9f9ae5e2747ca71b2864b49ebeefe0b8cfafa350da92f";
+      meta = with lib;
+      {
+        description = "Français Language Pack";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -698,6 +751,19 @@
         homepage = "https://www.mailvelope.com/";
         description = "Enhance your webmail provider with end-to-end encryption. Secure email communication based on the OpenPGP standard.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "markdownload" = buildFirefoxXpiAddon {
+      pname = "markdownload";
+      version = "3.0.1";
+      addonId = "{1c5e4c6f-5530-49a3-b216-31ce7d744db0}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3809141/markdownload_markdown_web_clipper-3.0.1-fx.xpi";
+      sha256 = "24294324c2447d287544aa0139a81a20f1e1b523ebb7d84bbf550159f940a925";
+      meta = with lib;
+      {
+        homepage = "https://github.com/deathau/markdown-clipper";
+        description = "This extension works like a web clipper, but it downloads articles in a markdown format. Turndown and Readability.js are used as core libraries. It is not guaranteed to work with all websites.";
         platforms = platforms.all;
         };
       };
@@ -1047,6 +1113,20 @@
         platforms = platforms.all;
         };
       };
+    "private-relay" = buildFirefoxXpiAddon {
+      pname = "private-relay";
+      version = "1.5.1";
+      addonId = "private-relay@firefox.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3720941/firefox_relay-1.5.1-fx.xpi";
+      sha256 = "2650ce57e893832ba21cdc68a419679be07d567acc8ee1d50646f56c84494dea";
+      meta = with lib;
+      {
+        homepage = "https://relay.firefox.com/";
+        description = "Firefox Relay lets you generate email aliases that forward to your real inbox. Use it to hide your real email address and protect yourself from hackers and unwanted mail.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "rabattcorner" = buildFirefoxXpiAddon {
       pname = "rabattcorner";
       version = "2.1.1";
@@ -1142,6 +1222,20 @@
         homepage = "https://github.com/sindresorhus/refined-github";
         description = "Simplifies the GitHub interface and adds many useful features.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "rust-search-extension" = buildFirefoxXpiAddon {
+      pname = "rust-search-extension";
+      version = "1.3.2";
+      addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3821171/rust_search_extension-1.3.2-fx.xpi";
+      sha256 = "861baf1e5b1472b6c53af97b54e3cfa77556229306def3b7633bb6e3a5186cbe";
+      meta = with lib;
+      {
+        homepage = "https://rust.extension.sh";
+        description = "The ultimate search extension for Rust\n\nSearch std docs, crates, builtin attributes, official books, and error codes, etc in your address bar instantly.\n<a href=\"https://outgoing.prod.mozaws.net/v1/4af48e3229ba03b454fb9b352a7e5a4c038e1bcc6721bf744b781a5e96b9e798/https%3A//rust.extension.sh\" rel=\"nofollow\">https://rust.extension.sh</a>";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
