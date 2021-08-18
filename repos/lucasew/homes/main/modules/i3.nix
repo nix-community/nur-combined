@@ -93,11 +93,14 @@ in {
           "${mod}+f" = "fullscreen toggle";
           "${mod}+h" = "split h";
           "${mod}+minus" = "scratchpad show";
-          "${mod}+r" = "mode resize";
           "${mod}+s" = "layout stacking";
           "${mod}+space" = "focus mode_toggle";
           "${mod}+v" = "split v";
           "${mod}+w" = "layout tabbed";
+          "${mod}+Ctrl+Right"="resize shrink width 1 px or 1 ppt";
+          "${mod}+Ctrl+Up"="resize grow height 1 px or 1 ppt";
+          "${mod}+Ctrl+Down"="resize shrink height 1 px or 1 ppt";
+          "${mod}+Ctrl+Left"="resize grow width 1 px or 1 ppt";
           # custom keys
           "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume @DEFAULT_SINK@ +10%";
           "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume @DEFAULT_SINK@ -10%";
