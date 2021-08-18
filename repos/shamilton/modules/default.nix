@@ -14,8 +14,12 @@ rec {
     inherit (selfnur) tfk-api-unoconv;
   };
   unoconv = ./unoconv.nix;
+  simplehaproxy = ./simplehaproxy.nix;
   unoconvservice = import ./unoconvservice.nix {
-    inherit tfk-api-unoconv unoconv;
+    inherit tfk-api-unoconv unoconv simplehaproxy;
+  };
+  protifygotify = import ./protifygotify.nix {
+    inherit simplehaproxy;
   };
   hamiltonsamba = ./hamiltonsamba.nix;
   scottslounge = ./scottslounge.nix;
