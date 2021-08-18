@@ -34,10 +34,11 @@
 
   cmangos_tbc = (pkgs.callPackage ./pkgs/servers/games/cmangos/tbc.nix { });
 
-  trinitycore_335 = (pkgs.callPackage ./pkgs/servers/games/trinitycore/335.nix { });
-  trinitycore_434 = (pkgs.callPackage ./pkgs/servers/games/trinitycore/434.nix { });
-  trinitycore_837 = (pkgs.callPackage ./pkgs/servers/games/trinitycore/837.nix { });
-  trinitycore_905 = (pkgs.callPackage ./pkgs/servers/games/trinitycore/905.nix { });
+  trinitycore_335 = pkgs.callPackage ./pkgs/servers/games/trinitycore/335.nix { };
+  trinitycore_434 = pkgs.callPackage ./pkgs/servers/games/trinitycore/434.nix { };
+  trinitycore_837 = pkgs.callPackage ./pkgs/servers/games/trinitycore/837.nix { };
+  trinitycore_905 = pkgs.callPackage ./pkgs/servers/games/trinitycore/905.nix { };
+  trinitycore_910 = pkgs.callPackage ./pkgs/servers/games/trinitycore/910.nix { };
 
   vmangos = pkgs.callPackage ./pkgs/servers/games/vmangos {};
   vmangos-worlddb = pkgs.callPackage ./pkgs/servers/games/vmangos/worlddb.nix {};
