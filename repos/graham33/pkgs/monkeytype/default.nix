@@ -10,14 +10,14 @@
 
 buildPythonPackage rec {
   pname = "monkeytype";
-  version = "20.5.0";
+  version = "21.5.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "Instagram";
     repo = "MonkeyType";
     rev = "v${version}";
-    sha256 = "1n51vdpcf075v5470zb55kgdn97fjhzk2jynycjabqz9ml5aas5g";
+    sha256 = "0mbgayzg10i1z9i0vqcd3fss4adzy5vnqc42bc7nzjbbd584k8q4";
   };
 
   postPatch = ''
