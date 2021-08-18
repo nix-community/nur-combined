@@ -20,17 +20,18 @@ let
     )
 
     # Not packaged
-    # evil-unimpaired
-    # git-gutter-plus
-    # git-gutter-fringe-plus
-    # hybrid-mode
     # company-ghc
     # company-ghci
+    # evil-unimpaired
     # ghc
+    # git-gutter-fringe-plus
+    # git-gutter-plus
+    # hybrid-mode
     # intero
+    # vertico
+    # vertico-repeat
 
     ac-ispell
-    ace-jump-helm-line
     ace-jump-mode
     ace-link
     ace-window
@@ -85,6 +86,7 @@ let
     company-terraform
     company-web
     concurrent
+    consult
     copy-as-format
     counsel
     counsel-gtags
@@ -121,6 +123,8 @@ let
     elisp-slime-nav
     emacsql
     emacsql-sqlite
+    embark
+    embark-consult
     emmet-mode
     emms
     emr
@@ -181,7 +185,6 @@ let
     flycheck-pos-tip
     flycheck-rust
     flyspell-correct
-    flyspell-correct-helm
     forge
     fringe-helper
     fuzzy
@@ -228,32 +231,6 @@ let
     haskell-mode
     haskell-snippets
     hcl-mode
-    helm
-    helm-ag
-    helm-c-yasnippet
-    helm-company
-    helm-core
-    helm-css-scss
-    helm-descbinds
-    helm-flx
-    helm-git-grep
-    helm-gitignore
-    helm-gtags
-    helm-hoogle
-    helm-ls-git
-    helm-lsp
-    helm-make
-    helm-mode-manager
-    helm-nixos-options
-    helm-notmuch
-    helm-org
-    helm-org-rifle
-    helm-projectile
-    helm-purpose
-    helm-pydoc
-    helm-swoop
-    helm-themes
-    helm-xref
     hierarchy
     highlight
     highlight-indentation
@@ -309,6 +286,7 @@ let
     magit-popup
     magit-section
     magit-svn
+    marginalia
     markdown-mode
     markdown-toc
     markup-faces
@@ -349,6 +327,7 @@ let
     org-present
     org-projectile
     org-rich-yank
+    org-roam
     org-super-agenda
     org-superstar
     orgit
@@ -375,6 +354,7 @@ let
     pipenv
     pippel
     pkg-info
+    poetry
     polymode
     popup
     popwin
@@ -388,6 +368,7 @@ let
     pytest
     pythonic
     pyvenv
+    quickrun
     racer
     rainbow-delimiters
     rake
@@ -396,7 +377,6 @@ let
     request-deferred
     restart-emacs
     restclient
-    restclient-helm
     ripgrep
     robe
     ron-mode
@@ -418,6 +398,7 @@ let
     seeing-is-believing
     shell-pop
     shrink-path
+    shut-up
     simple-httpd
     skewer-mode
     slim-mode
@@ -427,6 +408,7 @@ let
     spaceline
     spaceline-all-the-icons
     sphinx-doc
+    string-edit
     string-inflection
     swiper
     symbol-overlay
@@ -457,6 +439,7 @@ let
     web-completion-data
     web-mode
     websocket
+    wgrep
     which-key
     window-purpose
     winum
@@ -480,7 +463,7 @@ let
   myEmacsDeps = [
     # General tools
     self.direnv # For direnv-mode
-    self.ripgrep # For helm
+    self.ripgrep # For vertico
 
     # C/C++ Tools
     self.clang-tools
