@@ -8,6 +8,8 @@
 , qttools
 , qtquickcontrols2
 , avahi
+, cppzmq
+, zeromq
 , clang_10
 }:
 
@@ -18,13 +20,13 @@ mkDerivation {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "Protify";
-    rev = "b324984386fb2bf8743de9608711d18624cc9889";
-    sha256 = "0s13hqlic3dp65zmiyg77x2adgs8c9n6g2flwhsmw5imx4pdbddn";
+    rev = "1ad301e842fe1cd440eddf30a5f8370971e796eb";
+    sha256 = "1awdnzxfbaz0mmqxwv10n4gcrdr58fhcfa0fjniwnyjf36rv0440";
     fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ clang_10 qmake qtbase pkg-config qttools ];
-  buildInputs = [ qtquickcontrols2 qtbase avahi ];
+  buildInputs = [ qtquickcontrols2 qtbase avahi cppzmq zeromq ];
   qmakeFlags = [ "QMAKE_CXX=clang++" ];
   installFlags = [ "INSTALL_ROOT=$(out)" ];
 
