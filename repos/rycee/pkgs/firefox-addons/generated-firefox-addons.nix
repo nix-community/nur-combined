@@ -105,10 +105,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.3.2.0";
+      version = "2.3.3.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3821686/bypass_paywalls_clean-2.3.2.0-an+fx.xpi";
-      sha256 = "164a3c4d757de1368a0b72887644bfb7aeed683082bad46a5c8fab15a5db3859";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3825236/bypass_paywalls_clean-2.3.3.0-an+fx.xpi";
+      sha256 = "00c7ef1c8109f6a2fe1bec3c5cde431c4b6003435a59ff62c522e23aa4813966";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -421,10 +421,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "92.0buildid20210812192544";
+      version = "92.0buildid20210817185605";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3823926/francais_language_pack-92.0buildid20210812192544-fx.xpi";
-      sha256 = "4f82df2c0437b5cf3ed9f9ae5e2747ca71b2864b49ebeefe0b8cfafa350da92f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3826516/francais_language_pack-92.0buildid20210817185605-fx.xpi";
+      sha256 = "0dde7231857b42cb18947e72779f0526e96171bb88d3636f2294fe14b164d944";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -783,10 +783,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.0.1";
+      version = "10.0.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3823785/metamask-10.0.1-an+fx.xpi";
-      sha256 = "a27b9776a78390ef1150879ddc3cd65076f5cc9726dfb3d249b9cfcbcb58964b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3827018/metamask-10.0.2-an+fx.xpi";
+      sha256 = "4d8e52e7b0b97a96adac64eeb3adcbcce85b4c356e57dff5305421cdcbe179f7";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1073,10 +1073,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2021.8.11";
+      version = "2021.8.17";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3823352/privacy_badger-2021.8.11-an+fx.xpi";
-      sha256 = "4228c39471a4c1d4807d5dc56ebe69a9f475761967f9b5f8039e1e207a49ea22";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3826636/privacy_badger-2021.8.17-an+fx.xpi";
+      sha256 = "b7a4ad974856a4a1e1dd286d67f3e029bb74036e6b6f518451c2a1640bf769da";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -1516,10 +1516,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.9";
+      version = "3.8.11";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3824868/tree_style_tab-3.8.9-fx.xpi";
-      sha256 = "37d96b8a86a5a1715bbd3be10434f6f5b0470609692b21ca8f82677996354069";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3826195/tree_style_tab-3.8.11-fx.xpi";
+      sha256 = "c9bd79761bfafe5cd81884802ceb3d7f06e45de28722f1c7c97bb594fe020b4e";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
