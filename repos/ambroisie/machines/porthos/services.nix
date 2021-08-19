@@ -80,6 +80,11 @@ in
           builtins.toFile "grafana.txt" my.secrets.monitoring.password; # Insecure, I don't care
       };
     };
+    # FLOSS music streaming server
+    navidrome = {
+      enable = true;
+      musicFolder = "/data/media/music";
+    };
     # Nextcloud self-hosted cloud
     nextcloud = {
       enable = true;

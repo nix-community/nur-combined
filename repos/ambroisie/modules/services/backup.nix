@@ -92,7 +92,7 @@ in
     services.restic.backups.backblaze = {
       # Take care of included and excluded files
       paths = cfg.paths;
-      extraBackupArgs = [ ]
+      extraBackupArgs = [ "--verbose=2" ]
         ++ lib.optional (builtins.length cfg.exclude != 0) excludeArg
       ;
       # Take care of creating the repository if it doesn't exist

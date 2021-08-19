@@ -70,6 +70,10 @@ in
       paths = [
         config.services.nextcloud.home
       ];
+      exclude = [
+        # image previews can take up a lot of space
+        "${config.services.nextcloud.home}/data/appdata_*/preview"
+      ];
     };
   };
 }
