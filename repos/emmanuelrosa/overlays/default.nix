@@ -10,5 +10,6 @@
   {
     century-gothic = super.callPackage ../pkgs/century-gothic { };
     trace-font = super.callPackage ../pkgs/data/fonts/trace { };
+    battery-icons = super.callPackage ../pkgs/data/fonts/battery-icons { };
   };
 }
