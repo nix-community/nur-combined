@@ -21,8 +21,10 @@
         # dev
         rustup
 
-        unstable.beancount
-        unstable.fava
+        beancount
+        fava
+
+        packages.spot
     ];
   };
 }

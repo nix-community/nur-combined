@@ -5,10 +5,10 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-21.05";
+      ref = "nixos-unstable";
     };
 
-    nixpkgs-unstable = {
+    nixpkgs-unstable-small = {
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
@@ -63,7 +63,7 @@
             packages = import ./pkgs { pkgs = super; };
 
             # packages accessible through pkgs.unstable.package
-            unstable = import inputs.nixpkgs-unstable {
+            unstable = import inputs.nixpkgs-unstable-small {
               inherit system;
               config.allowUnfree = true;
             };
@@ -110,10 +110,6 @@
               nixpkgs.overlays = [
                 inputs.emacs-overlay.overlay
 
-                (self: super: {
-                  steam = self.unstable.steam;
-                })
-
                 # uncomment this to build everything from scratch, fun but takes a
                 # while
                 #
@@ -140,10 +136,6 @@
             {
               nixpkgs.overlays = [
                 inputs.emacs-overlay.overlay
-
-                (self: super: {
-                  steam = self.unstable.steam;
-                })
               ] ++ shared_overlays;
             }
           ];

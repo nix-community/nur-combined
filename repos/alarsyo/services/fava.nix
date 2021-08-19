@@ -38,7 +38,7 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Environment = [];
-        ExecStart = "${pkgs.unstable.fava}/bin/fava -H 127.0.0.1 -p ${toString cfg.port} ${cfg.filePath}";
+        ExecStart = "${pkgs.fava}/bin/fava -H 127.0.0.1 -p ${toString cfg.port} ${cfg.filePath}";
         WorkingDirectory = cfg.home;
         User = "fava";
         Group = "fava";

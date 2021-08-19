@@ -10,7 +10,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.firefox = {
       enable = true;
-      package = pkgs.unstable.firefox.override {
+      package = pkgs.firefox.override {
         cfg = {
           enableTridactylNative = true;
         };

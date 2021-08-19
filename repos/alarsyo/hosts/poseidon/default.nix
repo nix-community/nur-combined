@@ -60,7 +60,7 @@ in
 
   # List services that you want to enable:
   my.services = {
-    bitwarden_rs = {
+    vaultwarden = {
       enable = true;
       privatePort = 8081;
       websocketPort = 3012;

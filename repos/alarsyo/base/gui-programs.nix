@@ -3,20 +3,20 @@
   environment.systemPackages = with pkgs; [
     element-desktop
     feh
+    firefox
     gimp
     gnome.nautilus
     imagemagick
     mpv
     pavucontrol
+    slack
+    spotify
+    tdesktop
+    teams
     thunderbird
     zathura
 
     unstable.discord
-    unstable.firefox
-    unstable.slack
-    unstable.spotify
-    unstable.tdesktop
-    unstable.teams
   ];
 
   networking.networkmanager.enable = true;

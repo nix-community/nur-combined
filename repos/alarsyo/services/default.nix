@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./bitwarden_rs.nix
+    ./vaultwarden.nix
     ./borg-backup.nix
     ./fail2ban.nix
     ./fava.nix

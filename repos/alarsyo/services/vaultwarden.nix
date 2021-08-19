@@ -3,13 +3,13 @@
 with lib;
 
 let
-  cfg = config.my.services.bitwarden_rs;
+  cfg = config.my.services.vaultwarden;
   my = config.my;
 
   domain = config.networking.domain;
 in {
-  options.my.services.bitwarden_rs = {
-    enable = mkEnableOption "Bitwarden";
+  options.my.services.vaultwarden = {
+    enable = mkEnableOption "Vaultwarden";
 
     privatePort = mkOption {
       type = types.port;
@@ -29,18 +29,13 @@ in {
   config = mkIf cfg.enable {
     services.postgresql = {
       enable = true;
-
-      initialScript = pkgs.writeText "bitwarden_rs-init.sql" ''
-          CREATE ROLE "bitwarden_rs" WITH LOGIN;
-          CREATE DATABASE "bitwarden_rs" WITH OWNER "bitwarden_rs";
-        '';
     };
 
     services.postgresqlBackup = {
       databases = [ "bitwarden_rs" ];
     };
 
-    services.bitwarden_rs = {
+    services.vaultwarden = {
       enable = true;
       dbBackend = "postgresql";
       config = {
@@ -54,6 +49,7 @@ in {
         SIGNUPS_ALLOWED = false;
         INVITATIONS_ALLOWED = false;
         DOMAIN = "https://pass.${domain}";
+        # FIXME: should be renamed to vaultwarden eventually
         DATABASE_URL = "postgresql://bitwarden_rs@/bitwarden_rs";
       };
     };
@@ -80,46 +76,42 @@ in {
       };
     };
 
-    # needed for bitwarden to find files to serve for the vault
-    environment.systemPackages = with pkgs; [
-      bitwarden_rs-vault
-    ];
-
+    # FIXME: should be renamed to vaultwarden eventually
     my.services.restic-backup = mkIf cfg.enable {
       paths = [ "/var/lib/bitwarden_rs" ];
       exclude = [ "/var/lib/bitwarden_rs/icon_cache" ];
     };
 
     services.fail2ban.jails = {
-      bitwarden_rs = ''
+      vaultwarden = ''
         enabled = true
-        filter = bitwarden_rs
+        filter = vaultwarden
         port = http,https
         maxretry = 5
       '';
 
       # Admin page isn't enabled by default, but just in case...
-      bitwarden_rs-admin = ''
+      vaultwarden-admin = ''
         enabled = true
-        filter = bitwarden_rs-admin
+        filter = vaultwarden-admin
         port = http,https
         maxretry = 2
       '';
     };
 
     environment.etc = {
-      "fail2ban/filter.d/bitwarden_rs.conf".text = ''
+      "fail2ban/filter.d/vaultwarden.conf".text = ''
         [Definition]
         failregex = ^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$
         ignoreregex =
-        journalmatch = _SYSTEMD_UNIT=bitwarden_rs.service
+        journalmatch = _SYSTEMD_UNIT=vaultwarden.service
       '';
 
-      "fail2ban/filter.d/bitwarden_rs-admin.conf".text = ''
+      "fail2ban/filter.d/vaultwarden-admin.conf".text = ''
         [Definition]
         failregex = ^.*Invalid admin token\. IP: <ADDR>.*$
         ignoreregex =
-        journalmatch = _SYSTEMD_UNIT=bitwarden_rs.service
+        journalmatch = _SYSTEMD_UNIT=vaultwarden.service
       '';
     };
   };

@@ -16,12 +16,7 @@ in
   config = mkIf cfg.enable {
     services.tailscale = {
       enable = true;
-      package = pkgs.unstable.tailscale;
-    };
-
-    # FIXME: remove when upgrading to 21.11, added to module by default
-    systemd.services.tailscaled = {
-      path = [ pkgs.procps ];
+      package = pkgs.tailscale;
     };
 
     networking.firewall = {

@@ -19,8 +19,8 @@
         # dev
         rustup
 
-        unstable.beancount
-        unstable.fava
+        beancount
+        fava
 
         # keyboard goodness
         chrysalis
