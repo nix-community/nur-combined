@@ -12,6 +12,7 @@
           config = { allowUnfree = true; };
         };
         pkgs = importPkgs nixpkgs;
+        inherit (pkgs) lib;
 
         packages = import ./pkgs { inherit pkgs; } // {
           updater = pkgs.callPackage ./pkgs/updater { };
@@ -29,7 +30,7 @@
           }
           else { };
       in
-      rec {
+      {
         packages = filteredPackages;
         apps =
           mkApp "updater" { } //
@@ -44,24 +45,31 @@
         checks = flake-utils.lib.flattenTree {
           packages = pkgs.lib.recurseIntoAttrs self.packages.${system};
         };
-        devShell = pkgs.mkShell {
-          inputsFrom = [
-            packages.updater.env
-          ];
-          packages = [
-            pkgs.cabal-install
-            pkgs.ormolu
-            pkgs.nixpkgs-fmt
-            (pkgs.writeScriptBin "update" ''
-              nix shell .#updater --command bash -c '
-                cd pkgs
-                echo "$PWD"
-                updater
-              '
-              nixpkgs-fmt .
-            '')
-          ];
-        };
+        devShell =
+          let
+            simple = pkgs.mkShell {
+              packages = [ pkgs.nixpkgs-fmt ];
+            };
+            withUpdater = pkgs.mkShell {
+              inputsFrom = [
+                simple
+                self.packages.${system}.updater.env
+              ];
+              packages = [
+                pkgs.cabal-install
+                pkgs.ormolu
+                (pkgs.writeScriptBin "update" ''
+                  nix shell .#updater --command bash -c '
+                    cd pkgs
+                    echo "$PWD"
+                    updater
+                  '
+                  nixpkgs-fmt .
+                '')
+              ];
+            };
+          in
+          if (self.packages.${system} ? updater) then withUpdater else simple;
       })) //
     {
       lib = import ./lib { inherit (nixpkgs) lib; };

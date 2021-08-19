@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "An unidentifiable mechanism that helps you bypass GFW.";
+    description = "An unidentifiable mechanism that helps you bypass GFW";
     homepage = "https://trojan-gfw.github.io/trojan";
     license = licenses.gpl3;
   };
