@@ -32,7 +32,7 @@ in {
     };
 
     services.postgresqlBackup = {
-      databases = [ "bitwarden_rs" ];
+      databases = [ "vaultwarden" ];
     };
 
     services.vaultwarden = {
@@ -50,7 +50,7 @@ in {
         INVITATIONS_ALLOWED = false;
         DOMAIN = "https://pass.${domain}";
         # FIXME: should be renamed to vaultwarden eventually
-        DATABASE_URL = "postgresql://bitwarden_rs@/bitwarden_rs";
+        DATABASE_URL = "postgresql://vaultwarden@/vaultwarden";
       };
     };
 
