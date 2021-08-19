@@ -72,9 +72,15 @@ else:
             return match.group(1)
         else:
             return v
+    if type(response) is dict and response["message"] == "Not Found":
+        print(f"Repository {owner}/{repo} doesn't seem to exist anymore")
+        exit(1)
     if len(response) == 0:
         print(f"Invalid response asking tags of {name}/{drv_version}")
         exit(1)
-    latest_tag = clean_version(response[0]['name'])
+    try:
+        latest_tag = clean_version(response[0]['name'])
+    except KeyError as e:
+        print(f"Error with response `{response}` from github repo {owner}/{repo}: {e}")
     if version.parse(drv_version) < version.parse(latest_tag):
         print(f"stable   {name}@{drv_version} -> {latest_tag}")
