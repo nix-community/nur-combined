@@ -1,119 +1,111 @@
-# based on: https://gist.github.com/buckley310/b4e718e71fb1c7403fb4ceb8fabbc1c4
-# FIXME: i'm broken
-{ 
-  pkgs
-, stdenv
-, requireFile
-, dpkg
-, makeWrapper
-, buildFHSUserEnv
-, makeDesktopItem
+# based on: https://github.com/buckley310/nixos-config/blob/master/pkgs/packettracer/default.nix
+{ stdenv
 , alsaLib
+, autoPatchelfHook
+, buildFHSUserEnv
 , dbus
+, dpkg
 , expat
+, fetchurl
 , fontconfig
 , glib
+, libdrm
 , libglvnd
 , libpulseaudio
 , libudev0-shim
 , libxkbcommon
 , libxml2
 , libxslt
+, makeDesktopItem
+, makeWrapper
 , nspr
 , nss
 , xlibs
-, autoPatchelfHook
 }:
 
 let
-  version = "8";
+  version = "8.0.0";
+
+  srcName =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      "PacketTracer_800_amd64_build212_final.deb"
+    else throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   ptFiles = stdenv.mkDerivation {
-    name = "PacketTracer8drv";
+    name = "PacketTracer8Drv";
     inherit version;
 
-    src = builtins.fetchurl {
-      url = "https://archive.org/download/packet-tracer-800-amd-64-build-212-final/PacketTracer_800_amd64_build212_final.deb";
-      sha256 = "1j9mynfybr4lcmh8x36phjx2br09qbhyjcf5schs8gz63sfqz9y9";
+    src = fetchurl {
+      # This file was uploaded to archive.org by someone else, but I have verified the hash.
+      url = "https://archive.org/download/packet-tracer-800-build-212-mac-notarized/${srcName}";
+      sha256 = "c9a78f9d1ee63fa421d3c531e9e1c209e425ba84d78c8e606594e4e59df535c9";
     };
 
-    nativeBuildInputs = [ 
-      makeWrapper 
-      autoPatchelfHook 
-    ];
-    autoPatchelfIgnoreMissingDeps=true; # testando se ele compilaria
-    buildInputs = [
+    nativeBuildInputs = [
       alsaLib
+      autoPatchelfHook
       dbus
+      dpkg
       expat
       fontconfig
       glib
+      libdrm
       libglvnd
       libpulseaudio
       libudev0-shim
       libxkbcommon
       libxml2
       libxslt
+      makeWrapper
       nspr
       nss
       xlibs.libICE
       xlibs.libSM
       xlibs.libX11
+      xlibs.libxcb
+      xlibs.libXcomposite
+      xlibs.libXcursor
+      xlibs.libXdamage
+      xlibs.libXext
+      xlibs.libXfixes
+      xlibs.libXi
+      xlibs.libXrandr
+      xlibs.libXrender
       xlibs.libXScrnSaver
+      xlibs.xcbutilimage
+      xlibs.xcbutilkeysyms
+      xlibs.xcbutilrenderutil
+      xlibs.xcbutilwm
     ];
 
     dontUnpack = true;
-    unpackPhase = ''
-      ${dpkg}/bin/dpkg --fsys-tarfile "$src" | tar --extract
-    '';
     installPhase = ''
-      cp -R
-      chmod 644 "$out" -R
-      ls "$out"
+      dpkg-deb -x $src $out
+      chmod 755 "$out"
       makeWrapper "$out/opt/pt/bin/PacketTracer" "$out/bin/packettracer" \
-          --prefix LD_LIBRARY_PATH : "$out/opt/pt/bin" \
-          --prefix PTHOME : $out/opt/pt \
-          --prefix QT_DEVICE_PIXEL_RATIO : auto
+        --prefix LD_LIBRARY_PATH : "$out/opt/pt/bin"
+
+      # Keep source archive cached, to avoid re-downloading
+      ln -s "$src" "$out/usr/share/"
     '';
   };
-  # fhs = buildFHSUserEnv {
-  #   name = "packettracer";
-  #   runScript = "${ptFiles}/bin/packettracer";
-
-  #   targetPkgs = pkgs: with pkgs; [
-  #     alsaLib
-  #     dbus
-  #     expat
-  #     fontconfig
-  #     glib
-  #     libglvnd
-  #     libpulseaudio
-  #     libudev0-shim
-  #     libxkbcommon
-  #     libxml2
-  #     libxslt
-  #     nspr
-  #     nss
-  #     xlibs.libICE
-  #     xlibs.libSM
-  #     xlibs.libX11
-  #     xlibs.libXScrnSaver
-  #   ];
-  # };
 
   desktopItem = makeDesktopItem {
-    name = "cisco-pt.desktop";
+    name = "cisco-pt8.desktop";
     desktopName = "Packet Tracer 8";
     icon = "${ptFiles}/opt/pt/art/app.png";
-    exec = "${ptFiles}/bin/packettracer %f";
+    exec = "packettracer8 %f";
     mimeType = "application/x-pkt;application/x-pka;application/x-pkz;";
   };
-  symlink = pkgs.symlinkJoin {
-    name = "cisco-packet-tracer8";
-    paths = [
-      desktopItem
-      ptFiles
-    ];
-  };
 
-in ptFiles
+in
+buildFHSUserEnv {
+  name = "packettracer8";
+  runScript = "${ptFiles}/bin/packettracer";
+  targetPkgs = pkgs: [ libudev0-shim ];
+
+  extraInstallCommands = ''
+    mkdir -p "$out/share/applications"
+    cp "${desktopItem}"/share/applications/* "$out/share/applications/"
+  '';
+}

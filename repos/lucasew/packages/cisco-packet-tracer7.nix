@@ -30,7 +30,7 @@ let
     else throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   ptFiles = stdenv.mkDerivation {
-    name = "PacketTracer";
+    name = "PacketTracer7drv";
     inherit version;
 
     src = builtins.fetchurl {
@@ -43,14 +43,14 @@ let
     dontUnpack = true;
     installPhase = ''
       dpkg-deb -x $src $out
-      makeWrapper "$out/opt/pt/bin/PacketTracer7" "$out/bin/packettracer" \
+      makeWrapper "$out/opt/pt/bin/PacketTracer7" "$out/bin/packettracer7" \
           --prefix LD_LIBRARY_PATH : "$out/opt/pt/bin"
     '';
   };
 
   desktopItem = makeDesktopItem {
-    name = "cisco-pt.desktop";
-    desktopName = "Packet Tracer";
+    name = "cisco-pt7.desktop";
+    desktopName = "Packet Tracer 7";
     icon = "${ptFiles}/opt/pt/art/app.png";
     exec = "packettracer %f";
     mimeType = "application/x-pkt;application/x-pka;application/x-pkz;";
@@ -58,8 +58,8 @@ let
 
 in
 buildFHSUserEnv {
-  name = "packettracer";
-  runScript = "${ptFiles}/bin/packettracer";
+  name = "packettracer7";
+  runScript = "${ptFiles}/bin/packettracer7";
 
   extraInstallCommands = ''
     mkdir -p "$out/share/applications"
