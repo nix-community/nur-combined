@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, home-manager, pkgs, ... }: {
   home = {
     homeDirectory = "/home/sam";
     packages = with pkgs; [

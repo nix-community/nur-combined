@@ -15,7 +15,7 @@
   home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      users.sam = import ./hm.nix { inherit config lib pkgs; };
+      users.sam = import ./hm.nix { inherit config home-manager lib pkgs; };
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
