@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }: {
   home = {
     packages = with pkgs; [
+      firefox-wayland
       pamixer
       sway-contrib.grimshot
       wl-clipboard
