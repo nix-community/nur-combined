@@ -1,12 +1,15 @@
-{ config, lib, pkgs, ... }:
-{
-  home.packages = with pkgs; [
-    pamixer
-    sway-contrib.grimshot
-    wl-clipboard
-    wofi
-    wob
-  ];
+{ config, lib, pkgs, ... }: {
+  home = {
+    packages = with pkgs; [
+      pamixer
+      sway-contrib.grimshot
+      wl-clipboard
+      wob
+      wofi
+    ];
+  };
+
+  services.kanshi.enable = true;
 
   programs.mako.enable = true;
 
@@ -51,11 +54,51 @@
     systemd.enable = true;
   };
 
-  services.kanshi.enable = true;
+  services.kanshi.profiles = {
+    undocked = {
+      outputs = [{
+        criteria = "eDP-1";
+        position = "0,0";
+      }];
+    };
+    "three_monitors_on_reboot" = {
+      outputs = [
+        {
+          criteria = "DP-4";
+          position = "3840,0";
+        }
+        {
+          criteria = "DP-6";
+          position = "0,0";
+        }
+        {
+          criteria = "eDP-1";
+          position = "1920,0";
+        }
+      ];
+    };
+
+    "three_monitors" = {
+      outputs = [
+        {
+          criteria = "DP-5";
+          position = "3840,0";
+        }
+        {
+          criteria = "DP-8";
+          position = "0,0";
+        }
+        {
+          criteria = "eDP-1";
+          position = "1920,0";
+        }
+      ];
+    };
+  };
 
   services.udiskie = {
-      enable = true;
-      tray = "always";
+    enable = true;
+    tray = "always";
   };
 
   wayland.windowManager.sway = {
@@ -83,9 +126,8 @@
       menu =
         "exec ${pkgs.wofi}/bin/wofi -S run | ${pkgs.findutils}/bin/xargs swaymsg exec --";
       modifier = "Mod4";
-      startup = [
-        { command = "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob"; }
-      ];
+      startup =
+        [{ command = "mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob"; }];
       terminal = "${pkgs.termite}/bin/termite -e tmux";
     };
   };

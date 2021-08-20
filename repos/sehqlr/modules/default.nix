@@ -3,7 +3,5 @@
   #
   # my-module = ./my-module;
   common = ./common;
-  desktop = ./desktop;
-  home-manager = ./home-manager;
-  cloud = ./cloud;
+  p50 = ./p50;
 }

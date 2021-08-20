@@ -1,19 +1,25 @@
-{ config, pkgs, lib, ... }: {
-  home.packages = with pkgs; [
-    aspell
-    aspellDicts.en
-    aspellDicts.en-computers
-    cabal-install
-    cachix
-    httpie
-    nixfmt
-    nix-linter
-    nix-prefetch-scripts
-    pandoc
-    python37Packages.editorconfig
-    ripgrep
-    stack
-  ];
+{ config, lib, pkgs, ... }: {
+  home = {
+    homeDirectory = "/home/sam";
+    packages = with pkgs; [
+      aspell
+      aspellDicts.en
+      aspellDicts.en-computers
+      cachix
+      httpie
+      nixfmt
+      nix-linter
+      nix-prefetch-scripts
+      pandoc
+      python37Packages.editorconfig
+      ripgrep
+    ];
+    username = "sam";
+  };
+
+  home-manager.userGlobalPkgs = true;
+
+  nixpkgs.config = import ./nixpkgs-config.nix;
 
   programs.bat.enable = true;
 
@@ -44,7 +50,10 @@
     userEmail = "hey@samhatfield.me";
     userName = "sehqlr";
   };
+
   programs.go.enable = true;
+
+  programs.home-manager.enable = true;
 
   programs.htop.enable = true;
 
@@ -146,6 +155,21 @@
     };
   };
 
+  programs.taskwarrior =
+    let keys = "${config.programs.taskwarrior.dataLocation}/keys";
+    in {
+      enable = true;
+      config = {
+        taskd = {
+          certificate = "${keys}/public.cert";
+          key = "${keys}/private.key";
+          ca = "${keys}/ca.cert";
+          server = "samhatfield.me:53589";
+          credentials = "personal/sam/2b6c0e0b-c371-4dbb-8169-718c806fe34b";
+        };
+      };
+    };
+
   programs.termite.enable = true;
 
   programs.tmux = {
@@ -186,4 +210,8 @@
   };
 
   services.lorri.enable = true;
+
+  xdg.configFile."nix/nix.conf".source = ./nix.conf;
+
+  xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 }
