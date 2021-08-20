@@ -421,10 +421,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "92.0buildid20210817185605";
+      version = "92.0buildid20210819185750";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3826516/francais_language_pack-92.0buildid20210817185605-fx.xpi";
-      sha256 = "0dde7231857b42cb18947e72779f0526e96171bb88d3636f2294fe14b164d944";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3827565/francais_language_pack-92.0buildid20210819185750-fx.xpi";
+      sha256 = "133cb2a0a5cb67dee010011482ad232d8919a6b52c09e6983a7a40c9c631fabb";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -934,10 +934,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.1.0";
+      version = "6.3.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3807454/okta_browser_plugin-6.1.0-an+fx.xpi";
-      sha256 = "8155148a317343b95a5a1eda94c4c546bc3109e070d9f68a7373205414ea1939";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3821104/okta_browser_plugin-6.3.0-an+fx.xpi";
+      sha256 = "5f5b9e80d03fdacf28604acdf977f277850854a35366cb3763082a03e6281ff5";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -1421,10 +1421,10 @@
       };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
-      version = "4.1.1";
+      version = "4.1.2";
       addonId = "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3781409/terms_of_service_didnt_read-4.1.1-fx.xpi";
-      sha256 = "3d1738c93c7cdec136b11a9473f5ebbf39d69b2217a3905a6c1e5c660396f054";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3827536/terms_of_service_didnt_read-4.1.2-fx.xpi";
+      sha256 = "886263dd428e08cc857275b771f7d28ec0e89a7663c1512607d61dd233f83fa8";
       meta = with lib;
       {
         homepage = "http://tosdr.org";
