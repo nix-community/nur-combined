@@ -4,6 +4,8 @@
       firefox-wayland
       pamixer
       sway-contrib.grimshot
+      swayidle
+      swaylock
       wl-clipboard
       wob
       wofi
