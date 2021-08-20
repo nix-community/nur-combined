@@ -13,4 +13,6 @@
   services.flatpak.enable = true;
 
   time.timeZone = "America/Chicago";
+
+  xdg.portals.enable = true;
 }
