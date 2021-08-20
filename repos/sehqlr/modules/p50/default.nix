@@ -14,5 +14,5 @@
 
   time.timeZone = "America/Chicago";
 
-  xdg.portals.enable = true;
+  xdg.portal.enable = true;
 }
