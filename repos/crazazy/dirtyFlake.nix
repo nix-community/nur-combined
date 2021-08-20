@@ -32,7 +32,7 @@
         importFromSubModule = import ./lib/importFromSubmodule.nix;
       };
       nixosModules = mapAttrs (k: v: import v)
-        { inherit (import ./modules) feh-bg-module home-manager; };
+        { inherit (import ./modules) feh-bg-module home-manager bindfs; };
     } // eachSystem systems
       (system:
         let

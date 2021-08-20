@@ -1,28 +1,15 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, lib, pkgs, ... }:
-
-with lib;
+{ config, pkgs, ... }:
 {
   imports =
     [
+      # include main user
+      ../users
       # Include custom package environments
       ../packages-configuration
       ../vim-configuration
       # impermanences also belongs here i think
       ../tmpfs-configuration
     ];
-
-  # main user option
-  options = {
-    mainUser = mkOption {
-      type = types.str;
-      default = "erik";
-      description = ''Name for the default user of the system'';
-    };
-  };
 
   config = {
     # Define a user account. Don't forget to set a password with ‘passwd’.

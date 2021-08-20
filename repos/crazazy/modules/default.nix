@@ -5,12 +5,14 @@
     packages-config = ./packages-configuration;
     steam-config = ./steam-configuration;
     system-config = ./system-configuration;
-    users-config = ./users-configuration;
+    accounts-config = ./accounts-configuration;
     vim-config = ./vim-configuration;
   };
 
   # separate usable modules
+  bindfs = ./bindfs;
   nix-experimental = ./nix-experimental;
   feh-bg-module = ./internet-background;
   home-manager = ./home-configuration;
+  users = ./users;
 }
