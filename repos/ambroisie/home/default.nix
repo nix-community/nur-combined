@@ -10,6 +10,7 @@
     ./firefox
     ./flameshot.nix
     ./gammastep.nix
+    ./gdb
     ./git
     ./gpg.nix
     ./gtk.nix

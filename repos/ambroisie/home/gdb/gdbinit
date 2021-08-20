@@ -1,0 +1,22 @@
+ # Keep a history of all commands in each directory
+set history save on
+
+# Enable those pretty-printers
+enable pretty-printer
+
+# Pretty formatting of structures
+set print pretty on
+# Show derived type based on VTable
+set print object on
+# Show static members
+set print static-members on
+# Show VTable
+set print vtbl on
+# Demangle types
+set print demangle on
+
+# Read python scrips in the load path
+set auto-load python-scripts
+
+# Allow autoloading project-local .gdbinit files
+add-auto-load-safe-path ~/git/
