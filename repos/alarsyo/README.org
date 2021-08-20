@@ -1,44 +1,25 @@
-#+title: NixOS deployment configuration
+#+title: NixOS configurations
 
-* Services
+Configuration for my computers! You may find here system configurations for
+various services I host, as well as my dotfiles for daily programs.
 
-** Bitwarden
+** Packages
 
-Password manager, Rust lightweight version.
+Various packages of mine can be found in this repo. You can easily use these
+packages from Nix by [[https://github.com/nix-community/NUR][setting up the Nix User Repository]].
 
-** Borg backup
+*** Flake
 
-Creating daily backups to borgbase
+If you prefer, theses packages are also exposed as a *flake* in this repo:
 
-** fail2ban
+- To list packages:
 
-Keeping the bad guys away
+  #+begin_src sh
+  nix flake show
+  #+end_src
 
-** Gitea
+- To install one of them:
 
-Hosting for all my personal projects
-
-** Jellyfin
-
-Netflix but just for me
-
-** Lohr
-
-*** Setup
-
-Needs manual SSH key and known hosts setup.
-
-** Matrix
-
-My Matrix homeserver at =alarsyo.net=. Also hosting an Element web client at
-[[https://chat.alarsyo.net][chat.alarsyo.net]].
-
-** Miniflux
-
-RSS reader
-
-** Monitoring
-
-Grafana and Prometheus are currently used as a glorified =htop=.
-
-** Nextcloud
+  #+begin_src sh
+  nix build github:alarsyo/nixos-config#$PACKAGE
+  #+end_src
