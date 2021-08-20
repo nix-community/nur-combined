@@ -14,12 +14,12 @@ If you prefer, theses packages are also exposed as a *flake* in this repo:
 
 - To list packages:
 
-  #+begin_src sh
-  nix flake show
-  #+end_src
+#+begin_src sh
+nix flake show
+#+end_src
 
 - To install one of them:
 
-  #+begin_src sh
-  nix build github:alarsyo/nixos-config#$PACKAGE
-  #+end_src
+#+begin_src sh
+nix build github:alarsyo/nixos-config#$PACKAGE
+#+end_src
