@@ -12,6 +12,18 @@
 
   services.flatpak.enable = true;
 
+  services.xserver = {
+    enable = true;
+    displayManager = {
+      defaultSession = "sway";
+      lightdm.enable = true;
+      autoLogin = {
+        enable = true;
+        user = "sam";
+      };
+    };
+  };
+
   time.timeZone = "America/Chicago";
 
   xdg.portal.enable = true;
