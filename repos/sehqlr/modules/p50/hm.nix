@@ -108,7 +108,7 @@
       bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
       input."type:touchpad".tap = "enabled";
       keybindings =
-        let modifier = config.wayland.windowManager.sway.config.modifier;
+        let modifier = config.home-manager.users.sam.wayland.windowManager.sway.config.modifier;
         in lib.mkOptionDefault {
           "${modifier}+p" =
             "exec ${pkgs.wofi}/bin/wofi -S drun | ${pkgs.findutils}/bin/xargs swaymsg exec --";
