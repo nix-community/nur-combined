@@ -17,8 +17,6 @@
     username = "sam";
   };
 
-  nixpkgs.config = import ./nixpkgs-config.nix;
-
   programs.bat.enable = true;
 
   programs.command-not-found.enable = true;
@@ -111,7 +109,7 @@
         word = true;
       };
     };
-    plugins = [ (import ../../default.nix { }).kakoune-ghwiki ];
+    plugins = [ nur.repos.sehqlr.kakoune-ghwiki ];
   };
 
   programs.ssh = {
