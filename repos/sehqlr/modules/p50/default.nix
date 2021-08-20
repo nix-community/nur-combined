@@ -10,6 +10,8 @@
 
   programs.steam.enable = true;
 
+  programs.sway.enable = true;
+
   services.flatpak.enable = true;
 
   services.xserver = {
