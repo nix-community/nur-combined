@@ -1,5 +1,5 @@
 { config, home-manager, lib, pkgs, ... }: {
-  home-manager.users.sam = import ./hm.nix { inherit config home-manager lib pkgs; };
+  imports = [ ./hm.nix ];
 
   hardware.pulseaudio.enable = true;
 
