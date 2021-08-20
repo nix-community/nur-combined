@@ -14,14 +14,7 @@
 
   services.xserver = {
     enable = true;
-    displayManager = {
-      defaultSession = "none+sway";
-      lightdm.enable = true;
-      autoLogin = {
-        enable = true;
-        user = "sam";
-      };
-    };
+    displayManager.lightdm.enable = true;
   };
 
   time.timeZone = "America/Chicago";
