@@ -109,7 +109,7 @@
         word = true;
       };
     };
-    plugins = [ nur.repos.sehqlr.kakoune-ghwiki ];
+    plugins = [ pkgs.nur.repos.sehqlr.kakoune-ghwiki ];
   };
 
   programs.ssh = {
