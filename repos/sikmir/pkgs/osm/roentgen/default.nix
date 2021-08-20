@@ -1,14 +1,15 @@
-{ lib, fetchFromGitHub, python3Packages, portolan }:
+{ lib, fetchFromGitHub, python3Packages, portolan, inkscape }:
 
 python3Packages.buildPythonApplication rec {
   pname = "roentgen";
-  version = "2021-07-09";
+  version = "2021-08-19";
+  disabled = python3Packages.pythonOlder "3.9";
 
   src = fetchFromGitHub {
     owner = "enzet";
     repo = "Roentgen";
-    rev = "3d278a729b6037fe74a634f8329a5b5ff2de6fde";
-    hash = "sha256-tb+twq/zOi92sm6tRnrP21TwnntoTnrl02kwAE9CS+w=";
+    rev = "62d1a5e6dc4dceb4599209fe504e0c0240f13171";
+    hash = "sha256-AsbRYeJxGxwI55YcrBRPpDVD+rYwNXjocRmkO4ruz/U=";
   };
 
   postPatch = ''
@@ -19,6 +20,9 @@ python3Packages.buildPythonApplication rec {
       --replace "scheme/" "$out/share/roentgen/scheme/" \
       --replace "icons/" "$out/share/roentgen/icons/"
     substituteInPlace roentgen/tile.py \
+      --replace "icons/" "$out/share/roentgen/icons/"
+    substituteInPlace roentgen/workspace.py \
+      --replace "scheme" "$out/share/roentgen/scheme" \
       --replace "icons/" "$out/share/roentgen/icons/"
   '';
 
@@ -31,6 +35,7 @@ python3Packages.buildPythonApplication rec {
         colour
         numpy
         portolan
+        pycairo
         pyyaml
         svgwrite
         urllib3
@@ -43,13 +48,14 @@ python3Packages.buildPythonApplication rec {
       cp -r icons scheme $out/share/roentgen
 
       makeWrapper ${pythonEnv.interpreter} $out/bin/roentgen \
-        --add-flags "$site_packages/roentgen.py"
+        --add-flags "$site_packages/roentgen.py" \
+        --set INKSCAPE_BIN ${inkscape}/bin/inkscape
     '';
 
   meta = with lib; {
     description = "A simple renderer for OpenStreetMap with custom icons intended to display as many tags as possible";
     inherit (src.meta) homepage;
-    license = licenses.free;
+    license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
