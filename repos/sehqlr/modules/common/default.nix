@@ -9,7 +9,7 @@
   fonts.fonts = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
   fonts.fontconfig.enable = true;
 
-  home-manager.users.sam = import ./hm.nix { };
+  home-manager.users.sam = import ./hm.nix { inherit config lib pkgs; };
 
   i18n.defaultLocale = "en_US.UTF-8";
 
