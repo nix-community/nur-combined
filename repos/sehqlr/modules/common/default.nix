@@ -1,24 +1,32 @@
 { config, home-manager, lib, pkgs, ... }: {
   boot.loader.systemd-boot.enable = true;
+
   environment = {
     systemPackages = with pkgs; [ commonsCompress ];
     pathsToLink = [ "/share/zsh" ];
   };
 
-  fonts.enableDefaultFonts = true;
-  fonts.fonts = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
-  fonts.fontconfig.enable = true;
+  fonts = {
+      enableDefaultFonts = true;
+      fonts = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
+      fontconfig.enable = true;
+  };
 
-  home-manager.users.sam = import ./hm.nix { inherit config lib pkgs; };
-  home-manager.useGlobalPkgs = true;
+  home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      users.sam = import ./hm.nix { inherit config lib pkgs; };
+  };
 
   i18n.defaultLocale = "en_US.UTF-8";
 
   networking.networkmanager.enable = true;
 
-  nix.autoOptimiseStore = true;
-  nix.gc.automatic = true;
-  nix.trustedUsers = [ "root" "sam" ];
+  nix = {
+      autoOptimiseStore = true;
+      gc.automatic = true;
+      trustedUsers = [ "root" "sam" ];
+  };
 
   nixpkgs.config = import ./nixpkgs-config.nix;
 
@@ -27,8 +35,10 @@
     enableGC = true;
   };
 
-  system.autoUpgrade.enable = true;
-  system.copySystemConfiguration = true;
+  system = {
+      autoUpgrade.enable = true;
+      copySystemConfiguration = true;
+  };
 
   users.users.sam = {
     description = "Sam Hatfield <hey@samhatfield.me>";
