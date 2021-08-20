@@ -208,6 +208,5 @@
   services.lorri.enable = true;
 
   xdg.configFile."nix/nix.conf".source = ./nix.conf;
-
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 }
