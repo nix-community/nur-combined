@@ -25,6 +25,7 @@
   nix = {
       autoOptimiseStore = true;
       gc.automatic = true;
+      package = pkgs.nixUnstable;
       trustedUsers = [ "root" "sam" ];
   };
 
