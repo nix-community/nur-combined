@@ -152,7 +152,7 @@
   };
 
   programs.taskwarrior =
-    let keys = "${config.programs.taskwarrior.dataLocation}/keys";
+    let keys = "${config.home-manager.users.sam.programs.taskwarrior.dataLocation}/keys";
     in {
       enable = true;
       config = {
