@@ -10,6 +10,7 @@
   fonts.fontconfig.enable = true;
 
   home-manager.users.sam = import ./hm.nix { inherit config lib pkgs; };
+  home-manager.useGlobalPkgs = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
 

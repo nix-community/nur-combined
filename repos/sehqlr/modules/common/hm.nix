@@ -17,8 +17,6 @@
     username = "sam";
   };
 
-  home-manager.userGlobalPkgs = true;
-
   nixpkgs.config = import ./nixpkgs-config.nix;
 
   programs.bat.enable = true;
