@@ -15,7 +15,7 @@
   services.xserver = {
     enable = true;
     displayManager = {
-      defaultSession = "sway";
+      defaultSession = "none+sway";
       lightdm.enable = true;
       autoLogin = {
         enable = true;
