@@ -103,6 +103,14 @@ in
   };
   my.displayManager.sddm.enable = true;
 
+  my.wakeonwlan.interfaces.phy0.methods = [
+    "magic-packet"
+    "disconnect"
+    "gtk-rekey-failure"
+    "eap-identity-request"
+    "rfkill-release"
+  ];
+
   services.udev.packages = with pkgs; [
     packages.kaleidoscope-udev-rules
   ];

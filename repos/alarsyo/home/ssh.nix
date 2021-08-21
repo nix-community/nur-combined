@@ -12,8 +12,11 @@ in
       enable = true;
 
       matchBlocks = {
-        poseidon = {
-          hostname = "poseidon.alarsyo.net";
+        boreal = { hostname = "boreal.alarsyo.net"; };
+        poseidon = { hostname = "poseidon.alarsyo.net"; };
+        pi = {
+          hostname = "pi.alarsyo.net";
+          user = "pi";
         };
 
         "*.lrde.epita.fr" = {
