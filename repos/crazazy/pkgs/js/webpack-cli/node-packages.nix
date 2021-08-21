@@ -31,13 +31,13 @@ let
         sha512 = "ASiVB3t9LOKHs5DyVUcxpraBXDOKubYu/ihHhU+t1UPpxsivg6Od2E2qU4gJCekfEddzRBzHhzA/Acyw/mlK/w==";
       };
     };
-    "@webpack-cli/serve-1.5.1" = {
+    "@webpack-cli/serve-1.5.2" = {
       name = "_at_webpack-cli_slash_serve";
       packageName = "@webpack-cli/serve";
-      version = "1.5.1";
+      version = "1.5.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.5.1.tgz";
-        sha512 = "4vSVUiOPJLmr45S8rMGy7WDvpWxfFxfP/Qx/cxZFCfvoypTYpPPL1X8VIZMe0WTA+Jr7blUxwUSEZNkjoMTgSw==";
+        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.5.2.tgz";
+        sha512 = "vgJ5OLWadI8aKjDlOH3rb+dYyPd2GTZuQC/Tihjct6F9GpXGZINo3Y/IVuZVTM1eDQB+/AOsjPUWH/WySDaXvw==";
       };
     };
     "clone-deep-4.0.1" = {
@@ -166,13 +166,13 @@ let
         sha512 = "Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==";
       };
     };
-    "is-core-module-2.5.0" = {
+    "is-core-module-2.6.0" = {
       name = "is-core-module";
       packageName = "is-core-module";
-      version = "2.5.0";
+      version = "2.6.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.5.0.tgz";
-        sha512 = "TXCMSDsEHMEEZ6eCA8rwRDbLu55MRGmrctljsBX/2v1d9/GzqHOxW5c5oPSgrUt2vBFXebu9rGqckXGPWOlYpg==";
+        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.6.0.tgz";
+        sha512 = "wShG8vs60jKfPWpF2KZRaAtvt3a20OAn7+IJ6hLPECpSABLcKtFKTTI4ZtH5QcBruBHlq+WsdHWyz0BCZW7svQ==";
       };
     };
     "is-plain-object-2.0.4" = {
@@ -449,13 +449,13 @@ let
   args = {
     name = "webpack-cli";
     packageName = "webpack-cli";
-    version = "4.7.2";
-    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.7.2.tgz"; sha1 = "a718db600de6d3906a4357e059ae584a89f4c1a5"; };
+    version = "4.8.0";
+    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.8.0.tgz"; sha1 = "5fc3c8b9401d3c8a43e2afceacfa8261962338d1"; };
     dependencies = [
       sources."@discoveryjs/json-ext-0.5.3"
       sources."@webpack-cli/configtest-1.0.4"
       sources."@webpack-cli/info-1.3.0"
-      sources."@webpack-cli/serve-1.5.1"
+      sources."@webpack-cli/serve-1.5.2"
       sources."clone-deep-4.0.1"
       sources."colorette-1.3.0"
       sources."commander-7.2.0"
@@ -470,7 +470,7 @@ let
       sources."human-signals-2.1.0"
       sources."import-local-3.0.2"
       sources."interpret-2.2.0"
-      sources."is-core-module-2.5.0"
+      sources."is-core-module-2.6.0"
       sources."is-plain-object-2.0.4"
       sources."is-stream-2.0.1"
       sources."isexe-2.0.0"
