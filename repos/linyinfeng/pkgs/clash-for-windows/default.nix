@@ -15,9 +15,18 @@
 , libudev
 , libappindicator
 , imagemagick
+, makeDesktopItem
 }:
 
 let
+  desktopItem = makeDesktopItem {
+    name = "clash-for-windows";
+    desktopName = "Clash for Windows";
+    comment = "A Windows/macOS/Linux GUI based on Clash and Electron";
+    icon = "clash-for-windows";
+    exec = "cfw";
+    categories = "Network";
+  };
   icon = "${sources.clash-for-windows-icon.src}[4]";
 in
 stdenv.mkDerivation rec {
@@ -57,14 +66,14 @@ stdenv.mkDerivation rec {
     ln -s "$out/opt/clash-for-windows/cfw" "$out/bin/cfw"
 
     mkdir -p "$out/share/applications"
-    substituteAll "${./clash-for-windows.desktop}" "$out/share/applications/clash-for-windows.desktop"
+    install "${desktopItem}/share/applications/"* "$out/share/applications/"
 
     icon_dir="$out/share/icons/hicolor"
-    icon_sizes=("16x16" "24x24" "32x32" "48x48" "256x256")
-    for s in "''${icon_sizes[@]}"; do
-      echo "create icon \"$s\""
-      mkdir -p "$icon_dir/$s/apps"
-      ${imagemagick}/bin/convert -resize "$s" "${icon}" "$icon_dir/$s/apps/clash-for-windows.png"
+    for s in 16 24 32 48 64 128 256; do
+      size="''${s}x''${s}"
+      echo "create icon \"$size\""
+      mkdir -p "$icon_dir/$size/apps"
+      ${imagemagick}/bin/convert -resize "$size" "${icon}" "$icon_dir/$size/apps/clash-for-windows.png"
     done
   '';
 

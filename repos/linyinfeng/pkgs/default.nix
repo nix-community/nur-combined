@@ -11,4 +11,5 @@ in
   activate-dpt = pkgs.callPackage ./activate-dpt { };
   trojan = pkgs.callPackage ./trojan { inherit sources; };
   vlmcsd = pkgs.callPackage ./vlmcsd { inherit sources; };
+  icalingua = pkgs.callPackage ./icalingua { inherit sources; };
 }

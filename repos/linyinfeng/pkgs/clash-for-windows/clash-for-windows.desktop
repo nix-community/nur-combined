@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Clash for Windows
-Version=@version@
-Comment=A Windows/macOS/Linux GUI based on Clash and Electron
-Type=Application
-Icon=clash-for-windows
-Exec=@out@/bin/cfw
-Terminal=false

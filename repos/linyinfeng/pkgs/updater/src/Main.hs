@@ -18,6 +18,8 @@ packageSet = do
   ghPkg "Wind4" "vlmcsd"
   clashForWindows
   clashForWindowsIcon
+  icalingua
+  icalinguaIcon
 
 ghPkg :: Text -> Text -> PackageSet ()
 ghPkg owner repo = define $ package repo `fromGitHub` (owner, repo)
@@ -54,3 +56,19 @@ clashForWindowsIcon =
     package "clash-for-windows-icon"
       `sourceManual` "0"
       `fetchUrl` (const "https://docs.cfw.lbyczf.com/favicon.ico")
+
+icalingua :: PackageSet ()
+icalingua =
+  define $
+    package "icalingua"
+      `sourceGitHub` ("Clansty", "icalingua")
+      `fetchUrl` url
+  where
+    url (Version v) = "https://github.com/Clansty/Icalingua/releases/download/" <> v <> "/app-x86_64.asar"
+
+icalinguaIcon :: PackageSet ()
+icalinguaIcon =
+  define $
+    package "icalinguaIcon"
+      `sourceManual` "0"
+      `fetchUrl` (const "https://aur.archlinux.org/cgit/aur.git/plain/512x512.png?h=icalingua")

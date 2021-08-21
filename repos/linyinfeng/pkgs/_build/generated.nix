@@ -81,6 +81,24 @@
     };
 
   };
+  icalingua = {
+    pname = "icalingua";
+    version = "v2.2.0";
+    src = fetchurl {
+      sha256 = "12nz86wa67jqfj9mb4mcc2ycyf8p0lwn9i9rajbdyd213mpfdpyf";
+      url = "https://github.com/Clansty/Icalingua/releases/download/v2.2.0/app-x86_64.asar";
+    };
+
+  };
+  icalinguaIcon = {
+    pname = "icalinguaIcon";
+    version = "0";
+    src = fetchurl {
+      sha256 = "0f0fgnhv80fwwfwlram5n078z7svnlqrh68d7gc4wl0qiig5ij44";
+      url = "https://aur.archlinux.org/cgit/aur.git/plain/512x512.png?h=icalingua";
+    };
+
+  };
   trojan = {
     pname = "trojan";
     version = "v1.16.0";
