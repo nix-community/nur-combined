@@ -14,6 +14,7 @@
 , zip
 , xz
 }:
+
 let
   bisq-launcher = writeScript "bisq-launcher" ''
     #! ${bash}/bin/bash
@@ -33,14 +34,15 @@ let
   '';
 in
 stdenv.mkDerivation rec {
-  version = "1.7.2";
   pname = "bisq-desktop";
-  nativeBuildInputs = [ makeWrapper copyDesktopItems imagemagick dpkg gnutar zip xz ];
+  version = "1.7.2";
 
   src = fetchurl {
     url = "https://github.com/bisq-network/bisq/releases/download/v${version}/Bisq-64bit-${version}.deb";
     sha256 = "0b2rh9sphc9wffkawprrl20frgv0rah7y2k5sfxpjc3shgkqsw80";
   };
+
+  nativeBuildInputs = [ makeWrapper copyDesktopItems imagemagick dpkg gnutar zip xz ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -58,7 +60,7 @@ stdenv.mkDerivation rec {
   '';
 
   buildPhase = ''
-    # Replace the embedded Tor binary (which is in a Tar achive)
+    # Replace the embedded Tor binary (which is in a Tar archive)
     # with one from Nixpkgs.
 
     mkdir -p native/linux/x64/
@@ -68,6 +70,8 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/lib $out/bin
     cp opt/bisq/lib/app/desktop-${version}-all.jar $out/lib
 
@@ -77,13 +81,13 @@ stdenv.mkDerivation rec {
     makeWrapper ${bisq-launcher} $out/bin/bisq-desktop \
       --prefix PATH : $out/bin
 
-    copyDesktopItems
-
     for n in 16 24 32 48 64 96 128 256; do
       size=$n"x"$n
       convert opt/bisq/lib/Bisq.png -resize $size bisq.png
       install -Dm644 -t $out/share/icons/hicolor/$size/apps bisq.png
     done;
+
+    runHook postInstall
   '';
 
   meta = with lib; {

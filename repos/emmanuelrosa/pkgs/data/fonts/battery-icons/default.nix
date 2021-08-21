@@ -1,7 +1,7 @@
 { stdenv, lib, fetchurl, unzip }:
 
 let
-  description = "Battery Icons";
+  description = "A font containing nothing but batteries.";
 in stdenv.mkDerivation rec {
   name = "battery-icons-${version}";
   version = "2020-01-26";
@@ -29,7 +29,7 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     inherit description;
-    homepage = https://www.dafont.com;
+    homepage = "https://www.dafont.com/battery-icons.font";
     license = licenses.free;
     platforms = platforms.all;
     maintainers = with maintainers; [ emmanuelrosa ];
