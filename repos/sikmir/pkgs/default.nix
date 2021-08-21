@@ -300,6 +300,7 @@ lib.makeScope newScope (
     farbfeld-utils = callPackage ./suckless/farbfeld-utils { };
     hurl = callPackage ./suckless/hurl { };
     imscript = callPackage ./suckless/imscript { };
+    json2tsv = callPackage ./suckless/json2tsv { };
     lacc = callPackage ./suckless/lacc { };
     lel = callPackage ./suckless/lel { };
     quark = callPackage ./suckless/quark { };
