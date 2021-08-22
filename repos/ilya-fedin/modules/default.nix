@@ -5,6 +5,7 @@
   cascadia-code-fallback = import ./cascadia-code-fallback;
   noto-cjk = import ./noto-cjk;
   io-scheduler = import ./io-scheduler;
+  mate-wayland = import ./mate-wayland;
   nixpkgs-niv = import ./nixpkgs-niv;
   vscode = import ./vscode;
   qt5ct = import ./qt5ct;

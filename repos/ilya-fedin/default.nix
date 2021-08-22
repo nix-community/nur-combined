@@ -9,7 +9,19 @@ rec {
 
   exo2 = callPackage ./pkgs/exo2 {};
 
+  gtk-layer-background = callPackage ./pkgs/gtk-layer-background {};
+
   kotatogram-desktop = qt5.callPackage ./pkgs/kotatogram-desktop {};
 
+  mir = callPackage ./pkgs/mir {
+    inherit wlcs;
+  };
+
+  mirco = callPackage ./pkgs/mirco {
+    inherit mir;
+  };
+
   silver = callPackage ./pkgs/silver {};
+
+  wlcs = callPackage ./pkgs/wlcs {};
 }
