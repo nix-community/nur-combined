@@ -338,10 +338,10 @@
       };
     "firenvim" = buildFirefoxXpiAddon {
       pname = "firenvim";
-      version = "0.2.7";
+      version = "0.2.8";
       addonId = "firenvim@lacamb.re";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3788179/firenvim-0.2.7-fx.xpi";
-      sha256 = "059bd30c01975a4a19bf5ab0c7497ae894f4f8fcb69fc319de4e9c5cfcec705d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3828313/firenvim-0.2.8-fx.xpi";
+      sha256 = "821919d674ac8ed47927d9e8ef706f0520bd3447e9fa163036ad594dee79c9f3";
       meta = with lib;
       {
         description = "Turn Firefox into a Neovim client.";
