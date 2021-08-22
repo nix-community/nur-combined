@@ -114,6 +114,7 @@ in
 
     navidrome = {
       enable = true;
+      musicFolder.path = "${config.services.nextcloud.home}/data/alarsyo/files/Musique/Songs";
     };
 
     nextcloud = {

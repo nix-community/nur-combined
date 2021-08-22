@@ -8,6 +8,13 @@ let
 in {
   options.my.services.navidrome = {
     enable = mkEnableOption "Navidrome";
+    musicFolder = {
+      path = mkOption {
+        type = types.str;
+        default = "./music";
+      };
+      backup = mkEnableOption "backup the music folder";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -17,7 +24,13 @@ in {
         Address = "127.0.0.1";
         Port = 4533;
         LastFM.Enabled = false;
+        MusicFolder = cfg.musicFolder.path;
       };
+    };
+
+    my.services.restic-backup = {
+      paths = [ "/var/lib/navidrome" ] ++ optional cfg.musicFolder.backup cfg.musicFolder.path;
+      exclude = [ "/var/lib/navidrome/cache" ];
     };
 
     services.nginx.virtualHosts."music.${domain}" = {
