@@ -13,6 +13,7 @@
     ./media.nix
     ./miniflux.nix
     ./monitoring.nix
+    ./navidrome.nix
     ./nextcloud.nix
     ./nginx.nix
     ./nuage.nix

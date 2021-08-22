@@ -112,6 +112,10 @@ in
       domain = "monitoring.${config.networking.domain}";
     };
 
+    navidrome = {
+      enable = true;
+    };
+
     nextcloud = {
       enable = true;
     };
