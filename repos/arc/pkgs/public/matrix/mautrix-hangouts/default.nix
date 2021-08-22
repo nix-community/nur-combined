@@ -13,13 +13,13 @@
   hangups = python3Packages.hangups or null;
   drv = buildPythonApplication rec {
     pname = "mautrix-hangouts";
-    version = "2021-06-16";
+    version = "2021-08-11";
 
     src = fetchFromGitHub {
       owner = "tulir";
       repo = pname;
-      rev = "bc6d9e84afabb33eddb1a053d5e19a65a265e9ad";
-      sha256 = "1bcbw13j5zhhsdsz63w4zhrglj8nddwgs2pmkn36x676bnmyp0rb";
+      rev = "feeae94f544e535e1fe6240bfad4e326a504739b";
+      sha256 = "169xpigw4rnczz67088ciifwhbq9s93gfnp9lpawv1b3y799ds5z";
     };
 
     patches = [ ./entrypoint.patch ];
@@ -34,14 +34,7 @@
       CommonMark
       python_magic
       hangups
-      ((mautrix.override { inherit sqlalchemy; }).overrideAttrs (old: rec {
-        version = "0.9.6";
-        src = fetchPypi {
-          inherit (old) pname;
-          inherit version;
-          sha256 = "1kxv65d36gwfp7vnb1hbk7p2a9ab3d689q9l0xz0ww40yyvxw40q";
-        };
-      }))
+      (mautrix.override { inherit sqlalchemy; })
       setuptools
     ] ++ lib.optionals e2be [
       asyncpg

@@ -100,6 +100,7 @@ in {
       warn = true;
     };
     stable-mac = {
+      ci.gh-actions.enable = mkForce false;
       system = "x86_64-darwin";
       channels = {
         nixpkgs.version = "21.05";
@@ -108,6 +109,7 @@ in {
       warn = true;
     };
     unstable-mac = {
+      ci.gh-actions.enable = mkForce false;
       system = "x86_64-darwin";
       channels.nixpkgs.version = "unstable";
       warn = true;

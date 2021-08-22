@@ -1,5 +1,15 @@
 {
-  notmuch-vim = { fetchFromGitHub, fetchurl, vimUtils, notmuch, ruby, buildRubyGem, buildEnv }: vimUtils.buildVimPlugin {
+  notmuch-vim = { fetchFromGitHub, fetchurl, vimUtils, notmuch, ruby, buildRubyGem, buildEnv }:
+  let
+    mail-gpg = buildRubyGem {
+        inherit ruby;
+        pname = "mail-gpg";
+        gemName = "mail-gpg";
+        source.sha256 = "13gls1y55whsjx5wlykhq8k3fi2qmkars64xdxx91vwi8pacc5p1";
+        type = "gem";
+        version = "0.4.2";
+      };
+  in vimUtils.buildVimPlugin {
     name = "notmuch-vim";
     src = fetchFromGitHub {
       owner = "mashedcode";
@@ -16,31 +26,30 @@
         sha256 = "0vx24g97ij76b6a4a5l9zchpvscgy5cljydq3xnc16ramhpwk9v5";
       })
     ];
+    gemEnv = buildEnv {
+      name = "notmuch-vim-gems";
+      paths = with ruby.gems; [ notmuch mail gpgme rack mail-gpg ];
+      pathsToLink = [ "/lib" "/nix-support" ];
+      # https://github.com/NixOS/nixpkgs/pull/76765
+      postBuild = ''
+        for gem in $out/lib/ruby/gems/*/gems/*; do
+          cp -a $gem/ $gem.new
+          rm $gem
+          mv $gem.new $gem
+        done
+      '';
+    };
     buildPhase = let
-      mail-gpg = buildRubyGem {
-        inherit ruby;
-        pname = "mail-gpg";
-        gemName = "mail-gpg";
-        source.sha256 = "13gls1y55whsjx5wlykhq8k3fi2qmkars64xdxx91vwi8pacc5p1";
-        type = "gem";
-        version = "0.4.2";
-      };
-      gemEnv = buildEnv {
-        name = "notmuch-vim-gems";
-        paths = with ruby.gems; [ notmuch mail gpgme rack mail-gpg ];
-        pathsToLink = [ "/lib" "/nix-support" ];
-        # https://github.com/NixOS/nixpkgs/pull/76765
-        postBuild = ''
-          for gem in $out/lib/ruby/gems/*/gems/*; do
-            cp -a $gem/ $gem.new
-            rm $gem
-            mv $gem.new $gem
-          done
-        '';
-      };
     in ''
-      echo 'let $GEM_PATH=$GEM_PATH . ":${gemEnv}/${ruby.gemPath}"' >> plugin/notmuch.vim
-      echo 'let $RUBYLIB=$RUBYLIB . ":${gemEnv}/${ruby.libPath}/${ruby.system}"' >> plugin/notmuch.vim
+      cat >> plugin/notmuch.vim << EOF
+      let \$GEM_PATH=\$GEM_PATH . ":$gemEnv/${ruby.gemPath}"
+      let \$RUBYLIB=\$RUBYLIB . ":$gemEnv/${ruby.libPath}/${ruby.system}"
+      if has('nvim')
+      EOF
+      for gem in $gemEnv/${ruby.gemPath}/gems/*/lib; do
+      echo "ruby \$LOAD_PATH.unshift('$gem')" >> plugin/notmuch.vim
+      done
+      echo 'endif' >> plugin/notmuch.vim
     '';
     meta.broken = notmuch.meta.broken or false;
   };

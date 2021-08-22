@@ -3,6 +3,7 @@
   pulseaudio = ./pulseaudio.nix;
   pipewire = ./pipewire.nix;
   alsa = ./alsa.nix;
+  yggdrasil = ./yggdrasil.nix;
   display = ./display.nix;
   filebin = ./filebin.nix;
   mosh = ./mosh.nix;
@@ -16,6 +17,7 @@
       pulseaudio
       pipewire
       alsa
+      yggdrasil
       display
       filebin
       mosh
