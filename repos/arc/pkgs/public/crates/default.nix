@@ -253,6 +253,7 @@
   ladspa-rnnoise = {
     fetchFromGitHub
   , rustPlatform
+  , lib
   }: rustPlatform.buildRustPackage rec {
     pname = "ladspa-rnnoise";
     version = "2021-05-24";
@@ -269,6 +270,8 @@
       install -d $out/lib/ladspa
       mv $out/lib/*.so $out/lib/ladspa/
     '';
+
+    meta.platforms = lib.platforms.linux;
 
     cargoSha256 = "1dlywwlrn06k3dwk7l93il32mp1ry890pg4zc16middiwzs4pdwq";
   };
