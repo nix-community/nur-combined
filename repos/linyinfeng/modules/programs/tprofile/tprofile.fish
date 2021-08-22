@@ -16,3 +16,5 @@ function tprofile
     echo $tprofile_parent
   end
 end
+
+tprofile > /dev/null # initialize
