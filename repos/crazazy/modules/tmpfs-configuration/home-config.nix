@@ -10,7 +10,7 @@ with lib;
     "${home-manager.outPath}/nixos"
   ];
   config = mkIf config.tmpfs-setup.enable {
-    home-manager.users.${config.mainUser} = { pkgs,  ...}: {
+    home-manager.users.${config.mainUser} = { pkgs, ... }: {
       imports = [
         "${impermanence}/home-manager.nix"
         ../home-configuration
@@ -19,10 +19,12 @@ with lib;
       programs.home-manager.enable = true;
       privateConfig.enable = true;
 
-      home.file = mapAttrs' (k: v: nameValuePair (".config/${k}") {
-        source = ../../local + "/${k}";
-        recursive = true;
-      }) (builtins.readDir ../../local);
+      home.file = mapAttrs'
+        (k: v: nameValuePair (".config/${k}") {
+          source = ../../local + "/${k}";
+          recursive = true;
+        })
+        (builtins.readDir ../../local);
 
       home.persistence."/nix/persist/home/erik" = {
         directories = [
@@ -49,5 +51,5 @@ with lib;
         ];
       };
     };
-   };
+  };
 }

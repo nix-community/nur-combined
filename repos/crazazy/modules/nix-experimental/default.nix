@@ -1,7 +1,7 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 let
   sources = import ../../nix/default.nix;
-  flakeJSON = pkgs.runCommand {buildInputs = with pkgs; [ jq ];} ''
+  flakeJSON = pkgs.runCommand { buildInputs = with pkgs; [ jq ]; } ''
     cat ${../../nix/sources.json} | jq 'to_entries|map(.value)|map(select(.flake))|map({from:{id:.repo,type:"indirect"},to:{owner:.owner,repo:.repo,branch:.branch,type:"github"}}) > $out'
   '';
 in

@@ -1,4 +1,4 @@
-{config, lib, ...}:
+{ config, lib, ... }:
 with lib;
 {
   imports = [
@@ -7,7 +7,7 @@ with lib;
   options = {
     homeBinds = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
       description = "Bind mounts in your home folder";
     };
     persistRoot = mkOption {
@@ -15,7 +15,7 @@ with lib;
       default = "/nix/persist";
     };
   };
-  config = mkIf (config.homeBinds != []) {
+  config = mkIf (config.homeBinds != [ ]) {
     fileSystems = genAttrs (map (loc: "/home/${config.mainUser}/${loc}") config.homeBinds)
       (loc: {
         device = "${config.persistRoot}${loc}";

@@ -21,8 +21,10 @@ with lib;
     home.file.".emacs.d/init.el".text = ''
       (load "default.el")
     '';
-    home.packages = [ (doom-emacs {
-      doomPrivateDir = config.doom-emacs-config.doomd;
-    })];
+    home.packages = [
+      (doom-emacs {
+        doomPrivateDir = config.doom-emacs-config.doomd;
+      })
+    ];
   };
 }
