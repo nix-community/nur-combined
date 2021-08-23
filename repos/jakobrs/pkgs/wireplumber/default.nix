@@ -1,5 +1,5 @@
 { stdenv, lib, fetchFromGitLab, fetchpatch
-, ninja, meson, pkg-config, cmake, git, doxygen, gobject-introspection
+, ninja, meson, pkg-config, cmake, doxygen, gobject-introspection
 , python3
 , lxml # for gobject-introspection
 , sphinx, sphinx_rtd_theme, breathe # for docs
@@ -7,18 +7,18 @@
 
 stdenv.mkDerivation rec {
   pname = "wireplumber";
-  version = "0.4.1";
+  version = "0.4.2";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
     owner = "pipewire";
     repo = "wireplumber";
     rev = version;
-    hash = "sha256:1j88pl8yfj3vcsh9y57a542msn1vk8qcwcy2qqgjg2y8lfg7qi6b";
+    hash = "sha256:04jq1rn8lr6wbn2acs5lzydpnhzmrs0fd80a1a55rli3fh1bm2qi";
   };
 
   nativeBuildInputs = [
-    ninja meson pkg-config cmake git doxygen gobject-introspection
+    ninja meson pkg-config cmake doxygen gobject-introspection
     python3 lxml sphinx sphinx_rtd_theme breathe
   ];
 
