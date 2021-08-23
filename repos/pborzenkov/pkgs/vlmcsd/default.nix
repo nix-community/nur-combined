@@ -16,13 +16,19 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out
-    cp -a bin $out/
 
-    mkdir -p $out/share/man/man{1,5,7,8}
-    install man/{vlmcs,vlmcsdmulti}.1 $out/share/man/man1
-    install man/vlmcsd.ini.5 $out/share/man/man5
-    install man/{vlmcsd,vlmcsd-floppy}.7 $out/share/man/man7
-    install man/vlmcsd.8 $out/share/man/man8
+    pushd bin
+    for b in vlmcs{,d}; do
+      install -D -m755 $b "$out/bin/$b"
+    done
+    popd
+
+    pushd man
+    for m in *.[0-9]; do
+      s=''${m##*.}
+      install -Dm644 $m "$out/share/man/man$s/$m"
+    done
+    popd
   '';
 
   meta = with lib; {

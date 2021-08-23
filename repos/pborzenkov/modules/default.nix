@@ -1,0 +1,3 @@
+{
+  vlmcsd = ./services/vlmcsd;
+}
