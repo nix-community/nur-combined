@@ -14,7 +14,7 @@ rec {
 
   # Misc.
   biblib = pkgs.callPackage ./pkgs/misc/biblib {};
-  finplot = pkgs.callPackage ./pkgs/misc/finplot {};
+  finplot = pkgs.libsForQt5.callPackage ./pkgs/misc/finplot {};
   frida-python = pkgs.callPackage ./pkgs/misc/frida-python {
     # TODO: Check when Frida is available for Python 3.9 which is now the
     # default in Nixpkgs.

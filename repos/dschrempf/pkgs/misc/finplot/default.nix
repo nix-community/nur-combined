@@ -1,6 +1,8 @@
 { lib
 , fetchFromGitHub
 , python3
+, qtbase
+, wrapQtAppsHook
 }:
 
 let
@@ -19,6 +21,8 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-ixDCbMDMDf3ZPQcmQ1ap5vRetIm5vMgAirsFzJObTX4=";
   };
 
+  nativeBuildInputs = [ wrapQtAppsHook ];
+  buildInputs = [ qtbase ];
   propagatedBuildInputs = with python3.pkgs; [ pandas pyqt5 pyqtgraph ];
 
   pythonImportsCheck = [ "finplot" ];
