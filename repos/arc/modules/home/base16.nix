@@ -46,18 +46,16 @@ in {
       in pkgs.writeText "base16-${scheme'.scheme-slug}.sh" scheme'.shell.script;
       shellScriptForAlias = mapAttrs (_: config.lib.arc.base16.shellScriptFor) config.base16.alias;
     };
-  } ++ optional (!isNixos) {
-    programs.zsh = mkIf (config.programs.zsh.enable && cfg.shell.enable) {
+  } ++ optional (!isNixos) (mkIf (cfg.shell.enable) {
+    programs = {
+      fish.shellInit = ''
+          ${pkgs.bash}/bin/bash ${config.lib.arc.base16.shellScriptForAlias.default}
+        '';
+    } // (genAttrs ["zsh" "bash"] (_: {
       initExtra = ''
         source ${config.lib.arc.base16.shellScriptForAlias.default}
       '';
-    };
-    programs.bash = mkIf (config.programs.bash.enable && cfg.shell.enable) {
-      initExtra = ''
-        source ${config.lib.arc.base16.shellScriptForAlias.default}
-      '';
-    };
-    programs.vim = mkIf (config.programs.vim.enable && cfg.shell.enable) {
+    })) // (genAttrs [ "vim" "neovim" ] (_: {
       extraConfig = mkBefore (optionalString cfg.terminal.ansiCompatibility ''
         let base16colorspace=256
       '' + (let
@@ -68,6 +66,6 @@ in {
         endif
       '')
       );
-    };
-  });
+    }));
+  }));
 }
