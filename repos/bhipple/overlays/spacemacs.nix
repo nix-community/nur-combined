@@ -40,7 +40,6 @@ let
     alert
     all-the-icons
     alsamixer
-    anaconda-mode
     anaphora
     ansible
     ansible-doc
@@ -69,7 +68,6 @@ let
     cmm-mode
     column-enforce-mode
     company
-    company-anaconda
     company-ansible
     company-c-headers
     company-cabal
@@ -169,7 +167,6 @@ let
     evil-visualstar
     exec-path-from-shell
     expand-region
-    eyebrowse
     f
     fancy-battery
     fill-column-indicator
@@ -277,7 +274,6 @@ let
     lsp-mode
     lsp-origami
     lsp-pyright
-    lsp-treemacs
     lsp-ui
     lua-mode
     macrostep
@@ -309,7 +305,6 @@ let
     nixos-options
     nodejs-repl
     noflet
-    notmuch
     ob-http
     ob-restclient
     open-junk-file
@@ -422,10 +417,6 @@ let
     tmux-pane
     toc-org
     toml-mode
-    treemacs
-    treemacs-evil
-    treemacs-magit
-    treemacs-projectile
     treepy
     unfill
     use-package
