@@ -19,7 +19,9 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-ixDCbMDMDf3ZPQcmQ1ap5vRetIm5vMgAirsFzJObTX4=";
   };
 
-  buildInputs = with python3.pkgs; [ pandas pyqt5 pyqtgraph ];
+  propagatedBuildInputs = with python3.pkgs; [ pandas pyqt5 pyqtgraph ];
+
+  pythonImportsCheck = [ "finplot" ];
 
   meta = with lib; {
     description = "Plot financial data";
