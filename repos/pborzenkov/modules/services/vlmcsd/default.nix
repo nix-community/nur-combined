@@ -7,15 +7,17 @@ in
   options.services.vlmcsd = {
     enable = lib.mkEnableOption "vlmcsd service";
 
-    listenAddress = lib.mkOption {
-      type = lib.types.str;
-      default = "0.0.0.0";
-      description = "Address to listen on";
-    };
-    port = lib.mkOption {
-      type = lib.types.int;
-      default = 1688;
-      description = "Port to listen on";
+    listen = {
+      address = lib.mkOption {
+        type = lib.types.str;
+        default = "0.0.0.0";
+        description = "Address to listen on";
+      };
+      port = lib.mkOption {
+        type = lib.types.int;
+        default = 1688;
+        description = "Port to listen on";
+      };
     };
     openFirewall = lib.mkOption {
       type = lib.types.bool;
@@ -45,7 +47,7 @@ in
       serviceConfig = {
         ExecStart = ''
           ${pkgs.nur.repos.pborzenkov.vlmcsd}/bin/vlmcsd -e -D \
-          -L ${cfg.listenAddress}:${toString cfg.port} \
+          -L ${cfg.listen.address}:${toString cfg.listen.port} \
           ${lib.optionalString (cfg.disconnectClients) "-d"} \
           -t ${toString cfg.disconnectTimeout}
         '';
