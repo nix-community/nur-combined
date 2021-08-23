@@ -51,6 +51,8 @@ rec {
 
   batexpe = pkgs.callPackage ./pkgs/batexpe { };
 
+  batprotocol-cpp = pkgs.callPackage ./pkgs/batprotocol/cpp.nix { inherit flatbuffers debug; };
+
   batsim-310 = pkgs.callPackage ./pkgs/batsim/batsim310.nix { inherit intervalset redox debug; simgrid = simgrid-324; };
   batsim-400 = pkgs.callPackage ./pkgs/batsim/batsim400.nix { inherit intervalset redox debug; simgrid = simgrid-325light; };
   batsim = batsim-400;
@@ -67,6 +69,8 @@ rec {
   colmet-collector = pkgs.callPackage ./pkgs/colmet-collector { };
 
   evalys = pkgs.callPackage ./pkgs/evalys { inherit procset; };
+
+  flatbuffers = pkgs.callPackage ./pkgs/flatbuffers/2.0.nix { };
 
   melissa = pkgs.callPackage ./pkgs/melissa { };
 
