@@ -105,10 +105,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.3.3.0";
+      version = "2.3.4.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3825236/bypass_paywalls_clean-2.3.3.0-an+fx.xpi";
-      sha256 = "00c7ef1c8109f6a2fe1bec3c5cde431c4b6003435a59ff62c522e23aa4813966";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3828721/bypass_paywalls_clean-2.3.4.0-an+fx.xpi";
+      sha256 = "5b1c8d2e581483cdf2f8476a8c32e932fd735dceccecb82f97a07166d0b88488";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -421,10 +421,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "92.0buildid20210819185750";
+      version = "92.0buildid20210822190301";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3827565/francais_language_pack-92.0buildid20210819185750-fx.xpi";
-      sha256 = "133cb2a0a5cb67dee010011482ad232d8919a6b52c09e6983a7a40c9c631fabb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3828830/francais_language_pack-92.0buildid20210822190301-fx.xpi";
+      sha256 = "c3bc430f0d2c9e6cd07489595d3c7b3a3200bb16242f9e6fc2e880d54495fe00";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1213,10 +1213,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.8.14";
+      version = "21.8.22";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3824822/refined_github-21.8.14-an+fx.xpi";
-      sha256 = "3012d79bcbde3f3609aa9948c401d12683ee2adfc9a08fd205a44a2d31d6220a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3828517/refined_github-21.8.22-an+fx.xpi";
+      sha256 = "a1ad5c97398d00e7686da5064e98fc80d08ded73ebb001a3fc1b4b7e030ecc1e";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1379,10 +1379,10 @@
       };
     "tabcenter-reborn" = buildFirefoxXpiAddon {
       pname = "tabcenter-reborn";
-      version = "2.2.0";
+      version = "2.3.0";
       addonId = "tabcenter-reborn@ariasuni";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3662128/tab_center_reborn-2.2.0-fx.xpi";
-      sha256 = "d2f06e663318298249e867f4b955ab490980f833d3b7b5fadc64f088518ee236";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3828704/tab_center_reborn-2.3.0-fx.xpi";
+      sha256 = "25b954371c630dfc4440de37ce7aae4a2aa4a4e2fa41f324937bfbd08fbb1d74";
       meta = with lib;
       {
         homepage = "https://framagit.org/ariasuni/tabcenter-reborn";
