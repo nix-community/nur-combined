@@ -48,7 +48,7 @@ in {
     };
   } ++ optional (!isNixos) (mkIf (cfg.shell.enable) {
     programs = {
-      fish.shellInit = ''
+      fish.interactiveShellInit = ''
           ${pkgs.bash}/bin/bash ${config.lib.arc.base16.shellScriptForAlias.default}
         '';
     } // (genAttrs ["zsh" "bash"] (_: {
