@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "A cross-shell customizable powerline-like prompt with icons";
     homepage = https://github.com/reujab/silver;
     license = licenses.unlicense;
-    platforms = platforms.linux;
+    platforms = platforms.unix;
   };
 }
