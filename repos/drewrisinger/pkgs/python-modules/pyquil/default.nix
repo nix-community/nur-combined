@@ -2,25 +2,28 @@
 , pythonOlder
 , buildPythonPackage
 , fetchFromGitHub
-, fetchpatch
 , antlr4-python3-runtime
-, immutables
 , lark-parser
+, importlib-metadata
 , networkx
 , numpy
+, qcs-api-client
 , rpcq
 , requests
+, retry
 , scipy
   # Check Inputs
 , pytestCheckHook
 , ipython
 , pytestcov
+, pytest-mock
+, pytest-httpx ? null
 , requests-mock
 }:
 
 buildPythonPackage rec {
   pname = "pyquil";
-  version = "2.28.2";
+  version = "3.0.0";
 
   disabled = pythonOlder "3.6";
 
@@ -28,36 +31,38 @@ buildPythonPackage rec {
     owner = "rigetti";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-ETnfXubyw6yWwrIEfmogxa/FXaWOzNe5iefsUGiO6So=";
+    sha256 = "sha256-XeSwxmqonj/Z/6zsQNasropnl8BH1FvqVn5v86m+4AA=";
   };
+  postPatch = ''
+    # remove numpy hard-pinning, not compatible with nixpkgs 20.09
+    substituteInPlace setup.py \
+      --replace ",>=1.20.0" "" \
+      --replace "lark==0.*,>=0.11.1" "lark-parser" \
+      --replace "scipy==1.*,>=1.6.1" "scipy" \
+      --replace "networkx==2.*,>=2.5.0" "networkx" \
+      --replace "importlib-metadata==3.*,>=3.7.3" "importlib-metadata"
+  '';
 
   propagatedBuildInputs = [
     antlr4-python3-runtime
-    immutables
     lark-parser
     networkx
     numpy
-    scipy
-    rpcq
+    qcs-api-client
     requests
-  ];
+    retry
+    rpcq
+    scipy
+  ] ++ (lib.optionals (pythonOlder "3.8") [ importlib-metadata ]);
 
-  patches = [
-    (fetchpatch {
-      name = "pyquil-pr-1321-use-lark-parser.patch";
-      url = "https://github.com/rigetti/pyquil/commit/356f4db83d46d334e423f75583131b38ccd243d7.patch";
-      sha256 = "1ipgv1zn7vf7faxy29g95j4fi8w0zv62q85lyjac03lyh73j59xq";
-    })
-  ];
-  postPatch = ''
-    substituteInPlace setup.py --replace "immutables==0.6" "immutables"
-  '';
-
+  doCheck = false; # tests are complex, seem to depend on certain processes/servers run in docker container.
   dontUseSetuptoolsCheck = true;
   checkInputs = [
     pytestCheckHook
     ipython
     pytestcov
+    pytest-mock
+    pytest-httpx
     requests-mock
   ];
   # Seem to require network connection??
@@ -67,12 +72,13 @@ buildPythonPackage rec {
     "test_qc_compile"
     "qvm" # seem to expect network connection
   ];
+  pythonImportsCheck = [ "pyquil" ];
 
   meta = with lib; {
     description = "A library for quantum programming using Quil.";
     homepage = "https://docs.rigetti.com/en/";
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];
-    broken = lib.versionOlder lark-parser.version "0.11.0"; # generating parser fails on older versions of Lark parser. Exact version compatibility unknown
+    broken = lib.versionOlder lark-parser.version "0.11.1"; # generating parser fails on older versions of Lark parser. Exact version compatibility unknown
   };
 }

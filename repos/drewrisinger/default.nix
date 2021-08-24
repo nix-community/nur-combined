@@ -61,9 +61,11 @@ rec {
     openfermion = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/openfermion { inherit cirq pubchempy; };
     # openfermion-cirq has been deprecated. Its functionality is now rolled into openfermion as of v1.0
     # setuptools-rust has been removed b/c it has been integrated into nixpkgs. That probably has a better derivation to copy
-    pyquil = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyquil { inherit rpcq; };
+    pyquil = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyquil { inherit qcs-api-client rpcq; };
     quimb = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/quimb { inherit autoray; };
+    rfc3339 = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/rfc3339 { };
     rpcq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/rpcq { };
+    qcs-api-client = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qcs-api-client { inherit rfc3339; };
     tweedledum = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/tweedledum { inherit libtweedledum; };
     olsq = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/olsq { inherit cirq qiskit-terra qiskit-ibmq-provider; };
 
