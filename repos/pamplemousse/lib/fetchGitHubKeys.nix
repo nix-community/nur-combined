@@ -8,7 +8,7 @@ with lib;
 
 let
   keys_file = builtins.fetchurl {
-    url = "http://github.com/${username}.keys";
+    url = "https://github.com/${username}.keys";
     sha256 = sha256;
   };
 in
