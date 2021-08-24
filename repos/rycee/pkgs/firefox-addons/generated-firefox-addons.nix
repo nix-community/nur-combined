@@ -105,10 +105,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.3.4.0";
+      version = "2.3.4.1";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3828721/bypass_paywalls_clean-2.3.4.0-an+fx.xpi";
-      sha256 = "5b1c8d2e581483cdf2f8476a8c32e932fd735dceccecb82f97a07166d0b88488";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3829454/bypass_paywalls_clean-2.3.4.1-an+fx.xpi";
+      sha256 = "9989015da0a520b85c3799e826563787db533314133617c6c894e1f27f0b3db4";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -421,10 +421,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "92.0buildid20210822190301";
+      version = "91.0buildid20210823123856";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3828830/francais_language_pack-92.0buildid20210822190301-fx.xpi";
-      sha256 = "c3bc430f0d2c9e6cd07489595d3c7b3a3200bb16242f9e6fc2e880d54495fe00";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3829365/francais_language_pack-91.0buildid20210823123856-fx.xpi";
+      sha256 = "647e73a6ff66f8cf6914de2f20c4b27701ae22c709fc7d972e7cecb8260771c5";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1310,10 +1310,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "2.1.4.1";
+      version = "3.0.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3820687/sponsorblock_skip_sponsorships_on_youtube-2.1.4.1-an+fx.xpi";
-      sha256 = "a795308849a5b9586abecde9b3774874cb24890edc38fc64af5152262bd1af44";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3829095/sponsorblock_skip_sponsorships_on_youtube-3.0.2-an+fx.xpi";
+      sha256 = "83fcef8d40b4ab78d84ca6e0c7b4f3bd0d502455e4536e374b8536bde3ca195a";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1324,10 +1324,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.20";
+      version = "1.5.21";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3825193/stylus-1.5.20-fx.xpi";
-      sha256 = "b0a76657720c85a2b223df980083287564d3f80d451a4603c6c0e09d66722d57";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3828033/stylus-1.5.21-fx.xpi";
+      sha256 = "cb330a7d8748493a415ee0705839e519c7bb045d91c5068d15e1d02eb661634e";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -1379,10 +1379,10 @@
       };
     "tabcenter-reborn" = buildFirefoxXpiAddon {
       pname = "tabcenter-reborn";
-      version = "2.3.0";
+      version = "2.3.1";
       addonId = "tabcenter-reborn@ariasuni";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3828704/tab_center_reborn-2.3.0-fx.xpi";
-      sha256 = "25b954371c630dfc4440de37ce7aae4a2aa4a4e2fa41f324937bfbd08fbb1d74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3829515/tab_center_reborn-2.3.1-fx.xpi";
+      sha256 = "d31c693c896045d4326c7e9e0152830820009bd60f62b36043bb322cab713f34";
       meta = with lib;
       {
         homepage = "https://framagit.org/ariasuni/tabcenter-reborn";
