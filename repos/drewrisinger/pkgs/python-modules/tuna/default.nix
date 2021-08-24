@@ -8,7 +8,7 @@
 
 buildPythonApplication rec {
   pname = "tuna";
-  version = "0.5.7";
+  version = "0.5.8";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
@@ -17,8 +17,8 @@ buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "nschloe";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-pNPknu0zkHVNh2FPnvZNOUnVT+fsQc7EcYy47ilhTVY=";
+    rev = version;
+    sha256 = "072w18qjml7rchbb6l35xalqx36xbda4xjskbg2wyz2p510336nd";
   };
 
   dontUseSetuptoolsCheck = true;

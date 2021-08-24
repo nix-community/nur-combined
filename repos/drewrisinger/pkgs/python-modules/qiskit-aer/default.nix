@@ -128,6 +128,8 @@ buildPythonPackage rec {
     "_144"
     "test_sparse_output_probabilities"
     "test_reset_2_qubit"
+  ] ++ lib.optionals (lib.versionAtLeast cvxpy.version "1.1.15") [
+    "test_clifford"
   ];
   checkInputs = [
     pytestCheckHook
