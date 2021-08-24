@@ -19,4 +19,4 @@ set print demangle on
 set auto-load python-scripts
 
 # Allow autoloading project-local .gdbinit files
-add-auto-load-safe-path ~/git/
+set auto-load safe-path ~/git/
