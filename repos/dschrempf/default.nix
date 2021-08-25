@@ -27,4 +27,5 @@ rec {
   jugglinglab = pkgs.callPackage ./pkgs/misc/jugglinglab {};
   nvd = pkgs.callPackage ./pkgs/misc/nvd {};
   signal-back = pkgs.callPackage ./pkgs/misc/signal-back {};
+  tiingo = pkgs.callPackage ./pkgs/misc/tiingo {};
 }
