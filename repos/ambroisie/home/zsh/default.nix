@@ -18,7 +18,7 @@ in
       extended = false;
       ignoreSpace = true;
       ignoreDups = true;
-      share = true;
+      share = false;
       path = "${config.xdg.dataHome}/zsh/zsh_history";
     };
 
