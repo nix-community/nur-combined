@@ -9,7 +9,18 @@ python2Packages.buildPythonApplication rec {
     sha256 = "162z95ii7b28jibc5j06b5n25v76b8bhg7ai1bhqspqncny7zx1f";
   };
 
-  propagatedBuildInputs = with python2Packages; [ twisted wxPython ];
+  propagatedBuildInputs = with python2Packages; [
+    (twisted.overrideAttrs (old: {
+      version = "20.3.0";
+      src = fetchPypi {
+        pname = "Twisted";
+        version = "20.3.0";
+        extension = "tar.bz2";
+        sha256 = "040yzha6cyshnn6ljgk2birgh6mh2cnra48xp5ina5vfsnsmab6p";
+      };
+    }))
+    wxPython
+  ];
 
   doCheck = false;
 
