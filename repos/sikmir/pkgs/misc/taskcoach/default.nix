@@ -35,5 +35,6 @@ python2Packages.buildPythonApplication rec {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
+    broken = true;
   };
 }
