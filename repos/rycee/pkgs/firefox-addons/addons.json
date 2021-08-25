@@ -263,6 +263,16 @@
     "slug": "news-feed-eradicator"
   },
   {
+    "slug": "ninja-cookie",
+    "license": {
+      "tag": "custom",
+      "shortName": "ninja-cookie",
+      "fullName": "End-User License Agreement (EULA) of Ninja Cookie",
+      "url": "https://ninja-cookie.com/eula/",
+      "free": false
+    }
+  },
+  {
     "slug": "no-pdf-download"
   },
   {

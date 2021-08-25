@@ -863,6 +863,25 @@
         platforms = platforms.all;
         };
       };
+    "ninja-cookie" = buildFirefoxXpiAddon {
+      pname = "ninja-cookie";
+      version = "0.2.7";
+      addonId = "debug@ninja-cookie.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3625855/ninja_cookie-0.2.7-an+fx.xpi";
+      sha256 = "b48f03a79fec4dc47065088c11115de0159857e6f77f7ffcb7da89b010ad3e61";
+      meta = with lib;
+      {
+        homepage = "https://ninja-cookie.com/";
+        description = "Ninja Cookie removes cookie banners by rejecting the use of non-essential cookies.";
+        license = {
+          shortName = "ninja-cookie";
+          fullName = "End-User License Agreement (EULA) of Ninja Cookie";
+          url = "https://ninja-cookie.com/eula/";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "no-pdf-download" = buildFirefoxXpiAddon {
       pname = "no-pdf-download";
       version = "1.0.6";
