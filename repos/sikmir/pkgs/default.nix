@@ -288,6 +288,7 @@ lib.makeScope newScope (
     sdlmap = callPackage ./osm/sdlmap { };
     smrender = callPackage ./osm/smrender { };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
+    tilemaker = callPackage ./osm/tilemaker { };
 
     ### RADIO
 
