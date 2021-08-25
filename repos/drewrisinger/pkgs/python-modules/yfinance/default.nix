@@ -7,18 +7,18 @@
 , pandas
 , requests
   # Check Inputs
-, pytestCheckHook
+, python
 }:
 
 buildPythonPackage rec {
   pname = "yfinance";
-  version = "0.1.55";
+  version = "0.1.63";
 
   src = fetchFromGitHub {
     owner = "ranaroussi";
     repo = pname;
-    rev = "eb42fbfbcd5beca3f08b1eb0dce59b6e531bb211"; # untagged :(
-    sha256 = "010ws97vlj2dvbdnzf1xmlmicgdbmkkhpf2n948wcfsczyd7v5kh";
+    rev = "6761b57f8b0be395d5337191fc8dfeebd01985fb"; # untagged :(
+    sha256 = "1n763nwffgzgdhi4qdwg04r7sfwln574wzn7ydmphibz3dlykr9m";
   };
 
   propagatedBuildInputs = [
@@ -35,8 +35,11 @@ buildPythonPackage rec {
   '';
 
   # Tests
-  doCheck = false;
+  doCheck = false;  # requires network
   pythonImportsCheck = [ "yfinance" ];
+  checkPhase = ''
+    ${python.interpreter} ./test_yfinance.py
+  '';
 
   meta = with lib; {
     description = "Yahoo! Finance market data downloader (+faster Pandas Datareader)";
