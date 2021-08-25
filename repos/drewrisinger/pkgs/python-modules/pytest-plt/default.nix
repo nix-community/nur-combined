@@ -30,10 +30,6 @@ buildPythonPackage rec {
   checkInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "pytest_plt" ];
 
-  # for nixos-20.03:
-  preCheck = "pushd $TMPDIR/$sourceRoot";
-  postCheck = "popd";
-
   meta = with lib; {
     description = "Create Matplotlib plots easily for visual inspection of complicated tests";
     homepage = "https://www.nengo.ai/pytest-plt/";

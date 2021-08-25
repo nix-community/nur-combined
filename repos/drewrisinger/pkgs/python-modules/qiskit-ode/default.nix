@@ -36,8 +36,6 @@ buildPythonPackage rec {
   dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [ "qiskit_ode" ];
-  preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "popd";
 
   disabledTests = [
     # These tests fail "TypeError: ufunc 'nextafter' not supported for the input types, and the inputs could not be safely coerced to any supported types according to the casting rule ''safe''"

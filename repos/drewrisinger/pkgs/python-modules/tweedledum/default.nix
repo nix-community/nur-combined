@@ -19,8 +19,6 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "tweedledum" ];
 
-  preCheck = "pushd $TEMPDIR/$sourceRoot";
-  postCheck = "popd";
   checkInputs = [ pytestCheckHook ];
   pytestFlagsArray = [
     "python/test"

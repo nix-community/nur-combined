@@ -47,8 +47,6 @@ buildPythonPackage rec {
   dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [ "qiskit_optimization" ];
-  preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "popd";
   pytestFlagsArray = [ "--durations=10" ];
 
   meta = with lib; {

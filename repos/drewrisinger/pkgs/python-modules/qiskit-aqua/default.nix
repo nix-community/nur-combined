@@ -112,8 +112,6 @@ buildPythonPackage rec {
     "qiskit.ml"
     "qiskit.optimization"
   ];
-  preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "popd";
   pytestFlagsArray = lib.optionals (!withPyscf) [
     "--ignore=test/chemistry/test_qeom_ee.py"
     "--ignore=test/chemistry/test_qeom_vqe.py"

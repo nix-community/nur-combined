@@ -68,8 +68,6 @@ buildPythonPackage rec {
   pythonImportsCheck = [
     "qiskit_metal"
   ];
-  preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "popd";
 
   meta = with lib; {
     description = "Quantum Hardware Design";

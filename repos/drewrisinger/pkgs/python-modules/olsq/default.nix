@@ -45,8 +45,6 @@ buildPythonPackage rec {
   dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [ "olsq" ];
-  preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "popd";
 
   pytestFlagsArray = [
     "./test_olsq*.py"

@@ -59,8 +59,6 @@ buildPythonPackage rec {
     "qiskit.providers.aer"
     "qiskit.providers.ibmq"
   ];
-  preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "popd";
 
   meta = with lib; {
     description = "Software for developing quantum computing programs";

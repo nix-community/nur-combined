@@ -34,9 +34,6 @@ buildPythonPackage rec {
 
   checkInputs = [ pytestCheckHook ];
   dontUseSetuptoolsCheck = true;
-  # for nixos-20.03
-  preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "popd";
 
   meta = with lib; {
     description = "A free LDL factorization routine";

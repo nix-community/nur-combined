@@ -43,10 +43,6 @@ buildPythonPackage rec {
   dontUseSetuptoolsCheck = true;
   checkInputs = [ pytestCheckHook nbformat ];
 
-  # For NixOS 19.09, run tests from source dir
-  preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "popd";
-
   pytestFlagsArray = [
     "--disable-warnings"  # for reducing output so Travis CI isn't angry
   ];

@@ -5,7 +5,6 @@
 , fetchpatch
   # C Inputs
 , blas
-, openblas
 , catch2
 , cmake
 , cython
@@ -79,7 +78,7 @@ buildPythonPackage rec {
   ];
 
   buildInputs = [
-    (if (lib.versionAtLeast lib.version "20.09") then blas else openblas )
+    blas
     catch2
     nlohmann_json
     fmt

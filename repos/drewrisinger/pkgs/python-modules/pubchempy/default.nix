@@ -21,8 +21,6 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pubchempy" ];
   dontUseSetuptoolsCheck = true;
   checkInputs = [ pytestCheckHook ];
-  preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "popd";
 
   meta = with lib; {
     description = "Python wrapper for the PubChem PUG REST API";

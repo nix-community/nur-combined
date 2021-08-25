@@ -31,8 +31,6 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "asteval" ];
   dontUseSetuptoolsCheck = true;
   checkInputs = [ pytestCheckHook ];
-  preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "popd";
 
   meta = with lib; {
     description = "Minimalistic evaluator of python expressions using ast module";

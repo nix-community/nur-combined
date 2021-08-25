@@ -55,8 +55,6 @@ buildPythonPackage rec {
   dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [ "qiskit_finance" ];
-  preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "popd";
   disabledTests = [
     # Tests fail b/c require internet connection. Stalls tests if enabled.
     "test_exchangedata"

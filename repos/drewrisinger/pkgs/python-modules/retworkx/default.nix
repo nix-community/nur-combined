@@ -27,8 +27,7 @@ let
     rev = version;
     sha256 = "0adb9zar8wihjkywal13b6w21hf5z9fh168wnc7j045y2ixw6vnm";
   };
-  oldCargoSha = "0bhwggx5ni24wj637q6n2lvbc3sj8sqn8b2v5dd0b18ng8yn8rdf";
-  newCargoSha = "09zmp4zf3r3b7ffgasshr21db7blkwn7wkibka9cbh61593845dh";
+  cargoSha256 = "09zmp4zf3r3b7ffgasshr21db7blkwn7wkibka9cbh61593845dh";
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
   installCheckInputs = [
     pytestCheckHook
@@ -55,10 +54,8 @@ let
   };
 
   pre2105Package = rustPlatform.buildRustPackage rec {
-    inherit pname version src buildInputs installCheckInputs preCheck postCheck meta;
+    inherit pname version src cargoSha256 buildInputs installCheckInputs preCheck postCheck meta;
 
-    # TODO: remove when 20.03 support dropped
-    cargoSha256 = if lib.versionOlder lib.trivial.release "20.09" then oldCargoSha else newCargoSha;
     legacyCargoFetcher = true;  # TODO: Remove on next nixos release. Cargo SHA mismatch b/w unstable & release.
 
     propagatedBuildInputs = [ python ];
@@ -88,7 +85,7 @@ let
     cargoDeps = rustPlatform.fetchCargoTarball {
       inherit src;
       name = "${pname}-${version}";
-      sha256 = newCargoSha;
+      sha256 = cargoSha256;
     };
 
     nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];

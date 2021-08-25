@@ -30,11 +30,6 @@ buildPythonPackage rec {
 
   dontUseSetuptoolsCheck = true;
   checkInputs = [ pytestCheckHook ];
-  # TODO: remove when I drop nixpkgs 20.03; these error on msgpack 0.6.3
-  disabledTests = lib.optionals (lib.versionOlder msgpack.version "1.0.0") [
-    "test_msgpack_strings"
-    "test_msgpack_files"
-  ];
 
   meta = with lib; {
     description = "Python dictionaries with advanced dot notation access";

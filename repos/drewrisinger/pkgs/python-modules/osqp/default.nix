@@ -37,8 +37,6 @@ buildPythonPackage rec {
   checkInputs = [ pytestCheckHook cvxopt ];
   pythonImportsCheck = [ "osqp" ];
   dontUseSetuptoolsCheck = true;  # running setup.py fails if false
-  preCheck = "pushd $TMP/$sourceRoot";  # needed on nixos-20.03, run tests from raw source
-  postCheck = "popd";
   disabledTests = [
     # Disabled b/c mkl support not enabled
     "mkl_"

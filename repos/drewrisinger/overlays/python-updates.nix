@@ -16,9 +16,9 @@ rec {
           localPyPackage;
     in
     {
-      # Needed for nixpkgs-20.03
-      sparse = overrideSuperVersionIfNewer py-super.sparse (py-self.callPackage ../pkgs/python-modules/sparse { });
       # Needed for nixpkgs < nixos-unstable
+      docplex = overrideSuperVersionIfNewer py-super.docplex (py-self.callPackage ../pkgs/python-modules/docplex { });
+      yfinance = overrideSuperVersionIfNewer py-super.yfinance (py-self.callPackage ../pkgs/python-modules/yfinance { });
       websocket_client = overrideSuperVersionIfNewer py-super.websocket_client (py-self.callPackage ../pkgs/python-modules/websocket-client { });
       # needed for nixpkgs < nixos-21.05, broken
       symengine = overrideSuperVersionIfNewer py-super.symengine (py-self.callPackage ../pkgs/python-modules/symengine { inherit (self) symengine; });

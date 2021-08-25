@@ -17,10 +17,7 @@ buildPythonPackage rec {
 
   doCheck = false;
   checkInputs = [ pytestCheckHook ];
-  dontUseSetuptoolsCheck = true;  # for nixpkgs < 20.09
   pythonImportsCheck = [ "colorzero" ];
-  preCheck = "pushd $TMP/$sourceRoot";
-  postCheck = "popd";
 
   meta = with lib; {
     description = "Yet another python color library";

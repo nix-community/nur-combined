@@ -85,26 +85,11 @@ rec {
     algopy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/algopy { };
     numdifftools = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/numdifftools { inherit algopy; };
 
-    # Qiskit updates over what's in nixpkgs, in rough build order. All exist in nixpkgs, but only on > 20.03
-    dlx = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/dlx { };
-    docloud = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/docloud { };
-    docplex = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/docplex { inherit docloud; };
-    fastdtw = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/fastdtw { };
-    fastjsonschema = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/fastjsonschema { };
-    ipyvue = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ipyvue { };
-    ipyvuetify = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ipyvuetify { inherit ipyvue; };
-    pproxy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pproxy { };
-    python-constraint = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/python-constraint { };
-    pylatexenc = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pylatexenc { };
     retworkx = pkgs.python3.pkgs.toPythonModule (pkgs.python3.pkgs.callPackage ./pkgs/python-modules/retworkx { });
-
-    # Needs added to nixpkgs
-    multitasking = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/multitasking { };
-    yfinance = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/yfinance { inherit multitasking; };
 
     # Qiskit proper, build order
     qiskit-terra = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-terra {
-      inherit fastjsonschema python-constraint pylatexenc retworkx tweedledum;
+      inherit retworkx tweedledum;
     };
     qiskit-aer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-aer {
       inherit cvxpy qiskit-terra muparserx;
@@ -113,10 +98,10 @@ rec {
       inherit qiskit-aer qiskit-terra;
     };
     qiskit-aqua = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-aqua {
-      inherit cvxpy dlx docplex fastdtw pyscf qiskit-aer qiskit-ignis qiskit-terra yfinance;
+      inherit cvxpy pyscf qiskit-aer qiskit-ignis qiskit-terra;
     };
     qiskit-ibmq-provider = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ibmq-provider {
-      inherit ipyvuetify pproxy qiskit-terra qiskit-aer;
+      inherit qiskit-terra qiskit-aer;
     };
     qiskit = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit {
       inherit
@@ -133,10 +118,10 @@ rec {
     };
     qiskit-terraNoVisual = qiskit-terra.override { withVisualization = false; };
     qiskit-ibmq-providerNoVisual = qiskit-ibmq-provider.override { withVisualization = false; qiskit-terra = qiskit-terraNoVisual; matplotlib = null; };
-    qiskit-finance = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-finance { inherit qiskit-optimization qiskit-terra qiskit-aer fastdtw yfinance; };
-    qiskit-optimization = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-optimization { inherit pylatexenc qiskit-terra qiskit-aer docplex; };
-    qiskit-machine-learning = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-machine-learning { inherit qiskit-terra qiskit-aer fastdtw; };
-    qiskit-nature = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-nature { inherit qiskit-terra pylatexenc retworkx pyscf; };
+    qiskit-finance = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-finance { inherit qiskit-optimization qiskit-terra qiskit-aer; };
+    qiskit-optimization = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-optimization { inherit qiskit-terra qiskit-aer; };
+    qiskit-machine-learning = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-machine-learning { inherit qiskit-terra qiskit-aer; };
+    qiskit-nature = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-nature { inherit qiskit-terra retworkx pyscf; };
     qiskit-ode = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ode { inherit qiskit-terra; };
 
     # Raspberry Pi Packages
