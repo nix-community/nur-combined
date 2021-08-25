@@ -8,6 +8,23 @@
 
     csharp-mode.mode = [ ''"\\.cs\\'"'' ];
 
+    cue-mode = {
+      package = epkgs:
+        epkgs.trivialBuild {
+          pname = "cue-mode.el";
+          src = pkgs.fetchurl {
+            url =
+              "https://raw.githubusercontent.com/russell/cue-mode/9c803ee8fa4a6e99c7dc9ae373c6178569583b7a/cue-mode.el";
+            sha256 = "0swhpknkg1vwbchblzrwynixf5grg95jy1bkc8w92yfpb1jch7m7";
+          };
+          preferLocalBuild = true;
+          allowSubstitutes = true;
+        };
+      command = [ "cue-mode" ];
+      mode = [ ''"\\.cue\\'"'' ];
+      hook = [ "(cue-mode . subword-mode)" ];
+    };
+
     dap-lldb = {
       config = ''
         (setq dap-lldb-debug-program "${pkgs.lldb}/bin/lldb-vscode")
