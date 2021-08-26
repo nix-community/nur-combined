@@ -2,8 +2,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.my.services.nextcloud;
-  domain = config.networking.domain;
-  nextcloudDomain = "nextcloud.${config.networking.domain}";
 in
 {
   options.my.services.nextcloud = with lib; {
@@ -31,7 +29,7 @@ in
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud22;
-      hostName = nextcloudDomain;
+      hostName = "nextcloud.${config.networking.domain}";
       home = "/var/lib/nextcloud";
       maxUploadSize = cfg.maxSize;
       config = {
@@ -59,11 +57,10 @@ in
       after = [ "postgresql.service" ];
     };
 
-    services.nginx.virtualHosts."${nextcloudDomain}" = {
+    # The service above configures the domain, no need for my wrapper
+    services.nginx.virtualHosts."nextcloud.${config.networking.domain}" = {
       forceSSL = true;
-      useACMEHost = domain;
-
-      locations."/".proxyPass = "http://127.0.0.1:3000/";
+      useACMEHost = config.networking.domain;
     };
 
     my.services.backup = {

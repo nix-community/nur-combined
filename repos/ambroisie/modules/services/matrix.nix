@@ -118,6 +118,35 @@ in
       '';
     };
 
+    my.services.nginx.virtualHosts = [
+      # Element Web app deployment
+      {
+        subdomain = "chat";
+        root = pkgs.element-web.override {
+          conf = {
+            default_server_config = {
+              "m.homeserver" = {
+                "base_url" = "https://matrix.${domain}";
+                "server_name" = domain;
+              };
+              "m.identity_server" = {
+                "base_url" = "https://vector.im";
+              };
+            };
+            showLabsSettings = true;
+            defaultCountryCode = "FR"; # cocorico
+            roomDirectory = {
+              "servers" = [
+                "matrix.org"
+                "mozilla.org"
+              ];
+            };
+          };
+        };
+      }
+    ];
+
+    # Those are too complicated to use my wrapper...
     services.nginx.virtualHosts = {
       "matrix.${domain}" = {
         onlySSL = true;
@@ -191,34 +220,6 @@ in
             add_header Access-Control-Allow-Origin *;
             return 200 '${builtins.toJSON client}';
           '';
-      };
-
-      # Element Web app deployment
-      "chat.${domain}" = {
-        useACMEHost = domain;
-        forceSSL = true;
-
-        root = pkgs.element-web.override {
-          conf = {
-            default_server_config = {
-              "m.homeserver" = {
-                "base_url" = "https://matrix.${domain}";
-                "server_name" = domain;
-              };
-              "m.identity_server" = {
-                "base_url" = "https://vector.im";
-              };
-            };
-            showLabsSettings = true;
-            defaultCountryCode = "FR"; # cocorico
-            roomDirectory = {
-              "servers" = [
-                "matrix.org"
-                "mozilla.org"
-              ];
-            };
-          };
-        };
       };
     };
 

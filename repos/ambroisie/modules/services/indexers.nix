@@ -3,10 +3,6 @@
 let
   cfg = config.my.services.indexers;
 
-  domain = config.networking.domain;
-  jackettDomain = "jackett.${config.networking.domain}";
-  nzbhydraDomain = "nzbhydra.${config.networking.domain}";
-
   jackettPort = 9117;
   nzbhydraPort = 5076;
 in
@@ -29,25 +25,19 @@ in
       };
     };
 
-
-    services.nginx.virtualHosts."${jackettDomain}" =
-      lib.mkIf cfg.jackett.enable {
-        forceSSL = true;
-        useACMEHost = domain;
-
-        locations."/".proxyPass = "http://127.0.0.1:${toString jackettPort}/";
-      };
-
     services.nzbhydra2 = lib.mkIf cfg.nzbhydra.enable {
       enable = true;
     };
 
-    services.nginx.virtualHosts."${nzbhydraDomain}" =
-      lib.mkIf cfg.nzbhydra.enable {
-        forceSSL = true;
-        useACMEHost = domain;
-
-        locations."/".proxyPass = "http://127.0.0.1:${toString nzbhydraPort}/";
-      };
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "jackett";
+        port = jackettPort;
+      }
+      {
+        subdomain = "nzbhydra";
+        port = nzbhydraPort;
+      }
+    ];
   };
 }

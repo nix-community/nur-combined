@@ -2,8 +2,6 @@
 { config, lib, ... }:
 let
   cfg = config.my.services.rss-bridge;
-  domain = config.networking.domain;
-  rss-bridgeDomain = "rss-bridge.${config.networking.domain}";
 in
 {
   options.my.services.rss-bridge = {
@@ -14,12 +12,13 @@ in
     services.rss-bridge = {
       enable = true;
       whitelist = [ "*" ]; # Whitelist all
-      virtualHost = rss-bridgeDomain; # Setup virtual host
+      virtualHost = "rss-bridge.${config.networking.domain}";
     };
 
-    services.nginx.virtualHosts."${rss-bridgeDomain}" = {
+    # The service above configures the domain, no need for my wrapper
+    services.nginx.virtualHosts."rss-bridge.${config.networking.domain}" = {
       forceSSL = true;
-      useACMEHost = domain;
+      useACMEHost = config.networking.domain;
     };
   };
 }

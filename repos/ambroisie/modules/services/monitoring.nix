@@ -2,9 +2,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.my.services.monitoring;
-
-  domain = config.networking.domain;
-  grafanaDomain = "monitoring.${config.networking.domain}";
 in
 {
   options.my.services.monitoring = with lib; {
@@ -52,7 +49,7 @@ in
   config = lib.mkIf cfg.enable {
     services.grafana = {
       enable = true;
-      domain = grafanaDomain;
+      domain = "monitoring.${config.networking.domain}";
       port = cfg.grafana.port;
       addr = "127.0.0.1"; # Proxied through Nginx
 
@@ -115,16 +112,11 @@ in
       ];
     };
 
-    services.nginx = {
-      virtualHosts.${grafanaDomain} = {
-        forceSSL = true;
-        useACMEHost = domain;
-
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString cfg.grafana.port}";
-          proxyWebsockets = true;
-        };
-      };
-    };
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "monitoring";
+        inherit (cfg.grafana) port;
+      }
+    ];
   };
 }

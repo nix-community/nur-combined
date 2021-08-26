@@ -2,9 +2,6 @@
 { config, lib, ... }:
 let
   cfg = config.my.services.miniflux;
-
-  domain = config.networking.domain;
-  minifluxDomain = "reader.${config.networking.domain}";
 in
 {
   options.my.services.miniflux = with lib; {
@@ -23,7 +20,7 @@ in
       description = "Password of the admin user";
     };
 
-    privatePort = mkOption {
+    port = mkOption {
       type = types.port;
       default = 9876;
       example = 8080;
@@ -45,8 +42,8 @@ in
 
       config = {
         # Virtual hosts settings
-        BASE_URL = "https://${minifluxDomain}";
-        LISTEN_ADDR = "localhost:${toString cfg.privatePort}";
+        BASE_URL = "https://reader.${config.networking.domain}";
+        LISTEN_ADDR = "localhost:${toString cfg.port}";
         # I want fast updates
         POLLING_FREQUENCY = "30";
         BATCH_SIZE = "50";
@@ -56,12 +53,11 @@ in
       };
     };
 
-    # Proxy to Jellyfin
-    services.nginx.virtualHosts."${minifluxDomain}" = {
-      forceSSL = true;
-      useACMEHost = domain;
-
-      locations."/".proxyPass = "http://127.0.0.1:${toString cfg.privatePort}/";
-    };
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "reader";
+        inherit (cfg) port;
+      }
+    ];
   };
 }

@@ -2,8 +2,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.my.services.navidrome;
-  domain = config.networking.domain;
-  navidromeDomain = "music.${config.networking.domain}";
 in
 {
   options.my.services.navidrome = with lib; {
@@ -23,7 +21,7 @@ in
       '';
     };
 
-    privatePort = mkOption {
+    port = mkOption {
       type = types.port;
       default = 4533;
       example = 8080;
@@ -42,21 +40,18 @@ in
       enable = true;
 
       settings = cfg.settings // {
-        Port = cfg.privatePort;
+        Port = cfg.port;
         Address = "127.0.0.1"; # Behind reverse proxy, so only loopback
         MusicFolder = cfg.musicFolder;
         LogLevel = "info";
       };
     };
 
-    services.nginx.virtualHosts."${navidromeDomain}" = {
-      forceSSL = true;
-      useACMEHost = domain;
-
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.privatePort}/";
-        proxyWebsockets = true;
-      };
-    };
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "music";
+        inherit (cfg) port;
+      }
+    ];
   };
 }

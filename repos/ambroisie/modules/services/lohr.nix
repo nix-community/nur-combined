@@ -4,9 +4,6 @@ let
   cfg = config.my.services.lohr;
   settingsFormat = pkgs.formats.yaml { };
 
-  domain = config.networking.domain;
-  lohrDomain = "lohr.${config.networking.domain}";
-
   lohrPkg = pkgs.ambroisie.lohr;
 in
 {
@@ -75,13 +72,11 @@ in
     };
     users.groups.lohr = { };
 
-    services.nginx.virtualHosts."${lohrDomain}" = {
-      forceSSL = true;
-      useACMEHost = domain;
-
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}/";
-      };
-    };
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "lohr";
+        inherit (cfg) port;
+      }
+    ];
   };
 }

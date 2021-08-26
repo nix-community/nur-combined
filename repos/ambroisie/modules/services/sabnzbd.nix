@@ -2,9 +2,6 @@
 { config, lib, ... }:
 let
   cfg = config.my.services.sabnzbd;
-
-  domain = config.networking.domain;
-  sabnzbdDomain = "sabnzbd.${domain}";
   port = 9090; # NOTE: not declaratively set...
 in
 {
@@ -18,11 +15,11 @@ in
       group = "media";
     };
 
-    services.nginx.virtualHosts."${sabnzbdDomain}" = {
-      forceSSL = true;
-      useACMEHost = domain;
-
-      locations."/".proxyPass = "http://127.0.0.1:${toString port}";
-    };
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "sabnzbd";
+        inherit port;
+      }
+    ];
   };
 }

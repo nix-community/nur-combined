@@ -6,9 +6,6 @@
 let
   cfg = config.my.services.drone;
 
-  domain = config.networking.domain;
-  droneDomain = "drone.${domain}";
-
   hasRunner = (name: builtins.elem name cfg.runners);
 
   execPkg = pkgs.drone-runner-exec;
@@ -59,7 +56,7 @@ in
         ];
         Environment = [
           "DRONE_DATABASE_DATASOURCE=postgres:///drone?host=/run/postgresql"
-          "DRONE_SERVER_HOST=${droneDomain}"
+          "DRONE_SERVER_HOST=drone.${config.networking.domain}"
           "DRONE_SERVER_PROTO=https"
           "DRONE_DATABASE_DRIVER=postgres"
           "DRONE_SERVER_PORT=:${toString cfg.port}"
@@ -91,12 +88,12 @@ in
       }];
     };
 
-    services.nginx.virtualHosts."${droneDomain}" = {
-      forceSSL = true;
-      useACMEHost = domain;
-
-      locations."/".proxyPass = "http://127.0.0.1:${toString cfg.port}";
-    };
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "drone";
+        inherit (cfg) port;
+      }
+    ];
 
     # Docker runner
     systemd.services.drone-runner-docker = lib.mkIf (hasRunner "docker") {
@@ -107,7 +104,7 @@ in
       confinement.enable = true;
       serviceConfig = {
         Environment = [
-          "DRONE_SERVER_HOST=${droneDomain}"
+          "DRONE_SERVER_HOST=drone.${config.networking.domain}"
           "DRONE_SERVER_PROTO=https"
           "DRONE_RUNNER_CAPACITY=10"
           "CLIENT_DRONE_RPC_HOST=127.0.0.1:${toString cfg.port}"
@@ -156,7 +153,7 @@ in
       ];
       serviceConfig = {
         Environment = [
-          "DRONE_SERVER_HOST=${droneDomain}"
+          "DRONE_SERVER_HOST=drone.${config.networking.domain}"
           "DRONE_SERVER_PROTO=https"
           "DRONE_RUNNER_CAPACITY=10"
           "CLIENT_DRONE_RPC_HOST=127.0.0.1:${toString cfg.port}"

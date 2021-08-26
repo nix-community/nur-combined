@@ -2,9 +2,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.my.services.flood;
-
-  domain = config.networking.domain;
-  webuiDomain = "flood.${domain}";
 in
 {
   options.my.services.flood = with lib; {
@@ -43,11 +40,11 @@ in
       };
     };
 
-    services.nginx.virtualHosts."${webuiDomain}" = {
-      forceSSL = true;
-      useACMEHost = domain;
-
-      locations."/".proxyPass = "http://127.0.0.1:${toString cfg.port}";
-    };
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "flood";
+        inherit (cfg) port;
+      }
+    ];
   };
 }

@@ -5,7 +5,6 @@
 { config, lib, ... }:
 let
   cfg = config.my.services.pirate;
-  domain = config.networking.domain;
 
   ports = {
     sonarr = 8989;
@@ -22,15 +21,8 @@ let
       })
       ports);
 
-  redirections = with lib.attrsets;
-    (mapAttrs'
-      (service: port: nameValuePair "${service}.${domain}" {
-        forceSSL = true;
-        useACMEHost = domain;
-
-        locations."/".proxyPass = "http://127.0.0.1:${builtins.toString port}/";
-      })
-      ports);
+  redirections = lib.flip lib.mapAttrsToList ports
+    (subdomain: port: { inherit subdomain port; });
 in
 {
   options.my.services.pirate = {
@@ -38,6 +30,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services = managers // { nginx.virtualHosts = redirections; };
+    services = managers;
+    my.services.nginx.virtualHosts = redirections;
   };
 }

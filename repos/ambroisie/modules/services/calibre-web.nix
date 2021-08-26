@@ -1,8 +1,6 @@
 { config, lib, ... }:
 let
   cfg = config.my.services.calibre-web;
-  domain = config.networking.domain;
-  calibreDomain = "library.${domain}";
 in
 {
   options.my.services.calibre-web = with lib; {
@@ -39,12 +37,12 @@ in
       };
     };
 
-    services.nginx.virtualHosts."${calibreDomain}" = {
-      forceSSL = true;
-      useACMEHost = domain;
-
-      locations."/".proxyPass = "http://127.0.0.1:${toString cfg.port}/";
-    };
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "library";
+        inherit (cfg) port;
+      }
+    ];
 
     my.services.backup = {
       paths = [

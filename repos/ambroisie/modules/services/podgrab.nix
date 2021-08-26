@@ -2,9 +2,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.my.services.podgrab;
-
-  domain = config.networking.domain;
-  podgrabDomain = "podgrab.${domain}";
 in
 {
   options.my.services.podgrab = with lib; {
@@ -34,11 +31,11 @@ in
       inherit (cfg) passwordFile port;
     };
 
-    services.nginx.virtualHosts."${podgrabDomain}" = {
-      forceSSL = true;
-      useACMEHost = domain;
-
-      locations."/".proxyPass = "http://127.0.0.1:${toString cfg.port}";
-    };
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "podgrab";
+        inherit (cfg) port;
+      }
+    ];
   };
 }

@@ -2,8 +2,6 @@
 { config, lib, ... }:
 let
   cfg = config.my.services.jellyfin;
-  domain = config.networking.domain;
-  jellyfinDomain = "jellyfin.${config.networking.domain}";
 in
 {
   options.my.services.jellyfin = {
@@ -16,22 +14,23 @@ in
       group = "media";
     };
 
-    # Proxy to Jellyfin
-    services.nginx.virtualHosts."${jellyfinDomain}" = {
-      forceSSL = true;
-      useACMEHost = domain;
-
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:8096/";
-        extraConfig = ''
-          proxy_buffering off;
-        '';
-      };
-
-      locations."/socket" = {
-        proxyPass = "http://127.0.0.1:8096/";
-        proxyWebsockets = true;
-      };
-    };
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "jellyfin";
+        port = 8096;
+        extraConfig = {
+          locations."/" = {
+            extraConfig = ''
+              proxy_buffering off;
+            '';
+          };
+          # Too bad for the repetition...
+          locations."/socket" = {
+            proxyPass = "http://127.0.0.1:8096/";
+            proxyWebsockets = true;
+          };
+        };
+      }
+    ];
   };
 }

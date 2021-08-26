@@ -6,9 +6,6 @@
 { config, lib, ... }:
 let
   cfg = config.my.services.transmission;
-
-  domain = config.networking.domain;
-  webuiDomain = "transmission.${domain}";
 in
 {
   options.my.services.transmission = with lib; {
@@ -34,7 +31,7 @@ in
       description = "Download base directory";
     };
 
-    privatePort = mkOption {
+    port = mkOption {
       type = types.port;
       default = 9091;
       example = 8080;
@@ -63,7 +60,7 @@ in
         peer-port = cfg.peerPort;
 
         rpc-enabled = true;
-        rpc-port = cfg.privatePort;
+        rpc-port = cfg.port;
         rpc-authentication-required = true;
 
         rpc-username = cfg.username;
@@ -77,12 +74,12 @@ in
 
     # Default transmission webui, I prefer combustion but its development
     # seems to have stalled
-    services.nginx.virtualHosts."${webuiDomain}" = {
-      forceSSL = true;
-      useACMEHost = domain;
-
-      locations."/".proxyPass = "http://127.0.0.1:${toString cfg.privatePort}";
-    };
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "transmission";
+        inherit (cfg) port;
+      }
+    ];
 
     networking.firewall = {
       allowedTCPPorts = [ cfg.peerPort ];
