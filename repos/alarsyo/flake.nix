@@ -84,23 +84,6 @@
           inherit system;
           modules = [
             ./poseidon.nix
-
-            {
-              nixpkgs.overlays = [
-                (self: super: {
-                  fastPython3 = self.python3.override {
-                    enableOptimizations = true;
-                    reproducibleBuild = false;
-                    self = self.fastPython3;
-                    pythonAttr = "fastPython3";
-                  };
-
-                  matrix-synapse = super.matrix-synapse.override {
-                    python3 = self.fastPython3;
-                  };
-                })
-              ];
-            }
           ] ++ sharedModules;
         };
 
