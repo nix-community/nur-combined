@@ -74,7 +74,16 @@ rec {
     pyvisa-py = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvisa-py { inherit pyvisa; };
 
     # More recent version than in Nixpkgs
-    inherit (pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cirq { }) cirq-core cirq-google cirq;
+    inherit (pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cirq { inherit pyquil; })
+      cirq
+      cirq-aqt
+      cirq-core
+      cirq-google
+      cirq-ionq
+      cirq-pasqal
+      cirq-rigetti
+      cirq-web
+    ;
     cvxpy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cvxpy { inherit ecos osqp scs; };
     ecos = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/ecos { };
     qdldl = pkgs.python3Packages.callPackage ./pkgs/python-modules/qdldl { };

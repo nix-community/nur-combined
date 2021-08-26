@@ -27,6 +27,10 @@ buildPythonPackage rec {
     sha256 = "sha256-PEJOKf86ypPO8TqIJR+mqV80+1c8EDIr7fpoBV6Qwgc=";
   };
 
+  postPatch = ''
+    substituteInPlace requirements.txt --replace "cirq~=0.11.0" "cirq"
+  '';
+
   propagatedBuildInputs = [
     cirq
     deprecation
@@ -55,7 +59,10 @@ buildPythonPackage rec {
     "test_all"
     "test_apply_constraints"
     "test_plane_wave_hamiltonian"
-  ] ++
+  ] ++ lib.optionals (lib.versionAtLeast cirq.version "0.11.1") [
+    "test_cirq_deprecations"
+  ]
+    ++
     # These fail on scipy 1.6.1, seem to work before that
     lib.optionals (lib.versionAtLeast scipy.version "1.6.1") [
       # Have issues with some of these tests, don't have time to track down the issue.
