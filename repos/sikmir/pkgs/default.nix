@@ -119,6 +119,7 @@ lib.makeScope newScope (
     tile-stitch = callPackage ./tools/geo/tile-stitch { };
     tilesets-cli = callPackage ./tools/geo/tilesets-cli { };
     tpkutils = callPackage ./tools/geo/tpkutils { };
+    vt2geojson = callPackage ./tools/geo/vt2geojson { };
 
     ### DICT
 
