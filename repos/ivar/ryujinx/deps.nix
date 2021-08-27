@@ -61,8 +61,8 @@
   })
   (fetchNuGet {
     name = "LibHac";
-    version = "0.13.2";
-    sha256 = "1340qy73b708zi2b2g4br3kw65gbk1wyr1g6ahr3j3qcb5dspb9l";
+    version = "0.13.3";
+    sha256 = "0mh7q1i9wk5mj7xc1rbsasfmd0d1y6xs5m4nllmclk4drzkzsi56";
   })
   (fetchNuGet {
     name = "Microsoft.AspNetCore.App.Runtime.linux-x64";
@@ -516,8 +516,8 @@
   })
   (fetchNuGet {
     name = "Ryujinx.SDL2-CS";
-    version = "2.0.15-build11";
-    sha256 = "0s4h69l2b508l5wxp4v4ip8k83k78p3963xxv8bfamin9517przi";
+    version = "2.0.17-build18";
+    sha256 = "0j0vs6075c4fniydqxhpp18pg3x679mq463x4gxqgkri3vhpj4vl";
   })
   (fetchNuGet {
     name = "SharpZipLib";
