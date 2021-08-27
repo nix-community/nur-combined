@@ -421,10 +421,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "92.0buildid20210824191834";
+      version = "92.0buildid20210826192006";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3829994/francais_language_pack-92.0buildid20210824191834-fx.xpi";
-      sha256 = "f5d5222d5109d25fdb804f95ca9eaf859f456c5a24b82242dbd81bafbe251be6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3831027/francais_language_pack-92.0buildid20210826192006-fx.xpi";
+      sha256 = "c15764872a0605f9bc8464e71338e4eafed9ebd31e6adfc8b266cf36fc00ef4a";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -648,10 +648,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.77.0.17";
+      version = "4.78.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3815803/lastpass_password_manager-4.77.0.17-an+fx.xpi";
-      sha256 = "1c1062b1483aa57494ff2a3f2659706341be75debe85acb2a4f5bd393c841c89";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3823312/lastpass_password_manager-4.78.0.3-an+fx.xpi";
+      sha256 = "604fca4c91d6caf8df9326c6403c37e98dbb45b4a750fff3f16c4a076a930524";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1535,10 +1535,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.11";
+      version = "3.8.12";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3826195/tree_style_tab-3.8.11-fx.xpi";
-      sha256 = "c9bd79761bfafe5cd81884802ceb3d7f06e45de28722f1c7c97bb594fe020b4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3830576/tree_style_tab-3.8.12-fx.xpi";
+      sha256 = "9f2776638b073a3ad986851126c53a561e15b7532f3a1c646b428b61bd74aab4";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
