@@ -22,14 +22,14 @@
 with lib;
 
 stdenv.mkDerivation rec {
-  version = "1.24.0";
+  version = "1.25.0";
   pname = "unit";
 
   src = fetchFromGitHub {
     owner = "nginx";
     repo = pname;
     rev = "${version}";
-    sha256 = "0214dvwz31hxjxnqk3fkqhn2xznaqdrb96m5s2k8ll8rldmk1gd6";
+    sha256 = "1z19v3bn4lw6csaw6ar780kjhli353p4vd8kphg8vf7h7dhznyzi";
   };
 
   nativeBuildInputs = [ which ];
