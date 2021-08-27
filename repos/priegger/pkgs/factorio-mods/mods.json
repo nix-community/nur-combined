@@ -711,10 +711,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "8.0.6",
-    "file_name": "reverse-factory_8.0.6.zip",
-    "download_url": "/download/reverse-factory/6115bbfc6e2c69fb9075911e",
-    "sha1": "d12c3144a928154670d154f61ff267819fd1239b",
+    "version": "8.0.8",
+    "file_name": "reverse-factory_8.0.8.zip",
+    "download_url": "/download/reverse-factory/6128249776630758962da820",
+    "sha1": "867500023f4e158df6cfaa5ef7ce2b1ce745fc59",
     "dependencies": [
       "base",
       "stdlib",
