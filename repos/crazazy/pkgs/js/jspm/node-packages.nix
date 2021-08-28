@@ -256,13 +256,13 @@ let
         sha512 = "C6N5s2ZFtuZRj54k2/zyRhNDjJwwcViAM3Nbm8zjBpbqAdZ00mr0CFxvSKeO8Y/e03WVFLpQMdHYVfUd6SB+Hw==";
       };
     };
-    "@types/node-16.7.1" = {
+    "@types/node-16.7.4" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "16.7.1";
+      version = "16.7.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-16.7.1.tgz";
-        sha512 = "ncRdc45SoYJ2H4eWU9ReDfp3vtFqDYhjOsKlFFUDEn8V1Bgr2RjYal8YT5byfadWIRluhPFU6JiDOl0H6Sl87A==";
+        url = "https://registry.npmjs.org/@types/node/-/node-16.7.4.tgz";
+        sha512 = "25QXpDsTiDnl2rZGUenagVMwO46way8dOUdvoC3R3p+6TrbpxeJBo/v87BEG1IHI31Jhaa8lPeSHcqwxsVBeYQ==";
       };
     };
     "abbrev-1.1.1" = {
@@ -571,13 +571,13 @@ let
         sha512 = "AKcdTnFSWATd5/GCPRxr2ChwIJ85CeyrEyjRHlKxQ56d4XJMGym0uAiKn0xbLOGOl3+yRpOTi484dVCEc5AUzQ==";
       };
     };
-    "caniuse-lite-1.0.30001251" = {
+    "caniuse-lite-1.0.30001252" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001251";
+      version = "1.0.30001252";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001251.tgz";
-        sha512 = "HOe1r+9VkU4TFmnU70z+r7OLmtR+/chB1rdcJUeQlAinjEeb0cKL20tlAtOagNZhbrtLnCvV19B4FmF1rgzl6A==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001252.tgz";
+        sha512 = "I56jhWDGMtdILQORdusxBOH+Nl/KgQSdDmpJezYddnAkVOmnoU8zwjTV9xAjMIYxr0iPreEAVylCGcmHCjfaOw==";
       };
     };
     "caseless-0.12.0" = {
@@ -886,13 +886,13 @@ let
         sha1 = "3a83a904e54353287874c564b7549386849a98c9";
       };
     };
-    "electron-to-chromium-1.3.814" = {
+    "electron-to-chromium-1.3.821" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.814";
+      version = "1.3.821";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.814.tgz";
-        sha512 = "0mH03cyjh6OzMlmjauGg0TLd87ErIJqWiYxMcOLKf5w6p0YEOl7DJAj7BDlXEFmCguY5CQaKVOiMjAMODO2XDw==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.821.tgz";
+        sha512 = "IadPc2Ep1RGFYfLYdp0FTOgdPUDg3lvH7vqwGGdAuHtbnVc8M2qldS+SGESzmUaXpaSqpzROozQcBKFiRSKpOg==";
       };
     };
     "end-of-stream-1.4.4" = {
@@ -1993,13 +1993,13 @@ let
         sha1 = "195a21d6c46e361d2fb1281ba38b91e9df7bdbb3";
       };
     };
-    "needle-2.8.0" = {
+    "needle-2.9.0" = {
       name = "needle";
       packageName = "needle";
-      version = "2.8.0";
+      version = "2.9.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/needle/-/needle-2.8.0.tgz";
-        sha512 = "ZTq6WYkN/3782H1393me3utVYdq2XyqNUFBsprEE3VMAT0+hP/cItpnITpqsY6ep2yeFE4Tqtqwc74VqUlUYtw==";
+        url = "https://registry.npmjs.org/needle/-/needle-2.9.0.tgz";
+        sha512 = "UBLC4P8w9to3rAhWOQYXIXzTUio9yVnDzIeKxfGbF+Hngy+2bXTqqFK+6nF42EAQKfJdezXK6vzMsefUa1Y3ag==";
       };
     };
     "netrc-0.1.4" = {
@@ -3170,7 +3170,7 @@ let
       sources."@jspm/npm-1.0.1"
       sources."@jspm/resolve-1.0.0"
       sources."@types/estree-0.0.50"
-      sources."@types/node-16.7.1"
+      sources."@types/node-16.7.4"
       sources."abbrev-1.1.1"
       sources."acorn-7.4.1"
       sources."agent-base-4.3.0"
@@ -3217,7 +3217,7 @@ let
       sources."buffer-from-1.1.2"
       sources."buffer-peek-stream-1.1.0"
       sources."cache-base-1.0.1"
-      sources."caniuse-lite-1.0.30001251"
+      sources."caniuse-lite-1.0.30001252"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chownr-1.1.4"
@@ -3264,7 +3264,7 @@ let
       sources."detect-file-1.0.0"
       sources."detect-libc-1.0.3"
       sources."ecc-jsbn-0.1.2"
-      sources."electron-to-chromium-1.3.814"
+      sources."electron-to-chromium-1.3.821"
       sources."end-of-stream-1.4.4"
       sources."err-code-1.1.2"
       sources."errno-0.1.8"
@@ -3431,7 +3431,7 @@ let
       sources."nan-2.15.0"
       sources."nanomatch-1.2.13"
       sources."ncp-2.0.0"
-      (sources."needle-2.8.0" // {
+      (sources."needle-2.9.0" // {
         dependencies = [
           sources."debug-3.2.7"
         ];

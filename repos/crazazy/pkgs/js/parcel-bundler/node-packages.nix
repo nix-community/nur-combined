@@ -1633,13 +1633,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001251" = {
+    "caniuse-lite-1.0.30001252" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001251";
+      version = "1.0.30001252";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001251.tgz";
-        sha512 = "HOe1r+9VkU4TFmnU70z+r7OLmtR+/chB1rdcJUeQlAinjEeb0cKL20tlAtOagNZhbrtLnCvV19B4FmF1rgzl6A==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001252.tgz";
+        sha512 = "I56jhWDGMtdILQORdusxBOH+Nl/KgQSdDmpJezYddnAkVOmnoU8zwjTV9xAjMIYxr0iPreEAVylCGcmHCjfaOw==";
       };
     };
     "caseless-0.12.0" = {
@@ -1903,13 +1903,13 @@ let
         sha512 = "Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==";
       };
     };
-    "core-js-compat-3.16.2" = {
+    "core-js-compat-3.16.3" = {
       name = "core-js-compat";
       packageName = "core-js-compat";
-      version = "3.16.2";
+      version = "3.16.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.16.2.tgz";
-        sha512 = "4lUshXtBXsdmp8cDWh6KKiHUg40AjiuPD3bOWkNVsr1xkAhpUqCjaZ8lB1bKx9Gb5fXcbRbFJ4f4qpRIRTuJqQ==";
+        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.16.3.tgz";
+        sha512 = "A/OtSfSJQKLAFRVd4V0m6Sep9lPdjD8bpN8v3tCCGwE0Tmh0hOiVDm9tw6mXmWOKOSZIyr3EkywPo84cJjGvIQ==";
       };
     };
     "core-util-is-1.0.2" = {
@@ -2164,13 +2164,13 @@ let
         sha512 = "YTWYI9se1P55u58gL5GkQHW4P6VJBJ5iBT+B5a7i2Tjadhv52paJG0qHX4A0OR6/t52odI64KP2YvFpkDOi3eQ==";
       };
     };
-    "deasync-0.1.22" = {
+    "deasync-0.1.23" = {
       name = "deasync";
       packageName = "deasync";
-      version = "0.1.22";
+      version = "0.1.23";
       src = fetchurl {
-        url = "https://registry.npmjs.org/deasync/-/deasync-0.1.22.tgz";
-        sha512 = "o21R8Vhv3wX0E19jpATUJIAinQ1I2rHIlAnzRRsMynWlIrvU0HbCwjpquPIYR544Tvg9z/L+NZQev5cjVD1/nQ==";
+        url = "https://registry.npmjs.org/deasync/-/deasync-0.1.23.tgz";
+        sha512 = "CGZSokFwidI50GOAmkz/7z3QdMzTQqAiUOzt95PuhKgi6VVztn9D03ZCzzi93uUWlp/v6A9osvNWpIvqHvKjTA==";
       };
     };
     "debug-2.6.9" = {
@@ -2380,13 +2380,13 @@ let
         sha512 = "Lgd2XcJ/NjEw+7tFvfKxOzCYKZsdct5lczQ2ZaQY8Djz7pfAD3Gbp8ySJWtreII/vDlMVmxwa6pHmdxIYgttDg==";
       };
     };
-    "domutils-2.7.0" = {
+    "domutils-2.8.0" = {
       name = "domutils";
       packageName = "domutils";
-      version = "2.7.0";
+      version = "2.8.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/domutils/-/domutils-2.7.0.tgz";
-        sha512 = "8eaHa17IwJUPAiB+SoTYBo5mCdeMgdcAoXJ59m6DT1vw+5iLS3gNoqYaRowaBKtGVrOF1Jz4yDTgYKLK2kvfJg==";
+        url = "https://registry.npmjs.org/domutils/-/domutils-2.8.0.tgz";
+        sha512 = "w96Cjofp72M5IIhpjgobBimYEfoPjx1Vx0BSX9P30WBdZW2WIKU0T1Bd0kz2eNZ9ikjKgHbEyKx8BB6H1L3h3A==";
       };
     };
     "dot-prop-5.3.0" = {
@@ -2443,13 +2443,13 @@ let
         sha1 = "590c61156b0ae2f4f0255732a158b266bc56b21d";
       };
     };
-    "electron-to-chromium-1.3.814" = {
+    "electron-to-chromium-1.3.821" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.814";
+      version = "1.3.821";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.814.tgz";
-        sha512 = "0mH03cyjh6OzMlmjauGg0TLd87ErIJqWiYxMcOLKf5w6p0YEOl7DJAj7BDlXEFmCguY5CQaKVOiMjAMODO2XDw==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.821.tgz";
+        sha512 = "IadPc2Ep1RGFYfLYdp0FTOgdPUDg3lvH7vqwGGdAuHtbnVc8M2qldS+SGESzmUaXpaSqpzROozQcBKFiRSKpOg==";
       };
     };
     "elliptic-6.5.4" = {
@@ -5845,13 +5845,13 @@ let
         sha512 = "/FQzzPJmCpjAH9Xvk2paiWrFq+5M6aVOf+2KRbwhByISDX/EujxsK+BAvrhb6H+2rtrLCHK9N01wO014vrIwVQ==";
       };
     };
-    "terser-5.7.1" = {
+    "terser-5.7.2" = {
       name = "terser";
       packageName = "terser";
-      version = "5.7.1";
+      version = "5.7.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terser/-/terser-5.7.1.tgz";
-        sha512 = "b3e+d5JbHAe/JSjwsC3Zn55wsBIM7AsHLjKxT31kGCldgbpFePaFo+PiddtO6uwRZWRw7sPXmAN8dTW61xmnSg==";
+        url = "https://registry.npmjs.org/terser/-/terser-5.7.2.tgz";
+        sha512 = "0Omye+RD4X7X69O0eql3lC4Heh/5iLj3ggxR/B5ketZLOtLiOqukUgjw3q4PDnNQbsrkKr3UMypqStQG3XKRvw==";
       };
     };
     "through2-2.0.5" = {
@@ -6655,7 +6655,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001251"
+      sources."caniuse-lite-1.0.30001252"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-2.1.8"
@@ -6682,7 +6682,7 @@ let
       sources."convert-source-map-1.8.0"
       sources."copy-descriptor-0.1.1"
       sources."core-js-2.6.12"
-      (sources."core-js-compat-3.16.2" // {
+      (sources."core-js-compat-3.16.3" // {
         dependencies = [
           sources."semver-7.0.0"
         ];
@@ -6738,7 +6738,7 @@ let
       sources."cssstyle-1.4.0"
       sources."dashdash-1.14.1"
       sources."data-urls-1.1.0"
-      sources."deasync-0.1.22"
+      sources."deasync-0.1.23"
       sources."debug-4.3.2"
       sources."decode-uri-component-0.2.0"
       sources."deep-is-0.1.3"
@@ -6793,7 +6793,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.3.814"
+      sources."electron-to-chromium-1.3.821"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -6902,14 +6902,14 @@ let
           sources."posthtml-0.15.2"
           sources."posthtml-parser-0.7.2"
           sources."source-map-0.7.3"
-          sources."terser-5.7.1"
+          sources."terser-5.7.2"
         ];
       })
       (sources."htmlparser2-6.1.0" // {
         dependencies = [
           sources."dom-serializer-1.3.2"
           sources."domelementtype-2.2.0"
-          sources."domutils-2.7.0"
+          sources."domutils-2.8.0"
         ];
       })
       sources."http-errors-1.7.3"
