@@ -33,6 +33,7 @@ let
     smartbox = pySelf.callPackage ./pkgs/smartbox { };
     tesla-custom-component = pySelf.callPackage ./pkgs/tesla-custom-component { };
     teslajsonpy = pySelf.callPackage ./pkgs/teslajsonpy { };
+    typer = pySelf.callPackage ./pkgs/typer { };
   };
 in rec {
   inherit pkgs; # for debugging
