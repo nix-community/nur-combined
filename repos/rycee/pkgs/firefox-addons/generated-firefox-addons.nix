@@ -714,10 +714,10 @@
       };
     "linkhints" = buildFirefoxXpiAddon {
       pname = "linkhints";
-      version = "1.1.1";
+      version = "1.2.0";
       addonId = "linkhints@lydell.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3626392/link_hints-1.1.1-fx.xpi";
-      sha256 = "84ac6143c3520b8912635a083cad4ee06c006c16c2bcbfaa71de6559f8b86069";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3831838/link_hints-1.2.0-fx.xpi";
+      sha256 = "3d0bd5699a2f3a668edc83a3de415e0425262bfae532d32565b0fd1d75c9619f";
       meta = with lib;
       {
         homepage = "https://lydell.github.io/LinkHints";
@@ -728,10 +728,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.13";
+      version = "2.6.14";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3825165/localcdn-2.6.13-an+fx.xpi";
-      sha256 = "78b3e51a1e98d024d913e6533407fef8cbaae236d044ddcd3da79830894da116";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3831672/localcdn-2.6.14-an+fx.xpi";
+      sha256 = "7a82e28565ce50d8ac843659d0a57dacc76676d6e432f3a0549c87559b7f3d43";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
