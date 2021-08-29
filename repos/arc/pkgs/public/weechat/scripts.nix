@@ -78,6 +78,10 @@
 
     passthru.scripts = [ pname ];
   };
-
+  zncplayback = { buildWeechatScript }: buildWeechatScript {
+    pname = "zncplayback.py";
+    version = "0.2.1";
+    sha256 = "1k32p6naxg40g664ip48zvm61xza7l9az3v3rawmjw97i0mwz7y3";
+  };
   weechat-matrix = { python3Packages, weechat-matrix }: python3Packages.weechat-matrix or weechat-matrix;
 }
