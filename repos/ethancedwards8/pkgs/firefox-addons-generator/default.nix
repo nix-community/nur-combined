@@ -4,13 +4,13 @@
 mkDerivation rec {
   # __contentAddressed = true;
   pname = "nixpkgs-firefox-addons";
-  version = "0.8.0";
+  version = "0.8.1";
   # src = inputs.firefox-addons-generator;
   src = fetchFromGitLab {
     owner = "rycee";
     repo = "nixpkgs-firefox-addons";
     rev = "v${version}";
-    sha256 = "0f5d1r4vvxpa3rv3kyahaidm6mv39ip1d1fdkc5c0a38qcc5chvq";
+    sha256 = "pwEJESWamrnbwv6vMoczciFIaew3uf5MYTqd0E5wE3o=";
   };
   isLibrary = false;
   isExecutable = true;
