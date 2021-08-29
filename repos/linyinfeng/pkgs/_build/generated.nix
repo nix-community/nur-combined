@@ -3,10 +3,10 @@
 {
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.17.1";
+    version = "0.17.2";
     src = fetchurl {
-      sha256 = "03qhsi51lmj44d3hz2zfzhm2md55nwhb8xki7vhy7yl5bx1hdjr1";
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.17.1/Clash.for.Windows-0.17.1-x64-linux.tar.gz";
+      sha256 = "141a9mf1mv1y3jc2f8kkxq8cans5cg481g6xc08zsq5w3jkl4ynz";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.17.2/Clash.for.Windows-0.17.2-x64-linux.tar.gz";
     };
 
   };
@@ -83,10 +83,10 @@
   };
   icalingua = {
     pname = "icalingua";
-    version = "v2.2.0";
+    version = "v2.2.1";
     src = fetchurl {
-      sha256 = "12nz86wa67jqfj9mb4mcc2ycyf8p0lwn9i9rajbdyd213mpfdpyf";
-      url = "https://github.com/Clansty/Icalingua/releases/download/v2.2.0/app-x86_64.asar";
+      sha256 = "1jfj8wix09nmazgkd4q5an01iwg637cdysi8khp4370a846aqs1g";
+      url = "https://github.com/Clansty/Icalingua/releases/download/v2.2.1/app-x86_64.asar";
     };
 
   };

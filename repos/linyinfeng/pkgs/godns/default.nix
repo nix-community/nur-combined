@@ -7,10 +7,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  buildFlagsArray = [
-    "-ldflags="
-    "-X main.Version=${version}"
-  ];
+  ldflags = [ "-X main.Version=${version}" ];
 
   meta = with lib; {
     description = "A dynamic DNS client tool supports AliDNS, Cloudflare, Google Domains, DNSPod, HE.net & DuckDNS & DreamHost, etc, written in Go";
