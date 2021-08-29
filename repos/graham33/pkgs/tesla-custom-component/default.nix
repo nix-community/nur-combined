@@ -2,34 +2,31 @@
 , buildPythonPackage
 , python
 , fetchFromGitHub
+, poetry-core
 , teslajsonpy
 }:
 
 buildPythonPackage rec {
   pname = "tesla-custom-component";
-  version = "0.1.5";
-  format = "other";
+  version = "0.2.0";
+  format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "alandtse";
     repo = "tesla";
     rev = "v${version}";
-    sha256 = "09pb9x3gbrcr9583clhgyd3bzg3ljj7pragimiy1yzlw7hswhmsy";
+    sha256 = "0b4gnx3mcn6krzwfscv2g37phb8kgkwsqfk7gzkf2nwyl83qnfwz";
   };
+
+  patches = [ ./poetry.patch ];
+
+  nativeBuildInputs = [
+    poetry-core
+  ];
 
   propagatedBuildInputs = [
     teslajsonpy
   ];
-
-  installPhase = ''
-    mkdir -p $out/custom_components
-    cp -r custom_components/tesla_custom $out/custom_components/
-  '';
-
-  doInstallCheck = true;
-  installCheckPhase = ''
-    ${python.interpreter} ${../build-support/ha-custom-components/check_requirements.py} $out/custom_components/tesla_custom/manifest.json
-  '';
 
   meta = with lib; {
     homepage = "https://github.com/alandtse/tesla";

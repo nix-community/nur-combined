@@ -1,0 +1,13 @@
+diff --color -ru source.orig/pyproject.toml source/pyproject.toml
+--- source.orig/pyproject.toml	2021-08-29 15:54:54.747239879 +0100
++++ source/pyproject.toml	2021-08-29 15:56:26.882079811 +0100
+@@ -4,6 +4,9 @@
+ description = "A fork of the Home Assistant tesla integration using a oauth proxy to login."
+ authors = ["Alan D. Tse <alandtse@gmail.com>"]
+ license = "Apache-2.0"
++packages = [
++    { include = "tesla_custom", from = "custom_components" },
++]
+ 
+ [tool.poetry.dependencies]
+ python = "^3.8"
