@@ -2,10 +2,10 @@
   {
     "bitwarden-password-manager" = buildFirefoxXpiAddon {
       pname = "bitwarden-password-manager";
-      version = "1.51.1";
+      version = "1.52.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3807401/bitwarden_free_password_manager-1.51.1-an+fx.xpi";
-      sha256 = "9cd1db78e612473e1c7a9e57b9868f82b3d5fd770cbea7ffa488cc9efc65a345";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3827516/bitwarden_free_password_manager-1.52.0-an+fx.xpi";
+      sha256 = "3e100c51681029bb07158c95af6cd900f19ba0d3860cb5600fca23ce9601640e";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -57,10 +57,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.36.2";
+      version = "1.37.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3806442/ublock_origin-1.36.2-an+fx.xpi";
-      sha256 = "31f8c2126a3f4e3cfe3ef63550b842a5d4f071ec1c6e5aa377c2f29b11ff1415";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3816867/ublock_origin-1.37.2-an+fx.xpi";
+      sha256 = "b3a3c81891acb4620e33dd548b50375aad826376044a6143b5a947d0406a559e";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -71,10 +71,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "1.2.1";
+      version = "1.2.2";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3805318/vim_vixen-1.2.1-an+fx.xpi";
-      sha256 = "4b2a6e9c62f353d8ec0f854c3071aa91cf46221bb2a6731590791ffb775204ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3819811/vim_vixen-1.2.2-an+fx.xpi";
+      sha256 = "f2421b7441dacca6cd3b8ced0f2578e5bf1909101249ef072f98786e3ae72ed8";
       meta = with lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
