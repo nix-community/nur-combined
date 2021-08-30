@@ -80,6 +80,7 @@
     nix-mode.mode = [ ''"\\.nix\\'"'' ];
 
     notmuch = {
+      package = epkgs: lib.getOutput "emacs" pkgs.notmuch;
       config = ''
         (setq notmuch-command "${pkgs.notmuch}/bin/notmuch")
       '';
