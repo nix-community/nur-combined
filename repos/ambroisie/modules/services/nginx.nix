@@ -34,6 +34,10 @@ let
         '';
       };
 
+      sso = {
+        enable = mkEnableOption "SSO authentication";
+      };
+
       extraConfig = mkOption {
         type = types.attrs; # FIXME: forward type of virtualHosts
         example = litteralExample ''
@@ -54,10 +58,7 @@ let
 in
 {
   options.my.services.nginx = with lib; {
-    enable =
-      mkEnableOption "Nginx, activates when `virtualHosts` is not empty" // {
-        default = builtins.length cfg.virtualHosts != 0;
-      };
+    enable = mkEnableOption "Nginx";
 
     monitoring = {
       enable = my.mkDisableOption "monitoring through grafana and prometheus";
@@ -91,6 +92,22 @@ in
       description = ''
         List of virtual hosts to set-up using default settings.
       '';
+    };
+
+    sso = {
+      subdomain = mkOption {
+        type = types.str;
+        default = "login";
+        example = "auth";
+        description = "Which subdomain, to use for SSO.";
+      };
+
+      port = mkOption {
+        type = types.port;
+        default = 8082;
+        example = 8080;
+        description = "Port to use for internal webui.";
+      };
     };
   };
 
@@ -173,11 +190,133 @@ in
               })
               # VHost specific configuration
               args.extraConfig
+              # SSO configuration
+              (lib.optionalAttrs args.sso.enable {
+                extraConfig = (args.extraConfig.extraConfig or "") + ''
+                  error_page 401 = @error401;
+                '';
+
+                locations."@error401".return = ''
+                  302 https://${cfg.sso.subdomain}.${config.networking.domain}/login?go=$scheme://$http_host$request_uri
+                '';
+
+                locations."/" = {
+                  extraConfig =
+                    (args.extraConfig.locations."/".extraConfig or "") + ''
+                      # Use SSO
+                      auth_request /sso-auth;
+
+                      # Set username through header
+                      auth_request_set $username $upstream_http_x_username;
+                      proxy_set_header X-User $username;
+
+                      # Renew SSO cookie on request
+                      auth_request_set $cookie $upstream_http_set_cookie;
+                      add_header Set-Cookie $cookie;
+                    '';
+                };
+
+                locations."/sso-auth" = {
+                  proxyPass = "http://localhost:${toString cfg.sso.port}/auth";
+                  extraConfig = ''
+                    # Do not allow requests from outside
+                    internal;
+
+                    # Do not forward the request body
+                    proxy_pass_request_body off;
+                    proxy_set_header Content-Length "";
+
+                    # Set X-Application according to subdomain for matching
+                    proxy_set_header X-Application "${subdomain}";
+
+                    # Set origin URI for matching
+                    proxy_set_header X-Origin-URI $request_uri;
+                  '';
+                };
+              })
             ])
           );
         in
         lib.my.genAttrs' cfg.virtualHosts mkVHost;
+
+      sso = {
+        enable = true;
+
+        configuration = {
+          listen = {
+            addr = "127.0.0.1";
+            inherit (cfg.sso) port;
+          };
+
+          audit_log = {
+            target = [
+              "fd://stdout"
+            ];
+            events = [
+              "access_denied"
+              "login_success"
+              "login_failure"
+              "logout"
+              "validate"
+            ];
+            headers = [
+              "x-origin-uri"
+              "x-application"
+            ];
+          };
+
+          cookie = {
+            domain = ".${config.networking.domain}";
+            secure = true;
+            authentication_key = config.my.secrets.sso.auth_key;
+          };
+
+          login = {
+            title = "Ambroisie's SSO";
+            default_method = "simple";
+            hide_mfa_field = false;
+            names = {
+              simple = "Username / Password";
+            };
+          };
+
+          providers = {
+            simple =
+              let
+                applyUsers = lib.flip lib.mapAttrs config.my.secrets.sso.users;
+              in
+              {
+                users = applyUsers (_: v: v.passwordHash);
+
+                mfa = applyUsers (_: v: [{
+                  provider = "totp";
+                  attributes = {
+                    secret = v.totpSecret;
+                  };
+                }]);
+
+                inherit (config.my.secrets.sso) groups;
+              };
+          };
+
+          acl = {
+            rule_sets = [
+              {
+                rules = [{ field = "x-application"; present = true; }];
+                allow = [ "@root" ];
+              }
+            ];
+          };
+        };
+      };
     };
+
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = "login";
+        inherit (cfg.sso) port;
+      }
+    ];
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];
 

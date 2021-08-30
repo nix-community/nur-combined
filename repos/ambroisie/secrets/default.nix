@@ -20,6 +20,7 @@ throwOnCanary {
           int
           str
           (attrsOf valueType)
+          (listOf valueType)
         ];
       in
       valueType;
@@ -56,6 +57,8 @@ throwOnCanary {
     nextcloud.password = fileContents ./nextcloud/password.txt;
 
     podgrab.password = fileContents ./podgrab/password.txt;
+
+    sso = import ./sso { inherit lib; };
 
     transmission.password = fileContents ./transmission/password.txt;
 

@@ -90,6 +90,9 @@ in
       enable = true;
       password = my.secrets.nextcloud.password;
     };
+    nginx = {
+      enable = true;
+    };
     # The whole *arr software suite
     pirate.enable = true;
     # Podcast automatic downloader
