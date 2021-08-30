@@ -6,4 +6,5 @@
   electrum-personal-server = ./electrum-personal-server;
   electrumx = ./electrumx;
   fzf = ./programs/fzf;
+  protonvpn = ./protonvpn;
 }
