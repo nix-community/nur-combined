@@ -9,8 +9,6 @@ in
 
 
   config = lib.mkIf cfg.enable {
-    programs.lesspipe.enable = true;
-
     home.sessionVariables = {
       # My default pager
       PAGER = "less";
