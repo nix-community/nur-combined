@@ -17,7 +17,7 @@
 
 buildPythonPackage rec {
   pname = "typer";
-  version = "0.3.3pre";
+  version = "0.4.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
