@@ -18,6 +18,7 @@
     ./navidrome.nix
     ./nextcloud.nix
     ./nginx.nix
+    ./paperless.nix
     ./pirate.nix
     ./podgrab.nix
     ./postgresql-backup.nix

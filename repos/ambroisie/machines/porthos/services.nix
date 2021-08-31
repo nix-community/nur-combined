@@ -93,6 +93,14 @@ in
     nginx = {
       enable = true;
     };
+    paperless = {
+      enable = true;
+      documentPath = "/data/media/paperless";
+      # Insecure, I don't care
+      passwordFile =
+        builtins.toFile "paperless.env" my.secrets.paperless.password;
+      secretKey = my.secrets.paperless.secretKey;
+    };
     # The whole *arr software suite
     pirate.enable = true;
     # Podcast automatic downloader

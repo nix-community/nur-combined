@@ -5,6 +5,7 @@ let
   mediaServices = with config.my.services; [
     calibre-web
     jellyfin
+    paperless
     pirate
     sabnzbd
     transmission
