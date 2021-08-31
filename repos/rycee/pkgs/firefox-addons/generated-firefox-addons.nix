@@ -44,10 +44,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.3.5";
+      version = "7.3.6";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3820799/betterttv-7.3.5-fx.xpi";
-      sha256 = "c3a8cead8dfde72d451459f612b07a5fa5b01f8bb1fcdfb1650e8dadc1dbe119";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3831943/betterttv-7.3.6-fx.xpi";
+      sha256 = "3bd234c0ed88e97b1e1d159dbc2049e315641c0d3312abad2f6b18847c4c61c7";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -421,10 +421,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "92.0buildid20210826192006";
+      version = "92.0buildid20210830174627";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3831027/francais_language_pack-92.0buildid20210826192006-fx.xpi";
-      sha256 = "c15764872a0605f9bc8464e71338e4eafed9ebd31e6adfc8b266cf36fc00ef4a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3832600/francais_language_pack-92.0buildid20210830174627-fx.xpi";
+      sha256 = "7be65a725a1cc2a8a969caeb0c76550c50888647339f8b0e99bcb3e24221f31d";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -783,10 +783,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.0.2";
+      version = "10.0.3";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3827018/metamask-10.0.2-an+fx.xpi";
-      sha256 = "4d8e52e7b0b97a96adac64eeb3adcbcce85b4c356e57dff5305421cdcbe179f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3832716/metamask-10.0.3-an+fx.xpi";
+      sha256 = "2adabb4c7aba0d966276bd76af80fa27674c656c0d2dd9d2fb432b15da91b3fc";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
