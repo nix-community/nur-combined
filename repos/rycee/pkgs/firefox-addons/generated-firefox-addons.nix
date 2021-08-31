@@ -1,5 +1,32 @@
 { buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
   {
+    "a11ycss" = buildFirefoxXpiAddon {
+      pname = "a11ycss";
+      version = "1.2.0";
+      addonId = "a11y.css@ffoodd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3754972/a11ycss_accessibility_checker-1.2.0-fx.xpi";
+      sha256 = "888a7d028b6dfdb913cf4a417c5ea2b8d71cd127f248709cb0ce5b6509fafda3";
+      meta = with lib;
+      {
+        homepage = "https://ffoodd.github.io/a11y.css/";
+        description = "a11y.css provides warnings about possible risks and mistakes that exist in HTML code through a style sheet. This extension also provides several accessibility-related utilities.\n\nsee <a href=\"https://outgoing.prod.mozaws.net/v1/4c643171ccddfcfa3712d45a2b7b615f54195eb4507868ab6ef3fbf6694dc4c2/https%3A//github.com/ffoodd/a11y.css/tree/webextension\" rel=\"nofollow\">https://github.com/ffoodd/a11y.css/tree/webextension</a> for  details";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "add-custom-search-engine" = buildFirefoxXpiAddon {
+      pname = "add-custom-search-engine";
+      version = "4.2";
+      addonId = "{af37054b-3ace-46a2-ac59-709e4412bec6}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3812756/add_custom_search_engine-4.2-fx.xpi";
+      sha256 = "86aaf173514ec2da55556eb339a9d7c115c6e070c5433ebff8db31baa8e165d5";
+      meta = with lib;
+      {
+        description = "Add a custom search engine to the list of available search engines in the search bar and URL bar.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "adsum-notabs" = buildFirefoxXpiAddon {
       pname = "adsum-notabs";
       version = "1.1";
@@ -184,6 +211,20 @@
         platforms = platforms.all;
         };
       };
+    "copy-selection-as-markdown" = buildFirefoxXpiAddon {
+      pname = "copy-selection-as-markdown";
+      version = "0.21.0";
+      addonId = "{db9a72da-7bc5-4805-bcea-da3cb1a15316}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3802383/copy_selection_as_markdown-0.21.0-fx.xpi";
+      sha256 = "ead9406f8e9afbe409a55c5b5b3d9d4eb9f0b8fb0f3f42c985b86bcfe2173ed4";
+      meta = with lib;
+      {
+        homepage = "https://github.com/0x6b/copy-selection-as-markdown";
+        description = "Copy title, URL, and selection as Markdown.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "dark-scroll-for-tweetdeck" = buildFirefoxXpiAddon {
       pname = "dark-scroll-for-tweetdeck";
       version = "2.0.0";
@@ -249,6 +290,20 @@
         homepage = "https://disconnect.me/";
         description = "Make the web faster, more private, and more secure.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "display-_anchors" = buildFirefoxXpiAddon {
+      pname = "display-_anchors";
+      version = "1.3";
+      addonId = "display-anchors@robwu.nl";
+      url = "https://addons.mozilla.org/firefox/downloads/file/584272/display_anchors-1.3-an+fx.xpi";
+      sha256 = "3cd2143e39d195225b8cf3432d0cf87b366ac6f31f3a7242c35cd0ce980ee6b8";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Rob--W/display-anchors";
+        description = "Displays anchors for all content in the current web page without breaking the layout.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -1045,6 +1100,20 @@
         platforms = platforms.all;
         };
       };
+    "pinboard" = buildFirefoxXpiAddon {
+      pname = "pinboard";
+      version = "5.0.0";
+      addonId = "{5158522f-7494-41b1-89ff-00d4cc1d87d3}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3581599/pinboard-5.0.0-fx.xpi";
+      sha256 = "767db6bcd7d4ad32478c5a38d513feeea638d1ceff231a97f40fd010a1499e59";
+      meta = with lib;
+      {
+        homepage = "https://browsernative.com/mozilla-firefox-extensions/";
+        description = "Unofficial Firefox add-on for <a href=\"https://outgoing.prod.mozaws.net/v1/9195797232dc4f996eff7bc68a67ac5b906f828efd0d0ebded52b3b4ef47556d/http%3A//Pinboard.in\" rel=\"nofollow\">Pinboard.in</a>. Bookmark web pages &amp; add notes easily. Keyboard command: Alt + p";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "plasma-integration" = buildFirefoxXpiAddon {
       pname = "plasma-integration";
       version = "1.8.0.1";
@@ -1282,6 +1351,20 @@
         homepage = "https://github.com/dessant/search-by-image";
         description = "A powerful reverse image search tool, with support for various search engines, such as Google, Bing, Yandex, Baidu and TinEye.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "search-engines-helper" = buildFirefoxXpiAddon {
+      pname = "search-engines-helper";
+      version = "3.2.2";
+      addonId = "{65a2d764-7358-455b-930d-5afa86fb5ed0}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3827755/search_engines_helper-3.2.2-an+fx.xpi";
+      sha256 = "2ed0dd789cd2b6530e5ba7a6eb095f7fdb3e9518e1df2ae6d855699c60bff9ac";
+      meta = with lib;
+      {
+        homepage = "https://github.com/soufianesakhi/firefox-search-engines-helper";
+        description = "Add a custom search engine and export/import all the search urls and icon urls for all search engines added to Firefox.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };

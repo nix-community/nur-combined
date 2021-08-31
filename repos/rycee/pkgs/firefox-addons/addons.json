@@ -11,6 +11,12 @@
     }
   },
   {
+    "slug": "a11ycss"
+  },
+  {
+    "slug": "add-custom-search-engine"
+  },
+  {
     "slug": "adsum-notabs"
   },
   {
@@ -59,6 +65,9 @@
     "slug": "cookies-txt"
   },
   {
+    "slug": "copy-selection-as-markdown"
+  },
+  {
     "slug": "dark-scroll-for-tweetdeck"
   },
   {
@@ -76,6 +85,9 @@
   },
   {
     "slug": "disconnect"
+  },
+  {
+    "slug": "display-_anchors"
   },
   {
     "slug": "duckduckgo-for-firefox",
@@ -310,6 +322,9 @@
     "slug": "peertubeify"
   },
   {
+    "slug": "pinboard"
+  },
+  {
     "slug": "plasma-integration"
   },
   {
@@ -375,6 +390,9 @@
   {
     "slug": "search_by_image",
     "pname": "search-by-image"
+  },
+  {
+    "slug": "search-engines-helper"
   },
   {
     "slug": "sidebery"
