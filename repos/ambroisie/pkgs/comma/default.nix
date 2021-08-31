@@ -3,14 +3,14 @@ stdenvNoCC.mkDerivation rec {
   pname = "comma";
   version = "0.1.0";
 
-  src = ./. + "/comma";
-
-  phases = [ "buildPhase" "installPhase" "fixupPhase" ];
+  src = ./comma;
 
   buildInputs = [
     makeWrapper
     shellcheck
   ];
+
+  dontUnpack = true;
 
   buildPhase = ''
     shellcheck $src

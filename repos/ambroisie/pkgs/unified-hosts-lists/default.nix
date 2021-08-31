@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-7oYuGegrHVUvAvA16iR8OEe5eTMeSybShSa1PJOe5No=";
   };
 
-  phases = [ "installPhase" ];
+  dontUnpack = true;
 
   installPhase = ''
     mkdir -p $out

@@ -5,12 +5,12 @@ stdenvNoCC.mkDerivation rec {
 
   src = ./diff-flake;
 
-  phases = [ "buildPhase" "installPhase" "fixupPhase" ];
-
   buildInputs = [
     makeWrapper
     shellcheck
   ];
+
+  dontUnpack = true;
 
   buildPhase = ''
     shellcheck $src

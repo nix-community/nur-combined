@@ -5,12 +5,12 @@ stdenvNoCC.mkDerivation rec {
 
   src = ./i3-get-window-criteria;
 
-  phases = [ "buildPhase" "installPhase" "fixupPhase" ];
-
   buildInputs = [
     makeWrapper
     shellcheck
   ];
+
+  dontUnpack = true;
 
   buildPhase = ''
     shellcheck $src

@@ -8,9 +8,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FDi4FZ8rjGqRkFlROtcJsv+mks7MmIXQGV4bZrwkQrA=";
   };
 
-  buildInputs = [
+  nativeBuildInputs = [
     ghc
-    which # Used by tests
+  ];
+
+  checkInputs = [
+    which
   ];
 
   doCheck = true;

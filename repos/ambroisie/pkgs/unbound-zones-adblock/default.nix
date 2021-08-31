@@ -5,7 +5,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = unified-hosts-lists;
 
-  phases = [ "installPhase" ];
+  dontUnpack = true;
 
   installPhase =
     let

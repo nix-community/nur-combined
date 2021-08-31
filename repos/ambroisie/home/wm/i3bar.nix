@@ -40,8 +40,8 @@ in
             }
             {
               block = "battery";
-              format = "{percentage}% ({time})";
-              full_format = "{percentage}%";
+              format = "{percentage} ({time})";
+              full_format = "{percentage}";
             }
             {
               block = "temperature";

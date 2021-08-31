@@ -10,8 +10,6 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-JiKPDrr9wyD2q5Vsac+OkFdvrDkx6mj/oC7XDVnka74=";
   };
 
-  phases = [ "installPhase" "fixupPhase" ];
-
   nativeBuildInputs = [
     makeWrapper
   ];
