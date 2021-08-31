@@ -103,7 +103,7 @@
         "description": "Support for building npm packages in Nix and lightweight npm registry",
         "flake": true,
         "homepage": "",
-        "owner": "nmattia",
+        "owner": "nix-community",
         "repo": "napalm",
         "rev": "0ae7e5544cff2902fbdaa45bf92fa81cb7515064",
         "sha256": "0an4vqw943jszgh9zf9sz7zz2iyylrbha70kc5d15m0fb8qvj74j",
