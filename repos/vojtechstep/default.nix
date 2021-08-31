@@ -16,5 +16,6 @@
 
   uwu = pkgs.callPackage ./pkgs/uwu { };
   inherit (pkgs.libsForQt5.callPackage ./pkgs/qtmips { }) qtmips-unstable qtmips-075;
+  hentaifetch = pkgs.callPackage ./pkgs/hentaifetch { };
 }
 
