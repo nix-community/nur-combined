@@ -118,7 +118,7 @@
         devShell = pkgs.mkShell {
           name = "NixOS-config";
 
-          buildInputs = with pkgs; [
+          nativeBuildInputs = with pkgs; [
             git-crypt
             gitAndTools.pre-commit
             gnupg
