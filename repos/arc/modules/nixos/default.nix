@@ -1,5 +1,6 @@
 {
   modprobe = ./modprobe.nix;
+  common-root = ./common-root.nix;
   pulseaudio = ./pulseaudio.nix;
   pipewire = ./pipewire.nix;
   alsa = ./alsa.nix;
@@ -14,6 +15,7 @@
   __functor = self: { ... }: {
     imports = with self; [
       modprobe
+      common-root
       pulseaudio
       pipewire
       alsa

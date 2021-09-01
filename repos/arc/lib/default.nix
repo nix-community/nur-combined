@@ -94,6 +94,11 @@
   in optionalString (int > 16) (toHexLower (int / 16)) + elemAt hexChars (mod int 16);
   toHexUpper = int: toUpper (toHexLower int);
 
+  escapeRegex = let
+    escapeChars = [ ''\'' "." "^" "$" "|" "?" "*" "+" "(" ")" "[" "]" "{" "}" ];
+    escaped = map (c: ''\${c}'') escapeChars;
+  in replaceStrings escapeChars escaped;
+
   concatImap0Strings = f: list: concatStrings (imap0 f list);
   concatImap1Strings = concatImapStrings;
 
@@ -133,6 +138,9 @@
 
   gst = import ./gst.nix { inherit lib; };
   alsa = import ./alsa.nix { inherit lib; };
+  sensitive = import ./sensitive.nix { inherit lib; };
+  json = import ./json.nix { inherit lib; };
+  unmerged = import ./unmerged.nix { inherit lib; };
 
   # NOTE: a very basic/incomplete parser
   fromYAML = import ./from-yaml.nix lib;
@@ -142,6 +150,9 @@
 
   # copy function signature
   copyFunctionArgs = src: dst: setFunctionArgs dst (functionArgs src);
+  toFunctor = f: if builtins.isFunction f then {
+    __functor = self: f;
+  } else f;
 
   # non-overridable callPackageWith
   callWith = autoArgs: fn: args: let
@@ -213,15 +224,29 @@
   in if val != "" then fn val else fallback;
 
   # create a url and omit explicit ports if default
-  genUrl = protocol: domain: port: let
+  genUrl = {
+    protocol
+  , host
+  , port ? null
+  , user ? null
+  , password ? null
+  , path ? ""
+  , queryString ? if query != { } then concatStringsSep "&" (mapAttrsToList (k: v: "${k}=${v}") query) else null
+  , query ? { }
+  , isUrl ? true
+  }: let
     portDefaults = {
+      ssh = 22;
       http = 80;
       https = 443;
     };
-    portStr = if port == null || (portDefaults.${protocol} or 0) == port
-      then ""
-      else ":${toString port}";
-  in "${protocol}://${domain}${portStr}";
+    explicitPort = port != null && (portDefaults.${protocol} or 0) != port;
+    portStr = optionalString explicitPort ":${toString port}";
+    queryStr = optionalString (queryString != null) "?${queryString}";
+    passwordStr = optionalString (password != null) ":${password}";
+    protocolStr = protocol + ":" + optionalString isUrl "//";
+    creds = optionalString (user != null || password != null) "${toString user}${passwordStr}@";
+  in "${protocolStr}${creds}${host}${portStr}${path}${queryStr}";
 
   # Retrieve a channel from NIX_PATH (or via overlaid attr), falling back to a pinned url if it can't be found.
   channelOrPin = { name, imp, url, sha256, check ? (_: null) }: let
