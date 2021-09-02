@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , buildPythonPackage
 , fetchFromGitHub
 , oead
@@ -37,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zeldamods/byml-v2";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kira-bruneau ];
-    broken = !isPy3k;
+    broken = !isPy3k || stdenv.isDarwin; # oead cmake --build fails with exit code 2 on darwin
   };
 }
