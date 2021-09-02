@@ -214,16 +214,17 @@ let
         speechdSupport = true;
         jackSupport = true;
       };
-      version = "2021-07-24";
+      version = "2021-08-31";
       runtimeDependencies = [ libpulseaudio pipewire libopus libjack2 ];
     in with lib; drv.overrideAttrs (old: {
       pname = "mumble-develop";
+      inherit version;
 
       src = fetchFromGitHub {
         owner = "mumble-voip";
         repo = "mumble";
-        rev = "a4f41775e8ee172a89e18209c6013b473951697c";
-        sha256 = "0vlcjdn4wwd6idhgks2ihzkngrkli59h16lbcmf0njmlc3dlirqj";
+        rev = "207dbe0d8adffb24b807a7f1d39165a81e59785e";
+        sha256 = "1c7k6h77sfbsv7zr2hn86dq6gc54vkam60l59bkixv2hx4v3j59m";
         fetchSubmodules = false;
       };
 

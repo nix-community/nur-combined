@@ -235,11 +235,11 @@ in {
       onChange = mkIf cfg.liveReload ''
         if [[ -p "${cfg.homeDirectory}/weechat_fifo" ]]; then
           echo "Refreshing weechat settings..." >&2
-          timeout 3 ${if cfg.mutableConfig then ''
+          ${if cfg.mutableConfig then ''
             sed "s-^/-*/-" "${weechatrc}"''
           else ''
             echo "*/reload"''
-          }  > "${cfg.homeDirectory}/weechat_fifo" || true
+          } | timeout 3 tee "${cfg.homeDirectory}/weechat_fifo" > /dev/null || true
         fi
       '';
     };
