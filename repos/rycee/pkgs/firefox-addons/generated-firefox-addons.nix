@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "92.0buildid20210830174627";
+      version = "92.0buildid20210901142158";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3832600/francais_language_pack-92.0buildid20210830174627-fx.xpi";
-      sha256 = "7be65a725a1cc2a8a969caeb0c76550c50888647339f8b0e99bcb3e24221f31d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3833528/francais_language_pack-92.0buildid20210901142158-fx.xpi";
+      sha256 = "c2b573e9b4537a0c639cf801f120e1e9b1d23dc9ae662c52d5735df73997eb3d";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1231,10 +1231,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.17.0";
+      version = "4.18.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3829903/react_developer_tools-4.17.0-fx.xpi";
-      sha256 = "9af1a6aab05ad9bb68bbb10f0fe9c67f6a153b93da70e97c39754c0cbf90bca4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3833894/react_developer_tools-4.18.0-fx.xpi";
+      sha256 = "331fad5706fcae9b2d6655b4091d2d27a310601a077e0c97a0e124d90c01d339";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1777,10 +1777,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.8.3";
+      version = "6.8.4";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3833204/wappalyzer-6.8.3-fx.xpi";
-      sha256 = "3a157cd53f46c8152e16f63f0a90d8866e14812e1efbec74cc8dcd95e65d4999";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3833968/wappalyzer-6.8.4-fx.xpi";
+      sha256 = "92843bda6d0d9f459204a0d67801ce137fbbf1b3ce167fa079c10c349a536375";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
