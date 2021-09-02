@@ -6,6 +6,7 @@
       pname = "SQLAlchemy";
       sha256 = "06bmxzssc66cblk1hamskyv5q3xf1nh1py3vi6dka4lkpxy7gfzb";
     };
+    doInstallCheck = false; # takes forever :<
   });
   sqlalchemy = if lib.versionAtLeast python3Packages.sqlalchemy.version "1.4"
     then sqlalchemy_1_3
