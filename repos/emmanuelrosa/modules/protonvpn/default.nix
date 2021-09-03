@@ -30,18 +30,23 @@ in {
         description = "Automatically start the VPN service.";
       };
 
-      username = mkOption {
-        type = types.str;
-        default = null;
-        example = "john";
-        description = "The user name to use for ProtonVPN authentication.";
-      };
+      authentication = mkOption {
+        description = "The method used to store the authentication credentials. Either a path to a file containing two lines; username and password. For example, /run/secrets/protonvpn. Or, a set containing the credentials, which would be stored in the OpenVPN configuration file (in the Nix store).";
+        type = types.either types.path (types.submodule {
+          username = mkOption {
+            type = types.str;
+            default = null;
+            example = "john";
+            description = "The user name to use for ProtonVPN authentication.";
+          };
 
-      password = mkOption {
-        type = types.str;
-        default = null;
-        example = "abc123";
-        description = "The password to use for ProtonVPN authentication.";
+          password = mkOption {
+            type = types.str;
+            default = null;
+            example = "abc123";
+            description = "The password to use for ProtonVPN authentication.";
+          };
+        });
       };
 
       server = mkOption {
@@ -59,12 +64,15 @@ in {
       down = cfg.downScript;
       autoStart = cfg.autoStart;
 
-      authUserPass = {
-        username = cfg.username;
-        password = cfg.password;
-      };
-
-      config = ''
+      config = let
+        authConfig = if (builtins.isString cfg.authentication) then
+                       "auth-user-pass ${cfg.authentication}"
+                     else
+                       "auth-user-pass ${pkgs.writeText "protonvpn-credentials-${cfg.server}" ''
+                       ${cfg.authentication.username}
+                       ${cfg.authentication.password}
+                       ''}";
+      in ''
         client
         dev tun
         proto udp
@@ -92,7 +100,7 @@ in {
         reneg-sec 0
         
         remote-cert-tls server
-        auth-user-pass
+        ${authConfig}
         pull
         fast-io
         
