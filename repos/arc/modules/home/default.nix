@@ -22,6 +22,7 @@
   tridactyl = ./tridactyl.nix;
   ncpamixer = ./ncpamixer.nix;
   ncmpcpp = ./ncmpcpp.nix;
+  pulsemixer = ./pulsemixer.nix;
   nix-path = ./nix-path.nix;
   offlineimap = ./offlineimap.nix;
   syncplay = ./syncplay.nix;
@@ -51,6 +52,7 @@
       tridactyl
       ncpamixer
       ncmpcpp
+      pulsemixer
       nix-path
       offlineimap
       syncplay
