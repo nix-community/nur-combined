@@ -90,10 +90,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.52.0";
+      version = "1.52.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3827516/bitwarden_free_password_manager-1.52.0-an+fx.xpi";
-      sha256 = "3e100c51681029bb07158c95af6cd900f19ba0d3860cb5600fca23ce9601640e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3831245/bitwarden_free_password_manager-1.52.1-an+fx.xpi";
+      sha256 = "95d6ed5d3b4dabc8291d1a0a337dbc6cfe21920a23ab4a5e1fe3b014169e4bba";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1592,10 +1592,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.3";
+      version = "9.4";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3822990/traduzir_paginas_web-9.3-an+fx.xpi";
-      sha256 = "e62ede0f013c776a86b0c0475f3666c7465d0ad34f7ed6bcafd5668db1ad2a09";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3833890/traduzir_paginas_web-9.4-an+fx.xpi";
+      sha256 = "627d7593d983c7a3fa228d9a1648a9379b74dc9acfb6c988a4694b6fe1bc25d4";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
@@ -1777,10 +1777,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.8.4";
+      version = "6.8.5";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3833968/wappalyzer-6.8.4-fx.xpi";
-      sha256 = "92843bda6d0d9f459204a0d67801ce137fbbf1b3ce167fa079c10c349a536375";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3834438/wappalyzer-6.8.5-fx.xpi";
+      sha256 = "77dfeeca9c4b1e176dae72e4c828378f49e6a75518689925e57192675b08ef68";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
