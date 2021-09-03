@@ -1,17 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, yacc, ncurses, libressl, libevent }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, yacc, ncurses, libressl, libevent }:
 
 stdenv.mkDerivation rec {
   pname = "telescope";
-  version = "0.4.1";
+  version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "omar-polo";
     repo = pname;
     rev = version;
-    hash = "sha256-B7CpM7NQck731Q1iZ5/n1X8fquOaZex0MqZQwGp8ZY8=";
+    hash = "sha256-CApZn0AxpjgzC4XTkjF3YBOX5ifYH4PDtqk+sU5OoDU=";
   };
 
-  nativeBuildInputs = [ autoreconfHook yacc ];
+  nativeBuildInputs = [ autoreconfHook pkg-config yacc ];
 
   buildInputs = [ ncurses libressl libevent ];
 

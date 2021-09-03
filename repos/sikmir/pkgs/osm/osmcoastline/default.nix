@@ -14,13 +14,13 @@
 
 stdenv.mkDerivation rec {
   pname = "osmcoastline";
-  version = "2021-01-08";
+  version = "2.3.1";
 
   src = fetchFromGitHub {
     owner = "osmcode";
     repo = pname;
-    rev = "56371668ebb6261009f35a7411a8fbcc83aabfe0";
-    hash = "sha256-gW6VJ4u4FBJO4mnDIpDW3KRoXmTbcsZhb5762bqv92A=";
+    rev = "v${version}";
+    hash = "sha256-z72xDag3CDik/zGhQjlmE/Yfz/KEwK/A1clyP3AY7Uo=";
   };
 
   nativeBuildInputs = [ cmake ];
