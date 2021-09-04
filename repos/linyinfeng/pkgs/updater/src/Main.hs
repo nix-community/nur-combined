@@ -20,6 +20,7 @@ packageSet = do
   clashForWindowsIcon
   icalingua
   icalinguaIcon
+  wemeet
 
 ghPkg :: Text -> Text -> PackageSet ()
 ghPkg owner repo = define $ package repo `fromGitHub` (owner, repo)
@@ -72,3 +73,12 @@ icalinguaIcon =
     package "icalinguaIcon"
       `sourceManual` "0"
       `fetchUrl` (const "https://aur.archlinux.org/cgit/aur.git/plain/512x512.png?h=icalingua")
+
+wemeet :: PackageSet ()
+wemeet =
+  define $
+    package "wemeet"
+      `sourceAur` "wemeet-bin"
+      `fetchUrl` url
+  where
+    url (Version v) = "https://updatecdn.meeting.qq.com/ad878a99-76c4-4058-ae83-22ee948cce98/TencentMeeting_0300000000_" <> v <> "_x86_64.publish.deb"

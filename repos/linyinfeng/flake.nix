@@ -24,7 +24,7 @@
           if p.meta ? platforms
           then pkgs.lib.elem sys p.meta.platforms
           else true;
-        filteredPackages = pkgs.lib.filterAttrs (_: pkg: platformFilter system pkg) packages;
+        filteredPackages = pkgs.lib.filterAttrs (_: platformFilter system) packages;
 
         mkApp = drvName: cfg:
           if self.packages.${system} ? ${drvName}
@@ -52,7 +52,9 @@
         devShell =
           let
             simple = pkgs.mkShell {
-              packages = [ pkgs.nixpkgs-fmt ];
+              packages = [
+                pkgs.nixpkgs-fmt
+              ];
             };
             withUpdater = pkgs.mkShell {
               inputsFrom = [
@@ -70,6 +72,11 @@
                   '
                   nixpkgs-fmt .
                 '')
+                pkgs.nix-linter
+                pkgs.fd
+                (pkgs.writeScriptBin "lint" ''
+                  fd '.*\.nix' --exec nix-linter
+                '')
               ];
             };
           in
@@ -79,7 +86,7 @@
       lib = import ./lib { inherit (nixpkgs) lib; };
       nixosModules = import ./modules;
       overlays = {
-        linyinfeng = final: prev: {
+        linyinfeng = final: _prev: {
           linyinfeng = self.packages.${final.system};
         };
       } // import ./overlays;

@@ -1,5 +1,4 @@
 { sources
-, system
 , stdenv
 , lib
 , autoPatchelfHook

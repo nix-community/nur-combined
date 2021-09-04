@@ -1,4 +1,4 @@
-{ sources, stdenv, lib, buildGoModule }:
+{ sources, lib, buildGoModule }:
 
 buildGoModule rec {
   inherit (sources.godns) pname version src;

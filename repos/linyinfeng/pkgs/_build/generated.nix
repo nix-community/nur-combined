@@ -125,4 +125,13 @@
     };
 
   };
+  wemeet = {
+    pname = "wemeet";
+    version = "2.8.0.0";
+    src = fetchurl {
+      sha256 = "1gzw9srch9il7cx4x8hribiq3akgrv6590qk9xlrc0c709mm1cx6";
+      url = "https://updatecdn.meeting.qq.com/ad878a99-76c4-4058-ae83-22ee948cce98/TencentMeeting_0300000000_2.8.0.0_x86_64.publish.deb";
+    };
+
+  };
 }

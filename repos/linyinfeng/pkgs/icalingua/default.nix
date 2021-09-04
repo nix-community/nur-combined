@@ -5,7 +5,6 @@
 , electron
 , makeDesktopItem
 , imagemagick
-, writeScript
 }:
 
 let
