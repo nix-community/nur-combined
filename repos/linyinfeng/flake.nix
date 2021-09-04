@@ -19,6 +19,9 @@
         };
         packages = import ./pkgs {
           inherit pkgs sources;
+        } // {
+          # only include updater
+          updater = pkgs.callPackage ./pkgs/updater { };
         };
         platformFilter = sys: p:
           if p.meta ? platforms
@@ -86,7 +89,7 @@
       lib = import ./lib { inherit (nixpkgs) lib; };
       nixosModules = import ./modules;
       overlays = {
-        linyinfeng = final: _prev: {
+        linyinfeng = final: prev: {
           linyinfeng = self.packages.${final.system};
         };
       } // import ./overlays;

@@ -8,7 +8,7 @@
   godns = pkgs.callPackage ./godns { inherit sources; };
   icalingua = pkgs.callPackage ./icalingua { inherit sources; };
   trojan = pkgs.callPackage ./trojan { inherit sources; };
-  updater = pkgs.callPackage ./updater { };
+  # updater = pkgs.callPackage ./updater { }; # only include updater in flake
   vlmcsd = pkgs.callPackage ./vlmcsd { inherit sources; };
   wemeet = pkgs.callPackage ./wemeet { inherit sources; };
 }
