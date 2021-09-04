@@ -2,6 +2,12 @@
   cfg = config.services.konawall;
   arc = import ../../canon.nix { inherit pkgs; };
   service = config.systemd.user.services.konawall;
+  systemd = config.systemd.package or pkgs.systemd;
+  konashow = pkgs.writeShellScriptBin "konashow" ''
+    ${systemd}/bin/journalctl \
+      _SYSTEMD_INVOCATION_ID=$(${systemd}/bin/systemctl show -p InvocationID --value konawall.service --user) \
+      -o cat --no-pager
+  '';
 in with lib; {
   options.services.konawall = {
     enable = mkEnableOption "enable konawall";
@@ -24,6 +30,10 @@ in with lib; {
     package = mkOption {
       type = types.package;
       default = pkgs.konawall or arc.packages.konawall;
+    };
+    konashow = mkOption {
+      type = types.package;
+      default = konashow;
     };
     interval = mkOption {
       type = types.nullOr types.str;
@@ -75,7 +85,7 @@ in with lib; {
         };
         Service = {
           Type = "oneshot";
-          ExecStart = "${config.systemd.package or pkgs.systemd}/bin/systemctl --user --no-block restart konawall";
+          ExecStart = "${systemd}/bin/systemctl --user --no-block restart konawall";
         };
       };
     };

@@ -6,6 +6,14 @@
   pipewire = ./pipewire.nix;
   alsa = ./alsa.nix;
   yggdrasil = ./yggdrasil.nix;
+  bindings = import ./bindings.nix // {
+    __functor = _: { ... }: { imports = [ ./bindings.nix ]; };
+  };
+  service-bindings = import ./service-bindings.nix // {
+    __functor = _: { ... }: { imports = [ ./service-bindings.nix ]; };
+  };
+  matrix-appservices = ./matrix-appservices.nix;
+  matrix-synapse-appservices = ./matrix-synapse-appservices.nix;
   display = ./display.nix;
   filebin = ./filebin.nix;
   mosh = ./mosh.nix;
@@ -22,6 +30,10 @@
       pipewire
       alsa
       yggdrasil
+      bindings
+      service-bindings
+      matrix-appservices
+      matrix-synapse-appservices
       display
       filebin
       mosh

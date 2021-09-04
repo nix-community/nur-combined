@@ -45,6 +45,10 @@
     ];
 
     meta.broken = hangups == null;
+    passthru = {
+      pythonModule = python;
+      pythonPackage = "mautrix_hangouts";
+    };
 
     doCheck = false;
   };

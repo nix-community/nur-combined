@@ -1,6 +1,5 @@
 { pkgs, config, lib, ... }: let
   cfg = config.base16;
-  consoleShell = (config.lib.arc.base16.schemeFor cfg.console.scheme).shell.override { inherit (cfg.console) ansiCompatibility; };
   makeColorCS = n: value: "\\e]P${lib.toHexUpper or arc.lib.toHexUpper n}${value}";
   arc = import ../../canon.nix { inherit pkgs; };
 in with lib; {
@@ -16,9 +15,13 @@ in with lib; {
   options.base16 = {
     console = {
       enable = mkEnableOption "base16 Linux console colours";
-      scheme = mkOption {
+      schemeName = mkOption {
         type = types.str;
-        default = cfg.alias.default;
+        default = cfg.defaultSchemeName;
+      };
+      scheme = mkOption {
+        type = with types; coercedTo str (name: cfg.schemes.${name}) attrs;
+        default = cfg.schemes.${cfg.console.schemeName};
       };
       getty = {
         enable = mkEnableOption "getty login colours" // {
@@ -31,7 +34,7 @@ in with lib; {
   };
   config = {
     console = mkIf cfg.console.enable {
-      colors = map (v: v.hex.rgb) consoleShell.colours16;
+      colors = map (b: b.rgb) (sort (a: b: a.ansiIndex < b.ansiIndex) (attrValues (getAttrs base16.names cfg.console.scheme)));
       getty = mkIf cfg.console.getty.enable {
         greetingPrefix = mkBefore ((lib.concatImap0Strings or arc.lib.concatImap0Strings) makeColorCS config.console.colors);
         greeting = mkDefault ''<<< Welcome to NixOS ${config.system.nixos.label} (\m) - \l >>>'';

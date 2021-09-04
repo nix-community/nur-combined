@@ -2,7 +2,7 @@
   config = {
     _module.args.commonRoot = {
       __functor = self: other: self.getConfig == other.commonRoot.getConfig or null;
-      getConfig = _: config;
+      getConfig = { }: config;
 
       tag = { ... }: {
         options = {

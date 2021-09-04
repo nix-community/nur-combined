@@ -9,7 +9,6 @@
   kakoune = ./kakoune.nix;
   rustfmt = ./rustfmt.nix;
   base16 = import ./base16.nix false;
-  base16-shell = ./base16-shell.nix;
   filebin = ./filebin.nix;
   display = ./display.nix;
   buku = ./buku.nix;
@@ -40,7 +39,7 @@
       task
       kakoune
       rustfmt
-      base16 base16-shell
+      base16
       filebin
       display
       buku
