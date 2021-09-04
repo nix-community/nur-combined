@@ -58,13 +58,13 @@ let
         sha1 = "d8a96bd77fd68df7793a73036a3ba0d5405d477b";
       };
     };
-    "core-util-is-1.0.2" = {
+    "core-util-is-1.0.3" = {
       name = "core-util-is";
       packageName = "core-util-is";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz";
-        sha1 = "b5fd54220aa2bc5ab57aab7140c940754503c1a7";
+        url = "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.3.tgz";
+        sha512 = "ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==";
       };
     };
     "enhanced-resolve-2.3.0" = {
@@ -278,7 +278,7 @@ let
       sources."balanced-match-1.0.2"
       sources."brace-expansion-1.1.11"
       sources."concat-map-0.0.1"
-      sources."core-util-is-1.0.2"
+      sources."core-util-is-1.0.3"
       sources."enhanced-resolve-2.3.0"
       sources."errno-0.1.8"
       sources."fs.realpath-1.0.0"
