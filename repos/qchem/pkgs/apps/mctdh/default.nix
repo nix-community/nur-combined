@@ -31,8 +31,8 @@ in stdenv.mkDerivation {
     sha256 = "0p6dlpf0ikw6g8m3wsvda17ppcqb0nqijnx4ycy81vwdgx1fz8a5";
   };
 
-  nativeBuildInputs = [ ];
-  buildInputs = [ gfortran python27 perl blas lapack ]
+  nativeBuildInputs = [ gfortran ];
+  buildInputs = [ python27 perl blas lapack ]
     ++ lib.optional useMPI [ mpi scalapack ];
 
   postPatch = ''

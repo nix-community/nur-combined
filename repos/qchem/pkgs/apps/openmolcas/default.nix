@@ -44,9 +44,15 @@ in stdenv.mkDerivation {
     chmod -R u+w External/
   '';
 
-  nativeBuildInputs = [ perl cmake texlive.combined.scheme-minimal makeWrapper ];
-  buildInputs = [
+  nativeBuildInputs = [
+    perl
     gfortran
+    cmake
+    texlive.combined.scheme-minimal
+    makeWrapper
+  ];
+
+  buildInputs = [
     (blas-i8.passthru.provider)
     hdf5-full
     python

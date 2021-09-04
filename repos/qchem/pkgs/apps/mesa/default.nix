@@ -14,7 +14,8 @@ in stdenv.mkDerivation {
     message = "The tarball for mesa needs to be in nix store";
   };
 
-  buildInputs = [ gfortran openblas ];
+  nativeBuildInputs = [ gfortran ];
+  buildInputs = [ openblas ];
 
   # prepare for building the ILP64 version
   postPatch = ''

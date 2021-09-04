@@ -30,9 +30,9 @@ in stdenv.mkDerivation {
     ./genbs
   '';
 
-  buildInputs = [ gfortran fftw protobuf blas lapack
+  buildInputs = [ fftw protobuf blas lapack
                   bzip2 zlib libxml2 flex bison ];
-  nativeBuildInputs = [ automake autoconf libtool ];
+  nativeBuildInputs = [ automake autoconf libtool gfortran ];
 
   meta = with lib; {
     description = "Quantum dynamics program package";

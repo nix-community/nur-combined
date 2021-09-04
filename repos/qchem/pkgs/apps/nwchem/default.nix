@@ -27,8 +27,8 @@ in stdenv.mkDerivation {
     sha256 = "1ckhcjaw1hzdsmm1x2fva27c4rs3r0h82qivg72v53idz880hbp3";
   };
 
-  nativeBuildInputs = [ perl automake autoconf libtool makeWrapper ];
-  buildInputs = [ tcsh openssh which gfortran blas lapack which python ];
+  nativeBuildInputs = [ perl automake autoconf libtool makeWrapper gfortran ];
+  buildInputs = [ tcsh openssh which blas lapack which python ];
   propagatedBuildInputs = [ mpi ];
   propagatedUserEnvPkgs = [ mpi ];
 
