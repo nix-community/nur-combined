@@ -1,3 +1,21 @@
+# This NixOS module provides VPN connectivity via ProtonVPN.
+# In contrast to the ProtonVPN client application, this module configures
+# a declarative VPN connection using OpenVPN. Here's the simplest configuration:
+#
+# services.protonvpn = {
+#   enable = true;
+#   authentication.username = "john";
+#   authentication.password = "galt";
+#   server = "us-free-01.protonvpn.com";
+# };
+#
+# You can also choose to read the credentials from a file:
+#
+# services.protonvpn = {
+#   enable = true;
+#   authentication = "/root/protonvpn.txt";
+#   server = "us-free-01.protonvpn.com";
+# };
 { config, pkgs, lib, ... }:
 
 with lib;
@@ -7,43 +25,44 @@ in {
   options = {
 
     services.protonvpn = {
-      enable = mkEnableOption "Enable ProtonVPN using OpenVPN."; 
+      enable = mkEnableOption "Enable ProtonVPN."; 
 
       upScript = mkOption {
         default = "";
-        example = "systemctl start super-secret-service";
+        example = "systemctl start super-secret.service";
         type = types.lines;
-        description = ''Shell commands executed when the VPN is starting.'';
+        description = ''Shell commands to execute when the VPN is starting.'';
       };
 
       downScript = mkOption {
         default = "";
-        example = "systemctl stop super-secret-service";
+        example = "systemctl stop super-secret.service";
         type = types.lines;
-        description = ''Shell commands executed when the VPN is stopping.'';
+        description = ''Shell commands to execute when the VPN is stopping.'';
       };
 
       autoStart = mkOption {
         type = types.bool;
         default = true;
         example = "true";
-        description = "Automatically start the VPN service.";
+        description = "When set to true, the VPN connection is established automatically upon boot. When set to false the VPN connection is not established automatically; It can be started with `systemctl start openvpn-protonvpn-SERVERNAME.service`, where SERVERNAME is the name of the ProtonVPN server; See the `name` option.";
       };
 
       authentication = mkOption {
-        description = "The method used to store the authentication credentials. Either a path to a file containing two lines; username and password. For example, /run/secrets/protonvpn. Or, a set containing the credentials, which would be stored in the OpenVPN configuration file (in the Nix store).";
+        description = "The method used to store the authentication credentials. Note that you need the OpenVPN credentials, not the ProtonMail credentials, which you can get here: `https://account.protonmail.com/u/0/vpn/open-vpn-ike-v2`. This option can be set to either a path to a file containing two lines; username and password. For example, /run/secrets/protonvpn. This method is useful if you want to store the credentials in `/root` or deploy them into `/run/secrets` with `agenix` or `nixops`. Alternatively, the value of this option could be a set containing the credentials, which would expose them in the Nix store.";
+        example = ''{ username = "john"; password = "galt" }'';
         type = types.either types.path (types.submodule {
           username = mkOption {
             type = types.str;
             default = null;
-            example = "john";
+            example = "dagny";
             description = "The user name to use for ProtonVPN authentication.";
           };
 
           password = mkOption {
             type = types.str;
             default = null;
-            example = "abc123";
+            example = "ilovejohn";
             description = "The password to use for ProtonVPN authentication.";
           };
         });
@@ -53,7 +72,14 @@ in {
         type = types.str;
         default = "us-free-01.protonvpn.com";
         example = "us-free-01.protonvpn.com";
-        description = "The ProtonVPN server to use.";
+        description = "The ProtonVPN server to use. You can choose a server from the lists provided here: `https://account.protonmail.com/u/0/vpn/open-vpn-ike-v2`";
+      };
+
+      protocol = mkOption {
+        type = types.enum [ "udp" "tcp" ];
+        default = "udp";
+        example = "tcp";
+        description = "The network protocol to use for the VPN connection. See `https://protonvpn.com/support/udp-tcp/`";
       };
     };
   };
@@ -75,7 +101,7 @@ in {
       in ''
         client
         dev tun
-        proto udp
+        proto ${cfg.protocol};
         
         remote ${cfg.server} 80
         remote ${cfg.server} 443
