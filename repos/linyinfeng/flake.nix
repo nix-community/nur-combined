@@ -17,9 +17,10 @@
         sources = import ./pkgs/sources.nix {
           inherit (pkgs) fetchgit fetchurl;
         };
-        packages = import ./pkgs {
-          inherit pkgs sources;
-        } // {
+        packages = import ./pkgs
+          {
+            inherit pkgs sources;
+          } // {
           # only include updater
           updater = pkgs.callPackage ./pkgs/updater { };
         };
@@ -75,7 +76,7 @@
                     echo "$PWD"
                     updater
                   '
-                  nixpkgs-fmt .
+                  nixpkgs-fmt pkgs/sources.nix
                 '')
                 pkgs.nix-linter
                 pkgs.fd
