@@ -13,10 +13,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/goatcounter" ];
 
-  buildFlagsArray = [
-    "-ldflags="
-    "-X=main.Version=${version}"
-  ];
+  ldflags = ["-X=main.Version=${version}"];
 
   #LD_LIBRARY_PATH = lib.makeLibraryPath [ sqlite postgresql ] ;
   doCheck = false;
