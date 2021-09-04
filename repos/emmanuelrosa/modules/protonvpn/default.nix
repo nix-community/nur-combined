@@ -101,7 +101,7 @@ in {
       in ''
         client
         dev tun
-        proto ${cfg.protocol};
+        proto ${cfg.protocol}
         
         remote ${cfg.server} 80
         remote ${cfg.server} 443
