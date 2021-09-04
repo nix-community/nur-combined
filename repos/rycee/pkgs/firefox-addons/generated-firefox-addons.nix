@@ -254,10 +254,10 @@
       };
     "decentraleyes" = buildFirefoxXpiAddon {
       pname = "decentraleyes";
-      version = "2.0.15";
+      version = "2.0.16";
       addonId = "jid1-BoFifL9Vbdl2zQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3672658/decentraleyes-2.0.15-an+fx.xpi";
-      sha256 = "2554069168458cc1351e5d37ee995de044e514ec72369829ff0bcbf31d586ddf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3833987/decentraleyes-2.0.16-an+fx.xpi";
+      sha256 = "fa87ceac1242c26a40c07e31be62d519c4e2cd6ffb5c1f83248cc924766465c9";
       meta = with lib;
       {
         homepage = "https://decentraleyes.org";
@@ -309,10 +309,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.8.13.36133";
+      version = "2021.9.2";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3824380/duckduckgo_privacy_essentials-2021.8.13.36133-an+fx.xpi";
-      sha256 = "70e67d1dab478f874af842d3f21ddd3bab6d49255992b846787436755e0446f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3834290/duckduckgo_privacy_essentials-2021.9.2-an+fx.xpi";
+      sha256 = "e9cf771ef3d463fdb65ea3367a39e8cb3f41e1662847f7309afba8ca649b08fe";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -703,10 +703,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.78.0.3";
+      version = "4.79.0.13";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3823312/lastpass_password_manager-4.78.0.3-an+fx.xpi";
-      sha256 = "604fca4c91d6caf8df9326c6403c37e98dbb45b4a750fff3f16c4a076a930524";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3834091/lastpass_password_manager-4.79.0.13-an+fx.xpi";
+      sha256 = "aa600f36abe209aee8f6ecabe24ac2c5db9df398a886885522b80991c4123800";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1301,10 +1301,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.8.22";
+      version = "21.9.3";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3828517/refined_github-21.8.22-an+fx.xpi";
-      sha256 = "a1ad5c97398d00e7686da5064e98fc80d08ded73ebb001a3fc1b4b7e030ecc1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3834753/refined_github-21.9.3-an+fx.xpi";
+      sha256 = "1d4d9c32993d7ea66c0839760897fdd9e360c327980e5b02e3e3b849e128ab6f";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1412,10 +1412,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "3.0.3";
+      version = "3.0.5";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3829610/sponsorblock_skip_sponsorships_on_youtube-3.0.3-an+fx.xpi";
-      sha256 = "6c4ead3ef4eeffe1c0085e2381c96771b0291df28d8c9e16fe9ba1e3bec3f98d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3834324/sponsorblock_skip_sponsorships_on_youtube-3.0.5-an+fx.xpi";
+      sha256 = "867847073a52b60ad7bde719283bd0e7a4ed06831943f4e3e45cef82aa4722a5";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1592,10 +1592,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.4";
+      version = "9.4.1";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3833890/traduzir_paginas_web-9.4-an+fx.xpi";
-      sha256 = "627d7593d983c7a3fa228d9a1648a9379b74dc9acfb6c988a4694b6fe1bc25d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3834491/traduzir_paginas_web-9.4.1-an+fx.xpi";
+      sha256 = "7520caf222fb5529618b331e18d1861c9097ddc09f370d71a39eacaf4051b5f8";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
