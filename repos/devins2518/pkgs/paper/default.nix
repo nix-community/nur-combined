@@ -11,8 +11,8 @@ in rustPlatform.buildRustPackage rec {
   src = fetchFromGitLab {
     owner = "snakedye";
     repo = pname;
-    rev = "bf3594013f4805e289286980fc07a85d58a73cca";
-    sha256 = "sha256-MFvDd1e5k2k86dtLOCvYD9qE6dkDgpCVDQ+x8Ksm+24=";
+    rev = "2adcf6469636cf3296a80e2a17af63de312119f1";
+    sha256 = "sha256-EdiT7nkkhgURB46EWeXQnjmuzL9i1YMr80ZsJ2H7mFU=";
   };
 
   postPatch = ''
@@ -22,7 +22,7 @@ in rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "snui-0.1.0" = "1d2pvraj61n0a3p2xi21dq4kgf0sjiqxyhjzhqy0mcbg7f4nwhrq";
+      "snui-0.1.0" = "sha256-+dse0rI18n4sls7xuEWhpaezN/l6j8xBZh4HkjHwFOY=";
     };
   };
 

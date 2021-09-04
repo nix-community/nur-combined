@@ -56,9 +56,9 @@ dependencies = [
 
 [[package]]
 name = "cc"
-version = "1.0.69"
+version = "1.0.70"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e70cc2f62c6ce1868963827bd677764c62d07c3d9a3e1fb1177ee1a9ab199eb2"
+checksum = "d26a6ce4b6a484fa3edb70f7efa6fc430fd2b87285fe8b84304fd0936faa0dc0"
 
 [[package]]
 name = "cfg-if"
@@ -71,12 +71,6 @@ name = "color_quant"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3d7b894f5411737b7867f4827955924d7c254fc9f4d91a6aad6b097804b1018b"
-
-[[package]]
-name = "const-cstr"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ed3d0b5ff30645a68f35ece8cea4556ca14ef8a1651455f789a099a0513532a6"
 
 [[package]]
 name = "crc32fast"
@@ -163,15 +157,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e78d4f1cc4ae33bbfc157ed5d5a5ef3bc29227303d595861deb238fcec4e9457"
 
 [[package]]
-name = "fontconfig"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d7c412ab3e93987232d0dd55c04327817bffa49fb79d43b57dc9f9e35c259dcc"
-dependencies = [
- "yeslogic-fontconfig-sys",
-]
-
-[[package]]
 name = "fontdue"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -256,9 +241,9 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "libc"
-version = "0.2.98"
+version = "0.2.101"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "320cfe77175da3a483efed4bc0adc1968ca050b098ce4f2f1c13a56626128790"
+checksum = "3cb00336871be5ed2c8ed44b60ae9959dc5b9f08539422ed43f09e34ecaeba21"
 
 [[package]]
 name = "libloading"
@@ -281,9 +266,9 @@ dependencies = [
 
 [[package]]
 name = "memchr"
-version = "2.3.4"
+version = "2.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0ee1c47aaa256ecabcaea351eae4a9b01ef39ed810004e298d2511ed284b1525"
+checksum = "308cc39be01b73d0d18f82a0e7b2a3df85245f84af96fdddc5d202d27e47b86a"
 
 [[package]]
 name = "memmap2"
@@ -302,6 +287,12 @@ checksum = "59accc507f1338036a0477ef61afdae33cde60840f4dfe481319ce3ad116ddf9"
 dependencies = [
  "autocfg",
 ]
+
+[[package]]
+name = "minimal-lexical"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6595bb28ed34f43c3fe088e48f6cfb2e033cab45f25a5384d5fdf564fbc8c4b2"
 
 [[package]]
 name = "miniz_oxide"
@@ -336,23 +327,25 @@ dependencies = [
 
 [[package]]
 name = "nix"
-version = "0.20.0"
+version = "0.20.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fa9b4819da1bc61c0ea48b63b7bc8604064dd43013e7cc325df098d49cd7c18a"
+checksum = "df8e5e343312e7fbeb2a52139114e9e702991ef9c2aea6817ff2440b35647d56"
 dependencies = [
  "bitflags",
  "cc",
  "cfg-if",
  "libc",
+ "memoffset",
 ]
 
 [[package]]
 name = "nom"
-version = "6.2.1"
+version = "7.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9c5c51b9083a3c620fa67a2a635d1ce7d95b897e957d6b28ff9a5da960a103a6"
+checksum = "7ffd9d26838a953b4af82cbeb9f1592c6798916983959be223a7124e992742c1"
 dependencies = [
  "memchr",
+ "minimal-lexical",
  "version_check",
 ]
 
@@ -451,9 +444,9 @@ checksum = "ac74c624d6b2d21f425f752262f42188365d7b8ff1aff74c82e45136510a4857"
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.28"
+version = "1.0.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5c7ed8b8c7b886ea3ed7dde405212185f423ab44682667c8c6dd14aa1d9f6612"
+checksum = "b9f5105d4fdaab20335ca9565e106a5d9b82b6219b5ba735731124ac6711d23d"
 dependencies = [
  "unicode-xid",
 ]
@@ -568,7 +561,7 @@ dependencies = [
  "lazy_static",
  "log",
  "memmap2",
- "nix 0.20.0",
+ "nix 0.20.1",
  "wayland-client",
  "wayland-cursor",
  "wayland-protocols",
@@ -577,9 +570,8 @@ dependencies = [
 [[package]]
 name = "snui"
 version = "0.1.0"
-source = "git+https://gitlab.com/snakedye/snui.git#f01f2d2ab612235b993a2175f986564e197a7feb"
+source = "git+https://gitlab.com/snakedye/snui.git#0e49ab4fd101d12442842e41b13c0012814db854"
 dependencies = [
- "fontconfig",
  "fontdue",
  "image",
  "smithay-client-toolkit",
@@ -632,7 +624,7 @@ dependencies = [
  "bitflags",
  "downcast-rs",
  "libc",
- "nix 0.20.0",
+ "nix 0.20.1",
  "scoped-tls",
  "wayland-commons",
  "wayland-scanner",
@@ -645,7 +637,7 @@ version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a21817947c7011bbd0a27e11b17b337bfd022e8544b071a2641232047966fbda"
 dependencies = [
- "nix 0.20.0",
+ "nix 0.20.1",
  "once_cell",
  "smallvec",
  "wayland-sys",
@@ -657,7 +649,7 @@ version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "be610084edd1586d45e7bdd275fe345c7c1873598caa464c4fb835dee70fa65a"
 dependencies = [
- "nix 0.20.0",
+ "nix 0.20.1",
  "wayland-client",
  "xcursor",
 ]
@@ -726,9 +718,9 @@ checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
 
 [[package]]
 name = "xcursor"
-version = "0.3.3"
+version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3a9a231574ae78801646617cefd13bfe94be907c0e4fa979cfd8b770aa3c5d08"
+checksum = "463705a63313cd4301184381c5e8042f0a7e9b4bb63653f216311d4ae74690b7"
 dependencies = [
  "nom",
 ]
@@ -738,13 +730,3 @@ name = "xml-rs"
 version = "0.8.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d2d7d3948613f75c98fd9328cfdcc45acc4d360655289d0a7d4ec931392200a3"
-
-[[package]]
-name = "yeslogic-fontconfig-sys"
-version = "2.11.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "38e47154248a2dba5ca6965e26b1a59146210736ea9b862362b6d72682e57f8d"
-dependencies = [
- "const-cstr",
- "pkg-config",
-]
