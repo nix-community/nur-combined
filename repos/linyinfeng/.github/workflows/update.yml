@@ -1,10 +1,10 @@
-name: "Nix flake check"
+name: "Automated Update"
 on:
   schedule:
     - cron: '0 0 * * *'
 
 jobs:
-  check:
+  update:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -31,7 +31,7 @@ jobs:
           nix flake update
         fi
     - name: Craete pull request
-      use: uses: peter-evans/create-pull-request@main
+      uses: peter-evans/create-pull-request@main
       with:
         token: '${{ secrets.PAT_FOR_CREATE_PULL_REQUEST }}'
         commit-message: Automated update
