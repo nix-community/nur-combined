@@ -40,14 +40,16 @@
         inherit sources;
         packages = filteredPackages;
         apps =
-          mkApp "updater" { } //
           mkApp "activate-dpt" { } //
           mkApp "clash-for-windows" { name = "cfw"; } //
           mkApp "clash-premium" { } //
           mkApp "dpt-rp1-py" { name = "dptrp1"; } //
           mkApp "godns" { } //
+          mkApp "icalingua" { } //
           mkApp "trojan" { } //
-          mkApp "vlmcsd" { };
+          mkApp "updater" { } //
+          mkApp "vlmcsd" { } //
+          mkApp "wemeet" { name = "wemeetapp"; };
 
         checks = flake-utils.lib.flattenTree {
           packages = pkgs.lib.recurseIntoAttrs self.packages.${system};
