@@ -14,8 +14,11 @@
         pkgs = importPkgs nixpkgs;
         inherit (pkgs) lib;
 
-        packages = import ./pkgs { inherit pkgs; } // {
-          updater = pkgs.callPackage ./pkgs/updater { };
+        sources = import ./pkgs/sources.nix {
+          inherit (pkgs) fetchgit fetchurl;
+        };
+        packages = import ./pkgs {
+          inherit pkgs sources;
         };
         platformFilter = sys: p:
           if p.meta ? platforms
@@ -31,6 +34,7 @@
           else { };
       in
       {
+        inherit sources;
         packages = filteredPackages;
         apps =
           mkApp "updater" { } //
