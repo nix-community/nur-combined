@@ -21,4 +21,6 @@ rec {
   teck-programmer = pkgs.teck-programmer;  # alias added 2021-07-19
 
   chromium-extensions = pkgs.callPackage pkgs/chromium-extensions {};
+
+  yaru-mixed-theme = pkgs.callPackage pkgs/yaru-mixed { };
 }
