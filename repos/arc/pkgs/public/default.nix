@@ -2,7 +2,6 @@
   i3gopher = import ./i3gopher;
   konawall = import ./konawall.nix;
   paswitch = import ./paswitch.nix;
-  base16-shell = import ./base16-shell.nix;
   clip = import ./clip.nix;
   nvflash = import ./nvflash.nix;
   nvidia-vbios-vfio-patcher = import ./nvidia-vbios-vfio-patcher;
