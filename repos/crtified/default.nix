@@ -20,4 +20,6 @@
 
   python3Packages = pkgs.recurseIntoAttrs
     (pkgs.python3Packages.callPackage ./pkgs/python-pkgs { });
+
+  self-service-password = pkgs.callPackage ./pkgs/self-service-password { };
 }
