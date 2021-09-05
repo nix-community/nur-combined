@@ -31,6 +31,11 @@ let
     # vertico
     # vertico-repeat
 
+    # Packaged, but work around an issue with yaml-mode hanging infinitely
+    # forge
+    # salt-mode
+    # yaml-mode
+
     ac-ispell
     ace-jump-mode
     ace-link
@@ -182,7 +187,6 @@ let
     flycheck-pos-tip
     flycheck-rust
     flyspell-correct
-    forge
     fringe-helper
     fuzzy
     gcmh
@@ -385,7 +389,6 @@ let
     ruby-tools
     rvm
     s
-    salt-mode
     sass-mode
     sbt-mode
     scala-mode
@@ -440,7 +443,6 @@ let
     xcscope
     xml-rpc
     xterm-color
-    yaml-mode
     yapfify
     yasnippet
     yasnippet-snippets
