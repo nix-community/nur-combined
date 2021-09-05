@@ -1,4 +1,12 @@
 let
+  localaddr = {
+    ipv4 = "127.0.0.1";
+    ipv6 = "::1";
+  };
+  wildaddr = {
+    ipv4 = "0.0.0.0";
+    ipv6 = "::";
+  };
   inherit (import ./bindings.nix) connectionModule;
   nginxDomainModule = { config, lib, ... }: with lib; {
     options = {
