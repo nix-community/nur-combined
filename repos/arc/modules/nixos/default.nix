@@ -1,6 +1,7 @@
 {
   dht22-exporter = ./dht22-exporter.nix;
   modprobe = ./modprobe.nix;
+  glauth = ./glauth.nix;
   common-root = ./common-root.nix;
   mutable-state = ./mutable-state.nix;
   pulseaudio = ./pulseaudio.nix;
@@ -25,6 +26,7 @@
   __functor = self: { ... }: {
     imports = with self; [
       dht22-exporter
+      glauth
       modprobe
       mutable-state
       common-root

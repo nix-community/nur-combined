@@ -1,5 +1,6 @@
 {
   i3gopher = import ./i3gopher;
+  glauth = import ./glauth.nix;
   konawall = import ./konawall.nix;
   paswitch = import ./paswitch.nix;
   clip = import ./clip.nix;
