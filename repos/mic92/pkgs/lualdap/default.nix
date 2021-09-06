@@ -1,7 +1,7 @@
 { luaPackages, fetchFromGitHub, openldap, lua, pkgconfig }:
 
 luaPackages.buildLuaPackage rec {
-  name = "lualdap-${version}";
+  pname = "lualdap";
   version = "1.2.0";
   src = fetchFromGitHub {
     owner = "mic92";
