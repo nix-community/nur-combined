@@ -29,6 +29,11 @@
     version = "27";
     sha256 = "0hiay88vvy171jiq6ahflm0ipb7sslfxwhmmm8psv6qk19rv2sxs";
   };
+  parse_relayed_msg = { buildWeechatScript }: buildWeechatScript {
+    pname = "parse_relayed_msg.pl";
+    version = "1.9.6";
+    sha256 = "01zj5g4wv7bx6i0bikl6zsda0dfccp04r273mz9zsi9z6kvj26bm";
+  };
   title = { buildWeechatScript }: buildWeechatScript {
     pname = "title.py";
     version = "0.9";
