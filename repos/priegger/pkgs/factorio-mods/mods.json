@@ -1,10 +1,10 @@
 [
   {
     "name": "aai-programmable-vehicles",
-    "version": "0.7.12",
-    "file_name": "aai-programmable-vehicles_0.7.12.zip",
-    "download_url": "/download/aai-programmable-vehicles/60db88535c1e77d252e3bd01",
-    "sha1": "7f72ae6c59f0228b3514c737f8f478bab9f2953a",
+    "version": "0.7.14",
+    "file_name": "aai-programmable-vehicles_0.7.14.zip",
+    "download_url": "/download/aai-programmable-vehicles/612d6635d59fc730e0380db3",
+    "sha1": "e2b71cc74edb627953f6417182f5cc5bb85f31f0",
     "dependencies": [
       "base >= 1.1.0",
       "aai-signals >= 0.4.1",
@@ -602,10 +602,10 @@
   },
   {
     "name": "Krastorio2",
-    "version": "1.1.4",
-    "file_name": "Krastorio2_1.1.4.zip",
-    "download_url": "/download/Krastorio2/60cfa843723ea8e882941aac",
-    "sha1": "18a5d026d5df6108d86f1639400d444258c1ee5e",
+    "version": "1.1.5",
+    "file_name": "Krastorio2_1.1.5.zip",
+    "download_url": "/download/Krastorio2/6131b6050f9c43daaf33765f",
+    "sha1": "98d2f73c03999024032af54c023521bfc4a54959",
     "dependencies": [
       "base >= 1.1.21",
       "flib >= 0.7.0",
@@ -711,10 +711,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "8.0.8",
-    "file_name": "reverse-factory_8.0.8.zip",
-    "download_url": "/download/reverse-factory/6128249776630758962da820",
-    "sha1": "867500023f4e158df6cfaa5ef7ce2b1ce745fc59",
+    "version": "8.1.1",
+    "file_name": "reverse-factory_8.1.1.zip",
+    "download_url": "/download/reverse-factory/61301ccfbff08981331a1ff9",
+    "sha1": "81b4014acc60297a1040492a379cca3502b64063",
     "dependencies": [
       "base",
       "stdlib",
