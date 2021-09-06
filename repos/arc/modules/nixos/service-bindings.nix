@@ -301,7 +301,6 @@ let
         };
         virtual = mkOption {
           type = types.listOf types.unspecified;
-          default = { };
         };
         components = mkOption {
           type = types.attrsOf types.unspecified;
