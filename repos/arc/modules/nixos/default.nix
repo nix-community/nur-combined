@@ -1,4 +1,5 @@
 {
+  dht22-exporter = ./dht22-exporter.nix;
   modprobe = ./modprobe.nix;
   common-root = ./common-root.nix;
   mutable-state = ./mutable-state.nix;
@@ -23,6 +24,7 @@
   __functionArgs = { };
   __functor = self: { ... }: {
     imports = with self; [
+      dht22-exporter
       modprobe
       mutable-state
       common-root
