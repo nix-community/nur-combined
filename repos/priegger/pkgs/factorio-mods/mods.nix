@@ -20,7 +20,7 @@ let
       inherit (v) sha1;
     };
 
-  isBaseDependency = d: head (splitString " " d) == "base";
+  isBaseDependency = d: head (splitString " >=" d) == "base";
   isOptionalDependency = d: hasPrefix "?" d;
   isHiddenOptionalDependency = d: hasPrefix "(?)" d;
   isIncompatibleDependency = d: hasPrefix "!" d;
@@ -32,15 +32,15 @@ let
       (
         v:
         let
-          depNames = map (s: head (splitString " " s)) (filter isRequiredDependency v.dependencies);
-          deps = map (dep: mods."${dep}") depNames;
+          depNames = map (s: head (splitString " >=" s)) (filter isRequiredDependency v.dependencies);
+          deps = map (dep: mods."${lib.strings.sanitizeDerivationName dep}") depNames;
           optionalDepNames = map (s: findFirst (e: e != "?") (split " " s)) (filter isOptionalDependency v.dependencies);
-          optionalDeps = map (dep: mods."${dep}") optionalDepNames;
+          optionalDeps = map (dep: mods."${lib.strings.sanitizeDerivationName dep}") optionalDepNames;
         in
         {
-          inherit (v) name;
+          name = lib.strings.sanitizeDerivationName v.name;
           value = modDrv {
-            name = "${v.name}-${v.version}";
+            name = "${lib.strings.sanitizeDerivationName v.name}-${v.version}";
             src = factorio-utils.fetchurlWithAuth ({ inherit username token; } // mkSrc v);
             inherit deps optionalDeps;
             # TODO: Add recommendedDeps.

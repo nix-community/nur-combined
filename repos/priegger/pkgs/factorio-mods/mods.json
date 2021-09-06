@@ -148,6 +148,18 @@
     ]
   },
   {
+    "name": "angelsaddons-storage",
+    "version": "0.0.7",
+    "file_name": "angelsaddons-storage_0.0.7.zip",
+    "download_url": "/download/angelsaddons-storage/6111e735a069b89bb98591d1",
+    "sha1": "c554fd143cf75f11740e04b2d0f242d073af1d05",
+    "dependencies": [
+      "base >= 1.1.33",
+      "(?) angelsrefining",
+      "? angelspetrochem >= 0.9.20"
+    ]
+  },
+  {
     "name": "angelsaddons-warehouses",
     "version": "0.5.2",
     "file_name": "angelsaddons-warehouses_0.5.2.zip",
@@ -517,6 +529,21 @@
     ]
   },
   {
+    "name": "CircuitProcessing",
+    "version": "0.4.2",
+    "file_name": "CircuitProcessing_0.4.2.zip",
+    "download_url": "/download/CircuitProcessing/6117711ab00448ccc7d09f92",
+    "sha1": "b884008b9a0d1855534e5f4b4bd5107290ba9af4",
+    "dependencies": [
+      "base",
+      "bobelectronics",
+      "? bobmodules",
+      "? bobrevamp",
+      "? angelssmelting",
+      "? angelsbioprocessing"
+    ]
+  },
+  {
     "name": "clock",
     "version": "1.1.0",
     "file_name": "clock_1.1.0.zip",
@@ -569,6 +596,24 @@
     "dependencies": []
   },
   {
+    "name": "Explosive Excavation",
+    "version": "1.1.8",
+    "file_name": "Explosive Excavation_1.1.8.zip",
+    "download_url": "/download/Explosive%20Excavation/5fbf91ea064e5b290e638efa",
+    "sha1": "ea33c27a686719a66081f3e4a11c9067eeaa307c",
+    "dependencies": []
+  },
+  {
+    "name": "flib",
+    "version": "0.8.3",
+    "file_name": "flib_0.8.3.zip",
+    "download_url": "/download/flib/611f178db0e7021866c08c73",
+    "sha1": "512f60bc2d4cabdee21fccc7d88f5ccf6fe09eaf",
+    "dependencies": [
+      "? base >= 1.1.35"
+    ]
+  },
+  {
     "name": "FluidMustFlow",
     "version": "1.2.16",
     "file_name": "FluidMustFlow_1.2.16.zip",
@@ -580,6 +625,16 @@
     ]
   },
   {
+    "name": "FNEI",
+    "version": "0.4.1",
+    "file_name": "FNEI_0.4.1.zip",
+    "download_url": "/download/FNEI/6061e76f01ead7ddd4de6984",
+    "sha1": "ef4b0b910d228194de5736d65f8a7bdf33c23c8c",
+    "dependencies": [
+      "base >= 1.1.0"
+    ]
+  },
+  {
     "name": "grappling-gun",
     "version": "0.3.1",
     "file_name": "grappling-gun_0.3.1.zip",
@@ -587,6 +642,16 @@
     "sha1": "97c6a92a9e8301a05324a6dd80cad058087eeff9",
     "dependencies": [
       "base >= 1.1.0"
+    ]
+  },
+  {
+    "name": "helmod",
+    "version": "0.12.5",
+    "file_name": "helmod_0.12.5.zip",
+    "download_url": "/download/helmod/60273daa2deab6f9ee003e76",
+    "sha1": "16dc3b0ca82c7dc7a4e18c98ff5a11835a7bec9b",
+    "dependencies": [
+      "base >= 1.1"
     ]
   },
   {
@@ -658,6 +723,25 @@
     ]
   },
   {
+    "name": "KS_Power",
+    "version": "0.4.1",
+    "file_name": "KS_Power_0.4.1.zip",
+    "download_url": "/download/KS_Power/602028d93f5c695c6543c596",
+    "sha1": "b9e95f6fbed33211ed26b709323d0ca69fd11191",
+    "dependencies": []
+  },
+  {
+    "name": "LandfillPainting",
+    "version": "0.5.2",
+    "file_name": "LandfillPainting_0.5.2.zip",
+    "download_url": "/download/LandfillPainting/607fe65fcfc8a90cb0f19775",
+    "sha1": "c4e504eabca0f4f90e2caee46f63f8709e2c4d34",
+    "dependencies": [
+      "base >= 0.17",
+      "? angelsrefining"
+    ]
+  },
+  {
     "name": "Logistic-Gun-Turret",
     "version": "1.1.0",
     "file_name": "Logistic-Gun-Turret_1.1.0.zip",
@@ -707,6 +791,101 @@
       "? Orbital Ion Cannon",
       "? ArmouredBiters",
       "? Krastorio2"
+    ]
+  },
+  {
+    "name": "reskins-angels",
+    "version": "2.0.0",
+    "file_name": "reskins-angels_2.0.0.zip",
+    "download_url": "/download/reskins-angels/61177c6a57e13a6f6a16f246",
+    "sha1": "27f665b876c3d5db9eb5582b46c2aef7f8c8ee0f",
+    "dependencies": [
+      "base",
+      "reskins-library >= 2.0.0",
+      "? reskins-bobs",
+      "? angelsbioprocessing",
+      "? angelsexploration",
+      "? angelsindustries",
+      "? angelspetrochem",
+      "? angelsrefining",
+      "? angelssmelting",
+      "(?) angelsaddons-cab",
+      "(?) angelsaddons-mobility",
+      "(?) angelsaddons-storage"
+    ]
+  },
+  {
+    "name": "reskins-bobs",
+    "version": "2.0.0",
+    "file_name": "reskins-bobs_2.0.0.zip",
+    "download_url": "/download/reskins-bobs/61177cd6edbf4d09411989e3",
+    "sha1": "eff5276e138d7279c0fa065493776cbae1c617dc",
+    "dependencies": [
+      "base",
+      "reskins-library >= 2.0.0",
+      "? bobassembly",
+      "? bobelectronics",
+      "? bobgreenhouse",
+      "? bobinserters",
+      "? boblibrary",
+      "? boblogistics",
+      "? bobmining",
+      "? bobmodules",
+      "? bobores",
+      "? bobplates",
+      "? bobpower",
+      "? bobrevamp",
+      "? bobtech",
+      "? bobwarfare",
+      "(?) angelssmelting",
+      "(?) CircuitProcessing"
+    ]
+  },
+  {
+    "name": "reskins-compatibility",
+    "version": "2.0.0",
+    "file_name": "reskins-compatibility_2.0.0.zip",
+    "download_url": "/download/reskins-compatibility/61177c401d06eb3b5f89aeb7",
+    "sha1": "b54b204bb8d2fd28e1c2724a609dde851ed8d898",
+    "dependencies": [
+      "base",
+      "reskins-library >= 2.0.0",
+      "(?) reskins-bobs",
+      "(?) reskins-angels",
+      "? angels-smelting-extended",
+      "? CircuitProcessing",
+      "? classic-beacon",
+      "? classic-mining-drill",
+      "? Clowns-Processing",
+      "? deadlock-beltboxes-loaders",
+      "? DeadlockCrating",
+      "? DeadlockStackingForBobs",
+      "? DeadlockStackingForVanilla",
+      "? extendedangels",
+      "(?) electricboiler",
+      "? LoaderRedux",
+      "? mini-machines",
+      "? miniloader",
+      "? P-U-M-P-S",
+      "? RealisticReactorGlow",
+      "(?) ScienceCostTweakerM",
+      "? semi-classic-mining-drill",
+      "? vanilla-loaders-hd"
+    ]
+  },
+  {
+    "name": "reskins-library",
+    "version": "2.0.0",
+    "file_name": "reskins-library_2.0.0.zip",
+    "download_url": "/download/reskins-library/61177c28edbf4d09411989e2",
+    "sha1": "dbffd2c100791c3c571f6bce9fa4b4b5c5dba5ae",
+    "dependencies": [
+      "base",
+      "flib",
+      "(?) bobassembly",
+      "(?) boblogistics",
+      "(?) angelspetrochem",
+      "(?) angelsindustries"
     ]
   },
   {
@@ -772,6 +951,104 @@
       "? bobores",
       "? 5dim_ores",
       "! bitumen"
+    ]
+  },
+  {
+    "name": "ScienceCostTweakerM",
+    "version": "1.1.10",
+    "file_name": "ScienceCostTweakerM_1.1.10.zip",
+    "download_url": "/download/ScienceCostTweakerM/60eb431078d9a37c9a4f2e2a",
+    "sha1": "c56fd5b4f626db099084acfd34b0e2f6eb82c6e0",
+    "dependencies": [
+      "base >= 1.1.0",
+      "? omnimatter_science >= 3.0.3",
+      "? pycoalprocessing >= 1.2.0",
+      "? bobtech",
+      "? aai-industry",
+      "? omnimatter_energy"
+    ]
+  },
+  {
+    "name": "SeaBlock",
+    "version": "0.5.6",
+    "file_name": "SeaBlock_0.5.6.zip",
+    "download_url": "/download/SeaBlock/611797e921e4b43658ee1c97",
+    "sha1": "303857b862b3b320f96650e4372cd4727c0ff867",
+    "dependencies": [
+      "base",
+      "angelsbioprocessing >= 0.7.20",
+      "angelsrefining >= 0.12.0",
+      "angelspetrochem >= 0.9.20",
+      "bobelectronics",
+      "boblogistics",
+      "angelssmelting >= 0.6.17",
+      "bobplates",
+      "? KS_Power",
+      "(?) KS_Power_quickfix",
+      "? LandfillPainting",
+      "? ScienceCostTweakerM >= 1.1.6",
+      "? SpaceMod"
+    ]
+  },
+  {
+    "name": "SeaBlockMetaPack",
+    "version": "1.1.3",
+    "file_name": "SeaBlockMetaPack_1.1.3.zip",
+    "download_url": "/download/SeaBlockMetaPack/6117713fc507516cdf742c27",
+    "sha1": "cf93e422f1876cd6abc0b74d095700f14a8747e5",
+    "dependencies": [
+      "base",
+      "angelsaddons-storage",
+      "angelsbioprocessing",
+      "angelspetrochem",
+      "angelsrefining",
+      "angelssmelting",
+      "bobassembly",
+      "bobelectronics",
+      "bobenemies",
+      "bobequipment",
+      "bobinserters",
+      "boblibrary",
+      "boblogistics",
+      "bobmining",
+      "bobmodules",
+      "bobores",
+      "bobplates",
+      "bobpower",
+      "bobrevamp",
+      "bobtech",
+      "bobwarfare",
+      "CircuitProcessing",
+      "Explosive Excavation",
+      "flib",
+      "FNEI",
+      "helmod",
+      "KS_Power",
+      "LandfillPainting",
+      "reskins-angels",
+      "reskins-bobs",
+      "reskins-compatibility",
+      "reskins-library",
+      "ScienceCostTweakerM",
+      "SeaBlock",
+      "SpaceMod"
+    ]
+  },
+  {
+    "name": "SpaceMod",
+    "version": "1.1.1",
+    "file_name": "SpaceMod_1.1.1.zip",
+    "download_url": "/download/SpaceMod/6131dd6007ae5a501cef60f7",
+    "sha1": "6fde4609f717b9298bae440fd06ddc5e7626955f",
+    "dependencies": [
+      "base",
+      "? boblibrary",
+      "? bobplates",
+      "? bobmodules",
+      "? bobelectronics",
+      "? boblogistics",
+      "? bobtech",
+      "? bobequipment"
     ]
   },
   {

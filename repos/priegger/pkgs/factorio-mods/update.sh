@@ -10,9 +10,10 @@ set -eu -o pipefail
 echo "Updating mods."
 
 jq -r '.[].name' < mods.json | sort -u | while read -r name; do
+    echo "$name" 1>&2
     mod_json="$(curl -s https://mods.factorio.com/api/mods/"${name}"/full)"
     version="$(jq -r '.releases[] | .version' <<< "$mod_json" | sort -V | tail -n1)"
-    echo "$name $version" 1>&2
+    echo "$version" 1>&2
 
     release_json="$(jq -r ".releases[] | select(.version == \"${version}\")" <<< "$mod_json")"
 
