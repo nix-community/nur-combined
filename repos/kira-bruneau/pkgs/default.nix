@@ -32,7 +32,9 @@ in
   clonehero-unwrapped = callPackage ./games/clonehero { };
   clonehero-xdg-wrapper = callPackage ./games/clonehero/xdg-wrapper.nix { };
 
-  cmake-language-server = python3Packages.callPackage ./development/tools/cmake-language-server { };
+  cmake-language-server = python3Packages.callPackage ./development/tools/cmake-language-server {
+    inherit cmake;
+  };
 
   gamemode = callPackage ./tools/games/gamemode rec {
     libgamemode32 = (pkgsi686Linux.callPackage ./tools/games/gamemode {
@@ -42,7 +44,9 @@ in
 
   git-review = python3Packages.callPackage ./applications/version-management/git-review { };
 
-  goverlay = callPackage ./tools/graphics/goverlay { };
+  goverlay = callPackage ./tools/graphics/goverlay {
+    inherit (qt5) wrapQtAppsHook;
+  };
 
   lightdm-webkit2-greeter = callPackage ./applications/display-managers/lightdm-webkit2-greeter { };
 
@@ -51,9 +55,9 @@ in
     mangohud32 = pkgsi686Linux.callPackage ./tools/graphics/mangohud {
       libXNVCtrl = linuxPackages.nvidia_x11.settings.libXNVCtrl;
       inherit mangohud32;
-      inherit (pkgs) python3Packages;
+      inherit (pkgs.python3Packages) Mako;
     };
-    inherit (pkgs) python3Packages;
+    inherit (pkgs.python3Packages) Mako;
   };
 
   newsflash = callPackage ./applications/networking/feedreaders/newsflash { };
@@ -66,9 +70,13 @@ in
   };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
-    inherit steam-run;
-    inherit winetricks;
-    inherit (gnome) zenity;
+    winetricks = winetricks.override {
+      # Remove default build of wine to reduce closure size.
+      # Falls back to wine in PATH.
+      wine = null;
+    };
+
+    inherit steam-run yad;
   };
 
   python2Packages = recurseIntoAttrs (pythonOverrides (pkgs.python2Packages // python2Packages) pkgs.python2Packages);

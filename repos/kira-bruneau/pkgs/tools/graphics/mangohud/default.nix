@@ -17,10 +17,10 @@
 , vulkan-headers
 , glslang
 , makeWrapper
+, Mako
 , meson
 , ninja
 , pkg-config
-, python3Packages
 , unzip
 , vulkan-loader
 , libXNVCtrl
@@ -106,11 +106,10 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [
     glslang
     makeWrapper
+    Mako
     meson
     ninja
     pkg-config
-    python3Packages.Mako
-    python3Packages.python
     unzip
     vulkan-loader
   ];

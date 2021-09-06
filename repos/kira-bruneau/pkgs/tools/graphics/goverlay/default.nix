@@ -5,7 +5,7 @@
 , fetchFromGitHub
 , fpc
 , lazarus-qt
-, qt5
+, wrapQtAppsHook
 , libX11
 , libqt5pas
 , coreutils
@@ -61,7 +61,7 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [
     fpc
     lazarus-qt
-    qt5.wrapQtAppsHook
+    wrapQtAppsHook
   ];
 
   buildInputs = [
