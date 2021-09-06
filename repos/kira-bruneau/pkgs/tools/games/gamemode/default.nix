@@ -20,7 +20,6 @@ stdenv.mkDerivation rec {
     owner = "FeralInteractive";
     repo = pname;
     rev = version;
-    fetchSubmodules = true;
     sha256 = "sha256-P00OnZiPZyxBu9zuG+3JNorXHBhJZy+cKPjX+duZrJ0=";
   };
 
@@ -101,5 +100,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
+    mainProgram = "gamemoderun";
   };
 }

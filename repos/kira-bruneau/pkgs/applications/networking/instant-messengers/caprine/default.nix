@@ -52,9 +52,9 @@ nodePackage.override {
   meta = with lib; (nodePackage.meta // {
     homepage = "https://sindresorhus.com/caprine";
     license = licenses.mit;
-    mainProgram = nodePackage.packageName;
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.all;
+    mainProgram = nodePackage.packageName;
     broken = stdenv.isDarwin; # GPU process isn't usable. Goodbye.
   });
 }
