@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "92.0buildid20210903235534";
+      version = "93.0buildid20210906164301";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3835077/francais_language_pack-92.0buildid20210903235534-fx.xpi";
-      sha256 = "83d9d1c330ebac112817caeea5d7a829a4d01d47cfa4b5cda7fe7ed5b43a1482";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3835910/francais_language_pack-93.0buildid20210906164301-fx.xpi";
+      sha256 = "0b9c43aaf6914587b7ddbb532fcb5d83a885d4b6d789114efa1aaa09c213842a";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -531,10 +531,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.883.0";
+      version = "8.884.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3829572/grammarly_for_firefox-8.883.0-an+fx.xpi";
-      sha256 = "4aa1b77ef9764009250ca47d214162b9322ecfabc62c805d8d02dbf91d0cfad3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3831475/grammarly_for_firefox-8.884.0-an+fx.xpi";
+      sha256 = "636372df084950be3fc3a8fd84925405dee8bf8f4b7c7fa5bfb18f3d693f0f61";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -1329,10 +1329,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "26.0";
+      version = "26.1";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3830447/save_page_we-26.0-fx.xpi";
-      sha256 = "0800f518d3ff310475d68550001e1547a8f37edc5dad2ba66484b349ef40f8c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3836089/save_page_we-26.1-fx.xpi";
+      sha256 = "e8a2529a457dee48d5781c0f60b2dc7198a4da47041ec5f5b56bdf065dc1f3bc";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -1412,10 +1412,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "3.0.5";
+      version = "3.1.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3834324/sponsorblock_skip_sponsorships_on_youtube-3.0.5-an+fx.xpi";
-      sha256 = "867847073a52b60ad7bde719283bd0e7a4ed06831943f4e3e45cef82aa4722a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3835551/sponsorblock_skip_sponsorships_on_youtube-3.1.1-an+fx.xpi";
+      sha256 = "bc0590cb2ec7a0bb11883ca10ab9107b213277eb919a0a073aed41997a7b575f";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1578,10 +1578,10 @@
       };
     "tomato-clock" = buildFirefoxXpiAddon {
       pname = "tomato-clock";
-      version = "6.0.1";
+      version = "6.0.2";
       addonId = "jid1-Kt2kYYgi32zPuw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3765883/tomato_clock-6.0.1-an+fx.xpi";
-      sha256 = "96466bf497b24edf01760f3a3a86a25219837b64489c718e990e8e50a21c61aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3835234/tomato_clock-6.0.2-an+fx.xpi";
+      sha256 = "a13ab0834740ad44ae569aa961b22ca86ce21989fffca50d5cb42061db4c78a7";
       meta = with lib;
       {
         homepage = "https://github.com/samueljun/tomato-clock";
