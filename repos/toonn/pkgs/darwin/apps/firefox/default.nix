@@ -1,5 +1,5 @@
 { stdenv, lib, fetchurl, undmg
-, version ? "91.0.2"
+, version ? "92.0"
 }:
 stdenv.mkDerivation rec {
   inherit version;
@@ -53,6 +53,9 @@ stdenv.mkDerivation rec {
       };
       "91.0.2" = {
         sha256 = "0c5b7k4q7k3q9lk0k22h6csk3bwqxkkfya6rskb5k9knn7qzyis1";
+      };
+      "92.0" = {
+        sha256 = "0kln28330jhmpdvsdsnrqnl0fkpb18i9vi1n98v99aq61ncqr5v8";
       };
     };
     hash = versions."${version}";
