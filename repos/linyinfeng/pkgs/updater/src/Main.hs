@@ -29,7 +29,7 @@ clashPremium :: Text -> Text -> PackageSet ()
 clashPremium sys goSys =
   define $
     package ("clash-premium-" <> sys)
-      `sourceAur` "clash-premium-bin"
+      `sourceWebpage` ("https://api.github.com/repos/Dreamacro/clash/releases/tags/premium", "clash-linux-amd64-([a-z0-9\\-\\.]+).gz", id)
       `fetchUrl` url
   where
     url (Version v) = "https://github.com/Dreamacro/clash/releases/download/premium/clash-" <> goSys <> "-" <> v <> ".gz"

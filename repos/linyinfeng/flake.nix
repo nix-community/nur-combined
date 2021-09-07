@@ -71,11 +71,9 @@
                 pkgs.cabal-install
                 pkgs.ormolu
                 (pkgs.writeScriptBin "update" ''
-                  nix shell .#updater --command bash -c '
-                    cd pkgs
-                    echo "$PWD"
-                    updater
-                  '
+                  pushd pkgs
+                  nix shell ..#updater --command updater "$@"
+                  popd
                   nixpkgs-fmt pkgs/sources.nix
                 '')
                 pkgs.nix-linter
