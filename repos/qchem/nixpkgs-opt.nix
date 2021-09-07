@@ -1,70 +1,87 @@
-self: super:
-{
-  #
-  # Package set with optimized upstream libraries
-  #
+final: prev: self: optStdenv:
 
-  # Compile fftw with full AVX features
-  fftw = super.fftw.overrideAttrs ( oldAttrs: {
-    configureFlags = oldAttrs.configureFlags
-    ++ [
-      "--enable-avx"
-      "--enable-avx2"
-      "--enable-fma"
-      "--enable-avx-128-fma"
-    ];
-    buildInputs = oldAttrs.buildInputs ++ [ self.gfortran ];
-  });
+#
+# Package set with upstream libraries
+# and optimizations of upstream packages
+#
 
-  fftw-mpi = self.fftw.overrideAttrs ( oldAttrs: {
-    buildInputs = oldAttrs.buildInputs ++ [ self.mpi ];
+with final;
+let
+  hp = optStdenv.hostPlatform;
 
-    configureFlags = with super.lib.lists; oldAttrs.configureFlags ++ [
-      "--enable-mpi"
-      "MPICC=${self.mpi}/bin/mpicc"
-      "MPIFC=${self.mpi}/bin/mpif90"
-      "MPIF90=${self.mpi}/bin/mpif90"
-    ];
+  # like callPackage but with override instead
+  recallPackage = pkg: inputs:
+    pkg.override ((builtins.intersectAttrs pkg.override.__functionArgs set) // inputs);
 
-    propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ self.mpi ];
-  });
+  set = {
+    stdenv = optStdenv;
+    cp2k = recallPackage cp2k {};
+    dkh = recallPackage dkh {};
+    ergoscf = recallPackage ergoscf {};
+    hpl = recallPackage hpl {};
+    hpcg = recallPackage hpcg {};
+    i-pi = recallPackage i-pi {};
+    gsl = recallPackage gsl {};
+    libvori = recallPackage libvori {};
+    libxc = recallPackage libxc {};
+    mkl = recallPackage mkl {};
+    molden = recallPackage molden {};
+    mpi = recallPackage mpi {};
+    octopus = recallPackage octopus {};
+    quantum-espresso = recallPackage quantum-espresso {};
+    quantum-espresso-mpi = recallPackage quantum-espresso-mpi {};
+    pcmsolver = recallPackage pcmsolver {};
+    scalapack = recallPackage scalapack {};
+    siesta = recallPackage siesta {};
+    siesta-mpi = recallPackage siesta-mpi {};
+    spglib = recallPackage spglib {};
 
-  fftwSinglePrec = self.fftw.override { precision = "single"; };
+    fftw = (recallPackage fftw {}).overrideAttrs ( oldAttrs: {
+      configureFlags = with lib; oldAttrs.configureFlags
+        ++ optional hp.avxSupport "--enable-avx"
+        ++ optional hp.avx2Support "--enable-avx2"
+        ++ optional hp.fmaSupport "--enable-fma"
+        ++ optional (hp.fmaSupport && hp.avxSupport) "--enable-avx-128-fma";
+      });
 
-  libint = super.libint.override { enableFMA = true; };
+    fftwSinglePrec = self.fftw.override { precision = "single"; };
 
-  libxsmm = super.libxsmm.overrideAttrs ( x: {
-    makeFlags = x.makeFlags ++ [ "OPT=3" "AVX=2" ];
-  });
+    fftw-mpi = self.fftw.overrideAttrs ( oldAttrs: {
+      buildInputs = oldAttrs.buildInputs ++ [ self.mpi ];
 
-  scalapack = super.scalapack.overrideAttrs ( x: {
-    CFLAGS = "-O3 -mavx2 -mavx -msse2";
-    FFLAGS = "-O3 -mavx2 -mavx -msse2";
-  });
+      configureFlags = with lib.lists; oldAttrs.configureFlags ++ [
+        "--enable-mpi"
+      ];
 
-  gromacs = super.gromacs.override {
-    cpuAcceleration = "AVX2_256";
-    singlePrec = true;
-    fftw = self.fftwSinglePrec;
+      propagatedBuildInputs = oldAttrs.propagatedBuildInputs or [] ++ [ self.mpi ];
+    });
+
+    gromacs = recallPackage gromacs {
+      cpuAcceleration = if hp.avx2Support then "AVX2_256" else null;
+      fftw = self.fftwSinglePrec;
+    };
+
+    gromacsMpi = recallPackage gromacsMpi {
+      cpuAcceleration = if hp.avx2Support then "AVX2_256" else null;
+      fftw = self.fftwSinglePrec;
+    };
+
+    gromacsDouble = recallPackage gromacsDouble {
+      cpuAcceleration = if hp.avx2Support then "AVX2_256" else null;
+    };
+
+    gromacsDoubleMpi = recallPackage gromacsDoubleMpi {
+      cpuAcceleration = if hp.avx2Support then "AVX2_256" else null;
+    };
+
+    libint = recallPackage libint { enableFMA = hp.fmaSupport; };
+
+    libxsmm = (recallPackage libxsmm {}).overrideAttrs ( x: {
+      makeFlags = x.makeFlags or [] ++ [ "OPT=3" ]
+        ++ lib.optional hp.avx2Support ["AVX=2" ];
+    });
+
+    hostPlatform = hp;
   };
 
-  gromacsMpi = super.gromacs.override {
-    cpuAcceleration = "AVX2_256";
-    singlePrec = true;
-    mpiEnabled = true;
-    fftw = self.fftwSinglePrec;
-  };
-
-  gromacsDouble = super.gromacs.override {
-    cpuAcceleration = "AVX2_256";
-    singlePrec = false;
-    fftw = self.fftw;
-  };
-
-  gromacsDoubleMpi = super.gromacs.override {
-    cpuAcceleration = "AVX2_256";
-    singlePrec = false;
-    mpiEnabled = true;
-    fftw = self.fftw;
-  };
-}
+in set

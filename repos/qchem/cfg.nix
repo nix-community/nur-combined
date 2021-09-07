@@ -6,10 +6,11 @@
 , licMolpro ? null
 , prefix ? null
 , optAVX ? null
+, optArch ? null
 , useCuda ? null
 } :
 
-  let
+let
   # getEnv that returns null if var is not set
   getEnv = x:
   let
@@ -31,7 +32,9 @@
       else default
     else default;
 
- in {
+  AVX = getBoolValue optAVX true "NIXQC_AVX";
+
+in {
 
   # Put the package set under prefix
   prefix = getValue prefix "qchem" "NIXQC_PREFIX";
@@ -45,8 +48,15 @@
   # string containing a valid MOLPRO license token
   licMolpro = getValue licMolpro null "NIXQC_LICMOLPRO";
 
-  # turn of AVX optimizations in selected packages
-  optAVX = getBoolValue optAVX true "NIXQC_AVX";
+  # turn on AVX optimizations
+  optAVX = AVX;
+
+  # Optimize for a specific gcc Arch
+  # corresponds to skylake when AVX is requested
+  optArch = let
+    arch = getValue optArch null "NIXQC_OPTARCH";
+  in if arch != null then arch
+      else if AVX then "haswell" else null;
 
   # Enable CUDA on selected packages
   useCuda = getBoolValue useCuda false "NIXQC_CUDA";

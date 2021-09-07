@@ -9,7 +9,30 @@ let
 
   lib = prev.lib;
 
-  optAVX = cfg.optAVX;
+  # Create a stdenv with CPU optimizations
+  makeOptStdenv = stdenv: arch: extraCflags: if arch == null then stdenv else
+  stdenv.override (old: {
+    name = old.name + "-${arch}";
+
+    # Make sure respective CPU features are set
+    hostPlatform = old.hostPlatform //
+       lib.mapAttrs (p: a: a arch) lib.systems.architectures.predicates;
+
+    # Add additional compiler flags
+    extraAttrs = {
+      mkDerivation = args: stdenv.mkDerivation ( args // {
+        NIX_CFLAGS_COMPILE = toString (args.NIX_CFLAGS_COMPILE or "")
+          + " -march=${arch} -mtune=${arch} " + extraCflags;
+      });
+    };
+  });
+
+  # stdenv with CPU flags
+  optStdenv = makeOptStdenv final.stdenv cfg.optArch "";
+
+  # stdenv with extra optmization flags, use selectively
+  aggressiveStdenv = makeOptStdenv final.stdenv cfg.optArch "-O3 -fomit-frame-pointer -ftree-vectorize";
+
 
   #
   # Our package set
@@ -20,36 +43,12 @@ let
     callPackage = super.lib.callPackageWith (final // self);
     pythonOverrides = (import ./pythonPackages.nix) subset;
 
+    optUpstream = import ./nixpkgs-opt.nix final prev self optStdenv;
+
   in {
-    "${subset}" = {
-      # For consistency: every package that is in nixpgs-opt.nix
-      # + extra builds that should be exposed
-      inherit (final)
-        cp2k
-        ergoscf
-        fftwSinglePrec
-        hpl
-        hpcg
-        gromacs
-        gromacsMpi
-        gromacsDouble
-        gromacsDoubleMpi
-        i-pi
-        libint
-        mpi
-        mkl
-        molden
-        libxsmm
-        octopus
-        quantum-espresso
-        quantum-espresso-mpi
-        pcmsolver
-        scalapack
-        siesta
-        siesta-mpi;
+    "${subset}" = optUpstream // {
 
       pkgs = final;
-
 
       inherit callPackage;
 
@@ -64,21 +63,6 @@ let
 
       lapack-i8 = if final.lapack.implementation != "amd-libflame" then prev.lapack.override { isILP64 = true; }
         else super.lapack.override { isILP64 = true; lapackProvider = super.openblas; };
-
-      fftw = final.fftw.overrideAttrs ( oldAttrs: {
-        buildInputs = [ final.gfortran ];
-      });
-
-      fftw-mpi = self.fftw.overrideAttrs (oldAttrs: {
-        configureFlags = oldAttrs.configureFlags ++ [
-          "--enable-mpi"
-          "MPICC=${self.mpi}/bin/mpicc"
-          "MPIFC=${self.mpi}/bin/mpif90"
-          "MPIF90=${self.mpi}/bin/mpif90"
-        ];
-
-        propagatedBuildInputs = [ self.mpi ];
-      });
 
       # For molcas and chemps2
       hdf5-full = final.hdf5.override {
@@ -112,7 +96,6 @@ let
       # Applications
       #
       bagel = callPackage ./pkgs/apps/bagel {
-        inherit optAVX;
         boost = final.boost165;
       };
 
@@ -194,6 +177,7 @@ let
       pysisyphus = super.python3.pkgs.toPythonApplication self.python3.pkgs.pysisyphus;
 
       qdng = callPackage ./pkgs/apps/qdng {
+        stdenv = aggressiveStdenv;
         protobuf=super.protobuf3_11;
       };
 
@@ -348,9 +332,7 @@ let
       matlab = callPackage ./pkgs/apps/matlab { inherit (cfg) optpath; };
 
     } // extra;
-  } // lib.optionalAttrs optAVX (
-    import ./nixpkgs-opt.nix final super
-    );
+  };
 
 in
   overlay cfg.prefix { }

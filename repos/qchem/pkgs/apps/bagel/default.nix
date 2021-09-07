@@ -2,7 +2,6 @@
 , makeWrapper, openssh
 , python3, boost, mpi, blas, lapack
 , scalapack ? null
-, optAVX ? true
 } :
 
 let
@@ -44,7 +43,6 @@ in stdenv.mkDerivation rec {
     "-O3"
     "-DCOMPILE_J_ORB"
   ] ++ lib.lists.optionals (!useMKL) [ "-lblas" "-llapack" ]
-    ++ lib.lists.optional optAVX "-mavx -mavx2"
     ++ lib.lists.optional (blas.passthru.implementation == "openblas") "-DZDOT_RETURN"
   );
 
