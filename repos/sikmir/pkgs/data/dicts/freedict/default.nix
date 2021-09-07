@@ -3,8 +3,13 @@
 {
   deu-eng = callPackage ./base.nix {
     lang = "deu-eng";
-    version = "0.3.5";
-    hash = "sha256-9dHEogR1uJtTm3xCVIxdZ8nNoNT2iee11viOQQZFxms=";
+    version = "1.8.1-fd0.2.1";
+    hash = "sha256-FJP9vrzz/A2PwFDBOTtFGMc5OoiK7KE6qnAnG/mnXMU=";
+  };
+  eng-rus = callPackage ./base.nix {
+    lang = "eng-rus";
+    version = "0.3.1";
+    hash = "sha256-3rQUFUbCa8YLsP//rTieSfBr4iRqOhSUtWm9o7CU44c=";
   };
   epo-eng = callPackage ./base.nix {
     lang = "epo-eng";

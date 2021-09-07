@@ -3,61 +3,61 @@
 {
   de-ru = callPackage ./base.nix {
     lang = "de-ru";
-    version = "2021-04-30";
-    hash = "sha256-uDDXd4lXf4VAsBMMcrf+zZrv8QexsU3M/CqzXGRmM9g=";
+    version = "2021-09-03";
+    hash = "sha256-XQAJzZ/tN/gWj50NW21CQbAX+vAt+X52XqXHMM9tDB4=";
   };
 
   en-ru = callPackage ./base.nix {
     lang = "en-ru";
-    version = "2021-05-05";
-    hash = "sha256-UkBWRkpnG02K+7YOHTCx6T0u7UKbmFnsZpZcbriaS5E=";
+    version = "2021-09-01";
+    hash = "sha256-JLfzochNxA9ALUL7J3QD5AQxEyq7Tnd3Prfc8HNoqr8=";
   };
 
   fi-ru = callPackage ./base.nix {
     lang = "fi-ru";
-    version = "2021-05-03";
-    hash = "sha256-GUZmuj+23OVMwQT1jXVg7VvY7r/ERGOLax1dTwCv+ho=";
+    version = "2021-08-30";
+    hash = "sha256-pZk1/5jb5Rgq/6VrpKIAQsRn0H/kR2n11A4m3aotOrI=";
   };
 
   ru-be = callPackage ./base.nix {
     lang = "ru-be";
-    version = "2021-01-21";
-    hash = "sha256-VAkuG2T+IXzLSqJEmJ/VgGCNdUjxBEg90ECUWLeq6EE=";
+    version = "2021-08-21";
+    hash = "sha256-wGRbD0s0GECqdxJtBlw+geQHSArT4oGjn9tWSPhRPSg=";
   };
 
   ru-de = callPackage ./base.nix {
     lang = "ru-de";
-    version = "2021-01-21";
-    hash = "sha256-UrJTBDC99xoGNvVqYyU9QUzUESIaAVI0Btbu3I6PYU8=";
+    version = "2021-08-21";
+    hash = "sha256-lf7vvMBEMoreljU+HVpLhCbjhC+lTRRV6Km7SdActbU=";
   };
 
   ru-en = callPackage ./base.nix {
     lang = "ru-en";
-    version = "2021-01-21";
-    hash = "sha256-Lip6ixKIO3xeu8ZXsWDkFAZONbjUp+LVI0bc3TnFxKQ=";
+    version = "2021-08-21";
+    hash = "sha256-xfOd0NRoQ2T3ygK92hfxtI7u56MNSqOtl8hxwm+032w=";
   };
 
   ru-eo = callPackage ./base.nix {
     lang = "ru-eo";
-    version = "2021-01-21";
-    hash = "sha256-NXWfv78JoR/K7Tkp7GdSS5OxVJspKbOixVTPzmAO2uQ=";
+    version = "2021-08-21";
+    hash = "sha256-G6fwC6KB018wlF8wlBEkXTMg5xl4kXM8WyTrTx8S8og=";
   };
 
   ru-fi = callPackage ./base.nix {
     lang = "ru-fi";
-    version = "2021-01-21";
-    hash = "sha256-BYW5I3WBbsjU4IupZDYjkMpAI5vDP27EC/yUvf0hirE=";
+    version = "2021-08-21";
+    hash = "sha256-udCgUNM11b7b4py6r+UGTU8j3KwQ6Sg1HPS++bnunLg=";
   };
 
   ru-sv = callPackage ./base.nix {
     lang = "ru-sv";
-    version = "2021-01-21";
-    hash = "sha256-AtKuseepJdW39yHuMAIksFroO6aWoqu+4fvDjb4pEO0=";
+    version = "2021-08-21";
+    hash = "sha256-iQwwQqyvg64RBannVVsrLFyS7/rUYobMBpm2zSNELv8=";
   };
 
   ru-uk = callPackage ./base.nix {
     lang = "ru-uk";
-    version = "2021-01-21";
-    hash = "sha256-pnHDgduoRcILJnegDcTpReXkIq8CDLw5nEX2H04pWvo=";
+    version = "2021-08-21";
+    hash = "sha256-uf9JakgRcZswuUHo9Gt6xM3p23KTxp78evRdk08BLrw=";
   };
 }
