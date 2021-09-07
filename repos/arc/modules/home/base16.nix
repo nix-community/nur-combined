@@ -158,13 +158,14 @@ in {
     colorscheme = "base16-${defaultScheme.slug}";
     vimConf = genAttrs [ "vim" "neovim" ] (_: {
       plugins = [ cfg.vim.plugin ];
-      extraConfig = mkBefore ''
+      extraConfig = mkMerge [ (mkBefore ''
         ${optionalString cfg.terminal.ansiCompatibility "let base16colorspace=256"}
         let g:base16_shell_path='${cfg.shell.package}'
+      '') ''
         if !exists('g:colors_name') || g:colors_name != '${colorscheme}'
           colorscheme ${colorscheme}
         endif
-      '';
+      '' ];
     });
     homeConf = {
       programs = mkMerge [
