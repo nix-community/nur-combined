@@ -246,6 +246,8 @@ let
       # Libraries
       #
 
+      amd-fftw = callPackage ./pkgs/lib/amd-fftw {};
+
       libctl = callPackage ./pkgs/lib/libctl {};
 
       libefp = callPackage ./pkgs/lib/libefp {};
