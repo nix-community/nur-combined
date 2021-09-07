@@ -1,4 +1,4 @@
-name: "Automated Update"
+name: "Automated update"
 on:
   schedule:
     - cron: '0 0 * * *'
@@ -26,14 +26,14 @@ jobs:
       with:
         name: linyinfeng
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - name: Cache multiple paths
+    - name: Cache
       uses: actions/cache@main
       with:
         path: |
           pkgs/_build
         key: ${{ runner.os }}-${{ hashFiles('pkgs/updater/src/*') }}-${{ hashFiles('pkgs/_build/generated.nix') }}
         restore-keys: |
-          ${{ runner.os }}-${{ hashFiles('pkgs/updater/src/*') }}
+          ${{ runner.os }}-${{ hashFiles('pkgs/updater/src/*') }}-
     - name: Run updater
       run: |
         cp ./pkgs/sources.nix /tmp/old-sources.nix
