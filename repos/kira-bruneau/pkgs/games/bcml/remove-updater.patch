@@ -1,8 +1,8 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index 474ddf9..8178ae0 100644
+index 88a0007..4992ffc 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
-@@ -68,10 +68,6 @@ class Api:
+@@ -69,10 +69,6 @@ class Api:
          updated = util.get_settings("last_version") < VERSION
          res = {
              "version": USER_VERSION,
@@ -13,7 +13,7 @@ index 474ddf9..8178ae0 100644
              "showChangelog": updated and util.get_settings("changelog"),
          }
          if updated:
-@@ -757,46 +753,6 @@ class Api:
+@@ -763,46 +759,6 @@ class Api:
          help_thread = Thread(target=help_window, args=(self.host,))
          help_thread.start()
  
@@ -141,7 +141,7 @@ index c91c653..12c2ba1 100644
      constructor(props) {
          super(props);
 diff --git a/bcml/assets/src/js/Settings.jsx b/bcml/assets/src/js/Settings.jsx
-index 459832d..8507a69 100644
+index cbc8206..392596c 100644
 --- a/bcml/assets/src/js/Settings.jsx
 +++ b/bcml/assets/src/js/Settings.jsx
 @@ -24,7 +24,6 @@ class Settings extends React.Component {
@@ -178,7 +178,7 @@ index 459832d..8507a69 100644
                              <OverlayTrigger
                                  overlay={
 diff --git a/bcml/util.py b/bcml/util.py
-index 1f217b2..dd67e60 100644
+index 239011a..9fd2d3d 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
 @@ -579,7 +579,6 @@ DEFAULT_SETTINGS = {

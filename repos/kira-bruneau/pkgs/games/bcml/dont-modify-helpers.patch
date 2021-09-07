@@ -20,7 +20,7 @@ index 5be1a56..c30b94d 100644
          LOG.parent.mkdir(parents=True, exist_ok=True)
          for folder in util.get_work_dir().glob("*"):
 diff --git a/bcml/util.py b/bcml/util.py
-index 2f05faf..1f217b2 100644
+index 48d9ae4..239011a 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
 @@ -1384,7 +1384,6 @@ def get_7z_path():

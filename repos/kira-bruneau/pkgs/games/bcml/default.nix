@@ -51,10 +51,10 @@ let
     "qt" = "Qt";
   }.${gui};
 
-  js = (import ./js/node-composition.nix {
+  assetsDependencies = (import ./assets/node-composition.nix {
     inherit pkgs nodejs;
     inherit (stdenv.hostPlatform) system;
-  }).package;
+  }).nodeDependencies;
 
   msyt = callPackage ./msyt { };
 
@@ -71,13 +71,13 @@ let
 in
 buildPythonApplication rec {
   pname = "bcml";
-  version = "3.4.9";
+  version = "3.5.0";
 
   src = fetchFromGitHub {
     owner = "NiceneNerd";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-2/UlsVqOOe77lCVQjrTh0hhzP+reePlWnvJ81QYm9O0=";
+    hash = "sha256-izC5DkHQWudBK9n+GBAiPrH4UlFaPk+J+t8Jc1g/T3Q=";
   };
 
   patches = [
@@ -91,8 +91,8 @@ buildPythonApplication rec {
   ];
 
   postPatch = ''
-    # Patch in node_modules for building JS assets
-    ln -s ${js}/lib/node_modules/js/node_modules bcml/assets
+    # Patch in node_modules for building assets
+    ln -s ${assetsDependencies}/lib/node_modules bcml/assets
   '';
 
   nativeBuildInputs = [
