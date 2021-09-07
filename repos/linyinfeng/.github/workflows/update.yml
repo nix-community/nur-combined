@@ -31,7 +31,9 @@ jobs:
       with:
         path: |
           pkgs/_build
-        key: ${{ runner.os }}-${{ hashFiles('pkgs/_build/generated.nix') }}
+        key: ${{ runner.os }}-${{ hashFiles('pkgs/updater/src/*') }}-${{ hashFiles('pkgs/_build/generated.nix') }}
+        restore-keys: |
+          ${{ runner.os }}-${{ hashFiles('pkgs/updater/src/*') }}
     - name: Run updater
       run: |
         cp ./pkgs/sources.nix /tmp/old-sources.nix
@@ -42,7 +44,7 @@ jobs:
             newSources = ./pkgs/sources.nix;
           }' --impure --raw > /tmp/changelog
 
-        echo "UPDATER_CHANGELOG << EOF" >> $GITHUB_ENV
+        echo "UPDATER_CHANGELOG<<EOF" >> $GITHUB_ENV
         cat /tmp/changelog >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
 
@@ -52,7 +54,7 @@ jobs:
             echo "COMMIT_BODY=" >> $GITHUB_ENV
         else
             echo "COMMIT_TITLE=Update multiple packages" >> $GITHUB_ENV
-            echo "COMMIT_BODY << EOF" >> $GITHUB_ENV
+            echo "COMMIT_BODY<<EOF" >> $GITHUB_ENV
             echo -ne "\n\n" >> $GITHUB_ENV
             cat /tmp/changelog >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
