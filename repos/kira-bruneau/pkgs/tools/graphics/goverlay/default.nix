@@ -17,6 +17,7 @@
 , polkit
 , procps
 , systemd
+, vulkan-tools
 , which
 }:
 
@@ -90,6 +91,7 @@ in stdenv.mkDerivation rec {
       polkit
       procps
       systemd
+      vulkan-tools
       which
     ]}"
 
