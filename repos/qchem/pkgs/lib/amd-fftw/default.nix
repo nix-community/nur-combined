@@ -9,6 +9,8 @@
 , enableAvx2 ? true
 , enableFma ? false # not supported
 , amdArch ? "znver2"
+, enableMpi ? false
+, mpi
 }:
 
 with lib;
@@ -24,6 +26,11 @@ stdenv.mkDerivation rec {
     sha256 = "04dcsw4y2f1fnn4548glwad9c9vgr4l18dw40bj6m95h7sa10vb5";
   };
 
+  patches = [
+    # remove mtune=native impurity
+    ./mtune.patch
+  ];
+
   outputs = [ "out" "dev" "man" "info" ];
   outputBin = "dev"; # fftw-wisdom
 
@@ -32,12 +39,12 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optionals stdenv.cc.isClang [
     # TODO: This may mismatch the LLVM version sin the stdenv, see #79818.
     llvmPackages.openmp
-  ];
+  ] ++ optional enableMpi mpi;
 
   AMD_ARCH = amdArch;
 
-  configureFlags = filter (x: x != "--enable-fma" && x != "--enable-avx-128-fma") # protect against override, flags are broken
-    ([ "--enable-shared"
+  configureFlags = # --enable-fma and --enable-avx-128-fma flags are broken
+    [ "--enable-shared"
       "--enable-threads"
       "--enable-amd-opt"
     ]
@@ -47,7 +54,8 @@ stdenv.mkDerivation rec {
     ++ optional (stdenv.isx86_64 && (precision == "single" || precision == "double") )  "--enable-sse2"
     ++ optional enableAvx "--enable-avx"
     ++ optional enableAvx2 "--enable-avx2"
-    ++ [ "--enable-openmp" ]);
+    ++ optionals enableMpi [ "--enable-mpi" "--enable-amd-trans" "--enable-amd-mpifft" ]
+    ++ [ "--enable-openmp" ];
 
   enableParallelBuilding = true;
 
