@@ -1,6 +1,7 @@
 {
   dht22-exporter = ./dht22-exporter.nix;
   modprobe = ./modprobe.nix;
+  crypttab = ./crypttab.nix;
   glauth = ./glauth.nix;
   common-root = ./common-root.nix;
   mutable-state = ./mutable-state.nix;
@@ -28,6 +29,7 @@
       dht22-exporter
       glauth
       modprobe
+      crypttab
       mutable-state
       common-root
       pulseaudio
