@@ -59,7 +59,7 @@
           let
             simple = pkgs.mkShell {
               packages = [
-                pkgs.nixpkgs-fmt
+                # currently nothing
               ];
             };
             withUpdater = pkgs.mkShell {
@@ -68,6 +68,7 @@
                 self.packages.${system}.updater.env
               ];
               packages = [
+                pkgs.nixpkgs-fmt
                 pkgs.cabal-install
                 pkgs.ormolu
                 (pkgs.writeScriptBin "update" ''

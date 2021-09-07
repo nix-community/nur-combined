@@ -9,5 +9,5 @@ drv.overrideAttrs (old: {
     wrapProgram $out/bin/updater \
       --prefix PATH : "${lib.makeBinPath [nvchecker nix-prefetch-git]}"
   '';
-  meta.platforms = haskellPackages.ghc.meta.platforms;
+  meta.platforms = [ "x86_64-linux" ];
 })

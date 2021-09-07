@@ -27,7 +27,9 @@ jobs:
         name: linyinfeng
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Run updater
-      run: nix develop --command update
+      run: |
+        nix develop --command update --changelog /tmp/updater-changelog
+        echo "UPDATER_CHANGELOG=$(cat /tmp/updater-changelog)" >> $GITHUB_ENV
     - name: Nix flake update
       run: |
         # do nix flake update if sources were updated
@@ -38,8 +40,17 @@ jobs:
       uses: peter-evans/create-pull-request@main
       with:
         token: '${{ secrets.PAT_FOR_CREATE_PULL_REQUEST }}'
-        commit-message: Automated update
+        commit-message: |
+          Automated update
+
+          ${{ env.UPDATER_CHANGELOG }}
+        title: Automated update
+        body: |
+          ###### Changelog
+
+          ```text
+          ${{ env.UPDATER_CHANGELOG }}
+          ```
         branch: 'create-pull-request/update'
         delete-branch: true
-        title: Automated update
         reviewers: linyinfeng
