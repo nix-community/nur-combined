@@ -140,9 +140,7 @@ let
 
       meep = super.python3.pkgs.toPythonApplication self.python3.pkgs.meep;
 
-      mesa-qc = callPackage ./pkgs/apps/mesa {
-        gfortran = final.gfortran6;
-      };
+      mesa-qc = callPackage ./pkgs/apps/mesa { };
 
       molcas = self.molcas2106;
 
