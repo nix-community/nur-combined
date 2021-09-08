@@ -67,6 +67,8 @@ in
 
       wantedBy = [ "multi-user.target" ];
 
+      path = [ pkgs.ffmpeg ];
+
       serviceConfig = {
         Type = "simple";
         User = cfg.user;
