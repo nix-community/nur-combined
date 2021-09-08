@@ -15,5 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   atlas = pkgs.callPackage ./pkgs/atlas { };
-  logisim-evoluton = pkgs.callPackage ./pkgs/logisim-evolution { };
+  logisim-evolution = pkgs.callPackage ./pkgs/logisim-evolution { };
 }
