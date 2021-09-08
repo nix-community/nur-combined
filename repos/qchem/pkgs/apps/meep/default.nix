@@ -7,13 +7,13 @@
 
 buildPythonPackage rec {
   pname = "meep";
-  version = "1.18.0";
+  version = "1.20.0";
 
   src = fetchFromGitHub {
     owner = "NanoComp";
     repo = pname;
     rev = "v${version}";
-    sha256= "08l4mczkh08dp90c4dlnyx6lsg093li0xqnnbh7q8k363cr8lx81";
+    sha256= "8bqBJT94GyKDyTl8Ev8n0GQmPJvRnVY4eyZ8BQ4r5tc=";
   };
 
   nativeBuildInputs = [
