@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "93.0buildid20210906164301";
+      version = "93.0buildid20210907190438";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3835910/francais_language_pack-93.0buildid20210906164301-fx.xpi";
-      sha256 = "0b9c43aaf6914587b7ddbb532fcb5d83a885d4b6d789114efa1aaa09c213842a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3836550/francais_language_pack-93.0buildid20210907190438-fx.xpi";
+      sha256 = "de51499423b559c5b5685cf0bd5cf0bc4e0fac22429a9b4da3a1704dd280d99c";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -489,10 +489,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.2.0";
+      version = "3.2.1";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3798767/gesturefy-3.2.0-fx.xpi";
-      sha256 = "3d3df579bdb6de79bca76f92a4ff83e41ee6cee6d6b0d66ff03f068795219696";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3835807/gesturefy-3.2.1-fx.xpi";
+      sha256 = "513b04ac1364f9d421bb59ad5eee2809e29b9f6d90e207dcbc93ee8442d7b07e";
       meta = with lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -1777,10 +1777,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.8.5";
+      version = "6.8.11";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3834438/wappalyzer-6.8.5-fx.xpi";
-      sha256 = "77dfeeca9c4b1e176dae72e4c828378f49e6a75518689925e57192675b08ef68";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3836689/wappalyzer-6.8.11-fx.xpi";
+      sha256 = "470b34074354cec477fbcc2b8f0c990e7d741943f78ffa8be83aaad4c5244ce6";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
