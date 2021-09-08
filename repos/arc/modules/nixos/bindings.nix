@@ -57,6 +57,10 @@ let
       ipProtocol = mkOption {
         type = types.enum [ "ipv4" "ipv6" "unix" ];
       };
+      transport = mkOption {
+        type = types.enum [ "tcp" "udp" ];
+        default = "tcp";
+      };
       isAddress = mkOption {
         type = types.bool;
         readOnly = true;
@@ -81,6 +85,16 @@ let
         address = mkOption {
           type = types.str;
           readOnly = true;
+        };
+      };
+      firewall = {
+        open = mkOption {
+          type = types.bool;
+          default = config.isExternal;
+        };
+        interfaces = mkOption {
+          type = with types; nullOr (listOf str);
+          default = null; # TODO: find interface with address?
         };
       };
     };
@@ -297,9 +311,22 @@ let
           mapDomain = _: domain: attrValues (enabledBindings domain);
         in mkMerge (mapAttrsToList mapDomain enabledDomains);
       };
-      networking.firewall.allowedTCPPorts = let
-        externalBindings = filter (binding: binding.isExternal) config.networking.enabledBindings;
-      in map (binding: binding.port) externalBindings;
+      networking.firewall = let
+        externalBindings = filter (binding: binding.firewall.open) config.networking.enabledBindings;
+        public' = partition (binding: binding.firewall.interfaces == null) externalBindings;
+        public = public'.right;
+        interfaces'' = concatMap (binding: map (interface: nameValuePair interface binding) binding.firewall.interfaces) public'.wrong;
+        interfaces' = groupBy (b: b.name) interfaces'';
+        interfaces = mapAttrs (_: map ({ name, value }: value)) interfaces';
+        mapToAllowed = bindings: let
+          tcp = partition (b: b.transport == "tcp") bindings;
+        in {
+          allowedTCPPorts = map (binding: binding.port) tcp.right;
+          allowedUDPPorts = map (binding: binding.port) tcp.wrong;
+        };
+      in mapToAllowed public // {
+        interfaces = mapAttrs (_: mapToAllowed) interfaces;
+      };
       lib.arc = {
         inherit (ty) domainType bindType;
       };
