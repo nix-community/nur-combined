@@ -16,6 +16,8 @@
         # some websites only work there :(
         chromium
 
+        wineWowPackages.stable
+
         darktable
 
         # dev
