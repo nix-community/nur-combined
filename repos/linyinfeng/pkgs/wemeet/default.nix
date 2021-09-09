@@ -63,11 +63,6 @@ stdenv.mkDerivation rec {
     fcitx-qt5
   ]);
 
-  runtimeDependencies = [
-    # libappindicator
-    # libudev
-  ];
-
   autoPatchelfIgnoreMissingDeps = "true"; # TODO: remove this
 
   installPhase = ''
