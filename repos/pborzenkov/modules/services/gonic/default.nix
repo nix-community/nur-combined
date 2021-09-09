@@ -91,7 +91,7 @@ in
           -music-path ${cfg.musicPath} \
           -podcast-path ${cfg.podcastPath} \
           -cache-path /var/lib/gonic/cache \
-          -db-path /var/lib/gonic/db.sql \
+          -db-path /var/lib/gonic/gonic.db \
           -listen-addr ${cfg.listen.address}:${toString cfg.listen.port} \
           ${lib.optionalString (cfg.scanInterval != null) "-scan-interval ${toString cfg.scanInterval}"}
         '';
