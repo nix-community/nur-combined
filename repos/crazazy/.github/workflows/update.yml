@@ -25,11 +25,13 @@ jobs:
       # Runs a single command using the runners shell
       - name: Update submodules
         run: |
-          git submodule update --init --remote --depth 1
-          git submodule deinit --all
-          git submodule > SUBMODULE_STATUS
           git config user.name "Monorepo bot :D"
           git config user.email "Monobot@noreply.github.com"
+          git submodule update --init --remote --depth 1
+          git add dep/
+          git commit -m "Updated submodules"
+          git submodule deinit --all
+          git submodule > SUBMODULE_STATUS
           if [[ -z "$(git diff --exit-code)" ]]; then
             echo "Nothing to update"
           else
