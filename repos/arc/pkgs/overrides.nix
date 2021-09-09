@@ -7,6 +7,12 @@
       fallback = { ... }: arc.packages.groups.customized.notmuch-arc;
     }
     {
+      attr = "rust-analyzer-unwrapped";
+      withAttr = "rust-analyzer-unwrapped-mimalloc";
+      superAttr = "rust-analyzer-unwrapped-nixpkgs";
+      fallback = { ... }: arc.packages.groups.customized.rust-analyzer-unwrapped-mimalloc;
+    }
+    {
       attr = "ncpamixer";
       superAttr = "nixpkgsNcpamixer";
       apply = { previous, self, ... }: let

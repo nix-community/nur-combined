@@ -190,6 +190,13 @@ let
 
     bitlbee-libpurple = { bitlbee }: bitlbee.override { enableLibPurple = true; };
 
+    rust-analyzer-unwrapped-mimalloc = { rust-analyzer-unwrapped }: let
+      drv = rust-analyzer-unwrapped.override {
+        useMimalloc = true;
+        doCheck = false;
+      };
+    in drv;
+
     mumble_1_4 = { mumble-develop, fetchFromGitHub }: mumble-develop.overrideAttrs (old: rec {
       version = "1.4.0-development-snapshot-006";
       src = fetchFromGitHub {
