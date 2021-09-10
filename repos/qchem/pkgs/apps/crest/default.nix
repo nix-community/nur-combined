@@ -4,7 +4,7 @@
 
 stdenv.mkDerivation rec {
   pname = "crest";
-  version = "2021-04-24";
+  version = "2.11.1";
 
   nativeBuildInputs = [
     cmake
@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "grimme-lab";
     repo = pname;
-    rev = "6a0f5c06c89d54567aab307a5d803e9ab6ba6a28";
-    sha256 = "0kkx035zj4950jaf70vhd29yqd7qxapfrpic91rzbfx3la6n53fs";
+    rev = "v${version}";
+    sha256 = "/6f5MH+0AHXrVC26KA3fXTrJYuNSfeW3H79dJPMjuRw=";
   };
 
   FFLAGS = "-ffree-line-length-512";
@@ -35,5 +35,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     homepage = "https://github.com/grimme-lab/crest";
     platforms = platforms.linux;
+    maintainers = [ maintainers.sheepforce ];
   };
 }

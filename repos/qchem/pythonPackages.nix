@@ -30,22 +30,7 @@ let
 
     pylibefp = callPackage ./pkgs/lib/pylibefp { };
 
-    psi4 = callPackage ./pkgs/apps/psi4 {
-      blas = superPkgs.blas.override { blasProvider = superPkgs.mkl; };
-      lapack = superPkgs.lapack.override { lapackProvider = superPkgs.mkl; };
-      libxc = selfPkgs.libxc4;
-      gau2grid = self.gau2grid-1_3_1;
-    };
-
-    psi4Unstable = callPackage ./pkgs/apps/psi4 {
-      blas = superPkgs.blas.override { blasProvider = superPkgs.mkl; };
-      lapack = superPkgs.lapack.override { lapackProvider = superPkgs.mkl; };
-      libxc = selfPkgs.libxc4;
-      gau2grid = self.gau2grid-2_0_4;
-      version = "01.11.2020";
-      rev = "9b60184c5d161e4871c91ce29a44e3ac2c2a438e";
-      sha256 = "1vh8dp3nw4fk1mnfv0w8ici1lzxyfn5han7hipqzsfxl75w76r18";
-    };
+    psi4 = callPackage ./pkgs/apps/psi4 { };
 
     pysisyphus = callPackage ./pkgs/apps/pysisyphus {
       orca = selfPkgs.orca;
