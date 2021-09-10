@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "93.0buildid20210907190438";
+      version = "93.0buildid20210909185859";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3836550/francais_language_pack-93.0buildid20210907190438-fx.xpi";
-      sha256 = "de51499423b559c5b5685cf0bd5cf0bc4e0fac22429a9b4da3a1704dd280d99c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3837610/francais_language_pack-93.0buildid20210909185859-fx.xpi";
+      sha256 = "11a2865b5c63a12fcdef6a590342a6e2cde656df39ea86e936b4f77f19da0a12";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1273,10 +1273,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.6.2";
+      version = "5.6.3";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3810106/moderator_toolbox_for_reddit-5.6.2-an+fx.xpi";
-      sha256 = "a7a8657b3302257f970248880dad390c29071b777dd15d25919dce16664e2f72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3837566/moderator_toolbox_for_reddit-5.6.3-an+fx.xpi";
+      sha256 = "3d0414f97be492466ab7e3289e696a55674bbe480375168396c76d0a9f596331";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -1516,7 +1516,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/stoically/temporary-containers";
-        description = "Open tabs, websites, and links in automatically managed disposable containers. Containers isolate data websites store (cookies, storage, and more) from each other, enhancing your privacy and security while you browse.";
+        description = "Open tabs, websites, and links in automatically managed disposable containers which isolate the data websites store (cookies, storage, and more) from each other, enhancing your privacy and security while you browse.";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -1777,10 +1777,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.8.11";
+      version = "6.8.13";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3836689/wappalyzer-6.8.11-fx.xpi";
-      sha256 = "470b34074354cec477fbcc2b8f0c990e7d741943f78ffa8be83aaad4c5244ce6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3837910/wappalyzer-6.8.13-fx.xpi";
+      sha256 = "863a54b79d06445f714b06e8e4fb194124a56f26ce7281d7a9d5dfa9168efbaa";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
