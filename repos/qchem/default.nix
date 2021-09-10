@@ -70,6 +70,8 @@ let
         inherit (final) gfortran;
       };
 
+      fftw-mpi = self.fftw.override { enableMpi = true; };
+
       octave = (super.octaveFull.override {
         enableJava = true;
         jdk = super.jdk8;

@@ -116,7 +116,8 @@ in {
 
   qchem-amd = pkgs config (self: super: {
     blas = super.blas.override { blasProvider = super.amd-blis; };
-    lapack = super.lapack.override { lapackProvider = super.amd-libflame; };
+    fftw = self.qchem.amd-fftw;
+    scalapack = self.qchem.amd-scalapack;
   });
 }
 else {})

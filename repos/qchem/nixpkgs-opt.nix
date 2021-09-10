@@ -17,12 +17,14 @@ let
     stdenv = optStdenv;
     avogadro2 = recallPackage avogadro2 {};
     cp2k = recallPackage cp2k {};
+    fftw = recallPackage fftw {};
     dkh = recallPackage dkh {};
     ergoscf = recallPackage ergoscf {};
     hpl = recallPackage hpl {};
     hpcg = recallPackage hpcg {};
     i-pi = recallPackage i-pi {};
     gsl = recallPackage gsl {};
+    libint = recallPackage libint {};
     libvori = recallPackage libvori {};
     libxc = recallPackage libxc {};
     mkl = recallPackage mkl {};
@@ -37,25 +39,7 @@ let
     siesta-mpi = recallPackage siesta-mpi {};
     spglib = recallPackage spglib {};
 
-    fftw = (recallPackage fftw {}).overrideAttrs ( oldAttrs: {
-      configureFlags = with lib; oldAttrs.configureFlags
-        ++ optional hp.avxSupport "--enable-avx"
-        ++ optional hp.avx2Support "--enable-avx2"
-        ++ optional hp.fmaSupport "--enable-fma"
-        ++ optional (hp.fmaSupport && hp.avxSupport) "--enable-avx-128-fma";
-      });
-
     fftwSinglePrec = self.fftw.override { precision = "single"; };
-
-    fftw-mpi = self.fftw.overrideAttrs ( oldAttrs: {
-      buildInputs = oldAttrs.buildInputs ++ [ self.mpi ];
-
-      configureFlags = with lib.lists; oldAttrs.configureFlags ++ [
-        "--enable-mpi"
-      ];
-
-      propagatedBuildInputs = oldAttrs.propagatedBuildInputs or [] ++ [ self.mpi ];
-    });
 
     gromacs = recallPackage gromacs {
       cpuAcceleration = if hp.avx2Support then "AVX2_256" else null;
@@ -74,8 +58,6 @@ let
     gromacsDoubleMpi = recallPackage gromacsDoubleMpi {
       cpuAcceleration = if hp.avx2Support then "AVX2_256" else null;
     };
-
-    libint = recallPackage libint { enableFMA = hp.fmaSupport; };
 
     libxsmm = (recallPackage libxsmm {}).overrideAttrs ( x: {
       makeFlags = x.makeFlags or [] ++ [ "OPT=3" ]
