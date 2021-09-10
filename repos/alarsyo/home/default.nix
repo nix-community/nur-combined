@@ -10,6 +10,7 @@
     ./flameshot.nix
     ./git.nix
     ./laptop.nix
+    ./lorri.nix
     ./rofi.nix
     ./secrets
     ./ssh.nix

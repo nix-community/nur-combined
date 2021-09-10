@@ -23,9 +23,6 @@
         # dev
         rustup
 
-        beancount
-        fava
-
         packages.spot
     ];
   };
