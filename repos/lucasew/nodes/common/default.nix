@@ -12,11 +12,11 @@ with import ../../globalConfig.nix;
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 30;
+    memoryPercent = 10;
   };
   boot = {
     kernel.sysctl = {
-      "vm.swappiness" = 20;
+      "vm.swappiness" = 10;
     };
     cleanTmpDir = true;
   };
