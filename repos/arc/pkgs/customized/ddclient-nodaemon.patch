@@ -1,0 +1,13 @@
+diff --git a/ddclient.in b/ddclient.in
+index 5a35d38..9d130a9 100755
+--- a/ddclient.in
++++ b/ddclient.in
+@@ -1008,7 +1008,7 @@ sub main {
+                 unless exists $ipv6_strategies{lc opt('usev6')};
+         }
+ 
+-        $daemon = opt('daemon');
++        $daemon = 0;
+ 
+         update_nics();
+ 

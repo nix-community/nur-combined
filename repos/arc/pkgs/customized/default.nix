@@ -197,6 +197,39 @@ let
       };
     in drv;
 
+    ddclient-develop = { ddclient, autoreconfHook, makeWrapper, fetchFromGitHub, fetchpatch }: let
+      drv = ddclient.overrideAttrs (old: {
+        version = "2021-09-04";
+        src = fetchFromGitHub {
+          owner = "ddclient";
+          repo = "ddclient";
+          rev = "c56ce4182471aaa33d916a5709c1b9316ddab9f0";
+          sha256 = "1rwwa9i11mr76z20bk2idmlgfbv5ywlqhqka6xqswd9z8rg5zmk9";
+        };
+        patches = old.patches or [ ] ++ [
+          ./ddclient-nodaemon.patch
+          (fetchpatch {
+            # fix cloudflare response parsing
+            url = "https://github.com/ddclient/ddclient/pull/353.patch";
+            sha256 = "0xmryrv6sbd919c1b9rakrqlwx80byj62xwsn9vqmf8fyzzbpadl";
+          })
+        ];
+        preConfigure = ''
+          touch Makefile.PL
+        '';
+        installPhase = "";
+        postInstall = old.postInstall or "" + ''
+          mv $out/bin/ddclient $out/bin/.ddclient
+          makeWrapper $out/bin/.ddclient $out/bin/ddclient \
+            --prefix PERL5LIB : $PERL5LIB \
+            --argv0 ddclient
+        '';
+        nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [
+          autoreconfHook makeWrapper
+        ];
+      });
+    in drv;
+
     mumble_1_4 = { mumble-develop, fetchFromGitHub }: mumble-develop.overrideAttrs (old: rec {
       version = "1.4.0-development-snapshot-006";
       src = fetchFromGitHub {

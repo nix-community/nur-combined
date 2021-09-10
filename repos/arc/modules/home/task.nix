@@ -320,7 +320,8 @@ in {
         '';
       };
       clientCredentials = mkOption {
-        type = types.str;
+        type = types.nullOr types.str;
+        default = null;
         example = "<organization>/<user>/<key>";
         description = ''
           User identification for the Taskserver,
@@ -362,7 +363,7 @@ in {
   config.programs.taskwarrior.config = {
     taskd = if (cfg.taskd.server != null) then {
       server = cfg.taskd.server;
-      credentials = "${cfg.taskd.clientCredentials}";
+      ${if cfg.taskd.clientCredentials != null then "credentials" else null} = cfg.taskd.clientCredentials;
       ${if cfg.taskd.authorityCertificate != null then "ca" else null} =
         "${cfg.taskd.authorityCertificate}";
       certificate = "${cfg.taskd.clientCertificate}";

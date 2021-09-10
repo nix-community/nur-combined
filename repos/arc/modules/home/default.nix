@@ -21,6 +21,7 @@
   tridactyl = ./tridactyl.nix;
   ncpamixer = ./ncpamixer.nix;
   ncmpcpp = ./ncmpcpp.nix;
+  mpd = ./mpd.nix;
   pulsemixer = ./pulsemixer.nix;
   nix-path = ./nix-path.nix;
   offlineimap = ./offlineimap.nix;
@@ -51,6 +52,7 @@
       tridactyl
       ncpamixer
       ncmpcpp
+      mpd
       pulsemixer
       nix-path
       offlineimap
