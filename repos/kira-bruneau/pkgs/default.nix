@@ -25,14 +25,14 @@ in
 
   caprine = callPackage ./applications/networking/instant-messengers/caprine { };
 
-  ccache = callPackage ./development/tools/ccache { };
+  ccache = callPackage ./development/tools/misc/ccache { };
 
   clonehero = clonehero-fhs-wrapper;
   clonehero-fhs-wrapper = callPackage ./games/clonehero/fhs-wrapper.nix { };
   clonehero-unwrapped = callPackage ./games/clonehero { };
   clonehero-xdg-wrapper = callPackage ./games/clonehero/xdg-wrapper.nix { };
 
-  cmake-language-server = python3Packages.callPackage ./development/tools/cmake-language-server {
+  cmake-language-server = python3Packages.callPackage ./development/tools/misc/cmake-language-server {
     inherit cmake;
   };
 
@@ -91,7 +91,7 @@ in
   runescape-launcher = callPackage ./games/runescape-launcher/wrapper.nix { };
   runescape-launcher-unwrapped = callPackage ./games/runescape-launcher { };
 
-  texlab = callPackage ./development/tools/texlab {
+  texlab = callPackage ./development/tools/misc/texlab {
     inherit (darwin.apple_sdk.frameworks) Security CoreServices;
   };
 
