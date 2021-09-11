@@ -60,9 +60,6 @@ do
 	delta_temp=$((cpu_temp-last_cpu_temp))
 	delta_temp=${delta_temp#-}
 
-	# echo CPU status
-	echo "CPU $cpu_state with $cpu_temp_string, Δ$delta_temp°C" >> $LOG_FILE
-
 	fan_speed_percent=$(bc <<< "scale=2 ; $delta_cpu_temp / $temp_delta_1_percent")
 
 	fan_speed=$(bc <<< "scale=0 ; ($fan_speed_percent * $fan_delta_1_percent + $fan_min) / 1")
@@ -95,11 +92,11 @@ do
 			level=4
 		fi
 		last_level=$level
-		echo "Level is: $level" >> $LOG_FILE
-		echo "" >> $LOG_FILE
 	fi
 	echo $last_level > /sys/class/thermal/cooling_device0/cur_state
-	echo "Applied level `cat /sys/class/thermal/cooling_device0/cur_state`" >> $LOG_FILE
+
+	# echo CPU status
+	echo "$(date '+%D %R') CPU $cpu_state with $cpu_temp_string, Δ$delta_temp°C, level is `cat /sys/class/thermal/cooling_device0/cur_state`." >> $LOG_FILE
 
 	sleep 3
 done

@@ -26,6 +26,20 @@ in
       '';
       example = "/tmp/rpi-fan.log";
     };
+    logUser = mkOption {
+      type = types.str;
+      description = ''
+        The user owner of the log file.
+      '';
+      example = "myuser";
+    };
+    logGroup = mkOption {
+      type = types.str;
+      description = ''
+        The group owner of the log file.
+      '';
+      example = "mygroup";
+    };
   };
   config = mkIf cfg.enable {
     systemd.services.rpi-fan = {
@@ -44,6 +58,18 @@ in
       serviceConfig = {
         Type = "simple";
         ExecStart = [ "${rpi-fan}/bin/rpi-fan" ];
+      };
+    };
+    services.logrotate = {
+      enable = true;
+      paths = {
+        rpi-fan = {
+          path = "/var/log/rpi-fan/rpi-fan.log";
+          user = cfg.logUser;
+          group = cfg.logGroup;
+          frequency = "daily";
+          keep = 7;
+        };
       };
     };
   };
