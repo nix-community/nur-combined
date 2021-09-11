@@ -256,13 +256,13 @@ let
         sha512 = "mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw==";
       };
     };
-    "deep-is-0.1.3" = {
+    "deep-is-0.1.4" = {
       name = "deep-is";
       packageName = "deep-is";
-      version = "0.1.3";
+      version = "0.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/deep-is/-/deep-is-0.1.3.tgz";
-        sha1 = "b369d6fb5dbc13eecf524f91b070feedc357cf34";
+        url = "https://registry.npmjs.org/deep-is/-/deep-is-0.1.4.tgz";
+        sha512 = "oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==";
       };
     };
     "doctrine-3.0.0" = {
@@ -1055,7 +1055,7 @@ let
       sources."concat-map-0.0.1"
       sources."cross-spawn-7.0.3"
       sources."debug-4.3.2"
-      sources."deep-is-0.1.3"
+      sources."deep-is-0.1.4"
       sources."doctrine-3.0.0"
       sources."emoji-regex-8.0.0"
       sources."enquirer-2.3.6"
