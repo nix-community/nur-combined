@@ -1329,10 +1329,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "26.1";
+      version = "26.2";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3836089/save_page_we-26.1-fx.xpi";
-      sha256 = "e8a2529a457dee48d5781c0f60b2dc7198a4da47041ec5f5b56bdf065dc1f3bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3837941/save_page_we-26.2-fx.xpi";
+      sha256 = "e8599a2601991b18c4d6f15a61906a799f18430b7b76f543181491397dfd51a8";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -1467,10 +1467,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.10.0";
+      version = "6.10.1";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3824429/tab_session_manager-6.10.0-fx.xpi";
-      sha256 = "5b3f755e052848c99716187eae20abb292def127c0d837aa7c1c065f937d5050";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3837073/tab_session_manager-6.10.1-fx.xpi";
+      sha256 = "21e4204c0357dfd81ea49f0a13f55752dfcb6f53f04bb3518c3471c6668e777f";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -1777,10 +1777,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.8.13";
+      version = "6.8.14";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3837910/wappalyzer-6.8.13-fx.xpi";
-      sha256 = "863a54b79d06445f714b06e8e4fb194124a56f26ce7281d7a9d5dfa9168efbaa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3838217/wappalyzer-6.8.14-fx.xpi";
+      sha256 = "5e6727a7dda40064be7756dcf603bf24cce986ea6e28a0c62a64841ef3865bea";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
