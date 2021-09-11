@@ -106,7 +106,7 @@ rec {
 
   weechat-signal = pkgs.callPackage ./pkgs/weechat-signal { };
 
-  inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope reveal-md re-natal;
+  inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope reveal-md;
 
   source-code-pro-nerdfonts = pkgs.nerdfonts.override {
     fonts = [ "SourceCodePro" ];
