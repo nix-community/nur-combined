@@ -56,14 +56,14 @@ let
   mruby-zest = callPackage ./mruby-zest { };
 in stdenv.mkDerivation rec {
   pname = "zynaddsubfx";
-  version = "3.0.6-rc3";
+  version = "3.0.6-rc4";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = version;
     fetchSubmodules = true;
-    sha256 = "sha256-eIj1S8aWpXREbKIoZyvxSCjM9RVc4OsIm/BFNsdoonE=";
+    sha256 = "1lk3s5KV67yEVFG7I+24i4BXi/Hd0+DIYdtdRLlWdpU=";
   };
 
   outputs = [ "out" "doc" ];
