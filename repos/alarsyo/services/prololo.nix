@@ -8,7 +8,7 @@ let
   domain = config.networking.domain;
   prololoPkg =
     let
-      flake = builtins.getFlake "github:alarsyo/prololo-reborn?rev=5e14944fb6ede5e4cc9a6de1a125cfd25b9695ee";
+      flake = builtins.getFlake "github:alarsyo/prololo-reborn?rev=40da010f5782bc760c83ac9883716970fcee40ff";
     in
       flake.defaultPackage."x86_64-linux"; # FIXME: use correct system
   settingsFormat = pkgs.formats.yaml {};
@@ -48,7 +48,7 @@ in
             Environment = [
               "ROCKET_PORT=${toString cfg.port}"
               "ROCKET_LOG_LEVEL=normal"
-              "RUST_LOG=rocket=info,prololo_reborn=debug"
+              "RUST_LOG=rocket=info,prololo_reborn=trace"
             ];
             ExecStart = "${prololoPkg}/bin/prololo-reborn --config ${configFile}";
             StateDirectory = "prololo";
