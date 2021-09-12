@@ -20,5 +20,9 @@ with lib;
     restic-backup = import ./restic-backup { inherit lib; };
 
     matrixEmailConfig = import ./matrix-email-config.nix;
+
+    prololo_password = lib.fileContents ./prololo-password.secret;
+    prololo_room = lib.fileContents ./prololo-room.secret;
+    prololo_github_secret = lib.fileContents ./prololo-github-secret.secret;
   };
 }

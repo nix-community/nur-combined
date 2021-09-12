@@ -134,6 +134,19 @@ in
       enable = true;
     };
 
+    prololo = {
+      enable = true;
+      port = 8089;
+      settings = {
+        matrix_username = "prololo";
+        matrix_password = config.my.secrets.prololo_password;
+        matrix_homeserver = "https://matrix.alarsyo.net";
+        matrix_room_id = config.my.secrets.prololo_room;
+        matrix_state_dir = "./prololo_state_dir";
+        github_secret = config.my.secrets.prololo_github_secret;
+      };
+    };
+
     tailscale = {
       enable = true;
       exitNode = true;
