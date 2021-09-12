@@ -48,6 +48,8 @@ in
     inherit (qt5) wrapQtAppsHook;
   };
 
+  krane = callPackage ./applications/networking/cluster/krane { };
+
   lightdm-webkit2-greeter = callPackage ./applications/display-managers/lightdm-webkit2-greeter { };
 
   mangohud = callPackage ./tools/graphics/mangohud rec {
