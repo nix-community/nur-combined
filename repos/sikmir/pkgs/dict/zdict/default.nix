@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages }:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "zdict";
@@ -36,6 +36,5 @@ python3Packages.buildPythonApplication rec {
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin; # beautifulsoup4
   };
 }
