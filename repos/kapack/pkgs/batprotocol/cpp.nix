@@ -9,8 +9,8 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://framagit.org/batsim/batprotocol.git";
-    rev = "58e2b2956f9a3e86d27371eadeeaa13e3739c11a";
-    sha256 = "09w8bpmcrqz7wfii63jf2b3bh8ddppq6vqpimd5k0106zsq2wa0h";
+    rev = "1100c5ff784fe9792aeb8bec0e4367695c94a19c";
+    sha256 = "14w5c6r8q57gffpwj2m1npdj1c3w1mhp5wzdqb4jqm1r98d6vmk4";
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
