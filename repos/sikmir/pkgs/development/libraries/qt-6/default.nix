@@ -106,7 +106,7 @@ in stdenv.mkDerivation {
     description = "A cross-platform application framework for C++";
     license = with licenses; [ fdl13 gpl2 lgpl21 lgpl3 ];
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
-    ci.skip = true;
+    platforms = platforms.linux;
+    skip.ci = true;
   };
 }
