@@ -1,4 +1,4 @@
-{ lib, python3Packages, fetchFromGitHub, withCli ? true, checkLang ? false }:
+{ lib, stdenv, python3Packages, fetchFromGitHub, withCli ? true, checkLang ? false }:
 
 python3Packages.buildPythonApplication rec {
   pname = "tatoebatools";
@@ -30,5 +30,6 @@ python3Packages.buildPythonApplication rec {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin; # beautifulsoup4
   };
 }

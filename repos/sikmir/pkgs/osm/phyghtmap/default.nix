@@ -1,4 +1,4 @@
-{ lib, python3Packages, fetchurl, installShellFiles }:
+{ lib, stdenv, python3Packages, fetchurl, installShellFiles }:
 
 python3Packages.buildPythonApplication rec {
   pname = "phyghtmap";
@@ -21,5 +21,6 @@ python3Packages.buildPythonApplication rec {
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin; # beautifulsoup4
   };
 }
