@@ -18,6 +18,8 @@
 
   mfc_l2710dn = pkgs.callPackage ./pkgs/mfc_l2710dn { };
 
+  unflac = pkgs.callPackage ./pkgs/unflac { };
+
   python3Packages = pkgs.recurseIntoAttrs
     (pkgs.python3Packages.callPackage ./pkgs/python-pkgs { });
 
