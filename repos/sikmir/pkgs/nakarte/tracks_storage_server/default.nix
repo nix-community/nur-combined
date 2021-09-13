@@ -62,6 +62,8 @@ python2Packages.buildPythonApplication rec {
         --add-flags "$site_packages/init_db.py"
     '';
 
+  passthru.psycopg2 = psycopg2;
+
   meta = with lib; {
     description = "Tracks storage server";
     inherit (src.meta) homepage;

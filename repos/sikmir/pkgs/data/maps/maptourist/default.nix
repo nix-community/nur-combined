@@ -2,11 +2,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "maptourist";
-  version = "2021-09-05";
+  version = "2021-09-12";
 
   src = fetchurl {
     url = "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-szfo-RU_${version}.zip";
-    hash = "sha256-76SlpZaw/KFRdn67eY7bsGEbnMjjSzRoiDRx67LcDOw=";
+    hash = "sha256-oR4TOdA82TYumMdDBwP4bTy/HgjI4TRTzZgtOgT44Rg=";
   };
 
   sourceRoot = ".";
