@@ -77,6 +77,7 @@ lib.makeScope newScope (
     hfst = callPackage ./development/libraries/hfst { };
     libshell = callPackage ./development/libraries/libshell { };
     microjson = callPackage ./development/libraries/microjson { };
+    qt6 = callPackage ./development/libraries/qt-6 { };
 
     ### DEVELOPMENT / PERL MODULES
 
@@ -104,6 +105,7 @@ lib.makeScope newScope (
     python-hfst = callPackage ./development/python-modules/python-hfst { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
     wikitextprocessor = callPackage ./development/python-modules/wikitextprocessor { };
+    wiktfinnish = callPackage ./development/python-modules/wiktfinnish { };
 
     ### TOOLS
 
