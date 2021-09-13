@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "93.0buildid20210909185859";
+      version = "93.0buildid20210912185727";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3837610/francais_language_pack-93.0buildid20210909185859-fx.xpi";
-      sha256 = "11a2865b5c63a12fcdef6a590342a6e2cde656df39ea86e936b4f77f19da0a12";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3838842/francais_language_pack-93.0buildid20210912185727-fx.xpi";
+      sha256 = "7480bc927aa50c2ed61ac942b73f29deb30403af8580d205c9b2a673ce84db74";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1420,7 +1420,7 @@
       {
         homepage = "https://sponsor.ajay.app";
         description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
-        license = licenses.gpl3;
+        license = licenses.lgpl3;
         platforms = platforms.all;
         };
       };
