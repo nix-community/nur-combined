@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
-  buildInputs = [ boost gtest ];
+  buildInputs = [ gtest ];
+  propagatedBuildInputs = [ boost ];
   mesonBuildType = if debug then "debug" else "release";
   ninjaFlags = [ "-v" ];
   dontStrip = debug;
