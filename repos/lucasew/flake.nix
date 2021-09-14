@@ -32,9 +32,12 @@
       url = "github:lucasew/redial_proxy";
       flake = false;
     };
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, redial_proxy, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, redial_proxy, nixos-hardware, ... }@inputs:
   with import ./globalConfig.nix;
   let
     system = "x86_64-linux";
@@ -47,13 +50,13 @@
     '';
 
     hmConf = home-manager.lib.homeManagerConfiguration;
-    nixosConf = {mainModule}: nixpkgs.lib.nixosSystem {
+    nixosConf = {mainModule, extraModules ? []}: nixpkgs.lib.nixosSystem {
       inherit pkgs;
       inherit system;
       modules = [
-        (mainModule)
         revModule
-      ];
+        (mainModule)
+      ] ++ extraModules;
     };
     overlays = [
       (import ./overlay.nix)
@@ -90,6 +93,11 @@
         };
         acer-nix = nixosConf {
           mainModule = ./nodes/acer-nix/default.nix;
+          extraModules = [
+            nix-ld.nixosModules.nix-ld
+            nixos-hardware.nixosModules.common-pc-laptop-ssd
+            nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
+          ];
         };
         bootstrap = nixosConf {
           mainModule = ./nodes/bootstrap/default.nix;

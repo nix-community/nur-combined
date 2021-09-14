@@ -2,9 +2,9 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{pkgs, config, lib, nix-ld, utils, ... }:
-with (import ../../globalConfig.nix);
+{pkgs, config, lib, nix-ld, utils, nixos-hardware, ... }:
 let
+  cfg = (import ../../globalConfig.nix);
   hostname = "acer-nix";
   send2kindle = pkgs.writeShellScriptBin "send2kindle" (pkgs.wrapDotenv "send2kindle.env" ''${pkgs.send2kindle}/bin/send2kindle "$@"'');
 in
@@ -14,7 +14,6 @@ in
       ../common/default.nix
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      "${flake.inputs.nix-ld}/modules/nix-ld.nix"
       ../../modules/gui/system.nix
       ../../modules/polybar/system.nix
     ]
@@ -42,7 +41,7 @@ in
     };
   };
 
-  services.xserver.displayManager.lightdm.background = wallpaper;
+  services.xserver.displayManager.lightdm.background = cfg.wallpaper;
 
   services.auto-cpufreq.enable = true;
   # text expander in rust
@@ -94,12 +93,6 @@ in
     opengl = {
       enable = true;
       driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        intel-media-driver
-        vaapiIntel
-        vaapiVdpau
-        libvdpau-va-gl
-      ];
       extraPackages32 = with pkgs.pkgsi686Linux; [
         vaapiIntel
       ];
@@ -131,7 +124,7 @@ in
 
   # Users
   users.users = {
-    ${username} = {
+    ${cfg.username} = {
       extraGroups = [
         "adbusers"
       ]; 
