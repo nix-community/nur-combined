@@ -284,12 +284,12 @@ lib.makeScope newScope (
     ### OSM
 
     imposm = callPackage ./osm/imposm { };
+    map-machine = callPackage ./osm/map-machine { };
     map-stylizer = callPackage ./osm/map-stylizer { };
     maperitive-bin = callPackage ./osm/maperitive/bin.nix { };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
     osmcoastline = callPackage ./osm/osmcoastline { };
     phyghtmap = callPackage ./osm/phyghtmap { };
-    roentgen = callPackage ./osm/roentgen { };
     sdlmap = callPackage ./osm/sdlmap { };
     smrender = callPackage ./osm/smrender { };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
