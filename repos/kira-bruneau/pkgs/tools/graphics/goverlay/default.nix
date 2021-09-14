@@ -14,7 +14,6 @@
 , git
 , gnugrep
 , libnotify
-, lsb-release
 , polkit
 , procps
 , systemd
@@ -89,7 +88,6 @@ in stdenv.mkDerivation rec {
       git
       gnugrep
       libnotify
-      lsb-release
       polkit
       procps
       systemd
