@@ -50,9 +50,10 @@ in stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/xtb \
-      --prefix PATH : "${binSearchPath}" \
-      --set-default XTBPATH "$out/share/xtb"
+      --prefix PATH : "${binSearchPath}"
   '';
+
+  setupHooks = [ ./xtbHook.sh ];
 
   meta = with lib; {
     inherit description;
