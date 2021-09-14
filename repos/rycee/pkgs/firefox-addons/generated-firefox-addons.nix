@@ -71,10 +71,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.3.6";
+      version = "7.4.1";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3831943/betterttv-7.3.6-fx.xpi";
-      sha256 = "3bd234c0ed88e97b1e1d159dbc2049e315641c0d3312abad2f6b18847c4c61c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3838777/betterttv-7.4.1-fx.xpi";
+      sha256 = "6bfe1bee9921eb8d4172a2a8cf20641501f62486ed36d058e226a895dbe6c927";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -783,10 +783,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.14";
+      version = "2.6.15";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3831672/localcdn-2.6.14-an+fx.xpi";
-      sha256 = "7a82e28565ce50d8ac843659d0a57dacc76676d6e432f3a0549c87559b7f3d43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3838476/localcdn-2.6.15-an+fx.xpi";
+      sha256 = "6a3c028ac6bb2df9126c549ac83fe7a43e85241093876669fd6e801cb64573c1";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
