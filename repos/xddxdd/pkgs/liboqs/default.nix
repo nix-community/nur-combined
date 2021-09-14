@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 
 pkgs.stdenv.mkDerivation rec {
-  name = "liboqs";
+  pname = "liboqs";
   version = "0.7.0";
 
   src = pkgs.fetchFromGitHub {

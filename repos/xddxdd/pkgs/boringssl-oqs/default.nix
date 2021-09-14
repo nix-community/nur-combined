@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 
 pkgs.stdenv.mkDerivation rec {
-  name = "boringssl-oqs";
+  pname = "boringssl-oqs";
   version = "2021-08";
 
   src = pkgs.fetchFromGitHub {
