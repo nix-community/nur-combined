@@ -7,9 +7,9 @@
 
 let
   pname = if static then "sdtool-static" else "sdtool";
-  version = "git-6154df2";
-  commit = "6154df2cd4ef40554ada801eb0bf6547ba4ee2ea";
-  sha256 = "0pyh4kqs3hi3yg1inbp6jdqsq6hbdjv3c0y8p6zyq64hb1p15jz2";
+  version = "git-" + lib.strings.substring 0 6 commit;
+  commit = "ad4155c1d2988a17f4d5b13feaa6e4c1beb2cf4b";
+  sha256 = "17nyc1zng5j2zzq5jfg42ckgnhqiv0pb8vidgvvbh3zxdccnaj1q";
 in
 # "Only static builds supported with dietlibc."
 assert dietlibc != null -> static; stdenv.mkDerivation {
@@ -25,10 +25,6 @@ assert dietlibc != null -> static; stdenv.mkDerivation {
   };
 
   buildInputs = [ dietlibc ];
-
-  patchPhase = ''
-    sed -i '103s/strncpy(devname,filename+i,sizeof(devname));/strncpy(devname,filename+i,sizeof(devname)-1);/' src/sdcmd.c
-  '';
 
   preBuild = lib.optionalString (dietlibc != null) ''
     export CC="diet gcc"
