@@ -184,10 +184,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "0055br0mibnqz0j8wvy20zry548dhkakws681bhj3ycb972awkzd";
+      sha256 = "1hkfpm78c2vs1qblnva3k1grijvxh87iixcnyd83s3lxrxsjvag4";
       type = "gem";
     };
-    version = "1.20.1";
+    version = "1.21.0";
   };
   pastel = {
     dependencies = [ "tty-color" ];

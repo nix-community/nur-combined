@@ -530,10 +530,10 @@
   },
   {
     "name": "CircuitProcessing",
-    "version": "0.4.2",
-    "file_name": "CircuitProcessing_0.4.2.zip",
-    "download_url": "/download/CircuitProcessing/6117711ab00448ccc7d09f92",
-    "sha1": "b884008b9a0d1855534e5f4b4bd5107290ba9af4",
+    "version": "0.4.3",
+    "file_name": "CircuitProcessing_0.4.3.zip",
+    "download_url": "/download/CircuitProcessing/613c40217f974379c92226ff",
+    "sha1": "2fb55bbba487a5d04c4482f09fc3e6c087f58d16",
     "dependencies": [
       "base",
       "bobelectronics",
@@ -795,10 +795,10 @@
   },
   {
     "name": "reskins-angels",
-    "version": "2.0.0",
-    "file_name": "reskins-angels_2.0.0.zip",
-    "download_url": "/download/reskins-angels/61177c6a57e13a6f6a16f246",
-    "sha1": "27f665b876c3d5db9eb5582b46c2aef7f8c8ee0f",
+    "version": "2.0.1",
+    "file_name": "reskins-angels_2.0.1.zip",
+    "download_url": "/download/reskins-angels/613e748a340912619973aa0d",
+    "sha1": "13cbfedbe3c0501c2f3b1bfa7eb8b3063738d74c",
     "dependencies": [
       "base",
       "reskins-library >= 2.0.0",
@@ -816,10 +816,10 @@
   },
   {
     "name": "reskins-bobs",
-    "version": "2.0.0",
-    "file_name": "reskins-bobs_2.0.0.zip",
-    "download_url": "/download/reskins-bobs/61177cd6edbf4d09411989e3",
-    "sha1": "eff5276e138d7279c0fa065493776cbae1c617dc",
+    "version": "2.0.2",
+    "file_name": "reskins-bobs_2.0.2.zip",
+    "download_url": "/download/reskins-bobs/614106403bfa65c519ee9748",
+    "sha1": "2f57688e49f1c5fec2324fc84a49d859939fb964",
     "dependencies": [
       "base",
       "reskins-library >= 2.0.0",
@@ -838,15 +838,16 @@
       "? bobtech",
       "? bobwarfare",
       "(?) angelssmelting",
-      "(?) CircuitProcessing"
+      "(?) CircuitProcessing",
+      "(?) NauvisDay"
     ]
   },
   {
     "name": "reskins-compatibility",
-    "version": "2.0.0",
-    "file_name": "reskins-compatibility_2.0.0.zip",
-    "download_url": "/download/reskins-compatibility/61177c401d06eb3b5f89aeb7",
-    "sha1": "b54b204bb8d2fd28e1c2724a609dde851ed8d898",
+    "version": "2.0.2",
+    "file_name": "reskins-compatibility_2.0.2.zip",
+    "download_url": "/download/reskins-compatibility/6141026805f06ef8f680c40b",
+    "sha1": "fba31cafefc52af2f45ab03b689061b22a9ee016",
     "dependencies": [
       "base",
       "reskins-library >= 2.0.0",
@@ -858,6 +859,7 @@
       "? classic-mining-drill",
       "? Clowns-Processing",
       "? deadlock-beltboxes-loaders",
+      "? DeadlockBlackRubberBelts",
       "? DeadlockCrating",
       "? DeadlockStackingForBobs",
       "? DeadlockStackingForVanilla",
@@ -866,6 +868,7 @@
       "? LoaderRedux",
       "? mini-machines",
       "? miniloader",
+      "? NauvisDay",
       "? P-U-M-P-S",
       "? RealisticReactorGlow",
       "(?) ScienceCostTweakerM",
@@ -875,10 +878,10 @@
   },
   {
     "name": "reskins-library",
-    "version": "2.0.0",
-    "file_name": "reskins-library_2.0.0.zip",
-    "download_url": "/download/reskins-library/61177c28edbf4d09411989e2",
-    "sha1": "dbffd2c100791c3c571f6bce9fa4b4b5c5dba5ae",
+    "version": "2.0.2",
+    "file_name": "reskins-library_2.0.2.zip",
+    "download_url": "/download/reskins-library/6141026ff8a2a6fb6a8ca8c7",
+    "sha1": "bbeba7a955509d26e87f4defc1a1a4b88cddd633",
     "dependencies": [
       "base",
       "flib",
@@ -941,10 +944,10 @@
   },
   {
     "name": "rso-mod",
-    "version": "6.2.8",
-    "file_name": "rso-mod_6.2.8.zip",
-    "download_url": "/download/rso-mod/60ce5988c8646397f0f8e3ef",
-    "sha1": "6586026dfc711264df1c70a543a3cdd90e76e555",
+    "version": "6.2.9",
+    "file_name": "rso-mod_6.2.9.zip",
+    "download_url": "/download/rso-mod/613a3df973141aef2feb19e2",
+    "sha1": "c8de70e49feea9175b8c9b8bbc1332c7aa4eee3f",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
@@ -970,10 +973,10 @@
   },
   {
     "name": "SeaBlock",
-    "version": "0.5.6",
-    "file_name": "SeaBlock_0.5.6.zip",
-    "download_url": "/download/SeaBlock/611797e921e4b43658ee1c97",
-    "sha1": "303857b862b3b320f96650e4372cd4727c0ff867",
+    "version": "0.5.7",
+    "file_name": "SeaBlock_0.5.7.zip",
+    "download_url": "/download/SeaBlock/613c3b9c0ab912857e982245",
+    "sha1": "2bb67cb70fbe9b8e2ee35cff02d2670e55e1191f",
     "dependencies": [
       "base",
       "angelsbioprocessing >= 0.7.20",
