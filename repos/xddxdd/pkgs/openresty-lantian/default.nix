@@ -203,6 +203,13 @@ pkgs.stdenv.mkDerivation rec {
     sed -i 's/libcrypto.a/libcrypto.a -loqs/g' build/nginx-${nginxVersion}/objs/Makefile
   '';
 
+  postInstall = ''
+    ln -s $out/luajit/bin/luajit $out/bin/luajit-openresty
+    ln -s $out/nginx/sbin/nginx $out/bin/nginx
+    ln -s $out/nginx/conf $out/conf
+    ln -s $out/nginx/html $out/html
+  '';
+
   meta = with pkgs.lib; {
     description = "OpenResty with Lan Tian modifications";
     homepage    = "https://openquantumsafe.org";
