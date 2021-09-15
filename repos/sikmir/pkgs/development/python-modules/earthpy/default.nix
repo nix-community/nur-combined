@@ -1,4 +1,4 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{ lib, stdenv, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonPackage rec {
   pname = "earthpy";
@@ -27,5 +27,6 @@ python3Packages.buildPythonPackage rec {
     inherit (src.meta) homepage;
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];
+    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/137678
   };
 }

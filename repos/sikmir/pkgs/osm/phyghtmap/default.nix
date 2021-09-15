@@ -21,6 +21,6 @@ python3Packages.buildPythonApplication rec {
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin; # beautifulsoup4
+    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/137678
   };
 }
