@@ -106,6 +106,7 @@ in {
   };
 
   config = let
+    vimPrefix = optionalString isNixpkgsStable "share/vim-plugins/base16-vim/";
     conf = {
       base16 = {
         defaultSchemeName = mkIf (cfg.schemes != { } && ! cfg.schemes ? "default") (mkDefault (head (attrNames cfg.schemes)));
@@ -126,9 +127,12 @@ in {
             (cfg.vim.template scheme.templateData).templated.default.path
           ) cfg.schemes;
           plugin = pkgs.linkFarm "base16-vim" (mapAttrsToList (key: scheme: {
-            name = "share/vim-plugins/base16-vim/colors/base16-${cfg.schemes.${key}.slug}.vim";
+            name = vimPrefix + "colors/base16-${cfg.schemes.${key}.slug}.vim";
             path = "${scheme}";
-          }) cfg.vim.colorschemes);
+          }) cfg.vim.colorschemes) // {
+            # https://github.com/NixOS/nixpkgs/pull/136429 requires pname in all vim plugins
+            pname = "base16-vim";
+          };
         };
       };
       lib.arc.base16.schemeForAlias = mapAttrs (alias: scheme:

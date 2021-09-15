@@ -10,7 +10,8 @@
         version = "0.4.2";
       };
   in vimUtils.buildVimPlugin {
-    name = "notmuch-vim";
+    pname = "notmuch-vim";
+    version = "2018-08-23";
     src = fetchFromGitHub {
       owner = "mashedcode";
       repo = "notmuch-vim";
@@ -54,12 +55,13 @@
     meta.broken = notmuch.meta.broken or false;
   };
   vim-hug-neovim-rpc = { fetchFromGitHub, vimUtils }: vimUtils.buildVimPlugin rec {
-    name = "vim-hug-neovim-rpc";
+    pname = "vim-hug-neovim-rpc";
+    version = "2021-05-14";
     src = fetchFromGitHub {
       owner = "roxma";
       repo = "vim-hug-neovim-rpc";
-      rev = "6532acee7a06b2420160279fdd397b9d8e5f1e8a";
-      sha256 = "0q6anf5f7s149ssmqfm9w4mkcgalwjflr2nh2kw0pqbwpbk925v8";
+      rev = "93ae38792bc197c3bdffa2716ae493c67a5e7957";
+      sha256 = "0v7940h1sy8h6ba20qdadx82zbmi9mm4yij9gsxp3d9n94av8zsx";
     };
   };
 }
