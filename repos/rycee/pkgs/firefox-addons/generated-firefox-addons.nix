@@ -71,10 +71,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.1";
+      version = "7.4.2";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3838777/betterttv-7.4.1-fx.xpi";
-      sha256 = "6bfe1bee9921eb8d4172a2a8cf20641501f62486ed36d058e226a895dbe6c927";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3839459/betterttv-7.4.2-fx.xpi";
+      sha256 = "9be88242b0c7778d0171b8a51e1dc8b9b35aa89f6aa83a6ad34c034ec2d4f0ac";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -393,10 +393,10 @@
       };
     "firenvim" = buildFirefoxXpiAddon {
       pname = "firenvim";
-      version = "0.2.8";
+      version = "0.2.9";
       addonId = "firenvim@lacamb.re";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3828313/firenvim-0.2.8-fx.xpi";
-      sha256 = "821919d674ac8ed47927d9e8ef706f0520bd3447e9fa163036ad594dee79c9f3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3839551/firenvim-0.2.9-fx.xpi";
+      sha256 = "7a75b5c811f5132a494a51bae386199587056b2015a5988b0ee50782e1d3f0a0";
       meta = with lib;
       {
         description = "Turn Firefox into a Neovim client.";
@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "93.0buildid20210912185727";
+      version = "93.0buildid20210914185637";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3838842/francais_language_pack-93.0buildid20210912185727-fx.xpi";
-      sha256 = "7480bc927aa50c2ed61ac942b73f29deb30403af8580d205c9b2a673ce84db74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3839910/francais_language_pack-93.0buildid20210914185637-fx.xpi";
+      sha256 = "e106b3e78e053f59f9dc6e28cc53a8b2f5e18fde45c28e71c2b161cdb6bdce69";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -703,10 +703,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.79.0.13";
+      version = "4.80.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3834091/lastpass_password_manager-4.79.0.13-an+fx.xpi";
-      sha256 = "aa600f36abe209aee8f6ecabe24ac2c5db9df398a886885522b80991c4123800";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3839710/lastpass_password_manager-4.80.0.3-an+fx.xpi";
+      sha256 = "84325efae90659b41883ba8938d56bee4e7044f66b01c70ec12173dfb06be900";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
