@@ -37,6 +37,9 @@ in
       };
     };
 
+    # Set-up media group
+    users.groups.media = { };
+
     my.services.nginx.virtualHosts = [
       {
         subdomain = "library";

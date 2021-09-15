@@ -93,6 +93,9 @@ in
       ];
     };
 
+    # Set-up media group
+    users.groups.media = { };
+
     systemd.services.paperless-ng-server = {
       # Make sure the DB is available
       after = [ "postgresql.service" ];

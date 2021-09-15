@@ -72,6 +72,9 @@ in
       };
     };
 
+    # Set-up media group
+    users.groups.media = { };
+
     # Default transmission webui, I prefer combustion but its development
     # seems to have stalled
     my.services.nginx.virtualHosts = [

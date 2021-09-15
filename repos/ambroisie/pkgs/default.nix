@@ -1,5 +1,5 @@
 { pkgs }:
-rec {
+pkgs.lib.makeScope pkgs.newScope (pkgs: {
   bw-pass = pkgs.callPackage ./bw-pass { };
 
   comma = pkgs.callPackage ./comma { };
@@ -24,9 +24,7 @@ rec {
 
   volantes-cursors = pkgs.callPackage ./volantes-cursors { };
 
-  unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock {
-    inherit unified-hosts-lists;
-  };
+  unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock { };
 
   unified-hosts-lists = pkgs.callPackage ./unified-hosts-lists { };
-}
+})

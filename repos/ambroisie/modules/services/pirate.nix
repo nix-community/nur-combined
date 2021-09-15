@@ -32,5 +32,7 @@ in
   config = lib.mkIf cfg.enable {
     services = managers;
     my.services.nginx.virtualHosts = redirections;
+    # Set-up media group
+    users.groups.media = { };
   };
 }
