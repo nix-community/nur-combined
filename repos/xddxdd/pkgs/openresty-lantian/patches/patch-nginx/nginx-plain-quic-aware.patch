@@ -1,0 +1,671 @@
+diff --git a/auto/modules b/auto/modules
+index f2c8268..642820b 100644
+--- a/auto/modules
++++ b/auto/modules
+@@ -416,6 +416,18 @@ if [ $HTTP = YES ]; then
+ 
+     ngx_module_type=HTTP
+ 
++    if [ $HTTP_PLAIN = YES ]; then
++        have=NGX_HTTP_PLAIN . auto/have
++        ngx_module_name=
++        ngx_module_incs=
++        ngx_module_deps=
++        ngx_module_srcs=
++        ngx_module_libs=
++        ngx_module_link=$HTTP_PLAIN
++
++        . auto/module
++    fi
++
+     if [ $HTTP_V2 = YES ]; then
+         have=NGX_HTTP_V2 . auto/have
+         have=NGX_HTTP_HEADERS . auto/have
+diff --git a/auto/options b/auto/options
+index ae99aa1..d958487 100644
+--- a/auto/options
++++ b/auto/options
+@@ -59,6 +59,7 @@ NGX_HTTP_SCGI_TEMP_PATH=
+ HTTP_CACHE=YES
+ HTTP_CHARSET=YES
+ HTTP_GZIP=YES
++HTTP_PLAIN=NO
+ HTTP_SSL=NO
+ HTTP_QUIC=NO
+ HTTP_V2=NO
+@@ -237,6 +238,7 @@ $0: warning: the \"--with-ipv6\" option is deprecated"
+         --http-uwsgi-temp-path=*)        NGX_HTTP_UWSGI_TEMP_PATH="$value" ;;
+         --http-scgi-temp-path=*)         NGX_HTTP_SCGI_TEMP_PATH="$value" ;;
+ 
++        --with-http_plain_module)        HTTP_PLAIN=YES             ;;
+         --with-http_ssl_module)          HTTP_SSL=YES               ;;
+         --with-http_quic_module)         HTTP_QUIC=YES              ;;
+         --with-http_v2_module)           HTTP_V2=YES                ;;
+@@ -459,6 +461,7 @@ cat << END
+ 
+   --without-quic_bpf_module          disable ngx_quic_bpf_module
+ 
++  --with-http_plain_module           enable ngx_http_plain_module
+   --with-http_ssl_module             enable ngx_http_ssl_module
+   --with-http_quic_module            enable ngx_http_quic_module
+   --with-http_v2_module              enable ngx_http_v2_module
+diff --git a/src/http/ngx_http.c b/src/http/ngx_http.c
+index e1604af..7532b4a 100644
+--- a/src/http/ngx_http.c
++++ b/src/http/ngx_http.c
+@@ -1234,6 +1234,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+ {
+     ngx_uint_t             i, default_server, proxy_protocol;
+     ngx_http_conf_addr_t  *addr;
++#if (NGX_HTTP_PLAIN)
++    ngx_uint_t             plain;
++#endif
+ #if (NGX_HTTP_SSL)
+     ngx_uint_t             ssl;
+ #endif
+@@ -1275,6 +1278,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+ 
+         proxy_protocol = lsopt->proxy_protocol || addr[i].opt.proxy_protocol;
+ 
++#if (NGX_HTTP_PLAIN)
++        plain = lsopt->plain || addr[i].opt.plain;
++#endif
+ #if (NGX_HTTP_SSL)
+         ssl = lsopt->ssl || addr[i].opt.ssl;
+ #endif
+@@ -1317,6 +1323,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+ 
+         addr[i].opt.default_server = default_server;
+         addr[i].opt.proxy_protocol = proxy_protocol;
++#if (NGX_HTTP_PLAIN)
++        addr[i].opt.plain = plain;
++#endif
+ #if (NGX_HTTP_SSL)
+         addr[i].opt.ssl = ssl;
+ #endif
+@@ -1872,6 +1881,9 @@ ngx_http_add_addrs(ngx_conf_t *cf, ngx_http_port_t *hport,
+         sin = (struct sockaddr_in *) addr[i].opt.sockaddr;
+         addrs[i].addr = sin->sin_addr.s_addr;
+         addrs[i].conf.default_server = addr[i].default_server;
++#if (NGX_HTTP_PLAIN)
++        addrs[i].conf.plain = addr[i].opt.plain;
++#endif
+ #if (NGX_HTTP_SSL)
+         addrs[i].conf.ssl = addr[i].opt.ssl;
+ #endif
+@@ -1943,6 +1955,9 @@ ngx_http_add_addrs6(ngx_conf_t *cf, ngx_http_port_t *hport,
+         sin6 = (struct sockaddr_in6 *) addr[i].opt.sockaddr;
+         addrs6[i].addr6 = sin6->sin6_addr;
+         addrs6[i].conf.default_server = addr[i].default_server;
++#if (NGX_HTTP_PLAIN)
++        addrs6[i].conf.plain = addr[i].opt.plain;
++#endif
+ #if (NGX_HTTP_SSL)
+         addrs6[i].conf.ssl = addr[i].opt.ssl;
+ #endif
+diff --git a/src/http/ngx_http.h b/src/http/ngx_http.h
+index fb41577..a2f36bd 100644
+--- a/src/http/ngx_http.h
++++ b/src/http/ngx_http.h
+@@ -103,6 +103,11 @@ int ngx_http_ssl_certificate(ngx_ssl_conn_t *ssl_conn, void *arg);
+ 
+ 
+ ngx_int_t ngx_http_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b);
++
++#if (NGX_HTTP_PLAIN)
++ngx_int_t ngx_http_plain_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b);
++#endif
++
+ ngx_int_t ngx_http_parse_uri(ngx_http_request_t *r);
+ ngx_int_t ngx_http_parse_complex_uri(ngx_http_request_t *r,
+     ngx_uint_t merge_slashes);
+diff --git a/src/http/ngx_http_core_module.c b/src/http/ngx_http_core_module.c
+index c19020d..230ac43 100644
+--- a/src/http/ngx_http_core_module.c
++++ b/src/http/ngx_http_core_module.c
+@@ -4072,6 +4072,18 @@ ngx_http_core_listen(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
+             continue;
+         }
+ 
++        if (ngx_strcmp(value[n].data, "plain") == 0) {
++#if (NGX_HTTP_PLAIN)
++            lsopt.plain = 1;
++            continue;
++#else
++            ngx_conf_log_error(NGX_LOG_EMERG, cf, 0,
++                               "the \"plain\" parameter requires "
++                               "ngx_http_plain_module");
++            return NGX_CONF_ERROR;
++#endif
++        }
++
+         if (ngx_strcmp(value[n].data, "ssl") == 0) {
+ #if (NGX_HTTP_SSL)
+             lsopt.ssl = 1;
+diff --git a/src/http/ngx_http_core_module.h b/src/http/ngx_http_core_module.h
+index ae5e518..f6b542b 100644
+--- a/src/http/ngx_http_core_module.h
++++ b/src/http/ngx_http_core_module.h
+@@ -77,6 +77,9 @@ typedef struct {
+     unsigned                   quic:1;
+     unsigned                   http2:1;
+     unsigned                   http3:1;
++#if (NGX_HTTP_PLAIN)
++    unsigned                   plain:1;
++#endif
+ #if (NGX_HAVE_INET6)
+     unsigned                   ipv6only:1;
+ #endif
+@@ -241,6 +244,9 @@ struct ngx_http_addr_conf_s {
+     unsigned                   ssl:1;
+     unsigned                   quic:1;
+     unsigned                   http2:1;
++#if (NGX_HTTP_PLAIN)
++    unsigned                   plain:1;
++#endif
+     unsigned                   http3:1;
+     unsigned                   proxy_protocol:1;
+ };
+diff --git a/src/http/ngx_http_parse.c b/src/http/ngx_http_parse.c
+index 6460da2..69f5a14 100644
+--- a/src/http/ngx_http_parse.c
++++ b/src/http/ngx_http_parse.c
+@@ -815,6 +815,206 @@ done:
+ }
+ 
+ 
++
++#if (NGX_HTTP_PLAIN)
++ngx_int_t
++ngx_http_plain_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b)
++{
++    u_char  ch, *p;
++    enum {
++        sw_start = 0,
++        sw_after_slash_in_uri,
++        sw_check_uri,
++        sw_uri,
++        sw_almost_done
++    } state;
++
++    state = r->state;
++    r->method = NGX_HTTP_GET;
++
++    for (p = b->pos; p < b->last; p++) {
++        ch = *p;
++
++        switch (state) {
++
++        /* URL must begin with the slash we injected */
++        case sw_start:
++            r->request_start = p;
++            r->uri_start = p;
++
++            if (ch != '/') {
++                return NGX_HTTP_PARSE_INVALID_REQUEST;
++            }
++
++            state = sw_after_slash_in_uri;
++            break;
++
++        /* check "/.", "//", "%", and "\" (Win32) in URI */
++        case sw_after_slash_in_uri:
++
++            if (usual[ch >> 5] & (1U << (ch & 0x1f))) {
++                state = sw_check_uri;
++                break;
++            }
++
++            switch (ch) {
++            case CR:
++                r->uri_end = p;
++                state = sw_almost_done;
++                break;
++            case LF:
++                r->uri_end = p;
++                goto done;
++            case '.':
++                r->complex_uri = 1;
++                state = sw_uri;
++                break;
++            case '%':
++                r->quoted_uri = 1;
++                state = sw_uri;
++                break;
++            case '/':
++                r->complex_uri = 1;
++                state = sw_uri;
++                break;
++#if (NGX_WIN32)
++            case '\\':
++                r->complex_uri = 1;
++                state = sw_uri;
++                break;
++#endif
++            case '?':
++                r->args_start = p + 1;
++                state = sw_uri;
++                break;
++            case '#':
++                r->complex_uri = 1;
++                state = sw_uri;
++                break;
++            case '+':
++                r->plus_in_uri = 1;
++                break;
++            case '\0':
++                return NGX_HTTP_PARSE_INVALID_REQUEST;
++            default:
++                state = sw_check_uri;
++                break;
++            }
++            break;
++
++        /* check "/", "%" and "\" (Win32) in URI */
++        case sw_check_uri:
++
++            if (usual[ch >> 5] & (1U << (ch & 0x1f))) {
++                break;
++            }
++
++            switch (ch) {
++            case '/':
++#if (NGX_WIN32)
++                if (r->uri_ext == p) {
++                    r->complex_uri = 1;
++                    state = sw_uri;
++                    break;
++                }
++#endif
++                r->uri_ext = NULL;
++                state = sw_after_slash_in_uri;
++                break;
++            case '.':
++                r->uri_ext = p + 1;
++                break;
++            case CR:
++                r->uri_end = p;
++                state = sw_almost_done;
++                break;
++            case LF:
++                r->uri_end = p;
++                goto done;
++#if (NGX_WIN32)
++            case '\\':
++                r->complex_uri = 1;
++                state = sw_after_slash_in_uri;
++                break;
++#endif
++            case '%':
++                r->quoted_uri = 1;
++                state = sw_uri;
++                break;
++            case '?':
++                r->args_start = p + 1;
++                state = sw_uri;
++                break;
++            case '#':
++                r->complex_uri = 1;
++                state = sw_uri;
++                break;
++            case '+':
++                r->plus_in_uri = 1;
++                break;
++            case '\0':
++                return NGX_HTTP_PARSE_INVALID_REQUEST;
++            }
++            break;
++
++
++        /* URI */
++        case sw_uri:
++
++            if (usual[ch >> 5] & (1U << (ch & 0x1f))) {
++                break;
++            }
++
++            switch (ch) {
++            case CR:
++                r->uri_end = p;
++                state = sw_almost_done;
++                break;
++            case LF:
++                r->uri_end = p;
++                goto done;
++            case '#':
++                r->complex_uri = 1;
++                break;
++            case '\0':
++                return NGX_HTTP_PARSE_INVALID_REQUEST;
++            }
++            break;
++
++        /* end of request line */
++        case sw_almost_done:
++            r->request_end = p - 1;
++            switch (ch) {
++            case LF:
++                goto done;
++            default:
++                return NGX_HTTP_PARSE_INVALID_REQUEST;
++            }
++        }
++    }
++
++    b->pos = p;
++    r->state = state;
++
++    return NGX_AGAIN;
++
++done:
++
++    b->pos = p + 1;
++
++    if (r->request_end == NULL) {
++        r->request_end = p;
++    }
++
++    /* pretend that HTTP version is 0.9, so no response headers */
++    r->http_version = NGX_HTTP_VERSION_9;
++    r->state = sw_start;
++
++    return NGX_OK;
++}
++#endif
++
++
+ ngx_int_t
+ ngx_http_parse_header_line(ngx_http_request_t *r, ngx_buf_t *b,
+     ngx_uint_t allow_underscores)
+diff --git a/src/http/ngx_http_request.c b/src/http/ngx_http_request.c
+index 3020007..0c1e36e 100644
+--- a/src/http/ngx_http_request.c
++++ b/src/http/ngx_http_request.c
+@@ -15,6 +15,12 @@ static ngx_http_request_t *ngx_http_alloc_request(ngx_connection_t *c);
+ static void ngx_http_process_request_line(ngx_event_t *rev);
+ static void ngx_http_process_request_headers(ngx_event_t *rev);
+ static ssize_t ngx_http_read_request_header(ngx_http_request_t *r);
++
++#if (NGX_HTTP_PLAIN)
++static void ngx_http_plain_wait_request_handler(ngx_event_t *ev);
++static void ngx_http_plain_process_request_line(ngx_event_t *rev);
++#endif
++
+ static ngx_int_t ngx_http_alloc_large_header_buffer(ngx_http_request_t *r,
+     ngx_uint_t request_line);
+ 
+@@ -327,6 +333,11 @@ ngx_http_init_connection(ngx_connection_t *c)
+     rev->handler = ngx_http_wait_request_handler;
+     c->write->handler = ngx_http_empty_handler;
+ 
++#if (NGX_HTTP_PLAIN)
++    if (hc->addr_conf->plain) {
++        rev->handler = ngx_http_plain_wait_request_handler;
++    }
++#endif
+ #if (NGX_HTTP_V2)
+     if (hc->addr_conf->http2) {
+         rev->handler = ngx_http_v2_init;
+@@ -513,6 +524,151 @@ ngx_http_wait_request_handler(ngx_event_t *rev)
+ }
+ 
+ 
++#if (NGX_HTTP_PLAIN)
++static void
++ngx_http_plain_wait_request_handler(ngx_event_t *rev)
++{
++    u_char                    *p;
++    size_t                     size;
++    ssize_t                    n;
++    ngx_buf_t                 *b;
++    ngx_connection_t          *c;
++    ngx_http_connection_t     *hc;
++    ngx_http_core_srv_conf_t  *cscf;
++
++    c = rev->data;
++
++    ngx_log_debug0(NGX_LOG_DEBUG_HTTP, c->log, 0, "http plain wait request handler");
++
++    if (rev->timedout) {
++        ngx_log_error(NGX_LOG_INFO, c->log, NGX_ETIMEDOUT, "client timed out");
++        ngx_http_close_connection(c);
++        return;
++    }
++
++    if (c->close) {
++        ngx_http_close_connection(c);
++        return;
++    }
++
++    hc = c->data;
++    cscf = ngx_http_get_module_srv_conf(hc->conf_ctx, ngx_http_core_module);
++
++    size = cscf->client_header_buffer_size;
++
++    b = c->buffer;
++
++    if (b == NULL) {
++        b = ngx_create_temp_buf(c->pool, size);
++        if (b == NULL) {
++            ngx_http_close_connection(c);
++            return;
++        }
++
++        c->buffer = b;
++
++    } else if (b->start == NULL) {
++
++        b->start = ngx_palloc(c->pool, size);
++        if (b->start == NULL) {
++            ngx_http_close_connection(c);
++            return;
++        }
++
++        b->pos = b->start;
++        b->last = b->start;
++        b->end = b->last + size;
++    }
++
++    /* inject a slash at request beginning */
++    if (b->last == b->start) {
++        *b->start = '/';
++        b->last++;
++    }
++
++    n = c->recv(c, b->last, size);
++
++    if (n == NGX_AGAIN) {
++
++        if (!rev->timer_set) {
++            ngx_add_timer(rev, cscf->client_header_timeout);
++            ngx_reusable_connection(c, 1);
++        }
++
++        if (ngx_handle_read_event(rev, 0) != NGX_OK) {
++            ngx_http_close_connection(c);
++            return;
++        }
++
++        /*
++         * We are trying to not hold c->buffer's memory for an idle connection.
++         */
++
++        if (ngx_pfree(c->pool, b->start) == NGX_OK) {
++            b->start = NULL;
++        }
++
++        return;
++    }
++
++    if (n == NGX_ERROR) {
++        ngx_http_close_connection(c);
++        return;
++    }
++
++    if (n == 0) {
++        ngx_log_error(NGX_LOG_INFO, c->log, 0,
++                      "client closed connection");
++        ngx_http_close_connection(c);
++        return;
++    }
++
++    b->last += n;
++
++    if (hc->proxy_protocol) {
++        hc->proxy_protocol = 0;
++
++        /* the first byte is our injected slash, skip it */
++        p = ngx_proxy_protocol_read(c, b->pos + 1, b->last);
++
++        if (p == NULL) {
++            ngx_http_close_connection(c);
++            return;
++        }
++
++        b->pos = p;
++
++        /* re-inject the slash */
++        *(b->pos - 1) = '/';
++
++        if (b->pos == b->last) {
++            c->log->action = "waiting for request";
++
++            /* re-inject the slash, to be safe */
++            *b->start = '/';
++            b->pos = b->start + 1;
++            b->last = b->start + 1;
++            ngx_post_event(rev, &ngx_posted_events);
++            return;
++        }
++    }
++
++    c->log->action = "reading client request line";
++
++    ngx_reusable_connection(c, 0);
++
++    c->data = ngx_http_create_request(c);
++    if (c->data == NULL) {
++        ngx_http_close_connection(c);
++        return;
++    }
++
++    rev->handler = ngx_http_plain_process_request_line;
++    ngx_http_plain_process_request_line(rev);
++}
++#endif
++
++
+ ngx_http_request_t *
+ ngx_http_create_request(ngx_connection_t *c)
+ {
+@@ -3585,6 +3741,110 @@ ngx_http_request_empty_handler(ngx_http_request_t *r)
+ }
+ 
+ 
++#if (NGX_HTTP_PLAIN)
++static void
++ngx_http_plain_process_request_line(ngx_event_t *rev)
++{
++    ssize_t              n;
++    ngx_int_t            rc, rv;
++    ngx_connection_t    *c;
++    ngx_http_request_t  *r;
++
++    c = rev->data;
++    r = c->data;
++
++    ngx_log_debug0(NGX_LOG_DEBUG_HTTP, rev->log, 0,
++                   "http plain process request line");
++
++    if (rev->timedout) {
++        ngx_log_error(NGX_LOG_INFO, c->log, NGX_ETIMEDOUT, "client timed out");
++        c->timedout = 1;
++        ngx_http_close_request(r, NGX_HTTP_REQUEST_TIME_OUT);
++        return;
++    }
++
++    rc = NGX_AGAIN;
++
++    for ( ;; ) {
++
++        if (rc == NGX_AGAIN) {
++            n = ngx_http_read_request_header(r);
++
++            if (n == NGX_AGAIN || n == NGX_ERROR) {
++                break;
++            }
++        }
++
++        rc = ngx_http_plain_parse_request_line(r, r->header_in);
++
++        if (rc == NGX_OK) {
++
++            /* the request line has been parsed successfully */
++
++            r->request_line.len = r->request_end - r->request_start;
++            r->request_line.data = r->request_start;
++            r->request_length = r->header_in->pos - r->request_start;
++
++            ngx_log_debug1(NGX_LOG_DEBUG_HTTP, c->log, 0,
++                           "plain request line: \"%V\"", &r->request_line);
++
++            r->method_name.len = 3;
++            r->method_name.data = (u_char*) "GET";
++
++            if (ngx_http_process_request_uri(r) != NGX_OK) {
++                break;
++            }
++
++            ngx_http_process_request(r);
++
++            break;
++        }
++
++        if (rc != NGX_AGAIN) {
++
++            /* there was error while a request line parsing */
++
++            ngx_log_error(NGX_LOG_INFO, c->log, 0,
++                          ngx_http_client_errors[rc - NGX_HTTP_CLIENT_ERROR]);
++
++            if (rc == NGX_HTTP_PARSE_INVALID_VERSION) {
++                ngx_http_finalize_request(r, NGX_HTTP_VERSION_NOT_SUPPORTED);
++
++            } else {
++                ngx_http_finalize_request(r, NGX_HTTP_BAD_REQUEST);
++            }
++
++            break;
++        }
++
++        /* NGX_AGAIN: a request line parsing is still incomplete */
++
++        if (r->header_in->pos == r->header_in->end) {
++
++            rv = ngx_http_alloc_large_header_buffer(r, 1);
++
++            if (rv == NGX_ERROR) {
++                ngx_http_close_request(r, NGX_HTTP_INTERNAL_SERVER_ERROR);
++                break;
++            }
++
++            if (rv == NGX_DECLINED) {
++                r->request_line.len = r->header_in->end - r->request_start;
++                r->request_line.data = r->request_start;
++
++                ngx_log_error(NGX_LOG_INFO, c->log, 0,
++                              "client sent too long URI");
++                ngx_http_finalize_request(r, NGX_HTTP_REQUEST_URI_TOO_LARGE);
++                break;
++            }
++        }
++    }
++
++    ngx_http_run_posted_requests(c);
++}
++#endif
++
++
+ ngx_int_t
+ ngx_http_send_special(ngx_http_request_t *r, ngx_uint_t flags)
+ {

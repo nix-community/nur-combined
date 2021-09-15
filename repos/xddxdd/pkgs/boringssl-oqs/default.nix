@@ -1,15 +1,17 @@
 { pkgs ? import <nixpkgs> { } }:
 
-pkgs.stdenv.mkDerivation rec {
+pkgs.buildGoModule rec {
   pname = "boringssl-oqs";
-  version = "2021-08";
+  version = "2021-08-snapshot";
 
   src = pkgs.fetchFromGitHub {
     owner = "open-quantum-safe";
     repo = "boringssl";
-    rev = "OQS-BoringSSL-snapshot-${version}";
-    sha256 = "1d22vyjr041hng0b9g4i6lcjw1zj94g6zws48f0ki9r3c8r1svdy";
+    rev = "935d651e73a8f1e74b80dcbddede175f46ab216d";
+    sha256 = "03648hc4if12imrsahrlsw5s2x821hl2jxk7vs7cdjjmlw0h97r6";
   };
+
+  vendorSha256 = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
 
   enableParallelBuilding = true;
 
@@ -17,36 +19,29 @@ pkgs.stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     pkgs.cmake
-    pkgs.go
+    pkgs.ninja
     pkgs.perl
     pkgs.pkgconfig
   ];
 
   buildInputs = [
-    pkgs.libunwind
     liboqs
   ];
 
   cmakeFlags = [
+    "-GNinja"
     "-DCMAKE_BUILD_TYPE=Release"
   ];
 
-  preConfigure = ''
-    ln -s ${liboqs} oqs
-  '';
-
   preBuild = ''
     export HOME=$TMP
-    export GOCACHE=$TMP/go-cache
-    export GOPATH=$TMP/go
+    ln -s ${liboqs} oqs
+    cmakeConfigurePhase
   '';
 
-  buildFlags = [
-    "crypto"
-    "ssl"
-    "bssl"
-    "decrepit"
-  ];
+  buildPhase = ''
+    ninjaBuildPhase
+  '';
 
   installPhase = ''
     mkdir -p $out/bin $out/include $out/lib

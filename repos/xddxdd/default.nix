@@ -14,6 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  liboqs = pkgs.callPackage ./pkgs/liboqs { };
   boringssl-oqs = pkgs.callPackage ./pkgs/boringssl-oqs { };
+  liboqs = pkgs.callPackage ./pkgs/liboqs { };
+  openresty-lantian = pkgs.callPackage ./pkgs/openresty-lantian { };
 }

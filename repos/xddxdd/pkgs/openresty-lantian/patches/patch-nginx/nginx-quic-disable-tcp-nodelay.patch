@@ -1,0 +1,20 @@
+diff --git a/src/core/ngx_connection.c b/src/core/ngx_connection.c
+index 4a7d2fe..c8aa015 100644
+--- a/src/core/ngx_connection.c
++++ b/src/core/ngx_connection.c
+@@ -1455,6 +1455,15 @@ ngx_tcp_nodelay(ngx_connection_t *c)
+         return NGX_OK;
+     }
+ 
++#if (NGX_QUIC || NGX_COMPAT)
++    if (c->quic) {
++        /* Don't set TCP options on QUIC connection */
++        ngx_log_debug0(NGX_LOG_DEBUG_CORE, c->log, 0, "fake tcp_nodelay for quic");
++        c->tcp_nodelay = NGX_TCP_NODELAY_SET;
++        return NGX_OK;
++    }
++#endif
++
+     ngx_log_debug0(NGX_LOG_DEBUG_CORE, c->log, 0, "tcp_nodelay");
+ 
+     tcp_nodelay = 1;
