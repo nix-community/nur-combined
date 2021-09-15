@@ -5,6 +5,7 @@
   imports = [
     ./hardware
     ./home.nix
+    ./programs
     ./services
     ./system
   ];

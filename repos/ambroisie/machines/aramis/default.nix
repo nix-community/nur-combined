@@ -11,6 +11,7 @@
     ./home.nix
     ./networking.nix
     ./profiles.nix
+    ./programs.nix
     ./services.nix
     ./sound.nix
   ];
