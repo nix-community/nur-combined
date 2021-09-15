@@ -189,6 +189,7 @@ lib.makeScope newScope (
     gssg = callPackage ./gemini/gssg { };
     gurl = callPackage ./gemini/gurl { };
     kineto = callPackage ./gemini/kineto { };
+    qute-gemini = callPackage ./gemini/qute-gemini { };
     satellite = callPackage ./gemini/satellite { };
     shavit = callPackage ./gemini/shavit { };
     stargazer = callPackage ./gemini/stargazer {

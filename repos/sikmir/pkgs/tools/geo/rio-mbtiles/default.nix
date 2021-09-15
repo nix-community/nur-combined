@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, python3Packages, supermercado }:
+{ lib, stdenv, fetchFromGitHub, python3Packages, supermercado }:
 
 python3Packages.buildPythonApplication rec {
   pname = "rio-mbtiles";
@@ -31,5 +31,6 @@ python3Packages.buildPythonApplication rec {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/137678
   };
 }

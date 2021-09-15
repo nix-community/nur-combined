@@ -1,4 +1,4 @@
-{ lib, python3Packages, fetchFromGitHub, maprec }:
+{ lib, stdenv, python3Packages, fetchFromGitHub, maprec }:
 
 python3Packages.buildPythonPackage rec {
   pname = "ozi_map";
@@ -24,5 +24,6 @@ python3Packages.buildPythonPackage rec {
     inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
+    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/137678
   };
 }
