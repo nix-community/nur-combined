@@ -1,25 +1,30 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  lib, stdenv,
+  fetchzip, fetchhg, fetchFromGitHub, fetchurl,
+  substituteAll, callPackage,
+  git, zlib, pcre, gd, zstd, perl,
+}:
 
-pkgs.stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "openresty-lantian";
   nginxVersion = "1.19.9";
   version = "${nginxVersion}.1";
 
   srcs = [
-    (pkgs.fetchzip {
+    (fetchzip {
       url = "https://openresty.org/download/openresty-${version}.tar.gz";
       sha256 = "07bj41j9nvxmbhshfs0bzhykv11wcygqvc6qkh7cfsjiiywxd5xi";
       name = "openresty";
     })
 
-    (pkgs.fetchhg {
+    (fetchhg {
       url = "https://hg.nginx.org/nginx-quic";
       rev = "7603284f7af5";
       sha256 = "009d2yp0wf87wi426mbxdqhiwrrwrlcqwdppbaxz6z0859wcsrgn";
       name = "nginx-quic";
     })
 
-    (pkgs.fetchFromGitHub rec {
+    (fetchFromGitHub rec {
       owner = "google";
       repo = "ngx_brotli";
       rev = "9aec15e2aa6feea2113119ba06460af70ab3ea62";
@@ -27,7 +32,7 @@ pkgs.stdenv.mkDerivation rec {
       name = repo;
     })
 
-    (pkgs.fetchFromGitHub rec {
+    (fetchFromGitHub rec {
       owner = "google";
       repo = "brotli";
       rev = "e61745a6b7add50d380cfd7d3883dd6c62fc2c71";
@@ -35,7 +40,7 @@ pkgs.stdenv.mkDerivation rec {
       name = repo;
     })
 
-    (pkgs.fetchFromGitHub rec {
+    (fetchFromGitHub rec {
       owner = "openresty";
       repo = "stream-echo-nginx-module";
       rev = "b7b76b853131b6fa7579d20c2816b4b6abb16bea";
@@ -43,7 +48,7 @@ pkgs.stdenv.mkDerivation rec {
       name = repo;
     })
 
-    (pkgs.fetchFromGitHub rec {
+    (fetchFromGitHub rec {
       owner = "tokers";
       repo = "zstd-nginx-module";
       rev = "d082422df33a5ff84a29afe7b74967a7106f49ac";
@@ -51,7 +56,7 @@ pkgs.stdenv.mkDerivation rec {
       name = repo;
     })
 
-    (pkgs.fetchFromGitHub rec {
+    (fetchFromGitHub rec {
       owner = "vozlt";
       repo = "nginx-module-vts";
       rev = "3c6cf41315bfcb48c35a3a0be81ddba6d0d01dac";
@@ -59,7 +64,7 @@ pkgs.stdenv.mkDerivation rec {
       name = repo;
     })
 
-    (pkgs.fetchFromGitHub rec {
+    (fetchFromGitHub rec {
       owner = "vozlt";
       repo = "nginx-module-sts";
       rev = "06ea32162654401b08e5e486155b9a2981623298";
@@ -67,7 +72,7 @@ pkgs.stdenv.mkDerivation rec {
       name = repo;
     })
 
-    (pkgs.fetchFromGitHub rec {
+    (fetchFromGitHub rec {
       owner = "vozlt";
       repo = "nginx-module-stream-sts";
       rev = "54494ccd33ddfeb1b458409caf1261d16ba31c27";
@@ -80,11 +85,11 @@ pkgs.stdenv.mkDerivation rec {
 
   patchModStreamEcho = ./patches/stream-echo-nginx-module.patch;
 
-  patchUseOpensslMd5Sha1 = pkgs.fetchurl {
+  patchUseOpensslMd5Sha1 = fetchurl {
     url = "https://github.com/kn007/patch/raw/master/use_openssl_md5_sha1.patch";
     sha256 = "1db5mjkxl6vxg4pic4v6g8bi8q9v5psj8fbjmjls1nfvxpz6nhvr";
   };
-  patchBoringsslOcsp = pkgs.fetchurl {
+  patchBoringsslOcsp = fetchurl {
     url = "https://github.com/kn007/patch/raw/master/Enable_BoringSSL_OCSP.patch";
     sha256 = "0rnlss41h0s2qwjxsq0gyjb3h6mik5x4j5pfka7fvw43k4c0rbad";
   };
@@ -94,7 +99,7 @@ pkgs.stdenv.mkDerivation rec {
   patchQuicDisableTcpNodelay = ./patches/patch-nginx/nginx-quic-disable-tcp-nodelay.patch;
   patchPlain = ./patches/patch-nginx/nginx-plain-quic-aware.patch;
   patchPlainProxy = ./patches/patch-nginx/nginx-plain-proxy.patch;
-  patchNixEtag = pkgs.substituteAll {
+  patchNixEtag = substituteAll {
     src = ./patches/patch-nginx/nix-etag-1.15.4.patch;
     preInstall = ''
       export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
@@ -102,24 +107,24 @@ pkgs.stdenv.mkDerivation rec {
   };
   patchNixSkipCheckLogsPath = ./patches/patch-nginx/nix-skip-check-logs-path.patch;
 
-  liboqs = pkgs.callPackage ../liboqs {};
-  boringssl = pkgs.callPackage ../boringssl-oqs {};
+  liboqs = callPackage ../liboqs {};
+  boringssl = callPackage ../boringssl-oqs {};
 
   enableParallelBuilding = true;
 
   nativeBuildInputs = [
-    pkgs.git
+    git
   ];
 
   buildInputs = [
     liboqs
     boringssl
 
-    pkgs.zlib
-    pkgs.pcre
-    pkgs.gd
-    pkgs.zstd
-    pkgs.perl
+    zlib
+    pcre
+    gd
+    zstd
+    perl
   ];
 
   postUnpack = ''
@@ -210,7 +215,7 @@ pkgs.stdenv.mkDerivation rec {
     ln -s $out/nginx/html $out/html
   '';
 
-  meta = with pkgs.lib; {
+  meta = with lib; {
     description = "OpenResty with Lan Tian modifications";
     homepage = "https://openresty.org";
     license = licenses.bsd2;

@@ -1,10 +1,14 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  lib, stdenv,
+  fetchFromGitHub,
+  cmake
+}:
 
-pkgs.stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "liboqs";
   version = "0.7.0";
 
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "open-quantum-safe";
     repo = "liboqs";
     rev = "${version}";
@@ -15,7 +19,7 @@ pkgs.stdenv.mkDerivation rec {
   dontFixCmake = true;
 
   nativeBuildInputs = [
-    pkgs.cmake
+    cmake
   ];
 
   cmakeFlags = [
@@ -24,7 +28,7 @@ pkgs.stdenv.mkDerivation rec {
     "-DOQS_DIST_BUILD=ON"
   ];
 
-  meta = with pkgs.lib; {
+  meta = with lib; {
     description = "C library for prototyping and experimenting with quantum-resistant cryptography";
     homepage    = "https://openquantumsafe.org";
     license = with licenses; [ mit ];

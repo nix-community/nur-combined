@@ -1,10 +1,13 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  lib, buildGoModule, fetchFromGitHub, callPackage,
+  cmake, ninja, perl, pkgconfig
+}:
 
-pkgs.buildGoModule rec {
+buildGoModule rec {
   pname = "boringssl-oqs";
   version = "2021-08-snapshot";
 
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "open-quantum-safe";
     repo = "boringssl";
     rev = "935d651e73a8f1e74b80dcbddede175f46ab216d";
@@ -15,13 +18,13 @@ pkgs.buildGoModule rec {
 
   enableParallelBuilding = true;
 
-  liboqs = pkgs.callPackage ../liboqs {};
+  liboqs = callPackage ../liboqs {};
 
   nativeBuildInputs = [
-    pkgs.cmake
-    pkgs.ninja
-    pkgs.perl
-    pkgs.pkgconfig
+    cmake
+    ninja
+    perl
+    pkgconfig
   ];
 
   buildInputs = [
@@ -52,7 +55,7 @@ pkgs.buildGoModule rec {
     mv ../include/openssl $out/include
   '';
 
-  meta = with pkgs.lib; {
+  meta = with lib; {
     description = "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs";
     homepage    = "https://openquantumsafe.org";
     license = with licenses; [ openssl isc mit bsd3 ];
