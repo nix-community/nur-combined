@@ -212,7 +212,7 @@ pkgs.stdenv.mkDerivation rec {
 
   meta = with pkgs.lib; {
     description = "OpenResty with Lan Tian modifications";
-    homepage    = "https://openquantumsafe.org";
-    license = with licenses; [ openssl isc mit bsd3 ];
+    homepage = "https://openresty.org";
+    license = licenses.bsd2;
   };
 }
