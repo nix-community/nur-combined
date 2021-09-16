@@ -29,6 +29,10 @@ buildPythonPackage rec {
     sha256 = "sha256-MsCTMO2wP7CTCh70BG36h5vuMUm0wm4m7XIKnHWEFqo=";
   };
 
+  postPatch = ''
+    substituteInPlace requirements.txt --replace "networkx>=2.2,<2.6" "networkx"
+  '';
+
   propagatedBuildInputs = [
     docplex
     decorator

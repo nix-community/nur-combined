@@ -62,6 +62,10 @@ jobs:
           --drv-path --show-trace \
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
+    - name: Find Unbroken Nix Packages
+      run: |
+        nix-shell update-shell.nix --run "nix-eval-jobs --option restrict-eval true default.nix > evaluations.json"
+        nix-shell update-shell.nix --run "jq '.|select(.error != null)' evaluations.json"
     - name: Build nix packages
       id: build_uncached
       # if this errors, continue to verbose build.

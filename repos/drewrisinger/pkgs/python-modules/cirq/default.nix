@@ -130,7 +130,9 @@ let
   cirq-google = cirqSubPackage {
     pname = "cirq-google";
     postPatch = ''
-      substituteInPlace requirements.txt --replace "protobuf~=3.13.0" "protobuf"
+      substituteInPlace requirements.txt \
+        --replace "protobuf~=3.13.0" "protobuf" \
+        --replace "google-api-core[grpc] >= 1.14.0, < 2.0.0dev" "google-api-core[grpc] >= 1.14.0, < 3.0.0dev"
     '';
 
     propagatedBuildInputs = [

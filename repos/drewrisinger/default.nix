@@ -6,16 +6,15 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ rawpkgs ? import <nixpkgs> { } }:
+{ overlays ? import ./overlays
+, pkgs ? import <nixpkgs> { overlays = (builtins.attrValues overlays); }
+}:
 
 rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
-
-  # NOTE: default pkgs to updated versions as required by packages
-  pkgs = rawpkgs.appendOverlays [ overlays.python-updates overlays.library-updates ];
+  inherit overlays; # nixpkgs overlays
 
   # Packages/updates accepted to nixpkgs/master, but need the update
   lib-scs = pkgs.callPackage ./pkgs/libraries/scs { };

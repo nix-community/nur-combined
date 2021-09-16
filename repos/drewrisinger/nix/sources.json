@@ -10,5 +10,17 @@
         "type": "tarball",
         "url": "https://github.com/nmattia/niv/archive/ba57d5a29b4e0f2085917010380ef3ddc3cf380f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nix-eval-jobs": {
+        "branch": "main",
+        "description": "Eval nix expressions from flakes (extracted from hydra) [maintainers @Mic92, @adisbladis]",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "nix-eval-jobs",
+        "rev": "2a382fe9f57cd8884001c14e48145cca0fb807fb",
+        "sha256": "1nf8vxr3r66is487wz7hnmpr9gq99va2g6yylbkf9j2rfjmz7gdk",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/nix-eval-jobs/archive/2a382fe9f57cd8884001c14e48145cca0fb807fb.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

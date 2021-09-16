@@ -20,14 +20,14 @@
 
 let
   pname = "retworkx";
-  version = "0.9.0";
+  version = "0.10.2";
   src = fetchFromGitHub {
     owner = "Qiskit";
     repo = "retworkx";
     rev = version;
-    sha256 = "0adb9zar8wihjkywal13b6w21hf5z9fh168wnc7j045y2ixw6vnm";
+    sha256 = "sha256-F2hcVUsuHcNfsg3rXYt/erc0zB6W7GdepVOReP3u4lg=";
   };
-  cargoSha256 = "09zmp4zf3r3b7ffgasshr21db7blkwn7wkibka9cbh61593845dh";
+  cargoSha256 = "1ajzxwx0rrzzq844sbv986h4yg6krzhfagc0q6px3sbhnkm9s2i3";
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
   installCheckInputs = [
     pytestCheckHook
@@ -51,6 +51,7 @@ let
     changelog = "https://github.com/Qiskit/retworkx/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];
+    broken = versionOlder lib.version "21.05";  # TODO: enable build on 20.09. Broken due to cargo resolving on older cargo version, might work with a Cargo.toml patch?
   };
 
   pre2105Package = rustPlatform.buildRustPackage rec {
