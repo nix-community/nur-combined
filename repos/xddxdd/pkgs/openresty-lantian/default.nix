@@ -3,7 +3,9 @@
   fetchzip, fetchhg, fetchFromGitHub, fetchurl,
   substituteAll, callPackage,
   git, zlib, pcre, gd, zstd, perl,
-}:
+  modules ? [],
+  ...
+} @ args:
 
 stdenv.mkDerivation rec {
   pname = "openresty-lantian";
@@ -214,6 +216,10 @@ stdenv.mkDerivation rec {
     ln -s $out/nginx/conf $out/conf
     ln -s $out/nginx/html $out/html
   '';
+
+  passthru = {
+    modules = modules;
+  };
 
   meta = with lib; {
     description = "OpenResty with Lan Tian modifications";

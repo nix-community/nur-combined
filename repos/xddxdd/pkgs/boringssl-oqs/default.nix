@@ -1,7 +1,8 @@
 {
   lib, buildGoModule, fetchFromGitHub, callPackage,
-  cmake, ninja, perl, pkgconfig
-}:
+  cmake, ninja, perl, pkgconfig,
+  ...
+} @ args:
 
 buildGoModule rec {
   pname = "boringssl-oqs";

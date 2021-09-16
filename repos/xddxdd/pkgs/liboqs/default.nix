@@ -1,8 +1,9 @@
 {
   lib, stdenv,
   fetchFromGitHub,
-  cmake
-}:
+  cmake,
+  ...
+} @ args:
 
 stdenv.mkDerivation rec {
   pname = "liboqs";
