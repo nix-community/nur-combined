@@ -393,10 +393,10 @@
       };
     "firenvim" = buildFirefoxXpiAddon {
       pname = "firenvim";
-      version = "0.2.9";
+      version = "0.2.10";
       addonId = "firenvim@lacamb.re";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3839551/firenvim-0.2.9-fx.xpi";
-      sha256 = "7a75b5c811f5132a494a51bae386199587056b2015a5988b0ee50782e1d3f0a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3840170/firenvim-0.2.10-fx.xpi";
+      sha256 = "98be85416fb9868783384d262afe2d077938a453d551fe8630fbc348f94385eb";
       meta = with lib;
       {
         description = "Turn Firefox into a Neovim client.";
@@ -851,10 +851,10 @@
       };
     "min-twitter" = buildFirefoxXpiAddon {
       pname = "min-twitter";
-      version = "3.1.4";
+      version = "3.1.5";
       addonId = "{e7476172-097c-4b77-b56e-f56a894adca9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3822965/minimal_twitter-3.1.4-fx.xpi";
-      sha256 = "81844ec71193412b96eed66cd8e82510ca1ab389be3d380cd63725401daa8d86";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3840470/minimal_twitter-3.1.5-fx.xpi";
+      sha256 = "046b024f353653bebd0f997813997e587fcbf807151269071c3b88405e759642";
       meta = with lib;
       {
         homepage = "https://github.com/thomaswang/minimal-twitter";
@@ -1592,10 +1592,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.4.1";
+      version = "9.4.2";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3834491/traduzir_paginas_web-9.4.1-an+fx.xpi";
-      sha256 = "7520caf222fb5529618b331e18d1861c9097ddc09f370d71a39eacaf4051b5f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3840048/traduzir_paginas_web-9.4.2-an+fx.xpi";
+      sha256 = "75a29e8c7ed1f974f5abbb5c4b59cc2d596711437493f3566f1c022f6fb355dd";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
