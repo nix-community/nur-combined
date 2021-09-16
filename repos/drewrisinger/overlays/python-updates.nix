@@ -16,19 +16,14 @@ rec {
           localPyPackage;
     in
     {
-      # Needed for nixpkgs < 21.05, older version incompatible with pyquil/rigetti
-      lark-parser = overrideSuperVersionIfNewer py-super.lark-parser (py-self.callPackage ../pkgs/python-modules/lark-parser { });
-      pydantic = overrideSuperVersionIfNewer py-super.pydantic (py-self.callPackage ../pkgs/python-modules/pydantic { });
       # Needed for nixpkgs < nixos-unstable
       docplex = overrideSuperVersionIfNewer py-super.docplex (py-self.callPackage ../pkgs/python-modules/docplex { });
       websocket_client = overrideSuperVersionIfNewer py-super.websocket_client (py-self.callPackage ../pkgs/python-modules/websocket-client { });
       yfinance = overrideSuperVersionIfNewer py-super.yfinance (py-self.callPackage ../pkgs/python-modules/yfinance { });
-      # needed for nixpkgs < nixos-21.05, broken
+      # needed for nixpkgs <= nixos-21.05, broken
       symengine = overrideSuperVersionIfNewer py-super.symengine (py-self.callPackage ../pkgs/python-modules/symengine { inherit (self) symengine; });
     };
   };
-
-  symengine = self.callPackage ../pkgs/libraries/symengine { }; # update symengine to match python version that's unbroken/pinned above
 
   python3Packages = python3.pkgs;
 }

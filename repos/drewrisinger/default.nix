@@ -93,9 +93,9 @@ rec {
     algopy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/algopy { };
     numdifftools = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/numdifftools { inherit algopy; };
 
-    retworkx = pkgs.python3.pkgs.toPythonModule (pkgs.python3.pkgs.callPackage ./pkgs/python-modules/retworkx { });
 
     # Qiskit proper, build order
+    retworkx = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/retworkx { };
     qiskit-terra = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-terra {
       inherit retworkx tweedledum;
     };

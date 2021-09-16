@@ -3,10 +3,7 @@
 , buildPythonPackage
 , pythonOlder
 , fetchFromGitHub
-  # nixpkgs <= 20.09
-, google_api_core ? null
-  # nixpkgs >= 20.09
-, google-api-core ? null
+, google-api-core
 , matplotlib
 , networkx
 , numpy
@@ -137,7 +134,6 @@ let
 
     propagatedBuildInputs = [
       cirq-core
-      google_api_core
       google-api-core
       protobuf
     ];
@@ -224,8 +220,6 @@ let
     inherit (cirq-core) meta;
   };
 in
-assert (lib.versionOlder lib.trivial.release "21.05") -> google_api_core != null && google-api-core == null;
-assert (lib.versionAtLeast lib.trivial.release "21.05") -> google-api-core != null && google_api_core == null;
 {
   inherit
     cirq
