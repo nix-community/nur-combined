@@ -81,4 +81,4 @@ wemeet =
       `sourceAur` "wemeet-bin"
       `fetchUrl` url
   where
-    url (Version v) = "https://updatecdn.meeting.qq.com/ad878a99-76c4-4058-ae83-22ee948cce98/TencentMeeting_0300000000_" <> v <> "_x86_64.publish.deb"
+    url (Version v) = "https://updatecdn.meeting.qq.com/cos/196cdf1a3336d5dca56142398818545f/TencentMeeting_0300000000_" <> v <> "_x86_64.publish.deb"
