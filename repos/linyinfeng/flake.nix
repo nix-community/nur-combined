@@ -72,6 +72,7 @@
                 pkgs.cabal-install
                 pkgs.ormolu
                 (pkgs.writeScriptBin "update" ''
+                  set -e
                   pushd pkgs
                   nix shell ..#updater --command updater "$@"
                   popd
