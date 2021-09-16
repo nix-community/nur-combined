@@ -21,37 +21,37 @@
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2021.09.07";
+    version = "2021.09.15";
     src = fetchurl {
-      sha256 = "1z9c85kncgj1f4r2ljlc9939lxf0i922g64sh0maqml97q5lb49s";
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2021.09.07.gz";
+      sha256 = "05d8zm4i3s1nymn2cz952niqh6x7skz0gi6r50faqqbhp2sqx356";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2021.09.15.gz";
     };
 
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2021.09.07";
+    version = "2021.09.15";
     src = fetchurl {
-      sha256 = "0fx8si14pnvakg7l9rfaywag2wkj623i5nkqpl7jnmwvpxwin95y";
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2021.09.07.gz";
+      sha256 = "1nwf3rvd6fk3rgghcdjf3ck1jmf9gzclsnnd0ill37lmbcflr91a";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2021.09.15.gz";
     };
 
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2021.09.07";
+    version = "2021.09.15";
     src = fetchurl {
-      sha256 = "05ibl5fw2rf5d3aq7rcnm0pwin0k0m8vccf96ja5v82bcv8wj16k";
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2021.09.07.gz";
+      sha256 = "08mmar0ws7ccjmajvlg1mcg84w8fqd3hfafiqc11pkqfgpsk9dnv";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2021.09.15.gz";
     };
 
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2021.09.07";
+    version = "2021.09.15";
     src = fetchurl {
-      sha256 = "1q1djdxg56ia4q6d3x9b9zw9qpw7mzc5195n51g2czzylnw7799b";
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2021.09.07.gz";
+      sha256 = "1qmmc8iiali743wzy6xpa03722mk9z3wdn7741bixhc8508b5061";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2021.09.15.gz";
     };
 
   };
