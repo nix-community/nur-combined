@@ -38,7 +38,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2.3.4
     - name: Install nix
-      uses: cachix/install-nix-action@v13
+      uses: cachix/install-nix-action@v14
       with:
         nix_path: "${{ matrix.nixPath }}"
     - name: Show nixpkgs version
