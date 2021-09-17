@@ -9,7 +9,7 @@ stdenv.mkDerivation {
 
   src = fetchzip {
     url = "https://www.gmaptool.eu/sites/default/files/${filename}";
-    sha256 = "0wf9ys52slf2hzmfl81d8754alfqiylsk7g5af3lxsiivd5284gy";
+    hash = "sha256-/hEkStsx6k6HU+WdqamP2FFFykEtIOrqh8JRLYr2yXE=";
     stripRoot = false;
   };
 

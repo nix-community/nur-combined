@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = "git://git.suckless.org/scroll";
     rev = version;
-    sha256 = "13qbzpw68140zzdmfdqww23b4brviqdpqvr134gjh1kpmpa6rgbn";
+    sha256 = "sha256-dr1s1K13BigfGSFvfBuOOy+yhuAcN1fb/4AEZPj9C48=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];

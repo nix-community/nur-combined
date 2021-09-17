@@ -42,7 +42,7 @@ python3Packages.buildPythonApplication rec {
       version = "3.3.1";
       src = fetchPypi {
         inherit pname version;
-        sha256 = "10mv262aq0y70g7q9689vkalaayx73l8kylzgpkr7a7455rx7mm4";
+        hash = "sha256-pNbTcynkqJPnfZ/6ieg43StF1dwJmYTPA8cDrIQRu4I=";
       };
     }))
   ];

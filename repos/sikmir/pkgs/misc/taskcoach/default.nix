@@ -6,7 +6,7 @@ python2Packages.buildPythonApplication rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/taskcoach/taskcoach/Release-${version}/TaskCoach-${version}.tar.gz";
-    sha256 = "162z95ii7b28jibc5j06b5n25v76b8bhg7ai1bhqspqncny7zx1f";
+    hash = "sha256-LvR/vGUWX43hClGdBxda5uwibFkGyMJWlEisE2NJX5g=";
   };
 
   propagatedBuildInputs = with python2Packages; [

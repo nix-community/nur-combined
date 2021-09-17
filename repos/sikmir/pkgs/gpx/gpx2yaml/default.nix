@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "~sikmir";
     repo = pname;
     rev = "d4a102ab079edf239a095bdd3564be3cac193971";
-    sha256 = "sha256-82RYdC1tUYwYZELTHOC+Llz+KcdLgyipB9wEWekDRww=";
+    hash = "sha256-82RYdC1tUYwYZELTHOC+Llz+KcdLgyipB9wEWekDRww=";
   };
 
   installFlags = [ "PREFIX=$(out)" ];

@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.cs.uit.no/~daniels/PingTunnel/PingTunnel-${version}.tar.gz";
-    sha256 = "19076k3rjb6bfsdd8yzlf247vy84dziafm6hd5i8p4c8gnmgf65k";
+    hash = "sha256-sxj3qn2IkYtiadBUp+JvBPl9iHD0e9Sadsssmcc0B6Q=";
   };
 
   buildInputs = [ libpcap ];

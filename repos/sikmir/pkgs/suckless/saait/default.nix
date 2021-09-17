@@ -7,7 +7,7 @@ stdenv.mkDerivation {
   src = fetchgit {
     url = "git://git.codemadness.org/saait";
     rev = "134ff98c58a8cca78caf918cc6dddc3a24155490";
-    sha256 = "0a7i0lsi40551krwxm0maqpnacm1imx8vdx4j3rm67h0ab3ba7bg";
+    sha256 = "sha256-bx21xlIAHlPzkKS3jXqNoTJlL1YV1M7zDKUAEjUF8Sg=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];

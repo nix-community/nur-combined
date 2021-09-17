@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/ascii-dash/ASCII-DASH-${version}.zip";
-    sha256 = "0wkfj7h16ini1jcx7f38lv8sf15xim1cp1bs0k5islg7jlsfrplb";
+    hash = "sha256-i97sNJXnUR3LBHqFy0KNvQSn0aZouNOZDNFGE+CRbnI=";
   };
 
   postPatch = ''

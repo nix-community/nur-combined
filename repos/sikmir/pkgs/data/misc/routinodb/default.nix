@@ -2,20 +2,20 @@
 
 stdenv.mkDerivation rec {
   pname = "routinodb";
-  version = "210905";
+  version = "210915";
 
   srcs = [
     (fetchurl {
       url = "https://download.geofabrik.de/europe/finland-${version}.osm.pbf";
-      hash = "sha256-f7tD1coF+PQelYI4OqfQ0mS1yhGzgl/H84cF9wwNjkY=";
+      hash = "sha256-YjA7rxO3DRDP8f2nm7ZCXJfKj68XqEHP0+QpzY/jn5A=";
     })
     (fetchurl {
       url = "https://download.geofabrik.de/europe/estonia-${version}.osm.pbf";
-      hash = "sha256-i9LIojA2Zh8MwWKJa7967S832tT8joifmFwxiWZvW9o=";
+      hash = "sha256-b1PXUUdja93kp4Oy8cvhnJPrX7Wspp3WiExGpCpjLzI=";
     })
     (fetchurl {
       url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
-      hash = "sha256-ZFVnt7AbMZZdUgiv3AHvH4v+qrwRPNjJ1xyw4NMJFaM=";
+      hash = "sha256-PGVHpwc82x/LfV71L8DrgGpAYl438VoEhWcl0g3Ankw=";
     })
   ];
 

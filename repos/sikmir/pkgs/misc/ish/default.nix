@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/icmpshell/ish-v${version}.tar.gz";
-    sha256 = "10jp7l0in91n5prc83ykma14r8wd6gyd1amzfi8jysw1jprc92qb";
+    hash = "sha256-C4vE8pWBay9RdL+q0PwzjaNMgqrTD8TyLTYkGwE9V4I=";
   };
 
   postPatch = ''

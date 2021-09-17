@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = "git://git.codemadness.org/lel";
     rev = version;
-    sha256 = "1c9gka3ka8j453z8ry50852hnvv5s0b5xjwg6807bj8d536n0jd7";
+    sha256 = "sha256-p0lgzSgNyXUAMo/LXhbQZW8LRUGg+Iz+KEQiNYeaL7E=";
   };
 
   postPatch = ''

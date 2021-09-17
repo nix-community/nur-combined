@@ -7,12 +7,12 @@ stdenv.mkDerivation rec {
   src = fetchwebarchive {
     url = "http://fuse.superglue.se/aamath/aamath-${version}.tar.gz";
     timestamp = "20190303013301";
-    sha256 = "0cdnfy7zdwyxvkhnk5gdcl75w9ag3n95i3sxrrawvqlmhrcg8hwq";
+    hash = "sha256-mEP0WIaV4s1Vzl2PWJIdTyVeDmXtlWnh3N3z9o93tjE=";
   };
 
   patches = (fetchpatch {
     url = "https://raw.githubusercontent.com/macports/macports-ports/6c3088afddcf34ca2bcc5c209f85f264dcf0bc69/math/aamath/files/patch-expr.h.diff";
-    sha256 = "0ls6xpjhldrivfbva2529i6maid44w33by38g80wzzvas2lxrli6";
+    sha256 = "sha256-JtLcqdBq/88Bemj4NQYnpEVVTUyiCLWX2zE3CuXtRlM=";
   });
 
   patchFlags = [ "-p0" ];

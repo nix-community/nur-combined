@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "xfractint";
-  version = "20.04p14";
+  version = "20.04p16";
 
   src = fetchurl {
     url = "https://fractint.org/ftp/current/linux/xfractint-${version}.tar.gz";
-    sha256 = "0jdqr639z862qrswwk5srmv4fj5d7rl8kcscpn6mlkx4jvjmca0f";
+    hash = "sha256-TlQBz+wOb/odqzjjwXfhRFdyCWy+VUIAxRLt7qI8R60=";
   };
 
   buildInputs = [ xlibsWrapper ];

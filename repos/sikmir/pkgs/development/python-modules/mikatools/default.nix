@@ -8,7 +8,7 @@ python3Packages.buildPythonPackage rec {
     owner = "mikahama";
     repo = pname;
     rev = version;
-    sha256 = "1sj39slscbk8zqxs15bc31r0vn3wr6sq7zk18gw8plfk6ccs9yq9";
+    hash = "sha256-CfukGTPT0Yv4Q2H+g7XJfNgNchhslaA7/mgupqlOQ+o=";
   };
 
   propagatedBuildInputs = with python3Packages; [ requests clint cryptography ];

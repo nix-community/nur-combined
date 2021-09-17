@@ -7,7 +7,7 @@ stdenv.mkDerivation {
   src = fetchwebarchive {
     url = "http://cgpsmapper.com/download/cgpsmapper-static.gz";
     timestamp = "20160817191046";
-    sha256 = "0h2xjkzkg566bgvg8gbl1hmjjimv2xbhv2csd54naq1vqphqjchx";
+    hash = "sha256-HTKJ4cU7YGVJaZqJDVcXu0YpKwx0PfT2W8aUN/+UXUA=";
   };
 
   sourceRoot = ".";

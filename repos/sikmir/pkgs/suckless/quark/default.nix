@@ -7,7 +7,7 @@ stdenv.mkDerivation {
   src = fetchgit {
     url = "git://git.suckless.org/quark";
     rev = "68b4f733b2755762e43df90f73db5a6ec8d14104";
-    sha256 = "141v7x7p54443z6s0xm34c60qsz6lrbrvxlymf7fwxy7jz6bknr6";
+    sha256 = "sha256-Jtu5zJfHd+6Oq572nVem5msMDCOjdqDNH4SQck8/O5A=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];

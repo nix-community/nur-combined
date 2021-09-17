@@ -8,7 +8,7 @@ buildPerlPackage rec {
     owner = "e-n-f";
     repo = pname;
     rev = "746b4723cf1f69fb86d45cf2d4efeaae9e711d2d";
-    sha256 = "0v5vfjqm5flmr30mpgabjwzy4avxl620051pcw03sdf3za8xkpr3";
+    hash = "sha256-I9/ZkfrDNT0AZzcUAIShfSviP5dLvVvByJW6UrF0u2w=";
   };
 
   outputs = [ "out" ];
