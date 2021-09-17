@@ -2,19 +2,21 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tatoebatools";
-  version = "0.1.1";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "LBeaudoux";
     repo = pname;
-    rev = "c3b4e40886233a83e30a517d63a1eee0547650d7";
-    hash = "sha256-clKZPQeDFUPlkyLnSeZkYdz1sOwIWeV3L1KOQOE7J8E=";
+    rev = "v${version}";
+    hash = "sha256-S8DXsgws6QoOVFURu89mVR9PuzYnV2YRfsz+KojcCfo=";
   };
 
   patches = lib.optional (!checkLang) ./dont-check-lang-validity.patch
     ++ lib.optional withCli ./cli.patch;
 
-  propagatedBuildInputs = with python3Packages; [ beautifulsoup4 pandas requests setuptools tqdm ]
+  postPatch = "sed -i 's/==.*\"/\"/;s/>=.*\"/\"/' setup.py";
+
+  propagatedBuildInputs = with python3Packages; [ beautifulsoup4 pandas requests sqlalchemy setuptools tqdm ]
     ++ lib.optionals withCli [ click xdg ];
 
   checkInputs = with python3Packages; [ pytestCheckHook ];

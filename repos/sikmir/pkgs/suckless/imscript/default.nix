@@ -1,17 +1,17 @@
-{ lib, stdenv, fetchFromSourcehut, libpng, libjpeg, libtiff, fftwFloat, libX11, gsl }:
+{ lib, stdenv, fetchFromSourcehut, libpng, libjpeg, libtiff, libwebp, fftwFloat, libX11, gsl }:
 
 stdenv.mkDerivation rec {
   pname = "imscript";
-  version = "2021-07-19";
+  version = "2021-09-10";
 
   src = fetchFromSourcehut {
     owner = "~coco";
     repo = pname;
-    rev = "ede7a82a15649c5a5573b0ffd2a6cb5894f2f1d8";
-    hash = "sha256-uxCrmg1B9nsDOUvH3Yi6LwJ6KpwRCshjJHJ2seo0Ibc=";
+    rev = "dfdcad10f2f6a2481b4ec9b6929b750e5ebf9cb8";
+    hash = "sha256-Y1TqT8+Fbbc2zlEuyoFw1oVVbrtacLp3N/SpAdTYIv8=";
   };
 
-  buildInputs = [ libpng libjpeg libtiff fftwFloat libX11 gsl ];
+  buildInputs = [ libpng libjpeg libtiff libwebp fftwFloat libX11 gsl ];
 
   makeFlags = [ "DISABLE_HDF5=1" "full" ];
 
