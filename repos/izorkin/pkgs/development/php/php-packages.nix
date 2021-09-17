@@ -126,12 +126,12 @@ let
   };
 
   composer2 = mkDerivation rec {
-    version = "2.1.6";
+    version = "2.1.8";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "0wkbmjlwhxix6czjp6vi4gr5kfpx4mr5111jp279cwdhpk74qlkj";
+      sha256 = "141myfivdjnkx8myvkgl2sclhvx9z1c6a1my4xzscx0injhsrf3p";
     };
 
     dontUnpack = true;
@@ -597,12 +597,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.98";
+    version = "0.12.99";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "07ym619kfcxnddf07009ayxnc0c5bivfbsymri8pmwjfwcarpdli";
+      sha256 = "0rv8xf5yx88wh95myysqmv29n5rr15zgwsvh8a4xb1pmw3h9kb6q";
     };
 
     phases = [ "installPhase" ];
@@ -701,7 +701,7 @@ let
     };
   };
 
-  protobuf = if isPhp56 then protobuf312 else protobuf317;
+  protobuf = if isPhp56 then protobuf312 else protobuf318;
 
   protobuf312 = buildPecl {
     version = "3.12.4";
@@ -722,11 +722,11 @@ let
     };
   };
 
-  protobuf317 = buildPecl {
-    version = "3.17.3";
+  protobuf318 = buildPecl {
+    version = "3.18.0";
     pname = "protobuf";
 
-    sha256 = "05nn6ps271vwrbr9w08lyyzsszabnqhz1x0vbblg0q8y2xrmb6dl";
+    sha256 = "1bfdd27zg91zvnrrm8wk5izxfx63g2bnffdwgfa9xahlkxwhb0sr";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
