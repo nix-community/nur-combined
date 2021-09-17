@@ -28,8 +28,15 @@
         patches = [
           (super.path + /pkgs/tools/networking/mosh/ssh_path.patch)
           (super.path + /pkgs/tools/networking/mosh/utempter_path.patch)
+          (super.path + /pkgs/tools/networking/mosh/mosh-client_path.patch)
           (super.path + /pkgs/tools/networking/mosh/bash_completion_datadir.patch)
         ];
+        postPatch = ''
+          substituteInPlace scripts/mosh.pl \
+              --subst-var-by ssh "${super.openssh}/bin/ssh"
+          substituteInPlace scripts/mosh.pl \
+              --subst-var-by mosh-client "$out/bin/mosh-client"
+        '';
       });
     # Use a more recent Clementine 1.4 RC to fix some Clementine issues
     clementine = if versionAtLeast (getVersion super.clementine) "1.3.2"

@@ -136,10 +136,10 @@
         "homepage": "https://mosh.org",
         "owner": "mobile-shell",
         "repo": "mosh",
-        "rev": "03087e7a761df300c2d8cd6e072890f8e1059dfa",
-        "sha256": "170m3q9sxw6nh8fvrf1l0hbx0rjjz5f5lzhd41143kd1rps3liw8",
+        "rev": "e023e81c08897c95271b4f4f0726ec165bb6e1bd",
+        "sha256": "136967mf51k7x51xd9997zq92gychg2l4q1niyig9zmr4054jv2z",
         "type": "tarball",
-        "url": "https://github.com/mobile-shell/mosh/archive/03087e7a761df300c2d8cd6e072890f8e1059dfa.tar.gz",
+        "url": "https://github.com/mobile-shell/mosh/archive/e023e81c08897c95271b4f4f0726ec165bb6e1bd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tagsistant": {

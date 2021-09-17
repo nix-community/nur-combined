@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 NIXPKGS_PATH=$(nix-instantiate --eval '<nixpkgs>' -A path)
-"$NIXPKGS_PATH/maintainers/scripts/update-luarocks-packages" -c luarocks-packages.csv generated-packages.nix
+"$NIXPKGS_PATH/maintainers/scripts/update-luarocks-packages" --input-names ./luarocks-packages.csv --out ./generated-packages.nix --debug DEBUG --proc 8 --no-commit
 
 # vim: set ft=sh :
