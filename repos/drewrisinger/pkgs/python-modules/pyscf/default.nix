@@ -2,7 +2,8 @@
 , buildPythonPackage
 , isPy27
 , fetchFromGitHub
-# C/build dependencies
+, fetchpatch
+  # C/build dependencies
 , cmake
 , openblas
 , libcint
@@ -29,6 +30,14 @@ buildPythonPackage rec {
     rev = "v${version}";
     sha256 = "1plicf3df732mcwzsinfbmlzwwi40sh2cxy621v7fny2hphh14dl";
   };
+
+  patches = [
+    (fetchpatch {
+      name = "pyscf-remove-h5py-3.3+-problem.patch";
+      url = "https://raw.githubusercontent.com/NixOS/nixpkgs/76606b4fcb4c97a5efe1cbd31ba9f04a5dec7b7f/pkgs/development/python-modules/pyscf/h5py.patch";
+      sha256 = "1fkwxj79wdx19d9cz426x2904ly86f34gy3c30ss92whsrw00nyc";
+    })
+  ];
 
   disabled = isPy27;
 

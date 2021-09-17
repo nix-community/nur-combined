@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation rec {
   pname = "libcint";
-  version = "4.4.4";
+  version = "4.4.5";
 
   src = fetchFromGitHub {
     owner = "sunqm";

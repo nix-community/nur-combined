@@ -8,13 +8,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "tweedledum";
-  version = "1.1.0";
+  version = "1.1.1";
 
   src = fetchFromGitHub{
     owner = "boschmitt";
     repo = "tweedledum";
     rev = "v${version}";
-    sha256 = "0fv6234lw6fcwf20iid8kazmxi0f8qydyb7h5b6nawp6zhp7akwl";
+    sha256 = "sha256-wgrY5ajaMYxznyNvlD0ul1PFr3W8oV9I/OVsStlZEBM=";
   };
 
   nativeBuildInputs = [ cmake ];

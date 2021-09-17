@@ -20,7 +20,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-nature";
-  version = "0.2.0";
+  version = "0.2.1";
 
   disabled = pythonOlder "3.6";
 
@@ -28,8 +28,12 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-wO6mV3cfPWvYHzo4qI+KLfaFH4Ne8FUMVOEcSrZzJRE=";
+    sha256 = "sha256-dfenE9QCSPDXgf8gV7zqfL3OQWeDTPWTiV756RUCJlc=";
   };
+
+  postPatch = ''
+    substituteInPlace requirements.txt --replace "h5py<3.3" "h5py"
+  '';
 
   propagatedBuildInputs = [
     h5py
