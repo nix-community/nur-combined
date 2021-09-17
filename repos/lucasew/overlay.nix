@@ -20,6 +20,9 @@ let
 in reduceJoin [
   super
   rec {
+    # gambeta, mudar depois
+    electron_13 = super.electron;
+
     inherit dotenv;
     inherit wrapDotenv;
 

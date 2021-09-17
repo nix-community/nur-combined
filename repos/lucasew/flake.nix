@@ -11,7 +11,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
     nixpkgsLatest.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nur.url = "github:nix-community/NUR/master";
-    rust-overlay.url = "github:oxalica/rust-overlay";
     pocket2kindle = {
       url = "github:lucasew/pocket2kindle";
       flake = false;
