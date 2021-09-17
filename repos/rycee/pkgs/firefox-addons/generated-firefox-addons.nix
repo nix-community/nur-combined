@@ -71,10 +71,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.2";
+      version = "7.4.4";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3839459/betterttv-7.4.2-fx.xpi";
-      sha256 = "9be88242b0c7778d0171b8a51e1dc8b9b35aa89f6aa83a6ad34c034ec2d4f0ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3840651/betterttv-7.4.4-fx.xpi";
+      sha256 = "fdef712b6744ca83acec36d53dc72b971e7b88fcd898b0f01cc87f80b132ce21";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "93.0buildid20210914185637";
+      version = "93.0buildid20210916185649";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3839910/francais_language_pack-93.0buildid20210914185637-fx.xpi";
-      sha256 = "e106b3e78e053f59f9dc6e28cc53a8b2f5e18fde45c28e71c2b161cdb6bdce69";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3841097/francais_language_pack-93.0buildid20210916185649-fx.xpi";
+      sha256 = "9ed239ae2091c94120d0989322fbf71bbdd0872e80dcb62136f464cdfc07a901";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -838,10 +838,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.0.3";
+      version = "10.1.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3832716/metamask-10.0.3-an+fx.xpi";
-      sha256 = "2adabb4c7aba0d966276bd76af80fa27674c656c0d2dd9d2fb432b15da91b3fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3840930/metamask-10.1.0-an+fx.xpi";
+      sha256 = "8b88ec3355b80734d2e5ced2e6fd36a239ce26d2ccdc19202338894ddf759899";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -851,10 +851,10 @@
       };
     "min-twitter" = buildFirefoxXpiAddon {
       pname = "min-twitter";
-      version = "3.1.5";
+      version = "3.1.6";
       addonId = "{e7476172-097c-4b77-b56e-f56a894adca9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3840470/minimal_twitter-3.1.5-fx.xpi";
-      sha256 = "046b024f353653bebd0f997813997e587fcbf807151269071c3b88405e759642";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3840650/minimal_twitter-3.1.6-fx.xpi";
+      sha256 = "9d5114e70654bc72af2b70c3159244228d08b6fa67878264e7f64eb0a62e9223";
       meta = with lib;
       {
         homepage = "https://github.com/thomaswang/minimal-twitter";
