@@ -23,6 +23,7 @@ with lib;
 
     prololo_password = lib.fileContents ./prololo-password.secret;
     prololo_room = lib.fileContents ./prololo-room.secret;
+    prololo_room2 = lib.fileContents ./prololo-room2.secret;
     prololo_github_secret = lib.fileContents ./prololo-github-secret.secret;
   };
 }
