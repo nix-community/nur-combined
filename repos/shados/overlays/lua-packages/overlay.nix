@@ -15,19 +15,22 @@ in
     effil = callPackage ./effil.nix { };
     # lunadoc = callPackage ./lunadoc.nix {
     #   inherit (self) moonscript lua-discount etlua loadkit shim-getpw;
-    #   inherit (pkgs) writeText;
+    #   inherit (pkgs) lib writeText;
     # };
 
 
     earthshine = callPackage ./earthshine.nix {
       inherit pins;
+      inherit (pkgs) lib;
     };
     facade-nvim = callPackage ./facade.nvim.nix {
       inherit (self) earthshine;
       inherit pins;
+      inherit (pkgs) lib;
     };
     moonpick-vim = callPackage ./moonpick-vim.nix {
       inherit pins;
+      inherit (pkgs) lib;
     };
 
     /* Overrides for generated packages */
