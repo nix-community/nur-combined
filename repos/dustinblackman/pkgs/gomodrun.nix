@@ -4,8 +4,8 @@
 pkgs.stdenv.mkDerivation {
   name = "gomodrun";
   src = pkgs.fetchurl {
-    url = "https://github.com/dustinblackman/gomodrun/releases/download/v0.4.3/gomodrun_0.4.3_linux_amd64.tar.gz";
-    sha256 = "17j2acvc62iii9dyybh63jqblnyxz2nf7nsi264yrdwx0vhv94if";
+    url = "https://github.com/dustinblackman/gomodrun/releases/download/v0.4.4/gomodrun_0.4.4_linux_amd64.tar.gz";
+    sha256 = "10qv2p6zm0kgna3kbb4kk7lsha1ypwf7fmy9sg1cvqd81zvidla6";
   };
   phases = [ "installPhase" ];
   installPhase = ''
