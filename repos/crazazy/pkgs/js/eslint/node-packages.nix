@@ -13,13 +13,13 @@ let
         sha512 = "Zt1yodBx1UcyiePMSkWnU4hPqhwq7hGi2nFL1LeA3EUl+q2LQx16MISgJ0+z7dnmgvP9QtIleuETGOiOH1RcIw==";
       };
     };
-    "@babel/helper-validator-identifier-7.14.9" = {
+    "@babel/helper-validator-identifier-7.15.7" = {
       name = "_at_babel_slash_helper-validator-identifier";
       packageName = "@babel/helper-validator-identifier";
-      version = "7.14.9";
+      version = "7.15.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.14.9.tgz";
-        sha512 = "pQYxPY0UP6IHISRitNe8bsijHex4TWZXi2HwKVsjPiltzlhse2znVcm9Ace510VT1kxIHjGJCZZQBX2gJDbo0g==";
+        url = "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.15.7.tgz";
+        sha512 = "K4JvCtQqad9OY2+yTU8w+E82ywk/fe+ELNlt1G8z3bVGlZfn/hOcQQsUhGhW/N+tb3fxK800wLtKOE/aM0m72w==";
       };
     };
     "@babel/highlight-7.14.5" = {
@@ -85,13 +85,13 @@ let
         sha512 = "j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==";
       };
     };
-    "ajv-8.6.2" = {
+    "ajv-8.6.3" = {
       name = "ajv";
       packageName = "ajv";
-      version = "8.6.2";
+      version = "8.6.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ajv/-/ajv-8.6.2.tgz";
-        sha512 = "9807RlWAgT564wT+DjeyU5OFMPjmzxVobvDFmNAhY+5zD6A2ly3jDp6sgnfyDtlIQ+7H97oc/DGCzzfu9rjw9w==";
+        url = "https://registry.npmjs.org/ajv/-/ajv-8.6.3.tgz";
+        sha512 = "SMJOdDP6LqTkD0Uq8qLi+gMwSt0imXLSV080qFVwJCpH9U6Mb+SUGHAXM0KNbcBPguytWyvFxcHgMLe2D2XSpw==";
       };
     };
     "ansi-colors-4.1.1" = {
@@ -103,13 +103,13 @@ let
         sha512 = "JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==";
       };
     };
-    "ansi-regex-5.0.0" = {
+    "ansi-regex-5.0.1" = {
       name = "ansi-regex";
       packageName = "ansi-regex";
-      version = "5.0.0";
+      version = "5.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.0.tgz";
-        sha512 = "bY6fj56OUQ0hU1KjFNDQuJFezqKdrAyFdIevADiqrWHwSlbmBNMHp5ak2f40Pm8JTFyM2mqxkG6ngkHO11f/lg==";
+        url = "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz";
+        sha512 = "quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==";
       };
     };
     "ansi-styles-3.2.1" = {
@@ -1020,7 +1020,7 @@ let
     src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-7.32.0.tgz"; sha1 = "c6d328a14be3fb08c8d1d21e12c02fdb7a2a812d"; };
     dependencies = [
       sources."@babel/code-frame-7.12.11"
-      sources."@babel/helper-validator-identifier-7.14.9"
+      sources."@babel/helper-validator-identifier-7.15.7"
       (sources."@babel/highlight-7.14.5" // {
         dependencies = [
           sources."chalk-2.4.2"
@@ -1034,7 +1034,7 @@ let
       sources."acorn-jsx-5.3.2"
       sources."ajv-6.12.6"
       sources."ansi-colors-4.1.1"
-      sources."ansi-regex-5.0.0"
+      sources."ansi-regex-5.0.1"
       sources."ansi-styles-3.2.1"
       sources."argparse-1.0.10"
       sources."astral-regex-2.0.0"
@@ -1147,7 +1147,7 @@ let
       sources."supports-color-5.5.0"
       (sources."table-6.7.1" // {
         dependencies = [
-          sources."ajv-8.6.2"
+          sources."ajv-8.6.3"
           sources."json-schema-traverse-1.0.0"
         ];
       })

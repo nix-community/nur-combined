@@ -13,13 +13,13 @@ let
         sha512 = "7+Wlx3BImrK0HiG6y3lU4xX7SpBPSSu8T9iguPMlaueRFxjbYwAQrp9lqZUuFikqKbd/en8lVREILvP2J80uJA==";
       };
     };
-    "ansi-regex-5.0.0" = {
+    "ansi-regex-5.0.1" = {
       name = "ansi-regex";
       packageName = "ansi-regex";
-      version = "5.0.0";
+      version = "5.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.0.tgz";
-        sha512 = "bY6fj56OUQ0hU1KjFNDQuJFezqKdrAyFdIevADiqrWHwSlbmBNMHp5ak2f40Pm8JTFyM2mqxkG6ngkHO11f/lg==";
+        url = "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz";
+        sha512 = "quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==";
       };
     };
     "ansi-styles-4.3.0" = {
@@ -220,13 +220,13 @@ let
         sha1 = "c656051e9817d9ff08ed881477f3fe4019f3ef7d";
       };
     };
-    "follow-redirects-1.14.3" = {
+    "follow-redirects-1.14.4" = {
       name = "follow-redirects";
       packageName = "follow-redirects";
-      version = "1.14.3";
+      version = "1.14.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.3.tgz";
-        sha512 = "3MkHxknWMUtb23apkgz/83fDoe+y+qr0TdgacGIA7bew+QLBo3vdgEN2xEsuXNivpFy4CyDhBBZnNZOtalmenw==";
+        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.4.tgz";
+        sha512 = "zwGkiSXC1MUJG/qmeIFH2HBJx9u0V46QGUe3YR1fXG8bXQxq7fLj0RjLZQ5nubr9qNJUZrH+xUcwXEoXNpfS+g==";
       };
     };
     "fs-extra-9.1.0" = {
@@ -571,13 +571,13 @@ let
         sha1 = "290cbb232e306942d7d7ea9b83732ab7856f8285";
       };
     };
-    "signal-exit-3.0.3" = {
+    "signal-exit-3.0.4" = {
       name = "signal-exit";
       packageName = "signal-exit";
-      version = "3.0.3";
+      version = "3.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.3.tgz";
-        sha512 = "VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==";
+        url = "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.4.tgz";
+        sha512 = "rqYhcAnZ6d/vTPGghdrw7iumdcbXpsk1b8IG/rz+VWV51DM0p7XCtMoJ3qhPLIbp3tvyt3pKRbaaEMZYpHto8Q==";
       };
     };
     "slice-stream-1.0.0" = {
@@ -705,7 +705,7 @@ let
     src = fetchurl { url = "https://registry.npmjs.org/tldr/-/tldr-3.3.7.tgz"; sha1 = "ea553b55bebbb84a2c483467a17ddf8c4beb7260"; };
     dependencies = [
       sources."afinn-165-1.0.4"
-      sources."ansi-regex-5.0.0"
+      sources."ansi-regex-5.0.1"
       sources."ansi-styles-4.3.0"
       sources."apparatus-0.0.10"
       sources."at-least-node-1.0.0"
@@ -733,7 +733,7 @@ let
       sources."concat-map-0.0.1"
       sources."core-util-is-1.0.3"
       sources."defaults-1.0.3"
-      sources."follow-redirects-1.14.3"
+      sources."follow-redirects-1.14.4"
       sources."fs-extra-9.1.0"
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"
@@ -771,7 +771,7 @@ let
       sources."rimraf-2.7.1"
       sources."safe-buffer-5.2.1"
       sources."setimmediate-1.0.5"
-      sources."signal-exit-3.0.3"
+      sources."signal-exit-3.0.4"
       sources."slice-stream-1.0.0"
       sources."string_decoder-0.10.31"
       sources."strip-ansi-6.0.0"

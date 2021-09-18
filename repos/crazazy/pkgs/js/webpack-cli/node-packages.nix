@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@discoveryjs/json-ext-0.5.3" = {
+    "@discoveryjs/json-ext-0.5.5" = {
       name = "_at_discoveryjs_slash_json-ext";
       packageName = "@discoveryjs/json-ext";
-      version = "0.5.3";
+      version = "0.5.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz";
-        sha512 = "Fxt+AfXgjMoin2maPIYzFZnQjAXjAL0PHscM5pRTtatFqB+vZxAM9tLp2Optnuw3QOQC40jTNeGYFOMvyf7v9g==";
+        url = "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.5.tgz";
+        sha512 = "6nFkfkmSeV/rqSaS4oWHgmpnYw194f6hmWF5is6b0J1naJZoiD0NTc9AiUwPHvWsowkjuHErCZT1wa0jg+BLIA==";
       };
     };
     "@webpack-cli/configtest-1.0.4" = {
@@ -391,13 +391,13 @@ let
         sha512 = "7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==";
       };
     };
-    "signal-exit-3.0.3" = {
+    "signal-exit-3.0.4" = {
       name = "signal-exit";
       packageName = "signal-exit";
-      version = "3.0.3";
+      version = "3.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.3.tgz";
-        sha512 = "VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==";
+        url = "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.4.tgz";
+        sha512 = "rqYhcAnZ6d/vTPGghdrw7iumdcbXpsk1b8IG/rz+VWV51DM0p7XCtMoJ3qhPLIbp3tvyt3pKRbaaEMZYpHto8Q==";
       };
     };
     "strip-final-newline-2.0.0" = {
@@ -452,7 +452,7 @@ let
     version = "4.8.0";
     src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.8.0.tgz"; sha1 = "5fc3c8b9401d3c8a43e2afceacfa8261962338d1"; };
     dependencies = [
-      sources."@discoveryjs/json-ext-0.5.3"
+      sources."@discoveryjs/json-ext-0.5.5"
       sources."@webpack-cli/configtest-1.0.4"
       sources."@webpack-cli/info-1.3.0"
       sources."@webpack-cli/serve-1.5.2"
@@ -495,7 +495,7 @@ let
       sources."shallow-clone-3.0.1"
       sources."shebang-command-2.0.0"
       sources."shebang-regex-3.0.0"
-      sources."signal-exit-3.0.3"
+      sources."signal-exit-3.0.4"
       sources."strip-final-newline-2.0.0"
       sources."v8-compile-cache-2.3.0"
       sources."webpack-merge-5.8.0"
