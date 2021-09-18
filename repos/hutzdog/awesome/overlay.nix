@@ -11,7 +11,6 @@ final: prev: {
       + old.GI_TYPELIB_PATH;
   })).override {
     stdenv = prev.clangStdenv;
-    luaPackages = prev.lua52Packages;
     gtk3Support = true;
   };
 }
