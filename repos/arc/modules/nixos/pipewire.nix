@@ -14,7 +14,7 @@ in {
       requisite = singleton "pipewire.service";
       wantedBy = singleton "pipewire.service";
       script = mkMerge (
-        singleton "sleep 2" # TODO: hack!
+        singleton "sleep 5" # TODO: hack!
         ++ concatLists (mapAttrsToList (input: outputs: map (output:
           ''${cfg.package}/bin/pw-link -P ${input} ${output} || echo failed to link "${input} => ${output}" >&2''
         ) outputs) cfg.links)

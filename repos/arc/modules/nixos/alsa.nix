@@ -656,6 +656,11 @@ in {
           ALSA_CONFIG_UCM2 = "${cfg.ucm.configDirectory}";
         };
       };
+      wireplumber = mkIf config.services.wireplumber.enable or false {
+        environment = {
+          ALSA_CONFIG_UCM2 = "${cfg.ucm.configDirectory}";
+        };
+      };
     };
     environment = mkIf cfg.enable {
       systemPackages = singleton pkgs.alsaUtils;

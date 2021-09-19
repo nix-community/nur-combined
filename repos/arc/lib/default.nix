@@ -137,6 +137,7 @@
     else _: _: { });
 
   gst = import ./gst.nix { inherit lib; };
+  lua = import ./lua.nix { inherit lib; };
   alsa = import ./alsa.nix { inherit lib; };
   sensitive = import ./sensitive.nix { inherit lib; };
   json = import ./json.nix { inherit lib; };

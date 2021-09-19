@@ -7,6 +7,7 @@
   mutable-state = ./mutable-state.nix;
   pulseaudio = ./pulseaudio.nix;
   pipewire = ./pipewire.nix;
+  wireplumber = ./wireplumber.nix;
   alsa = ./alsa.nix;
   yggdrasil = ./yggdrasil.nix;
   bindings = import ./bindings.nix // {
@@ -34,6 +35,7 @@
       common-root
       pulseaudio
       pipewire
+      wireplumber
       alsa
       yggdrasil
       bindings

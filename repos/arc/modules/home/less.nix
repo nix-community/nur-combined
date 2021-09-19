@@ -3,7 +3,7 @@
   lesskey = conf: with pkgs; stdenvNoCC.mkDerivation {
     name = "lesskey";
     conf = writeText "lesskey" conf;
-    nativeBuildInputs = [less];
+    nativeBuildInputs = [buildPackages.less];
 
     unpackPhase = "true";
     installPhase = ''

@@ -1,0 +1,3 @@
+{
+  wireplumber = import ./wireplumber.nix;
+}

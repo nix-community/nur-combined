@@ -23,7 +23,7 @@
     (call ./rust) //
     (call ./misc.nix) //
     (import ./zsh.nix { inherit self super lib; }) //
-    (import ./linux.nix { inherit self super; }) //
+    (import ./linux.nix { inherit self super lib; }) //
     (import ./base16.nix { inherit self super lib; }) //
     {
       inherit sourceBashArray;

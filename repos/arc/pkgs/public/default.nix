@@ -16,7 +16,6 @@
   gst-protectbuffer = import ./gst-protectbuffer.nix;
   gst-rtsp-launch = import ./gst-rtsp-launch;
   zsh-completions-abduco = import ./zsh-completions-abduco.nix;
-  wireplumber = import ./wireplumber.nix;
 }
 // (import ./droid.nix)
 // (import ./base16)
@@ -28,3 +27,4 @@
 // (import ./matrix)
 // (import ./pass)
 // (import ../git)
+// (import ./wireplumber)
