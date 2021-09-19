@@ -21,6 +21,10 @@ Search: <https://nix-community.github.io/nur-search/repos/wamserma/>
 + [dfrs](https://github.com/anthraxx/dfrs) a tool to display file system space usage using graphs and colors
 + [sdtool](https://bertold.org/) a tool to read and modify the write lock flags on SD cards, with `sdtool-static` as static build with dietlibc
 
+### Development
+
++ [git-smash](https://github.com/anthraxx/git-smash) Smash staged changes into previous commits to support your Git workflow
+
 ### Security Tools
 
 + [bandit](https://github.com/PyCQA/bandit) a static code analysis tool designed to find common security issues in Python code (just appifies the python package from Nixpkgs)

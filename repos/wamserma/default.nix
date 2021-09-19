@@ -31,7 +31,9 @@ rec {
   encpipe = pkgs.callPackage ./pkgs/tools/security/encpipe { lib = mylib; };
   encpipe-static = pkgs.callPackage ./pkgs/tools/security/encpipe { lib = mylib; static = true; dietlibc = dietlibc; };
 
-  friidump = pkgs.callPackage  ./pkgs/games/friidump {  lib = mylib; };
+  friidump = pkgs.callPackage ./pkgs/games/friidump { lib = mylib; };
+
+  git-smash = pkgs.callPackage pkgs/applications/version-management/git-and-tools/git-smash { lib = mylib; };
 
   masterpdfeditor4 = pkgs.callPackage pkgs/applications/misc/masterpdfeditor/default.nix { lib = mylib; qtbase = pkgs.qt5.qtbase; qtsvg = pkgs.qt5.qtsvg; wrapQtAppsHook = pkgs.qt5.wrapQtAppsHook; };
 
