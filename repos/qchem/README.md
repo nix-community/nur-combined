@@ -27,6 +27,11 @@ Via `release.nix` a nix channels compatible nixexprs tarball can be generated:
 The applications from the overlay are also available via [Nix User Repository (NUR)](https://github.com/nix-community/NUR) (qchem repo).
 Access via e.g.: `nix-shell -p nur.repos.qchem.<package name>`.
 
+### Binary cache
+The latest builds for the master branch and stable version are stored on [Cachix](https://app.cachix.org/):
+* Cache URL: https://nix-qchem.cachix.org
+* Public key: nix-qchem.cachix.org-1:ZjRh1PosWRj7qf3eukj4IxjhyXx6ZwJbXvvFk3o3Eos=
+
 ## Configuration
 
 The overlay can be configured either via an attribute set or via environment variables.
