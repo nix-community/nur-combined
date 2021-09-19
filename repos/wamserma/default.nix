@@ -26,6 +26,7 @@ rec {
 
   bandit = pkgs.python3.pkgs.toPythonApplication pkgs.python3.pkgs.bandit;
   bundlewrap = pkgs.python3.pkgs.toPythonApplication python3AppPackages.bundlewrap;
+  dfrs = pkgs.callPackage ./pkgs/tools/system/dfrs { lib = mylib; };
   dietlibc = pkgs.callPackage ./pkgs/development/libraries/dietlibc { lib = mylib; };
   encpipe = pkgs.callPackage ./pkgs/tools/security/encpipe { lib = mylib; };
   encpipe-static = pkgs.callPackage ./pkgs/tools/security/encpipe { lib = mylib; static = true; dietlibc = dietlibc; };

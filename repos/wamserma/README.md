@@ -15,9 +15,11 @@ Stuff here is mainly aiming for compatibility with the current stable release of
 
 Search: <https://nix-community.github.io/nur-search/repos/wamserma/>
 
-### Admin tools
+### Admin/System tools
 
 + [bundlewrap](https://bundlewrap.org/) a lightweight, python-based alternative to Ansible
++ [dfrs](https://github.com/anthraxx/dfrs) a tool to display file system space usage using graphs and colors
++ [sdtool](https://bertold.org/) a tool to read and modify the write lock flags on SD cards, with `sdtool-static` as static build with dietlibc
 
 ### Security Tools
 
@@ -32,7 +34,7 @@ Search: <https://nix-community.github.io/nur-search/repos/wamserma/>
 
 + [friidump](https://github.com/bradenmcd/friidump) a command-line tool to backup Gamecube and Wii game discs
 
-### Misc
+### Non-Free
 
 + [Genius SF-600 Firmware](http://download.geniusnet.com/2012/Scanner/CP-SF600_Win8_V5.3.1.zip) Firmware blob for the Genius ColorPage SF-600 Scanner, to be used with SANE
 
