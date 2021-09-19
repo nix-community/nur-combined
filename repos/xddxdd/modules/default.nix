@@ -8,5 +8,5 @@
   # Add your NixOS modules here
   #
   # my-module = ./my-module;
-  linux-xanmod-lantian = pkgs.recurseIntoAttrs (pkgs.linuxKernel.packagesFor linux-xanmod-lantian);
+  linux-xanmod-lantian = pkgs.linuxKernel.packagesFor linux-xanmod-lantian;
 }
