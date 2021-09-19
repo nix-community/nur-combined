@@ -22,6 +22,5 @@ rec {
       pkgs.kernelPatches.request_key_helper
     ];
   };
-  linux-xanmod-lantian-pkg = pkgs.linuxKernel.packagesFor linux-xanmod-lantian;
   openresty-lantian = pkgs.callPackage ./pkgs/openresty-lantian { };
 }
