@@ -16,5 +16,11 @@
 
   boringssl-oqs = pkgs.callPackage ./pkgs/boringssl-oqs { };
   liboqs = pkgs.callPackage ./pkgs/liboqs { };
+  linux-xanmod-lantian = pkgs.callPackage ./pkgs/linux-xanmod-lantian {
+    kernelPatches = [
+      pkgs.kernelPatches.bridge_stp_helper
+      pkgs.kernelPatches.request_key_helper
+    ];
+  };
   openresty-lantian = pkgs.callPackage ./pkgs/openresty-lantian { };
 }
