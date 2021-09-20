@@ -290,6 +290,7 @@ lib.makeScope newScope (
     maperitive-bin = callPackage ./osm/maperitive/bin.nix { };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
     osmcoastline = callPackage ./osm/osmcoastline { };
+    overpass-api = callPackage ./osm/overpass-api { };
     phyghtmap = callPackage ./osm/phyghtmap { };
     sdlmap = callPackage ./osm/sdlmap { };
     smrender = callPackage ./osm/smrender { };
