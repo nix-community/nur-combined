@@ -605,10 +605,10 @@
   },
   {
     "name": "flib",
-    "version": "0.8.3",
-    "file_name": "flib_0.8.3.zip",
-    "download_url": "/download/flib/611f178db0e7021866c08c73",
-    "sha1": "512f60bc2d4cabdee21fccc7d88f5ccf6fe09eaf",
+    "version": "0.8.4",
+    "file_name": "flib_0.8.4.zip",
+    "download_url": "/download/flib/6147b04c1cd70ea0a7d8ee0f",
+    "sha1": "d4f79509f2bbec4d4a76e7b1bbfc7028b1decf80",
     "dependencies": [
       "? base >= 1.1.35"
     ]
