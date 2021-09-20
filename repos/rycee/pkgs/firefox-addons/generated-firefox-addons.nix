@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "93.0buildid20210916185649";
+      version = "93.0buildid20210919190049";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3841097/francais_language_pack-93.0buildid20210916185649-fx.xpi";
-      sha256 = "9ed239ae2091c94120d0989322fbf71bbdd0872e80dcb62136f464cdfc07a901";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3842304/francais_language_pack-93.0buildid20210919190049-fx.xpi";
+      sha256 = "3d622775a4d162de421395f5052643d884cff83cbfc24c36ce3f277d15715679";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1301,10 +1301,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.9.3";
+      version = "21.9.18";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3834753/refined_github-21.9.3-an+fx.xpi";
-      sha256 = "1d4d9c32993d7ea66c0839760897fdd9e360c327980e5b02e3e3b849e128ab6f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3841878/refined_github-21.9.18-an+fx.xpi";
+      sha256 = "37002484239ff80ff21704eb3108e77e2ee9706292c5eb19bb327ffea739a447";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
