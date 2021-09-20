@@ -23,4 +23,5 @@ rec {
     ];
   };
   openresty-lantian = pkgs.callPackage ./pkgs/openresty-lantian { };
+  qemu-user-static = pkgs.callPackage ./pkgs/qemu-user-static { };
 }
