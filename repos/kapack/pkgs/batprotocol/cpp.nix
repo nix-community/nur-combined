@@ -9,13 +9,14 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://framagit.org/batsim/batprotocol.git";
-    rev = "1100c5ff784fe9792aeb8bec0e4367695c94a19c";
-    sha256 = "14w5c6r8q57gffpwj2m1npdj1c3w1mhp5wzdqb4jqm1r98d6vmk4";
+    rev = "19b5aa27979b3b41cd2548effc13e2093b35b5fb";
+    sha256 = "0mbnf7hz3pc0jk9203zf7ndwfsacvjjn6m2zrph6402y37p2cb7m";
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
   propagatedBuildInputs = [ flatbuffers ];
   mesonBuildType = if debug then "debug" else "release";
+  CXXFLAGS = if debug then "-O0" else "";
   ninjaFlags = [ "-v" ];
   dontStrip = debug;
 
