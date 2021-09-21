@@ -6,7 +6,7 @@ stdenv.mkDerivation {
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git";
     rev = "415f92c33a227c02f6719d4594af6fad10f07abf";
-    sha256 = "sha256-QhT0znxlLWhFtN2DiwU0Zl3IYJDpynX8DYBHVTxy8i0=";
+    sha256 = "sha256-OBpYgzB0QBVMwQ0wh6p586XFj2U8beR23LkrZ57N0PU=";
   };
 
   buildInputs = [
