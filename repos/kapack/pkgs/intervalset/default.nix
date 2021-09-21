@@ -15,10 +15,14 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja pkgconfig ];
   buildInputs = [ gtest ];
   propagatedBuildInputs = [ boost ];
-  mesonBuildType = if debug then "debug" else "release";
+
   ninjaFlags = [ "-v" ];
-  dontStrip = debug;
   doCheck = true;
+
+  mesonBuildType = if debug then "debug" else "release";
+  CXXFLAGS = if debug then "-O0" else "";
+  hardeningDisable = if debug then [ "fortify" ] else [];
+  dontStrip = debug;
 
   meta = with lib; {
     description = "C++ library to manage sets of integral closed intervals";

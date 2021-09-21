@@ -45,22 +45,24 @@ def determine_attribute_build_order(graph):
     # Only keep attribute names instead of a tuple.
     return [x[1] for x in l]
 
-def generate_attributes():
+def generate_attributes(debug_str):
     '''Return a dict of attribute names to build.'''
-    graph = run_cmd_parse_json("nix eval --json -f ci.nix 'pkgs-to-build-with-deps'")
+    graph = run_cmd_parse_json(f"nix eval --json --arg debug {debug_str} -f ci.nix 'pkgs-to-build-with-deps'")
     return determine_attribute_build_order(graph)
 
-def generate_attributes_with_inputs():
+def generate_attributes_with_inputs(debug_str):
     '''Return a dict of attributes with their inputs.'''
-    return run_cmd_parse_json("nix eval --json -f ci.nix 'pkgs-to-build-with-deps'")
+    return run_cmd_parse_json(f"nix eval --json --arg debug {debug_str} -f ci.nix 'pkgs-to-build-with-deps'")
 
 def pytest_generate_tests(metafunc):
+    debug_str = "true" if metafunc.config.getoption("--debug-build") else "false"
     if 'attribute' in metafunc.fixturenames:
-        metafunc.parametrize('attribute', generate_attributes())
+        metafunc.parametrize('attribute', generate_attributes(debug_str))
     if 'graph' in metafunc.fixturenames:
-        metafunc.parametrize('graph', [generate_attributes_with_inputs()])
+        metafunc.parametrize('graph', [generate_attributes_with_inputs(debug_str)])
 
 def pytest_addoption(parser):
     parser.addoption("--cachix-name", action="store", default="batsim", help="name on the cachix binary cache to push packages onto")
     parser.addoption("--push-deps-on-cachix", action="store_true", default=False, help="push package build deps on cachix before building it")
     parser.addoption("--push-on-cachix", action="store_true", default=False, help="push a package on cachix after building it")
+    parser.addoption("--debug-build", action="store_true", default=False, help="build packages in debug mode")

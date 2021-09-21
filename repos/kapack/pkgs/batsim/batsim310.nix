@@ -41,9 +41,13 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = runtimeDeps;
 
-  mesonBuildType = if debug then "debug" else "release";
   ninjaFlags = [ "-v" ];
   enableParallelBuilding = true;
+
+  mesonBuildType = if debug then "debug" else "release";
+  CXXFLAGS = if debug then "-O0" else "";
+  hardeningDisable = if debug then [ "fortify" ] else [];
+  dontStrip = debug;
 
   meta = with lib; {
     description = "An infrastructure simulator that focuses on resource management techniques.";

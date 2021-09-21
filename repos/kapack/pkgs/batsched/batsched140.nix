@@ -23,9 +23,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
   buildInputs = [ boost gmp rapidjson intervalset loguru redox cppzmq zeromq ];
-  mesonBuildType = if debug then "debug" else "release";
+
   ninjaFlags = [ "-v" ];
-  enableParallelBuilding = true;
+
+  mesonBuildType = if debug then "debug" else "release";
+  CXXFLAGS = if debug then "-O0" else "";
+  hardeningDisable = if debug then [ "fortify" ] else [];
+  dontStrip = debug;
 
   meta = with lib; {
     description = "Batsim C++ scheduling algorithms.";

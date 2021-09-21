@@ -2,6 +2,9 @@
 # Example usage:
 # - nix eval --json -f ci.nix 'pkgs-names-to-build'
 # - nix eval --json -f ci.nix 'pkgs-to-build-with-deps'
+{
+  debug ? false
+}:
 let
   nixpkgs = import (fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz";
@@ -15,7 +18,7 @@ let
 in
 
 rec {
-  default = import ./default.nix {};
+  default = import ./default.nix { inherit debug; };
   pkgs-to-build = default.pkgs.lib.filterAttrs wantToBuild default;
   pkgs-names-to-build = builtins.attrNames pkgs-to-build;
   pkgs-to-build-with-deps = default.pkgs.lib.mapAttrs (name: value: {derivation = value; inputs=allInputs value;}) pkgs-to-build;

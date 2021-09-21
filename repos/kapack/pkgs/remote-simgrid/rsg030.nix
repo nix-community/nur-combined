@@ -18,9 +18,13 @@ stdenv.mkDerivation rec {
   buildInputs = [ simgrid docopt_cpp boost ];
   propagatedBuildInputs = [ protobuf ];
 
-  mesonBuildType = if debug then "debug" else "release";
   ninjaFlags = [ "-v" ];
   enableParallelBuilding = true;
+
+  mesonBuildType = if debug then "debug" else "release";
+  CXXFLAGS = if debug then "-O0" else "";
+  hardeningDisable = if debug then [ "fortify" ] else [];
+  dontStrip = debug;
 
   meta = with lib; {
     description = "A solution to execute your distributed application on top of SimGrid.";

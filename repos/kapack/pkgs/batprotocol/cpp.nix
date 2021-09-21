@@ -15,12 +15,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
   propagatedBuildInputs = [ flatbuffers ];
-  mesonBuildType = if debug then "debug" else "release";
-  CXXFLAGS = if debug then "-O0" else "";
-  ninjaFlags = [ "-v" ];
-  dontStrip = debug;
 
   preConfigure = "cd cpp";
+  ninjaFlags = [ "-v" ];
+
+  mesonBuildType = if debug then "debug" else "release";
+  CXXFLAGS = if debug then "-O0" else "";
+  hardeningDisable = if debug then [ "fortify" ] else [];
+  dontStrip = debug;
 
   meta = with lib; {
     description = "C++ library to serialize messages in the batprotocol";
