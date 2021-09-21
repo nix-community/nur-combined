@@ -25,12 +25,18 @@ jobs:
           cachix --version
           cachix use ${CACHIX_CACHE}
       - uses: actions/checkout@v2
-      - name: Build packages
+      - name: Build packages (release)
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
           source ~/.nix-profile/etc/profile.d/nix.sh
           nix run -f https://github.com/NixOS/nixpkgs/archive/20.09.tar.gz python3Packages.pytest --command pytest -ra -v --cachix-name=${CACHIX_CACHE} --push-deps-on-cachix --push-on-cachix --junit-xml pytest.xml
+      - name: Build packages (debug)
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        run: |
+          source ~/.nix-profile/etc/profile.d/nix.sh
+          nix run -f https://github.com/NixOS/nixpkgs/archive/20.09.tar.gz python3Packages.pytest --command pytest -ra -v --cachix-name=${CACHIX_CACHE} --push-deps-on-cachix --push-on-cachix --debug-build --junit-xml pytest.xml
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v2
