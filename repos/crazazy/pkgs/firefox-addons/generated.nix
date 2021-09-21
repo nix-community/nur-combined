@@ -2,29 +2,15 @@
   {
     "bitwarden-password-manager" = buildFirefoxXpiAddon {
       pname = "bitwarden-password-manager";
-      version = "1.52.0";
+      version = "1.52.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3827516/bitwarden_free_password_manager-1.52.0-an+fx.xpi";
-      sha256 = "3e100c51681029bb07158c95af6cd900f19ba0d3860cb5600fca23ce9601640e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3831245/bitwarden_free_password_manager-1.52.1-an+fx.xpi";
+      sha256 = "95d6ed5d3b4dabc8291d1a0a337dbc6cfe21920a23ab4a5e1fe3b014169e4bba";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
         description = "A secure and free password manager for all of your devices.";
         license = licenses.gpl3;
-        platforms = platforms.all;
-        };
-      };
-    "new-tab-override" = buildFirefoxXpiAddon {
-      pname = "new-tab-override";
-      version = "15.1.1";
-      addonId = "newtaboverride@agenedia.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3782413/new_tab_override-15.1.1-fx.xpi";
-      sha256 = "74d97de74c1d4d5cc146182dbbf9cdc3f383ba4c5d1492edbdb14351549a9d64";
-      meta = with lib;
-      {
-        homepage = "https://www.soeren-hentzschel.at/firefox-webextensions/new-tab-override/";
-        description = "New Tab Override allows you to set the page that shows whenever you open a new tab.";
-        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -52,6 +38,20 @@
       {
         description = "Add download link to all SoundClould tracks";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "tabliss" = buildFirefoxXpiAddon {
+      pname = "tabliss";
+      version = "2.1.0";
+      addonId = "extension@tabliss.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3716637/tabliss_new_tab-2.1.0-fx.xpi";
+      sha256 = "7381d681c4eef5bf91667e6b3918569c72009c6a7f62f9a33a44017b03d740ef";
+      meta = with lib;
+      {
+        homepage = "https://tabliss.io";
+        description = "A beautiful New Tab page with many customisable backgrounds and widgets that does not require any permissions.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };
