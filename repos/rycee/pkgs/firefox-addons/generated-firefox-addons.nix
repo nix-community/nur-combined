@@ -71,10 +71,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.4";
+      version = "7.4.7";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3840651/betterttv-7.4.4-fx.xpi";
-      sha256 = "fdef712b6744ca83acec36d53dc72b971e7b88fcd898b0f01cc87f80b132ce21";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3842184/betterttv-7.4.7-fx.xpi";
+      sha256 = "3ab07371cc8c741f6c1b37fec9a8416086bf162eaf4df945fe8a3313db3cd965";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -240,10 +240,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.34";
+      version = "4.9.35";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3806938/dark_reader-4.9.34-an+fx.xpi";
-      sha256 = "9ba482118d25675af31ee403c740972a106fdccfd117c4449c046b70f1a2d95d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3842086/dark_reader-4.9.35-an+fx.xpi";
+      sha256 = "27eac6f94259e04053b24bfc1a3d7e7a45fba1ed63ca6d607c49655f59fb5a73";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -629,10 +629,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.3.2";
+      version = "3.3.3";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3823055/i_dont_care_about_cookies-3.3.2-an+fx.xpi";
-      sha256 = "3c897474025f6d25e494e18a46c7609d7b8af330e9f33fde3734fb5d4261b283";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3841420/i_dont_care_about_cookies-3.3.3-an+fx.xpi";
+      sha256 = "a504ba2934d48f4bf586ac5d19be367677661025ec4353e5e9721f72e569b696";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -722,10 +722,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.0.13";
+      version = "1.1";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3805552/leechblock_ng-1.0.13-an+fx.xpi";
-      sha256 = "e10a01184a1fc06a1ead440e88bad04032c86ce15d7445d624329ba0727b3b2d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3842204/leechblock_ng-1.1-an+fx.xpi";
+      sha256 = "15ef5b8c2f508f8a591e3caf572b8f9b77226d8b77227bb84563a837277465ee";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -1412,10 +1412,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "3.1.2";
+      version = "3.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3836774/sponsorblock_skip_sponsorships_on_youtube-3.1.2-an+fx.xpi";
-      sha256 = "2456a0bd4cc4862be33386389a9527d551ef12d37000e39bd472e218599e5eab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3842453/sponsorblock_skip_sponsorships_on_youtube-3.2-an+fx.xpi";
+      sha256 = "4d73d0845dc790cc14d33bc5aae1a2577e153de9f96b2e6e321534d4e38a123a";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
