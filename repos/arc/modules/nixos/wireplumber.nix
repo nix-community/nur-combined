@@ -18,8 +18,8 @@
     name ? "wireplumber.lua"
   , components
   }: let
-    componentsConfig = listToAttrs (imap1 (i: comp: nameValuePair "${fixedWidthNumber 3 i}${comp.name}" comp.out.lua) components);
-  in pkgs.writeText "${name}" ''
+    componentsConfig = listToAttrs (imap1 (i: comp: nameValuePair "${fixedWidthNumber 3 i}${strings.sanitizeDerivationName comp.name}" comp.out.lua) components);
+  in pkgs.writeText "${strings.sanitizeDerivationName name}" ''
     components = ${lua.serializeExpr componentsConfig}
   '';
   pipewireModuleArgs = json.types.attrs;

@@ -56,6 +56,10 @@
     type = with types; attrsOf csetValueType;
     default = { };
   };
+  ctl = mkOption {
+    type = types.str;
+    default = "hw:\${CardId}";
+  };
   csetValueStr = value:
     if value == true then "on"
     else if value == false then "off"
@@ -112,46 +116,53 @@
     type = with types; nullOr str;
     default = null;
   };
-  valueCommon = config: {
-    priority = mkOption {
-      type = with types; nullOr int;
-      default = null;
-    };
-    rate = mkOption {
-      type = with types; nullOr int;
-      default = null;
-    };
-    channels = mkOption {
-      type = with types; nullOr int;
-      default = null;
-    };
-    pcm = mkOption {
-      type = with types; nullOr str;
-      default = null;
-    };
-    ctl = mkOption {
-      type = with types; nullOr str;
-      default = config.pcm;
-    };
-    mixerName = mkOption {
-      type = with types; nullOr str;
-      default = null;
-    };
-    mixer = mkOption {
-      type = with types; nullOr str;
-      default = null;
-    };
-    master = mkOption {
-      type = with types; nullOr str;
-      default = null;
-    };
-    volume = mkOption {
-      type = with types; nullOr str;
-      default = null; # mapNullable (m: "${m} Volume") config.mixer;
-    };
-    switch = mkOption {
-      type = with types; nullOr str;
-      default = null; # mapNullable (m: "${m} Switch") config.mixer;
+  playback = mkOption {
+    type = types.submodule valueCommon;
+    default = { };
+  };
+  capture = playback;
+  valueCommon = { config, ... }: {
+    options = {
+      priority = mkOption {
+        type = with types; nullOr int;
+        default = null;
+      };
+      rate = mkOption {
+        type = with types; nullOr int;
+        default = null;
+      };
+      channels = mkOption {
+        type = with types; nullOr int;
+        default = null;
+      };
+      pcm = mkOption {
+        type = with types; nullOr str;
+        default = null;
+      };
+      ctl = mkOption {
+        type = with types; nullOr str;
+        default = config.pcm;
+      };
+      mixerName = mkOption {
+        type = with types; nullOr str;
+        default = null;
+      };
+      mixer = mkOption {
+        type = with types; nullOr str;
+        default = null;
+      };
+      master = mkOption {
+        type = with types; nullOr str;
+        default = null;
+      };
+      volume = mkOption {
+        type = with types; nullOr str;
+        default = null; # mapNullable (m: "${m} Volume") config.mixer;
+      };
+      switch = mkOption {
+        type = with types; nullOr str;
+        default = null; # mapNullable (m: "${m} Switch") config.mixer;
+      };
     };
   };
   jack = {
@@ -410,9 +421,7 @@
         default = name;
       };
       comment = comment name;
-      inherit set jack value enableSequence disableSequence toneQuality;
-      playback = valueCommon config.playback;
-      capture = valueCommon config.capture;
+      inherit ctl set jack value enableSequence disableSequence toneQuality playback capture;
       supportedDevice = mkOption {
         type = with types; listOf str;
         default = [ ];
@@ -432,7 +441,16 @@
     };
 
     config = {
-      enableSequence = fromSet config.set;
+      ctl = mkMerge [
+        (mkIf (config.playback.ctl != null) (mkDefault config.playback.ctl))
+        (mkIf (config.capture.ctl != null) (mkDefault config.capture.ctl))
+      ];
+      enableSequence = mkMerge [
+        (mkBefore [ {
+          cdev.device = config.ctl;
+        } ])
+        (fromSet config.set)
+      ];
       value = fromValue {
         inherit (config) jack playback capture toneQuality;
       };
@@ -463,14 +481,20 @@
         type = types.str;
         default = name;
       };
+      cardDriver = mkOption {
+        type = with types; nullOr str;
+        default = null;
+      };
+      cardName = mkOption {
+        type = with types; nullOr str;
+        default = null;
+      };
       comment = comment name;
       inherit set;
       bootSequence = enableSequence;
       fixedBootSequence = enableSequence;
       defaults = {
-        inherit set jack value toneQuality;
-        playback = valueCommon config.defaults.playback;
-        capture = valueCommon config.defaults.capture;
+        inherit set jack value toneQuality playback capture ctl;
         section = enableSequence;
       };
       useCases = mkOption {
@@ -515,7 +539,16 @@
     config = {
       bootSequence = fromSet config.set;
       defaults = {
-        section = fromSet config.defaults.set;
+        ctl = mkMerge [
+          (mkIf (config.defaults.playback.ctl != null) (mkDefault config.defaults.playback.ctl))
+          (mkIf (config.defaults.capture.ctl != null) (mkDefault config.defaults.capture.ctl))
+        ];
+        section = mkMerge [
+          (mkBefore [ {
+            cdev.device = config.defaults.ctl;
+          } ])
+          (fromSet config.defaults.set)
+        ];
         value = fromValue {
           inherit (config.defaults) jack playback capture toneQuality;
         };
@@ -642,7 +675,9 @@ in {
             });
           }
         ] ++ mapAttrsToList (name: card: {
-          name = "${card.name}.conf";
+          name =
+            if card.cardDriver != null && card.cardName != null then "${card.cardDriver}/${card.cardName}.conf"
+            else "${card.name}.conf";
           path = card.out.configFile;
         }) cfg.ucm.cards);
       };

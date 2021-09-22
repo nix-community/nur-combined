@@ -1,4 +1,5 @@
 {
+  systemd = ./systemd.nix;
   dht22-exporter = ./dht22-exporter.nix;
   modprobe = ./modprobe.nix;
   crypttab = ./crypttab.nix;
@@ -6,7 +7,6 @@
   common-root = ./common-root.nix;
   mutable-state = ./mutable-state.nix;
   pulseaudio = ./pulseaudio.nix;
-  pipewire = ./pipewire.nix;
   wireplumber = ./wireplumber.nix;
   alsa = ./alsa.nix;
   yggdrasil = ./yggdrasil.nix;
@@ -27,6 +27,7 @@
   __functionArgs = { };
   __functor = self: { ... }: {
     imports = with self; [
+      systemd
       dht22-exporter
       glauth
       modprobe
@@ -34,7 +35,6 @@
       mutable-state
       common-root
       pulseaudio
-      pipewire
       wireplumber
       alsa
       yggdrasil
