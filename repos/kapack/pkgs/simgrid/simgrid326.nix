@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     sha256 = "0kwiggdjqjhjvmwb1m7hb9clvm3xz948fy5ia67dif2pakwad754";
   };
 
-  nativeBuildInputs = [ cmake perl python3 boost ]
+  propagatedBuildInputs = [ boost ];
+  nativeBuildInputs = [ cmake perl python3 ]
     ++ optionals fortranSupport [ gfortran ]
     ++ optionals buildJavaBindings [ openjdk ]
     ++ optionals buildPythonBindings [ python3Packages.pybind11 ]
