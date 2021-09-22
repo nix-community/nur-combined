@@ -4,8 +4,8 @@ let
   libBQN = fetchFromGitHub {
     owner = "mlochbaum";
     repo = "bqn";
-    rev = "42fc243d720d95a11d38ab9cd4ae2eb34d37b3b2";
-    sha256 = "sha256-oXhBZVh3sUW9a75CbBx8c86uyn7fzWQRU6/0inJ934w=";
+    rev = "3f7bab449929fbe396d4d842db0cdc0a36b5433f";
+    sha256 = "sha256-RQL8oPy/UuOoiFnQi8jCAQGguCYqA74ysSZf9VgPupQ=";
   };
 
   bytecode = fetchFromGitHub {
@@ -18,8 +18,8 @@ let
   src = fetchFromGitHub {
     owner = "dzaima";
     repo = "cbqn";
-    rev = "4961c22c8b67cd136f0b54b2e88e216ae7d2054a";
-    sha256 = "sha256-DK4F/29lppW0lXqEMuB0OrJ1vS/5ZPa1RC+MC0+lgJw=";
+    rev = "fab1ffadf50af8a8fd4037ae68bbfaf7171b3ebc";
+    sha256 = "sha256-hJ6u2As++lPH00umPlQSAjNs1bwDycjM6xEddUJmp/M=";
   };
 
   generic = { useBytecode ? false, bqn ? null, fullTestSuite ? true }:
@@ -28,7 +28,7 @@ let
 
     stdenv.mkDerivation rec {
       pname = "cbqn" + lib.optionalString useBytecode "-bytecode";
-      version = "unstable-2021-09-08";
+      version = "unstable-2021-09-22";
 
       inherit src;
       patches = lib.optional useBytecode ./generated.patch;
