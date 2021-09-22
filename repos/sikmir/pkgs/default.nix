@@ -19,7 +19,6 @@ lib.makeScope newScope (
     openorienteering-mapper-bin = callPackage ./applications/gis/openorienteering-mapper/bin.nix { };
     qutebrowser-bin = callPackage ./applications/networking/qutebrowser/bin.nix { };
     synwrite-bin = callPackage ./applications/synwrite/bin.nix { };
-    visualgps = libsForQt5.callPackage ./applications/visualgps { };
     wireguard-statusbar-bin = callPackage ./applications/wireguard-statusbar { };
 
     ### BUILD SUPPORT
@@ -107,23 +106,6 @@ lib.makeScope newScope (
     wikitextprocessor = callPackage ./development/python-modules/wikitextprocessor { };
     wiktfinnish = callPackage ./development/python-modules/wiktfinnish { };
 
-    ### TOOLS
-
-    datamaps = callPackage ./tools/geo/datamaps { };
-    elevation = callPackage ./tools/geo/elevation {
-      click = click-6-7;
-    };
-    go-staticmaps = callPackage ./tools/geo/go-staticmaps { };
-    mbtiles2osmand = callPackage ./tools/geo/mbtiles2osmand { };
-    py-staticmaps = callPackage ./tools/geo/py-staticmaps { };
-    render_geojson = callPackage ./tools/geo/render_geojson { };
-    rio-mbtiles = callPackage ./tools/geo/rio-mbtiles { };
-    supermercado = callPackage ./tools/geo/supermercado { };
-    tile-stitch = callPackage ./tools/geo/tile-stitch { };
-    tilesets-cli = callPackage ./tools/geo/tilesets-cli { };
-    tpkutils = callPackage ./tools/geo/tpkutils { };
-    vt2geojson = callPackage ./tools/geo/vt2geojson { };
-
     ### DICT
 
     dict2rest = callPackage ./dict/dict2rest { };
@@ -181,6 +163,7 @@ lib.makeScope newScope (
     gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway { };
     geminid = callPackage ./gemini/geminid { };
     gemreader = callPackage ./gemini/gemreader { };
+    gemserv = callPackage ./gemini/gemserv { };
     gloggery = callPackage ./gemini/gloggery { };
     gmi2html = callPackage ./gemini/gmi2html { };
     gmid = callPackage ./gemini/gmid { };
@@ -196,15 +179,34 @@ lib.makeScope newScope (
       inherit (darwin.apple_sdk.frameworks) Security;
     };
 
-    ### GIS
+    ### GEOSPATIAL
 
-    mapsoft = callPackage ./gis/mapsoft { };
-    mapsoft2 = callPackage ./gis/mapsoft/2.nix { };
-    qgis-bin = callPackage ./gis/qgis/bin.nix { };
+    datamaps = callPackage ./geospatial/datamaps { };
+    elevation = callPackage ./geospatial/elevation {
+      click = click-6-7;
+    };
+    go-staticmaps = callPackage ./geospatial/go-staticmaps { };
+    mapsoft = callPackage ./geospatial/mapsoft { };
+    mapsoft2 = callPackage ./geospatial/mapsoft/2.nix { };
+    mbtiles2osmand = callPackage ./geospatial/mbtiles2osmand { };
+    py-staticmaps = callPackage ./geospatial/py-staticmaps { };
+    qgis-bin = callPackage ./geospatial/qgis/bin.nix { };
     qgis-ltr-bin = qgis-bin.override { releaseType = "ltr"; };
-    qmapshack-bin = callPackage ./gis/qmapshack/bin.nix { };
-    sasplanet-bin = callPackage ./gis/sasplanet/bin.nix { };
-    tdh = callPackage ./gis/tdh { };
+    qmapshack-bin = callPackage ./geospatial/qmapshack/bin.nix { };
+    render_geojson = callPackage ./geospatial/render_geojson { };
+    rio-mbtiles = callPackage ./geospatial/rio-mbtiles { };
+    sasplanet-bin = callPackage ./geospatial/sasplanet/bin.nix { };
+    supermercado = callPackage ./geospatial/supermercado { };
+    tdh = callPackage ./geospatial/tdh { };
+    tile-stitch = callPackage ./geospatial/tile-stitch { };
+    tilesets-cli = callPackage ./geospatial/tilesets-cli { };
+    tpkutils = callPackage ./geospatial/tpkutils { };
+    vt2geojson = callPackage ./geospatial/vt2geojson { };
+
+    ### GNSS
+
+    rtklib = callPackage ./gnss/rtklib { };
+    visualgps = libsForQt5.callPackage ./gnss/visualgps { };
 
     ### GPX
 

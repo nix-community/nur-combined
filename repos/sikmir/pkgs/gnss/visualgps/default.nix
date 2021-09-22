@@ -35,7 +35,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "A QT application (GUI) that makes use of the VisualGPS/NMEAParser project";
-    inherit (src.meta) homepage;
+    homepage = "http://visualgps.net/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

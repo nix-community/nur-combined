@@ -1,18 +1,21 @@
 { lib
 , stdenvNoCC
 , fetchFromGitHub
-, maptilerApiKey ? ""
-, mapboxApiKey ? ""
-, thunderforestApiKey ? ""
-, openrouteserviceApiKey ? ""
 , hereApiKey ? ""
+, mapboxApiKey ? ""
+, maptilerApiKey ? ""
+, mmlApiKey ? ""
+, openrouteserviceApiKey ? ""
+, thunderforestApiKey ? ""
 , mapsList ? [
     "World/Asia/nakarte-*.xml"
-    "World/Europe/FI"
-    "World/Europe/RU"
+    "World/Europe/FI/*.xml"
+    "World/Europe/RU/*.xml"
     "World/CyclOSM.xml"
+    "World/Inkatlas-Outdoor.xml"
     "World/MapTiler.xml"
     "World/Mapbox.xml"
+    "World/OPNVKarte.xml"
     "World/OpenStreetMap.xml"
     "World/heidelberg.xml"
     "World/here-*.xml"
@@ -22,34 +25,36 @@
 
 stdenvNoCC.mkDerivation {
   pname = "gpxsee-maps";
-  version = "2021-04-03";
+  version = "2021-07-13";
 
   src = fetchFromGitHub {
     owner = "tumic0";
     repo = "GPXSee-maps";
-    rev = "5adba63fbb5d3919671454d32c802bc1a26c5308";
-    hash = "sha256-pEEpcHl4d6lNHWFlxJot8/swUuE7g6mJSbwhUNbUv5k=";
+    rev = "564e8680ec10f1e64372929aa3657cf5d3ebc84c";
+    hash = "sha256-7iFSGM3ZzgpmOdpVzX/3YUxRD4foXC5KwkcCjKcq8NU=";
   };
 
-  postPatch = ''
-    substitute World/MapTiler.tpl World/MapTiler.xml \
-      --replace "insert-your-apikey-here" "${maptilerApiKey}"
-
-    substitute World/Mapbox.tpl World/Mapbox.xml \
-      --replace "insert-your-apikey-here" "${mapboxApiKey}"
-
-    substitute World/heidelberg.tpl World/heidelberg.xml \
-      --replace "insert-your-apikey-here" "${openrouteserviceApiKey}"
-
-    for m in World/Thundeforest-*.tpl; do
-      substitute $m $m.xml \
-        --replace "insert-your-apikey-here" "${thunderforestApiKey}"
-    done
-
-    for m in World/here-*.tpl; do
-      substitute $m $m.xml \
-        --replace "insert-your-apikey-here" "${hereApiKey}"
-    done
+  postPatch = let
+    insertApiKey = map: key: ''
+      substitute ${map}.{tpl,xml} \
+        --replace "insert-your-apikey-here" "${key}"
+    '';
+  in
+  ''
+    ${insertApiKey "World/Europe/FI/Ilmakuva" mmlApiKey}
+    ${insertApiKey "World/Europe/FI/Maastokartta" mmlApiKey}
+    ${insertApiKey "World/Europe/FI/Selkokartta" mmlApiKey}
+    ${insertApiKey "World/Europe/FI/Taustakartta" mmlApiKey}
+    ${insertApiKey "World/here-base" hereApiKey}
+    ${insertApiKey "World/here-vector" hereApiKey}
+    ${insertApiKey "World/heidelberg" openrouteserviceApiKey}
+    ${insertApiKey "World/MapTiler" maptilerApiKey}
+    ${insertApiKey "World/Mapbox" mapboxApiKey}
+    ${insertApiKey "World/Thunderforest-Landscape" thunderforestApiKey}
+    ${insertApiKey "World/Thunderforest-Neighbourhood" thunderforestApiKey}
+    ${insertApiKey "World/Thunderforest-OpenCycleMap" thunderforestApiKey}
+    ${insertApiKey "World/Thunderforest-Outdoors" thunderforestApiKey}
+    ${insertApiKey "World/Thunderforest-Transport" thunderforestApiKey}
   '';
 
   installPhase = ''

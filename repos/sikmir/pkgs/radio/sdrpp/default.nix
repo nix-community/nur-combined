@@ -29,13 +29,13 @@
 
 stdenv.mkDerivation rec {
   pname = "sdrpp";
-  version = "2021-07-31";
+  version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "AlexandreRouma";
     repo = "SDRPlusPlus";
-    rev = "99096885f54bd056c3e461c8319f71304d5e6e39";
-    hash = "sha256-pCRf/Kk3kJ6M1FkoYthQHZaRm8OZKjJu2bg3g/qQC6o=";
+    rev = version;
+    hash = "sha256-uUWzh/NyvqNvfr/cfiF4FRlSBvQqgIHHxovQA7SH9NY=";
   };
 
   postPatch = ''
@@ -81,8 +81,6 @@ stdenv.mkDerivation rec {
     OPT_BUILD_FREQUENCY_MANAGER = frequency_manager;
     OPT_BUILD_RECORDER = recorder;
   };
-
-  enableParallelBuilding = true;
 
   meta = with lib; {
     description = "Cross-Platform SDR Software";
