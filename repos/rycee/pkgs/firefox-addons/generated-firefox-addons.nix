@@ -71,10 +71,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.7";
+      version = "7.4.8";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3842184/betterttv-7.4.7-fx.xpi";
-      sha256 = "3ab07371cc8c741f6c1b37fec9a8416086bf162eaf4df945fe8a3313db3cd965";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3842849/betterttv-7.4.8-fx.xpi";
+      sha256 = "9929bf96ef187f1a3ebb5d3f203427e1fe84f5d00c4c85bb073dc282f25de52f";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "93.0buildid20210919190049";
+      version = "93.0buildid20210921185902";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3842304/francais_language_pack-93.0buildid20210919190049-fx.xpi";
-      sha256 = "3d622775a4d162de421395f5052643d884cff83cbfc24c36ce3f277d15715679";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3843167/francais_language_pack-93.0buildid20210921185902-fx.xpi";
+      sha256 = "aeb9e374693175c76df47e6944a2d4a686a1ae44a628453b26164411dc4f2d76";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -684,10 +684,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "4.1.0";
+      version = "4.2.8";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3817128/grammatik_und_rechtschreibprufung_languagetool-4.1.0-fx.xpi";
-      sha256 = "6f2fccd1adcf320c5c02e08d3d406cf88baedecdfba111d161a2d6a870ef65df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3841951/grammatik_und_rechtschreibprufung_languagetool-4.2.8-fx.xpi";
+      sha256 = "500807994e4fe088a996e11d016e141e9a7c9b8df5bacfb394dc0ccb5bc6aad6";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
