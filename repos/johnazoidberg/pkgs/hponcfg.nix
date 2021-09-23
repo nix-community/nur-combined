@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl, rpmextract, autoPatchelfHook, makeWrapper, openssl
+{ stdenv, lib, fetchurl, rpmextract, autoPatchelfHook, makeWrapper, openssl, busybox
 }:
 stdenv.mkDerivation rec {
   pname = "hponcfg";
@@ -12,8 +12,6 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     rpmextract autoPatchelfHook makeWrapper
   ];
-
-  buildInputs = [ openssl ];
 
   unpackPhase = ''
     rpmextract $src
@@ -48,7 +46,7 @@ stdenv.mkDerivation rec {
     sed -i 's@${oldFindSslCommandPrefix}@${newFindSslCommandPrefix}@g' $out/bin/hponcfg
 
     wrapProgram "$out/bin/hponcfg" \
-    --prefix PATH : "${openssl}/bin" \
+    --prefix PATH : "${openssl}/bin:${busybox}/bin" \
     --prefix LD_LIBRARY_PATH : "$out/lib"
   '';
 
