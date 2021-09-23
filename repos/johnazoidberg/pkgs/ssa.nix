@@ -5,11 +5,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "ssa";
-  version = "4.17-6.0";
+  version = "5.10-44.0";
 
   src = fetchurl {
     url = "https://downloads.linux.hpe.com/SDR/repo/mcp/centos/8/x86_64/current/${pname}-${version}.x86_64.rpm";
-    sha256 = "sha256:09qykdl54rsni5w01gh6b8m23crig45f21v184kq71nmx7x0qpbx";
+    sha256 = "sha256:0sqrrl91gm03871p5bv1ykc7whq6v0ml2jjapa00xzwh6qjkwypi";
   };
 
   nativeBuildInputs = [

@@ -26,6 +26,8 @@
     "hpssacli"
     "ilorest"
     "ssacli"
+    "ssa"
+    "ssaducli"
   ];
 
   environment.systemPackages = with pkgs; [
@@ -34,8 +36,8 @@
     (pkgs.callPackage ../pkgs/hponcfg.nix {})
     # Newer version than hpssacli installed by HPSmartArray
     (pkgs.callPackage ../pkgs/ssacli.nix {})
-    # ssaducli
-    # ssa service
+    (pkgs.callPackage ../pkgs/ssa.nix {})
+    (pkgs.callPackage ../pkgs/ssaducli.nix {})
 
     # Hardware detection tools
     pciutils      # lspci

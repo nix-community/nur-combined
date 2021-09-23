@@ -2,13 +2,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "ssacli";
-  # TODO: A newer version seems to be available from
-  # https://support.hpe.com/hpesc/public/swd/detail?swItemId=MTX_521fc533ba8f468f9ad9db20e4
-  version = "4.17-6.0";
+  version = "5.10-44.0";
 
   src = fetchurl {
     url = "https://downloads.linux.hpe.com/SDR/repo/mcp/centos/8/x86_64/current/${pname}-${version}.x86_64.rpm";
-    sha256 = "11qfl48bmaszqi4wy2mnpa4f9qhpbh5av36q44nxq7d5carh6i44";
+    sha256 = "sha256:0i6q4pzs5h3p4b6f5gkchxzm23fagw4c5ba4s3lpwc7h1835wzl5";
   };
 
   nativeBuildInputs = [
