@@ -8,7 +8,7 @@ let
   domain = config.networking.domain;
   prololoPkg =
     let
-      flake = builtins.getFlake "github:prologin/prololo?rev=79ccd94629fed838e4224b2dfb48b48fdc03363e";
+      flake = builtins.getFlake "github:prologin/prololo?rev=d7cde3e18a1be9a3a78dca875c542b5d0701b4a5";
     in
       flake.defaultPackage."x86_64-linux"; # FIXME: use correct system
   settingsFormat = pkgs.formats.yaml {};
