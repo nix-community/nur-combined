@@ -240,10 +240,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.35";
+      version = "4.9.36";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3842086/dark_reader-4.9.35-an+fx.xpi";
-      sha256 = "27eac6f94259e04053b24bfc1a3d7e7a45fba1ed63ca6d607c49655f59fb5a73";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3843102/dark_reader-4.9.36-an+fx.xpi";
+      sha256 = "eded8ba84d7740a1084cbfb2fcf2abcad62f2e4689ba0bf3c3f64b3093a2d6e0";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "93.0buildid20210921185902";
+      version = "92.0buildid20210922161155";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3843167/francais_language_pack-93.0buildid20210921185902-fx.xpi";
-      sha256 = "aeb9e374693175c76df47e6944a2d4a686a1ae44a628453b26164411dc4f2d76";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3843764/francais_language_pack-92.0buildid20210922161155-fx.xpi";
+      sha256 = "52e183265f82eeaf4880edeb102736e78d69a7a975bce49a950cf3e40d5441b3";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1041,10 +1041,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.0.5";
+      version = "2.0.7";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3809753/1password_password_manager-2.0.5-fx.xpi";
-      sha256 = "964c741ad57f19bd70d644e0fde1877e91790ed429d9dddbb1825ea8e4c2f174";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3841249/1password-2.0.7-fx.xpi";
+      sha256 = "b2fe4f3b9377dc174d04b75971c8e1e85f3c8a7ffe33fa16460da08db6899fe1";
       meta = with lib;
       {
         homepage = "https://1password.com";
