@@ -154,7 +154,7 @@ in
         };
 
         # I don't care for i3's default values, I specify them all explicitly
-        keybindings = builtins.foldl' (lhs: rhs: lhs // rhs) { } [
+        keybindings = lib.my.recursiveMerge [
           {
             # The basics
             "${modifier}+Return" = "exec ${terminal}";
@@ -298,7 +298,7 @@ in
               in
               lib.my.genAttrs' oneToNine createWorkspaceBinding;
           in
-          builtins.foldl' (lhs: rhs: lhs // rhs) { } [
+          lib.my.recursiveMerge [
             (createWorkspaceBindings modifier "workspace number")
             (createWorkspaceBindings "${modifier}+Shift" "move container to workspace number")
             {

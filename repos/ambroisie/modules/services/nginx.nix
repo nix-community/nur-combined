@@ -173,7 +173,7 @@ in
           domain = config.networking.domain;
           mkVHost = ({ subdomain, ... } @ args: lib.nameValuePair
             "${subdomain}.${domain}"
-            (builtins.foldl' lib.recursiveUpdate { } [
+            (lib.my.recursiveMerge [
               # Base configuration
               {
                 forceSSL = true;

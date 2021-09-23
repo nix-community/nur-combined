@@ -17,11 +17,11 @@ in
 
       users = {
         root = {
-          inherit (secrets.users.root) hashedPassword;
+          initialHashedPassword = secrets.users.root.hashedPassword;
         };
 
         ${config.my.user.name} = {
-          inherit (secrets.users.${config.my.user.name}) hashedPassword;
+          initialHashedPassword = secrets.users.ambroisie.hashedPassword;
           description = "Bruno BELANYI";
           isNormalUser = true;
           shell = pkgs.zsh;
