@@ -88,7 +88,8 @@ rec {
   #################
   ams = pkgs.callPackage ./pkgs/ams.nix {};
   ilorest = pkgs.callPackage ./pkgs/ilorest.nix {};
-  hponcfg = pkgs.callPackage ./pkgs/hponcfg.nix {};
+  hponcfg-unwrapped = pkgs.callPackage ./pkgs/hponcfg-unwrapped.nix {};
+  hponcfg = pkgs.callPackage ./pkgs/hponcfg.nix { inherit hponcfg-unwrapped; };
   ssacli = pkgs.callPackage ./pkgs/ssacli.nix {};
   #proliant-iso = (import <nixpkgs/nixos> {
   #  configuration = import ./isos/proliant.nix;
