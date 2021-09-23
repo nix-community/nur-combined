@@ -32,5 +32,7 @@ rec {
 
   python3Packages = pkgs.recurseIntoAttrs
     (pkgs.python3Packages.callPackage ./pkgs/python-modules { });
+
+  sway-launcher-desktop = pkgs.callPackage ./pkgs/sway-launcher-desktop { };
 }
 
