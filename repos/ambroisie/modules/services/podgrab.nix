@@ -1,5 +1,5 @@
 # A simple podcast fetcher
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.my.services.podgrab;
 in

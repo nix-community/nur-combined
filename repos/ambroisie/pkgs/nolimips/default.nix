@@ -1,4 +1,4 @@
-{ lib, fetchurl, gnulib, stdenv }:
+{ lib, fetchurl, stdenv }:
 stdenv.mkDerivation rec {
   pname = "nolimips";
   version = "0.11";

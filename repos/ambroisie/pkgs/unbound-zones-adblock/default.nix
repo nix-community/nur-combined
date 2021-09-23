@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, gawk, stdenvNoCC, unified-hosts-lists }:
+{ lib, gawk, stdenvNoCC, unified-hosts-lists }:
 stdenvNoCC.mkDerivation rec {
   name = "unbound-zones-adblock";
   version = unified-hosts-lists.version;

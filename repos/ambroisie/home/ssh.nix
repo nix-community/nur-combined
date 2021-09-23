@@ -7,7 +7,7 @@ in
     enable = mkDisableOption "ssh configuration";
   };
 
-  config.programs.ssh = {
+  config.programs.ssh = lib.mkIf cfg.enable {
     enable = true;
 
     matchBlocks = {

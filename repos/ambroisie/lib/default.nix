@@ -12,8 +12,7 @@ let
   };
 
   mylib = makeExtensible (self:
-    with self; mapModules ./.
-      (file: import file { inherit self lib pkgs inputs; })
+    mapModules ./. (file: import file { inherit self lib pkgs inputs; })
   );
 in
 mylib.extend (self: super:
