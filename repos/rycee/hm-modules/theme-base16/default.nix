@@ -98,6 +98,7 @@ in {
     ./dunst.nix
     ./gnome-terminal.nix
     ./gtk.nix
+    ./jq.nix
     ./polybar.nix
     ./rofi.nix
     ./screen-locker.nix

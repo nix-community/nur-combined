@@ -35,7 +35,7 @@ let
     "--clock"
     "--indicator"
     "--timestr='%%H:%%M:%%S'"
-    "--datestr='%%A %%B %%e'"
+    "--datestr='%%a %%b %%e'"
     "--keylayout 1"
   ];
 
