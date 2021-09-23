@@ -30,7 +30,25 @@ with (import ../../globalConfig.nix);
     fortune
     libnotify
     neofetch
-  ] ++ (builtins.attrValues pkgs.webapps);
+  ] 
+  ++ (builtins.attrValues pkgs.webapps)
+  ++ ([
+    (pkgs.webapp.wrap {
+      name = "trello-facul";
+      desktopName = "Trello Faculdade";
+      url = "https://trello.com/b/ov0pbUtC/facul";
+    })
+    (pkgs.webapp.wrap {
+      name = "trello-pessoal";
+      desktopName = "Trello Pessoal";
+      url = "https://trello.com/b/bjoRKSM2/pessoal";
+    })
+    (pkgs.webapp.wrap {
+      name = "trello-sides";
+      desktopName = "Trello Side Projects";
+      url = "https://trello.com/b/36ncJYYV/side-projects";
+    })
+  ]);
 
   home.file.".dotfilerc".text = ''
     #!/usr/bin/env bash

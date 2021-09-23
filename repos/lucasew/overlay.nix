@@ -43,6 +43,7 @@ in reduceJoin [
     obsidian = (cp "${flake.inputs.nixpkgsLatest}/pkgs/applications/misc/obsidian/default.nix");
     webapp = cp ./packages/webapp.nix;
     webapps = import ./packages/chromeapps.nix super;
+    ventoy-bin = cp "${flake.inputs.nixpkgsLatest}/pkgs/tools/cd-dvd/ventoy-bin/default.nix";
     arcan = cp ./packages/arcan.nix;
     c4me = cp ./packages/c4me;
     encore = cp ./packages/encore.nix;
