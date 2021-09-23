@@ -12,8 +12,6 @@ buildGoPackage rec {
     sha256 = "02h4n487wsrfcsfa8829zr5gchs3ay590i3h2gg9nxz32j78y00v";
   };
 
-  buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
-
   meta = with lib; {
     description = "AWS RDS exporter for Prometheus ";
     homepage = "https://github.com/percona/rds_exporter";

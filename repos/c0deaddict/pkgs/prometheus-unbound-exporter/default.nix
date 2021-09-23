@@ -14,8 +14,6 @@ buildGoModule rec {
   vendorSha256 = "1shsvz8kdklnl18bgd3b9igs5bkpyac7hh8k252zh82fi4cl3n5b";
   modSha256 = vendorSha256;
 
-  buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
-
   meta = with lib; {
     description = "Prometheus exporter for Unbound";
     homepage = "https://github.com/c0deaddict/unbound_exporter";

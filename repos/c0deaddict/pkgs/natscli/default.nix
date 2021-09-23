@@ -18,8 +18,6 @@ buildGo116Module rec {
 
   doCheck = false;
 
-  buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
-
   meta = with lib; {
     description = "The NATS Command Line Interface";
     homepage = "https://github.com/nats-io/natscli";

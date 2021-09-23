@@ -14,8 +14,6 @@ buildGoModule rec {
   vendorSha256 = "0cw9xv8qzyzkywwalg6336l50kfkmd4j316l3kvxdh34q7w4vj82";
   modSha256 = vendorSha256;
 
-  buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
-
   checkInputs = [ postgresql ];
 
   # Travis CI is too slow for the integration test.

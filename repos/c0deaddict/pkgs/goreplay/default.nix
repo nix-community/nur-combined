@@ -19,8 +19,6 @@ buildGoModule rec {
   # Requires network.
   doCheck = false;
 
-  buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
-
   postInstall = ''
     mv $out/bin/goreplay $out/bin/gor
   '';

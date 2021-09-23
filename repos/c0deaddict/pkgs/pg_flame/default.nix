@@ -14,8 +14,6 @@ buildGoModule rec {
   vendorSha256 = "1rkx20winh66y2m7i7q13jpr83044i2d1pfd5p5l5kkpsix5mra5";
   modSha256 = vendorSha256;
 
-  buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
-
   meta = with lib; {
     homepage = "https://github.com/mgartner/pg_flame";
     description = "A flamegraph generator for Postgres EXPLAIN ANALYZE output";

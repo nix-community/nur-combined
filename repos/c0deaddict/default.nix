@@ -53,8 +53,6 @@ rec {
 
   stolon = pkgs.callPackage ./pkgs/stolon {};
 
-  yarn2 = pkgs.callPackage ./pkgs/yarn2 {};
-
   zsh-histdb = pkgs.callPackage ./pkgs/zsh-histdb {};
 
   enemyterritory = pkgs.callPackage_i686 ./pkgs/enemyterritory {};
@@ -76,5 +74,13 @@ rec {
   argo-rollouts = pkgs.callPackage ./pkgs/argo-rollouts {};
 
   pamidicontrol = pkgs.callPackage ./pkgs/pamidicontrol {};
+
+  prometheus-nats-exporter = pkgs.callPackage ./pkgs/prometheus-nats-exporter {};
+
+  rpi-imager = pkgs.libsForQt5.callPackage ./pkgs/rpi-imager {};
+
+  i3-balance-workspace = pkgs.python3Packages.callPackage ./pkgs/i3-balance-workspace {};
+
+  kubectl-cert-manager = pkgs.callPackage ./pkgs/kubectl-cert-manager {};
 
 }
