@@ -1649,6 +1649,20 @@
         platforms = platforms.all;
         };
       };
+    "tst-tab-search" = buildFirefoxXpiAddon {
+      pname = "tst-tab-search";
+      version = "0.0.3";
+      addonId = "@tst-search";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3791995/tst_tab_search-0.0.3-fx.xpi";
+      sha256 = "fce8abb36c23bff63a445ce762ff5fab9e51d355f28d42bc0b76949080dee49f";
+      meta = with lib;
+      {
+        homepage = "https://github.com/NiklasGollenstede/tst-search#readme";
+        description = "Search for or filter the Tabs in TST's sidebar, and quickly find and activate them.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
       version = "1.37.2";

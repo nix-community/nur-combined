@@ -476,6 +476,10 @@
     }
   },
   {
+    "slug": "tst-search",
+    "pname": "tst-tab-search"
+  },
+  {
     "slug": "ublock-origin"
   },
   {
