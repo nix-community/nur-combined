@@ -134,32 +134,6 @@ in
       enable = true;
     };
 
-    prololo = {
-      enable = true;
-      port = 8089;
-      settings = {
-        matrix_username = "prololo";
-        matrix_password = config.my.secrets.prololo_password;
-        matrix_homeserver = "https://matrix.alarsyo.net";
-        matrix_state_dir = "./prololo_state_dir";
-        github_secret = config.my.secrets.prololo_github_secret;
-        matrix_rooms = {
-          test-room = { id = config.my.secrets.prololo_room; default = true; };
-          test-room2 = { id = config.my.secrets.prololo_room2; };
-        };
-        destinations = [
-          {
-            regex = "^prologin/.*-playground$";
-            room = "test-room2";
-          }
-          {
-            regex = "^prologin/.*-\\dplayground$";
-            room = "test-room2";
-          }
-        ];
-      };
-    };
-
     tailscale = {
       enable = true;
       exitNode = true;

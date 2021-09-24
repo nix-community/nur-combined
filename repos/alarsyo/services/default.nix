@@ -21,7 +21,6 @@
     ./pipewire.nix
     ./postgresql-backup.nix
     ./postgresql.nix
-    ./prololo.nix
     ./restic-backup.nix
     ./tailscale.nix
     ./tgv.nix
