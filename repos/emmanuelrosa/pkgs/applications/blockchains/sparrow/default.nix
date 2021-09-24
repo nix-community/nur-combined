@@ -19,14 +19,16 @@
 , cairo
 , glib
 , freetype
+, tor
+, gnutar
+, zip
 }:
 
 let launcher = writeScript "sparrow" ''
   #! ${bash}/bin/bash
 
-  modulePath=$(dirname $(dirname $0))/lib
   params=(
-    --module-path $modulePath
+    --module-path @out@/lib
     --add-opens javafx.graphics/com.sun.javafx.css=org.controlsfx.controls
     --add-opens javafx.graphics/javafx.scene=org.controlsfx.controls
     --add-opens javafx.controls/com.sun.javafx.scene.control.behavior=org.controlsfx.controls
@@ -57,6 +59,13 @@ let launcher = writeScript "sparrow" ''
 
   XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS /nix/store/anwva8fk7zf2ykjkzggjkg38wd7sxx39-openjdk-16+36/bin/java ''${params[@]} $@
 '';
+
+  torWrapper = writeScript "tor-wrapper" ''
+    #! ${bash}/bin/bash
+
+    exec ${tor}/bin/tor "$@"
+  '';
+
 in stdenv.mkDerivation rec {
   pname = "sparrow";
   version = "1.4.3";
@@ -104,12 +113,24 @@ in stdenv.mkDerivation rec {
     popd
   '';
 
+  postBuild = ''
+    # Set execute bit for executables within the modules.
+    chmod ugo+x sparrow-modules/com.sparrowwallet.sparrow/native/linux/x64/hwi
+
+    # Replace the embedded Tor binary (which is in a Tar archive)
+    # with one from Nixpkgs.
+    cp ${torWrapper} ./tor
+    tar -cJf tor.tar.xz tor
+    cp tor.tar.xz sparrow-modules/netlayer.jpms/native/linux/x64/tor.tar.xz 
+  '';
+
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin $out/lib
     cp -r sparrow-modules/* $out/lib/
-    install -Dmu+x ${launcher} $out/bin/sparrow
+    install -D -m 777 ${launcher} $out/bin/sparrow
+    substituteAllInPlace $out/bin/sparrow
 
     for n in 16 24 32 48 64 96 128 256; do
       size=$n"x"$n
