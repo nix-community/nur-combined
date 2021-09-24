@@ -90,10 +90,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.52.1";
+      version = "1.53.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3831245/bitwarden_free_password_manager-1.52.1-an+fx.xpi";
-      sha256 = "95d6ed5d3b4dabc8291d1a0a337dbc6cfe21920a23ab4a5e1fe3b014169e4bba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3843699/bitwarden_free_password_manager-1.53.0-an+fx.xpi";
+      sha256 = "fc45a4faaed8a9aed2a36fcdf5473756a98a73bd51a9104e18642f43903ea4d9";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -406,10 +406,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.7.0";
+      version = "4.8.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3820867/floccus-4.7.0-fx.xpi";
-      sha256 = "9291baf7fa1f0c8fc2702f5087edcc26e30a950d73945720a5ce2d998c28e2ca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3844163/floccus-4.8.0-fx.xpi";
+      sha256 = "9c4104f9c116b52befb86925bd8892ccde6d2898960e3bcd8ffe6539166462d0";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "92.0buildid20210922161155";
+      version = "93.0buildid20210923190449";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3843764/francais_language_pack-92.0buildid20210922161155-fx.xpi";
-      sha256 = "52e183265f82eeaf4880edeb102736e78d69a7a975bce49a950cf3e40d5441b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3844313/francais_language_pack-93.0buildid20210923190449-fx.xpi";
+      sha256 = "ee5ab102b99b2111192fd260c1faaa909798671a1ff7ead06478582b8de1b5e3";
       meta = with lib;
       {
         description = "Français Language Pack";
