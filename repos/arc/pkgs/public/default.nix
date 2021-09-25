@@ -16,6 +16,7 @@
   gst-protectbuffer = import ./gst-protectbuffer.nix;
   gst-rtsp-launch = import ./gst-rtsp-launch;
   zsh-completions-abduco = import ./zsh-completions-abduco.nix;
+  lua-amalg = import ./lua-amalg.nix;
 }
 // (import ./droid.nix)
 // (import ./base16)
