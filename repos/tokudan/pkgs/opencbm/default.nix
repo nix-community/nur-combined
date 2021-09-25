@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub,
+{ stdenv, lib, fetchFromGitHub,
   pkg-config,
   libusb1, ncurses, which,
   cc65,
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     EOF
     '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Tools to access the Commodore 1541 and similar disk drives from PCs";
     homepage    = https://github.com/OpenCBM/OpenCBM;
     license     = licenses.gpl2;

@@ -3,23 +3,23 @@
 
 buildGoModule rec {
   name = "writefreely-${version}";
-  version = "0.12.0";
+  version = "0.13.1";
 
   src = fetchFromGitHub {
     owner = "writeas";
     repo = "writefreely";
     rev = "v${version}";
-    sha256 = "1594s38ryw97vggki9mrn6pfqz1acacpsjw4g0sz3imp7dy53fp8";
+    sha256 = "0w51gvw153rp9r1b595rzvs869avaq589vmypsyw3fxz6251x1x9";
   };
 
   assets = fetchurl {
     url = "https://github.com/writeas/writefreely/releases/download/v${version}/writefreely_${version}_linux_amd64.tar.gz";
-    sha256 = "04y6f32w2v3hsizclg41gdb7pgvpnd4dmjpwkzf8kxxk3jhwsqwm";
+    sha256 = "18k85plnfd5zcj58dan2mxxrwabvjk3ih3yi9mx35idwj4pwr14c";
   };
 
   buildInputs = [ go-bindata ];
 
-  vendorSha256 = "0kza5w0zykxklkdi5gcfwvgp1mbhw5j8px20624g7bshqa8c0pjk";
+  vendorSha256 = "08bwrpyv2cda8s6ag4xl3mdx4hyy3qjzp0j9l3simxnarnsyy4q8";
   subPackages = [ "cmd/writefreely/" ];
 
   preBuild = ''

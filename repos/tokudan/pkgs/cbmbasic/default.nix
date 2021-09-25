@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub,
+{ stdenv, lib, fetchFromGitHub,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     install -m 0555 cbmbasic $out/bin
     '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Commodore BASIC V2 as a scripting language";
     homepage    = https://github.com/mist64/cbmbasic;
     license     = licenses.unfree;

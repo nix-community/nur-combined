@@ -21,11 +21,11 @@ stdenv.mkDerivation rec {
     ln -s "${dataDir}" $out/data
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "a self-hosted RSS feed aggregator like Leed or Kriss Feed";
     license = licenses.agpl3;
     homepage = https://www.freshrss.org/;
     platforms = platforms.all;
-    maintainers = with stdenv.lib.maintainers; [ tokudan ];
+    maintainers = with maintainers; [ tokudan ];
   };
 }

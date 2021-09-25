@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub,
+{ stdenv, lib, fetchFromGitHub,
  } :
 
 stdenv.mkDerivation rec {
@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = https://github.com/keirf/Disk-Utilities;
     description  = "collection of utilities for ripping, dumping, analysing, and modifying disk images";
-    #license = stdenv.lib.licenses.gpl3;
-    maintainers = with stdenv.lib.maintainers; [ tokudan ];
-    platforms = stdenv.lib.platforms.all;
+    maintainers = with lib.maintainers; [ tokudan ];
+    platforms = lib.platforms.all;
   };
 }

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub,
+{ stdenv, lib, fetchFromGitHub,
  } :
 
 stdenv.mkDerivation rec {
@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = https://github.com/shamada-code/superdiskindex;
     description  = "commandline tool to analyze and convert floppy disk flux captures (scp format) to emulator friendly formats (and metainfo for archive purposes)";
-    #license = stdenv.lib.licenses.gpl3;
-    maintainers = with stdenv.lib.maintainers; [ tokudan ];
-    platforms = stdenv.lib.platforms.all;
+    maintainers = with lib.maintainers; [ tokudan ];
+    platforms = lib.platforms.all;
   };
 }

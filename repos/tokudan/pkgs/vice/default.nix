@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, bison, flex, perl, libpng, giflib, libjpeg, alsaLib, readline, libGLU, libGL, libXaw, ffmpeg, file, dos2unix, texinfo, doxygen
+{ stdenv, lib, fetchurl, bison, flex, perl, libpng, giflib, libjpeg, alsaLib, readline, libGLU, libGL, libXaw, ffmpeg, file, dos2unix, texinfo, doxygen
 , xa
 , pkgconfig, gtk2, SDL2, autoreconfHook, makeDesktopItem
 }:
@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Commodore 64, 128 and other emulators";
     homepage = "http://www.viceteam.org";
-    license = stdenv.lib.licenses.gpl2Plus;
-    maintainers = [ stdenv.lib.maintainers.tokudan ];
-    platforms = stdenv.lib.platforms.linux;
+    license = lib.licenses.gpl2Plus;
+    maintainers = [ lib.maintainers.tokudan ];
+    platforms = lib.platforms.linux;
   };
 }

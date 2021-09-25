@@ -1,4 +1,4 @@
-{ stdenv, fetchurl,
+{ stdenv, lib, fetchurl,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     cp -Rv doc $out/share
     '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "xa is a high-speed, two-pass portable cross-assembler. It understands mnemonics and generates code for NMOS 6502s (such as 6502A, 6504, 6507, 6510, 7501, 8500, 8501, 8502 ...), CMOS 6502s (65C02 and Rockwell R65C02) and the 65816.";
     homepage    = https://www.floodgap.com/retrotech/xa/;
     license     = licenses.gpl2;

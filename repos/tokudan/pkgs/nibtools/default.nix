@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, fetchsvn, fetchFromGitHub, writeText,
+{ stdenv, lib, fetchgit, fetchsvn, fetchFromGitHub, writeText,
   pkg-config, libusb1, ncurses, which,
   cc65, opencbm,
 }:
@@ -42,12 +42,10 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "all" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "a disk transfer program designed for copying original disks and converting into the G64 and D64 disk image formats";
     homepage    = https://c64preservation.com/dp.php?pg=nibtools;
     license     = licenses.unfree;
     maintainers = with maintainers; [ tokudan ];
   };
 }
-
-
