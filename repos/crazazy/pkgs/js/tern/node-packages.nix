@@ -94,13 +94,13 @@ let
         sha1 = "1504ad2523158caa40db4a2787cb01411994ea4f";
       };
     };
-    "glob-7.1.7" = {
+    "glob-7.2.0" = {
       name = "glob";
       packageName = "glob";
-      version = "7.1.7";
+      version = "7.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/glob/-/glob-7.1.7.tgz";
-        sha512 = "OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==";
+        url = "https://registry.npmjs.org/glob/-/glob-7.2.0.tgz";
+        sha512 = "lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==";
       };
     };
     "graceful-fs-4.2.8" = {
@@ -282,7 +282,7 @@ let
       sources."enhanced-resolve-2.3.0"
       sources."errno-0.1.8"
       sources."fs.realpath-1.0.0"
-      sources."glob-7.1.7"
+      sources."glob-7.2.0"
       sources."graceful-fs-4.2.8"
       sources."inflight-1.0.6"
       sources."inherits-2.0.4"
