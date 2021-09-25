@@ -240,10 +240,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.36";
+      version = "4.9.37.1";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3843102/dark_reader-4.9.36-an+fx.xpi";
-      sha256 = "eded8ba84d7740a1084cbfb2fcf2abcad62f2e4689ba0bf3c3f64b3093a2d6e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3844210/dark_reader-4.9.37.1-an+fx.xpi";
+      sha256 = "4490abc7fada6ac429c2d034387b60d51ecfd4fc710eff2402b2793db3925c01";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -703,10 +703,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.80.0.3";
+      version = "4.81.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3839710/lastpass_password_manager-4.80.0.3-an+fx.xpi";
-      sha256 = "84325efae90659b41883ba8938d56bee4e7044f66b01c70ec12173dfb06be900";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3844191/lastpass_password_manager-4.81.0.3-an+fx.xpi";
+      sha256 = "4c248739c7f134c282d1a3eb88f46ad6cc1bfb6f5d1bd677a1550aedc1f854fc";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1041,10 +1041,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.0.7";
+      version = "2.1.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3841249/1password-2.0.7-fx.xpi";
-      sha256 = "b2fe4f3b9377dc174d04b75971c8e1e85f3c8a7ffe33fa16460da08db6899fe1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3843961/1password-2.1.0-fx.xpi";
+      sha256 = "fef22a736ba350be4b3d7aa2cb1d2f1d7b6b4e8c9be0a4b0c1afda026b726c0e";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -1342,10 +1342,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "3.7.1";
+      version = "3.9.1";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3815277/search_by_image-3.7.1-an+fx.xpi";
-      sha256 = "c893835efe00471376df0f60cb519bf35ffb72ed3c32362e4fb9b2faca87d1b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3844605/search_by_image-3.9.1-an+fx.xpi";
+      sha256 = "c7d4c71e0abc59b387c34a5715768e568b9324d2dded21140904fb08751f9ca4";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image";
