@@ -16,6 +16,7 @@ packageSet = do
   ghPkg "TimothyYe" "godns"
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
+  gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
   clashForWindows
   clashForWindowsIcon
   icalingua
@@ -24,6 +25,9 @@ packageSet = do
 
 ghPkg :: Text -> Text -> PackageSet ()
 ghPkg owner repo = define $ package repo `fromGitHub` (owner, repo)
+
+gitPkg :: Text -> Text -> PackageSet ()
+gitPkg name git = define $ package name `sourceGit` git `fetchGit` git
 
 clashPremium :: Text -> Text -> PackageSet ()
 clashPremium sys goSys =

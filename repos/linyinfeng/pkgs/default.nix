@@ -7,6 +7,7 @@
   dpt-rp1-py = pkgs.callPackage ./dpt-rp1-py { inherit sources; };
   godns = pkgs.callPackage ./godns { inherit sources; };
   icalingua = pkgs.callPackage ./icalingua { inherit sources; };
+  telegram-send = pkgs.callPackage ./telegram-send { inherit sources; };
   trojan = pkgs.callPackage ./trojan { inherit sources; };
   # updater = pkgs.callPackage ./updater { }; # only include updater in flake
   vlmcsd = pkgs.callPackage ./vlmcsd { inherit sources; };

@@ -47,6 +47,7 @@
           mkApp "dpt-rp1-py" { name = "dptrp1"; } //
           mkApp "godns" { } //
           mkApp "icalingua" { } //
+          mkApp "telegram-send" { } //
           mkApp "trojan" { } //
           mkApp "updater" { } //
           mkApp "vlmcsd" { } //
@@ -94,6 +95,11 @@
       overlays = {
         linyinfeng = final: prev: {
           linyinfeng = self.packages.${final.system};
+        };
+        singleRepoNur = final: prev: {
+          nur = prev.lib.recursiveUpdate prev.nur {
+            repos.linyinfeng = self.packages.${final.system};
+          };
         };
       } // import ./overlays;
     };

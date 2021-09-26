@@ -99,6 +99,19 @@
     };
 
   };
+  telegram-send = {
+    pname = "telegram-send";
+    version = "2eb23bde734137b10da80fdf2e8a48d34f074454";
+    src = fetchgit {
+      url = "https://github.com/rahiel/telegram-send.git";
+      rev = "2eb23bde734137b10da80fdf2e8a48d34f074454";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0xix3fh1wjkcgmmhg2gkflzcdyzy3vzqabwwh566flggc619qb78";
+    };
+
+  };
   trojan = {
     pname = "trojan";
     version = "v1.16.0";
