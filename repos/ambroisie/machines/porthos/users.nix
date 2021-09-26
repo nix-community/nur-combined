@@ -10,6 +10,6 @@ in
     group = "nginx";
     createHome = false; # Messes with permissions
     home = "/var/www/";
-    openssh.authorizedKeys.keys = [ my.secrets.drone.ssh.publicKey ];
+    openssh.authorizedKeys.keyFiles = [ ./ssh/drone.pub ];
   };
 }

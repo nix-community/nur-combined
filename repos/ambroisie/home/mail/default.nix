@@ -6,9 +6,9 @@ let
 in
 {
   imports = [
-    ./accounts.nix
-    ./himalaya.nix
-    ./msmtp.nix
+    ./accounts
+    ./himalaya
+    ./msmtp
   ];
 
   options.my.home.mail = with lib; {

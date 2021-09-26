@@ -58,6 +58,8 @@ get_ssh() {
 
     get_doc "SysAdmin/SSH" "shared-key-public" "$HOME/.ssh/shared_rsa.pub" 644
     get_doc "SysAdmin/SSH" "shared-key-private" "$HOME/.ssh/shared_rsa" 600
+    get_doc "SysAdmin/SSH" "agenix-public" "$HOME/.ssh/id_ed25519.pub" 644
+    get_doc "SysAdmin/SSH" "agenix-private" "$HOME/.ssh/id_ed25519" 600
 }
 
 get_pgp() {

@@ -4,9 +4,9 @@ type: exec
 name: NixOS config check
 
 steps:
-- name: format check
+- name: nix flake check
   commands:
-  - nix develop -c nixpkgs-fmt .
+  - nix flake check
 
 - name: notifiy
   commands:

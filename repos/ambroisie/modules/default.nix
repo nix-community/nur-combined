@@ -4,8 +4,9 @@
 {
   imports = [
     ./hardware
-    ./home.nix
+    ./home
     ./programs
+    ./secrets
     ./services
     ./system
   ];

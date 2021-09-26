@@ -1,6 +1,16 @@
 {
   description = "NixOS configuration with flakes";
   inputs = {
+    agenix = {
+      type = "github";
+      owner = "ryantm";
+      repo = "agenix";
+      ref = "master";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     futils = {
       type = "github";
       owner = "numtide";
@@ -47,6 +57,7 @@
   outputs =
     inputs @
     { self
+    , agenix
     , futils
     , home-manager
     , nixpkgs
@@ -74,8 +85,6 @@
         ./modules
         # Include bundles of settings
         ./profiles
-        # Include my secrets
-        ./secrets
       ];
 
       buildHost = name: system: lib.nixosSystem {
@@ -119,7 +128,6 @@
           name = "NixOS-config";
 
           nativeBuildInputs = with pkgs; [
-            git-crypt
             gitAndTools.pre-commit
             gnupg
             nixpkgs-fmt

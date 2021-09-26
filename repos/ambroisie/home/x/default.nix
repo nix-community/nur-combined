@@ -4,8 +4,8 @@ let
 in
 {
   imports = [
-    ./cursor.nix
-    ./keyboard.nix
+    ./cursor
+    ./keyboard
   ];
 
   options.my.home.x = with lib; {

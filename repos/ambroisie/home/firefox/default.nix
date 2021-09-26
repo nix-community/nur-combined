@@ -23,7 +23,7 @@
   };
 
   imports = [
-    ./firefox.nix
-    ./tridactyl.nix
+    ./firefox
+    ./tridactyl
   ];
 }

@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "agenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1631896269,
+        "narHash": "sha256-DAyCxJ8JacayOzGgGSfzrn7ghtsfL/EsCyk1NEUaAR8=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "daf1d773989ac5d949aeef03fce0fe27e583dbca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "ref": "master",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "futils": {
       "locked": {
         "lastModified": 1629481132,
@@ -95,6 +116,7 @@
     },
     "root": {
       "inputs": {
+        "agenix": "agenix",
         "futils": "futils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",

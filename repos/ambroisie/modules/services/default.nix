@@ -2,33 +2,33 @@
 
 {
   imports = [
-    ./adblock.nix
-    ./backup.nix
-    ./blog.nix
-    ./calibre-web.nix
-    ./drone.nix
-    ./flood.nix
-    ./gitea.nix
-    ./indexers.nix
-    ./jellyfin.nix
-    ./lohr.nix
-    ./matrix.nix
-    ./miniflux.nix
-    ./monitoring.nix
-    ./navidrome.nix
-    ./nextcloud.nix
-    ./nginx.nix
-    ./paperless.nix
-    ./pirate.nix
-    ./podgrab.nix
-    ./postgresql-backup.nix
-    ./postgresql.nix
-    ./quassel.nix
-    ./rss-bridge.nix
-    ./sabnzbd.nix
-    ./ssh-server.nix
-    ./tlp.nix
-    ./transmission.nix
-    ./wireguard.nix
+    ./adblock
+    ./backup
+    ./blog
+    ./calibre-web
+    ./drone
+    ./flood
+    ./gitea
+    ./indexers
+    ./jellyfin
+    ./lohr
+    ./matrix
+    ./miniflux
+    ./monitoring
+    ./navidrome
+    ./nextcloud
+    ./nginx
+    ./paperless
+    ./pirate
+    ./podgrab
+    ./postgresql-backup
+    ./postgresql
+    ./quassel
+    ./rss-bridge
+    ./sabnzbd
+    ./ssh-server
+    ./tlp
+    ./transmission
+    ./wireguard
   ];
 }

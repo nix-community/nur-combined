@@ -10,11 +10,11 @@ let
 in
 {
   imports = [
-    ./dunst.nix
-    ./i3.nix
-    ./i3bar.nix
-    ./rofi.nix
-    ./screen-lock.nix
+    ./dunst
+    ./i3
+    ./i3bar
+    ./rofi
+    ./screen-lock
   ];
 
   options.my.home.wm = with lib; {

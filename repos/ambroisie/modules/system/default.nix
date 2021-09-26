@@ -3,11 +3,11 @@
 
 {
   imports = [
-    ./boot.nix
-    ./documentation.nix
-    ./language.nix
-    ./nix.nix
-    ./packages.nix
-    ./users.nix
+    ./boot
+    ./documentation
+    ./language
+    ./nix
+    ./packages
+    ./users
   ];
 }

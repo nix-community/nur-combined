@@ -10,7 +10,7 @@ let
 in
 {
   imports = [
-    ./termite.nix
+    ./termite
   ];
 
   options.my.home = with lib; {

@@ -2,11 +2,11 @@
 { ... }:
 {
   imports = [
-    ./bluetooth.nix
-    ./devices.nix
-    ./gtk.nix
-    ./laptop.nix
-    ./wm.nix
-    ./x.nix
+    ./bluetooth
+    ./devices
+    ./gtk
+    ./laptop
+    ./wm
+    ./x
   ];
 }

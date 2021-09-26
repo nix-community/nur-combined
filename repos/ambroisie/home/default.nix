@@ -1,38 +1,37 @@
 { ... }:
 {
   imports = [
-    ./bat.nix
-    ./bluetooth.nix
-    ./comma.nix
-    ./direnv.nix
-    ./documentation.nix
-    ./feh.nix
+    ./bat
+    ./bluetooth
+    ./comma
+    ./direnv
+    ./documentation
+    ./feh
     ./firefox
-    ./flameshot.nix
-    ./gammastep.nix
+    ./flameshot
+    ./gammastep
     ./gdb
     ./git
-    ./gpg.nix
-    ./gtk.nix
-    ./htop.nix
-    ./jq.nix
+    ./gpg
+    ./gtk
+    ./htop
+    ./jq
     ./mail
-    ./mpv.nix
-    ./nix-index.nix
-    ./nm-applet.nix
-    ./packages.nix
-    ./pager.nix
-    ./power-alert.nix
-    ./secrets # Home-manager specific secrets
-    ./ssh.nix
+    ./mpv
+    ./nix-index
+    ./nm-applet
+    ./packages
+    ./pager
+    ./power-alert
+    ./ssh
     ./terminal
-    ./tmux.nix
-    ./udiskie.nix
+    ./tmux
+    ./udiskie
     ./vim
     ./wm
     ./x
-    ./xdg.nix
-    ./zathura.nix
+    ./xdg
+    ./zathura
     ./zsh
   ];
 
