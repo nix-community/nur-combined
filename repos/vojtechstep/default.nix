@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -17,5 +17,10 @@
   uwu = pkgs.callPackage ./pkgs/uwu { };
   inherit (pkgs.libsForQt5.callPackage ./pkgs/qtmips { }) qtmips-unstable qtmips-075;
   hentaifetch = pkgs.callPackage ./pkgs/hentaifetch { };
+  bqn = pkgs.callPackage ./pkgs/bqn/bqn.nix { };
+  cbqn = pkgs.callPackage ./pkgs/bqn/cbqn.nix {
+    inherit bqn;
+    bqnRuntimeSrc = bqn.src;
+  };
 }
 
