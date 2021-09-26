@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, bqn, bqnRuntimeSrc }:
+{ lib, stdenv, fetchFromGitHub, bqn, bqnRuntimeSrc, bash }:
 
 let
   name = "cbqn";
@@ -23,8 +23,8 @@ stdenv.mkDerivation {
         else abort "Unsupported compiler: ${stdenv.cc}";
     in
     ''
-      ./genRuntime ${bqnRuntimeSrc}
-      make CC=${CC}
+      ${bqn}/bin/bqn ./genRuntime ${bqnRuntimeSrc}
+      make SHELL=${bash}/bin/bash CC=${CC}
     '';
   installPhase = ''
     mkdir -p $out/bin
