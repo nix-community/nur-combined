@@ -276,6 +276,18 @@
       default_permissions = config.permissions;
     };
   });
+  fileType = types.submodule ({ config, name, ... }: {
+    options = {
+      text = mkOption {
+        type = types.lines;
+      };
+      source = mkOption {
+        type = types.path;
+        default = pkgs.writeText name config.text;
+        defaultText = ''pkgs.writeText name text'';
+      };
+    };
+  });
 in {
   options.services.wireplumber = {
     enable = mkEnableOption "wireplumber";
@@ -292,8 +304,13 @@ in {
         type = with types; listOf path;
       };
       configFile = mkOption {
-        type = types.path;
-        internal = true;
+        type = types.str;
+        default = "${pkgs.writeText "wireplumber.conf" (builtins.toJSON cfg.config)}";
+        defaultText = ''pkgs.writeText "wireplumber.conf" (toJSON config)'';
+      };
+      moduleDir = mkOption {
+        type = with types; nullOr path;
+        default = null;
       };
     };
     logLevel = mkOption {
@@ -302,6 +319,10 @@ in {
     };
     lua = {
       enable = mkEnableOption "lua scripting engine" // { default = true; };
+      scripts = mkOption {
+        type = with types; attrsOf fileType;
+        default = { };
+      };
     };
     access = {
       enable = mkEnableOption "default access module" // { default = true; };
@@ -435,32 +456,29 @@ in {
         };
       };
     };
-    scripts = mkOption {
-      type = with types; attrsOf lines;
-      default = { };
-    };
     components = mkOption {
       type = types.listOf wireplumberModuleType;
     };
     config = mkOption {
       type = with types; attrsOf (either (attrsOf pipewireContextType) (listOf pipewireContextType));
     };
-    moduleDir = mkOption {
-      type = with types; nullOr path;
-      default = null;
-    };
   };
 
   config = {
     services.wireplumber = {
       service = {
-        configFile = pkgs.writeText "wireplumber.conf" (builtins.toJSON cfg.config);
         dataDir = mkOptionDefault "${pkgs.symlinkJoin {
           name = "wireplumber-data";
           paths = cfg.service.dataDirPaths;
         }}";
         dataDirPaths = singleton "${cfg.package}/share/wireplumber"
-        ++ mapAttrsToList (name: pkgs.writeText "scripts/${name}") cfg.scripts;
+        ++ mapAttrsToList (scriptName: file: pkgs.runCommand "wireplumber-${scriptName}.lua" {
+          inherit scriptName;
+          inherit (file) source;
+        } ''
+          mkdir -p $out/scripts
+          ln -s $source $scriptName.lua
+        '') cfg.lua.scripts;
       };
       pipewire = {
         modules = mkMerge [
@@ -671,14 +689,13 @@ in {
     environment.systemPackages = mkIf cfg.enable [ cfg.package ];
     systemd.packages = mkIf cfg.enable [ cfg.package ];
     systemd.user.services.wireplumber = mkIf cfg.enable {
-      #serviceConfig.ExecStart = [ "" "${cfg.package}/bin/wireplumber -c ${cfg.service.configFile}" ]; # empty line clears the default
+      serviceConfig.ExecStart = [
+        "" # empty line clears the default
+        "${cfg.package}/bin/wireplumber -c ${cfg.service.configFile}"
+      ];
       environment = {
         WIREPLUMBER_DATA_DIR = cfg.service.dataDir;
-        WIREPLUMBER_CONFIG_DIR = "${pkgs.linkFarm "wireplumber.conf" [ {
-          name = "wireplumber.conf";
-          path = cfg.service.configFile;
-        } ]}";
-        WIREPLUMBER_MODULE_DIR = mkIf (cfg.moduleDir != null) cfg.moduleDir;
+        WIREPLUMBER_MODULE_DIR = mkIf (cfg.service.moduleDir != null) cfg.service.moduleDir;
         # SPA_PLUGIN_DIR, PIPEWIRE_MODULE_DIR ?
       };
       wantedBy = singleton "pipewire.service";
