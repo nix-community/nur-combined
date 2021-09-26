@@ -981,10 +981,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.0.7";
+      version = "7.1.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3815564/octotree_github_code_tree-7.0.7-fx.xpi";
-      sha256 = "b2c673e722ade199359f9ee721308bda57e1ebb3be270c6e9723e77e84b98e9d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3845186/octotree_github_code_tree-7.1.0-fx.xpi";
+      sha256 = "5662ab15d381aa987a6a3d6af351886a99ee9c502f8b8095fcf05abda4ce3ed3";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1749,10 +1749,10 @@
       };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
-      version = "1.2.2";
+      version = "1.2.3";
       addonId = "vim-vixen@i-beam.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3819811/vim_vixen-1.2.2-an+fx.xpi";
-      sha256 = "f2421b7441dacca6cd3b8ced0f2578e5bf1909101249ef072f98786e3ae72ed8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3845233/vim_vixen-1.2.3-an+fx.xpi";
+      sha256 = "8f86c77ac8e65dfd3f1a32690b56ce9231ac7686d5a86bf85e3d5cc5a3a9e9b5";
       meta = with lib;
       {
         homepage = "https://github.com/ueokande/vim-vixen";
@@ -1818,10 +1818,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.45.0";
+      version = "2.45.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3815255/web_scrobbler-2.45.0-an+fx.xpi";
-      sha256 = "368688954bb861036ceefcec4fec160471e07a210e3cefd946bf4b84732612fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3845153/web_scrobbler-2.45.1-an+fx.xpi";
+      sha256 = "3da731dc686be6badeae557e69bdfdc3c2928a70e5e8624a2a06b291b92f212a";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
