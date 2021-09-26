@@ -52,7 +52,7 @@ in reduceJoin [
     nixwrap = cp ./packages/nixwrap.nix;
     cisco-packet-tracer7 = cp ./packages/cisco-packet-tracer7.nix;
     cisco-packet-tracer8 = cp ./packages/cisco-packet-tracer8.nix;
-    custom_neovim = cp ./modules/neovim/package.nix;
+    custom_neovim = cp ./packages/neovim/package.nix;
     wineApps = {
       wine7zip = cp ./packages/wineApps/7zip.nix;
       cs_extreme = cp ./packages/wineApps/cs_extreme.nix;

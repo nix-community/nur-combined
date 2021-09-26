@@ -36,7 +36,23 @@ let
       sha256 = "CEPT2LtDc5hKnA7wrdEX6nzik29o6ewUgGvif5j5l+c=";
     };
   };
-in pkgs.neovim.override {
+  neovimAltered = pkgs.neovim-unwrapped.overrideAttrs (old: rec {
+    version = "0.5.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "neovim";
+      repo = "neovim";
+      rev = "v${version}";
+      sha256 = "0lgbf90sbachdag1zm9pmnlbn35964l3khs27qy4462qzpqyi9fi";
+    };
+    cmakeFlags = old.cmakeFlags ++ ([
+      "-DUSE_BUNDLED=OFF"
+    ]);
+    buildInputs = old.buildInputs ++ (with pkgs;[
+      tree-sitter
+    ]);
+  });
+in pkgs.wrapNeovim neovimAltered {
   configure = {
     plug.plugins = with pkgs.vimPlugins; [
       LanguageClient-neovim

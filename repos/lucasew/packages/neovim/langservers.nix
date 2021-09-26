@@ -17,4 +17,5 @@ in
   zig = ["zls"]; # from a external overlay
   dart = ["${pkgs.dart}/bin/dart" "${pkgs.dart}/bin/snapshots/analysis_server.dart.snapshot" "--lsp"];
   sh = ["bash-language-server" "start"]; # nodePackages.bash-language-server
+  lua = ["lua-lsp"];
 }

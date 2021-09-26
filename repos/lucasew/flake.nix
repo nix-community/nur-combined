@@ -9,7 +9,7 @@
     };
     nix-ld.url = "github:Mic92/nix-ld";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
-    nixpkgsLatest.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgsLatest.url = "github:NixOS/nixpkgs/master";
     nur.url = "github:nix-community/NUR/master";
     pocket2kindle = {
       url = "github:lucasew/pocket2kindle";
