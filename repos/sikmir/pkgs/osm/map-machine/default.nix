@@ -2,14 +2,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "map-machine";
-  version = "2021-09-14";
+  version = "2021-09-26";
   disabled = python3Packages.pythonOlder "3.9";
 
   src = fetchFromGitHub {
     owner = "enzet";
     repo = pname;
-    rev = "cc9826ae578b62bbe864c8e24f6931ad28fdac44";
-    hash = "sha256-qFM+LNtRL6QCXQ6kiJuSAMfxu5Np8hM3YTKeayoE20g=";
+    rev = "4644d381665bdc1f2ea12bd6d9a70134c6ed9928";
+    hash = "sha256-DZnbFBZpJWPjilA0wSDS/q7aqHG0Hd9EUWBNMaSZLtI=";
   };
 
   propagatedBuildInputs = with python3Packages; [
@@ -20,6 +20,7 @@ python3Packages.buildPythonApplication rec {
     portolan
     pycairo
     pyyaml
+    shapely
     svgwrite
     urllib3
   ];

@@ -2,16 +2,17 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "morecantile";
-  version = "2.1.1";
+  version = "3.0.0";
+  disabled = python3Packages.pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = pname;
     rev = version;
-    hash = "sha256-JX8wwR1I7+6qQq4OBJakQZx/uVkyJeaTjDZPWZeD+7I=";
+    hash = "sha256-k4EfOYXXyOmcWs6pi/7Muk8X1ncIyoo6R1LWfuobpWQ=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ pydantic rasterio ];
+  propagatedBuildInputs = with python3Packages; [ pydantic pyproj ];
 
   checkInputs = with python3Packages; [ mercantile pytestCheckHook ];
 
