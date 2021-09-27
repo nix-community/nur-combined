@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "zigup";
-  version = "unstable-2021-06-16";
+  version = "unstable-2021-09-26";
 
   src = fetchzip {
     url =
-      "https://nightly.link/marler8997/zigup/actions/artifacts/68302209.zip";
+      "https://github.com/marler8997/zigup/releases/download/v2021_06_17/zigup.ubuntu-latest.zip";
     sha256 = "sha256-akDNu+KOXcB2sphYCKJU0yZ37B8b6zGzgjeNfu1eP1U=";
   };
 

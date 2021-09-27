@@ -1,25 +1,25 @@
-{ stdenv, fetchFromGitHub, lib, zig }:
+{ stdenv, fetchFromGitHub, lib, zig-master }:
 
 stdenv.mkDerivation rec {
   name = "gyro";
-  version = "unstable-2021-05-30";
+  version = "unstable-2021-09-26";
 
   src = fetchFromGitHub {
     owner = "mattnite";
     repo = "gyro";
-    rev = "0a9574691109233db520ad3d826ab760ec9a1326";
-    sha256 = "sha256-XkLJbUM+E4fbnzftp4TQfFXFrDDerCzEO+OmpnP46/U=";
+    rev = "fa0a54b5e99adf9d7420fd3d4eaed9fa5ae686b6";
+    sha256 = "sha256-Sb56kZbXdUPh3FPPyZd7Lwsb7wZczXJMI88lWGgPkVs=";
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ zig ];
+  nativeBuildInputs = [ zig-master ];
 
   preBuild = ''
     export HOME=$TMPDIR
   '';
 
   installPhase = ''
-    zig build -Drelease-safe -Dbootstrap --prefix $out
+    zig build -Drelease-safe --prefix $out
   '';
 
   meta = with lib; {

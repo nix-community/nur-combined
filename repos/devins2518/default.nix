@@ -17,7 +17,7 @@ rec {
   # grub-holdshift = pkgs.callPackage ./pkgs/grub-holdshift { };
   # zls = pkgs.callPackage ./pkgs/zls { };
   bunnyfetch-rs = pkgs.callPackage ./pkgs/bunnyfetch-rs { };
-  gyro = pkgs.callPackage ./pkgs/gyro { };
+  gyro = pkgs.callPackage ./pkgs/gyro { zig-master = zig-master; };
   iosevka-serif = pkgs.callPackage ./pkgs/iosevka-serif { };
   midle = pkgs.callPackage ./pkgs/midle { };
   paper = pkgs.callPackage ./pkgs/paper { };
