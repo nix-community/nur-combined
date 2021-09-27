@@ -8,7 +8,6 @@ lib.makeScope newScope (
     ### APPLICATIONS
 
     goldencheetah-bin = callPackage ./applications/goldencheetah/bin.nix { };
-    gpxsee-bin = callPackage ./applications/gpxsee/bin.nix { };
     i18n-editor-bin = callPackage ./applications/i18n-editor { jre = pkgs.jdk11; };
     iterm2-bin = callPackage ./applications/iterm2/bin.nix { };
     klogg = libsForQt5.callPackage ./applications/misc/klogg { };
@@ -219,6 +218,7 @@ lib.makeScope newScope (
     gpx-layer = perlPackages.callPackage ./gpx/gpx-layer { };
     gpx2yaml = callPackage ./gpx/gpx2yaml { };
     gpxchart = callPackage ./gpx/gpxchart { };
+    gpxsee-bin = callPackage ./gpx/gpxsee/bin.nix { };
     gpxtools = callPackage ./gpx/gpxtools { };
     gpxtrackposter = callPackage ./gpx/gpxtrackposter { };
 
