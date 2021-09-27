@@ -1789,6 +1789,20 @@
         platforms = platforms.all;
         };
       };
+    "vue-js-devtools" = buildFirefoxXpiAddon {
+      pname = "vue-js-devtools";
+      version = "5.3.4";
+      addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3717410/vuejs_devtools-5.3.4-fx.xpi";
+      sha256 = "40d2ce816aa20b20330380c0d8a5386d7fe817e566de46a4f2be5cc8037cc94d";
+      meta = with lib;
+      {
+        homepage = "https://vuejs.org";
+        description = "DevTools extension for debugging Vue.js applications.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
       version = "6.8.14";
