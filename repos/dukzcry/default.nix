@@ -28,8 +28,8 @@ in rec {
   knobkraft-orm = pkgs.callPackage ./pkgs/knobkraft-orm.nix { };
   realrtcw = pkgs.callPackage ./pkgs/realrtcw.nix { };
   gamescope = pkgs.callPackage ./pkgs/gamescope.nix {};
-  #re3 = pkgs.callPackage ./pkgs/re3.nix {};
-  #revc = pkgs.callPackage ./pkgs/revc.nix { inherit re3; };
-  #bitwig-studio3 = pkgs.callPackage ./pkgs/bitwig-studio3.nix {};
+  re3 = pkgs.callPackage ./pkgs/re3.nix {};
+  revc = pkgs.callPackage ./pkgs/revc.nix { inherit re3; };
+  bitwig-studio3 = pkgs.callPackage ./pkgs/bitwig-studio3.nix {};
 }
 
